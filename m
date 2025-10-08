@@ -4,76 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 797CFCCD186
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 12:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB41DCAC5BB
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 13:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA27E10E3B5;
-	Wed,  8 Oct 2025 12:49:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEB510E32A;
+	Wed,  8 Oct 2025 13:11:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RzLtpaF/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CvR2V9C7";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1E610E743
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 03:43:55 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-269af38418aso83778135ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Oct 2025 20:43:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759895034; x=1760499834; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=VInhF7vun+ADbuDP4f7RWZ7/1hOQvgwkDekOvwy950Y=;
- b=RzLtpaF/gvGic+vswu1mIWUsdRlliGZ4UyNS/OVTfHMDEBhhjVu8KQVE5ZSBsIpFMQ
- opQq+1nZV3YiH4yRr9I3Wj1+ZUhR9zS2E7+kglWpjKWeUPRs42weFq7cF3ueueDonhLf
- VuK100TLokb6SC4XP3P63zlOgG5vIqdJ23CmXjEjfzHqHcDbN/ATMxC0C0UF7c+L+uyY
- Y/Qe/dNbnLkbPNvJgXLe6M2BbNKGlGOVaAGw15H7FJ0XmfycS3c5vZUyarbMcn6qAxtL
- AWjZqok53aMb6WQgZLPTeyYiojQSGhuWHmkai/yPpuYCBZbzygVrhsvJnrI1FLY2DCS7
- i7RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759895034; x=1760499834;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VInhF7vun+ADbuDP4f7RWZ7/1hOQvgwkDekOvwy950Y=;
- b=hHMdQ8D4RK/GCxva0Sku6rwJ/nFqy/l6d/rstYFfrC2k8ChDZW5DyhRwoOY3LMiswg
- Jf/yCrIWDOqauMt21iHffDYtTnaXb5FI0vEz2L78tpykcxX9/465kwM1mq4KR3AFBtfe
- K3TV+phNf2J3c/DgZQoF6jQcumBRJXA8i7Cov8Y1JSFADDvbNPZeJxcsC8/PEaQooeKF
- sJauE3vCSx1D14XXAY0m7d8tTbO0FotfG3qz/+ktQ8sSy2BvRqA9uzqxPl+kvClY2V3G
- CUwYqC/l/u+aAsq5BOA3fVGIDjIOxyjKADf//pldrBr7R8A9CKbSVtg5T5dSMqEE2zBY
- tHbw==
-X-Gm-Message-State: AOJu0YycCE0oOsBN4TtopSUPK10y4EhskbGahpW+8OM+BjT8g0ziN9FV
- y1vBb9gTGVj19eJy6uqFTjGzxYQLGB0aKqmidlbkHrMxJQMkS6yruHJWN/abUa8yMi/img==
-X-Gm-Gg: ASbGncv8CzyKsvnw3RBXqcgfH7lC+XY8EyRPQ2skbFGJRA0Js+symwzhIZthKwVfQWc
- OK1QUKCDOOGXlg9I9PFoeNeg5EGgLfTUHFFQJr02+2aLpEzWdEv3iSe0QmeWWjQtX4zAi0uVClf
- I2UH7wd4GEavE/GUlW7RCCOF9WkAatwWkLw8JX+S3mzZ/H2QVSqH7hc0azUuCh7jS+map721OC6
- UUZqXRqaUz/dV3npsNAarkhMC/rxqbVhzKxalnrDH8G+ak5Vr/XhugWO0BK9xOC114DHbVqzqci
- A6pdtUnr+PHHmzge8J2hUyDT1E8Ityiq1ADfH/QBGS2eDg0lVS8HKRuRjLxxUrDTeu7RCI8ea7W
- /f0GDyp1qSJXE//s4kyKzlPLp1wMxz+EoxIWjt708sI1jtn8iNDrL5avvfmfMGVPtXkh31hUszH
- IqzxhjCAFbJApmi8nsE29gIwai3DwjS+xwcs93AQ==
-X-Google-Smtp-Source: AGHT+IG54xKXiUdy0DJwzKQZzIjcR2wGAtdfxZQRffoyREgsAb1SOl9FlsAzbJO0UqlUtTWKuOGgcw==
-X-Received: by 2002:a17:902:ce0d:b0:26b:da03:60db with SMTP id
- d9443c01a7336-29027373dabmr24286355ad.13.1759895034268; 
- Tue, 07 Oct 2025 20:43:54 -0700 (PDT)
-Received: from localhost.localdomain ([155.117.84.221])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-28e8d1280c9sm182813505ad.53.2025.10.07.20.43.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Oct 2025 20:43:53 -0700 (PDT)
-From: Gui-Dong Han <hanguidong02@gmail.com>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, baijiaju1990@gmail.com,
- Gui-Dong Han <hanguidong02@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: use atomic functions with memory barriers for vm
- fault info
-Date: Wed,  8 Oct 2025 03:43:27 +0000
-Message-Id: <20251008034327.2475547-1-hanguidong02@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47A9C10E32A;
+ Wed,  8 Oct 2025 13:11:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 362F261FE6;
+ Wed,  8 Oct 2025 13:11:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5B4C4CEF4;
+ Wed,  8 Oct 2025 13:11:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1759929106;
+ bh=Rjxnb9v8OPdRmchJHGE4ToAHqtgpWsjRyLajQl5ctos=;
+ h=From:Date:Subject:To:Cc:From;
+ b=CvR2V9C7Oh+kS3sJN1+u6DuzWtq1byguoOwq0sfOn1xd9iB4yD9U90I3W9UhEyc9R
+ I7Maw9f3tCpvB0h7UEMDpl/KiPiJ8HOQKeb+jpzIyoNnV8mt4bEoVPPi/KkRJ/6iQO
+ xl2MB5FR6IhkeHwqtoPvVLnMKNK7Kjegcax8BsWBaYoDp0WhD7IusBqPEjlbbI0pLc
+ 1xO0ldYE/RKs4/Owh8r9NDu8kdsRfxt0KOelYbmTY/eqyzY2nm52kdTc4lCJ9WTMmj
+ 5wsotfhTdV6OktU6LOXZ4VdodBLPuVsAItGU+/9o3NLUR2pWwSNhw6DQY1CYJeOM18
+ 2GEIgUPGmahRw==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Wed, 08 Oct 2025 15:11:42 +0200
+Subject: [PATCH v2] drm/atomic: Change state pointers to a more meaningful name
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 08 Oct 2025 12:49:35 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251008-drm-rename-state-v2-1-49b490b2676a@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAA1j5mgC/32NQQ6CMBBFr0Jm7Zh2QsW48h6GRQsDNEoh04ZoS
+ O9u5QAu30v++ztEFs8RbtUOwpuPfgkF6FRBN9kwMvq+MJAio5W6YC8zCgc7M8ZkE6MjpwbulRm
+ uBGW2Cg/+fSQfbeHJx7TI53jY9M/+iW0aNRrXdLU2ddOQuz9ZAr/Oi4zQ5py/MIx2QbEAAAA=
+X-Change-ID: 20251006-drm-rename-state-b2b0fed05f82
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11832; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Rjxnb9v8OPdRmchJHGE4ToAHqtgpWsjRyLajQl5ctos=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDBnPkvlzWjyua9/S2DL9pb2PzC1dNgO9a99a9vhf2M71V
+ LT/3ZzOjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR7bcYG9YKfyyOc68T7X6V
+ nGK0tzbT+Iy0JJ/mFi+/ALGth1MntdXfduhdL5Qo9iJ3XfnvM4GujPWe0bLH364WMShhjlF2c5h
+ 081sN/7c7Rjd1Da6bNxza8UYwXX3xxSdrUrhOnzpab9008zsA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,118 +73,339 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The atomic variable vm_fault_info_updated is used to synchronize access to
-adev->gmc.vm_fault_info between the interrupt handler and
-get_vm_fault_info().
+The state pointer found in the struct drm_atomic_state internals for
+most object is a bit ambiguous, and confusing when those internals also
+have old state and new state.
 
-The default atomic functions like atomic_set() and atomic_read() do not
-provide memory barriers. This allows for CPU instruction reordering,
-meaning the memory accesses to vm_fault_info and the vm_fault_info_updated
-flag are not guaranteed to occur in the intended order. This creates a
-race condition that can lead to inconsistent or stale data being used.
+After the recent cleanups, the state pointer only use is to point to the
+state we need to free when destroying the atomic state.
 
-The previous implementation, which used an explicit mb(), was incomplete
-and inefficient. It failed to account for all potential CPU reorderings,
-such as the access of vm_fault_info being reordered before the atomic_read
-of the flag. This approach is also more verbose and less performant than
-using the proper atomic functions with acquire/release semantics.
+We can thus rename it something less ambiguous, and hopefully more
+meaningful.
 
-Fix this by switching to atomic_set_release() and atomic_read_acquire().
-These functions provide the necessary acquire and release semantics,
-which act as memory barriers to ensure the correct order of operations.
-It is also more efficient and idiomatic than using explicit full memory
-barriers.
-
-Fixes: b97dfa27ef3a ("drm/amdgpu: save vm fault information for amdkfd")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gui-Dong Han <hanguidong02@gmail.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 5 ++---
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c            | 7 +++----
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c            | 7 +++----
- 3 files changed, 8 insertions(+), 11 deletions(-)
+Changes in v2:
+- Switch from freeable_state to state_to_destroy
+- Link to v1: https://lore.kernel.org/r/20251006-drm-rename-state-v1-1-5b7c4154772b@kernel.org
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 ++--
+ drivers/gpu/drm/drm_atomic.c                      | 24 +++++++++++------------
+ drivers/gpu/drm/drm_atomic_helper.c               |  8 ++++----
+ include/drm/drm_atomic.h                          | 16 +++++++--------
+ 4 files changed, 26 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index b16cce7c22c3..ac09bbe51634 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2325,10 +2325,9 @@ void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem)
- int amdgpu_amdkfd_gpuvm_get_vm_fault_info(struct amdgpu_device *adev,
- 					  struct kfd_vm_fault_info *mem)
- {
--	if (atomic_read(&adev->gmc.vm_fault_info_updated) == 1) {
-+	if (atomic_read_acquire(&adev->gmc.vm_fault_info_updated) == 1) {
- 		*mem = *adev->gmc.vm_fault_info;
--		mb(); /* make sure read happened */
--		atomic_set(&adev->gmc.vm_fault_info_updated, 0);
-+		atomic_set_release(&adev->gmc.vm_fault_info_updated, 0);
- 	}
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index a8d5795084fc..cf30d3332050 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -1066,7 +1066,7 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 					GFP_KERNEL);
- 	if (!adev->gmc.vm_fault_info)
- 		return -ENOMEM;
--	atomic_set(&adev->gmc.vm_fault_info_updated, 0);
-+	atomic_set_release(&adev->gmc.vm_fault_info_updated, 0);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 62defeccbb5ca09c89523fc4112d2085bbdbb0a9..275e237c1058b76640c8dd36443b034c6c71f84f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -12335,22 +12335,22 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
  
- 	return 0;
- }
-@@ -1288,7 +1288,7 @@ static int gmc_v7_0_process_interrupt(struct amdgpu_device *adev,
- 	vmid = REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
- 			     VMID);
- 	if (amdgpu_amdkfd_is_kfd_vmid(adev, vmid)
--		&& !atomic_read(&adev->gmc.vm_fault_info_updated)) {
-+		&& !atomic_read_acquire(&adev->gmc.vm_fault_info_updated)) {
- 		struct kfd_vm_fault_info *info = adev->gmc.vm_fault_info;
- 		u32 protections = REG_GET_FIELD(status,
- 					VM_CONTEXT1_PROTECTION_FAULT_STATUS,
-@@ -1304,8 +1304,7 @@ static int gmc_v7_0_process_interrupt(struct amdgpu_device *adev,
- 		info->prot_read = protections & 0x8 ? true : false;
- 		info->prot_write = protections & 0x10 ? true : false;
- 		info->prot_exec = protections & 0x20 ? true : false;
--		mb();
--		atomic_set(&adev->gmc.vm_fault_info_updated, 1);
-+		atomic_set_release(&adev->gmc.vm_fault_info_updated, 1);
- 	}
+ 			if (obj->funcs == adev->dm.atomic_obj.funcs) {
+ 				int j = state->num_private_objs-1;
  
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index b45fa0cea9d2..0d4c93ff6f74 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1179,7 +1179,7 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
- 					GFP_KERNEL);
- 	if (!adev->gmc.vm_fault_info)
- 		return -ENOMEM;
--	atomic_set(&adev->gmc.vm_fault_info_updated, 0);
-+	atomic_set_release(&adev->gmc.vm_fault_info_updated, 0);
+ 				dm_atomic_destroy_state(obj,
+-						state->private_objs[i].state);
++						state->private_objs[i].state_to_destroy);
  
- 	return 0;
- }
-@@ -1474,7 +1474,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
- 	vmid = REG_GET_FIELD(status, VM_CONTEXT1_PROTECTION_FAULT_STATUS,
- 			     VMID);
- 	if (amdgpu_amdkfd_is_kfd_vmid(adev, vmid)
--		&& !atomic_read(&adev->gmc.vm_fault_info_updated)) {
-+		&& !atomic_read_acquire(&adev->gmc.vm_fault_info_updated)) {
- 		struct kfd_vm_fault_info *info = adev->gmc.vm_fault_info;
- 		u32 protections = REG_GET_FIELD(status,
- 					VM_CONTEXT1_PROTECTION_FAULT_STATUS,
-@@ -1490,8 +1490,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
- 		info->prot_read = protections & 0x8 ? true : false;
- 		info->prot_write = protections & 0x10 ? true : false;
- 		info->prot_exec = protections & 0x20 ? true : false;
--		mb();
--		atomic_set(&adev->gmc.vm_fault_info_updated, 1);
-+		atomic_set_release(&adev->gmc.vm_fault_info_updated, 1);
+ 				/* If i is not at the end of the array then the
+ 				 * last element needs to be moved to where i was
+ 				 * before the array can safely be truncated.
+ 				 */
+ 				if (i != j)
+ 					state->private_objs[i] =
+ 						state->private_objs[j];
+ 
+ 				state->private_objs[j].ptr = NULL;
+-				state->private_objs[j].state = NULL;
++				state->private_objs[j].state_to_destroy = NULL;
+ 				state->private_objs[j].old_state = NULL;
+ 				state->private_objs[j].new_state = NULL;
+ 
+ 				state->num_private_objs = j;
+ 				break;
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 0fda567c390057b10bce691d9ddc11308088d92e..be2cb6e43cb07fbe553d1ab875911253be628d1a 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -205,13 +205,13 @@ void drm_atomic_state_default_clear(struct drm_atomic_state *state)
+ 
+ 		if (!connector)
+ 			continue;
+ 
+ 		connector->funcs->atomic_destroy_state(connector,
+-						       state->connectors[i].state);
++						       state->connectors[i].state_to_destroy);
+ 		state->connectors[i].ptr = NULL;
+-		state->connectors[i].state = NULL;
++		state->connectors[i].state_to_destroy = NULL;
+ 		state->connectors[i].old_state = NULL;
+ 		state->connectors[i].new_state = NULL;
+ 		drm_connector_put(connector);
  	}
  
+@@ -220,14 +220,14 @@ void drm_atomic_state_default_clear(struct drm_atomic_state *state)
+ 
+ 		if (!crtc)
+ 			continue;
+ 
+ 		crtc->funcs->atomic_destroy_state(crtc,
+-						  state->crtcs[i].state);
++						  state->crtcs[i].state_to_destroy);
+ 
+ 		state->crtcs[i].ptr = NULL;
+-		state->crtcs[i].state = NULL;
++		state->crtcs[i].state_to_destroy = NULL;
+ 		state->crtcs[i].old_state = NULL;
+ 		state->crtcs[i].new_state = NULL;
+ 
+ 		if (state->crtcs[i].commit) {
+ 			drm_crtc_commit_put(state->crtcs[i].commit);
+@@ -240,24 +240,24 @@ void drm_atomic_state_default_clear(struct drm_atomic_state *state)
+ 
+ 		if (!plane)
+ 			continue;
+ 
+ 		plane->funcs->atomic_destroy_state(plane,
+-						   state->planes[i].state);
++						   state->planes[i].state_to_destroy);
+ 		state->planes[i].ptr = NULL;
+-		state->planes[i].state = NULL;
++		state->planes[i].state_to_destroy = NULL;
+ 		state->planes[i].old_state = NULL;
+ 		state->planes[i].new_state = NULL;
+ 	}
+ 
+ 	for (i = 0; i < state->num_private_objs; i++) {
+ 		struct drm_private_obj *obj = state->private_objs[i].ptr;
+ 
+ 		obj->funcs->atomic_destroy_state(obj,
+-						 state->private_objs[i].state);
++						 state->private_objs[i].state_to_destroy);
+ 		state->private_objs[i].ptr = NULL;
+-		state->private_objs[i].state = NULL;
++		state->private_objs[i].state_to_destroy = NULL;
+ 		state->private_objs[i].old_state = NULL;
+ 		state->private_objs[i].new_state = NULL;
+ 	}
+ 	state->num_private_objs = 0;
+ 
+@@ -359,11 +359,11 @@ drm_atomic_get_crtc_state(struct drm_atomic_state *state,
+ 
+ 	crtc_state = crtc->funcs->atomic_duplicate_state(crtc);
+ 	if (!crtc_state)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	state->crtcs[index].state = crtc_state;
++	state->crtcs[index].state_to_destroy = crtc_state;
+ 	state->crtcs[index].old_state = crtc->state;
+ 	state->crtcs[index].new_state = crtc_state;
+ 	state->crtcs[index].ptr = crtc;
+ 	crtc_state->state = state;
+ 
+@@ -544,11 +544,11 @@ drm_atomic_get_plane_state(struct drm_atomic_state *state,
+ 
+ 	plane_state = plane->funcs->atomic_duplicate_state(plane);
+ 	if (!plane_state)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	state->planes[index].state = plane_state;
++	state->planes[index].state_to_destroy = plane_state;
+ 	state->planes[index].ptr = plane;
+ 	state->planes[index].old_state = plane->state;
+ 	state->planes[index].new_state = plane_state;
+ 	plane_state->state = state;
+ 
+@@ -856,11 +856,11 @@ drm_atomic_get_private_obj_state(struct drm_atomic_state *state,
+ 
+ 	obj_state = obj->funcs->atomic_duplicate_state(obj);
+ 	if (!obj_state)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	state->private_objs[index].state = obj_state;
++	state->private_objs[index].state_to_destroy = obj_state;
+ 	state->private_objs[index].old_state = obj->state;
+ 	state->private_objs[index].new_state = obj_state;
+ 	state->private_objs[index].ptr = obj;
+ 	obj_state->state = state;
+ 
+@@ -1159,11 +1159,11 @@ drm_atomic_get_connector_state(struct drm_atomic_state *state,
+ 	connector_state = connector->funcs->atomic_duplicate_state(connector);
+ 	if (!connector_state)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	drm_connector_get(connector);
+-	state->connectors[index].state = connector_state;
++	state->connectors[index].state_to_destroy = connector_state;
+ 	state->connectors[index].old_state = connector->state;
+ 	state->connectors[index].new_state = connector_state;
+ 	state->connectors[index].ptr = connector;
+ 	connector_state->state = state;
+ 
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index d5ebe6ea0acbc5a08aef7fa41ecb9ed5d8fa8e80..5a473a274ff06d7ab83039e0a6328e1372b80a00 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -3234,21 +3234,21 @@ int drm_atomic_helper_swap_state(struct drm_atomic_state *state,
+ 		WARN_ON(connector->state != old_conn_state);
+ 
+ 		old_conn_state->state = state;
+ 		new_conn_state->state = NULL;
+ 
+-		state->connectors[i].state = old_conn_state;
++		state->connectors[i].state_to_destroy = old_conn_state;
+ 		connector->state = new_conn_state;
+ 	}
+ 
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+ 		WARN_ON(crtc->state != old_crtc_state);
+ 
+ 		old_crtc_state->state = state;
+ 		new_crtc_state->state = NULL;
+ 
+-		state->crtcs[i].state = old_crtc_state;
++		state->crtcs[i].state_to_destroy = old_crtc_state;
+ 		crtc->state = new_crtc_state;
+ 
+ 		if (new_crtc_state->commit) {
+ 			spin_lock(&crtc->commit_lock);
+ 			list_add(&new_crtc_state->commit->commit_entry,
+@@ -3264,22 +3264,22 @@ int drm_atomic_helper_swap_state(struct drm_atomic_state *state,
+ 		WARN_ON(plane->state != old_plane_state);
+ 
+ 		old_plane_state->state = state;
+ 		new_plane_state->state = NULL;
+ 
+-		state->planes[i].state = old_plane_state;
++		state->planes[i].state_to_destroy = old_plane_state;
+ 		plane->state = new_plane_state;
+ 	}
+ 	drm_panic_unlock(state->dev, flags);
+ 
+ 	for_each_oldnew_private_obj_in_state(state, obj, old_obj_state, new_obj_state, i) {
+ 		WARN_ON(obj->state != old_obj_state);
+ 
+ 		old_obj_state->state = state;
+ 		new_obj_state->state = NULL;
+ 
+-		state->private_objs[i].state = old_obj_state;
++		state->private_objs[i].state_to_destroy = old_obj_state;
+ 		obj->state = new_obj_state;
+ 	}
+ 
  	return 0;
+ }
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index c8ab2163bf658cd06b12a8dabada7c088a328654..155e82f87e4d47161475b57fc28762d7ba8fd206 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -159,11 +159,11 @@ struct drm_crtc_commit {
+ 
+ struct __drm_planes_state {
+ 	struct drm_plane *ptr;
+ 
+ 	/**
+-	 * @state:
++	 * @state_to_destroy:
+ 	 *
+ 	 * Used to track the @drm_plane_state we will need to free when
+ 	 * tearing down the associated &drm_atomic_state in
+ 	 * $drm_mode_config_funcs.atomic_state_clear or
+ 	 * drm_atomic_state_default_clear().
+@@ -171,20 +171,20 @@ struct __drm_planes_state {
+ 	 * Before a commit, and the call to
+ 	 * drm_atomic_helper_swap_state() in particular, it points to
+ 	 * the same state than @new_state. After a commit, it points to
+ 	 * the same state than @old_state.
+ 	 */
+-	struct drm_plane_state *state;
++	struct drm_plane_state *state_to_destroy;
+ 
+ 	struct drm_plane_state *old_state, *new_state;
+ };
+ 
+ struct __drm_crtcs_state {
+ 	struct drm_crtc *ptr;
+ 
+ 	/**
+-	 * @state:
++	 * @state_to_destroy:
+ 	 *
+ 	 * Used to track the @drm_crtc_state we will need to free when
+ 	 * tearing down the associated &drm_atomic_state in
+ 	 * $drm_mode_config_funcs.atomic_state_clear or
+ 	 * drm_atomic_state_default_clear().
+@@ -192,11 +192,11 @@ struct __drm_crtcs_state {
+ 	 * Before a commit, and the call to
+ 	 * drm_atomic_helper_swap_state() in particular, it points to
+ 	 * the same state than @new_state. After a commit, it points to
+ 	 * the same state than @old_state.
+ 	 */
+-	struct drm_crtc_state *state;
++	struct drm_crtc_state *state_to_destroy;
+ 
+ 	struct drm_crtc_state *old_state, *new_state;
+ 
+ 	/**
+ 	 * @commit:
+@@ -214,11 +214,11 @@ struct __drm_crtcs_state {
+ 
+ struct __drm_connnectors_state {
+ 	struct drm_connector *ptr;
+ 
+ 	/**
+-	 * @state:
++	 * @state_to_destroy:
+ 	 *
+ 	 * Used to track the @drm_connector_state we will need to free
+ 	 * when tearing down the associated &drm_atomic_state in
+ 	 * $drm_mode_config_funcs.atomic_state_clear or
+ 	 * drm_atomic_state_default_clear().
+@@ -226,11 +226,11 @@ struct __drm_connnectors_state {
+ 	 * Before a commit, and the call to
+ 	 * drm_atomic_helper_swap_state() in particular, it points to
+ 	 * the same state than @new_state. After a commit, it points to
+ 	 * the same state than @old_state.
+ 	 */
+-	struct drm_connector_state *state;
++	struct drm_connector_state *state_to_destroy;
+ 
+ 	struct drm_connector_state *old_state, *new_state;
+ 
+ 	/**
+ 	 * @out_fence_ptr:
+@@ -391,11 +391,11 @@ struct drm_private_state {
+ 
+ struct __drm_private_objs_state {
+ 	struct drm_private_obj *ptr;
+ 
+ 	/**
+-	 * @state:
++	 * @state_to_destroy:
+ 	 *
+ 	 * Used to track the @drm_private_state we will need to free
+ 	 * when tearing down the associated &drm_atomic_state in
+ 	 * $drm_mode_config_funcs.atomic_state_clear or
+ 	 * drm_atomic_state_default_clear().
+@@ -403,11 +403,11 @@ struct __drm_private_objs_state {
+ 	 * Before a commit, and the call to
+ 	 * drm_atomic_helper_swap_state() in particular, it points to
+ 	 * the same state than @new_state. After a commit, it points to
+ 	 * the same state than @old_state.
+ 	 */
+-	struct drm_private_state *state;
++	struct drm_private_state *state_to_destroy;
+ 
+ 	struct drm_private_state *old_state, *new_state;
+ };
+ 
+ /**
+
+---
+base-commit: 7a031e8d3528ba0860d282ffd3c88fbda4bf8c4c
+change-id: 20251006-drm-rename-state-b2b0fed05f82
+
+Best regards,
 -- 
-2.25.1
+Maxime Ripard <mripard@kernel.org>
 
