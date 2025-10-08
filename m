@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 350EECCD18A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81574CCD18C
 	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 08:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE63E10E7BB;
-	Wed,  8 Oct 2025 08:54:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6189C10E7B8;
+	Wed,  8 Oct 2025 08:54:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OKKGEsKh";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dHEVS/uw";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7485110E7BD;
- Wed,  8 Oct 2025 08:54:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C816F10E7B6;
+ Wed,  8 Oct 2025 08:54:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,27 +22,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=smyXPhkKbYgaR0wx7siUEssSGOeAzNOBXAHUBmLENKw=; b=OKKGEsKh1Fo4STSm2bGgFIB0Fn
- 2kyzNSQ1xrDgsFw8CDbgY4seYTNd0atLa+adCfdKEkjmRdeA/d2afylZLfV/7YskuEcSLMtaIaSGU
- DQgmi6mOKYLknJWJrKwALEAx9sNez9JrIHtMTxJ6JuzvpChL4epq7Dfr9N87xO2AZkCu+CLNy1Yod
- d5ccrVrovLg5gjTZDc1tK+hyMLtLIMd4OuZZfo/VWi1CYZRC1wL4Jr1bueiLEVsbrS4WSotDa/tZr
- o2UZ5Le7ujk9wWxxPW3WqVnom7bYZ5gVnDQc7X6YRLtPMO4CN3x8EZOeJ1rhuH5Ysy3wNTSfXkpoL
- J39Ztm/w==;
+ bh=qBWrhyAwMfLbV3SyFe2WNEL08nCotZiD1lZA/HutUUo=; b=dHEVS/uwBRPAUn1NplZE6BQpEM
+ eQyKV/PQmIuhzUKIGPYSPzBziOYAsOUU7UvA4eAX6aFRxanP70kB03+u0XAr4X/12k9nckHZsN9z0
+ KdODUOGyMzVWIdHydS0LbZqnSsOnStL0XEo1XaYJxuc1YQFFRmMfzrolnVY6IokPFIgytX2sv7rJO
+ DWc9NDNFEfm6Sa7Qoh47QaXZyKeBLR1NuZFUDcIkI5Dli3rdsNbACKU3qiyU4lXm7oPF8LoHngoAX
+ txTj2VX0p+ZYvR18zpNvAYrbDoYCMzKFSewrbLtiYD8UC4ovpTpB8j2/xWr9ETyyP3mUolbBjpNOr
+ o+9KaQGQ==;
 Received: from [84.66.36.92] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1v6PwM-006Z2p-A2; Wed, 08 Oct 2025 10:54:30 +0200
+ id 1v6PwK-006Z2J-3K; Wed, 08 Oct 2025 10:54:28 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 28/28] drm/sched: Remove drm_sched_init_args->num_rqs
-Date: Wed,  8 Oct 2025 09:53:59 +0100
-Message-ID: <20251008085359.52404-29-tvrtko.ursulin@igalia.com>
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: [PATCH 25/28] drm/sched: Remove drm_sched_init_args->num_rqs usage
+Date: Wed,  8 Oct 2025 09:53:56 +0100
+Message-ID: <20251008085359.52404-26-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
 References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
@@ -66,35 +65,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Philipp Stanner <phasta@kernel.org>
+Cc: "Christian König" <ckoenig.leichtzumerken@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
 ---
- include/drm/gpu_scheduler.h | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 21129c98ce56..910c43fedcb9 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -607,8 +607,6 @@ struct drm_gpu_scheduler {
-  * @ops: backend operations provided by the driver
-  * @submit_wq: workqueue to use for submission. If NULL, an ordered wq is
-  *	       allocated and used.
-- * @num_rqs: Number of run-queues. This may be at most DRM_SCHED_PRIORITY_COUNT,
-- *	     as there's usually one run-queue per priority, but may be less.
-  * @credit_limit: the number of credits this scheduler can hold from all jobs
-  * @hang_limit: number of times to allow a job to hang before dropping it.
-  *		This mechanism is DEPRECATED. Set it to 0.
-@@ -622,7 +620,6 @@ struct drm_sched_init_args {
- 	const struct drm_sched_backend_ops *ops;
- 	struct workqueue_struct *submit_wq;
- 	struct workqueue_struct *timeout_wq;
--	u32 num_rqs;
- 	u32 credit_limit;
- 	unsigned int hang_limit;
- 	long timeout;
+diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+index 8e9ae7d980eb..14403a762335 100644
+--- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+@@ -290,7 +290,6 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ {
+ 	struct drm_sched_init_args args = {
+ 		.ops		= &drm_mock_scheduler_ops,
+-		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit	= U32_MAX,
+ 		.hang_limit	= 1,
+ 		.timeout	= timeout,
 -- 
 2.48.0
 
