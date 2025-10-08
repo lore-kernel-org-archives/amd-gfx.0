@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8290CAC5BB
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 18:49:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E01ECCA470
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 18:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 889AF10E8C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE3DF10E88E;
 	Wed,  8 Oct 2025 18:49:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YYc30Q2g";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NCHPE2cO";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012013.outbound.protection.outlook.com
- [40.107.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EAB410E8A5
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 18:49:31 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011051.outbound.protection.outlook.com
+ [40.93.194.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F0F10E88E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 18:49:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wAvxE88xLgnYz1Js3AwGja6ulaZEa6zhxUGZrpjZG25RYy4tLpKbSLQmrdHkVUjjUNKTA0/P/XNBdzX7Ke7xWY9/F0dhMj27wb6ys97y2RzdPjWJLoV8RY38sQxgI91C35OebUQau9p/dMbrR6QxQBam4VWh19PwbVpMtgPJXUpL3k9kbIWlu05mYSumccqt0HaUxbzLFrPrxr55JruyiTa1Q/sKU6rpHBYtVjQhW/UoRzzUhdi/VUrzs8B/xYQAZUGgy2RWocdWiPyC/K47j6P75wz3cYrfo3JcAvypY3AEBV3Lk74NCT0pgv09nOdVCrj2tANlq4BbSlMKpbSb4Q==
+ b=uh2XsnUnimCHv301pNSwGG3DPr+eh/uCxDfGA8Rz7x633Lt4uJY+Ra8wUPlEC0L1QvBPwc5Laqqr9AMxpn0AR2DbbTLdAz6f4TumUts9O4Pv5vZQx4ttyTPcSIUW013k+GK6Q9xRaGRSQCp3e881208RZ/1/aXmSvkJ+XnI5kZNNZSo41Rr5b2KZWMPo1hE9OAuyzfbqbmas59eXybLR8FPI9D7HO1t2pbjVncYuo+MxI9e33/AA8cC213I1ggmexeMdpoaIU5+QC9EfzkL/ysY7jXZyhT4wcilv7QNgBz9BOydRqoTNFWOML7hgx/z6UFGuj8FOWXlbU4/03IIBZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rsOaKReXr3e27IWazy5y4Ghby0cu/2hORA4+fx0En/g=;
- b=KquG+QojV9jP4571VPqhG/5taK8QKJvcvreFi4JZA6Z1pfuXWPpuIztmkDeO/4VRfHEtl9LkBg2yzylsJ5oLyWdsKsV8zdBHHyiaGNzE2hxgPzUlexrDM1KnRkauYh7Fc88oIAlkSPyGS+G5tlbCl0BG6TlW20YmyAyopnnFIv9naJhphGbmeG8VmyEAvwhci3W3VLgiCj/wObzOaqsg58uZvLp26E5vX2vobUznOr1cAGMOc8lhk2NOM3nWhbYp3/B1dWUVBqKK+CqtTPEqIqEfo8IWpgPrtQ/i7MTN3UW8FxZOLF8lrS+YK17iYxZ2CSGoWbHvLiAD8qNiPjEt0w==
+ bh=6AAIjN+X8k5oVf8JqzBfvGjebFNpAOtZNGpioVxPlgA=;
+ b=jSL4SnXrC0OIbInGB2b+evht3+HdiMYj87Q6ouBjVjl4PPL8QJWFP2hnt3WUgq0hkwGvDXhpnLq1mg8LLvVTajHMkmIZtIEnnt7juKY+6x3wxCMImNqxwybfb3yPbaqxUA7aCYf/nx61VL/DAE3JgBUIK1C0X/7k8S3+TcynupZC7bpqsLAwo42LW6EwheNhG5IHMk13/o3q2SLcPEutBVzrVX6l8/McXI4H1i/PtdGprK3YUcZqVrAh6SnfnirZjSpR5qZEHqJpesImQlS0bKPDvI7U6Fep7TvRjxfEpTzX9tsxI5/KEaNduR/0+XfolY7wtRI/OQvOSak8fap8fw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rsOaKReXr3e27IWazy5y4Ghby0cu/2hORA4+fx0En/g=;
- b=YYc30Q2ggKQnF74pLppTHsz1e7EZPzCLr7LBjfa/t5E63/wAJkFOQScdFUb+vGYOG6TIwpov1SdxwcKO9UcCPldoonIhKRcF6YTEX/ZgPjKV8VGNWID9f5mKnZGmqLH07V/TI7NdK3I2ExHBxFzg1GcxEmsXCFm6VYA7HLejNho=
-Received: from SJ0PR03CA0032.namprd03.prod.outlook.com (2603:10b6:a03:33e::7)
- by BL3PR12MB6475.namprd12.prod.outlook.com (2603:10b6:208:3bb::22)
+ bh=6AAIjN+X8k5oVf8JqzBfvGjebFNpAOtZNGpioVxPlgA=;
+ b=NCHPE2cOtEzWYvtKJCJIFLrrt9eef+PnAfe6ppmBFR9CVRNwwTEWGTzR7DvFqSXL6RuDh9L39xGjhqXqsTsYCnjbgEbFYCkz++giOHtvfZqQX5njyV4bXX3S3O4a2xyahNbeVuKmKRMfzXebu5EeY5MXXi9YhK71nQ60ANwvo5g=
+Received: from SJ0PR03CA0060.namprd03.prod.outlook.com (2603:10b6:a03:33e::35)
+ by LV8PR12MB9643.namprd12.prod.outlook.com (2603:10b6:408:297::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Wed, 8 Oct
- 2025 18:49:20 +0000
+ 2025 18:49:23 +0000
 Received: from SJ1PEPF000023D2.namprd02.prod.outlook.com
- (2603:10b6:a03:33e:cafe::41) by SJ0PR03CA0032.outlook.office365.com
- (2603:10b6:a03:33e::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.20 via Frontend Transport; Wed,
- 8 Oct 2025 18:49:20 +0000
+ (2603:10b6:a03:33e:cafe::42) by SJ0PR03CA0060.outlook.office365.com
+ (2603:10b6:a03:33e::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.9 via Frontend Transport; Wed, 8
+ Oct 2025 18:49:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +51,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SJ1PEPF000023D2.mail.protection.outlook.com (10.167.244.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Wed, 8 Oct 2025 18:49:20 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by satlexmb08.amd.com
+ 15.20.9203.9 via Frontend Transport; Wed, 8 Oct 2025 18:49:23 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 8 Oct
- 2025 11:48:52 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2025 11:48:54 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 8 Oct
- 2025 13:48:51 -0500
+ 2025 13:48:53 -0500
 Received: from aaurabin-tumbleweed.amd.com (10.180.168.240) by
  satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Wed, 8 Oct 2025 11:48:51 -0700
+ via Frontend Transport; Wed, 8 Oct 2025 11:48:53 -0700
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,68 +70,68 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 17/22] drm/amd/display: use GFP_NOWAIT for allocation in
- interrupt handler
-Date: Wed, 8 Oct 2025 14:47:11 -0400
-Message-ID: <20251008184839.78916-18-aurabindo.pillai@amd.com>
+ <alex.hung@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Sung Lee
+ <sung.lee@amd.com>
+Subject: [PATCH 20/22] drm/amd/display: add additional hdcp traces
+Date: Wed, 8 Oct 2025 14:47:14 -0400
+Message-ID: <20251008184839.78916-21-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251008184839.78916-1-aurabindo.pillai@amd.com>
 References: <20251008184839.78916-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: aurabindo.pillai@amd.com does not
+Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D2:EE_|BL3PR12MB6475:EE_
-X-MS-Office365-Filtering-Correlation-Id: 092d34ac-6576-4315-8ff6-08de069b643a
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D2:EE_|LV8PR12MB9643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c198546-bd61-4e4f-201e-08de069b65f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hrNkDzQYSHCQkS7eyDKnnSILr4wHt9gDd4HzZedyqiOvRAUU+nXM5S/OAGca?=
- =?us-ascii?Q?NRMIlc5IcsdHQIevV9ZISX4123PxKX279hqODfBek9uz70aNgexSh3fCIyDw?=
- =?us-ascii?Q?P4L3AYjDbfpf0M1eO3aMTWbNVxaPWgNPX4DEPAdtNqrcm7G7VboIW2d+Q81n?=
- =?us-ascii?Q?TR2jRIsc+Eduhe0nJvA925simQtv5ofTW87QmHW20/F24xkbVHH0Zi3S/wJq?=
- =?us-ascii?Q?iLmm0W4XYhc7w3HgyD+v1WzFtw59SF9dx0GKa6gaRJaFYcoKnRpRnD1Q51YJ?=
- =?us-ascii?Q?F0UW8i+cud1EmxEqRlkYuGFBvpQkHQWezLmz0mD3yoeff3wJbVdu+1scj8/p?=
- =?us-ascii?Q?GYVOkupG7iCHzhggeJ9mjtOzJ0+3xyniOouXf2qdtUudcVXKJk2hXpGZZv8k?=
- =?us-ascii?Q?jMRKIukr5TCyn4BpRAMLwR3I/zZM/66JHplH2/JKGSV37bIeBBbRUIreoWxU?=
- =?us-ascii?Q?5hXKx0nkhr+HUQWQJ03KrzgR05g8cQIj8QaEbOw06G3nzt2hJWAoiiJ5+Xxf?=
- =?us-ascii?Q?pxTFj8IJhcFJxcwlNzoWiQYEapHmb72wFuycdoFT6wwsTe5z0oNmqF6ifuTP?=
- =?us-ascii?Q?cvg4oqx8ipOBVh0Z4CJYH0m5S+9pq4WqO/7U/DYW3K7gMGR/yx83eIZJc7DH?=
- =?us-ascii?Q?MwEjXatvgwqSAFu9xnqzVMBQeIZIF62UT/eeH2zzb4WsfDfoAHfQDGLSv24P?=
- =?us-ascii?Q?/BTtCtMRTMQEMt4jY6oMoR49MhMNrQd1qAiasmfcbguKPAnvJeCNA07PNAS3?=
- =?us-ascii?Q?gu7sIPldCAAjWbp12J/qhK3tnntI6lA7ZO0DOsW4KLOXop3unoJRG1UFwp2b?=
- =?us-ascii?Q?F8d5cMFay3GXEMyRGz3nFWJfiy0RZ673nghgvrapvtY/zY9cLHJY2dau/cd0?=
- =?us-ascii?Q?zawngxWvH2/K2e34//GMARJdrYmVXyUXMbsG4d4UqOkPjwCPo2n8RbHqw/EL?=
- =?us-ascii?Q?R6B6FZh3Tnk3MIMkyD/IuLNXwdONJrzkH7uqxw6DVC1/QVUzNpA8RUjAiUnS?=
- =?us-ascii?Q?2wbFlrxINxdelhnMD0UL/mZzB8+MKrhMpWlxC9EoiLA9YJ6t6+25+ssytW3Y?=
- =?us-ascii?Q?+XcmU+5U5l1qSMeC68deqpNQyEXXhtUPUElbnEifxFCe1njJJahkAV7l+Yp8?=
- =?us-ascii?Q?0rfAUbcGZirU3U3dhwUNnYFHpdJOyB3PpYyNOo0hGug3i0MZIg7wHwwZmE7J?=
- =?us-ascii?Q?knOLAGbZVWMkrvfS8l7y3L33xJWygROVeDUSOY5rMiO5013hExk9yjSSP+HL?=
- =?us-ascii?Q?oHCY0et8qW107uDfsvE8zp5TWhASRYNfZdlyOQeJPldkSslltNPG4AJNzXlo?=
- =?us-ascii?Q?a/gXhQsfbC2cDShvj+qGmf3zabegews6/xdKlO/+FFj7PA1RfknepzDlL1lT?=
- =?us-ascii?Q?k3SQD04JPf1jzUlN/Odet64rb36Wpazy7ke7GYv4dz5zqKGBI3QtH/AVyg4r?=
- =?us-ascii?Q?FvRJJShtydT3CXu8SUBAqRJrzXJl2jaqhRTZsArnI/YWImj51rtXk4XHA8DX?=
- =?us-ascii?Q?s+xvx/uw9MDodTYfDXMinFR4cdvtJtycsYcJrERiwthnAMo51TgW7A7ZDqwC?=
- =?us-ascii?Q?VwdQxG0uCkH/aJjwSWc=3D?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hLfSrz4eseBs+01jVqStsnqrkusGSJuJ1T/Opfwl9VcpAQjI6M2jHZttURvg?=
+ =?us-ascii?Q?QifmLd4nSE7dHqE9Rreea0ypw1337q0FNws+qt1wTj2oIns9++YluP7ggvw1?=
+ =?us-ascii?Q?LJKxPtPTk6MDzw89TY1KDqZP8U3wVK5JFba4zyYUlrhdQvoN+w8l+riIoBFS?=
+ =?us-ascii?Q?bKISo17H+JKAoexkWpLo9mfArfaMah+/LTci6KEBBDHaHZ+zHjUsszsHJOfY?=
+ =?us-ascii?Q?1VgySb1YOLO+7q/kC6DlNeVCCg23b2F8GvX7F8tg43ndjlsbFgQKVr9/yiUb?=
+ =?us-ascii?Q?QL++VgHNhRu4n0fiaiC1aMhG3bDnTO5ZU07ZvlRM4OMoRNiwUBnvLTwVuADV?=
+ =?us-ascii?Q?YtWXjSvZCY4VWXDwXlVvfcMCkMkgokHL3nwTPqkSGH2ebygY3D28tRCH1XDf?=
+ =?us-ascii?Q?9uhlo8GvBFX/LGqMeGExxMS6g0WQ048vV5mH9sTu+345Wipm+0rZhCbPCR01?=
+ =?us-ascii?Q?tuLPSSEOtKtme1qCsloFY4VwEIQAAIImQbPHaeL+0X4I7zqaUzHapE+h7vU6?=
+ =?us-ascii?Q?iWEXHjZH5f0hINRFv6bt0+XVL2eba1db3O4ZPA/llaB8OUhPTVW4waSL2O8Y?=
+ =?us-ascii?Q?3hUniZNPhgEaXi8+O7IfTVsDLh/llScMAzeOGFV5ImgpI+doEctnVtsEmMtq?=
+ =?us-ascii?Q?FhBkCcMsolPGKZtg+UnGKYn4KzX1/wobHzCbP0M1WWEbyProJw08PtdoeK5i?=
+ =?us-ascii?Q?8Sg3SiGOPR3gPJbnx8Eh2GjT3ORA4OFt4Yg86TLNrqiPjPu1bwTUmIA1oKLh?=
+ =?us-ascii?Q?a/7RIm7qKPG7Sk3b7TSBTFQXYSg/3UoWeb0T2SbwTjZnFAoabCmdLoG6sF93?=
+ =?us-ascii?Q?D0xUfwB7+fPjN+BsefHEKGR5ugUTizgPKuRHVCX68d2Tpr5xsExX8YfSYNBU?=
+ =?us-ascii?Q?1LWGsZEhtbErSjwt4S+E91WigXo+7sibHOHTJQdQzooe+ggSz6fg4KC1EODR?=
+ =?us-ascii?Q?f2agc9kQX4G3CtVeAsmNJQGs6a6I8UOrd7My9ue0mjOLqscJJKEMf8fZxcbo?=
+ =?us-ascii?Q?qGKAjW67VF5QyC/yOe7CI19rSWX4WLAxrxd1RlbUIzgKqeNEhWqjXLlRtZCA?=
+ =?us-ascii?Q?bqF1b2ekIpWbPTSCu5uN95TQwcgydM//mMPqFXWEvoZI9QKKmHhjmO/U4O8q?=
+ =?us-ascii?Q?fd0XhtLTwNDBuhIy7dtKUYY8irKeYri4dhzxkuck2GpVZF6ZgdgAhgd2jfMV?=
+ =?us-ascii?Q?drzzfjZiwMq6XN6/gQfbQ4rhMJuGPEJqL78HKy5lgWOaevD0FFhhKI2W0tUp?=
+ =?us-ascii?Q?mtSRWBSn6xvs2TRqdlI85ZwZi4cwMIpdAZrcoKA5ocPJRdXtjzHg+gQ9L02d?=
+ =?us-ascii?Q?VnFh7bZUWSsfHUTa7GAuBKVpyF4b+29g+divJdHwIXkxCSOwWausE3A13Ius?=
+ =?us-ascii?Q?WRXFqDWjwhqlKwYhm3HyaDUBYnD2HN3/8Y+4X5W+ZSLTUdttd3svhoMfgsfs?=
+ =?us-ascii?Q?IgK7bqFj8KJ+uvd6/hei/vPHJZCTK29SMPd2HbkGWNtX1zmUSnvB9on3ekHd?=
+ =?us-ascii?Q?f5ENmjOm8KPRnw+HN3f+qk1UC6WdJmrQWNYl43tqz3G0kAwzGXsum29qbnDB?=
+ =?us-ascii?Q?J40yDFe5Ru0HNdYkkOg=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2025 18:49:20.3104 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 092d34ac-6576-4315-8ff6-08de069b643a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2025 18:49:23.2304 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c198546-bd61-4e4f-201e-08de069b65f8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D2.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6475
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9643
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,38 +146,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-schedule_dc_vmin_vmax() is called by dm_crtc_high_irq(). Hence, we
-cannot have the former sleep. Use GFP_NOWAIT for allocation in this
-function.
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-Fixes: 288ec2b5d06d5 ("drm/amd/display: fix dmub access race condition")
+[why]
+Current hdcp trace only tracks hdcp errors. We need to expand the trace
+structure for more tracing information.
 
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
+[how]
+Add following traces for hdcp1:
+- attempt_count
+- downstream_device_count
+Add following traces for hdcp2:
+- attempt_count
+- downstream_device_count
+- hdcp1_device_downstream
+- hdcp2_legacy_device_downstream
+
+Reviewed-by: Sung Lee <sung.lee@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |  6 +++---
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.h   |  2 +-
+ .../display/modules/hdcp/hdcp1_execution.c    | 13 +++++++++++--
+ .../display/modules/hdcp/hdcp2_execution.c    | 19 ++++++++++++++++---
+ .../drm/amd/display/modules/hdcp/hdcp_log.h   |  6 ++++++
+ .../drm/amd/display/modules/inc/mod_hdcp.h    | 14 ++++++++++++++
+ 6 files changed, 51 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5a0652e19890..2d711a219520 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -551,13 +551,13 @@ static void schedule_dc_vmin_vmax(struct amdgpu_device *adev,
- 	struct dc_stream_state *stream,
- 	struct dc_crtc_timing_adjust *adjust)
- {
--	struct vupdate_offload_work *offload_work = kzalloc(sizeof(*offload_work), GFP_KERNEL);
-+	struct vupdate_offload_work *offload_work = kzalloc(sizeof(*offload_work), GFP_NOWAIT);
- 	if (!offload_work) {
- 		drm_dbg_driver(adev_to_drm(adev), "Failed to allocate vupdate_offload_work\n");
- 		return;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
+index c760216a6240..ca402ddcdacc 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
+@@ -354,7 +354,7 @@ enum mod_hdcp_status mod_hdcp_add_display(struct mod_hdcp *hdcp,
+ 	/* reset retry counters */
+ 	reset_retry_counts(hdcp);
  
--	struct dc_crtc_timing_adjust *adjust_copy = kzalloc(sizeof(*adjust_copy), GFP_KERNEL);
-+	struct dc_crtc_timing_adjust *adjust_copy = kzalloc(sizeof(*adjust_copy), GFP_NOWAIT);
- 	if (!adjust_copy) {
- 		drm_dbg_driver(adev_to_drm(adev), "Failed to allocate adjust_copy\n");
- 		kfree(offload_work);
+-	/* reset error trace */
++	/* reset trace */
+ 	memset(&hdcp->connection.trace, 0, sizeof(hdcp->connection.trace));
+ 
+ 	/* add display to connection */
+@@ -400,7 +400,7 @@ enum mod_hdcp_status mod_hdcp_remove_display(struct mod_hdcp *hdcp,
+ 	/* clear retry counters */
+ 	reset_retry_counts(hdcp);
+ 
+-	/* reset error trace */
++	/* reset trace */
+ 	memset(&hdcp->connection.trace, 0, sizeof(hdcp->connection.trace));
+ 
+ 	/* remove display */
+@@ -464,7 +464,7 @@ enum mod_hdcp_status mod_hdcp_update_display(struct mod_hdcp *hdcp,
+ 	/* clear retry counters */
+ 	reset_retry_counts(hdcp);
+ 
+-	/* reset error trace */
++	/* reset trace */
+ 	memset(&hdcp->connection.trace, 0, sizeof(hdcp->connection.trace));
+ 
+ 	/* set new adjustment */
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+index a37634942b07..b883d626f1c3 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+@@ -508,7 +508,7 @@ static inline void set_auth_complete(struct mod_hdcp *hdcp,
+ 		struct mod_hdcp_output *output)
+ {
+ 	output->auth_complete = 1;
+-	mod_hdcp_log_ddc_trace(hdcp);
++	HDCP_AUTH_COMPLETE_TRACE(hdcp);
+ }
+ 
+ /* connection topology helpers */
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+index 8bc377560787..1bbd728d4345 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+@@ -29,6 +29,7 @@ static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
+ {
+ 	uint64_t n = 0;
+ 	uint8_t count = 0;
++	enum mod_hdcp_status status;
+ 	u8 bksv[sizeof(n)] = { };
+ 
+ 	memcpy(bksv, hdcp->auth.msg.hdcp1.bksv, sizeof(hdcp->auth.msg.hdcp1.bksv));
+@@ -38,8 +39,14 @@ static inline enum mod_hdcp_status validate_bksv(struct mod_hdcp *hdcp)
+ 		count++;
+ 		n &= (n - 1);
+ 	}
+-	return (count == 20) ? MOD_HDCP_STATUS_SUCCESS :
+-			MOD_HDCP_STATUS_HDCP1_INVALID_BKSV;
++
++	if (count == 20) {
++		hdcp->connection.trace.hdcp1.attempt_count++;
++		status = MOD_HDCP_STATUS_SUCCESS;
++	} else {
++		status = MOD_HDCP_STATUS_HDCP1_INVALID_BKSV;
++	}
++	return status;
+ }
+ 
+ static inline enum mod_hdcp_status check_ksv_ready(struct mod_hdcp *hdcp)
+@@ -135,6 +142,8 @@ static inline enum mod_hdcp_status check_device_count(struct mod_hdcp *hdcp)
+ 	if (get_device_count(hdcp) == 0)
+ 		return MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE;
+ 
++	hdcp->connection.trace.hdcp1.downstream_device_count = get_device_count(hdcp);
++
+ 	/* Some MST display may choose to report the internal panel as an HDCP RX.
+ 	 * To update this condition with 1(because the immediate repeater's internal
+ 	 * panel is possibly not included in DEVICE_COUNT) + get_device_count(hdcp).
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
+index bb8ae80b37f8..5628f0ef73fd 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
+@@ -48,6 +48,7 @@ static inline enum mod_hdcp_status check_receiver_id_list_ready(struct mod_hdcp
+ static inline enum mod_hdcp_status check_hdcp2_capable(struct mod_hdcp *hdcp)
+ {
+ 	enum mod_hdcp_status status;
++	struct mod_hdcp_trace *trace = &hdcp->connection.trace;
+ 
+ 	if (is_dp_hdcp(hdcp))
+ 		status = (hdcp->auth.msg.hdcp2.rxcaps_dp[0] == HDCP_2_2_RX_CAPS_VERSION_VAL) &&
+@@ -55,9 +56,14 @@ static inline enum mod_hdcp_status check_hdcp2_capable(struct mod_hdcp *hdcp)
+ 				MOD_HDCP_STATUS_SUCCESS :
+ 				MOD_HDCP_STATUS_HDCP2_NOT_CAPABLE;
+ 	else
+-		status = (hdcp->auth.msg.hdcp2.hdcp2version_hdmi & HDCP_2_2_HDMI_SUPPORT_MASK) ?
+-				MOD_HDCP_STATUS_SUCCESS :
+-				MOD_HDCP_STATUS_HDCP2_NOT_CAPABLE;
++		status = (hdcp->auth.msg.hdcp2.hdcp2version_hdmi
++				 & HDCP_2_2_HDMI_SUPPORT_MASK)
++				? MOD_HDCP_STATUS_SUCCESS
++				: MOD_HDCP_STATUS_HDCP2_NOT_CAPABLE;
++
++	if (status == MOD_HDCP_STATUS_SUCCESS)
++		trace->hdcp2.attempt_count++;
++
+ 	return status;
+ }
+ 
+@@ -201,10 +207,17 @@ static inline uint8_t get_device_count(struct mod_hdcp *hdcp)
+ 
+ static enum mod_hdcp_status check_device_count(struct mod_hdcp *hdcp)
+ {
++	struct mod_hdcp_trace *trace = &hdcp->connection.trace;
++
+ 	/* Avoid device count == 0 to do authentication */
+ 	if (get_device_count(hdcp) == 0)
+ 		return MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE;
+ 
++	trace->hdcp2.downstream_device_count = get_device_count(hdcp);
++	trace->hdcp2.hdcp1_device_downstream =
++			HDCP_2_2_HDCP1_DEVICE_CONNECTED(hdcp->auth.msg.hdcp2.rx_id_list[2]);
++	trace->hdcp2.hdcp2_legacy_device_downstream =
++			HDCP_2_2_HDCP_2_0_REP_CONNECTED(hdcp->auth.msg.hdcp2.rx_id_list[2]);
+ 	/* Some MST display may choose to report the internal panel as an HDCP RX.   */
+ 	/* To update this condition with 1(because the immediate repeater's internal */
+ 	/* panel is possibly not included in DEVICE_COUNT) + get_device_count(hdcp). */
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h
+index 1d83c1b9da10..26553aa4c5ca 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.h
+@@ -31,6 +31,7 @@
+ #define HDCP_LOG_FSM(hdcp, ...) DRM_DEBUG_KMS(__VA_ARGS__)
+ #define HDCP_LOG_TOP(hdcp, ...) pr_debug("[HDCP_TOP]:"__VA_ARGS__)
+ #define HDCP_LOG_DDC(hdcp, ...) pr_debug("[HDCP_DDC]:"__VA_ARGS__)
++#define HDCP_LOG_TRA(hdcp) do {} while (0)
+ 
+ /* default logs */
+ #define HDCP_ERROR_TRACE(hdcp, status) \
+@@ -131,4 +132,9 @@
+ 		HDCP_LOG_TOP(hdcp, "[Link %d] %s display %d", hdcp->config.index, __func__, i); \
+ } while (0)
+ 
++#define HDCP_AUTH_COMPLETE_TRACE(hdcp) do { \
++		mod_hdcp_log_ddc_trace(hdcp); \
++		HDCP_LOG_TRA(hdcp); \
++} while (0)
++
+ #endif // MOD_HDCP_LOG_H_
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+index b51ddf2846df..46e52fb3a118 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+@@ -230,9 +230,23 @@ struct mod_hdcp_error {
+ 	uint8_t state_id;
+ };
+ 
++struct mod_hdcp1_trace {
++	uint8_t attempt_count;
++	uint8_t downstream_device_count;
++};
++
++struct mod_hdcp2_trace {
++	uint8_t attempt_count;
++	uint8_t downstream_device_count;
++	uint8_t hdcp1_device_downstream;
++	uint8_t hdcp2_legacy_device_downstream;
++};
++
+ struct mod_hdcp_trace {
+ 	struct mod_hdcp_error errors[MAX_NUM_OF_ERROR_TRACE];
+ 	uint8_t error_count;
++	struct mod_hdcp1_trace hdcp1;
++	struct mod_hdcp2_trace hdcp2;
+ };
+ 
+ enum mod_hdcp_encryption_status {
 -- 
 2.51.0
 
