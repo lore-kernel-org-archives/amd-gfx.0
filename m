@@ -4,66 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4111CAC5BB
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 14:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F06CCA470
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 14:13:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E23B910E826;
-	Wed,  8 Oct 2025 14:09:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2DC10E82C;
+	Wed,  8 Oct 2025 14:13:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mQDztWpZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QH/Au9x5";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ECD310E826
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 14:09:00 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-28d18e933a9so12839105ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 07:09:00 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7091A10E82C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 14:13:08 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2699ef1b4e3so10135585ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 07:13:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759932540; x=1760537340; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1759932788; x=1760537588; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xJtbQraNMyDEKeru5LzXpbJVAAvGoRRcci5eBVkTOys=;
- b=mQDztWpZ0yOqi3aJgyAgO/hR6IJajW/6Hl9dGD7nviv4JP3hPRYQAotjv3ZpDwc8CO
- hs7w0w0hwKq62QzvsvyxXfEHmFM/HyEsDKmvSG5ahBdcuTVm24q6hU+rPOhZHZt1soub
- iexvwE+USnv1wrXPwcZtakDIFNhgvRXQIHXvRz7DMAt7FAIbJNEGkN55x7aemiIMCUUk
- /q2rN3GZPV0lxmh75/KkdN4qV3NaJFc8ObInSIPRsmXhpYaFkDP5ljlpvq/axpnwkF6s
- JndFasivCDNSHkc3zYAA/TaHKDLPpSAIBXxlDkelaCKpUj1yx5MAWCtWtj7Kd3+6OC3w
- c1DA==
+ bh=ttPTpfCXy8sLPoVgxPsQRF1tu31m+OSwaJl5YYnT1HI=;
+ b=QH/Au9x5omMylHJW27qI0FgJ3hHjtf8JhPL/kWlfZYauukoyxq9YV7NouWoteh1vpC
+ iS1YgTeFhPqE+1QPZ4hrNwpnlPgnlDVHqf3O383AN8Go+g7N3NaltRSPvawoEcOqJ9C/
+ VTHMOMUgO2sgiu3C0zd6JZY3QYaOQatV3jVireIgEv59fVWjq6sIvN6RSGH083y+Vg5p
+ DPI2oZjhbV2tA8RZfs97xQfteuXMvKFaHToxx5GlmRpitsbzZT0tPZBlaeNCmMTBy5zY
+ pVe+tfN9FPtjRtvf9pbf/tEcx8ccpn8ZO5t0K2OJCEnWS+NJ9jgqE9IJY7XuFRsVsiws
+ YYIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759932540; x=1760537340;
+ d=1e100.net; s=20230601; t=1759932788; x=1760537588;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xJtbQraNMyDEKeru5LzXpbJVAAvGoRRcci5eBVkTOys=;
- b=tB5k4mX0zmJYMHes5NmWNnN1r556prOauTSoIDzhfku58tkW006i7fteLh8GJKUBJr
- TPvGsNyYHUHU5kQLo/SXWLdfFATm5nQYXewl73zFZyy+S4hnoqAoPTSze+njmr/VbOiv
- FEis0A4MURMjFBY1drCOImSsZsv5kuxTVCVGkLwnEvSEF4lIsJP0V3MZkzgpTLlBUxEV
- 5ngdl0NjYyVxpTdHDWYm1ARtKrxWI7N413FsVmCZx04PVztkJqig5EWZPDyM8d5p4POh
- IOTbkAffPaEkJV1jc+I1GiGFkUYuqZdyjGpMwe3o/rLpMDjI4Bjj4t3AqV1D0qQls8X7
- q/AQ==
-X-Gm-Message-State: AOJu0YyNlXAOqdUNgWeUlsp/6qGgYC+DedsaO4CMfJY2LT2zoX0t36M0
- mlD4/dTWwA1abHYqWT+T6M6L88m0dop0tyFSyt5OFwwTk4K1JZ2QIrs0dNa9mESeudl519vZ5tE
- FcONo6wvtYGUPkwIhoJsrWR/Ir8HVMIdZLA==
-X-Gm-Gg: ASbGncvWsF71oOmWaqLpHWYn7jLJ4riMy5itWt6qItlADZIzjkdfbprDQ5UpFFfq/Ix
- pPjdCO5R/K4KJX5HV9kLnMIPSHJGsUPwuYItWLaTLtd9xXomxxdXxlo85QQMiNDkK4ieU7nVJzh
- whzkffXJZD6suNbAqMxpVuSlNnhabRVtSfXOAV7Jg3YZerMph7iQB8eUeC8AHuSMqWLHLaAFfYZ
- r1rIyd9COh1sNtkUTDayvLRPWlKhENdXamVyTYv4g==
-X-Google-Smtp-Source: AGHT+IGRlJHZPFXFRiv0cfkTRdP0kcPh5Eu0fxdI3ZvBcmVgDcsVY9f0RhTLXEYnDRqRt/CZjcahjcr2a52Xe1tSA9k=
-X-Received: by 2002:a17:903:24f:b0:26b:1871:1f70 with SMTP id
- d9443c01a7336-2902727f94amr22556655ad.5.1759932539667; Wed, 08 Oct 2025
- 07:08:59 -0700 (PDT)
+ bh=ttPTpfCXy8sLPoVgxPsQRF1tu31m+OSwaJl5YYnT1HI=;
+ b=gQgFSYuRHL2pvUnOua34s+/4Vqgbt4ycJTN9CHEGGmnwB0Z5JMro6wD9SuSetSqBKZ
+ cD09hn1FqBU5yxOmxmW4xWke99Ja/wfTkckkiCLNTk3Y72So3yr3dzILCwYiVg4WvUpZ
+ QFZEzxpbMTRV2cEeiB2sa4scM27N+SBkYlRRnF5PIWDG2RvHRX7ITxUZ5V2BgE1/6jmT
+ j3Im99U8xdr5sVLL1LrLHSe5kZBPjpZRuJDUwwVStmpsuTYgu0kZtx8wyzm5ilLl9nYQ
+ jRMddydt+PT6RCIfjTBCH+TBth2WdgNfb7MbH0Zfus9/5QQIO6r6Ipy43TDfGTb8kd0c
+ 47YA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX8LzD4qWFbJGZLjn43oawlyd72LofoQDLsejFD/Ks7Moh7bgIMd4BjzNGg2L5vkceGesLHF/Ty@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrlCzlCT8aha3A2M0rrCovrFaXbayIr96WdrmlQ3u8HICpRt27
+ YixO2MdDewAlvnDewundNMZHaXUlpkiDRT5pTckoKfHOWRGcKAmiwz5z0Flv5AVOjHgyKXXQR54
+ BR14sQM1eEpFvipNRV9DxuBhbJbHoI/M=
+X-Gm-Gg: ASbGncucQz1UcqmPQiB7HdxcBRPmxG8XqvJxodKEZ8uXxn6bWFBpt3zGaZjxdiTC+/k
+ 8si9c1i+DK6NiqrJfvmGezBBS3RMKequOEjSWBKq0ir18tmtoMU36HSfxF6pCPIOANnnZQJFg7s
+ YvHIKv0hepVOeNBlxJWU3FgdJBxbVOnHIsZKkWY62Tk4q4AdYd4hnlnbgt4S8D1f7s4zCqfHvVE
+ PS9tYrbSDzi8U0xqgvAqSaYQitMkIdoYyGOZdpfgA==
+X-Google-Smtp-Source: AGHT+IHFSit4qLZ4FvOtTkbgjGo8CJYFZ8A0ldXrckWnc6609NobtbBsDLNdiC/DXDXsJrS9gQyAvJPFGOfG/myE6Qc=
+X-Received: by 2002:a17:902:d4c1:b0:25c:b66e:9c2a with SMTP id
+ d9443c01a7336-290272e3d33mr29431345ad.6.1759932787721; Wed, 08 Oct 2025
+ 07:13:07 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250911114155.24786-1-tvrtko.ursulin@igalia.com>
-In-Reply-To: <20250911114155.24786-1-tvrtko.ursulin@igalia.com>
+References: <20250926230535.5632-1-alexander.deucher@amd.com>
+ <CADnq5_Pp5JRtW_4TiJXULB_kptF_hCdeaBbLQq_N1N2Me3Gc1Q@mail.gmail.com>
+ <DS0PR12MB7993CB03D5826E8FF8DA74D4F7E1A@DS0PR12MB7993.namprd12.prod.outlook.com>
+In-Reply-To: <DS0PR12MB7993CB03D5826E8FF8DA74D4F7E1A@DS0PR12MB7993.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Oct 2025 10:08:48 -0400
-X-Gm-Features: AS18NWDmg1RUMqh1dlbgp6iNPchx_v7KvgKtebShu2esLDRANcT7NEjHrQFI5iI
-Message-ID: <CADnq5_OD2FoiNxj3FqrqQSLCs7h_a-4uRy5ucceEA+Px-5Ea7w@mail.gmail.com>
-Subject: Re: [PATCH 00/16] More compact IB emission
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Date: Wed, 8 Oct 2025 10:12:55 -0400
+X-Gm-Features: AS18NWB7OEwySA4QOpvAHCSNmcMZ_HONZYUS5ZlRMWlQg-bpPlrbSoj81BYJdgM
+Message-ID: <CADnq5_N_+H0H1PE+ptWwgXaBO78=nF76es3BEUgXapWOY8j-rQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix handling of harvesting for ip_discovery
+ firmware
+To: "StDenis, Tom" <Tom.StDenis@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,161 +86,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+On Wed, Oct 8, 2025 at 9:23=E2=80=AFAM StDenis, Tom <Tom.StDenis@amd.com> w=
+rote:
+>
+> I can't test the patch myself as I got rid of all my older gear recently.
+
+It fixed things on my vega boards.  Care to review or ack the patch?
 
 Alex
 
-On Thu, Sep 11, 2025 at 7:42=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
 >
-> In short, this series mostly does a lot of replacing of this pattern:
+> Tom
 >
->        ib->ptr[ib->length_dw++] =3D SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
->                SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
->        ib->ptr[ib->length_dw++] =3D lower_32_bits(pe);
->        ib->ptr[ib->length_dw++] =3D upper_32_bits(pe);
->        ib->ptr[ib->length_dw++] =3D ndw - 1;
->        for (; ndw > 0; ndw -=3D 2) {
->               ib->ptr[ib->length_dw++] =3D lower_32_bits(value);
->               ib->ptr[ib->length_dw++] =3D upper_32_bits(value);
->                value +=3D incr;
->        }
 >
-> With this one:
+> ________________________________________
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Wednesday, October 8, 2025 09:16
+> To: Deucher, Alexander
+> Cc: amd-gfx@lists.freedesktop.org; StDenis, Tom
+> Subject: Re: [PATCH] drm/amdgpu: fix handling of harvesting for ip_discov=
+ery firmware
 >
->        u32 *ptr =3D &ib->ptr[ib->length_dw];
+> Ping?
 >
->        *ptr++ =3D SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
->                 SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
->        *ptr++ =3D lower_32_bits(pe);
->        *ptr++ =3D upper_32_bits(pe);
->        *ptr++ =3D ndw - 1;
->        for (; ndw > 0; ndw -=3D 2) {
->                *ptr++ =3D lower_32_bits(value);
->                *ptr++ =3D upper_32_bits(value);
->                 value +=3D incr;
->         }
->
->        ib->length_dw =3D ptr - ib->ptr;
->
-> Latter avoids register reloads and length updates on every dword written,=
- and on
-> the overall makes the IB emission much more compact:
->
-> add/remove: 0/1 grow/shrink: 10/58 up/down: 260/-6598 (-6338)
-> Function                                     old     new   delta
-> sdma_v7_0_ring_pad_ib                         99     127     +28
-> sdma_v6_0_ring_pad_ib                         99     127     +28
-> sdma_v5_2_ring_pad_ib                         99     127     +28
-> sdma_v5_0_ring_pad_ib                         99     127     +28
-> sdma_v4_4_2_ring_pad_ib                       99     127     +28
-> sdma_v4_0_ring_pad_ib                         99     127     +28
-> sdma_v3_0_ring_pad_ib                         99     127     +28
-> sdma_v2_4_ring_pad_ib                         99     127     +28
-> cik_sdma_ring_pad_ib                          99     127     +28
-> si_dma_ring_pad_ib                            36      44      +8
-> amdgpu_ring_generic_pad_ib                    56      52      -4
-> si_dma_emit_fill_buffer                      108      71     -37
-> si_dma_vm_write_pte                          158     115     -43
-> amdgpu_vcn_dec_sw_send_msg                   810     767     -43
-> si_dma_vm_copy_pte                           137      87     -50
-> si_dma_emit_copy_buffer                      134      84     -50
-> sdma_v3_0_vm_write_pte                       163     102     -61
-> sdma_v2_4_vm_write_pte                       163     102     -61
-> cik_sdma_vm_write_pte                        163     102     -61
-> sdma_v7_0_vm_write_pte                       168     105     -63
-> sdma_v7_0_emit_fill_buffer                   119      56     -63
-> sdma_v6_0_vm_write_pte                       168     105     -63
-> sdma_v6_0_emit_fill_buffer                   119      56     -63
-> sdma_v5_2_vm_write_pte                       168     105     -63
-> sdma_v5_2_emit_fill_buffer                   119      56     -63
-> sdma_v5_0_vm_write_pte                       168     105     -63
-> sdma_v5_0_emit_fill_buffer                   119      56     -63
-> sdma_v4_4_2_vm_write_pte                     168     105     -63
-> sdma_v4_4_2_emit_fill_buffer                 119      56     -63
-> sdma_v4_0_vm_write_pte                       168     105     -63
-> sdma_v4_0_emit_fill_buffer                   119      56     -63
-> sdma_v3_0_emit_fill_buffer                   116      53     -63
-> sdma_v2_4_emit_fill_buffer                   116      53     -63
-> cik_sdma_emit_fill_buffer                    116      53     -63
-> sdma_v6_0_emit_copy_buffer                   169      76     -93
-> sdma_v5_2_emit_copy_buffer                   169      76     -93
-> sdma_v5_0_emit_copy_buffer                   169      76     -93
-> sdma_v4_4_2_emit_copy_buffer                 169      76     -93
-> sdma_v4_0_emit_copy_buffer                   169      76     -93
-> sdma_v3_0_vm_copy_pte                        158      64     -94
-> sdma_v3_0_emit_copy_buffer                   155      61     -94
-> sdma_v2_4_vm_copy_pte                        158      64     -94
-> sdma_v2_4_emit_copy_buffer                   155      61     -94
-> cik_sdma_vm_copy_pte                         158      64     -94
-> cik_sdma_emit_copy_buffer                    155      61     -94
-> sdma_v6_0_vm_copy_pte                        163      68     -95
-> sdma_v5_2_vm_copy_pte                        163      68     -95
-> sdma_v5_0_vm_copy_pte                        163      68     -95
-> sdma_v4_4_2_vm_copy_pte                      163      68     -95
-> sdma_v4_0_vm_copy_pte                        163      68     -95
-> sdma_v7_0_vm_copy_pte                        183      75    -108
-> sdma_v7_0_emit_copy_buffer                   317     202    -115
-> si_dma_vm_set_pte_pde                        338     214    -124
-> amdgpu_vce_get_destroy_msg                   784     652    -132
-> sdma_v7_0_vm_set_pte_pde                     218      72    -146
-> sdma_v6_0_vm_set_pte_pde                     218      72    -146
-> sdma_v5_2_vm_set_pte_pde                     218      72    -146
-> sdma_v5_0_vm_set_pte_pde                     218      72    -146
-> sdma_v4_4_2_vm_set_pte_pde                   218      72    -146
-> sdma_v4_0_vm_set_pte_pde                     218      72    -146
-> sdma_v3_0_vm_set_pte_pde                     215      69    -146
-> sdma_v2_4_vm_set_pte_pde                     215      69    -146
-> cik_sdma_vm_set_pte_pde                      215      69    -146
-> amdgpu_vcn_unified_ring_ib_header            172       -    -172
-> gfx_v9_4_2_run_shader.constprop              739     532    -207
-> uvd_v6_0_enc_ring_test_ib                   1464    1162    -302
-> uvd_v7_0_enc_ring_test_ib                   1464    1138    -326
-> amdgpu_vce_ring_test_ib                     1357     936    -421
-> amdgpu_vcn_enc_ring_test_ib                 2042    1524    -518
-> Total: Before=3D9262623, After=3D9256285, chg -0.07%
->
-> * Notice how _pad_ib functions have grown. I think the compiler used the
-> opportunity to unroll the loops.
->
-> ** Series was only smoke tested on the Steam Deck.
->
-> Tvrtko Ursulin (16):
->   drm/amdgpu: Use memset32 for IB padding
->   drm/amdgpu: More compact VCE IB emission
->   drm/amdgpu: More compact VCN IB emission
->   drm/amdgpu: More compact UVD 6 IB emission
->   drm/amdgpu: More compact UVD 7 IB emission
->   drm/amdgpu: More compact SI SDMA emission
->   drm/amdgpu: More compact CIK SDMA IB emission
->   drm/amdgpu: More compact GFX 9.4.2 IB emission
->   drm/amdgpu: More compact SDMA 2.4 IB emission
->   drm/amdgpu: More compact SDMA 3.0 IB emission
->   drm/amdgpu: More compact SDMA 4.0 IB emission
->   drm/amdgpu: More compact SDMA 4.4.2 IB emission
->   drm/amdgpu: More compact SDMA 5.0 IB emission
->   drm/amdgpu: More compact SDMA 5.2 IB emission
->   drm/amdgpu: More compact SDMA 6.0 IB emission
->   drm/amdgpu: More compact SDMA 7.0 IB emission
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  12 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  |  90 +++++++++--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  | 101 ++++++++++---------
->  drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 105 ++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c  |  46 ++++-----
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 108 ++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 108 ++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 109 ++++++++++++---------
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 108 ++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 106 ++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 110 ++++++++++++---------
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 110 ++++++++++++---------
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 119 +++++++++++++----------
->  drivers/gpu/drm/amd/amdgpu/si_dma.c      |  84 +++++++++-------
->  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  66 +++++++------
->  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  66 +++++++------
->  16 files changed, 849 insertions(+), 599 deletions(-)
->
-> --
-> 2.48.0
->
+> On Fri, Sep 26, 2025 at 7:44=E2=80=AFPM Alex Deucher <alexander.deucher@a=
+md.com> wrote:
+> >
+> > Chips which use the IP discovery firmware loaded by the driver
+> > reported incorrect harvesting information in the ip discovery
+> > table in sysfs because the driver only uses the ip discovery
+> > firmware for populating sysfs and not for direct parsing for the
+> > driver itself as such, the fields that are used to print the
+> > harvesting info in sysfs report incorrect data for some IPs.  Populate
+> > the relevant fields for this case as well.
+> >
+> > Fixes: 514678da56da ("drm/amdgpu/discovery: fix fw based ip discovery")
+> > Cc: Tom St Denis <tom.stdenis@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 18 +++++++++++++++++-
+> >  1 file changed, 17 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_discovery.c
+> > index 73401f0aeb346..dd7b2b796427c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > @@ -1033,7 +1033,9 @@ static uint8_t amdgpu_discovery_get_harvest_info(=
+struct amdgpu_device *adev,
+> >         /* Until a uniform way is figured, get mask based on hwid */
+> >         switch (hw_id) {
+> >         case VCN_HWID:
+> > -               harvest =3D ((1 << inst) & adev->vcn.inst_mask) =3D=3D =
+0;
+> > +               /* VCN vs UVD+VCE */
+> > +               if (!amdgpu_ip_version(adev, VCE_HWIP, 0))
+> > +                       harvest =3D ((1 << inst) & adev->vcn.inst_mask)=
+ =3D=3D 0;
+> >                 break;
+> >         case DMU_HWID:
+> >                 if (adev->harvest_ip_mask & AMD_HARVEST_IP_DMU_MASK)
+> > @@ -2565,7 +2567,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
+device *adev)
+> >                 amdgpu_discovery_init(adev);
+> >                 vega10_reg_base_init(adev);
+> >                 adev->sdma.num_instances =3D 2;
+> > +               adev->sdma.sdma_mask =3D 3;
+> >                 adev->gmc.num_umc =3D 4;
+> > +               adev->gfx.xcc_mask =3D 1;
+> >                 adev->ip_versions[MMHUB_HWIP][0] =3D IP_VERSION(9, 0, 0=
+);
+> >                 adev->ip_versions[ATHUB_HWIP][0] =3D IP_VERSION(9, 0, 0=
+);
+> >                 adev->ip_versions[OSSSYS_HWIP][0] =3D IP_VERSION(4, 0, =
+0);
+> > @@ -2592,7 +2596,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
+device *adev)
+> >                 amdgpu_discovery_init(adev);
+> >                 vega10_reg_base_init(adev);
+> >                 adev->sdma.num_instances =3D 2;
+> > +               adev->sdma.sdma_mask =3D 3;
+> >                 adev->gmc.num_umc =3D 4;
+> > +               adev->gfx.xcc_mask =3D 1;
+> >                 adev->ip_versions[MMHUB_HWIP][0] =3D IP_VERSION(9, 3, 0=
+);
+> >                 adev->ip_versions[ATHUB_HWIP][0] =3D IP_VERSION(9, 3, 0=
+);
+> >                 adev->ip_versions[OSSSYS_HWIP][0] =3D IP_VERSION(4, 0, =
+1);
+> > @@ -2619,8 +2625,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu=
+_device *adev)
+> >                 amdgpu_discovery_init(adev);
+> >                 vega10_reg_base_init(adev);
+> >                 adev->sdma.num_instances =3D 1;
+> > +               adev->sdma.sdma_mask =3D 1;
+> >                 adev->vcn.num_vcn_inst =3D 1;
+> >                 adev->gmc.num_umc =3D 2;
+> > +               adev->gfx.xcc_mask =3D 1;
+> >                 if (adev->apu_flags & AMD_APU_IS_RAVEN2) {
+> >                         adev->ip_versions[MMHUB_HWIP][0] =3D IP_VERSION=
+(9, 2, 0);
+> >                         adev->ip_versions[ATHUB_HWIP][0] =3D IP_VERSION=
+(9, 2, 0);
+> > @@ -2665,7 +2673,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
+device *adev)
+> >                 amdgpu_discovery_init(adev);
+> >                 vega20_reg_base_init(adev);
+> >                 adev->sdma.num_instances =3D 2;
+> > +               adev->sdma.sdma_mask =3D 3;
+> >                 adev->gmc.num_umc =3D 8;
+> > +               adev->gfx.xcc_mask =3D 1;
+> >                 adev->ip_versions[MMHUB_HWIP][0] =3D IP_VERSION(9, 4, 0=
+);
+> >                 adev->ip_versions[ATHUB_HWIP][0] =3D IP_VERSION(9, 4, 0=
+);
+> >                 adev->ip_versions[OSSSYS_HWIP][0] =3D IP_VERSION(4, 2, =
+0);
+> > @@ -2693,8 +2703,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu=
+_device *adev)
+> >                 amdgpu_discovery_init(adev);
+> >                 arct_reg_base_init(adev);
+> >                 adev->sdma.num_instances =3D 8;
+> > +               adev->sdma.sdma_mask =3D 0xff;
+> >                 adev->vcn.num_vcn_inst =3D 2;
+> >                 adev->gmc.num_umc =3D 8;
+> > +               adev->gfx.xcc_mask =3D 1;
+> >                 adev->ip_versions[MMHUB_HWIP][0] =3D IP_VERSION(9, 4, 1=
+);
+> >                 adev->ip_versions[ATHUB_HWIP][0] =3D IP_VERSION(9, 4, 1=
+);
+> >                 adev->ip_versions[OSSSYS_HWIP][0] =3D IP_VERSION(4, 2, =
+1);
+> > @@ -2726,8 +2738,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu=
+_device *adev)
+> >                 amdgpu_discovery_init(adev);
+> >                 aldebaran_reg_base_init(adev);
+> >                 adev->sdma.num_instances =3D 5;
+> > +               adev->sdma.sdma_mask =3D 0x1f;
+> >                 adev->vcn.num_vcn_inst =3D 2;
+> >                 adev->gmc.num_umc =3D 4;
+> > +               adev->gfx.xcc_mask =3D 1;
+> >                 adev->ip_versions[MMHUB_HWIP][0] =3D IP_VERSION(9, 4, 2=
+);
+> >                 adev->ip_versions[ATHUB_HWIP][0] =3D IP_VERSION(9, 4, 2=
+);
+> >                 adev->ip_versions[OSSSYS_HWIP][0] =3D IP_VERSION(4, 4, =
+0);
+> > @@ -2762,6 +2776,8 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
+device *adev)
+> >                 } else {
+> >                         cyan_skillfish_reg_base_init(adev);
+> >                         adev->sdma.num_instances =3D 2;
+> > +                       adev->sdma.sdma_mask =3D 3;
+> > +                       adev->gfx.xcc_mask =3D 1;
+> >                         adev->ip_versions[MMHUB_HWIP][0] =3D IP_VERSION=
+(2, 0, 3);
+> >                         adev->ip_versions[ATHUB_HWIP][0] =3D IP_VERSION=
+(2, 0, 3);
+> >                         adev->ip_versions[OSSSYS_HWIP][0] =3D IP_VERSIO=
+N(5, 0, 1);
+> > --
+> > 2.51.0
+> >
