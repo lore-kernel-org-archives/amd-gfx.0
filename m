@@ -4,57 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DAECAC5BB
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 18:31:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F923CCA470
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 18:48:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99D3710E8BD;
-	Wed,  8 Oct 2025 18:31:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 846DA10E887;
+	Wed,  8 Oct 2025 18:48:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=bob.beckett@collabora.com header.b="KGATDjkr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VlYXtN3o";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D63F210E8BD
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 18:31:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1759948285; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=BscNQKanofZ5lwG3BGO6vS/Qz1naKrt1SIV2MAE4Q0TIFp+WQTEnjSUCEcGbdQ6q4hExBr5eeoWVQgQq8GeA3YHV/QVSvOJMuDfuonpx32Sejt4Hm4hyAABHCOAYjVEn21VEporLfKnx8lFSLl3HSOEhJoJgEBFZm3MZNmTnxG8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1759948285;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=lvXGdnVgonOgdLvbhWQEUEgbN6LIn7iY2LpSfjGokF0=; 
- b=IxXPGfe4jxyoi4ktcpeo9ZDk0Ka3eP0hqW1XMnicIUNSsg46Wkdp2uB/eeMRgDSpkfbm5Eqermig182sesZwJEQrqsDWLaFUDgbmpSIjYFhe8rR0WXhbktxlHRzDXYLTOAQT7XgCouED3EY19UngI6i8YH8xLAmEyBzGwOI6moU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=bob.beckett@collabora.com;
- dmarc=pass header.from=<bob.beckett@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1759948285; 
- s=zohomail; d=collabora.com; i=bob.beckett@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=lvXGdnVgonOgdLvbhWQEUEgbN6LIn7iY2LpSfjGokF0=;
- b=KGATDjkrrXUzDHnA/G2uVFE1nHenxiXQcXKmaKoFeX9dvC0OmetWwk4vAiHFy6LG
- CCLyenf+xNjSlBaqI1hrdKV5KaCxF/ZNYiRutGpbDRlNDlMBn6xdkXSOp/tYLCcOEcc
- U3XI3PKeEUL6rPLCsWGK8PWuU+wDg6/sHqL+mpnE=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1759948253449207.8309816630358;
- Wed, 8 Oct 2025 11:30:53 -0700 (PDT)
-Date: Wed, 08 Oct 2025 19:30:53 +0100
-From: Robert Beckett <bob.beckett@collabora.com>
-To: "Mario Limonciello" <superm1@kernel.org>
-Cc: "amd-gfx" <amd-gfx@lists.freedesktop.org>,
- "Lijo Lazar" <Lijo.Lazar@amd.com>
-Message-ID: <199c51728f5.778006f5430494.3779269787170457909@collabora.com>
-In-Reply-To: <76272528-5167-445d-9a71-5c693323da8d@kernel.org>
-References: <20251007164116.371340-1-bob.beckett@collabora.com>
- <20251007193110.763709-1-bob.beckett@collabora.com>
- <76272528-5167-445d-9a71-5c693323da8d@kernel.org>
-Subject: Re: [PATCH v2 0/5] Adjustment to power limit setting
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012056.outbound.protection.outlook.com [40.107.209.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5F5310E887
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 18:48:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XnYFTtja7LBE+9B0sSc0bDBYo1pBvdCDul9PDPjAzmLtqPBo9jdRjjoV+wKW2c/qtfj2z+PoJ73kj0XaDEBg1PwfRf6J86BQEoy4FnUo1iK1DTWLJ8j9fvNVjEnsAc59SfpB3zPLsBTm16U35yYRCFbXrYAebrh4JAe8SKffpR72FkMMDmPT2Y6pRyEmCRboRU4Q7UgKTX1NrWeNNGCEcolBSw8l2JqC4aHsYfjiynvbPtPE0DkIdpm99Nl+0rk3ktyWUxrdcjUcbh6EuYNWvnI3wV0FqBR7SJePndTiFh7kDqKU5Zom/cdhR4x1Efi5pbUiR2FJaEqiTtHH8sYTFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cM/Y/HAOFC9p4Vu90GgG7qftPcXvaPGBdcTtg1CrMlo=;
+ b=WecLPp7xeK5oqs5tVnx8Eywyrw6xeXtMuTB+9O9pyikWWHFLT+06fG+u8xvuNai57Lw9SoELyB2Tx7jwljAjWEaTNqqZp6C6IrsLrf+0CjwfAJV5knr0LXxLk6BXqYiD0r5ITzx8EEtaVqWRRwaTrXtJDrf8SquQp59D4bRONXXsjRwL0frNWtgfHgXmk0r7TfvWpBimmUBUBEktvxI9Bm+L2i9zfYiyViCJgnYLu1jH/JLEBae9mTCIkYCpoGTL17Gqpc6RU08+7sv0rIXHuEToL8svD0Xk7icuISAjv3PVyL99cnNEY5rQEBj71jXr3SCbr73EjHUoJlFbG7TtGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cM/Y/HAOFC9p4Vu90GgG7qftPcXvaPGBdcTtg1CrMlo=;
+ b=VlYXtN3od11SYPkCE/JwaqkLBqDnJOXhXF0iqFWr/BFUbJamKnfjugh4a7deB/UeBfsqxZmLQMaEbtd0F4S4Pmnnk7l9aiaQ9vG98YjW3y5bCp8VJa0tZXMuMS6MpsXNwWhI2ig1Gr+7CILRWb77+F9fX5Jm2mbZVT/HFZKAEK8=
+Received: from BYAPR07CA0081.namprd07.prod.outlook.com (2603:10b6:a03:12b::22)
+ by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.9; Wed, 8 Oct
+ 2025 18:48:44 +0000
+Received: from SJ1PEPF000023D0.namprd02.prod.outlook.com
+ (2603:10b6:a03:12b:cafe::8a) by BYAPR07CA0081.outlook.office365.com
+ (2603:10b6:a03:12b::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.9 via Frontend Transport; Wed, 8
+ Oct 2025 18:48:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000023D0.mail.protection.outlook.com (10.167.244.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9182.15 via Frontend Transport; Wed, 8 Oct 2025 18:48:44 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 8 Oct
+ 2025 11:48:41 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 8 Oct
+ 2025 13:48:41 -0500
+Received: from aaurabin-tumbleweed.amd.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Wed, 8 Oct 2025 11:48:40 -0700
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Samson Tam <Samson.Tam@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>
+Subject: [PATCH 02/22] drm/amd/display: Add debug option to override EASF
+ scaler taps
+Date: Wed, 8 Oct 2025 14:46:56 -0400
+Message-ID: <20251008184839.78916-3-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251008184839.78916-1-aurabindo.pillai@amd.com>
+References: <20251008184839.78916-1-aurabindo.pillai@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D0:EE_|DM4PR12MB7527:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd597cd3-cbba-46fc-18a0-08de069b4ea1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?QZcBv53GDqiC0FtahnlkMOSh32/ZOQSG5B3ULCYSzu6hshwATgX6BSMb+ZtN?=
+ =?us-ascii?Q?nHEo/lyV+yWrjK081IqA0H7eSyiJ++JZ0RD6mND1iMzws0iOj7o8rHRh+68K?=
+ =?us-ascii?Q?stNhQsQT265XBGOIkhYYCP+Kfcczh/8QU5NrnUYhw1ec6lyxMZI/wBzKHt72?=
+ =?us-ascii?Q?f8U0Wz6cT9mwkVQH2BNWzb4OXpVsphlvy01DFeCsecpFuDdtbniPr1y6WuUP?=
+ =?us-ascii?Q?7c/TfVkXW2dWCDRnUb6e+VWbsA9Y/A0Z9LwGMANYeSlG+4yNfyM6SLwtO/BU?=
+ =?us-ascii?Q?PccV8MlhtjHPpMwvet3nnMRYsQvzrvdA8dFWaSDlrvd0kOdRozYIs8AeTC4y?=
+ =?us-ascii?Q?tSF9AeO4lHllAoQbL5fPmSyIU9zvS3fzUULPdA6hJlHFqvHAxYPmzkX/811z?=
+ =?us-ascii?Q?V1glUmKGK6L5DpnpFQcabMJIY3ZxMHIU7i65PaWHWosgjfmIIw9m55zUFLNB?=
+ =?us-ascii?Q?NpClGg2nt3htjEZ8Uou1a4qCg0c62eXhBgzkXal+JSkbhVe3LZZLdoxZOLCS?=
+ =?us-ascii?Q?saZYWLldMc0JCCKLdZEdP8ZG1OtKs8ZdX+prrlyFY6crQBDksuwRmihBDyEV?=
+ =?us-ascii?Q?Zbj29pIRNmajQEdde1P7iXVrNl76M2gUsGREwuvMO9E/MWR8uzWBH5LIh2Ea?=
+ =?us-ascii?Q?Z4/vKSOwwnruRCcrc8coqufWKdNlueM5HMApNhGIK7UlEZaMrn7s3nj4dwM0?=
+ =?us-ascii?Q?o5rH1V5WMMReIj0A2u5z0+HZpdMpB5gZtjd0BP9l1Jp0f3U9bGPQnrzq4eRQ?=
+ =?us-ascii?Q?P8amWr9T6uaJDH2VU8grc2urShCTOgEgdKQwCko4UzaHREiPqsbbesiXXWQU?=
+ =?us-ascii?Q?16lL1Pl9htkpZC4QIeE4kc802PppSowOmkWJ6Z93rrzEV2Rw0GbCD+EPBrCT?=
+ =?us-ascii?Q?8wg7wVXAeqiZ6VjwhcYUAfxxt35vL8QtoAfjYd9iisRIKwzaO+Q3HVXlcRzO?=
+ =?us-ascii?Q?ZMx+Pd7VhaE+pcOXsBtdpDYun6KM4WKvBA+/5p8Q7acnUGzD19A3XAYoce69?=
+ =?us-ascii?Q?EMP0KImREzxqEBwlpmHaq11anaMfsCW1tdXs4eHSyFk5/USVrf410P474u87?=
+ =?us-ascii?Q?TNLZKtW0ujMe0srqKWz1A6rCCwIiptUY00/Hegf5hcO0kK+7kQMAqERkCI38?=
+ =?us-ascii?Q?fi1B+oZJLbsF/P48IyUHZQ5qgcPpJfrdP4elFS7jkcRiqxAk5LjMcCvJ18rQ?=
+ =?us-ascii?Q?IaM9feZ6cgW8Kv1ALkVkD6bZnIQxo/cQ+IGFJaO21pG88+3R/0jdFKof8Trf?=
+ =?us-ascii?Q?ZHWkLqtr2iZFSIX5LNYIaVIKCFQURgqgc06QeHD8YX8J98X/sixFM5gW+PKm?=
+ =?us-ascii?Q?3R1GJ86JrAN/GdI+M9upeZzorOV0Mrc4n0Yf4wHvkVWegnr0PICHgA4vKheb?=
+ =?us-ascii?Q?B4aiGWyCVHuxbMqb64RTWIoSUo4TiAxHawsK44IfSLFgLThYVPbQLdFnS+YJ?=
+ =?us-ascii?Q?P29CCu4N/h1+xb5Wjug6B32qCI/idLF3fPUn5xG1mdXNdu4wrCn96sEJTLTd?=
+ =?us-ascii?Q?fpGrlXKttkE6LS4WMfZ+Kck1zrMMW8pPZO8nHH+Fid58ZKG50AEeVtPcqY4M?=
+ =?us-ascii?Q?PAnyJW5RazZk+RJehRA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2025 18:48:44.0734 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd597cd3-cbba-46fc-18a0-08de069b4ea1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,58 +146,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Samson Tam <Samson.Tam@amd.com>
 
- ---- On Tue, 07 Oct 2025 20:40:43 +0100  Mario Limonciello <superm1@kernel.org> wrote --- 
- > On 10/7/25 2:31 PM, Bob Beckett wrote:
- > > --- quoted message ---
- > >> From: Robert Beckett <bob.beckett@collabora.com>
- > >>> Lijo pointed out to me that
- > >>> commit ed4efe426a49 ("drm/amd: Restore cached power limit during resume")
- > >>> commit 796ff8a7e01b ("drm/amd: Restore cached manual clock settings during resume")
- > >>> both should be unnecessary because smu_restore_dpm_user_profile() already
- > >>> restores them.  However in looking at the code there is a case that isn't
- > >>> properly restored - the FAST PPT limits supported by Van Gogh. The nuance
- > >>> isn't immediately obvious because the limit variable is overloaded with
- > >>> limit type.
- > >>> This series attempts to address that issue by passing limit type around
- > >>> and saving/restoring both types.
- > >>> Cc: Lijo Lazar <Lijo.Lazar@amd.com>
- > >>> Mario Limonciello (5):
- > >>>    drm/amd: Remove some unncessary header includes
- > >>>    drm/amd: Stop overloading power limit with limit type
- > >>>    drm/amd: Save and restore all limit types
- > >>>    drm/amd: Drop calls to restore power limit and clock from smu_resume()
- > >>>    drm/amd: Adjust whitespace for vangogh_ppt
- > >>>   .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +-
- > >>>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  3 +-
- > >>>   drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  3 +-
- > >>>   drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  2 +-
- > >>>   .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  5 +--
- > >>>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 40 ++++++++-----------
- > >>>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  3 +-
- > >>>   .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 13 +++---
- > >>>   8 files changed, 29 insertions(+), 42 deletions(-)
- > >>> -- 
- > >>> 2.51.0
- > >> entire series
- > >> Tested-by: Robert Beckett <bob.beckett@collabora.com>
- > > 
- > > apologies, I need to retract this Tested-by.
- > > I inadvertently tested v1. v2 looks like it still has the restore issue.
- > > I'll debug and get back to you.
- > 
- > Oh thanks for getting back.  Let me hold up our merge on the patches 
- > then too.
- > 
+[Why & How]
+Add new option override_easf to use in_taps instead of internal
+ taps policy for debugging
 
-The issue with v2 turned out to be quite simple in the end.
-You dropped 
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dc_spl_translate.c |  2 ++
+ drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c      | 15 +++++++++++++++
+ .../gpu/drm/amd/display/dc/sspl/dc_spl_types.h    |  1 +
+ 3 files changed, 18 insertions(+)
 
-drm/amd: Drop superfluous call to set_power_limit()
-
-from v1.
-picking that on top of v2 series makes it work again, so assuming v3 adds this back, have another:
-
-entire series
-Tested-by: Robert Beckett <bob.beckett@collabora.com>
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
+index 55704d4457ef..37d1a79e8241 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
+@@ -147,6 +147,8 @@ void translate_SPL_in_params_from_pipe_ctx(struct pipe_ctx *pipe_ctx, struct spl
+ 		spl_in->prefer_easf = false;
+ 	else if (pipe_ctx->stream->ctx->dc->debug.force_easf == 2)
+ 		spl_in->disable_easf = true;
++	else if (pipe_ctx->stream->ctx->dc->debug.force_easf == 3)
++		spl_in->override_easf = true;
+ 	/* Translate adaptive sharpening preference */
+ 	unsigned int sharpness_setting = pipe_ctx->stream->ctx->dc->debug.force_sharpness;
+ 	unsigned int force_sharpness_level = pipe_ctx->stream->ctx->dc->debug.force_sharpness_level;
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
+index b1fb0f8a253a..7a839984dbc0 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
+@@ -1018,6 +1018,21 @@ static bool spl_get_optimal_number_of_taps(
+ 			spl_scratch->scl_data.taps.h_taps_c = 6;
+ 			spl_scratch->scl_data.taps.v_taps_c = 6;
+ 		}
++
++		/* Override mode: keep EASF enabled but use input taps if valid */
++		if (spl_in->override_easf) {
++			spl_scratch->scl_data.taps.h_taps = (in_taps->h_taps != 0) ? in_taps->h_taps : spl_scratch->scl_data.taps.h_taps;
++			spl_scratch->scl_data.taps.v_taps = (in_taps->v_taps != 0) ? in_taps->v_taps : spl_scratch->scl_data.taps.v_taps;
++			spl_scratch->scl_data.taps.h_taps_c = (in_taps->h_taps_c != 0) ? in_taps->h_taps_c : spl_scratch->scl_data.taps.h_taps_c;
++			spl_scratch->scl_data.taps.v_taps_c = (in_taps->v_taps_c != 0) ? in_taps->v_taps_c : spl_scratch->scl_data.taps.v_taps_c;
++
++			if ((spl_scratch->scl_data.taps.h_taps > 6) || (spl_scratch->scl_data.taps.v_taps > 6))
++				skip_easf = true;
++			if ((spl_scratch->scl_data.taps.h_taps > 1) && (spl_scratch->scl_data.taps.h_taps % 2))
++				spl_scratch->scl_data.taps.h_taps--;
++			if ((spl_scratch->scl_data.taps.h_taps_c > 1) && (spl_scratch->scl_data.taps.h_taps_c % 2))
++				spl_scratch->scl_data.taps.h_taps_c--;
++		}
+ 	}
+ 
+ 	/*Ensure we can support the requested number of vtaps*/
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
+index 23d254dea18f..20e4e52a77ac 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
+@@ -545,6 +545,7 @@ struct spl_in	{
+ 	enum linear_light_scaling lls_pref;	//	Linear Light Scaling
+ 	bool prefer_easf;
+ 	bool disable_easf;
++	bool override_easf; /* If true, keep EASF enabled but use provided in_taps */
+ 	struct spl_debug debug;
+ 	bool is_fullscreen;
+ 	bool is_hdr_on;
+-- 
+2.51.0
 
