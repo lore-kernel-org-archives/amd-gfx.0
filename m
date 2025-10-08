@@ -4,86 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BA6ECAC5BB
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 12:49:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05C3ECCD183
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 12:49:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5169710E7FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5649910E7FE;
 	Wed,  8 Oct 2025 12:49:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WvyH8B/e";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UQclxZnd";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F47710E0F3
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Oct 2025 22:46:03 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-3f44000626bso4418883f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Oct 2025 15:46:03 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C57A310E7B9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 10:31:57 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-33274fcf5c1so7797366a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 03:31:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759877161; x=1760481961; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3pQQY2keBFswywTklmwxwyGGVpvzk59ZMACKy3TjyoA=;
- b=WvyH8B/eMRguMiSUiNHuTOhuiMctOqFVPJKQEbOs/YxXGZMaXLSn3OIHtUYiBBQ5G+
- jff4k9jAK1N/MBWGwGPSyHuOaxagXRgoAs/HIaQN3qW7tL+DU6fVyHjRX/ArTXMarFbc
- 6iyTfOmobTdoQitqgDbjcNafZxhFYkWuWiOWF8G6TJn65T4x7SnbbFhoLM7RAgZR64rs
- dlGFePP/tmn7de4PrBOQ4MqbeBSm1tobbfQukcuDFzyPsKxES8u7IQswKGvOkrs0acxT
- 8OVxv6eXUGGqW2oBE4Mt7PnJihm9V32kbXjuRUnyPYFfujfzBWipQuhGK3bVqE0iPhDd
- iMmA==
+ d=gmail.com; s=20230601; t=1759919517; x=1760524317; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=f6LZkodDEq1HIxCXkobbf13l6U/GJUVBzoud6sJa3VY=;
+ b=UQclxZndgONbsS4hhke3sosOw5t154y5KwFi9/gGB93AMISrWwNITrSVAzBcqWXXiK
+ VtDg1p7JFrpBD7g9RkhCtkLTJcz/l1qK1s5NmiiVfG1YSutGSbcOkEB/QHZvFBAEyoUV
+ gMkuYXfN+b6ZVVZ65tXViGynmARQiC8LeKI6lx/98x0xcUuuYy+Rm7KBDYkieW8/cH6h
+ 4/7sPeU+THr6MGDhlgPvks8ogSC/A5HFPyGO39d1N3HInSOzD4DLn3oG0b71DStfWpl6
+ EbgSzjc5+04k4YmjT3QP5HwJBxyYfdMTuR6yRIh8x8isWqX5iqTbaMuyawL1Mya5UMLg
+ YJyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759877161; x=1760481961;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1759919517; x=1760524317;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=3pQQY2keBFswywTklmwxwyGGVpvzk59ZMACKy3TjyoA=;
- b=Fp8HFzon10sfVxYPDb27saNXM9ZPRqscJXtv2G5t3MCSHanLtd8EeNmBAwOQQ+P5ap
- HoXzb6k9IrbOgkXs3B26pcVf2GVcOg1ywm+IjZbo9Oluaq4WJPrTSXVAMd0z8pG2RupV
- iap0ku0o78oO41bpXWujX3NVBvf4A6SRz65RntdLbzrj4Rw7VL9M6S1jWckUwbicY4vI
- 7zDURkUpx3TCtpxJ1Z/scOlo5XmCCBKbMjCeodEuUuWQ60eoSDWSvd9nMXhlBuUsQoLu
- z8/iSvej7Y20SfuKaAMvxSRB2MM/LThwBCUI98IPWueXRBCmQ4iHseWIwg2wVHSwencr
- z+1A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW7di84QWe2adIHuFck7RhI8ZG3OreauBctQEvp4cBl8aSCDufhKBYn/UzLgptI2dkl/5CY1CIM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8+V4YIeSma4S7NdeuphkR6vMGngCTIlhMM2AqO8sOSTKg7/rX
- Khrx9Xje31NSKHENDRbjfCZd1wPhm69EguhMu8fqNH9K7o3inLdNDrSZ
-X-Gm-Gg: ASbGncsN/qn4jXm++LGc0JorFnv8EdfBXEy+ZBC6QVTzi1z92JxURSiOTZgaIznK246
- D0Dp/3eeSWXqxQUT2+qseDp+Fw+UD12TdxaeChDfGHzz81zrzzG/7mGc6WRC5+64qxSjj/O2LMx
- jEWvyJe5ZTP+ldAMvOnsKIA+VqhY4u73fXR0CiHdmiDp87qX+E6bYRPmoUZWPrOXYZ8ampzg7SF
- VYQrVoWBI7v1NoOVR1zve5IAp5cOFb4X2iwEF3Ph1hf7fANgguDrzpJUFDOaPU+LIG7Vf6dNj62
- 6ri1Go4+pamkXgjMVmHA6BtTw7wwyc7LmQoOOZ+sLEmkxkfgnJQrjwgg0Mn29Ujs7Nr6KP8n6bt
- pAkSYpYZ86XHSWrUJUEj7Ev0VSb9dpQwgfw/yp/agFHa2IgUDGKgnMiocJ/Nm5cQ=
-X-Google-Smtp-Source: AGHT+IGpUoeWYYfKgtD3wk2UP4YLDCFnN42FiNw3j98CkNvoabTKCMcEKd8fM1WEcK58BkjWgmbiLQ==
-X-Received: by 2002:a05:6000:1a8e:b0:3ff:17ac:a34c with SMTP id
- ffacd0b85a97d-4266e8e46b1mr536653f8f.59.1759877161371; 
- Tue, 07 Oct 2025 15:46:01 -0700 (PDT)
-Received: from ekhafagy-ROG-Strix.. ([41.37.1.171])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4255d8f01a0sm26925335f8f.48.2025.10.07.15.45.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Oct 2025 15:46:01 -0700 (PDT)
-From: Eslam Khafagy <eslam.medhat1993@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>,
- Dominik Kaszewski <dominik.kaszewski@amd.com>,
- Yilin Chen <Yilin.Chen@amd.com>,
- amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Cc: eslam.medhat1993@gmail.com
-Subject: [PATCH RESEND] drm/amd/display: Initialize return value in
- dm_cache_state()
-Date: Wed,  8 Oct 2025 01:45:44 +0300
-Message-ID: <20251007224549.87548-1-eslam.medhat1993@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ bh=f6LZkodDEq1HIxCXkobbf13l6U/GJUVBzoud6sJa3VY=;
+ b=oK51WqolvE12Gu45jvuKe4dYcK4mJ1QRkI0WQZs228Uqcfjn30XcUfwK5wYJsppJec
+ Bc/cPM1KkQdJ7Jtg8cRxXuTE4W/pkFTo02Z0rrMsXFAQG/8CRho5khz0SgLSr4866gM1
+ We/jgq3E3yoL8ILx7nv5zfmJmGj8ZSog4HD59a/LUCNJzDBamcSBF/RPL2H30Aq8Httf
+ ImNGFbyczUzWsmcprdT8iBZ6k8GRxfBzy3dzZZ6Rh60QKWuyyS7AnHMi/k8RzwcVVMJR
+ SXpjLnjBpUxWc0iAf6uWugqeCEJfBRTeddul4/gKYe5I+Uy2y3pQ8ceOYjPjbV4ks4Am
+ JLuQ==
+X-Gm-Message-State: AOJu0Yw7fx6oGEWVQaTEEDErqfF5Di7xuCTv4vSXH2ofOsgVBt0cd+/h
+ 6wkY1ZWEJlFZXfg+qkJj+NmwechCRxXlY92bpr2syms921OizqnYYlWJ4vCtbQfG4imrUdReUbr
+ D8KsNdh+Et3RGcYPUbGBpDpUiw6Vh7mM=
+X-Gm-Gg: ASbGnctstWUNaYpgotGJ8e2UnxaVaIjBw4PfZFlWZGwzBekRArkHdDgzTnaPGV5gc0C
+ Qz2bME/O5JiuPV9RSlUm+41B8etmz2rOSlJNgozRxF3hDpDmHD8HbBNrLzjCQdNMcKsK4SCO/4t
+ U25WaLQGqy1hqYvEXd6kKoaAxRWwBZ2Gr/441/P7i5U+Cs7XV2XVtlW0Anp3Atjq/7+DU27K4nJ
+ 4SrnEhoztelcN8gW1O+j+s1OiqIWA==
+X-Google-Smtp-Source: AGHT+IF14AhZT9buSbXWxBQj5IqiSkq7Ctbzzynaj0/ilXj75RIGaxagvOzHwMf1yydBcpOxbxFs4BVRVEGf1xQ5Pq0=
+X-Received: by 2002:a17:90b:4b8c:b0:32b:6cf2:a2cf with SMTP id
+ 98e67ed59e1d1-33b5111895amr3871446a91.14.1759919517166; Wed, 08 Oct 2025
+ 03:31:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
+ <20251008085359.52404-19-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20251008085359.52404-19-tvrtko.ursulin@igalia.com>
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Wed, 8 Oct 2025 12:31:45 +0200
+X-Gm-Features: AS18NWA5_CTsZJVKKZZArYCDqLMe_ZXWxpoEel2YI71aNaG-kPc51XfoHb4pNy0
+Message-ID: <CAH9NwWdStMzwzhhpbJrsX42_gffD4hFkyy7QErJvPOCtZSRf=g@mail.gmail.com>
+Subject: Re: [PATCH 18/28] drm/etnaviv: Remove drm_sched_init_args->num_rqs
+ usage
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-dev@igalia.com, Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, etnaviv@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 08 Oct 2025 12:49:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,30 +83,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initialize the return variable "r" to 0 in dm_cache_state() to fix
-a potential use of uninitialized variable warning.
+>
+> Remove member no longer used by the scheduler core.
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Lucas Stach <l.stach@pengutronix.de>
+> Cc: Russell King <linux+etnaviv@armlinux.org.uk>
+> Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
+> Cc: etnaviv@lists.freedesktop.org
 
-The return value for this function might not be a PTR_ERR, in casse if
-condition fails. In that case we ensure predictable reutrn.
+Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
 
-Signed-off-by: Eslam Khafagy <eslam.medhat1993@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8e1622bf7a42..6b4f3eb9ce48 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3115,7 +3115,7 @@ static void hpd_rx_irq_work_suspend(struct amdgpu_display_manager *dm)
- 
- static int dm_cache_state(struct amdgpu_device *adev)
- {
--	int r;
-+	int r = 0;
- 
- 	adev->dm.cached_state = drm_atomic_helper_suspend(adev_to_drm(adev));
- 	if (IS_ERR(adev->dm.cached_state)) {
 -- 
-2.43.0
+greets
+--
+Christian Gmeiner, MSc
 
+https://christian-gmeiner.info/privacypolicy
