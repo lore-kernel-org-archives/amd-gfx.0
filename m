@@ -4,50 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 718C0CCD187
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 11:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C202CCA470
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 12:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFEA210E7DD;
-	Wed,  8 Oct 2025 11:53:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7045F10E7E3;
+	Wed,  8 Oct 2025 12:04:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FhZAv85/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KAp33rVW";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD6E810E32E;
- Wed,  8 Oct 2025 11:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=YEwdV+LsWsRk8UCq8JNPBA58uzyMqHx3JTNiudH30Cs=; b=FhZAv85/0B3wqLzPmnhhCDwugZ
- zgqdqTJwNYHeRVvOgw1yaLYaEhg9EoAbSvWJsxEm9+zo9iCz+uBynAL9f5FpJJHU1ejr/ZnyrfaRM
- slM95p9l6eKX0cqX4AhRE0J/Kc32xyj5d+kV4paKV3se7mW3tgRKZ7ElAoWAuqwm8L0wtsRcOkunB
- GkrtAc9igb0UHevU5cr9f1Fbl8Xrpi/PGeMVmZmd3ZYaPZ6bfStBKE+sqdO2voKl+6+TEHkUfkYza
- KXu+d1HHJ3lqak5mvMhjpQycKDDxafPPHjS+gzXYV6ZMrYusPEa6DKHXb4c+8BLEseEens9L3rLh+
- f2tQlTrA==;
-Received: from [84.66.36.92] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1v6SjQ-006cgX-0K; Wed, 08 Oct 2025 13:53:20 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH v3 4/5] drm/ttm: Allow drivers to specify maximum beneficial
- TTM pool size
-Date: Wed,  8 Oct 2025 12:53:13 +0100
-Message-ID: <20251008115314.55438-5-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
-References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6684410E7E1;
+ Wed,  8 Oct 2025 12:04:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 59BD46120D;
+ Wed,  8 Oct 2025 12:04:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DBCCC4CEF4;
+ Wed,  8 Oct 2025 12:04:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1759925053;
+ bh=hp6KAum/wSHP4jTL4LN3EtHOtSRvXYWkShztC5IovwE=;
+ h=From:Subject:Date:To:Cc:From;
+ b=KAp33rVWxmgy5qa+lyBrWZ8LAjg5ZJLLOvBvJYVPBMEbiYmR6R+qB7lihj9Gxwdbr
+ TYlTYpXlcp8jbXTe2IJ29xTovV88AM2+wvPaJr15D8xM0/qRezSv5YdqFBF6NTrvoa
+ O/z7OWTNNoEDLl2LdTED+vmYWCrArcc8A1gqCKthFCbdBbnstVFC4lFIYsYNtNniij
+ 8BoCxa4p1o0WjpjYrEbfT0C8eKI44ge/sTC6fn02tlhm02vFdCnXeyJy24uz2XK5hN
+ WVypG/tpimvKGA9fpFAjtklWWdwzGh/EQGioBSzyV6RStgAA5GBeww5kxPr/uK+a/O
+ jKhQDqOpsSDsw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH 00/16] drm/atomic: Switch drm_private_obj to reset
+Date: Wed, 08 Oct 2025 14:03:58 +0200
+Message-Id: <20251008-drm-private-obj-reset-v1-0-805ab43ae65a@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC5T5mgC/x3MSwqAMAxF0a1IxgbaoihuRRxUfWoEP6RSBHHvF
+ odncO9DASoI1GQPKaIEOfYEm2c0LH6fwTImkzOutMbUPOrGp0r0F/joV1YEXOxh4arCGld5Su2
+ pmOT+v233vh8PWkNgZwAAAA==
+X-Change-ID: 20251008-drm-private-obj-reset-ae1e2741027a
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Liviu Dudau <liviu.dudau@arm.com>, 
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ kernel-list@raspberrypi.com
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3101; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=hp6KAum/wSHP4jTL4LN3EtHOtSRvXYWkShztC5IovwE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDBnPgo3mR/6/kzlTdaeC1ITW9Ys8Zy29FZd8ucZHofWIt
+ cOsBF7pjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARVTbG+uTHT5yPH9sSfzB7
+ ZYjomjUamiGW7pt031QffFr1PcNh3Y7955PMpI6I33j4Ouu89ErPU4wNC7z3vtqjW1P4YP69qH9
+ POS5l2HJNEF/C3qOQsi678sido5GsD+cJFTdt/Fu9ffqx+6sVAQ==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,89 +91,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GPUs typically benefit from contiguous memory via reduced TLB pressure and
-improved caching performance, where the maximum size of contiguous block
-which adds a performance benefit is related to hardware design.
+Hi,
 
-TTM pool allocator by default tries (hard) to allocate up to the system
-MAX_PAGE_ORDER blocks. This varies by the CPU platform and can also be
-configured via Kconfig.
+This series started from my work on the hardware state readout[1], and
+was suggested by Dmitry[2].
 
-If that limit was set to be higher than the GPU can make an extra use of,
-lets allow the individual drivers to let TTM know over which allocation
-order can the pool allocator afford to make a little bit less effort with.
+This series deal with the fact that drm_private_obj (and thus bridges)
+are not initialized using the same pattern than any other object. This
+series solves that inconsistency by aligning it to what we're doing for
+all the other objects.
 
-We implement this by disabling direct reclaim for those allocations, which
-reduces the allocation latency and lowers the demands on the page
-allocator, in cases where expending this effort is not critical for the
-GPU in question.
+This was tested on a TI SK-AM62, with three bridges.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Let me know what you think,
+Maxime
+
+1: https://lore.kernel.org/dri-devel/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org/
+2: https://lore.kernel.org/dri-devel/zvqtehg66dbrrdmik6ylo2kdk74umfzo5hbfkizwsb352nlyqv@jgouvmbfwa4x/
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c          | 8 ++++++++
- drivers/gpu/drm/ttm/ttm_pool_internal.h | 5 +++++
- include/drm/ttm/ttm_pool.h              | 6 ++++--
- 3 files changed, 17 insertions(+), 2 deletions(-)
+Maxime Ripard (16):
+      drm/atomic: Add dev pointer to drm_private_obj
+      drm/atomic: Add reset to drm_private_obj
+      drm/atomic-helper: Add private_obj reset helper
+      drm/bridge: Switch private_obj initialization to reset
+      drm/dp_mst: Switch private_obj initialization to reset
+      drm/dp_tunnel: Switch private_obj initialization to reset
+      drm/amdgpu: Switch private_obj initialization to reset
+      drm/arm: komeda: Switch private_obj initialization to reset
+      drm/ingenic: Switch private_obj initialization to reset
+      drm/msm: mdp5: Switch private_obj initialization to reset
+      drm/msm: dpu1: Switch private_obj initialization to reset
+      drm/omapdrm: Switch private_obj initialization to reset
+      drm/tegra: Switch private_obj initialization to reset
+      drm/vc4: Switch private_obj initialization to reset
+      drm/atomic: Remove state argument to drm_atomic_private_obj_init
+      drm/mode_config: Call private obj reset with the other objects
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 5d007d1a15f2..183e39d0d505 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -136,6 +136,7 @@ static DECLARE_RWSEM(pool_shrink_rwsem);
- static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 					unsigned int order)
- {
-+	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
- 	unsigned long attr = DMA_ATTR_FORCE_CONTIGUOUS;
- 	struct ttm_pool_dma *dma;
- 	struct page *p;
-@@ -149,6 +150,13 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 		gfp_flags |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN |
- 			__GFP_THISNODE;
- 
-+	/*
-+	 * Do not add latency to the allocation path for allocations orders
-+	 * device tolds us do not bring them additional performance gains.
-+	 */
-+	if (beneficial_order && order > beneficial_order)
-+		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
-+
- 	if (!ttm_pool_uses_dma_alloc(pool)) {
- 		p = alloc_pages_node(pool->nid, gfp_flags, order);
- 		if (p)
-diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-index 91aa156ddded..638497fcc8a8 100644
---- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
-+++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-@@ -16,4 +16,9 @@ static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
- 	return pool->flags & TTM_POOL_USE_DMA32;
- }
- 
-+static inline bool ttm_pool_beneficial_order(struct ttm_pool *pool)
-+{
-+	return pool->flags & 0xff;
-+}
-+
- #endif
-diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
-index 70db2e5c950f..60753b051c65 100644
---- a/include/drm/ttm/ttm_pool.h
-+++ b/include/drm/ttm/ttm_pool.h
-@@ -59,8 +59,10 @@ struct ttm_pool_type {
- 	struct list_head pages;
- };
- 
--#define TTM_POOL_USE_DMA_ALLOC 	BIT(0) /* Use coherent DMA allocations. */
--#define TTM_POOL_USE_DMA32	BIT(1) /* Use GFP_DMA32 allocations. */
-+/* Check helpers in ttm_pool_internal.h when modifying: */
-+#define TTM_POOL_BENEFICIAL_ORDER(n)	((n) & 0xff) /* Max order which caller can benefit from */
-+#define TTM_POOL_USE_DMA_ALLOC 		BIT(8) /* Use coherent DMA allocations. */
-+#define TTM_POOL_USE_DMA32		BIT(9) /* Use GFP_DMA32 allocations. */
- 
- /**
-  * struct ttm_pool - Pool for all caching and orders
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  53 ++---
+ .../gpu/drm/arm/display/komeda/komeda_pipeline.h   |   2 +
+ .../drm/arm/display/komeda/komeda_private_obj.c    | 232 +++++++++++++++------
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |  38 ++--
+ drivers/gpu/drm/display/drm_dp_tunnel.c            |  28 ++-
+ drivers/gpu/drm/drm_atomic.c                       |   6 +-
+ drivers/gpu/drm/drm_atomic_state_helper.c          |  24 +++
+ drivers/gpu/drm/drm_bridge.c                       |  30 +--
+ drivers/gpu/drm/drm_mode_config.c                  |   6 +
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  30 ++-
+ drivers/gpu/drm/ingenic/ingenic-ipu.c              |  30 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  30 ++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  30 ++-
+ drivers/gpu/drm/omapdrm/omap_drv.c                 |  24 ++-
+ drivers/gpu/drm/tegra/hub.c                        |  24 ++-
+ drivers/gpu/drm/vc4/vc4_kms.c                      |  73 +++++--
+ include/drm/drm_atomic.h                           |  15 +-
+ include/drm/drm_atomic_state_helper.h              |   3 +
+ 18 files changed, 473 insertions(+), 205 deletions(-)
+---
+base-commit: aa1c2b073ad23847dd2e7bdc7d30009f34ed7f59
+change-id: 20251008-drm-private-obj-reset-ae1e2741027a
+
+Best regards,
 -- 
-2.48.0
+Maxime Ripard <mripard@kernel.org>
 
