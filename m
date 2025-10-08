@@ -4,82 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 287BDCCD198
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A5D3CCA470
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9486910E966;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D2B10E965;
 	Thu,  9 Oct 2025 07:45:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G/CdmGhB";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="tgRuiBKk";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD9B10E18B
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 02:18:20 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-3f44000626bso363360f8f.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 19:18:20 -0700 (PDT)
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [35.162.73.231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE9110E84A;
+ Wed,  8 Oct 2025 15:34:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759976299; x=1760581099; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gqgyYd4Mgcg6Fw8yS9ue0bFgfT1RMe7FZ2RNvXUjHH8=;
- b=G/CdmGhBR8a1+aHP5IdNbdI+JPf336ResRn70gF5x6ZOuf+B+hZkUJP8lxAQDlWKHR
- 0RwVrrktfEhgUacEjrfK9Ov6AVuCHwxZGD7MfUhwzMc47NjTOn9yD/JXJARFFnoxm1pb
- aWHjEMP8auCrJ0JwIvCZ72WE5UuSczTGxs1AhN6pQswvNfplAvg7rK+enARG1QFcAtzb
- 7EW3FIQCIffVIiWoJxx0JlFNzboCv5PY8KtT4AqF5k3urggqYFbaswSNU34SjX5DfXZz
- tKW3fQsYgN6rJ0ve+zPEzgmCJzGoEyNs1sroO4cjuhwSoVJVGguHwSQd9+XYszPfYviS
- bjiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759976299; x=1760581099;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gqgyYd4Mgcg6Fw8yS9ue0bFgfT1RMe7FZ2RNvXUjHH8=;
- b=i4TEcMa/cKL3IiPKl7qDpL68ElO3gkswkOffkLrn/j0ulSStS7M1MOcvU4HrCRMxDw
- q+gBJr8WTSMU/8Bd2sPDxPIY+g4o5L0j4NtdfHsHuomwQfbIngNL1HQpf/AmHy65IRDj
- ZKa8wk/DEHhu6INmsSa0xssMx5Jx7Z0xMxFF9NMMd0Cf6guxpapiTDnsKtUoBfqOnYFC
- MLAybDvxsa8IsncRRWKlDagF0wCFM37Sa8z9cDOo6+L/51CDZPi2ZMdnrUO0X9iB2FPJ
- HbxGgZrUh+YYbhu+o0b6fd10LOBy2Q2Hg5uT1rqhB+A+eUiRmsig1FpJfaz/1Anrbo2v
- ASTw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXhKYNZcaG0hyON74VuDM3rMI1OhKMGvSs5lRY/ySolkQTZZC02V0cLZKTX/W70gqorlgsE61rL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwgI/DlT6E7eQr66JvP4kYwQhgZVZ4DFO0rTDWeI8omBtbIUUXp
- tBVFfOIrY/Ly5CsgbFVfHizv30+wLIa1cd0cTCJzYvkNtU1gQvRszlpS
-X-Gm-Gg: ASbGncsSCKHtWiJyYe5E3GvgPk3Z33BZB9ckotc5JA1RzYC9YUiYkSWzXOpnkwdOgxm
- E+RWsB+z55R7+U5hhPCbOMnddHao6FzNA9VyFbM45i+IwK/CSrBF3fDSnbwZgUe6TTGWq+P6Xx9
- T4XoYyu6s0yznklo3If2tO1bzhhXkkd0tsBb5cWdp05RbxnodFgk5bl43AnCJGUDyUopaSjXlg0
- k0iB87dLFwWjBKmWfSPiMGXClJkvmBsMF/la45ttQWddSFA5oZ/e+rVMF/rgakg7YZjmNYUM1bt
- eCs0R2OgR1uM1Nt3LWOOVgKGFMd53mHAwinCoFeXnp3yT61XsKZbx7/EYU0pWueAYEdgjAr/nWv
- GTGsWPjHDfhDQptGa4S6Nr9CCXeusWyZhlRo9QXA9iNQRBYPwEcjsb57JAZv7mKw=
-X-Google-Smtp-Source: AGHT+IEm5kdnFG09dYVzwvY+GYBWGh2ZZck+203z4lbF02DASvHUzeCJVzSdR5m2k47thehYE31uPA==
-X-Received: by 2002:a05:6000:26cc:b0:3dc:1a8c:e878 with SMTP id
- ffacd0b85a97d-42667177b8emr2951904f8f.18.1759976299330; 
- Wed, 08 Oct 2025 19:18:19 -0700 (PDT)
-Received: from ekhafagy-ROG-Strix.. ([41.37.1.171])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fa9d7f91esm60094215e9.20.2025.10.08.19.18.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Oct 2025 19:18:18 -0700 (PDT)
-From: Eslam Khafagy <eslam.medhat1993@gmail.com>
-To: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	stable@vger.kernel.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- mario.kleiner.de@gmail.com, hersenxs.wu@amd.com, Igor.A.Artemiev@mcst.ru,
- nikola.cornij@amd.com, srinivasan.shanmugam@amd.com, roman.li@amd.com,
- amd-gfx@lists.freedesktop.org, eslam.medhat1993@gmail.com,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: [PATCH 5.10.y 2/2] drm/amd/display: Fix potential null dereference
-Date: Thu,  9 Oct 2025 05:17:12 +0300
-Message-ID: <1c15fc3dd25c509faa95cf8805a64c30b62529b2.1759974167.git.eslam.medhat1993@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1759974167.git.eslam.medhat1993@gmail.com>
-References: <cover.1759974167.git.eslam.medhat1993@gmail.com>
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759937661; x=1791473661;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0AzpApDbX8CFEbC2P7WHNPH2gra+XDIh1eSQ6GUhJZw=;
+ b=tgRuiBKkhE/uRe/ULkG9ePg53bzLv11Zoa/SePyz0reQN2tZKY6X295R
+ 1czjd/yL5ZCKSAqlc09n838EOafk/sVSKW31lM5YYqDgqF/fvWLEXkomt
+ Wh9/V2sPMeTapCNT7ySIq1y1LHD9eZXr/HXZaMgn22UZuyeexqGPivg9M
+ vnvFOIlND7WILzYFA8KDlQn5gIM3cV8uptdk8b+84x/3Y5qYbBgIcNv9B
+ grcynAMd0cTi4nHTdwuyy7cH4dJlgPhMPQkqKZQ9Y6iwa7W8HV62cNL/8
+ fiewFCyor3J9r+KqPuiOBNxWo8yAJRa+J1bxHAXoFGWZqem5OZfq+6vTm A==;
+X-CSE-ConnectionGUID: gLukBxtNQKGGct94M4/5Uw==
+X-CSE-MsgGUID: uUIyK8i9TEafYIklmFnKXg==
+X-IronPort-AV: E=Sophos;i="6.19,213,1754956800"; 
+   d="scan'208";a="4335130"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+ by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:34:20 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [10.0.7.35:14896]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.35.225:2525]
+ with esmtp (Farcaster)
+ id 6f1d6760-0446-4fdc-a5e2-0aa8f0cefc04; Wed, 8 Oct 2025 15:34:20 +0000 (UTC)
+X-Farcaster-Flow-ID: 6f1d6760-0446-4fdc-a5e2-0aa8f0cefc04
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 8 Oct 2025 15:34:16 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 8 Oct 2025
+ 15:34:03 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
+ Falcato" <pedro.falcato@gmail.com>
+Subject: [PATCH v3 14/19 5.15.y] minmax.h: update some comments
+Date: Wed, 8 Oct 2025 15:29:39 +0000
+Message-ID: <20251008152946.29285-15-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251008152946.29285-1-farbere@amazon.com>
+References: <20251008152946.29285-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D042UWB004.ant.amazon.com (10.13.139.150) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Thu, 09 Oct 2025 07:45:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,40 +124,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 52f1783ff4146344342422c1cd94fcb4ce39b6fe ]
+[ Upstream commit 10666e99204818ef45c702469488353b5bb09ec7 ]
 
-The adev->dm.dc pointer can be NULL and dereferenced in amdgpu_dm_fini()
-without checking.
+- Change three to several.
+- Remove the comment about retaining constant expressions, no longer true.
+- Realign to nearer 80 columns and break on major punctiation.
+- Add a leading comment to the block before __signed_type() and __is_nonneg()
+  Otherwise the block explaining the cast is a bit 'floating'.
+  Reword the rest of that comment to improve readability.
 
-Add a NULL pointer check before calling dc_dmub_srv_destroy().
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: 9a71c7d31734 ("drm/amd/display: Register DMUB service with DC")
-Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Eslam Khafagy <eslam.medhat1993@gmail.com>
+Link: https://lkml.kernel.org/r/85b050c81c1d4076aeb91a6cded45fee@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/linux/minmax.h | 53 +++++++++++++++++++-----------------------
+ 1 file changed, 24 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b698d652d41f..0aa681939b7e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1142,7 +1142,8 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 		dc_deinit_callbacks(adev->dm.dc);
- #endif
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 51b0d988e322..24e4b372649a 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -8,13 +8,10 @@
+ #include <linux/types.h>
  
--	dc_dmub_srv_destroy(&adev->dm.dc->ctx->dmub_srv);
-+	if (adev->dm.dc)
-+		dc_dmub_srv_destroy(&adev->dm.dc->ctx->dmub_srv);
+ /*
+- * min()/max()/clamp() macros must accomplish three things:
++ * min()/max()/clamp() macros must accomplish several things:
+  *
+  * - Avoid multiple evaluations of the arguments (so side-effects like
+  *   "x++" happen only once) when non-constant.
+- * - Retain result as a constant expressions when called with only
+- *   constant expressions (to avoid tripping VLA warnings in stack
+- *   allocation usage).
+  * - Perform signed v unsigned type-checking (to generate compile
+  *   errors instead of nasty runtime surprises).
+  * - Unsigned char/short are always promoted to signed int and can be
+@@ -31,25 +28,23 @@
+  *   bit #0 set if ok for unsigned comparisons
+  *   bit #1 set if ok for signed comparisons
+  *
+- * In particular, statically non-negative signed integer
+- * expressions are ok for both.
++ * In particular, statically non-negative signed integer expressions
++ * are ok for both.
+  *
+- * NOTE! Unsigned types smaller than 'int' are implicitly
+- * converted to 'int' in expressions, and are accepted for
+- * signed conversions for now. This is debatable.
++ * NOTE! Unsigned types smaller than 'int' are implicitly converted to 'int'
++ * in expressions, and are accepted for signed conversions for now.
++ * This is debatable.
+  *
+- * Note that 'x' is the original expression, and 'ux' is
+- * the unique variable that contains the value.
++ * Note that 'x' is the original expression, and 'ux' is the unique variable
++ * that contains the value.
+  *
+- * We use 'ux' for pure type checking, and 'x' for when
+- * we need to look at the value (but without evaluating
+- * it for side effects! Careful to only ever evaluate it
+- * with sizeof() or __builtin_constant_p() etc).
++ * We use 'ux' for pure type checking, and 'x' for when we need to look at the
++ * value (but without evaluating it for side effects!
++ * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
+  *
+- * Pointers end up being checked by the normal C type
+- * rules at the actual comparison, and these expressions
+- * only need to be careful to not cause warnings for
+- * pointer use.
++ * Pointers end up being checked by the normal C type rules at the actual
++ * comparison, and these expressions only need to be careful to not cause
++ * warnings for pointer use.
+  */
+ #define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
+ #define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
+@@ -57,19 +52,19 @@
+ 	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
  
- 	if (adev->dm.dmub_bo)
- 		amdgpu_bo_free_kernel(&adev->dm.dmub_bo,
+ /*
+- * To avoid warnings about casting pointers to integers
+- * of different sizes, we need that special sign type.
++ * Check whether a signed value is always non-negative.
+  *
+- * On 64-bit we can just always use 'long', since any
+- * integer or pointer type can just be cast to that.
++ * A cast is needed to avoid any warnings from values that aren't signed
++ * integer types (in which case the result doesn't matter).
+  *
+- * This does not work for 128-bit signed integers since
+- * the cast would truncate them, but we do not use s128
+- * types in the kernel (we do use 'u128', but they will
+- * be handled by the !is_signed_type() case).
++ * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * But on 32-bit we need to avoid warnings about casting pointers to integers
++ * of different sizes without truncating 64-bit values so 'long' or 'long long'
++ * must be used depending on the size of the value.
+  *
+- * NOTE! The cast is there only to avoid any warnings
+- * from when values that aren't signed integer types.
++ * This does not work for 128-bit signed integers since the cast would truncate
++ * them, but we do not use s128 types in the kernel (we do use 'u128',
++ * but they are handled by the !is_signed_type() case).
+  */
+ #ifdef CONFIG_64BIT
+   #define __signed_type(ux) long
 -- 
-2.43.0
+2.47.3
 
