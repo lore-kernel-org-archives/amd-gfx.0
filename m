@@ -4,86 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C98DCCD187
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B80CCD188
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F37710E943;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C60BB10E948;
 	Thu,  9 Oct 2025 07:45:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dUg9lcM8";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="NFH8xMhi";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA0E610E18B
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 02:18:17 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-3fa528f127fso377013f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 19:18:17 -0700 (PDT)
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D4F310E847;
+ Wed,  8 Oct 2025 15:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759976296; x=1760581096; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JJfaOf0LMlbdtGGDx/Ijf4csp3yPAQB4jZH4m4DLONE=;
- b=dUg9lcM8foVxRfQ5U2rdJrYx4bFSkqiB0NJFZLZaDEym1Bnc2WupjCLN/9TwoNzDkg
- HOau4oY5Fm3/kyJpfa2GjH+ReBThF9MB4ML0ap1xCDIq6bENOI6+5n9Ach6izqZhWH+Y
- ndtGcoGGl/RQTX+e6kvizrP2ZRTuOaAVIwD5XnDu6MnTycIX5qkho/LuEYY2WNx6O0q+
- 6iKHkRW7pBk6QgxoSS87mxmymu+5rf/QeL2FdsVGgORD0Ip81VtsvtqQtHD+SNmcEgwe
- dc/xLcKHxWSw3Sb+cw2dkGC+uNpe8ist1gRdoDBsvwWwWXORrDjjz0MhRy93FCgGeXEz
- gZ6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759976296; x=1760581096;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JJfaOf0LMlbdtGGDx/Ijf4csp3yPAQB4jZH4m4DLONE=;
- b=rwzaIl6Aau1L44BhG6uOJqzgQOqpZZPO6OtQiLHYNGl5HysalU5XmM4FbUoVxOI6Dd
- SpBF088yWAyTgU3FfQ0g1uG8fehKGSHeWI5Ajw+ND1CEUMb5gxfrXKCNfERxqWsj7QDe
- 4Fik39m0u3YUBHvmZB3USKtALAfvW04lAc86fhaoDXwG07+Gs+LZaoht5smnHkksKaxI
- uPzFpFwO4vmWq6JgJd8zHAfusE1DcPL6greI5j6/fGHu+9H9whWgt7gayDunpL5VrlOM
- 4wYlba+YCnKwVAzvn77a0wssbI63G1PvunBUIFmVg/LFt3YRBJv5R8OeexFtQid7skV8
- WPhA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVjVgN9leLgneXZ1E7QxnWagd4qcsl7fxrSLq6t7vnP8MhP/cfJzpdy4t1PNmGF6O9JU4qrQwef@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwP9rFOlWu7InnoEo4sxORwHDoN2pciS8d6ieymGDWRdr9QORw
- YJwetMROZXhLUbZOiyp9/cNMysBkumc308Shlq0pQPoY08Ftfl6sUHXz
-X-Gm-Gg: ASbGnctjJK3c8pcIAE6LvLb9sZYcit9Olv+k2+AxfoILjke3/8Q7O09GhBD10k7iZEf
- 6dCrtWOa2QY+/hhmKdASYqmUMMwa+ffAWrJqCs5M67YGngQORyHQbKGIU6v98rwwDPKKlqZdXFg
- A8xi0ln9JDlK0xVqP8Q/ums3WMIfJZdJKmNRQRb5URTNggLTUoiVzzYpzRScU/GAopMEI7zXDHv
- 8wbBjQ2QOX3+/ZvB5AVKjY0uhlM5+f/OtO7OrOTQ4sV/BbB4fJa4i4uGTslSEg118nDcecvZGtS
- 75xgnsRCtWI36qjfTJE8UwBy0zEdw+g9zAkRzpJXl1xmLZomC2WRd4Zn/4SvWsBto2T8iVUxWHg
- 9RlK8otWUIFm/9M7LAJjDY6iPhr5Al2Nct3lTtMWs7ajCVjouv5GW+OEhp3v2IVk=
-X-Google-Smtp-Source: AGHT+IFDWwCsyIH3udntapEMeZKsjzc8YDWsB8IzrNKOcKADqGXbJI8EsYvL5lJPVkIkMFPSMByYZw==
-X-Received: by 2002:a5d:5d13:0:b0:3e9:4ae9:9f1 with SMTP id
- ffacd0b85a97d-42582a058bfmr6587708f8f.31.1759976296131; 
- Wed, 08 Oct 2025 19:18:16 -0700 (PDT)
-Received: from ekhafagy-ROG-Strix.. ([41.37.1.171])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fa9d7f91esm60094215e9.20.2025.10.08.19.18.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Oct 2025 19:18:15 -0700 (PDT)
-From: Eslam Khafagy <eslam.medhat1993@gmail.com>
-To: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	stable@vger.kernel.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- mario.kleiner.de@gmail.com, hersenxs.wu@amd.com, Igor.A.Artemiev@mcst.ru,
- nikola.cornij@amd.com, srinivasan.shanmugam@amd.com, roman.li@amd.com,
- amd-gfx@lists.freedesktop.org, eslam.medhat1993@gmail.com,
- Lang Yu <Lang.Yu@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>
-Subject: [PATCH 5.10.y 1/2] drm/amd/display: Remove redundant safeguards for
- dmub-srv destroy()
-Date: Thu,  9 Oct 2025 05:17:11 +0300
-Message-ID: <40a1a37aab140b0b0f444f8435b17dee5eae31f2.1759974167.git.eslam.medhat1993@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1759974167.git.eslam.medhat1993@gmail.com>
-References: <cover.1759974167.git.eslam.medhat1993@gmail.com>
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759937726; x=1791473726;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8djAgabF22BDsxfYcNFa72Q6mXnC3doUyHk+thXHzBc=;
+ b=NFH8xMhiZ4CNFfPH9KI9pjYWAa0ZKGx3DdwNvsX6j93QopOrdKjlDMJ9
+ wJv4xq674px1/Zb0t4P9zgAFBL/0AizXGoLjDLlJnYohQhZca4sDOD2Fd
+ PyNmK9lxlU7GKIL5YuFLIaA0ifU0kPL4SOPNL8WOcYqhKacQJFZ4Cc7oE
+ Eoavzv8Etk/F2AeAPlIhHhCXx/bwq00Tiyd5kWrKYpLoDGGmfKxlMF1WJ
+ kepWyQA1rwKUB/gHwiOfeohISXbEzBzKj8ixwZNnzz6PlgZ6nLISR/ViJ
+ Hee2GvR//M6Q61rJqPVgNGzH1Tc2/30VSYO35Y6hGrFVixOnuKzQjZeti Q==;
+X-CSE-ConnectionGUID: SknRxCoqTs2OX7xPwS0oMg==
+X-CSE-MsgGUID: Q5771awZTnia2cYxyNdfQg==
+X-IronPort-AV: E=Sophos;i="6.18,281,1751241600"; 
+   d="scan'208";a="4530181"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+ by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:35:24 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [10.0.21.151:58588]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.25.156:2525]
+ with esmtp (Farcaster)
+ id f105d5f9-c66e-4916-9152-98efcd88d873; Wed, 8 Oct 2025 15:35:24 +0000 (UTC)
+X-Farcaster-Flow-ID: f105d5f9-c66e-4916-9152-98efcd88d873
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 8 Oct 2025 15:35:20 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 8 Oct 2025
+ 15:35:07 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
+ <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
+ Falcato" <pedro.falcato@gmail.com>
+Subject: [PATCH v3 18/19 5.15.y] minmax.h: simplify the variants of clamp()
+Date: Wed, 8 Oct 2025 15:29:43 +0000
+Message-ID: <20251008152946.29285-19-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251008152946.29285-1-farbere@amazon.com>
+References: <20251008152946.29285-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D036UWC004.ant.amazon.com (10.13.139.205) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Thu, 09 Oct 2025 07:45:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,45 +123,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <roman.li@amd.com>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 3beac533b8daa18358dabbe5059c417d192b2a93 ]
+[ Upstream commit 495bba17cdf95e9703af1b8ef773c55ef0dfe703 ]
 
-[Why]
-dc_dmub_srv_destroy() has internal null-check and null assignment.
-No need to duplicate them externally.
+Always pass a 'type' through to __clamp_once(), pass '__auto_type' from
+clamp() itself.
 
-[How]
-Remove redundant safeguards.
+The expansion of __types_ok3() is reasonable so it isn't worth the added
+complexity of avoiding it when a fixed type is used for all three values.
 
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Eslam Khafagy <eslam.medhat1993@gmail.com>
+Link: https://lkml.kernel.org/r/8f69f4deac014f558bab186444bac2e8@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ include/linux/minmax.h | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 45420968e5f1..b698d652d41f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1141,10 +1141,8 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 	if (adev->dm.dc)
- 		dc_deinit_callbacks(adev->dm.dc);
- #endif
--	if (adev->dm.dc->ctx->dmub_srv) {
--		dc_dmub_srv_destroy(&adev->dm.dc->ctx->dmub_srv);
--		adev->dm.dc->ctx->dmub_srv = NULL;
--	}
-+
-+	dc_dmub_srv_destroy(&adev->dm.dc->ctx->dmub_srv);
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 75fb7a6ad4c6..2bbdd5b5e07e 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -183,29 +183,29 @@
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
  
- 	if (adev->dm.dmub_bo)
- 		amdgpu_bo_free_kernel(&adev->dm.dmub_bo,
+-#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
+-	__auto_type uval = (val);						\
+-	__auto_type ulo = (lo);							\
+-	__auto_type uhi = (hi);							\
++#define __clamp_once(type, val, lo, hi, uval, ulo, uhi) ({			\
++	type uval = (val);							\
++	type ulo = (lo);							\
++	type uhi = (hi);							\
+ 	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+ 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
+ 		"clamp("#val", "#lo", "#hi") signedness error");		\
+ 	__clamp(uval, ulo, uhi); })
+ 
+-#define __careful_clamp(val, lo, hi) \
+-	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
++#define __careful_clamp(type, val, lo, hi) \
++	__clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
+ 
+ /**
+- * clamp - return a value clamped to a given range with strict typechecking
++ * clamp - return a value clamped to a given range with typechecking
+  * @val: current value
+  * @lo: lowest allowable value
+  * @hi: highest allowable value
+  *
+- * This macro does strict typechecking of @lo/@hi to make sure they are of the
+- * same type as @val.  See the unnecessary pointer comparisons.
++ * This macro checks @val/@lo/@hi to make sure they have compatible
++ * signedness.
+  */
+-#define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
++#define clamp(val, lo, hi) __careful_clamp(__auto_type, val, lo, hi)
+ 
+ /**
+  * clamp_t - return a value clamped to a given range using a given type
+@@ -217,7 +217,7 @@
+  * This macro does no typechecking and uses temporary variables of type
+  * @type to make all the comparisons.
+  */
+-#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
++#define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
+ 
+ /**
+  * clamp_val - return a value clamped to a given range using val's type
+@@ -230,7 +230,7 @@
+  * type and @lo and @hi are literals that will otherwise be assigned a signed
+  * integer type.
+  */
+-#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
++#define clamp_val(val, lo, hi) __careful_clamp(typeof(val), val, lo, hi)
+ 
+ /*
+  * Do not check the array parameter using __must_be_array().
 -- 
-2.43.0
+2.47.3
 
