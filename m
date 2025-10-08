@@ -4,133 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FE9CCA470
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 18:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F474CAC5BB
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 18:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F8D10E8C9;
-	Wed,  8 Oct 2025 18:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05F7210E8C2;
+	Wed,  8 Oct 2025 18:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ONzJ4w1s";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pm35HvVw";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013052.outbound.protection.outlook.com
- [40.107.201.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFC2B10E8C9
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 18:49:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GbXEEjI6n8YVq9i7DBIJI4Jd8cOXya2au5WbzRI2Wf68hsUicCDWybTsi1m8JNh7nM8ViZMPpuuNGOS0YkQJbPUwBHI6zpNQtmdkoICoWgoL++YNjq8syEQ2e4OysWRrY0UxHyH2k97Dd9AwweL0qsQUMejEPibtDpzUBFg3PV9nUIHWGpu2mYNqBRQ2PFguyB+T8gGHa/nhnHhJFi/1QMGjVvI0QMMUhR0PxlA4aHmw3ojOxkpx3gThsupwG4XtzsACgmb4ubs49pX31dMWcfvr7hBQIxJ5ZH1ElPb5iXPhevPp62AUL52YwYFsj4/mIUcI7Z2iMxgrtoXBAcxnVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IHRQeGVs8s+8hKgm+vj3jopZ13fIvX2wWGig/UIudzY=;
- b=ttbW0TfEOuZ024Yq6MJR29i3+eLMfIQ0VlgfLWy9O1TDY2+QHKLoQcE0m9Fg60Hus2kTbYEvuNb2fPXDRBIqBNcEmVEVsBxFgGw0n6XadmECtl1/YjZWpQdyi9R00xMIXJcloMb9CNsmso01l/vLPm4MR6cEunok9xnU2YFsQhVq3KD9MQyj9ztRPWFhsnoohxJ1XEvH9Spz0PpLUBVsp/2O1Mi7eYpajbcgUxGEvgvQQcNbKnVuAeXkBzeU8NHnPG7sMZ5JtLlVHs/spIo/g2VDnji+9Y9ozRHWLo0bv82jmUWU9Fbt5D7PHxF2mKy8nGlr0Ab34EmHed8TGM/MKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IHRQeGVs8s+8hKgm+vj3jopZ13fIvX2wWGig/UIudzY=;
- b=ONzJ4w1sF4v31Q59kdU06gIvqd5lRLZazW3sBnEQSSDuzmqyOpgwscGp0tKntqaUA7rYtyEUSfw9Kj0MwuYQEHIMkko4PfRu8J0j0lpx6/D0Zp+IWMSoOiAHmtU1JAUaJjtM3pE3VZ0e+kuadv+n2WLCEmayCxKjNuDr+YHHRZ0=
-Received: from BYAPR06CA0058.namprd06.prod.outlook.com (2603:10b6:a03:14b::35)
- by DS0PR12MB8502.namprd12.prod.outlook.com (2603:10b6:8:15b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Wed, 8 Oct
- 2025 18:49:36 +0000
-Received: from SJ5PEPF00000205.namprd05.prod.outlook.com
- (2603:10b6:a03:14b:cafe::18) by BYAPR06CA0058.outlook.office365.com
- (2603:10b6:a03:14b::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.19 via Frontend Transport; Wed,
- 8 Oct 2025 18:49:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000205.mail.protection.outlook.com (10.167.244.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Wed, 8 Oct 2025 18:49:36 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 8 Oct
- 2025 11:48:51 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 8 Oct
- 2025 13:48:51 -0500
-Received: from aaurabin-tumbleweed.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Wed, 8 Oct 2025 11:48:50 -0700
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 16/22] drm/amd/display: Add sink/link debug logs
-Date: Wed, 8 Oct 2025 14:47:10 -0400
-Message-ID: <20251008184839.78916-17-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251008184839.78916-1-aurabindo.pillai@amd.com>
-References: <20251008184839.78916-1-aurabindo.pillai@amd.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE5D10E8B9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 18:50:59 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 598I5hgi013848
+ for <amd-gfx@lists.freedesktop.org>; Wed, 8 Oct 2025 18:50:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ uITwFPVVtm5HGcZZqlMQJExGS43mnTAbnaIunuo1244=; b=pm35HvVwKYtocXkC
+ KgBjxl7KJX/a84PN3g7r4RKb4r25FiSljFfF0+W+PA8oUpzKh7i19OAwbJAeQwCr
+ uK4H5eZoRKU5++bwJFddNVJd+ffIZEZTvGMqtUvedUt4Vtp77DThSZmodrglKARL
+ FQetzyS0hXMvZCfYIRLI51jKH9BSPfL7W9Yfsl94SY1qy7SGCRajgJyFEJcZboHR
+ 993RwCxyAeMkuFZlhjJtL5Bu7ESP8uLnmbefsmT9ZbgN3gS6r3Br47WlCrPpyOMn
+ yDv33Tiwo6b3L3xKLwUMFrw2332qL/ViUXzWVX0/lNZsOsx3odEH5pHneOK2jail
+ wvpZ8g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49nv4j09ht-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 18:50:58 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4de53348322so7496291cf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 11:50:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759949457; x=1760554257;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uITwFPVVtm5HGcZZqlMQJExGS43mnTAbnaIunuo1244=;
+ b=EaMScdyQmYeAi1dMU7zNQ2M2s/ujImz8zEY0vsz0mpSnX4/jbthX1551uwKAzDNu4c
+ McvouofCMd5SSyulq0PLxg8j69vnUhqUb3/QlMF6Wyh59if3Qj9F3Hgl3I0wS9NHs7iV
+ hhq9vfYhUsgRH2GKSznGzZKyvizYp1JezQts1zusMJzjTqrOaJD2yajn3akz6gOh42kM
+ KnJ3lS1sf664D2LxTsvK7m9GfZVYzC3CsNAAtB1xXW+cNaAq52geD160dq4e8BkOf7gI
+ EQJpFokty6VClo7jR/6qi0fzqmHMjqnBD/SRaLT5K8KwDWtJfDjV2JEeNpKNZj/KaS+7
+ uPtw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWAIdq/XFM9FSWVrMhPSKZwbyI3J3G3Q01mokWBv5LdT1nr7ZzZWQJF8HvI/WC752pEVwqDWz3G@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjeffPhRD6XotRDUoL6BsVx/OUmACu1cz/PtBcuSOqfoMhYOUt
+ c5GYs039bbzQvu8F4SBa0VH5GJ/kOldHE/EqBo79/9CpgTWfAjeBK7GCzqEfiGLeMlQ8OvfgB+J
+ /urExgDt130ekqArtNFpf0PgCHIIdpmj9qt9BoOgV5FgYaQd3dGacHU/XQVvy8gL6ddHK
+X-Gm-Gg: ASbGncuxGtyeauwRifgbkoWdB7GnQ2Gl5C8t219t2aZl3UXQzoxnMKD8rhe33HWDust
+ NntSsq1VYLhmxv9MzdOe5d4tBak3O0QRnDRzV3F6xyG8JNEmQ1ax6XQXPMU4DEPV8crlJLFkiVq
+ 1H8r9AYKiAeLTQxZOWE02WP/ODaOg9O1LnoABF5dcQQqF3Wr98REA5JaebT9JqIkvgEJkhU5PaJ
+ TcefFyIUFcn9pLt9lJUKz32cW9ckC4Z6XRfIjH6gOQNs58+pmOoIeLwJFrhr1cYt7DVK6e5T98C
+ 2+pnSkZZjIhwfVd+rWaMPUgoTL/V4IwbwJ6UU6mEeCzeBwsvw/BLZHXSyMaVMY3/amaxmIg+AUX
+ u0Mu+o8Z65FsZLQgN1Q6sbKD6xcEx4xM1Igx6tgl6mjovuEB9BfWXMx4flA==
+X-Received: by 2002:ac8:6f0c:0:b0:4e2:f1b3:3465 with SMTP id
+ d75a77b69052e-4e6ead76f15mr74281511cf.38.1759949457178; 
+ Wed, 08 Oct 2025 11:50:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGUO4IzyC2eM+Rm083vlD0OKO2yWrQqJ+L80WsUVjuOU8S6+ZWJh0vpPqNVGqSnwQ0XcRPA2Q==
+X-Received: by 2002:ac8:6f0c:0:b0:4e2:f1b3:3465 with SMTP id
+ d75a77b69052e-4e6ead76f15mr74280941cf.38.1759949456598; 
+ Wed, 08 Oct 2025 11:50:56 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-375f39d509bsm22551021fa.12.2025.10.08.11.50.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Oct 2025 11:50:55 -0700 (PDT)
+Date: Wed, 8 Oct 2025 21:50:53 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ amd-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH 15/16] drm/atomic: Remove state argument to
+ drm_atomic_private_obj_init
+Message-ID: <wy7atek2mqkfg2nkawobibq7abt3w6g5wiu4d25nkctkxwkce4@mffhmrlfrqdy>
+References: <20251008-drm-private-obj-reset-v1-0-805ab43ae65a@kernel.org>
+ <20251008-drm-private-obj-reset-v1-15-805ab43ae65a@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: aurabindo.pillai@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000205:EE_|DS0PR12MB8502:EE_
-X-MS-Office365-Filtering-Correlation-Id: c25dbde4-2bab-4268-0a7d-08de069b6da2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uwEr9hm11/G89MadeLFPGqfsrcaSfu8Gt96jsv7oZroz5A0FPxAxzxmuIqpY?=
- =?us-ascii?Q?wdI2L5W7iqo3v4TG1O4py29SuBMCWk6s/Jwf794B/xmvaX2y0T50dk6BEZcH?=
- =?us-ascii?Q?F5lBZxi5x2A1exXlJgIfqeyGWkEAVLd//z8xG9yQIV4fRk5bQidD2kMccxGs?=
- =?us-ascii?Q?fH0rkl+8uLZ53adnM2AHdky9ekNE6A4N2edOr94A1vOEH5REs1zq0wOHpgHY?=
- =?us-ascii?Q?0BhzmBP4mqf1+LxV7GedUlYXNCMe6kZixOQbLDGykfjTwXuBEX/tGiSo2muk?=
- =?us-ascii?Q?2uaj2r6/PecO0vCFaV7ej0QiwR1Hu2RBjqniTneW2X/jbGL0Iq+LzluH39FN?=
- =?us-ascii?Q?CuO5aFT2BYfDqht1dJpF2W4JBi/kigobuJUF3xTKgv1Zq7OQzbSp3+LhCgJ8?=
- =?us-ascii?Q?1d74WcplqQCvXlQh+ybWTo1U+yvkvj6yK0WMnljYWtoA3yP6EVNTsOz6TqxN?=
- =?us-ascii?Q?kY/Nq98Gj5qqQ+sLfVFpnzcfORNZeIP5bucfecpJDV8V5t0oBEGikGOax/jw?=
- =?us-ascii?Q?sMgfnw8qUw0JeZDRFD2IlqfwILGoHCKTEb8jFiXyGYWOBDcQzYd9LBmYJq57?=
- =?us-ascii?Q?mvtjaCcFwpWVCJ1PllXBpZNBoAn84d7IwEWDDPas+CLRXfseVsur0fLPGWR1?=
- =?us-ascii?Q?ixSlnwoSV6ZhBUfMjNhyobZL8RkTc/AL2Zy1huO8+xysdZH0waefjq8WCkKA?=
- =?us-ascii?Q?vghOUFP1UZ0sk4k0ymY+nSWQVg1ECzh+UodhXmC6xPhjR6bIF1nK6im4ByBm?=
- =?us-ascii?Q?RrpWZhWjeHuMjRqbgV91fPOli6bCfWA8Dhs7dWJR96o/iSI1zi0oY6xex1QJ?=
- =?us-ascii?Q?mqsjldncMR/SvaSPYjH/rgtMyk1TsWSds0Le2SA6IMkAYgannYhxWz12lPop?=
- =?us-ascii?Q?bL2/2rW+9dFFPENO7EItFciUXVKDHdkfwg/24r/1GzdlPCIGmrs5Di6VwZKD?=
- =?us-ascii?Q?W6D/a2GNXj7A43mOioHdwaB2HQBApribxekd7bF3WOFikhy+M3JxT+57aQtH?=
- =?us-ascii?Q?w/3DT2c2cahj5slpCDqO57gSps/RbBQ4WW3NE+WLXwcMdrETt8vmJSkkityO?=
- =?us-ascii?Q?txatN+lth/w53ikKloFeiV3r30dz6UVMCc8zbaunBH9MaRdHeSLpSo5Pgp+z?=
- =?us-ascii?Q?bL/5t8mlA2VqJ1PzYCe6ZbHFg3tSCu/vD8V6qL+IEcjg0rmlM5keXZs7qYFe?=
- =?us-ascii?Q?OVQuujZaWAs4SVfMhW8d1RzctJKuNG0o3Glw0f2Vpg+q8pNYqShZckrgfTEG?=
- =?us-ascii?Q?8cAzuVOxIokxfX5bJIaBcRZbaf2foM5lIeGT6X8mBOxbH3pDo1vS5flcoCWl?=
- =?us-ascii?Q?yZVWAOjfP56HExLAWO1Trlhd3nwjL1OJEKD2Im7aAxUrZE+gGP1+OL+AnF0/?=
- =?us-ascii?Q?yBGFnMSyq+bawoeWHAy28f6/iuGnNg06PIKBYtbPntO1ga4I3/QzALmCqLD8?=
- =?us-ascii?Q?k6wqN20lxifO6rtuJ6R1KzpsrBivehjE+aUaD3jcPLbD+ROU5IMtJBr8OYni?=
- =?us-ascii?Q?QtbvvDyfSHlXorfVD3pkJ2cFBMmcwWXFNg5/tjPtfb6pL8PxKCJUn4Wx7qpq?=
- =?us-ascii?Q?3M5V1Sz6xhfQj5XuKB8=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2025 18:49:36.0883 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c25dbde4-2bab-4268-0a7d-08de069b6da2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000205.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8502
+In-Reply-To: <20251008-drm-private-obj-reset-v1-15-805ab43ae65a@kernel.org>
+X-Proofpoint-GUID: 9AzwiUbheYU1eKk0hFl_wivPpS0OHphh
+X-Proofpoint-ORIG-GUID: 9AzwiUbheYU1eKk0hFl_wivPpS0OHphh
+X-Authority-Analysis: v=2.4 cv=f91FxeyM c=1 sm=1 tr=0 ts=68e6b292 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=x6icFKpwvdMA:10 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=QyXUC8HyAAAA:8
+ a=KKAkSRfTAAAA:8 a=ER_8r6IbAAAA:8 a=P1BnusSwAAAA:8 a=pGLkceISAAAA:8
+ a=Ikd4Dj_1AAAA:8 a=RF00TdSWAAAA:8 a=V2sgnzSHAAAA:8 a=EUspDBNiAAAA:8
+ a=tVI0ZWmoAAAA:8 a=e5mUnYsNAAAA:8 a=4fa6rhvZphqvzmXW0hwA:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=cvBusfyB2V15izCimMoJ:22 a=9LHmKk7ezEChjTCyhBa9:22 a=D0XLA9XvdZm18NrgonBM:22
+ a=_nx8FpPT0le-2JWwMI5O:22 a=Z31ocT7rh6aUJxSkT1EX:22 a=-BPWgnxRz2uhmvdm1NTO:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDA4MDEyMSBTYWx0ZWRfXxx7U390bMA5z
+ N0DTMj014BlklKG3yBfOWUP3jEHJDjLTUYkZjlxK4LVygr1IkCPvAoSqNga92cVAJWJZlDmV66P
+ NkFbi02EBC88PRSMX2VWp0YATnaE+4RFTuqd46y9f1nb1DGM+UKdLKEf/F+/6KTCCR3cwINHv8r
+ y8ukxwxnWnjUNWJ3xrjS+FKCtOGr4AIomCkPg8Q4KHCRm/dFIcaTBUo94IuHfnKWTsM0INnYQYz
+ aSr4ulFGLo81/0X9MKtmnBPADTK4is1R6zg9iEa0jVZHxDOgiA3edawCMJvfqdDMpD08Ss9rKK/
+ +efIOHKtcJFDHHuGZHGbNIe8xvzhe8h9okh7WdM5ZEiLJxe1i6qHJhxORYd18Wi6w4BerV6yrvo
+ z3fwBdaK95HLfNnUnesKu5NIz71bmw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-08_05,2025-10-06_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510020000 definitions=main-2510080121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,135 +152,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some extra logs to better help triage blackscreen issues.
+On Wed, Oct 08, 2025 at 02:04:13PM +0200, Maxime Ripard wrote:
+> Now that all drm_private_objs users have been converted to use reset
+> instead of the old ad-hoc initialization, we can remove the state
+> parameter from drm_private_obj_init and the fallback code.
+> 
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> 
+> ---
+> 
+> To: Liviu Dudau <liviu.dudau@arm.com>
+> To: Andrzej Hajda <andrzej.hajda@intel.com>
+> To: Neil Armstrong <neil.armstrong@linaro.org>
+> To: Robert Foss <rfoss@kernel.org>
+> To: Paul Cercueil <paul@crapouillou.net>
+> To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> To: Thierry Reding <thierry.reding@gmail.com>
+> To: Mikko Perttunen <mperttunen@nvidia.com>
+> To: Jonathan Hunter <jonathanh@nvidia.com>
+> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Cc: Rodrigo Siqueira <siqueira@igalia.com>
+> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> Cc: Jonas Karlman <jonas@kwiboo.se>
+> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+> Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: "Maíra Canal" <mcanal@igalia.com>
+> Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: linux-mips@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: linux-tegra@vger.kernel.org
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       |  1 -
+>  drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c | 16 ++++++++--------
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c           |  1 -
+>  drivers/gpu/drm/display/drm_dp_tunnel.c                 |  2 +-
+>  drivers/gpu/drm/drm_atomic.c                            | 17 ++---------------
+>  drivers/gpu/drm/drm_bridge.c                            |  1 -
+>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c               |  2 +-
+>  drivers/gpu/drm/ingenic/ingenic-ipu.c                   |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c                 |  1 -
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c                |  1 -
+>  drivers/gpu/drm/omapdrm/omap_drv.c                      |  2 +-
+>  drivers/gpu/drm/tegra/hub.c                             |  2 +-
+>  drivers/gpu/drm/vc4/vc4_kms.c                           |  4 +---
+>  include/drm/drm_atomic.h                                |  1 -
+>  14 files changed, 16 insertions(+), 37 deletions(-)
+> 
 
-* Dump all the links to see if they have sinks associated.
-* Print the edid manufacturer & product id associated with a stream that
-  was just created.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 73 +++++++++++++++++++
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |  6 +-
- 2 files changed, 77 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 6f5be090b744..5a0652e19890 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3394,6 +3394,67 @@ static void apply_delay_after_dpcd_poweroff(struct amdgpu_device *adev,
- 	}
- }
- 
-+/**
-+ * amdgpu_dm_dump_links_and_sinks - Debug dump of all DC links and their sinks
-+ * @adev: amdgpu device pointer
-+ *
-+ * Iterates through all DC links and dumps information about local and remote
-+ * (MST) sinks. Should be called after connector detection is complete to see
-+ * the final state of all links.
-+ */
-+static void amdgpu_dm_dump_links_and_sinks(struct amdgpu_device *adev)
-+{
-+	struct dc *dc = adev->dm.dc;
-+	struct drm_device *dev = adev_to_drm(adev);
-+	int li;
-+
-+	if (!dc)
-+		return;
-+
-+	for (li = 0; li < dc->link_count; li++) {
-+		struct dc_link *l = dc->links[li];
-+		const char *name = NULL;
-+		int rs;
-+
-+		if (!l)
-+			continue;
-+		if (l->local_sink && l->local_sink->edid_caps.display_name[0])
-+			name = l->local_sink->edid_caps.display_name;
-+		else
-+			name = "n/a";
-+
-+		drm_dbg_kms(dev,
-+			"LINK_DUMP[%d]: local_sink=%p type=%d sink_signal=%d sink_count=%u edid_name=%s mst_capable=%d mst_alloc_streams=%d\n",
-+			li,
-+			l->local_sink,
-+			l->type,
-+			l->local_sink ? l->local_sink->sink_signal : SIGNAL_TYPE_NONE,
-+			l->sink_count,
-+			name,
-+			l->dpcd_caps.is_mst_capable,
-+			l->mst_stream_alloc_table.stream_count);
-+
-+		/* Dump remote (MST) sinks if any */
-+		for (rs = 0; rs < l->sink_count; rs++) {
-+			struct dc_sink *rsink = l->remote_sinks[rs];
-+			const char *rname = NULL;
-+
-+			if (!rsink)
-+				continue;
-+			if (rsink->edid_caps.display_name[0])
-+				rname = rsink->edid_caps.display_name;
-+			else
-+				rname = "n/a";
-+			drm_dbg_kms(dev,
-+				"  REMOTE_SINK[%d:%d]: sink=%p signal=%d edid_name=%s\n",
-+				li, rs,
-+				rsink,
-+				rsink->sink_signal,
-+				rname);
-+		}
-+	}
-+}
-+
- static int dm_resume(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -3579,6 +3640,12 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 	}
- 	drm_connector_list_iter_end(&iter);
- 
-+	/* Debug dump: list all DC links and their associated sinks after detection
-+	 * is complete for all connectors. This provides a comprehensive view of the
-+	 * final state without repeating the dump for each connector.
-+	 */
-+	amdgpu_dm_dump_links_and_sinks(adev);
-+
- 	amdgpu_dm_irq_resume_late(adev);
- 
- 	amdgpu_dm_smu_write_watermarks_table(adev);
-@@ -5389,6 +5456,12 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 		amdgpu_set_panel_orientation(&aconnector->base);
- 	}
- 
-+	/* Debug dump: list all DC links and their associated sinks after detection
-+	 * is complete for all connectors. This provides a comprehensive view of the
-+	 * final state without repeating the dump for each connector.
-+	 */
-+	amdgpu_dm_dump_links_and_sinks(adev);
-+
- 	/* Software is initialized. Now we can register interrupt handlers. */
- 	switch (adev->asic_type) {
- #if defined(CONFIG_DRM_AMD_DC_SI)
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index ccaf37d3e7e4..096fbb8ad24c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -879,9 +879,11 @@ void dc_stream_log(const struct dc *dc, const struct dc_stream_state *stream)
- 			stream->sink->sink_signal != SIGNAL_TYPE_NONE) {
- 
- 			DC_LOG_DC(
--					"\tdispname: %s signal: %x\n",
-+					"\tsignal: %x dispname: %s manufacturer_id: 0x%x product_id: 0x%x\n",
-+					stream->signal,
- 					stream->sink->edid_caps.display_name,
--					stream->signal);
-+					stream->sink->edid_caps.manufacturer_id,
-+					stream->sink->edid_caps.product_id);
- 		}
- 	}
- }
 -- 
-2.51.0
-
+With best wishes
+Dmitry
