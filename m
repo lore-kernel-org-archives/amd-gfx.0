@@ -4,46 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AF5CCAC5BB
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 14:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44274CAC5BB
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 14:34:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F4D710E11E;
-	Wed,  8 Oct 2025 14:28:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBAA510E143;
+	Wed,  8 Oct 2025 14:34:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="S4vO8cmv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hplfqz1T";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9E7A10E11E
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 14:28:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KZcvcuJmCJLgwzmk3xBrDBwQzMhOTTgD2G38RJMWeRU=; b=S4vO8cmvOX8oK1bjzQGX8ivGxG
- dH2OlcRnvhvFNhsmXG5l6EKT6OAbGSrUVVwu/yuvMTgXM3E4Dt5AiemcJwWumw4OXhCTamxQlrW/B
- O3t8id7Z3qE0RKis3b3GPR55NJ+2tOy5nzW26d07ePg+s7eU1ue5jIq0v8U5JRQctfHlSwwGD21wg
- nFz8/1Tr9Nc/gvbDX2fLBXtmyUFWTWkADbh43QNnxMkigdUxVD9icBLFwtYoSQcCHimdhTOKh5XXV
- McoMQyJcCPQE/u1Vcg8N/uhEIcr8Y/YZhPB9/FwzOaKjXFMtdWvKKI4JTlmVa9IJWE3r8Avq3EpiB
- BkMh+lUg==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1v6V9X-006g3t-MV; Wed, 08 Oct 2025 16:28:27 +0200
-Message-ID: <b9edaad2-06bf-4b6e-95a3-9b5ba0e37b86@igalia.com>
-Date: Wed, 8 Oct 2025 15:28:27 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE0410E143;
+ Wed,  8 Oct 2025 14:34:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1759934089; x=1791470089;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=iLuyFQG2Afb+xt6uL7qrGHtrCZf4OyE7GAQI/NQO9V4=;
+ b=Hplfqz1TPEta0LVnHMsP34b+tbkOcgalGtzmSr8a9+XaLU4df+GNZRWN
+ Q4wN0upHdjRxJJBZLwydTufLNafLyaCZ091bjIZ1+Ms46zM3i7xB2gGcu
+ bm4n6BX5G0OsXLXQ/4CT62vnkjr678Ohujpqwgpjs2qqeeeYoawtjRSIR
+ Y1WGcdxfASHX+briKt+TV+Y7XYT8P6tJjrmWiLMnsYGs2t2ivnm1lBfP2
+ sFnUpdkSzIevTItzBvZ/gWxaaMJs0u/sD3FGSHCtooZzs16TUOof9JVut
+ 9BXxb7xKDBtyzSoSPa+/JkflBBvSsWiY6pOt7yvGnZLgwrdxpy6chVPbU Q==;
+X-CSE-ConnectionGUID: 1T8tI6tES4yIAEJE+ByTxQ==
+X-CSE-MsgGUID: 9VVjcPeSS2qbdLfEpHBGrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="62046431"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="62046431"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2025 07:34:48 -0700
+X-CSE-ConnectionGUID: IOx6BZseTAC/y5Y8B3bl0Q==
+X-CSE-MsgGUID: Cuixql9wTmWtWQAIz+FAfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,213,1754982000"; d="scan'208";a="217561598"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO [10.245.244.136])
+ ([10.245.244.136])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2025 07:34:44 -0700
+Message-ID: <fe98edc2-cc18-4c44-a4cb-5c41b60834e6@intel.com>
+Date: Wed, 8 Oct 2025 15:34:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] More compact IB emission
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20250911114155.24786-1-tvrtko.ursulin@igalia.com>
- <CADnq5_OD2FoiNxj3FqrqQSLCs7h_a-4uRy5ucceEA+Px-5Ea7w@mail.gmail.com>
+Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
+ latency
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
+References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
+ <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
+ <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
 Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <CADnq5_OD2FoiNxj3FqrqQSLCs7h_a-4uRy5ucceEA+Px-5Ea7w@mail.gmail.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -60,172 +84,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 08/10/2025 14:50, Tvrtko Ursulin wrote:
+> 
+> On 08/10/2025 13:35, Christian König wrote:
+>> On 08.10.25 13:53, Tvrtko Ursulin wrote:
+>>> Disclaimer:
+>>> Please note that as this series includes a patch which touches a good 
+>>> number of
+>>> drivers I will only copy everyone in the cover letter and the 
+>>> respective patch.
+>>> Assumption is people are subscribed to dri-devel so can look at the 
+>>> whole series
+>>> there. I know someone is bound to complain for both the case when 
+>>> everyone is
+>>> copied on everything for getting too much email, and also for this 
+>>> other case.
+>>> So please be flexible.
+>>>
+>>> Description:
+>>>
+>>> All drivers which use the TTM pool allocator end up requesting large 
+>>> order
+>>> allocations when allocating large buffers. Those can be slow due 
+>>> memory pressure
+>>> and so add latency to buffer creation. But there is often also a size 
+>>> limit
+>>> above which contiguous blocks do not bring any performance benefits. 
+>>> This series
+>>> allows drivers to say when it is okay for the TTM to try a bit less 
+>>> hard.
+>>>
+>>> We do this by allowing drivers to specify this cut off point when 
+>>> creating the
+>>> TTM device and pools. Allocations above this size will skip direct 
+>>> reclaim so
+>>> under memory pressure worst case latency will improve. Background 
+>>> reclaim is
+>>> still kicked off and both before and after the memory pressure all 
+>>> the TTM pool
+>>> buckets remain to be used as they are today.
+>>>
+>>> This is especially interesting if someone has configured 
+>>> MAX_PAGE_ORDER to
+>>> higher than the default. And even with the default, with amdgpu for 
+>>> example,
+>>> the last patch in the series makes use of the new feature by telling 
+>>> TTM that
+>>> above 2MiB we do not expect performance benefits. Which makes TTM not 
+>>> try direct
+>>> reclaim for the top bucket (4MiB).
+>>>
+>>> End result is TTM drivers become a tiny bit nicer mm citizens and 
+>>> users benefit
+>>> from better worst case buffer creation latencies. As a side benefit 
+>>> we get rid
+>>> of two instances of those often very unreadable mutliple nameless 
+>>> booleans
+>>> function signatures.
+>>>
+>>> If this sounds interesting and gets merge the invidual drivers can 
+>>> follow up
+>>> with patches configuring their thresholds.
+>>>
+>>> v2:
+>>>   * Christian suggested to pass in the new data by changing the 
+>>> function signatures.
+>>>
+>>> v3:
+>>>   * Moved ttm pool helpers into new ttm_pool_internal.h. (Christian)
+>>
+>> Patch #3 is Acked-by: Christian König <christian.koenig@amd.com>.
+>>
+>> The rest is Reviewed-by: Christian König <christian.koenig@amd.com>
+> 
+> Thank you!
+> 
+> So I think now I need acks to merge via drm-misc for all the drivers 
+> which have their own trees. Which seems to be just xe.
+> 
+> Also interesting for other drivers is that when this lands folks can 
+> start passing in their "max size which leads to performance gains" via 
+> TTM_POOL_BENEFICIAL_ORDER and get the worst case allocation latency 
+> improvements.
+> 
+> I am thinking xe also maxes out at 2MiB pages, for others I don't know.
 
-On 08/10/2025 15:08, Alex Deucher wrote:
-> Applied the series.  Thanks!
+Yeah, next level up from 2M GTT page is still 1G GTT page. I think we 
+especially need 64K/2M system memory pages on igpu to get some perf back 
+when enabling iommu on some platforms IIRC. Not aware of really needing 
+ > 2M so sounds like we might also benefit by maxing out at 2M, if it 
+reduces allocation latency in some cases.
 
-Thank you and fingers crossed I did not fat finger anything that your CI 
-wouldn't find!
-
-I wish something similar could be done for amdgpu_ring_write too, but 
-that one is waiting on Christian to, AFAIR, become idle enough to 
-untangle some ptr masking issues.
-
-Regards,
-
-Tvrtko
-
-> On Thu, Sep 11, 2025 at 7:42 AM Tvrtko Ursulin
-> <tvrtko.ursulin@igalia.com> wrote:
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+>>> v1 thread:
+>>> https://lore.kernel.org/dri-devel/20250919131127.90932-1- 
+>>> tvrtko.ursulin@igalia.com/
+>>>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>> Cc: Dave Airlie <airlied@redhat.com>
+>>> Cc: Gerd Hoffmann <kraxel@redhat.com>
+>>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+>>> Cc: Lyude Paul <lyude@redhat.com>
+>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>>> Cc: Sui Jingfeng <suijingfeng@loongson.cn>
+>>> Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: Zack Rusin <zack.rusin@broadcom.com>
+>>>
+>>> Tvrtko Ursulin (5):
+>>>    drm/ttm: Add getter for some pool properties
+>>>    drm/ttm: Replace multiple booleans with flags in pool init
+>>>    drm/ttm: Replace multiple booleans with flags in device init
+>>>    drm/ttm: Allow drivers to specify maximum beneficial TTM pool size
+>>>    drm/amdgpu: Configure max beneficial TTM pool allocation order
+>>>
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  7 +--
+>>>   drivers/gpu/drm/drm_gem_vram_helper.c         |  2 +-
+>>>   drivers/gpu/drm/i915/intel_region_ttm.c       |  2 +-
+>>>   drivers/gpu/drm/loongson/lsdc_ttm.c           |  2 +-
+>>>   drivers/gpu/drm/nouveau/nouveau_ttm.c         |  4 +-
+>>>   drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
+>>>   drivers/gpu/drm/radeon/radeon_ttm.c           |  4 +-
+>>>   drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++----
+>>>   .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+>>>   drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 31 +++++--------
+>>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 22 ++++-----
+>>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  7 +--
+>>>   drivers/gpu/drm/ttm/tests/ttm_pool_test.c     | 23 +++++-----
+>>>   drivers/gpu/drm/ttm/ttm_device.c              |  7 ++-
+>>>   drivers/gpu/drm/ttm/ttm_pool.c                | 45 +++++++++++--------
+>>>   drivers/gpu/drm/ttm/ttm_pool_internal.h       | 24 ++++++++++
+>>>   drivers/gpu/drm/ttm/ttm_tt.c                  | 10 +++--
+>>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +-
+>>>   drivers/gpu/drm/xe/xe_device.c                |  2 +-
+>>>   include/drm/ttm/ttm_device.h                  |  2 +-
+>>>   include/drm/ttm/ttm_pool.h                    | 13 +++---
+>>>   21 files changed, 125 insertions(+), 106 deletions(-)
+>>>   create mode 100644 drivers/gpu/drm/ttm/ttm_pool_internal.h
+>>>
 >>
->> In short, this series mostly does a lot of replacing of this pattern:
->>
->>         ib->ptr[ib->length_dw++] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
->>                 SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
->>         ib->ptr[ib->length_dw++] = lower_32_bits(pe);
->>         ib->ptr[ib->length_dw++] = upper_32_bits(pe);
->>         ib->ptr[ib->length_dw++] = ndw - 1;
->>         for (; ndw > 0; ndw -= 2) {
->>                ib->ptr[ib->length_dw++] = lower_32_bits(value);
->>                ib->ptr[ib->length_dw++] = upper_32_bits(value);
->>                 value += incr;
->>         }
->>
->> With this one:
->>
->>         u32 *ptr = &ib->ptr[ib->length_dw];
->>
->>         *ptr++ = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
->>                  SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
->>         *ptr++ = lower_32_bits(pe);
->>         *ptr++ = upper_32_bits(pe);
->>         *ptr++ = ndw - 1;
->>         for (; ndw > 0; ndw -= 2) {
->>                 *ptr++ = lower_32_bits(value);
->>                 *ptr++ = upper_32_bits(value);
->>                  value += incr;
->>          }
->>
->>         ib->length_dw = ptr - ib->ptr;
->>
->> Latter avoids register reloads and length updates on every dword written, and on
->> the overall makes the IB emission much more compact:
->>
->> add/remove: 0/1 grow/shrink: 10/58 up/down: 260/-6598 (-6338)
->> Function                                     old     new   delta
->> sdma_v7_0_ring_pad_ib                         99     127     +28
->> sdma_v6_0_ring_pad_ib                         99     127     +28
->> sdma_v5_2_ring_pad_ib                         99     127     +28
->> sdma_v5_0_ring_pad_ib                         99     127     +28
->> sdma_v4_4_2_ring_pad_ib                       99     127     +28
->> sdma_v4_0_ring_pad_ib                         99     127     +28
->> sdma_v3_0_ring_pad_ib                         99     127     +28
->> sdma_v2_4_ring_pad_ib                         99     127     +28
->> cik_sdma_ring_pad_ib                          99     127     +28
->> si_dma_ring_pad_ib                            36      44      +8
->> amdgpu_ring_generic_pad_ib                    56      52      -4
->> si_dma_emit_fill_buffer                      108      71     -37
->> si_dma_vm_write_pte                          158     115     -43
->> amdgpu_vcn_dec_sw_send_msg                   810     767     -43
->> si_dma_vm_copy_pte                           137      87     -50
->> si_dma_emit_copy_buffer                      134      84     -50
->> sdma_v3_0_vm_write_pte                       163     102     -61
->> sdma_v2_4_vm_write_pte                       163     102     -61
->> cik_sdma_vm_write_pte                        163     102     -61
->> sdma_v7_0_vm_write_pte                       168     105     -63
->> sdma_v7_0_emit_fill_buffer                   119      56     -63
->> sdma_v6_0_vm_write_pte                       168     105     -63
->> sdma_v6_0_emit_fill_buffer                   119      56     -63
->> sdma_v5_2_vm_write_pte                       168     105     -63
->> sdma_v5_2_emit_fill_buffer                   119      56     -63
->> sdma_v5_0_vm_write_pte                       168     105     -63
->> sdma_v5_0_emit_fill_buffer                   119      56     -63
->> sdma_v4_4_2_vm_write_pte                     168     105     -63
->> sdma_v4_4_2_emit_fill_buffer                 119      56     -63
->> sdma_v4_0_vm_write_pte                       168     105     -63
->> sdma_v4_0_emit_fill_buffer                   119      56     -63
->> sdma_v3_0_emit_fill_buffer                   116      53     -63
->> sdma_v2_4_emit_fill_buffer                   116      53     -63
->> cik_sdma_emit_fill_buffer                    116      53     -63
->> sdma_v6_0_emit_copy_buffer                   169      76     -93
->> sdma_v5_2_emit_copy_buffer                   169      76     -93
->> sdma_v5_0_emit_copy_buffer                   169      76     -93
->> sdma_v4_4_2_emit_copy_buffer                 169      76     -93
->> sdma_v4_0_emit_copy_buffer                   169      76     -93
->> sdma_v3_0_vm_copy_pte                        158      64     -94
->> sdma_v3_0_emit_copy_buffer                   155      61     -94
->> sdma_v2_4_vm_copy_pte                        158      64     -94
->> sdma_v2_4_emit_copy_buffer                   155      61     -94
->> cik_sdma_vm_copy_pte                         158      64     -94
->> cik_sdma_emit_copy_buffer                    155      61     -94
->> sdma_v6_0_vm_copy_pte                        163      68     -95
->> sdma_v5_2_vm_copy_pte                        163      68     -95
->> sdma_v5_0_vm_copy_pte                        163      68     -95
->> sdma_v4_4_2_vm_copy_pte                      163      68     -95
->> sdma_v4_0_vm_copy_pte                        163      68     -95
->> sdma_v7_0_vm_copy_pte                        183      75    -108
->> sdma_v7_0_emit_copy_buffer                   317     202    -115
->> si_dma_vm_set_pte_pde                        338     214    -124
->> amdgpu_vce_get_destroy_msg                   784     652    -132
->> sdma_v7_0_vm_set_pte_pde                     218      72    -146
->> sdma_v6_0_vm_set_pte_pde                     218      72    -146
->> sdma_v5_2_vm_set_pte_pde                     218      72    -146
->> sdma_v5_0_vm_set_pte_pde                     218      72    -146
->> sdma_v4_4_2_vm_set_pte_pde                   218      72    -146
->> sdma_v4_0_vm_set_pte_pde                     218      72    -146
->> sdma_v3_0_vm_set_pte_pde                     215      69    -146
->> sdma_v2_4_vm_set_pte_pde                     215      69    -146
->> cik_sdma_vm_set_pte_pde                      215      69    -146
->> amdgpu_vcn_unified_ring_ib_header            172       -    -172
->> gfx_v9_4_2_run_shader.constprop              739     532    -207
->> uvd_v6_0_enc_ring_test_ib                   1464    1162    -302
->> uvd_v7_0_enc_ring_test_ib                   1464    1138    -326
->> amdgpu_vce_ring_test_ib                     1357     936    -421
->> amdgpu_vcn_enc_ring_test_ib                 2042    1524    -518
->> Total: Before=9262623, After=9256285, chg -0.07%
->>
->> * Notice how _pad_ib functions have grown. I think the compiler used the
->> opportunity to unroll the loops.
->>
->> ** Series was only smoke tested on the Steam Deck.
->>
->> Tvrtko Ursulin (16):
->>    drm/amdgpu: Use memset32 for IB padding
->>    drm/amdgpu: More compact VCE IB emission
->>    drm/amdgpu: More compact VCN IB emission
->>    drm/amdgpu: More compact UVD 6 IB emission
->>    drm/amdgpu: More compact UVD 7 IB emission
->>    drm/amdgpu: More compact SI SDMA emission
->>    drm/amdgpu: More compact CIK SDMA IB emission
->>    drm/amdgpu: More compact GFX 9.4.2 IB emission
->>    drm/amdgpu: More compact SDMA 2.4 IB emission
->>    drm/amdgpu: More compact SDMA 3.0 IB emission
->>    drm/amdgpu: More compact SDMA 4.0 IB emission
->>    drm/amdgpu: More compact SDMA 4.4.2 IB emission
->>    drm/amdgpu: More compact SDMA 5.0 IB emission
->>    drm/amdgpu: More compact SDMA 5.2 IB emission
->>    drm/amdgpu: More compact SDMA 6.0 IB emission
->>    drm/amdgpu: More compact SDMA 7.0 IB emission
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  12 ++-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  |  90 +++++++++--------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  | 101 ++++++++++---------
->>   drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 105 ++++++++++++--------
->>   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c  |  46 ++++-----
->>   drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 108 ++++++++++++--------
->>   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 108 ++++++++++++--------
->>   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 109 ++++++++++++---------
->>   drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 108 ++++++++++++--------
->>   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 106 ++++++++++++--------
->>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 110 ++++++++++++---------
->>   drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 110 ++++++++++++---------
->>   drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 119 +++++++++++++----------
->>   drivers/gpu/drm/amd/amdgpu/si_dma.c      |  84 +++++++++-------
->>   drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  66 +++++++------
->>   drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  66 +++++++------
->>   16 files changed, 849 insertions(+), 599 deletions(-)
->>
->> --
->> 2.48.0
->>
+> 
 
