@@ -4,67 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24CFBCCA476
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 00:53:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72D70CCA470
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 00:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E88F10E730;
-	Wed,  8 Oct 2025 00:53:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3C3710E738;
+	Wed,  8 Oct 2025 00:59:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Do0npa/Q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NFJMHW9o";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DBC010E02A
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 00:53:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6776361EBA
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 00:53:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17485C19423
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 00:53:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1759884804;
- bh=D6FweyKYmmdqK4i8JM+DNzHo424r1zBspUkYHqnYvCk=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Do0npa/QgiFr2rpTxYu8fCoLwb8676EQpVlzpUYIxx452a/AiTCg6u+2SYyt4Bcil
- DqyE6Z/rDQVO2Y3qjE3LcIpnPBKjQD6oxmllHdx16Cce7FnNv07xhqaNRB6ePSN0NA
- RrjsyAcv8GAcYb1mjhlzcA3MuU5fn/1n6ziVT1FRWxFSi0SWPjcM3euTiVjR8NfLYY
- qf1ZiwpZdLyvhCdUB0rybmjLTk017mQ2tw0s09IQWaA/xe5dHK/zZy7EayUilkJy/m
- 5jOZPFMOZ4/r07rjcUpCqRxj3OgFZVEUatHXUxOI/WAX85/X7bPtoKUlDMq/957tAI
- 1bvnTo5fV3hxA==
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-57b7c83cc78so436231e87.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Oct 2025 17:53:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUyK0qiNqJHFa4wzN3BiZZy27Vzg5U6LyQYJwx/Ru68Vzy58iUEcy2vJ16i4LHl1l629PnssO+l@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwqQat5NMZzQyGc0wxNj3WLyTLBXPKqgak7Qk/NCvRib6bf4kih
- Hkvsr5VyLfIZ2JQYObGtU+sZsXy7i6mZ5v4dM17xWFgaqyzJPVj5WNJtrBUQNtwpYatNQ7rFq97
- CvnfYkjTToyn1l1uyEZxEOyJw70pE59o=
-X-Google-Smtp-Source: AGHT+IG/2mh+7aGFp6yuZ/PHAh5VmeA0UzQePRnzK9Z9+tu50SDI+hbN8RUBkkU8FkCKt3PSGQusoMls3HZeIoqjddo=
-X-Received: by 2002:a05:6512:3d26:b0:586:a95f:cac1 with SMTP id
- 2adb3069b0e04-5906f3107bbmr359245e87.12.1759884802311; Tue, 07 Oct 2025
- 17:53:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <20251002210044.1726731-2-ardb+git@google.com>
- <5824c012-dcb2-4312-9b16-810656290831@amd.com>
- <CAMj1kXHUjL7=CPz0viSBvfeX=BKNYuUkrpTizn9H1ZgJecB6cQ@mail.gmail.com>
- <CAMj1kXEzNPJOE_-gndNcFmE9CjLpsFCjfytaXbvm-1Khu62XRA@mail.gmail.com>
-In-Reply-To: <CAMj1kXEzNPJOE_-gndNcFmE9CjLpsFCjfytaXbvm-1Khu62XRA@mail.gmail.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Tue, 7 Oct 2025 17:53:08 -0700
-X-Gmail-Original-Message-ID: <CAMj1kXHhQ41WCgGFeb_dPLVbp+SZG-JvG4uxV9pMTCs3bnGyog@mail.gmail.com>
-X-Gm-Features: AS18NWCbTXTjj2ZApuB9b1_e6m6Cn170sDL3ZYdCcXcNdRu-0RV8hzeUMtrgZ4g
-Message-ID: <CAMj1kXHhQ41WCgGFeb_dPLVbp+SZG-JvG4uxV9pMTCs3bnGyog@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix unsafe uses of kernel mode FPU
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, will@kernel.org, 
- catalin.marinas@arm.com, mark.rutland@arm.com, broonie@kernel.org, 
- Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013012.outbound.protection.outlook.com
+ [40.107.201.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7478310E738
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 00:59:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bP82FAumuljnVA38KPxPJ3eJR28BjuVqAn1OnPcjsdwMbgKRVHMP9v2jy6ITSeo60TAIm2iR3BK2ki0RWoVwjn8LeGSVTe3cCsTj9Y0KhcSINa/07WYc7qkvVUL+cL+24B6Qs6B27HfoIEM7HpxodH1K+M6gMw/4Cg5iyHhMqmvr3JTpMDL/LC3WVjLNCuSX1aMdiNbMV9eY6lSF9UCUlFgimPA+b5CEbRBw00V2GatrJ23lKk0mTRosICfVtALt6AblQ1HW+zpJJIsjQNAfVTOKToHiO096miM3lIaU4uUxqSft+r7TkfwmrT2FdSzi5vReIr8XGup9Rp+HIxnuvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SmFtlS4/uk7qPr0AsQM+E5VgFnxo60zKFxRLrOmvdm0=;
+ b=m9iHlKz/n6KxZQqs2qdvUQ7q2mTBfrhE+Qdw6JRKt55x8+xzeiCA5JrFPRpiHrJnFK0ts0P+VbkDUV/5CH1cwxJCqEdDMcTmnMglhEGfOHD2XYk+gOXlN691EFSiwGS9dQZKS4jDzIaYxhCxMMH5Rc1aOxXgIp/dfJt89r6og2dknjjtXNoxG2cd+g6vhEZwp90+R4JoCmhzHki3r7eoHan9Haf/KeuTcUewZT+8AZU+Hn4vOY8n1h9QZHMR89PUXr3uiGv+bU5eny2ABz4RvX1Jm0WbYrE1VM9QPbOvnraO801ZozrUcmSHGnsE4l0G4wyQ46ViXt3Ltp99dhVKdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SmFtlS4/uk7qPr0AsQM+E5VgFnxo60zKFxRLrOmvdm0=;
+ b=NFJMHW9o5J9cmJmocVXkJUK+E1LR+VS/4QBxJFQjrbMenvQxodBfgW9d4/2C0ZYVD4ZSCzWjLu2Nfrp7+D9SbCvYHEN8nB1pMic8MrrhBj7siJrQ9S7fvSWrognIxh88bYMDUwtlqaj27HOfowzGDJbVi79k//cuqIVK2md+KTk=
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
+ by DM4PR12MB6039.namprd12.prod.outlook.com (2603:10b6:8:aa::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.20; Wed, 8 Oct
+ 2025 00:59:03 +0000
+Received: from CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::fec0:2b36:85c1:fc9b]) by CH0PR12MB5372.namprd12.prod.outlook.com
+ ([fe80::fec0:2b36:85c1:fc9b%7]) with mapi id 15.20.9203.007; Wed, 8 Oct 2025
+ 00:59:03 +0000
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/mes: adjust the VMID masks
+Thread-Topic: [PATCH] drm/amdgpu/mes: adjust the VMID masks
+Thread-Index: AQHcNu66oogFPxNs6UGG3T3tjC7bQbS3bzuQ
+Date: Wed, 8 Oct 2025 00:59:02 +0000
+Message-ID: <CH0PR12MB5372CE8DABEC2AF9DBD16272F4E1A@CH0PR12MB5372.namprd12.prod.outlook.com>
+References: <20251006182550.90535-1-alexander.deucher@amd.com>
+In-Reply-To: <20251006182550.90535-1-alexander.deucher@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-10-08T00:57:41.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|DM4PR12MB6039:EE_
+x-ms-office365-filtering-correlation-id: 3e87a907-e31b-4f6e-b7b4-08de0605dfa5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?B9c95DG2mg59g2srxlojZe5cz23tkZSa19kneUOjouq50StNfIaJ4WP2p0Vc?=
+ =?us-ascii?Q?JxRlZWJiqj+MMRoaMbvfoZ9kB0E36HSKJuzHB4XXUtOkP7ytVQtL986GoUbG?=
+ =?us-ascii?Q?IAYM7zRSX4SbFVCVCE8OjAs/yoLxKqJ6KQ0wuslDGm05lnlg1YHchzF94JIm?=
+ =?us-ascii?Q?FWtyTocCP5A82J6aq4pCgVFTlxqeVhYhjKxDVuubMQO9JL6wrcmnfM8SXzLs?=
+ =?us-ascii?Q?+Rm0nBkX4ml794ajfatZLruth/Jfzl7fb27Hd3nHAFTQ+Jbk0lYnvLo3vX6b?=
+ =?us-ascii?Q?3RWtXyiPfsFWsctoKFN6oFNNpBGN7T2+QBOTMErqhNLYE+eHsKkla4zTTXl8?=
+ =?us-ascii?Q?l34SNWZPKby9D4Lf6qVUtTfhnOsIYwxngX9Z5w57n6HaoiEvFSed8kV0sPid?=
+ =?us-ascii?Q?GVMd/8VqtTkc1O+nwv8bEIZEj4IXz0dKMcLy7qrvuEU8ISqLjANxKdsJSS58?=
+ =?us-ascii?Q?XaKfy8oFCdzc3jNzMxedDRlAjenpt4Nhu2XRFOQMquG7g3W07VTzobqmqbKL?=
+ =?us-ascii?Q?kiTaRwVA3V2nxkVPCPAg+laP8T81lydtS0sabaMldMnLe6F7XB+J1CiRLNIe?=
+ =?us-ascii?Q?lLHqwsTsE7nnp/0vmPPfXUKobE0i7Sj5O+g9VWHgme7oTI197Ipvoo38Hoax?=
+ =?us-ascii?Q?JQqYH6/y4679UVsw/vlHNwHz7DyAQ0tNzUcmv4b4rk1DOF2IRD2veryy7ND7?=
+ =?us-ascii?Q?qOurszdKazgR3ULOKm3Bp0se5AsrSzWBAJu7k/suBlYsxz/IpmiUM9EbhjGf?=
+ =?us-ascii?Q?sK+8MdrdJcOv3mJ72WhTfdJWacNLnEnGyEIUQLhj6jk9lxs1ilgFdGfS3v0M?=
+ =?us-ascii?Q?q6Y9jvMwGj9SU/aKFMnAQLf4kYPcWUINrrkAMMleHobmVStGuqgxFrQWQgxK?=
+ =?us-ascii?Q?9BZsNSHd1If4VopRdr5CM3dHfqCIMyCfUrEw86w+wdhJap+QsNTm/RQX3Cte?=
+ =?us-ascii?Q?mpPMA6kZRarHKZ0kGI6NZJh0W9o4o6wc6OqiQ5hbZLYydWlZPIFrkqew8rwx?=
+ =?us-ascii?Q?RXCj22BvjxXEqSvb/9m6zC3BTKd3a6g20V0pcHMgKsiVQuqbJ1rOAYPFFTkd?=
+ =?us-ascii?Q?QpdwLYkKP2aNMRAr2JouA4vdR1jS7Tca3dCsGHwW083BNkieEVjDMPy07/h+?=
+ =?us-ascii?Q?iLsblfABszk0aposicyKkz0esn9lPRnTT7jSkrvSCQqU0F31Zo9cgcyzSCTG?=
+ =?us-ascii?Q?fG5t58YaK/Hj1p7tAv+glkh9p/6gfP9KNRAq0PndRYwZHNJm+bVZKzYnnnRy?=
+ =?us-ascii?Q?qEnWuVDLRhdxtkk/4L8Rx0DDrRx8kwLsfp/fY/yW3ECJ4c2TnWihSLXwhubo?=
+ =?us-ascii?Q?T66QjQMaGy715FvvCm04cHtUnfOfMzrso0ZqN/lplRxgXUOoG24z+UFF6m5n?=
+ =?us-ascii?Q?lc+l3IcB6iKLOTRQKrorRYIRvXGetu+n24HMiDQBZH9x9pnAKLONj8le42zC?=
+ =?us-ascii?Q?wS1EX4XrbI/kK1mBV6+rNq0Hh6hUn+ErXrhzpPMynVNGBoij5O2bQMj30SMe?=
+ =?us-ascii?Q?zDChhKH5C8rHFfGVFgqeNTRjTWrFFpXzOhPl?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ESJRCMAvx+bMlI24bc0xATKAj5HD+w5zfkptwnfaUyCiotRoyXnzTqJg0pB5?=
+ =?us-ascii?Q?yvY0ERq2YWG742xCm/rt9TH5uk2Cz/rUN33hY1CnnZjiIAUEU+CTE4X5mPQT?=
+ =?us-ascii?Q?h+XRImfcNMbt7RBiZ2GppnSXlmXa12i5l4jFdZxMBGCk3OSK0PncGHpv+kLS?=
+ =?us-ascii?Q?xtH/1Ho6tkper97ONz13WFoj8ab6HaWcwe0Na1VVa72Rh9jYqh5M6FF4RAnQ?=
+ =?us-ascii?Q?Y3oVqieqR7BV4jhdfM2AQiPxGgoizoTAnIbwAlXva1lkznEVpntKNUtMV+ZE?=
+ =?us-ascii?Q?hfRVEX0DYTqAh4axkCH6hBhBttzMdypSjpU1KKEfZNCRxHU/pgdDP+4wSffY?=
+ =?us-ascii?Q?quN4djlHy0mq0GjDEKsZdwekRlOVjRNojOlqdwxxQhafse579T69t8VD9hx6?=
+ =?us-ascii?Q?WN9sQrF+e5WRpt9zShYfMZMk/CmiZyQEhTJ0sW8HG5jageqMz0W1FkChRo7m?=
+ =?us-ascii?Q?/lwGuPxYJgRoCoNMXlSsw04zGEumQpFmVZCFxdxY5MMnQEXkVWm1z6rYgG8J?=
+ =?us-ascii?Q?udufUugXEd1NsJgkZ3wsAvPG18qzEBflhdIa6BIE/9624KW35zhmETDnatS3?=
+ =?us-ascii?Q?0dD5VJ8MBuE0FPUdPy35LmASZzJIqtJAsKLKbaiWbGFm+LOPlyQFfRaCvYT5?=
+ =?us-ascii?Q?QZqa4qQcyNJi0csK+B7dbvSZO4g+4ngjIpK0L4mILzAo4g919eQWPOmgeOZt?=
+ =?us-ascii?Q?YKjXou3yHaFD6592sjoENUDTEm7qW9kbMNoFGOZJ5dQjkemRh7tqSYBJKqpt?=
+ =?us-ascii?Q?7s9q+mfy31kEbaSa0n5LcnUeym4EbWj6F2Q7pw7Rtuge3jMVeOflWKHwHTzr?=
+ =?us-ascii?Q?YWZjD8ZKLfTvyG4Nvd0kPPoc/VaY6G5W9F8QfmspBC/Dv3mqe4BEXHz49cU5?=
+ =?us-ascii?Q?ZOGHweDtV7mwgUQ89RRrT8DuiaWa9xObVSBg5g08SPgfZ4tROcVVa9/QX+To?=
+ =?us-ascii?Q?ZKpG61H5EQ5weYQIy16w4bHU6+36/VTZ8BwhY1OOvGjdwo3b0EBDZVmfP8Ic?=
+ =?us-ascii?Q?g9i+Fgt+FiWrzCd9TEjckgmfb+mQVcbjwtQJzu6fDE/qwqkKZO1iaxcQF8Gp?=
+ =?us-ascii?Q?1a15ycbOKSwsP2XMC/MY9JBY/Dj/21ohhLFYMU3US7yU4mJDrt8r/DPyaEEm?=
+ =?us-ascii?Q?26ZJZqysXBjAhKa6Jg+5apqxDK4GKoWXCjl2mOl5F2EhTJRbVEKOaIkUPzWX?=
+ =?us-ascii?Q?ROoxnVEJm9G1rcqizzS0YPTbP/r9+Il+l17QY+FTzWHnJKmsJtUNfsS/ixYK?=
+ =?us-ascii?Q?K51x9LbgeFhhxOCt2PNRx1al8nPYUADFF2MLrGyPiYMSrW165bph9RGmwE2E?=
+ =?us-ascii?Q?B9Hx2FbQ3uLQlflgrYSY8ycL1L22ny3nyg7dsr1xDAeGpfrsDgoiIqeP5SR0?=
+ =?us-ascii?Q?is2pj33CI9ow65mW6OtHqqGoBHG755c6c8A2NhptGZq9MWnRvT3+Go/rElx1?=
+ =?us-ascii?Q?EEugIPv5YnLHknCRCQujk+pZ6dgoV4vZST6Zce3QwYETkQGN6iAURMpchuzY?=
+ =?us-ascii?Q?RcY9Z92s6dyanrwwH1unA6twP2hRSv/Ty/ZlxnT8Yks/lSikBjDiPZl7ZSum?=
+ =?us-ascii?Q?MFUkMwnqxT2Klm+t6VU=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e87a907-e31b-4f6e-b7b4-08de0605dfa5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2025 00:59:02.9588 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1DkCpfkt81b4Vp4ApmlmSTDWPDj63EE7+O28XJlXJn5ZFXddXQJwQgFdYuOyQoqbKiH5hSh+FOurjASWBj5jdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6039
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,78 +156,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 7 Oct 2025 at 13:52, Ard Biesheuvel <ardb@kernel.org> wrote:
->
-> On Mon, 6 Oct 2025 at 12:59, Ard Biesheuvel <ardb@kernel.org> wrote:
-> >
-> > On Mon, 6 Oct 2025 at 19:42, Christian K=C3=B6nig <christian.koenig@amd=
-.com> wrote:
-> > >
-> > > On 02.10.25 23:00, Ard Biesheuvel wrote:
-> > > > From: Ard Biesheuvel <ardb@kernel.org>
-> > > >
-> > > > The point of isolating code that uses kernel mode FPU in separate
-> > > > compilation units is to ensure that even implicit uses of, e.g., SI=
-MD
-> > > > registers for spilling occur only in a context where this is permit=
-ted,
-> > > > i.e., from inside a kernel_fpu_begin/end block.
-> > > >
-> > > > This is important on arm64, which uses -mgeneral-regs-only to build=
- all
-> > > > kernel code, with the exception of such compilation units where FP =
-or
-> > > > SIMD registers are expected to be used. Given that the compiler may
-> > > > invent uses of FP/SIMD anywhere in such a unit, none of its code ma=
-y be
-> > > > accessible from outside a kernel_fpu_begin/end block.
-> > > >
-> > > > This means that all callers into such compilation units must use th=
-e
-> > > > DC_FP start/end macros, which must not occur there themselves. For
-> > > > robustness, all functions with external linkage that reside there s=
-hould
-> > > > call dc_assert_fp_enabled() to assert that the FPU context was set =
-up
-> > > > correctly.
-> > >
-> > > Thanks a lot for that, I've pointed out this restriction before as we=
-ll.
-> > >
-> > > Since we had that issue multiple times now would it be somehow possib=
-le to automate rejecting new code getting this wrong?
-> > >
-> > > E.g. adding something to the DC_FP_START()/DC_FP_END() or kernel_fpu_=
-begin/end macros to make sure that they fail to compile on compolation unit=
-s where FP use is enabled?
-> > >
-> >
-> > Something like the below perhaps?
-> >
->
-> Never mind, that doesn't work. dc_fpu_begin() is an out-of-line
-> function, and so it is the DC_FP_START() macro that evaluates to
-> something that includes an arch-provided assert. I'll code something
-> and send it out.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-OK, so as it turns out, the logic already exists to force a build time
-error in this case. However, due to the way the amdgpu driver
-constructs its own API around kernel_fpu_begin() and kernel_fpu_end(),
-the logic never fires for the users for DC_FP_START.
+Looks good to me .
+Reviewed-by: Shaoyun liu  <Shaoyun.liu@amd.com>
 
-It is sufficient to include linux/fpu.h:
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
+cher
+Sent: Monday, October 6, 2025 2:26 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/mes: adjust the VMID masks
 
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h
-b/drivers/gpu/drm/amd/display/dc/os_types.h
-index 782316348941..6ef9b7f5e099 100644
---- a/drivers/gpu/drm/amd/display/dc/os_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-@@ -32,6 +32,7 @@
- #include <linux/delay.h>
- #include <linux/mm.h>
- #include <linux/vmalloc.h>
-+#include <linux/fpu.h>
+The firmware limits the max vmid, but align the settings with the hw limits=
+ as well just to be safe.
 
- #include <asm/byteorder.h>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Maybe this could be folded into this patch?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.c
+index 2a397cdbb38ed..aa4db2c81d17c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -105,8 +105,8 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+                spin_lock_init(&adev->mes.ring_lock[i]);
+
+        adev->mes.total_max_queue =3D AMDGPU_FENCE_MES_QUEUE_ID_MASK;
+-       adev->mes.vmid_mask_mmhub =3D 0xffffff00;
+-       adev->mes.vmid_mask_gfxhub =3D adev->gfx.disable_kq ? 0xfffffffe : =
+0xffffff00;
++       adev->mes.vmid_mask_mmhub =3D 0xFF00;
++       adev->mes.vmid_mask_gfxhub =3D adev->gfx.disable_kq ? 0xFFFE : 0xFF=
+00;
+
+        num_pipes =3D adev->gfx.me.num_pipe_per_me * adev->gfx.me.num_me;
+        if (num_pipes > AMDGPU_MES_MAX_GFX_PIPES)
+--
+2.51.0
+
