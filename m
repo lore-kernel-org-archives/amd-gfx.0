@@ -4,78 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07ED7CCD18D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 883A4CCD192
 	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C206310E95B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDC0510E95C;
 	Thu,  9 Oct 2025 07:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TosnUF6l";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="YM77ENWn";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1888E10E18B
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 02:18:01 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-3ece1102998so274677f8f.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 19:18:01 -0700 (PDT)
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [35.162.73.231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBE610E146;
+ Wed,  8 Oct 2025 15:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759976280; x=1760581080; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ZMwXLPH27WuiEOjKg3ccYDptKtMt8Wlr4nTnNsdwDvo=;
- b=TosnUF6lk8VXc/kQC0zUCqJ06YBjP9XV56059ROpXuNlHZFj/ldLGl3ZdAJ8jKML0X
- qtLUGCoHLbXXcS6fHlQXyM6VzPA8o0IJgU6naSMLPeZTEnqEnE6OXFRstl/lkSsaI7g2
- qLx/1F6j+A+63xNGgOPIEJwkkbzDGj28IAWGIw4wdqE+jw0JtP2rA+kG3JCOSqG29/md
- b87vBuawwFNpWkefF5R/TuPaizj/VV0DQEDL6XaeZK4/xDrxvqHbFez4BEmJ9kAuWW8S
- a727jhOqRb87UypyfHvgIVkH8OtQA2+/XSL5HOosY9/IHDPJFkmB4bCas4vB9bNGdujR
- gFAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759976280; x=1760581080;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZMwXLPH27WuiEOjKg3ccYDptKtMt8Wlr4nTnNsdwDvo=;
- b=eP0kwTp3LFQ9MhruRlGjFVrBl+7Yg3pqqfoUG1VXazG6kle1jnoamjgOQ+4yHAuCbw
- U6eg8vfWBNf+Xt/xUo0mwgWLDu5xUHiu680NdVSEN9DDaBta3FJcldspx/veGvVfFUsi
- ufR5C9fKVvdUmFVA0Hw0Xe/c1/pdFwDfIt/dvQgaW3MrRVnJn+g657wOng2i7A/WMth+
- V+liY1HT7ioxKZzyolaoQSH/EkVjBdKLvWJouLzJ2WjJg0WsqVVTI1SkesHpTWmDFCyO
- VEPJFcRYsO5cAwi37HTrPO6LsV6+55F2veOqHdSObuWX2AHaE9G9EwpIx4ivQbuO/QPs
- GMtg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWgV4D/IADz4B6NpJUvudGVJ1VxWGIWutu/Vm1M5OAmrh+bd/YjEigBluvWudc22lvbPadP0qbL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwElp+6avvpTZy/J5ccvED2pLs3TeXSZbi374CaKVjUeAg4tWi4
- B2hDcv3hxiNbKW6uVa9hZMunynfTGvKk/tu0JcrmK6J3od1D31ABE2kr
-X-Gm-Gg: ASbGncvH3VzejRylE93rRDkjEvak/8L6OV9JGw2VK3bFZc9eSq3uB8myZ+XclARy8uL
- Eirdqx27fMhBrrrKIx+YMStJPuQEva3mM5G+4arHtBrgeEf9aAW+E7hh8BOoLsfjbbNNtbXbCBz
- G47OHRb8Bvwxb9jDnm+nh3r78YUVAAQvMVrSFjZ3NyU9QPoTfUPDtFDobS5BVmPZoZdVDayIdrI
- mO6wKbmnUjsP9mAxDAGV+5OejD+fvIe4820Hrju45teuiRimAQo0kszBWqaLSe6b/8MtVFhfKS5
- XGct90Vy+eh90ccXXCjynNbNw4ps9i5t6y/G1rU/JGamVJcHzRtG6QthV3mLinVwA1Vt6DBdcWt
- dtN0dS0oj5Vz7PvC1h/wwyDCTIU6vnYaa5/sZzp02TUcuJ9pC+fLpEkyp2gKwAck=
-X-Google-Smtp-Source: AGHT+IGkF8cnCg0NUgJr87v3b6RBEHWZZ8L7rvOevRDn7+hjom4Wb24Qm/GEl5r+wlLmW+LXsMv0Yw==
-X-Received: by 2002:a05:6000:4025:b0:403:8cc:db66 with SMTP id
- ffacd0b85a97d-4266e7df9c6mr3333203f8f.32.1759976279696; 
- Wed, 08 Oct 2025 19:17:59 -0700 (PDT)
-Received: from ekhafagy-ROG-Strix.. ([41.37.1.171])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46fa9d7f91esm60094215e9.20.2025.10.08.19.17.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Oct 2025 19:17:59 -0700 (PDT)
-From: Eslam Khafagy <eslam.medhat1993@gmail.com>
-To: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	stable@vger.kernel.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- mario.kleiner.de@gmail.com, hersenxs.wu@amd.com, Igor.A.Artemiev@mcst.ru,
- nikola.cornij@amd.com, srinivasan.shanmugam@amd.com, roman.li@amd.com,
- amd-gfx@lists.freedesktop.org, eslam.medhat1993@gmail.com
-Subject: [PATCH 5.10.y 0/2] drm/amd/display: Fix potential null dereference
-Date: Thu,  9 Oct 2025 05:17:10 +0300
-Message-ID: <cover.1759974167.git.eslam.medhat1993@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759937515; x=1791473515;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=nWSej8xbBt1No+Mk4Q7cDNVqN1sPbiSh6ZSRtMK8qI8=;
+ b=YM77ENWnKfoG3QX7e9n9+Ki9AiEHUe7mT5zoHc5FTsToRLAZTP3oDMkD
+ F6sZl8yAXFE1U4hQTFzq185+LfLR1mFe3XnOBFdOfyL9nYTMfOqPPGo8k
+ ON4rk/hO776Io/yMqIOUefCiVYNsmVFcbSsQj/JeOUruX80vjfBM8p4aV
+ zWFi52Y3SHak/JGh5n5SuA2X3j18/OielQX1JyGog2DrdMUHPsBORRs1a
+ /CGaQBcf+9AqeV93BkTf3sOVRwH5kQNRswne/qo6FtQ2S8y7JwybZcYcn
+ ExeWl4Ek2P2+nyDIgCpKIGFVj6RBI0J/QCjE0oOs8fGf3Xr9qpm/pIkfD w==;
+X-CSE-ConnectionGUID: ycDfQ159Q52OquxNui086Q==
+X-CSE-MsgGUID: Htks0LY0Tz2E6Ou+WxB4jw==
+X-IronPort-AV: E=Sophos;i="6.19,213,1754956800"; 
+   d="scan'208";a="4334930"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+ by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:31:53 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [10.0.7.35:8640]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.171:2525]
+ with esmtp (Farcaster)
+ id 0a7c58d4-562e-4eb3-b770-43495007b45e; Wed, 8 Oct 2025 15:31:53 +0000 (UTC)
+X-Farcaster-Flow-ID: 0a7c58d4-562e-4eb3-b770-43495007b45e
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 8 Oct 2025 15:31:50 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 8 Oct 2025
+ 15:31:37 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Subject: [PATCH v3 07/19 5.15.y] minmax: simplify and clarify min_t()/max_t()
+ implementation
+Date: Wed, 8 Oct 2025 15:29:32 +0000
+Message-ID: <20251008152946.29285-8-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251008152946.29285-1-farbere@amazon.com>
+References: <20251008152946.29285-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D037UWC003.ant.amazon.com (10.13.139.231) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Thu, 09 Oct 2025 07:45:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,19 +122,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series backports commit [52f1783ff414 ("drm/amd/display: Fix potential null dereference")]
-to stable branch 5.10.y. However to apply this i had to backport commit
-[3beac533b8da ("drm/amd/display: Remove redundant safeguards for dmub-srv destroy()")] first.
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-Igor Artemiev (1):
-  drm/amd/display: Fix potential null dereference
+[ Upstream commit 017fa3e89187848fd056af757769c9e66ac3e93d ]
 
-Roman Li (1):
-  drm/amd/display: Remove redundant safeguards for dmub-srv destroy()
+This simplifies the min_t() and max_t() macros by no longer making them
+work in the context of a C constant expression.
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+That means that you can no longer use them for static initializers or
+for array sizes in type definitions, but there were only a couple of
+such uses, and all of them were converted (famous last words) to use
+MIN_T/MAX_T instead.
 
---
-2.43.0
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+V1 -> V2:
+Use `[ Upstream commit <HASH> ]` instead of `commit <HASH> upstream.`
+like in all other patches.
+
+ include/linux/minmax.h | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index a7ef65f78933..9c2848abc804 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -45,17 +45,20 @@
+ 
+ #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
+ 
+-#define __cmp_once(op, x, y, unique_x, unique_y) ({	\
+-	typeof(x) unique_x = (x);			\
+-	typeof(y) unique_y = (y);			\
++#define __cmp_once_unique(op, type, x, y, ux, uy) \
++	({ type ux = (x); type uy = (y); __cmp(op, ux, uy); })
++
++#define __cmp_once(op, type, x, y) \
++	__cmp_once_unique(op, type, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
++
++#define __careful_cmp_once(op, x, y) ({			\
+ 	static_assert(__types_ok(x, y),			\
+ 		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
+-	__cmp(op, unique_x, unique_y); })
++	__cmp_once(op, __auto_type, x, y); })
+ 
+ #define __careful_cmp(op, x, y)					\
+ 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+-		__cmp(op, x, y),				\
+-		__cmp_once(op, x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y)))
++		__cmp(op, x, y), __careful_cmp_once(op, x, y))
+ 
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+@@ -158,7 +161,7 @@
+  * @x: first value
+  * @y: second value
+  */
+-#define min_t(type, x, y)	__careful_cmp(min, (type)(x), (type)(y))
++#define min_t(type, x, y) __cmp_once(min, type, x, y)
+ 
+ /**
+  * max_t - return maximum of two values, using the specified type
+@@ -166,7 +169,7 @@
+  * @x: first value
+  * @y: second value
+  */
+-#define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
++#define max_t(type, x, y) __cmp_once(max, type, x, y)
+ 
+ /*
+  * Do not check the array parameter using __must_be_array().
+-- 
+2.47.3
 
