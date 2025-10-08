@@ -4,123 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90BDFCCA472
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 13:33:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D640CCA472
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Oct 2025 13:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37CDD10E813;
-	Wed,  8 Oct 2025 13:33:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C874510E819;
+	Wed,  8 Oct 2025 13:50:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mHp5xmUk";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OX71dsqK";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010021.outbound.protection.outlook.com [52.101.85.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61C2E10E813
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Oct 2025 13:33:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eGFmfo7whI0X2VYyLCvyoUyeOY42F2OMtbfyjlSdS7jSHbBLt7TxCnPPAdH6s6RlSRqRy7gb1fxf/yWxbLn3bvopgmdCv5ywPGcAH/FptZ/F/uIxKbV6zu8lOTOADcSw+ROpPg349YGQ1b2UEMzzc1iTYNnFhgQBxdMz2COdusGGXdmEiVS57zZIAvLumQXs3zSG6w5YmUu1M6mr/OU90eNsnWzlOyjTt5b317m4bjCa4fxbLQxSBnP3p4P58jZzXTzUvqNv4uTOUgWkunL8gAFbCIXWLbqIFGWMHkzjGb7Gml5Gpq9Do5r9DPHZBkcFKCgAtnZhaD8V7SkSw4OliA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ty/pjDKeArtTM8H/Qs2fyGP19dxEumd8U9Aj6ZVEyqE=;
- b=BZIeS0vk8y3ZrcJw7R3WOHC1O699MDb/oKz/Zu6nNs5DqVy1aHVxRUImklOfCjwsNfuy1yNL/ppTsCyAu0a5fknwQYtRXVyuQwrwQ+MrE8CNG4TlPxL9Guxn1/WzqBSUwE8S4hThZBaRFecMCGFShl983mMyNuFJL8c+L7PCQQzHdmitpIrTbhsRid03h8W6194JYz9DBY8VVvyGJt6mgYtffGsVPb6x8qTA6ZbWsIMaYoT+D2fC/Ou7nj7sU5XMgvYApH1OFklOk4UBQ8ff82GH2uhF2YyfGlFmmv038PGzExHgdK4iMAc6FJvOe3HEc+jjCAMr+JexzkzRCOwdKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ty/pjDKeArtTM8H/Qs2fyGP19dxEumd8U9Aj6ZVEyqE=;
- b=mHp5xmUko/vB+qQnTpl1HZFJXmumxCYJZ73WX3G2Tl3J36M4Yg0SVtzIgiwrlYXuOBujyE8GY934CHiq99j44ejEw005pM5sdl2lECxvpVt5V4aDuAoQ0Hb6+Pu/xF+joAuo0SgjYIXAQ+2HWMEzIzLhwGqVAu2rvffXQ/fsrHQ=
-Received: from CH5P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::27)
- by SA1PR12MB6773.namprd12.prod.outlook.com (2603:10b6:806:258::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9182.18; Wed, 8 Oct
- 2025 13:33:23 +0000
-Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
- (2603:10b6:610:1ef:cafe::16) by CH5P220CA0013.outlook.office365.com
- (2603:10b6:610:1ef::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.9 via Frontend Transport; Wed, 8
- Oct 2025 13:33:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Wed, 8 Oct 2025 13:33:22 +0000
-Received: from smc-sc-di15-34.dh144.dcgpu (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 8 Oct 2025 06:33:19 -0700
-From: <will.aitken@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <victor.skvortsov@amd.com>, <lijo.lazar@amd.com>, Will Aitken
- <wiaitken@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: Enable xgmi extended peer links for sriov
- guest
-Date: Wed, 8 Oct 2025 13:32:25 +0000
-Message-ID: <20251008133225.1238028-3-will.aitken@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251008133225.1238028-1-will.aitken@amd.com>
-References: <20251008133225.1238028-1-will.aitken@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFD9410E063;
+ Wed,  8 Oct 2025 13:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=7vRYQ2XT4plbLRuwXv+aUPv2Y3zF3oaW6wkowRvrdqk=; b=OX71dsqKV24RgtzhRR13vLG1B1
+ OTE7Gz7jSb8swvnyFi9s0Zxt4/MKgl+TyhY7jjx+TNHJkGcknlkFlsnT7Z49Cjf9YVXk7o/Z1I5rF
+ vDPtx8irDZMBMo0kS9VcFrb6m6SVu5grsN1QunYX/g3vi7qhu/Jx7GCDwmbPW0NY/q4zbNS+wTnna
+ /Q8HWiaYqtLtkPVbCd7zjLF5QyIzLk3UzdvEIO50UCq7BI+wRUA0jWtk0MveTTaUw51ctrRlprj8d
+ uteR9x1TR7ssqmH/wTLQA+SGtH/HOkxf4oO3JK74hXaZkSZ8wBxix4IFgr3Hy/Ma2XbtnKcE/7y6X
+ d7Mwwk+A==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1v6UYa-006f5w-2k; Wed, 08 Oct 2025 15:50:16 +0200
+Message-ID: <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
+Date: Wed, 8 Oct 2025 14:50:14 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
+ latency
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
+References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
+ <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|SA1PR12MB6773:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa81b556-3140-4459-f538-08de066f4075
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mhMAec760paJ3p8FWqSRjZrLNUG3/f2qDW2UrTVNwoWfDUjOAK7q0FQJbpnF?=
- =?us-ascii?Q?FzPmAJ/6Fh3fDLwbShGq14ofxJl/9Lrv+j+Xl82D3cZcnhgRtnGIUb/qzQDw?=
- =?us-ascii?Q?CsAPq1DWTH1v52MMxQLYkCtXHR9b4rFdYRxiWPMWD0JL+UmIQhas9UQF6ofd?=
- =?us-ascii?Q?EDzUmyK8NOwlLngA+20WkTTNCqXEvOsIErlu1tuSe8fMqibUVCSXSFU1sLTt?=
- =?us-ascii?Q?sgSrBGkSZuaW5jkwZ7yazcFj5Ql4AiJ22f6LOciwES4gZRSPCdKXe56w6DCL?=
- =?us-ascii?Q?Yzd0qcaAsgTluGP2wOWRVmS67iltKaPb70pHH399dRISYYJ64fxPiKhm4ARs?=
- =?us-ascii?Q?gG2yLSizmghNb01fs3JPvT7iQCXqWWfJzEdlz3aOeBu3bXuCZvM7agfP3L9E?=
- =?us-ascii?Q?7Fgringj7f4aE6GTv2RyaUGd6b0Q1NsqFyX1I8wf7h2Yd5kssuUYnKTQM5oO?=
- =?us-ascii?Q?USGPJOM0VgSz1mJ5qkwdOd77tqZYOlhHMvAoisjAig1ishjA0pLx4YP0gcCz?=
- =?us-ascii?Q?I8UOtLaQG9+7IPdlk62fG8INyvf/6xX4o2Uyr+huZvh6agkaiYUPStCBvQvH?=
- =?us-ascii?Q?0g11ZvGlxLw1k/nApegd0jNAYU84v/UihBUoGCAFdr5YF0KqUB2q3AJCN66z?=
- =?us-ascii?Q?MsQOVLj8B0jdRKKBenuK5JhL5J2dBpTrC3TzZp7XPUjHvJKxO9Oej8d6XInf?=
- =?us-ascii?Q?W2iHoFHHKJoCMnniP7DUjU4O7zuXy9ceSdqjGk65W4nLs1Jr7/F/tXW4ID6U?=
- =?us-ascii?Q?Pwq4G3j84lNsxUB3J/A2eK07X4bW65rwRGIcEo4jkLfjEU8XoHQvAqW391Hj?=
- =?us-ascii?Q?UQnA3P51XEuVHd2nrvIChp2hGBLS7bFC2/m7B6XjCGgb9ab2dHD504EA8DMO?=
- =?us-ascii?Q?dNqlLQqAc5JmDR0T8XGJ2copwBrmjB/Belohvam6jzrU8JQZ6u5zThm/1Wh8?=
- =?us-ascii?Q?Cv/bCTXtIVbRnOkqcOPl7zjs9DmP1NOBenxFp/ocGPRza8v8mIo90fjBTNW5?=
- =?us-ascii?Q?nCjqMSwpZujfBVbFbERf76zAD08PL3+Tx9+aSvhrQ4iL+YxZxkjaWAFppN5p?=
- =?us-ascii?Q?+nXsbsXjdND74vPBbHQ+nJlW45Tgp9jjHnYs5bMGHSf4a2K3GG6a55zAV2u1?=
- =?us-ascii?Q?lZ3FxBkTc7v2ozrPMzdgrT8rVjHqN3epakJOYoHVk6IdVUuFaMr6o8nK1l6l?=
- =?us-ascii?Q?nrh2PuBjQA792IvMkWXViwd04kFmO3b9F437nYUzpAMlDTQTQkWra04L4Fhh?=
- =?us-ascii?Q?67x3jf1Y8tb0ltCpOn7c0TGmVrpbyUggInnUcTMib4oM5oQ+P2z5/Se5a/Qw?=
- =?us-ascii?Q?Pr8+27EWcQbLT3JOvTWRVBZhVetn93S0D9nPdTr0lXzgAGl0ikM2U4z3ygxz?=
- =?us-ascii?Q?TBOSGSPVJqMDIyWKkUjdZJTtvllTbkqLKYrmtD1FaqM+Clap+ziM5BGq23XD?=
- =?us-ascii?Q?l51suoPnknqbmbHfQjCVR935YGEJDzLHhMX8Sxp7uxwu9pJkVqzcRIzZaWYk?=
- =?us-ascii?Q?Uc/F02PUwgPRR5wgMeCApfWH28RGO0EirZl17A4xlLzqwnK+3NsKHfk4NsCO?=
- =?us-ascii?Q?G6qM0IRXxMIjMmf8LYE=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2025 13:33:22.5275 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa81b556-3140-4459-f538-08de066f4075
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A34A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6773
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,35 +72,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Will Aitken <wiaitken@amd.com>
 
-The amd-smi tool relies on extended peer link information to report xgmi
-link metrics. The necessary xgmi ta command, GET_EXTEND_PEER_LINKS, has
-been enabled in the host driver and this change is necessary for the
-guest to make use of it. To handle the case where the host driver does
-not have the latest xgmi ta, the guest driver checks for guest support
-through a pf2vf feature flag before invoking psp.
+On 08/10/2025 13:35, Christian König wrote:
+> On 08.10.25 13:53, Tvrtko Ursulin wrote:
+>> Disclaimer:
+>> Please note that as this series includes a patch which touches a good number of
+>> drivers I will only copy everyone in the cover letter and the respective patch.
+>> Assumption is people are subscribed to dri-devel so can look at the whole series
+>> there. I know someone is bound to complain for both the case when everyone is
+>> copied on everything for getting too much email, and also for this other case.
+>> So please be flexible.
+>>
+>> Description:
+>>
+>> All drivers which use the TTM pool allocator end up requesting large order
+>> allocations when allocating large buffers. Those can be slow due memory pressure
+>> and so add latency to buffer creation. But there is often also a size limit
+>> above which contiguous blocks do not bring any performance benefits. This series
+>> allows drivers to say when it is okay for the TTM to try a bit less hard.
+>>
+>> We do this by allowing drivers to specify this cut off point when creating the
+>> TTM device and pools. Allocations above this size will skip direct reclaim so
+>> under memory pressure worst case latency will improve. Background reclaim is
+>> still kicked off and both before and after the memory pressure all the TTM pool
+>> buckets remain to be used as they are today.
+>>
+>> This is especially interesting if someone has configured MAX_PAGE_ORDER to
+>> higher than the default. And even with the default, with amdgpu for example,
+>> the last patch in the series makes use of the new feature by telling TTM that
+>> above 2MiB we do not expect performance benefits. Which makes TTM not try direct
+>> reclaim for the top bucket (4MiB).
+>>
+>> End result is TTM drivers become a tiny bit nicer mm citizens and users benefit
+>> from better worst case buffer creation latencies. As a side benefit we get rid
+>> of two instances of those often very unreadable mutliple nameless booleans
+>> function signatures.
+>>
+>> If this sounds interesting and gets merge the invidual drivers can follow up
+>> with patches configuring their thresholds.
+>>
+>> v2:
+>>   * Christian suggested to pass in the new data by changing the function signatures.
+>>
+>> v3:
+>>   * Moved ttm pool helpers into new ttm_pool_internal.h. (Christian)
+> 
+> Patch #3 is Acked-by: Christian König <christian.koenig@amd.com>.
+>
+> The rest is Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Signed-off-by: Will Aitken <wiaitken@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thank you!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 82500ade240d..b69e376372d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1649,8 +1649,8 @@ int psp_xgmi_get_topology_info(struct psp_context *psp,
- 			amdgpu_ip_version(psp->adev, MP0_HWIP, 0) ==
- 				IP_VERSION(13, 0, 14) ||
- 			amdgpu_sriov_vf(psp->adev);
--		bool ta_port_num_support = amdgpu_sriov_vf(psp->adev) ? 0 :
--				psp->xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD_FLAG;
-+		bool ta_port_num_support = psp->xgmi_context.xgmi_ta_caps & EXTEND_PEER_LINK_INFO_CMD_FLAG ||
-+			amdgpu_sriov_xgmi_ta_ext_peer_link_en(psp->adev);
- 
- 		/* popluate the shared output buffer rather than the cmd input buffer
- 		 * with node_ids as the input for GET_PEER_LINKS command execution.
--- 
-2.43.0
+So I think now I need acks to merge via drm-misc for all the drivers 
+which have their own trees. Which seems to be just xe.
+
+Also interesting for other drivers is that when this lands folks can 
+start passing in their "max size which leads to performance gains" via 
+TTM_POOL_BENEFICIAL_ORDER and get the worst case allocation latency 
+improvements.
+
+I am thinking xe also maxes out at 2MiB pages, for others I don't know.
+
+Regards,
+
+Tvrtko
+
+>> v1 thread:
+>> https://lore.kernel.org/dri-devel/20250919131127.90932-1-tvrtko.ursulin@igalia.com/
+>>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Dave Airlie <airlied@redhat.com>
+>> Cc: Gerd Hoffmann <kraxel@redhat.com>
+>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+>> Cc: Lyude Paul <lyude@redhat.com>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>> Cc: Sui Jingfeng <suijingfeng@loongson.cn>
+>> Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Zack Rusin <zack.rusin@broadcom.com>
+>>
+>> Tvrtko Ursulin (5):
+>>    drm/ttm: Add getter for some pool properties
+>>    drm/ttm: Replace multiple booleans with flags in pool init
+>>    drm/ttm: Replace multiple booleans with flags in device init
+>>    drm/ttm: Allow drivers to specify maximum beneficial TTM pool size
+>>    drm/amdgpu: Configure max beneficial TTM pool allocation order
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  7 +--
+>>   drivers/gpu/drm/drm_gem_vram_helper.c         |  2 +-
+>>   drivers/gpu/drm/i915/intel_region_ttm.c       |  2 +-
+>>   drivers/gpu/drm/loongson/lsdc_ttm.c           |  2 +-
+>>   drivers/gpu/drm/nouveau/nouveau_ttm.c         |  4 +-
+>>   drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
+>>   drivers/gpu/drm/radeon/radeon_ttm.c           |  4 +-
+>>   drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++----
+>>   .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+>>   drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 31 +++++--------
+>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 22 ++++-----
+>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  7 +--
+>>   drivers/gpu/drm/ttm/tests/ttm_pool_test.c     | 23 +++++-----
+>>   drivers/gpu/drm/ttm/ttm_device.c              |  7 ++-
+>>   drivers/gpu/drm/ttm/ttm_pool.c                | 45 +++++++++++--------
+>>   drivers/gpu/drm/ttm/ttm_pool_internal.h       | 24 ++++++++++
+>>   drivers/gpu/drm/ttm/ttm_tt.c                  | 10 +++--
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +-
+>>   drivers/gpu/drm/xe/xe_device.c                |  2 +-
+>>   include/drm/ttm/ttm_device.h                  |  2 +-
+>>   include/drm/ttm/ttm_pool.h                    | 13 +++---
+>>   21 files changed, 125 insertions(+), 106 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/ttm/ttm_pool_internal.h
+>>
+> 
 
