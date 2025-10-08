@@ -4,70 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD657CCD183
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E01BCCD190
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C40A10E955;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ABFD10E958;
 	Thu,  9 Oct 2025 07:45:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eHNIYW4k";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="jCesbbYB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C78210E836;
- Wed,  8 Oct 2025 14:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1759934372; x=1791470372;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=G+qiQDHHViVNMPeYGuH1bOozVLR4PAcdtEr/vJX0luA=;
- b=eHNIYW4kJcBfGw7RYUR/v7bPEWYg/n2p+THZjq01JoqSov3ADgvnT1ll
- U6JC+v1OCUpRrG4FURtnnmmgiQhEAbpES15cftKO7OiKrPXhDaIg4idf2
- bpQogalWZkepLS7+ZVsTaQRuajqyb+cqxHBz5bJB77reHxzGn2bEHiolQ
- jG5ZA70ZaWB56TUOnLJNb/M/fcLPD7tWacQiU31veiN/RJrSE+60+99eM
- uh34OCBfw/LubIliXlnomKdM48kJIE64YS0fDgoZNTvTinqKxQmqccWM2
- Nbz4PFbTafCK/i6WE+M1PdeuQvexxA0mLzYDtZxq0TtvY36uGGkLftUL7 A==;
-X-CSE-ConnectionGUID: 7ekhOoH6TNeeLNBBJhkXig==
-X-CSE-MsgGUID: F7WJAOmzR0iSBkzpTHi+mw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11576"; a="72392567"
-X-IronPort-AV: E=Sophos;i="6.19,213,1754982000"; d="scan'208";a="72392567"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2025 07:39:31 -0700
-X-CSE-ConnectionGUID: ZJe75O3iTiegst/SvmbQAQ==
-X-CSE-MsgGUID: OsZW+6fuRHC13BchAqT1wg==
-X-ExtLoop1: 1
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.244.126])
- ([10.245.244.126])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2025 07:39:27 -0700
-Message-ID: <45973012f925dbbfdf0636c10f9d051c34f97e2e.camel@linux.intel.com>
-Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
- latency
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Tvrtko
- Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org, Lucas
- De Marchi	 <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi	 <rodrigo.vivi@intel.com>
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, Danilo
- Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>, Gerd
- Hoffmann <kraxel@redhat.com>,  Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Lyude Paul <lyude@redhat.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>, Thadeu Lima
- de Souza Cascardo <cascardo@igalia.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 08 Oct 2025 16:39:25 +0200
-In-Reply-To: <9bb3c06e-25c1-43d8-a4e8-e529c53ff77d@amd.com>
-References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
- <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
- <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
- <9bb3c06e-25c1-43d8-a4e8-e529c53ff77d@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF7F10E843;
+ Wed,  8 Oct 2025 15:30:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759937434; x=1791473434;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=CCU0o8wSJQJX56U4+pnGKdTopFZ/0WcuCtYzGhhpTrQ=;
+ b=jCesbbYBP6CWWBcIqXtWJ+69l7h21tZW8ZJ9IlxJeqEuDMJlrnFxoGM4
+ LvdX1eZ6DdawqD6f/0iso40wB+v0PhenQjzQmG8H/l42mJmpM0TcWRfG9
+ gT2fGl/IyXC89GOie7sMJ7lbmei/AmeFlZ/UlYuFUK9AYdD9FKvuJli43
+ m1rB2aKNvU0dMFyKhadRU1sFJuZNpRdY7LyDqEw3AO/ioBo5RLyiWdKFV
+ Z0zBK9xMocbVHJ3wPU1ECsmuPatVQjKI6tDK2PNkuIMWXokBrCdlBneVx
+ Fmi6e1qwIyzIwS6lBeQQQ8UBqCWsK1hXErwUsiQFn9lZxa39LwR4V4x7K w==;
+X-CSE-ConnectionGUID: FAdGmmW+T0+u0jQ2d4QeBQ==
+X-CSE-MsgGUID: X3yDuui9Sv2jpaN6sKHe0A==
+X-IronPort-AV: E=Sophos;i="6.19,213,1754956800"; 
+   d="scan'208";a="4533988"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+ by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:30:32 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [10.0.21.151:27231]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.57.112:2525]
+ with esmtp (Farcaster)
+ id 01dd130f-bec0-4f9d-8bb2-391e29d56fcd; Wed, 8 Oct 2025 15:30:32 +0000 (UTC)
+X-Farcaster-Flow-ID: 01dd130f-bec0-4f9d-8bb2-391e29d56fcd
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 8 Oct 2025 15:30:30 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 8 Oct 2025
+ 15:30:17 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+CC: Andy Shevchenko <andy.shevchenko@gmail.com>, Christophe Leroy
+ <christophe.leroy@csgroup.eu>
+Subject: [PATCH v3 02/19 5.15.y] minmax: Introduce {min,max}_array()
+Date: Wed, 8 Oct 2025 15:29:27 +0000
+Message-ID: <20251008152946.29285-3-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251008152946.29285-1-farbere@amazon.com>
+References: <20251008152946.29285-1-farbere@amazon.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D032UWA001.ant.amazon.com (10.13.139.62) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Thu, 09 Oct 2025 07:45:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,103 +120,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-10-08 at 16:02 +0200, Christian K=C3=B6nig wrote:
-> On 08.10.25 15:50, Tvrtko Ursulin wrote:
-> >=20
-> > On 08/10/2025 13:35, Christian K=C3=B6nig wrote:
-> > > On 08.10.25 13:53, Tvrtko Ursulin wrote:
-> > > > Disclaimer:
-> > > > Please note that as this series includes a patch which touches
-> > > > a good number of
-> > > > drivers I will only copy everyone in the cover letter and the
-> > > > respective patch.
-> > > > Assumption is people are subscribed to dri-devel so can look at
-> > > > the whole series
-> > > > there. I know someone is bound to complain for both the case
-> > > > when everyone is
-> > > > copied on everything for getting too much email, and also for
-> > > > this other case.
-> > > > So please be flexible.
-> > > >=20
-> > > > Description:
-> > > >=20
-> > > > All drivers which use the TTM pool allocator end up requesting
-> > > > large order
-> > > > allocations when allocating large buffers. Those can be slow
-> > > > due memory pressure
-> > > > and so add latency to buffer creation. But there is often also
-> > > > a size limit
-> > > > above which contiguous blocks do not bring any performance
-> > > > benefits. This series
-> > > > allows drivers to say when it is okay for the TTM to try a bit
-> > > > less hard.
-> > > >=20
-> > > > We do this by allowing drivers to specify this cut off point
-> > > > when creating the
-> > > > TTM device and pools. Allocations above this size will skip
-> > > > direct reclaim so
-> > > > under memory pressure worst case latency will improve.
-> > > > Background reclaim is
-> > > > still kicked off and both before and after the memory pressure
-> > > > all the TTM pool
-> > > > buckets remain to be used as they are today.
-> > > >=20
-> > > > This is especially interesting if someone has configured
-> > > > MAX_PAGE_ORDER to
-> > > > higher than the default. And even with the default, with amdgpu
-> > > > for example,
-> > > > the last patch in the series makes use of the new feature by
-> > > > telling TTM that
-> > > > above 2MiB we do not expect performance benefits. Which makes
-> > > > TTM not try direct
-> > > > reclaim for the top bucket (4MiB).
-> > > >=20
-> > > > End result is TTM drivers become a tiny bit nicer mm citizens
-> > > > and users benefit
-> > > > from better worst case buffer creation latencies. As a side
-> > > > benefit we get rid
-> > > > of two instances of those often very unreadable mutliple
-> > > > nameless booleans
-> > > > function signatures.
-> > > >=20
-> > > > If this sounds interesting and gets merge the invidual drivers
-> > > > can follow up
-> > > > with patches configuring their thresholds.
-> > > >=20
-> > > > v2:
-> > > > =C2=A0 * Christian suggested to pass in the new data by changing th=
-e
-> > > > function signatures.
-> > > >=20
-> > > > v3:
-> > > > =C2=A0 * Moved ttm pool helpers into new ttm_pool_internal.h.
-> > > > (Christian)
-> > >=20
-> > > Patch #3 is Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>=
-.
-> > >=20
-> > > The rest is Reviewed-by: Christian K=C3=B6nig
-> > > <christian.koenig@amd.com>
-> >=20
-> > Thank you!
-> >=20
-> > So I think now I need acks to merge via drm-misc for all the
-> > drivers which have their own trees. Which seems to be just xe.
->=20
-> I think you should ping the XE guys for their opinion, but since
-> there shouldn't be any functional change for them you can probably go
-> ahead and merge the patches to drm-misc-next when there is no reply
-> in time.
+From: Herve Codina <herve.codina@bootlin.com>
 
-I will try to do a review tonight. One thing that comes up though, is
-the change to ttm_device_init() where you add pool_flags. I had another
-patch series a number of months ago that added a struct with flags
-there instead to select the return value given when OOM. Now that we're
-adding an argument, should we try to use a struct instead so that we
-can use it for more that pool behavior?
+[ Upstream commit c952c748c7a983a8bda9112984e6f2c1f6e441a5 ]
 
+Introduce min_array() (resp max_array()) in order to get the
+minimal (resp maximum) of values present in an array.
 
-I'll be able to find a pointer to that series later today.
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+Link: https://lore.kernel.org/r/20230623085830.749991-8-herve.codina@bootlin.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 64 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-/Thomas
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index d4bc394b449e..aac0b7d23768 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -168,6 +168,70 @@
+  */
+ #define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
+ 
++/*
++ * Remove a const qualifier from integer types
++ * _Generic(foo, type-name: association, ..., default: association) performs a
++ * comparison against the foo type (not the qualified type).
++ * Do not use the const keyword in the type-name as it will not match the
++ * unqualified type of foo.
++ */
++#define __unconst_integer_type_cases(type)	\
++	unsigned type:  (unsigned type)0,	\
++	signed type:    (signed type)0
++
++#define __unconst_integer_typeof(x) typeof(			\
++	_Generic((x),						\
++		char: (char)0,					\
++		__unconst_integer_type_cases(char),		\
++		__unconst_integer_type_cases(short),		\
++		__unconst_integer_type_cases(int),		\
++		__unconst_integer_type_cases(long),		\
++		__unconst_integer_type_cases(long long),	\
++		default: (x)))
++
++/*
++ * Do not check the array parameter using __must_be_array().
++ * In the following legit use-case where the "array" passed is a simple pointer,
++ * __must_be_array() will return a failure.
++ * --- 8< ---
++ * int *buff
++ * ...
++ * min = min_array(buff, nb_items);
++ * --- 8< ---
++ *
++ * The first typeof(&(array)[0]) is needed in order to support arrays of both
++ * 'int *buff' and 'int buff[N]' types.
++ *
++ * The array can be an array of const items.
++ * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
++ * to discard the const qualifier for the __element variable.
++ */
++#define __minmax_array(op, array, len) ({				\
++	typeof(&(array)[0]) __array = (array);				\
++	typeof(len) __len = (len);					\
++	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
++	while (__len--)							\
++		__element = op(__element, __array[__len]);		\
++	__element; })
++
++/**
++ * min_array - return minimum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define min_array(array, len) __minmax_array(min, array, len)
++
++/**
++ * max_array - return maximum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define max_array(array, len) __minmax_array(max, array, len)
++
+ /**
+  * clamp_t - return a value clamped to a given range using a given type
+  * @type: the type of variable to use
+-- 
+2.47.3
 
