@@ -4,113 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A6CCCD183
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 07:45:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D15CCD183
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 08:41:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E28F10E960;
-	Thu,  9 Oct 2025 07:45:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3E0210E3A5;
+	Thu,  9 Oct 2025 08:41:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="h39NG35z";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kV6+JiOC";
 	dkim-atps=neutral
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
- (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
- [35.162.73.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3768410E845;
- Wed,  8 Oct 2025 15:35:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1759937711; x=1791473711;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eLjmOO9Imra/tK5RPFIsLXDdpmNXUJwWiKD0++d4PGI=;
- b=h39NG35zcq5E08jXcj3CIRg8k3ikyKoEWeOVgEiNtRz4aijVuzhwNuyJ
- UdfBDs/YXmHWbSM7neldcGBvDMMeOk0AqrAsemocQe0YqYet8TxM05mLS
- 7bw86puBRhgnYN264QjPoj/BaxvI5+XPAzQn5QOlb6j6ChVhYnjmppE/U
- zoL16QjvBxMNR5OZWLzkULou87uNfuTSzfbSP/VZ5M+SQCTBmlS6o8YlM
- KcSPCjimKTIEyqsOc8OjR5AST9han+/vZK4PtdO026BfS5ptpMiirkTpc
- jxXQu5OKuGyUOBcaGM5YImZGq0ikPLkF1xW4wTmyHnOF4tKc3FOgXGqp2 g==;
-X-CSE-ConnectionGUID: JFTwpYlxQF+OdSuop/1SoA==
-X-CSE-MsgGUID: l9FLg6/oReqAeyRn+sHnCg==
-X-IronPort-AV: E=Sophos;i="6.19,213,1754956800"; 
-   d="scan'208";a="4335187"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO
- smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
- by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2025 15:35:10 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [10.0.21.151:60851]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.32.215:2525]
- with esmtp (Farcaster)
- id 4967a172-733c-46f4-9c4f-9e2cdf3d821c; Wed, 8 Oct 2025 15:35:10 +0000 (UTC)
-X-Farcaster-Flow-ID: 4967a172-733c-46f4-9c4f-9e2cdf3d821c
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Wed, 8 Oct 2025 15:35:07 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 8 Oct 2025
- 15:34:53 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
- <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
- <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
- <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
- <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
- <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
- <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
- <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
- <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
- <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
- <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
- <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
- <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
- <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
- <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
- <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
- <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
- <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
- <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
- <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
- <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
- <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld"
- <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes
- <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro
- Falcato" <pedro.falcato@gmail.com>
-Subject: [PATCH v3 17/19 5.15.y] minmax.h: move all the clamp() definitions
- after the min/max() ones
-Date: Wed, 8 Oct 2025 15:29:42 +0000
-Message-ID: <20251008152946.29285-18-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251008152946.29285-1-farbere@amazon.com>
-References: <20251008152946.29285-1-farbere@amazon.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB3010E3A5;
+ Thu,  9 Oct 2025 08:41:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=KI8uRmmfqGOWp/w2THZwVCQfpnxvfCgEqP5k1maGyb4=; b=kV6+JiOCULHNZ6P7Fip+6YPcQ+
+ FiJP3hstnuKyNaI6pUCXbaekd++Zeyar7hAkskBbFd524hoCO0f91EsVyfe1WbqWV56KxXxobJShF
+ JurnGP32VkHNwYM7BFsP+FKPD28htaltYNiVO/ObHTf/7cAm2QFpj1OJ/SGQS9xboJjX3kNHe8uAP
+ l8akDzEMiHMoVxW3Jd6Z91tLvWNms1omSuyrmkx3WoyDTNPatjJzCZS9W1M3wG/nzzl/mEz6FI7Lh
+ Wi0TSoeUYuLOvN8OVutTDbraTMVl4E3Y46/qS2zI7UiWIxf8WCfuNLOSB7utNC9gdfn3l4TBrWMwA
+ TYa6PY5A==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1v6mDA-007N5p-7c; Thu, 09 Oct 2025 10:41:20 +0200
+Message-ID: <887248b2-98ff-4a04-869a-7a1668771251@igalia.com>
+Date: Thu, 9 Oct 2025 09:41:18 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
+ latency
+To: Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
+References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
+ <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
+ <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
+ <fe98edc2-cc18-4c44-a4cb-5c41b60834e6@intel.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <fe98edc2-cc18-4c44-a4cb-5c41b60834e6@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D036UWC004.ant.amazon.com (10.13.139.205) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-X-Mailman-Approved-At: Thu, 09 Oct 2025 07:45:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,185 +75,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit c3939872ee4a6b8bdcd0e813c66823b31e6e26f7 ]
+On 08/10/2025 15:34, Matthew Auld wrote:
+> On 08/10/2025 14:50, Tvrtko Ursulin wrote:
+>>
+>> On 08/10/2025 13:35, Christian König wrote:
+>>> On 08.10.25 13:53, Tvrtko Ursulin wrote:
+>>>> Disclaimer:
+>>>> Please note that as this series includes a patch which touches a 
+>>>> good number of
+>>>> drivers I will only copy everyone in the cover letter and the 
+>>>> respective patch.
+>>>> Assumption is people are subscribed to dri-devel so can look at the 
+>>>> whole series
+>>>> there. I know someone is bound to complain for both the case when 
+>>>> everyone is
+>>>> copied on everything for getting too much email, and also for this 
+>>>> other case.
+>>>> So please be flexible.
+>>>>
+>>>> Description:
+>>>>
+>>>> All drivers which use the TTM pool allocator end up requesting large 
+>>>> order
+>>>> allocations when allocating large buffers. Those can be slow due 
+>>>> memory pressure
+>>>> and so add latency to buffer creation. But there is often also a 
+>>>> size limit
+>>>> above which contiguous blocks do not bring any performance benefits. 
+>>>> This series
+>>>> allows drivers to say when it is okay for the TTM to try a bit less 
+>>>> hard.
+>>>>
+>>>> We do this by allowing drivers to specify this cut off point when 
+>>>> creating the
+>>>> TTM device and pools. Allocations above this size will skip direct 
+>>>> reclaim so
+>>>> under memory pressure worst case latency will improve. Background 
+>>>> reclaim is
+>>>> still kicked off and both before and after the memory pressure all 
+>>>> the TTM pool
+>>>> buckets remain to be used as they are today.
+>>>>
+>>>> This is especially interesting if someone has configured 
+>>>> MAX_PAGE_ORDER to
+>>>> higher than the default. And even with the default, with amdgpu for 
+>>>> example,
+>>>> the last patch in the series makes use of the new feature by telling 
+>>>> TTM that
+>>>> above 2MiB we do not expect performance benefits. Which makes TTM 
+>>>> not try direct
+>>>> reclaim for the top bucket (4MiB).
+>>>>
+>>>> End result is TTM drivers become a tiny bit nicer mm citizens and 
+>>>> users benefit
+>>>> from better worst case buffer creation latencies. As a side benefit 
+>>>> we get rid
+>>>> of two instances of those often very unreadable mutliple nameless 
+>>>> booleans
+>>>> function signatures.
+>>>>
+>>>> If this sounds interesting and gets merge the invidual drivers can 
+>>>> follow up
+>>>> with patches configuring their thresholds.
+>>>>
+>>>> v2:
+>>>>   * Christian suggested to pass in the new data by changing the 
+>>>> function signatures.
+>>>>
+>>>> v3:
+>>>>   * Moved ttm pool helpers into new ttm_pool_internal.h. (Christian)
+>>>
+>>> Patch #3 is Acked-by: Christian König <christian.koenig@amd.com>.
+>>>
+>>> The rest is Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>> Thank you!
+>>
+>> So I think now I need acks to merge via drm-misc for all the drivers 
+>> which have their own trees. Which seems to be just xe.
+>>
+>> Also interesting for other drivers is that when this lands folks can 
+>> start passing in their "max size which leads to performance gains" via 
+>> TTM_POOL_BENEFICIAL_ORDER and get the worst case allocation latency 
+>> improvements.
+>>
+>> I am thinking xe also maxes out at 2MiB pages, for others I don't know.
+> 
+> Yeah, next level up from 2M GTT page is still 1G GTT page. I think we 
+> especially need 64K/2M system memory pages on igpu to get some perf back 
+> when enabling iommu on some platforms IIRC. Not aware of really needing 
+>  > 2M so sounds like we might also benefit by maxing out at 2M, if it 
+> reduces allocation latency in some cases.
 
-At some point the definitions for clamp() got added in the middle of the
-ones for min() and max().  Re-order the definitions so they are more
-sensibly grouped.
+To clarify a bit, the current semantics of the series is not to max out 
+at the order specified by the driver as the "max beneficial", but to 
+just skip doing direct reclaim above it. Otherwise TTM pool allocator 
+keeps the current behaviour of trying from MAX_PAGE_ORDER and down. As 
+that is 4MB by default on x86 (and configurable on some platforms via 
+Kconfig), idea is not to pay the latency cost of direct reclaim for 
+sizes which bring no additional performance benefit to the GPU. And 
+since it will kick off background reclaim, both past and future 
+allocation can still get the larger order blocks.
 
-Link: https://lkml.kernel.org/r/8bb285818e4846469121c8abc3dfb6e2@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
- include/linux/minmax.h | 109 +++++++++++++++++++----------------------
- 1 file changed, 51 insertions(+), 58 deletions(-)
+If in the future we want to actually max out at the driver specified 
+size that could be discussed. But for now I wanted to have the smallest 
+change in behaviour possible.
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 91aa1b90c1bb..75fb7a6ad4c6 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -99,22 +99,6 @@
- #define __careful_cmp(op, x, y) \
- 	__careful_cmp_once(op, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
- 
--#define __clamp(val, lo, hi)	\
--	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
--
--#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
--	__auto_type uval = (val);						\
--	__auto_type ulo = (lo);							\
--	__auto_type uhi = (hi);							\
--	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
--		"clamp() low limit " #lo " greater than high limit " #hi);	\
--	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
--		"clamp("#val", "#lo", "#hi") signedness error");		\
--	__clamp(uval, ulo, uhi); })
--
--#define __careful_clamp(val, lo, hi) \
--	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
--
- /**
-  * min - return minimum of two values of the same or compatible types
-  * @x: first value
-@@ -170,6 +154,22 @@
- #define max3(x, y, z) \
- 	__careful_op3(max, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
- 
-+/**
-+ * min_t - return minimum of two values, using the specified type
-+ * @type: data type to use
-+ * @x: first value
-+ * @y: second value
-+ */
-+#define min_t(type, x, y) __cmp_once(min, type, x, y)
-+
-+/**
-+ * max_t - return maximum of two values, using the specified type
-+ * @type: data type to use
-+ * @x: first value
-+ * @y: second value
-+ */
-+#define max_t(type, x, y) __cmp_once(max, type, x, y)
-+
- /**
-  * min_not_zero - return the minimum that is _not_ zero, unless both are zero
-  * @x: value1
-@@ -180,6 +180,22 @@
- 	typeof(y) __y = (y);			\
- 	__x == 0 ? __y : ((__y == 0) ? __x : min(__x, __y)); })
- 
-+#define __clamp(val, lo, hi)	\
-+	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
-+
-+#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
-+	__auto_type uval = (val);						\
-+	__auto_type ulo = (lo);							\
-+	__auto_type uhi = (hi);							\
-+	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
-+		"clamp() low limit " #lo " greater than high limit " #hi);	\
-+	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
-+		"clamp("#val", "#lo", "#hi") signedness error");		\
-+	__clamp(uval, ulo, uhi); })
-+
-+#define __careful_clamp(val, lo, hi) \
-+	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-+
- /**
-  * clamp - return a value clamped to a given range with strict typechecking
-  * @val: current value
-@@ -191,28 +207,30 @@
-  */
- #define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
- 
--/*
-- * ..and if you can't take the strict
-- * types, you can specify one yourself.
-- *
-- * Or not use min/max/clamp at all, of course.
-- */
--
- /**
-- * min_t - return minimum of two values, using the specified type
-- * @type: data type to use
-- * @x: first value
-- * @y: second value
-+ * clamp_t - return a value clamped to a given range using a given type
-+ * @type: the type of variable to use
-+ * @val: current value
-+ * @lo: minimum allowable value
-+ * @hi: maximum allowable value
-+ *
-+ * This macro does no typechecking and uses temporary variables of type
-+ * @type to make all the comparisons.
-  */
--#define min_t(type, x, y) __cmp_once(min, type, x, y)
-+#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
- 
- /**
-- * max_t - return maximum of two values, using the specified type
-- * @type: data type to use
-- * @x: first value
-- * @y: second value
-+ * clamp_val - return a value clamped to a given range using val's type
-+ * @val: current value
-+ * @lo: minimum allowable value
-+ * @hi: maximum allowable value
-+ *
-+ * This macro does no typechecking and uses temporary variables of whatever
-+ * type the input argument @val is.  This is useful when @val is an unsigned
-+ * type and @lo and @hi are literals that will otherwise be assigned a signed
-+ * integer type.
-  */
--#define max_t(type, x, y) __cmp_once(max, type, x, y)
-+#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
- 
- /*
-  * Do not check the array parameter using __must_be_array().
-@@ -257,31 +275,6 @@
-  */
- #define max_array(array, len) __minmax_array(max, array, len)
- 
--/**
-- * clamp_t - return a value clamped to a given range using a given type
-- * @type: the type of variable to use
-- * @val: current value
-- * @lo: minimum allowable value
-- * @hi: maximum allowable value
-- *
-- * This macro does no typechecking and uses temporary variables of type
-- * @type to make all the comparisons.
-- */
--#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
--
--/**
-- * clamp_val - return a value clamped to a given range using val's type
-- * @val: current value
-- * @lo: minimum allowable value
-- * @hi: maximum allowable value
-- *
-- * This macro does no typechecking and uses temporary variables of whatever
-- * type the input argument @val is.  This is useful when @val is an unsigned
-- * type and @lo and @hi are literals that will otherwise be assigned a signed
-- * integer type.
-- */
--#define clamp_val(val, lo, hi) clamp_t(typeof(val), val, lo, hi)
--
- static inline bool in_range64(u64 val, u64 start, u64 len)
- {
- 	return (val - start) < len;
--- 
-2.47.3
+Regards,
+
+Tvrtko
+
+>>>> v1 thread:
+>>>> https://lore.kernel.org/dri-devel/20250919131127.90932-1- 
+>>>> tvrtko.ursulin@igalia.com/
+>>>>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>>> Cc: Dave Airlie <airlied@redhat.com>
+>>>> Cc: Gerd Hoffmann <kraxel@redhat.com>
+>>>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>>>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+>>>> Cc: Lyude Paul <lyude@redhat.com>
+>>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>>>> Cc: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>> Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>>> Cc: Zack Rusin <zack.rusin@broadcom.com>
+>>>>
+>>>> Tvrtko Ursulin (5):
+>>>>    drm/ttm: Add getter for some pool properties
+>>>>    drm/ttm: Replace multiple booleans with flags in pool init
+>>>>    drm/ttm: Replace multiple booleans with flags in device init
+>>>>    drm/ttm: Allow drivers to specify maximum beneficial TTM pool size
+>>>>    drm/amdgpu: Configure max beneficial TTM pool allocation order
+>>>>
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  7 +--
+>>>>   drivers/gpu/drm/drm_gem_vram_helper.c         |  2 +-
+>>>>   drivers/gpu/drm/i915/intel_region_ttm.c       |  2 +-
+>>>>   drivers/gpu/drm/loongson/lsdc_ttm.c           |  2 +-
+>>>>   drivers/gpu/drm/nouveau/nouveau_ttm.c         |  4 +-
+>>>>   drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
+>>>>   drivers/gpu/drm/radeon/radeon_ttm.c           |  4 +-
+>>>>   drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++----
+>>>>   .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+>>>>   drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 31 +++++--------
+>>>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 22 ++++-----
+>>>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  7 +--
+>>>>   drivers/gpu/drm/ttm/tests/ttm_pool_test.c     | 23 +++++-----
+>>>>   drivers/gpu/drm/ttm/ttm_device.c              |  7 ++-
+>>>>   drivers/gpu/drm/ttm/ttm_pool.c                | 45 ++++++++++ 
+>>>> +--------
+>>>>   drivers/gpu/drm/ttm/ttm_pool_internal.h       | 24 ++++++++++
+>>>>   drivers/gpu/drm/ttm/ttm_tt.c                  | 10 +++--
+>>>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +-
+>>>>   drivers/gpu/drm/xe/xe_device.c                |  2 +-
+>>>>   include/drm/ttm/ttm_device.h                  |  2 +-
+>>>>   include/drm/ttm/ttm_pool.h                    | 13 +++---
+>>>>   21 files changed, 125 insertions(+), 106 deletions(-)
+>>>>   create mode 100644 drivers/gpu/drm/ttm/ttm_pool_internal.h
+>>>>
+>>>
+>>
+> 
 
