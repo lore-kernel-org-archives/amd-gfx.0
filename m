@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9D88CCD18A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 19:09:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E711CCD184
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 19:10:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7119C10EAF8;
-	Thu,  9 Oct 2025 19:09:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3961210EAFA;
+	Thu,  9 Oct 2025 19:10:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T1GmlAMg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jb7ZG9Sv";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7127B10EAF8
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 19:09:08 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-27eca7297a7so1889795ad.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 12:09:08 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF05510EAFA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 19:10:40 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-26e81c17d60so2338945ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 12:10:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760036948; x=1760641748; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760037040; x=1760641840; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=k2f0qiPdLVn0zJXkx0STmg3r7ArBWPKQHgzGs185EU4=;
- b=T1GmlAMgEsBxHADDugUv4w5Irbo5uLcj8NmrooktqXbCZhr3r4EjRkUT6xphhBGKib
- ffdc/ZokyvobRxT63lyst7Fkdrmos+Id3nGzuemNZJwUQ6kHOfVR3M6cP3l8aIodpS+g
- JwkTJE61CoRSuZ9pfxYfa1uxruzPItINpIznoBsxAtjN5pj/kHO8Uj9w8hc273VDE3sJ
- c8mK2KK8DaRK7oRc7pJf/Na2uX3diUxdmQvIXu/YDJQq6YY1WNwfvfI9M0LtdG07C5yw
- C4R5hCLT6ae2FL1ZPdq9zcBsHZUv5nqEz0Ww3oLmLk8aF+WkE5xucSFVcQHYBGDHs/jv
- VVYQ==
+ bh=2sOoh7nsZK582JNQ/XqDjK+l+cDOPOZTvHzw/iyTerw=;
+ b=jb7ZG9SvEd3wmtlEm3QeCDa/bxB+Qc5RHtzxiIOUxMeruwJ8nzkTx5MCkffTZeKRsn
+ UDJ4L/cV337Pki3kRK5HUJ81XDQN2QCGWTbkpGNBRXAf/gcjjYJWQnnd7RM2rvEv9psG
+ YqAgzzZ7vOFujKYOgFKVSJEr3bFrLZNJVOevygRSmaQnIREfxG3NKCbJ0k3CTcrygnhx
+ i0iqgm3XdJkp2lFRYMF0Ft98uxj8EcGhrdi5idRrVPVcuheg40AHrUAbunZtDnjW7H0E
+ oGY0IMh9FVHhwG1u79eWmGOm+jWSixO84pJGwr4D4mG5Ppb33Y/Q5OiuTcjrxJat2iZb
+ t2HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760036948; x=1760641748;
+ d=1e100.net; s=20230601; t=1760037040; x=1760641840;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=k2f0qiPdLVn0zJXkx0STmg3r7ArBWPKQHgzGs185EU4=;
- b=IfiGdUnJIkE7KuzBRwltn0n9wKl3OZnO+Z2ETkN6dHYGiTxc/kGp/dj+2D7uh9EQIg
- X7DVo+622AEBnIc8pjXDfttQoh0J3XCmZk/NqvrNX4tqreA1rvKBjV+24fKgEZZmGDou
- 5w3wnGXgU2vOrrVdgCROvqbjX1ZkszPnI5SL5hkukRseYeYJHXGgV08W/6MMzl+8zYB3
- NYH6a+Alwzt+I4RL7yVZscL62cjh7VPWvrVdXs7BBt1l1KARojkTFgjTczBzdY5aqsDU
- LGDzIoaomau6eF3rB1A1dR/8QOfHoXZuCekCCK6pNT8rkRSh3/yxZBF0zCpd9Z+IJ9Dv
- SITA==
-X-Gm-Message-State: AOJu0Yw+nY2yP4fqVPjAAjlpVzF73R9CetrloWP8F14cEdKpCmz5PNcR
- hqwgI8fzEit/pIAdT3F6FLuhLbpUcUQrr3xz+bpBcd7xocW/g77xBObOpOL+9ey8wAV9PWpPVwH
- gyKwTaPnAbEygEG4uTdwrYkGQxS5skOhDrQ==
-X-Gm-Gg: ASbGncs1FisyZHLEbNmLnwb4n2P96fPEPvDfPzaGZWktqAXr02s42UuwvbUNTiunLOt
- F6OYKuOBsmXjSDUDwFV9xX6FD0TzYp/PKZQLTGYsFC551Y3WiBtFsqZKOq2/4E8Dwjp15vG3TCn
- axvkt13xrdp8czkGDgn9CxUW2cdhN1fStE3ndP7hHhOjbHt/iVk86VwVYoB9fplsGpy9o7vQES5
- FL/s/YLCT3abcdZuf0EIas/DY+I+48=
-X-Google-Smtp-Source: AGHT+IHV2q9O45w8kJ2Fdsf/i5r2m6c7Tv0o8aZyB2F6ciwC7MJkheJhjELOe/zNU40UrHCIt4PP4X2A0dRecMV+m4M=
-X-Received: by 2002:a17:902:d506:b0:267:af07:652f with SMTP id
- d9443c01a7336-290273369aemr58030575ad.10.1760036947958; Thu, 09 Oct 2025
- 12:09:07 -0700 (PDT)
+ bh=2sOoh7nsZK582JNQ/XqDjK+l+cDOPOZTvHzw/iyTerw=;
+ b=EJOdbYjCQjeuycMKTBt2i+cqq9vvaLYyKEWSLWizHmmqg/Zdi8JfPsmADrZC2iGHk+
+ Ud2xjByGBPz8oh9NGWij8Nxc64Ioqc6CFjXZUj6/VQCqYaRpmjeWTodjOTLTue2oE5jt
+ MKcf0Bj3Q+C0kl8lrGjTHlND+k65xT1xv9Qr6cjgbjPnIpfvQ+/H7nNSB7mlMhzkpee9
+ 8X4KI3ijFTKDy77XGitYLQkFIrKAXXexv3nmpV86ij78kHmxcJ0/pWo3x/6pTFpXnSj3
+ I3d9h5q8L08+PaVz/BV21q40iVRHGQgNPbbZuW/WWbf9b6VFbvJC9YHMaiK0ZCFFuWvl
+ rqEw==
+X-Gm-Message-State: AOJu0Yziq5yx6EaNhq9WEMxtKTnxZCBq0/QX2bX/ZTbb4gtmTIX10GgM
+ X3++YSGJm7KIbKnZand62uYAjZ2TB21LW8RRCASfzWmBkpgg8bocDYlBlrkKLWasJSy4G1YQlPB
+ oOOBzNJR8MbFAtZ1oOIQU8n4sC358VP6gpA==
+X-Gm-Gg: ASbGncsPV9sZuqLozOrOI4TUYhsGb20/3QnrK5d1BOWcFRHoCA4VE2qyvapfilsEB1h
+ Oet6ClT1rdbHu7CSHe7Aq8vH+peWxTvh/Vd63Del6khBE9gSPQ75+2M/yVmqB95WldlV0j+ns2m
+ XGRNmxXZL8/E71lW+WH27AM3eun6A810SKFTX1xC54phvC/TZVoUjNg4E08kn78ytmkYISzb/z4
+ IouZLtQUCLLLbSkqBgRAU8LvxUrec8=
+X-Google-Smtp-Source: AGHT+IGYdg2G7ZbSCYPsIq00Ma3Yh4Vr9vrNMn0LMj6NwC6nVEhlL7x27JXOawN8R0fgmnqqmbi5vkYyQh9PnDd8TwI=
+X-Received: by 2002:a17:902:e849:b0:27e:e96a:4bf with SMTP id
+ d9443c01a7336-290273c6246mr69960805ad.2.1760037040253; Thu, 09 Oct 2025
+ 12:10:40 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251009184929.1038298-1-jonathan.kim@amd.com>
- <20251009184929.1038298-5-jonathan.kim@amd.com>
-In-Reply-To: <20251009184929.1038298-5-jonathan.kim@amd.com>
+ <20251009184929.1038298-6-jonathan.kim@amd.com>
+In-Reply-To: <20251009184929.1038298-6-jonathan.kim@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Oct 2025 15:08:56 -0400
-X-Gm-Features: AS18NWDiYkJexSlwRlPFi1FY4k9hlYWTGnmw6s4pmFRNmT0Iz_tEXcN-K-XCtQc
-Message-ID: <CADnq5_OrEiFhqZFKUgspbjYGY5tXWn_iSK5Jz6pO8XWPJgTCsg@mail.gmail.com>
-Subject: Re: [PATCH 4/6] drm/amdgpu: enable suspend/resume all for gfx 12
+Date: Thu, 9 Oct 2025 15:10:27 -0400
+X-Gm-Features: AS18NWCSic7vUUq0ESHPxkkBVsrw6-H_v-ky1_b3HRjGQFdQbg4tWbgjSstS6uc
+Message-ID: <CADnq5_NB1Tm951Spi60HEBFYykAVGCWtGyNU=ckbqz=Q9qMhRA@mail.gmail.com>
+Subject: Re: [PATCH 5/6] drm/amdkfd: fix suspend/resume all calls in mes based
+ eviction path
 To: Jonathan Kim <jonathan.kim@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Shaoyun.Liu@amd.com, Harish.Kasiviswanathan@amd.com, Amber.Lin@amd.com
@@ -85,49 +86,141 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Thu, Oct 9, 2025 at 2:50=E2=80=AFPM Jonathan Kim <jonathan.kim@amd.com> =
 wrote:
 >
-> Suspend/resume all gangs has been available for GFX12 for a while now
-> so enable it.
-
-Is this true for all released gfx12 MES firmwares?  If so,
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Suspend/resume all gangs should be done with the device lock is held.
 >
 > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 11 ++++-------
->  1 file changed, 4 insertions(+), 7 deletions(-)
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 73 ++++++-------------
+>  1 file changed, 21 insertions(+), 52 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index 1af3ddb6f65c..b2f87bc29f00 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -698,14 +698,11 @@ int amdgpu_mes_init_microcode(struct amdgpu_device =
-*adev, int pipe)
->  bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)
->  {
->         uint32_t mes_rev =3D adev->mes.sched_version & AMDGPU_MES_VERSION=
-_MASK;
-> -       bool is_supported =3D false;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 6c5c7c1bf5ed..6e7bc983fc0b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -1209,6 +1209,15 @@ static int evict_process_queues_cpsch(struct devic=
+e_queue_manager *dqm,
+>         pr_debug_ratelimited("Evicting process pid %d queues\n",
+>                             pdd->process->lead_thread->pid);
 >
-> -       if (amdgpu_ip_version(adev, GC_HWIP, 0) >=3D IP_VERSION(11, 0, 0)=
- &&
-> -           amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0) &&
-> -           mes_rev >=3D 0x63)
-> -               is_supported =3D true;
+> +       if (dqm->dev->kfd->shared_resources.enable_mes) {
+> +               pdd->last_evict_timestamp =3D get_jiffies_64();
+> +               retval =3D suspend_all_queues_mes(dqm);
+> +               if (retval) {
+> +                       dev_err(dev, "Suspending all queues failed");
+> +                       goto out;
+> +               }
+> +       }
+> +
+>         /* Mark all queues as evicted. Deactivate all active queues on
+>          * the qpd.
+>          */
+> @@ -1221,23 +1230,27 @@ static int evict_process_queues_cpsch(struct devi=
+ce_queue_manager *dqm,
+>                 decrement_queue_count(dqm, qpd, q);
+>
+>                 if (dqm->dev->kfd->shared_resources.enable_mes) {
+> -                       int err;
 > -
-> -       return is_supported;
-> +       return ((amdgpu_ip_version(adev, GC_HWIP, 0) >=3D IP_VERSION(11, =
-0, 0) &&
-> +                amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, =
-0) &&
-> +                mes_rev >=3D 0x63) ||
-> +               amdgpu_ip_version(adev, GC_HWIP, 0) >=3D IP_VERSION(12, 0=
-, 0));
+> -                       err =3D remove_queue_mes(dqm, q, qpd);
+> -                       if (err) {
+> +                       retval =3D remove_queue_mes(dqm, q, qpd);
+> +                       if (retval) {
+>                                 dev_err(dev, "Failed to evict queue %d\n"=
+,
+>                                         q->properties.queue_id);
+> -                               retval =3D err;
+> +                               goto out;
+>                         }
+>                 }
+>         }
+> -       pdd->last_evict_timestamp =3D get_jiffies_64();
+> -       if (!dqm->dev->kfd->shared_resources.enable_mes)
+> +
+> +       if (!dqm->dev->kfd->shared_resources.enable_mes) {
+> +               pdd->last_evict_timestamp =3D get_jiffies_64();
+>                 retval =3D execute_queues_cpsch(dqm,
+>                                               qpd->is_debug ?
+>                                               KFD_UNMAP_QUEUES_FILTER_ALL=
+_QUEUES :
+>                                               KFD_UNMAP_QUEUES_FILTER_DYN=
+AMIC_QUEUES, 0,
+>                                               USE_DEFAULT_GRACE_PERIOD);
+> +       } else {
+> +               retval =3D resume_all_queues_mes(dqm);
+> +               if (retval)
+> +                       dev_err(dev, "Resuming all queues failed");
+> +       }
+>
+>  out:
+>         dqm_unlock(dqm);
+> @@ -3098,61 +3111,17 @@ int kfd_dqm_suspend_bad_queue_mes(struct kfd_node=
+ *knode, u32 pasid, u32 doorbel
+>         return ret;
 >  }
 >
->  /* Fix me -- node_id is used to identify the correct MES instances in th=
-e future */
+> -static int kfd_dqm_evict_pasid_mes(struct device_queue_manager *dqm,
+> -                                  struct qcm_process_device *qpd)
+> -{
+> -       struct device *dev =3D dqm->dev->adev->dev;
+> -       int ret =3D 0;
+> -
+> -       /* Check if process is already evicted */
+> -       dqm_lock(dqm);
+> -       if (qpd->evicted) {
+> -               /* Increment the evicted count to make sure the
+> -                * process stays evicted before its terminated.
+> -                */
+> -               qpd->evicted++;
+> -               dqm_unlock(dqm);
+> -               goto out;
+> -       }
+> -       dqm_unlock(dqm);
+> -
+> -       ret =3D suspend_all_queues_mes(dqm);
+> -       if (ret) {
+> -               dev_err(dev, "Suspending all queues failed");
+> -               goto out;
+> -       }
+> -
+> -       ret =3D dqm->ops.evict_process_queues(dqm, qpd);
+> -       if (ret) {
+> -               dev_err(dev, "Evicting process queues failed");
+> -               goto out;
+> -       }
+> -
+> -       ret =3D resume_all_queues_mes(dqm);
+> -       if (ret)
+> -               dev_err(dev, "Resuming all queues failed");
+> -
+> -out:
+> -       return ret;
+> -}
+> -
+>  int kfd_evict_process_device(struct kfd_process_device *pdd)
+>  {
+>         struct device_queue_manager *dqm;
+>         struct kfd_process *p;
+> -       int ret =3D 0;
+>
+>         p =3D pdd->process;
+>         dqm =3D pdd->dev->dqm;
+>
+>         WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
+>
+> -       if (dqm->dev->kfd->shared_resources.enable_mes)
+> -               ret =3D kfd_dqm_evict_pasid_mes(dqm, &pdd->qpd);
+> -       else
+> -               ret =3D dqm->ops.evict_process_queues(dqm, &pdd->qpd);
+> -
+> -       return ret;
+> +       return dqm->ops.evict_process_queues(dqm, &pdd->qpd);
+>  }
+>
+>  int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
 > --
 > 2.34.1
 >
