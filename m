@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D72FCCD183
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 18:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82FD4CCD184
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 19:02:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC8C510EAF7;
-	Thu,  9 Oct 2025 18:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 170AC10EAF0;
+	Thu,  9 Oct 2025 19:02:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RXz0C1sm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DxuHJkYJ";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2965910EAF5
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 18:59:18 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2698d47e6e7so2240925ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 11:59:18 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A5CF10EAEF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 19:02:51 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-269ba651d06so2035075ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 12:02:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760036358; x=1760641158; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760036570; x=1760641370; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GdiaJ59de9vgiQs1tDQqeM5ZoqZlHOLJ6Gq8CKsszas=;
- b=RXz0C1smajDP/mWtyNNLT0ImWVm1QBhojYwerjhscrFhURjjcjH7Vpnu5aJ726PlaJ
- zWNQBPCIReMe90DIOqfBnqyCcbSV7NDNLNzSGpgd9MGfGF9iPz+4abOmSv9tZt3xcvLp
- fIbKbLLXlGYCCM1Wq09I7jLMpnBTGD1dqX9tuQePZlm/YhFzWqWteHEQ8XanF1oT/HZI
- hu1YQEcjppMcpH6gcNUfpCcuJDVAmqBJbxyXL4lkR2tnzS1U8BzOMm1V/xUhA6nHX2gL
- wtrqiRiBfZf7tVkGNGmA1MCpLA0g1tPgxt2GcOHjD0V4OOSVLQ6XKjqVcL4UYI8ErlN2
- T3rw==
+ bh=KbJRt0GX9VeMIgwFDAmAKeNpsHR25cT6LcfeHwPDHTA=;
+ b=DxuHJkYJweySsZ6Y2Uih/yQ3i+rD703q9Ymgbme9Oy62AvU7ebrPdjdmpeafMoXi68
+ OsiZuxhxTmkwtogkMxfgMIo4168k0KzLx4x48bNJLnnK4fdOv4VJG5krHEGTn0G8pEkz
+ JW1aFrZLeFtI9B8q8NMGy9RwuTa6f4Me6afm7XVEyD/OJOgY8IWHefDvP9BWegCUp64v
+ nQJAmgUrePLfl20bTWCBu4sfJGXDZyHIBWp2JIPrX1xKEJ5KHrGBAAL8nw6DEAyrR0v9
+ hxcv47IUPm7NysM1UqTEl9D6nP3FhWr2dQLBNUcymvA78hPscYX8BLKDN6U1GWkd+0hJ
+ g+pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760036358; x=1760641158;
+ d=1e100.net; s=20230601; t=1760036570; x=1760641370;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GdiaJ59de9vgiQs1tDQqeM5ZoqZlHOLJ6Gq8CKsszas=;
- b=S9LF+QclU/iSFhKPe7AXClNoeQMNlY24rg2c2+dGRcNG9zed7NyduuKL8dRgN0fgWW
- xAgagXMEptGRfD6e55D9mdIM95N0i61/cmOIGZPsESfet19/tRBZBP+3klXmiKAKdqqF
- lVcK9V+LqNRYAvVu2YMpiuHaTxU6wW8HIf9vmV4fmbQt+lfCReUYgv+UduzXJ57I4krn
- 94U80f0XCVDvK0BEEwkzb6YauPbSvRpXQ1GekwG0qaCa5qRkx6pi3a8XVlGym1q+/yON
- fj3GB36NciO4keaFPlZv+TAyP6Iue5MZ/f/wLku1up5oXNlzBMrmyXJj6E5u76Vdrh9l
- xKGw==
-X-Gm-Message-State: AOJu0YwgM2ukC0nQEmkZjrTfSusj0XjCiNeUegQSEChcb/6uHsAgQxmB
- bzrMXbwtoEfe1gtUxAw0othrZ2npoIrwRiyN/ukDbVTCXdS+m5X4s/0v3PvMAFjRjbG8xqlVsnI
- I3kk5NVodIPt2xnBukn4rynrnTbaYWt8=
-X-Gm-Gg: ASbGncuMMhpgo8TuR9alDAnPkUW0puT2k4sF84jes627BbZPALThXa1w2eiOGKG49Bk
- gXexYl2q9jC/QfGgsd2apZw/RkP2IRis8JkGCSdzX9d+pu96o9vLI4AbcFaRnqE7DX6W32rC3N1
- MMI0Jkb+Bqh2okC9IvfH8qjzYQ1nXwZtPAS/g8WtBgPvbr+IIvX+3GL+hD2C0kulVmrtSe00Xg7
- ZK8ZedSrA18/9nLs+gfXK/XX5FqvMhbF6QRfvTm+g==
-X-Google-Smtp-Source: AGHT+IFmr/lblh5UxQcJV1ZGi6b5eweht3YWrb3osaHSocdpcsqPqllzrtHzeUHxi0LV99O753nfJFqwHP8lf8wXdYk=
-X-Received: by 2002:a17:902:ea07:b0:269:85aa:3776 with SMTP id
- d9443c01a7336-2902745664amr62601045ad.11.1760036357550; Thu, 09 Oct 2025
- 11:59:17 -0700 (PDT)
+ bh=KbJRt0GX9VeMIgwFDAmAKeNpsHR25cT6LcfeHwPDHTA=;
+ b=sx9fthZm3OAeNdnKsdExllL5uMcvNUzmXnn+idtHaPoCMROgd95bAAyMvlAk1wFfdc
+ IY+I5Cv12bndRjsUuwJy7j2mhoBB9/4uDFfDMvZAy3CejOJNpxeeb375PIU6PNFs4UR1
+ wT70VDSfZZNgup0bHZn8XoJn3TarX58lLRH6c4GOC8TJSLduF1laEYh8ZumZsTNx5DGO
+ BkxT0GqRdIevI2QxZKUvD9GSRYCy7cwmWqIOxEVr/fimVqc0N68xcTCl7u0G92Bid4YV
+ bWJiGuwONSAN1rbDfu7dVZdVOD5fmnIvbU+cZcYf4j5Y4m1xycc+GJyJ0jwww3j0SQvE
+ 3VCQ==
+X-Gm-Message-State: AOJu0YwkacA6NV8BZqfK8ddCDZ00YvtHnzzParVgyNqVu/0zbJkDi5Di
+ FfZNGYuMLSaO8SMFC0B+Vvj0dc3skvJBSIsT58jb7l0ZTqK6iY5B+WXPcfQZO/bKKTk668wipjn
+ 8JFS5sytNgEppWuGniXHulknOJ+JMjfo=
+X-Gm-Gg: ASbGncvq9J99Ml3ER7/yEGAWXGU6xcypLSpFHermRO6pc2J4d061c6VSWZPdaYoenRd
+ uHP4OfpnnaxzqVADOG3DRsujWs2ddU06Bslwl868nFqNovhDG6lZdaV948D2kr+bMvu/nCNNWJ0
+ C6HTIvuQ+CvAQVgACbc1d2EWH5iRInIExCXmZs+GUO6u5KrTN/BsWpLG4zvx0YbMjhbC3AiE/b2
+ YeYx6Xb+Dvpy71bb1+5qYrUwOlWD0I=
+X-Google-Smtp-Source: AGHT+IHXyctodHVaZhQKhfR9aNCb/CunTZ44EGd9UvkVI5SqHzFO2cBR9fhjdkuSuGtoCn36Gweneqz/LWoUDKC1aFA=
+X-Received: by 2002:a17:902:da92:b0:25c:9a33:95fb with SMTP id
+ d9443c01a7336-29027448385mr63694215ad.8.1760036570418; Thu, 09 Oct 2025
+ 12:02:50 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251009184929.1038298-1-jonathan.kim@amd.com>
- <20251009184929.1038298-7-jonathan.kim@amd.com>
-In-Reply-To: <20251009184929.1038298-7-jonathan.kim@amd.com>
+ <20251009184929.1038298-3-jonathan.kim@amd.com>
+In-Reply-To: <20251009184929.1038298-3-jonathan.kim@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Oct 2025 14:59:06 -0400
-X-Gm-Features: AS18NWBRR40qoFQ75LGlzqeTBH0UYFdPXUDLEUEQKAVZISPyP5G6mgQjTihY9Lg
-Message-ID: <CADnq5_MoYMP_5hfESOg2-mZJYitn+_ZP5Hj0UK071NLs69WY5Q@mail.gmail.com>
-Subject: Re: [PATCH 6/6] drm/amdgpu: update remove after reset flag for MES
- remove queue
+Date: Thu, 9 Oct 2025 15:02:38 -0400
+X-Gm-Features: AS18NWA_SFmawTKQRXfDzAwzTg2nsQ59jzGb6Ri5DaPSXjPZhTumWd6IDUqlA7o
+Message-ID: <CADnq5_Pp1otMJ7whEppkX2=6KMHhVgafspTNfMtwOd6O9H3h7w@mail.gmail.com>
+Subject: Re: [PATCH 2/6] drm/amdgpu: fix initialization of doorbell array for
+ detect and hang
 To: Jonathan Kim <jonathan.kim@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Shaoyun.Liu@amd.com, Harish.Kasiviswanathan@amd.com, Amber.Lin@amd.com
@@ -86,99 +86,34 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Thu, Oct 9, 2025 at 2:50=E2=80=AFPM Jonathan Kim <jonathan.kim@amd.com> =
 wrote:
 >
-> Remove queue after reset flag is required to remove a queue that has
-> been successfully reset to clean up the MES' internal state.
-
-Is there a minimum mes version which has this functionality?
-
-Alex
-
+> Initialized doorbells should be set to invalid rather than 0 to prevent
+> driver from over counting hung doorbells since it checks against the
+> invalid value to begin with.
 >
 > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       | 1 +
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        | 1 +
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        | 1 +
->  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 3 ++-
->  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 3 ++-
->  5 files changed, 7 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.h
-> index 97c137c90f97..9c27a68cb82f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -239,6 +239,7 @@ struct mes_add_queue_input {
->  struct mes_remove_queue_input {
->         uint32_t        doorbell_offset;
->         uint64_t        gang_context_addr;
-> +       bool            remove_queue_after_reset;
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.c
+> index 8d03e8c9cc6d..c698e183beda 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -409,7 +409,7 @@ int amdgpu_mes_detect_and_reset_hung_queues(struct am=
+dgpu_device *adev,
+>                 return -EINVAL;
 >
->  struct mes_map_legacy_queue_input {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index da575bb1377f..d2a34b4d1797 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -378,6 +378,7 @@ static int mes_v11_0_remove_hw_queue(struct amdgpu_me=
-s *mes,
->
->         mes_remove_queue_pkt.doorbell_offset =3D input->doorbell_offset;
->         mes_remove_queue_pkt.gang_context_addr =3D input->gang_context_ad=
-dr;
-> +       mes_remove_queue_pkt.remove_queue_after_reset =3D input->remove_q=
-ueue_after_reset;
->
->         return mes_v11_0_submit_pkt_and_poll_completion(mes,
->                         &mes_remove_queue_pkt, sizeof(mes_remove_queue_pk=
-t),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index 79dd2261ad04..0d580d1b5794 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -365,6 +365,7 @@ static int mes_v12_0_remove_hw_queue(struct amdgpu_me=
-s *mes,
->
->         mes_remove_queue_pkt.doorbell_offset =3D input->doorbell_offset;
->         mes_remove_queue_pkt.gang_context_addr =3D input->gang_context_ad=
-dr;
-> +       mes_remove_queue_pkt.remove_queue_after_reset =3D input->remove_q=
-ueue_after_reset;
->
->         return mes_v12_0_submit_pkt_and_poll_completion(mes,
->                         AMDGPU_MES_SCHED_PIPE,
-> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v11_api_def.h
-> index ab1cfc92dbeb..f9629d42ada2 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> @@ -345,7 +345,8 @@ union MESAPI__REMOVE_QUEUE {
->                         uint32_t unmap_kiq_utility_queue  : 1;
->                         uint32_t preempt_legacy_gfx_queue : 1;
->                         uint32_t unmap_legacy_queue       : 1;
-> -                       uint32_t reserved                 : 28;
-> +                       uint32_t remove_queue_after_reset : 1;
-> +                       uint32_t reserved                 : 27;
->                 };
->                 struct MES_API_STATUS       api_status;
->
-> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v12_api_def.h
-> index 69611c7e30e3..2f12cba4eb66 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> @@ -399,7 +399,8 @@ union MESAPI__REMOVE_QUEUE {
->                         uint32_t unmap_kiq_utility_queue  : 1;
->                         uint32_t preempt_legacy_gfx_queue : 1;
->                         uint32_t unmap_legacy_queue       : 1;
-> -                       uint32_t reserved                 : 28;
-> +                       uint32_t remove_queue_after_reset : 1;
-> +                       uint32_t reserved                 : 27;
->                 };
->                 struct MES_API_STATUS           api_status;
->
+>         /* Clear the doorbell array before detection */
+> -       memset(adev->mes.hung_queue_db_array_cpu_addr, 0,
+> +       memset(adev->mes.hung_queue_db_array_cpu_addr, AMDGPU_MES_INVALID=
+_DB_OFFSET,
+>                 adev->mes.hung_queue_db_array_size * sizeof(u32));
+>         input.queue_type =3D queue_type;
+>         input.detect_only =3D detect_only;
 > --
 > 2.34.1
 >
