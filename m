@@ -4,81 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37D10CCD199
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 08:03:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C39ACCD18D
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 08:03:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5164910EB60;
-	Fri, 10 Oct 2025 08:03:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB2110EB79;
+	Fri, 10 Oct 2025 08:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="PLFrbydU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N19mMDzr";
 	dkim-atps=neutral
-Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
- [209.85.221.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80E1510EA85
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 15:06:29 +0000 (UTC)
-Received: by mail-wr1-f73.google.com with SMTP id
- ffacd0b85a97d-3ecdb10a612so774405f8f.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 08:06:29 -0700 (PDT)
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E23EE10EAD2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:58:51 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id
+ e9e14a558f8ab-42f7b17f9f7so11200965ab.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:58:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1760022388; x=1760627188;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:from:subject:message-id
- :mime-version:date:from:to:cc:subject:date:message-id:reply-to;
- bh=9kNNIboTBu/rgfEeqjlIf4OLiFoNCoyw80MDr+LA5Y0=;
- b=PLFrbydUjiYpBRNpwwxVwgaZDbhSW5H1HoixH4cxJ0n9kvIZroTY15Hav67htc71u1
- TuM9b0zxZhZbKsdtbL6KLN8DfKkrUYqylVa6W9iiWfmBi21Gi1tZeLA03kdnUVn0rgk0
- 2vrkk0JmwRE31VhMEdjgHFFoaSF5JUkFOiuDHAcFr8Rzme93kEZEr3Wf1SFe7OkjFPDZ
- TBk+sdQ9CpBTvR0zxphhWqipGvFjnP+XFTWjL0uN9LU5ow2ynuhK0CXWjNVYBg5sDDNA
- +p2VwxqTy1SEx5gFUxmMOjyH/9qvHSD6bjE8T3+W0myK7msLRI/vW3noJ3tPEn3IX8Tl
- s/fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760022388; x=1760627188;
- h=content-transfer-encoding:cc:to:from:subject:message-id
- :mime-version:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1760032731; x=1760637531; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9kNNIboTBu/rgfEeqjlIf4OLiFoNCoyw80MDr+LA5Y0=;
- b=v7Dwucl8bN1tEZRSpYbCHpbohY91Rhjes1p4xtrKzfjuBXjw6HAw7pAjL8Pj5Xecha
- 8Mn3fmjgqO182Ow9AKTqQtLgd5liWJa/uYLuoDoTXxCbYfOh1l9ICxmXDpectcEBGTMr
- livbe2U+cbKgOf8oKrG7Igdenx6XGRcyO+En2sCaSv5gr2gSLLdl4cxxLsuNqn8o3fx0
- WKZvQGdU+xnQZAqxAKvb9yACZi6ZyWQzLl6T6k/E2l9inqOHfG9SOhkzKOFickN68XVF
- i8f28Ydpbs5GuWoVWinSnXv7M5U09MakubLEVq2HYgouWlhDp+RHR7SllucLXXITAY/q
- 6O+Q==
+ bh=mCaJXGEEoKxacl2B/5AyBFFUSkEK+Qm7rR3SS8wI7Gk=;
+ b=N19mMDzr9eKdR1/lfrzPkA1PvTBzmibNeRQ2Om8CMUNm3rLEqln14ORw/og1V72SQC
+ 4A+tPRp/xjsSMbPh2y3ckR1ZUjVGsyRoBs7SjxtdnrTCMKBFRkOT+6JqzNTiB9/N5saz
+ WQkwElcXwZswFxbOmVzp1191IVa63r8EE8ZT625QErJ7ab+Akb7AnMx6RNsgq5Sszhe3
+ uGrz3mpO2IV86DaAJuu43q0bXbtQ902zqGfu7YvWN8/eEW9ddYZETAzGLAC//EmBTFdA
+ g6ViGc8Y6tyZ1XdCw6Rl0WZ761a5mnyIU0mWYucIi6NMgND8fJrFj5dZiSU+G66PO18M
+ 0VHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760032731; x=1760637531;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mCaJXGEEoKxacl2B/5AyBFFUSkEK+Qm7rR3SS8wI7Gk=;
+ b=MP09HizMHDGQeFS0pGvBDGHJCjtDNV1Hdy6PUfuG6EBkfw+V/oOgEKiEXsJxX2CHuj
+ BGDPeIJCr6Xxarr6Mxvic1UeLoQhO5KXjS0E2tlaHfZHdC+GFDhqnGOCrQAKQXFi/xZX
+ mcSK9KJ8pLlvIii8I/lqvow6EJYlKHJyeIEHaQMyP0W5lGNMLavmhsONHo+niD3Wsdqy
+ YN3yU18CYgZJtCdqyd7zdFUzrLNHIpIxNIFE5u+4QYYowlXaBJwy3oaFTg2DFoSqJYxO
+ Df1/0tFhZ5Lpajdv3M8ZSgg2NCmSvaA9RXXKGt8BAUPtCn0jmjDMU+TkJyKBgSWJn6ru
+ sa/Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURnF2rdkaFBmjh1x24uLHMTddwDFQWlruoOMFuMzowcNWgV+mIsY9TRi36QZykO5V37z7ZHTTY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNY8mW+hTfpNHu14Qteuq1+CkqtFgkhZWj+O7rDTEzk7SL8guo
- ICB/xQ7jq1ByZz8O9DgiabhA0TcjBjgV6eNU8oiTj1smFawsESpRTp90ZpE1o8t13wcLP2Um/w=
- =
-X-Google-Smtp-Source: AGHT+IF28pI3nDsq06k40pR3d1KWdnq7Bmqmwn+5p1/UbYexmHQrk0yWcmBoTkVBvwdXntL/+LqRUcL0
-X-Received: from wmhf15.prod.google.com ([2002:a7b:cc0f:0:b0:46f:b153:bfb7])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:41c6:b0:426:cd4b:4b36
- with SMTP id ffacd0b85a97d-426cd4b4b50mr143095f8f.58.1760022387953; Thu, 09
- Oct 2025 08:06:27 -0700 (PDT)
-Date: Thu,  9 Oct 2025 17:06:21 +0200
-Mime-Version: 1.0
-X-Developer-Key: i=ardb@kernel.org; a=openpgp;
- fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2191; i=ardb@kernel.org;
- h=from:subject; bh=BfB8Vi7bZ1cD+rxey05bluTEmM0Q6lYE5jThs99t4Pg=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIeP5+TxG4RyBuTtFVdNaFojs743b5qHJd6D1WPaRB32LZ
- r1fLOPRUcrCIMbFICumyCIw+++7nacnStU6z5KFmcPKBDKEgYtTACay8jUjw61dyq5Z+TtXinnZ
- 7X1o/vriK/GTMUvCpv3Si3roP2+Rujkjw9YKwd/iohuiu2Y1beXKSlprMTmh7G2Qv6+mq8GfWMs
- z3AA=
-X-Mailer: git-send-email 2.51.0.710.ga91ca5db03-goog
-Message-ID: <20251009150621.3886079-2-ardb+git@google.com>
-Subject: [PATCH] drm/amd: Permit DC_FP_START/END only in non-FP compilation
- units
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>, 
- Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ AJvYcCXTg36yRWHHoxZqmrdT6JUbHRb9XAOubB/qvBt0ZSCPJWkVR1+BIMmebLok0Zlx7f0SI8CRtMEo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzyN9U/fQ6HoSQ3zZTSVUofOG5HdkMsrSTwBOxUB6+zWCgcmf5H
+ F5kJqt+WHToasj24LeZ0XxnaiIrWb0+IaXDDRhPElMBMRl8r2X/8Mk/f
+X-Gm-Gg: ASbGncvPyDABhNKILf/tGGezjmD1mXoKg7JigC5BaSPmF2hPeqmfibs8etqvWndOOvq
+ tSqBve9439gwGVzPeWRcmigetaU7lew8ae1nQwWddUdmdkX4cIflcPbK/xpsMB6YK0/0OvSdAju
+ AVTyELm6nkEhk4zu/sNAVMzmfqp/Nmf1XOO9TO5UzK4QnyLLr7DCtwuisdcHot3Dq85g6mLGzfS
+ tW1Mo99iGfMm8+mh1u5J3f8NPp7oQRE/X+CLaGDMudNXHFG+X4cgYAt8Ob6Twaf0eTJsmklgcA3
+ 0Kp6zmIaWv8vWvROymU6wwLYThf+foJ/yxNVzanmG+3BlfmbyGcf1AvvlIc5ylO7PfzPOnZBCBB
+ 6Tjt0c/oMJjCJIsSDYWr27xmxocbtmnjS2fT/un0pevtal/SAPDJD3cTJyUJwjt/FlD4/SLNwfq
+ JuuqF8WqsSTzUYq7R3o5phZF3aTQfym+K2LxgnzQ==
+X-Google-Smtp-Source: AGHT+IFGYwQAi6/+LnQSrv5XVqN8PJXx4dyNZG3PIv3e3G7kxepvzgPF7iyA+hTKfqnZ5PXXLeiArQ==
+X-Received: by 2002:a05:6e02:4706:b0:42f:8eeb:499e with SMTP id
+ e9e14a558f8ab-42f8eeb4a3amr54728835ab.13.1760032731025; 
+ Thu, 09 Oct 2025 10:58:51 -0700 (PDT)
+Received: from godzilla.raven-morpho.ts.net
+ (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.58.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Oct 2025 10:58:50 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com
+Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v5 04/30] dyndbg: reword "class unknown, " to "class:_UNKNOWN_"
+Date: Thu,  9 Oct 2025 11:58:08 -0600
+Message-ID: <20251009175834.1024308-5-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
+References: <20251009175834.1024308-1-jim.cromie@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 10 Oct 2025 08:03:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,62 +95,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ard Biesheuvel <ardb@kernel.org>
+When a dyndbg classname is unknown to a kernel module (as before
+previous patch), the callsite is un-addressable via >control queries.
 
-Test the existing CPP macro _LINUX_FPU_COMPILATION_UNIT, which is set
-when building source files that are permitted to use floating point,
-in the implementation of DC_FP_START/END so that those are only usable
-in non-FP code. This is a requirement of the generic kernel mode FPU
-API, as some architectures (i.e., arm64) cannot safely enable FP codegen
-in arbitrary code.
+The control-file displays this condition as "class unknown,"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
+make it uniquely greppable.
 
-Cc: Austin Zheng <austin.zheng@amd.com>
-Cc: Jun Lei <jun.lei@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h | 8 ++++++++
- drivers/gpu/drm/amd/display/dc/os_types.h      | 2 --
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h b/drivers/gpu/d=
-rm/amd/display/amdgpu_dm/dc_fpu.h
-index b8275b397920..4e921632bc4e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h
-@@ -31,4 +31,12 @@ void dc_assert_fp_enabled(void);
- void dc_fpu_begin(const char *function_name, const int line);
- void dc_fpu_end(const char *function_name, const int line);
-=20
-+#ifndef _LINUX_FPU_COMPILATION_UNIT
-+#define DC_FP_START()	dc_fpu_begin(__func__, __LINE__)
-+#define DC_FP_END()	dc_fpu_end(__func__, __LINE__)
-+#else
-+#define DC_FP_START()	BUILD_BUG()
-+#define DC_FP_END()	BUILD_BUG()
-+#endif
-+
- #endif /* __DC_FPU_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/am=
-d/display/dc/os_types.h
-index 782316348941..6af831710489 100644
---- a/drivers/gpu/drm/amd/display/dc/os_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/os_types.h
-@@ -55,8 +55,6 @@
-=20
- #if defined(CONFIG_DRM_AMD_DC_FP)
- #include "amdgpu_dm/dc_fpu.h"
--#define DC_FP_START() dc_fpu_begin(__func__, __LINE__)
--#define DC_FP_END() dc_fpu_end(__func__, __LINE__)
- #endif /* CONFIG_DRM_AMD_DC_FP */
-=20
- /*
---=20
-2.51.0.710.ga91ca5db03-goog
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 5a007952f7f2..147540c57154 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1154,7 +1154,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
+ 
+-- 
+2.51.0
 
