@@ -4,31 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6990CCD184
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 13:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78667CCD185
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 13:22:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6449010E10A;
-	Thu,  9 Oct 2025 13:18:57 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15B8310E10A
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 13:18:55 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 599DIo0B3167267; Thu, 9 Oct 2025 18:48:50 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 599DIopw3167260;
- Thu, 9 Oct 2025 18:48:50 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>
-Subject: [Patch v2] drm/amdgpu/userqueue: validate userptrs for userqueues
-Date: Thu,  9 Oct 2025 18:48:49 +0530
-Message-Id: <20251009131849.3167145-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1982110E227;
+	Thu,  9 Oct 2025 13:22:57 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="awaNgI7/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cwrjkfKR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="awaNgI7/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cwrjkfKR";
+	dkim-atps=neutral
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0413C10E227
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 13:22:56 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AAC411F74A;
+ Thu,  9 Oct 2025 13:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1760016174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nxbzPBH17ar9K23CahzAe5b30MTmOO7lOdw/AEZcP0U=;
+ b=awaNgI7/B8kYXqIFwTWq0bTxrrbbQgWzmYQL40a/KGIHLfrwsJezjNSwwQ5oBaRko8yH3L
+ zJnopVUZRPGe8w1zUAsf23kKmnS2KVtb0P/nZd+/paWDRlBXL6/LUOufHd7EJ3p5of4rMm
+ knVtAwJkGpGdK5RPUY0VgX03PRAagL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1760016174;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nxbzPBH17ar9K23CahzAe5b30MTmOO7lOdw/AEZcP0U=;
+ b=cwrjkfKRUzslGnFAMfnZN+BbuuRHgp8fiGPsw7EQNL51euzvgDiBbRojNyLdDUzWltIC1j
+ NbG6hac4zQvJojCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1760016174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nxbzPBH17ar9K23CahzAe5b30MTmOO7lOdw/AEZcP0U=;
+ b=awaNgI7/B8kYXqIFwTWq0bTxrrbbQgWzmYQL40a/KGIHLfrwsJezjNSwwQ5oBaRko8yH3L
+ zJnopVUZRPGe8w1zUAsf23kKmnS2KVtb0P/nZd+/paWDRlBXL6/LUOufHd7EJ3p5of4rMm
+ knVtAwJkGpGdK5RPUY0VgX03PRAagL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1760016174;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=nxbzPBH17ar9K23CahzAe5b30MTmOO7lOdw/AEZcP0U=;
+ b=cwrjkfKRUzslGnFAMfnZN+BbuuRHgp8fiGPsw7EQNL51euzvgDiBbRojNyLdDUzWltIC1j
+ NbG6hac4zQvJojCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5308A13A61;
+ Thu,  9 Oct 2025 13:22:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0EDeEi6352iECAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Oct 2025 13:22:54 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jfalempe@redhat.com, javierm@redhat.com, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/4] drm/client: Implement free callback for fbdev and log
+Date: Thu,  9 Oct 2025 15:16:27 +0200
+Message-ID: <20251009132006.45834-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_TWELVE(0.00)[14];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,158 +102,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-userptrs could be changed by the user at any time and
-hence while locking all the bos before GPU start processing
-validate all the userptr bos.
+Add struct drm_client_funcs.free and release the memory fbdev and
+log clients from its implementations. Also fix the locking in the
+log's unregister code.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 87 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  5 ++
- 2 files changed, 92 insertions(+)
+Resolves several corner cases in the current clients and avoids
+duplicated code.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 8dc12064da49..c7737201ec23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -25,10 +25,12 @@
- #include <drm/drm_auth.h>
- #include <drm/drm_exec.h>
- #include <linux/pm_runtime.h>
-+#include <drm/ttm/ttm_tt.h>
- 
- #include "amdgpu.h"
- #include "amdgpu_vm.h"
- #include "amdgpu_userq.h"
-+#include "amdgpu_hmm.h"
- #include "amdgpu_userq_fence.h"
- 
- u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
-@@ -761,9 +763,18 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr *uq_mgr)
- 	struct amdgpu_device *adev = uq_mgr->adev;
- 	struct amdgpu_vm *vm = &fpriv->vm;
- 	struct amdgpu_bo_va *bo_va;
-+	struct amdgpu_bo *bo;
- 	struct drm_exec exec;
-+	struct xarray xa;
-+	struct amdgpu_userq_hmm_range *userq_range;
-+	bool invalidated = false, new_addition = false;
-+	unsigned long key = 0, tmp_key;
- 	int ret;
-+	struct ttm_operation_ctx ctx = { true, false };
-+
-+	xa_init(&xa);
- 
-+retry_lock:
- 	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
- 	drm_exec_until_all_locked(&exec) {
- 		ret = amdgpu_vm_lock_pd(vm, &exec, 1);
-@@ -794,6 +805,73 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr *uq_mgr)
- 	if (ret)
- 		goto unlock_all;
- 
-+	if (invalidated) {
-+		xa_for_each(&xa, tmp_key, userq_range) {
-+			bo = userq_range->bo;
-+			amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
-+			ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-+			if (ret)
-+				goto unlock_all;
-+
-+			amdgpu_ttm_tt_set_user_pages(bo->tbo.ttm, userq_range->range);
-+		}
-+		invalidated = false;
-+	}
-+
-+	key = 0;
-+	/* Validate User Ptr BOs */
-+	list_for_each_entry(bo_va, &vm->done, base.vm_status) {
-+		bo = bo_va->base.bo;
-+
-+		if (!amdgpu_ttm_tt_is_userptr(bo->tbo.ttm))
-+			continue;
-+
-+		userq_range = xa_load(&xa, key);
-+		if (userq_range && userq_range->bo != bo) {
-+			amdgpu_bo_unref(&userq_range->bo);
-+			xa_erase(&xa, key);
-+			amdgpu_hmm_range_free(userq_range->range);
-+			kvfree(userq_range);
-+			userq_range = NULL;
-+		}
-+
-+		if (!userq_range) {
-+			userq_range = kvmalloc(sizeof(*userq_range), GFP_KERNEL);
-+			if (!userq_range) {
-+				ret = -ENOMEM;
-+				goto unlock_all;
-+			}
-+
-+			userq_range->range = amdgpu_hmm_range_alloc();
-+			if (!userq_range->range) {
-+				ret = -ENOMEM;
-+				goto unlock_all;
-+			}
-+
-+			userq_range->bo = amdgpu_bo_ref(bo);
-+			xa_store(&xa, key, userq_range, GFP_KERNEL);
-+			new_addition = true;
-+		}
-+		key++;
-+	}
-+
-+	if (new_addition) {
-+		drm_file_err(uq_mgr->file, "userptr bos:%lu\n", key);
-+		drm_exec_fini(&exec);
-+		xa_for_each(&xa, tmp_key, userq_range) {
-+			if (!userq_range)
-+				continue;
-+			bo = userq_range->bo;
-+			ret = amdgpu_ttm_tt_get_user_pages(bo, userq_range->range);
-+			if (ret)
-+				goto unlock_all;
-+		}
-+
-+		invalidated = true;
-+		new_addition = false;
-+		goto retry_lock;
-+	}
-+
- 	ret = amdgpu_vm_update_pdes(adev, vm, false);
- 	if (ret)
- 		goto unlock_all;
-@@ -813,6 +891,15 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr *uq_mgr)
- 
- unlock_all:
- 	drm_exec_fini(&exec);
-+	xa_for_each(&xa, tmp_key, userq_range) {
-+		if (!userq_range)
-+			continue;
-+		bo = userq_range->bo;
-+		amdgpu_bo_unref(&bo);
-+		amdgpu_hmm_range_free(userq_range->range);
-+		kvfree(userq_range);
-+	}
-+	xa_destroy(&xa);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index ded33fe76e1c..795b38d0353d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -48,6 +48,11 @@ struct amdgpu_userq_obj {
- 	struct amdgpu_bo *obj;
- };
- 
-+struct amdgpu_userq_hmm_range {
-+	struct hmm_range	*range;
-+	struct amdgpu_bo	*bo;
-+};
-+
- struct amdgpu_usermode_queue {
- 	int			queue_type;
- 	enum amdgpu_userq_state state;
+Thomas Zimmermann (4):
+  drm/client: Add client free callback to unprepare fb_helper
+  drm/log: Do not hold lock across drm_client_release()
+  drm/log: Add free callback
+  drm/client: Do not free client memory by default
+
+ drivers/gpu/drm/armada/armada_fbdev.c      |  2 --
+ drivers/gpu/drm/clients/drm_fbdev_client.c | 17 +++++++++++++++--
+ drivers/gpu/drm/clients/drm_log.c          | 16 ++++++++++++----
+ drivers/gpu/drm/drm_client.c               |  4 ++++
+ drivers/gpu/drm/drm_client_event.c         |  9 +++++----
+ drivers/gpu/drm/drm_fbdev_dma.c            |  4 ----
+ drivers/gpu/drm/drm_fbdev_shmem.c          |  2 --
+ drivers/gpu/drm/drm_fbdev_ttm.c            |  2 --
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |  2 --
+ drivers/gpu/drm/gma500/fbdev.c             |  3 ---
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  2 --
+ drivers/gpu/drm/msm/msm_fbdev.c            |  2 --
+ drivers/gpu/drm/omapdrm/omap_fbdev.c       |  2 --
+ drivers/gpu/drm/radeon/radeon_fbdev.c      |  2 --
+ drivers/gpu/drm/tegra/fbdev.c              |  2 --
+ include/drm/drm_client.h                   | 10 ++++++++++
+ 16 files changed, 46 insertions(+), 35 deletions(-)
+
 -- 
-2.34.1
+2.51.0
 
