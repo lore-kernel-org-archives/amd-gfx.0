@@ -4,166 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE39CCD18A
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 19:24:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FC7FCCD183
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 19:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8FD010E23A;
-	Thu,  9 Oct 2025 19:24:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35CD510EB03;
+	Thu,  9 Oct 2025 19:28:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DHkOVIRV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MVIxxe0V";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012066.outbound.protection.outlook.com
- [40.93.195.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A72110E23A
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 19:24:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L5rB65uBfMzij+hdHqfX05xNziVdpn7fz2Osoh5ui1cUyjQilsrN7KeHJ5H9K4yvcInywoe4wnTDWiEMoQNkBGsEuri30jrHqd/zBZbKIoKMtwx7Q56SCGGZUqMK86ZeTvALZ4V7uuD2/skqVEwyMi3EGn4+BWiWv1VLS0Jzj0BWazbiRYqZQQmrOa6k9DC0EmpWogHdnUI1/17rgbkJ02S4RG6OSorNK6YdDdOhTzbVtCDJsLXQl2cDor59skvdEtfzJbvJAV/S0LkkW8TWbv0jNbhkbYlKcyGxdiTL3Ekmhm1o8nsODuoovUD8iWup64qLGzd603/njv74nTQhbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X9ZmBfrrMAP3FGWuUrLVeGznmOzZAlGkNFiIlKwA6XM=;
- b=tCBVHSnVT9ct9B5VtRY6g2+VygjfmCaZhEtO8qHd1k2doEhGXbY4+iSe67YIikYlViMwjac78ii/SycJxF+uWu3vMtdXUI6RH4Q3r4DllXqVm79+xyFhdzDsaktIUocrlxm5QVb+1otSKp9DyXwuKnlPLkicL4wp6XTDdspjTAnBBFU2kp/w7SRLq5iX4XZKDEUh8r6mxb7alRHAnHuEcObHdCTipVaGMLrF1+THHQ+j9DDRJA+fxi4w5IplUL9GWLJjAIcj8AYXasALPRM92Llaf5U4m7DhtOWf3sgHKpppEIUu8i6i2ZFs37XHmtzfxXcQkKDYJ1vhgjKqvJsjXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X9ZmBfrrMAP3FGWuUrLVeGznmOzZAlGkNFiIlKwA6XM=;
- b=DHkOVIRVJlWwLXKQ10vMg+hBLnVjaXkH5V0hQKKoDNZ6kWQFNF9BZVet/qynsh79ZJXTiE8r84Wmu4XiNWUeuSW7sg2aIcLpObYlMXKQJs0JRzxCyCclbAyRyfq2NqzwAQPCxnVDe1P+1gih6kp0Acj7XzOznEd+EI84vgiwHhM=
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
- by IA0PPFD4454CAA9.namprd12.prod.outlook.com (2603:10b6:20f:fc04::be5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.18; Thu, 9 Oct
- 2025 19:24:35 +0000
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::234c:7f13:920d:3cc8]) by CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::234c:7f13:920d:3cc8%4]) with mapi id 15.20.9203.009; Thu, 9 Oct 2025
- 19:24:35 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Liu,
- Shaoyun" <Shaoyun.Liu@amd.com>, 
- "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>, "Lin, Amber"
- <Amber.Lin@amd.com>
-Subject: RE: [PATCH 3/6] drm/amdgpu: fix hung reset queue array return for hws
- user compute
-Thread-Topic: [PATCH 3/6] drm/amdgpu: fix hung reset queue array return for
- hws user compute
-Thread-Index: AQHcOU2E9HZVACsGfk2V0HGg5HtLMLS6L9sAgAAAefA=
-Date: Thu, 9 Oct 2025 19:24:34 +0000
-Message-ID: <CY8PR12MB743546724A4EB526E5AC9B5785EEA@CY8PR12MB7435.namprd12.prod.outlook.com>
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5679610EB02
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 19:28:47 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2680ee37b21so2349955ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 12:28:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760038127; x=1760642927; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fRaVyNgWCzunGS3PrEyefzQxjhKPb91BULKZ7AvRvto=;
+ b=MVIxxe0VYbGXsa/Q7XAd+Zw9wkev5ta27LMrRfY2PMTqal9FaFLP/l6GdsLXCr02Te
+ dmzSGstm3vrpa0EL3DNP7r6kFp6yrz099BXHUnvNxYhf8iTbtoHDnzJcQxkdlmM+5imp
+ S4WK4/eyRhyYhXt8Qd2k0FjfJmY7EesOTTFcvuitNg1aSuevDTaDzYIxS5CcBXP5HyjQ
+ frjsXfjbbqUztbhKZ9sLKv+BmtOrTovjbUVED43M9AZf8Mu97tAYYzeKWfH8JkTVV+/8
+ O2mHj1FWpN26AF1TRXN8MiGSn/Mk6RT3S1041rdM30WvUbMdukcGI62gCt5qaD04RYtQ
+ rRIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760038127; x=1760642927;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fRaVyNgWCzunGS3PrEyefzQxjhKPb91BULKZ7AvRvto=;
+ b=Jf8MnFdqvvj78CMbwbGte4Hm64/ZV79idT+yXhXuA44iHC8hVLt5PYl/HYi6YcaTfK
+ 1UiGceTcQUzweToiVKYCXbsgYHOz1Zt0pYarWnAnGS8eL+pzoQ/MPPHOX9ozBLhLVg13
+ +B1nUduNHRW7FTV0AfQecJWyHG1jzBLnVziNeQYlL8fq2SdpkQkd4I8JeeKeA/qtk701
+ +BB6FTCTtYCEpFZyTfZaHAQ1GN+SuwomcKdSJVdcQ1mMNRgCEonYRXhuQwpkaM2HZMpF
+ xNplhwycRGtP+66dpcoNEN+z1wxnJ/41T0YFNjZfP4KmAZNaI4W/8DI5WKrD0dVjPYh4
+ jBnw==
+X-Gm-Message-State: AOJu0Yws1Y66It7Gb2S5NvnD+cQeeYejzQzYSEIJsKcul5S4WvuNvYLA
+ b7yRnTPVZf2E/kBldyrF0A2gxxwJ7Dj9PeRVG0pvdhGlb+IDOyMjmbRAWHWwKtbA4ut4mc3E6Mr
+ CtfezImFiVkYLA2UjHQaq1AdkKFS3MBM=
+X-Gm-Gg: ASbGnctjcpFHkqzz6m7zY1qBZLJfXfI/yPSEZKPHRTfh7qXEn3Tyn29opo6j2MJDqu1
+ XHhQki07fqBJo7/Wp3H1t7FRSEKNn5mnUqjQdu+qURIeUsPr0/vxhvb6g8EPpZv1MOTeccnHMFc
+ LbVARLonuP4tT8HOr3sgCkuId2/9YoGKwcx5ltkPL2AT4H4+AQxJsY/U95bF0vxhCrSQ2qdX4Nu
+ kD3eU1tCvPTj4sgy0SXUU2mqcbmtHw=
+X-Google-Smtp-Source: AGHT+IFc2RlH9G0XT7U2TnH1WBqvHe7tJOYI+YuDFXdJQGI/Dyxtsm28K/T3kbQEHyrqmE/zZo9DRZeUREbZe5CTNjc=
+X-Received: by 2002:a17:902:da92:b0:267:bd8d:1b6 with SMTP id
+ d9443c01a7336-290272e1e45mr67269865ad.6.1760038126697; Thu, 09 Oct 2025
+ 12:28:46 -0700 (PDT)
+MIME-Version: 1.0
 References: <20251009184929.1038298-1-jonathan.kim@amd.com>
  <20251009184929.1038298-4-jonathan.kim@amd.com>
  <CADnq5_Moqk8zHiXyvj7_BfHwH4W3dQqNfvhRQcyj4mw-9tM19Q@mail.gmail.com>
-In-Reply-To: <CADnq5_Moqk8zHiXyvj7_BfHwH4W3dQqNfvhRQcyj4mw-9tM19Q@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-10-09T19:18:25.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|IA0PPFD4454CAA9:EE_
-x-ms-office365-filtering-correlation-id: b3173226-d2c7-499e-c8ac-08de07697b05
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700021;
-x-microsoft-antispam-message-info: =?utf-8?B?dHVmN096ZUVOWFBDWkg2OEJWY2V1Sk1UaE5NWU1xMm5aeW5xeTk3Q3I2UXhw?=
- =?utf-8?B?YTZ6bTF1bEczcjNzbG42SU9HUnVzQ1pEdU85b0dUdkRUZjNQczUrRHFBTXcw?=
- =?utf-8?B?eVZYVTNiZExQcW56dkE5TDJQSldsRkZCVmhXUUpHNVRTVHNJM3VSd2hPeUpF?=
- =?utf-8?B?em1YOTdzcGZsbmlhNWZ5Qis2VHRxY1dza3czeS9iK0ZoL1U1WkdhOUJyQ3FL?=
- =?utf-8?B?SFlTTkhBbCtYbFA2RjJ4RHUzT0pCSmlPTGs1ZHJzdHRKR0dvWnRKNCs5cUg0?=
- =?utf-8?B?VVdlSkhVcjVCZ01DYit3SncySDlQdktiazUzRGxyMFlIUytiTUE5S2RkdEZP?=
- =?utf-8?B?NmQxdHZVVXZDenZ2Zm5kQ2ZNaTh6NzVxTWYwKy9qbmd5eUpDeEV3YUlvdC9w?=
- =?utf-8?B?aUpVbmdVKzN2OXAvYmp1aG1adXNHV3o0aUZCZEIybHdJVE9FcWpwMjJuM2Nv?=
- =?utf-8?B?d1FHaExtYng5alVjT3dnL2RrT21ud0pPVUhEVHQwQ2YrZTVEdEZ6MW5xOFlL?=
- =?utf-8?B?VTdURWhPb1ZDR0VuaXpOUnUrRmhEZDB5TGptZDBBcGRRbWQ3eHk4blNHVjM5?=
- =?utf-8?B?OWVQMFRPVm9MYUVaZlFiSy9CYnU5TnBBUWVEcGpWcWZ6dXdYRGl5UDBGaGx3?=
- =?utf-8?B?ZUFKWkRkTldXOHJBWGZSRnB5ajJyeHBUZ2doaTc4TFRrNldLSXoyVDBRLzJ4?=
- =?utf-8?B?dStiSnZYRzF3SitVTFNMMWlIcEJEOGREWFRwRktJSEtJcXNpNDRnWUxRRUg3?=
- =?utf-8?B?aUlma2R4SzNoOEpZaDZ5dVdmUmQxSm5ud3Juc2hxbllleXQ4RFU3WUlaNGlk?=
- =?utf-8?B?M1V5dm9jeTBqbkVaNElHKzNnSUxNU05GUVExeHBTSGxnUDRaMlFlc3NnSERG?=
- =?utf-8?B?eFpuY0x0d2xIWGRXZzU4NWpLbXNWWHBEWEhVWkxPOWlNL2wzUnBhU1RTUGNG?=
- =?utf-8?B?YllVS015UVRCL29KN2gyWDlVZ3ZiK2crQVFxSVU4cjg5THdPZW1kVllMa1I5?=
- =?utf-8?B?V3N3ekdoWkdtd3l4a09PL2NwT2R2V042aWZrTW43UGlCSGxkK2lzVjlYTUx2?=
- =?utf-8?B?R0FrSEN2Mng4U3VVZWczeWlRMGxKSjRsbDJ6M0NUNmw3OE9nVjZ0bkROcGJP?=
- =?utf-8?B?cC9mTk1VZnJMUkZUS0NiT0RWZnl4K2pWSjRVa01MRkhzSEdwNVZCT3hMVXZs?=
- =?utf-8?B?bG83cE55dmZNeFZidVlJNWlLbmJqWWZUTmNtaS9ERjVhQnc0VktsTUd5M00x?=
- =?utf-8?B?Z284NE9WSGNpcm5ZSVI3OGlRRDgrYTNpTFk1WGxEak5JUk50VGN1cC9kREMr?=
- =?utf-8?B?eWJCSnYrSjhJZVlIODhBWmFyMTBPOG5Ed0hqcUV0NGszMkNZM1FCS2JyWW0x?=
- =?utf-8?B?WkcydXFPMUROU2xuM0ppS20xZzRoaGpoa1p5cE5WUzh4WGVrUzlXUzY0SEto?=
- =?utf-8?B?MncrK3JyanQxVDFGbVhVMklFVkxiOEY5SjhIeGYwMlN5b05icVVLdFFOZFMy?=
- =?utf-8?B?ZWkyYTRXYW8vQjloNXQyRTgxeHo1bFIzbnJ0STNPOGVyd011WkQxdDkwdXR0?=
- =?utf-8?B?SWNSelpZMWN3WTYyY1JlZUMvMTh1Y25lMjR5UUI4VUkxMS9vbUNNSW5ldXVK?=
- =?utf-8?B?V3FVN2hkdXp6NnVwU3VLMzErNklIMERQQkVYUmhUcE1LWjJ0aTZ1a1cybjV4?=
- =?utf-8?B?STI5bUFXYmk4ZHFiMW5reTdCS0Nib1lySE5xVnh5N1lVY3hQVTlJd0NUM3Jx?=
- =?utf-8?B?ZlNyeWh0UDNvbk14Sm5vb2R1ekFkOW5XQ1oxTXhPVDVsV01aQkNBdEZLSHBy?=
- =?utf-8?B?K2lPNS8zQWFxZyt6aTJ2NDVzeVozWTZ3VHl6S2xnajVnT09MMVhESmswR28z?=
- =?utf-8?B?dTVVUHNaVFVBaXBKZERGRW52QUhpKzM3blBRU2E3aC9JekNiOFYxeFpoZGV2?=
- =?utf-8?B?NXhwTTZ5cSs2ZVVYd1ZkcWxIaGpRcEJZSVhMTklhMG1FWjFnaUZienpGeDV1?=
- =?utf-8?B?QzI5MGlTZUJxZjVxWmUxNWU5WU10bHVOZGM2LzdxNCt6T2g4VkxtcHBBYy81?=
- =?utf-8?Q?qJmWrH?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700021); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Z1RCZFFPTlFvQ21VZElROVJ0SytLV0RCS2NvblVrWFZDajJJb2dxbkZkS3RU?=
- =?utf-8?B?U0MwQUtkRXladGEyeFRMeE1WSXNvNCtLSDNtRTFGdUhGTXZYUXlscVkyT1ls?=
- =?utf-8?B?WGZaT2wrTGpMV2ZvLytqWFRiN2QwcWFscnRKcm9ncWxidTg5cVBZWk9qQ09K?=
- =?utf-8?B?eXFvYjlkZmhJMlNoSTdqVHJ0K3QyZURkZkg4a3ZGUnh1NWVuNmJxT2NMMWZK?=
- =?utf-8?B?emVEUmppMEZ5RUl0NHZqMzYzRnA2N2ZXQzh0ajNqOE81RVhhZ2p5bWJPVE93?=
- =?utf-8?B?ZHRrQmRwTTJ4VU85NFgrUHlveVNkTmtJZnQ3eXBlZlg2bUdiY3pIQmVoaTh6?=
- =?utf-8?B?SG91V3poZVlabTA5TWFhT21CZWNaNWdKTTJ3ZlFGZENzcW5JdkRYUFJEc3lm?=
- =?utf-8?B?RjRaNmhXTWNlSVFLcHBhT1VQMnJwSFE1Nmd4WUZFbG9NUTN0TGZ3OVljQjQw?=
- =?utf-8?B?YVl1MkZUQWoxK2VDanNEd1dWSzhsci9QQWVwY056N2ZIc01YbzhxZlVpeWtQ?=
- =?utf-8?B?MXJ4MXZROS96bDJsOHJRQVV6d21mZFBBU1hvdjZRRHhYQXBEbFN6NHZhZ2Mz?=
- =?utf-8?B?NFFzbHIrN1o0VkdZTmhza0I5U3hNQ3lnQnVqcVlYNHltV2JnVUo2TnQwL1Zy?=
- =?utf-8?B?RXpoRndtb1hueE9OZlFXaXVnSHpvU3FTYW5rb0dnQmMrWEM3SzRscERFOHNi?=
- =?utf-8?B?aXZoZUJBRkVYQmJZN3RTN2FQZlRQSzh1NVpxS3kvY0NkTVBMU1V2RFJFNFFX?=
- =?utf-8?B?MDZqMUg4QjY0Nms0MTd3dnhucDVubURxMDRBM2gyT3JrcThiTzRFNHVWSE93?=
- =?utf-8?B?bkM2MmNUcEJITzFReXpYRHZsWnh5RG5qb2VVNUU5bFlwVVR6djNvWDVzMXlU?=
- =?utf-8?B?VXZjWUI0bFU4d3F3bTEyZXp2UEQwRnhaTHRLOWV6c05DTDZjMStBQjdBMlVo?=
- =?utf-8?B?WFRjZ1F5VVRHUnVVZ2VackR4L0VHcC9zVzIrdklQQlpaSXcvUlNrR2dtREtn?=
- =?utf-8?B?S2hpK1R2WVVpRDhVWURldFp6d2kxQ0YwRXlRbXU4MExEN1VJT05IREw0aEZH?=
- =?utf-8?B?OTNFdWZPaFVCMXF4N2hISzdLWU5CK0FKMURZc0gwNStHYXV5aGhDT21waytt?=
- =?utf-8?B?WWhsWXZBVHRGWWx1bHNYSnJYejQ4MUZpTTFxeUg3bkFqM1ZDaXoxL29iMDBF?=
- =?utf-8?B?cW1jWjJhTEZCYlpNWVVTdEh0SmRKM3dXZndHMC84NEJQbnNzMFBqOWZzMHQw?=
- =?utf-8?B?SFlQNTlUZ1hqUU9Dek0vWUd5SjVYaTVsakJTVmM4MVlKNktoT3pxclVtRTQ5?=
- =?utf-8?B?SU9QWVllRUJpaXc1RWczbWZpYlZQZWZtK2NsbjZWcVNTVDMyUkYrRkJZWUdi?=
- =?utf-8?B?ZDM1aUw1M0hQMEhwK1l6ZnRVaWxqSDFWN1RIZXNZM3JzYlB5SitoWmVhZVFy?=
- =?utf-8?B?Q1c2MmpBclBYbjNZT253V2I0MEFpZnpia2gyWFJYeCt5elJQakxyOU1lRFdy?=
- =?utf-8?B?T2lUUnRvOEwxNEdPZHNmdng5dCtRQ0ZnU0lzYlVXcUVTSVZGYXRjS1hKTVJ5?=
- =?utf-8?B?N1h4ZzVJR0xSWDR1a1RwbjVtU0VEQXcvUWhIRFZOSVNhamZ5Uy9QeFlzNC9W?=
- =?utf-8?B?WXQ2NzhFT3NEQzVwUXNENDg5bW12RHVDN1E0a1RmNG50S0hMeisvZkh1UERS?=
- =?utf-8?B?MTFibjZRUzZzWHNFdW0vMDdTc1poei9oL1VLNng3clo4QjYrcmFQdno1b0hh?=
- =?utf-8?B?R3J3aThSYmhqbDhLS3JJUXRCSFdSMUxyaVRJdUx6Rzd6ZWVsNmhiWVZKMyt6?=
- =?utf-8?B?bmExV3R0a3VOUkZZNzE2WU1sZ2IxbjdBZnh1M2JlZlNweVNJWjBaQ3IxMVFq?=
- =?utf-8?B?OCtQSUZVZWcyREYybWlIU1pwYmhKRXpvaWxibUNUblNRZkdQQzVwMHJYNURR?=
- =?utf-8?B?TDhBamxaOFVQWGt2RjBjOGRvMnNpRHU4UlNLWVkxUWxmTmhLZlFmaDVGRURC?=
- =?utf-8?B?Si9SR2xLblRVTkpHK0dYQkJOREs1dHRibFRneHhQMTJMVU01Y2lUM21wbmhI?=
- =?utf-8?B?TTZaZXk3MEdySWtaWUFsRWNqd3dGQ3Y2MUZrTFV2SnJDQm93bE9hZC9PSFZK?=
- =?utf-8?Q?eLi8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3173226-d2c7-499e-c8ac-08de07697b05
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2025 19:24:34.9562 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NB0ylu0xbMm0nfAIZq69blHXWgICsIodtK1fbzZ2pUJ3O5vNffPb0zVwRQ58E3HE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFD4454CAA9
+ <CY8PR12MB743546724A4EB526E5AC9B5785EEA@CY8PR12MB7435.namprd12.prod.outlook.com>
+In-Reply-To: <CY8PR12MB743546724A4EB526E5AC9B5785EEA@CY8PR12MB7435.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 9 Oct 2025 15:28:35 -0400
+X-Gm-Features: AS18NWAxBFaUIhtNNVSJlUMCIoAtS7CnUZkXl_Sq9Jmyq7YptxtP8IN4LoCfjtU
+Message-ID: <CADnq5_P60WCeJ+1NAECzhpdEoz5Mi214=u8XJHgC32MYNT6TYw@mail.gmail.com>
+Subject: Re: [PATCH 3/6] drm/amdgpu: fix hung reset queue array return for hws
+ user compute
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liu,
+ Shaoyun" <Shaoyun.Liu@amd.com>, 
+ "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>, "Lin,
+ Amber" <Amber.Lin@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,146 +88,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IERl
-dWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gU2VudDogVGh1cnNkYXksIE9jdG9iZXIg
-OSwgMjAyNSAzOjE3IFBNDQo+IFRvOiBLaW0sIEpvbmF0aGFuIDxKb25hdGhhbi5LaW1AYW1kLmNv
-bT4NCj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5k
-ZXINCj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBMaXUsIFNoYW95dW4gPFNoYW95dW4u
-TGl1QGFtZC5jb20+Ow0KPiBLYXNpdmlzd2FuYXRoYW4sIEhhcmlzaCA8SGFyaXNoLkthc2l2aXN3
-YW5hdGhhbkBhbWQuY29tPjsgTGluLCBBbWJlcg0KPiA8QW1iZXIuTGluQGFtZC5jb20+DQo+IFN1
-YmplY3Q6IFJlOiBbUEFUQ0ggMy82XSBkcm0vYW1kZ3B1OiBmaXggaHVuZyByZXNldCBxdWV1ZSBh
-cnJheSByZXR1cm4gZm9yIGh3cw0KPiB1c2VyIGNvbXB1dGUNCj4NCj4gT24gVGh1LCBPY3QgOSwg
-MjAyNSBhdCAyOjUw4oCvUE0gSm9uYXRoYW4gS2ltIDxqb25hdGhhbi5raW1AYW1kLmNvbT4gd3Jv
-dGU6DQo+ID4NCj4gPiBCeSBkZXNpZ24gdGhlIE1FUyB3aWxsIHJldHVybiBhbiBhcnJheSByZXN1
-bHQgdGhhdCBpcyB0d2ljZSB0aGUgbnVtYmVyDQo+ID4gb2YgaHVuZyBkb29yYmVsbHMgaXQgY2Fu
-IHJlcG9ydC4NCj4gPg0KPiA+IGkuZS4gaWYgdXAgayByZXBvcnRlZCBkb29yYmVsbHMgYXJlIHN1
-cHBvcnRlZCwgdGhlbiB0aGUNCj4gPiBzZWNvbmQgaGFsZiBvZiB0aGUgYXJyYXksIGFsc28gb2Yg
-bGVuZ3RoIGssIGhvbGRzIHRoZSBIUUQgaW5mb3JtYXRpb24NCj4gPiAodHlwZS9xdWV1ZS9waXBl
-KSB3aGVyZSBxdWV1ZSAxIGNvcnJlc3BvbmRzIHRvIGluZGV4IDAgYW5kIGssDQo+ID4gcXVldWUg
-MiBjb3JyZXNwb25kcyB0byBpbmRleCAxIGFuZCBrICsgMSBldGMgLi4uDQo+DQo+IEhhcyB0aGlz
-IGFsd2F5cyBiZWVuIHRoZSBjYXNlPyAgSWYgbm90LCB3aGF0IG1lcyB2ZXJzaW9uIGNoYW5nZWQg
-dGhpcz8NCg0KSXQncyBiZWVuIGFyb3VuZCBzaW5jZSB0aGUgYmVnaW5uaW5nLg0KDQo+DQo+ID4N
-Cj4gPiBUaGUgZHJpdmVyIHdpbGwgdXNlIHRoZSBIRFEgaW5mbyB0byB0YXJnZXQgcXVldWUvcGlw
-ZSByZXNldCBmb3INCj4gPiBoYXJkd2FyZSBzY2hlZHVsZWQgdXNlciBjb21wdXRlIHF1ZXVlcy4N
-Cj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEpvbmF0aGFuIEtpbSA8am9uYXRoYW4ua2ltQGFtZC5j
-b20+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tZXMu
-YyAgICB8IDIwICsrKysrKysrKysrKysrKystLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9tZXMuaCAgICB8ICAxICsNCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvbWVzX3VzZXJxdWV1ZS5jIHwgIDYgKysrLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L21lc192MTFfMC5jICAgICB8ICA4ICsrKysrLS0tDQo+ID4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L21lc192MTJfMC5jICAgICB8ICA4ICsrKysrLS0tDQo+ID4gIDUgZmls
-ZXMgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pDQo+ID4NCj4gPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21lcy5jDQo+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21lcy5jDQo+ID4gaW5kZXggYzY5OGUx
-ODNiZWRhLi4xYWYzZGRiNmY2NWMgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X21lcy5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X21lcy5jDQo+ID4gQEAgLTQxOSwxMiArNDE5LDI0IEBAIGludA0KPiBhbWRncHVf
-bWVzX2RldGVjdF9hbmRfcmVzZXRfaHVuZ19xdWV1ZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYsDQo+ID4gICAgICAgICBpZiAocikgew0KPiA+ICAgICAgICAgICAgICAgICBkZXZfZXJyKGFk
-ZXYtPmRldiwgImZhaWxlZCB0byBkZXRlY3QgYW5kIHJlc2V0XG4iKTsNCj4gPiAgICAgICAgIH0g
-ZWxzZSB7DQo+ID4gKyAgICAgICAgICAgICAgIGludCBhcnJheV9ocWRfaW5mb19vZmZzZXQgPSBh
-ZGV2LT5tZXMuaHVuZ19xdWV1ZV9ocWRfaW5mb19vZmZzZXQ7DQo+ID4gKyAgICAgICAgICAgICAg
-IGludCBhcnJheV9zaXplID0gYWRldi0+bWVzLmh1bmdfcXVldWVfZGJfYXJyYXlfc2l6ZTsNCj4g
-PiAgICAgICAgICAgICAgICAgKmh1bmdfZGJfbnVtID0gMDsNCj4gPiAtICAgICAgICAgICAgICAg
-Zm9yIChpID0gMDsgaSA8IGFkZXYtPm1lcy5odW5nX3F1ZXVlX2RiX2FycmF5X3NpemU7IGkrKykg
-ew0KPiA+IC0gICAgICAgICAgICAgICAgICAgICAgIGlmIChkYl9hcnJheVtpXSAhPSBBTURHUFVf
-TUVTX0lOVkFMSURfREJfT0ZGU0VUKSB7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgICBmb3Ig
-KGkgPSAwOyBpIDwgYXJyYXlfaHFkX2luZm9fb2Zmc2V0OyBpKyspIHsNCj4gPiArICAgICAgICAg
-ICAgICAgICAgICAgICBpZiAoZGJfYXJyYXlbaV0gPT0gQU1ER1BVX01FU19JTlZBTElEX0RCX09G
-RlNFVCkNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOw0KPiA+
-ICsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICBodW5nX2RiX2FycmF5W2ldID0gZGJfYXJy
-YXlbaV07DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgKmh1bmdfZGJfbnVtICs9IDE7DQo+
-ID4gKyAgICAgICAgICAgICAgIH0NCj4gPiArDQo+ID4gKyAgICAgICAgICAgICAgIGZvciAoaSA9
-IGFycmF5X2hxZF9pbmZvX29mZnNldDsgaSA8IGFycmF5X3NpemU7IGkrKykgew0KPiA+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIGlmICghaHVuZ19kYl9udW0gfHwgcXVldWVfdHlwZSAhPQ0KPiBB
-TURHUFVfUklOR19UWVBFX0NPTVBVVEUpDQo+DQo+IE1pZ2h0IGJlIGJldHRlciB0byBtb3ZlIHRo
-ZSBxdWV1ZV90eXBlIGNoZWNrIGJlZm9yZSB0aGUgbG9vcC4NCg0KQWNrLg0KDQo+DQo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsNCj4gPiArDQo+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgaWYgKGRiX2FycmF5W2ldICE9IEFNREdQVV9NRVNfSU5WQUxJRF9EQl9P
-RkZTRVQpDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBodW5nX2RiX2FycmF5
-W2ldID0gZGJfYXJyYXlbaV07DQo+DQo+IFdoYXQgaXMgdGhlIHBvaW50IG9mIHRoaXM/ICBJZiB0
-aGlzIGlzIGhxZCBpbmZvLCB0aGVuIGl0J3Mgbm90IGENCj4gZG9vcmJlbGwsIHNvIHdoeSBhZGQg
-aXQgdG8gdGhlIGxpc3Q/ICBNYXliZSBkcm9wIHRoZSBocWQgYXJyYXkNCj4gaGFuZGxpbmcgdW50
-aWwgd2UgYWN0dWFsbHkgdXNlIGl0Lg0KDQpJdCdzIGZvciBsYXRlciB1c2Ugd2l0aCB0aGUgY3Vy
-cmVudCBLRkQuDQpXZSBuZWVkIHRvIHN0ZWVyIHRvIHRoZSByaWdodCBxdWV1ZS9waXBlIGNvb3Jk
-aW5hdGVzIGZvciBwaXBlIHJlc2V0IGFuZCBIUUQgYWN0aXZlIGNoZWNrcyBsYXRlciB2aWEgbW1p
-byByL3cuDQpTdXJlLCBJIGNhbiBzcXVhc2ggdGhpcyBwYXRjaCBpbnRvIGEgZm9sbG93IG9uIHNl
-cmllcyB3aGVuIHdlIGFjdHVhbGx5IHN0YXJ0IHRvIHJlc2V0dGluZyBxdWV1ZXMuDQoNCkpvbg0K
-DQoNCj4NCj4gQWxleA0KPg0KPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKmh1
-bmdfZGJfbnVtICs9IDE7DQo+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgfQ0KPiA+ICAgICAg
-ICAgICAgICAgICB9DQo+ID4gICAgICAgICB9DQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21lcy5oDQo+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X21lcy5oDQo+ID4gaW5kZXggNmI1MDZmYzcyZjU4Li45N2MxMzdjOTBm
-OTcgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21l
-cy5oDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21lcy5oDQo+
-ID4gQEAgLTE0OSw2ICsxNDksNyBAQCBzdHJ1Y3QgYW1kZ3B1X21lcyB7DQo+ID4gICAgICAgICB2
-b2lkICAgICAgICAgICAgICAgICpyZXNvdXJjZV8xX2FkZHJbQU1ER1BVX01BWF9NRVNfUElQRVNd
-Ow0KPiA+DQo+ID4gICAgICAgICBpbnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGh1bmdf
-cXVldWVfZGJfYXJyYXlfc2l6ZTsNCj4gPiArICAgICAgIGludCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgaHVuZ19xdWV1ZV9ocWRfaW5mb19vZmZzZXQ7DQo+ID4gICAgICAgICBzdHJ1Y3Qg
-YW1kZ3B1X2JvICAgICAgICAgICAgICAgICpodW5nX3F1ZXVlX2RiX2FycmF5X2dwdV9vYmo7DQo+
-ID4gICAgICAgICB1aW50NjRfdCAgICAgICAgICAgICAgICAgICAgICAgIGh1bmdfcXVldWVfZGJf
-YXJyYXlfZ3B1X2FkZHI7DQo+ID4gICAgICAgICB2b2lkICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICpodW5nX3F1ZXVlX2RiX2FycmF5X2NwdV9hZGRyOw0KPiA+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNfdXNlcnF1ZXVlLmMNCj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9tZXNfdXNlcnF1ZXVlLmMNCj4gPiBpbmRleCA4MjkxMjlhZDdiZDEuLjVj
-NjM0ODBkZGE5YyAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9t
-ZXNfdXNlcnF1ZXVlLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNf
-dXNlcnF1ZXVlLmMNCj4gPiBAQCAtMjA4LDEwICsyMDgsMTAgQEAgc3RhdGljIGludCBtZXNfdXNl
-cnFfZGV0ZWN0X2FuZF9yZXNldChzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPiAg
-ICAgICAgIHN0cnVjdCBhbWRncHVfdXNlcnFfbWdyICp1cW0sICp0bXA7DQo+ID4gICAgICAgICB1
-bnNpZ25lZCBpbnQgaHVuZ19kYl9udW0gPSAwOw0KPiA+ICAgICAgICAgaW50IHF1ZXVlX2lkLCBy
-LCBpOw0KPiA+IC0gICAgICAgdTMyIGRiX2FycmF5WzRdOw0KPiA+ICsgICAgICAgdTMyIGRiX2Fy
-cmF5WzhdOw0KPiA+DQo+ID4gLSAgICAgICBpZiAoZGJfYXJyYXlfc2l6ZSA+IDQpIHsNCj4gPiAt
-ICAgICAgICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICJEQiBhcnJheSBzaXplICglZCB2cyA0
-KSB0b28gc21hbGxcbiIsDQo+ID4gKyAgICAgICBpZiAoZGJfYXJyYXlfc2l6ZSA+IDgpIHsNCj4g
-PiArICAgICAgICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICJEQiBhcnJheSBzaXplICglZCB2
-cyA4KSB0b28gc21hbGxcbiIsDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgZGJfYXJyYXlf
-c2l6ZSk7DQo+ID4gICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiA+ICAgICAgICAg
-fQ0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNfdjExXzAu
-Yw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21lc192MTFfMC5jDQo+ID4gaW5kZXgg
-ZTgyMTg4NDMxZjc5Li5kYTU3NWJiMTM3N2YgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvbWVzX3YxMV8wLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9tZXNfdjExXzAuYw0KPiA+IEBAIC02Niw3ICs2Niw4IEBAIHN0YXRpYyBpbnQgbWVz
-X3YxMV8wX2tpcV9od19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2KTsNCj4gPiAg
-I2RlZmluZSBHRlhfTUVTX0RSQU1fU0laRSAgICAgIDB4ODAwMDANCj4gPiAgI2RlZmluZSBNRVMx
-MV9IV19SRVNPVVJDRV8xX1NJWkUgKDEyOCAqIEFNREdQVV9HUFVfUEFHRV9TSVpFKQ0KPiA+DQo+
-ID4gLSNkZWZpbmUgTUVTMTFfSFVOR19EQl9PRkZTRVRfQVJSQVlfU0laRSA0DQo+ID4gKyNkZWZp
-bmUgTUVTMTFfSFVOR19EQl9PRkZTRVRfQVJSQVlfU0laRSA4IC8qIFswOjNdID0gZGIgb2Zmc2V0
-LCBbNDo3XSA9DQo+IGhxZCBpbmZvICovDQo+ID4gKyNkZWZpbmUgTUVTMTFfSFVOR19IUURfSU5G
-T19PRkZTRVQgICAgIDQNCj4gPg0KPiA+ICBzdGF0aWMgdm9pZCBtZXNfdjExXzBfcmluZ19zZXRf
-d3B0cihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQo+ID4gIHsNCj4gPiBAQCAtMTcyMCw4ICsx
-NzIxLDkgQEAgc3RhdGljIGludCBtZXNfdjExXzBfZWFybHlfaW5pdChzdHJ1Y3QNCj4gYW1kZ3B1
-X2lwX2Jsb2NrICppcF9ibG9jaykNCj4gPiAgICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2ID0gaXBfYmxvY2stPmFkZXY7DQo+ID4gICAgICAgICBpbnQgcGlwZSwgcjsNCj4gPg0KPiA+
-IC0gICAgICAgYWRldi0+bWVzLmh1bmdfcXVldWVfZGJfYXJyYXlfc2l6ZSA9DQo+ID4gLSAgICAg
-ICAgICAgICAgIE1FUzExX0hVTkdfREJfT0ZGU0VUX0FSUkFZX1NJWkU7DQo+ID4gKyAgICAgICBh
-ZGV2LT5tZXMuaHVuZ19xdWV1ZV9kYl9hcnJheV9zaXplID0NCj4gTUVTMTFfSFVOR19EQl9PRkZT
-RVRfQVJSQVlfU0laRTsNCj4gPiArICAgICAgIGFkZXYtPm1lcy5odW5nX3F1ZXVlX2hxZF9pbmZv
-X29mZnNldCA9DQo+IE1FUzExX0hVTkdfSFFEX0lORk9fT0ZGU0VUOw0KPiA+ICsNCj4gPiAgICAg
-ICAgIGZvciAocGlwZSA9IDA7IHBpcGUgPCBBTURHUFVfTUFYX01FU19QSVBFUzsgcGlwZSsrKSB7
-DQo+ID4gICAgICAgICAgICAgICAgIGlmICghYWRldi0+ZW5hYmxlX21lc19raXEgJiYgcGlwZSA9
-PSBBTURHUFVfTUVTX0tJUV9QSVBFKQ0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRp
-bnVlOw0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNfdjEy
-XzAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21lc192MTJfMC5jDQo+ID4gaW5k
-ZXggYmU4YTM1MmY5NzcxLi43OWRkMjI2MWFkMDQgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvbWVzX3YxMl8wLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9tZXNfdjEyXzAuYw0KPiA+IEBAIC00Nyw3ICs0Nyw4IEBAIHN0YXRpYyBpbnQg
-bWVzX3YxMl8wX2tpcV9od19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2KTsNCj4g
-Pg0KPiA+ICAjZGVmaW5lIE1FU19FT1BfU0laRSAgIDIwNDgNCj4gPg0KPiA+IC0jZGVmaW5lIE1F
-UzEyX0hVTkdfREJfT0ZGU0VUX0FSUkFZX1NJWkUgNA0KPiA+ICsjZGVmaW5lIE1FUzEyX0hVTkdf
-REJfT0ZGU0VUX0FSUkFZX1NJWkUgOCAvKiBbMDozXSA9IGRiIG9mZnNldCBbNDo3XQ0KPiBocWQg
-aW5mbyAqLw0KPiA+ICsjZGVmaW5lIE1FUzEyX0hVTkdfSFFEX0lORk9fT0ZGU0VUICAgICA0DQo+
-ID4NCj4gPiAgc3RhdGljIHZvaWQgbWVzX3YxMl8wX3Jpbmdfc2V0X3dwdHIoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nKQ0KPiA+ICB7DQo+ID4gQEAgLTE4OTksOCArMTkwMCw5IEBAIHN0YXRpYyBp
-bnQgbWVzX3YxMl8wX2Vhcmx5X2luaXQoc3RydWN0DQo+IGFtZGdwdV9pcF9ibG9jayAqaXBfYmxv
-Y2spDQo+ID4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGlwX2Jsb2NrLT5h
-ZGV2Ow0KPiA+ICAgICAgICAgaW50IHBpcGUsIHI7DQo+ID4NCj4gPiAtICAgICAgIGFkZXYtPm1l
-cy5odW5nX3F1ZXVlX2RiX2FycmF5X3NpemUgPQ0KPiA+IC0gICAgICAgICAgICAgICBNRVMxMl9I
-VU5HX0RCX09GRlNFVF9BUlJBWV9TSVpFOw0KPiA+ICsgICAgICAgYWRldi0+bWVzLmh1bmdfcXVl
-dWVfZGJfYXJyYXlfc2l6ZSA9DQo+IE1FUzEyX0hVTkdfREJfT0ZGU0VUX0FSUkFZX1NJWkU7DQo+
-ID4gKyAgICAgICBhZGV2LT5tZXMuaHVuZ19xdWV1ZV9ocWRfaW5mb19vZmZzZXQgPQ0KPiBNRVMx
-Ml9IVU5HX0hRRF9JTkZPX09GRlNFVDsNCj4gPiArDQo+ID4gICAgICAgICBmb3IgKHBpcGUgPSAw
-OyBwaXBlIDwgQU1ER1BVX01BWF9NRVNfUElQRVM7IHBpcGUrKykgew0KPiA+ICAgICAgICAgICAg
-ICAgICByID0gYW1kZ3B1X21lc19pbml0X21pY3JvY29kZShhZGV2LCBwaXBlKTsNCj4gPiAgICAg
-ICAgICAgICAgICAgaWYgKHIpDQo+ID4gLS0NCj4gPiAyLjM0LjENCj4gPg0K
+On Thu, Oct 9, 2025 at 3:24=E2=80=AFPM Kim, Jonathan <Jonathan.Kim@amd.com>=
+ wrote:
+>
+> [Public]
+>
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Thursday, October 9, 2025 3:17 PM
+> > To: Kim, Jonathan <Jonathan.Kim@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>;
+> > Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Lin, Amber
+> > <Amber.Lin@amd.com>
+> > Subject: Re: [PATCH 3/6] drm/amdgpu: fix hung reset queue array return =
+for hws
+> > user compute
+> >
+> > On Thu, Oct 9, 2025 at 2:50=E2=80=AFPM Jonathan Kim <jonathan.kim@amd.c=
+om> wrote:
+> > >
+> > > By design the MES will return an array result that is twice the numbe=
+r
+> > > of hung doorbells it can report.
+> > >
+> > > i.e. if up k reported doorbells are supported, then the
+> > > second half of the array, also of length k, holds the HQD information
+> > > (type/queue/pipe) where queue 1 corresponds to index 0 and k,
+> > > queue 2 corresponds to index 1 and k + 1 etc ...
+> >
+> > Has this always been the case?  If not, what mes version changed this?
+>
+> It's been around since the beginning.
+>
+> >
+> > >
+> > > The driver will use the HDQ info to target queue/pipe reset for
+> > > hardware scheduled user compute queues.
+> > >
+> > > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    | 20 ++++++++++++++++----
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  1 +
+> > >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |  6 +++---
+> > >  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c     |  8 +++++---
+> > >  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c     |  8 +++++---
+> > >  5 files changed, 30 insertions(+), 13 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > > index c698e183beda..1af3ddb6f65c 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> > > @@ -419,12 +419,24 @@ int
+> > amdgpu_mes_detect_and_reset_hung_queues(struct amdgpu_device *adev,
+> > >         if (r) {
+> > >                 dev_err(adev->dev, "failed to detect and reset\n");
+> > >         } else {
+> > > +               int array_hqd_info_offset =3D adev->mes.hung_queue_hq=
+d_info_offset;
+> > > +               int array_size =3D adev->mes.hung_queue_db_array_size=
+;
+> > >                 *hung_db_num =3D 0;
+> > > -               for (i =3D 0; i < adev->mes.hung_queue_db_array_size;=
+ i++) {
+> > > -                       if (db_array[i] !=3D AMDGPU_MES_INVALID_DB_OF=
+FSET) {
+> > > +
+> > > +               for (i =3D 0; i < array_hqd_info_offset; i++) {
+> > > +                       if (db_array[i] =3D=3D AMDGPU_MES_INVALID_DB_=
+OFFSET)
+> > > +                               continue;
+> > > +
+> > > +                       hung_db_array[i] =3D db_array[i];
+> > > +                       *hung_db_num +=3D 1;
+> > > +               }
+> > > +
+> > > +               for (i =3D array_hqd_info_offset; i < array_size; i++=
+) {
+> > > +                       if (!hung_db_num || queue_type !=3D
+> > AMDGPU_RING_TYPE_COMPUTE)
+> >
+> > Might be better to move the queue_type check before the loop.
+>
+> Ack.
+>
+> >
+> > > +                               break;
+> > > +
+> > > +                       if (db_array[i] !=3D AMDGPU_MES_INVALID_DB_OF=
+FSET)
+> > >                                 hung_db_array[i] =3D db_array[i];
+> >
+> > What is the point of this?  If this is hqd info, then it's not a
+> > doorbell, so why add it to the list?  Maybe drop the hqd array
+> > handling until we actually use it.
+>
+> It's for later use with the current KFD.
+> We need to steer to the right queue/pipe coordinates for pipe reset and H=
+QD active checks later via mmio r/w.
+> Sure, I can squash this patch into a follow on series when we actually st=
+art to resetting queues.
+
+We should still increase the array size so that we allocate enough
+memory, but maybe hold off on returning the hqd info until you use it.
+
+Alex
+
+>
+> Jon
+>
+>
+> >
+> > Alex
+> >
+> > > -                               *hung_db_num +=3D 1;
+> > > -                       }
+> > >                 }
+> > >         }
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > > index 6b506fc72f58..97c137c90f97 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> > > @@ -149,6 +149,7 @@ struct amdgpu_mes {
+> > >         void                *resource_1_addr[AMDGPU_MAX_MES_PIPES];
+> > >
+> > >         int                             hung_queue_db_array_size;
+> > > +       int                             hung_queue_hqd_info_offset;
+> > >         struct amdgpu_bo                *hung_queue_db_array_gpu_obj;
+> > >         uint64_t                        hung_queue_db_array_gpu_addr;
+> > >         void                            *hung_queue_db_array_cpu_addr=
+;
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > > index 829129ad7bd1..5c63480dda9c 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > > @@ -208,10 +208,10 @@ static int mes_userq_detect_and_reset(struct
+> > amdgpu_device *adev,
+> > >         struct amdgpu_userq_mgr *uqm, *tmp;
+> > >         unsigned int hung_db_num =3D 0;
+> > >         int queue_id, r, i;
+> > > -       u32 db_array[4];
+> > > +       u32 db_array[8];
+> > >
+> > > -       if (db_array_size > 4) {
+> > > -               dev_err(adev->dev, "DB array size (%d vs 4) too small=
+\n",
+> > > +       if (db_array_size > 8) {
+> > > +               dev_err(adev->dev, "DB array size (%d vs 8) too small=
+\n",
+> > >                         db_array_size);
+> > >                 return -EINVAL;
+> > >         }
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> > > index e82188431f79..da575bb1377f 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> > > @@ -66,7 +66,8 @@ static int mes_v11_0_kiq_hw_fini(struct amdgpu_devi=
+ce
+> > *adev);
+> > >  #define GFX_MES_DRAM_SIZE      0x80000
+> > >  #define MES11_HW_RESOURCE_1_SIZE (128 * AMDGPU_GPU_PAGE_SIZE)
+> > >
+> > > -#define MES11_HUNG_DB_OFFSET_ARRAY_SIZE 4
+> > > +#define MES11_HUNG_DB_OFFSET_ARRAY_SIZE 8 /* [0:3] =3D db offset, [4=
+:7] =3D
+> > hqd info */
+> > > +#define MES11_HUNG_HQD_INFO_OFFSET     4
+> > >
+> > >  static void mes_v11_0_ring_set_wptr(struct amdgpu_ring *ring)
+> > >  {
+> > > @@ -1720,8 +1721,9 @@ static int mes_v11_0_early_init(struct
+> > amdgpu_ip_block *ip_block)
+> > >         struct amdgpu_device *adev =3D ip_block->adev;
+> > >         int pipe, r;
+> > >
+> > > -       adev->mes.hung_queue_db_array_size =3D
+> > > -               MES11_HUNG_DB_OFFSET_ARRAY_SIZE;
+> > > +       adev->mes.hung_queue_db_array_size =3D
+> > MES11_HUNG_DB_OFFSET_ARRAY_SIZE;
+> > > +       adev->mes.hung_queue_hqd_info_offset =3D
+> > MES11_HUNG_HQD_INFO_OFFSET;
+> > > +
+> > >         for (pipe =3D 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+> > >                 if (!adev->enable_mes_kiq && pipe =3D=3D AMDGPU_MES_K=
+IQ_PIPE)
+> > >                         continue;
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> > > index be8a352f9771..79dd2261ad04 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> > > @@ -47,7 +47,8 @@ static int mes_v12_0_kiq_hw_fini(struct amdgpu_devi=
+ce
+> > *adev);
+> > >
+> > >  #define MES_EOP_SIZE   2048
+> > >
+> > > -#define MES12_HUNG_DB_OFFSET_ARRAY_SIZE 4
+> > > +#define MES12_HUNG_DB_OFFSET_ARRAY_SIZE 8 /* [0:3] =3D db offset [4:=
+7]
+> > hqd info */
+> > > +#define MES12_HUNG_HQD_INFO_OFFSET     4
+> > >
+> > >  static void mes_v12_0_ring_set_wptr(struct amdgpu_ring *ring)
+> > >  {
+> > > @@ -1899,8 +1900,9 @@ static int mes_v12_0_early_init(struct
+> > amdgpu_ip_block *ip_block)
+> > >         struct amdgpu_device *adev =3D ip_block->adev;
+> > >         int pipe, r;
+> > >
+> > > -       adev->mes.hung_queue_db_array_size =3D
+> > > -               MES12_HUNG_DB_OFFSET_ARRAY_SIZE;
+> > > +       adev->mes.hung_queue_db_array_size =3D
+> > MES12_HUNG_DB_OFFSET_ARRAY_SIZE;
+> > > +       adev->mes.hung_queue_hqd_info_offset =3D
+> > MES12_HUNG_HQD_INFO_OFFSET;
+> > > +
+> > >         for (pipe =3D 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+> > >                 r =3D amdgpu_mes_init_microcode(adev, pipe);
+> > >                 if (r)
+> > > --
+> > > 2.34.1
+> > >
