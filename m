@@ -4,123 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F00ECAC5BB
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 07:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1247DCCA476
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 08:03:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E482D10E324;
-	Fri, 10 Oct 2025 07:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A75A710EB48;
+	Fri, 10 Oct 2025 08:03:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jqLCkSjL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gDUdWyeF";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010065.outbound.protection.outlook.com [52.101.201.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA1D10E324
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 07:33:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IemC86DvdZNLD2jUj5Gox5AKAL+ePlgAUYGP78JHJgxBARtfMUNZ/7eUho5ks8u9MnqOM1aKdhw7aBmpB8B7AmbGyHSYgl26DDgFrzJx9vnvldAddyaD311gZKZU1mmjyIFsYHzIKp8/sg3swtuflNID/zvEJhOwCpxe8GkV3QOsnPLdU01uhDpEpfEK6NgClWM7kYR/6Q8KWVeMll+N0jAvKjj9wJ5rh0iZ5oNR3+Up6rXKNzLBKt/kigbBoGTG9FYqxrlnoNw2RNFg0gVuZmhOyUm3pKIdk7LkNJ6rcDwSePKX/p73iTNjyyz12x666U0l9Mv65tkNp1/O2Q/JSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Ih4s6xNv6aifKbTgurQpUzJ+qYS55ZhDola+kmGqVU=;
- b=aLtao/mYPwhdLJWPVIiM7Wwxpoa31AP5LPU/TX3LXhlaNJA/1C7KXIH6jGNnmdChF5TBSE1Mz44SV2TKTPJ9eSb4cMuWY4t06QRce03EKXLaPAcPeHHwRhlYx2/Vp3vtD1oQsYIsYFq+oH+EnkiNrkLSYzAdSBRyEt9vIhQif7VDPdKzqhtz2TQ447KlVtiXxM4pQbS50NGIx0qkD5HxjwfTGIim870GASBrvX4EE0K0EgAcJHXuEJgwXzIgsWlSBLoMJSkQbkJuzWMJjD+7sq0obG+rSNdpV8SItCEdetM6t8HpBaEn3DvPEmq7EPQSSRzcfRfd6imk7Bcw/qyzaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Ih4s6xNv6aifKbTgurQpUzJ+qYS55ZhDola+kmGqVU=;
- b=jqLCkSjLkXZ1dMhQkcnyWGspXvh3FWIcQLWgYe1NeKam4glJSmGrG6RBSco2apZbumNIz9Q+DJ0bkBVgwyTZbkn+W5h/Oyr3CPvlvth2v49Pl8q6OWF0zxPRkcken9oJCKw/mlML39ZusGHlrPkRTAMQaoDSdoWN0Pb1b+8AAYA=
-Received: from SJ2PR07CA0024.namprd07.prod.outlook.com (2603:10b6:a03:505::14)
- by CY1PR12MB9627.namprd12.prod.outlook.com (2603:10b6:930:104::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Fri, 10 Oct
- 2025 07:33:00 +0000
-Received: from SJ1PEPF00001CE2.namprd05.prod.outlook.com
- (2603:10b6:a03:505:cafe::df) by SJ2PR07CA0024.outlook.office365.com
- (2603:10b6:a03:505::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.10 via Frontend Transport; Fri,
- 10 Oct 2025 07:32:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE2.mail.protection.outlook.com (10.167.242.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.9 via Frontend Transport; Fri, 10 Oct 2025 07:32:59 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 10 Oct
- 2025 00:32:58 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 10 Oct
- 2025 02:32:57 -0500
-Received: from victor-aws2.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 10 Oct 2025 00:32:56 -0700
-From: Victor Zhao <Victor.Zhao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <HaiJun.Chang@amd.com>, Victor Zhao <Victor.Zhao@amd.com>
-Subject: [PATCH v2 1/2] drm/amdgpu: Add kiq hdp flush callbacks
-Date: Fri, 10 Oct 2025 15:32:45 +0800
-Message-ID: <20251010073246.204178-1-Victor.Zhao@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
+ [209.85.166.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E82610EAD0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:58:57 +0000 (UTC)
+Received: by mail-io1-f52.google.com with SMTP id
+ ca18e2360f4ac-90a0b3ddebeso46908839f.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:58:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760032737; x=1760637537; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QSi3Wv5G5XIofYUm4EK1Li8HBZbPI3ZGv4Q8D6oYWPg=;
+ b=gDUdWyeFajxBsIMGTPV4coQRLNJnbIR7kc4AaJd+1MIA/2te1G0TjhP8GvOEwaCOse
+ MUt+LXO8cK5ATDDY7EQHYRHTm8CylCks/sJfssfK2MB2Jjw6XIKwq8QXHar27JFfBbMd
+ Tb6p+t1fo827rFMt6uSmPc6MKqOC5ziuNqp7F/iPmYJQWUJC5IOmET5s+ROBSk+l+6nX
+ jmz7Uh4Pu5Wn6xf1KclrwTT3rYgRL1jju+ET8Ph/Ui6Pr0Qt8VwYAMeD6CFk3EDe9NZ2
+ DnUn0kIZQVL8oDXPQE1/R6G5ts41XG2lFXYm8LCUQQymhlhMigmixUG6soz3cWF1L7fO
+ wtJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760032737; x=1760637537;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QSi3Wv5G5XIofYUm4EK1Li8HBZbPI3ZGv4Q8D6oYWPg=;
+ b=In2lm++aVp2N/hhTOnRPtL/xwhwQ0F2Uc0M0a8BcsBKHQBsae4xBhI5l9E6mo+mmko
+ 1ynZLHSL1Oz+Yefs5Cpekm8sEKU2g7v8HKzNQhrS1eNakrbY50pm16BB5y5GxLs2ee6d
+ 7clyqZOb06hnKecv9OAFKi19wt+qppBjkR3B8J+E6hHMBAKJrlkwhj5abgwwB/MiO1Wi
+ y1lLAjZAoKNRaxJ9LgDUKFFyMqXhQKzVvHuKqanNnFl8c85Of4kaY6U6wYC3i+v3C3NF
+ IyW1cH+qaTRy97G3RvArthwi7/hN7xqvQyI+pGXGOnN8hIrgOae9dz/3baS+JSlklcBl
+ PGwA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjTkBQmEXvs63OyJN4+V2Ut0ajLsAbwx/7h3QqxacxrwxS293ccoLfMWgZiBgk1TEo/g1S2Gl5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxLe/6cDFaVBzWJ2IvBOiu4wphpVYLkboBlX9ZS83NVqs/2X1NV
+ 7j2SBbif54AaruMKRgY7ggkdsGvim2IE/5IE1smwa99Gs5WSnpSCrp+2ZUx6ow==
+X-Gm-Gg: ASbGnctGJ8nYvfHs/XJEY06WPI+SmXU5VTrzUIMtemoYjKIHRZi6rLX4AFsS+9OUxFw
+ wUYzvTmkQd08EpB3z5prFZatw6JHg5svzElvRDEW2mxt0YBUBm1DGDKJMn7LTI2naqVe2yTPlIM
+ k+9g0i794r0ZSb0Qmp5HAHheavUtMXSSyB/Xw8tz1JCMQs+7PvQcCEQdTYaWyiWO5NwXuxQzPJ/
+ mon9xFExl9bhqHE+ur7YGJFdKRLgJ5AYevwGYGM7Kd9V9gscrFgNIqq5ebSEyA6ELBX/wv5m6HI
+ nx/7wkSGAZRgs3cxdY1W0MO6yLnoNPE5JfbeWtG2TLL8dD1L75P+qRhJ44K66aKbeSWfxfLD5H1
+ RalZlWqjVNoROhNFtiU/XxqWLU6A32zAGVy1t3r99DvaPL9FPD1fFaLVpbLHk5ZHxf5CWaZy4oN
+ rvgJRz6calRgoHHIc9fEl/dTVtGBHXRC1YevEBug==
+X-Google-Smtp-Source: AGHT+IESXbFctb+o02p9qsNPIjHcqpCU8JSNw70y6it9YpjqvQ7bx7AzMZxH2aFb2k9OPvodnCQZIg==
+X-Received: by 2002:a05:6602:3c6:b0:901:3363:e663 with SMTP id
+ ca18e2360f4ac-93bd197f928mr889547839f.13.1760032736623; 
+ Thu, 09 Oct 2025 10:58:56 -0700 (PDT)
+Received: from godzilla.raven-morpho.ts.net
+ (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.58.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Oct 2025 10:58:56 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com
+Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v5 09/30] dyndbg: refactor param_set_dyndbg_classes and below
+Date: Thu,  9 Oct 2025 11:58:13 -0600
+Message-ID: <20251009175834.1024308-10-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
+References: <20251009175834.1024308-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE2:EE_|CY1PR12MB9627:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f2df939-4e05-4a81-b71d-08de07cf3d0a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0PjcWu6MDSeZjecC7QXwvQfvfiUieH3Ykl/mxZCrvoMpbfXbY+V6MTm+OGwP?=
- =?us-ascii?Q?OmFo9qT0IKSVE6Cy2KiksgFCzciHicFQvjKBKNTnopbog/nmK+Zhsyec/Iw0?=
- =?us-ascii?Q?0HSbmBjEx6k8scED+M4vTrG43DHJLpwFWa8wfNoNYEvBAs+CtkhQPUslL1pB?=
- =?us-ascii?Q?II2htRPs0rDZpRSs8rc2U8Ijp6HcOcxRcBb82ZuX/Lg7jj81OZALJGa1iuDl?=
- =?us-ascii?Q?Uew9zRpPWsc/cZpvvNIVGYWFh2R7Zg4P2LTslcoCpyqM6xMetfB7d7qTQqAG?=
- =?us-ascii?Q?Z9Z8T/vp2qoxM4pedOU+Y1DRGXIB4t2vjPCcw6Zy5GYQzOpwg2VGK8FpRTnv?=
- =?us-ascii?Q?OfE99HYuYjlAAjK2TSiq13DbnaiJZjEhAnkwR7UMl63OA30/z3+VdvP4LtoT?=
- =?us-ascii?Q?/qB06QmctMVkhr+kR+3BqtD8AFFloS69uu2uSQFAfGSK4wkAJidaJ5aQT2EM?=
- =?us-ascii?Q?v0UvaxKX+9dbfOP3fLrQItOvEfFCZYi0w+14ZSXzY6+N0kbZFsP4jIXiDY1R?=
- =?us-ascii?Q?3QdcRNtkG8E6kkcgF3wtMB+aSk6xBvnO5udaB6jf6L3RHq0RoiTG7Wd5R+bT?=
- =?us-ascii?Q?q0GL3q/TwiuP1+8i0nUUIodlAQ2ErE0+ir/TSLhWOC4/QP0H9Uci95l6tCXw?=
- =?us-ascii?Q?m6FbrvWfDfA9vWmOh4R3jjm9TuFPO/MXjTaVVVSrUA0QXeLs6xWgZgzDEAaJ?=
- =?us-ascii?Q?j/lJ80HNxsMXou9uR3JLAaqL1um7YRQcJim1rguDncn8dMl24KD9U+Dx8+r0?=
- =?us-ascii?Q?hoUMOWqNU4C3mqow6Ps8GXuVW0G8hfTlQZTnOHKZbZp0kbDpnlYYLvKPr+YO?=
- =?us-ascii?Q?edcAYofRJgfr96KN0nDyVLohEXgsvSzC8USS9lG7RTzMWO6VAMf6pl5czvMO?=
- =?us-ascii?Q?AG/Na8pNTq8SG+5QypJBubKw5+4BurTDtnjVA0VVrchoiaT+aXwCkZQdpH4D?=
- =?us-ascii?Q?mi2HIPqEuYMsfolob+bJbks+18zrPKWp5fGyTnkOh1N95nC+7fyOJfSOm7E9?=
- =?us-ascii?Q?X662FX54iOF8It3Tw8AyJMLFMmmAmiFU2f/2p234NegAXqiTjdpPAIR+G/IJ?=
- =?us-ascii?Q?MlG9LH2NOZBUgLhxDq62AWd6KIJbkjEDmoHmzt5ScnZXn9+b/zrF/Aqx+jlG?=
- =?us-ascii?Q?11ExaVgStPx8Djyw1P1nAqmOSD+6bLhQD2KkHHIXZtaz85+DG2D/N3tvJJol?=
- =?us-ascii?Q?Kh440PH5IbRzr6J1P5qpIFTe4Y+9HK2fmZ9LzZ93G+FGgs+Xjn2dDIalFzsU?=
- =?us-ascii?Q?YZBaEZ6nhS6hTco+1yKm9mYuMskFN9+LkMyT0tOejXZzjzKfUfAt5jd5n3kW?=
- =?us-ascii?Q?rF1AQ7ZVKQgolpXx/RGHeanLRpajRqsjkKE3c5Kap1+E139SuP10f1JI2YP8?=
- =?us-ascii?Q?fl5BfySFp2Ely2QwqPlwNpr46Pnbz24QdMnzG+wEG3YyuRUHLcWfcIeWyu8q?=
- =?us-ascii?Q?0iW7J39NRzYMbPUXTYWGmbsjN+6Nph4LhTEAjk11sGe65hSZdK24MIm5g4WR?=
- =?us-ascii?Q?KyO/FPusU2FCkzVpJpX0DiDTUEbuntdBuFxePhPbbfG4GUx0sdYIBffvKUAG?=
- =?us-ascii?Q?NFgmnx/Rp3XlfuoD7Y0=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2025 07:32:59.5660 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f2df939-4e05-4a81-b71d-08de07cf3d0a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9627
+X-Mailman-Approved-At: Fri, 10 Oct 2025 08:03:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,109 +95,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add kiq hdp flush callbacks for gfx ips to support gpu hdp flush when no
-ring presents
+Refactor callchain below param_set_dyndbg_classes(1) to allow mod-name
+specific settings.  Split (1) into upper/lower fns, adding modname
+param to lower, and passing NULL in from upper.  Below that, add the
+same param to ddebug_apply_class_bitmap(), and pass it thru to
+_ddebug_queries(), replacing NULL with the param.
 
-Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+This allows the callchain to update the classmap in just one module,
+vs just all as currently done.  While the sysfs param is unlikely to
+ever update just one module, the callchain will be used for modprobe
+handling, which should update only that just-probed module.
+
+In ddebug_apply_class_bitmap(), also check for actual changes to the
+bits before announcing them, to declutter logs.
+
+No functional change.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 5 +++--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 1 +
- 6 files changed, 8 insertions(+), 2 deletions(-)
+v3 s/modnm/mod_name/g
+---
+ lib/dynamic_debug.c | 65 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 40 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 8841d7213de4..751732f3e883 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -9951,6 +9951,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v10_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v10_0_ring_emit_hdp_flush,
- };
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index d9268d051a10..96cd31c457e2 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -593,9 +593,10 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 	return nfound;
+ }
  
- static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 66c47c466532..10d2219866f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -2438,7 +2438,7 @@ static int gfx_v11_0_rlc_load_microcode(struct amdgpu_device *adev)
- 			if (version_minor == 3)
- 				gfx_v11_0_load_rlcp_rlcv_microcode(adev);
+-/* apply a new bitmap to the sys-knob's current bit-state */
++/* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits)
++				     unsigned long *new_bits, unsigned long *old_bits,
++				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+ 	char query[QUERY_SIZE];
+@@ -603,7 +604,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
+ 
+-	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
++	if (*new_bits != *old_bits)
++		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+ 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
+@@ -612,12 +615,16 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+ 			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
+ 
+-		ct = ddebug_exec_queries(query, NULL);
++		ct = ddebug_exec_queries(query, query_modname);
+ 		matches += ct;
+ 
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
++	if (*new_bits != *old_bits)
++		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++			  *old_bits, query_modname ?: "'*'");
++
+ 	return matches;
+ }
+ 
+@@ -672,7 +679,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 				continue;
+ 			}
+ 			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
+ 			*dcp->bits = curr_bits;
+ 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id]);
+@@ -682,7 +689,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+ 
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
+ 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+ 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id], old_bits, curr_bits);
+@@ -696,18 +703,9 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 	return 0;
+ }
+ 
+-/**
+- * param_set_dyndbg_classes - class FOO >control
+- * @instr: string echo>d to sysfs, input depends on map_type
+- * @kp:    kp->arg has state: bits/lvl, map, map_type
+- *
+- * Enable/disable prdbgs by their class, as given in the arguments to
+- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
+- * levels by bitpos.
+- *
+- * Returns: 0 or <0 if error.
+- */
+-int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++static int param_set_dyndbg_module_classes(const char *instr,
++					   const struct kernel_param *kp,
++					   const char *mod_name)
+ {
+ 	const struct ddebug_class_param *dcp = kp->arg;
+ 	const struct ddebug_class_map *map = dcp->map;
+@@ -744,8 +742,8 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
+ 			inrep &= CLASSMAP_BITMASK(map->length);
  		}
--		
+-		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
++		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, mod_name);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -758,7 +756,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
+ 		*dcp->lvl = inrep;
+ 		break;
+ 	default:
+@@ -767,16 +765,33 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
+ 	return 0;
+ }
 +
- 		return 0;
- 	}
++/**
++ * param_set_dyndbg_classes - classmap kparam setter
++ * @instr: string echo>d to sysfs, input depends on map_type
++ * @kp:    kp->arg has state: bits/lvl, map, map_type
++ *
++ * enable/disable all class'd pr_debugs in the classmap. For LEVEL
++ * map-types, enforce * relative levels by bitpos.
++ *
++ * Returns: 0 or <0 if error.
++ */
++int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++{
++	return param_set_dyndbg_module_classes(instr, kp, NULL);
++}
+ EXPORT_SYMBOL(param_set_dyndbg_classes);
  
-@@ -3886,7 +3886,7 @@ static int gfx_v11_0_cp_compute_load_microcode(struct amdgpu_device *adev)
- 	}
- 
- 	memcpy(fw, fw_data, fw_size);
--	
-+
- 	amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_obj);
- 	amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_obj);
- 
-@@ -7320,6 +7320,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v11_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v11_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v11_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 710ec9c34e43..e2bb8668150d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -5597,6 +5597,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v12_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v12_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 0856ff65288c..d3d0a4b0380c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -6939,6 +6939,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_kiq = {
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_rreg = gfx_v8_0_ring_emit_rreg,
- 	.emit_wreg = gfx_v8_0_ring_emit_wreg,
-+	.emit_hdp_flush = gfx_v8_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v8_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index dd19a97436db..f1a2efc2a8d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -7586,6 +7586,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v9_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v9_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v9_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index fb5585ab52be..e0b50c690f8c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -4792,6 +4792,7 @@ static const struct amdgpu_ring_funcs gfx_v9_4_3_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v9_4_3_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v9_4_3_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v9_4_3_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v9_4_3_ring_emit_hdp_flush,
- };
- 
- static void gfx_v9_4_3_set_ring_funcs(struct amdgpu_device *adev)
+ /**
+- * param_get_dyndbg_classes - classes reader
++ * param_get_dyndbg_classes - classmap kparam getter
+  * @buffer: string description of controlled bits -> classes
+  * @kp:     kp->arg has state: bits, map
+  *
+- * Reads last written state, underlying prdbg state may have been
+- * altered by direct >control.  Displays 0x for DISJOINT, 0-N for
+- * LEVEL Returns: #chars written or <0 on error
++ * Reads last written state, underlying pr_debug states may have been
++ * altered by direct >control.  Displays 0x for DISJOINT classmap
++ * types, 0-N for LEVEL types.
++ *
++ * Returns: ct of chars written or <0 on error
+  */
+ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ {
 -- 
-2.25.1
+2.51.0
 
