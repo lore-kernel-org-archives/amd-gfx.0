@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6F7CCD187
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 08:03:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42230CCD196
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 08:03:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC6C210EB57;
-	Fri, 10 Oct 2025 08:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1F4210EB70;
+	Fri, 10 Oct 2025 08:03:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VlI71qY1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g1+OTruO";
 	dkim-atps=neutral
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BFA110EAD0
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:05 +0000 (UTC)
-Received: by mail-io1-f41.google.com with SMTP id
- ca18e2360f4ac-9032edd72c1so140595339f.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:05 -0700 (PDT)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BF610EAE9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:08 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id
+ e9e14a558f8ab-4291359714eso11118015ab.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760032744; x=1760637544; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760032748; x=1760637548; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YGD+sflpYLyKJkUQPBfbt5KFEJrqeRR2/XNh6nVffG4=;
- b=VlI71qY1gN2u+5dU+6t37bZbFKtM3oqfMf2iXNzKTYyiD+JpjBUbmJC/yaXPPK17B+
- rTPDnI1TKsBvZI639jv0e/VxKOZI3n23rBMB9akvLrVYF8kexzhhrw4T8F1o2WoNVAZk
- 7DBdC++jZEMxEbjxWNZ0g1pjmWQCjCJMC43F23jgjfZ3t++JYFNdXQJMmBR+44Ev/h/f
- uifH3AVsB/xJFqLlKFgJ2oYyrpHWoPxjEm5XrJwgoZeMzCrrJT2BfNCYllU+a4XXscy4
- Ti1gjvgBibCqZGAVJfgjoPVcpXZ40FwiavQAvNEMZRCkUGxLgHENByf2zjY9Vmk1yGh5
- fuHQ==
+ bh=bBVZWusQDNba37/oJBvqNeU2d7R0nqKRYCmReL4RLfo=;
+ b=g1+OTruOwXUtpZCChlqSjufkn1gHQw47rdHtOIz7woS69D9fktOUS8kicdNKmC0PW4
+ tQuTFE5w3oh/drt8EVAtrfsPExFuG5ra3rQXaHQoZOB9YE+bEDpl2S2fqwJYKKd1jdYe
+ Uq/6VHhaiquvWG4/d5Le7HlicmnYdMAZFUQ57ilgq7reEyoTFC5z6SKHw3h4LSI9GLWC
+ nNYLau2CxOvRXESk1G8Mr7Jha+fgXnKl+G7b8ZmHC4yOqPro471ImuVyOWXFpwfKU3h/
+ YxQdBtaYrDAwHSyA1ekyooT55zlkpc0YYUKUISdH2VV6IsLBY8LQvmOgWxtUpOy0KFHe
+ GFkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760032744; x=1760637544;
+ d=1e100.net; s=20230601; t=1760032748; x=1760637548;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YGD+sflpYLyKJkUQPBfbt5KFEJrqeRR2/XNh6nVffG4=;
- b=TsUEvjPwtwrOe6h9VA7cJJQQ0iFaDiWGZKkR9C2iK3dewIcePqvBIb5SEsNy6RUcTw
- KOkfLQ1hXrOZrQ9XYVTChV1aZvUciPe4CmdvU85i/mbZxJzqzT3gPR5vaS6rP1pNIMs1
- 8r7rT3Emst+wdyxAXjyTKGpPzLXHkH9s7hh4wjIP61ZS53E5ae7+01AQ1Ncc2VIByRoE
- 6V0J2EGzzRihI6DEp4Eaexla3//8Wi1RVAsWMQOYSGKHIz1peUA2lA+7UhHcnSad8JXV
- btF37MKssGI2e9EF3FaPZfDEguogv/qON8JHLPxfg3hjvNiOH0Y3KewhfKtIBTc26QvW
- /N8g==
+ bh=bBVZWusQDNba37/oJBvqNeU2d7R0nqKRYCmReL4RLfo=;
+ b=EHK6oNesLSKyOgtiM1GNQlcol+06Fn6WfBme/8iXJF8n3ABmSj9Lv6cH47Obi96Yuq
+ 0YSH+/lzzPoysG6rgG7CxCkGLF2j7IMmEvWlo3WYcbzFOi9fwZqDljhEoicl3+K66F0D
+ 3erk0r10wpYLQ9/rBp75htTeq3XCMT5kYKbruYIyp9zi7MM+o2uN1NbjCzJGtIgm9N+D
+ eDk7QHyc3tNhGj1fvu4CwlMTKKxeDea1lAG1uXpki6Y/q9xoYb1Y5ScWSET+03WbeeHM
+ u9vC10UWfDq35QQu83Q9M+XyVqJAf9mUk+mE3xorkHIZNMOLAlhdCRBrWx9dwC0c6StI
+ gHIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXRGkW2y3KkigbcdAwQ/CSwh0uc99kL7Kr1K3KOXzVSI6/YX8QxOwrYKWQZ1k7oH1RUTPYHkYs9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yytt1qVpitSC1V/o3jZKk/0UlYv1AHdrkkLRi4SHVmTIUxBDPPL
- F+bvTOcC1nWb3rylsenelDVnOR7RByio1h8qctQf8qJMNY8ym38qPBqR
-X-Gm-Gg: ASbGncu9liRq0GH9+peaIiLYHR+C+/7Xuhd+tjEsvcYM5T3nXJ3g5eD3gjUtZyD3Qmg
- 9lN72roGIDhgYxberFATUoWKT+HcnGioXqtY0qd0XkAosRLimkqs6DdcbxGm+EArjYTpkXd4Bzr
- JMYn53MplZ14WNTvxpg+z0hIPvp1k+nMsyEm5uH2vyVPSJrZK1ssIw+JhWYGBRrmHlYvnFop/7n
- MLoROMCLr9VC3DWuMwHFE52IQjsRKi0hK/d3MeseqsBYZdL5jrXwJ/DLpaimldpFrQTeqlDmau8
- Uy7bz8BgFUuo+f+TzANWn8r+r1muAiZfHvWLr/P/CA/FUWSMT0xiCLVkxg7bRVSEZo0yje46Bhu
- +T3nJbW/dB14HfM8gLFGrDp5xjKy2CkkrxkFP2f8xzDKFkOa6tbHxeQnVs2cxhmYYb/LZny2JaT
- jvzSbadqAqhq3KoeEoAQWpmPIizsbntHUIvtRQ4frb2irnrHzL
-X-Google-Smtp-Source: AGHT+IHC/pYrpkk1pQ98omx2cEKQCK33DHJq6/oaRwjrGFF6/pxWMHlOMffq90TfVlz60FjVdMse8A==
-X-Received: by 2002:a05:6e02:2783:b0:424:866:ec6d with SMTP id
- e9e14a558f8ab-42f8736d251mr82921515ab.12.1760032744234; 
- Thu, 09 Oct 2025 10:59:04 -0700 (PDT)
+ AJvYcCVKmi3RXSnEa1kh7CkehPVrJQhwXkumlswRWWCHpHDKIo77KjtpntJ+1ez0bK/ygrgAYvGyqrFu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPRaNN8FvkCx0Z1Om9cHPiba2vBtnwPYz8WsOzpQDcqyJUzr/w
+ WgypSTiayyqPAHBgdfqxmX5n9nLzLdSvPmmKbohm93/GSdvkzzEqVw7G
+X-Gm-Gg: ASbGncu1jbl5m36yuDbJeuMFiW52BjQ3zWHrrYuECGsoiOtMH5qk+d0ImAFU4PWbPU3
+ lBQppzkdPuNwS1Iotkdq3jQtOxV8U4drMaaEwgkyjk80wKzA2WAb0lfx1vmcVIXf8FAilJuaqxH
+ Ifib2bIJUQb1S9QkuzZ3TsXx3p/dHlNenbAt6GFAcHY1AdZVRkluZApISyirslLaa3wvP78ckcd
+ h41LI2v5Gbg1g2F9sBmFt72SP7VAwllHqrZKukxs7oxs7PR9dVWCi4VwTJMC52qksF/+gVpMz3C
+ YRYxMc/Gz8PioT2ssHxdNiZJg1O5PN3TX6CKjSVQOkLHQVK5KhDXUL45BwVmepIVeB5O2NcVUwt
+ /03+HW4kpKhZvh7b1pr3cx2qiwA3OjU7aiAbG+8OttOBtAyOM2G9IVZTii+DsKTKIwS9GAjOki1
+ nNIDkJFBd/FYDIzlrcX9c3K+ah/qI=
+X-Google-Smtp-Source: AGHT+IGyz5PWJ72Qylu52JN98V5hPC/owd9s7jI1qO3g0mG+L/5zspcKIM0k6PzzDXXuTsCSBFWwxA==
+X-Received: by 2002:a05:6e02:1a88:b0:42d:86cc:1bd2 with SMTP id
+ e9e14a558f8ab-42f87410bd5mr76537985ab.32.1760032747736; 
+ Thu, 09 Oct 2025 10:59:07 -0700 (PDT)
 Received: from godzilla.raven-morpho.ts.net
  (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.03
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 10:59:03 -0700 (PDT)
+ Thu, 09 Oct 2025 10:59:07 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
 Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
@@ -72,10 +72,10 @@ Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v5 16/30] dyndbg: move mod_name from ddebug_table down to
- _ddebug_info
-Date: Thu,  9 Oct 2025 11:58:20 -0600
-Message-ID: <20251009175834.1024308-17-jim.cromie@gmail.com>
+Subject: [PATCH v5 19/30] dyndbg: change __dynamic_func_call_cls* macros into
+ expressions
+Date: Thu,  9 Oct 2025 11:58:23 -0600
+Message-ID: <20251009175834.1024308-20-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
 References: <20251009175834.1024308-1-jim.cromie@gmail.com>
@@ -96,202 +96,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-struct _ddebug_info already has most of dyndbg's info for a module;
-push debug_table.mod_name down into it, finishing the encapsulation.
+The Xe driver's XE_IOCTL_DBG macro calls drm_dbg() from inside an if
+(expression).  This breaks when CONFIG_DRM_USE_DYNAMIC_DEBUG=y because
+the invoked macro has a do-while-0 wrapper, and is not an expression.
 
-This allows refactoring several callchains, passing &_ddebug_info
-instead of &ddebug_table, and hoisting the "&dt->info" deref up.
+   if (cond && (drm_dbg("expr-form"),1)) {
+      ... do some more stuff
+   }
 
-ddebug_table contains a _ddebug_info member, so its users keep access
-to mod_name, just now with "->info." added in.
+Fix for this usage by changing __dynamic_func_call_cls{,_no_desc}
+macros into expressions, by replacing the do-while-0s with a ({ })
+wrapper.  In the common usage, the trailing ';' converts the
+expression into a statement.
 
-In static ddebug_add_module(&di), reinforce the cursor-model by
-dropping the modname arg, and setting di->mod_name at each caller.
+   drm_dbg("statement form");
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
--v3 more s/dt/di/ internal interface changes
 ---
- include/linux/dynamic_debug.h |  1 +
- lib/dynamic_debug.c           | 45 ++++++++++++++++++-----------------
- 2 files changed, 24 insertions(+), 22 deletions(-)
+ include/linux/dynamic_debug.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index bf686d1ab012..a5602fd23d8a 100644
+index b6f3689912fe..68568a71f265 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -107,6 +107,7 @@ struct _ddebug_class_maps {
- } __packed;
- 
- struct _ddebug_info {
-+	const char *mod_name;
- 	struct _ddebug_descs descs;
- 	struct _ddebug_class_maps maps;
- } __packed;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index bbbdb8aba071..09f19155d7f0 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -46,7 +46,6 @@ extern struct _ddebug_class_map __stop___dyndbg_class_maps[];
- 
- struct ddebug_table {
- 	struct list_head link;
--	const char *mod_name;
- 	struct _ddebug_info info;
- };
- 
-@@ -201,7 +200,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 
- 		/* match against the module name */
- 		if (query->module &&
--		    !match_wildcard(query->module, dt->mod_name))
-+		    !match_wildcard(query->module, dt->info.mod_name))
- 			continue;
- 
- 		if (query->class_string) {
-@@ -269,7 +268,7 @@ static int ddebug_change(const struct ddebug_query *query,
- #endif
- 			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
- 				  trim_prefix(dp->filename), dp->lineno,
--				  dt->mod_name, dp->function,
-+				  dt->info.mod_name, dp->function,
- 				  ddebug_describe_flags(dp->flags, &fbuf),
- 				  ddebug_describe_flags(newflags, &nbuf));
- 			dp->flags = newflags;
-@@ -1133,12 +1132,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- #define class_in_range(class_id, map)					\
- 	(class_id >= map->base && class_id < map->base + map->length)
- 
--static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
-+static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp)
- {
- 	struct _ddebug_class_map *map;
- 	int i;
- 
--	for_subvec(i, map, &dt->info, maps)
-+	for_subvec(i, map, di, maps)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-@@ -1166,13 +1165,13 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 
- 	seq_printf(m, "%s:%u [%s]%s =%s \"",
- 		   trim_prefix(dp->filename), dp->lineno,
--		   iter->table->mod_name, dp->function,
-+		   iter->table->info.mod_name, dp->function,
- 		   ddebug_describe_flags(dp->flags, &flags));
- 	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
- 	seq_putc(m, '"');
- 
- 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
--		class = ddebug_class_name(iter->table, dp);
-+		class = ddebug_class_name(&iter->table->info, dp);
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
-@@ -1224,7 +1223,7 @@ static const struct proc_ops proc_fops = {
- 
- static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
--	vpr_info("module:%s attached %d classes\n", dt->mod_name, dt->info.maps.len);
-+	vpr_info("module:%s attached %d classes\n", dt->info.mod_name, dt->info.maps.len);
- }
- 
- /*
-@@ -1241,7 +1240,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- #define dd_mark_vector_subrange(_i, _dst, _sp, _box, _vec) ({		\
- 	int nc = 0;							\
- 	for_subvec(_i, _sp, _box, _vec) {				\
--		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
-+		if (!strcmp((_sp)->mod_name, (_dst)->info.mod_name)) {	\
- 			if (!nc++)					\
- 				(_dst)->info._vec.start = (_sp);	\
- 		} else {						\
-@@ -1256,7 +1255,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
+@@ -217,20 +217,20 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+  * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
+  * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
   */
--static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
-+static int ddebug_add_module(struct _ddebug_info *di)
- {
- 	struct ddebug_table *dt;
- 	struct _ddebug_class_map *cm;
-@@ -1265,20 +1264,19 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	if (!di->descs.len)
- 		return 0;
+-#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
++#define __dynamic_func_call_cls(id, cls, fmt, func, ...) ({	\
+ 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
+ 	if (DYNAMIC_DEBUG_BRANCH(id))				\
+ 		func(&id, ##__VA_ARGS__);			\
+-} while (0)
++})
+ #define __dynamic_func_call(id, fmt, func, ...)				\
+ 	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
+ 				func, ##__VA_ARGS__)
  
--	v3pr_info("add-module: %s %d sites\n", modname, di->descs.len);
-+	v3pr_info("add-module: %s %d sites\n", di->mod_name, di->descs.len);
- 
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
--		pr_err("error adding module: %s\n", modname);
-+		pr_err("error adding module: %s\n", di->mod_name);
- 		return -ENOMEM;
- 	}
- 	/*
--	 * For built-in modules, name lives in .rodata and is
--	 * immortal. For loaded modules, name points at the name[]
--	 * member of struct module, which lives at least as long as
--	 * this struct ddebug_table.
-+	 * For built-in modules, name (as supplied in di by its
-+	 * callers) lives in .rodata and is immortal. For loaded
-+	 * modules, name points at the name[] member of struct module,
-+	 * which lives at least as long as this struct ddebug_table.
- 	 */
--	dt->mod_name = modname;
- 	dt->info = *di;
- 
- 	INIT_LIST_HEAD(&dt->link);
-@@ -1292,7 +1290,7 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
- 
--	vpr_info("%3u debug prints in module %s\n", di->descs.len, modname);
-+	vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mod_name);
- 	return 0;
- }
- 
-@@ -1355,7 +1353,7 @@ static int ddebug_remove_module(const char *mod_name)
- 
- 	mutex_lock(&ddebug_lock);
- 	list_for_each_entry_safe(dt, nextdt, &ddebug_tables, link) {
--		if (dt->mod_name == mod_name) {
-+		if (dt->info.mod_name == mod_name) {
- 			ddebug_table_free(dt);
- 			ret = 0;
- 			break;
-@@ -1375,7 +1373,8 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
- 
- 	switch (val) {
- 	case MODULE_STATE_COMING:
--		ret = ddebug_add_module(&mod->dyndbg_info, mod->name);
-+		mod->dyndbg_info.mod_name = mod->name;
-+		ret = ddebug_add_module(&mod->dyndbg_info);
- 		if (ret)
- 			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
- 		break;
-@@ -1473,7 +1472,8 @@ static int __init dynamic_debug_init(void)
- 			mod_ct++;
- 			di.descs.len = mod_sites;
- 			di.descs.start = iter_mod_start;
--			ret = ddebug_add_module(&di, modname);
-+			di.mod_name = modname;
-+			ret = ddebug_add_module(&di);
- 			if (ret)
- 				goto out_err;
- 
-@@ -1484,7 +1484,8 @@ static int __init dynamic_debug_init(void)
- 	}
- 	di.descs.len = mod_sites;
- 	di.descs.start = iter_mod_start;
--	ret = ddebug_add_module(&di, modname);
-+	di.mod_name = modname;
-+	ret = ddebug_add_module(&di);
- 	if (ret)
- 		goto out_err;
- 
+-#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
++#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) ({	\
+ 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
+ 	if (DYNAMIC_DEBUG_BRANCH(id))					\
+ 		func(__VA_ARGS__);					\
+-} while (0)
++})
+ #define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
+ 	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
+ 					fmt, func, ##__VA_ARGS__)
 -- 
 2.51.0
 
