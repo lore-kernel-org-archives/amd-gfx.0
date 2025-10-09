@@ -4,66 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6204CCCD184
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 12:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7A20CCD185
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 12:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB73910EA29;
-	Thu,  9 Oct 2025 12:46:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1B610EA2E;
+	Thu,  9 Oct 2025 12:52:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VxymAukT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I2Nkz2Bb";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEF2210EA29
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 12:46:33 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-b631a684a9fso62567a12.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 05:46:33 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F19210EA2F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 12:52:28 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2699ef1b4e3so1413365ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 05:52:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760013993; x=1760618793; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760014347; x=1760619147; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7UrXaVfO3NFs3Oyi215Renu6iA60sUwRiD2uTGvc51o=;
- b=VxymAukT0F9vHKTaSBJYYdq6Ax4y2fD4guO/uvkaSFaF2EVAEHQtnFhcpvy6YD1n5Z
- QkNeylNQNAw6BpZ1LJNUOsMcxuwebC3wFrJd1oKPTc0p5tEoRxC5ZCCmY9zGLpqiaMXJ
- uZVsJ1YfG0vpbkEHZjYyqw4s15m7Cp/ufkWulJCviiHG4hws7i9NaKNV+mpocPL51iz+
- MTOK4kxEcYCApo+Rp+RHqGz9GCmm8QtfUptzy9SMgEFCvNa1RNeRbsBn3TJgQ6WNK08G
- TRJ66WzXOkminYmKsYzxy+A92N+tnL/80vn+1cqLsWydHJu2Znlf+Wz6M6pTf74dQtre
- M44g==
+ bh=Z5BEOLvlpOfJhDc2Lt1Jld+zRE1vBLBVpw7uOvdBKvk=;
+ b=I2Nkz2Bbeeh6ZvLDxs8iChMHjuga/Aj45y00T+j7ssuuTTD0/04bfiKPFEA2NCXswm
+ PraEBZnmNJiOV5eBmnqhrFbXYgc+HKYXhvFYTewoV/kZJdqgCTkzWkOFgVXl0p09MGnL
+ Ikl8pnJjKk4DaO9Z2J1gHapA/UckFog6mw3n6pNkwHSNNWwY9a3KVB6FtOAlCb1bWzhb
+ RDbMqf84mCP/GgAK0inaFGXXx9aLV+q9ekJE+4vTIwAhyzTZUBysrSO8GA3B5mlkmvzO
+ AZMCz6QNck/QnZZg8twn1aL17j6eyF5RtHYZwMloTRRo+12h7A64M0tJuaLhGZMELUq4
+ VP9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760013993; x=1760618793;
+ d=1e100.net; s=20230601; t=1760014347; x=1760619147;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7UrXaVfO3NFs3Oyi215Renu6iA60sUwRiD2uTGvc51o=;
- b=hPf4FtxEVOGMmTGCXKFMZ+wKAsLAACCabXjShg3T8NNelmVyDjBfwjl1pfc0CPecVG
- IVt2+jfG/tYbO4yK3XTDHzZGpP3yjVnHHErI6KEsXzJxYCcDlb1gfT7J0MesSrcMVVR1
- ygp3+iIg4nYp0GFlXDb1N7moco+r8rMEyepe+oPz2OuklmVTSMG0CAAi5lmpKBPgu2mW
- 8SXCCbTyHk8RlRWgrMtI7Gy+MEx0yEUhsFPoIntsjVOHIAnBF+Uu4ZoaexI6yOGeI46n
- /FJDaad8opi6KJHdfMjuVM7jHBKckdLONqHBs+VkYJ6zfhjOwX3D0cWglrslF0lT8Wy5
- yk6w==
-X-Gm-Message-State: AOJu0YxDch77tiJdsfTAdBw759Nw9z67UnksUj/v3YXwogI+hTAntNY2
- ijHaSimSwwjS7zE3IwbBL09TsdWVUY6hH3MEap33Yw92ENpJqqGmHomACb8zcRWpfy+LTDkGQ8d
- G5azCuv/TS/n7qfwLIofxHGMiXCQo+2LheQ==
-X-Gm-Gg: ASbGncsbdpEtWAhnFbAxFIMzlXGew5v9hupiX3i3azX4vygL1gWfR7MTs7Y+6ELMS5s
- wL2FcpU4A1LFrF+cC2T9PnzNnbPJPnB5G7xzC0j/Iz//mBNaQWNEgBxYD2RVGIvgEE6pQE0hJuo
- mhwCNHMo2EfOuzJwQC3loSdLpLfIsOVTaD2806nYFyg7nsj2yqix11C/YV6FvE4UGQOklEdjxbb
- HWo82LjOtJtY9eLFTCc/Jl0iPyFS1+8dDYlIumZBw==
-X-Google-Smtp-Source: AGHT+IGaJa4p/j8gXgwnrU5ZUCJPR7Gvbed+r8YdKBW2vGQmU3Awzxi5R67LdOTx6HXysHuLSPpQPDhIzX2iqk1nsEQ=
-X-Received: by 2002:a17:902:d2c6:b0:27e:eb9b:b80f with SMTP id
- d9443c01a7336-29027215f8bmr47895765ad.2.1760013993220; Thu, 09 Oct 2025
- 05:46:33 -0700 (PDT)
+ bh=Z5BEOLvlpOfJhDc2Lt1Jld+zRE1vBLBVpw7uOvdBKvk=;
+ b=X1u1wkpXcfRx+jGl3501Tu0HLNAzSTH+YbuFMFoT3UAYULv3i/P75xv1LWKj0sR6Rm
+ 9B/ui6Sb+0c3AMMpgFqUtv95ACI2RQKMLNLgBBKRka57AdRl5Qpa/ZMgHL+rBsUoc+Sn
+ 90pDPohX3LXSDvWhW3JqYhGVQILniCLcyU3hcQ+xRkjwNzEhHHURG4YzdccAM9VZNxER
+ BQjK/HbnOF/zkx+gqB84kqj5QXZSg55SjBG6lo5wVkdNrf9jlNbuMQFItEMB42/zxrHp
+ 0LFRY0guNIiKxax/QBTgx6ZMaoSL6jheSRycatjfyIuMBlxdvJGcl1Z2Ph3LmIr8Y++v
+ XM0w==
+X-Gm-Message-State: AOJu0Ywu2VDDCQUjCAxw+V3Fz7E5fs5h7TGLJpSLm4X6gnTB/rXGnq1i
+ yRGBdkunvHSNYkypOyAFpWfvtn7vYRk+kpq/yJon3ubhDPpWdDTovUgQeeehIQnLc/pV6HtVRfU
+ f26Bjvgg4jw+r1vscvAOiofnGDppqDQ8=
+X-Gm-Gg: ASbGnctuy7sc0I5KSPvKlyYjdjxgy6KFe0qFYGU7wGoWro3tszUX2eNWjJUDegj0OAN
+ K/qErZ1ZhPskusYb3z9f6LUmPVM0SnQTDYanhfI0lYg95i/YXPZSrqSB8jaSaEXYzKq9L0/7ic7
+ 9W0wXTTPqJeJ3Gp8COjDgYxgJa1awq16h8MMrjHMsRtMcsOAvRQ++x/vGxs5kQd8WHT89vaspjx
+ zXD6jrPgmpStxNlSdaqSWK9oaIIWBpETbraXyXGlw==
+X-Google-Smtp-Source: AGHT+IHuWxkOrtMlj+WCMWLhDfuLiG8tgkakwimVIr1WqrwKb2cY0F7hc5trcEhUDQD9eVl73rttmFyQvrXDEahYKaw=
+X-Received: by 2002:a17:902:c40b:b0:267:b312:9cd8 with SMTP id
+ d9443c01a7336-290273038efmr46907085ad.8.1760014347504; Thu, 09 Oct 2025
+ 05:52:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20251009024822.3973163-1-Victor.Zhao@amd.com>
-In-Reply-To: <20251009024822.3973163-1-Victor.Zhao@amd.com>
+References: <20251009033047.25004-1-yunru.pan@amd.com>
+In-Reply-To: <20251009033047.25004-1-yunru.pan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Oct 2025 08:46:21 -0400
-X-Gm-Features: AS18NWDsdiP6ktHaSieDE_1_9ZTCqe4s_632vRDzcLr_WQ_VNTK5wt39WR4s_Lo
-Message-ID: <CADnq5_PEnJON8-UttUDgy8TYMptj4QRRch-mub5AnnJr7Y4dkg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Add kiq hdp flush callbacks
-To: Victor Zhao <Victor.Zhao@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, HaiJun.Chang@amd.com
+Date: Thu, 9 Oct 2025 08:52:16 -0400
+X-Gm-Features: AS18NWBclIZ8C9lt1ez-qpKOr2kjwOSux_icVQiLMcT5Ayc1HohD1kFzq5IfQaw
+Message-ID: <CADnq5_PmGaNfZKTOT0okjtOPz4KA_YWxu0YFoez-q3AzgNkFBQ@mail.gmail.com>
+Subject: Re: [PATCH 4/6] drm/amdgpu: Reuse fw_vram_usage_* for dynamic
+ critical region in SRIOV
+To: Ellen Pan <yunru.pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian.Koenig@amd.com, Shravankumar.Gande@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,135 +82,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 8, 2025 at 10:48=E2=80=AFPM Victor Zhao <Victor.Zhao@amd.com> w=
-rote:
+On Wed, Oct 8, 2025 at 11:46=E2=80=AFPM Ellen Pan <yunru.pan@amd.com> wrote=
+:
 >
-> Add kiq hdp flush callbacks for gfx ips to support gpu hdp flush when no
-> ring presents
+> - During guest driver init, asa VFs receive PF msg to
+>         init dynamic critical region(v2), VFs reuse fw_vram_usage_*
+>          from ttm to store critical region tables in a 5MB chunk.
 >
-> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
-
-This patch is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+> Signed-off-by: Ellen Pan <yunru.pan@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 5 +++--
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 1 +
->  6 files changed, 8 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 33 +++++++++++++-----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c |  8 ++++++
+>  2 files changed, 26 insertions(+), 15 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index 8841d7213de4..751732f3e883 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -9951,6 +9951,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_rin=
-g_funcs_kiq =3D {
->         .emit_wreg =3D gfx_v10_0_ring_emit_wreg,
->         .emit_reg_wait =3D gfx_v10_0_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D gfx_v10_0_ring_emit_reg_write_reg_wa=
-it,
-> +       .emit_hdp_flush =3D gfx_v10_0_ring_emit_hdp_flush,
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 96bd0185f936..4ba34ba74671 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1943,23 +1943,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>         if (r)
+>                 return r;
 >
->  static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 66c47c466532..10d2219866f3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -2438,7 +2438,7 @@ static int gfx_v11_0_rlc_load_microcode(struct amdg=
-pu_device *adev)
->                         if (version_minor =3D=3D 3)
->                                 gfx_v11_0_load_rlcp_rlcv_microcode(adev);
->                 }
+> -       /*
+> -        *The reserved vram for driver must be pinned to the specified
+> -        *place on the VRAM, so reserve it early.
+> -        */
+> -       r =3D amdgpu_ttm_drv_reserve_vram_init(adev);
+> -       if (r)
+> -               return r;
 > -
+> -       /*
+> -        * only NAVI10 and onwards ASIC support for IP discovery.
+> -        * If IP discovery enabled, a block of memory should be
+> -        * reserved for IP discovey.
+> -        */
+> -       if (adev->mman.discovery_bin) {
+> -               r =3D amdgpu_ttm_reserve_tmr(adev);
+> +       /* VFs using dynamic critical regions(v2) won't need to reserve f=
+or below memory */
+> +       if (!amdgpu_sriov_vf(adev) || (adev->virt.req_init_data_ver !=3D =
+GPU_CRIT_REGION_V2)) {
+> +               /*
+> +                *The reserved vram for driver must be pinned to the spec=
+ified
+> +                *place on the VRAM, so reserve it early.
+> +                */
+> +               r =3D amdgpu_ttm_drv_reserve_vram_init(adev);
+>                 if (r)
+>                         return r;
 > +
->                 return 0;
+> +               /*
+> +                * only NAVI10 and onwards ASIC support for IP discovery.
+> +                * If IP discovery enabled, a block of memory should be
+> +                * reserved for IP discovey.
+> +                */
+> +               if (adev->mman.discovery_bin) {
+> +                       r =3D amdgpu_ttm_reserve_tmr(adev);
+> +                       if (r)
+> +                               return r;
+> +               }
 >         }
 >
-> @@ -3886,7 +3886,7 @@ static int gfx_v11_0_cp_compute_load_microcode(stru=
-ct amdgpu_device *adev)
->         }
+>         /* allocate memory as required for VGA
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.c
+> index 46c19e96086a..e9dbab53cb06 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -931,6 +931,14 @@ int amdgpu_virt_init_critical_region(struct amdgpu_d=
+evice *adev)
+>                 adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_BAD_PAGE_IN=
+FO_TABLE_ID] =3D
+>                         init_data_hdr->bad_page_size_in_kb;
 >
->         memcpy(fw, fw_data, fw_size);
-> -
+> +               /* reserved memory starts from crit region base offset wi=
+th the size of 5MB */
+> +               adev->mman.fw_vram_usage_start_offset =3D adev->virt.crit=
+_region_base_offset;
+> +               adev->mman.fw_vram_usage_size =3D adev->virt.crit_region_=
+size_in_kb << 10;
+> +               DRM_INFO("critical region v%d requested to reserve memory=
+ start at %08x with %d KB.\n",
+
+Please use dev_info() here so we have proper multi-gpu support.
+
+Alex
+
+> +                         init_data_hdr->version,
+> +                         adev->mman.fw_vram_usage_start_offset,
+> +                         adev->mman.fw_vram_usage_size >> 10);
 > +
->         amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_obj);
->         amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_obj);
->
-> @@ -7320,6 +7320,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_rin=
-g_funcs_kiq =3D {
->         .emit_wreg =3D gfx_v11_0_ring_emit_wreg,
->         .emit_reg_wait =3D gfx_v11_0_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D gfx_v11_0_ring_emit_reg_write_reg_wa=
-it,
-> +       .emit_hdp_flush =3D gfx_v11_0_ring_emit_hdp_flush,
->  };
->
->  static void gfx_v11_0_set_ring_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index 710ec9c34e43..e2bb8668150d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -5597,6 +5597,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_rin=
-g_funcs_kiq =3D {
->         .emit_wreg =3D gfx_v12_0_ring_emit_wreg,
->         .emit_reg_wait =3D gfx_v12_0_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D gfx_v12_0_ring_emit_reg_write_reg_wa=
-it,
-> +       .emit_hdp_flush =3D gfx_v12_0_ring_emit_hdp_flush,
->  };
->
->  static void gfx_v12_0_set_ring_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v8_0.c
-> index 0856ff65288c..d3d0a4b0380c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -6939,6 +6939,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring=
-_funcs_kiq =3D {
->         .pad_ib =3D amdgpu_ring_generic_pad_ib,
->         .emit_rreg =3D gfx_v8_0_ring_emit_rreg,
->         .emit_wreg =3D gfx_v8_0_ring_emit_wreg,
-> +       .emit_hdp_flush =3D gfx_v8_0_ring_emit_hdp_flush,
->  };
->
->  static void gfx_v8_0_set_ring_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index dd19a97436db..f1a2efc2a8d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -7586,6 +7586,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring=
-_funcs_kiq =3D {
->         .emit_wreg =3D gfx_v9_0_ring_emit_wreg,
->         .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
-t,
-> +       .emit_hdp_flush =3D gfx_v9_0_ring_emit_hdp_flush,
->  };
->
->  static void gfx_v9_0_set_ring_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index fb5585ab52be..e0b50c690f8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -4792,6 +4792,7 @@ static const struct amdgpu_ring_funcs gfx_v9_4_3_ri=
-ng_funcs_kiq =3D {
->         .emit_wreg =3D gfx_v9_4_3_ring_emit_wreg,
->         .emit_reg_wait =3D gfx_v9_4_3_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D gfx_v9_4_3_ring_emit_reg_write_reg_w=
-ait,
-> +       .emit_hdp_flush =3D gfx_v9_4_3_ring_emit_hdp_flush,
->  };
->
->  static void gfx_v9_4_3_set_ring_funcs(struct amdgpu_device *adev)
+>                 adev->virt.init_data_done =3D true;
+>                 break;
+>         default:
 > --
-> 2.25.1
+> 2.34.1
 >
