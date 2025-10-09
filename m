@@ -4,149 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE1DCCD184
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 12:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE5BBCCD185
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 12:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3023010EA06;
-	Thu,  9 Oct 2025 12:26:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81A7C10EA13;
+	Thu,  9 Oct 2025 12:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VdF0rWv2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dWny6INO";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBDC310EA06
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 12:26:38 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012003.outbound.protection.outlook.com [52.101.43.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8695810EA13
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 12:32:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IO82LSaSYtU5FsCpUKXQFpkVht5VePk5tk3LXVilN+QZGKI115eSbZ22mGF0gb2JDkyaNJ+XrSMn5SnKbIGe8uTSgyYUMgTCupqRr0nN/IlY70iqotua8PsaPn1qoPwtbb0DP0/fcFloDFLHE5eF8fnUf+OrwXfV4qpQNyVVGH+GCzmuPHjtof4csyofnNbLlKU91QwdIyk86sr25X/XNw1itFekb2hsP8/cn3d7KYbiFJ/PxGMekZ/gaJx/oJPebslphFP89+ymfVNkn7myv27DknH7WCU0dFv6zdnuw8BRorP+EldbylJEYE7TZfmzHyN7VhfaXJM66OL9Qvr1iQ==
+ b=vMgI+ND0HkAfrfOoJnB2ffOuRuDeYYepGuPYXsBN4+7xQ7eYlEEi5grkXZ50X0pRYpEUk9Jwm4fppnHPqErw99VBFW9FY6U1xsjZoUEtxTf+EmoXoXFh/3+P1Atmb+s8BDvlaZ3fnPuHobOZlVCNjDd9/7gcx6qd4q3S/ispgyXqk40EvtNtTFiMXBuuZthCNQP9ET1ujZGeLyfGrXJWyG3vITcuTamUWi5GlMpOyypQR9SuwHplTLVT/SYhM2Y/kcm5llIbWFYkxJ/oCJxrXIeDXu0uuBZu4HQbFptrbLKhxNRYsasCl6pZYliEUAYOjwkLn9VrxIbacHSQft+lAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZuJDzOwWIr6wp80Zl6PK4fP4FjL1LPcu153gFZJ6iS8=;
- b=DYpDg7xAdW0cXahBmLdgPYoXZ25YIHdnUYTvUayqIITgn5h1qvrSXK+EC6Y9QzlLxjYRmVwS4FSnHpUDO9NhuY98vQZhvk9409fgx0I4ykly15EhhooX9qW/PiL1jNXTUyL6e2yFd+FEGyUHZx6DiHOmEV7kN39H7NLkjv8QtDi2kFCisyOCFtH9SUxM24sLs++OYwjUrFgjx2c3qgmvtyDdlqXXbzNif1nqXr1uUm0V4uFLWAnjRheIimCwrf1IWLMNM8+oTs5YumCdBn33DRD0K2Ag4pTMD+hW5draxVU+DBSJv3O6+BAvSr1wm+Qa1RnsnMvDE8+kx/D62JjBeQ==
+ bh=KFN8ob9KuvveWuKmVf9Spi1M9DkHP9NYAlT7Ubv7f38=;
+ b=jYAUzpyd7z8S8xXqYaMKZ/7ePHtmC5BBeu3lumlZTD19dydGmxvOhTUAOrgtvjnb3C6VzW2cpe43XeWFAiW0axitc1Zyqb2lrocarc3AE/RtWD5VeSmfP6fL71YJ6O8izB/SOEB3/ssCFb73HhkKT+UZh+9K5F4h/q0+7edAMjrwjZQj8zGaxjr+bWAN1LNH7i61G61a/eooqI+kw9rYouNLjtJwVC47FwMnJquyEgrzrn4Y45DJepMTdEfx5zPNHW6aa3ZS9yEHnr4ihlzZI18DVoYqxQUmNkMGsit9NjszRPlNXMGGDgs2gA86AHO9/YQMA45TbnmRNULKHQ8vNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZuJDzOwWIr6wp80Zl6PK4fP4FjL1LPcu153gFZJ6iS8=;
- b=VdF0rWv21nCIbCwMPd1asgEni+WimoDZYN3fqACexpvJcPoqG0Te+e6xk+tRsA/qPI/bjtPrbC22/Fd1mS5n4SLlWrZcu0QzzTiFRN4wI6S8TaUQ00cloNX+9jHQ/LtTd/1H0b0lsCl82S7xU8CucyWv8w5DEaWHTLPDm9gTX5Y=
+ bh=KFN8ob9KuvveWuKmVf9Spi1M9DkHP9NYAlT7Ubv7f38=;
+ b=dWny6INOG9GBFAna7Qzr0tsNHMvfbrnnzlaMoV4BI5CB/dyohUZzzUKURSOSlP8wj2Gbq1TG8/sSQZZ03e5fFtHx04Cv9gmDaO4W4IJZ0W6GNVM4K1kSb1qoNdpVO0jD43OkCX1CRuRBmtqKuGBfmAxg7FpzMFYILoCofMgxbLE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB9732.namprd12.prod.outlook.com (2603:10b6:610:253::17)
+ by SA3PR12MB9089.namprd12.prod.outlook.com (2603:10b6:806:39f::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.9; Thu, 9 Oct
- 2025 12:26:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Thu, 9 Oct
+ 2025 12:32:01 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9203.009; Thu, 9 Oct 2025
- 12:26:33 +0000
-Message-ID: <95dab445-9720-4b10-8a1d-2ee76933ff6b@amd.com>
-Date: Thu, 9 Oct 2025 14:26:28 +0200
+ 12:32:01 +0000
+Message-ID: <1fa7760d-913f-4826-869d-818b60fc74ad@amd.com>
+Date: Thu, 9 Oct 2025 14:31:56 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] drm/amdgpu: Reuse fw_vram_usage_* for dynamic
- critical region in SRIOV
+Subject: Re: [PATCH 5/6] drm/amdgpu: Add logic for VF ipd and VF bios to init
+ from dynamic crit_region offsets
 To: Ellen Pan <yunru.pan@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Shravankumar.Gande@amd.com
-References: <20251009033047.25004-1-yunru.pan@amd.com>
+References: <20251009033106.25022-1-yunru.pan@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251009033047.25004-1-yunru.pan@amd.com>
+In-Reply-To: <20251009033106.25022-1-yunru.pan@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0100.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN0PR07CA0001.namprd07.prod.outlook.com
+ (2603:10b6:408:141::12) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9732:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0aba6f02-b2e7-4015-237b-08de072f14f0
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB9089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39a52cfb-c647-4c08-b9a0-08de072fd85b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MFN6L3F2M1NBQlhBUEl1K2lXdzdkWlNzY3JyL0FWM3N6aTNiS0FUMGZnSzhN?=
- =?utf-8?B?VEV6T0o0NFlqRTZZVzRQTHlmMHFRYXk2bksyc0ZPbTZjbXZneHJjdFFBYUhL?=
- =?utf-8?B?ZnJ1VElvMFpiZVRVK1czVmtpTEtpZjVtbThhQjVDaHp2STA4VVp2S0VGUmRC?=
- =?utf-8?B?RXpIdHFlRnlLRTQ1WS9yRnAvV3h5UEZHRlB5NW1xK3JHdmR0d0lDWVdiOStP?=
- =?utf-8?B?UkMybGd1Q0RtUklrSFJJNHNzNm10ZEFkMkoxTmQ1ZmhmNFB2Nk9nMzhLTnRw?=
- =?utf-8?B?TnduTk9IbGp3Vzd2cUN5dUFpRlhzZ1RzVVp6Tk1ieW1XekIrNlVsNEppOHpP?=
- =?utf-8?B?NDg2YzI2M3VSUTdnV0x6VUtMZE12aGlTRVloTkF3Slk2RnY2NVk0R1hya0Fn?=
- =?utf-8?B?N0FoRTNlQlN1dUFvN1IwUHlmRWlGZ0kzQVNJTXhTbU9Ka2ZsQWlhcFVzRWdm?=
- =?utf-8?B?OUFKSVJQUkd3WWRzdTNMUlZDQ0FvT1A0QkNFQmtzTU5FbkE0RGhuS2YrUUhT?=
- =?utf-8?B?akJGaG5GUHE2Ulc4QUJZME1ockxteFkwOFEwOVU0YWpTNGhneFJ0TTdDblJK?=
- =?utf-8?B?QUpXSGpZV3h1SC8vQWRqSTBWZzMvdk1kcnMwT1NocXNKUUQvaGY2a2VRc3ly?=
- =?utf-8?B?Y0twdk5PQVBGem5CMDNLQ2R5SCtpcWUzVVc5b0dZYjJVd3ZsYlBRYS9WcDd3?=
- =?utf-8?B?N3prMjFFWElTUTFFbFJIbHZZR2MyRFBmVnhzR1labHljYzFGS010YmovNmxi?=
- =?utf-8?B?MVBWV3NpNU41azVXczg3ckszbjhuSzJQMzlQYzNiMW90SXNFV0k5RUYvTHdE?=
- =?utf-8?B?NklQRmdheEFKc3kxUTV6YVdVa3BFRFJWRCtUWEF5Y2xidWdoZUh3UTMveERY?=
- =?utf-8?B?dTMrVmk5S1Z0eHlraVdZUkd5VDFQZ1FGYUtHL2ltQ1dPMWZMWGFRYUFnUjFV?=
- =?utf-8?B?ZWN2QmE5ODg5YXBuMVdrVGpMVGdYcTVXeVRieFoyUmFXZ3p5WTBaaGJ1Y0c1?=
- =?utf-8?B?eWVLazIzYXN4aWtCTXJmRjNjTXlEYkY1M2gvSFNjSDRzZWNQeVpMaEZRYXZO?=
- =?utf-8?B?Umk4YzZEVWZtQ0pvSTE4azBmYlFVb0szcjFkWFdqZ2Nha0VWb0tVVHd3dTh5?=
- =?utf-8?B?VExQWlZzSkRBbms2OUhtajQ1VG9rYVdBdWtVRjFsVmhaQnNLVzRJb1Bsb0Rv?=
- =?utf-8?B?MEZCOWV3TlZSTFBiVllUNDV6MEVHK1Rmdjg2bVJ5WjhMNTVvNmF1a1lhTDBa?=
- =?utf-8?B?dDlRMDF5eVJHZ0pIQmlJc0xEbFNvVC9jMjVuamJpYUlHWkR6S3V5YXBpdjA0?=
- =?utf-8?B?QU1TN3lqZWk5c0VOdWx0clVURU54SDFEclZrdkpxbkU0eUFxcWhEQUx2QjFZ?=
- =?utf-8?B?N0NtSTQyYm5KS0orVnpJRWtHS0NHdjJ0ZU5HRm56T2xwaTdnbzk4M3dqMjF4?=
- =?utf-8?B?WW5lUitmWTNlWHgyTXkyWTRyYVRFQzd2ejJZMkZjYjBWZW0yanJHdGdZWm45?=
- =?utf-8?B?ZHU3c2tieFF0SEV2S3JVY0c0UkFVbEpOZDl1bFhwVnlZYWdwN2JrcU9hQTIv?=
- =?utf-8?B?M3Bxbi9XUzFwSjZaUEpkbGsvZUVSZCtFUmFHZmFhdTN1dGkxY1U0WmdjbFlw?=
- =?utf-8?B?TWhTbm43R0lnV3lFbFVnTWFtbWFQcU5qWmxhemFOejlRdEtFQ1E2cUtOS2FN?=
- =?utf-8?B?ZzJTMjdPRnUzVElqMGNkd1JoUmdZRDlVdmllNHBYczBoNFFsWUNMM1V1b3o5?=
- =?utf-8?B?SGhyL2U2R1VYaGRWK3NXbVdEV2ZWYkZUME1Iek9Rczc5WEkxOUsyZ0Z6bi9T?=
- =?utf-8?B?M1lXRDlLTzM1NlB3eW5QSFZHMVJrM3djdmRyQjJWUXV6NElTcDJScmRUclJ1?=
- =?utf-8?B?RDhka0lwcFdKb1hpZVJ4Vzdpa3k0OXJOeEV0ckJoajlsMDIzM2tjZTJUL3ZQ?=
- =?utf-8?Q?oKsE7xIGbmZjQzweAD5KcAdH2uPtN6if?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?R1YxYXhSRzV2L2dERmplaHZPcTlYaFRxaVpRa2JGNWVFanJUYlFTcU0wOXVn?=
+ =?utf-8?B?NU9EM01OVUE5bVRLQjczK3VKTWNEU0Jybk5tZTlzeGFrMFJXMzNVa2k1cEdm?=
+ =?utf-8?B?NDJtTS9KNkxrVnlOTnBheW13NU5xandtZ0FrTE9PcTJkNGd0cC9jNjdrQmRT?=
+ =?utf-8?B?R21aZGhwZkczOWZpdHlOeXVKZ2U4UzRDY1E5ZzZLSlNvbVNHSFJrZ3JxTWgr?=
+ =?utf-8?B?RVk0Z1A1d1hPYTBmSXMxeE91dUtjNzJPVWZDUk5zcTZxd2srREFja2YyUjEx?=
+ =?utf-8?B?cllTMWVrWGlzSXQ1QVl4ME90dm1keVJIbHpZUE4xZmxEUDVXZ05rN3JxSVFt?=
+ =?utf-8?B?VjVOZlJpeWxZU1dseFJlWE9IdjFUVGoxNEFKYitoeWg2ODNxTjZOaFU4UVM4?=
+ =?utf-8?B?M1h6a0hyN3cvSVRIY2pJNnZ5cTBmTlU3UUpKMG8yRTB6L3c3WVdGbXB6Slp1?=
+ =?utf-8?B?M2FnaFJCWUdSeFl2eElwdmR6NS9Lb1VVYmRRbVFVeDU2c0RnV0VrWXVBU05m?=
+ =?utf-8?B?em1wbzkrREkzWmNTM2tIeTNGSjRTUmNpYUtFK1lPNlZIV096REo5QUVpMTB5?=
+ =?utf-8?B?Z1V6ZVd3aDdmVkdUcURrMnpRck4vY2gyL3FMUUpRK0hCYmdGdzRCaml4bkFo?=
+ =?utf-8?B?S1ZPOVlxcEFieWJxWmpZQU9DRHl0THkxdnhtaXZPMjRNL3JXMkd4UXlPT0Q4?=
+ =?utf-8?B?a3pUU3c3NlAvZENkV3JZcVZUQWdWbjRraDVhYVVGMzRMVS9VSGMrUXVTbGNF?=
+ =?utf-8?B?RCsxcjk3U3JKRWxwY3VWejhNcHAyNFEwUFZxS1FMWXpiM3Ixak11OG1WR0NV?=
+ =?utf-8?B?M203WEw0aTcwOWhUUlhrZHljUGhDTlg3L1pLZ29ObkFnR1pNZkZhM0NZTUQw?=
+ =?utf-8?B?ZXpjS0s3cVZMaWMwU1NYaThUdmZiSi8vRTN2aUtQb0FObzV2eStuQ3pkSWpD?=
+ =?utf-8?B?Wld3ZFhneFh2dFRSOU9yck5QNVhKQnhTdTBjYThUU2hNUWpocWZPb2xlc3VJ?=
+ =?utf-8?B?Y2p3ZXZ2WExrdTk3M1RwR05uT3RLNm1QUEp0aUVFWXMvR1RHczB2SXJRQjVq?=
+ =?utf-8?B?V2J2aU93eERYRTJPbEM1WTd3ZExJM1JYd3NQdExzT2Y3dVBFNWFNOTdGOU5I?=
+ =?utf-8?B?T253MkZIckNpaFJKTmcycEJTUW9mV0ZRdnA0L0pZYkxkL1h6WE83WHlUR01D?=
+ =?utf-8?B?eHcrZC8xTFhSejFPeEx4TXJaZ2g5eVFocUEyOG56Q0d1bGVqejRob2ZCZ1hy?=
+ =?utf-8?B?eWR3R2FIM2lYWndMOFdtd3laQUo1cHIwWXZRV2QrY1QyKzFQWUtxN2o3VE8y?=
+ =?utf-8?B?NThPQmhORU1VR0NDNjlVNG1peHBnQ2hneHpDZzVST3ZUMkdxejdEV0RvWVFN?=
+ =?utf-8?B?TDVlOU9KWWx3bzY3d0xHbmRUV3VRVkZUOTRKajhzOTh0SktFMzNmbW45dTJY?=
+ =?utf-8?B?aXBKY203cmlZL09XN0Exd2F0b3ZUcEo0OUQ0NVFPeXlqOE5CdTBUeStpb0tL?=
+ =?utf-8?B?a1RyYjFtTkJiSW1BZnhianJiaVJsUFRGaDFNQWlOUkJETlhsQVR2ME12NzJF?=
+ =?utf-8?B?dDJ5bE1pSjhYYUNyVTdQTkpyVWZjL2xkNVJaUGVJY1czYVhDN3krT1pGV0Fo?=
+ =?utf-8?B?Yis2bEdQWHg2djVpZ3BkOWZSOWJMSDJmUk4wRUtqUVdqaHRDRElpYWpGUk5N?=
+ =?utf-8?B?MFgwbjBTUldlblpFV2lEQTZ3VE5kNWh6bjRxQWRKZFRUM1hpYTQ3NDdGTkpu?=
+ =?utf-8?B?Ulh4VnhKeHozRlRnZVdpOTNJckJBVDFUT3IxbzN1VjJKRi84TWw4Z0dRMDRQ?=
+ =?utf-8?B?WWhGdjh0L0lsdmp2OXNlVmVyQk5PTUtHOGVXbFBTRUtISDZqQjBXalpBa1Ex?=
+ =?utf-8?B?UHdFNXhWYnAvZkIzV2c2eUNkajNOWnNzZTZ2K2VPeDd0VGJIMVRwY05aUmFW?=
+ =?utf-8?Q?dTjSgBCRhxgkcN2HPn2p+XRixbIQK+Yf?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T044RTludStvMFZRdERZWlVaL1U2UUErVXFFcDZIeXp6L2Q3NVFBcUVaYVZK?=
- =?utf-8?B?VjgweUljTnQwUWg1cnVMSkIvcGhXRGx4NnBEa3MyY29pRXhKYTR2eHhqc2x4?=
- =?utf-8?B?aFBMa3laMFVWZ3Qxa2ZRbnkwYzV6bjVHOWk1YmhFVWFhbzY4SmVHbHBROS9U?=
- =?utf-8?B?UC96U29ib3duR2tZczYxU2VNQUxXT0IrTHNpSnVRdXpUaVNON3hwQnoxcXFi?=
- =?utf-8?B?MXlueFN5LzVsc0lSZ2J6QkJ0N2hXN1FWV01pYXFtWUNoYmQyS3FrdC96NlZF?=
- =?utf-8?B?QlJ6Q2Y1WlJ5SS9hVkV2NXVvRUU2MGdYbWMyWDk2MkVSS0VmN2pNaWYybkg4?=
- =?utf-8?B?WGZwdmNtM2NVVjR5cTR3N1JFUDFlcDdWWC90cUxkdnQwdkVFU0FkTW5ubWFM?=
- =?utf-8?B?SERHdXBVK3BJUFNINGM2VmJDb2tHaW5lY0FPUjAzNHFWMUhQbmFmZmJwUFF5?=
- =?utf-8?B?MS9ZTURuak0xd1B5QVhBb0RIbVFyWnhGWmpMUGdnTGpJclVESVR6Q3VkcG9W?=
- =?utf-8?B?ZU9kbXhaYnRldWRTQXJ5L0ZvU0VlTzh4d1FKOFgrTzg2ODkrS3JkU0JaY0pv?=
- =?utf-8?B?eWpyLzlsdkV2U2FCWjAzbzVzQU9aeDh5VVZjMUlxekI3dXdlRElsVUU1ZnZh?=
- =?utf-8?B?M24vTDNSUzM4TTJSTHMzb2wvU1A3UFRaMEdJQWdialEyemYzcURicDlwSXAv?=
- =?utf-8?B?ajEyU2ZkQ2NIT2xwcENucUcrUyt6c3poWHNtQkM0dmpFbUFkQTA5Zzk0ekFn?=
- =?utf-8?B?ZmpoT2wwWUZBN1pRcUtSeHRGdWhwWWxrN3NkTGpEVm5jbjlXeXNzYllXblJo?=
- =?utf-8?B?V2JUVjRkVnVZaWdjREYrN0wzSGxuc0NPS1BVRzdac2w0MFhPNEtmc1lPRGpI?=
- =?utf-8?B?eVdoR0dIbWIvM3lueXBONm1WazAya2g3SG1FOXdIdDN3OXZycUZJWkp6Uk1I?=
- =?utf-8?B?UHc3N2NNd0lmZmVRUWRvdGcvN01aVVZJMFNqcFJvc0lRY0xQY0loc1pqdmxx?=
- =?utf-8?B?SklJZlJoK0t5R216MU9DVjBqakJlZTlQdjMwQ3RDanB1dFlTTEk2MXcrbUMy?=
- =?utf-8?B?WHpFUkNWeDRiNEkyNDFTODExakRkY2hFOTVuQkExUWZZRDUzWThxdXV0ZGhn?=
- =?utf-8?B?dU13dHJsZ1lHSTZtNUxBTmRLdml2TTk2T0FzUFBNN2lsOUtIdU9BeTFYNHdU?=
- =?utf-8?B?ZG1JcTgyNmdqVllWUk92dXdoa21SNU9tZENHdmZ4UndVOE1KRENEQ3N3VHlY?=
- =?utf-8?B?Z242UERwU3ZMY2ZZWWtUYmdob3ZQVTA1ek5pcmpJMkc1RVYrOTkxM2R5bldz?=
- =?utf-8?B?WXNSWWZZMDlJaVNLb2pVSEhUQXRXVklGc2xzcU04eDhLay9wTGZhc0EwaE4v?=
- =?utf-8?B?Tzc5S3JsTDMxUUdHM2NvdTJZM3A1dWs1Qno5MjZCZmE3VTBJeVdSa3MyTGxW?=
- =?utf-8?B?UWZ3S1pVb0VTRklZS1owVXZXVytIdDdWTFVHUHNiRUdyWENvM0ZQa25TV1o5?=
- =?utf-8?B?bXRFbUFQU3JXSW5qMjJVVGtRV1MvN2JQeXNhSFBmWmx6ZTFEVFFRaDN2YW1M?=
- =?utf-8?B?QnpzbDFTM011Sy93eTFaWmZVc0tCMjBBeEE3RitUQlpscExQRnhpZUdqOGZL?=
- =?utf-8?B?QUpqazFtT2pyd2lDUllVa2ltRVRsNGR3dEFmL2J3YkU0SWFkM1lDcGF4UGl6?=
- =?utf-8?B?bWltVDB3Skp4YVBKazMyWFNSUzRBbmZVQWxvSno1OUdTeVZ6ZmpLLy9EeXV2?=
- =?utf-8?B?NXA3S291eFU4b2V4OUc5d3JmR3J3M09acGU5UmhDSzdnVFBaRHIrN0xTS2NP?=
- =?utf-8?B?dVJZczZ4Z1A4RGtVczdSc05JZGg0OEtyWXZyVGQ0Z3k2Sk01Q05jUG90YnAw?=
- =?utf-8?B?Z0NpNG0zUWsybXJyNTJGSmhONThCY2ZxYjNkMHMxK1VRYXZGRUxQejJxMWtX?=
- =?utf-8?B?eFpHQ3JVZjU3Y2lveXA5eU4xWW84eE9FMWlGbmZCMzIzN0dOZnJhN3A3UG82?=
- =?utf-8?B?U09sVlZ0RTM1ZnJmZEp1cSs0bjBzMjY0dGVWRjNwVTZ5NUFQOTlCYTBjQ2tQ?=
- =?utf-8?B?Wm9URFVCWGwrdGNMN2JEUG9GOHlWanREMEYzMHlMZ2JYUXdUYTJzL25ZN1Rq?=
- =?utf-8?Q?U4RBiqSPVC3YBqhr85MB16K7g?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZnU1WGhvRjROZU5CVWo0Ym9XVy80QkdLdWVxZTdJeEMvNVIxU2JRWG1OSEQ4?=
+ =?utf-8?B?VFpjUk0rS0R3ZnJnVjU2MWY2QW5NQUo0ekJRQ0x6YkI1bzRTUTJSQkhDejRx?=
+ =?utf-8?B?SzlRYnVmTW1oeG9JS3o2eWs2MnkrYSthaFVIdjM2K2Roc29HSFR0MTl6NnZY?=
+ =?utf-8?B?cUc2T01vTVlFcGhEd09EQzVYUFljQWMwa2pQZXR5ZjVucjJwcnNVempYZVNJ?=
+ =?utf-8?B?V3d0TXBVRXNYQmF5eEpaTEgrOHlCZzlFd1ViSUlxZEZmNVQrRUJ1REpBd0d4?=
+ =?utf-8?B?eUVITmF4NXNlU3I2d2FrdE0rKytGOTZsTG9mVHduakNjTStNSGNGMm1YWUNz?=
+ =?utf-8?B?UlpmVWdGWHVTSzFycEw2ZGFFeU81dVk0WDJHNlY5Uk42VUxXZEZPUWJvdkhs?=
+ =?utf-8?B?SlgwNUpsMHVlYUlFWnlmU0UrNDhabEpKZVlQQUhvLzFydUo4YzFIalVYS0Rz?=
+ =?utf-8?B?OXpyUXFMbndrQS9HOXV5K2ZmYk04SVVvSlhXZHJNbmhVbnJYRHVEczh5NjVW?=
+ =?utf-8?B?N1lVRDR4cEYxSnJXc3M4L0lyYlhqaUNrZVo1Zkd6YTlteXlIUDVVd1JoRGQ0?=
+ =?utf-8?B?OElhK2FCNlM5ejlDMGszRGZHVThNUnBDWldNOE5CUXZ5V2R1K3VMSGo1KzhU?=
+ =?utf-8?B?V2ZPa2I3cWxnOHpmTHZveWZCWXF0QWNMcjV2LzdFMkpJUnZJV01NMXBmcFVu?=
+ =?utf-8?B?bzVDbGNKS08vTjh5SVVTRzY5QXU5TTRPZEJnZGV0aGRoVTl0S3VmMmRpR0Ex?=
+ =?utf-8?B?ZnRhR3RtVzhhRU5PZDBIME0vVzFTUGF5ekszNWNpT1NsZ095ZitGUGNWY2t1?=
+ =?utf-8?B?MWxjcTY1SVF5bnk2OTFlK3UrVXVObitNZGorR0IxaExhOUhmSFZKS2laYzk4?=
+ =?utf-8?B?dmpscGRXVGxJZHhwQU5SM0VmZkxoQ1htUnBDbGVodFVsdEMxRnVUek54NVVE?=
+ =?utf-8?B?UjM2Mmo5VVVKTTEwMlViZVBReFZTWVFza256cXZSQUxLR3VuZWFTNHJWelJR?=
+ =?utf-8?B?UDZ5THFpUXY1clNkdnM0QjBMQ3dEUnIyTG1RTCttV1M5S3ZubC9aSUJkVUNZ?=
+ =?utf-8?B?Mm9VU0dlUEUybGpJeVZ0MjB2UGVKS2lnNGFiWnlra3dsNUhZM1FlS2JtOTk3?=
+ =?utf-8?B?Qms5Q1dWNFY0a0JlRy9DTVczQlFKREo2MzRwRmhCdmgxd2hKTk0yZytOQU44?=
+ =?utf-8?B?YXpERlNWZ1VVUlQrOHdjZElORDNnaFl4ZzVxd1FyV2lIcHo5cllodFNwVFpF?=
+ =?utf-8?B?REF2bzg3UjlKY29LRTNZQWtiUkx1TjVLVjhxbGsyRStONUdWcyt3QjB0U0tD?=
+ =?utf-8?B?YzVJaHYzVTJOSEhyeVBhVHBkV0VkS2IvemozV1U4SHc3YUUrZ21BYy9WSkF5?=
+ =?utf-8?B?WVU2eWVzU2s2azR6UjE5WWxxL0Uvb3ZXTmhVVzA4Z3kwMm9vaWhyZlcwcll2?=
+ =?utf-8?B?b0dkRHh5bnZXMUZEcE1yMHRzYVZYK3pJTVpmSCt5Nm1QcnRyNXg1Ym53dVkw?=
+ =?utf-8?B?UnRPNlNTbFVFUmtXRlZtSGxLeHRKeTNCdlVJcGlnRjk1akF3NjhyNFJaWmxW?=
+ =?utf-8?B?L2lPVGhHdlNvaVlKS0xaUGMrVHlEVHBwUW5pdFVoamc5TStGOFhjdEpsanBn?=
+ =?utf-8?B?OW1vR2tWSUtqbEFJcGYxcmVOODlpQzZMcCtQUnNTeEswMTg5Q0R0Ym9Pb0Jp?=
+ =?utf-8?B?b25CYkhHdERpc3YxbGtQZkNUN2ppQ3pyMDJzV2FvWlBaejd5dFVXTkk5clZY?=
+ =?utf-8?B?dGtTWWZ3N1ZGMC9qT3dMOU1aYUZJbTAzU1FPTDJmdDRZUDlJblFqMHdGOUZB?=
+ =?utf-8?B?aHBLRFE5Unh3OFV0VVFyUXVKK3Q4aC9OK0lyYzhtM1FGdWdtYlpWK3BodDJj?=
+ =?utf-8?B?bUMxZ3lTMUEyVFRwdTdVR2txaEc3NG95eWRpVDZnNnRhTGc2OU1BRVVrelIw?=
+ =?utf-8?B?Y2pEVFgrSGlkcWRIdmRKdkI2Ky9rTnNPMHNsbEdXSzk4a0w1aTNFSk4zVWh3?=
+ =?utf-8?B?QjdFN1dGTksvdkdlUW1vZlFoUEt4Y2YzUnBqL1kwa3VWVGpBT0lyaTNyMDlY?=
+ =?utf-8?B?M3g2WUdVZHppNnNaSjJvWkFQZGhmL3hlUTJDMzQvbFdBSjQwUFRHR0UzOE5k?=
+ =?utf-8?Q?nO1ROR9wJlZMl3sMR2h78qSLh?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0aba6f02-b2e7-4015-237b-08de072f14f0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39a52cfb-c647-4c08-b9a0-08de072fd85b
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 12:26:33.2528 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 12:32:00.9890 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oqlJZwFxxU7H6QsTxMtFNWBc7JIwIcP7Ta/WEeZsxdLO03weo0pPVs9BpB4hjfA8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9732
+X-MS-Exchange-CrossTenant-UserPrincipalName: mbMiwAGk+5bH5yrlV67dfPpV3HV2ur0wMY+JTkpATEXhR0l/KCwQCQXQoT1+1faE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,92 +161,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 09.10.25 05:30, Ellen Pan wrote:
-> - During guest driver init, asa VFs receive PF msg to
-> 	init dynamic critical region(v2), VFs reuse fw_vram_usage_*
-> 	 from ttm to store critical region tables in a 5MB chunk.
+
+
+On 09.10.25 05:31, Ellen Pan wrote:
+> 1. Added VF logic to init IP discovery using the offsets from dynamic(v2) critical regions;
+> 2. Added VF logic to init bios image using the offsets from dynamic(v2) critical regions;
 > 
 > Signed-off-by: Ellen Pan <yunru.pan@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 33 +++++++++++++-----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c |  8 ++++++
->  2 files changed, 26 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c      | 12 ++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  5 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      | 47 +++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h      |  3 ++
+>  4 files changed, 66 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 96bd0185f936..4ba34ba74671 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1943,23 +1943,26 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->  	if (r)
->  		return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> index 00e96419fcda..2cbb24ede86e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -114,7 +114,17 @@ static bool amdgpu_read_bios_from_vram(struct amdgpu_device *adev)
 >  
-> -	/*
-> -	 *The reserved vram for driver must be pinned to the specified
-> -	 *place on the VRAM, so reserve it early.
-> -	 */
-> -	r = amdgpu_ttm_drv_reserve_vram_init(adev);
-> -	if (r)
-> -		return r;
-> -
-> -	/*
-> -	 * only NAVI10 and onwards ASIC support for IP discovery.
-> -	 * If IP discovery enabled, a block of memory should be
-> -	 * reserved for IP discovey.
-> -	 */
-> -	if (adev->mman.discovery_bin) {
-> -		r = amdgpu_ttm_reserve_tmr(adev);
-> +	/* VFs using dynamic critical regions(v2) won't need to reserve for below memory */
-> +	if (!amdgpu_sriov_vf(adev) || (adev->virt.req_init_data_ver != GPU_CRIT_REGION_V2)) {
-
-That comment says what is done, but not why it is done.
-
-> +		/*
-> +		 *The reserved vram for driver must be pinned to the specified
-> +		 *place on the VRAM, so reserve it early.
-> +		 */
-> +		r = amdgpu_ttm_drv_reserve_vram_init(adev);
->  		if (r)
->  			return r;
+>  	adev->bios = NULL;
+>  	vram_base = pci_resource_start(adev->pdev, 0);
+> -	bios = ioremap_wc(vram_base, size);
 > +
-> +		/*
-> +		 * only NAVI10 and onwards ASIC support for IP discovery.
-> +		 * If IP discovery enabled, a block of memory should be
-> +		 * reserved for IP discovey.
+> +	if (amdgpu_sriov_vf(adev) && adev->virt.init_data_done) {
+> +		resource_size_t bios_offset;
+> +
+> +		if (amdgpu_virt_get_bios_info(adev, &bios_offset, &size))
+> +			return false;
+> +
+> +		bios = ioremap_wc(vram_base + bios_offset, size);
+> +	} else
+> +		bios = ioremap_wc(vram_base, size);
+> +
 
-While at it there are a couple of typos in the comment, please fix.
+It would probably better to give offset as parameter to amdgpu_read_bios_from_vram().
 
-> +		 */
-> +		if (adev->mman.discovery_bin) {
-> +			r = amdgpu_ttm_reserve_tmr(adev);
-> +			if (r)
-> +				return r;
-> +		}
+There is already a comment saying "this is required for SR-IOV" where that code would make perfect sense.
+
+>  	if (!bios)
+>  		return false;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index 73401f0aeb34..0dd9ff576cdc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -292,6 +292,11 @@ static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *adev,
+>  		}
 >  	}
 >  
->  	/* allocate memory as required for VGA
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index 46c19e96086a..e9dbab53cb06 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -931,6 +931,14 @@ int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
->  		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_BAD_PAGE_INFO_TABLE_ID] =
->  			init_data_hdr->bad_page_size_in_kb;
->  
-> +		/* reserved memory starts from crit region base offset with the size of 5MB */
-> +		adev->mman.fw_vram_usage_start_offset = adev->virt.crit_region_base_offset;
-> +		adev->mman.fw_vram_usage_size = adev->virt.crit_region_size_in_kb << 10;
-> +		DRM_INFO("critical region v%d requested to reserve memory start at %08x with %d KB.\n",
-> +			  init_data_hdr->version,
-> +			  adev->mman.fw_vram_usage_start_offset,
-> +			  adev->mman.fw_vram_usage_size >> 10);
+> +	if ((adev->virt.req_init_data_ver == GPU_CRIT_REGION_V2) && adev->virt.init_data_done) {
+> +		ret = amdgpu_virt_init_ip_discovery(adev, binary);
+> +		return ret;
+> +	}
 > +
 
-Same as on the other patch, using dev_info might be more adequate than DRM_INFO.
+It is probably better to rework the code here and put all the SRIOV handling into the calling function.
+
+And then call either amdgpu_discovery_read_binary_from_mem() or amdgpu_virt_init_ip_discovery() and not delegate the call to another function after calling the first one.
+
+>  	vram_size = RREG32(mmRCC_CONFIG_MEMSIZE);
+>  	if (!vram_size || vram_size == U32_MAX)
+>  		sz_valid = false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index e9dbab53cb06..9181acef4e9b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -954,6 +954,53 @@ int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
+>  	return r;
+>  }
+>  
+> +int amdgpu_virt_init_ip_discovery(struct amdgpu_device *adev, uint8_t *binary)
+> +{
+> +	uint32_t ip_discovery_offset =
+> +		adev->virt.crit_region_offsets[AMD_SRIOV_MSG_IPD_TABLE_ID];
+> +	uint32_t ip_discovery_size =
+> +		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_IPD_TABLE_ID] << 10;
+> +	uint64_t pos = 0;
+> +
+> +	dev_info(adev->dev, "use ip discovery information copied from dynamic crit_region_table at offset 0x%x with size of 0x%x bytes.\n", ip_discovery_offset, ip_discovery_size);
+
+That line is to long, please use checkpatch.pl.
+
+> +
+> +	if (!IS_ALIGNED(ip_discovery_offset, 4) || !IS_ALIGNED(ip_discovery_size, 4)) {
+> +		DRM_ERROR("IP discovery data not aligned to 4 bytes\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (ip_discovery_size > DISCOVERY_TMR_SIZE) {
+> +		DRM_ERROR("Invalid IP discovery size: 0x%x\n", ip_discovery_size);
+> +		return -EINVAL;
+> +	}
+> +
+> +	pos = (uint64_t)ip_discovery_offset;
+> +	amdgpu_device_vram_access(adev, pos, (uint32_t *)binary,
+> +					  ip_discovery_size, false);
+> +
+> +	return 0;
+> +}
+> +
+> +int amdgpu_virt_get_bios_info(struct amdgpu_device *adev,
+> +		resource_size_t *bios_offset, resource_size_t *bios_size)
+> +{
+> +	uint32_t vbios_offset = adev->virt.crit_region_offsets[AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID];
+> +	uint32_t vbios_size =
+> +		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID] << 10;
+> +
+> +	dev_info(adev->dev, "use bios information copied from dynamic crit_region_table at offset 0x%x with size of 0x%x bytes.\n", vbios_offset, vbios_size);
+
+Same here.
 
 Regards,
 Christian.
 
->  		adev->virt.init_data_done = true;
->  		break;
->  	default:
+> +
+> +	if (vbios_size > *bios_size) {
+> +		DRM_ERROR("Invalid vbios size: 0x%x\n", vbios_size);
+> +		return -EINVAL;
+> +	}
+> +
+> +	*bios_offset = vbios_offset;
+> +	*bios_size = vbios_size;
+> +
+> +	return 0;
+> +}
+> +
+>  void amdgpu_virt_init(struct amdgpu_device *adev)
+>  {
+>  	bool is_sriov = false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index 5f6014b2f349..d122347ff666 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -434,6 +434,9 @@ void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev);
+>  void amdgpu_virt_init(struct amdgpu_device *adev);
+>  
+>  int amdgpu_virt_init_critical_region(struct amdgpu_device *adev);
+> +int amdgpu_virt_init_ip_discovery(struct amdgpu_device *adev, uint8_t *binary);
+> +int amdgpu_virt_get_bios_info(struct amdgpu_device *adev,
+> +					  resource_size_t *bios_offset, resource_size_t *bios_size);
+>  
+>  bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);
+>  int amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev);
 
