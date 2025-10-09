@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEDDECCA476
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 08:03:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21704CCD19C
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 08:03:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2A310EB75;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEAA10EB7B;
 	Fri, 10 Oct 2025 08:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l6sQtRmv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZmrsmXZI";
 	dkim-atps=neutral
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C80C010EACC
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:58:41 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-42d8bf52325so6005585ab.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:58:41 -0700 (PDT)
+Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
+ [209.85.166.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2605610EAD7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:04 +0000 (UTC)
+Received: by mail-il1-f180.google.com with SMTP id
+ e9e14a558f8ab-42486ed0706so7397605ab.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760032721; x=1760637521; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lGMv5lHdrhywBVTV/PqaJfnG7AITk86FOlf4SxNuZNA=;
- b=l6sQtRmv94EsGBYuU6nf+cuWeMkVmgK18fvYwM2KWjmMSZ5W2KWHpRjs8xQEmQk77R
- byOLFUWOCHHETnfZeqUnU9fRCvfcClEbRph7hHcEUc7L5iMj3FAG0db1XAIKYa1Xf9l4
- Wiui+y9i3ONeSs/NFAPv8cdeZDv9BFN+7BWF6K247hEmBVAid/eD7Ase/OREgOYR3zsO
- urFsCGyvAaNqY2c8OeXsPvV2fI9m4YjEi1DjplMQt8Kk1v/D7MqOBZVHBKhbhmS+PieB
- Yj/hCDDRoP4MMngDy+6jvtWKAXgc5NSWr1ITHMjygPwDX4Jxr4YPYsSDCpjzG54dk9q0
- GA3A==
+ d=gmail.com; s=20230601; t=1760032743; x=1760637543; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=foiN7sqtth4khBjBEFbfAhEsiysHlMC95zuU+aZAUrk=;
+ b=ZmrsmXZIwxH7onGRN1uEo3NMUGEe5jy7UL2cMC78zBIkApFxTAMAe8Fx8uKQb4g+aD
+ +bIfEsh2zEMGn/FYQ4Jr7iIPumahLVr5UAT8RV1uaQUjhRReKVf5PXXoY0gzI+XJHgOZ
+ dmrdhyXbKIWpD5h+KnY2gA+6X33fwVkPzHm/zHKtOwSZLbrPBLRHdiZSkwNBOUj3TVuP
+ h5cQYNbnL0TowJnDHwMSD56L3OXokriNqBXsM+FdHcTS+/k1TSSK4NzTjSdvrmUERNIL
+ si7d4a92Gn4z+Y0aKaA2gvzJVMOgU/CBahJpHJO0pVXNxgz/8HJ+pgErY96Oy93/vCGC
+ mKkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760032721; x=1760637521;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=lGMv5lHdrhywBVTV/PqaJfnG7AITk86FOlf4SxNuZNA=;
- b=u9ZDyfbRd5b+L/0LTR64e82FBDaCKCMfTw/7hTbpTX6JBAaaY94to6Tpns68z5GlQe
- mZ9OAlZ0bpns9sXk1lZjL2SXwNyMbb6JXLb5OXdQJYzNqmWCKeAZzYQ/StxW8Np35yY4
- Ds1QByGq1gyN/AeIYN9Y4v9PyR9qthIm04ph7JyHold2Q9bOwGJeZtvuT8R/0b7nXVRN
- PaNg7RvPZ3rF334r9rwNqKNk5Tdv6pIMWH59F6/uIV60Qo2pbmMO2vLNRWAPiSOI/n+L
- c5zg4vENJjeu+qMvNeCGzJ1wIryUV88z+rMQE37kXLOQQLrJTKquGcsK2Vqeg64Jd+wh
- WcCg==
+ d=1e100.net; s=20230601; t=1760032743; x=1760637543;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=foiN7sqtth4khBjBEFbfAhEsiysHlMC95zuU+aZAUrk=;
+ b=NK9YVm+EcSpeqbZ4UeewaMIROvGQ6pnnZySCns/fFKpER+Zq+y2uiWZijmM95nPVnF
+ hkvchRSxuz+OK4FrLDqk5Nr18MJnlEZfHKwExTY20qSKSNl3FjP2mzxccXp+rSVFgx9H
+ X4bAdfZWrw+P/e5ej3sw2OuLArFUL6Gkq39XsAdeDZ+0xyaQdKawNc3It5CPmKp4hr4e
+ bPCxi/cJFVOMtiVrZslYRY11xSjhiSW3Kfx3+nlNRQWVbe26VXJlCpAAJmarkqJ1RqZs
+ q6pVd47SyAmAK4trkDIu57RMaEmXYBVe7ePWF34bkZmROgwxBnXcQw1MkDTZ0k0j1Gu8
+ bs2g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUzC2arxI5R00zCtJ0ITxm/zLYG7jYk27c+vRRfuTkU8h35/ChiXJSws5Ountaj8A/9AH3dKdwZ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwoDTxZD3QDgxLSEwNYA5IBQI1n5Q214DCuraZXj0XKgQ8ugb05
- c6BZRva07UKN4Y/GG6BPK9QS5rcToacMEk4XUAIsVDkRdr59BQK60+IP
-X-Gm-Gg: ASbGncsyzL35P9LrMufktg2Xu5E5GcAlLLqGVg7RxpAjSyNIwMjZYjceohP0V+vcif1
- rYz5QHHz9DcGaQhVNYYaDGt5yWpXUYt8Ol3Lai0vX8YIH14dGrYxPg1i1Z/UEPVwC/v3U1u5OdY
- 8pgUrdRV+ibjAMxBZlmvtDUPHBfYpwwzEzxwMDUE9RZGXtqI7WNdjWdUi+RQZfrtYeildGKvsfl
- kf3B6uAOAvZGJ3yBcmVYAd6MBedoS07F+Fv3Tk2jWZleizuRXNsbjzMQiJlRgR/c/HXKKdPV9Nm
- h5TzrHBY/1tFh9f32QmeStTWvOBAGFU1b0cVIgdryIcLzs0ohl4qjA9ZPI4PH4Yr5SEUDGSGViC
- fPWn+I7BAfoM3pgoBtkH1uQv9Mmt10tmfpiyU0Qsrqy7AGhDNoG9Tc+FA+P2lJVw7tsetK1QMsk
- oCrM9+BlmJryUbZH9ib+Rtlnw440hqOFr1NnnaMmzf+/cubZV5
-X-Google-Smtp-Source: AGHT+IH0kP4+vfxD+O9Wz2DP4UBxSThOXmUadGnkvBABGnXzdVOZ2Hbq3wUFuypfAQx9EkxOwcXsnQ==
-X-Received: by 2002:a05:6e02:3783:b0:42e:712e:52a0 with SMTP id
- e9e14a558f8ab-42f873540b2mr82406535ab.6.1760032720604; 
- Thu, 09 Oct 2025 10:58:40 -0700 (PDT)
+ AJvYcCUTIT6THh0JHkxASeTRRFR/8ogeflB8pqP7ByDUfc09OubLF/5ZQplCYQvjQ9p/uQ0GQ3wuEXTm@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdhqQ6YmWUyeWdA0zHcEexO1q6Weu5iw95PFVNhFgsMAt0t2pI
+ BE4x+u3j8mIgvSY17urxwOuqspHaNB1k2vVqA1InvRirjr7UalZ3WuXp
+X-Gm-Gg: ASbGncvEfVQZE2V/lVjtyk7o1EHhvLBadMB0+e4QKTTZyAj9kctQNToOkmP9nPK5ns5
+ d+2IxtWjzIZL8ZeTzuw49qZ4VezEGv+DQ2HFbQNrrBXy3UQ1kfM4FgUuNpuFnMfpBYjfMtxEvuX
+ gYWO+LUsLS+fGtot94mIZUayW6v5p5SoJh9te9/ums10PqSDTu0eJ7/SR0c9ay/zW4/gxB5cBIS
+ ZXJC2aVdjiUsgdoM4oTj40vt5eKJ5QkzELJPK6xmaX2Ee4eZigbmaogfgoJK7+f7g8gV+LFWEoj
+ Cn58/fQJpSj7xczRyyOskiT5xVYgpPYJU/4auhTVdl4FAjeb6TQCbShFnvRRGqXpU9kFE8sOPns
+ RixgpZ2K+Z4Eh7iJi93g1eX+fh7izjcDhDG0ylxJZNQ599Y9iRf3QxWVcDfWtebAwIEzq2k+Fqq
+ TkAffXN0uLDoMrSXJ5nwAcu0NBwfChlthZuTb/+w==
+X-Google-Smtp-Source: AGHT+IEXrf0bXn6pOGAetXvcTVTItgA/41FlLlYPAXC+Ci3frkzz6F6WaNaH9mI22d7vbWJNi23HhQ==
+X-Received: by 2002:a05:6e02:216d:b0:42f:8eeb:499d with SMTP id
+ e9e14a558f8ab-42f8eeb4a47mr41838465ab.8.1760032743223; 
+ Thu, 09 Oct 2025 10:59:03 -0700 (PDT)
 Received: from godzilla.raven-morpho.ts.net
  (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.58.39
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 10:58:40 -0700 (PDT)
+ Thu, 09 Oct 2025 10:59:02 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
 Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
@@ -70,14 +71,15 @@ Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>,
- andrewjballance@gmail.com
-Subject: [PATCH v5 00/30] Fix DYNAMIC_DEBUG classmaps for DRM
-Date: Thu,  9 Oct 2025 11:58:04 -0600
-Message-ID: <20251009175834.1024308-1-jim.cromie@gmail.com>
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v5 15/30] dyndbg: hoist classmap-filter-by-modname up to
+ ddebug_add_module
+Date: Thu,  9 Oct 2025 11:58:19 -0600
+Message-ID: <20251009175834.1024308-16-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
+References: <20251009175834.1024308-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 10 Oct 2025 08:03:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -94,88 +96,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DYNAMIC_DEBUG classmaps is BROKEN for its 1st user: DRM. Lets Fix it.
+The body of ddebug_attach_module_classes() is dominated by a
+code-block that finds the contiguous subrange of classmaps matching on
+modname, and saves it into the ddebug_table's info record.
 
-The DECLARE_DYNDBG_CLASSMAP macro muddled the distinction between
-definition and reference; in use it failed K&R define once, refer many.
+Implement this block in a macro to accommodate different component
+vectors in the "box" (as named in the for_subvec macro).
 
-Replace it with:
-. DYNAMIC_DEBUG_CLASSMAP_DEFINE		for drm.ko
-. DYNAMIC_DEBUG_CLASSMAP_USE		for drivers etc
+And hoist its invocation out of ddebug_attach_module_classes() up into
+ddebug_add_module().  This moves the filtering step up closer to
+dynamic_debug_init(), which effectively does the same for builtin
+pr_debug descriptors; segmenting them into subranges by modname.
 
-Enhance test-dynamic-debug{,-submod}.ko to recapitulate DRM's 2+ module
-boss-workers failure scenario, and to selftest against them.  This allows
-dropping the DRM patches, formerly included to prove functionality.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ lib/dynamic_debug.c | 56 ++++++++++++++++++++++++++-------------------
+ 1 file changed, 32 insertions(+), 24 deletions(-)
 
-The latest (unversioned) rev:
-. I inexplicably fiddled with the patch subject
-. dropped DRM as OT for lib/
-https://lore.kernel.org/lkml/20250911213823.374806-1-jim.cromie@gmail.com/
-
-v1-4 saw significant review, thanks Louis Chauvet <louis.chauvet@bootlin.com>
-
-v4: https://lore.kernel.org/lkml/20250803035816.603405-1-jim.cromie@gmail.com/
-v3: https://lore.kernel.org/lkml/20250402174156.1246171-1-jim.cromie@gmail.com/#t
-v2: https://lore.kernel.org/lkml/20250320185238.447458-1-jim.cromie@gmail.com/
-v1: https://lore.kernel.org/lkml/20250125064619.8305-1-jim.cromie@gmail.com/
-v0: prehistoric versions are linked from v1,v2
-
-Jim Cromie (30):
-  docs/dyndbg: update examples \012 to \n
-  docs/dyndbg: explain flags parse 1st
-  test-dyndbg: fixup CLASSMAP usage error
-  dyndbg: reword "class unknown," to "class:_UNKNOWN_"
-  dyndbg: make ddebug_class_param union members same size
-  dyndbg: drop NUM_TYPE_ARRAY
-  dyndbg: tweak pr_fmt to avoid expansion conflicts
-  dyndbg: reduce verbose/debug clutter
-  dyndbg: refactor param_set_dyndbg_classes and below
-  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-  dyndbg: replace classmap list with a vector
-  dyndbg: macrofy a 2-index for-loop pattern
-  dyndbg: DECLARE_DYNDBG_CLASSMAP needs stub defn
-  dyndbg,module: make proper substructs in _ddebug_info
-  dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
-  dyndbg: move mod_name from ddebug_table down to _ddebug_info
-  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
-  selftests-dyndbg: add a dynamic_debug run_tests target
-  dyndbg: change __dynamic_func_call_cls* macros into expressions
-  dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-  dyndbg: detect class_id reservation conflicts
-  dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args at compile-time
-  dyndbg-test: change do_prints testpoint to accept a loopct
-  dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
-  dyndbg: treat comma as a token separator
-  dyndbg: split multi-query strings with %
-  selftests-dyndbg: add test_mod_submod
-  dyndbg: resolve "protection" of class'd pr_debugs
-  dyndbg: add DYNAMIC_DEBUG_CLASSMAP_USE_(clname,_base)
-  docs/dyndbg: add classmap info to howto
-
-CC: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: ukaszb@chromium.org
-cc: andrewjballance@gmail.com
-
- .../admin-guide/dynamic-debug-howto.rst       | 179 ++++-
- MAINTAINERS                                   |   3 +-
- include/asm-generic/vmlinux.lds.h             |   5 +-
- include/linux/dynamic_debug.h                 | 304 ++++++--
- kernel/module/main.c                          |  15 +-
- lib/Kconfig.debug                             |  24 +-
- lib/Makefile                                  |   5 +
- lib/dynamic_debug.c                           | 678 +++++++++++-------
- lib/test_dynamic_debug.c                      | 198 +++--
- lib/test_dynamic_debug_submod.c               |  21 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   7 +
- .../dynamic_debug/dyndbg_selftest.sh          | 373 ++++++++++
- 14 files changed, 1393 insertions(+), 429 deletions(-)
- create mode 100644 lib/test_dynamic_debug_submod.c
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 53ce28255426..bbbdb8aba071 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -161,8 +161,8 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ }
+ 
+ static struct _ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+-							const char *class_string,
+-							int *class_id)
++							 const char *class_string,
++							 int *class_id)
+ {
+ 	struct _ddebug_class_map *map;
+ 	int i, idx;
+@@ -1224,30 +1224,34 @@ static const struct proc_ops proc_fops = {
+ 
+ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
+ {
+-	struct _ddebug_class_map *cm;
+-	int i, nc = 0;
+-
+-	/*
+-	 * Find this module's classmaps in a subrange/wholerange of
+-	 * the builtin/modular classmap vector/section.  Save the start
+-	 * and length of the subrange at its edges.
+-	 */
+-	for_subvec(i, cm, di, maps) {
+-		if (!strcmp(cm->mod_name, dt->mod_name)) {
+-			if (!nc) {
+-				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+-					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
+-				dt->info.maps.start = cm;
+-			}
+-			nc++;
+-		}
+-	}
+-	if (nc) {
+-		dt->info.maps.len = nc;
+-		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
+-	}
++	vpr_info("module:%s attached %d classes\n", dt->mod_name, dt->info.maps.len);
+ }
+ 
++/*
++ * Walk the @_box->@_vec member, over @_vec.start[0..len], and find
++ * the contiguous subrange of elements matching on ->mod_name.  Copy
++ * the subrange into @_dst.  This depends on vars defd by caller.
++ *
++ * @_i:   caller provided counter var, init'd by macro
++ * @_sp:  cursor into @_vec.
++ * @_box: contains member named @_vec
++ * @_vec: an array-ref, with: .start .len fields.
++ * @_dst: an array-ref: to remember the module's subrange
++ */
++#define dd_mark_vector_subrange(_i, _dst, _sp, _box, _vec) ({		\
++	int nc = 0;							\
++	for_subvec(_i, _sp, _box, _vec) {				\
++		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
++			if (!nc++)					\
++				(_dst)->info._vec.start = (_sp);	\
++		} else {						\
++			if (nc)						\
++				break; /* end of consecutive matches */ \
++		}							\
++	}								\
++	(_dst)->info._vec.len = nc;					\
++})
++
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -1255,6 +1259,8 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
++	struct _ddebug_class_map *cm;
++	int i;
+ 
+ 	if (!di->descs.len)
+ 		return 0;
+@@ -1277,6 +1283,8 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+ 
++	dd_mark_vector_subrange(i, dt, cm, di, maps);
++
+ 	if (di->maps.len)
+ 		ddebug_attach_module_classes(dt, di);
+ 
 -- 
 2.51.0
 
