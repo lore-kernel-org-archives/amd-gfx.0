@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D15CCD183
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 08:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE87CCD187
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 08:54:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3E0210E3A5;
-	Thu,  9 Oct 2025 08:41:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 583B110E981;
+	Thu,  9 Oct 2025 08:54:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kV6+JiOC";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="W9QnvyaA";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB3010E3A5;
- Thu,  9 Oct 2025 08:41:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5626B10E97E;
+ Thu,  9 Oct 2025 08:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,23 +22,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KI8uRmmfqGOWp/w2THZwVCQfpnxvfCgEqP5k1maGyb4=; b=kV6+JiOCULHNZ6P7Fip+6YPcQ+
- FiJP3hstnuKyNaI6pUCXbaekd++Zeyar7hAkskBbFd524hoCO0f91EsVyfe1WbqWV56KxXxobJShF
- JurnGP32VkHNwYM7BFsP+FKPD28htaltYNiVO/ObHTf/7cAm2QFpj1OJ/SGQS9xboJjX3kNHe8uAP
- l8akDzEMiHMoVxW3Jd6Z91tLvWNms1omSuyrmkx3WoyDTNPatjJzCZS9W1M3wG/nzzl/mEz6FI7Lh
- Wi0TSoeUYuLOvN8OVutTDbraTMVl4E3Y46/qS2zI7UiWIxf8WCfuNLOSB7utNC9gdfn3l4TBrWMwA
- TYa6PY5A==;
+ bh=lzpCTZWnRfLQVDW0GWNREfGnRAfsG2gycX5qOTFzxP8=; b=W9QnvyaAi0+OrRCViYFwxnDBnj
+ nLFp+66+cu73x04aUEjXzb0OP5Qj7MkpJVtFTH5nBhNw/JZOxrLD65uJfYsgVFknJL6LvMB46U2GR
+ m6ZUFoaPt+jnBElUiBaIrq8XBxtvaATRqJYDOXFAZKadzn+mv0h+AnBJ1P/1dHbHZag3cAJahyCOR
+ De2dnFRDboF2jpzy1iU1T20cAyRGngQmpEyvyYjB6KyJkjWUHh3DgSwjMUs0kvEgBQSsu4d3XNAvZ
+ mRnSXfxIh84AfySxcr2Yaaxg0nzANvY7shVrsTUlkFhdxaFYeFQVkqr+0f145mdRbXh7G+mLRAkIu
+ HzBmsPBA==;
 Received: from [84.66.36.92] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1v6mDA-007N5p-7c; Thu, 09 Oct 2025 10:41:20 +0200
-Message-ID: <887248b2-98ff-4a04-869a-7a1668771251@igalia.com>
-Date: Thu, 9 Oct 2025 09:41:18 +0100
+ id 1v6mPO-007NLx-NW; Thu, 09 Oct 2025 10:53:58 +0200
+Message-ID: <a300e417-c9df-4e2b-a75f-319aab384b44@igalia.com>
+Date: Thu, 9 Oct 2025 09:53:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
  latency
-To: Matthew Auld <matthew.auld@intel.com>,
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
  dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
@@ -50,15 +50,15 @@ Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>,
  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
 References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
  <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
  <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
- <fe98edc2-cc18-4c44-a4cb-5c41b60834e6@intel.com>
+ <9bb3c06e-25c1-43d8-a4e8-e529c53ff77d@amd.com>
+ <45973012f925dbbfdf0636c10f9d051c34f97e2e.camel@linux.intel.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <fe98edc2-cc18-4c44-a4cb-5c41b60834e6@intel.com>
+In-Reply-To: <45973012f925dbbfdf0636c10f9d051c34f97e2e.camel@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,170 +76,119 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 08/10/2025 15:34, Matthew Auld wrote:
-> On 08/10/2025 14:50, Tvrtko Ursulin wrote:
->>
->> On 08/10/2025 13:35, Christian König wrote:
->>> On 08.10.25 13:53, Tvrtko Ursulin wrote:
->>>> Disclaimer:
->>>> Please note that as this series includes a patch which touches a 
->>>> good number of
->>>> drivers I will only copy everyone in the cover letter and the 
->>>> respective patch.
->>>> Assumption is people are subscribed to dri-devel so can look at the 
->>>> whole series
->>>> there. I know someone is bound to complain for both the case when 
->>>> everyone is
->>>> copied on everything for getting too much email, and also for this 
->>>> other case.
->>>> So please be flexible.
->>>>
->>>> Description:
->>>>
->>>> All drivers which use the TTM pool allocator end up requesting large 
->>>> order
->>>> allocations when allocating large buffers. Those can be slow due 
->>>> memory pressure
->>>> and so add latency to buffer creation. But there is often also a 
->>>> size limit
->>>> above which contiguous blocks do not bring any performance benefits. 
->>>> This series
->>>> allows drivers to say when it is okay for the TTM to try a bit less 
->>>> hard.
->>>>
->>>> We do this by allowing drivers to specify this cut off point when 
->>>> creating the
->>>> TTM device and pools. Allocations above this size will skip direct 
->>>> reclaim so
->>>> under memory pressure worst case latency will improve. Background 
->>>> reclaim is
->>>> still kicked off and both before and after the memory pressure all 
->>>> the TTM pool
->>>> buckets remain to be used as they are today.
->>>>
->>>> This is especially interesting if someone has configured 
->>>> MAX_PAGE_ORDER to
->>>> higher than the default. And even with the default, with amdgpu for 
->>>> example,
->>>> the last patch in the series makes use of the new feature by telling 
->>>> TTM that
->>>> above 2MiB we do not expect performance benefits. Which makes TTM 
->>>> not try direct
->>>> reclaim for the top bucket (4MiB).
->>>>
->>>> End result is TTM drivers become a tiny bit nicer mm citizens and 
->>>> users benefit
->>>> from better worst case buffer creation latencies. As a side benefit 
->>>> we get rid
->>>> of two instances of those often very unreadable mutliple nameless 
->>>> booleans
->>>> function signatures.
->>>>
->>>> If this sounds interesting and gets merge the invidual drivers can 
->>>> follow up
->>>> with patches configuring their thresholds.
->>>>
->>>> v2:
->>>>   * Christian suggested to pass in the new data by changing the 
->>>> function signatures.
->>>>
->>>> v3:
->>>>   * Moved ttm pool helpers into new ttm_pool_internal.h. (Christian)
+On 08/10/2025 15:39, Thomas Hellström wrote:
+> On Wed, 2025-10-08 at 16:02 +0200, Christian König wrote:
+>> On 08.10.25 15:50, Tvrtko Ursulin wrote:
 >>>
->>> Patch #3 is Acked-by: Christian König <christian.koenig@amd.com>.
+>>> On 08/10/2025 13:35, Christian König wrote:
+>>>> On 08.10.25 13:53, Tvrtko Ursulin wrote:
+>>>>> Disclaimer:
+>>>>> Please note that as this series includes a patch which touches
+>>>>> a good number of
+>>>>> drivers I will only copy everyone in the cover letter and the
+>>>>> respective patch.
+>>>>> Assumption is people are subscribed to dri-devel so can look at
+>>>>> the whole series
+>>>>> there. I know someone is bound to complain for both the case
+>>>>> when everyone is
+>>>>> copied on everything for getting too much email, and also for
+>>>>> this other case.
+>>>>> So please be flexible.
+>>>>>
+>>>>> Description:
+>>>>>
+>>>>> All drivers which use the TTM pool allocator end up requesting
+>>>>> large order
+>>>>> allocations when allocating large buffers. Those can be slow
+>>>>> due memory pressure
+>>>>> and so add latency to buffer creation. But there is often also
+>>>>> a size limit
+>>>>> above which contiguous blocks do not bring any performance
+>>>>> benefits. This series
+>>>>> allows drivers to say when it is okay for the TTM to try a bit
+>>>>> less hard.
+>>>>>
+>>>>> We do this by allowing drivers to specify this cut off point
+>>>>> when creating the
+>>>>> TTM device and pools. Allocations above this size will skip
+>>>>> direct reclaim so
+>>>>> under memory pressure worst case latency will improve.
+>>>>> Background reclaim is
+>>>>> still kicked off and both before and after the memory pressure
+>>>>> all the TTM pool
+>>>>> buckets remain to be used as they are today.
+>>>>>
+>>>>> This is especially interesting if someone has configured
+>>>>> MAX_PAGE_ORDER to
+>>>>> higher than the default. And even with the default, with amdgpu
+>>>>> for example,
+>>>>> the last patch in the series makes use of the new feature by
+>>>>> telling TTM that
+>>>>> above 2MiB we do not expect performance benefits. Which makes
+>>>>> TTM not try direct
+>>>>> reclaim for the top bucket (4MiB).
+>>>>>
+>>>>> End result is TTM drivers become a tiny bit nicer mm citizens
+>>>>> and users benefit
+>>>>> from better worst case buffer creation latencies. As a side
+>>>>> benefit we get rid
+>>>>> of two instances of those often very unreadable mutliple
+>>>>> nameless booleans
+>>>>> function signatures.
+>>>>>
+>>>>> If this sounds interesting and gets merge the invidual drivers
+>>>>> can follow up
+>>>>> with patches configuring their thresholds.
+>>>>>
+>>>>> v2:
+>>>>>    * Christian suggested to pass in the new data by changing the
+>>>>> function signatures.
+>>>>>
+>>>>> v3:
+>>>>>    * Moved ttm pool helpers into new ttm_pool_internal.h.
+>>>>> (Christian)
+>>>>
+>>>> Patch #3 is Acked-by: Christian König <christian.koenig@amd.com>.
+>>>>
+>>>> The rest is Reviewed-by: Christian König
+>>>> <christian.koenig@amd.com>
 >>>
->>> The rest is Reviewed-by: Christian König <christian.koenig@amd.com>
+>>> Thank you!
+>>>
+>>> So I think now I need acks to merge via drm-misc for all the
+>>> drivers which have their own trees. Which seems to be just xe.
 >>
->> Thank you!
->>
->> So I think now I need acks to merge via drm-misc for all the drivers 
->> which have their own trees. Which seems to be just xe.
->>
->> Also interesting for other drivers is that when this lands folks can 
->> start passing in their "max size which leads to performance gains" via 
->> TTM_POOL_BENEFICIAL_ORDER and get the worst case allocation latency 
->> improvements.
->>
->> I am thinking xe also maxes out at 2MiB pages, for others I don't know.
+>> I think you should ping the XE guys for their opinion, but since
+>> there shouldn't be any functional change for them you can probably go
+>> ahead and merge the patches to drm-misc-next when there is no reply
+>> in time.
 > 
-> Yeah, next level up from 2M GTT page is still 1G GTT page. I think we 
-> especially need 64K/2M system memory pages on igpu to get some perf back 
-> when enabling iommu on some platforms IIRC. Not aware of really needing 
->  > 2M so sounds like we might also benefit by maxing out at 2M, if it 
-> reduces allocation latency in some cases.
+> I will try to do a review tonight. One thing that comes up though, is
+> the change to ttm_device_init() where you add pool_flags. I had another
+> patch series a number of months ago that added a struct with flags
+> there instead to select the return value given when OOM. Now that we're
+> adding an argument, should we try to use a struct instead so that we
+> can use it for more that pool behavior?
+> 
+> 
+> I'll be able to find a pointer to that series later today.
 
-To clarify a bit, the current semantics of the series is not to max out 
-at the order specified by the driver as the "max beneficial", but to 
-just skip doing direct reclaim above it. Otherwise TTM pool allocator 
-keeps the current behaviour of trying from MAX_PAGE_ORDER and down. As 
-that is 4MB by default on x86 (and configurable on some platforms via 
-Kconfig), idea is not to pay the latency cost of direct reclaim for 
-sizes which bring no additional performance benefit to the GPU. And 
-since it will kick off background reclaim, both past and future 
-allocation can still get the larger order blocks.
+Found it: 
+https://lore.kernel.org/dri-devel/20241002122422.287276-1-thomas.hellstrom@linux.intel.com/
 
-If in the future we want to actually max out at the driver specified 
-size that could be discussed. But for now I wanted to have the smallest 
-change in behaviour possible.
+Glad to see in that thread it isn't just me permanently slowed down by 
+"false, false" and similar. :)
+
+I considered using a struct too and I guess there wasn't too much of a 
+sway that I went with flags. I thought not to overcomplicate with the on 
+stack struct which is mostly not needed for something so low level, and 
+to stick with the old school C visual patterns.
+
+Since you only needed a single boolean in your series I suppose you 
+could just follow up on my series if you find it acceptable. Or I can go 
+with yours, no problem either.
 
 Regards,
 
 Tvrtko
-
->>>> v1 thread:
->>>> https://lore.kernel.org/dri-devel/20250919131127.90932-1- 
->>>> tvrtko.ursulin@igalia.com/
->>>>
->>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Danilo Krummrich <dakr@kernel.org>
->>>> Cc: Dave Airlie <airlied@redhat.com>
->>>> Cc: Gerd Hoffmann <kraxel@redhat.com>
->>>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->>>> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
->>>> Cc: Lyude Paul <lyude@redhat.com>
->>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->>>> Cc: Maxime Ripard <mripard@kernel.org>
->>>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->>>> Cc: Sui Jingfeng <suijingfeng@loongson.cn>
->>>> Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->>>> Cc: Zack Rusin <zack.rusin@broadcom.com>
->>>>
->>>> Tvrtko Ursulin (5):
->>>>    drm/ttm: Add getter for some pool properties
->>>>    drm/ttm: Replace multiple booleans with flags in pool init
->>>>    drm/ttm: Replace multiple booleans with flags in device init
->>>>    drm/ttm: Allow drivers to specify maximum beneficial TTM pool size
->>>>    drm/amdgpu: Configure max beneficial TTM pool allocation order
->>>>
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  7 +--
->>>>   drivers/gpu/drm/drm_gem_vram_helper.c         |  2 +-
->>>>   drivers/gpu/drm/i915/intel_region_ttm.c       |  2 +-
->>>>   drivers/gpu/drm/loongson/lsdc_ttm.c           |  2 +-
->>>>   drivers/gpu/drm/nouveau/nouveau_ttm.c         |  4 +-
->>>>   drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
->>>>   drivers/gpu/drm/radeon/radeon_ttm.c           |  4 +-
->>>>   drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++----
->>>>   .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
->>>>   drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 31 +++++--------
->>>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 22 ++++-----
->>>>   drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  7 +--
->>>>   drivers/gpu/drm/ttm/tests/ttm_pool_test.c     | 23 +++++-----
->>>>   drivers/gpu/drm/ttm/ttm_device.c              |  7 ++-
->>>>   drivers/gpu/drm/ttm/ttm_pool.c                | 45 ++++++++++ 
->>>> +--------
->>>>   drivers/gpu/drm/ttm/ttm_pool_internal.h       | 24 ++++++++++
->>>>   drivers/gpu/drm/ttm/ttm_tt.c                  | 10 +++--
->>>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +-
->>>>   drivers/gpu/drm/xe/xe_device.c                |  2 +-
->>>>   include/drm/ttm/ttm_device.h                  |  2 +-
->>>>   include/drm/ttm/ttm_pool.h                    | 13 +++---
->>>>   21 files changed, 125 insertions(+), 106 deletions(-)
->>>>   create mode 100644 drivers/gpu/drm/ttm/ttm_pool_internal.h
->>>>
->>>
->>
-> 
 
