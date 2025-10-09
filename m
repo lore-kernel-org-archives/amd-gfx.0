@@ -4,149 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA769CCD185
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 12:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44175CCD184
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 12:22:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8982210E121;
-	Thu,  9 Oct 2025 12:16:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C777E10EA02;
+	Thu,  9 Oct 2025 12:22:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Cw/JHVW7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QAD3xbTE";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A19C710E121
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 12:16:02 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013063.outbound.protection.outlook.com
+ [40.93.201.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1503B10EA02
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 12:22:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L1RjstR1ycsxAlbAgrw8zei/vQO6RqdFTE6In1uWDlfRFXutLCEwQwemCk1nGU32FgAQ+WmdivS9BUNTnklJma+nzVBA9/lxPmAY1IoAdljA9Fa+TTXtHLdVH0BIhzHo7gDdp+Hxdtu0edq4KzE5AJnldTjeVvk71MHE56H7F+DgWzrBZmg9xjiduuRs5rbTfazaR8ykwY7/yqnkRBoVRVblf4h8Sz+EFMDKdzbR/OAYRQs94JQQl2bh27/ATwmSg8e9QxoWWHhBg0vq/lq/flrWzGsWTDyKwmb8vTa7pD7nzceuYsJZYfEWWrBYuuXZK01N+Fm5ZnY0Du8KyNlYlw==
+ b=JnPxS1/mDX162q4gLX+ROv9wJjrdlj4D6yxr1R84RNR532yGUCnP/XaGk4+jlhqOA9bC4eL5fDN7rxvnN4mfFsRtZYK51uGVMciolC1Tf/7eqvwI6XER8tos8wlXta0vTeww/FTTqSm68Nch9ho2RfipCBcLZjE4AYeg0fYFlvmTGlMDXJiTyzwhX7ZXQlnfRUYgcUYgogMMlcO6QY/oOvcKD2Es84rDieGOFz57yzNttg8LsEdycE0Vjk/HcOc80AO1sMIwzj/HvFvx2LHvLahcBNNorsOQ6U01SdotLQH4lSzUSqFlMgrBKc75DtfYc+lwctls3PZBO3eksE2tWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AssCLRD4T330OGSv5KAwoq0rk0frASlclG/hCJtbecI=;
- b=gCQ/7kGwCBIlMG/jEW/h1NZyJbmMia4xO0Ds0HiOdO05+jQySukpHQy5Z3Zq5unMfEiDX0TBc+gnfv1t+7us/nU1J+b535X3b83qys59rvMGT2nP5wxYp/zf1B2mFWA696QS6Zj8AX+4rJqehcX402zu+r/m4G9/BYjipaTSkrlqa9z/FBCB20Mxp54YKrfc0ngqyb3ArdBvru/Jz0/shsaMWhoKN5ufV0Vmt1T91/qMertibidiw/IQxt/4Bbfo8Q4aB+dPwlJ9h+huDw/ynaljQQNl9PYKcgvkjC6shhmAX/C9BfpbYV7V0bfTaYofaaHqiKqfdLHPR83ULFrHGA==
+ bh=EL3/Q2lSm9ZX4S4//q0FYlu59R2OILl/nI3GUpj2AXk=;
+ b=h/yVFSa7jbvm+ymqw4TO4psTqJyHW4YhAOiMVC8714QXZEms38Xlno/EhByhE3lDoIlG5mhjt4P7cFJ/LfTGpVHhiRDBWwIJnx5I91j/qYTksl1M9Nck+iCef2Q3WG1TQUGoVa4BbO15Dpv9PxlImFzeEkxN4eTXMFO8dPU3FVi08PaWT0VwUOnnlsChAB9LX57LF8fwRSZfaOc7VxjkcDaaHqDjkIb1d5uVuwRnhpyiMm/iMLOn1rLVARaE920MKXBU9P+2hgVYR65Be3Y5L1TiBlKazNnOiXbPSd6a/nyJR4qsLBXHSTlqWkLcdFnw+Uc53YOb50L4O+mLOFR/FQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AssCLRD4T330OGSv5KAwoq0rk0frASlclG/hCJtbecI=;
- b=Cw/JHVW7Bb7lc+e6Q7m2Bln/a9AWZqDuIBV0QCigpvjepBKkovCTDnyJje8ugkxTccnRBKYrjjq+DCMkCzmq/wthni10y6nEseR+0z/cuwIbgtZAUhSIf7UI0/A7dAeBk3w1t0pN16b07ysinis7kiyNnzsBpd5RqJQU0ePhuxg=
+ bh=EL3/Q2lSm9ZX4S4//q0FYlu59R2OILl/nI3GUpj2AXk=;
+ b=QAD3xbTEPCgnHBs8dtvf8VzoMKGOTySCu0S4NBFn+tTCmqXtyXNcVYoIvAFertDmpJkSkRnn3f+Qj0KuE9WMfrpj61q9U9v/cW8Lw9k8r07w1A3UdeYxxOqGiwLp0jKSCOCweNnFSAs2VUJtQD5AKbTPYkRXPpl7jP2Duh79tK8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA5PPFCB4F033D6.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8e2) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.19; Thu, 9 Oct
- 2025 12:15:59 +0000
+ by PH7PR12MB7426.namprd12.prod.outlook.com (2603:10b6:510:201::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.9; Thu, 9 Oct
+ 2025 12:22:48 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9203.009; Thu, 9 Oct 2025
- 12:15:59 +0000
-Message-ID: <ef441f26-43fc-42fa-bda6-80152ff8816f@amd.com>
-Date: Thu, 9 Oct 2025 14:15:54 +0200
+ 12:22:48 +0000
+Message-ID: <6a82950b-070d-4fe6-a08a-3a8f795f3460@amd.com>
+Date: Thu, 9 Oct 2025 14:22:43 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] drm/amdgpu: Updated naming of SRIOV critical region
- offsets/sizes with _V1 suffix
+Subject: Re: [PATCH 3/6] drm/amdgpu: Introduce SRIOV critical regions v2
+ during VF init
 To: Ellen Pan <yunru.pan@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com, Shravankumar.Gande@amd.com
-References: <20251009032931.24950-1-yunru.pan@amd.com>
+References: <20251009033029.24986-1-yunru.pan@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251009032931.24950-1-yunru.pan@amd.com>
+In-Reply-To: <20251009033029.24986-1-yunru.pan@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0235.namprd03.prod.outlook.com
- (2603:10b6:408:f8::30) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN0PR04CA0190.namprd04.prod.outlook.com
+ (2603:10b6:408:e9::15) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA5PPFCB4F033D6:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a0ff0ad-95e8-44cb-1500-08de072d9afb
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b64bc71-e7c7-4cba-02e2-08de072e8ee4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Vld0aXV5RWRsOTF4LzB5ZHFjdkQ1eGtCOHkxUysraEhkK3NOc3pMZEFqL0Vk?=
- =?utf-8?B?YWpmR3JRSW9IZmMwUllqTDlFaG1ObVRHRTdwUXdJSU5haEMxdUZhUldlcUR1?=
- =?utf-8?B?OW9VdU04ajE0M1M5bzVYZDJmc29UTnN2UnZqUFVnWDhUQ0kyMURYOEpLVndM?=
- =?utf-8?B?MU9jdU9iZlV3TXZDVHFWMktRS0dhWmpvc2NQSUtQZG9hNld3ZWhHYVJLY3E3?=
- =?utf-8?B?SWpKZUF4aElCRVpBVHVDR1dyaWlZYTRYaklNUnFHb3Bhck12ZlA0Sm53QjVt?=
- =?utf-8?B?WWNNeDZQRk5SWVRyZTdpU2lrSFZyNk5xRDVaclpjeEQ0N1VaVGRKYTdBM1Nt?=
- =?utf-8?B?VCt6QmhtQ0VYMHpkTU1JbUlRTndjNjVUSWhmaHBpZGRpejY5YW4rZ2NWdytF?=
- =?utf-8?B?eEZHc1ovWjNiNTdQZXdLTEloRmg4QUdOOVVrSVNTYzhJa0E2TlFxekJac3By?=
- =?utf-8?B?dVh0Rm5BZEZnMTZvU0ZkT2poZU5UejdBSkJhTXJXcVRFbFU2UWFlSGhCU1d5?=
- =?utf-8?B?QlFwWmV3L3IwMTM2eEkybmRhSXEvMzJOUzIwS0t1MmNuT0dxMHZqWSs4SGhB?=
- =?utf-8?B?Y2JTbFdqK2YzckE0K1VrRGQ5MDlrZWNjMUtrQjkwdmxZMmcvaU9mZjZaVVVL?=
- =?utf-8?B?c1hITktSb3B1RWk3dWEzNUExZzJoNTlNbmhVcDYzQnV1bE1VbVJydDlwZ21V?=
- =?utf-8?B?bGdvb1c1L0pseXBkUHRSOEVOY0J2RitXMy85R1VJQ2wveEgxUTh1QWRrRFdp?=
- =?utf-8?B?V1hpcGI4dkdVUFJoZ096R21CdlErblZZcXJqcUxUVTFNQ3U0MjhZU3gwYjFB?=
- =?utf-8?B?US9FcU5iK1E4VnpvWUdCcG8wRHdwenVNaGdBOGxjY00rZFpreTE3Y3RaQ3FY?=
- =?utf-8?B?eHBvMlNsRjljMERBQ21pdzhFWlV5eFpwOUdLOHRZaHJaME45L1libVBKTFRH?=
- =?utf-8?B?R2VhNDRJdVFYcm51TGJDS0Q4VnF0ZEpqTjhXK000R29NRyt2MFJwQTRGS2xY?=
- =?utf-8?B?TUIzTmhnZmFUZzBEdmp3alNka3Ztbk9YUHIydCsrRkM1WWEzSkd0WkxWWExG?=
- =?utf-8?B?eFpQdzFQcFJaOXREeHF2TFMreXhBd2RFUHJzTDcrUHA4YWdudWZhY29LSVZ0?=
- =?utf-8?B?QmZpZVVTQjF4cU5XSHZPL0hNOVRCWTA2SFphd25kNWx3Nkc0T1pxcDdOb0Jl?=
- =?utf-8?B?cVIxVE15NldqbVNaTS9TOGRLSjdodE5LN0IwbVlwd25xV3IzNkZwcEJLTVBy?=
- =?utf-8?B?WkExTHlkUFUwdnZOTVJWMnVPd2lPelFBVDJiYlhIdW5aK0wxbjFETW00NWI5?=
- =?utf-8?B?TUgvekFQcHBIQTY0UFloYkdmWjUwSSsyS0tzTU1UeDY0OTQxVUtSNWc3SHJs?=
- =?utf-8?B?Q016MGVRR2lUQllXVEgvcFlIZTZKdkNwTXpjQmRHYXd3REFJRGR4Vi9JM3Fn?=
- =?utf-8?B?dmJRMVhOZHBrc29IK1RxWERTL2ZKMlhpbzh4Zlptc1AzejI3RkRCR2hyOUVr?=
- =?utf-8?B?Rkp5OXlLV0dZY2xuWkFkOTlPdHkvOTU5QzFabDk2d3V1aEx2cGlpbVJGVi9C?=
- =?utf-8?B?c3R1UEF1QWtNbkFkemNXWHplNXZHMzQ2bjNYL3pmempnTyt2RlhNRFlod0Fx?=
- =?utf-8?B?TG9SMDY1KysralBnVjNEUE1XSkVsMzc5RjUzbFp4bDNHOFZMUi9maWxlK1la?=
- =?utf-8?B?Z1JMUkJ4Qy9pcHlnakZGc3AvMUFVODlpN3lOSHBMMGlXVFNIZVNXd3I2a0hI?=
- =?utf-8?B?TUYzM3hHeE0rMjFEZHZsS3BBejlSRzExN05xM1RZRDFBdUNPM2lJVDVhUFF0?=
- =?utf-8?B?b3VhT3YwYXk4ZlN2MmYyTHNiaFJ5MGQ1VEkwMkNrZHFZS3V0dU9iVFl5cHZx?=
- =?utf-8?B?cEFaTnhsdGwzSTJDRUhYeWMvaGhzS3Z1d1M4N2ZiUWJ6N2Z0ZW01TXROYlE0?=
- =?utf-8?Q?N3a3iIY3zIPGxhmZpLWZAAQJtpIsBbia?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bUpXR29hZmJuTmsxOHQ0ZDFibjA5V3FtOUdSN1A3cmsyQzU5Um5XeXVqbGlU?=
+ =?utf-8?B?NVY1dC9FZjVod3M4M1ZsM0tlQ2NVRGNvcHJuNHowRFFJZlRnTG9STU9pU2tY?=
+ =?utf-8?B?STRZK2Y3L01UK0pISmpQTEJJbHNLa1lQLzVob0pjcW1SUkxJaE5NT3VUQ3VE?=
+ =?utf-8?B?RnMrdllWQ0lmYVZuT1FTYTVuUzQyYzJrR1J3QjhmL2E0enFiSy8xSS80NzFz?=
+ =?utf-8?B?L1dWZjJWbVQrVDgrbllpRlJSaU9pWWpreGJLSWt3ak12bG9BRGljWVRlMUY3?=
+ =?utf-8?B?bTQ0Q3JPdW1rdU5RYWhrOTdvNDRIRUVpU2FwbU1zcVdyQWNKdGc2V01XQzZy?=
+ =?utf-8?B?TTdBWVliY0NCbGlnM0JUaWE1N3pITjJMNXRIdzNFZ2FqTStNMHAzMG9saWhk?=
+ =?utf-8?B?cjZTR0wrM3BLZUtCcTVrWkhrbGlZcm0vaHBHUk5odnVwWVRhdVM4L1FQcE10?=
+ =?utf-8?B?SWJsKzA0bk1qRnZqWXhJTGM2WFl3UjF3Y3NvREQwRkk0cTF0blBpbm9hVWRH?=
+ =?utf-8?B?S3dvVWxESnRtNkZPbGpvRU9rZ0dmdy9xS05icWMvN0FtdW9kM29ucm5ySHNG?=
+ =?utf-8?B?ZnBZcWFWOFVHcDlaZFdUeHh5Z1ZaaVBvMTZMQ0NaNHpQQWFLMFdBazJFUEQv?=
+ =?utf-8?B?RXNxcjdjL0Nncjh3Titta3ZzRzl2MVhYcG1WbEQ0aEh0SmdmNHoxMTEvSjBj?=
+ =?utf-8?B?L24zeWRhY2Z3UElIbUNCRWIwVjVRQTZUa3JOVHdhUWdQczZtV1dzYWpHVmcz?=
+ =?utf-8?B?WnhiYUYyZGdPcTREdnZBR0RjYVFwWVJpdVlSNjlLanZkL01OaE9SdWRzdnZE?=
+ =?utf-8?B?VnNzK2VrelNjdGZHRVdVRGhkbVI0Qmkrd1pUbXphYlV0M3ljWktJanJaSU5V?=
+ =?utf-8?B?MU82NGxKelNXcjNCVXp5RExBdFJibHZ6NVh0eWNtOUFtZDNHZ2lDYXVmL1Bl?=
+ =?utf-8?B?UlM0ZXh2OURxdTYvZWdEMDVpS0phL0Y3UXpUWGw4d004RGN3NnhCR2pkMWlh?=
+ =?utf-8?B?UDFhQ3p5R0V5VEkrOVltZUpYYXViOENaQzVrVkxYY2lIK1VSTU82UFRNdElB?=
+ =?utf-8?B?NTY4Q0s4NXA2d2Z5N2l3cFErV2duVzlBOEFoTFBVUFh2dytVZFpsamJFc2VF?=
+ =?utf-8?B?L0ZYaHV2eUVWR2VmL21CVGVhZGtjRFllVUVkSGs2NFJJUHpxT1BucjdJSmxj?=
+ =?utf-8?B?NHhOWG1heCtqWGFDSEFwbzI2LzRDT1pJT0Z0RStYWDA3S1dxTGJZbG9nTUM5?=
+ =?utf-8?B?cC96RG54SGpWZGhSdmdqWnNxNGc5My8wYkdZMnlZTzZ1K0ZXK3dsZE5zZ05n?=
+ =?utf-8?B?ZWJvRjNLQ0ZKa2hHQmVwdDUraDFJUEdER1IxN0F0cWg3bkFuOXpSVnZjS2J4?=
+ =?utf-8?B?Y3IzckVWeWROeElHZ2tMSFNWQzE2UXNadUZVTmtZVmcxMjZzeXBZbVkvQTNs?=
+ =?utf-8?B?bVdWQ2FhT2pIUlhHN2d2RlpXRWdtV2ZRc3NMTXNkbmpTS3lvSFgvOHNBOWFu?=
+ =?utf-8?B?NnpQNEs4V3B3MHZ0Q3BLOHdTdFlIUkg3WmlZNlE2M1JrTU0vKzJJcTVTd1pq?=
+ =?utf-8?B?dkUzQm1ETHl6U1N2YVBtRW9iZUI5Q3FnUVZjK2lESDB3QmVVUkU4Zm93SHFO?=
+ =?utf-8?B?ZGpvV1BQS2l0Z0ZucHF1MkJRUGhIWlU2VGxOVERhK1BwQmxPa1dlVTk2dXJZ?=
+ =?utf-8?B?TysvZEMrMkhMOW0rWGZxbkRBc3pmbExla0VqcnZDVklKV2Z2LzM4ckxuQ1lM?=
+ =?utf-8?B?Z3czQ2J3M3JsMHc5MU95V0V0WVd5bVoyT2RJVzJGOXpZOUYzU1ZKajdNMlpK?=
+ =?utf-8?B?M0N0OGtTd2YxTHEvZ3ZoY1lJSUdQNnBJOVkySXpBTnZpdlJ4TlJFb2pQUTZ1?=
+ =?utf-8?B?ckxTY3NMMGNFMytHREp2M0IrQXVhMGdoYWhFUkxORVpWVFhuMkNsaTdYbE1u?=
+ =?utf-8?Q?ektTlHN+KK0vXXkt9BlJBD/C9yLMh+WC?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXAveHVMekEvZlNuQ3Jyai8zdDFXbmJzL3Rzc21CR1dKN0NyVGtsTjJHUHQy?=
- =?utf-8?B?bDlpN0Erd2lZNXBmRHNTdDBsNkxscEZ1elFBOGwxQXZRVkoyRWNEQVdsdE9B?=
- =?utf-8?B?U01MTkNMUDhIMFdnN2g1SWFhczg0TFNwV0dKbFBXL0tjc3JORURRaUdzMmpM?=
- =?utf-8?B?NmhBOTgzR21Ja3BJRGgzYWtPL2xhY3BSdDFQb0JOaFJKT294TkJpRHc0RTZm?=
- =?utf-8?B?eWdITTFLcUZvVHBSS3A5cUQ3SUF5WWx2TFZhTHFqdWJNdnExbEZjT3g3VjE5?=
- =?utf-8?B?TTB6OStkZFB2dXdCcXQxd3Y3NXd5QXJGbXZMSDk5VVc0RGJxMldrTklxR0NK?=
- =?utf-8?B?YitoL2hQOHk0anFBejBYSXJQVUEyNkZ1TEhqYUlzMVN6WVp2N1ZuL1dvcVZj?=
- =?utf-8?B?SFBiYVBKRmMwOEg1cVluRXdGcVlxdFZmRmo2SGJlTHV1ZXpJaUtSTTZJSUlB?=
- =?utf-8?B?NDBZNUdUaVdJNm9OczhwZHgrVXcxOXlSNVJKSGVyUmRpUURITlZSVWdRL2o3?=
- =?utf-8?B?UEcrd2F6M0VOU2Q5WEFSUWFWdDNUaU5UYnh5dHNUdW40Z0NuanUrVnBzcDd4?=
- =?utf-8?B?QmNUSmtFbUdYdDVIcERQN3JvNitwK09FNUs3eE5EK0RUb2xoNzhiL0tMblNv?=
- =?utf-8?B?QnJleU1scDN3SFJOYUc1VG8wMUlobEpTMnJwdFBXa3RDaUFyd1RBWHZoakc5?=
- =?utf-8?B?VTI3cjB1Rks1NEdvQ0tPUTJyNEtOZVV6M1dDWGp0MFBtVTBSZjg5bks2SkpP?=
- =?utf-8?B?T25FQUoxWHhwTVBDK1VtV3RNbFdwcVZsOW1HUFJsMUNoNmVXblBkTmZ6dWtP?=
- =?utf-8?B?SmRvNVcrejBmeCtybmpndHBGWHd3T0ZIbVpqQk8wQWhpNUhQSFJMQjNBTWht?=
- =?utf-8?B?TXdpaWJNY1h4UE4zYkZiMTN4bVJsczEwS3gxdzNKR1BrRXRVK0JyUDNWOTJ5?=
- =?utf-8?B?WDY3dnF4TjdLeWE5K3loR3NEdld3aEEzRFJ2L0hGenp5YWNxOEZ1bmppQTNI?=
- =?utf-8?B?dlhRUnVrekp5bHFONFN3MHdRWVd6TTQ1OHdWWnJmN2JvR213c2VXNmZ6L0Ry?=
- =?utf-8?B?SUhEWWd6WENxT2VvbHlrUVJGVnhYUmNrYlFZRmlSY2pOakhmaXVFNk5QMHJo?=
- =?utf-8?B?QmxlbG41MTdVNjRLdUlJcmFDUFo0K0xOY1AvK2xDSUltazNxdWhoR2VWQ1NL?=
- =?utf-8?B?SWJVZkVLMlNxSHZwMFBHZ2k5UlZSallPUHRORDUwVkFQeHNHTEZsN2hQcTZL?=
- =?utf-8?B?T3lVUzIzOFdvUWtKekdiUVcyYVdMWWdVTGF4N09lMlFpT3BaVmVsbFRiVGFh?=
- =?utf-8?B?WWlLMDlIQ000akZaVnVzWEJOOHJJUGZ2RWJBa1VydklySkhTYVdpMWRoeERR?=
- =?utf-8?B?eDkwekx6Z2xFL0czU2ZGRGtlOHVva3dFcFEwR1RiSEg3UitBc3BuUE9YcCsx?=
- =?utf-8?B?RW0rU0VBdWZ6dENzemZKcCtVbEQzT0EzTFhhK2ZRcUpHR09yMkVoWS9IbHQ0?=
- =?utf-8?B?NEp6Q1dFRWh5eTNrUWhUQ3VjOXh5K1pERGIzU0E1cU5sK1FLdGNuSkIyei9M?=
- =?utf-8?B?YXF6ZW14WndlQzNTTzNGbU1HclA0WWE1RXhmNlppeWQ3bGs0dWFuV2VpZEU1?=
- =?utf-8?B?NklsZlpoTHJTNjlIbFRpZHlTdU9QYnpkdWttaTEvQ2lsTjBhbVcwamtFV29X?=
- =?utf-8?B?U0pUT0FSbnFnOVRSeUFRb0ZiMVB3aW4xdnpSRmtsL1pVcFZiY2taOHdlZ25F?=
- =?utf-8?B?cklURFJHdzB4MXRNOWZKWTBsMkZvV01ZbnNCT2NrN3dSMzhLR1daL2FzaVlj?=
- =?utf-8?B?WjZGNG80YWxLT1hUWmxpSyt1aHA4TDU2S2hXbVpmN0lraTBHWXoyUVZOMVlX?=
- =?utf-8?B?TFphNzhwb1FmM20rdWpMTFR6RFlmc09XQkFWd0pOazdFc3VaSWQ4UE9mUDlH?=
- =?utf-8?B?bkp4bEJnMkhodjFSRGFQdFFPbjdYZGZKdTgzNDc3UWhmaWpyMElXZzJuaVRj?=
- =?utf-8?B?emIvWno1V2F4cjJqVDZFVDkvK2lmY25uTUNtbGRPeStTYTBIejN5bDY2MEFw?=
- =?utf-8?B?OVZabEZiTXNSakxwS3BKU0QrdUxWc2V3VXNXUWhiQUx1cVR1RHVBMy9rVEM4?=
- =?utf-8?Q?eyNOgPZfEM88Mo6lMILqwI9QN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUREVGV3OVRYN0xRVjJBUjVzbzZIdmVBM3RLY05mVGszMVZhM0xLZ2xkTVJR?=
+ =?utf-8?B?R1hoL0lwS3ZLNm0ycVVocXBlVHhucXFsMWFwM3NnSStyYnU2T0RKbGNWMlBu?=
+ =?utf-8?B?VWEvcVUzNmlEcFZEWTBVanhWZkpTWWdybG9hd2VZNFMvVEo5WE5KSmp2Z1Rj?=
+ =?utf-8?B?YVlQUDNOa1F6Z29BbHNaZVUvTnNBcXZ5STQ1R0pOb1I5T1VaNGRQQ01vU1ky?=
+ =?utf-8?B?NER5aGhyN3p1U1JEZ0F5SC9jQmlweFl5VVVyZ1dBR21DSGgwZlZtZEk2ZExi?=
+ =?utf-8?B?UjRvWmRWNWovTjhvVGcxQTFGdlgyZXhiL1RhTmFwdWdWTnE4OXZmUkFwUm1o?=
+ =?utf-8?B?MjM0c0pFSkQ3YVpoNmdrdWJHTFR2blpKT1VPeXBpVnZ4YTZWUExvSkFGeGdk?=
+ =?utf-8?B?QXZLK2QxeWR1ekROejE5dER0T3UxZmlwTU9oN3B2MDRIdWplVWp2ZWZJV1Fj?=
+ =?utf-8?B?VUsyanlpRXJzUzlqVk02SlhlY2psTlh0ZXpQb1JPQ0VEbmEzRFVPNjRna0NP?=
+ =?utf-8?B?cEx4a1NWV09xYmVjOGU0ZUNIMjI5eEtpcm9DOGg1YkZ5dG9yVm83clkrbXJ3?=
+ =?utf-8?B?VVQvc1FXSnVucXFlZm4xb1hJWnhZL2hqK1V0dlZGU2k5OCtDRXRSMUdycTAy?=
+ =?utf-8?B?c3hQd1B4aVVDUnVVTDFVdEdLOWE0S2hjSjdKMEhHaWlxM1EzVkVZSzFUQlM2?=
+ =?utf-8?B?bFJpTWFZYVl4bmRhb29MNy9CU2xNYVVvTm9RaXVLMkhoaFEzZ2ZHVFVJNktJ?=
+ =?utf-8?B?dExjTVRwdCtZQXp3TUh1S2xZUWFVeUsxSkxyMThiaG85ZE9LQXVYTktyYnRX?=
+ =?utf-8?B?djB4UUUxRG5Ub0dhTmJ4a0J0bXpRcXp4S2JhdVpuY1ZUYkVKelh4LzlUZVNY?=
+ =?utf-8?B?Q1NQeWpwWWpMZm5xODRMYnFPdTg2QllXOVgvQjQ2aTVEWERORmlaTDRia2Fq?=
+ =?utf-8?B?MU5QN1pwWTE1ZkQwbHhzMVdQLzY0aVNNSmQxSnNBUkQzd3RHdFhmWDNHaFQ3?=
+ =?utf-8?B?SXJPb2ZOaitYL0JPQ0NOdGo5UmdSVytxRzFGbE1yaTVBRjhyZmRibjNsSTFM?=
+ =?utf-8?B?cGd4a1dPdlFwazNycDV5bUlaY2k5c2k3VS8yeFFpQWs1UXJWQThPRk02TkpT?=
+ =?utf-8?B?ZjhKU1c3YWozUmU5Qjg1QWx3aVNocElUTGl0ZTA4UEhxVk1iMkpoSENmVGhY?=
+ =?utf-8?B?d1VNd050N21QbEFkb05uQTNPMzFJMTdhQTlQRHUrNzZTQms3VE1WeTJrSS9I?=
+ =?utf-8?B?QVUxcHVrS0I1b056SGhRa2czNDg3Q1kva2dhVk5HODl5UHBTN3BzZitmZDZG?=
+ =?utf-8?B?ZWdvN2l3anU2S0cwY2syQkIrY0NhMjJJSWZlWTJTaGFKcTBEU1gxRFNUYUF6?=
+ =?utf-8?B?dDJybVJYRHpwbHdiZFhISk5SM3dUSFBqOElSTjFkK2hNUXRJc24vSEYwa0tO?=
+ =?utf-8?B?cUtXaTVwNE0xbW5Bb2dydGE5WnZhQkY1NHlDS3plWWZlZXZJQWU2dlNEOHFQ?=
+ =?utf-8?B?OWE1c09uOTZYTXZKcmsrUnZ4U1psLy84WVgwVFVkVjVrNUJ3SmEra1VKczFh?=
+ =?utf-8?B?RlBUblB2MHlUOGJiN0d5djdMam9Zc0tLL2xtSysvekpiKzJxbU1vV1p3d3pO?=
+ =?utf-8?B?RXNoUDVFdHMrM2k4di8rY2dsRmRBT3lkYVFTSHJOSEVLaDJTeCtFRzlhSVlF?=
+ =?utf-8?B?Y1kvVStUbTA3ZGp6OVlJMXV2UitUNGtvSExuU3dKV3JPdWVHVHl4YUJxUmFU?=
+ =?utf-8?B?bUpJUjY2U1VmaklZb05rd3BlSzhORUdCVHdXQkZNUExtYkVER01IVzUwYUdo?=
+ =?utf-8?B?NG4wZkE3KzFFa3ZETE5IRlFIRVRNRVFtNElWbjZNNGhuUVpTODMzeXFlRTUr?=
+ =?utf-8?B?WVNzcjRvSHlKcnlkYTNPR1VFSXBFOXJZdU5xdVBzb0o4eE84cU1rUnk4MEVL?=
+ =?utf-8?B?MEt4ZlFuaTI3eDU5Y2NFcUE1b2wrVlhtbGpxWndSdkREdkF4UmxDZXE1NlpI?=
+ =?utf-8?B?ZTQvNSswQXJXakFhS052bTBJUXpDTnYrNzVKV3NRWUwzM2NWU3B5cFhwNXpa?=
+ =?utf-8?B?MmV6LzlqSDRmdDVleWxrMEZ1Z0drK1FXUjVyNXNzbWlHVUJ0cDJrWE9qNjdH?=
+ =?utf-8?Q?xb8AHROmW7RgCwnDZkTNhSERE?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a0ff0ad-95e8-44cb-1500-08de072d9afb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b64bc71-e7c7-4cba-02e2-08de072e8ee4
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 12:15:59.0722 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2025 12:22:48.2089 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1jcEyr7f7a7P7EYi8PK/kn2RhzBioNQNxgRpRZtQyyzgMXAcFRQZy1qKharg+3cV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCB4F033D6
+X-MS-Exchange-CrossTenant-UserPrincipalName: WQsUf9en5sdDkUdYdFymYrWh4Lfok0QC+6WU1L28kPcdkY8RllGSuQi/Y0Dww5Hj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7426
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,179 +162,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-That starts to look better, just a few notes:
-
-Please use "git send-email" to send out the patches. I can review them, but they don't seem to be send as consecutive patch set which makes it a bit tricky to track it in patchwork.
-
-On 09.10.25 05:29, Ellen Pan wrote:
->  - This change updated existing SRIOV critical offsets with suffix _V1.
->  - Therefore to prepare for the later patches to intro SRIOV critical region v2.
+On 09.10.25 05:30, Ellen Pan wrote:
+>     1. Introduced amdgpu_virt_init_critical_region during VF init.
+>      - VFs use init_data_header_offset and init_data_header_size_kb
+>             transmitted via PF2VF mailbox to fetch the offset of
+>             critical regions' offsets/sizes in VRAM and save to
+>             adev->virt.crit_region_offsets and adev->virt.crit_region_sizes_kb.
 > 
 > Signed-off-by: Ellen Pan <yunru.pan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   6 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 103 ++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |   7 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  31 ++++++
+>  4 files changed, 147 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 929936c8d87c..2a33b950d511 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2754,6 +2754,12 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>  		r = amdgpu_virt_request_full_gpu(adev, true);
+>  		if (r)
+>  			return r;
+> +
+> +		if (adev->virt.req_init_data_ver == GPU_CRIT_REGION_V2) {
+> +			r = amdgpu_virt_init_critical_region(adev);
+> +			if (r)
+> +				return r;
+> +		}
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for this patch and patch #2 in the series.
+Alex has the final word on this, but that looks a bit misplaced.
 
-When a patch only touches amdgpu_virt.c and/or amdgv_sriovmsg.h it is fine with me that you review that inside your team.
+Why can't that be done in some early_init callback or any of the amdgpu_virt_init* functions in amdgpu_virt.c?
 
-So feel free to add my rb together with the one of teammate and push the patches to amd-staging-drm-next.
+>  	}
+>  
+>  	switch (adev->asic_type) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 3a6b0e1084d7..46c19e96086a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -843,6 +843,109 @@ static void amdgpu_virt_init_ras(struct amdgpu_device *adev)
+>  	adev->virt.ras.cper_rptr = 0;
+>  }
+>  
+> +static uint8_t amdgpu_virt_crit_region_calc_checksum(uint8_t *buf_start, uint8_t *buf_end)
+> +{
+> +	uint32_t sum = 0;
+> +
+> +	if (buf_start >= buf_end)
+> +		return 0;
+> +
+> +	for (; buf_start < buf_end; buf_start++)
+> +		sum += buf_start[0];
+> +
+> +	return 0xffffffff - sum;
+> +}
+> +
+> +#define mmRCC_CONFIG_MEMSIZE	0xde3
+
+Why is that not in a header?
+
+> +int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
+> +{
+> +	struct amd_sriov_msg_init_data_header *init_data_hdr = NULL;
+> +	uint32_t init_hdr_offset = adev->virt.init_data_header_offset;
+> +	uint32_t init_hdr_size = adev->virt.init_data_header_size_kb << 10;
+> +	uint64_t pos = 0;
+> +	uint64_t vram_size;
+> +	int r = 0;
+> +	uint8_t checksum = 0;
+> +
+> +	if (init_hdr_offset < 0) {
+> +		DRM_ERROR("Invalid init header offset\n");
+
+The DRM_* type of functions are usually used with everything related to the DRM interfaces, e.g. display controller, render interfaces etc...
+
+But that here is HW or at least VF->PF interface and here using the dev_err, dev_warn... class of functions is usually more adequate.
+
+> +		return -EINVAL;
+> +	}
+> +
+> +	vram_size = RREG32(mmRCC_CONFIG_MEMSIZE) << 20;
+> +	if ((init_hdr_offset + init_hdr_size) > vram_size) {
+> +		DRM_ERROR("init_data_header exceeds VRAM size, exiting\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Allocate for init_data_hdr */
+> +	init_data_hdr = kzalloc(sizeof(struct amd_sriov_msg_init_data_header), GFP_KERNEL);
+> +	if (!init_data_hdr)
+> +		return -ENOMEM;
+> +
+> +	pos = (uint64_t)init_hdr_offset;
+> +	amdgpu_device_vram_access(adev, pos, (uint32_t *)init_data_hdr,
+> +					sizeof(struct amd_sriov_msg_init_data_header), false);
+> +
+> +	switch (init_data_hdr->version) {
+> +	case GPU_CRIT_REGION_V2:
+> +		if (strncmp(init_data_hdr->signature, "INDA", 4) != 0) {
+> +			DRM_ERROR("Invalid init data signature: %.4s\n", init_data_hdr->signature);
+> +			r = -EINVAL;
+> +			goto out;
+> +		}
+> +
+> +		checksum =
+> +			amdgpu_virt_crit_region_calc_checksum((uint8_t *)&init_data_hdr->initdata_offset,
+> +				(uint8_t *)init_data_hdr + sizeof(struct amd_sriov_msg_init_data_header));
+
+Please make sure that checkpatch.pl doesn't complain about the coding style here.
 
 Regards,
 Christian.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 20 ++++----
->  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 57 ++++++++++++++-------
->  2 files changed, 49 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index 3328ab63376b..e95adf0407a0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -686,7 +686,7 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
->  		/* got through this logic in early init stage to get necessary flags, e.g. rlcg_acc related*/
->  		adev->virt.fw_reserve.p_pf2vf =
->  			(struct amd_sriov_msg_pf2vf_info_header *)
-> -			(adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
-> +			(adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 << 10));
+> +		if (checksum != init_data_hdr->checksum) {
+> +			DRM_ERROR("Found unmatching checksum from calculation 0x%x and init_data 0x%x\n",
+> +						checksum, init_data_hdr->checksum);
+> +			r = -EINVAL;
+> +			goto out;
+> +		}
+> +
+> +		/* Initialize critical region offsets */
+> +		adev->virt.crit_region_base_offset = init_data_hdr->initdata_offset;
+> +		adev->virt.crit_region_offsets[AMD_SRIOV_MSG_IPD_TABLE_ID] =
+> +			init_data_hdr->ip_discovery_offset;
+> +		adev->virt.crit_region_offsets[AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID] =
+> +			init_data_hdr->vbios_img_offset;
+> +		adev->virt.crit_region_offsets[AMD_SRIOV_MSG_RAS_TELEMETRY_TABLE_ID] =
+> +			init_data_hdr->ras_tele_info_offset;
+> +		adev->virt.crit_region_offsets[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID] =
+> +			init_data_hdr->dataexchange_offset;
+> +		adev->virt.crit_region_offsets[AMD_SRIOV_MSG_BAD_PAGE_INFO_TABLE_ID] =
+> +			init_data_hdr->bad_page_info_offset;
+> +
+> +		/* Initialize critical region sizes */
+> +		adev->virt.crit_region_size_in_kb = init_data_hdr->initdata_size_in_kb;
+> +		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_IPD_TABLE_ID] =
+> +			init_data_hdr->ip_discovery_size_in_kb;
+> +		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID] =
+> +			init_data_hdr->vbios_img_size_in_kb;
+> +		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_RAS_TELEMETRY_TABLE_ID] =
+> +			init_data_hdr->ras_tele_info_size_in_kb;
+> +		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID] =
+> +			init_data_hdr->dataexchange_size_in_kb;
+> +		adev->virt.crit_region_sizes_kb[AMD_SRIOV_MSG_BAD_PAGE_INFO_TABLE_ID] =
+> +			init_data_hdr->bad_page_size_in_kb;
+> +
+> +		adev->virt.init_data_done = true;
+> +		break;
+> +	default:
+> +		DRM_ERROR("Invalid init header version: %u\n", init_data_hdr->version);
+> +		r = -EINVAL;
+> +		goto out;
+> +	}
+> +
+> +out:
+> +	kfree(init_data_hdr);
+> +	init_data_hdr = NULL;
+> +
+> +	return r;
+> +}
+> +
+>  void amdgpu_virt_init(struct amdgpu_device *adev)
+>  {
+>  	bool is_sriov = false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index 2a0627596bd2..5f6014b2f349 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -292,6 +292,11 @@ struct amdgpu_virt {
+>  	/* critical regions v2 */
+>  	uint32_t init_data_header_offset;
+>  	uint32_t init_data_header_size_kb;
+> +	uint32_t crit_region_base_offset;
+> +	uint32_t crit_region_size_in_kb;
+> +	uint64_t crit_region_offsets[AMD_SRIOV_MSG_MAX_TABLE_ID];
+> +	uint64_t crit_region_sizes_kb[AMD_SRIOV_MSG_MAX_TABLE_ID];
+> +	bool init_data_done;
 >  
->  		amdgpu_virt_read_pf2vf_data(adev);
->  	}
-> @@ -703,21 +703,21 @@ void amdgpu_virt_exchange_data(struct amdgpu_device *adev)
->  		if (adev->mman.fw_vram_usage_va) {
->  			adev->virt.fw_reserve.p_pf2vf =
->  				(struct amd_sriov_msg_pf2vf_info_header *)
-> -				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
-> +				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 << 10));
->  			adev->virt.fw_reserve.p_vf2pf =
->  				(struct amd_sriov_msg_vf2pf_info_header *)
-> -				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
-> +				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 << 10));
->  			adev->virt.fw_reserve.ras_telemetry =
-> -				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
-> +				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
->  		} else if (adev->mman.drv_vram_usage_va) {
->  			adev->virt.fw_reserve.p_pf2vf =
->  				(struct amd_sriov_msg_pf2vf_info_header *)
-> -				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
-> +				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 << 10));
->  			adev->virt.fw_reserve.p_vf2pf =
->  				(struct amd_sriov_msg_vf2pf_info_header *)
-> -				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
-> +				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 << 10));
->  			adev->virt.fw_reserve.ras_telemetry =
-> -				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
-> +				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
->  		}
+>  	/* vf2pf message */
+>  	struct delayed_work vf2pf_work;
+> @@ -428,6 +433,8 @@ void amdgpu_virt_exchange_data(struct amdgpu_device *adev);
+>  void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev);
+>  void amdgpu_virt_init(struct amdgpu_device *adev);
 >  
->  		amdgpu_virt_read_pf2vf_data(adev);
-> @@ -1304,7 +1304,7 @@ static int amdgpu_virt_cache_host_error_counts(struct amdgpu_device *adev,
->  	checksum = host_telemetry->header.checksum;
->  	used_size = host_telemetry->header.used_size;
->  
-> -	if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-> +	if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
->  		return 0;
->  
->  	tmp = kmemdup(&host_telemetry->body.error_count, used_size, GFP_KERNEL);
-> @@ -1383,7 +1383,7 @@ amdgpu_virt_write_cpers_to_ring(struct amdgpu_device *adev,
->  	checksum = host_telemetry->header.checksum;
->  	used_size = host_telemetry->header.used_size;
->  
-> -	if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-> +	if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
->  		return -EINVAL;
->  
->  	cper_dump = kmemdup(&host_telemetry->body.cper_dump, used_size, GFP_KERNEL);
-> @@ -1515,7 +1515,7 @@ static int amdgpu_virt_cache_chk_criti_hit(struct amdgpu_device *adev,
->  	checksum = host_telemetry->header.checksum;
->  	used_size = host_telemetry->header.used_size;
->  
-> -	if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-> +	if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
->  		return 0;
->  
->  	tmp = kmemdup(&host_telemetry->body.chk_criti, used_size, GFP_KERNEL);
+> +int amdgpu_virt_init_critical_region(struct amdgpu_device *adev);
+> +
+>  bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);
+>  int amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev);
+>  void amdgpu_virt_disable_access_debugfs(struct amdgpu_device *adev);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> index 3a79ed7d8031..3b35154e2df6 100644
+> index b53caab5b706..d15c256f9abd 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> @@ -23,26 +23,47 @@
->  #ifndef AMDGV_SRIOV_MSG__H_
->  #define AMDGV_SRIOV_MSG__H_
+> @@ -70,6 +70,37 @@ enum amd_sriov_crit_region_version {
+>  	GPU_CRIT_REGION_V2 = 2,
+>  };
 >  
-> -/* unit in kilobytes */
-> -#define AMD_SRIOV_MSG_VBIOS_OFFSET	     0
-> -#define AMD_SRIOV_MSG_VBIOS_SIZE_KB	     64
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB AMD_SRIOV_MSG_VBIOS_SIZE_KB
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB   4
-> -#define AMD_SRIOV_MSG_TMR_OFFSET_KB	     2048
-> -#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB	     2
-> -#define AMD_SRIOV_RAS_TELEMETRY_SIZE_KB	     64
->  /*
-> - * layout
-> + * layout v1
->   * 0           64KB        65KB        66KB           68KB                   132KB
->   * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS Telemetry Region | ...
->   * |   64KB    |   1KB     |   1KB     |   2KB        | 64KB                 | ...
->   */
->  
-> -#define AMD_SRIOV_MSG_SIZE_KB                   1
-> -#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB           AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB
-> -#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB           (AMD_SRIOV_MSG_PF2VF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
-> -#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB        (AMD_SRIOV_MSG_VF2PF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
-> -#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB   (AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB + AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB)
-> +/*
-> + * layout v2 (offsets are dynamically allocated and the offsets below are examples)
-> + * 0           1KB         64KB        65KB        66KB           68KB                   132KB
-> + * |  INITD_H  |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS Telemetry Region | ...
-> + * |   1KB     |   64KB    |   1KB     |   1KB     |   2KB        | 64KB                 | ...
-> + *
-> + * Note: PF2VF + VF2PF + Bad Page = DataExchange region (allocated contiguously)
-> + */
+> +/* v2 layout offset enum (in order of allocation) */
+> +enum amd_sriov_msg_table_id_enum {
+> +	AMD_SRIOV_MSG_IPD_TABLE_ID = 0,
+> +	AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID,
+> +	AMD_SRIOV_MSG_RAS_TELEMETRY_TABLE_ID,
+> +	AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID,
+> +	AMD_SRIOV_MSG_BAD_PAGE_INFO_TABLE_ID,
+> +	AMD_SRIOV_MSG_INITD_H_TABLE_ID,
+> +	AMD_SRIOV_MSG_MAX_TABLE_ID,
+> +};
 > +
-> +/* v1 layout sizes */
-> +#define AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1			64
-> +#define AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1			1
-> +#define AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1			1
-> +#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1		2
-> +#define AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1		64
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB_V1		\
-> +	(AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1 + AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1 + \
-> +	 AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1)
+> +struct amd_sriov_msg_init_data_header {
+> +	char     signature[4];  /* "INDA"  */
+> +	uint32_t version;
+> +	uint32_t checksum;
+> +	uint32_t initdata_offset; /* 0 */
+> +	uint32_t initdata_size_in_kb; /* 5MB */
+> +	uint32_t valid_tables;
+> +	uint32_t vbios_img_offset;
+> +	uint32_t vbios_img_size_in_kb;
+> +	uint32_t dataexchange_offset;
+> +	uint32_t dataexchange_size_in_kb;
+> +	uint32_t ras_tele_info_offset;
+> +	uint32_t ras_tele_info_size_in_kb;
+> +	uint32_t ip_discovery_offset;
+> +	uint32_t ip_discovery_size_in_kb;
+> +	uint32_t bad_page_info_offset;
+> +	uint32_t bad_page_size_in_kb;
+> +	uint32_t reserved[8];
+> +};
 > +
-> +/* v1 offsets */
-> +#define AMD_SRIOV_MSG_VBIOS_OFFSET_V1			0
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB_V1		AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1
-> +#define AMD_SRIOV_MSG_TMR_OFFSET_KB			2048
-> +#define AMD_SRIOV_MSG_SIZE_KB_V1			1
-> +#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1		AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB_V1
-> +#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1		\
-> +	(AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB_V1)
-> +#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1		\
-> +	(AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB_V1)
-> +#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1	\
-> +	(AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1 + AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1)
-> +#define AMD_SRIOV_MSG_INIT_DATA_TOT_SIZE_KB_V1		\
-> +	(AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1 + AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB_V1 + \
-> +	 AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1)
->  
 >  /*
 >   * PF2VF history log:
-> @@ -436,12 +457,12 @@ unsigned int amd_sriov_msg_checksum(void *obj, unsigned long obj_size, unsigned
->  #define _stringification(s) #s
->  
->  _Static_assert(
-> -	sizeof(struct amd_sriov_msg_vf2pf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
-> -	"amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
-> +	sizeof(struct amd_sriov_msg_vf2pf_info) == AMD_SRIOV_MSG_SIZE_KB_V1 << 10,
-> +	"amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB_V1) " KB");
->  
->  _Static_assert(
-> -	sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
-> -	"amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
-> +	sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB_V1 << 10,
-> +	"amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB_V1) " KB");
->  
->  _Static_assert(AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
->  	       "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
+>   * v1 defined in amdgim
 
