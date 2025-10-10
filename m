@@ -4,62 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A05CCD18E
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 15:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E879CCA476
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 15:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1456510EC49;
-	Fri, 10 Oct 2025 15:10:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12A3810EC4C;
+	Fri, 10 Oct 2025 15:11:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k5IVefFh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iTmx4LJB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1448110EC4B;
- Fri, 10 Oct 2025 15:10:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760109054; x=1791645054;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=3bq+lll4selOwzI1mzp5ZL0CdqpCdCpTxCSOWeZ+iEU=;
- b=k5IVefFhDljtKUomTgMS8VuHmYHKNhT6Ud+wZvyeNlJiiwudDtuE8LeQ
- PGmV0J4B6sUlU4Gwqp0QoRQBy2IYXa+zJC21cnbeRlUXpxebvipdqmq5s
- ilg25cJ21ue0EE70GpDpWMA6qMKpGkfPRSpscRwyCVkDdgP+DbOl74Zpj
- nB/nV3YqEXzV2uaijpo8ksiUdzGx5DVR8UGJ+r+uHlHqXe3BEB3swJUgs
- bW/oi11dHHk7O8BB8Sb2F/tDrVzsT0r0/dq5aoUnfRy6wy6paey5QP0nK
- mYSG4gLbjXRQsNUNOG/PIh+UpXUJj/eeF1eKd3ysvJe0YEzXxQOXmqmBQ Q==;
-X-CSE-ConnectionGUID: mK7jiFAiTp6hHygGJJnXlw==
-X-CSE-MsgGUID: A0IAWMr4RY2wyIQiGAWhLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11578"; a="61538623"
-X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="61538623"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2025 08:10:53 -0700
-X-CSE-ConnectionGUID: 8AIej7TsQ7a7dKDVguZulg==
-X-CSE-MsgGUID: XkdFaoXqRjKmjW8GIcRLPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="181425613"
-Received: from lkp-server01.sh.intel.com (HELO 6a630e8620ab) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 10 Oct 2025 08:10:52 -0700
-Received: from kbuild by 6a630e8620ab with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1v7Eld-0002t1-1w;
- Fri, 10 Oct 2025 15:10:49 +0000
-Date: Fri, 10 Oct 2025 23:10:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 2/5] drm/ttm: Replace multiple booleans with flags in
- pool init
-Message-ID: <202510102220.inEYOJoK-lkp@intel.com>
-References: <20251008115314.55438-3-tvrtko.ursulin@igalia.com>
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4C3F10EC4C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 15:11:11 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-27eda3a38ceso3647155ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 08:11:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760109071; x=1760713871; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XfAtLB/rPk/bL2/d95XWtllo82z6rkkRzYJxDmefHjw=;
+ b=iTmx4LJBS1rjMkXMBZ5/3BE8RgnD4v0bzYxuLI8h8fdnlx7Mp6QaLmltv8p1OozvG2
+ ZVq2JcnUaBKVwFOfHbZDtmDe1Xk2IXsjiW21odmDP6n3BOSsYTXtiXf1RKf/lYFcMpv+
+ +TIJrV+myuUsjyQqP2xF8y3qpSle9k6CejGfz79QMrbMeKUh1M59Ie/ZXUizOFsaM/IW
+ hrBVcNh8GiCr3IbjyztiJ2iSLR0cZPUBMwTrLrUrOv590gYfAGnvbdCq5AtN8GkQsFl3
+ BZWbV3tyJX3lQv59NzdZ25Ud/a9gearxrMDAoF7Jgh/H8kQoUAFhX9gqMJ3XHfvu32P5
+ Faow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760109071; x=1760713871;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XfAtLB/rPk/bL2/d95XWtllo82z6rkkRzYJxDmefHjw=;
+ b=u43PzaKwvSENPLdfflLKxu5KtFQKFYRDGTUASHOG5cmNuxyhQJulWig6HWZrdFR9US
+ GNIIpdyi55YJPHFs5oQmmbsYXKCFKhQnyjesxeeqeO+F1koYd1Pk6yNXsOghFvN81oSY
+ eo45kVD49RGW9746oDDOoCl/9Y9ZedCIyFIso/reBzgFHR5Xo6LKcYZd510BvO2PMp0d
+ mWlhDfiA4DxxpXkSYGlffRSjFz+obwzOOhWhJWFnHOolY7JPuNdQdtaxKIwKMfdd5azG
+ VpPBoHioI+BGn5L6IBvdZXhAd35NSVh+0FGlFjXCyqoZjVUoM+41wFIZpv6fSAJq+7je
+ gylQ==
+X-Gm-Message-State: AOJu0YzWo8Lbf5dwb/WDJLOOQN3ckXQuYAfiyoK3XY4LbvYgrp/xwho0
+ xz2fPfbBTPbHTs9ElGuZdQw4j3CRfQKPvbYiuB1HL0MzKGQ8R5XQMxg10ozLUVFA58/fjB4h9so
+ BP9xKriMFnuhRG3KppP9dSuvgy3oBotg=
+X-Gm-Gg: ASbGnctWsmoWy7xw0RKdBXL14EV9MwxYeY+OqvSA7xHrtu21Qb0S+7Lr3gy0bAMa8J3
+ nq1V9sSckqZ3zjttX1DRiZLG7iWwg3/eO34EBPlnuud7LDZS5wrndg116bX1JMys18wR6Sz7YYC
+ 5gzAAy0r0WcNdL4H2jjH6ipc4Ha/lFg1s0+rJwRYN00o/593ar1PoR2iK+4idKIMGVNS5N3/H6Q
+ WZziPSiRJOfbC2cJhU9ypvYxA==
+X-Google-Smtp-Source: AGHT+IH4sckW6FcEXvf+hq/HYRCdCEoZwa27c+cDamha/QYuN97pUbMjA5/JHJbCBYFs1uqyKrWGPoU8AAFRLW99ePs=
+X-Received: by 2002:a17:902:ea07:b0:264:cda8:7fd3 with SMTP id
+ d9443c01a7336-2902743e550mr90423195ad.6.1760109071115; Fri, 10 Oct 2025
+ 08:11:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251008115314.55438-3-tvrtko.ursulin@igalia.com>
+References: <20251010044309.11822-1-yunru.pan@amd.com>
+ <20251010044309.11822-4-yunru.pan@amd.com>
+In-Reply-To: <20251010044309.11822-4-yunru.pan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 10 Oct 2025 11:10:58 -0400
+X-Gm-Features: AS18NWB1wCNpSQkPXZEhsddVhBMmotu2XgXP4rNDKh5ubRG6lhfrjl1MXvoHc9A
+Message-ID: <CADnq5_O+OL8GVwaGdCjb5OD6_e3ap-Rf4W0JKuOinx-c0SBCpg@mail.gmail.com>
+Subject: Re: [PATCH 4/6] drm/amdgpu: Reuse fw_vram_usage_* for dynamic
+ critical region in SRIOV
+To: Ellen Pan <yunru.pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian.Koenig@amd.com, Lijo.Lazar@amd.com, Jeffrey.Chan@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,111 +83,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+On Fri, Oct 10, 2025 at 1:21=E2=80=AFAM Ellen Pan <yunru.pan@amd.com> wrote=
+:
+>
+> - During guest driver init, asa VFs receive PF msg to
+>         init dynamic critical region(v2), VFs reuse fw_vram_usage_*
+>          from ttm to store critical region tables in a 5MB chunk.
+>
+> Signed-off-by: Ellen Pan <yunru.pan@amd.com>
+> ---
+>  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 29 ++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 33 +++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  9 +++++
+>  3 files changed, 44 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> index c7d32fb216e4..636385c80f64 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> @@ -181,19 +181,22 @@ int amdgpu_atomfirmware_allocate_fb_scratch(struct =
+amdgpu_device *adev)
+>         u8 frev, crev;
+>         int usage_bytes =3D 0;
+>
+> -       if (amdgpu_atom_parse_data_header(ctx, index, NULL, &frev, &crev,=
+ &data_offset)) {
+> -               if (frev =3D=3D 2 && crev =3D=3D 1) {
+> -                       fw_usage_v2_1 =3D
+> -                               (struct vram_usagebyfirmware_v2_1 *)(ctx-=
+>bios + data_offset);
+> -                       amdgpu_atomfirmware_allocate_fb_v2_1(adev,
+> -                                       fw_usage_v2_1,
+> -                                       &usage_bytes);
+> -               } else if (frev >=3D 2 && crev >=3D 2) {
+> -                       fw_usage_v2_2 =3D
+> -                               (struct vram_usagebyfirmware_v2_2 *)(ctx-=
+>bios + data_offset);
+> -                       amdgpu_atomfirmware_allocate_fb_v2_2(adev,
+> -                                       fw_usage_v2_2,
+> -                                       &usage_bytes);
+> +       /* Skip atomfirmware allocation for SRIOV VFs when dynamic crit r=
+egn is enabled */
+> +       if (!(amdgpu_sriov_vf(adev) && adev->virt.is_dynamic_crit_regn_en=
+abled)) {
+> +               if (amdgpu_atom_parse_data_header(ctx, index, NULL, &frev=
+, &crev, &data_offset)) {
 
-kernel test robot noticed the following build errors:
+Do these tables actually exist on a V2 setup?  If not or if the
+version numbers are invalid, the current code should handle this
+already and there is no need for an extra check here.
 
-[auto build test ERROR on drm/drm-next]
-[also build test ERROR on drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-xe/drm-xe-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.17 next-20251009]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Alex
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Tvrtko-Ursulin/drm-ttm-Add-getter-for-some-pool-properties/20251010-052711
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-patch link:    https://lore.kernel.org/r/20251008115314.55438-3-tvrtko.ursulin%40igalia.com
-patch subject: [PATCH v3 2/5] drm/ttm: Replace multiple booleans with flags in pool init
-config: sh-randconfig-002-20251010 (https://download.01.org/0day-ci/archive/20251010/202510102220.inEYOJoK-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 15.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251010/202510102220.inEYOJoK-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202510102220.inEYOJoK-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/ttm/tests/ttm_pool_test.c: In function 'ttm_pool_alloc_basic':
->> drivers/gpu/drm/ttm/tests/ttm_pool_test.c:167:21: error: implicit declaration of function 'ttm_pool_uses_dma_alloc'; did you mean 'ttm_pool_restore_and_alloc'? [-Wimplicit-function-declaration]
-     167 |                 if (ttm_pool_uses_dma_alloc(pool)) {
-         |                     ^~~~~~~~~~~~~~~~~~~~~~~
-         |                     ttm_pool_restore_and_alloc
---
-   drivers/gpu/drm/ttm/tests/ttm_device_test.c: In function 'ttm_device_init_pools':
->> drivers/gpu/drm/ttm/tests/ttm_device_test.c:177:37: error: implicit declaration of function 'ttm_pool_uses_dma_alloc'; did you mean 'ttm_pool_restore_and_alloc'? [-Wimplicit-function-declaration]
-     177 |                                 if (ttm_pool_uses_dma_alloc(pool))
-         |                                     ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                     ttm_pool_restore_and_alloc
-
-
-vim +167 drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-
-   130	
-   131	KUNIT_ARRAY_PARAM(ttm_pool_alloc_basic, ttm_pool_basic_cases,
-   132			  ttm_pool_alloc_case_desc);
-   133	
-   134	static void ttm_pool_alloc_basic(struct kunit *test)
-   135	{
-   136		struct ttm_pool_test_priv *priv = test->priv;
-   137		struct ttm_test_devices *devs = priv->devs;
-   138		const struct ttm_pool_test_case *params = test->param_value;
-   139		struct ttm_tt *tt;
-   140		struct ttm_pool *pool;
-   141		struct page *fst_page, *last_page;
-   142		enum ttm_caching caching = ttm_uncached;
-   143		unsigned int expected_num_pages = 1 << params->order;
-   144		size_t size = expected_num_pages * PAGE_SIZE;
-   145		int err;
-   146	
-   147		tt = ttm_tt_kunit_init(test, 0, caching, size);
-   148		KUNIT_ASSERT_NOT_NULL(test, tt);
-   149	
-   150		pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
-   151		KUNIT_ASSERT_NOT_NULL(test, pool);
-   152	
-   153		ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, params->flags);
-   154	
-   155		KUNIT_ASSERT_PTR_EQ(test, pool->dev, devs->dev);
-   156		KUNIT_ASSERT_EQ(test, pool->nid, NUMA_NO_NODE);
-   157		KUNIT_ASSERT_EQ(test, pool->flags, params->flags);
-   158	
-   159		err = ttm_pool_alloc(pool, tt, &simple_ctx);
-   160		KUNIT_ASSERT_EQ(test, err, 0);
-   161		KUNIT_ASSERT_EQ(test, tt->num_pages, expected_num_pages);
-   162	
-   163		fst_page = tt->pages[0];
-   164		last_page = tt->pages[tt->num_pages - 1];
-   165	
-   166		if (params->order <= MAX_PAGE_ORDER) {
- > 167			if (ttm_pool_uses_dma_alloc(pool)) {
-   168				KUNIT_ASSERT_NOT_NULL(test, (void *)fst_page->private);
-   169				KUNIT_ASSERT_NOT_NULL(test, (void *)last_page->private);
-   170			} else {
-   171				KUNIT_ASSERT_EQ(test, fst_page->private, params->order);
-   172			}
-   173		} else {
-   174			if (ttm_pool_uses_dma_alloc(pool)) {
-   175				KUNIT_ASSERT_NOT_NULL(test, (void *)fst_page->private);
-   176				KUNIT_ASSERT_NULL(test, (void *)last_page->private);
-   177			} else {
-   178				/*
-   179				 * We expect to alloc one big block, followed by
-   180				 * order 0 blocks
-   181				 */
-   182				KUNIT_ASSERT_EQ(test, fst_page->private,
-   183						min_t(unsigned int, MAX_PAGE_ORDER,
-   184						      params->order));
-   185				KUNIT_ASSERT_EQ(test, last_page->private, 0);
-   186			}
-   187		}
-   188	
-   189		ttm_pool_free(pool, tt);
-   190		ttm_tt_fini(tt);
-   191		ttm_pool_fini(pool);
-   192	}
-   193	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> +                       if (frev =3D=3D 2 && crev =3D=3D 1) {
+> +                               fw_usage_v2_1 =3D
+> +                                       (struct vram_usagebyfirmware_v2_1=
+ *)(ctx->bios + data_offset);
+> +                               amdgpu_atomfirmware_allocate_fb_v2_1(adev=
+,
+> +                                               fw_usage_v2_1,
+> +                                               &usage_bytes);
+> +                       } else if (frev >=3D 2 && crev >=3D 2) {
+> +                               fw_usage_v2_2 =3D
+> +                                       (struct vram_usagebyfirmware_v2_2=
+ *)(ctx->bios + data_offset);
+> +                               amdgpu_atomfirmware_allocate_fb_v2_2(adev=
+,
+> +                                               fw_usage_v2_2,
+> +                                               &usage_bytes);
+> +                       }
+>                 }
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 96bd0185f936..c0810c53703c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1943,23 +1943,28 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>         if (r)
+>                 return r;
+>
+> -       /*
+> -        *The reserved vram for driver must be pinned to the specified
+> -        *place on the VRAM, so reserve it early.
+> -        */
+> -       r =3D amdgpu_ttm_drv_reserve_vram_init(adev);
+> -       if (r)
+> -               return r;
+> -
+> -       /*
+> -        * only NAVI10 and onwards ASIC support for IP discovery.
+> -        * If IP discovery enabled, a block of memory should be
+> -        * reserved for IP discovey.
+> +       /* For VFs with dynamic critical regions (v2), fw_reserve_vram is=
+ already
+> +        * reserved, so no additional memory reservation is required belo=
+w.
+>          */
+> -       if (adev->mman.discovery_bin) {
+> -               r =3D amdgpu_ttm_reserve_tmr(adev);
+> +       if (!amdgpu_sriov_vf(adev) || (adev->virt.req_init_data_ver !=3D =
+GPU_CRIT_REGION_V2)) {
+> +               /*
+> +                * The reserved VRAM for the driver must be pinned to a s=
+pecific
+> +                * location in VRAM, so reserve it early.
+> +                */
+> +               r =3D amdgpu_ttm_drv_reserve_vram_init(adev);
+>                 if (r)
+>                         return r;
+> +
+> +               /*
+> +                * only NAVI10 and later ASICs support IP discovery.
+> +                * If IP discovery is enabled, a block of memory should b=
+e
+> +                * reserved for it.
+> +                */
+> +               if (adev->mman.discovery_bin) {
+> +                       r =3D amdgpu_ttm_reserve_tmr(adev);
+> +                       if (r)
+> +                               return r;
+> +               }
+>         }
+>
+>         /* allocate memory as required for VGA
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.c
+> index 6eca5e8a7375..461e83728594 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -940,6 +940,15 @@ int amdgpu_virt_init_critical_region(struct amdgpu_d=
+evice *adev)
+>                 adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_BAD_PAGE_INFO_TABL=
+E_ID].size_kb =3D
+>                         init_data_hdr->bad_page_size_in_kb;
+>
+> +               /* reserved memory starts from crit region base offset wi=
+th the size of 5MB */
+> +               adev->mman.fw_vram_usage_start_offset =3D adev->virt.crit=
+_regn.offset;
+> +               adev->mman.fw_vram_usage_size =3D adev->virt.crit_regn.si=
+ze_kb << 10;
+> +               dev_info(adev->dev,
+> +                       "critical region v%d requested to reserve memory =
+start at %08x with %d KB.\n",
+> +                         init_data_hdr->version,
+> +                         adev->mman.fw_vram_usage_start_offset,
+> +                         adev->mman.fw_vram_usage_size >> 10);
+> +
+>                 adev->virt.is_dynamic_crit_regn_enabled =3D true;
+>                 break;
+>         default:
+> --
+> 2.34.1
+>
