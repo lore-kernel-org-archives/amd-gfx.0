@@ -4,60 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04553CCD183
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 08:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B01CCD184
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 08:12:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29CDE10E2EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4B110E2EF;
 	Sat, 11 Oct 2025 08:12:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eZvgFRnd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Itz8PpLR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF36D10EC1B;
- Fri, 10 Oct 2025 14:14:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D556210EC17;
+ Fri, 10 Oct 2025 14:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760105671; x=1791641671;
+ t=1760105923; x=1791641923;
  h=message-id:subject:from:to:cc:date:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=jRiJX0JMatRA7BUImWYN04sDgEiWcIkDqcKsEXwdEEk=;
- b=eZvgFRnd5TqmPqcuNoE/yEh14uFrXLTqCNAUn3ctll5ws9Hpm5x6ljs+
- bh3Va1Gome8yrlaEebmbkQvHTsIzOgDCwaXiS4khkfsfhJxLzzW0rjqnz
- 57KudrknW1p6KIoMyss8BanQ5UwiwQ/cyU4uaojuppJ/jQdd/k7ip6LPc
- S9LzACOBmu3EBLBaidCMRpoxk3MLyhZS7hUPbsTsOAKdPtLIQgtvVq7VI
- Ln28bzcYL41VD0zsyFP/erVmTGu+3j095CvJg+ZakElXbJcxWUiJsc3Ik
- Kblrz0jQxJl3xNKDQss1MVZJPXwTltKtLHX49RILrCnCqTyzGNqswFGZ7 w==;
-X-CSE-ConnectionGUID: iU3FLOw1SB+6PlLUIOwTJQ==
-X-CSE-MsgGUID: 9JTHMCHDSfOQMqmZzJOZww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11578"; a="73765850"
-X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="73765850"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2025 07:14:31 -0700
-X-CSE-ConnectionGUID: YxSJZNYrTmC5GWtrnTbBKw==
-X-CSE-MsgGUID: EVLY1midQa6GjeDgwuwOgw==
+ bh=NOOdadZfM+hXXJQUzprjRw3XtKENX6wp7sI0DYgOQQg=;
+ b=Itz8PpLRJHrVNs0Bc0MjkVnjbGBBNp6IThPCNJUnyatVz1EVEWDig9D/
+ iUIVJa+fv+aoHn8PAtxrESETVPOpP/tc3VtvNTWw+2VWH1Oy6QKKnNQM7
+ nIHL0CFxnG2bQqppL7hg5jHb/cQyfMOVNjY4iZyHslcUT5PJFh3ksZjFf
+ ftnh+3ui2BgIYJrgCQIaO2CP32k6BYVkc3UkA3BJb9Cf6Bgg/B17bbi9s
+ RA5DNdOqvx5Q0HCOul26ekXeUSE8RQUV/FhtgumWNkH4zSw5qOaE5+D34
+ 4xFsYlD2iT31A3qG4vkqf/r/skr4H53jJ67zP8Q2VibaUL55R71uthIJl g==;
+X-CSE-ConnectionGUID: 4QHn5iWIQAS4w2lp9dE0Mg==
+X-CSE-MsgGUID: TmniCr8XShKFlkDto65h/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11578"; a="62367908"
+X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="62367908"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2025 07:18:42 -0700
+X-CSE-ConnectionGUID: Kcn+481wR4q+VcsnKHOyxg==
+X-CSE-MsgGUID: vqT/724DRmma+GjyYHsdkg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="180102482"
+X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="180940066"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO [10.245.245.154])
  ([10.245.245.154])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2025 07:14:28 -0700
-Message-ID: <f32a164197b7d25dff42432007b9926ec5575e2f.camel@linux.intel.com>
-Subject: Re: [PATCH v3 5/5] drm/amdgpu: Configure max beneficial TTM pool
- allocation order
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2025 07:18:38 -0700
+Message-ID: <96d967fa9f2b193306d92ae38f83397cd6f18a4f.camel@linux.intel.com>
+Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
+ latency
 From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Matthew Brost
- <matthew.brost@intel.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Thadeu Lima de Souza
- Cascardo <cascardo@igalia.com>
-Date: Fri, 10 Oct 2025 16:14:26 +0200
-In-Reply-To: <01bacdec-f1bd-4ddc-a537-6a091c1a1eb8@igalia.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, Lucas De Marchi
+ <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, Danilo
+ Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>, Gerd
+ Hoffmann <kraxel@redhat.com>,  Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Lyude Paul <lyude@redhat.com>, Maarten
+ Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>, Thadeu Lima
+ de Souza Cascardo <cascardo@igalia.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
+Date: Fri, 10 Oct 2025 16:18:36 +0200
+In-Reply-To: <d3c56f60ab638891d3d78200876ea11780f5ec21.camel@linux.intel.com>
 References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
- <20251008115314.55438-6-tvrtko.ursulin@igalia.com>
- <aObxU8vEbEQEf7QO@lstrano-desk.jf.intel.com>
- <01bacdec-f1bd-4ddc-a537-6a091c1a1eb8@igalia.com>
+ <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
+ <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
+ <9bb3c06e-25c1-43d8-a4e8-e529c53ff77d@amd.com>
+ <45973012f925dbbfdf0636c10f9d051c34f97e2e.camel@linux.intel.com>
+ <a300e417-c9df-4e2b-a75f-319aab384b44@igalia.com>
+ <d3c56f60ab638891d3d78200876ea11780f5ec21.camel@linux.intel.com>
 Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -78,97 +88,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-10-09 at 09:58 +0100, Tvrtko Ursulin wrote:
->=20
-> On 09/10/2025 00:18, Matthew Brost wrote:
-> > On Wed, Oct 08, 2025 at 12:53:14PM +0100, Tvrtko Ursulin wrote:
-> > > Let the TTM pool allocator know that we can afford for it to
-> > > expend less
-> > > effort for satisfying contiguous allocations larger than 2MiB.
-> > > The latter
-> > > is the maximum relevant PTE entry size and the driver and
-> > > hardware are
-> > > happy to get larger blocks only opportunistically.
-> > >=20
-> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+On Fri, 2025-10-10 at 16:11 +0200, Thomas Hellstr=C3=B6m wrote:
+> On Thu, 2025-10-09 at 09:53 +0100, Tvrtko Ursulin wrote:
 > >=20
-> > +Thomas - Seems like we'd want to do this in Xe too?
+> > On 08/10/2025 15:39, Thomas Hellstr=C3=B6m wrote:
+> > > On Wed, 2025-10-08 at 16:02 +0200, Christian K=C3=B6nig wrote:
+> > > > On 08.10.25 15:50, Tvrtko Ursulin wrote:
+> > > > >=20
+> > > > > On 08/10/2025 13:35, Christian K=C3=B6nig wrote:
+> > > > > > On 08.10.25 13:53, Tvrtko Ursulin wrote:
+> > > > > > > Disclaimer:
+> > > > > > > Please note that as this series includes a patch which
+> > > > > > > touches
+> > > > > > > a good number of
+> > > > > > > drivers I will only copy everyone in the cover letter and
+> > > > > > > the
+> > > > > > > respective patch.
+> > > > > > > Assumption is people are subscribed to dri-devel so can
+> > > > > > > look at
+> > > > > > > the whole series
+> > > > > > > there. I know someone is bound to complain for both the
+> > > > > > > case
+> > > > > > > when everyone is
+> > > > > > > copied on everything for getting too much email, and also
+> > > > > > > for
+> > > > > > > this other case.
+> > > > > > > So please be flexible.
+> > > > > > >=20
+> > > > > > > Description:
+> > > > > > >=20
+> > > > > > > All drivers which use the TTM pool allocator end up
+> > > > > > > requesting
+> > > > > > > large order
+> > > > > > > allocations when allocating large buffers. Those can be
+> > > > > > > slow
+> > > > > > > due memory pressure
+> > > > > > > and so add latency to buffer creation. But there is often
+> > > > > > > also
+> > > > > > > a size limit
+> > > > > > > above which contiguous blocks do not bring any
+> > > > > > > performance
+> > > > > > > benefits. This series
+> > > > > > > allows drivers to say when it is okay for the TTM to try
+> > > > > > > a
+> > > > > > > bit
+> > > > > > > less hard.
+> > > > > > >=20
+> > > > > > > We do this by allowing drivers to specify this cut off
+> > > > > > > point
+> > > > > > > when creating the
+> > > > > > > TTM device and pools. Allocations above this size will
+> > > > > > > skip
+> > > > > > > direct reclaim so
+> > > > > > > under memory pressure worst case latency will improve.
+> > > > > > > Background reclaim is
+> > > > > > > still kicked off and both before and after the memory
+> > > > > > > pressure
+> > > > > > > all the TTM pool
+> > > > > > > buckets remain to be used as they are today.
+> > > > > > >=20
+> > > > > > > This is especially interesting if someone has configured
+> > > > > > > MAX_PAGE_ORDER to
+> > > > > > > higher than the default. And even with the default, with
+> > > > > > > amdgpu
+> > > > > > > for example,
+> > > > > > > the last patch in the series makes use of the new feature
+> > > > > > > by
+> > > > > > > telling TTM that
+> > > > > > > above 2MiB we do not expect performance benefits. Which
+> > > > > > > makes
+> > > > > > > TTM not try direct
+> > > > > > > reclaim for the top bucket (4MiB).
+> > > > > > >=20
+> > > > > > > End result is TTM drivers become a tiny bit nicer mm
+> > > > > > > citizens
+> > > > > > > and users benefit
+> > > > > > > from better worst case buffer creation latencies. As a
+> > > > > > > side
+> > > > > > > benefit we get rid
+> > > > > > > of two instances of those often very unreadable mutliple
+> > > > > > > nameless booleans
+> > > > > > > function signatures.
+> > > > > > >=20
+> > > > > > > If this sounds interesting and gets merge the invidual
+> > > > > > > drivers
+> > > > > > > can follow up
+> > > > > > > with patches configuring their thresholds.
+> > > > > > >=20
+> > > > > > > v2:
+> > > > > > > =C2=A0=C2=A0 * Christian suggested to pass in the new data by
+> > > > > > > changing the
+> > > > > > > function signatures.
+> > > > > > >=20
+> > > > > > > v3:
+> > > > > > > =C2=A0=C2=A0 * Moved ttm pool helpers into new ttm_pool_inter=
+nal.h.
+> > > > > > > (Christian)
+> > > > > >=20
+> > > > > > Patch #3 is Acked-by: Christian K=C3=B6nig
+> > > > > > <christian.koenig@amd.com>.
+> > > > > >=20
+> > > > > > The rest is Reviewed-by: Christian K=C3=B6nig
+> > > > > > <christian.koenig@amd.com>
+> > > > >=20
+> > > > > Thank you!
+> > > > >=20
+> > > > > So I think now I need acks to merge via drm-misc for all the
+> > > > > drivers which have their own trees. Which seems to be just
+> > > > > xe.
+> > > >=20
+> > > > I think you should ping the XE guys for their opinion, but
+> > > > since
+> > > > there shouldn't be any functional change for them you can
+> > > > probably go
+> > > > ahead and merge the patches to drm-misc-next when there is no
+> > > > reply
+> > > > in time.
+> > >=20
+> > > I will try to do a review tonight. One thing that comes up
+> > > though,
+> > > is
+> > > the change to ttm_device_init() where you add pool_flags. I had
+> > > another
+> > > patch series a number of months ago that added a struct with
+> > > flags
+> > > there instead to select the return value given when OOM. Now that
+> > > we're
+> > > adding an argument, should we try to use a struct instead so that
+> > > we
+> > > can use it for more that pool behavior?
+> > >=20
+> > >=20
+> > > I'll be able to find a pointer to that series later today.
+> >=20
+> > Found it:=20
+> > https://lore.kernel.org/dri-devel/20241002122422.287276-1-thomas.hellst=
+rom@linux.intel.com/
+> >=20
+> > Glad to see in that thread it isn't just me permanently slowed down
+> > by=20
+> > "false, false" and similar. :)
+> >=20
+> > I considered using a struct too and I guess there wasn't too much
+> > of
+> > a=20
+> > sway that I went with flags. I thought not to overcomplicate with
+> > the
+> > on=20
+> > stack struct which is mostly not needed for something so low level,
+> > and=20
+> > to stick with the old school C visual patterns.
+> >=20
+> > Since you only needed a single boolean in your series I suppose you
+> > could just follow up on my series if you find it acceptable. Or I
+> > can
+> > go=20
+> > with yours, no problem either.
+>=20
+> It seems yours has the most momentum ATM. I can follow up on yours.
+> It
+> would be great if we could perhaps change the naming of "pool_flags"
+> to
+> something more generic.
 
-Yeah, Indeed.
-
-While IIRC we can actually set up 1GiB PTEs, I'm not aware of any huge
-benefits from using that compared to 2MiB ones. We certainly want the
-allocator to try pretty hard for 2MiB ones, though.
+Oh, BTW we started using that 'const struct' flags argument style in xe
+and in the TTM shrinker helper (ttm_bo_shrink()) as well, so there is a
+precedent. I'll let you decide :)
 
 Thanks,
 Thomas
 
 
-> >=20
-> > > ---
-> > > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++--
-> > > =C2=A0 1 file changed, 3 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > > index 948c6d0a422b..723b885210a7 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > > @@ -1837,7 +1837,7 @@ static int amdgpu_ttm_pools_init(struct
-> > > amdgpu_device *adev)
-> > > =C2=A0=C2=A0	for (i =3D 0; i < adev->gmc.num_mem_partitions; i++) {
-> > > =C2=A0=C2=A0		ttm_pool_init(&adev->mman.ttm_pools[i], adev-
-> > > >dev,
-> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-
-> > > >gmc.mem_partitions[i].numa.node,
-> > > -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0);
-> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > > TTM_POOL_BENEFICIAL_ORDER(get_order(2 * SZ_1M)));
-> >=20
-> > SZ_2M btw.
 >=20
-> I thought I grepped exactly to see if that existed but apparently I
-> did=20
-> not, thanks!
+> Thanks,
+> Thomas
 >=20
-> Regards,
->=20
-> Tvrtko
 >=20
 > >=20
-> > Matt
+> > Regards,
 > >=20
-> > > =C2=A0=C2=A0	}
-> > > =C2=A0=C2=A0	return 0;
-> > > =C2=A0 }
-> > > @@ -1931,7 +1931,8 @@ int amdgpu_ttm_init(struct amdgpu_device
-> > > *adev)
-> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev_to_drm(adev)=
-->anon_inode-
-> > > >i_mapping,
-> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev_to_drm(adev)=
--
-> > > >vma_offset_manager,
-> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (adev->need_swiot=
-lb ?
-> > > TTM_POOL_USE_DMA_ALLOC : 0) |
-> > > -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (dma_addressing_limited(adev=
--
-> > > >dev) ? TTM_POOL_USE_DMA32 : 0));
-> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (dma_addressing_limited(adev=
--
-> > > >dev) ? TTM_POOL_USE_DMA32 : 0) |
-> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > > TTM_POOL_BENEFICIAL_ORDER(get_order(2 * SZ_1M)));
-> > > =C2=A0=C2=A0	if (r) {
-> > > =C2=A0=C2=A0		dev_err(adev->dev,
-> > > =C2=A0=C2=A0			"failed initializing buffer object
-> > > driver(%d).\n", r);
-> > > --=20
-> > > 2.48.0
-> > >=20
+> > Tvrtko
+> >=20
 >=20
 
