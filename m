@@ -4,156 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E037CCD185
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 12:49:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C055DCCA476
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 13:54:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCDBD10E184;
-	Fri, 10 Oct 2025 12:49:03 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aT1fNQp9";
-	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010029.outbound.protection.outlook.com [52.101.61.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A4C10E184;
- Fri, 10 Oct 2025 12:49:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jTFW8COIX+6m+rqhKS6lwSaYJoSr4Ol+3n98bVKRjxoVEaq31/b0/ibCO/1/hIdZyiky9A99sTjS4vNSZlRtONU2hkidqVs8ErRfym6P8uovEHJfOdz6K6ZKRIIEztgI3vkI1X8+p2SYzKmgtRKH3DYejRZrAXUbvsdE5kTCk11fO1uPX/E3QFx5Gd8bIXnYz0UfYdb1j89Y3ZmDMKGKs41WPZ/vClk6tK+28137efQQhCN5v6BtqT17aq7G0CqWSqip1u8aCU+uhZzmtzf3SjymrdpI0ZhPFeXkCZFuRxipV1wO/F5wwmqR2HLqv5SmP/0081gBZx8U43tSDKEx5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/FQ6oBAx7ZiIijcXnrIdqews987soO+3fwIa/2/qMoo=;
- b=nY6CNmzcRj4+kjLRfDVREIowx4dU3Mv9BnlTFXxJbgLeQCpsFInN8M5iQQEW5l1cIZJ25m5Ww8bAUIRpV3C/Yknn1CcD2763VL9PSaiQdNxpIEC3S+G7ynzAGZPuFrp15gAQgUsJsEg0g0u+Nbngap3uKIIQ9t/JSeG7aUgmIN8a0EARMqlHTX+Z/dyumK9sskDvtJJlp5seELUiz8vOq7rwx2PSK0fWHCWwLHeqqJjBKox5T0loXHLjkBxf8uHQ1abXtXg8VB7lW3Gv3H096c1IM/92b7WqDvqcrtdocrBGa15Ymztmo7y09XKuSIo71gZUfjHxUeO0FWMq5pcvVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/FQ6oBAx7ZiIijcXnrIdqews987soO+3fwIa/2/qMoo=;
- b=aT1fNQp9zNStr0xhmR8zcsp8dDfin9+Flrow/7ustKJdaBYxp69gxZJXms7QH6t42LDO+BAirbax8n9PNNA2Ar8PuE30saM7Xf8iReMPb1gspolp53wigp3NoOwGEEGQAFi79T/aXhE3Zwv6WSZgo8Xn74X/Sjc4191UiGc+xSI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6770.namprd12.prod.outlook.com (2603:10b6:510:1c5::11)
- by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Fri, 10 Oct
- 2025 12:48:58 +0000
-Received: from PH8PR12MB6770.namprd12.prod.outlook.com
- ([fe80::5da3:7c42:3309:eb4c]) by PH8PR12MB6770.namprd12.prod.outlook.com
- ([fe80::5da3:7c42:3309:eb4c%3]) with mapi id 15.20.9182.015; Fri, 10 Oct 2025
- 12:48:58 +0000
-Message-ID: <11bc4d38-de19-4ffe-a49c-2b5b7a7be2b4@amd.com>
-Date: Fri, 10 Oct 2025 14:48:53 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: Avoid killing entity last used by parent on
- child SIGKILL
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>
-References: <20251002150524.7552-3-david.rosca@amd.com>
- <d67cbd3a-5cd8-43b8-badf-3f264885429d@amd.com>
- <14de5473-534c-4294-bb1d-41d1a43fb46d@amd.com>
- <4cc2b216-e778-4b4e-bd13-01af0ded5427@amd.com>
-Content-Language: en-US
-From: David Rosca <david.rosca@amd.com>
-In-Reply-To: <4cc2b216-e778-4b4e-bd13-01af0ded5427@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0061.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::22) To PH8PR12MB6770.namprd12.prod.outlook.com
- (2603:10b6:510:1c5::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6296510E2A8;
+	Fri, 10 Oct 2025 13:54:40 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E350A10E0BA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 13:54:38 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 59ADsX2K3958339; Fri, 10 Oct 2025 19:24:33 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 59ADsWH53958338;
+ Fri, 10 Oct 2025 19:24:32 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Sunil Khatri <sunil.khatri@amd.com>
+Subject: [Patch v3 1/2] drm/amdgpu: update the functions to use amdgpu version
+ of hmm
+Date: Fri, 10 Oct 2025 19:24:25 +0530
+Message-Id: <20251010135426.3958281-1-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6770:EE_|BL4PR12MB9536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52c407ec-75f3-46ed-d12b-08de07fb60de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YTBoRmVWaXhzSHYrTU9JMzNNMENieUtIWWxSLzZ0N1NudFp1N09zRVNTaVhK?=
- =?utf-8?B?NDJKSzF5T2JCTFNDV0ZxU2VxNUpLY1ZQSVVBajlZTURpZGVPMHIwcEpUSENI?=
- =?utf-8?B?b3V1SHJMTzZyYkE0Qm1pZVB5Q0QyMlVNaVhZekJxWkpQdGdNcW9ycUFtc0hp?=
- =?utf-8?B?dGVWK2twZis3VTQwTVZ5WmRveHRIZlZYY0d5VnBmbWZKMmpwRW1yYll1b0g4?=
- =?utf-8?B?TXhOdlpmSGU0U0p1bURybU42UUZENzYrN0cwTi9TZlZaMHZaL25aaDV3K01q?=
- =?utf-8?B?VkMxa01ySUtUNVYrWWgxWUxYRjRMRWxHSjhhRHhhbFM3MVZ5OVl1MTViV0VC?=
- =?utf-8?B?NndTcG1CQStJR0RMRTBBUUt3bmsvdmlRM0JocjIrRVBiNDBkOFo0L3doOHhW?=
- =?utf-8?B?NndKUElYR05GSFpSTGMyTG1lajdoNVdQM1ZhNlJ0NWN1TzEvTDJhYzhiRS9Y?=
- =?utf-8?B?WStDZTBVb1FJR2o4NVZkcWQ3TjdidkNyQVN0RUMrZDRIK0NGeWlCa3pHYnI0?=
- =?utf-8?B?OU56TnM1bnp1cFBLUFYxRHB1SzdwTjJDcG4vcDlGR0FLQnBDcFJrU2lSWjM4?=
- =?utf-8?B?VlpoWTBKV0ErQmdVZXBUejZiZDRWaklMRkUyRzRIQlRXWTJ4bGN5c0JmSU9O?=
- =?utf-8?B?QnlIcUZxTVh6Q0N0QkNpMDlFOUxtbTl2TTFYQVM4UHRNQzU1eTByYUEvYTVl?=
- =?utf-8?B?c1lDUGY5dW1KV0pyaHFOdDZRUjNpaHV2dGllbW1CREltSzNpY1c5MG9yOWxO?=
- =?utf-8?B?Vmt5RTF0bW1pVDB1RDlWUElTZG9TVk1jNE1sTTJJT1VyaDRCVnVNRkVpUVBC?=
- =?utf-8?B?ZHFWbVBpVjFaSDRReHBkWWFHT2hjcEsveWlWdjM0Q2NOWFlmQUkxakNCL1dC?=
- =?utf-8?B?QlNZWkdJcmk3OWxqeCtQZjJQQU1HYWpJZkZKdzJvREJxVU42S0NjMmFaQzRm?=
- =?utf-8?B?bjYzVFk1QXZzc3g2WS9vNk1lV0l1aGJla0dFd0lpYmltK2ptTW4vM0NkMkNK?=
- =?utf-8?B?VTNLVk8zQklYL2tXYThyTlRIb0VCcC9UU1BrOHJsUEd0OTRDVmVSbVE2azF2?=
- =?utf-8?B?aDVZZzRuRUVibUQ3dnNpeFpjYnNLN2szYTNjZ0tXczdJVysyMEtpT1V4ZitH?=
- =?utf-8?B?VGNtZnhUZ0wzRW5EY0xCLzBZMXhkYWhBUGtHQ2Q5S1NZMStyREVzRnlVakg1?=
- =?utf-8?B?ay9lWWQ1SVEzVTBmRzRrblA3dmorSi93L3FTaXB1cFpDbFIwdDBhV2R6RVVU?=
- =?utf-8?B?SmV4L0tXa1dMVlJIUkM4c1ZoNW9pZTk3Rm13cmdWRlJoM3BkTFNOL09kOTMx?=
- =?utf-8?B?eVFFcW5SRXM1ZStrT0NNT25oRmtnWitJalY3dzBFeFViVWZNN2UvdCtFemFS?=
- =?utf-8?B?MldPTDZ0YlV3aFh3c2ZFcHhFTEk4b0hzaE95WjdaU1poa0JlY0Iyb3EyK0tF?=
- =?utf-8?B?U3phaHVDNVdZL21QcnhhVysrZDZEdm9xYjZKekg3L1VtYzc4YW9FSWk0bmxH?=
- =?utf-8?B?YmxCYTltT2hKK255TTRrbzc3SEptSW05bGtGQ0dGZUZ4eEUzQjdSeU5JcXl4?=
- =?utf-8?B?NDVPSlFGR1dzRXM0QzQwbXM0VU1VZUNJMGc1cHBJN0RvNW5EZXdibXBsK1Z2?=
- =?utf-8?B?cFQ5SEdlQ2ZFNVVhejVCWFBINkRKZE1SZldNVm94cnByY3ZtbVB0Y1dqUm9i?=
- =?utf-8?B?cm9UNmJTMVZ1TTZiVlFQU1R4VkM0SFFoTUFEWmliajRlUjF6VU1IdHJZUXFx?=
- =?utf-8?B?NCswM0FvV3ZmQ3QxZ1ZIdkRSM2Vha2dBUlNpR25LM0Y4TDRwVWZIcnJtL0tz?=
- =?utf-8?B?U1J3NlVaZVlVNGpZUytjZkdIN200QXd6cTF6Z3pvNmhLQzBlS1lNeURGU1FV?=
- =?utf-8?B?N05wbXBwTWhDZFRQNkJPMFNkZTBiZS9sUHhpTnp1SndaU0hBR1QwUHNtajBI?=
- =?utf-8?Q?X4SSLlNKbjEdsd+3Nc6wsF4sA7dn37wU?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0pUaThHRXdPM3hrUEE1azBzWnRQK3licm9CQmVOdlNYREdXek9ZZXVGM3JC?=
- =?utf-8?B?KzdEdEp0V0xka1dua3NkSzZZblZHTC9nRXVCZVB2TWpnUW9qSTg4UWg3V0Y4?=
- =?utf-8?B?WXB0SDJ1Rko4czlUdGRieStQSlk4VldWWUJ0KzVsSzM0VU9VWE1nelhrT1ZW?=
- =?utf-8?B?enVwNUFxbTlvbXRsZGxCVFZHOVNQRDA5SUdmTzZRYWxpY2JpL2t5Q2NWK0VE?=
- =?utf-8?B?OUJNbjNVUlhiY1QyK2JaSGRWclFXMVZDTndBallkcFRtOVBpQm9Nckoya0U0?=
- =?utf-8?B?S3N5MnFFeWVOWGZ0Z29vV2hydkk1WmtBSHlxbXhNRDVJTTRtelFJN1NIUSts?=
- =?utf-8?B?TTBFeHZSb25hOUtoVE9GYWN0bGUvMlF6eWVXNFZqN3NQMXJ3bUcvdnEraGdu?=
- =?utf-8?B?bHB1NjI0YnhOSS95T1FKWS9HTXBoWEdPNndQWkJJVEVrUzkzTXZwdEF1TTFY?=
- =?utf-8?B?UGlVd2lXaWxSejhEMVZsbnYwM0RDVTdoSWFUdmZQRW5NU3FXRU5iaURNbG9W?=
- =?utf-8?B?T0k2cWl2ZnhYUEd4Y1hHa05QVUhiZXF1b2xtZEtoTm51ajBzMXU4WTEwVVNo?=
- =?utf-8?B?d2k3dTJabytSdGxYYW1LaTY2RVpleG1uKzQ5dzd2U1pDaDd2SU4yaTlZS2dl?=
- =?utf-8?B?bXNvdTB0VTZ0U1ZKVTJST09DT3N4bWJlRFlJRnEwYlViZnFFL3NTSGRJRUI5?=
- =?utf-8?B?Wk85dDJWT1ZTeUc5bEZZb0h6ekUyOXlyL3kvMmdLQVBUYVZBVVR5YithVVVI?=
- =?utf-8?B?RWI2RVkxTm1sdVBJRnFTNzVmTDFaaFdiUkEzWm9ZbGx2ODdsWjdsL3RmQUNJ?=
- =?utf-8?B?SlUraFJWMDhRQnZya3REV0pnOGcrL0JaN1UxWkFyR1hrUi9lMmxrZERBRjRB?=
- =?utf-8?B?a0ZlNlA3NUt2NXB3dzlyUGdGNWoxQ1BMOXlkUFYyS3dkeWJHVS9lTzR1UzJr?=
- =?utf-8?B?VWZ3WXkveEkxZjdzeThncy84eFcvNkNEamw4dTVSeFFTZENlUGp6Yno0T2lp?=
- =?utf-8?B?anhKM2xTcXBHK3hDSWhvZWgxUEdNVG9sNFRqdjFwRFhWWGFnOGk5K1RLME9y?=
- =?utf-8?B?eGZaU2ZLdkhFNXBxYTNKYW9hYjVsUFRNUm41TDlNNTdPeUxzeXFVMEJONmhQ?=
- =?utf-8?B?ZzhQSTRsdzZQMlNZbloxS1BYVXVQeFZKTmtPSkdvajBqS3QxU1p1OXcydjFq?=
- =?utf-8?B?WWc3ZUhQS2N3VGUySmpCaUh4TTQyUjY1TW00K0NnOTNZWEt2QVZ5RVB6d3BL?=
- =?utf-8?B?MEVyTUg5V3Ywcm9FdC8xVU5PaUhDYUU1M0xDOTdvS0ZXMXRhd0tYby9GLzhs?=
- =?utf-8?B?SlhnWVFOL1VzOUFqT3FjVXFROC9heUJUWDRTSWNFZGxqMEhTSkszTU1HQXN0?=
- =?utf-8?B?RnlEbmV3YlRBNnUyWjI1azhOUE03WUFRZFlURCtFeUp6YUJGZUQ2R2p6V2Y0?=
- =?utf-8?B?blZza09YelhWQUgrd2s2Z0toNDNkcmJJR28yamwySGd5MGVLWGI3ZWI4SzNV?=
- =?utf-8?B?MVhxRmRBcW4vbC9DOWhBSWUrN1M1cCs2RFNOYUtwRlVoRUhjUlZXcGsyMGN2?=
- =?utf-8?B?VGEyWnFWa1g2aDFGNytrQTFlYnhuMEFxV2dBc1B3bzNvcVhNR2lqbXFqQ0R2?=
- =?utf-8?B?RzRSZlFpUzFqa0loOU5jWGdiOEJHK1lmem5lUnh2c0JWK3NYMUluTE94MGVv?=
- =?utf-8?B?bStBajJjNTM4R3c5a2M0VDFhVVVveE5YNmorZjJJNkRrVUVaa3BvRXdrRzZu?=
- =?utf-8?B?QVhVSXVUVWczOEdNeTlrWHNpbWhPOGFOcGcxVjUrc2V5c0RBR0swekdPMlor?=
- =?utf-8?B?RG56TXFpSFpDVVd2QWJxa0FJd2xoMzhCdDlLd2NKV0JMY1VoU05zeG1uTDVS?=
- =?utf-8?B?U3UrZ0tITzhLV0NoMlpsMFh6YWtaZE9nTnpRb00yR1owMmMzT3JHK0N4dEVZ?=
- =?utf-8?B?VGFwZ3daVUdiY0NTRk1oRzdoNGkvTVZoZEZ0SHZ2YXRRaDVqZTcydEp2MnJt?=
- =?utf-8?B?WHdtVk1TV2o5TVl3d081Y3BhQmVycmJBZngxRnVLOElHM2VyeU9DTGJPUGZI?=
- =?utf-8?B?SnF4ZUZoTjBvS3laR1RUVGdDZFVpbExFSDcyY1NYaUZDaTdSWWhIQzU5a1NS?=
- =?utf-8?Q?ynBabNhQhyEPVsEiiSnlGFg3K?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52c407ec-75f3-46ed-d12b-08de07fb60de
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6770.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2025 12:48:57.9395 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BxDHTjKaKuFZ97Woi2uKKKU76qUnUnc0NWqIFg8YjVhQlGpXtlhCiR0dWfLFMI/HuWNAXrCNWlEvBrHnwDcYjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,73 +44,410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+At times we need a bo reference for hmm and for that add
+a new struct amdgpu_hmm_range which will hold an optional
+bo member and hmm_range.
 
-On 10. 10. 25 14:28, Christian König wrote:
-> David any objections that I take this patch and make the necessary modifications?
+Use amdgpu_hmm_range instead of hmm_range and let the bo
+as an optional argument for the caller if they want to
+the bo reference to be taken or they want to handle that
+explicitly.
 
-Sure, please go ahead.
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c       | 36 +++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h       | 19 ++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  7 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.h      |  1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 14 ++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |  1 -
+ 13 files changed, 61 insertions(+), 44 deletions(-)
 
-Thanks,
-David
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 9e120c934cc1..8bdfcde2029b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -71,7 +71,7 @@ struct kgd_mem {
+ 	struct mutex lock;
+ 	struct amdgpu_bo *bo;
+ 	struct dma_buf *dmabuf;
+-	struct hmm_range *range;
++	struct amdgpu_hmm_range *range;
+ 	struct list_head attachments;
+ 	/* protected by amdkfd_process_info.lock */
+ 	struct list_head validate_list;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 22c1bdc53d2e..56097fb6eecd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1057,7 +1057,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 	struct amdkfd_process_info *process_info = mem->process_info;
+ 	struct amdgpu_bo *bo = mem->bo;
+ 	struct ttm_operation_ctx ctx = { true, false };
+-	struct hmm_range *range;
++	struct amdgpu_hmm_range *range;
+ 	int ret = 0;
+ 
+ 	mutex_lock(&process_info->lock);
+@@ -1089,7 +1089,7 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
+ 		return 0;
+ 	}
+ 
+-	range = amdgpu_hmm_range_alloc();
++	range = amdgpu_hmm_range_alloc(NULL);
+ 	if (unlikely(!range)) {
+ 		ret = -ENOMEM;
+ 		goto unregister_out;
+@@ -2574,7 +2574,7 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
+ 			}
+ 		}
+ 
+-		mem->range = amdgpu_hmm_range_alloc();
++		mem->range = amdgpu_hmm_range_alloc(NULL);
+ 		if (unlikely(!mem->range))
+ 			return -ENOMEM;
+ 		/* Get updated user pages */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+index a716c9886c74..2b5e7c46a39d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
+@@ -38,7 +38,7 @@ struct amdgpu_bo_list_entry {
+ 	struct amdgpu_bo		*bo;
+ 	struct amdgpu_bo_va		*bo_va;
+ 	uint32_t			priority;
+-	struct hmm_range		*range;
++	struct amdgpu_hmm_range		*range;
+ 	bool				user_invalidated;
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 087e5b5497e4..87872c0282e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -29,7 +29,6 @@
+ #include <linux/pagemap.h>
+ #include <linux/sync_file.h>
+ #include <linux/dma-buf.h>
+-#include <linux/hmm.h>
+ 
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_syncobj.h>
+@@ -886,7 +885,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 		bool userpage_invalidated = false;
+ 		struct amdgpu_bo *bo = e->bo;
+ 
+-		e->range = amdgpu_hmm_range_alloc();
++		e->range = amdgpu_hmm_range_alloc(NULL);
+ 		if (unlikely(!e->range))
+ 			return -ENOMEM;
+ 
+@@ -895,7 +894,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 			goto out_free_user_pages;
+ 
+ 		for (i = 0; i < bo->tbo.ttm->num_pages; i++) {
+-			if (bo->tbo.ttm->pages[i] != hmm_pfn_to_page(e->range->hmm_pfns[i])) {
++			if (bo->tbo.ttm->pages[i] !=
++				hmm_pfn_to_page(e->range->hmm_range.hmm_pfns[i])) {
+ 				userpage_invalidated = true;
+ 				break;
+ 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 82ddc8c22b64..ce073e894584 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -530,7 +530,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_amdgpu_gem_userptr *args = data;
+ 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+ 	struct drm_gem_object *gobj;
+-	struct hmm_range *range;
++	struct amdgpu_hmm_range *range;
+ 	struct amdgpu_bo *bo;
+ 	uint32_t handle;
+ 	int r;
+@@ -571,7 +571,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 		goto release_object;
+ 
+ 	if (args->flags & AMDGPU_GEM_USERPTR_VALIDATE) {
+-		range = amdgpu_hmm_range_alloc();
++		range = amdgpu_hmm_range_alloc(NULL);
+ 		if (unlikely(!range))
+ 			return -ENOMEM;
+ 		r = amdgpu_ttm_tt_get_user_pages(bo, range);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+index b582fd217bd0..9da1c5c69632 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+@@ -168,12 +168,13 @@ void amdgpu_hmm_unregister(struct amdgpu_bo *bo)
+ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 			       uint64_t start, uint64_t npages, bool readonly,
+ 			       void *owner,
+-			       struct hmm_range *hmm_range)
++			       struct amdgpu_hmm_range *range)
+ {
+ 	unsigned long end;
+ 	unsigned long timeout;
+ 	unsigned long *pfns;
+ 	int r = 0;
++	struct hmm_range *hmm_range = &range->hmm_range;
+ 
+ 	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
+ 	if (unlikely(!pfns)) {
+@@ -226,25 +227,38 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 	return r;
+ }
+ 
+-bool amdgpu_hmm_range_valid(struct hmm_range *hmm_range)
++bool amdgpu_hmm_range_valid(struct amdgpu_hmm_range *range)
+ {
+-	if (!hmm_range)
++	if (!range)
+ 		return false;
+ 
+-	return !mmu_interval_read_retry(hmm_range->notifier,
+-					hmm_range->notifier_seq);
++	return !mmu_interval_read_retry(range->hmm_range.notifier,
++					range->hmm_range.notifier_seq);
+ }
+ 
+-struct hmm_range *amdgpu_hmm_range_alloc(void)
++struct amdgpu_hmm_range *amdgpu_hmm_range_alloc(struct amdgpu_bo *bo)
+ {
+-	return kzalloc(sizeof(struct hmm_range), GFP_KERNEL);
++	struct amdgpu_hmm_range *range;
++
++	range = kzalloc(sizeof(struct amdgpu_hmm_range), GFP_KERNEL);
++	if (!range)
++		return NULL;
++
++	if (bo)
++		range->bo = amdgpu_bo_ref(bo);
++
++	return range;
+ }
+ 
+-void amdgpu_hmm_range_free(struct hmm_range *hmm_range)
++void amdgpu_hmm_range_free(struct amdgpu_hmm_range *range)
+ {
+-	if (!hmm_range)
++	if (!range)
+ 		return;
+ 
+-	kvfree(hmm_range->hmm_pfns);
+-	kfree(hmm_range);
++	kvfree(range->hmm_range.hmm_pfns);
++
++	if (range->bo)
++		amdgpu_bo_unref(&range->bo);
++
++	kfree(range);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+index e85f912b8938..140bc9cd57b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.h
+@@ -31,15 +31,20 @@
+ #include <linux/interval_tree.h>
+ #include <linux/mmu_notifier.h>
+ 
++struct amdgpu_hmm_range {
++	struct hmm_range hmm_range;
++	struct amdgpu_bo *bo;
++};
++
+ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
+ 			       uint64_t start, uint64_t npages, bool readonly,
+ 			       void *owner,
+-			       struct hmm_range *hmm_range);
++			       struct amdgpu_hmm_range *range);
+ 
+ #if defined(CONFIG_HMM_MIRROR)
+-bool amdgpu_hmm_range_valid(struct hmm_range *hmm_range);
+-struct hmm_range *amdgpu_hmm_range_alloc(void);
+-void amdgpu_hmm_range_free(struct hmm_range *hmm_range);
++bool amdgpu_hmm_range_valid(struct amdgpu_hmm_range *range);
++struct amdgpu_hmm_range *amdgpu_hmm_range_alloc(struct amdgpu_bo *bo);
++void amdgpu_hmm_range_free(struct amdgpu_hmm_range *range);
+ int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr);
+ void amdgpu_hmm_unregister(struct amdgpu_bo *bo);
+ #else
+@@ -52,17 +57,17 @@ static inline int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
+ 
+ static inline void amdgpu_hmm_unregister(struct amdgpu_bo *bo) {}
+ 
+-static inline bool amdgpu_hmm_range_valid(struct hmm_range *hmm_range)
++static inline bool amdgpu_hmm_range_valid(struct amdgpu_hmm_range *range)
+ {
+ 	return false;
+ }
+ 
+-static inline struct hmm_range *amdgpu_hmm_range_alloc(void)
++static inline struct amdgpu_hmm_range *amdgpu_hmm_range_alloc(struct amdgpu_bo *bo)
+ {
+ 	return NULL;
+ }
+ 
+-static inline void amdgpu_hmm_range_free(struct hmm_range *hmm_range) {}
++static inline void amdgpu_hmm_range_free(struct amdgpu_hmm_range *range) {}
+ #endif
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 96bd0185f936..fd00ec7c99a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -709,7 +709,7 @@ struct amdgpu_ttm_tt {
+  * that range is a valid memory and it is freed too.
+  */
+ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+-				 struct hmm_range *range)
++				 struct amdgpu_hmm_range *range)
+ {
+ 	struct ttm_tt *ttm = bo->tbo.ttm;
+ 	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
+@@ -762,12 +762,12 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+  * that backs user memory and will ultimately be mapped into the device
+  * address space.
+  */
+-void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct hmm_range *range)
++void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct amdgpu_hmm_range *range)
+ {
+ 	unsigned long i;
+ 
+ 	for (i = 0; i < ttm->num_pages; ++i)
+-		ttm->pages[i] = range ? hmm_pfn_to_page(range->hmm_pfns[i]) : NULL;
++		ttm->pages[i] = range ? hmm_pfn_to_page(range->hmm_range.hmm_pfns[i]) : NULL;
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 99c46821b961..0ebb99e8d792 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -28,6 +28,7 @@
+ #include <drm/gpu_scheduler.h>
+ #include <drm/ttm/ttm_placement.h>
+ #include "amdgpu_vram_mgr.h"
++#include "amdgpu_hmm.h"
+ 
+ #define AMDGPU_PL_GDS		(TTM_PL_PRIV + 0)
+ #define AMDGPU_PL_GWS		(TTM_PL_PRIV + 1)
+@@ -191,16 +192,16 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
+ 
+ #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+-				 struct hmm_range *range);
++				 struct amdgpu_hmm_range *range);
+ #else
+ static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
+-					       struct hmm_range *range)
++					       struct amdgpu_hmm_range *range)
+ {
+ 	return -EPERM;
+ }
+ #endif
+ 
+-void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct hmm_range *range);
++void amdgpu_ttm_tt_set_user_pages(struct ttm_tt *ttm, struct amdgpu_hmm_range *range);
+ int amdgpu_ttm_tt_get_userptr(const struct ttm_buffer_object *tbo,
+ 			      uint64_t *user_addr);
+ int amdgpu_ttm_tt_set_userptr(struct ttm_buffer_object *bo,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index d10c6673f4de..3653c563ee9a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -21,7 +21,6 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
+ #include <linux/types.h>
+-#include <linux/hmm.h>
+ #include <linux/dma-direction.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/migrate.h>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+index 2eebf67f9c2c..2b7fd442d29c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+@@ -31,7 +31,6 @@
+ #include <linux/list.h>
+ #include <linux/mutex.h>
+ #include <linux/sched/mm.h>
+-#include <linux/hmm.h>
+ #include "kfd_priv.h"
+ #include "kfd_svm.h"
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 91609dd5730f..f041643308ca 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1698,7 +1698,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 	start = map_start << PAGE_SHIFT;
+ 	end = (map_last + 1) << PAGE_SHIFT;
+ 	for (addr = start; !r && addr < end; ) {
+-		struct hmm_range *hmm_range = NULL;
++		struct amdgpu_hmm_range *range = NULL;
+ 		unsigned long map_start_vma;
+ 		unsigned long map_last_vma;
+ 		struct vm_area_struct *vma;
+@@ -1737,13 +1737,13 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 			}
+ 
+ 			WRITE_ONCE(p->svms.faulting_task, current);
+-			hmm_range = amdgpu_hmm_range_alloc();
++			range = amdgpu_hmm_range_alloc(NULL);
+ 			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
+ 						       readonly, owner,
+-						       hmm_range);
++						       range);
+ 			WRITE_ONCE(p->svms.faulting_task, NULL);
+ 			if (r) {
+-				amdgpu_hmm_range_free(hmm_range);
++				amdgpu_hmm_range_free(range);
+ 				pr_debug("failed %d to get svm range pages\n", r);
+ 			}
+ 		} else {
+@@ -1753,7 +1753,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 		if (!r) {
+ 			offset = (addr >> PAGE_SHIFT) - prange->start;
+ 			r = svm_range_dma_map(prange, ctx->bitmap, offset, npages,
+-					      hmm_range->hmm_pfns);
++					      range->hmm_range.hmm_pfns);
+ 			if (r)
+ 				pr_debug("failed %d to dma map range\n", r);
+ 		}
+@@ -1764,12 +1764,12 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+ 		 * Overrride return value to TRY AGAIN only if prior returns
+ 		 * were successful
+ 		 */
+-		if (hmm_range && !amdgpu_hmm_range_valid(hmm_range) && !r) {
++		if (range && !amdgpu_hmm_range_valid(range) && !r) {
+ 			pr_debug("hmm update the range, need validate again\n");
+ 			r = -EAGAIN;
+ 		}
+ 		/* Free the hmm range */
+-		amdgpu_hmm_range_free(hmm_range);
++		amdgpu_hmm_range_free(range);
+ 
+ 
+ 		if (!r && !list_empty(&prange->child_list)) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index 01c7a4877904..a63dfc95b602 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -31,7 +31,6 @@
+ #include <linux/list.h>
+ #include <linux/mutex.h>
+ #include <linux/sched/mm.h>
+-#include <linux/hmm.h>
+ #include "amdgpu.h"
+ #include "kfd_priv.h"
+ 
+-- 
+2.34.1
 
->
-> People are pinging me about the problem.
->
-> Regards,
-> Christian.
->
-> On 09.10.25 17:04, Christian König wrote:
->> FYI
->>
->> On 09.10.25 09:01, Christian König wrote:
->>> On 02.10.25 17:05, David Rosca wrote:
->>>> drm_sched_entity_flush should only kill the entity if the current
->>>> process is the last user of the entity. The last_user is only set
->>>> when adding new job, so entities that had no jobs submitted to them
->>>> have NULL last_user and would always be killed.
->>>> Another issue is setting last_user to NULL from drm_sched_entity_flush,
->>>> which causes subsequent calls to kill the entity.
->>>>
->>>> Signed-off-by: David Rosca <david.rosca@amd.com>
->>>> Fixes: 51564e9f06f0 ("drm/amdgpu: Avoid extra evict-restore process.")
->>> Good catch, but in general please CC the relevant maintainers and mailing lists for scheduler patches.
->>>
->>>> ---
->>>>   drivers/gpu/drm/scheduler/sched_entity.c | 5 ++---
->>>>   1 file changed, 2 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> index 8867b95ab089..a325e4a59990 100644
->>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>>> @@ -70,6 +70,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>>>   	entity->guilty = guilty;
->>>>   	entity->num_sched_list = num_sched_list;
->>>>   	entity->priority = priority;
->>>> +	entity->last_user = current->group_leader;
->>>>   	/*
->>>>   	 * It's perfectly valid to initialize an entity without having a valid
->>>>   	 * scheduler attached. It's just not valid to use the scheduler before it
->>>> @@ -278,7 +279,6 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
->>>>   long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout)
->>>>   {
->>>>   	struct drm_gpu_scheduler *sched;
->>>> -	struct task_struct *last_user;
->>>>   	long ret = timeout;
->>>>   
->>>>   	if (!entity->rq)
->>>> @@ -301,8 +301,7 @@ long drm_sched_entity_flush(struct drm_sched_entity *entity, long timeout)
->>>>   	}
->>>>   
->>>>   	/* For killed process disable any more IBs enqueue right now */
->>>> -	last_user = cmpxchg(&entity->last_user, current->group_leader, NULL);
->>>> -	if ((!last_user || last_user == current->group_leader) &&
->>>> +	if (entity->last_user == current->group_leader &&
->>> You still need the cmpxchg() here or otherwise drm_sched_entity_kill() would run multiple times.
->>>
->>> Regards,
->>> Christian.
->>>
->>>>   	    (current->flags & PF_EXITING) && (current->exit_code == SIGKILL))
->>>>   		drm_sched_entity_kill(entity);
->>>>   
