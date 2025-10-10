@@ -4,52 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F23ACAC5BB
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 09:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2647FCCA476
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 10:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0767310EB9E;
-	Fri, 10 Oct 2025 09:46:38 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H0vNVI7Y";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47E2410EB9E;
- Fri, 10 Oct 2025 09:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7jq6ZEv53M8S2icSG09bPsLp0Hkm08Ms4LKxX3UDcc8=; b=H0vNVI7Y5npyR8GywMRIeyllBS
- rurovT/X3sF3yWva7MtNjZFRTKdQ3YjVHKAVZhK4Xvv8Dir1In6cZ5BXOGuO8Vsa0q145CzyxUrQF
- 2Je5/QmqZQTU9ulrblHIyq63OQmZTkeWyz/yh/tjs10mOT/DtwLPQfjj1vmRFHaAEbiyXwj8NzTjD
- 5wDPR9Nl9axqPSgelIabdkagb7xWLRdZoplPwMbchjAEywyN5R0Aw2QLP8KDN26ro2uWLk3K1WVkx
- WTkWaFbXjNv6TYiHuT4oyPb3+S6x3rcDHKh7RJlx6CRwLYv8r4ekZgogNepcLm01h9QTYcHcfBtXt
- qRwvttDQ==;
-Received: from [84.66.36.92] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1v79ho-007oqd-Ji; Fri, 10 Oct 2025 11:46:32 +0200
-Message-ID: <1785ebaf-776a-4717-9922-3aa0c31d0d52@igalia.com>
-Date: Fri, 10 Oct 2025 10:46:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/28] drm/sched: Reverse drm_sched_rq_init arguments
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C26910EBB0;
+	Fri, 10 Oct 2025 10:02:20 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A515A10EBA3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 10:02:18 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB4751595
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 03:02:09 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7BD233F66E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 03:02:17 -0700 (PDT)
+Date: Fri, 10 Oct 2025 11:02:15 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>
+Subject: Re: [PATCH 24/28] drm/panthor: Remove drm_sched_init_args->num_rqs
+ usage
+Message-ID: <aOjZp6ssCEqfACwJ@e110455-lin.cambridge.arm.com>
 References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
- <20251008085359.52404-2-tvrtko.ursulin@igalia.com>
- <c6fab1fd60d1230b70b4c2bb4d37cdf20ab31f22.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <c6fab1fd60d1230b70b4c2bb4d37cdf20ab31f22.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20251008085359.52404-25-tvrtko.ursulin@igalia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251008085359.52404-25-tvrtko.ursulin@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,92 +49,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 10/10/2025 09:55, Philipp Stanner wrote:
-> On Wed, 2025-10-08 at 09:53 +0100, Tvrtko Ursulin wrote:
->> Helper operates on the run queue so lets make that the primary argument.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> ---
->>   drivers/gpu/drm/scheduler/sched_main.c | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
+On Wed, Oct 08, 2025 at 09:53:55AM +0100, Tvrtko Ursulin wrote:
+> Remove member no longer used by the scheduler core.
 > 
-> That's a new patch from the RFC, isn't it?
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Steven Price <steven.price@arm.com>
+> Cc: Liviu Dudau <liviu.dudau@arm.com>
+> Cc: dri-devel@lists.freedesktop.org
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c   | 1 -
+>  drivers/gpu/drm/panthor/panthor_sched.c | 1 -
+>  2 files changed, 2 deletions(-)
 > 
-> And it's a general code improvement that is not related to CFS. I think
-> I mentioned it a few times already that a series is easier to review
-> and workflows are simplified if generic-improvement patches are
-> branched out and sent separately.
-> 
-> I thought you had agreed with that?
-
-Hm not sure. My workflow is definitely easier if this work is a single 
-unit throughout.
-
-Anyway, with this change it still far from consistency, so how much of 
-an improvement it brings is open to debate. The general idea is that 
-functions in sched_rq.c operate on sched_rq, which is the first 
-argument, and by the end of the series the second argument disappears:
-
-void drm_sched_rq_init(struct drm_sched_rq *rq)
-{
-	spin_lock_init(&rq->lock);
-	INIT_LIST_HEAD(&rq->entities);
-	rq->rb_tree_root = RB_ROOT_CACHED;
-	rq->head_prio = -1;
-}
-
-int drm_sched_init(struct drm_gpu_scheduler *sched, const struct 
-drm_sched_init_args *args)
-{
-...
-	drm_sched_rq_init(&sched->rq);
-
-But again, even at that point the code base is still not fully 
-consistent in this respect aka needs more work. Not least you recently 
-asked to rename drm_sched_rq_select_entity(rq) to 
-drm_sched_select_entity(sched). So maybe you disagree with this patch 
-completely and would prefer drm_sched_rq_init(sched). I don't know. 
-Anyway, if you r-b it is trivial to send separately and merge. Or if you 
-disapprove I will just drop this patch and rebase.
-
-Regards,
-
-Tvrtko
-
->> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->> index 46119aacb809..8b8c55b25762 100644
->> --- a/drivers/gpu/drm/scheduler/sched_main.c
->> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->> @@ -174,13 +174,13 @@ void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
->>   /**
->>    * drm_sched_rq_init - initialize a given run queue struct
->>    *
->> + * @rq: scheduler run queue
->>    * @sched: scheduler instance to associate with this run queue
->> - * @rq: scheduler run queue
->>    *
->>    * Initializes a scheduler runqueue.
->>    */
->> -static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
->> -			      struct drm_sched_rq *rq)
->> +static void drm_sched_rq_init(struct drm_sched_rq *rq,
->> +			      struct drm_gpu_scheduler *sched)
->>   {
->>   	spin_lock_init(&rq->lock);
->>   	INIT_LIST_HEAD(&rq->entities);
->> @@ -1353,7 +1353,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
->>   		sched->sched_rq[i] = kzalloc(sizeof(*sched->sched_rq[i]), GFP_KERNEL);
->>   		if (!sched->sched_rq[i])
->>   			goto Out_unroll;
->> -		drm_sched_rq_init(sched, sched->sched_rq[i]);
->> +		drm_sched_rq_init(sched->sched_rq[i], sched);
->>   	}
->>   
->>   	init_waitqueue_head(&sched->job_scheduled);
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 6dec4354e378..048a61d9fad6 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2327,7 +2327,6 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
+>  	const struct drm_sched_init_args sched_args = {
+>  		.ops = &panthor_vm_bind_ops,
+>  		.submit_wq = ptdev->mmu->vm.wq,
+> -		.num_rqs = 1,
+>  		.credit_limit = 1,
+>  		/* Bind operations are synchronous for now, no timeout needed. */
+>  		.timeout = MAX_SCHEDULE_TIMEOUT,
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index f5e01cb16cfc..5b95868169ac 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3318,7 +3318,6 @@ group_create_queue(struct panthor_group *group,
+>  	struct drm_sched_init_args sched_args = {
+>  		.ops = &panthor_queue_sched_ops,
+>  		.submit_wq = group->ptdev->scheduler->wq,
+> -		.num_rqs = 1,
+>  		/*
+>  		 * The credit limit argument tells us the total number of
+>  		 * instructions across all CS slots in the ringbuffer, with
+> -- 
+> 2.48.0
 > 
 
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
