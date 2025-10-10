@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10BEECCD185
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5565ECCD195
 	for <amd-gfx@archiver.kernel.org>; Fri, 10 Oct 2025 12:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29CFB10EBF4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB4E310EBFC;
 	Fri, 10 Oct 2025 12:37:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="lCpSXtoa";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="JCoDfC2a";
 	dkim-atps=neutral
-X-Greylist: delayed 411 seconds by postgrey-1.36 at gabe;
- Fri, 10 Oct 2025 09:13:40 UTC
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 302DF10EB82
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 09:13:40 +0000 (UTC)
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id 6B00F25BEF;
- Fri, 10 Oct 2025 11:06:48 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id qfkyY6bSuux8; Fri, 10 Oct 2025 11:06:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1760087207; bh=IsGhKN+ISwmoiMVLqUMbSvJDHuVQmWBmnBcq6oPhEk8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=lCpSXtoaz3RJPNla8lj0QnJ5eQJbkh0edD1TJy/oBGZSqE3IXiIW/AgCOYjjY2L2E
- K0cMOGQVKd1p0eWir7wm4AIxKQ8aqDdz3gG9gxuweeNgT8dfzeofZEwNXIABQDOXSB
- losjUGppk9rvYW2gfXA9p3D5xZidQBtYgljd1VA5zToyvRAlVtixxyzqyBRozPeFEr
- KdM4ogcydiyy/VFVDjg0kX54iPvuxUutJ6Uxq/d1kgSFZfMir/DJS3CkancvrV0Eo6
- 0kx297XTzy4Y4XoytCWYeUXFlp6N39IsqQMtw6ZJKigchD6iDtqPDoy1RUoo5x7p4W
- /bwgBrB2X8NZA==
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1A0010E272;
+ Fri, 10 Oct 2025 12:22:55 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4cjm983V8jz9tFV;
+ Fri, 10 Oct 2025 14:22:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1760098972; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IjdJKyfwivJ97d3ojWJxN9xptpqHmM9w2+LiXak3HUQ=;
+ b=JCoDfC2awaHCWHWmGWBtch4wurJ/uFrGYhrUMSJkezCKDQXr4lxnQJXezu8xTNGI7WgMAD
+ TBpsOkR0Rc1IkCg8o9FPVmx5pV3kirQmFkg57JtpkCvyaJGLuZd2IQq4JzeekYXaKmZawQ
+ MCa1tjHPNqYsTaAAYBJR+fJCXqaLNOIOyuT1MaX5nb/YI/3h5BTS6WX9Vx3ZClVXcAOtsS
+ H7cY5oDpJHLoBf2Y+4jllIhDXH5/R9rerETRKmAsu8TvDa6bTlLzIysif4cHvtxFLlcv8Q
+ 3N+D3AyXEAJecLlc4OZQJC2RYcTm31nRv08oysYPv6qDbjcdW4OcJNeICsCl5g==
+Message-ID: <763ca195fc30346b4d3b25e8bd071f9b5ca76bfa.camel@mailbox.org>
+Subject: Re: [PATCH 08/28] drm/sched: Account entity GPU time
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+Date: Fri, 10 Oct 2025 14:22:48 +0200
+In-Reply-To: <20251008085359.52404-9-tvrtko.ursulin@igalia.com>
+References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
+ <20251008085359.52404-9-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Date: Fri, 10 Oct 2025 11:06:47 +0200
-From: machion@disroot.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Subject: Re: Unplayable framerates in game but specific kernel versions work, 
- maybe amdgpu problem
-In-Reply-To: <fadf714ecdc2e3bd5bed0c3ee69177a1@disroot.org>
-References: <c415d9e0b08bcba068b01700225bf560@disroot.org>
- <CADnq5_PX1dYF2Jd3q7ghaBjpPhNLq9EmFJtN1w6YOSfVo++7sA@mail.gmail.com>
- <69b5ebaa719355994a383fa026dc3fba@disroot.org>
- <CADnq5_PkOuAHuDjMNXABEcenaZFZgU044G=9pTu=EgMr_grXbw@mail.gmail.com>
- <fadf714ecdc2e3bd5bed0c3ee69177a1@disroot.org>
-Message-ID: <748446b7fa6a53f31c69a4e40257adae@disroot.org>
-X-Sender: machion@disroot.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: bb46b79d679e04d1128
+X-MBO-RS-META: f85dmnrrk6ci5s1y7hh1k6kfizyrbeh7
 X-Mailman-Approved-At: Fri, 10 Oct 2025 12:37:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,133 +63,317 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi again,
+On Wed, 2025-10-08 at 09:53 +0100, Tvrtko Ursulin wrote:
+> To implement fair scheduling we need a view into the GPU time consumed by
+> entities. Problem we have is that jobs and entities objects have decouple=
+d
+> lifetimes, where at the point we have a view into accurate GPU time, we
+> cannot link back to the entity any longer.
+>=20
+> Solve this by adding a light weight entity stats object which is referenc=
+e
+> counted by both entity and the job and hence can safely be used from
+> either side.
+>=20
+> With that, the only other thing we need is to add a helper for adding the
+> job's GPU time into the respective entity stats object, and call it once
+> the accurate GPU time has been calculated.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 | 39 +++++++++=
++++
+> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h | 71 +++++++++++++++++++=
++++
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 6 +-
+> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++
+> =C2=A04 files changed, 127 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index 7a0a52ba87bf..04ce8b7d436b 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -32,6 +32,39 @@
+> =C2=A0
+> =C2=A0#include "gpu_scheduler_trace.h"
+> =C2=A0
+> +
+> +/**
+> + * drm_sched_entity_stats_release - Entity stats kref release function
+> + *
+> + * @kref: Entity stats embedded kref pointer
 
-I have a question:
+We've got fractured docstring style throughout drm_sched. What I'd like
+us to move to is no empty lines between first line and first parameter
+for the function docstrings.
 
-Would it be possible to make the "memory management/buffering" methodes 
-switchable through a conf file (obviously amdgpu.conf)?
-So that I don't have to keep an old kernel version installed just to 
-play my game.
+Applies to all the other functions, too.
 
-Marion
+> + */
+> +void drm_sched_entity_stats_release(struct kref *kref)
+> +{
+> +	struct drm_sched_entity_stats *stats =3D
+> +		container_of(kref, typeof(*stats), kref);
+> +
+> +	kfree(stats);
+> +}
+> +
+> +/**
+> + * drm_sched_entity_stats_alloc - Allocate a new struct drm_sched_entity=
+_stats object
+> + *
+> + * Returns: Pointer to newly allocated struct drm_sched_entity_stats obj=
+ect.
+
+s/Returns/Return
+
+That's at least how it's documented in the official docstring docu, and
+we have fractured style here, too. Unifying that mid-term will be good.
+
+> + */
+> +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
+> +{
+> +	struct drm_sched_entity_stats *stats;
+> +
+> +	stats =3D kzalloc(sizeof(*stats), GFP_KERNEL);
+> +	if (!stats)
+> +		return NULL;
+> +
+> +	kref_init(&stats->kref);
+> +	spin_lock_init(&stats->lock);
+> +
+> +	return stats;
+> +}
+> +
+> =C2=A0/**
+> =C2=A0 * drm_sched_entity_init - Init a context entity used by scheduler =
+when
+> =C2=A0 * submit to HW ring.
+> @@ -65,6 +98,11 @@ int drm_sched_entity_init(struct drm_sched_entity *ent=
+ity,
+> =C2=A0		return -EINVAL;
+> =C2=A0
+> =C2=A0	memset(entity, 0, sizeof(struct drm_sched_entity));
+> +
+> +	entity->stats =3D drm_sched_entity_stats_alloc();
+> +	if (!entity->stats)
+> +		return -ENOMEM;
+> +
+> =C2=A0	INIT_LIST_HEAD(&entity->list);
+> =C2=A0	entity->rq =3D NULL;
+> =C2=A0	entity->guilty =3D guilty;
+> @@ -338,6 +376,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *e=
+ntity)
+> =C2=A0
+> =C2=A0	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true))=
+;
+> =C2=A0	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+> +	drm_sched_entity_stats_put(entity->stats);
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL(drm_sched_entity_fini);
+> =C2=A0
+> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
+/scheduler/sched_internal.h
+> index 5a8984e057e5..1132a771aa37 100644
+> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+> @@ -3,6 +3,27 @@
+> =C2=A0#ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
+> =C2=A0#define _DRM_GPU_SCHEDULER_INTERNAL_H_
+> =C2=A0
+> +#include <linux/ktime.h>
+> +#include <linux/kref.h>
+> +#include <linux/spinlock.h>
+> +
+> +/**
+> + * struct drm_sched_entity_stats - execution stats for an entity.
+> + *
+> + * Because jobs and entities have decoupled lifetimes, ie. we cannot acc=
+ess the
+> + * entity once the job is completed and we know how much time it took on=
+ the
+> + * GPU, we need to track these stats in a separate object which is then
+> + * reference counted by both entities and jobs.
+> + *
+> + * @kref: reference count for the object.
+> + * @lock: lock guarding the @runtime updates.
+> + * @runtime: time entity spent on the GPU.
+
+Same here, let's follow the official style
+
+https://docs.kernel.org/doc-guide/kernel-doc.html#members
 
 
-Am 2025-06-17 11:42, schrieb machion@disroot.org:
-> I feared that.
-> 
-> It seems a crazy problem, when many people are affected and in opposite 
-> ways.
-> This ReBAR/UEFI thing is also new to me, but I don't have this on my 
-> system either (using BIOS/MBR).
-> 
-> I hope, it can be fixed for all scenarios.
-> 
-> Marion
-> 
-> Am 2025-06-16 15:29, schrieb Alex Deucher:
->> On Fri, Jun 13, 2025 at 3:38 PM <machion@disroot.org> wrote:
->>> 
->>> Hi,
->>> sorry for the delay.
->>> Besides less time, I had to make myself familiar with bisecting and
->>> again kernel compiling. Last time I compiled the kernel myself was
->>> around 2010 I think.
->>> 
->>> Anyway it seems I found the bad commit. The result after bisecting 10
->>> commits is:
->>> 
->>> a53d959fe660341788cb8dbc3ac3330d90a09ecf is the first bad commit
->>> commit a53d959fe660341788cb8dbc3ac3330d90a09ecf
->>> Author: Christian König <christian.koenig@amd.com>
->>> Date:   Thu Mar 20 14:46:18 2025 +0100
->>> 
->>>      drm/amdgpu: immediately use GTT for new allocations
->>> 
->>>      commit a755906fb2b8370c43e91ba437ae1b3e228e8b02 upstream.
->>> 
->>>      Only use GTT as a fallback if we already have a backing store. 
->>> This
->>>      prevents evictions when an application constantly allocates and
->>> frees new
->>>      memory.
->>> 
->>>      Partially fixes
->>>      
->>> https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2833985.
->>> 
->>>      Signed-off-by: Christian König <christian.koenig@amd.com>
->>>      Fixes: 216c1282dde3 ("drm/amdgpu: use GTT only as fallback for
->>> VRAM|GTT")
->>>      Acked-by: Alex Deucher <alexander.deucher@amd.com>
->>>      Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>>      Cc: stable@vger.kernel.org
->>>      Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->>> 
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
->>>   1 file changed, 2 insertions(+), 2 deletions(-)
->> 
->> Unfortunately reverting that commit will reintroduce a similar
->> performance issue for lots of other uses.  See:
->> https://gitlab.freedesktop.org/drm/amd/-/issues/3844#note_2827990
->> for a description of the fundemental problem.
->> 
->> Alex
->> 
->>> 
->>> Marion
->>> 
->>> 
->>> Am 2025-05-08 15:18, schrieb Alex Deucher:
->>> > On Thu, May 8, 2025 at 9:13 AM <machion@disroot.org> wrote:
->>> >>
->>> >> Hello kernel/driver developers,
->>> >>
->>> >> I hope, with my information it's possible to find a bug/problem in the
->>> >> kernel. Otherwise I am sorry, that I disturbed you.
->>> >> I only use LTS kernels, but I can narrow it down to a hand full of
->>> >> them,
->>> >> where it works.
->>> >>
->>> >> The PC: Manjaro Stable/Cinnamon/X11/AMD Ryzen 5 2600/Radeon HD
->>> >> 7790/8GB
->>> >> RAM
->>> >> I already asked the Manjaro community, but with no luck.
->>> >>
->>> >> The game: Hellpoint (GOG Linux latest version, Unity3D-Engine v2021),
->>> >> uses vulkan
->>> >>
->>> >> ---
->>> >>
->>> >> I came a long road of kernels. I had many versions of 5.4, 5.10, 5.15,
->>> >> 6.1 and 6.6 and and the game was always unplayable, because the frames
->>> >> where around 1fps (performance of PC is not the problem).
->>> >> I asked the mesa and cinnamon team for help in the past, but also with
->>> >> no luck.
->>> >> It never worked, till on 2025-03-29 when I installed 6.12.19 for the
->>> >> first time and it worked!
->>> >>
->>> >> But it only worked with 6.12.19, 6.12.20 and 6.12.21
->>> >> When I updated to 6.12.25, it was back to unplayable.
->>> >
->>> > Can you bisect to see what fixed it in 6.12.19 or what broke it in
->>> > 6.12.25?  For example if it was working in 6.12.21 and not working in
->>> > 6.12.25, you can bisect between 6.12.21 and .25.
->>> >
->>> > Alex
->>> >
->>> >>
->>> >> For testing I installed 6.14.4 with the same result. It doesn't work.
->>> >>
->>> >> I also compared file /proc/config.gz of both kernels (6.12.21 <>
->>> >> 6.14.4), but can't seem to see drastic changes to the graphical part.
->>> >>
->>> >> I presume it has something to do with amdgpu.
->>> >>
->>> >> If you need more information, I would be happy to help.
->>> >>
->>> >> Kind regards,
->>> >> Marion
+> + */
+> +struct drm_sched_entity_stats {
+> +	struct kref	kref;
+> +	spinlock_t	lock;
+> +	ktime_t		runtime;
+> +};
+> =C2=A0
+> =C2=A0/* Used to choose between FIFO and RR job-scheduling */
+> =C2=A0extern int drm_sched_policy;
+> @@ -93,4 +114,54 @@ drm_sched_entity_is_ready(struct drm_sched_entity *en=
+tity)
+> =C2=A0	return true;
+> =C2=A0}
+> =C2=A0
+> +void drm_sched_entity_stats_release(struct kref *kref);
+> +
+> +/**
+> + * drm_sched_entity_stats_get - Obtain a reference count on struct drm_s=
+ched_entity_stats object
+
+If you want to cross-link it you need a '&struct'
+
+> + *
+> + * @stats: struct drm_sched_entity_stats pointer
+> + *
+> + * Returns: struct drm_sched_entity_stats pointer
+> + */
+> +static inline struct drm_sched_entity_stats *
+> +drm_sched_entity_stats_get(struct drm_sched_entity_stats *stats)
+> +{
+> +	kref_get(&stats->kref);
+> +
+> +	return stats;
+> +}
+> +
+> +/**
+> + * drm_sched_entity_stats_put - Release a reference count on struct drm_=
+sched_entity_stats object
+
+Same
+
+> + *
+> + * @stats: struct drm_sched_entity_stats pointer
+> + */
+> +static inline void
+> +drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
+> +{
+> +	kref_put(&stats->kref, drm_sched_entity_stats_release);
+> +}
+> +
+> +/**
+> + * drm_sched_entity_stats_job_add_gpu_time - Account job execution time =
+to entity
+> + *
+> + * @job: Scheduler job to account.
+> + *
+> + * Accounts the execution time of @job to its respective entity stats ob=
+ject.
+> + */
+> +static inline void
+> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+> +{
+> +	struct drm_sched_entity_stats *stats =3D job->entity_stats;
+> +	struct drm_sched_fence *s_fence =3D job->s_fence;
+> +	ktime_t start, end;
+> +
+> +	start =3D dma_fence_timestamp(&s_fence->scheduled);
+> +	end =3D dma_fence_timestamp(&s_fence->finished);
+> +
+> +	spin_lock(&stats->lock);
+> +	stats->runtime =3D ktime_add(stats->runtime, ktime_sub(end, start));
+> +	spin_unlock(&stats->lock);
+> +}
+> +
+> =C2=A0#endif
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index 41e076fdcb0d..f180d292bf66 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -658,6 +658,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+> =C2=A0
+> =C2=A0	job->sched =3D sched;
+> =C2=A0	job->s_priority =3D entity->priority;
+> +	job->entity_stats =3D drm_sched_entity_stats_get(entity->stats);
+> =C2=A0
+> =C2=A0	drm_sched_fence_init(job->s_fence, job->entity);
+> =C2=A0}
+> @@ -846,6 +847,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
+> =C2=A0		 * been called.
+> =C2=A0		 */
+> =C2=A0		dma_fence_put(&job->s_fence->finished);
+> +		drm_sched_entity_stats_put(job->entity_stats);
+
+Maybe you want to comment on this patch here:
+
+https://lore.kernel.org/dri-devel/20250926123630.200920-2-phasta@kernel.org=
+/
+
+I submitted it becausue of this change you make here.
+
+
+> =C2=A0	} else {
+> =C2=A0		/* The job was aborted before it has been committed to be run;
+> =C2=A0		 * notably, drm_sched_job_arm() has not been called.
+> @@ -997,8 +999,10 @@ static void drm_sched_free_job_work(struct work_stru=
+ct *w)
+> =C2=A0		container_of(w, struct drm_gpu_scheduler, work_free_job);
+> =C2=A0	struct drm_sched_job *job;
+> =C2=A0
+> -	while ((job =3D drm_sched_get_finished_job(sched)))
+> +	while ((job =3D drm_sched_get_finished_job(sched))) {
+> +		drm_sched_entity_stats_job_add_gpu_time(job);
+> =C2=A0		sched->ops->free_job(job);
+> +	}
+> =C2=A0
+> =C2=A0	drm_sched_run_job_queue(sched);
+> =C2=A0}
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index 8992393ed200..93d0b7224a57 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -71,6 +71,8 @@ enum drm_sched_priority {
+> =C2=A0	DRM_SCHED_PRIORITY_COUNT
+> =C2=A0};
+> =C2=A0
+> +struct drm_sched_entity_stats;
+> +
+> =C2=A0/**
+> =C2=A0 * struct drm_sched_entity - A wrapper around a job queue (typicall=
+y
+> =C2=A0 * attached to the DRM file_priv).
+> @@ -110,6 +112,11 @@ struct drm_sched_entity {
+> =C2=A0	 */
+> =C2=A0	struct drm_sched_rq		*rq;
+> =C2=A0
+> +	/**
+> +	 * @stats: Stats object reference held by the entity and jobs.
+> +	 */
+> +	struct drm_sched_entity_stats	*stats;
+> +
+> =C2=A0	/**
+> =C2=A0	 * @sched_list:
+> =C2=A0	 *
+> @@ -365,6 +372,11 @@ struct drm_sched_job {
+> =C2=A0	struct drm_sched_fence		*s_fence;
+> =C2=A0	struct drm_sched_entity=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 *entity;
+> =C2=A0
+> +	/**
+> +	 * @entity_stats: Stats object reference held by the job and entity.
+> +	 */
+> +	struct drm_sched_entity_stats	*entity_stats;
+> +
+> =C2=A0	enum drm_sched_priority		s_priority;
+> =C2=A0	u32				credits;
+> =C2=A0	/** @last_dependency: tracks @dependencies as they signal */
+
+
+Code itself looks correct and very nice and clean to me.
+
+P.
