@@ -4,54 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED087CCD18A
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 08:12:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04553CCD183
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 08:12:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24F8010E2EC;
-	Sat, 11 Oct 2025 08:12:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29CDE10E2EE;
+	Sat, 11 Oct 2025 08:12:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="IrxOznIy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eZvgFRnd";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C44010EBF5;
- Fri, 10 Oct 2025 13:00:36 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4cjn0c10kdz9syH;
- Fri, 10 Oct 2025 15:00:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1760101232; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TLIhDU/p+IflmAdqbIOQxZ/XHaPTSJJIRgHYZPVXxSk=;
- b=IrxOznIyKyysWbmObTYvoiH845IbhzpA6l72vSYF2GoOagWDeXfT5TWY0spiVju4BEvGEU
- 2qRQNnLEMRjOIs6Yz9VTwI2xNRaQK2pBwjaesON6jDEquBopPkNn6tRXGS37SYk7ZuA6T4
- +6cURS6Jc1RUrg8JkjrvrRa1TornwZGfspM1gYIFxGq9E+wWu2ZkTyCH7h1arIO9S1USWI
- TrlRrnipA6IWobuhPfj6IQ9dsoT3xCt1ys4SMznYFGJs81XoCpzEks7J40k89cgyfgC5j3
- LWsVC2XYgt6MovCnpXv+EPgokJiORpVBo2rM29DTDdcNkFqWENr7itd3Npvxvw==
-Message-ID: <c45f98141507f25e4bf7d22a99a63ac048071bd2.camel@mailbox.org>
-Subject: Re: [PATCH 28/28] drm/sched: Remove drm_sched_init_args->num_rqs
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
-Date: Fri, 10 Oct 2025 15:00:25 +0200
-In-Reply-To: <20251008085359.52404-29-tvrtko.ursulin@igalia.com>
-References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
- <20251008085359.52404-29-tvrtko.ursulin@igalia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF36D10EC1B;
+ Fri, 10 Oct 2025 14:14:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1760105671; x=1791641671;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=jRiJX0JMatRA7BUImWYN04sDgEiWcIkDqcKsEXwdEEk=;
+ b=eZvgFRnd5TqmPqcuNoE/yEh14uFrXLTqCNAUn3ctll5ws9Hpm5x6ljs+
+ bh3Va1Gome8yrlaEebmbkQvHTsIzOgDCwaXiS4khkfsfhJxLzzW0rjqnz
+ 57KudrknW1p6KIoMyss8BanQ5UwiwQ/cyU4uaojuppJ/jQdd/k7ip6LPc
+ S9LzACOBmu3EBLBaidCMRpoxk3MLyhZS7hUPbsTsOAKdPtLIQgtvVq7VI
+ Ln28bzcYL41VD0zsyFP/erVmTGu+3j095CvJg+ZakElXbJcxWUiJsc3Ik
+ Kblrz0jQxJl3xNKDQss1MVZJPXwTltKtLHX49RILrCnCqTyzGNqswFGZ7 w==;
+X-CSE-ConnectionGUID: iU3FLOw1SB+6PlLUIOwTJQ==
+X-CSE-MsgGUID: 9JTHMCHDSfOQMqmZzJOZww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11578"; a="73765850"
+X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="73765850"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2025 07:14:31 -0700
+X-CSE-ConnectionGUID: YxSJZNYrTmC5GWtrnTbBKw==
+X-CSE-MsgGUID: EVLY1midQa6GjeDgwuwOgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,219,1754982000"; d="scan'208";a="180102482"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO [10.245.245.154])
+ ([10.245.245.154])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2025 07:14:28 -0700
+Message-ID: <f32a164197b7d25dff42432007b9926ec5575e2f.camel@linux.intel.com>
+Subject: Re: [PATCH v3 5/5] drm/amdgpu: Configure max beneficial TTM pool
+ allocation order
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Matthew Brost
+ <matthew.brost@intel.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Thadeu Lima de Souza
+ Cascardo <cascardo@igalia.com>
+Date: Fri, 10 Oct 2025 16:14:26 +0200
+In-Reply-To: <01bacdec-f1bd-4ddc-a537-6a091c1a1eb8@igalia.com>
+References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
+ <20251008115314.55438-6-tvrtko.ursulin@igalia.com>
+ <aObxU8vEbEQEf7QO@lstrano-desk.jf.intel.com>
+ <01bacdec-f1bd-4ddc-a537-6a091c1a1eb8@igalia.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
 MIME-Version: 1.0
-X-MBO-RS-META: rffjtbziqsi7x5p4qcm6u6iywdm7nfss
-X-MBO-RS-ID: b4b61756596c27f9b73
 X-Mailman-Approved-At: Sat, 11 Oct 2025 08:12:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,53 +75,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-10-08 at 09:53 +0100, Tvrtko Ursulin wrote:
-> Remove member no longer used by the scheduler core.
-
-"scheduler core and all drivers."
-
-Apart from that, very nice that we can simplify the init-interface.
-
-P.
-
+On Thu, 2025-10-09 at 09:58 +0100, Tvrtko Ursulin wrote:
 >=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0include/drm/gpu_scheduler.h | 3 ---
-> =C2=A01 file changed, 3 deletions(-)
+> On 09/10/2025 00:18, Matthew Brost wrote:
+> > On Wed, Oct 08, 2025 at 12:53:14PM +0100, Tvrtko Ursulin wrote:
+> > > Let the TTM pool allocator know that we can afford for it to
+> > > expend less
+> > > effort for satisfying contiguous allocations larger than 2MiB.
+> > > The latter
+> > > is the maximum relevant PTE entry size and the driver and
+> > > hardware are
+> > > happy to get larger blocks only opportunistically.
+> > >=20
+> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> >=20
+> > +Thomas - Seems like we'd want to do this in Xe too?
+
+Yeah, Indeed.
+
+While IIRC we can actually set up 1GiB PTEs, I'm not aware of any huge
+benefits from using that compared to 2MiB ones. We certainly want the
+allocator to try pretty hard for 2MiB ones, though.
+
+Thanks,
+Thomas
+
+
+> >=20
+> > > ---
+> > > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++--
+> > > =C2=A0 1 file changed, 3 insertions(+), 2 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > > index 948c6d0a422b..723b885210a7 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > > @@ -1837,7 +1837,7 @@ static int amdgpu_ttm_pools_init(struct
+> > > amdgpu_device *adev)
+> > > =C2=A0=C2=A0	for (i =3D 0; i < adev->gmc.num_mem_partitions; i++) {
+> > > =C2=A0=C2=A0		ttm_pool_init(&adev->mman.ttm_pools[i], adev-
+> > > >dev,
+> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-
+> > > >gmc.mem_partitions[i].numa.node,
+> > > -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0);
+> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > > TTM_POOL_BENEFICIAL_ORDER(get_order(2 * SZ_1M)));
+> >=20
+> > SZ_2M btw.
 >=20
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 21129c98ce56..910c43fedcb9 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -607,8 +607,6 @@ struct drm_gpu_scheduler {
-> =C2=A0 * @ops: backend operations provided by the driver
-> =C2=A0 * @submit_wq: workqueue to use for submission. If NULL, an ordered=
- wq is
-> =C2=A0 *	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 allocated and used.
-> - * @num_rqs: Number of run-queues. This may be at most DRM_SCHED_PRIORIT=
-Y_COUNT,
-> - *	=C2=A0=C2=A0=C2=A0=C2=A0 as there's usually one run-queue per priorit=
-y, but may be less.
-> =C2=A0 * @credit_limit: the number of credits this scheduler can hold fro=
-m all jobs
-> =C2=A0 * @hang_limit: number of times to allow a job to hang before dropp=
-ing it.
-> =C2=A0 *		This mechanism is DEPRECATED. Set it to 0.
-> @@ -622,7 +620,6 @@ struct drm_sched_init_args {
-> =C2=A0	const struct drm_sched_backend_ops *ops;
-> =C2=A0	struct workqueue_struct *submit_wq;
-> =C2=A0	struct workqueue_struct *timeout_wq;
-> -	u32 num_rqs;
-> =C2=A0	u32 credit_limit;
-> =C2=A0	unsigned int hang_limit;
-> =C2=A0	long timeout;
+> I thought I grepped exactly to see if that existed but apparently I
+> did=20
+> not, thanks!
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> >=20
+> > Matt
+> >=20
+> > > =C2=A0=C2=A0	}
+> > > =C2=A0=C2=A0	return 0;
+> > > =C2=A0 }
+> > > @@ -1931,7 +1931,8 @@ int amdgpu_ttm_init(struct amdgpu_device
+> > > *adev)
+> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev_to_drm(adev)=
+->anon_inode-
+> > > >i_mapping,
+> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev_to_drm(adev)=
+-
+> > > >vma_offset_manager,
+> > > =C2=A0=C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (adev->need_swiot=
+lb ?
+> > > TTM_POOL_USE_DMA_ALLOC : 0) |
+> > > -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (dma_addressing_limited(adev=
+-
+> > > >dev) ? TTM_POOL_USE_DMA32 : 0));
+> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (dma_addressing_limited(adev=
+-
+> > > >dev) ? TTM_POOL_USE_DMA32 : 0) |
+> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > > TTM_POOL_BENEFICIAL_ORDER(get_order(2 * SZ_1M)));
+> > > =C2=A0=C2=A0	if (r) {
+> > > =C2=A0=C2=A0		dev_err(adev->dev,
+> > > =C2=A0=C2=A0			"failed initializing buffer object
+> > > driver(%d).\n", r);
+> > > --=20
+> > > 2.48.0
+> > >=20
+>=20
 
