@@ -4,74 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 114C7CCD183
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 08:12:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E151CCD184
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 10:31:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0EFE10E2F1;
-	Sat, 11 Oct 2025 08:12:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D15A110E06F;
+	Sat, 11 Oct 2025 10:31:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kerneltoast.com header.i=@kerneltoast.com header.b="RD0PBUM/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q0C8h7Pk";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B5010E02B
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 06:54:37 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-781ea2cee3fso2713925b3a.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Oct 2025 23:54:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kerneltoast.com; s=google; t=1760165677; x=1760770477;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=iDQcnn3pxOhIHS3GpwRTBdoBsGmY53pQuOP5P07pL6A=;
- b=RD0PBUM/KkPEdYOR1NGAeKNlEfEktI/AZEXvQiF2OCkZzZUGSfbO5YmNycnSyj3jNK
- 42tLIQY+d/WpTY+w05cFKKyfRe1X44rTlo+RP6FRqfFGeVMLMfCRvdNkZLQLQ9VrcinW
- NL0GjNVf8ESHtUjjPN3YahDghroz+10HX7xEWDxaBy1xN+XzVS0MDfAAUn7sxdcikgOG
- 4GXn1YQtCtoaYWkKWBvcfjL62Q2u0ilVNCIO+bHw78IPW8EsRx8VjkZy/Wzybqv8eZKE
- b6HD9bjp6q8P2+LrpA6qdRomnACd20nYQU0Xvf4h2886A/fPENL7y7OfjNP488OG9MUf
- uCVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760165677; x=1760770477;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iDQcnn3pxOhIHS3GpwRTBdoBsGmY53pQuOP5P07pL6A=;
- b=trF5S2cyRh160jWleu/WTMe7qe4pbc22F4CxEIalcyjEgSfb4IcmpkhWyv7g7Tjy55
- klX+0UsrBcVjhNoCgFHGwI31eVZG43CJR8mUS/MkaZXY+i3BNzRopSrXXRsygYCZyJVe
- 9CobFic3A09Mi+XBRQxJqALykij4LqLnRD2Tzl+SGkWDjwSOaBAgwAo+hnvWtjJl6Xud
- 8hATiFxI0bfSEaGC3OoaOO9R9CXzMrROz4S+hRUq5OfDSoA4dzNZkSx3lXMzvItm9CAS
- wT/s0LWXyw3aZHmIPBmDZtrKszj3ktyQ1oVMMkanBNfdWfLTum3ywTV7hwhm7yb1y15U
- mlXA==
-X-Gm-Message-State: AOJu0YySOq2VCjFVYuuVkoj+HlbIg/omdIQ2owcOANW6OEgdNSySRqyu
- ygibNNy97I0XtZmXZ6iA/sl7UFjop1Wg8XglqKzK+XnSCuXHw5WX7E9Zurfy5RdghVLp
-X-Gm-Gg: ASbGncuLulr/1VNNmoqOzuELVFRd7h9SZw1dk+ZiR7mMlPK949M/nQfb4S/0CnI0jBT
- DZsgLt+DZwrWfkAj/YDSYulNylZoWNql5IisyisqYbjQb2/uKWzjSOO/VslcoKNMzmEPSs8Swh8
- 1QFwjfCax9Hlt7mUbc8f9KWImqxadH9lEsBISKPc+DM055Pngpc3lf5+sxo3dMTlgSiTYyyokAl
- A3pZekgrZxC0G1B34/2Ngcznn9lHxjfpe6pmz5UW/nU1ashdwSwISPU3CZHpiTxyaVdHMb8+fjz
- 2eMMN7YD8WM7/SZZMdYztDnWEAVdfOEFsdY8YLBxQ+gyR8Xm69xm7rO0NtzQLaT2D4CJCVaQ5RU
- iWAIa9I+OXdecK1wUx86AEIZ/+Vwqejv/k/oa7uPcDwr2
-X-Google-Smtp-Source: AGHT+IHNPizZawjqTWGrfn6IOIpWny2OWD1EGULxdmCnGOIAEo0y9U4RIB7Opozi6Z2DGZG33VMlZw==
-X-Received: by 2002:a05:6a00:2ea1:b0:781:2272:b704 with SMTP id
- d2e1a72fcca58-793853260damr18513421b3a.5.1760165676649; 
- Fri, 10 Oct 2025 23:54:36 -0700 (PDT)
-Received: from sultan-box ([142.147.89.233]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7992bb19a14sm5059080b3a.28.2025.10.10.23.54.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Oct 2025 23:54:36 -0700 (PDT)
-Date: Fri, 10 Oct 2025 23:54:33 -0700
-From: Sultan Alsawaf <sultan@kerneltoast.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Peyton.Lee@amd.com
-Subject: Re: [PATCH v2] drm/amd: Check that VPE has reached DPM0 in idle
- handler
-Message-ID: <aOn_KQXm2uPDZkWu@sultan-box>
-References: <20251011003723.209074-1-mario.limonciello@amd.com>
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010017.outbound.protection.outlook.com [52.101.46.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7174F10E06F
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 10:31:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oU5rLixrajsfFe0xqEJooipGzht2c/W+1W9SqiK2jOAY5U4SS335YsoWKJwsZReOTdMdW2Nw7ISbxAJTmoOKWp8DMuS5B2GTGrzZ2BAUIZuBvadSJzJB/8OBcBimY2cQEKlcCwPVJcU2ErRapvN6JvNDPiXUZ25h2vlta9bjJ6Mn7tvCEcxm9mRXOOQ6+KEcI2nR0fq7Xad3kMMtoOSK7Y0w5M+ksrPB+D0s4NqfqmQvHJg2RaQg1AN4XnhGUj7A1LzQElChlS7k6voLZlM8zQOgEo4qzp/ZIzo1FwCSX1IoMd+fIAPHaf7/21vP5lZEeeFLJI1YqhtZwWGF6GQvAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0yrcDptrpjZO7JCQ56nlcVjFKiV8bu8sMFDHvbLT7Dc=;
+ b=lJU5hAMDTMOBFTLPG6uUStU56d9hyLW6w1JmFRRxU3UGq13sWaKEoL/Pb2u52CDcfGRcluHRdR+ynrD+Ayit6Dm4hboqyNJKz3eYGokjurpeEB5/lWYMTxNds24Zfkmf+pj5EKxuqz7GX2wxyqmlfd+Sh8RJLtYHWl4Z0kzdyS73ygKR0/tj+BNxgEzgv3NFVPPmejMZn5TID5qtiq6EwANTPV7wghHhCjAkrffrJ5pFaj3fQohrsa63sEHFBgSp43J50ovaNG7Lm/g+2+Pihxf1y5pYDuCyKoTqqVmn2bAXEsha4L4ZvJ2ITeQAaz7+pB1yel8EqW+/W88I1+dGQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0yrcDptrpjZO7JCQ56nlcVjFKiV8bu8sMFDHvbLT7Dc=;
+ b=q0C8h7Pkov9RQV6sYxBpTcR/yhxvvPubfbLRTMPx94qPJ0wBWhR0oqrj4gEboHXKgGL4rCRU1jeC57a/otvRwvKJ1aETRft1Mb5rO8pJ40q3LRMnYxLttqUMrrxO6ad9rCpT/FZVKard2U6VnnXG5tQuxXmLDWenVEFCysniyI4=
+Received: from SJ0PR05CA0161.namprd05.prod.outlook.com (2603:10b6:a03:339::16)
+ by MW4PR12MB7288.namprd12.prod.outlook.com (2603:10b6:303:223::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.9; Sat, 11 Oct
+ 2025 10:31:38 +0000
+Received: from SJ1PEPF00002325.namprd03.prod.outlook.com
+ (2603:10b6:a03:339:cafe::14) by SJ0PR05CA0161.outlook.office365.com
+ (2603:10b6:a03:339::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.7 via Frontend Transport; Sat,
+ 11 Oct 2025 10:31:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00002325.mail.protection.outlook.com (10.167.242.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9228.7 via Frontend Transport; Sat, 11 Oct 2025 10:31:38 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Sat, 11 Oct
+ 2025 03:31:37 -0700
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sat, 11 Oct
+ 2025 05:31:32 -0500
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Sat, 11 Oct 2025 03:31:26 -0700
+From: Jesse.Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse.Zhang <Jesse.Zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix NULL pointer dereference in APU threshold
+ calculation
+Date: Sat, 11 Oct 2025 18:30:16 +0800
+Message-ID: <20251011103120.1262736-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251011003723.209074-1-mario.limonciello@amd.com>
-X-Mailman-Approved-At: Sat, 11 Oct 2025 08:12:46 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: Jesse.Zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002325:EE_|MW4PR12MB7288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97f50e2b-2514-44a8-e835-08de08b15c42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IZvLkUueID9gi7D0gkv9kLe6bItQ/+stVmLe6sL1srXMKe0sorqrD6+Hr+jA?=
+ =?us-ascii?Q?0yc+GacdJj8rd8sBNvgKTeciNjB2SSkNC6EuItCHGzCKa28NQtdwWhG1SNtd?=
+ =?us-ascii?Q?GDusgAaMaxnzjHYVIq9pbLTNIcvuQTrKmJdVUuosbZv2hW2ThlfTA+jOIlDD?=
+ =?us-ascii?Q?dZwd3oXgLEGls4j1VFsdV20RAAy5jwPjo6AeDWxS3DaYuJDJswsr39mqh5JD?=
+ =?us-ascii?Q?UE7dktV72472/IKWzxv0f5DQHRiXAWoGscCV0BavlCGn4qXgHsYoRo/LaWee?=
+ =?us-ascii?Q?iMG/08D/1g75Nc9z9pV40oAfVtru51IFANRC4VCoAWmm8vOuUYcZGI0jSlub?=
+ =?us-ascii?Q?m+YWvh8LSM/pKEIcvUsm7oDJrT373W1tyAK/Cxxe/9HVbrfpOaSj2+GE8kld?=
+ =?us-ascii?Q?6Y0jIBry4REs+3XVjwBb+HUxmssXENLtqTZYxIFweaTGWQqrs8GlOHodypkI?=
+ =?us-ascii?Q?6bhxBDJyRsQbO295BnrBhXvnKnU4+hOXODsfYVQlQrexWqqBvknvxZp1o6qr?=
+ =?us-ascii?Q?FZNBXY+jVGplbf7FRehVIMjAd27++HFqjcjoGV8JhT0jTLyKtEWIVLHJhnq+?=
+ =?us-ascii?Q?Qn0M/lhktCFcqXP5ejUyQBup71Ig860mbu3tlAScV5riNmR0C57ROVUROyol?=
+ =?us-ascii?Q?tzOLh5dFkCHz0TGro1S3EuRwibvgQWzwNp0Sx1Zurcklnf0URHVcsXuMDBfj?=
+ =?us-ascii?Q?HCJ4SY+253PctuGWbsbsP+BFCwD9I0GSxbIA2f/zYHOIMmok/F00+vyD6wTP?=
+ =?us-ascii?Q?LKtoUhZnsTBT8jGPVBbsSU7P/jN4ZGZdasF2hVA+IO4Xm5gq2YNRaQlMClUr?=
+ =?us-ascii?Q?obsdMk/z5Gz9/BvI82OSl3f+m4pR5ZrvRVFjUCQHCcQ6LIAgAOHq89cH5ikk?=
+ =?us-ascii?Q?SZ0LDUNcs7DefUcB/7wrQjGjTf+HMLBDx5rLyPt0bAZEZkzWEJJ3Vah5fSSZ?=
+ =?us-ascii?Q?/RaseemJdVOl/3CooF7st2I+XvnXzJKWcEMXJSp4Geb4l5XysYPRIpJHKErX?=
+ =?us-ascii?Q?HIffCUWoD1h3HPEDLp7igN7O9tzpfvpM9XKB/dAv9qNu/GTki7Js5Imo6N25?=
+ =?us-ascii?Q?7qQIqIBI+Qb2u8P3nKVhnXLAahr9PUVtFVEBhuHBPz1hmoAkfmMPpq2yMLl9?=
+ =?us-ascii?Q?8iXyZMngngcHonm7PFK26zFxhc0GnWI9HEZVWUfkka2pe51II6nfvqo+PaQj?=
+ =?us-ascii?Q?JbxuyWrPnjCT4hVJu82Eph7Mjg3DxB3WIhChnkBr4lALRIOVTInM8xuXnbzB?=
+ =?us-ascii?Q?wz7XsaxYYkEFDKOwAPruUeGh/dCj7jk0zDlDL34dXHNLy/eb2WnvAWAgaYxZ?=
+ =?us-ascii?Q?Vx3K6G4CNgzs5+16O2NA/WCcoxHZmriOVez02oy5jwkoVA+M2hq5NPDFMTy8?=
+ =?us-ascii?Q?f7LNwv5ScS04Z5ekcuqucy9fqWN4j6Hn+0bitsxiAN00NYJcawomYxL54Ukm?=
+ =?us-ascii?Q?ABkuZvYod40eTolteH4BYobGjcUiuTo6QoBhB0T9gPem9GGanafEe4mKIqte?=
+ =?us-ascii?Q?x7jEjl4zSrbYHL6qcF4dUIa18tj/srJ4513iDaYsnkOVYzX2oMbs7AZdSwQH?=
+ =?us-ascii?Q?a6cyZuvRwIBC19cxQsg=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2025 10:31:38.1968 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97f50e2b-2514-44a8-e835-08de08b15c42
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002325.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,59 +139,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+The kernel OOPS occurs due to a NULL pointer dereference in
+amdttm_resource_manager_usage() when accessing the ttm_resource_manager lock,
+specifically on APU devices:
 
-On Fri, Oct 10, 2025 at 07:37:22PM -0500, Mario Limonciello wrote:
-> [Why]
-> Newer VPE microcode has functionality that will decrease DPM level
-> only when a workload has run for 2 or more seconds.  If VPE is turned
-> off before this DPM decrease, the SOC can get stuck with a higher
-> DPM level.
-> 
-> This can happen from amdgpu's ring buffer test because it's a short
-> quick workload for VPE and VPE is turned off after 1s.
-> 
-> [How]
-> In idle handler besides checking fences are drained check that VPE DPM
-> level is really is at DPM0. If not, schedule delayed work again until
-> it is.
-> 
-> Cc: Peyton.Lee@amd.com
-> Reported-by: Sultan Alsawaf <sultan@kerneltoast.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4615
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> Drop unnecessary spurious dpm_level variable
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> index 474bfe36c0c2..9065d799c2c4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> @@ -326,11 +326,16 @@ static void vpe_idle_work_handler(struct work_struct *work)
->  {
->  	struct amdgpu_device *adev =
->  		container_of(work, struct amdgpu_device, vpe.idle_work.work);
-> +	struct amdgpu_vpe *vpe = &adev->vpe;
->  	unsigned int fences = 0;
-> +	uint32_t dpm_level;
->  
->  	fences += amdgpu_fence_count_emitted(&adev->vpe.ring);
->  
-> -	if (fences == 0)
-> +	dpm_level = adev->pm.dpm_enabled ?
-> +		    RREG32(vpe_get_reg_offset(vpe, 0, vpe->regs.dpm_request_lv)) : 0;
+[  911.954646] BUG: kernel NULL pointer dereference, address: 00000000000008f8
+[  911.962437] #PF: supervisor write access in kernel mode
+[  912.007045] RIP: 0010:_raw_spin_lock+0x1e/0x40
+[  912.105151]  amdttm_resource_manager_usage+0x1f/0x40 [amdttm]
+[  912.111579]  amdgpu_cs_parser_bos.isra.0+0x543/0x800 [amdgpu]
 
-This register read can be skipped when fences != 0. Perhaps with a goto label?
+This happens because APU devices (adev->gmc.is_app_apu) don't initialize
+vram_mgr.manager (no dedicated VRAM), but the code still attempted to calculate
+memory migration thresholds using VRAM-specific logic.
 
-> +
-> +	if (fences == 0 && dpm_level == 0)
->  		amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VPE, AMD_PG_STATE_GATE);
->  	else
->  		schedule_delayed_work(&adev->vpe.idle_work, VPE_IDLE_TIMEOUT);
-> -- 
-> 2.51.0
-> 
+Fix this by:
+1. Merging APU check with the existing bandwidth control support check in
+   amdgpu_cs_get_threshold_for_moves()
+2. Returning 0 thresholds immediately for APU devices to skip VRAM-related logic
 
-Sultan
+This prevents accessing uninitialized vram_mgr.manager on APUs and avoids the
+NULL pointer dereference in _raw_spin_lock().
+
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 5f515fdcc775..d80414b32015 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -709,7 +709,7 @@ static void amdgpu_cs_get_threshold_for_moves(struct amdgpu_device *adev,
+ 	 */
+ 	const s64 us_upper_bound = 200000;
+ 
+-	if (!adev->mm_stats.log2_max_MBps) {
++	if ((!adev->mm_stats.log2_max_MBps) || adev->gmc.is_app_apu) {
+ 		*max_bytes = 0;
+ 		*max_vis_bytes = 0;
+ 		return;
+-- 
+2.49.0
+
