@@ -4,73 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 208C4CCD18E
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 07:35:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 283B3CCA476
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 07:35:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3B8210E3E2;
-	Mon, 13 Oct 2025 07:35:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE89D10E3E6;
+	Mon, 13 Oct 2025 07:35:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N/+UaXey";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kXPFHSPE";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A326510E308
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 13:48:21 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-634a3327ff7so6061395a12.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 06:48:21 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2918310E2ED
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 13:48:03 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-63994113841so5249914a12.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 06:48:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760190500; x=1760795300; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PebmmdCfBWk7RgAMCUAjCzl0inAHP/W0+pRTkKWcC/I=;
- b=N/+UaXey82ea1gK+zE0uecX5Sj+roeA++N225hUqqBojrBl8+ofFm6nK7XvLG4u5R4
- yi4jgTI1aXcAdW2JWXa5V56zJM2rZayEGBZdkE4KOHm0Li4JQuU9gccC+ICoxWxLmCV2
- w+1BXQqWFp5onz/GyfywxSD+aQhUppUo9XLS5mLuDSUDD0M9gHgrGZjpix107xlFzF8X
- ot6oHADuI5ZyNw+BiAbFcJc44F0I2Syz8CtJRFUHwANHkPjSH/yhsTleUNQ+xetKOgcW
- 1Rhkj/XjlXqy3XX4wcCqpyaA+8i5xcrVeNDT46rQD2AkMusUh1tu/2BE4o6t4YmWMhBN
- 20Tw==
+ d=gmail.com; s=20230601; t=1760190481; x=1760795281; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=O170WPdulyrU1Gecp4KBZecpJyTKM3vtAtwxUA+waHs=;
+ b=kXPFHSPELsJgscQnpSrp4cFL95PbFidn7A9iztQpfblHb4YuUhJA15JA+SHxJf8EIi
+ a/w3SHkQis5EQ42m1bHRMq3779wQXKb56+GI4yosANF76KG7vVkmbcmmiA+QgbD+qmzy
+ mnDV5LJfPS6L2gr25xlbodcvdqyb2rMgI0Kkbq/WQSTKazmRHeJXxcB7Aqv36bfwFCC1
+ JxEJCdDt5X8G3DdWTEaHM6F4PbxteHnP49EfmkUzrWm9Jgmr9qXy2nFPr0DaG02YxfZl
+ /ki65dH8phddDPb41RMuIqt6GKb1Qh1p0zDdd9pr3OPkJcK2JYJkFfSKnuzvJwZvh8ie
+ V0YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760190500; x=1760795300;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PebmmdCfBWk7RgAMCUAjCzl0inAHP/W0+pRTkKWcC/I=;
- b=WVI5e9rSHsoMJvochF6mQmPu1ab2oFrGFt9VGBp5/Se8e0SGEXV3pmin/POnANLMKL
- 8jSvrTGNotBqO1mhFwrF9fbpYoAlZgcNf5atzbcILFk7n4WurxE6QBX97h4V9q0k/eo9
- D5yKHUpHniEBoas7dfkQGt9KD6wdGc4BkV9m81AADTXBhR84VRsQl+FYPUeA3E+0+r28
- 2UCMEehtc3aghyaet9xSZeTCuc5m+gAx8TXRzUxvlQEZALXCqbhgjbgXIWSxrLrjEudf
- P65jtBAweZmZDixaLJQzLYDbVqoZeW1+CaA7xAoWc5bIZK3As+Hotyc2QaGvLD3ZRbHo
- INow==
-X-Gm-Message-State: AOJu0YzXarTe5kW9QV7dvmHIrSAlIj/S8iubWeE6V49uDzfrekHLIjs2
- QOHcSra6i+uO2gqZHGUxqUn89oZnUEsqk7NHrsThXzRMWNiNkH/Qw0UfaI6vJw==
-X-Gm-Gg: ASbGncvmXTikm+sNoRC8OGrRw5yXmP1X8H0ip6EtNJNcqAhBUgTrcJg3/dwcdXXlT7q
- HeyYDIMmwNnm/sSzcx0fvvVvpC3tY/LXdTSvx7gyMXk3GaybKBlvx65B7QPxWPVpF2i9sM6jsW+
- HRFKd7CSIddzNXOdFyp8OrvJNt+SnCwTATypJdPvADW3IVz+Um4V1a8PCvLT7NOZq/HW82JnBUd
- E1mlwfvid+S9qHH06ewHtf89CFiFzlZ9/miBYJ/MtS/gebDjpgds2Z03gpOM2ej5xROB6hmAPXc
- Ds7CeFoDESgMEtcsxNAp/Aax67XhadARxyppCQFZ11KWaWoIcWOGd8kHjwEBmRnkTt4yqa956og
- ZPQ1TV9usDuPavLcYgojleGJM8O/qjlzz6Y9VAgVXWmcgsYex8+lJTgvLTC7PmVWqphOVXOZFML
- mxEnhmTYwyGyiZ/3QgbEM=
-X-Google-Smtp-Source: AGHT+IFBuDi/TjemREjWpURnrWYjHFJjFDlBFYDSPOUm56/rvKAOtHo+cge82QezWikb3Dt6FQJ77A==
-X-Received: by 2002:a05:6402:274a:b0:62f:3436:a396 with SMTP id
- 4fb4d7f45d1cf-639d5c5a403mr13332347a12.31.1760190499787; 
- Sat, 11 Oct 2025 06:48:19 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1760190481; x=1760795281;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=O170WPdulyrU1Gecp4KBZecpJyTKM3vtAtwxUA+waHs=;
+ b=GqY3oZDwtvK4eVvwHkE4yAXnhNDPc1Lbcxtnh1AgqxH/enrMHY5NPRFzDOx2JD+6G2
+ InYbtDEDrdE8Y2TrgkQScbW6JjnY3OIKDW7eia+muFC5CcVEkKMP2xPQsFh1SVWut595
+ HesfGwSVB/h4kdq+kthycFpNRk1G8pDLuie4sfxPtzVLLvAPjaczZ0qSfHIRbuatemr4
+ j3ww/0wfdFF25YpltbVhqk0cXLH6GUxZ06/ODiJoAVmOowctg2vdtrBmxT1XJzaFeSKQ
+ ZoQlV7apwB01PtcubpIuZauXH1ZXrF1FUEpVYmWXGb5WNysp+oY3JvCpgQhD4zz0uGxE
+ tLtQ==
+X-Gm-Message-State: AOJu0Yy1AY3+bhbQ9PH65xBk1J8KrEIssf76DihPIXa0K96m32NIFWMC
+ XxXql8Uk/PgLZbxyHMzhraVC98AhagOXecKc/Y848bQcL8xRTRzDV4n2cRq03w==
+X-Gm-Gg: ASbGncsmdMcjm/YpmcXQ/md6ME4Ms90UxTCCHrNZSaKM+27iOTMqpLf5TDHanM4vdKZ
+ S9eyPfe4ryurJhhIwv4/eRIDfnnNCM6JJBhso4ZiVB+nfkGD7for4+7S44fcGsNjIIMhOVmlivP
+ EXPLkzjPIV5O8rSYyED79d63+uyuBmFbDEBkqgkqzyjitTDb9Uscn56D8lAIlwXSrwN6dbQ5yGx
+ 0iT6f+t0rYF9WS2lieLURfZkcjrl+fiHPCVRdfXLA2I7n4PYt+X+jkJkyeTYM8qmDR4iOXknD7U
+ 9ARJNMktEZiMiZgafwnHt7+d2+FfDPdVOntsCL/mI6LBpR+tERIE4qqMmsP3faTZHLcp4Tk12V3
+ Xs/8qXeXp0q0PfpfP0cdHwoMM16sx1BisDJdKrVu1t429SCzsjPh+FU0aPZtIJjrmdF/C1pK49W
+ cpMNsHdo9/
+X-Google-Smtp-Source: AGHT+IEQsF2Ypz3aZgq7vr9l1MjmT7HUR2XeUPXWtppftAPb5DJGKpoMtRfa1ePlENcCgPNAAe9GUQ==
+X-Received: by 2002:a05:6402:5216:b0:632:1faa:3a38 with SMTP id
+ 4fb4d7f45d1cf-639d5c4dc4emr13476747a12.29.1760190481318; 
+ Sat, 11 Oct 2025 06:48:01 -0700 (PDT)
 Received: from hyron-desktop (host-176-36-64-50.b024.la.net.ua. [176.36.64.50])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-63a52b0f358sm4788016a12.10.2025.10.11.06.48.18
+ 4fb4d7f45d1cf-63a52b0f358sm4788016a12.10.2025.10.11.06.47.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Oct 2025 06:48:19 -0700 (PDT)
+ Sat, 11 Oct 2025 06:48:00 -0700 (PDT)
 From: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
-Subject: [PATCH 2/2] drm/amd/pm: Avoid writing nulls into `pp_od_clk_voltage`
- (SMU13/SMU14)
-Date: Sat, 11 Oct 2025 16:47:16 +0300
-Message-ID: <20251011134716.83214-3-ilya.zlobintsev@gmail.com>
+Subject: [PATCH 0/2] drm/amd/pm: Avoid writing nulls into `pp_od_clk_voltage`
+Date: Sat, 11 Oct 2025 16:47:14 +0300
+Message-ID: <20251011134716.83214-1-ilya.zlobintsev@gmail.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251011134716.83214-1-ilya.zlobintsev@gmail.com>
-References: <20251011134716.83214-1-ilya.zlobintsev@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Oct 2025 07:35:45 +0000
@@ -88,210 +84,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 5 +++--
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c | 5 +++--
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 5 +++--
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 5 +++--
- drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c | 5 +++--
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 5 +++--
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c | 5 +++--
- 7 files changed, 21 insertions(+), 14 deletions(-)
+Previously, reading from the `pp_od_clk_voltage` sysfs file would
+include lots of null bytes between the sections, e.g.:
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index c1062e5f0393..993ab66911fa 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -1195,11 +1195,12 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
- 	struct smu_13_0_dpm_table *single_dpm_table;
- 	struct smu_13_0_pcie_table *pcie_table;
- 	uint32_t gen_speed, lane_width;
--	int i, curr_freq, size = 0;
-+	int i, curr_freq, size = 0, start_offset = 0;
- 	int32_t min_value, max_value;
- 	int ret = 0;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
-+	start_offset = size;
- 
- 	if (amdgpu_ras_intr_triggered()) {
- 		size += sysfs_emit_at(buf, size, "unavailable\n");
-@@ -1534,7 +1535,7 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
- 		break;
- 	}
- 
--	return size;
-+	return size - start_offset;
- }
- 
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-index b081ae3e8f43..728bc9087058 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-@@ -497,11 +497,12 @@ static int smu_v13_0_4_get_dpm_level_count(struct smu_context *smu,
- static int smu_v13_0_4_print_clk_levels(struct smu_context *smu,
- 					enum smu_clk_type clk_type, char *buf)
- {
--	int i, idx, size = 0, ret = 0;
-+	int i, idx, size = 0, start_offset = 0, ret = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
- 	uint32_t min, max;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
-+	start_offset = size;
- 
- 	switch (clk_type) {
- 	case SMU_OD_SCLK:
-@@ -565,7 +566,7 @@ static int smu_v13_0_4_print_clk_levels(struct smu_context *smu,
- 		break;
- 	}
- 
--	return size;
-+	return size - start_offset;
- }
- 
- static int smu_v13_0_4_read_sensor(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 285cf7979693..8e7ba5af9540 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -1428,7 +1428,7 @@ static int smu_v13_0_6_print_clks(struct smu_context *smu, char *buf, int size,
- static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 					enum smu_clk_type type, char *buf)
- {
--	int now, size = 0;
-+	int now, size = 0, start_offset = 0;
- 	int ret = 0;
- 	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
- 	struct smu_13_0_dpm_table *single_dpm_table;
-@@ -1437,6 +1437,7 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 	uint32_t min_clk, max_clk;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
-+	start_offset = size;
- 
- 	if (amdgpu_ras_intr_triggered()) {
- 		size += sysfs_emit_at(buf, size, "unavailable\n");
-@@ -1575,7 +1576,7 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 		break;
- 	}
- 
--	return size;
-+	return size - start_offset;
- }
- 
- static int smu_v13_0_6_upload_dpm_level(struct smu_context *smu, bool max,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index c96fa5e49ed6..f1ad2fe0cc42 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -1184,11 +1184,12 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
- 	struct smu_13_0_dpm_table *single_dpm_table;
- 	struct smu_13_0_pcie_table *pcie_table;
- 	uint32_t gen_speed, lane_width;
--	int i, curr_freq, size = 0;
-+	int i, curr_freq, size = 0, start_offset = 0;
- 	int32_t min_value, max_value;
- 	int ret = 0;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
-+	start_offset = size;
- 
- 	if (amdgpu_ras_intr_triggered()) {
- 		size += sysfs_emit_at(buf, size, "unavailable\n");
-@@ -1523,7 +1524,7 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
- 		break;
- 	}
- 
--	return size;
-+	return size - start_offset;
- }
- 
- static int smu_v13_0_7_od_restore_table_single(struct smu_context *smu, long input)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-index 73b4506ef5a8..5d7e671fa3c3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-@@ -1041,12 +1041,13 @@ static uint32_t yellow_carp_get_umd_pstate_clk_default(struct smu_context *smu,
- static int yellow_carp_print_clk_levels(struct smu_context *smu,
- 				enum smu_clk_type clk_type, char *buf)
- {
--	int i, idx, size = 0, ret = 0;
-+	int i, idx, size = 0, ret = 0, start_offset = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
- 	uint32_t min, max;
- 	uint32_t clk_limit = 0;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
-+	start_offset = size;
- 
- 	switch (clk_type) {
- 	case SMU_OD_SCLK:
-@@ -1111,7 +1112,7 @@ static int yellow_carp_print_clk_levels(struct smu_context *smu,
- 	}
- 
- print_clk_out:
--	return size;
-+	return size - start_offset;
- }
- 
- static int yellow_carp_force_clk_levels(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-index fe00c84b1cc6..b1bd946d8e30 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-@@ -1132,11 +1132,12 @@ static int smu_v14_0_common_get_dpm_level_count(struct smu_context *smu,
- static int smu_v14_0_0_print_clk_levels(struct smu_context *smu,
- 					enum smu_clk_type clk_type, char *buf)
- {
--	int i, idx, ret = 0, size = 0;
-+	int i, idx, ret = 0, size = 0, start_offset = 0;
- 	uint32_t cur_value = 0, value = 0, count = 0;
- 	uint32_t min, max;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
-+	start_offset = size;
- 
- 	switch (clk_type) {
- 	case SMU_OD_SCLK:
-@@ -1202,7 +1203,7 @@ static int smu_v14_0_0_print_clk_levels(struct smu_context *smu,
- 		break;
- 	}
- 
--	return size;
-+	return size - start_offset;
- }
- 
- static int smu_v14_0_0_set_soft_freq_limited_range(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 086501cc5213..a5668eb5ee09 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -1056,11 +1056,12 @@ static int smu_v14_0_2_print_clk_levels(struct smu_context *smu,
- 	struct smu_14_0_dpm_table *single_dpm_table;
- 	struct smu_14_0_pcie_table *pcie_table;
- 	uint32_t gen_speed, lane_width;
--	int i, curr_freq, size = 0;
-+	int i, curr_freq, size = 0, start_offset = 0;
- 	int32_t min_value, max_value;
- 	int ret = 0;
- 
- 	smu_cmn_get_sysfs_buf(&buf, &size);
-+	start_offset = size;
- 
- 	if (amdgpu_ras_intr_triggered()) {
- 		size += sysfs_emit_at(buf, size, "unavailable\n");
-@@ -1374,7 +1375,7 @@ static int smu_v14_0_2_print_clk_levels(struct smu_context *smu,
- 		break;
- 	}
- 
--	return size;
-+	return size - start_offset;
- }
- 
- static int smu_v14_0_2_force_clk_levels(struct smu_context *smu,
+$ cat -v /sys/class/drm/card0/device/pp_od_clk_voltage
+OD_SCLK:
+0: 500Mhz
+1: 2514Mhz
+OD_MCLK:
+0: 97Mhz
+1: 1000MHz
+^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@OD_VDDGFX_OFFSET:
+0mV
+^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@OD_RANGE:
+SCLK:     500Mhz       3000Mhz
+MCLK:     674Mhz       1075Mhz
+
+The reason for this is that calling `smu_cmn_get_sysfs_buf` aligns the
+offset used for `sysfs_emit_at` to the current page boundary, and then
+gets returned from the various `print_clk_levels` implementations to be
+directly added to the buffer position. Instead, only the relative offset
+showing how much was written to the buffer should be returned,
+regardless of how it was changed for alignment purposes.
+
+Now, the file is clean without any garbage data:
+
+$ cat -v /sys/class/drm/card0/device/pp_od_clk_voltage
+OD_SCLK:
+0: 500Mhz
+1: 2519Mhz
+OD_MCLK:
+0: 97Mhz
+1: 1000MHz
+OD_VDDGFX_OFFSET:
+0mV
+OD_RANGE:
+SCLK:     500Mhz       3000Mhz
+MCLK:     674Mhz       1075Mhz
+
+I have changed this for SMU11, SMU13 and SMU14 as there have been user
+reports of this issue on all three, and the code is the same between them.
+However, I only have access to a 6900XT (SMU11), so the newer ones are
+untested. I've split the change into separate patches for
+SMU11 (tested) and SMU13/14 (untested), in case you believe that this
+change is risky and could break something.
+
+Sidenote: This is also my first time submitting patches to a mailing list, so
+please tell me if there are any issues with the patch or email
+formatting.
+
+Signed-off-by: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
+
+Ilya Zlobintsev (2):
+  drm/amd/pm: Avoid writing nulls into `pp_od_clk_voltage` (SMU11)
+  drm/amd/pm: Avoid writing nulls into `pp_od_clk_voltage` (SMU13/SMU14)
+
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c    | 5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    | 5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c    | 5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c    | 5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c    | 5 +++--
+ 8 files changed, 24 insertions(+), 16 deletions(-)
+
 -- 
 2.51.0
 
