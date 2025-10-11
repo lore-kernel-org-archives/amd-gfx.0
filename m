@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1B25CCD18A
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 07:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 618A8CCD18F
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 07:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DA9410E3DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E26F510E3E5;
 	Mon, 13 Oct 2025 07:35:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S7n1eJUx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XyOL7CU3";
 	dkim-atps=neutral
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86EAF10E194
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Oct 2025 19:13:30 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-781997d195aso2510953b3a.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Oct 2025 12:13:30 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62D3810E308
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 13:48:18 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-63a10267219so5001269a12.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 06:48:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760296410; x=1760901210; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=cJyjShr1i4+1ahYehZ/S4z65QdfAA6uxL/qAaZtcMo0=;
- b=S7n1eJUxrmRIwuw8wal+pu1UCv3PWKDsSKQMOSHOtuKTUY4CNCMJ+BTBjxGyzba3HR
- fmadkwuFDA9Xk1yVQfIJhAY1CW51Ffjd5YTklwBCU43iseK27c6ER6yo08Z69t9+CcZx
- 5/ivbg+lUjlRRqcnVhsbNpadVsDMEV1bDoTqISvEWEQEF1m9S41IcOuDzJxxtWf9S2l+
- /wyGf+ZQSd6uxp0B8xpsh7XZUY9bSvmHLZbRPLknPz2mHdSGM6u9Pen2dJAv4Zmbx3Iw
- Dh+ZgWmBVIT6D+nvJCB1TJWpq+3LJpgQ+orsGq7RCAkfjGaI5uQlmrJIbS+v8WkM746/
- QRSg==
+ d=gmail.com; s=20230601; t=1760190497; x=1760795297; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Pjqs9wgfMLcWCndiSjwHua4WA/TvCS8N/LIbzNyweH4=;
+ b=XyOL7CU3/WCr4HV7ImXmgYLbzFYL9V5HkW92ylOgX6DhwNW9zWfnG11F3lHiZGg5M4
+ yG934aIOFxRu7wdPBvN2CwvqIQIL8fGfCqhoh76oCfaNC0w0dVClhPWZNp2CbNJYdnTS
+ ANygNUKpM3zARCesIFGgj+vWD2Rqwp4aui+h3WzDoUkPlIX89it9RZRPTBSvTY3JNhZI
+ nf1YbykKgwz2OzBLFeCkxeLrRTx9uHYBC8nABBhcu5Zgk3tPNrxJPZRqVFgToM+VG1sJ
+ jpluVy5FpMvJohU468lXxOPbTwN8ig9SYzJ/RWSz70Cfe0AkPzFAqKZcrurnsKfRUEwd
+ mdKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760296410; x=1760901210;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cJyjShr1i4+1ahYehZ/S4z65QdfAA6uxL/qAaZtcMo0=;
- b=bu+SYehJd4U2YGRFNJcGt00JoTMEnpg+dNzYWl+yPLRdl0oI6YVZnWLkjtrL108hkC
- ghCvtey7XJbv5fE/crOyNBu7kLyfFg8wGtDPoFB08pGu8dRnxqHKtbmmTOs7UkY67s8I
- qqRWU/VdS1Q+MxhI1cskVj2AoyZa+95/aglgAA1Ah82Nr5Lvv6VATNFWmZrzUuFMgs62
- yS7T+O4E3bVVTj9TlhdxDUS80TC6gQYUxXFCMXWACIyG1UF4JznzfG8fDqfmqz47gNh4
- QAhXc1URQTBDgqdMyNjc6/fvE6ViJH6pqbkNnF1bRdeNLmFj3DRv10RKeZ+DvGstu2qT
- Vq2A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUUjen1HB7Qlw5x3vwBpOS1ckGiiv9N3jOUcBqzkPNEoJ0yszYnmJEUxPCMy3jtqBHl9V0d1rfr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywr2kw3LN3o/rN2GKLg/p51+uTqHn0YT+MGTmI1t0WGqqZGIRW1
- GrZ6YMI9lKwluQvh3o9K2LWwUJNmV507gRUNFbymROdn9xluxngVVyHz
-X-Gm-Gg: ASbGnct/e2B1mLqn1bEknnRPt7kbiDzO2X4GLU4y8IAkbfFgIDz0bnW8rg8N9vVGCf1
- Sb1Xv+QbxYAsQp5zVeNcqFRXtQn4Ppgi2o8RiDG1QEUo1amKDGKqN1d0kQK/DsDGTtwEnVXLP2Z
- K25yRoEtQWFz8QfNB6d2WPZlQ3B7AMnn2gXpXU6v/mBrPGVJOXP/r7l5kvJKilfOvIlPeg8qaEX
- pfp+fOijEYEZFWC/YrP7cW0U3LDDcGFvFLBFq9p8HlrzIkN9h/ApL20YxMopMeSG1u4P86YRGhp
- BtWPMtX02V2n1zCoN5h8PbTXwcXnoBt9WueTDIiqzvHmz7soO/+t/FJsCK8kjXHR6uk2RDgVr1S
- BUysmfmo5pyq8cD+nyKxChvYc6Vg9zpHw9r52ry1ULK48S0vdvUbwon07lSo6KOI1lM3Z+MU8PV
- noZwt0b3QiUvrxH9TC/gfvjwqW+FADteuKxyXz80Az/g==
-X-Google-Smtp-Source: AGHT+IEAYVnUkYlyXFyELMBmp9hn0QU0m0/phIOjfHeyi4BZTIDLCyxOo9zX5iCKuem03RJMyzRu1A==
-X-Received: by 2002:a05:6a20:2443:b0:2bd:d83a:d1a5 with SMTP id
- adf61e73a8af0-32da845e45fmr25164575637.42.1760296409944; 
- Sun, 12 Oct 2025 12:13:29 -0700 (PDT)
-Received: from linux-dev.. (174-21-182-191.tukw.qwest.net. [174.21.182.191])
+ d=1e100.net; s=20230601; t=1760190497; x=1760795297;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Pjqs9wgfMLcWCndiSjwHua4WA/TvCS8N/LIbzNyweH4=;
+ b=QwgspTeLrXna/JcJ0yfEhsa/S81IISYF/w1JZwB/b5gvRtFS3vuFkLZ2YdMQcN1B1S
+ S9bdjuX4Q3QZaM5FXSWD27dx5RuNmUQCrowzUlkkkhvpNAvh82WiilYF6YwoGqMe8QXA
+ RFQfS05/fLGiDAnkLEKf7RC5nCwhBm7F74CBCGSAolntuJnNG5Zm2DPnVUs90Nwv/WbS
+ aO0Gn1RKzfu2cgPd3Ww3W9+TxeuzDiMYH9C+y/5spl5hJ3BoIhgwjxxdkKagHHjy47Wr
+ IkebTc8x34k/rVgdphum6q9l8+brtPDZyufaNLB0wR4bfiKaEHmFOu9O0rRHHO14Xf2p
+ ybsg==
+X-Gm-Message-State: AOJu0Yyqc79tVMUK1kbmrVfDTf/eyjR5oyj2AKajIRZfUM1bMBINCEkE
+ PqqD6b1Qd5WxQ+Lu/dY/HABQ3aqIoSkt2oMeEsey+xTPaKLZrEeSQv7BMpN9nw==
+X-Gm-Gg: ASbGncuNh80EaYhhB1Nloqz+e+S2bjOqzvvT04ejULkMQOUbOj0Bdrn9tG7raVwZeKd
+ JPTqoyl/Q+LO1xyWD4D4H4iQy8qNk102ssj7rct+k+nMrPbI97ZeUEsN2V+3DPqz9MwfyCpcPu5
+ BOB0A63ugBOLrwV2yIjunVuaqxg4BizKRmorSJlsSnRAn7GGOw8AXOps+6S4xF+LQwK9GNOY6Ny
+ jC6B1AD6AMxcOaobh42vFYr+46uc7mqHxi/1g0bh8bs8tkZ0veHpM5h06yhUmTeFUFSQy5V+vhi
+ QKhcufIctGmERAsJXJf2alLOeNjs4sfqkOxq/1UZpNoBIjPvVuecAcYXOCIqNHkNM2DCjV5m94P
+ pcahejl2mglC7q53MdpuMk7ZZfwMs1rgFTDEc4Ij2UVlmk5FfmSrUxk0z6KHFiFEv95NG+oxDSy
+ cI9UXEWO764ngyuwYta6M=
+X-Google-Smtp-Source: AGHT+IH14oHAw0CalUuYIULI5L7U7H1/KBeQfoHEvrB9wZdb15C9h5IeZt9kELIaqkXoEVuE3vIm8A==
+X-Received: by 2002:a05:6402:13d0:b0:639:f648:1093 with SMTP id
+ 4fb4d7f45d1cf-639f6481364mr10994493a12.4.1760190496172; 
+ Sat, 11 Oct 2025 06:48:16 -0700 (PDT)
+Received: from hyron-desktop (host-176-36-64-50.b024.la.net.ua. [176.36.64.50])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7992b639cc8sm9115199b3a.20.2025.10.12.12.13.28
+ 4fb4d7f45d1cf-63a52b0f358sm4788016a12.10.2025.10.11.06.48.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Oct 2025 12:13:29 -0700 (PDT)
-From: Aditya Gollamudi <adigollamudi@gmail.com>
-To: austin.zheng@amd.com
-Cc: jun.lei@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com, amd-gfx@lists.freedesktop.org,
- Adi Gollamudi <adigollamudi@gmail.com>
-Subject: [PATCH] drm/amd/display: fix typo in display_mode_core_structs.h
-Date: Sun, 12 Oct 2025 12:13:19 -0700
-Message-Id: <20251012191319.40046-1-adigollamudi@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Sat, 11 Oct 2025 06:48:15 -0700 (PDT)
+From: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
+Subject: [PATCH 1/2] drm/amd/pm: Avoid writing nulls into `pp_od_clk_voltage`
+ (SMU11)
+Date: Sat, 11 Oct 2025 16:47:15 +0300
+Message-ID: <20251011134716.83214-2-ilya.zlobintsev@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251011134716.83214-1-ilya.zlobintsev@gmail.com>
+References: <20251011134716.83214-1-ilya.zlobintsev@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Oct 2025 07:35:45 +0000
@@ -88,29 +88,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Adi Gollamudi <adigollamudi@gmail.com>
-
-Fix a typo in a comment, change "enviroment" to "environment" in
-drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-
-Signed-off-by: Aditya Gollamudi <adigollamudi@gmail.com>
+Signed-off-by: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-index dbeb08466092..d57717b023eb 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-@@ -1894,7 +1894,7 @@ struct display_mode_lib_scratch_st {
- 	struct CalculatePrefetchSchedule_params_st CalculatePrefetchSchedule_params;
- };
-
--/// @brief Represent the overall soc/ip enviroment. It contains data structure represent the soc/ip characteristic and also structures that hold calculation output
-+/// @brief Represent the overall soc/ip environment. It contains data structure represent the soc/ip characteristic and also structures that hold calculation output
- struct display_mode_lib_st {
- 	dml_uint_t project;
-
---
-2.34.1
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 31c2c0386b1f..774283ac7827 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1281,7 +1281,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	struct smu_11_0_7_overdrive_table *od_settings = smu->od_settings;
+ 	OverDriveTable_t *od_table =
+ 		(OverDriveTable_t *)table_context->overdrive_table;
+-	int i, size = 0, ret = 0;
++	int i, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	uint32_t freq_values[3] = {0};
+ 	uint32_t mark_index = 0;
+@@ -1289,6 +1289,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	uint32_t min_value, max_value;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+@@ -1434,7 +1435,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	}
+ 
+ print_clk_out:
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+-- 
+2.51.0
 
