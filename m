@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6699CCD183
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 07:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FDFFCCD184
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 07:50:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2639D10E2DE;
-	Sat, 11 Oct 2025 07:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 595A510E2E0;
+	Sat, 11 Oct 2025 07:50:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EQyWkdyK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NLZ3/I2Z";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013008.outbound.protection.outlook.com
- [40.93.196.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC9E10E2DE
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010050.outbound.protection.outlook.com
+ [52.101.193.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92AD810E2DE
  for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 07:50:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pc3AYIGXNwpAfLT47SzqhE+ItDHHT8TUDp9zZjfJLrFPOcnEsQ7ULnw90A5ZNBkh7P8xemM2S3trR/TkdPkLuGIZemTwBM/4dYuA8O6c1rEPuBp6SQNBtZGSVR80E99Fz+mj9Edwac0kYozglqmKcrwOFxk1z8YXgkQZTH8sH/L+7R+l8ccj5a1r9Dhc26PnN5C+vVRDJMx1PN3ATPy56FDi3tSzrerWvjMqjsEyPEWwaCAXKgqM6trZZvlwbjjM13IIrYeFMysHRk7mYJj0pyzb3NMWv+ivPShC4yeMXHYAdzmAqKGdoCTYAGVDXW/jE2lezo+5qC5yJntcT/b7Tg==
+ b=uVyKbiVcUhVHCKsPzOUxlzBHyWEc0kagqKSSaBHX2RMdgMct61mv5kZvyJg7uo1mVC1PCS02s9toX03nMbys8m/TxqXn5r5NdVfnFWP221gvF9O1fU6ve3rQXBIeJOKWRCrIvEbfa5lHnJXTzDj6sLZ1SiUV6O/f3osD0EzhF/SJLg4Vbqv+WjW/xFt62nV3iCwgzOc7up+JNy8RN4K2O6Fv4CCuG6x41JG5+h3u0suvKekJ8WPowN0mGZ602aLfLGHhJ7wASEf/h+dRdHoSCJcrsUiJG3Jii8PDEdayoYzOpNc3YBbZCXnsCBysInZBd3TaeBXgn3GmW0ChlyXCmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZiZ0tRQTwnJfl5bPQEmKIkN7M2svPAjEqeaTBD8m9xE=;
- b=cGBsuIS+OZuSXxX6vNGKiQt+67P5xBF39hfq4KiiL26PPqgdf/yp8Di2pFalMOSMzsYORmDkabOjXLaC7XWhq1qF68wzdlYoO5ZYKRcqIjiq0VgElwk+kGwL4AvG3fZ71zl+6PAV067z7/Ldg/fWb+2W7+ObsIKzPzfZtf2x25kBOn9ZLJ+orXfJ8UFnSUQXfe0laojDdI7Qecv8xwQvMzeR9R1oBI5eVNmzRG7giHUINnKm5sDRszykLCAi1/uM7V+Se2vPC146dheNmFK7Q0hcyAvwzqcziLtq24Jub9uBWant7YsRiLiyylpvjwZCrbDPds8y+Lbh31UaQcbjAQ==
+ bh=2oaUh7MnWzDiUKjG83gg2QgHSAiuxegUbGbduCVnpCU=;
+ b=N7rEvBcofRNZBr+AP9aw+888hr+mJeRMp7+++QKe6XTxVwvydQQyKJu7wnNfGGuFbxBN2DP9/XqO/6TivlW84GR0oQGzj/FPnrskMuJoSGiZlfpMDzX3fZLrsOpQc1BW7CpY78rQOyW7ukxeIqcLRuFNkdbTt/uT35q7sjwwiwYzbSHAoWt+ZOGG4L8AR6WWMmySiVJoM4UdoOYSqVMXBu3vdPmlve5IJfd8K/DEquHy341aho+7rZH5EkfEvsNqFwqSiDXpZqCWxb18Q/9ohwWkk7uJQ91e6/EZtfAX72oL3QMn3wZcPdKiD5WpCn+f+8KW3tqIXgZfwte/EduDOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZiZ0tRQTwnJfl5bPQEmKIkN7M2svPAjEqeaTBD8m9xE=;
- b=EQyWkdyKW60MYlwbDExiqUpYZqIzLDGqvIEgauvf28hIkODnuyQ6DUsSYopcubO5gAtotR8iCiK6n3uJgFu3xXL2jDYc4/Qm5Fo2f+AZXE93X6KPbL8rk0Tb5gbe8mTa149yyo7TifnFUs6/I9Cn8quLnXw8kU5KMaQwAAFpXAY=
-Received: from CH0PR03CA0082.namprd03.prod.outlook.com (2603:10b6:610:cc::27)
- by SA5PPF06C91DA0C.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8c4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.9; Sat, 11 Oct
- 2025 07:50:00 +0000
+ bh=2oaUh7MnWzDiUKjG83gg2QgHSAiuxegUbGbduCVnpCU=;
+ b=NLZ3/I2Z3eXH1PLDDcS4cn5WxUNpSoiPadw5sco+EPVV5Y9VgJb4tSNPBeLBUjUDXUiZEsIewo/FVdWtqkR2GwhzAyNLjikHmnOcxU4zsZ6AUecPBcSd7RrOJnmk3pw6QysTNlZt7MTQ7b03AwrGnxtGXyr6x2GtBVao032WBmY=
+Received: from CH0PR03CA0077.namprd03.prod.outlook.com (2603:10b6:610:cc::22)
+ by PH0PR12MB7012.namprd12.prod.outlook.com (2603:10b6:510:21c::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Sat, 11 Oct
+ 2025 07:50:04 +0000
 Received: from CH1PEPF0000AD7E.namprd04.prod.outlook.com
- (2603:10b6:610:cc:cafe::4c) by CH0PR03CA0082.outlook.office365.com
- (2603:10b6:610:cc::27) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:cc:cafe::37) by CH0PR03CA0077.outlook.office365.com
+ (2603:10b6:610:cc::22) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.11 via Frontend Transport; Sat,
- 11 Oct 2025 07:49:48 +0000
+ 11 Oct 2025 07:50:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,19 +51,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH1PEPF0000AD7E.mail.protection.outlook.com (10.167.244.87) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Sat, 11 Oct 2025 07:49:59 +0000
+ 15.20.9228.7 via Frontend Transport; Sat, 11 Oct 2025 07:50:03 +0000
 Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sat, 11 Oct
- 2025 00:49:57 -0700
+ 2025 00:49:59 -0700
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, <Jinzhou.Su@amd.com>,
  YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 3/9] drm/amdgpu: Intercept ras interrupts to ras module
-Date: Sat, 11 Oct 2025 15:48:05 +0800
-Message-ID: <20251011074811.533871-3-YiPeng.Chai@amd.com>
+Subject: [PATCH 4/9] drm/amdgpu: Improve ras fatal error handling function
+Date: Sat, 11 Oct 2025 15:48:06 +0800
+Message-ID: <20251011074811.533871-4-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251011074811.533871-1-YiPeng.Chai@amd.com>
 References: <20251011074811.533871-1-YiPeng.Chai@amd.com>
@@ -75,53 +75,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7E:EE_|SA5PPF06C91DA0C:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc206c8d-ee2d-493e-2867-08de089ac78a
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7E:EE_|PH0PR12MB7012:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e84c01e-a052-4b0e-0115-08de089ac9fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?reZucLLPiW5uOoU2EHNZZY88My/JDVswrDjLBjpMdHng9amZ6ISgej6qUQDQ?=
- =?us-ascii?Q?OoCNFUtvXrGyBibvxiSd7BMdfGa5BezLM7IsIbHa4DVHqesZtsNhEWB4tJ7m?=
- =?us-ascii?Q?eDVGdlYIMpvDOCo8Oc4KZGI6IaBbh/Q3U9Lp/MfXk44umbavfWMnIU6QO0l6?=
- =?us-ascii?Q?2U553Lj8QmOrmoKEoGQ3qV/EyvvBUi7Ii49rp/G0w6XVOlt/wR92mULdnBbj?=
- =?us-ascii?Q?Zo1Vp328qAvFnCcEHGNv/K4LiCZYmmwfo65gQJIPqLgXVVw3mXEPctXw/opY?=
- =?us-ascii?Q?Ss7NfqTKbbR9Jx9aZww3eAVr2s/i3WWqGvVFp8hay/kwk8WGwXJwXthksjat?=
- =?us-ascii?Q?1anAy7gDpT2Y+Ya2+soZCeLFLcNrSuwvK3nrbrluzZiqVhL40OH79FjYEghO?=
- =?us-ascii?Q?yB0gJYA0I+9eJeEk8wAt4Yni76O3eYWWVShEWpstNCQyo4UIPFHpZSBaX3f7?=
- =?us-ascii?Q?IciDWqi6YTFaiRvAETW3/LqhvQQ4fxL37s2hCvMdiRbKvbQy2yrvHip4KVqA?=
- =?us-ascii?Q?JTir5CvR33BnvNyFJjAQXVouxfBmXoS3oeau3iUyXEcA4tJdilQHoQIO1G1u?=
- =?us-ascii?Q?OvqHjwPFXU1MjxZCfkiAkZ3xy5Uz/mRUN19lvmfljw3rfnY4AF7s7MwTLG1u?=
- =?us-ascii?Q?O3s1LBkPyAiaAXIhZtzcw/+/Eq9TUfvO4U/4cp4Yn28AKwE0jSoDHwoQcLMU?=
- =?us-ascii?Q?yM2dacrrJyrzusC/zaaa1gVqRsfU0Zu8dXfQEL9Y/XuzEfAST3dOXEMfODpC?=
- =?us-ascii?Q?yra4df9QfPiZwfrIv1+mE+TiDwKSunl1DTSn8z6MYhWM8x2s2RDNQ329fYjJ?=
- =?us-ascii?Q?0kVOiB2kvf2d8bs/mxAqjPBTuDPbYNnIbLWCystZOP40JXHh5w42VmrsJgLV?=
- =?us-ascii?Q?lHVhkiP9w+keIaeV/ef2TEqIlcVDSSpiR4lYrvcqDL/KoJLREoJ2HR6OKeBP?=
- =?us-ascii?Q?0MprdCbgL4qTSqmi8/nSdynkXkhuic6OfBeALHzLAKWWApt+Xm6rZDHT6dtY?=
- =?us-ascii?Q?uXz1PiECIPNNYKcAAEfsKgviUF282HAf9593ucq9Lg0NyD4ms0Fp1HNm6ed0?=
- =?us-ascii?Q?7YEV49BaDlAyuFxmhAmug6yzoRmJ3MssjdfRRVFoCmWGoNV+o0BvO9TqDPkC?=
- =?us-ascii?Q?jbMuH/s3xEiaU0uvQ9o1HA/lLbxCDla32+UO6y1SSx1InCiAaApDn1zjLbdb?=
- =?us-ascii?Q?eD0Q6xQrdwdWqssZ5ml4WsiwgHUqMOjrPRrTsTVWCpqQlqgFv3jE5V7asdVq?=
- =?us-ascii?Q?0U4YOOmNWxDhqP9HvRIXlUpxtFwc74xfXhMJbFgEC4n/Y2/TWJctU80lHBwv?=
- =?us-ascii?Q?XflRtqAm7CIuYVT+uYmzHlAm3OqrktGuM+w2UDvAfzDhZy2PJXJ1Kv/1XVD0?=
- =?us-ascii?Q?MB93pLs2VX3tCV+4kc/uGzZNcHAo6NcjjRvvhx5YAnJlfz3FkXrbk+1JHv0u?=
- =?us-ascii?Q?KVcOsF1CV2xG1KKPzITaFbnk5zFkic83oROb0pnuv3t9OpNxnx+ZC84Z2JJ5?=
- =?us-ascii?Q?p5zYsihmkKRFgNfTVpFgLKxfCxzLPNNUD6KjH9gh7Dnh/w+P3OLXnjNxebkP?=
- =?us-ascii?Q?5zlaCevC/RpUwoPCigY=3D?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4jdYMEa68d8Nuk43dOtkWpgeM+xBgrcaBYGJsrhBoWc6mAvHlWq/Q3hQDRwi?=
+ =?us-ascii?Q?wPK63eCEbGSHCD4aAY0/JT/zHk4LJRatRQCT5zyGQV6EfQf5WcB0FjMrCYrX?=
+ =?us-ascii?Q?P+N9prh6hdST/2R0QWo9txlXSQ4+okScbobm41UN5CIQF0J6K65z4fzfENny?=
+ =?us-ascii?Q?hUypcbANa4J1FUsGLhiXFS/H2yMivzOWoh07XR+AFyNMxk+3o+T3IfKPWcoD?=
+ =?us-ascii?Q?5r/59f8b0ZmBe8xjEdQguxKODHLa+LcaNjDvEgCrmKzD2CTxNA7SixjCZYSv?=
+ =?us-ascii?Q?0YYuzR8N7egA7W0saW3sMMEOKNzsgVUodLdewxafImTzVD0uh0hHcdn8ePex?=
+ =?us-ascii?Q?7kC1I1QF5AQMzyvXisaovlzfp6JSIgewo4vb1c0iYPDl3UyuPnRCt+Ird3vB?=
+ =?us-ascii?Q?sqBD2ymC1STpedby/IZTV8Tj6YAY/PzcAvj1jTAsv0dRaaeXqqsIyRQVTWW3?=
+ =?us-ascii?Q?xSWJ6EbZbfLl+T4mUoVLh68g6f8ALzSm+G0uEsY6HbgGHblGbV5MMbHmraO+?=
+ =?us-ascii?Q?gSBr+vEwbB5hR/M05FusTTYACcwVUzEyOE+6+oWA2BxR3IqIVF+2CrRAWlVx?=
+ =?us-ascii?Q?8E6sRmH1zPww8z2os7o18Z9tzU25zht8y03Y4Ee+xgzpPDymnp8gLHZ2+vIO?=
+ =?us-ascii?Q?3md5GHqPG9BGki5tgFF4Kw5cY/mqwpbPcLT4Y9j9qdKSVISvHmgQAttu++zM?=
+ =?us-ascii?Q?dIqkCvaFX0y2vidonBhmUBOOf0S0Tsza9ibeIKvN5KxnAB2+iowMDKVD0sV1?=
+ =?us-ascii?Q?cta6KwPvMyUzZZt73LXe3v0bYcYFDz9URWwxLgmIZxDnn4Lg02jEAYE8Bip2?=
+ =?us-ascii?Q?04XF28Oje83buncggPLXTazmQeHpTYpsHWDGPwBAGy6ofU683Sn6zrCPPaqZ?=
+ =?us-ascii?Q?0mUAizep3HxFRpIi72j3ZkKzm7Wg8027LqGcDyDNWsu0lnXv9okJIU2ij2gc?=
+ =?us-ascii?Q?9faftBpY7/Wl0E/CgdYn8EZI8J/y2uUh4qrgp1cOna5G+jaPSNZyqSnclzk4?=
+ =?us-ascii?Q?mqEeeE4pAZ+EdEdaCoJwTi11DYgH9489UzjIQLlp7ywGC4U4ldJHmqzYxrzS?=
+ =?us-ascii?Q?7RYW7HEU650tQdKwcWyK67ymx4tqI7ObM8uzMh6kEyi2IEF7rnCjAkfdR2Ui?=
+ =?us-ascii?Q?sjQriV/SCOdhx+xNVG2RCaDKtaLxWmZ0qG9Ihj5VgAddx5K7PWn5P9xFHMup?=
+ =?us-ascii?Q?beA9tYhM9y6AVTJvvSGfzUXR3kFH7tAXlGDST9f+UhfrWi88sevKVeOi3ICZ?=
+ =?us-ascii?Q?Oabfthv9qPGwXzfKy6uDyY2l5l6enT5Zdf/h4PfJXmAlkZkFaq7BHf+UCsnd?=
+ =?us-ascii?Q?zLeCl+SsVvM7dkrJLRqT9z/AF98Ahrqr8h5REEHSLbcQPJJoDBiENQe4RNac?=
+ =?us-ascii?Q?xj7/FkYRU2qnnLQ54hqP74Uib2QpW2iD+bB5c1V3eEWQ4CH40dAhf+Xg97eR?=
+ =?us-ascii?Q?Yf027GkgXd3Cj3pWAx7JNEl+XA7SxoBefa7shNpGAZ92UlVNdegPIb5upq7o?=
+ =?us-ascii?Q?KtBd4BEDyg6dzrn+09KMRHb2tKDvF5NaeukXSDCzDan9komTluY8roCPTb4T?=
+ =?us-ascii?Q?0ujRcYnWEhOA3RJgt2E=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2025 07:49:59.8351 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc206c8d-ee2d-493e-2867-08de089ac78a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2025 07:50:03.9368 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e84c01e-a052-4b0e-0115-08de089ac9fc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7E.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF06C91DA0C
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7012
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,131 +136,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Intercept ras interrupts to ras module.
+In multi-gpu case, a fatal error will generate several
+fatal error interrupts. After improving this function,
+the ras module can reuse this function to only
+handle the first interrupt.
 
-V2:
-  Change function names in ras module.
+V3:
+  Initialize event_id using RAS_EVENT_INVALID_ID.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c       | 15 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c          | 16 ++++++++++++++++
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c |  4 ++--
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h |  4 ++--
- 4 files changed, 35 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c          | 16 ++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h          |  2 +-
+ drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c |  5 +++++
+ 3 files changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index a2879d2b7c8e..644f79f3c9af 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -36,6 +36,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_umc.h"
- #include "amdgpu_reset.h"
-+#include "amdgpu_ras_mgr.h"
- 
- /* Total memory size in system memory and all GPU VRAM. Used to
-  * estimate worst case amount of memory to reserve for page tables
-@@ -746,6 +747,20 @@ void amdgpu_amdkfd_ras_pasid_poison_consumption_handler(struct amdgpu_device *ad
- 				enum amdgpu_ras_block block, uint16_t pasid,
- 				pasid_notify pasid_fn, void *data, uint32_t reset)
- {
-+
-+	if (amdgpu_uniras_enabled(adev)) {
-+		struct ras_ih_info ih_info;
-+
-+		memset(&ih_info, 0, sizeof(ih_info));
-+		ih_info.block = block;
-+		ih_info.pasid = pasid;
-+		ih_info.reset = reset;
-+		ih_info.pasid_fn = pasid_fn;
-+		ih_info.data = data;
-+		amdgpu_ras_mgr_handle_consumer_interrupt(adev, &ih_info);
-+		return;
-+	}
-+
- 	amdgpu_umc_pasid_poison_handler(adev, block, pasid, pasid_fn, data, reset);
- }
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 3d63e4448ad2..025d8bcf02eb 100644
+index 025d8bcf02eb..9b7afddb4a16 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -41,6 +41,7 @@
- #include "atom.h"
- #include "amdgpu_reset.h"
- #include "amdgpu_psp.h"
-+#include "amdgpu_ras_mgr.h"
- 
- #ifdef CONFIG_X86_MCE_AMD
- #include <asm/mce.h>
-@@ -2241,6 +2242,11 @@ void amdgpu_ras_interrupt_fatal_error_handler(struct amdgpu_device *adev)
- 	    amdgpu_ras_is_err_state(adev, AMDGPU_RAS_BLOCK__ANY))
- 		return;
- 
-+	if (amdgpu_uniras_enabled(adev)) {
-+		amdgpu_ras_mgr_handle_fatal_interrupt(adev, NULL);
-+		return;
-+	}
-+
- 	if (adev->nbio.ras &&
- 	    adev->nbio.ras->handle_ras_controller_intr_no_bifring)
- 		adev->nbio.ras->handle_ras_controller_intr_no_bifring(adev);
-@@ -2411,6 +2417,16 @@ int amdgpu_ras_interrupt_dispatch(struct amdgpu_device *adev,
- 	struct ras_manager *obj;
- 	struct ras_ih_data *data;
- 
-+	if (amdgpu_uniras_enabled(adev)) {
-+		struct ras_ih_info ih_info;
-+
-+		memset(&ih_info, 0, sizeof(ih_info));
-+		ih_info.block = info->head.block;
-+		memcpy(&ih_info.iv_entry, info->entry, sizeof(struct amdgpu_iv_entry));
-+
-+		return amdgpu_ras_mgr_handle_controller_interrupt(adev, &ih_info);
-+	}
-+
- 	obj = amdgpu_ras_find_obj(adev, &info->head);
- 	if (!obj)
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index a038c87c045d..4f70f873b543 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -381,7 +381,7 @@ static const struct amd_ip_funcs ras_v1_0_ip_funcs = {
- 	.hw_fini = amdgpu_ras_mgr_hw_fini,
- };
- 
--int amdgpu_enable_unified_ras(struct amdgpu_device *adev, bool enable)
-+int amdgpu_enable_uniras(struct amdgpu_device *adev, bool enable)
- {
- 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
- 
-@@ -395,7 +395,7 @@ int amdgpu_enable_unified_ras(struct amdgpu_device *adev, bool enable)
- 	return ras_core_set_status(ras_mgr->ras_core, enable);
+@@ -4650,20 +4650,18 @@ u64 amdgpu_ras_acquire_event_id(struct amdgpu_device *adev, enum ras_event_type
+ 	return id;
  }
  
--bool amdgpu_unified_ras_enabled(struct amdgpu_device *adev)
-+bool amdgpu_uniras_enabled(struct amdgpu_device *adev)
+-void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
++int amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
  {
- 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
+ 	if (atomic_cmpxchg(&amdgpu_ras_in_intr, 0, 1) == 0) {
+ 		struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
+ 		enum ras_event_type type = RAS_EVENT_TYPE_FATAL;
+-		u64 event_id;
++		u64 event_id = RAS_EVENT_INVALID_ID;
  
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-index fa761de381c1..8d6a1873b666 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-@@ -56,8 +56,8 @@ struct amdgpu_ras_mgr {
+-		if (amdgpu_ras_mark_ras_event(adev, type)) {
+-			dev_err(adev->dev,
+-				"uncorrectable hardware error (ERREVENT_ATHUB_INTERRUPT) detected!\n");
+-			return;
+-		}
++		if (amdgpu_uniras_enabled(adev))
++			return 0;
  
- struct amdgpu_ras_mgr *amdgpu_ras_mgr_get_context(
- 			struct amdgpu_device *adev);
--int amdgpu_enable_unified_ras(struct amdgpu_device *adev, bool enable);
--bool amdgpu_unified_ras_enabled(struct amdgpu_device *adev);
-+int amdgpu_enable_uniras(struct amdgpu_device *adev, bool enable);
-+bool amdgpu_uniras_enabled(struct amdgpu_device *adev);
- int amdgpu_ras_mgr_handle_fatal_interrupt(struct amdgpu_device *adev, void *data);
- int amdgpu_ras_mgr_handle_controller_interrupt(struct amdgpu_device *adev, void *data);
- int amdgpu_ras_mgr_handle_consumer_interrupt(struct amdgpu_device *adev, void *data);
+-		event_id = amdgpu_ras_acquire_event_id(adev, type);
++		if (!amdgpu_ras_mark_ras_event(adev, type))
++			event_id = amdgpu_ras_acquire_event_id(adev, type);
+ 
+ 		RAS_EVENT_LOG(adev, event_id, "uncorrectable hardware error"
+ 			      "(ERREVENT_ATHUB_INTERRUPT) detected!\n");
+@@ -4672,6 +4670,8 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
+ 		ras->gpu_reset_flags |= AMDGPU_RAS_GPU_RESET_MODE1_RESET;
+ 		amdgpu_ras_reset_gpu(adev);
+ 	}
++
++	return -EBUSY;
+ }
+ 
+ bool amdgpu_ras_need_emergency_restart(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 9f21b6cf8724..556cf4d7b5ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -910,7 +910,7 @@ static inline void amdgpu_ras_intr_cleared(void)
+ 	atomic_set(&amdgpu_ras_in_intr, 0);
+ }
+ 
+-void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev);
++int amdgpu_ras_global_ras_isr(struct amdgpu_device *adev);
+ 
+ void amdgpu_ras_set_error_query_ready(struct amdgpu_device *adev, bool ready);
+ 
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
+index 40071b876333..f21cd55a25be 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
+@@ -29,8 +29,13 @@
+ static int amdgpu_ras_sys_detect_fatal_event(struct ras_core_context *ras_core, void *data)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)ras_core->dev;
++	int ret;
+ 	uint64_t seq_no;
+ 
++	ret = amdgpu_ras_global_ras_isr(adev);
++	if (ret)
++		return ret;
++
+ 	seq_no = amdgpu_ras_mgr_gen_ras_event_seqno(adev, RAS_SEQNO_TYPE_UE);
+ 	RAS_DEV_INFO(adev,
+ 		"{%llu} Uncorrectable hardware error(ERREVENT_ATHUB_INTERRUPT) detected!\n",
 -- 
 2.34.1
 
