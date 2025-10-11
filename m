@@ -4,124 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 811AFCCD183
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 07:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B22FCCCD183
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Oct 2025 08:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24C3810E2E6;
-	Sat, 11 Oct 2025 07:50:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42E0410E065;
+	Sat, 11 Oct 2025 08:00:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E2JTBBxi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="oq2jOLjX";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013023.outbound.protection.outlook.com
- [40.107.201.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2ADD10E2E5
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 07:50:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KzwBQ0jPZkuO5Faw4qYwM7t4GLkdI1KGjCc5EhgnY+0/S07ZvOICHuY1vsKxo31vrcZJrz4CgNmhfSvBBvZTHDoHUFKB3NZxylaXhiqR91aebU+Bxk+wDdeTd5/3pHbi+cIuoWf9SGOZLVMJWSLzULHPZLdn0Hhb+pPOMNLll34iQeAmNHqtv1xK8rPOhKUsrkMkxcgwu99DJ7d25vyBfjjWPILgYiWKYaibWblYt4ngtY6yaJ/KafoAAbeiVarT2zdw49hD+xjP41oNkWYvwpojf5xgtFDiRfeE7jnAw6GWtpMclMf4dBr6SgYlF4Rtqf+OY2FcePoS7vXEq7qvUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QQ53LKoF8GmuA95MQbx5MCylI4F1MC/XRVp5ySKG3zw=;
- b=o1kQOqGNy0wNKn7QA7pqNf2n5ZZKtwsGdVgK/bYVR/R6tMHOS/Bk1LYDVsoSwvVj3AHoqNheXr2X+cSZnrYqIyXhqpnuF7FQ0YJC0CL52O1b1YWr0R7Ka/IWHTmRwiIY1TfhECrZMlsyh4XNOZLoPwM39lQTh4/SAgBlBIhUQwjtB4END/suCclrB7v4RM7Q+T02L3TVrUXpOGUYlGCP+Zg+n3GnZN+1T4i4vRKi1OEQ+RgyPBOD8Rrp6mSm5wiY3uGVYmooFSmW6WXQ8SFkUVyf+cNxLgT8CiVcbRyFYxsyfBeBweXKiTJe3TrSGEUS3wGOh5jHVJqIJ6EffzpqFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QQ53LKoF8GmuA95MQbx5MCylI4F1MC/XRVp5ySKG3zw=;
- b=E2JTBBxiv5Xq57945hPv/53sBAtafBgcFc8JCHr1cth7ZRddMCF/ZZC9XXVcfkHF1NwPxw0Loc10ErwEQKrRzuEtkIDp0m+9CBsQiiRyryqft9plLBwvyqDU21pBS/3+yqITCeFNIOQ3IMvEyhZlhNSRdwN0l3lEChItohj1Io8=
-Received: from CH5PR02CA0013.namprd02.prod.outlook.com (2603:10b6:610:1ed::27)
- by DS5PPFBABE93B01.namprd12.prod.outlook.com (2603:10b6:f:fc00::65f)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.10; Sat, 11 Oct
- 2025 07:50:21 +0000
-Received: from CH1PEPF0000AD80.namprd04.prod.outlook.com
- (2603:10b6:610:1ed:cafe::92) by CH5PR02CA0013.outlook.office365.com
- (2603:10b6:610:1ed::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.11 via Frontend Transport; Sat,
- 11 Oct 2025 07:50:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD80.mail.protection.outlook.com (10.167.244.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Sat, 11 Oct 2025 07:50:21 +0000
-Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sat, 11 Oct
- 2025 00:50:12 -0700
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
- <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, <Jinzhou.Su@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 9/9] drm/amdgpu: Add ras module eeprom safety watermark check
-Date: Sat, 11 Oct 2025 15:48:11 +0800
-Message-ID: <20251011074811.533871-9-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251011074811.533871-1-YiPeng.Chai@amd.com>
-References: <20251011074811.533871-1-YiPeng.Chai@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2666010E065;
+ Sat, 11 Oct 2025 08:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=KTOvwM3g7/iOua++0l9UDibDrlKeHVMbp5NoGImvgUc=; b=oq2jOLjX0NrgWB6Pg5SVF57+14
+ X+e0ZeEPtHSXsEWwhhivDxWjZGik7JWm3Tb7qYt85O5Xid8tQHO4mcY5A/vAmR97NSL9icbGL3Ivx
+ apxjhanZ0hPBx0N93MR0biI/bim8PdtI2P8+jxoVgoNZLeFga6qloF92rMyQmWN8lVJu+zj8bWOiX
+ YZ80VxbNGCcqLgez1SeofaYUJCxXFZq9Io0n8LHelw2z5TlC0d0jhu5QpO/y9qo1llUAL9Z6yT4sw
+ LeYJB8+zG0x7vjezQao2fh4kfSg8x7cIHv937XU/ajioCH6FhQmF8Dg8VnbaF4qrl5hrrpsnr9RUi
+ LkkwXO0Q==;
+Received: from [84.66.36.92] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1v7UWX-008ATT-9s; Sat, 11 Oct 2025 10:00:17 +0200
+Message-ID: <69279852-e1ed-4caf-a92b-a352ba4b613b@igalia.com>
+Date: Sat, 11 Oct 2025 09:00:15 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
+ latency
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Lucas De Marchi <lucas.demarchi@intel.com>,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
+References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
+ <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
+ <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
+ <9bb3c06e-25c1-43d8-a4e8-e529c53ff77d@amd.com>
+ <45973012f925dbbfdf0636c10f9d051c34f97e2e.camel@linux.intel.com>
+ <a300e417-c9df-4e2b-a75f-319aab384b44@igalia.com>
+ <d3c56f60ab638891d3d78200876ea11780f5ec21.camel@linux.intel.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <d3c56f60ab638891d3d78200876ea11780f5ec21.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD80:EE_|DS5PPFBABE93B01:EE_
-X-MS-Office365-Filtering-Correlation-Id: 864829ef-5992-4c1f-cecd-08de089ad491
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bK3AaDL8I+N/s0s7wimR87dIEPxr22PB/FsmNw3z+9X9Fvh1rGFB4h5wbPzy?=
- =?us-ascii?Q?gH4DSjR5YLimt6sD91aaABcMjeo8uT8VafTyVmcVZyAZKYXHEU3auEEPWO0c?=
- =?us-ascii?Q?ePbNlmM77T8kKEmFO+uj+DIiHhM/SyB+HhM288rmcy504ADY0NdhR3McNRh1?=
- =?us-ascii?Q?u1E3N1u0y00mj08Rzu8ShvsR1chPRFmS9kNVsp8gO3l9GHO8lxbQLgeZ7R5W?=
- =?us-ascii?Q?8M1OOIhQHljG5sW8rtjJkaBBqPD1DD/AkkDCTCCumJz7grRGXkrRGVh6NhVC?=
- =?us-ascii?Q?inB6DwTmgj7tH0a3b2Z9zH0LdtkdT+VC93ld2QR4uj4ulIgupgqyg+4Uw1My?=
- =?us-ascii?Q?YCFPOjlriIGBM1eZx0LH3TpWfzvR+cTtSzyJm7XYo1sAzqcYhjJdqa1OKqMJ?=
- =?us-ascii?Q?I9GdycqWncBlLArJjK1gsbFFfeVg9YCqFRQtHrgPg/wKobbM6mpZzIGa+/I3?=
- =?us-ascii?Q?gQW+nLsF6luhQ6fiK1SrMrKbpHHKaa9VMTe8A50EJod1pSFA929j81wU75H7?=
- =?us-ascii?Q?2dWHHe2CPTiWswH3XVj6m4AgxTkHMMevQ7o/YyRrknLUiawqZZrPqgOiRjJp?=
- =?us-ascii?Q?HEakB5VOEOKiVErRVMKHEgfP/zbiNpja80z8ewDTTrWpLC1ypz1dFChuTkJr?=
- =?us-ascii?Q?+GNqVMUUQqO8R15iQMSKUMsIZWRDK5I5QX0a4f7cKRsuqs/3M1EAY9hODv0m?=
- =?us-ascii?Q?43ebDWdJBSTu6cXbZX6JKZv6OwL2vjArwZ4pnmC4mvSSZwI+At3DiKVnYi6E?=
- =?us-ascii?Q?AK7Nn0JtcmtrAZd9/+PWtFwddGP9WX+pZdP7PJH9v2OKvzGt0xRh92sNP07/?=
- =?us-ascii?Q?PYz/i+chEabCTQL6pZePx+PzlRlxnFG/jS59x5Trdvy+gi34R3BvTD6V9AUT?=
- =?us-ascii?Q?57QPR/jqh/yBLX3rKEibDEYlhAALXWC9niLs/sy8QbdkMSlMfnIhlx+uYtIK?=
- =?us-ascii?Q?0heSsMcXVmrhQ8VwJevhMaEZGa0kRyM+7SWqAsUXmMDBxKZa/GtexO2qOwn2?=
- =?us-ascii?Q?TpRAWAqTZ2BFDa+jT6T0Rykf48fy4kWYWAyaclkBrQt4Jmq5d+X9QyH70SDk?=
- =?us-ascii?Q?jzNYZuJapXjJfBfAgKBefMLeUw7QbxAxj6WecQdHkFtHFoZssZao2mAJpunC?=
- =?us-ascii?Q?1twHWgkB3BgrojhdamV5i5IvJ8/E4dP9MyWc8L/JQHApXX2xZviC7+IZ+SJw?=
- =?us-ascii?Q?eOCSraHfYMHHPuHQJGIjIo2nRUU/UeF9RxfqYL9Yf5qApZXvDe1t+Yq8YZmn?=
- =?us-ascii?Q?tWQTQJAFnlgoQf16T2/L+LSq03bt+Bv/UBNb6KnBh5b2yq5IVe68/KemO3z5?=
- =?us-ascii?Q?MhTzTUitK8XVNFW9HXvfqUdH+CcTwUMpm3U+Uvn8byUqZV4z/JoedVClhh6/?=
- =?us-ascii?Q?WnpsqE+zZ4J1GoB44/jLeA89pwU6zJH+pQYaOpnfZsWUZ2wD0i8FfQ/cJqUw?=
- =?us-ascii?Q?+fEhnR24bJ+QZXhkFUno/TZgc1HILtdpRMB7lgqFnG1yUi3KZUr/13tEsLSK?=
- =?us-ascii?Q?olWMPIDQ9eJT7mZBGz2V+xOAQMsU3XMaQUKfIqUyASKkEJ2Be0QX5q1ZyCG1?=
- =?us-ascii?Q?48qA2+XU0xCq49mIdZA=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2025 07:50:21.6869 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 864829ef-5992-4c1f-cecd-08de089ad491
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD80.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFBABE93B01
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,36 +77,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ras module eeprom safety watermark check.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 4 ++++
- 1 file changed, 4 insertions(+)
+On 10/10/2025 15:11, Thomas Hellström wrote:
+> On Thu, 2025-10-09 at 09:53 +0100, Tvrtko Ursulin wrote:
+>>
+>> On 08/10/2025 15:39, Thomas Hellström wrote:
+>>> On Wed, 2025-10-08 at 16:02 +0200, Christian König wrote:
+>>>> On 08.10.25 15:50, Tvrtko Ursulin wrote:
+>>>>>
+>>>>> On 08/10/2025 13:35, Christian König wrote:
+>>>>>> On 08.10.25 13:53, Tvrtko Ursulin wrote:
+>>>>>>> Disclaimer:
+>>>>>>> Please note that as this series includes a patch which
+>>>>>>> touches
+>>>>>>> a good number of
+>>>>>>> drivers I will only copy everyone in the cover letter and
+>>>>>>> the
+>>>>>>> respective patch.
+>>>>>>> Assumption is people are subscribed to dri-devel so can
+>>>>>>> look at
+>>>>>>> the whole series
+>>>>>>> there. I know someone is bound to complain for both the
+>>>>>>> case
+>>>>>>> when everyone is
+>>>>>>> copied on everything for getting too much email, and also
+>>>>>>> for
+>>>>>>> this other case.
+>>>>>>> So please be flexible.
+>>>>>>>
+>>>>>>> Description:
+>>>>>>>
+>>>>>>> All drivers which use the TTM pool allocator end up
+>>>>>>> requesting
+>>>>>>> large order
+>>>>>>> allocations when allocating large buffers. Those can be
+>>>>>>> slow
+>>>>>>> due memory pressure
+>>>>>>> and so add latency to buffer creation. But there is often
+>>>>>>> also
+>>>>>>> a size limit
+>>>>>>> above which contiguous blocks do not bring any performance
+>>>>>>> benefits. This series
+>>>>>>> allows drivers to say when it is okay for the TTM to try a
+>>>>>>> bit
+>>>>>>> less hard.
+>>>>>>>
+>>>>>>> We do this by allowing drivers to specify this cut off
+>>>>>>> point
+>>>>>>> when creating the
+>>>>>>> TTM device and pools. Allocations above this size will skip
+>>>>>>> direct reclaim so
+>>>>>>> under memory pressure worst case latency will improve.
+>>>>>>> Background reclaim is
+>>>>>>> still kicked off and both before and after the memory
+>>>>>>> pressure
+>>>>>>> all the TTM pool
+>>>>>>> buckets remain to be used as they are today.
+>>>>>>>
+>>>>>>> This is especially interesting if someone has configured
+>>>>>>> MAX_PAGE_ORDER to
+>>>>>>> higher than the default. And even with the default, with
+>>>>>>> amdgpu
+>>>>>>> for example,
+>>>>>>> the last patch in the series makes use of the new feature
+>>>>>>> by
+>>>>>>> telling TTM that
+>>>>>>> above 2MiB we do not expect performance benefits. Which
+>>>>>>> makes
+>>>>>>> TTM not try direct
+>>>>>>> reclaim for the top bucket (4MiB).
+>>>>>>>
+>>>>>>> End result is TTM drivers become a tiny bit nicer mm
+>>>>>>> citizens
+>>>>>>> and users benefit
+>>>>>>> from better worst case buffer creation latencies. As a side
+>>>>>>> benefit we get rid
+>>>>>>> of two instances of those often very unreadable mutliple
+>>>>>>> nameless booleans
+>>>>>>> function signatures.
+>>>>>>>
+>>>>>>> If this sounds interesting and gets merge the invidual
+>>>>>>> drivers
+>>>>>>> can follow up
+>>>>>>> with patches configuring their thresholds.
+>>>>>>>
+>>>>>>> v2:
+>>>>>>>     * Christian suggested to pass in the new data by
+>>>>>>> changing the
+>>>>>>> function signatures.
+>>>>>>>
+>>>>>>> v3:
+>>>>>>>     * Moved ttm pool helpers into new ttm_pool_internal.h.
+>>>>>>> (Christian)
+>>>>>>
+>>>>>> Patch #3 is Acked-by: Christian König
+>>>>>> <christian.koenig@amd.com>.
+>>>>>>
+>>>>>> The rest is Reviewed-by: Christian König
+>>>>>> <christian.koenig@amd.com>
+>>>>>
+>>>>> Thank you!
+>>>>>
+>>>>> So I think now I need acks to merge via drm-misc for all the
+>>>>> drivers which have their own trees. Which seems to be just xe.
+>>>>
+>>>> I think you should ping the XE guys for their opinion, but since
+>>>> there shouldn't be any functional change for them you can
+>>>> probably go
+>>>> ahead and merge the patches to drm-misc-next when there is no
+>>>> reply
+>>>> in time.
+>>>
+>>> I will try to do a review tonight. One thing that comes up though,
+>>> is
+>>> the change to ttm_device_init() where you add pool_flags. I had
+>>> another
+>>> patch series a number of months ago that added a struct with flags
+>>> there instead to select the return value given when OOM. Now that
+>>> we're
+>>> adding an argument, should we try to use a struct instead so that
+>>> we
+>>> can use it for more that pool behavior?
+>>>
+>>>
+>>> I'll be able to find a pointer to that series later today.
+>>
+>> Found it:
+>> https://lore.kernel.org/dri-devel/20241002122422.287276-1-thomas.hellstrom@linux.intel.com/
+>>
+>> Glad to see in that thread it isn't just me permanently slowed down
+>> by
+>> "false, false" and similar. :)
+>>
+>> I considered using a struct too and I guess there wasn't too much of
+>> a
+>> sway that I went with flags. I thought not to overcomplicate with the
+>> on
+>> stack struct which is mostly not needed for something so low level,
+>> and
+>> to stick with the old school C visual patterns.
+>>
+>> Since you only needed a single boolean in your series I suppose you
+>> could just follow up on my series if you find it acceptable. Or I can
+>> go
+>> with yours, no problem either.
+> 
+> It seems yours has the most momentum ATM. I can follow up on yours. It
+> would be great if we could perhaps change the naming of "pool_flags" to
+> something more generic.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 3eb3fb55ccb0..5a7bf0661dbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -32,6 +32,7 @@
- #include <linux/uaccess.h>
- 
- #include "amdgpu_reset.h"
-+#include "amdgpu_ras_mgr.h"
- 
- /* These are memory addresses as would be seen by one or more EEPROM
-  * chips strung on the I2C bus, usually by manipulating pins 1-3 of a
-@@ -556,6 +557,9 @@ bool amdgpu_ras_eeprom_check_err_threshold(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 
-+	if (amdgpu_uniras_enabled(adev))
-+		return amdgpu_ras_mgr_check_eeprom_safety_watermark(adev);
-+
- 	if (!__is_ras_eeprom_supported(adev) ||
- 	    !amdgpu_bad_page_threshold)
- 		return false;
--- 
-2.34.1
+Do you have a name in mind? For ttm_device_init pool_flags made sense to 
+signify they relate only to the poll.
+
+I need to respin anyway since I forgot to include the new header from 
+unit tests.
+
+Regards,
+
+Tvrtko
 
