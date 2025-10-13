@@ -4,77 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908BACCD183
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 13:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48176CCA476
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 13:18:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB1D10E397;
-	Mon, 13 Oct 2025 13:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2B2D10E320;
+	Mon, 13 Oct 2025 13:18:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JRH6lrvS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qCEHFtC+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9170C10E1E3;
- Mon, 13 Oct 2025 08:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760345346; x=1791881346;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=r+MPMRJY/aF4Q1mjygThXbzbTjg7DdkJ//V0KplO9/Q=;
- b=JRH6lrvSQ1+Le3IMieGzq4BbSmb0XaUaEUlZ+nkR8umOPcIBvB/HLGAJ
- Fo/IYSRwVrDV0RwLaZOyrSw0wGf5Y1ZEBaoPr3DU8IZBodKC2wkwhyaFo
- 7plJzTON2iTX8tfwMYV0xWbEacBKhF1+lnrq9nm/ia3QsGCe/FHDHM9WA
- jVjjQlW17RoOPNyUV/Tu8FF+TEJwOkEoK3FTnX8ffnyKxpG/esa+fdYaJ
- 9g2zxp2EYYTZE9hkTEG5EaWrz7iochMMqbLw0MUq7/CwjUrN1fFOFSiYD
- zzQ9sHMtzKQcXS4x+4Tw+zzL2Cwjgr5ntKcIUQroGS2v+RjH1E4DgWlnJ Q==;
-X-CSE-ConnectionGUID: VRN69HqUSZi7K31FSUhoGQ==
-X-CSE-MsgGUID: cIAkXw5NR/eUi4PLWthGdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11580"; a="72735970"
-X-IronPort-AV: E=Sophos;i="6.19,225,1754982000"; d="scan'208";a="72735970"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2025 01:49:05 -0700
-X-CSE-ConnectionGUID: vnbBbYx1ReWI+f+nqUrw7w==
-X-CSE-MsgGUID: 1ll9Y6HsSzKnNUeY+EIFYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,225,1754982000"; d="scan'208";a="186838467"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO [10.245.244.64])
- ([10.245.244.64])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2025 01:49:01 -0700
-Message-ID: <a0ff3751a71eab1f8f1c105e84b88b12cd43d65f.camel@linux.intel.com>
-Subject: Re: [PATCH v3 0/5] Improving the worst case TTM large allocation
- latency
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, Lucas De Marchi
- <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org, Rodrigo Vivi
- <rodrigo.vivi@intel.com>
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, Danilo
- Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>, Gerd
- Hoffmann <kraxel@redhat.com>,  Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Lyude Paul <lyude@redhat.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>, Thadeu Lima
- de Souza Cascardo <cascardo@igalia.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Zack Rusin <zack.rusin@broadcom.com>
-Date: Mon, 13 Oct 2025 10:48:57 +0200
-In-Reply-To: <69279852-e1ed-4caf-a92b-a352ba4b613b@igalia.com>
-References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
- <6bba6d25-91f3-49a6-81fc-7a03d891cd1d@amd.com>
- <22228578-a03c-4fc1-85b2-d281525a2b6f@igalia.com>
- <9bb3c06e-25c1-43d8-a4e8-e529c53ff77d@amd.com>
- <45973012f925dbbfdf0636c10f9d051c34f97e2e.camel@linux.intel.com>
- <a300e417-c9df-4e2b-a75f-319aab384b44@igalia.com>
- <d3c56f60ab638891d3d78200876ea11780f5ec21.camel@linux.intel.com>
- <69279852-e1ed-4caf-a92b-a352ba4b613b@igalia.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB3D310E0F2;
+ Mon, 13 Oct 2025 13:18:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j4eABccInr4puQI/OiCP3xStkSIn8JJpsKdgDyh01pNiCyUkopAIc0bYSsBgqIRVoPQ4BaO2MryA85k+3cwap/2P7wPxWgNUkcoSeoyP/Nci42OQoCkc+jq+AFmFpqKovWmaJcAi6dZrhIGa0tB8nEtDH1izlJ5ej2l41gPf2l+EsgTQAIeS2xavvEG+TjJE76/7tv0ZsTdzpE1CWGHh57f3wVyJ/mLm4feKql6EHVSd6a7+NNm0hufJImIunitn2dTSmotlfdqtlDLGONhA9+A0wg7lxSIjoLv1Uestz11wK7ZJqJ9f99SGN+khnAzxEyC6o8pwUSQusD5TiAjd+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=loDDiJdZRwzOe5UCL2cPSbNr2uZLVzq1RbifHA/9DA8=;
+ b=eJAGPdf84eqs8LRSbmt65/jLOF4Bp2n1q/XoYUWuNxdNFe6w3LFWg4y29KcIZEb1HoxWt7iFhIlPF9hFWFw702mB8ggYQkieNSq7t/CotDbp7n8+54jL+Ie0zWYe9zJgK1/oeJgHivh76lNMsrCn6e3XpQC3wSZI2Eqns1xnYTxWXMaDcynoM6Popl3DCf/zPejg8PaNbY7iqP1uQI3l2E/xTbTeEWU/fyz+dokPmCCNrYfiBKbwR1kICWFK2JwUFsasVxV87qa9nUFSqG/EfwJjTRwtEIWihGLlnhRvBwL6NPN5/kZ7F+L2wpkkYxOD3xDTqu9ox7uNOBMD/5unwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=loDDiJdZRwzOe5UCL2cPSbNr2uZLVzq1RbifHA/9DA8=;
+ b=qCEHFtC+CYXdx6TmOZ1/GuPS1R0pQpNYp8Th19Wy2oK/f4/OrExum5OvO6EUhxhBxVpoIdMDG3OUIujGfVNVOzWCbg3sJOozdNj+bMSMZ8C3qlkTNZw8wq7M6fCPyaMtAlXD+ykywUNtMJDWbIncCCZUA58RtAENlpqXjGhMob0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BL3PR12MB6378.namprd12.prod.outlook.com (2603:10b6:208:3b1::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.11; Mon, 13 Oct
+ 2025 13:18:11 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9203.009; Mon, 13 Oct 2025
+ 13:18:11 +0000
+Message-ID: <8ec09842-563e-4879-b505-bd82ea87bae6@amd.com>
+Date: Mon, 13 Oct 2025 15:18:07 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/ttm: Add safety check for NULL man->bdev in
+ ttm_resource_manager_usage
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
+ "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
+References: <20251013085849.1735612-1-Jesse.Zhang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20251013085849.1735612-1-Jesse.Zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN1PR12CA0020.namprd12.prod.outlook.com
+ (2603:10b6:408:e1::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 13 Oct 2025 13:15:47 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL3PR12MB6378:EE_
+X-MS-Office365-Filtering-Correlation-Id: 808d2a53-2154-4814-38ad-08de0a5af521
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WUxJMXc5OGthcC9DT1FPUG9ENXVPdVFRdXZGVFhBZllvVWl1QVR3d2NDdVV4?=
+ =?utf-8?B?VTFXR2NqbDc4Tyt5KzdJNWpnNkFjelhPWk8rWEdOeFBXdjJjcWZDdldadjkw?=
+ =?utf-8?B?c1VNMFJ3bU9ReTFXVnRLUmUvaGlNTmQ0Tk8zUmZzM3d4S2VPeGtDODJhcndp?=
+ =?utf-8?B?Ym1MWlBmY2V5V3A2KzVTYzJUZHJZdUJhTHNIY0JxMEJXcHcwWEJUQ3E5bHFM?=
+ =?utf-8?B?U1hHQUpKcUl1dlhyZVc3dHk5Q0dxb3BaZXhhZDZJc1BwcjBVd2VlRklRRGZq?=
+ =?utf-8?B?c3lzZkdkR2pRdm05ekxGZDM0eWZHK2VJZTdSOG93bFgvNnFCdzRsa3h0aFo5?=
+ =?utf-8?B?VlpFbThUMmdGWVU2UzBIeGZleFh2YUVya2VWUGx6QnRLSWR3UkVsZUJWUUR4?=
+ =?utf-8?B?UE1DY2RjNFlFR1lyVlAwYXpaMzhiS2o3ZE9Ob3RKQU92RFpwTTg1OTJ5OTM2?=
+ =?utf-8?B?VjBVREFCL3BxK2o4aEd6ZUh3aHZHY210TVpHT0g5VmFFdDN5YStQbGY2d0pD?=
+ =?utf-8?B?NWZwNFVCZEVISkZnRG94c25KcmYvN3pZVmVacHE1L0x2MnN4UjNrZTMxSHFY?=
+ =?utf-8?B?eTQxRFRlaVJTT2NISk1SbUxtL0IyZjM3ZUJ4K1pUNG9iMTJ6L0c4a2UwL0Vk?=
+ =?utf-8?B?U1RMZTU1SXpFMklmUytyL2lkYlM3UzN6UVA3KzZZLzBUNUFRMlVXR3VHRzNj?=
+ =?utf-8?B?ZGkyWVpSMXZUZ3BJT2FsRTF5WjY1aHJxMzFuU0NJVVRzRjV4UXdqTHJkNFA2?=
+ =?utf-8?B?M1Y3VGM0L3VvRU9JSXlVbWgwbjB2VGdFL1dzalNiWVAwRTAyVCtrYWdIQUtj?=
+ =?utf-8?B?OW1mUEZ3cEs0NzFhUFdDUTM1NWgzcUlXWEJyenZKeXJpcC9QVkJqb2VidEVG?=
+ =?utf-8?B?MWR5enBSSTc1VWlCakloaXBuVmRIWUFxVjNNSnc1MDRGdEo0bDh6eTNIdDZm?=
+ =?utf-8?B?WUd5SDVndmNqNFlUVW1rcE5KVFJqV1ArRTJnZ0pzeTJveHRZMTdJMU5iQ20v?=
+ =?utf-8?B?Sklzb2luOTJJdlFXTHMrWVRFV040SXk5M1lCOG5oZlFNMW1yVjd5TjE5QmZy?=
+ =?utf-8?B?akl4MFQwdmxvMzVKajBYOXg0WjdTcFE0YU82QmN2U1o0dFhjdXNjR2VWczlw?=
+ =?utf-8?B?ZE1zbFY2eENES1Z2alJFK21ka050d2IvUmdBbmpYS3FVV1RObExtWW9URnBQ?=
+ =?utf-8?B?Z0EvWGdjQ2k0YnVIa3R6SU1teDUxUTVLaE1RakpCL2FSZkMzWVQrVHkydXVp?=
+ =?utf-8?B?UjVZWWtwVHlrdG5FbDJadnAzZnBLYW8xVzZYTnFTSTNDZUxITUJvWnNVREx4?=
+ =?utf-8?B?dmhlM1pRNlRFd0JQNFpYc20vbGtFRGZIS2JqckVycG55OWJIaFFpTnRMU2Rv?=
+ =?utf-8?B?YmtGVVd3QitLbTBpOExCQ2hTQ0c5blFyeklFOGxjQ2JlS1cyNHVuMlRpRDdl?=
+ =?utf-8?B?ZGhWWUN4R0lhQlR0NmZjeGlhV1A2cFMzL1FBN0FTUlNORHZ5a04xMk5FVlIw?=
+ =?utf-8?B?dldLV1NoSnIvLzh0OWNpNzBRNXlqc21qT0piUHI0S2tUK3FKSnB5d2FVYmxJ?=
+ =?utf-8?B?L3JKQlZ0V3dFZWpEMFVuUkNic3daaUMzUzVPSTJmSnY5RnNUYW10S2ZJbW9p?=
+ =?utf-8?B?dVJQWDFKMlUydFdvUTVIL1FiWmtWbzdCTXd2M2NPUUdvdTJ1SkwxLzhDVzk2?=
+ =?utf-8?B?bVN4Y2RVSXdlbXVNb1FaMkUzUTlQMHNQRmoraWdteml5YkdDdS85U3NsY0Ju?=
+ =?utf-8?B?NlROY2w2VUx3NnQ2anZDK0kwdGkxM0I2WTlNeFVManFRMHhibDFYMlhNZktG?=
+ =?utf-8?B?d0ZkYzRhTW8yU1I1K3ZMSHdRTVI4OVd3RDVKcStrN3dSc1laVE1SaVdXWllX?=
+ =?utf-8?B?bm1hdlZMZWlBY0ZYcWtGZmppcGVXaHExenhJRGkvNGhSYTA4QVg5U3lCbGxB?=
+ =?utf-8?Q?DkZkuBJHu0qNmR3GT2deVcDS1U00QNI8?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1NSQzJ5b2hMU0QrakZyWitYekcvNXhSTWw3NEsyUnNjeGVOby95Skk3N1lF?=
+ =?utf-8?B?L3F6WWkwMzExYWpseWdYWlIxVUQ4bHhaRTU5a25xR3lXYjJzSGdkSmVvRGZi?=
+ =?utf-8?B?U3VZaHVoMHdzZDFFWFQvUjhJcStTeldScXpIUi9PMFdWbEo3TnhDSkdRK1B1?=
+ =?utf-8?B?dWhpbk9rT2NHd2F3RmdEZHMrT0J1U1lWdm93N2x5WWtDTWtVNUR4blFqZFhE?=
+ =?utf-8?B?RUhsayt3RDBISTJpZHNtNk1GTi95bUFyMWRRMG1FWjIvT2hhRmFyVkhDdG42?=
+ =?utf-8?B?M2YzL09KUGUyeUtoMUNvRDhRNm93cmFpTGpzaHFkMHo3aWRGd1laNUtKWFVr?=
+ =?utf-8?B?NEZ3N2pCVENzUjhwNnBHMVNONWw4KytCMTQ5aU9QSlBaa1E0SDNUOG1pRjhj?=
+ =?utf-8?B?NUxlUHEwbms0YnFKVFF3UG82VjhCZVR2b242SnhLR0R5Y2hoUmdmRWtZUk1U?=
+ =?utf-8?B?dlNpbW8wUVIrM1d4Z01hYmZwdDZaZ2hVeU9CVEYyaTFoSEszdENSZ0hhSTB0?=
+ =?utf-8?B?czJJZVhLNm5pcFdzN2RpbENEUGFBUStndjlTU2JwaTlOOC9oTUFPK2k2clE2?=
+ =?utf-8?B?dmxwMTBBWjhpQXFBWmFXV1M3SCtGRGNDU0ZYOFFFMnVvTk11RnI1MXN0SGlm?=
+ =?utf-8?B?SFYzS2VxcG9MaWtjek0rQnVscCtkajR1TytYcVNlT0VzZW9odmdBWFFZS1FM?=
+ =?utf-8?B?RG02TFYvcktqZkNYaE5PREJORW9VWFVXUjhPNEJZdzE5VjJ0RkFHVHlZZllw?=
+ =?utf-8?B?NTd2NkVOYjhUSzFGaFh1MGJnbGpwUk1FMDV0WTkvdkdpMVhtVmhablRrU25Z?=
+ =?utf-8?B?b3dvSFdBZVR3RU9zYjRzWHowbFVPWnlsRWFQQVFaSVpENlBhWFo1dWRpeVFs?=
+ =?utf-8?B?dzd6cnZReW1CQVdBL1hGT2xVdVo5S2loVWI2TzJIRi9iM2c3OEZKSW5WQzlE?=
+ =?utf-8?B?NUhEMjdtelI0YmpoaHAzaGR2b1RnaVk1MzNSMmp6Snk2b0N6NHZKLzg5YWVm?=
+ =?utf-8?B?Z0xDTlVTeENYcUIwa0NZSXRONjNqMkJDVHVocktxWG83TmpQMFRLZFpqSTRt?=
+ =?utf-8?B?WXg0b05PMzZqcVZyRzh2cHl2Q29XSy9HQVdwT0p4RFpyWXFacFcreURoNVND?=
+ =?utf-8?B?WW05Tkg2a1Z3ZzBwTDE2Znh4a2o0R0pOQWNLNlU0ZEFORUpIR3dJVlh2NFZD?=
+ =?utf-8?B?Y1BuQkUwV3pBRG9VOHdIU3QrUnlFVjRWV1dRbGkwQk5SYWlMUkN6cGtLYTJk?=
+ =?utf-8?B?QWs3dnZTQUk5ZmtzZDlSYVF5UG9FY1ZiZ2FaRjYwcDN2dlVzWjVMNjhXRzdD?=
+ =?utf-8?B?N3ZCUjVxRjMyYlovWmVsMk1ZRm1FaWFwUkVlUHFpVDBVYkcxWUtwLytMR3Y3?=
+ =?utf-8?B?K2VpdGp3K09mS01OenlDTkk2Q1BzSi80bjZWYnp3YnI1WUZsRnd0ZG5mRGJY?=
+ =?utf-8?B?OGk3cWNxTE02OTBXYkgyeCttbWluOERYMTRqVXVSaktMTU1LTW4wa0gvL01h?=
+ =?utf-8?B?TmxMYVhhYnUzcGFGZjk5aWc2ZEE2b0NiY1lVQXZmKzhiQ1JWeXlvRUhZQkk0?=
+ =?utf-8?B?RlIyN2dRbDlxaS9VZHE4RUdaZUVYU1BZT0t0UE5ISlRjMjFzeUxLMXl6MWtI?=
+ =?utf-8?B?N2ljTDFDRUV6OU11RjJvYk41SytLS1dqSlh1Nzg3MU1KZEg5OFNlUnAyNm9m?=
+ =?utf-8?B?STk5S01vNkU5MURNVytxMXA4Q3liZkUyRVhwS252UG53TjJlR1F2VnNvV2ZU?=
+ =?utf-8?B?VU9tMlpuL0hiMG93eFlad3lFM0lJV3VlTk1GbWhSdEU3VGdrOGhpNlk4SW1V?=
+ =?utf-8?B?Q3VuSHQ2K2xTZlZlc1ZDUG1YSlRReGkrN0E0d2YxL3VzWkFtZ0RuRTNwVzE1?=
+ =?utf-8?B?L3JkaU5rUWVnaS9RdlB1dXRLTlVUbVU4RlpabFBBL3pzSWxLVWVvNVZaa1pZ?=
+ =?utf-8?B?WVY4MU9SZnVmZFFkOXZNeFRQQVM0NGozR0hsZlJwZzZ4UjNLZ095NkxBdzVN?=
+ =?utf-8?B?dTB0TDhNalhtZTE1VHFDaXFGSTc0Y2UvVE9nbjl4R29GNWVzRENONG1MaTJ1?=
+ =?utf-8?B?UUhUVjRxUkR1K1AwUzZHcUkxVzIvcUNPdjBiUitCMUs5M1l0YUlHR1loVDFv?=
+ =?utf-8?Q?9IgaYJllNnM4nDxXeLMBuWqtn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 808d2a53-2154-4814-38ad-08de0a5af521
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 13:18:11.0764 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4YnT4OuLB2X9LtqtB6f2SQBr7M2JBAYnDelZPVq/v2GKmATKPFGEbjihHMOB0xK2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6378
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,215 +163,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Tvrtko,
+On 13.10.25 10:58, Jesse.Zhang wrote:
+> The `ttm_resource_manager_usage()` function currently assumes `man->bdev` is non-NULL when accessing `man->bdev->lru_lock`.
+> However, in scenarios where the resource manager is not fully initialized (e.g., APU platforms that lack dedicated VRAM, or incomplete manager setup),
+>  `man->bdev` may remain NULL. This leads to a NULL pointer dereference when attempting to acquire the `lru_lock`, triggering kernel OOPS.
+> 
+> Fix this by adding an explicit safety check for `man->bdev` before accessing its members:
+> - Use `WARN_ON_ONCE(!man->bdev)` to emit a one-time warning (a soft assertion) when `man->bdev` is NULL. This helps catch invalid usage patterns during debugging without breaking production workflows.
+> - Return 0 immediately if `man->bdev` is NULL, as a non-initialized manager cannot have valid resource usage to report.
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 
-On Sat, 2025-10-11 at 09:00 +0100, Tvrtko Ursulin wrote:
->=20
-> On 10/10/2025 15:11, Thomas Hellstr=C3=B6m wrote:
-> > On Thu, 2025-10-09 at 09:53 +0100, Tvrtko Ursulin wrote:
-> > >=20
-> > > On 08/10/2025 15:39, Thomas Hellstr=C3=B6m wrote:
-> > > > On Wed, 2025-10-08 at 16:02 +0200, Christian K=C3=B6nig wrote:
-> > > > > On 08.10.25 15:50, Tvrtko Ursulin wrote:
-> > > > > >=20
-> > > > > > On 08/10/2025 13:35, Christian K=C3=B6nig wrote:
-> > > > > > > On 08.10.25 13:53, Tvrtko Ursulin wrote:
-> > > > > > > > Disclaimer:
-> > > > > > > > Please note that as this series includes a patch which
-> > > > > > > > touches
-> > > > > > > > a good number of
-> > > > > > > > drivers I will only copy everyone in the cover letter
-> > > > > > > > and
-> > > > > > > > the
-> > > > > > > > respective patch.
-> > > > > > > > Assumption is people are subscribed to dri-devel so can
-> > > > > > > > look at
-> > > > > > > > the whole series
-> > > > > > > > there. I know someone is bound to complain for both the
-> > > > > > > > case
-> > > > > > > > when everyone is
-> > > > > > > > copied on everything for getting too much email, and
-> > > > > > > > also
-> > > > > > > > for
-> > > > > > > > this other case.
-> > > > > > > > So please be flexible.
-> > > > > > > >=20
-> > > > > > > > Description:
-> > > > > > > >=20
-> > > > > > > > All drivers which use the TTM pool allocator end up
-> > > > > > > > requesting
-> > > > > > > > large order
-> > > > > > > > allocations when allocating large buffers. Those can be
-> > > > > > > > slow
-> > > > > > > > due memory pressure
-> > > > > > > > and so add latency to buffer creation. But there is
-> > > > > > > > often
-> > > > > > > > also
-> > > > > > > > a size limit
-> > > > > > > > above which contiguous blocks do not bring any
-> > > > > > > > performance
-> > > > > > > > benefits. This series
-> > > > > > > > allows drivers to say when it is okay for the TTM to
-> > > > > > > > try a
-> > > > > > > > bit
-> > > > > > > > less hard.
-> > > > > > > >=20
-> > > > > > > > We do this by allowing drivers to specify this cut off
-> > > > > > > > point
-> > > > > > > > when creating the
-> > > > > > > > TTM device and pools. Allocations above this size will
-> > > > > > > > skip
-> > > > > > > > direct reclaim so
-> > > > > > > > under memory pressure worst case latency will improve.
-> > > > > > > > Background reclaim is
-> > > > > > > > still kicked off and both before and after the memory
-> > > > > > > > pressure
-> > > > > > > > all the TTM pool
-> > > > > > > > buckets remain to be used as they are today.
-> > > > > > > >=20
-> > > > > > > > This is especially interesting if someone has
-> > > > > > > > configured
-> > > > > > > > MAX_PAGE_ORDER to
-> > > > > > > > higher than the default. And even with the default,
-> > > > > > > > with
-> > > > > > > > amdgpu
-> > > > > > > > for example,
-> > > > > > > > the last patch in the series makes use of the new
-> > > > > > > > feature
-> > > > > > > > by
-> > > > > > > > telling TTM that
-> > > > > > > > above 2MiB we do not expect performance benefits. Which
-> > > > > > > > makes
-> > > > > > > > TTM not try direct
-> > > > > > > > reclaim for the top bucket (4MiB).
-> > > > > > > >=20
-> > > > > > > > End result is TTM drivers become a tiny bit nicer mm
-> > > > > > > > citizens
-> > > > > > > > and users benefit
-> > > > > > > > from better worst case buffer creation latencies. As a
-> > > > > > > > side
-> > > > > > > > benefit we get rid
-> > > > > > > > of two instances of those often very unreadable
-> > > > > > > > mutliple
-> > > > > > > > nameless booleans
-> > > > > > > > function signatures.
-> > > > > > > >=20
-> > > > > > > > If this sounds interesting and gets merge the invidual
-> > > > > > > > drivers
-> > > > > > > > can follow up
-> > > > > > > > with patches configuring their thresholds.
-> > > > > > > >=20
-> > > > > > > > v2:
-> > > > > > > > =C2=A0=C2=A0=C2=A0 * Christian suggested to pass in the new=
- data by
-> > > > > > > > changing the
-> > > > > > > > function signatures.
-> > > > > > > >=20
-> > > > > > > > v3:
-> > > > > > > > =C2=A0=C2=A0=C2=A0 * Moved ttm pool helpers into new
-> > > > > > > > ttm_pool_internal.h.
-> > > > > > > > (Christian)
-> > > > > > >=20
-> > > > > > > Patch #3 is Acked-by: Christian K=C3=B6nig
-> > > > > > > <christian.koenig@amd.com>.
-> > > > > > >=20
-> > > > > > > The rest is Reviewed-by: Christian K=C3=B6nig
-> > > > > > > <christian.koenig@amd.com>
-> > > > > >=20
-> > > > > > Thank you!
-> > > > > >=20
-> > > > > > So I think now I need acks to merge via drm-misc for all
-> > > > > > the
-> > > > > > drivers which have their own trees. Which seems to be just
-> > > > > > xe.
-> > > > >=20
-> > > > > I think you should ping the XE guys for their opinion, but
-> > > > > since
-> > > > > there shouldn't be any functional change for them you can
-> > > > > probably go
-> > > > > ahead and merge the patches to drm-misc-next when there is no
-> > > > > reply
-> > > > > in time.
-> > > >=20
-> > > > I will try to do a review tonight. One thing that comes up
-> > > > though,
-> > > > is
-> > > > the change to ttm_device_init() where you add pool_flags. I had
-> > > > another
-> > > > patch series a number of months ago that added a struct with
-> > > > flags
-> > > > there instead to select the return value given when OOM. Now
-> > > > that
-> > > > we're
-> > > > adding an argument, should we try to use a struct instead so
-> > > > that
-> > > > we
-> > > > can use it for more that pool behavior?
-> > > >=20
-> > > >=20
-> > > > I'll be able to find a pointer to that series later today.
-> > >=20
-> > > Found it:
-> > > https://lore.kernel.org/dri-devel/20241002122422.287276-1-thomas.hell=
-strom@linux.intel.com/
-> > >=20
-> > > Glad to see in that thread it isn't just me permanently slowed
-> > > down
-> > > by
-> > > "false, false" and similar. :)
-> > >=20
-> > > I considered using a struct too and I guess there wasn't too much
-> > > of
-> > > a
-> > > sway that I went with flags. I thought not to overcomplicate with
-> > > the
-> > > on
-> > > stack struct which is mostly not needed for something so low
-> > > level,
-> > > and
-> > > to stick with the old school C visual patterns.
-> > >=20
-> > > Since you only needed a single boolean in your series I suppose
-> > > you
-> > > could just follow up on my series if you find it acceptable. Or I
-> > > can
-> > > go
-> > > with yours, no problem either.
-> >=20
-> > It seems yours has the most momentum ATM. I can follow up on yours.
-> > It
-> > would be great if we could perhaps change the naming of
-> > "pool_flags" to
-> > something more generic.
->=20
-> Do you have a name in mind? For ttm_device_init pool_flags made sense
-> to=20
-> signify they relate only to the poll.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Well, what I had in mind would have been "flags" or
-"device_init_flags".
+@Arun could you push this one to drm-misc-next if nobody objects?
 
-Really one could change this once flags starts to have other meanings
-as well, like the return value change I was proposing.
-But the reason I was suggesting to do this now is to avoid yet another
-added parameter to ttm_device_init, since obtaining an ack from all TTM
-driver maintainers is typically time-consuming if at all possible.
+Thanks in advance,
+Christian
 
-When adding functionality to allocation functions, for example the use
-of the ttm_allocation_ctx has proven easier to use since it's easily
-extendible typically without changes to drivers.
-
-Thanks,
-Thomas
-
-
-
->=20
-> I need to respin anyway since I forgot to include the new header from
-> unit tests.
->=20
-> Regards,
->=20
-> Tvrtko
->=20
+> ---
+>  drivers/gpu/drm/ttm/ttm_resource.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+> index e2c82ad07eb4..d93d1bef6768 100644
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> @@ -587,6 +587,9 @@ uint64_t ttm_resource_manager_usage(struct ttm_resource_manager *man)
+>  {
+>  	uint64_t usage;
+>  
+> +	if (WARN_ON_ONCE(!man->bdev))
+> +		return 0;
+> +
+>  	spin_lock(&man->bdev->lru_lock);
+>  	usage = man->usage;
+>  	spin_unlock(&man->bdev->lru_lock);
 
