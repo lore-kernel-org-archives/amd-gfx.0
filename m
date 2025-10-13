@@ -4,47 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1347ECCD185
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 06:02:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDBACCD185
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 06:06:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 878E710E383;
-	Mon, 13 Oct 2025 06:02:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A49A882D0;
+	Mon, 13 Oct 2025 06:06:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TAFlBh2a";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jHpUhuya";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87ABC10E37A;
- Mon, 13 Oct 2025 06:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1760335360;
- bh=gCTdPchWuc1xiR4tpvlqqw30LOOS9lTJyDFe5on17HM=;
- h=From:To:Cc:Subject:Date:From;
- b=TAFlBh2aNv23DXPQ8OmreZbzQmFTLIEjl9J0KbxvbjC5MtwEDNbXW5ujofaTRW+XL
- KO2ISTQK6VLqg6gIt8eK01iUC61DOl72IhIbVAd8Uh2RUP0MV+1sbBup1PxcUL3Udr
- rNFUwfDC3qq0kgUl0qUdx5t3dkfn+cHIOCN7SIWrLYmNfGvL7Dar5Jx6QYWjcHmEpA
- ZmH/LzM1ZfJ5fjq8ANRpuElYt405PKG/Rru0AscGlyxSihbzvzzmy/vF0/u9uZL1Io
- 7KVmdMeZ3vp1bYNvsFVYPV/gZX1Wn7B/AL6tw4uOItj3wuAmFt97FfOZiW9LFpAlDN
- ltp9kK/V6HuoA==
-Received: from debian (unknown [171.76.80.157])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BC90217E0CA3;
- Mon, 13 Oct 2025 08:02:36 +0200 (CEST)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com, helen.fornazier@gmail.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, robdclark@gmail.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, valentine.burley@collabora.com,
- lumag@kernel.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v1] drm/ci: disable broken MR check in sanity job
-Date: Mon, 13 Oct 2025 11:32:10 +0530
-Message-ID: <20251013060212.14583-1-vignesh.raman@collabora.com>
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E56910E38A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 06:06:49 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-639e1e8c8c8so7310687a12.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Oct 2025 23:06:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760335608; x=1760940408; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=JHA6KwZbQiiAgTRoW1HYymYTZA9lMYrF5vKG1BYuqdI=;
+ b=jHpUhuyao2Kgw3Dms+HT/STad241FcussMIr4OnhcapQFFJoa9eG6NBdoY5TjoOJcV
+ fijcdrEevW8YBshtSnsItRlVtBdZzsk1WThYYb/9/+od8Sck9l98app9kkY0/+RkHTn0
+ qqsSDqFsR4MCoGhk3kmbzYdbU02MfpQfli1noX5YrkMEaw2ZLqjwKtRl7kXA8zIwlKLq
+ oZdkARfoML5s2arjKQhVCzwxoAS8SztwOFvMYbe/FCOssfZgxm04M9wXpk/BWKFBF1zj
+ Fbbs/NiYDBaL05I5HcMtrb+aNEhW+YvUWjZj5ncNHyo7zvOQAmLrnIv4bV4AMkiBYXmV
+ Wa0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760335608; x=1760940408;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JHA6KwZbQiiAgTRoW1HYymYTZA9lMYrF5vKG1BYuqdI=;
+ b=cGRc1HNxrZPSr8GEJaAosergbIgbHv5qrNvzKqXwk0m0qOtoieW4FIU19OgaVuFv+U
+ 8IPgasavCjFZ21oJSiYEDGfpg6n+/ZPUPieoKOAcvn4qNzf0+uN7NxxxWJ7eix7CeLIL
+ H0r8xdW0ZR20Qp/IIjPJ2xHYcoL3llN8fGSDKyUbzfyGfWzQ2pX6SpddsA7y2krG+qEu
+ uKsMUP0hXBSjaMgM8bx56VMcZWZDIFLCqnbm/4NJpKA/0CqLWD+uCW68LOSKUmvQhhKB
+ lzOedNKebmHwwgtJmolaCIFRw8E/7ZvASjo0gtrMtj9Qpv/HS4iYRvhDICwwF2UuaUEt
+ OZKw==
+X-Gm-Message-State: AOJu0YwfpEOXwu5JdYkrfoFFGeMHijaFIur9/CGoRyDaDxcqLNnX8XUW
+ TcF88uPHcf4JCwojaDL91oVUlcJHZTfRbz7S3T1h+X5CPlz+4JEZxiUz7oCLWQ==
+X-Gm-Gg: ASbGncsGrDFW0Jsw/4IApcLKD740C7TvkK1KZ33r7pitOPH2MAoZgB9D93RewiDYqk1
+ O6vqY8vxZiiIYnKZGY9Dn3GRjwLfklYBGMhJjdDaf7ET4B4mVwcBbcs8m8snmkhp3WQgaulSkAQ
+ aH2+X4vvzoTtiY3Ivy4xXojeEXu5Cn9WiAiyo6k4FU8J2ZnjDWNMuRj9aq0kUNKIFXCpyFwKvGN
+ 6e2gFAqM+BQo99yL+WDD1skB1YcO2ObT4gch9zQSpdfVshZBlDO1lQYWNC2QZbiYta921n9o7kw
+ Z6ik95KGbN/DLcMIiDpUe/PMhTp8j4RsGrD+YRSuQlmhPCQ0fZef6Kep3/KztxTzTjx8ZMfaWlG
+ Vol33ZJrp2ro1mVJFMNzHy5HkhwB4T5XRMHq8PClePAAd6Yk6LkCEKqctKEk+fKg8irq5s414q6
+ QRpyhTAyxECrZgGZHNkULdPpxLoU5LHyLkOmolT8dOdkNx6A==
+X-Google-Smtp-Source: AGHT+IFfKoGhq3hegjhBV+LQsU9gcUUWXYFKHv0y2HqH2chTUZXQ7w9auu0+3eNtiuZph5+4+1Ck5A==
+X-Received: by 2002:a05:6402:1453:b0:639:fefb:996a with SMTP id
+ 4fb4d7f45d1cf-639fefc0db9mr13206974a12.12.1760335607871; 
+ Sun, 12 Oct 2025 23:06:47 -0700 (PDT)
+Received: from Timur-Hyperion.home
+ (20014C4E24F25600946431E697F050A9.dsl.pool.telekom.hu.
+ [2001:4c4e:24f2:5600:9464:31e6:97f0:50a9])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-63a5c133f58sm8209921a12.30.2025.10.12.23.06.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 12 Oct 2025 23:06:46 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, mario.limonciello@amd.com,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH] drm/amd/powerplay: Fix CIK shutdown temperature
+Date: Mon, 13 Oct 2025 08:06:42 +0200
+Message-ID: <20251013060642.21269-1-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -63,32 +87,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GitLab recently changed the required permissions for the
-are-developers-allowed-to-push-to-my-MR check:
-https://gitlab.freedesktop.org/freedesktop/ci-templates/-/issues/81
+Remove extra multiplication.
 
-Until that’s resolved, disable the check - it’s mostly obsolete anyway.
+CIK GPUs such as Hawaii appear to use PP_TABLE_V0 in which case
+the shutdown temperature is hardcoded in smu7_init_dpm_defaults
+and is already multiplied by 1000. The value was mistakenly
+multiplied another time by smu7_get_thermal_temperature_range.
 
-Based on https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/37782
-
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+Fixes: 4ba082572a42 ("drm/amd/powerplay: export the thermal ranges of VI asics (V2)")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1676
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/ci/gitlab-ci.yml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
-index d502d146b177..56638814bb28 100644
---- a/drivers/gpu/drm/ci/gitlab-ci.yml
-+++ b/drivers/gpu/drm/ci/gitlab-ci.yml
-@@ -280,7 +280,7 @@ sanity:
-     GIT_STRATEGY: none
-   script:
-     # ci-fairy check-commits --junit-xml=check-commits.xml
--    - ci-fairy check-merge-request --require-allow-collaboration --junit-xml=check-merge-request.xml
-+    # - ci-fairy check-merge-request --require-allow-collaboration --junit-xml=check-merge-request.xml
-     - |
-       set -eu
-       image_tags=(
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 8da882c51856..9b28c0728269 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -5444,8 +5444,7 @@ static int smu7_get_thermal_temperature_range(struct pp_hwmgr *hwmgr,
+ 		thermal_data->max = table_info->cac_dtp_table->usSoftwareShutdownTemp *
+ 			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
+ 	else if (hwmgr->pp_table_version == PP_TABLE_V0)
+-		thermal_data->max = data->thermal_temp_setting.temperature_shutdown *
+-			PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		thermal_data->max = data->thermal_temp_setting.temperature_shutdown;
+ 
+ 	thermal_data->sw_ctf_threshold = thermal_data->max;
+ 
 -- 
 2.51.0
 
