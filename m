@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76577CCD183
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 13:43:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA8EDCCD18D
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 13:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1917D10E393;
-	Mon, 13 Oct 2025 13:43:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7373910E380;
+	Mon, 13 Oct 2025 13:44:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bHRtw+HH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BhhJfjpP";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AFDA10E380
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 13:43:14 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-26808b24a00so6351165ad.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 06:43:14 -0700 (PDT)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B24AB10E380
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 13:44:34 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-79cf7fd45afso59835b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 06:44:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760362994; x=1760967794; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760363074; x=1760967874; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kYChUgi8LjENHZMu/sI/jJPOxwtcECIht7HS9fEO/uw=;
- b=bHRtw+HH2gf0GLqKtMyCqv6+tA9usSAox4A014/OGEyiiyEjQ43n0SwqIz3WtojaV1
- qhR4KOHaYdUrWjuO/yCMFYsINfyoNobjZt1Q2bWIEjv48H8cEXTaRwp8NCH9B1yyd7UA
- QN+ZOCbhN0pYLeHMsMxq9OTA8Mtsc87c8rMboqngYRBCg5bNU8OFtXJ+0UT9TYrbACzP
- j5qZsbnGMaH7LT/AVoxgU6nLLzORYmXOrubgVqtt+E7Jz0Ingc8kx2iWTK28s/WDfgqF
- WpLM0M5roajUQJCxwXSsIvHAF3Eu7jSvOQWeN7EuBbnbLFXQvpzxGlhT8MIQDxFmGWid
- /bZw==
+ bh=8r66ZKjMX8hUTb7mM57w+FReEXT2W920iDabgn/p7do=;
+ b=BhhJfjpPqzXyMJ8BCU6nWoIWysCrE54FqqAItSUsqjemnmlQ+VBDkzyTlshnb/jvSH
+ e1E+/dz6WM/T9G7dPqo67gXvuzr9sl8k7GxxZkAqN5rgae7jFBVZl0r5r3pweG2sjOih
+ DqSa8/2IpQ/a7M6fU1DVxsDnsPwg+q6kwnZc1OwHTK1Ure47WxvkVSA2rYXCumFT2U10
+ 9GBsYj8Zxmd0XUqREfNwvlj3qzsfhV112w0cj+/FSvcY3odFU/FFy9E/XpIb5wJuvbeX
+ Nxx8o/p5fBkqAPLLnK2gSD7yb9Am/OibpEtkTMolId8AF9j3s5kWUS5RcrXEKujQ6L+l
+ 6+4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760362994; x=1760967794;
+ d=1e100.net; s=20230601; t=1760363074; x=1760967874;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kYChUgi8LjENHZMu/sI/jJPOxwtcECIht7HS9fEO/uw=;
- b=ZZZaUrewUy4UFQro3vaNPcjV4KpQO48DG8dHbJrrlPmZoTRFOB/Kwq81KaMo1P8o+R
- 8xa/nwFvUgrgIKAg6qlyxvOAZkv5nN6PCz/CRFWozltS2k3jZwbOGYZ9kUsO6eGs+xHH
- Sc9SOii9GdAdJN7SLwzqllupfQiyu7+0jpEbx8JBQEeuFvrT3zCM3EpepD2uEitl2u4I
- ueZ1HltKN0uOPrA6Oo352rfJLWaDP3Fia7njsjOJLWOkwAj4kRby+cspW+UzSqlEpcmK
- kTBbUnyXtDsFIPoz+QDK5QjrZjMHkqQzviBxM4bqIz+5zdf8pWozQrpWo1GCRZxUvxhe
- S9Pg==
+ bh=8r66ZKjMX8hUTb7mM57w+FReEXT2W920iDabgn/p7do=;
+ b=OjsoQh1HBo9dKlYM7D1bkLL4r61CUBUhcbMmq1Z88Ptddj3WmuhZdZ/aisZ9KP+A4m
+ E9izahC6HBHO8dRHoTel7508DvZGI+Rtlc43Uw0TtjL71DBpGWTLLuh2NXOeW1tP0wC1
+ gNBKh9rPAC2M+pvtFTEC2/n+p8ZqBnYqh9NZux8vwqiJCn9Dx84vIaeKVEck1RTrrHw5
+ Mur8DbCvLxFAE5kMYDcnbBHaJ798sY58ytAJIq4RBsQlHK5oBb1LwCSyS4g2P6asIFWv
+ y+I8vmhBhc7H3cyb2ZspK56UsZgXfrVD2/OOXDDQ02F8O6UxvWiDY0azOgJTh9Q7c/bz
+ a8/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUb9asaIL012gCigJTwlgX3kh5pmqIHyPU4Jlyzyuk4XrwQV7uk/BhELpT8xBvCNO9uSEWgVVwC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjSJd615UfEemdUpyKQUXQEAopFDQBM2BnMW1d530Geh+Su3MR
- IKZ5z+2/LPPZfrqt8UDh80P6fZ4eTnF8lkprCGNjdDkyV2fVRo8GFy9ZLFdbETJJrHrMwUBxkmn
- IS034IV7m1535K0n+qeTxqly9Df4BUOI=
-X-Gm-Gg: ASbGnct0riQvpXa69f/JxereRCSnB89zE+u9AM6YCB8zRg0ghgTxntIMJXLYajxk47M
- gZqT2GG2JKxea9IQSqZ8DZvYCnjKVQfpdWDLuFJRiYnHUGBkwbJxFVxR+0UIEgDxgOYhqPuyBv7
- OEJzlpuyPxEl2Bk8Ut063xNQxm9sfy/T+wzAvhPsMzyWentkYNicdvvKyoi6ecdcvcT5lMTWe2H
- gc+hTcPckc9Wzy2u6/A0EnzvA==
-X-Google-Smtp-Source: AGHT+IFTja6DwofTPYw6RVlMAhNDPvJFYiCzISjjhQbwQof90sBrx9jT5ij9iHoHRv9gW0qHqv0wt8I4iqdEQ3amlHU=
-X-Received: by 2002:a17:902:a608:b0:290:552b:1b97 with SMTP id
- d9443c01a7336-290552b2498mr38836765ad.7.1760362993805; Mon, 13 Oct 2025
- 06:43:13 -0700 (PDT)
+ AJvYcCVhXKIWw5yGkt/+poNWea3pnhOMhgV66IhdzI+jXLHXMifCGbCxdbrtwDGcX1s5AU/n+/5neepG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzag6+Nvi3x2RjxQf0sTjhzTHqKYNUUs7jaMhNBSCapveGzj2sx
+ GTkrhfyGv1Th7gv9mQHKQh63dWMLxhtWaIn+tRNLCRLCYkKA5zUFGWWVPUDupOIlq7ynBFiVlZP
+ wGCTEk9Fsxo0gdrcT4mE3Ma63Lkemz6j8rA==
+X-Gm-Gg: ASbGncumkjqWTzDvxqJdqWl4RsQ+IGWFQgj4fItP350d80CbZAXp3p9K94rygwTDLYI
+ hAiVpRY3VGiNFqA1ipe0DAXrCCo0r0MaRewK07w3BhRTtANokvb52u+i3LkqNvuuic8Cylync9w
+ W/qhciV3YIeuhIeRQeMWaxveIjj1R80BJeeeHbNpl1Zy6A/ID9sADJDkyzY7PvQZSxew5QMRVxp
+ 7yOj6nEzAGW7KH9J/ulE73Mp2ZNHq8eLLPs
+X-Google-Smtp-Source: AGHT+IG35RGRb3XxxviBnj6w3f2ZmZepntQ27r6UB8264lIIPolbIWDHueNqgRIohh2V2DyjD2NuGRkvPkOpD0oqbWY=
+X-Received: by 2002:a17:902:ea07:b0:264:cda8:7fd3 with SMTP id
+ d9443c01a7336-2902743e550mr164215685ad.6.1760363074149; Mon, 13 Oct 2025
+ 06:44:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251010211510.1528572-1-alexander.deucher@amd.com>
- <20251010211510.1528572-2-alexander.deucher@amd.com>
- <DS7PR12MB6005B24D4FB1959CA75A6B3DFBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB6005B24D4FB1959CA75A6B3DFBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <20251010211510.1528572-3-alexander.deucher@amd.com>
+ <DS7PR12MB6005A47FAE4B2CDE179E0A20FBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
+In-Reply-To: <DS7PR12MB6005A47FAE4B2CDE179E0A20FBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Oct 2025 09:43:02 -0400
-X-Gm-Features: AS18NWD_GkNnGqYIZE0U0kKnUgqdJP2oB1nW1BLxQ9b3LfmtjCAyv2nkLLqS9fw
-Message-ID: <CADnq5_Mf2kH0YvkMBFnOFRo4zGCD=3X4Kcc2mqi4i5p_6h5a3w@mail.gmail.com>
-Subject: Re: [PATCH 2/7] drm/amdgpu/userq: fix SDMA and compute validation
+Date: Mon, 13 Oct 2025 09:44:22 -0400
+X-Gm-Features: AS18NWDq0PlhXult2BA7RpL-OHwD_swXtfWTRgghebm3Di8fyWoz7dqPZtW038g
+Message-ID: <CADnq5_PvKvj8wnNHuUWcUxGedF71vDjZA9Bq=M+N_c+x-cAXgQ@mail.gmail.com>
+Subject: Re: [PATCH 3/7] drm/amdgpu/gfx: add eop size and alignment to shadow
+ info
 To: "Liang, Prike" <Prike.Liang@amd.com>
 Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
@@ -85,10 +86,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 13, 2025 at 4:51=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
+On Mon, Oct 13, 2025 at 4:54=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
 wrote:
 >
 > [Public]
+>
+> We may need to update the userspace EOP buffer request; otherwise, the EO=
+P buffer validation may fail.
+
+Existing userspace should be ok.  It currently uses PAGE_SIZE which is
+larger than 2048.
+
+> Per this kernel change: Reviewed-by: Prike Liang <Prike.Liang@amd.com>
+
+Thanks!
+
+Alex
+
 >
 > Regards,
 >       Prike
@@ -99,115 +113,78 @@ wrote:
 > > Sent: Saturday, October 11, 2025 5:15 AM
 > > To: amd-gfx@lists.freedesktop.org
 > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Subject: [PATCH 2/7] drm/amdgpu/userq: fix SDMA and compute validation
+> > Subject: [PATCH 3/7] drm/amdgpu/gfx: add eop size and alignment to shad=
+ow info
 > >
-> > The CSA and EOP buffers have different alignement requirements.
-> > Hardcode them for now as a bug fix.  A proper query will be added in a =
-subsequent
-> > patch.
+> > This is used by firmware for compute user queues.
 > >
-> > Fixes: 9e46b8bb0539 ("drm/amdgpu: validate userq buffer virtual address=
- and size")
 > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 14 +++++++++-----
-> >  1 file changed, 9 insertions(+), 5 deletions(-)
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 2 ++
+> > drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 4 ++++
+> > drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 4 ++++
+> >  3 files changed, 10 insertions(+)
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > index 0370ef719a6aa..ab392de2a2388 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > @@ -254,7 +254,6 @@ static int mes_userq_mqd_create(struct
-> > amdgpu_userq_mgr *uq_mgr,
-> >       struct amdgpu_mqd *mqd_hw_default =3D &adev->mqds[queue->queue_ty=
-pe];
-> >       struct drm_amdgpu_userq_in *mqd_user =3D args_in;
-> >       struct amdgpu_mqd_prop *userq_props;
-> > -     struct amdgpu_gfx_shadow_info shadow_info;
-> >       int r;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > index fb5f7a0ee029f..7109a2ad9ec36 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > @@ -328,6 +328,8 @@ struct amdgpu_gfx_shadow_info {
+> >       u32 shadow_alignment;
+> >       u32 csa_size;
+> >       u32 csa_alignment;
+> > +     u32 eop_size;
+> > +     u32 eop_alignment;
+> >  };
 > >
-> >       /* Structure to initialize MQD for userqueue using generic MQD in=
-it function */
-> > @@ -280,8 +279,6 @@ static int mes_userq_mqd_create(struct
-> > amdgpu_userq_mgr *uq_mgr,
-> >       userq_props->doorbell_index =3D queue->doorbell_index;
-> >       userq_props->fence_address =3D queue->fence_drv->gpu_addr;
+> >  struct amdgpu_gfx_funcs {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > index 6f4c2e746165e..9c79bfa4f1ef6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > @@ -1052,10 +1052,14 @@ static void gfx_v11_0_select_me_pipe_q(struct
+> > amdgpu_device *adev,  static void gfx_v11_0_get_gfx_shadow_info_nocheck=
+(struct
+> > amdgpu_device *adev,
+> >                                        struct amdgpu_gfx_shadow_info
+> > *shadow_info)  {
+> > +     /* for gfx */
+> >       shadow_info->shadow_size =3D MQD_SHADOW_BASE_SIZE;
+> >       shadow_info->shadow_alignment =3D MQD_SHADOW_BASE_ALIGNMENT;
+> >       shadow_info->csa_size =3D MQD_FWWORKAREA_SIZE;
+> >       shadow_info->csa_alignment =3D MQD_FWWORKAREA_ALIGNMENT;
+> > +     /* for compute */
+> > +     shadow_info->eop_size =3D GFX11_MEC_HPD_SIZE;
+> > +     shadow_info->eop_alignment =3D 256;
+> >  }
 > >
-> > -     if (adev->gfx.funcs->get_gfx_shadow_info)
-> > -             adev->gfx.funcs->get_gfx_shadow_info(adev, &shadow_info, =
-true);
-> >       if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE) {
-> >               struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
+> >  static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev, d=
+iff --git
+> > a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > index 453e4034389f2..fd37f2355f86e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > @@ -909,10 +909,14 @@ static void gfx_v12_0_select_me_pipe_q(struct
+> > amdgpu_device *adev,  static void gfx_v12_0_get_gfx_shadow_info_nocheck=
+(struct
+> > amdgpu_device *adev,
+> >                                                 struct amdgpu_gfx_shado=
+w_info
+> > *shadow_info)  {
+> > +     /* for gfx */
+> >       shadow_info->shadow_size =3D MQD_SHADOW_BASE_SIZE;
+> >       shadow_info->shadow_alignment =3D MQD_SHADOW_BASE_ALIGNMENT;
+> >       shadow_info->csa_size =3D MQD_FWWORKAREA_SIZE;
+> >       shadow_info->csa_alignment =3D MQD_FWWORKAREA_ALIGNMENT;
+> > +     /* for compute */
+> > +     shadow_info->eop_size =3D GFX12_MEC_HPD_SIZE;
+> > +     shadow_info->eop_alignment =3D 256;
+> >  }
 > >
-> > @@ -299,7 +296,7 @@ static int mes_userq_mqd_create(struct
-> > amdgpu_userq_mgr *uq_mgr,
-> >               }
-> >
-> >               r =3D amdgpu_userq_input_va_validate(queue, compute_mqd->=
-eop_va,
-> > -                                                max_t(u32, PAGE_SIZE,
-> > AMDGPU_GPU_PAGE_SIZE));
-> > +                                                2048);
-> [Prike] How did this issue occur? If we hardcode the value here, will use=
-rspace driver EOP buffer requests still be compatible?
-> We may need to add a TODO comment to replace this with proper EOP-size qu=
-eries in a future change.
-
-It's just temporary to make the patch easier to backport.  It's fixed
-properly later in this series.
-
->
-> >               if (r)
-> >                       goto free_mqd;
-> >
-> > @@ -312,6 +309,9 @@ static int mes_userq_mqd_create(struct
-> > amdgpu_userq_mgr *uq_mgr,
-> >               kfree(compute_mqd);
-> >       } else if (queue->queue_type =3D=3D AMDGPU_HW_IP_GFX) {
-> >               struct drm_amdgpu_userq_mqd_gfx11 *mqd_gfx_v11;
-> > +             struct amdgpu_gfx_shadow_info shadow_info;
-> > +
-> > +             adev->gfx.funcs->get_gfx_shadow_info(adev, &shadow_info, =
-true);
-> [Prike]  We may need to validate the get_gfx_shadow_info() callback befor=
-e using it.
-
-It should always be implemented for user queues.  If it's not, we
-don't have a way to know what the user queue metadata sizes are.
-
-Alex
-
->
-> >               if (mqd_user->mqd_size !=3D sizeof(*mqd_gfx_v11) || !mqd_=
-user->mqd)
-> > {
-> >                       DRM_ERROR("Invalid GFX MQD\n");
-> > @@ -335,6 +335,10 @@ static int mes_userq_mqd_create(struct
-> > amdgpu_userq_mgr *uq_mgr,
-> >                                                  shadow_info.shadow_siz=
-e);
-> >               if (r)
-> >                       goto free_mqd;
-> > +             r =3D amdgpu_userq_input_va_validate(queue, mqd_gfx_v11->=
-csa_va,
-> > +                                                shadow_info.csa_size);
-> > +             if (r)
-> > +                     goto free_mqd;
-> >
-> >               kfree(mqd_gfx_v11);
-> >       } else if (queue->queue_type =3D=3D AMDGPU_HW_IP_DMA) { @@ -353,7
-> > +357,7 @@ static int mes_userq_mqd_create(struct amdgpu_userq_mgr *uq_m=
-gr,
-> >                       goto free_mqd;
-> >               }
-> >               r =3D amdgpu_userq_input_va_validate(queue, mqd_sdma_v11-
-> > >csa_va,
-> > -                                                shadow_info.csa_size);
-> > +                                                32);
-> >               if (r)
-> >                       goto free_mqd;
-> >
+> >  static int gfx_v12_0_get_gfx_shadow_info(struct amdgpu_device *adev,
 > > --
 > > 2.51.0
 >
