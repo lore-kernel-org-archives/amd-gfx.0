@@ -4,53 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 661A8CCD18D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 12:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE4DCCD184
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 12:36:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEA3510E220;
-	Tue, 14 Oct 2025 12:20:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F046210E5E1;
+	Tue, 14 Oct 2025 12:36:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qatrWjrm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ASi7dPWS";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C41C810E220;
- Tue, 14 Oct 2025 12:20:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Y7fs6WPlC2Db2BoKi7GDFxPOB1XeSHG+QnsVBtco4P0=; b=qatrWjrm1EuOU5sjNy/uCYKjau
- hGtbj/PuK/Zc+VSYNXeUoi4FdlLWNP3n8xF3iYlOagq60BwTaGOZONF3kiuSIzAJkUDI93qSj3E4T
- 1t10qKebQaNjeT9zIGedTSKpYSg1mWTJeiQoKqBHUcqVD854h3NqfEHo6WmgZIDrNA4gQJLMc4Z/R
- 5OxOxlaPWPv4EzQ/ZAagGUmwmqrVide5ER+RJltm/QWt8y6QQ34hjp7Sxr2wbRQn0hEAvzAUkv5b2
- Bmj9fyYt0+6YcSD8ra8B1aYEVpT1d4UkUYDMSkd5Vvgf9hJp0Mnktt+3FbDlmu6EXZnvYR4lQ3kiL
- LKFVNbEQ==;
-Received: from [90.242.12.242] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1v8e19-009OYP-6x; Tue, 14 Oct 2025 14:20:39 +0200
-Message-ID: <7598e978-4ac3-4568-a339-0397e7273222@igalia.com>
-Date: Tue, 14 Oct 2025 13:20:38 +0100
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D6CC10E4A5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 16:30:47 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-b00a9989633so839123066b.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 09:30:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760373045; x=1760977845; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=/gjdRxaKOwWl6c9IdRI2S0StBtsnAiZuf94qwIBeiCU=;
+ b=ASi7dPWS/PBQVzc7CtEpUNKbbpB59+i/o4DSX9xEVsWmIWHqrkPwE2uxn3/vLVunH0
+ nKHQrzPuFycDBc+c+r57YJ8fHThg+wecLfYpRXEU70P0rLhe7s5g1UbQe2gz4gPg08wh
+ lUgLHVyPJc5lixViTKypZG4XC7t5gWFJP9SuTHUTS9xa8PP7gSDozM2aZpwAtxPDseWD
+ jUSmGsf7a7+F7IVbcKNe5QLqTVQlUGCmb3CgeBhKj8JFKv4cRHF3C4ITwaXG/zLcz+ON
+ Oj0GarmzCGjomNo28q9aiFo0BdgbIp8IpM4Lnfi4PdWI2vv42J/anrx/Qzjude2CKr5p
+ GJMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760373045; x=1760977845;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/gjdRxaKOwWl6c9IdRI2S0StBtsnAiZuf94qwIBeiCU=;
+ b=DeHDj8uictcp/jFEVUmmnRva6gLhK5dXO12oH86LcOMu5HjzvCd0KmkomVW2vOvvlr
+ SFSdFIhh3VgpRsanfSxfrYnb9fJrHsMzclpLFfzrQuOID0tStes1TpbgXBmWU5AUJU5A
+ 8PSGJ3ufz2RX+XUWCDqwoOtHUyif80WtlmPE8bdxmKF2SjImjk6DautHqMcjqGWqQeqF
+ 8rsizUCCbDDX57/CEWlJseiMyKbfmNfEewROY5uck/K538jCPCN2zRcRB07pxf85G1Rp
+ 6TBL+BFPBE8M6EqzG0MlGbU91YfiaYq4Pj+ZPYtbC3sGLwkQzmA2j4XuWIVwPOwFSVCo
+ 22DQ==
+X-Gm-Message-State: AOJu0YxhQfktA2U+GMg97s5MICh6TB0z8gGxM2pNWUffMInPv1jY1amz
+ QNupPF3SP2L+XMiaHieocATlc6eiAPI9BPYD0CvARmWHnO3zGPof7NzrHdDlOyM3
+X-Gm-Gg: ASbGncsdFq4JljYL3YBiUeC2Vb9AQuVJpVKhfZlWTjbFSWG0kBv5SQ9JWQPRSCUm3+1
+ 0dU9fMJCwnL3HfBmV8RTsLH3zRKV8p0cXR0Yq7PAV6a3OU6pXGtB02Att29SdP+X3xc/9EarmkW
+ MN8TH7jHjqEo+BhEylkiRuwP/qEZMAXz8H5NlW4D8By0FDrvy+FTQg2nOOviU7nvkGh+f98n2wB
+ MmafJ6EnLj2bJ1KD10FscFfospJ1wTIMXc1Dw+on71A2AAdgOlUfs/s2k9fYzdjb+oA1qYWWwr5
+ kYDMRW3K9PQHDBA+yAqoJM+GkftCKaSpL3bBnZKgjDWBX7RAhHSQm5XyQVTUD2g7I8yJo2s1zIG
+ QC7KsXfwOp1VbHJzwWua4OGZdPQ4DTB96S0J+6ZU76aB6dn+oOG8or1k1HpqTmA+8MZHWapG0OG
+ JwMr0+iSyaLmILpATTVRDa623cnzbolQ==
+X-Google-Smtp-Source: AGHT+IEYEvIK6Ca1Sst9Mu9PHdcECAem7VGTh/WGA3BiEPhM01089fj3SLlb3vqxxPNAQ/C0Ltj2+g==
+X-Received: by 2002:a17:907:94c1:b0:afe:159:14b1 with SMTP id
+ a640c23a62f3a-b50bd049ba7mr2420694266b.9.1760373044961; 
+ Mon, 13 Oct 2025 09:30:44 -0700 (PDT)
+Received: from hyron-desktop (host-176-36-64-50.b024.la.net.ua. [176.36.64.50])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b55d8c12b9dsm959166066b.45.2025.10.13.09.30.44
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Oct 2025 09:30:44 -0700 (PDT)
+From: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2 1/1] drm/amd/pm: Avoid writing nulls into
+ `pp_od_clk_voltage`
+Date: Mon, 13 Oct 2025 19:30:42 +0300
+Message-ID: <20251013163042.531225-2-ilya.zlobintsev@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251013163042.531225-1-ilya.zlobintsev@gmail.com>
+References: <20251013163042.531225-1-ilya.zlobintsev@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/28] drm/sched: Favour interactive clients slightly
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
- <20251008085359.52404-12-tvrtko.ursulin@igalia.com>
- <618a50aabddace2531375bc18fb1ca9b00297490.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <618a50aabddace2531375bc18fb1ca9b00297490.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 14 Oct 2025 12:36:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,286 +87,489 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Calling `smu_cmn_get_sysfs_buf` aligns the
+offset used by `sysfs_emit_at` to the current page boundary, which was
+previously directly returned from the various `print_clk_levels`
+implementations to be added to the buffer position.
+Instead, only the relative offset showing how much was written
+to the buffer should be returned, regardless of how it was changed
+for alignment purposes.
 
-On 14/10/2025 11:53, Philipp Stanner wrote:
-> On Wed, 2025-10-08 at 09:53 +0100, Tvrtko Ursulin wrote:
->> GPUs do not always implement preemption and DRM scheduler definitely
->> does not support it at the front end scheduling level. This means
->> execution quanta can be quite long and is controlled by userspace,
->> consequence of which is picking the "wrong" entity to run can have a
->> larger negative effect than it would have with a virtual runtime based CPU
->> scheduler.
->>
->> Another important consideration is that rendering clients often have
->> shallow submission queues, meaning they will be entering and exiting the
->> scheduler's runnable queue often.
->>
->> Relevant scenario here is what happens when an entity re-joins the
->> runnable queue with other entities already present. One cornerstone of the
->> virtual runtime algorithm is to let it re-join at the head and rely on the
->> virtual runtime accounting and timeslicing to sort it out.
->>
->> However, as explained above, this may not work perfectly in the GPU world.
->> Entity could always get to overtake the existing entities, or not,
->> depending on the submission order and rbtree equal key insertion
->> behaviour.
->>
->> Allow interactive jobs to overtake entities already queued up for the
->> limited case when interactive entity is re-joining the queue after
->> being idle.
->>
->> This gives more opportunity for the compositors to have their rendering
->> executed before the GPU hogs even if they have been configured with the
->> same scheduling priority.
->>
->> To classify a client as interactive we look at its average job duration
->> versus the average for the whole scheduler. We can track this easily by
->> plugging into the existing job runtime tracking and applying the
->> exponential moving average window on the past submissions. Then, all other
->> things being equal, we let the more interactive jobs go first.
-> 
-> OK so this patch is new. Why was it added? The cover letter says:
-> 
-> "Improved handling of interactive clients by replacing the random noise
-> on tie approach with the average job duration statistics."
-> 
-> So this is based on additional research you have done in the mean time?
-> Does it change behavior significantly when compared to the RFC?
+Signed-off-by: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
+---
+ .../drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 15 ++++++++-------
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  5 +++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 10 ++++++----
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  7 ++++---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  7 ++++---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c  |  5 +++--
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c  |  5 +++--
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  7 ++++---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  7 ++++---
+ .../gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  5 +++--
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  |  5 +++--
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  7 ++++---
+ 13 files changed, 52 insertions(+), 38 deletions(-)
 
-It is a replacement patch for what used to be called "drm/sched: Break 
-submission patterns with some randomness".
-
-It is only significant for a subset of workload patterns. The ones where 
-a lightweight client runs in parallel to something heavy. Pseudo random 
-noise approach made FAIR kind of middle of the road between RR and FIFO 
-while this version makes it almost as good as RR.
-
-With random noise as tie breaker criteria:
-
-https://people.igalia.com/tursulin/drm-sched-fair/4-heavy-vs-interactive.png
-https://people.igalia.com/tursulin/drm-sched-fair/4-very-heavy-vs-interactive.png
-https://people.igalia.com/tursulin/drm-sched-fair/4-low-hog-vs-interactive.png
-
-With entity_job_avg < sched_job_avg tie breaker criteria:
-
-https://people.igalia.com/tursulin/drm-sched-fair/251008/4-heavy-vs-interactive.png
-https://people.igalia.com/tursulin/drm-sched-fair/251008/4-very-heavy-vs-interactive.png
-https://people.igalia.com/tursulin/drm-sched-fair/251008/4-low-hog-vs-interactive.png
-
-> The firmware scheduler bros are not affected in any case. Still, I
-> think that the RFC we discussed in the past and at XDC is now quite
-> more different from the actual proposal in this v1.
-
-Series as code is not that much different, just the end result with some 
-use cases gets better.
-
-If we ignore the EWMA job runtime housekeeping, it only replaced this:
-
-+		} else {
-+			static const int shuffle[2] = { -1, 1 };
-+			static bool r = 0;
-+
-+			/*
-+			 * For equal priority apply some randomness to break
-+			 * latching caused by submission patterns.
-+			 */
-+			vruntime = shuffle[r];
-+			r ^= 1;
-
-With this:
-
-+		} else {
-+			struct drm_gpu_scheduler *sched = entity->rq->sched;
-+
-+			/*
-+			 * Favour entity with shorter jobs (interactivity).
-+			 *
-+			 * (Unlocked read is fine since it is just heuristics.)
-+			 *
-+			 */
-+			if (ewma_drm_sched_avgtime_read(&stats->avg_job_us) <=
-+			    ewma_drm_sched_avgtime_read(&sched->avg_job_us))
-+				vruntime = -1;
-+			else
-+				vruntime = 1;
-> I suppose it's in general good for graphics applications.. what about
-> compute, doesn't that have longer jobs? Probably still good for people
-> who do compute on their productive system..
-Yes, should be good for everyone who runs interactive clients in 
-parallel to demanding workloads.
-
-> @AMD:
-> can you review / ack this?
-Someone other than me is bound to test it one od these days. ;)
-
-Regards,
-
-Tvrtko
-
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c   |  1 +
->>   drivers/gpu/drm/scheduler/sched_internal.h | 15 ++++++++++++---
->>   drivers/gpu/drm/scheduler/sched_main.c     |  8 +++++++-
->>   drivers/gpu/drm/scheduler/sched_rq.c       | 14 ++++++++++++++
->>   include/drm/gpu_scheduler.h                |  5 +++++
->>   5 files changed, 39 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index 58f51875547a..1715e1caec40 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -61,6 +61,7 @@ static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
->>   
->>   	kref_init(&stats->kref);
->>   	spin_lock_init(&stats->lock);
->> +	ewma_drm_sched_avgtime_init(&stats->avg_job_us);
->>   
->>   	return stats;
->>   }
->> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->> index c94e38acc6f2..a120efc5d763 100644
->> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->> @@ -20,6 +20,7 @@
->>    * @runtime: time entity spent on the GPU.
->>    * @prev_runtime: previous @runtime used to get the runtime delta
->>    * @vruntime: virtual runtime as accumulated by the fair algorithm
->> + * @avg_job_us: average job duration
->>    */
->>   struct drm_sched_entity_stats {
->>   	struct kref	kref;
->> @@ -27,6 +28,8 @@ struct drm_sched_entity_stats {
->>   	ktime_t		runtime;
->>   	ktime_t		prev_runtime;
->>   	u64		vruntime;
->> +
->> +	struct ewma_drm_sched_avgtime   avg_job_us;
->>   };
->>   
->>   /* Used to choose between FIFO and RR job-scheduling */
->> @@ -153,20 +156,26 @@ drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
->>    * @job: Scheduler job to account.
->>    *
->>    * Accounts the execution time of @job to its respective entity stats object.
->> + *
->> + * Returns job's real duration in micro seconds.
->>    */
->> -static inline void
->> +static inline ktime_t
->>   drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
->>   {
->>   	struct drm_sched_entity_stats *stats = job->entity_stats;
->>   	struct drm_sched_fence *s_fence = job->s_fence;
->> -	ktime_t start, end;
->> +	ktime_t start, end, duration;
->>   
->>   	start = dma_fence_timestamp(&s_fence->scheduled);
->>   	end = dma_fence_timestamp(&s_fence->finished);
->> +	duration = ktime_sub(end, start);
->>   
->>   	spin_lock(&stats->lock);
->> -	stats->runtime = ktime_add(stats->runtime, ktime_sub(end, start));
->> +	stats->runtime = ktime_add(stats->runtime, duration);
->> +	ewma_drm_sched_avgtime_add(&stats->avg_job_us, ktime_to_us(duration));
->>   	spin_unlock(&stats->lock);
->> +
->> +	return duration;
->>   }
->>   
->>   #endif
->> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->> index 8d8f9c8411f5..204d99c6699f 100644
->> --- a/drivers/gpu/drm/scheduler/sched_main.c
->> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->> @@ -1000,7 +1000,12 @@ static void drm_sched_free_job_work(struct work_struct *w)
->>   	struct drm_sched_job *job;
->>   
->>   	while ((job = drm_sched_get_finished_job(sched))) {
->> -		drm_sched_entity_stats_job_add_gpu_time(job);
->> +		ktime_t duration = drm_sched_entity_stats_job_add_gpu_time(job);
->> +
->> +		/* Serialized by the worker. */
->> +		ewma_drm_sched_avgtime_add(&sched->avg_job_us,
->> +					   ktime_to_us(duration));
->> +
->>   		sched->ops->free_job(job);
->>   	}
->>   
->> @@ -1158,6 +1163,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
->>   	atomic_set(&sched->_score, 0);
->>   	atomic64_set(&sched->job_id_count, 0);
->>   	sched->pause_submit = false;
->> +	ewma_drm_sched_avgtime_init(&sched->avg_job_us);
->>   
->>   	sched->ready = true;
->>   	return 0;
->> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
->> index b868c794cc9d..02742869e75b 100644
->> --- a/drivers/gpu/drm/scheduler/sched_rq.c
->> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
->> @@ -150,6 +150,20 @@ drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
->>   			 * Higher priority can go first.
->>   			 */
->>   			vruntime = -us_to_ktime(rq_prio - prio);
->> +		} else {
->> +			struct drm_gpu_scheduler *sched = entity->rq->sched;
->> +
->> +			/*
->> +			 * Favour entity with shorter jobs (interactivity).
->> +			 *
->> +			 * (Unlocked read is fine since it is just heuristics.)
->> +			 *
->> +			 */
->> +			if (ewma_drm_sched_avgtime_read(&stats->avg_job_us) <=
->> +			    ewma_drm_sched_avgtime_read(&sched->avg_job_us))
->> +				vruntime = -1;
->> +			else
->> +				vruntime = 1;
->>   		}
->>   	}
->>   
->> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->> index bc25508a6ff6..a7e407e04ce0 100644
->> --- a/include/drm/gpu_scheduler.h
->> +++ b/include/drm/gpu_scheduler.h
->> @@ -25,11 +25,14 @@
->>   #define _DRM_GPU_SCHEDULER_H_
->>   
->>   #include <drm/spsc_queue.h>
->> +#include <linux/average.h>
->>   #include <linux/dma-fence.h>
->>   #include <linux/completion.h>
->>   #include <linux/xarray.h>
->>   #include <linux/workqueue.h>
->>   
->> +DECLARE_EWMA(drm_sched_avgtime, 6, 4);
->> +
->>   #define MAX_WAIT_SCHED_ENTITY_Q_EMPTY msecs_to_jiffies(1000)
->>   
->>   /**
->> @@ -581,6 +584,7 @@ struct drm_sched_backend_ops {
->>    * @job_id_count: used to assign unique id to the each job.
->>    * @submit_wq: workqueue used to queue @work_run_job and @work_free_job
->>    * @timeout_wq: workqueue used to queue @work_tdr
->> + * @avg_job_us: Average job duration
->>    * @work_run_job: work which calls run_job op of each scheduler.
->>    * @work_free_job: work which calls free_job op of each scheduler.
->>    * @work_tdr: schedules a delayed call to @drm_sched_job_timedout after the
->> @@ -612,6 +616,7 @@ struct drm_gpu_scheduler {
->>   	atomic64_t			job_id_count;
->>   	struct workqueue_struct		*submit_wq;
->>   	struct workqueue_struct		*timeout_wq;
->> +	struct ewma_drm_sched_avgtime   avg_job_us;
->>   	struct work_struct		work_run_job;
->>   	struct work_struct		work_free_job;
->>   	struct delayed_work		work_tdr;
-> 
-
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+index 9548bd3c624b..55401e6b2b0b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+@@ -291,11 +291,12 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
+ 					enum smu_clk_type clk_type,
+ 					char *buf)
+ {
+-	int ret = 0, size = 0;
++	int ret = 0, size = 0, start_offset = 0;
+ 	uint32_t cur_value = 0;
+ 	int i;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+@@ -353,7 +354,7 @@ static int cyan_skillfish_print_clk_levels(struct smu_context *smu,
+ 		return ret;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static bool cyan_skillfish_is_dpm_running(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 0028f10ead42..bbf09aec9152 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -1469,7 +1469,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 			enum smu_clk_type clk_type, char *buf)
+ {
+ 	uint16_t *curve_settings;
+-	int i, levels, size = 0, ret = 0;
++	int i, levels, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	uint32_t freq_values[3] = {0};
+ 	uint32_t mark_index = 0;
+@@ -1484,6 +1484,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 	uint32_t min_value, max_value;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+@@ -1497,11 +1498,11 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 	case SMU_DCEFCLK:
+ 		ret = navi10_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
+ 		if (ret)
+-			return size;
++			return size - start_offset;
+ 
+ 		ret = smu_v11_0_get_dpm_level_count(smu, clk_type, &count);
+ 		if (ret)
+-			return size;
++			return size - start_offset;
+ 
+ 		ret = navi10_is_support_fine_grained_dpm(smu, clk_type);
+ 		if (ret < 0)
+@@ -1511,7 +1512,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 			for (i = 0; i < count; i++) {
+ 				ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
+ 				if (ret)
+-					return size;
++					return size - start_offset;
+ 
+ 				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, value,
+ 						cur_value == value ? "*" : "");
+@@ -1519,10 +1520,10 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 		} else {
+ 			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
+ 			if (ret)
+-				return size;
++				return size - start_offset;
+ 			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
+ 			if (ret)
+-				return size;
++				return size - start_offset;
+ 
+ 			freq_values[1] = cur_value;
+ 			mark_index = cur_value == freq_values[0] ? 0 :
+@@ -1653,7 +1654,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int navi10_force_clk_levels(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 31c2c0386b1f..774283ac7827 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1281,7 +1281,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	struct smu_11_0_7_overdrive_table *od_settings = smu->od_settings;
+ 	OverDriveTable_t *od_table =
+ 		(OverDriveTable_t *)table_context->overdrive_table;
+-	int i, size = 0, ret = 0;
++	int i, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	uint32_t freq_values[3] = {0};
+ 	uint32_t mark_index = 0;
+@@ -1289,6 +1289,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	uint32_t min_value, max_value;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+@@ -1434,7 +1435,7 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	}
+ 
+ print_clk_out:
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 2c9869feba61..665eee58358d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -565,7 +565,7 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+ 	SmuMetrics_legacy_t metrics;
+ 	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
+-	int i, idx, size = 0, ret = 0;
++	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	bool cur_value_match_level = false;
+ 
+@@ -576,6 +576,7 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 		return ret;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+@@ -658,7 +659,7 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int vangogh_print_clk_levels(struct smu_context *smu,
+@@ -666,7 +667,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ {
+ 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+ 	SmuMetrics_t metrics;
+-	int i, idx, size = 0, ret = 0;
++	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	bool cur_value_match_level = false;
+ 	uint32_t min, max;
+@@ -678,6 +679,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 		return ret;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+@@ -779,7 +781,7 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int vangogh_common_print_clk_levels(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 3baf20f4c373..eaa9ea162f16 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -494,7 +494,7 @@ static int renoir_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
+ static int renoir_print_clk_levels(struct smu_context *smu,
+ 			enum smu_clk_type clk_type, char *buf)
+ {
+-	int i, idx, size = 0, ret = 0;
++	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0, min = 0, max = 0;
+ 	SmuMetrics_t metrics;
+ 	bool cur_value_match_level = false;
+@@ -506,6 +506,7 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 		return ret;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_RANGE:
+@@ -550,7 +551,7 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 			size += sysfs_emit_at(buf, size, "2: %uMhz %s\n", max,
+ 					i == 2 ? "*" : "");
+ 		}
+-		return size;
++		return size - start_offset;
+ 	case SMU_SOCCLK:
+ 		count = NUM_SOCCLK_DPM_LEVELS;
+ 		cur_value = metrics.ClockFrequency[CLOCK_SOCCLK];
+@@ -607,7 +608,7 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static enum amd_pm_state_type renoir_get_current_power_state(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index c1062e5f0393..677781060246 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -1195,15 +1195,16 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 	struct smu_13_0_dpm_table *single_dpm_table;
+ 	struct smu_13_0_pcie_table *pcie_table;
+ 	uint32_t gen_speed, lane_width;
+-	int i, curr_freq, size = 0;
++	int i, curr_freq, size = 0, start_offset = 0;
+ 	int32_t min_value, max_value;
+ 	int ret = 0;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	if (amdgpu_ras_intr_triggered()) {
+ 		size += sysfs_emit_at(buf, size, "unavailable\n");
+-		return size;
++		return size - start_offset;
+ 	}
+ 
+ 	switch (clk_type) {
+@@ -1534,7 +1535,7 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+index b081ae3e8f43..6908f9930f16 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+@@ -497,11 +497,12 @@ static int smu_v13_0_4_get_dpm_level_count(struct smu_context *smu,
+ static int smu_v13_0_4_print_clk_levels(struct smu_context *smu,
+ 					enum smu_clk_type clk_type, char *buf)
+ {
+-	int i, idx, size = 0, ret = 0;
++	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	uint32_t min, max;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+@@ -565,7 +566,7 @@ static int smu_v13_0_4_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int smu_v13_0_4_read_sensor(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+index f5db181ef489..4576bf008b22 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+@@ -861,11 +861,12 @@ static int smu_v13_0_5_set_soft_freq_limited_range(struct smu_context *smu,
+ static int smu_v13_0_5_print_clk_levels(struct smu_context *smu,
+ 				enum smu_clk_type clk_type, char *buf)
+ {
+-	int i, idx, size = 0, ret = 0;
++	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	uint32_t min = 0, max = 0;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+@@ -928,7 +929,7 @@ static int smu_v13_0_5_print_clk_levels(struct smu_context *smu,
+ 	}
+ 
+ print_clk_out:
+-	return size;
++	return size - start_offset;
+ }
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 285cf7979693..0e1b225dd875 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -1428,7 +1428,7 @@ static int smu_v13_0_6_print_clks(struct smu_context *smu, char *buf, int size,
+ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
+ 					enum smu_clk_type type, char *buf)
+ {
+-	int now, size = 0;
++	int now, size = 0, start_offset = 0;
+ 	int ret = 0;
+ 	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
+ 	struct smu_13_0_dpm_table *single_dpm_table;
+@@ -1437,10 +1437,11 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
+ 	uint32_t min_clk, max_clk;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	if (amdgpu_ras_intr_triggered()) {
+ 		size += sysfs_emit_at(buf, size, "unavailable\n");
+-		return size;
++		return size - start_offset;
+ 	}
+ 
+ 	dpm_context = smu_dpm->dpm_context;
+@@ -1575,7 +1576,7 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int smu_v13_0_6_upload_dpm_level(struct smu_context *smu, bool max,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index c96fa5e49ed6..a3fc35b9011e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -1184,15 +1184,16 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 	struct smu_13_0_dpm_table *single_dpm_table;
+ 	struct smu_13_0_pcie_table *pcie_table;
+ 	uint32_t gen_speed, lane_width;
+-	int i, curr_freq, size = 0;
++	int i, curr_freq, size = 0, start_offset = 0;
+ 	int32_t min_value, max_value;
+ 	int ret = 0;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	if (amdgpu_ras_intr_triggered()) {
+ 		size += sysfs_emit_at(buf, size, "unavailable\n");
+-		return size;
++		return size - start_offset;
+ 	}
+ 
+ 	switch (clk_type) {
+@@ -1523,7 +1524,7 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int smu_v13_0_7_od_restore_table_single(struct smu_context *smu, long input)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+index 73b4506ef5a8..5d7e671fa3c3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+@@ -1041,12 +1041,13 @@ static uint32_t yellow_carp_get_umd_pstate_clk_default(struct smu_context *smu,
+ static int yellow_carp_print_clk_levels(struct smu_context *smu,
+ 				enum smu_clk_type clk_type, char *buf)
+ {
+-	int i, idx, size = 0, ret = 0;
++	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	uint32_t min, max;
+ 	uint32_t clk_limit = 0;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+@@ -1111,7 +1112,7 @@ static int yellow_carp_print_clk_levels(struct smu_context *smu,
+ 	}
+ 
+ print_clk_out:
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int yellow_carp_force_clk_levels(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+index fe00c84b1cc6..b1bd946d8e30 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+@@ -1132,11 +1132,12 @@ static int smu_v14_0_common_get_dpm_level_count(struct smu_context *smu,
+ static int smu_v14_0_0_print_clk_levels(struct smu_context *smu,
+ 					enum smu_clk_type clk_type, char *buf)
+ {
+-	int i, idx, ret = 0, size = 0;
++	int i, idx, ret = 0, size = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	uint32_t min, max;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+@@ -1202,7 +1203,7 @@ static int smu_v14_0_0_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int smu_v14_0_0_set_soft_freq_limited_range(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 086501cc5213..2cea688c604f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -1056,15 +1056,16 @@ static int smu_v14_0_2_print_clk_levels(struct smu_context *smu,
+ 	struct smu_14_0_dpm_table *single_dpm_table;
+ 	struct smu_14_0_pcie_table *pcie_table;
+ 	uint32_t gen_speed, lane_width;
+-	int i, curr_freq, size = 0;
++	int i, curr_freq, size = 0, start_offset = 0;
+ 	int32_t min_value, max_value;
+ 	int ret = 0;
+ 
+ 	smu_cmn_get_sysfs_buf(&buf, &size);
++	start_offset = size;
+ 
+ 	if (amdgpu_ras_intr_triggered()) {
+ 		size += sysfs_emit_at(buf, size, "unavailable\n");
+-		return size;
++		return size - start_offset;
+ 	}
+ 
+ 	switch (clk_type) {
+@@ -1374,7 +1375,7 @@ static int smu_v14_0_2_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size;
++	return size - start_offset;
+ }
+ 
+ static int smu_v14_0_2_force_clk_levels(struct smu_context *smu,
+-- 
+2.51.0
 
