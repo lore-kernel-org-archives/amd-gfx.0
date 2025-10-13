@@ -4,149 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C16DECCD185
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 06:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54C89CCD185
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 07:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50F1D10E3CD;
-	Mon, 13 Oct 2025 06:58:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2259410E3CF;
+	Mon, 13 Oct 2025 07:03:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sMksqsII";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rUHFNbkC";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011033.outbound.protection.outlook.com [52.101.62.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9D710E3CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 06:58:47 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011061.outbound.protection.outlook.com [40.107.208.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 354D410E07D;
+ Mon, 13 Oct 2025 07:03:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ue/o80VQ83XjN0TnusRSKmwaRAQTuoRR6ZSGscVENZHCAVe+TFWDtSlzWM28e48DMSIJyK40DK2c1Xh4v0hN4Ee36We+CmgLxiUFgWMRVPp83ky66+mIiiBETedlBXdByOKdIq5ibd778RFJEy8ddog8X0DQVE77ll3PG8y4C2tHX+fo7ksbs18WBFcmLQavyreUIn7MfCPmjAKMB97vAz1/e3Pg88bnLqQcTfvTUhczrCZfSzRoY1hc/B8QVNrK8cWF/gAUbsnetY7WVwU0Bj/kddWk9M5tSOldxBs9edsgSWyo5y+mJwZhTkBTi9x+miPmsSg4rspXQq0MoGHwPg==
+ b=MjPmA5i8OC8sMVSFKcBtzrLuaRAr7zc9sNGfRj3cdj28qLDlymzC9aDoNVR4vfhLChuXayrjsd52nQle7LsRGs/xGUlrQeOsMT+j0lGStrcHLgQYUX/s1Fo/rEjB/QEWMVILvytnWzG85yTW2bsoGyZ7GPz8amf6xAXQEJb3vpTY56e0v4fxnqPkZilz5ecyiDf2KYXoVFAbj8d9VGPYZTyca0iIpaZnAdXWlDAie5HSVvlkEGhAuceLqIUiWTpTDf7epy5pyUIwnlcW2GTg3QCKRRCm4NntXjSwpgBQFeqe28hZreN0V/Zq81rCKC8QlwxIuAkuo4GE4jO4Hj2cWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3SRYgvjE/J5LoUIJxcYay5LKlh1Z7rmf59+aA1+wwUI=;
- b=hR34z/Lwf6+mqDvLQ5cMguQJ2+MPw7O+QadjfFHGUy+RQn+VnqO4ZdAjrWJTGB9QEeNOcZumyvVlJKyWQZOfvjQ8oIEj27pz5BYUjMq3GO3K8U3GO6JVE7DQRxlOtrosmteomJ1oLeelME5ScLudjFddPUF0AnKuNr+T0NiL0fTbL8elMAN4d18JqCPymsq6q7EL082/Bzo6Lwnb4JCQbHCXlgBoNB+xgvgByF4PZAMOTzl0REouqGwX5PtuxnjASn5rC6SVIvEboOgHDKUl+R7kNq+607m7ISe5aGbBlaG+oUvYxaO8mTRXf1G76qe0fuSu1AJENSpjwUOUX5y+zA==
+ bh=Tk4fiNjQ8+bYKYnAaaaIJjLa/UQH+9WkBuy0gqai7Tc=;
+ b=kYO4ksnt7z0BtG9mPG1SW9RiK6UrHTJ88IdtOXWf11EyYlJQCBNCeaX1Qxx+DVPLJl/uxmxVGvm3VlmpDe7K6Nsh3HLq/B/JOuLqq651ZMrJr8sfwundG4n6bML/OJtXxQZMZWqDlyDwLvGq8e8mUMZT3Px14rwmGg2G8LFhJhMNU0jI9UVh7r6g0wjSBDsvPTBjcYg5DBqvIETcCKAsZg7iIScBIi7D2k+TNS6mEq/ZDfptymMFu4wz/n/JG/JSKdchM72vhsLMBzyMhKF3M2eKSwGPVH/s2P9wuANReRTwvtBSd8zx7rJfKQMyhaHDO3wE0mO+HzZT9ufBZxklfg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3SRYgvjE/J5LoUIJxcYay5LKlh1Z7rmf59+aA1+wwUI=;
- b=sMksqsII8d0zlyrkHT5LFQY8mOlsM5yvVJOuUVilLWhipOiQx1B9NQK9Pl08K0wvzDxx0DzNk7pg6ABR7yIRo1142q9u8WbUXPGTtMt+gF2UKAkimcvkMRvt3deMGy15FG9gYu70YpbcyFt5iPMOq2xWyV0OiZcZm6kpoC1Hv5g=
+ bh=Tk4fiNjQ8+bYKYnAaaaIJjLa/UQH+9WkBuy0gqai7Tc=;
+ b=rUHFNbkCsM5cuCDwLi+C7RY1f23AhGv0oObMLJiUIVeBU7LbaqMFqcOYzPVe0Z1EPgq2IfXPJHTRS0bWOOOLLhGJuaeaogaR+sX1FbabTxFwl7fKAgp8om/OsN8o8FPElFG4S7/W6Gryjw6N+9KSWLYTBhLJx0FV4dLWoUD57wA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB6836.namprd12.prod.outlook.com (2603:10b6:510:1b6::20)
+ by PH7PR12MB7892.namprd12.prod.outlook.com (2603:10b6:510:27e::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.11; Mon, 13 Oct
- 2025 06:58:45 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.12; Mon, 13 Oct
+ 2025 07:03:32 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9203.009; Mon, 13 Oct 2025
- 06:58:45 +0000
-Message-ID: <814565b4-4872-4af1-aa96-029524e73d0f@amd.com>
-Date: Mon, 13 Oct 2025 08:58:39 +0200
+ 07:03:32 +0000
+Message-ID: <5ac9dfd7-7f9b-44ba-afcd-eaed9f4ff864@amd.com>
+Date: Mon, 13 Oct 2025 09:03:28 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3] drm/amdgpu: Fix NULL pointer dereference in VRAM logic
- for APU devices
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com
-References: <20251013062343.1550737-1-Jesse.Zhang@amd.com>
+Subject: Re: [PATCH v3 5/5] drm/amdgpu: Configure max beneficial TTM pool
+ allocation order
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Matthew Brost <matthew.brost@intel.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+References: <20251008115314.55438-1-tvrtko.ursulin@igalia.com>
+ <20251008115314.55438-6-tvrtko.ursulin@igalia.com>
+ <aObxU8vEbEQEf7QO@lstrano-desk.jf.intel.com>
+ <01bacdec-f1bd-4ddc-a537-6a091c1a1eb8@igalia.com>
+ <f32a164197b7d25dff42432007b9926ec5575e2f.camel@linux.intel.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251013062343.1550737-1-Jesse.Zhang@amd.com>
+In-Reply-To: <f32a164197b7d25dff42432007b9926ec5575e2f.camel@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FRYP281CA0018.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::28)
- To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0016.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::6) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6836:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d1c38ea-9e38-4a2d-5f50-08de0a25f34d
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7892:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac03ba24-c651-4e65-26c1-08de0a269efd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b1B1ZTdPSUJCaHJzeEQyK2RGajRxZm1rcGRaR2FncUl2MGF4K2dPREp0N3Mw?=
- =?utf-8?B?cG53RG50alJQVmdPVkUwb3hCOW9rMDUzd3c1WGUvTDl2c3NGSno1T3o2UEVV?=
- =?utf-8?B?VVFRY3dUYnMzdXJiaUEyQ1BaNngvcVpqVEUxaHJncWFEYzIxTWF1V1JTa2Rh?=
- =?utf-8?B?ZDU1c2o1dXJ0R0tlaytCclMxcUZrYXNVeWVBdG9JTGN3WWVDZDhrUzN3SmFi?=
- =?utf-8?B?UjV0RDVmeGRjM3VmanNpY25MM2E4ZEcxV1VIenhjNlpTdlFvMHFZSTFaM1RX?=
- =?utf-8?B?Q2g5UWUzVmNYMTAxMTJXUVVYNExKdjFTTGhhUmVpS0EzUXNJcGNaRVEzRjlw?=
- =?utf-8?B?WlFCZFphS0hIaWhVR3pOZXJtNnFnVk5QTTAzQWpNblRHeEpERm1DRWUxRFZw?=
- =?utf-8?B?ZGREbHBweXVCWFBqdEptc0NZNmd5bzFyZkxTTWpQYVluYzRBVUNIQUVyUGcr?=
- =?utf-8?B?Rlg3OG1HRlFhcE5iK21YOTRmR21mWUxzbUQ1ZWVnMGdoTHpGMnJydjJSYTEy?=
- =?utf-8?B?Y1c1dGxWOVZUOWZCVmthbWpDZFZrdVdCTVhoeXRuMEpqNXZqcjZiSkIraDlh?=
- =?utf-8?B?UmhPcTdORUN0TGNSZUtVc284NDFMdkhKNTVSN3VyeGwyQjJJSEZCNzN6cmVo?=
- =?utf-8?B?WmMxNTFkMjRaZk1zMDBwZkxIcEJVNm91d3JEeDJIRHAvTkdZaU91NHUzSUtY?=
- =?utf-8?B?QnNWeUkvOFB1U0Q5b2EzdmQ4cjl0SUREK1V4U2xQT1RjaEtvWTZQTDhRbDBj?=
- =?utf-8?B?SW9BUlFiZXRwSFNZRUM2Y3dYVjRpeWtYbEVWL2Z0VjZCOVBCQmJVbkJYRFI5?=
- =?utf-8?B?UllXV2tZa3lIMnV4cjdnYXllajBKZ1c2NGExU1p6OUExOXFiVUQxM2JYbjBR?=
- =?utf-8?B?V1AwN0dOQ1Fya3U1dVVYb1pRZ1M3STJvSVFRRUh0bDNxU2RaYUF5TjhoeitJ?=
- =?utf-8?B?NGpOaENTUWVRWEY2R3VoT3N5OXB3dUF1SlpvMHY0TXpWQ2dMOVpHcXlWWnVU?=
- =?utf-8?B?UlAwNndjVUZKYlNmazNRZjh0SUtLMUVPV282WEQyYXFXVG1PZTdLVDRuRk1j?=
- =?utf-8?B?Vy9ZQ1VSdWljTzBSdThHdUZqemZRY1M2OEVoMWg3ZUVibks4dzJ2L1FyRGt6?=
- =?utf-8?B?S29aUXd6NXFreXRBZjM2NW5nbCt6VGk5eS8vQkNCTkFkWVZmWkdMc0I2Ly85?=
- =?utf-8?B?eHFRcTlGOFgxNElpNGZPK2VPQmdjQjF4bURQQ1psamV5T09iMld5WU53Nzkw?=
- =?utf-8?B?bUtMa3NJdWVMcFplb2gwakkzdUpHUDNxdU1zNkZLbldmYnljK2V6UmR3R0N4?=
- =?utf-8?B?aTVCRzhhVThRN0h6anhnQ2tZb3NlOVF1YmVlcFVlNmNYVzcwTEFmdi9xeWJW?=
- =?utf-8?B?czM3RVhnajZVd2R6bTlIbG1LMUlxVUNlUCtoZ1EzekQ4SStVOWJ2dGVVR0Rk?=
- =?utf-8?B?LzhabGwxV3F5ckpzVnBVZURpc2NYUjRrWVBHMFh3QmtSWmQrNXo2eC83dzBP?=
- =?utf-8?B?akVPb2dteUxaWUZwYnEyd1lDcWd4aWE5TFFpdjBFZkEwOVpNV2pESUNadFF6?=
- =?utf-8?B?eGpCV2RoY3hraHdabFhUUUs2OW1mbTNaTkorSnJGYk5idWhiR1ZuNXVEbUlp?=
- =?utf-8?B?VGdTZXVVZ3F6YVdldEU2WjQrTXJJM1o5TU02V3BzOXdpOVQ2V1VHUlQzZmNs?=
- =?utf-8?B?T2VPZ2dTZ203bzJ2YXI2UU9RYWczOTI2cGRTb2J1aFRkc3JWc1FBOWFuQWcz?=
- =?utf-8?B?dWZnZU1uckJHU0U3NUJ3eFpjckFURlh6ZVgrNDZQckZOb2tzU29QMkU2Zm9W?=
- =?utf-8?B?QnpIV0MrM1V0NW9vZE1FV3pqbzlwNzBrTjc0NmNEV0JvZ1hzY0xyZlZrOWpX?=
- =?utf-8?B?Nm9tWCtHTWliK3k1ZjFKVjhiMzFYNlRlWEtkalFFYmwwQURGYzZmRnRUa0d2?=
- =?utf-8?Q?ZzCdWXmpI7UUA5YytrOJmFRO+avEELZO?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TU56VjUrdDRUUXdFck9CZS96MWRkT0Z4RFBFS2l2c1FWcEJLb1FBQjRVTXow?=
+ =?utf-8?B?MFdJS3FDaVVKWFU5VlQ2Q2pQd0w0cWhRWnJLZXdCTnpHZlZ2aUR6cGJsdStS?=
+ =?utf-8?B?TnN6eFhWQUd3ME1wUE9WMmlUeDJrR3Z3THJ5ckxHZUlLSEczbEx3a1hDRzlQ?=
+ =?utf-8?B?bU52TGtHYUxRTWdXRTcxMDMyRHNwWVRKNHRVM1dpVm8zQjFtczBiSGw5RE5h?=
+ =?utf-8?B?S0daOFBhV2FvNjRhVk8wd096TkdqY0puTGdnSE1OeVRhM3dxeTB0MzFlTUVk?=
+ =?utf-8?B?NlFCNS9VT0RsYkNjVXdHVGg4NUUxWnlKUmg5cmtYR1Rwbnoxa0Z6czNNbFFU?=
+ =?utf-8?B?OGxFM3dyUGxRY0syUXlWdnYvV0l3ZCtBdXRLZlVTeG8wZFd4TkJUTVFseUpi?=
+ =?utf-8?B?d05WQUptdXA4TVZQeXVMTUR2azBTUXZkWk1vU2YwbkZiTktXWitXMVhGZ1cx?=
+ =?utf-8?B?QXpodDEwaENsVis3S2cyTitCNnQyemdFbXpLRlRPNmpKZURwS2FleFNGK0cx?=
+ =?utf-8?B?MVUvOEhlUjhtMnBrQkRxWElySXIvWE5aNlRSbExMcFBJeng3NFVGaERKOFlt?=
+ =?utf-8?B?NWh5Q1RMeDV2VjNtQ2RaVFhuaUx4VmxCWFFSdkthMEhtK0x1K05VVzhzRnRU?=
+ =?utf-8?B?U1FVeWhrbGxuL0M2VGZnNVhvOHBBTWQ1SUdJRVo3ZEM1am13TVh0cml6NlBU?=
+ =?utf-8?B?aGRNa3ZNOTR4OHQzc2tLUDRKT1g4dlRLZitVVnFoektNZExNTElvWGdBRU9r?=
+ =?utf-8?B?K3loa3FEZlZhVGVncTVwR0pEdEpTNjVPdTNZdWhFdjRyd2Nhc2JUdFpRVjc1?=
+ =?utf-8?B?ek1nN1VYTW9nVUMydmlEek51eHNTaXRwd1krcnlBcEcvR1hteW1yWFlJMjli?=
+ =?utf-8?B?RWI4L3VRR25oMmo0c3JieFlCazVESjdOekUwRUJEbHZhYm1KQXBYMzZueXI0?=
+ =?utf-8?B?eC9UNEtIK2JQVnBjbmFiY2tITnRDMWhEK3ZDaVZXYkhVTWxqMGN3em5ZK0Ir?=
+ =?utf-8?B?OVhXbjlzMnlYdTJidWxiY0o4QnAxYVdQV3lBSVNLbzRxa0Z2T3dLR0g0WUEr?=
+ =?utf-8?B?b2hHU3JLKytUcHM5UWZkT1FLQmtZa29SLzVSV0xrbDFDY3NZVngyVXNhM2tQ?=
+ =?utf-8?B?V0ZoMjZBZnJpUDZ0MEVEakdjcWtJZGdYRytUYUhQeHhYQSt4dW1FMDl1aWRE?=
+ =?utf-8?B?c0lzV0FjSmhxeFdHL1ZhR28vM1FGM2dIZzBuV09UYU5HZENpQW40RWQraDFN?=
+ =?utf-8?B?M2ljSFhvMUtEZEJRQ2VwbytMOTU0L0hCYjVoSDl6WHpEamNqaXlLbWg3a1Ez?=
+ =?utf-8?B?UkxFL2hLdTRudkxpUXpOcXYzNEdZMTVzdDFEUElZYUc3M1lDRVlwRVU2U1U3?=
+ =?utf-8?B?U2lvTmJkLzdwNDBiUXVUcERIQ0FZVzNVRWFNakNMenAwWWhlbVJlMGlwRWlE?=
+ =?utf-8?B?VFlNR0VWMS9pb012UEg2WWRaMVV4OU9EbkcwWkJwSFVwQzlDN09vMzhXWlB2?=
+ =?utf-8?B?N1hUQ0twU1FaK0MzYWVtREJhV214c1VMaExDazBSZGxhcTJCcEltYXlsSWhG?=
+ =?utf-8?B?RS9iZ3pVbDRyOGk1RXhjSUxEY3lyK0tBcUxWcTc5b2Zhamx1ZmhIV1VYTm5R?=
+ =?utf-8?B?dGhPRkZOQUI2dXRzdzF4Y3crUTY2ZnNLT2VFb3VURkNUSGJrUm03UlBySElR?=
+ =?utf-8?B?cktjUnExL2xhMWNBTU4zYVgzeERDdUk0ZEl5bk9PaGMwaEEzOFFGKzN0S3Bi?=
+ =?utf-8?B?ejZqL0NXRVk2Y2VsTERRRzhWN3UzeWhkaFlucUNBbnc4djZlYUZUR01Ibjlj?=
+ =?utf-8?B?RUZoMnByL3NGWm5aYlRGeldRTC9WRTdZQnhoZ2t1bm5xVWs0QXB1SUFRUENH?=
+ =?utf-8?B?QVQ4VzRVSmp4K2ozOWFxbklhUkNNTnNPcHVRdXAwOFoyOXJEcjRGMGk0TGNk?=
+ =?utf-8?Q?cPs+89r7WeUyn+WHWuhRfnN2wYVmXmXk?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WllXcWNoQ2JnMnN1Y25CSFRwSVZQbS9pMU9QbmQ4anpaUW1vaVUyaTN4VTY0?=
- =?utf-8?B?NUZaSTF4M2g5c1h5a0tPalBCM3dXSTAvcElzRVVOWkw5Tzc5T2R3eFJpSmVE?=
- =?utf-8?B?bEM0dEJheTExMS9uMU83ZGdJOW9xR2lIZGxUY1ovcmlaK2pBY2hNTnh0VGgv?=
- =?utf-8?B?aThyY3J0RTNLQWtpbUFuOUJoUXRzU2J6YnVmS3lmWUlpMmFMQzdFdVlRYitp?=
- =?utf-8?B?ZExvZTVVOG8wQm1IUFZ6ZEkzdTl2c3NmVWNDQkE2emxhSThrb0NJcUExbUNS?=
- =?utf-8?B?cE5aQWF0N1F4K1dvSytyQlNsM1dsV0dqaEQyd1RLSHMzK2RORGtVaE9MdmZl?=
- =?utf-8?B?RGZibFhNbU1VZXR0eHQxeWJLamROZXdReWNFVmEvT3ZoUzlKa2xKbWcvRFhq?=
- =?utf-8?B?VGJGQ2M1TVdzU0hwYU8yZCthM2pJeFBubFd5cHU3cTV0OFFiVnBZTU5xN1hV?=
- =?utf-8?B?NjRORXNEMVQrUnJuMWVGYUVpcVh3OTNuTG5BVFdSd3pUQU1xVkNYM1M1N0sx?=
- =?utf-8?B?U2ErRTRzaDZhRVVyL2F3MVl4MnE0Zk12ejdGZmRwKy9YdzNSSlFKQTJVdUpH?=
- =?utf-8?B?WE8reERvNUZlNVB0UHNadnRJcE5iY3QyR1BZd21TdTNyMURvMXh2bVUraDRa?=
- =?utf-8?B?bkxGdm5tNXgxV3g5TDU4cWg2SVhDYUV3djg3QkRrQ1IwOU5UNUJxdFYrQjEz?=
- =?utf-8?B?dnZCdS9zSmNlRThJMHcyVGZnZVA5QTNtRzdhQ3B6NDBkS1VCNy9tYWt3SEtQ?=
- =?utf-8?B?TnJwZ2g2dTl5WUhicHljMzBiUVJxNWNqZ2U3SW0vM1hCNThFV21KN3Q0MjZU?=
- =?utf-8?B?OG1ua0ozbjhyU2NrRHQ3OCtvSi82YlFKVnh3ZWFjV2tLeVVOMzJTZHV6UFVn?=
- =?utf-8?B?cjkvWDVJcUtXZW1EdzA4Z3p3Q1RYMFhpVkV3OUx6S1F6OTdHU3ZmcGJab0hP?=
- =?utf-8?B?djFwOXJrbitlZTl4QkorMUxZOThLTWxuZ3ZFRitFVlRhM0czQ0oyVFEyaUdr?=
- =?utf-8?B?VHRVa1Jmd2lBSGVWTXQvaWFqRUMvYmFhdW5wSXpteUQyRjFORk8yRzZmUThJ?=
- =?utf-8?B?eWxqK3JPS2FESy9DR2FIQi9lYzZtVFppNDhUQzZWWWVLby9iL1Y5cVAvUmxL?=
- =?utf-8?B?TmVyTTNqOGRCYlpwRXJKUHFTR0ZOVlZOdnQ0VFpYcjJRMTV2K2lUZjk0VVZt?=
- =?utf-8?B?d1VmZkc1OTFxQ1RUVkdPMmltYk0rRmc1WjQyTUpsRDZsZktOcitKa28wOGdU?=
- =?utf-8?B?MGwyd1hNRjl1Yzg3VG51aGgyYXRtQlErYU83eGZCTE5rOUpPVnNsTDZhdStN?=
- =?utf-8?B?ZkY2dDZxWjY4VTBxSndXS25mNENOc3VvbkpvOUNKLzVVV1E0cGptR0h5WmRH?=
- =?utf-8?B?Zzd3VzhhdzJ2TnJqWWtKMUNUaVgyT0FmYTRvbjIzZVpwN1h6RlZuR2d1d2hM?=
- =?utf-8?B?Y1kyOWJKOGIyWEVYQkVtT2xQVGhnM0pzWXNwNHpleGRjUnNMakphaDVSMk8v?=
- =?utf-8?B?aDFWOWF4MWZ5UlZsSHd3RFZBOUErN0VoQ3crdFdocUovYUlYREdDYU5ycUtr?=
- =?utf-8?B?dlVOMk9Pd3puWWhlQmhVdk1NYTRhbWwvZ3dBM3pGZitidkpTb0NhWnFhWXJ6?=
- =?utf-8?B?aU52OWkxZ2VvME5Pc2hod3VOTktwem1jcDl3TWlWcmhiRkY4anBLNXF4MkJn?=
- =?utf-8?B?bDhJbGF6RnR4blRjR2taRkJjcWp5cGVia0dHamdEUGdlS29FQ3JEbEVHeEpq?=
- =?utf-8?B?NmxTYk1hdlpHVnFFaVNsUXJJYzEzRkRObzlYUVdDZWZoMzlCczBqaTFxSlJE?=
- =?utf-8?B?bnRzMEswZ2VwSEhMWEU2NitPekdVZHVkS2piWFczaFdZZzdIM2ljRFo3dVlT?=
- =?utf-8?B?NG5UaUo5cmdtbERIZHlJTFFkSlh5a2J1OXl3dGNPcThpQzZidS9LNHNiaTJG?=
- =?utf-8?B?RFZZZm5jcGpMV3N0OXRmK28veDFJQnhwSk1XV0RoZVlaaGNZSG9RK0ZUOFY3?=
- =?utf-8?B?Q3pHcmpTVTZqWnVrRjhaeXh0U2l4Tm45YW0wVVNNN2drVGtHRENQNEdiTVNk?=
- =?utf-8?B?bGoxNmxhdzdlNnJTSnJvVlpkWDlpWXBqR3RjTjg1YXROVzRQYzM5cGM3dlVl?=
- =?utf-8?Q?TQ9w=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzlKZVlQWmlLL2tVRDlPMEZHTWdDOEl4bFlDVlNaSlRZUjJBejhKQ1YxRlg0?=
+ =?utf-8?B?dngvdGdiQ0NwWlpHWVFuc3duQ0didU11SXA1a0hDY0dYRnordTVLeGs5OTZo?=
+ =?utf-8?B?TUJ6M2lhVFRVeHNwRndGNk5ZUlZEa0FXZndjeVN3VXg0QlNQUjNrc1pQVTJo?=
+ =?utf-8?B?am1LeEswYmNLb0t4Ykl1RjRsRWVFL2hoOXNKU3dHTjRhZFY5eDdObE54b3J2?=
+ =?utf-8?B?YmlsKzR6OUhIYXlDUFFkYlZWYXkyQ1ArTklzaVRxQlZuU2J5VjI1YjVTc0ds?=
+ =?utf-8?B?N2RCNUd1MmdSclJMTDV2RmRobWJvRmRvTHBQRDRFK3UrdWRoeU1Ua1pwV0o2?=
+ =?utf-8?B?aXFuZjUvWmlWc283cDhZMjhRL3k0ZHJ5SGVHWUNWTk9rdEgzalRZZGV6UTRl?=
+ =?utf-8?B?eTFUa1F4MEFqajZkbzE2UTRzTjJZbEhXNmFoaHo2MEdLS29CSWZlUDNTczAv?=
+ =?utf-8?B?RmF5UFc1aWM1TFZTM2lJeTdLaUxUM29KZ2haSnFUb3hrSi9IUjJZMkpDUTla?=
+ =?utf-8?B?YUw3T2k2cFpVUER0WWpGcW5Zb1Q1VU9teSs3TlFmcFpkWmVoenNzUFFVZ202?=
+ =?utf-8?B?aHBjRnpBcWNrZk02R05ReDdCa0ZGc2VWaUJaK29aVzF0NUFjanprd25zMCtX?=
+ =?utf-8?B?cDFqbkVobExmWXI0WUFvTkNqbG92T1VxaEFmaThCYWtybmdHSkxqeTNaWTM2?=
+ =?utf-8?B?Z09yTEdyMzJ4bysrVXpPeGcwY0h6Unh4Q1l4cUZIVXVCa0JlVWdjWWFTR1hV?=
+ =?utf-8?B?VVJ1RXNXYmdwYzhaK25hM0xXYWIvRXJZK1IzMVBxeXJqK1BEZlhBTGtrZU85?=
+ =?utf-8?B?bW1YckdrcWFMUXI4aE9ScVZ4aE8zQ2t1VVpzWW45djRWZDZoZ0Zzb2Q2OVBo?=
+ =?utf-8?B?QVhkOGNKSTh4VnNJZHo1dFQxOU1WUjMxL0tRenJHSUhZYkY4aTd6VnNPSlJO?=
+ =?utf-8?B?WmdXK25VcVZsQnFqNS9hNGhoa0plaWVMMWIzZGd0MW9CaVlIaTJVNitmQjFH?=
+ =?utf-8?B?WTBIZWgvTWdWajMvUWwvRXpCR09OMGxybW1lUTA3aWN3QURJK3pNa0R0ZWdX?=
+ =?utf-8?B?SE9tT1NQSWVkMFJueUlwcHZPTTVHZmtGOGp2WUJPdW1FRkNwdWt1My9ybGgv?=
+ =?utf-8?B?TkVzT0wzL2ovKzBpRGtFMGtGVjJXUm82ckVwbHpLa2hKWURhSkxQNkRPMGhD?=
+ =?utf-8?B?clJJcmNpcWJKMnJXOWNnWTFFaFNwajFqTzA5R1g4LzFjTTFuWTd1NnAzTzZl?=
+ =?utf-8?B?QVQ4SitzcHU2dlNLNkZ5TWR2TWtFZTNPTmJrRlM5N0lJL253bXNYdjV3Qytz?=
+ =?utf-8?B?cFNaZ1M0b2VrN25ia1N5WEhRdHJ2NXdTN24rNFRKOXN5WWlmQ1hNVXNOb1lr?=
+ =?utf-8?B?dE5HWDlIaGppSlBIMm8yM1lRcnhaclRDbzJLcXI3UXNxVkZDbjJjVnA2TTN1?=
+ =?utf-8?B?VURuNi9HZHdFUC9KMStKWW94Tjc2eWs0RG1FemoveTJoejgrdnVXdVovRGlr?=
+ =?utf-8?B?TzBXeXJQSkY2cU5qVHNyUDZHQmNxVC94UVE5TDhkM1NnUzl2WStRcktuVmVy?=
+ =?utf-8?B?MXJaMlBMNUxnMXdPUTFRM2hpM25GUHNmZExBcFRHejBja1VGdml5c3hMaXRP?=
+ =?utf-8?B?Ti9DMVZIeVJsNUdRb2RVYm9MY3NqdDBCL3JUTmlrZ2ZJc0swTUdYT05GYjJB?=
+ =?utf-8?B?WlYwTFY2YUZ4QWUwM0lxcC9LQ0JsQ2MwZHBsbXQyNjEvbXRZYUs0R09YVUJT?=
+ =?utf-8?B?UTY4RU1uREZydnNWUVg4MkJISHRYdWYxUCsxNDZxL2pXaGJTM1o1aCswZGxX?=
+ =?utf-8?B?K3dtTHBqTXY4VU5TNDRoZzZTemRPYzJWSllSS1BPdDhXY0tCS3U3ZnlaQlVX?=
+ =?utf-8?B?eGx5R2N5Ti9RTW80Mi94NytxenFCaUt2dG5IOEk4a3JTUGhkcW9KTWhoMGRn?=
+ =?utf-8?B?Z0Q2VWwzUkxwa083eHZPdTVYWGRCTE1QMFczTjlHMGVpNnVuamFVR0prMDFL?=
+ =?utf-8?B?NFRiY3NBeTFXQjd6RnpZU1Y5cUZNY29RSk16aVdTTUFrVkR4K3JZdEhRZUZR?=
+ =?utf-8?B?ZEo4dmtZczdvNkk4RWZwY2s5a2ZWQnlrRCt6VC84MlBmeG1qcU8zMW9BdGVX?=
+ =?utf-8?Q?IL73yWTRuQ6+n7q/iPysGRR5T?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d1c38ea-9e38-4a2d-5f50-08de0a25f34d
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac03ba24-c651-4e65-26c1-08de0a269efd
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 06:58:44.8907 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 07:03:32.7486 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i9FCxIeuW72oySnpKI+j9sEp/cra1OVDal0Hxq9hR0UTWlsbmyDBAsq4DkJaoMgA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6836
+X-MS-Exchange-CrossTenant-UserPrincipalName: /+V5+vWdukjNREKQc2m22KI6a/2e4zJyqvNVHIL1RYtQnmUEPVCdQkkve8XVbnnJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7892
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,98 +169,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 13.10.25 08:21, Jesse.Zhang wrote:
-> APU platforms (identified by `adev->gmc.is_app_apu`) do not initialize dedicated
-> VRAM management structures (`adev->mman.vram_mgr.manager`) because they rely on
-> system memory instead of discrete VRAM. Accessing this uninitialized structure
-> via `ttm_resource_manager_usage()` triggers a NULL pointer dereference (typically
-> in `_raw_spin_lock()` when trying to acquire the manager's lock), leading to
-> kernel OOPS—especially when tools like rocm-smi query VRAM usage or during
-> power/VM operations.
+On 10.10.25 16:14, Thomas Hellström wrote:
+> On Thu, 2025-10-09 at 09:58 +0100, Tvrtko Ursulin wrote:
+>>
+>> On 09/10/2025 00:18, Matthew Brost wrote:
+>>> On Wed, Oct 08, 2025 at 12:53:14PM +0100, Tvrtko Ursulin wrote:
+>>>> Let the TTM pool allocator know that we can afford for it to
+>>>> expend less
+>>>> effort for satisfying contiguous allocations larger than 2MiB.
+>>>> The latter
+>>>> is the maximum relevant PTE entry size and the driver and
+>>>> hardware are
+>>>> happy to get larger blocks only opportunistically.
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>>
+>>> +Thomas - Seems like we'd want to do this in Xe too?
 > 
-> Fix this by adding explicit APU checks in all code paths that access VRAM
-> manager structures:
+> Yeah, Indeed.
 > 
-> 1. **amdgpu_cs.c**: Extend the existing bandwidth control check in
->    `amdgpu_cs_get_threshold_for_moves()` to include APU devices. Return 0 for
->    migration thresholds immediately, skipping VRAM-specific logic that would
->    access uninitialized data.
-> 
-> 2. **amdgpu_kms.c**: Modify the `AMDGPU_INFO_VRAM_USAGE` ioctl and memory info
->    reporting to return 0 for VRAM usage on APUs. This avoids calling
->    `ttm_resource_manager_usage()` with an invalid manager pointer.
-> 
-> 3. **amdgpu_virt.c**: Skip VRAM usage calculation for APUs when writing vf2pf
->    (virtual function to physical function) data. Use 0 for `fb_usage` since APUs
->    have no discrete framebuffer memory to report.
-> 
-> These changes ensure APUs never access uninitialized VRAM manager structures,
-> resolving the NULL dereference while preserving correct behavior for discrete
-> GPUs (which retain full VRAM usage tracking).
-> 
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  | 4 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 2 +-
->  3 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 5f515fdcc775..d80414b32015 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -709,7 +709,7 @@ static void amdgpu_cs_get_threshold_for_moves(struct amdgpu_device *adev,
->  	 */
->  	const s64 us_upper_bound = 200000;
->  
-> -	if (!adev->mm_stats.log2_max_MBps) {
-> +	if ((!adev->mm_stats.log2_max_MBps) || adev->gmc.is_app_apu) {
->  		*max_bytes = 0;
->  		*max_vis_bytes = 0;
->  		return;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index a9327472c651..e6bf9f6a2713 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -758,7 +758,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  		ui64 = atomic64_read(&adev->num_vram_cpu_page_faults);
->  		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->  	case AMDGPU_INFO_VRAM_USAGE:
-> -		ui64 = ttm_resource_manager_usage(&adev->mman.vram_mgr.manager);
-> +		ui64 = adev->gmc.is_app_apu ? 0 : ttm_resource_manager_usage(&adev->mman.vram_mgr.manager);
+> While IIRC we can actually set up 1GiB PTEs, I'm not aware of any huge
+> benefits from using that compared to 2MiB ones. We certainly want the
+> allocator to try pretty hard for 2MiB ones, though.
 
-Please use ttm_resource_manager_used(&adev->mman.vram_mgr.manager) instead of checking the adev->gmc.is_app_apu flag.
+Yeah same here for AMD GPUs.
 
-It could be that we will get more use cases for not having the VRAM manager initialized.
+There are some obscure use cases for 1GiB on amdgpu, but only for VRAM. And even for VRAM we only guarantee that as best effort.
 
-Apart from that good catch.
-
-Thanks,
+Regards,
 Christian.
 
->  		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->  	case AMDGPU_INFO_VIS_VRAM_USAGE:
->  		ui64 = amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr);
-> @@ -805,7 +805,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  			atomic64_read(&adev->vram_pin_size) -
->  			AMDGPU_VM_RESERVED_VRAM;
->  		mem.vram.heap_usage =
-> -			ttm_resource_manager_usage(vram_man);
-> +			adev->gmc.is_app_apu ? 0 : ttm_resource_manager_usage(vram_man);
->  		mem.vram.max_allocation = mem.vram.usable_heap_size * 3 / 4;
->  
->  		mem.cpu_accessible_vram.total_heap_size =
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index 3328ab63376b..5ff856bef199 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -599,7 +599,7 @@ static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
->  	vf2pf_info->os_info.all = 0;
->  
->  	vf2pf_info->fb_usage =
-> -		ttm_resource_manager_usage(&adev->mman.vram_mgr.manager) >> 20;
-> +		adev->gmc.is_app_apu ? 0 : ttm_resource_manager_usage(&adev->mman.vram_mgr.manager) >> 20;
->  	vf2pf_info->fb_vis_usage =
->  		amdgpu_vram_mgr_vis_usage(&adev->mman.vram_mgr) >> 20;
->  	vf2pf_info->fb_size = adev->gmc.real_vram_size >> 20;
+> 
+> Thanks,
+> Thomas
+> 
+> 
+>>>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 +++--
+>>>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> index 948c6d0a422b..723b885210a7 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>>>> @@ -1837,7 +1837,7 @@ static int amdgpu_ttm_pools_init(struct
+>>>> amdgpu_device *adev)
+>>>>   	for (i = 0; i < adev->gmc.num_mem_partitions; i++) {
+>>>>   		ttm_pool_init(&adev->mman.ttm_pools[i], adev-
+>>>>> dev,
+>>>>   			      adev-
+>>>>> gmc.mem_partitions[i].numa.node,
+>>>> -			      0);
+>>>> +			     
+>>>> TTM_POOL_BENEFICIAL_ORDER(get_order(2 * SZ_1M)));
+>>>
+>>> SZ_2M btw.
+>>
+>> I thought I grepped exactly to see if that existed but apparently I
+>> did 
+>> not, thanks!
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>
+>>> Matt
+>>>
+>>>>   	}
+>>>>   	return 0;
+>>>>   }
+>>>> @@ -1931,7 +1931,8 @@ int amdgpu_ttm_init(struct amdgpu_device
+>>>> *adev)
+>>>>   			       adev_to_drm(adev)->anon_inode-
+>>>>> i_mapping,
+>>>>   			       adev_to_drm(adev)-
+>>>>> vma_offset_manager,
+>>>>   			       (adev->need_swiotlb ?
+>>>> TTM_POOL_USE_DMA_ALLOC : 0) |
+>>>> -			       (dma_addressing_limited(adev-
+>>>>> dev) ? TTM_POOL_USE_DMA32 : 0));
+>>>> +			       (dma_addressing_limited(adev-
+>>>>> dev) ? TTM_POOL_USE_DMA32 : 0) |
+>>>> +			      
+>>>> TTM_POOL_BENEFICIAL_ORDER(get_order(2 * SZ_1M)));
+>>>>   	if (r) {
+>>>>   		dev_err(adev->dev,
+>>>>   			"failed initializing buffer object
+>>>> driver(%d).\n", r);
+>>>> -- 
+>>>> 2.48.0
+>>>>
+>>
+> 
 
