@@ -4,48 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 913D5CCA476
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F05FBCCD18F
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 08:23:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C05610E3FA;
-	Mon, 13 Oct 2025 08:22:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3B0710E3FF;
+	Mon, 13 Oct 2025 08:22:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BYHPlbl4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ISdZI4wb";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7868510E3F3;
- Mon, 13 Oct 2025 08:22:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D885410E3F6;
+ Mon, 13 Oct 2025 08:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Yp2rxmv3J/qwzujX5ruDxhfuE3muTpJva63Wp7cStlc=; b=BYHPlbl42ELB7Gn4emKIaw7PwS
- qXc+lygDKvxK2OU1tiqiJ9jkpfqIE41ePXoLSJrtEkg64KFgqDmX5qVGd2OzKl5oVdhvP1BxYvgnm
- FXnV7JrqB8G1uOBGZR/8/dcTL9FI2+hvthXvFwRKj/Ok0ozVnerVXbA/G8XcfzWHOm0QLnPxPyO3s
- TC6oarMD61vWRYWNs0xgjGOiT9tkfbaYrmDIJEgOFD65vXT1BrDvyUuRwuoFcdvhW1cxmOT/iUNXI
- 4GR9kD+J1hVP36Mx86FgJeMg6z7aaJPNJlb5e2pbjCDV7R4l0RDIo05pLFZ/Q6DRzEy6n5Ejlcrt7
- 5+pWziQg==;
+ bh=BsnBMuolTqvsPT7+BMVa0VLvdDvZ2NYKCyNaVaqnmEE=; b=ISdZI4wb3SsORzv+ammLaTX+vl
+ zUYeUvJhsFOwcdv4P2xZ8fpEYZksM4f5ubW6Qw40QlCyF5sQiyJqS5BqJsOsaSpkBblixbuzmaWlf
+ HpfiL1G5wxcdxqm96iyMh4+Ae8gEQd9uKS/cpi2UIDrOTWARwPyLI64od2DBiZlpy+aUk93HwfDQo
+ DoTHCKqiNO1Bvq827AlHV6e6eZsELRabRg4wtBMdIhSmi1xqTmMK/AC81qzRnIeiwXbvVuQiFM8Nc
+ J/41Ese4m8M9SfXqEgVK3EE4GDvCnb749Q+b6UxzeigAxh2M20nRfnTJG14u5ak8m4IpFlE2i8+Kt
+ IIgDkQsw==;
 Received: from [84.66.36.92] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1v8DpR-008qJD-K7; Mon, 13 Oct 2025 10:22:49 +0200
+ id 1v8DpQ-008qJ6-3l; Mon, 13 Oct 2025 10:22:48 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH v4 2/5] drm/ttm: Replace multiple booleans with flags in pool
- init
-Date: Mon, 13 Oct 2025 09:22:37 +0100
-Message-ID: <20251013082240.55263-3-tvrtko.ursulin@igalia.com>
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sui Jingfeng <suijingfeng@loongson.cn>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Zack Rusin <zack.rusin@broadcom.com>
+Subject: [PATCH v4 0/5] Improving the worst case TTM large allocation latency
+Date: Mon, 13 Oct 2025 09:22:35 +0100
+Message-ID: <20251013082240.55263-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20251013082240.55263-1-tvrtko.ursulin@igalia.com>
-References: <20251013082240.55263-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -63,318 +70,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Multiple consecutive boolean function arguments are usually not very
-readable.
+Disclaimer:
+Please note that as this series includes a patch which touches a good number of
+drivers I will only copy everyone in the cover letter and the respective patch.
+Assumption is people are subscribed to dri-devel so can look at the whole series
+there. I know someone is bound to complain for both the case when everyone is
+copied on everything for getting too much email, and also for this other case.
+So please be flexible.
 
-Replace the ones in ttm_pool_init() with flags with the additional
-benefit of soon being able to pass in more data with just this one
-code base churning cost.
+Description:
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+All drivers which use the TTM pool allocator end up requesting large order
+allocations when allocating large buffers. Those can be slow due memory pressure
+and so add latency to buffer creation. But there is often also a size limit
+above which contiguous blocks do not bring any performance benefits. This series
+allows drivers to say when it is okay for the TTM to try a bit less hard.
+
+We do this by allowing drivers to specify this cut off point when creating the
+TTM device and pools. Allocations above this size will skip direct reclaim so
+under memory pressure worst case latency will improve. Background reclaim is
+still kicked off and both before and after the memory pressure all the TTM pool
+buckets remain to be used as they are today.
+
+This is especially interesting if someone has configured MAX_PAGE_ORDER to
+higher than the default. And even with the default, with amdgpu for example,
+the last patch in the series makes use of the new feature by telling TTM that
+above 2MiB we do not expect performance benefits. Which makes TTM not try direct
+reclaim for the top bucket (4MiB).
+
+End result is TTM drivers become a tiny bit nicer mm citizens and users benefit
+from better worst case buffer creation latencies. As a side benefit we get rid
+of two instances of those often very unreadable mutliple nameless booleans
+function signatures.
+
+If this sounds interesting and gets merge the invidual drivers can follow up
+with patches configuring their thresholds.
+
+v2:
+ * Christian suggested to pass in the new data by changing the function signatures.
+
+v3:
+ * Moved ttm pool helpers into new ttm_pool_internal.h. (Christian)
+
+v4:
+ * Fixed TTM unit test build.
+
+v1 thread:
+https://lore.kernel.org/dri-devel/20250919131127.90932-1-tvrtko.ursulin@igalia.com/
+
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Sui Jingfeng <suijingfeng@loongson.cn>
+Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  2 +-
- drivers/gpu/drm/ttm/tests/ttm_device_test.c | 24 ++++++++-------------
- drivers/gpu/drm/ttm/tests/ttm_pool_test.c   | 24 ++++++++++-----------
- drivers/gpu/drm/ttm/ttm_device.c            |  4 +++-
- drivers/gpu/drm/ttm/ttm_pool.c              |  8 +++----
- drivers/gpu/drm/ttm/ttm_pool_internal.h     |  4 ++--
- include/drm/ttm/ttm_pool.h                  | 11 +++++-----
- 7 files changed, 35 insertions(+), 42 deletions(-)
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Zack Rusin <zack.rusin@broadcom.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index aa9ee5dffa45..8f6d331e1ea2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1837,7 +1837,7 @@ static int amdgpu_ttm_pools_init(struct amdgpu_device *adev)
- 	for (i = 0; i < adev->gmc.num_mem_partitions; i++) {
- 		ttm_pool_init(&adev->mman.ttm_pools[i], adev->dev,
- 			      adev->gmc.mem_partitions[i].numa.node,
--			      false, false);
-+			      0);
- 	}
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_device_test.c b/drivers/gpu/drm/ttm/tests/ttm_device_test.c
-index 1621903818e5..a7f2d303ef02 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_device_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_device_test.c
-@@ -7,11 +7,11 @@
- #include <drm/ttm/ttm_placement.h>
- 
- #include "ttm_kunit_helpers.h"
-+#include "../ttm_pool_internal.h"
- 
- struct ttm_device_test_case {
- 	const char *description;
--	bool use_dma_alloc;
--	bool use_dma32;
-+	unsigned int flags;
- 	bool pools_init_expected;
- };
- 
-@@ -119,26 +119,21 @@ static void ttm_device_init_no_vma_man(struct kunit *test)
- static const struct ttm_device_test_case ttm_device_cases[] = {
- 	{
- 		.description = "No DMA allocations, no DMA32 required",
--		.use_dma_alloc = false,
--		.use_dma32 = false,
- 		.pools_init_expected = false,
- 	},
- 	{
- 		.description = "DMA allocations, DMA32 required",
--		.use_dma_alloc = true,
--		.use_dma32 = true,
-+		.flags = TTM_POOL_USE_DMA_ALLOC | TTM_POOL_USE_DMA32,
- 		.pools_init_expected = true,
- 	},
- 	{
- 		.description = "No DMA allocations, DMA32 required",
--		.use_dma_alloc = false,
--		.use_dma32 = true,
-+		.flags = TTM_POOL_USE_DMA32,
- 		.pools_init_expected = false,
- 	},
- 	{
- 		.description = "DMA allocations, no DMA32 required",
--		.use_dma_alloc = true,
--		.use_dma32 = false,
-+		.flags = TTM_POOL_USE_DMA_ALLOC,
- 		.pools_init_expected = true,
- 	},
- };
-@@ -163,15 +158,14 @@ static void ttm_device_init_pools(struct kunit *test)
- 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
- 
- 	err = ttm_device_kunit_init(priv, ttm_dev,
--				    params->use_dma_alloc,
--				    params->use_dma32);
-+				    params->flags & TTM_POOL_USE_DMA_ALLOC,
-+				    params->flags & TTM_POOL_USE_DMA32);
- 	KUNIT_ASSERT_EQ(test, err, 0);
- 
- 	pool = &ttm_dev->pool;
- 	KUNIT_ASSERT_NOT_NULL(test, pool);
- 	KUNIT_EXPECT_PTR_EQ(test, pool->dev, priv->dev);
--	KUNIT_EXPECT_EQ(test, pool->use_dma_alloc, params->use_dma_alloc);
--	KUNIT_EXPECT_EQ(test, pool->use_dma32, params->use_dma32);
-+	KUNIT_EXPECT_EQ(test, pool->flags, params->flags);
- 
- 	if (params->pools_init_expected) {
- 		for (int i = 0; i < TTM_NUM_CACHING_TYPES; ++i) {
-@@ -181,7 +175,7 @@ static void ttm_device_init_pools(struct kunit *test)
- 				KUNIT_EXPECT_EQ(test, pt.caching, i);
- 				KUNIT_EXPECT_EQ(test, pt.order, j);
- 
--				if (params->use_dma_alloc)
-+				if (ttm_pool_uses_dma_alloc(pool))
- 					KUNIT_ASSERT_FALSE(test,
- 							   list_empty(&pt.pages));
- 			}
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-index 17ebb9fbd688..c1037241d68e 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-@@ -13,7 +13,7 @@
- struct ttm_pool_test_case {
- 	const char *description;
- 	unsigned int order;
--	bool use_dma_alloc;
-+	unsigned int flags;
- };
- 
- struct ttm_pool_test_priv {
-@@ -87,7 +87,7 @@ static struct ttm_pool *ttm_pool_pre_populated(struct kunit *test,
- 	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, pool);
- 
--	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false);
-+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, TTM_POOL_USE_DMA_ALLOC);
- 
- 	err = ttm_pool_alloc(pool, tt, &simple_ctx);
- 	KUNIT_ASSERT_EQ(test, err, 0);
-@@ -114,12 +114,12 @@ static const struct ttm_pool_test_case ttm_pool_basic_cases[] = {
- 	{
- 		.description = "One page, with coherent DMA mappings enabled",
- 		.order = 0,
--		.use_dma_alloc = true,
-+		.flags = TTM_POOL_USE_DMA_ALLOC,
- 	},
- 	{
- 		.description = "Above the allocation limit, with coherent DMA mappings enabled",
- 		.order = MAX_PAGE_ORDER + 1,
--		.use_dma_alloc = true,
-+		.flags = TTM_POOL_USE_DMA_ALLOC,
- 	},
- };
- 
-@@ -151,13 +151,11 @@ static void ttm_pool_alloc_basic(struct kunit *test)
- 	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, pool);
- 
--	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, params->use_dma_alloc,
--		      false);
-+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, params->flags);
- 
- 	KUNIT_ASSERT_PTR_EQ(test, pool->dev, devs->dev);
- 	KUNIT_ASSERT_EQ(test, pool->nid, NUMA_NO_NODE);
--	KUNIT_ASSERT_EQ(test, ttm_pool_uses_dma_alloc(pool),
--			params->use_dma_alloc);
-+	KUNIT_ASSERT_EQ(test, pool->flags, params->flags);
- 
- 	err = ttm_pool_alloc(pool, tt, &simple_ctx);
- 	KUNIT_ASSERT_EQ(test, err, 0);
-@@ -167,14 +165,14 @@ static void ttm_pool_alloc_basic(struct kunit *test)
- 	last_page = tt->pages[tt->num_pages - 1];
- 
- 	if (params->order <= MAX_PAGE_ORDER) {
--		if (params->use_dma_alloc) {
-+		if (ttm_pool_uses_dma_alloc(pool)) {
- 			KUNIT_ASSERT_NOT_NULL(test, (void *)fst_page->private);
- 			KUNIT_ASSERT_NOT_NULL(test, (void *)last_page->private);
- 		} else {
- 			KUNIT_ASSERT_EQ(test, fst_page->private, params->order);
- 		}
- 	} else {
--		if (params->use_dma_alloc) {
-+		if (ttm_pool_uses_dma_alloc(pool)) {
- 			KUNIT_ASSERT_NOT_NULL(test, (void *)fst_page->private);
- 			KUNIT_ASSERT_NULL(test, (void *)last_page->private);
- 		} else {
-@@ -220,7 +218,7 @@ static void ttm_pool_alloc_basic_dma_addr(struct kunit *test)
- 	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, pool);
- 
--	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false);
-+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, TTM_POOL_USE_DMA_ALLOC);
- 
- 	err = ttm_pool_alloc(pool, tt, &simple_ctx);
- 	KUNIT_ASSERT_EQ(test, err, 0);
-@@ -350,7 +348,7 @@ static void ttm_pool_free_dma_alloc(struct kunit *test)
- 	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, pool);
- 
--	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, true, false);
-+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, TTM_POOL_USE_DMA_ALLOC);
- 	ttm_pool_alloc(pool, tt, &simple_ctx);
- 
- 	pt = &pool->caching[caching].orders[order];
-@@ -381,7 +379,7 @@ static void ttm_pool_free_no_dma_alloc(struct kunit *test)
- 	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, pool);
- 
--	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, false, false);
-+	ttm_pool_init(pool, devs->dev, NUMA_NO_NODE, 0);
- 	ttm_pool_alloc(pool, tt, &simple_ctx);
- 
- 	pt = &pool->caching[caching].orders[order];
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index c3e2fcbdd2cc..250e9f10145d 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -236,7 +236,9 @@ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *func
- 	else
- 		nid = NUMA_NO_NODE;
- 
--	ttm_pool_init(&bdev->pool, dev, nid, use_dma_alloc, use_dma32);
-+	ttm_pool_init(&bdev->pool, dev, nid,
-+		      (use_dma_alloc ? TTM_POOL_USE_DMA_ALLOC : 0) |
-+		      (use_dma32 ? TTM_POOL_USE_DMA32 : 0));
- 
- 	bdev->vma_manager = vma_manager;
- 	spin_lock_init(&bdev->lru_lock);
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index ff6fab4122bb..5d007d1a15f2 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -1059,13 +1059,12 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
-  * @pool: the pool to initialize
-  * @dev: device for DMA allocations and mappings
-  * @nid: NUMA node to use for allocations
-- * @use_dma_alloc: true if coherent DMA alloc should be used
-- * @use_dma32: true if GFP_DMA32 should be used
-+ * @flags: TTM_POOL_ flags
-  *
-  * Initialize the pool and its pool types.
-  */
- void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
--		   int nid, bool use_dma_alloc, bool use_dma32)
-+		   int nid, unsigned int flags)
- {
- 	unsigned int i, j;
- 
-@@ -1073,8 +1072,7 @@ void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
- 
- 	pool->dev = dev;
- 	pool->nid = nid;
--	pool->use_dma_alloc = use_dma_alloc;
--	pool->use_dma32 = use_dma32;
-+	pool->flags = flags;
- 
- 	for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i) {
- 		for (j = 0; j < NR_PAGE_ORDERS; ++j) {
-diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-index 3e50d30bd95a..91aa156ddded 100644
---- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
-+++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-@@ -8,12 +8,12 @@
- 
- static inline bool ttm_pool_uses_dma_alloc(struct ttm_pool *pool)
- {
--	return pool->use_dma_alloc;
-+	return pool->flags & TTM_POOL_USE_DMA_ALLOC;
- }
- 
- static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
- {
--	return pool->use_dma32;
-+	return pool->flags & TTM_POOL_USE_DMA32;
- }
- 
- #endif
-diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
-index 54cd34a6e4c0..70db2e5c950f 100644
---- a/include/drm/ttm/ttm_pool.h
-+++ b/include/drm/ttm/ttm_pool.h
-@@ -59,21 +59,22 @@ struct ttm_pool_type {
- 	struct list_head pages;
- };
- 
-+#define TTM_POOL_USE_DMA_ALLOC 	BIT(0) /* Use coherent DMA allocations. */
-+#define TTM_POOL_USE_DMA32	BIT(1) /* Use GFP_DMA32 allocations. */
-+
- /**
-  * struct ttm_pool - Pool for all caching and orders
-  *
-  * @dev: the device we allocate pages for
-  * @nid: which numa node to use
-- * @use_dma_alloc: if coherent DMA allocations should be used
-- * @use_dma32: if GFP_DMA32 should be used
-+ * @flags: TTM_POOL_ flags
-  * @caching: pools for each caching/order
-  */
- struct ttm_pool {
- 	struct device *dev;
- 	int nid;
- 
--	bool use_dma_alloc;
--	bool use_dma32;
-+	unsigned int flags;
- 
- 	struct {
- 		struct ttm_pool_type orders[NR_PAGE_ORDERS];
-@@ -85,7 +86,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
- 
- void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
--		   int nid, bool use_dma_alloc, bool use_dma32);
-+		   int nid, unsigned int flags);
- void ttm_pool_fini(struct ttm_pool *pool);
- 
- int ttm_pool_debugfs(struct ttm_pool *pool, struct seq_file *m);
+Tvrtko Ursulin (5):
+  drm/ttm: Add getter for some pool properties
+  drm/ttm: Replace multiple booleans with flags in pool init
+  drm/ttm: Replace multiple booleans with flags in device init
+  drm/ttm: Allow drivers to specify maximum beneficial TTM pool size
+  drm/amdgpu: Configure max beneficial TTM pool allocation order
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  7 +--
+ drivers/gpu/drm/drm_gem_vram_helper.c         |  2 +-
+ drivers/gpu/drm/i915/intel_region_ttm.c       |  2 +-
+ drivers/gpu/drm/loongson/lsdc_ttm.c           |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_ttm.c         |  4 +-
+ drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c           |  4 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++----
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 32 +++++--------
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 22 ++++-----
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  7 +--
+ drivers/gpu/drm/ttm/tests/ttm_pool_test.c     | 24 +++++-----
+ drivers/gpu/drm/ttm/ttm_device.c              |  7 ++-
+ drivers/gpu/drm/ttm/ttm_pool.c                | 45 +++++++++++--------
+ drivers/gpu/drm/ttm/ttm_pool_internal.h       | 24 ++++++++++
+ drivers/gpu/drm/ttm/ttm_tt.c                  | 10 +++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +-
+ drivers/gpu/drm/xe/xe_device.c                |  2 +-
+ include/drm/ttm/ttm_device.h                  |  2 +-
+ include/drm/ttm/ttm_pool.h                    | 13 +++---
+ 21 files changed, 127 insertions(+), 106 deletions(-)
+ create mode 100644 drivers/gpu/drm/ttm/ttm_pool_internal.h
+
 -- 
 2.48.0
 
