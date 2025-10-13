@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AED3CCD192
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5736CCCD193
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 14:35:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7817210E472;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3E310E478;
 	Mon, 13 Oct 2025 14:35:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fUyKlPIP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DHVkt8mK";
 	dkim-atps=neutral
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27EEF10E472
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1ABE10E472
  for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 14:35:12 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-63babfdb52cso1614924a12.3
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-6399706fd3cso6316547a12.2
  for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 07:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1760366111; x=1760970911; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=r+M6T90aofvVrx2e1vqwPoDjqCLdEjx6BHMLbVIttJc=;
- b=fUyKlPIPOtT47kiIFcXtOEY0Gfdg6FHOS7FMWzmKnyPEg8fyPiv8zIpjqDZ7O3AmVU
- de8szRrtv+RY7mP33CAVLutfEtgq412VtP2WRhLeqcxzkiz+3O+FFyBSqslFjbqyKW+2
- L+VEyaiVL9SFDMGzFHjUKp1OzaQijDC66zWwzQB27d/R9PQyOA/NcNyQKBD/eGwL2+Yq
- u73YXxbLfmtWr0M3h7ECB56Ihojfqh+2yR8lgCmNUjNmAmCzbIBgg1b99K0C5eUdJJER
- 7a6no9QardqFRtCEDMhHaZ2w1dm2+htYhS7rHiNxtbL6hP4GPSF9IPZ0H1mSZUguqSfb
- m0Vg==
+ bh=QGHkg4CzQO0ckbxvGrx3lYkCFuMHAvq3/CVgfYTONxg=;
+ b=DHVkt8mKXyfQQbtmtjkXPZ+A4RhoHXfsDpFqhmggCMv4WupFav9BYxh4D03Z1nTxoQ
+ 2FPtm5p9calJCq0UiZCBLpZ00eXvUChFmr3sUKFrV2o8cje2dY9BHcCU3briXk6YTr4y
+ wjGOfl32ptLelenSck1/r1khh8B1iBCOUnbOcrGQJvDGWHFJgHXTFPjMEIECQZZuYeFy
+ rBzK0EwLg5lXNUJ867ycXW+lHRM3QfTX9U2ILUyrp3v+nWndGsOjpTNnY0+7E1B1Q1Te
+ h2Y+3Um00SjtkZqsv9jVF9+mswvJ7hrPLYNiu4ZnY5b3KB6eRsQdDaM5apJYli9fRgix
+ JbUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1760366111; x=1760970911;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=r+M6T90aofvVrx2e1vqwPoDjqCLdEjx6BHMLbVIttJc=;
- b=uLDluXj/TRfsTh6KI46d8JAEOLDBCC0hHZAVY9ZSeN22r4ze6d1BZ4P4zD91KoOH/J
- 84/UCcpFYGqE9+B9bN/WtluDaSz7DGUdeIJoZUCY6O0zNgrPWm1m7a6Rw0XI+FW2oeiX
- dXEYnyyb3ru1S+HzxVaH6Q6Q0qflbfNDMDK8vFmeF6BfU+6iTvc4ZByNHE9hEuW9mG97
- cc90Wp3pT0eHb39nLs+9osxCu6lWep5XrRb64xVnDlzmwLVsYRHNo8spti6JOVmLx2sc
- XQPjXT48b0BWFLFu3BY2vT+lP3WQzBS/KC+hldi4Hlyjlnf8WfjUL/T3VZZRoYCS2Ome
- UM6w==
+ bh=QGHkg4CzQO0ckbxvGrx3lYkCFuMHAvq3/CVgfYTONxg=;
+ b=JXVhtcfGK4nPFOG6R5L66soaXqRXPUgRDCxMxm1KBttk9FENl7amewjXbiogEGYW/R
+ hC4/iefXgFl6WBDDEXCtXYMxtuWPWhbr7H94kzKvaRHdi9bxca7Fbg3yyfqapiOhqY9l
+ 6wmFLU9taHgHQ1QjQ+ZKQxabaYU1157cifvv4lXZ8MX7RkYKRwWxLcA3Z+Sp2LorbOA5
+ rWEKHT6vpb7VY1+3qZ7Xm+eEvCVdLpPibFAg/2MnyNsMBqxzEzWJvWPwFAwqURnZX2li
+ doy69xePFXaht2bFF5F/uZqCSBkP6L0EJ1lI6G2NtFExXl+aaiC3AilwxizTMLO/EZpZ
+ Tsww==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUw7vznARiqVBvnl5FIhevKGGALrS/FnDDhKBkdcyWhz+9S78GpudrfHW+TQxpko+tfJejybSLD@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxn7utlr8g1k2xiiU7kH2EsmVoeJu1vH/GpY0WqDjz8riCaCq0M
- N7sOxeT5hz8y4IqjRisGt63cyNJqYqbL5pVcTaxR1a05qE5XwrfuvPpkGUuGgg==
-X-Gm-Gg: ASbGncsl18mbRR8RuiN1zu4fSh8PVcMZht9FWpyqECSJHtVY+to6O8IexoUN2DmY47n
- R5vifp2TWq6pV2xaHdiQ9AEU1L7Qs5PrRHyGIZfi5mzumuI/3JQP9Zi79LlTa9w/qoBwcQSS+xo
- uYVN32sZtpPuJEESbnxRHyI9F9KEDpOkSARairAbIEgADhPAk+uuVMUUCykg8UOnMzLYMusGCNt
- cXrQRQvt97VrjfCxzv9jERmpUGssMGjlKb57enY4zfW5j0MI0+uddYTd20J0n/PtVwQ+iPOiXMG
- 3nvU8fPj4/A/vQoGR9f30Bd9O8tyyK35ILtipu8CZxFys1FVj0MTUUkyZEi/HLQuVfuF2M1legv
- wGbH0PlAqiXPNdO3A4u3BUCyIls0RPyDBApuzeCLmRrZetHzFFpjjGK0=
-X-Google-Smtp-Source: AGHT+IGfdI6Oj1WLuruFkjDpBWShReH7o0XKE+2jBb30VmEvhIh56qe5192WVy+lq83KXszpXTzFHw==
-X-Received: by 2002:aa7:d0c9:0:b0:633:8787:607b with SMTP id
- 4fb4d7f45d1cf-639d5b84856mr14366662a12.12.1760366110556; 
- Mon, 13 Oct 2025 07:35:10 -0700 (PDT)
+ AJvYcCXwawnO33LJxFDGtoDYQCLj7tcD54zD9S1SUG3NazYrDhGKsEowf5O0VYmjEoDXZJjbehiTOQ34@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywx3KW10+iR3tafngzbagib8WWbyImnbu5AwJAYEQLtGSBaS9g9
+ ZbNd5kC72lRgNonGCUEtN2Qe1P2WZi5dt1FTCzuXYGRsvKsHTOdzKGT1
+X-Gm-Gg: ASbGncuwbjdgxaEekw21/B/GcP/Mhif4KNv0W+GKk7YyVF08Diu3WzwCb3beliKTpYI
+ vmYxAehYwht8gckfEpaK3owsC8hoT83z1PGwb4V7RrA7JyJ5j0jFq7u+HdM3XPra+yWRndOwVs1
+ 70r/ZWjTwoxYk0z3MuxecRz0JOvZ48QsroyRaYrWqrx2TOwaef2uprc77dOA1sKKHjptm0Gi9Ra
+ ZLXLxS1Egxo9BlCXZjLqzc/FH2m7fEhnoKpfSd6V4bvJbPYK0yo/rIv1VbtzfwOP1cTcM3sMU8T
+ sSB1v7FbSvpC8uH1gFngvx9VVT9vFkpBv+jd1KeY2a2CZKaob34ZCfWHrnLHhrR1Oac2RFIRuK9
+ s6wFz+31fVyah5BJudKBMWl0NuIlnyXt0xQS571UwzIXitMxM2AthgT0=
+X-Google-Smtp-Source: AGHT+IFrNoq8xL3ZHlvsw6ON2Yc9FPU5zGsMHl3vFaEK54U+eSoLlYiwIMQrMyFsTHfTQU+mlJpg+Q==
+X-Received: by 2002:a17:907:2d8c:b0:b45:592f:74ac with SMTP id
+ a640c23a62f3a-b50ac1c644bmr2203947966b.38.1760366111282; 
+ Mon, 13 Oct 2025 07:35:11 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:151b:dc00:15d1:ebc5:76e6:730f])
  by smtp.gmail.com with ESMTPSA id
  4fb4d7f45d1cf-63a5c321453sm8942037a12.39.2025.10.13.07.35.10
@@ -69,9 +69,9 @@ To: phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
  tursulin@ursulin.net
 Cc: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 08/15] dma-buf: use inline lock for the dma-fence-chain
-Date: Mon, 13 Oct 2025 15:48:35 +0200
-Message-ID: <20251013143502.1655-9-christian.koenig@amd.com>
+Subject: [PATCH 09/15] drm/sched: use inline locks for the drm-sched-fence
+Date: Mon, 13 Oct 2025 15:48:36 +0200
+Message-ID: <20251013143502.1655-10-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251013143502.1655-1-christian.koenig@amd.com>
 References: <20251013143502.1655-1-christian.koenig@amd.com>
@@ -96,43 +96,72 @@ Just as proof of concept and minor cleanup.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/dma-buf/dma-fence-chain.c | 3 +--
- include/linux/dma-fence-chain.h   | 1 -
- 2 files changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/scheduler/sched_fence.c | 11 +++++------
+ include/drm/gpu_scheduler.h             |  4 ----
+ 2 files changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
-index a8a90acf4f34..a707792b6025 100644
---- a/drivers/dma-buf/dma-fence-chain.c
-+++ b/drivers/dma-buf/dma-fence-chain.c
-@@ -245,7 +245,6 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
- 	struct dma_fence_chain *prev_chain = to_dma_fence_chain(prev);
- 	uint64_t context;
+diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+index 9391d6f0dc01..7a94e03341cb 100644
+--- a/drivers/gpu/drm/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/scheduler/sched_fence.c
+@@ -156,19 +156,19 @@ static void drm_sched_fence_set_deadline_finished(struct dma_fence *f,
+ 	struct dma_fence *parent;
+ 	unsigned long flags;
  
--	spin_lock_init(&chain->lock);
- 	rcu_assign_pointer(chain->prev, prev);
- 	chain->fence = fence;
- 	chain->prev_seqno = 0;
-@@ -261,7 +260,7 @@ void dma_fence_chain_init(struct dma_fence_chain *chain,
- 			seqno = max(prev->seqno, seqno);
+-	spin_lock_irqsave(&fence->lock, flags);
++	dma_fence_lock(f, flags);
+ 
+ 	/* If we already have an earlier deadline, keep it: */
+ 	if (test_bit(DRM_SCHED_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags) &&
+ 	    ktime_before(fence->deadline, deadline)) {
+-		spin_unlock_irqrestore(&fence->lock, flags);
++		dma_fence_unlock(f, flags);
+ 		return;
  	}
  
--	dma_fence_init64(&chain->base, &dma_fence_chain_ops, &chain->lock,
-+	dma_fence_init64(&chain->base, &dma_fence_chain_ops, NULL,
- 			 context, seqno);
+ 	fence->deadline = deadline;
+ 	set_bit(DRM_SCHED_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags);
+ 
+-	spin_unlock_irqrestore(&fence->lock, flags);
++	dma_fence_unlock(f, flags);
  
  	/*
-diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-chain.h
-index 68c3c1e41014..d39ce7a2e599 100644
---- a/include/linux/dma-fence-chain.h
-+++ b/include/linux/dma-fence-chain.h
-@@ -46,7 +46,6 @@ struct dma_fence_chain {
- 		 */
- 		struct irq_work work;
- 	};
--	spinlock_t lock;
- };
+ 	 * smp_load_aquire() to ensure that if we are racing another
+@@ -217,7 +217,6 @@ struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *entity,
  
+ 	fence->owner = owner;
+ 	fence->drm_client_id = drm_client_id;
+-	spin_lock_init(&fence->lock);
  
+ 	return fence;
+ }
+@@ -230,9 +229,9 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
+ 	fence->sched = entity->rq->sched;
+ 	seq = atomic_inc_return(&entity->fence_seq);
+ 	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
+-		       &fence->lock, entity->fence_context, seq);
++		       NULL, entity->fence_context, seq);
+ 	dma_fence_init(&fence->finished, &drm_sched_fence_ops_finished,
+-		       &fence->lock, entity->fence_context + 1, seq);
++		       NULL, entity->fence_context + 1, seq);
+ }
+ 
+ module_init(drm_sched_fence_slab_init);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index e62a7214e052..4478164ea174 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -297,10 +297,6 @@ struct drm_sched_fence {
+          * belongs to.
+          */
+ 	struct drm_gpu_scheduler	*sched;
+-        /**
+-         * @lock: the lock used by the scheduled and the finished fences.
+-         */
+-	spinlock_t			lock;
+         /**
+          * @owner: job owner for debugging
+          */
 -- 
 2.43.0
 
