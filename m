@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EADC5CCD18D
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 17:48:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EFB9CCD18F
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 17:48:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1050010E4A3;
-	Mon, 13 Oct 2025 17:48:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A69F10E4A7;
+	Mon, 13 Oct 2025 17:48:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mB1kSfTc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ERqtnaxS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F41610E4A3;
- Mon, 13 Oct 2025 17:48:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A01D410E4A5;
+ Mon, 13 Oct 2025 17:48:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B439745722;
- Mon, 13 Oct 2025 17:48:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A64C4CEFE;
- Mon, 13 Oct 2025 17:48:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 852B3439A6;
+ Mon, 13 Oct 2025 17:48:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B6DC116D0;
+ Mon, 13 Oct 2025 17:48:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760377703;
- bh=ZE1Ye8qUp4WKzIc4tbshXNmSkf6yIHsgJ+Q+4UTx8Ek=;
+ s=k20201202; t=1760377706;
+ bh=5WAuRoHX69rBGibbaw5bc/LE/1SwO8vg1g8NJeXy/nw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mB1kSfTcR7Z5FBAekoDX2XH5f/HTDxdT7uzpzLbp62Gr+hOS2Tp3WV/p6LDe4+knn
- L2xmlo3pcx5RpdGep6+pVcz/WYC59mMDZsoEwbL83gdeOy+aAWmDec7DdHfVexnQLb
- kxqe6pRLQ7Px8dscuHpxfVFnjBzmiqN9mqXkVKQnnDlJMTBhbYHdS/7fSoPjoPBAi0
- oWbQeS854WKOWOe6WfIR9ejOFT9L6aTJq3mQJe+dNhfvOVe3dtTWSXz7VqG+xguauf
- TbXvQukt+bXgeRUKmnnEIRzx402TCl+O7Iem9NiiclLe9sD/BLJc7Lmp3Tv3X7D2rD
- EXW0K8YpTK7SA==
+ b=ERqtnaxSzI5OuEB1q1eSX7n9zavJ17klzUfSyPVnP+qdq37rN8pWQufjgmWzSwRVh
+ DbnPwgkUslj9+86SU5vYIn0gLTzsX6UFhONN7ypll07/96RFjW3j3Y9FHelrScNcVa
+ M+ry+bDmUIA5WofsvWFCnY+4plq/EjBiW+h3au3IMznuPL813Rf1Wutz07BGo6u46U
+ zVNDTdCOSfULDflg20tUwe0pyhb7/I+Q3jVwnfuyTqRL7Y/3PkPy3/wZrgXvJd0Xk6
+ Z9bXnI2DVjB/jvZz2Xl0yOAoi9ZVR1DZN2+LFXWFWrh4N2yVhfHBNFtWYLPNkneTEV
+ aK1+JziMFS7fw==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: mario.limonciello@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, dakr@kernel.org, gregkh@linuxfoundation.org,
  lenb@kernel.org, pavel@kernel.org, rafael@kernel.org, simona@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-pm@vger.kernel.org
-Subject: [RFC PATCH 1/3] PM: hibernate: Nominally skip thaw sequence for all
- devices
-Date: Mon, 13 Oct 2025 12:47:09 -0500
-Message-ID: <20251013174729.1101186-2-superm1@kernel.org>
+Subject: [RFC PATCH 3/3] PM: Drop pm_hibernate_is_recovering() and
+ pm_hibernation_mode_is_suspend()
+Date: Mon, 13 Oct 2025 12:47:11 -0500
+Message-ID: <20251013174729.1101186-4-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251013174729.1101186-1-superm1@kernel.org>
 References: <20251013174729.1101186-1-superm1@kernel.org>
@@ -61,97 +61,96 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-After the hibernation snapshot is created all devices will have
-their thaw() callback called before the next stage.  For the most
-common scenarios of hibernation this is not necessary because the
-device will be powered off anyway.
-
-If the hibernation snapshot was successfully created skip thawing
-devices until it's needed for userspace created hibernation image
-or hybrid sleep. To accomplish this use PMSG_INVALID in
-hibernation_snapshot() and set the dpm functions to skip running.
+All consumers in the kernel of pm_hibernate_is_recovering() and
+pm_hibernation_mode_is_suspend() have been dropped.  Remove the symbols.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/base/power/main.c |  6 ++++++
- kernel/power/hibernate.c  | 13 ++++++++++---
- kernel/power/user.c       |  3 +++
- 3 files changed, 19 insertions(+), 3 deletions(-)
+ drivers/base/power/main.c | 14 --------------
+ include/linux/suspend.h   |  8 --------
+ kernel/power/hibernate.c  | 11 -----------
+ 3 files changed, 33 deletions(-)
 
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index 8179fd53171dc..58f5270a173e8 100644
+index 58f5270a173e8..e2f23e62abb18 100644
 --- a/drivers/base/power/main.c
 +++ b/drivers/base/power/main.c
-@@ -1143,6 +1143,9 @@ void dpm_resume(pm_message_t state)
- 	struct device *dev;
- 	ktime_t starttime = ktime_get();
+@@ -62,20 +62,6 @@ static pm_message_t pm_transition;
+ static DEFINE_MUTEX(async_wip_mtx);
+ static int async_error;
  
-+	if (state.event == PM_EVENT_INVALID)
-+		return;
-+
- 	trace_suspend_resume(TPS("dpm_resume"), state.event, true);
- 
- 	pm_transition = state;
-@@ -1245,6 +1248,9 @@ void dpm_complete(pm_message_t state)
+-/**
+- * pm_hibernate_is_recovering - if recovering from hibernate due to error.
+- *
+- * Used to query if dev_pm_ops.thaw() is called for normal hibernation case or
+- * recovering from some error.
+- *
+- * Return: true for error case, false for normal case.
+- */
+-bool pm_hibernate_is_recovering(void)
+-{
+-	return pm_transition.event == PM_EVENT_RECOVER;
+-}
+-EXPORT_SYMBOL_GPL(pm_hibernate_is_recovering);
+-
+ static const char *pm_verb(int event)
  {
- 	struct list_head list;
+ 	switch (event) {
+diff --git a/include/linux/suspend.h b/include/linux/suspend.h
+index 348831cdb60e4..f305fcc7a2cdc 100644
+--- a/include/linux/suspend.h
++++ b/include/linux/suspend.h
+@@ -420,12 +420,6 @@ static inline int hibernate_quiet_exec(int (*func)(void *data), void *data) {
+ }
+ #endif /* CONFIG_HIBERNATION */
  
-+	if (state.event == PM_EVENT_INVALID)
-+		return;
-+
- 	trace_suspend_resume(TPS("dpm_complete"), state.event, true);
+-#if defined(CONFIG_HIBERNATION) && defined(CONFIG_SUSPEND)
+-bool pm_hibernation_mode_is_suspend(void);
+-#else
+-static inline bool pm_hibernation_mode_is_suspend(void) { return false; }
+-#endif
+-
+ int arch_resume_nosmt(void);
  
- 	INIT_LIST_HEAD(&list);
+ #ifdef CONFIG_HIBERNATION_SNAPSHOT_DEV
+@@ -486,7 +480,6 @@ extern unsigned int lock_system_sleep(void);
+ extern void unlock_system_sleep(unsigned int);
+ 
+ extern bool pm_sleep_transition_in_progress(void);
+-bool pm_hibernate_is_recovering(void);
+ 
+ #else /* !CONFIG_PM_SLEEP */
+ 
+@@ -520,7 +513,6 @@ static inline unsigned int lock_system_sleep(void) { return 0; }
+ static inline void unlock_system_sleep(unsigned int flags) {}
+ 
+ static inline bool pm_sleep_transition_in_progress(void) { return false; }
+-static inline bool pm_hibernate_is_recovering(void) { return false; }
+ 
+ #endif /* !CONFIG_PM_SLEEP */
+ 
 diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index aadf82f57e868..7af2e392c574a 100644
+index 7af2e392c574a..ec02a8be20b30 100644
 --- a/kernel/power/hibernate.c
 +++ b/kernel/power/hibernate.c
-@@ -480,13 +480,14 @@ int hibernation_snapshot(int platform_mode)
- 	if (error || !in_suspend)
- 		swsusp_free();
+@@ -80,17 +80,6 @@ static const struct platform_hibernation_ops *hibernation_ops;
  
--	msg = in_suspend ? (error ? PMSG_RECOVER : PMSG_THAW) : PMSG_RESTORE;
-+	msg = in_suspend ? (error ? PMSG_RECOVER : PMSG_INVALID) : PMSG_RESTORE;
- 	dpm_resume(msg);
+ static atomic_t hibernate_atomic = ATOMIC_INIT(1);
  
--	if (error || !in_suspend)
-+	if (error || !in_suspend) {
- 		pm_restore_gfp_mask();
-+		console_resume_all();
-+	}
- 
--	console_resume_all();
- 	dpm_complete(msg);
- 
-  Close:
-@@ -707,7 +708,13 @@ static void power_down(void)
- 
- #ifdef CONFIG_SUSPEND
- 	if (hibernation_mode == HIBERNATION_SUSPEND) {
-+		/* recover from hibernation_snapshot() */
-+		dpm_resume(PMSG_THAW);
-+		console_resume_all();
-+		dpm_complete(PMSG_THAW);
- 		pm_restore_gfp_mask();
-+
-+		/* run suspend sequence */
- 		error = suspend_devices_and_enter(mem_sleep_current);
- 		if (!error)
- 			goto exit;
-diff --git a/kernel/power/user.c b/kernel/power/user.c
-index 3f9e3efb9f6e7..d70c963b1ba88 100644
---- a/kernel/power/user.c
-+++ b/kernel/power/user.c
-@@ -310,6 +310,9 @@ static long snapshot_ioctl(struct file *filp, unsigned int cmd,
- 		pm_restore_gfp_mask();
- 		error = hibernation_snapshot(data->platform_support);
- 		if (!error) {
-+			dpm_resume(PMSG_THAW);
-+			console_resume_all();
-+			dpm_complete(PMSG_THAW);
- 			error = put_user(in_suspend, (int __user *)arg);
- 			data->ready = !freezer_test_done && !error;
- 			freezer_test_done = false;
+-#ifdef CONFIG_SUSPEND
+-/**
+- * pm_hibernation_mode_is_suspend - Check if hibernation has been set to suspend
+- */
+-bool pm_hibernation_mode_is_suspend(void)
+-{
+-	return hibernation_mode == HIBERNATION_SUSPEND;
+-}
+-EXPORT_SYMBOL_GPL(pm_hibernation_mode_is_suspend);
+-#endif
+-
+ bool hibernate_acquire(void)
+ {
+ 	return atomic_add_unless(&hibernate_atomic, -1, 0);
 -- 
 2.43.0
 
