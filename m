@@ -4,78 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D99E5CCD18D
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 14:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B081CCD183
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 14:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37BB410E460;
-	Mon, 13 Oct 2025 14:25:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35D0E10E461;
+	Mon, 13 Oct 2025 14:35:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A+qWzHpp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WgcBJWS6";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6C6210E45E
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 14:25:44 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2699ef1b4e3so9135035ad.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 07:25:44 -0700 (PDT)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B1810E45E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 14:35:06 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-6364eb29e74so7569552a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 07:35:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760365544; x=1760970344; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iONp4oArSIM3f+jIZXb2b1HFBV8P/0Q8O72A7rKLtu0=;
- b=A+qWzHpptTzHZLeL3KSnwIxP7u4dhBbHyu8uYE/0SNXRXLWVSGE8GonRrKUSgVNdqK
- TLmzItgn+h0Y87VLhWyXAEBjeWTeS9eOxDLzKGWiAnUU8M8+dH1mtET8aKIaNBAClH/U
- b6kkl+uII8UfSLkVGBoowYJxmWJimMjI7RSzWAjEBD3gcRwwwxwbrdUcN2gXPkW7XH+p
- Kb+wcGNYgYWsTuUFSvK6gTy3Tl/L2TvLWkLGWhhSfjGOaXTd6Wzjomp6T8K6nBD2ythg
- wl2qNDRlUFX9aXUBJn2ixkGlzInkXKCZZquU1cBlVyUX17wtsklxjVFBMNrCxqX9gw4K
- 6eNA==
+ d=gmail.com; s=20230601; t=1760366105; x=1760970905; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YZPF3TsDwqw3Z9G6KN4eJ0Uvl8lh/hd0MSmrorlao90=;
+ b=WgcBJWS6h/lVC/GDbc6ki7knfNyGmIZQtKRshklVlt9wl2DARcmuk2o3gWLcMTpp8e
+ D/km8fpUy6+ogx+AUVY2GJkvnZRZ1l+8zBD0fJl/cwrRQ2Wz1PtyaxjJGTUb6SZO5UhE
+ OE14lt72ShXpAL1etB7hp1wCLNkY1nn+iOXzWPbJhyIP8uBOrFigR1OnvyHjZYIBP6wX
+ t8U/Cr7NX7pCuOq+DsQojpixkfrPWfMtHTsfT7d1v0bb04TJqq3vbnHZSPi5D2bmCf9l
+ lEx+HppzYpq9tK/cZPZir757LGr6zRQlQlN+jjVUKlRtGzN/rIX4qGM4oLl5If7w1VV+
+ PmfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760365544; x=1760970344;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iONp4oArSIM3f+jIZXb2b1HFBV8P/0Q8O72A7rKLtu0=;
- b=HgyivGKPWzHG8NhbEItnb+nrMul0C7QPG8AwgSzEDmCwQr5OxFH5nvNNmrtErdfRc7
- 8IWOeKBZak47wFpaXBLucIpw2O03uLcXEARUq9kVRU4VOLT+tBDmp7zmuxdcXej4qLLW
- 23AzIZu9UHPzQJjQb/enSLSyHbv9BjlCM94jtk5nYQ6tlFjNCJddRfvhdrXw0bhJC0XQ
- /ELnI2bZaWN/yj6aM007HrccUvEHdS4XlbW1x5qu/odoc4GNhn2kW6/mN6EIoDhNlgMR
- jJ1xf9Frwa0C/hKs4clBFiR1iXGHMyBt3kd235scVrIiIPKMw9gHHYPoZCxtFtHbf/s5
- /vcg==
+ d=1e100.net; s=20230601; t=1760366105; x=1760970905;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YZPF3TsDwqw3Z9G6KN4eJ0Uvl8lh/hd0MSmrorlao90=;
+ b=ocm8aGwE4Qd1iKHp75gGcs3m+LEySOVEAYO+UzM4SMjhW817C8YrlsVUN/aozWZyMB
+ hN/TqEWWzgZHJXcACmpQHy1LezGGJB1gh7gHpvSpAhbp0xXGheV8Zgs7XBbKHUq5tOmz
+ Th4u+cYATiRVSGJMS+vRDTF6f4n5hP4WRFTpZKICqF47+TN1iKw77rCBnwccB9kBkDWS
+ KiGLsJ45JOW2LbfAcgpIkWNvtjxFx6wfB9fN8ntpiLLWD4vPsDAApa1H+qXpQ5al4YMt
+ VuUs0JAmIB1fBWWgBN+tBI4VIM1HLhbJjNS3XOnR8RKu5XGHnEzg3L+KQPovSNqdwslu
+ pQ7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUggk1zqmx7CIBT3Sp6vFHKBQWhLI4VRYn/XjJHAI1IDcxRSUP+y1n+XbTrrzwBchoQlal0Y3V@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxh7ck7R0AVI2/To5xdbXjHlnixLVvPi6KnYkgO7lMnMfq3jVTQ
- yjYT5HPkiI2UKL+QT3FiMLs2IBFVsKl30qu4V5DPzcec1olJy+zPeBm7IltG4C3xUUmaB+4ZB/j
- gp27p3D9y5LFcjbXb9vUJy2RGj7cNoJE=
-X-Gm-Gg: ASbGncvHv9KS5rvtRljhrC6auQPdgWzJLZ6W/e+8RnDR9enho32H6nQWl9ZGu+3VeM6
- jtolYCVNJPCSo4HCVttIvTTFTr0V+cSt/ybLb45mJipVnqG53PIOAwI+FBSxO6WJFYhD3YInltQ
- YsVO+gOzOdu6EXheHBIaRb2xaDY68Ijg9XTYPKJx8JCRFUoYk5C2tTEL2EiEy/qJfp+I9j5ASPo
- abB05AgKBYAsyMdQxL+r3Ok51CH42nVao6v
-X-Google-Smtp-Source: AGHT+IGranWJRNJp0CjtLvsOYZWcNEw5TSMyc0VwA+VrOxBJwvHSYbow5DGnSXEMFWyku26tm5GRF9g2ybD2gl1mSjw=
-X-Received: by 2002:a17:902:c947:b0:258:a3a1:9aa5 with SMTP id
- d9443c01a7336-290270fbf6fmr173619765ad.0.1760365544302; Mon, 13 Oct 2025
- 07:25:44 -0700 (PDT)
+ AJvYcCVEY5a8KM1ItB23ry41x8b5ECrs97NOVKM/+/uDIiXLLm/twxho9iR/uLg+eOjI/JM1SJQ7k7xZ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz3q2Ad7Z3ya0iTVYrKJ02p1BVVpzrVfGkTpY9hsDH9bVr8VWTe
+ 9lJ+T/lT3UaRJqo0tUhg+u5s7/GuajVknf2TnkKy2W3ag23MARMqyO50
+X-Gm-Gg: ASbGncsnv9AAZqIN2DtNK9qDBPxJDs21Zt1JO8ce8X0YY/67uW3Ul+xDt0HqxGskBMP
+ PR14DQusL4g55HxdtbYObztLWLujR0ZWBTeifdgqV+c7lND0hAYnsu+QloPK0utRSPNtIYYtPDl
+ KJLYTJTVCIllS1z5JW3o46E4kLwMPZrQMrrJgAv4f8nliK/4U2+8i88OX9svssc/u1/vwc/FDbk
+ P0EzSBrlaxb6RrJ7+Dv6zeyFgpglF2ShqlbRXeQezvgaPI4BsQpoE/nIK03RPDSGzjJHkkx1Kii
+ M5EKkQBed2MohrMgzVTLfMJqgw3baArDynH0P3bdApKmiwTnUVfOHMMwsXo3ttLO62h3ec9uXiE
+ o6ccNkRwGU3xWI+7RsEWDhFY/RQFo/Gbe2Edk2f/bVZwGj5H2zaGsIfA6IBzcnvK+3w==
+X-Google-Smtp-Source: AGHT+IGs/aNwZAUk3NKcgSt1hAEhaNDM53lJclve2de3HSTb59YjSiCLEeLKHZJKg92EZaBGz33KPA==
+X-Received: by 2002:a05:6402:1453:b0:639:fefb:996a with SMTP id
+ 4fb4d7f45d1cf-639fefc0db9mr14527206a12.12.1760366105193; 
+ Mon, 13 Oct 2025 07:35:05 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:151b:dc00:15d1:ebc5:76e6:730f])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-63a5c321453sm8942037a12.39.2025.10.13.07.35.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Oct 2025 07:35:04 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
+ tursulin@ursulin.net
+Cc: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: Independence for dma_fences!
+Date: Mon, 13 Oct 2025 15:48:27 +0200
+Message-ID: <20251013143502.1655-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20251010211510.1528572-1-alexander.deucher@amd.com>
- <20251010211510.1528572-3-alexander.deucher@amd.com>
- <DS7PR12MB6005A47FAE4B2CDE179E0A20FBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_PvKvj8wnNHuUWcUxGedF71vDjZA9Bq=M+N_c+x-cAXgQ@mail.gmail.com>
- <DS7PR12MB600591DF5FF29AB6E2B159A6FBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB600591DF5FF29AB6E2B159A6FBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Oct 2025 10:25:32 -0400
-X-Gm-Features: AS18NWDXmtrw6jzONQQgOju1oB3H6n2jdz2_83-2kx6zQ7pKBcN6dmHeJ_ZoQq8
-Message-ID: <CADnq5_M1EaOk98C5742aQC+_hMNhmwmf6_K02e2ccPF6FpA=DQ@mail.gmail.com>
-Subject: Re: [PATCH 3/7] drm/amdgpu/gfx: add eop size and alignment to shadow
- info
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Olsak,
- Marek" <Marek.Olsak@amd.com>, 
- "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,139 +88,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 13, 2025 at 10:21=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com>=
- wrote:
->
-> [Public]
->
-> Regards,
->       Prike
->
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Monday, October 13, 2025 9:44 PM
-> > To: Liang, Prike <Prike.Liang@amd.com>
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
-> > gfx@lists.freedesktop.org
-> > Subject: Re: [PATCH 3/7] drm/amdgpu/gfx: add eop size and alignment to =
-shadow
-> > info
-> >
-> > On Mon, Oct 13, 2025 at 4:54=E2=80=AFAM Liang, Prike <Prike.Liang@amd.c=
-om> wrote:
-> > >
-> > > [Public]
-> > >
-> > > We may need to update the userspace EOP buffer request; otherwise, th=
-e EOP
-> > buffer validation may fail.
-> >
-> > Existing userspace should be ok.  It currently uses PAGE_SIZE which is =
-larger than
-> > 2048.
-> The mesa uses the EOP size as max_t(u32, PAGE_SIZE, AMDGPU_GPU_PAGE_SIZE)=
- which is sees larger than 2048, so the kernel validates the eop buffer can=
- be successful at this point.
->
-> But the mesa may need to use the shadow_info->eop_size as well in the fut=
-ure?
+Hi everyone,
 
-Ideally mesa would query the kernel to get the proper minimum size.
-Yogesh will be looking at this.
+dma_fences have ever lived under the tyranny dictated by the module
+lifetime of their issuer, leading to crashes should anybody still holding
+a reference to a dma_fence when the module of the issuer was unloaded.
 
-Alex
+But those days are over! The patch set following this mail finally
+implements a way for issuers to release their dma_fence out of this
+slavery and outlive the module who originally created them.
 
->
-> > > Per this kernel change: Reviewed-by: Prike Liang <Prike.Liang@amd.com=
->
-> >
-> > Thanks!
-> >
-> > Alex
-> >
-> > >
-> > > Regards,
-> > >       Prike
-> > >
-> > > > -----Original Message-----
-> > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > > > Alex Deucher
-> > > > Sent: Saturday, October 11, 2025 5:15 AM
-> > > > To: amd-gfx@lists.freedesktop.org
-> > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > > > Subject: [PATCH 3/7] drm/amdgpu/gfx: add eop size and alignment to
-> > > > shadow info
-> > > >
-> > > > This is used by firmware for compute user queues.
-> > > >
-> > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > ---
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 2 ++
-> > > > drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 4 ++++
-> > > > drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 4 ++++
-> > > >  3 files changed, 10 insertions(+)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > index fb5f7a0ee029f..7109a2ad9ec36 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> > > > @@ -328,6 +328,8 @@ struct amdgpu_gfx_shadow_info {
-> > > >       u32 shadow_alignment;
-> > > >       u32 csa_size;
-> > > >       u32 csa_alignment;
-> > > > +     u32 eop_size;
-> > > > +     u32 eop_alignment;
-> > > >  };
-> > > >
-> > > >  struct amdgpu_gfx_funcs {
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > > > index 6f4c2e746165e..9c79bfa4f1ef6 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > > > @@ -1052,10 +1052,14 @@ static void
-> > > > gfx_v11_0_select_me_pipe_q(struct amdgpu_device *adev,  static void
-> > > > gfx_v11_0_get_gfx_shadow_info_nocheck(struct
-> > > > amdgpu_device *adev,
-> > > >                                        struct amdgpu_gfx_shadow_inf=
-o
-> > > > *shadow_info)  {
-> > > > +     /* for gfx */
-> > > >       shadow_info->shadow_size =3D MQD_SHADOW_BASE_SIZE;
-> > > >       shadow_info->shadow_alignment =3D MQD_SHADOW_BASE_ALIGNMENT;
-> > > >       shadow_info->csa_size =3D MQD_FWWORKAREA_SIZE;
-> > > >       shadow_info->csa_alignment =3D MQD_FWWORKAREA_ALIGNMENT;
-> > > > +     /* for compute */
-> > > > +     shadow_info->eop_size =3D GFX11_MEC_HPD_SIZE;
-> > > > +     shadow_info->eop_alignment =3D 256;
-> > > >  }
-> > > >
-> > > >  static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device
-> > > > *adev, diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > index 453e4034389f2..fd37f2355f86e 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> > > > @@ -909,10 +909,14 @@ static void gfx_v12_0_select_me_pipe_q(struct
-> > > > amdgpu_device *adev,  static void
-> > > > gfx_v12_0_get_gfx_shadow_info_nocheck(struct
-> > > > amdgpu_device *adev,
-> > > >                                                 struct
-> > > > amdgpu_gfx_shadow_info
-> > > > *shadow_info)  {
-> > > > +     /* for gfx */
-> > > >       shadow_info->shadow_size =3D MQD_SHADOW_BASE_SIZE;
-> > > >       shadow_info->shadow_alignment =3D MQD_SHADOW_BASE_ALIGNMENT;
-> > > >       shadow_info->csa_size =3D MQD_FWWORKAREA_SIZE;
-> > > >       shadow_info->csa_alignment =3D MQD_FWWORKAREA_ALIGNMENT;
-> > > > +     /* for compute */
-> > > > +     shadow_info->eop_size =3D GFX12_MEC_HPD_SIZE;
-> > > > +     shadow_info->eop_alignment =3D 256;
-> > > >  }
-> > > >
-> > > >  static int gfx_v12_0_get_gfx_shadow_info(struct amdgpu_device
-> > > > *adev,
-> > > > --
-> > > > 2.51.0
-> > >
+Previously various approaches have been discussed, including changing the
+locking semantics of the dma_fence callbacks (by me) as well as using the
+drm scheduler as intermediate layer (by Sima) to disconnect dma_fences
+from their actual users.
+
+Changing the locking semantics turned out to be much more trickier than
+originally thought because especially on older drivers (nouveau, radeon,
+but also i915) this locking semantics is actually needed for correct
+operation.
+
+Using the drm_scheduler as intermediate layer is still a good idea and
+should probably be implemented to make live simpler for some drivers, but
+doesn't work for all use cases. Especially TLB flush fences, preemption
+fences and userqueue fences don't go through the drm scheduler because it
+doesn't make sense for them.
+
+Tvrtko did some really nice prerequisite work by protecting the returned
+strings of the dma_fence_ops by RCU. This way dma_fence creators where
+able to just wait for an RCU grace period after fence signaling before
+they could be save to free those data structures.
+
+Now this patch set here goes a step further and protects the whole
+dma_fence_ops structure by RCU, so that after the fence signals the
+pointer to the dma_fence_ops is set to NULL when there is no wait nor
+release callback given. All functionality which use the dma_fence_ops
+reference are put inside an RCU critical section, except for the
+deprecated issuer specific wait and of course the optional release
+callback.
+
+Additional to the RCU changes the lock protecting the dma_fence state
+previously had to be allocated external. This set here now changes the
+functionality to make that external lock optional and allows dma_fences
+to use an inline lock and be self contained.
+
+The new approach is then applied to amdgpu allowing the module to be
+unloaded even when dma_fences issued by it are still around.
+
+Please review and comment,
+Christian.
+
