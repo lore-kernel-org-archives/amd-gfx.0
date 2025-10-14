@@ -4,125 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABEFCCCD18E
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 09:37:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E44F2CCD187
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 10:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5016C10E587;
-	Tue, 14 Oct 2025 09:37:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD2110E1F7;
+	Tue, 14 Oct 2025 10:04:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="exn+KhHN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LFMcu1Tq";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012015.outbound.protection.outlook.com
- [40.93.195.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3090710E521
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 09:37:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Lg1x2mVuMdiXpmMp4gWPD/5N3Ok9PlUWXlED6AINkok0YYnriFDz7WTRRDvy+dobeLR+tL0T3QHyYTnFNHf5py2pwwelZ8vMNSmi90gT0DErC/NtLM1OlfJBgU6jlgsA6/Q6YdT7rOdngBTVI1KyyDqX6zqwctP1lXgw2+8Uxm1o6c/mF0MUxLKEnjD5rSu8TUNMLpMO+zQFFGUTF79+llaYeU1fIBaqVSNprwSB3g+IuNX26ETVbgHHYaQF4aYMu0tAfZl41Xivoa87JGFrWY+9KVBPz3K6VMTN5uvKIUhnMWAJ2QnKii6a8/5HlvREAcdoDfZYQ7s6ClKALrmvSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Ih4s6xNv6aifKbTgurQpUzJ+qYS55ZhDola+kmGqVU=;
- b=XEGVd6YsbAGJeeILpGIP3QhFZAFX7Y8K39yjOq2jyLYyVP3drVyGndnqshFgUfuRv2YePoWM1wkGWjDSGssSxL4CQZDroj60dpLHJl+qDOsptsPy2yXzT11UF9RFrKZoRqMr26AvIO9Bjg3BWJ46BWOdWBSM9r8fVnAVfMtBfrw5bbqrZa6BjA56MgFuoo/g9aedBIdSf17klMQyRGYntWF35nzzwcuqPYZCRbhDdyxnvMk/lHu6Zvri69Uw/rrQfGHCguSBL/bi9m2bb1TgnxT2taXhrajCP76sKD/W56FVwRldM0krpUSMg7+QlQsI9KxJ9nOMpv4hYaUYoJl66g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Ih4s6xNv6aifKbTgurQpUzJ+qYS55ZhDola+kmGqVU=;
- b=exn+KhHNhW7Q9lL16Mmi812nQEW84RACDcLzgheLNFYjUA4ssFVtICSd4zVrxX61ZN+0RBOn15k4JDaRJV2diTI7iuyBRLa8Q6X9PG0bESDoe+bfDLVk3f5gCRvPuNOn8wlh0euVbPRSbRTOpC4C2deMs5YGU6qrZ1wOWOE+U6k=
-Received: from BY1P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::8)
- by BN7PPF3C1137D8A.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6cd) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.11; Tue, 14 Oct
- 2025 09:37:23 +0000
-Received: from SJ1PEPF00001CE5.namprd03.prod.outlook.com
- (2603:10b6:a03:5c3:cafe::73) by BY1P220CA0018.outlook.office365.com
- (2603:10b6:a03:5c3::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.9 via Frontend Transport; Tue,
- 14 Oct 2025 09:37:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE5.mail.protection.outlook.com (10.167.242.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Tue, 14 Oct 2025 09:37:20 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 14 Oct
- 2025 02:37:20 -0700
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 14 Oct
- 2025 04:37:19 -0500
-Received: from victor-aws2.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 14 Oct 2025 02:37:18 -0700
-From: Victor Zhao <Victor.Zhao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <HaiJun.Chang@amd.com>, <lijo.lazar@amd.com>, Victor Zhao
- <Victor.Zhao@amd.com>
-Subject: [PATCH v3 1/2] drm/amdgpu: Add kiq hdp flush callbacks
-Date: Tue, 14 Oct 2025 17:37:10 +0800
-Message-ID: <20251014093711.434989-1-Victor.Zhao@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 374BB10E1F7;
+ Tue, 14 Oct 2025 10:04:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=t1Uc1z0liRPGu1KVSRthVjwb4/TTpIzyWHFfQytpwXo=; b=LFMcu1TqSTQ5tsHRF71MVyvSnk
+ sNZGxxW0n/O4tNR/ACwgk9+1RPhCrWZLEaVU0gc9ju7+iPqDKgQeI6WKx9w+C18E8sUpZsUQoVQGP
+ Uvfcx8tSuI3tM0gvdy6lkTSU9CTBhAcTo80DobrB9lGYEONYSwFss/K9+UxPhJjCunEFQzBiS2kxG
+ ptsy8FI9B/fXq46JoWpQoLG/84Du7L7wBXXpBcSuPj+Ol5JGwqMvonOo3NCxM6RL+5YaAviocP+bN
+ CnnDK3iQEw35qzEnxZVAS/HuJN1YjuX7PLuVYAzv8fnmgL+F5xAaJm2ej7KWejVX5lQNUXG7Ada6j
+ oQa2icWA==;
+Received: from [90.242.12.242] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1v8btF-009LiU-3B; Tue, 14 Oct 2025 12:04:21 +0200
+Message-ID: <4c78fab2-ecf2-45fe-81a5-1ae4e0717d38@igalia.com>
+Date: Tue, 14 Oct 2025 11:04:20 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/28] drm/sched: Consolidate entity run queue management
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
+ <20251008085359.52404-6-tvrtko.ursulin@igalia.com>
+ <762e3469df06787205af88e068d72f60dfaebda4.camel@mailbox.org>
+ <fcec969c-5e25-4b81-891d-843ad569d04b@igalia.com>
+ <50244c8f2c2dd4488288dabfbda6641389bd07aa.camel@mailbox.org>
+ <cf661524-9207-4c52-a056-683b7f1a0ea6@igalia.com>
+ <9177786c039cafc5b26bc5b076b98d82b068fb54.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <9177786c039cafc5b26bc5b076b98d82b068fb54.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE5:EE_|BN7PPF3C1137D8A:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85ed29cc-dac1-4b7a-d7de-08de0b0545f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MOgLzbzbyF4vHlCU/ECxKQ8R5Sk4IN2ka2g+R+GUSFjsUSsPHowCDq0CkRPN?=
- =?us-ascii?Q?4qLp6OD4auV+1mObT6SYiaPjxsS7byAtkKlJyshkP9dYKSZwuhCrfviMKyYZ?=
- =?us-ascii?Q?loluEevR4cngUqCslod7TCHyzRALhnT1i2wiHMHV6N9YL/KjmJwPoTo7Zght?=
- =?us-ascii?Q?W5aZ8OGvbp4Ny+MYfgbAEnEAfllxdx1zpqn7ygOluznDV6T7Qi1GaC+vkxRC?=
- =?us-ascii?Q?k4Wysmgl4Cqylh4TaHXqx4jKX7XZPbr3ujz3DaXmOdxSqnkZoZ0+7pApsUUn?=
- =?us-ascii?Q?3+Z85KNnQHh2tSZ1AgF8cJj93n8IxaF2eJoAFXOE9z8K76p04uqrLegVS5Sk?=
- =?us-ascii?Q?EWrxj6PcNXatnFL76M4el63VikulNlT+P4vEpJdy35LDO1E+r7o3tmnKstsf?=
- =?us-ascii?Q?tCD01ZVX6wf/QmARxjZCdFY6cBN4O4HXzNB/zv4b3NmWUQRGNffr52Zb73Sz?=
- =?us-ascii?Q?qy5+6LBe3QyZsHIzwfn/qjTM1+JaOpNFJ9+tpx/crc0agNcp5PVgiWia0kmY?=
- =?us-ascii?Q?63TJ2mFPECjLlhoagqFUcKeuJhp8crLxeWmS9m00RWVjXBStg3VqIa6nk0kH?=
- =?us-ascii?Q?HSXExko/5nWakYVWPMMJxp+GhhxmrO2pxHblhhxlY224RTqs/0BeQuLn/IB/?=
- =?us-ascii?Q?Q80Cyrvl6vP8STcxUQAUcsTgWzTVqdqZoCAaktaSAUwKbDDvVgmGFd2aq9G7?=
- =?us-ascii?Q?1S/0pLiEWVSf2gz/Uu9jfqVpkvjPgo+icHI6CIoLbqnOy3f3V4O9CQYxOup7?=
- =?us-ascii?Q?davr2juJXkUQ7xZzQtAW6I4bNFJRFlIx4Md+iTl2mhouIrb8PZ9kTAIHpoX/?=
- =?us-ascii?Q?u9xQ+bsNr/atZXeBSUhkUsjl8KUWi0kLFgatNoN/pQoSrrgbUgR/i89CWCs9?=
- =?us-ascii?Q?a6hZZFMVgrENDheuad6O4P0YQiWH4IslpW4AF/H1C3pVF9GrvRA+Pe7k5K+d?=
- =?us-ascii?Q?XBd3lmArKidVR0QqjUvfyBVnNtTAey/fLXtg0Ffc2Kdf4uMAa8C1qcv+ZXXL?=
- =?us-ascii?Q?7y7EOS7PQ2JxdCd87yUhDbmokbsEdc0D5CnS+1+CMkucx5qOEpXgUWeTIwkW?=
- =?us-ascii?Q?IFNPJTv5e6rg/OgRa+9AYPirGtfMRBfsj8RY7d6anFsqrEwfe0PUbLxE3z7T?=
- =?us-ascii?Q?RlN1X1W+950Mfswub+j77UT8JU1wt9HN5UfrSvGQiUNhIW+g0VGBpXHdf4Ma?=
- =?us-ascii?Q?jsErj73yWmoMSYdfI2KnQAO31Bg+yDDdWo6yYhUqh2TdZw83DWr92UoA5RUV?=
- =?us-ascii?Q?8tiAdIOViGF/0A93SBaxK1Z22umlxy+bcwLSXtGwVUmQKAT2sQAnUsqZJMaO?=
- =?us-ascii?Q?wkPbE52RWeNykUUuPY0ALhgRMjargQeU1DaQA/sEs330egba2yEpV7VXrcg/?=
- =?us-ascii?Q?hZ594yqQW48+eU1/yXOCSkkTBWfOY5EsH/pGBlZTWaDCWd8/kPCtGdonk/Pn?=
- =?us-ascii?Q?djpDNsr9bJbJUQk162Y+igVyUGFaIcUTwdhUt7WZb1ErqLH5f2sEeymF6RKi?=
- =?us-ascii?Q?fGyrmWAeBL0QGOW5UMkZQL54+84dciQ9HrRCoaAHQXGlNleJ8euhPpUEkDnV?=
- =?us-ascii?Q?xkh4mWyys/zISn4+A7o=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 09:37:20.8525 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85ed29cc-dac1-4b7a-d7de-08de0b0545f8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE5.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF3C1137D8A
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,109 +68,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add kiq hdp flush callbacks for gfx ips to support gpu hdp flush when no
-ring presents
 
-Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 5 +++--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 1 +
- 6 files changed, 8 insertions(+), 2 deletions(-)
+On 14/10/2025 09:52, Philipp Stanner wrote:
+> On Tue, 2025-10-14 at 08:26 +0100, Tvrtko Ursulin wrote:
+>>
+>> On 14/10/2025 07:53, Philipp Stanner wrote:
+>>> On Sat, 2025-10-11 at 15:19 +0100, Tvrtko Ursulin wrote:
+>>>>
+>>>> On 10/10/2025 11:49, Philipp Stanner wrote:
+>>>>> On Wed, 2025-10-08 at 09:53 +0100, Tvrtko Ursulin wrote:
+>>>>>> Move the code dealing with entities entering and exiting run queues to
+>>>>>> helpers to logically separate it from jobs entering and exiting entities.
+>>>>>>
+>>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/scheduler/sched_entity.c   | 64 ++-------------
+>>>>>>     drivers/gpu/drm/scheduler/sched_internal.h |  8 +-
+>>>>>>     drivers/gpu/drm/scheduler/sched_main.c     | 95 +++++++++++++++++++---
+>>>>>>     3 files changed, 91 insertions(+), 76 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>>>>>> index 4852006f2308..7a0a52ba87bf 100644
+>>>>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>>>>>> @@ -456,24 +456,9 @@ drm_sched_job_dependency(struct drm_sched_job *job,
+>>>>>>     	return NULL;
+>>>>>>     }
+>>>>>>     
+>>>>>> -static ktime_t
+>>>>>> -drm_sched_rq_get_rr_ts(struct drm_sched_rq *rq, struct drm_sched_entity *entity)
+>>>>>> -{
+>>>>>> -	ktime_t ts;
+>>>>>> -
+>>>>>> -	lockdep_assert_held(&entity->lock);
+>>>>>> -	lockdep_assert_held(&rq->lock);
+>>>>>> -
+>>>>>> -	ts = ktime_add_ns(rq->rr_ts, 1);
+>>>>>> -	entity->rr_ts = ts;
+>>>>>> -	rq->rr_ts = ts;
+>>>>>> -
+>>>>>> -	return ts;
+>>>>>> -}
+>>>>>> -
+>>>>>>     struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>>>>>     {
+>>>>>> -	struct drm_sched_job *sched_job, *next_job;
+>>>>>> +	struct drm_sched_job *sched_job;
+>>>>>
+>>>>> `next_job` has been added in a previous job. Have you tried whether
+>>>>> patch-order can be reversed?
+>>>>>
+>>>>> Just asking; I don't want to cause unnecessary work here
+>>>>
+>>>> You are correct that there would be some knock on effect on a few other
+>>>> patches in the series but it is definitely doable. Because for certain
+>>>> argument can be made it would be logical to have it like that. Both this
+>>>> patch and "drm/sched: Move run queue related code into a separate file"
+>>>> would be then moved ahead of "drm/sched: Implement RR via FIFO". If you
+>>>> prefer it like that I can reshuffle no problem.
+>>>
+>>> I mean, it seems to make the overall git diff smaller, which is nice?
+>>>
+>>> If you don't see a significant reason against it, I'd say it's a good
+>>> idea.
+>>
+>> Okay deal. It isn't anything significant, just re-ordering patches with
+>> compile testing patches to ensure every step still builds.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 8841d7213de4..751732f3e883 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -9951,6 +9951,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v10_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v10_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 66c47c466532..10d2219866f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -2438,7 +2438,7 @@ static int gfx_v11_0_rlc_load_microcode(struct amdgpu_device *adev)
- 			if (version_minor == 3)
- 				gfx_v11_0_load_rlcp_rlcv_microcode(adev);
- 		}
--		
-+
- 		return 0;
- 	}
- 
-@@ -3886,7 +3886,7 @@ static int gfx_v11_0_cp_compute_load_microcode(struct amdgpu_device *adev)
- 	}
- 
- 	memcpy(fw, fw_data, fw_size);
--	
-+
- 	amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_obj);
- 	amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_obj);
- 
-@@ -7320,6 +7320,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v11_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v11_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v11_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 710ec9c34e43..e2bb8668150d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -5597,6 +5597,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v12_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v12_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 0856ff65288c..d3d0a4b0380c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -6939,6 +6939,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_kiq = {
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_rreg = gfx_v8_0_ring_emit_rreg,
- 	.emit_wreg = gfx_v8_0_ring_emit_wreg,
-+	.emit_hdp_flush = gfx_v8_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v8_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index dd19a97436db..f1a2efc2a8d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -7586,6 +7586,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v9_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v9_0_ring_emit_hdp_flush,
- };
- 
- static void gfx_v9_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index fb5585ab52be..e0b50c690f8c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -4792,6 +4792,7 @@ static const struct amdgpu_ring_funcs gfx_v9_4_3_ring_funcs_kiq = {
- 	.emit_wreg = gfx_v9_4_3_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v9_4_3_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v9_4_3_ring_emit_reg_write_reg_wait,
-+	.emit_hdp_flush = gfx_v9_4_3_ring_emit_hdp_flush,
- };
- 
- static void gfx_v9_4_3_set_ring_funcs(struct amdgpu_device *adev)
--- 
-2.25.1
+Completed locally.
 
+>>>>>>     
+>>>>>>     	sched_job = drm_sched_entity_queue_peek(entity);
+>>>>>>     	if (!sched_job)
+>>>>>> @@ -502,26 +487,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+>>>>>>     
+>>>>>>     	spsc_queue_pop(&entity->job_queue);
+>>>>>>     
+>>>>>> -	/*
+>>>>>> -	 * Update the entity's location in the min heap according to
+>>>>>> -	 * the timestamp of the next job, if any.
+>>>>>> -	 */
+>>>>>> -	next_job = drm_sched_entity_queue_peek(entity);
+>>>>>> -	if (next_job) {
+>>>>>> -		struct drm_sched_rq *rq;
+>>>>>> -		ktime_t ts;
+>>>>>> -
+>>>>>> -		spin_lock(&entity->lock);
+>>>>>> -		rq = entity->rq;
+>>>>>> -		spin_lock(&rq->lock);
+>>>>>> -		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>>>>>> -			ts = next_job->submit_ts;
+>>>>>> -		else
+>>>>>> -			ts = drm_sched_rq_get_rr_ts(rq, entity);
+>>>>>> -		drm_sched_rq_update_fifo_locked(entity, rq, ts);
+>>>>>> -		spin_unlock(&rq->lock);
+>>>>>> -		spin_unlock(&entity->lock);
+>>>>>> -	}
+>>>>>> +	drm_sched_rq_pop_entity(entity);
+>>>>>>     
+>>>>>>     	/* Jobs and entities might have different lifecycles. Since we're
+>>>>>>     	 * removing the job from the entities queue, set the jobs entity pointer
+>>>>>> @@ -611,30 +577,10 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>>>>>>     	/* first job wakes up scheduler */
+>>>>>>     	if (first) {
+>>>>>>     		struct drm_gpu_scheduler *sched;
+>>>>>> -		struct drm_sched_rq *rq;
+>>>>>>     
+>>>>>> -		/* Add the entity to the run queue */
+>>>>>> -		spin_lock(&entity->lock);
+>>>>>> -		if (entity->stopped) {
+>>>>>> -			spin_unlock(&entity->lock);
+>>>>>> -
+>>>>>> -			DRM_ERROR("Trying to push to a killed entity\n");
+>>>>>> -			return;
+>>>>>> -		}
+>>>>>> -
+>>>>>> -		rq = entity->rq;
+>>>>>> -		sched = rq->sched;
+>>>>>> -
+>>>>>> -		spin_lock(&rq->lock);
+>>>>>> -		drm_sched_rq_add_entity(rq, entity);
+>>>>>> -		if (drm_sched_policy == DRM_SCHED_POLICY_RR)
+>>>>>> -			submit_ts = entity->rr_ts;
+>>>>>> -		drm_sched_rq_update_fifo_locked(entity, rq, submit_ts);
+>>>>>> -
+>>>>>> -		spin_unlock(&rq->lock);
+>>>>>> -		spin_unlock(&entity->lock);
+>>>>>> -
+>>>>>> -		drm_sched_wakeup(sched);
+>>>>>> +		sched = drm_sched_rq_add_entity(entity, submit_ts);
+>>>>>> +		if (sched)
+>>>>>> +			drm_sched_wakeup(sched);
+>>>>>>     	}
+>>>>>>     }
+>>>>>>     EXPORT_SYMBOL(drm_sched_entity_push_job);
+>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+>>>>>> index 7ea5a6736f98..8269c5392a82 100644
+>>>>>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>>>>>> @@ -12,13 +12,11 @@ extern int drm_sched_policy;
+>>>>>>     
+>>>>>>     void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+>>>>>>     
+>>>>>> -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>>>>>> -			     struct drm_sched_entity *entity);
+>>>>>> +struct drm_gpu_scheduler *
+>>>>>> +drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
+>>>>>>     void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
+>>>>>>     				struct drm_sched_entity *entity);
+>>>>>> -
+>>>>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>>>>> -				     struct drm_sched_rq *rq, ktime_t ts);
+>>>>>> +void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
+>>>>>>     
+>>>>>>     void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
+>>>>>>     struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
+>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+>>>>>> index 8e62541b439a..e5d02c28665c 100644
+>>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>>>>> @@ -151,9 +151,9 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+>>>>>>     	}
+>>>>>>     }
+>>>>>>     
+>>>>>> -void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>>>>> -				     struct drm_sched_rq *rq,
+>>>>>> -				     ktime_t ts)
+>>>>>> +static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>>>>> +					    struct drm_sched_rq *rq,
+>>>>>> +					    ktime_t ts)
+>>>>>>     {
+>>>>>>     	/*
+>>>>>>     	 * Both locks need to be grabbed, one to protect from entity->rq change
+>>>>>> @@ -191,22 +191,45 @@ static void drm_sched_rq_init(struct drm_sched_rq *rq,
+>>>>>>     /**
+>>>>>>      * drm_sched_rq_add_entity - add an entity
+>>>>>>      *
+>>>>>> - * @rq: scheduler run queue
+>>>>>>      * @entity: scheduler entity
+>>>>>> + * @ts: submission timestamp
+>>>>>>      *
+>>>>>>      * Adds a scheduler entity to the run queue.
+>>>>>> + *
+>>>>>> + * Returns a DRM scheduler pre-selected to handle this entity.
+>>>>>>      */
+>>>>>> -void drm_sched_rq_add_entity(struct drm_sched_rq *rq,
+>>>>>> -			     struct drm_sched_entity *entity)
+>>>>>> +struct drm_gpu_scheduler *
+>>>>>> +drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+>>>>>>     {
+>>>>>
+>>>>> I'm not sure if it's a good idea to have the scheduler returned from
+>>>>> that function. That doesn't make a whole lot of sense semantically.
+>>>>>
+>>>>> At the very least the function's docstring, maybe even its name, should
+>>>>> be adjusted to detail why this makes sense. The commit message, too.
+>>>>> It's not trivially understood.
+>>>>>
+>>>>> I think I get why it's being done, but writing it down black on white
+>>>>> gives us something to grasp.
+>>>>>
+>>>>> Sth like "adds an entity to a runqueue, selects to appropriate
+>>>>> scheduler and returns it for the purpose of XYZ"
+>>>>
+>>>> Yeah. Remeber your unlocked rq access slide and the discussion around it?
+>>>
+>>> Sure. Is that related, though? The slide was about many readers being
+>>> totally unlocked. The current drm_sched_entity_push_job() locks readers
+>>> correctly if I'm not mistaken.
+>>>
+>>>>
+>>>> Currently we have this:
+>>>>
+>>>> drm_sched_entity_push_job()
+>>>> {
+>>>> ...
+>>>> 		spin_lock(&entity->lock);
+>>>> ...
+>>>> 		rq = entity->rq;
+>>>> 		sched = rq->sched;
+>>>> ...
+>>>> 		spin_unlock(&rq->lock);
+>>>> 		spin_unlock(&entity->lock);
+>>>>
+>>>> 		drm_sched_wakeup(sched);
+>>>>
+>>>> Ie. we know entity->rq and rq->sched are guaranteed to be stable and
+>>>> present at this point because job is already in the queue and
+>>>> drm_sched_entity_select_rq() guarantees that.
+>>>>
+>>>> In this patch I moved all this block into drm_sched_rq_add_entity() but
+>>>> I wanted to leave drm_sched_wakeup() outside. Because I thought it is
+>>>> not the job of the run queue handling, and semantically the logic was
+>>>> "only once added to the entity we know the rq and scheduler for
+>>>> certain". That would open the door for future improvements and late
+>>>> rq/scheduler selection.
+>>>>
+>>>> But now I think it is premature and it would be better I simply move the
+>>>> wakekup inside drm_sched_rq_add_entity() together with all the rest.
+>>>>
+>>>> Does that sound like a plan for now?
+>>>
+>>> Hmmm. What I'm wondering most about if it really is a good idea to have
+>>> drm_sched_wakeup() in rq_add_entity().
+>>>
+>>> Do you think that makes semantically more sense than just reading:
+>>>
+>>> drm_sched_entity_push_job()
+>>> {
+>>>      foo
+>>>      bar
+>>>      more_foo
+>>>
+>>>      /* New job was added. Right time to wake up scheduler. */
+>>>      drm_sched_wakeup();
+>>
+>> Problem here always is you need a sched pointer so question is simply
+>> how and where to get it.
+>>
+>>> I think both can make sense, but the above / current version seems to
+>>> make more sense to me.
+>>
+>> Current as in this patch or current as in the upstream codebase?
+>>
+>> In all cases the knowledge it is safe to use sched after unlocking is
+>> implicit.
+>>
+>> I see only two options:
+>>
+>> current)
+>>
+>> drm_sched_entity_push_job()
+>> {
+>> ...
+>> 	spin_unlock(&rq->lock);
+>> 	spin_unlock(&entity->lock);
+>>
+>> 	drm_sched_wakeup(sched);
+>>
+>> a)
+>>
+>> drm_sched_entity_push_job()
+>> {
+>> ...
+>> 	sched = drm_sched_rq_add_entity(entity, submit_ts);
+>> 	if (sched)
+>> 		drm_sched_wakeup(sched);
+>>
+>> b)
+>>
+>> drm_sched_rq_add_entity()
+>> {
+>> ...
+>> 	spin_unlock(&rq->lock);
+>> 	spin_unlock(&entity->lock);
+>>
+>> 	drm_sched_wakeup(sched);
+>>
+>>
+>> drm_sched_entity_push_job()
+>> {
+>> ...
+>> 	drm_sched_rq_add_entity(entity, submit_ts);
+>>
+>>
+>> b) is the same as today, a) perhaps a bit premature. Which do you prefer?
+> 
+> Alright, I looked through everything now.
+> 
+> The thing is just that I believe that it's a semantically confusing and
+> unclean concept of having drm_sched_rq_add_entity() return a scheduler
+> – except for when the entity is stopped. Then "there is no scheduler"
+> actually means "there is a scheduler, but that entity is stopped"
+> 
+> In an ideal world:
+> 
+> a) drm_sched_entity_push_job() wakes up the scheduler (as in your code,
+> and as in the current mainline code) and
+> 
+> b) drm_sched_entity_push_job() is the one who checks whether the entity
+> is stopped. rq_add_entity() should just, well, add an entity to a
+> runqueue.
+> 
+> Option b) then would need locks again and could race. So that's not so
+> cool.
+> 
+> Possible solutions I can see is:
+> 
+> 1. Have drm_sched_rq_add_entity() return an ERR_PTR instead of NULL.
+
+Maybe I am misunderstanding the idea, but what would be the benefit of 
+this option?
+
+To clarify, I have:
+
+drm_sched_rq_add_entity()
+{
+...
+	if (entity->stopped) {
+...
+		return NULL;
+
+drm_sched_entity_push_job()
+{
+...
+		sched = drm_sched_rq_add_entity(entity);
+		if (sched)
+			drm_sched_wakeup(sched);
+
+And you propose:
+
+drm_sched_rq_add_entity()
+{
+...
+	if (entity->stopped) {
+...
+		return ERR_PTR(-ESOMETHING);
+
+drm_sched_entity_push_job()
+{
+...
+		sched = drm_sched_rq_add_entity(entity);
+		if (!IS_ERR(sched))
+			drm_sched_wakeup(sched);
+
+
+?
+
+> 2. Rename rq_add_entity()
+
+You mean to something signify it is also doing the wakeup? Or simply 
+drm_sched_rq_add_first_entity()?
+
+> 3. Potentially leave it as is? I guess that doesn't work for your rq-
+> simplification?
+
+Leave drm_sched_wakeup in push job? Yeah that doesn't work for moving 
+the rq handling into own helpers.
+  > Option 1 would almost be my preference. What do you think?
+
+Lets see if I understand the option 1. I am fine with that one as 
+described, and also with option 2.
+
+Regards,
+
+Tvrtko
