@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87BBACCD184
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 21:17:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8795BCCD18E
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 21:17:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB2D10E698;
-	Tue, 14 Oct 2025 21:17:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19B3D10E20D;
+	Tue, 14 Oct 2025 21:17:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SybRfnF8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hMIjaVLN";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012068.outbound.protection.outlook.com [52.101.48.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C3810E20D
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 21:17:36 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010046.outbound.protection.outlook.com
+ [52.101.193.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2D2E10E20D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 21:17:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YYSQEMajkqI9WIxBaJBL2C/v8yToPp6aCLUqyo31wvEbLIYHbRXJ9LdyWYtAruEFyLwjp4cCCjTY9aY/aFoXXYxMK9YaSRRVXnQNyAfVajSLkfIuS03cpTLAybKfNXjAfHFvOvw7kRMdavsmbxNIsLDLmYlOEcj9/B1qUo0UAX7TSFIJ5/1e/fMKZR9o+tufn34wJcZoZ5gflPcqM3MUbjMHsIod65B+yKBiaMZ422REt7K7pmr+YsfU1FJ/b8extHGg2+d9IJvjcuf2bGalXI5e8HRW2jPaLudTTa8BH9J4eVlTNGbfPUxW4fJ6aT1NPyeAipXcnus+vLBjCKFbQw==
+ b=JajjXYbADht+UdEkxdEfDSGj/cDUOc8fVzIkUYnkMSbxiMMH+aMHpXfMKIRJ1AmB3WpoMzhi5/OLgP9UChNwefaZkaeBYOBdPhW+F8/KoVihsLPN7A42ECDSZl9y6LCoERWIHtbnyt+P7OeHLzGcF7VbIXrzLzjEKaeKpY4Ahf5IuMivZDQXBc94VqKKwM9g9b7fxQ0JNs7fWgsk2taCCGASXGOu/CiUxTjXXC4tLUNtvtaiErkReRcSDOjptMRtJN0/GYOEPDPJmgoDFQ4xiquD0qf3Egj6Q9ib1t6L+QFLXkHXpDhVi2QEnI2+mfIonAPHMtrxj/rIVD8N/2FvXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NNDqdpax606VBpmRD0JLwhI4PfUbYoKR/FtoeHt9EXg=;
- b=yLjmZ3d/tOE5eMQV4UZ6E7+5zQAVKIOSpCd9o3T+al5i/2BLWkhu/cR4cxNZ4vQ2w4cChjaPGcHSKfV5KxnDn/Dg+1SloHDAqrfsX+BC7zGgkd3Qc0+goX3tMPW1UeFpW2TaTG7gw2tVi1Q336t/+hpet7wxqHBPBJNjRoF0SsOPCyJEt7HNeW7QpKqtLiabup+Ey8mmK2ZEig9nUOn9WQZCneT4UEX6Kb91ONULndMm0+otO1cl7Cy6q7Xfw2201t3n8XN4iO5uvRElRoo0Ae/DlarH7Ak7Y87fY6Tjj9OyutHz7GHO+QpZxJOUXLd2CEo8CctVXdDOGzsxolVZEg==
+ bh=qGS1JoW1LGmx/v9bN9sNx+V3RmQCR9EHA01EHKogENo=;
+ b=QC5T9Q4aPGYS9OicazsR65lLu6O000qol4mF7kY327nuOCQdp2mJnYECRwMzPcZl+34fE5R6vFOLHihOp6loHOk7ohq8SsyciMlqhoWoUQP619U0hbUvAdfm7XfChnL5IDH1D+/BAmCJKqALP1uCGhkFrpGi4On7IDOo1z/9tveIHuZkDvesD5B9tcnWveXdqwaHkAdi0/M89mgoWAlABk15eJWxfZ89P3y4bWpRb+DO/X1bu468B+UYazndZhw1HbcYiegvtxJ75FWLBQj5x4WyIQYXRHvxtG/7DRZwNza5ejK0TkAxvtEmK3xBihgNswmMuceoO6K7NK3eCeRfmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NNDqdpax606VBpmRD0JLwhI4PfUbYoKR/FtoeHt9EXg=;
- b=SybRfnF8/tjbWPvLOIcdQZOa5J4GAKC6f5dSL50LExwBTXHD2Bsx9D7gKAE83G7tbcXpfnrxJqV5dtxyZwUx68+2Ckx01G9ikPD6Yx3Uj1QiLYPj3FlQP8qqSLdvwmbAQSqs3dSmaLWkQF9+yJnjIuSGjnpH5r3ebha31VnKEN8=
-Received: from PH7P221CA0060.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::16)
- by MW4PR12MB5626.namprd12.prod.outlook.com (2603:10b6:303:169::13)
+ bh=qGS1JoW1LGmx/v9bN9sNx+V3RmQCR9EHA01EHKogENo=;
+ b=hMIjaVLN9S9OeZPOenNxPN6fY58bexuc1s941Jdy2v54welV4EMGuIrKz9i+8kTQ923hQeLSAgKoVQFedcXDMQgUT+w0R5qopyC9shsY+yiEa5Xo6j9/l0VG9ZGvzhVBAb3RElzpFauZOC3jkLUl+JuufpEh553f/ZA5sfxJiy0=
+Received: from PH7P221CA0057.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::20)
+ by SN7PR12MB8171.namprd12.prod.outlook.com (2603:10b6:806:322::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Tue, 14 Oct
- 2025 21:17:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.9; Tue, 14 Oct
+ 2025 21:17:34 +0000
 Received: from SN1PEPF00036F41.namprd05.prod.outlook.com
- (2603:10b6:510:33c:cafe::70) by PH7P221CA0060.outlook.office365.com
- (2603:10b6:510:33c::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.12 via Frontend Transport; Tue,
- 14 Oct 2025 21:17:33 +0000
+ (2603:10b6:510:33c:cafe::d2) by PH7P221CA0057.outlook.office365.com
+ (2603:10b6:510:33c::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.10 via Frontend Transport; Tue,
+ 14 Oct 2025 21:17:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,7 +51,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SN1PEPF00036F41.mail.protection.outlook.com (10.167.248.25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Tue, 14 Oct 2025 21:17:33 +0000
+ 15.20.9228.7 via Frontend Transport; Tue, 14 Oct 2025 21:17:34 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 14 Oct
@@ -58,10 +59,12 @@ Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: set default gfx reset masks for gfx6-8
-Date: Tue, 14 Oct 2025 17:17:11 -0400
-Message-ID: <20251014211712.2524052-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: move reset debug disable handling
+Date: Tue, 14 Oct 2025 17:17:12 -0400
+Message-ID: <20251014211712.2524052-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251014211712.2524052-1-alexander.deucher@amd.com>
+References: <20251014211712.2524052-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,53 +73,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F41:EE_|MW4PR12MB5626:EE_
-X-MS-Office365-Filtering-Correlation-Id: e92754ef-367a-4f80-0f9d-08de0b671734
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F41:EE_|SN7PR12MB8171:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f24ac47-d936-4801-38da-08de0b6717cf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FZBtuYe/OkCluJDiX4yLhFhc9OI5jrXbYgcu9UfBThCcQgiJKGDf498TMjaI?=
- =?us-ascii?Q?AN0mcy+9Y8/B7V202OwsLMaC5N2ezOK6/X2aRMZCZTjue8UcGJTA5hnFxiEW?=
- =?us-ascii?Q?ipkmVV8ls26SjQnApPrGmKWX0kfbWIAYT175NTcmdnC2/yMd/4tUwX2DO4rK?=
- =?us-ascii?Q?lPT0YvoVKMWPb7ERsus33msBxilOb9qt1xW//lSVGH+ORG96NjEUNiVdd291?=
- =?us-ascii?Q?OEXXDiUnenxAXkjnp7EpPsNOphkDU/lKUS0fGYq7CCpoFxgZYQzQgebxaqbu?=
- =?us-ascii?Q?Vm7qG0OQOicKcXsciVDMPRc+iZ29ZILeLsHvXKs7d1eY2OmRV8MVP1FTen61?=
- =?us-ascii?Q?gb8JSfzyMfnb4LBts1pmmvfIGXDSotOQp3YcCUNE+cUT9w+pE/Ev9b9CMmRa?=
- =?us-ascii?Q?ZpFWNzieQEMY/sMB5/6s3OU8aXPVYkLAXm7OgMCNQb4wjnNBWNSIMQ6bEx11?=
- =?us-ascii?Q?kF45WD0WY+Isb4VPYhWQcuOg+aoCspl/KU0fAgpMkVN2zbwihx9fGIrLhdhD?=
- =?us-ascii?Q?5sn6E3F5FxeT6V3DybBU0W61Gpq10z6VSu+jb53w8ZKxU5dbwXFTOHTNlJck?=
- =?us-ascii?Q?IaQJ6E0FoP1HGFgiizdXQ5eO5nxyH+3Vodqrkay/7sC4lg7rPWPBMAvc8itv?=
- =?us-ascii?Q?HJAbLlrbjJK0zSF26eAsEor6JpNTmSIlZqULE/KC3AkhsH63NaXYhepbLQnc?=
- =?us-ascii?Q?u9g6+ejZ+i+HIXn49H3vByrwXBFP3JMeFzQ/jB1d0w1H2Iorg/P/bKHNDPmD?=
- =?us-ascii?Q?FnpjuJlRIEmqw3Rb7qNrm8Cfxt/f3826WGuoAsC5IxdXS63RwMduQTomRSYJ?=
- =?us-ascii?Q?JNDKyGpA4An1DhbpwiBDYQNicYUj0m9TvMRjPkbpGdbIYVtyoclFeN7QIjtw?=
- =?us-ascii?Q?6jWbBb5jvPQ7TM2wjjcokeAvPtS5DsmPpbs4T/D14ePYvfJ56XBkgTYan/oK?=
- =?us-ascii?Q?F8zKTHPTFZN8hXCw6QlK7u0vsQr36lLsVuvDwZYXFBHEnQDMrsw/H1ap5qJU?=
- =?us-ascii?Q?54JgwBpKrImcZxGpbnFotFFWgNy+lVnsIbdlWdnMYVLFNB/S5t9jG7To712u?=
- =?us-ascii?Q?9z5aUoJE905N9bNisWG5tDOmUSYT/16X/duxxbtx4GhEAtoRXT67zs+e5PB9?=
- =?us-ascii?Q?/AQFBWfajf4n9UT4yq3IES8g39gkHVdjIpDkEOaUHdO4KqOKj6oQYh5mAlWy?=
- =?us-ascii?Q?aqQXPwSz+j1/ZHs0dk1DR+srwBV29MvvU4WXNJbzvVbdEsv+v+L3awAJwN7y?=
- =?us-ascii?Q?ParLLKXJJPdmiW7SxyviKYzzq2WmMlMJJAvea6UQUwmpDValakLXhjeAo/+B?=
- =?us-ascii?Q?/ubkiIA/aKsitJ3RvYKFaNGRlB95gzB23AxxMjYPZyESQzpA3/aq61qQRHSV?=
- =?us-ascii?Q?YcpQolOSyA71y89gM8RL60SHFpy1J/XoeWk39e9LCAY4gE4dQ4r9sHyIOanu?=
- =?us-ascii?Q?8VVYuZcApPuFm877OSAwwrHiUcMLBTez/JIMNmDrXP2JE2uC0LUhtHv+MX5F?=
- =?us-ascii?Q?xm8S+pp2DTMROYSyrGhrci75bAeWDwuSqnsZKn/tvy3Wzz7dUyWGrAf8Nmmw?=
- =?us-ascii?Q?Gjz9UWAYy9UoP7JhaaQ=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?L8DhhxGB8snQZHflHYQeXdd3JRITr9vs1CTwZ7T+Es07IDZJvJ1pixo+fZL2?=
+ =?us-ascii?Q?mg1mYus1sBLVdJPS4IZqy5PFei/NsslQdUEB62lg8E4eGRIe3Elnj1woVEet?=
+ =?us-ascii?Q?SsYbMUWMlLC4Kysdps/zU8E1D0KfsfLjmG7UDKXkeXThxpVrg6EmnI9znn3c?=
+ =?us-ascii?Q?L4HWMeWsza19MYcS3+ObqrHY85YLCVxoQz6q2iKZ48/qQoP9dP6J7/z4qA4y?=
+ =?us-ascii?Q?YAAzFM92tKdhjfLlZBIqCfFPUwFx8117Xn+5PKvW/SFLRDo4d3S1VSBuOHqf?=
+ =?us-ascii?Q?T3sThlTy8lDJNJyBrJgRsL3R5mFASyLCffjMHrxTM0IcmyNhr9FP0tsvfFMt?=
+ =?us-ascii?Q?TDcIea9V5Vxke6/ewmgvAR2/YnSDpemroyC5fPZPMhBRrYP2bFFH9OOEVy93?=
+ =?us-ascii?Q?NjhFxHTiXI6TGGn3OW5FDzB6dfaIuWkV71i2XXegJGfFV8pfAX1wHPbywogz?=
+ =?us-ascii?Q?Ck5Hn9ETOOszrMC/Gi2HGUpYoMUAendx0AcMaCLV6HbWEHhb+LFvjUjr6hm2?=
+ =?us-ascii?Q?THqCmqIoLBAhlY7aIHmTh4l38W4Pilj1AgzOKlVZ9B4zDGn9GrlvCznHiQX3?=
+ =?us-ascii?Q?twhNTn//py7EKX/wJ7dgDx2sRPYLDuGrC/8VBuBVQghMoKCP0S9J8FAbK2v5?=
+ =?us-ascii?Q?6f4v5Ewcq+4aE82idM3V0M2QvOyz9Wrnq+gXQH9becELxhT4pnmCI5cel7OQ?=
+ =?us-ascii?Q?H98yiumqtxvh+CQhxs1oJPhDosMyMyCQQyzDUh94g0BfNaI6qqSEtUArE4oI?=
+ =?us-ascii?Q?WIOTotxmScD+LFcUl6T9eX4sRqHl9s1fGSH9PtHt16nIRMx4sNaYSM2jeHGs?=
+ =?us-ascii?Q?UTyWtLJUCqRzjPuyXAzCYsAf3Q5JMa96tGO9b5HxiThtLAR5d0VKLSNamDWN?=
+ =?us-ascii?Q?ioo1pdGEJc8fDp5Zk5Hw31vg3lJXK9ms2m9jEha2Up+KQSpHSbDLi6ktSZou?=
+ =?us-ascii?Q?+nD2N8PPWrr5ollIpLZVvMTjJ0I3M7KCMDd/FKMBghTl22acTEO/axhzDJi+?=
+ =?us-ascii?Q?tUIRmITVJQHfESYaG3uExPAjG/sCLTfcXWbyBtDupWP8BXBY3iqRHT6PFLzr?=
+ =?us-ascii?Q?27hprCCjY0ehb4/hUbFCFENMeDbh3zjYWI6cFGsoMwr+m4DVaxJYLlIstzJb?=
+ =?us-ascii?Q?ow+JbKBAImUaX66n6fin1/mcuK8LNsNtsdQbsj08xH2Brbx1LbxU0EMPIbhT?=
+ =?us-ascii?Q?WkMSZfxlhQNQhrDFGuImv9dnxwu8sFww4Z2KvJxKgCuPkuSGgfdFUomgxnSR?=
+ =?us-ascii?Q?X4O9iX/R045LrVyQUicgZ4NiNIEyYvNMaWU60JpWPhYImVTL234GXUHBEt5p?=
+ =?us-ascii?Q?wDIa+Ca3kFcUW49+b02baLokA8682kHoOIhdzAE90AI2VYil3520FaGemcRi?=
+ =?us-ascii?Q?2h4qEfnNgC4twVxj6leWViipSa33U0ZRcdhR0qs8IpfpH8XH7DmEt2DL2wXd?=
+ =?us-ascii?Q?tKjWSYW5HW/a0ZAjSvfSlAqKzzm7fCVnoSUb3LlNHBMvxUuAmeCtO4+cSnSa?=
+ =?us-ascii?Q?xEwCpaz1vrnKCo5vZpusApVLbm7wyPENVLKI26tE02cYIhs3jioHK5kBxPjW?=
+ =?us-ascii?Q?K7qELs1pTKmlIJL/6aM=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 21:17:33.1366 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e92754ef-367a-4f80-0f9d-08de0b671734
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 21:17:34.1535 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f24ac47-d936-4801-38da-08de0b6717cf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F41.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5626
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8171
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,65 +134,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These were not set so soft recovery was inadvertantly
-disabled.
+Move everything to the supported resets masks rather than
+having an explicit misc checks for this.
 
-Fixes: 6ac55eab4fc4 ("drm/amdgpu: move reset support type checks into the caller")
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 5 +++++
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 5 +++++
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 5 +++++
- 3 files changed, 15 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 8 +++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 3 ---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 8 ++++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 3 ++-
+ 12 files changed, 32 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index 7693b79534267..80565392313f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -3102,6 +3102,11 @@ static int gfx_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 3842a15e2df8a..3d396ab625f33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -130,11 +130,9 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
  	}
  
-+	adev->gfx.gfx_supported_reset =
-+		amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
-+	adev->gfx.compute_supported_reset =
-+		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
-+
- 	return r;
- }
+ 	/* attempt a per ring reset */
+-	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
+-		dev_err(adev->dev, "Ring reset disabled by debug mask\n");
+-	} else if (amdgpu_gpu_recovery &&
+-		   amdgpu_ring_is_reset_type_supported(ring, AMDGPU_RESET_TYPE_PER_QUEUE) &&
+-		   ring->funcs->reset) {
++	if (amdgpu_gpu_recovery &&
++	    amdgpu_ring_is_reset_type_supported(ring, AMDGPU_RESET_TYPE_PER_QUEUE) &&
++	    ring->funcs->reset) {
+ 		dev_err(adev->dev, "Starting %s ring reset\n",
+ 			s_job->sched->name);
+ 		ring->in_ring_reset = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 43f769fed810e..bf1b90a341d8d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -468,9 +468,6 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring, unsigned int vmid,
+ 	ktime_t deadline;
+ 	bool ret;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 5976ed55d9dbd..2b7aba22ecc19 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4399,6 +4399,11 @@ static int gfx_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+-	if (unlikely(ring->adev->debug_disable_soft_recovery))
+-		return false;
+-
+ 	deadline = ktime_add_us(ktime_get(), 10000);
  
- 	gfx_v7_0_gpu_early_init(adev);
+ 	if (amdgpu_sriov_vf(ring->adev) || !ring->funcs->soft_recovery || !fence)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index d670cb48c0319..f7357673f13e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4959,7 +4959,8 @@ static int gfx_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 		amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
+ 	adev->gfx.compute_supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
+-	if (!amdgpu_sriov_vf(adev)) {
++	if (!amdgpu_sriov_vf(adev) &&
++	    !adev->debug_disable_gpu_ring_reset) {
+ 		adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index a1ce8f9e04ecb..60250503c633d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -1821,13 +1821,15 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(11, 0, 3):
+ 		if ((adev->gfx.me_fw_version >= 2280) &&
+ 		    (adev->gfx.mec_fw_version >= 2410) &&
+-		    !amdgpu_sriov_vf(adev)) {
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset) {
+ 			adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 			adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		}
+ 		break;
+ 	default:
+-		if (!amdgpu_sriov_vf(adev)) {
++		if (!amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset) {
+ 			adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 			adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index a923f1946fc23..d405ca3c01b66 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -1548,7 +1548,8 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(12, 0, 1):
+ 		if ((adev->gfx.me_fw_version >= 2660) &&
+ 		    (adev->gfx.mec_fw_version >= 2920) &&
+-		    !amdgpu_sriov_vf(adev)) {
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset) {
+ 			adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 			adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index dd19a97436db9..7d0a2d239b78d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2409,7 +2409,7 @@ static int gfx_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 		amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
+ 	adev->gfx.compute_supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
+-	if (!amdgpu_sriov_vf(adev))
++	if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_gpu_ring_reset)
+ 		adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
  
-+	adev->gfx.gfx_supported_reset =
-+		amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
-+	adev->gfx.compute_supported_reset =
-+		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
-+
- 	return r;
- }
+ 	r = amdgpu_gfx_kiq_init(adev, GFX9_MEC_HPD_SIZE, 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index fb5585ab52beb..b6e42189eae2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -1149,14 +1149,16 @@ static int gfx_v9_4_3_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(9, 4, 3):
+ 	case IP_VERSION(9, 4, 4):
+ 		if ((adev->gfx.mec_fw_version >= 155) &&
+-		    !amdgpu_sriov_vf(adev)) {
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset) {
+ 			adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 			adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_PIPE;
+ 		}
+ 		break;
+ 	case IP_VERSION(9, 5, 0):
+ 		if ((adev->gfx.mec_fw_version >= 21) &&
+-		    !amdgpu_sriov_vf(adev)) {
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset) {
+ 			adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 			adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_PER_PIPE;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index 50abf4dd5ef91..6746b0108932e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -2383,11 +2383,15 @@ static void sdma_v4_4_2_update_reset_mask(struct amdgpu_device *adev)
+ 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+ 	case IP_VERSION(9, 4, 3):
+ 	case IP_VERSION(9, 4, 4):
+-		if ((adev->gfx.mec_fw_version >= 0xb0) && amdgpu_dpm_reset_sdma_is_supported(adev))
++		if ((adev->gfx.mec_fw_version >= 0xb0) &&
++		    amdgpu_dpm_reset_sdma_is_supported(adev) &&
++		    !adev->debug_disable_gpu_ring_reset)
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	case IP_VERSION(9, 5, 0):
+-		if ((adev->gfx.mec_fw_version >= 0xf) && amdgpu_dpm_reset_sdma_is_supported(adev))
++		if ((adev->gfx.mec_fw_version >= 0xf) &&
++		    amdgpu_dpm_reset_sdma_is_supported(adev) &&
++		    !adev->debug_disable_gpu_ring_reset)
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index ab012592a276a..9d99211721953 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1443,7 +1443,8 @@ static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(5, 0, 2):
+ 	case IP_VERSION(5, 0, 5):
+ 		if ((adev->sdma.instance[0].fw_version >= 35) &&
+-		    !amdgpu_sriov_vf(adev))
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset)
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index fdc9cc13396a2..dcdb7dbb952c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -1362,12 +1362,14 @@ static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(5, 2, 3):
+ 	case IP_VERSION(5, 2, 4):
+ 		if ((adev->sdma.instance[0].fw_version >= 76) &&
+-		    !amdgpu_sriov_vf(adev))
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset)
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	case IP_VERSION(5, 2, 5):
+ 		if ((adev->sdma.instance[0].fw_version >= 34) &&
+-		    !amdgpu_sriov_vf(adev))
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset)
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+index aa89d915d3f98..7c5da95de92e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+@@ -1370,7 +1370,8 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(6, 0, 2):
+ 	case IP_VERSION(6, 0, 3):
+ 		if ((adev->sdma.instance[0].fw_version >= 21) &&
+-		    !amdgpu_sriov_vf(adev))
++		    !amdgpu_sriov_vf(adev) &&
++		    !adev->debug_disable_gpu_ring_reset)
+ 			adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+index 84d0e1aa4d501..5ba323259f2a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+@@ -1351,7 +1351,8 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 0856ff65288c0..8a81713d97aac 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -2023,6 +2023,11 @@ static int gfx_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
+ 	adev->sdma.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->sdma.instance[0].ring);
+-	if (!amdgpu_sriov_vf(adev))
++	if (!amdgpu_sriov_vf(adev) &&
++	    !adev->debug_disable_gpu_ring_reset)
+ 		adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
  
-+	adev->gfx.gfx_supported_reset =
-+		amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
-+	adev->gfx.compute_supported_reset =
-+		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
-+
- 	return 0;
- }
- 
+ 	r = amdgpu_sdma_sysfs_reset_mask_init(adev);
 -- 
 2.51.0
 
