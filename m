@@ -4,73 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D119CCD193
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 17:26:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B8A6CCD184
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 17:52:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9468310E22C;
-	Tue, 14 Oct 2025 17:26:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFCAA10E27B;
+	Tue, 14 Oct 2025 17:52:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hvnpHWNk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QVSIeYjs";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4DE010E159
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 17:26:41 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-26808b24a00so8553155ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 10:26:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760462801; x=1761067601; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8ctL5GBfdIzYaXsz9tEEz3oQ7D1ysg8u3sbU9HuHaeU=;
- b=hvnpHWNkis/V0fEwdFjYXsugwFxNTheSx4aaawPk6ujp1stWbgd+NUnFcP2rzit9kC
- WzbjJ9FW5wLGloWoOevvxQadEhcq4ucZAh0quCWom4FWHT4QaB1Vlp9EOf/mWVOc0a6w
- SP2DzgS1+t8M1gyJOeZ8xh7WApfpiC+5b04Lt8XtvBZEEldOz6iY6YGYDdkveVhxusG6
- RvSLHyGx1oT8dKtJX0/rXUEVHAQ/evGgJ4VBKxEjn2DJeulQldMrWPB6yjp6I+OOvkZK
- mzMElb2SaiJsxJLm+WbnaOfsAWZLNiPmFw40H+TtF5WkG5IFQLBBr5gjmbUeAsndXLqL
- OrRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760462801; x=1761067601;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8ctL5GBfdIzYaXsz9tEEz3oQ7D1ysg8u3sbU9HuHaeU=;
- b=Njh+C4gFxpC1x+/dqRLeIUK6mZeKGwLhazor8LJtR3I3L0hu9kwR0goBk+mtBgII6A
- Rj55qOAPJr3VZox0KK+D8RAgq6ZgdfD1i8EPZXzlLJMwzIyxKEEVre9wrho9NnW8O8/M
- FwmGvW7RX0+pqOdWKKnpLQQwOsprb/aAt31bxhDrIrYrDdznaH1wgpuwGqf0EePxha9N
- EKpUdGb/5fU832tfFXCh+aYHpmO+j7mcnwK01yCr39ldeAxiMSfmHGIdvladjRMOKMAf
- 4xxCfQU9cuXcxjN+sPtZLGfbRR63tBHF3gMSQgnd3arM680jQ42vzHoetKS5bL5RqHF+
- e1Yg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW07ILF3ev/BqOUvJD87fXgS5ZQYEhI8ErPdDUPnID24ikgDbDNd9mWjBzTjHcu7+8Cqtc8bcEU@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWeiU4ps8wTc85ozNgoeBlyyNsNP7w9WLeCZwn3c9FhCLzZsPE
- 3p6aZr+zN6+ap4WGHyzGJPHubjHYDt7J6rJOEONhOSPdyLWzahoxjYvmE7etTeh0XqYMIC9aaJV
- zsi9oh+9YlcZGUrYym93wwHI9XNUD2JY=
-X-Gm-Gg: ASbGncutezUtlsrsA9oO+WuoY7fVS6pe2wXc0KHTyY3qXck0tQxxZox4ZH/UC+YYeJ6
- TQgX5Xi7QZ2re/Jn+tGhDWD8zK38+ySSrF9K+dmFH4yLZ+X55GUF7//Vm06UvcXEhzJV51ec8FD
- pl76cGQLI4vNB5fycoAktYS+uSHDkH3XeREk+IyfqTy1WkRqW7+GWs0lvlBOkyO85tizALcMIJs
- q593J6RPD5gRmwMtGt3/3IoBWMiTu2NE/VU
-X-Google-Smtp-Source: AGHT+IFDma62B7uRmqEHRzS5/lATlfy5E6zecJq5Le8Qy+fypbwQ62OXcDZjNNmlpn6nD6pllH1CPbwbHnchDQEB/LM=
-X-Received: by 2002:a17:903:18b:b0:26a:f96c:3099 with SMTP id
- d9443c01a7336-290273de44fmr177848155ad.3.1760462801018; Tue, 14 Oct 2025
- 10:26:41 -0700 (PDT)
-MIME-Version: 1.0
-References: <20251013163042.531225-1-ilya.zlobintsev@gmail.com>
- <20251013163042.531225-2-ilya.zlobintsev@gmail.com>
- <ac39add0-f211-4323-8cff-3ee017f6264b@amd.com>
-In-Reply-To: <ac39add0-f211-4323-8cff-3ee017f6264b@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Oct 2025 13:26:29 -0400
-X-Gm-Features: AS18NWCzZ6Gb-b8i1Ej7cxPzf3_FllKOCaIS69GBacj1oPvvqgTCXy-DzpxxPko
-Message-ID: <CADnq5_M=jZG7OwjRrd6-GWYmt47gvx+rA2kNcSZjY24c9KRedg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] drm/amd/pm: Avoid writing nulls into
- `pp_od_clk_voltage`
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012053.outbound.protection.outlook.com [52.101.48.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B4C010E27B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 17:52:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HInV5balgxQxneFgYtgfyegoMzxvztqhF6RNeFW9Cka8qi6jUTCbBhqI1eXGSsclcOXhC/QhNVvb2mKNwzhKWqUnEIMAY8HVDQCV85f7Ko4inxtZ0+ALDL2IuQTemWveJGotSZdraUSYc2nbHSkrUT0GepWAigsy5yxdwgjAFSM6E1vPx9W68fVosIiyzFDMhWYJNlH1vufkFBUgBbDFOJJhXk0SOA3ms/CsNN4FtpFP/eOv8aBloFEq6mqxY6bI8V8FH0Yevd8LYttgFC1eXVN/McYEts5B9Y8H7kOwFUi2QdveAJR4tEyybq73XrAbwnFtR7ifujB3JsO33/DqXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WaNV3Tx4EU38YropKED41qd90kJNG2jeciCBfWeEJGM=;
+ b=iZtCpKzPq7Fwi4GpGgdwOUDKUQ17KZg/HQcvuvK7zSQrHv4HHWQo6egXHRfXrM1pdvWdVPD4ib28RiODvxV73O400qEbUn9ZyqlgwYTop3Wpm4hVAhQe73P2pjR5/q8wgyMdrhBQClMAu0k7u4ANOaF3JRFOYpBOTTzfkgfQKZ8goqh29/zizdnCVUdzo67kj/UO6EiRGA6p80A/XdozCa5uhimkT+qrJjpecD6fbBr+2rqA9qBJwjwH7+4r1fD6q5ocO610BGdb1hHSQ1aXoEhvYFQLV7B/o5ub9udmhU5ufGSfFshxV9kG2Z7S8Xw/JmwofZc5L2u/r2jX77X1DA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WaNV3Tx4EU38YropKED41qd90kJNG2jeciCBfWeEJGM=;
+ b=QVSIeYjszTolbFzUFuAOEvzC4xeV+M3IbMMFTTQ0wLR74UPgy79CsdTy3+l/NWAXJiOiJdfImdi0wAK0wrglz/cg93oHgWTUo3wbXP63kxo+LZJ/VvLJv6YqlRmrWrNX3l7bycTe3ekJkwNzrsc56hECIWDGe4a6FcvnbP1BdLI=
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ by SA1PR12MB5658.namprd12.prod.outlook.com (2603:10b6:806:235::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Tue, 14 Oct
+ 2025 17:52:26 +0000
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::9d0:6f92:2101:fbdd]) by CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::9d0:6f92:2101:fbdd%4]) with mapi id 15.20.9203.009; Tue, 14 Oct 2025
+ 17:52:26 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Liu, Alysa" <Alysa.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix vram_usage underflow
+Thread-Topic: [PATCH] drm/amdgpu: Fix vram_usage underflow
+Thread-Index: AQHcPRCSrVh8hcTKc06Z3A1g3osmzbTB7FCQ
+Date: Tue, 14 Oct 2025 17:52:26 +0000
+Message-ID: <CY8PR12MB70997A8CD69749C0FCB2CACA8CEBA@CY8PR12MB7099.namprd12.prod.outlook.com>
+References: <20251014134317.5081-1-Alysa.Liu@amd.com>
+In-Reply-To: <20251014134317.5081-1-Alysa.Liu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-10-14T17:52:15.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|SA1PR12MB5658:EE_
+x-ms-office365-filtering-correlation-id: 44b7201a-0fc8-4bb1-3000-08de0b4a6fea
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?FF3lFR6arDHccGOUK5Pc5/aQ8M6Ki7CmED2FQ8jG6QmCNh2+SL/x9KLuU/Iv?=
+ =?us-ascii?Q?SS8WVoPNEqNWa1LuYwjWBcF1wJ5K8w1eLYcqFfdd6QCb7ElwO/bfTX7aGBLD?=
+ =?us-ascii?Q?ENY58nYJfAf1Now/ImdqarkkladvuY6oCZ8jvyqgsU/gVsCKcoDpsqe0LMk/?=
+ =?us-ascii?Q?dRaPK8AIgr/En7sk6cpevEo7TJ8AvrUI9c1vILBhwIwtdq7G1rV+3BqSQTSd?=
+ =?us-ascii?Q?Gy1Fic4lMdNak1JXKQdlM45W2cLXCLVBcTcVLu1SgxBM0vYahv/Pa4wQ9EVw?=
+ =?us-ascii?Q?OJImpoB4WESqgw1UH0XzQaHSTVDl2Ownhktz0RY3JfIDEPIRUCbpRLvCKdDK?=
+ =?us-ascii?Q?3gILOkiXFnWhOGAv7gpjpZeH2NaZP0gsG4gUGIBw9l/P7M9bUI2ts8teX9C4?=
+ =?us-ascii?Q?1A717Y8oji3T1Nz9LzfESdpSXatyrUhPcyBMRA7/34XDS19P1wIr4qLxF4UU?=
+ =?us-ascii?Q?ii6HJFhbCmTtpCuH7ooitUHD4unIHpZ1lie36M85EizUECcdShccKiM3BEdM?=
+ =?us-ascii?Q?5eyfJL3PtOa4ZdamYmqddpPzxD82+sfBJHiUgYy/t9cbgiPJPFq0L/CwL5Tr?=
+ =?us-ascii?Q?ZAmv2ZMVC5lfja7kjaa8ksa3vhvfh3z5XzU+rLvUJn8Tkg5GONaNfL7wycQE?=
+ =?us-ascii?Q?WZmbkjV8isu1JqnJ1PbD4QqdL0JwfdfHrdpvhHt3pHMYvyIQkmkY9fnrlS3t?=
+ =?us-ascii?Q?58vyz24t1j3l3HKcx8nwyQBP4abq00eYTXzPye7r68QCSUGt1muuKyITG2Ob?=
+ =?us-ascii?Q?hxk5HvSz0VslAL1FkIDIyr3LhxU3Z6glAHAbzum1tvubQ441U0De4T9X8Pgc?=
+ =?us-ascii?Q?zEAheyY1buV7Rh6sKGk/5oAHVb3ekOS7Xp3x12vi/Vq8YXLKrp5mG7tVqrWw?=
+ =?us-ascii?Q?F3u8vg5kbnkBar5FNrXoYcGaJYIM9+IYY7JvkHEToD37KyAjRHvMKZxu71db?=
+ =?us-ascii?Q?XvcN3QdfgSwCwW+4g0xPePs8N8qiVLcu+o/6SJjIP2dp6oH2hOu/14I7sHKb?=
+ =?us-ascii?Q?H1YIWRLSHvY25Hc1j6YQFr/MW1zbmiweHLkJT6/Rh50LNnDCAZVALEaehuAH?=
+ =?us-ascii?Q?/bXC13JEm3kS4kzexH+C7z7EyNskvBKUAUs8obn/XlToGfvwk61uNkblX8Kx?=
+ =?us-ascii?Q?CWpxESxe0KVnmh8o41xLHkDja4M26EXfADmLRvky638eo01FvHFdz2GPC/6E?=
+ =?us-ascii?Q?SIVtzoqtlP3/Ixc7A3NwxXvO09xc7BQCFdhKLlIwwPQ97QUSN24F+coD1Utu?=
+ =?us-ascii?Q?Eca2xnlt64aEuzlJh+bWJVqqabn5V5HOSUG0BlN7b1Guom4E9KiBWJvxY6Ns?=
+ =?us-ascii?Q?yGb6hSFmq4crP0UtvcaNDDFf3g8bYIuMbEJWL29l2zZI70Wlcz25q9yFEMjw?=
+ =?us-ascii?Q?XC/pD4WvFCyk8i5Jr7XDzYUA8tf0/IYddP09BFvDhy9AOOQzyCLmjPMZX5lD?=
+ =?us-ascii?Q?kfCKc68X23JXTKfGsV/X1ebO5CGYEJTeELvuEjRJw/Nek1IgwEYqFbJdhNl2?=
+ =?us-ascii?Q?cXnR3A2gr7vYyjNuYIhRhwCHyJx+9BJD34yC?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?9QPLa47U+5Jgk4eN+SddeLyLMLf3AQXTpojg5mCalm6cL852L0s6Dii6eqkS?=
+ =?us-ascii?Q?PsH8+XDzavUSuZyUj7sOs8u/B+ZxWKpyyI377cQ6GcSXahJeklZfx+2RjndS?=
+ =?us-ascii?Q?GCoO4l54zecyI14bPB98iFae6wjaUxU/owaSgRWA8XtfR9POSL3MCLANwSX9?=
+ =?us-ascii?Q?DBZel8A2JvWKzbc5eKRsZe5AOqxhXqcqjy97MIZIlNgdh+PrhnzHwZQiunrW?=
+ =?us-ascii?Q?CZtImVmXS1n8WZlTeXg3mwL74og1DH93R+ZJ1ZGxUzNuQJJmywNuWQ54F6o6?=
+ =?us-ascii?Q?6pJ+BkmX2yx0fR0LadVHlkDQ7Pd/t0XpKv+kakFaXvIGUN3ue1HeOHBL6EiV?=
+ =?us-ascii?Q?kGque7Ar4etFzTUgg6Txha16vDP+5sdFaN/omx91w7BCvBJMYwGzdjFyHPli?=
+ =?us-ascii?Q?3YJqVWuCercBgg1Ox6LvQxs+I1SzU0xT1siK93ez0aBc8k2Rz1bQPenyBipm?=
+ =?us-ascii?Q?qxYjBrPdVctTNZaybZZQXjGIswUytlbl36lDKv1O5jf7tpc9aOieVrmz4ovN?=
+ =?us-ascii?Q?htrErsJK6Vao8zp9kl28XBTKeDi+bjhxp2R6sfYwu6qi6urKKP8IS8miS/wk?=
+ =?us-ascii?Q?2haSvoXL0fj+8tj5Nomtz4WYCGgWKw5CqhH9gKxW4O6N2ZpxQeZV0Hn5PFA3?=
+ =?us-ascii?Q?vpBI32xExfwRLDZjbfKA82oQoZOExuHDPsl+UddSOTsWt6ReT41D9pRLZTfJ?=
+ =?us-ascii?Q?m57zpmxaGgJYK0RwgezNwOedIC8SvjvqOfb8LNzKrl9z6PEc979Elpq0cvIo?=
+ =?us-ascii?Q?7AnYwTeBBdaaWybStWfNxnm5KF6CR/hhubMEgT+CnlqjtBibf2h9usiK5FmB?=
+ =?us-ascii?Q?s2VLxjCeXv5iSQ8UPiPWswNaPexKHyP1Q4W7yXbNmsbn189Ev9/ig9+uPFk+?=
+ =?us-ascii?Q?vbSt9L61Dl8k7fk2H5pHNBlb2RaPFw8q0e+x9R8kMNX35oLnmzkMsQ7ebbOH?=
+ =?us-ascii?Q?f2krWLlAUt/8lr2ksOhAv08c0iNJOBpBTa7uc/9urWqpYeOnPk73DUc83v4L?=
+ =?us-ascii?Q?KxuK9qBD8lcrCcnlF0093XSU/RJXP3EVJ/1Wt3TVUsTWSf2KG/G/V4Gsi4p6?=
+ =?us-ascii?Q?7rBg3TPtHBHEG9cvrnsHkEw85KpFNPZUyR0IWcTQXCxAcng0W3JF/iRPmWAM?=
+ =?us-ascii?Q?m0aRvDDltdlmhYJ6eoXBepgWuJeEb9RIgzbI5aGM4nJgwdDFsC860phIw/ni?=
+ =?us-ascii?Q?y4/iLJNPHCjGIEnGmu7QOi8gR6d4ct7ACvnQ4alxLmvWKJnbaEuQAp1QzFdQ?=
+ =?us-ascii?Q?PbW7edYVSRmug2f5QhIwwiR2jcYergb/ICtYofKlEJX6O68/5Vgdt2ty/Mpv?=
+ =?us-ascii?Q?oevESFQpgjEUnmcDUQjqz+Ius82nZ0+zBGbWJnQmg64SUq7hCnCjy3s/10cn?=
+ =?us-ascii?Q?9lESq8fOvTbycRb9Ur4Qv4Pz02SNOl/ow4HuFhJHLN5adwpoKYUBIGlURNI5?=
+ =?us-ascii?Q?B3egfY84aYglIQUafswgpBDGm+DH+rUkTZctMa0p2/9jIer31oHU1qgIzoUm?=
+ =?us-ascii?Q?1UEym6vrRDo8hVJqEDTooxqOUtKrBUN8T86SL1Eqt3Hv/0jYr3/+hsMd0Lql?=
+ =?us-ascii?Q?tYpmMf13gsoFfp7hqTY=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44b7201a-0fc8-4bb1-3000-08de0b4a6fea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2025 17:52:26.5828 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: K0DDliJPnp+vcOYlYbi+ZjrdCYZrD7gECQY+gUaN9B5FkAbnIn4pHUKr6dhIr8r9+Zht9XQavyi8qZ7q0L4c1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5658
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,574 +153,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+[Public]
 
-Alex
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-On Tue, Oct 14, 2025 at 11:41=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> w=
-rote:
->
->
->
-> On 10/13/2025 10:00 PM, Ilya Zlobintsev wrote:
-> > Calling `smu_cmn_get_sysfs_buf` aligns the
-> > offset used by `sysfs_emit_at` to the current page boundary, which was
-> > previously directly returned from the various `print_clk_levels`
-> > implementations to be added to the buffer position.
-> > Instead, only the relative offset showing how much was written
-> > to the buffer should be returned, regardless of how it was changed
-> > for alignment purposes.
-> >
-> > Signed-off-by: Ilya Zlobintsev <ilya.zlobintsev@gmail.com>
->
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
->
-> Thanks,
-> Lijo
->
-> > ---
-> >   .../drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  5 +++--
-> >   drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 15 ++++++++------=
--
-> >   .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  5 +++--
-> >   drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 10 ++++++----
-> >   drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  7 ++++---
-> >   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  7 ++++---
-> >   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c  |  5 +++--
-> >   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c  |  5 +++--
-> >   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  7 ++++---
-> >   .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  7 ++++---
-> >   .../gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  5 +++--
-> >   .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  |  5 +++--
-> >   .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  7 ++++---
-> >   13 files changed, 52 insertions(+), 38 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/=
-drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> > index 9548bd3c624b..55401e6b2b0b 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-> > @@ -291,11 +291,12 @@ static int cyan_skillfish_print_clk_levels(struct=
- smu_context *smu,
-> >                                       enum smu_clk_type clk_type,
-> >                                       char *buf)
-> >   {
-> > -     int ret =3D 0, size =3D 0;
-> > +     int ret =3D 0, size =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0;
-> >       int i;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_SCLK:
-> > @@ -353,7 +354,7 @@ static int cyan_skillfish_print_clk_levels(struct s=
-mu_context *smu,
-> >               return ret;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static bool cyan_skillfish_is_dpm_running(struct smu_context *smu)
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/=
-gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > index 0028f10ead42..bbf09aec9152 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > @@ -1469,7 +1469,7 @@ static int navi10_print_clk_levels(struct smu_con=
-text *smu,
-> >                       enum smu_clk_type clk_type, char *buf)
-> >   {
-> >       uint16_t *curve_settings;
-> > -     int i, levels, size =3D 0, ret =3D 0;
-> > +     int i, levels, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       uint32_t freq_values[3] =3D {0};
-> >       uint32_t mark_index =3D 0;
-> > @@ -1484,6 +1484,7 @@ static int navi10_print_clk_levels(struct smu_con=
-text *smu,
-> >       uint32_t min_value, max_value;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_GFXCLK:
-> > @@ -1497,11 +1498,11 @@ static int navi10_print_clk_levels(struct smu_c=
-ontext *smu,
-> >       case SMU_DCEFCLK:
-> >               ret =3D navi10_get_current_clk_freq_by_table(smu, clk_typ=
-e, &cur_value);
-> >               if (ret)
-> > -                     return size;
-> > +                     return size - start_offset;
-> >
-> >               ret =3D smu_v11_0_get_dpm_level_count(smu, clk_type, &cou=
-nt);
-> >               if (ret)
-> > -                     return size;
-> > +                     return size - start_offset;
-> >
-> >               ret =3D navi10_is_support_fine_grained_dpm(smu, clk_type)=
-;
-> >               if (ret < 0)
-> > @@ -1511,7 +1512,7 @@ static int navi10_print_clk_levels(struct smu_con=
-text *smu,
-> >                       for (i =3D 0; i < count; i++) {
-> >                               ret =3D smu_v11_0_get_dpm_freq_by_index(s=
-mu, clk_type, i, &value);
-> >                               if (ret)
-> > -                                     return size;
-> > +                                     return size - start_offset;
-> >
-> >                               size +=3D sysfs_emit_at(buf, size, "%d: %=
-uMhz %s\n", i, value,
-> >                                               cur_value =3D=3D value ? =
-"*" : "");
-> > @@ -1519,10 +1520,10 @@ static int navi10_print_clk_levels(struct smu_c=
-ontext *smu,
-> >               } else {
-> >                       ret =3D smu_v11_0_get_dpm_freq_by_index(smu, clk_=
-type, 0, &freq_values[0]);
-> >                       if (ret)
-> > -                             return size;
-> > +                             return size - start_offset;
-> >                       ret =3D smu_v11_0_get_dpm_freq_by_index(smu, clk_=
-type, count - 1, &freq_values[2]);
-> >                       if (ret)
-> > -                             return size;
-> > +                             return size - start_offset;
-> >
-> >                       freq_values[1] =3D cur_value;
-> >                       mark_index =3D cur_value =3D=3D freq_values[0] ? =
-0 :
-> > @@ -1653,7 +1654,7 @@ static int navi10_print_clk_levels(struct smu_con=
-text *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int navi10_force_clk_levels(struct smu_context *smu,
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/=
-drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > index 31c2c0386b1f..774283ac7827 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > @@ -1281,7 +1281,7 @@ static int sienna_cichlid_print_clk_levels(struct=
- smu_context *smu,
-> >       struct smu_11_0_7_overdrive_table *od_settings =3D smu->od_settin=
-gs;
-> >       OverDriveTable_t *od_table =3D
-> >               (OverDriveTable_t *)table_context->overdrive_table;
-> > -     int i, size =3D 0, ret =3D 0;
-> > +     int i, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       uint32_t freq_values[3] =3D {0};
-> >       uint32_t mark_index =3D 0;
-> > @@ -1289,6 +1289,7 @@ static int sienna_cichlid_print_clk_levels(struct=
- smu_context *smu,
-> >       uint32_t min_value, max_value;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_GFXCLK:
-> > @@ -1434,7 +1435,7 @@ static int sienna_cichlid_print_clk_levels(struct=
- smu_context *smu,
-> >       }
-> >
-> >   print_clk_out:
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > index 2c9869feba61..665eee58358d 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > @@ -565,7 +565,7 @@ static int vangogh_print_legacy_clk_levels(struct s=
-mu_context *smu,
-> >       DpmClocks_t *clk_table =3D smu->smu_table.clocks_table;
-> >       SmuMetrics_legacy_t metrics;
-> >       struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
-> > -     int i, idx, size =3D 0, ret =3D 0;
-> > +     int i, idx, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       bool cur_value_match_level =3D false;
-> >
-> > @@ -576,6 +576,7 @@ static int vangogh_print_legacy_clk_levels(struct s=
-mu_context *smu,
-> >               return ret;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_SCLK:
-> > @@ -658,7 +659,7 @@ static int vangogh_print_legacy_clk_levels(struct s=
-mu_context *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int vangogh_print_clk_levels(struct smu_context *smu,
-> > @@ -666,7 +667,7 @@ static int vangogh_print_clk_levels(struct smu_cont=
-ext *smu,
-> >   {
-> >       DpmClocks_t *clk_table =3D smu->smu_table.clocks_table;
-> >       SmuMetrics_t metrics;
-> > -     int i, idx, size =3D 0, ret =3D 0;
-> > +     int i, idx, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       bool cur_value_match_level =3D false;
-> >       uint32_t min, max;
-> > @@ -678,6 +679,7 @@ static int vangogh_print_clk_levels(struct smu_cont=
-ext *smu,
-> >               return ret;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_SCLK:
-> > @@ -779,7 +781,7 @@ static int vangogh_print_clk_levels(struct smu_cont=
-ext *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int vangogh_common_print_clk_levels(struct smu_context *smu,
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/=
-gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> > index 3baf20f4c373..eaa9ea162f16 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> > @@ -494,7 +494,7 @@ static int renoir_set_fine_grain_gfx_freq_parameter=
-s(struct smu_context *smu)
-> >   static int renoir_print_clk_levels(struct smu_context *smu,
-> >                       enum smu_clk_type clk_type, char *buf)
-> >   {
-> > -     int i, idx, size =3D 0, ret =3D 0;
-> > +     int i, idx, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0, min =3D 0, ma=
-x =3D 0;
-> >       SmuMetrics_t metrics;
-> >       bool cur_value_match_level =3D false;
-> > @@ -506,6 +506,7 @@ static int renoir_print_clk_levels(struct smu_conte=
-xt *smu,
-> >               return ret;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_RANGE:
-> > @@ -550,7 +551,7 @@ static int renoir_print_clk_levels(struct smu_conte=
-xt *smu,
-> >                       size +=3D sysfs_emit_at(buf, size, "2: %uMhz %s\n=
-", max,
-> >                                       i =3D=3D 2 ? "*" : "");
-> >               }
-> > -             return size;
-> > +             return size - start_offset;
-> >       case SMU_SOCCLK:
-> >               count =3D NUM_SOCCLK_DPM_LEVELS;
-> >               cur_value =3D metrics.ClockFrequency[CLOCK_SOCCLK];
-> > @@ -607,7 +608,7 @@ static int renoir_print_clk_levels(struct smu_conte=
-xt *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static enum amd_pm_state_type renoir_get_current_power_state(struct s=
-mu_context *smu)
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> > index c1062e5f0393..677781060246 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> > @@ -1195,15 +1195,16 @@ static int smu_v13_0_0_print_clk_levels(struct =
-smu_context *smu,
-> >       struct smu_13_0_dpm_table *single_dpm_table;
-> >       struct smu_13_0_pcie_table *pcie_table;
-> >       uint32_t gen_speed, lane_width;
-> > -     int i, curr_freq, size =3D 0;
-> > +     int i, curr_freq, size =3D 0, start_offset =3D 0;
-> >       int32_t min_value, max_value;
-> >       int ret =3D 0;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       if (amdgpu_ras_intr_triggered()) {
-> >               size +=3D sysfs_emit_at(buf, size, "unavailable\n");
-> > -             return size;
-> > +             return size - start_offset;
-> >       }
-> >
-> >       switch (clk_type) {
-> > @@ -1534,7 +1535,7 @@ static int smu_v13_0_0_print_clk_levels(struct sm=
-u_context *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-> > index b081ae3e8f43..6908f9930f16 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-> > @@ -497,11 +497,12 @@ static int smu_v13_0_4_get_dpm_level_count(struct=
- smu_context *smu,
-> >   static int smu_v13_0_4_print_clk_levels(struct smu_context *smu,
-> >                                       enum smu_clk_type clk_type, char =
-*buf)
-> >   {
-> > -     int i, idx, size =3D 0, ret =3D 0;
-> > +     int i, idx, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       uint32_t min, max;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_SCLK:
-> > @@ -565,7 +566,7 @@ static int smu_v13_0_4_print_clk_levels(struct smu_=
-context *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int smu_v13_0_4_read_sensor(struct smu_context *smu,
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-> > index f5db181ef489..4576bf008b22 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-> > @@ -861,11 +861,12 @@ static int smu_v13_0_5_set_soft_freq_limited_rang=
-e(struct smu_context *smu,
-> >   static int smu_v13_0_5_print_clk_levels(struct smu_context *smu,
-> >                               enum smu_clk_type clk_type, char *buf)
-> >   {
-> > -     int i, idx, size =3D 0, ret =3D 0;
-> > +     int i, idx, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       uint32_t min =3D 0, max =3D 0;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_SCLK:
-> > @@ -928,7 +929,7 @@ static int smu_v13_0_5_print_clk_levels(struct smu_=
-context *smu,
-> >       }
-> >
-> >   print_clk_out:
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> > index 285cf7979693..0e1b225dd875 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> > @@ -1428,7 +1428,7 @@ static int smu_v13_0_6_print_clks(struct smu_cont=
-ext *smu, char *buf, int size,
-> >   static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
-> >                                       enum smu_clk_type type, char *buf=
-)
-> >   {
-> > -     int now, size =3D 0;
-> > +     int now, size =3D 0, start_offset =3D 0;
-> >       int ret =3D 0;
-> >       struct smu_umd_pstate_table *pstate_table =3D &smu->pstate_table;
-> >       struct smu_13_0_dpm_table *single_dpm_table;
-> > @@ -1437,10 +1437,11 @@ static int smu_v13_0_6_print_clk_levels(struct =
-smu_context *smu,
-> >       uint32_t min_clk, max_clk;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       if (amdgpu_ras_intr_triggered()) {
-> >               size +=3D sysfs_emit_at(buf, size, "unavailable\n");
-> > -             return size;
-> > +             return size - start_offset;
-> >       }
-> >
-> >       dpm_context =3D smu_dpm->dpm_context;
-> > @@ -1575,7 +1576,7 @@ static int smu_v13_0_6_print_clk_levels(struct sm=
-u_context *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int smu_v13_0_6_upload_dpm_level(struct smu_context *smu, bool=
- max,
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> > index c96fa5e49ed6..a3fc35b9011e 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> > @@ -1184,15 +1184,16 @@ static int smu_v13_0_7_print_clk_levels(struct =
-smu_context *smu,
-> >       struct smu_13_0_dpm_table *single_dpm_table;
-> >       struct smu_13_0_pcie_table *pcie_table;
-> >       uint32_t gen_speed, lane_width;
-> > -     int i, curr_freq, size =3D 0;
-> > +     int i, curr_freq, size =3D 0, start_offset =3D 0;
-> >       int32_t min_value, max_value;
-> >       int ret =3D 0;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       if (amdgpu_ras_intr_triggered()) {
-> >               size +=3D sysfs_emit_at(buf, size, "unavailable\n");
-> > -             return size;
-> > +             return size - start_offset;
-> >       }
-> >
-> >       switch (clk_type) {
-> > @@ -1523,7 +1524,7 @@ static int smu_v13_0_7_print_clk_levels(struct sm=
-u_context *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int smu_v13_0_7_od_restore_table_single(struct smu_context *sm=
-u, long input)
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-> > index 73b4506ef5a8..5d7e671fa3c3 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-> > @@ -1041,12 +1041,13 @@ static uint32_t yellow_carp_get_umd_pstate_clk_=
-default(struct smu_context *smu,
-> >   static int yellow_carp_print_clk_levels(struct smu_context *smu,
-> >                               enum smu_clk_type clk_type, char *buf)
-> >   {
-> > -     int i, idx, size =3D 0, ret =3D 0;
-> > +     int i, idx, size =3D 0, ret =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       uint32_t min, max;
-> >       uint32_t clk_limit =3D 0;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_SCLK:
-> > @@ -1111,7 +1112,7 @@ static int yellow_carp_print_clk_levels(struct sm=
-u_context *smu,
-> >       }
-> >
-> >   print_clk_out:
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int yellow_carp_force_clk_levels(struct smu_context *smu,
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > index fe00c84b1cc6..b1bd946d8e30 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > @@ -1132,11 +1132,12 @@ static int smu_v14_0_common_get_dpm_level_count=
-(struct smu_context *smu,
-> >   static int smu_v14_0_0_print_clk_levels(struct smu_context *smu,
-> >                                       enum smu_clk_type clk_type, char =
-*buf)
-> >   {
-> > -     int i, idx, ret =3D 0, size =3D 0;
-> > +     int i, idx, ret =3D 0, size =3D 0, start_offset =3D 0;
-> >       uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> >       uint32_t min, max;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       switch (clk_type) {
-> >       case SMU_OD_SCLK:
-> > @@ -1202,7 +1203,7 @@ static int smu_v14_0_0_print_clk_levels(struct sm=
-u_context *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int smu_v14_0_0_set_soft_freq_limited_range(struct smu_context=
- *smu,
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> > index 086501cc5213..2cea688c604f 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> > @@ -1056,15 +1056,16 @@ static int smu_v14_0_2_print_clk_levels(struct =
-smu_context *smu,
-> >       struct smu_14_0_dpm_table *single_dpm_table;
-> >       struct smu_14_0_pcie_table *pcie_table;
-> >       uint32_t gen_speed, lane_width;
-> > -     int i, curr_freq, size =3D 0;
-> > +     int i, curr_freq, size =3D 0, start_offset =3D 0;
-> >       int32_t min_value, max_value;
-> >       int ret =3D 0;
-> >
-> >       smu_cmn_get_sysfs_buf(&buf, &size);
-> > +     start_offset =3D size;
-> >
-> >       if (amdgpu_ras_intr_triggered()) {
-> >               size +=3D sysfs_emit_at(buf, size, "unavailable\n");
-> > -             return size;
-> > +             return size - start_offset;
-> >       }
-> >
-> >       switch (clk_type) {
-> > @@ -1374,7 +1375,7 @@ static int smu_v14_0_2_print_clk_levels(struct sm=
-u_context *smu,
-> >               break;
-> >       }
-> >
-> > -     return size;
-> > +     return size - start_offset;
-> >   }
-> >
-> >   static int smu_v14_0_2_force_clk_levels(struct smu_context *smu,
->
+
+-----Original Message-----
+From: Liu, Alysa <Alysa.Liu@amd.com>
+Sent: Tuesday, October 14, 2025 9:43 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Liu, Alysa <A=
+lysa.Liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix vram_usage underflow
+
+From: Alysa Liu <Alysa.Liu@amd.com>
+
+vram_usage was subtracting non-vram memory size,
+which caused it to become negative.
+
+Signed-off-by: Alysa Liu <Alysa.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 22c1bdc53d2e..c2fa330ff78b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1961,9 +1961,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+         */
+        if (size) {
+                if (!is_imported &&
+-                  (mem->bo->preferred_domains =3D=3D AMDGPU_GEM_DOMAIN_VRA=
+M ||
+-                  (adev->apu_prefer_gtt &&
+-                   mem->bo->preferred_domains =3D=3D AMDGPU_GEM_DOMAIN_GTT=
+)))
++                  mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
+                        *size =3D bo_size;
+                else
+                        *size =3D 0;
+--
+2.34.1
+
