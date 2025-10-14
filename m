@@ -4,146 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33BC5CCD187
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 09:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31BFACCD184
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 09:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D00F410E585;
-	Tue, 14 Oct 2025 09:06:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1F8E10E11D;
+	Tue, 14 Oct 2025 09:37:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ol6E4epM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iMLeH/e3";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010040.outbound.protection.outlook.com [52.101.61.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAD3610E585
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 09:06:10 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A9CA10E11D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 09:37:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UFhnuhCo4Oh7syyyVHD1gbMfuU+Ma8ogYsyqMjzrSzR4rv4Kdn7IqRH0V1ZLIzFo7Ug1PAUAT77feTFeRxFEmK25b5RCIHT1Eu3UELrgaEdafd+LEq4G6/7VjAodFYtBzmzSMR6RT2WXPG+2wjzm8c7UkAPSVYJTnacghRSNSc/XXBXVSKOM3zvS/3GmICHQNa84E+wYGQZPVcYilXq2qwwsXNmiOXlCQFnEkmPC/O7sgvy0m7Gau5xBBs/ji2QlPdgayzR+w9sOcNx0NVtoN326hEsbkwNLVRhVJldcOFR1myGpwB0H+pXgSBQNw5Tv4+5W/Rogh1f29SvfBsXh6g==
+ b=LRMQfEE/ZcynDxHVbdI5WKRqWO1rWpuRC5XYZoZlxncewZTzYKeqtDKX82sGJeeVwJpXvKLyeE4F3pURQoOp4xA/PviU6i1ajsy9SxHPmN3ua3Z6CArZo8vw0NqU3f5jeyJM5MnbBIPh6UGyHrXXfjPH1zkRmb5Y/0hx3Qez5T/kFN9PVaD5kQWTuE/WQDQIUnlz63wGqadkioWiCibRtbDFK/Z7KfDYgR3qMXSEHkJ+iiZYJ0s1Bj1k0q/4p1HiDcAf726utJVrYTJwnmIQU8cXOxfAZ0UqQ+i+xEHUMzcBjElyQfkWHl2wJVmSnY+BN7YDTd3xIz58bjxk+kCVMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j2+bOEKylrp0MUX9xUkY9VUo/uQyteAhQIPJufDx1As=;
- b=eI2zF1v1pZjLpMYZGUO/Ps6JdDOgEMorpS4fgYRIrHMkt8TPi1KszkFwJ3JRTaR20FB/mQz4gk9Wz7Q69BTHOe3j2UGn65JQoKDT34sMQ/RGp1VldT8qm1A8j8E+wc9ZDYDIzL94b7to3/b8Nm/KAqIcMTwB6bKRdyWo1sU7qT1ooQge5KIQ48HyLfkWpTF3wLZLJtAMJz+Kw+b2188vuLtoKVMfGL4PpSwX/fs2DnfA/vEizJU22wLKkmlF+vAZ/VFupkL027MGKj8gW3IMH3N0Y6FWyyNZ2+iav8ao9Liw1dsihEvXyckynnT1ORw3HP8VoAgAFsHKo+Ebtu2MmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=U0Nsjsfdcn/eiv0oxQeWp4F78wub+ttMRApI5naB74k=;
+ b=FK37Z3w7stXd4eloTgKwfqJQEW7B0AMfTMIF9sX5CUUj+ABgQG5NZz3KgWd7tKIc9gpPQj4nX1hKgkBY01rc/H7syululA0mo09lmWQKARwCqB2Ii8SGrFAxsoUCkvKzq87f/z03raHbFKCG+5PiLAvCheOtjQLDW1ePYgtUpUBBLwCgdwEdxKaBPz4FSm5ANp1yfY6Mzc4bu0v4Wu56BqkkwKaW1QxU9RXXMNWoJC3YwiLTMpf77pX7QXsgIEZhpGGollFQOh/L9McVA8+48BXkSmKc/ON9qU99ujViJ05kbnmcSQyTxWi04C8G+OTNwYmQS/u4LtYxakcEoNb6bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j2+bOEKylrp0MUX9xUkY9VUo/uQyteAhQIPJufDx1As=;
- b=Ol6E4epM11OarZcIG9z+1gfcOPbd+KvnViulmabMq/BKq+8URBSbDSg1YXJ8ZcPBbAiR+98b4GMaRgC+A+vjkYuHQjhT9eipLmweD6DD77H3LZOR0ApjSmGA6uR9FKoQNOrGDrCq9rTVkZRY821H05YZiXWgHubyeordEus4jsc=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- PH0PR12MB5680.namprd12.prod.outlook.com (2603:10b6:510:146::8) with
- Microsoft
+ bh=U0Nsjsfdcn/eiv0oxQeWp4F78wub+ttMRApI5naB74k=;
+ b=iMLeH/e32ye31rU/u5Q++CBwcVoNSipGEsEowgZEsdpQftPPqsspvuHnph0EHgldxAaI2KA2ZUTa+u7icp6GvvjkQwmjWjnab6SgwEafpf1SIGbYWMd+LCPLbv9+Mud/KNEsdZzOZA5UH3DqMS6d7n/ihmphpNML0bX7/YWLQ6s=
+Received: from SA9PR11CA0022.namprd11.prod.outlook.com (2603:10b6:806:6e::27)
+ by LV9PR12MB9805.namprd12.prod.outlook.com (2603:10b6:408:2ee::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.10; Tue, 14 Oct
+ 2025 09:37:22 +0000
+Received: from SN1PEPF00026369.namprd02.prod.outlook.com
+ (2603:10b6:806:6e:cafe::7e) by SA9PR11CA0022.outlook.office365.com
+ (2603:10b6:806:6e::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9203.13 via Frontend Transport; Tue,
+ 14 Oct 2025 09:37:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.10; Tue, 14 Oct 2025 09:06:08 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb%4]) with mapi id 15.20.9203.009; Tue, 14 Oct 2025
- 09:06:08 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 2/6] drm/amdgpu/gfx: add eop size and alignment to shadow
- info
-Thread-Topic: [PATCH 2/6] drm/amdgpu/gfx: add eop size and alignment to shadow
- info
-Thread-Index: AQHcPFxwIOvR74/BSEClGkvkFEpV27TBWsgg
-Date: Tue, 14 Oct 2025 09:06:08 +0000
-Message-ID: <DS7PR12MB600501942FFD6E9A0849E1FFFBEBA@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20251013161352.1628044-1-alexander.deucher@amd.com>
- <20251013161352.1628044-2-alexander.deucher@amd.com>
-In-Reply-To: <20251013161352.1628044-2-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-10-14T09:05:57.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|PH0PR12MB5680:EE_
-x-ms-office365-filtering-correlation-id: 5ff8f17d-74ba-4c3a-e48e-08de0b00e9ec
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7053199007|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?vmZCEBGppy1bgjAJxFUIAzhU7r2RZdjGZqm7CtgsV5wwTSKjhm1nDCTsbObQ?=
- =?us-ascii?Q?DkWvoP4TWkNrP5kctYbR2sPOLxG4BdPcb4O9aRAVUeuu2zyv4cy+x010j61m?=
- =?us-ascii?Q?BWsqvYNQrS3a8/Qr/wssTk9lhxcVNScPZaargfVAql6v4YeacBbQE0B1bYec?=
- =?us-ascii?Q?cO8fmZ6KhlZi6ANaiGMQtD+VSfkNtnuTTZ3PHBLnVSoMeWxxfyTCSRMq9H+6?=
- =?us-ascii?Q?Avjqi/C76cWF+E0kniCqdtDkX/IqcTxJwzZ1KvBpOAJkDU/NbkSP22PYNu3X?=
- =?us-ascii?Q?FzEwXnicjFT0MIuG0NqRJjjBs9GtiTdSvyqUX683WmtMTEetzDfkJ4vX5tWi?=
- =?us-ascii?Q?ZCDtJT4wj0JKQgVT8vO+YFL4eRLeeZl81XjAyrl9afeeSpsVovk7Sy7LFtoD?=
- =?us-ascii?Q?IyIw3sa8W5YvzjFgQAkI0c1ziq2EPHROYZHzxMH1/X0VuZHvurs7fBeSujIC?=
- =?us-ascii?Q?FaQ5E743q/9cVFj4d+wd3az9U5/Cyq+bul+VDyLKBfeuveNKVDDUbE/oNPpD?=
- =?us-ascii?Q?C1e1ItGoLMNzLPF1hTuQqjDkoMg+iKrVnZPqGF+g9xYGdx5ZVh9R8ngiPHu2?=
- =?us-ascii?Q?tYk02AN2Ua+nkjpMO2YAFk9MvVq7UW9Dj/APosGw2eCREV26l3JJOSYSMWCq?=
- =?us-ascii?Q?hEMxFS06KDwL62WfAZgGx9nqws+VgZwwlVOFQQwmaBh7avaN/gW5RUuYlOEs?=
- =?us-ascii?Q?UQb/E3pJ84KI073ejrFn6jQQUWhY9qgwbMCdz84kG5vhGqFuCrUAsRZBjBiR?=
- =?us-ascii?Q?n5kPnpUZy5NePEP+96Q4F1f7EmOSQDfufrc58divqk/TZ6GY96Cl8OFLfOmy?=
- =?us-ascii?Q?zdxoMd/tLnA+1OYWlm9yHiN9LEbrI6pvmjOuEL/pXP6vztiVv/hAXwFBrfRz?=
- =?us-ascii?Q?lcVd1KHUYQYWDNm9dV1WWBEBTp3rXIjCHNCZNNoBqpN5EnqKCsycuT8RnhVk?=
- =?us-ascii?Q?uTIcPSiWqkbg/Neor6rzBjuv8rJZklsNt5H2ftsZyu0KdvdpPa67QBZtUCN3?=
- =?us-ascii?Q?15ffolT30Zp16tmrNG3o0STdE0w7L8xNV3Wh8zxUeNt5nvbWkr9z1EGryF3P?=
- =?us-ascii?Q?Hf9JShpYoUI0rtdLN/mUmPOXQ3mEWvJ24xbF/x/6I56IGG21e97ddkne5niD?=
- =?us-ascii?Q?MYVQUHmm9BBFT/wKuZnLLG3JfllcIHKqNXHGYD1Yt1TjXOp8En6Fyi/BUkIA?=
- =?us-ascii?Q?/olXan1JADr7zQePs7aFVc1JmT0C9Ws4THSif6Al/oB0eT4dxxe+7mCgH578?=
- =?us-ascii?Q?0Y9V5mM+YLZ9bSAnXOObbH5UXz1vEBKAl2cxUT6YFFxwMBxIVYv3jrAJcms7?=
- =?us-ascii?Q?lxVJeSdAZKJZOiDXZ/IkqkuAlCjzTE4q7h+DdjZtl5YM1eqe/+E4ki0E+f6i?=
- =?us-ascii?Q?3FxFr96IgqXtJgZZ8yS4dFgR/OmbBFRT/KOLu/NKTu4/WcYbP7nK/Fz1pc1e?=
- =?us-ascii?Q?e60tclPYjiWrNUFb0Qb3X0EulzFiNF5S4KqplRt7batkJvyTVENi9+tioFHp?=
- =?us-ascii?Q?yy2yZqJc/G+PaQIUF1iIWTTdKJrW816vK+2p?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(38070700021); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+RPQL2y9RhoB34hyUaYAlTyaGZDfG1AJ617QucF0n6E13llD/0sPTAmnoEH+?=
- =?us-ascii?Q?HyPcaHOgjGdLu17hmXM6DZIlY5Wy01T+ZUSItIEOKexI6lDDTptYekzx1As9?=
- =?us-ascii?Q?GLZ864zmV5RcdG3rdb0SjYWvMQ3aHq8W+VIfIXNdFNpifto2/Ros53mvGJ7Q?=
- =?us-ascii?Q?8jyjE5z7efDkseaVzGKlEVw3r20z8MtLQbmjm84jZDgCfI3SBMMj79vJCi9N?=
- =?us-ascii?Q?wwJWGBtR3YggicZhV6UAp5HIpLbqa2Zsub7RqwW3aD91S8tF0xoaBZH8l7k7?=
- =?us-ascii?Q?QrG2jnbfWJ6Z7jGmYMKXiYmLvc9z+JavpZz7+3DLD4QxvbPZNDhMEFbrLCWL?=
- =?us-ascii?Q?NQtgu/lDAVUq+AGj/iO6pJQn1wvyeQGwIt/nJeyRvMewNJOKOXCjR1N4WpP1?=
- =?us-ascii?Q?piyML7OYMRRcbbbJYtUMEFFC6PGSILkjpcnq65MlcDiAh5h3of7y4gq+APIt?=
- =?us-ascii?Q?8ooueTElThYP989W/tHT3HpDreHHpG9r2AKsyym0qfWlb9w/v3cMzOufll8R?=
- =?us-ascii?Q?EkPpvaKj7CzmGFdDPulkKcYJkWCfvYjOa5edEUyWSjgZOIe3e2VtFHgN2lRO?=
- =?us-ascii?Q?v9WaRRWiBRbNSuhUcO0CvyWHo5CkA4ryk9I9PpwiqQM9pVvRb6TSMpV+J9bM?=
- =?us-ascii?Q?PqsipA96/XAiTQeeVM2jnpNbwY7s76tt2wJwSuVr+kTnAe/+G7F0TpRPZObz?=
- =?us-ascii?Q?SXKqfdvjojCR2ZCuqXZdsDh4zR3Ynl4zVDljMxps3Nn3COrh2g/dhNFeekDC?=
- =?us-ascii?Q?EFxorThVLoU/vCLO5D3rHbuETgbXbEcAj9iL4bg0MsTXQbimx9cfTZgn5jHc?=
- =?us-ascii?Q?DsOVg/X8V14sgD4xt+OWZxRKEsrCgCp9I21yMESFkZV5tLFFPshZkMISbfRi?=
- =?us-ascii?Q?Mr1ICES6EOCP0cS0mCNNSC3JTMXQDpsPDfX+ZJqkZiWT35ZQG489FQ+28tCS?=
- =?us-ascii?Q?Lq/v2/86z6sNqh0ZU83rcpZY0418ECcuBv+qkPKuMhQSN0TxTxX2p48cBDNr?=
- =?us-ascii?Q?YJjxQvCLEiFanROMww68aRJGL3uAhJ/yNJyCURaGb/UB4nwHzVGpZQAOhpHw?=
- =?us-ascii?Q?gb4yCVN4JUEJj1z1+xKP2LusijNgquE1lBwH863vpeala50TMY9Rcu3g4Sig?=
- =?us-ascii?Q?0xsHbyZrAfIB9VrOWznxiCfu+bqPNhOV+OeXHnvcdAVndGgmRsC6G0m1hMFN?=
- =?us-ascii?Q?3B73RNYkG3QHxrcslWAAUp05qh+ONL9K9fBD9zlpX5XWEuxz03xXennEcH/9?=
- =?us-ascii?Q?OBJdWPAKpeZQX5oJKKFlir8gGH4T/gMpiy651GNvLCWSf+3miQsk+OQbQwn5?=
- =?us-ascii?Q?+sGFUDLapgftlISgQC3cGlUfSEccHEAeDR0er3eYsQXks64MHHcT0ySAzzjG?=
- =?us-ascii?Q?b1cjo3VFEusAtd8bsIQnZbuehSPhbu99l26u4qd4btMF6gfN0J6lkL5I/J6p?=
- =?us-ascii?Q?FCTRPudiBxYfbjgPaDQsETNdl8JD5+WyaCcbbmnGVk4bDa753mJExQEW6L8t?=
- =?us-ascii?Q?MBig9lvKnUItM1NGeuX0DFOA35LIbgDtGOjSdIVfujbWs5DFVbZnyMcGAqE+?=
- =?us-ascii?Q?FN5xA9XFNt2HU54pq9o=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 15.20.9228.7 via Frontend Transport; Tue, 14 Oct 2025 09:37:22 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 14 Oct
+ 2025 02:37:21 -0700
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 14 Oct
+ 2025 04:37:21 -0500
+Received: from victor-aws2.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 14 Oct 2025 02:37:20 -0700
+From: Victor Zhao <Victor.Zhao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <HaiJun.Chang@amd.com>, <lijo.lazar@amd.com>, Victor Zhao
+ <Victor.Zhao@amd.com>
+Subject: [PATCH v3 2/2] drm/amdgpu: use GPU_HDP_FLUSH for sriov
+Date: Tue, 14 Oct 2025 17:37:11 +0800
+Message-ID: <20251014093711.434989-2-Victor.Zhao@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20251014093711.434989-1-Victor.Zhao@amd.com>
+References: <20251014093711.434989-1-Victor.Zhao@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|LV9PR12MB9805:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ac2c54c-e589-4249-6e8f-08de0b0546b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?y4h6Fkg8xb9usy5hpVau+PIihwsxpeNN1/i70/Tt/6nBSQHTFJxGg5RLXmxl?=
+ =?us-ascii?Q?kWBzDS3YicBU1+9WBeDuMVITl76+75QbBn2+kJkcEyrvJZmClcdvIUPvmxNC?=
+ =?us-ascii?Q?TbQZvx/NYcfd+zmN3bI15fVi2F+xT4V71eXoXbUWNFtOHGaBb/yS8o3FqpV4?=
+ =?us-ascii?Q?aDZrhYX9Y7HCfBnLWwFCDMCtE+/td0Y0OFHFpxAbWFl3qn1AuBLIhmo2SG9M?=
+ =?us-ascii?Q?iIuoOYVWhujX1ePwKQC/z5uYlBWAWXqi7Q8btgSDB8FXJgY2A6mmLbJIMvZC?=
+ =?us-ascii?Q?zJvEwu/8cAKVk1vDv6hdV1esLOHa6a2INWxMVd//4T8UgxVVhdbQQ1TkiRSG?=
+ =?us-ascii?Q?Mh+dshv/O7FukBi23QCia2xaGDCF1mAsM16T5S4AIxPVdjJyRE7OcKaPk2n6?=
+ =?us-ascii?Q?mMnDfg2mV5AN+ccWLx4yekH9RlDlDJSCIfW07KisBWfOP1wzeZoml8IkYkzE?=
+ =?us-ascii?Q?y4aRG+DF/Y5jvW1sFAUGii2XRsnyaFJ/p+14KNuyGoHlrs5VuWgZlgMRHG4n?=
+ =?us-ascii?Q?qnLxp429Z3uOSPrQZR8uBVwObZ6+eDNVlQYQa93tZkO4nhOra/q6PXu8E3Ag?=
+ =?us-ascii?Q?qw13NVZcuVnfD01fTaBgrVC0JChogpk6mKHQgZEOoRd7LAYVoBvBoFIigMM5?=
+ =?us-ascii?Q?n6TdEBP6WCfUUnp1Z7AxzQ7kSBfEo6uZE4GYlRv96QToWRiIGdzf4oFQaqUR?=
+ =?us-ascii?Q?6EXbX5HKJRU5Srwr7zD8rU5xMCnmFITDkiq5btLanTTpFggYzaZBv92e7Ak5?=
+ =?us-ascii?Q?jvnZMYX4UNKdehXxl1XZ6oy8FYZM1AY45EvdUSSFUedZlex6OSdrWofu8nbF?=
+ =?us-ascii?Q?GSP3ICvE2kIRzTUQHagGN+qIHc2mHr5dMOLdoVKz28IzyDMTl5Wg/X/5FpR3?=
+ =?us-ascii?Q?RoNzpgTLzAaoKU/D8NY6q0VacxjE7pLxLbnRhWUDOVM7VM14XehOZuPeu6Eo?=
+ =?us-ascii?Q?MultwVtUwSKAwMEY17Fj9R77HG0FQXWETyC/Zz+Yfn0O4LuSsB2CroHYrsU3?=
+ =?us-ascii?Q?0DpTiAweAb1N09CFSRNZ1z8DLtvm+8p+iAba++HvTDsw5mcqHbt0ZWkEASPA?=
+ =?us-ascii?Q?cShgcxKIakuH2MzBVVQNkbMX3of/aHInTITyRPQnN58Ci7R4GDh6hfJ7L5f4?=
+ =?us-ascii?Q?KS2JsBoRy+rHcQiOmT2iAV8Di4FRq5YH/Z4qbC0moxTaQdRukqxlcyqalrFS?=
+ =?us-ascii?Q?cdhtMiX/LlC3dqorjHEBQXogF+Ze1fgCCN55d6GiSheHdQKKmpKUzrxgB0VI?=
+ =?us-ascii?Q?ULELez2BreiJ7vlZo0JTwZfZU52ZrePWwiHyYe4nBlve4ank9k+PjOkBN4nj?=
+ =?us-ascii?Q?mIM2i1mvzB/GqWEYX4FVJYjXDtHSjH1D4avtVzOoy4iXj1Pxe6Usj1VYuwyU?=
+ =?us-ascii?Q?1O1vwLDoFoqZfx774Yaz0Ud1Bp2OUt/sd1VQZlPmM3VDoLyXt2Jmn+vFbUgZ?=
+ =?us-ascii?Q?DVHSfamwf9ivOti0QnfPTctdnLqJp7x9MXnV4sPpSOQIeEMjMVNpSfC2GBfS?=
+ =?us-ascii?Q?T3/taQcUBvkF0viB8xtdB1EtHadoVJA4Vti/mzemedOZzclbal+RR/jgu2kC?=
+ =?us-ascii?Q?D0IOBQjOthk2dwdThPI=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ff8f17d-74ba-4c3a-e48e-08de0b00e9ec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2025 09:06:08.5504 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qcDd+s3ReI4DO4qiKAs5xU17d267vU9wHf37SyBmSLQGhCa6wqX6KAhTrxCdnwFa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5680
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 09:37:22.1271 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ac2c54c-e589-4249-6e8f-08de0b0546b0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026369.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9805
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,91 +138,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Currently SRIOV runtime will use kiq to write HDP_MEM_FLUSH_CNTL for
+hdp flush. This register need to be write from CPU for nbif to aware,
+otherwise it will not work.
 
-Reviewed-by: Prike Liang <Prike.Liang@amd.com>
+Implement amdgpu_kiq_hdp_flush and use kiq to do gpu hdp flush during
+sriov runtime.
 
-Regards,
-      Prike
+v2:
+- fallback to amdgpu_asic_flush_hdp when amdgpu_kiq_hdp_flush failed
+- add function amdgpu_mes_hdp_flush
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
-> Deucher
-> Sent: Tuesday, October 14, 2025 12:14 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH 2/6] drm/amdgpu/gfx: add eop size and alignment to shadow=
- info
->
-> This is used by firmware for compute user queues.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 2 ++
-> drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 4 ++++
-> drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 4 ++++
->  3 files changed, 10 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index fb5f7a0ee029f..7109a2ad9ec36 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -328,6 +328,8 @@ struct amdgpu_gfx_shadow_info {
->       u32 shadow_alignment;
->       u32 csa_size;
->       u32 csa_alignment;
-> +     u32 eop_size;
-> +     u32 eop_alignment;
->  };
->
->  struct amdgpu_gfx_funcs {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index d61eb9f187c64..001ffe3820be2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1052,10 +1052,14 @@ static void gfx_v11_0_select_me_pipe_q(struct
-> amdgpu_device *adev,  static void gfx_v11_0_get_gfx_shadow_info_nocheck(s=
-truct
-> amdgpu_device *adev,
->                                        struct amdgpu_gfx_shadow_info
-> *shadow_info)  {
-> +     /* for gfx */
->       shadow_info->shadow_size =3D MQD_SHADOW_BASE_SIZE;
->       shadow_info->shadow_alignment =3D MQD_SHADOW_BASE_ALIGNMENT;
->       shadow_info->csa_size =3D MQD_FWWORKAREA_SIZE;
->       shadow_info->csa_alignment =3D MQD_FWWORKAREA_ALIGNMENT;
-> +     /* for compute */
-> +     shadow_info->eop_size =3D GFX11_MEC_HPD_SIZE;
-> +     shadow_info->eop_alignment =3D 256;
->  }
->
->  static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev, dif=
-f --git
-> a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index 93fde0f9af87f..f067ad4146454 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -909,10 +909,14 @@ static void gfx_v12_0_select_me_pipe_q(struct
-> amdgpu_device *adev,  static void gfx_v12_0_get_gfx_shadow_info_nocheck(s=
-truct
-> amdgpu_device *adev,
->                                                 struct amdgpu_gfx_shadow_=
-info
-> *shadow_info)  {
-> +     /* for gfx */
->       shadow_info->shadow_size =3D MQD_SHADOW_BASE_SIZE;
->       shadow_info->shadow_alignment =3D MQD_SHADOW_BASE_ALIGNMENT;
->       shadow_info->csa_size =3D MQD_FWWORKAREA_SIZE;
->       shadow_info->csa_alignment =3D MQD_FWWORKAREA_ALIGNMENT;
-> +     /* for compute */
-> +     shadow_info->eop_size =3D GFX12_MEC_HPD_SIZE;
-> +     shadow_info->eop_alignment =3D 256;
->  }
->
->  static int gfx_v12_0_get_gfx_shadow_info(struct amdgpu_device *adev,
-> --
-> 2.51.0
+v3:
+- changed returned error
+
+Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 71 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    | 12 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  1 +
+ 5 files changed, 95 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7a899fb4de29..65cc6f776536 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -7279,10 +7279,17 @@ void amdgpu_device_flush_hdp(struct amdgpu_device *adev,
+ 	if (adev->gmc.xgmi.connected_to_cpu)
+ 		return;
+ 
+-	if (ring && ring->funcs->emit_hdp_flush)
++	if (ring && ring->funcs->emit_hdp_flush) {
+ 		amdgpu_ring_emit_hdp_flush(ring);
+-	else
+-		amdgpu_asic_flush_hdp(adev, ring);
++		return;
++	}
++
++	if (!ring && amdgpu_sriov_runtime(adev)) {
++		if (!amdgpu_kiq_hdp_flush(adev))
++			return;
++	}
++
++	amdgpu_asic_flush_hdp(adev, ring);
+ }
+ 
+ void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 7f02e36ccc1e..3d24f9cd750a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -33,6 +33,7 @@
+ #include "amdgpu_reset.h"
+ #include "amdgpu_xcp.h"
+ #include "amdgpu_xgmi.h"
++#include "amdgpu_mes.h"
+ #include "nvd.h"
+ 
+ /* delay 0.1 second to enable gfx off feature */
+@@ -1194,6 +1195,75 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint3
+ 	dev_err(adev->dev, "failed to write reg:%x\n", reg);
+ }
+ 
++int amdgpu_kiq_hdp_flush(struct amdgpu_device *adev)
++{
++	signed long r, cnt = 0;
++	unsigned long flags;
++	uint32_t seq;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
++	struct amdgpu_ring *ring = &kiq->ring;
++
++	if (amdgpu_device_skip_hw_access(adev))
++		return 0;
++
++	if (adev->enable_mes_kiq && adev->mes.ring[0].sched.ready)
++		return amdgpu_mes_hdp_flush(adev);
++
++	if (!ring->funcs->emit_hdp_flush) {
++		return -EOPNOTSUPP;
++	}
++
++	spin_lock_irqsave(&kiq->ring_lock, flags);
++	r = amdgpu_ring_alloc(ring, 32);
++	if (r)
++		goto failed_unlock;
++
++	amdgpu_ring_emit_hdp_flush(ring);
++	r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
++	if (r)
++		goto failed_undo;
++
++	amdgpu_ring_commit(ring);
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++
++	r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
++
++	/* don't wait anymore for gpu reset case because this way may
++	 * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
++	 * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
++	 * never return if we keep waiting in virt_kiq_rreg, which cause
++	 * gpu_recover() hang there.
++	 *
++	 * also don't wait anymore for IRQ context
++	 * */
++	if (r < 1 && (amdgpu_in_reset(adev) || in_interrupt()))
++		goto failed_kiq_hdp_flush;
++
++	might_sleep();
++	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
++		if (amdgpu_in_reset(adev))
++			goto failed_kiq_hdp_flush;
++
++		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
++		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
++	}
++
++	if (cnt > MAX_KIQ_REG_TRY) {
++		dev_err(adev->dev, "failed to flush HDP via KIQ timeout\n");
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++
++failed_undo:
++	amdgpu_ring_undo(ring);
++failed_unlock:
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++failed_kiq_hdp_flush:
++	dev_err(adev->dev, "failed to flush HDP via KIQ\n");
++	return r < 0 ? r : -EIO;
++}
++
+ int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev)
+ {
+ 	if (amdgpu_num_kcq == -1) {
+@@ -2484,3 +2554,4 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
+ 			    &amdgpu_debugfs_compute_sched_mask_fops);
+ #endif
+ }
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index fb5f7a0ee029..efd61a1ccc66 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -615,6 +615,7 @@ int amdgpu_gfx_cp_ecc_error_irq(struct amdgpu_device *adev,
+ 				  struct amdgpu_iv_entry *entry);
+ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg, uint32_t xcc_id);
+ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, uint32_t xcc_id);
++int amdgpu_kiq_hdp_flush(struct amdgpu_device *adev);
+ int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);
+ void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t ucode_id);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 8d03e8c9cc6d..be62681b0c3a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -523,6 +523,18 @@ int amdgpu_mes_reg_write_reg_wait(struct amdgpu_device *adev,
+ 	return r;
+ }
+ 
++int amdgpu_mes_hdp_flush(struct amdgpu_device *adev)
++{
++	uint32_t hdp_flush_req_offset, hdp_flush_done_offset, ref_and_mask;
++
++	hdp_flush_req_offset = adev->nbio.funcs->get_hdp_flush_req_offset(adev);
++	hdp_flush_done_offset = adev->nbio.funcs->get_hdp_flush_done_offset(adev);
++	ref_and_mask = adev->nbio.hdp_flush_reg->ref_and_mask_cp0;
++
++	return amdgpu_mes_reg_write_reg_wait(adev, hdp_flush_req_offset, hdp_flush_done_offset,
++					     ref_and_mask, ref_and_mask);
++}
++
+ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
+ 				uint64_t process_context_addr,
+ 				uint32_t spi_gdbg_per_vmid_cntl,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index 6b506fc72f58..3a51ace2fa14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -427,6 +427,7 @@ int amdgpu_mes_wreg(struct amdgpu_device *adev,
+ int amdgpu_mes_reg_write_reg_wait(struct amdgpu_device *adev,
+ 				  uint32_t reg0, uint32_t reg1,
+ 				  uint32_t ref, uint32_t mask);
++int amdgpu_mes_hdp_flush(struct amdgpu_device *adev);
+ int amdgpu_mes_set_shader_debugger(struct amdgpu_device *adev,
+ 				uint64_t process_context_addr,
+ 				uint32_t spi_gdbg_per_vmid_cntl,
+-- 
+2.25.1
 
