@@ -4,75 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F8ECCD18D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 12:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 661A8CCD18D
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 12:20:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F50A10E5D8;
-	Tue, 14 Oct 2025 12:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEA3510E220;
+	Tue, 14 Oct 2025 12:20:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KURGoEuo";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qatrWjrm";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C96710E5D7;
- Tue, 14 Oct 2025 12:09:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0175A61E4A;
- Tue, 14 Oct 2025 12:01:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2653AC4CEFE;
- Tue, 14 Oct 2025 12:00:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760443259;
- bh=vP8VV2WMgH8+wnOSqTJR2WtfyqUjyMXxAPajXCiBnPA=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=KURGoEuoHC27Jz4fNyU+1o5A8awVXBokUhCX9dFxTyWdifv6rbCNU4S4SaaFu3bJa
- 30wemBmnFsbpzWHC6/oxBKLCaEyGuBU+s3LSwF7jsyc9qXYdcwOIuvtJ5gK1qbq4HM
- /4qnyA3BLAikgazdLpLieFm7fovbF9sw6mfjAtP/3fzl4HJulOUwbgtATCnR9Xn+Tn
- PFvG/e+VgbQ46/DNBjuZpze4m39DcyTGC857v6PoCVF1YWM8R+j7kyqXWmWMDClMzr
- M5SeFT0RH+ul2noy82NKJ77pCoMFwDNz3LDgACF3grMHqEXofRCYZDUA2fDoojhxQX
- hRnsy/yKe4VGA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 14 Oct 2025 11:32:00 +0200
-Subject: [PATCH v2 16/16] drm/atomic: Remove state argument to
- drm_atomic_private_obj_init
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C41C810E220;
+ Tue, 14 Oct 2025 12:20:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Y7fs6WPlC2Db2BoKi7GDFxPOB1XeSHG+QnsVBtco4P0=; b=qatrWjrm1EuOU5sjNy/uCYKjau
+ hGtbj/PuK/Zc+VSYNXeUoi4FdlLWNP3n8xF3iYlOagq60BwTaGOZONF3kiuSIzAJkUDI93qSj3E4T
+ 1t10qKebQaNjeT9zIGedTSKpYSg1mWTJeiQoKqBHUcqVD854h3NqfEHo6WmgZIDrNA4gQJLMc4Z/R
+ 5OxOxlaPWPv4EzQ/ZAagGUmwmqrVide5ER+RJltm/QWt8y6QQ34hjp7Sxr2wbRQn0hEAvzAUkv5b2
+ Bmj9fyYt0+6YcSD8ra8B1aYEVpT1d4UkUYDMSkd5Vvgf9hJp0Mnktt+3FbDlmu6EXZnvYR4lQ3kiL
+ LKFVNbEQ==;
+Received: from [90.242.12.242] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1v8e19-009OYP-6x; Tue, 14 Oct 2025 14:20:39 +0200
+Message-ID: <7598e978-4ac3-4568-a339-0397e7273222@igalia.com>
+Date: Tue, 14 Oct 2025 13:20:38 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/28] drm/sched: Favour interactive clients slightly
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
+ <20251008085359.52404-12-tvrtko.ursulin@igalia.com>
+ <618a50aabddace2531375bc18fb1ca9b00297490.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <618a50aabddace2531375bc18fb1ca9b00297490.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20251014-drm-private-obj-reset-v2-16-6dd60e985e9d@kernel.org>
-References: <20251014-drm-private-obj-reset-v2-0-6dd60e985e9d@kernel.org>
-In-Reply-To: <20251014-drm-private-obj-reset-v2-0-6dd60e985e9d@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Paul Cercueil <paul@crapouillou.net>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- amd-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=17180; i=mripard@kernel.org;
- h=from:subject:message-id; bh=vP8VV2WMgH8+wnOSqTJR2WtfyqUjyMXxAPajXCiBnPA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDBnvrL1+fpRWef7t5c8rX835rmr98VBXdCz6aTb7i8bVt
- kPbmmoyO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEttQz1gex3hLjDP6+5tmx
- JXcWtCaZLCs3zpRxZpS79XvpfJOdZ14tdM8x+iv39Ev8de7pZZ0qkxnrLH+uDwn6fjRBaeHzyle
- yLQelmO6l9hu3CTc9U/r/8qsYk5rR1gUr5/M9Pyl6bu47v4NTAQ==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,448 +65,286 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that all drm_private_objs users have been converted to use
-atomic_create_state instead of the old ad-hoc initialization, we can
-remove the state parameter from drm_private_obj_init and the fallback
-code.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
+On 14/10/2025 11:53, Philipp Stanner wrote:
+> On Wed, 2025-10-08 at 09:53 +0100, Tvrtko Ursulin wrote:
+>> GPUs do not always implement preemption and DRM scheduler definitely
+>> does not support it at the front end scheduling level. This means
+>> execution quanta can be quite long and is controlled by userspace,
+>> consequence of which is picking the "wrong" entity to run can have a
+>> larger negative effect than it would have with a virtual runtime based CPU
+>> scheduler.
+>>
+>> Another important consideration is that rendering clients often have
+>> shallow submission queues, meaning they will be entering and exiting the
+>> scheduler's runnable queue often.
+>>
+>> Relevant scenario here is what happens when an entity re-joins the
+>> runnable queue with other entities already present. One cornerstone of the
+>> virtual runtime algorithm is to let it re-join at the head and rely on the
+>> virtual runtime accounting and timeslicing to sort it out.
+>>
+>> However, as explained above, this may not work perfectly in the GPU world.
+>> Entity could always get to overtake the existing entities, or not,
+>> depending on the submission order and rbtree equal key insertion
+>> behaviour.
+>>
+>> Allow interactive jobs to overtake entities already queued up for the
+>> limited case when interactive entity is re-joining the queue after
+>> being idle.
+>>
+>> This gives more opportunity for the compositors to have their rendering
+>> executed before the GPU hogs even if they have been configured with the
+>> same scheduling priority.
+>>
+>> To classify a client as interactive we look at its average job duration
+>> versus the average for the whole scheduler. We can track this easily by
+>> plugging into the existing job runtime tracking and applying the
+>> exponential moving average window on the past submissions. Then, all other
+>> things being equal, we let the more interactive jobs go first.
+> 
+> OK so this patch is new. Why was it added? The cover letter says:
+> 
+> "Improved handling of interactive clients by replacing the random noise
+> on tie approach with the average job duration statistics."
+> 
+> So this is based on additional research you have done in the mean time?
+> Does it change behavior significantly when compared to the RFC?
 
-To: Liviu Dudau <liviu.dudau@arm.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Paul Cercueil <paul@crapouillou.net>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-To: Thierry Reding <thierry.reding@gmail.com>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-To: Jonathan Hunter <jonathanh@nvidia.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: "Maíra Canal" <mcanal@igalia.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: linux-mips@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  1 -
- .../gpu/drm/arm/display/komeda/komeda_private_obj.c | 16 ++++++++--------
- drivers/gpu/drm/display/drm_dp_mst_topology.c       |  1 -
- drivers/gpu/drm/display/drm_dp_tunnel.c             |  2 +-
- drivers/gpu/drm/drm_atomic.c                        | 21 ++++-----------------
- drivers/gpu/drm/drm_bridge.c                        |  1 -
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c           |  2 +-
- drivers/gpu/drm/ingenic/ingenic-ipu.c               |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c             |  1 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c            |  1 -
- drivers/gpu/drm/omapdrm/omap_drv.c                  |  2 +-
- drivers/gpu/drm/tegra/hub.c                         |  2 +-
- drivers/gpu/drm/vc4/vc4_kms.c                       |  4 +---
- include/drm/drm_atomic.h                            |  1 -
- 14 files changed, 18 insertions(+), 39 deletions(-)
+It is a replacement patch for what used to be called "drm/sched: Break 
+submission patterns with some randomness".
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 239b3f58694919b7dbb8836f8859788b50288ffa..ba63085afafb8483c5f6249f2b6e09a0a0507fc9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4727,11 +4727,10 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
- 	/* indicates support for immediate flip */
- 	adev_to_drm(adev)->mode_config.async_page_flip = true;
- 
- 	drm_atomic_private_obj_init(adev_to_drm(adev),
- 				    &adev->dm.atomic_obj,
--				    NULL,
- 				    &dm_atomic_state_funcs);
- 
- 	r = amdgpu_display_modeset_create_props(adev);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-index 4994b69c6595637ea832b97629b052e3aea97ee7..6270e5c525db221267b1215a27653ace578eeb0a 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-@@ -63,11 +63,11 @@ static const struct drm_private_state_funcs komeda_layer_obj_funcs = {
- };
- 
- static int komeda_layer_obj_add(struct komeda_kms_dev *kms,
- 				struct komeda_layer *layer)
- {
--	drm_atomic_private_obj_init(&kms->base, &layer->base.obj, NULL,
-+	drm_atomic_private_obj_init(&kms->base, &layer->base.obj,
- 				    &komeda_layer_obj_funcs);
- 	return 0;
- }
- 
- static struct drm_private_state *
-@@ -116,11 +116,11 @@ static const struct drm_private_state_funcs komeda_scaler_obj_funcs = {
- 
- static int komeda_scaler_obj_add(struct komeda_kms_dev *kms,
- 				 struct komeda_scaler *scaler)
- {
- 	drm_atomic_private_obj_init(&kms->base,
--				    &scaler->base.obj, NULL,
-+				    &scaler->base.obj,
- 				    &komeda_scaler_obj_funcs);
- 	return 0;
- }
- 
- static struct drm_private_state *
-@@ -168,11 +168,11 @@ static const struct drm_private_state_funcs komeda_compiz_obj_funcs = {
- };
- 
- static int komeda_compiz_obj_add(struct komeda_kms_dev *kms,
- 				 struct komeda_compiz *compiz)
- {
--	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj, NULL,
-+	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj,
- 				    &komeda_compiz_obj_funcs);
- 
- 	return 0;
- }
- 
-@@ -222,11 +222,11 @@ static const struct drm_private_state_funcs komeda_splitter_obj_funcs = {
- 
- static int komeda_splitter_obj_add(struct komeda_kms_dev *kms,
- 				   struct komeda_splitter *splitter)
- {
- 	drm_atomic_private_obj_init(&kms->base,
--				    &splitter->base.obj, NULL,
-+				    &splitter->base.obj,
- 				    &komeda_splitter_obj_funcs);
- 
- 	return 0;
- }
- 
-@@ -275,11 +275,11 @@ static const struct drm_private_state_funcs komeda_merger_obj_funcs = {
- 
- static int komeda_merger_obj_add(struct komeda_kms_dev *kms,
- 				 struct komeda_merger *merger)
- {
- 	drm_atomic_private_obj_init(&kms->base,
--				    &merger->base.obj, NULL,
-+				    &merger->base.obj,
- 				    &komeda_merger_obj_funcs);
- 
- 	return 0;
- }
- 
-@@ -328,11 +328,11 @@ static const struct drm_private_state_funcs komeda_improc_obj_funcs = {
- };
- 
- static int komeda_improc_obj_add(struct komeda_kms_dev *kms,
- 				 struct komeda_improc *improc)
- {
--	drm_atomic_private_obj_init(&kms->base, &improc->base.obj, NULL,
-+	drm_atomic_private_obj_init(&kms->base, &improc->base.obj,
- 				    &komeda_improc_obj_funcs);
- 
- 	return 0;
- }
- 
-@@ -381,11 +381,11 @@ static const struct drm_private_state_funcs komeda_timing_ctrlr_obj_funcs = {
- };
- 
- static int komeda_timing_ctrlr_obj_add(struct komeda_kms_dev *kms,
- 				       struct komeda_timing_ctrlr *ctrlr)
- {
--	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj, NULL,
-+	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj,
- 				    &komeda_timing_ctrlr_obj_funcs);
- 
- 	return 0;
- }
- 
-@@ -435,11 +435,11 @@ static const struct drm_private_state_funcs komeda_pipeline_obj_funcs = {
- };
- 
- static int komeda_pipeline_obj_add(struct komeda_kms_dev *kms,
- 				   struct komeda_pipeline *pipe)
- {
--	drm_atomic_private_obj_init(&kms->base, &pipe->obj, NULL,
-+	drm_atomic_private_obj_init(&kms->base, &pipe->obj,
- 				    &komeda_pipeline_obj_funcs);
- 
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 3e3ad6941742680179a9ecd8c07c0bf6adcd215f..b617bb21a8c1551a61171bb3975e876705aced52 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5762,11 +5762,10 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
- 	mgr->max_dpcd_transaction_bytes = max_dpcd_transaction_bytes;
- 	mgr->max_payloads = max_payloads;
- 	mgr->conn_base_id = conn_base_id;
- 
- 	drm_atomic_private_obj_init(dev, &mgr->base,
--				    NULL,
- 				    &drm_dp_mst_topology_state_funcs);
- 
- 	return 0;
- }
- EXPORT_SYMBOL(drm_dp_mst_topology_mgr_init);
-diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-index 2abd714efd19f27697770813b38194e384be87ce..241498cef7de497afdf2837f750113743c001240 100644
---- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-+++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-@@ -1598,11 +1598,11 @@ static bool init_group(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_tunnel_group
- {
- 	group->mgr = mgr;
- 	group->available_bw = -1;
- 	INIT_LIST_HEAD(&group->tunnels);
- 
--	drm_atomic_private_obj_init(mgr->dev, &group->base, NULL,
-+	drm_atomic_private_obj_init(mgr->dev, &group->base,
- 				    &tunnel_group_funcs);
- 
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 36b56c71cb4e1ddc57577df724efe7d89b4fb6a9..e01d9a4545220e31090c1e45fdb0bf905205b528 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -773,11 +773,10 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
- 
- /**
-  * drm_atomic_private_obj_init - initialize private object
-  * @dev: DRM device this object will be attached to
-  * @obj: private object
-- * @state: initial private object state
-  * @funcs: pointer to the struct of function pointers that identify the object
-  * type
-  *
-  * Initialize the private object, which can be embedded into any
-  * driver private object that needs its own atomic state.
-@@ -785,38 +784,26 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
-  * RETURNS:
-  * Zero on success, error code on failure
-  */
- int drm_atomic_private_obj_init(struct drm_device *dev,
- 				struct drm_private_obj *obj,
--				struct drm_private_state *state,
- 				const struct drm_private_state_funcs *funcs)
- {
- 	memset(obj, 0, sizeof(*obj));
- 
- 	drm_modeset_lock_init(&obj->lock);
- 
- 	obj->dev = dev;
- 	obj->funcs = funcs;
- 	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
- 
--	/*
--	 * Not all users of drm_atomic_private_obj_init have been
--	 * converted to using &drm_private_obj_funcs.reset yet. For the
--	 * time being, let's only call reset if the passed state is
--	 * NULL. Otherwise, we will fallback to the previous behaviour.
--	 */
--	if (!state) {
--		if (obj->funcs->atomic_create_state) {
--			state = obj->funcs->atomic_create_state(obj);
--			if (IS_ERR(state))
--				return PTR_ERR(state);
-+	if (obj->funcs->atomic_create_state) {
-+		struct drm_private_state *state = obj->funcs->atomic_create_state(obj);
-+		if (IS_ERR(state))
-+			return PTR_ERR(state);
- 
--			obj->state = state;
--		}
--	} else {
- 		obj->state = state;
--		state->obj = obj;
- 	}
- 
- 	return 0;
- }
- EXPORT_SYMBOL(drm_atomic_private_obj_init);
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index f0db891863428ee65625a6a3ed38f63ec802595e..4d816e2804855e9bd787064e4275ccf611d8e2e5 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -480,11 +480,10 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
- 			goto err_reset_bridge;
- 	}
- 
- 	if (drm_bridge_is_atomic(bridge))
- 		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
--					    NULL,
- 					    &drm_bridge_priv_state_funcs);
- 
- 	return 0;
- 
- err_reset_bridge:
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 4aca12de0b16aa56dcd7a5942b868c792b08c9c3..d5617d4aef101b195f366adc27e2d24612078b76 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -1394,11 +1394,11 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 	if (ret) {
- 		dev_err(dev, "Unable to register clock notifier\n");
- 		goto err_devclk_disable;
- 	}
- 
--	drm_atomic_private_obj_init(drm, &priv->private_obj, NULL,
-+	drm_atomic_private_obj_init(drm, &priv->private_obj,
- 				    &ingenic_drm_private_state_funcs);
- 
- 	ret = drmm_add_action_or_reset(drm, ingenic_drm_atomic_private_obj_fini,
- 				       &priv->private_obj);
- 	if (ret)
-diff --git a/drivers/gpu/drm/ingenic/ingenic-ipu.c b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-index 9af95b775dd6cb1a8ba9a5c32e6dae824453eb7c..9fe5b5044a09aff9f477d64605633ef1c2d91632 100644
---- a/drivers/gpu/drm/ingenic/ingenic-ipu.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-@@ -899,11 +899,11 @@ static int ingenic_ipu_bind(struct device *dev, struct device *master, void *d)
- 	if (err) {
- 		dev_err(dev, "Unable to prepare clock\n");
- 		return err;
- 	}
- 
--	drm_atomic_private_obj_init(drm, &ipu->private_obj, NULL,
-+	drm_atomic_private_obj_init(drm, &ipu->private_obj,
- 				    &ingenic_ipu_private_state_funcs);
- 
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 28a79e7836c0fb5c3f8a27ea5dda6f677e330bf1..886a3d05d3e70d54549e37b24a219ecbd3d049da 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1159,11 +1159,10 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 
- 	dev->mode_config.cursor_width = 512;
- 	dev->mode_config.cursor_height = 512;
- 
- 	drm_atomic_private_obj_init(dpu_kms->dev, &dpu_kms->global_state,
--				    NULL,
- 				    &dpu_kms_global_state_funcs);
- 
- 	atomic_set(&dpu_kms->bandwidth_ref, 0);
- 
- 	rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 80e1a331dbf7deae4f039ddcae1e5770e882728d..77d99fd5ef962c2f3be178aa8a0b0c462ce37462 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -715,11 +715,10 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 	int ret;
- 
- 	mdp5_kms->dev = dev;
- 
- 	drm_atomic_private_obj_init(mdp5_kms->dev, &mdp5_kms->glob_state,
--				    NULL,
- 				    &mdp5_global_state_funcs);
- 
- 	/* we need to set a default rate before enabling.  Set a safe
- 	 * rate first, then figure out hw revision, and then set a
- 	 * more optimal rate:
-diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
-index 7a2d7aa5438a519c876033801da5cd5c411bd5fa..f6193a37cf6709b1b8d7f765d21940ccef0d99ae 100644
---- a/drivers/gpu/drm/omapdrm/omap_drv.c
-+++ b/drivers/gpu/drm/omapdrm/omap_drv.c
-@@ -296,11 +296,11 @@ static const struct drm_private_state_funcs omap_global_state_funcs = {
- 
- static int omap_global_obj_init(struct drm_device *dev)
- {
- 	struct omap_drm_private *priv = dev->dev_private;
- 
--	drm_atomic_private_obj_init(dev, &priv->glob_obj, NULL,
-+	drm_atomic_private_obj_init(dev, &priv->glob_obj,
- 				    &omap_global_state_funcs);
- 	return 0;
- }
- 
- static void omap_global_obj_fini(struct omap_drm_private *priv)
-diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-index 52058f7dd92fadd45551447106ebe265975e6d8f..8b24ab1981ad3ae3a77f260cf3b484b257bb6763 100644
---- a/drivers/gpu/drm/tegra/hub.c
-+++ b/drivers/gpu/drm/tegra/hub.c
-@@ -954,11 +954,11 @@ static int tegra_display_hub_init(struct host1x_client *client)
- {
- 	struct tegra_display_hub *hub = to_tegra_display_hub(client);
- 	struct drm_device *drm = dev_get_drvdata(client->host);
- 	struct tegra_drm *tegra = drm->dev_private;
- 
--	drm_atomic_private_obj_init(drm, &hub->base, NULL,
-+	drm_atomic_private_obj_init(drm, &hub->base,
- 				    &tegra_display_hub_state_funcs);
- 
- 	tegra->hub = hub;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
-index f52ab17f24956fdb22669b4074901bff900e60a0..2d19296fcd6b381136c0c0a549eed6dda69d59e7 100644
---- a/drivers/gpu/drm/vc4/vc4_kms.c
-+++ b/drivers/gpu/drm/vc4/vc4_kms.c
-@@ -113,11 +113,11 @@ static void vc4_ctm_obj_fini(struct drm_device *dev, void *unused)
- 
- static int vc4_ctm_obj_init(struct vc4_dev *vc4)
- {
- 	drm_modeset_lock_init(&vc4->ctm_state_lock);
- 
--	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager, NULL,
-+	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager,
- 				    &vc4_ctm_state_funcs);
- 
- 	return drmm_add_action_or_reset(&vc4->base, vc4_ctm_obj_fini, NULL);
- }
- 
-@@ -754,11 +754,10 @@ static void vc4_load_tracker_obj_fini(struct drm_device *dev, void *unused)
- }
- 
- static int vc4_load_tracker_obj_init(struct vc4_dev *vc4)
- {
- 	drm_atomic_private_obj_init(&vc4->base, &vc4->load_tracker,
--				    NULL,
- 				    &vc4_load_tracker_state_funcs);
- 
- 	return drmm_add_action_or_reset(&vc4->base, vc4_load_tracker_obj_fini, NULL);
- }
- 
-@@ -846,11 +845,10 @@ static void vc4_hvs_channels_obj_fini(struct drm_device *dev, void *unused)
- }
- 
- static int vc4_hvs_channels_obj_init(struct vc4_dev *vc4)
- {
- 	drm_atomic_private_obj_init(&vc4->base, &vc4->hvs_channels,
--				    NULL,
- 				    &vc4_hvs_state_funcs);
- 
- 	return drmm_add_action_or_reset(&vc4->base, vc4_hvs_channels_obj_fini, NULL);
- }
- 
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 10a71c4b6afc316f07023756be4cd3ed1d1d2974..61524a2e722e8d2157b30b49b66efdf9a781e0e1 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -621,11 +621,10 @@ struct drm_connector_state * __must_check
- drm_atomic_get_connector_state(struct drm_atomic_state *state,
- 			       struct drm_connector *connector);
- 
- int drm_atomic_private_obj_init(struct drm_device *dev,
- 				struct drm_private_obj *obj,
--				struct drm_private_state *state,
- 				const struct drm_private_state_funcs *funcs);
- void drm_atomic_private_obj_fini(struct drm_private_obj *obj);
- 
- struct drm_private_state * __must_check
- drm_atomic_get_private_obj_state(struct drm_atomic_state *state,
+It is only significant for a subset of workload patterns. The ones where 
+a lightweight client runs in parallel to something heavy. Pseudo random 
+noise approach made FAIR kind of middle of the road between RR and FIFO 
+while this version makes it almost as good as RR.
 
--- 
-2.51.0
+With random noise as tie breaker criteria:
+
+https://people.igalia.com/tursulin/drm-sched-fair/4-heavy-vs-interactive.png
+https://people.igalia.com/tursulin/drm-sched-fair/4-very-heavy-vs-interactive.png
+https://people.igalia.com/tursulin/drm-sched-fair/4-low-hog-vs-interactive.png
+
+With entity_job_avg < sched_job_avg tie breaker criteria:
+
+https://people.igalia.com/tursulin/drm-sched-fair/251008/4-heavy-vs-interactive.png
+https://people.igalia.com/tursulin/drm-sched-fair/251008/4-very-heavy-vs-interactive.png
+https://people.igalia.com/tursulin/drm-sched-fair/251008/4-low-hog-vs-interactive.png
+
+> The firmware scheduler bros are not affected in any case. Still, I
+> think that the RFC we discussed in the past and at XDC is now quite
+> more different from the actual proposal in this v1.
+
+Series as code is not that much different, just the end result with some 
+use cases gets better.
+
+If we ignore the EWMA job runtime housekeeping, it only replaced this:
+
++		} else {
++			static const int shuffle[2] = { -1, 1 };
++			static bool r = 0;
++
++			/*
++			 * For equal priority apply some randomness to break
++			 * latching caused by submission patterns.
++			 */
++			vruntime = shuffle[r];
++			r ^= 1;
+
+With this:
+
++		} else {
++			struct drm_gpu_scheduler *sched = entity->rq->sched;
++
++			/*
++			 * Favour entity with shorter jobs (interactivity).
++			 *
++			 * (Unlocked read is fine since it is just heuristics.)
++			 *
++			 */
++			if (ewma_drm_sched_avgtime_read(&stats->avg_job_us) <=
++			    ewma_drm_sched_avgtime_read(&sched->avg_job_us))
++				vruntime = -1;
++			else
++				vruntime = 1;
+> I suppose it's in general good for graphics applications.. what about
+> compute, doesn't that have longer jobs? Probably still good for people
+> who do compute on their productive system..
+Yes, should be good for everyone who runs interactive clients in 
+parallel to demanding workloads.
+
+> @AMD:
+> can you review / ack this?
+Someone other than me is bound to test it one od these days. ;)
+
+Regards,
+
+Tvrtko
+
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c   |  1 +
+>>   drivers/gpu/drm/scheduler/sched_internal.h | 15 ++++++++++++---
+>>   drivers/gpu/drm/scheduler/sched_main.c     |  8 +++++++-
+>>   drivers/gpu/drm/scheduler/sched_rq.c       | 14 ++++++++++++++
+>>   include/drm/gpu_scheduler.h                |  5 +++++
+>>   5 files changed, 39 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index 58f51875547a..1715e1caec40 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -61,6 +61,7 @@ static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
+>>   
+>>   	kref_init(&stats->kref);
+>>   	spin_lock_init(&stats->lock);
+>> +	ewma_drm_sched_avgtime_init(&stats->avg_job_us);
+>>   
+>>   	return stats;
+>>   }
+>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+>> index c94e38acc6f2..a120efc5d763 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>> @@ -20,6 +20,7 @@
+>>    * @runtime: time entity spent on the GPU.
+>>    * @prev_runtime: previous @runtime used to get the runtime delta
+>>    * @vruntime: virtual runtime as accumulated by the fair algorithm
+>> + * @avg_job_us: average job duration
+>>    */
+>>   struct drm_sched_entity_stats {
+>>   	struct kref	kref;
+>> @@ -27,6 +28,8 @@ struct drm_sched_entity_stats {
+>>   	ktime_t		runtime;
+>>   	ktime_t		prev_runtime;
+>>   	u64		vruntime;
+>> +
+>> +	struct ewma_drm_sched_avgtime   avg_job_us;
+>>   };
+>>   
+>>   /* Used to choose between FIFO and RR job-scheduling */
+>> @@ -153,20 +156,26 @@ drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
+>>    * @job: Scheduler job to account.
+>>    *
+>>    * Accounts the execution time of @job to its respective entity stats object.
+>> + *
+>> + * Returns job's real duration in micro seconds.
+>>    */
+>> -static inline void
+>> +static inline ktime_t
+>>   drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+>>   {
+>>   	struct drm_sched_entity_stats *stats = job->entity_stats;
+>>   	struct drm_sched_fence *s_fence = job->s_fence;
+>> -	ktime_t start, end;
+>> +	ktime_t start, end, duration;
+>>   
+>>   	start = dma_fence_timestamp(&s_fence->scheduled);
+>>   	end = dma_fence_timestamp(&s_fence->finished);
+>> +	duration = ktime_sub(end, start);
+>>   
+>>   	spin_lock(&stats->lock);
+>> -	stats->runtime = ktime_add(stats->runtime, ktime_sub(end, start));
+>> +	stats->runtime = ktime_add(stats->runtime, duration);
+>> +	ewma_drm_sched_avgtime_add(&stats->avg_job_us, ktime_to_us(duration));
+>>   	spin_unlock(&stats->lock);
+>> +
+>> +	return duration;
+>>   }
+>>   
+>>   #endif
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+>> index 8d8f9c8411f5..204d99c6699f 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -1000,7 +1000,12 @@ static void drm_sched_free_job_work(struct work_struct *w)
+>>   	struct drm_sched_job *job;
+>>   
+>>   	while ((job = drm_sched_get_finished_job(sched))) {
+>> -		drm_sched_entity_stats_job_add_gpu_time(job);
+>> +		ktime_t duration = drm_sched_entity_stats_job_add_gpu_time(job);
+>> +
+>> +		/* Serialized by the worker. */
+>> +		ewma_drm_sched_avgtime_add(&sched->avg_job_us,
+>> +					   ktime_to_us(duration));
+>> +
+>>   		sched->ops->free_job(job);
+>>   	}
+>>   
+>> @@ -1158,6 +1163,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+>>   	atomic_set(&sched->_score, 0);
+>>   	atomic64_set(&sched->job_id_count, 0);
+>>   	sched->pause_submit = false;
+>> +	ewma_drm_sched_avgtime_init(&sched->avg_job_us);
+>>   
+>>   	sched->ready = true;
+>>   	return 0;
+>> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+>> index b868c794cc9d..02742869e75b 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_rq.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+>> @@ -150,6 +150,20 @@ drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
+>>   			 * Higher priority can go first.
+>>   			 */
+>>   			vruntime = -us_to_ktime(rq_prio - prio);
+>> +		} else {
+>> +			struct drm_gpu_scheduler *sched = entity->rq->sched;
+>> +
+>> +			/*
+>> +			 * Favour entity with shorter jobs (interactivity).
+>> +			 *
+>> +			 * (Unlocked read is fine since it is just heuristics.)
+>> +			 *
+>> +			 */
+>> +			if (ewma_drm_sched_avgtime_read(&stats->avg_job_us) <=
+>> +			    ewma_drm_sched_avgtime_read(&sched->avg_job_us))
+>> +				vruntime = -1;
+>> +			else
+>> +				vruntime = 1;
+>>   		}
+>>   	}
+>>   
+>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>> index bc25508a6ff6..a7e407e04ce0 100644
+>> --- a/include/drm/gpu_scheduler.h
+>> +++ b/include/drm/gpu_scheduler.h
+>> @@ -25,11 +25,14 @@
+>>   #define _DRM_GPU_SCHEDULER_H_
+>>   
+>>   #include <drm/spsc_queue.h>
+>> +#include <linux/average.h>
+>>   #include <linux/dma-fence.h>
+>>   #include <linux/completion.h>
+>>   #include <linux/xarray.h>
+>>   #include <linux/workqueue.h>
+>>   
+>> +DECLARE_EWMA(drm_sched_avgtime, 6, 4);
+>> +
+>>   #define MAX_WAIT_SCHED_ENTITY_Q_EMPTY msecs_to_jiffies(1000)
+>>   
+>>   /**
+>> @@ -581,6 +584,7 @@ struct drm_sched_backend_ops {
+>>    * @job_id_count: used to assign unique id to the each job.
+>>    * @submit_wq: workqueue used to queue @work_run_job and @work_free_job
+>>    * @timeout_wq: workqueue used to queue @work_tdr
+>> + * @avg_job_us: Average job duration
+>>    * @work_run_job: work which calls run_job op of each scheduler.
+>>    * @work_free_job: work which calls free_job op of each scheduler.
+>>    * @work_tdr: schedules a delayed call to @drm_sched_job_timedout after the
+>> @@ -612,6 +616,7 @@ struct drm_gpu_scheduler {
+>>   	atomic64_t			job_id_count;
+>>   	struct workqueue_struct		*submit_wq;
+>>   	struct workqueue_struct		*timeout_wq;
+>> +	struct ewma_drm_sched_avgtime   avg_job_us;
+>>   	struct work_struct		work_run_job;
+>>   	struct work_struct		work_free_job;
+>>   	struct delayed_work		work_tdr;
+> 
+
+
 
