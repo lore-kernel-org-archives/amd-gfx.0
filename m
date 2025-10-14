@@ -4,155 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB1A9CCD18E
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 19:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5623CCCD184
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 20:14:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 860CE10E692;
-	Tue, 14 Oct 2025 19:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4AB410E68C;
+	Tue, 14 Oct 2025 20:14:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3wysewYD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XXr/q4jF";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4B2C10E692
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 19:58:43 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012028.outbound.protection.outlook.com
+ [40.93.195.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2BA310E68C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 20:14:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NB8g2kZ0yYpxxKscW7BftsDapac2qSc8CaV9zXkecddv88GWfh5CNZfPOJjtazS43/3alb3DFVuH+Ud2MoeA8ToJMMxGL0joB2WwNTl3L0ukrqdB8koPS9vL5TOOt1IyZuhAniRZj+jKRHoMMTYhG6Ya04dvWUK8wxkHSh4wCaifDE2aC0Z0Okd6adyexhmfX6kSdn1Xr/gJfUkCvpq6lS3BgKycLROmTofT1s6piVhxgNyBQYG59NklgS9e/FgrnCLjPOS0965K1v3DtksadWvFiHUt3Yj7x67irdzktWhoc81PnU8jvsZG/7LnSlQ1CilcEV7FC//idMaYpJnXgw==
+ b=y5YGZk7DL9KeC1gcbzYwAYMT4SCBmpfOQDd1UbizDqufSkfGVV4/5uqgh9BAwfga6ji5YA6S7B0O3GqkkEJca148W8oUIjG5VE1vGFjIw6z3GG/1ZrjSGRgSTzKL58FCLqP66FOO0K7Kk2QfsvwAsiCnxEMnRJxHzP2y81ZcW025eLw4gnK+zM2jvcqdpL9CXf9oFUUYYJrVHGNj/q1RUWVogIn1263e6ZwMuE1r62GrL3EEMaJHl65glKjqie9LtVamfxLZO2zkAQkNLY7DqqbQNQt22YF4BRNyF55utZR+xaR3D7NFlMfbw3ENHOnG51TEFD1gBgp/yeRjAwXTaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D7MYUNFwSXovmhow8o58MlDxPkhFXnEKcgRla7IcmW4=;
- b=zGCapYyV2pIm3ywFRwbz5Y4bnXSiMIv2gV1qpD9tYDkMKMBPPovu/vF49vs85eBCo6aQkrYoA4BYAezqaGR3Vru/xEudXuUXdr1lDHNpQvb4jKFiEMh1XFIQ5lnnTQYyiPxWQIn9LyKCJlUWR5QbO6mPFirVU0IGlI91WFzGN/Iz5VOEmDcsFlMmRmLkAjCRNvuJlEL9GjpaKVfS0T5NJTXb6cwT55jsf197lquwVukXoSFFs3u7x4Ndxc7VoF3zAW7M4QcJm7Fw0eyxdKRHw2b0lytw0Ry0Cz4Rx3pFYspTH62of2RjbK1xzFjzFVBcRF2abrwCYSDQOO+2wpqwiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Jqn6yb6/7PLpjhbDBYniO+ZWyakEfOyEUhxx1ULeIdw=;
+ b=j3/3ovISzSQXdaLwoDVkO53TYyGWuWVgv+pwlmYWJ8MKIfAyJxeHRbkw5hhS2jV41KdXTu6Y2Kk4lQ1O3gcK0YDkpu6PVGnSxT7l4FZh/b13/A0bGYz59LF3mKlKZwgLGc3qTn4x9pPbakxyjgC3jpnPmvHE67zsBJHk+rgCO1sVfPDKS40cwatdV9ucFFlj1CugAWGTx2bcWEkbIY1JSPumzCdvwuOLrzepwJhq05FwDusMM7oDVJoKsVBggzImqeVsE2ZZ1fcgrt5lFjgcvgb+Ra6p9aDU6KPOf6scgs7jlWwEn0IbCcnDJCZ6kYOKoGluC0VCPRLWB8FPttX4Yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D7MYUNFwSXovmhow8o58MlDxPkhFXnEKcgRla7IcmW4=;
- b=3wysewYDE+hdOZ5aCYOWr0yeglZJoGcpZXqJLppF+h8p1ArX7czzXN4a8yT3FjHvJ6tKzz6H/nyTo2AEGGH/r3zcRM7NECrgpoxEQexS/g86VuyNA/nAB8MXMOPRPj2tP6PRfNl4HgJamP7B8yGNf/HkWdLcCe8fmEcHL7ZzZ80=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW4PR12MB5601.namprd12.prod.outlook.com (2603:10b6:303:168::13)
+ bh=Jqn6yb6/7PLpjhbDBYniO+ZWyakEfOyEUhxx1ULeIdw=;
+ b=XXr/q4jFUQO2j2oQ5upmeyXpypdl+QPANySKYH6RsBLU1IX/11afxswWEQRbSUmYV4OkWyTWPsSEU1DrRjc5GkV/4BY5Nx1HXONjFqS58exYJhrgXI5WwhgwprwJqlkDslYXyPTtTagsPRJNQbGFjS+zxiM9O06oAdABXo47M58=
+Received: from SA1PR05CA0004.namprd05.prod.outlook.com (2603:10b6:806:2d2::29)
+ by SN7PR12MB8059.namprd12.prod.outlook.com (2603:10b6:806:32b::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Tue, 14 Oct
- 2025 19:58:40 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.9228.005; Tue, 14 Oct 2025
- 19:58:39 +0000
-Content-Type: multipart/alternative;
- boundary="------------cy01c7n3FBPRhFVRFDscmmE3"
-Message-ID: <7f3d35e0-bc4e-41d5-b7b1-f2d0f8033b37@amd.com>
-Date: Tue, 14 Oct 2025 15:58:37 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix vram_usage underflow
-To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
- "Liu, Alysa" <Alysa.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20251014134317.5081-1-Alysa.Liu@amd.com>
- <CY8PR12MB70997A8CD69749C0FCB2CACA8CEBA@CY8PR12MB7099.namprd12.prod.outlook.com>
- <df3db4b0-7dbb-4800-80b5-5e09ddb9f73d@amd.com>
- <CY8PR12MB709948D58A4EF8E67D37A6858CEBA@CY8PR12MB7099.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <CY8PR12MB709948D58A4EF8E67D37A6858CEBA@CY8PR12MB7099.namprd12.prod.outlook.com>
-X-ClientProxiedBy: YQBPR0101CA0072.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:1::49) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.12; Tue, 14 Oct
+ 2025 20:13:58 +0000
+Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
+ (2603:10b6:806:2d2:cafe::5f) by SA1PR05CA0004.outlook.office365.com
+ (2603:10b6:806:2d2::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.10 via Frontend Transport; Tue,
+ 14 Oct 2025 20:13:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9228.7 via Frontend Transport; Tue, 14 Oct 2025 20:13:57 +0000
+Received: from cv350-ccs-aus-h13-08.cs-aus.dcgpu (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 14 Oct 2025 13:13:56 -0700
+From: Ellen Pan <yunru.pan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <Lijo.Lazar@amd.com>, <Jeffrey.Chan@amd.com>, Ellen Pan <yunru.pan@amd.com>
+Subject: [PATCH v3 1/6] drm/amdgpu: Updated naming of SRIOV critical region
+ offsets/sizes with _V1 suffix
+Date: Tue, 14 Oct 2025 15:13:41 -0500
+Message-ID: <20251014201346.9422-1-yunru.pan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB5601:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf4d641e-ae30-4d95-c75a-08de0b5c11c0
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|SN7PR12MB8059:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84e48bf6-01c6-469d-151a-08de0b5e34f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|8096899003|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dWJHR1VUSVZwZTAxaTFxK3BOZ0Q0NzFhR3VPSi9uQjFsdkNqZk93VHA3di82?=
- =?utf-8?B?RDFvamc4T21DL2xDNll3OVl0UWhZL3JCcTVWTGUvV1NTQll4d2thRjBkOFZQ?=
- =?utf-8?B?MWRwdUxuRUUwSnJNSXVnYmRpcGExa0QxTFF3MkthR1gwRWJZVk4vTTZUWnhI?=
- =?utf-8?B?bFloeTVUN3piam82VTBZOURQMktsVzNhc2MrbkMwUWNNcUZQT3hmL0xFeEsz?=
- =?utf-8?B?bWVWdzRYcnhXTDhHYVFMZ0NlSCtldFJHcVZtb2twTmZ4dnMyZ0lLcjNzZ0k1?=
- =?utf-8?B?c1lBZ2VKbVdPRXFVY2RlKzhFYzFqMjBOelZBcFVWdzNiN2MvT092a2pEaUt4?=
- =?utf-8?B?MTk0OWs4aHI4K2c4UjhRMjc5ZU51cEhzYjI1S1JpWVJDNUZDMHQ3SURqRWYv?=
- =?utf-8?B?a2QzMHZOUGd1bVVmanNuVVBudThXbHpuRnhKYzUzRW9NNUlQK3phV2ZybU1v?=
- =?utf-8?B?S2JneHVZUXhQRXdjVDE4bzd1TTRuYVVPMjNqRFFVKzRGZGRxS3hObmphdyto?=
- =?utf-8?B?bnNqRmNITUtBZnVERXAvQlZZR1BwTHJlWUt0UXU5TmRRcUJ6c2NidmJXcnRk?=
- =?utf-8?B?bkRYZjVPNkNpVS9kUXBqWC91b0FwRFo3dFcyTGsyREQrdm5ZRERiRWYycDJw?=
- =?utf-8?B?Syt2TkVFUU1ieEVCQzRPSmxHNUVkUC9va0wvSkYxR05tMFVhK0JnRG5FcWUr?=
- =?utf-8?B?aW5BZC9FYmR5Rjc0anR1NVh5SzYvT1oyMk4yRUVONmtPUjBkZ1VlSFp3Sm0r?=
- =?utf-8?B?azFsNTJzekl1TTZEM1JCVmZQcXJ4aFQ4dWRnRzhJTi9wWEVuTjJxYllrSnp4?=
- =?utf-8?B?QVlyNEZJb3ZVN1FXclJzTjQvejgzMDAzR3cyWEM2emxMYWdiSkZPMVJtckI1?=
- =?utf-8?B?cnJjZU15ZW5pYnBqM0liUytUcHlCRy9zY2tld3VYcnR1ZmRMV1FTMzRhdjNu?=
- =?utf-8?B?SFhsWWtLanRZMXdTZGtzNjQxUGU1ODB6Y2RaQ3VvR3BLTGRxb1Q5aER6c2tt?=
- =?utf-8?B?Rm5KUEhnNmJmUGdSYi85c3FEcTVqVWJvWWQ2aTMvNk5FZVlwdnB2dURWbHBh?=
- =?utf-8?B?eFgzcUdCUmtXTU9DeWorckRwNXhGMllQMUl2WForRW1QMlFjekRLUklCTlZh?=
- =?utf-8?B?TmN1bmxoMUZybkNSQXJWUktWamZ0UzhTRlBOM016ejh5bThSREd4eGltc2V0?=
- =?utf-8?B?YkZWdHlORndDVUpUSFd4d2orbWRlODc5cUgzMUdEYWpONHBQTmlHekRqdWht?=
- =?utf-8?B?SSt5QXM0T2VJN2ZFSWZldFdiQm5ua3ZKV0lYdWJkY0crMW9zY2tERnRDbHBE?=
- =?utf-8?B?cFJnbFdSemVpdGFMbUN2bVF0cHV4VHZ5aEczRTMxOEIrcnVSYWs5TnU2USsz?=
- =?utf-8?B?KytiZXBvRVd6Tk1FZXViS2V1NUU3VnZZbzA3ZUYrdU9TcFoydWJkbyt3Zndh?=
- =?utf-8?B?WEtjUHU0eVBWOVJZNzlQakxXVTdEMDZUdnlqdkYvWHRUeFZyQWY0dUZPTWcy?=
- =?utf-8?B?WE9lanhMRkFTUjNHV2JzN0xxQkZuQlh0Mkh1bEVmZzY4OGZlekNqVnRuZnZK?=
- =?utf-8?B?TWwrV3dKNktWbFZvM3hPN0s3SUN5YlM3UVMzcnhWaXlaNDNCY3BZNXZjNlYx?=
- =?utf-8?B?Z05zamJyaUVpcjUwbUpsd2V6ZXRKTUVOSVQxcmUzcjZScHpQakRoNmlUTVVG?=
- =?utf-8?B?TWxQdDFReDZLTUJDSXhJeGE0QUIwVVRSc1JpU1JxYUFuRmkvSE9UM1A2SEZz?=
- =?utf-8?B?dndLRDJXNEpFamMwQjN1a0Nsc0VRaVFFdk5kNWtQM2t4d25hc1VVdE44eEt4?=
- =?utf-8?B?RnJzeldNNkpuVmNOc2dBbm81SjhQN2o0RFkwcThuN2FMQUEzL0k0N0Y3WlJa?=
- =?utf-8?B?cFlJbEhTN3R2Tmw1RU9JZm5QSVZ0ZWx2d29ZbnppbFFhaVR2ZGFRMENmWkV3?=
- =?utf-8?Q?Hj/cMooEtG1PZgWnvbGMCSctrTwfnYDI?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(7053199007); DIR:OUT;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6yYFry37UNIFuWUn2NFVMXKzsJCu4n+fjUmgSGmSV/AxxRFi9RiSuuPFRxlT?=
+ =?us-ascii?Q?PRPuO1Bec3G17BLdv9+ROwTChE/ilimF2lrYhyLb9YSp0SxW41Flv52XD6or?=
+ =?us-ascii?Q?R/2DjlYEb6gQU1SSU3FjSG0ytMlyd43GOvBfg9bMXBv0uSa9RY3o1nPS/Ma+?=
+ =?us-ascii?Q?QSjj+KEFRK+Du4r4TM/jaT4FO1h/WGH8F5bQpbrh6pmVRL1fxehYF4JsrLO1?=
+ =?us-ascii?Q?PabJKc58Ggb4upo/5tOAB2iyilB7IcCzaZ6GeCIDyJzZfBDNA8yADd4XtBVz?=
+ =?us-ascii?Q?TAnehuDMBU/LLmVSyCfoAOpeoIdfO5VzBRunVFCReu2GP4ehsrdOYxvgPTAg?=
+ =?us-ascii?Q?Sb7dHmCnwTXMkH1CISuutaFqd8KX79bwiqIGLhD6Nqqj2l+4Co4T6o3zExrM?=
+ =?us-ascii?Q?a0o6oy6ygHDdC3WdxJBGOniSerHcm2dklTUTQHhImj7zG3FY/EekMb5+k8fu?=
+ =?us-ascii?Q?WUrpuc1KPBxo6kDjF22P7jrQAgSixjEI3Ta094AWuiPWz2yvX387H+IM+KBf?=
+ =?us-ascii?Q?42p6HAFWvyxrze0daVGcYQwLnaScnLuLBuel80TiP2eEI7uz15McO4Aj/SCW?=
+ =?us-ascii?Q?e0LUrxUev4DTMGCMPUaE2wyFIY8Gr8qODsZAxQas1ffvTm+gvHZc8by+7Obg?=
+ =?us-ascii?Q?4pGJUG7AhdSESQaHM7STTAjyJMBC4tb8xz0Upx2sMRsBiQpjHNq6Yg/YX6Zx?=
+ =?us-ascii?Q?9J+VjhAmxtspSyvS0rG7PhMqQ8hDW1f2/CsAlJ51LcOwzLXp7DgniNFfILVR?=
+ =?us-ascii?Q?CGloWmOdPar08OqIpLYOL97hy0iUaAbHsSTjmf6jz9Y9sZaL5YH5dAV25KS8?=
+ =?us-ascii?Q?AsGD43gwPWxxJ6knljWDxTvNbe7I4gXB/Sxa7939RZO8spn6hZcdpw1bRO+S?=
+ =?us-ascii?Q?EEZTM9n/ByK/Juwbz+OypTN69DcvQBD2TaIctF4t5p5NdknNiseeW3RD14C8?=
+ =?us-ascii?Q?WsAFZFtl4zEKjs9jiZnmhuA4T33/6r1tShmU/GnrWsEyj/Clrv3cTqv2VNGj?=
+ =?us-ascii?Q?/S+WZsv+RapzfyaUF5MReu4sJWN03ahJYtEGmgdJO8t0wtHK+j28vQzuF1QP?=
+ =?us-ascii?Q?HHYuOIfYOeg7aQQrA9WeS21q02A8Zlh896UgRnFqMB+JfFuai6XDrhUMIQdN?=
+ =?us-ascii?Q?iVH/k6T1ADQC46kMcFkcElnodffOhl6gacoq64T52MPtYa+ZzGPBTwxJR/Yn?=
+ =?us-ascii?Q?CwwDxNGUeHz4sAFh2ZX8Z4lNKXsMt+QJrYxGs/PjE2Hfe4S9ipAjs96IcaSG?=
+ =?us-ascii?Q?Qt5EeJHbHQqQZF1GbsTU3Sy7dKylPCVTIcrDnr421btYOuohgUEwFa+6HR3z?=
+ =?us-ascii?Q?iODSpSVfVnsi9/g0/BalzPGoYblj2LSyWBkIxZHiQgBcs9+Hsjd1eQYM1aT3?=
+ =?us-ascii?Q?W51VvtEZA52ZflU1yv4DD0Eh7hbf3n1vISD3WMCiebRdU4ck4sdn+luTORXN?=
+ =?us-ascii?Q?umZlAlKaNpIV28RjftSWjHNRxg5ryZQjE4L9JzJa3aoKmdE0+ggGHVQBwYR+?=
+ =?us-ascii?Q?wcxph9jEjXV3s2npgGRYYe9ifTlq15prlL8x+1V5wES3495vHBcxijX4BNOH?=
+ =?us-ascii?Q?1Tia0zl51oWob1Ikw1Q=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REpxRWRtZzNzYllMeHdCOE01RDI3UU5Gb3Q0c0NqWCtQb216eDZVMlFjT2Nz?=
- =?utf-8?B?d2tNcjVkZHBJSWxQaVFkS0t6c2dJT1RKS053b21nTUR3ZEIxWjR2M1ZDY3lu?=
- =?utf-8?B?OFg0bGpKMzdiK0N4cENLS2FOb3YydzIySUhoZDlCb2lXQjkrU0xZYWlYTVdQ?=
- =?utf-8?B?SVN1bFY3UmtKOE1ONlR1Ritjdm1iY0VGWlp2VGFzNnlrL0QvUTBweDZ3a25m?=
- =?utf-8?B?MnI0ODc0YTRCTDI4dUErSTltUEc0ZVlueGZCMll5cWJ2L1V4UG9xbU1xTk9r?=
- =?utf-8?B?VXZMQjdZZDk4ODhtNkNqVkRDcklDdWFiS21RRkt2dGlaeDduL2xjKzlrRlRI?=
- =?utf-8?B?RzREcXVReWRGdmVKMlBDa2FETGRnYmluSkNRTzh2djAwWTV3NkM0WTd1Nkg1?=
- =?utf-8?B?MkFzRTEzMzdneUxsTkJJRjN3cWxPNzdaMEZZV3JzcTNkTkhuOXloWVh3RHJ3?=
- =?utf-8?B?a2JvZXRrV08vajJBY0JyN2J4Y2FpeWIzb0N2RWhNc3B0MWFQNlptRTVMb3RV?=
- =?utf-8?B?Y1E0RWgvNWVXYjJVWEdTNjNPVlQ0UHZWSHVCRFJXWlBXY0VVMGhhTFY3Sy9s?=
- =?utf-8?B?a04wRFZKL2ZwZU11Q0RtWk82VmcyRkhCVXU0eWI2QnVKSmhVYkI3WklYQ2ts?=
- =?utf-8?B?SnpvRVlUWGhvZlhDZVlxREViakZCd2JwNFAwbGh3d1Buc3JCUmZIMEtBcGVW?=
- =?utf-8?B?cEREOUFnTUxvOHhYUHpwMWp2eG12KzRSaGtYd3h1VXlkSjU3WSsvVVYrQlU4?=
- =?utf-8?B?SEEzWXRIcXlkY210QmVlRHVkUnM1aVpESk9VMzlzWHJSaW01cExkRXNCQTB6?=
- =?utf-8?B?VlV0a3Z6MUR0TjBhdmJjRFZqRWtJU25tYzIrNE1IeEpIUjVZVEFCSkkxTGpi?=
- =?utf-8?B?blJoNTNOQ29WSERmZENpcmltalBwVEhQeDd1a25NRW56U0RTWm5RWXhsMVMz?=
- =?utf-8?B?d0Ztc0NBS1Rra0VmeWR2NytWL0taSTFMVlExbGFWVnlmdWpwNklOYjRCUWJN?=
- =?utf-8?B?RGplU0o5cERMTXA4KzIyVHRPN2luanJlQWNOcCsvMW1JeWRFTUZyUEx0TGdV?=
- =?utf-8?B?d3hmaGFmamtSbkJzb1pMaGNnbnJQTGJKYVJ6TlEwVDI3YmJTbUo1T3ZOZmtY?=
- =?utf-8?B?NXZyaHBKNUJIcXNpNk1tMzN6akdCc0VGcENHS2pSZ1JQNWhRU3dDcmhjU3pr?=
- =?utf-8?B?UHNSU1htRGlCRDg4OHFxTFZtd0NESElXb2llM3JScnA3QmlFR29Qd2dURldX?=
- =?utf-8?B?cjdwTisxRjl6VUZLN1FnMHdCUkFKNll5dm4xc04rd0VldmIrWDZPVDVDN2hX?=
- =?utf-8?B?aE9rMnBoN2o5Ni9LbXV0NXpsdHVUcW9ZTkUzbWUvME1vemNIYnhXM0xXZnJl?=
- =?utf-8?B?L1A0ZHJFbXJGc1FRNUFYZi9WVmlHSndaVWZEY2lnOTBkcis5ZkF1WlRXUjdp?=
- =?utf-8?B?V2hUODQvelpUd0I4bGxRMWUvQ2F6WWFXdTBYKzQ5QWlKZG05L1hZK21PVWFx?=
- =?utf-8?B?TUJxRkFCeFJtRE1nT25OeXoyZHZpRXIrdGZyclJpbUtTb1llZU5JZUN1QURh?=
- =?utf-8?B?amgvQ2c3VzRabDhHN3Noc2MveDAwaTQ1akwxbEorU0V0clJBN203c3Nkajhv?=
- =?utf-8?B?WngwaWN2NDNrdXc4VG1aTGJHSElTT1FoQm9GVHU0UHowVm96UkN6eUt2SjZ6?=
- =?utf-8?B?U2VmRGFqNzVHZ3AzTXdiZDZOaEpyOFdOZ1gvTzJ4NlE2VkJSdWM3Y2hVcjFr?=
- =?utf-8?B?NVg1RGxwL0NPRzlyVGxEK3pRWFFscllBb3VSVFNFMDdWc0FDVjVUWXFnTFh0?=
- =?utf-8?B?V1NqWDVBU0ZmSzdwSTc2S3h6SXAySVNhZ09scEJKdks0TmI3c3Z1bytmTzNz?=
- =?utf-8?B?RDYvQkxWZkwvTXl2Q3JmZUtYbFdkSHdLcnE3Q0h5VkZxa1NaNC9DK1Fya096?=
- =?utf-8?B?bElBa2lXTWdmcGJkZnF5WnByVEtHOUJQNGVEaVpKRENSR1lLam9lL0dBbHkz?=
- =?utf-8?B?djd2ajVQU2pDeEcxRE5rMGJ2RXZvRk5KNlZtazNEVjl6T2d2Z050OXZsRDR3?=
- =?utf-8?B?ZitVTFpNdFlTY0RlZE5STWlPcTdwY3BMdmozekpqdDQ3dGlJWTAxVW9PTGJK?=
- =?utf-8?Q?wiHVQa6D3Y8Am9aA9sJFJw1NX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf4d641e-ae30-4d95-c75a-08de0b5c11c0
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 19:58:39.7474 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2025 20:13:57.5817 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84e48bf6-01c6-469d-151a-08de0b5e34f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t7ZFMFh6VeLkxFZg/tT27PtnFEaauoY6Fmjt+2DnEY/iqJvOUXVKD0zeZqvovv8UVede0vXxOOlQupG6eJxWYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5601
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F67.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8059
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,307 +134,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------cy01c7n3FBPRhFVRFDscmmE3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ - This change prepares the later patches to intro  _v2 suffix to SRIOV critical regions
 
+Signed-off-by: Ellen Pan <yunru.pan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 20 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 57 ++++++++++++++-------
+ 2 files changed, 49 insertions(+), 28 deletions(-)
 
-On 2025-10-14 15:35, Kasiviswanathan, Harish wrote:
->
-> [Public]
->
->
-> With the original patch accounting underflows. Allocations are 
-> accounted in kfd_chardev.c doesn’t account for GTT allocations. 
-> However, free accounts for both GTT and VRAM.
->
-> Use of flags is more reliable. I think flags should have used in the 
-> first place, but I believe originally when vram_usage was first 
-> introduced the mem->alloc_flags wasn’t used in the free_ function
->
-Makes sense. Though it seems at allocation time the accounting has used 
-the allocation flags as far back as 2020. I wonder it there should be a 
-Fixes: tag here, but not sure which change exactly introduced the 
-regression. Sounds like it was something that happened after your patch 
-in 2023.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 3328ab63376b..e95adf0407a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -686,7 +686,7 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
+ 		/* got through this logic in early init stage to get necessary flags, e.g. rlcg_acc related*/
+ 		adev->virt.fw_reserve.p_pf2vf =
+ 			(struct amd_sriov_msg_pf2vf_info_header *)
+-			(adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
++			(adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 << 10));
+ 
+ 		amdgpu_virt_read_pf2vf_data(adev);
+ 	}
+@@ -703,21 +703,21 @@ void amdgpu_virt_exchange_data(struct amdgpu_device *adev)
+ 		if (adev->mman.fw_vram_usage_va) {
+ 			adev->virt.fw_reserve.p_pf2vf =
+ 				(struct amd_sriov_msg_pf2vf_info_header *)
+-				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
++				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 << 10));
+ 			adev->virt.fw_reserve.p_vf2pf =
+ 				(struct amd_sriov_msg_vf2pf_info_header *)
+-				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
++				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 << 10));
+ 			adev->virt.fw_reserve.ras_telemetry =
+-				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
++				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
+ 		} else if (adev->mman.drv_vram_usage_va) {
+ 			adev->virt.fw_reserve.p_pf2vf =
+ 				(struct amd_sriov_msg_pf2vf_info_header *)
+-				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 10));
++				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 << 10));
+ 			adev->virt.fw_reserve.p_vf2pf =
+ 				(struct amd_sriov_msg_vf2pf_info_header *)
+-				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
++				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 << 10));
+ 			adev->virt.fw_reserve.ras_telemetry =
+-				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
++				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
+ 		}
+ 
+ 		amdgpu_virt_read_pf2vf_data(adev);
+@@ -1304,7 +1304,7 @@ static int amdgpu_virt_cache_host_error_counts(struct amdgpu_device *adev,
+ 	checksum = host_telemetry->header.checksum;
+ 	used_size = host_telemetry->header.used_size;
+ 
+-	if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
++	if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
+ 		return 0;
+ 
+ 	tmp = kmemdup(&host_telemetry->body.error_count, used_size, GFP_KERNEL);
+@@ -1383,7 +1383,7 @@ amdgpu_virt_write_cpers_to_ring(struct amdgpu_device *adev,
+ 	checksum = host_telemetry->header.checksum;
+ 	used_size = host_telemetry->header.used_size;
+ 
+-	if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
++	if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
+ 		return -EINVAL;
+ 
+ 	cper_dump = kmemdup(&host_telemetry->body.cper_dump, used_size, GFP_KERNEL);
+@@ -1515,7 +1515,7 @@ static int amdgpu_virt_cache_chk_criti_hit(struct amdgpu_device *adev,
+ 	checksum = host_telemetry->header.checksum;
+ 	used_size = host_telemetry->header.used_size;
+ 
+-	if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
++	if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
+ 		return 0;
+ 
+ 	tmp = kmemdup(&host_telemetry->body.chk_criti, used_size, GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+index 3a79ed7d8031..3b35154e2df6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+@@ -23,26 +23,47 @@
+ #ifndef AMDGV_SRIOV_MSG__H_
+ #define AMDGV_SRIOV_MSG__H_
+ 
+-/* unit in kilobytes */
+-#define AMD_SRIOV_MSG_VBIOS_OFFSET	     0
+-#define AMD_SRIOV_MSG_VBIOS_SIZE_KB	     64
+-#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB AMD_SRIOV_MSG_VBIOS_SIZE_KB
+-#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB   4
+-#define AMD_SRIOV_MSG_TMR_OFFSET_KB	     2048
+-#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB	     2
+-#define AMD_SRIOV_RAS_TELEMETRY_SIZE_KB	     64
+ /*
+- * layout
++ * layout v1
+  * 0           64KB        65KB        66KB           68KB                   132KB
+  * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS Telemetry Region | ...
+  * |   64KB    |   1KB     |   1KB     |   2KB        | 64KB                 | ...
+  */
+ 
+-#define AMD_SRIOV_MSG_SIZE_KB                   1
+-#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB           AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB
+-#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB           (AMD_SRIOV_MSG_PF2VF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
+-#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB        (AMD_SRIOV_MSG_VF2PF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
+-#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB   (AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB + AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB)
++/*
++ * layout v2 (offsets are dynamically allocated and the offsets below are examples)
++ * 0           1KB         64KB        65KB        66KB           68KB                   132KB
++ * |  INITD_H  |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS Telemetry Region | ...
++ * |   1KB     |   64KB    |   1KB     |   1KB     |   2KB        | 64KB                 | ...
++ *
++ * Note: PF2VF + VF2PF + Bad Page = DataExchange region (allocated contiguously)
++ */
++
++/* v1 layout sizes */
++#define AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1			64
++#define AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1			1
++#define AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1			1
++#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1		2
++#define AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1		64
++#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB_V1		\
++	(AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1 + AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1 + \
++	 AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1)
++
++/* v1 offsets */
++#define AMD_SRIOV_MSG_VBIOS_OFFSET_V1			0
++#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB_V1		AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1
++#define AMD_SRIOV_MSG_TMR_OFFSET_KB			2048
++#define AMD_SRIOV_MSG_SIZE_KB_V1			1
++#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1		AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB_V1
++#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1		\
++	(AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB_V1)
++#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1		\
++	(AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB_V1)
++#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1	\
++	(AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1 + AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1)
++#define AMD_SRIOV_MSG_INIT_DATA_TOT_SIZE_KB_V1		\
++	(AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1 + AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB_V1 + \
++	 AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1)
+ 
+ /*
+  * PF2VF history log:
+@@ -436,12 +457,12 @@ unsigned int amd_sriov_msg_checksum(void *obj, unsigned long obj_size, unsigned
+ #define _stringification(s) #s
+ 
+ _Static_assert(
+-	sizeof(struct amd_sriov_msg_vf2pf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
+-	"amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
++	sizeof(struct amd_sriov_msg_vf2pf_info) == AMD_SRIOV_MSG_SIZE_KB_V1 << 10,
++	"amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB_V1) " KB");
+ 
+ _Static_assert(
+-	sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB << 10,
+-	"amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB) " KB");
++	sizeof(struct amd_sriov_msg_pf2vf_info) == AMD_SRIOV_MSG_SIZE_KB_V1 << 10,
++	"amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG_SIZE_KB_V1) " KB");
+ 
+ _Static_assert(AMD_SRIOV_MSG_RESERVE_UCODE % 4 == 0,
+ 	       "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
+-- 
+2.34.1
 
-Either way, the patch is
-
-Acked-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
-> Best Regards,
->
-> Harish
->
-> *From:*Kuehling, Felix <Felix.Kuehling@amd.com>
-> *Sent:* Tuesday, October 14, 2025 3:16 PM
-> *To:* Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Liu, 
-> Alysa <Alysa.Liu@amd.com>; amd-gfx@lists.freedesktop.org
-> *Subject:* Re: [PATCH] drm/amdgpu: Fix vram_usage underflow
->
-> On 2025-10-14 13:52, Kasiviswanathan, Harish wrote:
->
->     [Public]
->
->     Reviewed-by: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com> <mailto:Harish.Kasiviswanathan@amd.com>
->
-> This patch seems to effectively revert your earlier patch
->
-> commit f915f3af9984464c308787102990d85d4e988d2c
-> Author: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com> <mailto:Harish.Kasiviswanathan@amd.com>
-> Date:   Fri Apr 28 14:20:00 2023 -0400
->      drm/amdgpu: For GFX 9.4.3 APU fix vram_usage value
->      
->      For GFX 9.4.3 APP APU VRAM is allocated in GTT domain. While freeing
->      memory check for GTT domain instead of VRAM if it is APP APU
->      
->      Signed-off-by: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com> <mailto:Harish.Kasiviswanathan@amd.com>
->      Reviewed-by: Felix Kuehling<Felix.Kuehling@amd.com> <mailto:Felix.Kuehling@amd.com>
->      Signed-off-by: Alex Deucher<alexander.deucher@amd.com> <mailto:alexander.deucher@amd.com>
->
-> Are you sure that's the right thing to do? Are the original reasons 
-> for your patch no longer valid?
->
-> Regards,
->   Felix
->
->     -----Original Message-----
->
->     From: Liu, Alysa<Alysa.Liu@amd.com> <mailto:Alysa.Liu@amd.com>
->
->     Sent: Tuesday, October 14, 2025 9:43 AM
->
->     To:amd-gfx@lists.freedesktop.org
->
->     Cc: Kasiviswanathan, Harish<Harish.Kasiviswanathan@amd.com> <mailto:Harish.Kasiviswanathan@amd.com>; Liu, Alysa<Alysa.Liu@amd.com> <mailto:Alysa.Liu@amd.com>
->
->     Subject: [PATCH] drm/amdgpu: Fix vram_usage underflow
->
->     From: Alysa Liu<Alysa.Liu@amd.com> <mailto:Alysa.Liu@amd.com>
->
->     vram_usage was subtracting non-vram memory size,
->
->     which caused it to become negative.
->
->     Signed-off-by: Alysa Liu<Alysa.Liu@amd.com> <mailto:Alysa.Liu@amd.com>
->
->     ---
->
->       drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 +---
->
->       1 file changed, 1 insertion(+), 3 deletions(-)
->
->     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->
->     index 22c1bdc53d2e..c2fa330ff78b 100644
->
->     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->
->     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->
->     @@ -1961,9 +1961,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
->
->               */
->
->              if (size) {
->
->                      if (!is_imported &&
->
->     -                  (mem->bo->preferred_domains == AMDGPU_GEM_DOMAIN_VRAM ||
->
->     -                  (adev->apu_prefer_gtt &&
->
->     -                   mem->bo->preferred_domains == AMDGPU_GEM_DOMAIN_GTT)))
->
->     +                  mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
->
->                              *size = bo_size;
->
->                      else
->
->                              *size = 0;
->
->     --
->
->     2.34.1
->
---------------cy01c7n3FBPRhFVRFDscmmE3
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2025-10-14 15:35, Kasiviswanathan,
-      Harish wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:CY8PR12MB709948D58A4EF8E67D37A6858CEBA@CY8PR12MB7099.namprd12.prod.outlook.com">
-      
-      <meta name="Generator" content="Microsoft Word 15 (filtered medium)">
-      <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:Aptos;}@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	font-size:10.0pt;
-	font-family:"Courier New";}span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;}span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <p style="font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
-        [Public]<br>
-      </p>
-      <br>
-      <div>
-        <div class="WordSection1">
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">With
-              the original patch accounting underflows. Allocations are
-              accounted in kfd_chardev.c doesn’t account for GTT
-              allocations. However, free accounts for both GTT and VRAM.
-              <br>
-              <br>
-              Use of flags is more reliable. I think flags should have
-              used in the first place, but I believe originally when
-              vram_usage was first introduced the mem-&gt;alloc_flags
-              wasn’t used in the free_ function</span></p>
-        </div>
-      </div>
-    </blockquote>
-    <p>Makes sense. Though it seems at allocation time the accounting
-      has used the allocation flags as far back as 2020. I wonder it
-      there should be a Fixes: tag here, but not sure which change
-      exactly introduced the regression. Sounds like it was something
-      that happened after your patch in 2023.<br>
-    </p>
-    <p>Either way, the patch is</p>
-    <p>Acked-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a></p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:CY8PR12MB709948D58A4EF8E67D37A6858CEBA@CY8PR12MB7099.namprd12.prod.outlook.com">
-      <div>
-        <div class="WordSection1">
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Best
-              Regards,<o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Harish<o:p></o:p></span></p>
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-          <div>
-            <div style="border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in">
-              <p class="MsoNormal"><b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
-                  Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-                  <br>
-                  <b>Sent:</b> Tuesday, October 14, 2025 3:16 PM<br>
-                  <b>To:</b> Kasiviswanathan, Harish
-                  <a class="moz-txt-link-rfc2396E" href="mailto:Harish.Kasiviswanathan@amd.com">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>; Liu, Alysa
-                  <a class="moz-txt-link-rfc2396E" href="mailto:Alysa.Liu@amd.com">&lt;Alysa.Liu@amd.com&gt;</a>;
-                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                  <b>Subject:</b> Re: [PATCH] drm/amdgpu: Fix vram_usage
-                  underflow<o:p></o:p></span></p>
-            </div>
-          </div>
-          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-          <div>
-            <p class="MsoNormal">On 2025-10-14 13:52, Kasiviswanathan,
-              Harish wrote:<o:p></o:p></p>
-          </div>
-          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-            <pre>[Public]<o:p></o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre>Reviewed-by: Harish Kasiviswanathan <a href="mailto:Harish.Kasiviswanathan@amd.com" moz-do-not-send="true">&lt;Harish.Kasiviswanathan@amd.com&gt;</a><o:p></o:p></pre>
-          </blockquote>
-          <p>This patch seems to effectively revert your earlier patch <o:p></o:p></p>
-          <pre>commit f915f3af9984464c308787102990d85d4e988d2c<o:p></o:p></pre>
-          <pre>Author: Harish Kasiviswanathan <a href="mailto:Harish.Kasiviswanathan@amd.com" moz-do-not-send="true">&lt;Harish.Kasiviswanathan@amd.com&gt;</a><o:p></o:p></pre>
-          <pre>Date:&nbsp;&nbsp; Fri Apr 28 14:20:00 2023 -0400<o:p></o:p></pre>
-          <pre><o:p>&nbsp;</o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp; drm/amdgpu: For GFX 9.4.3 APU fix vram_usage value<o:p></o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp; <o:p></o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp;&nbsp;For GFX 9.4.3 APP APU VRAM is allocated in GTT domain. While freeing<o:p></o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp; memory check for GTT domain instead of VRAM if it is APP APU<o:p></o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp; <o:p></o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp;&nbsp;Signed-off-by: Harish Kasiviswanathan <a href="mailto:Harish.Kasiviswanathan@amd.com" moz-do-not-send="true">&lt;Harish.Kasiviswanathan@amd.com&gt;</a><o:p></o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp; Reviewed-by: Felix Kuehling <a href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">&lt;Felix.Kuehling@amd.com&gt;</a><o:p></o:p></pre>
-          <pre>&nbsp;&nbsp;&nbsp; Signed-off-by: Alex Deucher <a href="mailto:alexander.deucher@amd.com" moz-do-not-send="true">&lt;alexander.deucher@amd.com&gt;</a><o:p></o:p></pre>
-          <p>Are you sure that's the right thing to do? Are the original
-            reasons for your patch no longer valid?<o:p></o:p></p>
-          <p>Regards,<br>
-            &nbsp; Felix<o:p></o:p></p>
-          <p><o:p>&nbsp;</o:p></p>
-          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre>-----Original Message-----<o:p></o:p></pre>
-            <pre>From: Liu, Alysa <a href="mailto:Alysa.Liu@amd.com" moz-do-not-send="true">&lt;Alysa.Liu@amd.com&gt;</a><o:p></o:p></pre>
-            <pre>Sent: Tuesday, October 14, 2025 9:43 AM<o:p></o:p></pre>
-            <pre>To: <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a><o:p></o:p></pre>
-            <pre>Cc: Kasiviswanathan, Harish <a href="mailto:Harish.Kasiviswanathan@amd.com" moz-do-not-send="true">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>; Liu, Alysa <a href="mailto:Alysa.Liu@amd.com" moz-do-not-send="true">&lt;Alysa.Liu@amd.com&gt;</a><o:p></o:p></pre>
-            <pre>Subject: [PATCH] drm/amdgpu: Fix vram_usage underflow<o:p></o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre>From: Alysa Liu <a href="mailto:Alysa.Liu@amd.com" moz-do-not-send="true">&lt;Alysa.Liu@amd.com&gt;</a><o:p></o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre>vram_usage was subtracting non-vram memory size,<o:p></o:p></pre>
-            <pre>which caused it to become negative.<o:p></o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre>Signed-off-by: Alysa Liu <a href="mailto:Alysa.Liu@amd.com" moz-do-not-send="true">&lt;Alysa.Liu@amd.com&gt;</a><o:p></o:p></pre>
-            <pre>---<o:p></o:p></pre>
-            <pre> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 +---<o:p></o:p></pre>
-            <pre> 1 file changed, 1 insertion(+), 3 deletions(-)<o:p></o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-            <pre>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<o:p></o:p></pre>
-            <pre>index 22c1bdc53d2e..c2fa330ff78b 100644<o:p></o:p></pre>
-            <pre>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<o:p></o:p></pre>
-            <pre>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<o:p></o:p></pre>
-            <pre>@@ -1961,9 +1961,7 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(<o:p></o:p></pre>
-            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></pre>
-            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (size) {<o:p></o:p></pre>
-            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!is_imported &amp;&amp;<o:p></o:p></pre>
-            <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (mem-&gt;bo-&gt;preferred_domains == AMDGPU_GEM_DOMAIN_VRAM ||<o:p></o:p></pre>
-            <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;apu_prefer_gtt &amp;&amp;<o:p></o:p></pre>
-            <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem-&gt;bo-&gt;preferred_domains == AMDGPU_GEM_DOMAIN_GTT)))<o:p></o:p></pre>
-            <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mem-&gt;alloc_flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_VRAM)<o:p></o:p></pre>
-            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size = bo_size;<o:p></o:p></pre>
-            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></pre>
-            <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size = 0;<o:p></o:p></pre>
-            <pre>--<o:p></o:p></pre>
-            <pre>2.34.1<o:p></o:p></pre>
-            <pre><o:p>&nbsp;</o:p></pre>
-          </blockquote>
-        </div>
-      </div>
-    </blockquote>
-  </body>
-</html>
-
---------------cy01c7n3FBPRhFVRFDscmmE3--
