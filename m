@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A89CCD18E
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 13:02:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D52CCD192
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 13:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EC8A10E7D9;
-	Wed, 15 Oct 2025 13:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB40010E7CE;
+	Wed, 15 Oct 2025 13:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dc7pkoa+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L7J/eqos";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED9D210E7D9
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 13:02:17 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-26987b80720so14656045ad.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 06:02:17 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65E2010E7CE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 13:03:14 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-27eda3a38ceso13134885ad.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 06:03:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760533337; x=1761138137; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760533394; x=1761138194; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Yo85ydNj5JOIc5htYwhLaMHU36n/h1v+hUCro2uXaCA=;
- b=Dc7pkoa+eYEQo2m16Oe1sSwD2ZHKYHyqoeq3OVfYB8oP/njsNcd7GgO60QfINof6KJ
- WemTg3ATlqsLnj57XsfAE7ByMfaO1f5sWSZigR4b0/z3/F8W53lIAfixAKEAOjRL0lvT
- 7uYyFMerYqA66FtJa28myR8BWoe04OZIreQc7oNeXOAGMpZqtKPU5NdpuK5WahTqhPOs
- i3DVZozEEYml33jOgrOHZB084y+dTINlZv9LUPuKYmHeuADIySrl2DDJIaEVeWuaRX5J
- f6BQ4QYNCvnkUalAzdJYCSb4dRaSEHT6ma6oTwI3svgzGyHz5vs7L2DG+Aiwf0OUOhCl
- 530w==
+ bh=tGaTWstuwnLj/l6hYhVAgbK8JObul5twC2h6HlpZBT0=;
+ b=L7J/eqoszQ6TwYrAIIvb/EpN799Ygy058mzdVOHRM+VjqowKYQzdi3/kJdg7NSrfF9
+ nREP6E9fMgwxpQ4qr3SMxRka+ZrBuMNIpdw43+JGCj+nITWE7jMjg64GsRdzsjFCwtNm
+ U2e7YGWsaCDb2PBDJXGlH8kMY4UotxVMHlrDPZwypzwy+xLbM70aDOKF6ncWzVuQJ190
+ SpKzgrWSnMXddG+alsMBXvyHb0WWuF31WGntYdjIrvpyyjbWfo85xsknWZ6evTWEKgzR
+ 5KcXx1HlTweNj+rfdNqJ1Zqrp3B+EZ6hikZYB6bKeiIKYjux7tWU0PFwL1e0npnnJwUK
+ e1Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760533337; x=1761138137;
+ d=1e100.net; s=20230601; t=1760533394; x=1761138194;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Yo85ydNj5JOIc5htYwhLaMHU36n/h1v+hUCro2uXaCA=;
- b=ikdhJ0pQ0nzLNerO0KLgwy0020FA4SfEifoCzTjp/HsMOX+dW6OEv4X+JqKbBTqXyC
- VD4Yp8/TcBTGlNeWzkqjJbL/94iWtdpHUjQuhm2eV0xLljsZv8dOMAroRixEXx8RtWMS
- bUB+DfSWNTpGwH9bUykoGqv5pkLaDY4nXMSw7xVM0x/KNvpYeEM6VDQUhabyq8+JPZWd
- 8Wxh9jcJYoNGGin7ZZ6EcSK1frKydlk7qLU9rhuFCYGpuVUyF3LVY3W7eUmOdJDNXQ2Y
- lFBuVR110Sogb/2dzcP56IlYRyoTU55SWb7GizGz3z9sJ4EfOuo301g3ViJ43tXsU688
- HUhA==
-X-Gm-Message-State: AOJu0Yw4FGcBQYUrrHrznxDaiIqDnioIYx91lVioDC4Wf/RihISpDDcS
- NBSSaoAJWjJXweik8CzVkYsu1+w8rwPk9RnhFvQTtvzWJGkspc1sDDcD2tJLENupgvdPLiKYglE
- mWJH0SquooNamtWsR30X1V78lLnNsew8=
-X-Gm-Gg: ASbGncsip8/Vzv3xEb9+o3qyWNjFUc01ckgJ9/cgbXHHD0bSqQ1CAtArLVr/RtY+kiF
- of086KpoHupsMbYZcZN+e6IjDGTSFk0tuKnElPjvpPkdak3kT0sZTWBgnp1KFcVJNKgL7RWOQtm
- vLqC6DJtwxlYgYRVs108/DJ6lRS87zw50zc3AhJz7Y0fe8lJfiQTOOCYst++0DxBN8XOf/MAkoQ
- PYpX4XWEEDhk5bMzIuRFHh60OG3h0D+urxH
-X-Google-Smtp-Source: AGHT+IHKUiUFwhEDHNtYz5wDjJchdNJs9XeqENbWsYYVwgr4+opBj5zIlcrLGhmv8p3oW8zvnOMMwcKG9dzaDfW/f+s=
-X-Received: by 2002:a17:902:da92:b0:267:bd8d:1b6 with SMTP id
- d9443c01a7336-290272e1e45mr216804965ad.6.1760533336860; Wed, 15 Oct 2025
- 06:02:16 -0700 (PDT)
+ bh=tGaTWstuwnLj/l6hYhVAgbK8JObul5twC2h6HlpZBT0=;
+ b=VME5FrTqzaWDiXS+fFxY/WgQejwcb26aYjJRyVWm81VEvNZSttapny5Oy6a+Qy14rf
+ NOcjipzDogkQHQcR2/bp/a5TrG08JipJe69s2NeYoVfXGUB6zvIufjerDgfR1CIPNyMs
+ wjjVAFyfa6AisEWw/UhvDW+YHxuSt9OslQdB6wGMiyl7LUfOe8Us5Tswn8d38haa8iA3
+ us4ReXU4lmcMAWTHAoeESGov/FjlPV1rgj0wOFU/tWoE8dW6ZdBjku+sGUkd5UOHPEJJ
+ uhbdEs1MJooIpsEM9uDEcCILExDPTa4shXhPRpM99Jh8nz2pLNGAGcRZdJHgBmacWwxx
+ zzzw==
+X-Gm-Message-State: AOJu0YyCddaYuJh9syexAAf+ZBQbO92y2sGoAfvzqCXYDZ4nqt8RdeiV
+ ikJUHlHWPyDZdXV4X66E2LrBVY27pC+fL3maUPw6f7xI1iwjHOnR9GDj3ag9p+lE7Gzwdauo2WH
+ XSxB9lO/zDKGvhgbhHcxdKLt/XpRRDR8=
+X-Gm-Gg: ASbGncuxBixUXVqCNMGPR9u/xl+1qxZEvnIlpCoZ3IxHxmnbA6F1xGf1D0nTGZ/K3X0
+ Is6UO4lmm7FflCIkhtrmNNYZrjI3+Hoc+5yqkMgB4Fu/KCs0vSlCl7M3agVl3uUlXyKVkSEgOOn
+ H4jTnwvhWpY31rreypHBqp0Ou3AhVIa8OlKWteQlflx2FAZ65xiPs0mxLXUQQNz+19Aj4n0F3Sp
+ x5WPjNqXYA39hBRUl9PvamKpH5LR6MWW5Gz
+X-Google-Smtp-Source: AGHT+IF5ASKyLYL90/ypLWAYEKAhaamAyEPzQVS5a6Tgyeb5DcUtvkpdL+jE1svy2xFnp1J8M/enspm2UWnhPpyRStw=
+X-Received: by 2002:a17:903:2f8e:b0:267:8b4f:df1f with SMTP id
+ d9443c01a7336-290273c62d3mr188183055ad.1.1760533391466; Wed, 15 Oct 2025
+ 06:03:11 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251014201346.9422-1-yunru.pan@amd.com>
-In-Reply-To: <20251014201346.9422-1-yunru.pan@amd.com>
+ <20251014201346.9422-2-yunru.pan@amd.com>
+In-Reply-To: <20251014201346.9422-2-yunru.pan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Oct 2025 09:02:05 -0400
-X-Gm-Features: AS18NWCcMc4GhWwm1chzIe6JCy1G3mCFFSEoAkowpfiYw3ftZnG8KBBovaMnoJc
-Message-ID: <CADnq5_NvTTTh5WCKnZWf7_NKRrFBdV6JOE4pCA44WMApQd4mSw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/6] drm/amdgpu: Updated naming of SRIOV critical
- region offsets/sizes with _V1 suffix
+Date: Wed, 15 Oct 2025 09:02:58 -0400
+X-Gm-Features: AS18NWCx0DN68J2BBqa2Zalc2WLrMQfvDPMrIAR8k85PHc0ZhyKrnbIImXTMozM
+Message-ID: <CADnq5_OYMu2UVhK20TnH3oChX9HA20oD5c_3B+29n8C1QOVDEg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/6] drm/amdgpu: Add SRIOV crit_region_version support
 To: Ellen Pan <yunru.pan@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
  Christian.Koenig@amd.com, Lijo.Lazar@amd.com, Jeffrey.Chan@amd.com
@@ -85,224 +85,145 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Tue, Oct 14, 2025 at 4:21=E2=80=AFPM Ellen Pan <yunru.pan@amd.com> wrote=
 :
 >
->  - This change prepares the later patches to intro  _v2 suffix to SRIOV c=
-ritical regions
+> 1. Added enum amd_sriov_crit_region_version to support multi versions
+> 2. Added logic in SRIOV mailbox to regonize crit_region version during
+>    req_gpu_init_data
 >
 > Signed-off-by: Ellen Pan <yunru.pan@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 20 ++++----
->  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 57 ++++++++++++++-------
->  2 files changed, 49 insertions(+), 28 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    |  5 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  8 +++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  5 +++++
+>  drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c       | 23 ++++++++++++++-------
+>  4 files changed, 32 insertions(+), 9 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
 md/amdgpu/amdgpu_virt.c
-> index 3328ab63376b..e95adf0407a0 100644
+> index e95adf0407a0..39ab7d00379b 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -686,7 +686,7 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_dev=
+> @@ -150,9 +150,10 @@ void amdgpu_virt_request_init_data(struct amdgpu_dev=
 ice *adev)
->                 /* got through this logic in early init stage to get nece=
-ssary flags, e.g. rlcg_acc related*/
->                 adev->virt.fw_reserve.p_pf2vf =3D
->                         (struct amd_sriov_msg_pf2vf_info_header *)
-> -                       (adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 1=
-0));
-> +                       (adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 <=
-< 10));
+>                 virt->ops->req_init_data(adev);
 >
->                 amdgpu_virt_read_pf2vf_data(adev);
->         }
-> @@ -703,21 +703,21 @@ void amdgpu_virt_exchange_data(struct amdgpu_device=
- *adev)
->                 if (adev->mman.fw_vram_usage_va) {
->                         adev->virt.fw_reserve.p_pf2vf =3D
->                                 (struct amd_sriov_msg_pf2vf_info_header *=
-)
-> -                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
-_MSG_PF2VF_OFFSET_KB << 10));
-> +                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
-_MSG_PF2VF_OFFSET_KB_V1 << 10));
->                         adev->virt.fw_reserve.p_vf2pf =3D
->                                 (struct amd_sriov_msg_vf2pf_info_header *=
-)
-> -                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
-_MSG_VF2PF_OFFSET_KB << 10));
-> +                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
-_MSG_VF2PF_OFFSET_KB_V1 << 10));
->                         adev->virt.fw_reserve.ras_telemetry =3D
-> -                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
-_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
-> +                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
-_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
->                 } else if (adev->mman.drv_vram_usage_va) {
->                         adev->virt.fw_reserve.p_pf2vf =3D
->                                 (struct amd_sriov_msg_pf2vf_info_header *=
-)
-> -                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
-V_MSG_PF2VF_OFFSET_KB << 10));
-> +                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
-V_MSG_PF2VF_OFFSET_KB_V1 << 10));
->                         adev->virt.fw_reserve.p_vf2pf =3D
->                                 (struct amd_sriov_msg_vf2pf_info_header *=
-)
-> -                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
-V_MSG_VF2PF_OFFSET_KB << 10));
-> +                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
-V_MSG_VF2PF_OFFSET_KB_V1 << 10));
->                         adev->virt.fw_reserve.ras_telemetry =3D
-> -                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
-V_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
-> +                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
-V_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
->                 }
+>         if (adev->virt.req_init_data_ver > 0)
+> -               DRM_INFO("host supports REQ_INIT_DATA handshake\n");
+> +               dev_info(adev->dev, "host supports REQ_INIT_DATA handshak=
+e of critical_region_version %d\n",
+> +                                adev->virt.req_init_data_ver);
+>         else
+> -               DRM_WARN("host doesn't support REQ_INIT_DATA handshake\n"=
+);
+> +               dev_warn(adev->dev, "host doesn't support REQ_INIT_DATA h=
+andshake\n");
+>  }
 >
->                 amdgpu_virt_read_pf2vf_data(adev);
-> @@ -1304,7 +1304,7 @@ static int amdgpu_virt_cache_host_error_counts(stru=
-ct amdgpu_device *adev,
->         checksum =3D host_telemetry->header.checksum;
->         used_size =3D host_telemetry->header.used_size;
+>  /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.h
+> index d1172c8e58c4..36247a160aa6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -262,6 +262,11 @@ struct amdgpu_virt_ras {
 >
-> -       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-> +       if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
->                 return 0;
+>  DECLARE_ATTR_CAP_CLASS(amdgpu_virt, AMDGPU_VIRT_CAPS_LIST);
 >
->         tmp =3D kmemdup(&host_telemetry->body.error_count, used_size, GFP=
-_KERNEL);
-> @@ -1383,7 +1383,7 @@ amdgpu_virt_write_cpers_to_ring(struct amdgpu_devic=
-e *adev,
->         checksum =3D host_telemetry->header.checksum;
->         used_size =3D host_telemetry->header.used_size;
+> +struct amdgpu_virt_region {
+> +       uint32_t offset;
+> +       uint32_t size_kb;
+> +};
+> +
+>  /* GPU virtualization */
+>  struct amdgpu_virt {
+>         uint32_t                        caps;
+> @@ -289,6 +294,9 @@ struct amdgpu_virt {
+>         bool ras_init_done;
+>         uint32_t reg_access;
 >
-> -       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-> +       if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
->                 return -EINVAL;
->
->         cper_dump =3D kmemdup(&host_telemetry->body.cper_dump, used_size,=
- GFP_KERNEL);
-> @@ -1515,7 +1515,7 @@ static int amdgpu_virt_cache_chk_criti_hit(struct a=
-mdgpu_device *adev,
->         checksum =3D host_telemetry->header.checksum;
->         used_size =3D host_telemetry->header.used_size;
->
-> -       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-> +       if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
->                 return 0;
->
->         tmp =3D kmemdup(&host_telemetry->body.chk_criti, used_size, GFP_K=
-ERNEL);
+> +       /* dynamic(v2) critical regions */
+> +       struct amdgpu_virt_region init_data_header;
+> +
+>         /* vf2pf message */
+>         struct delayed_work vf2pf_work;
+>         uint32_t vf2pf_update_interval_ms;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/dr=
 m/amd/amdgpu/amdgv_sriovmsg.h
-> index 3a79ed7d8031..3b35154e2df6 100644
+> index 3b35154e2df6..b53caab5b706 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> @@ -23,26 +23,47 @@
->  #ifndef AMDGV_SRIOV_MSG__H_
->  #define AMDGV_SRIOV_MSG__H_
->
-> -/* unit in kilobytes */
-> -#define AMD_SRIOV_MSG_VBIOS_OFFSET          0
-> -#define AMD_SRIOV_MSG_VBIOS_SIZE_KB         64
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB AMD_SRIOV_MSG_VBIOS_SIZE_KB
-> -#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB   4
-> -#define AMD_SRIOV_MSG_TMR_OFFSET_KB         2048
-> -#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB      2
-> -#define AMD_SRIOV_RAS_TELEMETRY_SIZE_KB             64
->  /*
-> - * layout
-> + * layout v1
->   * 0           64KB        65KB        66KB           68KB              =
-     132KB
->   * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS Telemetry Re=
-gion | ...
->   * |   64KB    |   1KB     |   1KB     |   2KB        | 64KB            =
-     | ...
->   */
->
-> -#define AMD_SRIOV_MSG_SIZE_KB                   1
-> -#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB           AMD_SRIOV_MSG_DATAEXCHAN=
-GE_OFFSET_KB
-> -#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB           (AMD_SRIOV_MSG_PF2VF_OFF=
-SET_KB + AMD_SRIOV_MSG_SIZE_KB)
-> -#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB        (AMD_SRIOV_MSG_VF2PF_OFF=
-SET_KB + AMD_SRIOV_MSG_SIZE_KB)
-> -#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB   (AMD_SRIOV_MSG_BAD_PAGE_=
-OFFSET_KB + AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB)
-> +/*
-> + * layout v2 (offsets are dynamically allocated and the offsets below ar=
-e examples)
-> + * 0           1KB         64KB        65KB        66KB           68KB  =
-                 132KB
-> + * |  INITD_H  |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS =
-Telemetry Region | ...
-> + * |   1KB     |   64KB    |   1KB     |   1KB     |   2KB        | 64KB=
-                 | ...
-> + *
-> + * Note: PF2VF + VF2PF + Bad Page =3D DataExchange region (allocated con=
-tiguously)
-> + */
-> +
-> +/* v1 layout sizes */
-> +#define AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1                 64
-> +#define AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1                 1
-> +#define AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1                 1
-> +#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1              2
-> +#define AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1         64
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB_V1          \
-> +       (AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1 + AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1 =
-+ \
-> +        AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1)
-> +
-> +/* v1 offsets */
-> +#define AMD_SRIOV_MSG_VBIOS_OFFSET_V1                  0
-> +#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB_V1                AMD_SRIOV=
-_MSG_VBIOS_SIZE_KB_V1
-> +#define AMD_SRIOV_MSG_TMR_OFFSET_KB                    2048
-> +#define AMD_SRIOV_MSG_SIZE_KB_V1                       1
-> +#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1               AMD_SRIOV_MSG_DAT=
-AEXCHANGE_OFFSET_KB_V1
-> +#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1               \
-> +       (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB_V1)
-> +#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1            \
-> +       (AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB_V1)
-> +#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1       \
-> +       (AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1 + AMD_SRIOV_MSG_BAD_PAGE_SIZ=
-E_KB_V1)
-> +#define AMD_SRIOV_MSG_INIT_DATA_TOT_SIZE_KB_V1         \
-> +       (AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1 + AMD_SRIOV_MSG_DATAEXCHANGE_SIZE=
+> @@ -65,6 +65,11 @@
+>         (AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1 + AMD_SRIOV_MSG_DATAEXCHANGE_SIZE=
 _KB_V1 + \
-> +        AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1)
+>          AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1)
 >
+> +enum amd_sriov_crit_region_version {
+> +       GPU_CRIT_REGION_V1 =3D 1,
+> +       GPU_CRIT_REGION_V2 =3D 2,
+> +};
+> +
 >  /*
 >   * PF2VF history log:
-> @@ -436,12 +457,12 @@ unsigned int amd_sriov_msg_checksum(void *obj, unsi=
-gned long obj_size, unsigned
->  #define _stringification(s) #s
+>   * v1 defined in amdgim
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/=
+amdgpu/mxgpu_nv.c
+> index e5282a5d05d9..cd5b2f07edb8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+> @@ -222,12 +222,20 @@ static int xgpu_nv_send_access_requests_with_param(=
+struct amdgpu_device *adev,
+>                                 adev->virt.req_init_data_ver =3D 0;
+>                 } else {
+>                         if (req =3D=3D IDH_REQ_GPU_INIT_DATA) {
+> -                               adev->virt.req_init_data_ver =3D
+> -                                       RREG32_NO_KIQ(mmMAILBOX_MSGBUF_RC=
+V_DW1);
+> -
+> -                               /* assume V1 in case host doesn't set ver=
+sion number */
+> -                               if (adev->virt.req_init_data_ver < 1)
+> -                                       adev->virt.req_init_data_ver =3D =
+1;
+> +                               switch (RREG32_NO_KIQ(mmMAILBOX_MSGBUF_RC=
+V_DW1)) {
+> +                               case GPU_CRIT_REGION_V2:
+> +                                       adev->virt.req_init_data_ver =3D =
+GPU_CRIT_REGION_V2;
+> +                                       adev->virt.init_data_header.offse=
+t =3D
+> +                                               RREG32_NO_KIQ(mmMAILBOX_M=
+SGBUF_RCV_DW2);
+> +                                       adev->virt.init_data_header.size_=
+kb =3D
+> +                                               RREG32_NO_KIQ(mmMAILBOX_M=
+SGBUF_RCV_DW3);
+> +                                       break;
+> +                               default:
+> +                                       adev->virt.req_init_data_ver =3D =
+GPU_CRIT_REGION_V1;
+> +                                       adev->virt.init_data_header.offse=
+t =3D -1;
+> +                                       adev->virt.init_data_header.size_=
+kb =3D 0;
+> +                                       break;
+> +                               }
+>                         }
+>                 }
 >
->  _Static_assert(
-> -       sizeof(struct amd_sriov_msg_vf2pf_info) =3D=3D AMD_SRIOV_MSG_SIZE=
-_KB << 10,
-> -       "amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG=
-_SIZE_KB) " KB");
-> +       sizeof(struct amd_sriov_msg_vf2pf_info) =3D=3D AMD_SRIOV_MSG_SIZE=
-_KB_V1 << 10,
-> +       "amd_sriov_msg_vf2pf_info must be " stringification(AMD_SRIOV_MSG=
-_SIZE_KB_V1) " KB");
+> @@ -285,7 +293,8 @@ static int xgpu_nv_release_full_gpu_access(struct amd=
+gpu_device *adev,
 >
->  _Static_assert(
-> -       sizeof(struct amd_sriov_msg_pf2vf_info) =3D=3D AMD_SRIOV_MSG_SIZE=
-_KB << 10,
-> -       "amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG=
-_SIZE_KB) " KB");
-> +       sizeof(struct amd_sriov_msg_pf2vf_info) =3D=3D AMD_SRIOV_MSG_SIZE=
-_KB_V1 << 10,
-> +       "amd_sriov_msg_pf2vf_info must be " stringification(AMD_SRIOV_MSG=
-_SIZE_KB_V1) " KB");
+>  static int xgpu_nv_request_init_data(struct amdgpu_device *adev)
+>  {
+> -       return xgpu_nv_send_access_requests(adev, IDH_REQ_GPU_INIT_DATA);
+> +       return xgpu_nv_send_access_requests_with_param(adev, IDH_REQ_GPU_=
+INIT_DATA,
+> +                       0, GPU_CRIT_REGION_V2, 0);
+>  }
 >
->  _Static_assert(AMD_SRIOV_MSG_RESERVE_UCODE % 4 =3D=3D 0,
->                "AMD_SRIOV_MSG_RESERVE_UCODE must be multiple of 4");
+>  static int xgpu_nv_mailbox_ack_irq(struct amdgpu_device *adev,
 > --
 > 2.34.1
 >
