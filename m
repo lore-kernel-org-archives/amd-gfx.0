@@ -4,153 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF3E0CCD192
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 14:31:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D564CCD18E
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 14:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 911CE10E80D;
-	Wed, 15 Oct 2025 14:31:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D768310E813;
+	Wed, 15 Oct 2025 14:48:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="enGBPXXA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VTw3r5lS";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011044.outbound.protection.outlook.com [52.101.52.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A19310E805
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 14:31:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lGl8C9+0lKQSwUs6W2Unh78PQWChwIzkSRoLKOr53gJg+cjmh5KyMfI6zpOw3X9GsRgAC1faBWy4Ia6kBdmcoF0n6DNG3T43K5MdcZFgB3oVq7H61A7ml6ZJAcNStQmeiKEqmnyxQGir6SCYdJyu33uxbITLYNOfsmQmLvP5VlERM8lLHDkJ+UJI3ZZi/RFG7mGrVgWETDg2TAK9Uee4iCljacGXOuzPYxDNqBD+UQ/HOXxTFSV38tYS4xMeaWKTVO1DuiaXlqaSBfDeGgxpH2DKgUT1CroUOvG5jgiWAdjvoCfQU9TnypXd3xa+WEG2lL1L3x7Fv+PVz5jwujxV/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1s6qLQW3KsSM52z0EpefZWOQbBnAK+GHq/2/4oofBDM=;
- b=uObGMiYdJgr2aA32++vXL3vKELXncaVLtplrd+PJSCb4RqsMl7SEpBnms7EI3GJeAve0DYWjVJ/EkaUg9Q3ZutCPFjME4PYBxG7RzPMMnxeAuQNkM9XgC6XxOwwo17clMzZZajAltfWQ6ZmPkFKO0RneVl1NlqyRuLrkPXJ3NI4WnxuruJ/XlRCbxItcJq8+7/1n1E6K1lxdBFNVPRPYVvvs0Ba1AqYdADcbpWr/DxfSDZzZhzODpaDr3COnvcUhE4oQHaMJHiKqF4+ZCnCElnIOqO8OUz29Alqxn7Y9887V5StJ0dHoRbGAjBxAupOXaj4evvadFuMmAbhWaYMiOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1s6qLQW3KsSM52z0EpefZWOQbBnAK+GHq/2/4oofBDM=;
- b=enGBPXXAiqFrcsiCt7haEKpv51Q2fb1bgZvsNxERMsVZTOjnTiMbmdCsYNitRHPOeP19TLj8oiVWMmaXnAzNMAz2fnrxABRkW6N67MvErgWhmAvcp5TfnmG4LZhtfmdhcjpgu3TWMBg3jcwSUOmRqnEXhVdTDYrH6761PGxZ+vQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DS7PR12MB6288.namprd12.prod.outlook.com (2603:10b6:8:93::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9203.13; Wed, 15 Oct 2025 14:31:02 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9228.009; Wed, 15 Oct 2025
- 14:31:02 +0000
-Message-ID: <6cc92ce5-908a-4b90-93d9-c648a48af49a@amd.com>
-Date: Wed, 15 Oct 2025 09:30:23 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/amd/display: Check if display HW is enabled in
- amdgpu_dm_atomic_check()
-To: Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20251014193036.595453-1-mario.limonciello@amd.com>
- <20251014193036.595453-2-mario.limonciello@amd.com>
- <CADnq5_P-9F0NsOK_5HG06YP98vqJH+1RXxfEnhnAhQ_U1Q=DNQ@mail.gmail.com>
- <d462f951-1b9d-4390-800f-9af09a7282d5@amd.com>
- <a1465fe4-f17b-4a72-935d-df0105a45e6a@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <a1465fe4-f17b-4a72-935d-df0105a45e6a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR12CA0005.namprd12.prod.outlook.com
- (2603:10b6:806:6f::10) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAA3510E2B2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 14:48:53 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-27eda3a38ceso13359965ad.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 07:48:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760539733; x=1761144533; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ocrgdlu130y1j7Gsegdwspu1faVvcrQmBexut2V9edw=;
+ b=VTw3r5lSAsjfrfNbs/6bm4e/Hkn9DbaVCxqoDE1kHAerdzGVTUN16Mg9mfMvFNo+4e
+ ZK6mI4ENnrWgBdZOGrWJ+khFO4D7losK14AX8ZB1YNCbaUJkIdgR7OI2rmGYL+W3+Iy9
+ KZxtAKwDt1iPw+cFFC6+U/ce+4X06bGTNk3To3pM3KmCcplpwIGlWJRsJ6V7xOJc2yKp
+ y5sg/4gmGw0Y+jMUFtzfleHgxT3Gs1IQ22N2Lbwt95tmQeovvHTPK2uDUVKn78zqsTIL
+ WrzQ+Cghqg71X7skvTyUSyT+VJn6SbwkkIg/Nn4Rf+cBUIKNaAGP4hflJYr1MJ+Xjf2I
+ JJ1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760539733; x=1761144533;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Ocrgdlu130y1j7Gsegdwspu1faVvcrQmBexut2V9edw=;
+ b=AvuerevsgEogRxmd83XtbUDGsSvudFIVAoyll/6xTA6BFHrG17RXi9cD3Ol/KJvWcj
+ 8NDa8X0F9Je4pcg0v+iEKpG1E97tGHbcF7MbH24MXASG3u4Z0HhJaocCPTFnPP4RNCbt
+ oJicB1ibKZsjch+s8iQ4EwOcLVBK2q207RQBxVS+y98w7AZA40E2cX+a9311w1VxwaF5
+ xOrUuP7r7BFv2SlV/5LMlOjczgglH1ihEq+i0p3oievwPNtKeUlmttb0G1J04BJQJjG0
+ sXcb3rUuM2uw76ymPbvCjwV58+ihq/IFKeYWDJy3M5fHWvMOW1TwD5Tx97xbeG3LYMkN
+ teFw==
+X-Gm-Message-State: AOJu0Yy1qwu+JMwh6YD4h4G4GsdE8zXo4QueX0ddTrEKOznRvYr2HoFI
+ DxCgxwppnvuEMNlTi7iLv/oqEiD1FB14oPn8Ap8ewMsn1z+tMUtyG0HV3bpfvYLfXu9gm2IJKsq
+ uRrup8sruXdCMsYDD94WjMs2/sjAnj8c=
+X-Gm-Gg: ASbGncvbGpPPoLTXT/oNDZ5A92pO5NR3DKS933tXcfFtLTdkVvWKVudwAGyzTyBhgJ0
+ V7q+IBk3CCMCOMs/bAh9IAXiJdQI8u2UdCB13XbrV0w5unQHMJhtAMiUzMJqn4t2NoUKvtj6kXW
+ TuxVhClOZGcHT/ByX8bwGOp7nmRtiMiT7N7tmIaQbNYiWq8buhw/MqAZj/ALHOU60NBcsZCjvpD
+ ZhSl+/K4W7HzW6jfK/lfJEZHw==
+X-Google-Smtp-Source: AGHT+IFEOmbkw6qPtIcg0Y2tBmwQ467LBjfaPUfEKHsCXGxA2JZBaWk6p48QXuD288n9QcHdzuQnY9VBrg0d5stVTkE=
+X-Received: by 2002:a17:902:f54b:b0:274:506d:7fe5 with SMTP id
+ d9443c01a7336-290273e1e23mr206099685ad.4.1760539733004; Wed, 15 Oct 2025
+ 07:48:53 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS7PR12MB6288:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b11e15c-b816-40be-0c75-08de0bf77747
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QlNJUU9qVVBkRy85dmQ3ZHVEU0ZsaVo2K3lrcExzSGxRLzRLRnFQcHA3ejVB?=
- =?utf-8?B?SXFSVFJhR0hJc1owQ3RnQkxnK29iMndWeS9TdEpad2NaRkNnbXBDYUdmL3pO?=
- =?utf-8?B?WHoyQkRHbFlGRWdURXJEYjRtRWtENnZuTjZsYVFtZFVSWmJ3SUoyTWFERzEx?=
- =?utf-8?B?NHVXTGdPd1VPUU9SN0Y1dEw4eXMxajQ5T1lhMU96dk1CMVNPaExTTkx0UmYz?=
- =?utf-8?B?ZkQ4ZFlMWkhxNW10MTZESE5iN2Rsd1lJRkRNb3BPajB5MHNNcEZXRWxNWjha?=
- =?utf-8?B?WFplTEZHR2xabWpWV0gyek1QdkRLYmU5cGVQc05SdUNiWjErWUh0WDdrU1VG?=
- =?utf-8?B?d21IY1B4SmlBWVlOdE1pak5FZnI4bjVoay85WEkzeWk2aTNzL05vZUhNZ1lF?=
- =?utf-8?B?WU9BaTZ4Y28yV2lWelN1V01jSmIya0RRR1Ryc0RqZG10ZG04TlBVTFNLWC84?=
- =?utf-8?B?MFJWQ2hyR2NRQTBhRkVrUmRUZVd4aUg4Z3RGWTRhdVZ3eGhQWUZyMk1IMzhE?=
- =?utf-8?B?VWpKOWN6dURXcnZzNFpIRlc3Q2U5c00rUmphZmZNWGprM2h3T3BmU2NOTnN1?=
- =?utf-8?B?VnVIa0VOOWJhWEl6bFlGMmluTXRGS0JrZFVXcHFrTStOd2RmSUhGQzlYUjls?=
- =?utf-8?B?UGhENlFQS1R6R3ZzbVU3NFJvb3VQNktUNGhFWDlYQ2dMRDE5MURxM2g5WVY0?=
- =?utf-8?B?eXlYU0oweTcrWkdSSVhkcHNDMlZ6RFQ5MDBacllCQ1JpY3M3SGcxLzBnYXNE?=
- =?utf-8?B?UWhiL1NCQmZvZkJpS3l0MnJwcnlQNEhicWFkRnlqRFBQemoxM2EyUnU0d0p4?=
- =?utf-8?B?QWNXZGk0L0l5T0l6ZmZRSSsyYVVWZGNWQ2NiQXJqZlE1dDJzbmdFQ2NKSTJS?=
- =?utf-8?B?OFVUZWtxN0VYOHdNZ20wOGhSUTFOZC9lWmdxWUZCeW9USE9TK1JpOThGaUJL?=
- =?utf-8?B?c3ZSQWxmVWluS2ZBWklrSjRRYmhNaUc4dFJwODQ3OFg1ZDlRcnZ0YjlLL0Ry?=
- =?utf-8?B?MjBwOUxzRjFpOVoybUZpMHdrZC92dTE2WUcyY3IvcHJWSVVDbmw2b0pDMWIx?=
- =?utf-8?B?alFsUmo3SlNpSU8yZE5BZTlUSVF3UktYWWtPSTNxMWYvYnVHdzZiRmxhRDB0?=
- =?utf-8?B?dDAyNGFKem16TmJOV0tWcUtNRnM4T21UZGQ1cmdlZUNVRi9nUU43T2tlbEJp?=
- =?utf-8?B?czJaaEpnY0YvaGY2NTg3VDNoTHBRbUN5eC9nOWNYc0l3RXV2Z0FPZm01WkNC?=
- =?utf-8?B?N1Q5b0ZKY3V0bE5od01xaDdHZzlsYUwzQ1AzUTlHWGdqMUNYbDM1SlNXOXZC?=
- =?utf-8?B?djYvWi9CNnh4NklnanZUQXEzSXFBeTdRcHozRGM3cFkxODlheTdTU2NOTHZF?=
- =?utf-8?B?blRuenh6MjRnYlRJT2dmTytpMjhuWVQrclN4N1M0YTk4NFVJU3ZnbGVhSTJJ?=
- =?utf-8?B?bDdGME9mU09uL2tYZHBxamZSUFFUeEhDWWJBRFkxZnNkMDhUMUF5eUVla29V?=
- =?utf-8?B?NHVRNHN1dUI4OUhpblpSeXRZZW1zbER6TjVmcG51V2lyTTNIbkdqbmtCcUVH?=
- =?utf-8?B?NlFJcVRaOXpRZGFhWnZ5SkRjako2eUcrSmkyck1MTDRHdEttalFjdTVzVnBy?=
- =?utf-8?B?VG0vc0p4eThGRlhBeExvVFlyMUtMOWcrOGEyU0w5UTRNR3JwbU9kczZaZ2gv?=
- =?utf-8?B?RUUwbGJOaVEyNE9uU3M5NlFqeWp2bW9BZ2E1em4vTXhGZllBZUxRUmZZSldC?=
- =?utf-8?B?OGdLQ0R3YUlIK1JyQys4blg1amtiU05NNC8vbnNYdlp0N052VW9NeHZ5dDNr?=
- =?utf-8?B?bi9QZXVLTmJUa20wekJHRWllV2ROL0xEZzUrQllBeWlqRmFKNFBKa2U0SHZJ?=
- =?utf-8?B?MVhNRUl1em5KdllaRk1Zczg4TDRGaHhUSEhia3ZJeEtmWWc9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NDZMMms0MDZzMjJWQndmbnJtNzluMG9YMzJKcmdDcmF0V0IyVGFNRDlEQ3dN?=
- =?utf-8?B?czFoWHI5c25rYlU3TUs0YmFnYkMwS3V0YXdPdnNOczVHTG5SNlFKYno5anpQ?=
- =?utf-8?B?VVEvUVBCdkhJWTg5K3dTUjIxWEQvdG1mQWRWaG9UeEFrbUVNTVdpenl6c3ZB?=
- =?utf-8?B?SWNlWHRHUEUzK3lUWHBOMWlCNllocEN4WmVTZFVxcDFDaytnZXkySVBwazlH?=
- =?utf-8?B?TFFMbmtwR1h4TEtsUkVmNFNhN0Q5cmxrWEZvSFVRUEM2NHhQZzkrYWFQUGNG?=
- =?utf-8?B?QTdNZ0d6UWlqYWxVWkd5L3NERmVlZ3ppRHBOa2xqcUx3cDNSUUdsYTAxVTlh?=
- =?utf-8?B?eHlWalZONVFxUThDcmpPWVp3dEtDYVNmSFJWYW1jUFJOcDhCYXFnKzZSNnlZ?=
- =?utf-8?B?Wm45WmxCb0xlUDBZWG0vU3dCQ3lQYk9UWU8rTEpsSlo5d2diZ1pHaUo1bmFN?=
- =?utf-8?B?c2s3KzRiSmZITk1xUEM5OWhnRU5SUDNFdHpCeFJCZ3ZFUHhlSmxDWStFaDlv?=
- =?utf-8?B?T2JqbFJaek84L3BUOXNLeGw3YlBuWjZVbVllUG9Wdm5wQkc0OEZya2tFNlAy?=
- =?utf-8?B?YytXUWR1OVdpQzVITWduZGJ0a1dHRkh5MjRnd1VLMFB1eXV1TGRMUXlVUjFF?=
- =?utf-8?B?cDFMWXhXSUMwOXNWS0pXQlZDWVppY01wcTFKUm1tS2tXWkQ5RExVVUdsQnNB?=
- =?utf-8?B?OUJQNk9ydWlPRzk0NDBCUm1ualo4UnlhWk9BamZrcVBheUhVMlJRaGFEd091?=
- =?utf-8?B?MDBhSUZxaGN6QitiMGhCQ3g2MWJaUGpTT0pqeXIyZVltekNhSG5TWFUwQUlO?=
- =?utf-8?B?RjFNYlg1RXYrOFBlQUJqM1hneElWdjR5czhSUWdYQURwa056WEtZbng0TnRK?=
- =?utf-8?B?K1d1SGI5UW9qa0V4bmkyTTk4d2VabGw4KzlnQWNJbnFiMFdHTzhmaCtmSlRn?=
- =?utf-8?B?VlNEU3dHTExta0hkNW9ZZzNrOXdmVXpQNks2eDVPU3JVQTVOSlY4b0RsRmEx?=
- =?utf-8?B?SXIxblcxenErS3dZZVFjNVQ3cnExRkdzdmtpNXllN01zQS9YQkNnL0JRbEN4?=
- =?utf-8?B?L29OSEtOSmZwZTNjb09jQVBIaEhLRmtHdHNzSmRBcGp2WVdGMkxjUjZIeHM2?=
- =?utf-8?B?MzNtNVlYODRQMWVtUGhGOXMwTTN4QytOQ0RhSHNrVmZEMTc4eHBWVFVQOFNL?=
- =?utf-8?B?a0NjaWVNWjUyR0pPMW8wY2h5ck94Yi80R1EyMG1IOG5rY1dKWW8ycENXK3hn?=
- =?utf-8?B?TjNIRFVuazAydUpQZ2FvdldCNGo5UVJQd25GVmloTGlyOW1zMkhCMzlJZGJE?=
- =?utf-8?B?aVNvQ2lWeDFLQU9KRkwyVWhCQ2dHaTN2OHZOUXJEMmVWa1pGbUs5dnF2MU4v?=
- =?utf-8?B?RDVyRVdkTGp0dXI0cTlOa3ZjZmpCNFdIVjRlVlZOcmhyL2VFZStEK1g1VVF3?=
- =?utf-8?B?TFVDWEVhR2dMYmZwWGlNMm9sRmRBUE45Z0RiSDFnMmwySkFqVFpUZ1E2bE9F?=
- =?utf-8?B?NnhvS1QxTW1MTTltaUl5UUZvVjVnd1lST1RRMi9TYUZyS2RmRnpLanZiWUJS?=
- =?utf-8?B?TUVNMHV5aTZiMVJpZ3JpSFNpMVA5T0QyZnVpV1RTS05sbGNpcmFCWFFnWGwv?=
- =?utf-8?B?eFdLUHNQZm43VjlFOXpCN0lFWjlPNzBQbEY5UjFUR2h1MFZoY2h5TVh6QVVZ?=
- =?utf-8?B?UUJZZHVWalhyUWEybzVXdHZZcVI3M0RsUXorVnNDZ1M4UjlKaHNRV2F1dGpD?=
- =?utf-8?B?M1RONVc4Qy9CNVM5VFE4Y2FpWEFIS3BkM2RFMXVQTnJiVnViOEZlaGdFMW9K?=
- =?utf-8?B?aW5DMUJHdmNzcTU4cllkc1gwUzhHL2o1cGdpODNIN1J3ZzFTbWQzdFVQK3dN?=
- =?utf-8?B?SERPdFRpTEV4ZFRwZHhHbFJNd3E3YS91emNvdUhKVlZLZ3Mzd0VzTVluZHgx?=
- =?utf-8?B?V3dkYnRzVWN4K1BFaitsUmlXMmlXZEQ3MkV1bkxkYm80cGw1WVdCVDQxWVZ1?=
- =?utf-8?B?SXJBZU5tNWR6NHRFbXNVbjFubFN2MVFzRG9zT01TTSs3TmhBdm80aGZOWmpt?=
- =?utf-8?B?aGtMQTdMZkc5T2NuRDhPNmlDVW5FSjNkNks1Y1AzWjVZeE5PbVlpMU5INU5Y?=
- =?utf-8?Q?YVBp5r+XVY7CMmq37ksooXw9A?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b11e15c-b816-40be-0c75-08de0bf77747
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2025 14:31:02.0947 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3nIWAjdVGT/ywbGpnRxgbM5ivbgxkSL80y2UJGSahyogekTOuyhinKEANaNQ0ySZG4uw1QF7QjCzmf+TOAWysA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6288
+References: <20251014201346.9422-1-yunru.pan@amd.com>
+ <20251014201346.9422-4-yunru.pan@amd.com>
+ <CADnq5_PKQYCBaOYpe-8CJdwwHb+3SMo12Sf+jivpiiBwbyNbOg@mail.gmail.com>
+In-Reply-To: <CADnq5_PKQYCBaOYpe-8CJdwwHb+3SMo12Sf+jivpiiBwbyNbOg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 15 Oct 2025 10:48:41 -0400
+X-Gm-Features: AS18NWDoEv6GO_ALDufWrjBj1-wWcoeVAN6vRhBskilV-nNhG_gQsheYfAMHpCg
+Message-ID: <CADnq5_N-qiZAu-ZUdN5uXUn7BgPzVPxm8tu1J5WHstgFcukYUw@mail.gmail.com>
+Subject: Re: [PATCH v4 4/6] drm/amdgpu: Reuse fw_vram_usage_* for dynamic
+ critical region in SRIOV
+To: Ellen Pan <yunru.pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian.Koenig@amd.com, Lijo.Lazar@amd.com, Jeffrey.Chan@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,108 +84,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/15/25 9:19 AM, Harry Wentland wrote:
-> 
-> 
-> On 2025-10-14 17:38, Mario Limonciello wrote:
->>
->>
->> On 10/14/2025 4:27 PM, Alex Deucher wrote:
->>> On Tue, Oct 14, 2025 at 3:46 PM Mario Limonciello
->>> <mario.limonciello@amd.com> wrote:
->>>>
->>>> [Why]
->>>> If userspace hasn't frozen user processes (like systemd does with
->>>> user.slice) then an aborted hibernate could give control back to
->>>> userspace before display hardware is resumed.  IoW an atomic commit could
->>>> be done while the hardware is in D3, which could hang a system.
->>>
->>> Is there any way to prevent this altogether?
->>
->> The obvious way is that userspace should be freezing user processes. That's what systemd does.
->>
->>> This seems like a recipe
->>> for trouble for any driver.
->>
->> If we want to uplevel this kind of check I think we would need some helper to report hardware status into drm and drm would have to call that.
->>
->> Most distros use systemd, and this only happened in an aborted hibernate.  I guess I'd like to see how much this warning actually comes up before deciding if all that plumbing is worth it.
-> 
-> I was briefly thinking about a generic solution as well and don't
-> think it's worth it at this point. This is mostly about internal
-> driver/HW state.
-> 
-> Harry
+On Wed, Oct 15, 2025 at 9:12=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> On Tue, Oct 14, 2025 at 4:21=E2=80=AFPM Ellen Pan <yunru.pan@amd.com> wro=
+te:
+> >
+> > - During guest driver init, asa VFs receive PF msg to
+> >         init dynamic critical region(v2), VFs reuse fw_vram_usage_*
+> >          from ttm to store critical region tables in a 5MB chunk.
+> >
+> > Signed-off-by: Ellen Pan <yunru.pan@amd.com>
+> > ---
+> >  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 29 ++++++++++---------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 12 ++++----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  9 ++++++
+> >  3 files changed, 31 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> > index c7d32fb216e4..636385c80f64 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+> > @@ -181,19 +181,22 @@ int amdgpu_atomfirmware_allocate_fb_scratch(struc=
+t amdgpu_device *adev)
+> >         u8 frev, crev;
+> >         int usage_bytes =3D 0;
+> >
+> > -       if (amdgpu_atom_parse_data_header(ctx, index, NULL, &frev, &cre=
+v, &data_offset)) {
+> > -               if (frev =3D=3D 2 && crev =3D=3D 1) {
+> > -                       fw_usage_v2_1 =3D
+> > -                               (struct vram_usagebyfirmware_v2_1 *)(ct=
+x->bios + data_offset);
+> > -                       amdgpu_atomfirmware_allocate_fb_v2_1(adev,
+> > -                                       fw_usage_v2_1,
+> > -                                       &usage_bytes);
+> > -               } else if (frev >=3D 2 && crev >=3D 2) {
+> > -                       fw_usage_v2_2 =3D
+> > -                               (struct vram_usagebyfirmware_v2_2 *)(ct=
+x->bios + data_offset);
+> > -                       amdgpu_atomfirmware_allocate_fb_v2_2(adev,
+> > -                                       fw_usage_v2_2,
+> > -                                       &usage_bytes);
+> > +       /* Skip atomfirmware allocation for SRIOV VFs when dynamic crit=
+ regn is enabled */
+> > +       if (!(amdgpu_sriov_vf(adev) && adev->virt.is_dynamic_crit_regn_=
+enabled)) {
+> > +               if (amdgpu_atom_parse_data_header(ctx, index, NULL, &fr=
+ev, &crev, &data_offset)) {
+>
+> Do you need this check here?  Is vram_usagebyfirmware valid on V2
+> systems?  If that table if not present on V2 systems, then you don't
+> need to change anything here since amdgpu_atom_parse_data_header()
+> will return an error.  Other than that, looks good to me.
 
-FWIW IGT testing seems to have thrown up some problems with this which 
-didn't show up in my unit testing.
+Sorry, I missed your previous reply.  This patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-[  471.261018]  ? drm_atomic_helper_resume+0x2b/0x150 [drm_kms_helper]
-[  471.261031]  ? dm_resume+0x459/0x8f0 [amdgpu]
-[  471.261396]  ? amdgpu_ip_block_resume+0x27/0x70 [amdgpu]
-[  471.261635]  ? dpm_run_callback+0x9c/0x200
-[  471.261640]  ? device_resume+0x1b4/0x2b0
-[  471.261645]  drm_atomic_check_only+0x5d9/0x9e0 [drm]
-[  471.261672]  drm_atomic_commit+0x6d/0xe0 [drm]
-[  471.261697]  ? __pfx___drm_printfn_info+0x10/0x10 [drm]
-[  471.261729]  drm_atomic_helper_commit_duplicated_state+0xcd/0xe0 
-[drm_kms_helper]
-[  471.261739]  drm_atomic_helper_resume+0x93/0x150 [drm_kms_helper]
-[  471.261751]  dm_resume+0x459/0x8f0 [amdgpu]
-[  471.262119]  ? preempt_count_add+0x7b/0xc0
-[  471.262125]  amdgpu_ip_block_resume+0x27/0x70 [amdgpu]
-[  471.262363]  amdgpu_device_ip_resume_phase3+0x54/0x80 [amdgpu]
-[  471.262598]  amdgpu_device_resume+0x188/0x3b0 [amdgpu]
-[  471.262842]  amdgpu_pmops_resume+0x4c/0x90 [amdgpu]
-[  471.263078]  pci_pm_resume+0x6b/0x100
-
-The issue appears to me to be that ip_block->status.hw isn't set again 
-until the end of amdgpu_ip_block_resume().
-
-I am tempted to move it before the call to 
-ip_block->version->funcs->resume().
-
-Thoughts?
-
-> 
->>>
->>> Alex
->>>
->>>>
->>>> [How]
->>>> Add a check whether the IP block hardware is ready to the atomic check
->>>> handler and return a failure. Userspace shouldn't do an atomic commit if
->>>> the atomic check fails.
->>>>
->>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4627
->>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>> ---
->>>> Cc: Harry Wentland <harry.wentland@amd.com>
->>>> v2:
->>>>    * Return -EBUSY instead (Harry)
->>>> ---
->>>>    drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
->>>>    1 file changed, 5 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> index 6446ec6c21d4..f5cd9982af99 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> @@ -12010,6 +12010,11 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
->>>>
->>>>           trace_amdgpu_dm_atomic_check_begin(state);
->>>>
->>>> +       if (WARN_ON(unlikely(!amdgpu_device_ip_is_hw(adev, AMD_IP_BLOCK_TYPE_DCE)))) {
->>>> +               ret = -EBUSY;
->>>> +               goto fail;
->>>> +       }
->>>> +
->>>>           ret = drm_atomic_helper_check_modeset(dev, state);
->>>>           if (ret) {
->>>>                   drm_dbg_atomic(dev, "drm_atomic_helper_check_modeset() failed\n");
->>>> -- 
->>>> 2.49.0
->>>>
->>
-> 
-
+>
+> Alex
+>
+> > +                       if (frev =3D=3D 2 && crev =3D=3D 1) {
+> > +                               fw_usage_v2_1 =3D
+> > +                                       (struct vram_usagebyfirmware_v2=
+_1 *)(ctx->bios + data_offset);
+> > +                               amdgpu_atomfirmware_allocate_fb_v2_1(ad=
+ev,
+> > +                                               fw_usage_v2_1,
+> > +                                               &usage_bytes);
+> > +                       } else if (frev >=3D 2 && crev >=3D 2) {
+> > +                               fw_usage_v2_2 =3D
+> > +                                       (struct vram_usagebyfirmware_v2=
+_2 *)(ctx->bios + data_offset);
+> > +                               amdgpu_atomfirmware_allocate_fb_v2_2(ad=
+ev,
+> > +                                               fw_usage_v2_2,
+> > +                                               &usage_bytes);
+> > +                       }
+> >                 }
+> >         }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ttm.c
+> > index 96bd0185f936..b5148a33b6f5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -1944,19 +1944,19 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+> >                 return r;
+> >
+> >         /*
+> > -        *The reserved vram for driver must be pinned to the specified
+> > -        *place on the VRAM, so reserve it early.
+> > +        * The reserved VRAM for the driver must be pinned to a specifi=
+c
+> > +        * location in VRAM, so reserve it early.
+> >          */
+> >         r =3D amdgpu_ttm_drv_reserve_vram_init(adev);
+> >         if (r)
+> >                 return r;
+> >
+> >         /*
+> > -        * only NAVI10 and onwards ASIC support for IP discovery.
+> > -        * If IP discovery enabled, a block of memory should be
+> > -        * reserved for IP discovey.
+> > +        * only NAVI10 and later ASICs support IP discovery.
+> > +        * If IP discovery is enabled, a block of memory should be
+> > +        * reserved for it.
+> >          */
+> > -       if (adev->mman.discovery_bin) {
+> > +       if (adev->mman.discovery_bin && !adev->virt.is_dynamic_crit_reg=
+n_enabled) {
+> >                 r =3D amdgpu_ttm_reserve_tmr(adev);
+> >                 if (r)
+> >                         return r;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_virt.c
+> > index 27235f3f3b81..820dab538164 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > @@ -940,6 +940,15 @@ int amdgpu_virt_init_critical_region(struct amdgpu=
+_device *adev)
+> >         adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_BAD_PAGE_INFO_TABLE_ID].=
+size_kb =3D
+> >                 init_data_hdr->bad_page_size_in_kb;
+> >
+> > +       /* reserved memory starts from crit region base offset with the=
+ size of 5MB */
+> > +       adev->mman.fw_vram_usage_start_offset =3D adev->virt.crit_regn.=
+offset;
+> > +       adev->mman.fw_vram_usage_size =3D adev->virt.crit_regn.size_kb =
+<< 10;
+> > +       dev_info(adev->dev,
+> > +               "critical region v%d requested to reserve memory start =
+at %08x with %d KB.\n",
+> > +                       init_data_hdr->version,
+> > +                       adev->mman.fw_vram_usage_start_offset,
+> > +                       adev->mman.fw_vram_usage_size >> 10);
+> > +
+> >         adev->virt.is_dynamic_crit_regn_enabled =3D true;
+> >
+> >  out:
+> > --
+> > 2.34.1
+> >
