@@ -4,127 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E16F7CCD184
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 02:59:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FEB3CCD185
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 05:46:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8751310E6DE;
-	Wed, 15 Oct 2025 02:59:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0395810E261;
+	Wed, 15 Oct 2025 05:46:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vqOJ28X6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SkH750/w";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010061.outbound.protection.outlook.com
- [40.93.198.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B986710E6DE
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 02:59:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WDPaZw6cSQTauWZJlNiGdiFZWdI7raS008zz64amGBF9MCU/ZitcQjybm4BuGR/X5a4jL2rOuRbU/wGALsL4vF39pZqxnoJmWlmSpqk+pBrSlnB0esloXrBYngMXq4kFo2dJM5Cmq8fu/W6dNCpg8GvPkp5fA0Z2qgd9hEd71Eyg9Vkpb6Dizg+r0i0gOjPPJe/CEcev+bFUjKrT36xOKN/YQq1LIlFln9GY+elhyGWL6hyW0IuREAap7eAiKHJYMawYa+kZSKmp+Ufc1Fs/97iOul5kmXqVkuVy8m3A8dLJk4oV60bdHKiG4/F7Nmjq/0Peo9vVbruM4Qc3jGE52w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e2LcAwc5g9xcITAlJBrnHPR600/hzTiix2iKgJq+biA=;
- b=Vzcv0zwZRNhym9s2LIJsTETCJv5z2G9Dk1VlVASjjWivNDABaT4jgpczBSfv9aOoGkBwOSqdp+R83a14eUFnulDhsD+kLnImwmgr5NFfqVPEqL6ZRLrvvjl3wmEHyJE7ANMnSzYViys1ADzls27VKVl6Eh/4sNpEGSQPAT00B/YaPAc89sEfIwoXpuK/A4DuNc/o9RNerbIc5j+AMAV1+xqYb5oaHO7H5qQZnvN7sgGx359Q8PPUwi9dFbChql113NKA9+WAv/Vboo6AFQN8maaelRTqWZJhU7Nmh3p/fK3v48lHMQxgy7Qv/UNV8+bo+4/61r2lygANBxg8OQK0Sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e2LcAwc5g9xcITAlJBrnHPR600/hzTiix2iKgJq+biA=;
- b=vqOJ28X6PzdEVMPZ+JKyGS50xQq8Vx0F+fi6eZn5bu5nfcmd836vonNJt4FTExWOntF6glvKGzNCE3jkoP4NepQ9oZCzTTH95EILsQO2fYqtajVqa8nVW5A6yAVSTS27Y1QeIN8oFCKGG10kFTtWDyBruykHcnIvWmfCxWftlOk=
-Received: from SJ0PR03CA0176.namprd03.prod.outlook.com (2603:10b6:a03:338::31)
- by DS4PR12MB9633.namprd12.prod.outlook.com (2603:10b6:8:27f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.10; Wed, 15 Oct
- 2025 02:59:29 +0000
-Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:a03:338:cafe::c2) by SJ0PR03CA0176.outlook.office365.com
- (2603:10b6:a03:338::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9182.20 via Frontend Transport; Wed,
- 15 Oct 2025 02:59:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Wed, 15 Oct 2025 02:59:28 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 14 Oct
- 2025 19:59:06 -0700
-Received: from tom-r5.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 14 Oct 2025 19:59:03 -0700
-From: Tom Chung <chiahsuan.chung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Taimur Hassan <Syed.Hassan@amd.com>
-Subject: [PATCH 8/8] drm/amd/display: Promote DC to 3.2.355
-Date: Wed, 15 Oct 2025 10:57:09 +0800
-Message-ID: <20251015025816.1542507-9-chiahsuan.chung@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251015025816.1542507-1-chiahsuan.chung@amd.com>
-References: <20251015025816.1542507-1-chiahsuan.chung@amd.com>
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B2D10E261
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 05:46:07 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ 46e09a7af769-7ad1a815bd2so977820a34.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 22:46:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760507166; x=1761111966; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ewVExFn951MGNPNN4d6rHoTt3v4ew66IxMf3yYm8xSQ=;
+ b=SkH750/wbe6ekSxsMOyyczhhMoDcPz4B0I09gowmu4rqBOieIcWDNwHwynSSVfJf92
+ G5ZhYEbXvncaeIdli2EERmAP2naF5oCewaPi7KbCcGbE1pR+U6oqnuD/SlpkRAESWnql
+ Iyr1Fg4dhCRegnR5A5ypYPDZxKEcGq083hnToTf9D51votQR+AaCWf834eThVMDEx51o
+ Ir8lLzwgfbmiCFmCnhjlNe5gjto+mfP7NzYInRzZiVQ0884RJIQ5mokyjhl+pTG/efps
+ 5KNtRfjYP8mnGX7IZ4crN4B9Q3MeybGvNYfHINHplGbCdvKh0uuWsHY5+S7b73XTaiDu
+ j86A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760507166; x=1761111966;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ewVExFn951MGNPNN4d6rHoTt3v4ew66IxMf3yYm8xSQ=;
+ b=uRXTueTZnXuqc1CrZvIetijzqsTwcW45S/jATZ3icPhba6yDRwljTyglZ4iqQ/gnSG
+ 9pXwwRPhds3AlulsRTsrERY1qMCXLauI+6Dl7zYRUJE8bkof4Jt1l3cqA+DKAoKmBgEQ
+ mr1ImeuwlMigQcHJ09loA9A6qiav0LeWburG3J9zMZ787namNOBkPkmHd4NG1eeGL+FL
+ 4/5RNg1TS9gkMGwFx7+0hztkZy4kuu56EJwKP9kHkPs8DTv6UBKPt5HeUqzrN048t9RU
+ F5VWV1OhRpgjItpQZKITgJ2UILMEBayVlCM++amQslZvp4R1saw+DsrzNcU5QjmBZlom
+ T1vg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWNM8yeB6Mltl+k+KLHqqesY4NiXWbNrTHM0K8petf3xCR0OkqkX/xZjF7QS1zN840JgIL57OZ4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5FuTo8szuOvlox8VA3/1BAeMlPP8MW8bcQPTjPM7CKBArWJRH
+ 2Y2LSJRq4NHcYo7JsJiqCjUV1V1X68P1EmKn2YG6HAj+ALTLafnuD4Xq0WEFOQhAOvktFJ2nDAD
+ 0XQjVrnOGfI1Xc5RNpZieIGSPKozD338=
+X-Gm-Gg: ASbGnctmblJnbpSrFx3rZ2X+sug4kFKuhIvWaTYMZdqmQ5USXsTqmElCGmbrZVfI/hV
+ b5MaUhrkG0iLyVrGRbzAG3tlFt/0uZqPhlsTXWD2RP9MR1bkbLxHZ/d1LV1Vm5VTBKhSESvaHex
+ ixTizB8yKwTJLKS5S83juTF+U8tvyr0Y24Vw2VD3/gV9l5oQPXEOwBEQrfTznVZPr/MrkPM7YkE
+ fdmfVHZSX3ZdnfJA9ql979x5zF7LaA9NsK5ueM=
+X-Google-Smtp-Source: AGHT+IGFcByO9tw5IybyeaBy7/fwDRldc1V/GTluMZe2mtzrdIXp06qyme0jFb7pJfLAueSEnnngiQW+8oaUgUHdw+I=
+X-Received: by 2002:a05:6808:50a0:b0:43f:1dec:96a with SMTP id
+ 5614622812f47-4417b1a456emr6852853b6e.0.1760507166314; Tue, 14 Oct 2025
+ 22:46:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|DS4PR12MB9633:EE_
-X-MS-Office365-Filtering-Correlation-Id: be8dd8ba-7984-46ac-d991-08de0b96db79
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?UCMGEcP8nWy//Y5csPpnObb/CNcWXVNGxKFiNKmiUdM6werfMuoGKDjYJ03g?=
- =?us-ascii?Q?0MLU2gKrMtrF+qsOII0tGCitid2FW9Lk72q3iGgqzaMe70flygnaYpiTmox4?=
- =?us-ascii?Q?wnvUXJYg50NFxiYqF8PRqbzAiSsGP+wD88Ee4i6Zn5WTUL7Si3NXt+urP7MZ?=
- =?us-ascii?Q?ZNS4jkhSrib26viHUmQpkNVMRih86gYW/BQK5qAGrB/heHfobvGRTGBFqgR+?=
- =?us-ascii?Q?8y7kxO+cmo4kvKW2bsZQWgQs9MReu+4SsmYywcusqJbg84YTVVGkHOWlpN0c?=
- =?us-ascii?Q?T7m0wMK2wzF/hynjzhHmo4lk5vvNhrVIbg+RBEeTjCfdI38/ENgq+L8VP5Is?=
- =?us-ascii?Q?NF6SQiwGbYNc0p32TNr4hCiPbEMCAWOYK+o7un+VSY5PhpkrW0nsh++hZMBa?=
- =?us-ascii?Q?egJhVRDSpXJd8PR63A4xSDW9npQ5I3TefeaCFDv9gS1t0C/LPKNeHaOv25HI?=
- =?us-ascii?Q?BSiWVJFVw8Bwl6n0CD3CQvE2I+zW8csoG0D8ZP1sFRYMgfe5cMFrvS5JUiYA?=
- =?us-ascii?Q?rkjhAFXJTf8+/qHC6kpZCHBVrquUEqSL/oOQhbITRKIwCTfZF0oBXEppBZeh?=
- =?us-ascii?Q?rCcNcJAdZd2K/v30rcDIWSKwQtFsSeBMqTG5F1D/oOGuztGoXj8+r4b9TOCU?=
- =?us-ascii?Q?UOi2kSKFDbWTTFon6oeip63IuxqVuE4fiyv+bEBTGzLggZN2LDiBEAgCeDX0?=
- =?us-ascii?Q?82waQgjk3amP1nWJEBbgSJzV8uxKzMmxjDUqfG+fNInDdsJBK/upTh4H7O39?=
- =?us-ascii?Q?SuItvZ4VboNn9h6TU+uzAvepVCRAkPfEqTICVTn7ZpJ0lCvSDhlejnpq0J4q?=
- =?us-ascii?Q?6BMt0oNEC49/idUKfSfGy/Lx9AAZQR7wZJ7dL4cmED+kq0pM5QBxU+IP7/hg?=
- =?us-ascii?Q?Yj/jNh87YpNGfnXmoCYwkjE/mpQheJ1kQicwoLhtiagTgEMWOFj1Ycv7FXUe?=
- =?us-ascii?Q?+BEaTLIiPC+6kkxAW/Lw3BfgMmciwNT4WfC+z/3qVK5zey2xgpzALOyw68hs?=
- =?us-ascii?Q?0zONqscbAG8++2Sey+FuugtPh/TdN+iA8tcMh+VDSMLhQnyP+CcEQi9ob7DK?=
- =?us-ascii?Q?yzgkT6y0Ler3wOEQ/JtSwp7/GHzWOvpFzn0JCN94e2PZPvJBd1x87YSJqm7D?=
- =?us-ascii?Q?dbZxwCPI5exuv2Wmwi4anL6vAPKoDGfb6ZPHAEwEtvCV5yJQrBNAQYT3PGA5?=
- =?us-ascii?Q?bdmocJkX2idUcdQ/pl3Rsk7AgWIet4DimHfqWAz2BVWES6cWYh4JvNzF17oW?=
- =?us-ascii?Q?WXj0MDdNAtrcdXKaoHZCQmT9bm5Jk/lyXZ5E/lqWReFNsDe7Y7NgEtNAlEf3?=
- =?us-ascii?Q?W7JOMX0i4s2r3npLgP7ajzQaOUmOlAFVW6FjFzQCZAJTfdxdsK+q8PUOwETi?=
- =?us-ascii?Q?dIV4dBLxA7RlskrV3gEVyFZt20uuf/bXEondYybazLpNxzbQfI32o+7R5/62?=
- =?us-ascii?Q?UeKfFbhWTQxJLjlTKTDrXs0WF+CvSVSDlbBqnOGKEQ5BpnimJ1RBQ8qYyg2H?=
- =?us-ascii?Q?S1fzFdjTD2q3CyCKp3qcISSxKUbWCU6uJPO5LSF+vHWsgzOoL3MVMLMpnSXr?=
- =?us-ascii?Q?ypc+Jm8VFABbC94fN9A=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2025 02:59:28.7051 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be8dd8ba-7984-46ac-d991-08de0b96db79
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9633
+References: <20251010211510.1528572-1-alexander.deucher@amd.com>
+ <20251010211510.1528572-3-alexander.deucher@amd.com>
+ <DS7PR12MB6005A47FAE4B2CDE179E0A20FBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <CADnq5_PvKvj8wnNHuUWcUxGedF71vDjZA9Bq=M+N_c+x-cAXgQ@mail.gmail.com>
+ <DS7PR12MB600591DF5FF29AB6E2B159A6FBEAA@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <CADnq5_M1EaOk98C5742aQC+_hMNhmwmf6_K02e2ccPF6FpA=DQ@mail.gmail.com>
+ <CAAxE2A4vJtdP=L8qn5mBo+yNTuzwA__XRZZ7+ftSVe443V7Qiw@mail.gmail.com>
+ <CADnq5_OTK_sVzANY0-aRzxXpiU77Q6Hrpo5i_h1k1S6yK9eXSw@mail.gmail.com>
+ <CAAxE2A7oQfw79nUgAFo9r=6q28-9RPUJa3Lr2OA2VXWcAKG8wA@mail.gmail.com>
+ <CADnq5_PAEcKdCTiBz4aOAD7492KSCC+GcKgj_ZbsAC2yrs0LJw@mail.gmail.com>
+ <CAAxE2A6G2uB=S8FQ7-cEO0vYc+bppa=fjEG0BHyzHivEG8FCBA@mail.gmail.com>
+ <CADnq5_Nmq7E7UaPV6o=i0vhy-WmfgE1EG+NDs=Fstyi1sRDT=Q@mail.gmail.com>
+In-Reply-To: <CADnq5_Nmq7E7UaPV6o=i0vhy-WmfgE1EG+NDs=Fstyi1sRDT=Q@mail.gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Wed, 15 Oct 2025 01:45:29 -0400
+X-Gm-Features: AS18NWA92zfCfmnGgGDhW0wwP3UcnQqBN1w8V7Ydg3TIYBJl9lUU_dIRZ2XVAJ4
+Message-ID: <CAAxE2A4MxiqZbamseYb_k9dzMQgWLtO=7nx3uyucKoCQrMkU3A@mail.gmail.com>
+Subject: Re: [PATCH 3/7] drm/amdgpu/gfx: add eop size and alignment to shadow
+ info
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Liang, Prike" <Prike.Liang@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Olsak,
+ Marek" <Marek.Olsak@amd.com>, 
+ "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
+Content-Type: multipart/alternative; boundary="00000000000045d67206412c04d4"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,38 +96,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Taimur Hassan <Syed.Hassan@amd.com>
+--00000000000045d67206412c04d4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This version brings along following update:
+On Tue, Oct 14, 2025 at 2:49=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 
--Fix GFP_ATOMIC abuse
--Fix several checkpatch issues
--Set DCN32 to use update planes and stream version 3
--Write segment pointer with mot enabled for MST
--Control BW allocation in FW side
--Change clean dsc blocks condition in accelerated mode
--Check disable_fec flag before enabling FEC
+> On Tue, Oct 14, 2025 at 2:10=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gma=
+il.com> wrote:
+> >
+> > On Tue, Oct 14, 2025, 12:37 Alex Deucher <alexdeucher@gmail.com> wrote:
+> >>
+> >> On Tue, Oct 14, 2025 at 11:11=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo=
+@gmail.com> wrote:
+> >> >
+> >> > On Tue, Oct 14, 2025 at 10:12=E2=80=AFAM Alex Deucher <alexdeucher@g=
+mail.com>
+> wrote:
+> >> >>
+> >> >> On Tue, Oct 14, 2025 at 2:49=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <mara=
+eo@gmail.com>
+> wrote:
+> >> >> >
+> >> >> > On Mon, Oct 13, 2025 at 3:11=E2=80=AFPM Alex Deucher <
+> alexdeucher@gmail.com> wrote:
+> >> >> >>
+> >> >> >> On Mon, Oct 13, 2025 at 10:21=E2=80=AFAM Liang, Prike <
+> Prike.Liang@amd.com> wrote:
+> >> >> >> >
+> >> >> >> > [Public]
+> >> >> >> >
+> >> >> >> > Regards,
+> >> >> >> >       Prike
+> >> >> >> >
+> >> >> >> > > -----Original Message-----
+> >> >> >> > > From: Alex Deucher <alexdeucher@gmail.com>
+> >> >> >> > > Sent: Monday, October 13, 2025 9:44 PM
+> >> >> >> > > To: Liang, Prike <Prike.Liang@amd.com>
+> >> >> >> > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
+> >> >> >> > > gfx@lists.freedesktop.org
+> >> >> >> > > Subject: Re: [PATCH 3/7] drm/amdgpu/gfx: add eop size and
+> alignment to shadow
+> >> >> >> > > info
+> >> >> >> > >
+> >> >> >> > > On Mon, Oct 13, 2025 at 4:54=E2=80=AFAM Liang, Prike <
+> Prike.Liang@amd.com> wrote:
+> >> >> >> > > >
+> >> >> >> > > > [Public]
+> >> >> >> > > >
+> >> >> >> > > > We may need to update the userspace EOP buffer request;
+> otherwise, the EOP
+> >> >> >> > > buffer validation may fail.
+> >> >> >> > >
+> >> >> >> > > Existing userspace should be ok.  It currently uses PAGE_SIZ=
+E
+> which is larger than
+> >> >> >> > > 2048.
+> >> >> >> > The mesa uses the EOP size as max_t(u32, PAGE_SIZE,
+> AMDGPU_GPU_PAGE_SIZE) which is sees larger than 2048, so the kernel
+> validates the eop buffer can be successful at this point.
+> >> >> >> >
+> >> >> >> > But the mesa may need to use the shadow_info->eop_size as well
+> in the future?
+> >> >> >>
+> >> >> >> Ideally mesa would query the kernel to get the proper minimum
+> size.
+> >> >> >> Yogesh will be looking at this.
+> >> >> >>
+> >> >> >> Alex
+> >> >> >
+> >> >> >
+> >> >> > Does the EOP buffer store privileged information? What is its
+> content?
+> >> >>
+> >> >> It stores end of pipe events for the compute queue generated from
+> >> >> things like RELEASE_MEM or AQL packets.  They are specific to each
+> >> >> user queue.  In theory corrupting or messing with the data in the
+> >> >> buffer should only affect that queue.
+> >> >
+> >> >
+> >> > RELEASE_MEM has a hidden implicit VMID parameter. That's why it's
+> important to know whether it's stored in the EOP buffer that can be
+> overwritten by userspace.
+> >>
+> >> My understanding is that that is only relevant for kernel queues where
+> >> the vmid comes from the IB for each job.  For user queues, the vmid is
+> >> determined by the HQD so that is unused in the user queue case.
+> >
+> >
+> > This is NAK'd until a proof is given that the EOP buffer can't be used
+> to change the VMID of EOP fence writes.
+>
+> The EOP buffer allocation is already in use.  It's used for compute
+> user queues for both ROCm and KGD.  All this patch does is allow
+> userspace to query what the size requirements are.  If we find a
+> problem in the EOP handling in firmware we should fix it in firmware,
+> but the software side is already in use.
+>
 
-Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So are you going to just brush it off? Aren't you interested in at least
+verifying whether it's possible to do privilege escalation with it even if
+it's already used? Do you really just want to merge this quickly without
+verifying whether it allows userspace to write any physical address because
+"userspace already uses it"? Do you really not want to know what is
+possible to do with the EOP buffer?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index c661a0191c50..14fca9dfe272 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -55,7 +55,7 @@ struct aux_payload;
- struct set_config_cmd_payload;
- struct dmub_notification;
- 
--#define DC_VER "3.2.354"
-+#define DC_VER "3.2.355"
- 
- /**
-  * MAX_SURFACES - representative of the upper bound of surfaces that can be piped to a single CRTC
--- 
-2.43.0
+Marek
 
+--00000000000045d67206412c04d4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Tue, Oct 14, 2025 at 2:49=E2=80=AFPM Alex =
+Deucher &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
+n Tue, Oct 14, 2025 at 2:10=E2=80=AFPM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D=
+"mailto:maraeo@gmail.com" target=3D"_blank">maraeo@gmail.com</a>&gt; wrote:=
+<br>
+&gt;<br>
+&gt; On Tue, Oct 14, 2025, 12:37 Alex Deucher &lt;<a href=3D"mailto:alexdeu=
+cher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; On Tue, Oct 14, 2025 at 11:11=E2=80=AFAM Marek Ol=C5=A1=C3=A1k &lt=
+;<a href=3D"mailto:maraeo@gmail.com" target=3D"_blank">maraeo@gmail.com</a>=
+&gt; wrote:<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; On Tue, Oct 14, 2025 at 10:12=E2=80=AFAM Alex Deucher &lt;<a =
+href=3D"mailto:alexdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.c=
+om</a>&gt; wrote:<br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; On Tue, Oct 14, 2025 at 2:49=E2=80=AFAM Marek Ol=C5=A1=C3=
+=A1k &lt;<a href=3D"mailto:maraeo@gmail.com" target=3D"_blank">maraeo@gmail=
+.com</a>&gt; wrote:<br>
+&gt;&gt; &gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt; On Mon, Oct 13, 2025 at 3:11=E2=80=AFPM Alex Deucher=
+ &lt;<a href=3D"mailto:alexdeucher@gmail.com" target=3D"_blank">alexdeucher=
+@gmail.com</a>&gt; wrote:<br>
+&gt;&gt; &gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; On Mon, Oct 13, 2025 at 10:21=E2=80=AFAM Liang, =
+Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com" target=3D"_blank">Prike.Li=
+ang@amd.com</a>&gt; wrote:<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; [Public]<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; Regards,<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Prike<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; -----Original Message-----<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; From: Alex Deucher &lt;<a href=3D"mail=
+to:alexdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a>&gt;<b=
+r>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; Sent: Monday, October 13, 2025 9:44 PM=
+<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; To: Liang, Prike &lt;<a href=3D"mailto=
+:Prike.Liang@amd.com" target=3D"_blank">Prike.Liang@amd.com</a>&gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; Cc: Deucher, Alexander &lt;<a href=3D"=
+mailto:Alexander.Deucher@amd.com" target=3D"_blank">Alexander.Deucher@amd.c=
+om</a>&gt;; amd-<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; <a href=3D"mailto:gfx@lists.freedeskto=
+p.org" target=3D"_blank">gfx@lists.freedesktop.org</a><br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; Subject: Re: [PATCH 3/7] drm/amdgpu/gf=
+x: add eop size and alignment to shadow<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; info<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; On Mon, Oct 13, 2025 at 4:54=E2=80=AFA=
+M Liang, Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com" target=3D"_blank"=
+>Prike.Liang@amd.com</a>&gt; wrote:<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; &gt; [Public]<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; &gt; We may need to update the userspa=
+ce EOP buffer request; otherwise, the EOP<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; buffer validation may fail.<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; Existing userspace should be ok.=C2=A0=
+ It currently uses PAGE_SIZE which is larger than<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; &gt; 2048.<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; The mesa uses the EOP size as max_t(u32, PA=
+GE_SIZE, AMDGPU_GPU_PAGE_SIZE) which is sees larger than 2048, so the kerne=
+l validates the eop buffer can be successful at this point.<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; &gt; But the mesa may need to use the shadow_inf=
+o-&gt;eop_size as well in the future?<br>
+&gt;&gt; &gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; Ideally mesa would query the kernel to get the p=
+roper minimum size.<br>
+&gt;&gt; &gt;&gt; &gt;&gt; Yogesh will be looking at this.<br>
+&gt;&gt; &gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; &gt;&gt; Alex<br>
+&gt;&gt; &gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; &gt; Does the EOP buffer store privileged information? Wh=
+at is its content?<br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; It stores end of pipe events for the compute queue genera=
+ted from<br>
+&gt;&gt; &gt;&gt; things like RELEASE_MEM or AQL packets.=C2=A0 They are sp=
+ecific to each<br>
+&gt;&gt; &gt;&gt; user queue.=C2=A0 In theory corrupting or messing with th=
+e data in the<br>
+&gt;&gt; &gt;&gt; buffer should only affect that queue.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; RELEASE_MEM has a hidden implicit VMID parameter. That&#39;s =
+why it&#39;s important to know whether it&#39;s stored in the EOP buffer th=
+at can be overwritten by userspace.<br>
+&gt;&gt;<br>
+&gt;&gt; My understanding is that that is only relevant for kernel queues w=
+here<br>
+&gt;&gt; the vmid comes from the IB for each job.=C2=A0 For user queues, th=
+e vmid is<br>
+&gt;&gt; determined by the HQD so that is unused in the user queue case.<br=
+>
+&gt;<br>
+&gt;<br>
+&gt; This is NAK&#39;d until a proof is given that the EOP buffer can&#39;t=
+ be used to change the VMID of EOP fence writes.<br>
+<br>
+The EOP buffer allocation is already in use.=C2=A0 It&#39;s used for comput=
+e<br>
+user queues for both ROCm and KGD.=C2=A0 All this patch does is allow<br>
+userspace to query what the size requirements are.=C2=A0 If we find a<br>
+problem in the EOP handling in firmware we should fix it in firmware,<br>
+but the software side is already in use.<br></blockquote><div><br></div>So =
+are you going to just brush it off? Aren&#39;t you interested in at least v=
+erifying whether it&#39;s possible to do privilege escalation with it even =
+if it&#39;s already used? Do you really just want to merge this quickly wit=
+hout verifying whether it allows userspace to write any physical address be=
+cause &quot;userspace already uses it&quot;? Do you really not want to know=
+ what is possible to do with the EOP buffer?</div><div class=3D"gmail_quote=
+ gmail_quote_container"><br></div><div class=3D"gmail_quote gmail_quote_con=
+tainer">Marek</div></div>
+
+--00000000000045d67206412c04d4--
