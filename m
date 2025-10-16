@@ -4,46 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E05CCCD199
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 12:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFE31CCD194
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 12:57:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31FF710E9CD;
-	Thu, 16 Oct 2025 12:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 631D610E9D9;
+	Thu, 16 Oct 2025 12:57:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Eqg+OEFL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aw9i9nbj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00DCC10E984;
- Thu, 16 Oct 2025 09:35:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 325D54613E;
- Thu, 16 Oct 2025 09:35:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB67FC4CEF9;
- Thu, 16 Oct 2025 09:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760607301;
- bh=JWIe+sI4o3Oq1oewunL/frF8K8c+rwmVNRPd6XnFqZQ=;
- h=Subject:To:Cc:From:Date:From;
- b=Eqg+OEFL7gqO4T5SSI4fMCea1XMabLHJX/cvM/h5+EMs5xOSJNIS+Ts/jyTFgcLXj
- qPrEriPmNKx3FkXZV2Q/PXHTXX+9TJXMBRvU2Unq3f3cQ6ADOxp79jc5FDVsPNQL/4
- xYVf/VTPmWCjuW+x8w1X4yntDxPq5fSj4Cdfsr3U=
-Subject: Patch "drm/amd/display: Fix unsafe uses of kernel mode FPU" has been
- added to the 6.17-stable tree
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, ardb@kernel.org,
- austin.zheng@amd.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- harry.wentland@amd.com, jun.lei@amd.com, siqueira@igalia.com,
- sunpeng.li@amd.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 16 Oct 2025 11:34:27 +0200
-Message-ID: <2025101627-gecko-sugar-139d@gregkh>
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A30710E9D9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 12:57:05 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-b5ca0345de8so10076a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 05:57:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760619425; x=1761224225; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EHjKWfIj6uxDI3Fw4lNU5p0hD8B+aogiHtlYtYyhMUk=;
+ b=aw9i9nbjIj0SD3x9r2KyiLfSg0UyDBAiVd7n6PJE/iKVnY4jHDFybGQ3p0C6xD1rwo
+ 7oubCBEt0E9JjMbMJ9tGbGE5m3TvGx6DAo/WhQTnjt8VsivFaLhqQk1LHiPZ8Y0jfGCC
+ H0F06w3JfCb9eTvabg/v1s8k0/0zZton3bSxQHxztzD3mEq02AONbiQRKpLXZL4AAakM
+ WaZjyQLlAbXgZ3nvsQOe3d/JdmhhwzIWnf1znzn7RHLUp8pWdxR65QiduWqbptAhSp2N
+ ri1oRjMAmrqrSzLLMwysSA860kiUlgrS0OtbwlpW/MigAzXgT6YtC9XZeudO83M2Gab9
+ OuCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760619425; x=1761224225;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=EHjKWfIj6uxDI3Fw4lNU5p0hD8B+aogiHtlYtYyhMUk=;
+ b=CWkJue68awBOnJHQtMea8Hh/sNF4RRvQB18ooTnJAyUmDwU2RIpe3waJqlHgIasoto
+ TGfhfL/gX8y29groFcqelUuAKirrDgpWMnxWDH0Ltj2SFoJI8XuHOYD5Zzbb+dlwLVMP
+ hzQ0c0CFfG0/PnCMZPUvMD8FvwAbymqTVvWPcLVi+NXTjCmadYDdSSbUjzihjfyZhu+p
+ 7P/raC3dhyM3QklNj7N30+eD6L2cxKZwyDNojW/WrrsL+obzNKvJhGE0kul5BcvLan58
+ WHbysgf/1iBRvSqyUH70xdV3aVPLCM2y3qtXQF1paGiqyh/i6fkeRbFiWGTdsLQduX6b
+ f+QQ==
+X-Gm-Message-State: AOJu0Yw529q03m6jN71NpOXWfhXNqM4O7NOTyrWKnNvD958Z0pXnOGly
+ qFyytSbzROyTwIbzibFa6AA13Me6GSuMBHziE/HSk/1d/vdI3WunvxHRx8APJ14yjiKJWTP4Vmq
+ DDqxyhLrwp8U4AamJBMqsvFK09vse5OE=
+X-Gm-Gg: ASbGnctITy809u5g03pFFV8eeyE8RcsyC+kodZczq4USUH4hKZV9Ji42voEOjH3lR8K
+ hDsG27Tj5bxc/DTKikYNIWGezDLN8tcRBoAIw72UOsZTsge3azndnHqakLPm36ctTCt2ZenL1yQ
+ stj2Hj0XCfmScLpzHQZS9CWnDqdeK5LCsL0j2+b1zrQzYfEUJIi6bQhqRIloxmuwyhBgbqJsWWs
+ LOJbI4Kc6/lcQ+7a/31gjUugdLcDRyl9a13RrkPekqyIGoRMK5Ivfx+6bcFW9g4fDS94RM=
+X-Google-Smtp-Source: AGHT+IG2arCLkmCnquXQeRk3EbFLPpwUKEhpJZAfz3sdVhBqcLcHlpRMPntpjgforVjtbf71t82/8PJ782FacROWioI=
+X-Received: by 2002:a17:902:c404:b0:277:c230:bfca with SMTP id
+ d9443c01a7336-290273e17bfmr238944805ad.4.1760619424741; Thu, 16 Oct 2025
+ 05:57:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
-X-Mailman-Approved-At: Thu, 16 Oct 2025 12:33:48 +0000
+References: <20251015214848.11580-1-yunru.pan@amd.com>
+In-Reply-To: <20251015214848.11580-1-yunru.pan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Oct 2025 08:56:52 -0400
+X-Gm-Features: AS18NWCzb4yuy-3ekEnNeoZxxS4GHIoDI3c7BKtodUo42fY9j8kMbPkwPGmwozY
+Message-ID: <CADnq5_NCb8=Eoh3tM8B8vTjV9MXvHtuOCq3vF8O8h2P325yygg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/6] drm/amdgpu: Updated naming of SRIOV critical
+ region offsets/sizes with _V1 suffix
+To: Ellen Pan <yunru.pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian.Koenig@amd.com, Lijo.Lazar@amd.com, Jeffrey.Chan@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,248 +82,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Oct 15, 2025 at 6:06=E2=80=AFPM Ellen Pan <yunru.pan@amd.com> wrote=
+:
+>
+>  - This change prepares the later patches to intro  _v2 suffix to SRIOV c=
+ritical regions
+>
+> Signed-off-by: Ellen Pan <yunru.pan@amd.com>
 
-This is a note to let you know that I've just added the patch titled
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-    drm/amd/display: Fix unsafe uses of kernel mode FPU
-
-to the 6.17-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amd-display-fix-unsafe-uses-of-kernel-mode-fpu.patch
-and it can be found in the queue-6.17 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From ddbfac152830e38d488ff8e45ab7eaf5d72f8527 Mon Sep 17 00:00:00 2001
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Thu, 2 Oct 2025 23:00:45 +0200
-Subject: drm/amd/display: Fix unsafe uses of kernel mode FPU
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Ard Biesheuvel <ardb@kernel.org>
-
-commit ddbfac152830e38d488ff8e45ab7eaf5d72f8527 upstream.
-
-The point of isolating code that uses kernel mode FPU in separate
-compilation units is to ensure that even implicit uses of, e.g., SIMD
-registers for spilling occur only in a context where this is permitted,
-i.e., from inside a kernel_fpu_begin/end block.
-
-This is important on arm64, which uses -mgeneral-regs-only to build all
-kernel code, with the exception of such compilation units where FP or
-SIMD registers are expected to be used. Given that the compiler may
-invent uses of FP/SIMD anywhere in such a unit, none of its code may be
-accessible from outside a kernel_fpu_begin/end block.
-
-This means that all callers into such compilation units must use the
-DC_FP start/end macros, which must not occur there themselves. For
-robustness, all functions with external linkage that reside there should
-call dc_assert_fp_enabled() to assert that the FPU context was set up
-correctly.
-
-Fix this for the DCN35, DCN351 and DCN36 implementations.
-
-Cc: Austin Zheng <austin.zheng@amd.com>
-Cc: Jun Lei <jun.lei@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c             |    4 ++
- drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c             |    6 ++-
- drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c           |    4 +-
- drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c   |   16 ++++++++-
- drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c |   17 +++++++++-
- drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c   |   16 ++++++++-
- 6 files changed, 56 insertions(+), 7 deletions(-)
-
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-@@ -808,6 +808,8 @@ void dcn316_update_bw_bounding_box(struc
- 
- int dcn_get_max_non_odm_pix_rate_100hz(struct _vcs_dpi_soc_bounding_box_st *soc)
- {
-+	dc_assert_fp_enabled();
-+
- 	return soc->clock_limits[0].dispclk_mhz * 10000.0 / (1.0 + soc->dcn_downspread_percent / 100.0);
- }
- 
-@@ -815,6 +817,8 @@ int dcn_get_approx_det_segs_required_for
- 		struct _vcs_dpi_soc_bounding_box_st *soc,
- 		int pix_clk_100hz, int bpp, int seg_size_kb)
- {
-+	dc_assert_fp_enabled();
-+
- 	/* Roughly calculate required crb to hide latency. In practice there is slightly
- 	 * more buffer available for latency hiding
- 	 */
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -445,6 +445,8 @@ int dcn35_populate_dml_pipes_from_contex
- 	bool upscaled = false;
- 	const unsigned int max_allowed_vblank_nom = 1023;
- 
-+	dc_assert_fp_enabled();
-+
- 	dcn31_populate_dml_pipes_from_context(dc, context, pipes,
- 					      validate_mode);
- 
-@@ -498,9 +500,7 @@ int dcn35_populate_dml_pipes_from_contex
- 
- 		pipes[pipe_cnt].pipe.src.unbounded_req_mode = false;
- 
--		DC_FP_START();
- 		dcn31_zero_pipe_dcc_fraction(pipes, pipe_cnt);
--		DC_FP_END();
- 
- 		pipes[pipe_cnt].pipe.dest.vfront_porch = timing->v_front_porch;
- 		pipes[pipe_cnt].pipe.src.dcc_rate = 3;
-@@ -581,6 +581,8 @@ void dcn35_decide_zstate_support(struct
- 	unsigned int i, plane_count = 0;
- 	DC_LOGGER_INIT(dc->ctx->logger);
- 
-+	dc_assert_fp_enabled();
-+
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		if (context->res_ctx.pipe_ctx[i].plane_state)
- 			plane_count++;
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-@@ -478,6 +478,8 @@ int dcn351_populate_dml_pipes_from_conte
- 	bool upscaled = false;
- 	const unsigned int max_allowed_vblank_nom = 1023;
- 
-+	dc_assert_fp_enabled();
-+
- 	dcn31_populate_dml_pipes_from_context(dc, context, pipes,
- 					      validate_mode);
- 
-@@ -531,9 +533,7 @@ int dcn351_populate_dml_pipes_from_conte
- 
- 		pipes[pipe_cnt].pipe.src.unbounded_req_mode = false;
- 
--		DC_FP_START();
- 		dcn31_zero_pipe_dcc_fraction(pipes, pipe_cnt);
--		DC_FP_END();
- 
- 		pipes[pipe_cnt].pipe.dest.vfront_porch = timing->v_front_porch;
- 		pipes[pipe_cnt].pipe.src.dcc_rate = 3;
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -1760,6 +1760,20 @@ enum dc_status dcn35_patch_unknown_plane
- }
- 
- 
-+static int populate_dml_pipes_from_context_fpu(struct dc *dc,
-+					       struct dc_state *context,
-+					       display_e2e_pipe_params_st *pipes,
-+					       enum dc_validate_mode validate_mode)
-+{
-+	int ret;
-+
-+	DC_FP_START();
-+	ret = dcn35_populate_dml_pipes_from_context_fpu(dc, context, pipes, validate_mode);
-+	DC_FP_END();
-+
-+	return ret;
-+}
-+
- static struct resource_funcs dcn35_res_pool_funcs = {
- 	.destroy = dcn35_destroy_resource_pool,
- 	.link_enc_create = dcn35_link_encoder_create,
-@@ -1770,7 +1784,7 @@ static struct resource_funcs dcn35_res_p
- 	.validate_bandwidth = dcn35_validate_bandwidth,
- 	.calculate_wm_and_dlg = NULL,
- 	.update_soc_for_wm_a = dcn31_update_soc_for_wm_a,
--	.populate_dml_pipes = dcn35_populate_dml_pipes_from_context_fpu,
-+	.populate_dml_pipes = populate_dml_pipes_from_context_fpu,
- 	.acquire_free_pipe_as_secondary_dpp_pipe = dcn20_acquire_free_pipe_for_layer,
- 	.release_pipe = dcn20_release_pipe,
- 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -1732,6 +1732,21 @@ static enum dc_status dcn351_validate_ba
- 	return out ? DC_OK : DC_FAIL_BANDWIDTH_VALIDATE;
- }
- 
-+static int populate_dml_pipes_from_context_fpu(struct dc *dc,
-+					       struct dc_state *context,
-+					       display_e2e_pipe_params_st *pipes,
-+					       enum dc_validate_mode validate_mode)
-+{
-+	int ret;
-+
-+	DC_FP_START();
-+	ret = dcn351_populate_dml_pipes_from_context_fpu(dc, context, pipes, validate_mode);
-+	DC_FP_END();
-+
-+	return ret;
-+
-+}
-+
- static struct resource_funcs dcn351_res_pool_funcs = {
- 	.destroy = dcn351_destroy_resource_pool,
- 	.link_enc_create = dcn35_link_encoder_create,
-@@ -1742,7 +1757,7 @@ static struct resource_funcs dcn351_res_
- 	.validate_bandwidth = dcn351_validate_bandwidth,
- 	.calculate_wm_and_dlg = NULL,
- 	.update_soc_for_wm_a = dcn31_update_soc_for_wm_a,
--	.populate_dml_pipes = dcn351_populate_dml_pipes_from_context_fpu,
-+	.populate_dml_pipes = populate_dml_pipes_from_context_fpu,
- 	.acquire_free_pipe_as_secondary_dpp_pipe = dcn20_acquire_free_pipe_for_layer,
- 	.release_pipe = dcn20_release_pipe,
- 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-@@ -1734,6 +1734,20 @@ static enum dc_status dcn35_validate_ban
- }
- 
- 
-+static int populate_dml_pipes_from_context_fpu(struct dc *dc,
-+					       struct dc_state *context,
-+					       display_e2e_pipe_params_st *pipes,
-+					       enum dc_validate_mode validate_mode)
-+{
-+	int ret;
-+
-+	DC_FP_START();
-+	ret = dcn35_populate_dml_pipes_from_context_fpu(dc, context, pipes, validate_mode);
-+	DC_FP_END();
-+
-+	return ret;
-+}
-+
- static struct resource_funcs dcn36_res_pool_funcs = {
- 	.destroy = dcn36_destroy_resource_pool,
- 	.link_enc_create = dcn35_link_encoder_create,
-@@ -1744,7 +1758,7 @@ static struct resource_funcs dcn36_res_p
- 	.validate_bandwidth = dcn35_validate_bandwidth,
- 	.calculate_wm_and_dlg = NULL,
- 	.update_soc_for_wm_a = dcn31_update_soc_for_wm_a,
--	.populate_dml_pipes = dcn35_populate_dml_pipes_from_context_fpu,
-+	.populate_dml_pipes = populate_dml_pipes_from_context_fpu,
- 	.acquire_free_pipe_as_secondary_dpp_pipe = dcn20_acquire_free_pipe_for_layer,
- 	.release_pipe = dcn20_release_pipe,
- 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
-
-
-Patches currently in stable-queue which might be from ardb@kernel.org are
-
-queue-6.17/kbuild-add-.rel.-strip-pattern-for-vmlinux.patch
-queue-6.17/kbuild-restore-pattern-to-avoid-stripping-.rela.dyn-.patch
-queue-6.17/drm-amd-display-fix-unsafe-uses-of-kernel-mode-fpu.patch
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 20 ++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 50 +++++++++++++++------
+>  2 files changed, 46 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_virt.c
+> index f96beb96c75c..8cd02eb605c5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -686,7 +686,7 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_dev=
+ice *adev)
+>                 /* got through this logic in early init stage to get nece=
+ssary flags, e.g. rlcg_acc related*/
+>                 adev->virt.fw_reserve.p_pf2vf =3D
+>                         (struct amd_sriov_msg_pf2vf_info_header *)
+> -                       (adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB << 1=
+0));
+> +                       (adev->bios + (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 <=
+< 10));
+>
+>                 amdgpu_virt_read_pf2vf_data(adev);
+>         }
+> @@ -703,21 +703,21 @@ void amdgpu_virt_exchange_data(struct amdgpu_device=
+ *adev)
+>                 if (adev->mman.fw_vram_usage_va) {
+>                         adev->virt.fw_reserve.p_pf2vf =3D
+>                                 (struct amd_sriov_msg_pf2vf_info_header *=
+)
+> -                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
+_MSG_PF2VF_OFFSET_KB << 10));
+> +                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
+_MSG_PF2VF_OFFSET_KB_V1 << 10));
+>                         adev->virt.fw_reserve.p_vf2pf =3D
+>                                 (struct amd_sriov_msg_vf2pf_info_header *=
+)
+> -                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
+_MSG_VF2PF_OFFSET_KB << 10));
+> +                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
+_MSG_VF2PF_OFFSET_KB_V1 << 10));
+>                         adev->virt.fw_reserve.ras_telemetry =3D
+> -                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
+_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
+> +                               (adev->mman.fw_vram_usage_va + (AMD_SRIOV=
+_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
+>                 } else if (adev->mman.drv_vram_usage_va) {
+>                         adev->virt.fw_reserve.p_pf2vf =3D
+>                                 (struct amd_sriov_msg_pf2vf_info_header *=
+)
+> -                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
+V_MSG_PF2VF_OFFSET_KB << 10));
+> +                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
+V_MSG_PF2VF_OFFSET_KB_V1 << 10));
+>                         adev->virt.fw_reserve.p_vf2pf =3D
+>                                 (struct amd_sriov_msg_vf2pf_info_header *=
+)
+> -                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
+V_MSG_VF2PF_OFFSET_KB << 10));
+> +                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
+V_MSG_VF2PF_OFFSET_KB_V1 << 10));
+>                         adev->virt.fw_reserve.ras_telemetry =3D
+> -                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
+V_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
+> +                               (adev->mman.drv_vram_usage_va + (AMD_SRIO=
+V_MSG_RAS_TELEMETRY_OFFSET_KB_V1 << 10));
+>                 }
+>
+>                 amdgpu_virt_read_pf2vf_data(adev);
+> @@ -1304,7 +1304,7 @@ static int amdgpu_virt_cache_host_error_counts(stru=
+ct amdgpu_device *adev,
+>         checksum =3D host_telemetry->header.checksum;
+>         used_size =3D host_telemetry->header.used_size;
+>
+> -       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
+> +       if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
+>                 return 0;
+>
+>         tmp =3D kmemdup(&host_telemetry->body.error_count, used_size, GFP=
+_KERNEL);
+> @@ -1383,7 +1383,7 @@ amdgpu_virt_write_cpers_to_ring(struct amdgpu_devic=
+e *adev,
+>         checksum =3D host_telemetry->header.checksum;
+>         used_size =3D host_telemetry->header.used_size;
+>
+> -       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
+> +       if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
+>                 return -EINVAL;
+>
+>         cper_dump =3D kmemdup(&host_telemetry->body.cper_dump, used_size,=
+ GFP_KERNEL);
+> @@ -1515,7 +1515,7 @@ static int amdgpu_virt_cache_chk_criti_hit(struct a=
+mdgpu_device *adev,
+>         checksum =3D host_telemetry->header.checksum;
+>         used_size =3D host_telemetry->header.used_size;
+>
+> -       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
+> +       if (used_size > (AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10))
+>                 return 0;
+>
+>         tmp =3D kmemdup(&host_telemetry->body.chk_criti, used_size, GFP_K=
+ERNEL);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/dr=
+m/amd/amdgpu/amdgv_sriovmsg.h
+> index 3a79ed7d8031..7509756b9ac5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> @@ -23,26 +23,48 @@
+>  #ifndef AMDGV_SRIOV_MSG__H_
+>  #define AMDGV_SRIOV_MSG__H_
+>
+> -/* unit in kilobytes */
+> -#define AMD_SRIOV_MSG_VBIOS_OFFSET          0
+> -#define AMD_SRIOV_MSG_VBIOS_SIZE_KB         64
+> -#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB AMD_SRIOV_MSG_VBIOS_SIZE_KB
+> -#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB   4
+> -#define AMD_SRIOV_MSG_TMR_OFFSET_KB         2048
+> -#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB      2
+> -#define AMD_SRIOV_RAS_TELEMETRY_SIZE_KB             64
+> +#define AMD_SRIOV_MSG_SIZE_KB                           1
+> +
+>  /*
+> - * layout
+> + * layout v1
+>   * 0           64KB        65KB        66KB           68KB              =
+     132KB
+>   * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS Telemetry Re=
+gion | ...
+>   * |   64KB    |   1KB     |   1KB     |   2KB        | 64KB            =
+     | ...
+>   */
+>
+> -#define AMD_SRIOV_MSG_SIZE_KB                   1
+> -#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB           AMD_SRIOV_MSG_DATAEXCHAN=
+GE_OFFSET_KB
+> -#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB           (AMD_SRIOV_MSG_PF2VF_OFF=
+SET_KB + AMD_SRIOV_MSG_SIZE_KB)
+> -#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB        (AMD_SRIOV_MSG_VF2PF_OFF=
+SET_KB + AMD_SRIOV_MSG_SIZE_KB)
+> -#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB   (AMD_SRIOV_MSG_BAD_PAGE_=
+OFFSET_KB + AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB)
+> +/*
+> + * layout v2 (offsets are dynamically allocated and the offsets below ar=
+e examples)
+> + * 0           1KB         64KB        65KB        66KB           68KB  =
+                 132KB
+> + * |  INITD_H  |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS =
+Telemetry Region | ...
+> + * |   1KB     |   64KB    |   1KB     |   1KB     |   2KB        | 64KB=
+                 | ...
+> + *
+> + * Note: PF2VF + VF2PF + Bad Page =3D DataExchange region (allocated con=
+tiguously)
+> + */
+> +
+> +/* v1 layout sizes */
+> +#define AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1                 64
+> +#define AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1                 1
+> +#define AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1                 1
+> +#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1              2
+> +#define AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1         64
+> +#define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB_V1          \
+> +       (AMD_SRIOV_MSG_PF2VF_SIZE_KB_V1 + AMD_SRIOV_MSG_VF2PF_SIZE_KB_V1 =
++ \
+> +        AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB_V1)
+> +
+> +/* v1 offsets */
+> +#define AMD_SRIOV_MSG_VBIOS_OFFSET_V1                  0
+> +#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB_V1                AMD_SRIOV=
+_MSG_VBIOS_SIZE_KB_V1
+> +#define AMD_SRIOV_MSG_TMR_OFFSET_KB                    2048
+> +#define AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1               AMD_SRIOV_MSG_DAT=
+AEXCHANGE_OFFSET_KB_V1
+> +#define AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1               \
+> +       (AMD_SRIOV_MSG_PF2VF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB)
+> +#define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1            \
+> +       (AMD_SRIOV_MSG_VF2PF_OFFSET_KB_V1 + AMD_SRIOV_MSG_SIZE_KB)
+> +#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB_V1       \
+> +       (AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB_V1 + AMD_SRIOV_MSG_BAD_PAGE_SIZ=
+E_KB_V1)
+> +#define AMD_SRIOV_MSG_INIT_DATA_TOT_SIZE_KB_V1         \
+> +       (AMD_SRIOV_MSG_VBIOS_SIZE_KB_V1 + AMD_SRIOV_MSG_DATAEXCHANGE_SIZE=
+_KB_V1 + \
+> +        AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1)
+>
+>  /*
+>   * PF2VF history log:
+> --
+> 2.34.1
+>
