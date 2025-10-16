@@ -4,154 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6791CCD195
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 14:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC89CCD199
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 15:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FDF910E2ED;
-	Thu, 16 Oct 2025 14:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FD510EA20;
+	Thu, 16 Oct 2025 15:14:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="o4RvNsGh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bU8rE3Yb";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013026.outbound.protection.outlook.com
- [40.93.196.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC9410E2ED
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 14:46:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k7ApyUW1vigi3Z9s+0StAQ8oyjQZgopdlol3byRd6OPnWeDAb8PSuyAxD17GNkfZTngNtlp7zcYvRgu/860xmeroVzTSuNXd92LR4nVw+X5/2jxBZAEUukKqbqQ9kUuats7TjsC/2CglR0xegwOtOJNryiHCd8b2i69O2TLIxH68kHKtC5ZYRj78+14xZogc/+5ambO6OmAzDKK2enG9CYNPCamleT2mQkM+O8MN1nYfhjSGbBu/QkxE3ZPP6TsbT3ti3ULbFkWZRB0wMlTHCbRcBfY/q7DMhOv/EHWPxipzz6iU8T0lisHMFSsJp0s4SSItP+mCEEsMfcm8j8Vj2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xv4H3QgIm8hLXwnHz1Q8fkrJW0xjtuaiYO3VM6V7DXI=;
- b=iKvnHu5sQiwdCLDhvZnDfjfT3WfTuZHLinyiwHd0jCdCvFzmYy8aI2EhTWSVdRwOg9s7QqXHvAYkKcRdn7x3v09zBcFDBwGkwwajTNN630aoJNhZHwoMoEPasVwDkU60QZGYt3+ClF0w45obuoPPdUuCt8SNVS3PnFAPD9ddaPDYs1Yvh1mw+i9xRf4cSfzHboWA3byZ5eL0zmluzabuZjBAzqwP8/4b/dGHqvW0hIR+OIiaz5QUu9WgGBPCT63qZ6RoPRBgqrmuivg3Ak9llGuyuReSZqV3WKpQPc8x1podu0/rqaTZFM2qmhxklrByuHQRNVrZKUBvU53OnoWyZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xv4H3QgIm8hLXwnHz1Q8fkrJW0xjtuaiYO3VM6V7DXI=;
- b=o4RvNsGhZxGmPBch7hwK9yw7HuIZz+ciURxVJur219jBffv6HkOoLZVon0JuCJMmi+vXPvAIrDbpChYXLA6smTEOxEZCCAA+4u/R58pPhX9Jq0FfTynGOfgCNps2KzEP9R0qB/XaHYbZLyGxAqcZLc03KGolAQtV28vi0maVG5M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- PH7PR12MB7354.namprd12.prod.outlook.com (2603:10b6:510:20d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.11; Thu, 16 Oct
- 2025 14:46:53 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.9228.012; Thu, 16 Oct 2025
- 14:46:53 +0000
-Message-ID: <3bf66993-7a24-4657-a264-cc44df5fb560@amd.com>
-Date: Thu, 16 Oct 2025 09:46:51 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/amdkfd: Stop user queues when process mm
- released
-To: Philip Yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com
-References: <20251015201134.2540-1-Philip.Yang@amd.com>
- <20251015201134.2540-2-Philip.Yang@amd.com>
- <29dd1aad-26de-49ac-9d25-c3dffa862705@amd.com>
- <c0daed21-77b2-664b-ed63-ae188fff2f06@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <c0daed21-77b2-664b-ed63-ae188fff2f06@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR11CA0114.namprd11.prod.outlook.com
- (2603:10b6:806:d1::29) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73CB410EA20
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 15:14:32 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-33badfbd87aso146429a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 08:14:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760627672; x=1761232472; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oVvQpF3KUkgQgqgHgCcfJ87d8hinP61HM/9iAbZQFqY=;
+ b=bU8rE3YbXlv8IB1xa/ARvEt8L9CJ8psRDHb/+A9yU6oeGG2po2uRByTiTn2z7l7gO2
+ IzZS1BscsWoDsr9aCHg6MvvFWR418et71S7NL1ns81X7vU/0vB5v06Oji0UmfooJUmIB
+ N5zrBgXOiXhmR7YMiEpqNnAxjj9M8jGyKYqU86zuYfSjodH2EBTsHPl2KTgSdnUcpTC3
+ TaSooBhZr6zTQzjTJnyGq/Sd6Df5mD/xDiEumTFI2IS+VCh51SmdVSqU0Diwm5lDoPS3
+ jIUpdIQ6aW+rDZ3qkXKggbFc+RVbeepNtt3D7BKnG9rztcnzNLqYA7z9LPcDVP2KWHL9
+ tnlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760627672; x=1761232472;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oVvQpF3KUkgQgqgHgCcfJ87d8hinP61HM/9iAbZQFqY=;
+ b=dGMc+P6shuWpARsJqS6YywzQHq25SDHWhgVQCD8xcqBCcu82re6EUR69lQQ06wb1Zm
+ 5HKgE7+5eA36ebekkYkhp9qv7Xz7SitAocdtGpcpCD/yW5EvpJhyS/U4ORRLXMvYpt/L
+ T4LJNB+B7FAH8LDDOK176TF8gLGtgdleEa0P9qwEhjnEV6Hn0CDfcHhnER4dBxl4b66e
+ 77p0eKC6X9YsNIwBIIV6AoIeryNGgXkI9oTGMLCx+v1TwTMMyrUKamisbzFamV3V3g3W
+ /s+JjQjx6hYaCk6HrdxLSGXfTjVbUgSlbU4MnKV66DReLir25GsH3pH1dirtaG+c+AQB
+ HG4A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUli7O/ZWX6fUAR5RP9ME/D4g1YLvur+NyXutbwf/fa++ZxRw/rSAlKzi87FuCyH67pc6YqZHQP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEBM2F4Wz9hPsTmsOznQaRj9uNCdoQc+MWvKHtIlpMAGL+IhDx
+ Shh/S4gbPqk6AFFjn9m6OmxI+QGGUzScmv4yJDgD7w1IvXY9OnTe++zzopfBdX4f0B+DKjqg1vn
+ RZliPGqCw3juDd9Tep1JnBaRhomnHspk=
+X-Gm-Gg: ASbGncsJ9N5Z6C1dI2m6yAjj+AN4rTZ7dhFPjavSFQGzraKp9On+1NxezOT4PgR0AJe
+ T6YgVnfOOVudH0yglmWvBYmzaSFMbKbxHBQPfNm2wyvj2RXffc+YiQ/0tFohm+V+r18439sXMKt
+ 2jxiArIxXg2B+Ti7S6jwASpqCPGguPs41QreFlnstijxdv+WjZuEaESAw2HSDrGpZ1f2Qnydu3J
+ PE11zTdQESFrN8FAUtotJhQmL18/o6ZCe7kxttlbNLboSL800sU7bQhHcpo
+X-Google-Smtp-Source: AGHT+IHbp2NMgIs2iY73afZL6KYX7WtdwmjlN8sdUmtFh2t7Hhd5s+vvkiHWkURSRQRwetSIBQ8CpqX3+mNI5Ia4NfE=
+X-Received: by 2002:a17:903:1a44:b0:261:500a:5742 with SMTP id
+ d9443c01a7336-290ccbcfca4mr1465225ad.10.1760627671869; Thu, 16 Oct 2025
+ 08:14:31 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|PH7PR12MB7354:EE_
-X-MS-Office365-Filtering-Correlation-Id: 992b5f56-0268-411a-a0b1-08de0cc2d88e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y3llQkovL0dCWUdDSWVRSWhaUVlqZTRPaE1QdENWdllIYzhWZkZ5Z0ZEZ3RG?=
- =?utf-8?B?ZmJ5UkE3Ujd2d1dOU3QzQ2l0L0lIMnYwNm55RXA4cm5vcDMybWlnZUpFZ1dk?=
- =?utf-8?B?VDZmUURoTnVKYS9tRk9iQ0NSQUt6cmp6T3k4amR0ZXdValU2N2pSU0t5aDJ6?=
- =?utf-8?B?MThkcFZ4WjArb2lBVmhzVTAvYWFOaXNZQ3dCNVJXdmNUZXJEV1YrRDlMNmFv?=
- =?utf-8?B?aHNCbmFBUG83VGJQSCt5akZmZ0U0VU1ETVNydXlmbWVTT2QreGc0bEd1RGl3?=
- =?utf-8?B?WTBHM2lpeC9xZUx1ajBMRDNMQTJqeWtCd2d3Ky91RE14clJFVkRVU3F1YXZx?=
- =?utf-8?B?WlNqSTJXbVFTRDBpNyswYTRFZkhQVGRBOEV3WFd2SWN5Q1BDT0JKOFFNSVdN?=
- =?utf-8?B?ODRWYmpwTDU0aVVKYUpXZng3UDI0MllQRStlUTFsanU0TTVBWkFlY2thSTFG?=
- =?utf-8?B?NUFrY3ppWFhLUVpxSy9CTjdqcjcxNHA5K0hFc01PdWJONTQ1TDFNUWNwRzlV?=
- =?utf-8?B?di9NL25MQVBscTJWazAyTVRpRjdyd1RZRTl0YmdNUUk5VlFsMkFORzN1TVVK?=
- =?utf-8?B?UjQ3K2FNSFo5djJRZThMWXRFR3ZCSTRKaVUvSEQyKzJuUkhIN0hmWnhKOFUx?=
- =?utf-8?B?cEVBdGFYVVM4azRzZGxxL25ZeXI0Q1pDY3FGTnFFV3VvVVYrY2tWS2RlY21h?=
- =?utf-8?B?OFlKUmxuSUJDVGR4dEEzZi9oOU4xN25PRE1UaDRZcUl5QjR1QVphZlZxRkEz?=
- =?utf-8?B?anVzeUpPVy8raUVvb3BKbU1pRmVyNlcxREhQTitNMVhIdnZkZnNJaWpBZFJ6?=
- =?utf-8?B?SXhMVElqU2ZTcFNzNXBIbXU4bENrTEYrbUNyNkhDWGxJaDRYYTdnWTlnQzVV?=
- =?utf-8?B?dWo4WlVxS1hTRFZwKys3SW9QTkV1dThpWkI0YVVkcjcrbnh1VFlqRW5ycml1?=
- =?utf-8?B?MWYyZU5BNXlBKzFsZktFWlF6ZVo5SHE0ajNEVlVWZ0VPN2JySTRnV0pnUGZr?=
- =?utf-8?B?cHhQakp1cHRjUUp1eERNNHJ3SUtEc3VTZGVCSis3K3RRRVlodnRWbzk1WjZH?=
- =?utf-8?B?TDhHZjlNd0x1dlErVC9hbVJ3cDVaTHZ5ZVRiRGk0VG9RREJJRS9aS3lVT1dw?=
- =?utf-8?B?akt6MWNtVlR0RFIzbmxZRklod0t3ODc2MjNJNzNVZ1BBRnRVdCtMcnozSnly?=
- =?utf-8?B?L3kzSzNETmFrZUxBUXZ6T08vbzV1RDF4cVkveU8vKytUZ2JLR0o0aEJoTVFy?=
- =?utf-8?B?NnUvdFFVN2Jrcmd5ZWsvdDhyVUNUM3g4bVorOTRJUitNaUQxVHl0WCtNYS9l?=
- =?utf-8?B?eFgvbXJmbVlGdFlsemlERWs0K3BpVloxWHR2UEZsK1Zwa1FoODhQam4vQ285?=
- =?utf-8?B?QWpsa0dqdERKQWlhS0RwNEVrLytUeWplRW03NkdpWW15V0Y0TEpvOUU4Y1Az?=
- =?utf-8?B?UlpTL3Joak5LYmFWd3NhSVJ3RUxVeGxpMlIzQllHWTZTUWxJY3I0ZkxPOThL?=
- =?utf-8?B?VnRZU3VVSkNva2VWM1BoSDdvSTdZR291aGpqODFqaHM1Tm5pYnlYbXhrbU8y?=
- =?utf-8?B?alFpOTVSWjBtbVZJaGorREFxZWRRZFNPdTNIWk1GbjB1MWZHMksrRStqUloz?=
- =?utf-8?B?U2cweUxDS1R5WFJEWG5NZEFXUFIwOTRPMUExRm9iWEp1b3huQWZKNlZXSWp1?=
- =?utf-8?B?SHAvb3FPQlR2RWZDU0s3N0I3WE5TNU41RkZTSThvYmNjTTFuaVpmQ0ZWejFW?=
- =?utf-8?B?d3gwZkZmN0c0K1M2RmZYdm9LaHJyY3ovK2RyS3NObG83bmhmUm94NlhKR2xq?=
- =?utf-8?B?bHRLZ09Gc1ZkeXFLUGYya3lqemdQYTlSTEo4RXRYSEdKbjhtRjJOQVhwUStK?=
- =?utf-8?B?RmFyWlVmbk1zR3pQZVcyYVJWK0VTK2JRMlNUUzhGMlhaS1VOSGJNWUFLbjRu?=
- =?utf-8?Q?ldnC2TAwAxolF317zBdSZfCg/mnXfJDR?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGhJNkg2QUFWbFVVMWh3dGd3ZWdSNVR3d2dEME9MUlNKckY5SGJwV2YxTGtP?=
- =?utf-8?B?aW5aVWx2WjF5WXllTGkyMCtHRFFaaUU4bDJ6aU13YnM1R1NONUd6Q2pRdHZO?=
- =?utf-8?B?MU9Qa2h5OWdPNWJKZ2pxNDZYRk5oNk5KTHZxbjhNWlpCbmRjODBtbnBtS2VR?=
- =?utf-8?B?OTBablRSTUlCSWdGbDRSRG0yem83TjBwbjAycGhCWUtIK1FVTDl1MW82OWdl?=
- =?utf-8?B?dGtPblZqc25BWXJBcUNLZkkrbHJYckxwWGtRUldJN0xZdTVuOFc1TS8waWJz?=
- =?utf-8?B?NzEvaU9mSFVGbS95NkZUNkM2eFgwUlpHMnk1T0NuNEd1VWJta3NNOXNnMi9z?=
- =?utf-8?B?SzBrZDFURkhIdkFyV2c2WElqZWx3dWhMZGMyMG9YUDIwVEM1KzZiQUVCOHBK?=
- =?utf-8?B?OHY5bW9hZjhyZ1R5N3pRRTNOZk5KN1d4VGhpL1Z3bTB1WTd3QlhLYk5QUzJT?=
- =?utf-8?B?ci84TStrSzIwcDlvb1NWdlBBb3d5bEFTWGF4eHR1NHZnMzdwSTdPckhyN0VE?=
- =?utf-8?B?blRIV25mM1BpdmozNExNemhadit0SnE5T1EwWk94SmhCbFp0b0RnejFCR0d3?=
- =?utf-8?B?RVhXbkhRWUxSWENLNk5haHJvV1NXTzBRL3JwUGUwdU02SDRSd1NtSzRrMW9u?=
- =?utf-8?B?d2JJeUtaN280SUpjV093MlQ3aC9ZeGlsRnI4TTg2bGtoYXdJdkFRZGZYdkRD?=
- =?utf-8?B?dmM1L3BhN0xWajduaEl6VjRUU2txczBldmRUTEJCbkFEMkFpczV0eXkrc283?=
- =?utf-8?B?QjRPZ0lFVktKZWdlTXovdFhpbkVPQmhiczNscWtLWHVuMDFTdG5FWjAvY0t3?=
- =?utf-8?B?ZkZFV3NEbCswU3daNEhObW1jNmltS1IzdFIrRE9QUFNMZmVFN0w4MEpLU1NF?=
- =?utf-8?B?dWcyQkxqck8vQjNHNnJVSksxRVEyKzBoNHhVNTRoL3g5cE9DUFdMMmpmc3dF?=
- =?utf-8?B?c3d0U3NGOW05MUtYUFo1aGRIVURVM0VsSWZ6dzlWQkx0RHA1ZFVGZ1VtYi9Q?=
- =?utf-8?B?Z2pwNVUrUTVNQVpYMTRDYllKQ3JnOFp5WURTZE9iaW54cGswMDBncmFaMEl3?=
- =?utf-8?B?elZwVEZ0YjZTOHJMcGpzLzREcENGYXJVRk4xd01SVUUzV3R1aHBYNzA2UlQy?=
- =?utf-8?B?eVUva2pDYnM1VjJoZGxIZWlNbkhyTlFOREdlM2ltMStJRmFWaXdCM3kwaWNM?=
- =?utf-8?B?cmVMREUwY2ZZS3NpQXgyWklkdW9ucmpVd1RNTytLVW9iK0taa0JyOHFHWENV?=
- =?utf-8?B?bVRhMmRoRHh0cEdhZzA1RHVRakg0TFIvRzdabFBzRU9MZEVXcWJJRmlJRmhY?=
- =?utf-8?B?VW85TldQMDhWRUlodUFNV05mczFNaVdKa0hHUXlmd2ttUThCMTZTSCtCd3E2?=
- =?utf-8?B?MUovREZDc2xOaXNNNHp6akpDZERjNVFWMGRMd3dvbEp1TTlTQ1kzQ0ZIWEhW?=
- =?utf-8?B?cmtqT3hNNFJRSzNGQ08wbUNmdGxWMkZsUnhvaUttSGdtWXVNY3B3eWpOakpL?=
- =?utf-8?B?QVVWRmRxbzMrTkc5ZlA3MklqNm53WUJZZzl5dkJjczcwNGZGTmlnOTgrRUpH?=
- =?utf-8?B?UXBrWWw1VkJlUS9KY3BxWVhMR29SbVZkLzJiaWY0TWZMWmMrcTdrSmdXZm5W?=
- =?utf-8?B?bTJoTTVPMHpVbEpsMG9tZUJBTlpwRWk5MkxVWE5xeHh3RE1mV2plZ1ZScUl6?=
- =?utf-8?B?ekRFeG1QOFR4SFhkc0xmN3VmMFhOT1FDWDZqdFpVbmlWOVIydmpjRTFnbVJn?=
- =?utf-8?B?RHVDUXY1NzM4RGp0YVRhdDRUNHVueExMUTZFMGtKL2dKUTNyVXBRRmdOZElv?=
- =?utf-8?B?dUM0SWVTNXV2amhHME1TSUQyL01nNitFZk8wR0d3dDlRQ1krQkV3dUdLcUIy?=
- =?utf-8?B?MzZJOWlZVUVWVWV3UTM0cWVvMXVqem9sQXIzdWVpUEtnOGZIZ0Y3TEFOMnhL?=
- =?utf-8?B?dmI4S0N4L2hZVEdTcXFWNjg5NWwrKzhBZHIwVkZhRlpiN0xMY2dxY2YzajU0?=
- =?utf-8?B?TERCWWw1eUhUcm0wSk5CT3VRN2lQTDNpWmpPWDdFZUN2Zmxad2V0d2UyREVp?=
- =?utf-8?B?eCtBT0FraWgrMWxVQ2tpZWx3d2FPTDVPci9CSUlyVlloeDJIbjVsRyt2Q3FO?=
- =?utf-8?Q?SVJM=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 992b5f56-0268-411a-a0b1-08de0cc2d88e
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2025 14:46:53.1941 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UPFD9/luXDbpb3b/43KGZgWW75qi3nVypJ1AxOs1WAk+bav7+oacIyo7pl/G1QNu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7354
+References: <20251016065117.2797-1-yangtiezhu@loongson.cn>
+In-Reply-To: <20251016065117.2797-1-yangtiezhu@loongson.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Oct 2025 11:14:20 -0400
+X-Gm-Features: AS18NWDHTf0fchEiv7DyM7xymsV74cPNgZ3lvBAsNy5WIQInxOVbTb-EMiRSddk
+Message-ID: <CADnq5_Mhxr87tT+zT4absJrygQtsUXzwkQAR__ffwCpGCLERBw@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/amd: Fix set but not used warnings
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,77 +85,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
-On 10/15/2025 4:33 PM, Philip Yang wrote:
+Alex
+
+On Thu, Oct 16, 2025 at 3:06=E2=80=AFAM Tiezhu Yang <yangtiezhu@loongson.cn=
+> wrote:
 >
-> On 2025-10-15 16:40, Chen, Xiaogang wrote:
->>
->>
->> On 10/15/2025 3:11 PM, Philip Yang wrote:
->>> In mmu notifier release callback, stop user queues to be safe because
->>> the SVM memory is going to unmap from CPU.
->>>
->>> Suggested-by: Felix Kuehling<felix.kuehling@amd.com>
->>> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 7 ++++++-
->>>   1 file changed, 6 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> index 0341f570f3d1..e2a0ae0394b8 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> @@ -1221,11 +1221,16 @@ static void kfd_process_free_notifier(struct 
->>> mmu_notifier *mn)
->>>     static void kfd_process_notifier_release_internal(struct 
->>> kfd_process *p)
->>>   {
->>> -    int i;
->>> +    int i, r;
->>>         cancel_delayed_work_sync(&p->eviction_work);
->>>       cancel_delayed_work_sync(&p->restore_work);
->>>   +    WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
->>
->> Use warning message or debug message? I saw this WARN are used 
->> several places. If the queues from kfd process p are still running 
->> when come here we need to stop them. It is not error. debug message 
->> is more suitable I think.
->>
-> The module parameter debug_evictions can be set to true, use WARN to 
-> dump call back trace to help understand why queue is evicted, by 
-> default debug_evictions is false.
-I agree stopping  kfd process's queues during kfd process release. Just 
-wonder if change WARN to debug message form. We can use dump_stack() to 
-dump stack anyway, but it is not relevant to this patch.
-
->>> +    r = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SVM);
->>
->> The evict reason KFD_QUEUE_EVICTION_TRIGGER_SVM is not good here as 
->> it is general kfd process release. Maybe need another enum value.
->>
-> Define new profiling event requires rocprofiler API change, 
-> KFD_QUEUE_EVICTION_TRIGGER_SVM seems the closest event from mmu notifier.
-
-That is awkward. We may add a emu value at end that rocprofile would not 
-know for now.
-
-Regards
-
-Xiaogang
-
-
+> There are many set but not used warnings under drivers/gpu/drm/amd when
+> compiling with the latest upstream mainline GCC:
 >
-> Regards,
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c:305:18: warning: variable =E2=
+=80=98p=E2=80=99 set but not used [-Wunused-but-set-variable=3D]
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h:103:26: warning: variable =E2=
+=80=98internal_reg_offset=E2=80=99 set but not used [-Wunused-but-set-varia=
+ble=3D]
+>   ...
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h:164:26: warning: variable =E2=
+=80=98internal_reg_offset=E2=80=99 set but not used [-Wunused-but-set-varia=
+ble=3D]
+>   ...
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:445:13: warning:=
+ variable =E2=80=98pipe_idx=E2=80=99 set but not used [-Wunused-but-set-var=
+iable=3D]
+>   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:875:21: warning:=
+ variable =E2=80=98pipe_idx=E2=80=99 set but not used [-Wunused-but-set-var=
+iable=3D]
 >
-> Philip
+> Remove the variables actually not used or add __maybe_unused attribute fo=
+r
+> the variables actually used to fix them, compile tested only.
 >
->> Regards
->>
->> Xiaogagn
->>
->>> +    if (r)
->>> +        pr_debug("failed %d to quiesce KFD queues\n", r);
->>> +
->>>       for (i = 0; i < p->n_pdds; i++) {
->>>           struct kfd_process_device *pdd = p->pdds[i];
+> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c     | 4 +---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h      | 6 ++++--
+>  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 9 +++------
+>  3 files changed, 8 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_gart.c
+> index b2033f8352f5..83f3b94ed975 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> @@ -302,7 +302,6 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, u=
+int64_t offset,
+>                         int pages)
+>  {
+>         unsigned t;
+> -       unsigned p;
+>         int i, j;
+>         u64 page_base;
+>         /* Starting from VEGA10, system bit must be 0 to mean invalid. */
+> @@ -316,8 +315,7 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, u=
+int64_t offset,
+>                 return;
+>
+>         t =3D offset / AMDGPU_GPU_PAGE_SIZE;
+> -       p =3D t / AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+> -       for (i =3D 0; i < pages; i++, p++) {
+> +       for (i =3D 0; i < pages; i++) {
+>                 page_base =3D adev->dummy_page_addr;
+>                 if (!adev->gart.ptr)
+>                         continue;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vcn.h
+> index dc8a17bcc3c8..82624b44e661 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> @@ -100,7 +100,8 @@
+>
+>  #define SOC15_DPG_MODE_OFFSET(ip, inst_idx, reg)                        =
+                       \
+>         ({                                                               =
+                       \
+> -               uint32_t internal_reg_offset, addr;                      =
+                       \
+> +               /* To avoid a -Wunused-but-set-variable warning. */      =
+                       \
+> +               uint32_t internal_reg_offset __maybe_unused, addr;       =
+                       \
+>                 bool video_range, video1_range, aon_range, aon1_range;   =
+                       \
+>                                                                          =
+                       \
+>                 addr =3D (adev->reg_offset[ip##_HWIP][inst_idx][reg##_BAS=
+E_IDX] + reg);           \
+> @@ -161,7 +162,8 @@
+>
+>  #define SOC24_DPG_MODE_OFFSET(ip, inst_idx, reg)                        =
+                       \
+>         ({                                                               =
+                       \
+> -               uint32_t internal_reg_offset, addr;                      =
+                       \
+> +               /* To avoid a -Wunused-but-set-variable warning. */      =
+                       \
+> +               uint32_t internal_reg_offset __maybe_unused, addr;       =
+                       \
+>                 bool video_range, video1_range, aon_range, aon1_range;   =
+                       \
+>                                                                          =
+                       \
+>                 addr =3D (adev->reg_offset[ip##_HWIP][inst_idx][reg##_BAS=
+E_IDX] + reg);           \
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/d=
+rm/amd/display/dc/dc_dmub_srv.c
+> index 53a088ebddef..6518d5639d66 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+> @@ -442,7 +442,6 @@ bool dc_dmub_srv_p_state_delegate(struct dc *dc, bool=
+ should_manage_pstate, stru
+>         int i =3D 0, k =3D 0;
+>         int ramp_up_num_steps =3D 1; // TODO: Ramp is currently disabled.=
+ Reenable it.
+>         uint8_t visual_confirm_enabled;
+> -       int pipe_idx =3D 0;
+>         struct dc_stream_status *stream_status =3D NULL;
+>
+>         if (dc =3D=3D NULL)
+> @@ -457,7 +456,7 @@ bool dc_dmub_srv_p_state_delegate(struct dc *dc, bool=
+ should_manage_pstate, stru
+>         cmd.fw_assisted_mclk_switch.config_data.visual_confirm_enabled =
+=3D visual_confirm_enabled;
+>
+>         if (should_manage_pstate) {
+> -               for (i =3D 0, pipe_idx =3D 0; i < dc->res_pool->pipe_coun=
+t; i++) {
+> +               for (i =3D 0; i < dc->res_pool->pipe_count; i++) {
+>                         struct pipe_ctx *pipe =3D &context->res_ctx.pipe_=
+ctx[i];
+>
+>                         if (!pipe->stream)
+> @@ -472,7 +471,6 @@ bool dc_dmub_srv_p_state_delegate(struct dc *dc, bool=
+ should_manage_pstate, stru
+>                                 cmd.fw_assisted_mclk_switch.config_data.v=
+active_stretch_margin_us =3D dc->debug.fpo_vactive_margin_us;
+>                                 break;
+>                         }
+> -                       pipe_idx++;
+>                 }
+>         }
+>
+> @@ -872,7 +870,7 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc,
+>                 bool enable)
+>  {
+>         uint8_t cmd_pipe_index =3D 0;
+> -       uint32_t i, pipe_idx;
+> +       uint32_t i;
+>         uint8_t subvp_count =3D 0;
+>         union dmub_rb_cmd cmd;
+>         struct pipe_ctx *subvp_pipes[2];
+> @@ -899,7 +897,7 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc,
+>
+>         if (enable) {
+>                 // For each pipe that is a "main" SUBVP pipe, fill in pip=
+e data for DMUB SUBVP cmd
+> -               for (i =3D 0, pipe_idx =3D 0; i < dc->res_pool->pipe_coun=
+t; i++) {
+> +               for (i =3D 0; i < dc->res_pool->pipe_count; i++) {
+>                         struct pipe_ctx *pipe =3D &context->res_ctx.pipe_=
+ctx[i];
+>                         pipe_mall_type =3D dc_state_get_pipe_subvp_type(c=
+ontext, pipe);
+>
+> @@ -922,7 +920,6 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc,
+>                                 populate_subvp_cmd_vblank_pipe_info(dc, c=
+ontext, &cmd, pipe, cmd_pipe_index++);
+>
+>                         }
+> -                       pipe_idx++;
+>                 }
+>                 if (subvp_count =3D=3D 2) {
+>                         update_subvp_prefetch_end_to_mall_start(dc, conte=
+xt, &cmd, subvp_pipes);
+> --
+> 2.42.0
+>
