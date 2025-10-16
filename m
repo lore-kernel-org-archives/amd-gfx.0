@@ -4,118 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A86CCD199
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 18:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A005CCD183
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 20:45:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2262E10EA70;
-	Thu, 16 Oct 2025 18:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B415010E110;
+	Thu, 16 Oct 2025 20:45:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K8Z5VuT9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h4UMAHie";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011047.outbound.protection.outlook.com [52.101.52.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 978A510EA72
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 18:55:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RMQj30WABRWJ6zt2bogefvFKbQSkMZYQskD1JhEX3UIaqZuuQsN9jJbD6AGOQNiyjxMu3ME6koiWAE1drf7Js+7DLKS8PuMIEJaXD5AtWr1QvpOlV/5yrnYyT7G5Mpccm5RBSLVGy/ykA8WyP8P1tI+LJCQjC2XItUuZDvWkMFuznj7Tc9tVZVZB9ndPZcn7b7vKtOHBspYw1Oo1a8142UjytlK3exM4ySkKCHBeOoHdQMguOVYviGjK84fqktIBIWurDITSjiTh/fKZMdR/eLr+7rg2yrC6dpKRK91Ghaxiu0ueQPF6lnkcIyElKIj3D016LWXbbUbbX0pWgBs1kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xrDGwHj6lW0KrW69XYtPi2XjEZGjg//Jf1/enYUtOAk=;
- b=bh9N7sWyqhuU9393Ar4wRlVf4kPX8oboeWFhvnS5SDE5kSav4moTD8lTvWDFqmKkS4BLMJhBx0MeGk+bDYYYv16mzpPLd5KhTy3cxOEAj8bi9tN6EV9c5K75E8ybaSL/hQC52x5+KC5ISd5V/EKhI2+dTHNia+a4tOMJ6W6sthpdS2QKmKpfXlGjVKvPuAKMqVtuRijekK7fVdHJmi6Cb0cvtsm9Rt5C6u1jhfxkYLCvQPLOu34I5u6yQPb8pHpDDVUkrkgOde5MsdH9iZGHm5bwECHe4r6PWfwKOKr5g84j9mHZRT43FNnP6xGzIY+VUPENzLCDK507l2dD8apYVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xrDGwHj6lW0KrW69XYtPi2XjEZGjg//Jf1/enYUtOAk=;
- b=K8Z5VuT9wHwzNaTt+GkpB7xp49cp9AQLTwKccEWGDWGl19iYkpfsUun1dADzrmtNnFQFsYC8k0PY2rJclypgr4iV67jQMv7TVTGCGN6TM+s8gLiXGjZdo7uKmzgrc37voj409Fy3KeGVjyO2XiX9arkH+W27xE1++up90tpB4TE=
-Received: from BY5PR04CA0004.namprd04.prod.outlook.com (2603:10b6:a03:1d0::14)
- by MW4PR12MB7117.namprd12.prod.outlook.com (2603:10b6:303:221::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.13; Thu, 16 Oct
- 2025 18:55:41 +0000
-Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::84) by BY5PR04CA0004.outlook.office365.com
- (2603:10b6:a03:1d0::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.12 via Frontend Transport; Thu,
- 16 Oct 2025 18:55:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9228.7 via Frontend Transport; Thu, 16 Oct 2025 18:55:41 +0000
-Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 16 Oct 2025 11:55:40 -0700
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <mario.limonciello@amd.com>, <amd-gfx@lists.freedesktop.org>
-CC: <Peyton.Lee@amd.com>, Sultan Alsawaf <sultan@kerneltoast.com>
-Subject: [PATCH v5] drm/amd: Check that VPE has reached DPM0 in idle handler
-Date: Thu, 16 Oct 2025 13:55:27 -0500
-Message-ID: <20251016185527.1796606-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.51.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846C010E110;
+ Thu, 16 Oct 2025 20:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1760647553; x=1792183553;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=QvCWXHgrFvtMMebcy/ff8oZ6R8Q8e8ZB1BowSWfwTcQ=;
+ b=h4UMAHie4sQaYAVkfLr+1SJgqOPn3J2MzJ/AcTsTHjLflzjEhZJ+6CKO
+ kRhXJCLJQnX+pdy2/eU5K2WxAcI7lKRVd5BM7P6QzHSi8PBD1x+0aC6Hw
+ xqDPkz1AYod6sOwu58bWKct1YkVRuEtofn+GDP+97gqX437hBLtc5ijlS
+ /I/gOYi3Wx9TPajpa6J/AToRAWR4n1wlLc+xlhfVx9U3IfW0Ufayw55rT
+ WciU2EstqOG7YiOHuhQJCG0KlYeIX+jvI1kUezcsSG7F44KnFma/rk3Gl
+ 8fpfz7hkOlt8oKwa86vy2S2E7qepCHltzmA52d8ZCuv3wbJpXVEHlf5xM w==;
+X-CSE-ConnectionGUID: yVTI+d9iQwGrJLsxsamHZg==
+X-CSE-MsgGUID: 8vzNq+MBS3+VdO1Ah+QuTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11584"; a="73140215"
+X-IronPort-AV: E=Sophos;i="6.19,234,1754982000"; d="scan'208";a="73140215"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2025 13:45:52 -0700
+X-CSE-ConnectionGUID: +VvK2HfXSviPBF6DN7oCVg==
+X-CSE-MsgGUID: n1gizHWTTkCENBRs5IEzWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,234,1754982000"; d="scan'208";a="182962211"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.12])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Oct 2025 13:45:47 -0700
+Date: Thu, 16 Oct 2025 23:45:45 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Yaroslav <iam@0la.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Yaroslav Bolyukin <iam@lach.pw>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 1/2] drm/edid: parse DRM VESA dsc bpp target
+Message-ID: <aPFZecm3PKaCpMXi@intel.com>
+References: <20251016001038.13611-2-iam@lach.pw>
+ <20251016001038.13611-4-iam@lach.pw>
+ <3abc1087618c822e5676e67a3ec2e64e506dc5ec@intel.com>
+ <adb2c2bd-a38e-4a40-ba1c-dcc7ad707727@0la.ch>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|MW4PR12MB7117:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73b82019-d0bb-459c-e2b0-08de0ce59a82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?GD7vmXnzmuB2xuKcZxcyWY6Br+JdSry4MYQLwDfd+mNGhhCmh3zs4caBlpmn?=
- =?us-ascii?Q?Tx48ykVrOPVDlvOih7BPH1cO1hGf7GB5tFWUNuXHegqvBGHHj946CuNXGHHy?=
- =?us-ascii?Q?i8nvzpD3YbVKfnwdS6SvZgEf4EQk0qi/uXCQ8E+POtM8WIYmJqIenfRbYj3m?=
- =?us-ascii?Q?aEWwr08/wWAto4okDMY+760Zv5/rhdUnhiuCNjGWuv5g4eigibN5arL4ude3?=
- =?us-ascii?Q?TeU6BJNN9DeMTF69qMVenpKKcrGk98b7/h+q55ZUAEnAkpRJUf8bE5jc7ecX?=
- =?us-ascii?Q?gUMqe/BXw2yzA3g9dXN2SrXrx5q4M7q3fheGX3udRvY5bWttSpspXt27h0BX?=
- =?us-ascii?Q?fmgo2ZpFTo0cimzXZYsIb80tdvcTm8YG9HOOpAnru9mwtYvmDzu9Acfmd57d?=
- =?us-ascii?Q?FmJ+us4mV1qMK1CeSVUEFwqqCwTirwBAh6Kh6n45Pbox/89p4igK/Mde6Ao1?=
- =?us-ascii?Q?Qyj4Xh1yJg6+ca/bPB64QYcFSepKBqR7UvjIsfjMoz2c4CqeIBhkd00Mjkh7?=
- =?us-ascii?Q?4GdqeBuD8E7RXsZ+8p5vVGuabH/vx4pOmdUH+fL2mPEEEkgamY9OF6lAXpeT?=
- =?us-ascii?Q?1CsfWP+yw8IizKHFvxJ51dZlgjXrB6lQgIHbR37oeBjA6k1u0MXaqhtkukY+?=
- =?us-ascii?Q?75a34JUIlPgnuO+oAGaKlj53d1Z0tF/Kc7zCZtF5/Rk/scz8rp7lFHEKhE6a?=
- =?us-ascii?Q?mIcEyl0tPoT705da7GI7PN581hquZfq7ZSPL4FhH9LxcYxKylVoeHnCrGISR?=
- =?us-ascii?Q?WPxBl8UOk/DF1mv045eu3iZJ9hcrgh1V1hKGG2GPGcKb58AjldFh9Qj6yRfO?=
- =?us-ascii?Q?U9wvBa1y8hRy1PCllgqYufU7U47Y3ZiyJNkqiC1Nqwo1ybs/jyt4Rt8x7+Th?=
- =?us-ascii?Q?VlPMk9bKyztWZvrNqOHc+m3GtgrHC6o3hQ3uZ791/HjpG4WD89T/5zrYrB53?=
- =?us-ascii?Q?hwNThAa22SZ1PqQFILmerO7TN5cMfwanZnk6HXB+zEx2/Y6jUkexE+HebGyQ?=
- =?us-ascii?Q?IMPcX1kMEuLf4pYV+UH4bM8UZIPTOPdV6jT6Lbgwz3CMV3C7eDhIEcdujXe2?=
- =?us-ascii?Q?nMUnj0tvW7Hbd4ECvewrWPpDPEGY3yWeJg15LjctB/5mz3CTtNIPG+5oLSsm?=
- =?us-ascii?Q?Qii3ShkNkP79/f0OrGROeIXD7GRkK1CrQmNkmvpy+GTGLhidr3X0jCLzSWXv?=
- =?us-ascii?Q?ISeE4GsH98R7Sc9ETXddLvRFqRyqYWkR9ZdB+RbnM6SSeyQlYzgnpFcz+l/g?=
- =?us-ascii?Q?sE+oc92kHEIqOD9uTjY+jHIujl8dp77kqACReLtOjI1tELhIzzBy1tSGpuMO?=
- =?us-ascii?Q?DJsv58i6o0mBe9t3z1XG4p0uJc2PWb7c8SKqRxWBV5CqoqBJasJmIvQHYMxb?=
- =?us-ascii?Q?9XGGKTGtVLjaUXLxxsXOj7WhHpVpcWnLIDWVPT4PcvHXleJlwAtEDa8SPuJX?=
- =?us-ascii?Q?0QmCG1/QWcX5zqYJ9F0QmQzH9EFIDEBprcpcRgmZK7lJRFZC9HGMG4HS7QgN?=
- =?us-ascii?Q?0Zf3i/jR0q/T58s=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(13003099007);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2025 18:55:41.1157 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73b82019-d0bb-459c-e2b0-08de0ce59a82
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7117
+In-Reply-To: <adb2c2bd-a38e-4a40-ba1c-dcc7ad707727@0la.ch>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,81 +83,368 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Newer VPE microcode has functionality that will decrease DPM level
-only when a workload has run for 2 or more seconds.  If VPE is turned
-off before this DPM decrease and the PMFW doesn't reset it when
-power gating VPE, the SOC can get stuck with a higher DPM level.
+On Thu, Oct 16, 2025 at 07:11:48PM +0200, Yaroslav wrote:
+> On 2025-10-16 18:36, Jani Nikula wrote:
+>  > On Thu, 16 Oct 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
+>  >> As per DisplayID v2.0 Errata E9 spec "DSC pass-through timing support"
+>  >> VESA vendor-specific data block may contain target DSC bits per pixel
+>  >> fields
+>  >
+>  > Thanks for the patch.
+> 
+> Thanks for the quick review! :D
+> 
+>  > I think there's just too much going on in a single patch. Should
+>  > probably be split to several patches:
+>  >
+>  > - rename drm_parse_vesa_mso_data() to drm_parse_vesa_specific_block()
+>  >
+>  > - handle DSC pass-through parts in the above, including the macros for
+>  >    parsing that (but nothing about timing here yet), and adding to
+>  >    display_info
+>  >
+>  > - note that the above would be needed to backport mso support for 7 byte
+>  >    vendor blocks to stable!
+> 
+> Sorry, can you elaborate? Right now stable kernel just ignores 
+> everything going after 5th byte, so it "supports 7 byte blocks" by 
+> ignoring them.
+> 
+>  > - Add the detailed timing parsing in a separate patch
+>  >
+> I'll split the patch as requested
+>  >>
+>  >> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+>  >> ---
+>  >>   drivers/gpu/drm/drm_displayid_internal.h |  8 ++++
+>  >>   drivers/gpu/drm/drm_edid.c               | 61 ++++++++++++++++--------
+>  >>   include/drm/drm_connector.h              |  6 +++
+>  >>   include/drm/drm_modes.h                  | 10 ++++
+>  >>   4 files changed, 64 insertions(+), 21 deletions(-)
+>  >>
+>  >> diff --git a/drivers/gpu/drm/drm_displayid_internal.h 
+> b/drivers/gpu/drm/drm_displayid_internal.h
+>  >> index 957dd0619f5c..d008a98994bb 100644
+>  >> --- a/drivers/gpu/drm/drm_displayid_internal.h
+>  >> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+>  >> @@ -97,6 +97,10 @@ struct displayid_header {
+>  >>   	u8 ext_count;
+>  >>   } __packed;
+>  >>
+>  >> +#define DISPLAYID_BLOCK_REV				GENMASK(2, 0)
+>  >> +#define DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT	BIT(3)
+>  >> +#define DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES	GENMASK(6, 4)
+>  >
+>  > These two are related to the rev of struct
+>  > displayid_detailed_timing_block only, and should probably be defined
+>  > next to it.
+> 
+> BLOCK_REV is handled identically for all the displayid block types 
+> afaik, and DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES is unrelated to the 
+> timings block, I didn't want to spread the masks around the file, but 
+> will do if you think that's better.
+> 
+>  >> +
+>  >>   struct displayid_block {
+>  >>   	u8 tag;
+>  >>   	u8 rev;
+>  >> @@ -144,12 +148,16 @@ struct displayid_formula_timing_block {
+>  >>
+>  >>   #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>  >>   #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+>  >> +#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
+>  >> +#define DISPLAYID_VESA_DSC_BPP_FRACT	GENMASK(3, 0)
+>  >>
+>  >>   struct displayid_vesa_vendor_specific_block {
+>  >>   	struct displayid_block base;
+>  >>   	u8 oui[3];
+>  >>   	u8 data_structure_type;
+>  >>   	u8 mso;
+>  >> +	u8 dsc_bpp_int;
+>  >> +	u8 dsc_bpp_fract;
+>  >>   } __packed;
+>  >>
+>  >>   /*
+>  >> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>  >> index e2e85345aa9a..6e42e55b41f9 100644
+>  >> --- a/drivers/gpu/drm/drm_edid.c
+>  >> +++ b/drivers/gpu/drm/drm_edid.c
+>  >> @@ -6524,8 +6524,8 @@ static void drm_get_monitor_range(struct 
+> drm_connector *connector,
+>  >>   		    info->monitor_range.min_vfreq, info->monitor_range.max_vfreq);
+>  >>   }
+>  >>
+>  >> -static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+>  >> -				    const struct displayid_block *block)
+>  >> +static void drm_parse_vesa_specific_block(struct drm_connector 
+> *connector,
+>  >> +					  const struct displayid_block *block)
+>  >>   {
+>  >>   	struct displayid_vesa_vendor_specific_block *vesa =
+>  >>   		(struct displayid_vesa_vendor_specific_block *)block;
+>  >> @@ -6541,7 +6541,7 @@ static void drm_parse_vesa_mso_data(struct 
+> drm_connector *connector,
+>  >>   	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
+>  >>   		return;
+>  >>
+>  >> -	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
+>  >> +	if (block->num_bytes < 5) {
+>  >>   		drm_dbg_kms(connector->dev,
+>  >>   			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
+>  >>   			    connector->base.id, connector->name);
+>  >> @@ -6564,28 +6564,40 @@ static void drm_parse_vesa_mso_data(struct 
+> drm_connector *connector,
+>  >>   		break;
+>  >>   	}
+>  >>
+>  >> -	if (!info->mso_stream_count) {
+>  >> -		info->mso_pixel_overlap = 0;
+>  >> -		return;
+>  >> -	}
+>  >> +	info->mso_pixel_overlap = 0;
+>  >
+>  > Nitpick, I kind of like having this in the else path below instead of
+>  > first setting it to 0 and then setting it again to something else.
+>  >>>
+>  >> -	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, 
+> vesa->mso);
+>  >> -	if (info->mso_pixel_overlap > 8) {
+>  >> -		drm_dbg_kms(connector->dev,
+>  >> -			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
+>  >> -			    connector->base.id, connector->name,
+>  >> -			    info->mso_pixel_overlap);
+>  >> -		info->mso_pixel_overlap = 8;
+>  >> +	if (info->mso_stream_count) {
+>  >> +		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, 
+> vesa->mso);
+>  >> +		if (info->mso_pixel_overlap > 8) {
+>  >> +			drm_dbg_kms(connector->dev,
+>  >> +				    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
+>  >> +				    connector->base.id, connector->name,
+>  >> +				    info->mso_pixel_overlap);
+>  >> +			info->mso_pixel_overlap = 8;
+>  >> +		}
+>  >>   	}
+>  >>
+>  >>   	drm_dbg_kms(connector->dev,
+>  >>   		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+>  >>   		    connector->base.id, connector->name,
+>  >>   		    info->mso_stream_count, info->mso_pixel_overlap);
+>  >
+>  > Not sure we want to debug log this unless info->mso_stream_count !=
+>  > 0. This is a rare feature.
+>  >
+>  > Side note, we seem to be lacking the check for
+>  > data_structure_type. Probably my bad. I'm not asking you to fix it, but
+>  > hey, if you're up for it, another patch is welcome! ;)
+> I see, MSO overlap/stream count shouldn't be parsed for eDP, I'll do it.
+> Is that what you meant by "note that the above would be needed to 
+> backport mso support for 7 byte vendor blocks to stable!"?
+>  >> +
+>  >> +	if (block->num_bytes < 7) {
+>  >> +		/* DSC bpp is optional */
+>  >> +		return;
+>  >> +	}
+>  >> +
+>  >> +	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, 
+> vesa->dsc_bpp_int) << 4 |
+>  >> +			   FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
+>  >> +
+>  >> +	drm_dbg_kms(connector->dev,
+>  >> +		    "[CONNECTOR:%d:%s] DSC bits per pixel %u\n",
+>  >> +		    connector->base.id, connector->name,
+>  >> +		    info->dp_dsc_bpp);
+>  >>   }
+>  >>
+>  >> -static void drm_update_mso(struct drm_connector *connector,
+>  >> -			   const struct drm_edid *drm_edid)
+>  >> +static void drm_update_vesa_specific_block(struct drm_connector 
+> *connector,
+>  >> +					   const struct drm_edid *drm_edid)
+>  >>   {
+>  >>   	const struct displayid_block *block;
+>  >>   	struct displayid_iter iter;
+>  >> @@ -6593,7 +6605,7 @@ static void drm_update_mso(struct 
+> drm_connector *connector,
+>  >>   	displayid_iter_edid_begin(drm_edid, &iter);
+>  >>   	displayid_iter_for_each(block, &iter) {
+>  >>   		if (block->tag == DATA_BLOCK_2_VENDOR_SPECIFIC)
+>  >> -			drm_parse_vesa_mso_data(connector, block);
+>  >> +			drm_parse_vesa_specific_block(connector, block);
+>  >>   	}
+>  >>   	displayid_iter_end(&iter);
+>  >>   }
+>  >> @@ -6630,6 +6642,7 @@ static void drm_reset_display_info(struct 
+> drm_connector *connector)
+>  >>   	info->mso_stream_count = 0;
+>  >>   	info->mso_pixel_overlap = 0;
+>  >>   	info->max_dsc_bpp = 0;
+>  >> +	info->dp_dsc_bpp = 0;
+>  >>
+>  >>   	kfree(info->vics);
+>  >>   	info->vics = NULL;
+>  >> @@ -6753,7 +6766,7 @@ static void update_display_info(struct 
+> drm_connector *connector,
+>  >>   	if (edid->features & DRM_EDID_FEATURE_RGB_YCRCB422)
+>  >>   		info->color_formats |= DRM_COLOR_FORMAT_YCBCR422;
+>  >>
+>  >> -	drm_update_mso(connector, drm_edid);
+>  >> +	drm_update_vesa_specific_block(connector, drm_edid);
+>  >>
+>  >>   out:
+>  >>   	if (drm_edid_has_internal_quirk(connector, EDID_QUIRK_NON_DESKTOP)) {
+>  >> @@ -6784,7 +6797,8 @@ static void update_display_info(struct 
+> drm_connector *connector,
+>  >>
+>  >>   static struct drm_display_mode *drm_mode_displayid_detailed(struct 
+> drm_device *dev,
+>  >>   							    const struct displayid_detailed_timings_1 *timings,
+>  >> -							    bool type_7)
+>  >> +							    bool type_7,
+>  >> +							    int rev)
+>  >
+>  > If we added struct displayid_detailed_timing_block *block parameter
+>  > (between dev and timings), the function could figure it all out from
+>  > there instead of having to pass several parameters. Dunno which is
+>  > cleaner. It's also not neat to pass rev as int, when it's really data
+>  > that has to be parsed.
+> 
+> I agree, just didn't like passing both the block and struct from the 
+> block (timings param), but it should be fine, I'll redo it.
+> 
+>  >>   {
+>  >>   	struct drm_display_mode *mode;
+>  >>   	unsigned int pixel_clock = (timings->pixel_clock[0] |
+>  >> @@ -6805,6 +6819,10 @@ static struct drm_display_mode 
+> *drm_mode_displayid_detailed(struct drm_device *d
+>  >>   	if (!mode)
+>  >>   		return NULL;
+>  >>
+>  >> +	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, rev) >= 1)
+>  >> +		mode->dsc_passthrough_timings_support =
+>  >> +			!!(rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT);
+>  >
+>  > I wonder if it would make life easier all around if we just filled the
+>  > dp_dsc_bpp in the mode itself, instead of having a flag and having to
+>  > look it up separately?
+> 
+> They are stored in the separate blocks, and vesa vendor specific block 
+> can be located after the timings blocks, meaning to do that we need to 
+> iterate over all the mode blocks again and parse their timings support 
+> flag from rev again to fill this data. I don't like this either, but 
+> seems like this is the most logical implementation.
+> 
+> We also have max_dsc_bpp declared in display_mode, and it should be 
+> related to this.
+> 
+> It also won't help with the fact that it is hard to handle mode flag for 
+> the modes created at runtime (see AMDGPU patch). I believe there should 
+> be a fancier way to do this, but this anin't it.
+> 
+> I still have troubles understanding why does this flag need to exist, as 
+> far as I can see, every device with passthrough timings doesn't have 
+> both modes using them and not using them, and the implementation doesn't 
+> look good due to this fact.
 
-This can happen from amdgpu's ring buffer test because it's a short
-quick workload for VPE and VPE is turned off after 1s.
+This looks like it would need to be handled in the same as the
+"420 only" stuff. But since this doesn't use the VIC it's going to
+be even more annoying. Basically you'd have to store the pass-through
+timings in eg. display info and then check against that list whenever
+you have to figure out if the mode you're looking at is one of these
+pass through modes.
 
-[How]
-In idle handler besides checking fences are drained check PMFW version
-to determine if it will reset DPM when power gating VPE.  If PMFW will
-not do this, then check VPE DPM level. If it is not DPM0 reschedule
-delayed work again until it is.
+> 
+> On VivePro2 there is a HID command to switch between display modes: 
+> modes without dsc_bpp are grouped, and two of the of the high resolution 
+> modes have different dsc_bpp_x16 values on them. I believe it is just 
+> this flag is redundant, as there are no devices in the wild having set 
+> dsc_bpp, and the flag unset, but I try to follow the spec, and here we are.
+> 
+>  >> +
+>  >>   	/* resolution is kHz for type VII, and 10 kHz for type I */
+>  >>   	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
+>  >>   	mode->hdisplay = hactive;
+>  >> @@ -6846,7 +6864,7 @@ static int 
+> add_displayid_detailed_1_modes(struct drm_connector *connector,
+>  >>   	for (i = 0; i < num_timings; i++) {
+>  >>   		struct displayid_detailed_timings_1 *timings = &det->timings[i];
+>  >>
+>  >> -		newmode = drm_mode_displayid_detailed(connector->dev, timings, 
+> type_7);
+>  >> +		newmode = drm_mode_displayid_detailed(connector->dev, timings, 
+> type_7, block->rev);
+>  >>   		if (!newmode)
+>  >>   			continue;
+>  >>
+>  >> @@ -6893,7 +6911,8 @@ static int add_displayid_formula_modes(struct 
+> drm_connector *connector,
+>  >>   	struct drm_display_mode *newmode;
+>  >>   	int num_modes = 0;
+>  >>   	bool type_10 = block->tag == DATA_BLOCK_2_TYPE_10_FORMULA_TIMING;
+>  >> -	int timing_size = 6 + ((formula_block->base.rev & 0x70) >> 4);
+>  >> +	int timing_size = 6 +
+>  >> +		FIELD_GET(DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES, 
+> formula_block->base.rev);
+>  >
+>  > I think this is an unrelated change. Probably something we want, but
+>  > should not be in the same patch with the rest.
+> 
+> I'll split the patches, would it be ok to have it in the same patchset?
+> Same question for mso data_structure_type.
+> 
+>  >>
+>  >>   	/* extended blocks are not supported yet */
+>  >>   	if (timing_size != 6)
+>  >> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+>  >> index 8f34f4b8183d..01640fcf7464 100644
+>  >> --- a/include/drm/drm_connector.h
+>  >> +++ b/include/drm/drm_connector.h
+>  >> @@ -837,6 +837,12 @@ struct drm_display_info {
+>  >>   	 */
+>  >>   	u32 max_dsc_bpp;
+>  >>
+>  >> +	/**
+>  >> +	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
+>  >> +	 * DSC bits per pixel in 6.4 fixed point format. 0 means undefined.
+>  >> +	 */
+>  >> +	u16 dp_dsc_bpp;
+>  >
+>  > It's slightly annoying that we have max_dsc_bpp which is int, and
+>  > dp_dsc_bpp, which is 6.4 fixed point. The drm_dp_helper.c uses _x16
+>  > suffix for the 6.4 bpp, so maybe do the same here, dp_dsc_bpp_x16?
+> 
+> Yep, didn't notice we already have bpp value in display_info.
+> 
+>  >> +
+>  >>   	/**
+>  >>   	 * @vics: Array of vics_len VICs. Internal to EDID parsing.
+>  >>   	 */
+>  >> diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+>  >> index b9bb92e4b029..312e5c03af9a 100644
+>  >> --- a/include/drm/drm_modes.h
+>  >> +++ b/include/drm/drm_modes.h
+>  >> @@ -417,6 +417,16 @@ struct drm_display_mode {
+>  >>   	 */
+>  >>   	enum hdmi_picture_aspect picture_aspect_ratio;
+>  >>
+>  >> +	/**
+>  >> +	 * @dsc_passthrough_timing_support:
+>  >> +	 *
+>  >> +	 * Indicates whether this mode timing descriptor is supported
+>  >> +	 * with specific target DSC bits per pixel only.
+>  >> +	 *
+>  >> +	 * VESA vendor-specific data block shall exist with the relevant
+>  >> +	 * DSC bits per pixel declaration when this flag is set to true.
+>  >> +	 */
+>  >> +	bool dsc_passthrough_timings_support;
+>  >>   };
+>  >>
+>  >>   /**
+> 
+> Regards,
+> 
+> Lach
 
-Cc: Peyton.Lee@amd.com
-Reported-by: Sultan Alsawaf <sultan@kerneltoast.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4615
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 33 ++++++++++++++++++++++---
- 1 file changed, 29 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-index 474bfe36c0c2..f4932339d79d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-@@ -322,6 +322,26 @@ static int vpe_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+static bool vpe_need_dpm0_at_power_down(struct amdgpu_device *adev)
-+{
-+	switch (amdgpu_ip_version(adev, VPE_HWIP, 0)) {
-+	case IP_VERSION(6, 1, 1):
-+		return adev->pm.fw_version < 0x0a640500;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static int vpe_get_dpm_level(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_vpe *vpe = &adev->vpe;
-+
-+	if (!adev->pm.dpm_enabled)
-+		return 0;
-+
-+	return RREG32(vpe_get_reg_offset(vpe, 0, vpe->regs.dpm_request_lv));
-+}
-+
- static void vpe_idle_work_handler(struct work_struct *work)
- {
- 	struct amdgpu_device *adev =
-@@ -329,11 +349,16 @@ static void vpe_idle_work_handler(struct work_struct *work)
- 	unsigned int fences = 0;
- 
- 	fences += amdgpu_fence_count_emitted(&adev->vpe.ring);
-+	if (fences)
-+		goto reschedule;
- 
--	if (fences == 0)
--		amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VPE, AMD_PG_STATE_GATE);
--	else
--		schedule_delayed_work(&adev->vpe.idle_work, VPE_IDLE_TIMEOUT);
-+	if (vpe_need_dpm0_at_power_down(adev) && vpe_get_dpm_level(adev) != 0)
-+		goto reschedule;
-+
-+	amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VPE, AMD_PG_STATE_GATE);
-+
-+reschedule:
-+	schedule_delayed_work(&adev->vpe.idle_work, VPE_IDLE_TIMEOUT);
- }
- 
- static int vpe_common_init(struct amdgpu_vpe *vpe)
 -- 
-2.51.0
-
+Ville Syrjälä
+Intel
