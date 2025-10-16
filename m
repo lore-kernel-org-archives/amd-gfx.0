@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B178CCD183
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 09:50:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 347ACCCD183
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 10:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E912110E998;
-	Thu, 16 Oct 2025 09:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8EA310E9B3;
+	Thu, 16 Oct 2025 10:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WHHQNyn0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="a3rOH5IE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C66210E998;
- Thu, 16 Oct 2025 09:50:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2EF39603CE;
- Thu, 16 Oct 2025 09:50:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43F4C4CEF9;
- Thu, 16 Oct 2025 09:50:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760608234;
- bh=ZzE0AG0XePJpAPUGhN5g8yuSoorR5064IBWA3TztL2U=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To:From;
- b=WHHQNyn0B900GgpDp9T9zeR2dpEeymcDw2B6J8ScoWicqYsBWM2Io2xradE/Z18ba
- HHmdNmZZvyEg0aWPAZZvQrkU2O/n/s3kvx2T3ifDGb7/jtWzP7keeCHRvvLyjq8K3H
- lsIIwbHAs9BkfujtyG5RrajEzPXJZVegc5fzDKHzpqEhJsoebL/DegnQoHVWUA2A40
- 75TsHmSIATq2Q7mGEVVe5SZ8QrzibxmWs4mhtc1xM33+NbpIF9E2NXx7ctnpNQ2hTr
- BpjfWPn5NI7ZZ1HnIZyfwjhCY074YZ/wG5OB9X4FY5NHQfvui7bRKNYwsaizua8dFd
- 0xt4gVE8RMtlg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 16 Oct 2025 11:50:31 +0200
-Message-Id: <DDJNJ3NHFOLV.NGWTLDU5Y7IR@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A89110E22E;
+ Thu, 16 Oct 2025 10:54:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=XuNziMLyyENCOzy7IOUYjbQS7Vm34+/HepaLzU08+vE=; b=a3rOH5IEpCP3KL1xWhoX1KOb79
+ 7d+TP8NRkhopzXSJArU9sOGgbI1HtEgt74xWXv3P4Hg6d8CfiYv/HpVWmcsLKHNBQey4kNaCIt1ml
+ fNt0+mAqMe/j/xOl1zJtjEMKy1ih1dPcxDpvtb5tGvvP5hjTmGr+xVR3C1BdFagXFz3GQ72p+ms4H
+ zKfUr0bZlDabpaT2axrxWSONisQ4SSFnn4VfN9yCv9AQ0B3ua31el/HhCBxrp96+D6Rt9Q49cJyEJ
+ aZXwLkmhFrML3vFk/XDAZ7zucyw10DSVy8mXX9Wt9nHku62zLpVBos5E0QwgPdoDbvvpYgZ1CQqpn
+ RiUNKfsQ==;
+Received: from [90.242.12.242] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1v9Lcn-00APDd-56; Thu, 16 Oct 2025 12:54:25 +0200
+Message-ID: <6c2e80b2-3c0d-4885-b815-2ecba803299f@igalia.com>
+Date: Thu, 16 Oct 2025 11:54:24 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 10/28] drm/sched: Add fair scheduling policy
-Cc: <phasta@kernel.org>, "Simona Vetter" <simona.vetter@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <kernel-dev@igalia.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Matthew Brost" <matthew.brost@intel.com>,
- "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>, "Simona
- Vetter" <simona@ffwll.ch>
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: phasta@kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Simona Vetter <simona@ffwll.ch>
 References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
  <20251008085359.52404-11-tvrtko.ursulin@igalia.com>
  <db78f7074cf1e83afbbf68c27b9e7b55bfb9a73b.camel@mailbox.org>
@@ -53,7 +53,12 @@ References: <20251008085359.52404-1-tvrtko.ursulin@igalia.com>
  <3f644749-8ceb-4124-98c6-84dfe198020f@igalia.com>
  <6786d7766f363f2a24da9977b11436651ae1a731.camel@mailbox.org>
  <8ce0c1f8-0abd-4767-a938-f1aea9fe3b48@igalia.com>
-In-Reply-To: <8ce0c1f8-0abd-4767-a938-f1aea9fe3b48@igalia.com>
+ <DDJNJ3NHFOLV.NGWTLDU5Y7IR@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <DDJNJ3NHFOLV.NGWTLDU5Y7IR@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,40 +73,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu Oct 16, 2025 at 10:42 AM CEST, Tvrtko Ursulin wrote:
-> Yes, I even said two replies ago I will add the lock. In fact, it is=20
-> write tearing which would be a problem on 32-bit architectures, not just=
-=20
-> read tearing.
->
-> But again, it is not a lockless algorithm and nowhere I am implementing=
-=20
-> a new locking primitive. So as much as my attempt to keep it light=20
-> hearted with the warm and fuzzy feeling comment was a miss, I also think=
-=20
-> the whole long writeups afterwards about dangers of implementing own=20
-> lockelss algorithms and performance were the same.
 
-I think what's confusing people is the following:
+On 16/10/2025 10:50, Danilo Krummrich wrote:
+> On Thu Oct 16, 2025 at 10:42 AM CEST, Tvrtko Ursulin wrote:
+>> Yes, I even said two replies ago I will add the lock. In fact, it is
+>> write tearing which would be a problem on 32-bit architectures, not just
+>> read tearing.
+>>
+>> But again, it is not a lockless algorithm and nowhere I am implementing
+>> a new locking primitive. So as much as my attempt to keep it light
+>> hearted with the warm and fuzzy feeling comment was a miss, I also think
+>> the whole long writeups afterwards about dangers of implementing own
+>> lockelss algorithms and performance were the same.
+> 
+> I think what's confusing people is the following:
+> 
+> 	entity->stats->vruntime; /* Unlocked read */
+> 
+> You indicate with your comment that you are accessing something the is protected
+> by a lock intentionally without the lock being held.
+> 
+> I think there's not much room for people to interpret this as something else
+> than a lockless algorithm approach.
+> 
+>> So lets move on, there is no argument here.
+> 
+> Indeed, there is no argument. But, if you say something like:
+> 
+> "I can add the _existing_ entity->stats lock around it just as well for those
+> warm and fuzzy feelings."
 
-	entity->stats->vruntime; /* Unlocked read */
+You quote a comment from earlier in the thread which I already 
+acknowledged was misplaced.
 
-You indicate with your comment that you are accessing something the is prot=
-ected
-by a lock intentionally without the lock being held.
+> it may be read by people as if you don't agree that for correctness either a
+> lock or an atomic is required. So, people might keep arguing regardless. In the message you reply to I wrote that unlocked read in fact isn't 
+safe on 32-bit architectures.
 
-I think there's not much room for people to interpret this as something els=
-e
-than a lockless algorithm approach.
+So yeah, good catch, will fix. No need for long writeups about things 
+which I did not say like performance claims, or inventing new locking 
+primitives.
 
-> So lets move on, there is no argument here.
+Regards,
 
-Indeed, there is no argument. But, if you say something like:
+Tvrtko
 
-"I can add the _existing_ entity->stats lock around it just as well for tho=
-se
-warm and fuzzy feelings."
-
-it may be read by people as if you don't agree that for correctness either =
-a
-lock or an atomic is required. So, people might keep arguing regardless. :)
