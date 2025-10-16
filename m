@@ -4,111 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E339ECCD184
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 07:29:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B17CCCCD195
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 07:29:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8035F10EB2D;
-	Fri, 17 Oct 2025 07:29:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28A2510EB2F;
+	Fri, 17 Oct 2025 07:29:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oK0IvGUF";
+	dkim=pass (2048-bit key; secure) header.d=0la.ch header.i=@0la.ch header.b="Dam8LnIx";
+	dkim=permerror (0-bit key) header.d=0la.ch header.i=@0la.ch header.b="wE6pQ6aU";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2E4010E9FD
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 14:52:36 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 59GDLo2A023830
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 14:52:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=jPmtY2bWstZxGYrHD2oLA4kDgMlBAGLM7cSsgPby8R8=; b=oK
- 0IvGUFq5Jpvs+nDFM/Il2MpT/ilhF7MHPLO+EQjXbkTN5WAB2rI0VHOSOOV+Qzxv
- sRtsBKGetq9wWxLEcY2lXvRoMYL7LPpZ9pIVBfAimdy6R2mv9p6gAudwk8iSrs25
- 65FvBqQsyi+Yt4UDL56r1HgrPj1Jwtkn5AOnrPf0622q69XSNno8TLBKC0CUEYol
- ixpON2jXbKn9SfLTwAQqtm6rDhMB2kh0BfyW/hagjxvIxYHeAEDIseAWzJedm9W+
- vK8BUcdjcOH0s4pKDHXdtZfLjAruVuPpD/VTQr//0Fa2Z6QX9Ou1aNUUAQRav4qz
- 6q8Ce5vsU3zTX1Onw0lQ==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 49u1h0r909-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 14:52:36 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-3c98354c16eso153119fac.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 07:52:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760626355; x=1761231155;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jPmtY2bWstZxGYrHD2oLA4kDgMlBAGLM7cSsgPby8R8=;
- b=uib74Sn/aczbqKxVsP/Id8aQNTydJmp8R80FMbf2gpeUuUzN7HkSO+O6LuZKlZLcp4
- 3Pqdoq3wzA6xtM1TbpCNMOhKbxIwcukEWH43qhPn2JFT/FydthKKiQxiuVSCTppbZV5r
- TKD1II9XLTcQNlIzFZ6tl5Y76rqsPYUK2x8puP4kPkV+FdKzRkqRqiYG1ITboIM+Wmje
- 7Oc8j7C2tro5MhTaGoL6vd9gyM62upY9juKX0VG/C796xAq98ljXNhAYA2kMmfYp6jYf
- VzpC/m1dFi8fvq4nmQYvVbdfqPViqf99nk7YwBWRHHEWew0GeqFcanYcKWn43EONcXYy
- qvdw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUKA4bTMShsJv8mpOeKRjyV7hiSy8U9ZZszff/L3hRgCVIUFJcQ4ki1j/9w4mnteLBJOJBB/CQI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+o85R6MVeUMyYhl6ztTO+h+LmyqvBvZDtuXVNLDV2fZGWwSH9
- 29vwQQMFDq42f+pu6WtVI86s3qUSQUdkULpIJizV5zxJ1B7po1C/5U49o3HxQ/TqEPxd77Dh0Wj
- al+TsURNQP14FyeXgEKfObuXZFj2xkBCPD29//0Eijh/HK9btidLcUUpZGlFvFJAMJ7hAX2orRg
- V64MrBYr1pucNAczB4Mp6pVWHuEzG415OE1WkRNdVBWC8=
-X-Gm-Gg: ASbGncsCIRc7mIQgaB+dmP7gdm8HOXnouB6BVQ8dxYE6JItNRa5ZmbkfJmHId25MrFp
- LE5ZNearvUpguqM6faBRMgv03vK0RYNOj0yFSpkIx5/Xtes+SyIzpSQLoTsacJAqVAJcLjEF2b0
- o6F9OBbohKT/GTdhhtTTCGhBCHXwkWtI/0jwQX5kk7ZKZooxLppUjJKdyWMr1/TGNvu3/D+eqjx
- B+1ryMMOhSXnv0=
-X-Received: by 2002:a05:6871:2e88:b0:35d:a9e2:fbd1 with SMTP id
- 586e51a60fabf-3c98cfa8295mr10092fac.21.1760626355266; 
- Thu, 16 Oct 2025 07:52:35 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF39ocujuIwT0Et62sHrBT+rRRN4wBRxOHxmKLmre65EnhOwqDPEsCuGBua+8VJiCAAa15gVkxk2D9mH6TwzQ8=
-X-Received: by 2002:a05:6871:2e88:b0:35d:a9e2:fbd1 with SMTP id
- 586e51a60fabf-3c98cfa8295mr10075fac.21.1760626354773; Thu, 16 Oct 2025
- 07:52:34 -0700 (PDT)
+Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 183A610EA59;
+ Thu, 16 Oct 2025 17:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=0la.ch; c=relaxed/relaxed;
+ h=From:To:Subject:Date:Message-ID; t=1760635365; bh=W2hO6H2WvXcWahkquOaGCjT
+ a90qL1JlfgvTKZcNf2YE=; b=Dam8LnIxLaEwS+QfK9MVi5v3jjEFtCyUOqNhNiTwKO8B0JouO8
+ rr/DqoK2X6ArRoCzz963fJ+E2cv/Qh9fBk+kMKLEZA5Cln9MqBZ84zseQ4p5XeIzO++P5Z/HfFc
+ vBKqqLkHL4NASJuauQpdT98KVrkXK7iHV8usINto/McsHMone3IDm3BOYVzzUWR7pMCdpNoPXjf
+ ltOSxiEbJJiXBjpAa4C5EObH5CtFaxK7r22otGZBnZvpf0FrJZ12sxeb6aZADYy4Cnd59cTuju+
+ +YmyNWTJte5cCO+UexVMTkWewmH5kx9v0FX0me6j/vFZzb8Zv78jCH7Q7xhtiP7HFFg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=0la.ch; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1760635365;
+ bh=W2hO6H2WvXcWahkquOaGCjT
+ a90qL1JlfgvTKZcNf2YE=; b=wE6pQ6aUMwzjuVaS1ZLxuoJ+NgRncNgSvWdIVX3ighke5zo4nn
+ Ek1O9cPR3TzNOakZ2dXjxuxgE7TxY0ky/tBA==;
+Message-ID: <9c469725-acaf-4450-aff2-4b5d03f8d947@0la.ch>
+Date: Thu, 16 Oct 2025 19:22:44 +0200
 MIME-Version: 1.0
-References: <20250718105407.32878-1-vignesh.raman@collabora.com>
- <20250718105407.32878-2-vignesh.raman@collabora.com>
-In-Reply-To: <20250718105407.32878-2-vignesh.raman@collabora.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Thu, 16 Oct 2025 07:52:23 -0700
-X-Gm-Features: AS18NWBmqrEUHFQlSWdIGqm2-_tBPDNsmr766wJpJByzaFclGFLQ0RGnzuLEsPQ
-Message-ID: <CACSVV029ueL_4Y5irmmOwy_9QDQGqDe_1wCGUe22FdefQiNjkw@mail.gmail.com>
-Subject: Re: [PATCH v1 1/7] drm/ci: disable apq8016 and apq8096 bare-metal jobs
-To: Vignesh Raman <vignesh.raman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
- helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch,
- robdclark@gmail.com, guilherme.gallo@collabora.com,
- sergi.blanch.torne@collabora.com, valentine.burley@collabora.com,
- lumag@kernel.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=esXSD4pX c=1 sm=1 tr=0 ts=68f106b4 cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=QX4gbG5DAAAA:8 a=Gxbm4VOBLxWGKnsTXboA:9
- a=QEXdDO2ut3YA:10 a=1zu1i0D7hVQfj8NKfPKu:22 a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-GUID: 9_I4-YHVqYNohTr4cXXYaZ9Uirox-rNX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDE2MDA5OSBTYWx0ZWRfXwAJ1Rq5AO0I+
- eQ1UUTJbKI8HqaewoDPduBsdpRKYC1O6GYipybAsU8mtLPcNXdNRIRsTaqKpUpJqcZbWi3VG9J6
- rSmwyR/X0nZ1axzLVusx71JsmeDjZVM9yAaU6QbZLD2NVUr7uMSnts5fbl2AykHWpbfcbwxzRfq
- iWDrhsCE2wBws2BXZ01JPpf9Q9lzgq8htgZuZT2PEmfHZvaznunjI7QEkToaC2GaGnIJVaPOcQ1
- tfhIE5grFp9sJxHkYUDoZrFQlxSn7Ov8xzNdwS1hAEMazFJdkWrD6CAqcHkSelGj0GDU224RDAu
- SWfxoWqnbNHtOKYGGz3dqZRDQWnxj6Diw9YMyMF9BqL3Taa7uzP3OxnJQl07UDK3IkDch3EjJiT
- tsYwSKpZBkZ/oCaHznRw1ejy2oihFQ==
-X-Proofpoint-ORIG-GUID: 9_I4-YHVqYNohTr4cXXYaZ9Uirox-rNX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-16_03,2025-10-13_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 impostorscore=0 bulkscore=0 spamscore=0
- malwarescore=0 suspectscore=0 clxscore=1011 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510020000
- definitions=main-2510160099
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] drm/amd: use fixed dsc bits-per-pixel from edid
+To: Jani Nikula <jani.nikula@linux.intel.com>, Yaroslav Bolyukin
+ <iam@lach.pw>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20251016001038.13611-2-iam@lach.pw>
+ <20251016001038.13611-6-iam@lach.pw>
+ <34407e8d423f0d00e949ba8c6b209cb88e8f5414@intel.com>
+Content-Language: en-US
+From: Yaroslav <iam@0la.ch>
+In-Reply-To: <34407e8d423f0d00e949ba8c6b209cb88e8f5414@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 17 Oct 2025 07:29:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,51 +63,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 18, 2025 at 3:54=E2=80=AFAM Vignesh Raman
-<vignesh.raman@collabora.com> wrote:
->
-> These devices are being moved to LAVA. The jobs will be enabled and the
-> job definitions will be updated once the move is complete.
+On 2025-10-16 18:39, Jani Nikula wrote:
+> On Thu, 16 Oct 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
+>> VESA vendor header from DisplayID spec may contain fixed bit per pixel
+>> rate, it should be respected by drm driver
+>>
+>> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++++++++-
+>>   1 file changed, 13 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 0d03e324d5b9..ebe5bb4eecf8 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -6521,6 +6521,11 @@ static void fill_stream_properties_from_drm_display_mode(
+>>   
+>>   	stream->output_color_space = get_output_color_space(timing_out, connector_state);
+>>   	stream->content_type = get_output_content_type(connector_state);
+>> +
+>> +	/* DisplayID Type VII pass-through timings. */
+>> +	if (mode_in->dsc_passthrough_timings_support && info->dp_dsc_bpp != 0) {
+>> +		stream->timing.dsc_fixed_bits_per_pixel_x16 = info->dp_dsc_bpp;
+>> +	}
+> 
+> If we had mode->dp_dsc_bpp_x16 directly, or something better named, this
+> would be simpler. This will eventually be replicated in a bunch of
+> drivers.
+> 
+> BR,
+> Jani.
 
-fwiw, the runners are up and running in LAVA now
+Unfortunately, that won't solve the problem that there is no good way to 
+pass this value from display_modes created from e.g 
+DRM_IOCTL_MODE_SETCRTC. I believe it would be better if there was a 
+syscall to inherit from a native mode instead of creating a new one, but 
+this is too far fetched.
 
-BR,
--R
+I'll check how this was implemented by nvidia open driver, as they have 
+added support for this value in their driver somehow.
+  >>   }
+>>   
+>>   static void fill_audio_info(struct audio_info *audio_info,
+>> @@ -7067,6 +7072,13 @@ create_stream_for_sink(struct drm_connector *connector,
+>>   					&mode, preferred_mode, scale);
+>>   
+>>   			preferred_refresh = drm_mode_vrefresh(preferred_mode);
+>> +
+>> +			/*
+>> +			 * HACK: In case of multiple supported modes, we should look at the matching mode to decide this flag.
+>> +			 * But what is matching mode, how should it be decided?
+>> +			 * Assuming that only preferred mode would have this flag.
+>> +			 */
+>> +			mode.dsc_passthrough_timings_support = preferred_mode->dsc_passthrough_timings_support;
+>>   		}
+>>   	}
+>>   
+>> @@ -7756,7 +7768,7 @@ create_validate_stream_for_sink(struct drm_connector *connector,
+>>   			drm_dbg_kms(connector->dev, "%s:%d Validation failed with %d, retrying w/ YUV420\n",
+>>   				    __func__, __LINE__, dc_result);
+>>   			aconnector->force_yuv420_output = true;
+>> -		}
+>> +}>>   		stream = create_validate_stream_for_sink(connector, drm_mode,
+>>   							 dm_state, old_stream);
+>>   		aconnector->force_yuv422_output = false;
+> 
 
-> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
-> ---
->  drivers/gpu/drm/ci/test.yml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-> index 81147e86bfd0..53d19ffaaf61 100644
-> --- a/drivers/gpu/drm/ci/test.yml
-> +++ b/drivers/gpu/drm/ci/test.yml
-> @@ -148,7 +148,9 @@ msm:sc7180-trogdor-kingoftown:
->      GPU_VERSION: ${DEVICE_TYPE}
->      RUNNER_TAG: mesa-ci-x86-64-lava-sc7180-trogdor-kingoftown
->
-> -msm:apq8016:
-> +# FIXME: Disable the bare-metal jobs. These devices are being moved to L=
-AVA.
-> +# Once the move is complete, update the job definitions accordingly.
-> +.msm:apq8016:
->    extends:
->      - .baremetal-igt-arm64
->    stage: msm
-> @@ -165,7 +167,7 @@ msm:apq8016:
->    script:
->      - ./install/bare-metal/fastboot.sh || exit $?
->
-> -msm:apq8096:
-> +.msm:apq8096:
->    extends:
->      - .baremetal-igt-arm64
->    stage: msm
-> --
-> 2.47.2
->
+Regards,
+
+Lach
