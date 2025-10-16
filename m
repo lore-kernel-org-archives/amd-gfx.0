@@ -4,81 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71841CCD199
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 18:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41175CCD183
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 18:55:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C29E10E329;
-	Thu, 16 Oct 2025 18:04:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE8510EA6F;
+	Thu, 16 Oct 2025 18:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="QA/e7noJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YVyuCBVm";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3283510E329
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 18:04:48 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-3ece1102998so855476f8f.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 11:04:48 -0700 (PDT)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFB8C10EA6F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 18:55:37 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-26808b24a00so1672785ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 11:55:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1760637887; x=1761242687;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zkLTaExTEdzbAJ6EJKxOF2X8hrjKCiyc7pBkHYli2iQ=;
- b=QA/e7noJ4pc9N1GhtZ1cv36zQahdWDqdObkcNLH5YhOb/OGnLoS+Yisp7C+6BX/5sQ
- FMXO6H4eSZFdDYqwMyhKz3leFWdWfFDVpvFT/JqD5yj4RGvh6v05ZCmEULASBgl8S804
- KeZMcJnzb3JhB08wta3NH1Tzo3fWg4fzA2yM8k0een9T/3p5RqAVGYr4LkTXX8CJlscY
- if2Q9UtCPEBqDwjtmNQyTkVVu5EIi1M2n5f4l45sqxtQm58xecXGIbjd/2jR0dQN/GUN
- +DAdyXZmU6O9BxSEf51nZdKbI6QJkr51n7ZrFxe7sXXbBnTsPrP33Hp/vSb+EywrT/y6
- sdOA==
+ d=gmail.com; s=20230601; t=1760640937; x=1761245737; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2h3cQ7MqwvYxJe0e9/tI2IT5VDSWY7ET10/CmcJCSsE=;
+ b=YVyuCBVm4IarfTU8uzoQeL70olzQIzdgTo9iMJi9adCsqc7GO2tOPD7aZCWGvMqVit
+ zPG0VrOirI0WjEpbpP/dEsS3XE9z8hyKykCBOVcoyonFOcophzhbYNtIkdyz74I4gBbZ
+ OYOb0EyvDfNZ2U6tyMRJ/4pJdtJKYCoFl9wojgZa3dMAsiTk8B/1BwjUyIVZeJl/jVKJ
+ GpFDv0gUYIxlfKKVu20bK93hMLfHYHBrTeKpGBluk/uaOXdAZOKqgf5PD/n38ojANzHh
+ Ym46GpXMAc8bV6ag1JPSK3I/yYXYHzKYDQ6H3dWANPARwKgT9Fi9J2oywnRb06nRp7nD
+ iHtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760637887; x=1761242687;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zkLTaExTEdzbAJ6EJKxOF2X8hrjKCiyc7pBkHYli2iQ=;
- b=OhdErImeldU9GfIk1KUkgBEFVgEcva6VNWmBlbyXO9Mw0/4BeEllxT5ChpaqLzBzqY
- ELCPmxDVkgy5In7xkoY6iV88qoWURMx07BSCOXWahpm2t+4rvFn8nMOXg9tUSrOf8RtL
- 7sHWadXFbhxVRvRvYrnKbIx7tbKpyFaU24SH4cEOtnphDbH44ws4VhYHX1tFE5POPLr2
- o8XuHP/6bKmUKFHKj+hVTzzUHreN/BZsnGT0jerb0VxPD/NcNaaTecIJcAlbggemQS6e
- XIZfcHQhAthTZuHgvUS57bN2iRw2qWNyYIj5YNpBmnVoclv56DlvVphppjnP31Av2VkG
- TSxQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWOtQ8NTi83bgdwIF5vccaezvN1MmcT6gI874AjJVlABuIbjCUYpFwQPzojiNuKaJw5Pn8Yjs/E@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YziqSmMQ9cEJYLo8ZLju6cuL1xKTDUNungDlTj2F2P2boM1zk7w
- LiKWLXFkDGv1FtMqELDypR9lCcgJYxkuDgVlF/EgVzzdOjoIsmp1ZJcI2y5+BzR3r68=
-X-Gm-Gg: ASbGncsuoI5SL3q55Y6gBOx5GP3g31qVNEHgF6Dtzz7PDy96S58Jpre4SvHkGYzrSan
- Di/Y0TSWvdQvJ3QGGDOFMT29Jj985/14TNm0R9Qs6A3CAsRtBhWRISF5AlM5oApjS63WLyCbD8y
- RL4eZdGvqqZqy6bylsmv4ggENR1uUhEnSgCGB6/m/M5dY5yiq7JZ+OX+TcFPItJIZ96TZImnbQP
- xCGGaNFIuop288LnuyTqs5s3Iu9FZxnbFHl8UblriRwTnUCPrRpq/3SJvOjDqEndD1Si3PI3Gsf
- VaiiHKfQHvJpkwLgvomVKs9yNBOXkSyVGa7v0D7hMPebNStCgAhxG8LV5TJ9ldAfNnOMnnWLrwZ
- g3r5CnR4ibxxyF88Uep8c5YkRngexSWHXLaLPCmfWrBnEG5eeT+QAcMwAh6DnkDiXrSa+ADSRHg
- TUPTgVknHm5poNhYfJHTW8kHfDV3j9d7CRc6sy
-X-Google-Smtp-Source: AGHT+IF6fDTqOe1DUO8ET8IbW4n1qLUdo1gPw2BsfOvMkwAgj6AGCLBTY4vsv5KpnulSflLq9tnlZA==
-X-Received: by 2002:a5d:5d81:0:b0:3e7:471c:1de3 with SMTP id
- ffacd0b85a97d-42704d8cd82mr691137f8f.14.1760637886437; 
- Thu, 16 Oct 2025 11:04:46 -0700 (PDT)
-Received: from [192.168.0.101] ([90.242.12.242])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-426ce5e0e70sm35485198f8f.40.2025.10.16.11.04.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Oct 2025 11:04:45 -0700 (PDT)
-Message-ID: <8c849523-6e15-4bc9-83e3-f78cb9d42d47@ursulin.net>
-Date: Thu, 16 Oct 2025 19:04:45 +0100
+ d=1e100.net; s=20230601; t=1760640937; x=1761245737;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2h3cQ7MqwvYxJe0e9/tI2IT5VDSWY7ET10/CmcJCSsE=;
+ b=Ya1Bll8C02VGhUUvQHnM1LWg8YIifoUvVmDoqSEpV1dpudJpy5JOE6weWoCgs7nATx
+ bZH2iZCc89HtnZgcTvmwe/2Xx0oiZRY/Bd+Mz8pJ3TOwwASy1NNdHINTQvR8GhfQ7qbU
+ VUhB9Kjbhjzo+vUHq1GwjiaIGx03/Id8cTchrPTZZ+vKihT5PxieDqQYLL/ahA+84Nzu
+ MjV7IBDhVypevFkobuVbs4dxJP/SuTZjYymCkladYe5lM+drYXwrx8rScRiWrTk85+pg
+ CFK3knfyofukaoSTyWilzv8+lWnlgfUiU93vGLEOkA880tuHf381fg6WkE1QLlWhWUsJ
+ 3Jrg==
+X-Gm-Message-State: AOJu0YxOt8pI7RKrbm+KOr35hlTFHfbLLfzOkXlZ+6CEbV+ICnki5ISU
+ V1V4HADitbtqPoJvQbg3GsonQI9vsUCSFwTaUffbEHmWIfn8DKXW+5a3HAL0CDrXTvyp2pAlmnC
+ A5OmWByktWYjM6AZ1NgGHNmtDc5qOCJah+Q==
+X-Gm-Gg: ASbGnctsUhSkUb8SdYG33zI+Sl5WFzxxwo5ZW+Q4Vfn/Ec/XXpEIbeE53WJ7qYbnxUE
+ pYOaW6yV1+99H7La3oXfOOIuQx80N6/9cYP4fWL0Xo1Xdm+oh6CPPWKYKRu0/N0GRmvjtyKCHeG
+ ZxH5u7AGpuHgV/kXiPb68R5/0JSZDdI0hboNRaJLS+QOuMoGlCf4585gm02DetTdoX3Mz2+tpFG
+ WyPKcrhS1JMuXCkfE+wGSk7Y/dmIxTHGOGUAxi1cSnpBxpVkTNB8NqIJdzD
+X-Google-Smtp-Source: AGHT+IGvHLkW00L/VZvDee+4p6SoLUtbSbWePyRAbSF17h2uqQbYtcOJYwCz38dcWQG3dsipr79Ls682tClh94epr4A=
+X-Received: by 2002:a17:903:1a44:b0:261:500a:5742 with SMTP id
+ d9443c01a7336-290ccbcfca4mr5142385ad.10.1760640937174; Thu, 16 Oct 2025
+ 11:55:37 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/15] dma-buf: protected fence ops by RCU
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20251013143502.1655-1-christian.koenig@amd.com>
- <20251013143502.1655-4-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20251013143502.1655-4-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20251016023644.3143128-1-kevinyang.wang@amd.com>
+In-Reply-To: <20251016023644.3143128-1-kevinyang.wang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Oct 2025 14:55:25 -0400
+X-Gm-Features: AS18NWDzI_i-IOf2dXYZDj8VD6eROBEcijCNTTWz33-j45VaB63xwqEdUXZe30g
+Message-ID: <CADnq5_OaJavuQf=LgBzQKAXmCxoZMnUwXAOgo-NV=toY4qawXw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: fix missed lock in
+ amdgpu_gfx_profile_ring_begin_use()
+To: Yang Wang <kevinyang.wang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, hawking.zhang@amd.com, 
+ alexander.deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,255 +82,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 13/10/2025 14:48, Christian König wrote:
-> At first glance it is counter intuitive to protect a constant function
-> pointer table by RCU, but this allows modules providing the function
-> table to unload by waiting for an RCU grace period.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+On Wed, Oct 15, 2025 at 11:26=E2=80=AFPM Yang Wang <kevinyang.wang@amd.com>=
+ wrote:
+>
+> the gfx driver need to hold lock (adev->gfx.workload_profile_mutex) befor=
+e
+> access "adev->gfx.workload_profile_active" varible.
+>
+> Fixes: 9e34d8d1a1abe ("drm/amdgpu/gfx: adjust workload profile handling")
+>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 > ---
->   drivers/dma-buf/dma-fence.c | 65 +++++++++++++++++++++++++++----------
->   include/linux/dma-fence.h   | 18 ++++++++--
->   2 files changed, 62 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index 51ee13d005bc..982f2b2a62c0 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -498,6 +498,7 @@ EXPORT_SYMBOL(dma_fence_signal);
->   signed long
->   dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
->   {
-> +	const struct dma_fence_ops *ops;
->   	signed long ret;
->   
->   	if (WARN_ON(timeout < 0))
-> @@ -509,15 +510,21 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
->   
->   	dma_fence_enable_sw_signaling(fence);
->   
-> -	if (trace_dma_fence_wait_start_enabled()) {
-> -		rcu_read_lock();
-> -		trace_dma_fence_wait_start(fence);
-> +	rcu_read_lock();
-> +	ops = rcu_dereference(fence->ops);
-> +	trace_dma_fence_wait_start(fence);
-> +	if (ops->wait) {
-> +		/*
-> +		 * Implementing the wait ops is deprecated and not supported for
-> +		 * issuer independent fences, so it is ok to use the ops outside
-> +		 * the RCU protected section.
-> +		 */
-> +		rcu_read_unlock();
-> +		ret = ops->wait(fence, intr, timeout);
-> +	} else {
->   		rcu_read_unlock();
-> -	}
-> -	if (fence->ops->wait)
-> -		ret = fence->ops->wait(fence, intr, timeout);
-> -	else
->   		ret = dma_fence_default_wait(fence, intr, timeout);
-> +	}
->   	if (trace_dma_fence_wait_end_enabled()) {
->   		rcu_read_lock();
->   		trace_dma_fence_wait_end(fence);
-> @@ -538,6 +545,7 @@ void dma_fence_release(struct kref *kref)
->   {
->   	struct dma_fence *fence =
->   		container_of(kref, struct dma_fence, refcount);
-> +	const struct dma_fence_ops *ops;
->   
->   	rcu_read_lock();
->   	trace_dma_fence_destroy(fence);
-> @@ -569,12 +577,12 @@ void dma_fence_release(struct kref *kref)
->   		spin_unlock_irqrestore(fence->lock, flags);
->   	}
->   
-> -	rcu_read_unlock();
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 7f02e36ccc1e..59329e8ffb86 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -2249,11 +2249,10 @@ void amdgpu_gfx_profile_ring_begin_use(struct amd=
+gpu_ring *ring)
+>          * the delayed work so there is no one else to set it to false
+>          * and we don't care if someone else sets it to true.
+>          */
+> -       if (adev->gfx.workload_profile_active)
+> -               return;
+
+Per the comment above, this should be safe.
+
+Alex
+
 > -
-> -	if (fence->ops->release)
-> -		fence->ops->release(fence);
-> +	ops = rcu_dereference(fence->ops);
-> +	if (ops->release)
-> +		ops->release(fence);
->   	else
->   		dma_fence_free(fence);
-> +	rcu_read_unlock();
-
-I had it like this back in May you were worried release callback can 
-sleep. So I gather since then you figured out no one sleeps or takes a 
-sleeping lock?
-
-I went through them all and it seems that could be (almost) so.
-
-There is only vgem_fence_release() which calls timer_delete_sync(), and 
-while __timer_delete_sync() has a comment saying 
-del_timer_wait_running() has a sleeping slow path I think this is only 
-due spinlocks becoming sleeping locks.
-
-Due this PREEMPT_RT might be a problem for the RCU approach in general, 
-not just for vgem.
-
-Possibly if you enable it you would start seeing warnings fire for 
-sleeping while preemption disabled. Something to double check in case I 
-got confused.
-
-Hm actually, do you even need to move the RCU section around the 
-.release() and .wait() if the premise of the series is drivers who 
-specify those will not be protected?
-
-Regards,
-
-Tvrtko
-
->   }
->   EXPORT_SYMBOL(dma_fence_release);
->   
-> @@ -593,6 +601,7 @@ EXPORT_SYMBOL(dma_fence_free);
->   
->   static bool __dma_fence_enable_signaling(struct dma_fence *fence)
->   {
-> +	const struct dma_fence_ops *ops;
->   	bool was_set;
->   
->   	lockdep_assert_held(fence->lock);
-> @@ -603,14 +612,18 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
->   	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->   		return false;
->   
-> -	if (!was_set && fence->ops->enable_signaling) {
-> +	rcu_read_lock();
-> +	ops = rcu_dereference(fence->ops);
-> +	if (!was_set && ops->enable_signaling) {
->   		trace_dma_fence_enable_signal(fence);
->   
-> -		if (!fence->ops->enable_signaling(fence)) {
-> +		if (!ops->enable_signaling(fence)) {
-> +			rcu_read_unlock();
->   			dma_fence_signal_locked(fence);
->   			return false;
->   		}
->   	}
-> +	rcu_read_unlock();
->   
->   	return true;
->   }
-> @@ -983,8 +996,13 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
->    */
->   void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->   {
-> -	if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
-> -		fence->ops->set_deadline(fence, deadline);
-> +	const struct dma_fence_ops *ops;
+>         mutex_lock(&adev->gfx.workload_profile_mutex);
+> -       if (!adev->gfx.workload_profile_active) {
+> +       if (adev->gfx.workload_profile_active) {
+> +               goto out_unlock;
+> +       } else {
+>                 r =3D amdgpu_dpm_switch_power_profile(adev, profile, true=
+);
+>                 if (r)
+>                         dev_warn(adev->dev, "(%d) failed to disable %s po=
+wer profile mode\n", r,
+> @@ -2261,6 +2260,8 @@ void amdgpu_gfx_profile_ring_begin_use(struct amdgp=
+u_ring *ring)
+>                                  "fullscreen 3D" : "compute");
+>                 adev->gfx.workload_profile_active =3D true;
+>         }
 > +
-> +	rcu_read_lock();
-> +	ops = rcu_dereference(fence->ops);
-> +	if (ops->set_deadline && !dma_fence_is_signaled(fence))
-> +		ops->set_deadline(fence, deadline);
-> +	rcu_read_unlock();
->   }
->   EXPORT_SYMBOL(dma_fence_set_deadline);
->   
-> @@ -1024,7 +1042,12 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->   	BUG_ON(!ops || !ops->get_driver_name || !ops->get_timeline_name);
->   
->   	kref_init(&fence->refcount);
-> -	fence->ops = ops;
-> +	/*
-> +	 * At first glance it is counter intuitive to protect a constant
-> +	 * function pointer table by RCU, but this allows modules providing the
-> +	 * function table to unload by waiting for an RCU grace period.
-> +	 */
-> +	RCU_INIT_POINTER(fence->ops, ops);
->   	INIT_LIST_HEAD(&fence->cb_list);
->   	fence->lock = lock;
->   	fence->context = context;
-> @@ -1104,11 +1127,14 @@ EXPORT_SYMBOL(dma_fence_init64);
->    */
->   const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
->   {
-> +	const struct dma_fence_ops *ops;
-> +
->   	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->   			 "RCU protection is required for safe access to returned string");
->   
-> +	ops = rcu_dereference(fence->ops);
->   	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-> -		return fence->ops->get_driver_name(fence);
-> +		return ops->get_driver_name(fence);
->   	else
->   		return "detached-driver";
->   }
-> @@ -1136,11 +1162,14 @@ EXPORT_SYMBOL(dma_fence_driver_name);
->    */
->   const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
->   {
-> +	const struct dma_fence_ops *ops;
-> +
->   	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->   			 "RCU protection is required for safe access to returned string");
->   
-> +	ops = rcu_dereference(fence->ops);
->   	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-> -		return fence->ops->get_driver_name(fence);
-> +		return ops->get_driver_name(fence);
->   	else
->   		return "signaled-timeline";
->   }
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 64639e104110..38421a0c7c5b 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -66,7 +66,7 @@ struct seq_file;
->    */
->   struct dma_fence {
->   	spinlock_t *lock;
-> -	const struct dma_fence_ops *ops;
-> +	const struct dma_fence_ops __rcu *ops;
->   	/*
->   	 * We clear the callback list on kref_put so that by the time we
->   	 * release the fence it is unused. No one should be adding to the
-> @@ -418,13 +418,19 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
->   static inline bool
->   dma_fence_is_signaled_locked(struct dma_fence *fence)
->   {
-> +	const struct dma_fence_ops *ops;
-> +
->   	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->   		return true;
->   
-> -	if (fence->ops->signaled && fence->ops->signaled(fence)) {
-> +	rcu_read_lock();
-> +	ops = rcu_dereference(fence->ops);
-> +	if (ops->signaled && ops->signaled(fence)) {
-> +		rcu_read_unlock();
->   		dma_fence_signal_locked(fence);
->   		return true;
->   	}
-> +	rcu_read_unlock();
->   
->   	return false;
->   }
-> @@ -448,13 +454,19 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
->   static inline bool
->   dma_fence_is_signaled(struct dma_fence *fence)
->   {
-> +	const struct dma_fence_ops *ops;
-> +
->   	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->   		return true;
->   
-> -	if (fence->ops->signaled && fence->ops->signaled(fence)) {
-> +	rcu_read_lock();
-> +	ops = rcu_dereference(fence->ops);
-> +	if (ops->signaled && ops->signaled(fence)) {
-> +		rcu_read_unlock();
->   		dma_fence_signal(fence);
->   		return true;
->   	}
-> +	rcu_read_unlock();
->   
->   	return false;
->   }
-
+> +out_unlock:
+>         mutex_unlock(&adev->gfx.workload_profile_mutex);
+>  }
+>
+> --
+> 2.34.1
+>
