@@ -4,71 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C46DFCCD19A
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 13:09:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A59FCCD19A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Oct 2025 13:22:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68C8510E9DF;
-	Thu, 16 Oct 2025 13:09:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0844310E066;
+	Thu, 16 Oct 2025 13:22:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HWcWSjWb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2yArlZsA";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3978110E9DF
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 13:09:05 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-339d7c401d8so157798a91.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Oct 2025 06:09:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760620145; x=1761224945; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=I8cSqMBYQMpAUWJjoCdvA1lhKOSHEakXgOwgNTKAack=;
- b=HWcWSjWbGv15l3yZHlUXSyHYxoH0K21gqCEgr0T20DCG4yEpAd7JXnLFmg7iACCW78
- 5ooQrq2xNIaIHo0oFTWtpw6McokF8Jzek94kHzlSMTDJd7jsUqJRu2Dmg5e1FklbcEsv
- sIbrzPnNXgFRaENZ6y0XmkCkHblTAOp3N4pr7b/60kVc2he0cYOtilZVv9u8r7ns30pm
- h0eW6TrBrNfZftvu7P/oE5m97zveXXEDwvLioAmbbV47DIYuxzjICP9H9v/3bHcG1pen
- 4JlIJhQ7nPFJesBudBVHM8QcVhakemAQ305g/DB2NibowE8l4tCCWvG2wVNSQOM6LGWP
- 98iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760620145; x=1761224945;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=I8cSqMBYQMpAUWJjoCdvA1lhKOSHEakXgOwgNTKAack=;
- b=tITVzuUsH+siIkMVIp5VzMf6DcfskcpSfOKo/y9tQd8JZaitL9GuPwaSyz4Dy1jWsB
- 5oPye/bgtfp2Ur5Yq383pjpOr1EPsQOPXiK3+2oJbyiXPGjCAYwEbTPeviPuNVQtAfup
- kPgeG11H2yhWTFBe9bQ5Jdwx+voigfqOxU66+FDu0pvElXfqXh3goOa1TMJaL21uBIr5
- dzLpFruTBNOV14QGMG3K5nyfKFLZA+CD6WvJzzLl10qCeLIXswHBxL1OByCsUIwlUUf6
- OlpECJG+W7Qw4nD2ecvOLrci118jGiav54BIVfvR3ZcN+TgXOun6/xjf9SBFTCKzfDof
- ZWaw==
-X-Gm-Message-State: AOJu0YxzXdqdNN3++m6lwzQI4lKxprcwc1geZUo9LSwUDxGXJ0q+SQAj
- Xx9691KjhHKv2VR8oO4o5rHwE/sXk7tM2nEv++/EN8MVQdW16r7c+1UZVIYpga0ON8jnr4czIQA
- X4Dgl/y3l6qpTEwYQFMMonWQqdRpidcE=
-X-Gm-Gg: ASbGncsAh9mfmUQMKNASwlb61Jxsu1qq7VSS62SIw5ZdDZcec9nNfMVtPnRFTfcrRpQ
- 6z9E+Ira9LvOG1qYGGEnwyVsMCzyl1efOLka/M6r63GjwmpZVfYf4sJ9vWQ9As8C9QFqvuRERFg
- ag/KXSkVRGhcsG9cZQBKBNNmHi7v7GtalJRVZEldlWUphzA1aYfQpMNe6aQlioWqJGTueFaMpfD
- H7JsnOVbH9YxZ0vtJrO3EJS2f6XiYHHMBlH5mDpfMxZUE8462HeRfTdhyof
-X-Google-Smtp-Source: AGHT+IFO7WDD94hAmPS6mIhfV+V+L/u+tTCuJyvdAg0YbOjWhWSAWqY4g4kxbs5v0Vm6D713ZMac5W1sy+hOwM+zUTc=
-X-Received: by 2002:a17:902:fb8b:b0:266:914a:2e7a with SMTP id
- d9443c01a7336-2902743ae8fmr152710325ad.6.1760620144519; Thu, 16 Oct 2025
- 06:09:04 -0700 (PDT)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010041.outbound.protection.outlook.com [52.101.85.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 092AF10E066;
+ Thu, 16 Oct 2025 13:22:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rE2SY9RW/Z+oKL0ZEdzRIqu2r1E6smaRwttYCajqS7LAlv1qOccmxeDTI3T3xRVujs7h0lhW6dtejpwWbJAsDC/q5XywrKSxF4KmRAGtwr839T36io7U+Ddct/w5ff02xqFs3dF2WYtE1W95T5DTOC3BU2+R/18fHI7MQqTYq/+9m+xVBo+o4PB+SssnZiz+vedhGppbFSNJ+KO0NO/y3jso7x9gFo0A4Nin+tk1owkD0uMmYibNNu8zoXwgYWdH5eTOlkmQBC3cusdkU4SCNvMeA6AzTvCW8/no+RChwyDUP4HI9Iwcf5b4T5lMCw7VTyRX4pu8Dff4KVe5mKET6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jl0ETIPnenDHu++nXj6Pg0N9wxXFsBjCUqefFbWPv4E=;
+ b=qjI9W5jPPXHt0KzMOGQkISHPP5sMrb8IPv7Yqg90GV2/zyjtSiozVgF+3m5cgAz6JRJqmFGBT2OdZ1gj/7lxvqeorCvQZAI/vhtyqgx+FOd9UqbVjME4PbeS8I2FstOKb29TLsf0/cjn4J/O9E94HYWONqi+kbDkM2KDQG+/Jq6L9Alf8M7MIqvkb5eSWnxli6/Zs9hFCprDwXRwBPrLXNTZI2vZdjtaLu/rWyMcr4UpanSgviiFDlAMB9+jsTkruUgtbiKMKhdMZubpHen+dzWapzmy7/08fGi05T7GlUndX4to84//tl7/g9n0G04JC3iypoy7ELURDZSOUFRDZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jl0ETIPnenDHu++nXj6Pg0N9wxXFsBjCUqefFbWPv4E=;
+ b=2yArlZsAkBRxqzojkfwS55siDFHnsSxX7SY0yRIqZHM0zIeQg7lJnQS2+C5zxfeIYwLwYx/0Uvwjktx05oCijItexeZTXSktKTBUrtYn4u9WTlw7mknkJbh1qj8QhCu0cAXWolhodwsHEsjvIvdxhHxQM5e0MCbWfGOMLHSm6rk=
+Received: from DS7PR03CA0046.namprd03.prod.outlook.com (2603:10b6:5:3b5::21)
+ by CY5PR12MB6597.namprd12.prod.outlook.com (2603:10b6:930:43::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.11; Thu, 16 Oct
+ 2025 13:22:43 +0000
+Received: from DS3PEPF0000C37C.namprd04.prod.outlook.com
+ (2603:10b6:5:3b5:cafe::26) by DS7PR03CA0046.outlook.office365.com
+ (2603:10b6:5:3b5::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.10 via Frontend Transport; Thu,
+ 16 Oct 2025 13:22:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF0000C37C.mail.protection.outlook.com (10.167.23.6) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9228.7 via Frontend Transport; Thu, 16 Oct 2025 13:22:43 +0000
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 16 Oct
+ 2025 06:22:42 -0700
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.18
+Date: Thu, 16 Oct 2025 09:22:23 -0400
+Message-ID: <20251016132224.2534946-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <20251015214848.11580-1-yunru.pan@amd.com>
- <20251015214848.11580-2-yunru.pan@amd.com>
-In-Reply-To: <20251015214848.11580-2-yunru.pan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Oct 2025 09:08:52 -0400
-X-Gm-Features: AS18NWDggbyrwKGzw8xlIRvrZxzdOHSbyWfDQu_QQxAOdqv057BGnmL6IUCUGtQ
-Message-ID: <CADnq5_OPzxM7RF6Cmis9iNBfu8cvAxMU9NPb2TZW2=0WMnWcMQ@mail.gmail.com>
-Subject: Re: [PATCH v5 3/6] drm/amdgpu: Introduce SRIOV critical regions v2
- during VF init
-To: Ellen Pan <yunru.pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian.Koenig@amd.com, Lijo.Lazar@amd.com, Jeffrey.Chan@amd.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37C:EE_|CY5PR12MB6597:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73874cef-193a-4dd7-e38c-08de0cb716a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OFFGby81WUd6aUlHNkdUR2MzMlg5bGloZ2UzSGNHVDFlVnFGTU8zTVNsMitX?=
+ =?utf-8?B?eXV5aTBjeE9rOWNUMDY5N3hqbVBGam9BK09XK3ErSDM2UngzeWF1T2R5UE92?=
+ =?utf-8?B?ZXBLWjRnbUllZFIwK2wxa0F3VFB0bVZHQTQ4Mi9hN2RkbUN5L3NRWjZzVmVD?=
+ =?utf-8?B?dGtpL2ZXUFEwSldXa05EV1QxdURwOFp6U3pBR05xSU9PUWVTTjVyd05yd2VC?=
+ =?utf-8?B?UEp3a3IrbU9pSERpaWtEWmxhQ2hOdEpHcEhBSjBJdldZdkxxdkV0UlZpbUNy?=
+ =?utf-8?B?UitXWGtEOEFsbzF6TXhjVi9CdUtsai9FWVhNbTl0aFlVK0hJTmtjUjFKU2I0?=
+ =?utf-8?B?UUxmN1Vqck10STNXb2R0STJTYUhVYVFCaC85eTU1VDZxYUNmN1VQanQvRmhw?=
+ =?utf-8?B?MHU4Q2tnUEQ4aFNJUTU4c1FPT0drYWZ6Y28wQW02eTlQK21vdFRzNktyYnhl?=
+ =?utf-8?B?TEtHMHlPYjVxZE4yK2lCbldFTHV0ZzJYblg3T3E5L1Ywek5GZDAzYkE3LzJz?=
+ =?utf-8?B?UzNrOVlNTUl1UlJoVGpYY1VOLzNNcU5hTUg5WjhLQVY2YlltYWVzV3VUc29a?=
+ =?utf-8?B?a1JuaDZNSlV1ZE4yQVBjOFR4bDdzSjlWKzJWRFZ4UTVWTktLNG1kMHVIV3J3?=
+ =?utf-8?B?Y3lXaVNjdDM4YjZUc01FQllwcjluMUVtTWhGblgrVVIxUGpzbCswN2phdnpR?=
+ =?utf-8?B?eUh6L2R0Ujd4THBRSHg1L3lsZ3Q1SGFZb05iM1N6SDB5S3VoM1NoSEQzTEl4?=
+ =?utf-8?B?TWlwTWJtaUtCZ2lOeWlma3lkTXBGczB6amU3cmZVK1ptZmlTUGRtNUNua1kv?=
+ =?utf-8?B?SXlUa05meDNJZkI5RWN3aUVXQjJxUkZmN2JhY1VlcmVaOUQrbTBMdHR1dVph?=
+ =?utf-8?B?Ky8yNUt4L2RlejBXWkJnL2V0QUx1czFUNDRQaGZQVGo4bU9SQWhsSnhuY0Jx?=
+ =?utf-8?B?blp6MjVxd08walNwc0lGdnBoYVcrcGxmWUpSSWpvRHo4c3VJOUJSc3pVZ2o2?=
+ =?utf-8?B?T0tqSVFKdldtT09FMk5VSWd5cE9kODVxTDV1bmZGSzFqbXpFbUpQTUp2eEx1?=
+ =?utf-8?B?UU1kbWNvZU1WTHNMMitvVEV6WWJwcmJxQ3p2a1pXMGVDTjNZcG1vOS9rNlJr?=
+ =?utf-8?B?TWdjNUN6aVZFZ1dBTXhiTTNqVFlYajNtREM4YjRiUUhuTC9GdExvaXFTS0l2?=
+ =?utf-8?B?eU5RN3FFcURRMVdiZUh3cDlSQ0ZJR2l6bzF0Snc3Y1MyNHZ2SVhKTGxnUEty?=
+ =?utf-8?B?MW5Ua3FKTTh0T2lxekRrTVhwdXBnSmVWRTljTC9ERHJiTEJHcVdxNzRoNFdQ?=
+ =?utf-8?B?MmZiMkd0U1JFOXo4eHZrOHFIaThuMEZxZVYyMDV5ZXl4M0FnQWwwM2xadktR?=
+ =?utf-8?B?SEZUNVBzMnI4ZndyRHE5R1o0MGhFMStMdGVMdCs2b1ViNGl0NUl3ODNNZ04w?=
+ =?utf-8?B?SldKSTJ4SGd4RFlZYVRCdE1lSXdSaHFqWGk3R3BIYWphYmRZdVB5SGJMVXN4?=
+ =?utf-8?B?SjhCRnRaYy9FbTl5eUpuN0xReVJLbzA2bDFPMXVmZkJPMjlxMzFXSWdiUndn?=
+ =?utf-8?B?T2syb0NRRTlwTEJzMHNMaUsyZG9YYVVTclF2QnlXRE96djlxc1AyNk1NQkRU?=
+ =?utf-8?B?WWRGeVlYaG52Mk5OR3hLcWZlYVBQK1BwbzZ1TC93Q3UrdHJpMmtBWFpDYTVQ?=
+ =?utf-8?B?b2Vid0ZSS29TaFRlZFZrSnRxYlZPdks2YzRHUDUzZUhKa3VRV0JMSHdBRURr?=
+ =?utf-8?B?emhRNElxRlpDa3lXOFJEeFlNR3A2Qjk5OWt2RFQzclo3NXR0RjE5UXpwRUVa?=
+ =?utf-8?B?cUtUTU5ReVpON1VFWGhGVjBZZFFCM2U3Q1dkb3VWc0h4MVFVTCtZdmpUMlZW?=
+ =?utf-8?B?dkRyams3alQrYUE3dE40ZlRCSVNUK2RpbE5NQVRsV1Z3ZjUxQktxbEFmSUFC?=
+ =?utf-8?B?VDJKTmZ5MmcrdnpocHhjTWF0SW1oZG44NU96V2lHNmthbzZjc2Y2SFUxVkZB?=
+ =?utf-8?Q?IvWFFHTVuEB1OC2CFZr27idLYA6V14=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2025 13:22:43.0784 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73874cef-193a-4dd7-e38c-08de0cb716a3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6597
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,350 +139,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 15, 2025 at 5:49=E2=80=AFPM Ellen Pan <yunru.pan@amd.com> wrote=
-:
->
->     1. Introduced amdgpu_virt_init_critical_region during VF init.
->      - VFs use init_data_header_offset and init_data_header_size_kb
->             transmitted via PF2VF mailbox to fetch the offset of
->             critical regions' offsets/sizes in VRAM and save to
->             adev->virt.crit_region_offsets and adev->virt.crit_region_siz=
-es_kb.
->
-> Signed-off-by: Ellen Pan <yunru.pan@amd.com>
+Hi Dave, Simona,
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes for 6.18.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   4 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 165 ++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  11 ++
->  drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h |  31 ++++
->  4 files changed, 211 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index a99185ed0642..3ffb9bb1ec0b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2782,6 +2782,10 @@ static int amdgpu_device_ip_early_init(struct amdg=
-pu_device *adev)
->                 r =3D amdgpu_virt_request_full_gpu(adev, true);
->                 if (r)
->                         return r;
-> +
-> +               r =3D amdgpu_virt_init_critical_region(adev);
-> +               if (r)
-> +                       return r;
->         }
->
->         switch (adev->asic_type) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_virt.c
-> index 56573fb27f63..805ecc69a8b5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -44,6 +44,18 @@
->                 vf2pf_info->ucode_info[ucode].version =3D ver; \
->         } while (0)
->
-> +#define mmRCC_CONFIG_MEMSIZE    0xde3
-> +
-> +const char *amdgpu_virt_dynamic_crit_table_name[] =3D {
-> +       "IP DISCOVERY",
-> +       "VBIOS IMG",
-> +       "RAS TELEMETRY",
-> +       "DATA EXCHANGE",
-> +       "BAD PAGE INFO",
-> +       "INIT HEADER",
-> +       "LAST",
-> +};
-> +
->  bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev)
->  {
->         /* By now all MMIO pages except mailbox are blocked */
-> @@ -843,6 +855,159 @@ static void amdgpu_virt_init_ras(struct amdgpu_devi=
-ce *adev)
->         adev->virt.ras.cper_rptr =3D 0;
->  }
->
-> +static uint8_t amdgpu_virt_crit_region_calc_checksum(uint8_t *buf_start,=
- uint8_t *buf_end)
-> +{
-> +       uint32_t sum =3D 0;
-> +
-> +       if (buf_start >=3D buf_end)
-> +               return 0;
-> +
-> +       for (; buf_start < buf_end; buf_start++)
-> +               sum +=3D buf_start[0];
-> +
-> +       return 0xffffffff - sum;
-> +}
-> +
-> +int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
-> +{
-> +       struct amd_sriov_msg_init_data_header *init_data_hdr =3D NULL;
-> +       uint32_t init_hdr_offset =3D adev->virt.init_data_header.offset;
-> +       uint32_t init_hdr_size =3D adev->virt.init_data_header.size_kb <<=
- 10;
-> +       uint64_t vram_size;
-> +       int r =3D 0;
-> +       uint8_t checksum =3D 0;
-> +
-> +       /* Skip below init if critical region version !=3D v2 */
-> +       if (adev->virt.req_init_data_ver !=3D GPU_CRIT_REGION_V2)
-> +               return 0;
-> +
-> +       if (init_hdr_offset < 0) {
-> +               dev_err(adev->dev, "Invalid init header offset\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       vram_size =3D RREG32(mmRCC_CONFIG_MEMSIZE);
-> +       if (!vram_size || vram_size =3D=3D U32_MAX)
-> +               return -EINVAL;
-> +       vram_size <<=3D 20;
-> +
-> +       if ((init_hdr_offset + init_hdr_size) > vram_size) {
-> +               dev_err(adev->dev, "init_data_header exceeds VRAM size, e=
-xiting\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       /* Allocate for init_data_hdr */
-> +       init_data_hdr =3D kzalloc(sizeof(struct amd_sriov_msg_init_data_h=
-eader), GFP_KERNEL);
-> +       if (!init_data_hdr)
-> +               return -ENOMEM;
-> +
-> +       amdgpu_device_vram_access(adev, (uint64_t)init_hdr_offset, (uint3=
-2_t *)init_data_hdr,
-> +                                       sizeof(struct amd_sriov_msg_init_=
-data_header), false);
-> +
-> +       /* Table validation */
-> +       if (strncmp(init_data_hdr->signature,
-> +                               AMDGPU_SRIOV_CRIT_DATA_SIGNATURE,
-> +                               AMDGPU_SRIOV_CRIT_DATA_SIG_LEN) !=3D 0) {
-> +               dev_err(adev->dev, "Invalid init data signature: %.4s\n",
-> +                       init_data_hdr->signature);
-> +               r =3D -EINVAL;
-> +               goto out;
-> +       }
-> +
-> +       checksum =3D amdgpu_virt_crit_region_calc_checksum(
-> +                       (uint8_t *)&init_data_hdr->initdata_offset,
-> +                       (uint8_t *)init_data_hdr +
-> +                       sizeof(struct amd_sriov_msg_init_data_header));
-> +       if (checksum !=3D init_data_hdr->checksum) {
-> +               dev_err(adev->dev, "Found unmatching checksum from calcul=
-ation 0x%x and init_data 0x%x\n",
-> +                               checksum, init_data_hdr->checksum);
-> +               r =3D -EINVAL;
-> +               goto out;
-> +       }
-> +
-> +       memset(&adev->virt.crit_regn, 0, sizeof(adev->virt.crit_regn));
-> +       memset(adev->virt.crit_regn_tbl, 0, sizeof(adev->virt.crit_regn_t=
-bl));
-> +
-> +       adev->virt.crit_regn.offset =3D init_data_hdr->initdata_offset;
-> +       adev->virt.crit_regn.size_kb =3D init_data_hdr->initdata_size_in_=
-kb;
-> +
-> +       /* Validation and initialization for each table entry */
-> +       if (IS_SRIOV_CRIT_REGN_ENTRY_VALID(init_data_hdr, AMD_SRIOV_MSG_I=
-PD_TABLE_ID)) {
-> +               if (init_data_hdr->ip_discovery_size_in_kb > DISCOVERY_TM=
-R_SIZE) {
-> +                       dev_err(adev->dev, "Invalid IP discovery size: 0x=
-%x\n",
-> +                                       init_data_hdr->ip_discovery_size_=
-in_kb);
-> +                       r =3D -EINVAL;
-> +                       goto out;
-> +               }
-> +
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_IPD_TABLE_ID].offs=
-et =3D
-> +                       init_data_hdr->ip_discovery_offset;
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_IPD_TABLE_ID].size=
-_kb =3D
-> +                       init_data_hdr->ip_discovery_size_in_kb;
-> +       } else {
-> +               dev_err(adev->dev, "Missing dynamic %s info from critical=
- region v2.\n",
-> +                       amdgpu_virt_dynamic_crit_table_name[AMD_SRIOV_MSG=
-_IPD_TABLE_ID]);
-> +               r =3D -EINVAL;
-> +               goto out;
-> +       }
-> +
-> +       if (IS_SRIOV_CRIT_REGN_ENTRY_VALID(init_data_hdr, AMD_SRIOV_MSG_V=
-BIOS_IMG_TABLE_ID)) {
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID=
-].offset =3D
-> +                       init_data_hdr->vbios_img_offset;
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID=
-].size_kb =3D
-> +                       init_data_hdr->vbios_img_size_in_kb;
-> +       } else {
-> +               dev_err(adev->dev, "Missing dynamic %s info from critical=
- region v2.\n",
-> +                       amdgpu_virt_dynamic_crit_table_name[AMD_SRIOV_MSG=
-_VBIOS_IMG_TABLE_ID]);
-> +               r =3D -EINVAL;
-> +               goto out;
-> +       }
-> +
-> +       if (IS_SRIOV_CRIT_REGN_ENTRY_VALID(init_data_hdr, AMD_SRIOV_MSG_R=
-AS_TELEMETRY_TABLE_ID)) {
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_RAS_TELEMETRY_TABL=
-E_ID].offset =3D
-> +                       init_data_hdr->ras_tele_info_offset;
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_RAS_TELEMETRY_TABL=
-E_ID].size_kb =3D
-> +                       init_data_hdr->ras_tele_info_size_in_kb;
-> +       } else {
-> +               dev_err(adev->dev, "Missing dynamic %s info from critical=
- region v2.\n",
-> +                       amdgpu_virt_dynamic_crit_table_name[AMD_SRIOV_MSG=
-_RAS_TELEMETRY_TABLE_ID]);
-> +               r =3D -EINVAL;
-> +               goto out;
-> +       }
-> +
-> +       if (IS_SRIOV_CRIT_REGN_ENTRY_VALID(init_data_hdr, AMD_SRIOV_MSG_D=
-ATAEXCHANGE_TABLE_ID)) {
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE=
-_ID].offset =3D
-> +                       init_data_hdr->dataexchange_offset;
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_DATAEXCHANGE_TABLE=
-_ID].size_kb =3D
-> +                       init_data_hdr->dataexchange_size_in_kb;
-> +       } else {
-> +               dev_err(adev->dev, "Missing dynamic %s info from critical=
- region v2.\n",
-> +                       amdgpu_virt_dynamic_crit_table_name[AMD_SRIOV_MSG=
-_DATAEXCHANGE_TABLE_ID]);
-> +               r =3D -EINVAL;
-> +               goto out;
-> +       }
-> +
-> +       if (IS_SRIOV_CRIT_REGN_ENTRY_VALID(init_data_hdr, AMD_SRIOV_MSG_B=
-AD_PAGE_INFO_TABLE_ID)) {
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_BAD_PAGE_INFO_TABL=
-E_ID].offset =3D
-> +                       init_data_hdr->bad_page_info_offset;
-> +               adev->virt.crit_regn_tbl[AMD_SRIOV_MSG_BAD_PAGE_INFO_TABL=
-E_ID].size_kb =3D
-> +                       init_data_hdr->bad_page_size_in_kb;
-> +       } else {
-> +               dev_err(adev->dev, "Missing dynamic %s info from critical=
- region v2.\n",
-> +                       amdgpu_virt_dynamic_crit_table_name[AMD_SRIOV_MSG=
-_BAD_PAGE_INFO_TABLE_ID]);
-> +               r =3D -EINVAL;
-> +               goto out;
-> +       }
-> +
-> +       adev->virt.is_dynamic_crit_regn_enabled =3D true;
-> +
-> +out:
-> +       kfree(init_data_hdr);
-> +       init_data_hdr =3D NULL;
-> +
-> +       return r;
-> +}
-> +
->  void amdgpu_virt_init(struct amdgpu_device *adev)
->  {
->         bool is_sriov =3D false;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_virt.h
-> index 36247a160aa6..8d03a8620de9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -54,6 +54,12 @@
->
->  #define AMDGPU_VF2PF_UPDATE_MAX_RETRY_LIMIT 2
->
-> +/* Signature used to validate the SR-IOV dynamic critical region init da=
-ta header ("INDA") */
-> +#define AMDGPU_SRIOV_CRIT_DATA_SIGNATURE "INDA"
-> +#define AMDGPU_SRIOV_CRIT_DATA_SIG_LEN   4
-> +
-> +#define IS_SRIOV_CRIT_REGN_ENTRY_VALID(hdr, id) ((hdr)->valid_tables & (=
-1 << (id)))
-> +
->  enum amdgpu_sriov_vf_mode {
->         SRIOV_VF_MODE_BARE_METAL =3D 0,
->         SRIOV_VF_MODE_ONE_VF,
-> @@ -296,6 +302,9 @@ struct amdgpu_virt {
->
->         /* dynamic(v2) critical regions */
->         struct amdgpu_virt_region init_data_header;
-> +       struct amdgpu_virt_region crit_regn;
-> +       struct amdgpu_virt_region crit_regn_tbl[AMD_SRIOV_MSG_MAX_TABLE_I=
-D];
-> +       bool is_dynamic_crit_regn_enabled;
->
->         /* vf2pf message */
->         struct delayed_work vf2pf_work;
-> @@ -432,6 +441,8 @@ void amdgpu_virt_exchange_data(struct amdgpu_device *=
-adev);
->  void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev);
->  void amdgpu_virt_init(struct amdgpu_device *adev);
->
-> +int amdgpu_virt_init_critical_region(struct amdgpu_device *adev);
-> +
->  bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);
->  int amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev);
->  void amdgpu_virt_disable_access_debugfs(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgv_sriovmsg.h
-> index 9228fd2c6dfd..1cee083fb6bd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-> @@ -71,6 +71,37 @@ enum amd_sriov_crit_region_version {
->         GPU_CRIT_REGION_V2 =3D 2,
->  };
->
-> +/* v2 layout offset enum (in order of allocation) */
-> +enum amd_sriov_msg_table_id_enum {
-> +       AMD_SRIOV_MSG_IPD_TABLE_ID =3D 0,
-> +       AMD_SRIOV_MSG_VBIOS_IMG_TABLE_ID,
-> +       AMD_SRIOV_MSG_RAS_TELEMETRY_TABLE_ID,
-> +       AMD_SRIOV_MSG_DATAEXCHANGE_TABLE_ID,
-> +       AMD_SRIOV_MSG_BAD_PAGE_INFO_TABLE_ID,
-> +       AMD_SRIOV_MSG_INITD_H_TABLE_ID,
-> +       AMD_SRIOV_MSG_MAX_TABLE_ID,
-> +};
-> +
-> +struct amd_sriov_msg_init_data_header {
-> +       char     signature[4];  /* "INDA"  */
-> +       uint32_t version;
-> +       uint32_t checksum;
-> +       uint32_t initdata_offset; /* 0 */
-> +       uint32_t initdata_size_in_kb; /* 5MB */
-> +       uint32_t valid_tables;
-> +       uint32_t vbios_img_offset;
-> +       uint32_t vbios_img_size_in_kb;
-> +       uint32_t dataexchange_offset;
-> +       uint32_t dataexchange_size_in_kb;
-> +       uint32_t ras_tele_info_offset;
-> +       uint32_t ras_tele_info_size_in_kb;
-> +       uint32_t ip_discovery_offset;
-> +       uint32_t ip_discovery_size_in_kb;
-> +       uint32_t bad_page_info_offset;
-> +       uint32_t bad_page_size_in_kb;
-> +       uint32_t reserved[8];
-> +};
-> +
->  /*
->   * PF2VF history log:
->   * v1 defined in amdgim
-> --
-> 2.34.1
->
+The following changes since commit 3a8660878839faadb4f1a6dd72c3179c1df56787:
+
+  Linux 6.18-rc1 (2025-10-12 13:42:36 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.18-2025-10-16
+
+for you to fetch changes up to 079ae5118e1f0dcf5b1ab68ffdb5760b06ed79a2:
+
+  drm/amdkfd: fix suspend/resume all calls in mes based eviction path (2025-10-13 14:14:28 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.18-2025-10-16:
+
+amdgpu:
+- Backlight fix
+- SI fixes
+- CIK fix
+- Make CE support debug only
+- IP discovery fix
+- Ring reset fixes
+- GPUVM fault memory barrier fix
+- Drop unused structures in amdgpu_drm.h
+- JPEG debugfs fix
+- VRAM handling fixes for GPUs without VRAM
+- GC 12 MES fixes
+
+amdkfd:
+- MES fix
+
+----------------------------------------------------------------
+Alex Deucher (4):
+      drm/amdgpu: fix handling of harvesting for ip_discovery firmware
+      drm/amdgpu: handle wrap around in reemit handling
+      drm/amdgpu: set an error on all fences from a bad context
+      drm/amdgpu: drop unused structures in amdgpu_drm.h
+
+Christian König (3):
+      drm/amdgpu: remove two invalid BUG_ON()s
+      drm/amdgpu: block CE CS if not explicitely allowed by module option
+      drm/amdgpu: hide VRAM sysfs attributes on GPUs without VRAM
+
+Gui-Dong Han (1):
+      drm/amdgpu: use atomic functions with memory barriers for vm fault info
+
+Jesse.Zhang (1):
+      drm/amdgpu: Fix NULL pointer dereference in VRAM logic for APU devices
+
+Jonathan Kim (5):
+      drm/amdgpu: fix gfx12 mes packet status return check
+      drm/amdgpu: fix initialization of doorbell array for detect and hang
+      drm/amdgpu: fix hung reset queue array memory allocation
+      drm/amdgpu: enable suspend/resume all for gfx 12
+      drm/amdkfd: fix suspend/resume all calls in mes based eviction path
+
+Matthew Schwartz (1):
+      Revert "drm/amd/display: Only restore backlight after amdgpu_dm_init or dm_resume"
+
+Sathishkumar S (1):
+      drm/amdgpu: fix bit shift logic
+
+Timur Kristóf (3):
+      drm/amd/pm: Disable MCLK switching on SI at high pixel clocks
+      drm/amd: Disable ASPM on SI
+      drm/amd/powerplay: Fix CIK shutdown temperature
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  8 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  7 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      | 18 +++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  8 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          | 54 +++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  7 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            | 20 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |  3 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  2 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c              |  7 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c              |  7 +--
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |  6 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |  8 ++-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             | 15 +++--
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 73 +++++++---------------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 12 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  7 ---
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  5 ++
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  3 +-
+ include/uapi/drm/amdgpu_drm.h                      | 21 -------
+ 28 files changed, 166 insertions(+), 144 deletions(-)
