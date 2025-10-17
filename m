@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFAD2CCD195
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 07:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50FC6CCD195
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 07:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A83C10EB33;
-	Fri, 17 Oct 2025 07:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD90910EB2E;
+	Fri, 17 Oct 2025 07:31:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=0la.ch header.i=@0la.ch header.b="nzHbTWTl";
-	dkim=permerror (0-bit key) header.d=0la.ch header.i=@0la.ch header.b="9QzKeiId";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WLaKsOv+";
 	dkim-atps=neutral
-X-Greylist: delayed 424 seconds by postgrey-1.36 at gabe;
- Thu, 16 Oct 2025 17:19:54 UTC
-Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0C510EA5B;
- Thu, 16 Oct 2025 17:19:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=0la.ch; c=relaxed/relaxed;
- h=From:To:Subject:Date:Message-ID; t=1760634709; bh=fSvkUUl6u1FqLyKN5THoudz
- ZgSYDVhxm27wwPFHIKbs=; b=nzHbTWTlXl5tNtAWmxKe7HapQ+LbaBTtpHEDgsDuJcJTiS2B7S
- LD/1TZnB0B5UcIFTseoLBgiEL7TnsHI0LcWn1Odhn4ANtedkcMBy/bun4EDPz0XbJNUDZQ9NltM
- CVFQX0gDsICxns1udOWIP9mr34+kmUhOf6Unl/vY+R8c8ZjdPfVng5ZFKs3FLA9n5tZ1v5HQKa2
- v0IejqEQX2h9xlNKrUqJ7ht1W+8zKKD+1pt5HPoec2QLHov9Eob9BTqW2/8DyKejLAl1SqJI8Fj
- TvCdasZiNtLKi2DO7FzZW7bsJx/X2u1ZcRARJ25/hlBbEvcUmWL+MnhgFI+Ja9vAVOA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=0la.ch; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1760634709;
- bh=fSvkUUl6u1FqLyKN5THoudz
- ZgSYDVhxm27wwPFHIKbs=; b=9QzKeiIdrLZryyWwAr+UjyG1FoqLil1HhIiLYsM0UVEE+qXqct
- M8urhjNxuu+gm5yVwCC9tBXvyI9A+1vJ7FCQ==;
-Message-ID: <adb2c2bd-a38e-4a40-ba1c-dcc7ad707727@0la.ch>
-Date: Thu, 16 Oct 2025 19:11:48 +0200
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1C2510EAF5;
+ Fri, 17 Oct 2025 07:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1760686296;
+ bh=+BMP92K4asKFaGVxNw7U7Zl5UFujoFolv1nhfrtKbto=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=WLaKsOv+PriMSUKniOrtmEXJaysfC6roB605EvkuYZgZ5pOgtRwb+klzkqa3zLy+3
+ TziAC0z7uf7vMRQkkUdOgda1bI6JuvZkfnjGPNTDaJ4Ey8bPBDjhJ+H7qY4UCKvAOd
+ 11GI3+ZY+7NHLI7bkbomSD675uSgk5FnOxSmPX5EW5zNcIRKWb+8X0kI9t6LIQ7Qpt
+ w/HCWZHSP9yOLVJJP1to35UeXykuyZiBYpNLnm9UWk6LjOTg7bLwPGG9FtWCuy3Uhx
+ gtk5SbONRX3EalYkRgfIVhqafdHuNcxJcnoQEyRdWVBA4yOxYzDi+FSvC4aW/NcmHD
+ Nz3MB0AbQjHkg==
+Received: from [192.168.50.250] (unknown [171.76.80.157])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: vignesh)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B11C217E0FAD;
+ Fri, 17 Oct 2025 09:31:32 +0200 (CEST)
+Message-ID: <6769d162-ab1c-4427-a0be-22c0b62673c3@collabora.com>
+Date: Fri, 17 Oct 2025 13:01:24 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] drm/edid: parse DRM VESA dsc bpp target
-To: Jani Nikula <jani.nikula@linux.intel.com>, Yaroslav Bolyukin
- <iam@lach.pw>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20251016001038.13611-2-iam@lach.pw>
- <20251016001038.13611-4-iam@lach.pw>
- <3abc1087618c822e5676e67a3ec2e64e506dc5ec@intel.com>
+Subject: Re: [PATCH v1 1/7] drm/ci: disable apq8016 and apq8096 bare-metal jobs
+To: rob.clark@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
+ helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ robdclark@gmail.com, guilherme.gallo@collabora.com,
+ sergi.blanch.torne@collabora.com, valentine.burley@collabora.com,
+ lumag@kernel.org, linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20250718105407.32878-1-vignesh.raman@collabora.com>
+ <20250718105407.32878-2-vignesh.raman@collabora.com>
+ <CACSVV029ueL_4Y5irmmOwy_9QDQGqDe_1wCGUe22FdefQiNjkw@mail.gmail.com>
 Content-Language: en-US
-From: Yaroslav <iam@0la.ch>
-In-Reply-To: <3abc1087618c822e5676e67a3ec2e64e506dc5ec@intel.com>
+From: Vignesh Raman <vignesh.raman@collabora.com>
+In-Reply-To: <CACSVV029ueL_4Y5irmmOwy_9QDQGqDe_1wCGUe22FdefQiNjkw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 17 Oct 2025 07:29:27 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,355 +69,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-10-16 18:36, Jani Nikula wrote:
- > On Thu, 16 Oct 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
- >> As per DisplayID v2.0 Errata E9 spec "DSC pass-through timing support"
- >> VESA vendor-specific data block may contain target DSC bits per pixel
- >> fields
- >
- > Thanks for the patch.
+Hi Rob,
 
-Thanks for the quick review! :D
+On 16/10/25 20:22, Rob Clark wrote:
+> On Fri, Jul 18, 2025 at 3:54 AM Vignesh Raman
+> <vignesh.raman@collabora.com> wrote:
+>>
+>> These devices are being moved to LAVA. The jobs will be enabled and the
+>> job definitions will be updated once the move is complete.
+> 
+> fwiw, the runners are up and running in LAVA now
 
- > I think there's just too much going on in a single patch. Should
- > probably be split to several patches:
- >
- > - rename drm_parse_vesa_mso_data() to drm_parse_vesa_specific_block()
- >
- > - handle DSC pass-through parts in the above, including the macros for
- >    parsing that (but nothing about timing here yet), and adding to
- >    display_info
- >
- > - note that the above would be needed to backport mso support for 7 byte
- >    vendor blocks to stable!
-
-Sorry, can you elaborate? Right now stable kernel just ignores 
-everything going after 5th byte, so it "supports 7 byte blocks" by 
-ignoring them.
-
- > - Add the detailed timing parsing in a separate patch
- >
-I'll split the patch as requested
- >>
- >> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
- >> ---
- >>   drivers/gpu/drm/drm_displayid_internal.h |  8 ++++
- >>   drivers/gpu/drm/drm_edid.c               | 61 ++++++++++++++++--------
- >>   include/drm/drm_connector.h              |  6 +++
- >>   include/drm/drm_modes.h                  | 10 ++++
- >>   4 files changed, 64 insertions(+), 21 deletions(-)
- >>
- >> diff --git a/drivers/gpu/drm/drm_displayid_internal.h 
-b/drivers/gpu/drm/drm_displayid_internal.h
- >> index 957dd0619f5c..d008a98994bb 100644
- >> --- a/drivers/gpu/drm/drm_displayid_internal.h
- >> +++ b/drivers/gpu/drm/drm_displayid_internal.h
- >> @@ -97,6 +97,10 @@ struct displayid_header {
- >>   	u8 ext_count;
- >>   } __packed;
- >>
- >> +#define DISPLAYID_BLOCK_REV				GENMASK(2, 0)
- >> +#define DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT	BIT(3)
- >> +#define DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES	GENMASK(6, 4)
- >
- > These two are related to the rev of struct
- > displayid_detailed_timing_block only, and should probably be defined
- > next to it.
-
-BLOCK_REV is handled identically for all the displayid block types 
-afaik, and DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES is unrelated to the 
-timings block, I didn't want to spread the masks around the file, but 
-will do if you think that's better.
-
- >> +
- >>   struct displayid_block {
- >>   	u8 tag;
- >>   	u8 rev;
- >> @@ -144,12 +148,16 @@ struct displayid_formula_timing_block {
- >>
- >>   #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
- >>   #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
- >> +#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
- >> +#define DISPLAYID_VESA_DSC_BPP_FRACT	GENMASK(3, 0)
- >>
- >>   struct displayid_vesa_vendor_specific_block {
- >>   	struct displayid_block base;
- >>   	u8 oui[3];
- >>   	u8 data_structure_type;
- >>   	u8 mso;
- >> +	u8 dsc_bpp_int;
- >> +	u8 dsc_bpp_fract;
- >>   } __packed;
- >>
- >>   /*
- >> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
- >> index e2e85345aa9a..6e42e55b41f9 100644
- >> --- a/drivers/gpu/drm/drm_edid.c
- >> +++ b/drivers/gpu/drm/drm_edid.c
- >> @@ -6524,8 +6524,8 @@ static void drm_get_monitor_range(struct 
-drm_connector *connector,
- >>   		    info->monitor_range.min_vfreq, info->monitor_range.max_vfreq);
- >>   }
- >>
- >> -static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- >> -				    const struct displayid_block *block)
- >> +static void drm_parse_vesa_specific_block(struct drm_connector 
-*connector,
- >> +					  const struct displayid_block *block)
- >>   {
- >>   	struct displayid_vesa_vendor_specific_block *vesa =
- >>   		(struct displayid_vesa_vendor_specific_block *)block;
- >> @@ -6541,7 +6541,7 @@ static void drm_parse_vesa_mso_data(struct 
-drm_connector *connector,
- >>   	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
- >>   		return;
- >>
- >> -	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
- >> +	if (block->num_bytes < 5) {
- >>   		drm_dbg_kms(connector->dev,
- >>   			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
- >>   			    connector->base.id, connector->name);
- >> @@ -6564,28 +6564,40 @@ static void drm_parse_vesa_mso_data(struct 
-drm_connector *connector,
- >>   		break;
- >>   	}
- >>
- >> -	if (!info->mso_stream_count) {
- >> -		info->mso_pixel_overlap = 0;
- >> -		return;
- >> -	}
- >> +	info->mso_pixel_overlap = 0;
- >
- > Nitpick, I kind of like having this in the else path below instead of
- > first setting it to 0 and then setting it again to something else.
- >>>
- >> -	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, 
-vesa->mso);
- >> -	if (info->mso_pixel_overlap > 8) {
- >> -		drm_dbg_kms(connector->dev,
- >> -			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
- >> -			    connector->base.id, connector->name,
- >> -			    info->mso_pixel_overlap);
- >> -		info->mso_pixel_overlap = 8;
- >> +	if (info->mso_stream_count) {
- >> +		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, 
-vesa->mso);
- >> +		if (info->mso_pixel_overlap > 8) {
- >> +			drm_dbg_kms(connector->dev,
- >> +				    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
- >> +				    connector->base.id, connector->name,
- >> +				    info->mso_pixel_overlap);
- >> +			info->mso_pixel_overlap = 8;
- >> +		}
- >>   	}
- >>
- >>   	drm_dbg_kms(connector->dev,
- >>   		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
- >>   		    connector->base.id, connector->name,
- >>   		    info->mso_stream_count, info->mso_pixel_overlap);
- >
- > Not sure we want to debug log this unless info->mso_stream_count !=
- > 0. This is a rare feature.
- >
- > Side note, we seem to be lacking the check for
- > data_structure_type. Probably my bad. I'm not asking you to fix it, but
- > hey, if you're up for it, another patch is welcome! ;)
-I see, MSO overlap/stream count shouldn't be parsed for eDP, I'll do it.
-Is that what you meant by "note that the above would be needed to 
-backport mso support for 7 byte vendor blocks to stable!"?
- >> +
- >> +	if (block->num_bytes < 7) {
- >> +		/* DSC bpp is optional */
- >> +		return;
- >> +	}
- >> +
- >> +	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, 
-vesa->dsc_bpp_int) << 4 |
- >> +			   FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
- >> +
- >> +	drm_dbg_kms(connector->dev,
- >> +		    "[CONNECTOR:%d:%s] DSC bits per pixel %u\n",
- >> +		    connector->base.id, connector->name,
- >> +		    info->dp_dsc_bpp);
- >>   }
- >>
- >> -static void drm_update_mso(struct drm_connector *connector,
- >> -			   const struct drm_edid *drm_edid)
- >> +static void drm_update_vesa_specific_block(struct drm_connector 
-*connector,
- >> +					   const struct drm_edid *drm_edid)
- >>   {
- >>   	const struct displayid_block *block;
- >>   	struct displayid_iter iter;
- >> @@ -6593,7 +6605,7 @@ static void drm_update_mso(struct 
-drm_connector *connector,
- >>   	displayid_iter_edid_begin(drm_edid, &iter);
- >>   	displayid_iter_for_each(block, &iter) {
- >>   		if (block->tag == DATA_BLOCK_2_VENDOR_SPECIFIC)
- >> -			drm_parse_vesa_mso_data(connector, block);
- >> +			drm_parse_vesa_specific_block(connector, block);
- >>   	}
- >>   	displayid_iter_end(&iter);
- >>   }
- >> @@ -6630,6 +6642,7 @@ static void drm_reset_display_info(struct 
-drm_connector *connector)
- >>   	info->mso_stream_count = 0;
- >>   	info->mso_pixel_overlap = 0;
- >>   	info->max_dsc_bpp = 0;
- >> +	info->dp_dsc_bpp = 0;
- >>
- >>   	kfree(info->vics);
- >>   	info->vics = NULL;
- >> @@ -6753,7 +6766,7 @@ static void update_display_info(struct 
-drm_connector *connector,
- >>   	if (edid->features & DRM_EDID_FEATURE_RGB_YCRCB422)
- >>   		info->color_formats |= DRM_COLOR_FORMAT_YCBCR422;
- >>
- >> -	drm_update_mso(connector, drm_edid);
- >> +	drm_update_vesa_specific_block(connector, drm_edid);
- >>
- >>   out:
- >>   	if (drm_edid_has_internal_quirk(connector, EDID_QUIRK_NON_DESKTOP)) {
- >> @@ -6784,7 +6797,8 @@ static void update_display_info(struct 
-drm_connector *connector,
- >>
- >>   static struct drm_display_mode *drm_mode_displayid_detailed(struct 
-drm_device *dev,
- >>   							    const struct displayid_detailed_timings_1 *timings,
- >> -							    bool type_7)
- >> +							    bool type_7,
- >> +							    int rev)
- >
- > If we added struct displayid_detailed_timing_block *block parameter
- > (between dev and timings), the function could figure it all out from
- > there instead of having to pass several parameters. Dunno which is
- > cleaner. It's also not neat to pass rev as int, when it's really data
- > that has to be parsed.
-
-I agree, just didn't like passing both the block and struct from the 
-block (timings param), but it should be fine, I'll redo it.
-
- >>   {
- >>   	struct drm_display_mode *mode;
- >>   	unsigned int pixel_clock = (timings->pixel_clock[0] |
- >> @@ -6805,6 +6819,10 @@ static struct drm_display_mode 
-*drm_mode_displayid_detailed(struct drm_device *d
- >>   	if (!mode)
- >>   		return NULL;
- >>
- >> +	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, rev) >= 1)
- >> +		mode->dsc_passthrough_timings_support =
- >> +			!!(rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT);
- >
- > I wonder if it would make life easier all around if we just filled the
- > dp_dsc_bpp in the mode itself, instead of having a flag and having to
- > look it up separately?
-
-They are stored in the separate blocks, and vesa vendor specific block 
-can be located after the timings blocks, meaning to do that we need to 
-iterate over all the mode blocks again and parse their timings support 
-flag from rev again to fill this data. I don't like this either, but 
-seems like this is the most logical implementation.
-
-We also have max_dsc_bpp declared in display_mode, and it should be 
-related to this.
-
-It also won't help with the fact that it is hard to handle mode flag for 
-the modes created at runtime (see AMDGPU patch). I believe there should 
-be a fancier way to do this, but this anin't it.
-
-I still have troubles understanding why does this flag need to exist, as 
-far as I can see, every device with passthrough timings doesn't have 
-both modes using them and not using them, and the implementation doesn't 
-look good due to this fact.
-
-On VivePro2 there is a HID command to switch between display modes: 
-modes without dsc_bpp are grouped, and two of the of the high resolution 
-modes have different dsc_bpp_x16 values on them. I believe it is just 
-this flag is redundant, as there are no devices in the wild having set 
-dsc_bpp, and the flag unset, but I try to follow the spec, and here we are.
-
- >> +
- >>   	/* resolution is kHz for type VII, and 10 kHz for type I */
- >>   	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
- >>   	mode->hdisplay = hactive;
- >> @@ -6846,7 +6864,7 @@ static int 
-add_displayid_detailed_1_modes(struct drm_connector *connector,
- >>   	for (i = 0; i < num_timings; i++) {
- >>   		struct displayid_detailed_timings_1 *timings = &det->timings[i];
- >>
- >> -		newmode = drm_mode_displayid_detailed(connector->dev, timings, 
-type_7);
- >> +		newmode = drm_mode_displayid_detailed(connector->dev, timings, 
-type_7, block->rev);
- >>   		if (!newmode)
- >>   			continue;
- >>
- >> @@ -6893,7 +6911,8 @@ static int add_displayid_formula_modes(struct 
-drm_connector *connector,
- >>   	struct drm_display_mode *newmode;
- >>   	int num_modes = 0;
- >>   	bool type_10 = block->tag == DATA_BLOCK_2_TYPE_10_FORMULA_TIMING;
- >> -	int timing_size = 6 + ((formula_block->base.rev & 0x70) >> 4);
- >> +	int timing_size = 6 +
- >> +		FIELD_GET(DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES, 
-formula_block->base.rev);
- >
- > I think this is an unrelated change. Probably something we want, but
- > should not be in the same patch with the rest.
-
-I'll split the patches, would it be ok to have it in the same patchset?
-Same question for mso data_structure_type.
-
- >>
- >>   	/* extended blocks are not supported yet */
- >>   	if (timing_size != 6)
- >> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
- >> index 8f34f4b8183d..01640fcf7464 100644
- >> --- a/include/drm/drm_connector.h
- >> +++ b/include/drm/drm_connector.h
- >> @@ -837,6 +837,12 @@ struct drm_display_info {
- >>   	 */
- >>   	u32 max_dsc_bpp;
- >>
- >> +	/**
- >> +	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
- >> +	 * DSC bits per pixel in 6.4 fixed point format. 0 means undefined.
- >> +	 */
- >> +	u16 dp_dsc_bpp;
- >
- > It's slightly annoying that we have max_dsc_bpp which is int, and
- > dp_dsc_bpp, which is 6.4 fixed point. The drm_dp_helper.c uses _x16
- > suffix for the 6.4 bpp, so maybe do the same here, dp_dsc_bpp_x16?
-
-Yep, didn't notice we already have bpp value in display_info.
-
- >> +
- >>   	/**
- >>   	 * @vics: Array of vics_len VICs. Internal to EDID parsing.
- >>   	 */
- >> diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
- >> index b9bb92e4b029..312e5c03af9a 100644
- >> --- a/include/drm/drm_modes.h
- >> +++ b/include/drm/drm_modes.h
- >> @@ -417,6 +417,16 @@ struct drm_display_mode {
- >>   	 */
- >>   	enum hdmi_picture_aspect picture_aspect_ratio;
- >>
- >> +	/**
- >> +	 * @dsc_passthrough_timing_support:
- >> +	 *
- >> +	 * Indicates whether this mode timing descriptor is supported
- >> +	 * with specific target DSC bits per pixel only.
- >> +	 *
- >> +	 * VESA vendor-specific data block shall exist with the relevant
- >> +	 * DSC bits per pixel declaration when this flag is set to true.
- >> +	 */
- >> +	bool dsc_passthrough_timings_support;
- >>   };
- >>
- >>   /**
+Thanks. I will enable them and send v2.
 
 Regards,
+Vignesh
 
-Lach
+> 
+> BR,
+> -R
+> 
+>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
+>> ---
+>>   drivers/gpu/drm/ci/test.yml | 6 ++++--
+>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
+>> index 81147e86bfd0..53d19ffaaf61 100644
+>> --- a/drivers/gpu/drm/ci/test.yml
+>> +++ b/drivers/gpu/drm/ci/test.yml
+>> @@ -148,7 +148,9 @@ msm:sc7180-trogdor-kingoftown:
+>>       GPU_VERSION: ${DEVICE_TYPE}
+>>       RUNNER_TAG: mesa-ci-x86-64-lava-sc7180-trogdor-kingoftown
+>>
+>> -msm:apq8016:
+>> +# FIXME: Disable the bare-metal jobs. These devices are being moved to LAVA.
+>> +# Once the move is complete, update the job definitions accordingly.
+>> +.msm:apq8016:
+>>     extends:
+>>       - .baremetal-igt-arm64
+>>     stage: msm
+>> @@ -165,7 +167,7 @@ msm:apq8016:
+>>     script:
+>>       - ./install/bare-metal/fastboot.sh || exit $?
+>>
+>> -msm:apq8096:
+>> +.msm:apq8096:
+>>     extends:
+>>       - .baremetal-igt-arm64
+>>     stage: msm
+>> --
+>> 2.47.2
+>>
+
