@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814B8CCD1B7
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7ECCCF9EC
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8CC710E857;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76B9F10E401;
 	Sat, 18 Oct 2025 08:50:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="Gfk5dmlR";
-	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="5M09VXGp";
+	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="dFqX/jqh";
+	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="cSUrRgf+";
 	dkim-atps=neutral
 Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 399D210EC79;
- Fri, 17 Oct 2025 16:28:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6358A10EC7E;
+ Fri, 17 Oct 2025 16:28:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1760718477; bh=TISoBNwEXTy+2dwSC0N2Ya5
- Q1DPGHIdmijcD806QkPc=; b=Gfk5dmlR2UvzChTy9lgkesT5yQfzvJf/nYFNUMdE3M5DVMr1cT
- 0y0JAdLq4H46eQN0UfO8SYBsrY3XvUDef+hAHWpoAv13jPMQmkdgxrn/nzUYH870+GRNMzcnmXD
- H42s2SfexpchXRA8Fpnx7OpLJWrwFd84GHDxx8RxWAOi6qOuqo1XZoJe6fqgU+pefkFwOM/T6oT
- 6oFWFzN+GrOJXEyQRcEAmeswDqMjpHIjyAb4wkKpDCTgkBHLpjuXO1sg6ukJ87hoy2wnIfwdqhM
- Ucd4kBq+jsZtwmu0kX7cwaKHF6iliPX06hPP2qyF4asPaOhEQza+H9L1h8v/IOX14PQ==;
+ h=Message-ID:Date:Subject:To:From; t=1760718485; bh=NufhvGOUoGO8cO2DoILbVLI
+ HbV3cGuMJ3y4xsqaQ+zo=; b=dFqX/jqhjM2Xic9smDGCkjeuDc9Rf7mmSsYfpZBYY5W+Fnqqse
+ VHepF+REDFoxAmbSDPtLHxio1J3BmmQGT9P917MeIuuBeSR7p9vIXS5nHwSqLpdrO35IAzqcign
+ +5FeB+82hCjfaWP0IdW5TCh1KD6LMGH5s1PEAm/300EhUOkisGTWh+R5Y3zvM48ts7EChiLuVCL
+ TkcB8L8gnWcg5ONYl4zyAwVjgi25+pjF1y9Ww1dsl2AnIuXkmanabF1kW+AVSSh/+bpxmyCYaqo
+ 1Dn/ZGPHAl9b81DWOptY+XF1qycYsoILCqCNFIUWVZTfUABLj0kz77Vx4BiDRqFo5dQ==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1760718477; bh=TISoBNwEXTy+2dwSC0N2Ya5
- Q1DPGHIdmijcD806QkPc=; b=5M09VXGp4u3s0GzWxgdA1v4amtDjSXrUBgBNoieyfkVTD6WP4U
- 8XYLPECocfu/xHk9NuauGXloB6iOiGCMZRDw==;
+ h=Message-ID:Date:Subject:To:From; t=1760718485; bh=NufhvGOUoGO8cO2DoILbVLI
+ HbV3cGuMJ3y4xsqaQ+zo=; b=cSUrRgf+C4c+M0zvyGZzi1FYQXF0KiF0sYpJbqGQSvgBBSUwo8
+ fZjf9qMETL1SzE2KXDdo3XSwdCem61esjZCg==;
 From: Yaroslav Bolyukin <iam@lach.pw>
 To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -39,11 +39,14 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Lach <iam@lach.pw>
-Subject: [PATCH v5 0/7] DisplayID DSC passthrough timing support
-Date: Fri, 17 Oct 2025 18:27:29 +0200
-Message-ID: <20251017162736.45368-1-iam@lach.pw>
+ Yaroslav Bolyukin <iam@lach.pw>
+Subject: [PATCH v5 4/7] drm/edid: parse DSC DPP passthru support flag for mode
+ VII timings
+Date: Fri, 17 Oct 2025 18:27:33 +0200
+Message-ID: <20251017162736.45368-5-iam@lach.pw>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251017162736.45368-1-iam@lach.pw>
+References: <20251017162736.45368-1-iam@lach.pw>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
@@ -61,87 +64,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lach <iam@lach.pw>
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+---
+ drivers/gpu/drm/drm_displayid_internal.h |  2 ++
+ drivers/gpu/drm/drm_edid.c               | 12 ++++++++----
+ include/drm/drm_modes.h                  | 10 ++++++++++
+ 3 files changed, 20 insertions(+), 4 deletions(-)
 
-VESA DisplayID spec allows the device to force its DSC bits per pixel
-value.
-
-For example, the HTC Vive Pro 2 VR headset uses this value in
-high-resolution modes (3680x1836@90-120, 4896x2448@90-120), and when the
-kernel doesn't respect this parameter, garbage is displayed on the HMD
-instead.
-
-Me and other users have successfully tested the old (v3) version of this
-patch (which was applying DSC BPP value unconditionally, thus incorrect:
-https://lkml.org/lkml/2023/2/26/116) on Vive Pro 2 and
-Bigscreen Beyond VR headsets, and have been using it daily, it is known
-to work and doesn't seem to break anything else since 2022.
-
-Previously, I didn't have enough dedication to get it merged, I hope
-this time I will manage to get it to v6.19 :D
-
-Regarding driver support - I have looked at amdgpu and Nvidia's
-open-gpu-kernel-modules, and both seem to have some indication for this
-value; however, in Linux, it is unused in both.
-
-First patch implements parsing of DSC BPP values and display mode VII
-timings flag which mandates that the DSC BPP value should actually be
-used for this display mode.
-
-The second patch implements handling of this value for AMDGPU driver.
-
-The only thing that I don't like in the current implementation, is how
-the value of `dsc_passthrough_timings_support` flag is propagated from
-the connector display modes to the mode created in `DRM_IOCTL_MODE_SETCRTC`
-handler (which is used for VR display initialization in Monado and
-StreamVR), it feels like this flag should be initialized by the kernel
-itself, but as far as I can see there is no correct way to do this, as
-the timing constraints calculation belongs to the individual drivers.
-
-Another problem with how this flag is set, is that there is no hard
-connection between modes creaded in `SETCRTC` and the modes actually
-defined by connector, so I implement an assumption that this flag should
-be the same between choosen mode and the preferred display mode. Given
-that previously due to the missing support for this flag displays
-were only showing garbage, I believe this assumption won't break
-anything.
-
-Both of those downsides are due to the fact my understanding of DRM
-subsystem is not that high. If another implementation would be proposed
-by AMDGPU maintainers - I will gladly implement it here.
-
-v4->v5:
- * The patch was split into multiple
- * Disabled MSO parsing for eDP displays
- * Disabled MSO logs if not used
- * Passing of type VII timings block data
- * Minor codestyle changes: lines moved around, naming
-v3->v4:
- * This patch now parses timings support flag on type VII block, instead
-   of applying it unconditionally. Previously I didn't understand the
-   spec properly.
- * Now it also is not being applied for non-supported and/or non-VII
-   blocks in amdgpu driver.
-
-Regards,
-
-Lach
-
-Yaroslav Bolyukin (7):
-  drm/edid: rename VESA block parsing functions to more generic name
-  drm/edid: prepare for VESA vendor-specific data block extension
-  drm/edid: MSO should only be used for non-eDP displays
-  drm/edid: parse DSC DPP passthru support flag for mode VII timings
-  drm/edid: for consistency, use mask everywhere for block rev parsing
-  drm/edid: parse DRM VESA dsc bpp target
-  drm/amd: use fixed dsc bits-per-pixel from edid
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  12 +++
- drivers/gpu/drm/drm_displayid_internal.h      |  11 ++
- drivers/gpu/drm/drm_edid.c                    | 101 +++++++++++-------
- include/drm/drm_connector.h                   |   6 ++
- include/drm/drm_modes.h                       |  10 ++
- 5 files changed, 103 insertions(+), 37 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+index cf02647b41b4..8ea20b1c6921 100644
+--- a/drivers/gpu/drm/drm_displayid_internal.h
++++ b/drivers/gpu/drm/drm_displayid_internal.h
+@@ -97,6 +97,7 @@ struct displayid_header {
+ 	u8 ext_count;
+ } __packed;
+ 
++#define DISPLAYID_BLOCK_REV	GENMASK(2, 0)
+ struct displayid_block {
+ 	u8 tag;
+ 	u8 rev;
+@@ -125,6 +126,7 @@ struct displayid_detailed_timings_1 {
+ 	__le16 vsw;
+ } __packed;
+ 
++#define DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT	BIT(3)
+ struct displayid_detailed_timing_block {
+ 	struct displayid_block base;
+ 	struct displayid_detailed_timings_1 timings[];
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 13df2854617c..a1dc4331c4cb 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6789,8 +6789,8 @@ static void update_display_info(struct drm_connector *connector,
+ }
+ 
+ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
+-							    const struct displayid_detailed_timings_1 *timings,
+-							    bool type_7)
++							    const struct displayid_block *block,
++							    const struct displayid_detailed_timings_1 *timings)
+ {
+ 	struct drm_display_mode *mode;
+ 	unsigned int pixel_clock = (timings->pixel_clock[0] |
+@@ -6806,11 +6806,16 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
+ 	unsigned int vsync_width = le16_to_cpu(timings->vsw) + 1;
+ 	bool hsync_positive = le16_to_cpu(timings->hsync) & (1 << 15);
+ 	bool vsync_positive = le16_to_cpu(timings->vsync) & (1 << 15);
++	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+ 
+ 	mode = drm_mode_create(dev);
+ 	if (!mode)
+ 		return NULL;
+ 
++	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, block->rev) >= 1)
++		mode->dsc_passthrough_timings_support =
++			!!(block->rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT);
++
+ 	/* resolution is kHz for type VII, and 10 kHz for type I */
+ 	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
+ 	mode->hdisplay = hactive;
+@@ -6843,7 +6848,6 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+ 	int num_timings;
+ 	struct drm_display_mode *newmode;
+ 	int num_modes = 0;
+-	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+ 	/* blocks must be multiple of 20 bytes length */
+ 	if (block->num_bytes % 20)
+ 		return 0;
+@@ -6852,7 +6856,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+ 	for (i = 0; i < num_timings; i++) {
+ 		struct displayid_detailed_timings_1 *timings = &det->timings[i];
+ 
+-		newmode = drm_mode_displayid_detailed(connector->dev, timings, type_7);
++		newmode = drm_mode_displayid_detailed(connector->dev, block, timings);
+ 		if (!newmode)
+ 			continue;
+ 
+diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+index b9bb92e4b029..312e5c03af9a 100644
+--- a/include/drm/drm_modes.h
++++ b/include/drm/drm_modes.h
+@@ -417,6 +417,16 @@ struct drm_display_mode {
+ 	 */
+ 	enum hdmi_picture_aspect picture_aspect_ratio;
+ 
++	/**
++	 * @dsc_passthrough_timing_support:
++	 *
++	 * Indicates whether this mode timing descriptor is supported
++	 * with specific target DSC bits per pixel only.
++	 *
++	 * VESA vendor-specific data block shall exist with the relevant
++	 * DSC bits per pixel declaration when this flag is set to true.
++	 */
++	bool dsc_passthrough_timings_support;
+ };
+ 
+ /**
 -- 
 2.51.0
