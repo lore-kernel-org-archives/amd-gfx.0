@@ -4,70 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F1DFCCF9E2
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A73CCD1AF
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31AC910E3DF;
-	Sat, 18 Oct 2025 08:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C65D10E3F2;
+	Sat, 18 Oct 2025 08:50:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="TOPeRnch";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="YRWjMC1/";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64CAD10E08F
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 05:44:58 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-b553412a19bso1778226a12.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Oct 2025 22:44:58 -0700 (PDT)
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [52.13.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0B5C10EB7A;
+ Fri, 17 Oct 2025 09:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0x0f.com; s=google; t=1760766298; x=1761371098; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Z6J7CTQVzJTdpSsBpyYymkd2d5jUSp6/gZICW09ccYI=;
- b=TOPeRnchGCTs6F4fgs1EpM0cSCZf7Xmx1bUcCF1LgrCuWPVxV8IDOl7fE+6bRdJBVV
- W8HGLmp2zt0OmgkVbOQj5i5MxaRNhpCHhS/shTsoNxW9J1yRpKNydF4z5e1DnDxac09g
- nhWw+KMhYK1Ug5DotSiC1HS0c90ArX23OYZqg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760766298; x=1761371098;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Z6J7CTQVzJTdpSsBpyYymkd2d5jUSp6/gZICW09ccYI=;
- b=byVsW1V3qa7GK3RkGX6PPc7RQi/AE5NB3v5xPI3q5AY9sOMg6m+kEHaOtt/8ItrMiE
- x8YHl4wTtULcyDWtcsHVFjtWQ+6U1LAY62QG0vZGDbJQmcZrscDMPGAwfMquaNd/nAZY
- /pCUwwpAWKAi3yAznrwu78tjhgRjMxeE6AINqFXxOReuqmBPcgTL+YVla3HkUgbkaJRN
- kN3mnY+pCWtwSuaBWe3M7HqTUKcJ0PpcledcFl0Uyf3mUqvDFHSva1fCcuH23gVseA5G
- izo+CCGgD484HA0WxjtTQZVAuYDHAvwRuUYsV54KOZyCE1r8MrR74z2Pdmq9jByNd0bG
- YxeA==
-X-Gm-Message-State: AOJu0Yz0BnL9J/+9J/G066qiWvYY1qGuEK/OoycEewpYAIeTMG+UN2Ld
- h+tv8O+SEzWN+Y5W66rhk6AcVuxIoxbRG1qyylxD5vQNp3rylWJopAgmGSR1OOlaYCs=
-X-Gm-Gg: ASbGnct/zw/Dre+BAZOUFZpewjCGCnUmIakIodMm3MlXWLgnQn+sqsuQWkyYPOn9ooq
- QnenqqlJc9cePZgzKPx74xs6xSZox4xvAyos1rw/hKpEHphsW8pAwUhlMxL0Q4FqKF7gzP2+B4B
- 0N0AWX8md0k7CHEe0bOta2aD/I+okLvPGlXvOxco0DOw4WPFGbcrpwowIZMaLtTkyIMx+3uZTWk
- O/lEG4tS9wtJGSRu9IlKlJChzN0oH2ISTAC+inxHMDK5yv0KtdyWVNhamUEutTuMW4fvVCwyp+u
- OZidcTDi4olFO9ZlNfO1n7PeMhXobQUY+hvTunM5HXVbCTFT3m3PFe6IBeJxDyjxl3jMFY5Uinz
- ouM4CN0KZLfHML5Hyj0dBZcVPbpbNUYKolD7xoieOYIEdxd3hub6ERXhoNdEQ5Cl8ZWZn9zRdkB
- iqWH3Dq5g0O6ibHuVMZzy43M0aC/bkONnITeNqjvyZeLnAjxeL698=
-X-Google-Smtp-Source: AGHT+IHf1Q2t9Le+gs9UNqzy+mF5hSF6zqhbbRPGceW+0BhDH7PF/VO1zXANTCABMZI3hDYV10XUbQ==
-X-Received: by 2002:a17:902:f642:b0:28a:5b8b:1f6b with SMTP id
- d9443c01a7336-290c9cbbd49mr82013025ad.21.1760766297848; 
- Fri, 17 Oct 2025 22:44:57 -0700 (PDT)
-Received: from shiro (p1391188-ipxg00a01sizuokaden.shizuoka.ocn.ne.jp.
- [153.222.3.188]) by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-b6a76645c61sm1657222a12.3.2025.10.17.22.44.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Oct 2025 22:44:57 -0700 (PDT)
-From: Daniel Palmer <daniel@0x0f.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, wuhoipok@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Palmer <daniel@0x0f.com>
-Subject: [PATCH 0/3] drm/radeon: fix up some badness when probe fails
-Date: Sat, 18 Oct 2025 14:44:48 +0900
-Message-ID: <20251018054451.259432-1-daniel@0x0f.com>
-X-Mailer: git-send-email 2.51.0
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1760692135; x=1792228135;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=M14+Hrw3+0xfvL7LtAKdftp5KA5xdtXGebEkX3FEMMU=;
+ b=YRWjMC1/tWduioOoXdNIdRpHiYXVDG60i1zvqj46Zdl+JrHgQQh8POIw
+ hiO+ZRXUnq/IKCkX47ezwF7A+88EGVbJnK48ndy5/11KVzRd6TOcP+JfK
+ ACr1qKwTb5asl/8cJm8DNAUzqs6db0GSNeKqy0N17CIPdugYuE6k85OfP
+ MTgZp4S988AlttmoBu0WsMux6sBiOqdcttbtZ78MTnBy4oykpOSd+xDC1
+ Fj7bzneH17kp3tWJosXGJlgHfsIN/GCTeTHaf/bDX5uXrA2PbTbJJvhRL
+ 7yQDSnfzLoOStOALolENKb3orTI/6pl83E7MXz+Ju5dlnMX+AlOIQxGUl Q==;
+X-CSE-ConnectionGUID: XiNnWlBDTeOh9M4Ss3/Q3A==
+X-CSE-MsgGUID: f0Pk082NTpa3+TprzfOi0A==
+X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
+   d="scan'208";a="5072703"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+ by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:08:55 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:30812]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.42.150:2525]
+ with esmtp (Farcaster)
+ id c14b1481-125a-4238-9378-a0f89dea09b0; Fri, 17 Oct 2025 09:08:55 +0000 (UTC)
+X-Farcaster-Flow-ID: c14b1481-125a-4238-9378-a0f89dea09b0
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Fri, 17 Oct 2025 09:08:54 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
+ 09:08:39 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
+ <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
+ <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
+ <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
+ <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
+ <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
+ <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>,
+ <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
+ <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
+ <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
+ <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>,
+ <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>,
+ <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
+ <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>,
+ <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
+ <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
+ <tipc-discussion@lists.sourceforge.net>
+CC: Christoph Hellwig <hch@infradead.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>
+Subject: [PATCH v2 11/27 5.10.y] minmax: allow comparisons of 'int' against
+ 'unsigned char/short'
+Date: Fri, 17 Oct 2025 09:05:03 +0000
+Message-ID: <20251017090519.46992-12-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
+References: <20251017090519.46992-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,34 +129,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I have been trying to get a Radeon 9250 running on an Amiga 4000[0].
+From: David Laight <David.Laight@ACULAB.COM>
 
-On that setup it fails to find the BIOS and the probe fails which is
-expected but then a bunch of WARN_ON()s etc are triggered.
+[ Upstream commit 4ead534fba42fc4fd41163297528d2aa731cd121 ]
 
-I though maybe this is "m68k problems" so I bought an old x86 board and
-there if I have a different primary VGA card the BIOS part of the
-probe fails in the same way and the same scary messages[1] are showing
-up in the console.
+Since 'unsigned char/short' get promoted to 'signed int' it is safe to
+compare them against an 'int' value.
 
-It seems like the probe failure path wasn't tested when some previous
-cleaning up happened.
+Link: https://lkml.kernel.org/r/8732ef5f809c47c28a7be47c938b28d4@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-I'll fix the issues with not finding the BIOS if the card wasn't
-initialised in the normal x86 way later.
-
-0 - https://lore.kernel.org/lkml/20251007092313.755856-1-daniel@thingy.jp/
-1 - https://gist.github.com/fifteenhex/b971bd62c49383a0558395c62c05ce3b
-
-Daniel Palmer (3):
-  drm/radeon: Clean up pdev->dev instances in probe
-  drm/radeon: Do not kfree() devres managed rdev
-  drm/radeon: Remove calls to drm_put_dev()
-
- drivers/gpu/drm/radeon/radeon_drv.c | 34 ++++++++---------------------
- drivers/gpu/drm/radeon/radeon_kms.c |  1 -
- 2 files changed, 9 insertions(+), 26 deletions(-)
-
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index c0e738eacefa..842c1db62ffe 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -26,8 +26,9 @@
+ 	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
+ 		is_signed_type(typeof(x)), 0)
+ 
+-#define __types_ok(x, y) \
+-	(__is_signed(x) == __is_signed(y))
++#define __types_ok(x, y) 			\
++	(__is_signed(x) == __is_signed(y) ||	\
++		__is_signed((x) + 0) == __is_signed((y) + 0))
+ 
+ #define __cmp_op_min <
+ #define __cmp_op_max >
 -- 
-2.51.0
+2.47.3
 
