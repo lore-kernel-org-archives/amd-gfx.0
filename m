@@ -4,51 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5993ECCD1AB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC530CCD1AD
 	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 13:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0867710EC05;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCD710EC1C;
 	Fri, 17 Oct 2025 13:37:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="T+Bv0i9S";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cM84lM7K";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 988EF10EC0A;
- Fri, 17 Oct 2025 13:36:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C56810EC19;
+ Fri, 17 Oct 2025 13:37:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=z1+RzOJHHqDe322m/AUpjbHDeZiBWjMf0Xih2WV7IiQ=; b=T+Bv0i9SBxgjXc4cuRF3HLvuGc
- KSuWmMdbs3m1s3WKTqLEzP81Gx4HZaUFph6lUaW9+wZ3QtLlRAuwWp25ShBRo+MfEokWNxFJIzfR+
- lr9HDyb6j5jYM/YRlCPiR1HWZSDCX2aDtFg+1lP05ZlSft03DjORk3S9e7izFnwSa424WpmKkiTDR
- A9RHkoK+KY2M4Np7LunaMm3VLZbwrDRAxTFHE2lCP+DAt7tlwAoGP40dEndoPCtOA15miLeafPOVl
- eCi+81iya9Q7eXX0KALSPKatiNvDFc2633zEDShV67ch11nU++v5SfM2x1GyXhc4ZEppICOeegC8W
- 0TUDz51Q==;
+ bh=H35/cjmPaDHYl2B3Ku0xGtaj0d2xPh91+AUO2w1yF5E=; b=cM84lM7KyfgB51lBsqDNg65fC6
+ AkrP85Bk/6Dkm9UkywrrZiGVW3Yh/a8sQkl9qvMKdtiGQzELQFFXqmAIkHov30jq1T+PptewMnfOb
+ bOQ+E74/is+VLWpgAAuO/+0hLoYqynicPYHiKKozHfm9BuAdOxkW0wHON7iILab6oji7M8GEhc/li
+ kvm1wnFooHBLC3bSq72aq0PN1B/mhXvFJqZuyYBD7w/hVcAZKagRMhr/7+vQL9S02iU800xlFYY7F
+ SPoVydrNZ1Uyk2hREr134CS4ZDgJ3cyIqcStEtFSrH7Or81JyrMqT5hr2fGnZn/U/7ipMIzpHrIGL
+ 5Qs4Johg==;
 Received: from [90.242.12.242] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1v9kda-00B3uo-QK; Fri, 17 Oct 2025 15:36:54 +0200
+ id 1v9kdg-00B3x5-Nc; Fri, 17 Oct 2025 15:37:00 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: [PATCH v2 11/27] drm/sched: Switch default policy to fair
-Date: Fri, 17 Oct 2025 14:36:28 +0100
-Message-ID: <20251017133644.44747-12-tvrtko.ursulin@igalia.com>
+ Qiang Yu <yuq825@gmail.com>, lima@lists.freedesktop.org
+Subject: [PATCH v2 19/27] drm/lima: Remove drm_sched_init_args->num_rqs usage
+Date: Fri, 17 Oct 2025 14:36:36 +0100
+Message-ID: <20251017133644.44747-20-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
 References: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,34 +59,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-FAIR policy works better than FIFO for all known use cases and either
-matches or gets close to RR. Lets make it a default to improve the user
-experience especially with interactive workloads competing with heavy
-clients.
+Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: Qiang Yu <yuq825@gmail.com>
+Cc: lima@lists.freedesktop.org
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/lima/lima_sched.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 898634414d10..5799522cbaef 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -84,7 +84,7 @@
- #define CREATE_TRACE_POINTS
- #include "gpu_scheduler_trace.h"
- 
--int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
-+int drm_sched_policy = DRM_SCHED_POLICY_FAIR;
- 
- /**
-  * DOC: sched_policy (int)
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 739e8c6c6d90..88a861cb5c39 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -519,7 +519,6 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+ 			       lima_sched_timeout_ms : 10000;
+ 	const struct drm_sched_init_args args = {
+ 		.ops = &lima_sched_ops,
+-		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = 1,
+ 		.hang_limit = lima_job_hang_limit,
+ 		.timeout = msecs_to_jiffies(timeout),
 -- 
 2.48.0
 
