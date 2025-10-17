@@ -4,84 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A5DCCCD184
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:52:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 637F1CCD193
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:52:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30AF210E408;
-	Sat, 18 Oct 2025 08:52:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0887E10E0BC;
+	Sat, 18 Oct 2025 08:52:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="geDc2iCZ";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="kn6BbdLx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F50D10EBF7;
- Fri, 17 Oct 2025 13:48:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 60E5B602C0;
- Fri, 17 Oct 2025 13:48:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00E6C4CEE7;
- Fri, 17 Oct 2025 13:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760708911;
- bh=U5rI6jYEm/hebyL7q5VHjDrSgx3DOa/8Xq1mYhcV3sc=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=geDc2iCZaiiH7/CSUypz4O9I5saDR5an2Eg++KxC8Hq7g8IcRp597KfqnToeoir6V
- xge/WwSeEjp3RxzrcnE5Cy423LnZtgz6ZfL4FOcq2lmukly5ea6Lavkp3UVXVIKFLG
- g3yZ+gFrdzFeY4zNZ5z82ZnOI/Ec3n+iFfp0BoS4=
-Subject: Patch "btrfs: remove duplicated in_range() macro" has been added to
- the 5.10-stable tree
-To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
-	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
-	akpm@linux-foundation.org, alexander.deucher@amd.com,
-	alexandre.torgue@st.com, amd-gfx@lists.freedesktop.org,
-	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
-	artur.paszkiewicz@intel.com, bp@alien8.de, brian.starkey@arm.com,
-	bvanassche@acm.org, chao@kernel.org, christian.koenig@amd.com,
-	clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
-	dave.hansen@linux.intel.com, davem@davemloft.net,
-	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
-	dri-devel@lists.freedesktop.org, dsterba@suse.com, dushistov@mail.ru,
-	evan.quan@amd.com, farbere@amazon.com, fery@cypress.com,
-	freedreno@lists.freedesktop.org, fw@strlen.de,
-	gregkh@linuxfoundation.org, harry.wentland@amd.com,
-	hdegoede@redhat.com, herve.codina@bootlin.com, hpa@zytor.com,
-	intel-linux-scu@intel.com, jack@suse.com, james.morse@arm.com,
-	james.qian.wang@arm.com, jdelvare@suse.com, jdike@addtoit.com,
-	jejb@linux.ibm.com, jmaloy@redhat.com, joabreu@synopsys.com,
-	johan@freedesktop.org, nes.thumshirn@wdc.com, josef@toxicpanda.com,
-	kadlec@netfilter.org, kbusch@kernel.org, keescook@chromium.org,
-	kuba@kernel.org, kuznet@ms2.inr.ac.ru,
-	linux-arm-kernel@lists.infradead.org, linux-erofs@lists.ozlabs.org,
-	linux-mm@kvack.org, linux-staging@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-um@lists.infradead.org, linux@armlinux.org.uk,
-	linux@rasmusvillemoes.dk, linux@roeck-us.net, liviu.dudau@arm.com,
-	luc.vanoostenryck@gmail.com, luto@kernel.org,
-	maarten.lankhorst@linux.intel.com, malattia@linux.it,
-	martin.petersen@oracle.com, mchehab@kernel.org,
-	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
-	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
-	mripard@kernel.org, nathan@kernel.org, ndesaulniers@google.com,
-	ngupta@vflare.org, pablo@netfilter.org, peppe.cavallaro@st.com,
-	peterz@infradead.org, pmladek@suse.com, qiuxu.zhuo@intel.com,
-	rajur@chelsio.com, richard@nod.at, robdclark@gmail.com,
-	rostedt@goodmis.org, rric@kernel.org, ruanjinjie@huawei.com,
-	sakari.ailus@linux.intel.com, sashal@kerne, l.org@freedesktop.org,
-	sean@poorly.run, sergey.senozhatsky@gmail.com, snitzer@redhat.com,
-	sunpeng.li@amd.com, tglx@linutronix.de,
-	tipc-discussion@lists.sourceforge.net, tony.luck@intel.com,
-	tytso@mit.edu, tzimmermann@suse.de, willy@infradead.org,
-	x86@kernel.org, xiang@kernel.org, ying.xue@windriver.com,
-	yoshfuji@linux-ipv6.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Fri, 17 Oct 2025 15:48:27 +0200
-In-Reply-To: <20251017090519.46992-3-farbere@amazon.com>
-Message-ID: <2025101727-garnet-vegan-53e8@gregkh>
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [35.162.73.231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB3410EB7A;
+ Fri, 17 Oct 2025 09:07:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1760692022; x=1792228022;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=QGaAvozmIqIzV143yBTS5nQtsGF8X9DZFIMkdv4YYLs=;
+ b=kn6BbdLxirbk7vOgIH+/O4RPsaNv3lnelVmbERfEI/8apP/dvEcB7XH4
+ gm0pa4o14n0ZBYdEn28ZkNy7ciQejm00UHFYje77jlhF6/q52NTf9JKNv
+ Vi2kGDydJU6YVslRIkNc7/IJZyuoEgBmAaCKC4UzS7JGAo6yrtvA2XpcR
+ +U/KoqdJJRcWcX1wi6fE/YdWmPpPrz/o7LfCT7ts6ab4pzYQZOE/QwXid
+ +vXtmi5b8JXvPkBzUPavTEcdn49gItWUAxqhT9YqH9tCKn62Onb2oJvxl
+ oMBZffgZFEAuq7ou+m8OtSSxkUwoMCNvA6hdnsZmgRkcyMwIsWpOBE6qb w==;
+X-CSE-ConnectionGUID: S8umDZu2RQyC2BaF0R7VWQ==
+X-CSE-MsgGUID: V1+N7JwKSPydLXwfcmGstQ==
+X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
+   d="scan'208";a="4877961"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+ by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:07:01 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:7581]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.167:2525]
+ with esmtp (Farcaster)
+ id c0228e10-0b40-498e-9c44-0899bb353965; Fri, 17 Oct 2025 09:07:01 +0000 (UTC)
+X-Farcaster-Flow-ID: c0228e10-0b40-498e-9c44-0899bb353965
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Fri, 17 Oct 2025 09:07:01 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
+ 09:06:46 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
+ <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
+ <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
+ <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
+ <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
+ <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
+ <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>,
+ <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
+ <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
+ <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
+ <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>,
+ <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>,
+ <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
+ <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>,
+ <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
+ <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
+ <tipc-discussion@lists.sourceforge.net>
+Subject: [PATCH v2 04/27 5.10.y] minmax: clamp more efficiently by avoiding
+ extra comparison
+Date: Fri, 17 Oct 2025 09:04:56 +0000
+Message-ID: <20251017090519.46992-5-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
+References: <20251017090519.46992-1-farbere@amazon.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D044UWB002.ant.amazon.com (10.13.139.188) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,123 +127,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
 
-This is a note to let you know that I've just added the patch titled
+[ Upstream commit 2122e2a4efc2cd139474079e11939b6e07adfacd ]
 
-    btrfs: remove duplicated in_range() macro
+Currently the clamp algorithm does:
 
-to the 5.10-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+    if (val > hi)
+        val = hi;
+    if (val < lo)
+        val = lo;
 
-The filename of the patch is:
-     btrfs-remove-duplicated-in_range-macro.patch
-and it can be found in the queue-5.10 subdirectory.
+But since hi > lo by definition, this can be made more efficient with:
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+    if (val > hi)
+        val = hi;
+    else if (val < lo)
+        val = lo;
 
+So fix up the clamp and clamp_t functions to do this, adding the same
+argument checking as for min and min_t.
 
-From stable+bounces-186267-greg=kroah.com@vger.kernel.org Fri Oct 17 11:08:02 2025
-From: Eliav Farber <farbere@amazon.com>
-Date: Fri, 17 Oct 2025 09:04:54 +0000
-Subject: btrfs: remove duplicated in_range() macro
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>, <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>, <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <rajur@chelsio
- .com>, <davem@davemloft.net>, <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>, <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>, <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <willy@infradead.org>, <farbere@amazon.com>,
-  <sashal@kernel.org>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>, <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>, <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@
- lists.sourceforge.net>
-Cc: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Message-ID: <20251017090519.46992-3-farbere@amazon.com>
+For simple cases, code generation on x86_64 and aarch64 stay about the
+same:
 
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+    before:
+            cmp     edi, edx
+            mov     eax, esi
+            cmova   edi, edx
+            cmp     edi, esi
+            cmovnb  eax, edi
+            ret
+    after:
+            cmp     edi, esi
+            mov     eax, edx
+            cmovnb  esi, edi
+            cmp     edi, edx
+            cmovb   eax, esi
+            ret
 
-[ Upstream commit cea628008fc8c6c9c7b53902f6659e040f33c790 ]
+    before:
+            cmp     w0, w2
+            csel    w8, w0, w2, lo
+            cmp     w8, w1
+            csel    w0, w8, w1, hi
+            ret
+    after:
+            cmp     w0, w1
+            csel    w8, w0, w1, hi
+            cmp     w0, w2
+            csel    w0, w8, w2, lo
+            ret
 
-The in_range() macro is defined twice in btrfs' source, once in ctree.h
-and once in misc.h.
+On MIPS64, however, code generation improves, by removing arithmetic in
+the second branch:
 
-Remove the definition in ctree.h and include misc.h in the files depending
-on it.
+    before:
+            sltu    $3,$6,$4
+            bne     $3,$0,.L2
+            move    $2,$6
 
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+            move    $2,$4
+    .L2:
+            sltu    $3,$2,$5
+            bnel    $3,$0,.L7
+            move    $2,$5
+
+    .L7:
+            jr      $31
+            nop
+    after:
+            sltu    $3,$4,$6
+            beq     $3,$0,.L13
+            move    $2,$6
+
+            sltu    $3,$4,$5
+            bne     $3,$0,.L12
+            move    $2,$4
+
+    .L13:
+            jr      $31
+            nop
+
+    .L12:
+            jr      $31
+            move    $2,$5
+
+For more complex cases with surrounding code, the effects are a bit
+more complicated. For example, consider this simplified version of
+timestamp_truncate() from fs/inode.c on x86_64:
+
+    struct timespec64 timestamp_truncate(struct timespec64 t, struct inode *inode)
+    {
+        struct super_block *sb = inode->i_sb;
+        unsigned int gran = sb->s_time_gran;
+
+        t.tv_sec = clamp(t.tv_sec, sb->s_time_min, sb->s_time_max);
+        if (t.tv_sec == sb->s_time_max || t.tv_sec == sb->s_time_min)
+            t.tv_nsec = 0;
+        return t;
+    }
+
+    before:
+            mov     r8, rdx
+            mov     rdx, rsi
+            mov     rcx, QWORD PTR [r8]
+            mov     rax, QWORD PTR [rcx+8]
+            mov     rcx, QWORD PTR [rcx+16]
+            cmp     rax, rdi
+            mov     r8, rcx
+            cmovge  rdi, rax
+            cmp     rdi, rcx
+            cmovle  r8, rdi
+            cmp     rax, r8
+            je      .L4
+            cmp     rdi, rcx
+            jge     .L4
+            mov     rax, r8
+            ret
+    .L4:
+            xor     edx, edx
+            mov     rax, r8
+            ret
+
+    after:
+            mov     rax, QWORD PTR [rdx]
+            mov     rdx, QWORD PTR [rax+8]
+            mov     rax, QWORD PTR [rax+16]
+            cmp     rax, rdi
+            jg      .L6
+            mov     r8, rax
+            xor     edx, edx
+    .L2:
+            mov     rax, r8
+            ret
+    .L6:
+            cmp     rdx, rdi
+            mov     r8, rdi
+            cmovge  r8, rdx
+            cmp     rax, r8
+            je      .L4
+            xor     eax, eax
+            cmp     rdx, rdi
+            cmovl   rax, rsi
+            mov     rdx, rax
+            mov     rax, r8
+            ret
+    .L4:
+            xor     edx, edx
+            jmp     .L2
+
+In this case, we actually gain a branch, unfortunately, because the
+compiler's replacement axioms no longer as cleanly apply.
+
+So all and all, this change is a bit of a mixed bag.
+
+Link: https://lkml.kernel.org/r/20220926133435.1333846-2-Jason@zx2c4.com
+Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Kees Cook <keescook@chromium.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/btrfs/ctree.h     |    2 --
- fs/btrfs/extent_io.c |    1 +
- fs/btrfs/file-item.c |    1 +
- fs/btrfs/raid56.c    |    1 +
- 4 files changed, 3 insertions(+), 2 deletions(-)
+ include/linux/minmax.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/fs/btrfs/ctree.h
-+++ b/fs/btrfs/ctree.h
-@@ -3597,8 +3597,6 @@ static inline int btrfs_defrag_cancelled
- 	return signal_pending(current);
- }
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 8b092c66c5aa..abdeae409dad 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -38,7 +38,7 @@
+ 		__cmp_once(x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y), op))
  
--#define in_range(b, first, len) ((b) >= (first) && (b) < (first) + (len))
--
- /* Sanity test specific functions */
- #ifdef CONFIG_BTRFS_FS_RUN_SANITY_TESTS
- void btrfs_test_destroy_inode(struct inode *inode);
---- a/fs/btrfs/extent_io.c
-+++ b/fs/btrfs/extent_io.c
-@@ -13,6 +13,7 @@
- #include <linux/pagevec.h>
- #include <linux/prefetch.h>
- #include <linux/cleancache.h>
-+#include "misc.h"
- #include "extent_io.h"
- #include "extent-io-tree.h"
- #include "extent_map.h"
---- a/fs/btrfs/file-item.c
-+++ b/fs/btrfs/file-item.c
-@@ -9,6 +9,7 @@
- #include <linux/highmem.h>
- #include <linux/sched/mm.h>
- #include <crypto/hash.h>
-+#include "misc.h"
- #include "ctree.h"
- #include "disk-io.h"
- #include "transaction.h"
---- a/fs/btrfs/raid56.c
-+++ b/fs/btrfs/raid56.c
-@@ -13,6 +13,7 @@
- #include <linux/list_sort.h>
- #include <linux/raid/xor.h>
- #include <linux/mm.h>
-+#include "misc.h"
- #include "ctree.h"
- #include "disk-io.h"
- #include "volumes.h"
+ #define __clamp(val, lo, hi)	\
+-	__cmp(__cmp(val, lo, >), hi, <)
++	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+ 
+ #define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
+ 		typeof(val) unique_val = (val);				\
+-- 
+2.47.3
 
-
-Patches currently in stable-queue which might be from farbere@amazon.com are
-
-queue-5.10/minmax-allow-comparisons-of-int-against-unsigned-char-short.patch
-queue-5.10/minmax-add-a-few-more-min_t-max_t-users.patch
-queue-5.10/minmax-improve-macro-expansion-and-type-checking.patch
-queue-5.10/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
-queue-5.10/minmax.h-simplify-the-variants-of-clamp.patch
-queue-5.10/minmax-add-in_range-macro.patch
-queue-5.10/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
-queue-5.10/minmax-allow-min-max-clamp-if-the-arguments-have-the-same-signedness.patch
-queue-5.10/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
-queue-5.10/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
-queue-5.10/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
-queue-5.10/minmax-simplify-min-max-clamp-implementation.patch
-queue-5.10/minmax-deduplicate-__unconst_integer_typeof.patch
-queue-5.10/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
-queue-5.10/minmax.h-add-whitespace-around-operators-and-after-commas.patch
-queue-5.10/minmax-sanity-check-constant-bounds-when-clamping.patch
-queue-5.10/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
-queue-5.10/minmax-make-generic-min-and-max-macros-available-everywhere.patch
-queue-5.10/minmax-fix-up-min3-and-max3-too.patch
-queue-5.10/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
-queue-5.10/minmax-fix-header-inclusions.patch
-queue-5.10/minmax-introduce-min-max-_array.patch
-queue-5.10/btrfs-remove-duplicated-in_range-macro.patch
-queue-5.10/overflow-tracing-define-the-is_signed_type-macro-once.patch
-queue-5.10/minmax-relax-check-to-allow-comparison-between-unsigned-arguments-and-signed-constants.patch
-queue-5.10/minmax-clamp-more-efficiently-by-avoiding-extra-comparison.patch
-queue-5.10/minmax.h-update-some-comments.patch
