@@ -4,79 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BA5CCCD1AD
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4403CCD1A5
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD1710E3D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8AC10E3C6;
 	Sat, 18 Oct 2025 08:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z4Tv667f";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JcEpuLh2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B07AE10EBF7;
- Fri, 17 Oct 2025 13:49:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBCA710EB47;
+ Fri, 17 Oct 2025 08:05:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 83C8F448C2;
- Fri, 17 Oct 2025 13:49:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C146DC116B1;
- Fri, 17 Oct 2025 13:49:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 782DD45A8B;
+ Fri, 17 Oct 2025 08:05:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA077C4CEFE;
+ Fri, 17 Oct 2025 08:05:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760708957;
- bh=Ua7vCzS3o009KwoPLTQB4DGIeRIPg7Y50HxDIYzrkHY=;
+ s=korg; t=1760688354;
+ bh=YOfE2dusPxaWBKd8nlIpPYnwK35lY1FgnMY8GHpw1To=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=Z4Tv667f5UNsoyLfrw8kT7YN68oXeKQt6imFGs/Kn9Gn+qDiFqGAGFVqsG0aPf1EL
- 9T/5lD4QTM19vxB9s6LQp6/mpKzrJcj4f8NKn+85bbDL2Kmx2L73KEzP8pFO9JUsFU
- GiujvVza0TVDfwa22jt1Ague8WXkgNrILyzqRHzM=
+ b=JcEpuLh21dmJKWXrm44O7oJmNoJlFlyi6s6Dm4FuBhtcupBDvQfT65Prt1n2HtDBS
+ xBwgoRWEMXdLoAOER/yaeb8+GPzvm2l22izBRaXSxpokwLD2+iwF22GcUPcwpdXo/6
+ 7LDHOeaqaB3dcdM5iV5xAE+D8EaLIejXTBoGK9B8=
 Subject: Patch "minmax: Introduce {min,
- max}_array()" has been added to the 5.10-stable tree
-To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
-	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
-	akpm@linux-foundation.org, alexander.deucher@amd.com,
-	alexandre.torgue@st.com, amd-gfx@lists.freedesktop.org,
-	andriy.shevchenko@linux.intel.com, andy.shevchenko@gmail.com,
-	anton.ivanov@cambridgegreys.com, artur.paszkiewicz@intel.com,
-	bp@alien8.de, brian.starkey@arm.com, broonie@kernel.org,
-	bvanassche@acm.org, chao@kernel.org, christian.koenig@amd.com,
-	christophe.leroy@csgroup.eu, clm@fb.com, coreteam@netfilter.org,
-	daniel@ffwll.ch, dave.hansen@linux.intel.com, davem@davemloft.net,
-	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
-	dri-devel@lists.freedesktop.org, dsterba@suse.com, dushistov@mail.ru,
-	evan.quan@amd.com, farbere@amazon.com, fery@cypress.com,
-	freedreno@lists.freedesktop.org, fw@strlen.de,
-	gregkh@linuxfoundation.org, harry.wentland@amd.com,
-	hdegoede@redhat.com, herve.codina@bootlin.com, hpa@zytor.com,
-	intel-linux-scu@intel.com, jack@suse.com, james.morse@arm.com,
-	james.qian.wang@arm.com, jdelvare@suse.com, jdike@ad,
-	dtoit.com@freedesktop.org, jejb@linux.ibm.com, jmaloy@redhat.com,
-	joabreu@synopsys.com, josef@toxicpanda.com, kadlec@netfilter.org,
-	kbusch@kernel.org, keescook@chromium.org, kuba@kernel.org,
-	kuznet@ms2.inr.ac.ru, linux-arm-kernel@lists.infradead.org,
-	linux-erofs@lists.ozlabs.org, linux-mm@kvack.org,
-	linux-staging@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-um@lists.infradead.org, linux@armlinux.org.uk,
-	linux@rasmusvillemoes.dk, linux@roeck-us.net, liviu.dudau@arm.com,
-	luc.vanoostenryck@gmail.com, luto@kernel.org,
-	maarten.lankhorst@linux.intel.com, malattia@linux.it,
-	martin.petersen@oracle.com, mchehab@kernel.org,
-	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
-	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
-	mripard@kernel.org, nathan@kernel.org, ndesaulniers@google.com,
-	ngupta@vflare.org, pablo@netfilter.org, peppe.cavallaro@st.com,
-	peterz@infradead.org, pmladek@suse.com, qiuxu.zhuo@intel.com,
-	rajur@chelsio.com, richard@nod.at, robdclark@gmail.com,
-	rostedt@goodmis.org, rric@kernel.org, ruanjinjie@huawei.com,
-	sakari.ailus@linux.intel.com, sashal@kernel.org, sean@poorly.run,
-	sergey.senozhatsky@gmail.com, snitzer@redhat.com, sunpeng.li@amd.com,
-	tglx@linutronix.de, tipc-discussion@lists.sourceforge.net,
-	tony.luck@intel.com, tytso@mit.edu, tzimmermann@suse.de,
-	willy@infradead.org, x86@kernel.org, xiang@kernel.org,
-	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+ max}_array()" has been added to the 5.15-stable tree
+To: David.Laight@ACULAB.COM, adilger.kernel@dilger.ca, agk@redhat.com,
+ airlied@linux.ie, akpm@linux-foundation.org, amd-gfx@lists.freedesktop.org,
+ andriy.shevchenko@linux.intel.com, andy.shevchenko@gmail.com,
+ anton.ivanov@cambridgegreys.com, bp@alien8.de, broonie@kernel.org,
+ christophe.leroy@csgroup.eu, clm@fb.com, coreteam@netfilter.org,
+ daniel@ffwll.ch, dave.hansen@linux.intel.com, davem@davemloft.net,
+ dm-devel@redhat.com, dmitry.torokhov@gmail.com,
+ dri-devel@lists.freedesktop.org, dsahern@kernel.org, dsterba@suse.com,
+ dushistov@mail.ru, farbere@amazon.com, freedreno@lists.freedesktop.org,
+ fw@strlen.de, gregkh@linuxfoundation.org, hdegoede@redhat.com,
+ herve.codina@bootlin.com, hpa@zytor.com, jack@suse.com, james.morse@arm.com,
+ jdelvare@suse.com, jdike@addtoit.com, jejb@linux.ibm.com,
+ jernej.skrabec@gmail.com, jmaloy@redhat.com, josef@toxicpanda.com,
+ kadlec@netfilter.org, krzysztof.kozlowski@canonical.com, kuba@kernel.org,
+ linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-mm@kvack.org, linux-staging@lists.
+ linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
+ linux@rasmusvillemoes.dk, linux@roeck-us.net, luc.vanoostenryck@gmail.com,
+ luto@kernel.org, maarten.lankhorst@linux.intel.com, malattia@linux.it,
+ martin.petersen@oracle.com, maz@kernel.org, mcoquelin.stm32@gmail.com,
+ mgross@linux.intel.com, minchan@kernel.org, mingo@redhat.com,
+ mripard@kernel.org, ngupta@vflare.org, pablo@netfilter.org,
+ peterz@infradead.org, pmladek@suse.com, qiuxu.zhuo@intel.com,
+ quic_akhilpo@quicinc.com, richard@nod.at, robdclark@gmail.com,
+ rostedt@goodmis.org, rric@kernel.org, ruanjinjie@huawei.com,
+ sakari.ailus@linux.intel.com, sashal@kernel.org, sean@poorly.run,
+ senozhatsky@chromium.org, shuah@kernel.org, snitzer@redhat.com,
+ tglx@linutronix.de, tipc-discussion@lists.sourceforge.net, tony.luck@intel.com,
+ tytso@mit.edu, tzimmermann@suse.de, wens@csie.org, willy@infradead.org,
+ x86@kernel.org, ying.xue@windriver.com, yoshfuji@linux-ipv6.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 17 Oct 2025 15:48:30 +0200
-In-Reply-To: <20251017090519.46992-7-farbere@amazon.com>
-Message-ID: <2025101730-mumps-protozoan-aca4@gregkh>
+Date: Fri, 17 Oct 2025 10:05:10 +0200
+In-Reply-To: <20251008152946.29285-3-farbere@amazon.com>
+Message-ID: <2025101710-unclamped-refract-c17a@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -102,27 +90,26 @@ This is a note to let you know that I've just added the patch titled
 
     minmax: Introduce {min,max}_array()
 
-to the 5.10-stable tree which can be found at:
+to the 5.15-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      minmax-introduce-min-max-_array.patch
-and it can be found in the queue-5.10 subdirectory.
+and it can be found in the queue-5.15 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From prvs=378230090=farbere@amazon.com Fri Oct 17 11:07:34 2025
+From stable+bounces-183614-greg=kroah.com@vger.kernel.org Wed Oct  8 17:31:31 2025
 From: Eliav Farber <farbere@amazon.com>
-Date: Fri, 17 Oct 2025 09:04:58 +0000
+Date: Wed, 8 Oct 2025 15:29:27 +0000
 Subject: minmax: Introduce {min,max}_array()
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>, <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>, <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <rajur@chelsio
- .com>, <davem@davemloft.net>, <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>, <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>, <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <willy@infradead.org>, <farbere@amazon.com>,
-  <sashal@kernel.org>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>, <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>, <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@
- lists.sourceforge.net>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@l
+ inux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@l
+ ists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
 Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Christophe Leroy <christophe.leroy@csgroup.eu>
-Message-ID: <20251017090519.46992-7-farbere@amazon.com>
+Message-ID: <20251008152946.29285-3-farbere@amazon.com>
 
 From: Herve Codina <herve.codina@bootlin.com>
 
@@ -144,9 +131,9 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -151,6 +151,70 @@
+@@ -168,6 +168,70 @@
   */
- #define max_t(type, x, y)	__careful_cmp((type)(x), (type)(y), >)
+ #define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
  
 +/*
 + * Remove a const qualifier from integer types
@@ -219,30 +206,8 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from farbere@amazon.com are
 
-queue-5.10/minmax-allow-comparisons-of-int-against-unsigned-char-short.patch
-queue-5.10/minmax-add-a-few-more-min_t-max_t-users.patch
-queue-5.10/minmax-improve-macro-expansion-and-type-checking.patch
-queue-5.10/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
-queue-5.10/minmax.h-simplify-the-variants-of-clamp.patch
-queue-5.10/minmax-add-in_range-macro.patch
-queue-5.10/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
-queue-5.10/minmax-allow-min-max-clamp-if-the-arguments-have-the-same-signedness.patch
-queue-5.10/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
-queue-5.10/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
-queue-5.10/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
-queue-5.10/minmax-simplify-min-max-clamp-implementation.patch
-queue-5.10/minmax-deduplicate-__unconst_integer_typeof.patch
-queue-5.10/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
-queue-5.10/minmax.h-add-whitespace-around-operators-and-after-commas.patch
-queue-5.10/minmax-sanity-check-constant-bounds-when-clamping.patch
-queue-5.10/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
-queue-5.10/minmax-make-generic-min-and-max-macros-available-everywhere.patch
-queue-5.10/minmax-fix-up-min3-and-max3-too.patch
-queue-5.10/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
-queue-5.10/minmax-fix-header-inclusions.patch
-queue-5.10/minmax-introduce-min-max-_array.patch
-queue-5.10/btrfs-remove-duplicated-in_range-macro.patch
-queue-5.10/overflow-tracing-define-the-is_signed_type-macro-once.patch
-queue-5.10/minmax-relax-check-to-allow-comparison-between-unsigned-arguments-and-signed-constants.patch
-queue-5.10/minmax-clamp-more-efficiently-by-avoiding-extra-comparison.patch
-queue-5.10/minmax.h-update-some-comments.patch
+queue-5.15/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-5.15/minmax-add-in_range-macro.patch
+queue-5.15/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-5.15/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-5.15/minmax-introduce-min-max-_array.patch
