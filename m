@@ -4,111 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1825ACCD1AB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BA5CCCD1AD
 	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9562410E3D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD1710E3D7;
 	Sat, 18 Oct 2025 08:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="YeoKGb0+";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z4Tv667f";
 	dkim-atps=neutral
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com
- (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com
- [34.218.115.239])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6A7010EB7A;
- Fri, 17 Oct 2025 09:05:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1760691945; x=1792227945;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=zbj2mTisKzioKQVYABevmwS3PD+KbTl4NbCfwfEx+Qc=;
- b=YeoKGb0+qJP5B0jO5lJJH8XRqTdaxrB6Ec1OHVG7a1haV591Fp+K0stX
- iCqnhMnfg3xO5m6m1GgiOjA7O8806xJ03yQ2+iHMGziLAMD+YdJAXr/8I
- e89rcOVcnFhibwwLMcJtej4wfXkr3xZ2v3DrLmk9xQNK0L1jvotcDCUBP
- 5EYbcQcXP8OGMXkaGRESociN9UJ0dxXB5W+rjNO9jtkMN5jAMfIXaknE6
- 2GVX7ECXL0H2PpVUwDiSEypmI3dxCNJxnWZ0sGe+Fx7QzzqOXAujY9WZY
- xpgBXTWOJbRCd3+s4IDoJ4+1hcjz7xfcmRqFIceGzHgcj69FavSyY8jjd w==;
-X-CSE-ConnectionGUID: r6Bg9Du6S1OIcsGc5tRu+Q==
-X-CSE-MsgGUID: RfhnESv6RwG1ZmzF97qNew==
-X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
-   d="scan'208";a="4884236"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
- smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
- by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:05:43 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:17609]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.8.44:2525] with
- esmtp (Farcaster)
- id 48bd48bb-d4c8-4418-898a-1915d00032a2; Fri, 17 Oct 2025 09:05:43 +0000 (UTC)
-X-Farcaster-Flow-ID: 48bd48bb-d4c8-4418-898a-1915d00032a2
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 17 Oct 2025 09:05:38 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
- 09:05:23 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
- <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
- <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
- <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
- <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
- <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
- <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
- <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
- <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
- <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
- <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
- <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
- <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>,
- <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>,
- <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>,
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
- <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
- <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
- <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
- <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
- <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
- <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
- <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
- <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>,
- <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>,
- <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
- <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>,
- <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
- <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
- <tipc-discussion@lists.sourceforge.net>
-Subject: [PATCH v2 00/27 5.10.y] Backport minmax.h updates from v6.17-rc7
-Date: Fri, 17 Oct 2025 09:04:52 +0000
-Message-ID: <20251017090519.46992-1-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B07AE10EBF7;
+ Fri, 17 Oct 2025 13:49:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 83C8F448C2;
+ Fri, 17 Oct 2025 13:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C146DC116B1;
+ Fri, 17 Oct 2025 13:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1760708957;
+ bh=Ua7vCzS3o009KwoPLTQB4DGIeRIPg7Y50HxDIYzrkHY=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=Z4Tv667f5UNsoyLfrw8kT7YN68oXeKQt6imFGs/Kn9Gn+qDiFqGAGFVqsG0aPf1EL
+ 9T/5lD4QTM19vxB9s6LQp6/mpKzrJcj4f8NKn+85bbDL2Kmx2L73KEzP8pFO9JUsFU
+ GiujvVza0TVDfwa22jt1Ague8WXkgNrILyzqRHzM=
+Subject: Patch "minmax: Introduce {min,
+ max}_array()" has been added to the 5.10-stable tree
+To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
+	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
+	akpm@linux-foundation.org, alexander.deucher@amd.com,
+	alexandre.torgue@st.com, amd-gfx@lists.freedesktop.org,
+	andriy.shevchenko@linux.intel.com, andy.shevchenko@gmail.com,
+	anton.ivanov@cambridgegreys.com, artur.paszkiewicz@intel.com,
+	bp@alien8.de, brian.starkey@arm.com, broonie@kernel.org,
+	bvanassche@acm.org, chao@kernel.org, christian.koenig@amd.com,
+	christophe.leroy@csgroup.eu, clm@fb.com, coreteam@netfilter.org,
+	daniel@ffwll.ch, dave.hansen@linux.intel.com, davem@davemloft.net,
+	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
+	dri-devel@lists.freedesktop.org, dsterba@suse.com, dushistov@mail.ru,
+	evan.quan@amd.com, farbere@amazon.com, fery@cypress.com,
+	freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, harry.wentland@amd.com,
+	hdegoede@redhat.com, herve.codina@bootlin.com, hpa@zytor.com,
+	intel-linux-scu@intel.com, jack@suse.com, james.morse@arm.com,
+	james.qian.wang@arm.com, jdelvare@suse.com, jdike@ad,
+	dtoit.com@freedesktop.org, jejb@linux.ibm.com, jmaloy@redhat.com,
+	joabreu@synopsys.com, josef@toxicpanda.com, kadlec@netfilter.org,
+	kbusch@kernel.org, keescook@chromium.org, kuba@kernel.org,
+	kuznet@ms2.inr.ac.ru, linux-arm-kernel@lists.infradead.org,
+	linux-erofs@lists.ozlabs.org, linux-mm@kvack.org,
+	linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-um@lists.infradead.org, linux@armlinux.org.uk,
+	linux@rasmusvillemoes.dk, linux@roeck-us.net, liviu.dudau@arm.com,
+	luc.vanoostenryck@gmail.com, luto@kernel.org,
+	maarten.lankhorst@linux.intel.com, malattia@linux.it,
+	martin.petersen@oracle.com, mchehab@kernel.org,
+	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
+	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
+	mripard@kernel.org, nathan@kernel.org, ndesaulniers@google.com,
+	ngupta@vflare.org, pablo@netfilter.org, peppe.cavallaro@st.com,
+	peterz@infradead.org, pmladek@suse.com, qiuxu.zhuo@intel.com,
+	rajur@chelsio.com, richard@nod.at, robdclark@gmail.com,
+	rostedt@goodmis.org, rric@kernel.org, ruanjinjie@huawei.com,
+	sakari.ailus@linux.intel.com, sashal@kernel.org, sean@poorly.run,
+	sergey.senozhatsky@gmail.com, snitzer@redhat.com, sunpeng.li@amd.com,
+	tglx@linutronix.de, tipc-discussion@lists.sourceforge.net,
+	tony.luck@intel.com, tytso@mit.edu, tzimmermann@suse.de,
+	willy@infradead.org, x86@kernel.org, xiang@kernel.org,
+	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 17 Oct 2025 15:48:30 +0200
+In-Reply-To: <20251017090519.46992-7-farbere@amazon.com>
+Message-ID: <2025101730-mumps-protozoan-aca4@gregkh>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D045UWA003.ant.amazon.com (10.13.139.46) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,144 +97,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series backports 27 patches to update minmax.h in the 5.10.y
-branch, aligning it with v6.17-rc7.
 
-The ultimate goal is to synchronize all long-term branches so that they
-include the full set of minmax.h changes.
+This is a note to let you know that I've just added the patch titled
 
-- 6.12.y has already been backported; the changes are included in
-  v6.12.49.
-- 6.6.y has already been backported; the changes are included in
-  v6.6.109.
-- 6.1.y has already been backported; the changes are currently in the
-  6.1-stable tree.
-- 5.15.y has already been backported; the changes are currently in the
-  5.15-stable tree.
+    minmax: Introduce {min,max}_array()
 
-The key motivation is to bring in commit d03eba99f5bf ("minmax: allow
-min()/max()/clamp() if the arguments have the same signedness"), which
-is missing in kernel 5.10.y.
+to the 5.10-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-In mainline, this change enables min()/max()/clamp() to accept mixed
-argument types, provided both have the same signedness. Without it,
-backported patches that use these forms may trigger compiler warnings,
-which escalate to build failures when -Werror is enabled.
+The filename of the patch is:
+     minmax-introduce-min-max-_array.patch
+and it can be found in the queue-5.10 subdirectory.
 
-The first two patches in this series were added to prevent build
-failures caused by changes introduced later in minmax.h.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
- - Commit 92d23c6e9415 ("overflow, tracing: Define the is_signed_type()
-   macro once") is needed for commit 75ca38c1960f ("minmax: allow
-   min()/max()/clamp()").
 
- - Commit cea628008fc8 ("btrfs: remove duplicated in_range() macro") is
-   needed for commit f9bff0e31881 ("minmax: add in_range() macro").
+From prvs=378230090=farbere@amazon.com Fri Oct 17 11:07:34 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Fri, 17 Oct 2025 09:04:58 +0000
+Subject: minmax: Introduce {min,max}_array()
+To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>, <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>, <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <rajur@chelsio
+ .com>, <davem@davemloft.net>, <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>, <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>, <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <willy@infradead.org>, <farbere@amazon.com>,
+  <sashal@kernel.org>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>, <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>, <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@
+ lists.sourceforge.net>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Christophe Leroy <christophe.leroy@csgroup.eu>
+Message-ID: <20251017090519.46992-7-farbere@amazon.com>
 
-The changes were tested using `make allyesconfig` and
-`make allmodconfig` for arm64, arm, x86_64 and i386 architectures.
+From: Herve Codina <herve.codina@bootlin.com>
 
-Changes in v2:
-The series was updated after initially backporting and approving the
-newer long-term branches.
+[ Upstream commit c952c748c7a983a8bda9112984e6f2c1f6e441a5 ]
 
-Andy Shevchenko (2):
-  minmax: deduplicate __unconst_integer_typeof()
-  minmax: fix header inclusions
+Introduce min_array() (resp max_array()) in order to get the
+minimal (resp maximum) of values present in an array.
 
-Bart Van Assche (1):
-  overflow, tracing: Define the is_signed_type() macro once
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+Link: https://lore.kernel.org/r/20230623085830.749991-8-herve.codina@bootlin.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/minmax.h |   64 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-David Laight (11):
-  minmax: allow min()/max()/clamp() if the arguments have the same
-    signedness.
-  minmax: fix indentation of __cmp_once() and __clamp_once()
-  minmax: allow comparisons of 'int' against 'unsigned char/short'
-  minmax: relax check to allow comparison between unsigned arguments and
-    signed constants
-  minmax.h: add whitespace around operators and after commas
-  minmax.h: update some comments
-  minmax.h: reduce the #define expansion of min(), max() and clamp()
-  minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
-  minmax.h: move all the clamp() definitions after the min/max() ones
-  minmax.h: simplify the variants of clamp()
-  minmax.h: remove some #defines that are only expanded once
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -151,6 +151,70 @@
+  */
+ #define max_t(type, x, y)	__careful_cmp((type)(x), (type)(y), >)
+ 
++/*
++ * Remove a const qualifier from integer types
++ * _Generic(foo, type-name: association, ..., default: association) performs a
++ * comparison against the foo type (not the qualified type).
++ * Do not use the const keyword in the type-name as it will not match the
++ * unqualified type of foo.
++ */
++#define __unconst_integer_type_cases(type)	\
++	unsigned type:  (unsigned type)0,	\
++	signed type:    (signed type)0
++
++#define __unconst_integer_typeof(x) typeof(			\
++	_Generic((x),						\
++		char: (char)0,					\
++		__unconst_integer_type_cases(char),		\
++		__unconst_integer_type_cases(short),		\
++		__unconst_integer_type_cases(int),		\
++		__unconst_integer_type_cases(long),		\
++		__unconst_integer_type_cases(long long),	\
++		default: (x)))
++
++/*
++ * Do not check the array parameter using __must_be_array().
++ * In the following legit use-case where the "array" passed is a simple pointer,
++ * __must_be_array() will return a failure.
++ * --- 8< ---
++ * int *buff
++ * ...
++ * min = min_array(buff, nb_items);
++ * --- 8< ---
++ *
++ * The first typeof(&(array)[0]) is needed in order to support arrays of both
++ * 'int *buff' and 'int buff[N]' types.
++ *
++ * The array can be an array of const items.
++ * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
++ * to discard the const qualifier for the __element variable.
++ */
++#define __minmax_array(op, array, len) ({				\
++	typeof(&(array)[0]) __array = (array);				\
++	typeof(len) __len = (len);					\
++	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
++	while (__len--)							\
++		__element = op(__element, __array[__len]);		\
++	__element; })
++
++/**
++ * min_array - return minimum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define min_array(array, len) __minmax_array(min, array, len)
++
++/**
++ * max_array - return maximum of values present in an array
++ * @array: array
++ * @len: array length
++ *
++ * Note that @len must not be zero (empty array).
++ */
++#define max_array(array, len) __minmax_array(max, array, len)
++
+ /**
+  * clamp_t - return a value clamped to a given range using a given type
+  * @type: the type of variable to use
 
-Herve Codina (1):
-  minmax: Introduce {min,max}_array()
 
-Jason A. Donenfeld (2):
-  minmax: sanity check constant bounds when clamping
-  minmax: clamp more efficiently by avoiding extra comparison
+Patches currently in stable-queue which might be from farbere@amazon.com are
 
-Johannes Thumshirn (1):
-  btrfs: remove duplicated in_range() macro
-
-Linus Torvalds (8):
-  minmax: avoid overly complicated constant expressions in VM code
-  minmax: add a few more MIN_T/MAX_T users
-  minmax: simplify and clarify min_t()/max_t() implementation
-  minmax: make generic MIN() and MAX() macros available everywhere
-  minmax: don't use max() in situations that want a C constant
-    expression
-  minmax: simplify min()/max()/clamp() implementation
-  minmax: improve macro expansion and type checking
-  minmax: fix up min3() and max3() too
-
-Matthew Wilcox (Oracle) (1):
-  minmax: add in_range() macro
-
- arch/arm/mm/pageattr.c                        |   6 +-
- arch/um/drivers/mconsole_user.c               |   2 +
- arch/x86/mm/pgtable.c                         |   2 +-
- drivers/edac/sb_edac.c                        |   4 +-
- drivers/edac/skx_common.h                     |   1 -
- .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |   2 +
- .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    |  14 +-
- .../drm/arm/display/include/malidp_utils.h    |   2 +-
- .../display/komeda/komeda_pipeline_state.c    |  24 +-
- drivers/gpu/drm/drm_color_mgmt.c              |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   6 -
- drivers/gpu/drm/radeon/evergreen_cs.c         |   2 +
- drivers/hwmon/adt7475.c                       |  24 +-
- drivers/input/touchscreen/cyttsp4_core.c      |   2 +-
- drivers/md/dm-integrity.c                     |   6 +-
- drivers/media/dvb-frontends/stv0367_priv.h    |   3 +
- .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   |  18 +-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
- drivers/net/fjes/fjes_main.c                  |   4 +-
- drivers/nfc/pn544/i2c.c                       |   2 -
- drivers/platform/x86/sony-laptop.c            |   1 -
- drivers/scsi/isci/init.c                      |   6 +-
- .../pci/hive_isp_css_include/math_support.h   |   5 -
- fs/btrfs/ctree.h                              |   2 -
- fs/btrfs/extent_io.c                          |   1 +
- fs/btrfs/file-item.c                          |   1 +
- fs/btrfs/misc.h                               |   2 -
- fs/btrfs/raid56.c                             |   1 +
- fs/btrfs/tree-checker.c                       |   2 +-
- fs/erofs/zdata.h                              |   2 +-
- fs/ext2/balloc.c                              |   2 -
- fs/ext4/ext4.h                                |   2 -
- fs/ufs/util.h                                 |   6 -
- include/linux/compiler.h                      |  15 +
- include/linux/minmax.h                        | 267 ++++++++++++++----
- include/linux/overflow.h                      |   1 -
- include/linux/trace_events.h                  |   2 -
- kernel/trace/preemptirq_delay_test.c          |   2 -
- lib/btree.c                                   |   1 -
- lib/decompress_unlzma.c                       |   2 +
- lib/logic_pio.c                               |   3 -
- lib/vsprintf.c                                |   2 +-
- lib/zstd/zstd_internal.h                      |   2 -
- mm/zsmalloc.c                                 |   1 -
- net/ipv4/proc.c                               |   2 +-
- net/ipv6/proc.c                               |   2 +-
- net/netfilter/nf_nat_core.c                   |   6 +-
- net/tipc/core.h                               |   2 +-
- net/tipc/link.c                               |  10 +-
- 49 files changed, 312 insertions(+), 169 deletions(-)
-
--- 
-2.47.3
-
+queue-5.10/minmax-allow-comparisons-of-int-against-unsigned-char-short.patch
+queue-5.10/minmax-add-a-few-more-min_t-max_t-users.patch
+queue-5.10/minmax-improve-macro-expansion-and-type-checking.patch
+queue-5.10/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-5.10/minmax.h-simplify-the-variants-of-clamp.patch
+queue-5.10/minmax-add-in_range-macro.patch
+queue-5.10/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
+queue-5.10/minmax-allow-min-max-clamp-if-the-arguments-have-the-same-signedness.patch
+queue-5.10/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
+queue-5.10/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
+queue-5.10/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
+queue-5.10/minmax-simplify-min-max-clamp-implementation.patch
+queue-5.10/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-5.10/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
+queue-5.10/minmax.h-add-whitespace-around-operators-and-after-commas.patch
+queue-5.10/minmax-sanity-check-constant-bounds-when-clamping.patch
+queue-5.10/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-5.10/minmax-make-generic-min-and-max-macros-available-everywhere.patch
+queue-5.10/minmax-fix-up-min3-and-max3-too.patch
+queue-5.10/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
+queue-5.10/minmax-fix-header-inclusions.patch
+queue-5.10/minmax-introduce-min-max-_array.patch
+queue-5.10/btrfs-remove-duplicated-in_range-macro.patch
+queue-5.10/overflow-tracing-define-the-is_signed_type-macro-once.patch
+queue-5.10/minmax-relax-check-to-allow-comparison-between-unsigned-arguments-and-signed-constants.patch
+queue-5.10/minmax-clamp-more-efficiently-by-avoiding-extra-comparison.patch
+queue-5.10/minmax.h-update-some-comments.patch
