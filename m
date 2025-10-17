@@ -4,118 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4353CCF9EE
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F53CCD1BE
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEE210ECF9;
-	Sat, 18 Oct 2025 08:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D457E10ECF1;
+	Sat, 18 Oct 2025 08:50:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="e/zptfWr";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2GmGpWKa";
 	dkim-atps=neutral
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com
- (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com
- [35.83.148.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4946910EB86;
- Fri, 17 Oct 2025 09:12:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1760692349; x=1792228349;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0AzpApDbX8CFEbC2P7WHNPH2gra+XDIh1eSQ6GUhJZw=;
- b=e/zptfWrJlahl0Z78Kx6NmQSuRdgLIT1OYYcsmncIgGyGpRW3Eom8qXi
- r9SlNNe2GQMFhcfX4IC7c+enOjPMsiRtwFGaBeT9sgAMoCHWjowlRODiX
- oNzGvir6o39gVAD5iUPP5zEZmcbmkyfy/KA4eBVJ5vOmc/m//60uMaXGh
- bUAnWBcwC1lZVF71XwkwwwfntdVNXQP2WRFWEycxf8RZo5o7jjromVeln
- Rl49hrjI6VaKpnfgGvY1IGUkaLeCQRY/S+Dkj68x0qJWmkYWV0lJCMqYK
- TVzbu2tdyF9xL0Z5drnPoory+ZxcWHORghf8+g41L04fM8wJlznYuVtXs A==;
-X-CSE-ConnectionGUID: J1dLltBCQl+nmxI5S5yF5w==
-X-CSE-MsgGUID: oWq/BgovT/iyzwwgQ3Arcg==
-X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
-   d="scan'208";a="4873022"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
- smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
- by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:12:28 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:28556]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.51:2525]
- with esmtp (Farcaster)
- id 70ec11d7-60fa-48fa-8797-02baa870edd8; Fri, 17 Oct 2025 09:12:28 +0000 (UTC)
-X-Farcaster-Flow-ID: 70ec11d7-60fa-48fa-8797-02baa870edd8
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 17 Oct 2025 09:12:28 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
- 09:12:12 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
- <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
- <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
- <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
- <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
- <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
- <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
- <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
- <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
- <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
- <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
- <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
- <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>,
- <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>,
- <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>,
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
- <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
- <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
- <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
- <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
- <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
- <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
- <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
- <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>,
- <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>,
- <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
- <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>,
- <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
- <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
- <tipc-discussion@lists.sourceforge.net>
-CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, Jens Axboe <axboe@kernel.dk>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Mateusz Guzik
- <mjguzik@gmail.com>, Pedro Falcato <pedro.falcato@gmail.com>
-Subject: [PATCH v2 22/27 5.10.y] minmax.h: update some comments
-Date: Fri, 17 Oct 2025 09:05:14 +0000
-Message-ID: <20251017090519.46992-23-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
-References: <20251017090519.46992-1-farbere@amazon.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01ED110EC3D;
+ Fri, 17 Oct 2025 13:49:10 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 93C544B42B;
+ Fri, 17 Oct 2025 13:49:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CBEC116B1;
+ Fri, 17 Oct 2025 13:49:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1760708949;
+ bh=tVTvontwEkFnFaSP/Yd1+iVEaBo4mmfNXkjW+7MHkWU=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=2GmGpWKaqj/TN7DoK7ta/xAO7I1YRna6yYzc3iy3XjOLB2hT9uJ3ImcSAXQamVbBz
+ gBSVRKLog00GGi8y38I3rNXrLd83rOf3KpXiLIOhIGD4iBUDIvP+hBf5g2UE68sm0J
+ NnghUJUow81W4vtjLN66ctS2fcIshMbdy0oqztKU=
+Subject: Patch "minmax: fix up min3() and max3() too" has been added to the
+ 5.10-stable tree
+To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
+	Jason@zx2c4.com, adilger.kernel@dilger.ca, agk@redhat.com,
+	airlied@linux.ie, akpm@linux-foundation.org,
+	alexander.deucher@amd.com, alexandre.torgue@st.com,
+	amd-gfx@lists.freedesktop.org, andriy.shevchenko@linux.intel.com,
+	anton.ivanov@cambridgegreys.com, arnd@kernel.org,
+	artur.paszkiewicz@intel.com, bp@alien8.de, brian.starkey@arm.com,
+	bvanassche@acm.org, chao@kernel.org, christian.koenig@amd.com,
+	clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
+	dave.hansen@linux.intel.com, davem@davemloft.net,
+	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
+	dri-devel@lists.freedesktop.org, dsterba@suse.com, dushistov@mail.ru,
+	evan.quan@amd.com, farbere@amazon.com, fery@cypress.com,
+	freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, harry.wentland@amd.com,
+	hdegoede@redhat.com, herve.codina@bootlin.com, hpa@zytor.com,
+	intel-linux-scu@intel.com, jack@suse.com, james.morse@arm.com,
+	james.qian.wang@arm.com, jdelvare@suse.com, jdike@addtoit.com,
+	jejb@linux.ibm.com, jmal@freedesktop.org, oy@redhat.com,
+	joabreu@synopsys.com, josef@toxicpanda.com, kadlec@netfilter.org,
+	kbusch@kernel.org, keescook@chromium.org, kuba@kernel.org,
+	kuznet@ms2.inr.ac.ru, linux-arm-kernel@lists.infradead.org,
+	linux-erofs@lists.ozlabs.org, linux-mm@kvack.org,
+	linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-um@lists.infradead.org, linux@armlinux.org.uk,
+	linux@rasmusvillemoes.dk, linux@roeck-us.net, liviu.dudau@arm.com,
+	luc.vanoostenryck@gmail.com, luto@kernel.org,
+	maarten.lankhorst@linux.intel.com, malattia@linux.it,
+	martin.petersen@oracle.com, mchehab@kernel.org,
+	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
+	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
+	mripard@kernel.org, nathan@kernel.org, ndesaulniers@google.com,
+	ngupta@vflare.org, pablo@netfilter.org, peppe.cavallaro@st.com,
+	peterz@infradead.org, pmladek@suse.com, qiuxu.zhuo@intel.com,
+	rajur@chelsio.com, richard@nod.at, robdclark@gmail.com,
+	rostedt@goodmis.org, rric@kernel.org, ruanjinjie@huawei.com,
+	sakari.ailus@linux.intel.com, sashal@kernel.org, sean@poorly.run,
+	sergey.senozhatsky@gmail.com, snitzer@redhat.com, sunpeng.li@amd.com,
+	tglx@linutronix.de, tipc-discussion@lists.sourceforge.net,
+	tony.luck@intel.com, torvalds@linux-foundation.org, tytso@mit.edu,
+	tzimmermann@suse.de, willy@infradead.org, x86@kernel.org,
+	xiang@kernel.org, ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 17 Oct 2025 15:48:30 +0200
+In-Reply-To: <20251017090519.46992-21-farbere@amazon.com>
+Message-ID: <2025101730-wannabe-kilowatt-1f94@gregkh>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:55 +0000
+X-stable: commit
+X-Patchwork-Hint: ignore 
+X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,123 +97,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 10666e99204818ef45c702469488353b5bb09ec7 ]
+This is a note to let you know that I've just added the patch titled
 
-- Change three to several.
-- Remove the comment about retaining constant expressions, no longer true.
-- Realign to nearer 80 columns and break on major punctiation.
-- Add a leading comment to the block before __signed_type() and __is_nonneg()
-  Otherwise the block explaining the cast is a bit 'floating'.
-  Reword the rest of that comment to improve readability.
+    minmax: fix up min3() and max3() too
 
-Link: https://lkml.kernel.org/r/85b050c81c1d4076aeb91a6cded45fee@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+to the 5.10-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     minmax-fix-up-min3-and-max3-too.patch
+and it can be found in the queue-5.10 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From prvs=378230090=farbere@amazon.com Fri Oct 17 11:12:01 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Fri, 17 Oct 2025 09:05:12 +0000
+Subject: minmax: fix up min3() and max3() too
+To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>, <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>, <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <rajur@chelsio
+ .com>, <davem@davemloft.net>, <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>, <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>, <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <willy@infradead.org>, <farbere@amazon.com>,
+  <sashal@kernel.org>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>, <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>, <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@
+ lists.sourceforge.net>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Arnd Bergmann <arnd@kernel.org>
+Message-ID: <20251017090519.46992-21-farbere@amazon.com>
+
+From: Linus Torvalds <torvalds@linux-foundation.org>
+
+[ Upstream commit 21b136cc63d2a9ddd60d4699552b69c214b32964 ]
+
+David Laight pointed out that we should deal with the min3() and max3()
+mess too, which still does excessive expansion.
+
+And our current macros are actually rather broken.
+
+In particular, the macros did this:
+
+  #define min3(x, y, z) min((typeof(x))min(x, y), z)
+  #define max3(x, y, z) max((typeof(x))max(x, y), z)
+
+and that not only is a nested expansion of possibly very complex
+arguments with all that involves, the typing with that "typeof()" cast
+is completely wrong.
+
+For example, imagine what happens in max3() if 'x' happens to be a
+'unsigned char', but 'y' and 'z' are 'unsigned long'.  The types are
+compatible, and there's no warning - but the result is just random
+garbage.
+
+No, I don't think we've ever hit that issue in practice, but since we
+now have sane infrastructure for doing this right, let's just use it.
+It fixes any excessive expansion, and also avoids these kinds of broken
+type issues.
+
+Requested-by: David Laight <David.Laight@aculab.com>
+Acked-by: Arnd Bergmann <arnd@kernel.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/minmax.h | 53 +++++++++++++++++++-----------------------
- 1 file changed, 24 insertions(+), 29 deletions(-)
+ include/linux/minmax.h |   12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 51b0d988e322..24e4b372649a 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -8,13 +8,10 @@
- #include <linux/types.h>
+@@ -152,13 +152,20 @@
+ #define umax(x, y)	\
+ 	__careful_cmp(max, (x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull)
  
- /*
-- * min()/max()/clamp() macros must accomplish three things:
-+ * min()/max()/clamp() macros must accomplish several things:
-  *
-  * - Avoid multiple evaluations of the arguments (so side-effects like
-  *   "x++" happen only once) when non-constant.
-- * - Retain result as a constant expressions when called with only
-- *   constant expressions (to avoid tripping VLA warnings in stack
-- *   allocation usage).
-  * - Perform signed v unsigned type-checking (to generate compile
-  *   errors instead of nasty runtime surprises).
-  * - Unsigned char/short are always promoted to signed int and can be
-@@ -31,25 +28,23 @@
-  *   bit #0 set if ok for unsigned comparisons
-  *   bit #1 set if ok for signed comparisons
-  *
-- * In particular, statically non-negative signed integer
-- * expressions are ok for both.
-+ * In particular, statically non-negative signed integer expressions
-+ * are ok for both.
-  *
-- * NOTE! Unsigned types smaller than 'int' are implicitly
-- * converted to 'int' in expressions, and are accepted for
-- * signed conversions for now. This is debatable.
-+ * NOTE! Unsigned types smaller than 'int' are implicitly converted to 'int'
-+ * in expressions, and are accepted for signed conversions for now.
-+ * This is debatable.
-  *
-- * Note that 'x' is the original expression, and 'ux' is
-- * the unique variable that contains the value.
-+ * Note that 'x' is the original expression, and 'ux' is the unique variable
-+ * that contains the value.
-  *
-- * We use 'ux' for pure type checking, and 'x' for when
-- * we need to look at the value (but without evaluating
-- * it for side effects! Careful to only ever evaluate it
-- * with sizeof() or __builtin_constant_p() etc).
-+ * We use 'ux' for pure type checking, and 'x' for when we need to look at the
-+ * value (but without evaluating it for side effects!
-+ * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
-  *
-- * Pointers end up being checked by the normal C type
-- * rules at the actual comparison, and these expressions
-- * only need to be careful to not cause warnings for
-- * pointer use.
-+ * Pointers end up being checked by the normal C type rules at the actual
-+ * comparison, and these expressions only need to be careful to not cause
-+ * warnings for pointer use.
++#define __careful_op3(op, x, y, z, ux, uy, uz) ({			\
++	__auto_type ux = (x); __auto_type uy = (y);__auto_type uz = (z);\
++	BUILD_BUG_ON_MSG(!__types_ok3(x,y,z,ux,uy,uz),			\
++		#op"3("#x", "#y", "#z") signedness error");		\
++	__cmp(op, ux, __cmp(op, uy, uz)); })
++
+ /**
+  * min3 - return minimum of three values
+  * @x: first value
+  * @y: second value
+  * @z: third value
   */
- #define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
- #define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
-@@ -57,19 +52,19 @@
- 	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
+-#define min3(x, y, z) min((typeof(x))min(x, y), z)
++#define min3(x, y, z) \
++	__careful_op3(min, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
  
- /*
-- * To avoid warnings about casting pointers to integers
-- * of different sizes, we need that special sign type.
-+ * Check whether a signed value is always non-negative.
-  *
-- * On 64-bit we can just always use 'long', since any
-- * integer or pointer type can just be cast to that.
-+ * A cast is needed to avoid any warnings from values that aren't signed
-+ * integer types (in which case the result doesn't matter).
-  *
-- * This does not work for 128-bit signed integers since
-- * the cast would truncate them, but we do not use s128
-- * types in the kernel (we do use 'u128', but they will
-- * be handled by the !is_signed_type() case).
-+ * On 64-bit any integer or pointer type can safely be cast to 'long'.
-+ * But on 32-bit we need to avoid warnings about casting pointers to integers
-+ * of different sizes without truncating 64-bit values so 'long' or 'long long'
-+ * must be used depending on the size of the value.
-  *
-- * NOTE! The cast is there only to avoid any warnings
-- * from when values that aren't signed integer types.
-+ * This does not work for 128-bit signed integers since the cast would truncate
-+ * them, but we do not use s128 types in the kernel (we do use 'u128',
-+ * but they are handled by the !is_signed_type() case).
+ /**
+  * max3 - return maximum of three values
+@@ -166,7 +173,8 @@
+  * @y: second value
+  * @z: third value
   */
- #ifdef CONFIG_64BIT
-   #define __signed_type(ux) long
--- 
-2.47.3
+-#define max3(x, y, z) max((typeof(x))max(x, y), z)
++#define max3(x, y, z) \
++	__careful_op3(max, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
+ 
+ /**
+  * min_not_zero - return the minimum that is _not_ zero, unless both are zero
 
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-5.10/minmax-allow-comparisons-of-int-against-unsigned-char-short.patch
+queue-5.10/minmax-add-a-few-more-min_t-max_t-users.patch
+queue-5.10/minmax-improve-macro-expansion-and-type-checking.patch
+queue-5.10/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-5.10/minmax.h-simplify-the-variants-of-clamp.patch
+queue-5.10/minmax-add-in_range-macro.patch
+queue-5.10/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
+queue-5.10/minmax-allow-min-max-clamp-if-the-arguments-have-the-same-signedness.patch
+queue-5.10/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
+queue-5.10/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
+queue-5.10/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
+queue-5.10/minmax-simplify-min-max-clamp-implementation.patch
+queue-5.10/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-5.10/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
+queue-5.10/minmax.h-add-whitespace-around-operators-and-after-commas.patch
+queue-5.10/minmax-sanity-check-constant-bounds-when-clamping.patch
+queue-5.10/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-5.10/minmax-make-generic-min-and-max-macros-available-everywhere.patch
+queue-5.10/minmax-fix-up-min3-and-max3-too.patch
+queue-5.10/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
+queue-5.10/minmax-fix-header-inclusions.patch
+queue-5.10/minmax-introduce-min-max-_array.patch
+queue-5.10/btrfs-remove-duplicated-in_range-macro.patch
+queue-5.10/overflow-tracing-define-the-is_signed_type-macro-once.patch
+queue-5.10/minmax-relax-check-to-allow-comparison-between-unsigned-arguments-and-signed-constants.patch
+queue-5.10/minmax-clamp-more-efficiently-by-avoiding-extra-comparison.patch
+queue-5.10/minmax.h-update-some-comments.patch
