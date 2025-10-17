@@ -4,87 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 327F5CCF9E3
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93076CCF9E2
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5DE10ED10;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B71C410E3F9;
 	Sat, 18 Oct 2025 08:51:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FLtxIBv7";
+	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="Zsy8CkoL";
+	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="/wCOTQlk";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB1310EC6D;
- Fri, 17 Oct 2025 15:58:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DBD064767;
- Fri, 17 Oct 2025 15:58:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687B5C4CEE7;
- Fri, 17 Oct 2025 15:58:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760716713;
- bh=20X28MMOWSoptgGAWTUrviJnQniEpl6Ktq66BRGKH/M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FLtxIBv7SZeCQWvR3ANCLmaMyydymZnc8EmPjl/1wQ2ZU6GZiD2nKCaUbGU/mGLlp
- fTOdia6A6ekGANEzH++1tbYBhBm/NR7Jy2B8blUuCuIxDXrSTaYf19VuAHrRtgTE73
- ZyIsy6hsoafgxjCLHqBFDNZjVm7M30+2G2ZqFt0Y=
-Date: Fri, 17 Oct 2025 17:03:02 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Eliav Farber <farbere@amazon.com>
-Cc: stable@vger.kernel.org, linux@armlinux.org.uk, jdike@addtoit.com,
- richard@nod.at, anton.ivanov@cambridgegreys.com,
- dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, tony.luck@intel.com, qiuxu.zhuo@intel.com,
- mchehab@kernel.org, james.morse@arm.com, rric@kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@linux.ie, daniel@ffwll.ch, evan.quan@amd.com,
- james.qian.wang@arm.com, liviu.dudau@arm.com,
- mihail.atanassov@arm.com, brian.starkey@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robdclark@gmail.com, sean@poorly.run,
- jdelvare@suse.com, linux@roeck-us.net, fery@cypress.com,
- dmitry.torokhov@gmail.com, agk@redhat.com, snitzer@redhat.com,
- dm-devel@redhat.com, rajur@chelsio.com, davem@davemloft.net,
- kuba@kernel.org, peppe.cavallaro@st.com, alexandre.torgue@st.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, malattia@linux.it,
- hdegoede@redhat.com, mgross@linux.intel.com,
- intel-linux-scu@intel.com, artur.paszkiewicz@intel.com,
- jejb@linux.ibm.com, martin.petersen@oracle.com,
- sakari.ailus@linux.intel.com, clm@fb.com, josef@toxicpanda.com,
- dsterba@suse.com, xiang@kernel.org, chao@kernel.org, jack@suse.com,
- tytso@mit.edu, adilger.kernel@dilger.ca, dushistov@mail.ru,
- luc.vanoostenryck@gmail.com, rostedt@goodmis.org, pmladek@suse.com,
- sergey.senozhatsky@gmail.com, andriy.shevchenko@linux.intel.com,
- linux@rasmusvillemoes.dk, minchan@kernel.org, ngupta@vflare.org,
- akpm@linux-foundation.org, kuznet@ms2.inr.ac.ru,
- yoshfuji@linux-ipv6.org, pablo@netfilter.org, kadlec@netfilter.org,
- fw@strlen.de, jmaloy@redhat.com, ying.xue@windriver.com,
- willy@infradead.org, sashal@kernel.org, ruanjinjie@huawei.com,
- David.Laight@aculab.com, herve.codina@bootlin.com, Jason@zx2c4.com,
- keescook@chromium.org, kbusch@kernel.org, nathan@kernel.org,
- bvanassche@acm.org, ndesaulniers@google.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-um@lists.infradead.org, linux-edac@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-btrfs@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
- linux-sparse@vger.kernel.org, linux-mm@kvack.org,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- tipc-discussion@lists.sourceforge.net
-Subject: Re: [PATCH v2 00/27 5.10.y] Backport minmax.h updates from v6.17-rc7
-Message-ID: <2025101704-rumble-chatroom-60b5@gregkh>
-References: <20251017090519.46992-1-farbere@amazon.com>
+Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1FA010EC95;
+ Fri, 17 Oct 2025 16:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
+ h=Message-ID:Date:Subject:To:From; t=1760718480; bh=FySvhxgkGPeEce3SsSP+zgs
+ Qe5XpsgsiK22GvDAXT0k=; b=Zsy8CkoLpRzeAbXtMsK6wQjVizDFWmG3thi/0CONQLus7t9j5U
+ JThsjA9WaEZeoVWq1xKeEGOVhDV+EP834vWlBnPDDMeASDoQGcFPUPmFZsW5Ot+cfz5UJ4xgBGT
+ iBXETSCf3duhdBMqmjT17cNKBHv/KuycDTBSiDBOyHirN2hOIGs4jAm5m15D817PI00wBEAGQHP
+ 80Ol+PaCpbh6ewQbXZpJdXWk+72G8mwmcPh1j3x9ks46pR3pLC065KNb2q8uWdKgH2KWCQDm4RP
+ +S3/DM+hmsrnXm2JJQlCaNCl8AE43Px6Qo/x4XGSFHXyQIqSWJASjeNInD8FKrMOtuw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
+ h=Message-ID:Date:Subject:To:From; t=1760718480; bh=FySvhxgkGPeEce3SsSP+zgs
+ Qe5XpsgsiK22GvDAXT0k=; b=/wCOTQlktcCTumqs5csZjjrMi5y+59YiUCTusdRmhNkAAAb09t
+ eGt75Fe5zYX/qe1hgFPI4uSLjhXSU+2ddmDQ==;
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yaroslav Bolyukin <iam@lach.pw>
+Subject: [PATCH v5 1/7] drm/edid: rename VESA block parsing functions to more
+ generic name
+Date: Fri, 17 Oct 2025 18:27:30 +0200
+Message-ID: <20251017162736.45368-2-iam@lach.pw>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251017162736.45368-1-iam@lach.pw>
+References: <20251017162736.45368-1-iam@lach.pw>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
 X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,115 +64,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 17, 2025 at 09:04:52AM +0000, Eliav Farber wrote:
-> This series backports 27 patches to update minmax.h in the 5.10.y
-> branch, aligning it with v6.17-rc7.
-> 
-> The ultimate goal is to synchronize all long-term branches so that they
-> include the full set of minmax.h changes.
-> 
-> - 6.12.y has already been backported; the changes are included in
->   v6.12.49.
-> - 6.6.y has already been backported; the changes are included in
->   v6.6.109.
-> - 6.1.y has already been backported; the changes are currently in the
->   6.1-stable tree.
-> - 5.15.y has already been backported; the changes are currently in the
->   5.15-stable tree.
+Those functions would also parse DSC Bits Per Pixel value in the future
+commits.
 
-With this series applied, on an arm64 server, building 'allmodconfig', I
-get the following build error.
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+---
+ drivers/gpu/drm/drm_edid.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Oddly I don't see it on my x86 server, perhaps due to different compiler
-versions?
-
-Any ideas?
-
-thanks,
-
-greg k-h
-
-------------------------
-
-In function ‘rt2800_txpower_to_dev’,
-    inlined from ‘rt2800_config_channel’ at ../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:4022:25:
-./../include/linux/compiler_types.h:309:45: error: call to ‘__compiletime_assert_1168’ declared with attribute error: clamp() low limit -7 greater than high limit 15
-  309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |                                             ^
-./../include/linux/compiler_types.h:290:25: note: in definition of macro ‘__compiletime_assert’
-  290 |                         prefix ## suffix();                             \
-      |                         ^~~~~~
-./../include/linux/compiler_types.h:309:9: note: in expansion of macro ‘_compiletime_assert’
-  309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |         ^~~~~~~~~~~~~~~~~~~
-../include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
-   39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-      |                                     ^~~~~~~~~~~~~~~~~~
-../include/linux/minmax.h:188:9: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-  188 |         BUILD_BUG_ON_MSG(statically_true(ulo > uhi),                            \
-      |         ^~~~~~~~~~~~~~~~
-../include/linux/minmax.h:195:9: note: in expansion of macro ‘__clamp_once’
-  195 |         __clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-      |         ^~~~~~~~~~~~
-../include/linux/minmax.h:218:36: note: in expansion of macro ‘__careful_clamp’
-  218 | #define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
-      |                                    ^~~~~~~~~~~~~~~
-../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:3980:24: note: in expansion of macro ‘clamp_t’
- 3980 |                 return clamp_t(char, txpower, MIN_A_TXPOWER, MAX_A_TXPOWER);
-      |                        ^~~~~~~
-In function ‘rt2800_txpower_to_dev’,
-    inlined from ‘rt2800_config_channel’ at ../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:4024:25:
-./../include/linux/compiler_types.h:309:45: error: call to ‘__compiletime_assert_1168’ declared with attribute error: clamp() low limit -7 greater than high limit 15
-  309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |                                             ^
-./../include/linux/compiler_types.h:290:25: note: in definition of macro ‘__compiletime_assert’
-  290 |                         prefix ## suffix();                             \
-      |                         ^~~~~~
-./../include/linux/compiler_types.h:309:9: note: in expansion of macro ‘_compiletime_assert’
-  309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |         ^~~~~~~~~~~~~~~~~~~
-../include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
-   39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-      |                                     ^~~~~~~~~~~~~~~~~~
-../include/linux/minmax.h:188:9: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-  188 |         BUILD_BUG_ON_MSG(statically_true(ulo > uhi),                            \
-      |         ^~~~~~~~~~~~~~~~
-../include/linux/minmax.h:195:9: note: in expansion of macro ‘__clamp_once’
-  195 |         __clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-      |         ^~~~~~~~~~~~
-../include/linux/minmax.h:218:36: note: in expansion of macro ‘__careful_clamp’
-  218 | #define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
-      |                                    ^~~~~~~~~~~~~~~
-../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:3980:24: note: in expansion of macro ‘clamp_t’
- 3980 |                 return clamp_t(char, txpower, MIN_A_TXPOWER, MAX_A_TXPOWER);
-      |                        ^~~~~~~
-In function ‘rt2800_txpower_to_dev’,
-    inlined from ‘rt2800_config_channel’ at ../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:4028:4:
-./../include/linux/compiler_types.h:309:45: error: call to ‘__compiletime_assert_1168’ declared with attribute error: clamp() low limit -7 greater than high limit 15
-  309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |                                             ^
-./../include/linux/compiler_types.h:290:25: note: in definition of macro ‘__compiletime_assert’
-  290 |                         prefix ## suffix();                             \
-      |                         ^~~~~~
-./../include/linux/compiler_types.h:309:9: note: in expansion of macro ‘_compiletime_assert’
-  309 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |         ^~~~~~~~~~~~~~~~~~~
-../include/linux/build_bug.h:39:37: note: in expansion of macro ‘compiletime_assert’
-   39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-      |                                     ^~~~~~~~~~~~~~~~~~
-../include/linux/minmax.h:188:9: note: in expansion of macro ‘BUILD_BUG_ON_MSG’
-  188 |         BUILD_BUG_ON_MSG(statically_true(ulo > uhi),                            \
-      |         ^~~~~~~~~~~~~~~~
-../include/linux/minmax.h:195:9: note: in expansion of macro ‘__clamp_once’
-  195 |         __clamp_once(type, val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
-      |         ^~~~~~~~~~~~
-../include/linux/minmax.h:218:36: note: in expansion of macro ‘__careful_clamp’
-  218 | #define clamp_t(type, val, lo, hi) __careful_clamp(type, val, lo, hi)
-      |                                    ^~~~~~~~~~~~~~~
-../drivers/net/wireless/ralink/rt2x00/rt2800lib.c:3980:24: note: in expansion of macro ‘clamp_t’
- 3980 |                 return clamp_t(char, txpower, MIN_A_TXPOWER, MAX_A_TXPOWER);
-      |                        ^~~~~~~
-make[6]: *** [../scripts/Makefile.build:286: drivers/net/wireless/ralink/rt2x00/rt2800lib.o] Error 1
-make[5]: *** [../scripts/Makefile.build:503: drivers/net/wireless/ralink/rt2x00] Error 2
-make[4]: *** [../scripts/Makefile.build:503: drivers/net/wireless/ralink] Error 2
-make[4]: *** Waiting for unfinished jobs....
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index e2e85345aa9a..4fcde52291ce 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6524,8 +6524,8 @@ static void drm_get_monitor_range(struct drm_connector *connector,
+ 		    info->monitor_range.min_vfreq, info->monitor_range.max_vfreq);
+ }
+ 
+-static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+-				    const struct displayid_block *block)
++static void drm_parse_vesa_specific_block(struct drm_connector *connector,
++					  const struct displayid_block *block)
+ {
+ 	struct displayid_vesa_vendor_specific_block *vesa =
+ 		(struct displayid_vesa_vendor_specific_block *)block;
+@@ -6584,8 +6584,8 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+ 		    info->mso_stream_count, info->mso_pixel_overlap);
+ }
+ 
+-static void drm_update_mso(struct drm_connector *connector,
+-			   const struct drm_edid *drm_edid)
++static void drm_update_vesa_specific_block(struct drm_connector *connector,
++					   const struct drm_edid *drm_edid)
+ {
+ 	const struct displayid_block *block;
+ 	struct displayid_iter iter;
+@@ -6593,7 +6593,7 @@ static void drm_update_mso(struct drm_connector *connector,
+ 	displayid_iter_edid_begin(drm_edid, &iter);
+ 	displayid_iter_for_each(block, &iter) {
+ 		if (block->tag == DATA_BLOCK_2_VENDOR_SPECIFIC)
+-			drm_parse_vesa_mso_data(connector, block);
++			drm_parse_vesa_specific_block(connector, block);
+ 	}
+ 	displayid_iter_end(&iter);
+ }
+@@ -6753,7 +6753,7 @@ static void update_display_info(struct drm_connector *connector,
+ 	if (edid->features & DRM_EDID_FEATURE_RGB_YCRCB422)
+ 		info->color_formats |= DRM_COLOR_FORMAT_YCBCR422;
+ 
+-	drm_update_mso(connector, drm_edid);
++	drm_update_vesa_specific_block(connector, drm_edid);
+ 
+ out:
+ 	if (drm_edid_has_internal_quirk(connector, EDID_QUIRK_NON_DESKTOP)) {
+-- 
+2.51.0
