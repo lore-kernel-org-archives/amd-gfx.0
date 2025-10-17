@@ -4,114 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D95BCCD1B7
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:52:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 925F2CCD1B3
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:52:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D211910E0B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40F7510ED05;
 	Sat, 18 Oct 2025 08:52:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="j40xlnNq";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lG9uCBkt";
 	dkim-atps=neutral
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com
- (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com
- [52.42.203.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E00C10EB84;
- Fri, 17 Oct 2025 09:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1760691972; x=1792227972;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LUfhSEtyrzlTvFjtMARdG8e1ebgK9JT+esac/DH/XMI=;
- b=j40xlnNqiZF4YGP9xI7yXh1U46qPj7tY/Qtz+bGvYP8a7y0upjUSdvcW
- /1w4bMMYIbXVK3Eyl++jeO0UXACSMxS1mzb4AyKoeHgCVr9lVywuUs8l3
- u19OCgLzVk7SRxY8gIt4kOWHojSdx0AXDto9YChkz3qTYpQaz9MS/taL4
- rb1Egi8muWueEOmHlRQDiU8mm4KTezJDi0+1pLG3vgRWnkW+ADlJHR9v/
- 2mQtoyd7H3dBd9VFuvrLaXpteN9mp8dq5OY9dwIqXDa4bxknAzu9LV837
- Blxof+fAet8y6PGmZqqJDH/rDJIjtQIfNx06QcdcDroZw0GVMJyAdh5Dr w==;
-X-CSE-ConnectionGUID: enesJP57TPGNCxKTMYzCNQ==
-X-CSE-MsgGUID: Ip79uzQWRJCjVSqut+I56A==
-X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
-   d="scan'208";a="5064204"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
- smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
- by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:06:10 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:20862]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.18.50:2525]
- with esmtp (Farcaster)
- id 8166205d-ccd0-42f5-b377-b6e5ff420d67; Fri, 17 Oct 2025 09:06:09 +0000 (UTC)
-X-Farcaster-Flow-ID: 8166205d-ccd0-42f5-b377-b6e5ff420d67
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 17 Oct 2025 09:06:09 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
- 09:05:54 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
- <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
- <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
- <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
- <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
- <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
- <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
- <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
- <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
- <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
- <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
- <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
- <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
- <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>,
- <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>,
- <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>,
- <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
- <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
- <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
- <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
- <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
- <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
- <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
- <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
- <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
- <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>,
- <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>,
- <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
- <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
- <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
- <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>,
- <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
- <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
- <tipc-discussion@lists.sourceforge.net>
-CC: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Subject: [PATCH v2 02/27 5.10.y] btrfs: remove duplicated in_range() macro
-Date: Fri, 17 Oct 2025 09:04:54 +0000
-Message-ID: <20251017090519.46992-3-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
-References: <20251017090519.46992-1-farbere@amazon.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 515B610EB5B;
+ Fri, 17 Oct 2025 08:32:07 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4cnyjc0Jtxz9tFN;
+ Fri, 17 Oct 2025 10:32:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1760689924; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bmEtM+tBvyNR8tKZRftb9/HButF7a/0q04v2fWmUSto=;
+ b=lG9uCBktbUoT5Va6j1PSoL57TFAVi2bVuiQzvSxw7d0+WZjO2a/EPwwn1DqUIkqdS2JJ/U
+ h/1dJgq9JOiDcT1GIbqfUTAmDWCJ0XScBtR6zvdvRp+VJh4M4R1TQHypzo1JOpqXfKpPMX
+ MJcM6tMnzWBZE2BaVMaiYwP2PcBRp/bij+qtZt1S8/mHdtsd2D99QpX8DlC0SRldGi5DT9
+ Nrq7/0j3fUlPEU54hfAgpe19QF6Qo2v7wMlvLcXLCM7ztJXLFAgCKraXEcGns7tdtNHa/c
+ g1dVRTRuEhA9GpJgVeLGvLe2l1/T7SoVaCCwHHrs+kiDrTj9jJSR3bZde6X0QQ==
+Message-ID: <0e7f3ab50a2c30f193491bb82f97004150b99772.camel@mailbox.org>
+Subject: Re: Independence for dma_fences!
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch, 
+ tursulin@ursulin.net
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Date: Fri, 17 Oct 2025 10:32:01 +0200
+In-Reply-To: <c5ee86a8-3c6d-462b-b435-e25e8a925bde@amd.com>
+References: <20251013143502.1655-1-christian.koenig@amd.com>
+ <15b2f86e8d6cb1df93edf73001fda2c378926016.camel@mailbox.org>
+ <c5ee86a8-3c6d-462b-b435-e25e8a925bde@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D045UWA003.ant.amazon.com (10.13.139.46) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-MBO-RS-ID: 275ca5eb86323de5772
+X-MBO-RS-META: u3dge87t3hrqqpaa7epc41mk6w1za3k7
 X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,78 +64,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+On Tue, 2025-10-14 at 17:54 +0200, Christian K=C3=B6nig wrote:
+> On 13.10.25 16:54, Philipp Stanner wrote:
+> > On Mon, 2025-10-13 at 15:48 +0200, Christian K=C3=B6nig wrote:
+> > > Hi everyone,
+> > >=20
+> > > dma_fences have ever lived under the tyranny dictated by the module
+> > > lifetime of their issuer, leading to crashes should anybody still hol=
+ding
+> > > a reference to a dma_fence when the module of the issuer was unloaded=
+.
+> > >=20
+> > > But those days are over! The patch set following this mail finally
+> > > implements a way for issuers to release their dma_fence out of this
+> > > slavery and outlive the module who originally created them.
+> > >=20
+> > > Previously various approaches have been discussed, including changing=
+ the
+> > > locking semantics of the dma_fence callbacks (by me) as well as using=
+ the
+> > > drm scheduler as intermediate layer (by Sima) to disconnect dma_fence=
+s
+> > > from their actual users.
+> > >=20
+> > > Changing the locking semantics turned out to be much more trickier th=
+an
+> > > originally thought because especially on older drivers (nouveau, rade=
+on,
+> > > but also i915) this locking semantics is actually needed for correct
+> > > operation.
+> > >=20
+> > > Using the drm_scheduler as intermediate layer is still a good idea an=
+d
+> > > should probably be implemented to make live simpler for some drivers,=
+ but
+> > > doesn't work for all use cases. Especially TLB flush fences, preempti=
+on
+> > > fences and userqueue fences don't go through the drm scheduler becaus=
+e it
+> > > doesn't make sense for them.
+> > >=20
+> > > Tvrtko did some really nice prerequisite work by protecting the retur=
+ned
+> > > strings of the dma_fence_ops by RCU. This way dma_fence creators wher=
+e
+> > > able to just wait for an RCU grace period after fence signaling befor=
+e
+> > > they could be save to free those data structures.
+> > >=20
+> > > Now this patch set here goes a step further and protects the whole
+> > > dma_fence_ops structure by RCU, so that after the fence signals the
+> > > pointer to the dma_fence_ops is set to NULL when there is no wait nor
+> > > release callback given. All functionality which use the dma_fence_ops
+> > > reference are put inside an RCU critical section, except for the
+> > > deprecated issuer specific wait and of course the optional release
+> > > callback.
+> > >=20
+> > > Additional to the RCU changes the lock protecting the dma_fence state
+> > > previously had to be allocated external. This set here now changes th=
+e
+> > > functionality to make that external lock optional and allows dma_fenc=
+es
+> > > to use an inline lock and be self contained.
+> >=20
+> > Allowing for an embedded lock, is that actually necessary for the goals
+> > of this series, or is it an optional change / improvement?
+>=20
+> It is kind of necessary because otherwise you can't fully determine the l=
+ifetime of the lock.
+>=20
+> The lock is used to avoid signaling a dma_fence when you modify the linke=
+d list of callbacks for example.
+>=20
+> An alternative would be to protect the lock by RCU as well instead of emb=
+edding it in the structure, but that would make things even more complicate=
+d.
+>=20
+> > If I understood you correctly at XDC you wanted to have an embedded
+> > lock because it improves the memory footprint and because an external
+> > lock couldn't achieve some goals about fence-signaling-order originally
+> > intended. Can you elaborate on that?
+>=20
+> The embedded lock is also nice to have for the dma_fence_array, dma_fence=
+_chain and drm_sched_fence, but that just saves a few cache lines in some u=
+se cases.
+>=20
+> The fence-signaling-order is important for drivers like radeon where the =
+external lock is protecting multiple fences from signaling at the same time=
+ and makes sure that everything stays in order.
 
-[ Upstream commit cea628008fc8c6c9c7b53902f6659e040f33c790 ]
+I mean, neither external nor internal lock can somehow force the driver
+to signal fences in order, can they?
 
-The in_range() macro is defined twice in btrfs' source, once in ctree.h
-and once in misc.h.
+Only the driver can ensure this.
 
-Remove the definition in ctree.h and include misc.h in the files depending
-on it.
+I am, however, considering modeling something like that on a
+FenceContext object:
 
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
- fs/btrfs/ctree.h     | 2 --
- fs/btrfs/extent_io.c | 1 +
- fs/btrfs/file-item.c | 1 +
- fs/btrfs/raid56.c    | 1 +
- 4 files changed, 3 insertions(+), 2 deletions(-)
+fctx.signal_all_fences_up_to_ordered(seqno);
 
-diff --git a/fs/btrfs/ctree.h b/fs/btrfs/ctree.h
-index d9d6a57acafe..a9926fb10c49 100644
---- a/fs/btrfs/ctree.h
-+++ b/fs/btrfs/ctree.h
-@@ -3597,8 +3597,6 @@ static inline int btrfs_defrag_cancelled(struct btrfs_fs_info *fs_info)
- 	return signal_pending(current);
- }
- 
--#define in_range(b, first, len) ((b) >= (first) && (b) < (first) + (len))
--
- /* Sanity test specific functions */
- #ifdef CONFIG_BTRFS_FS_RUN_SANITY_TESTS
- void btrfs_test_destroy_inode(struct inode *inode);
-diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-index 8498994ef5c6..489d370ddd60 100644
---- a/fs/btrfs/extent_io.c
-+++ b/fs/btrfs/extent_io.c
-@@ -13,6 +13,7 @@
- #include <linux/pagevec.h>
- #include <linux/prefetch.h>
- #include <linux/cleancache.h>
-+#include "misc.h"
- #include "extent_io.h"
- #include "extent-io-tree.h"
- #include "extent_map.h"
-diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
-index cbea4f572155..6e46da3ee433 100644
---- a/fs/btrfs/file-item.c
-+++ b/fs/btrfs/file-item.c
-@@ -9,6 +9,7 @@
- #include <linux/highmem.h>
- #include <linux/sched/mm.h>
- #include <crypto/hash.h>
-+#include "misc.h"
- #include "ctree.h"
- #include "disk-io.h"
- #include "transaction.h"
-diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
-index 9678d7fa4dcc..ed3e40a4a3cb 100644
---- a/fs/btrfs/raid56.c
-+++ b/fs/btrfs/raid56.c
-@@ -13,6 +13,7 @@
- #include <linux/list_sort.h>
- #include <linux/raid/xor.h>
- #include <linux/mm.h>
-+#include "misc.h"
- #include "ctree.h"
- #include "disk-io.h"
- #include "volumes.h"
--- 
-2.47.3
+
+P.
+
+>=20
+> While it is possible to change the locking semantics on such old drivers,=
+ it's probably just better to stay away from it.
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > P.
+> >=20
+> >=20
+> > >=20
+> > > The new approach is then applied to amdgpu allowing the module to be
+> > > unloaded even when dma_fences issued by it are still around.
+> > >=20
+> > > Please review and comment,
+> > > Christian.
+> > >=20
+> >=20
+>=20
 
