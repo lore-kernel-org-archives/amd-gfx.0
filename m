@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F53CCD1BE
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E49DCCD19F
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D457E10ECF1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B591F10E415;
 	Sat, 18 Oct 2025 08:50:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2GmGpWKa";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k7BKk/J+";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01ED110EC3D;
- Fri, 17 Oct 2025 13:49:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDBD810EC3B;
+ Fri, 17 Oct 2025 13:49:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 93C544B42B;
- Fri, 17 Oct 2025 13:49:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CBEC116B1;
- Fri, 17 Oct 2025 13:49:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6E5114B444;
+ Fri, 17 Oct 2025 13:49:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD758C4CEFE;
+ Fri, 17 Oct 2025 13:49:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760708949;
- bh=tVTvontwEkFnFaSP/Yd1+iVEaBo4mmfNXkjW+7MHkWU=;
+ s=korg; t=1760708972;
+ bh=C4SzgmKRE06gjdbVP9S3zeoEfakcGE72FYSgstJTWko=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=2GmGpWKaqj/TN7DoK7ta/xAO7I1YRna6yYzc3iy3XjOLB2hT9uJ3ImcSAXQamVbBz
- gBSVRKLog00GGi8y38I3rNXrLd83rOf3KpXiLIOhIGD4iBUDIvP+hBf5g2UE68sm0J
- NnghUJUow81W4vtjLN66ctS2fcIshMbdy0oqztKU=
-Subject: Patch "minmax: fix up min3() and max3() too" has been added to the
- 5.10-stable tree
-To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
-	Jason@zx2c4.com, adilger.kernel@dilger.ca, agk@redhat.com,
-	airlied@linux.ie, akpm@linux-foundation.org,
-	alexander.deucher@amd.com, alexandre.torgue@st.com,
-	amd-gfx@lists.freedesktop.org, andriy.shevchenko@linux.intel.com,
-	anton.ivanov@cambridgegreys.com, arnd@kernel.org,
+ b=k7BKk/J+YheiXrEDuIn++bF+Qm4flIGkIrK7ul7+IuO5OZW88JhojCPovXU8GBaq9
+ oOLQtT3qi9nM6hefhAf8QLy9HVPd7SocYic8+sZXqMXLRlfqdSjf+Buc8uzEoO986B
+ bFHefq3pARjF1CNIScIHqzf1El9QhWpsLu9083hE=
+Subject: Patch "minmax: sanity check constant bounds when clamping" has been
+ added to the 5.10-stable tree
+To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
+	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
+	akpm@linux-foundation.org, alexander.deucher@amd.com,
+	alexandre.torgue@st.com, amd-gfx@lists.freedesktop.org,
+	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
 	artur.paszkiewicz@intel.com, bp@alien8.de, brian.starkey@arm.com,
 	bvanassche@acm.org, chao@kernel.org, christian.koenig@amd.com,
 	clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
@@ -47,12 +46,11 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	hdegoede@redhat.com, herve.codina@bootlin.com, hpa@zytor.com,
 	intel-linux-scu@intel.com, jack@suse.com, james.morse@arm.com,
 	james.qian.wang@arm.com, jdelvare@suse.com, jdike@addtoit.com,
-	jejb@linux.ibm.com, jmal@freedesktop.org, oy@redhat.com,
-	joabreu@synopsys.com, josef@toxicpanda.com, kadlec@netfilter.org,
-	kbusch@kernel.org, keescook@chromium.org, kuba@kernel.org,
-	kuznet@ms2.inr.ac.ru, linux-arm-kernel@lists.infradead.org,
-	linux-erofs@lists.ozlabs.org, linux-mm@kvack.org,
-	linux-staging@lists.linux.dev,
+	jejb@linux.ibm.com, jmaloy@redhat.com, joabreu@synopsys.com,
+	josef@toxicpanda.com, kadlec@netfilter.org, kbusch@kernel.org,
+	keescook@chromium.org, kuba@kernel.org, kuznet@ms2.inr.ac.ru,
+	linux-arm-kernel@lists.infradead.org, linux-erofs@lists.ozlabs.org,
+	linux-mm@kvack.org, linux-staging@lists.linux.dev,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-um@lists.infradead.org, linux@armlinux.org.uk,
 	linux@rasmusvillemoes.dk, linux@roeck-us.net, liviu.dudau@arm.com,
@@ -67,16 +65,17 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	rajur@chelsio.com, richard@nod.at, robdclark@gmail.com,
 	rostedt@goodmis.org, rric@kernel.org, ruanjinjie@huawei.com,
 	sakari.ailus@linux.intel.com, sashal@kernel.org, sean@poorly.run,
-	sergey.senozhatsky@gmail.com, snitzer@redhat.com, sunpeng.li@amd.com,
-	tglx@linutronix.de, tipc-discussion@lists.sourceforge.net,
-	tony.luck@intel.com, torvalds@linux-foundation.org, tytso@mit.edu,
-	tzimmermann@suse.de, willy@infradead.org, x86@kernel.org,
-	xiang@kernel.org, ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+	serge@freedesktop.org, y.senozhatsky@gmail.com, snitzer@redhat.com,
+	sunpeng.li@amd.com, tglx@linutronix.de,
+	tipc-discussion@lists.sourceforge.net, tony.luck@intel.com,
+	tytso@mit.edu, tzimmermann@suse.de, willy@infradead.org,
+	x86@kernel.org, xiang@kernel.org, ying.xue@windriver.com,
+	yoshfuji@linux-ipv6.org
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 17 Oct 2025 15:48:30 +0200
-In-Reply-To: <20251017090519.46992-21-farbere@amazon.com>
-Message-ID: <2025101730-wannabe-kilowatt-1f94@gregkh>
+Date: Fri, 17 Oct 2025 15:48:31 +0200
+In-Reply-To: <20251017090519.46992-4-farbere@amazon.com>
+Message-ID: <2025101731-unholy-bulginess-e51e@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -100,101 +99,100 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    minmax: fix up min3() and max3() too
+    minmax: sanity check constant bounds when clamping
 
 to the 5.10-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     minmax-fix-up-min3-and-max3-too.patch
+     minmax-sanity-check-constant-bounds-when-clamping.patch
 and it can be found in the queue-5.10 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From prvs=378230090=farbere@amazon.com Fri Oct 17 11:12:01 2025
+From linux-staging+bounces-34941-greg=kroah.com@lists.linux.dev Fri Oct 17 11:08:22 2025
 From: Eliav Farber <farbere@amazon.com>
-Date: Fri, 17 Oct 2025 09:05:12 +0000
-Subject: minmax: fix up min3() and max3() too
+Date: Fri, 17 Oct 2025 09:04:55 +0000
+Subject: minmax: sanity check constant bounds when clamping
 To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>, <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>, <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <rajur@chelsio
  .com>, <davem@davemloft.net>, <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>, <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>, <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <willy@infradead.org>, <farbere@amazon.com>,
   <sashal@kernel.org>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>, <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>, <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@
  lists.sourceforge.net>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Arnd Bergmann <arnd@kernel.org>
-Message-ID: <20251017090519.46992-21-farbere@amazon.com>
+Message-ID: <20251017090519.46992-4-farbere@amazon.com>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
 
-[ Upstream commit 21b136cc63d2a9ddd60d4699552b69c214b32964 ]
+[ Upstream commit 5efcecd9a3b18078d3398b359a84c83f549e22cf ]
 
-David Laight pointed out that we should deal with the min3() and max3()
-mess too, which still does excessive expansion.
+The clamp family of functions only makes sense if hi>=lo.  If hi and lo
+are compile-time constants, then raise a build error.  Doing so has
+already caught buggy code.  This also introduces the infrastructure to
+improve the clamping function in subsequent commits.
 
-And our current macros are actually rather broken.
-
-In particular, the macros did this:
-
-  #define min3(x, y, z) min((typeof(x))min(x, y), z)
-  #define max3(x, y, z) max((typeof(x))max(x, y), z)
-
-and that not only is a nested expansion of possibly very complex
-arguments with all that involves, the typing with that "typeof()" cast
-is completely wrong.
-
-For example, imagine what happens in max3() if 'x' happens to be a
-'unsigned char', but 'y' and 'z' are 'unsigned long'.  The types are
-compatible, and there's no warning - but the result is just random
-garbage.
-
-No, I don't think we've ever hit that issue in practice, but since we
-now have sane infrastructure for doing this right, let's just use it.
-It fixes any excessive expansion, and also avoids these kinds of broken
-type issues.
-
-Requested-by: David Laight <David.Laight@aculab.com>
-Acked-by: Arnd Bergmann <arnd@kernel.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+[akpm@linux-foundation.org: coding-style cleanups]
+[akpm@linux-foundation.org: s@&&\@&& \@]
+Link: https://lkml.kernel.org/r/20220926133435.1333846-1-Jason@zx2c4.com
+Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Kees Cook <keescook@chromium.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/minmax.h |   12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ include/linux/minmax.h |   26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -152,13 +152,20 @@
- #define umax(x, y)	\
- 	__careful_cmp(max, (x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull)
+@@ -37,6 +37,28 @@
+ 		__cmp(x, y, op), \
+ 		__cmp_once(x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y), op))
  
-+#define __careful_op3(op, x, y, z, ux, uy, uz) ({			\
-+	__auto_type ux = (x); __auto_type uy = (y);__auto_type uz = (z);\
-+	BUILD_BUG_ON_MSG(!__types_ok3(x,y,z,ux,uy,uz),			\
-+		#op"3("#x", "#y", "#z") signedness error");		\
-+	__cmp(op, ux, __cmp(op, uy, uz)); })
++#define __clamp(val, lo, hi)	\
++	__cmp(__cmp(val, lo, >), hi, <)
++
++#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
++		typeof(val) unique_val = (val);				\
++		typeof(lo) unique_lo = (lo);				\
++		typeof(hi) unique_hi = (hi);				\
++		__clamp(unique_val, unique_lo, unique_hi); })
++
++#define __clamp_input_check(lo, hi)					\
++        (BUILD_BUG_ON_ZERO(__builtin_choose_expr(			\
++                __is_constexpr((lo) > (hi)), (lo) > (hi), false)))
++
++#define __careful_clamp(val, lo, hi) ({					\
++	__clamp_input_check(lo, hi) +					\
++	__builtin_choose_expr(__typecheck(val, lo) && __typecheck(val, hi) && \
++			      __typecheck(hi, lo) && __is_constexpr(val) && \
++			      __is_constexpr(lo) && __is_constexpr(hi),	\
++		__clamp(val, lo, hi),					\
++		__clamp_once(val, lo, hi, __UNIQUE_ID(__val),		\
++			     __UNIQUE_ID(__lo), __UNIQUE_ID(__hi))); })
 +
  /**
-  * min3 - return minimum of three values
+  * min - return minimum of two values of the same or compatible types
   * @x: first value
-  * @y: second value
-  * @z: third value
+@@ -103,7 +125,7 @@
+  * This macro does strict typechecking of @lo/@hi to make sure they are of the
+  * same type as @val.  See the unnecessary pointer comparisons.
   */
--#define min3(x, y, z) min((typeof(x))min(x, y), z)
-+#define min3(x, y, z) \
-+	__careful_op3(min, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
+-#define clamp(val, lo, hi) min((typeof(val))max(val, lo), hi)
++#define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
+ 
+ /*
+  * ..and if you can't take the strict
+@@ -138,7 +160,7 @@
+  * This macro does no typechecking and uses temporary variables of type
+  * @type to make all the comparisons.
+  */
+-#define clamp_t(type, val, lo, hi) min_t(type, max_t(type, val, lo), hi)
++#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
  
  /**
-  * max3 - return maximum of three values
-@@ -166,7 +173,8 @@
-  * @y: second value
-  * @z: third value
-  */
--#define max3(x, y, z) max((typeof(x))max(x, y), z)
-+#define max3(x, y, z) \
-+	__careful_op3(max, x, y, z, __UNIQUE_ID(x_), __UNIQUE_ID(y_), __UNIQUE_ID(z_))
- 
- /**
-  * min_not_zero - return the minimum that is _not_ zero, unless both are zero
+  * clamp_val - return a value clamped to a given range using val's type
 
 
 Patches currently in stable-queue which might be from farbere@amazon.com are
