@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D61CCD195
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 13:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E824CCD1A7
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 13:37:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0329F10EC22;
-	Fri, 17 Oct 2025 13:37:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66B1910EC25;
+	Fri, 17 Oct 2025 13:37:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nmyonwET";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QlDMBubB";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF31710EC10;
- Fri, 17 Oct 2025 13:37:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCD6B10EC1E;
+ Fri, 17 Oct 2025 13:37:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=uwlVuWThkdYvypssptWMAzzg/qOK9M7cDe2FOmccdHw=; b=nmyonwETyRuJUozN9CKTX0eE3Z
- Elsd8LVDujRJl6SOpUCd9VU76ZWkcoRR82im0dR2ko8mvHKZPePiwDja0m5RqDR0hik4TjI6m7G+r
- VM0LDgreq21KBlaGxEiOAx9zaLYmyeh6okF4FwBALgW07sdsS79EZEgeOKtT1guIHX472n02ilaDa
- nKhelQ8KYMM5SNY/FMvH0sUmVsnaeaTgbJxPR/Vbpxfi17ct5BV5wwTS1jDdS9C6TNro27sgR5DAd
- Gcx5z732UWf3uvVm+jKtRCidXmnMhRhDYMDrYM5xBZs932yzOHe6R2PwQTW1oQRdBvA7j1TPL2VDC
- YLpuTQZA==;
+ bh=13pcwDX3/pRKj3DnSzfa/VgyGPLKezY50Z20rHpfym4=; b=QlDMBubBHiOkqpgWR9bhpWTevQ
+ eQJYXivBhoxT15WjbLQ9AiT51DGKZMszuVYucGbNyLrURRXTmwfHXHi8fNelWrLxWpzmRZxwk1BJ+
+ 2cOMDQr4vZb5vTvBlv+qlgleiuKVDrAGDKNIZzblraEg2DX3LjDgSg3xf1sUzuFQSOIEqePOOG8xe
+ V6f/5AP7Mob87NeU+tY2ELlfZqlu9R/CrogWjhTwifww1Uw0zj4ojlT1cEWnyoxzvzSVy7X8qbyYm
+ Mltm9YmfeMe4uxTity1ldIyZ0iM9FTJZvxicDjwGxEqrO4qeARWfyyZcGqH78b5ZQdlIxOi+rYFSs
+ 6k3/R5eA==;
 Received: from [90.242.12.242] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1v9kdf-00B3wa-7N; Fri, 17 Oct 2025 15:36:59 +0200
+ id 1v9kdl-00B3yi-23; Fri, 17 Oct 2025 15:37:05 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- etnaviv@lists.freedesktop.org, Christian Gmeiner <cgmeiner@igalia.com>
-Subject: [PATCH v2 17/27] drm/etnaviv: Remove drm_sched_init_args->num_rqs
- usage
-Date: Fri, 17 Oct 2025 14:36:34 +0100
-Message-ID: <20251017133644.44747-18-tvrtko.ursulin@igalia.com>
+ Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH v2 25/27] drm/v3d: Remove drm_sched_init_args->num_rqs usage
+Date: Fri, 17 Oct 2025 14:36:42 +0100
+Message-ID: <20251017133644.44747-26-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
 References: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,27 +64,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Lucas Stach <l.stach@pengutronix.de>
-Cc: Russell King <linux+etnaviv@armlinux.org.uk>
-Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
-Cc: etnaviv@lists.freedesktop.org
-Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: "Maíra Canal" <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+Acked-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_sched.c | 1 -
+ drivers/gpu/drm/v3d/v3d_sched.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-index df4232d7e135..63f672536516 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-@@ -142,7 +142,6 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 0ec06bfbbebb..8978b21d6aa3 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -868,7 +868,6 @@ v3d_queue_sched_init(struct v3d_dev *v3d, const struct drm_sched_backend_ops *op
+ 		     enum v3d_queue queue, const char *name)
  {
- 	const struct drm_sched_init_args args = {
- 		.ops = &etnaviv_sched_ops,
+ 	struct drm_sched_init_args args = {
 -		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit = etnaviv_hw_jobs_limit,
- 		.hang_limit = etnaviv_job_hang_limit,
+ 		.credit_limit = 1,
  		.timeout = msecs_to_jiffies(500),
+ 		.dev = v3d->drm.dev,
 -- 
 2.48.0
 
