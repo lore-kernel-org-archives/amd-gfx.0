@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7CE3CCD19F
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F04CCD1A5
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE1610E3BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 367E110E3BD;
 	Sat, 18 Oct 2025 08:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="UFWgrw6u";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="R5fxUu1n";
 	dkim-atps=neutral
 Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
  (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
  [35.155.198.111])
- by gabe.freedesktop.org (Postfix) with ESMTP id C381010EB86;
- Fri, 17 Oct 2025 09:08:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A5610EB7A;
+ Fri, 17 Oct 2025 09:11:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1760692111; x=1792228111;
+ t=1760692263; x=1792228263;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UnBmV/SkhIg5SgTRTNSUlBFA6sgQ2eBqJGsC4N+ceR0=;
- b=UFWgrw6uIKZzYjEJ7sZgSidt7aOH+ZvLdl4u1RgRqG6w+pXyKQToUzNw
- 2sfXRf82XUX3580Cwi67oZdG9u88V/4vZAHGEbUjcqw+6vIA3hUFBVYNx
- bU6NDCK5pi58gVOYIyizKUviUNhXQk6b2KmieIm0uhNIednnkgM4NE0v3
- qoWF9ct/JKS94OW9pj1AW/RIj8H6R20XQ/V9YZk0yxdBwt++h5/vhVCzU
- wnHDxQo/9BAwk/pUHH1b1pLBNtSImL/qNx7haLkUsxt1zPpC5m01y4Cuo
- zAcGr5lmHl7nkvRbVRFsNgw/PEhDaoJOs/H7O4svcj2CnO96ey5gG9cme A==;
-X-CSE-ConnectionGUID: WCpaR4cdS9OdN2hKjiDnYQ==
-X-CSE-MsgGUID: N/lOrbq4SWaAdwkuRlI2qg==
+ bh=7swfVbslESxQg74V4Pet/sTVI7N58Kfpf4qGaJIy9fE=;
+ b=R5fxUu1nOlJiQ6y2OmoKaLFNHGuv5pc3gECIurbidroNMEkEpCNuugw8
+ pby2pBdMzyj3bkOx2raJhdUgMDDNPRv/4pnPKK4iXchoKlfisOPl2FXgX
+ cQZ8u4Ou3Tr2gqUmPoXEJuise9YFLRVVCQYe6Ivlhl1DiDG0lihE1QR0c
+ +WC2jPKiQQ9i0ypRKNjfZwd/kaKW+cKRfU08/DfmDYV65oB5t28EWDe0f
+ HPpiEa6V1D+aWijau1TQ4lSoFuuAdqrGklYmKmZwFMqGTD21EBubJ8rot
+ L4xKq5Lt+/wjeaz2bxi7n+Ri81JIQ0aha3RmoA8IueZ8x6br/zOUjM65F A==;
+X-CSE-ConnectionGUID: eqxFMeIYQ1uOPc/j2alofw==
+X-CSE-MsgGUID: +S/ImWiVSgab/RiiMMwNZQ==
 X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
-   d="scan'208";a="4956861"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO
- smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+   d="scan'208";a="4957083"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:08:25 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.105:29079]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.51:2525]
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:11:03 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:31840]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.18.50:2525]
  with esmtp (Farcaster)
- id 2bc32977-123f-4a3f-bfc0-1f8a878e3279; Fri, 17 Oct 2025 09:08:25 +0000 (UTC)
-X-Farcaster-Flow-ID: 2bc32977-123f-4a3f-bfc0-1f8a878e3279
+ id bb414978-1e68-41dd-b082-083baabb1a79; Fri, 17 Oct 2025 09:11:02 +0000 (UTC)
+X-Farcaster-Flow-ID: bb414978-1e68-41dd-b082-083baabb1a79
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 17 Oct 2025 09:08:24 +0000
+ Fri, 17 Oct 2025 09:11:02 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
- 09:08:09 +0000
+ 09:10:47 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
  <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
@@ -99,12 +99,12 @@ To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
  <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
  <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
  <tipc-discussion@lists.sourceforge.net>
-CC: Christoph Hellwig <hch@infradead.org>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Subject: [PATCH v2 09/27 5.10.y] minmax: allow min()/max()/clamp() if the
- arguments have the same signedness.
-Date: Fri, 17 Oct 2025 09:05:01 +0000
-Message-ID: <20251017090519.46992-10-farbere@amazon.com>
+CC: Linus Torvalds <torvalds@linux-foundation.org>, David Laight
+ <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Subject: [PATCH v2 17/27 5.10.y] minmax: don't use max() in situations that
+ want a C constant expression
+Date: Fri, 17 Oct 2025 09:05:09 +0000
+Message-ID: <20251017090519.46992-18-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
 References: <20251017090519.46992-1-farbere@amazon.com>
@@ -112,9 +112,9 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
+X-ClientProxiedBy: EX19D038UWC002.ant.amazon.com (10.13.139.238) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
-X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
+X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,172 +129,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <David.Laight@ACULAB.COM>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit d03eba99f5bf7cbc6e2fdde3b6fa36954ad58e09 ]
+[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
 
-The type-check in min()/max() is there to stop unexpected results if a
-negative value gets converted to a large unsigned value.  However it also
-rejects 'unsigned int' v 'unsigned long' compares which are common and
-never problematc.
+We only had a couple of array[] declarations, and changing them to just
+use 'MAX()' instead of 'max()' fixes the issue.
 
-Replace the 'same type' check with a 'same signedness' check.
+This will allow us to simplify our min/max macros enormously, since they
+can now unconditionally use temporary variables to avoid using the
+argument values multiple times.
 
-The new test isn't itself a compile time error, so use static_assert() to
-report the error and give a meaningful error message.
-
-Due to the way builtin_choose_expr() works detecting the error in the
-'non-constant' side (where static_assert() can be used) also detects
-errors when the arguments are constant.
-
-Link: https://lkml.kernel.org/r/fe7e6c542e094bfca655abcd323c1c98@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 60 ++++++++++++++++++++++--------------------
- 1 file changed, 32 insertions(+), 28 deletions(-)
+ drivers/input/touchscreen/cyttsp4_core.c | 2 +-
+ drivers/md/dm-integrity.c                | 4 ++--
+ fs/btrfs/tree-checker.c                  | 2 +-
+ lib/vsprintf.c                           | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 2a197f54fe05..8718fd71a793 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -12,9 +12,8 @@
-  *
-  * - avoid multiple evaluations of the arguments (so side-effects like
-  *   "x++" happen only once) when non-constant.
-- * - perform strict type-checking (to generate warnings instead of
-- *   nasty runtime surprises). See the "unnecessary" pointer comparison
-- *   in __typecheck().
-+ * - perform signed v unsigned type-checking (to generate compile
-+ *   errors instead of nasty runtime surprises).
-  * - retain result as a constant expressions when called with only
-  *   constant expressions (to avoid tripping VLA warnings in stack
-  *   allocation usage).
-@@ -22,23 +21,30 @@
- #define __typecheck(x, y) \
- 	(!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
+diff --git a/drivers/input/touchscreen/cyttsp4_core.c b/drivers/input/touchscreen/cyttsp4_core.c
+index 02a73d9a4def..c10140c9aafa 100644
+--- a/drivers/input/touchscreen/cyttsp4_core.c
++++ b/drivers/input/touchscreen/cyttsp4_core.c
+@@ -857,7 +857,7 @@ static void cyttsp4_get_mt_touches(struct cyttsp4_mt_data *md, int num_cur_tch)
+ 	struct cyttsp4_touch tch;
+ 	int sig;
+ 	int i, j, t = 0;
+-	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
++	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
  
--#define __no_side_effects(x, y) \
--		(__is_constexpr(x) && __is_constexpr(y))
-+/* is_signed_type() isn't a constexpr for pointer types */
-+#define __is_signed(x) 								\
-+	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
-+		is_signed_type(typeof(x)), 0)
+ 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
+ 	for (i = 0; i < num_cur_tch; i++) {
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 7fa3bf74747d..917ba18be77f 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -1600,7 +1600,7 @@ static void integrity_metadata(struct work_struct *w)
+ 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
+ 		char *checksums;
+ 		unsigned extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
+-		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
++		char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
+ 		sector_t sector;
+ 		unsigned sectors_to_process;
  
--#define __safe_cmp(x, y) \
--		(__typecheck(x, y) && __no_side_effects(x, y))
-+#define __types_ok(x, y) \
-+	(__is_signed(x) == __is_signed(y))
+@@ -1882,7 +1882,7 @@ static bool __journal_read_write(struct dm_integrity_io *dio, struct bio *bio,
+ 				} while (++s < ic->sectors_per_block);
+ #ifdef INTERNAL_VERIFY
+ 				if (ic->internal_hash) {
+-					char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
++					char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
  
--#define __cmp(x, y, op)	((x) op (y) ? (x) : (y))
-+#define __cmp_op_min <
-+#define __cmp_op_max >
+ 					integrity_sector_checksum(ic, logical_sector, mem + bv.bv_offset, checksums_onstack);
+ 					if (unlikely(memcmp(checksums_onstack, journal_entry_tag(ic, je), ic->tag_size))) {
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index c28bb37688c6..fd4768c5e439 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -587,7 +587,7 @@ static int check_dir_item(struct extent_buffer *leaf,
+ 		 */
+ 		if (key->type == BTRFS_DIR_ITEM_KEY ||
+ 		    key->type == BTRFS_XATTR_ITEM_KEY) {
+-			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
++			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
  
--#define __cmp_once(x, y, unique_x, unique_y, op) ({	\
-+#define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
-+
-+#define __cmp_once(op, x, y, unique_x, unique_y) ({	\
- 		typeof(x) unique_x = (x);		\
- 		typeof(y) unique_y = (y);		\
--		__cmp(unique_x, unique_y, op); })
-+		static_assert(__types_ok(x, y),		\
-+			#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
-+		__cmp(op, unique_x, unique_y); })
+ 			read_extent_buffer(leaf, namebuf,
+ 					(unsigned long)(di + 1), name_len);
+diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+index b08b8ee1bbc0..90372391ce90 100644
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -1078,7 +1078,7 @@ char *resource_string(char *buf, char *end, struct resource *res,
+ #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
+ #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
+ #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
+-	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
++	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
+ 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
  
--#define __careful_cmp(x, y, op) \
--	__builtin_choose_expr(__safe_cmp(x, y), \
--		__cmp(x, y, op), \
--		__cmp_once(x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y), op))
-+#define __careful_cmp(op, x, y)					\
-+	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
-+		__cmp(op, x, y),				\
-+		__cmp_once(op, x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y)))
- 
- #define __clamp(val, lo, hi)	\
- 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
-@@ -47,17 +53,15 @@
- 		typeof(val) unique_val = (val);				\
- 		typeof(lo) unique_lo = (lo);				\
- 		typeof(hi) unique_hi = (hi);				\
-+		static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
-+				(lo) <= (hi), true),					\
-+			"clamp() low limit " #lo " greater than high limit " #hi);	\
-+		static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
-+		static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
- 		__clamp(unique_val, unique_lo, unique_hi); })
- 
--#define __clamp_input_check(lo, hi)					\
--        (BUILD_BUG_ON_ZERO(__builtin_choose_expr(			\
--                __is_constexpr((lo) > (hi)), (lo) > (hi), false)))
--
- #define __careful_clamp(val, lo, hi) ({					\
--	__clamp_input_check(lo, hi) +					\
--	__builtin_choose_expr(__typecheck(val, lo) && __typecheck(val, hi) && \
--			      __typecheck(hi, lo) && __is_constexpr(val) && \
--			      __is_constexpr(lo) && __is_constexpr(hi),	\
-+	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
- 		__clamp(val, lo, hi),					\
- 		__clamp_once(val, lo, hi, __UNIQUE_ID(__val),		\
- 			     __UNIQUE_ID(__lo), __UNIQUE_ID(__hi))); })
-@@ -67,14 +71,14 @@
-  * @x: first value
-  * @y: second value
-  */
--#define min(x, y)	__careful_cmp(x, y, <)
-+#define min(x, y)	__careful_cmp(min, x, y)
- 
- /**
-  * max - return maximum of two values of the same or compatible types
-  * @x: first value
-  * @y: second value
-  */
--#define max(x, y)	__careful_cmp(x, y, >)
-+#define max(x, y)	__careful_cmp(max, x, y)
- 
- /**
-  * umin - return minimum of two non-negative values
-@@ -83,7 +87,7 @@
-  * @y: second value
-  */
- #define umin(x, y)	\
--	__careful_cmp((x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull, <)
-+	__careful_cmp(min, (x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull)
- 
- /**
-  * umax - return maximum of two non-negative values
-@@ -91,7 +95,7 @@
-  * @y: second value
-  */
- #define umax(x, y)	\
--	__careful_cmp((x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull, >)
-+	__careful_cmp(max, (x) + 0u + 0ul + 0ull, (y) + 0u + 0ul + 0ull)
- 
- /**
-  * min3 - return minimum of three values
-@@ -143,7 +147,7 @@
-  * @x: first value
-  * @y: second value
-  */
--#define min_t(type, x, y)	__careful_cmp((type)(x), (type)(y), <)
-+#define min_t(type, x, y)	__careful_cmp(min, (type)(x), (type)(y))
- 
- /**
-  * max_t - return maximum of two values, using the specified type
-@@ -151,7 +155,7 @@
-  * @x: first value
-  * @y: second value
-  */
--#define max_t(type, x, y)	__careful_cmp((type)(x), (type)(y), >)
-+#define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
- 
- /*
-  * Do not check the array parameter using __must_be_array().
+ 	char *p = sym, *pend = sym + sizeof(sym);
 -- 
 2.47.3
 
