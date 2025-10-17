@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 356C3CCD1A5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5FD3CCD199
 	for <amd-gfx@archiver.kernel.org>; Fri, 17 Oct 2025 13:36:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE71710EBF8;
-	Fri, 17 Oct 2025 13:36:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 024A710EBFF;
+	Fri, 17 Oct 2025 13:36:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nHpNWFXo";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PeZ2x3ec";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FBC210EBF8;
- Fri, 17 Oct 2025 13:36:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4374D10EBFB;
+ Fri, 17 Oct 2025 13:36:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=W6x+moXPICUzr8gDUWRfuAuC63uD9XpE8VyvsgU7Akw=; b=nHpNWFXoVZpGA8Q94tj5xBqnTp
- 5sIgMyVHJEvPR5Idb16gpVZqLLTXGkmVR2TTCKO75MTX2Jv5O0lAguuni3DmhjsfgMtoRoOXMDejO
- esJmKms5lwCudxSWjogXBgByAhOKg8kQ+zqky7PSbtS7hayaEBSnaNh5Q5+ieqXz83+yUZ/BjQvOM
- kHp1/vIwwIuGMCtnRRVCw8GElF3swtxXT1zisCGXEFFIg3o+rOIJxDiD82HPojKP7E/JDchmm+8fq
- lj/z90HhzKNC5QuKrRWkFZy/9yf83Ctf3aY7TdZhBo/GUxeFCWVrau93apm0oHx/5TlaNc1+bljl+
- HqxtEUQQ==;
+ bh=8gr/oHV9m6fMR7rKrYaLYA5Onbo3h/ypWfmfAjgQGGw=; b=PeZ2x3ecwEDjQeYDQ1IQi41LZ5
+ ZwSpJWd+sGod77lVch7oFyQKmvirOFcIK4CHbqp0LYQd+VzRsEV3zzH9kyHMUskvKiOMusqC9zs98
+ N891JtxURCRzpaQi7iLWopucGm6vs558GpBgfusUG39R+KnUQSbIm2ddiD85nsLeiM+dacUrGTISu
+ RokLSy744qQ+CcIz/LbrbdMzhwzglewa/Iqk2Bu9eiqjOOFLM3kFyDaVPNEeZxEc7+Bi5VYCLgEir
+ x5fUmV5DpGShdI7SNRMutD4iMtQIwZezjw/Lp4qZXXNPSWRVYv0H6IO8kzdlSbDgGa2fZ6P+vtl58
+ jWXwCcnQ==;
 Received: from [90.242.12.242] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1v9kdV-00B3te-Mh; Fri, 17 Oct 2025 15:36:49 +0200
+ id 1v9kdS-00B3tO-MK; Fri, 17 Oct 2025 15:36:46 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Leo Liu <Leo.Liu@amd.com>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: [PATCH v2 04/27] drm/sched: Add some more scheduling quality unit
- tests
-Date: Fri, 17 Oct 2025 14:36:21 +0100
-Message-ID: <20251017133644.44747-5-tvrtko.ursulin@igalia.com>
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Subject: [PATCH v2 00/27] Fair DRM scheduler
+Date: Fri, 17 Oct 2025 14:36:17 +0100
+Message-ID: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
-References: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,245 +63,305 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This time round we explore the rate of submitted job queue processing
-with multiple identical parallel clients.
+[disclaimer]
+Please note that as this series includes patches which touch a good number of
+drivers, I did not copy everyone on everything. Assumption is people are
+subscribed to dri-devel and for context can look at the whole series there.
+[/disclaimer]
 
-Example test output:
+As a summary, the new scheduling algorithm is insipired by the original Linux
+CFS and so far no scheduling regressions have been found relative to FIFO.
+There are improvements in fairness and scheduling of interactive clients when
+running in parallel with a heavy GPU load (for example Pierre-Eric has one
+viewperf medical test which shows a nice improvement with amdgpu).
 
-3 clients:
-        t               cycle:     min  avg max : ...
-        +     0ms                   0    0    0 :   0   0   0
-        +   102ms                   2    2    2 :   2   2   2
-        +   208ms                   5    6    6 :   6   5   5
-        +   310ms                   8    9    9 :   9   9   8
-...
-        +  2616ms                  82   83   83 :  83  83  82
-        +  2717ms                  83   83   83 :  83  83  83
-    avg_max_min_delta(x100)=60
+On the high level main advantages of the series are:
 
-Every 100ms for the duration of the test test logs how many jobs each
-client had completed, prefixed by minimum, average and maximum numbers.
-When finished overall average delta between max and min is output as a
-rough indicator to scheduling fairness.
+ 1. Scheduling quality - schedules better than FIFO, solves priority starvation.
+ 2. Code simplification - no more multiple run queues and multiple algorithms.
+ 3. Virtual GPU time based scheduling enables relatively simple addition
+    of a scheduling cgroup controller in the future.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+There is a little bit more detailed write up on the motivation and results in
+the form of a blog post which may be easier to read:
+https://blogs.igalia.com/tursulin/fair-er-drm-gpu-scheduler/
+
+First patches add some unit tests which allow for easy evaluation of scheduling
+behaviour against different client submission patterns. From there onwards it is
+hopefully a natural progression of cleanups, enablers, adding the fair policy,
+and finally removing FIFO and RR and simplifying the code base due no more need
+for multiple run queues.
+
+Series is structured in a way where we could apply the first 12 patches (up to
+and including "drm/sched: Switch default policy to fair") in one kernel release
+and then follow up with the rest of the cleanups after a release or two if
+things will be looking fine. Until the remainder of the series would be merged
+it would be easy to flip the default algorithm back.
+
+Onto the performance evaluation. As a headline result I have tested three
+simultaneous clients on the Steam Deck:
+
+One instance of a deferredmultisampling Vulkan demo running with low priority,
+one normal priority instance of the same demo, and the Unigine Heaven benchmark.
+
+With the FIFO scheduler we can see that the low priority client is completely
+starved and the GPU time distribution between the other two clients is uneven:
+
+https://people.igalia.com/tursulin/drm-sched-fair/fifo-starvation.png
+
+Switching to the fair scheduler, GPU time distribution is almost equal and the
+low priority client does get a small share of the GPU:
+
+https://people.igalia.com/tursulin/drm-sched-fair/fair-no-starvation.png
+
+Moving onto the synthetic submission patterns, they are about two simultaneous
+clients which broadly cover the following categories:
+
+ * Deep queue clients
+ * Hogs versus interactive
+ * Priority handling
+
+Lets look at the results:
+
+1. Two normal priority deep queue clients.
+
+These ones submit one second worth of 8ms jobs. As fast as they can, no
+dependencies etc. There is no difference in runtime between FIFO and fair but
+the latter allows both clients to progress with work more evenly:
+
+https://people.igalia.com/tursulin/drm-sched-fair/normal-normal.png
+
+(X axis is time, Y is submitted queue-depth, hence lowering of qd corresponds
+  with work progress for both clients, tested with both schedulers separately.)
+
+Round-robin is the same as fair here.
+
+2. Same two clients but one is now low priority.
+
+https://people.igalia.com/tursulin/drm-sched-fair/normal-low.png
+
+Normal priority client is a solid line, low priority dotted. We can see how FIFO
+completely starves the low priority client until the normal priority is fully
+done. Only then the low priority client gets any GPU time.
+
+In constrast, fair scheduler allows some GPU time to the low priority client.
+
+Here round-robin flavours are the same as FIFO (same starvation issue).
+
+3. Same clients but now high versus normal priority.
+
+Similar behaviour as in the previous one with normal a bit less de-prioritised
+relative to high, than low was against normal.
+
+https://people.igalia.com/tursulin/drm-sched-fair/high-normal.png
+
+And again round-robin flavours are the same as FIFO.
+
+4. Heavy load vs interactive client.
+
+Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed by a
+2.5ms wait. Interactive client emits a 10% GPU load in the format of 1x 1ms job
+followed by a 9ms wait.
+
+This simulates an interactive graphical client used on top of a relatively heavy
+background load but no GPU oversubscription.
+
+Graphs show the interactive client only and from now on, instead of looking at
+the client's queue depth, we look at its "fps".
+
+https://people.igalia.com/tursulin/drm-sched-fair/251008/4-heavy-vs-interactive.png
+
+Here round-robin and round-robin rewritten on top of FIFO are best, with the
+fair algorithm being very close. FIFO is clearly the worst.
+
+5. An even heavier load vs interactive client.
+
+This one is oversubscribing the GPU by submitting 4x 50ms jobs and waiting for
+only one microsecond before repeating the cycle. Interactive client is the same
+10% as above.
+
+https://people.igalia.com/tursulin/drm-sched-fair/251008/4-very-heavy-vs-interactive.png
+
+Here FIFO is even worse and fair is again almost as good as the two round-robin
+flavours.
+
+6. Low priority GPU hog versus heavy-interactive.
+
+Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
+Interactive client: 1x 0.5ms job followed by a 10ms wait.
+
+https://people.igalia.com/tursulin/drm-sched-fair/251008/4-low-hog-vs-interactive.png
+
+All schedulers appear to handle this almost equally well but FIFO could still be
+the last while fair has a slight lead.
+
+As before, I am looking for feedback, ideas for what other kinds of submission
+scenarios to test, testing on different GPUs and of course reviews.
+
+v2:
+ * Fixed many rebase errors.
+ * Added some new patches.
+ * Dropped single shot dependecy handling.
+
+v3:
+ * Added scheduling quality unit tests.
+ * Refined a tiny bit by adding some fairness.
+ * Dropped a few patches for now.
+
+v4:
+ * Replaced deadline with fair!
+ * Refined scheduling quality unit tests.
+ * Pulled one cleanup patch earlier.
+ * Fixed "drm/sched: Avoid double re-lock on the job free path".
+
+v5:
+ * Rebase on top of latest upstream DRM scheduler changes.
+ * Kerneldoc fixup.
+ * Improve commit message justification for one patch. (Philipp)
+ * Add comment in drm_sched_alloc_wq. (Christian)
+
+v6:
+ * Rebase for "drm/sched: De-clutter drm_sched_init" getting merged.
+ * Avoid NULL rq dereference from a bad rebase. (Maira)
+ * Added some kerneldoc throughout. (Maira)
+ * Removed some lockdep annotations not belonging to one patch. (Maira)
+ * Use dma_fence_is_signaled in "drm/sched: Avoid double re-lock on the job free path". (Maira, Philipp)
+
+v7:
+ * Rebase for some prep patches getting merged.
+ * Dropped submit all ready jobs patch.
+ * Fixed 64-bit division in unit tests.
+ * Fixed some more rebase and patch re-ordering mistakes.
+ * Preserve entity RR order when re-entering the queue.
+ * Fine tuned the queue re-enter logic for better behaviour with interactive
+   clients.
+ * Removed some static inlines.
+ * Added more kerneldoc.
+ * Done some benchmarks in the round-robin scheduling modes.
+
+v8:
+ * Rebased for upstream changes.
+ * Added assert for reverse numerical order of DRM_SCHED_PRIORITY enums.
+ * Fixed head of rq priority updates.
+
+*** RFC -> PATCH change log version reset. ***
+
+v9 / v1:
+ * RFC -> PATCH for the series as agreed during the XDC.
+ * Updated interactive benchmark graphs.
+ * Improved handling of interactive clients by replacing the random noise on tie
+   approach with the average job duration statistics.
+ * Document in code why we track entity GPU stats in a reference counted structures.
+ * Document the new structure fields added by the fair policy.
+ * Undo some tab vs spaces damage.
+ * More accurate wording in the fair policy commit message.
+ * Default to fair policy in a separate patch.
+ * Renamed drm_sched_rq_select_entity to drm_sched_select_entity and make it only take sched.
+ * Fixed kerneldoc after removing scheduling policies and renaming the rq.
+ * Reversed arguments of drm_sched_rq_init and cleanup callers. (New patch)
+ * Removed unused num_rqs from struct drm_sched_args. (New patches)
+ * Unit tests:
+   * Added wait duration comments.
+   * Data structure comments.
+   * Better name for a local variable.
+   * Added comment to the short job duration assert.
+   * Added comment for cond_resched().
+   * Tweaked some comments
+   * Added client_done() helper and documented the READ_ONCE.
+   * Clarified cycles per second calculation.
+
+v2:
+ * Dropped the sched_rq_init() argument re-order patch.
+ * Pulled run queue management consolidation patches to start of the series.
+ * Drm_sched_rq_get_rr_ts() renamed to drm_sched_rq_next_rr_ts().
+ * Added DRM_SCHED_PRIORITY_INVALID local define.
+ * Added locking around the ktime_t vruntime read.
+ * Expanded comment relating to the unlocked entity->priority read.
+ * Expanded comment relating to the unlocked scheduler average job duration read.
+ * Various kerneldoc tweaks.
+ * Undo some tab vs spaces damage harder.
+ * Undo one empty line rebase damage.
+ * Reworded commit message for the FIFO and RR removal patch.
+ * Various commit message spelling, grammar and typo fixes.
+ * Unit tests:
+   * Various style changes.
+   * More descriptive test names.
+   * Print legend for measured metrics.
+   * Check for memory allocation failures.
+
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
+CC: Leo Liu <Leo.Liu@amd.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- .../gpu/drm/scheduler/tests/tests_scheduler.c | 190 +++++++++++++++++-
- 1 file changed, 189 insertions(+), 1 deletion(-)
+Cc: Michel Dänzer <michel.daenzer@mailbox.org>
 
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-index 4a02bc447914..f33306e70bca 100644
---- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
-@@ -195,6 +195,7 @@ struct drm_sched_client_params {
- 
- struct drm_sched_test_params {
- 	const char *description;
-+	unsigned int num_clients;
- 	struct drm_sched_client_params client[2];
- };
- 
-@@ -691,6 +692,193 @@ static struct kunit_suite drm_sched_scheduler_two_clients2 = {
- 	.test_cases = drm_sched_scheduler_two_clients_tests,
- };
- 
-+
-+static const struct drm_sched_test_params drm_sched_many_cases[] = {
-+	{
-+		.description = "2 clients",
-+		.num_clients = 2,
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 4,
-+			.job_us = 1000,
-+			.wait_us = 0,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "3 clients",
-+		.num_clients = 3,
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 4,
-+			.job_us = 1000,
-+			.wait_us = 0,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "7 clients",
-+		.num_clients = 7,
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 4,
-+			.job_us = 1000,
-+			.wait_us = 0,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "13 clients",
-+		.num_clients = 13,
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 4,
-+			.job_us = 1000,
-+			.wait_us = 0,
-+			.sync = true,
-+		},
-+	},
-+	{
-+		.description = "31 clients",
-+		.num_clients = 31,
-+		.client[0] = {
-+			.priority = DRM_SCHED_PRIORITY_NORMAL,
-+			.job_cnt = 2,
-+			.job_us = 1000,
-+			.wait_us = 0,
-+			.sync = true,
-+		},
-+	},
-+};
-+
-+KUNIT_ARRAY_PARAM(drm_sched_scheduler_many_clients,
-+		  drm_sched_many_cases,
-+		  drm_sched_desc);
-+
-+static void drm_sched_scheduler_many_clients_test(struct kunit *test)
-+{
-+	const struct drm_sched_test_params *params = test->param_value;
-+	struct drm_mock_scheduler *sched = test->priv;
-+	const unsigned int clients = params->num_clients;
-+	unsigned int i, j, delta_total = 0, loops = 0;
-+	struct test_client *client;
-+	unsigned int *prev_cycle;
-+	ktime_t start;
-+	char *buf;
-+
-+	/*
-+	 * Many clients with deep-ish async queues.
-+	 */
-+
-+	buf = kunit_kmalloc(test, PAGE_SIZE, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, buf);
-+	client = kunit_kcalloc(test, clients, sizeof(*client), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, client);
-+	prev_cycle = kunit_kcalloc(test, clients, sizeof(*prev_cycle),
-+				   GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, prev_cycle);
-+
-+	for (i = 0; i < clients; i++)
-+		client[i].entity =
-+			drm_mock_sched_entity_new(test,
-+						  DRM_SCHED_PRIORITY_NORMAL,
-+						  sched);
-+
-+	for (i = 0; i < clients; i++) {
-+		client[i].test = test;
-+		client[i].id = i;
-+		client[i].params = params->client[0];
-+		client[i].duration = ms_to_ktime(1000 / clients);
-+		client[i].cycle_time.min_us = ~0U;
-+		client[i].latency_time.min_us = ~0U;
-+		client[i].worker =
-+			kthread_create_worker(0, "%s-%u", __func__, i);
-+		if (IS_ERR(client[i].worker)) {
-+			for (j = 0; j < i; j++)
-+				kthread_destroy_worker(client[j].worker);
-+			KUNIT_FAIL(test, "Failed to create worker!\n");
-+		}
-+
-+		kthread_init_work(&client[i].work, drm_sched_client_work);
-+	}
-+
-+	for (i = 0; i < clients; i++)
-+		kthread_queue_work(client[i].worker, &client[i].work);
-+
-+	start = ktime_get();
-+	pr_info("%u clients:\n\tt\t\tcycle:\t  min    avg    max : ...\n", clients);
-+	for (;;) {
-+		unsigned int min = ~0;
-+		unsigned int max = 0;
-+		unsigned int total = 0;
-+		bool done = true;
-+		char pbuf[16];
-+
-+		memset(buf, 0, PAGE_SIZE);
-+		for (i = 0; i < clients; i++) {
-+			unsigned int cycle, cycles;
-+
-+			/* Read current progress from the threaded worker. */
-+			cycle = READ_ONCE(client[i].cycle);
-+			cycles = READ_ONCE(client[i].cycles);
-+
-+			snprintf(pbuf, sizeof(pbuf), " %3d", cycle);
-+			strncat(buf, pbuf, PAGE_SIZE);
-+
-+			total += cycle;
-+			if (cycle < min)
-+				min = cycle;
-+			if (cycle > max)
-+				max = cycle;
-+
-+			if (!min || (cycle + 1) < cycles)
-+				done = false;
-+		}
-+
-+		loops++;
-+		delta_total += max - min;
-+
-+		pr_info("\t+%6lldms\t\t  %3u  %3u  %3u :%s\n",
-+			ktime_to_ms(ktime_sub(ktime_get(), start)),
-+			min, DIV_ROUND_UP(total, clients), max, buf);
-+
-+		if (done)
-+			break;
-+
-+		msleep(100);
-+	}
-+
-+	pr_info("    avg_max_min_delta(x100)=%u\n",
-+		loops ? DIV_ROUND_UP(delta_total * 100, loops) : 0);
-+
-+	for (i = 0; i < clients; i++) {
-+		kthread_flush_work(&client[i].work);
-+		kthread_destroy_worker(client[i].worker);
-+	}
-+
-+	for (i = 0; i < clients; i++)
-+		drm_mock_sched_entity_free(client[i].entity);
-+}
-+
-+static const struct kunit_attributes drm_sched_scheduler_many_clients_attr = {
-+	.speed = KUNIT_SPEED_SLOW,
-+};
-+
-+static struct kunit_case drm_sched_scheduler_many_clients_tests[] = {
-+	KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_many_clients_test,
-+			      drm_sched_scheduler_many_clients_gen_params,
-+			      drm_sched_scheduler_many_clients_attr),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_scheduler_many_clients = {
-+	.name = "drm_sched_scheduler_many_clients_tests",
-+	.init = drm_sched_scheduler_init2,
-+	.exit = drm_sched_scheduler_exit,
-+	.test_cases = drm_sched_scheduler_many_clients_tests,
-+};
-+
- kunit_test_suites(&drm_sched_scheduler_overhead,
- 		  &drm_sched_scheduler_two_clients1,
--		  &drm_sched_scheduler_two_clients2);
-+		  &drm_sched_scheduler_two_clients2,
-+		  &drm_sched_scheduler_many_clients);
+Tvrtko Ursulin (27):
+  drm/sched: Consolidate entity run queue management
+  drm/sched: Move run queue related code into a separate file
+  drm/sched: Add some scheduling quality unit tests
+  drm/sched: Add some more scheduling quality unit tests
+  drm/sched: Implement RR via FIFO
+  drm/sched: Free all finished jobs at once
+  drm/sched: Account entity GPU time
+  drm/sched: Remove idle entity from tree
+  drm/sched: Add fair scheduling policy
+  drm/sched: Favour interactive clients slightly
+  drm/sched: Switch default policy to fair
+  drm/sched: Remove FIFO and RR and simplify to a single run queue
+  drm/sched: Embed run queue singleton into the scheduler
+  accel/amdxdna: Remove drm_sched_init_args->num_rqs usage
+  accel/rocket: Remove drm_sched_init_args->num_rqs usage
+  drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+  drm/etnaviv: Remove drm_sched_init_args->num_rqs usage
+  drm/imagination: Remove drm_sched_init_args->num_rqs usage
+  drm/lima: Remove drm_sched_init_args->num_rqs usage
+  drm/msm: Remove drm_sched_init_args->num_rqs usage
+  drm/nouveau: Remove drm_sched_init_args->num_rqs usage
+  drm/panfrost: Remove drm_sched_init_args->num_rqs usage
+  drm/panthor: Remove drm_sched_init_args->num_rqs usage
+  drm/sched: Remove drm_sched_init_args->num_rqs usage
+  drm/v3d: Remove drm_sched_init_args->num_rqs usage
+  drm/xe: Remove drm_sched_init_args->num_rqs usage
+  drm/sched: Remove drm_sched_init_args->num_rqs
+
+ drivers/accel/amdxdna/aie2_ctx.c              |   1 -
+ drivers/accel/rocket/rocket_job.c             |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c       |   1 -
+ drivers/gpu/drm/imagination/pvr_queue.c       |   1 -
+ drivers/gpu/drm/lima/lima_sched.c             |   1 -
+ drivers/gpu/drm/msm/msm_gem_vma.c             |   1 -
+ drivers/gpu/drm/msm/msm_ringbuffer.c          |   1 -
+ drivers/gpu/drm/nouveau/nouveau_sched.c       |   1 -
+ drivers/gpu/drm/panfrost/panfrost_job.c       |   1 -
+ drivers/gpu/drm/panthor/panthor_mmu.c         |   1 -
+ drivers/gpu/drm/panthor/panthor_sched.c       |   1 -
+ drivers/gpu/drm/scheduler/Makefile            |   2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c      | 131 ++-
+ drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
+ drivers/gpu/drm/scheduler/sched_internal.h    |  95 +-
+ drivers/gpu/drm/scheduler/sched_main.c        | 401 ++------
+ drivers/gpu/drm/scheduler/sched_rq.c          | 365 ++++++++
+ drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |   1 -
+ .../gpu/drm/scheduler/tests/tests_scheduler.c | 884 ++++++++++++++++++
+ drivers/gpu/drm/v3d/v3d_sched.c               |   1 -
+ drivers/gpu/drm/xe/xe_dep_scheduler.c         |   1 -
+ drivers/gpu/drm/xe/xe_execlist.c              |   1 -
+ drivers/gpu/drm/xe/xe_gpu_scheduler.c         |   1 -
+ include/drm/gpu_scheduler.h                   |  43 +-
+ 32 files changed, 1506 insertions(+), 499 deletions(-)
+ create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
+ create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+
 -- 
 2.48.0
 
