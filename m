@@ -4,52 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AE2ACCD1AB
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4353CCF9EE
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F28A10ECF6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEE210ECF9;
 	Sat, 18 Oct 2025 08:50:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="hQXiHEHg";
-	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="lj1oZQFj";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="e/zptfWr";
 	dkim-atps=neutral
-Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C577910EC8F;
- Fri, 17 Oct 2025 16:28:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1760718487; bh=poaIqRqvW/uM6YSuZpkgeWn
- 8oXL5zJSPHa0GURysBWg=; b=hQXiHEHgbNGumN4uXpV4/QfOhrrJYnQTiZYptd3kmnbwfH21NV
- gTg+0dehgMMYuRAaaOSxv6zstyW2s4vxzy6bT9Nbgi7r9L4LoHPM4NIjYmP12a/nj1RoXm3kYJJ
- +u+Gr3YqyhkO4cLk8BvVMMhOOzMMJViBphul/+9WLRYkyd+3/HqXHVlRqoIn3tMq/Jgv7R0FTD6
- VZfPM6vYOgZ2bgSzzIOgb+U6x01xPKf0z/CfYWGFxFGNtcW/r78KYt8u+gQhAx5gzB0X02HODpR
- ICpFifwURi85sz8Jnwn2WODzWHugEWQc70p7Y70mXOGK+/2+jq0/7gPea7VKKwRKl/A==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1760718487; bh=poaIqRqvW/uM6YSuZpkgeWn
- 8oXL5zJSPHa0GURysBWg=; b=lj1oZQFjZZbnx7CmhOCMZqlySVx9AnTa8jFvbWHCJ+IetpHg0F
- rwQ4t8cbVg1AUpFWpoBUHuDkKCAHdCovqiCA==;
-From: Yaroslav Bolyukin <iam@lach.pw>
-To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yaroslav Bolyukin <iam@lach.pw>
-Subject: [PATCH v5 5/7] drm/edid: for consistency,
- use mask everywhere for block rev parsing
-Date: Fri, 17 Oct 2025 18:27:34 +0200
-Message-ID: <20251017162736.45368-6-iam@lach.pw>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251017162736.45368-1-iam@lach.pw>
-References: <20251017162736.45368-1-iam@lach.pw>
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [35.83.148.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4946910EB86;
+ Fri, 17 Oct 2025 09:12:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1760692349; x=1792228349;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0AzpApDbX8CFEbC2P7WHNPH2gra+XDIh1eSQ6GUhJZw=;
+ b=e/zptfWrJlahl0Z78Kx6NmQSuRdgLIT1OYYcsmncIgGyGpRW3Eom8qXi
+ r9SlNNe2GQMFhcfX4IC7c+enOjPMsiRtwFGaBeT9sgAMoCHWjowlRODiX
+ oNzGvir6o39gVAD5iUPP5zEZmcbmkyfy/KA4eBVJ5vOmc/m//60uMaXGh
+ bUAnWBcwC1lZVF71XwkwwwfntdVNXQP2WRFWEycxf8RZo5o7jjromVeln
+ Rl49hrjI6VaKpnfgGvY1IGUkaLeCQRY/S+Dkj68x0qJWmkYWV0lJCMqYK
+ TVzbu2tdyF9xL0Z5drnPoory+ZxcWHORghf8+g41L04fM8wJlznYuVtXs A==;
+X-CSE-ConnectionGUID: J1dLltBCQl+nmxI5S5yF5w==
+X-CSE-MsgGUID: oWq/BgovT/iyzwwgQ3Arcg==
+X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
+   d="scan'208";a="4873022"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+ by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:12:28 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:28556]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.51:2525]
+ with esmtp (Farcaster)
+ id 70ec11d7-60fa-48fa-8797-02baa870edd8; Fri, 17 Oct 2025 09:12:28 +0000 (UTC)
+X-Farcaster-Flow-ID: 70ec11d7-60fa-48fa-8797-02baa870edd8
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Fri, 17 Oct 2025 09:12:28 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
+ 09:12:12 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
+ <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
+ <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
+ <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
+ <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
+ <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
+ <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>,
+ <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
+ <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
+ <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
+ <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>,
+ <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>,
+ <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
+ <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>,
+ <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
+ <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
+ <tipc-discussion@lists.sourceforge.net>
+CC: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, Jens Axboe <axboe@kernel.dk>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Mateusz Guzik
+ <mjguzik@gmail.com>, Pedro Falcato <pedro.falcato@gmail.com>
+Subject: [PATCH v2 22/27 5.10.y] minmax.h: update some comments
+Date: Fri, 17 Oct 2025 09:05:14 +0000
+Message-ID: <20251017090519.46992-23-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
+References: <20251017090519.46992-1-farbere@amazon.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,37 +130,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
----
- drivers/gpu/drm/drm_displayid_internal.h | 1 +
- drivers/gpu/drm/drm_edid.c               | 3 ++-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+From: David Laight <David.Laight@ACULAB.COM>
 
-diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-index 8ea20b1c6921..38f9d628e2d6 100644
---- a/drivers/gpu/drm/drm_displayid_internal.h
-+++ b/drivers/gpu/drm/drm_displayid_internal.h
-@@ -139,6 +139,7 @@ struct displayid_formula_timings_9 {
- 	u8 vrefresh;
- } __packed;
+[ Upstream commit 10666e99204818ef45c702469488353b5bb09ec7 ]
+
+- Change three to several.
+- Remove the comment about retaining constant expressions, no longer true.
+- Realign to nearer 80 columns and break on major punctiation.
+- Add a leading comment to the block before __signed_type() and __is_nonneg()
+  Otherwise the block explaining the cast is a bit 'floating'.
+  Reword the rest of that comment to improve readability.
+
+Link: https://lkml.kernel.org/r/85b050c81c1d4076aeb91a6cded45fee@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+---
+ include/linux/minmax.h | 53 +++++++++++++++++++-----------------------
+ 1 file changed, 24 insertions(+), 29 deletions(-)
+
+diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+index 51b0d988e322..24e4b372649a 100644
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -8,13 +8,10 @@
+ #include <linux/types.h>
  
-+#define DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES	GENMASK(6, 4)
- struct displayid_formula_timing_block {
- 	struct displayid_block base;
- 	struct displayid_formula_timings_9 timings[];
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index a1dc4331c4cb..4fa39989e446 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6903,7 +6903,8 @@ static int add_displayid_formula_modes(struct drm_connector *connector,
- 	struct drm_display_mode *newmode;
- 	int num_modes = 0;
- 	bool type_10 = block->tag == DATA_BLOCK_2_TYPE_10_FORMULA_TIMING;
--	int timing_size = 6 + ((formula_block->base.rev & 0x70) >> 4);
-+	int timing_size = 6 +
-+		FIELD_GET(DISPLAYID_BLOCK_DESCRIPTOR_PAYLOAD_BYTES, formula_block->base.rev);
+ /*
+- * min()/max()/clamp() macros must accomplish three things:
++ * min()/max()/clamp() macros must accomplish several things:
+  *
+  * - Avoid multiple evaluations of the arguments (so side-effects like
+  *   "x++" happen only once) when non-constant.
+- * - Retain result as a constant expressions when called with only
+- *   constant expressions (to avoid tripping VLA warnings in stack
+- *   allocation usage).
+  * - Perform signed v unsigned type-checking (to generate compile
+  *   errors instead of nasty runtime surprises).
+  * - Unsigned char/short are always promoted to signed int and can be
+@@ -31,25 +28,23 @@
+  *   bit #0 set if ok for unsigned comparisons
+  *   bit #1 set if ok for signed comparisons
+  *
+- * In particular, statically non-negative signed integer
+- * expressions are ok for both.
++ * In particular, statically non-negative signed integer expressions
++ * are ok for both.
+  *
+- * NOTE! Unsigned types smaller than 'int' are implicitly
+- * converted to 'int' in expressions, and are accepted for
+- * signed conversions for now. This is debatable.
++ * NOTE! Unsigned types smaller than 'int' are implicitly converted to 'int'
++ * in expressions, and are accepted for signed conversions for now.
++ * This is debatable.
+  *
+- * Note that 'x' is the original expression, and 'ux' is
+- * the unique variable that contains the value.
++ * Note that 'x' is the original expression, and 'ux' is the unique variable
++ * that contains the value.
+  *
+- * We use 'ux' for pure type checking, and 'x' for when
+- * we need to look at the value (but without evaluating
+- * it for side effects! Careful to only ever evaluate it
+- * with sizeof() or __builtin_constant_p() etc).
++ * We use 'ux' for pure type checking, and 'x' for when we need to look at the
++ * value (but without evaluating it for side effects!
++ * Careful to only ever evaluate it with sizeof() or __builtin_constant_p() etc).
+  *
+- * Pointers end up being checked by the normal C type
+- * rules at the actual comparison, and these expressions
+- * only need to be careful to not cause warnings for
+- * pointer use.
++ * Pointers end up being checked by the normal C type rules at the actual
++ * comparison, and these expressions only need to be careful to not cause
++ * warnings for pointer use.
+  */
+ #define __signed_type_use(x, ux) (2 + __is_nonneg(x, ux))
+ #define __unsigned_type_use(x, ux) (1 + 2 * (sizeof(ux) < 4))
+@@ -57,19 +52,19 @@
+ 	__signed_type_use(x, ux) : __unsigned_type_use(x, ux))
  
- 	/* extended blocks are not supported yet */
- 	if (timing_size != 6)
+ /*
+- * To avoid warnings about casting pointers to integers
+- * of different sizes, we need that special sign type.
++ * Check whether a signed value is always non-negative.
+  *
+- * On 64-bit we can just always use 'long', since any
+- * integer or pointer type can just be cast to that.
++ * A cast is needed to avoid any warnings from values that aren't signed
++ * integer types (in which case the result doesn't matter).
+  *
+- * This does not work for 128-bit signed integers since
+- * the cast would truncate them, but we do not use s128
+- * types in the kernel (we do use 'u128', but they will
+- * be handled by the !is_signed_type() case).
++ * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * But on 32-bit we need to avoid warnings about casting pointers to integers
++ * of different sizes without truncating 64-bit values so 'long' or 'long long'
++ * must be used depending on the size of the value.
+  *
+- * NOTE! The cast is there only to avoid any warnings
+- * from when values that aren't signed integer types.
++ * This does not work for 128-bit signed integers since the cast would truncate
++ * them, but we do not use s128 types in the kernel (we do use 'u128',
++ * but they are handled by the !is_signed_type() case).
+  */
+ #ifdef CONFIG_64BIT
+   #define __signed_type(ux) long
 -- 
-2.51.0
+2.47.3
+
