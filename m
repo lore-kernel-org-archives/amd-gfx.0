@@ -4,77 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41BD3CCD19F
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1825ACCD1AB
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3D010E3C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9562410E3D5;
 	Sat, 18 Oct 2025 08:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yvpR5PIJ";
+	dkim=pass (2048-bit key; unprotected) header.d=amazon.com header.i=@amazon.com header.b="YeoKGb0+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9248710EB4C;
- Fri, 17 Oct 2025 08:05:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 66B1845792;
- Fri, 17 Oct 2025 08:05:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF408C4CEE7;
- Fri, 17 Oct 2025 08:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760688351;
- bh=Tzgs9nAyY51SyO39mSR4w+R/thG+h//Bm/fKTyosOrA=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=yvpR5PIJ3FYApyf3Dawuz+V2d+0++37BDQiSCCA5voRVaYJOWu7qHIph0ixKDSZk2
- kobbiTDXGB9fuxoP+Ho7iEDkvZ2/Wv/giyEHNM54vXTOxBLNnockjkdL5CaWfcOP0K
- V9Qusd6SZTOYDOfaub90ovhHOfl+NNR5rS3wRZJc=
-Subject: Patch "minmax: fix indentation of __cmp_once() and __clamp_once()"
- has been added to the 5.15-stable tree
-To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
-	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
-	akpm@linux-foundation.org, amd-gfx@lists.freedesktop.org,
-	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
-	bp@alien8.de, clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
-	dave.hansen@linux.intel.com, davem@davemloft.net,
-	david.laight@aculab.com, dm-devel@redhat.com,
-	dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
-	dsahern@kernel.org, dsterba@suse.com, dushistov@mail.ru,
-	farbere@amazon.com, freedreno@lists.freedesktop.org, fw@strlen.de,
-	gregkh@linuxfoundation.org, hch@infradead.org, hdegoede@redhat.com,
-	herve.codina@bootlin.com, hpa@zytor.com, jack@suse.com,
-	james.morse@arm.com, jdelvare@suse.com, jdike@addtoit.com,
-	jejb@linux.ibm.com, jernej.skrabec@gmail.com, jmaloy@redhat.com,
-	josef@toxicpanda.com, kadlec@netfilter.org,
-	krzysztof.kozlowski@canonical.com, kuba@kernel.org,
-	linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, linux-staging@lists.linux.dev,
-	linux@freedesktop.org, -stm32@st-md-mailman.stormreply.com,
-	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
-	linux@rasmusvillemoes.dk, linux@roeck-us.net,
-	luc.vanoostenryck@gmail.com, luto@kernel.org,
-	maarten.lankhorst@linux.intel.com, malattia@linux.it,
-	martin.petersen@oracle.com, maz@kernel.org,
-	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
-	minchan@kernel.org, mingo@redhat.com, mripard@kernel.org,
-	ngupta@vflare.org, pablo@netfilter.org, peterz@infradead.org,
-	pmladek@suse.com, qiuxu.zhuo@intel.com, quic_akhilpo@quicinc.com,
-	richard@nod.at, robdclark@gmail.com, rostedt@goodmis.org,
-	rric@kernel.org, ruanjinjie@huawei.com, sakari.ailus@linux.intel.com,
-	sashal@kernel.org, sean@poorly.run, senozhatsky@chromium.org,
-	shuah@kernel.org, snitzer@redhat.com, tglx@linutronix.de,
-	tipc-discussion@lists.sourceforge.net, tony.luck@intel.com,
-	torvalds@linux-foundation.org, tytso@mit.edu, tzimmermann@suse.de,
-	wens@csie.org, willy@infradead.org, x86@kernel.org,
-	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Fri, 17 Oct 2025 10:05:10 +0200
-In-Reply-To: <20251008152946.29285-5-farbere@amazon.com>
-Message-ID: <2025101710-antacid-lip-fac8@gregkh>
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [34.218.115.239])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6A7010EB7A;
+ Fri, 17 Oct 2025 09:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1760691945; x=1792227945;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=zbj2mTisKzioKQVYABevmwS3PD+KbTl4NbCfwfEx+Qc=;
+ b=YeoKGb0+qJP5B0jO5lJJH8XRqTdaxrB6Ec1OHVG7a1haV591Fp+K0stX
+ iCqnhMnfg3xO5m6m1GgiOjA7O8806xJ03yQ2+iHMGziLAMD+YdJAXr/8I
+ e89rcOVcnFhibwwLMcJtej4wfXkr3xZ2v3DrLmk9xQNK0L1jvotcDCUBP
+ 5EYbcQcXP8OGMXkaGRESociN9UJ0dxXB5W+rjNO9jtkMN5jAMfIXaknE6
+ 2GVX7ECXL0H2PpVUwDiSEypmI3dxCNJxnWZ0sGe+Fx7QzzqOXAujY9WZY
+ xpgBXTWOJbRCd3+s4IDoJ4+1hcjz7xfcmRqFIceGzHgcj69FavSyY8jjd w==;
+X-CSE-ConnectionGUID: r6Bg9Du6S1OIcsGc5tRu+Q==
+X-CSE-MsgGUID: RfhnESv6RwG1ZmzF97qNew==
+X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
+   d="scan'208";a="4884236"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+ by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:05:43 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:17609]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.8.44:2525] with
+ esmtp (Farcaster)
+ id 48bd48bb-d4c8-4418-898a-1915d00032a2; Fri, 17 Oct 2025 09:05:43 +0000 (UTC)
+X-Farcaster-Flow-ID: 48bd48bb-d4c8-4418-898a-1915d00032a2
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Fri, 17 Oct 2025 09:05:38 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
+ 09:05:23 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
+ <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>,
+ <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>,
+ <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <rajur@chelsio.com>, <davem@davemloft.net>,
+ <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
+ <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>,
+ <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, 
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>,
+ <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>,
+ <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>,
+ <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>,
+ <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>,
+ <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>,
+ <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
+ <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
+ <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>,
+ <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
+ <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
+ <tipc-discussion@lists.sourceforge.net>
+Subject: [PATCH v2 00/27 5.10.y] Backport minmax.h updates from v6.17-rc7
+Date: Fri, 17 Oct 2025 09:04:52 +0000
+Message-ID: <20251017090519.46992-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+Content-Type: text/plain
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D045UWA003.ant.amazon.com (10.13.139.46) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,104 +124,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This series backports 27 patches to update minmax.h in the 5.10.y
+branch, aligning it with v6.17-rc7.
 
-This is a note to let you know that I've just added the patch titled
+The ultimate goal is to synchronize all long-term branches so that they
+include the full set of minmax.h changes.
 
-    minmax: fix indentation of __cmp_once() and __clamp_once()
+- 6.12.y has already been backported; the changes are included in
+  v6.12.49.
+- 6.6.y has already been backported; the changes are included in
+  v6.6.109.
+- 6.1.y has already been backported; the changes are currently in the
+  6.1-stable tree.
+- 5.15.y has already been backported; the changes are currently in the
+  5.15-stable tree.
 
-to the 5.15-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+The key motivation is to bring in commit d03eba99f5bf ("minmax: allow
+min()/max()/clamp() if the arguments have the same signedness"), which
+is missing in kernel 5.10.y.
 
-The filename of the patch is:
-     minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
-and it can be found in the queue-5.15 subdirectory.
+In mainline, this change enables min()/max()/clamp() to accept mixed
+argument types, provided both have the same signedness. Without it,
+backported patches that use these forms may trigger compiler warnings,
+which escalate to build failures when -Werror is enabled.
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+The first two patches in this series were added to prevent build
+failures caused by changes introduced later in minmax.h.
 
+ - Commit 92d23c6e9415 ("overflow, tracing: Define the is_signed_type()
+   macro once") is needed for commit 75ca38c1960f ("minmax: allow
+   min()/max()/clamp()").
 
-From stable+bounces-183616-greg=kroah.com@vger.kernel.org Wed Oct  8 17:33:08 2025
-From: Eliav Farber <farbere@amazon.com>
-Date: Wed, 8 Oct 2025 15:29:29 +0000
-Subject: minmax: fix indentation of __cmp_once() and __clamp_once()
-To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@l
- inux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@l
- ists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20251008152946.29285-5-farbere@amazon.com>
+ - Commit cea628008fc8 ("btrfs: remove duplicated in_range() macro") is
+   needed for commit f9bff0e31881 ("minmax: add in_range() macro").
 
-From: David Laight <David.Laight@ACULAB.COM>
+The changes were tested using `make allyesconfig` and
+`make allmodconfig` for arm64, arm, x86_64 and i386 architectures.
 
-[ Upstream commit f4b84b2ff851f01d0fac619eadef47eb41648534 ]
+Changes in v2:
+The series was updated after initially backporting and approving the
+newer long-term branches.
 
-Remove the extra indentation and align continuation markers.
+Andy Shevchenko (2):
+  minmax: deduplicate __unconst_integer_typeof()
+  minmax: fix header inclusions
 
-Link: https://lkml.kernel.org/r/bed41317a05c498ea0209eafbcab45a5@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- include/linux/minmax.h |   30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+Bart Van Assche (1):
+  overflow, tracing: Define the is_signed_type() macro once
 
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -46,11 +46,11 @@
- #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
- 
- #define __cmp_once(op, x, y, unique_x, unique_y) ({	\
--		typeof(x) unique_x = (x);		\
--		typeof(y) unique_y = (y);		\
--		static_assert(__types_ok(x, y),		\
--			#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
--		__cmp(op, unique_x, unique_y); })
-+	typeof(x) unique_x = (x);			\
-+	typeof(y) unique_y = (y);			\
-+	static_assert(__types_ok(x, y),			\
-+		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
-+	__cmp(op, unique_x, unique_y); })
- 
- #define __careful_cmp(op, x, y)					\
- 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
-@@ -60,16 +60,16 @@
- #define __clamp(val, lo, hi)	\
- 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
- 
--#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
--		typeof(val) unique_val = (val);				\
--		typeof(lo) unique_lo = (lo);				\
--		typeof(hi) unique_hi = (hi);				\
--		static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
--				(lo) <= (hi), true),					\
--			"clamp() low limit " #lo " greater than high limit " #hi);	\
--		static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
--		static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
--		__clamp(unique_val, unique_lo, unique_hi); })
-+#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({		\
-+	typeof(val) unique_val = (val);						\
-+	typeof(lo) unique_lo = (lo);						\
-+	typeof(hi) unique_hi = (hi);						\
-+	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
-+			(lo) <= (hi), true),					\
-+		"clamp() low limit " #lo " greater than high limit " #hi);	\
-+	static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
-+	static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
-+	__clamp(unique_val, unique_lo, unique_hi); })
- 
- #define __careful_clamp(val, lo, hi) ({					\
- 	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
+David Laight (11):
+  minmax: allow min()/max()/clamp() if the arguments have the same
+    signedness.
+  minmax: fix indentation of __cmp_once() and __clamp_once()
+  minmax: allow comparisons of 'int' against 'unsigned char/short'
+  minmax: relax check to allow comparison between unsigned arguments and
+    signed constants
+  minmax.h: add whitespace around operators and after commas
+  minmax.h: update some comments
+  minmax.h: reduce the #define expansion of min(), max() and clamp()
+  minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
+  minmax.h: move all the clamp() definitions after the min/max() ones
+  minmax.h: simplify the variants of clamp()
+  minmax.h: remove some #defines that are only expanded once
 
+Herve Codina (1):
+  minmax: Introduce {min,max}_array()
 
-Patches currently in stable-queue which might be from farbere@amazon.com are
+Jason A. Donenfeld (2):
+  minmax: sanity check constant bounds when clamping
+  minmax: clamp more efficiently by avoiding extra comparison
 
-queue-5.15/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
-queue-5.15/minmax-add-in_range-macro.patch
-queue-5.15/minmax-deduplicate-__unconst_integer_typeof.patch
-queue-5.15/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
-queue-5.15/minmax-introduce-min-max-_array.patch
+Johannes Thumshirn (1):
+  btrfs: remove duplicated in_range() macro
+
+Linus Torvalds (8):
+  minmax: avoid overly complicated constant expressions in VM code
+  minmax: add a few more MIN_T/MAX_T users
+  minmax: simplify and clarify min_t()/max_t() implementation
+  minmax: make generic MIN() and MAX() macros available everywhere
+  minmax: don't use max() in situations that want a C constant
+    expression
+  minmax: simplify min()/max()/clamp() implementation
+  minmax: improve macro expansion and type checking
+  minmax: fix up min3() and max3() too
+
+Matthew Wilcox (Oracle) (1):
+  minmax: add in_range() macro
+
+ arch/arm/mm/pageattr.c                        |   6 +-
+ arch/um/drivers/mconsole_user.c               |   2 +
+ arch/x86/mm/pgtable.c                         |   2 +-
+ drivers/edac/sb_edac.c                        |   4 +-
+ drivers/edac/skx_common.h                     |   1 -
+ .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |   2 +
+ .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    |  14 +-
+ .../drm/arm/display/include/malidp_utils.h    |   2 +-
+ .../display/komeda/komeda_pipeline_state.c    |  24 +-
+ drivers/gpu/drm/drm_color_mgmt.c              |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   6 -
+ drivers/gpu/drm/radeon/evergreen_cs.c         |   2 +
+ drivers/hwmon/adt7475.c                       |  24 +-
+ drivers/input/touchscreen/cyttsp4_core.c      |   2 +-
+ drivers/md/dm-integrity.c                     |   6 +-
+ drivers/media/dvb-frontends/stv0367_priv.h    |   3 +
+ .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   |  18 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
+ drivers/net/fjes/fjes_main.c                  |   4 +-
+ drivers/nfc/pn544/i2c.c                       |   2 -
+ drivers/platform/x86/sony-laptop.c            |   1 -
+ drivers/scsi/isci/init.c                      |   6 +-
+ .../pci/hive_isp_css_include/math_support.h   |   5 -
+ fs/btrfs/ctree.h                              |   2 -
+ fs/btrfs/extent_io.c                          |   1 +
+ fs/btrfs/file-item.c                          |   1 +
+ fs/btrfs/misc.h                               |   2 -
+ fs/btrfs/raid56.c                             |   1 +
+ fs/btrfs/tree-checker.c                       |   2 +-
+ fs/erofs/zdata.h                              |   2 +-
+ fs/ext2/balloc.c                              |   2 -
+ fs/ext4/ext4.h                                |   2 -
+ fs/ufs/util.h                                 |   6 -
+ include/linux/compiler.h                      |  15 +
+ include/linux/minmax.h                        | 267 ++++++++++++++----
+ include/linux/overflow.h                      |   1 -
+ include/linux/trace_events.h                  |   2 -
+ kernel/trace/preemptirq_delay_test.c          |   2 -
+ lib/btree.c                                   |   1 -
+ lib/decompress_unlzma.c                       |   2 +
+ lib/logic_pio.c                               |   3 -
+ lib/vsprintf.c                                |   2 +-
+ lib/zstd/zstd_internal.h                      |   2 -
+ mm/zsmalloc.c                                 |   1 -
+ net/ipv4/proc.c                               |   2 +-
+ net/ipv6/proc.c                               |   2 +-
+ net/netfilter/nf_nat_core.c                   |   6 +-
+ net/tipc/core.h                               |   2 +-
+ net/tipc/link.c                               |  10 +-
+ 49 files changed, 312 insertions(+), 169 deletions(-)
+
+-- 
+2.47.3
+
