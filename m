@@ -4,74 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9511FCCF9E6
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D29ACCD1AD
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Oct 2025 08:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0274F10ECF5;
-	Sat, 18 Oct 2025 08:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84C3D10E3E8;
+	Sat, 18 Oct 2025 08:50:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="Gjr6tysT";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yZp8pO+C";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5BE710E364
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 05:45:05 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-793021f348fso2491697b3a.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Oct 2025 22:45:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0x0f.com; s=google; t=1760766305; x=1761371105; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MQOTysCBScI2CzYaQCtToYUiGDVsPF1DI/yzJf9rUmc=;
- b=Gjr6tysTObc/jzjh/3h1vMengPF9rs+JiTONUzaspIJny0og3Bn50rPiS+yUxQnH/d
- gl7WE0FDXi9Z1I1y6hqvfPnyl0FvQCh3f/xEsTFc1La3OcDyXODi1mV76OjsU3yCU0PV
- rQiK47Tjoq2IXab1L2cfMrUj5tzFLzvTR8xtw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760766305; x=1761371105;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MQOTysCBScI2CzYaQCtToYUiGDVsPF1DI/yzJf9rUmc=;
- b=MNyYqOiwav8AJiv8u+874nYZ4ed+82e00YmV6GjNFil5B+3/GM62/PCBhlPxDhEEC8
- I2J1VBukdjTV921qIdd8o8dVFzG7vHQm5xQNGjG5Cq5aq8kUK7e/glfR7/nadoq9nTPP
- X02IUicT5t9LK638kg0Md5K01yAm/EGlTNNQEjXKlBJ2vhyAk7oUAyTeVJzuyHfrv5BI
- kRfUmWuufGMCEfJc6TGKmcssQvhaAod6R1gM/Lzhrfq/wISDn68TUMS3UtbgNuuwFoYG
- 4/9+TEAvvtfG8RKQi8BsUG+2Ok9dFnvB8i6ZjQR4s9hl4IL3FHvEa59nWpGu6ASPuSyt
- 4Gpw==
-X-Gm-Message-State: AOJu0YwMmxumRQT0RspYLVS16XSm7DqXVMXarWS/gZiTbnofCpkwoTrz
- xG/YZw617mMCzFt20yhJ06JDT4ZneIMpX8WlWOZGkAFllI+r3C6zKxxMZQ63yZlXiXY=
-X-Gm-Gg: ASbGncvX8F0snsedoRBKhno1L2byDIVeFRiuISiQpb6SwPLMypTXIrkpfN71RdA/Kx4
- 4d41Z2oAkXeu6uL90muL6Lpy6II+hRjASCY0nV6O5PoX88DIHU8v5l0c3gXiD5XNSgaZZEXhTha
- oUjPSLt5Rhv24aOxajw4tAmZH0BaLwR3EaFAWhyuRo4e7QaDv/rmNuHAtUcCUZZBq7iJpHWO7IX
- f0e64Vc7n//n3SGgXOOg9egWpJt2yGpTb4GwC27KrrlIC1CgZ6FSdS1FgpaFewS7usnJZ56OxNF
- rAID2O7bGvi+x18JXltBw087ggqITxOmblWPWIRsAvu9n222beQMY23Svb0ZuFixYY9PTXz86p1
- lDQ1v0esVmKqHwWO5RaYR65pv/Gfr5ExRHilsfy0l4O1+a4k7S1lPJyLGdbrbbyZx+9ojE1/bra
- zITyPsgdBKRpR3ncGSiu8jilIHum/Ggwi+YsgKFz37vNQMFvmx32U=
-X-Google-Smtp-Source: AGHT+IGy3J41ApbLMLRcrOO9pkHemkNxPjtpkJmBEBFlBmY9XVIw/TLuT/llEZB3A4RXYe9syKnQyg==
-X-Received: by 2002:a05:6a20:b38a:b0:334:aa54:bb2c with SMTP id
- adf61e73a8af0-334aa54bbd2mr5825208637.8.1760766305361; 
- Fri, 17 Oct 2025 22:45:05 -0700 (PDT)
-Received: from shiro (p1391188-ipxg00a01sizuokaden.shizuoka.ocn.ne.jp.
- [153.222.3.188]) by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-b6a76645c61sm1657222a12.3.2025.10.17.22.45.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Oct 2025 22:45:04 -0700 (PDT)
-From: Daniel Palmer <daniel@0x0f.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, wuhoipok@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Palmer <daniel@0x0f.com>
-Subject: [PATCH 3/3] drm/radeon: Remove calls to drm_put_dev()
-Date: Sat, 18 Oct 2025 14:44:51 +0900
-Message-ID: <20251018054451.259432-4-daniel@0x0f.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251018054451.259432-1-daniel@0x0f.com>
-References: <20251018054451.259432-1-daniel@0x0f.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 835FB10EB5B;
+ Fri, 17 Oct 2025 08:16:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 530FF409D3;
+ Fri, 17 Oct 2025 08:16:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEC2CC4CEF9;
+ Fri, 17 Oct 2025 08:16:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1760689010;
+ bh=9gnnvv3Ezt6vrJIZX/HYPKclBhyyVc53iiep71r9Gjs=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=yZp8pO+CPx9UpU2pA1zuE8HzKAfopDNSTo2jE+UQ8UwXM698oXMjTGNvRQFQ07p/v
+ bk2GH4ZeqdaYT/Qt/AXqzPoEl9YoH0t811lTNuOyWeMDgZnprJBOxuD8DYCX/K87xi
+ 7RQ2H2yca89Nzja6n0WztHY4T3PZeQSoYAFw+L84=
+Subject: Patch "minmax.h: remove some #defines that are only expanded once"
+ has been added to the 5.15-stable tree
+To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
+	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
+	akpm@linux-foundation.org, amd-gfx@lists.freedesktop.org,
+	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
+	arnd@kernel.org, axboe@kernel.dk, bp@alien8.de, clm@fb.com,
+	coreteam@netfilter.org, dan.carpenter@linaro.org, daniel@ffwll.ch,
+	dave.hansen@linux.intel.com, davem@davemloft.net,
+	david.laight@aculab.com, dm-devel@redhat.com,
+	dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
+	dsahern@kernel.org, dsterba@suse.com, dushistov@mail.ru,
+	farbere@amazon.com, freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, hch@infradead.org, hdegoede@redhat.com,
+	herve.codina@bootlin.com, hpa@zytor.com, jack@suse.com,
+	james.morse@arm.com, jdelvare@suse.com, jdike@addtoit.com,
+	jejb@linux.ibm.com, jernej.skrabec@gmail.com, jmaloy@redhat.com,
+	josef@toxicpanda.com, kadlec@netfilter.org,
+	krzysztof.kozlowski@canonical.com, kuba@kernel.org,
+	linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.o,
+	rg@freedesktop.org, linux-mm@kvack.org,
+	linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
+	linux@rasmusvillemoes.dk, linux@roeck-us.net,
+	lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com,
+	luto@kernel.org, maarten.lankhorst@linux.intel.com,
+	malattia@linux.it, martin.petersen@oracle.com, maz@kernel.org,
+	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
+	minchan@kernel.org, mingo@redhat.com, mjguzik@gmail.com,
+	mripard@kernel.org, ngupta@vflare.org, pablo@netfilter.org,
+	pedro.falcato@gmail.com, peterz@infradead.org, pmladek@suse.com,
+	qiuxu.zhuo@intel.com, quic_akhilpo@quicinc.com, richard@nod.at,
+	robdclark@gmail.com, rostedt@goodmis.org, rric@kernel.org,
+	ruanjinjie@huawei.com, sakari.ailus@linux.intel.com,
+	sashal@kernel.org, sean@poorly.run, senozhatsky@chromium.org,
+	shuah@kernel.org, snitzer@redhat.com, tglx@linutronix.de,
+	tipc-discussion@lists.sourceforge.net, tony.luck@intel.com,
+	tytso@mit.edu, tzimmermann@suse.de, wens@csie.org,
+	willy@infradead.org, x86@kern, el.org@freedesktop.org,
+	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 17 Oct 2025 10:16:19 +0200
+In-Reply-To: <20251008152946.29285-20-farbere@amazon.com>
+Message-ID: <2025101719-basket-sanitizer-712c@gregkh>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:55 +0000
+X-stable: commit
+X-Patchwork-Hint: ignore 
+X-Mailman-Approved-At: Sat, 18 Oct 2025 08:50:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,91 +93,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since the allocation of the drivers main structure was changed to
-devm_drm_dev_alloc() drm_put_dev()'ing to trigger it to be free'd
-should be done by devres.
 
-However, drm_put_dev() is still in the probe error and device remove
-paths. When the driver fails to probe warnings like the following are
-shown because devres is trying to drm_put_dev() after the driver
-already did it.
+This is a note to let you know that I've just added the patch titled
 
-[    5.642230] radeon 0000:01:05.0: probe with driver radeon failed with error -22
-[    5.649605] ------------[ cut here ]------------
-[    5.649607] refcount_t: underflow; use-after-free.
-[    5.649620] WARNING: CPU: 0 PID: 357 at lib/refcount.c:28 refcount_warn_saturate+0xbe/0x110
+    minmax.h: remove some #defines that are only expanded once
 
-Fixes: a9ed2f052c5c ("drm/radeon: change drm_dev_alloc to devm_drm_dev_alloc")
-Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+to the 5.15-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     minmax.h-remove-some-defines-that-are-only-expanded-once.patch
+and it can be found in the queue-5.15 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From prvs=36971892a=farbere@amazon.com Wed Oct  8 17:35:37 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Wed, 8 Oct 2025 15:29:44 +0000
+Subject: minmax.h: remove some #defines that are only expanded once
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@l
+ inux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@l
+ ists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+Cc: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>, Dan Carpenter <dan.carpenter@linaro.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, "Pedro Falcato" <pedro.falcato@gmail.com>
+Message-ID: <20251008152946.29285-20-farbere@amazon.com>
+
+From: David Laight <David.Laight@ACULAB.COM>
+
+[ Upstream commit 2b97aaf74ed534fb838d09867d09a3ca5d795208 ]
+
+The bodies of __signed_type_use() and __unsigned_type_use() are much the
+same size as their names - so put the bodies in the only line that expands
+them.
+
+Similarly __signed_type() is defined separately for 64bit and then used
+exactly once just below.
+
+Change the test for __signed_type from CONFIG_64BIT to one based on gcc
+defined macros so that the code is valid if it gets used outside of a
+kernel build.
+
+Link: https://lkml.kernel.org/r/9386d1ebb8974fbabbed2635160c3975@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Pedro Falcato <pedro.falcato@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/radeon/radeon_drv.c | 25 ++++---------------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
+ include/linux/minmax.h |   14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index eb5138da8d5b..350f88af888d 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -315,17 +315,17 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -46,10 +46,8 @@
+  * comparison, and these expressions only need to be careful to not cause
+  * warnings for pointer use.
+  */
+-#define __signed_type_use(ux) (2 + __is_nonneg(ux))
+-#define __unsigned_type_use(ux) (1 + 2 * (sizeof(ux) < 4))
+ #define __sign_use(ux) (is_signed_type(typeof(ux)) ? \
+-	__signed_type_use(ux) : __unsigned_type_use(ux))
++	(2 + __is_nonneg(ux)) : (1 + 2 * (sizeof(ux) < 4)))
  
- 	ret = pci_enable_device(pdev);
- 	if (ret)
--		goto err_free;
-+		return ret;
+ /*
+  * Check whether a signed value is always non-negative.
+@@ -57,7 +55,7 @@
+  * A cast is needed to avoid any warnings from values that aren't signed
+  * integer types (in which case the result doesn't matter).
+  *
+- * On 64-bit any integer or pointer type can safely be cast to 'long'.
++ * On 64-bit any integer or pointer type can safely be cast to 'long long'.
+  * But on 32-bit we need to avoid warnings about casting pointers to integers
+  * of different sizes without truncating 64-bit values so 'long' or 'long long'
+  * must be used depending on the size of the value.
+@@ -66,12 +64,12 @@
+  * them, but we do not use s128 types in the kernel (we do use 'u128',
+  * but they are handled by the !is_signed_type() case).
+  */
+-#ifdef CONFIG_64BIT
+-  #define __signed_type(ux) long
++#if __SIZEOF_POINTER__ == __SIZEOF_LONG_LONG__
++#define __is_nonneg(ux) statically_true((long long)(ux) >= 0)
+ #else
+-  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L))
++#define __is_nonneg(ux) statically_true( \
++	(typeof(__builtin_choose_expr(sizeof(ux) > 4, 1LL, 1L)))(ux) >= 0)
+ #endif
+-#define __is_nonneg(ux) statically_true((__signed_type(ux))(ux) >= 0)
  
- 	pci_set_drvdata(pdev, ddev);
- 
- 	ret = radeon_driver_load_kms(ddev, flags);
- 	if (ret)
--		goto err_agp;
-+		goto err;
- 
- 	ret = drm_dev_register(ddev, flags);
- 	if (ret)
--		goto err_agp;
-+		goto err;
- 
- 	if (rdev->mc.real_vram_size <= (8 * 1024 * 1024))
- 		format = drm_format_info(DRM_FORMAT_C8);
-@@ -338,30 +338,14 @@ static int radeon_pci_probe(struct pci_dev *pdev,
- 
- 	return 0;
- 
--err_agp:
-+err:
- 	pci_disable_device(pdev);
--err_free:
--	drm_dev_put(ddev);
- 	return ret;
- }
- 
--static void
--radeon_pci_remove(struct pci_dev *pdev)
--{
--	struct drm_device *dev = pci_get_drvdata(pdev);
--
--	drm_put_dev(dev);
--}
--
- static void
- radeon_pci_shutdown(struct pci_dev *pdev)
- {
--	/* if we are running in a VM, make sure the device
--	 * torn down properly on reboot/shutdown
--	 */
--	if (radeon_device_is_virtual())
--		radeon_pci_remove(pdev);
--
- #if defined(CONFIG_PPC64) || defined(CONFIG_MACH_LOONGSON64)
- 	/*
- 	 * Some adapters need to be suspended before a
-@@ -614,7 +598,6 @@ static struct pci_driver radeon_kms_pci_driver = {
- 	.name = DRIVER_NAME,
- 	.id_table = pciidlist,
- 	.probe = radeon_pci_probe,
--	.remove = radeon_pci_remove,
- 	.shutdown = radeon_pci_shutdown,
- 	.driver.pm = &radeon_pm_ops,
- };
--- 
-2.51.0
+ #define __types_ok(ux, uy) \
+ 	(__sign_use(ux) & __sign_use(uy))
 
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-5.15/minmax-add-a-few-more-min_t-max_t-users.patch
+queue-5.15/minmax-improve-macro-expansion-and-type-checking.patch
+queue-5.15/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-5.15/minmax.h-simplify-the-variants-of-clamp.patch
+queue-5.15/minmax-add-in_range-macro.patch
+queue-5.15/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
+queue-5.15/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
+queue-5.15/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
+queue-5.15/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
+queue-5.15/minmax-simplify-min-max-clamp-implementation.patch
+queue-5.15/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-5.15/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
+queue-5.15/minmax.h-add-whitespace-around-operators-and-after-commas.patch
+queue-5.15/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-5.15/minmax-make-generic-min-and-max-macros-available-everywhere.patch
+queue-5.15/minmax-fix-up-min3-and-max3-too.patch
+queue-5.15/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
+queue-5.15/minmax-introduce-min-max-_array.patch
+queue-5.15/minmax.h-update-some-comments.patch
