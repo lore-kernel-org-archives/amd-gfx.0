@@ -4,75 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 988F0CCD199
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 12:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206F4CCD193
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 12:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C334B10E447;
-	Mon, 20 Oct 2025 12:48:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AB2C10E42A;
+	Mon, 20 Oct 2025 12:48:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kerneltoast.com header.i=@kerneltoast.com header.b="ihejohlP";
+	dkim=pass (2048-bit key; unprotected) header.d=tomeuvizoso-net.20230601.gappssmtp.com header.i=@tomeuvizoso-net.20230601.gappssmtp.com header.b="UB1um/PY";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B29BF10E0B8
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Oct 2025 22:26:00 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-7810289cd4bso3589766b3a.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Oct 2025 15:26:00 -0700 (PDT)
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4B6610E076
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 14:32:39 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-63bbf5f77daso3063045d50.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 07:32:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kerneltoast.com; s=google; t=1760912760; x=1761517560;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Uv41vgSJLP43sgKhN7DoQwM7mlB7y3Fi88CvidK103c=;
- b=ihejohlPh1siAN7j6RERxpUCui4cEsc7Z8UBE56Qa38uNlZAGGP/BHqMZzPULoBFfX
- vR4/LOrSMX2j+2nBocbDuut7RCZRDMOOWCevFhmkKJQDeymK6xNV9mHGDtSqlw016ILu
- mKa+1gqF4rzQ2xOSv2Ja3sY+twY5wXj/pFF3xLRfOeKodys7OBiyNaATlFHQSQAYP/o/
- cIaK8GyJHImkdzHgm0UxYXo9UKdH3JG7PSonAJ5uH0UN2M+/wwGEBuPoM8qrOYKc4DNZ
- DHfJ3L9dOR8jnqJajnezeaFvk3hfK76UGjvoIoHrXWrkToZrqlnCjP6AwTtogFFQKWNb
- pU2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760912760; x=1761517560;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=tomeuvizoso-net.20230601.gappssmtp.com; s=20230601; t=1760797959;
+ x=1761402759; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Uv41vgSJLP43sgKhN7DoQwM7mlB7y3Fi88CvidK103c=;
- b=ruTuK9dvQ4bmQd65g7iKW5sYWavWjKD5uLpGlusfwplpi5NjahSjZb/QOUhi54f5ci
- 63D4MLr/dJbzK2xjV9fyHvkYICFdJRqaeL/25YFCNrj1pyiIsoz+H1I+eMkvjGPtFlYN
- c/oHYB1En9y51zN128Y1IMxUfsBZu8i4tPW+pYbjXL6hqre1B5tu8x0fxLVqXrBI2ybF
- hUBa0OadQ9tThaQINZoCySFuaLrbMzxZ/ryghNFYfilJQ/OvjMst19iTclo4F92rfqo/
- wzf7V4HUXZU0l8bQ7x8BT75NfEuENC81jPnos80rlvT+xi40J+7zGLM9oV6+Bbg0irjj
- namw==
-X-Gm-Message-State: AOJu0YwF3NKump1Uz8d+P2y7f9GnY4kq43nlF3EPhBYWB4ywm7juYJ14
- yqOhUtIZYmf/i4Y2E9sH1HzPY5JcVB6ysTFNqN7Ux5BAg4hCvAT4Q0UtnM3lDEawnnD0
-X-Gm-Gg: ASbGncszAQQtmCehVrF7iqsKDbtOmtNwpsYezrzU5ZRwyjBIPm300zsUpTatHPNJY9J
- IPK2+wI0fv3+ugyBPlcH6wSNRmBf4FWvRdGEu2xxH73VEKY+X275vuEOTi+VdEf3/1rwBvqzrPW
- STwYGkO9hVAeenVL7BaFNnUQDDHmjTRMwb6gc4//mQBgrH5RgLhVF7ftjmDUdyb8QU1l0HrQc7W
- 7itUyCOgYytYezU6+iUjVZz/aLVFnvvcy0RHFyqOvOkw2CY5vwMMU/tQBOPIAU8mtX4oDVL+GPc
- +HeE8NpQ8VKmIkYEIWP/1QmIlbpVSOCfDo5S/6ge91l9LRgAOPxWo9OAL+5DjTEZe3lfBg/uGdF
- 5Euc2RU07iiXvXfCgFk7WYu/htF3yPB912QVpw0z/nECPA1cMyqg54VCk8kfb2h1bmY1qILYyt/
- T6WjAcOHimJxtgJ6bH
-X-Google-Smtp-Source: AGHT+IFJuk2ZCLGZhy0cs3Fm86XhHCYKz+z+bKNo05j2vpm4Ye/1r7pWKEnntdD7ga21S/ysz3Ei8Q==
-X-Received: by 2002:aa7:888e:0:b0:780:f6db:b1bd with SMTP id
- d2e1a72fcca58-7a220a43782mr13999850b3a.4.1760912760017; 
- Sun, 19 Oct 2025 15:26:00 -0700 (PDT)
-Received: from sultan-box ([2607:fb90:a581:dbd:7adf:1ae2:91ed:6c74])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7a22ff34e7fsm6430391b3a.30.2025.10.19.15.25.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Oct 2025 15:25:59 -0700 (PDT)
-Date: Sun, 19 Oct 2025 15:25:57 -0700
-From: Sultan Alsawaf <sultan@kerneltoast.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Peyton.Lee@amd.com
-Subject: Re: [PATCH v5] drm/amd: Check that VPE has reached DPM0 in idle
- handler
-Message-ID: <aPVldXCcgipLn6Dg@sultan-box>
-References: <20251016185527.1796606-1-mario.limonciello@amd.com>
+ bh=u33yGeffbuYdlvlzL4H50ccSYsAIsX3t6iP87kPjVYE=;
+ b=UB1um/PY28UFZ6nAnbTNtCOxbBPZzBLv7Q2doaok/f6Fv/850ac5Xj2b13plkVvPE7
+ vQkbTSP9ofwFejPRTpf71+JiidB0POisqVM3SkQD15KjDvFSwYrRb+LKXzV1fEk7Cwbg
+ s0wi3ljqvW6uiIn2h9N5g/IC2ZnV7ADS4T1izS1T1e52KxND8g+ersLGBoqzWHhk+Jr5
+ efyaaml7CEkQ830LZ52k8aVDoelMomW2OUejAcTd+GKRtFA8TYRRkqIwQ8uW27Jyr3t0
+ CljY+NG12P8NOqURxDTsZa7as/si/UKlHubOeMLk0908oFqyNwtGmt0pi8V4dEeQ+7X6
+ 1KKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760797959; x=1761402759;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=u33yGeffbuYdlvlzL4H50ccSYsAIsX3t6iP87kPjVYE=;
+ b=m8+slfBqRZrHWsjpMgInG3dUBIYbwsPZycDTI/dhIsC6k65pHDs4yMJ/hxEYtw5XDH
+ zpxEMeH/Eb0KzfYjB8MsyWtowaec+liENQE/tTlE5KiSa1yT6hlydDDrmCZJ6UaXA7gW
+ uLXz9IyWLRhhtzJ8ERXZaj+MjjB2Iv29NsynV223vLeIzcvJxFWT71GYDLomZoZfREMs
+ GFh9O8dbJ+LgvFFpfXA7iwMYDOHdt+Jlo4mbb7B4Z/aaWDKzMyjnDO94RMJ+bfYsLNCN
+ 4KMRII7PT0XsSbwIc9MPxWhw176d/Y0keUPSkDYD1SKFhQyU5nlrM4/fGXfj6+seWlN0
+ u7yQ==
+X-Gm-Message-State: AOJu0Ywmo4zRD1zJPaJM0o/8qEcGVP7R7TWV84g35w6z0Octgp/hFnve
+ 6vpyLjMTsfSW8ccjUa+prSO7b+nTv4Omr+WUc3x4smETAwXiqlcyQ/VQYIoSrBIAg/hnlgMrCPX
+ 8K/F/Q94=
+X-Gm-Gg: ASbGncvK4GjrSAs1d7Va1JNF9E1zckgG6lvHcTDd9F1f/hXeg66UwsPD1MvUyrm4DKM
+ DlII9FnBcsI/Ff7jq74LA3CCvQVYVDEUxyuyRb4VlnU6Hm9npGFsYB282X7pzOiHhhEtIYIhyda
+ cTjOiN7xsyDQfaArnBplmOm9hIrkZflFtC1iQ6RUM0AEQQYLoUws+jvmp0fRmv/l9fCzbfwT2hE
+ bumALjfHXtinXjKmcP6kMSIkij1gcRUSUjOMp7ujOo8fkZwiWuyk5hayePKa6zck4a8L8/sQUsO
+ 8SGqmZ8ig/3h5napCkmlRMUvmcCqSQCXtx/zNXlaC8EqXWqjTTVPC8KnZNI5huSiijxnstR2yzL
+ E6Y1lKF2XSMRA/a5Rk8h4nBLuBQkuVJk2LbkkXpLd/0GjhX6D8RtniRCycUwMHD8CgUqPhQo8Y9
+ VPVVYaoAd1OM3s5cWxQ6HUA1OVLPYUwWkKGo0GbFxgs9kH2dx9ED4/vw==
+X-Google-Smtp-Source: AGHT+IFF/uYaF5unMA2JrnG83glsTGgmsXzLJXAhREcADJm1ByIhJXYy/E/u2GiQDhtQixvIBaCmUg==
+X-Received: by 2002:a05:690e:11cc:b0:63e:1943:ce4f with SMTP id
+ 956f58d0204a3-63e1943d222mr4804190d50.6.1760797958795; 
+ Sat, 18 Oct 2025 07:32:38 -0700 (PDT)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com.
+ [209.85.128.182]) by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-63e2680b19esm817724d50.23.2025.10.18.07.32.37
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 18 Oct 2025 07:32:37 -0700 (PDT)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-78488cdc20aso2719837b3.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 07:32:37 -0700 (PDT)
+X-Received: by 2002:a05:690e:1401:b0:63e:2001:96e0 with SMTP id
+ 956f58d0204a3-63e20019897mr4605587d50.32.1760797957548; Sat, 18 Oct 2025
+ 07:32:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251016185527.1796606-1-mario.limonciello@amd.com>
+References: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
+ <20251017133644.44747-16-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20251017133644.44747-16-tvrtko.ursulin@igalia.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Sat, 18 Oct 2025 16:32:26 +0200
+X-Gmail-Original-Message-ID: <CAAObsKDY1zs9R2HwnO6ESP7585rEzhBiTQr8eZFDtTCsbcQx4A@mail.gmail.com>
+X-Gm-Features: AS18NWCAB_kOwXa5sb329LHfQOFfSyknwHwT7YO9iNYjXbmCM8gGwoS9osAfhMw
+Message-ID: <CAAObsKDY1zs9R2HwnO6ESP7585rEzhBiTQr8eZFDtTCsbcQx4A@mail.gmail.com>
+Subject: Re: [PATCH v2 15/27] accel/rocket: Remove drm_sched_init_args->num_rqs
+ usage
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ kernel-dev@igalia.com, Oded Gabbay <ogabbay@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 20 Oct 2025 12:48:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,29 +101,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 16, 2025 at 01:55:27PM -0500, Mario Limonciello wrote:
-> [Why]
-> Newer VPE microcode has functionality that will decrease DPM level
-> only when a workload has run for 2 or more seconds.  If VPE is turned
-> off before this DPM decrease and the PMFW doesn't reset it when
-> power gating VPE, the SOC can get stuck with a higher DPM level.
-> 
-> This can happen from amdgpu's ring buffer test because it's a short
-> quick workload for VPE and VPE is turned off after 1s.
-> 
-> [How]
-> In idle handler besides checking fences are drained check PMFW version
-> to determine if it will reset DPM when power gating VPE.  If PMFW will
-> not do this, then check VPE DPM level. If it is not DPM0 reschedule
-> delayed work again until it is.
-> 
-> Cc: Peyton.Lee@amd.com
-> Reported-by: Sultan Alsawaf <sultan@kerneltoast.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4615
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+On Fri, Oct 17, 2025 at 3:36=E2=80=AFPM Tvrtko Ursulin
+<tvrtko.ursulin@igalia.com> wrote:
+>
+> Remove member no longer used by the scheduler core.
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+> Cc: Oded Gabbay <ogabbay@kernel.org>
+> ---
+>  drivers/accel/rocket/rocket_job.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index acd606160dc9..6ff81cff81af 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -437,7 +437,6 @@ int rocket_job_init(struct rocket_core *core)
+>  {
+>         struct drm_sched_init_args args =3D {
+>                 .ops =3D &rocket_sched_ops,
+> -               .num_rqs =3D DRM_SCHED_PRIORITY_COUNT,
+>                 .credit_limit =3D 1,
+>                 .timeout =3D msecs_to_jiffies(JOB_TIMEOUT_MS),
+>                 .name =3D dev_name(core->dev),
+> --
+> 2.48.0
 
-Reviewed-and-tested-by: Sultan Alsawaf <sultan@kerneltoast.com>
+Thanks, Tvrtko.
 
-Thanks again for fixing this.
+Reviewed-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 
-Sultan
+Regards,
+
+Tomeu
