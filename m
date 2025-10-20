@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A403DCCD199
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 11:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6409ACCD193
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 11:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA77110E423;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD17210E424;
 	Mon, 20 Oct 2025 11:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HPNl37JR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LDWcghus";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F9F10E423;
- Mon, 20 Oct 2025 11:54:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2BE10E427;
+ Mon, 20 Oct 2025 11:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,26 +22,27 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=I81oU4WaGTtRXW08pQgsWyO70vhgLjWNDQFF1YHWs+8=; b=HPNl37JRQvZ3MZfYH96UTwgR2s
- 9SdUJeTDhE9PvUAUYjjgCQBOz7ZC7KwRn7S2kdS6Vvs8Bnkks/UT4n/Ffn/9NE6w37cfK7/qO/kXg
- il2E0WfLN/cZSICXfWI21UBUoQXwC34IjsAHqfUJTCIjU/xW04tNTsp1E9b3u7YUzTrbbzzQ1pNjC
- BCCKJbF8DbSU987gVVaQg1qjIAluI7E/YxnAatvYLLobJeRBtCt2RdLRDyBoDdLLgMiWyBZ00fd6n
- AVWSVXq3aBYG+fTbQXGks+ICbke46Fok0f6/JO/ZgMbqK+lw6MUreRmnxnXutcsztcMpEfOzNVnsQ
- BJ+3mbLw==;
+ bh=GBzPJmdSuBvDvgcpfPHid7V4T9dYBbIgb1rCCJSQwuo=; b=LDWcghusUXSZU1M14ZVQghkv0F
+ hVqoRJ5VVctF0F4WBtlNi8y8plJBtiKt6SF7S66vHnesjX2Une4GSVPLuWFFi/hON0Ozg1/PtPXKw
+ njJa9kw2ZSoIp/Ff9o4NG4CyxqOUNNTAoGHiKItWAOGSNYPYeRuNrMSplsNxQicVsRYRCaBfALKRb
+ so/HQ8ujgkNv5GnvsWTcoJ4nn1bFOxGS8FFAwXI1BzHaS5qFl2LlY1FaK94zmi+zJWjxNMok1re/F
+ JvKkADeotsERTJ5bHGQC5JEF9gpcZut4SIDooyNuw9+cr2DJqxpP/urvbUGKc75D7nx2cMuewCtoA
+ RvZogFiw==;
 Received: from [90.242.12.242] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vAoSv-00C5bC-8z; Mon, 20 Oct 2025 13:54:17 +0200
+ id 1vAoSw-00C5bO-OZ; Mon, 20 Oct 2025 13:54:18 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH v5 4/6] drm/ttm: Allow drivers to specify maximum beneficial
- TTM pool size
-Date: Mon, 20 Oct 2025 12:54:09 +0100
-Message-ID: <20251020115411.36818-5-tvrtko.ursulin@igalia.com>
+ Matthew Brost <matthew.brost@intel.com>
+Subject: [PATCH v5 6/6] drm/ttm: Add an allocation flag to propagate -ENOSPC
+ on OOM
+Date: Mon, 20 Oct 2025 12:54:11 +0100
+Message-ID: <20251020115411.36818-7-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251020115411.36818-1-tvrtko.ursulin@igalia.com>
 References: <20251020115411.36818-1-tvrtko.ursulin@igalia.com>
@@ -62,91 +63,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GPUs typically benefit from contiguous memory via reduced TLB pressure and
-improved caching performance, where the maximum size of contiguous block
-which adds a performance benefit is related to hardware design.
+Some graphics APIs differentiate between out-of-graphics-memory and
+out-of-host-memory (system memory). Add a device init flag to have -ENOSPC
+propagated from the resource managers instead of being converted to
+-ENOMEM, to aid driver stacks in determining what error code to return or
+whether corrective action can be taken at the driver level.
 
-TTM pool allocator by default tries (hard) to allocate up to the system
-MAX_PAGE_ORDER blocks. This varies by the CPU platform and can also be
-configured via Kconfig.
-
-If that limit was set to be higher than the GPU can make an extra use of,
-lets allow the individual drivers to let TTM know over which allocation
-order can the pool allocator afford to make a little bit less effort with.
-
-We implement this by disabling direct reclaim for those allocations, which
-reduces the allocation latency and lowers the demands on the page
-allocator, in cases where expending this effort is not critical for the
-GPU in question.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Co-developed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Christian König <christian.koenig@amd.com>
-Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Reviewed-by: Christian König <christian.koenig@amd.com> # v1
+Cc: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
-v2:
- * Rebase for rename and move of flags to alloc_flags / TTM_ALLOCATION_.
+Thomas, feel free to take the ownership if you end up liking this version.
+As you can see I lifted your commit text as is and the implementation is
+the same on the high level.
 ---
- drivers/gpu/drm/ttm/ttm_pool.c          | 8 ++++++++
- drivers/gpu/drm/ttm/ttm_pool_internal.h | 5 +++++
- include/drm/ttm/ttm_allocation.h        | 5 +++--
- 3 files changed, 16 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c     | 4 +++-
+ drivers/gpu/drm/ttm/ttm_device.c | 1 +
+ include/drm/ttm/ttm_allocation.h | 1 +
+ include/drm/ttm/ttm_device.h     | 5 +++++
+ 4 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 4fc69447060c..97e9ce505cf6 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -136,6 +136,7 @@ static DECLARE_RWSEM(pool_shrink_rwsem);
- static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 					unsigned int order)
- {
-+	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
- 	unsigned long attr = DMA_ATTR_FORCE_CONTIGUOUS;
- 	struct ttm_pool_dma *dma;
- 	struct page *p;
-@@ -149,6 +150,13 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 		gfp_flags |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN |
- 			__GFP_THISNODE;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index fba2a68a556e..15b3cb199d45 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -31,6 +31,7 @@
  
-+	/*
-+	 * Do not add latency to the allocation path for allocations orders
-+	 * device tolds us do not bring them additional performance gains.
-+	 */
-+	if (beneficial_order && order > beneficial_order)
-+		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
-+
- 	if (!ttm_pool_uses_dma_alloc(pool)) {
- 		p = alloc_pages_node(pool->nid, gfp_flags, order);
- 		if (p)
-diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-index 96b7f21514fb..82c4b7e56a99 100644
---- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
-+++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-@@ -17,4 +17,9 @@ static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
- 	return pool->alloc_flags & TTM_ALLOCATION_POOL_USE_DMA32;
- }
+ #define pr_fmt(fmt) "[TTM] " fmt
  
-+static inline bool ttm_pool_beneficial_order(struct ttm_pool *pool)
-+{
-+	return pool->alloc_flags & 0xff;
-+}
-+
- #endif
++#include <drm/ttm/ttm_allocation.h>
+ #include <drm/ttm/ttm_bo.h>
+ #include <drm/ttm/ttm_placement.h>
+ #include <drm/ttm/ttm_tt.h>
+@@ -877,7 +878,8 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+ 
+ 	/* For backward compatibility with userspace */
+ 	if (ret == -ENOSPC)
+-		return -ENOMEM;
++		return bo->bdev->alloc_flags & TTM_ALLOCATION_PROPAGATE_ENOSPC ?
++		       ret : -ENOMEM;
+ 
+ 	/*
+ 	 * We might need to add a TTM.
+diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+index 87c85ccb21ac..5c10e5fbf43b 100644
+--- a/drivers/gpu/drm/ttm/ttm_device.c
++++ b/drivers/gpu/drm/ttm/ttm_device.c
+@@ -227,6 +227,7 @@ int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_funcs *func
+ 		return -ENOMEM;
+ 	}
+ 
++	bdev->alloc_flags = alloc_flags;
+ 	bdev->funcs = funcs;
+ 
+ 	ttm_sys_man_init(bdev);
 diff --git a/include/drm/ttm/ttm_allocation.h b/include/drm/ttm/ttm_allocation.h
-index 7869dc32bd91..8f8544760306 100644
+index 8f8544760306..655d1e44aba7 100644
 --- a/include/drm/ttm/ttm_allocation.h
 +++ b/include/drm/ttm/ttm_allocation.h
-@@ -4,7 +4,8 @@
- #ifndef _TTM_ALLOCATION_H_
- #define _TTM_ALLOCATION_H_
- 
--#define TTM_ALLOCATION_POOL_USE_DMA_ALLOC	BIT(0) /* Use coherent DMA allocations. */
--#define TTM_ALLOCATION_POOL_USE_DMA32		BIT(1) /* Use GFP_DMA32 allocations. */
-+#define TTM_ALLOCATION_POOL_BENEFICIAL_ORDER(n)	((n) & 0xff) /* Max order which caller can benefit from */
-+#define TTM_ALLOCATION_POOL_USE_DMA_ALLOC 	BIT(8) /* Use coherent DMA allocations. */
-+#define TTM_ALLOCATION_POOL_USE_DMA32		BIT(9) /* Use GFP_DMA32 allocations. */
+@@ -7,5 +7,6 @@
+ #define TTM_ALLOCATION_POOL_BENEFICIAL_ORDER(n)	((n) & 0xff) /* Max order which caller can benefit from */
+ #define TTM_ALLOCATION_POOL_USE_DMA_ALLOC 	BIT(8) /* Use coherent DMA allocations. */
+ #define TTM_ALLOCATION_POOL_USE_DMA32		BIT(9) /* Use GFP_DMA32 allocations. */
++#define TTM_ALLOCATION_PROPAGATE_ENOSPC		BIT(10) /* Do not convert ENOSPC from resource managers to ENOMEM. */
  
  #endif
+diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
+index 074b98572275..d016360e5ceb 100644
+--- a/include/drm/ttm/ttm_device.h
++++ b/include/drm/ttm/ttm_device.h
+@@ -220,6 +220,11 @@ struct ttm_device {
+ 	 */
+ 	struct list_head device_list;
+ 
++	/**
++	 * @alloc_flags: TTM_ALLOCATION_ flags.
++	 */
++	unsigned int alloc_flags;
++
+ 	/**
+ 	 * @funcs: Function table for the device.
+ 	 * Constant after bo device init
 -- 
 2.48.0
 
