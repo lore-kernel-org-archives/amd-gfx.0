@@ -4,89 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206F4CCD193
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 12:48:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C03CCD193
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 13:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AB2C10E42A;
-	Mon, 20 Oct 2025 12:48:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68B8E10E272;
+	Mon, 20 Oct 2025 13:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tomeuvizoso-net.20230601.gappssmtp.com header.i=@tomeuvizoso-net.20230601.gappssmtp.com header.b="UB1um/PY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HhvGZxu2";
 	dkim-atps=neutral
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
- [74.125.224.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4B6610E076
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 14:32:39 +0000 (UTC)
-Received: by mail-yx1-f44.google.com with SMTP id
- 956f58d0204a3-63bbf5f77daso3063045d50.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 07:32:39 -0700 (PDT)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF3810E272
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 13:04:11 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-29245cb814cso5244105ad.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 06:04:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tomeuvizoso-net.20230601.gappssmtp.com; s=20230601; t=1760797959;
- x=1761402759; darn=lists.freedesktop.org; 
+ d=gmail.com; s=20230601; t=1760965450; x=1761570250; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=u33yGeffbuYdlvlzL4H50ccSYsAIsX3t6iP87kPjVYE=;
- b=UB1um/PY28UFZ6nAnbTNtCOxbBPZzBLv7Q2doaok/f6Fv/850ac5Xj2b13plkVvPE7
- vQkbTSP9ofwFejPRTpf71+JiidB0POisqVM3SkQD15KjDvFSwYrRb+LKXzV1fEk7Cwbg
- s0wi3ljqvW6uiIn2h9N5g/IC2ZnV7ADS4T1izS1T1e52KxND8g+ersLGBoqzWHhk+Jr5
- efyaaml7CEkQ830LZ52k8aVDoelMomW2OUejAcTd+GKRtFA8TYRRkqIwQ8uW27Jyr3t0
- CljY+NG12P8NOqURxDTsZa7as/si/UKlHubOeMLk0908oFqyNwtGmt0pi8V4dEeQ+7X6
- 1KKg==
+ bh=oywArE2yT38qX4uPs/jdieZLja8wS++qduwzE6rJ9Uo=;
+ b=HhvGZxu2zPht1Z73LUYCwjKElaxtomOmDg/uMHHasuWe9uKZ1t0RZq263Ms4KgFlEY
+ n0eKN5agE3EaBjCZkEkYzuyV5vEsm9esvqW01WNK3GVPu6pKwO0i3fE/OIKc/eSFADjT
+ Wd4YT5BFX3MzCSxfmPGntI2eaIZ+iNha+vjgct2AM+E6NJJgcoiCitU3JmzT63VcfUpi
+ VCDDgcv77GYQBDJZ+R1Aiuspw16K+ZipwoBbJEL254EKE2wtB8Vwu4eCknZJbqoo+Cut
+ YVIwNogv5bJ4vAziMrrWG8pfupDvIxu0V7jsKIN4ZTL+p2PSgFBUmuucfuFsTzTSyB0Q
+ Jm7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760797959; x=1761402759;
+ d=1e100.net; s=20230601; t=1760965450; x=1761570250;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=u33yGeffbuYdlvlzL4H50ccSYsAIsX3t6iP87kPjVYE=;
- b=m8+slfBqRZrHWsjpMgInG3dUBIYbwsPZycDTI/dhIsC6k65pHDs4yMJ/hxEYtw5XDH
- zpxEMeH/Eb0KzfYjB8MsyWtowaec+liENQE/tTlE5KiSa1yT6hlydDDrmCZJ6UaXA7gW
- uLXz9IyWLRhhtzJ8ERXZaj+MjjB2Iv29NsynV223vLeIzcvJxFWT71GYDLomZoZfREMs
- GFh9O8dbJ+LgvFFpfXA7iwMYDOHdt+Jlo4mbb7B4Z/aaWDKzMyjnDO94RMJ+bfYsLNCN
- 4KMRII7PT0XsSbwIc9MPxWhw176d/Y0keUPSkDYD1SKFhQyU5nlrM4/fGXfj6+seWlN0
- u7yQ==
-X-Gm-Message-State: AOJu0Ywmo4zRD1zJPaJM0o/8qEcGVP7R7TWV84g35w6z0Octgp/hFnve
- 6vpyLjMTsfSW8ccjUa+prSO7b+nTv4Omr+WUc3x4smETAwXiqlcyQ/VQYIoSrBIAg/hnlgMrCPX
- 8K/F/Q94=
-X-Gm-Gg: ASbGncvK4GjrSAs1d7Va1JNF9E1zckgG6lvHcTDd9F1f/hXeg66UwsPD1MvUyrm4DKM
- DlII9FnBcsI/Ff7jq74LA3CCvQVYVDEUxyuyRb4VlnU6Hm9npGFsYB282X7pzOiHhhEtIYIhyda
- cTjOiN7xsyDQfaArnBplmOm9hIrkZflFtC1iQ6RUM0AEQQYLoUws+jvmp0fRmv/l9fCzbfwT2hE
- bumALjfHXtinXjKmcP6kMSIkij1gcRUSUjOMp7ujOo8fkZwiWuyk5hayePKa6zck4a8L8/sQUsO
- 8SGqmZ8ig/3h5napCkmlRMUvmcCqSQCXtx/zNXlaC8EqXWqjTTVPC8KnZNI5huSiijxnstR2yzL
- E6Y1lKF2XSMRA/a5Rk8h4nBLuBQkuVJk2LbkkXpLd/0GjhX6D8RtniRCycUwMHD8CgUqPhQo8Y9
- VPVVYaoAd1OM3s5cWxQ6HUA1OVLPYUwWkKGo0GbFxgs9kH2dx9ED4/vw==
-X-Google-Smtp-Source: AGHT+IFF/uYaF5unMA2JrnG83glsTGgmsXzLJXAhREcADJm1ByIhJXYy/E/u2GiQDhtQixvIBaCmUg==
-X-Received: by 2002:a05:690e:11cc:b0:63e:1943:ce4f with SMTP id
- 956f58d0204a3-63e1943d222mr4804190d50.6.1760797958795; 
- Sat, 18 Oct 2025 07:32:38 -0700 (PDT)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com.
- [209.85.128.182]) by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-63e2680b19esm817724d50.23.2025.10.18.07.32.37
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 18 Oct 2025 07:32:37 -0700 (PDT)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-78488cdc20aso2719837b3.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Oct 2025 07:32:37 -0700 (PDT)
-X-Received: by 2002:a05:690e:1401:b0:63e:2001:96e0 with SMTP id
- 956f58d0204a3-63e20019897mr4605587d50.32.1760797957548; Sat, 18 Oct 2025
- 07:32:37 -0700 (PDT)
+ bh=oywArE2yT38qX4uPs/jdieZLja8wS++qduwzE6rJ9Uo=;
+ b=huGZwVgilEfiNuudpbobTG4MFN9rdoti06JzYFzeYa8nMg1cFYXwDUy9eA0UavDdAa
+ rpGSxfAa3QChkLxSUR3H5rX+9cVSaAl/+QBy7ythxqLLMzxG3mk+1NHUXJOZY38oCK/p
+ D4Hh3EnZ0LtZr8g/dmrJytRZIBc0TtybaahIOrjeM17/tX/qqM506bITSTvnv43rHVOM
+ Y+7DZSCioL9CNMHzO6guRLpEBt2IyxnquZZxewfbhfSAjtr/+LFbHis3L5859/LCzqJm
+ FpPClDfy9/Vu8B/01CTg2fiG3AD61VAQCI8SZyZTxZm85C1GyT3eg8LVL5MYI4X1ToJJ
+ PFLQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWmNyoS/E/eQ5lyUEndsw0O03wHhn88rgKd9yiSXqayh3qAsSXwBcGPdmoMe8YpohHd82J10VP5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztntaNRqZ2ndtWcai50fVQB+dJ4FLVYaSUfr5DOXKtZ22Y1Pn2
+ CJagy2kWyCrxD/JSUICGveOGOPel/emLADvhjtQ/r8Fg4h/9rZoOyDo6ue+X4dUjaAx0WOecB6N
+ phePyGxL2t2g50cKsRJcKFC9Pbx/LAp0=
+X-Gm-Gg: ASbGncsrATTbKve91mGENskcIdgGMkP0u4WsRp0/+z30E6QsRMX1jDN+yL17WCO4lep
+ I+xqpOyDixHciYELwe/UMpkCNcZbCabNBYk7jkKPf0rPr/RmOAG9TuhBMqpSnVFloXI1aybobw9
+ qq5lUcaXTLtVqq9nzNe1syNXhDAnzO2EsfDw7lS4uK9ArmhPTWFQbnv+NbL22ewInlkonmJ3lNc
+ LqxIC0NThOFwytgN6VJi7oEMOiMpvzbTgILYOcf330Bh3vH2PBpO+zhY8bE
+X-Google-Smtp-Source: AGHT+IGj3NqQk7YuYSYYY0l1WSrTtcIITzZ7eA2amD+NtUWcASFzDQS/4tWH7DpeSdIY1+/SVtvDIZHls2ZJPUG0s/0=
+X-Received: by 2002:a17:902:f645:b0:290:c3a9:42b5 with SMTP id
+ d9443c01a7336-290c9d1fdefmr80734425ad.5.1760965450454; Mon, 20 Oct 2025
+ 06:04:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
- <20251017133644.44747-16-tvrtko.ursulin@igalia.com>
-In-Reply-To: <20251017133644.44747-16-tvrtko.ursulin@igalia.com>
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Sat, 18 Oct 2025 16:32:26 +0200
-X-Gmail-Original-Message-ID: <CAAObsKDY1zs9R2HwnO6ESP7585rEzhBiTQr8eZFDtTCsbcQx4A@mail.gmail.com>
-X-Gm-Features: AS18NWCAB_kOwXa5sb329LHfQOFfSyknwHwT7YO9iNYjXbmCM8gGwoS9osAfhMw
-Message-ID: <CAAObsKDY1zs9R2HwnO6ESP7585rEzhBiTQr8eZFDtTCsbcQx4A@mail.gmail.com>
-Subject: Re: [PATCH v2 15/27] accel/rocket: Remove drm_sched_init_args->num_rqs
- usage
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Oded Gabbay <ogabbay@kernel.org>
+References: <20251008050418.3399656-1-lijo.lazar@amd.com>
+ <a021f76ec289089dab0715399d44ad7704af8c69.camel@gmail.com>
+In-Reply-To: <a021f76ec289089dab0715399d44ad7704af8c69.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 20 Oct 2025 09:03:57 -0400
+X-Gm-Features: AS18NWBggFp3lt496eQC1Aqpjnw8Nwmko1WV_Oqxb61XDKlKwSiFPYwAK5gsiHY
+Message-ID: <CADnq5_O5GkGaqQn0e_bm6K1fjCfX_1Siom6QkOw3oJDUDQUimA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Skip SDMA suspend during mode-2 reset
+To: timur.kristof@gmail.com
+Cc: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Asad.Kamal@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 20 Oct 2025 12:48:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,38 +84,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 17, 2025 at 3:36=E2=80=AFPM Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
+On Mon, Oct 20, 2025 at 8:31=E2=80=AFAM <timur.kristof@gmail.com> wrote:
 >
-> Remove member no longer used by the scheduler core.
+> On Wed, 2025-10-08 at 10:34 +0530, Lijo Lazar wrote:
+> > For SDMA IP versions > v4.4.2, firmware will take care of quiescing
+> > SDMA
+> > before mode-2 reset.
+> >
+> > Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/aldebaran.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> > b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> > index 9569dc16dd3d..0007d00b9e8f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> > @@ -88,6 +88,10 @@ static int aldebaran_mode2_suspend_ip(struct
+> > amdgpu_device *adev)
+> >       uint32_t ip_block;
+> >       int r, i;
+> >
+> > +     /* Skip suspend of SDMA IP versions > 4.4.2. They are multi-
+> > aid */
 >
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-> Cc: Oded Gabbay <ogabbay@kernel.org>
-> ---
->  drivers/accel/rocket/rocket_job.c | 1 -
->  1 file changed, 1 deletion(-)
+> What does "multi-aid" mean here?
+
+Active Interposer Die.  Multi-chiplet platforms like MI300.
+
+Alex
+
 >
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index acd606160dc9..6ff81cff81af 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -437,7 +437,6 @@ int rocket_job_init(struct rocket_core *core)
->  {
->         struct drm_sched_init_args args =3D {
->                 .ops =3D &rocket_sched_ops,
-> -               .num_rqs =3D DRM_SCHED_PRIORITY_COUNT,
->                 .credit_limit =3D 1,
->                 .timeout =3D msecs_to_jiffies(JOB_TIMEOUT_MS),
->                 .name =3D dev_name(core->dev),
-> --
-> 2.48.0
-
-Thanks, Tvrtko.
-
-Reviewed-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-
-Regards,
-
-Tomeu
+>
+> > +     if (adev->aid_mask)
+> > +             ip_block_mask &=3D ~BIT(AMD_IP_BLOCK_TYPE_SDMA);
+> > +
+> >       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> >       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> >
