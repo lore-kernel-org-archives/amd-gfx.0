@@ -4,76 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7163CCCD1A5
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 07:12:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D6EFCCD1AF
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 07:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAD2A10E2D2;
-	Tue, 21 Oct 2025 07:12:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8B210E2D8;
+	Tue, 21 Oct 2025 07:12:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kerneltoast.com header.i=@kerneltoast.com header.b="VUENkVNl";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WWyajdZj";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 674DA10E536
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 22:45:46 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-7930132f59aso6577632b3a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 15:45:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kerneltoast.com; s=google; t=1761000346; x=1761605146;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RjA+D2gABjg6fRwb90P8FJ6zI+4eBjJEl6XrYNmNfy8=;
- b=VUENkVNlkFQsimQjkPHUy61tPNF08iBpffUjsfDE7JW90uZ77v8fIYtO/Blfb7R+GF
- 5BvwR85KMe2FOev7bSVRmoya+nnCvZMBY7m4LP9XOtiUeLZ2yslDVVfWvy496hAir13W
- PpiQT94I5kDaR8MWgtmlDwZVn1jRZ1+3DPWiOEqpTgLeVa6BS74fvS3Pr0feFLKYGlqL
- So1QWo7ldxbB1iT0YYKapBD4Vifs98ubfd3ZwQYy4wo+dahq0+aW/K53D3vKhoCNKmOn
- cYXjufWjQPvmqebSfAZ2q1hbkTNFoQfATBh6jeIIfU45C7GOxc2zEX5jvmnJMZlgvzwv
- iVEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761000346; x=1761605146;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RjA+D2gABjg6fRwb90P8FJ6zI+4eBjJEl6XrYNmNfy8=;
- b=Y+XceVZ3RlTjwGaN2awJRXWNrUNzTCwz/BWP6UFXe25tFW+GrBIYBAhmjowcEuwsp3
- LTR4RuuVtdgok1Zq5YclJkYYLw9UNBltbuCzgU+BBtCKWdK8RypdYkWWpiJoJU0fZ5F/
- lUhn3H/tbV3QhpG+JaLbk1Xc5I4imtS9tNoJV9P9zYDacZCBcYWgvu5pll2aCA/qplVL
- 2jY8gzxm6Q06aCpkM/74yUISjBN2vpib9J+sv9P+re1UJFnLVgKmSnqx7r9Tn61kAfKi
- w3PiirD/aNwR07Iz2E7FnYOE/jQFiNB0h4McSJUVNg84B9+gAxw+VSuFNSqDknzsOWMm
- wjVw==
-X-Gm-Message-State: AOJu0Ywl6OOGJfvLyii0bWMCpB3RZJ7n62ywxUTpofHSaQAAnXT2Khf1
- iF/i7LYN1OBX3cDe5v4u8ZxvpqiyJWLuDnGGbq0PKCNGSrzees5eOYRi5OAdSbDjcIcCtBvu1+C
- hwMzIL2U7
-X-Gm-Gg: ASbGncuZFNyeJwrI9lqPML1WG1tzGFXONFRVKqn5pZro6194YUlBI/bL+7FlIgKjIk/
- Gqy0FTuusuZ41i9W0an0yHREi/pOixiHdWIhxzL4eW0bWgAMYDwN1ndj+9Fn2EojL1jh6k6pgPw
- 3VZxGBvb2zswNwe9Aqz9PSuVS3dt5uyutCNk0MdoEe+AfuqliXPjc2IXDYRF4Jxd+n7YrnMroxI
- q7sDdQUsZLtiHkJg9D/s0oVcplAChDaZ7AKXwut2ujbS2xHOa8GpYnVl5eK95mo6rrxTYBZ3+Iq
- ZTFJu4JPgfjq1Kp+3zpVWj8ycRGyXogxIf9isHrPuR88GPoG/Qiz3mNtN4NwAMjmhsanUSLYlWB
- nTefhVsHDrcVWQE3pE4hPQpu4/VxB6xWUmwBakh2p3fJaqRru74xolUkKfTZLd+NkWYelXJeP1I
- /QqA==
-X-Google-Smtp-Source: AGHT+IFMfVbHKDPJ93PraNhiZ4Nmaqe9rmEg5jcKWkWmKkIqhKzyHvYVhl0ZbDOR4Q8R+bGwGNNryw==
-X-Received: by 2002:a05:6a00:21c4:b0:772:45ee:9b9e with SMTP id
- d2e1a72fcca58-7a220aa8c36mr15402276b3a.9.1761000345917; 
- Mon, 20 Oct 2025 15:45:45 -0700 (PDT)
-Received: from sultan-box ([79.127.217.57]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7a23010e25asm9290207b3a.56.2025.10.20.15.45.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Oct 2025 15:45:45 -0700 (PDT)
-Date: Mon, 20 Oct 2025 15:45:43 -0700
-From: Sultan Alsawaf <sultan@kerneltoast.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amd: Add missing return for VPE idle handler
-Message-ID: <aPa7lwfpALpbCmed@sultan-box>
-References: <20251020223434.5977-1-mario.limonciello@amd.com>
- <aPa60qtBV5iCiY2I@sultan-box>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4510210E48B;
+ Mon, 20 Oct 2025 16:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1760979549;
+ bh=G7iQGFTjElvxnf59cDItFHSMkPqz6A/NDmQwvq/okdc=;
+ h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+ b=WWyajdZjmxz/WBOuB14W78E+DuNtJEYQjwW2ymcmVIObxjugvSigBuZF3CBG2NKto
+ MVNzlzgfauJbhoxyMI1dXGR4cgZIORC+K4uX4bhFBmk/GvcWKmeqwbCvs5siB1GAG1
+ Dmb7/RLRvabYkGBzqNl3Dld2wpMNEk4Qdkl+oESkwyKBmEs0f05KwLjmi/9SqwjALT
+ xiIbI9+oLe8ap3YY5A1gdPnd6JGFHNcm6y5JrD8ATh9fXNfGtA+zc4JoFiIoSDnvaM
+ 8ooqduBQmVJ4hsS4p2W2+TfOt4cDTzamSxw0mOK319XzofBViCx8dVgERATlkFg9GI
+ gDBvxlC28bMFQ==
+Received: from [192.168.200.105] (unknown [182.181.201.194])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: usama.anjum)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5935617E127F;
+ Mon, 20 Oct 2025 18:59:01 +0200 (CEST)
+Message-ID: <73a9da49-1513-4eda-bfaa-c89160ed709e@collabora.com>
+Date: Mon, 20 Oct 2025 21:58:57 +0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aPa60qtBV5iCiY2I@sultan-box>
-X-Mailman-Approved-At: Tue, 21 Oct 2025 07:12:08 +0000
+User-Agent: Mozilla Thunderbird
+Cc: usama.anjum@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org
+Subject: Re: [RFC 2/3] PM: Don't pass up device_resume() -EBUSY errors
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ mario.limonciello@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, dakr@kernel.org, gregkh@linuxfoundation.org,
+ lenb@kernel.org, pavel@kernel.org, rafael@kernel.org, simona@ffwll.ch
+References: <20251020165317.3992933-1-superm1@kernel.org>
+ <20251020165317.3992933-3-superm1@kernel.org>
+Content-Language: en-US
+From: Muhammad Usama Anjum <usama.anjum@collabora.com>
+In-Reply-To: <20251020165317.3992933-3-superm1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 21 Oct 2025 07:12:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,20 +65,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 20, 2025 at 03:42:26PM -0700, Sultan Alsawaf wrote:
-> On Mon, Oct 20, 2025 at 05:34:34PM -0500, Mario Limonciello wrote:
-> > Adjusting the idle handler for DPM0 handling forgot a return statement
-> > which causes the system to not be able to enter s0i3.
-> > 
-> > Add the missing return statement.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Sultan Alsawaf <sultan@kerneltoast.com>
-> > Closes: https://lore.kernel.org/amd-gfx/aPawCXBY9eM8oZvG@sultan-box/
+On 10/20/25 9:50 PM, Mario Limonciello (AMD) wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
 > 
-> I just noticed that this link doesn't work; it seems like that email of mine
-> didn't make it onto the amd-gfx list?
+> If a device resume returns -EBUSY the device resume sequence has
+> been skipped. Don't show errors for this or pass it up to async
+> resume.  If resume is run again in another stage the device should
+> try again.
+> 
+> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
 
-Ouch, looks like none of my emails today are showing up on amd-gfx. :-\
+> ---
+>  drivers/base/power/main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
+> index bf9c3d79c455f..f6bc7ef9a8371 100644
+> --- a/drivers/base/power/main.c
+> +++ b/drivers/base/power/main.c
+> @@ -1112,7 +1112,9 @@ static void device_resume(struct device *dev, pm_message_t state, bool async)
+>  
+>  	TRACE_RESUME(error);
+>  
+> -	if (error) {
+> +	if (error == -EBUSY)
+> +		pm_dev_dbg(dev, state, async ? " async" : "");
+> +	else if (error) {
+>  		WRITE_ONCE(async_error, error);
+>  		dpm_save_failed_dev(dev_name(dev));
+>  		pm_dev_err(dev, state, async ? " async" : "", error);
 
-Sultan
+
+-- 
+---
+Thanks,
+Usama
