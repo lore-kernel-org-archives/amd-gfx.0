@@ -4,53 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E430CCD199
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 14:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C39BCCD199
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 15:59:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C2610E2A1;
-	Mon, 20 Oct 2025 14:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 862EB10E474;
+	Mon, 20 Oct 2025 15:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sc/lM0Np";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="I+IdY6xt";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D833610E2A1;
- Mon, 20 Oct 2025 14:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zNHJmPTuExtnuNZOb1LyOIdMpz4hwND9f0f6YnQxgZk=; b=sc/lM0NpJ1ayIryIjpW3fhWex6
- FiZjF6VThJMR1eJ4gQwKfO/ErD0McQQsdaToAtiHYns+JokJ5EpxbNl8eQ06Zbect9pOxe9Fr1xzZ
- U+W+9L+XY5Tgaxf+ZE4nOPaFhhoi2NdnWfPaWyrGagtno2L+J5ZKLsbrDJVZU7tPqoJOyBqnvXX7h
- VsSsonNmpBAUj90R4PTtl1dB3SDDmobv351gwL69LBUUTx9OSJ08WU0V+pyjJQ1OVUaMO/ut/P5QR
- UudI+EM7yQfJubBXm3Bvz+yNbVMjdWqHWqu+jcqkd5NvIdbrToYIgirC3mrJ/lt2kL0ucJqsL1Zq2
- dwYyauGg==;
-Received: from [90.242.12.242] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vAr2R-00C8qf-Iu; Mon, 20 Oct 2025 16:39:07 +0200
-Message-ID: <a6a6e8da-e1ae-44c4-a34f-c684a441ffca@igalia.com>
-Date: Mon, 20 Oct 2025 15:39:06 +0100
-MIME-Version: 1.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86CC610E474
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 15:59:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C8Ve2v9ayqWYDy+K6npOxbn0zByL8IOgisxInknrp5221tKRADJQdJH5yo78PahCawSiZQIbt9zxZFbuKEtvY3BJTmr8nyKStcPWyp4kE8xmnSm6Nnz8GhBDperwAvurVHeDrXRZhIjuq6ZBxiSnQojCbvBJRfUdpMCv6EJyVbtVccO8zelMKeFKAvwX8UctwnKnljsoFujFfy0teTIRIZzXTvnSBGX1RnYEnuN4oEtDcvpomzgGodcx+c6UhdFw5/7jD2v3uchinJ/+BkrNsJP0WahtEy0xq27a2oWk1Sjq3daGDkc0hxaKVBgi+HkEyGQrhHflgy7Er0+5+/xkjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4xTY0/PxjrYvb3fWIIGudteOd9p6ZquD0cSRGnVBfsw=;
+ b=NSBfesBXtqqhih3Sitr0jgxXzm00/5/9zKGBT2Dny2zvOZVxNEHsnz03rv3R6rHFQm8Aa+G/6lqpeFILMOLeW9mrqWVwesSJ09fwHWP1nCLWIrKZrzL63HlLl0gAuEujnqCOJlaqyJHNcQn+Zb5SQOvWeiZhk6S1SeS0i8GY0wsfpOxU+HV4M/hav0iWHz1hyvPO1kmrddpdOmQlch19mSdDEiGrK5I8NtbHZaR4v0waqmR4bBbD2SECu9roeCunl7St0JpJL/RqEjHxDHdqrjgkEB39RaC7ulZd+zOuaDs9vmLMcdZYxmaDoRMgu/J64OqArMO4B+BEsVWbTaqGFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4xTY0/PxjrYvb3fWIIGudteOd9p6ZquD0cSRGnVBfsw=;
+ b=I+IdY6xtaRGutlbBK3x4doY2fQnLflIabD+gMnzb7tImvFGif5dAJqtUUTuPfOuPhHyrjVlo56+ChodeIu8JjkNHzIszLaYzdGtzzYe+LL/Kun+OWhr55KqR3hAvVbnaWeoQXpn0X68umLLHWdIvjvPU0WOBfhI39UrKwnUkHmc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ LV3PR12MB9404.namprd12.prod.outlook.com (2603:10b6:408:219::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9228.16; Mon, 20 Oct 2025 15:59:32 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.9228.015; Mon, 20 Oct 2025
+ 15:59:32 +0000
+Content-Type: multipart/alternative;
+ boundary="------------h99cHm47oHVNeu0tMklBEaYR"
+Message-ID: <f82491c6-c6f5-449e-89e1-1735606f60d0@amd.com>
+Date: Mon, 20 Oct 2025 10:59:30 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/27] drm/sched: Add fair scheduling policy
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-References: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
- <20251017133644.44747-10-tvrtko.ursulin@igalia.com>
- <2f1eb1943d4d6a7185391e6d35e9c5d9818649da.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <2f1eb1943d4d6a7185391e6d35e9c5d9818649da.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 1/2] drm/amdkfd: Fix false positive queue buffer free
+ warning
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com
+References: <20251020143016.23409-1-Philip.Yang@amd.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <20251020143016.23409-1-Philip.Yang@amd.com>
+X-ClientProxiedBy: SA9PR13CA0126.namprd13.prod.outlook.com
+ (2603:10b6:806:27::11) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|LV3PR12MB9404:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e5a6f80-9ef5-49e7-1c1e-08de0ff1a87b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eGtaa3F6RVdhbFVaWEx6ZmRUV2lYS2w1TWZqS2hnL2lFKytQZlpwMXY2Ymkw?=
+ =?utf-8?B?OXExbGg3by9YWUFqbXZxd2YvcWUzOTJZSGhGYUIzVDNYQkNBWkQ0ZUJyeTV0?=
+ =?utf-8?B?d0FxWU9seHptM2pJSU0xUmVyK0VXUENDemFTbjFIajRMTDhSN25rbzlDU2xK?=
+ =?utf-8?B?cTVsQjRHWWxEQVdXNVk0ZFlaZm9zUHAzV2o4b0dKem0zQkNWUXVVUlBDUXho?=
+ =?utf-8?B?N0ZsMVNsWURPNkFFNU1QYll2N2NEbEpXWVNiWTBqSkd0YnJ6SEliYzZvN1E4?=
+ =?utf-8?B?dzlrTnphbnNrWUJTaTJINmN1VXlndWRPekxGdnQyTzhvQlVBUXpBMUwvcTR4?=
+ =?utf-8?B?S29nR3ZOOGlFekoxaXJubDhaZnk2ZmlmOXBtNEc1OTNZVWNITTJ2UFB2UGsz?=
+ =?utf-8?B?bnQ2NTd6VWkwelJScDBZM05sUWFjR2FMK2JjSTZPZXlvQ2hPMGwyc0lNWk80?=
+ =?utf-8?B?SVdXYmJ2cFlWeHJORUhCejdvMVRsdVI4b2wya0VkWlA4Z2t1UUI1aTQzR2k0?=
+ =?utf-8?B?a0IreThzODAyUE1qWXIwVkhMRnErNy9pc3JqVVR1dVJvbzZsTGxxUTBJZHE3?=
+ =?utf-8?B?dkhDV1lUa2tWeC8wdEpJYXk5cnhqa01aZ0RzamIzbGN3clp2K0xjN3RteVlj?=
+ =?utf-8?B?aVJ2UHlna1A0ejUvTXErVFl1TFp6bFJMZE9sSC9zV015d1V6Uk03TldrcDlh?=
+ =?utf-8?B?ODcvZXNrR0txQ3RwRDhTUzdGNklsb01pbGZIS290K3BOdHAzb21SZjljazJS?=
+ =?utf-8?B?b01OZEJ2L0NNU0JQTDl6cE52OHB2bVNjS3h6cDlKbXptbnhTemhDN1ZYTGJS?=
+ =?utf-8?B?YVpHOEhsWlh3bWZ0WEcrckpneXdUdXlSZGpQNFdQMWtVNG9MNUNyWCt0Uko2?=
+ =?utf-8?B?T01RY01MQUVNQVhNV3hmeld6UGhOeDlETElsaGQweHNOUlFMbGZzditRN2tT?=
+ =?utf-8?B?Q3FGNzFNNHN4NmVHc3JPWTVzdUkxeFdIeVgxeTIxUGpxWm1ESU5VSDJGMERS?=
+ =?utf-8?B?enk0cWhLSjU2QzY1M1Z3VlhJRlBVeGkwbGJDSUNvSExaQWhMVjF0WEY1aEcz?=
+ =?utf-8?B?SWRKU0crOVVHZHF0VTFua3owSEZYc2R0N0dGcGlKbFFLVGtoTkQ5MVZpNHl4?=
+ =?utf-8?B?MEFwajhGRUE3Y3lxMXJudlhLVWd3ZW5EQnpmZXRVNkZIbVduU2F0amUrbzZ3?=
+ =?utf-8?B?L25Td0laeVUxWThZMkYrY24yQUtSd3p0KzBEejVabWJQZmJzTiszUm5PaGZr?=
+ =?utf-8?B?TG1FMGdzbktBVGVBU2JxRnF4Ri9BTHBTelV0bEhCT3ZOVThNVDdFSXloQVJ1?=
+ =?utf-8?B?Ty8xL2dacTlmeEE0dXVReUdIYWhRdFF3RGtkYjY1eXZWaVdGaU92U0ROVE43?=
+ =?utf-8?B?Nk9GMzgxRUdsOGJHa0tlck9RNVJpblY2U1Q4dFlJYXZUSlBTNXdGbnBxbDhx?=
+ =?utf-8?B?NXA4Ukg1eWh4MFhXZmxjT1ptckNUK3pjUXUvRDVTTHN2ZmhVRG5XTkdKaVR0?=
+ =?utf-8?B?Y2xSakRlNXJzWVJEbDZkbkZsVUovdWQyWFlwN1QxRHh0TGZCQ0svd2pRdDhR?=
+ =?utf-8?B?dFpSdUlwQ0ZzampEZVBqTFhndmVmV3Y2NVdGWWc3SEhHVE9YYW4vYnlGbnhT?=
+ =?utf-8?B?ZkpSUUlnbVRVMFg0ZmNERmltY2grcGYvMExJYzluWlM4cnlzZkh1ZlpVL05C?=
+ =?utf-8?B?cHJiakp4WDYxM05pQTFhQmg2NUFOOFBMUEhoendmZkUrcWFKU1BmbjdNQzFm?=
+ =?utf-8?B?cUxaZUFHa28wKyt1VDJBdzNmVjY3eXdZcGFLQkxoZkg1OERLMXl0M29HdUMr?=
+ =?utf-8?B?NCtja1RwMDR3bkR6bDgxZG9iRlprQUc2THJwZXYwZ1hsN296QkhmZGFnQmZ3?=
+ =?utf-8?B?MnZIbXpoMDZxU1ZwdG5hamVSTFBvaDU5RmF5dnVWdGJ3L3h0bHdHdU9RTVN5?=
+ =?utf-8?Q?P1njBQdLrKulsCIGTJKTyDZjHCZzYhsT?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(8096899003); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkxiRW9MN0hvVUU3MS9pYzhPOHZvNkQ4T082bGhQMWtpWmp0cW5mckZPYTQz?=
+ =?utf-8?B?dTdFMCtZYVA2eTBha1d4WlhrSGM1cTBGcjBiSy9VT1h5SklKellocXJCNzRw?=
+ =?utf-8?B?dndVQkk1cFhqTGRkVnVuNkd6cGpkYnBOeEswS3Y4MExiL2xWUFNaYVRrRVl3?=
+ =?utf-8?B?RW5yQzhFRXNlcFZNOWlVN2pHTUlvNTZhVWxjTnp5bG5PbTBDWmwxNXFWWXdZ?=
+ =?utf-8?B?TGV4NnZOV2dXZXJVSTZBU2tWQnhiY09WTUtjYjNLaDBpcVR1Qi9tQitCTGJF?=
+ =?utf-8?B?SmgvOU5qWXFjaCsrYXM0VmFPQ2lLblFuMVltSnBXUDZvYnI5eEFaQllBZ0M4?=
+ =?utf-8?B?Slo2UWhydjEwL3NlT0dhN3J1MDBBek5MVHgzeDZjSEo0UEtFeUIxVk1GeGRu?=
+ =?utf-8?B?NVNsMVBQeGRHT3I2RDJrT0xtZ0dhSWtYbGxJRVNXSXNKZzUzRnVhVktIVlNw?=
+ =?utf-8?B?R0Q3Nzl4RXdpT3ZsMFMzbnNwdXIvSTA2SWhmTXBWeGV3cC84SlBFRFVodGFU?=
+ =?utf-8?B?OXBHSldJVzdEZnVoTmdOQ3VVUnQ0eUswZVRmYUFHMS82aWkzZlVJbGV6cEVq?=
+ =?utf-8?B?QmVObDdjd1ZQTzlmNWlzYnJaTmdFU2ZCRU5MMkc4emNxQVZydXNzYUFhbzEv?=
+ =?utf-8?B?RjVIbVNaUFZYa2xkTWhLZ2ZKdmsrNDhhUmZxTkdRZlBqbVE2SmxLRkxGbGwz?=
+ =?utf-8?B?U2NzczNvWW5Za0ZxT1hZS0hwMlB4aW9JNUhZNEVIU0EweHkySjN2eFpteW14?=
+ =?utf-8?B?c0R4MFRPeXFCdkU2Y3FZVlJtTGRqNWx2ZWp2aFU2OHk5R2t1bHJ1dnlmaTFp?=
+ =?utf-8?B?Wk1ldTNGTHV1MUNlVUVhUzZNckhycnNEd1FkZEdyYVA1WUNqQStnT0pGaTVV?=
+ =?utf-8?B?RU1wbHdUTGxDMWpRSERIUE42a1ZYRWxwYVZwaXNqUmZuaUZqc0xZVU9UOHNn?=
+ =?utf-8?B?SXFwU3ZTdVA5M2lhMGMyZTErUVV6ZjNpVmcxMGxtTmI2VllFRVhFVWk0Q29s?=
+ =?utf-8?B?VlZOcnRTQzM1QlpXUnNLRk1ObjhtcUFOR2lkT1pxZEFvMUp5a0hzUE8yRkNG?=
+ =?utf-8?B?VHREZHVOeU1JajJmSm5jM0JBZ3R1QVV0MHBlNzJBaGNvQkIrMUErRFFDa2Zs?=
+ =?utf-8?B?MHZWUlFzZXBBUDhwdlNlVlF0cnNHT1ZoSDA5eHR1S245MUtxMHlXYVhyODlW?=
+ =?utf-8?B?WWgrS1FKT2xOR3dnR2NhSEd2b2ZuOXFLY25vWncrbjJNMTFvTzN3NllwSy95?=
+ =?utf-8?B?VkM1U01vQUZMSlNCVDQzUnBHTk5wY2dnWW1sZlg0U1BqUEVDdUhHTzM3TGF6?=
+ =?utf-8?B?WkMrWUhYZVN0UVJHOHlSQm5uS2VPM3Mwb1ZqaldoMFNOb3dYU3o2OWxkMXd0?=
+ =?utf-8?B?U0VFaU5aZ0R0Wmh2NW0rU2xzbXFKNzFkT0tOYUNJRTFHYzFKVDZOVGFJa2Ux?=
+ =?utf-8?B?ZDJQeERpUG81S0d4YVVzR2NMWVpHaFBVVnp0NVV2K1M5MkN6cjB5Nm1uYlIv?=
+ =?utf-8?B?Q0tqNWs1dm1Pc0JUcFY1ODlEQmt4UDcyVlZTV0RVUklvdzhReEpZMnQzMmJl?=
+ =?utf-8?B?L3FvT1MrbTI1ZWZsQlF4RzRxRnBYQ2J1MlJUZ2lpTW1LNzJlNkdmbXE5M0JR?=
+ =?utf-8?B?Z3hxTDdXcEZJaHR1UmVHL1RMMGhmRjFESm9ZZ2Yrcy9TVjFxNmlURVAxQmpn?=
+ =?utf-8?B?L3JjWE81UlRUQkVsOFdEZ2pmVFVKYXZJTXpJa0tGdnI3SFVKcjFnb3dENXpz?=
+ =?utf-8?B?NjJreWx3U2xQcGNiTE1GdWphRm9hZUkvb0h3ZUJuVGY4R3lBQW1xVThWcHd0?=
+ =?utf-8?B?Tk42YmNXOEJJZkIrWkt2L25JWHVHdUw0RTZ4Y2xpQWlGWGVrZEFNZHJNakpM?=
+ =?utf-8?B?eW9FbS9Qb0pmT3JtMUN1MHdaYjU1SFpLbjVtMTJwL3l6L0JyMy9mbjIxQjlZ?=
+ =?utf-8?B?a3ZHaE12OUpxaGhEbUNpeDZKZDl6em5SVC9CZU9SVG9ZSmNYZytRNWdoZkVt?=
+ =?utf-8?B?a3QxY3pCM1VhLzRZQTBqdm5aWnFnSmFrRTJXZXRmSlVtNUFIZlNJMUN6YmtL?=
+ =?utf-8?B?VzI1RFhSUGw1bzZxWDZ6R3BSR1djQnJIbGVheWYxS3Rqd29sUjZyMFlwbEhG?=
+ =?utf-8?Q?Mozs=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e5a6f80-9ef5-49e7-1c1e-08de0ff1a87b
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2025 15:59:32.2973 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qidAIbhGoEWYOcNKXp9L6Ny979YnUA7lJcArRTQULdnWbxd6e57KbVz0S5dk3rnU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,535 +161,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 20/10/2025 14:57, Philipp Stanner wrote:
-> On Fri, 2025-10-17 at 14:36 +0100, Tvrtko Ursulin wrote:
->> The FAIR scheduling policy is built upon the same concepts as the well
->> known CFS CPU scheduler - entity run queue is sorted by the virtual GPU
->> time consumed by entities in a way that the entity with least vruntime
->> runs first.
->>
->> It is able to avoid total priority starvation, which is one of the
->> problems with FIFO, and it also does not need for per priority run queues.
->> As it scales the actual GPU runtime by an exponential factor as the
->> priority decreases, the virtual runtime for low priority entities grows
->> faster than for normal priority, pushing them further down the runqueue
->> order for the same real GPU time spent.
->>
->> Apart from this fundamental fairness, fair policy is especially strong in
->> oversubscription workloads where it is able to give more GPU time to short
->> and bursty workloads when they are running in parallel with GPU heavy
->> clients submitting deep job queues.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c   |  28 ++--
->>   drivers/gpu/drm/scheduler/sched_internal.h |   5 +
->>   drivers/gpu/drm/scheduler/sched_main.c     |  11 +-
->>   drivers/gpu/drm/scheduler/sched_rq.c       | 166 ++++++++++++++++++++-
->>   include/drm/gpu_scheduler.h                |  16 +-
->>   5 files changed, 207 insertions(+), 19 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index 565eddebb667..4144a97702a5 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -107,6 +107,8 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>   	entity->guilty = guilty;
->>   	entity->num_sched_list = num_sched_list;
->>   	entity->priority = priority;
->> +	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
->> +			      DRM_SCHED_PRIORITY_KERNEL : priority;
->>   	/*
->>   	 * It's perfectly valid to initialize an entity without having a valid
->>   	 * scheduler attached. It's just not valid to use the scheduler before it
->> @@ -123,17 +125,23 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>   		 */
->>   		pr_warn("%s: called with uninitialized scheduler\n", __func__);
->>   	} else if (num_sched_list) {
->> -		/* The "priority" of an entity cannot exceed the number of run-queues of a
->> -		 * scheduler. Protect against num_rqs being 0, by converting to signed. Choose
->> -		 * the lowest priority available.
->> +		enum drm_sched_priority p = entity->priority;
->> +
->> +		/*
->> +		 * The "priority" of an entity cannot exceed the number of
->> +		 * run-queues of a scheduler. Protect against num_rqs being 0,
->> +		 * by converting to signed. Choose the lowest priority
->> +		 * available.
->>   		 */
->> -		if (entity->priority >= sched_list[0]->num_rqs) {
->> -			dev_err(sched_list[0]->dev, "entity has out-of-bounds priority: %u. num_rqs: %u\n",
->> -				entity->priority, sched_list[0]->num_rqs);
->> -			entity->priority = max_t(s32, (s32) sched_list[0]->num_rqs - 1,
->> -						 (s32) DRM_SCHED_PRIORITY_KERNEL);
->> +		if (p >= sched_list[0]->num_user_rqs) {
->> +			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
->> +				p, sched_list[0]->num_user_rqs);
->> +			p = max_t(s32,
->> +				 (s32)sched_list[0]->num_user_rqs - 1,
->> +				 (s32)DRM_SCHED_PRIORITY_KERNEL);
->> +			entity->priority = p;
->>   		}
->> -		entity->rq = sched_list[0]->sched_rq[entity->priority];
->> +		entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
->>   	}
->>   
->>   	init_completion(&entity->entity_idle);
->> @@ -566,7 +574,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
->>   
->>   	spin_lock(&entity->lock);
->>   	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
->> -	rq = sched ? sched->sched_rq[entity->priority] : NULL;
->> +	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
->>   	if (rq != entity->rq) {
->>   		drm_sched_rq_remove_entity(entity->rq, entity);
->>   		entity->rq = rq;
->> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->> index 9adad48ec084..593e380a2d59 100644
->> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->> @@ -12,6 +12,8 @@
->>    * @kref: reference count for the object.
->>    * @lock: lock guarding the @runtime updates.
->>    * @runtime: time entity spent on the GPU.
->> + * @prev_runtime: previous @runtime used to get the runtime delta.
->> + * @vruntime: virtual runtime as accumulated by the fair algorithm.
->>    *
->>    * Because jobs and entities have decoupled lifetimes, ie. we cannot access the
->>    * entity once the job is completed and we know how much time it took on the
->> @@ -22,6 +24,8 @@ struct drm_sched_entity_stats {
->>   	struct kref	kref;
->>   	spinlock_t	lock;
->>   	ktime_t		runtime;
->> +	ktime_t		prev_runtime;
->> +	ktime_t		vruntime;
->>   };
->>   
->>   /* Used to choose between FIFO and RR job-scheduling */
->> @@ -29,6 +33,7 @@ extern int drm_sched_policy;
->>   
->>   #define DRM_SCHED_POLICY_RR    0
->>   #define DRM_SCHED_POLICY_FIFO  1
->> +#define DRM_SCHED_POLICY_FAIR  2
->>   
->>   bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
->>   			 struct drm_sched_entity *entity);
->> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->> index 0c5f7a0594bf..74a155377561 100644
->> --- a/drivers/gpu/drm/scheduler/sched_main.c
->> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->> @@ -90,7 +90,7 @@ int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
->>    * DOC: sched_policy (int)
->>    * Used to override default entities scheduling policy in a run queue.
->>    */
->> -MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO (default).");
->> +MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO, " __stringify(DRM_SCHED_POLICY_FAIR) " = Fair (default).");
->>   module_param_named(sched_policy, drm_sched_policy, int, 0444);
-> 
-> Wrong. This patch does not make Fair the default scheduling policy.
-
-Right, forgot about this when splitting out the "set fair as default" 
-patch. Fixed locally.
-
->>   
->>   static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sched)
->> @@ -1133,11 +1133,14 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
->>   		sched->own_submit_wq = true;
->>   	}
->>   
->> -	sched->sched_rq = kmalloc_array(args->num_rqs, sizeof(*sched->sched_rq),
->> +	sched->num_user_rqs = args->num_rqs;
->> +	sched->num_rqs = drm_sched_policy != DRM_SCHED_POLICY_FAIR ?
->> +			 args->num_rqs : 1;
->> +	sched->sched_rq = kmalloc_array(sched->num_rqs, sizeof(*sched->sched_rq),
->>   					GFP_KERNEL | __GFP_ZERO);
->>   	if (!sched->sched_rq)
->>   		goto Out_check_own;
->> -	sched->num_rqs = args->num_rqs;
->> +
->>   	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
->>   		sched->sched_rq[i] = kzalloc(sizeof(*sched->sched_rq[i]), GFP_KERNEL);
->>   		if (!sched->sched_rq[i])
->> @@ -1279,7 +1282,7 @@ void drm_sched_increase_karma(struct drm_sched_job *bad)
->>   	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
->>   		atomic_inc(&bad->karma);
->>   
->> -		for (i = DRM_SCHED_PRIORITY_HIGH; i < sched->num_rqs; i++) {
->> +		for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
->>   			struct drm_sched_rq *rq = sched->sched_rq[i];
->>   
->>   			spin_lock(&rq->lock);
->> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
->> index 2d1f579d8352..b12d0f1859f0 100644
->> --- a/drivers/gpu/drm/scheduler/sched_rq.c
->> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
->> @@ -5,6 +5,8 @@
->>   
->>   #include "sched_internal.h"
->>   
->> +#define DRM_SCHED_PRIORITY_INVALID (-1) /* Do not want the enum visible outside. */
-> 
-> Well nope, that's not what I had in mind at all – there's no harm at
-> all by defining that in the real enum. Users know that "Invalid" is not
-> supposed to be used.
-> 
-> Setting it as the starter with -1 in the enum will guarantee
-> correctness since the subsequent members will be numbered
-> incrementingly.
-
-It is correct to say drivers should not use it. Therefore we have two 
-options.
-
-Option 1 - don't even show it to drivers which I chose for simplicity.
-
-Option 2 - add it to gpu_scheduler.h. Drivers can now use it so we'd 
-have to add error checking to drm_sched_entity_init and 
-drm_sched_entity_set_priority.
-
-Which is a bit is annoying since drm_sched_entity_set_priority has no 
-error checking. We can add a warn on.
-
-Although I believe I did add error checking to it when I was proposing 
-to fix the drm_sched_entity_init() sched_list container 
-ownership/lifetime issue some time ago.
->> +
->>   static __always_inline bool
->>   drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
->>   {
->> @@ -16,6 +18,32 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
->>   	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting);
->>   }
->>   
->> +static void drm_sched_rq_update_prio(struct drm_sched_rq *rq)
->> +{
->> +	enum drm_sched_priority prio = DRM_SCHED_PRIORITY_INVALID;
->> +	struct rb_node *rb;
->> +
->> +	lockdep_assert_held(&rq->lock);
->> +
->> +	rb = rb_first_cached(&rq->rb_tree_root);
->> +	if (rb) {
->> +		struct drm_sched_entity *entity =
->> +			rb_entry(rb, typeof(*entity), rb_tree_node);
->> +
->> +		/*
->> +		 * Unlocked read is fine to avoid the rq vs entity lock
->> +		 * inversion. If the priority had just changed it is no big
->> +		 * deal for our algorithm, but just a transient reachable only
->> +		 * by drivers with userspace dynamic priority changes API. Equal
->> +		 * in effect to the priority change becoming visible a few
->> +		 * instructions later.
->> +		 */
->> +		prio = READ_ONCE(entity->priority);
-> 
-> OK, so here's the good news:
-> 
-> I just looked it through and once the _whole series_ is applied this
-> actually is not an unlocked read anymore.
-> 
-> Once the series is applied, the only callers of this function here are
-> drm_sched_rq_remove_tree_locked() and
-> drm_sched_rq_update_tree_locked(), both of which grab the entity lock.
-> 
-> 
-> So what we could do is suffer the READ_ONCE for a few patches and then
-> remove it again once the other code paths running into here are
-> removed. And probably add the entity lockdep guard, too.
-> 
-> Unless I'm mistaken?
-
-Yes a little bit. You overlooked that in some cases the it is a 
-different entity, which the comment alludes to when talks about priority 
-inversion. I will make the comment clearer.
-
-> 
-> Best to detail that in the commit message, as always.
-> 
-> 
->> +	}
->> +
->> +	rq->head_prio = prio;
->> +}
->> +
->>   static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
->>   					    struct drm_sched_rq *rq)
->>   {
->> @@ -25,6 +53,7 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
->>   	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
->>   		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
->>   		RB_CLEAR_NODE(&entity->rb_tree_node);
->> +		drm_sched_rq_update_prio(rq);
->>   	}
->>   }
->>   
->> @@ -46,6 +75,7 @@ static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
->>   
->>   	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
->>   		      drm_sched_entity_compare_before);
->> +	drm_sched_rq_update_prio(rq);
->>   }
->>   
->>   /**
->> @@ -62,6 +92,123 @@ void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
->>   	INIT_LIST_HEAD(&rq->entities);
->>   	rq->rb_tree_root = RB_ROOT_CACHED;
->>   	rq->sched = sched;
->> +	rq->head_prio = DRM_SCHED_PRIORITY_INVALID;
->> +}
->> +
->> +static ktime_t
->> +drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
->> +{
->> +	ktime_t vruntime = 0;
->> +	struct rb_node *rb;
->> +
->> +	lockdep_assert_held(&rq->lock);
->> +
->> +	for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = rb_next(rb)) {
->> +		struct drm_sched_entity *entity =
->> +			rb_entry(rb, typeof(*entity), rb_tree_node);
->> +		struct drm_sched_entity_stats *stats = entity->stats;
->> +
->> +		/*
->> +		 * We only need the spin lock here on platforms where access to
->> +		 * 64-bit ktime_t can tear but for simplicity we take it un-
->> +		 * conditionally.
->> +		 */
->> +		spin_lock(&stats->lock);
->> +		vruntime = stats->vruntime;
->> +		spin_unlock(&stats->lock);
->> +	}
->> +
->> +	return vruntime;
->> +}
->> +
->> +static void
->> +drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
->> +			       ktime_t min_vruntime)
->> +{
->> +	struct drm_sched_entity_stats *stats = entity->stats;
->> +	ktime_t vruntime;
->> +
->> +	spin_lock(&stats->lock);
->> +	vruntime = stats->vruntime;
->> +	if (min_vruntime && vruntime > min_vruntime)
->> +		vruntime = ktime_sub(vruntime, min_vruntime);
->> +	else
->> +		vruntime = 0;
->> +	stats->vruntime = vruntime;
->> +	spin_unlock(&stats->lock);
->> +}
->> +
->> +static ktime_t
->> +drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
->> +				  ktime_t min_vruntime,
->> +				  enum drm_sched_priority rq_prio)
->> +{
->> +	struct drm_sched_entity_stats *stats = entity->stats;
->> +	enum drm_sched_priority prio = entity->priority;
->> +	ktime_t vruntime;
->> +
->> +	BUILD_BUG_ON(DRM_SCHED_PRIORITY_NORMAL < DRM_SCHED_PRIORITY_HIGH);
-> 
-> Why's that a build bug. Who is to set / change those values?
-
-It is a build bug because few lines below depend on the current reverse 
-order.
-
-As to who can change it- who knows. Better be safe than sorry. 
-Alternative is to add a helper such as drm_sched_priority_is_lower(p1, 
-p2) if you prefer that. I don't mind either way.
->> +
->> +	spin_lock(&stats->lock);
->> +	vruntime = stats->vruntime;
->> +
->> +	/*
->> +	 * Special handling for entities which were picked from the top of the
->> +	 * queue and are now re-joining the top with another one already there.
->> +	 */
->> +	if (!vruntime && min_vruntime) {
->> +		if (prio > rq_prio) {
->> +			/*
->> +			 * Lower priority should not overtake higher when re-
->> +			 * joining at the top of the queue.
->> +			 */
->> +			vruntime = us_to_ktime(prio - rq_prio);
->> +		} else if (prio < rq_prio) {
->> +			/*
->> +			 * Higher priority can go first.
->> +			 */
->> +			vruntime = -us_to_ktime(rq_prio - prio);
->> +		}
->> +	}
->> +
->> +	/*
->> +	 * Restore saved relative position in the queue.
->> +	 */
->> +	vruntime = ktime_add(min_vruntime, vruntime);
->> +
->> +	stats->vruntime = vruntime;
->> +	spin_unlock(&stats->lock);
->> +
->> +	return vruntime;
->> +}
->> +
->> +static ktime_t drm_sched_entity_update_vruntime(struct drm_sched_entity *entity)
->> +{
->> +	static const unsigned int shift[] = {
->> +		[DRM_SCHED_PRIORITY_KERNEL] = 1,
->> +		[DRM_SCHED_PRIORITY_HIGH]   = 2,
->> +		[DRM_SCHED_PRIORITY_NORMAL] = 4,
->> +		[DRM_SCHED_PRIORITY_LOW]    = 7,
->> +	};
-> 
-> Still no comments about these numbers origin?
-
-You asked, I answered, you said nothing, I respun with the feedback I 
-received. I can add some text no problem.
->> +	struct drm_sched_entity_stats *stats = entity->stats;
->> +	ktime_t runtime, prev;
->> +
->> +	spin_lock(&stats->lock);
->> +	prev = stats->prev_runtime;
->> +	runtime = stats->runtime;
->> +	stats->prev_runtime = runtime;
->> +	runtime = ktime_add_ns(stats->vruntime,
->> +			       ktime_to_ns(ktime_sub(runtime, prev)) <<
->> +			       shift[entity->priority]);
->> +	stats->vruntime = runtime;
->> +	spin_unlock(&stats->lock);
->> +
->> +	return runtime;
->> +}
->> +
->> +static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
->> +{
->> +	return drm_sched_entity_update_vruntime(entity);
->>   }
->>   
->>   /**
->> @@ -98,8 +245,14 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
->>   		list_add_tail(&entity->list, &rq->entities);
->>   	}
->>   
->> -	if (drm_sched_policy == DRM_SCHED_POLICY_RR)
->> +	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
->> +		ts = drm_sched_rq_get_min_vruntime(rq);
->> +		ts = drm_sched_entity_restore_vruntime(entity, ts,
->> +						       rq->head_prio);
->> +	} else if (drm_sched_policy == DRM_SCHED_POLICY_RR) {
->>   		ts = entity->rr_ts;
->> +	}
->> +
->>   	drm_sched_rq_update_fifo_locked(entity, rq, ts);
->>   
->>   	spin_unlock(&rq->lock);
->> @@ -171,7 +324,9 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->>   	if (next_job) {
->>   		ktime_t ts;
->>   
->> -		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
->> +		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
->> +			ts = drm_sched_entity_get_job_ts(entity);
->> +		else if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-> 
-> FAIR is not even the dafault policy in this patch, so git diff could be
-> made smaller by reversing order. Same applies a few lines above.
-
-You asked before and I said I prefer FAIR to be first in the if ladder.
-
-If you insist I can change but TBH in the grand scheme of things it 
-feels like churn with not much benefit.
-
-> (more comments later this week, am a bit busy)
-
-No worries, reviews are appreciated!
-
-Regards,
-
-Tvrtko
-
->>   			ts = next_job->submit_ts;
->>   		else
->>   			ts = drm_sched_rq_next_rr_ts(rq, entity);
->> @@ -179,6 +334,13 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->>   		drm_sched_rq_update_fifo_locked(entity, rq, ts);
->>   	} else {
->>   		drm_sched_rq_remove_fifo_locked(entity, rq);
->> +
->> +		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
->> +			ktime_t min_vruntime;
->> +
->> +			min_vruntime = drm_sched_rq_get_min_vruntime(rq);
->> +			drm_sched_entity_save_vruntime(entity, min_vruntime);
->> +		}
->>   	}
->>   	spin_unlock(&rq->lock);
->>   	spin_unlock(&entity->lock);
->> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->> index be382cacabb5..ff798ee9e3c2 100644
->> --- a/include/drm/gpu_scheduler.h
->> +++ b/include/drm/gpu_scheduler.h
->> @@ -150,6 +150,11 @@ struct drm_sched_entity {
->>   	 */
->>   	enum drm_sched_priority         priority;
->>   
->> +	/**
->> +	 * @rq_priority: Run-queue priority
->> +	 */
->> +	enum drm_sched_priority         rq_priority;
->> +
->>   	/**
->>   	 * @rr_ts:
->>   	 *
->> @@ -254,10 +259,11 @@ struct drm_sched_entity {
->>    * struct drm_sched_rq - queue of entities to be scheduled.
->>    *
->>    * @sched: the scheduler to which this rq belongs to.
->> - * @lock: protects @entities, @rb_tree_root and @rr_ts.
->> + * @lock: protects @entities, @rb_tree_root, @rr_ts and @head_prio.
->>    * @rr_ts: monotonically incrementing fake timestamp for RR mode.
->>    * @entities: list of the entities to be scheduled.
->>    * @rb_tree_root: root of time based priority queue of entities for FIFO scheduling
->> + * @head_prio: priority of the top tree element.
->>    *
->>    * Run queue is a set of entities scheduling command submissions for
->>    * one specific ring. It implements the scheduling policy that selects
->> @@ -271,6 +277,7 @@ struct drm_sched_rq {
->>   	ktime_t				rr_ts;
->>   	struct list_head		entities;
->>   	struct rb_root_cached		rb_tree_root;
->> +	enum drm_sched_priority		head_prio;
->>   };
->>   
->>   /**
->> @@ -563,8 +570,10 @@ struct drm_sched_backend_ops {
->>    * @credit_count: the current credit count of this scheduler
->>    * @timeout: the time after which a job is removed from the scheduler.
->>    * @name: name of the ring for which this scheduler is being used.
->> - * @num_rqs: Number of run-queues. This is at most DRM_SCHED_PRIORITY_COUNT,
->> - *           as there's usually one run-queue per priority, but could be less.
->> + * @num_user_rqs: Number of run-queues. This is at most
->> + *                DRM_SCHED_PRIORITY_COUNT, as there's usually one run-queue per
->> + *                priority, but could be less.
->> + * @num_rqs: Equal to @num_user_rqs for FIFO and RR and 1 for the FAIR policy.
->>    * @sched_rq: An allocated array of run-queues of size @num_rqs;
->>    * @job_scheduled: once drm_sched_entity_flush() is called the scheduler
->>    *                 waits on this wait queue until all the scheduled jobs are
->> @@ -597,6 +606,7 @@ struct drm_gpu_scheduler {
->>   	long				timeout;
->>   	const char			*name;
->>   	u32                             num_rqs;
->> +	u32                             num_user_rqs;
->>   	struct drm_sched_rq             **sched_rq;
->>   	wait_queue_head_t		job_scheduled;
->>   	atomic64_t			job_id_count;
-> 
+--------------h99cHm47oHVNeu0tMklBEaYR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+On 10/20/2025 9:30 AM, Philip Yang wrote:
+> Only show warning message if process mm is still alive when queue
+> buffer is freed.
+>
+> If kfd_lookup_process_by_mm return NULL, means the process is already
+> exited and mm is gone, it is fine to free queue buffer.
+>
+> Fixes: b049504e211e ("drm/amdkfd: Validate user queue svm memory residency")
+> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 4d4a47313f5b..d1b2f8525f80 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -2487,7 +2487,9 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+>   	bool unmap_parent;
+>   	uint32_t i;
+>   
+> -	if (atomic_read(&prange->queue_refcount)) {
+> +	p = kfd_lookup_process_by_mm(mm);
+
+p->mm is null, not p  because driver set p->mm to null. But still 
+prange->queue_refcount is ref of queues from this prange. If app unmap 
+this prange app should have destroyed the queues associated with this 
+prange already. If not, it is not driver issue. I think driver should 
+send this warning anyway to indicate there are queues not destroyed by 
+app before app unmap the prange. It is an app race condition, not driver.
+
+Regards
+
+Xiaogang
+
+> +
+> +	if (p && atomic_read(&prange->queue_refcount)) {
+>   		int r;
+>   
+>   		pr_warn("Freeing queue vital buffer 0x%lx, queue evicted\n",
+> @@ -2497,7 +2499,6 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+>   			pr_debug("failed %d to quiesce KFD queues\n", r);
+>   	}
+>   
+> -	p = kfd_lookup_process_by_mm(mm);
+>   	if (!p)
+>   		return;
+>   	svms = &p->svms;
+--------------h99cHm47oHVNeu0tMklBEaYR
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/20/2025 9:30 AM, Philip Yang
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20251020143016.23409-1-Philip.Yang@amd.com">
+      <pre wrap="" class="moz-quote-pre">Only show warning message if process mm is still alive when queue
+buffer is freed.
+
+If kfd_lookup_process_by_mm return NULL, means the process is already
+exited and mm is gone, it is fine to free queue buffer.
+
+Fixes: b049504e211e (&quot;drm/amdkfd: Validate user queue svm memory residency&quot;)
+Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 4d4a47313f5b..d1b2f8525f80 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2487,7 +2487,9 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+ 	bool unmap_parent;
+ 	uint32_t i;
+ 
+-	if (atomic_read(&amp;prange-&gt;queue_refcount)) {
++	p = kfd_lookup_process_by_mm(mm);</pre>
+    </blockquote>
+    <p>p-&gt;mm is null, not p&nbsp; because driver set p-&gt;mm to null. But
+      still&nbsp;<span style="white-space: pre-wrap">prange-&gt;queue_refcount is ref of queues from this prange. If app unmap this prange app should have destroyed the queues associated with this prange already. If not, it is not driver issue. I think driver should send this warning anyway to indicate there are queues not destroyed by app before app unmap the prange. It is an app race condition, not driver.</span></p>
+    <p><span style="white-space: pre-wrap">Regards</span></p>
+    <p><span style="white-space: pre-wrap">Xiaogang</span></p>
+    <blockquote type="cite" cite="mid:20251020143016.23409-1-Philip.Yang@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++
++	if (p &amp;&amp; atomic_read(&amp;prange-&gt;queue_refcount)) {
+ 		int r;
+ 
+ 		pr_warn(&quot;Freeing queue vital buffer 0x%lx, queue evicted\n&quot;,
+@@ -2497,7 +2499,6 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+ 			pr_debug(&quot;failed %d to quiesce KFD queues\n&quot;, r);
+ 	}
+ 
+-	p = kfd_lookup_process_by_mm(mm);
+ 	if (!p)
+ 		return;
+ 	svms = &amp;p-&gt;svms;
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------h99cHm47oHVNeu0tMklBEaYR--
