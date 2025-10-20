@@ -4,57 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D50ECCCD193
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 08:19:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A403DCCD199
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 11:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 789FB10E299;
-	Mon, 20 Oct 2025 08:19:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA77110E423;
+	Mon, 20 Oct 2025 11:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=daenzer.net header.i=@daenzer.net header.b="LAzCQLai";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HPNl37JR";
 	dkim-atps=neutral
-X-Greylist: delayed 382 seconds by postgrey-1.36 at gabe;
- Mon, 20 Oct 2025 08:19:43 UTC
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17BB10E299
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 08:19:43 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; t=1760947999; x=1761556399; s=webland;
- d=daenzer.net; c=relaxed/relaxed; v=1;
- bh=tAZj/zbdcHeNZKBHOwxxR/gM6DH0NqbRQyVlohqMG+Q=;
- h=From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding;
- b=LAzCQLaifP4my2KAqkkJLhC5fGeexwvtYslPkZnaSxCmWmqtDc5LardyKr2zWq/eT4hUEGJSrKrZRcrSYQs4GUJO6ALugsSS4LKvNE9bRqqGTd1FTOkRTtcdA3wMVS67mLOiwHNvHNK343DiYJV2Uo6JJwXVlIutJMp0/4y4mXsPFCMcEH0tIdPiQ1+/e5d4MuBSmXS73yMJTOMjQxETVmrV+L6dPAl4sxw3sObgCwS4JjX3+XS7sfJcAxBL1Sfe0eBKuKX0arllnUpWeTHqpLDtBUeLB8hIgwt0knP1Dt+gJb4PhAvAgmOnyjfWl2/fDpM3zdwCjYi9OdBSgZIZYg==
-Received: from [192.168.1.137] ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202510201013176634; Mon, 20 Oct 2025 10:13:17 +0200
-Message-ID: <1472050f-73fe-419c-91c7-5b492ed73af1@daenzer.net>
-Date: Mon, 20 Oct 2025 10:13:16 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F9F10E423;
+ Mon, 20 Oct 2025 11:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=I81oU4WaGTtRXW08pQgsWyO70vhgLjWNDQFF1YHWs+8=; b=HPNl37JRQvZ3MZfYH96UTwgR2s
+ 9SdUJeTDhE9PvUAUYjjgCQBOz7ZC7KwRn7S2kdS6Vvs8Bnkks/UT4n/Ffn/9NE6w37cfK7/qO/kXg
+ il2E0WfLN/cZSICXfWI21UBUoQXwC34IjsAHqfUJTCIjU/xW04tNTsp1E9b3u7YUzTrbbzzQ1pNjC
+ BCCKJbF8DbSU987gVVaQg1qjIAluI7E/YxnAatvYLLobJeRBtCt2RdLRDyBoDdLLgMiWyBZ00fd6n
+ AVWSVXq3aBYG+fTbQXGks+ICbke46Fok0f6/JO/ZgMbqK+lw6MUreRmnxnXutcsztcMpEfOzNVnsQ
+ BJ+3mbLw==;
+Received: from [90.242.12.242] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vAoSv-00C5bC-8z; Mon, 20 Oct 2025 13:54:17 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Subject: [PATCH v5 4/6] drm/ttm: Allow drivers to specify maximum beneficial
+ TTM pool size
+Date: Mon, 20 Oct 2025 12:54:09 +0100
+Message-ID: <20251020115411.36818-5-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20251020115411.36818-1-tvrtko.ursulin@igalia.com>
+References: <20251020115411.36818-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Content-Language: en-CA
-To: Michael Strauss <michael.strauss@amd.com>,
- Ovidiu Bunea <ovidiu.bunea@amd.com>, Ivan Lipski <ivan.lipski@amd.com>
-Autocrypt: addr=michel@daenzer.net; keydata=
- xsDiBDsehS8RBACbsIQEX31aYSIuEKxEnEX82ezMR8z3LG8ktv1KjyNErUX9Pt7AUC7W3W0b
- LUhu8Le8S2va6hi7GfSAifl0ih3k6Bv1Itzgnd+7ZmSrvCN8yGJaHNQfAevAuEboIb+MaVHo
- 9EMJj4ikOcRZCmQWw7evu/D9uQdtkCnRY9iJiAGxbwCguBHtpoGMxDOINCr5UU6qt+m4O+UD
- /355ohBBzzyh49lTj0kTFKr0Ozd20G2FbcqHgfFL1dc1MPyigej2gLga2osu2QY0ObvAGkOu
- WBi3LTY8Zs8uqFGDC4ZAwMPoFy3yzu3ne6T7d/68rJil0QcdQjzzHi6ekqHuhst4a+/+D23h
- Za8MJBEcdOhRhsaDVGAJSFEQB1qLBACOs0xN+XblejO35gsDSVVk8s+FUUw3TSWJBfZa3Imp
- V2U2tBO4qck+wqbHNfdnU/crrsHahjzBjvk8Up7VoY8oT+z03sal2vXEonS279xN2B92Tttr
- AgwosujguFO/7tvzymWC76rDEwue8TsADE11ErjwaBTs8ZXfnN/uAANgPM0jTWljaGVsIERh
- ZW56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD7CXgQTEQIAHgUCQFXxJgIbAwYLCQgHAwIDFQID
- AxYCAQIeAQIXgAAKCRBaga+OatuyAIrPAJ9ykonXI3oQcX83N2qzCEStLNW47gCeLWm/QiPY
- jqtGUnnSbyuTQfIySkLOwE0EOx6FRRAEAJZkcvklPwJCgNiw37p0GShKmFGGqf/a3xZZEpjI
- qNxzshFRFneZze4f5LhzbX1/vIm5+ZXsEWympJfZzyCmYPw86QcFxyZflkAxHx9LeD+89Elx
- bw6wT0CcLvSv8ROfU1m8YhGbV6g2zWyLD0/naQGVb8e4FhVKGNY2EEbHgFBrAAMGA/0VktFO
- CxFBdzLQ17RCTwCJ3xpyP4qsLJH0yCoA26rH2zE2RzByhrTFTYZzbFEid3ddGiHOBEL+bO+2
- GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
- YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
- fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>
-Subject: Regression: Blank screen since 2681bf4ae8d2 ("drm/amd/display: Move
- setup_stream_attribute")
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,11 +62,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+GPUs typically benefit from contiguous memory via reduced TLB pressure and
+improved caching performance, where the maximum size of contiguous block
+which adds a performance benefit is related to hardware design.
 
-This is a heads up about a regression I bisected to the commit in the subject. I filed https://gitlab.freedesktop.org/drm/amd/-/issues/4652 for tracking it.
+TTM pool allocator by default tries (hard) to allocate up to the system
+MAX_PAGE_ORDER blocks. This varies by the CPU platform and can also be
+configured via Kconfig.
 
+If that limit was set to be higher than the GPU can make an extra use of,
+lets allow the individual drivers to let TTM know over which allocation
+order can the pool allocator afford to make a little bit less effort with.
 
+We implement this by disabling direct reclaim for those allocations, which
+reduces the allocation latency and lowers the demands on the page
+allocator, in cases where expending this effort is not critical for the
+GPU in question.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Reviewed-by: Christian König <christian.koenig@amd.com> # v1
+---
+v2:
+ * Rebase for rename and move of flags to alloc_flags / TTM_ALLOCATION_.
+---
+ drivers/gpu/drm/ttm/ttm_pool.c          | 8 ++++++++
+ drivers/gpu/drm/ttm/ttm_pool_internal.h | 5 +++++
+ include/drm/ttm/ttm_allocation.h        | 5 +++--
+ 3 files changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 4fc69447060c..97e9ce505cf6 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -136,6 +136,7 @@ static DECLARE_RWSEM(pool_shrink_rwsem);
+ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+ 					unsigned int order)
+ {
++	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
+ 	unsigned long attr = DMA_ATTR_FORCE_CONTIGUOUS;
+ 	struct ttm_pool_dma *dma;
+ 	struct page *p;
+@@ -149,6 +150,13 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+ 		gfp_flags |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN |
+ 			__GFP_THISNODE;
+ 
++	/*
++	 * Do not add latency to the allocation path for allocations orders
++	 * device tolds us do not bring them additional performance gains.
++	 */
++	if (beneficial_order && order > beneficial_order)
++		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
++
+ 	if (!ttm_pool_uses_dma_alloc(pool)) {
+ 		p = alloc_pages_node(pool->nid, gfp_flags, order);
+ 		if (p)
+diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+index 96b7f21514fb..82c4b7e56a99 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
++++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+@@ -17,4 +17,9 @@ static inline bool ttm_pool_uses_dma32(struct ttm_pool *pool)
+ 	return pool->alloc_flags & TTM_ALLOCATION_POOL_USE_DMA32;
+ }
+ 
++static inline bool ttm_pool_beneficial_order(struct ttm_pool *pool)
++{
++	return pool->alloc_flags & 0xff;
++}
++
+ #endif
+diff --git a/include/drm/ttm/ttm_allocation.h b/include/drm/ttm/ttm_allocation.h
+index 7869dc32bd91..8f8544760306 100644
+--- a/include/drm/ttm/ttm_allocation.h
++++ b/include/drm/ttm/ttm_allocation.h
+@@ -4,7 +4,8 @@
+ #ifndef _TTM_ALLOCATION_H_
+ #define _TTM_ALLOCATION_H_
+ 
+-#define TTM_ALLOCATION_POOL_USE_DMA_ALLOC	BIT(0) /* Use coherent DMA allocations. */
+-#define TTM_ALLOCATION_POOL_USE_DMA32		BIT(1) /* Use GFP_DMA32 allocations. */
++#define TTM_ALLOCATION_POOL_BENEFICIAL_ORDER(n)	((n) & 0xff) /* Max order which caller can benefit from */
++#define TTM_ALLOCATION_POOL_USE_DMA_ALLOC 	BIT(8) /* Use coherent DMA allocations. */
++#define TTM_ALLOCATION_POOL_USE_DMA32		BIT(9) /* Use GFP_DMA32 allocations. */
+ 
+ #endif
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+2.48.0
 
