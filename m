@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 456D1CCD1A7
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 19:56:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B28CCD193
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 20:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4ED310E150;
-	Mon, 20 Oct 2025 19:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A43C710E4F5;
+	Mon, 20 Oct 2025 20:18:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uDLVtYUH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g46AVBgI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83A0610E4ED
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 19:56:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A2B956217F
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 19:56:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34FCCC2BC87
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 19:56:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760990164;
- bh=4qPwDwsdMikXkxvbv56536AorA2BS23G3d3lBe/pp18=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=uDLVtYUHEhVihyHRke4z45Bz4LFDVvZiu3HRhjxhPLT7wX4kvqHCYfcc/lby9FoZt
- 7aXiY94baiolo/wtDidUH/i/A0BjwKliXOJ2pFqOQarzWNmJtqe9qegyFpNioIYIhE
- Ck86sp7zQ2TtVa8uiTTrhLqKRAqCx1p21Ku18C8HcKNivVqYl5hhLemxwcxchL/r/6
- qxJkkMsKXXHNHUSj803G8sQJ6tyG2ixGyVQhTf9Vw/k7VIdT4JxIsgXVExCFMQC/hg
- Zjr8f4ThzYSO/dUevw0drIftwBoupuNfDVbQEBD23lErzZpn+E29yvN3eGlfQ56YL7
- xETdjpF/0Y1Mg==
-Received: by mail-ot1-f51.google.com with SMTP id
- 46e09a7af769-7c278c25aefso4944109a34.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 12:56:04 -0700 (PDT)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82B1910E4F5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 20:18:09 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-781254d146eso532371b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 13:18:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760991489; x=1761596289; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g0zYqqVsd3tJB+d0eEMk5ykc3idlnrqcw7UMOvrxUZc=;
+ b=g46AVBgInHqJMN4bYJQjHQIs9gsX/vuSYkJR28xOstN66vEc7ApWj7JDfnInZbqIZm
+ x0F6SrkfSkgp7Z+QAVyuPnfkEYWBaPkjYj1ZU+7madDKP3hc2R/l8aPiORERXJ56gmZv
+ XTqEL4CRGQGneO8+2wmkl9xP2NFgfo5KH2idY0mXpR9g6q8D3lLHNVLrwqk9ycQpmSh0
+ WqLxratPFdOoo2DTSAnfq0nvNH7auwRyEwThOEXNHgtSTsYLFU04OuDtEIbgKIkYQTNT
+ RgZ1ujVueYcfzUpUO2QwKgPIQhtkEBC3ZcM+KA7Tw5ugY/je8FiYEcjkQbGnK+EOkJ/Z
+ iaqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760991489; x=1761596289;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=g0zYqqVsd3tJB+d0eEMk5ykc3idlnrqcw7UMOvrxUZc=;
+ b=SiPMrEgmelAf9pGjRYcH/n76feLCnMZ17P9645ljpZko6E6X+uqMLXnFF1U9HPXCfc
+ fXdGQz0XnXHa8bDTnFOpa6FSHw5AfhhalndhMdcOsKA9Nh+t11Flef4GiftLjK8rTmfB
+ Sk7DQERgtgBPbFReB2lr3sZtmjT7AoS18+niGNI4mZemvG+NZPDfYcGuFl+F10Mb64v6
+ 9ovQtgUE52ubWOJjpdP9UnkzGKsYUBTWOPtuewJt+SEsizOVkjeBEuC2e1e5TleZfeJZ
+ 7zdJkOu5ePZ+yStbjAYMJcalanBofmiUf3rQ70KD3DyhInFsaBEohakyfhWoAZAwC8EP
+ Kk/Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUO8VQKJYdRs+6f2jxgy5a3WavxgcNoEu0e2Ms840G4ZacSQhA2l/Y3Tfn74sqzzuD8wsULB/3J@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxEqtn++2Qdase6gOW5eFQaS1mio5B1KWRk3ssz1YkCxozKYYV3
- cAjeaq0o9jNfnbaMs9F5o+ffc0GH/DjR2iLnTXjg+HgV9c9+7F8QrfkW003CDH57f56B+YEsOIj
- bhSuRRHYLvSK0g5et1u8SRMDmilCXY5E=
-X-Google-Smtp-Source: AGHT+IEbeg2cLcKOuLYzAZRTr0vuqK20gID3ktgdwJE6wbS86j55xeki8UgqPOj7l4400x1ADOY4J3dF0x2yuvvptrU=
-X-Received: by 2002:a05:6808:4487:b0:43f:76b4:816e with SMTP id
- 5614622812f47-443a2dd85d0mr6750051b6e.4.1760990163403; Mon, 20 Oct 2025
- 12:56:03 -0700 (PDT)
+ AJvYcCVZRaZ5nJqzVCuiB2Y0oyQ6GIN67pL9QmXszzNI/joC3L/ZYNDYvzVTearl+K0btQ/fkUnvlGqd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywr9ZU8+DglgARpyiZI+vXSgkTHdO3uKk63wCF6HIBpVx2IwSK5
+ 1JsAv0WYNzPYW5jrgCIYQmcZwK/6SE8cUaFERKxq6ycC0vqqpijPN6mWS5Tb2FAstyhQwPhkXQx
+ ZJl4EI27nGaCDD/3Sbic2NIekFY1fTNE=
+X-Gm-Gg: ASbGnctuZ5Nsua27OmxiP+NMHbdlDmbzruBX6DXiFOSSqUN3mnVbNy2TrlX6QVQR1jc
+ 1krRYrGnKnREIlyp2WZDY9I4dslIqM1fNu+Pi+MsoxOjBNw275rc2tM6ZJKsjUcPYOGZYGmtAzM
+ /aSx3xoKqJdBvcsKPJjpryFQfPeMLXHZWNyEtODLC2YacwETkKQy2LOe45E8OEEI2IIdkE/6atn
+ HOMgiRyvoMbruW2aomq+/2CFt5L5OaWSW6Du2d1a8Dh8tffe9EcMStoBJ1LwuvBUCmskxf2auvj
+ x7K2rg==
+X-Google-Smtp-Source: AGHT+IHH8WrpKkeI3BpKvEw0Gf+cQcRVqPU4coKFE/BlwDx2CiuxJQ7yFw/J94NgejIZ2OQK87FLn31UQ/vrNVYU70g=
+X-Received: by 2002:a17:903:1212:b0:264:cda8:7fd3 with SMTP id
+ d9443c01a7336-292d3fb7f7dmr4920615ad.6.1760991488881; Mon, 20 Oct 2025
+ 13:18:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20251020165317.3992933-1-superm1@kernel.org>
- <20251020165317.3992933-4-superm1@kernel.org>
- <CAJZ5v0gsdmfXUJuLW8Ogt2jKDunx4g51LqCfSVMWQ6WHXBw_zg@mail.gmail.com>
- <85c039ef-e189-48c1-8bf7-50ac0c2484e2@kernel.org>
- <CAJZ5v0gT9BG5QPcwg6jJ1Jghny2YxC9_HY542LTBy-aVc_2T_w@mail.gmail.com>
- <aec8fc6c-3f9f-4ec1-a929-7a0be6026a3d@kernel.org>
- <CAJZ5v0gMf-qMGa6iBL2NdRXd-Mt5cpsoVQ90y+rSyK5xoYEf8A@mail.gmail.com>
- <aa04dea5-d35b-46c9-9501-0a2e79ecbd79@kernel.org>
- <CAJZ5v0j=sw9X3mV2ddOD_-qJwxveXQ1faD6HWtStLo9xOpwYKA@mail.gmail.com>
- <57f073e8-f600-4bdf-b3b9-a34df882cbdb@kernel.org>
-In-Reply-To: <57f073e8-f600-4bdf-b3b9-a34df882cbdb@kernel.org>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 20 Oct 2025 21:55:52 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jWou0vxNZhe-pU-wQyWxhikaDkF+ZO0rsUieXs_nYjjQ@mail.gmail.com>
-X-Gm-Features: AS18NWD03bjw1R4kg2B_5QWympcxUv86RphHdhypOr40BtR-r3mgzWbqa08zNEk
-Message-ID: <CAJZ5v0jWou0vxNZhe-pU-wQyWxhikaDkF+ZO0rsUieXs_nYjjQ@mail.gmail.com>
-Subject: Re: [RFC 3/3] drm/amd: Return -EBUSY for amdgpu_pmops_thaw() on
- success
-To: "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, mario.limonciello@amd.com,
- airlied@gmail.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, dakr@kernel.org, 
- gregkh@linuxfoundation.org, lenb@kernel.org, pavel@kernel.org, 
- simona@ffwll.ch, Muhammad Usama Anjum <usama.anjum@collabora.com>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org
+References: <20251020194631.102260-1-siqueira@igalia.com>
+ <20251020194631.102260-3-siqueira@igalia.com>
+In-Reply-To: <20251020194631.102260-3-siqueira@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 20 Oct 2025 16:17:56 -0400
+X-Gm-Features: AS18NWAllGxTApnf_8S9SdhU1us3QhzoOcxQ4l40dDQCEA9TAEBHfMNWZBuYi68
+Message-ID: <CADnq5_NHeSRQoDjxbBs92Ow=-2VqSSPpOKMzQDfraGY3_8HW4A@mail.gmail.com>
+Subject: Re: [PATCH v3 2/5] Documentation/gpu: Add new glossary entries from
+ UMR
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -85,154 +88,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 20, 2025 at 9:34=E2=80=AFPM Mario Limonciello (AMD) (kernel.org=
-)
-<superm1@kernel.org> wrote:
+On Mon, Oct 20, 2025 at 3:47=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
 >
+> When using UMR, a dashboard is available that displays the CPC, CPF,
+> CPG, TCP, and UTCL utilization. This commit introduces the meanings of
+> those acronyms (and others) to the glossary to improve the comprehension
+> of the UMR dashboard.
 >
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> ---
+>  Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21 ++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
 >
-> On 10/20/2025 2:18 PM, Rafael J. Wysocki wrote:
-> > On Mon, Oct 20, 2025 at 9:14=E2=80=AFPM Mario Limonciello (AMD) (kernel=
-.org)
-> > <superm1@kernel.org> wrote:
-> >>
-> >>
-> >>
-> >> On 10/20/2025 1:50 PM, Rafael J. Wysocki wrote:
-> >>> On Mon, Oct 20, 2025 at 8:32=E2=80=AFPM Mario Limonciello (AMD) (kern=
-el.org)
-> >>> <superm1@kernel.org> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 10/20/2025 12:39 PM, Rafael J. Wysocki wrote:
-> >>>>> On Mon, Oct 20, 2025 at 7:28=E2=80=AFPM Mario Limonciello (AMD) (ke=
-rnel.org)
-> >>>>> <superm1@kernel.org> wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>>
-> >>>>>> On 10/20/2025 12:21 PM, Rafael J. Wysocki wrote:
-> >>>>>>> On Mon, Oct 20, 2025 at 6:53=E2=80=AFPM Mario Limonciello (AMD)
-> >>>>>>> <superm1@kernel.org> wrote:
-> >>>>>>>>
-> >>>>>>>> From: Mario Limonciello <mario.limonciello@amd.com>
-> >>>>>>>>
-> >>>>>>>> The PM core should be notified that thaw was skipped for the dev=
-ice
-> >>>>>>>> so that if it's tried to be resumed (such as an aborted hibernat=
-e)
-> >>>>>>>> that it gets another chance to resume.
-> >>>>>>>>
-> >>>>>>>> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-> >>>>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> >>>>>>>> ---
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
-> >>>>>>>>      1 file changed, 1 insertion(+), 1 deletion(-)
-> >>>>>>>>
-> >>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_drv.c
-> >>>>>>>> index 61268aa82df4d..d40af069f24dd 100644
-> >>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>>>>>>> @@ -2681,7 +2681,7 @@ static int amdgpu_pmops_thaw(struct device=
- *dev)
-> >>>>>>>>
-> >>>>>>>>             /* do not resume device if it's normal hibernation *=
-/
-> >>>>>>>>             if (!pm_hibernate_is_recovering() && !pm_hibernation=
-_mode_is_suspend())
-> >>>>>>>> -               return 0;
-> >>>>>>>> +               return -EBUSY;
-> >>>>>>>
-> >>>>>>> So that's why you need the special handling of -EBUSY in the prev=
-ious patch.
-> >>>>>>
-> >>>>>> Yup.
-> >>>>>>
-> >>>>>>>
-> >>>>>>> I think that you need to save some state in this driver and then =
-use
-> >>>>>>> it in subsequent callbacks instead of hacking the core to do what=
- you
-> >>>>>>> want.
-> >>>>>>>
-> >>>>>>
-> >>>>>> The problem is the core decides "what" to call and more importantl=
-y
-> >>>>>> "when" to call it.
-> >>>>>>
-> >>>>>> IE if the core thinks that something is thawed it will never call
-> >>>>>> resume, and that's why you end up in a bad place with Muhammad's
-> >>>>>> cancellation series and why I proposed this one to discuss.
-> >>>>>>
-> >>>>>> We could obviously go back to dropping this case entirely:
-> >>>>>>
-> >>>>>> if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_suspe=
-nd())
-> >>>>>>
-> >>>>>> But then the display turns on at thaw(), you do an unnecessary res=
-ource
-> >>>>>> eviction, it takes a lot longer if you have a ton of VRAM etc.
-> >>>>>
-> >>>>> The cancellation series is at odds with this code path AFAICS becau=
-se
-> >>>>> what if hibernation is canceled after the entire thaw transition?
-> >>>>
-> >>>> Muhammad - did you test that specific timing of cancelling the hiber=
-nate?
-> >>>>>
-> >>>>> Some cleanup would need to be done before thawing user space I supp=
-ose.
-> >>>>
-> >>>> I agree; I think that series would need changes for it.
-> >>>>
-> >>>> But if you put that series aside, I think this one still has some me=
-rit
-> >>>> on it's own.  If another driver aborted the hibernate, I think the s=
-ame
-> >>>> thing could happen if it happened to run before amdgpu's device thaw=
-().
-> >>>>
-> >>>> That series just exposed a very "easy" way to reproduce this issue.
-> >>>
-> >>> Device thaw errors don't abort anything AFAICS.
-> >>>
-> >>
-> >> You're right; it doesn't abort, it just is saved to the logs.
-> >> The state is also not maintained.
-> >>> What can happen though is that another device may abort the final
-> >>> "power off" transition, which is one of the reasons why I think that
-> >>> rolling it back is generally hard.
-> >>
-> >> That's exactly the reason for the first patch in this series.  The sta=
-te
-> >> of whether it succeeded isn't recorded.  So if thaw non-fatally fails
-> >> and you've saved state to indicate this then any of the other calls th=
-at
-> >> run can try again.
-> >
-> > So long as they are called.
-> >
-> > But as I said before, I would save the state in the driver thaw
-> > callback and then clear it in the driver poweroff callback and look at
-> > it in the driver restore callback.  If it is there at that point,
-> > poweroff has not run and hibernation is rolling back, so you need to
-> > do a "thaw".
+> diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation=
+/gpu/amdgpu/amdgpu-glossary.rst
+> index 30812d9d53c6..eb72e6f6d4f1 100644
+> --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> @@ -30,6 +30,15 @@ we have a dedicated glossary for Display Core at
+>      CP
+>        Command Processor
 >
-> Are you suggesting that the device driver should directly manipulate
-> dev->power.is_suspended?
+> +    CPC
+> +      Command Processor Compute
+> +
+> +    CPF
+> +      Command Processor Fetch
+> +
+> +    CPG
+> +      Command Processor Graphics
+> +
+>      CPLIB
+>        Content Protection Library
+>
+> @@ -78,6 +87,9 @@ we have a dedicated glossary for Display Core at
+>      GMC
+>        Graphic Memory Controller
+>
+> +    GPR
+> +      General Purpose Register
+> +
+>      GPUVM
+>        GPU Virtual Memory.  This is the GPU's MMU.  The GPU supports mult=
+iple
+>        virtual address spaces that can be in flight at any given time.  T=
+hese
+> @@ -92,6 +104,9 @@ we have a dedicated glossary for Display Core at
+>        table for use by the kernel driver or into per process GPUVM page =
+tables
+>        for application usage.
+>
+> +    GWS
+> +      Global Wave Syncs
+> +
+>      IH
+>        Interrupt Handler
+>
+> @@ -206,12 +221,18 @@ we have a dedicated glossary for Display Core at
+>      TC
+>        Texture Cache
+>
+> +    TCP (AMDGPU)
+> +      Texture Cache Processing
 
-No, it needs to have its own state for that.  power.is_suspended
-should not be manipulated by drivers (or anything other than the core
-for that matter).
+I don't recall what the P stands for, but it might be worth calling
+out that the texture cache (old name) is basically the path to memory
+for shaders.  So it's not just related to textures.  The name is left
+over from old designs where shader stages had different cache designs.
 
-> I'll do some testing but; I suppose that would work as well without
-> needing to make core changes if you don't see a need for other devices
-> to do this.
+> +
+>      TOC
+>        Table of Contents
+>
+>      UMSCH
+>        User Mode Scheduler
+>
+> +    UTCL
+> +      Universal Texture Cache Line
 
-So long as they don't try to skip the "thaw" actions, I don't.
+I think the L is Level.  I.e., it's usually referenced as UTCL2 for
+example.  Might want to drop the L?  I think the U might also be
+Unified.
 
-If there are more drivers wanting to do it, I guess it would be good
-to have a common approach although at this point I'm not sure how much
-in common there would be.
+Alex
+
+> +
+>      UVD
+>        Unified Video Decoder
+>
+> --
+> 2.51.0
+>
