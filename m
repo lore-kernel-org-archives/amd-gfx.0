@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E12CCD199
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 17:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E813BCCD19F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 17:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A51D10E0E7;
-	Mon, 20 Oct 2025 17:18:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBFF10E492;
+	Mon, 20 Oct 2025 17:21:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IAzDJDb4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rvl/jEr3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB07610E0E7
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:18:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 178CA10E491
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:21:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1C1B2620C6
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:18:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE20BC4CEF9
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:18:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BDC5548C46
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:21:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7D6C116D0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:21:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760980715;
- bh=4DeNbsFjA3GHAvuLpWPwdNkAditJGZMykUeSPTvXfPI=;
+ s=k20201202; t=1760980889;
+ bh=uI5rsFpiE13xOKlRUr0iIvhiw/jg45u3VMFRQxTK9Hk=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=IAzDJDb4ojXUi/sH9bE/JrBXDlxA86v5WcegcNYbiBVchvmT6yaL1Lijo1TvKEGDt
- snY6qEqecS/PcWU5Xk8O+rNbRDbAoCI57Yg03K8QeM4T2WyojWFszIXIjptz0i3RqV
- scLrP3XMFUNmuitiA9Ph5kdld2InsLktImukfTwFBWSXuE5mB/niaiCPyn5qxFMg9i
- is51pg2srmTIeHZKDTWPW6XG7SIeksJ+OdkTz8SRP9L5tH7Yr2f65ZrcZQRB3egrKy
- z0t18SCRrKnjIjluTDUc/EHeA03icbnUyer6J7eoic+M8eEqGaCkrWGD3RXFgJq/0N
- lWU3QskxKQ04g==
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-4439f1df5f6so1083513b6e.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 10:18:35 -0700 (PDT)
+ b=Rvl/jEr3JCHqO7eVAcQ2vXHc4Cei02Xx6mPp//9vMReOYECUZuKOyRBR+1PEWGaA4
+ OC0QZ6+t4kJMRFIJJbJwgZCdpcAw2s+dHkmCCjHU8VD3ZOQfjrhuCJMGfag72QqfST
+ I6Bjc3dq6SeRjZPSjcR4FRNU4IzbZOd1U5dX3vXYoLcineMF8fz0zHbLkjqc5U7cVu
+ Cd9hm3ahpdusMDDvIl2HRGLy8LUR6Waqfjv8u+TxMUWHeo0AdDkaU0DglgUQjOry2z
+ idCNbCNd0uJEi7ZLN1dkaMUI5FaCTKSVGDAWAOwqRqPi0ybiqtwFwuXMvdj2g3UhKw
+ zwRUsrO/I+V6w==
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-3c9a42d6349so4839260fac.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 10:21:29 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXuLCL7qPRY7fKxeBRuYGXemoTyBwnvHurhDBf5Ud25y9eDlYn/NdYxN0C5XNrTSrnom2DATn6H@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEZ2XGpgGEblVr8fgdE17qe3aFQ/ymB4SCaMV0Gy2zbgRQ9Abu
- Mic3lSG8wRamLQFWk+4+j0odbSrBJ0PZxXRxQwd+YvSN8ijv+VY3B2TO50yP8YJyJrDrmsAzF8X
- HKgI1NipHo1rvzPaMOyK77qa382WRujQ=
-X-Google-Smtp-Source: AGHT+IEpBFVPe13rSyWoAQmkn/h4MheLuYhwx+bDHEMRoTzYJkC2HBrn+zWJIIX4GlHStnkZidJOsjnAs+i7vboU7aI=
-X-Received: by 2002:a05:6808:1a03:b0:441:8f74:e85 with SMTP id
- 5614622812f47-443a309d405mr6105705b6e.63.1760980715153; Mon, 20 Oct 2025
- 10:18:35 -0700 (PDT)
+ AJvYcCW1ozG/sSe/5jnXqcLoGLxUG4DLmauDncnlVfA0YENIrqcHikl71eHs3SUzI2pccjHcz85/xiIU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAtGOGgPvs/Zn+md1UzWUurA14SuVEnbwj5+1fS1j5ZNZ/hVQ3
+ tbuKoKRDt2ZXayJZneN1ZXhb7ytrYMAgcldeb78BX48heJugR90vSP8yEqrjuEcXhYdH5f0JdnR
+ cqUtDzVzK2O5mDSJpoESITsgbZ6nCon4=
+X-Google-Smtp-Source: AGHT+IFU0bU8fKZ0Wua75/5pRYAXjg6ICdC5ZIAIZU0v6VlGJqQRFSAEBuztx/l/Pivh+cm/UonHIHXKPVckX8HLNyQ=
+X-Received: by 2002:a05:6871:2e90:b0:387:9b79:a61b with SMTP id
+ 586e51a60fabf-3c98cff3fd9mr5575729fac.22.1760980888969; Mon, 20 Oct 2025
+ 10:21:28 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251020165317.3992933-1-superm1@kernel.org>
- <20251020165317.3992933-3-superm1@kernel.org>
-In-Reply-To: <20251020165317.3992933-3-superm1@kernel.org>
+ <20251020165317.3992933-4-superm1@kernel.org>
+In-Reply-To: <20251020165317.3992933-4-superm1@kernel.org>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 20 Oct 2025 19:18:24 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0g64Hu15k5sLVfxj-AADy2goyvseGGm_zTAqSPHXEaxOA@mail.gmail.com>
-X-Gm-Features: AS18NWBumdOGpspcARVBeurDv1os9xsYPMYfkNgvhTlP7jAwUq2a1Wu4Nq9UyAw
-Message-ID: <CAJZ5v0g64Hu15k5sLVfxj-AADy2goyvseGGm_zTAqSPHXEaxOA@mail.gmail.com>
-Subject: Re: [RFC 2/3] PM: Don't pass up device_resume() -EBUSY errors
+Date: Mon, 20 Oct 2025 19:21:17 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gsdmfXUJuLW8Ogt2jKDunx4g51LqCfSVMWQ6WHXBw_zg@mail.gmail.com>
+X-Gm-Features: AS18NWChU2EP-kmiSeBpXBkZQsZMUWO1qaU0RIWwAVoz1ykVcHqEMNRFvTKh8NY
+Message-ID: <CAJZ5v0gsdmfXUJuLW8Ogt2jKDunx4g51LqCfSVMWQ6WHXBw_zg@mail.gmail.com>
+Subject: Re: [RFC 3/3] drm/amd: Return -EBUSY for amdgpu_pmops_thaw() on
+ success
 To: "Mario Limonciello (AMD)" <superm1@kernel.org>
 Cc: mario.limonciello@amd.com, airlied@gmail.com, alexander.deucher@amd.com, 
  christian.koenig@amd.com, dakr@kernel.org, gregkh@linuxfoundation.org, 
@@ -79,39 +80,36 @@ On Mon, Oct 20, 2025 at 6:53=E2=80=AFPM Mario Limonciello (AMD)
 >
 > From: Mario Limonciello <mario.limonciello@amd.com>
 >
-> If a device resume returns -EBUSY the device resume sequence has
-> been skipped.
-
-Is this actually demonstrably true in all of the cases?
-
-And what about -EAGAIN?
-
-> Don't show errors for this or pass it up to async
-> resume.  If resume is run again in another stage the device should
-> try again.
+> The PM core should be notified that thaw was skipped for the device
+> so that if it's tried to be resumed (such as an aborted hibernate)
+> that it gets another chance to resume.
 >
 > Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
->  drivers/base/power/main.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-> index bf9c3d79c455f..f6bc7ef9a8371 100644
-> --- a/drivers/base/power/main.c
-> +++ b/drivers/base/power/main.c
-> @@ -1112,7 +1112,9 @@ static void device_resume(struct device *dev, pm_me=
-ssage_t state, bool async)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 61268aa82df4d..d40af069f24dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2681,7 +2681,7 @@ static int amdgpu_pmops_thaw(struct device *dev)
 >
->         TRACE_RESUME(error);
->
-> -       if (error) {
-> +       if (error =3D=3D -EBUSY)
-> +               pm_dev_dbg(dev, state, async ? " async" : "");
-> +       else if (error) {
->                 WRITE_ONCE(async_error, error);
->                 dpm_save_failed_dev(dev_name(dev));
->                 pm_dev_err(dev, state, async ? " async" : "", error);
+>         /* do not resume device if it's normal hibernation */
+>         if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_susp=
+end())
+> -               return 0;
+> +               return -EBUSY;
+
+So that's why you need the special handling of -EBUSY in the previous patch=
+.
+
+I think that you need to save some state in this driver and then use
+it in subsequent callbacks instead of hacking the core to do what you
+want.
+
+>         return amdgpu_device_resume(drm_dev, true);
+>  }
 > --
-> 2.43.0
->
