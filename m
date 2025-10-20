@@ -4,58 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61CD1CCD1AF
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 11:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E28CFCCD199
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 12:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E66D510E427;
-	Mon, 20 Oct 2025 11:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62FF610E291;
+	Mon, 20 Oct 2025 12:31:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DPH5JL5I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b6yLbF0l";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7A610E424;
- Mon, 20 Oct 2025 11:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=peeC4NtHb4yeGeJv3us3LXqdIAf+dvlEn1uiHkhOJoQ=; b=DPH5JL5IBvhg4Cn6q3w2uvNmZR
- +zKIXQ+uAfHbNOrL8egFrnLd/itAmwL6WBibOy0r8vmU2KVuJkFT61ohDNJbM96Kb402CnE51ncms
- jAGhNkOu7N5L3X5Ob8HLZPD1uTKqpgwWvnFLIYXJ8FP0kYhc3yCyW+z4McZ+yTyP7v2iNmvaBexdA
- eA3QJtnvEi/DyGQk6z4UyGBd1fex94j0QyYk2LGQhsRzX8CRzTIA//7zFL9M3lYIPyKnE9cg5gmGM
- 337MEIavlGY0nQP8GELeo7lbRI18GSKsFRNyUFvIKdAY+ZCa0UcQCxf8A/jjO2vi1yYYXq6E0LA7g
- t32+WoRQ==;
-Received: from [90.242.12.242] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vAoSs-00C5ay-7l; Mon, 20 Oct 2025 13:54:14 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sui Jingfeng <suijingfeng@loongson.cn>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH v5 0/6] Improving the worst case TTM large allocation latency
-Date: Mon, 20 Oct 2025 12:54:05 +0100
-Message-ID: <20251020115411.36818-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17DF210E291
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 12:31:26 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-b472842981fso584009066b.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 05:31:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760963484; x=1761568284; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=fKfa3oGe0LaN2eGz6GrRE6h6OI+JbUznvpo3T4Hggow=;
+ b=b6yLbF0lA6HsY/kbsd8kNX0kvBiu7ABMls5x2zpSrtI6r7X70u5UHQpDodRKdrl1MS
+ 6somDV4TIWTgfELaqBQfCvPOYA1D2K1KyEYPKfFwX2odhtVVFZwlZ9oSWGSzaAydHS5K
+ GKtdlNCQGSzIlA7RWe+HbFT2d+2mp5Gd624DH52qs4G/jKMUsPqkuQ5XPa/t+qttAD84
+ VwyaZByWXsZEtgOsmZxfv3znyqCKi7B5lcZssX9Uc4QOscHt6Y2ewSrraTDAcu8i+aDj
+ mDNnf+mCT7mdBUiTPpNDlI8UOn07NU0zAnIR/Rml1VANK0yraWjFnwXEv8qFTs3I5Fyo
+ 3oag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760963484; x=1761568284;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fKfa3oGe0LaN2eGz6GrRE6h6OI+JbUznvpo3T4Hggow=;
+ b=d28DG1XOjJLCoOQZdMod1rxwz75Ds0iAOqvUD3Hfmn5UvVkdB4yNv6uWv9Bw8yD9Js
+ sblrM64RnjEvQsJdcoBAjIijl3fs+oliKcy3L7NpMjILSSlQQtZPfUSREOvJJ8aTdYrr
+ 48oOl7WT0MiovCovOpEc7i2WpHQ9m9AZt6wnmtVqVmtECOG6L53I4A7jYdcNBO6Oe8Gs
+ 5iq/y2zuX2h0ie1y2S0iFpfjyW9hjeR7Uy0nkhJg29Q6y/qZUXG53Yf+Xp3FFEZveBMV
+ Rcpm54srCmyS1Aft6U6qASK6XlkuGGJgMyV2FSeZf4vFmT4cEA9IeZbiEzJKroX5/E4r
+ P2aA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjdkq48FZC94hFzlUarCXebf3EW1iSicZtrjVQLd0kgvKy0bbFlrxOQXi293fPSyp2dQLZKiBd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxfcWwIl9K0c32NRVCyFCK5B93lAUSqP4+zoLND4LPAtD39+zPx
+ 1fBnd0V5tCVpO9qFaoRRZuvTNfEhQJPQpxp4mageNTOSpH3BuFAfSqBlsz43iA==
+X-Gm-Gg: ASbGncsQhkgKpTm9BLA8nvvYG0BACLURgPVWnd1MOSSC8+hHstWz/jjkHCa/1lz5DzB
+ CyIAJKqYnk1gjAlYmLidoA7EF6YkChB+CuPU5qbbqaGLRcRnsl8B+yTie27JbBRhXTDOVjoETNE
+ eHQjfHxTZWhQ5Cm/uhBtZz4kqj31vnJaAGkc1VaAL1WZlPX6yBAJ5qZT256ZEPq4a/i6rjqTbFF
+ VNB0wzm+ze+i9lI5RF+pW1d2sHS8rsZXKcY62jtGN5Fd8t1v3LLOPk5rww7oyLpgcQqOoNhs7j2
+ pBfK07l8++9WLa1PM/p42/sGybgspin0UTJ1O7ILrihZz5tvJdWpY6mY8emKP7NDQlogQvdxdi9
+ GN/ukL8lKQj+s664++xq+t2k99VNXnfgsyHUlWMfsGTMC6+WWl54BwTmHFbUF+JYsdl0OA+Qq5D
+ NgNY7rrBiZqjonG4FHrYxJV6Y/EPZ9UapkYyK71q8QNgvWeZTNPvTKj+qHUPtUKBnI
+X-Google-Smtp-Source: AGHT+IGZWGYri1CqGWfz7v5YmUXL7fwAek2+4xp/WDqtcS6MsEGt50P2/VRJ8BA+gs+xmjv/IFpRPA==
+X-Received: by 2002:a17:907:a07:b0:b49:3ee4:d4a6 with SMTP id
+ a640c23a62f3a-b6471f3bde8mr1479868266b.18.1760963484242; 
+ Mon, 20 Oct 2025 05:31:24 -0700 (PDT)
+Received: from ?IPv6:2a0a:f640:1410:5e2:6b13:3cc9:e4ff:7d7b?
+ ([2a0a:f640:1410:5e2:6b13:3cc9:e4ff:7d7b])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b65eb526490sm775561766b.65.2025.10.20.05.31.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Oct 2025 05:31:23 -0700 (PDT)
+Message-ID: <a021f76ec289089dab0715399d44ad7704af8c69.camel@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Skip SDMA suspend during mode-2 reset
+From: timur.kristof@gmail.com
+To: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Asad.Kamal@amd.com
+Date: Mon, 20 Oct 2025 14:31:22 +0200
+In-Reply-To: <20251008050418.3399656-1-lijo.lazar@amd.com>
+References: <20251008050418.3399656-1-lijo.lazar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,116 +90,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disclaimer:
-Please note that as this series includes a patch which touches a good number of
-drivers I will only copy everyone in the cover letter and the respective patch.
-Assumption is people are subscribed to dri-devel so can look at the whole series
-there. I know someone is bound to complain for both the case when everyone is
-copied on everything for getting too much email, and also for this other case.
-So please be flexible.
+On Wed, 2025-10-08 at 10:34 +0530, Lijo Lazar wrote:
+> For SDMA IP versions > v4.4.2, firmware will take care of quiescing
+> SDMA
+> before mode-2 reset.
+>=20
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+> =C2=A0drivers/gpu/drm/amd/amdgpu/aldebaran.c | 4 ++++
+> =C2=A01 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> index 9569dc16dd3d..0007d00b9e8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> @@ -88,6 +88,10 @@ static int aldebaran_mode2_suspend_ip(struct
+> amdgpu_device *adev)
+> =C2=A0	uint32_t ip_block;
+> =C2=A0	int r, i;
+> =C2=A0
+> +	/* Skip suspend of SDMA IP versions > 4.4.2. They are multi-
+> aid */
 
-Description:
+What does "multi-aid" mean here?
 
-All drivers which use the TTM pool allocator end up requesting large order
-allocations when allocating large buffers. Those can be slow due memory pressure
-and so add latency to buffer creation. But there is often also a size limit
-above which contiguous blocks do not bring any performance benefits. This series
-allows drivers to say when it is okay for the TTM to try a bit less hard.
 
-We do this by allowing drivers to specify this cut off point when creating the
-TTM device and pools. Allocations above this size will skip direct reclaim so
-under memory pressure worst case latency will improve. Background reclaim is
-still kicked off and both before and after the memory pressure all the TTM pool
-buckets remain to be used as they are today.
-
-This is especially interesting if someone has configured MAX_PAGE_ORDER to
-higher than the default. And even with the default, with amdgpu for example,
-the last patch in the series makes use of the new feature by telling TTM that
-above 2MiB we do not expect performance benefits. Which makes TTM not try direct
-reclaim for the top bucket (4MiB).
-
-End result is TTM drivers become a tiny bit nicer mm citizens and users benefit
-from better worst case buffer creation latencies. As a side benefit we get rid
-of two instances of those often very unreadable mutliple nameless booleans
-function signatures.
-
-If this sounds interesting and gets merge the invidual drivers can follow up
-with patches configuring their thresholds.
-
-v2:
- * Christian suggested to pass in the new data by changing the function signatures.
-
-v3:
- * Moved ttm pool helpers into new ttm_pool_internal.h. (Christian)
-
-v4:
- * Fixed TTM unit test build.
-
-v5:
- * Renamed pool_flags to alloc_flags and moved to TTM_ALLOCATION_ namespace.
- * Added last patch (propagate ENOSPC) from Thomas' related series for reference.
-
-v1 thread:
-https://lore.kernel.org/dri-devel/20250919131127.90932-1-tvrtko.ursulin@igalia.com/
-
-v3 thread:
-https://lore.kernel.org/dri-devel/20251008115314.55438-1-tvrtko.ursulin@igalia.com/
-
-v4 thread:
-https://lore.kernel.org/dri-devel/20251013082240.55263-1-tvrtko.ursulin@igalia.com/
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Sui Jingfeng <suijingfeng@loongson.cn>
-Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Zack Rusin <zack.rusin@broadcom.com>
-
-Tvrtko Ursulin (6):
-  drm/ttm: Add getter for some pool properties
-  drm/ttm: Replace multiple booleans with flags in pool init
-  drm/ttm: Replace multiple booleans with flags in device init
-  drm/ttm: Allow drivers to specify maximum beneficial TTM pool size
-  drm/amdgpu: Configure max beneficial TTM pool allocation order
-  drm/ttm: Add an allocation flag to propagate -ENOSPC on OOM
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  9 ++--
- drivers/gpu/drm/drm_gem_vram_helper.c         |  2 +-
- drivers/gpu/drm/i915/intel_region_ttm.c       |  2 +-
- drivers/gpu/drm/loongson/lsdc_ttm.c           |  3 +-
- drivers/gpu/drm/nouveau/nouveau_ttm.c         |  6 ++-
- drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
- drivers/gpu/drm/radeon/radeon_ttm.c           |  6 ++-
- drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++----
- .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
- drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 33 ++++++--------
- drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 22 ++++-----
- drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  7 +--
- drivers/gpu/drm/ttm/tests/ttm_pool_test.c     | 24 +++++-----
- drivers/gpu/drm/ttm/ttm_bo.c                  |  4 +-
- drivers/gpu/drm/ttm/ttm_device.c              |  9 ++--
- drivers/gpu/drm/ttm/ttm_pool.c                | 45 +++++++++++--------
- drivers/gpu/drm/ttm/ttm_pool_internal.h       | 25 +++++++++++
- drivers/gpu/drm/ttm/ttm_tt.c                  | 10 +++--
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 +-
- drivers/gpu/drm/xe/xe_device.c                |  2 +-
- include/drm/ttm/ttm_allocation.h              | 12 +++++
- include/drm/ttm/ttm_device.h                  |  8 +++-
- include/drm/ttm/ttm_pool.h                    |  8 ++--
- 23 files changed, 154 insertions(+), 107 deletions(-)
- create mode 100644 drivers/gpu/drm/ttm/ttm_pool_internal.h
- create mode 100644 include/drm/ttm/ttm_allocation.h
-
--- 
-2.48.0
-
+> +	if (adev->aid_mask)
+> +		ip_block_mask &=3D ~BIT(AMD_IP_BLOCK_TYPE_SDMA);
+> +
+> =C2=A0	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> =C2=A0	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> =C2=A0
