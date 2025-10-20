@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16012CCD199
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 16:53:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 518BFCCD19F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 16:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFF2F10E483;
-	Mon, 20 Oct 2025 16:53:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF63D10E485;
+	Mon, 20 Oct 2025 16:53:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V31gZRXY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mt8x8Koh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C33A710E482;
- Mon, 20 Oct 2025 16:53:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F81F10E484;
+ Mon, 20 Oct 2025 16:53:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 731634349F;
+ by tor.source.kernel.org (Postfix) with ESMTP id 480FA6209F;
+ Mon, 20 Oct 2025 16:53:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942E3C4CEFE;
  Mon, 20 Oct 2025 16:53:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF85FC4CEF9;
- Mon, 20 Oct 2025 16:53:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760979209;
- bh=lSpNsv9v6YOmH4+DfxjS+7hp9aTjSqVplCul5KPB2Rg=;
- h=From:To:Cc:Subject:Date:From;
- b=V31gZRXYFgWtn+tcQgu3Ix3cijzMWjCCuedzMlAUgG36jMV+EOpmTXGIROWsVJK7A
- Ia5oMtvHMQVWIYj5DzoSS/o8hM1gd3jlxeHztxtZDzZhdEK16sdYjHak7bjW4aIUnd
- vEGQickJhtw7i14VcYniLON+eSRsFCeE8aJnF6wR9ybL9bSbB3l0BBCBjRbUfm/Rkj
- h51tiFm8TsweNPRwSlVUtv8/3e6fe6Ap/IW4kbO/IhMRhGlxI2gtMofKh1x0t1iTXk
- zO5YcEWzyvcETckzniGqPJAXbt08wu4CQ6uV2XDROtaaE4Ps5RvHFci6GDfdbe4YLO
- 5glPNahM29RFg==
+ s=k20201202; t=1760979210;
+ bh=NTNN3wwtEyiPMnu+I2XHXc/XM3jyZiRd3TIIAscmDFQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=mt8x8Koh/LvecZ6pnOUPt7IVv3IL40j30WXV7SP6/ghDJV3c8dBhgB8HqwLEemZZ9
+ G9DaMzfwssu2jnbRLmqgnH5+EslhalUMZ6jx3l/qN42h7hBmEx/e+Q7vHLh5/hhpad
+ UVhbfHzzW0DqboYrjnGxjLYzLWTqQiR777Ua+fO5Faju2UDIFBnFuDZHjDgGM/urnY
+ 4S47ToqU6dsHIRRqD50hCt8YU1W2NlRBQQFNSGrxEk8gMV31pu86xYRee6hpbkV1FC
+ Ld+Qd8YKK3uOEurY7T5K06i5y9RsX94mex4zXwh8b0BUuxGHPbjDMnIkNlZEpT6rxp
+ ahO/lWoU/BrKw==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: mario.limonciello@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, dakr@kernel.org, gregkh@linuxfoundation.org,
  lenb@kernel.org, pavel@kernel.org, rafael@kernel.org, simona@ffwll.ch
-Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Muhammad Usama Anjum <usama.anjum@collabora.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-pm@vger.kernel.org
-Subject: [RFC 0/3] Fixups for cancelled hibernate
-Date: Mon, 20 Oct 2025 11:50:46 -0500
-Message-ID: <20251020165317.3992933-1-superm1@kernel.org>
+Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>,
+ Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org
+Subject: [RFC 1/3] PM: Mark device as suspended if it failed to resume
+Date: Mon, 20 Oct 2025 11:50:47 -0500
+Message-ID: <20251020165317.3992933-2-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251020165317.3992933-1-superm1@kernel.org>
+References: <20251020165317.3992933-1-superm1@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -58,28 +59,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Muhammad Usama Anjun's recent series for being able to cancel
-the hibernate sequence [1] exposes a bug with amdgpu handling for
-skipping the thaw step.
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-Because the thaw step is skipped in most cases, cancelling the
-hibernate means that the device is left in an inconsistent
-state.
+If a device failed to resume the PM core treats it as though it
+succeeded.  This could cause state machine problems.
 
-To fix this allow devices to return -EBUSY and adjust the PM
-core handling of this case.
-
-Link: https://lore.kernel.org/all/20251018142114.897445-1-usama.anjum@collabora.com/ [1]
 Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Mario Limonciello (3):
-  PM: Mark device as suspended if it failed to resume
-  PM: Don't pass up device_resume() -EBUSY errors
-  drm/amd: Return -EBUSY for amdgpu_pmops_thaw() on success
+Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+---
+ drivers/base/power/main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- drivers/base/power/main.c               | 7 ++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
- 2 files changed, 7 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
+index e83503bdc1fdb..bf9c3d79c455f 100644
+--- a/drivers/base/power/main.c
++++ b/drivers/base/power/main.c
+@@ -1104,6 +1104,9 @@ static void device_resume(struct device *dev, pm_message_t state, bool async)
+ 	device_unlock(dev);
+ 	dpm_watchdog_clear(&wd);
+ 
++	if (error)
++		dev->power.is_suspended = true;
++
+  Complete:
+ 	complete_all(&dev->power.completion);
+ 
 -- 
 2.43.0
 
