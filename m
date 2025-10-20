@@ -4,58 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F275CCD1A5
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 19:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCC1CCD1A7
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 19:47:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F9310E4D4;
-	Mon, 20 Oct 2025 19:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94A6F10E4D1;
+	Mon, 20 Oct 2025 19:47:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fCILA293";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aFKh1iS/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40E7D10E4D4;
- Mon, 20 Oct 2025 19:34:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2116943CED;
- Mon, 20 Oct 2025 19:34:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895B1C113D0;
- Mon, 20 Oct 2025 19:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760988877;
- bh=ce41EwvX7dD7W0/LsFG6veEwyGXRxn+MPUlthCv8V5w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=fCILA293TsK2s2+rIxMoqUwQ3A2jzJbRnvjyJSMIP+mQnXnFmjVl4wm0ssLuXaBlh
- HU6SIZxUkF7XuljD7yrXdGrgTmeLQxgjkze88BeJKw+Z7UgQl7HuBc2LhW3racAps1
- 0dLeBh8nx5VCcBunW8nUBSj+ZM5EXd88h5mOBvcN4aohFkLxJnH9HKx2pyFxI4QEM2
- b29JEpPiBZbfhGQC142e5D0+t2px6NmoHDwaD83h2IbiCLeALG+geARReBhc/mxmSi
- eOY3HCNQ5HrSgRmdUOQrwV77Sfs+Kx7yfLEo5lPB9NOd16XFHdIBhXErzhm2mQOMqb
- VpMNIGDse3iFg==
-Message-ID: <57f073e8-f600-4bdf-b3b9-a34df882cbdb@kernel.org>
-Date: Mon, 20 Oct 2025 14:34:34 -0500
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55AF410E4D1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 19:47:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=dz2wcENkzj7cy4Vc8TmdGAYI8DdPZg9aWW9uBqunImM=; b=aFKh1iS/4Kwl58mf6qUlIiLSsN
+ RtxfgJdjdMBznW1vnW2QaG+roAklDdHW7d/2InS3tHYIppCt43njeDvu4qv+d7wUBH1kEUi24V8+x
+ YsILrwMXNFpi11RA+PkaW1Sa+ynk5rMF/qkOJBUBrcC0VXvhR/hbX5dKTXp4A37tVxb6YJ9KH4/nd
+ hkuDAkZ4R2X4o5P7Xp728Uem5Ee1GMcaJXH/V6pY/S3MhyrAvq4roF9Jp7dYQGJYdi9IX02KePZS2
+ Gj2j/g4+iQAZuSyVzvPfh/I3qVjLtHjzRdwCcqT6wFKQb4/RoDqhDmeIbBMtD9/07gYnag/fA+d4c
+ DVbL6WCQ==;
+Received: from d162-157-58-14.abhsia.telus.net ([162.157.58.14]
+ helo=debian.home.app) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vAvqf-00CEgQ-Ja; Mon, 20 Oct 2025 21:47:18 +0200
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH v3 2/5] Documentation/gpu: Add new glossary entries from UMR
+Date: Mon, 20 Oct 2025 13:38:33 -0600
+Message-ID: <20251020194631.102260-3-siqueira@igalia.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251020194631.102260-1-siqueira@igalia.com>
+References: <20251020194631.102260-1-siqueira@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 3/3] drm/amd: Return -EBUSY for amdgpu_pmops_thaw() on
- success
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: mario.limonciello@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, dakr@kernel.org, gregkh@linuxfoundation.org,
- lenb@kernel.org, pavel@kernel.org, simona@ffwll.ch,
- Muhammad Usama Anjum <usama.anjum@collabora.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-pm@vger.kernel.org
-References: <20251020165317.3992933-1-superm1@kernel.org>
- <20251020165317.3992933-4-superm1@kernel.org>
- <CAJZ5v0gsdmfXUJuLW8Ogt2jKDunx4g51LqCfSVMWQ6WHXBw_zg@mail.gmail.com>
- <85c039ef-e189-48c1-8bf7-50ac0c2484e2@kernel.org>
- <CAJZ5v0gT9BG5QPcwg6jJ1Jghny2YxC9_HY542LTBy-aVc_2T_w@mail.gmail.com>
- <aec8fc6c-3f9f-4ec1-a929-7a0be6026a3d@kernel.org>
- <CAJZ5v0gMf-qMGa6iBL2NdRXd-Mt5cpsoVQ90y+rSyK5xoYEf8A@mail.gmail.com>
- <aa04dea5-d35b-46c9-9501-0a2e79ecbd79@kernel.org>
- <CAJZ5v0j=sw9X3mV2ddOD_-qJwxveXQ1faD6HWtStLo9xOpwYKA@mail.gmail.com>
-Content-Language: en-US
-From: "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-In-Reply-To: <CAJZ5v0j=sw9X3mV2ddOD_-qJwxveXQ1faD6HWtStLo9xOpwYKA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,117 +61,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+When using UMR, a dashboard is available that displays the CPC, CPF,
+CPG, TCP, and UTCL utilization. This commit introduces the meanings of
+those acronyms (and others) to the glossary to improve the comprehension
+of the UMR dashboard.
 
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+---
+ Documentation/gpu/amdgpu/amdgpu-glossary.rst | 21 ++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-On 10/20/2025 2:18 PM, Rafael J. Wysocki wrote:
-> On Mon, Oct 20, 2025 at 9:14 PM Mario Limonciello (AMD) (kernel.org)
-> <superm1@kernel.org> wrote:
->>
->>
->>
->> On 10/20/2025 1:50 PM, Rafael J. Wysocki wrote:
->>> On Mon, Oct 20, 2025 at 8:32 PM Mario Limonciello (AMD) (kernel.org)
->>> <superm1@kernel.org> wrote:
->>>>
->>>>
->>>>
->>>> On 10/20/2025 12:39 PM, Rafael J. Wysocki wrote:
->>>>> On Mon, Oct 20, 2025 at 7:28 PM Mario Limonciello (AMD) (kernel.org)
->>>>> <superm1@kernel.org> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 10/20/2025 12:21 PM, Rafael J. Wysocki wrote:
->>>>>>> On Mon, Oct 20, 2025 at 6:53 PM Mario Limonciello (AMD)
->>>>>>> <superm1@kernel.org> wrote:
->>>>>>>>
->>>>>>>> From: Mario Limonciello <mario.limonciello@amd.com>
->>>>>>>>
->>>>>>>> The PM core should be notified that thaw was skipped for the device
->>>>>>>> so that if it's tried to be resumed (such as an aborted hibernate)
->>>>>>>> that it gets another chance to resume.
->>>>>>>>
->>>>>>>> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
->>>>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>>>>>> ---
->>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
->>>>>>>>      1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>> index 61268aa82df4d..d40af069f24dd 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>>>>>> @@ -2681,7 +2681,7 @@ static int amdgpu_pmops_thaw(struct device *dev)
->>>>>>>>
->>>>>>>>             /* do not resume device if it's normal hibernation */
->>>>>>>>             if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_suspend())
->>>>>>>> -               return 0;
->>>>>>>> +               return -EBUSY;
->>>>>>>
->>>>>>> So that's why you need the special handling of -EBUSY in the previous patch.
->>>>>>
->>>>>> Yup.
->>>>>>
->>>>>>>
->>>>>>> I think that you need to save some state in this driver and then use
->>>>>>> it in subsequent callbacks instead of hacking the core to do what you
->>>>>>> want.
->>>>>>>
->>>>>>
->>>>>> The problem is the core decides "what" to call and more importantly
->>>>>> "when" to call it.
->>>>>>
->>>>>> IE if the core thinks that something is thawed it will never call
->>>>>> resume, and that's why you end up in a bad place with Muhammad's
->>>>>> cancellation series and why I proposed this one to discuss.
->>>>>>
->>>>>> We could obviously go back to dropping this case entirely:
->>>>>>
->>>>>> if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_suspend())
->>>>>>
->>>>>> But then the display turns on at thaw(), you do an unnecessary resource
->>>>>> eviction, it takes a lot longer if you have a ton of VRAM etc.
->>>>>
->>>>> The cancellation series is at odds with this code path AFAICS because
->>>>> what if hibernation is canceled after the entire thaw transition?
->>>>
->>>> Muhammad - did you test that specific timing of cancelling the hibernate?
->>>>>
->>>>> Some cleanup would need to be done before thawing user space I suppose.
->>>>
->>>> I agree; I think that series would need changes for it.
->>>>
->>>> But if you put that series aside, I think this one still has some merit
->>>> on it's own.  If another driver aborted the hibernate, I think the same
->>>> thing could happen if it happened to run before amdgpu's device thaw().
->>>>
->>>> That series just exposed a very "easy" way to reproduce this issue.
->>>
->>> Device thaw errors don't abort anything AFAICS.
->>>
->>
->> You're right; it doesn't abort, it just is saved to the logs.
->> The state is also not maintained.
->>> What can happen though is that another device may abort the final
->>> "power off" transition, which is one of the reasons why I think that
->>> rolling it back is generally hard.
->>
->> That's exactly the reason for the first patch in this series.  The state
->> of whether it succeeded isn't recorded.  So if thaw non-fatally fails
->> and you've saved state to indicate this then any of the other calls that
->> run can try again.
-> 
-> So long as they are called.
-> 
-> But as I said before, I would save the state in the driver thaw
-> callback and then clear it in the driver poweroff callback and look at
-> it in the driver restore callback.  If it is there at that point,
-> poweroff has not run and hibernation is rolling back, so you need to
-> do a "thaw".
+diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+index 30812d9d53c6..eb72e6f6d4f1 100644
+--- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
++++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+@@ -30,6 +30,15 @@ we have a dedicated glossary for Display Core at
+     CP
+       Command Processor
+ 
++    CPC
++      Command Processor Compute
++
++    CPF
++      Command Processor Fetch
++
++    CPG
++      Command Processor Graphics
++
+     CPLIB
+       Content Protection Library
+ 
+@@ -78,6 +87,9 @@ we have a dedicated glossary for Display Core at
+     GMC
+       Graphic Memory Controller
+ 
++    GPR
++      General Purpose Register
++
+     GPUVM
+       GPU Virtual Memory.  This is the GPU's MMU.  The GPU supports multiple
+       virtual address spaces that can be in flight at any given time.  These
+@@ -92,6 +104,9 @@ we have a dedicated glossary for Display Core at
+       table for use by the kernel driver or into per process GPUVM page tables
+       for application usage.
+ 
++    GWS
++      Global Wave Syncs
++
+     IH
+       Interrupt Handler
+ 
+@@ -206,12 +221,18 @@ we have a dedicated glossary for Display Core at
+     TC
+       Texture Cache
+ 
++    TCP (AMDGPU)
++      Texture Cache Processing
++
+     TOC
+       Table of Contents
+ 
+     UMSCH
+       User Mode Scheduler
+ 
++    UTCL
++      Universal Texture Cache Line
++
+     UVD
+       Unified Video Decoder
+ 
+-- 
+2.51.0
 
-Are you suggesting that the device driver should directly manipulate 
-dev->power.is_suspended?
-
-I'll do some testing but; I suppose that would work as well without 
-needing to make core changes if you don't see a need for other devices 
-to do this.
