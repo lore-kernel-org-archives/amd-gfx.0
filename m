@@ -4,61 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4460ACCD19F
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 17:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E12CCD199
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 17:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B45610E0ED;
-	Mon, 20 Oct 2025 17:15:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A51D10E0E7;
+	Mon, 20 Oct 2025 17:18:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nHc3dbIv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IAzDJDb4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB74B10E0E7
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:15:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB07610E0E7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:18:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id ABC0748DEA
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:15:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4A4C4CEF9
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:15:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1C1B2620C6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:18:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE20BC4CEF9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 17:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760980544;
- bh=/Bo/w1IWbEdCpFqdwJJwvlPplSNhRb4GDvaPtHIqS2g=;
+ s=k20201202; t=1760980715;
+ bh=4DeNbsFjA3GHAvuLpWPwdNkAditJGZMykUeSPTvXfPI=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=nHc3dbIvnlHbK7ZAppgVog5WwvJKdAazmoIWifi15l+mDRzKJpi0KlBJiH1SGt8lt
- s0NeCU0/LxE1Sjll4pc2MWoc8wFPPgZilDEWz/L9O+lX37FT6d+H5rwwMXSDYodmfs
- FWxP5W3j5W3WazmizDUU7YNQ5+OyOHBCmj+hivaZ4Kgx6jCz6nzYLgLhoMw3d4r/1B
- 8SIq1GnmnXKWqQW+8pF/q95iJgURGYqtzvwp4TgMvS5h5NRzswWLl/tX8UoJ2bvYVF
- yzm++abYlAGpsZB39vBrEJrvvpr1yOjxdYKqqN/KwZlR3xKTItOhukxBQAOTKFaxVt
- VQWyOmQSxBYEg==
+ b=IAzDJDb4ojXUi/sH9bE/JrBXDlxA86v5WcegcNYbiBVchvmT6yaL1Lijo1TvKEGDt
+ snY6qEqecS/PcWU5Xk8O+rNbRDbAoCI57Yg03K8QeM4T2WyojWFszIXIjptz0i3RqV
+ scLrP3XMFUNmuitiA9Ph5kdld2InsLktImukfTwFBWSXuE5mB/niaiCPyn5qxFMg9i
+ is51pg2srmTIeHZKDTWPW6XG7SIeksJ+OdkTz8SRP9L5tH7Yr2f65ZrcZQRB3egrKy
+ z0t18SCRrKnjIjluTDUc/EHeA03icbnUyer6J7eoic+M8eEqGaCkrWGD3RXFgJq/0N
+ lWU3QskxKQ04g==
 Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-444d3df546bso1023552b6e.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 10:15:44 -0700 (PDT)
+ 5614622812f47-4439f1df5f6so1083513b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 10:18:35 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXFlY+kC1r+p02JV0u40wPO9lE9KIaD0NrURk+Qh7ZO63+Q6XUfxV3LmKx1qEAB5b95wbTp7pZ1@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAoQxI33vmWprukAvUfTedxtJYsikldZ/Vsz3Mn1Y32xzQo2zg
- T95YkzAzYrQ5IFN04VSnHaaU80mHz6DVTDo3Oz5JC3T9/Hm9mBHHGzT+WxbczB1rqjTK885G44F
- Zz8zweg+reoicy1H8+SCEldmhCs3V77k=
-X-Google-Smtp-Source: AGHT+IFfB91PdM3JAdN1gbGd5x2R0NfKffZhpjnLvP2/4hItmtoOjnqFQsirY6tJdehIacGcQfZbbL8vCtBlKgLWvxY=
-X-Received: by 2002:a05:6808:181e:b0:438:430b:3dce with SMTP id
- 5614622812f47-443a2dfa130mr6084442b6e.10.1760980543788; Mon, 20 Oct 2025
- 10:15:43 -0700 (PDT)
+ AJvYcCXuLCL7qPRY7fKxeBRuYGXemoTyBwnvHurhDBf5Ud25y9eDlYn/NdYxN0C5XNrTSrnom2DATn6H@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEZ2XGpgGEblVr8fgdE17qe3aFQ/ymB4SCaMV0Gy2zbgRQ9Abu
+ Mic3lSG8wRamLQFWk+4+j0odbSrBJ0PZxXRxQwd+YvSN8ijv+VY3B2TO50yP8YJyJrDrmsAzF8X
+ HKgI1NipHo1rvzPaMOyK77qa382WRujQ=
+X-Google-Smtp-Source: AGHT+IEpBFVPe13rSyWoAQmkn/h4MheLuYhwx+bDHEMRoTzYJkC2HBrn+zWJIIX4GlHStnkZidJOsjnAs+i7vboU7aI=
+X-Received: by 2002:a05:6808:1a03:b0:441:8f74:e85 with SMTP id
+ 5614622812f47-443a309d405mr6105705b6e.63.1760980715153; Mon, 20 Oct 2025
+ 10:18:35 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251020165317.3992933-1-superm1@kernel.org>
- <20251020165317.3992933-2-superm1@kernel.org>
- <c93821d6-2e59-481a-8119-1c00a3fdcd5e@collabora.com>
-In-Reply-To: <c93821d6-2e59-481a-8119-1c00a3fdcd5e@collabora.com>
+ <20251020165317.3992933-3-superm1@kernel.org>
+In-Reply-To: <20251020165317.3992933-3-superm1@kernel.org>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 20 Oct 2025 19:15:32 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0ioc=b0Z5oofvtcmJ=Mb2aBF2bzvZM71tGpa0L6k+FR_w@mail.gmail.com>
-X-Gm-Features: AS18NWBmz6ZVP5RNm5vs0CgcHlNudUd7W1UYMEtj6Z5bUAS6AC0XVTH8twLSOrc
-Message-ID: <CAJZ5v0ioc=b0Z5oofvtcmJ=Mb2aBF2bzvZM71tGpa0L6k+FR_w@mail.gmail.com>
-Subject: Re: [RFC 1/3] PM: Mark device as suspended if it failed to resume
-To: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>, mario.limonciello@amd.com,
- airlied@gmail.com, 
- alexander.deucher@amd.com, christian.koenig@amd.com, dakr@kernel.org, 
- gregkh@linuxfoundation.org, lenb@kernel.org, pavel@kernel.org, 
- rafael@kernel.org, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+Date: Mon, 20 Oct 2025 19:18:24 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0g64Hu15k5sLVfxj-AADy2goyvseGGm_zTAqSPHXEaxOA@mail.gmail.com>
+X-Gm-Features: AS18NWBumdOGpspcARVBeurDv1os9xsYPMYfkNgvhTlP7jAwUq2a1Wu4Nq9UyAw
+Message-ID: <CAJZ5v0g64Hu15k5sLVfxj-AADy2goyvseGGm_zTAqSPHXEaxOA@mail.gmail.com>
+Subject: Re: [RFC 2/3] PM: Don't pass up device_resume() -EBUSY errors
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Cc: mario.limonciello@amd.com, airlied@gmail.com, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, dakr@kernel.org, gregkh@linuxfoundation.org, 
+ lenb@kernel.org, pavel@kernel.org, rafael@kernel.org, simona@ffwll.ch, 
+ Muhammad Usama Anjum <usama.anjum@collabora.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -76,45 +74,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 20, 2025 at 6:59=E2=80=AFPM Muhammad Usama Anjum
-<usama.anjum@collabora.com> wrote:
+On Mon, Oct 20, 2025 at 6:53=E2=80=AFPM Mario Limonciello (AMD)
+<superm1@kernel.org> wrote:
 >
-> On 10/20/25 9:50 PM, Mario Limonciello (AMD) wrote:
-> > From: Mario Limonciello <mario.limonciello@amd.com>
-> >
-> > If a device failed to resume the PM core treats it as though it
-> > succeeded.  This could cause state machine problems.
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> If a device resume returns -EBUSY the device resume sequence has
+> been skipped.
 
-You need to be very specific here as this is a significant change in behavi=
-or.
+Is this actually demonstrably true in all of the cases?
 
-> >
-> > Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-> > Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
+And what about -EAGAIN?
+
+> Don't show errors for this or pass it up to async
+> resume.  If resume is run again in another stage the device should
+> try again.
 >
-> > ---
-> >  drivers/base/power/main.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-> > index e83503bdc1fdb..bf9c3d79c455f 100644
-> > --- a/drivers/base/power/main.c
-> > +++ b/drivers/base/power/main.c
-> > @@ -1104,6 +1104,9 @@ static void device_resume(struct device *dev, pm_=
-message_t state, bool async)
-> >       device_unlock(dev);
-> >       dpm_watchdog_clear(&wd);
-> >
-> > +     if (error)
-> > +             dev->power.is_suspended =3D true;
-> > +
-> >   Complete:
-> >       complete_all(&dev->power.completion);
-> >
->
->
-> --
+> Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 > ---
-> Thanks,
-> Usama
+>  drivers/base/power/main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
+> index bf9c3d79c455f..f6bc7ef9a8371 100644
+> --- a/drivers/base/power/main.c
+> +++ b/drivers/base/power/main.c
+> @@ -1112,7 +1112,9 @@ static void device_resume(struct device *dev, pm_me=
+ssage_t state, bool async)
+>
+>         TRACE_RESUME(error);
+>
+> -       if (error) {
+> +       if (error =3D=3D -EBUSY)
+> +               pm_dev_dbg(dev, state, async ? " async" : "");
+> +       else if (error) {
+>                 WRITE_ONCE(async_error, error);
+>                 dpm_save_failed_dev(dev_name(dev));
+>                 pm_dev_err(dev, state, async ? " async" : "", error);
+> --
+> 2.43.0
+>
