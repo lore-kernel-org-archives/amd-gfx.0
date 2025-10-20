@@ -4,123 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2DA1CCD1A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 14:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E430CCD199
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 14:39:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4613210E45D;
-	Mon, 20 Oct 2025 14:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3C2610E2A1;
+	Mon, 20 Oct 2025 14:39:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Wvlh0WwW";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="sc/lM0Np";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011059.outbound.protection.outlook.com [52.101.52.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 366E610E45C
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Oct 2025 14:31:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aUas4iXJ9bXPSHXg7vd92MEqmm91iPfWUF9Duhd6Hc+h5iH9y1bX/zTETLLyTG2A5fqgmKL6OYF3tQcPngUyBzbAlVNAvVSxg55kEosHm+AZLRR3FFY3CgnbwOVOs+EQwIfFwkC+StSyC2ys0HtyuVd2hh9DA6WUulPURisA5Ge+d95F7TQqW17sc6FqJKrDqTEVqw90VBvycwdka8p1B7rzYSWTKqcdj40jVZfvuI1XpxW6euA37AnYc7GvMyvPAHtVWH99alLcvpdmc9p7BfuoFpBgt40mEVOfrIS5bn5rbJNsJ17CzsFs1kwf9pn3ptMKDHDYprUmpBXqyAe1Bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8FsKKuCKJzifv/4oO8mpE57yRAlrR2YffHdVl3UCROg=;
- b=J5Eh0nknvjoNHzgLctPkJCcLh5z1CHDOgF3FW9t7QGb1rHXiAmPy3Uj88BoW2XreRWXgc9VGNvQd6vcHUZ8Q55HmXUzn2CDSCkza5VROkof73ZFAxzmORGC1nQ3GvcGoZX4UMBcezRoFsO1oRXvxIJApGSbkykj6G+kGT788YO0rT5wP1oll4PqSOqRuVAAppPharGic6//xuAHiEJtSrDSMnKntkhDC+EuEgWHV3tVSSK/cCA4qBGw9Z9YesCuPyIEyape4x4ocddZilfu5EThn8Ar5DgnZuDnOG6iKbfdoyPxstrDOdiuU0Eti4pqYqmlutSdj/RsxIXxsKMWQ9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8FsKKuCKJzifv/4oO8mpE57yRAlrR2YffHdVl3UCROg=;
- b=Wvlh0WwWkUx73DGOjuXTjzSNlw9FZWQlfAXBsjgAHDnaXZEAA1G/SZpO0KYgpXV0VmRl2U1IFpc4Zd9q4MyZxGk01F2iNNM2Ql/e8X01A1G7RGf6yjPJtjNVIZJHQNezj9QUurfInp4cLqAOlvCUgI3I0dkat8OR4NjehiMhOlg=
-Received: from PH7P220CA0117.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::34)
- by DS2PR12MB9710.namprd12.prod.outlook.com (2603:10b6:8:276::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.16; Mon, 20 Oct
- 2025 14:31:00 +0000
-Received: from CO1PEPF000044F6.namprd21.prod.outlook.com
- (2603:10b6:510:32d:cafe::67) by PH7P220CA0117.outlook.office365.com
- (2603:10b6:510:32d::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.16 via Frontend Transport; Mon,
- 20 Oct 2025 14:31:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000044F6.mail.protection.outlook.com (10.167.241.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.0 via Frontend Transport; Mon, 20 Oct 2025 14:31:00 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 20 Oct
- 2025 07:30:58 -0700
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>, "Felix
- Kuehling" <felix.kuehling@amd.com>
-Subject: [PATCH v3 2/2] drm/amdkfd: Dequeue user queues when process mm
- released
-Date: Mon, 20 Oct 2025 10:30:16 -0400
-Message-ID: <20251020143016.23409-2-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251020143016.23409-1-Philip.Yang@amd.com>
-References: <20251020143016.23409-1-Philip.Yang@amd.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D833610E2A1;
+ Mon, 20 Oct 2025 14:39:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zNHJmPTuExtnuNZOb1LyOIdMpz4hwND9f0f6YnQxgZk=; b=sc/lM0NpJ1ayIryIjpW3fhWex6
+ FiZjF6VThJMR1eJ4gQwKfO/ErD0McQQsdaToAtiHYns+JokJ5EpxbNl8eQ06Zbect9pOxe9Fr1xzZ
+ U+W+9L+XY5Tgaxf+ZE4nOPaFhhoi2NdnWfPaWyrGagtno2L+J5ZKLsbrDJVZU7tPqoJOyBqnvXX7h
+ VsSsonNmpBAUj90R4PTtl1dB3SDDmobv351gwL69LBUUTx9OSJ08WU0V+pyjJQ1OVUaMO/ut/P5QR
+ UudI+EM7yQfJubBXm3Bvz+yNbVMjdWqHWqu+jcqkd5NvIdbrToYIgirC3mrJ/lt2kL0ucJqsL1Zq2
+ dwYyauGg==;
+Received: from [90.242.12.242] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1vAr2R-00C8qf-Iu; Mon, 20 Oct 2025 16:39:07 +0200
+Message-ID: <a6a6e8da-e1ae-44c4-a34f-c684a441ffca@igalia.com>
+Date: Mon, 20 Oct 2025 15:39:06 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/27] drm/sched: Add fair scheduling policy
+To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20251017133644.44747-1-tvrtko.ursulin@igalia.com>
+ <20251017133644.44747-10-tvrtko.ursulin@igalia.com>
+ <2f1eb1943d4d6a7185391e6d35e9c5d9818649da.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <2f1eb1943d4d6a7185391e6d35e9c5d9818649da.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|DS2PR12MB9710:EE_
-X-MS-Office365-Filtering-Correlation-Id: c50266b7-fd80-4734-c312-08de0fe54a79
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hxfq0FJMzly+VSdpnIGqGtz5DoYZkdCtggUO6WYols6dDeOvCoLzoCgME6Ev?=
- =?us-ascii?Q?Pg9R1ryunLvxEvhmUZ+ugdUllKOHxGSLLtU8PJn8aE6adrlAPXb22n9KOYc0?=
- =?us-ascii?Q?37jlmkaUF1xN8jhBnJllUb2u/uWARcuJkqVmaLXxyRrSr+IVeQQqkG74vtr5?=
- =?us-ascii?Q?2rQg/nLLQLqRH9qVEd/7AjVXPnwPvY/c3m6c9bfWtKOnqBHbDsstTrilAMcL?=
- =?us-ascii?Q?fCPmIOPP4hN/8OKfhKA+8MRwUE7Q2ZwaqDwrn1GOUcYk0npQbWHwTHBAxm0d?=
- =?us-ascii?Q?OfaRP+Zmk9xpzr8YhhAuvnFmTBLhaduyCWHaJf1cQexoTIiqp7I7p8XmprWO?=
- =?us-ascii?Q?7D0nMMDK/ZjPSBKOzZciitZVN4Xzbxuye38Oiubd9YsBRNMqG6AU2dC0TIQS?=
- =?us-ascii?Q?wmoZ/+pbrAszhvcJKOHzIcczdi6Kfv1qQFHeHH12W9g+78UYJzbqLfi9SoZZ?=
- =?us-ascii?Q?IkWVdauH63+mVMISSdTN5LEIKklxROb1YHoviKq5EAOZuFmwtsh88U+nLAMt?=
- =?us-ascii?Q?FT4bUrqE26BHNforUel+L8khp/mwpsuVMvVoKDOxo0d8y9pGevzpysC//ScP?=
- =?us-ascii?Q?JXT5RBxBw0hWnNmR3N6o8O5JCL5wtz1DywvYVbOIv6DjVCAS6aacAX12qRVy?=
- =?us-ascii?Q?/GWFNoLtTY90w21aiEM1d58ch0U5EUTzjCh5dnhNrKotIyGjXxvslwv5Iw5Y?=
- =?us-ascii?Q?uNxw6gVVhEiOV5u4Wi8JaCRqXzMZTF3DLTODGv0hWoEPWXtjSHUt936gMavL?=
- =?us-ascii?Q?1oUb2iJt5z9V0ll50yytgHaDRi9ovHLtUmMtYWoiG3HjCDnd1yHq3Q6967UB?=
- =?us-ascii?Q?6ZqTyX+HoioNBxsaMq0kkKY5emTbv5jylRM+KLLGvsaUDwBAr6mISesuXrXM?=
- =?us-ascii?Q?88Cm/FW45kp6uVOy5T9HDDpUwwjV2K+Geb6XP9HGrF9whiBS2N5nNCWVBDK6?=
- =?us-ascii?Q?g9IG3ymJgD6d8YmZl2bkOo9A7+NSVjFgTqhYKsTnnGF+zkVDdQeIWFW3gKWm?=
- =?us-ascii?Q?Yb4dviZ5zvHGuN9ZDwTgo13jPP8TSByYB0KdKD0mmOPt4YGfqKDSxvh142As?=
- =?us-ascii?Q?ssZOQWjM2a3CmfDBXeQJOGa5xxqZ4tLQkilhddxM7Hfi5C0vWAKVFYyfBLFt?=
- =?us-ascii?Q?qx7O9BQg/2Pp7opD7wl4ZAcWI+OKEvQn1am3Qb8QVB+eJGic9tYifR7Xx7CQ?=
- =?us-ascii?Q?aaeg+d5LB9Nhv0rL9BNLBpTI2klxnZiTX9hQ45nnPhUznrcmTJ1HgCZiZKwG?=
- =?us-ascii?Q?JUFLdZdkorqHo90YbG5Fwi6hyE3+gwpIdMjTFTCwKY1LvxTKRAMHqqrU8gyO?=
- =?us-ascii?Q?lf+DOVmHFWMYazYvUdxZdhmoKAHd+hnjc9v7YRTK8TKQy835TlBJZugfl3SM?=
- =?us-ascii?Q?2qlaMci0F8FyqXGLL4/9bJ8XFoeE1JPF+LgIUFU3L2O7diFEjeslxrp6SWM1?=
- =?us-ascii?Q?xpyFnV4GN0ILUhjmk8dAwdq74EjmNkE5J1/cDgjskEVt/c5xdcVlh5ZKi+7s?=
- =?us-ascii?Q?pK5QtYqBS7ABS3499t8U/k4DMlmrm69Ma2MBG4Pn5j5VnDp52oQGaHrOw2cD?=
- =?us-ascii?Q?a6bi8B8EdjAPuXzbciI=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2025 14:31:00.3278 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c50266b7-fd80-4734-c312-08de0fe54a79
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F6.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,43 +65,535 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move kfd_process_dequeue_from_all_devices from kfd_process_wq_release to
-mmu notifier release callback, do it earlier to ensure no system memory
-access from GPU because the process memory is going to free from CPU
-after mmu release notifier callback returns.
 
-Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+On 20/10/2025 14:57, Philipp Stanner wrote:
+> On Fri, 2025-10-17 at 14:36 +0100, Tvrtko Ursulin wrote:
+>> The FAIR scheduling policy is built upon the same concepts as the well
+>> known CFS CPU scheduler - entity run queue is sorted by the virtual GPU
+>> time consumed by entities in a way that the entity with least vruntime
+>> runs first.
+>>
+>> It is able to avoid total priority starvation, which is one of the
+>> problems with FIFO, and it also does not need for per priority run queues.
+>> As it scales the actual GPU runtime by an exponential factor as the
+>> priority decreases, the virtual runtime for low priority entities grows
+>> faster than for normal priority, pushing them further down the runqueue
+>> order for the same real GPU time spent.
+>>
+>> Apart from this fundamental fairness, fair policy is especially strong in
+>> oversubscription workloads where it is able to give more GPU time to short
+>> and bursty workloads when they are running in parallel with GPU heavy
+>> clients submitting deep job queues.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c   |  28 ++--
+>>   drivers/gpu/drm/scheduler/sched_internal.h |   5 +
+>>   drivers/gpu/drm/scheduler/sched_main.c     |  11 +-
+>>   drivers/gpu/drm/scheduler/sched_rq.c       | 166 ++++++++++++++++++++-
+>>   include/drm/gpu_scheduler.h                |  16 +-
+>>   5 files changed, 207 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index 565eddebb667..4144a97702a5 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -107,6 +107,8 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>   	entity->guilty = guilty;
+>>   	entity->num_sched_list = num_sched_list;
+>>   	entity->priority = priority;
+>> +	entity->rq_priority = drm_sched_policy == DRM_SCHED_POLICY_FAIR ?
+>> +			      DRM_SCHED_PRIORITY_KERNEL : priority;
+>>   	/*
+>>   	 * It's perfectly valid to initialize an entity without having a valid
+>>   	 * scheduler attached. It's just not valid to use the scheduler before it
+>> @@ -123,17 +125,23 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>   		 */
+>>   		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+>>   	} else if (num_sched_list) {
+>> -		/* The "priority" of an entity cannot exceed the number of run-queues of a
+>> -		 * scheduler. Protect against num_rqs being 0, by converting to signed. Choose
+>> -		 * the lowest priority available.
+>> +		enum drm_sched_priority p = entity->priority;
+>> +
+>> +		/*
+>> +		 * The "priority" of an entity cannot exceed the number of
+>> +		 * run-queues of a scheduler. Protect against num_rqs being 0,
+>> +		 * by converting to signed. Choose the lowest priority
+>> +		 * available.
+>>   		 */
+>> -		if (entity->priority >= sched_list[0]->num_rqs) {
+>> -			dev_err(sched_list[0]->dev, "entity has out-of-bounds priority: %u. num_rqs: %u\n",
+>> -				entity->priority, sched_list[0]->num_rqs);
+>> -			entity->priority = max_t(s32, (s32) sched_list[0]->num_rqs - 1,
+>> -						 (s32) DRM_SCHED_PRIORITY_KERNEL);
+>> +		if (p >= sched_list[0]->num_user_rqs) {
+>> +			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num_user_rqs:%u\n",
+>> +				p, sched_list[0]->num_user_rqs);
+>> +			p = max_t(s32,
+>> +				 (s32)sched_list[0]->num_user_rqs - 1,
+>> +				 (s32)DRM_SCHED_PRIORITY_KERNEL);
+>> +			entity->priority = p;
+>>   		}
+>> -		entity->rq = sched_list[0]->sched_rq[entity->priority];
+>> +		entity->rq = sched_list[0]->sched_rq[entity->rq_priority];
+>>   	}
+>>   
+>>   	init_completion(&entity->entity_idle);
+>> @@ -566,7 +574,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+>>   
+>>   	spin_lock(&entity->lock);
+>>   	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+>> -	rq = sched ? sched->sched_rq[entity->priority] : NULL;
+>> +	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
+>>   	if (rq != entity->rq) {
+>>   		drm_sched_rq_remove_entity(entity->rq, entity);
+>>   		entity->rq = rq;
+>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+>> index 9adad48ec084..593e380a2d59 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>> @@ -12,6 +12,8 @@
+>>    * @kref: reference count for the object.
+>>    * @lock: lock guarding the @runtime updates.
+>>    * @runtime: time entity spent on the GPU.
+>> + * @prev_runtime: previous @runtime used to get the runtime delta.
+>> + * @vruntime: virtual runtime as accumulated by the fair algorithm.
+>>    *
+>>    * Because jobs and entities have decoupled lifetimes, ie. we cannot access the
+>>    * entity once the job is completed and we know how much time it took on the
+>> @@ -22,6 +24,8 @@ struct drm_sched_entity_stats {
+>>   	struct kref	kref;
+>>   	spinlock_t	lock;
+>>   	ktime_t		runtime;
+>> +	ktime_t		prev_runtime;
+>> +	ktime_t		vruntime;
+>>   };
+>>   
+>>   /* Used to choose between FIFO and RR job-scheduling */
+>> @@ -29,6 +33,7 @@ extern int drm_sched_policy;
+>>   
+>>   #define DRM_SCHED_POLICY_RR    0
+>>   #define DRM_SCHED_POLICY_FIFO  1
+>> +#define DRM_SCHED_POLICY_FAIR  2
+>>   
+>>   bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+>>   			 struct drm_sched_entity *entity);
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+>> index 0c5f7a0594bf..74a155377561 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -90,7 +90,7 @@ int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
+>>    * DOC: sched_policy (int)
+>>    * Used to override default entities scheduling policy in a run queue.
+>>    */
+>> -MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO (default).");
+>> +MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO, " __stringify(DRM_SCHED_POLICY_FAIR) " = Fair (default).");
+>>   module_param_named(sched_policy, drm_sched_policy, int, 0444);
+> 
+> Wrong. This patch does not make Fair the default scheduling policy.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 849456ac498b..9080d23d22ae 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1162,7 +1162,6 @@ static void kfd_process_wq_release(struct work_struct *work)
- 					     release_work);
- 	struct dma_fence *ef;
- 
--	kfd_process_dequeue_from_all_devices(p);
- 	pqm_uninit(&p->pqm);
- 
- 	/*
-@@ -1226,6 +1225,13 @@ static void kfd_process_notifier_release_internal(struct kfd_process *p)
- 	cancel_delayed_work_sync(&p->eviction_work);
- 	cancel_delayed_work_sync(&p->restore_work);
- 
-+	/*
-+	 * Evict and remove user queues because exit_mmap free process memory,
-+	 * it is not safe for GPU to access system memory after mmu release
-+	 * notifier callback returns.
-+	 */
-+	kfd_process_dequeue_from_all_devices(p);
-+
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
- 
--- 
-2.49.0
+Right, forgot about this when splitting out the "set fair as default" 
+patch. Fixed locally.
+
+>>   
+>>   static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sched)
+>> @@ -1133,11 +1133,14 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+>>   		sched->own_submit_wq = true;
+>>   	}
+>>   
+>> -	sched->sched_rq = kmalloc_array(args->num_rqs, sizeof(*sched->sched_rq),
+>> +	sched->num_user_rqs = args->num_rqs;
+>> +	sched->num_rqs = drm_sched_policy != DRM_SCHED_POLICY_FAIR ?
+>> +			 args->num_rqs : 1;
+>> +	sched->sched_rq = kmalloc_array(sched->num_rqs, sizeof(*sched->sched_rq),
+>>   					GFP_KERNEL | __GFP_ZERO);
+>>   	if (!sched->sched_rq)
+>>   		goto Out_check_own;
+>> -	sched->num_rqs = args->num_rqs;
+>> +
+>>   	for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+>>   		sched->sched_rq[i] = kzalloc(sizeof(*sched->sched_rq[i]), GFP_KERNEL);
+>>   		if (!sched->sched_rq[i])
+>> @@ -1279,7 +1282,7 @@ void drm_sched_increase_karma(struct drm_sched_job *bad)
+>>   	if (bad->s_priority != DRM_SCHED_PRIORITY_KERNEL) {
+>>   		atomic_inc(&bad->karma);
+>>   
+>> -		for (i = DRM_SCHED_PRIORITY_HIGH; i < sched->num_rqs; i++) {
+>> +		for (i = DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
+>>   			struct drm_sched_rq *rq = sched->sched_rq[i];
+>>   
+>>   			spin_lock(&rq->lock);
+>> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+>> index 2d1f579d8352..b12d0f1859f0 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_rq.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+>> @@ -5,6 +5,8 @@
+>>   
+>>   #include "sched_internal.h"
+>>   
+>> +#define DRM_SCHED_PRIORITY_INVALID (-1) /* Do not want the enum visible outside. */
+> 
+> Well nope, that's not what I had in mind at all – there's no harm at
+> all by defining that in the real enum. Users know that "Invalid" is not
+> supposed to be used.
+> 
+> Setting it as the starter with -1 in the enum will guarantee
+> correctness since the subsequent members will be numbered
+> incrementingly.
+
+It is correct to say drivers should not use it. Therefore we have two 
+options.
+
+Option 1 - don't even show it to drivers which I chose for simplicity.
+
+Option 2 - add it to gpu_scheduler.h. Drivers can now use it so we'd 
+have to add error checking to drm_sched_entity_init and 
+drm_sched_entity_set_priority.
+
+Which is a bit is annoying since drm_sched_entity_set_priority has no 
+error checking. We can add a warn on.
+
+Although I believe I did add error checking to it when I was proposing 
+to fix the drm_sched_entity_init() sched_list container 
+ownership/lifetime issue some time ago.
+>> +
+>>   static __always_inline bool
+>>   drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
+>>   {
+>> @@ -16,6 +18,32 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
+>>   	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting);
+>>   }
+>>   
+>> +static void drm_sched_rq_update_prio(struct drm_sched_rq *rq)
+>> +{
+>> +	enum drm_sched_priority prio = DRM_SCHED_PRIORITY_INVALID;
+>> +	struct rb_node *rb;
+>> +
+>> +	lockdep_assert_held(&rq->lock);
+>> +
+>> +	rb = rb_first_cached(&rq->rb_tree_root);
+>> +	if (rb) {
+>> +		struct drm_sched_entity *entity =
+>> +			rb_entry(rb, typeof(*entity), rb_tree_node);
+>> +
+>> +		/*
+>> +		 * Unlocked read is fine to avoid the rq vs entity lock
+>> +		 * inversion. If the priority had just changed it is no big
+>> +		 * deal for our algorithm, but just a transient reachable only
+>> +		 * by drivers with userspace dynamic priority changes API. Equal
+>> +		 * in effect to the priority change becoming visible a few
+>> +		 * instructions later.
+>> +		 */
+>> +		prio = READ_ONCE(entity->priority);
+> 
+> OK, so here's the good news:
+> 
+> I just looked it through and once the _whole series_ is applied this
+> actually is not an unlocked read anymore.
+> 
+> Once the series is applied, the only callers of this function here are
+> drm_sched_rq_remove_tree_locked() and
+> drm_sched_rq_update_tree_locked(), both of which grab the entity lock.
+> 
+> 
+> So what we could do is suffer the READ_ONCE for a few patches and then
+> remove it again once the other code paths running into here are
+> removed. And probably add the entity lockdep guard, too.
+> 
+> Unless I'm mistaken?
+
+Yes a little bit. You overlooked that in some cases the it is a 
+different entity, which the comment alludes to when talks about priority 
+inversion. I will make the comment clearer.
+
+> 
+> Best to detail that in the commit message, as always.
+> 
+> 
+>> +	}
+>> +
+>> +	rq->head_prio = prio;
+>> +}
+>> +
+>>   static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+>>   					    struct drm_sched_rq *rq)
+>>   {
+>> @@ -25,6 +53,7 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+>>   	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+>>   		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+>>   		RB_CLEAR_NODE(&entity->rb_tree_node);
+>> +		drm_sched_rq_update_prio(rq);
+>>   	}
+>>   }
+>>   
+>> @@ -46,6 +75,7 @@ static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
+>>   
+>>   	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
+>>   		      drm_sched_entity_compare_before);
+>> +	drm_sched_rq_update_prio(rq);
+>>   }
+>>   
+>>   /**
+>> @@ -62,6 +92,123 @@ void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
+>>   	INIT_LIST_HEAD(&rq->entities);
+>>   	rq->rb_tree_root = RB_ROOT_CACHED;
+>>   	rq->sched = sched;
+>> +	rq->head_prio = DRM_SCHED_PRIORITY_INVALID;
+>> +}
+>> +
+>> +static ktime_t
+>> +drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
+>> +{
+>> +	ktime_t vruntime = 0;
+>> +	struct rb_node *rb;
+>> +
+>> +	lockdep_assert_held(&rq->lock);
+>> +
+>> +	for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = rb_next(rb)) {
+>> +		struct drm_sched_entity *entity =
+>> +			rb_entry(rb, typeof(*entity), rb_tree_node);
+>> +		struct drm_sched_entity_stats *stats = entity->stats;
+>> +
+>> +		/*
+>> +		 * We only need the spin lock here on platforms where access to
+>> +		 * 64-bit ktime_t can tear but for simplicity we take it un-
+>> +		 * conditionally.
+>> +		 */
+>> +		spin_lock(&stats->lock);
+>> +		vruntime = stats->vruntime;
+>> +		spin_unlock(&stats->lock);
+>> +	}
+>> +
+>> +	return vruntime;
+>> +}
+>> +
+>> +static void
+>> +drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
+>> +			       ktime_t min_vruntime)
+>> +{
+>> +	struct drm_sched_entity_stats *stats = entity->stats;
+>> +	ktime_t vruntime;
+>> +
+>> +	spin_lock(&stats->lock);
+>> +	vruntime = stats->vruntime;
+>> +	if (min_vruntime && vruntime > min_vruntime)
+>> +		vruntime = ktime_sub(vruntime, min_vruntime);
+>> +	else
+>> +		vruntime = 0;
+>> +	stats->vruntime = vruntime;
+>> +	spin_unlock(&stats->lock);
+>> +}
+>> +
+>> +static ktime_t
+>> +drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
+>> +				  ktime_t min_vruntime,
+>> +				  enum drm_sched_priority rq_prio)
+>> +{
+>> +	struct drm_sched_entity_stats *stats = entity->stats;
+>> +	enum drm_sched_priority prio = entity->priority;
+>> +	ktime_t vruntime;
+>> +
+>> +	BUILD_BUG_ON(DRM_SCHED_PRIORITY_NORMAL < DRM_SCHED_PRIORITY_HIGH);
+> 
+> Why's that a build bug. Who is to set / change those values?
+
+It is a build bug because few lines below depend on the current reverse 
+order.
+
+As to who can change it- who knows. Better be safe than sorry. 
+Alternative is to add a helper such as drm_sched_priority_is_lower(p1, 
+p2) if you prefer that. I don't mind either way.
+>> +
+>> +	spin_lock(&stats->lock);
+>> +	vruntime = stats->vruntime;
+>> +
+>> +	/*
+>> +	 * Special handling for entities which were picked from the top of the
+>> +	 * queue and are now re-joining the top with another one already there.
+>> +	 */
+>> +	if (!vruntime && min_vruntime) {
+>> +		if (prio > rq_prio) {
+>> +			/*
+>> +			 * Lower priority should not overtake higher when re-
+>> +			 * joining at the top of the queue.
+>> +			 */
+>> +			vruntime = us_to_ktime(prio - rq_prio);
+>> +		} else if (prio < rq_prio) {
+>> +			/*
+>> +			 * Higher priority can go first.
+>> +			 */
+>> +			vruntime = -us_to_ktime(rq_prio - prio);
+>> +		}
+>> +	}
+>> +
+>> +	/*
+>> +	 * Restore saved relative position in the queue.
+>> +	 */
+>> +	vruntime = ktime_add(min_vruntime, vruntime);
+>> +
+>> +	stats->vruntime = vruntime;
+>> +	spin_unlock(&stats->lock);
+>> +
+>> +	return vruntime;
+>> +}
+>> +
+>> +static ktime_t drm_sched_entity_update_vruntime(struct drm_sched_entity *entity)
+>> +{
+>> +	static const unsigned int shift[] = {
+>> +		[DRM_SCHED_PRIORITY_KERNEL] = 1,
+>> +		[DRM_SCHED_PRIORITY_HIGH]   = 2,
+>> +		[DRM_SCHED_PRIORITY_NORMAL] = 4,
+>> +		[DRM_SCHED_PRIORITY_LOW]    = 7,
+>> +	};
+> 
+> Still no comments about these numbers origin?
+
+You asked, I answered, you said nothing, I respun with the feedback I 
+received. I can add some text no problem.
+>> +	struct drm_sched_entity_stats *stats = entity->stats;
+>> +	ktime_t runtime, prev;
+>> +
+>> +	spin_lock(&stats->lock);
+>> +	prev = stats->prev_runtime;
+>> +	runtime = stats->runtime;
+>> +	stats->prev_runtime = runtime;
+>> +	runtime = ktime_add_ns(stats->vruntime,
+>> +			       ktime_to_ns(ktime_sub(runtime, prev)) <<
+>> +			       shift[entity->priority]);
+>> +	stats->vruntime = runtime;
+>> +	spin_unlock(&stats->lock);
+>> +
+>> +	return runtime;
+>> +}
+>> +
+>> +static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
+>> +{
+>> +	return drm_sched_entity_update_vruntime(entity);
+>>   }
+>>   
+>>   /**
+>> @@ -98,8 +245,14 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+>>   		list_add_tail(&entity->list, &rq->entities);
+>>   	}
+>>   
+>> -	if (drm_sched_policy == DRM_SCHED_POLICY_RR)
+>> +	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
+>> +		ts = drm_sched_rq_get_min_vruntime(rq);
+>> +		ts = drm_sched_entity_restore_vruntime(entity, ts,
+>> +						       rq->head_prio);
+>> +	} else if (drm_sched_policy == DRM_SCHED_POLICY_RR) {
+>>   		ts = entity->rr_ts;
+>> +	}
+>> +
+>>   	drm_sched_rq_update_fifo_locked(entity, rq, ts);
+>>   
+>>   	spin_unlock(&rq->lock);
+>> @@ -171,7 +324,9 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+>>   	if (next_job) {
+>>   		ktime_t ts;
+>>   
+>> -		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+>> +		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
+>> +			ts = drm_sched_entity_get_job_ts(entity);
+>> +		else if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+> 
+> FAIR is not even the dafault policy in this patch, so git diff could be
+> made smaller by reversing order. Same applies a few lines above.
+
+You asked before and I said I prefer FAIR to be first in the if ladder.
+
+If you insist I can change but TBH in the grand scheme of things it 
+feels like churn with not much benefit.
+
+> (more comments later this week, am a bit busy)
+
+No worries, reviews are appreciated!
+
+Regards,
+
+Tvrtko
+
+>>   			ts = next_job->submit_ts;
+>>   		else
+>>   			ts = drm_sched_rq_next_rr_ts(rq, entity);
+>> @@ -179,6 +334,13 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+>>   		drm_sched_rq_update_fifo_locked(entity, rq, ts);
+>>   	} else {
+>>   		drm_sched_rq_remove_fifo_locked(entity, rq);
+>> +
+>> +		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
+>> +			ktime_t min_vruntime;
+>> +
+>> +			min_vruntime = drm_sched_rq_get_min_vruntime(rq);
+>> +			drm_sched_entity_save_vruntime(entity, min_vruntime);
+>> +		}
+>>   	}
+>>   	spin_unlock(&rq->lock);
+>>   	spin_unlock(&entity->lock);
+>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+>> index be382cacabb5..ff798ee9e3c2 100644
+>> --- a/include/drm/gpu_scheduler.h
+>> +++ b/include/drm/gpu_scheduler.h
+>> @@ -150,6 +150,11 @@ struct drm_sched_entity {
+>>   	 */
+>>   	enum drm_sched_priority         priority;
+>>   
+>> +	/**
+>> +	 * @rq_priority: Run-queue priority
+>> +	 */
+>> +	enum drm_sched_priority         rq_priority;
+>> +
+>>   	/**
+>>   	 * @rr_ts:
+>>   	 *
+>> @@ -254,10 +259,11 @@ struct drm_sched_entity {
+>>    * struct drm_sched_rq - queue of entities to be scheduled.
+>>    *
+>>    * @sched: the scheduler to which this rq belongs to.
+>> - * @lock: protects @entities, @rb_tree_root and @rr_ts.
+>> + * @lock: protects @entities, @rb_tree_root, @rr_ts and @head_prio.
+>>    * @rr_ts: monotonically incrementing fake timestamp for RR mode.
+>>    * @entities: list of the entities to be scheduled.
+>>    * @rb_tree_root: root of time based priority queue of entities for FIFO scheduling
+>> + * @head_prio: priority of the top tree element.
+>>    *
+>>    * Run queue is a set of entities scheduling command submissions for
+>>    * one specific ring. It implements the scheduling policy that selects
+>> @@ -271,6 +277,7 @@ struct drm_sched_rq {
+>>   	ktime_t				rr_ts;
+>>   	struct list_head		entities;
+>>   	struct rb_root_cached		rb_tree_root;
+>> +	enum drm_sched_priority		head_prio;
+>>   };
+>>   
+>>   /**
+>> @@ -563,8 +570,10 @@ struct drm_sched_backend_ops {
+>>    * @credit_count: the current credit count of this scheduler
+>>    * @timeout: the time after which a job is removed from the scheduler.
+>>    * @name: name of the ring for which this scheduler is being used.
+>> - * @num_rqs: Number of run-queues. This is at most DRM_SCHED_PRIORITY_COUNT,
+>> - *           as there's usually one run-queue per priority, but could be less.
+>> + * @num_user_rqs: Number of run-queues. This is at most
+>> + *                DRM_SCHED_PRIORITY_COUNT, as there's usually one run-queue per
+>> + *                priority, but could be less.
+>> + * @num_rqs: Equal to @num_user_rqs for FIFO and RR and 1 for the FAIR policy.
+>>    * @sched_rq: An allocated array of run-queues of size @num_rqs;
+>>    * @job_scheduled: once drm_sched_entity_flush() is called the scheduler
+>>    *                 waits on this wait queue until all the scheduled jobs are
+>> @@ -597,6 +606,7 @@ struct drm_gpu_scheduler {
+>>   	long				timeout;
+>>   	const char			*name;
+>>   	u32                             num_rqs;
+>> +	u32                             num_user_rqs;
+>>   	struct drm_sched_rq             **sched_rq;
+>>   	wait_queue_head_t		job_scheduled;
+>>   	atomic64_t			job_id_count;
+> 
+
 
