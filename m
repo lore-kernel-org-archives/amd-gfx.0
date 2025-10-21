@@ -4,80 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 653EDCCD184
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 08:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 853A6CCD1A5
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 09:23:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16E910E5A0;
-	Tue, 21 Oct 2025 08:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE2D10E0B7;
+	Tue, 21 Oct 2025 09:23:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="uPsWNRB0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="grI1IE0u";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2063910E59F;
- Tue, 21 Oct 2025 08:56:17 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 46C28C0B887;
- Tue, 21 Oct 2025 08:55:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D530260680;
- Tue, 21 Oct 2025 08:56:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B6201102F23CA; 
- Tue, 21 Oct 2025 10:55:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1761036973; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=2jsZwBtV7vcAxoIXxBFATWt9hXEb5kKdYra5Pb8R+Ow=;
- b=uPsWNRB0+A4j4p75d9ZIHFcTGJnIUItQv++zY88SDuQTyJ26WNQw6boN4+M7z62kHlLqz4
- X5RtR90esp+xo0ut9aGXxL3bw2h+hakY15G92owMYPe0kEmFx5eqyzgHyU7Gqw1oErwc9n
- NQvzK6lkr4i3bHid2qDrqvKh1SrQS7xeReUnwjY0t/JCIGhLI/J117ijGWvDo71uaQ23dI
- 38hWbAVlcGD1j2Br2T5NEMnvNAu70hZbX5UzqVjQuKIuiSvHwMVsg/8Q1F7Ym4QHVRSCR6
- W7J2+pYQGxbWLFBARxxD1fvAb86Iau8RkH0F6o0wjkKZufRFsPIpnzDbB4SmOA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 21 Oct 2025 10:55:36 +0200
-Subject: [PATCH v2] drm/atomic: drm_atomic_private_obj_fini: protect
- private_obj removal from list
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC2E710E0B7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 09:23:44 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-63c09ff13aeso9690434a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 02:23:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761038623; x=1761643423; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6vOZDtj1d95COQ56SxUZ30tPKsrlE1HlNkkwxI7JqaM=;
+ b=grI1IE0uaIU7GFFUZEgmnqpA6/BYaOppipV9MGutu/TpHOjvsESPczoOcecMzgJT8z
+ rggnQjUpLF6epo2h9tMZkkwkzoXE5gYDcDetpfPw47W4D6QKESopYSvBP3eYZzNeHwU8
+ 9jR4XZlFk9yDYQKu4q7QqPqiW/aptwh3Y3EfkPtXOOjVs6i5UrU2456n9IEKnqx8o7fM
+ ejiG7m2uewY5ofqxJlXuUwF2KBT3/nLm4Mk1LsZ3N/cLem/R2OPInBdz1m/dd5tjB77+
+ vU9iNdBvCHzfU12zv7Q61ezrOl7Sa9q7k9W0BsGYlcd4zy63WOevYu487BPUY4jvuUks
+ fiBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761038623; x=1761643423;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6vOZDtj1d95COQ56SxUZ30tPKsrlE1HlNkkwxI7JqaM=;
+ b=lXk1+31PUuF0bfvKyE8zeC+QHx3/a4U1MbqgGdusvfdvu6aFo7ppJdlP/sE6PazD8L
+ UsxlHAwCkyfJDlIMxQJECsFj5vgV2oAKbCARn9+ZBJSHZcF0Opd/DoyLT877ZkANR6QL
+ Bu5sMHY6cyCN0eisIWpLcVl+CJZAg1Zy2KGbeLtrIhKHBYRw2iE7Qv09N4qv3+fzAFEv
+ /r3awvJ/ekK18w45PfiWHlTTCWhb/SLY22M5EqZHXDC8wjSn0qu0hCcPYqmMi3KgpEZr
+ g2//agyVmkzfnQ05Y5P7qItHAQIL3MSw/kMimfje/XZic7yngbOmgzPIxtgEVwWpjodH
+ xe1A==
+X-Gm-Message-State: AOJu0YyJ4Z/kpxgFTJpUcT7qz4YI6+M1y0HEjBPhLdZGnhmZUl/dOV5c
+ nz9b7JFanXHVriXZ77MxafSJuXxi2IfavdTRP0/ohZl6emHzGTG2+6YJ
+X-Gm-Gg: ASbGncsec4cSJgykho70XE+4DFkhNJc/oHuWrCYqVMdCMLxsbgAX2ZwAW82JAgulOQy
+ xqnuVZs2WJpNCIxP5U7ZVAe3sI4v3sWot1WA2XD2PmFGhvxoB24YgNj1IY/bH5cGZNNZvpSjgY0
+ 0ljqUPO0nI8SUY9/DwG0v01U2PHu5Kgqe+XmBWzeMjGFzhwqZdJFT6sv2er5IAxCQ2Jck6tdNAg
+ R/g3/1LW6/CWNhMxtTMdTi5K+usooXzNXru1OG0bWMd1whjnETFJ7CXovaHQPzQQOvDHD8lYWiz
+ JTV/p2B11smEWF2HLXRV5T3zZkABo3UOtZfhHFy59+cvSGzmfhSEX4QQYkRle6wErewNv03MHX3
+ SqDrpdVlM/Z8uwDL1fnarL8gHp8T2t3WLpdncolIdJCmhp0cfz7RHR4emHfWFg5hLXspmnJ+FHY
+ dU92a3MVR5hImS4auQLcekbVildQlrppvffD4hSJKwRRxiQnZ3OapglSSnFUOIxLMzPytp7oFfx
+ 8l2/0jvLzTvthpkyg12JITpj4u2bnXH8J9tXEpuac9yt2X6S386E0E=
+X-Google-Smtp-Source: AGHT+IEX/8n453BvSoM2dOxIJNkCF1PSl6m0kDo3jYRdIS1S+8mx9kztefemLxiIQNR6NHijPzYMqg==
+X-Received: by 2002:a17:907:7ea6:b0:b3e:3c1c:d2f2 with SMTP id
+ a640c23a62f3a-b6474940fc1mr2100636366b.36.1761038623128; 
+ Tue, 21 Oct 2025 02:23:43 -0700 (PDT)
+Received: from ?IPV6:2001:4c4e:24da:f700:36af:90f4:d5fb:1eff?
+ (20014C4E24DAF70036AF90F4D5FB1EFF.dsl.pool.telekom.hu.
+ [2001:4c4e:24da:f700:36af:90f4:d5fb:1eff])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b65eb525d1asm1025062366b.58.2025.10.21.02.23.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Oct 2025 02:23:42 -0700 (PDT)
+Message-ID: <44ecb43a-5f6e-440e-9e16-f56ca697eed4@gmail.com>
+Date: Tue, 21 Oct 2025 11:23:39 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] drm/amdgpu: Expand kernel-doc in amdgpu_ring
+To: Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20251020194631.102260-1-siqueira@igalia.com>
+ <20251020194631.102260-2-siqueira@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+In-Reply-To: <20251020194631.102260-2-siqueira@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20251021-drm-bridge-atomic-vs-remove-private_obj-v2-1-412a18399bac@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAIdK92gC/5WQy04DMQxFf2WUNUZ5dCbprPgPVFV5eKgRmZQkR
- EVV/510yoIty2tLPsf3ygpmwsLm4coyNiqU1h7k08D8ya5vCBR6ZpLLUXChIOQILlPoG1tTJA+
- tQMaYGsI5U7MVj8m9Q9B7afjo0AXP+rVzxoUuG+n10POJSk35ewM3cZ/+n9EEcBCLlzgawSXyF
- 5dS/aD12afIDrcHNuPnV/+rPtjM2YLQ95HqPGi0fDcZZbgUkxfcaTUp5fZ6CkrhYo0XMig9sr9
- 99Ho2U242018juBtlLFjBokCpd11J27nJbnL7AcDtjglpAQAA
-X-Change-ID: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Paul Cercueil <paul@crapouillou.net>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.14.2
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,163 +94,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently drm_bridge_detach() expects that the bridge private_obj is not
-locked by a drm_modeset_acquire_ctx, and it warns in case that happens:
 
-  drm_bridge_detach()
-  -> drm_atomic_private_obj_fini()
-     -> list_del(&obj->head) // removes priv_obj from
-                             // dev->mode_config.privobj_list
-     -> obj->funcs->atomic_destroy_state()
-     -> drm_modeset_lock_fini(&obj->lock)
-        -> WARN_ON(!list_empty(&lock->head)) // warn if priv_obj->lock
-	                                     // is still in ctx->locked
 
-The expectation is not respected when introducing bridge hot-plugging. In
-such case the warning triggers if the bridge is being removed concurrently
-to an operation that locks the private object using a
-drm_modeset_acquire_ctx, such as in this execution scenario:
+On 10/20/25 21:38, Rodrigo Siqueira wrote:
+> Expand the kernel-doc about amdgpu_ring and add some tiny improvements.
+> 
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Timur Kristóf <timur.kristof@gmail.com>
+> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 15 ++++++++++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 ++
+>   2 files changed, 14 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 5ec5c3ff22bb..29de8dbe2917 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -75,8 +75,16 @@ unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type)
+>    * @ring: amdgpu_ring structure holding ring information
+>    * @ndw: number of dwords to allocate in the ring buffer
+>    *
+> - * Allocate @ndw dwords in the ring buffer (all asics).
+> - * Returns 0 on success, error on failure.
+> + * Allocate @ndw dwords in the ring buffer (it works in all ASICs). When
+> + * inspecting the code, you may encounter places where this function is invoked
+> + * like this: amdgpu_ring_alloc(ring, X + Y + Z), where X, Y, and Z are integer
+> + * numbers. The idea of using each integer addition instead of the final result
+> + * is to explicitly indicate each block of operation that will be inserted into
+> + * the ring.
 
-  CPU0:
-  drm_mode_obj_get_properties_ioctl() // userspace request
-  -> DRM_MODESET_LOCK_ALL_BEGIN()
-  .  -> drm_for_each_privobj() // loop on dev->mode_config.privobj_list
-  .     - lock the privobj mutex
-  .	- add priv_obj->lock to ctx->locked
-  .	  (list of locks to be released later)
-  .
-  .                         CPU1:
-  .                         drm_bridge_detach() // bridge hot-unplug
-  .		            -> WARN triggers!
-  .
-  -> DRM_MODESET_LOCK_ALL_END()
-     -> for each lock in ctx->locked
-	- remove priv_obj->lock from ctx->locked
-        - unlock the privobj mutex
+To clarify this further, I recommend using the term "packet" instead of 
+"block of operation".
 
-Fix this by using DRM_MODESET_LOCK_ALL_BEGIN/END() around the list removal
-in drm_atomic_private_obj_fini(). This ensures that exactly one of these
-happens:
-
- * the concurrent code (e.g. drm_mode_obj_get_properties_ioctl()) acquires
-   all the locks first, so it can execute fully and release the
-   privobj->lock before drm_atomic_private_obj_fini() calls list_del() and
-   before the WARN_ON()
- * drm_atomic_private_obj_fini() acquires all the locks first, so it
-   removes its privobj->lock from the dev->mode_config.privobj_list; the
-   concurrent code will run afterwards and not acquire that lock because it
-   is not present anymore
-
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
-This series prevents a race between DRM bridge removal and usage of the
-bridge private_obj during DRM_MODESET_LOCK_ALL_BEGIN/END() and other
-locking operations.
-
-This is part of the work towards removal of bridges from a still existing
-DRM pipeline without use-after-free. The grand plan was discussed in [0].
-Here's the work breakdown (➜ marks the current series):
-
- 1. … add refcounting to DRM bridges (struct drm_bridge)
-    (based on devm_drm_bridge_alloc() [0])
-    A. ✔ add new alloc API and refcounting (v6.16)
-    B. ✔ convert all bridge drivers to new API (v6.17)
-    C. ✔ kunit tests (v6.17)
-    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
-         and warn on old allocation pattern (v6.17)
-    E. … add get/put on drm_bridge accessors
-       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
-       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
-       3. ✔ drm_bridge_get_next_bridge() (v6.19)
-       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
-       5. ✔ drm_bridge_connector_init (v6.19)
-       6. … protect encoder bridge chain with a mutex
-       7. of_drm_find_bridge
-       8. drm_of_find_panel_or_bridge, *_of_get_bridge
-       9. … enforce drm_bridge_add before drm_bridge_attach
-    F. ✔ debugfs improvements
-       1. ✔ add top-level 'bridges' file (v6.16)
-       2. ✔ show refcount and list lingering bridges (v6.19)
- 2. ➜ handle gracefully atomic updates during bridge removal
-    A. … Add drm_dev_enter/exit() to protect device resources
-    B. ➜ protect private_obj removal from list
- 3. … DSI host-device driver interaction
- 4. ✔ removing the need for the "always-disconnected" connector
- 5. finish the hotplug bridge work, moving code to the core and potentially
-    removing the hotplug-bridge itself (this needs to be clarified as
-    points 1-3 are developed)
-
-[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
-
-The need for this series emerged during testing of DRM bridge
-hot-plugging. Very rarely on hot-unplug the following warning has appeared:
-
-  WARNING: CPU: 0 PID: 123 at include/drm/drm_modeset_lock.h:114 drm_atomic_private_obj_fini+0x64/0x80
-  ...
-  Call trace:
-   drm_atomic_private_obj_fini+0x64/0x80
-   drm_bridge_detach+0x38/0x98
-
-This series depends on:
- * https://lore.kernel.org/dri-devel/20251014-drm-private-obj-reset-v2-0-6dd60e985e9d@kernel.org
-   - dependency on patch 1 only
-   - reason: this patch uses the obj->dev introduced by the other series
----
-Changes in v2:
-- Adapted to work on top of "drm/atomic: Add dev pointer to drm_private_obj"
-- Removed 'To: jessica.zhang@oss.qualcomm.com', invalid address
-- Link to v1: https://lore.kernel.org/r/20251013-drm-bridge-atomic-vs-remove-private_obj-v1-0-1fc2e58102e0@bootlin.com
----
-
-Changes in v2:
-- added 'drm/atomic:' prefix to commit title
-- Adapted to work on top of "drm/atomic: Add dev pointer to drm_private_obj"
-- Slightly improved commit message
----
- drivers/gpu/drm/drm_atomic.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index c161f561d937e2e26de617912078c739adb521dd..107530c1b9978122d2ebf05f7af2ca77f9faa21b 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -810,7 +810,13 @@ EXPORT_SYMBOL(drm_atomic_private_obj_init);
- void
- drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- {
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret = 0;
-+
-+	DRM_MODESET_LOCK_ALL_BEGIN(obj->dev, ctx, 0, ret);
- 	list_del(&obj->head);
-+	DRM_MODESET_LOCK_ALL_END(obj->dev, ctx, ret);
-+
- 	obj->funcs->atomic_destroy_state(obj, obj->state);
- 	drm_modeset_lock_fini(&obj->lock);
- }
-
----
-base-commit: 7ea0468380216c10b73633b976d33efa8c12d375
-change-id: 20251013-drm-bridge-atomic-vs-remove-private_obj-d792805bebdc
-prerequisite-change-id: 20251008-drm-private-obj-reset-ae1e2741027a:v2
-prerequisite-patch-id: 031aec6ea9c41371568d42df2ab6dc3ca35ac85c
-prerequisite-patch-id: cd9c28ecb798993ed3c3550191cb0fbafbf90bde
-prerequisite-patch-id: e05cb0386e8ed0c82ec6a914f6c6ad47a7c841fa
-prerequisite-patch-id: a68ff4bb5ba6fd882ca11946d92bb33253812e7d
-prerequisite-patch-id: ed1c29018986837cfb0030796a7bfce98aef3445
-prerequisite-patch-id: 1e1efb36e40d79bea5ee70380abcbb956508326a
-prerequisite-patch-id: 48fcc6b38c7acc1e00d57002a4973ccae6b2889d
-prerequisite-patch-id: a122d6d3dd86039f7bf64c082f30c4de676066f9
-prerequisite-patch-id: b1ae0e3be3cb2304ed8820cf36a29b88ef110d5b
-prerequisite-patch-id: e061eea62a9ee500c239229e3d4c8d7e8edd2964
-prerequisite-patch-id: 7e94f6a9760cf58b31d709be849eed855275e140
-prerequisite-patch-id: dd3ac7d8cb8af58ea5f41b6c4b43dd844fb29d81
-prerequisite-patch-id: 410a9287f82c1af0caf3d8ff4f562b83a33c514b
-prerequisite-patch-id: 51e733e1ad1973889a75131c62521b11b16d54d5
-prerequisite-patch-id: bf0a8bf82d137cfd1d672df246116136c82523ca
-prerequisite-patch-id: fcc237e7836e87b3cad72b32ea976bd6a6190dad
-
-Best regards,
--- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
+> + *
+> + * Returns:
+> + * 0 on success, otherwise -ENOMEM if it tries to allocate more than the
+> + * maximum dword allowed for one submission.
+>    */
+>   int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
+>   {
+> @@ -122,7 +130,8 @@ static void amdgpu_ring_alloc_reemit(struct amdgpu_ring *ring, unsigned int ndw)
+>   		ring->funcs->begin_use(ring);
+>   }
+>   
+> -/** amdgpu_ring_insert_nop - insert NOP packets
+> +/**
+> + * amdgpu_ring_insert_nop - insert NOP packets
+>    *
+>    * @ring: amdgpu_ring structure holding ring information
+>    * @count: the number of NOP packets to insert
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index 87b962df5460..e83589619a92 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -62,6 +62,8 @@ enum amdgpu_ring_priority_level {
+>   #define AMDGPU_FENCE_FLAG_64BIT         (1 << 0)
+>   #define AMDGPU_FENCE_FLAG_INT           (1 << 1)
+>   #define AMDGPU_FENCE_FLAG_TC_WB_ONLY    (1 << 2)
+> +
+> +/* Ensure the execution in case of preemption or reset */
+>   #define AMDGPU_FENCE_FLAG_EXEC          (1 << 3)
+>   
+>   #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
 
