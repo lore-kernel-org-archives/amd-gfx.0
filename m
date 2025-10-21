@@ -4,145 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A78C6CCD1BC
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 07:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF15ACCD195
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 07:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1E710E030;
-	Wed, 22 Oct 2025 07:41:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 880EC10E6D1;
+	Wed, 22 Oct 2025 07:59:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="adKE9N9k";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FLdh8Xp7";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010017.outbound.protection.outlook.com [52.101.85.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F290010E030
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 07:41:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OwBQrA1UDScUdhuSGB31/rc9BoDbUMH6wmE4MpTK3MDaxNZrHeyoy/DjqKwG82ieb+ZkMOgpE7wbWwzGH8UAUdTbM7Aonc2z7aOTdItDCToIerwPkxGuiennNv2Pjwpy8cV/lk8E9JeEfnCl44tXJGmvwgnaFtEZ5golvjH8BBqiwwo6J8Gsp8x04I2PoariXdsNrxAGDSQuWdrNNnjOxUqrtj75Nh5a86X76pr/Q7bn69lzG9ZHde44hVMkMY5BpPLDZ9JJj0dApGFt8aZukSXYDl4Aj0nk8aUMJcF9zbkgjFLsOYVDDpB23YZXAgBSRu5UlAQEaI5JMMLOyeSpeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CppVwcf4JlLuChPFS1NFaLmHXudAhE/uhjPMR+c6/O4=;
- b=rKiVEJTYGBc4qpApJzL37CM6O0d+6vBjp/+f4uJMA2PT9xLy9pihDPKp0aLXchsD/+eh/jqU3hOhHDVmc82dvvP3J2He944m3EfEK2x50LMLcG4/5DsKE9iEPsRyqXf6hX1AHJyhnbDvBuSHm+ZPA/pnYvSJtX8zSZxRCeM/5BXB1xK3/BSugjleF7Hoouruk0Htg4/s+vKg7Y8FJbPytPvih5LrqL8tuO/u1acyWOCjNLGiFfNtDUe5jLhMzr9OOb/Z/dbuE+ZdUQ1j+f3/DiOsytsJb8Q/4DJU6oM6b4kNuC64mh357wl9oA9h3gP+aP9s8WE3DBYUWs8OH4+wqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CppVwcf4JlLuChPFS1NFaLmHXudAhE/uhjPMR+c6/O4=;
- b=adKE9N9km+7fWQQ/0H9nNuWEmI9PDFA1RdyW8vzhoPxuA4bJt/fx/p4w9FIraRVeehQd8xNFsJmSqnu/w1mwzLaGeLXEDpSyzIxDfUJw8hIHj6Oe20otFBM867Yw9fES3KNkhJ6kKmzT+0T9na39yAWWoE/2CTrxJcjUPvwupio=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by MN0PR12MB5882.namprd12.prod.outlook.com (2603:10b6:208:37a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Wed, 22 Oct
- 2025 07:41:37 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%4]) with mapi id 15.20.9253.011; Wed, 22 Oct 2025
- 07:41:37 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: fix smu table id bound check issue in
- smu_cmn_update_table()
-Thread-Topic: [PATCH] drm/amd/pm: fix smu table id bound check issue in
- smu_cmn_update_table()
-Thread-Index: AQHcQx0oxShFCerdhUGu9TDHh7X327TNyEKg
-Date: Wed, 22 Oct 2025 07:41:37 +0000
-Message-ID: <BN9PR12MB5257638D5BB5F3E1B00CEE14FCF3A@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20251022062848.3526151-1-kevinyang.wang@amd.com>
-In-Reply-To: <20251022062848.3526151-1-kevinyang.wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-10-22T07:41:14.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MN0PR12MB5882:EE_
-x-ms-office365-filtering-correlation-id: 6565ef8e-22ec-4b9f-f70a-08de113e6eb5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|7053199007|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?oTXDg8LAnwIQuDehhZ24+V2N0KeAlOlPyVyEVev15i7rUJd1ZfzerPSXAjxP?=
- =?us-ascii?Q?T7RDTEHAR0ATy+nmx9x7OrypmAAyhzUbFvo9BzwGcA9Vin+0Wkq4S8yE6qbv?=
- =?us-ascii?Q?X2qgRi70SXloPrX/rfxcgPw8mTbD/tpvpgIhjv5/Yy9fiNl+GrUs4/55V5Bo?=
- =?us-ascii?Q?JtwxIxVbSGMcsF5tpAUldadljkM/ydJxKrbdPdOW6FLksBTJfSlrx9kV5unD?=
- =?us-ascii?Q?jd3h4SiLDw9Jp41X3SqPsy+y8+GC7zquowi3cD7tqY16foQs4f0nEoqTuWVl?=
- =?us-ascii?Q?te9RRdafjthzCCs0nIoaL+M9/enZPyxHhrxdbLaBZIaKWaRjlZ3+E5NPoiQ3?=
- =?us-ascii?Q?cYpQU3Y2/frl3CAJUgVfxYtUSqUmUNel0gcDlnCv7kTKzOgEzlTsUktGr+TU?=
- =?us-ascii?Q?vmuMguPGup1ujp5bm2pFWRywv3tPbyKAjlVb9hfRzWXQqDXDPNOc0WQAQeiH?=
- =?us-ascii?Q?AbzLJvOHlC64inWIXWLg8g8y9S4IwA6alTX2c+4iPT9BQE8uOQvZT1GxNj7x?=
- =?us-ascii?Q?Kew9GOcw5vMZamPNsa47nEJomK4US1KxE9BuAf8KTgrCxP7C3EoC+WR60ki3?=
- =?us-ascii?Q?dvLmWD537x0S3vuWr+VGzu4sg9wihnBjRPNcbnFKtutlIyO/3f41rdQUoO6u?=
- =?us-ascii?Q?k7lsNAm3TOw7NbWqe3bdCtI24DznhoAj11NBi8AFsso7V9OOdjdxDR3xPgKS?=
- =?us-ascii?Q?n0XoiL6j2QvAlP3pwh0qe+ggcDZ39w30siGUUY31BRU0/M5te0z2QE67Ktlw?=
- =?us-ascii?Q?PyfTWMUcBe7EtzwTvcsWx8C0u1Ho179SryzfTh8oxtY8kW3D+6g0NmQt6nLB?=
- =?us-ascii?Q?Ozea4a0Ltjuz3i05tOcmqk5EZKt0wW/QOdeuPESb4Qf9hS7BAHziiskeiBXy?=
- =?us-ascii?Q?E0vx6p3LJdECWR+8SiWodokcIUvlnXPMI8Q6aNhKMjSE2MZCc+gwNwQfrn8y?=
- =?us-ascii?Q?aqhVt4CJvhNL5lLaRdx1f69Z4ka5yXMyFqP0EkhgZ0kbyvJ3oRk61pMy7YUb?=
- =?us-ascii?Q?jRuALSvA085lwnWYdL6MSiTg3kRMvQrCHkwqFL4Z1mBe/UNousm1lip493Ek?=
- =?us-ascii?Q?e6V2Y78CZ2A3XK8qEhX32c1QiaJgy4kHm/YPYxpgzSVudzk7oKj7NWFDdeQw?=
- =?us-ascii?Q?QL7JV5MGYXvvV0tEZELZ7oX8ax2LwRyXRS83unG1errJLsZdqUe8IJfo676N?=
- =?us-ascii?Q?wWcvsxBtXvEh5LtTp0SQGFr6umJmyQCGSMyj1Kqog4dR3hZncntix1EvdmVN?=
- =?us-ascii?Q?3zlBm2gIuu4IB9emrfIWkxqNThuHwEFBnixJ1tvJmnEDJ6L2DmwH87pvKrnL?=
- =?us-ascii?Q?JBd87+QOJFP+lltT7JGOPwmTeP00MSPELGf5iK5cP6waq3sSSbyihSMp9ITj?=
- =?us-ascii?Q?5ThZvBcUfftyDmJqdEuhmc97eoW5Ta6WLGFH0MuEj/AM73KyO4RxtnDuqjRS?=
- =?us-ascii?Q?GS8TF65L3qEL0Y8YGtnlHbzwoNOIkgJaLGVtCCxhhUMaAnIQmgtXOW6Xs9nl?=
- =?us-ascii?Q?o86+7HBwCxxl3vSHEMiMQt9nSmv7Ok9B+DsF?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700021); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UJy5hKCNny4IXXz5f+YztogoGkcZV/aFlclPUA0CXfXH77NMphLGW2iXwOl4?=
- =?us-ascii?Q?SgREVNjLeeVpMOIM/It2Ifoz+Um0UPPOP4JR2YjWB8319OWoFevxNiAApR9v?=
- =?us-ascii?Q?Kmy6XGmS+SzFcfCeEB34urKMzHE2qskv23M48Tec74Q8+54T2p6EmFiZswX4?=
- =?us-ascii?Q?gt9dI92yFaQ7joho1SYF1idEa0iL5vWIEZscCeaASDvWEc1KHkwiW495XW++?=
- =?us-ascii?Q?vGWIOF67IiRJx2YZgYKgeQvIw+/psYRfQ4a0lVflAEAKvOcOErc9gnFOfibL?=
- =?us-ascii?Q?Ktuw0IUYUjVFOPL9bQyryF5sE7oaUmdABMokjuQ3MYTf2AkclHFm+ZqSeUUw?=
- =?us-ascii?Q?dPTjy8tFbn4hAYm5CSOsizf2okgswv654PKeNdgYt9a97wkEln+QORUtIRC+?=
- =?us-ascii?Q?9PHHQU+otoAQBjSj3VPbuv6nRunezhpRBJ0REvRFUTsBA9Sg3mKO08h0XZ+p?=
- =?us-ascii?Q?ieUucnpS8pPlTX8J6zNF4V4s+IjazaZI6MjgvPUD/LxWmc4RJgL6Kt9mPW1B?=
- =?us-ascii?Q?46Kn/IZ63uDGzSDCRKhMuy4VnwopVCKkOTQYLdAsUqcZvoxt/2qDvGCwyzeN?=
- =?us-ascii?Q?JWv5REJF8OpeZH0OdSF7/1PL+MAoG1CL50cAzuKMbgiBxjS4Oc8zACB91c0X?=
- =?us-ascii?Q?JrsETQy6IdVCXz2U+lYPC1VTN0w+mUOfwFa0pdYUVwMrrkDq/NokBZkKPJWR?=
- =?us-ascii?Q?QnMkwqxFl63H3cPfsSplwuRB/Jancv4tUNWTeolc8DaSOwMP9LM9pASohSSz?=
- =?us-ascii?Q?zf/xf9n2YodrrRMmQPGSZdickBGsWR/V6QJbnnkPaVA/U0WtlqX2Prn/fK9o?=
- =?us-ascii?Q?pQA7tIjGTDNYBSLnsJvvJbzsRQAuPD2IiYbxExEnujYUA0vYNngQugbrfGTz?=
- =?us-ascii?Q?IR0qjb5Qp2i4k90unbQV8IlvaKCMPoydQYU3ONduHEZDkI0zO2l6i54t2wxe?=
- =?us-ascii?Q?V18Xrfh5F2NJn27M0R8yC7nTj6qfN1JEewWOzpGIsGjHbCrXTE0WcWOLjl2S?=
- =?us-ascii?Q?uloLY4vANm1Ofdbq/s6APgPQQhVFFgkRnfmkWoAUwkQjJBjRBlbvutA53moJ?=
- =?us-ascii?Q?7XipHZWhNsj2oBfqnXBmzCpRODWkUoANl9nIyoI0E+o9NPEM4JloMUrSTbwe?=
- =?us-ascii?Q?qGJyxBaYmwdD9NvsRTZU28KixxwVU+Vrtos37V4/wPFoL1/tUGL7CpesvpmY?=
- =?us-ascii?Q?OssPdh4mSYOd5mqAQYZm9AJwHpmgI0JD7PlCrvNwv5rED0G1upeSUU+6vETs?=
- =?us-ascii?Q?JNnD2JBlEjWMyaBICV1S0r03ce9zyragu9ytCuGzDq4cKhRXjOFpNwJtIfdL?=
- =?us-ascii?Q?Y9wdbvqRo6D959nQfazLgSU/+ouxazZvtYbD7um8GCGKbb7zEOSFYfqDHl18?=
- =?us-ascii?Q?2hGARiUdG6k9xvV7pBAYIaqfjycR3rmYJg8g2pUuoMGmd5odycXRrbT1q5E8?=
- =?us-ascii?Q?tZbfqzJyjdKNUsECkpDO7kRWH6r0l4h3pHAcwnxVyS1QKOimVG2fCuGg4ybf?=
- =?us-ascii?Q?YhUnkXleSdEwe6pnkNar3ZLba5/L8LGX+ieRNsYq+Cb5yPZKJ+pMHe205Vj1?=
- =?us-ascii?Q?aC6HhkoF4WtMaSQQrmg=3D?=
-Content-Type: text/plain; charset="us-ascii"
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A78110E307;
+ Tue, 21 Oct 2025 14:11:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761055878; x=1792591878;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=zvgWk8XX25lGR59EwKKFHSzvIQQ+qXyF3981Jk8Ffrc=;
+ b=FLdh8Xp7+v6IklWyKr/UmkVWHNFBS4ry31KMqq3I/67pEfN2DArpi30b
+ leaqcWPpbTq2z+M2+JCDchJyi7jvN3oKhCpza7iKudPMOJV2p3L9VZa/A
+ MK1E9RJxyArdLMEsUMX5S2Ouo6CuZNcsAKta2xR5iOsVdWHXH7gfYfe67
+ BQ2D48IpxCdUahwthfJB4lu+qfavQTrOnvaSGIowkJlfwEAfOgTmGrotE
+ QIDnHqxbPe0DC2yJLivcDU/JdZC8lFsDLGbwfImZ/iLHZsb6YixU5ZTRY
+ n9TZLgRHLVXx8w7f2RjVYMWOwVnMG6a43VUmNS08i8vcoh7mPIPfexSBh w==;
+X-CSE-ConnectionGUID: 7llXwoCnSwmoLZN9KJ16xw==
+X-CSE-MsgGUID: laEEfKgcSNmWH4ec8kvJGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="63085893"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="63085893"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2025 07:11:18 -0700
+X-CSE-ConnectionGUID: qWSGZghiSSuJhvYRa+3yzA==
+X-CSE-MsgGUID: v36LiJrTRlWj82kUrOyJhA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,245,1754982000"; d="scan'208";a="183631044"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.245.135])
+ ([10.245.245.135])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2025 07:11:16 -0700
+Message-ID: <1ddcf0013b858e3bad20de420632259ad4d8a616.camel@linux.intel.com>
+Subject: Re: [PATCH v5 6/6] drm/ttm: Add an allocation flag to propagate
+ -ENOSPC on OOM
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>
+Date: Tue, 21 Oct 2025 16:11:14 +0200
+In-Reply-To: <20251020115411.36818-7-tvrtko.ursulin@igalia.com>
+References: <20251020115411.36818-1-tvrtko.ursulin@igalia.com>
+ <20251020115411.36818-7-tvrtko.ursulin@igalia.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6565ef8e-22ec-4b9f-f70a-08de113e6eb5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2025 07:41:37.6059 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ADEzc3kasv5LyG7r6MzofW9Neo1esFh6f8DeeLX4/QNSKnsTZdV/7IhrHMcE9ZLzykX8bBFR7ggM3QL02KUIIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5882
+X-Mailman-Approved-At: Wed, 22 Oct 2025 07:59:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,49 +74,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On Mon, 2025-10-20 at 12:54 +0100, Tvrtko Ursulin wrote:
+> Some graphics APIs differentiate between out-of-graphics-memory and
+> out-of-host-memory (system memory). Add a device init flag to have -
+> ENOSPC
+> propagated from the resource managers instead of being converted to
+> -ENOMEM, to aid driver stacks in determining what error code to
+> return or
+> whether corrective action can be taken at the driver level.
+>=20
+> Co-developed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> ---
+> Thomas, feel free to take the ownership if you end up liking this
+> version.
+> As you can see I lifted your commit text as is and the implementation
+> is
+> the same on the high level.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Let's keep it like this. Thanks for doing this. I'll follow up with
+xeKMD change once this gets backmerged.
 
-Regards,
-Hawking
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Wednesday, October 22, 2025 14:29
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>
-Subject: [PATCH] drm/amd/pm: fix smu table id bound check issue in smu_cmn_=
-update_table()
+FWIW:
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-'table_index' is a variable defined by the smu driver (kmd) 'table_id' is a=
- variable defined by the hw smu (pmfw)
 
-This code should use table_index as a bounds check.
-
-Fixes: caad2613dc4bd ("drm/amd/powerplay: move table setting common code to=
- smu_cmn.c")
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
-m/swsmu/smu_cmn.c
-index f532f7c69259..a8961a8f5c42 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -969,7 +969,7 @@ int smu_cmn_update_table(struct smu_context *smu,
-                                                      table_index);
-        uint32_t table_size;
-        int ret =3D 0;
--       if (!table_data || table_id >=3D SMU_TABLE_COUNT || table_id < 0)
-+       if (!table_data || table_index >=3D SMU_TABLE_COUNT || table_id < 0=
-)
-                return -EINVAL;
-
-        table_size =3D smu_table->tables[table_index].size;
---
-2.34.1
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0 | 4 +++-
+> =C2=A0drivers/gpu/drm/ttm/ttm_device.c | 1 +
+> =C2=A0include/drm/ttm/ttm_allocation.h | 1 +
+> =C2=A0include/drm/ttm/ttm_device.h=C2=A0=C2=A0=C2=A0=C2=A0 | 5 +++++
+> =C2=A04 files changed, 10 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index fba2a68a556e..15b3cb199d45 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -31,6 +31,7 @@
+> =C2=A0
+> =C2=A0#define pr_fmt(fmt) "[TTM] " fmt
+> =C2=A0
+> +#include <drm/ttm/ttm_allocation.h>
+> =C2=A0#include <drm/ttm/ttm_bo.h>
+> =C2=A0#include <drm/ttm/ttm_placement.h>
+> =C2=A0#include <drm/ttm/ttm_tt.h>
+> @@ -877,7 +878,8 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+> =C2=A0
+> =C2=A0	/* For backward compatibility with userspace */
+> =C2=A0	if (ret =3D=3D -ENOSPC)
+> -		return -ENOMEM;
+> +		return bo->bdev->alloc_flags &
+> TTM_ALLOCATION_PROPAGATE_ENOSPC ?
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret : -ENOMEM;
+> =C2=A0
+> =C2=A0	/*
+> =C2=A0	 * We might need to add a TTM.
+> diff --git a/drivers/gpu/drm/ttm/ttm_device.c
+> b/drivers/gpu/drm/ttm/ttm_device.c
+> index 87c85ccb21ac..5c10e5fbf43b 100644
+> --- a/drivers/gpu/drm/ttm/ttm_device.c
+> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+> @@ -227,6 +227,7 @@ int ttm_device_init(struct ttm_device *bdev,
+> const struct ttm_device_funcs *func
+> =C2=A0		return -ENOMEM;
+> =C2=A0	}
+> =C2=A0
+> +	bdev->alloc_flags =3D alloc_flags;
+> =C2=A0	bdev->funcs =3D funcs;
+> =C2=A0
+> =C2=A0	ttm_sys_man_init(bdev);
+> diff --git a/include/drm/ttm/ttm_allocation.h
+> b/include/drm/ttm/ttm_allocation.h
+> index 8f8544760306..655d1e44aba7 100644
+> --- a/include/drm/ttm/ttm_allocation.h
+> +++ b/include/drm/ttm/ttm_allocation.h
+> @@ -7,5 +7,6 @@
+> =C2=A0#define TTM_ALLOCATION_POOL_BENEFICIAL_ORDER(n)	((n) & 0xff)
+> /* Max order which caller can benefit from */
+> =C2=A0#define TTM_ALLOCATION_POOL_USE_DMA_ALLOC=C2=A0	BIT(8) /* Use
+> coherent DMA allocations. */
+> =C2=A0#define TTM_ALLOCATION_POOL_USE_DMA32		BIT(9) /* Use
+> GFP_DMA32 allocations. */
+> +#define TTM_ALLOCATION_PROPAGATE_ENOSPC		BIT(10) /*
+> Do not convert ENOSPC from resource managers to ENOMEM. */
+> =C2=A0
+> =C2=A0#endif
+> diff --git a/include/drm/ttm/ttm_device.h
+> b/include/drm/ttm/ttm_device.h
+> index 074b98572275..d016360e5ceb 100644
+> --- a/include/drm/ttm/ttm_device.h
+> +++ b/include/drm/ttm/ttm_device.h
+> @@ -220,6 +220,11 @@ struct ttm_device {
+> =C2=A0	 */
+> =C2=A0	struct list_head device_list;
+> =C2=A0
+> +	/**
+> +	 * @alloc_flags: TTM_ALLOCATION_ flags.
+> +	 */
+> +	unsigned int alloc_flags;
+> +
+> =C2=A0	/**
+> =C2=A0	 * @funcs: Function table for the device.
+> =C2=A0	 * Constant after bo device init
 
