@@ -4,90 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 989B2CCD1A7
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 16:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D0EBCCD1A7
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 16:21:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2567D10E613;
-	Tue, 21 Oct 2025 16:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A564B10E2ED;
+	Tue, 21 Oct 2025 16:21:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lnTMlelZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="puqbbGl7";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3FE010E613
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 16:15:29 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-b40f11a1027so1136435666b.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 09:15:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761063328; x=1761668128; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=lGRJXUz3hudSYHQw9T4bLrJ7xB8qKWEGBHIyBuZuStg=;
- b=lnTMlelZUpu4r2In1n73T546hNQD59pxh39XgMQc0BGkVsm40m3VW/6DdtoSkkzPvg
- rH67rLRr9+ZYYKoDgCICTh7A2nFdBu4o4fp0RNUkCqlqMhuWiXWM/Z+AHUrJ+12RjF21
- l6GBcNgCzskcaroZoGu7qmvYS8+t0bHYtxXDTNaUjeRu3mL01/Q/dQUqL5Jh79Q5sPas
- xfks6VOGoffML7mpMzv/Ln1th1oNskS3863IWxnMqd5GMGwJHah651j9WDStlXW6rJWk
- 4qEDp7rby3VhDXzM/c0nFHcbTq6ex4SJ+wNCcdaD1dZoIzqzMquHLUGHubiwIyab63dn
- C8NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761063328; x=1761668128;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lGRJXUz3hudSYHQw9T4bLrJ7xB8qKWEGBHIyBuZuStg=;
- b=WRXzNSwtshzoLL4t7h36UUGNXoPHmqr+DBjShh8q4hk3Fhag7tgsKlGkzF4MXfp2uz
- HMKexAyiF/D3sdEAaV+/bG1ow3+NodjaTbdcbD8UznKoGiCD2gK284VDxBzG/lOtO99q
- NFByZwl75y+lPRv01qdWVZjXszQFhgFhWDTBki7N+ta+B/B4sAqATyEiCE12Fi+pKH8f
- nAab1joW2A+8qijXlqXcSaGrtczFgmYXzhQaoYud1rJIIdYf+SdKVrTybhoslNJw2vCV
- +K54KvsrWrEdKuK5d4TA3C45r8eTZYIqNq3KpkCeSaffIGl257btQR6ykotw5HqgZp+l
- ging==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVWqWpQ2LdscEgIt9Y0MXojJCAwr7onAON7IUpX7A949pNEEFHtyQvZvpDsNc88JqVYTLSDuo9t@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRDlgCJDRY2XMHq5eKPqvqw7sxNJV5lXe8TqgAGWNa4NeStRZY
- rLjjy/yEJGmpdVFiH29azPCtyjwjBpQcbYP3JORGwdv0S8ka+TxriEXW
-X-Gm-Gg: ASbGncvOzN60hj3G9W/iD2XG2ozcybncZhUuthKlYBBcW+UwHLkB1lLTrUsLCyZE9p3
- dojYaxQTE5i+KFFL0RzRxKDJziot2eMKU1v/8hyahhe7YHCTVmEqYMPQXz8ai7IPnveC6Qv0Cs4
- RNAv9vHfOa6hGtXuwO+knLSotfu7nqdyTS00deS4DSwJK7xyGXaFjvRLa6hDH4mouTQ+C27SEhP
- Jr3Ngg1m0GKjsM7EkUmOpfJ8dkmm9BMjfDThZO+lX1kYcFoLLTteyNWRCtEQp7/aW+Nzrx8ZScD
- T/Mjc8elHw7+ZdHS3v8l3ijMZzIkWBropjJQfOzTa6FSEy+NOhcbCr4ovgCSMCSHZaxIohE5xjL
- A3QDYMzTrFMHjFeLRaVnn7bq/7b0S48qbuaPR/R4x3rHUJMa1412HejGZw7ugMHMibsFE2rXKq4
- JfMXLw30qYeerELdWFk61se17asZMJE1sT0+vjUGXrJdiB0gSlg+XHSOZu1fNrBlCH8Bl+ZVSXb
- sIyPEj2RbFgfKQsUcrON50k4otKR0HvZ0sEnt2xetETV1BClHxy1DuEgtVc+RJ0hA==
-X-Google-Smtp-Source: AGHT+IGB9P/mwrddQUGn37+vWRJ9E4AkjDQwa4I3/eQbjPwWdkU9W/mrBIDuC98yDQRtRtwkjBaI0Q==
-X-Received: by 2002:a17:907:86ab:b0:b45:8370:ef08 with SMTP id
- a640c23a62f3a-b6473243f2dmr2149770166b.17.1761063327734; 
- Tue, 21 Oct 2025 09:15:27 -0700 (PDT)
-Received: from ?IPV6:2001:4c4e:24da:f700:36af:90f4:d5fb:1eff?
- (20014C4E24DAF70036AF90F4D5FB1EFF.dsl.pool.telekom.hu.
- [2001:4c4e:24da:f700:36af:90f4:d5fb:1eff])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b65eb036884sm1095779066b.40.2025.10.21.09.15.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Oct 2025 09:15:27 -0700 (PDT)
-Message-ID: <1835c00c-780a-4530-9652-5ee4a3bb8622@gmail.com>
-Date: Tue, 21 Oct 2025 18:15:26 +0200
-MIME-Version: 1.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010041.outbound.protection.outlook.com
+ [52.101.193.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 153E810E618
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 16:21:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uyuSD1csxr+oGug9jSggrSG/LjmGClFEWaAw5Li0ppo3Ch1R3s9EPPDQ8CCUKBvdHkURcd+h0mF4IVxwrN1SGqDrpt3G1evGiwTtj/A5CR8ejFh3trFT2ERns5nxJ+wZ+SC5Wbfq/EBQw+9epbkmZZXuaD2Eb/4eskY/MgqulpBINEk9K5mK0q9UMtXUDT5B5NeV0NFOUXnzAEb/aW6y+Fn4PpdIO7B8YvEh8tJCriYjqMnrtrzPOQzx6N2EwP1P6bI/3xudU21gAZmVcRooXszEpnW8qkOCA2SNl2oUIpHIdLhy79Knpa7/xs58r2Vi7rNUI/khT69Uk9JDEAYjSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7a5c0yRmho6PCj2F4fgLJucsRvGcFqFqORAPViH2gG4=;
+ b=BW19sQDaigxmoveB7E0eJxkxIw/K9QwkMhAltnE/kAFM+htvdarq8clFjR/4eB2v13i09rsonIAvN0xegO49D8rL1uCxoGN3mHz3HIYikU6c1ldlJ6kyaeLhDl1BaBuiDIZ3NykZdSx7RCYxOFMRcEFndh30JmM2re4PdUepsuu5G318NUPCF2GL4RmFJtzuncUESo3dBsRxfO3PXzQ/A0GgS3tWg2+52nX3C9HjwnfTWsTZHtf3aWfXHldbO+X/zq4UvK25O4UD4Q/C46IfKkxiujCg+w63Xm6VOKve3cIIEMNYDtgxjceQxUcK5QzcEGY3Ch91hIIyu2gT2nz4/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7a5c0yRmho6PCj2F4fgLJucsRvGcFqFqORAPViH2gG4=;
+ b=puqbbGl7bx9G3OoQM3T1O0G7fpev4rSL2+nQNt4vyCMmSs7l+OjSP9AvwL9VQWocS/XCstRb4HWWPz20bV6xfw8yM1Atu2v+2jymqsEW4NpYjweJDaTWCpyDVZyVcdqjqkmlMy+dxvVUz641s4AD+z7zacegaQvU4Qn9KaJWtgs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by DM6PR12MB4251.namprd12.prod.outlook.com (2603:10b6:5:21e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Tue, 21 Oct
+ 2025 16:21:34 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9228.016; Tue, 21 Oct 2025
+ 16:21:34 +0000
+Message-ID: <ee113455-2a1d-4b1b-a5be-bcd3f1bf3c19@amd.com>
+Date: Tue, 21 Oct 2025 11:21:31 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/23] Analog connector support in DC (v2)
-To: Harry Wentland <harry.wentland@amd.com>,
- "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Hung, Alex" <Alex.Hung@amd.com>, "siqueira@igalia.com"
- <siqueira@igalia.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <20250926180203.16690-1-timur.kristof@gmail.com>
- <0fb9b183-ba74-4837-86a1-499b3acf04d5@amd.com>
- <f7bb25e7-0a64-4057-b068-5fb63d5d287e@amd.com>
- <DS0PR12MB6534854A0932A7E3E0D05D939CEEA@DS0PR12MB6534.namprd12.prod.outlook.com>
- <f2672baf-1f02-480d-a8c3-54f7f7863695@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Don't program BLNDGAM_MEM_PWR_FORCE when
+ CM low-power is disabled on DCN30
+To: Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, alexander.deucher@amd.com,
+ alex.hung@amd.com, daniel.wheeler@amd.com, roman.li@amd.com, misyl@froggi.es
+References: <20251020230934.387745-1-matthew.schwartz@linux.dev>
 Content-Language: en-US
-From: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-In-Reply-To: <f2672baf-1f02-480d-a8c3-54f7f7863695@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20251020230934.387745-1-matthew.schwartz@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DM6PR18CA0012.namprd18.prod.outlook.com
+ (2603:10b6:5:15b::25) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DM6PR12MB4251:EE_
+X-MS-Office365-Filtering-Correlation-Id: e046feba-4d28-4dc4-4bb2-08de10bde6ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Lyt5a1IvN3l4aVczcXVRYlVrdUE5eWZhdnRWMTE3aDJWdFYvVUxOVUJSVkhG?=
+ =?utf-8?B?c0hoMWpxNUlXekFtajBDQkdIK0VTNFpQQXFBYzlreWJ6MEtITWdySnp6dE1J?=
+ =?utf-8?B?a1REUjBxQm5wMlhBOTk0UGFidnFBVkEwL2N1RHBTWUY5dm9keVpSb0t0MXZB?=
+ =?utf-8?B?M3J6OUFEc3V2MkRhYnY4U1ZRMGlEM1VFMHB3WUVGL2tMYTBpSGJ1ZXJVVW0x?=
+ =?utf-8?B?cENIYkpNMEZsUWR3RXZzVnNlTHpTbzJhRHRVbTE3cnBIbllWSEhLUlpWSTNH?=
+ =?utf-8?B?VWhmZGp3ZmJXczhaUHRvL2xtSlU1NzBHWmNuWE00bWJkZjgrUUxFeXdvUXdX?=
+ =?utf-8?B?TE9PRURlMjRaZFk2eXlHdVNiclF2eVpla2pibEdGSWMzQVpTWnBqdHQ2VlFB?=
+ =?utf-8?B?WDdod3ZhWThVTyt0alFPcWlWeDhZdEE0R0JtOXloZE44dWNMYk5oNnNIZzl2?=
+ =?utf-8?B?RmpFa0U2aFlmZnVEYWM2TExZSU5EcG9Bd2tYTzVyS1E4WG4rSGo1MmdSd2s2?=
+ =?utf-8?B?dnd2b3lBWWJGdnE1V214bk51SXR2UnAyYmgyaHFpL1NvdEttRUhybDR0VWJs?=
+ =?utf-8?B?aG15bGNERzhwcUZEZ3hpM1o3anVnSlV5MHR6RHJFaWYwR3BQWG8wRkVoOEpY?=
+ =?utf-8?B?QzBpS3V3dWQ2NGFmbmt0bHVwNVRyZlVaTHNXQzV0dVVJbUxwS2tSdmpSdmI3?=
+ =?utf-8?B?ZlNuYVB5SnpVSkt0aEhLeWNnd3h1eGpvY25WTTF6bXRxaGkrOFFlanhQSDgz?=
+ =?utf-8?B?TG93LzlQVUZXVlJqalpUcnpscWV0VkdDZGRSMnRaTmZKQ09XZEZwVno4NHJY?=
+ =?utf-8?B?aENDOXIvekcvYk1sMElEb29Ua0lkSGtGTUlrMDlFZW1IUXVNSEtPOVNhbkNr?=
+ =?utf-8?B?VnZkYVQxbGlSbk5FZG9oamdkL0tXZnZTRGVQQkxxYitnL1lrWHYreWxoWFJZ?=
+ =?utf-8?B?LzNsUUJYQkk3cEdnTHdFNlcrS1Nhazg2MjBDb0tjT2VmbHA4WUFab0M1ZGto?=
+ =?utf-8?B?ODFXeTdiUmhSOHNXWGRIRVJFMmFDd2FrUmlBbjI5ZmRxeC9mUEl1bXkwRUQ2?=
+ =?utf-8?B?d1daa2J6TnJodmthTU9RNUpMejJPdTFLT2FDN0FJY1R0bU03bkw0eEZCODFC?=
+ =?utf-8?B?SThrbWpKLzFUSEJ2Q1MvcWU4Q2pFa3JpdkdlUEtGVndabHYzYkpPcUhTd3ph?=
+ =?utf-8?B?c2Z2R2JScFE3aHMvQ0VDSGgvZHhBa0pKeTBocHNsUk52WEFINUZIY0FQNFVR?=
+ =?utf-8?B?bjlGRDJQdjlLYUFhOElaa0ttNkg0dVdlOXR2QUx5SHllV01lelRaZVdqMDlT?=
+ =?utf-8?B?bWJxQml5M2lsNHpXdmNuOG1xVUowQkh6dVB2cW5VcW1QRU9QTDg4ejFKeHFU?=
+ =?utf-8?B?K1RzZC9aNXIrMlFRSXdoSjF3Nk8za0oxTGFacjZyU2NSN1B5cHRQd2EzUktv?=
+ =?utf-8?B?allFdC9zYStQbnp0ckVZQmZhMDd1eldNc0RYQzFEMHAyR0NuaWo2dVZHY2Iw?=
+ =?utf-8?B?ZTMxRUZMQ0Q4dm9qMHVBOXFyNjlpU0VZbG5qWjM1ZjZOdzJzOE9iL2JTaEc4?=
+ =?utf-8?B?RkJhZVlhdkJYdGlmN3R4RC9IenJnNVVRNHgwM0QrZ0IxMHNjRllQTjgzeGNm?=
+ =?utf-8?B?L2xzSU5wYlh5amJRYTFKOVdvVXZsTDd3SHFkQjhLNlNJVldEdFhRRkdjUTM2?=
+ =?utf-8?B?Lzl1MjZLKzA1SXhqdzhwS0JHeERoTERNcE9zR0RVa1ZzMXE2Y01abFViRVlQ?=
+ =?utf-8?B?TkI5MS9wcHdYU1RoR2l6QXZQcXFhZU1YUkFVbUZuUWhyWTRWZDk0WFo2azdy?=
+ =?utf-8?B?WTBkUm5QeGVGTXUrSUlQOUdNRjdYL3pJTExTOTR0RDNscXJLTzhyOVVlTWln?=
+ =?utf-8?B?Ylcyd2N5Ui9Hcno1SVY5elNwR01jWWMzS3R4MGo1MnlBTDZjY1ZKVUZXNmpM?=
+ =?utf-8?Q?u/ecZzwiHiG/pcoBJpmcl4V+BcyGjk6u?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czh4WVU2QzVGdnZYTUN1cXJlaU5BYjdFdlhNd2ZITW5Xb3Z2T1g2MGRXMEFE?=
+ =?utf-8?B?QlBNZUhpZG4vTHh2Ui9HZFlrWndDdlRnNjdJeDhEeDhhUDJCeFRkWWlLc2hy?=
+ =?utf-8?B?bHJmdXozakNoR0g4T2F5UlROcHRhMG1Ub0gvN0tDdUgvM3hNV2ZJM1N3dStz?=
+ =?utf-8?B?YmtsV1hpemFQanM1QnZlazZ2VzhXU0x6c3FlU1ZNOG1FSGY1NmNoSGo3eTN4?=
+ =?utf-8?B?eUZWTmpzZGZOZFNkb0J3eURLL3g5YVlGeDlqVk51M2JLbHZISVZ5S25nQktz?=
+ =?utf-8?B?Qmx4VUFsMUE3MVFIeXd2VHFOdXkyOVpXQS9CUkNicGEzN3Jza2hqSUFXYmJ5?=
+ =?utf-8?B?bzZaNXUyUXJCK1Y0b0pkUURTZVZkQU9XRTYzMEFQWWEzUWJSMldpSlFxeDhn?=
+ =?utf-8?B?SnY4VnBnZ3lhc3Jta3VjemJMWWtwdjU3dkpOQytUekZMTXR4S2lld1ZhQWow?=
+ =?utf-8?B?YmY5bHc5Zml2aTh1NzM2MTdwS2d4Y1BFZE1CNmI1T2UyK3hPTy8rdllMaXhW?=
+ =?utf-8?B?N0U5bzJEVUdtUnJJMVdIQXBURm1McmtSQXdKZW5nbGNXTHllOGc5SDh2UzNK?=
+ =?utf-8?B?ck1Pd20zaS9FZ08vdTdoMllUbDBiY2dRQ0NxTmtGKyt4RG1tOVQ4UGFnb3hU?=
+ =?utf-8?B?eXJPYTd1dktGcVBBRlp6Um0xTEQ1OG9yZXF5bDdmM0xkOXlDU1FvVGZ4YW5D?=
+ =?utf-8?B?cVlKekRUa09BMWdNMnlwbWVnb2Z0WThoTzBsWitxVG1uQld5bi9NL0VjQW05?=
+ =?utf-8?B?VkxTeVlybW54Y29XTGRHZzZvdFZwMVJ5d1dVUUF4ck5LSzBnQkpTN2NHOGtt?=
+ =?utf-8?B?ek9kMkNBUmVoNjRqSStuMVBXOHZxNUU1b1UvSFZIeUZwZ2lpRDF6c2xqNi9D?=
+ =?utf-8?B?RDMvLzFLeElETWgxSjd0SW4vOERKNGg3bGEzbVVueGE1TmsyM2NiREhwQ2dU?=
+ =?utf-8?B?dytMVnVXSEhOeDJmM3I3cTVla2M3NDAya2pFTG5FWHhSdENYTE5QNGtKejBk?=
+ =?utf-8?B?UHpXUWo0QzBHOVNzMjhiaDh5ekwxbGgvNlBuYjIvaGNpYVZUQzhzMjZJY3lr?=
+ =?utf-8?B?dXlteG5kTFdWa0ZCQzJJYXVyOUtBbVQ5TWRWZXdMbFNvMUZpS0FwV0sreGZ3?=
+ =?utf-8?B?a04wT1FnU1owME16WDZuL1JoUExrcDRJbTRSQkVmVEtUMW9VNXM3Q1JJWWg5?=
+ =?utf-8?B?bm83L1BsVUJLS1Jxc0U4ZFc5aytLY3JOSko5SXlINFh4MzVMWWEzVlk0eFZB?=
+ =?utf-8?B?SG56cU5hU0NuM29VOE1SeFkrVHRtcU9uZjBHNDd5TFZ6NUlldEg3VkZvaWcw?=
+ =?utf-8?B?OFZHVy9DcUZrcHpaWE9YRjN1cmNEek1Tek11RXJGd2xrcnY5MURsMUpXSEE5?=
+ =?utf-8?B?ZENHMUJuczdsQ1BJU0JEOEJPMmRjNVJGM0RCNkNYSDFFM0FmTEZHL2wrWThr?=
+ =?utf-8?B?bk4vcnlJQk1WWjVYcmNZZCtjRVh5VmdJcnd2ZmF3UVRLUW1HMHpZcjQyYndE?=
+ =?utf-8?B?S09oUGVZVlFleVZjVlVlaTRMUm5vQUZUTi9TMkpxLzJnSFVZTUVIK045MmFS?=
+ =?utf-8?B?ZlliK0hSekZxY1IzNEJrOVJrUmtlb0ZnUU8xZHIvMStjbjNXdnpmU3dxWVIr?=
+ =?utf-8?B?UHJyWXNRbmxkUVZQZncyaUVEeC9UQmpwOUUxTnIzNGtSamRnL09lUzkwbWcx?=
+ =?utf-8?B?RFA3MGI2cGpXREtzV2EwZEJRUFp6UiszeG9XSzczR3pJSGxtUlo3bGloLzdl?=
+ =?utf-8?B?SlJJaHdUd0FKdElRaTRmUkdwVXN2Yi93YllCSzY1ckNaOTRBbisxK1lZVDhN?=
+ =?utf-8?B?QUFnTUE0V2o1Z1JmYkpHMVFvREZhazdPTXpvTklBcVhDTGlvcnowQlc5QUJR?=
+ =?utf-8?B?VUhCMk0wS01zdFRpdjgvNTFJanRSTXpTSE1yR2lMaVpocjFzQ3RuL0NrdjRI?=
+ =?utf-8?B?TVZhWlYvem52dzQ0VldHSVM1OXlKOE1UK3FIQ3FxaHVrd0QvZjhJcGJwc2Mv?=
+ =?utf-8?B?bkNkOE1VQ2VYRlFmdWdlaXBLTlBPeDRNTU5nYVBSQXBPdTJoeE5NUklRaVM1?=
+ =?utf-8?B?NWw0WW9wYTVrekhOaU9aTnhsaGJobldaRkx0UkQ2eFpWS1JjU0dtTWdCMHdT?=
+ =?utf-8?Q?svi5IzFLmro04nyWjRlXg4ulw?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e046feba-4d28-4dc4-4bb2-08de10bde6ba
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2025 16:21:34.2627 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kLdD+BMQgd00k0jSJlv7dPRLAt1d7m2FtGNtYdwwBE+pq/BQQJPawpBxWkoNOytqbcB9y2XDMUtuiqpp4WfdUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4251
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,176 +164,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-Did you guys manage to include the series in last week's promotion?
-Are there any issues?
 
-I'd really like it to be included in Linux 6.18, are we still on time 
-for that?
+On 10/20/2025 6:09 PM, Matthew Schwartz wrote:
+> Before commit 33056a97ae5e ("drm/amd/display: Remove double checks for
+> `debug.enable_mem_low_power.bits.cm`"), dpp3_program_blnd_lut(NULL)
+> checked the low-power debug flag before calling
+> dpp3_power_on_blnd_lut(false).
+> 
+> After commit 33056a97ae5e ("drm/amd/display: Remove double checks for
+> `debug.enable_mem_low_power.bits.cm`"), dpp3_program_blnd_lut(NULL)
+> unconditionally calls dpp3_power_on_blnd_lut(false). The BLNDGAM power
+> helper writes BLNDGAM_MEM_PWR_FORCE when CM low-power is disabled, causing
+> immediate SRAM power toggles instead of deferring at vupdate. This can
+> disrupt atomic color/LUT sequencing during transitions between
+> direct scanout and composition within gamescope's DRM backend on
+> Steam Deck OLED.
+> 
+> To fix this, leave the BLNDGAM power state unchanged when low-power is
+> disabled, matching dpp3_power_on_hdr3dlut and dpp3_power_on_shaper.
+> 
+> Fixes: 33056a97ae5e ("drm/amd/display: Remove double checks for `debug.enable_mem_low_power.bits.cm`")
+> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 
-Thanks & best regards,
-Timur
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 
-On 10/9/25 20:27, Harry Wentland wrote:
+> ---
+>   drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c | 3 ---
+>   1 file changed, 3 deletions(-)
 > 
-> 
-> On 2025-10-09 13:49, Wheeler, Daniel wrote:
->> [Public]
->>
->> Sure, we can add it to next week's promotion, I'm almost through this week's candidate. Tom is scheduled to prepare next week's candidate, so I'll tag him in.
->>
-> 
-> Great. Thanks.
-> 
-> Harry
-> 
->> Thank you,
->>
->> Dan Wheeler
->> Sr. Technologist | AMD
->> SW Display
->> ------------------------------------------------------------------------------------------------------------------
->> 1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
->> amd.com
->>
->>
->> -----Original Message-----
->> From: Wentland, Harry <Harry.Wentland@amd.com>
->> Sent: Thursday, October 9, 2025 1:27 PM
->> To: Timur Kristóf <timur.kristof@gmail.com>; amd-gfx@lists.freedesktop.org; Wheeler, Daniel <Daniel.Wheeler@amd.com>
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Hung, Alex <Alex.Hung@amd.com>; siqueira@igalia.com; Koenig, Christian <Christian.Koenig@amd.com>
->> Subject: Re: [PATCH 00/23] Analog connector support in DC (v2)
->>
->>
->>
->> On 2025-10-08 17:11, Harry Wentland wrote:
->>> On 2025-09-26 14:01, Timur Kristóf wrote:
->>>> This series adds support for analog connectors to DC for DCE6-10.
->>>> There are two reasons to add this support:
->>>>
->>>> 1. GPUs that already use DC by default and have analog connectors.
->>>> Some Tonga and Hawaii graphics cards in fact have DVI-I connectors,
->>>> and their analog part doesn't work with DC. This functionality
->>>> regressed when switching from the amdgpu legacy display code to DC.
->>>>
->>>> 2. GPUs that don't use amdgpu by default yet.
->>>> Currently, SI (GFX6) and CIK (GFX7) don't use amdgpu by default yet,
->>>> and missing analog connector support in DC is cited as one of the
->>>> main reasons why not.
->>>>
->>>> Before starting this work, I asked Harry and Alex about how best to
->>>> do it and we agreed that we'd like to use the VBIOS to set up the
->>>> DAC. So I used the amdgpu legacy display code as a reference.
->>>> The first few commits add some minor changes to DC to prepare for
->>>> supporting analog stream and link encoders, then analog link
->>>> detection is added along with polling, and finally DAC load detection
->>>> support, which is useful for old displays and adapters.
->>>>
->>>> With this analog support added to DC, we could already fully switch
->>>> CIK discrete GPUs to use DC and switch them to the amdgpu driver by
->>>> default. This series switches Bonaire to DC by default, we can do the
->>>> switch to amdgpu in a later series.
->>>>
->>>> For SI dGPUs, there are other pending patches to make DC work well,
->>>> afterwards we could switch to DC by default, but missing
->>>> VCE1 support is the blocker from using amdgpu by default.
->>>>
->>>> For GFX7 APUs, further work is needed before enabling DC by default,
->>>> specifically with regards to the TRAVIS and NUTMEG external encoders
->>>> which are not supported by DC at all.
->>>>
->>>> Changes in v2 of the series:
->>>> Fixed regression on RDNA2 and newer APUs.
->>>> Fixed flickering caused by polling analog connectors.
->>>> Fixed crash on Kaveri.
->>>> Fixed bug when HPD was high without a connected display.
->>>> Reduced code churn by reusing same link encoder.
->>>> Addressed other feedback from the review of v1.
->>>
->>> Thanks for the series.
->>>
->>> Patches 1-13 are
->>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->>>
->>> I'll hope to find time for the rest tomorrow or Friday.
->>>
->>
->> The rest looks good to me as well.
->>
->> The whole series is
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->>
->> Dan, can we give this a spin in our weekly promotion tests before I merge it?
->>
->> Harry
->>
->>> Harry
->>>
->>>>
->>>> Timur Kristóf (23):
->>>>    drm/amd/display: Determine DVI-I connector type (v2)
->>>>    drm/amd/display: Add analog bit to edid_caps (v2)
->>>>    drm/amd/display: Introduce MAX_LINK_ENCODERS (v2)
->>>>    drm/amd/display: Hook up DAC to bios_parser_encoder_control
->>>>    drm/amd/display: Add SelectCRTC_Source to BIOS parser
->>>>    drm/amd/display: Get maximum pixel clock from VBIOS
->>>>    drm/amd/display: Don't use stereo sync and audio on RGB signals (v2)
->>>>    drm/amd/display: Don't try to enable/disable HPD when unavailable
->>>>    drm/amd/display: Determine early if a link has supported encoders (v2)
->>>>    drm/amd/display: Add concept of analog encoders (v2)
->>>>    drm/amd/display: Implement DCE analog stream encoders
->>>>    drm/amd/display: Implement DCE analog link encoders (v2)
->>>>    drm/amd/display: Support DAC in dce110_hwseq
->>>>    drm/amd/display: Add analog link detection (v2)
->>>>    drm/amd/display: Refactor amdgpu_dm_connector_detect (v2)
->>>>    drm/amd/display: Poll analog connectors (v2)
->>>>    drm/amd/display: Add DCE BIOS_SCRATCH_0 register
->>>>    drm/amd/display: Make get_support_mask_for_device_id reusable
->>>>    drm/amd/display: Add DAC_LoadDetection to BIOS parser (v2)
->>>>    drm/amd/display: Use DAC load detection on analog connectors (v2)
->>>>    drm/amd/display: Add common modes to analog displays without EDID
->>>>    drm/amd/display: Don't add freesync modes to analog displays (v2)
->>>>    drm/amdgpu: Use DC by default for Bonaire
->>>>
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 -
->>>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 173 ++++++++---
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   5 +-
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   1 +
->>>>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c |  20 ++
->>>> .../gpu/drm/amd/display/dc/bios/bios_parser.c |  95 +++++-
->>>>   .../drm/amd/display/dc/bios/command_table.c   | 286 ++++++++++++++++++
->>>>   .../drm/amd/display/dc/bios/command_table.h   |   6 +
->>>>   .../drm/amd/display/dc/core/dc_link_enc_cfg.c |   4 +-
->>>>   .../gpu/drm/amd/display/dc/core/dc_resource.c |   8 +
->>>>   .../gpu/drm/amd/display/dc/dc_bios_types.h    |   9 +
->>>>   drivers/gpu/drm/amd/display/dc/dc_types.h     |   8 +-
->>>>   .../drm/amd/display/dc/dce/dce_link_encoder.c |  85 ++++++
->>>> .../drm/amd/display/dc/dce/dce_link_encoder.h |  16 +-
->>>>   .../amd/display/dc/dce/dce_stream_encoder.c   |  14 +
->>>>   .../amd/display/dc/dce/dce_stream_encoder.h   |   5 +
->>>>   .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  75 ++++-
->>>>   .../gpu/drm/amd/display/dc/inc/core_types.h   |   8 +-
->>>>   .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |  24 ++
->>>>   .../drm/amd/display/dc/inc/hw/link_encoder.h  |   2 +
->>>>   drivers/gpu/drm/amd/display/dc/inc/resource.h |   1 +
->>>>   .../amd/display/dc/link/hwss/link_hwss_dio.c  |  19 +-
->>>> .../drm/amd/display/dc/link/link_detection.c  | 147 ++++++++-
->>>>   .../gpu/drm/amd/display/dc/link/link_dpms.c   |   9 +-
->>>>   .../drm/amd/display/dc/link/link_factory.c    |  60 +++-
->>>>   .../dc/resource/dce100/dce100_resource.c      |  31 +-
->>>>   .../dc/resource/dce110/dce110_resource.c      |   2 +
->>>>   .../dc/resource/dce112/dce112_resource.c      |   2 +
->>>>   .../dc/resource/dce120/dce120_resource.c      |   1 +
->>>>   .../dc/resource/dce60/dce60_resource.c        |  29 +-
->>>>   .../dc/resource/dce80/dce80_resource.c        |  26 +-
->>>>   .../amd/display/include/bios_parser_types.h   |  11 +-
->>>>   .../display/include/grph_object_ctrl_defs.h   |   1 +
->>>>   .../drm/amd/display/include/grph_object_id.h  |   7 +
->>>>   .../drm/amd/display/include/signal_types.h    |  12 +
->>>>   35 files changed, 1117 insertions(+), 86 deletions(-)
->>>>
->>>
->>
-> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+> index 09be2a90cc79d..4f569cd8a5d61 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+> @@ -578,9 +578,6 @@ static void dpp3_power_on_blnd_lut(
+>   			dpp_base->ctx->dc->optimized_required = true;
+>   			dpp_base->deferred_reg_writes.bits.disable_blnd_lut = true;
+>   		}
+> -	} else {
+> -		REG_SET(CM_MEM_PWR_CTRL, 0,
+> -				BLNDGAM_MEM_PWR_FORCE, power_on == true ? 0 : 1);
+>   	}
+>   }
+>   
 
