@@ -4,150 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BC86CCD1A5
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 20:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3B37CCD1AA
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 21:34:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9AFF10E0FB;
-	Tue, 21 Oct 2025 20:25:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CAA210E315;
+	Tue, 21 Oct 2025 21:34:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vaDL/1Xt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IBavZ8ub";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010063.outbound.protection.outlook.com
- [52.101.193.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B79710E0FB
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 20:25:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RoCM2sZauMGGbZlZHmL2rPGDptPMIM5dB0G0glxbrTi3oMdazY3ENrE2jeL0mwEFNaADmGpeAFczWG9vrykss9fV8gEOGBkUUYm4V/jheWpOzPG4Y1/A1Vn0FWJr2bLKczwmSZXD6jCntnBLNfRrxEDMqhVix50qt+LeBVPVXmBz09QtRsORUARYG1vwxU9ZcZVjJKgzD7a0hTzOeXccmripe1fSVw9V7VPrH+LPeMsbqya2OUmLL4nf02Xc9iTAAyA9Ooqcm7KbIxyaXyoLLomAB/x+vg1Nl9WXuPGR6BVsJ6Kmi/7gqyIeF66GIvjSqNit11J1t25CzurXzKUQvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wgIyvIcVaQ68uH8uNXoAoAYtVbbN8fQb6Him37tKs/A=;
- b=ZNHwO7j+1r+4k3WwFJ9YvJXvm1Hwvsg9N4IDFjE833cdC7wixku9JHd4FfEo8FR4ZnE6v9ksKJxsZjs3TqWQbrf+L0Oom8hKQl9i3My5m+dFKSdkei2nebnBvVR62frNRI7dVNr9nHh/pdtVTV19cnHzkdiu1v8VvieoVuFhoHGc3NXMpgI2U893BsHHqLKWg7B0vcrobbjXtNtTLpBN53r2mvyHXfpOlaiH6eLxjRhK7gG0h1SsUUzRgMAycrH6wwS+YYLarvUAULW0IssGjNpXKOxWXmj7Bm29gcu0ZqP0Qzkes427kOa5wkoQd5+9Z9J+5s8VqgtehBFOFOeXjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wgIyvIcVaQ68uH8uNXoAoAYtVbbN8fQb6Him37tKs/A=;
- b=vaDL/1XtV3muTXc0MR5Bg6Lo1+v+tK0a8QsWpSLxjrKWthbhDUBFMZgCSAZc987/1RrK3fpAWehRkE1rXyzRvc+l/F3IjQ8SJ2cOcENcDau/2H+PntlYVBwJ3ByspBnmaPTztKOJVu1CI/kuXYFccs6asxKNcDHjxOcKZRyT7Io=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH0PR12MB7932.namprd12.prod.outlook.com (2603:10b6:510:280::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.17; Tue, 21 Oct
- 2025 20:25:24 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9228.016; Tue, 21 Oct 2025
- 20:25:23 +0000
-Message-ID: <6787f557-cfa7-40ae-a8fb-d40bf40f4707@amd.com>
-Date: Tue, 21 Oct 2025 15:25:21 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd: Add missing return for VPE idle handler
-To: Sultan Alsawaf <sultan@kerneltoast.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
-References: <20251020223434.5977-1-mario.limonciello@amd.com>
- <aPa60qtBV5iCiY2I@sultan-box> <aPa7lwfpALpbCmed@sultan-box>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <aPa7lwfpALpbCmed@sultan-box>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA9PR13CA0026.namprd13.prod.outlook.com
- (2603:10b6:806:21::31) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B596410E315
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 21:34:47 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-290aaff26c1so14727425ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 14:34:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761082487; x=1761687287; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+QV5grHzHUUovHLc7UGRX6J4NeyCV6y2nFCW/ZV/EPc=;
+ b=IBavZ8ubnM8nc1cR2mhJt3SZgR9MuIqkgPGCA08Q59KS+7DgH8nA21Ewq5CWT5KRaO
+ IfnwspBml6YW8LFnzT0UxQUyVKnnFg2I+BRE9lGHYYchj6cu3odZrP7lT4SqpjBi3dkl
+ LwhOd0+oaapu2cH0ZpUcjTbqj0r/KDtBQ/WMeVZDVt+Of4MpBRoCU4NnArqImi9tBTBi
+ gjkIfrrE3LIlBZKE8AuhWGNS81KI1ZsbjVjp8YMXRKZXSZpioUh8pij/N5No/dNJq82g
+ m1+4hajT5Lw70RSDQl/KckXt6LJINQZfinWz8ZNU2eAJlstvGAne5mOWg2IuGg8feH2w
+ 8VXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761082487; x=1761687287;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+QV5grHzHUUovHLc7UGRX6J4NeyCV6y2nFCW/ZV/EPc=;
+ b=RXDpsC0atx9MtMLJi7NtPbfrSSvGb6EKdp7LgYsMX50j9rnsw3eLDMnHzVqTi+EZec
+ pLmQf+kdC0gEvMzpYq/G8NL8VXprGHlSqRashJmZOB58RibcbIDYA26JgcUq2czJCfhu
+ gX2KkDPvNjjotA3fEM+sM/YxzVtUPavM1DSzvPhhnE+vgR8MejtFSFJsr+PaQyiEy5/U
+ MmJoRvYkEBsutDPWE//zqDRHBuGHrC6yE1/jApklSuOfzf4sdcDbpSQPPdvcaKd1Szux
+ JYUh+04MPyXrBTCT2b8knuKlxfys8RBYmwQT0UNS4oXfmxKyvgYZhrLMAp534/EtU1md
+ nDVg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUxzE3gZ0fSHxXdlvIb6HS+4bZsCPBYzkWakD9onE1JfjEPSQ6PF7vyNITo35+AU6xXuv5qz9X1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQm7ywbElWY0eEwRJHaqFMYaq+zLhcO2Hm0MoPjRMS2nroddlY
+ wr205QfJWrdTyhoxPQZAv3IgMD4AjPpNwC7MwsnwkpSmW//llKweiyhwkU9A43o2CNO8kH2Wcte
+ M7nD7C0Kzth/1fJ5nbo5MIPmyBfuOKk0=
+X-Gm-Gg: ASbGncttShYiBOi9b4GfrivQlJP1txcQZVpowGHBiy+pB67x2D/wUktsT8bdnhrnJ9M
+ YAy+qVuTJ8wtI/CLzrtas7Wecmfl8yszs7BpSBSz0qbDZa0VG+TP8QBrC/wPWjQezudPdb2ShQ0
+ 74cyHwZO+kbbywsq8pTsaeoxFWhQq3A/BtXn/PMWAalSKoJIKp2PpHbM+WuJYIrsFQwIF41UxsY
+ w3OhqIw30mWjypBKo2ynF4pNLTEMMwg5WfeKDd/xmNifzleO3h1z9C2P2yr
+X-Google-Smtp-Source: AGHT+IE6dLPDRLwOGSddufB9G3mxeAiCdlRygJcTpdN0xQIdbpdtCA40JAfRI9Se6mI8kjvcW+xALzRMPLn66KsITdo=
+X-Received: by 2002:a17:903:1746:b0:25c:9c28:b425 with SMTP id
+ d9443c01a7336-292d3fe2f79mr28462965ad.11.1761082487192; Tue, 21 Oct 2025
+ 14:34:47 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH0PR12MB7932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25ea517d-608f-4e60-8e32-08de10dff649
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bXBTQmt0UFVaY3hieU11di9pNjhkY3dTOHp2SnZVZHhScHlQd2NJRjNXOW5q?=
- =?utf-8?B?L3NpTXJRYjc1MTN3OXh2VHBNdldOaUMwWnErcTRCcHdzcTJDamdiUHdGTGdP?=
- =?utf-8?B?NVpBZVRFNndteVBkZjB4L0dhYVdnazJBaDRrQm1wSkhqZFdxaERkRDc4bWhi?=
- =?utf-8?B?VklaVUZzMHE3ZkdwUXVVdzJJMmRlaUJKYjdjOUh5SjcvM2dFQ1JoTE9KM0JL?=
- =?utf-8?B?VGhNazZwbjZwWDBFWXVXb2s0R1ZHejdYeno0endDdHZuWWh0SlVBVUU1NTYy?=
- =?utf-8?B?S284UldSM0ttamVhcXVvZXBGbEpQZVViOWQzM2FEYURpQmxON01HR2FoVkxM?=
- =?utf-8?B?dVRDbkVOa0xlLzM5a2orRWRJYnExNWtvQjJ1UmJydEdjU2x6eWkzckk2aHpm?=
- =?utf-8?B?WHdCRUxPMnBwQ3BpMUxjR01FOTRoVVdyMVdGNlFydmI4anptUEQ3cE9YWVlH?=
- =?utf-8?B?OTBOLzhsczRzSVpQNU5OZ0IySCtURUk3WDdwQ1cxaStXd1ArbnJ4QUtlZDJ3?=
- =?utf-8?B?VlZBbnkwYjZ4d1RITG5yaHR5VUpPQ2tERG5UWWtIc2xkbFNzLzQ3Yk8rOWxl?=
- =?utf-8?B?M0daM3VTcmN4L2U2K0VnQlo0bVFSMFNhV05peWFUbzlYbWNYY0ZGcjlCREpO?=
- =?utf-8?B?ZElzc1k5VFZDN2gyQ1RzQ0lNSEJGVG1LOHhtbHNmNHg0UmZTMmRmc2R2NnZX?=
- =?utf-8?B?KzZaOEFNeUVZRm9BbHhqaGJHT3NQVndvTjBSZWswcmRROTNqOG95RTA3Y1Fx?=
- =?utf-8?B?bjFMQ2VFU2l4RWxNcTBVM1A0eW1hYW50cDRDbVZJSVI3UHg5M2xQTjI4YWpC?=
- =?utf-8?B?T01xYVBxOVZKbVExVjU5Yld0dVFsNzAveWRBMUZsOXJaUEdOdDExaFkvckN0?=
- =?utf-8?B?NTllYURnZWF2T2FKUVE0eDJwZ0JJL2RhV2wwaEtqdGFZMjRCeXU3MEJvSk9t?=
- =?utf-8?B?dXY5Sk9aTkpNWWZVMEhBenRPN0c1Q1Q3d3U1NlRnUkJENUF5VXZJalJEZkJL?=
- =?utf-8?B?bC96anRoK3M1RDRzM01wWXhjT1Y2STQ4ejEwV1ZURzBjeHJHTkpYRWF1emlt?=
- =?utf-8?B?TUl5QkFBUE5sd2U3NW11QXd0OXYyTTBGakRSUERqQm9uUEJZbmNlWEpRYjZU?=
- =?utf-8?B?dGI4N0VXQmp2bVFKdEtFbkdBaldFdHhmY0FqQjJpNVUxcGNzZDU4ZEFzelNN?=
- =?utf-8?B?VHo2SDI0VmpSVWhSU200Q2Q5cXRQZ3RJM1VZek9hTWc5M05lcHplcGZxcU1m?=
- =?utf-8?B?U0VNaENMT2YwcHBwSkp0NU1YeHZOWVEwenp6cFdNTzBQS05GL0FtaXZoWVBp?=
- =?utf-8?B?aHFvV1ZKUnd1bVpJYmdxdW4vMDJUclBJMERNRUNGYnNUVGtqUUJwNmJPRzJZ?=
- =?utf-8?B?ZFAzK2JMUFduSVl1azdyR21rZFZJTEVxeWlWU1RGYk1WeGROYVVXZ1hZQUpW?=
- =?utf-8?B?VEROTTRjclJwdlVNdEUvTFpMWnNSdkVwZUg3RFZoNEcxeHBnTjgvKzJxSWcz?=
- =?utf-8?B?UXg3VFdsUUlqVG5Jbkhpb0NXK3U1QVlIbmIyWlJVWjVKUE44alU3TExYRzE2?=
- =?utf-8?B?aTg3cUxkb1hOWWpzc0thRUNWbTNvbzl1akZCV0NWRSszcEVsQXFBUWhkL3Qy?=
- =?utf-8?B?UXIrZEhyQ1I1T2piRXpQY2R4cFRoOHFKMVZyM3hzTklqRHl6QS9wWVVKSlRq?=
- =?utf-8?B?UVJnbjZ3dVpKa3RTZkR3MWJoV3l0YlVZd2FCK2t3WjA3VEV6WFFlSGxUL1Yv?=
- =?utf-8?B?a3UzSTB4a213YjNYSTF2ZUZPWlJQOTVqWklnR2dYVHZ3ZGIzVWxJNEVCTDkr?=
- =?utf-8?B?b01VZFMxdFJXZUJ2cS9PYWhlZGRvekZ6SWZtYi9YNS9xMUVlUTZDdWluN2lZ?=
- =?utf-8?B?VWRtYVRucngzcHgvRGQ2OXpGOTBXN2JFZXZ1VXBIalpma2xHbXl3QzlzR2pv?=
- =?utf-8?Q?6lzzGMNmonFw+Hak9OUaTTXvIpQ6G8GR?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGVFSmhabk5oN1U5YlNsUks2dzVJMHBseGtrOXhERUdaQ3lQRk1YalpUdGZU?=
- =?utf-8?B?WXpHODUzcTBBRkdnWXhiT28vNE5CMTl1QzJtTUE3RkpaSURKM0FhcVR1ZUNU?=
- =?utf-8?B?UXoxM0ticzgwMDd4Z0xTNWRqTTdoQkRXN2NVOFdnbllsZXlJRUYrUW1ZNDNY?=
- =?utf-8?B?TG9vNDM0bmJmMFlzTDRSbENWcEhNOVk5bG80TnhuZDh0REJ0bDc2UEg3LzRm?=
- =?utf-8?B?VkZFTWIxOE1FYWdGVVBtZENxMG9DaElnUnZ3M3N5NXV3V3grYlMrOEhWaEZ4?=
- =?utf-8?B?ckhwRzRpcU5QR1Z0cFFOdkc0SXhWTHpjbXRRVlJCOEoxTlhOTTUweS9YL2dz?=
- =?utf-8?B?aVJXeVFqZHlPS3dNSk9aUStYM1haQ2pSUXBHMThQbWpRcGpiWWlWWUlLdFhK?=
- =?utf-8?B?NjBtUkxuZWJnQ1h3VFFqSlFuWThCWHlicFhhSytaY1BwMHFwYmVvMnczVTRr?=
- =?utf-8?B?NXhmVC9URzVIR1U1OUFQRFRDUngrbU14cWtXa2ljdDRIRUh6NGU3d1NqMHNk?=
- =?utf-8?B?bnNiNUpDSkRUL1hNSjFPNE0wV3VXNFNzQlpobUtqTjBEc3R1WTRjcmpkR1FM?=
- =?utf-8?B?R1krR2trNmo4M2ptV0QzU1BuZEI4S2lxcTYxQWdRUVNSbXZ2TlBaU0UwMG1z?=
- =?utf-8?B?NHZkWngrZWZ3K29KTnZWbTl4bnlOdy9zWkt5MFRMekpXVTBoUmszRm1na014?=
- =?utf-8?B?UmNzNCtGL3NnY0MwbnB3OU1HRzBaR3ZWMUlMTXRBTmltS0xYVXhWaVZmK20w?=
- =?utf-8?B?TGY1MTNjTHVOTTE2cis5R3pjWTdJeWlqL0NoeXFIUnN1UGVtS0JaS1JJSFlX?=
- =?utf-8?B?UzdJaVYxMEl5VVkxakIwYmpaeFVsckF3NFNNVnVGMjJHdFRBSFh5NTJCdUUr?=
- =?utf-8?B?V0o0VjVmUjdUTHc5YUh1bG12N1F1NU5lcGgzWFlKeG9KUEExRjA4N0l6UXNJ?=
- =?utf-8?B?a0JtcnFObHJTMDBNK3NQMHBVSlpwQlVEeW5wS3ZEcXp3UEdXVUMvRWVvajB1?=
- =?utf-8?B?V2t4bm1WNnVneEhLSy9iQml2WUlKeDdjVEc3RGZiMmlTRTFBTHowRE1sMWxV?=
- =?utf-8?B?S2tUYnk4UTdZVjloL0QvcDFzSEFETlNYeDRwTCtBeVpnenpUN0NtWDhvZXhQ?=
- =?utf-8?B?YnJzK1RncUNjTnVVNURtYlg0MlBQSTBsVThNUFZhSHhoYWliTHdLbTNkK1I0?=
- =?utf-8?B?UXp3aVVWcE96WmxjSXVEQkt3Mk1ra0VXTFlMaFVDVlQ3aEtpTXZCRDNHTmtP?=
- =?utf-8?B?MkRoRUhpdFQ1UjA4ZTVaUGdJMlJ4dlpQd1dJTmg2YUl2eEUrQlBYRWlBVWti?=
- =?utf-8?B?N1VETnkyck5hNlR2b2IrRlVsSlB5V3lWM2JDZnB1T1lzVkR4MkJBRnlGTkU3?=
- =?utf-8?B?WXZHOFhVRmNQRkN1eVdJbUd0MWpqOEt5UENtbTFwL1NmS2FFd2IvQml1V1Nj?=
- =?utf-8?B?NmFkVHhLMmc0MW0wN2JsbzhZV3ZJaUtpTmtoUDZsSTJwOFNMZG1FY2crcnhx?=
- =?utf-8?B?Sk80RmMrZzY5RW4wcUc2NFpPWG1XTGZkb24xVUJwTzhWOTcyMng5WGR3TUJD?=
- =?utf-8?B?Q0pWcENQbk1uUU9seTNBZnRveFl0b1lRZnNJR01leTZwM0F6K2RvenlPSkpB?=
- =?utf-8?B?NUlFYjdoRFhYUHVWYVZFd2NiVm5XM1d3eDZiL2hhVWhlQ056QzhyL09wZVNX?=
- =?utf-8?B?Ly81WGozQTE5cGkrVmxSOFRxTkNEakwyWjRNOTJLc3N1Q1lESk90eUExa3E1?=
- =?utf-8?B?ZU5jV2FTcU5nSDk0WVVtZ2c1QjBrdktUNUxUcWZRUDJXNDRKaGZER09memtq?=
- =?utf-8?B?ZWp5LytnMTZiWG5WMzIvaDlQSENNNUtBdlRNRVZqYmVQMlZrZlNnZHVaYlV3?=
- =?utf-8?B?dlVlUWF0UWM5ODVBdUhmR094bitoVzNsTU1NQkl4NXNYSk9BUStqMjljYmln?=
- =?utf-8?B?c1VCZm9IcnpYSHcrcmxocjZtRTVsdU9tb2FDSGFsRVNYZjFuN3ovZm92QkpH?=
- =?utf-8?B?MzErMnlwWXU4U3E3WlJUb1AvQzcrejVJUDJBSjRnVnlDa09xNldKM3E0QVFO?=
- =?utf-8?B?eHpiOXd2L1NKeW9UM1ZrNHVrL2dsQ1p0d1JhUHlwQzFEN1dmNHJTTktmTGFo?=
- =?utf-8?Q?b1IZdmVRoQgy6qV782VVq9zh3?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25ea517d-608f-4e60-8e32-08de10dff649
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2025 20:25:23.2321 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: REdub5iOVEOm2bskZ4kUGlPUdpDJoi/Z8y1Mvr5u+M5W0v1ykTFpZXjOR6UT2/zR4dtisllbtI8D+HMC5qWKaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7932
+References: <20251020194631.102260-1-siqueira@igalia.com>
+ <20251020194631.102260-4-siqueira@igalia.com>
+ <CADnq5_N--t-WbwRC9fuo55cfP8p4Cc-MsdYG11rt0zqaXnkSFQ@mail.gmail.com>
+ <mife2uojni66cei4hdxfjofhz5wbc275cxar5ycigy3xgqp2ra@idwfztr7z777>
+In-Reply-To: <mife2uojni66cei4hdxfjofhz5wbc275cxar5ycigy3xgqp2ra@idwfztr7z777>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Oct 2025 17:34:34 -0400
+X-Gm-Features: AS18NWDd2Ewu993iHcFMO90vzRZx25gjjXsdOFy6Bb1AAGwjYEgT0N6iJSJOQ1Y
+Message-ID: <CADnq5_M=aCBuGWwzyW8G3c3EzOeLEnuJsWdqJjASCdtEfUJNAg@mail.gmail.com>
+Subject: Re: [PATCH v3 3/5] Documentation/gpu: Expand generic block information
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,26 +88,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Oct 21, 2025 at 10:55=E2=80=AFAM Rodrigo Siqueira <siqueira@igalia.=
+com> wrote:
+>
+> Hi Alex/Lijo,
+>
+> On 10/20, Alex Deucher wrote:
+> > On Mon, Oct 20, 2025 at 3:56=E2=80=AFPM Rodrigo Siqueira <siqueira@igal=
+ia.com> wrote:
+> > >
+> > > This commit expands the overall explanation about AMD GPU IPs by addi=
+ng
+> > > more details about their interconnection. Note that this commit inclu=
+des
+> > > a diagram that provides additional information.
+> > >
+> > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> > > ---
+> > >  .../gpu/amdgpu/amd_overview_block.svg         | 674 ++++++++++++++++=
+++
+> > >  Documentation/gpu/amdgpu/amdgpu-glossary.rst  |   3 +
+> > >  Documentation/gpu/amdgpu/driver-core.rst      |  25 +
+> > >  3 files changed, 702 insertions(+)
+> > >  create mode 100644 Documentation/gpu/amdgpu/amd_overview_block.svg
+> > >
+> > > diff --git a/Documentation/gpu/amdgpu/amd_overview_block.svg b/Docume=
+ntation/gpu/amdgpu/amd_overview_block.svg
+> > > new file mode 100644
+> > > index 000000000000..8d9ae95bd9a5
+> > > --- /dev/null
+> > > +++ b/Documentation/gpu/amdgpu/amd_overview_block.svg
+> >
+> > Got a link to the diagram anywhere?  These looked good at XDC.
+>
+> After reading your comment in the cover-letter about this diagram, I
+> made the following modifications:
+>
+> 1. Connect PSP to UMC.
+> 2. Connect PSP to GC.
+> 3. Connect GC to UMC.
+> 4. To avoid confusion, I moved the green block outside each specific IP.
+> I also changed the explanation about these parts in the text, see it
+> below.
+>
+> Here is the new version:
+>
+> https://people.igalia.com/siqueira/kernel-doc-imgs/v4/amd_overview_block.=
+svg
+>
+> What do you think?
 
+Looks good!
 
-On 10/20/2025 5:45 PM, Sultan Alsawaf wrote:
-> On Mon, Oct 20, 2025 at 03:42:26PM -0700, Sultan Alsawaf wrote:
->> On Mon, Oct 20, 2025 at 05:34:34PM -0500, Mario Limonciello wrote:
->>> Adjusting the idle handler for DPM0 handling forgot a return statement
->>> which causes the system to not be able to enter s0i3.
->>>
->>> Add the missing return statement.
->>>
->>> Cc: stable@vger.kernel.org
->>> Reported-by: Sultan Alsawaf <sultan@kerneltoast.com>
->>> Closes: https://lore.kernel.org/amd-gfx/aPawCXBY9eM8oZvG@sultan-box/
->>
->> I just noticed that this link doesn't work; it seems like that email of mine
->> didn't make it onto the amd-gfx list?
-> 
-> Ouch, looks like none of my emails today are showing up on amd-gfx. :-\
-> 
-> Sultan
+>
+> >
+> > > @@ -0,0 +1,674 @@
+> > > +<?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
+> > > +<!-- Created with Inkscape (http://www.inkscape.org/) -->
+> > > +
+> > > +<svg
+>
+> <snip>
+>
+> > > +</svg>
+> > > diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documenta=
+tion/gpu/amdgpu/amdgpu-glossary.rst
+> > > index eb72e6f6d4f1..a3f9565d655b 100644
+> > > --- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > > +++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+> > > @@ -227,6 +227,9 @@ we have a dedicated glossary for Display Core at
+> > >      TOC
+> > >        Table of Contents
+> > >
+> > > +    UMC
+> > > +      Unified Memory Controller
+> > > +
+> > >      UMSCH
+> > >        User Mode Scheduler
+> > >
+> > > diff --git a/Documentation/gpu/amdgpu/driver-core.rst b/Documentation=
+/gpu/amdgpu/driver-core.rst
+> > > index 3ce276272171..13f13e2e5497 100644
+> > > --- a/Documentation/gpu/amdgpu/driver-core.rst
+> > > +++ b/Documentation/gpu/amdgpu/driver-core.rst
+> > > @@ -77,6 +77,31 @@ VCN (Video Core Next)
+> > >      decode.  It's exposed to userspace for user mode drivers (VA-API=
+,
+> > >      OpenMAX, etc.)
+> > >
+> > > +It is important to note that these blocks can interact with each oth=
+er. The
+> > > +picture below illustrates some of the components and their interconn=
+ection:
+> > > +
+> > > +.. kernel-figure:: amd_overview_block.svg
+> > > +
+> > > +In the diagram, memory-related blocks are represented by a green col=
+or. Notice
+> > > +that specific IPs have a green block that represents a small hardwar=
+e block
+> > > +named 'hub', which is responsible for interfacing with memory (pre-v=
+ega devices
+> > > +have a dedicated block for that, named GMC). In the driver code, you=
+ can
+> > > +identify this component by looking for the suffix hub, for example: =
+gfxhub,
+> > > +dchub, mmhub, vmhub, etc. All memory hubs are connected in the UMC, =
+which in
+> >
+> > All memory hubs are connected to the UMCs, which in
+>
+> Based on Lijo's comment and Alex's comment in the cover-latter, I
+> rewrote this paragraph to:
+>
+> In the diagram, memory-related blocks are shown in green. Notice that
+> specific IPs have a green square that represents a small hardware block
+> named 'hub', which is responsible for interfacing with memory. All
+> memory hubs are connected in the UMCs, which in turn are connected to
+> memory blocks. As a note, pre-vega devices have a dedicated block for
+> the Graphic Memory Controller (GMC), which was replaced by UMC in new
+> architectures. In the driver code, you can identify this component by
 
-Some seem to have shown up but this one is missing.  No idea why. 
-Anyway, it is what it is, at least it's fixed.
+GMC was replaced by UMC + hubs.
+
+> looking for the suffix hub, for example: gfxhub, dchub, mmhub, vmhub,
+> etc. Keep in mind that the component's interaction with the memory block
+> may vary across architectures. For example, on Navi and newer, GC and
+> SDMA are both attached to GCHUB; on pre-Navi, SDMA goes through MMHUB;
+> VCN, JPEG, and VPE go through MMHUB; DCN goes through DCHUB.
+>
+> What do you think?
+
+Looks good to me.
+
+>
+> Also, keep in mind that this text is part of the below page that already
+> have some comments about GMC.
+>
+> https://origin.kernel.org/doc/html/latest/gpu/amdgpu/driver-core.html
+>
+> >
+> > > +turn is connected to memory blocks.
+> > > +
+> > > +There is some level of protection for certain elements in memory, an=
+d the PSP
+> > > +plays an essential role in this area. For example, when a specific f=
+irmware is
+> > > +loaded into the memory, PSP takes an action to ensure that the firmw=
+are has a
+> > > +valid signature.
+> >
+> > It also stores the firmware images in a protected memory area (TMR =3D
+> > Trusted Memory Area) so the OS or driver can't corrupt it at runtime
+> > after it's been validated.
+> >
+> > > Another use of PSP is to support the TA (e.g., HDCP) and
+> >
+> > TA =3D Trusted Application
+> > Basically small application that runs on the trusted processor and
+> > handles a trusted operation.
+> >
+> > > +encrypted memory via TMZ.
+> >
+> > TMZ (Trusted Memory Zone -- encrypted memory for content protection).
+> >
+>
+> I also rewrote this paragraph to address both of your comments:
+>
+> There is some protection for certain memory elements, and the PSP plays
+> an essential role in this area. When a specific firmware is loaded into
+> memory, the PSP takes steps to ensure it has a valid signature. It also
+> stores firmware images in a protected memory area named Trusted
+> Memory Area (TMR), so the OS or driver can't corrupt them at runtime. Ano=
+ther
+> use of PSP is to support the Trusted Application (TA), which is
+> basically a small application that runs on the trusted processor and
+
+use of PSP is to support Trusted Applications (TA), which are
+basically small applications that run on the trusted processor and
+
+> handles a trusted operation (e.g., HDCP). PSP is also used for encrypted
+> memory for content protection via Trusted Memory Zone (TMZ).
+>
+> Does it looks good for a v4?
+>
+> > > +
+> > > +Another IP that deserves attention is the SMU, as it is connected to=
+ all the
+> > > +other IPs. SMU will help put the GPU in optimal utilization by takin=
+g into
+> > > +account performance and power consumption. SMU helps other blocks to=
+ set up a
+> > > +proper clock configuration. Another feature of SMU is the support fo=
+r resetting
+> > > +every component.
+> >
+> > How about something like:
+> >
+> > Another important IP is the SMU.  It handles reset distribution as
+> > well as clock and power management for all of the IPs on the SoC.
+>
+> Ok, how about this paragraph for the v4:
+>
+> Another critical IP is the SMU. It handles reset distribution as well as
+> clock and power management for all of the IPs on the SoC. SMU also helps
+> to optimize GPU utilization by balancing performance and power
+> consumption. Finally, SMU also supports thermal management.
+
+I would include thermal in the first sentence.  E.g., "clock, thermal,
+and power management"
+
+Also, the use of "utilization" seems weird.  I think of utilization as
+the resources used on the GPU.  Use of the GPU resources is managed by
+the scheduler and the driver.  The SMU tries to align performance with
+demand.
+
+Thanks,
+
+Alex
+
+>
+> Thanks
+> Siqueira
+>
+> >
+> > Alex
+> >
+> > > +
+> > >  .. _pipes-and-queues-description:
+> > >
+> > >  GFX, Compute, and SDMA Overall Behavior
+> > > --
+> > > 2.51.0
+> > >
+>
+> --
+> Rodrigo Siqueira
