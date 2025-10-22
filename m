@@ -4,151 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0C86CCD1AB
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 06:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359D3CCD1AB
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 07:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70E8810E6C1;
-	Wed, 22 Oct 2025 06:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B797210E6CB;
+	Wed, 22 Oct 2025 07:01:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="glyrgq3y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XwP3mFCT";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013035.outbound.protection.outlook.com
- [40.93.201.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC4C010E6C1
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 06:59:49 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010039.outbound.protection.outlook.com [52.101.85.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDF2610E6C5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 07:01:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L1SMNpHUTM965npCEdFW2VYdijUKB9gWvyoS3dBnnRzaeIhu4FVxh/WOHQrSiW3Z7KyPqnK50APS2Ex9JHhHQEVutNZqFWqEfhEZqt6Wb8Q4KvITI59LHWI+NTp2WPzmVjvZ6SNkv3aWE3DjhBe8jS8newZuph52xg600yGnEWp4g/ae2mQ4PVRPvS+/gWnYg4y5Ag9PHDYE8zdaZ6hCTpCZrlQtWzQWDChMS8A7XjKCfYwwjZgd+ZEb4rP4yW+VDbk5ezPRdMvEwdjri9c4UVLRqa23sxaufwQjP9/QeGTlT551rxxBGRuaTGn81IBvmOWhZLK+CUwEt3f+rIdymQ==
+ b=SfegLSinn4UIwIN/M8UCk+0BV5ndgZJG5sVYYYR5hZbFGMa0yllLVcMI7ZGwDEflLu8EGlCQPVCFIleOVzQ+L6jUkPhTJqUw85DZrNpaXJeGiI8RYyOYxOEuYA5aXv+qHkb7U8GGwagFvu9sUiDDGO+Ey5l5S8GSCWA9g9Ks2DfSoT1Q3TW5gcRMxQQkK4cNJdov0iiD8fp1EBWVYrK3m7+obj2dvLu6QCtCoYEzKPnn2AkvmTHMs/sfhPmH28ZiTFNKZc/bc9j1/9wSKAts/W/rFj7CitmgECbY2cdx22LiPx/02NGBshJ4x7s6h5+ZlgB35mmPYCr3YB3fnUgj+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T16EwHvxDogcEss3/Pet0+jc7rSYRyapbNjNwLSf1Eg=;
- b=LDLlvoQ0AZfAXm4ncKBBGh9RdKAauosAHTrhx/g2i8E3ie47cRoEYoCf2+iPvTgqXBbLNfkJNIQSxugsYmv9P23nKjLQL3I6R5uxF45AkXAEhrZt9upQTWcSnkzofoojxFcz0nuuCWJuaw/7imlPvIDxfnMLEksivelyyYwCYLj7/ZitZ5A9dQF/lFw3BeyuYndj1suxkVBv2jM6RYWmG6XksxcgHvy1tpK32VP4iADNCG+NIoV+/UZcjr1wHr9wOmZYvikvBTLKtRKVaFYjyIpxVhbouXDjMOx0PYtGlZtWdgDrduanZnjbulMcIMALRUeTMVLeTi1B1lGNvzCamg==
+ bh=M1opsph8bfIyjNsKXlKMDuX3SaGPl03p/u9RdMorFLs=;
+ b=kklwiwxn1vifkt575e/r8rAKf2CyUSTbEEwZuyn4c9UKRG2SqiqUGkTOR1fsYh4RkFiCR8W1K1wrIY3b3sxvy/GICGmAtHWG4oowywQY9XtEMMIWdAIGVK1eT4kDBpGxjmJP18AiuTncniomTFyYMglIzTMp20jnYWF/y1nQthv5ZtGnXEyJZEOVPpiSn9Q/eLJFR4yPRgJBvuvHdyp0zR5YNgP1NF5LYTU9v/miqgVvb7lkoWkVjpewyNADO5Zjo2WiBZkuOH2+p+k+Ag4VD7iT+kq7yVnNCvC/zE1kQ6oo6Hb8l+aFE7J7s93P+99JzxNhD+kuLDTvvOCT6GeZVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T16EwHvxDogcEss3/Pet0+jc7rSYRyapbNjNwLSf1Eg=;
- b=glyrgq3y+tEakuI2BJgUCN5/7OAEM9NbDvs6mURTMsqsLT4SZR2F0JUi9HkFJkj8jnHKCMFxr8zuigdhPgEeStgw7oyuadBJVMHj5FyyEMu7SogyyMY7xEPvSmjWagIF75jp0J/fiEd8sv4uyKEqbSV/329cR3Eja6HRlU6Cy1E=
+ bh=M1opsph8bfIyjNsKXlKMDuX3SaGPl03p/u9RdMorFLs=;
+ b=XwP3mFCT1aVBTSSwO21fVI4ZaeVuTQ0b0r0txPSc2erTx3ISFqMv3fm5SZImrg+JaGZY/K75uHOKoORl08ocfQjILIG42jiZpv9n6eHD6DaIs2BwUWZ+dl79SCHCwjZLXQTi7swiW5099153S61V1HRlicOEwjEB15vnTsBc2mM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
  by BN7PPF39B20C1D8.namprd12.prod.outlook.com
  (2603:10b6:40f:fc02::6cc) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Wed, 22 Oct
- 2025 06:59:47 +0000
+ 2025 07:01:05 +0000
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8%7]) with mapi id 15.20.9228.015; Wed, 22 Oct 2025
- 06:59:46 +0000
+ 07:01:04 +0000
 Content-Type: multipart/alternative;
- boundary="------------PDl7kgp0smo4faMb01L7l8NO"
-Message-ID: <d6dc732b-3926-4b54-9a52-90050d7bb1ac@amd.com>
-Date: Wed, 22 Oct 2025 14:59:39 +0800
+ boundary="------------hRwOyF8lx0toK0thq0YO3wrw"
+Message-ID: <231341d7-5138-4834-a44f-1c76f3f81a65@amd.com>
+Date: Wed, 22 Oct 2025 15:01:00 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V5 18/18] amdkfd: introduce new ioctl
- AMDKFD_IOC_CREATE_PROCESS
+Subject: Re: [PATCH V5 00/18] [PATCH V4 00/18] amdkfd: Implement kfd multiple
+ contexts
 To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
 Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
 References: <20251017084222.54721-1-lingshan.zhu@amd.com>
- <20251017084222.54721-19-lingshan.zhu@amd.com>
- <b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com>
+ <41489a22-d687-4ccf-a3e2-d1126bb79ebd@amd.com>
 Content-Language: en-US
 From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com>
-X-ClientProxiedBy: SI2PR01CA0017.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::19) To SN7PR12MB7835.namprd12.prod.outlook.com
+In-Reply-To: <41489a22-d687-4ccf-a3e2-d1126bb79ebd@amd.com>
+X-ClientProxiedBy: TYCP286CA0172.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::10) To SN7PR12MB7835.namprd12.prod.outlook.com
  (2603:10b6:806:328::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|BN7PPF39B20C1D8:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1f34df6-555f-4bbe-c5a7-08de113895ab
+X-MS-Office365-Filtering-Correlation-Id: b452b5a0-1e40-4730-ca4b-08de1138c466
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YW9LVEpxaDVRcDhYVGhvZ0dNUGZZWU1wa1oxbE5vcFVPZVkrTm8rdXVKNEIx?=
- =?utf-8?B?dTlmUytIa3F1bW5JeW5XZnVmV1NzMHlQWVluY1JCWmZKWnVBNXhmM3B1cUpz?=
- =?utf-8?B?eUxPbTkybUM5aC9OOVR6dlJWcmJ6QWFvcmhXZzBYTXo0dW12NngvWWtHSVZF?=
- =?utf-8?B?WVpDOE94cURXbWRka3RjNTl0NEZSV1UySlBtQXJkcjJKQ29yUVViSWRlOWRD?=
- =?utf-8?B?WUdLTmt1cXh2ZUZmMis3ZlFTaFVRQzR5TnhrM1p2a0E0ZWhnYThWMkY1cWd4?=
- =?utf-8?B?M2lYVmdFSHRqSXZJd0tWb1g2UlNXNFZQeWFhK3QwZUVLQUp0TTV4aU95VHBr?=
- =?utf-8?B?bWFSZUhNWGdyTE1XNGtZcVZEYUphVFdHRFlWc3dEQWZXR05TTjY3YytWR01Y?=
- =?utf-8?B?RkRMNFZkL1phemVRWEZMaXN1WHd1N2tpbnVyTXVpSFRGVUREdzBLbVBUc01i?=
- =?utf-8?B?VXBhcWhFQ3BwY2Iwb0dsTEhvUVBsWVQ4bmozaWpkZDhoTEp6RUV6UkxIcHpt?=
- =?utf-8?B?RU92MEUvVGJuejNzUk0wN0hvbmd6NGVuQjhBb0Z2aEQ3ekVyTjFORU1EVmxV?=
- =?utf-8?B?bkpjYy9ZdytCclBveUhLTS9tdG5YQnJic0dKbEltTDROS1EyYTJrNFJDSnBL?=
- =?utf-8?B?Ty9rWGtKQm1qYWY2YWJjdVpvb1o1UUFTREZ6bWcwR1J5anVod3FsWG9naENz?=
- =?utf-8?B?QXJvd3p2dWM4M09velhGb284YkFRUHpKRVl3eE1mdGFDamZVS1IwN1p3azFt?=
- =?utf-8?B?d2tyOXFXTk4wZHVxN2QvWldNd3dRd0dhU01JZzdCTUhmeHJpanprelB6aU02?=
- =?utf-8?B?NjI1cGhaL3ZyWS9vVkpDQmM4eXN6NnpsU0RFS25QMWlWR3Z5WUZDNjNDSkxm?=
- =?utf-8?B?dThkK1d6b01WdkhiVmcveEJWQXVxVjlUbVhyR05RYjhSTzlUWDRoS1JsOTJX?=
- =?utf-8?B?TWxGaU50Vy93NFV0OXJxb3F5UXdkbGFGaHljSVhhZFdJRFhKYWZCZE1UZm5U?=
- =?utf-8?B?c3VoZ2VGenRsN1VCU0hrQ3NpWkFXZUdOaGszQzYyUUFnOE9sRGtBMThhc091?=
- =?utf-8?B?SWgyTi9XWTRlZXpGUTdnMGJyMXdpV09sbHorcWxOVHpDRWdRNEM4aXhBa2FF?=
- =?utf-8?B?VjFPa2xncjhWL21pR0F4RUZpbzFRR2gvY2hNNEVxMG44OHIrK29xT2ZjQzBv?=
- =?utf-8?B?eWFOTTFGRXBES3lRekEzRlNpWWNJcTJmZndqWTNCMC81UFRSYWc1b2RiS1ZD?=
- =?utf-8?B?QnFaVFBoSG0vbXRlVXl0UlAvRkJCaHhiKzE5ajVJd0hlcGxCUzNReTYxYWZL?=
- =?utf-8?B?Z1JZVmNzYnpXbkZIRnA2L2FiVFdoVFZtUFFueWVVNDVXTHBNWjd6Zzk2SWwy?=
- =?utf-8?B?YksxcGRCdG4zMXNQRUdFaXBxUjVGR29lUjgrcW1LMXFuUm9xc1U1NGF0NkVI?=
- =?utf-8?B?Ykd3dnBXaWVsc2RTYXVGNmhtK3Z4MTZUOUhlYk10azMzemNJajZ2VFk3T2lU?=
- =?utf-8?B?YUNHcEJIaUgyeTVuYmxLenljeVpFM0prL0U4M2Y1Lzh1YStvaytsUTd0RWxW?=
- =?utf-8?B?dTRwK2lpQ3EwUU5tWFVDM3p2R0h6aXAxYXN2Vkdyelp0WkJGb1I5RFRxZ011?=
- =?utf-8?B?eTFYb2hZYjM1K0FqMjd6YjgzcFFiQVBFcUZSQUd5cjJwWmkxUWJTN1JkYzVO?=
- =?utf-8?B?bXcvSjhnUUhSUy9LZnh0SURPZkU5bFBkT1FaMGNCLzIzRC9JNHR5cTBhTGZh?=
- =?utf-8?B?Qk5LaEdPOVZ0ZmtLQmdsNUQ3Z012NW5yckNOUkJWOWR2S2FTSkdncmpMSzVW?=
- =?utf-8?B?VWQ3cGcwZElaVER1RDFhbTZhUHlFVVBFVG1tSGk3ZkVGV1diU1l3VWFOMXNK?=
- =?utf-8?B?NFlVekFrc2EzVXRsYiszRnFOZy90dGlSS0tCYkJnQ1BzVzh2Tk9YUmxQazNJ?=
- =?utf-8?Q?2hRYbv19ZaZic1KxhuwddX1ZZSexgGP8?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|8096899003|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?K0FpellhMFV4Q2VKQXdyVEl3VXJVY0tRY2NQRVV2ckltUi9YVE40U3h6M0Nk?=
+ =?utf-8?B?bkJGVFF3OXpQTEI4Q3ZWVTl6aTJneFlSdVh5NVlORVltZFNEMGxGa3pQTjJu?=
+ =?utf-8?B?UG80eStlV2loSSs0RGVITUtzK0RrYks1SStOclJQNEo1RnB1VkdRSnlEMjNR?=
+ =?utf-8?B?YitKL2JQL2lFYXIvb1hjNUErY3Nob09iK21heFNWRDhzbFlwT1hOSDNnMzd5?=
+ =?utf-8?B?TzlRYVc1TlJiYWpaQndRaWdVTEVMRlVOZHYwaXpmOUhGSHhVRnBIOTFMY3pZ?=
+ =?utf-8?B?anNjcnlWQlFqRTB5V3plaFcrVlBEa01uaWpibkx6ZDFyeFhrdEVPRyswWHZI?=
+ =?utf-8?B?S1N0OWRuT3kvUFNxb1MxTHhqTCtlOTlCa0VEcjlJUzVJZEV0MkJkTldsSGM2?=
+ =?utf-8?B?cnJPaUc3MWNWakxLazhKWU1NeTdRVzFsdFFXVnZ2MmR5QmRjbjB1MmsydlVh?=
+ =?utf-8?B?dFdtU29SalVxZzg3MnVtbVNlVGFXZ3RaK2hyam95UEllMFRJd2pMQzZUYXB4?=
+ =?utf-8?B?OG0vZU1KV2xtNTJMeHUzMnlNenIxRFV6T1VQNHd3cXlXMmlXTVlhRGl0aXR2?=
+ =?utf-8?B?aXpLSnpMclg3Y2VUMFpMU0hOZ3kxV2ZBQkdUNTcyYktmRDJhbVY4S09SVDEr?=
+ =?utf-8?B?QVJ2RVRDM2ZQOWZTamJYUjdVaXczTTY5akFmemhFQ29MRC93dGhmQW9VTGE1?=
+ =?utf-8?B?OUt0N0taTG15bjBjcitvT1E3SGNnYm0zSThOWU1XbkdDcUl4WlJMSU9tWjRQ?=
+ =?utf-8?B?Q2swUWhLNm9ZcnU0dnM0MFBLUU5NMlRzUU9aVEp2U2dpUExQTmtSbVdnQlpF?=
+ =?utf-8?B?NGNCRVhIVWkrMTJlelVVSDBzdXgzOEVyc0lRcG83Q1BJMC9GdmlmYlR3c0NO?=
+ =?utf-8?B?dVQzWUVwdS8waFRSaFZySGVVVmdyOG9nRnZKZlFQNWUvd2E0K1RhQnJYcTBM?=
+ =?utf-8?B?b2xZNVg3U3FyL1BlUGZ2N2ZQT2JkTmdUNnRBbkJZMnlMa0JTQk1qenNDQ2lD?=
+ =?utf-8?B?REMxMnlkOUUxYlNKaGluMkQ4ZzRLd1lPTnBYZnBjalZ1aVZjS2hYelQ4V0Jx?=
+ =?utf-8?B?Q0ZLU0ZrcUl5NldETHd4RGFWN1kyYmVXVkkwUjh2WHNSczJXK0tHbEZyWXp1?=
+ =?utf-8?B?UHpRWDJENnF5Z2lYYW1kYUtKQ0ZhT3VqdXFVaFU0dStBOFdRSWZVTDdYbkFF?=
+ =?utf-8?B?TEM3YVpuTFUzbzNTVU5maWFNcTJvWnA5Ymx0cCtSZE5va1lqbnk2Tm9US2U4?=
+ =?utf-8?B?eXgzV0V0cEluenlBbnlFNUhkYnREcm9YRXhLMkREcFNHYVNUSTBpSjJQVjVZ?=
+ =?utf-8?B?RmlSYjhLOWNUL3RMUzdFNEFkMmVBN0ZrSGhKNEZnQWJmTStzNmRUSWN3N2dK?=
+ =?utf-8?B?TUx3Z20wT2kvbmJFUjRaeU9Yd05RUU1kczVuNGNvRHVicXFteEpIa3lpU1Bx?=
+ =?utf-8?B?bXpGbjhIbGZnTUxFWmY3dkYxTXNQeDNkV2VncU5xMEhkcWRFc0QzS3NVaFBt?=
+ =?utf-8?B?NFFDVWdjQXpKbHlvQkdiVHJBMmJqTHNKRiszQmRSUlpPV3pINGczSWI1alVC?=
+ =?utf-8?B?Y1hzaEk1Z0lSN3pvNXhDaHFkTklKempSRURuRWxFR1lia21Ba0tMN2ZwZ3R6?=
+ =?utf-8?B?dndLV2xDZ1krTkxhUUhmVmlUc1FqNFdya0RsdU41TGwvRGRBOTNzQlNqc0xi?=
+ =?utf-8?B?bE9aUDIwVGM4TDByUmkrYTV5WERCdTZ2L0NVVkR6bU9uTW9sMXlLTkdZanlr?=
+ =?utf-8?B?WGx2VUpiNGZESGI3bDUwSW5Hd2kyZTAvZDNidWRUMHNsTitsTnBPRGZSdkVH?=
+ =?utf-8?B?WmtuNXNKZnRXSmVob3NUNUlHczkrSHpLTm1ibFZHRkFYZzVlSmVJTWVxbFRk?=
+ =?utf-8?B?VGRUWEJZVVZyREtUZlB2T09TL01xajhIeCs2MVQrT09IYVJENVROZVY0VFo5?=
+ =?utf-8?B?Z21obTZPZ0kyaUZGY3A0ZWl0RmNSakhiN3ZqOHlQK1FBSVBLZUdFZ25xZGg4?=
+ =?utf-8?B?ZjN6a3hHMEFBPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(13003099007); DIR:OUT;
+ SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czJERkVaNE1GZmJyNUJlNnhJRmJkMTNGNXdOR2d3NFVGUm1DWlZCMVVuTGhp?=
- =?utf-8?B?aTFMRU0wd0NSQUE5bjFJQ1lnK3VFdG9qT25PSkFEQ0FuYndCVlBTdWorRTJs?=
- =?utf-8?B?cm8wL2M3cFZCRzZnWUZ2NDltTnZPL3ZUV2wyeFZuMElxQVNEM2I3bnpJMm1o?=
- =?utf-8?B?S1lXWlZwbGJFNVpjWDlRVkdTODZkNGtTQVZQYmhwTDNvSUxucFFjQ1dUY3Nj?=
- =?utf-8?B?ckZHdW1JWU1ORXZuNktqL1IzWWpISS9JL0NDK1Nwd0w0SktYSjdmSXIyOXJR?=
- =?utf-8?B?OG9BWkE2bEdZMDk4SldERTdkNEF1dlZmUXpWbXUyVzNKTkZmTnhsb2t4bUh5?=
- =?utf-8?B?aXo4U3dFbmhuNWFObkMxWWZiajZEZHBScVZsMFpKNDZETXNvdjJJbUY3TGxE?=
- =?utf-8?B?WWRMOGFuSTIzMHdVaFphaG5ma2NEdExqU1U1ZTBxcFk2TWU3SlJnYlcvWCtN?=
- =?utf-8?B?R0Q2cGRDV1VUaW1wamFOMWpvOVI3dWYyenhjc041Z1Y4Q3IzK1VyL252aFpK?=
- =?utf-8?B?VVNpQWNXZWlSeVJXcTFQaUQ2RWd0cGl2SDhVYVVDaXJ6S2VuTXpZbTRTVVph?=
- =?utf-8?B?VVYyakI3bngyOVBPWDhCYTBqR3NxWklPK1pvRmZjREx5eUl4QlVNZnRVWXpi?=
- =?utf-8?B?UjJzVzEvWmxTa1Vqd0RxRGlGZnkyamdLek5yVVZwcnYzRFVoUHN6Y2lQTU04?=
- =?utf-8?B?MDJGOEIrbFhiZGlqZy93eTk5LzdvcEI4L1p1TVFyMjNqQTJrcDl5V2hlbmd2?=
- =?utf-8?B?NlRCajNzcXhGczdkWGNZc3lGbEZBVmM4MmxWWXpkc2xXNlI5YkJDd0x6MlJo?=
- =?utf-8?B?di9IY3prNFhlRzNpY3JpNlpVeVhFQlhTN3dSenFjZTRqbHYweU1VOGEyTXdB?=
- =?utf-8?B?dTBSbngrUTFTdGlkVUV5NWRoRWd4czh1WTRjUWRydjVOZmQxK3UzcHZXdVBr?=
- =?utf-8?B?ZXFld1N6dmRreUxQRm81Z0ZNWll1eERuYnpzZHZQRHUxek9OOG41MCtRN2lx?=
- =?utf-8?B?eVlxeTh4MXdvNy9QU3o1N1l6WHI5bjV3Z2I3UnppSVJoVEM2RjNtb0plOEhT?=
- =?utf-8?B?RnBNazFwOCtTYjJ0dm5Na1NldFdZRmR5a043TGpBd2RXMHErVUNjaXRkdjRq?=
- =?utf-8?B?Y0Z6eGlQdXV5eDllQVU4RkYxbjBBYWVWWDBqWEZDQXR6ZU81WnJDTGEwR2Ev?=
- =?utf-8?B?Z055OEZldit4c1BMenJrekdpN3RRTjdsNi9sMnVONURBRXpRclNROE5MN0dK?=
- =?utf-8?B?RWJ2dHVIYU1LKzUzWHBvejFpbWtYbDd3Y2tlVS84ZG12TXg1TWRGSWNlamUz?=
- =?utf-8?B?b2JQVml0K0ovSnIxb2QzakU1THJ2bTVRN0lDYWRTV2JYdHlSVDBEZE00MTZ5?=
- =?utf-8?B?ZEs5czlJMm1zb2ZQMy9PRDBCN2pvK0RMSVJDWHJyb0JET1FrN3JORUN1RHZs?=
- =?utf-8?B?NUFpYzdxbHBsclBpRFZIaGxHK2ZaUExWL2w5ZWF5bmJWZ3N6T0xSRHZUQmk5?=
- =?utf-8?B?VlQxVDJ1dWtmMy8vNzVGMmRtYTgwdDFGZWxkakw0NGFFMzUwTDNlYk81VDFE?=
- =?utf-8?B?VEJhek5lRUJpU2xqcGlnaW1xSTFZN2hMMjlFdVBjZjBKeUcrN3pIVkxtMjNN?=
- =?utf-8?B?Q09zS2dlUEYxVW9ucEMvMnhIa0xFYTlpc3orRk04eFBJd05FUkU2dWpLa3Nv?=
- =?utf-8?B?ZFpwQlBiMXNYZWNlRHZpV0xxVS9GV3JoNWhOS1A3QTlQczU5bEZCaU1scUU2?=
- =?utf-8?B?NkZIRHBwNlFlUm9vVWQ4QXBsUXp5OWljY0U0RFRjaDM2OURJR3BucVZTVi80?=
- =?utf-8?B?RjdRRURQV09RZzRQR0hTYWw2dXRpMU0yc1FrSXI5YmVGVVVDTG1FY0FiMU5S?=
- =?utf-8?B?YUk2WXdDQzExN3gyS1NvbzU2TXRvbWFZbDMxUXVINFY5MnhhSkVISXBSR2dy?=
- =?utf-8?B?ckhTRnZiMTdRUnhraGRRdks2RVpJbnNQdm1ra21yWHZBVmg2bWxTWDVTNERm?=
- =?utf-8?B?aDViRm5sYmlSQlovQlYzK1FpR0JhZDg4K3RoNEdkNUkxS0tNTlZJNWRJb0J3?=
- =?utf-8?B?alFzSFliVzVRZVZ4RFZZOW0zWDEvdlp6cHF6OG9sT1VrWXlrOU8wcHdVbmY2?=
- =?utf-8?Q?En03NmXVASghk047VnxFRP33d?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akZick5Ib1NIOGN0L2MzaDNHaFRSUjNqQmtPZVBLeTFOZVRIN2FuR1NvZXdX?=
+ =?utf-8?B?blEvRGZjUnVPV0wwNklFZTdOLzA3eGdtSVpwSTZERkk2VlF6V3pSWWl1ak1o?=
+ =?utf-8?B?S3VNSVNOb08vK213WjJLL2Q4RERsSHdLR2x0dmtQTmJCWnRIczltczBYcjl6?=
+ =?utf-8?B?bE1EMEE0STNKcDAyY3JkTjVTSVpwdEc3TXNPVHFrcHNTSFBoZzMxb3hlWEdF?=
+ =?utf-8?B?ZlY2dzU0akh5TjBiWXB3MFArcTdtaEdUVUhxUkM2eWdRK1hPOS9YVEV4NUpF?=
+ =?utf-8?B?eWFRanlZSzlsZ0J5RUVuRExnRmt1dS83UjBqQnc5cjRKYzhKR3ErQ1ZQRDZp?=
+ =?utf-8?B?T2NoSWNTVG0zNi9uT0V3VkY0R290WVN4ajFwd1k1ZUVlaGZKeGVkT0lNMnIz?=
+ =?utf-8?B?S1FZUGFadHBJQXdWMjdESllMMGJLUXU1M2ZpR0REVkJ2NVJJMnFtSWhFSGN0?=
+ =?utf-8?B?WHZVbWVwVVYxUDhaLzE1emRBVnNCdXZMZ2lxSkh3WGtrZEJFMzZKdVdITTRv?=
+ =?utf-8?B?U21OWitGTGNJMC9qZ1lidHFEN3p5NWxqV0dwakpPNUMvV0Zmb0sxaWV4WlBu?=
+ =?utf-8?B?M0RLZFZSLzV0aVdDOER2MjM5YjVJMWx2NS9XN25SdG9KS2dob0xLYk14OEsw?=
+ =?utf-8?B?QUFQTENFYmdpS1VCNjQzNGFDd1N2S0UrTkR4WXB2S0NBNTUxSTdVdzlnQkVQ?=
+ =?utf-8?B?ZUc1NkJseFBlYTM4MEZrUTdMZ2RIMHg1NmJSalR0MkFlZ3ZOcnpCSC95MXNw?=
+ =?utf-8?B?OC9FZG8xWEhEYVMvdWdjMlV6R2d3bjJqYThncnlaSlBEOVN0TzdRcWdYUGc0?=
+ =?utf-8?B?eVMrVkdWQmpBNU1iZ25mQkdlenZSZUlxS1hONWVrZURFaVRtNDYyakxvaXZq?=
+ =?utf-8?B?elRsTkRyZlRlaFJKU2tSLzIxSm40SEdNc2IzaWJrT0pySHpYMThGMEJYRHpX?=
+ =?utf-8?B?Mkl6Z0o2R3B3elVQbzQ3Z2tqeXdzeUVyYWl0cDNLZkdLUkQ1cXBaa29JNUFz?=
+ =?utf-8?B?bTR3K2V3Sm9JSHlVMlF6Z3FzdEpPaFY3aWV6bzcyMVJqOUd4WFRKUTBwTXNo?=
+ =?utf-8?B?TkN1VjFZdUZQV1gwdGVzZlNSR0l6cS91YmFBblFSdDkxUXdLTXJoakswYlY3?=
+ =?utf-8?B?NFBJRm04KzU4YXR2TEJhSDQ4VGF6SEJzb2hoUWsvY3FXbGRzMUJJb0NZWmVF?=
+ =?utf-8?B?eGdnd09DWS9xRlhjT3NuRGhRZ1ZiK0ZnMjIwQUR5b3p5OS9IMzBEQjZxL0dt?=
+ =?utf-8?B?ZHNuSUMrUU82YUNRTjh6bWFnaW5DMkZQeW9jTkF4WWZTbzdqUUtSSEwyYU1G?=
+ =?utf-8?B?VDlGOGVZbEZaS0NlbU1KR3NrdE0wQ1Y0QWlFaGtvVk1tTHdEVGNScHNOOWdv?=
+ =?utf-8?B?dW9hWVp2WUMrRUkrSk02SEpKQWVvY0s5cUN0a0NsVlR1bFk0NW11NzJuTUNq?=
+ =?utf-8?B?d05HdVlNMGNQMUVKcEFGbklkaU1DRGpreGtDR0QyaWtuU2tKbWpQblkzKy9K?=
+ =?utf-8?B?YkhodXdaVDZsS1crc2Zqdm8xYWZOK3FJNkJuSk1OQnFVS2lTWG9nNlUvREhr?=
+ =?utf-8?B?Rk9xM2lyU2lyQ2FpUHFjTmdNRmtERGxLMEIxcXpzQVVjOFBtcXR0cTJldWtk?=
+ =?utf-8?B?M2ZyVUs0QlZaT3NLdWVKU3RuR2ZIeVh3NlRQOExiV1F2VDZCWWhPSGVtN1ph?=
+ =?utf-8?B?YnpPZEdaQ0lsZ3hubnlXWU5xajFNcURDd29FR3ZWMFJnc0VIMkJ2aWs0ejJO?=
+ =?utf-8?B?NVBSQjBFcmNVSmZvUHQrQ3NQK1lvWksvRnRxa0VNNk44dlQ0S1ZCMXhUaTU4?=
+ =?utf-8?B?WjArQk9JcGZRRU9Jb2owcWl2TWFNRU91Mm4xbFdVSkVyeGRiVTJTL2JkaUF5?=
+ =?utf-8?B?bmdSSzRrUEYvUnhuSzRxb1dVckhhcTdZZHdPQzZKSlJWdk1nSk9Fbkd3V2hi?=
+ =?utf-8?B?VlJnZ2VGMC9EbWhIRHZBaVZ3SnhQcEYxTzNHaGpyQ3dQWW9KM0cxcnFGT0lN?=
+ =?utf-8?B?UFJDMVZSekhCMFhpSzlva0xvRi9nRDB3U28rSTFBTExsMU8zUFJpOUVpNnRC?=
+ =?utf-8?B?NjJ4dVJjZjBBR1M2MkF2MVNpbldvT3RBa0k2Y1FMSlZTM3JnMC9rV0IyZ2xQ?=
+ =?utf-8?Q?9I0eOq2soowVxUjzN58MQrf58?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1f34df6-555f-4bbe-c5a7-08de113895ab
+X-MS-Exchange-CrossTenant-Network-Message-Id: b452b5a0-1e40-4730-ca4b-08de1138c466
 X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2025 06:59:46.2599 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2025 07:01:04.6706 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iyTh5CzZIA1aiuth8SUAdv8cKFGZOkZucWnp/3N0nl7D0Y5sZT1Tui3bNpO7bUV6v873aMViwyVq8/i0j+lubQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: kbQ3Q54oZc0FOdSkps0m++LjU+XbtNrLmfmmkQgBfmuXyGuCtiF47IJpMoNxxaXr8kXdobvj/6t3prZ4cz6Ntg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF39B20C1D8
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -164,195 +165,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------PDl7kgp0smo4faMb01L7l8NO
+--------------hRwOyF8lx0toK0thq0YO3wrw
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/18/2025 7:55 AM, Felix Kuehling wrote:
-> On 2025-10-17 04:42, Zhu Lingshan wrote:
->> This commit implemetns a new ioctl AMDKFD_IOC_CREATE_PROCESS
->> that creates a new secondary kfd_progress on the FD.
->>
->> To keep backward compatibility, userspace programs need to invoke
->> this ioctl explicitly on a FD to create a secondary
->> kfd_process which replacing its primary kfd_process.
->>
->> This commit bumps ioctl minor version.
->>
->> Signed-off-by: Zhu Lingshan<lingshan.zhu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 41 ++++++++++++++++++++++++
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  1 +
->>   drivers/gpu/drm/amd/amdkfd/kfd_process.c |  3 +-
->>   include/uapi/linux/kfd_ioctl.h           |  8 +++--
->>   4 files changed, 49 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> index 7c02e8473622..8fe58526bc3a 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> @@ -3140,6 +3140,44 @@ static int kfd_ioctl_set_debug_trap(struct
->> file *filep, struct kfd_process *p, v
->>       return r;
->>   }
->>   +/* userspace programs need to invoke this ioctl explicitly on a FD to
->> + * create a secondary kfd_process which replacing its primary
->> kfd_process
->> + */
->> +static int kfd_ioctl_create_process(struct file *filep, struct
->> kfd_process *p, void *data)
->> +{
->> +    struct kfd_process *process;
->> +    int ret;
->> +
->> +    if (!filep->private_data || !p)
->> +        return -EINVAL;
->> +
->> +    if (p != filep->private_data)
->> +        return -EINVAL;
->> +
->> +    /* Each FD owns only one kfd_process */
->> +    if (p->context_id != KFD_CONTEXT_ID_PRIMARY)
->> +        return -EINVAL;
->> +
->> +    mutex_lock(&kfd_processes_mutex);
->> +    process = create_process(current, false);
->> +    mutex_unlock(&kfd_processes_mutex);
+On 10/18/2025 7:58 AM, Felix Kuehling wrote:
+> See my comments on patches 8, 17 and 18. The remaining patches look
+> good and are
 >
-> There could be race conditions between multiple threads calling this
-> ioctl on the same primary fd concurrently. We could use the
-> kfd_processes_mutex to protect against this. You'd need to do some of
-> the above checks and the assignment to filep->private_data under the
-> lock to be safe, to allow only one thread to successfully create the
-> secondary context. I think this would work:
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 >
->     /* Atomically create the secondary context and assign it to
-> filep->private_data */
->     mutex_lock(&kfd_processes_mutex);
->     if (p != filep->private_data) {
->         /* Another thread already created a secondary context */
->         mutex_unlock(&kfd_processes_mutex);
->         return -EINVAL;
->     }
->     secondary = create_process(current, false);
->     if (!IS_ERR(process))
->         filep->private_data = secondary;
->     mutex_unlock(&kfd_processes_mutex);
->
->     if (IS_ERR(secondary))
->         return PTR_ERR(secondary);
->
->     /* Release the process reference that was held by
-> filep->private_data */
->     kfd_unref_process(p);
->
->     ... 
->
-will fix in V6, thanks!
+> I think this patch series is nearly ready, pending actual user mode
+> code that uses it. 
 
+Thanks, do you think it is a must to merge user space thunk/kfdtest code first?
+
+Thanks
+Lingshan
+
+>
 > Regards,
 >   Felix
 >
 >
->> +
->> +    if (IS_ERR(process))
->> +        return PTR_ERR(process);
->> +
->> +    /* Each open() increases kref of the primary kfd_process,
->> +     * so we need to reduce it here before we create a new secondary
->> process replacing it
->> +     */
->> +    kfd_unref_process(p);
->> +
->> +    filep->private_data = process;
->> +    ret = kfd_create_process_sysfs(process);
->> +    if (ret)
->> +        pr_warn("Failed to create sysfs entry for the kfd_process");
->> +
->> +    return 0;
->> +}
->> +
->>   #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
->>       [_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags =
->> _flags, \
->>                   .cmd_drv = 0, .name = #ioctl}
->> @@ -3258,6 +3296,9 @@ static const struct amdkfd_ioctl_desc
->> amdkfd_ioctls[] = {
->>         AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_TRAP,
->>               kfd_ioctl_set_debug_trap, 0),
->> +
->> +    AMDKFD_IOCTL_DEF(AMDKFD_IOC_CREATE_PROCESS,
->> +            kfd_ioctl_create_process, 0),
->>   };
->>     #define AMDKFD_CORE_IOCTL_COUNT    ARRAY_SIZE(amdkfd_ioctls)
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index 4237c859050d..578f9f217e16 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -1055,6 +1055,7 @@ struct amdkfd_ioctl_desc {
->>   };
->>   bool kfd_dev_is_large_bar(struct kfd_node *dev);
->>   +struct kfd_process *create_process(const struct task_struct
->> *thread, bool primary);
->>   int kfd_process_create_wq(void);
->>   void kfd_process_destroy_wq(void);
->>   void kfd_cleanup_processes(void);
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> index 629a706e2a13..bbb72a77bed5 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> @@ -68,7 +68,6 @@ static struct workqueue_struct *kfd_restore_wq;
->>   static struct kfd_process *find_process(const struct task_struct
->> *thread,
->>                       bool ref);
->>   static void kfd_process_ref_release(struct kref *ref);
->> -static struct kfd_process *create_process(const struct task_struct
->> *thread, bool primary);
->>     static void evict_process_worker(struct work_struct *work);
->>   static void restore_process_worker(struct work_struct *work);
->> @@ -1578,7 +1577,7 @@ void kfd_process_set_trap_debug_flag(struct
->> qcm_process_device *qpd,
->>    * On return the kfd_process is fully operational and will be freed
->> when the
->>    * mm is released
->>    */
->> -static struct kfd_process *create_process(const struct task_struct
->> *thread, bool primary)
->> +struct kfd_process *create_process(const struct task_struct *thread,
->> bool primary)
->>   {
->>       struct kfd_process *process;
->>       struct mmu_notifier *mn;
->> diff --git a/include/uapi/linux/kfd_ioctl.h
->> b/include/uapi/linux/kfd_ioctl.h
->> index 5d1727a6d040..84aa24c02715 100644
->> --- a/include/uapi/linux/kfd_ioctl.h
->> +++ b/include/uapi/linux/kfd_ioctl.h
->> @@ -44,9 +44,10 @@
->>    * - 1.16 - Add contiguous VRAM allocation flag
->>    * - 1.17 - Add SDMA queue creation with target SDMA engine ID
->>    * - 1.18 - Rename pad in set_memory_policy_args to misc_process_flag
->> + * - 1.19 - Add a new ioctl to craete secondary kfd processes
->>    */
->>   #define KFD_IOCTL_MAJOR_VERSION 1
->> -#define KFD_IOCTL_MINOR_VERSION 18
->> +#define KFD_IOCTL_MINOR_VERSION 19
->>     struct kfd_ioctl_get_version_args {
->>       __u32 major_version;    /* from KFD */
->> @@ -1671,7 +1672,10 @@ struct kfd_ioctl_dbg_trap_args {
->>   #define AMDKFD_IOC_DBG_TRAP            \
->>           AMDKFD_IOWR(0x26, struct kfd_ioctl_dbg_trap_args)
->>   +#define AMDKFD_IOC_CREATE_PROCESS        \
->> +        AMDKFD_IO(0x27)
->> +
->>   #define AMDKFD_COMMAND_START        0x01
->> -#define AMDKFD_COMMAND_END        0x27
->> +#define AMDKFD_COMMAND_END        0x28
->>     #endif
---------------PDl7kgp0smo4faMb01L7l8NO
+> On 2025-10-17 04:42, Zhu Lingshan wrote:
+>> Currently kfd manages kfd_process in a one context (kfd_process)
+>> per program manner, thus each user space program
+>> only onws one kfd context (kfd_process).
+>>
+>> This model works fine for most of the programs, but imperfect
+>> for a hypervisor like QEMU. Because all programs in the guest
+>> user space share the same only one kfd context, which is
+>> problematic, including but not limited to:
+>>
+>> As illustrated in Figure 1, all guest user space programs share the
+>> same fd of /dev/kfd
+>> and the same kfd_process, and the same PASID leading to the same
+>> GPU_VM address space. Therefore the IOVA range of each
+>> guest user space programs are not isolated,
+>> they can attack each other through GPU DMA.
+>>
+>>
+>>  
+>> +----------------------------------------------------------------------------------+
+>>  
+>> |                                                                                 
+>> |
+>>   |  +-----------+      +-----------+      +------------+     
+>> +------------+        |
+>>   |  |           |      |           |      |            |     
+>> |            |        |
+>>   |  | Program 1 |      | Program 2 |      | Program 3  |      |
+>> Program N  |        |
+>>   |  |           |      |           |      |            |     
+>> |            |        |
+>>   |  +----+------+      +--------+--+      +--+---------+     
+>> +-----+------+        |
+>>   |       |                      |            |                     
+>> |               |
+>>   |       |                      |            |                     
+>> |        Guest  |
+>>   |       |                      |            |                     
+>> |               |
+>>  
+>> +-------+----------------------+------------+----------------------+---------------+
+>>           |                      |            |                      |
+>>           |                      |            |                      |
+>>           |                      |            |                      |
+>>           |                      |            |                      |
+>>           |                   +--+------------+---+                  |
+>>           |                   | file descriptor   |                  |
+>>           +-------------------+ of /dev/kfd       +------------------+
+>>                               | opened by QEMU    |
+>>                               |                   |
+>>                               +---------+---------+                  
+>> User Space
+>>                                         |                            
+>> QEMU
+>>                                         |
+>> ---------------------------------------+-----------------------------------------------------
+>>
+>>                                         |                            
+>> Kernel Space
+>>                                         |                            
+>> KFD Module
+>>                                         |
+>>                                +--------+--------+
+>>                                |                 |
+>>                                |   kfd_process  
+>> |<------------------The only one KFD context
+>>                                |                 |
+>>                                +--------+--------+
+>>                                         |
+>>                                +--------+--------+
+>>                                |     PASID       |
+>>                                +--------+--------+
+>>                                         |
+>>                                +--------+--------+
+>>                                |      GPU_VM     |
+>>                                +-----------------+
+>>
+>>                                   Fiture 1
+>>
+>>
+>> This series implements a multiple contexts solution:
+>> - Allow each program to create and hold multiple contexts (kfd
+>> processes)
+>> - Each context has its own fd of /dev/kfd and an exclusive kfd_process,
+>>    which is a secondary kfd context. So that PASID/GPU VM isolates
+>> their IOVA address spaces.
+>>    Therefore, they can not attack each other through GPU DMA.
+>>
+>> The design is illustrated in Figure 2 below:
+>>
+>>    
+>> +---------------------------------------------------------------------------------------------------------+
+>>    
+>> |                                                                                                        
+>> |
+>>    
+>> |                                                                                                        
+>> |
+>>    
+>> |                                                                                                        
+>> |
+>>     |      
+>> +----------------------------------------------------------------------------------+             
+>> |
+>>     |      
+>> |                                                                                 
+>> |              |
+>>     |       | +-----------+      +-----------+     +-----------+   
+>> +-----------+              |              |
+>>     |       | |           |      |           |     |           |   
+>> |           |              |              |
+>>     |       | | Program 1 |      | Program 2 |     | Program 3 |    |
+>> Program N |              |              |
+>>     |       | |           |      |           |     |           |   
+>> |           |              |              |
+>>     |       | +-----+-----+      +-----+-----+     +-----+-----+   
+>> +-----+-----+              |              |
+>>     |       |       |                  |                
+>> |                |                    |              |
+>>     |       |       |                  |                
+>> |                |        Guest       |              |
+>>     |       |       |                  |                
+>> |                |                    |              |
+>>     |      
+>> +-------+------------------+-----------------+----------------+--------------------+             
+>> |
+>>     |               |                  |                
+>> |                |                            QEMU   |
+>>     |               |                  |                
+>> |                |                                   |
+>>    
+>> +---------------+------------------+-----------------+----------------+--------------------------+--------+
+>>                     |                  |                
+>> |                |                          |
+>>                     |                  |                
+>> |                |                          |
+>>                     |                  |                
+>> |                |                          |
+>>                 +---+----+         +---+----+        +---+----+      
+>> +---+----+                 +---+-----+
+>>                 |        |         |        |        |        |      
+>> |        |                 | Primary |
+>>                 |  FD 1  |         |  FD 2  |        |  FD 3  |      
+>> |  FD 4  |                 |   FD    |
+>>                 |        |         |        |        |        |      
+>> |        |                 |         |
+>>                 +---+----+         +---+----+        +---+----+      
+>> +----+---+                 +----+----+
+>>                     |                  |                
+>> |                 |                          |             User Space
+>>                     |                  |                
+>> |                 |                          |
+>> -------------------+------------------+-----------------+-----------------+--------------------------+----------------------------
+>>
+>>                     |                  |                
+>> |                 |                          |             Kernel SPace
+>>                     |                  |                
+>> |                 |                          |
+>>                     |                  |                
+>> |                 |                          |
+>>    
+>> +--------------------------------------------------------------------------------------------------------------------------+
+>>     |        +------+------+    +------+------+   +------+------+  
+>> +------+------+            +------+------+                 |
+>>     |        | Secondary   |    | Secondary   |   | Secondary   |   |
+>> Secondary   |            |  Primary    |   KFD Module    |
+>>     |        |kfd_process 1|    |kfd_process 2|   |kfd_process 3|  
+>> |kfd_process 4|            | kfd_process |                 |
+>>     |        |             |    |             |   |             |  
+>> |             |            |             |                 |
+>>     |        +------+------+    +------+------+   +------+------+  
+>> +------+------+            +------+------+                 |
+>>     |               |                  |                
+>> |                 |                          |                        |
+>>     |        +------+------+    +------+------+   +------+------+  
+>> +------+------+            +------+------+                 |
+>>     |        |   PASID     |    |   PASID     |   |   PASID     |  
+>> |   PASID     |            |   PASID     |                 |
+>>     |        +------+------+    +------+------+   +------+------+  
+>> +------+------+            +------+------+                 |
+>>     |               |                  |                
+>> |                 |                          |                        |
+>>     |               |                  |                
+>> |                 |                          |                        |
+>>     |        +------+------+    +------+------+   +------+------+  
+>> +------+------+            +------+------+                 |
+>>     |        |   GPU_VM    |    |   GPU_VM    |   |   GPU_VM    |  
+>> |   GPU_VM    |            |   GPU_VM    |                 |
+>>     |        +-------------+    +-------------+   +-------------+  
+>> +-------------+            +-------------+                 |
+>>    
+>> |                                                                                                                         
+>> |
+>>    
+>> +--------------------------------------------------------------------------------------------------------------------------+
+>>                                                                                                                                   
+>>                                                    Figure 2
+>>
+>> The relevant reference user space rocm changes could be found at:
+>> https://github.com/AMD-ROCm-Internal/rocm-systems/pull/78
+>> https://github.com/AMD-ROCm-Internal/rocm-systems/pull/110
+>>
+>> Changes from V4:
+>> 1) rename process_id to context_id in struct kfd_process
+>> 2) remove primary flag in struct kfd_process
+>> 3) reject set_debug_trap ioctl request when
+>> the target kfd_process is non-primary
+>> 4) other than default 0, assign context_id 0xFFFF to the primary kfd
+>> process
+>>
+>> Most of the patches have been changed, so I removed
+>> their signed-off-by tag.
+>>
+>> Please help review
+>>
+>> Thanks!
+>>
+>> Zhu Lingshan (18):
+>>    amdkfd: enlarge the hashtable of kfd_process
+>>    amdkfd: mark the first kfd_process as the primary one
+>>    amdkfd: find_process_by_mm always return the primary context
+>>    amdkfd: Introduce kfd_create_process_sysfs as a separate function
+>>    amdkfd: destroy kfd secondary contexts through fd close
+>>    amdkfd: process svm ioctl only on the primary kfd process
+>>    amdkfd: process USERPTR allocation only on the primary kfd process
+>>    amdkfd: identify a secondary kfd process by its id
+>>    amdkfd: find kfd_process by filep->private_data in kfd_mmap
+>>    amdkfd: remove DIQ support
+>>    amdkfd: process pointer of a HIQ should be NULL
+>>    amdkfd: remove test_kq
+>>    amdkfd: introduce new helper kfd_lookup_process_by_id
+>>    amdkfd: record kfd context id into kfd process_info
+>>    amdkfd: record kfd context id in amdkfd_fence
+>>    amdkfd: fence handler evict and restore a kfd process by its context
+>>      id
+>>    amdkfd: process debug trap ioctl only on a primary context
+>>    amdkfd: introduce new ioctl AMDKFD_IOC_CREATE_PROCESS
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   8 +-
+>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  10 +-
+>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   8 +-
+>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  79 +++++-
+>>   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   7 +-
+>>   .../drm/amd/amdkfd/kfd_device_queue_manager.c |   6 +-
+>>   drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |  61 +----
+>>   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |   4 -
+>>   .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |   4 -
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  19 +-
+>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 239 +++++++++++++-----
+>>   .../amd/amdkfd/kfd_process_queue_manager.c    |  39 +--
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |   2 +-
+>>   include/uapi/linux/kfd_ioctl.h                |   8 +-
+>>   14 files changed, 294 insertions(+), 200 deletions(-)
+>>
+--------------hRwOyF8lx0toK0thq0YO3wrw
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -360,348 +450,463 @@ Content-Transfer-Encoding: 8bit
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    On 10/18/2025 7:55 AM, Felix Kuehling wrote:
-    <blockquote type="cite" cite="mid:b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com">On
-      2025-10-17 04:42, Zhu Lingshan wrote:
-      <br>
-      <blockquote type="cite">This commit implemetns a new ioctl
-        AMDKFD_IOC_CREATE_PROCESS
-        <br>
-        that creates a new secondary kfd_progress on the FD.
-        <br>
-        <br>
-        To keep backward compatibility, userspace programs need to
-        invoke
-        <br>
-        this ioctl explicitly on a FD to create a secondary
-        <br>
-        kfd_process which replacing its primary kfd_process.
-        <br>
-        <br>
-        This commit bumps ioctl minor version.
-        <br>
-        <br>
-        Signed-off-by: Zhu Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 41
-        ++++++++++++++++++++++++
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp; |&nbsp; 1 +
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c |&nbsp; 3 +-
-        <br>
-        &nbsp; include/uapi/linux/kfd_ioctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 8 +++--
-        <br>
-        &nbsp; 4 files changed, 49 insertions(+), 4 deletions(-)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-        <br>
-        index 7c02e8473622..8fe58526bc3a 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-        <br>
-        @@ -3140,6 +3140,44 @@ static int
-        kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process
-        *p, v
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; +/* userspace programs need to invoke this ioctl explicitly on
-        a FD to
-        <br>
-        + * create a secondary kfd_process which replacing its primary
-        kfd_process
-        <br>
-        + */
-        <br>
-        +static int kfd_ioctl_create_process(struct file *filep, struct
-        kfd_process *p, void *data)
-        <br>
-        +{
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct kfd_process *process;
-        <br>
-        +&nbsp;&nbsp;&nbsp; int ret;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (!filep-&gt;private_data || !p)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (p != filep-&gt;private_data)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; /* Each FD owns only one kfd_process */
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (p-&gt;context_id != KFD_CONTEXT_ID_PRIMARY)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; mutex_lock(&amp;kfd_processes_mutex);
-        <br>
-        +&nbsp;&nbsp;&nbsp; process = create_process(current, false);
-        <br>
-        +&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;kfd_processes_mutex);
-        <br>
-      </blockquote>
-      <br>
-      There could be race conditions between multiple threads calling
-      this ioctl on the same primary fd concurrently. We could use the
-      kfd_processes_mutex to protect against this. You'd need to do some
-      of the above checks and the assignment to filep-&gt;private_data
-      under the lock to be safe, to allow only one thread to
-      successfully create the secondary context. I think this would
-      work:
+    On 10/18/2025 7:58 AM, Felix Kuehling wrote:
+    <blockquote type="cite" cite="mid:41489a22-d687-4ccf-a3e2-d1126bb79ebd@amd.com">See my
+      comments on patches 8, 17 and 18. The remaining patches look good
+      and are
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;/* Atomically create the secondary context and assign it to
-      filep-&gt;private_data */
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;mutex_lock(&amp;kfd_processes_mutex);
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;if (p != filep-&gt;private_data) {
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Another thread already created a secondary context */
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;kfd_processes_mutex);
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;}
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;secondary = create_process(current, false);
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;if (!IS_ERR(process))
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; filep-&gt;private_data = secondary;
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;mutex_unlock(&amp;kfd_processes_mutex);
+      Reviewed-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
       <br>
       <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;if (IS_ERR(secondary))
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return PTR_ERR(secondary);
-      <br>
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;/* Release the process reference that was held by
-      filep-&gt;private_data */
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;kfd_unref_process(p);
-      <br>
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;<br>
-      <br>
+      I think this patch series is nearly ready, pending actual user
+      mode code that uses it.&nbsp;<br>
     </blockquote>
-    <pre>will fix in V6, thanks!</pre>
-    <blockquote type="cite" cite="mid:b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com">Regards,
+    <pre>Thanks, do you think it is a must to merge user space thunk/kfdtest code first?
+
+Thanks
+Lingshan</pre>
+    <blockquote type="cite" cite="mid:41489a22-d687-4ccf-a3e2-d1126bb79ebd@amd.com"><br>
+      Regards,
       <br>
       &nbsp; Felix
       <br>
       <br>
       <br>
-      <blockquote type="cite">+
+      On 2025-10-17 04:42, Zhu Lingshan wrote:
+      <br>
+      <blockquote type="cite">Currently kfd manages kfd_process in a one
+        context (kfd_process)
         <br>
-        +&nbsp;&nbsp;&nbsp; if (IS_ERR(process))
+        per program manner, thus each user space program
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return PTR_ERR(process);
+        only onws one kfd context (kfd_process).
         <br>
-        +
         <br>
-        +&nbsp;&nbsp;&nbsp; /* Each open() increases kref of the primary kfd_process,
+        This model works fine for most of the programs, but imperfect
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp; * so we need to reduce it here before we create a new
-        secondary process replacing it
+        for a hypervisor like QEMU. Because all programs in the guest
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp; */
+        user space share the same only one kfd context, which is
         <br>
-        +&nbsp;&nbsp;&nbsp; kfd_unref_process(p);
+        problematic, including but not limited to:
         <br>
-        +
         <br>
-        +&nbsp;&nbsp;&nbsp; filep-&gt;private_data = process;
+        As illustrated in Figure 1, all guest user space programs share
+        the same fd of /dev/kfd
         <br>
-        +&nbsp;&nbsp;&nbsp; ret = kfd_create_process_sysfs(process);
+        and the same kfd_process, and the same PASID leading to the same
         <br>
-        +&nbsp;&nbsp;&nbsp; if (ret)
+        GPU_VM address space. Therefore the IOVA range of each
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Failed to create sysfs entry for the
-        kfd_process&quot;);
+        guest user space programs are not isolated,
         <br>
-        +
+        they can attack each other through GPU DMA.
         <br>
-        +&nbsp;&nbsp;&nbsp; return 0;
         <br>
-        +}
         <br>
-        +
+        &nbsp;
++----------------------------------------------------------------------------------+<br>
+        &nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
         <br>
-        &nbsp; #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
+        &nbsp; |&nbsp; +-----------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-----------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +------------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +------------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags =
-        _flags, \
+        &nbsp; |&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .cmd_drv = 0, .name = #ioctl}
+        &nbsp; |&nbsp; | Program 1 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Program 2 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Program 3&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        Program N&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        @@ -3258,6 +3296,9 @@ static const struct amdkfd_ioctl_desc
-        amdkfd_ioctls[] = {
+        &nbsp; |&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_TRAP,
+        &nbsp; |&nbsp; +----+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--------+--+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--+---------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +-----+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_ioctl_set_debug_trap, 0),
+        &nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        +
+        &nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Guest&nbsp; |
         <br>
-        +&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKFD_IOC_CREATE_PROCESS,
+        &nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_ioctl_create_process, 0),
+        &nbsp;
++-------+----------------------+------------+----------------------+---------------+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; };
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; &nbsp; #define AMDKFD_CORE_IOCTL_COUNT&nbsp;&nbsp;&nbsp; ARRAY_SIZE(amdkfd_ioctls)
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-        b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        index 4237c859050d..578f9f217e16 100644
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +--+------------+---+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | file descriptor&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-------------------+ of /dev/kfd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +------------------+
         <br>
-        @@ -1055,6 +1055,7 @@ struct amdkfd_ioctl_desc {
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | opened by QEMU&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; };
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; bool kfd_dev_is_large_bar(struct kfd_node *dev);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +---------+---------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User Space
         <br>
-        &nbsp; +struct kfd_process *create_process(const struct task_struct
-        *thread, bool primary);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; QEMU
         <br>
-        &nbsp; int kfd_process_create_wq(void);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; void kfd_process_destroy_wq(void);
+---------------------------------------+-----------------------------------------------------
         <br>
-        &nbsp; void kfd_cleanup_processes(void);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kernel Space
         <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD Module
         <br>
-        index 629a706e2a13..bbb72a77bed5 100644
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--------+--------+
         <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        @@ -68,7 +68,6 @@ static struct workqueue_struct
-        *kfd_restore_wq;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; kfd_process&nbsp;&nbsp;
+        |&lt;------------------The only one KFD context
         <br>
-        &nbsp; static struct kfd_process *find_process(const struct
-        task_struct *thread,
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ref);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--------+--------+
         <br>
-        &nbsp; static void kfd_process_ref_release(struct kref *ref);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        -static struct kfd_process *create_process(const struct
-        task_struct *thread, bool primary);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--------+--------+
         <br>
-        &nbsp; &nbsp; static void evict_process_worker(struct work_struct *work);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; PASID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; static void restore_process_worker(struct work_struct *work);
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--------+--------+
         <br>
-        @@ -1578,7 +1577,7 @@ void
-        kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp; * On return the kfd_process is fully operational and will be
-        freed when the
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +--------+--------+
         <br>
-        &nbsp;&nbsp; * mm is released
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GPU_VM&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp; */
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-----------------+
         <br>
-        -static struct kfd_process *create_process(const struct
-        task_struct *thread, bool primary)
         <br>
-        +struct kfd_process *create_process(const struct task_struct
-        *thread, bool primary)
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fiture 1
         <br>
-        &nbsp; {
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *process;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mmu_notifier *mn;
+        This series implements a multiple contexts solution:
         <br>
-        diff --git a/include/uapi/linux/kfd_ioctl.h
-        b/include/uapi/linux/kfd_ioctl.h
+        - Allow each program to create and hold multiple contexts (kfd
+        processes)
         <br>
-        index 5d1727a6d040..84aa24c02715 100644
+        - Each context has its own fd of /dev/kfd and an exclusive
+        kfd_process,
         <br>
-        --- a/include/uapi/linux/kfd_ioctl.h
+        &nbsp;&nbsp; which is a secondary kfd context. So that PASID/GPU VM
+        isolates their IOVA address spaces.
         <br>
-        +++ b/include/uapi/linux/kfd_ioctl.h
+        &nbsp;&nbsp; Therefore, they can not attack each other through GPU DMA.
         <br>
-        @@ -44,9 +44,10 @@
         <br>
-        &nbsp;&nbsp; * - 1.16 - Add contiguous VRAM allocation flag
+        The design is illustrated in Figure 2 below:
         <br>
-        &nbsp;&nbsp; * - 1.17 - Add SDMA queue creation with target SDMA engine ID
         <br>
-        &nbsp;&nbsp; * - 1.18 - Rename pad in set_memory_policy_args to
-        misc_process_flag
+        &nbsp;&nbsp;&nbsp;
++---------------------------------------------------------------------------------------------------------+<br>
+        &nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
         <br>
-        + * - 1.19 - Add a new ioctl to craete secondary kfd processes
+        &nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
         <br>
-        &nbsp;&nbsp; */
+        &nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
         <br>
-        &nbsp; #define KFD_IOCTL_MAJOR_VERSION 1
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++----------------------------------------------------------------------------------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
         <br>
-        -#define KFD_IOCTL_MINOR_VERSION 18
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        +#define KFD_IOCTL_MINOR_VERSION 19
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | +-----------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-----------+&nbsp;&nbsp;&nbsp;&nbsp;
+        +-----------+&nbsp;&nbsp;&nbsp; +-----------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; &nbsp; struct kfd_ioctl_get_version_args {
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 major_version;&nbsp;&nbsp;&nbsp; /* from KFD */
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | | Program 1 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Program 2 |&nbsp;&nbsp;&nbsp;&nbsp; | Program 3
+        |&nbsp;&nbsp;&nbsp; | Program N |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        @@ -1671,7 +1672,10 @@ struct kfd_ioctl_dbg_trap_args {
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; #define AMDKFD_IOC_DBG_TRAP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | +-----+-----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-----+-----+&nbsp;&nbsp;&nbsp;&nbsp;
+        +-----+-----+&nbsp;&nbsp;&nbsp; +-----+-----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOWR(0x26, struct kfd_ioctl_dbg_trap_args)
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; +#define AMDKFD_IOC_CREATE_PROCESS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Guest&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IO(0x27)
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        +
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++-------+------------------+-----------------+----------------+--------------------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
         <br>
-        &nbsp; #define AMDKFD_COMMAND_START&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; QEMU&nbsp;&nbsp; |
         <br>
-        -#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x27
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        +#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x28
+        &nbsp;&nbsp;&nbsp;
++---------------+------------------+-----------------+----------------+--------------------------+--------+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
         <br>
-        &nbsp; &nbsp; #endif
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---+----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---+----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +---+----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---+----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---+-----+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Primary |
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; FD 1&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; FD 2&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; FD 3&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; FD 4&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; FD&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---+----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +---+----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +---+----+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +----+---+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +----+----+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User
+        Space
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+-------------------+------------------+-----------------+-----------------+--------------------------+----------------------------
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Kernel SPace
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp;
++--------------------------------------------------------------------------------------------------------------------------+<br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Secondary&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; | Secondary&nbsp;&nbsp; |&nbsp;&nbsp; | Secondary&nbsp;&nbsp;
+        |&nbsp;&nbsp; | Secondary&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; Primary&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; KFD Module&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |kfd_process 1|&nbsp;&nbsp;&nbsp; |kfd_process 2|&nbsp;&nbsp; |kfd_process
+        3|&nbsp;&nbsp; |kfd_process 4|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | kfd_process |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; PASID&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; PASID&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; PASID&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp; |&nbsp;&nbsp; PASID&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; PASID&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp; +------+------+&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp; +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +------+------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; GPU_VM&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; GPU_VM&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; GPU_VM&nbsp;&nbsp;&nbsp;
+        |&nbsp;&nbsp; |&nbsp;&nbsp; GPU_VM&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; GPU_VM&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-------------+&nbsp;&nbsp;&nbsp; +-------------+&nbsp;&nbsp;
+        +-------------+&nbsp;&nbsp; +-------------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        +-------------+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+        <br>
+        &nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        |
+        <br>
+        &nbsp;&nbsp;&nbsp;
++--------------------------------------------------------------------------------------------------------------------------+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Figure 2
+        <br>
+        <br>
+        The relevant reference user space rocm changes could be found
+        at:
+        <br>
+        <a class="moz-txt-link-freetext" href="https://github.com/AMD-ROCm-Internal/rocm-systems/pull/78">https://github.com/AMD-ROCm-Internal/rocm-systems/pull/78</a>
+        <br>
+        <a class="moz-txt-link-freetext" href="https://github.com/AMD-ROCm-Internal/rocm-systems/pull/110">https://github.com/AMD-ROCm-Internal/rocm-systems/pull/110</a>
+        <br>
+        <br>
+        Changes from V4:
+        <br>
+        1) rename process_id to context_id in struct kfd_process
+        <br>
+        2) remove primary flag in struct kfd_process
+        <br>
+        3) reject set_debug_trap ioctl request when
+        <br>
+        the target kfd_process is non-primary
+        <br>
+        4) other than default 0, assign context_id 0xFFFF to the primary
+        kfd process
+        <br>
+        <br>
+        Most of the patches have been changed, so I removed
+        <br>
+        their signed-off-by tag.
+        <br>
+        <br>
+        Please help review
+        <br>
+        <br>
+        Thanks!
+        <br>
+        <br>
+        Zhu Lingshan (18):
+        <br>
+        &nbsp;&nbsp; amdkfd: enlarge the hashtable of kfd_process
+        <br>
+        &nbsp;&nbsp; amdkfd: mark the first kfd_process as the primary one
+        <br>
+        &nbsp;&nbsp; amdkfd: find_process_by_mm always return the primary context
+        <br>
+        &nbsp;&nbsp; amdkfd: Introduce kfd_create_process_sysfs as a separate
+        function
+        <br>
+        &nbsp;&nbsp; amdkfd: destroy kfd secondary contexts through fd close
+        <br>
+        &nbsp;&nbsp; amdkfd: process svm ioctl only on the primary kfd process
+        <br>
+        &nbsp;&nbsp; amdkfd: process USERPTR allocation only on the primary kfd
+        process
+        <br>
+        &nbsp;&nbsp; amdkfd: identify a secondary kfd process by its id
+        <br>
+        &nbsp;&nbsp; amdkfd: find kfd_process by filep-&gt;private_data in
+        kfd_mmap
+        <br>
+        &nbsp;&nbsp; amdkfd: remove DIQ support
+        <br>
+        &nbsp;&nbsp; amdkfd: process pointer of a HIQ should be NULL
+        <br>
+        &nbsp;&nbsp; amdkfd: remove test_kq
+        <br>
+        &nbsp;&nbsp; amdkfd: introduce new helper kfd_lookup_process_by_id
+        <br>
+        &nbsp;&nbsp; amdkfd: record kfd context id into kfd process_info
+        <br>
+        &nbsp;&nbsp; amdkfd: record kfd context id in amdkfd_fence
+        <br>
+        &nbsp;&nbsp; amdkfd: fence handler evict and restore a kfd process by its
+        context
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp; id
+        <br>
+        &nbsp;&nbsp; amdkfd: process debug trap ioctl only on a primary context
+        <br>
+        &nbsp;&nbsp; amdkfd: introduce new ioctl AMDKFD_IOC_CREATE_PROCESS
+        <br>
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 8 +-
+        <br>
+        &nbsp; .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c&nbsp; |&nbsp; 10 +-
+        <br>
+        &nbsp; .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c&nbsp; |&nbsp;&nbsp; 8 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 79 +++++-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_device.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 7 +-
+        <br>
+        &nbsp; .../drm/amd/amdkfd/kfd_device_queue_manager.c |&nbsp;&nbsp; 6 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c |&nbsp; 61 +----
+        <br>
+        &nbsp; .../drm/amd/amdkfd/kfd_packet_manager_v9.c&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 -
+        <br>
+        &nbsp; .../drm/amd/amdkfd/kfd_packet_manager_vi.c&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 -
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 19 +-
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 239
+        +++++++++++++-----
+        <br>
+        &nbsp; .../amd/amdkfd/kfd_process_queue_manager.c&nbsp;&nbsp;&nbsp; |&nbsp; 39 +--
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +-
+        <br>
+        &nbsp; include/uapi/linux/kfd_ioctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 8 +-
+        <br>
+        &nbsp; 14 files changed, 294 insertions(+), 200 deletions(-)
+        <br>
         <br>
       </blockquote>
     </blockquote>
   </body>
 </html>
 
---------------PDl7kgp0smo4faMb01L7l8NO--
+--------------hRwOyF8lx0toK0thq0YO3wrw--
