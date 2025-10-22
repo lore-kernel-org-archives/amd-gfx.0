@@ -4,68 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75FE4CCF9E5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B94D1CCF9E3
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3BB810E8B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0007110E8B6;
 	Thu, 23 Oct 2025 07:51:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m8Og8kVc";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FDDr5FG0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6849910E780;
- Wed, 22 Oct 2025 13:33:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761140026; x=1792676026;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=syDAhxW8a9ZTGx4rBhoijl91vhbCmKS6CmYeLhmIx3E=;
- b=m8Og8kVcOvH4FSuxPSBzsCBAzYFtNEmM1zYlXyZ7RXW90FInqXX0hCG8
- 3hyG3yDGoP6P2B7VY6vleGDnEadZzK0VTNn4KIOXLjjTCoLTfCPPpM/6K
- nT293+yXNkzFC2nllYzrWucDv01Zpha2JiQW5l/LAScOG3HspKXiZUtdt
- M6A202oHZm2vb+xc8eg2p6H6V7OyVhq1gCueyL7JvP5nlB8spqJrNtQR/
- dBhkPtGRuRUKGvTQDg7qxkoqTdu6U/sMjoPhY/rzBminHDBedXaXmGgTz
- OX3SD2rjuF3moW2fGCgsLEVWg31Wr/n+KiG2xf8CSgNoJia5SApV+VCc0 g==;
-X-CSE-ConnectionGUID: lWRrueXaRimRMtHSGsOHFg==
-X-CSE-MsgGUID: 78ljdM3KQl2sbTGxxNo0ew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="73577100"
-X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="73577100"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2025 06:33:45 -0700
-X-CSE-ConnectionGUID: y83IkOIRSueholsDShcZYQ==
-X-CSE-MsgGUID: LxuUalhSSfuI7YEbJtjZXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="183767506"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.82])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2025 06:33:37 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- "Michael J . Ruhl" <mjruhl@habana.ai>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v3 00/11] PCI: Resizable BAR improvements
-Date: Wed, 22 Oct 2025 16:33:20 +0300
-Message-Id: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0E410E752
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 11:04:34 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-47103b6058fso6138615e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 04:04:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1761131072; x=1761735872; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qEafg9Klu5zOL06Nglfzdv2mgxyWpLG/yLgQwga+NA8=;
+ b=FDDr5FG0SimetTw7Z0vlrBz2Ucdau/XGAMbA13O0FJxkhS+M4DnPxIJCCUenWVHk93
+ WO/V/OMcpvhVda1hah6uGinRaVsDvVh6WNc1rR9ZmPrmW57t8IG+0tDk1WMMnW7wQGMl
+ iWfwckCcSRwSag5+Liueas5hAD3Ke8aGBSSZZfDT/7+I2cTbLBdAw8TBZWhOibB2X91U
+ TGBQc/akCJH+z3mCQHqdNd3c7LKpfK8S1G37oKmLJsLm4MU7hnD0WsKlgmIqDrryzyfD
+ G8HaTMe8LzJUSijObJmDtoKom58rHob85JRZTywtKmvcFcDET9vwkmxrzzN4+JEPUQrA
+ E9og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761131072; x=1761735872;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qEafg9Klu5zOL06Nglfzdv2mgxyWpLG/yLgQwga+NA8=;
+ b=DwIbTcKHpNNyV7tHlFeK6JuLRYfFPwZ3Qqql5rEEOBKvU1kD65YFS5x9UKqNQ73S0T
+ IeE8PLYVkDjhoHmi35Nv7oRnws9RY0+6JJ4WC1Gay/fqptEPtatBkR0aw3T10esfQZbJ
+ Hu8FVGVfuPEnfP36BflW9qRNWMtBP4vSfiLMfvK9VEacbVobjaqNp5cbNuVXlaK07+Ee
+ AFt432pTtctrz6AsSY6XPgMBFhJZ9R2lIdxU5GRQBKOZn5M5XWTrFDT5iLIH2rlGOOY2
+ Um7fLqy+O6cl2Yyi1uJg7eKhCiJhU7ohAYrJ7+1e4ijIsB/ovKC7m9PezT/PZfvAKXmA
+ eWjw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW/URrOjyLhHc7+Gdnm1X4KsxJyQPNzXDmj1U5VbVz3HH91hB8mnVcHUmbWDtLY9we2HfFZmMGk@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhjMgzT+RqH9ZWXPcGlvR+04Z6uH42aem23sSADTL0qmtOIZyL
+ V9ylJ6xvwqg4LdEkaaDKTWF4Zfsk7hoaiz5uXjtybGvvcww1kme/96EN3MXTz2U4JVI=
+X-Gm-Gg: ASbGncsalrz8wvl9yAW5whXdN7pRdkZFMpGr2AZ4r89Xaz+fYWE4kHg1YiGrCTwA+IZ
+ voo0vNIUELjanZErVL84B+8W4nRWvugXR9fm0VeYB1h9836/S24+zlaakTdsm4eCig5mD7PEloq
+ i9cZ7OYZGMfAuqhLyg9kJHWMztI4t2EnxM4vlU6wNFwx4cz3icj54nTH4XyiVWc6pm7inkaAEk8
+ alu6Ms6s31dvl6bpBIjvbzrNLl2BY5pkAE7GTwN8MQIAa1kLYc/aZwqDYgBKDIdIp80/UVqmHEc
+ vPpFSfBbgmiCWbKJju17Hu8YdZDITXdQIaFJV4ax6hBwhbuoAJFw7sFT1fYLqY36szWDA2gQ8QV
+ L3cjZFObxadvtCeredCAkoNo74qGvbquMPajF/gtHyjMqjrLYE9tWxmdUMlSnqIDexxpHaWf1yA
+ u6Ferhmw==
+X-Google-Smtp-Source: AGHT+IEvzeQmuJZVlQvxOVzt5DBIbtifvWSq41OHqDirBuHQNqktljPPP8+Q3xqBRDvi5bTZGQ8Z5A==
+X-Received: by 2002:a05:600d:4265:b0:471:1e:ebe8 with SMTP id
+ 5b1f17b1804b1-475c6f5d0edmr6359645e9.10.1761131072473; 
+ Wed, 22 Oct 2025 04:04:32 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-475c428a534sm44924865e9.6.2025.10.22.04.04.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Oct 2025 04:04:32 -0700 (PDT)
+Date: Wed, 22 Oct 2025 14:04:29 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: YiPeng Chai <YiPeng.Chai@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH next] drm/amd/ras: Fix a NULL vs IS_ERR() bug in
+ ras_process_init()
+Message-ID: <aPi6PTnGfpG02RgK@stanley.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Thu, 23 Oct 2025 07:51:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,72 +92,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pci.c has been used as catch everything that doesn't fits elsewhere
-within PCI core and thus resizable BAR code has been placed there as
-well. Move Resizable BAR related code to a newly introduced rebar.c to
-reduce size of pci.c. After move, there are no pci_rebar_*() calls from
-pci.c indicating this is indeed well-defined subset of PCI core.
+The kthread_run() function never returns NULL, it returns error pointers.
+Fix the error checking to match.
 
-Endpoint drivers perform Resizable BAR related operations which could
-well be performed by PCI core to simplify driver-side code. This
-series adds a few new API functions to that effect and converts the
-drivers to use the new APIs (in separate patches).
+Fixes: ea61341b9014 ("drm/amd/ras: Add thread to handle ras events")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/ras/rascore/ras_process.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-While at it, also convert BAR sizes bitmask to u64 as PCIe spec already
-specifies more sizes than what will fit u32 to make the API typing more
-future-proof. The extra sizes beyond 128TB are not added at this point.
-
-Some parts of this are to be used by the resizable BAR changes into the
-resource fitting/assingment logic but these seem to stand on their own
-so sending these out now to reduce the size of the other patch series.
-
-v3:
-- Rebased to solve minor conflicts
-
-v2: https://lore.kernel.org/linux-pci/20250915091358.9203-1-ilpo.jarvinen@linux.intel.com/
-- Kerneldoc:
-  - Improve formatting of errno returns
-  - Open "ctrl" -> "control"
-  - Removed mislead "bit" words (when referring to BAR size)
-  - Rewrote pci_rebar_get_possible_sizes() kernel doc to not claim the
-    returned bitmask is defined in PCIe spec as the capability bits now
-    span across two registers in the spec and are not continuous (we
-    don't support the second block of bits yet, but this API is expected
-    to return the bits without the hole so it will not be matching with
-    the spec layout).
-- Dropped superfluous zero check from pci_rebar_size_supported()
-- Small improvement to changelog of patch 7
-
-Ilpo Järvinen (11):
-  PCI: Move Resizable BAR code into rebar.c
-  PCI: Cleanup pci_rebar_bytes_to_size() and move into rebar.c
-  PCI: Move pci_rebar_size_to_bytes() and export it
-  PCI: Improve Resizable BAR functions kernel doc
-  PCI: Add pci_rebar_size_supported() helper
-  drm/i915/gt: Use pci_rebar_size_supported()
-  drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
-  PCI: Add pci_rebar_get_max_size()
-  drm/xe/vram: Use pci_rebar_get_max_size()
-  drm/amdgpu: Use pci_rebar_get_max_size()
-  PCI: Convert BAR sizes bitmasks to u64
-
- Documentation/driver-api/pci/pci.rst        |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   8 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  10 +-
- drivers/gpu/drm/xe/xe_vram.c                |  32 +-
- drivers/pci/Makefile                        |   2 +-
- drivers/pci/iov.c                           |   9 +-
- drivers/pci/pci-sysfs.c                     |   2 +-
- drivers/pci/pci.c                           | 145 ---------
- drivers/pci/pci.h                           |   5 +-
- drivers/pci/rebar.c                         | 314 ++++++++++++++++++++
- drivers/pci/setup-res.c                     |  78 -----
- include/linux/pci.h                         |  15 +-
- 12 files changed, 350 insertions(+), 273 deletions(-)
- create mode 100644 drivers/pci/rebar.c
-
-
-base-commit: 2f2c7254931f41b5736e3ba12aaa9ac1bbeeeb92
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.c b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
+index 02f0657f78a3..1d2f136fbe2b 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_process.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
+@@ -241,9 +241,9 @@ int ras_process_init(struct ras_core_context *ras_core)
+ 
+ 	ras_proc->ras_process_thread = kthread_run(ras_process_thread,
+ 							(void *)ras_core, "ras_process_thread");
+-	if (!ras_proc->ras_process_thread) {
++	if (IS_ERR(ras_proc->ras_process_thread)) {
+ 		RAS_DEV_ERR(ras_core->dev, "Failed to create ras_process_thread.\n");
+-		ret =  -ENOMEM;
++		ret = PTR_ERR(ras_proc->ras_process_thread);
+ 		goto err;
+ 	}
+ 
 -- 
-2.39.5
+2.51.0
 
