@@ -4,78 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E96FCCF9E4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41D29CCF9E0
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D293410E8B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CDC10E8B2;
 	Thu, 23 Oct 2025 07:51:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l3ZvOTHY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Vfzibwym";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 269BE10E752
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 11:04:47 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-47109187c32so31496595e9.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 04:04:47 -0700 (PDT)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A247C10E71D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 09:22:29 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-428564f8d16so188277f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 02:22:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761131086; x=1761735886; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1761124948; x=1761729748; darn=lists.freedesktop.org;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ec4fethFoS2+SPeTVw+Fwof3KrdKYWIF/kwJYkEKmFY=;
- b=l3ZvOTHYo5JjuLjxcjoTrC7Wx4WKjMFW3RVwoSA3f8hUEBqs8OE8bu72jrSj9UP0PI
- l0Y3Pz19HldafAfaCAjky16qtOcQF9x6h91o+WY5Ln48Jn+SZCdxzJAJAeLyxxL+MgYR
- OPJpzDQjbxrKcANt9yeGBLhTvDh0/S5HzgpjzL79u9M2eqblEAOjStei2qLPmO6ibw+4
- 1qycKIlQLY5vzJyrLhcUORpfpYvfJw00/QreDsv8rosegcj0VONXEveo7SaLo7gZnUTH
- /kzBmNgmc4kSYFG8CYayT3v4lF5imtbJViGIe3AsiXgCsM2WXy5is98pLL/V56QBzqeW
- 7q4w==
+ bh=Z7+WPa6fzkzIkb/WM7fYUJAZP3WTURYIOOoTI2A/B20=;
+ b=VfzibwymMzTkicDamVAQgY+2nDrm/m4rMC3oqahpD/QmEQ37a6MwpyiUbgVfm3YDmU
+ jyZa/yu9WAvN44VvukRg6uhGqpqRagWLYR7LHfLK3J+Wnr9/ZESFKsaRS3hjAWE78FYa
+ y3nsQRwy1EGzaQLv2gciMl/vNGswlj11EaiRVz+jwAF7ps2tBLApluyTi0WC8SCw5wVW
+ /ipdlyOBwvzic//r7979cKUoBIp/wMN8heAG+zKzRa19VNuPz35mBQuMc90z8pdKsIE0
+ Jffkvr/mSi4cjl9lZgEGkxgrDhlk0A+7HG8jPUPi5BI5+9wK4gUj1pVbBm6wmDBn1E/h
+ nn7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761131086; x=1761735886;
+ d=1e100.net; s=20230601; t=1761124948; x=1761729748;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ec4fethFoS2+SPeTVw+Fwof3KrdKYWIF/kwJYkEKmFY=;
- b=fClY4UGiH656JiArL4hhpPRqlOb3b+5vV4LkmIngK88yBi4e3P5DsugggMzc9x4P5w
- 8C/NiuAwNbZGgDsPrvqo06zWcY4rZjV6J2cn0J3dXkFoJrH0cm2yK23r4yx/zgt8qTVZ
- zheCbowgx4VpVIJ0cEaOzPMC6YQcf7jKfEvvdJPfeeaeJiWuunFXENZKHh4V4PivoBSI
- VmIG0XLRM/5aYW5KLI1I5Hs2BO3SVZNYhf9qNTGa8/1mabR4gCDhJLxdhEYmORzC+iL8
- y8oL5dJBgDeS/+Hge+KGqGaAgTUwr4DhKg8nFGpY4QMnhT53zkdWtBXfyOnGoMh9i+dL
- ROAg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUegqn3W14e25nfqj+DntAq4KHEbLECC53ntpLp9m9QBY+gaRx+OyiT9X6AjKgIpEBYm5NU5QuT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRDIA5ffZcqEJB8aHLRaXaQTEmSZxej2NWrrV0s2c7+z4o4FHM
- EK3wF9xH790ck4mFqHMdYjDzdw9KU91PyWNJ3fVRLgYfDVS5K7WeKehqDFW53V7efUU=
-X-Gm-Gg: ASbGncvTQTLIwU2gclqFlFAjA7X+y7E+F5psExUB/RcPGa/k38Nh2WDMsA34yRqEVWO
- yeq2/H5bJ1g60UFIfSp31sXtVcNmcQKDjTJnTrPz995EP69ulwWD+pfs7cDEEtX98jx4Fi6DD9N
- hF/FYr9xx60783cO0WN1Jjh0Ka44qBJns4c15KsL/IoTXPcO/w4NOVDyWSKkO+Oy67C+1DdMv8r
- wyABqC9+tgZfKLq1gVZlgWecPTf/V5w3hkbdnAswZ6GH6yfgff4b+GUCASLm9cabzNtzFwiglk1
- jlFuqO9j0rKw7507XbPZ1lnu/CspAJco0JyOn0oOlb4W197tzjoT1cx/vJ6ygixwzx3JSxDB2ky
- /Zd9eobdo7PG6KiURWvC3wsWjwzpmCWRHu1mLqStoGd5PKo6tw9X9cx440TLzYb9ubHZZEWyQSp
- kGzTtZAgVk9qidhbaO
-X-Google-Smtp-Source: AGHT+IGMYkocvaBnPACpDrQqTQlINhZBUKIMjE+J1fPKEeBjdhwvP+lt5c1FWsAPVXg7BnBQuKDcjw==
-X-Received: by 2002:a05:600c:621b:b0:46e:48fd:a1a9 with SMTP id
- 5b1f17b1804b1-4711791fbbbmr156254735e9.33.1761131085678; 
- Wed, 22 Oct 2025 04:04:45 -0700 (PDT)
+ bh=Z7+WPa6fzkzIkb/WM7fYUJAZP3WTURYIOOoTI2A/B20=;
+ b=PLfybSM0f4/p1wMY1rQljN5t4tC+uaLMyRAd3cxtmSQNrlzOKbfkh7DruqFhuXB3U5
+ B7xDDMysx+joRfTHwJU8TLvzDLcco7UAiQKFhDAQxYzdpfpuAgGEdbGRgEJHHtegTy4s
+ kUoLgtHQW/okRgNMUYK1M3r2t6xUOoSlgzaJOJp9g1QGNWEjL4HDfp/L4mNReGr43Jov
+ XsYLQJ/pCRVAFgSSLVoDQ0YRx8ZZBGCtnABZl5ElJ/WZ3eJajFFBkkbFM7SPhrV5SsAZ
+ 5hMaMypCzk6NkpNfzZIJ9vfga8A2zJ8URYaLXEj67uRcXKDu/cewNvs0+IFyE0UoL7hR
+ uviA==
+X-Gm-Message-State: AOJu0YzVXh1vFZQYLml40IHQMb8O5psUD9/nP3cwsTUOwFHWB0FdGoJJ
+ /z7Euv0JfGrO3sjCtSW6mUBxfoPgZ5YSfobdvrGx5oN73rNO7EEKMG/myiZ8Dj6E1R0=
+X-Gm-Gg: ASbGnctds+jpE0tESYQX5NKgKhHQremMA7Dd3wpCEJpJD5Kl4rs9qBjhtR4CU1z02Ni
+ utWV7dnwB39vDprN3lqy19OlHTd/hUiNL6Iwrqf6vmITUP4QRLSMZT27q9OcsbLi1tnZv9i32GI
+ 6T5YvXRRtRiQm8Xy2QRdQV5c6DhX/UvJVmFdPcKP1hz1tnTv7Bth/23LzSs4RKuHUXZq8ylCeM1
+ z56BHmf4v5pd1oR65kgS4koj2Qv+tr2Ke/rZPfRuDi5qYletL5RdrVODMjbp78Q9xZ+OWgI5V64
+ e+M058SK6ES0fHUlS/avYsF8LzkpWKTts2GedKRF8Iw8X2Kev8tYLOPr9JSG1zrBssHBumklIt/
+ 8aZHviGteM3wejlw8XpwaaLUgSG+0iVW4TJ5tGUFWgQhAFz0zYO1pZNrNohKBtDYqzfrNyL1WBc
+ mHXQ/TJg==
+X-Google-Smtp-Source: AGHT+IE/+JkAy3x0Euv5ZMU/5Z9wLNiLKtrBsG+0gIPOWd+6NlnmnvFC9TXedSVDhLlMgRN2O9Lcjg==
+X-Received: by 2002:a05:6000:2585:b0:426:fc52:cca6 with SMTP id
+ ffacd0b85a97d-428532557femr2044051f8f.7.1761124948043; 
+ Wed, 22 Oct 2025 02:22:28 -0700 (PDT)
 Received: from localhost ([196.207.164.177])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-47496d4b923sm33430975e9.14.2025.10.22.04.04.44
+ ffacd0b85a97d-427f009a7dasm26554232f8f.25.2025.10.22.02.22.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Oct 2025 04:04:45 -0700 (PDT)
-Date: Wed, 22 Oct 2025 14:04:42 +0300
+ Wed, 22 Oct 2025 02:22:27 -0700 (PDT)
+Date: Wed, 22 Oct 2025 12:22:24 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/amd/ras: delete an unnecessary NULL check
-Message-ID: <aPi6SqcrGtBvK24S@stanley.mountain>
+To: Ellen Pan <yunru.pan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amdgpu: Introduce SRIOV critical regions v2 during
+ VF init
+Message-ID: <aPiiUG_y0k1iLFJd@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Thu, 23 Oct 2025 07:51:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,27 +85,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The list iterator in a list_for_each_entry() loop can never be NULL.
-Delete the unnecessary NULL check.
+Hello Ellen Pan,
 
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/gpu/drm/amd/ras/rascore/ras_umc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Commit 07009df6494d ("drm/amdgpu: Introduce SRIOV critical regions v2
+during VF init") from Oct 7, 2025 (linux-next), leads to the
+following Smatch static checker warning:
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-index 4067359bb299..03c4cddfbfd9 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-@@ -207,7 +207,7 @@ int ras_umc_log_pending_bad_bank(struct ras_core_context *ras_core)
- 	mutex_lock(&ras_umc->pending_ecc_lock);
- 	list_for_each_entry_safe(ecc_node,
- 		tmp, &ras_umc->pending_ecc_list, node){
--		if (ecc_node && !ras_umc_log_bad_bank(ras_core, &ecc_node->ecc)) {
-+		if (!ras_umc_log_bad_bank(ras_core, &ecc_node->ecc)) {
- 			list_del(&ecc_node->node);
- 			kfree(ecc_node);
- 		}
--- 
-2.51.0
+	drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:950 amdgpu_virt_init_critical_region()
+	warn: unsigned 'init_hdr_offset' is never less than zero.
 
+drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+    937 int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
+    938 {
+    939         struct amd_sriov_msg_init_data_header *init_data_hdr = NULL;
+    940         uint32_t init_hdr_offset = adev->virt.init_data_header.offset;
+    941         uint32_t init_hdr_size = adev->virt.init_data_header.size_kb << 10;
+    942         uint64_t vram_size;
+    943         int r = 0;
+    944         uint8_t checksum = 0;
+    945 
+    946         /* Skip below init if critical region version != v2 */
+    947         if (adev->virt.req_init_data_ver != GPU_CRIT_REGION_V2)
+    948                 return 0;
+    949 
+--> 950         if (init_hdr_offset < 0) {
+                    ^^^^^^^^^^^^^^^
+unsigned so it can't be less than zero.
+
+    951                 dev_err(adev->dev, "Invalid init header offset\n");
+    952                 return -EINVAL;
+    953         }
+    954 
+    955         vram_size = RREG32(mmRCC_CONFIG_MEMSIZE);
+    956         if (!vram_size || vram_size == U32_MAX)
+    957                 return -EINVAL;
+    958         vram_size <<= 20;
+    959 
+    960         if ((init_hdr_offset + init_hdr_size) > vram_size) {
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Would we be concerned about integer overflows here?  Should it be:
+
+	if (size_add(init_hdr_offset, init_hdr_size) > vram_size) {
+
+    961                 dev_err(adev->dev, "init_data_header exceeds VRAM size, exiting\n");
+    962                 return -EINVAL;
+    963         }
+    964 
+
+regards,
+dan carpenter
