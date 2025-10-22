@@ -4,151 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43EE1CCD1AB
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 06:57:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0C86CCD1AB
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 06:59:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF83410E6C0;
-	Wed, 22 Oct 2025 06:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70E8810E6C1;
+	Wed, 22 Oct 2025 06:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TXZEy/LO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="glyrgq3y";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012068.outbound.protection.outlook.com [52.101.48.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D120810E6C0
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 06:57:04 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013035.outbound.protection.outlook.com
+ [40.93.201.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC4C010E6C1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 06:59:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ge01y6Fdiy/ZPaEengiVx6H28sDrtFyaL/UMW1TAiOiDESn+lRfjYy2Ftgpq9r/U22bYM7sH5iLtGjrjqZDbwcRnmy+qFyQYwvVjRlX+O7xt65WGZEES0OT4g2zZvGJ3eXdH56XRDEDSMYOdrtfVLPsfLRIkN4XQ7F7NTHG2JY+Y6yogWB/lrv3m++dz883hUMx9UVS59FoXXGIJcot+hwoBAU3dyyhVOsFmHPAQ/9gg/Ms9yd0hCGGwhBaD1FV+wrCXp3HCXRmjqruKz5RBNB7kjzjxwkCNsOOH+rvf9R5eobNxHlk2DDkr5TE2YEoHD8PMsnOs7gDKq5wljyxr0Q==
+ b=L1SMNpHUTM965npCEdFW2VYdijUKB9gWvyoS3dBnnRzaeIhu4FVxh/WOHQrSiW3Z7KyPqnK50APS2Ex9JHhHQEVutNZqFWqEfhEZqt6Wb8Q4KvITI59LHWI+NTp2WPzmVjvZ6SNkv3aWE3DjhBe8jS8newZuph52xg600yGnEWp4g/ae2mQ4PVRPvS+/gWnYg4y5Ag9PHDYE8zdaZ6hCTpCZrlQtWzQWDChMS8A7XjKCfYwwjZgd+ZEb4rP4yW+VDbk5ezPRdMvEwdjri9c4UVLRqa23sxaufwQjP9/QeGTlT551rxxBGRuaTGn81IBvmOWhZLK+CUwEt3f+rIdymQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SNbjf1/mSYg+Nh7jyWZpk+ktek3XgJ5fd1YbCgtnGx8=;
- b=uiDjxHN60p1s7qDWFBbiPEpgjLcEEyftXP+Mk0PIxo8vMwJnDYZFSGxLtZc11h44rH2avXmY9l/58rTZR6rPqXPO6/CT+6Q0ASktN9BfPvJfdeWBvz5G8y802Bs0iaGTUSyRsszUivpAi2Rs7U0ZChemUAUJxiKq3RYmVaycuKL14JJkMBKrHj/NrA963li+67o+5vmb6vAjR+MKMsmmmRPV+hKWNV/CJ0NEO8HDx+WpYjBJVDd1VhgbbYHMPXauBgHHXI/zkpxjiuboiLiq2SZ396ifhdagKdZgPdxphDbPjYo2yXXpKPJKXIdpMCC49RkVSpnAqX/dzWDgkzRggw==
+ bh=T16EwHvxDogcEss3/Pet0+jc7rSYRyapbNjNwLSf1Eg=;
+ b=LDLlvoQ0AZfAXm4ncKBBGh9RdKAauosAHTrhx/g2i8E3ie47cRoEYoCf2+iPvTgqXBbLNfkJNIQSxugsYmv9P23nKjLQL3I6R5uxF45AkXAEhrZt9upQTWcSnkzofoojxFcz0nuuCWJuaw/7imlPvIDxfnMLEksivelyyYwCYLj7/ZitZ5A9dQF/lFw3BeyuYndj1suxkVBv2jM6RYWmG6XksxcgHvy1tpK32VP4iADNCG+NIoV+/UZcjr1wHr9wOmZYvikvBTLKtRKVaFYjyIpxVhbouXDjMOx0PYtGlZtWdgDrduanZnjbulMcIMALRUeTMVLeTi1B1lGNvzCamg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SNbjf1/mSYg+Nh7jyWZpk+ktek3XgJ5fd1YbCgtnGx8=;
- b=TXZEy/LO1/JHY3p3lJ+3+5czoGLQ7TYhfecoLd9J4aIx0dugS2jsAiM89ITrY0VpHVwZ/qLdaMWZ9pX0qqDjfIvX6nb34qIt3DlG9ss0OjhEqsxFeT63KuOChZZaJRQiRHG4FPxNngqbMQKbUZG0Q0tZb4DSIFlEqCcNKGbfYMQ=
+ bh=T16EwHvxDogcEss3/Pet0+jc7rSYRyapbNjNwLSf1Eg=;
+ b=glyrgq3y+tEakuI2BJgUCN5/7OAEM9NbDvs6mURTMsqsLT4SZR2F0JUi9HkFJkj8jnHKCMFxr8zuigdhPgEeStgw7oyuadBJVMHj5FyyEMu7SogyyMY7xEPvSmjWagIF75jp0J/fiEd8sv4uyKEqbSV/329cR3Eja6HRlU6Cy1E=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by DM4PR12MB7671.namprd12.prod.outlook.com (2603:10b6:8:104::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Wed, 22 Oct
- 2025 06:57:02 +0000
+ by BN7PPF39B20C1D8.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6cc) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Wed, 22 Oct
+ 2025 06:59:47 +0000
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8%7]) with mapi id 15.20.9228.015; Wed, 22 Oct 2025
- 06:57:02 +0000
+ 06:59:46 +0000
 Content-Type: multipart/alternative;
- boundary="------------Z3LPK00Wv5F9ZIv65MSaZWiQ"
-Message-ID: <9039675e-d0c2-418e-bbd2-f2884ef34285@amd.com>
-Date: Wed, 22 Oct 2025 14:56:57 +0800
+ boundary="------------PDl7kgp0smo4faMb01L7l8NO"
+Message-ID: <d6dc732b-3926-4b54-9a52-90050d7bb1ac@amd.com>
+Date: Wed, 22 Oct 2025 14:59:39 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V5 08/18] amdkfd: identify a secondary kfd process by its
- id
+Subject: Re: [PATCH V5 18/18] amdkfd: introduce new ioctl
+ AMDKFD_IOC_CREATE_PROCESS
 To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
 Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
 References: <20251017084222.54721-1-lingshan.zhu@amd.com>
- <20251017084222.54721-9-lingshan.zhu@amd.com>
- <1a34e488-72b3-4974-8807-e10d8170b1de@amd.com>
+ <20251017084222.54721-19-lingshan.zhu@amd.com>
+ <b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com>
 Content-Language: en-US
 From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <1a34e488-72b3-4974-8807-e10d8170b1de@amd.com>
-X-ClientProxiedBy: SI1PR02CA0004.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::12) To SN7PR12MB7835.namprd12.prod.outlook.com
+In-Reply-To: <b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com>
+X-ClientProxiedBy: SI2PR01CA0017.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::19) To SN7PR12MB7835.namprd12.prod.outlook.com
  (2603:10b6:806:328::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|DM4PR12MB7671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 563269fa-f755-47f6-1780-08de11383407
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|BN7PPF39B20C1D8:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1f34df6-555f-4bbe-c5a7-08de113895ab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cTRKU2IwMTRZNnNpbHdrZjZVVWRjMi9XOGFhR1dvalRhekFjMWJQZ0VRQ2JC?=
- =?utf-8?B?Rko5Q2MxWEFocThjTGJ1bTdnRk01Q2dRcjhKWStxekF6aWYrMFNmRzFMalcw?=
- =?utf-8?B?NUxqc2p1T3dNSWEvZWJRMEY2YWhrSDVPaUtNbkh5VlJQU1VuM1p1Y1NSTXk2?=
- =?utf-8?B?dlNMRmUwZUNQRURlaTE2VzFZN1JWLzVvZmQ3aXByREx5U1Q2czNQTnAxOTFx?=
- =?utf-8?B?b0ZMMENyY2ZjS29KK092L2U5b0ZqY3BLUkZNT0h2L20zamNzSXVBZGlSTHhw?=
- =?utf-8?B?Nm84TlFjR096MWZjTmNTY1lZcGpFelZzblhFUUlWbmNYZzJBSHdZa3JVajZr?=
- =?utf-8?B?RVBoZXRzS2xOQjZ3dG95UjAvTkxLaEplMVcxRkIrUFRINkp2WFpOMTFUVjZZ?=
- =?utf-8?B?ZWV3VW9MYVp6U1ZpQ1QrSmtlV0xCdkNnNEljSHVjRkFNdTNuUXZxNlpxSUNh?=
- =?utf-8?B?c2d0NDVxSDNZaEJYM0lydU91eVBUZWpPQ1FWL285MHljbFFBVERWSXk4UU5D?=
- =?utf-8?B?a0NweWpZd2M0M09GdUtZbDQwdUVaUDZkUFArWm8wUjdKMzJNam5xWlhrZDFh?=
- =?utf-8?B?eWMvUXdIclBwYzNTTEJ4QzYyWGtEbzFZWlprRWhWTU55UkxIZ0wyT21wSWlZ?=
- =?utf-8?B?NkVFSklINHBwUUtxOHk5M0RLSGpkY2Y5Ny95YW5LRHVNdFZWTk5GalhSMkpo?=
- =?utf-8?B?NjZIQXhXQ21NaVV6amprbzZ1SjFnL1FWV1RqSG41ZCtNc00yWm5WcGk5ZkFZ?=
- =?utf-8?B?OFR0ZkRYTndZeEJNejhQR1ZmN05DSUluNTg1d3VjYTZnN1FiMXNIUUJCaG9X?=
- =?utf-8?B?Q0dmYld3TXU0VjJ2bWkzWW9pUHNLZjNpSWN3a2RvTVIrMWI2ckFWVGlwTUNn?=
- =?utf-8?B?UndEQ3hHOUVLUFk4OHZJUm5CUVdtbUhlc05FcDlGQStMUDVVNzhuRVcvQkNE?=
- =?utf-8?B?TVRzOG9EQ0ZXa1FVblJFRFhVREdyOHRTdFdpcUlMMGtmVm9EN3RkeXJHc1Ni?=
- =?utf-8?B?VVlRSnZYalJWVXM0aUllQ3ZJUEx6eWFTbksxanVPcUE4ZFE4b2xheWFLTXd3?=
- =?utf-8?B?YU9nNXpnc3RmUnFrbDR1UStjd2FXenIvZTZaVzNEc3kxeU1vR2tqUlBiRUVL?=
- =?utf-8?B?L3crZkZ1bk9FdGo4Zk41NnVDU3NKQTA4UTNTMG5TZnE0cXB6OUpoVmFTbVJz?=
- =?utf-8?B?WE5SMVRpUldCT0diemFraU9SZlRjb2lRbHk5V0tpWk9HSmZuS0psOG1kUXQ4?=
- =?utf-8?B?S0w5K0k3QTEvTVYrclBESWFnWWtUQmVUVkxobXFacE9BMVZicVJmWFUvNmFN?=
- =?utf-8?B?NWswa1VUdVRoRUJNN3VCOWRVM0RCN2hQdnNoTlMweXJYWlZYRk5RRUNTY05E?=
- =?utf-8?B?S1lTT0Nldjdza3h5ZlFqanhrWmMzK2VxWTg1YXJCY2JhM0Qzd1JKR3crWWVm?=
- =?utf-8?B?QTZ4d3NCakhSL2krcE9RYitQbW1FcklkVTNsNUFCdXMxRitLN3BlTkhPZ3Yr?=
- =?utf-8?B?V253UVBGWWdZbEttcW9zcnNRYktTMmlRNzNPTlNLRFA3a2xBMDBSMTRaT0Fo?=
- =?utf-8?B?dTZvQUZvUzllTTR1YjRJTFBiOW1hd1J5SWdhMm5GS1BCUUwxY09IYnBNK0JK?=
- =?utf-8?B?WnYyMjFGN3o4eDg3aG9LSGhFb2d4MURTSGdaeVRhWTZpUkc1Z1g1aC8zWktr?=
- =?utf-8?B?ckxsRDAwWjJjYzcyanlWdjk2M2tzYzZFbU5JenFKeEhSangyYmtWVU8yQUpC?=
- =?utf-8?B?bnFXeHpCTUdZbFozdEh4OFkwWEdMZ2h2SzZkdHRVc05mNUJxZnpSbFNDWXJX?=
- =?utf-8?B?ZS81bnVhWHMya2lwNmxjdHFqODJ5RW0rRmRXL3pKNGVGci91Mlh1WDJNQ1lT?=
- =?utf-8?B?M01HN2pzTWp0TDF0MXRrbjBwczdOR3FURlVZMXFpbVlNeUhhZ0VaTjZNQm8x?=
- =?utf-8?Q?7LDDi+B/sUaBpQqCwdsm7hheQgpZO43m?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YW9LVEpxaDVRcDhYVGhvZ0dNUGZZWU1wa1oxbE5vcFVPZVkrTm8rdXVKNEIx?=
+ =?utf-8?B?dTlmUytIa3F1bW5JeW5XZnVmV1NzMHlQWVluY1JCWmZKWnVBNXhmM3B1cUpz?=
+ =?utf-8?B?eUxPbTkybUM5aC9OOVR6dlJWcmJ6QWFvcmhXZzBYTXo0dW12NngvWWtHSVZF?=
+ =?utf-8?B?WVpDOE94cURXbWRka3RjNTl0NEZSV1UySlBtQXJkcjJKQ29yUVViSWRlOWRD?=
+ =?utf-8?B?WUdLTmt1cXh2ZUZmMis3ZlFTaFVRQzR5TnhrM1p2a0E0ZWhnYThWMkY1cWd4?=
+ =?utf-8?B?M2lYVmdFSHRqSXZJd0tWb1g2UlNXNFZQeWFhK3QwZUVLQUp0TTV4aU95VHBr?=
+ =?utf-8?B?bWFSZUhNWGdyTE1XNGtZcVZEYUphVFdHRFlWc3dEQWZXR05TTjY3YytWR01Y?=
+ =?utf-8?B?RkRMNFZkL1phemVRWEZMaXN1WHd1N2tpbnVyTXVpSFRGVUREdzBLbVBUc01i?=
+ =?utf-8?B?VXBhcWhFQ3BwY2Iwb0dsTEhvUVBsWVQ4bmozaWpkZDhoTEp6RUV6UkxIcHpt?=
+ =?utf-8?B?RU92MEUvVGJuejNzUk0wN0hvbmd6NGVuQjhBb0Z2aEQ3ekVyTjFORU1EVmxV?=
+ =?utf-8?B?bkpjYy9ZdytCclBveUhLTS9tdG5YQnJic0dKbEltTDROS1EyYTJrNFJDSnBL?=
+ =?utf-8?B?Ty9rWGtKQm1qYWY2YWJjdVpvb1o1UUFTREZ6bWcwR1J5anVod3FsWG9naENz?=
+ =?utf-8?B?QXJvd3p2dWM4M09velhGb284YkFRUHpKRVl3eE1mdGFDamZVS1IwN1p3azFt?=
+ =?utf-8?B?d2tyOXFXTk4wZHVxN2QvWldNd3dRd0dhU01JZzdCTUhmeHJpanprelB6aU02?=
+ =?utf-8?B?NjI1cGhaL3ZyWS9vVkpDQmM4eXN6NnpsU0RFS25QMWlWR3Z5WUZDNjNDSkxm?=
+ =?utf-8?B?dThkK1d6b01WdkhiVmcveEJWQXVxVjlUbVhyR05RYjhSTzlUWDRoS1JsOTJX?=
+ =?utf-8?B?TWxGaU50Vy93NFV0OXJxb3F5UXdkbGFGaHljSVhhZFdJRFhKYWZCZE1UZm5U?=
+ =?utf-8?B?c3VoZ2VGenRsN1VCU0hrQ3NpWkFXZUdOaGszQzYyUUFnOE9sRGtBMThhc091?=
+ =?utf-8?B?SWgyTi9XWTRlZXpGUTdnMGJyMXdpV09sbHorcWxOVHpDRWdRNEM4aXhBa2FF?=
+ =?utf-8?B?VjFPa2xncjhWL21pR0F4RUZpbzFRR2gvY2hNNEVxMG44OHIrK29xT2ZjQzBv?=
+ =?utf-8?B?eWFOTTFGRXBES3lRekEzRlNpWWNJcTJmZndqWTNCMC81UFRSYWc1b2RiS1ZD?=
+ =?utf-8?B?QnFaVFBoSG0vbXRlVXl0UlAvRkJCaHhiKzE5ajVJd0hlcGxCUzNReTYxYWZL?=
+ =?utf-8?B?Z1JZVmNzYnpXbkZIRnA2L2FiVFdoVFZtUFFueWVVNDVXTHBNWjd6Zzk2SWwy?=
+ =?utf-8?B?YksxcGRCdG4zMXNQRUdFaXBxUjVGR29lUjgrcW1LMXFuUm9xc1U1NGF0NkVI?=
+ =?utf-8?B?Ykd3dnBXaWVsc2RTYXVGNmhtK3Z4MTZUOUhlYk10azMzemNJajZ2VFk3T2lU?=
+ =?utf-8?B?YUNHcEJIaUgyeTVuYmxLenljeVpFM0prL0U4M2Y1Lzh1YStvaytsUTd0RWxW?=
+ =?utf-8?B?dTRwK2lpQ3EwUU5tWFVDM3p2R0h6aXAxYXN2Vkdyelp0WkJGb1I5RFRxZ011?=
+ =?utf-8?B?eTFYb2hZYjM1K0FqMjd6YjgzcFFiQVBFcUZSQUd5cjJwWmkxUWJTN1JkYzVO?=
+ =?utf-8?B?bXcvSjhnUUhSUy9LZnh0SURPZkU5bFBkT1FaMGNCLzIzRC9JNHR5cTBhTGZh?=
+ =?utf-8?B?Qk5LaEdPOVZ0ZmtLQmdsNUQ3Z012NW5yckNOUkJWOWR2S2FTSkdncmpMSzVW?=
+ =?utf-8?B?VWQ3cGcwZElaVER1RDFhbTZhUHlFVVBFVG1tSGk3ZkVGV1diU1l3VWFOMXNK?=
+ =?utf-8?B?NFlVekFrc2EzVXRsYiszRnFOZy90dGlSS0tCYkJnQ1BzVzh2Tk9YUmxQazNJ?=
+ =?utf-8?Q?2hRYbv19ZaZic1KxhuwddX1ZZSexgGP8?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDA2b2wxN2dBa0VTTFVwdHhFbkRmQi9kSzRBTmN2a2J4NWQyVTVsOGQ0U2ho?=
- =?utf-8?B?WWRGcU1vVUFtbWtXdjQyaWlwclNKNnJGWk43cndxeTdnK2ptdWp3dG1RRGpp?=
- =?utf-8?B?a1hTazlHalR6L0xJZUo0VGxGbG9mSElTTEV4anAxWUpSUjJzTnZLaWV6b01U?=
- =?utf-8?B?ZGhFMW1uOS9FVzQ5a1RkMldSVFRrWEw3bTdxNm1tSmRINVo5VFBiRUliVm5i?=
- =?utf-8?B?WGlnd2d1ZFpzQS9ROXRwcnpxK0lIaEZ6T2hVTWVvNHR3N3NRdEdZcEJHbzJE?=
- =?utf-8?B?TlpYQ0VmeWFwWUZNS01vWUxRS2VZUWdwaVdjQ0kxNktCTkpMbjVPOTkwWEZi?=
- =?utf-8?B?dDcvTUJ4eE84RUtVK3hpd0dseUx1WEpBSTIzbVJoZSsrZkRJZ3lnZ1dEdzFH?=
- =?utf-8?B?SUVxRVRFbnRONURBcGpHUE9mN0VubC9JeEFyNEVjZDdmRXFIUTg4V2J4ZlVk?=
- =?utf-8?B?SkR5V08zYzNQOWcrVjJndTFydDRHRWdZMUJoei91TC9ZdmpVVGwxTHJrcEtm?=
- =?utf-8?B?bEdCYnFialR3TDNVOGdQNmUyL0R0dWVFNTZ6dDRyd2FlUHk5WVdMUEVUL0JT?=
- =?utf-8?B?RDhza3hlSjJjMnVwVVZGUjkranNHN1cxek9WcG95dlhBdWVhQW15WXNPeHZu?=
- =?utf-8?B?S0xmOTkyOVRmdkpxUkErMFZuYUxyWWkwMTJlTmRudERSOXVMZnZJZm16VmUx?=
- =?utf-8?B?TkpxVVp0bEwyR3pxbkFaYWlBU2FTaHdxYjg5QTcxYlk1QmNDMXZzVmY5MHlL?=
- =?utf-8?B?VXlpdHFrTGNxZG5jR1k1clNRc2JlZEgzOURTdnR0OE0rdDQ3eThmOGlTYjU0?=
- =?utf-8?B?UlJIY21yRkN6MklESHZyNXZIRi9ZaXRNbWp5MEtqaTQ4c1BkZ00xaG5pS0hD?=
- =?utf-8?B?NTVDNTdxbVc4Y2FnNWc5ck1yakhCV1BrVkJ0a1lNK1c0dTVVTmQ5MkhDcm5t?=
- =?utf-8?B?alR3RDBNVDhXaytCdjh4R0wrejBtL01aRzFMTDZQMG1LaU9DTFpJWHNBRHNs?=
- =?utf-8?B?ZndNTEtpaWtvT0FhazU3ZTEwV05YbGN0bmlENmV4M09sN3doQ0xYOCsrTnlF?=
- =?utf-8?B?RU9UTmtxZXphSTRJODBtbFZFVUgxMXQ0S29ZWTJlRTI4WUZVbCs1Q1k4R3Nl?=
- =?utf-8?B?d2IxOTIrd1VVQlJZN1A4ZGRnMDF0d2laMFBHU0RrSno4MklhYXl4a28yd1dx?=
- =?utf-8?B?MFpHZUE5bzM5Z3NyQkUweUc4aWdnZFZCMFlkMmF4TXFqRTRUaGlLczgxQWJk?=
- =?utf-8?B?eFJGS044cHVIdE5PMFZ6bUk2cUlKbHhpMWEyODVPOFNkUHVtTXRMRStPbkQ4?=
- =?utf-8?B?ektRWnc0TWtZRGdJWkU5QmwyL2JQRUp5cWR2amFFRFhVZGhSR2V0VU9yRDlm?=
- =?utf-8?B?aXRGeDZNYWxUVXJqMEVnZmFNU0dNUE1GeThoQituSDdhUExEQlBnYXl0TnNO?=
- =?utf-8?B?aE1mMWpVSzhGQ1VKWU5DOEVsTFo1c0lLdjdTblIwamdkMlhhRU5UYjlhUkh3?=
- =?utf-8?B?dm1tMTBLSXZCYlM0QWR6V3lpbW52ZG40Q01DVGlLNGh1Z05yVGV2UkdGU3gv?=
- =?utf-8?B?OExYUEM0TFh0dXJPMW1WT044VkZnQUhTNFNDNkxjWVpGS1NIaWtnYXZKZnhj?=
- =?utf-8?B?YnBQTjBvSWo0blArSGdlQ1JjS2ZvV3l6ODFoTlF2N010UDlEMXdhRmVxdm5X?=
- =?utf-8?B?eFVXcllQc2dvMk1nUE83SDNyb1pXd2lLWHBiZ1lSYkdvaWhCQ09HTENrK05a?=
- =?utf-8?B?am9qb1pKYzVKT1NaaWdzeFVXMHJSaUZVZGRkalc2ekwwUnFFS1ZMaEhIa2JS?=
- =?utf-8?B?RzFNbFZQalkwY21jKzIrZmRyU3ZpTkNuaVJmSzFPcTQrSkFtejg1M1AxQVdB?=
- =?utf-8?B?aytpalE0S28zWHl3N2lrMzREdFBEaHk1VmZlSUhldzUxbDYzc202eGpEVzRj?=
- =?utf-8?B?TkZVdXo3QVpjdnJLM3ZoV1F0aTU4UUlFaEs2dXZlSExJYXFLcEFGaThsWDdX?=
- =?utf-8?B?d3dmU0d4NzIwVUxsNmtSOVZiY1kvdzVXT1dBN1hLUGhwMTBnWlRnTXR0TzF0?=
- =?utf-8?B?dk5VS3dMcS9pNCsrSWlzRWpTdHdsc3RnRUIyS0tabW0rZ0lkemJmMWJzRm42?=
- =?utf-8?Q?DEHTIDujccciRz3Z+K3PIviEN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czJERkVaNE1GZmJyNUJlNnhJRmJkMTNGNXdOR2d3NFVGUm1DWlZCMVVuTGhp?=
+ =?utf-8?B?aTFMRU0wd0NSQUE5bjFJQ1lnK3VFdG9qT25PSkFEQ0FuYndCVlBTdWorRTJs?=
+ =?utf-8?B?cm8wL2M3cFZCRzZnWUZ2NDltTnZPL3ZUV2wyeFZuMElxQVNEM2I3bnpJMm1o?=
+ =?utf-8?B?S1lXWlZwbGJFNVpjWDlRVkdTODZkNGtTQVZQYmhwTDNvSUxucFFjQ1dUY3Nj?=
+ =?utf-8?B?ckZHdW1JWU1ORXZuNktqL1IzWWpISS9JL0NDK1Nwd0w0SktYSjdmSXIyOXJR?=
+ =?utf-8?B?OG9BWkE2bEdZMDk4SldERTdkNEF1dlZmUXpWbXUyVzNKTkZmTnhsb2t4bUh5?=
+ =?utf-8?B?aXo4U3dFbmhuNWFObkMxWWZiajZEZHBScVZsMFpKNDZETXNvdjJJbUY3TGxE?=
+ =?utf-8?B?WWRMOGFuSTIzMHdVaFphaG5ma2NEdExqU1U1ZTBxcFk2TWU3SlJnYlcvWCtN?=
+ =?utf-8?B?R0Q2cGRDV1VUaW1wamFOMWpvOVI3dWYyenhjc041Z1Y4Q3IzK1VyL252aFpK?=
+ =?utf-8?B?VVNpQWNXZWlSeVJXcTFQaUQ2RWd0cGl2SDhVYVVDaXJ6S2VuTXpZbTRTVVph?=
+ =?utf-8?B?VVYyakI3bngyOVBPWDhCYTBqR3NxWklPK1pvRmZjREx5eUl4QlVNZnRVWXpi?=
+ =?utf-8?B?UjJzVzEvWmxTa1Vqd0RxRGlGZnkyamdLek5yVVZwcnYzRFVoUHN6Y2lQTU04?=
+ =?utf-8?B?MDJGOEIrbFhiZGlqZy93eTk5LzdvcEI4L1p1TVFyMjNqQTJrcDl5V2hlbmd2?=
+ =?utf-8?B?NlRCajNzcXhGczdkWGNZc3lGbEZBVmM4MmxWWXpkc2xXNlI5YkJDd0x6MlJo?=
+ =?utf-8?B?di9IY3prNFhlRzNpY3JpNlpVeVhFQlhTN3dSenFjZTRqbHYweU1VOGEyTXdB?=
+ =?utf-8?B?dTBSbngrUTFTdGlkVUV5NWRoRWd4czh1WTRjUWRydjVOZmQxK3UzcHZXdVBr?=
+ =?utf-8?B?ZXFld1N6dmRreUxQRm81Z0ZNWll1eERuYnpzZHZQRHUxek9OOG41MCtRN2lx?=
+ =?utf-8?B?eVlxeTh4MXdvNy9QU3o1N1l6WHI5bjV3Z2I3UnppSVJoVEM2RjNtb0plOEhT?=
+ =?utf-8?B?RnBNazFwOCtTYjJ0dm5Na1NldFdZRmR5a043TGpBd2RXMHErVUNjaXRkdjRq?=
+ =?utf-8?B?Y0Z6eGlQdXV5eDllQVU4RkYxbjBBYWVWWDBqWEZDQXR6ZU81WnJDTGEwR2Ev?=
+ =?utf-8?B?Z055OEZldit4c1BMenJrekdpN3RRTjdsNi9sMnVONURBRXpRclNROE5MN0dK?=
+ =?utf-8?B?RWJ2dHVIYU1LKzUzWHBvejFpbWtYbDd3Y2tlVS84ZG12TXg1TWRGSWNlamUz?=
+ =?utf-8?B?b2JQVml0K0ovSnIxb2QzakU1THJ2bTVRN0lDYWRTV2JYdHlSVDBEZE00MTZ5?=
+ =?utf-8?B?ZEs5czlJMm1zb2ZQMy9PRDBCN2pvK0RMSVJDWHJyb0JET1FrN3JORUN1RHZs?=
+ =?utf-8?B?NUFpYzdxbHBsclBpRFZIaGxHK2ZaUExWL2w5ZWF5bmJWZ3N6T0xSRHZUQmk5?=
+ =?utf-8?B?VlQxVDJ1dWtmMy8vNzVGMmRtYTgwdDFGZWxkakw0NGFFMzUwTDNlYk81VDFE?=
+ =?utf-8?B?VEJhek5lRUJpU2xqcGlnaW1xSTFZN2hMMjlFdVBjZjBKeUcrN3pIVkxtMjNN?=
+ =?utf-8?B?Q09zS2dlUEYxVW9ucEMvMnhIa0xFYTlpc3orRk04eFBJd05FUkU2dWpLa3Nv?=
+ =?utf-8?B?ZFpwQlBiMXNYZWNlRHZpV0xxVS9GV3JoNWhOS1A3QTlQczU5bEZCaU1scUU2?=
+ =?utf-8?B?NkZIRHBwNlFlUm9vVWQ4QXBsUXp5OWljY0U0RFRjaDM2OURJR3BucVZTVi80?=
+ =?utf-8?B?RjdRRURQV09RZzRQR0hTYWw2dXRpMU0yc1FrSXI5YmVGVVVDTG1FY0FiMU5S?=
+ =?utf-8?B?YUk2WXdDQzExN3gyS1NvbzU2TXRvbWFZbDMxUXVINFY5MnhhSkVISXBSR2dy?=
+ =?utf-8?B?ckhTRnZiMTdRUnhraGRRdks2RVpJbnNQdm1ra21yWHZBVmg2bWxTWDVTNERm?=
+ =?utf-8?B?aDViRm5sYmlSQlovQlYzK1FpR0JhZDg4K3RoNEdkNUkxS0tNTlZJNWRJb0J3?=
+ =?utf-8?B?alFzSFliVzVRZVZ4RFZZOW0zWDEvdlp6cHF6OG9sT1VrWXlrOU8wcHdVbmY2?=
+ =?utf-8?Q?En03NmXVASghk047VnxFRP33d?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 563269fa-f755-47f6-1780-08de11383407
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1f34df6-555f-4bbe-c5a7-08de113895ab
 X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2025 06:57:02.3678 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2025 06:59:46.2599 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NQYA8o0CKiWljqe3NdVQxJrxCu+Ay8OHV8M2+3EhDUbba8eCII7zbmUNv5h6VD6v7hELemEJ7KjCmStH793hqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7671
+X-MS-Exchange-CrossTenant-UserPrincipalName: iyTh5CzZIA1aiuth8SUAdv8cKFGZOkZucWnp/3N0nl7D0Y5sZT1Tui3bNpO7bUV6v873aMViwyVq8/i0j+lubQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF39B20C1D8
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,191 +164,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------Z3LPK00Wv5F9ZIv65MSaZWiQ
+--------------PDl7kgp0smo4faMb01L7l8NO
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/18/2025 7:16 AM, Felix Kuehling wrote:
+On 10/18/2025 7:55 AM, Felix Kuehling wrote:
 > On 2025-10-17 04:42, Zhu Lingshan wrote:
->> This commit introduces a new id field for
->> struct kfd process, which helps identify
->> a kfd process among multiple contexts that
->> all belong to a single user space program.
+>> This commit implemetns a new ioctl AMDKFD_IOC_CREATE_PROCESS
+>> that creates a new secondary kfd_progress on the FD.
 >>
->> The sysfs entry of a secondary kfd process
->> is placed under the sysfs entry folder of
->> its primary kfd process.
+>> To keep backward compatibility, userspace programs need to invoke
+>> this ioctl explicitly on a FD to create a secondary
+>> kfd_process which replacing its primary kfd_process.
 >>
->> The naming format of the sysfs entry of a secondary
->> kfd process is "context_%u" where %u is the process id.
+>> This commit bumps ioctl minor version.
 >>
->> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>> Signed-off-by: Zhu Lingshan<lingshan.zhu@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  6 ++
->>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 78 +++++++++++++++++++++++-
->>   2 files changed, 81 insertions(+), 3 deletions(-)
+>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 41 ++++++++++++++++++++++++
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  1 +
+>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c |  3 +-
+>>   include/uapi/linux/kfd_ioctl.h           |  8 +++--
+>>   4 files changed, 49 insertions(+), 4 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index 919510f18249..9de658119cd9 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -1021,10 +1021,16 @@ struct kfd_process {
->>         /*kfd context id */
->>       u16 context_id;
->> +
->> +    /* The primary kfd_process allocating IDs for its secondary
->> kfd_process, 0 for primary kfd_process */
->> +    struct ida id_table;
->> +
->>   };
->>     #define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
->>   #define KFD_CONTEXT_ID_PRIMARY    0xFFFF
->> +#define KFD_CONTEXT_ID_MIN 0
->> +#define KFD_CONTEXT_ID_WIDTH 16
->>     extern DECLARE_HASHTABLE(kfd_processes_table,
->> KFD_PROCESS_TABLE_SIZE);
->>   extern struct srcu_struct kfd_processes_srcu;
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> index 995d27be06e3..157145c94314 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> @@ -827,6 +827,7 @@ static void
->> kfd_process_device_destroy_ib_mem(struct kfd_process_device *pdd)
->>     int kfd_create_process_sysfs(struct kfd_process *process)
->>   {
->> +    struct kfd_process *primary_process;
->>       int ret;
->>         if (process->kobj) {
->> @@ -839,9 +840,22 @@ int kfd_create_process_sysfs(struct kfd_process
->> *process)
->>           pr_warn("Creating procfs kobject failed");
->>           return -ENOMEM;
->>       }
->> -    ret = kobject_init_and_add(process->kobj, &procfs_type,
->> -                   procfs.kobj, "%d",
->> -                   (int)process->lead_thread->pid);
->> +
->> +    if (process->context_id == KFD_CONTEXT_ID_PRIMARY)
->> +        ret = kobject_init_and_add(process->kobj, &procfs_type,
->> +                       procfs.kobj, "%d",
->> +                       (int)process->lead_thread->pid);
->> +    else {
->> +        primary_process =
->> kfd_lookup_process_by_mm(process->lead_thread->mm);
->> +        if (!primary_process)
->> +            return -ESRCH;
->> +
->> +        ret = kobject_init_and_add(process->kobj, &procfs_type,
->> +                       primary_process->kobj, "context_%u",
->> +                       process->context_id);
->> +        kfd_unref_process(primary_process);
->> +    }
->> +
->>       if (ret) {
->>           pr_warn("Creating procfs pid directory failed");
->>           kobject_put(process->kobj);
->> @@ -863,6 +877,50 @@ int kfd_create_process_sysfs(struct kfd_process
->> *process)
->>       return 0;
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> index 7c02e8473622..8fe58526bc3a 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> @@ -3140,6 +3140,44 @@ static int kfd_ioctl_set_debug_trap(struct
+>> file *filep, struct kfd_process *p, v
+>>       return r;
 >>   }
->>   +static int kfd_process_alloc_id(struct kfd_process *process)
+>>   +/* userspace programs need to invoke this ioctl explicitly on a FD to
+>> + * create a secondary kfd_process which replacing its primary
+>> kfd_process
+>> + */
+>> +static int kfd_ioctl_create_process(struct file *filep, struct
+>> kfd_process *p, void *data)
 >> +{
+>> +    struct kfd_process *process;
 >> +    int ret;
->> +    struct kfd_process *primary_process;
 >> +
->> +    /* already assign 0xFFFF when create */
->> +    if (process->context_id == KFD_CONTEXT_ID_PRIMARY)
->> +        return 0;
+>> +    if (!filep->private_data || !p)
+>> +        return -EINVAL;
 >> +
->> +    primary_process =
->> kfd_lookup_process_by_mm(process->lead_thread->mm);
->> +    if (!primary_process)
->> +        return -ESRCH;
+>> +    if (p != filep->private_data)
+>> +        return -EINVAL;
 >> +
->> +    /* id range: KFD_CONTEXT_ID_MIN to 0xFFFE */
->> +    ret = ida_alloc_range(&primary_process->id_table,
->> KFD_CONTEXT_ID_MIN,
->> +         (1 << KFD_CONTEXT_ID_WIDTH) - 2, GFP_KERNEL);
+>> +    /* Each FD owns only one kfd_process */
+>> +    if (p->context_id != KFD_CONTEXT_ID_PRIMARY)
+>> +        return -EINVAL;
+>> +
+>> +    mutex_lock(&kfd_processes_mutex);
+>> +    process = create_process(current, false);
+>> +    mutex_unlock(&kfd_processes_mutex);
 >
-> This would be safer and more obvious if you just set the upper limit
-> as KFD_CONTEXT_ID_PRIMARY - 1. Then you don't need
-> KFD_CONTEXT_ID_WIDTH at all. 
-
+> There could be race conditions between multiple threads calling this
+> ioctl on the same primary fd concurrently. We could use the
+> kfd_processes_mutex to protect against this. You'd need to do some of
+> the above checks and the assignment to filep->private_data under the
+> lock to be safe, to allow only one thread to successfully create the
+> secondary context. I think this would work:
+>
+>     /* Atomically create the secondary context and assign it to
+> filep->private_data */
+>     mutex_lock(&kfd_processes_mutex);
+>     if (p != filep->private_data) {
+>         /* Another thread already created a secondary context */
+>         mutex_unlock(&kfd_processes_mutex);
+>         return -EINVAL;
+>     }
+>     secondary = create_process(current, false);
+>     if (!IS_ERR(process))
+>         filep->private_data = secondary;
+>     mutex_unlock(&kfd_processes_mutex);
+>
+>     if (IS_ERR(secondary))
+>         return PTR_ERR(secondary);
+>
+>     /* Release the process reference that was held by
+> filep->private_data */
+>     kfd_unref_process(p);
+>
+>     ... 
+>
 will fix in V6, thanks!
 
->
 > Regards,
 >   Felix
 >
 >
->> +    if (ret < 0)
->> +        goto out;
 >> +
->> +    process->context_id = ret;
->> +    ret = 0;
+>> +    if (IS_ERR(process))
+>> +        return PTR_ERR(process);
 >> +
->> +out:
->> +    kfd_unref_process(primary_process);
+>> +    /* Each open() increases kref of the primary kfd_process,
+>> +     * so we need to reduce it here before we create a new secondary
+>> process replacing it
+>> +     */
+>> +    kfd_unref_process(p);
 >> +
->> +    return ret;
+>> +    filep->private_data = process;
+>> +    ret = kfd_create_process_sysfs(process);
+>> +    if (ret)
+>> +        pr_warn("Failed to create sysfs entry for the kfd_process");
+>> +
+>> +    return 0;
 >> +}
 >> +
->> +static void kfd_process_free_id(struct kfd_process *process)
->> +{
->> +    struct kfd_process *primary_process;
+>>   #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
+>>       [_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags =
+>> _flags, \
+>>                   .cmd_drv = 0, .name = #ioctl}
+>> @@ -3258,6 +3296,9 @@ static const struct amdkfd_ioctl_desc
+>> amdkfd_ioctls[] = {
+>>         AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_TRAP,
+>>               kfd_ioctl_set_debug_trap, 0),
 >> +
->> +    if (process->context_id != KFD_CONTEXT_ID_PRIMARY)
->> +        return;
->> +
->> +    primary_process =
->> kfd_lookup_process_by_mm(process->lead_thread->mm);
->> +    if (!primary_process)
->> +        return;
->> +
->> +    ida_free(&primary_process->id_table, process->context_id);
->> +
->> +    kfd_unref_process(primary_process);
->> +}
->> +
->>   struct kfd_process *kfd_create_process(struct task_struct *thread)
+>> +    AMDKFD_IOCTL_DEF(AMDKFD_IOC_CREATE_PROCESS,
+>> +            kfd_ioctl_create_process, 0),
+>>   };
+>>     #define AMDKFD_CORE_IOCTL_COUNT    ARRAY_SIZE(amdkfd_ioctls)
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index 4237c859050d..578f9f217e16 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -1055,6 +1055,7 @@ struct amdkfd_ioctl_desc {
+>>   };
+>>   bool kfd_dev_is_large_bar(struct kfd_node *dev);
+>>   +struct kfd_process *create_process(const struct task_struct
+>> *thread, bool primary);
+>>   int kfd_process_create_wq(void);
+>>   void kfd_process_destroy_wq(void);
+>>   void kfd_cleanup_processes(void);
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> index 629a706e2a13..bbb72a77bed5 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> @@ -68,7 +68,6 @@ static struct workqueue_struct *kfd_restore_wq;
+>>   static struct kfd_process *find_process(const struct task_struct
+>> *thread,
+>>                       bool ref);
+>>   static void kfd_process_ref_release(struct kref *ref);
+>> -static struct kfd_process *create_process(const struct task_struct
+>> *thread, bool primary);
+>>     static void evict_process_worker(struct work_struct *work);
+>>   static void restore_process_worker(struct work_struct *work);
+>> @@ -1578,7 +1577,7 @@ void kfd_process_set_trap_debug_flag(struct
+>> qcm_process_device *qpd,
+>>    * On return the kfd_process is fully operational and will be freed
+>> when the
+>>    * mm is released
+>>    */
+>> -static struct kfd_process *create_process(const struct task_struct
+>> *thread, bool primary)
+>> +struct kfd_process *create_process(const struct task_struct *thread,
+>> bool primary)
 >>   {
 >>       struct kfd_process *process;
->> @@ -1195,6 +1253,11 @@ static void kfd_process_wq_release(struct
->> work_struct *work)
->>       if (ef)
->>           dma_fence_signal(ef);
->>   +    if (p->context_id != KFD_CONTEXT_ID_PRIMARY)
->> +        kfd_process_free_id(p);
->> +    else
->> +        ida_destroy(&p->id_table);
+>>       struct mmu_notifier *mn;
+>> diff --git a/include/uapi/linux/kfd_ioctl.h
+>> b/include/uapi/linux/kfd_ioctl.h
+>> index 5d1727a6d040..84aa24c02715 100644
+>> --- a/include/uapi/linux/kfd_ioctl.h
+>> +++ b/include/uapi/linux/kfd_ioctl.h
+>> @@ -44,9 +44,10 @@
+>>    * - 1.16 - Add contiguous VRAM allocation flag
+>>    * - 1.17 - Add SDMA queue creation with target SDMA engine ID
+>>    * - 1.18 - Rename pad in set_memory_policy_args to misc_process_flag
+>> + * - 1.19 - Add a new ioctl to craete secondary kfd processes
+>>    */
+>>   #define KFD_IOCTL_MAJOR_VERSION 1
+>> -#define KFD_IOCTL_MINOR_VERSION 18
+>> +#define KFD_IOCTL_MINOR_VERSION 19
+>>     struct kfd_ioctl_get_version_args {
+>>       __u32 major_version;    /* from KFD */
+>> @@ -1671,7 +1672,10 @@ struct kfd_ioctl_dbg_trap_args {
+>>   #define AMDKFD_IOC_DBG_TRAP            \
+>>           AMDKFD_IOWR(0x26, struct kfd_ioctl_dbg_trap_args)
+>>   +#define AMDKFD_IOC_CREATE_PROCESS        \
+>> +        AMDKFD_IO(0x27)
 >> +
->>       kfd_process_remove_sysfs(p);
->>       kfd_debugfs_remove_process(p);
->>   @@ -1601,6 +1664,13 @@ static struct kfd_process
->> *create_process(const struct task_struct *thread, bool
->>               goto err_register_notifier;
->>           }
->>           BUG_ON(mn != &process->mmu_notifier);
->> +        ida_init(&process->id_table);
->> +    }
->> +
->> +    err = kfd_process_alloc_id(process);
->> +    if (err) {
->> +        pr_err("Creating kfd process: failed to alloc an id\n");
->> +        goto err_alloc_id;
->>       }
->>         kfd_unref_process(process);
->> @@ -1610,6 +1680,8 @@ static struct kfd_process *create_process(const
->> struct task_struct *thread, bool
->>         return process;
->>   +err_alloc_id:
->> +    kfd_process_free_id(process);
->>   err_register_notifier:
->>       hash_del_rcu(&process->kfd_processes);
->>       svm_range_list_fini(process);
---------------Z3LPK00Wv5F9ZIv65MSaZWiQ
+>>   #define AMDKFD_COMMAND_START        0x01
+>> -#define AMDKFD_COMMAND_END        0x27
+>> +#define AMDKFD_COMMAND_END        0x28
+>>     #endif
+--------------PDl7kgp0smo4faMb01L7l8NO
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -355,349 +360,348 @@ Content-Transfer-Encoding: 8bit
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    On 10/18/2025 7:16 AM, Felix Kuehling wrote:
-    <blockquote type="cite" cite="mid:1a34e488-72b3-4974-8807-e10d8170b1de@amd.com">On
+    On 10/18/2025 7:55 AM, Felix Kuehling wrote:
+    <blockquote type="cite" cite="mid:b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com">On
       2025-10-17 04:42, Zhu Lingshan wrote:
       <br>
-      <blockquote type="cite">This commit introduces a new id field for
+      <blockquote type="cite">This commit implemetns a new ioctl
+        AMDKFD_IOC_CREATE_PROCESS
         <br>
-        struct kfd process, which helps identify
-        <br>
-        a kfd process among multiple contexts that
-        <br>
-        all belong to a single user space program.
+        that creates a new secondary kfd_progress on the FD.
         <br>
         <br>
-        The sysfs entry of a secondary kfd process
+        To keep backward compatibility, userspace programs need to
+        invoke
         <br>
-        is placed under the sysfs entry folder of
+        this ioctl explicitly on a FD to create a secondary
         <br>
-        its primary kfd process.
-        <br>
-        <br>
-        The naming format of the sysfs entry of a secondary
-        <br>
-        kfd process is &quot;context_%u&quot; where %u is the process id.
+        kfd_process which replacing its primary kfd_process.
         <br>
         <br>
-        Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+        This commit bumps ioctl minor version.
+        <br>
+        <br>
+        Signed-off-by: Zhu Lingshan<a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
         <br>
         ---
         <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp; |&nbsp; 6 ++
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 41
+        ++++++++++++++++++++++++
         <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c | 78
-        +++++++++++++++++++++++-
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp; |&nbsp; 1 +
         <br>
-        &nbsp; 2 files changed, 81 insertions(+), 3 deletions(-)
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c |&nbsp; 3 +-
+        <br>
+        &nbsp; include/uapi/linux/kfd_ioctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 8 +++--
+        <br>
+        &nbsp; 4 files changed, 49 insertions(+), 4 deletions(-)
         <br>
         <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-        b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
         <br>
-        index 919510f18249..9de658119cd9 100644
+        index 7c02e8473622..8fe58526bc3a 100644
         <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
         <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
         <br>
-        @@ -1021,10 +1021,16 @@ struct kfd_process {
+        @@ -3140,6 +3140,44 @@ static int
+        kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process
+        *p, v
         <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*kfd context id */
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u16 context_id;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; /* The primary kfd_process allocating IDs for its secondary
-        kfd_process, 0 for primary kfd_process */
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct ida id_table;
-        <br>
-        +
-        <br>
-        &nbsp; };
-        <br>
-        &nbsp; &nbsp; #define KFD_PROCESS_TABLE_SIZE 8 /* bits: 256 entries */
-        <br>
-        &nbsp; #define KFD_CONTEXT_ID_PRIMARY&nbsp;&nbsp;&nbsp; 0xFFFF
-        <br>
-        +#define KFD_CONTEXT_ID_MIN 0
-        <br>
-        +#define KFD_CONTEXT_ID_WIDTH 16
-        <br>
-        &nbsp; &nbsp; extern DECLARE_HASHTABLE(kfd_processes_table,
-        KFD_PROCESS_TABLE_SIZE);
-        <br>
-        &nbsp; extern struct srcu_struct kfd_processes_srcu;
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-        <br>
-        index 995d27be06e3..157145c94314 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-        <br>
-        @@ -827,6 +827,7 @@ static void
-        kfd_process_device_destroy_ib_mem(struct kfd_process_device
-        *pdd)
-        <br>
-        &nbsp; &nbsp; int kfd_create_process_sysfs(struct kfd_process *process)
-        <br>
-        &nbsp; {
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct kfd_process *primary_process;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (process-&gt;kobj) {
-        <br>
-        @@ -839,9 +840,22 @@ int kfd_create_process_sysfs(struct
-        kfd_process *process)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Creating procfs kobject failed&quot;);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        -&nbsp;&nbsp;&nbsp; ret = kobject_init_and_add(process-&gt;kobj,
-        &amp;procfs_type,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procfs.kobj, &quot;%d&quot;,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (int)process-&gt;lead_thread-&gt;pid);
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (process-&gt;context_id == KFD_CONTEXT_ID_PRIMARY)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = kobject_init_and_add(process-&gt;kobj,
-        &amp;procfs_type,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; procfs.kobj, &quot;%d&quot;,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (int)process-&gt;lead_thread-&gt;pid);
-        <br>
-        +&nbsp;&nbsp;&nbsp; else {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; primary_process =
-        kfd_lookup_process_by_mm(process-&gt;lead_thread-&gt;mm);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!primary_process)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ESRCH;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = kobject_init_and_add(process-&gt;kobj,
-        &amp;procfs_type,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; primary_process-&gt;kobj, &quot;context_%u&quot;,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;context_id);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(primary_process);
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Creating procfs pid directory failed&quot;);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kobject_put(process-&gt;kobj);
-        <br>
-        @@ -863,6 +877,50 @@ int kfd_create_process_sysfs(struct
-        kfd_process *process)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
         <br>
         &nbsp; }
         <br>
-        &nbsp; +static int kfd_process_alloc_id(struct kfd_process *process)
+        &nbsp; +/* userspace programs need to invoke this ioctl explicitly on
+        a FD to
+        <br>
+        + * create a secondary kfd_process which replacing its primary
+        kfd_process
+        <br>
+        + */
+        <br>
+        +static int kfd_ioctl_create_process(struct file *filep, struct
+        kfd_process *p, void *data)
         <br>
         +{
         <br>
+        +&nbsp;&nbsp;&nbsp; struct kfd_process *process;
+        <br>
         +&nbsp;&nbsp;&nbsp; int ret;
         <br>
-        +&nbsp;&nbsp;&nbsp; struct kfd_process *primary_process;
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (!filep-&gt;private_data || !p)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
         <br>
         +
         <br>
-        +&nbsp;&nbsp;&nbsp; /* already assign 0xFFFF when create */
+        +&nbsp;&nbsp;&nbsp; if (p != filep-&gt;private_data)
         <br>
-        +&nbsp;&nbsp;&nbsp; if (process-&gt;context_id == KFD_CONTEXT_ID_PRIMARY)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
         <br>
         +
         <br>
-        +&nbsp;&nbsp;&nbsp; primary_process =
-        kfd_lookup_process_by_mm(process-&gt;lead_thread-&gt;mm);
+        +&nbsp;&nbsp;&nbsp; /* Each FD owns only one kfd_process */
         <br>
-        +&nbsp;&nbsp;&nbsp; if (!primary_process)
+        +&nbsp;&nbsp;&nbsp; if (p-&gt;context_id != KFD_CONTEXT_ID_PRIMARY)
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ESRCH;
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
         <br>
         +
         <br>
-        +&nbsp;&nbsp;&nbsp; /* id range: KFD_CONTEXT_ID_MIN to 0xFFFE */
+        +&nbsp;&nbsp;&nbsp; mutex_lock(&amp;kfd_processes_mutex);
         <br>
-        +&nbsp;&nbsp;&nbsp; ret = ida_alloc_range(&amp;primary_process-&gt;id_table,
-        KFD_CONTEXT_ID_MIN,
+        +&nbsp;&nbsp;&nbsp; process = create_process(current, false);
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; KFD_CONTEXT_ID_WIDTH) - 2, GFP_KERNEL);
+        +&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;kfd_processes_mutex);
         <br>
       </blockquote>
       <br>
-      This would be safer and more obvious if you just set the upper
-      limit as KFD_CONTEXT_ID_PRIMARY - 1. Then you don't need
-      KFD_CONTEXT_ID_WIDTH at all.&nbsp;<br>
+      There could be race conditions between multiple threads calling
+      this ioctl on the same primary fd concurrently. We could use the
+      kfd_processes_mutex to protect against this. You'd need to do some
+      of the above checks and the assignment to filep-&gt;private_data
+      under the lock to be safe, to allow only one thread to
+      successfully create the secondary context. I think this would
+      work:
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;/* Atomically create the secondary context and assign it to
+      filep-&gt;private_data */
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;mutex_lock(&amp;kfd_processes_mutex);
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;if (p != filep-&gt;private_data) {
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Another thread already created a secondary context */
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;kfd_processes_mutex);
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;}
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;secondary = create_process(current, false);
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;if (!IS_ERR(process))
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; filep-&gt;private_data = secondary;
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;mutex_unlock(&amp;kfd_processes_mutex);
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;if (IS_ERR(secondary))
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return PTR_ERR(secondary);
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;/* Release the process reference that was held by
+      filep-&gt;private_data */
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;kfd_unref_process(p);
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;<br>
+      <br>
     </blockquote>
     <pre>will fix in V6, thanks!</pre>
-    <blockquote type="cite" cite="mid:1a34e488-72b3-4974-8807-e10d8170b1de@amd.com"><br>
-      Regards,
+    <blockquote type="cite" cite="mid:b545b31e-26ff-4b7a-be86-312d9aa96e97@amd.com">Regards,
       <br>
       &nbsp; Felix
       <br>
       <br>
       <br>
-      <blockquote type="cite">+&nbsp;&nbsp;&nbsp; if (ret &lt; 0)
+      <blockquote type="cite">+
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;
+        +&nbsp;&nbsp;&nbsp; if (IS_ERR(process))
         <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; process-&gt;context_id = ret;
-        <br>
-        +&nbsp;&nbsp;&nbsp; ret = 0;
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return PTR_ERR(process);
         <br>
         +
         <br>
-        +out:
+        +&nbsp;&nbsp;&nbsp; /* Each open() increases kref of the primary kfd_process,
         <br>
-        +&nbsp;&nbsp;&nbsp; kfd_unref_process(primary_process);
+        +&nbsp;&nbsp;&nbsp;&nbsp; * so we need to reduce it here before we create a new
+        secondary process replacing it
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp; */
+        <br>
+        +&nbsp;&nbsp;&nbsp; kfd_unref_process(p);
         <br>
         +
         <br>
-        +&nbsp;&nbsp;&nbsp; return ret;
+        +&nbsp;&nbsp;&nbsp; filep-&gt;private_data = process;
+        <br>
+        +&nbsp;&nbsp;&nbsp; ret = kfd_create_process_sysfs(process);
+        <br>
+        +&nbsp;&nbsp;&nbsp; if (ret)
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Failed to create sysfs entry for the
+        kfd_process&quot;);
+        <br>
+        +
+        <br>
+        +&nbsp;&nbsp;&nbsp; return 0;
         <br>
         +}
         <br>
         +
         <br>
-        +static void kfd_process_free_id(struct kfd_process *process)
+        &nbsp; #define AMDKFD_IOCTL_DEF(ioctl, _func, _flags) \
         <br>
-        +{
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [_IOC_NR(ioctl)] = {.cmd = ioctl, .func = _func, .flags =
+        _flags, \
         <br>
-        +&nbsp;&nbsp;&nbsp; struct kfd_process *primary_process;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .cmd_drv = 0, .name = #ioctl}
         <br>
-        +
+        @@ -3258,6 +3296,9 @@ static const struct amdkfd_ioctl_desc
+        amdkfd_ioctls[] = {
         <br>
-        +&nbsp;&nbsp;&nbsp; if (process-&gt;context_id != KFD_CONTEXT_ID_PRIMARY)
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKFD_IOC_DBG_TRAP,
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; primary_process =
-        kfd_lookup_process_by_mm(process-&gt;lead_thread-&gt;mm);
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (!primary_process)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_ioctl_set_debug_trap, 0),
         <br>
         +
         <br>
-        +&nbsp;&nbsp;&nbsp; ida_free(&amp;primary_process-&gt;id_table,
-        process-&gt;context_id);
+        +&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKFD_IOC_CREATE_PROCESS,
         <br>
-        +
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_ioctl_create_process, 0),
         <br>
-        +&nbsp;&nbsp;&nbsp; kfd_unref_process(primary_process);
+        &nbsp; };
         <br>
-        +}
+        &nbsp; &nbsp; #define AMDKFD_CORE_IOCTL_COUNT&nbsp;&nbsp;&nbsp; ARRAY_SIZE(amdkfd_ioctls)
         <br>
-        +
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
         <br>
-        &nbsp; struct kfd_process *kfd_create_process(struct task_struct
-        *thread)
+        index 4237c859050d..578f9f217e16 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+        <br>
+        @@ -1055,6 +1055,7 @@ struct amdkfd_ioctl_desc {
+        <br>
+        &nbsp; };
+        <br>
+        &nbsp; bool kfd_dev_is_large_bar(struct kfd_node *dev);
+        <br>
+        &nbsp; +struct kfd_process *create_process(const struct task_struct
+        *thread, bool primary);
+        <br>
+        &nbsp; int kfd_process_create_wq(void);
+        <br>
+        &nbsp; void kfd_process_destroy_wq(void);
+        <br>
+        &nbsp; void kfd_cleanup_processes(void);
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        <br>
+        index 629a706e2a13..bbb72a77bed5 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+        <br>
+        @@ -68,7 +68,6 @@ static struct workqueue_struct
+        *kfd_restore_wq;
+        <br>
+        &nbsp; static struct kfd_process *find_process(const struct
+        task_struct *thread,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ref);
+        <br>
+        &nbsp; static void kfd_process_ref_release(struct kref *ref);
+        <br>
+        -static struct kfd_process *create_process(const struct
+        task_struct *thread, bool primary);
+        <br>
+        &nbsp; &nbsp; static void evict_process_worker(struct work_struct *work);
+        <br>
+        &nbsp; static void restore_process_worker(struct work_struct *work);
+        <br>
+        @@ -1578,7 +1577,7 @@ void
+        kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
+        <br>
+        &nbsp;&nbsp; * On return the kfd_process is fully operational and will be
+        freed when the
+        <br>
+        &nbsp;&nbsp; * mm is released
+        <br>
+        &nbsp;&nbsp; */
+        <br>
+        -static struct kfd_process *create_process(const struct
+        task_struct *thread, bool primary)
+        <br>
+        +struct kfd_process *create_process(const struct task_struct
+        *thread, bool primary)
         <br>
         &nbsp; {
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *process;
         <br>
-        @@ -1195,6 +1253,11 @@ static void kfd_process_wq_release(struct
-        work_struct *work)
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mmu_notifier *mn;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ef)
+        diff --git a/include/uapi/linux/kfd_ioctl.h
+        b/include/uapi/linux/kfd_ioctl.h
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_fence_signal(ef);
+        index 5d1727a6d040..84aa24c02715 100644
         <br>
-        &nbsp; +&nbsp;&nbsp;&nbsp; if (p-&gt;context_id != KFD_CONTEXT_ID_PRIMARY)
+        --- a/include/uapi/linux/kfd_ioctl.h
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_free_id(p);
+        +++ b/include/uapi/linux/kfd_ioctl.h
         <br>
-        +&nbsp;&nbsp;&nbsp; else
+        @@ -44,9 +44,10 @@
         <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ida_destroy(&amp;p-&gt;id_table);
+        &nbsp;&nbsp; * - 1.16 - Add contiguous VRAM allocation flag
+        <br>
+        &nbsp;&nbsp; * - 1.17 - Add SDMA queue creation with target SDMA engine ID
+        <br>
+        &nbsp;&nbsp; * - 1.18 - Rename pad in set_memory_policy_args to
+        misc_process_flag
+        <br>
+        + * - 1.19 - Add a new ioctl to craete secondary kfd processes
+        <br>
+        &nbsp;&nbsp; */
+        <br>
+        &nbsp; #define KFD_IOCTL_MAJOR_VERSION 1
+        <br>
+        -#define KFD_IOCTL_MINOR_VERSION 18
+        <br>
+        +#define KFD_IOCTL_MINOR_VERSION 19
+        <br>
+        &nbsp; &nbsp; struct kfd_ioctl_get_version_args {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 major_version;&nbsp;&nbsp;&nbsp; /* from KFD */
+        <br>
+        @@ -1671,7 +1672,10 @@ struct kfd_ioctl_dbg_trap_args {
+        <br>
+        &nbsp; #define AMDKFD_IOC_DBG_TRAP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOWR(0x26, struct kfd_ioctl_dbg_trap_args)
+        <br>
+        &nbsp; +#define AMDKFD_IOC_CREATE_PROCESS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IO(0x27)
         <br>
         +
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_remove_sysfs(p);
+        &nbsp; #define AMDKFD_COMMAND_START&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_debugfs_remove_process(p);
+        -#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x27
         <br>
-        &nbsp; @@ -1601,6 +1664,13 @@ static struct kfd_process
-        *create_process(const struct task_struct *thread, bool
+        +#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x28
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_register_notifier;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG_ON(mn != &amp;process-&gt;mmu_notifier);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ida_init(&amp;process-&gt;id_table);
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; err = kfd_process_alloc_id(process);
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (err) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;Creating kfd process: failed to alloc an
-        id\n&quot;);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_alloc_id;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_unref_process(process);
-        <br>
-        @@ -1610,6 +1680,8 @@ static struct kfd_process
-        *create_process(const struct task_struct *thread, bool
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return process;
-        <br>
-        &nbsp; +err_alloc_id:
-        <br>
-        +&nbsp;&nbsp;&nbsp; kfd_process_free_id(process);
-        <br>
-        &nbsp; err_register_notifier:
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hash_del_rcu(&amp;process-&gt;kfd_processes);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_list_fini(process);
+        &nbsp; &nbsp; #endif
         <br>
       </blockquote>
     </blockquote>
   </body>
 </html>
 
---------------Z3LPK00Wv5F9ZIv65MSaZWiQ--
+--------------PDl7kgp0smo4faMb01L7l8NO--
