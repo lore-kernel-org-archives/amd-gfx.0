@@ -4,102 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE47FCCD195
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 03:57:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6382CCD1BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 05:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1E010E138;
-	Wed, 22 Oct 2025 03:57:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0980D10E13E;
+	Wed, 22 Oct 2025 05:08:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="VGowZg+D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hqyKOdxD";
 	dkim-atps=neutral
-Received: from mail-yw1-f226.google.com (mail-yw1-f226.google.com
- [209.85.128.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D013E10E0F6
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 03:57:09 +0000 (UTC)
-Received: by mail-yw1-f226.google.com with SMTP id
- 00721157ae682-71d71bcab69so62594387b3.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 20:57:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761105429; x=1761710229;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=n+2BhB7m5rxSULbqDazCP+7YR4cz0DpNQnC8K4Tt1VU=;
- b=SjDkf3pj6i87zeq/42kWK4rp+OxJVT5ID3LqtQz+jQrndcYaSTPIWVE3fkQ8d7+fPm
- WfM5jC0/nqgIjyTnFAmpPwfEK8mQ3jQa8UrJnxbodmj98dGOWQQGcY0CmTVMmkvfA8nX
- Xu5PL5U78OQz8A7FiRlBITPe1d3ENEdvZQ5PaoCvcl+PnmZ2s/vIrP1hAiQzD25Aosfp
- YR5EQSuHw335cLxLp4zJM+cgo2SC/GPee0ZX1DBtVdcY1WVZMd9ZBZhryoJvR5LEmwVe
- zEo3LsxwHDPrhjq2WqhszQQ0VzTge/c64GC6wGKZiFekTeeLKl0Hi9/R3JtbnOXCNpIt
- JlfQ==
-X-Gm-Message-State: AOJu0Yxu8e3BlZzHyRPGhyq4HEJ/p86nNrOEegHjt7oHDLA1oVoyj9BP
- SuYNz93Gd04qec89BlQwHQUnisXu1L0IJdySiAMA4pbgFJdf5UMk7fSodXDz8RIyIuLOnJYXPUy
- e+JSIBwFuPUkP3dDxWi8aB/lKG7CnqTkukeJWXJG/Vk6aL0Q4ywvJPkPuV+CN7gmvropoSm0IPK
- ld+Cc7HpGmuxE9NTiTiMXJQ/tLfZrFh0pW8luniD3caREpdRQZ3JkstJ5vdO4qta0vzx4kaL/5x
- oWN7EprfMoswjm4fg==
-X-Gm-Gg: ASbGncvQk0y6ZhnQqtNdF7MVX5MFbhDGspdM7u3Eep2qdLGD3wuAIVKQqm3lTM61iGs
- Ao9XY7lvRBnxHKduigFjFQQccAbSQ3ZTaLOyOuyTvNXCca7dYKHtlZP0Pnmrp5YsirbGew9Ky05
- tE60YU6NYxZtT8CSKvHzNMEcMIIo7L2iID6wwVOFHMCEJyGD2p6INc77EehTqSo9qdgWPZk70hY
- gdx62LcLzlQWQEfQbInDTQmHuZhN+B5vSNN7R0ae5XU2bnn/lMqrPjQMR55HU723q03r1/s9iao
- fv+gIGdd/FlMLYY8vyr0T2hfDolzT25cZmL1kX5R6HcQ4KbK1V/O6AxGh0vUCDFUBOPKRT7rt0X
- WLqMBt+hhLA5fbuD9gNg0ZGimglwngoPlDvGHi0HnhO0Sel7QMRO/OMsFNStPG1p/BAPUAb9Izv
- I9z+n7JTwLffBfaSJXVgcbHjHf9CasDWI4lw==
-X-Google-Smtp-Source: AGHT+IGmKa+gDuShtVw04NH8ePGdZdrV9k+Bmc6iVEX6WFl1xtohy6z0me/yFOXqpTx94F4MpAhDQGVveaLG
-X-Received: by 2002:a05:690c:e4d9:b0:735:4608:f0dc with SMTP id
- 00721157ae682-7836d35b771mr165971987b3.52.1761105428740; 
- Tue, 21 Oct 2025 20:57:08 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-117.dlp.protect.broadcom.com. [144.49.247.117])
- by smtp-relay.gmail.com with ESMTPS id
- 00721157ae682-7846739c372sm10141017b3.9.2025.10.21.20.57.08
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 21 Oct 2025 20:57:08 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-592ef198363so80039e87.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Oct 2025 20:57:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1761105427; x=1761710227;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=n+2BhB7m5rxSULbqDazCP+7YR4cz0DpNQnC8K4Tt1VU=;
- b=VGowZg+D5qLmJ3h5Y36KjIqju4Fexj5ljShFiZBsTW1BHHfopcaGkFErpVr8qqfT2n
- 6KbQVZVvx8CYQ6UXYpviQLiydwFD3nwuT/WTs4geBtEyhVsEdcg1d7ty9AUutS2kQU34
- IyPi/4o2RVsgoc7PSagp9lEhQ1VVSWJ10UR1Y=
-X-Received: by 2002:a2e:ab10:0:b0:36d:1f0e:1bda with SMTP id
- 38308e7fff4ca-377979f9be2mr51121641fa.31.1761105426555; 
- Tue, 21 Oct 2025 20:57:06 -0700 (PDT)
-X-Received: by 2002:a2e:ab10:0:b0:36d:1f0e:1bda with SMTP id
- 38308e7fff4ca-377979f9be2mr51121511fa.31.1761105426037; Tue, 21 Oct 2025
- 20:57:06 -0700 (PDT)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010008.outbound.protection.outlook.com [52.101.85.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82B1C10E13E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 05:08:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l4ti2FsclYZaBNdOo6snPr456pYEB+Gf9c3dR0mJABlyGoBxwYbtDY42T7vAWDfpwjxq/oIxJhTsWxVnlh1Ck0iS9WbgOSY+JZEURdYUOTzhnS7GCdY2ncOLrIyFT7vmibgW/3i9AkdozCgguEXeDBojsQE4yENerY66ACYcsioTXXdWOz1L9rRCfPR4gD/zyTPvW+/J25Tt5AVnE5s2vp/MAbidtkstuLPXiXZua8xvKPMz3x5L4Z0VQIfGLI9BDoLnzaOUNYvHPiPTyQRMCkdDQ2we/IybmWfrYmo9lSV9nEjj3HJdoJ66IbUMUFcoWRnjAf38k8Yt619UIQXMlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=26c4AMVdRMb+VopQ+OVKSwc214hl0nNqZdnIeGy/Eoo=;
+ b=gKmsmSa1Mk9Jnp8bYOMjFcwtBrmyNbLs/qSOSDTC3Lvnd3yi3TapB/tZ2vnmcArnrTt4YJGxujl4FL5epTuyKKV8h3TVCH5989Yjp4ZZSCVzZBxj2ykXihLXAAdnL+sTK3x9KpShgtv3AgvXVNRF5LOjYx2sJc0yrmAB2f4mLNYA/Uk4vTEqsGwtEVFk1KU5znMBJsXAyd4ZQbYhwHuj04HgeEWo5Y/uGYHRWj6jeFQpY7MXY57y3WEJq4rLpI6jkslGw2cYB/E98ApjYXLpKiaoLHB8q8DD1Tf5gY0u3/eQ6MtFPdayoeCvSmSMSW0QLujjJvyUd0qjY0SAbRDsYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=26c4AMVdRMb+VopQ+OVKSwc214hl0nNqZdnIeGy/Eoo=;
+ b=hqyKOdxDjZi5RUc6sRWZ/LPJs28N1m/xf1iod8JtkMpwAvXJHmpsKW9Dr3LP2oztqA67OPfBXBh6t8292uivVdlxZFeqR6jHRxf5+Pqmn4cPCXiNKlMEmoYK9WlBzHQAOnNX/8bbWIjlme+MiBM7MJn9DM0JZV7z+hwgHcEUjJ8=
+Received: from BN9PR03CA0325.namprd03.prod.outlook.com (2603:10b6:408:112::30)
+ by DM4PR12MB9733.namprd12.prod.outlook.com (2603:10b6:8:225::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.17; Wed, 22 Oct
+ 2025 05:08:44 +0000
+Received: from BN1PEPF00005FFE.namprd05.prod.outlook.com
+ (2603:10b6:408:112:cafe::8) by BN9PR03CA0325.outlook.office365.com
+ (2603:10b6:408:112::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.12 via Frontend Transport; Wed,
+ 22 Oct 2025 05:08:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00005FFE.mail.protection.outlook.com (10.167.243.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9253.7 via Frontend Transport; Wed, 22 Oct 2025 05:08:44 +0000
+Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 21 Oct 2025 22:08:43 -0700
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <mario.limonciello@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 2/2] drm/amd: Reset the GPU if pmops failed
+Date: Wed, 22 Oct 2025 00:08:23 -0500
+Message-ID: <20251022050827.552763-3-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251022050827.552763-1-mario.limonciello@amd.com>
+References: <20251022050827.552763-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
-References: <20251020115411.36818-1-tvrtko.ursulin@igalia.com>
- <20251020115411.36818-4-tvrtko.ursulin@igalia.com>
-In-Reply-To: <20251020115411.36818-4-tvrtko.ursulin@igalia.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Tue, 21 Oct 2025 23:56:53 -0400
-X-Gm-Features: AS18NWBWewAXEPtnZZc6I6-TgT5oSPk-s0xdHz8WMihtnRv2PkELOKT5qdzRPc4
-Message-ID: <CABQX2QN-=j4okM=gWvgOrP6psvGj-F-_NWqFP8OKtcoDn5EnvA@mail.gmail.com>
-Subject: Re: [PATCH v5 3/6] drm/ttm: Replace multiple booleans with flags in
- device init
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, Lyude Paul <lyude@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sui Jingfeng <suijingfeng@loongson.cn>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="0000000000006510e70641b74fb2"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFE:EE_|DM4PR12MB9733:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66ff1f0a-5bc1-4b50-9b61-08de11291303
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OFowN3Y2cjZWU2ZPSU1xVWhlV3RUUkY5TjdYaTRTdmVaUU1vOWV6UStNTDkv?=
+ =?utf-8?B?dlJPUFhBUzBzWGRjdnduUnVjaEVyM2xDRU9jaXZjd2xpZ0Zzb25ad2ZIZDM5?=
+ =?utf-8?B?aWMrSEpVUGRqZ0RCOERNNlk5KzVsMVZsMmk1SGtrOEk5dHljSTRoYzBKeXlP?=
+ =?utf-8?B?QTJqWXIvZkRkbXhzYW13SkxNMlo2MjErODRlQ0RlZ2diWlpVQXY4WUtMQVFY?=
+ =?utf-8?B?SVR4YWZzTzZQTVdYa0h4eXdQaGVrZDY2QnhyR0ZQRHRST1BqZVFuZU5aZVFE?=
+ =?utf-8?B?cjRQb2NZRVJhelBYT3hSbjh1WXl1eUtHYXd0S1ZxdnlRQ2hRQWlHVFRGZnpl?=
+ =?utf-8?B?TmJ0SGMrcWdWc0JnYlp0UjBjV1Q0WDVaaE1CVUpQSjJEdUc1bDE2QUJyTDRI?=
+ =?utf-8?B?YmxVQXdrb05aYVJkT202Q0M2c1VGQmUwYVdCOFU2cjNEaCtBb05ycmZtTjVN?=
+ =?utf-8?B?Z05xa2FhMlE1cll1VjJpZDJVMVdJNmpMNkI3Tyt6aHpDYjZYVG1CYlR6SEJa?=
+ =?utf-8?B?dUFSa3ZKMjd5TDZjeHBmVHB6b0JKT2EwOEVNaXhFdkVua0VzN0xzeVNkV3VG?=
+ =?utf-8?B?M0x0a25pSTdlTmgrbk44U1oybW9QMWNLd2pQZ1RRMXhrNEY5MXA3dWZiYlNV?=
+ =?utf-8?B?cGNlK1BDU1NFZ1VmYlFCK0dzaTh3NGhJaTBKU3VzYUM4STZQMXJ1a204RVdD?=
+ =?utf-8?B?SXdDVU9LaWlYdlRUaERnWXc0YUI1amJnc2I4YnZhS3VZdzU1T1RoQXZEOE9I?=
+ =?utf-8?B?UFF4UEpPMUJRSGlxMjVzd2xnU1RiYmQzWEZQcTVBVkNlN1RwMnpVVmt5aWQ2?=
+ =?utf-8?B?dkhNR25kbkRjUmo2Q0ZDdjVUa2EwS3NUMGd1cWZ1VCtZV2ZSVjloa0NTS1R2?=
+ =?utf-8?B?bHc5NmtrTWtFUXhjakZMUVJRRVJnK25tWUJyem9SWGNVak9xU3BPM2VqeXZK?=
+ =?utf-8?B?Szh3T2FnWWdYQ28wNXU5TFNxOXlZMWloQittVTZKaXRqaFJhZXdtWi9JZ0s1?=
+ =?utf-8?B?MlR0RGlEU2VkUFUyaXFwdElpb1dlZG56MGlZdTJOZXhBb2IrRnhZNzh6SEl5?=
+ =?utf-8?B?TktiQ3Erc0dQdklvS3RQMjZFNncrc29TU1o5OWxTWVpQMFZ2SzIwSUhYWkQv?=
+ =?utf-8?B?RktiNkNpL0dJSjBuM29TcnZFb2IrODVlMGpZaTh2YVg5QldhaWFucS90YkVv?=
+ =?utf-8?B?U2FwK0tuZndqTStiZkJkVHc4RXhPcEQ0eUhqdm9pVzlqOWNXTDVVK296NVRQ?=
+ =?utf-8?B?WHk0ZGZ3MzZGUldPV0ZJTXp3YmRUVEFDNU9yOEg3bE8zYktRNUkwYU11RXVW?=
+ =?utf-8?B?cGpHS1E4TzkxUGlZSjZrZHgzZjk2U0xsQ21uUlNXYWJlT3BVV2FlNWtxZ1dv?=
+ =?utf-8?B?MHJWNTJTMVd6L3RPZ3dWLzh3OFQ1ZEV0UVlUNElLazI4NDZiZGpSVllickxI?=
+ =?utf-8?B?MmNyeXBEamZyMFZuWlBmOTU5QUU1dkRLWXdpSDBBbXp5VTB1VTFNOU9sRC96?=
+ =?utf-8?B?NkkwOGt4NzdRY1BNb1NlL2RwQ2JnanZMeHU4UEZoVWw0MndzZko3NnAwb09Q?=
+ =?utf-8?B?OFgyS2dHN1hQSERINlFPdm8xN2ZaTUhlVlNYNytzdU9xaU03R1JNYUUrTTMy?=
+ =?utf-8?B?QmgvaEF4SDNMV0lnYkZvVlQzMDhoM0JWWndUMitndEZTSFVWamM4N0UzU2ZK?=
+ =?utf-8?B?SXROVzExbnZhKzNrVWo2Tlc0OTcrSUJvSWdpNkl4NjVmVE1qTnhxcmJGbXZD?=
+ =?utf-8?B?ZW8wNE9WbVpJdDBxVmpWZDNia2RSb0JvS1VIK21mTW5nRnVKSFZ4RGRWV3lr?=
+ =?utf-8?B?UnVmVUhsZTh6OU1TcWFBa1AyaHMrYlVxVFR2Ti8xL0F1MFhYQjVKekQrdklp?=
+ =?utf-8?B?K2VMZVFwYmFCUEFsUi85RHpwR1BrRWR0U3dXYzBNWWVUS3ZwZ21Ra0w5em1Q?=
+ =?utf-8?B?aDhlQ2gxSjFNQWVTZXpDYklzcmJwRjkyaWNXU3ExUjRISVJJUWJEWTEzOHpv?=
+ =?utf-8?B?UWNaVm1pRWZmK3VlWGg3WmpGTnIzelVkMHNTbmlhWk1TRmxpZFQ0RFEvTlBQ?=
+ =?utf-8?B?NlhqNXJLcEUxRE1DVzNFbkgrQ2dVcEJXYTMvQT09?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2025 05:08:44.3086 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66ff1f0a-5bc1-4b50-9b61-08de11291303
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9733
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,637 +140,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000006510e70641b74fb2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+If the GPU fails to suspend the return code is passed up to the caller
+but it's left in an inconsistent state.  This could lead to hangs
+if userspace tries to access it.
 
-On Mon, Oct 20, 2025 at 7:54=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
->
-> Multiple consecutive boolean function arguments are usually not very
-> readable.
->
-> Replace the ones in ttm_device_init() with flags with the additional
-> benefit of soon being able to pass in more data with just a one off
-> code base churning cost.
->
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Cc: Gerd Hoffmann <kraxel@redhat.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Sui Jingfeng <suijingfeng@loongson.cn>
-> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Zack Rusin <zack.rusin@broadcom.com>
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
-> v2:
->  * Rebase for rename and move of flags to alloc_flags / TTM_ALLOCATION_.
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  6 +++--
->  drivers/gpu/drm/drm_gem_vram_helper.c         |  2 +-
->  drivers/gpu/drm/i915/intel_region_ttm.c       |  2 +-
->  drivers/gpu/drm/loongson/lsdc_ttm.c           |  3 ++-
->  drivers/gpu/drm/nouveau/nouveau_ttm.c         |  6 +++--
->  drivers/gpu/drm/qxl/qxl_ttm.c                 |  2 +-
->  drivers/gpu/drm/radeon/radeon_ttm.c           |  6 +++--
->  drivers/gpu/drm/ttm/tests/ttm_bo_test.c       | 16 +++++++-------
->  .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
->  drivers/gpu/drm/ttm/tests/ttm_device_test.c   | 12 +++++-----
->  drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c | 22 ++++++++-----------
->  drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h |  7 ++----
->  drivers/gpu/drm/ttm/ttm_device.c              |  9 +++-----
->  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |  4 ++--
->  drivers/gpu/drm/xe/xe_device.c                |  2 +-
->  include/drm/ttm/ttm_device.h                  |  3 ++-
->  16 files changed, 50 insertions(+), 54 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 8f6d331e1ea2..7b144ddea268 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1930,8 +1930,10 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->         r =3D ttm_device_init(&adev->mman.bdev, &amdgpu_bo_driver, adev->=
-dev,
->                                adev_to_drm(adev)->anon_inode->i_mapping,
->                                adev_to_drm(adev)->vma_offset_manager,
-> -                              adev->need_swiotlb,
-> -                              dma_addressing_limited(adev->dev));
-> +                              (adev->need_swiotlb ?
-> +                               TTM_ALLOCATION_POOL_USE_DMA_ALLOC : 0) |
-> +                              (dma_addressing_limited(adev->dev) ?
-> +                               TTM_ALLOCATION_POOL_USE_DMA32 : 0));
->         if (r) {
->                 dev_err(adev->dev,
->                         "failed initializing buffer object driver(%d).\n"=
-, r);
-> diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_=
-gem_vram_helper.c
-> index 0bec6f66682b..dd3292e57d64 100644
-> --- a/drivers/gpu/drm/drm_gem_vram_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_vram_helper.c
-> @@ -859,7 +859,7 @@ static int drm_vram_mm_init(struct drm_vram_mm *vmm, =
-struct drm_device *dev,
->         ret =3D ttm_device_init(&vmm->bdev, &bo_driver, dev->dev,
->                                  dev->anon_inode->i_mapping,
->                                  dev->vma_offset_manager,
-> -                                false, true);
-> +                                TTM_ALLOCATION_POOL_USE_DMA32);
->         if (ret)
->                 return ret;
->
-> diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i9=
-15/intel_region_ttm.c
-> index 04525d92bec5..47a69aad5c3f 100644
-> --- a/drivers/gpu/drm/i915/intel_region_ttm.c
-> +++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-> @@ -34,7 +34,7 @@ int intel_region_ttm_device_init(struct drm_i915_privat=
-e *dev_priv)
->
->         return ttm_device_init(&dev_priv->bdev, i915_ttm_driver(),
->                                drm->dev, drm->anon_inode->i_mapping,
-> -                              drm->vma_offset_manager, false, false);
-> +                              drm->vma_offset_manager, 0);
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongs=
-on/lsdc_ttm.c
-> index 2e42c6970c9f..dca0d33e2cf2 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> @@ -544,7 +544,8 @@ int lsdc_ttm_init(struct lsdc_device *ldev)
->
->         ret =3D ttm_device_init(&ldev->bdev, &lsdc_bo_driver, ddev->dev,
->                               ddev->anon_inode->i_mapping,
-> -                             ddev->vma_offset_manager, false, true);
-> +                             ddev->vma_offset_manager,
-> +                             TTM_ALLOCATION_POOL_USE_DMA32);
->         if (ret)
->                 return ret;
->
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_ttm.c
-> index 7d2436e5d50d..47b20cf80388 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> @@ -302,8 +302,10 @@ nouveau_ttm_init(struct nouveau_drm *drm)
->         ret =3D ttm_device_init(&drm->ttm.bdev, &nouveau_bo_driver, drm->=
-dev->dev,
->                                   dev->anon_inode->i_mapping,
->                                   dev->vma_offset_manager,
-> -                                 drm_need_swiotlb(drm->client.mmu.dmabit=
-s),
-> -                                 drm->client.mmu.dmabits <=3D 32);
-> +                                 (drm_need_swiotlb(drm->client.mmu.dmabi=
-ts) ?
-> +                                  TTM_ALLOCATION_POOL_USE_DMA_ALLOC : 0 =
-) |
-> +                                 (drm->client.mmu.dmabits <=3D 32 ?
-> +                                  TTM_ALLOCATION_POOL_USE_DMA32 : 0));
->         if (ret) {
->                 NV_ERROR(drm, "error initialising bo driver, %d\n", ret);
->                 return ret;
-> diff --git a/drivers/gpu/drm/qxl/qxl_ttm.c b/drivers/gpu/drm/qxl/qxl_ttm.=
-c
-> index 765a144cea14..85d9df48affa 100644
-> --- a/drivers/gpu/drm/qxl/qxl_ttm.c
-> +++ b/drivers/gpu/drm/qxl/qxl_ttm.c
-> @@ -196,7 +196,7 @@ int qxl_ttm_init(struct qxl_device *qdev)
->         r =3D ttm_device_init(&qdev->mman.bdev, &qxl_bo_driver, NULL,
->                             qdev->ddev.anon_inode->i_mapping,
->                             qdev->ddev.vma_offset_manager,
-> -                           false, false);
-> +                           0);
->         if (r) {
->                 DRM_ERROR("failed initializing buffer object driver(%d).\=
-n", r);
->                 return r;
-> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon=
-/radeon_ttm.c
-> index 616d25c8c2de..51dffe23c0fc 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> @@ -683,8 +683,10 @@ int radeon_ttm_init(struct radeon_device *rdev)
->         r =3D ttm_device_init(&rdev->mman.bdev, &radeon_bo_driver, rdev->=
-dev,
->                                rdev_to_drm(rdev)->anon_inode->i_mapping,
->                                rdev_to_drm(rdev)->vma_offset_manager,
-> -                              rdev->need_swiotlb,
-> -                              dma_addressing_limited(&rdev->pdev->dev));
-> +                              (rdev->need_swiotlb ?
-> +                               TTM_ALLOCATION_POOL_USE_DMA_ALLOC : 0 ) |
-> +                              (dma_addressing_limited(&rdev->pdev->dev) =
-?
-> +                               TTM_ALLOCATION_POOL_USE_DMA32 : 0));
->         if (r) {
->                 DRM_ERROR("failed initializing buffer object driver(%d).\=
-n", r);
->                 return r;
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/tt=
-m/tests/ttm_bo_test.c
-> index 5426b435f702..d468f8322072 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-> @@ -251,7 +251,7 @@ static void ttm_bo_unreserve_basic(struct kunit *test=
-)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> @@ -290,7 +290,7 @@ static void ttm_bo_unreserve_pinned(struct kunit *tes=
-t)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> @@ -342,7 +342,7 @@ static void ttm_bo_unreserve_bulk(struct kunit *test)
->         resv =3D kunit_kzalloc(test, sizeof(*resv), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, resv);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> @@ -394,7 +394,7 @@ static void ttm_bo_fini_basic(struct kunit *test)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> @@ -437,7 +437,7 @@ static void ttm_bo_fini_shared_resv(struct kunit *tes=
-t)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> @@ -477,7 +477,7 @@ static void ttm_bo_pin_basic(struct kunit *test)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> @@ -512,7 +512,7 @@ static void ttm_bo_pin_unpin_resource(struct kunit *t=
-est)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> @@ -563,7 +563,7 @@ static void ttm_bo_multiple_pin_one_unpin(struct kuni=
-t *test)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->         priv->ttm_dev =3D ttm_dev;
->
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/g=
-pu/drm/ttm/tests/ttm_bo_validate_test.c
-> index 3a1eef83190c..17a570af296c 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> @@ -995,7 +995,7 @@ static void ttm_bo_validate_busy_domain_evict(struct =
-kunit *test)
->          */
->         ttm_device_fini(priv->ttm_dev);
->
-> -       err =3D ttm_device_kunit_init_bad_evict(test->priv, priv->ttm_dev=
-, false, false);
-> +       err =3D ttm_device_kunit_init_bad_evict(test->priv, priv->ttm_dev=
-);
->         KUNIT_ASSERT_EQ(test, err, 0);
->
->         ttm_mock_manager_init(priv->ttm_dev, mem_type, MANAGER_SIZE);
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_device_test.c b/drivers/gpu/dr=
-m/ttm/tests/ttm_device_test.c
-> index 98648d5f20e7..2d55ad34fe48 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_device_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_device_test.c
-> @@ -25,7 +25,7 @@ static void ttm_device_init_basic(struct kunit *test)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->
->         KUNIT_EXPECT_PTR_EQ(test, ttm_dev->funcs, &ttm_dev_funcs);
-> @@ -55,7 +55,7 @@ static void ttm_device_init_multiple(struct kunit *test=
-)
->         KUNIT_ASSERT_NOT_NULL(test, ttm_devs);
->
->         for (i =3D 0; i < num_dev; i++) {
-> -               err =3D ttm_device_kunit_init(priv, &ttm_devs[i], false, =
-false);
-> +               err =3D ttm_device_kunit_init(priv, &ttm_devs[i], 0);
->                 KUNIT_ASSERT_EQ(test, err, 0);
->
->                 KUNIT_EXPECT_PTR_EQ(test, ttm_devs[i].dev_mapping,
-> @@ -81,7 +81,7 @@ static void ttm_device_fini_basic(struct kunit *test)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->
->         man =3D ttm_manager_type(ttm_dev, TTM_PL_SYSTEM);
-> @@ -109,7 +109,7 @@ static void ttm_device_init_no_vma_man(struct kunit *=
-test)
->         vma_man =3D drm->vma_offset_manager;
->         drm->vma_offset_manager =3D NULL;
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, 0);
->         KUNIT_EXPECT_EQ(test, err, -EINVAL);
->
->         /* Bring the manager back for a graceful cleanup */
-> @@ -158,9 +158,7 @@ static void ttm_device_init_pools(struct kunit *test)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(priv, ttm_dev,
-> -                                   params->alloc_flags & TTM_ALLOCATION_=
-POOL_USE_DMA_ALLOC,
-> -                                   params->alloc_flags & TTM_ALLOCATION_=
-POOL_USE_DMA32);
-> +       err =3D ttm_device_kunit_init(priv, ttm_dev, params->alloc_flags)=
-;
->         KUNIT_ASSERT_EQ(test, err, 0);
->
->         pool =3D &ttm_dev->pool;
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c b/drivers/gpu/=
-drm/ttm/tests/ttm_kunit_helpers.c
-> index 7aaf0d1395ff..7b533e4e1e04 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
-> @@ -117,8 +117,7 @@ static void bad_evict_flags(struct ttm_buffer_object =
-*bo,
->
->  static int ttm_device_kunit_init_with_funcs(struct ttm_test_devices *pri=
-v,
->                                             struct ttm_device *ttm,
-> -                                           bool use_dma_alloc,
-> -                                           bool use_dma32,
-> +                                           unsigned int alloc_flags,
->                                             struct ttm_device_funcs *func=
-s)
->  {
->         struct drm_device *drm =3D priv->drm;
-> @@ -127,7 +126,7 @@ static int ttm_device_kunit_init_with_funcs(struct tt=
-m_test_devices *priv,
->         err =3D ttm_device_init(ttm, funcs, drm->dev,
->                               drm->anon_inode->i_mapping,
->                               drm->vma_offset_manager,
-> -                             use_dma_alloc, use_dma32);
-> +                             alloc_flags);
->
->         return err;
->  }
-> @@ -143,11 +142,10 @@ EXPORT_SYMBOL_GPL(ttm_dev_funcs);
->
->  int ttm_device_kunit_init(struct ttm_test_devices *priv,
->                           struct ttm_device *ttm,
-> -                         bool use_dma_alloc,
-> -                         bool use_dma32)
-> +                         unsigned int alloc_flags)
->  {
-> -       return ttm_device_kunit_init_with_funcs(priv, ttm, use_dma_alloc,
-> -                                               use_dma32, &ttm_dev_funcs=
-);
-> +       return ttm_device_kunit_init_with_funcs(priv, ttm, alloc_flags,
-> +                                               &ttm_dev_funcs);
->  }
->  EXPORT_SYMBOL_GPL(ttm_device_kunit_init);
->
-> @@ -161,12 +159,10 @@ struct ttm_device_funcs ttm_dev_funcs_bad_evict =3D=
+The last stage of all pmpops calls (success or fail) is the complete()
+callback.  If by the time the PM core reaches this state the GPU is still
+in suspend something went really wrong, so reset it.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+v2:
+ * Big hammer for complete() callback
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 63582874991e..b32983594bd9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2590,6 +2590,17 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 
+ static void amdgpu_pmops_complete(struct device *dev)
  {
->  EXPORT_SYMBOL_GPL(ttm_dev_funcs_bad_evict);
->
->  int ttm_device_kunit_init_bad_evict(struct ttm_test_devices *priv,
-> -                                   struct ttm_device *ttm,
-> -                                   bool use_dma_alloc,
-> -                                   bool use_dma32)
-> +                                   struct ttm_device *ttm)
->  {
-> -       return ttm_device_kunit_init_with_funcs(priv, ttm, use_dma_alloc,
-> -                                               use_dma32, &ttm_dev_funcs=
-_bad_evict);
-> +       return ttm_device_kunit_init_with_funcs(priv, ttm, 0,
-> +                                               &ttm_dev_funcs_bad_evict)=
-;
->  }
->  EXPORT_SYMBOL_GPL(ttm_device_kunit_init_bad_evict);
->
-> @@ -252,7 +248,7 @@ struct ttm_test_devices *ttm_test_devices_all(struct =
-kunit *test)
->         ttm_dev =3D kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
->         KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
->
-> -       err =3D ttm_device_kunit_init(devs, ttm_dev, false, false);
-> +       err =3D ttm_device_kunit_init(devs, ttm_dev, 0);
->         KUNIT_ASSERT_EQ(test, err, 0);
->
->         devs->ttm_dev =3D ttm_dev;
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h b/drivers/gpu/=
-drm/ttm/tests/ttm_kunit_helpers.h
-> index c7da23232ffa..f8402b979d05 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.h
-> @@ -28,12 +28,9 @@ struct ttm_test_devices {
->  /* Building blocks for test-specific init functions */
->  int ttm_device_kunit_init(struct ttm_test_devices *priv,
->                           struct ttm_device *ttm,
-> -                         bool use_dma_alloc,
-> -                         bool use_dma32);
-> +                         unsigned int alloc_flags);
->  int ttm_device_kunit_init_bad_evict(struct ttm_test_devices *priv,
-> -                                   struct ttm_device *ttm,
-> -                                   bool use_dma_alloc,
-> -                                   bool use_dma32);
-> +                                   struct ttm_device *ttm);
->  struct ttm_buffer_object *ttm_bo_kunit_init(struct kunit *test,
->                                             struct ttm_test_devices *devs=
-,
->                                             size_t size,
-> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_d=
-evice.c
-> index a97b1444536c..87c85ccb21ac 100644
-> --- a/drivers/gpu/drm/ttm/ttm_device.c
-> +++ b/drivers/gpu/drm/ttm/ttm_device.c
-> @@ -199,8 +199,7 @@ EXPORT_SYMBOL(ttm_device_swapout);
->   * @dev: The core kernel device pointer for DMA mappings and allocations=
-.
->   * @mapping: The address space to use for this bo.
->   * @vma_manager: A pointer to a vma manager.
-> - * @use_dma_alloc: If coherent DMA allocation API should be used.
-> - * @use_dma32: If we should use GFP_DMA32 for device memory allocations.
-> + * @alloc_flags: TTM_ALLOCATION_ flags.
->   *
->   * Initializes a struct ttm_device:
->   * Returns:
-> @@ -209,7 +208,7 @@ EXPORT_SYMBOL(ttm_device_swapout);
->  int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_fun=
-cs *funcs,
->                     struct device *dev, struct address_space *mapping,
->                     struct drm_vma_offset_manager *vma_manager,
-> -                   bool use_dma_alloc, bool use_dma32)
-> +                   unsigned int alloc_flags)
->  {
->         struct ttm_global *glob =3D &ttm_glob;
->         int ret, nid;
-> @@ -237,9 +236,7 @@ int ttm_device_init(struct ttm_device *bdev, const st=
-ruct ttm_device_funcs *func
->         else
->                 nid =3D NUMA_NO_NODE;
->
-> -       ttm_pool_init(&bdev->pool, dev, nid,
-> -                     (use_dma_alloc ? TTM_ALLOCATION_POOL_USE_DMA_ALLOC =
-: 0) |
-> -                     (use_dma32 ? TTM_ALLOCATION_POOL_USE_DMA32 : 0));
-> +       ttm_pool_init(&bdev->pool, dev, nid, alloc_flags);
->
->         bdev->vma_manager =3D vma_manager;
->         spin_lock_init(&bdev->lru_lock);
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx=
-/vmwgfx_drv.c
-> index 8ff958d119be..599052d07ae8 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> @@ -1023,8 +1023,8 @@ static int vmw_driver_load(struct vmw_private *dev_=
-priv, u32 pci_id)
->                               dev_priv->drm.dev,
->                               dev_priv->drm.anon_inode->i_mapping,
->                               dev_priv->drm.vma_offset_manager,
-> -                             dev_priv->map_mode =3D=3D vmw_dma_alloc_coh=
-erent,
-> -                             false);
-> +                             (dev_priv->map_mode =3D=3D vmw_dma_alloc_co=
-herent) ?
-> +                             TTM_ALLOCATION_POOL_USE_DMA_ALLOC : 0);
->         if (unlikely(ret !=3D 0)) {
->                 drm_err(&dev_priv->drm,
->                         "Failed initializing TTM buffer object driver.\n"=
-);
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
-e.c
-> index 5f6a412b571c..58e7996160a0 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -437,7 +437,7 @@ struct xe_device *xe_device_create(struct pci_dev *pd=
-ev,
->
->         err =3D ttm_device_init(&xe->ttm, &xe_ttm_funcs, xe->drm.dev,
->                               xe->drm.anon_inode->i_mapping,
-> -                             xe->drm.vma_offset_manager, false, false);
-> +                             xe->drm.vma_offset_manager, 0);
->         if (WARN_ON(err))
->                 goto err;
->
-> diff --git a/include/drm/ttm/ttm_device.h b/include/drm/ttm/ttm_device.h
-> index 592b5f802859..074b98572275 100644
-> --- a/include/drm/ttm/ttm_device.h
-> +++ b/include/drm/ttm/ttm_device.h
-> @@ -27,6 +27,7 @@
->
->  #include <linux/types.h>
->  #include <linux/workqueue.h>
-> +#include <drm/ttm/ttm_allocation.h>
->  #include <drm/ttm/ttm_resource.h>
->  #include <drm/ttm/ttm_pool.h>
->
-> @@ -292,7 +293,7 @@ static inline void ttm_set_driver_manager(struct ttm_=
-device *bdev, int type,
->  int ttm_device_init(struct ttm_device *bdev, const struct ttm_device_fun=
-cs *funcs,
->                     struct device *dev, struct address_space *mapping,
->                     struct drm_vma_offset_manager *vma_manager,
-> -                   bool use_dma_alloc, bool use_dma32);
-> +                   unsigned int alloc_flags);
->  void ttm_device_fini(struct ttm_device *bdev);
->  void ttm_device_clear_dma_mappings(struct ttm_device *bdev);
->
++	struct drm_device *drm_dev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(drm_dev);
++
++	/* sequence failed, use a big 🔨 try to cleanup */
++	if (adev->in_suspend) {
++		adev->in_suspend = adev->in_s0ix = adev->in_s3 = false;
++		dev_crit(adev->dev, "pmpops sequence failed, resetting\n");
++		amdgpu_asic_reset(adev);
++		return;
++	}
++
+ 	amdgpu_device_complete(dev_get_drvdata(dev));
+ }
+ 
+-- 
+2.49.0
 
-Looks good. I'm always happy to see boolean's in function parameters
-replaced by enums/defines.
-
-Acked-by: Zack Rusin <zack.rusin@broadcom.com>
-
-z
-
---0000000000006510e70641b74fb2
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
-ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
-VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
-AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
-AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
-NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
-26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
-hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
-ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
-pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
-71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
-G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
-Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
-4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
-x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
-ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
-gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
-1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
-YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
-b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
-c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
-AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
-bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
-IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
-Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
-dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
-nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
-AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
-mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
-5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
-CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
-F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
-bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
-YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
-bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
-LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
-RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
-xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
-jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
-vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
-TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
-sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
-D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
-DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
-BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
-VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
-zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
-AwIBAgIMYT8cPnonh1geNIT5MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI0MTEyODA2NTUwOVoXDTI2MTEyOTA2NTUwOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKWmFjayBSdXNpbjEmMCQGCSqG
-SIb3DQEJARYXemFjay5ydXNpbkBicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
-ggEKAoIBAQCwQ8KpnuEwUOX0rOrLRj3vS0VImknKwshcmcfA9VtdEQhJHGDQoNjaBEFQHqLqn4Lf
-hqEGUo+nKhz2uqGl2MtQFb8oG+yJPCFPgeSvbiRxmeOwSP0jrNADVKpYpy4UApPqS+UfVQXKbwbM
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEID/F
-ju2DHd5PUN//0Na6XZexo84BzmEwheKE75/BiONOMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI1MTAyMjAzNTcwN1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFcQeBpQDR74S6ZToqiy84X4K3x28E8PDDU/A25l
-AqyPDvqnwaOw98S46a2ZgyPBz3VFpZlSdJQC5kxX5h6kVrLBlGLy0wI/ax8IfExkFQZO66JyuMN+
-0FNc+qF351Kfw7WJ7PhELHBgANtYYKr8NrMmP+iVs2300vBZli1SFTUNnUCrpC/6n2NWx8w1JdKt
-LxKqruQ12bMIiwDq90KMs7Ador+t0yTuRqkk5rHTe5/aTbLs+O0LENNMvpQm7j9QlAr+i8rnHiLS
-KhtwOhf2iWWJQYHECgHJvTJmBwvrY6KOHiMhePpAHAbGugdN9vVNs+hEs3IZSMiWibGbWGFd9cU=
---0000000000006510e70641b74fb2--
