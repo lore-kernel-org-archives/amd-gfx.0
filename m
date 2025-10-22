@@ -4,72 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41D29CCF9E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75FE4CCF9E5
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2CDC10E8B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3BB810E8B5;
 	Thu, 23 Oct 2025 07:51:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Vfzibwym";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m8Og8kVc";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A247C10E71D
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 09:22:29 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-428564f8d16so188277f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 02:22:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761124948; x=1761729748; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Z7+WPa6fzkzIkb/WM7fYUJAZP3WTURYIOOoTI2A/B20=;
- b=VfzibwymMzTkicDamVAQgY+2nDrm/m4rMC3oqahpD/QmEQ37a6MwpyiUbgVfm3YDmU
- jyZa/yu9WAvN44VvukRg6uhGqpqRagWLYR7LHfLK3J+Wnr9/ZESFKsaRS3hjAWE78FYa
- y3nsQRwy1EGzaQLv2gciMl/vNGswlj11EaiRVz+jwAF7ps2tBLApluyTi0WC8SCw5wVW
- /ipdlyOBwvzic//r7979cKUoBIp/wMN8heAG+zKzRa19VNuPz35mBQuMc90z8pdKsIE0
- Jffkvr/mSi4cjl9lZgEGkxgrDhlk0A+7HG8jPUPi5BI5+9wK4gUj1pVbBm6wmDBn1E/h
- nn7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761124948; x=1761729748;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Z7+WPa6fzkzIkb/WM7fYUJAZP3WTURYIOOoTI2A/B20=;
- b=PLfybSM0f4/p1wMY1rQljN5t4tC+uaLMyRAd3cxtmSQNrlzOKbfkh7DruqFhuXB3U5
- B7xDDMysx+joRfTHwJU8TLvzDLcco7UAiQKFhDAQxYzdpfpuAgGEdbGRgEJHHtegTy4s
- kUoLgtHQW/okRgNMUYK1M3r2t6xUOoSlgzaJOJp9g1QGNWEjL4HDfp/L4mNReGr43Jov
- XsYLQJ/pCRVAFgSSLVoDQ0YRx8ZZBGCtnABZl5ElJ/WZ3eJajFFBkkbFM7SPhrV5SsAZ
- 5hMaMypCzk6NkpNfzZIJ9vfga8A2zJ8URYaLXEj67uRcXKDu/cewNvs0+IFyE0UoL7hR
- uviA==
-X-Gm-Message-State: AOJu0YzVXh1vFZQYLml40IHQMb8O5psUD9/nP3cwsTUOwFHWB0FdGoJJ
- /z7Euv0JfGrO3sjCtSW6mUBxfoPgZ5YSfobdvrGx5oN73rNO7EEKMG/myiZ8Dj6E1R0=
-X-Gm-Gg: ASbGnctds+jpE0tESYQX5NKgKhHQremMA7Dd3wpCEJpJD5Kl4rs9qBjhtR4CU1z02Ni
- utWV7dnwB39vDprN3lqy19OlHTd/hUiNL6Iwrqf6vmITUP4QRLSMZT27q9OcsbLi1tnZv9i32GI
- 6T5YvXRRtRiQm8Xy2QRdQV5c6DhX/UvJVmFdPcKP1hz1tnTv7Bth/23LzSs4RKuHUXZq8ylCeM1
- z56BHmf4v5pd1oR65kgS4koj2Qv+tr2Ke/rZPfRuDi5qYletL5RdrVODMjbp78Q9xZ+OWgI5V64
- e+M058SK6ES0fHUlS/avYsF8LzkpWKTts2GedKRF8Iw8X2Kev8tYLOPr9JSG1zrBssHBumklIt/
- 8aZHviGteM3wejlw8XpwaaLUgSG+0iVW4TJ5tGUFWgQhAFz0zYO1pZNrNohKBtDYqzfrNyL1WBc
- mHXQ/TJg==
-X-Google-Smtp-Source: AGHT+IE/+JkAy3x0Euv5ZMU/5Z9wLNiLKtrBsG+0gIPOWd+6NlnmnvFC9TXedSVDhLlMgRN2O9Lcjg==
-X-Received: by 2002:a05:6000:2585:b0:426:fc52:cca6 with SMTP id
- ffacd0b85a97d-428532557femr2044051f8f.7.1761124948043; 
- Wed, 22 Oct 2025 02:22:28 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-427f009a7dasm26554232f8f.25.2025.10.22.02.22.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Oct 2025 02:22:27 -0700 (PDT)
-Date: Wed, 22 Oct 2025 12:22:24 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Ellen Pan <yunru.pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu: Introduce SRIOV critical regions v2 during
- VF init
-Message-ID: <aPiiUG_y0k1iLFJd@stanley.mountain>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6849910E780;
+ Wed, 22 Oct 2025 13:33:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761140026; x=1792676026;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=syDAhxW8a9ZTGx4rBhoijl91vhbCmKS6CmYeLhmIx3E=;
+ b=m8Og8kVcOvH4FSuxPSBzsCBAzYFtNEmM1zYlXyZ7RXW90FInqXX0hCG8
+ 3hyG3yDGoP6P2B7VY6vleGDnEadZzK0VTNn4KIOXLjjTCoLTfCPPpM/6K
+ nT293+yXNkzFC2nllYzrWucDv01Zpha2JiQW5l/LAScOG3HspKXiZUtdt
+ M6A202oHZm2vb+xc8eg2p6H6V7OyVhq1gCueyL7JvP5nlB8spqJrNtQR/
+ dBhkPtGRuRUKGvTQDg7qxkoqTdu6U/sMjoPhY/rzBminHDBedXaXmGgTz
+ OX3SD2rjuF3moW2fGCgsLEVWg31Wr/n+KiG2xf8CSgNoJia5SApV+VCc0 g==;
+X-CSE-ConnectionGUID: lWRrueXaRimRMtHSGsOHFg==
+X-CSE-MsgGUID: 78ljdM3KQl2sbTGxxNo0ew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="73577100"
+X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="73577100"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2025 06:33:45 -0700
+X-CSE-ConnectionGUID: y83IkOIRSueholsDShcZYQ==
+X-CSE-MsgGUID: LxuUalhSSfuI7YEbJtjZXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="183767506"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.82])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2025 06:33:37 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ "Michael J . Ruhl" <mjruhl@habana.ai>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v3 00/11] PCI: Resizable BAR improvements
+Date: Wed, 22 Oct 2025 16:33:20 +0300
+Message-Id: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 Oct 2025 07:51:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,52 +81,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Ellen Pan,
+pci.c has been used as catch everything that doesn't fits elsewhere
+within PCI core and thus resizable BAR code has been placed there as
+well. Move Resizable BAR related code to a newly introduced rebar.c to
+reduce size of pci.c. After move, there are no pci_rebar_*() calls from
+pci.c indicating this is indeed well-defined subset of PCI core.
 
-Commit 07009df6494d ("drm/amdgpu: Introduce SRIOV critical regions v2
-during VF init") from Oct 7, 2025 (linux-next), leads to the
-following Smatch static checker warning:
+Endpoint drivers perform Resizable BAR related operations which could
+well be performed by PCI core to simplify driver-side code. This
+series adds a few new API functions to that effect and converts the
+drivers to use the new APIs (in separate patches).
 
-	drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:950 amdgpu_virt_init_critical_region()
-	warn: unsigned 'init_hdr_offset' is never less than zero.
+While at it, also convert BAR sizes bitmask to u64 as PCIe spec already
+specifies more sizes than what will fit u32 to make the API typing more
+future-proof. The extra sizes beyond 128TB are not added at this point.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-    937 int amdgpu_virt_init_critical_region(struct amdgpu_device *adev)
-    938 {
-    939         struct amd_sriov_msg_init_data_header *init_data_hdr = NULL;
-    940         uint32_t init_hdr_offset = adev->virt.init_data_header.offset;
-    941         uint32_t init_hdr_size = adev->virt.init_data_header.size_kb << 10;
-    942         uint64_t vram_size;
-    943         int r = 0;
-    944         uint8_t checksum = 0;
-    945 
-    946         /* Skip below init if critical region version != v2 */
-    947         if (adev->virt.req_init_data_ver != GPU_CRIT_REGION_V2)
-    948                 return 0;
-    949 
---> 950         if (init_hdr_offset < 0) {
-                    ^^^^^^^^^^^^^^^
-unsigned so it can't be less than zero.
+Some parts of this are to be used by the resizable BAR changes into the
+resource fitting/assingment logic but these seem to stand on their own
+so sending these out now to reduce the size of the other patch series.
 
-    951                 dev_err(adev->dev, "Invalid init header offset\n");
-    952                 return -EINVAL;
-    953         }
-    954 
-    955         vram_size = RREG32(mmRCC_CONFIG_MEMSIZE);
-    956         if (!vram_size || vram_size == U32_MAX)
-    957                 return -EINVAL;
-    958         vram_size <<= 20;
-    959 
-    960         if ((init_hdr_offset + init_hdr_size) > vram_size) {
-                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Would we be concerned about integer overflows here?  Should it be:
+v3:
+- Rebased to solve minor conflicts
 
-	if (size_add(init_hdr_offset, init_hdr_size) > vram_size) {
+v2: https://lore.kernel.org/linux-pci/20250915091358.9203-1-ilpo.jarvinen@linux.intel.com/
+- Kerneldoc:
+  - Improve formatting of errno returns
+  - Open "ctrl" -> "control"
+  - Removed mislead "bit" words (when referring to BAR size)
+  - Rewrote pci_rebar_get_possible_sizes() kernel doc to not claim the
+    returned bitmask is defined in PCIe spec as the capability bits now
+    span across two registers in the spec and are not continuous (we
+    don't support the second block of bits yet, but this API is expected
+    to return the bits without the hole so it will not be matching with
+    the spec layout).
+- Dropped superfluous zero check from pci_rebar_size_supported()
+- Small improvement to changelog of patch 7
 
-    961                 dev_err(adev->dev, "init_data_header exceeds VRAM size, exiting\n");
-    962                 return -EINVAL;
-    963         }
-    964 
+Ilpo Järvinen (11):
+  PCI: Move Resizable BAR code into rebar.c
+  PCI: Cleanup pci_rebar_bytes_to_size() and move into rebar.c
+  PCI: Move pci_rebar_size_to_bytes() and export it
+  PCI: Improve Resizable BAR functions kernel doc
+  PCI: Add pci_rebar_size_supported() helper
+  drm/i915/gt: Use pci_rebar_size_supported()
+  drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
+  PCI: Add pci_rebar_get_max_size()
+  drm/xe/vram: Use pci_rebar_get_max_size()
+  drm/amdgpu: Use pci_rebar_get_max_size()
+  PCI: Convert BAR sizes bitmasks to u64
 
-regards,
-dan carpenter
+ Documentation/driver-api/pci/pci.rst        |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   8 +-
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c |  10 +-
+ drivers/gpu/drm/xe/xe_vram.c                |  32 +-
+ drivers/pci/Makefile                        |   2 +-
+ drivers/pci/iov.c                           |   9 +-
+ drivers/pci/pci-sysfs.c                     |   2 +-
+ drivers/pci/pci.c                           | 145 ---------
+ drivers/pci/pci.h                           |   5 +-
+ drivers/pci/rebar.c                         | 314 ++++++++++++++++++++
+ drivers/pci/setup-res.c                     |  78 -----
+ include/linux/pci.h                         |  15 +-
+ 12 files changed, 350 insertions(+), 273 deletions(-)
+ create mode 100644 drivers/pci/rebar.c
+
+
+base-commit: 2f2c7254931f41b5736e3ba12aaa9ac1bbeeeb92
+-- 
+2.39.5
+
