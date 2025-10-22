@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F111BCCD195
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 07:34:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D55BACCD1AB
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Oct 2025 07:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9317B10E6FC;
-	Wed, 22 Oct 2025 07:34:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABBF10E6FD;
+	Wed, 22 Oct 2025 07:34:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ypYr5ja7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IoVHJniW";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012016.outbound.protection.outlook.com [52.101.43.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8FC210E6FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 07:34:30 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013009.outbound.protection.outlook.com
+ [40.93.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9937D10E6FD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 07:34:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kNrRCNv70SnJL/1uyjtrEzJUvHOz/FucOEk6zC5DsRkuI3OoL9zVKBdQgcYPrEYxyPjuv3UshzK5BBJxrbA8ryADcqIe5VhIBLJ9TiHK8Go3ML25VBuZ/D06hs10tTkrRcVxibUtb6we5yVSrGHYuQop9g2TfX8E5JaqEzRDkmVUh+ysleXSkcIqs9ufcEaTe8NkQ7daBVmE9eToYyMH7GCzbt62ty9qmvKIGyZX2IfPwLyhqhiWxrQGf18wERcX4iAaFjiHeHWOv77XBFAJfq2haG/2erhL8MtM9pGJsB38ZtRUi86issmV+yLq2CMeYrTnEW0L+RYOlHG+kqu84A==
+ b=BrVT9ahunvwbISOVuPjcij75nHELxpYBdTUhuRfZn17v8Gnc3RPAcZ0xWzfvZQsv6QIFSHPehhvRXIZcaFav05dc9ZfxiNZQmqJU0meo30PIgozKVnrjr8Y/IJBYzE5cK+dxXHx+TbOs2ue5TyQXKuvg74faG5fQGWJ5xoW+i6AJtZN0Pqwdf+YGLNFF+72/DknEywXzP44qxJ7BpspmKWJrADR4Lrl+QfiVHUfe0hZu4VB2ZDPBTqLiVL7FvZudmfXLVmNxQk/pfDSMqQbe5K7ISO4ft6r8GToSJvjWN3O1C8gdxa6dpMja4gRZPmApWARAkrwNEWxerBK14Hhd7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lrNhjhACBf8amSuVD/5BiCEnBuSflE+VFGuHWZgTU0k=;
- b=O2jk2hk6w3p8cpnMBSN4yK+s3lI3mNAUfIyoxXOH1MH5L2lrejhRIWovbH3ijJ9kZipUWAg1+xZY2P+2nn2YDy1iG03b0gWF4RNeslRLylQMqN2BDG42karIWbUFzCfQIOh87MtccIoREB5keenLliiWZhn6ML4PnL83+uMXh7OO6YVuwwUGa+gD9090/TTBu2XJsA4x3uCbiw1zRJV36qAB+F0PAB6XClfKqYOJU+zF9gU7AA2ECNZOqAz0uMBMyoV5i3vSglnTRoiVTwp7P2HRP2mZJGP3r7HjDNFRaoe8ADLNPuG40M2HmUdWmkTyl4VaqlRLpJPVWPr1Cn6+KQ==
+ bh=+EGrzad4OJPgukEc+jJSnH4aVKwAr8miFV3BDf4RsRM=;
+ b=KbY2XQvLjkgv+d9tWBRROZ7qpO1UM+F4IADcoqZ4D0sNTYJJmoxSD3U4zI9hSeQQT73ipYZahkjSE0BDUFHxRD6ZVZL5ITLuRBdREMrSR0D8cYDwj7g8D3PfdqsqH6+GeOsh4yZUvQNjrD1UorjoeuqC7na/rWLarxOCOysqiaJ956o++jKVtNZTnpWWsZe30l/uG7/5njZS2ht0hAgaAweWHCl75ReiSrQ6TNaMJ/nyLCLhdoGiL54WBJXgCe1WVyW1KK6tRdJI8+BKG69vt3ukyrHZWEKy5ZBs1F/i2Y5eQG5ZMVvUB2Y5KCGexFWPhcCi3RptAhHH2XGoKVtEEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lrNhjhACBf8amSuVD/5BiCEnBuSflE+VFGuHWZgTU0k=;
- b=ypYr5ja7OY8Z3vBv15+j1JsfWB6DR7DTuHjLFCKd3Fs3HU6jjl6GiQ1zFJ2tETNIdOeo1wLw6dznaWvUSG3Dc7lGvP3Kc5oY16+GadqWk+ctxM3uAGf6Hi8Dub2iIodbqODWzgpQP0PNfsAi9k82jlE2CjCXONIxYKIH6Bu9wss=
-Received: from DM6PR02CA0118.namprd02.prod.outlook.com (2603:10b6:5:1b4::20)
- by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20) with
+ bh=+EGrzad4OJPgukEc+jJSnH4aVKwAr8miFV3BDf4RsRM=;
+ b=IoVHJniWuw8iJoWlKWYMRRDQiatS76KUquHjQeWwJNFqN0uTfb11/Wa1WmIftCz6u8dIfCMSbpEasbwGQKiyVW/O0d9Z49mcfA4Qb2Uc3Wb0LApUAoQkDP6Ko5emXcX+Mc1sBCe5/mXO8kLjhNCgS1bKfsKjlRFgIH9mjjqymZs=
+Received: from DS7PR07CA0012.namprd07.prod.outlook.com (2603:10b6:5:3af::20)
+ by LV8PR12MB9207.namprd12.prod.outlook.com (2603:10b6:408:187::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.16; Wed, 22 Oct
- 2025 07:34:26 +0000
-Received: from DS1PEPF00017091.namprd03.prod.outlook.com
- (2603:10b6:5:1b4:cafe::f4) by DM6PR02CA0118.outlook.office365.com
- (2603:10b6:5:1b4::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9228.17 via Frontend Transport; Wed,
- 22 Oct 2025 07:34:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Wed, 22 Oct
+ 2025 07:34:48 +0000
+Received: from DS1PEPF00017092.namprd03.prod.outlook.com
+ (2603:10b6:5:3af:cafe::b6) by DS7PR07CA0012.outlook.office365.com
+ (2603:10b6:5:3af::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.12 via Frontend Transport; Wed,
+ 22 Oct 2025 07:34:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
+ DS1PEPF00017092.mail.protection.outlook.com (10.167.17.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9253.7 via Frontend Transport; Wed, 22 Oct 2025 07:34:26 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ 15.20.9253.7 via Frontend Transport; Wed, 22 Oct 2025 07:34:48 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 22 Oct
- 2025 00:34:25 -0700
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 22 Oct
- 2025 02:34:24 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Oct
+ 2025 00:34:47 -0700
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Oct
+ 2025 00:34:47 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 22 Oct 2025 00:34:22 -0700
+ Transport; Wed, 22 Oct 2025 00:34:44 -0700
 From: waynelin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,69 +70,66 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Austin Zheng <Austin.Zheng@amd.com>, Dillon Varone
- <dillon.varone@amd.com>
-Subject: [PATCH 07/20] drm/amd/display: Update dml2 references to use dml2_0
- folder
-Date: Wed, 22 Oct 2025 15:30:19 +0800
-Message-ID: <20251022073332.666119-8-Wayne.Lin@amd.com>
+ <alex.hung@amd.com>, Meenakshikumar Somasundaram
+ <meenakshikumar.somasundaram@amd.com>, PeiChen Huang <peichen.huang@amd.com>
+Subject: [PATCH 10/20] drm/amd/display: update link encoder assignment
+Date: Wed, 22 Oct 2025 15:30:22 +0800
+Message-ID: <20251022073332.666119-11-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251022073332.666119-1-Wayne.Lin@amd.com>
 References: <20251022073332.666119-1-Wayne.Lin@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: Wayne.Lin@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|SN7PR12MB6716:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2cf6acc-4c78-4e87-88b1-08de113d6dd1
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017092:EE_|LV8PR12MB9207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1957ec0a-9733-4539-95c2-08de113d7aa0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013|43062017; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dfE9w9w2Al3HgMOAHnfMQnaavWy/E/tkz51uuccEjUhD6hNmmPTIyZYZnFw4?=
- =?us-ascii?Q?1/jbs+7mXmNWAAcHUbCaKwKTbPtp+dOUbAqlKPuarOSsm2yH56RO8VofhvdC?=
- =?us-ascii?Q?C3nU+dfBe0pqytPNTOSUyyFXCDnZNTb8eLbYB5noPz0ADQi+FTQkHntnBR1w?=
- =?us-ascii?Q?w/EOQUTDL8nbBFZd8S3al227N4P7s/wVuqolLKrlLGzXvnxA6x+diC0ajA3o?=
- =?us-ascii?Q?YQiFLW/z33P1jD6dfiRjv5aD9tPOZ3fCWhsZd9WJ917tYdO6OkFkB6rzbzUP?=
- =?us-ascii?Q?yjsBULKxnPzt+1UIkngCx4k+jXjNZt/17rRHLIHUuTyFSzsFBaW67gL6aUfP?=
- =?us-ascii?Q?yJ+ZkmySQks/CvfHv3yyxTVEHQekuKRjhrOoGIarADkAAikLcqnSZENEWwJk?=
- =?us-ascii?Q?cv0KdlhVX+tDAgUnjwsTC061pMqEWe5ilIGgQ6PYs+SHFC/YkWEO/hONCZ7w?=
- =?us-ascii?Q?qMFVgz1F0B8wSsqPpZ+JvHsmTdfAzUMJ2dmtMNBgm4LzQVTFxbQCOAjlx05T?=
- =?us-ascii?Q?wWNaXghhJFzBc1sNojnMIDOKHeijrj5A6VB7bi6/kGwVh68bFxMrCkQOC7fx?=
- =?us-ascii?Q?xfP8DQ88gXzdL0SykQPdq99iZrCYiplWAkY55MiW9ZocuM9C+ZyDlTMYCJul?=
- =?us-ascii?Q?NXUg4JwAxZQ2hxKNvW8g79rkF9d2TdzZYZvaHat5zqdXVRJBofUBdFiGIL0e?=
- =?us-ascii?Q?V54BzQORCPTMg1q1Uc5gLz5jVKJficNa7ZtOjFgldQBeN7MtqA50Udrhkas9?=
- =?us-ascii?Q?qbivnl602Ze4XkLktdb2xPAfHTpDhj4wos7t5fZmXti2uSiy+Sni8gunWrWe?=
- =?us-ascii?Q?HNz2yccIJJEfXI1Lpy6IHeTtpBkNO/KcE5d4t9CvNRyqKCVIve8/A2IWVWtm?=
- =?us-ascii?Q?50/pBe6VKkVNbvbrcMjU2bZj5cWo3p36ykd+tybP4WV8bjJAs14voub/7H4V?=
- =?us-ascii?Q?2P2bO9IYCvh3vIadzWXPqgIS5JhL/pg637bXinnuC5Ks8bahyUe8wNuaXrbk?=
- =?us-ascii?Q?dkOBf37M14IbBks0IM6Lt/yCMGm3Q9t1uvsXUu7Q2XamngA23G+T1QxPn++U?=
- =?us-ascii?Q?ZijqfNqM4zUQfbcVI6Rj2RrOJsh4vmZufq5P6G+9PrFnM0LdhDEmTA0JoxjQ?=
- =?us-ascii?Q?Yw+GpEI2323gbzGXXyLXcR68hRpb2zdJ7PIZxF5HhA+q+5zW+zR2cuvDJ9wj?=
- =?us-ascii?Q?61Xrt/qa9qdtQymIiToVuUq4c9u/HrV3jWIk6dUdezJBUh8dFkvStlvWeDnX?=
- =?us-ascii?Q?/cQmxBs3b68YB5WTs4UygASgeFb7I1fNhFPm/bD9jgfz2HjQOdvQgcmgFWuY?=
- =?us-ascii?Q?uCXOVOLWxp9kTQJSkH6fFUcvNn1x7ndMJcHbQgDfRkOZ2ybjG744E1wAzNFk?=
- =?us-ascii?Q?HGacppm4i11rqhjfwHSC0GleQZ44sbhj5ocgOrg2W/q+Ge61sBZqKsIYjTb4?=
- =?us-ascii?Q?cI64tjfz+Oa4RyJ3Rt3DcOOlHnEO15HVEqmtQOk7kDmPe6QjyCSYUOMjcIV/?=
- =?us-ascii?Q?TIe9IWeZi8HmmV1qm7XSw8ywqACDe4YUbzmWlmLUHQ99PPRtJ9Fj2kvAavwW?=
- =?us-ascii?Q?tir20geiv3vybJKYJ59zq6dVU8LIjQBytKUCe3iU?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013|43062017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OfM0jlaikCoRJ1ER06RmEjf0wXVA7qJeTwxeJSei2pRq8jmbMVoL4TpnaUWP?=
+ =?us-ascii?Q?8Y0iUlQ2NADTHxfwBcmwE3HKoP/ZF9JueGKarDrwQkfmV6va3YpNUCXKkgYs?=
+ =?us-ascii?Q?3M+DImpKt0Lsg3wZgcJ0syaSRLBLA0l76ArEJlNrqHGJeADvFzQ+Dz0CQh5n?=
+ =?us-ascii?Q?nAkxBpEVcifEKx6yVKalicmKjz7/l0lbRXUFqT15tuMt0uqTgI4MvZkzbti1?=
+ =?us-ascii?Q?+7g7b2vue87IJnbgm7wprfb7JogV26FWUvPEdhcJupxcvNFOEnnufMY6HP6b?=
+ =?us-ascii?Q?WRESISzYWgL+lMO9Qao0yK5/kXUkewYX8fSei1hF/rRyqjCmN2k9Zh+g/hqR?=
+ =?us-ascii?Q?mxjhbAgFoZHWLSwHzTmQXeoYcfeSptJqbQ/m/9lC5zhU7nLFqXwqyYjVp5R7?=
+ =?us-ascii?Q?HSP2otn48FlPXAOBkmSk8oyYUS7C545tGNMSHWsGbh9oa3ckyU87w8YgHOQi?=
+ =?us-ascii?Q?EgN4CfbX3cUTUehgl+aoJBRXdL4lD1H+NsSZczUaS872qHREU9kt/0Dq95xM?=
+ =?us-ascii?Q?tV7Tl7c3Qh87AdBezOXpGfsAI3B74qc0u02kJJP3TDJrah6zSOpnO3zFvHxh?=
+ =?us-ascii?Q?xyNf0cobPTZrgUjOyEtCClCM+Ong33ggOLLh4XMqRLT/UwewsiJr34mP/fAK?=
+ =?us-ascii?Q?D8183Ko3CADWAuAJYsa6JeJiP5wMxDVNcuJ3JgYtoUfQVAfT3+v+T4Tj2/mL?=
+ =?us-ascii?Q?T9ML8KFV4WstoQQBzaRKbEAWjBe4d8ptQWVPGHoZUxdYckYtmTC/h/w72Giz?=
+ =?us-ascii?Q?w2+em3FrxeJAS9zW8IamPPKT/SMUm+ziLWMJ1T61FpPW5fnZTLh+e4cZwh4F?=
+ =?us-ascii?Q?mrHl3eY1vK5UqOEU6sOnx1t8fr//gbv3K9K7WE0lpETba+lYmVFw5UY2pI9y?=
+ =?us-ascii?Q?KR4wu82Df/kO8v7GvhwnR4XKqR6Yx0er8IPsxxUoh0RJkpGUBOrRSFNR0rMR?=
+ =?us-ascii?Q?YnPkrYBo/tHiGx6F3j95/av/OQKZOyKy5bOscStXzFfFHoTLU+uYGIE1EC8B?=
+ =?us-ascii?Q?+QXn0ppcg3NFICaHd/hySqaVpR8SgeGH6X8KC2RKwn8EV1miacBdI8LGpusB?=
+ =?us-ascii?Q?N6mRYkwHbwhPl7n96ENCUs9/tFU7Nm1LmviV6QXd2aJdLM33Hd5xt86tUnHm?=
+ =?us-ascii?Q?HspufosVnkcx6cE6V08f309Gnh9CiQzqBnS6QJmdAZSWncO3W43tIk3mylPJ?=
+ =?us-ascii?Q?9oqQ1FVynZR0CKgDLFVZzKTlzyjhCTbeikwVE/LgnD2NlXImS8PcYAfnZWsk?=
+ =?us-ascii?Q?WqM8w7j2PaW4uOUFUYKtTnAkmOaP6Gtnyu7gPf3YuG98s6s6272b+lCe7CPU?=
+ =?us-ascii?Q?oPmJ2NknwSNizdCVZ0S1ZruJVa1rGWgqA30AFoPBWvmOCzevmPJ64oH9MDl2?=
+ =?us-ascii?Q?bPB/TUjAPc4UeTkvEs2aoJ/s1nQXAF6a3zQdprUFJhRDb1fyi77erdx4KrE8?=
+ =?us-ascii?Q?9SaspS7294zcL3Fs3TGPdPwrVyXInw/lPEk0VfwChs48VnPc9AnqiWRzpRCo?=
+ =?us-ascii?Q?fz6gynt26bxoiGicx/Mvsc9+V1IQ/1hDIe3xDSm1724HseLdqhSvBv2kUvl1?=
+ =?us-ascii?Q?Xh6hJTaLG6VC/bavOa2ZbaFwIZXcsirxbiTYYdVe?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013)(43062017);
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(43062017);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2025 07:34:26.5516 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2cf6acc-4c78-4e87-88b1-08de113d6dd1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2025 07:34:48.0405 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1957ec0a-9733-4539-95c2-08de113d7aa0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017091.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017092.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9207
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,234 +144,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 
-[Why & How]
-To switch to use dml2_0 folder, change all DML2 references to use
-the dml2_0 folder instead of the dml2 folder.
+[Why]
+Map a link encoder instance matching stream encoder instance
+if possible.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+[How]
+Get the stream encoder instance and assign the same link
+encoder instance if available.
+
+Reviewed-by: PeiChen Huang <peichen.huang@amd.com>
+Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/Makefile                       | 2 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c                      | 2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c             | 2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_state.c                | 4 ++--
- drivers/gpu/drm/amd/display/dc/dc.h                           | 2 +-
- drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h      | 2 +-
- drivers/gpu/drm/amd/display/dc/inc/core_types.h               | 4 ++--
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h                  | 4 ++--
- drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h             | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c    | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c    | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c  | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c    | 2 +-
- .../gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c  | 2 +-
- .../dcn401/dcn401_soc_and_ip_translator.h                     | 2 +-
- 15 files changed, 18 insertions(+), 18 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 43 ++++++++++++++-----
+ 1 file changed, 33 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index dc943abd6dba..7277ed21552f 100644
---- a/drivers/gpu/drm/amd/display/dc/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/Makefile
-@@ -36,7 +36,7 @@ DC_LIBS += dcn30
- DC_LIBS += dcn301
- DC_LIBS += dcn31
- DC_LIBS += dml
--DC_LIBS += dml2
-+DC_LIBS += dml2_0
- DC_LIBS += soc_and_ip_translator
- endif
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index c4ef63011f47..246ea9754810 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -83,7 +83,7 @@
- #include "hw_sequencer_private.h"
- 
- #if defined(CONFIG_DRM_AMD_DC_FP)
--#include "dml2/dml2_internal_types.h"
-+#include "dml2_0/dml2_internal_types.h"
- #include "soc_and_ip_translator.h"
- #endif
- 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index bc5dedf5f60c..8d0cdbf14e17 100644
+index 8d0cdbf14e17..89fe72820f6a 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -95,7 +95,7 @@
- #define DC_LOGGER \
- 	dc->ctx->logger
- #define DC_LOGGER_INIT(logger)
--#include "dml2/dml2_wrapper.h"
-+#include "dml2_0/dml2_wrapper.h"
+@@ -2690,17 +2690,40 @@ static inline int find_fixed_dio_link_enc(const struct dc_link *link)
+ }
  
- #define UNABLE_TO_SPLIT -1
+ static inline int find_free_dio_link_enc(const struct resource_context *res_ctx,
+-		const struct dc_link *link, const struct resource_pool *pool)
++		const struct dc_link *link, const struct resource_pool *pool, struct dc_stream_state *stream)
+ {
+-	int i;
++	int i, j = -1;
++	int stream_enc_inst = -1;
+ 	int enc_count = pool->dig_link_enc_count;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-index c61300a7cb1c..2de8ef4a58ec 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
-@@ -35,8 +35,8 @@
- #include "link_enc_cfg.h"
+-	/* for dpia, check preferred encoder first and then the next one */
+-	for (i = 0; i < enc_count; i++)
+-		if (res_ctx->dio_link_enc_ref_cnts[(link->dpia_preferred_eng_id + i) % enc_count] == 0)
+-			break;
++	/* Find stream encoder instance for the stream */
++	if (stream) {
++		for (i = 0; i < pool->pipe_count; i++) {
++			if ((res_ctx->pipe_ctx[i].stream == stream) &&
++				(res_ctx->pipe_ctx[i].stream_res.stream_enc != NULL)) {
++				stream_enc_inst = res_ctx->pipe_ctx[i].stream_res.stream_enc->id;
++				break;
++			}
++		}
++	}
  
- #if defined(CONFIG_DRM_AMD_DC_FP)
--#include "dml2/dml2_wrapper.h"
--#include "dml2/dml2_internal_types.h"
-+#include "dml2_0/dml2_wrapper.h"
-+#include "dml2_0/dml2_internal_types.h"
- #endif
+-	return (i >= 0 && i < enc_count) ? (link->dpia_preferred_eng_id + i) % enc_count : -1;
++	/* Assign dpia preferred > stream enc instance > available */
++	for (i = 0; i < enc_count; i++) {
++		if (res_ctx->dio_link_enc_ref_cnts[i] == 0) {
++			if (j == -1)
++				j = i;
++
++			if (link->dpia_preferred_eng_id == i) {
++				j = i;
++				break;
++			}
++
++			if (stream_enc_inst == i) {
++				j = stream_enc_inst;
++			}
++		}
++	}
++	return j;
+ }
  
- #define DC_LOGGER \
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 14fca9dfe272..769b2c2f9d7f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -42,7 +42,7 @@
- #include "inc/hw/dmcu.h"
- #include "dml/display_mode_lib.h"
+ static inline void acquire_dio_link_enc(
+@@ -2781,7 +2804,7 @@ static bool add_dio_link_enc_to_ctx(const struct dc *dc,
+ 		retain_dio_link_enc(res_ctx, enc_index);
+ 	} else {
+ 		if (stream->link->is_dig_mapping_flexible)
+-			enc_index = find_free_dio_link_enc(res_ctx, stream->link, pool);
++			enc_index = find_free_dio_link_enc(res_ctx, stream->link, pool, stream);
+ 		else {
+ 			int link_index = 0;
  
--#include "dml2/dml2_wrapper.h"
-+#include "dml2_0/dml2_wrapper.h"
+@@ -2791,7 +2814,7 @@ static bool add_dio_link_enc_to_ctx(const struct dc *dc,
+ 			 * one into the acquiring link.
+ 			 */
+ 			if (enc_index >= 0 && is_dio_enc_acquired_by_other_link(stream->link, enc_index, &link_index)) {
+-				int new_enc_index = find_free_dio_link_enc(res_ctx, dc->links[link_index], pool);
++				int new_enc_index = find_free_dio_link_enc(res_ctx, dc->links[link_index], pool, stream);
  
- #include "dmub/inc/dmub_cmd.h"
+ 				if (new_enc_index >= 0)
+ 					swap_dio_link_enc_to_muxable_ctx(context, pool, new_enc_index, enc_index);
+@@ -5201,7 +5224,7 @@ struct link_encoder *get_temp_dio_link_enc(
+ 		enc_index = link->eng_id;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
-index fdabbeec8ffa..4570b8016de5 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
-@@ -31,7 +31,7 @@
- #include "dcn30/dcn30_hubp.h"
- #include "dcn31/dcn31_hubp.h"
- #include "dcn32/dcn32_hubp.h"
--#include "dml2/dml21/inc/dml_top_dchub_registers.h"
-+#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
+ 	if (enc_index < 0)
+-		enc_index = find_free_dio_link_enc(res_ctx, link, pool);
++		enc_index = find_free_dio_link_enc(res_ctx, link, pool, NULL);
  
- #define HUBP_3DLUT_FL_REG_LIST_DCN401(inst)\
- 	SRI_ARR_US(_3DLUT_FL_CONFIG, HUBP, inst),\
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index d11893f8c916..3fe590436e74 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -58,8 +58,8 @@
- #include "transform.h"
- #include "dpp.h"
- 
--#include "dml2/dml21/inc/dml_top_dchub_registers.h"
--#include "dml2/dml21/inc/dml_top_types.h"
-+#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
-+#include "dml2_0/dml21/inc/dml_top_types.h"
- 
- struct resource_pool;
- struct dc_state;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-index b0c13b506c11..c62c4c1ed7c3 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
-@@ -41,8 +41,8 @@
- #include "mem_input.h"
- #include "cursor_reg_cache.h"
- 
--#include "dml2/dml21/inc/dml_top_dchub_registers.h"
--#include "dml2/dml21/inc/dml_top_types.h"
-+#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
-+#include "dml2_0/dml21/inc/dml_top_types.h"
- 
- #define OPP_ID_INVALID 0xf
- #define MAX_TTU 0xffffff
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-index 42fbc70f7056..d468bc85566a 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
-@@ -29,7 +29,7 @@
- #include "include/grph_object_id.h"
- 
- #include "dml/display_mode_structs.h"
--#include "dml2/dml21/inc/dml_top_dchub_registers.h"
-+#include "dml2_0/dml21/inc/dml_top_dchub_registers.h"
- 
- struct dchub_init_data;
- struct cstate_pstate_watermarks_st {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 3965a7f1b64b..4c2e8aa96d1f 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -92,7 +92,7 @@
- 
- #include "dc_state_priv.h"
- 
--#include "dml2/dml2_wrapper.h"
-+#include "dml2_0/dml2_wrapper.h"
- 
- #define DC_LOGGER_INIT(logger)
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index fff57f23f4f7..3a83a63d2116 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -33,7 +33,7 @@
- #include "resource.h"
- #include "include/irq_service_interface.h"
- #include "dcn35_resource.h"
--#include "dml2/dml2_wrapper.h"
-+#include "dml2_0/dml2_wrapper.h"
- 
- #include "dcn20/dcn20_resource.h"
- #include "dcn30/dcn30_resource.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 0abd163b425e..d00cc4030be3 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -83,7 +83,7 @@
- #include "vm_helper.h"
- #include "dcn20/dcn20_vmid.h"
- 
--#include "dml2/dml2_wrapper.h"
-+#include "dml2_0/dml2_wrapper.h"
- 
- #include "link_enc_cfg.h"
- #define DC_LOGGER_INIT(logger)
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-index ca125ee6c2fb..f4b28617b2de 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-@@ -11,7 +11,7 @@
- #include "resource.h"
- #include "include/irq_service_interface.h"
- #include "dcn36_resource.h"
--#include "dml2/dml2_wrapper.h"
-+#include "dml2_0/dml2_wrapper.h"
- 
- #include "dcn20/dcn20_resource.h"
- #include "dcn30/dcn30_resource.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index 1d18807e4749..8e2d3781752c 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -73,7 +73,7 @@
- 
- #include "dc_state_priv.h"
- 
--#include "dml2/dml2_wrapper.h"
-+#include "dml2_0/dml2_wrapper.h"
- 
- #define DC_LOGGER_INIT(logger)
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.h b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.h
-index 21d842857601..88c11b6be004 100644
---- a/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.h
-+++ b/drivers/gpu/drm/amd/display/dc/soc_and_ip_translator/dcn401/dcn401_soc_and_ip_translator.h
-@@ -9,7 +9,7 @@
- #include "dc.h"
- #include "clk_mgr.h"
- #include "soc_and_ip_translator.h"
--#include "dml2/dml21/inc/dml_top_soc_parameter_types.h"
-+#include "dml2_0/dml21/inc/dml_top_soc_parameter_types.h"
- 
- void dcn401_construct_soc_and_ip_translator(struct soc_and_ip_translator *soc_and_ip_translator);
- 
+ 	if (enc_index >= 0)
+ 		link_enc = pool->link_encoders[enc_index];
 -- 
 2.43.0
 
