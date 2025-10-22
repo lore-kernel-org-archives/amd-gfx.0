@@ -4,70 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814B1CCF9E9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E432CCD1BC
 	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E55B10E8B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 448C810E8B7;
 	Thu, 23 Oct 2025 07:51:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SjKLXAB0";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="Il06z+Ve";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E45910E789;
- Wed, 22 Oct 2025 13:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761140052; x=1792676052;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=NnK9to6RIZmxaZL3gi7Oswhg9ylc7A55F0MMZSj83l4=;
- b=SjKLXAB0bLY9r2xy4sf6AbUNixv0gsDckG6OFOcG+b73Zdwqb0tba0kK
- g0WT4e25KW1Hwn+ut81NczbfSnJZyEGXJLBNxjR3WzRaHi5cuzZBDkrVl
- xTdvzTfCZ1WyuphCf0ED8FC2DbR6/Zrar02BRZMrEzmP5kWqU1+Ncz57x
- rifDvbwZAHJCrepPkwDt3mo0GbL9FYa7qQ2XRVmb+sdWeOJmiJOEZ1shh
- 0FkchFY4vNOqns/NsU14Nj8kf8QiX1F8lqlY/piNpQPD6UANcmswAyTpq
- 43BW7vAO19AsjzGu06EU7ejfd0uk9ZM+IIpt2iAcW0enX61+S93ZhK5PW A==;
-X-CSE-ConnectionGUID: GQtMzAzRQiyAaY1t8SpQNg==
-X-CSE-MsgGUID: nMArYIWOSwK1SHVVFb7iBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="67152370"
-X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="67152370"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2025 06:34:12 -0700
-X-CSE-ConnectionGUID: uPn5dYWYTCeb9BTPiqzFNA==
-X-CSE-MsgGUID: RZoJpDH8TLKqnY+DttFJJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="189001328"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.82])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2025 06:34:04 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- "Michael J . Ruhl" <mjruhl@habana.ai>,
- Andi Shyti <andi.shyti@linux.intel.com>, linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v3 02/11] PCI: Cleanup pci_rebar_bytes_to_size() and move into
- rebar.c
-Date: Wed, 22 Oct 2025 16:33:22 +0300
-Message-Id: <20251022133331.4357-3-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
-References: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B904C10E859
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 22:25:18 +0000 (UTC)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 8709733F51B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 23:25:16 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1761171916; bh=xOMage7Kj5f4P5vJeOI/qz+Z1CRKjQ+HmGwdie8uBbo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Il06z+VexLCN5tme/wBC62bpS0KzD53xc09C9XIgaEwmX4cUAvmS66Qtivsn2kKgd
+ ydfn+aHVLx4g2g61DO+ceieagWWBq8NP3PgGwcWXOOK/D50cfg0Pjq4VaAU/hAtXBg
+ Ka3oUyeObPek6zSoJRu8y11ffGJ0WHEPnjowid7PSEtPAlvJNtcFHOEz3Ep2Iq52tk
+ Tof86CW4Ds/x8WlJXXad84iHKeMk7FFIrHwIPorlvdYlhY2ZhneQ+QamVMYe2UJKBq
+ /D/hRArwzMqk331pQjxd7fs24QNn1GVnBJPRHrHDcUy4IFK6y2fKvDlREmhvc/jh7J
+ r3foLpYf/eIZQ==
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-b4f323cf89bso36248966b.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 15:25:16 -0700 (PDT)
+X-Gm-Message-State: AOJu0Yw9/dcaPvyNovfPMPiOP3qtM9KwtOgA2Gv4+TCp/6dgIjcmGFhS
+ PaFnSETEghrYBZDu4/FohZiQIiwz3khq6mfnMgbhpf5pR1OBKhyoLMKgVwHV5XGPnov9v0tkRDI
+ bXOy85YxVCB2jgEq2UKfHAvK2Y9dcjmc=
+X-Google-Smtp-Source: AGHT+IHZKgMJi136OWI0tem+NWbkLTHFWUk5Xj9RVg34I2Ds/B3fz1aItrzvusUCvXWuyOZyR5cH9IHj4116YP+GwAo=
+X-Received: by 2002:a17:907:940f:b0:b3c:8940:6239 with SMTP id
+ a640c23a62f3a-b64750108aamr2686677466b.52.1761171915973; Wed, 22 Oct 2025
+ 15:25:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250718192045.2091650-1-superm1@kernel.org>
+ <20250718192045.2091650-2-superm1@kernel.org>
+ <CAFZQkGwvu-aLC4j5+=oohT8qcF8y4gBCDfkKYy7V9t8HY9q-Fg@mail.gmail.com>
+ <84f5971a-9a0c-4cc3-89a3-1eb1855aa862@kernel.org>
+In-Reply-To: <84f5971a-9a0c-4cc3-89a3-1eb1855aa862@kernel.org>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Thu, 23 Oct 2025 00:25:04 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGwLWcyS0SqCHoiGsJd5J_u4aBJ0HMV5Bx3NknLdLkr8Uw@mail.gmail.com>
+X-Gm-Features: AS18NWB4c8ZR2FPPY2F4sG5ZZjs-f0XIJMZQsXv12nUFKQGBievP4K3UZxeML-k
+Message-ID: <CAFZQkGwLWcyS0SqCHoiGsJd5J_u4aBJ0HMV5Bx3NknLdLkr8Uw@mail.gmail.com>
+Subject: Re: [PATCH v6 1/1] drm/amd: Re-introduce property to control adaptive
+ backlight modulation
+To: Mario Limonciello <superm1@kernel.org>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Simon Ser <contact@emersion.fr>, Harry Wentland <Harry.Wentland@amd.com>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Leo Li <sunpeng.li@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 23 Oct 2025 07:51:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,85 +72,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move pci_rebar_bytes_to_size() from include/linux/pci.h into rebar.c as
-it does not look very trivial and is not expected to be performance
-critical.
+> Is this still on your TODO list?
 
-Convert literals to use a newly added PCI_REBAR_MIN_SIZE define.
+Oh, sorry, I forgot to respond here.
+I updated https://invent.kde.org/plasma/kwin/-/merge_requests/6028 to
+use this property. I still need to add a GUI option for it, but as far
+as the API is concerned I think this is good.
 
-Also add kernel doc for the function as the function is exported.
-
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Michael J. Ruhl <mjruhl@habana.ai>
----
- drivers/pci/rebar.c | 23 +++++++++++++++++++++++
- include/linux/pci.h | 10 +++-------
- 2 files changed, 26 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
-index 8deee5bb33fa..342b47022a5a 100644
---- a/drivers/pci/rebar.c
-+++ b/drivers/pci/rebar.c
-@@ -7,11 +7,34 @@
- #include <linux/errno.h>
- #include <linux/export.h>
- #include <linux/ioport.h>
-+#include <linux/log2.h>
- #include <linux/pci.h>
-+#include <linux/sizes.h>
- #include <linux/types.h>
- 
- #include "pci.h"
- 
-+#define PCI_REBAR_MIN_SIZE	((resource_size_t)SZ_1M)
-+
-+/**
-+ * pci_rebar_bytes_to_size - Convert size in bytes to PCI BAR Size
-+ * @bytes: size in bytes
-+ *
-+ * Convert bytes to BAR Size in Resizable BAR Capability (PCIe r6.2,
-+ * sec. 7.8.6.3).
-+ *
-+ * Return: BAR Size as defined in the PCIe spec (0=1MB, 31=128TB).
-+ */
-+int pci_rebar_bytes_to_size(u64 bytes)
-+{
-+	int rebar_minsize = ilog2(PCI_REBAR_MIN_SIZE);
-+
-+	bytes = roundup_pow_of_two(bytes);
-+
-+	return max(ilog2(bytes), rebar_minsize) - rebar_minsize;
-+}
-+EXPORT_SYMBOL_GPL(pci_rebar_bytes_to_size);
-+
- void pci_rebar_init(struct pci_dev *pdev)
- {
- 	pdev->rebar_cap = pci_find_ext_capability(pdev, PCI_EXT_CAP_ID_REBAR);
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d1fdf81fbe1e..540221d0df0b 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1419,16 +1419,12 @@ void pcibios_reset_secondary_bus(struct pci_dev *dev);
- void pci_update_resource(struct pci_dev *dev, int resno);
- int __must_check pci_assign_resource(struct pci_dev *dev, int i);
- int pci_release_resource(struct pci_dev *dev, int resno);
--static inline int pci_rebar_bytes_to_size(u64 bytes)
--{
--	bytes = roundup_pow_of_two(bytes);
--
--	/* Return BAR size as defined in the resizable BAR specification */
--	return max(ilog2(bytes), 20) - 20;
--}
- 
-+/* Resizable BAR related routines */
-+int pci_rebar_bytes_to_size(u64 bytes);
- u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
- int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
-+
- int pci_select_bars(struct pci_dev *dev, unsigned long flags);
- bool pci_device_is_present(struct pci_dev *pdev);
- void pci_ignore_hotplug(struct pci_dev *dev);
--- 
-2.39.5
-
+- Xaver
