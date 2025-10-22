@@ -4,79 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B94D1CCF9E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32EF8CCF9E6
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0007110E8B6;
-	Thu, 23 Oct 2025 07:51:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56DE210E8B9;
+	Thu, 23 Oct 2025 07:51:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FDDr5FG0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iJ3mV7bu";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0E410E752
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 11:04:34 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-47103b6058fso6138615e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 04:04:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761131072; x=1761735872; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qEafg9Klu5zOL06Nglfzdv2mgxyWpLG/yLgQwga+NA8=;
- b=FDDr5FG0SimetTw7Z0vlrBz2Ucdau/XGAMbA13O0FJxkhS+M4DnPxIJCCUenWVHk93
- WO/V/OMcpvhVda1hah6uGinRaVsDvVh6WNc1rR9ZmPrmW57t8IG+0tDk1WMMnW7wQGMl
- iWfwckCcSRwSag5+Liueas5hAD3Ke8aGBSSZZfDT/7+I2cTbLBdAw8TBZWhOibB2X91U
- TGBQc/akCJH+z3mCQHqdNd3c7LKpfK8S1G37oKmLJsLm4MU7hnD0WsKlgmIqDrryzyfD
- G8HaTMe8LzJUSijObJmDtoKom58rHob85JRZTywtKmvcFcDET9vwkmxrzzN4+JEPUQrA
- E9og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761131072; x=1761735872;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qEafg9Klu5zOL06Nglfzdv2mgxyWpLG/yLgQwga+NA8=;
- b=DwIbTcKHpNNyV7tHlFeK6JuLRYfFPwZ3Qqql5rEEOBKvU1kD65YFS5x9UKqNQ73S0T
- IeE8PLYVkDjhoHmi35Nv7oRnws9RY0+6JJ4WC1Gay/fqptEPtatBkR0aw3T10esfQZbJ
- Hu8FVGVfuPEnfP36BflW9qRNWMtBP4vSfiLMfvK9VEacbVobjaqNp5cbNuVXlaK07+Ee
- AFt432pTtctrz6AsSY6XPgMBFhJZ9R2lIdxU5GRQBKOZn5M5XWTrFDT5iLIH2rlGOOY2
- Um7fLqy+O6cl2Yyi1uJg7eKhCiJhU7ohAYrJ7+1e4ijIsB/ovKC7m9PezT/PZfvAKXmA
- eWjw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW/URrOjyLhHc7+Gdnm1X4KsxJyQPNzXDmj1U5VbVz3HH91hB8mnVcHUmbWDtLY9we2HfFZmMGk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhjMgzT+RqH9ZWXPcGlvR+04Z6uH42aem23sSADTL0qmtOIZyL
- V9ylJ6xvwqg4LdEkaaDKTWF4Zfsk7hoaiz5uXjtybGvvcww1kme/96EN3MXTz2U4JVI=
-X-Gm-Gg: ASbGncsalrz8wvl9yAW5whXdN7pRdkZFMpGr2AZ4r89Xaz+fYWE4kHg1YiGrCTwA+IZ
- voo0vNIUELjanZErVL84B+8W4nRWvugXR9fm0VeYB1h9836/S24+zlaakTdsm4eCig5mD7PEloq
- i9cZ7OYZGMfAuqhLyg9kJHWMztI4t2EnxM4vlU6wNFwx4cz3icj54nTH4XyiVWc6pm7inkaAEk8
- alu6Ms6s31dvl6bpBIjvbzrNLl2BY5pkAE7GTwN8MQIAa1kLYc/aZwqDYgBKDIdIp80/UVqmHEc
- vPpFSfBbgmiCWbKJju17Hu8YdZDITXdQIaFJV4ax6hBwhbuoAJFw7sFT1fYLqY36szWDA2gQ8QV
- L3cjZFObxadvtCeredCAkoNo74qGvbquMPajF/gtHyjMqjrLYE9tWxmdUMlSnqIDexxpHaWf1yA
- u6Ferhmw==
-X-Google-Smtp-Source: AGHT+IEvzeQmuJZVlQvxOVzt5DBIbtifvWSq41OHqDirBuHQNqktljPPP8+Q3xqBRDvi5bTZGQ8Z5A==
-X-Received: by 2002:a05:600d:4265:b0:471:1e:ebe8 with SMTP id
- 5b1f17b1804b1-475c6f5d0edmr6359645e9.10.1761131072473; 
- Wed, 22 Oct 2025 04:04:32 -0700 (PDT)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-475c428a534sm44924865e9.6.2025.10.22.04.04.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Oct 2025 04:04:32 -0700 (PDT)
-Date: Wed, 22 Oct 2025 14:04:29 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: YiPeng Chai <YiPeng.Chai@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH next] drm/amd/ras: Fix a NULL vs IS_ERR() bug in
- ras_process_init()
-Message-ID: <aPi6PTnGfpG02RgK@stanley.mountain>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6558B10E7AA;
+ Wed, 22 Oct 2025 13:35:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761140118; x=1792676118;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=rvq8S7Tm5qcOrmVwTnQP2K04nFjvwe8824uK1q80uXo=;
+ b=iJ3mV7buOHW7AhkcEaKj6lxG3fDZr8rB7v1KFlJh0E6mNjXJIMO4zg0b
+ ZUOVFWsakN+zQvZf+KVJVdR0SSly2IIMMO2dUCzm4ABAltSKuCRqwRSsk
+ 7aax6UfaA78OAcGK1fixZbGC+YnnN1436N5BSs1XXnLsCC1s2Rv6UsRhm
+ uKdj2WYBiz3VLM6IRSJzcyogb1pyfiDVIoI4ti4Um1dti7ttvey4vLnCa
+ eB3MafGm7MB+KmDIR2Ijqv1hYWN2jJEpDyB6ac4UwrpJzcn/WMK7++Tuf
+ PI/6wjm8eHSK+ok3Prz4QUHCvgKGQqtg+DifnTDOYUvKhS65Rzo/17RIX A==;
+X-CSE-ConnectionGUID: 7sdfomgNQ+C1WLrBZTF4YQ==
+X-CSE-MsgGUID: Za69ePr9Tzy2xk/OuAZk3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="50862421"
+X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="50862421"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2025 06:35:18 -0700
+X-CSE-ConnectionGUID: RPKSY7fORVOxMOWhTAvOgA==
+X-CSE-MsgGUID: ZvV9E3lTTNCHcTSI6lf9VQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="184275109"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.82])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2025 06:35:10 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ "Michael J . Ruhl" <mjruhl@habana.ai>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v3 07/11] drm/xe/vram: Use PCI rebar helpers in
+ resize_vram_bar()
+Date: Wed, 22 Oct 2025 16:33:27 +0300
+Message-Id: <20251022133331.4357-8-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
+References: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 Oct 2025 07:51:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,31 +85,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The kthread_run() function never returns NULL, it returns error pointers.
-Fix the error checking to match.
+PCI core provides pci_rebar_size_supported() and
+pci_rebar_size_to_bytes(), use them in resize_vram_bar() to simplify
+code.
 
-Fixes: ea61341b9014 ("drm/amd/ras: Add thread to handle ras events")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras_process.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_vram.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.c b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
-index 02f0657f78a3..1d2f136fbe2b 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_process.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
-@@ -241,9 +241,9 @@ int ras_process_init(struct ras_core_context *ras_core)
+diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
+index b44ebf50fedb..9ac053bb0b2e 100644
+--- a/drivers/gpu/drm/xe/xe_vram.c
++++ b/drivers/gpu/drm/xe/xe_vram.c
+@@ -24,8 +24,6 @@
+ #include "xe_vram.h"
+ #include "xe_vram_types.h"
  
- 	ras_proc->ras_process_thread = kthread_run(ras_process_thread,
- 							(void *)ras_core, "ras_process_thread");
--	if (!ras_proc->ras_process_thread) {
-+	if (IS_ERR(ras_proc->ras_process_thread)) {
- 		RAS_DEV_ERR(ras_core->dev, "Failed to create ras_process_thread.\n");
--		ret =  -ENOMEM;
-+		ret = PTR_ERR(ras_proc->ras_process_thread);
- 		goto err;
- 	}
+-#define BAR_SIZE_SHIFT 20
+-
+ static void
+ _resize_bar(struct xe_device *xe, int resno, resource_size_t size)
+ {
+@@ -74,25 +72,22 @@ static void resize_vram_bar(struct xe_device *xe)
  
+ 	/* set to a specific size? */
+ 	if (force_vram_bar_size) {
+-		u32 bar_size_bit;
+-
+-		rebar_size = force_vram_bar_size * (resource_size_t)SZ_1M;
++		rebar_size = pci_rebar_bytes_to_size(force_vram_bar_size *
++						     (resource_size_t)SZ_1M);
+ 
+-		bar_size_bit = bar_size_mask & BIT(pci_rebar_bytes_to_size(rebar_size));
+-
+-		if (!bar_size_bit) {
++		if (!pci_rebar_size_supported(pdev, LMEM_BAR, rebar_size)) {
+ 			drm_info(&xe->drm,
+ 				 "Requested size: %lluMiB is not supported by rebar sizes: 0x%x. Leaving default: %lluMiB\n",
+-				 (u64)rebar_size >> 20, bar_size_mask, (u64)current_size >> 20);
++				 (u64)pci_rebar_size_to_bytes(rebar_size) >> 20,
++				 bar_size_mask, (u64)current_size >> 20);
+ 			return;
+ 		}
+ 
+-		rebar_size = 1ULL << (__fls(bar_size_bit) + BAR_SIZE_SHIFT);
+-
++		rebar_size = pci_rebar_size_to_bytes(rebar_size);
+ 		if (rebar_size == current_size)
+ 			return;
+ 	} else {
+-		rebar_size = 1ULL << (__fls(bar_size_mask) + BAR_SIZE_SHIFT);
++		rebar_size = pci_rebar_size_to_bytes(__fls(bar_size_mask));
+ 
+ 		/* only resize if larger than current */
+ 		if (rebar_size <= current_size)
 -- 
-2.51.0
+2.39.5
 
