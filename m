@@ -4,78 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1AACCD1BC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0EB2CCF9E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F134910E8AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEEE10E8A6;
 	Thu, 23 Oct 2025 07:51:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Eo7pnWJI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="g43Y0L14";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 235E810E74D
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 11:03:00 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-471b80b994bso50100195e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 04:03:00 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05E2510E759
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 11:04:09 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4712c6d9495so13683025e9.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 04:04:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761130978; x=1761735778; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1761131047; x=1761735847; darn=lists.freedesktop.org;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=w9oIpyKZKP65JjkSPCQNgE2Eec7phDpEBv4WlPPRGpA=;
- b=Eo7pnWJI6w9V7dNlBAG0qVONBUH5nWJ9jiKvFsh5qJ2zTA/1HHOBndSDeVv/SjqfPO
- 4fqybjOdcRKtHuLduDUbpWzrBye1s5lzdrJZkUnv/8YYImjnkRtSIZCaS/smBCVivXAy
- c5+JCmPB6bzaUFws/C8jKRSA+IgXb+4uZ2NF0Aajd0VjRsH7C1scI/jyP+ssIrt8FZ6q
- LGzmDB9lkYRMKhEu4bQqYB0iP3dD5kAy82tVmZRuOUbCd/FUZ8am0Qv/dwvOdWwbP3Js
- u6Wegc5T5RaF+1fGn47AASniUWRNLMnutgcUWq4Vs0pdTCuTtiCChRrXIoX7BbKt+Rf2
- K3Cw==
+ bh=60d4FN8I12bjhkv2m/h29YuwY/zOYE0TJa+JTgDeqZ8=;
+ b=g43Y0L14q7Kxxb7CZ9QoYbMWFW5x4wMPy0l6c23O1A+HbPu+lWbCsfphfll4HO4So9
+ VTg5bRjy+l5vS3b5BHXQvfdsown5RKcKuRh+XdOenGW+hIwlJB3fcFVY4m8a97nMZxvd
+ WnoSvWxEpQnE3nZvppxgW5wvAHS8mYTKIovLC/Qs2FM4oinUu3GVI2fmhB6IB8PnHFsH
+ QC4OsqQwn/0O5mWgTFy7nwLYc7e7stDzJMS4xPe4Qj0UDEa16L56GYo106v/OejgxiD3
+ aS1ilNMBr9i3vFEqSNa/DfR2NLCuGEbB+aLc4SNvUdSCJ53Tyecf0LBGELPB1y5+ZMWv
+ RsiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761130978; x=1761735778;
+ d=1e100.net; s=20230601; t=1761131047; x=1761735847;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=w9oIpyKZKP65JjkSPCQNgE2Eec7phDpEBv4WlPPRGpA=;
- b=WoQk8pJIpZ70g0m/htcoiO6EBpi74Iku0/ebG2JfhCN79CHewkgEQVMqaP5R5H1FKs
- O005RlwysqWPwaBB86PldMvD1rpCT0ELHRVi8V8XhEJZhd08+6dx3nNe5tZKE/ol5cDT
- XiCRHBM6SGGT6FmFy5oK75EaQMgdcqiNoUBL5vnxDB5pdCTZHrWTKyMnUB4qt5uhNLKO
- vFulwT1Lykeu4qwsLCAn93S/wvFUUv4kurHqz04DEWNiCuDHjTT4JzSDEwXxvc+fraET
- IuPtSJs/sRpeDwqcpdNfbSX0ETziYfp6OxXdHolCSI5Y+VNZqg9jbHBOS+WTVP3PiMpl
- 2tig==
+ bh=60d4FN8I12bjhkv2m/h29YuwY/zOYE0TJa+JTgDeqZ8=;
+ b=MMX9CPjjp3wBmO2AXwR6SFJE+Mmx18c0V9DBT4+oHE+i3ZIR/7OAwNOm7RTu0LJdIC
+ FmEKFj/Z77MI/laNJE846CbTSJ3qJC/U17ClhokmnjIi8o6Io4kmLu5yGOLweepwp8Dr
+ mfLo8YcsN4w1RjuEKrjOz6LIQ2XAAaHECK+rOyqMSOj1HSet564oz4gMEtKeqQSYrjrR
+ JDpGGauesVsRFiec+B3EqsEZ+p793+20noQM+g/CCNSdcJZXbFTYERzWU3Io0K7mOHzi
+ 4lsqiX6vjDc/lduGnVE3gfLwtPEzUE2f9foNO6f5luytCCFJT1q9XTWCRYU/wlS+3wts
+ d1dA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUmAxUvz1Y0P2W/eklspx1JehH4WZ3W9A3idvVVA7lzacVZ3URUA57Q4ntsdtxBlRjJwHbGeIAa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yynp6rp8XI3MSRm2QX4ww40K0SfxEEdqc4eROJFM7m284XnUTD5
- pktlmuQn7gDmt+Bmw7+X4JpBNJ0wKQZCl6qtt3IfeHF+GMn0NLAKuz/n/VbfKfu7Mgc=
-X-Gm-Gg: ASbGncvL0jFm/7owdIsBY9Ls8AOS35vPhl5neH5edlxk3c+lplWqV+pkUYHU7uUCJNc
- bXOZ7q6Bf7kZu+de0srDe+ALom9Q/xG0WpBxzcf4dIAxGDOYdBP51F6n/zU1pqF920lFh4vjy2b
- OE2jm3RiXyljyJQrSoiSAGkD34Ac6OHbivLspRf5ZDrtRC1Mr9x6jGSFXnl/3ARD4kZJQRTDsHp
- +5FIPJ6XMkOM38RFhktuQN3+YOLVCGN5QLQlzsOjUZyzbiJfWab9ZNlGWCifpi91ecSRRRtdG4c
- nvi64XcVqWIUM6+tB0ppVBc0ISmUw8GgBkLmmS+P5PWKlpSA2ZOOhD16X5WA540xPYdoDkaVQc/
- o8aLKQteegW+EVZMvZUQ2tIVkkEZbReQ4YGjTS/n+dBP80hNj4TQ0mkz/CNh19vCAHixQsqsoa5
- 4I22Hhcww5Amt6RAPu
-X-Google-Smtp-Source: AGHT+IHuoJkLRfik10AD7NBPZIudPe/zz0dSg5CN+bjMkIVUA3hu11mzQRZgc9RP/6950DlYAOSGLQ==
-X-Received: by 2002:a05:600c:5298:b0:46e:432f:32ab with SMTP id
- 5b1f17b1804b1-4711791d1e3mr152626135e9.33.1761130978504; 
- Wed, 22 Oct 2025 04:02:58 -0700 (PDT)
+ AJvYcCXWJTeGZBfsM3VQED+RHYR/fKwX12+rcn3G7ilDQ8roM86eO6XAYSaQ1VS1z9/if1CajROIzFBB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdN420CUari7ONkBl3kF0w/2lVpJcqBXAN6nLcyXg84M34S7h7
+ ptoRX/rzi6aYqBEcdoJQglLNu7Rj088gx3ElqaJj+KmoDCpmThAD6ZisL4H/wMIb/JE=
+X-Gm-Gg: ASbGncsVhajivK4eZOgMiYlEaxHxRQ+yHiKSSuefdD8ahyfpNXNHqrYnQ/f+j+1w/7y
+ 6bVf36QUyfYuqjF7U3tusak52vHIcSvEQ9O9OG/qzwmzoYnts26zxgLOv2DxVl/8PdYPHVFWBXL
+ YVxadkjz5ZtAJIk1hhRE3vNqRxMYIitFlgf4q+yvK4H/sRaT4gZGTWYhAjLOMiU6ulf98ScirBu
+ IXjPgBPaZk+abTnJpztaYyWjxOgcLGHRLZn6EYF0IipfWUQ5YY25G01m/gOryI3LCcSA5E3RrXy
+ W/oqzIUi6xlK/btfwZbgAGbKo8tsqHH/HLUWPwmGaLsVCOwvzWR4OoStQIc6YaY6Vsf3hZ4EYcF
+ 6bW5PDU8VVT3OjIuFWGJZ7MMngjgmdCJwlEbcpfSlqz00+F6XibkI3bUO9z6TvgEP4PzIEIU31v
+ tAat0KiILhj9qporOpxGndi5wz50o=
+X-Google-Smtp-Source: AGHT+IGVxOZg/SGvzQXDgSR7/+Whdk7ScvRjRe/N1IbTeIwwfj/PV9uPXXlolfy5kHmMZfmv0uyAbQ==
+X-Received: by 2002:a05:600c:4e8e:b0:46e:46c7:b79a with SMTP id
+ 5b1f17b1804b1-4711786c702mr178910745e9.2.1761131047078; 
+ Wed, 22 Oct 2025 04:04:07 -0700 (PDT)
 Received: from localhost ([196.207.164.177])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-47494ae5510sm35646435e9.3.2025.10.22.04.02.57
+ 5b1f17b1804b1-475c427c3casm38721405e9.4.2025.10.22.04.04.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Oct 2025 04:02:58 -0700 (PDT)
-Date: Wed, 22 Oct 2025 14:02:54 +0300
+ Wed, 22 Oct 2025 04:04:06 -0700 (PDT)
+Date: Wed, 22 Oct 2025 14:04:03 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Sunil Khatri <sunil.khatri@amd.com>
+To: YiPeng Chai <YiPeng.Chai@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Liu01 Tong <Tong.Liu01@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH next] drm/amdgpu: unlock and cleanup on error in
- amdgpu_cs_parser_bos()
-Message-ID: <aPi53iS_z4y4uVef@stanley.mountain>
+Subject: [PATCH next] drm/amd/ras: Fix memory corruption in
+ ras_core_convert_timestamp_to_time()
+Message-ID: <aPi6I5z5oenppEuu@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -95,32 +92,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If amdgpu_hmm_range_alloc() fails then free the previous iterations and
-call mutex_unlock(&p->bo_list->bo_list_mutex) before returning.
+The div64_u64_rem() function takes a u64 as a remainder.  Passing an int
+pointer to it will result in memory corruption.  Change
+"remaining_seconds" from int to u64.
 
-Fixes: e095b55155ef ("drm/amdgpu: use user provided hmm_range buffer in amdgpu_ttm_tt_get_user_pages")
+Fixes: ace232eff50e ("drm/amdgpu: Add ras module files into amdgpu")
 Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/ras/rascore/ras_core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index ecdfe6cb36cc..dac0b15823f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -892,8 +892,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		struct amdgpu_bo *bo = e->bo;
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+index 01122b55c98a..d8a004878a64 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+@@ -67,9 +67,10 @@ int ras_core_convert_timestamp_to_time(struct ras_core_context *ras_core,
+ 	int seconds_per_day = 24 * 60 * 60;
+ 	int seconds_per_hour = 60 * 60;
+ 	int seconds_per_minute = 60;
+-	int days, remaining_seconds;
++	uint64_t remaining_seconds;
++	int days;
  
- 		e->range = amdgpu_hmm_range_alloc(NULL);
--		if (unlikely(!e->range))
--			return -ENOMEM;
-+		if (unlikely(!e->range)) {
-+			r = -ENOMEM;
-+			goto out_free_user_pages;
-+		}
+-	days = div64_u64_rem(timestamp, seconds_per_day, (uint64_t *)&remaining_seconds);
++	days = div64_u64_rem(timestamp, seconds_per_day, &remaining_seconds);
  
- 		r = amdgpu_ttm_tt_get_user_pages(bo, e->range);
- 		if (r)
+ 	/* utc_timestamp follows the Unix epoch */
+ 	year = 1970;
 -- 
 2.51.0
 
