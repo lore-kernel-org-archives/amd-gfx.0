@@ -4,69 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C93ECCD1BC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1AACCD1BC
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 07:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2909D10E092;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F134910E8AC;
 	Thu, 23 Oct 2025 07:51:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kZoS1uJv";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Eo7pnWJI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F4410E794;
- Wed, 22 Oct 2025 13:34:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761140091; x=1792676091;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=h2Fhfh8UiaFwG9K8ze69qLMHeEgSfFO/h7elyAOg/0w=;
- b=kZoS1uJvgZyynGLzAGILxLq/Q2o23oqKIAhph5g6HeWCjS9SMOzb37MK
- 3PcPbwwSiqf3xRrPGmYx3In8wt5Iu/XN1ZoIezTB0xDFN+SqMM8gxsNPp
- I5aR+VrrA2UonVH2DC5M7eRqoM0wWImO8VPO6KESrhkK3pYgOHqO7dgOj
- Z041XSz25eqZfdCj72vQCeYkgpdW1DGhUFWL9286+GdG3H/1PgzUNf2Wx
- pOhbYYeLnn7bclyGH71EqP+aiSf5OeTIaUSIwtwuC8GQGHVsrHuW+o4zb
- y1IBA6ym6gNcgNLQJQvvrufN3r21/hWAaymP80ucO6bun0Q6FhKQSZRUN w==;
-X-CSE-ConnectionGUID: y0wn/cbyTb+4Msyd5/mTYw==
-X-CSE-MsgGUID: iDTSoqDQTEm2XVl+LmMmiw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="67124155"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="67124155"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2025 06:34:50 -0700
-X-CSE-ConnectionGUID: oPwrKvMlQlaAF0CWSOmDOw==
-X-CSE-MsgGUID: fJFv78aGS3KYsH7qp1iVyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,247,1754982000"; d="scan'208";a="214520399"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.82])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2025 06:34:43 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- "Michael J . Ruhl" <mjruhl@habana.ai>,
- Andi Shyti <andi.shyti@linux.intel.com>, linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v3 05/11] PCI: Add pci_rebar_size_supported() helper
-Date: Wed, 22 Oct 2025 16:33:25 +0300
-Message-Id: <20251022133331.4357-6-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
-References: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 235E810E74D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 11:03:00 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-471b80b994bso50100195e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Oct 2025 04:03:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1761130978; x=1761735778; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=w9oIpyKZKP65JjkSPCQNgE2Eec7phDpEBv4WlPPRGpA=;
+ b=Eo7pnWJI6w9V7dNlBAG0qVONBUH5nWJ9jiKvFsh5qJ2zTA/1HHOBndSDeVv/SjqfPO
+ 4fqybjOdcRKtHuLduDUbpWzrBye1s5lzdrJZkUnv/8YYImjnkRtSIZCaS/smBCVivXAy
+ c5+JCmPB6bzaUFws/C8jKRSA+IgXb+4uZ2NF0Aajd0VjRsH7C1scI/jyP+ssIrt8FZ6q
+ LGzmDB9lkYRMKhEu4bQqYB0iP3dD5kAy82tVmZRuOUbCd/FUZ8am0Qv/dwvOdWwbP3Js
+ u6Wegc5T5RaF+1fGn47AASniUWRNLMnutgcUWq4Vs0pdTCuTtiCChRrXIoX7BbKt+Rf2
+ K3Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761130978; x=1761735778;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=w9oIpyKZKP65JjkSPCQNgE2Eec7phDpEBv4WlPPRGpA=;
+ b=WoQk8pJIpZ70g0m/htcoiO6EBpi74Iku0/ebG2JfhCN79CHewkgEQVMqaP5R5H1FKs
+ O005RlwysqWPwaBB86PldMvD1rpCT0ELHRVi8V8XhEJZhd08+6dx3nNe5tZKE/ol5cDT
+ XiCRHBM6SGGT6FmFy5oK75EaQMgdcqiNoUBL5vnxDB5pdCTZHrWTKyMnUB4qt5uhNLKO
+ vFulwT1Lykeu4qwsLCAn93S/wvFUUv4kurHqz04DEWNiCuDHjTT4JzSDEwXxvc+fraET
+ IuPtSJs/sRpeDwqcpdNfbSX0ETziYfp6OxXdHolCSI5Y+VNZqg9jbHBOS+WTVP3PiMpl
+ 2tig==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUmAxUvz1Y0P2W/eklspx1JehH4WZ3W9A3idvVVA7lzacVZ3URUA57Q4ntsdtxBlRjJwHbGeIAa@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yynp6rp8XI3MSRm2QX4ww40K0SfxEEdqc4eROJFM7m284XnUTD5
+ pktlmuQn7gDmt+Bmw7+X4JpBNJ0wKQZCl6qtt3IfeHF+GMn0NLAKuz/n/VbfKfu7Mgc=
+X-Gm-Gg: ASbGncvL0jFm/7owdIsBY9Ls8AOS35vPhl5neH5edlxk3c+lplWqV+pkUYHU7uUCJNc
+ bXOZ7q6Bf7kZu+de0srDe+ALom9Q/xG0WpBxzcf4dIAxGDOYdBP51F6n/zU1pqF920lFh4vjy2b
+ OE2jm3RiXyljyJQrSoiSAGkD34Ac6OHbivLspRf5ZDrtRC1Mr9x6jGSFXnl/3ARD4kZJQRTDsHp
+ +5FIPJ6XMkOM38RFhktuQN3+YOLVCGN5QLQlzsOjUZyzbiJfWab9ZNlGWCifpi91ecSRRRtdG4c
+ nvi64XcVqWIUM6+tB0ppVBc0ISmUw8GgBkLmmS+P5PWKlpSA2ZOOhD16X5WA540xPYdoDkaVQc/
+ o8aLKQteegW+EVZMvZUQ2tIVkkEZbReQ4YGjTS/n+dBP80hNj4TQ0mkz/CNh19vCAHixQsqsoa5
+ 4I22Hhcww5Amt6RAPu
+X-Google-Smtp-Source: AGHT+IHuoJkLRfik10AD7NBPZIudPe/zz0dSg5CN+bjMkIVUA3hu11mzQRZgc9RP/6950DlYAOSGLQ==
+X-Received: by 2002:a05:600c:5298:b0:46e:432f:32ab with SMTP id
+ 5b1f17b1804b1-4711791d1e3mr152626135e9.33.1761130978504; 
+ Wed, 22 Oct 2025 04:02:58 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-47494ae5510sm35646435e9.3.2025.10.22.04.02.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Oct 2025 04:02:58 -0700 (PDT)
+Date: Wed, 22 Oct 2025 14:02:54 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Liu01 Tong <Tong.Liu01@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH next] drm/amdgpu: unlock and cleanup on error in
+ amdgpu_cs_parser_bos()
+Message-ID: <aPi53iS_z4y4uVef@stanley.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Thu, 23 Oct 2025 07:51:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,119 +95,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Many callers of pci_rebar_get_possible_sizes() are interested in
-finding out if a particular BAR Size (PCIe r6.2 sec. 7.8.6.3) is
-supported by the particular BAR.
+If amdgpu_hmm_range_alloc() fails then free the previous iterations and
+call mutex_unlock(&p->bo_list->bo_list_mutex) before returning.
 
-Add pci_rebar_size_supported() into PCI core to make it easy for the
-drivers to determine if the BAR Size is supported or not.
-
-Use the new function in pci_resize_resource() and in
-pci_iov_vf_bar_set_size().
-
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Fixes: e095b55155ef ("drm/amdgpu: use user provided hmm_range buffer in amdgpu_ttm_tt_get_user_pages")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 ---
- drivers/pci/iov.c   |  7 +------
- drivers/pci/rebar.c | 25 +++++++++++++++++++------
- include/linux/pci.h |  1 +
- 3 files changed, 21 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
-index 77dee43b7858..02f4e9cd3fbe 100644
---- a/drivers/pci/iov.c
-+++ b/drivers/pci/iov.c
-@@ -1339,7 +1339,6 @@ EXPORT_SYMBOL_GPL(pci_sriov_configure_simple);
-  */
- int pci_iov_vf_bar_set_size(struct pci_dev *dev, int resno, int size)
- {
--	u32 sizes;
- 	int ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index ecdfe6cb36cc..dac0b15823f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -892,8 +892,10 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 		struct amdgpu_bo *bo = e->bo;
  
- 	if (!pci_resource_is_iov(resno))
-@@ -1348,11 +1347,7 @@ int pci_iov_vf_bar_set_size(struct pci_dev *dev, int resno, int size)
- 	if (pci_iov_is_memory_decoding_enabled(dev))
- 		return -EBUSY;
+ 		e->range = amdgpu_hmm_range_alloc(NULL);
+-		if (unlikely(!e->range))
+-			return -ENOMEM;
++		if (unlikely(!e->range)) {
++			r = -ENOMEM;
++			goto out_free_user_pages;
++		}
  
--	sizes = pci_rebar_get_possible_sizes(dev, resno);
--	if (!sizes)
--		return -ENOTSUPP;
--
--	if (!(sizes & BIT(size)))
-+	if (!pci_rebar_size_supported(dev, resno, size))
- 		return -EINVAL;
- 
- 	ret = pci_rebar_set_size(dev, resno, size);
-diff --git a/drivers/pci/rebar.c b/drivers/pci/rebar.c
-index 17e7b664c4ce..067cd75b394b 100644
---- a/drivers/pci/rebar.c
-+++ b/drivers/pci/rebar.c
-@@ -3,6 +3,7 @@
-  * PCI Resizable BAR Extended Capability handling.
-  */
- 
-+#include <linux/bits.h>
- #include <linux/bitfield.h>
- #include <linux/errno.h>
- #include <linux/export.h>
-@@ -124,6 +125,23 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
- }
- EXPORT_SYMBOL(pci_rebar_get_possible_sizes);
- 
-+/**
-+ * pci_rebar_size_supported - check if size is supported for BAR
-+ * @pdev: PCI device
-+ * @bar: BAR to check
-+ * @size: size as defined in the PCIe spec (0=1MB, 31=128TB)
-+ *
-+ * Return: %true if @bar is resizable and @size is a supported, otherwise
-+ *	   %false.
-+ */
-+bool pci_rebar_size_supported(struct pci_dev *pdev, int bar, int size)
-+{
-+	u64 sizes = pci_rebar_get_possible_sizes(pdev, bar);
-+
-+	return BIT(size) & sizes;
-+}
-+EXPORT_SYMBOL_GPL(pci_rebar_size_supported);
-+
- /**
-  * pci_rebar_get_current_size - get the current size of a Resizable BAR
-  * @pdev: PCI device
-@@ -231,7 +249,6 @@ int pci_resize_resource(struct pci_dev *dev, int resno, int size)
- 	struct resource *res = pci_resource_n(dev, resno);
- 	struct pci_host_bridge *host;
- 	int old, ret;
--	u32 sizes;
- 
- 	/* Check if we must preserve the firmware's resource assignment */
- 	host = pci_find_host_bridge(dev->bus);
-@@ -245,11 +262,7 @@ int pci_resize_resource(struct pci_dev *dev, int resno, int size)
- 	if (pci_resize_is_memory_decoding_enabled(dev, resno))
- 		return -EBUSY;
- 
--	sizes = pci_rebar_get_possible_sizes(dev, resno);
--	if (!sizes)
--		return -ENOTSUPP;
--
--	if (!(sizes & BIT(size)))
-+	if (!pci_rebar_size_supported(dev, resno, size))
- 		return -EINVAL;
- 
- 	old = pci_rebar_get_current_size(dev, resno);
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 0a50912c5ce5..cf833daddaee 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1424,6 +1424,7 @@ int pci_release_resource(struct pci_dev *dev, int resno);
- int pci_rebar_bytes_to_size(u64 bytes);
- resource_size_t pci_rebar_size_to_bytes(int size);
- u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
-+bool pci_rebar_size_supported(struct pci_dev *pdev, int bar, int size);
- int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
- 
- int pci_select_bars(struct pci_dev *dev, unsigned long flags);
+ 		r = amdgpu_ttm_tt_get_user_pages(bo, e->range);
+ 		if (r)
 -- 
-2.39.5
+2.51.0
 
