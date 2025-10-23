@@ -4,123 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3547ACCD1AB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 07:02:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF365CCD1A5
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 07:21:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC1AF10E9E0;
-	Fri, 24 Oct 2025 07:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56EBF10E9EB;
+	Fri, 24 Oct 2025 07:21:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e5Mx0SsU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BDLWOjMT";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010035.outbound.protection.outlook.com
- [40.93.198.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6AB210E9E0
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 07:02:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kxYIfyTloYx8aEGEDZKSj1yXA/0l6ofMbjMLuz0rgOTipb/vksAjArGRRlO6Lu8fnfc3hO2Lfo/RHtiJxD880H5TSrLAVErETv5PGZeal7DokhT409W6LrZ750L1phkVLaIdJiHWAx/A8vgTvozxkIe+lIm+fHiMKujY4vczBQIEjo9UIi6rRbcc6hCb/fb4dnADGRWILtVE3byCEWqhp2xZB7BC4st6anYd/743dLUGyxA9GCeqclhaWPVVJlwBQK4DJCosdzfk4Bn/xaecoOR/MrgxkUe9XW5g8mceuvsOuGKHAawIDXmZmo84g4OC7c7l6lSuTiedZMjxe3XsCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m9wRsfbaB39T3kNhVxhW0tR+X1E2VRFQ/Ka2mmieJmM=;
- b=SfjEZ1+RjGbRvQCxVDdqjUPe3eBgYthj8mxprDxJNcrPL9I6l8/yEGrZe3kWlS3h7z8GpqEvz8fO/0nR0ICZxyXjphSIrUU/t5PXw73Uwi902Yx2hFOgTIxbIh6kV6sLkoBYiGo8gwChW8LCcMqyOuElP0AdRtkzvSXtJuX3U2ATcq9NtNy19TDYPuJKgaCDn6AXPEeicCZ7tlDzInd1puBzJL03CxjFOcWwmvIj5Raqeo5XqcjSdLwNfq+CDR128AFwF/0nuv6mhK0AloYhunfMaNm73W16q4ffjJ/PAalFqMnLNxDSd/lC5yPx5QH1QtO/mMf1Vin9t+ktKgxlpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m9wRsfbaB39T3kNhVxhW0tR+X1E2VRFQ/Ka2mmieJmM=;
- b=e5Mx0SsUuIPuZcCAqHuAPuE+LTOQto8KWSOk/8F6elGFxyMxywOhA1Ph3naH0T93KL3hrjNkmdG/YkuVQnjazEl/66IVFJlbPSvoKe7t+vko/1r/rdSQTskhIxPXgtPiWc6dg5AWwweMAf5JRxw1ZdQ1m2alQYAu5QprrjsELcE=
-Received: from SA1P222CA0072.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2c1::28)
- by SA3PR12MB7922.namprd12.prod.outlook.com (2603:10b6:806:314::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Fri, 24 Oct
- 2025 07:02:19 +0000
-Received: from SN1PEPF000252A2.namprd05.prod.outlook.com
- (2603:10b6:806:2c1:cafe::bb) by SA1P222CA0072.outlook.office365.com
- (2603:10b6:806:2c1::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.13 via Frontend Transport; Fri,
- 24 Oct 2025 07:02:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000252A2.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9253.7 via Frontend Transport; Fri, 24 Oct 2025 07:02:19 +0000
-Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 24 Oct
- 2025 00:02:16 -0700
-From: Xiang Liu <xiang.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Stanley.Yang@amd.com>,
- <YiPeng.Chai@amd.com>, <KevinYang.Wang@amd.com>, <Lijo.Lazar@amd.com>, "Xiang
- Liu" <xiang.liu@amd.com>, Tao Zhou <tao.zhou1@amd.com>, Yang Wang
- <kevinyang.wang@amd.com>
-Subject: [PATCH v4] drm/amd/ras: Add CPER ring read for uniras
-Date: Fri, 24 Oct 2025 15:01:56 +0800
-Message-ID: <20251024070156.1501326-1-xiang.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF3E410E938
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 17:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761240265; x=1792776265;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=EONubYqN9mgVYQKzmqacdfnpXC1cir+Pfzg+6xUIhTg=;
+ b=BDLWOjMTNzD8IbJ9wMNmJKjH7DrmYB8wBBnG4kKdMSBd6UU6ZTldvKkB
+ d3QpokkuE5NZs7SAYhOtuPLaitQN66jJTk2Il+Sif7Jot9b2uMTEED725
+ reE1hon8gea6NtZnAG4Hi1We8waSLJo80RQcdzIGGh9zwQ3r6kSD7+3Vr
+ f9NlHDmkPYIb8V1Df7f6dMpvkn5Hwm+iX27b88LtcWLl+02Nqkwj7bT/U
+ OQ8oDUPS8AQmJ0PMKg3bcrcNn7XAIPwPLRRYAYmbp4z5UMT0iXwPzNVYi
+ csbs/XL91UD8f0ACgc79G0Tax8VoIgILwcb6/fPlTC6yRDp8QE2ZMrnMe Q==;
+X-CSE-ConnectionGUID: aHX1Lh7pSFmF2YGgI5leIw==
+X-CSE-MsgGUID: gEdm2v7gSumWKfaOu98pkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="67285828"
+X-IronPort-AV: E=Sophos;i="6.19,250,1754982000"; d="scan'208";a="67285828"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2025 10:24:10 -0700
+X-CSE-ConnectionGUID: hlYtlqUZT3qdu7U/4VxPrw==
+X-CSE-MsgGUID: XTKqdRjDQSCE6ukcL1N9Ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,250,1754982000"; d="scan'208";a="184285220"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.225])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2025 10:24:07 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 23 Oct 2025 20:24:02 +0300 (EEST)
+To: =?ISO-8859-15?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>
+cc: linux-pci@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
+ Lorenzo Pieralisi <lorenzo.pieralisi@linaro.org>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>, 
+ D Scott Phillips <scott@os.amperecomputing.com>
+Subject: Re: 2499f53 (PCI: Rework optional resource handling) regression with
+ AMDGPU on Arm AVA platform
+In-Reply-To: <874irqop6b.fsf@draig.linaro.org>
+Message-ID: <6a8559ea-1528-f09c-21c1-822e8d7569d2@linux.intel.com>
+References: <874irqop6b.fsf@draig.linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A2:EE_|SA3PR12MB7922:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5b1c732-7e89-4516-9f3b-08de12cb45bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?j0KpNXZVvwPryS9099iLwkdJUlxDLFocfgwVOlDezsyuggon0GInPSfmiB9J?=
- =?us-ascii?Q?F4gC8a03iBrCzp13JWLRLLZSwIfyCC/Le1tWtEqgMuok2moQE9yUh1XDeqBQ?=
- =?us-ascii?Q?K7PCJ8kTSs5GbsUgsJT85L8Wq9TComTz2+AfZy0jFak9bI7IZ8FaWJD6R2sU?=
- =?us-ascii?Q?VIJaxM5vjigZu9YKnYAtSJuyCyHCDrt4VOQWED7VwkiFZf88oW4Gz4rECFHY?=
- =?us-ascii?Q?5MdNU/82RK8Y/NnQAhDZ8HOAmKbO4b3ZaiFEiHZBAO0HbrR4UGQVNHt9UV9I?=
- =?us-ascii?Q?wymgvw5nUgNrbB7h7+ufe2I7RF4eE0LMaUxfzkwHGSbTvjc4BL1++5I071Dq?=
- =?us-ascii?Q?/NDy67I6IPjxMdQc5uVtaf79Vh/A/HN7ytDJx8+HMpmhoq7zANSzPXUja02b?=
- =?us-ascii?Q?Dz/Gf/DZWztAgouOPXFih7L8ULwcA12aSYdKKeBZ6FfGhwaqZiAZ1oTH44BL?=
- =?us-ascii?Q?wadMRemfgwnsppVaod36Hd91PYT/pxEzmaun8W6qhH6r6HT8jRuQWv63kQ73?=
- =?us-ascii?Q?EyhQ8yOIxyGMXcb29kTW9v6Kp3BsOCZLXCy/Gdi6J683YuarYVMVT5M9+C+L?=
- =?us-ascii?Q?EtPaaZuzwb3/5T8dLfYMysrJkr872qwveVEoS/FF7Iu3xHavxE+h5kcGaxHQ?=
- =?us-ascii?Q?aw2HunRi1xG3Ua/LOOnX/G0qu6Yc122Nlx1HyOO1MdhEaTmQU+F+PCOZpXD2?=
- =?us-ascii?Q?yXpQ7OIex2bF6wSXIa6korxrfaCSEJcUTVgYamT/AfYJTHbktypQ2hGSbhQx?=
- =?us-ascii?Q?nDJUxmTn1lPwmmMqBzlCxuuIeo7xZXGrYHRIhOgRY9H/CTlbeUNkwnPp1MoM?=
- =?us-ascii?Q?KFWlMuvNUWy2CmwfxjGS2qdBK3fwzF22KD9K2+SsZWRoMCJsNRPs3Kyg+JzB?=
- =?us-ascii?Q?Am2hfAExpwvhMDLErNQGn9D/lMc8HWS7E6d88MZTSIdDxJc0vAt4AbPwpq8R?=
- =?us-ascii?Q?Myo06Oa3TlQOgqYFwk2f4+Fh+IfnS/+kfnHUPVtrK/W+gGsoMgmacShzolDN?=
- =?us-ascii?Q?0TKxK3jF3zXg8syOrBYJsaNmyT24SSyuoktUp2fksJF9CLh0hInA8HZuWc14?=
- =?us-ascii?Q?2s9q43yeZaodK25SfnAfcHc1V4nL1EwdU+0BEPxnrPT9ri2cm4ERjZfbfyR1?=
- =?us-ascii?Q?520QNx+Ub33iH9dNFMQ1Ybspl8nxHGkxqnxwdqsri6MbBoBWcCHSt8sMXrWI?=
- =?us-ascii?Q?2UIdUUgDBpMwPTq36f8dTFnwGkq90xER4Ai5dhhgqi5t2SzR086XaaA0oOP1?=
- =?us-ascii?Q?+Y72MJ+Gk/FM3mEfRq/gkle+HDqYkR+TSujkRElJ2fCglk7flRuOP6TAIkmc?=
- =?us-ascii?Q?ozl369eFDR5xwqB5RuB1sw5j1/uoDDFGgIDumskQrLsuFVlf3GTgqjv9Zw4C?=
- =?us-ascii?Q?qlJw9UotzGVBjGKzeLL5U2rLb8rvRiFw+W3EeUJUK9iIwoCc+UMzwiElAdVP?=
- =?us-ascii?Q?l/DN/GIMQCCjMur/M3md45bw+TKrIFizcrESK2KNZaKuxTjGbcbeQAR/tuv1?=
- =?us-ascii?Q?udoYQtNJNqXSR8XUH1esBL6s4kbqHHFJzahAt1GGrBlFPNI/ttXndIXECAvs?=
- =?us-ascii?Q?rBwC5H+i+YLRn7idJpY=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2025 07:02:19.0190 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5b1c732-7e89-4516-9f3b-08de12cb45bc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7922
+Content-Type: multipart/mixed; BOUNDARY="8323328-887458716-1761237511=:1016"
+Content-ID: <37b6cf55-ac82-9b0a-ec20-63d7358bc7d1@linux.intel.com>
+X-Mailman-Approved-At: Fri, 24 Oct 2025 07:21:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,120 +74,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Read CPER raw data from debugfs node "/sys/kernel/debug/dri/*/
-amdgpu_ring_cper".
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      | 58 +++++++++++++++++++
- 3 files changed, 61 insertions(+), 1 deletion(-)
+--8323328-887458716-1761237511=:1016
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <ac8953db-16c8-44e9-1cb8-85cac05d18f8@linux.intel.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 603cc155fd9b..66ccd31f1e8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -110,6 +110,7 @@
- #include "amdgpu_mca.h"
- #include "amdgpu_aca.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_ras_mgr.h"
- #include "amdgpu_cper.h"
- #include "amdgpu_xcp.h"
- #include "amdgpu_seq64.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 5a7bf0661dbf..011fa4748084 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -770,7 +770,8 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eeprom_control *control)
- 			"Saved bad pages %d reaches threshold value %d\n",
- 			control->ras_num_bad_pages, ras->bad_page_cnt_threshold);
- 
--		if (adev->cper.enabled && amdgpu_cper_generate_bp_threshold_record(adev))
-+		if (adev->cper.enabled && !amdgpu_uniras_enabled(adev) &&
-+		    amdgpu_cper_generate_bp_threshold_record(adev))
- 			dev_warn(adev->dev, "fail to generate bad page threshold cper records\n");
- 
- 		if ((amdgpu_bad_page_threshold != -1) &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index f26002b25de4..47488ea22c49 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -491,6 +491,61 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring, unsigned int vmid,
-  */
- #if defined(CONFIG_DEBUG_FS)
- 
-+static ssize_t amdgpu_ras_cper_debugfs_read(struct file *f, char __user *buf,
-+					    size_t size, loff_t *offset)
-+{
-+	const uint8_t ring_header_size = 12;
-+	struct amdgpu_ring *ring = file_inode(f)->i_private;
-+	struct ras_cmd_cper_snapshot_req *snapshot_req __free(kfree) =
-+		kzalloc(sizeof(struct ras_cmd_cper_snapshot_req), GFP_KERNEL);
-+	struct ras_cmd_cper_snapshot_rsp *snapshot_rsp __free(kfree) =
-+		kzalloc(sizeof(struct ras_cmd_cper_snapshot_rsp), GFP_KERNEL);
-+	struct ras_cmd_cper_record_req *record_req __free(kfree) =
-+		kzalloc(sizeof(struct ras_cmd_cper_record_req), GFP_KERNEL);
-+	struct ras_cmd_cper_record_rsp *record_rsp __free(kfree) =
-+		kzalloc(sizeof(struct ras_cmd_cper_record_rsp), GFP_KERNEL);
-+	uint8_t *ring_header __free(kfree) =
-+		kzalloc(ring_header_size, GFP_KERNEL);
-+	uint32_t total_cper_num;
-+	uint64_t start_cper_id;
-+	int r;
-+
-+	if (!snapshot_req || !snapshot_rsp || !record_req || !record_rsp ||
-+	    !ring_header)
-+		return -ENOMEM;
-+
-+	if (!(*offset)) {
-+		if (copy_to_user(buf, ring_header, ring_header_size))
-+			return -EFAULT;
-+		buf += ring_header_size;
-+	}
-+
-+	r = amdgpu_ras_mgr_handle_ras_cmd(ring->adev,
-+					  RAS_CMD__GET_CPER_SNAPSHOT,
-+					  snapshot_req, sizeof(struct ras_cmd_cper_snapshot_req),
-+					  snapshot_rsp, sizeof(struct ras_cmd_cper_snapshot_rsp));
-+	if (r || !snapshot_rsp->total_cper_num)
-+		return r;
-+
-+	start_cper_id = snapshot_rsp->start_cper_id;
-+	total_cper_num = snapshot_rsp->total_cper_num;
-+
-+	record_req->buf_ptr = (uint64_t)(uintptr_t)buf;
-+	record_req->buf_size = size;
-+	record_req->cper_start_id = start_cper_id + *offset;
-+	record_req->cper_num = total_cper_num;
-+	r = amdgpu_ras_mgr_handle_ras_cmd(ring->adev, RAS_CMD__GET_CPER_RECORD,
-+					  record_req, sizeof(struct ras_cmd_cper_record_req),
-+					  record_rsp, sizeof(struct ras_cmd_cper_record_rsp));
-+	if (r)
-+		return r;
-+
-+	r = *offset ? record_rsp->real_data_size : record_rsp->real_data_size + ring_header_size;
-+	(*offset) += record_rsp->real_cper_num;
-+
-+	return r;
-+}
-+
- /* Layout of file is 12 bytes consisting of
-  * - rptr
-  * - wptr
-@@ -507,6 +562,9 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 	loff_t i;
- 	int r;
- 
-+	if (ring->funcs->type == AMDGPU_RING_TYPE_CPER && amdgpu_uniras_enabled(ring->adev))
-+		return amdgpu_ras_cper_debugfs_read(f, buf, size, pos);
-+
- 	if (*pos & 3 || size & 3)
- 		return -EINVAL;
- 
--- 
-2.34.1
+On Wed, 22 Oct 2025, Alex Benn=E9e wrote:
 
+> I've been tracking a regression on my Arm64 (Altra) AVA platform between
+> 6.14 and 6.15. It looks like the rework commit broke the ability of the
+> amdgpu driver to resize it's bar, resulting in an SError and failure to
+> boot:
+>=20
+>   [   15.348097] amdgpu 000d:03:00.0: amdgpu: detected ip block number 8 =
+<vcn_v4_0>
+>   [   15.355901] amdgpu 000d:03:00.0: amdgpu: detected ip block number 9 =
+<jpeg_v4_0>
+>   [   15.363202] amdgpu 000d:03:00.0: amdgpu: detected ip block number 10=
+ <mes_v11_0>
+>   [   15.384163] amdgpu 000d:03:00.0: amdgpu: Fetched VBIOS from ROM BAR
+>   [   15.390434] amdgpu: ATOM BIOS: 113-4481LHS-UC1
+>   [   15.400079] amdgpu 000d:03:00.0: amdgpu: CP RS64 enable
+>   [   15.411830] amdgpu 000d:03:00.0: amdgpu: Trusted Memory Zone (TMZ) f=
+eature not supported
+>   [   15.419932] amdgpu 000d:03:00.0: amdgpu: PCIE atomic ops is not supp=
+orted
+>   [   15.426719] [drm] GPU posting now...
+>   [   15.430329] [drm] vm size is 262144 GB, 4 levels, block size is 9-bi=
+t, fragment size is 9-bit
+>   [   15.438871] amdgpu 000d:03:00.0: BAR 2 [mem 0x340010000000-0x3400101=
+fffff 64bit pref]: releasing
+>   [   15.447648] amdgpu 000d:03:00.0: BAR 0 [mem 0x340000000000-0x34000ff=
+fffff 64bit pref]: releasing
+>   [   15.456452] pcieport 000d:02:00.0: bridge window [mem 0x340000000000=
+-0x340017ffffff 64bit pref]: releasing
+>   [   15.466095] pcieport 000d:01:00.0: bridge window [mem 0x340000000000=
+-0x340017ffffff 64bit pref]: releasing
+>   [   15.475738] pcieport 000d:00:01.0: bridge window [mem 0x340000000000=
+-0x340017ffffff 64bit pref]: releasing
+>   [   15.485386] pcieport 000d:00:01.0: bridge window [io  0x1000-0x0fff]=
+ to [bus 01-03] add_size 1000
+>   [   15.494252] pcieport 000d:00:01.0: bridge window [mem 0x340000000000=
+-0x3402ffffffff 64bit pref]: assigned
+>   [   15.503809] pcieport 000d:00:01.0: bridge window [io  size 0x1000]: =
+can't assign; no space
+>   [   15.512063] pcieport 000d:00:01.0: bridge window [io  size 0x1000]: =
+failed to assign
+>   [   15.519796] pcieport 000d:00:01.0: bridge window [io  size 0x1000]: =
+can't assign; no space
+>   [   15.528049] pcieport 000d:00:01.0: bridge window [io  size 0x1000]: =
+failed to assign
+>   [   15.535787] pcieport 000d:01:00.0: bridge window [mem 0x340000000000=
+-0x3402ffffffff 64bit pref]: assigned
+>   [   15.545349] pcieport 000d:02:00.0: bridge window [mem 0x340000000000=
+-0x3402ffffffff 64bit pref]: assigned
+>   [   15.554911] amdgpu 000d:03:00.0: BAR 0 [mem 0x340000000000-0x3401fff=
+fffff 64bit pref]: assigned
+>   [   15.563612] amdgpu 000d:03:00.0: BAR 2 [mem 0x340200000000-0x3402001=
+fffff 64bit pref]: assigned
+>   [   15.572313] pcieport 000d:00:01.0: PCI bridge to [bus 01-03]
+>   [   15.577962] pcieport 000d:00:01.0:   bridge window [mem 0x50000000-0=
+x502fffff]
+>   [   15.585175] pcieport 000d:00:01.0:   bridge window [mem 0x3400000000=
+00-0x3402ffffffff 64bit pref]
+>   [   15.594038] pcieport 000d:00:01.0: bridge window [mem 0x340000000000=
+-0x340017ffffff 64bit pref]: can't claim; address conflict with PCI Bus 000=
+d:01 [mem 0x340000000000-0x340017ffffff 64bit pref]
+>=20
+> Failure to claim space for the bridge window...
+
+Thanks for the report.
+
+I was just looking at a similar oddity from another reporter and thanks=20
+this getting second case with an "impossible" claim conflict, I was=20
+finally able to zero in on a bug in the resize code which has been there=20
+since the introduction of the BAR resizing.
+
+It will take a few days for me to come up fixes that do address also the
+problems you'd likely hit next after this claim conflict bug is fixed.
+
+> >From discussions with Ard it seems if the firmware had resized the BAR f=
+irst,
+> and then assigned the resources, there would be no issue. However there
+> is no latter firmware for the platform.
+
+We want to make kernel capable of considering BARs with their maximum=20
+sizes eventually so it wouldn't matter what FW does. I've been working=20
+towards that direction for a while now but I keep getting distracted by=20
+fixing all these other bugs in the existing code. :-)
+
+> While the PCI change has provoked this regression I suspect the amdgpu co=
+de
+> could handle the failure to resize the BAR better and if it can't get
+> what it wants just not initialise the driver. I did hit some cases while
+> bisecting where the GPU just wasn't visible.
+
+Indeed, things could be better on multiple levels.
+
+Also the entire pci_resize_resource() API is flawed in that it isn't=20
+currently able to restore all device's resources as they were in case of a=
+=20
+failure. It seems I might have to fix it now as there seem no other way to=
+=20
+fix this claim conflict problem.
+
+=2E..And fix will be a bit invasive as I need to merge=20
+pbus_reassign_bridge_resources() and pci_resize_resource() into a new
+pci_release_and_resize_resource() API that handles rollback properly
+in case of an error.
+
+> I'm available to test patches and generate additional debug info so do
+> let me know if there is anything I can do to help.
+
+Thanks, I'll send the fix series for testing once it is ready.
+
+--
+ i.
+--8323328-887458716-1761237511=:1016--
