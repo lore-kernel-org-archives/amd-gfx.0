@@ -4,153 +4,178 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 239E6CCD193
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 21:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 707F9CCF9E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 22:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9459410E95C;
-	Thu, 23 Oct 2025 21:44:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1BC110E96A;
+	Thu, 23 Oct 2025 22:02:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qB1AOmmp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WiYdzLC5";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012019.outbound.protection.outlook.com [52.101.43.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B752B10E95C
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 21:44:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA22510E965;
+ Thu, 23 Oct 2025 22:02:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761256970; x=1792792970;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=mWNiPMndKjsF0yFOCmbMRvAh3+tf1nNOKFT7/7VLwnc=;
+ b=WiYdzLC5ABUvXinnoAAClZdK5D/NWXFI6wjXmmtQ4QHqyVqAkISRMrOS
+ QeF0Qr82Z0ypx7+oUS9t60m5IykTW5zg/9hC1GdRL+VZgwQ4LoJsUtwuB
+ hJJrUzO9h7NbTivigqQCxQ2qZCmhGy5JxaFg6b3KT5l1uXAa62+qUylUA
+ U+DHMHusZODIzHkIYzIuN+35WtQhSh4/oTX0vs0xVo24MAuPJGqj9KNfT
+ WRx2SFO1bHek22zx+8fo1omEyH12c2EETUrYtRCwj0CCVyLFjIyjoT2Hb
+ VLP29nkepWqoI8LVHr56NwcnbgDW5OyoZNnZ++490i02yE1YKdqHd8LLQ A==;
+X-CSE-ConnectionGUID: U6X1lR3TQ1GZi8LOBUSIVg==
+X-CSE-MsgGUID: v9iFkYo5RtSy3IPvNvSp7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="80874890"
+X-IronPort-AV: E=Sophos;i="6.19,250,1754982000"; d="scan'208";a="80874890"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2025 15:02:50 -0700
+X-CSE-ConnectionGUID: mvt1mqYfTXypcik/RKtbJw==
+X-CSE-MsgGUID: IBO0tliGRAmBXv+HP6MoFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,250,1754982000"; d="scan'208";a="184750195"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2025 15:02:49 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Thu, 23 Oct 2025 15:02:48 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27 via Frontend Transport; Thu, 23 Oct 2025 15:02:48 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.57) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Thu, 23 Oct 2025 15:02:48 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zOTrSy3BfVqReDqtK9cPIuO5GV+sOFzQ4WfXunamK2AY7gA344BZDGQqGHZrKg4uVDP/mkmWwgXsdKkGY2d8seVraHxkE/LTaGXDVVW8fyJaj5xQBa5CNjdto9dARavQ6guEmB9mAtg3xA7FkHJNncqEEi+8GeLBSa7pVX07YZPLgltv6WTPoEZet3d8wwBr04SHQSR+o4TKDV+qO4TpgY/SeXgzNX816tgN2HxA/uxtMyMFo1d/lr3A5wGZcKBr1jZC2DKHjp4Y/UcUt3q5DkZ0FFD/6vxtVAjjvThoE/1FS27lH5Sk75ZNIh22D/QuUWfEQPPaLVD99Sx83tfsZg==
+ b=vLfnsm7cHW66Ngd4fBBEXgfgQceGds2kvSBU1Y8E+eMg8NjovuU8+aSz+BiFWdlDERzZ97PJSKtP8rwNiiaeqMkPON9P9IBOn2t7kgmcgSMZX+0yY1Jo3ONJJTNUw/FaJuhaXnXJJIwFyyQAOMUMs+vhK/GAhJ3tUoPIhF65aelac5dsURQaEk6FD3Qy6C8dbRwQ3vmWEPx99Bn/qgmeaiEt/DmzJk8MtQbmEPOJ+8diFwXuwviryz/gYHSedWiDLzg0TlheJZcL9tgh86C0djAW/LnHVQfSLV5EX94qUWnTV4BiNulWydNXhjBzmwUKik+one99AwvVgbZvPpg6/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6k9OJq1nr0k26N3z9ug2LRSMZ5yLAKm5G7Sj7tlnZ4A=;
- b=ITOc7yRcxooFyPs5jS4l7DFqkFwkOAIgn1jYotHSkHXWio+4eTFLgYb4rxFZkiBQZbHebNcxA5IFxqyz+T/U9LZjmJdvMY5LD5t4ZeOOuqijE3qX9GR6IqJfrVCao822vjILKpIfcylojNzbk7x2UewGf9ung1i7gFkiB2Gtd7/67YqMM6u3c7iki2PpKkJLuqbGvLo0pX2On0OaZmJh3Fg1Ttx0FQpwYu4EPbGy25V1qvtMYdIacDrkwlyInHw19qY7UlDL+/SIjMCZJf+l8OwZEgcDo3t/jMyEXgsfjv1fRXVuVC2Z5xoIn8U1fOl3u44DESoF4fPJ6hYLaVng3A==
+ bh=DMW6SaO0TKCGeN+8YLK1C8n86HbCa1CbsMO1fQYZsW4=;
+ b=Ed8mO8khJllUX2ooDKNuqDe79NF5jEHm5grySCHOT/Kb0Sj/w7KuCfsT7x2bIo6sWME2vgSPKfXk0e3YkKDD+JWjTkumafAMK9YdJHmTwOrjC1/CPLP/im1c8p8C3/z45Nm38HxvUDGbX0AmSsOwDJsmgAXlNMVd5m0XIMncLCOrQwDRbXLz5FzGZNjJiyMkAyngXqxcvWK+Vc7k/FGvNc2CsbXTEkthsi1E+hdTfzzjuD4XUdCss+Z9ZXkN2NXyx5ZbQlQe3MTQ0O6uMp0wkxBd9l1ETOQFsRXg9RXh4gUQ6c8NaPQ+zzvI/mSIghttZDBD+q8dv5Y0FjsTUNmIHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6k9OJq1nr0k26N3z9ug2LRSMZ5yLAKm5G7Sj7tlnZ4A=;
- b=qB1AOmmpyBi1FUGIXEbW17hoRG/TFiOvKU1/fENETPaGVsnwxiZvEwIWhc+jsVx3Nay9JFmaNpckt9igD5HvXgcagAwDg0E8sPP6bmgTrIm6ryKRR9DTsL5PfhtqrhAucXwywqoPwo4Pyl1pSlVWdBhmhWvHU1Q3+9afMDrw0wY=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- IA0PR12MB8748.namprd12.prod.outlook.com (2603:10b6:208:482::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.12; Thu, 23 Oct
- 2025 21:44:33 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.9253.011; Thu, 23 Oct 2025
- 21:44:33 +0000
-Message-ID: <415952ac-b666-43d7-a8cc-c0081c8bc911@amd.com>
-Date: Thu, 23 Oct 2025 16:44:32 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdkfd: Fix use-after-free of HMM range in
- svm_range_validate_and_map()
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Philip Yang <Philip.Yang@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>
-References: <20251022142529.247778-1-srinivasan.shanmugam@amd.com>
- <20251023143443.277108-1-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20251023143443.277108-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com (2603:10b6:930:29::17)
+ by PH3PPFFA27DACA6.namprd11.prod.outlook.com (2603:10b6:518:1::d63)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Thu, 23 Oct
+ 2025 22:02:46 +0000
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::7141:316f:77a0:9c44]) by CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::7141:316f:77a0:9c44%6]) with mapi id 15.20.9253.011; Thu, 23 Oct 2025
+ 22:02:46 +0000
+Date: Thu, 23 Oct 2025 17:02:42 -0500
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+CC: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ <linux-pci@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
+ =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>, Christian =?utf-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, =?utf-8?Q?Micha=C5=82?= Winiarski
+ <michal.winiarski@intel.com>, Alex Deucher <alexander.deucher@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@gmail.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, "Michael J . Ruhl" <mjruhl@habana.ai>, Andi Shyti
+ <andi.shyti@linux.intel.com>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 00/11] PCI: Resizable BAR improvements
+Message-ID: <w35eozxuh3netnt5kdwuqp7bespytvsyn2smznlrcigjb24eeh@amk26j7ihnpl>
+References: <20251022133331.4357-1-ilpo.jarvinen@linux.intel.com>
+ <20251023212943.GA1323026@bhelgaas>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9P221CA0028.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:806:25::33) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+In-Reply-To: <20251023212943.GA1323026@bhelgaas>
+X-ClientProxiedBy: BY1P220CA0026.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5c3::17) To CY5PR11MB6139.namprd11.prod.outlook.com
+ (2603:10b6:930:29::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|IA0PR12MB8748:EE_
-X-MS-Office365-Filtering-Correlation-Id: 292f81fb-417e-41de-f7d3-08de127d5aa2
+X-MS-TrafficTypeDiagnostic: CY5PR11MB6139:EE_|PH3PPFFA27DACA6:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ca525ed-bc2c-4421-b475-08de127fe5c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SnZaTG5yMEREL1FJcGhhd0tSTnpsRFhGS0VTOXlxdTcyWFRlMDRpQ2xpQUNl?=
- =?utf-8?B?KzJNbHdvbEhadlk5NmV5TlE2aWtYRXdOVHpVSGEvemxoa0ZYQUxJZkdaajJW?=
- =?utf-8?B?UzhNaXpVZkdUKzVmZjBYUTM1VXQxdTl3VFlob2h3a09uVG5zUzVDa3Q4UmZM?=
- =?utf-8?B?d01SSkFNUk9ISVlvKzRNRC9rQ1ZCRmExOW1rZHMzREVzQ1VPWVE1SytCbnFp?=
- =?utf-8?B?Vm5NUTBTMUVTb1dTYjdwcTBHeUtaK1Npd0lRcW9qTGVyUk0xaG9JanhmSllr?=
- =?utf-8?B?QWUrZ2JBSkJTMitqdkplNFRXbTR0ZTd5aHJvNDBVTStROThyK0FGU2lFYnJQ?=
- =?utf-8?B?VE9VQXBsQWJ2alQwTWhNcEtiMm1nd0FmcEtzRG5Ld20zVTVCY05XQWlUZFBv?=
- =?utf-8?B?Rkw1eXFqbjMwOUtJTFpGY205QkJJdExqUElPUDM0M2ZWclFKcUQ2ZThNYTZP?=
- =?utf-8?B?YmRtdXdZb1RVZUVKZ1VjaHZYeGlrZlJiODA3SWJTVThKN0ZpY1l3OHBZMlhP?=
- =?utf-8?B?cGxHK2M0b0JSaWZOU21wcUNjc2lRME1oVGRGUXBqTGhzc1VsNE5GRFNlUWx6?=
- =?utf-8?B?cGwyMHBkOGlSa05qSUlUQ0xkc0ZCVjM5dFZnbUJpY0c3UWtuZGUxM0xjYTk0?=
- =?utf-8?B?N2l4eDIzODVienF3MW1UbVI3R2J0UGdVTkN4amVzalhmMUhSMjEwTENTMWor?=
- =?utf-8?B?N2FkQldGdUFzajBGd0tOelFtelRWMnVtNTJRbFlRaTVJdEFFOUJramM3OENw?=
- =?utf-8?B?M0FSNTJNM2RqY1NtN24zSDFvVjZycU96SXZPNGg4NzdwdlBRV0ZRWlpUWnM3?=
- =?utf-8?B?anppMTgrM0hlT0JzblFmVHIxZEtGdVZKaWxmaDBab3V4RFVHMGdqS3pzN1Vx?=
- =?utf-8?B?WXVuWWNsWnJRVlFYL2gzNk1TNXEreFNUSldvQ0k0TjVLendqLzFBTlpaMi9F?=
- =?utf-8?B?SFdwaUNKN3hOdGRGbjZwZHFQTHp0Tk05bHp0SllDNGp0N1JWOG5SVTdtWXJ2?=
- =?utf-8?B?SXV0VWlEY3k4bEUxL0hyT3Jod3hQRFVlYkJzTVlmWlB4VytqNzRyajY0VzRz?=
- =?utf-8?B?WlZTakdRUlVJbU9LMnhYZlpDYnNYcXdFQzhYdno0UHc3c1RZR2M2NklsTExw?=
- =?utf-8?B?VDBZV3pHUW9LRGZySVVXYjBXVFkzbk1GMkRKSGZLUWtnQ1UxdCtVVjRxaEpK?=
- =?utf-8?B?a3RvbjB3R1BkbFZvbHcyNkUzS1hPL3FYK29KaXI2S043TEtXcWIrbUMySDU3?=
- =?utf-8?B?emZyQU4rRWgvVzUyaXVHTWtPNFd3V2NCUUZjL2NINE5la3d0UUFDMEFJSFhm?=
- =?utf-8?B?L1lsZmdRREpvckZUcDFYNGVLdWlqSWZUenlRL0xGOUllbURmVDBWMVppL1RR?=
- =?utf-8?B?ODFyYm90NUFudkhqdCthd3AzQmxxU1IreDVBanVaV3dqaXNaZ1dXMWF5UHBr?=
- =?utf-8?B?UmJxaTdyZURqUkVTT2ZiS2JDaHJNVUJaWVpZUWYrQ0JEWitiaGZUcDBJRjho?=
- =?utf-8?B?S0pQYXdPSDZEWDRHODdZZlJBbWNXUFBpanI0VytxMkhydmszalVVWXNPSjd2?=
- =?utf-8?B?U0g2K25hRzl2NjZ1cW1aM0hVNktDRFpnZE1qaHpZa2hhOWgrTDBucFRZRlNy?=
- =?utf-8?B?anN3ZlpTNTIyMHh0NU9ObzlFOW14dWtZSjQ4bGNSemhpZUNkdURjL3pUbkJM?=
- =?utf-8?B?R3dNSG0yNGZjczVNK1E2UG4vbXpVaG4zNjhQT3pCY21zQS96SU55amZVNEE0?=
- =?utf-8?B?NTl1RWRudjBrNXNXV25kbjZ5UnBFVzRhMGN6ZU43VDU2Vkg5dlkzVWkvWjNh?=
- =?utf-8?B?MXVyVUppdldkeFU0T2ZUU3J3enN6dDlpS3dxckNkaFA4WENRUENMUDdtNVN2?=
- =?utf-8?B?dGtuaDRCa0pnNTRnZWlkRzZ6aGNNRWdQdjZtMWFKcEpxeDl6WWJKQzhCckpD?=
- =?utf-8?Q?kZVRZN0yjSuCHWFSY2a5FqavGejHzicv?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7416014;
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?wdTgsEkuNcC8WF24OhT3tc5mY9i0ZweCsSeGKaSaU1udgMbpxoLnXaJ10o?=
+ =?iso-8859-1?Q?nhJhQC8ZNyMI8uErMuqoJN2srHAm1/acygsQ85802NcEPxD+pvDQLbXEKr?=
+ =?iso-8859-1?Q?R4Bvn6jSgsqzDtycWOGwfYD6KHNUKDjjOluLkZAsCFGI+QjdyAa2voEfYC?=
+ =?iso-8859-1?Q?zENkcumZuTgEf5Z4W/ymUUcZEtPyAj61kDznbfFaxa7k6dzCQQv2mWpNLe?=
+ =?iso-8859-1?Q?qAA41vw20yACkeC5GM6MJfuyJ+ZfwV5TKvUdBRtxgyVR27G0T5oNSV8qtu?=
+ =?iso-8859-1?Q?wtJRWPmku1NtM95EmMFqxGs4iF814WDH3NY4gjEiIEtV73VaRdr4QrGhOd?=
+ =?iso-8859-1?Q?shs3bTbJhytJ0bqw4bpBtVv03wNkU2H64Pkz3IovPkE+37Hvgr/25W+MMo?=
+ =?iso-8859-1?Q?j4GyzSzebddAMMPR4sd0s2bhXw17/LrnLBJAIj8wHRnoSGj1JQUd6mFbcP?=
+ =?iso-8859-1?Q?Z6Wn8Lc78YgDwTXki2aXSsW66niADv0Cz3yyg1SgK41jjxrPmtanIe8W1b?=
+ =?iso-8859-1?Q?HRnExBb/swDn6+9LV+DpOwXrE8S65yR+HcfzVp+6BHBprj7NuNzFAWrjB6?=
+ =?iso-8859-1?Q?SteYtrWnVGO0xxOZBnu9A0BZGJoNR3U/I4UIzj24VpotNNrKDwby9R69sy?=
+ =?iso-8859-1?Q?f3PDDbfVKn3xIQ9gRCBxsctpGnLbd/cs+L5NYzqCCwbqegGy0p64TFJRGb?=
+ =?iso-8859-1?Q?h2ktx+W77PowcSsTT+lLOGuf71QuNedB8e67IDVDvW4uBWw34npamfYfa2?=
+ =?iso-8859-1?Q?beoheD7OBZd50oH+1tfsco4cdPu6CDVPXVRSfdsYtwN9wFQASzk50uuQm6?=
+ =?iso-8859-1?Q?EpHHdVaDUb1MHXiyDJPKdErgYD9OF7sYmJxI04s48vEbCtmgOh+Wbwg+SH?=
+ =?iso-8859-1?Q?SBcmHHRCx2jfUznD6CpD/mtmh9NZiBZdoV9RIYgTEptNNTtZuLj0nTExXD?=
+ =?iso-8859-1?Q?pdAn9udOPtjrgrJVk+cGwc1Lhh+o5UJoNBsQBxsjZ8cZ0IOmV23SqTgJnu?=
+ =?iso-8859-1?Q?mFq8/DLCaT0hmLmbvyDOz3QHgDGC5tHWKtTil/EHIxBkcqW2cfkQfk8pRa?=
+ =?iso-8859-1?Q?JasMWS8kY+NFIzVqkfOUz9qCx3COyBvv1bWx8QaT0/ZXK6rZZ8qgVzX931?=
+ =?iso-8859-1?Q?IUdWsJYhroFAuESlxhrotx+oxC62wtguY66NWEu2jbL+uqLySaVQUuaxDg?=
+ =?iso-8859-1?Q?FBtgAqKD4cYFB5NFfX3KZBIQ/PQevXE2vBG4vkfEvlB+Fc5DRsIRXoD0X0?=
+ =?iso-8859-1?Q?W6xNLmkZBmaumRmHgYd2wYVnA0wcxm9tV/H+dAPaY1rwWOLtBs63WUjhkm?=
+ =?iso-8859-1?Q?zWvvzX5U3DkER41pPIK9l/oithP7+XWi7BVdl2QQWPrGk0kmvpUliAnJDV?=
+ =?iso-8859-1?Q?TO24k//88yhmNYVfOsoh5452SsBCTyyxnQwrNYNOeiPSMVIjPUPrVH/AZ3?=
+ =?iso-8859-1?Q?2zlO0Qi9lcnIgsGxTnceld1mV2E5NH+wjYtqzzCAG9N0IOc/URHkWqUvOD?=
+ =?iso-8859-1?Q?/gqyB4LGMsAkvVSxmLII7zaChEAuTCzO3ibGlRQ2HkYQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CY5PR11MB6139.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7416014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjZIL2h3b2lYZnc3OWF5U1NqeEJDTjZIcytpMm9xOEYyL1c2TlRtdDl3Yk4w?=
- =?utf-8?B?eGFEZmpEMWdoZHBETlJBYWRrcmtCcDNtcklaRE82N2hWaElJcmttdURwd1Zi?=
- =?utf-8?B?eXJwbENSU3JVTFhjKytBZG55KzF3RFZYYVQ5a0tWY3lOeFh1NzdzTGdaS2Rn?=
- =?utf-8?B?NWc0WG5sOVlHbENkSjNNYXpKR0wwd1U3c1p3cFNUNFRtbzExczJKUS9JMGdF?=
- =?utf-8?B?ZmQ1eFdNRE1PY1h0T0dzSmFVVnB3Tm14dTUzYytILzk1eW85dHpwdUNDOFRC?=
- =?utf-8?B?YVEzNmJ1cVYvbml0VlRmS1FuS2lQY3NJVmV3YlVMMkZrU0w2N1laSHF0Lyt0?=
- =?utf-8?B?UUNjSmhQMjhNbk9mMTFaZjBtWTJoVDVVMXh1dXRmakN2aU1OejZDSTB5WktS?=
- =?utf-8?B?NEdoOXVMRER2bUw5V1h3MXk2blE0TnhZNjI5ZXFQUjBhM01rckU1bEp4eTRY?=
- =?utf-8?B?R1dtZjBPM0NPRUVPL0Zta2ZabDkrUnFMYWNEaFMxZmY5eTZKelhMa0djT3Jy?=
- =?utf-8?B?L3JMMXQ2b3VqWTVxMFBlUlJ6QTlhNGhjOWxjWG1Bd0xkNUY3UlM2MzEyaTdN?=
- =?utf-8?B?eVZvREExQksxcHJwaG5MNjhPbHIwY3kzU09tVGo3dW12VmlBZVNLZ3krSkMr?=
- =?utf-8?B?RFpSdSticVl4TC83a01GaVUwVXRkbzdHOXgvZ3pTSWl6RnFwdVozcW1XTEhC?=
- =?utf-8?B?Qk11ckVWNVVYOVFkZ1lEWUdpZjNLWFRMQklNMHhyalhlRzBaNXVEOTNuaGJy?=
- =?utf-8?B?M3RvSjdaaXpiK25pMEk3TG5xSS80ZXk5UjZXMlg5L2FlTDdqYXUzc1J0YmRW?=
- =?utf-8?B?Q2ZNVlN2ZVVyelliL0NndWNSQ1g2VkYyeGlhMXh1Y05uWW9VVDV2RVRwdEJx?=
- =?utf-8?B?QnZxTE94eHF2aTVlRXFvRmlmSGhtOWVvTTBIc04wa21CRVRhQ3hFRlJxZmdH?=
- =?utf-8?B?eDgvMWxZa2h3cDJRYmhqSFpXbjlITjlaektKWDkzd3NtUktwRFlUZGtrbDJ3?=
- =?utf-8?B?MEtTRHJLaG9vdUViZmVrQkpibUdDcG9JVCtkOWNEN3FGWXE1QmY0elRQNnBp?=
- =?utf-8?B?Uy9EY0tJNXBDOVd2SGNwWm1kNWprWHBjdFloQ1BzWVN1UCtRemh4MHdBYWFZ?=
- =?utf-8?B?ZVVzMVBJWHJSSEtBYkVOQnExdkREcVF4YkYwMG5JRk55c2xZTEM5TVJQeS8x?=
- =?utf-8?B?RUJkeDJXOWxHTWxyRTRycFd3RFdjZC9pamE5Nzg4Mi94MWZyVU9YdGJxV1Fi?=
- =?utf-8?B?OXloUVdkS2xHVkh6dXRqc0FMbTFLNUl4MEM0enZVanRRY0ZpNnpxcU5KL3l6?=
- =?utf-8?B?MVArM0VKTkJjcEZGbXBPQk43cEYzWWlFdi9qRGJSc0xWVFhoalFnWjNNajIy?=
- =?utf-8?B?amkxQlI4aG9yU2t5VzdGN1BZYk9ZNHhHNEtEaWNmckdac0Z3NWRuUkJoVWht?=
- =?utf-8?B?Q2xuNUZVcnA3a2U5ZzhuMXY1bVBGc2s1YVR3YUtSdzUyeGJwZlJCRzNkb1Ra?=
- =?utf-8?B?Ny9Ia3VVKzFZUGtzVXoxS3oxV0xHL1gzRXB5aFpSUzFsNTNyVTF1Wnk3NTRX?=
- =?utf-8?B?MExsejVMMFhONERFUHFScTRoTmlvSUZCUURuM245Qzc5YnBBR2Focm1PVUw5?=
- =?utf-8?B?cEJnbUo2emlZQnVsTmg1THRZdXppV25hUHV1d3pRL2k2VmZwZHJTeGxwOEFz?=
- =?utf-8?B?VXBCUG5zOWx3ZGhnWUg1STBuckZRaXZ3cFNvNHdJb1A3MlNIaHpqMnRUTHk2?=
- =?utf-8?B?eStFY1lpcW0vNWRqZS9rZi82Z09XL3YveDR2N0sySVlOYWpVZlZPV3pvR1Ra?=
- =?utf-8?B?c1R1OVA1OEE0Y0JYWmtDWEpYdG4ySEY0TXhhd3JQTEhaWW56aVhWRjkrd0ZS?=
- =?utf-8?B?ZytPWlBjc0cxb2VEai81YnZxSlk1ZWtXTk80Q0FNVzhKQzlCdmpmKzZUeDJa?=
- =?utf-8?B?UCtUSXMxVjNMWEtuTmU1b1Rybzc0L0JwR0RScE83ekhEUkR0VHAvc0tUVWo5?=
- =?utf-8?B?NkVzNXZuTVRFbEd2TEF0Q3E5QnFOcTNacmwyY0t6Zk0vRFczVkNaQUo1M0xz?=
- =?utf-8?B?Kzh1YXp2UEVtSTgxN21uWWw0QkQ4L01wRFNlTXpDSHhERkRpd0JpaTFtS2tF?=
- =?utf-8?Q?/LTo=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 292f81fb-417e-41de-f7d3-08de127d5aa2
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?xx8URrOg3v9/dxpVreVBGhBpM2Q6XVfIH/pMJEHd1yJuLbmJe1HBl1Gpg1?=
+ =?iso-8859-1?Q?27RZPfVGUqrZiJvfVIagWgAdnJV/nG0Mo58b8HJZm59aLYL86eh0LiTUyV?=
+ =?iso-8859-1?Q?Hv2qCBcxKYAh/69092Cg9jw1fvt4Wj32r9SnSGHbTmMvyBuVB7Rtb3icCX?=
+ =?iso-8859-1?Q?dbCkw9DvyohyJObVggqUBo643pPCZwbc7svCmxPm4Kb1IkbeOPRD825nE+?=
+ =?iso-8859-1?Q?KyMcGSmTSDw3uMBZupH7yxocmAgyziuJhL9telMQ2qKdxvyTmzIuDIeTOc?=
+ =?iso-8859-1?Q?/zzY4+DGa2DzT06OXSFr9YKYHTcSvqmakBE+qHbtc2jL7qA3s9W514dU09?=
+ =?iso-8859-1?Q?wuuPJSekvCi+EZEl1p52G9Z4eRak6l5P1enqokNZUWamvBZyDmgZRgkQR8?=
+ =?iso-8859-1?Q?4qdmRpjIyt6VESXviPb1o/HW5+RW2Nu7wLpIfKnL8sX7w/5/RadblPuyRY?=
+ =?iso-8859-1?Q?ta1oeqNWW7FSIGOo0lftoOJ2u1IGHBoZdB5Xp6MYor8L+MBsgGgyIxKJQB?=
+ =?iso-8859-1?Q?NlkgKHr7MRRyHVGEtO4BGNKn7FeyGuv62JIZPFYpyscuXwYYCpL3s8Jh9K?=
+ =?iso-8859-1?Q?OW82m2iKpUwpq2DAWVNFZUknr23+6jU9WgOk9xpvKiIsXG2E8mwyQWcBVl?=
+ =?iso-8859-1?Q?rttFb7xWePuX7roOVurCl0IxCd1dXan3moJUIl+Me3tAjIdCb0igcRYwk+?=
+ =?iso-8859-1?Q?4XGD7bLDz8KFxqDkz3xfTflCVJwdn8BFGZIwSKW/FMFor8f57nSWO3RFzu?=
+ =?iso-8859-1?Q?L6brDL0hhqugGbvI0dhCtik38Wtqi3pihhp7g3oogNEGF6dfcInCZIsKeu?=
+ =?iso-8859-1?Q?fKgYvm7C8KC6NO9ZkqNnzR6bKEN8keKYWalrk+jw+5r/cNbuSZzHsS0gjq?=
+ =?iso-8859-1?Q?XXhceGONg2NL2BmDOXThOvdGRqQFTpsTMQq9ojX+qQ3h/yS0wuhdae9T2G?=
+ =?iso-8859-1?Q?ucDHDmI8hjIzzF8bFj9mU1wJ/pA8vge0jylj0ncxRnKI7jqQ9tuzbKNpcy?=
+ =?iso-8859-1?Q?uctvN2okITgJEsrUnVzpj0qPURy/7EDiPU01mE8IY7FEZ4Km14xDeuV3rl?=
+ =?iso-8859-1?Q?NwtbZpNH379jHsprVR9MDwh11YZS/elVa2dXXTA6kClw3JW/X6ALQzDCtd?=
+ =?iso-8859-1?Q?eCucw/U8cZuDNDAwafRuWfuyaw/TpnHG5taT6Xdmq04i2Eyec86ei2C++V?=
+ =?iso-8859-1?Q?B5sYqPjVk5u0mGMtG7NW5YFvb8UEJ01BOgcQ8hCUsu2WMd1Dl30La6uZLZ?=
+ =?iso-8859-1?Q?wIx7rUEfc6E6dpQRHVkr7bAw1J/ICVcVtciHg0FDSVPOiu24oZHvhWzKAp?=
+ =?iso-8859-1?Q?14JBsVT1s4mF2aOuLvh+mqOVaHFCjiRK7yyGO0XhvlZtiDI3nMCkFpw+OO?=
+ =?iso-8859-1?Q?TLErWTJA1ksS0OCVd6WUhDVWS3eA8Ur+bZu2SLN3QL4jEh6Gw0XWDjtWLq?=
+ =?iso-8859-1?Q?y4z9MHDyuWw157bfvnkMdMDd62uYkY0IJIHteikRmGI0eG+4gOe0OLa+Yo?=
+ =?iso-8859-1?Q?X9O0Zy98mh5vSyH2WIiBqLXlggIsGlPXVKGnATcds+tFMU/3o+T2MfZpsc?=
+ =?iso-8859-1?Q?4xyC9m/148/2JU8DJwfu8BCaUaaRiY1igSn3FWfk36stg0ztNCMZJBRBnd?=
+ =?iso-8859-1?Q?+PcMkhbz63eCNr1HswMAK5E2EQWE/ULTeW2fq7Y0gZ/YBb4zHnck4kpA?=
+ =?iso-8859-1?Q?=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca525ed-bc2c-4421-b475-08de127fe5c9
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6139.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2025 21:44:33.6159 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2025 22:02:46.0155 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RmHybIt7kps3uV7QvscW+Sb0DRL5EI3I8jQv3rULNSty02ytUKqUZMAPKBzVp//M
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8748
+X-MS-Exchange-CrossTenant-UserPrincipalName: R4p6/TnUAdOQ2CF7I3BY9sCzuaWolzrFTyFgrTocO+Sja9yYuWWNFlI+8iu5LMLTri9760JqiE/Zw0jR8g/HYqXdYQoegOTNukW0LLhUhlA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFFA27DACA6
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,90 +190,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 10/23/2025 9:34 AM, Srinivasan Shanmugam wrote:
-> The function svm_range_validate_and_map() was freeing `range` when
-> amdgpu_hmm_range_get_pages() failed. But later, the code still used the
-> same `range` pointer and freed it again. This could cause a
-> use-after-free and double-free issue.
+On Thu, Oct 23, 2025 at 04:29:43PM -0500, Bjorn Helgaas wrote:
+>On Wed, Oct 22, 2025 at 04:33:20PM +0300, Ilpo Järvinen wrote:
+>> pci.c has been used as catch everything that doesn't fits elsewhere
+>> within PCI core and thus resizable BAR code has been placed there as
+>> well. Move Resizable BAR related code to a newly introduced rebar.c to
+>> reduce size of pci.c. After move, there are no pci_rebar_*() calls from
+>> pci.c indicating this is indeed well-defined subset of PCI core.
+>>
+>> Endpoint drivers perform Resizable BAR related operations which could
+>> well be performed by PCI core to simplify driver-side code. This
+>> series adds a few new API functions to that effect and converts the
+>> drivers to use the new APIs (in separate patches).
+>>
+>> While at it, also convert BAR sizes bitmask to u64 as PCIe spec already
+>> specifies more sizes than what will fit u32 to make the API typing more
+>> future-proof. The extra sizes beyond 128TB are not added at this point.
+>>
+>> Some parts of this are to be used by the resizable BAR changes into the
+>> resource fitting/assingment logic but these seem to stand on their own
+>> so sending these out now to reduce the size of the other patch series.
+>>
+>> v3:
+>> - Rebased to solve minor conflicts
+>>
+>> v2: https://lore.kernel.org/linux-pci/20250915091358.9203-1-ilpo.jarvinen@linux.intel.com/
+>> - Kerneldoc:
+>>   - Improve formatting of errno returns
+>>   - Open "ctrl" -> "control"
+>>   - Removed mislead "bit" words (when referring to BAR size)
+>>   - Rewrote pci_rebar_get_possible_sizes() kernel doc to not claim the
+>>     returned bitmask is defined in PCIe spec as the capability bits now
+>>     span across two registers in the spec and are not continuous (we
+>>     don't support the second block of bits yet, but this API is expected
+>>     to return the bits without the hole so it will not be matching with
+>>     the spec layout).
+>> - Dropped superfluous zero check from pci_rebar_size_supported()
+>> - Small improvement to changelog of patch 7
+>>
+>> Ilpo Järvinen (11):
+>>   PCI: Move Resizable BAR code into rebar.c
+>>   PCI: Cleanup pci_rebar_bytes_to_size() and move into rebar.c
+>>   PCI: Move pci_rebar_size_to_bytes() and export it
+>>   PCI: Improve Resizable BAR functions kernel doc
+>>   PCI: Add pci_rebar_size_supported() helper
+>>   drm/i915/gt: Use pci_rebar_size_supported()
+>>   drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
+>>   PCI: Add pci_rebar_get_max_size()
+>>   drm/xe/vram: Use pci_rebar_get_max_size()
+>>   drm/amdgpu: Use pci_rebar_get_max_size()
+>>   PCI: Convert BAR sizes bitmasks to u64
+>>
+>>  Documentation/driver-api/pci/pci.rst        |   3 +
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   8 +-
+>>  drivers/gpu/drm/i915/gt/intel_region_lmem.c |  10 +-
+>>  drivers/gpu/drm/xe/xe_vram.c                |  32 +-
+>>  drivers/pci/Makefile                        |   2 +-
+>>  drivers/pci/iov.c                           |   9 +-
+>>  drivers/pci/pci-sysfs.c                     |   2 +-
+>>  drivers/pci/pci.c                           | 145 ---------
+>>  drivers/pci/pci.h                           |   5 +-
+>>  drivers/pci/rebar.c                         | 314 ++++++++++++++++++++
+>>  drivers/pci/setup-res.c                     |  78 -----
+>>  include/linux/pci.h                         |  15 +-
+>>  12 files changed, 350 insertions(+), 273 deletions(-)
+>>  create mode 100644 drivers/pci/rebar.c
 >
-> The fix sets `range = NULL` right after it is freed and checks for
-> `range` before using or freeing it again.
->
-> v2: Removed duplicate !r check in the condition for clarity.
->
-> v3: In amdgpu_hmm_range_get_pages(), when hmm_range_fault() fails, we
-> kvfree(pfns) but leave the pointer in hmm_range->hmm_pfns still pointing
-> to freed memory. The caller (or amdgpu_hmm_range_free(range)) may try to
-> free range->hmm_range.hmm_pfns again, causing a double free, Setting
-> hmm_range->hmm_pfns = NULL immediately after kvfree(pfns) prevents both
-> double free. (Philip)
-what you fix is not "use-after-free", it is preventing double free, right?
-> In svm_range_validate_and_map(), When r == 0, it means success â†’ range
-> is not NULL.  When r != 0, it means failure â†’ already made range = NULL.
-> So checking both (!r && range) is unnecessary because the moment r == 0,
-> we automatically know range exists and is safe to use. (Philip)
->
-> Fixes: c5e357c924e5 ("drm/amdgpu: update the functions to use amdgpu version of hmm")
-> Reported by: Dan Carpenter <dan.carpenter@linaro.org>
-> Cc: Philip Yang <Philip.Yang@amd.com>
-> Cc: Sunil Khatri <sunil.khatri@amd.com>
-> Cc: Christian KÃ¶nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 1 +
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c    | 6 ++++--
->   2 files changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> index d6f903a2d573..90d26d820bac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> @@ -221,6 +221,7 @@ int amdgpu_hmm_range_get_pages(struct mmu_interval_notifier *notifier,
->   
->   out_free_pfns:
->   	kvfree(pfns);
-> +	hmm_range->hmm_pfns = NULL;
->   out_free_range:
->   	if (r == -EBUSY)
->   		r = -EAGAIN;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index f041643308ca..103acb925c2b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1744,6 +1744,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   			WRITE_ONCE(p->svms.faulting_task, NULL);
->   			if (r) {
->   				amdgpu_hmm_range_free(range);
-> +				range = NULL;
->   				pr_debug("failed %d to get svm range pages\n", r);
->   			}
->   		} else {
-> @@ -1761,7 +1762,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   		svm_range_lock(prange);
->   
->   		/* Free backing memory of hmm_range if it was initialized
-> -		 * Overrride return value to TRY AGAIN only if prior returns
-> +		 * Override return value to TRY AGAIN only if prior returns
->   		 * were successful
->   		 */
->   		if (range && !amdgpu_hmm_range_valid(range) && !r) {
-> @@ -1769,7 +1770,8 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
->   			r = -EAGAIN;
->   		}
->   		/* Free the hmm range */
-> -		amdgpu_hmm_range_free(range);
-> +		if (range)
+>Applied to pci/rebar for v6.18, thanks, Ilpo!
 
-Can just check if(!r) here and remove "range=NULL" above? if r is not 0 
-range has been freed, if r is 0 free range here.
+is this for v6.18 or it's a typo and it's going to v6.19?
 
-Regards
+>
+>If we have follow-on resource assignment changes that depend on these,
+>maybe I'll rename the branch to be more generic before applying them.
+>
+>Also applied the drivers/gpu changes based on the acks.  I see the CI
+>merge failures since this series is based on v6.18-rc1; I assume the
+>CI applies to current linux-next or similar.  I'll check the conflicts
 
-Xiaogang
+it tries on drm-tip that contains drm-xe-next going to v6.19. We have
+some changes there that conflict, but shouldn't be hard.
 
-> +			amdgpu_hmm_range_free(range);
->   
->   
->   		if (!r && !list_empty(&prange->child_list)) {
+We also need https://lore.kernel.org/linux-pci/20250918-xe-pci-rebar-2-v1-1-6c094702a074@intel.com/
+to actually fix the rebar in some cases. Could you take a look?
+
+thanks
+Lucas De Marchi
+
+>later and we can defer those changes if needed.
