@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D089DCCD1BC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 12:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE20CCD1BF
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 12:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A27510E408;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D5A510E8F5;
 	Thu, 23 Oct 2025 12:58:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ImGUBfjZ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kYtVTZJz";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 201C010E8D6
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 08:36:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5807F10E8D9;
+ Thu, 23 Oct 2025 08:37:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1761208606;
- bh=08czwfWnlPMIpqql5kd6oFtIulIPYNZfTQcKVVm39ak=;
+ s=mail; t=1761208651;
+ bh=ApOBYYNKJo5o8mu1ZNfuUNioVFTmTdyotlaytBUTJsU=;
  h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
- b=ImGUBfjZmyC2H/390jykNrSExURMxO3gj7gR7HZuoE1JscX//GLPiqrwFzSw98Z8Q
- OEgoKoRBw/yquiO4Q6VC/as+scRlGtmqHuTC+q0zyKnvibDjf1nHhcht+WBRS2brt+
- nX3r+SBhrlZwnd6Glzx7QIWEZIw70J7zkF1lSndcX27b/O0CxESnHoblK/Hnkugh2a
- nbmXoGL/YaDaEJUTezANmZcWe4ar4iIgEbNRxB0mjzuVRDNlQSADDjFSJPIr26Qiz9
- jEFOsPP/xJo5VBEAfdStkgFEhofcpeIPsP+uukfuyuKNK593T7ybIGxs2PjRbhLF8+
- VGI1GqxTxqqRA==
+ b=kYtVTZJzrjA2QR0nPPhtoPNBIO7ll8vav2+b3E+zE3gmk9PQjlzEanvT+/HGTJQcs
+ VkyMyc2UvUQ0/QhfrqlM5tu88Y3dv6TrmNHrmFxi2CMFkQvz/vbSp17ze3FN++7PCG
+ FtpeGARFjBCJYwGvM7RwMkBOYBRYFDoTrVyhRGghYOcMITfSWJ5Drt4DjnjUMDVw58
+ Qk9XL3uudX0RQm3Gf/6uKVIo8ynuJNZECECFAhRuKylgMe+yAaPtHf9LffHnE/Vll6
+ JW8IsE070NkKpvUGf+St14RpRbpks02zYbdZVD1U9LANNulK7fYvW3qJLIyZ2Nc/d4
+ 2y+JcY9p/yu3Q==
 Received: from [192.168.100.50] (unknown [144.48.130.189])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested) (Authenticated sender: usama.anjum)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0B4F717E0964;
- Thu, 23 Oct 2025 10:36:43 +0200 (CEST)
-Message-ID: <217840b8-2a44-4788-8e2e-e5525f32ca8f@collabora.com>
-Date: Thu, 23 Oct 2025 13:36:14 +0500
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6ECA917E0964;
+ Thu, 23 Oct 2025 10:37:29 +0200 (CEST)
+Message-ID: <9ddb17b8-32d9-459b-ad0b-42ada95c0757@collabora.com>
+Date: Thu, 23 Oct 2025 13:37:00 +0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Cc: usama.anjum@collabora.com, "Mario Limonciello (AMD)"
- <superm1@kernel.org>, linux-doc@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 1/2] PM: Allow device drivers to manage the frozen state
- of a device
+ <superm1@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/amd: Manage frozen state internally
 To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org, corbet@lwn.net, rafael@kernel.org,
- gregkh@linuxfoundation.org, dakr@kernel.org
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
 References: <20251022155114.48418-1-mario.limonciello@amd.com>
- <20251022155114.48418-2-mario.limonciello@amd.com>
+ <20251022155114.48418-3-mario.limonciello@amd.com>
 Content-Language: en-US
 From: Muhammad Usama Anjum <usama.anjum@collabora.com>
-In-Reply-To: <20251022155114.48418-2-mario.limonciello@amd.com>
+In-Reply-To: <20251022155114.48418-3-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 23 Oct 2025 12:58:42 +0000
@@ -68,79 +67,75 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 10/22/25 8:50 PM, Mario Limonciello wrote:
 > From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 > 
-> During a normal successful hibernate sequence devices will go through
-> the freeze() callbacks create an image, go through the thaw() callbacks,
-> and poweroff() callbacks.
+> [Why]
+> On a normal hibernate sequence amdgpu will skip the thaw step due to
+> commit 530694f54dd5e ("drm/amdgpu: do not resume device in thaw for
+> normal hibernation").
 > 
-> During a successful hibernate sequence some device drivers may want to
-> skip the thaw() callbacks.  This confuses the PM core though because it
-> thinks the device is no longer suspended.
+> If the hibernate sequence has been aborted however after this thawed
+> step runs the PM core will think the device is suspended and will skip
+> the restore() sequence for amdgpu.  This leads to accessing the device
+> while in a low power state and will freeze the system.
 > 
-> To accommodate drivers that want to do this, introduce a new is_frozen
-> bit that the driver can set and manage.  From the driver perspective
-> any thaw() or restore() callbacks that are being skipped should set
-> is_frozen and return an error code.  The PM core will then put the
-> device back into the list of devices to resume for any aborted hibernate.
+> [How]
+> Set `dev->power.is_frozen` to indicate to the PM core that an error
+> code will be returned for thaw() callback because driver managed the
+> frozen state.  If the restore() callback is called by the PM core the
+> driver will resume the device.
 > 
 > Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
 > Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Tested on APU:
 Tested-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
 
+I don't have AMD DGPU for its testing.
+
 > ---
->  Documentation/driver-api/pm/devices.rst | 8 ++++++++
->  drivers/base/power/main.c               | 5 +++++
->  include/linux/pm.h                      | 3 +++
->  3 files changed, 16 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
+>  2 files changed, 11 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/driver-api/pm/devices.rst b/Documentation/driver-api/pm/devices.rst
-> index 36d5c9c9fd11..55c633727108 100644
-> --- a/Documentation/driver-api/pm/devices.rst
-> +++ b/Documentation/driver-api/pm/devices.rst
-> @@ -578,6 +578,14 @@ should already have been stored during the ``freeze``, ``freeze_late`` or
->  the entire system, so it is not necessary for the callback to put the device in
->  a low-power state.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 3d032c4e2dce..693347eb6861 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5247,6 +5247,11 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
+>  	if (r)
+>  		return r;
 >  
-> +Skipping thaw phase
-> +-------------------
-> +In some rare situations, it may be desirable to skip the thaw phases
-> +(``thaw_noirq``, ``thaw_early``, ``thaw``) of a device entirely.  This can be
-> +achieved by a device driver returning an error code from any of it's thaw
-> +callbacks but also setting dev->power.is_frozen to true.  This indicates to the
-> +PM core that the device is still in the frozen state.  The PM core will consider
-> +this when resuming the device in later phases such as `restore` or `poweroff`.
->  
->  Leaving Hibernation
->  -------------------
-> diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-> index e83503bdc1fd..451d54486645 100644
-> --- a/drivers/base/power/main.c
-> +++ b/drivers/base/power/main.c
-> @@ -1100,6 +1100,11 @@ static void device_resume(struct device *dev, pm_message_t state, bool async)
->  
->   End:
->  	error = dpm_run_callback(callback, dev, state, info);
-> +	/* device manages frozen state */
-> +	if (error && dev->power.is_frozen) {
-> +		dev->power.is_suspended = true;
-> +		error = 0;
-> +	}
->  
->  	device_unlock(dev);
->  	dpm_watchdog_clear(&wd);
-> diff --git a/include/linux/pm.h b/include/linux/pm.h
-> index cc7b2dc28574..52ee38d72aa2 100644
-> --- a/include/linux/pm.h
-> +++ b/include/linux/pm.h
-> @@ -688,6 +688,9 @@ struct dev_pm_info {
->  #else
->  	bool			should_wakeup:1;
->  #endif
 > +#ifdef CONFIG_HIBERNATE_CALLBACKS
-> +	bool			is_frozen:1;	/* Owned by the driver */
+> +	if (adev->in_s4)
+> +		dev->dev->power.is_frozen = 1;
 > +#endif
->  #ifdef CONFIG_PM
->  	struct hrtimer		suspend_timer;
->  	u64			timer_expires;
+> +
+>  	return 0;
+>  }
+>  
+> @@ -5385,6 +5390,11 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+>  	if (amdgpu_acpi_smart_shift_update(adev, AMDGPU_SS_DEV_D0))
+>  		dev_warn(adev->dev, "smart shift update failed\n");
+>  
+> +#ifdef CONFIG_HIBERNATE_CALLBACKS
+> +	if (adev->in_s4)
+> +		dev->dev->power.is_frozen = 0;
+> +#endif
+> +
+>  	return 0;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 61268aa82df4..d40af069f24d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2681,7 +2681,7 @@ static int amdgpu_pmops_thaw(struct device *dev)
+>  
+>  	/* do not resume device if it's normal hibernation */
+>  	if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_suspend())
+> -		return 0;
+> +		return -EBUSY;
+>  
+>  	return amdgpu_device_resume(drm_dev, true);
+>  }
 
 
 -- 
