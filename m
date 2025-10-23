@@ -4,156 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24841CCD1BC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 14:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48144CCD1BC
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 15:30:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B72A10E90F;
-	Thu, 23 Oct 2025 14:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C242410E918;
+	Thu, 23 Oct 2025 15:30:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KGRDS/20";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qGOH+H61";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010041.outbound.protection.outlook.com
- [40.93.198.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9EA10E90A;
- Thu, 23 Oct 2025 14:35:08 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011002.outbound.protection.outlook.com [52.101.52.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60D3310E918
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 15:30:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OCoZz1STbyXWGfb+FieoHjFKUDsqpBryHjDWYvLdSZUqNPhHFfw9YewMRs9IOTpcV3l2zgf5XPbD5mZMXixKaM63ZFJlIMY58stwYtTLiwE7hGSQmTfgAbO6AZt9k835ivV7ekZtcCYu7S3FpSUTM52RZ1xXO1nR5EoOYen41Mt7J+kHXwJ2n19VCsZPB1sWnm0qRSz0F065lmlqOptOyyUdTYPGW+X76Df1/KqOV1O528/4OLMs29ntY7IXn+FaWH1JOe8rZWSl5deBAo6FSfyZTAd/FMc0NPt2R12qVR8AvQbvHA+N45vsWPWV2CxlGsuP1BnsyRzFgVmBXkViLQ==
+ b=ctJl4HA0Ejb6j0Sj1QZ1ZL/nX8aXzhkBkfeq3Lkl4soX7RXBFxJiaB7V5S3EKA5MU29/4CHPUjpq+/g9D75A4NKmVkZ2pdW0JUd8hU1MCYv7ZvKhgIfrHucx8vdQdQ7pn29fGfZhVnZvfWsCu9EIlaIwDXNK06F3OeVwzhOr6xRAhLo8BsJE4Ool4ApEajQ+9OKEcjdrJ7iIbIXRlq6HUObO6jf3UQ/zaCvnWBldmKbpoh03EfyqPrGIBO143POU7UAnmXuY9Y87BebCoqAzW784SL6hOacRpulRiRf0fhst00MZneYpPlbnw3kBfV/JfqFPvOM7SQLEPrmoHKg28Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v6IUpGrQo3D4Gzbt5RGNGuPCYQKBF1tWpk/kSDsSHJo=;
- b=E7hCPjaxX6clBJQFYNyItfpsjS6CvdL/5cDiEhYZucD9R8ik6n20Yuedny03y5SzdlRDo3tR1Has+IZfBwnrnaMB3NcJ51e5h8+E/8lf2l+8PuQWSyIwtfto8SXEU3JKHSnAF4SQwtwbsYcw5L5tCJWqkORkorLKx01Okxo9w0bWkiDFsknKUsBHIT+TLMWDkLs6YytdhbAQB8KFdGGSL9D1g89DXOk2UCQUPc8CZWd51HnXghbLwKBwCFYDggK02ANzWMFa0UMpYklqGPbN4uo5GmC5KGXyeasEmL12MH6pTswPfbnk6AwiXf/4ZLLV0wyN11cicx9wyhhm0lWMaQ==
+ bh=UryPvRtium2PMiE1t+pxWk86Uw2wcNSuZu8SBgge99Y=;
+ b=iBKOl0IlRiPuD4eFSQik/VNnOhwmezkaM7HU5sbO+rVdMXdT//t6i+yUfBUYjbTISh2NHUHYkEwkCftg1akz+S91ud5fVeach8n98pTdgYYr+H1quU/Qphz9NoiiBN5AQmpkCibvCv8UI19CIflzzYijBAphTU4JprOonOhk5DiCdZGCm2CfrbEKt4+/34vaQFBOMq5QnDTex8z6l1VDv2L5wm1e1aJKM6kwiu55wwxgbERzpKrqesMWzFFZRDIQ43wvlfmkhZAEXbWY6DvxjwoE9GAfNOu1Nso84SQm054U1YvCTjDi8zNooXglCT/vU+3hRmGyYdE2kSnRnLYubg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v6IUpGrQo3D4Gzbt5RGNGuPCYQKBF1tWpk/kSDsSHJo=;
- b=KGRDS/20cg0OAGrjxMTaRAAhprbDWcasR5bxS5BJqoUC97/LLfYtn8vDAhlTZ/ZKyi8ayYl68TKYnhOQFcl+aoTBU5evT9qY2qASWG5qmIZGfcYX6fApidR7WTaZf0rR6H87g0ya9FEZ0l/ZHng9GexcY3x+4SWlGCSPUTjeBNo=
+ bh=UryPvRtium2PMiE1t+pxWk86Uw2wcNSuZu8SBgge99Y=;
+ b=qGOH+H61GlDDfYBmunAq2iq2cNaxKmKIxg40Lkz3oXBxDFuS7ZIcU4SMw02bl8sgbwupzYarat2jgCnaeAPQk6uhRjWDoaDAqvsguPAG7rHYEaurKHciXlPnTbtUvdAHKFNkNDzoaHvYazwLdZ6oMW7uuxgXhPqbdXnewK15Nz4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by IA0PR12MB7773.namprd12.prod.outlook.com (2603:10b6:208:431::15) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by PH8PR12MB6868.namprd12.prod.outlook.com (2603:10b6:510:1cb::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Thu, 23 Oct
- 2025 14:35:04 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::9e93:67dd:49ac:bc14]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::9e93:67dd:49ac:bc14%6]) with mapi id 15.20.9253.011; Thu, 23 Oct 2025
- 14:35:04 +0000
-Message-ID: <f615eec1-2e7b-4a4e-ba3c-64c51bbbae98@amd.com>
-Date: Thu, 23 Oct 2025 10:34:57 -0400
+ 2025 15:30:15 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.9253.011; Thu, 23 Oct 2025
+ 15:30:14 +0000
+Message-ID: <a1c87ae7-9f8d-4fb7-a141-c285776d76b0@amd.com>
+Date: Thu, 23 Oct 2025 11:30:09 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/1] drm/amd: Re-introduce property to control adaptive
- backlight modulation
-To: Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
-Cc: Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- dri-devel@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Xaver Hugl <xaver.hugl@kde.org>
-References: <20250718192045.2091650-1-superm1@kernel.org>
- <20250718192045.2091650-2-superm1@kernel.org>
- <2d4cbf1e-f8f7-4f6e-9e7e-15fb05234248@amd.com>
- <da6280ad-dcb2-4550-8496-c7bf628a528e@kernel.org>
+Subject: Re: [Patch v1] drm/amdgpu: null check for hmm_pfns ptr before freeing
+ it
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20251023065848.1664757-1-sunil.khatri@amd.com>
+ <dc5cbf60-d73f-4590-ab7c-0ac3e919fb5c@amd.com>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <da6280ad-dcb2-4550-8496-c7bf628a528e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <dc5cbf60-d73f-4590-ab7c-0ac3e919fb5c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0704.namprd03.prod.outlook.com
- (2603:10b6:408:ef::19) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+X-ClientProxiedBy: YQBPR01CA0161.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::17) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|IA0PR12MB7773:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49d5e2b8-9184-409c-7bc5-08de12415ad8
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH8PR12MB6868:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3b265ca-a39c-4ab7-a1f4-08de12490f96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?T2hrbnNUZC9pR3VEYmE1czVFOW1BUktiM3BVL0pBWVZncks3eWNZaUthc3dZ?=
- =?utf-8?B?dCtNSGxBYVVYY2E4WGhQZmRyd1lTNnBvSkpTQWc2dGM4V2lLQ1pSdmdpUThN?=
- =?utf-8?B?SFkvUzBBWXUxNWd6cmZjTG5YVUZOcy9FTHpZdkszbDVYR2I0aWxaL09tTUZt?=
- =?utf-8?B?QXRxR05RWTV1QmNCbkxNZzJKY3o0QWJZV0FiMFRGL3hYTUlsaHhaVDhOODdh?=
- =?utf-8?B?TDB4OGpzSThwU1FBL09qa2QybzQzZHBXWGlLc2FtQXlUWFN5MUxmZkdoNzJN?=
- =?utf-8?B?aUZuTFBiOUVNWE93YXFEOXM0UCtEL3o3eFA1V1hndXJjZy9BNEtlMFZZNVo3?=
- =?utf-8?B?eUdmcGdZdTc3V2tvTDBQMjdBb2hTZnZWTUoyUm5tNFlzdVlhR2hneVhTckpm?=
- =?utf-8?B?T0tKaWMwS3Fqc3VpL3ZyVFd5eWdHbWRXUEFteUFtUGptTU1ncmZaci9tNnNF?=
- =?utf-8?B?OGdIejV4OE54WWNDZlUxRnV1YVd5aHMydy9JdFBrRHFtV2Q3OFBaQ2Z0cWhQ?=
- =?utf-8?B?eGtBeUF3S2lHeUpyc2dXbVJtNEF1Wm16WDU1TDU2NHdJUFYzQWR3bktLU2JX?=
- =?utf-8?B?VXBoNlQ1UkV2NUZrYjRiZEMwa0o4b1U0dUxId0dGTEpSVGpVZTA2Mi9DVEtz?=
- =?utf-8?B?VlM2Z2JJRGFpVW5EdEpzUWV0RDArZlprRTM2ZndzRENkaTRzdDlBb3BQMEZu?=
- =?utf-8?B?MnhrTnoybXpndW1ZOWErYlUvR085M3UyK21KdS9ZUWFDbEpVendQSTVBTVhH?=
- =?utf-8?B?cEpHN0pUelgvemhuVmdCd3dVeUVqZ3NkTkcrWTBUR1lVSGNHVmtyVGdlMzQx?=
- =?utf-8?B?b2RheDZDaGNVUWc3RUlOcUtPUkt1T1FvaTJ0UC9WVnVTMCtFTlY3dmRST29j?=
- =?utf-8?B?azVlK2R0YVc4STk0emNnK3hYaE9JUC9wdXphMTBCMysrRUw3N2NlMnhRd3c4?=
- =?utf-8?B?RFJmZHVaMVBxazRzMkFYd0kyRzJKM00wQ1RQQmhXK0drV2dzUHlPQzlta1hD?=
- =?utf-8?B?ZlN2N0FUZkNONENlVVNYZE9JQXA4VEN4QmJmb2pqUExXNVg2TnVkRmd5QmJW?=
- =?utf-8?B?TE1BS3k1d0gzMUpaakRhNzlSc2dpODRhMWdvck9jUFhXS01MbWlNV0kxTUhw?=
- =?utf-8?B?blFUcTdqOERMSTdSM0RvMFE1aUt2ZWUvV3dlUmdmUXFCWlR2emJSMUVVUFVs?=
- =?utf-8?B?ZGMvNmQvUWtSOU9rejNvY2dUSmlUR09pQ1ZGbDVGbDNlMnl2UWQ3dG5FZVE5?=
- =?utf-8?B?SEpRUVJldzNsbUlrcWsrczlORHdCejFINC9PeFg3MkJJV1BYdWpnbHhrRjBj?=
- =?utf-8?B?QmpTYXJZdW1XM3BTc2xCSjZlZjY2dk5mYTk3MFRWdDBoemM0M0YwUmFaSDcy?=
- =?utf-8?B?RzJHdnlqQm5wRVlKR2dOTVVrSEp3ZVFGQUUzNVVVRTBROC9mQkhTOWZSeEFm?=
- =?utf-8?B?M1pyVWlXWWNhbG5LclRieGZxTFJPNzRvZnJpYlpxVHM3Q1hUOVVsN0ltSVVK?=
- =?utf-8?B?OXFaNTJIN1czNWREaWlHZWI3dWgyQXN0MTNacnR1emNqVEluUzR6VDVDZWdo?=
- =?utf-8?B?cjJqSmp6cGljTlVNL1VXNk1YTi92MkxZU25MdlpFMTc0NUJKOTIwMzVZUUtQ?=
- =?utf-8?B?eVp5ZERSQnBwUTY0SXBkdFo0REYwZHdZc3FTNjhZQURaVWdFNXlIWWQzbE5N?=
- =?utf-8?B?N25MN0p0c3V6eHZFaE5FTTZBN1JkMm5BQnpDMmxFd2p2WnBrUE0vTGhCLzZ1?=
- =?utf-8?B?ZmxvZ0hOb3k4ckpybjJ1bFk3SkVZSUxvbXE4dlJXbVVDeXAwdC9kYldhaEN1?=
- =?utf-8?B?MkZJekVDOFVUQXdnc01CaTAyZnlZRm9tSVAzUkJ6UmkrV1JxTWs2cXJTYzFu?=
- =?utf-8?B?WVRLQmdwY2FIVmZ5NHU1c2hJNnpsNHBnTjNOekxjUm5vM2xrNEFLa0RMZXkr?=
- =?utf-8?Q?4OSNv1VKzM7zsLfePQKbJjLD+978eIZs?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WHo3bmlSNW1Md0UwaVZ5SG9VSDVMQWVFUDRReGtzSHlWdDBXZklSTXJKVzVk?=
+ =?utf-8?B?UEV2NFBYeExySjJoNDIwRDU2M2MxYldIaWVlc0hrR3ZaeXJnRVllUXN4MFBH?=
+ =?utf-8?B?NGJGMTFiRmlVdTgvZEc1Uko4eHRoSHNPRkYySTliTXhrWk1qRkNTT1Z3cW5N?=
+ =?utf-8?B?N3NyTlVoLzBLNEdZZDRZc2ZWeXEvakRPYXRKaCtaZ3JLNlpQNkFDRWRJT3BE?=
+ =?utf-8?B?TlFSNFd5SmNqZHFZWjFFUUZCQ0d0SHRnS1hDYU1rQm1iRlFDYWlZTEVCMXRQ?=
+ =?utf-8?B?dm9OekJOMkluZDc5Z2dGY1lTUXhiNTNwQXBWYnJRVzVFM2VKTGF5VUoxd05N?=
+ =?utf-8?B?Tzl4dmpsS2Q5cWIxM2ZzMWVTS2JleU9sa2EwdVhXYU93Vk43aGhXMEU1RGlQ?=
+ =?utf-8?B?RHR4SUhRZ3VkcVVudVMrWFJaVk1tTW5pamZVcDB6b0NVL1BpdWYyNlNlZ3l6?=
+ =?utf-8?B?OXkyMFlnZ3d3bFB2aks5SHNIYjEvZkdaNmg4Vm45b2VQNUt2STVOZnFDaElv?=
+ =?utf-8?B?aGFJc3NHWk53Q3c2STVFdVZrZlp4MzNnVHAvcGM2ZG1WcWNZU2c2SHVYNVVD?=
+ =?utf-8?B?Yy9RWDZibEYzbU9xbm9rUkQ3blRrQjJTcjB0UmxZNXVtcEg4eEVtN3YxQjQz?=
+ =?utf-8?B?NWZWVVZDKzNlQlBndG05VGZPT1Q1VzRwVmMxMVJyc0IycUlPV2Y2YU1GUXhr?=
+ =?utf-8?B?NG1vMjZOMmtNTEVqVHI5WThYOUgyQnQrWGVROGk0VE1QNncrWUVOdUw1MUlH?=
+ =?utf-8?B?K09BQzd1bTRCZFVjSUpQKzBvdVN4RmNUSlhCMnR6S3VHeFRGV1dKQmdLYzFR?=
+ =?utf-8?B?b1RwQlA4SU9pcTJjbmpUSGN6cjNCQ2Q2VytXL0hIMWVnMy9QTVdKZkZiRG9R?=
+ =?utf-8?B?N09xZEhzdi8wdVY3bHNMRWVqd3Z5ZVkweUtlclBRay9xVzgyL0duZzljQXM4?=
+ =?utf-8?B?QVdHc1YvYmcyRWNDUDk2VEJTMFp1Mk5SSVJwQm9RNGFMWUpkWG9oeDZ6c3ha?=
+ =?utf-8?B?RmdWNjI1RkhuREdNZkpGQ3ZWU3oxL1ZpZG51TU11eXBDQzd4SjdudldZTWNy?=
+ =?utf-8?B?dlJRWlIwSk5rU1Q5ZFdKbmZqZXkrWEVJNVJpdkNrS1dvTlByLzVtWE80RU1F?=
+ =?utf-8?B?Y3djdVpUQmJNM1RXRjNqNTV3NXZDd3VGTS85d1gyMUdvcUEvc3ZwZzNWZlp1?=
+ =?utf-8?B?RUFWbnk0eFhEbnBGdlllc0N5L0dweFFTMjduSGhZMFVTREgxWU1hek5zVlQz?=
+ =?utf-8?B?ZDU0LzBGWUZHN3R2emdOc25xTVM2VElPMGZlN2tUeWZrWldhY0NPYmhacDNB?=
+ =?utf-8?B?ZVdob0lIOGYzZHA3TGhzVjF1Y1h6cEtnc3Q0WVpoV0RjYWxUbUh5RVp6cGM5?=
+ =?utf-8?B?Qzlpam5CdjRlYTJrYkFyRllQOGJ1VWZsZGh6ZUliaGJBMndiZHBqVmYyYW5v?=
+ =?utf-8?B?dkQ2NkNOeG9GOXcyak9DUzY4andpSXVJV1llSG02TXBaZG04QVd4Y0J4a2RK?=
+ =?utf-8?B?V2oxNG1LalFHam9abnJHUFJyaDJURlVscUhUQ2pvdG0rWE9SUXliWGZ3SjRH?=
+ =?utf-8?B?Wisra3Y0c2t3anZSWjVwdmNEMFJCNjN1S1FXaTZMeWxKTk5RYVlDYWRpaHhh?=
+ =?utf-8?B?V0w4Q1hkc21YMlhYVDJWc1JkOHFqd0RQckg1czVRN3pYUGVqOVY0Wm5TWSs4?=
+ =?utf-8?B?MktuN1RoR3Q3MExWU1ViS1p1T05xVzRiMEdnMFVQbmZTcjBib2d2Z0ZaNEp1?=
+ =?utf-8?B?RHdhMXNqNUl1aFlFcFV0T1VjOUJzM3lmNk95RXFYenR4MUpMYXFyUjJmTHBJ?=
+ =?utf-8?B?ZXZUNU5Ba3h1Q09UNGQ2OFV0MTdPRG5wN1FLS3NoVGRtd3JRUjlILzE5OFpW?=
+ =?utf-8?B?YkJqdUQ4bXlySmpXa0ZHaWhYeGk2N1JyNTJMOWxRVUZKVFM2RDNQd2hqekJu?=
+ =?utf-8?B?ZGEyK1pqWVhML3BwZUJ5UnluQTc3OXluV0tPZTlOdWprRTJPZ014OTNtN0Fi?=
+ =?utf-8?B?ZUxqRDZJMGdnPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTBiVG1VSXRmU2VWcnFpYWF1NTExRGFrZm84Y3M2eXhTRTdjSXVZdmJMb0JJ?=
- =?utf-8?B?WUNLNklWTWNPcDEvT2swbnJmYWQ2U3orUGk5WCs2NUhmVURrVmZVUVRoNXZB?=
- =?utf-8?B?MWRqNFVxY0ZmYkRSbFFaVXBaZkhscHRtU3NsMWRuTnAxN2FhVmpMSWI0aldh?=
- =?utf-8?B?YS8wOEk2MkNsMndJRENHOHZnYjFCYVk3Uk4wYThxM01PREMxZXluMHlPUU1Y?=
- =?utf-8?B?YW1ZZUhyTXRuS1ViYU1XUHNQR05LazBDUEU2QVZiK2IyWUJTNkFweUxPWnUr?=
- =?utf-8?B?bWVjcVNXZFRTTExZVzVDaGd5M05BeHhiTVQ3RFRoZkNZT3NsSkJicWFGUlBx?=
- =?utf-8?B?YUJpQ2lHNnZhenprUk5YbkJLVmUyMC9mdVBzbjJ6c0g3RjJDQjZRNU1DV2tH?=
- =?utf-8?B?RjBWdStBcVRUV0xUZC9oZEpMS29ZL3JjQXFJeDl6dmFUT0FEdUphcE4rZ1l0?=
- =?utf-8?B?aytCanJjV1J3bURKR2Q4ZWtXc1p4ZmtJZndwYTFXSERQR2wyZVgycUJjZnJx?=
- =?utf-8?B?NjJsVXBLNFY4OW54WDB5TDZKNUNZaFJUTHJyOU13R2Uvb2RwRldOeWdDbWVw?=
- =?utf-8?B?TExEQWR5b2pveHhBN1p0MmFta2xWUWNPN1BvSGNvL3FjVjRNdENWNXNob3pL?=
- =?utf-8?B?WlFJd3J5Ry9zdXZtOXZ5aHE0WG9xMGxLd3Y0VlJBNGdLUFlPL2dqV3I4Zmp0?=
- =?utf-8?B?OHZMQm02QUxBZ01WSmxZaTlWMW9xT2s4ck9GcHBEWjczMUlJbWUwbjJvb1lB?=
- =?utf-8?B?bmhvSmJsMVpoQThvYzRFa3lRakJaeWE2ZERWT3BkdDdnVGlnODNraVNzOExi?=
- =?utf-8?B?VmRYcFZaK0NKOGFTVW13cmtRMmc3YXhCZXJKRFJQQm5OR0QrQnFiQ09NcnJQ?=
- =?utf-8?B?MGluTzdNQUVLNy93bVlBU25RZmVvdlNFZ2I3YTNmeUtYNEVVQVo4aFpmT1Bh?=
- =?utf-8?B?U0t5K3FQd2IwcU9xMFhKdStFa2hhSG82SzhpZ0J6YmRBemlKS05Xejd4azBi?=
- =?utf-8?B?S0x5ZjRGYlUvNldEQ3R2aUNDL3UySHRiN1ZDaURQeGV3NEZvT2V4MEQwSVor?=
- =?utf-8?B?SncwMnhxTmRrb1pTY3gyUk1zR1FIclZ5K0dSQVJ3T2IwQmozWkhXR1NMNmlK?=
- =?utf-8?B?bk92Vis4bjhUODdveWs5c2hzUWI0bVZtZTNvZjJtYXpsdkpuOVZRSWd0UEJF?=
- =?utf-8?B?YW01NU1kOGFHaWNXZ1V1OGg1MGozZzhMayt3VWZWMmxBVEdtVlprSm5jaEdT?=
- =?utf-8?B?aXRnZ0I4MzY1RWg1R0FUaWxTL01XQVhjMW1xQ2tieFZybmg0d3lXaStHemM2?=
- =?utf-8?B?WjcxYnA2ampYQktGVFFhS29oUUVTaG5ZMGhiQ2pIcFhOWjEveE1id0d3czJG?=
- =?utf-8?B?VlFoYnQ4MWxyTWo4ZWdNWEtoY0I3RXB3OUZtSzExcmNsaytIUVo4eWRRL3Jk?=
- =?utf-8?B?clRIWEFMWC92NkJ1OW1TaG5ZY2x1MTE5VEprWGlGc0dDdjZyWVVsQjdRdFZW?=
- =?utf-8?B?ZFJjTHErbnNDSk51azdqbnpINHdrZ1Zhak1Ec0huSWY4UkFWUm5wS1FmYTBR?=
- =?utf-8?B?dzBiN0FuOFYxNGcvNE90cWVuZU5tK2ZhQVpOYXVJd0pDMkZuU0QrUDNVd21z?=
- =?utf-8?B?OU1HTFlSeWw4Qm5xMWMvU3JRZXB2YmlUVUtaTG9XVVYvQmdiaHhXM3F0K2Yw?=
- =?utf-8?B?V0hSQ3luNGc0YzRUZFZkNVphOUtiYUI4alRKZ0ZxSmUvbWVpRkYrZFF0NE5S?=
- =?utf-8?B?SzVuOWd6a2tFdkRPd25SUHphT2FPcnhqVm1naUxQVkIwY1JWWDJ5T2xINzhY?=
- =?utf-8?B?QUVqY1pSYi8wanViUEJVM0dFZmMvbUhodDFkTlZpWDdFakFpMEdubFV3UFFz?=
- =?utf-8?B?NEc3aUM3aTdPRnpicVdsenBocE1qOXYzK3lQQUFyOGt6dXNOektPdjBnTlNE?=
- =?utf-8?B?ZVJPeUFDcHFxWVFnWHBBREZTdlQ0dGN0RnpsK1plT0RxUVkzUm1Pam9oUXRD?=
- =?utf-8?B?bkZQdDBEZEV1K2FTU2x2NDdEdmxMb2lpRGRab09qSWVPU0ZMcmxRTFZlamdq?=
- =?utf-8?B?Y3BsQ3BiVi9CN1ZNMEhGYzNTS2NJUWQrK1ozb1lkMHFMNHBsdUNKdU9wemxh?=
- =?utf-8?Q?0ccfkOJB3to8pPYoZpIIc8CPj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHgwNzVNenNNSmZpejIrdmdzM1lVV3kwKzhRM2xIcEJxV2g1N3E2dVNvR1Bi?=
+ =?utf-8?B?ZDEvTXlhM2cvbVdEUVZDKzdiWDk4STExOGdJQk1RTW52eStDM3lHbXRUaXA3?=
+ =?utf-8?B?RS9oNFd1NUNjWDNnQ3o1UjFwcjlwMlM4Qnd6WG0rd0NwLzhaZWsvdlNlNm1P?=
+ =?utf-8?B?dWhnMXhTc1VqRS9rVUxacXF5a3pnWXJsNHFqWGhNMW0vZDI2T2hKNkM2S1N1?=
+ =?utf-8?B?anBXMkxsNHY3NndEdWp4Vi8vKzlld2VPeXNBNVp6VGJDN0xSWHZkNnhoZGtS?=
+ =?utf-8?B?MytMZEhmdERBWCtjTnVkL09aL2xiRGUwVjl6UmtYNi9XT1ROa0R2azgycEhQ?=
+ =?utf-8?B?VFBJWUcwNUpubi8yMmhjWDd1Q2IzMDBsMGhIMWUrZXZWcnZodmVJb09qZzJB?=
+ =?utf-8?B?WVJxUVpWck5jMXZRVUc4QURpN0M0VmRkN0pQSE1MVWdmMHgvSFRUMjMxeS9h?=
+ =?utf-8?B?YSsrMmhvc3hPWmx2SVNSNmdSdEozdEp6SkVvTjFmN25vMFBEL2w1NU1TbXBB?=
+ =?utf-8?B?S3BuWVpKcjc4Z3NkSjNGVm5BMWRpRXBQZUNHKzNxd2NqTVlORjRpOG9DblNY?=
+ =?utf-8?B?dkI1N0g5S1RSUUVBUW5TZlR2TnpDbnp1SXhjanQ3Z2FhK0NrcCtuSWN1dmZq?=
+ =?utf-8?B?TDZvTzFDekV0YzZYMWp1aTMwbDlKaU5lOGNxQmdQVVNvZjZmL2FlenlFZ0tK?=
+ =?utf-8?B?N1J6N2tGc256Zm15QXJvajd0ZHJ4VmtrOWx4NkRpZi80dlpoWmhwajhrQnVR?=
+ =?utf-8?B?VlFRNHA5S2E0RXV2eWIzN1YvT29OOGNmcWdIdTBoLzZBRjRTRC83elNMNkRO?=
+ =?utf-8?B?OXhsdkNwYVFNQnJhRFR2ekFoWm5PbUJTUm9UL3BlcTcrSDJXdnN0SFI0ci8v?=
+ =?utf-8?B?cXpadXVKNkYvMFlxNU82c3hyVzlKeHJ2VGFsdGZrajkyTHZSR0JSa1JVclcz?=
+ =?utf-8?B?SGsxd2l3eU55amJMSXYxblhMeGs1RU5FTE9kSDJPdmJaS2lSQ1RJMmhucnBl?=
+ =?utf-8?B?ajc4ZVV5cWVHdnQ0TFdVSWNCbE5POTgwdEMybWJCK2NuOGhCdEl5WDA3Nmk3?=
+ =?utf-8?B?emhBOERSRGI2ZHdMSXZQczdGQnV1Mml0UUNjQXR2S2xxeEt6ekFRUi9ScnM5?=
+ =?utf-8?B?Q2xIY29jREVIY3hscXpDNVlNK0oyQnVEM0pSR2pVVzVSeisyWWpBYkcxMzNB?=
+ =?utf-8?B?ZnYvQXJFUVFHQmlZQUtMOGxCSlN5TmFkZ05tRFhxczQyWmtKdk9aMjAwZDV3?=
+ =?utf-8?B?WnBvazI2LzQzRTZ2RXVKL05CcHAxYlh2UWdOLzIrSFpiUS9ZMy9DUnBvK2ZW?=
+ =?utf-8?B?RWJLTDN0Uks5MkNxbGlFSDg3TEVFOFZaM2EzYnNDcTZvR05xK1h2aVFraDR2?=
+ =?utf-8?B?c1Nwb2hhNk5YWE5PN0VCSDFpa0ppSFlWdHVFYVNvWWRqdTljRmw2bDhicDlz?=
+ =?utf-8?B?cVVjZGxnZ2JGMnREWVFDbG8ybDBjV2Y2eUtLb0svaFY3T0owdWV2VXBicDNH?=
+ =?utf-8?B?d3I0MFk4emExdmFGK3hZUzR2MENqVVIveE5BTzdDTUdxbS8zd0JmdHpYUkVZ?=
+ =?utf-8?B?bHU2N0NkSlBPdlo2VE8xd3F2NFZ2ZUlzaTdBY2k5dk9yVjFOYkQ4enBDaFVi?=
+ =?utf-8?B?U1RrdklpWjJWc0dURHkybUJ2elBpVU9JeU9aY25Rakx5ek5TdFNCdkF4TnBp?=
+ =?utf-8?B?Q1dmTkU2eGY3MGh6bDUxVGNwbWlRZFdyS0svbGFseExUNmpnRjZSQzJtdDhk?=
+ =?utf-8?B?VEdiQmYzRzR6cXk3U0lLT0ZVQm5yWFpIaVdqL09OMHUxT2VoY3R1M0V1am0v?=
+ =?utf-8?B?NVRWeXJoUkFmc2xEVUs0UlZycG5Zcm1jZWFXOTdsLzdnSXd3aisrSnYySDBp?=
+ =?utf-8?B?Vk9IV0FVK0xtbWNUTkFIOFBydmtmcTltUStJNzUzQ2hSUkV6aStCVGlpQnhX?=
+ =?utf-8?B?SERaRkJXZ0YwU1ZiYzJ1TTI1TTZocVpYeEF5VGZ2L1RiMGxqZkhJTXBYZkR1?=
+ =?utf-8?B?M3ZIdFBObllJam1keldHQ2FGRnJKY3h5RHhZSHEreTY0Ui9wZklZMEZsTWQy?=
+ =?utf-8?B?NlJZOTRTMHZLbk9YN2ZmYUhiZnNUalNSTHRNM1Jtbi8wSUZTMDlaNXhsRlFX?=
+ =?utf-8?Q?NH8FxlK2GR7Oel5OPVsmWiRug?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49d5e2b8-9184-409c-7bc5-08de12415ad8
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3b265ca-a39c-4ab7-a1f4-08de12490f96
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2025 14:35:04.1485 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2025 15:30:14.6127 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: okP/X0QrHvgxjhSXBAtF3dLvpsLhI9gzY3iQOZZGS+d34RUXyw0pfIrPZ+CKNUBXSlR9oWSZdIyEdMdFSmGXUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7773
+X-MS-Exchange-CrossTenant-UserPrincipalName: CDfxggGWTjDyifJ1yNIG25V5PGDQH6yzR6KhPanmEOgrTTaStdw5WZiOlO6vep+eS0v2Qla7HwBpwZlnlNv09A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,264 +166,53 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 2025-10-23 03:48, Arunpravin Paneer Selvam wrote:
+> Acked-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>
+> Regards,
+> Arun.
+> On 10/23/2025 12:28 PM, Sunil Khatri wrote:
+>> Due to low memory or when num of pages is too big to be
+>> accomodated, allocation could fail for pfn's.
+>>
+>> Chekc hmm_pfns for NULL before calling the kvfree for the it.
+>>
+>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>> index d6f903a2d573..6ac206e2bc46 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+>> @@ -286,7 +286,11 @@ void amdgpu_hmm_range_free(struct 
+>> amdgpu_hmm_range *range)
+>>       if (!range)
+>>           return;
+>>   -    kvfree(range->hmm_range.hmm_pfns);
+>> +    if (range->hmm_range.hmm_pfns) {
+>> +        kvfree(range->hmm_range.hmm_pfns);
+>> +        range->hmm_range.hmm_pfns = NULL;
+>> +    }
 
-On 2025-10-23 10:21, Mario Limonciello wrote:
-> On 10/23/25 9:09 AM, Harry Wentland wrote:
->>
->>
->> On 2025-07-18 15:20, Mario Limonciello wrote:
->>> From: Mario Limonciello <mario.limonciello@amd.com>
->>>
->>> commit 0887054d14ae2 ("drm/amd: Drop abm_level property") dropped the
->>> abm level property in favor of sysfs control. Since then there have
->>> been discussions that compositors showed an interest in modifying
->>> a vendor specific property instead.
->>>
->>> So re-introduce the abm level property, but with different semantics.
->>> Rather than being an integer it's now an enum. One of the enum options
->>> is 'sysfs', and that is because there is still a sysfs file for use by
->>> userspace when the compositor doesn't support this property.
->>>
->>> If usespace has not modified this property, the default value will
->>> be for sysfs to control it. Once userspace has set the property stop
->>> allowing sysfs control.
->>>
->>> The property is only attached to non-OLED eDP panels.
->>>
->>> Cc: Xaver Hugl <xaver.hugl@kde.org>
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 60 ++++++++++++++++++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.h   |  7 +++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  2 +
->>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 39 +++++++++++-
->>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
->>>   5 files changed, 106 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->>> index 35c778426a7c7..f061f63e31993 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->>> @@ -1363,6 +1363,64 @@ static const struct drm_prop_enum_list amdgpu_dither_enum_list[] = {
->>>       { AMDGPU_FMT_DITHER_ENABLE, "on" },
->>>   };
->>>   +/**
->>> + * DOC: property for adaptive backlight modulation
->>> + *
->>> + * The 'adaptive backlight modulation' property is used for the compositor to
->>> + * directly control the adaptive backlight modulation power savings feature
->>> + * that is part of DCN hardware.
->>> + *
->>> + * The property will be attached specifically to eDP panels that support it.
->>> + *
->>> + * The property is by default set to 'sysfs' to allow the sysfs file 'panel_power_savings'
->>> + * to be able to control it.
->>> + * If set to 'off' the compositor will ensure it stays off.
->>> + * The other values 'min', 'bias min', 'bias max', and 'max' will control the
->>> + * intensity of the power savings.
->>> + *
->>> + * Modifying this value can have implications on color accuracy, so tread
->>> + * carefully.
->>> + */
->>> +static int amdgpu_display_setup_abm_prop(struct amdgpu_device *adev)
->>> +{
->>> +    const struct drm_prop_enum_list props[] = {
->>> +        { ABM_SYSFS_CONTROL, "sysfs" },
->>> +        { ABM_LEVEL_OFF, "off" },
->>> +        { ABM_LEVEL_MIN, "min" },
->>> +        { ABM_LEVEL_BIAS_MIN, "bias min" },
->>> +        { ABM_LEVEL_BIAS_MAX, "bias max" },
->>> +        { ABM_LEVEL_MAX, "max" },
->>
->> My only concern is that with these values we're locking ourselves
->> specifically to ABM. But if userspace implements support one might
->> want to use that support for other, similar panel power saving
->> features, like some OLED power saving features.
->>
->> I was thinking a range property might work better and could see
->> re-use in the future, but unfortunately it uses uints to specify
->> the range, so we couldn't designate -1 for "sysfs".
-> 
-> Yeah that was exactly why I landed on an enum.
-> 
->>
->> Thoughts? Should we care? Can we avoid userspace needing code for
->> a set of different panel power saving features, like
->> - ABM
->> - OLED power saving
->> - <some Intel panel power saving feature>
->> - <another NVidia panel power saving feature>
->> - <other vendors panel power saving features>
->>
->> If we made it more generic we could even move this to a common DRM
->> property once other drivers have use for it.
-> 
-> It sounds like a flip flop between the older version (generic "panel power savings" property) and this one.
-> 
-> During the hackfest this year Xaver had made the point we're always going to end up with subtle nuance in different implementations of power saving technologies that the compositor may need to care about, which I tend to agree with.
->>
+NULL-checks before kfree and friends are unnecessary. There are actually 
+static checkers that complain about such unnecessary NULL-checks. For 
+example, see https://lkml.org/lkml/2024/8/11/168.
 
-Fair enough.
+The same is also true for the standard libc free in usermode: 
+https://stackoverflow.com/questions/1912325/checking-for-null-before-calling-free.
 
-Patch is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Finally, setting range->hmm_range.hmm_pfns = NULL is also unnecessary 
+because you're about to free the whole range structure anyway.
 
-Harry
+Regards,
+   Felix
 
->> Harry
->>
->>> +    };
->>> +    struct drm_property *prop;
->>> +    int i;
->>> +
->>> +    if (!adev->dc_enabled)
->>> +        return 0;
->>> +
->>> +    prop = drm_property_create(adev_to_drm(adev), DRM_MODE_PROP_ENUM,
->>> +                "adaptive backlight modulation",
->>> +                6);
->>> +    if (!prop)
->>> +        return -ENOMEM;
->>> +
->>> +    for (i = 0; i < ARRAY_SIZE(props); i++) {
->>> +        int ret;
->>> +
->>> +        ret = drm_property_add_enum(prop, props[i].type,
->>> +                        props[i].name);
->>> +
->>> +        if (ret) {
->>> +            drm_property_destroy(adev_to_drm(adev), prop);
->>> +
->>> +            return ret;
->>> +        }
->>> +    }
->>> +
->>> +    adev->mode_info.abm_level_property = prop;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>   int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
->>>   {
->>>       int sz;
->>> @@ -1409,7 +1467,7 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
->>>                        "dither",
->>>                        amdgpu_dither_enum_list, sz);
->>>   -    return 0;
->>> +    return amdgpu_display_setup_abm_prop(adev);
->>>   }
->>>     void amdgpu_display_update_priority(struct amdgpu_device *adev)
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->>> index dfa0d642ac161..2b1536a167527 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->>> @@ -54,4 +54,11 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev);
->>>   int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
->>>                         struct drm_scanout_buffer *sb);
->>>   +#define ABM_SYSFS_CONTROL    -1
->>> +#define ABM_LEVEL_OFF        0
->>> +#define ABM_LEVEL_MIN        1
->>> +#define ABM_LEVEL_BIAS_MIN    2
->>> +#define ABM_LEVEL_BIAS_MAX    3
->>> +#define ABM_LEVEL_MAX        4
->>> +
->>>   #endif
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
->>> index 6da4f946cac00..169bc667572e2 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
->>> @@ -326,6 +326,8 @@ struct amdgpu_mode_info {
->>>       struct drm_property *audio_property;
->>>       /* FMT dithering */
->>>       struct drm_property *dither_property;
->>> +    /* Adaptive Backlight Modulation (power feature) */
->>> +    struct drm_property *abm_level_property;
->>>       /* hardcoded DFP edid from BIOS */
->>>       const struct drm_edid *bios_hardcoded_edid;
->>>   diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index 928f61f972a1f..4025575d2f536 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -5042,6 +5042,7 @@ static int initialize_plane(struct amdgpu_display_manager *dm,
->>>   static void setup_backlight_device(struct amdgpu_display_manager *dm,
->>>                      struct amdgpu_dm_connector *aconnector)
->>>   {
->>> +    struct amdgpu_dm_backlight_caps *caps;
->>>       struct dc_link *link = aconnector->dc_link;
->>>       int bl_idx = dm->num_of_edps;
->>>   @@ -5061,6 +5062,13 @@ static void setup_backlight_device(struct amdgpu_display_manager *dm,
->>>       dm->num_of_edps++;
->>>         update_connector_ext_caps(aconnector);
->>> +    caps = &dm->backlight_caps[aconnector->bl_idx];
->>> +
->>> +    /* Only offer ABM property when non-OLED and user didn't turn off by module parameter */
->>> +    if (!caps->ext_caps->bits.oled && amdgpu_dm_abm_level < 0)
->>> +        drm_object_attach_property(&aconnector->base.base,
->>> +                       dm->adev->mode_info.abm_level_property,
->>> +                       ABM_SYSFS_CONTROL);
->>>   }
->>>     static void amdgpu_set_panel_orientation(struct drm_connector *connector);
->>> @@ -7122,6 +7130,20 @@ int amdgpu_dm_connector_atomic_set_property(struct drm_connector *connector,
->>>       } else if (property == adev->mode_info.underscan_property) {
->>>           dm_new_state->underscan_enable = val;
->>>           ret = 0;
->>> +    } else if (property == adev->mode_info.abm_level_property) {
->>> +        switch (val) {
->>> +        case ABM_SYSFS_CONTROL:
->>> +            dm_new_state->abm_sysfs_forbidden = false;
->>> +            break;
->>> +        case ABM_LEVEL_OFF:
->>> +            dm_new_state->abm_sysfs_forbidden = true;
->>> +            dm_new_state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
->>> +            break;
->>> +        default:
->>> +            dm_new_state->abm_sysfs_forbidden = true;
->>> +            dm_new_state->abm_level = val;
->>> +        };
->>> +        ret = 0;
->>>       }
->>>         return ret;
->>> @@ -7164,6 +7186,13 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
->>>       } else if (property == adev->mode_info.underscan_property) {
->>>           *val = dm_state->underscan_enable;
->>>           ret = 0;
->>> +    } else if (property == adev->mode_info.abm_level_property) {
->>> +        if (!dm_state->abm_sysfs_forbidden)
->>> +            *val = ABM_SYSFS_CONTROL;
->>> +        else
->>> +            *val = (dm_state->abm_level != ABM_LEVEL_IMMEDIATE_DISABLE) ?
->>> +                dm_state->abm_level : 0;
->>> +        ret = 0;
->>>       }
->>>         return ret;
->>> @@ -7216,10 +7245,16 @@ static ssize_t panel_power_savings_store(struct device *device,
->>>           return -EINVAL;
->>>         drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
->>> -    to_dm_connector_state(connector->state)->abm_level = val ?:
->>> -        ABM_LEVEL_IMMEDIATE_DISABLE;
->>> +    if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
->>> +        ret = -EBUSY;
->>> +    else
->>> +        to_dm_connector_state(connector->state)->abm_level = val ?:
->>> +            ABM_LEVEL_IMMEDIATE_DISABLE;
->>>       drm_modeset_unlock(&dev->mode_config.connection_mutex);
->>>   +    if (ret)
->>> +        return ret;
->>> +
->>>       drm_kms_helper_hotplug_event(dev);
->>>         return count;
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> index 0b964bfdd4a55..5a38373e054a8 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
->>> @@ -969,6 +969,7 @@ struct dm_connector_state {
->>>       bool underscan_enable;
->>>       bool freesync_capable;
->>>       bool update_hdcp;
->>> +    bool abm_sysfs_forbidden;
->>>       uint8_t abm_level;
->>>       int vcpi_slots;
->>>       uint64_t pbn;
->>
-> 
 
+>> +
+>>       amdgpu_bo_unref(&range->bo);
+>>       kfree(range);
+>>   }
+>
