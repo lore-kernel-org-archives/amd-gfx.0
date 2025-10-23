@@ -4,68 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34656CCD1BC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 19:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A12CCCF9E3
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 19:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3B4010E08C;
-	Thu, 23 Oct 2025 19:02:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C43E10E0C1;
+	Thu, 23 Oct 2025 19:39:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cR9CP0wm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fkHAt3ef";
 	dkim-atps=neutral
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA4D10E08C
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 19:02:19 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-7a275143acdso72806b3a.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 12:02:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761246139; x=1761850939; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5jSE6efL+eygooGf4aajoMP2c/goChzVEJJet+7N6KE=;
- b=cR9CP0wmy00IF4WalLWvpw6TKyzAYfFcBGtrM4sPZ+G6k/cbSPGFPYdoL0q7m8F73Y
- U74xFKremJAtsegVTBY1eAosXuAX4KxZbJ55yEDdMsyzJybiGcBIzc0jP11fwxAWgGVg
- oMDcXk6KXV8fJZVv7KQq/HQjL/5okwh5bDY39dVscR7TqMviqCarsFlwRxJAI6IKsBrH
- WiBbMo0fIQ7rxgNW4uUWQKB6TSk9mdllj0vZfH7VdT0/QI6u07qvzrm4vQS9PRSg3b4R
- cDQpF6Y+KuLJCIuD8HBZnj6SoGg/QvFEd5meAmzA2nQxmAW75Pgu3Ox0Guq8pU+GFWaj
- t8XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761246139; x=1761850939;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5jSE6efL+eygooGf4aajoMP2c/goChzVEJJet+7N6KE=;
- b=IJmc8DmZEoX9X3kUCfFNWqOZqkpnxls5TRB33hVe360e4ajeeCqqUge43/bpTilMos
- VRRT75VVMZfjjgPprdM9a+w9K0fTWK8P/Ux2lM2YFdtJy/JgHZHjcZf8a77i45vnZj8u
- 6mDz8leI433XQJ2P+A1lYdyeWWOBV9WFStLePmK1CKFlM1Onra7kJbbgD2dUw+/GTv4z
- mIjlRfCbHb9OWcJ1E5RIcxEUNN4V3gmNb5ft1zUy09EwQyMpNPTNuhOgULOnOr2GKDaw
- mdFGssWafbXblLJ381PBLgR5ZRnMoM6n5N5lftrAnDu1Hw/I21dvvrEjKaGJpqOSto/I
- QL4w==
-X-Gm-Message-State: AOJu0YzWeefApx1IiRJY4qMvZZdxdpnqwNWzAdOmkUPx9R05V/UDP1XH
- yCTE+gZ8qUcP8ZdWpFTFkegsTCvz5MOt3NJ3tMKQfsKoiii3lp3eVCRzmUJLHZutZH1yFqSpmKo
- EAKB3zwmD+F3ekqcyXR3/WLmCAUfNB/iHDg==
-X-Gm-Gg: ASbGncv87vJpYah2ja3AeIOXAxyTgcx3G4PCpd0SoXmdr58KDP6kqPViC4qWOOGJb5Q
- 0J03wKShSROmqrJj7ljDlf6rJduxT55qxLgaefDm/MU+9zeiHDdrivtC2hZUFhhE6knAp0bwpDW
- rfgJPc4hUyHKp80FG1TscMQ63TStto4MgcR+cXUh0Dc6LWznoFpEUjl9wmt8YrnGjh9EyF4sPsC
- gfO/5B/FG3NhAg6+FzN4BAqbSc9Yq9oESrXGm1zZZYnBqUiKP0BAC9F50hXdrydJFc5Cs8=
-X-Google-Smtp-Source: AGHT+IFa5Fbx5f3NavK521r6w44ewrhrsb4H4qajdUd8JJEUgmqzvYutWoCW0mi1tfhiIc+E2KdZj/CTajBvFlocz8Q=
-X-Received: by 2002:a17:903:234d:b0:290:8d7b:4041 with SMTP id
- d9443c01a7336-290cc7d4ac9mr158427655ad.10.1761246139239; Thu, 23 Oct 2025
- 12:02:19 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03D4010E0C1;
+ Thu, 23 Oct 2025 19:39:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761248380; x=1792784380;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=OSmpnNs0/AMNUFsS6Fsz1K/9p0tTe3Vtc+ysYl6ffNc=;
+ b=fkHAt3efR2/QwWEEoqcsJXqaGlzkcQzjDXuGItii+gGlqTgd+Q7YM7qV
+ VHVRQ6nALxz/7o0F+lb5qmZVn7swW1tVzP3Mek26f6+hGgyzPLz6oabjV
+ DOtdyy6k/S3/Cfj2kX2T0qn+nmHjoZG9Jw9Nu8ZmCbhdGyFEMdt/EwMcE
+ v3humuxo0l0D87/QeqLJP/8n+eccsMNKmi100n1++GBgprz79pj3xUjMo
+ WrH1pjyAErIJNlUiJSMZAidIac+L4irHOZ6vHashvQgcnhn7jC7CxAxXV
+ me4deObyX78vYfsLCBVxkx+7siQ1TyZCuZofkqlpvYVfxXoseBfxFf8PL w==;
+X-CSE-ConnectionGUID: nukmwx9LTZCxdYjY34mvVA==
+X-CSE-MsgGUID: Gl+nKTurRK+ty5Hy50+SDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="62639515"
+X-IronPort-AV: E=Sophos;i="6.19,250,1754982000"; d="scan'208";a="62639515"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2025 12:39:40 -0700
+X-CSE-ConnectionGUID: f2VFH6p4QSS41LQ8JPt06g==
+X-CSE-MsgGUID: 2AGvUH8MQj+9jbyOus63oQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,250,1754982000"; d="scan'208";a="184168230"
+Received: from lkp-server02.sh.intel.com (HELO 66d7546c76b2) ([10.239.97.151])
+ by fmviesa006.fm.intel.com with ESMTP; 23 Oct 2025 12:39:37 -0700
+Received: from kbuild by 66d7546c76b2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1vC19q-000DoX-35;
+ Thu, 23 Oct 2025 19:39:34 +0000
+Date: Fri, 24 Oct 2025 03:38:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dan Carpenter <error27@gmail.com>, YiPeng Chai <YiPeng.Chai@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH next] drm/amd/ras: Fix memory corruption in
+ ras_core_convert_timestamp_to_time()
+Message-ID: <202510240310.WujwpVmw-lkp@intel.com>
+References: <aPi6I5z5oenppEuu@stanley.mountain>
 MIME-Version: 1.0
-References: <20251022212026.1785896-1-alexander.deucher@amd.com>
-In-Reply-To: <20251022212026.1785896-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 23 Oct 2025 15:02:07 -0400
-X-Gm-Features: AS18NWCph5UHmFGgbiWNnmtFHkhI96VkqMs-xMHJcW4igBNlCoEtcxK225xeook
-Message-ID: <CADnq5_My0DMdKpPRDeKrTXU_zXhV=xMGChFsLSDzM7MjO81BRg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix possible fence leaks from job structure
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aPi6I5z5oenppEuu@stanley.mountain>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,52 +74,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Hi Dan,
 
-Alex
+kernel test robot noticed the following build errors:
 
-On Wed, Oct 22, 2025 at 5:26=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
->
-> If we don't end up initializing the fences, free then when
-> we free the job.
->
-> Fixes: db36632ea51e ("drm/amdgpu: clean up and unify hw fence handling")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index 3d396ab625f33..8ad8b16e96760 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -295,6 +295,11 @@ static void amdgpu_job_free_cb(struct drm_sched_job =
-*s_job)
->
->         amdgpu_sync_free(&job->explicit_sync);
->
-> +       if (!job->hw_fence->base.ops)
-> +               kfree(job->hw_fence);
-> +       if (!job->hw_vm_fence->base.ops)
-> +               kfree(job->hw_vm_fence);
-> +
->         kfree(job);
->  }
->
-> @@ -324,6 +329,11 @@ void amdgpu_job_free(struct amdgpu_job *job)
->         if (job->gang_submit !=3D &job->base.s_fence->scheduled)
->                 dma_fence_put(job->gang_submit);
->
-> +       if (!job->hw_fence->base.ops)
-> +               kfree(job->hw_fence);
-> +       if (!job->hw_vm_fence->base.ops)
-> +               kfree(job->hw_vm_fence);
-> +
->         kfree(job);
->  }
->
-> --
-> 2.51.0
->
+[auto build test ERROR on next-20251022]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Dan-Carpenter/drm-amd-ras-Fix-memory-corruption-in-ras_core_convert_timestamp_to_time/20251022-190512
+base:   next-20251022
+patch link:    https://lore.kernel.org/r/aPi6I5z5oenppEuu%40stanley.mountain
+patch subject: [PATCH next] drm/amd/ras: Fix memory corruption in ras_core_convert_timestamp_to_time()
+config: i386-randconfig-014-20251023 (https://download.01.org/0day-ci/archive/20251024/202510240310.WujwpVmw-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251024/202510240310.WujwpVmw-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202510240310.WujwpVmw-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: "__umoddi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+ERROR: modpost: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>> ERROR: modpost: "__udivmoddi4" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
