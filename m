@@ -4,56 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562CBCCD1BF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 22:13:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 269FCCCD193
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 22:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2EB710E964;
-	Thu, 23 Oct 2025 22:13:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82C7310E972;
+	Thu, 23 Oct 2025 22:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iLgMzwRw";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Fuci2zMb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E25010E964;
- Thu, 23 Oct 2025 22:13:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8C8BA64168;
- Thu, 23 Oct 2025 22:13:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D307C4CEE7;
- Thu, 23 Oct 2025 22:13:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761257605;
- bh=hTBrDKVoeskq+MifAVXcmfFHC4o+oZ5r7Ay9n1/z9nM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=iLgMzwRwqOy7sXJZ/cj7mFF4anpc72L+LOLPSOst+38/v7JsCdFZIWnetBjui1OZp
- yN9rhy18xXZFkMpJvT3bCqAxi3fO+pkh+MOmaEAMU2w73RWUHGkiSwoHDvolqgHifO
- laPHaAbteCJg3k/b1htoXUTJp5NAAji1iY4F576yFl0w0NQYjIgpclFc9+tOGmnT+4
- e8jP+OrOXoPfmaDh+HaT1WKhHadjTfdYLaX3ULIsY5VgsyZXqNPTKerWKaJ0kqWB1B
- N+0zaF4mRsDvn68jOb99Z3vIwQv/JhMqiP622akyX0d/1RuJGj9Nu4QkURbt7NFlvh
- N6Fr/s7aGkeRA==
-Date: Thu, 23 Oct 2025 17:13:23 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- "Michael J . Ruhl" <mjruhl@habana.ai>,
- Andi Shyti <andi.shyti@linux.intel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 00/11] PCI: Resizable BAR improvements
-Message-ID: <20251023221323.GA1325049@bhelgaas>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6203A10E96B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 22:39:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=kOnRyOUveAL+m8WtpiA/eFL1HEPuLromPLGaInU7CDE=; b=Fuci2zMboPRHrk98sxwaeR5JJ8
+ u2GZ2jnycu94BBtskutbFXxXYJC2trPYjsF4LHxhlbxQ7tCMvC+2+udZB83DbmAT1tR3t+6bCWxLW
+ 2JdLEwFtFbCV6l9Y/vtYDNOE+sOAm73Y7xlktK6nzJo0u0gScwCE8pYVF+hs2TVtOpeu0vF2Oh987
+ NqB3EXRXDfgGZsE7Fum4lPpJgyyidUniFV5inE4ZY7cYMe7pZDyoL999AY+6yfJF3Mm+l3jUuIdan
+ zr3YIUO1oYWBDvhobBKu8lLmz02vzL0cLv/3kvRMFvzgBOL0AkBkPj88gRncM3WWx7a7Oc72ab1/t
+ ps7PI1Lw==;
+Received: from [104.193.135.201] (helo=debian.home.app)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vC3y4-00DpJV-Lg; Fri, 24 Oct 2025 00:39:37 +0200
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rodrigo Siqueira <siqueira@igalia.com>
+Subject: [PATCH v4 2/5] Documentation/gpu: Add new glossary entries from UMR
+Date: Thu, 23 Oct 2025 16:38:45 -0600
+Message-ID: <20251023223918.601594-3-siqueira@igalia.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251023223918.601594-1-siqueira@igalia.com>
+References: <20251023223918.601594-1-siqueira@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <w35eozxuh3netnt5kdwuqp7bespytvsyn2smznlrcigjb24eeh@amk26j7ihnpl>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,93 +62,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 23, 2025 at 05:02:42PM -0500, Lucas De Marchi wrote:
-> On Thu, Oct 23, 2025 at 04:29:43PM -0500, Bjorn Helgaas wrote:
-> > On Wed, Oct 22, 2025 at 04:33:20PM +0300, Ilpo Järvinen wrote:
-> > > pci.c has been used as catch everything that doesn't fits elsewhere
-> > > within PCI core and thus resizable BAR code has been placed there as
-> > > well. Move Resizable BAR related code to a newly introduced rebar.c to
-> > > reduce size of pci.c. After move, there are no pci_rebar_*() calls from
-> > > pci.c indicating this is indeed well-defined subset of PCI core.
-> > > 
-> > > Endpoint drivers perform Resizable BAR related operations which could
-> > > well be performed by PCI core to simplify driver-side code. This
-> > > series adds a few new API functions to that effect and converts the
-> > > drivers to use the new APIs (in separate patches).
-> > > 
-> > > While at it, also convert BAR sizes bitmask to u64 as PCIe spec already
-> > > specifies more sizes than what will fit u32 to make the API typing more
-> > > future-proof. The extra sizes beyond 128TB are not added at this point.
-> > > 
-> > > Some parts of this are to be used by the resizable BAR changes into the
-> > > resource fitting/assingment logic but these seem to stand on their own
-> > > so sending these out now to reduce the size of the other patch series.
-> > > 
-> > > v3:
-> > > - Rebased to solve minor conflicts
-> > > 
-> > > v2: https://lore.kernel.org/linux-pci/20250915091358.9203-1-ilpo.jarvinen@linux.intel.com/
-> > > - Kerneldoc:
-> > >   - Improve formatting of errno returns
-> > >   - Open "ctrl" -> "control"
-> > >   - Removed mislead "bit" words (when referring to BAR size)
-> > >   - Rewrote pci_rebar_get_possible_sizes() kernel doc to not claim the
-> > >     returned bitmask is defined in PCIe spec as the capability bits now
-> > >     span across two registers in the spec and are not continuous (we
-> > >     don't support the second block of bits yet, but this API is expected
-> > >     to return the bits without the hole so it will not be matching with
-> > >     the spec layout).
-> > > - Dropped superfluous zero check from pci_rebar_size_supported()
-> > > - Small improvement to changelog of patch 7
-> > > 
-> > > Ilpo Järvinen (11):
-> > >   PCI: Move Resizable BAR code into rebar.c
-> > >   PCI: Cleanup pci_rebar_bytes_to_size() and move into rebar.c
-> > >   PCI: Move pci_rebar_size_to_bytes() and export it
-> > >   PCI: Improve Resizable BAR functions kernel doc
-> > >   PCI: Add pci_rebar_size_supported() helper
-> > >   drm/i915/gt: Use pci_rebar_size_supported()
-> > >   drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
-> > >   PCI: Add pci_rebar_get_max_size()
-> > >   drm/xe/vram: Use pci_rebar_get_max_size()
-> > >   drm/amdgpu: Use pci_rebar_get_max_size()
-> > >   PCI: Convert BAR sizes bitmasks to u64
-> > > 
-> > >  Documentation/driver-api/pci/pci.rst        |   3 +
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   8 +-
-> > >  drivers/gpu/drm/i915/gt/intel_region_lmem.c |  10 +-
-> > >  drivers/gpu/drm/xe/xe_vram.c                |  32 +-
-> > >  drivers/pci/Makefile                        |   2 +-
-> > >  drivers/pci/iov.c                           |   9 +-
-> > >  drivers/pci/pci-sysfs.c                     |   2 +-
-> > >  drivers/pci/pci.c                           | 145 ---------
-> > >  drivers/pci/pci.h                           |   5 +-
-> > >  drivers/pci/rebar.c                         | 314 ++++++++++++++++++++
-> > >  drivers/pci/setup-res.c                     |  78 -----
-> > >  include/linux/pci.h                         |  15 +-
-> > >  12 files changed, 350 insertions(+), 273 deletions(-)
-> > >  create mode 100644 drivers/pci/rebar.c
-> > 
-> > Applied to pci/rebar for v6.18, thanks, Ilpo!
-> 
-> is this for v6.18 or it's a typo and it's going to v6.19?
+When using UMR, a dashboard is available that displays the CPC, CPF,
+CPG, TCP, and UTCL utilization. This commit introduces the meanings of
+those acronyms (and others) to the glossary to improve the comprehension
+of the UMR dashboard.
 
-Oops, sorry, I meant v6.19!  I still have v6.18 regressions top of
-mind :)
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+---
+ Documentation/gpu/amdgpu/amdgpu-glossary.rst | 27 ++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-> > If we have follow-on resource assignment changes that depend on these,
-> > maybe I'll rename the branch to be more generic before applying them.
-> > 
-> > Also applied the drivers/gpu changes based on the acks.  I see the CI
-> > merge failures since this series is based on v6.18-rc1; I assume the
-> > CI applies to current linux-next or similar.  I'll check the conflicts
-> 
-> it tries on drm-tip that contains drm-xe-next going to v6.19. We have
-> some changes there that conflict, but shouldn't be hard.
-> 
-> We also need https://lore.kernel.org/linux-pci/20250918-xe-pci-rebar-2-v1-1-6c094702a074@intel.com/
-> to actually fix the rebar in some cases. Could you take a look?
+diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+index 30812d9d53c6..2fc2a1cbd77d 100644
+--- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
++++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
+@@ -30,6 +30,15 @@ we have a dedicated glossary for Display Core at
+     CP
+       Command Processor
+ 
++    CPC
++      Command Processor Compute
++
++    CPF
++      Command Processor Fetch
++
++    CPG
++      Command Processor Graphics
++
+     CPLIB
+       Content Protection Library
+ 
+@@ -78,6 +87,9 @@ we have a dedicated glossary for Display Core at
+     GMC
+       Graphic Memory Controller
+ 
++    GPR
++      General Purpose Register
++
+     GPUVM
+       GPU Virtual Memory.  This is the GPU's MMU.  The GPU supports multiple
+       virtual address spaces that can be in flight at any given time.  These
+@@ -92,6 +104,9 @@ we have a dedicated glossary for Display Core at
+       table for use by the kernel driver or into per process GPUVM page tables
+       for application usage.
+ 
++    GWS
++      Global Wave Sync
++
+     IH
+       Interrupt Handler
+ 
+@@ -206,12 +221,24 @@ we have a dedicated glossary for Display Core at
+     TC
+       Texture Cache
+ 
++    TCP (AMDGPU)
++      Texture Cache per Pipe. Even though the name "Texture" is part of this
++      acronym, the TCP represents the path to memory shaders; i.e., it is not
++      related to texture. The name is a leftover from older designs where shader
++      stages had different cache designs; it refers to the L1 cache in older
++      architectures.
++
+     TOC
+       Table of Contents
+ 
+     UMSCH
+       User Mode Scheduler
+ 
++    UTC (AMDGPU)
++      Unified Translation Cache. UTC is equivalent to TLB. You might see a
++      variation of this acronym with L at the end, i.e., UTCL followed by a
++      number; L means the cache level (e.g., UTCL1 and UTCL2).
++
+     UVD
+       Unified Video Decoder
+ 
+-- 
+2.51.0
 
-Will do.  Remind me again if I forget!
-
-Bjorn
