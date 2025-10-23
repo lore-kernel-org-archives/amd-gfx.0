@@ -4,153 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48144CCD1BC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 15:30:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16B29CCD1BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 15:39:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C242410E918;
-	Thu, 23 Oct 2025 15:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72FAE10E923;
+	Thu, 23 Oct 2025 15:39:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qGOH+H61";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rOOk+1L8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mYDNeC29";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DAlA3sZc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ySnrNCRC";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011002.outbound.protection.outlook.com [52.101.52.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60D3310E918
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 15:30:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ctJl4HA0Ejb6j0Sj1QZ1ZL/nX8aXzhkBkfeq3Lkl4soX7RXBFxJiaB7V5S3EKA5MU29/4CHPUjpq+/g9D75A4NKmVkZ2pdW0JUd8hU1MCYv7ZvKhgIfrHucx8vdQdQ7pn29fGfZhVnZvfWsCu9EIlaIwDXNK06F3OeVwzhOr6xRAhLo8BsJE4Ool4ApEajQ+9OKEcjdrJ7iIbIXRlq6HUObO6jf3UQ/zaCvnWBldmKbpoh03EfyqPrGIBO143POU7UAnmXuY9Y87BebCoqAzW784SL6hOacRpulRiRf0fhst00MZneYpPlbnw3kBfV/JfqFPvOM7SQLEPrmoHKg28Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UryPvRtium2PMiE1t+pxWk86Uw2wcNSuZu8SBgge99Y=;
- b=iBKOl0IlRiPuD4eFSQik/VNnOhwmezkaM7HU5sbO+rVdMXdT//t6i+yUfBUYjbTISh2NHUHYkEwkCftg1akz+S91ud5fVeach8n98pTdgYYr+H1quU/Qphz9NoiiBN5AQmpkCibvCv8UI19CIflzzYijBAphTU4JprOonOhk5DiCdZGCm2CfrbEKt4+/34vaQFBOMq5QnDTex8z6l1VDv2L5wm1e1aJKM6kwiu55wwxgbERzpKrqesMWzFFZRDIQ43wvlfmkhZAEXbWY6DvxjwoE9GAfNOu1Nso84SQm054U1YvCTjDi8zNooXglCT/vU+3hRmGyYdE2kSnRnLYubg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UryPvRtium2PMiE1t+pxWk86Uw2wcNSuZu8SBgge99Y=;
- b=qGOH+H61GlDDfYBmunAq2iq2cNaxKmKIxg40Lkz3oXBxDFuS7ZIcU4SMw02bl8sgbwupzYarat2jgCnaeAPQk6uhRjWDoaDAqvsguPAG7rHYEaurKHciXlPnTbtUvdAHKFNkNDzoaHvYazwLdZ6oMW7uuxgXhPqbdXnewK15Nz4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH8PR12MB6868.namprd12.prod.outlook.com (2603:10b6:510:1cb::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Thu, 23 Oct
- 2025 15:30:15 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.9253.011; Thu, 23 Oct 2025
- 15:30:14 +0000
-Message-ID: <a1c87ae7-9f8d-4fb7-a141-c285776d76b0@amd.com>
-Date: Thu, 23 Oct 2025 11:30:09 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v1] drm/amdgpu: null check for hmm_pfns ptr before freeing
- it
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20251023065848.1664757-1-sunil.khatri@amd.com>
- <dc5cbf60-d73f-4590-ab7c-0ac3e919fb5c@amd.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <dc5cbf60-d73f-4590-ab7c-0ac3e919fb5c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0161.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::17) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7ED110E925
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 15:39:48 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 38AC321187;
+ Thu, 23 Oct 2025 15:39:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761233983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=rOOk+1L8Um5iOXXt85CJNrMgUxmzOVrAYvM+tfLETiCGLl2aiJttREq8V3mSKUpcxTqqdj
+ l7TViKhxC0xQVhT6iShwws/h5oGPMkztPOi078I6xr6Uteps0EYGkai+oRAVFx5nyFv6Vn
+ 1O8pNJi3YSFsfXJDrweOYfqpid31cf4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761233983;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=mYDNeC298lzqFC8qoZuZk5pNwTUK0YntJyAJtllNJNwZ/toC8a4IZDW8Z6SgJA7xxU8H5k
+ fok4BvyFKK5MrzDw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761233979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=DAlA3sZcZeuOjOFICW30MLLWNxNhjXDLqzmJqQrGX9qWDKTIWBN2A2EoFjI0emJdLEFFTa
+ Xy490TDIoI4lzA1jHkx2uCbfi4FN/0kAZSaNlYyg3DiH9kDtT987gwlO79m3H4UB4N/2Lj
+ XwXnnNWvs4GANBXdlNDc7KKSXmZGqLs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761233979;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oyYHstVcDj/SkrQCRCxmIIkIeLsDuJ8po4N2nL2Frfc=;
+ b=ySnrNCRC698xP5gkeFXzPyzRo9yOOVBWHgBM3q98Rk7ngacFmPwelNmhM99uFpvyvUArD1
+ eKLz4ieDlW08yWBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8204A136CF;
+ Thu, 23 Oct 2025 15:39:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Z1hfHTpM+mihKQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 23 Oct 2025 15:39:38 +0000
+Message-ID: <38e59db5-eae2-4b6e-bdec-8205f1303d9b@suse.de>
+Date: Thu, 23 Oct 2025 17:39:37 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH8PR12MB6868:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3b265ca-a39c-4ab7-a1f4-08de12490f96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WHo3bmlSNW1Md0UwaVZ5SG9VSDVMQWVFUDRReGtzSHlWdDBXZklSTXJKVzVk?=
- =?utf-8?B?UEV2NFBYeExySjJoNDIwRDU2M2MxYldIaWVlc0hrR3ZaeXJnRVllUXN4MFBH?=
- =?utf-8?B?NGJGMTFiRmlVdTgvZEc1Uko4eHRoSHNPRkYySTliTXhrWk1qRkNTT1Z3cW5N?=
- =?utf-8?B?N3NyTlVoLzBLNEdZZDRZc2ZWeXEvakRPYXRKaCtaZ3JLNlpQNkFDRWRJT3BE?=
- =?utf-8?B?TlFSNFd5SmNqZHFZWjFFUUZCQ0d0SHRnS1hDYU1rQm1iRlFDYWlZTEVCMXRQ?=
- =?utf-8?B?dm9OekJOMkluZDc5Z2dGY1lTUXhiNTNwQXBWYnJRVzVFM2VKTGF5VUoxd05N?=
- =?utf-8?B?Tzl4dmpsS2Q5cWIxM2ZzMWVTS2JleU9sa2EwdVhXYU93Vk43aGhXMEU1RGlQ?=
- =?utf-8?B?RHR4SUhRZ3VkcVVudVMrWFJaVk1tTW5pamZVcDB6b0NVL1BpdWYyNlNlZ3l6?=
- =?utf-8?B?OXkyMFlnZ3d3bFB2aks5SHNIYjEvZkdaNmg4Vm45b2VQNUt2STVOZnFDaElv?=
- =?utf-8?B?aGFJc3NHWk53Q3c2STVFdVZrZlp4MzNnVHAvcGM2ZG1WcWNZU2c2SHVYNVVD?=
- =?utf-8?B?Yy9RWDZibEYzbU9xbm9rUkQ3blRrQjJTcjB0UmxZNXVtcEg4eEVtN3YxQjQz?=
- =?utf-8?B?NWZWVVZDKzNlQlBndG05VGZPT1Q1VzRwVmMxMVJyc0IycUlPV2Y2YU1GUXhr?=
- =?utf-8?B?NG1vMjZOMmtNTEVqVHI5WThYOUgyQnQrWGVROGk0VE1QNncrWUVOdUw1MUlH?=
- =?utf-8?B?K09BQzd1bTRCZFVjSUpQKzBvdVN4RmNUSlhCMnR6S3VHeFRGV1dKQmdLYzFR?=
- =?utf-8?B?b1RwQlA4SU9pcTJjbmpUSGN6cjNCQ2Q2VytXL0hIMWVnMy9QTVdKZkZiRG9R?=
- =?utf-8?B?N09xZEhzdi8wdVY3bHNMRWVqd3Z5ZVkweUtlclBRay9xVzgyL0duZzljQXM4?=
- =?utf-8?B?QVdHc1YvYmcyRWNDUDk2VEJTMFp1Mk5SSVJwQm9RNGFMWUpkWG9oeDZ6c3ha?=
- =?utf-8?B?RmdWNjI1RkhuREdNZkpGQ3ZWU3oxL1ZpZG51TU11eXBDQzd4SjdudldZTWNy?=
- =?utf-8?B?dlJRWlIwSk5rU1Q5ZFdKbmZqZXkrWEVJNVJpdkNrS1dvTlByLzVtWE80RU1F?=
- =?utf-8?B?Y3djdVpUQmJNM1RXRjNqNTV3NXZDd3VGTS85d1gyMUdvcUEvc3ZwZzNWZlp1?=
- =?utf-8?B?RUFWbnk0eFhEbnBGdlllc0N5L0dweFFTMjduSGhZMFVTREgxWU1hek5zVlQz?=
- =?utf-8?B?ZDU0LzBGWUZHN3R2emdOc25xTVM2VElPMGZlN2tUeWZrWldhY0NPYmhacDNB?=
- =?utf-8?B?ZVdob0lIOGYzZHA3TGhzVjF1Y1h6cEtnc3Q0WVpoV0RjYWxUbUh5RVp6cGM5?=
- =?utf-8?B?Qzlpam5CdjRlYTJrYkFyRllQOGJ1VWZsZGh6ZUliaGJBMndiZHBqVmYyYW5v?=
- =?utf-8?B?dkQ2NkNOeG9GOXcyak9DUzY4andpSXVJV1llSG02TXBaZG04QVd4Y0J4a2RK?=
- =?utf-8?B?V2oxNG1LalFHam9abnJHUFJyaDJURlVscUhUQ2pvdG0rWE9SUXliWGZ3SjRH?=
- =?utf-8?B?Wisra3Y0c2t3anZSWjVwdmNEMFJCNjN1S1FXaTZMeWxKTk5RYVlDYWRpaHhh?=
- =?utf-8?B?V0w4Q1hkc21YMlhYVDJWc1JkOHFqd0RQckg1czVRN3pYUGVqOVY0Wm5TWSs4?=
- =?utf-8?B?MktuN1RoR3Q3MExWU1ViS1p1T05xVzRiMEdnMFVQbmZTcjBib2d2Z0ZaNEp1?=
- =?utf-8?B?RHdhMXNqNUl1aFlFcFV0T1VjOUJzM3lmNk95RXFYenR4MUpMYXFyUjJmTHBJ?=
- =?utf-8?B?ZXZUNU5Ba3h1Q09UNGQ2OFV0MTdPRG5wN1FLS3NoVGRtd3JRUjlILzE5OFpW?=
- =?utf-8?B?YkJqdUQ4bXlySmpXa0ZHaWhYeGk2N1JyNTJMOWxRVUZKVFM2RDNQd2hqekJu?=
- =?utf-8?B?ZGEyK1pqWVhML3BwZUJ5UnluQTc3OXluV0tPZTlOdWprRTJPZ014OTNtN0Fi?=
- =?utf-8?B?ZUxqRDZJMGdnPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHgwNzVNenNNSmZpejIrdmdzM1lVV3kwKzhRM2xIcEJxV2g1N3E2dVNvR1Bi?=
- =?utf-8?B?ZDEvTXlhM2cvbVdEUVZDKzdiWDk4STExOGdJQk1RTW52eStDM3lHbXRUaXA3?=
- =?utf-8?B?RS9oNFd1NUNjWDNnQ3o1UjFwcjlwMlM4Qnd6WG0rd0NwLzhaZWsvdlNlNm1P?=
- =?utf-8?B?dWhnMXhTc1VqRS9rVUxacXF5a3pnWXJsNHFqWGhNMW0vZDI2T2hKNkM2S1N1?=
- =?utf-8?B?anBXMkxsNHY3NndEdWp4Vi8vKzlld2VPeXNBNVp6VGJDN0xSWHZkNnhoZGtS?=
- =?utf-8?B?MytMZEhmdERBWCtjTnVkL09aL2xiRGUwVjl6UmtYNi9XT1ROa0R2azgycEhQ?=
- =?utf-8?B?VFBJWUcwNUpubi8yMmhjWDd1Q2IzMDBsMGhIMWUrZXZWcnZodmVJb09qZzJB?=
- =?utf-8?B?WVJxUVpWck5jMXZRVUc4QURpN0M0VmRkN0pQSE1MVWdmMHgvSFRUMjMxeS9h?=
- =?utf-8?B?YSsrMmhvc3hPWmx2SVNSNmdSdEozdEp6SkVvTjFmN25vMFBEL2w1NU1TbXBB?=
- =?utf-8?B?S3BuWVpKcjc4Z3NkSjNGVm5BMWRpRXBQZUNHKzNxd2NqTVlORjRpOG9DblNY?=
- =?utf-8?B?dkI1N0g5S1RSUUVBUW5TZlR2TnpDbnp1SXhjanQ3Z2FhK0NrcCtuSWN1dmZq?=
- =?utf-8?B?TDZvTzFDekV0YzZYMWp1aTMwbDlKaU5lOGNxQmdQVVNvZjZmL2FlenlFZ0tK?=
- =?utf-8?B?N1J6N2tGc256Zm15QXJvajd0ZHJ4VmtrOWx4NkRpZi80dlpoWmhwajhrQnVR?=
- =?utf-8?B?VlFRNHA5S2E0RXV2eWIzN1YvT29OOGNmcWdIdTBoLzZBRjRTRC83elNMNkRO?=
- =?utf-8?B?OXhsdkNwYVFNQnJhRFR2ekFoWm5PbUJTUm9UL3BlcTcrSDJXdnN0SFI0ci8v?=
- =?utf-8?B?cXpadXVKNkYvMFlxNU82c3hyVzlKeHJ2VGFsdGZrajkyTHZSR0JSa1JVclcz?=
- =?utf-8?B?SGsxd2l3eU55amJMSXYxblhMeGs1RU5FTE9kSDJPdmJaS2lSQ1RJMmhucnBl?=
- =?utf-8?B?ajc4ZVV5cWVHdnQ0TFdVSWNCbE5POTgwdEMybWJCK2NuOGhCdEl5WDA3Nmk3?=
- =?utf-8?B?emhBOERSRGI2ZHdMSXZQczdGQnV1Mml0UUNjQXR2S2xxeEt6ekFRUi9ScnM5?=
- =?utf-8?B?Q2xIY29jREVIY3hscXpDNVlNK0oyQnVEM0pSR2pVVzVSeisyWWpBYkcxMzNB?=
- =?utf-8?B?ZnYvQXJFUVFHQmlZQUtMOGxCSlN5TmFkZ05tRFhxczQyWmtKdk9aMjAwZDV3?=
- =?utf-8?B?WnBvazI2LzQzRTZ2RXVKL05CcHAxYlh2UWdOLzIrSFpiUS9ZMy9DUnBvK2ZW?=
- =?utf-8?B?RWJLTDN0Uks5MkNxbGlFSDg3TEVFOFZaM2EzYnNDcTZvR05xK1h2aVFraDR2?=
- =?utf-8?B?c1Nwb2hhNk5YWE5PN0VCSDFpa0ppSFlWdHVFYVNvWWRqdTljRmw2bDhicDlz?=
- =?utf-8?B?cVVjZGxnZ2JGMnREWVFDbG8ybDBjV2Y2eUtLb0svaFY3T0owdWV2VXBicDNH?=
- =?utf-8?B?d3I0MFk4emExdmFGK3hZUzR2MENqVVIveE5BTzdDTUdxbS8zd0JmdHpYUkVZ?=
- =?utf-8?B?bHU2N0NkSlBPdlo2VE8xd3F2NFZ2ZUlzaTdBY2k5dk9yVjFOYkQ4enBDaFVi?=
- =?utf-8?B?U1RrdklpWjJWc0dURHkybUJ2elBpVU9JeU9aY25Rakx5ek5TdFNCdkF4TnBp?=
- =?utf-8?B?Q1dmTkU2eGY3MGh6bDUxVGNwbWlRZFdyS0svbGFseExUNmpnRjZSQzJtdDhk?=
- =?utf-8?B?VEdiQmYzRzR6cXk3U0lLT0ZVQm5yWFpIaVdqL09OMHUxT2VoY3R1M0V1am0v?=
- =?utf-8?B?NVRWeXJoUkFmc2xEVUs0UlZycG5Zcm1jZWFXOTdsLzdnSXd3aisrSnYySDBp?=
- =?utf-8?B?Vk9IV0FVK0xtbWNUTkFIOFBydmtmcTltUStJNzUzQ2hSUkV6aStCVGlpQnhX?=
- =?utf-8?B?SERaRkJXZ0YwU1ZiYzJ1TTI1TTZocVpYeEF5VGZ2L1RiMGxqZkhJTXBYZkR1?=
- =?utf-8?B?M3ZIdFBObllJam1keldHQ2FGRnJKY3h5RHhZSHEreTY0Ui9wZklZMEZsTWQy?=
- =?utf-8?B?NlJZOTRTMHZLbk9YN2ZmYUhiZnNUalNSTHRNM1Jtbi8wSUZTMDlaNXhsRlFX?=
- =?utf-8?Q?NH8FxlK2GR7Oel5OPVsmWiRug?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3b265ca-a39c-4ab7-a1f4-08de12490f96
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2025 15:30:14.6127 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CDfxggGWTjDyifJ1yNIG25V5PGDQH6yzR6KhPanmEOgrTTaStdw5WZiOlO6vep+eS0v2Qla7HwBpwZlnlNv09A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6868
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/client: Add client free callback to unprepare
+ fb_helper
+To: jfalempe@redhat.com, javierm@redhat.com, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org
+References: <20251009132006.45834-1-tzimmermann@suse.de>
+ <20251009132006.45834-2-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20251009132006.45834-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[13]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,53 +140,286 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2025-10-23 03:48, Arunpravin Paneer Selvam wrote:
-> Acked-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+Am 09.10.25 um 15:16 schrieb Thomas Zimmermann:
+> Add free callback to struct drm_client_funcs. Invoke function to
+> free the client memory as part of the release process. Implement
+> free for fbdev emulation.
 >
-> Regards,
-> Arun.
-> On 10/23/2025 12:28 PM, Sunil Khatri wrote:
->> Due to low memory or when num of pages is too big to be
->> accomodated, allocation could fail for pfn's.
->>
->> Chekc hmm_pfns for NULL before calling the kvfree for the it.
->>
->> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 6 +++++-
->>   1 file changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->> index d6f903a2d573..6ac206e2bc46 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->> @@ -286,7 +286,11 @@ void amdgpu_hmm_range_free(struct 
->> amdgpu_hmm_range *range)
->>       if (!range)
->>           return;
->>   -    kvfree(range->hmm_range.hmm_pfns);
->> +    if (range->hmm_range.hmm_pfns) {
->> +        kvfree(range->hmm_range.hmm_pfns);
->> +        range->hmm_range.hmm_pfns = NULL;
->> +    }
-
-NULL-checks before kfree and friends are unnecessary. There are actually 
-static checkers that complain about such unnecessary NULL-checks. For 
-example, see https://lkml.org/lkml/2024/8/11/168.
-
-The same is also true for the standard libc free in usermode: 
-https://stackoverflow.com/questions/1912325/checking-for-null-before-calling-free.
-
-Finally, setting range->hmm_range.hmm_pfns = NULL is also unnecessary 
-because you're about to free the whole range structure anyway.
-
-Regards,
-   Felix
-
-
->> +
->>       amdgpu_bo_unref(&range->bo);
->>       kfree(range);
->>   }
+> Fbdev emulation allocates and prepares client memory in
+> drm_fbdev_client_setup(). The release happens in fb_destroy from
+> struct fb_ops. Multiple implementations of this callback exist in
+> the various drivers that provide fbdev implementation. Each of them
+> needs to follow the implementation details of the fbdev setup code.
 >
+> Adding a free callback for the client puts the unprepare and release
+> of the fbdev client in a single place.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+via irc
+
+https://people.freedesktop.org/~cbrill/dri-log/?channel=radeon&highlight_names=&date=2025-10-23&show_html=true
+
+> ---
+>   drivers/gpu/drm/armada/armada_fbdev.c      |  2 --
+>   drivers/gpu/drm/clients/drm_fbdev_client.c | 17 +++++++++++++++--
+>   drivers/gpu/drm/drm_client.c               |  4 ++++
+>   drivers/gpu/drm/drm_fbdev_dma.c            |  4 ----
+>   drivers/gpu/drm/drm_fbdev_shmem.c          |  2 --
+>   drivers/gpu/drm/drm_fbdev_ttm.c            |  2 --
+>   drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |  2 --
+>   drivers/gpu/drm/gma500/fbdev.c             |  3 ---
+>   drivers/gpu/drm/i915/display/intel_fbdev.c |  2 --
+>   drivers/gpu/drm/msm/msm_fbdev.c            |  2 --
+>   drivers/gpu/drm/omapdrm/omap_fbdev.c       |  2 --
+>   drivers/gpu/drm/radeon/radeon_fbdev.c      |  2 --
+>   drivers/gpu/drm/tegra/fbdev.c              |  2 --
+>   include/drm/drm_client.h                   | 10 ++++++++++
+>   14 files changed, 29 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
+> index cb53cc91bafb..22e2081bfa04 100644
+> --- a/drivers/gpu/drm/armada/armada_fbdev.c
+> +++ b/drivers/gpu/drm/armada/armada_fbdev.c
+> @@ -28,8 +28,6 @@ static void armada_fbdev_fb_destroy(struct fb_info *info)
+>   	fbh->fb->funcs->destroy(fbh->fb);
+>   
+>   	drm_client_release(&fbh->client);
+> -	drm_fb_helper_unprepare(fbh);
+> -	kfree(fbh);
+>   }
+>   
+>   static const struct fb_ops armada_fb_ops = {
+> diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
+> index f894ba52bdb5..5336accab1b6 100644
+> --- a/drivers/gpu/drm/clients/drm_fbdev_client.c
+> +++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
+> @@ -13,16 +13,28 @@
+>    * struct drm_client_funcs
+>    */
+>   
+> +static void drm_fbdev_client_free(struct drm_client_dev *client)
+> +{
+> +	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+> +
+> +	drm_fb_helper_unprepare(fb_helper);
+> +	kfree(fb_helper);
+> +}
+> +
+>   static void drm_fbdev_client_unregister(struct drm_client_dev *client)
+>   {
+>   	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+>   
+>   	if (fb_helper->info) {
+> +		/*
+> +		 * Fully probed framebuffer device
+> +		 */
+>   		drm_fb_helper_unregister_info(fb_helper);
+>   	} else {
+> +		/*
+> +		 * Partially initialized client, no framebuffer device yet
+> +		 */
+>   		drm_client_release(&fb_helper->client);
+> -		drm_fb_helper_unprepare(fb_helper);
+> -		kfree(fb_helper);
+>   	}
+>   }
+>   
+> @@ -88,6 +100,7 @@ static int drm_fbdev_client_resume(struct drm_client_dev *client, bool holds_con
+>   
+>   static const struct drm_client_funcs drm_fbdev_client_funcs = {
+>   	.owner		= THIS_MODULE,
+> +	.free		= drm_fbdev_client_free,
+>   	.unregister	= drm_fbdev_client_unregister,
+>   	.restore	= drm_fbdev_client_restore,
+>   	.hotplug	= drm_fbdev_client_hotplug,
+> diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+> index 3fa38d4ac70b..fe9c6d7083ea 100644
+> --- a/drivers/gpu/drm/drm_client.c
+> +++ b/drivers/gpu/drm/drm_client.c
+> @@ -168,6 +168,10 @@ void drm_client_release(struct drm_client_dev *client)
+>   
+>   	drm_client_modeset_free(client);
+>   	drm_client_close(client);
+> +
+> +	if (client->funcs && client->funcs->free)
+> +		client->funcs->free(client);
+> +
+>   	drm_dev_put(dev);
+>   }
+>   EXPORT_SYMBOL(drm_client_release);
+> diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
+> index 8bd626ef16c7..c6196293e424 100644
+> --- a/drivers/gpu/drm/drm_fbdev_dma.c
+> +++ b/drivers/gpu/drm/drm_fbdev_dma.c
+> @@ -57,8 +57,6 @@ static void drm_fbdev_dma_fb_destroy(struct fb_info *info)
+>   	drm_client_buffer_vunmap(fb_helper->buffer);
+>   	drm_client_framebuffer_delete(fb_helper->buffer);
+>   	drm_client_release(&fb_helper->client);
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   static const struct fb_ops drm_fbdev_dma_fb_ops = {
+> @@ -92,8 +90,6 @@ static void drm_fbdev_dma_shadowed_fb_destroy(struct fb_info *info)
+>   	drm_client_buffer_vunmap(fb_helper->buffer);
+>   	drm_client_framebuffer_delete(fb_helper->buffer);
+>   	drm_client_release(&fb_helper->client);
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   static const struct fb_ops drm_fbdev_dma_shadowed_fb_ops = {
+> diff --git a/drivers/gpu/drm/drm_fbdev_shmem.c b/drivers/gpu/drm/drm_fbdev_shmem.c
+> index 1e827bf8b815..51573058df6f 100644
+> --- a/drivers/gpu/drm/drm_fbdev_shmem.c
+> +++ b/drivers/gpu/drm/drm_fbdev_shmem.c
+> @@ -65,8 +65,6 @@ static void drm_fbdev_shmem_fb_destroy(struct fb_info *info)
+>   	drm_client_buffer_vunmap(fb_helper->buffer);
+>   	drm_client_framebuffer_delete(fb_helper->buffer);
+>   	drm_client_release(&fb_helper->client);
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   static const struct fb_ops drm_fbdev_shmem_fb_ops = {
+> diff --git a/drivers/gpu/drm/drm_fbdev_ttm.c b/drivers/gpu/drm/drm_fbdev_ttm.c
+> index 85feb55bba11..ccf460fbc1f0 100644
+> --- a/drivers/gpu/drm/drm_fbdev_ttm.c
+> +++ b/drivers/gpu/drm/drm_fbdev_ttm.c
+> @@ -53,8 +53,6 @@ static void drm_fbdev_ttm_fb_destroy(struct fb_info *info)
+>   	drm_client_framebuffer_delete(fb_helper->buffer);
+>   
+>   	drm_client_release(&fb_helper->client);
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   static const struct fb_ops drm_fbdev_ttm_fb_ops = {
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> index 93de25b77e68..a3bd21a827ad 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> @@ -42,8 +42,6 @@ static void exynos_drm_fb_destroy(struct fb_info *info)
+>   	drm_framebuffer_remove(fb);
+>   
+>   	drm_client_release(&fb_helper->client);
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   static const struct fb_ops exynos_drm_fb_ops = {
+> diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
+> index a6af21514cff..bc92fa24a1e2 100644
+> --- a/drivers/gpu/drm/gma500/fbdev.c
+> +++ b/drivers/gpu/drm/gma500/fbdev.c
+> @@ -84,9 +84,6 @@ static void psb_fbdev_fb_destroy(struct fb_info *info)
+>   	drm_gem_object_put(obj);
+>   
+>   	drm_client_release(&fb_helper->client);
+> -
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   static const struct fb_ops psb_fbdev_fb_ops = {
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> index 3fbdf75415cc..d5f26c8bb102 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> @@ -146,8 +146,6 @@ static void intel_fbdev_fb_destroy(struct fb_info *info)
+>   	drm_framebuffer_remove(fb_helper->fb);
+>   
+>   	drm_client_release(&fb_helper->client);
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   __diag_push();
+> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+> index b5969374d53f..aad6fb77f0de 100644
+> --- a/drivers/gpu/drm/msm/msm_fbdev.c
+> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
+> @@ -52,8 +52,6 @@ static void msm_fbdev_fb_destroy(struct fb_info *info)
+>   	drm_framebuffer_remove(fb);
+>   
+>   	drm_client_release(&helper->client);
+> -	drm_fb_helper_unprepare(helper);
+> -	kfree(helper);
+>   }
+>   
+>   static const struct fb_ops msm_fb_ops = {
+> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> index 948af7ec1130..b5df2923d2a6 100644
+> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> @@ -103,8 +103,6 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
+>   	drm_framebuffer_remove(fb);
+>   
+>   	drm_client_release(&helper->client);
+> -	drm_fb_helper_unprepare(helper);
+> -	kfree(helper);
+>   }
+>   
+>   /*
+> diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+> index dc81b0c2dbff..4df6c9167bf0 100644
+> --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
+> +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+> @@ -184,8 +184,6 @@ static void radeon_fbdev_fb_destroy(struct fb_info *info)
+>   	radeon_fbdev_destroy_pinned_object(gobj);
+>   
+>   	drm_client_release(&fb_helper->client);
+> -	drm_fb_helper_unprepare(fb_helper);
+> -	kfree(fb_helper);
+>   }
+>   
+>   static const struct fb_ops radeon_fbdev_fb_ops = {
+> diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
+> index 1b70f5e164af..91aece6f34e0 100644
+> --- a/drivers/gpu/drm/tegra/fbdev.c
+> +++ b/drivers/gpu/drm/tegra/fbdev.c
+> @@ -53,8 +53,6 @@ static void tegra_fbdev_fb_destroy(struct fb_info *info)
+>   	drm_framebuffer_remove(fb);
+>   
+>   	drm_client_release(&helper->client);
+> -	drm_fb_helper_unprepare(helper);
+> -	kfree(helper);
+>   }
+>   
+>   static const struct fb_ops tegra_fb_ops = {
+> diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
+> index bdd845e383ef..eecb8d6e15c7 100644
+> --- a/include/drm/drm_client.h
+> +++ b/include/drm/drm_client.h
+> @@ -28,6 +28,16 @@ struct drm_client_funcs {
+>   	 */
+>   	struct module *owner;
+>   
+> +	/**
+> +	 * @free:
+> +	 *
+> +	 * Called when the client gets unregistered. Implementations should
+> +	 * release all client-specific data and free the memory.
+> +	 *
+> +	 * This callback is optional.
+> +	 */
+> +	void (*free)(struct drm_client_dev *client);
+> +
+>   	/**
+>   	 * @unregister:
+>   	 *
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
+
+
