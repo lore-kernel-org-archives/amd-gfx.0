@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53EA3CCD1BF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 22:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59487CCF9E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 22:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 820EA10E96B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C90F510E973;
 	Thu, 23 Oct 2025 22:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XQn7mEEq";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="huN8hKsy";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6368010E972
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 22:39:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30A7310E96B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Oct 2025 22:39:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=z/brdQIfizy0sVC9adhnmlqSxWD1iH7KzCmgt6dLrmg=; b=XQn7mEEqFSP61ySsdFzWiRpHuJ
- +5m8fH4b4q/lssjQfvgU+0asWRU5/B/nFdLfRHOsYPkMjnr6QPZbLX+9xR1KMLvSMaUSAZxTh0duH
- G9+DChsXCiK64fGEmuRzR7hOF3TRMsjU5+1p3FB7dmAEcqZpXBASTeRbM6gXj5vSYi+Wkfj78XlsX
- VD8RMvdalrTsgZj9zfqAdMKF8yFGTAGFJLJXP/WVYFiW0IdikHbfc4+kJYm8YwD44QmRDNZCC9CjQ
- /r1XvtGrOQqB/4MO8B5evEHlnRFUzJ2+SoIDX9WPLShCtyJTQC5prJxAPbKJv2fcrvFsgJE/60GTO
- sY2Vd7Iw==;
+ bh=t+IeegxqwkxcCj+lDMYbDXquUV5HwvmLA7fSVJDvO6c=; b=huN8hKsydg+Fy69lCoFGhNV1Nx
+ p2w0nBzDDykD9iNAR/Ee990TXNuc2w//a0V3fPLmS4iQxSybm+44PQDHpkjRTl8t5rQLbKYHOINuY
+ pSegORSx4yUqqS7EbUa0/z4Lghq2Ii3R3AlLuCcHRx5oSZU+hh7JJcYFPWVXlw5glLc1xrkx/4usm
+ PA3Yf8AoxyXkkAKLQ/rF/ElWao6H/ZTpMsabxamcKEn27B0jfkqbeiu/I3Yw6eiUEPRLs0+sLytoS
+ c80RtM0RQrRT+64ZqQAqxwKZ/nCkDuFvVyCc2zMq7G7oioH7kUk3sQoxQYsgFj+Yv/IBSbMd+jMhG
+ 0BDktuQA==;
 Received: from [104.193.135.201] (helo=debian.home.app)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vC3y2-00DpJV-KQ; Fri, 24 Oct 2025 00:39:35 +0200
+ id 1vC3y0-00DpJV-JJ; Fri, 24 Oct 2025 00:39:32 +0200
 From: Rodrigo Siqueira <siqueira@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -39,12 +39,11 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Lijo Lazar <lijo.lazar@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH v4 1/5] drm/amdgpu: Expand kernel-doc in amdgpu_ring
-Date: Thu, 23 Oct 2025 16:38:44 -0600
-Message-ID: <20251023223918.601594-2-siqueira@igalia.com>
+Subject: [PATCH v4 0/5] Expand kernel-doc with more generic details and info
+ about ring buffers
+Date: Thu, 23 Oct 2025 16:38:43 -0600
+Message-ID: <20251023223918.601594-1-siqueira@igalia.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251023223918.601594-1-siqueira@igalia.com>
-References: <20251023223918.601594-1-siqueira@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -62,63 +61,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Expand the kernel-doc about amdgpu_ring and add some tiny improvements.
+Lately, I have been part of multiple discussions around GPU recovery and
+other concepts associated with GFX/Compute. Most of the debate is spread
+around GitLab issues, emails, and some meeting conversations. This
+patchset aims to consolidate all that information into a single
+kernel-doc, which can be collaboratively improved and shared with other
+people.
+
+In this series, you will find new amdgpu glossary entries, more details
+about the IPs' interconnections, and a description of the ring buffer.
+This series includes multiple SVG diagrams; for this reason, it might be
+good to apply this series locally. However, if you want to check all the
+images quickly, check the links below:
+
+- https://people.igalia.com/siqueira/kernel-doc-imgs/v4/amd_overview_block.svg
+- https://people.igalia.com/siqueira/kernel-doc-imgs/v4/gfx_pipeline_seq.svg
+- https://people.igalia.com/siqueira/kernel-doc-imgs/v4/no_enforce_isolation.svg
+- https://people.igalia.com/siqueira/kernel-doc-imgs/v4/enforce_isolation.svg
+- https://people.igalia.com/siqueira/kernel-doc-imgs/v4/ring_buffers.svg
+
+Finally, keep in mind that I tried to fill in some gaps between
+information, and hopefully, my description matches the reality.
+
+Changes since V3:
+- Add more details in the glossary.
+- Move TMZ from the display glossary to the AMDGPU glossary.
+- Update the amd_overview_block.svg to describe PSP and hub connection with blocks better.
+- Improve amdgpu_ring documentation.
+- Improve block description overview.
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 14 +++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 ++
- 2 files changed, 13 insertions(+), 3 deletions(-)
+Cc: Lijo Lazar <lijo.lazar@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 43f769fed810..60e3beac5496 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -75,8 +75,15 @@ unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type)
-  * @ring: amdgpu_ring structure holding ring information
-  * @ndw: number of dwords to allocate in the ring buffer
-  *
-- * Allocate @ndw dwords in the ring buffer (all asics).
-- * Returns 0 on success, error on failure.
-+ * Allocate @ndw dwords in the ring buffer (it works in all ASICs). When
-+ * inspecting the code, you may encounter places where this function is invoked
-+ * like this: amdgpu_ring_alloc(ring, X + Y + Z), where X, Y, and Z are integer
-+ * numbers. The idea of using each integer addition instead of the final result
-+ * is to explicitly indicate each packet that will be inserted into the ring.
-+ *
-+ * Returns:
-+ * 0 on success, otherwise -ENOMEM if it tries to allocate more than the
-+ * maximum dword allowed for one submission.
-  */
- int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
- {
-@@ -122,7 +129,8 @@ static void amdgpu_ring_alloc_reemit(struct amdgpu_ring *ring, unsigned int ndw)
- 		ring->funcs->begin_use(ring);
- }
- 
--/** amdgpu_ring_insert_nop - insert NOP packets
-+/**
-+ * amdgpu_ring_insert_nop - insert NOP packets
-  *
-  * @ring: amdgpu_ring structure holding ring information
-  * @count: the number of NOP packets to insert
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 87b962df5460..e83589619a92 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -62,6 +62,8 @@ enum amdgpu_ring_priority_level {
- #define AMDGPU_FENCE_FLAG_64BIT         (1 << 0)
- #define AMDGPU_FENCE_FLAG_INT           (1 << 1)
- #define AMDGPU_FENCE_FLAG_TC_WB_ONLY    (1 << 2)
-+
-+/* Ensure the execution in case of preemption or reset */
- #define AMDGPU_FENCE_FLAG_EXEC          (1 << 3)
- 
- #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
+Thanks
+
+Rodrigo Siqueira (5):
+  drm/amdgpu: Expand kernel-doc in amdgpu_ring
+  Documentation/gpu: Add new glossary entries from UMR
+  Documentation/gpu: Expand generic block information
+  Documentation/gpu: Add more information about GC
+  Documentation/gpu: Add documentation about ring buffer
+
+ .../gpu/amdgpu/amd_overview_block.svg         |  687 +++++++
+ Documentation/gpu/amdgpu/amdgpu-glossary.rst  |   36 +
+ .../gpu/amdgpu/display/dc-glossary.rst        |    3 -
+ Documentation/gpu/amdgpu/driver-core.rst      |   31 +
+ .../gpu/amdgpu/enforce_isolation.svg          |  654 +++++++
+ Documentation/gpu/amdgpu/gc/index.rst         |   24 +-
+ Documentation/gpu/amdgpu/gfx_pipeline_seq.svg |  413 +++++
+ Documentation/gpu/amdgpu/index.rst            |    1 +
+ .../gpu/amdgpu/no_enforce_isolation.svg       |  707 +++++++
+ .../gpu/amdgpu/process-isolation.rst          |    1 +
+ Documentation/gpu/amdgpu/ring-buffer.rst      |   95 +
+ Documentation/gpu/amdgpu/ring_buffers.svg     | 1633 +++++++++++++++++
+ Documentation/gpu/amdgpu/userq.rst            |    2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      |   14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |    2 +
+ 15 files changed, 4286 insertions(+), 17 deletions(-)
+ create mode 100644 Documentation/gpu/amdgpu/amd_overview_block.svg
+ create mode 100644 Documentation/gpu/amdgpu/enforce_isolation.svg
+ create mode 100644 Documentation/gpu/amdgpu/gfx_pipeline_seq.svg
+ create mode 100644 Documentation/gpu/amdgpu/no_enforce_isolation.svg
+ create mode 100644 Documentation/gpu/amdgpu/ring-buffer.rst
+ create mode 100644 Documentation/gpu/amdgpu/ring_buffers.svg
+
 -- 
 2.51.0
 
