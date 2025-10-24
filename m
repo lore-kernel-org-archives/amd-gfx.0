@@ -4,48 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EFD2CCF9EE
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348CACCF9F0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7869610EAEB;
-	Fri, 24 Oct 2025 16:08:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2EC610EAF6;
+	Fri, 24 Oct 2025 16:08:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HUd+wqS3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dpHpJbbs";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04C1E10EAC7;
- Fri, 24 Oct 2025 16:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=LuroRRxeLOFwNohk0s+UBm8zjVI2tRnmlYQm2PFfDXU=; b=HUd+wqS3Z0GWYW43u7cwkhF+PK
- u4G6n9irnF9TQ04VJtQz1H72f1PLXGXGax/yplT4vThRPosGZFfyDa1Iv2s8JS8pdatwTkP0BuDYP
- RL0U7gMN5ws+sLMGXdm8sLslyrwH9NQLHfRFe+ufh2OC+D2+Xb1qGssupsl/DARJr7n6P84NjKrEA
- 96cu1RKMFIzjLOeh4p6eQwxaXrXPmZ7uW/sOmUwTvZBFH4qD+GPoJ8pUJozHxdz5wCPfHpH+VsF2w
- 0aSvrJKz/lCwDpQjWMYp+VslZ2B9aHbyS2skUhcFv4Q3Rwp4kYrEhHz0aY5wQg6gibXkxGzbmdKZu
- cURAwkVg==;
-Received: from [90.242.12.242] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vCKKu-00Ep8p-Db; Fri, 24 Oct 2025 18:08:16 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>
-Subject: [PATCH v3 18/27] drm/imagination: Remove drm_sched_init_args->num_rqs
- usage
-Date: Fri, 24 Oct 2025 17:07:51 +0100
-Message-ID: <20251024160800.79836-19-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
-References: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97F1810EAD2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 16:08:20 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-290bcb326deso5149735ad.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 09:08:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761322100; x=1761926900; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bTQVK2aQT1vIN8ZpKJaaMrUDsELoEiIRjPfw0a3iVhI=;
+ b=dpHpJbbsVlYN4gnZ0xETK5hPz92or6Cj53CydBpLPz4PBo5Ju3PnPwv+u00NLVClaj
+ V2qnYEHQ6Kz5p5aXZ8BuqoB1cptpKZj4KvrLMffStCVqQjnXei/2sxQrkSkleTq3CkKl
+ mcgSmaUoZo+C5LQ+hBs2XIp1BU0wNdjKZJjYFd1loTVNDbheEWLmubhpi+ShiW1TQjZb
+ g3GrMnilaZo/N1CPP3UIh/PgFypXBZSShVP0xx7o4N9pSqt3gV9GzELyoSwycfucXg99
+ zQ54S8ChQePiiLY0aHmDhQ79xX9dXtGxfIUxZinMYQ6aEc/o/dzTrtfcO6dThZ/LQ42Q
+ e2Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761322100; x=1761926900;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=bTQVK2aQT1vIN8ZpKJaaMrUDsELoEiIRjPfw0a3iVhI=;
+ b=dF3tsXMDx94OdTtKafGjjf1DfCSNqPm7Nc6h7gljhxjcK6nRxkyfRP4njOWRfRMdfl
+ GbJkfBpQpUD/ep9x63/mSKbKrw1tIu7H6WlTHqV7jywDuGmN98RqVSpeBGJNLDzKnQM2
+ Yz+QnYHpSeQLo05RG+dC5onFLrue1srH97dueCOCvxpf+qIjy6sOCLu/mP4i1PZNiuhE
+ x4cCkOCQ46tdeDN8drcHlceQYW76CzAKsGJwzdTanCFgKvja37BiI2LTyrgQ1IyzXT28
+ QAx911W3ibXVNn7HLrkrD+xAwS+TRiOu/OATC/X62w6gDDXBClItCKIBt4T3DY5gkBXG
+ YGUA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUpo/R+Qmt8w6qb1go3/bfVaDmyx1pzt51O5uC0edGQT26zBqnH0Cf+bjKkf4k0wbFDLhwj8ra9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqniTXeD+Zg8k2T00RcAOAuB/PpDzjnsIWzrUcuB3MOKbQtcKb
+ QEwg9sSatfL1W0aiHS5CxSiruafkWnuCqhvib4qBxJ5sXRcONUPWGyQ6KMNNhahIew9AgyijsOf
+ VJZgbh5Wo0wF/clsrmJts6GrOZDKwcRA=
+X-Gm-Gg: ASbGncumkzpknPZwEnqrYFlVeH9nvapCXHxvt6aM6ZanK0OomFXn2fokxIP9apzvRWh
+ CckUiXB3PGpQFSeqwDvdiviWeFJxIGDytHu2sUtWbZFUN+5KyjKq/k3iGM9K/YVknXIiNWR169u
+ 0cGPmvWNHqa+4VJvIEeQwRwc4GV0F2ZBwqG+3Q4NgEBoe4buyoZBw9f/mN2SE3a/0HGDRMM2coL
+ ZTY3JlEiHZNUsJpr0BMikcImGFSw+6HfD5V1tEzIr1JK+neI531d++1eVrc
+X-Google-Smtp-Source: AGHT+IHuKMHIzacDRQR5C0tlCqOGlXp+2mvpP1Rw2CFVttYDd7vViELLYU2FSf1zGiwr/4mecZiOM5Dzi7juFV5w05o=
+X-Received: by 2002:a17:902:f787:b0:290:aaff:344e with SMTP id
+ d9443c01a7336-292d3e447f2mr106851415ad.2.1761322099740; Fri, 24 Oct 2025
+ 09:08:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251024152152.3981721-1-lkml@antheas.dev>
+ <20251024152152.3981721-4-lkml@antheas.dev>
+ <61da9864-b7c8-43f1-b437-36756077b545@amd.com>
+In-Reply-To: <61da9864-b7c8-43f1-b437-36756077b545@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 24 Oct 2025 12:08:07 -0400
+X-Gm-Features: AS18NWDSc8rqEfOFx3bZ8_HjDIswouVHQNkmMydC8_vInVKkCJow-kZH_kpVpvU
+Message-ID: <CADnq5_NPwwtrjYaELVvrC+D5vb4_iosCnghud8i9+NO0zC+_qA@mail.gmail.com>
+Subject: Re: [PATCH v1 3/3] drm/amdgpu: only send the SMU RLC notification on
+ S3
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Antheas Kapenekakis <lkml@antheas.dev>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Perry Yuan <perry.yuan@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,29 +89,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove member no longer used by the scheduler core.
+On Fri, Oct 24, 2025 at 11:54=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+>
+>
+> On 10/24/2025 10:21 AM, Antheas Kapenekakis wrote:
+> > From: Alex Deucher <alexander.deucher@amd.com>
+> >
+> > For S0ix, the RLC is not powered down. Rework the Van Gogh logic to
+> > skip powering it down and skip part of post-init.
+> >
+> > Fixes: 8c4e9105b2a8 ("drm/amdgpu: optimize RLC powerdown notification o=
+n Vangogh")
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4659
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Tested-by: Antheas Kapenekakis <lkml@antheas.dev>
+> > Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 8 +++++---
+> >   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c        | 6 ++++++
+> >   drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 3 +++
+> >   3 files changed, 14 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 3d032c4e2dce..220b12d59795 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -5243,9 +5243,11 @@ int amdgpu_device_suspend(struct drm_device *dev=
+, bool notify_clients)
+> >       if (amdgpu_sriov_vf(adev))
+> >               amdgpu_virt_release_full_gpu(adev, false);
+> >
+> > -     r =3D amdgpu_dpm_notify_rlc_state(adev, false);
+> > -     if (r)
+> > -             return r;
+> > +     if (!adev->in_s0ix) {
+> > +             r =3D amdgpu_dpm_notify_rlc_state(adev, false);
+> > +             if (r)
+> > +                     return r;
+> > +     }
+>
+> Just FYI this is going to clash with my unwind failed suspend series [1].
+>
+> This is fine, just whichever "lands" first the other will need to rework
+> a little bit and I wanted to mention it.
+>
+> Link:
+> https://lore.kernel.org/amd-gfx/20251023165243.317153-2-mario.limonciello=
+@amd.com/
+> [1]
+>
+> This does have me wondering though why amdgpu_dpm_notify_rlc_state() is
+> even in amdgpu_device_suspend()?  This is only used on Van Gogh.
+> Should we be pushing this deeper into amdgpu_device_ip_suspend_phase2()?
+>
+> Or should we maybe overhaul this to move the RLC notification into a
+> .set_mp1_state callback instead so it's more similar to all the other ASI=
+Cs?
+>
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Frank Binns <frank.binns@imgtec.com>
-Cc: Matt Coster <matt.coster@imgtec.com>
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Matt Coster <matt.coster@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_queue.c | 1 -
- 1 file changed, 1 deletion(-)
+TBH, I don't think this is even required at all here.  The rlc is
+stopped in smu_disable_dpms() and we already notify the SMU at that
+point.  Notifying it again here seems superfluous.  Would need to test
+that removing this one doesn't cause an issue with S3.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index fc415dd0d7a7..3509bea293bd 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -1228,7 +1228,6 @@ struct pvr_queue *pvr_queue_create(struct pvr_context *ctx,
- 	const struct drm_sched_init_args sched_args = {
- 		.ops = &pvr_queue_sched_ops,
- 		.submit_wq = pvr_dev->sched_wq,
--		.num_rqs = 1,
- 		.credit_limit = 64 * 1024,
- 		.hang_limit = 1,
- 		.timeout = msecs_to_jiffies(500),
--- 
-2.48.0
+> >
+> >       return 0;
+> >   }
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/dr=
+m/amd/pm/swsmu/amdgpu_smu.c
+> > index fb8086859857..244b8c364d45 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> > @@ -2040,6 +2040,12 @@ static int smu_disable_dpms(struct smu_context *=
+smu)
+> >           smu->is_apu && (amdgpu_in_reset(adev) || adev->in_s0ix))
+> >               return 0;
+> >
+> > +     /* vangogh s0ix */
+> > +     if ((amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 5=
+, 0) ||
+> > +          amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 5=
+, 2)) &&
+> > +         adev->in_s0ix)
+> > +             return 0;
+> > +
+>
+> How about for GPU reset, does PMFW handle this too?
 
+I'm not 100% sure.  We need to check with the PMFW team.  I think
+vangogh works the same as gfx11 and newer APUs since the s0i3
+implementation was more aligned with those chips than RMB.  These
+special code paths were added specifically for S3 enablement since the
+behavior is different relative to S0ix.
+
+Alex
+
+>
+> >       /*
+> >        * For gpu reset, runpm and hibernation through BACO,
+> >        * BACO feature has to be kept enabled.
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> > index 2c9869feba61..0708d0f0938b 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+> > @@ -2217,6 +2217,9 @@ static int vangogh_post_smu_init(struct smu_conte=
+xt *smu)
+> >       uint32_t total_cu =3D adev->gfx.config.max_cu_per_sh *
+> >               adev->gfx.config.max_sh_per_se * adev->gfx.config.max_sha=
+der_engines;
+> >
+> > +     if (adev->in_s0ix)
+> > +             return 0;
+> > +
+> >       /* allow message will be sent after enable message on Vangogh*/
+> >       if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT) &=
+&
+> >                       (adev->pg_flags & AMD_PG_SUPPORT_GFX_PG)) {
+>
