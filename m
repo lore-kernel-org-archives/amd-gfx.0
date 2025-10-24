@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C312ACCF9EC
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F902CCF9F2
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A95010EAFB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B7610EAFE;
 	Fri, 24 Oct 2025 16:08:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BGPlJPVd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TtGVHV57";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D22C810EAD2;
- Fri, 24 Oct 2025 16:08:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29D5610EAD0;
+ Fri, 24 Oct 2025 16:08:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,26 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=/X/pTpuALGmXBkE+yAfwIiRc3eccLTbeKv0kRJdkTYQ=; b=BGPlJPVdZ+sE68AVS/VDqdlwip
- 7nNMEI4S9lE7WuZD09B7yh8LmHtvoMxcurtzFK6uuwDlS16Z4qi4DRIuPScguPZ/1AUtFyT5kQN+S
- Jeg/PlY/W8jPMHvZCobuelb6mDufhXyCE5U+LLhGPiRl6+mNkd0ElLcTndQJMSiljvs3DXpNYGCt5
- m9jZ/gAz1JgCzvDW2hMpjWmaPZD2M4eeK8lMNVrJVQ7pZtZ9UGsoG4AejqlaDYM83NoeCdw0NblUR
- UQS0ooM9d41zxzQOKAqw1Wo4r9shOhuorqd63W6TgqYIPfwISIrt9EATqzHY5zPKky9/vJhrTp2BJ
- NOTOz1Og==;
+ bh=XQJ/Az/VSv88y1BgCLcNqjv67/Kh0T6JPpRcE6EW2y0=; b=TtGVHV57mNIYfzcn5cJhTzv5CY
+ M7A3AYO8jlTTjyRIJImfLiisq+jXF/RAkRyrMOjgJZSCP20cj6NzS8GIhHt9IQjZxs6KM6hMdZw/y
+ Vq/HDuD/0wSWKjEWT9p/P1qb3DzGxWxwfsDGymQ0pX3GUdbnRHvy7EYPnnzv9l2y1H4guZGZa9XL7
+ ymLB2uJWjKvEoZMjMnmukAV9xT8Yom/ni4bBshIiQNZW91yEzoqV71J78yhm5YPEQldPOfRCBywJQ
+ 41uu3ZT+LMGpMr2XI4uifry+9jV9l03IUZC/DQm+bAFAevpvg1T75171jBPB+0tj/0QJUpPDK77dF
+ hwevqiNQ==;
 Received: from [90.242.12.242] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vCKKy-00EpAC-20; Fri, 24 Oct 2025 18:08:20 +0200
+ id 1vCKKv-00Ep9Q-Rv; Fri, 24 Oct 2025 18:08:17 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Subject: [PATCH v3 23/27] drm/panthor: Remove drm_sched_init_args->num_rqs
- usage
-Date: Fri, 24 Oct 2025 17:07:56 +0100
-Message-ID: <20251024160800.79836-24-tvrtko.ursulin@igalia.com>
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH v3 20/27] drm/msm: Remove drm_sched_init_args->num_rqs usage
+Date: Fri, 24 Oct 2025 17:07:53 +0100
+Message-ID: <20251024160800.79836-21-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
 References: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
@@ -64,41 +63,38 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c   | 1 -
- drivers/gpu/drm/panthor/panthor_sched.c | 1 -
+ drivers/gpu/drm/msm/msm_gem_vma.c    | 1 -
+ drivers/gpu/drm/msm/msm_ringbuffer.c | 1 -
  2 files changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 5bfdc0ebf8fb..2e3de7a817e4 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -2259,7 +2259,6 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
- 	const struct drm_sched_init_args sched_args = {
- 		.ops = &panthor_vm_bind_ops,
- 		.submit_wq = ptdev->mmu->vm.wq,
--		.num_rqs = 1,
- 		.credit_limit = 1,
- 		/* Bind operations are synchronous for now, no timeout needed. */
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 8316af1723c2..478e31073c31 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -813,7 +813,6 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
+ 	if (!managed) {
+ 		struct drm_sched_init_args args = {
+ 			.ops = &msm_vm_bind_ops,
+-			.num_rqs = 1,
+ 			.credit_limit = 1,
+ 			.timeout = MAX_SCHEDULE_TIMEOUT,
+ 			.name = "msm-vm-bind",
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index b2f612e5dc79..f7f0312a7dc0 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -67,7 +67,6 @@ struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+ {
+ 	struct drm_sched_init_args args = {
+ 		.ops = &msm_sched_ops,
+-		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = num_hw_submissions,
  		.timeout = MAX_SCHEDULE_TIMEOUT,
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index f5e01cb16cfc..5b95868169ac 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -3318,7 +3318,6 @@ group_create_queue(struct panthor_group *group,
- 	struct drm_sched_init_args sched_args = {
- 		.ops = &panthor_queue_sched_ops,
- 		.submit_wq = group->ptdev->scheduler->wq,
--		.num_rqs = 1,
- 		/*
- 		 * The credit limit argument tells us the total number of
- 		 * instructions across all CS slots in the ringbuffer, with
+ 		.dev = gpu->dev->dev,
 -- 
 2.48.0
 
