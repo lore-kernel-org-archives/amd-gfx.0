@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3BCCCF9F0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D532BCCF9EC
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A51A10EADA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3587010EAD0;
 	Fri, 24 Oct 2025 16:08:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="r/LJeFz2";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h5mIsS+/";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E44410EADC;
- Fri, 24 Oct 2025 16:08:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6D4210EAD6;
+ Fri, 24 Oct 2025 16:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,26 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=FyBSvnPNz2KWy2wW5+1Ey7zzvIGEaJH8AOA99QAuRT8=; b=r/LJeFz2ez34gKukfJsAVIlHab
- aO531quhEPIwPn7zpm21pev8iqhBSZCgQFY7ciiJ2j48welGqAK6NxmXoknmpGPBTsXKJP/Fg0BXM
- 6fx5U34kbr6x8PkJZbw7gstOVuC/jMHg4kR+yD56S2lU8mKVIEhsiAFPM0o6A6Gfqjd3samRNkMyh
- wA+Lmco78klhzBYn/F4JOaqL3f0+0sU5mS5prqLWlM/5Nu2tMR9a4dPy+YZIAucuUDojvoKkSi88w
- 5yszY0CeHJnnWqqHod2TRt49Bnt4JJSFRFqFHKESlB6eMCHt/c1/gHjxGETwrRhpaXs5v114vVboj
- b5Ohrl2Q==;
+ bh=H35/cjmPaDHYl2B3Ku0xGtaj0d2xPh91+AUO2w1yF5E=; b=h5mIsS+/0xoPdovIl2dKeTIwPF
+ n7VlY3avXNuolM00IEKUsS22ahJwEd8Efly6jCIZZ3RlDBgSs0Xq8mva1w244ZvxJUFYT2UA8xnJJ
+ KnygJO26cILnTuuNfIwTdOzHf1wdjJCjkv+uMyYlUDli/o9AeFMwVqzHuXcPTtPPPBbYYp0pus7tg
+ DUQ9O31KvRTxOhAYxML7w2xeqOmfcDKYV5N+cqg+fyvSPPv6DfPsSUVDSkDhJ2lPbV3NHMRJWE2In
+ GShCTNWBbvltqoumLXBDN/hvky+4AAxPhKCqlc4N2YUcFIAw2xXVbzMG90xohGVYjOTYMRYeby8WC
+ Y3f5gVVQ==;
 Received: from [90.242.12.242] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vCKKr-00Ep7q-Hc; Fri, 24 Oct 2025 18:08:13 +0200
+ id 1vCKKv-00Ep9B-3o; Fri, 24 Oct 2025 18:08:17 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Subject: [PATCH v3 14/27] accel/amdxdna: Remove drm_sched_init_args->num_rqs
- usage
-Date: Fri, 24 Oct 2025 17:07:47 +0100
-Message-ID: <20251024160800.79836-15-tvrtko.ursulin@igalia.com>
+ Qiang Yu <yuq825@gmail.com>, lima@lists.freedesktop.org
+Subject: [PATCH v3 19/27] drm/lima: Remove drm_sched_init_args->num_rqs usage
+Date: Fri, 24 Oct 2025 17:07:52 +0100
+Message-ID: <20251024160800.79836-20-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
 References: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
@@ -64,26 +62,24 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Min Ma <mamin506@gmail.com>
-Cc: Lizhi Hou <lizhi.hou@amd.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+Cc: Qiang Yu <yuq825@gmail.com>
+Cc: lima@lists.freedesktop.org
 ---
- drivers/accel/amdxdna/aie2_ctx.c | 1 -
+ drivers/gpu/drm/lima/lima_sched.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 63450b7773ac..fa2e5edbdefe 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -536,7 +536,6 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 	struct amdxdna_dev *xdna = client->xdna;
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 739e8c6c6d90..88a861cb5c39 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -519,7 +519,6 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+ 			       lima_sched_timeout_ms : 10000;
  	const struct drm_sched_init_args args = {
- 		.ops = &sched_ops,
+ 		.ops = &lima_sched_ops,
 -		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit = HWCTX_MAX_CMDS,
- 		.timeout = msecs_to_jiffies(HWCTX_MAX_TIMEOUT),
- 		.name = "amdxdna_js",
+ 		.credit_limit = 1,
+ 		.hang_limit = lima_job_hang_limit,
+ 		.timeout = msecs_to_jiffies(timeout),
 -- 
 2.48.0
 
