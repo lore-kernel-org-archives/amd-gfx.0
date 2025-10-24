@@ -4,166 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD7D9CCF9E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 14:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF99CCF9E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 15:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BB2A10EAAE;
-	Fri, 24 Oct 2025 14:49:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB0D410E10A;
+	Fri, 24 Oct 2025 15:11:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1dEeyL/I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wM/HKQ75";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010051.outbound.protection.outlook.com [52.101.85.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E36BE10EAAE
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 14:49:56 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011045.outbound.protection.outlook.com
+ [40.93.194.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88BF810E10A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 15:11:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZVSCiHuBHjAV7s0mrtYtJacL9n4CBUnJstlgzwKmXBEpGRassW2getgre9hr8ZJtthugkvmKsOOtjrvmCHo9MCy9zH5pRFUbZoPwxfT8eBO0uoHZDxuiiBT+VQtk7a3m5I3Pa5PER7CbbnH36nY8d4wC/VEU9e9f4CvNLAk8gS5GFWyOEFWcO0HwGJTr2RuZ7+eNOoJRukWrw7pAYLD55WVT+Kx/JjIm5zwXHgo1gLmx/1kmIgZqn64XY8ewxDAiNhKCGb67+sUcs0YplrrQOQy0vj9Kq7g9XtSgVkjsk16aiMZcaD8QeYvBPZUcOPk0PoXfQRCVPOZuHkAZXNuDjQ==
+ b=SgbHKCmPlL+xyKoPSminZur4cJ+JLm1XlB3i2jVP4Zd6uAvWAcPs6IdMuHfXQ/TMGVMW+EizFtahhDCYjyCTbWRq10rdoLTFeeoS7Uu0s/a73dgm+LaRohMKZlpFK5Ar0AR9RKKiTGwb9ekEkNjps5lvAAKtnah2VsBPji8LzvP0qosyvkmz4V5Qn8fCLZTjRBsRrbrw9weo07DehRt9GxwxbAQRawePGg3OcehrhvKFJmthS4ey4LmyDJdSFc9YCU+wn/hFrLf74toXiaKDGqcEcMtqUkFhxnDQufyq7yCXqlWaFyuXw7XLLc8vGoUWRok9X/xB2P6IXOHQ2Fj3bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cJYtt6uWVeaC1IMMIi/cwLAuluh6lIQH76+B3Ekyd5I=;
- b=slOuuQwoD4+upHzg2uA9EGDhpqsaHyhLi2a7wvV2yrurv4eDvmLoMcbIgFLY8Pp+tiA/YyXIT/26dH5CO+iQjfUgQ0WHTuz5wzdJwdar09b9Gz8YMW3NE/8CEbvB1w++0vkWqHxjfJZUvRJ0uqkd7IqMXhwBhiK6FfZ3UqnenS/ZeU5T+O8zxaMEHBT7E3GL17dNKXMxTK42J5KjWWCOriR4KbdRd8lKIPu9LK3uvwDhL0QGrgC+Rs0HYjiJPUPqZj7+zvF0tGemVr739xt7websiMMtGy1Hxm7wcjc8hBt+uStd3hFbSxDVbURkvuud7xNAfTKKSHv8yU0pFUmnow==
+ bh=7NkakBzdFGnVd0jmpIkaVykuNnAHCocuDzv4Ul3PWEA=;
+ b=MaWrzBWydABRUEH/lM6SsU2WC8V3l5VUoFcv0bHAaQsdg8C1gvhCpRcOR92O47pia4GE3rhtp7+muAxA+zdkalnBax8tsaYGThCw2pL8fbPD1VW7TJ5KFqnyjYiaZor5ANF/fo9hadBX0JfOFz0r2qOktRAd1V+OHlTh2spjV6idE2YvQx7NF2q7gc4lYhBLbkeoGLCf44RlZIks2X9pCKajUJwLiJLoe5nYlnnFgp8YEXFh+1qk5apNa/jOQ0xeVNnfIbtC4PNR3MV9DKujxE6qo4yRHUnOPiSq11/TSfyprFP74ckmKHxI7Qrzy3SLtlseQh3G8upnvdYUHAvUmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cJYtt6uWVeaC1IMMIi/cwLAuluh6lIQH76+B3Ekyd5I=;
- b=1dEeyL/IZtH4v9sgC1z4oE6nJGiNtg0VarcCopVhorWVE3rigR+qQ8grIdU3ci5Mae/J2acR7Cw1uyS8wfzWvYfgHGS0WuLhO1/KTwqy36hYUmHokXhgjl/AHSd06/m2TJueMEHr4b0g8GmIvoXXg+SdueKPm/KeDDiyzZPJWew=
+ bh=7NkakBzdFGnVd0jmpIkaVykuNnAHCocuDzv4Ul3PWEA=;
+ b=wM/HKQ75DcBtFjLgtPnkwKWIrwiWMraWyQyJNwWwudV1/4yhl03+5VSy2O0hFFSeNlCpWhWenMryPK+PVE3K12ZKzyW+wm8yEOKDjcM6kjp9wKp2XQXdF19lNAdCKbo5T6OZyA1taTCxVqoZjwzck6aTiLyNN4xGc9XgLPz9m9Y=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by DS0PR12MB8527.namprd12.prod.outlook.com (2603:10b6:8:161::6) with
+ by SJ0PR12MB6966.namprd12.prod.outlook.com (2603:10b6:a03:449::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.13; Fri, 24 Oct
- 2025 14:49:53 +0000
+ 2025 15:11:39 +0000
 Received: from DM4PR12MB5149.namprd12.prod.outlook.com
  ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
  ([fe80::36fa:deca:aaeb:75da%4]) with mapi id 15.20.9253.011; Fri, 24 Oct 2025
- 14:49:53 +0000
-Message-ID: <3638b609-ed39-d19d-f7a9-05c85972d0e6@amd.com>
-Date: Fri, 24 Oct 2025 10:49:51 -0400
+ 15:11:39 +0000
+Message-ID: <859ab89b-833d-fbf6-bc5e-1c4786b4a2c6@amd.com>
+Date: Fri, 24 Oct 2025 11:11:36 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v3] drm/amdkfd: Fix use-after-free of HMM range in
- svm_range_validate_and_map()
+Subject: Re: [Patch v2] drm/amdkfd: add missing return value check for range
 Content-Language: en-US
-To: "Khatri, Sunil" <sukhatri@amd.com>,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Khatri, Sunil" <Sunil.Khatri@amd.com>,
- "Chen, Xiaogang" <Xiaogang.Chen@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Yang, Philip" <Philip.Yang@amd.com>
-References: <20251022142529.247778-1-srinivasan.shanmugam@amd.com>
- <20251023143443.277108-1-srinivasan.shanmugam@amd.com>
- <415952ac-b666-43d7-a8cc-c0081c8bc911@amd.com>
- <IA0PR12MB820824CE6FA3648E5047CA2590F1A@IA0PR12MB8208.namprd12.prod.outlook.com>
- <287d072a-3603-48d3-9e00-73274fdca3ed@amd.com>
- <IA0PR12MB8208E2BBBA8D41F85A86BDA990F1A@IA0PR12MB8208.namprd12.prod.outlook.com>
- <06bbce9c-f5c2-41bb-b949-4ee89c945cfd@amd.com>
+To: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Shirish.S@amd.com
+References: <20251024111602.2128436-1-sunil.khatri@amd.com>
+ <9e35463a-777e-4b6b-ad31-47cd7f07fe30@amd.com>
 From: Philip Yang <yangp@amd.com>
-In-Reply-To: <06bbce9c-f5c2-41bb-b949-4ee89c945cfd@amd.com>
+In-Reply-To: <9e35463a-777e-4b6b-ad31-47cd7f07fe30@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0066.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::38) To DM4PR12MB5149.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBPR01CA0149.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::13) To DM4PR12MB5149.namprd12.prod.outlook.com
  (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|DS0PR12MB8527:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6981026-b20b-461e-7e76-08de130c9748
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SJ0PR12MB6966:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e316251-c641-40ad-2476-08de130fa1cf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZGxsNDJOUnJkREc2OXJka0M2ekNYZHVPNk92S3NRZ05NRVllSkR0V2Q5OUpq?=
- =?utf-8?B?dUErMDFxSW55SmM0QTFJOVNVVjZzOUErcThuTm5xVVBUWjRZN2EwMlNEOEwr?=
- =?utf-8?B?d0Flb3dyWGY1SStBZmFRZmtDRkthQWFtMWljT0hxL05PbGM4ZFVUZ242NE9I?=
- =?utf-8?B?bGVmcEg1bUFRd1FaK1ZNS0oxUUhMU2tHNXVIcStHNVRvN0tSTlYwaWdMSnlL?=
- =?utf-8?B?b1VpdHZHTHZENXJwd0N6eG0yWStZNVpZYjg1RE1VWlFWRTVyakllWTVqTTV0?=
- =?utf-8?B?Tld3T1ZVMEsyUUFJYUNwanBqSjlWcmlIWXA3VFhJazhVRjA3czJ4a1pLdnR3?=
- =?utf-8?B?U1lEN0tHVk5rZmcxODNDRnZVRGRwZSthbmdadVhtS2pRSUV5L1pzU3lvd1oz?=
- =?utf-8?B?MHNIZ2pRL1dBUmJiQU9pZ21qQmpQTDM2OUtWTFJwNFRqTWlGQmhxWm9mWTJp?=
- =?utf-8?B?RkFtM2IxQlMwbGh4K3BRL3diUjFYcWhob2EzOWNBUVlQR1VPK2pqZS81eGJJ?=
- =?utf-8?B?N3FWN2ZuRmxMOTBYYmY0QUowRmtrSWNNcEFtUmFHa01vaklXSEwzaTcyYXlq?=
- =?utf-8?B?Wms2dzk0c0pJb2lVTVd5cWU5OVAwT0IzbmJXVWkwZXZBWXh0cWw5RWRYOXNh?=
- =?utf-8?B?RjRJVGhuZ3ZVTmRVaWcxOG5IUS91c2JNcmtRdFdDa1NHdm44Z2Y2ejZxa1Fs?=
- =?utf-8?B?QTUveXRaVDFPeGdyVUVIWEdsSDJwM1JJL09RZkx3dXk3ZTRLUDUxQ2xzS0tW?=
- =?utf-8?B?TktGTWkrSmFNZ3dTZno4ZXp1UnRTdThCMVF6K3plSnprUVZ3bUV0bnlQWGpV?=
- =?utf-8?B?b1RNNWNDd2kvUjJXYWkxVXlndE9EWGUrVmI1NUZ1WDBEU2lsQ1R2cWNHQVBl?=
- =?utf-8?B?Q0JsalJ1S3hBcFFha0U1alZ1dk1sUDFjMUxXWlZQNzkySjFWNjAwR1lYNDFZ?=
- =?utf-8?B?dy8yZVJKWWxONXlNTXlDaG0vQUpqTmd4SXpLY0hqWmRjbCsvb2ZtQ3lNQ3RF?=
- =?utf-8?B?S0tDOFBzMk5Xa293Smhiamd6eGlpNk9BSmdDRDZiWjdidUtWalFFM3JpVmYy?=
- =?utf-8?B?OXdQZ2dxUW5YcG1sRmFFaGZuODBUUUkvQXBZbjk1eFVlK3hBK1FWUGI3TkFF?=
- =?utf-8?B?cTNhdnZsaFJPUnVBenJpL3NjNE91elVSUStJYU5peFd3ZFlEY0VucVpQYzVH?=
- =?utf-8?B?MU1ZWndWOU5MNFZ3b1p6UnpCRGE4VkNEVGRxVzBOUE52alphaWxYalNjR25y?=
- =?utf-8?B?TllxYXl4M29GdmUzTE1IUzdETnNEdktYODZLUWV1MWo0dFpSYk5laERKNTFw?=
- =?utf-8?B?cUY3YmFHZkFPWmtweU1lYTUyVjFTV1N6MEQrR01oRDM2UFk0RG1TK0JYcjdK?=
- =?utf-8?B?OExCaEI5d1Z3Y01FaGtSbWZmOG5sM2RNMEhHU0ZCMUJuVkMwQlArUmRJMmdW?=
- =?utf-8?B?alJwaGt6NnNwT0JXbXJUMkhuR2lHOUwzcXhXZTZSR0llK1BCREhONEpCZlY5?=
- =?utf-8?B?RDBLOHBMZXlKWWtJMmtNM1lSeEpjQlVnenUwVDlYS2ZJT1Q5UVRCb3M2N0lU?=
- =?utf-8?B?WEZ3WndmMnI3aHN4MnowYkJ4UXBwNUR2dkVLL2tBNFkrVnpHbVAxdXB4Z0pJ?=
- =?utf-8?B?WUw5UzBwZWU0NlFjTkdvTlhVSkdGUzBpSXFaQmJhaDRUT0xnb2ozb2JUaHkr?=
- =?utf-8?B?ZXd0alRFYVkxQ0hydmFGYzNHWk1PUXFuajVoVjErUXBxSitrVlpRYzdYRUwr?=
- =?utf-8?B?TFBTOWdLOGtscTBlMlVmRjdGRnlWKzc1OW0rQzM4VE1QT2h0YktPMW90Wnk0?=
- =?utf-8?B?OFQ0UHF5UkRSYXg4WmRseDlFZ1FiMkxORWFlRkt0d0xGUHdJSXNUTXFrNzlt?=
- =?utf-8?B?b0pITzRRK0htUFRuK2hmaUhJa0YyU2ZyUXF3dVh0MURVczhvbGNZTzNpNWgz?=
- =?utf-8?B?ZWpicklWc3o0NFY4Q1JvZzE1U2hTQi9kdlN0ZnRoRFdZK2htN04rNDl0KzVE?=
- =?utf-8?B?UnVKekNEanpOVkdQVDRsMjhKdUY3U2xFTFRnSklUUHZuNWhWWWhtV25QS1ZR?=
- =?utf-8?Q?m6sHLN?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|921020;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?M3V5L0JJU1hDWkpYY3UrZW4vMlZKZENTUXFKbXhHV1hoL0NkenpSNmNINmRO?=
+ =?utf-8?B?S2hNU2hLTkkybFE0UFhsVnZ0aVdneVFUNFo5cjNyNzYyNFY1ZjhjQlB4eFJk?=
+ =?utf-8?B?QVBmcmEyTzBMMi8xYnREQ1pseUVQVUt2MWhaNWlBSGg0a3ZCK3J5REpqYjM2?=
+ =?utf-8?B?N1N3ek9VdlV0MlVRUHlnamlNc3pnemg1d3lFL1IzN3dydUY4YXFGb3FBNUNn?=
+ =?utf-8?B?Y1NRVU0vT2pjT1F6Q2xjdTdkc1JjNkxUQmhxaWhKTC9tQVNRaGNUbUxXUEl1?=
+ =?utf-8?B?RGlOVEozR3hGNzZ5c08wWGNVMURhc1NHSzdVUUI3Um1QamxqMktYLzB6aEFK?=
+ =?utf-8?B?NG1STmtUb3YxMm5XcnhpN0JPWGRreDZsYWFzWUlOMXZ4VlJVeG9BM201d0I4?=
+ =?utf-8?B?ak41cUhENlc1OE1OTFYrZEN3L0tZWTR2M3h4TW9UVDBIRTZ2V0VOYnNrMHd1?=
+ =?utf-8?B?QUtxK2F5L0QrWjB1bTVncE1TNGFBaTNIMUhsR3JtdCtocm1tRkNNd3RLNXdx?=
+ =?utf-8?B?czFsWGZaZHpDM0lnK0pDNUlwYk5nVTlQdUFReHNUdHE1ZmpnVzdMZTRqRzUz?=
+ =?utf-8?B?SmhjYnNFeEZ0QWNHZHRsbmlIVVdSc0FmbDVIZ2kxam5tNGtXeWU4ZGN4UGd2?=
+ =?utf-8?B?NGpQK0VMM0tydnpYc0lPYitkM3J0M3ZJeVprQ2FHL1hqRnhnWTZiMFNpV1RD?=
+ =?utf-8?B?R0ZxSFRpc1JLL0wrK2Z4SWZKbnpONFVZTEg2YjJTZ2wrVWNoRDNOZ0RmNFRk?=
+ =?utf-8?B?SGZvV09ZNUhDa0hrUm9xb2p5TzRWeWNDTTVTbHV3YXgrcXM4NURWa0ZxN29a?=
+ =?utf-8?B?YjJMOTZrREo2QTFVT2JwSEYxYnF1YVZYTDRLeFhORS81UlBVSHFqZ2pkdkQ1?=
+ =?utf-8?B?dDJTZmFlRjV4bjkxYWpMd1p2ek0vZm5jTEF2TTNCWGh0NjF0MldoM3AySFVZ?=
+ =?utf-8?B?Q1FDUDBpZTNuTmY3d3BOTXZlZkxrNDVYdUZVR2FjbGRkNXdoeTFrRzkvblBP?=
+ =?utf-8?B?R2oyL3FKRGE2NVFBKzVoV3BURUdGNEh6Qk9PVTczYzlnK0R5bEhMUUtSQ2F0?=
+ =?utf-8?B?TFIwa05GSEJ5UHdOd3M5aDVwT2srU25DMytZRjh5MDhNVzlsMEdIMzVQd2k4?=
+ =?utf-8?B?amUzVDdMM1JQcUtDd1RxYjN3UFFvbEhSOVNPaDFqd0R4b25pY2pEYWs3QlZt?=
+ =?utf-8?B?U0R4T1ZIMEIrdlI4VmJkeW9WVkN4OERYaFVMMzZkZzE0M0V1NWFmVUVNeC9B?=
+ =?utf-8?B?akdDVHlvRlA5NUJnbFY0ODVZcGVRTU5WbXRZbU5CL2lsMGJ6QnNtZ0xEck5r?=
+ =?utf-8?B?ZmNPYmcyci8yNElrby9paTN5eVBXVlF6UEdDWFhFOUwrdDl1ZEZZdHhxWmNN?=
+ =?utf-8?B?N1dMV2tLU3ZUdXphSGlMenovUGVzNkNSUzExVlJqREZvNCt1MVQyNWpKTEhq?=
+ =?utf-8?B?VzAzNG5IbVRnSVRGbXhkQ1BuQ1RkaTh2TEVJTG5LYkVFRzQ2MzZZeFRqWFVt?=
+ =?utf-8?B?U2F6SzdzcHNaOVFFMTFjUC9BbmIzS0hnRm15RzZkZElDZmE2b1dtMnI4SG9I?=
+ =?utf-8?B?cnFwV01WUy9WOUorOUQvREpObldjZ3BJb2xmT2VwYnEyV0dGRFdOY0NQMzZx?=
+ =?utf-8?B?TTBoeUJrNmh3Vm1yaHAvMVZVMEZwdnRNZDlYYm53Y2RLNTdrMDA5Q3R6SjAx?=
+ =?utf-8?B?TnpKSVRveDdoVU5YeWVZVDhpZ2NPdjNubTFWTjdpRFMwc0hzUHVPdThrRFlT?=
+ =?utf-8?B?Y1lzWmcwZDlhZ0tUSVdGeWhIZlJiTXRnYnJtWitzaE5tZGRDUjU4bnp6Qlda?=
+ =?utf-8?B?K2w2QVZsak1kMS9keml6VTJCQkNHNi9yZTlSQ01KRVN4dUtXNW1IVVEvWDdD?=
+ =?utf-8?B?WUV1YWpWNG5xdEh2azJqQ0RDMURWb2NYMHg3a0tNTmpkMm1odkY3QldJTTQ4?=
+ =?utf-8?B?T1ovMUkrQXAxRXVSYlpycldTbmhCTDJzdVhMaStWa0pMVEYyMW9oMnQvV2sr?=
+ =?utf-8?B?QmRCM3dlcGYrZ0dNWDhaRE1SdnRtdkpqb3Q0WWprM25yVklWTnR1cnFZQWRR?=
+ =?utf-8?Q?uJkBfP?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(921020); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014)(921020); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnRPcE1uQUVKYlZRRVVqUzBIMllTN1VyZFVGOEdSTy9hcFZ5em1yTEN1VHJr?=
- =?utf-8?B?dEdpNzE2TTRKZE51UFVaM0RuV2MrUTJyazkxcDJTL01zcjE3RzBLSDNSa2Nk?=
- =?utf-8?B?SVVrR2VzK2tvdGZYdU80dlozVmVDS3U5YTJsYWR0bGE4c05LVG9jbUxoRGNl?=
- =?utf-8?B?YkdhZjJzb1duSzV5UHppdGRLVXBqRWJBeWlOQyt2TC9jQjAwVjd5SWtUN1BV?=
- =?utf-8?B?ak54NXBmOHhUWXQ5RXFjMkdXL3l4a2J3ZzVjU1M0YW9GN3FHbUpXQVlIa2ZR?=
- =?utf-8?B?Y1loTjhROW1MRVRoTjZLa2FEbHdTWXdOTm8yU0dGY1o5TWgzbS9DMnVEM1l0?=
- =?utf-8?B?S01PZ1RzaHYzcUowcy82WlhncW41Tm1ZVmkvalBOWGNHSURUR0NUcmFHNk83?=
- =?utf-8?B?SldyZVoxcGxtU1NIWTgxZFNtYkFJd20xZUdKcCtxWm5yTXNDcVRlTSt5ZlpJ?=
- =?utf-8?B?MEJORzRGLzF5OHFrM3IxNEIrYktoNmRJd2ozdjEzamFtbktCUml2Ym03ZDBp?=
- =?utf-8?B?MWVxS1RjaFUzZjRNU24rU1FtYVVsckxzY1NKYmthaEdnaSs3djl1U3lyMEhD?=
- =?utf-8?B?K3JBNG5HSGZiSC8xL1BYa29LbE5CQ2RZT1F6VHh5OGFaSTc1QUgwU2I2Ulhr?=
- =?utf-8?B?VkNUQXhBOWRFdm1ZSjFwY1o3TWE5cmFiRW1DdWw3SVBvZHhyczlzajJOcW1t?=
- =?utf-8?B?czhRaFdlbVBkVzJWZlBKdy82T0F6cVdLcVo1eXIzM1JWU1ptb3Fxc2NzUnp5?=
- =?utf-8?B?bDFaYUt5TS9wMGpScE5pOHRrd0poVlJ2aXYvNW5jRm40M0VSRVlZZGRadith?=
- =?utf-8?B?YUNzdGk4Snc4L01ESFVlWTdGdWtEbmxvSEFDRU43Rm5KdVlRcHlIbHlnRGkv?=
- =?utf-8?B?dk1ZVVVGaWtza29FU25jT0pKRWFZSE9Lc25HWlBaR2ViRFZOeTlDTHpvdHdU?=
- =?utf-8?B?RTlndFFRWDJlTlFqWXdXL1JhS2xHeGNUY1U1WW9INE9IVWtzdm1GdmRpVjBx?=
- =?utf-8?B?ZHlIVnFmZHNraTVydnppaDlFK1M0RHY0TWlSWGVrTEd1K0pXYlJsQjZnMHBi?=
- =?utf-8?B?dUM1Yk8rL0NTejk3d2NuQVV6ZkJqb3pxOS9kcmxUMWo4cTFmMFZ5WVRVZ2pF?=
- =?utf-8?B?SUJOWDlvcTVjc1Z5UlNnR1FUaGZhNkNvTEMrdjZCNlZtK0Z4TFhlQVA2TFJ1?=
- =?utf-8?B?Tm1SZlduTnZRV3poYm9JVFE1MUt1bnJUVFdrMk5wUGVmNHY0N0tBTUFUUFpw?=
- =?utf-8?B?L3gyQ3BwYzFpRW4xUjkzNXRDR2xIb1RTVEQwWXFzb1BhbXZETTMzTDM4elRS?=
- =?utf-8?B?ZWtBQ3lNOXRGQVJRNXo0cG5OVGhlaEVjRFlBMUNGNXBUK3FKdG1aRFRCSks0?=
- =?utf-8?B?MVptWDY5dmlkSFpZc1BuTE5MY2JqeGRNVW9UcmhWQ3VQeEhNSDk0WXRnRldj?=
- =?utf-8?B?Qm1NeHZqM3EwTG8xS0VHMXA1QTl4bmowMW80TTd4WDlrdlZtajg4UzBiT0xa?=
- =?utf-8?B?RzNrN3hUdXBkYjhLZ2tHZmFXbjRwdEUvVXVqT29zK0h5RHhhM1RBNlplUFFO?=
- =?utf-8?B?eU1YZWFWQkFveTlXbWY5OXIrOHRmRFVkQlIwVUdNOGE3eXAzekVOSDFFdjh3?=
- =?utf-8?B?LzYzSXRhanNBSEx6MWRwS0Fsc0NyMG91andHQ3RsV3dXTkN4VmtlZmp1WFlo?=
- =?utf-8?B?UVV5T1pGM0FKQmRxWkxLYlhzdGdQVGs3ZDFTRHprTHQ3VFJFamMzY2F2QTR2?=
- =?utf-8?B?bEEvSjJHMVdRK3U3eG9BYlBTZUlwV1dnMnNQNzh0WHE3MWlUdjdMRm50RkhC?=
- =?utf-8?B?VlpYK3BXZU04RGJuLzFkWFZ0M3BqMzZuRU9zR2Z5RXo2aVRLN0p0VWY4WDRL?=
- =?utf-8?B?RzdmMVg4NlJPVnIycjdpd2ppMU52dmRQSC9RSGsxT1BrTXlPNE8wSzdRd3ZB?=
- =?utf-8?B?QjFBcVI0MVRycEE1TDhsamZqUmRudWN1S0UvR3p0VDRWayt2VnhlamJoV1lJ?=
- =?utf-8?B?KzE1NDNpSXpmV2lQMCt5R01udTlEMVBCNCs5b2NCVnNITW5rVUxQdXJVaHJI?=
- =?utf-8?B?c3Jja2MxUVF3ZUxyYWVFVlZSczdoR1RhYTBiM2JtbElCR0QxOUJHZU1uZDJU?=
- =?utf-8?Q?wdgI=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dVJ5Z040bkpUYXJDZUdnQnlKUElraFhzR0dlYllMMS9ZeWFXeVdJY0dzV0x5?=
+ =?utf-8?B?T3JaRFVwREtoRjNQd0dpVGNEc2ZnSCthU0hyaS9xNHBHaG56WmdzWlVCemlN?=
+ =?utf-8?B?cks0TXNFMjk1bnFFUUhGQ2huMjJndW80MktlUlR3WFFUUXA2dHJJeXgwcjBS?=
+ =?utf-8?B?Mm01OERMUGFqNUphRytzRzQ1VEk4b0ZUcWxtR1BpUk1oZmpoTXk3eGtraHd1?=
+ =?utf-8?B?S2JCOGt3OFcxTUFvTFlvL2F2QmVxSEhyOHFpYUZudi9XVjByOU5DeEVzUGtK?=
+ =?utf-8?B?WWEvQk5MNkRxcE5FM0s5K3AvSmxubkJOMnF5aUs0UHp0bFptdjRHZVRYTkpm?=
+ =?utf-8?B?NGY2VUxHbnBEeXpEWkdwWm44L21RWHl1SUtVL0FtU01DVjYyVUFjcS9HZFVl?=
+ =?utf-8?B?WkJYc1h0c1dGYkJsTkZvclZqL1l4M1czMnQ4UnhBOElFdXl5c2dWMTMrbHBi?=
+ =?utf-8?B?Y1E3ODJXaUJQNnA2R2cvY3J6SXNCRDNEMTZjNFc2WDFjalZoMXBNYzJXaFp1?=
+ =?utf-8?B?TUZlTXlsSWNCRWs0OGkzT3FMMUxGb2I5NUwvRDJYN0hTSzhIUGVmcU1LRkdO?=
+ =?utf-8?B?OC9CVlc1MU9UQWpuWUxPRndYTVNIbjlQckFiN0QvQ3JSTzBJZFN1Y3RJUUNj?=
+ =?utf-8?B?YWVNMjJ1TS9OU3ZkM1ZOa08rTU5iczVuOWVnY1VLR3dTc09NVlBPcWQvVWYx?=
+ =?utf-8?B?WGo5UzdBYjQzeTN0QXUvK3l1NUVrZlM2anExRWJ2WUlOaGRqd3pNRUlyMm1D?=
+ =?utf-8?B?d0xQTFc1LzRaZ29jaEtTRWtkbnlzN3JNR0VpU2xTcVc3QXpNNzQ1emZJNkFT?=
+ =?utf-8?B?YzJYTC85T3cxYzFpKzVqOVJHbW9QekhUdXhOMEp6ekZlQ1BjeWIydlBsa05u?=
+ =?utf-8?B?dkQrR0lmUXpEMENNYU1rMmlBRnVyWW5JcG1RWUVDVXJMWkRZZTBCNXNhNi9v?=
+ =?utf-8?B?WWV3SElHYnBuSDNXM3U1cnJncFo1NjVidlZwZWZaVkpuRytMYmZnOS9WR0VP?=
+ =?utf-8?B?S3NWakZvdU1OdnZJOGU1VFQxNzhVUDluNWZzQnkvWTVUSVZ1Vnd2K0xHYzBF?=
+ =?utf-8?B?am93Y2pVZWQ3ZGZmbmgvYW5DM0o1dWx2anZ6WEs0WGZSM1FiUUYyVDRNRE53?=
+ =?utf-8?B?UGVBZmZpSWVVNi9lMm0veitoZzBWRHNsVXNHcFl5NnpFL1JRZ2RFWVdycG5t?=
+ =?utf-8?B?bUxsMExOM2lBTEt6UjM3eVdEamhuN25rUkl5WENjK1VpUFNRNXVoSUNEK3NF?=
+ =?utf-8?B?UmJZejdQQ2xGL0h2ZTBVN0YyWGh0ZTFnSzg3dGphVW5LeUl3QitLNzFhMEpw?=
+ =?utf-8?B?YVdsZ1AwNEZKUEdHVHM5bnk1eGdmaktkT0FwVUh2VGo1M3ptTktCTnlXcldu?=
+ =?utf-8?B?eDFxY3lkQUhHR3ZaZTRYdU9pMmdhUjZWK3VaaTF3cytwNDdZSHZLYUk4aGl2?=
+ =?utf-8?B?UnRPUmxXTE1XbU5rdElCZ3ZJdWd4alJ3K0JtMzlqbW5qYXUrQzJGZWkxTWJ2?=
+ =?utf-8?B?ZFlmMG91ZWp3R1pYSFI0d1MwblBVMStKNnMvWm5tRTlCWVVsdC9RaCtZVHVS?=
+ =?utf-8?B?ajlKcW8vUlEyVnh1Tzk0MTVFajlCSjlXQ0tlK3ZtWTV4aWpGeEM2Q090enk5?=
+ =?utf-8?B?LzlYSSthYXpRNmQ3Q3ovTUFCYnkrWE9maUgzRFNRREtSVVVKOGZnUUVER2tT?=
+ =?utf-8?B?bnVKbWQrRlV2YUJqODkza0FIcFlaK3NCVWR5bXV1b3hXZ09qZUJHM2RJcnpv?=
+ =?utf-8?B?SGlrNVk4eEdTL0Ixajl4NEdha3VTanZacVAzRnN4bkdXZWhxRXVEYVkrT1J2?=
+ =?utf-8?B?L09aQTdUTW0wU2lONnp2WHpmQktvbUpjUFk2ZGp4SDNhV3pZZFM5SWRaaldj?=
+ =?utf-8?B?NFdQbGZobWFJeU00TVNSdml4NzJRc1VVRUo2ZHlmaDNlMU0rdG9PSXlSQnZo?=
+ =?utf-8?B?MkY4UkgrMi9yTDV3QWJyUjB3anQ1TFJOOEhMSm91ZmRpeDh1MWgwQXc3dmdF?=
+ =?utf-8?B?RnI5UVVJM3YyQjRMWW4vdms2VmJ5WVowcjhuWjQwYmZ2QXhUMmhGNmtiZjdo?=
+ =?utf-8?B?YmpIblo3VEZHOFhpWGwzNkdGOWlXVzhpTit4dUV5K2htb3VYSnBBTmg3Y2dp?=
+ =?utf-8?Q?29OVJrhUMbd6ZHb9Cvfz6CnBP?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6981026-b20b-461e-7e76-08de130c9748
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e316251-c641-40ad-2476-08de130fa1cf
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2025 14:49:53.3521 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2025 15:11:39.5943 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 65CPkUmjd9zUAZdI5ZZuavPcS9A3bf+PU1FPWuNJR93DEfPzxFQStB5lzfAOCbHx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8527
+X-MS-Exchange-CrossTenant-UserPrincipalName: tc6dAm0aCe/2mQNHBJy3ALkQNVL9FBOC6exKcwNRyMBvjYOiFJVC1DXBpDjX33Nu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6966
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,205 +171,42 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2025-10-24 03:24, Khatri, Sunil wrote:
+On 2025-10-24 07:45, Khatri, Sunil wrote:
+> +shirish
 >
-> On 24-10-2025 11:44 am, SHANMUGAM, SRINIVASAN wrote:
->> [Public]
+> On 24-10-2025 04:46 pm, Sunil Khatri wrote:
+>> amdgpu_hmm_range_alloc could fails in case of low
+>> memory condition and hence we should have a check
+>> for the return value.
 >>
->>> -----Original Message-----
->>> From: Khatri, Sunil <Sunil.Khatri@amd.com>
->>> Sent: Friday, October 24, 2025 10:10 AM
->>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->>> Chen, Xiaogang <Xiaogang.Chen@amd.com>; Koenig, Christian
->>> <Christian.Koenig@amd.com>; Deucher, Alexander
->>> <Alexander.Deucher@amd.com>
->>> Cc: amd-gfx@lists.freedesktop.org; Yang, Philip 
->>> <Philip.Yang@amd.com>; Khatri,
->>> Sunil <Sunil.Khatri@amd.com>
->>> Subject: Re: [PATCH v3] drm/amdkfd: Fix use-after-free of HMM range in
->>> svm_range_validate_and_map()
->>>
->>>
->>> On 24-10-2025 09:20 am, SHANMUGAM, SRINIVASAN wrote:
->>>> [Public]
->>>>
->>>>> -----Original Message-----
->>>>> From: Chen, Xiaogang <Xiaogang.Chen@amd.com>
->>>>> Sent: Friday, October 24, 2025 3:15 AM
->>>>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->>> Koenig,
->>>>> Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->>>>> <Alexander.Deucher@amd.com>
->>>>> Cc: amd-gfx@lists.freedesktop.org; Yang, Philip
->>>>> <Philip.Yang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
->>>>> Subject: Re: [PATCH v3] drm/amdkfd: Fix use-after-free of HMM range
->>>>> in
->>>>> svm_range_validate_and_map()
->>>>>
->>>>>
->>>>> On 10/23/2025 9:34 AM, Srinivasan Shanmugam wrote:
->>>>>> The function svm_range_validate_and_map() was freeing `range` when
->>>>>> amdgpu_hmm_range_get_pages() failed. But later, the code still used
->>>>>> the same `range` pointer and freed it again. This could cause a
->>>>>> use-after-free and double-free issue.
->>>>>>
->>>>>> The fix sets `range = NULL` right after it is freed and checks for
->>>>>> `range` before using or freeing it again.
->>>>>>
->>>>>> v2: Removed duplicate !r check in the condition for clarity.
->>>>>>
->>>>>> v3: In amdgpu_hmm_range_get_pages(), when hmm_range_fault() fails,
->>>>>> we
->>>>>> kvfree(pfns) but leave the pointer in hmm_range->hmm_pfns still
->>>>>> pointing to freed memory. The caller (or
->>>>>> amdgpu_hmm_range_free(range)) may try to free
->>>>>> range->hmm_range.hmm_pfns again, causing a double free, Setting
->>>>>> hmm_range->hmm_pfns = NULL immediately after
->>>>>> kvfree(pfns) prevents both double free. (Philip)
->>>>> what you fix is not "use-after-free", it is preventing double 
->>>>> free, right?
->>>>>> In svm_range_validate_and_map(), When r == 0, it means success →
->>>>>> range is not NULL.  When r != 0, it means failure → already made 
->>>>>> range =
->>> NULL.
->>>>>> So checking both (!r && range) is unnecessary because the moment r
->>>>>> == 0, we automatically know range exists and is safe to use.
->>>>>> (Philip)
->>>>>>
->>>>>> Fixes: c5e357c924e5 ("drm/amdgpu: update the functions to use amdgpu
->>>>>> version of hmm") Reported by: Dan Carpenter
->>>>>> <dan.carpenter@linaro.org>
->>>>>> Cc: Philip Yang <Philip.Yang@amd.com>
->>>>>> Cc: Sunil Khatri <sunil.khatri@amd.com>
->>>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->>>>>> ---
->>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 1 +
->>>>>>     drivers/gpu/drm/amd/amdkfd/kfd_svm.c    | 6 ++++--
->>>>>>     2 files changed, 5 insertions(+), 2 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>>> index d6f903a2d573..90d26d820bac 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
->>>>>> @@ -221,6 +221,7 @@ int amdgpu_hmm_range_get_pages(struct
->>>>>> mmu_interval_notifier *notifier,
->>>>>>
->>>>>>     out_free_pfns:
->>>>>>       kvfree(pfns);
->>>>>> +   hmm_range->hmm_pfns = NULL;
->>> hmm_range->hmm_pfns isnt set till a goto out_free_pfns is called, 
->>> hence not
->>> needed.
->> Why?
+>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 +++++
+>>   1 file changed, 5 insertions(+)
 >>
->> pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
->> hmm_range->hmm_pfns = pfns;
->
-> Sorry i missed it being set in beginning as i see it being set in the 
-> end . Not sure if we need to set it two times, check that once if its 
-> needed again, i guess the second time setting it isnt needed.
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> index f041643308ca..7f0ab73e2396 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> @@ -1738,6 +1738,11 @@ static int svm_range_validate_and_map(struct 
+>> mm_struct *mm,
+>>                 WRITE_ONCE(p->svms.faulting_task, current);
+>>               range = amdgpu_hmm_range_alloc(NULL);
+>> +            if (unlikely(!range)) {
+>> +                r = -ENOMEM;
+>> +                goto free_ctx;
 
-hmm_range->hmm_pfns is increased for each MAX_WALK_BYTE loop, and the 
-last assignment after loop is needed to set it to the original value to 
-pass back to caller.
+Can not goto end from here,  this skips the svm_range_unreserve_bos. 
+Just set r = -ENOMEM, and the loop will exit and cleanup accordingly.
 
 Regards,
 
 Philip
 
->
-> Regards
-> Sunil Khatri
->
->>
->> for example, hmm_range_fault() fails), the code goes to the error path:
->>
->> out_free_pfns:
->>      kvfree(pfns);   // free the buffer
->>
->> But after freeing, the pointer hmm_range->hmm_pfns is still pointing 
->> to the same (now freed) memory.
->> It’s a “dangling pointer” — it points to memory that no longer 
->> belongs to us.
->>
->> Best,
->> Srini
->>
->>>>>>     out_free_range:
->>>>>>       if (r == -EBUSY)
->>>>>>               r = -EAGAIN;
->>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>>>> index f041643308ca..103acb925c2b 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>>>>> @@ -1744,6 +1744,7 @@ static int svm_range_validate_and_map(struct
->>>>> mm_struct *mm,
->>>>>> WRITE_ONCE(p->svms.faulting_task, NULL);
->>>>>>                       if (r) {
->>>>>> amdgpu_hmm_range_free(range);
->>>>>> +                           range = NULL;
->>> Range is a local pointer and if it has been freed it should not be 
->>> used again in same
->>> function. The error condition should handle that.
->>>>>> pr_debug("failed %d to get svm range pages\n", r);
->>>>>>                       }
->>>>>>               } else {
->>>>>> @@ -1761,7 +1762,7 @@ static int svm_range_validate_and_map(struct
->>>>> mm_struct *mm,
->>>>>> svm_range_lock(prange);
->>>>>>
->>>>>>               /* Free backing memory of hmm_range if it was 
->>>>>> initialized
->>>>>> -            * Overrride return value to TRY AGAIN only if prior 
->>>>>> returns
->>>>>> +            * Override return value to TRY AGAIN only if prior
->>>>>> + returns
->>>>>>                * were successful
->>>>>>                */
->>>>>>               if (range && !amdgpu_hmm_range_valid(range) && !r) 
->>>>>> { @@
->>>>>> -1769,7
->>>>>> +1770,8 @@ static int svm_range_validate_and_map(struct mm_struct
->>>>>> +*mm,
->>>>>>                       r = -EAGAIN;
->>>>>>               }
->>>>>>               /* Free the hmm range */
->>>>>> -           amdgpu_hmm_range_free(range);
->>> I guess we are setting up the error and that should be the criterion 
->>> to call this
->>> function. If there is already an error condition before we should 
->>> not be calling this
->>> again.
->>>
->>> regards
->>> Sunil khatri
->>>
->>>>>> +           if (range)
->>>>> Can just check if(!r) here and remove "range=NULL" above? if r is not
->>>>> 0 range has been freed, if r is 0 free range here.
->>>> But there are later spots where r becomes non-zero after 
->>>> get_pages() succeeded
->>> and range is valid:
->>>> svm_range_dma_map(...) can fail → sets r != 0.
->>>> !amdgpu_hmm_range_valid(range) → you set r = -EAGAIN.
->>>> !list_empty(&prange->child_list) → you set r = -EAGAIN.
->>>> In all three cases, your new tail logic if (!r) 
->>>> amdgpu_hmm_range_free(range);
->>> skips freeing because r != 0 now. Since you also removed range = 
->>> NULL; after the
->>> early free, nothing else frees it → memory leak.
->>>> Regards,
->>>> Srini
->>>>
->>>>> Regards
->>>>>
->>>>> Xiaogang
->>>>>
->>>>>> + amdgpu_hmm_range_free(range);
->>>>>>
->>>>>>
->>>>>>               if (!r && !list_empty(&prange->child_list)) {
+>> +            }
+>> +
+>>               r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, 
+>> npages,
+>>                                  readonly, owner,
+>>                                  range);
