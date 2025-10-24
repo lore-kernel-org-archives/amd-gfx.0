@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 369D6CCF9E3
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3BCCCF9F0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Oct 2025 16:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6765B10EADC;
-	Fri, 24 Oct 2025 16:08:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A51A10EADA;
+	Fri, 24 Oct 2025 16:08:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BTiJrYJ9";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="r/LJeFz2";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C85A710EAC8;
- Fri, 24 Oct 2025 16:08:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E44410EADC;
+ Fri, 24 Oct 2025 16:08:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=r99l6u0BlUiEuKPoTfx5q+o9T6qhcn8/spRENPL/yP4=; b=BTiJrYJ96HtdXFOelKboANXfhv
- FEU1VO0rozl8ezgT/YimVvirfpOsGx6Q+GSC+lyc9R+Hd/Db/XvpuUcCPfKhjX1+kFeFCTqoDyoOf
- TMuFtdz5EmOXznE3qhorAXnGBPBIs0jSLAiTNWF2//BayMk7WP3fAdoNDqxR4V1cvyr/QruEbUCQw
- ufu6Eh1MScUHV2AL2xq7//PVE8P20cnuDcFS+Yjm5UTmMK9WK6jduaQpBZX1FKl4ALaPWz81jmTuj
- N+tFnBPo4lPrP/APTqAs9HVvjOZoN1zQcKz+V0pzwAfPLBweVBJKc9llZZa8UgqLIavqqpfP/x8YO
- HUhZk0JQ==;
+ bh=FyBSvnPNz2KWy2wW5+1Ey7zzvIGEaJH8AOA99QAuRT8=; b=r/LJeFz2ez34gKukfJsAVIlHab
+ aO531quhEPIwPn7zpm21pev8iqhBSZCgQFY7ciiJ2j48welGqAK6NxmXoknmpGPBTsXKJP/Fg0BXM
+ 6fx5U34kbr6x8PkJZbw7gstOVuC/jMHg4kR+yD56S2lU8mKVIEhsiAFPM0o6A6Gfqjd3samRNkMyh
+ wA+Lmco78klhzBYn/F4JOaqL3f0+0sU5mS5prqLWlM/5Nu2tMR9a4dPy+YZIAucuUDojvoKkSi88w
+ 5yszY0CeHJnnWqqHod2TRt49Bnt4JJSFRFqFHKESlB6eMCHt/c1/gHjxGETwrRhpaXs5v114vVboj
+ b5Ohrl2Q==;
 Received: from [90.242.12.242] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vCKKn-00Ep6L-2Q; Fri, 24 Oct 2025 18:08:09 +0200
+ id 1vCKKr-00Ep7q-Hc; Fri, 24 Oct 2025 18:08:13 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v3 08/27] drm/sched: Remove idle entity from tree
-Date: Fri, 24 Oct 2025 17:07:41 +0100
-Message-ID: <20251024160800.79836-9-tvrtko.ursulin@igalia.com>
+ Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+ Oded Gabbay <ogabbay@kernel.org>
+Subject: [PATCH v3 14/27] accel/amdxdna: Remove drm_sched_init_args->num_rqs
+ usage
+Date: Fri, 24 Oct 2025 17:07:47 +0100
+Message-ID: <20251024160800.79836-15-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
 References: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,74 +61,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is no need to keep entities with no jobs in the tree so lets remove
-it once the last job is consumed. This keeps the tree smaller which is
-nicer and more efficient as entities are removed and re-added on every
-popped job.
-
-Apart from that, the upcoming fair scheduling algorithm will rely on the
-tree only containing runnable entities.
+Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Min Ma <mamin506@gmail.com>
+Cc: Lizhi Hou <lizhi.hou@amd.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_rq.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/accel/amdxdna/aie2_ctx.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index cf03b38c4eb5..2d1f579d8352 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -19,6 +19,9 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
- static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
- 					    struct drm_sched_rq *rq)
- {
-+	lockdep_assert_held(&entity->lock);
-+	lockdep_assert_held(&rq->lock);
-+
- 	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
- 		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
- 		RB_CLEAR_NODE(&entity->rb_tree_node);
-@@ -155,27 +158,30 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
- void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *next_job;
-+	struct drm_sched_rq *rq;
- 
- 	/*
- 	 * Update the entity's location in the min heap according to
- 	 * the timestamp of the next job, if any.
- 	 */
-+	spin_lock(&entity->lock);
-+	rq = entity->rq;
-+	spin_lock(&rq->lock);
- 	next_job = drm_sched_entity_queue_peek(entity);
- 	if (next_job) {
--		struct drm_sched_rq *rq;
- 		ktime_t ts;
- 
--		spin_lock(&entity->lock);
--		rq = entity->rq;
--		spin_lock(&rq->lock);
- 		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
- 			ts = next_job->submit_ts;
- 		else
- 			ts = drm_sched_rq_next_rr_ts(rq, entity);
-+
- 		drm_sched_rq_update_fifo_locked(entity, rq, ts);
--		spin_unlock(&rq->lock);
--		spin_unlock(&entity->lock);
-+	} else {
-+		drm_sched_rq_remove_fifo_locked(entity, rq);
- 	}
-+	spin_unlock(&rq->lock);
-+	spin_unlock(&entity->lock);
- }
- 
- /**
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index 63450b7773ac..fa2e5edbdefe 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -536,7 +536,6 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
+ 	struct amdxdna_dev *xdna = client->xdna;
+ 	const struct drm_sched_init_args args = {
+ 		.ops = &sched_ops,
+-		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = HWCTX_MAX_CMDS,
+ 		.timeout = msecs_to_jiffies(HWCTX_MAX_TIMEOUT),
+ 		.name = "amdxdna_js",
 -- 
 2.48.0
 
