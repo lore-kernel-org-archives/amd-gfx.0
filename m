@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEBD6CCD1BF
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C1ECCF9E3
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:27:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 935C610E31D;
-	Sat, 25 Oct 2025 16:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C915410E2B2;
+	Sat, 25 Oct 2025 16:27:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S0DEjgAF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lDP8pcZ3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 361CD10E31D
- for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:26:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B212610E2B2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:27:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1D34341B01;
- Sat, 25 Oct 2025 16:26:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BDFC4CEF5;
- Sat, 25 Oct 2025 16:26:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B2AF2601E8;
+ Sat, 25 Oct 2025 16:27:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727C8C4CEFF;
+ Sat, 25 Oct 2025 16:27:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761409594;
- bh=5tystpVkEqNEZc4CfOrdY95xxGcSj38cBLknZ9Ya3xE=;
+ s=k20201202; t=1761409642;
+ bh=VE264P+OydNZRk6EfkVGtbuO77L6Hj+dsXgOCMvVLRY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=S0DEjgAFhBuiOR9Bl9Z5Brd+uC80vXCDMqE2k9HRjcqYecLYtTd/op+g+vj5gjGpi
- HhUNEyOOsOl51qfMXO6f1If/opPLxbnTrxoYSwHIT0VDt4S/7F8KWjyEGVqHBB+KrN
- e70EShRAE++RXqNyi7Qr3SjWvo0I0qV8kD+nNL2PBW1D88KJXSVZzW2KizGbPq8W90
- tC/erPL6GFsTA1goOJ4fFLJaF5JOzoENfmxp0W8MTajrQAlt/ArGyCCB19QVBrgS+s
- rrGixOcNJ1TTNkkeqTBIqR2YrwrAOHwk+NZcjb4oRP3xBankZopmVbwe3mDN07hYj3
- 1m52PVBhJYusA==
+ b=lDP8pcZ3vbUWggXGtPSTAgDTOzeMJ+lxFd7pnX3W4OYjPyZwKm/m4qXD4cjgENcu2
+ Q1PceB2nMzq80o4wnikBPsvFYNFHrWBGYeYyN4T+kEmo7S7JAmMTyAQz1/DHl/MP43
+ WCMZ2viZRe71thVaEG8rLO5nVmklrgODs43ZJnTPKF60XUe05fGmxndBaK9uE/tFRX
+ X/oVzuWzEHBjY/jNe2z/bdT1TdsgK/r+gB/fsWy498k6t44oZxvpTb+8cTpnz9BiCP
+ ST/sTFkDpZNhX+YTo7N4W1OgF8c6ogEAvlRZlN1rr7IsPJM6hnqkfvaRBYNUFG+lac
+ LPAofCcxWLSfg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Geoffrey McRae <geoffrey.mcrae@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Sasha Levin <sashal@kernel.org>,
+Cc: Eric Huang <jinhuieric.huang@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.17-5.4] drm/amdkfd: return -ENOTTY for unsupported
- IOCTLs
-Date: Sat, 25 Oct 2025 12:00:12 -0400
-Message-ID: <20251025160905.3857885-381-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.17-6.1] drm/amdkfd: fix vram allocation failure for
+ a special case
+Date: Sat, 25 Oct 2025 12:00:34 -0400
+Message-ID: <20251025160905.3857885-403-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251025160905.3857885-1-sashal@kernel.org>
 References: <20251025160905.3857885-1-sashal@kernel.org>
@@ -64,17 +64,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Geoffrey McRae <geoffrey.mcrae@amd.com>
+From: Eric Huang <jinhuieric.huang@amd.com>
 
-[ Upstream commit 57af162bfc8c05332a28c4d458d246cc46d2746d ]
+[ Upstream commit 93aa919ca05bec544b17ee9a1bfe394ce6c94bd8 ]
 
-Some kfd ioctls may not be available depending on the kernel version the
-user is running, as such we need to report -ENOTTY so userland can
-determine the cause of the ioctl failure.
+When it only allocates vram without va, which is 0, and a
+SVM range allocated stays in this range, the vram allocation
+returns failure. It should be skipped for this case from
+SVM usage check.
 
-Signed-off-by: Geoffrey McRae <geoffrey.mcrae@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -83,89 +83,91 @@ LLM Generated explanations, may be completely bogus:
 
 YES
 
-- What changed
-  - Unsupported amdkfd ioctls now return -ENOTTY instead of the previous
-    default -EINVAL on two early error paths:
-    - When `_IOC_NR(cmd)` is beyond the table: `nr >=
-      AMDKFD_CORE_IOCTL_COUNT` now sets `retcode = -ENOTTY` before `goto
-      err_i1` (drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:3256).
-    - When the ioctl number is outside the defined KFD command range:
-      the `else` branch after the `(nr >= AMDKFD_COMMAND_START) && (nr <
-      AMDKFD_COMMAND_END)` check now sets `retcode = -ENOTTY` before
-      `goto err_i1` (drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:3270).
-  - Prior to this change, both paths fell through with `retcode`
-    initialized to -EINVAL
-    (drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:3253).
+This is a small, targeted bug fix that prevents erroneous -EADDRINUSE
+failures when userspace allocates a VRAM buffer without providing a VA
+(i.e., `va_addr == 0`). The change is confined to the KFD ioctl path and
+poses minimal regression risk while fixing a real user-visible issue.
 
-- Why it matters
-  - KFD adds ioctls over time; user space built against newer headers
-    may issue an ioctl unknown to an older kernel. Returning -ENOTTY is
-    the canonical “inappropriate ioctl for device/unsupported ioctl”
-    signal, allowing user space to distinguish “unsupported on this
-    kernel” from “bad arguments to a supported ioctl” (which should be
-    -EINVAL).
-  - This aligns KFD’s error semantics with kernel ioctl conventions used
-    elsewhere. For example, DRM core returns -ENOTTY for unsupported
-    ioctl types (drivers/gpu/drm/drm_ioctl.c:782), and many drivers use
-    -ENOTTY to indicate unsupported ioctls.
+What changed
+- In `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:1045`, inside
+  `kfd_ioctl_alloc_memory_of_gpu`, the SVM overlap check was amended to
+  skip a special case:
+  - New guard added at `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:1071`:
+    - `if (!(!args->va_addr && (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM))
+      && interval_tree_iter_first(...)) { ... return -EADDRINUSE; }`
+  - Practically, this means the SVM interval-tree overlap check is
+    bypassed only when:
+    - `args->va_addr == 0` (no VA requested), and
+    - `flags` includes `KFD_IOC_ALLOC_MEM_FLAGS_VRAM`.
+  - Previously, the overlap check was unconditional, which could falsely
+    report “Address already allocated by SVM” when VA is 0 (see the
+    surrounding context at
+    `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:1064-1079`).
 
-- Scope and risk
-  - Change is small and tightly scoped to `kfd_ioctl` error handling for
-    unsupported commands only
-    (drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:3244).
-  - No architectural changes, no new UAPI or features, and no functional
-    change for supported ioctls.
-  - Potential regression risk is low: only the errno for “unsupported
-    ioctl” changes from -EINVAL to -ENOTTY. Well-behaved user space
-    should treat -ENOTTY (not -EINVAL) as the indicator for an
-    unsupported ioctl. This is correcting an API bug rather than
-    changing intended behavior.
-  - Security impact is nil; control flow and data handling are
-    unchanged.
+Why it’s a bug fix
+- The commit message accurately describes a failure mode: when
+  allocating VRAM-only without a VA (VA=0) and there exists an SVM range
+  that falls in that [0, size) range, the ioctl incorrectly returns
+  `-EADDRINUSE`. For VRAM-only allocations without a VA, SVM address-
+  range conflicts are irrelevant and should not block allocation.
+- The code change corrects this by skipping the SVM overlap check for
+  that specific case, avoiding a false-positive error.
 
-- Stable backport criteria
-  - Fixes a real user-visible bug: ambiguous errno on unsupported ioctls
-    made feature detection and fallback logic in userland unreliable.
-  - Minimal, self-contained patch limited to amdkfd.
-  - No side effects beyond improving errno correctness for unsupported
-    ioctls.
-  - Consistent with prior amdkfd errno cleanups (e.g., “Return proper
-    error code for gws alloc API”) and general kernel ioctl practices.
+Safety and scope
+- Minimal, localized change: It adds a single conditional guard and
+  comment in one function. No ABI or architectural changes.
+- Confined to AMD KFD user memory allocation path; does not touch core
+  MM, scheduler, or unrelated GPU subsystems.
+- Consistency with mapping rules: mapping requires a non-zero VA. In
+  `kfd_mem_attach` (called during mapping), mapping with `mem->va == 0`
+  is rejected
+  (`drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:858-930`, check at
+  “if (!va) { ... return -EINVAL; }”). This ensures that skipping the
+  SVM check for VA=0 can’t accidentally permit an overlapping SVM GPU-VA
+  mapping later: mapping at VA=0 is inherently invalid and denied. Thus
+  the change strictly avoids a spurious allocation-time error without
+  enabling unsafe mappings.
+- Flags behavior matches UAPI: `KFD_IOC_ALLOC_MEM_FLAGS_VRAM` is
+  intended for VRAM allocations (`include/uapi/linux/kfd_ioctl.h:407`).
+  VRAM-only allocations with VA=0 are valid for certain use cases (e.g.,
+  export or CPU-visible VRAM on large BAR), and should not be blocked by
+  SVM interval checks.
 
-Given these points, this is a good, low-risk candidate for stable
-backport.
+Stable backport criteria
+- Fixes a real bug affecting users (spurious -EADDRINUSE on valid VRAM-
+  only allocations).
+- Change is small and contained, with clear intent and low regression
+  risk.
+- No new features or architectural shifts.
+- Touches only driver code in a single path
+  (`kfd_ioctl_alloc_memory_of_gpu`), no widespread side effects.
 
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Conclusion
+- This is a clear, minimal bug fix that prevents erroneous allocation
+  failures and aligns with the mapping semantics already enforced
+  elsewhere. It is suitable for stable backport.
+
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 828a9ceef1e76..79ed3be63d0dd 100644
+index 79ed3be63d0dd..43115a3744694 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -3252,8 +3252,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
- 	int retcode = -EINVAL;
- 	bool ptrace_attached = false;
- 
--	if (nr >= AMDKFD_CORE_IOCTL_COUNT)
-+	if (nr >= AMDKFD_CORE_IOCTL_COUNT) {
-+		retcode = -ENOTTY;
- 		goto err_i1;
-+	}
- 
- 	if ((nr >= AMDKFD_COMMAND_START) && (nr < AMDKFD_COMMAND_END)) {
- 		u32 amdkfd_size;
-@@ -3266,8 +3268,10 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
- 			asize = amdkfd_size;
- 
- 		cmd = ioctl->cmd;
--	} else
-+	} else {
-+		retcode = -ENOTTY;
- 		goto err_i1;
-+	}
- 
- 	dev_dbg(kfd_device, "ioctl cmd 0x%x (#0x%x), arg 0x%lx\n", cmd, nr, arg);
- 
+@@ -1070,7 +1070,12 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 	svm_range_list_lock_and_flush_work(&p->svms, current->mm);
+ 	mutex_lock(&p->svms.lock);
+ 	mmap_write_unlock(current->mm);
+-	if (interval_tree_iter_first(&p->svms.objects,
++
++	/* Skip a special case that allocates VRAM without VA,
++	 * VA will be invalid of 0.
++	 */
++	if (!(!args->va_addr && (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)) &&
++	    interval_tree_iter_first(&p->svms.objects,
+ 				     args->va_addr >> PAGE_SHIFT,
+ 				     (args->va_addr + args->size - 1) >> PAGE_SHIFT)) {
+ 		pr_err("Address: 0x%llx already allocated by SVM\n",
 -- 
 2.51.0
 
