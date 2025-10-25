@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE3DCCF9E3
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC04DCCF9E3
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA4B10E29D;
-	Sat, 25 Oct 2025 16:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79C3010E29B;
+	Sat, 25 Oct 2025 16:13:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JEOtow9O";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EDztWJa8";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74CC010E29E
- for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:10:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC9EE10E29B
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:13:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7B1136031C;
- Sat, 25 Oct 2025 16:10:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA61C4CEF5;
- Sat, 25 Oct 2025 16:10:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2B0E560538;
+ Sat, 25 Oct 2025 16:13:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E478FC4CEF5;
+ Sat, 25 Oct 2025 16:13:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761408617;
- bh=XH2q5GZrzfVuIRCAT+9nku9R8Fm0t346LvkGNzGgLVs=;
+ s=k20201202; t=1761408824;
+ bh=aOarMjKzUQnkvIX7CTnvCUPOs0e77ay2ln+V8n0cGYE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JEOtow9ObNM6ge+gkK8cZXe4TjZWYXDmWoC2vaMWeZ+2RNSm0I7j7bN8vTRba3V+w
- TM3AzEe+heBVvOwvt28JX6ttNFZp08M6ivnKOcx7AZ64c4ecpqZQKTbqH782trDgG+
- RiVys4HlR9rvsSNFiLL0OcW5NpbVb7WNZctJFbyC7vNhxQsv7tTK41UPkeyV1zVEHw
- nLuSdZ3bYlnDJbNRPILYmIVNsC1ihcgO5En8JbDN6Vt4gm2xrCR7JywtgsX+N6xIp+
- w3ocU9By/xZOFr0O39TiDEjIC2Mpk57P31Gf9GZLufUDjFmavy/DrgMaM+1yl6ciuQ
- 3DKx20rSctraw==
+ b=EDztWJa8VYdXOBjL6Y8SCuKQ7q0bVAIs6NMiPZgepyBL5qotpDR+Tlzly6XZgzQ7F
+ /381u7oGCvwkBDxZr+rKihWH2FMab7mlUYAP+YedJTONc2dq29X6C6TWArl3oHW5LC
+ OwW43xR7FxDlrJRKbuPVCFqCDa74hlDkCx+IcPMJkTzkgWkgZczFBir1FxS6FFAPuy
+ rIgdhHLyLR4l6yVm2AosRDrJ5LHzATtbUIQsVSIWn7Agt6f6YDs7L7RRkOBJAsdWdl
+ OHN9zi/MGSxcxo3DPkvnm2DRMOSrqbkD5hBQgr7afDLdJYZqfkaBYz6EaafSLPxwjD
+ X3iYclOIw5YGg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Heng Zhou <Heng.Zhou@amd.com>,
- "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
+Cc: David Francis <David.Francis@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.17-6.12] drm/amdgpu: fix nullptr err of
- vm_handle_moved
-Date: Sat, 25 Oct 2025 11:54:18 -0400
-Message-ID: <20251025160905.3857885-27-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.17-6.1] drm/amdgpu: Allow kfd CRIU with no buffer
+ objects
+Date: Sat, 25 Oct 2025 11:55:18 -0400
+Message-ID: <20251025160905.3857885-87-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251025160905.3857885-1-sashal@kernel.org>
 References: <20251025160905.3857885-1-sashal@kernel.org>
@@ -64,16 +64,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Heng Zhou <Heng.Zhou@amd.com>
+From: David Francis <David.Francis@amd.com>
 
-[ Upstream commit 859958a7faefe5b7742b7b8cdbc170713d4bf158 ]
+[ Upstream commit 85705b18ae7674347f8675f64b2b3115fb1d5629 ]
 
-If a amdgpu_bo_va is fpriv->prt_va, the bo of this one is always NULL.
-So, such kind of amdgpu_bo_va should be updated separately before
-amdgpu_vm_handle_moved.
+The kfd CRIU checkpoint ioctl would return an error if trying
+to checkpoint a process with no kfd buffer objects.
 
-Signed-off-by: Heng Zhou <Heng.Zhou@amd.com>
-Reviewed-by: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
+This is a normal case and should not be an error.
+
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: David Francis <David.Francis@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -82,118 +83,84 @@ LLM Generated explanations, may be completely bogus:
 
 YES
 
-- Bug impact: The commit fixes a real, user-visible NULL pointer
-  dereference during KFD process BO restore. In the KFD restore path,
-  PRT (partial resident texture) mappings live in `fpriv->prt_va`, which
-  is a VM mapping with no backing BO. This mapping can appear in the
-  VM’s “moved/invalidated” lists, and `amdgpu_vm_handle_moved()` will
-  then dereference `bo_va->base.bo`, causing a NULL deref. Specifically,
-  `amdgpu_vm_handle_moved()` dereferences `bo_va->base.bo` in the
-  invalidated loop to fetch the reservation object:
-  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1608 and
-  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1618. That’s unsafe for PRT VA
-  since its BO is always NULL.
+- What it fixes: Previously, the CRIU path rejected processes with no
+  KFD buffer objects by requiring both a non-NULL `bos` pointer and a
+  non-zero `num_bos`. The commit relaxes this so that a process with
+  zero BOs is treated as a normal case instead of an error.
 
-- Why the bug exists: `fpriv->prt_va` is created with a NULL BO (as
-  intended) at drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:1428, which sets
-  up a special VA mapping without a BO: it calls `amdgpu_vm_bo_add(adev,
-  &fpriv->vm, NULL)`. Consequently, any generic handling that assumes
-  `bo_va->base.bo` is non-NULL can crash if the PRT VA ends up in the
-  VM’s invalidation or movement queues.
+- Precise change: In `criu_restore`, the validation changes from
+  rejecting zero BOs to only requiring `args->bos` when there actually
+  are BOs:
+  - New check only requires `bos` if `num_bos > 0`:
+    `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:2568-2570`
+    - `(args->num_bos > 0 && !args->bos) || !args->devices ||
+      !args->priv_data || !args->priv_data_size || !args->num_devices`
+  - This removes the old unconditional `!args->bos` and `!args->num_bos`
+    rejection.
 
-- What the change does: The patch updates the PRT mapping before calling
-  the generic VM “handle moved” pass, ensuring the PRT VA is not present
-  in those lists when the code that assumes a non-NULL BO runs.
-  - Before: In the restore path, after validating PDs/PTs, the code
-    directly calls `amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket)`
-    for all VMs (drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2992).
-  - After: It first derives `fpriv` from the VM, then explicitly updates
-    `fpriv->prt_va` with `amdgpu_vm_bo_update(adev, fpriv->prt_va,
-    false)` before calling `amdgpu_vm_handle_moved()` (as per the diff).
-    This mirrors how command submission already handles PRT VA before
-    calling handle_moved (see
-    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:1149–1191).
-  - Rationale: `amdgpu_vm_bo_update()` safely supports `bo_va->base.bo
-    == NULL` (PRT case) and moves the mapping’s state to “done” without
-    dereferencing a BO, see
-    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1245–1390. It uses the VM’s
-    fence (`vm->last_update`) instead of a BO fence when `bo == NULL`,
-    and it moves the mapping out of the invalidated/moved state via
-    `amdgpu_vm_bo_done(&bo_va->base)`.
+- Why it’s correct and safe:
+  - Downstream restore code already handles zero BOs correctly:
+    - Size checks scale with `num_bos`:
+      `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:2439-2440`
+    - Zero-length allocations are fine; `kvmalloc_array(args->num_bos,
+      ...)` and `kvzalloc(...)` safely handle `num_bos == 0` and
+      `kvfree` is safe:
+      `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:2445-2453, 2463-2467,
+      2495-2499`
+    - `copy_from_user` and `copy_to_user` with size 0 are no-ops and
+      safe even if `bos` is NULL:
+      `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:2455-2461, 2487-2492`
+    - The loop over BOs naturally skips when `num_bos == 0`:
+      `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:2479-2485`
+  - For `num_bos > 0`, the new check still requires a valid `bos`
+    pointer, preserving existing behavior where needed.
 
-- Safety and minimality:
-  - The fix is small, localized to
-    `amdgpu_amdkfd_gpuvm_restore_process_bos()`
-    (drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2986–3004 region),
-    with no architectural changes.
-  - It follows an established pattern already present in the CS path:
-    `amdgpu_cs` updates `fpriv->prt_va` before
-    `amdgpu_vm_handle_moved()`
-    (drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:1149–1191).
-  - It operates while PD/PTs are already reserved via the DRM
-    exec/ticket path, matching the expectations of both
-    `amdgpu_vm_bo_update()` and `amdgpu_vm_handle_moved()`.
-  - The additional log message changes (`pr_debug` → `dev_dbg` with PID)
-    are non-functional and low risk.
+- Scope and risk:
+  - Small, localized input validation fix in KFD CRIU restore path only;
+    no architectural changes.
+  - No impact on other subsystems; error handling paths remain
+    unchanged.
+  - Regression risk is minimal because it only relaxes a reject
+    condition for a valid scenario and downstream code already supports
+    zero BOs.
 
-- Stable tree criteria:
-  - Fixes a real crash (NULL deref), so it’s an important bug fix.
-  - Change is small and contained to the AMDGPU KFD restore path.
-  - No new features or API changes; no architectural rework.
-  - Regression risk is low, because it matches the existing, proven
-    sequence used in command submission code.
-  - Touches a critical subsystem (AMDGPU), but the pattern is already
-    used elsewhere, reducing risk.
+- User impact:
+  - Fixes spurious `-EINVAL` on CRIU operations for processes without
+    KFD BOs, which is a normal scenario per the commit message.
+  - Improves reliability of CRIU-based workflows for AMD GPU compute
+    processes.
 
-- Applicability across stable branches:
-  - This is relevant for stable kernels that have the KFD restore path
-    structured like the one in your 6.17 workspace (with “Update
-    mappings not managed by KFD” and the call to
-    `amdgpu_vm_handle_moved()` within
-    `amdgpu_amdkfd_gpuvm_restore_process_bos` at
-    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:2986–3004).
-  - Older long-term branches (e.g., 5.4 in your `$CVEKERNELTREE`) have a
-    different implementation of the restore path and do not invoke
-    `amdgpu_vm_handle_moved()` there (see
-    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:1952 in that tree).
-    For those, this exact backport is not applicable or needed.
+- Stable backport criteria:
+  - Important bugfix affecting real users.
+  - Minimal, contained change with low risk.
+  - No new features or API changes; aligns behavior with existing code
+    expectations.
 
-Conclusion: This is a correct, minimal, and safe bug fix preventing a
-NULL pointer crash in the KFD eviction-restore path and mirrors existing
-correct handling in CS paths. It should be backported to stable trees
-that have this KFD restore flow.
+Note: While the commit message mentions the checkpoint ioctl, this
+change updates the restore validation
+(`drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:2568-2570`). It still
+satisfies stable criteria by correcting CRIU handling for the no-BO case
+on restore, with the downstream code already safely handling `num_bos ==
+0`.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 902eac2c685f3..30d4a47535882 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2993,9 +2993,22 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence __rcu *
- 		struct amdgpu_device *adev = amdgpu_ttm_adev(
- 			peer_vm->root.bo->tbo.bdev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 43115a3744694..8535a52a62cab 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2571,8 +2571,8 @@ static int criu_restore(struct file *filep,
+ 	pr_debug("CRIU restore (num_devices:%u num_bos:%u num_objects:%u priv_data_size:%llu)\n",
+ 		 args->num_devices, args->num_bos, args->num_objects, args->priv_data_size);
  
-+		struct amdgpu_fpriv *fpriv =
-+			container_of(peer_vm, struct amdgpu_fpriv, vm);
-+
-+		ret = amdgpu_vm_bo_update(adev, fpriv->prt_va, false);
-+		if (ret) {
-+			dev_dbg(adev->dev,
-+				"Memory eviction: handle PRT moved failed, pid %8d. Try again.\n",
-+				pid_nr(process_info->pid));
-+			goto validate_map_fail;
-+		}
-+
- 		ret = amdgpu_vm_handle_moved(adev, peer_vm, &exec.ticket);
- 		if (ret) {
--			pr_debug("Memory eviction: handle moved failed. Try again\n");
-+			dev_dbg(adev->dev,
-+				"Memory eviction: handle moved failed, pid %8d. Try again.\n",
-+				pid_nr(process_info->pid));
- 			goto validate_map_fail;
- 		}
- 	}
+-	if (!args->bos || !args->devices || !args->priv_data || !args->priv_data_size ||
+-	    !args->num_devices || !args->num_bos)
++	if ((args->num_bos > 0 && !args->bos) || !args->devices || !args->priv_data ||
++	    !args->priv_data_size || !args->num_devices)
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&p->mutex);
 -- 
 2.51.0
 
