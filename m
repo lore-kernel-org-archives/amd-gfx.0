@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C1ECCF9E3
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:27:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89E54CCF9E9
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C915410E2B2;
-	Sat, 25 Oct 2025 16:27:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B0AF10E2B3;
+	Sat, 25 Oct 2025 16:27:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lDP8pcZ3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R1aEFZAw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B212610E2B2
- for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:27:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 066DF10E2B3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:27:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B2AF2601E8;
- Sat, 25 Oct 2025 16:27:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727C8C4CEFF;
- Sat, 25 Oct 2025 16:27:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 432F3601E8;
+ Sat, 25 Oct 2025 16:27:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027DEC4CEFF;
+ Sat, 25 Oct 2025 16:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761409642;
- bh=VE264P+OydNZRk6EfkVGtbuO77L6Hj+dsXgOCMvVLRY=;
+ s=k20201202; t=1761409655;
+ bh=5If4RKkdBtzkAl5b5AKRrIkgrNLj7g4EhyojiPv7HD8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lDP8pcZ3vbUWggXGtPSTAgDTOzeMJ+lxFd7pnX3W4OYjPyZwKm/m4qXD4cjgENcu2
- Q1PceB2nMzq80o4wnikBPsvFYNFHrWBGYeYyN4T+kEmo7S7JAmMTyAQz1/DHl/MP43
- WCMZ2viZRe71thVaEG8rLO5nVmklrgODs43ZJnTPKF60XUe05fGmxndBaK9uE/tFRX
- X/oVzuWzEHBjY/jNe2z/bdT1TdsgK/r+gB/fsWy498k6t44oZxvpTb+8cTpnz9BiCP
- ST/sTFkDpZNhX+YTo7N4W1OgF8c6ogEAvlRZlN1rr7IsPJM6hnqkfvaRBYNUFG+lac
- LPAofCcxWLSfg==
+ b=R1aEFZAwlpMAaWjwEcA7IzYGUUW7icAllZtPovQPugVOYbDA/6dQvcokq+R5oodLV
+ ybMEH+goXmrsYmcQuBGgiHGJytwvtwxMSp0YFXwq5e5GfpoLGg+AFFgnixj+bGTpel
+ ipz7psHSyVN6kLEXufkhzYB4HvYoxMHbN8eXdrG5uUNMHo5s+TLCaO0hSpqtQs2ROE
+ rqddCljY4GT4x2bhZpcNyTl4ZmlAv6aodF1/iETWfyveMUxAD8nTxLr5mPrRp3mCwI
+ UQmrNhm1ngDKxRz2O3+ZoiGubFGC3nTZMuMARbUb1nH5qc0aVLjYd7S7VlmsV8W4Jl
+ v8oq2+2kfhvTA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Eric Huang <jinhuieric.huang@amd.com>,
+Cc: Amber Lin <Amber.Lin@amd.com>,
  Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.17-6.1] drm/amdkfd: fix vram allocation failure for
- a special case
-Date: Sat, 25 Oct 2025 12:00:34 -0400
-Message-ID: <20251025160905.3857885-403-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.17-5.4] drm/amdkfd: Tie UNMAP_LATENCY to
+ queue_preemption
+Date: Sat, 25 Oct 2025 12:00:39 -0400
+Message-ID: <20251025160905.3857885-408-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251025160905.3857885-1-sashal@kernel.org>
 References: <20251025160905.3857885-1-sashal@kernel.org>
@@ -64,16 +64,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Eric Huang <jinhuieric.huang@amd.com>
+From: Amber Lin <Amber.Lin@amd.com>
 
-[ Upstream commit 93aa919ca05bec544b17ee9a1bfe394ce6c94bd8 ]
+[ Upstream commit f3820e9d356132e18405cd7606e22dc87ccfa6d1 ]
 
-When it only allocates vram without va, which is 0, and a
-SVM range allocated stays in this range, the vram allocation
-returns failure. It should be skipped for this case from
-SVM usage check.
+When KFD asks CP to preempt queues, other than preempt CP queues, CP
+also requests SDMA to preempt SDMA queues with UNMAP_LATENCY timeout.
+Currently queue_preemption_timeout_ms is 9000 ms by default but can be
+configured via module parameter. KFD_UNMAP_LATENCY_MS is hard coded as
+4000 ms though. This patch ties KFD_UNMAP_LATENCY_MS to
+queue_preemption_timeout_ms so in a slow system such as emulator, both
+CP and SDMA slowness are taken into account.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
 Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
@@ -83,91 +86,90 @@ LLM Generated explanations, may be completely bogus:
 
 YES
 
-This is a small, targeted bug fix that prevents erroneous -EADDRINUSE
-failures when userspace allocates a VRAM buffer without providing a VA
-(i.e., `va_addr == 0`). The change is confined to the KFD ioctl path and
-poses minimal regression risk while fixing a real user-visible issue.
+- What changed
+  - Replaces hard-coded `KFD_UNMAP_LATENCY_MS (4000)` with a value
+    derived from the existing module parameter
+    `queue_preemption_timeout_ms`: `((queue_preemption_timeout_ms -
+    queue_preemption_timeout_ms / 10) >> 1)` in
+    `drivers/gpu/drm/amd/amdkfd/kfd_priv.h:120`. This budgets ~45% of
+    the total preemption timeout for each of the two SDMA engines,
+    leaving ~10% for CP overhead, per the new comment in
+    `drivers/gpu/drm/amd/amdkfd/kfd_priv.h:114`.
+  - `queue_preemption_timeout_ms` is already a public module parameter
+    with default 9000 ms in
+    `drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:833`, documented at
+    `drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:835`, and declared for KFD
+    use at `drivers/gpu/drm/amd/amdkfd/kfd_priv.h:195`.
 
-What changed
-- In `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:1045`, inside
-  `kfd_ioctl_alloc_memory_of_gpu`, the SVM overlap check was amended to
-  skip a special case:
-  - New guard added at `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:1071`:
-    - `if (!(!args->va_addr && (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM))
-      && interval_tree_iter_first(...)) { ... return -EADDRINUSE; }`
-  - Practically, this means the SVM interval-tree overlap check is
-    bypassed only when:
-    - `args->va_addr == 0` (no VA requested), and
-    - `flags` includes `KFD_IOC_ALLOC_MEM_FLAGS_VRAM`.
-  - Previously, the overlap check was unconditional, which could falsely
-    report “Address already allocated by SVM” when VA is 0 (see the
-    surrounding context at
-    `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:1064-1079`).
+- Why it matters (bug and impact)
+  - When KFD asks CP to preempt queues, CP also requests SDMA to preempt
+    SDMA queues with an UNMAP latency. The driver waits for the CP fence
+    using `queue_preemption_timeout_ms` (see
+    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:2402`), but
+    previously SDMA’s UNMAP latency was fixed at 4000 ms. This mismatch
+    can cause spurious preemption timeouts on slow systems (e.g.,
+    emulators) or when users tune the module parameter, leading to
+    preempt failures and potential error paths like “The cp might be in
+    an unrecoverable state due to an unsuccessful queues preemption.”
+  - By tying `KFD_UNMAP_LATENCY_MS` to `queue_preemption_timeout_ms`,
+    the SDMA preemption budget scales consistently with the CP fence
+    wait, avoiding premature timeouts and improving reliability.
 
-Why it’s a bug fix
-- The commit message accurately describes a failure mode: when
-  allocating VRAM-only without a VA (VA=0) and there exists an SVM range
-  that falls in that [0, size) range, the ioctl incorrectly returns
-  `-EADDRINUSE`. For VRAM-only allocations without a VA, SVM address-
-  range conflicts are irrelevant and should not block allocation.
-- The code change corrects this by skipping the SVM overlap check for
-  that specific case, avoiding a false-positive error.
+- Where the new value is used
+  - Programmed into MES/PM4 packets (units of 100 ms):
+    `packet->bitfields2.unmap_latency = KFD_UNMAP_LATENCY_MS / 100;` in
+    `drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c:129` and
+    `drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c:205`.
+  - Passed as the timeout when destroying MQDs (preempt/unmap paths):
+    calls to `mqd_mgr->destroy_mqd(..., KFD_UNMAP_LATENCY_MS, ...)` in
+    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:884`,
+    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:996`, and
+    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:1175`.
+  - Used for resetting hung queues via `hqd_reset(...,
+    KFD_UNMAP_LATENCY_MS)` in
+    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:2230`.
 
-Safety and scope
-- Minimal, localized change: It adds a single conditional guard and
-  comment in one function. No ABI or architectural changes.
-- Confined to AMD KFD user memory allocation path; does not touch core
-  MM, scheduler, or unrelated GPU subsystems.
-- Consistency with mapping rules: mapping requires a non-zero VA. In
-  `kfd_mem_attach` (called during mapping), mapping with `mem->va == 0`
-  is rejected
-  (`drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:858-930`, check at
-  “if (!va) { ... return -EINVAL; }”). This ensures that skipping the
-  SVM check for VA=0 can’t accidentally permit an overlapping SVM GPU-VA
-  mapping later: mapping at VA=0 is inherently invalid and denied. Thus
-  the change strictly avoids a spurious allocation-time error without
-  enabling unsafe mappings.
-- Flags behavior matches UAPI: `KFD_IOC_ALLOC_MEM_FLAGS_VRAM` is
-  intended for VRAM allocations (`include/uapi/linux/kfd_ioctl.h:407`).
-  VRAM-only allocations with VA=0 are valid for certain use cases (e.g.,
-  export or CPU-visible VRAM on large BAR), and should not be blocked by
-  SVM interval checks.
+- Stable criteria assessment
+  - Fixes a real-world reliability issue (timeouts/mismatched budgets)
+    that affects users, especially on slow systems and when
+    `queue_preemption_timeout_ms` is tuned.
+  - Change is small, contained to a single macro in one header
+    (`kfd_priv.h`) with clear rationale and no architectural
+    refactoring.
+  - Side effects are minimal: default behavior remains effectively
+    unchanged (for 9000 ms, `KFD_UNMAP_LATENCY_MS` becomes ~4050 ms;
+    when quantized to 100 ms units it still programs 40), while non-
+    default configurations become consistent and safer.
+  - Touches KFD/amdgpu preemption logic but only adjusts a timeout
+    parameter already designed to be user-configurable; no new features
+    introduced.
 
-Stable backport criteria
-- Fixes a real bug affecting users (spurious -EADDRINUSE on valid VRAM-
-  only allocations).
-- Change is small and contained, with clear intent and low regression
-  risk.
-- No new features or architectural shifts.
-- Touches only driver code in a single path
-  (`kfd_ioctl_alloc_memory_of_gpu`), no widespread side effects.
+Given the above, this is a low-risk, correctness-improving timeout
+alignment and a good candidate for backporting to stable.
 
-Conclusion
-- This is a clear, minimal bug fix that prevents erroneous allocation
-  failures and aligns with the mapping semantics already enforced
-  elsewhere. It is suitable for stable backport.
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 79ed3be63d0dd..43115a3744694 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1070,7 +1070,12 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 	svm_range_list_lock_and_flush_work(&p->svms, current->mm);
- 	mutex_lock(&p->svms.lock);
- 	mmap_write_unlock(current->mm);
--	if (interval_tree_iter_first(&p->svms.objects,
-+
-+	/* Skip a special case that allocates VRAM without VA,
-+	 * VA will be invalid of 0.
-+	 */
-+	if (!(!args->va_addr && (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)) &&
-+	    interval_tree_iter_first(&p->svms.objects,
- 				     args->va_addr >> PAGE_SHIFT,
- 				     (args->va_addr + args->size - 1) >> PAGE_SHIFT)) {
- 		pr_err("Address: 0x%llx already allocated by SVM\n",
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 67694bcd94646..d01ef5ac07666 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -111,7 +111,14 @@
+ 
+ #define KFD_KERNEL_QUEUE_SIZE 2048
+ 
+-#define KFD_UNMAP_LATENCY_MS	(4000)
++/*  KFD_UNMAP_LATENCY_MS is the timeout CP waiting for SDMA preemption. One XCC
++ *  can be associated to 2 SDMA engines. queue_preemption_timeout_ms is the time
++ *  driver waiting for CP returning the UNMAP_QUEUE fence. Thus the math is
++ *  queue_preemption_timeout_ms = sdma_preemption_time * 2 + cp workload
++ *  The format here makes CP workload 10% of total timeout
++ */
++#define KFD_UNMAP_LATENCY_MS	\
++	((queue_preemption_timeout_ms - queue_preemption_timeout_ms / 10) >> 1)
+ 
+ #define KFD_MAX_SDMA_QUEUES	128
+ 
 -- 
 2.51.0
 
