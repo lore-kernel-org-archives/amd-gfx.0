@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D446ACCD1BF
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EF71CCD1BF
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7195B10E2E0;
-	Sat, 25 Oct 2025 16:21:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35B0C10E31F;
+	Sat, 25 Oct 2025 16:24:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HtgeNDI/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nWPU24uV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D468C10E2E0
- for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:21:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13C9510E31F
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:24:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 11A4E61124;
- Sat, 25 Oct 2025 16:21:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC433C2BCB2;
- Sat, 25 Oct 2025 16:21:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EDA2C45234;
+ Sat, 25 Oct 2025 16:24:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E732CC4CEF5;
+ Sat, 25 Oct 2025 16:24:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761409301;
- bh=IdVJHrq7qjKgEAw8LQrXvJ0Cfy3ZnKYC0uazL97zGE4=;
+ s=k20201202; t=1761409487;
+ bh=wvAWs6ffZ8/EudcI9iqCygFmY/F0Spig1HAEhGSfBVs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HtgeNDI/T6Cji4jR+6OSi+QzgFrc6psEhBNhmJFM3Uu/mMSNs9sjXoNGJTky1IQFn
- QwpA6LVHX7cE1WL83Hwzx+AMQCvZzKEmLd2ILfYRCMK8RbH0xrfFKIyapXKLDfvAcr
- pVGp5oqSjGRG9qwFDF3Ga9deZLNnNCDPUUvDuMrwNWRQmTxtze8S+0yJeVvYfjld1h
- cJ2beh8AAFYNj1kercCDJHZY3XASKR/pftR05rG+2yy3UxHhrxsryDUvxEauWgjCDg
- iv3tWpRU9PQvGHhgCn2JaVVtyBODEkD3Y3M0wsrKyTrkNd4vsR2VZ/bCuvaBNuTe1R
- BP0GWoXsy7bYA==
+ b=nWPU24uVibJi2nlx30yskvsnzyqX9L565PVXKABhpkvNe8BOwRREo6moxSGKwYwp7
+ 59+1sHXuKDtNORnhnPk1lBH7/ZW5y/SVjQVrPFSb9DXaMfR078v+wiJqVdc8Htjql/
+ 2o6SB/lPyMuEIVIX/bD/aVV+sB3xx2fIsyBTorTuKYnqpBk+T0oBxuW/c4vn3T0Kal
+ u+htVpw5mdgS7iQPvU3SyJmIG0Tg1TXSwjKkd8zOyxTQY/mur5OIKCNYB11BRKLIZi
+ BeFgTK4LfzhuIvWj0+4mzQFYcBqGXhcfGw9IosccmqU6kSN2g5iLgdT9TyEGaO5bim
+ mpls7j1/vxKlw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Kent Russell <kent.russell@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
+Cc: Yifan Zhang <yifan1.zhang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.17-6.6] drm/amdkfd: Handle lack of READ permissions
- in SVM mapping
-Date: Sat, 25 Oct 2025 11:58:20 -0400
-Message-ID: <20251025160905.3857885-269-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.17-6.6] amd/amdkfd: resolve a race in
+ amdgpu_amdkfd_device_fini_sw
+Date: Sat, 25 Oct 2025 11:59:38 -0400
+Message-ID: <20251025160905.3857885-347-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251025160905.3857885-1-sashal@kernel.org>
 References: <20251025160905.3857885-1-sashal@kernel.org>
@@ -64,25 +63,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kent Russell <kent.russell@amd.com>
+From: Yifan Zhang <yifan1.zhang@amd.com>
 
-[ Upstream commit 0ed704d058cec7643a716a21888d58c7d03f2c3e ]
+[ Upstream commit 99d7181bca34e96fbf61bdb6844918bdd4df2814 ]
 
-HMM assumes that pages have READ permissions by default. Inside
-svm_range_validate_and_map, we add READ permissions then add WRITE
-permissions if the VMA isn't read-only. This will conflict with regions
-that only have PROT_WRITE or have PROT_NONE. When that happens,
-svm_range_restore_work will continue to retry, silently, giving the
-impression of a hang if pr_debug isn't enabled to show the retries..
+There is race in amdgpu_amdkfd_device_fini_sw and interrupt.
+if amdgpu_amdkfd_device_fini_sw run in b/w kfd_cleanup_nodes and
+  kfree(kfd), and KGD interrupt generated.
 
-If pages don't have READ permissions, simply unmap them and continue. If
-they weren't mapped in the first place, this would be a no-op. Since x86
-doesn't support write-only, and PROT_NONE doesn't allow reads or writes
-anyways, this will allow the svm range validation to continue without
-getting stuck in a loop forever on mappings we can't use with HMM.
+kernel panic log:
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+BUG: kernel NULL pointer dereference, address: 0000000000000098
+amdgpu 0000:c8:00.0: amdgpu: Requesting 4 partitions through PSP
+
+PGD d78c68067 P4D d78c68067
+
+kfd kfd: amdgpu: Allocated 3969056 bytes on gart
+
+PUD 1465b8067 PMD @
+
+Oops: @002 [#1] SMP NOPTI
+
+kfd kfd: amdgpu: Total number of KFD nodes to be created: 4
+CPU: 115 PID: @ Comm: swapper/115 Kdump: loaded Tainted: G S W OE K
+
+RIP: 0010:_raw_spin_lock_irqsave+0x12/0x40
+
+Code: 89 e@ 41 5c c3 cc cc cc cc 66 66 2e Of 1f 84 00 00 00 00 00 OF 1f 40 00 Of 1f 44% 00 00 41 54 9c 41 5c fa 31 cO ba 01 00 00 00 <fO> OF b1 17 75 Ba 4c 89 e@ 41 Sc
+
+89 c6 e8 07 38 5d
+
+RSP: 0018: ffffc90@1a6b0e28 EFLAGS: 00010046
+
+RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000018
+0000000000000001 RSI: ffff8883bb623e00 RDI: 0000000000000098
+ffff8883bb000000 RO8: ffff888100055020 ROO: ffff888100055020
+0000000000000000 R11: 0000000000000000 R12: 0900000000000002
+ffff888F2b97da0@ R14: @000000000000098 R15: ffff8883babdfo00
+
+CS: 010 DS: 0000 ES: 0000 CRO: 0000000080050033
+
+CR2: 0000000000000098 CR3: 0000000e7cae2006 CR4: 0000000002770ce0
+0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+0000000000000000 DR6: 00000000fffeO7FO DR7: 0000000000000400
+
+PKRU: 55555554
+
+Call Trace:
+
+<IRQ>
+
+kgd2kfd_interrupt+@x6b/0x1f@ [amdgpu]
+
+? amdgpu_fence_process+0xa4/0x150 [amdgpu]
+
+kfd kfd: amdgpu: Node: 0, interrupt_bitmap: 3 YcpxFl Rant tErace
+
+amdgpu_irq_dispatch+0x165/0x210 [amdgpu]
+
+amdgpu_ih_process+0x80/0x100 [amdgpu]
+
+amdgpu: Virtual CRAT table created for GPU
+
+amdgpu_irq_handler+0x1f/@x60 [amdgpu]
+
+__handle_irq_event_percpu+0x3d/0x170
+
+amdgpu: Topology: Add dGPU node [0x74a2:0x1002]
+
+handle_irq_event+0x5a/@xcO
+
+handle_edge_irq+0x93/0x240
+
+kfd kfd: amdgpu: KFD node 1 partition @ size 49148M
+
+asm_call_irq_on_stack+0xf/@x20
+
+</IRQ>
+
+common_interrupt+0xb3/0x130
+
+asm_common_interrupt+0x1le/0x40
+
+5.10.134-010.a1i5000.a18.x86_64 #1
+
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+Reviewed-by: Philip Yang<Philip.Yang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -91,123 +157,51 @@ LLM Generated explanations, may be completely bogus:
 
 YES
 
-Explanation
-- Bug fixed: The change addresses an indefinite retry loop (apparent
-  hang) in HMM-backed SVM mapping when encountering VMAs without read
-  permission, specifically write-only mappings and PROT_NONE. The loop
-  is triggered because HMM assumes READ by default and the existing code
-  adds READ then WRITE in svm_range_validate_and_map. That conflicts
-  with mappings that lack READ and causes svm_range_restore_work to
-  silently retry forever.
-- Core change: In drivers/gpu/drm/amd/amdkfd/kfd_svm.c inside
-  svm_range_validate_and_map, after resolving the VMA and before calling
-  amdgpu_hmm_range_get_pages, the patch adds a guard:
-  - Check: if (!(vma->vm_flags & VM_READ)) { … continue; }
-  - Behavior on no-READ: Acquire range lock, optionally pr_debug if
-    VM_WRITE is set without VM_READ, compute the intersection of the
-    current address range with prange, call
-    svm_range_unmap_from_gpus(prange, s, e,
-    KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU), unlock, advance addr to next,
-    and continue.
-  - This explicitly treats PROT_NONE and write-only VMAs as unmappable
-    for HMM/SVM and avoids mapping attempts that will never succeed.
-- Containment: The change is localized to a single function and code
-  path used during SVM range validation/mapping. No APIs or data
-  structures are changed. It only affects the slow path when
-  encountering a VMA without VM_READ; normal mappings (with READ) follow
-  the existing flow unchanged.
-- User impact: Prevents a hang-like condition (endless retry) that users
-  would experience during SVM range restoration/validation when a VMA
-  has PROT_NONE or write-only protection. This is a real, user-facing
-  bug that can stall workloads using KFD/HMM.
-- Risk assessment:
-  - Minimal risk: The unmap is a no-op if the pages were not mapped (“If
-    they weren't mapped in the first place, this would be a no-op”), and
-    otherwise it correctly tears down mappings that cannot be used by
-    HMM anyway (x86 doesn’t support write-only, and PROT_NONE allows
-    neither reads nor writes).
-  - No architectural changes: No redesign or wide-reaching behavior
-    changes outside of this corner case. Logging is via pr_debug, so no
-    noisy kernel logs in production.
-- Stable criteria:
-  - Important bugfix affecting users: Yes (prevents indefinite
-    retry/hang).
-  - Small and contained: Yes (~20 lines, one function).
-  - No new features: Correct.
-  - No broad side effects: Correct; behavior is limited to VMAs lacking
-    READ, which cannot be supported by HMM.
-  - Explicit stable tag: Not shown in the snippet, but the fix clearly
-    meets stable backport guidelines due to the hang avoidance and
-    limited scope.
+- `kfd_cleanup_nodes` nulls out each entry in `kfd->nodes` while tearing
+  the device down (`drivers/gpu/drm/amd/amdkfd/kfd_device.c:654-676`).
+  If an interrupt fires in that window, the old code in
+  `kgd2kfd_interrupt` still dereferences the stale slot and immediately
+  touches `node->interrupt_lock`, so a NULL entry explodes exactly as
+  shown in the panic log (offset 0x98 into a NULL `node`).
+- The patch now defends that loop: before grabbing the lock it verifies
+  the slot is still populated and bails out if it is already NULL
+  (`drivers/gpu/drm/amd/amdkfd/kfd_device.c:1137-1144`). That mirrors
+  the teardown progress—once the first node is gone we are already in
+  device finalization—so dropping the interrupt is harmless, and more
+  importantly it eliminates the crash.
+- The change is tiny, self-contained, and has no functional impact while
+  the device is operational because `kfd->nodes[i]` remains non-NULL
+  outside of teardown. It only touches this ISR path and does not rely
+  on newer framework helpers, so it applies cleanly to older trees.
+- The bug has already been observed on production kernels (panic log
+  from 5.10), making this a real user-visible regression. Given the
+  severity (interrupt-time NULL dereference) and the minimal risk of the
+  guard, it is a strong stable backport candidate.
 
-Notes for backporters
-- Interface compatibility: The patch relies on existing primitives
-  present in amdkfd SVM code paths: vma_lookup, svm_range_lock/unlock,
-  svm_range_unmap_from_gpus, KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU, and
-  prange fields (start/last). These are stable in recent kernels that
-  have SVM/HMM in KFD.
-- Unit consistency check: Ensure the parameters passed to
-  svm_range_unmap_from_gpus(prange, s, e, …) are in the units expected
-  by your target stable branch. In the shown diff, s/e are computed as s
-  = max(start, prange->start) and e = min(end, prange->last) where
-  start/end appear to be byte addresses (start = map_start <<
-  PAGE_SHIFT) and prange->start/last are often page indices in KFD SVM
-  code. Upstream code likely uses consistent units (either all pages or
-  all bytes). When backporting, verify that s/e match the function’s
-  expected units (adjust by PAGE_SHIFT if necessary) to avoid off-by-
-  PAGE_SHIFT mistakes.
-- Validation suggestion: Reproduce with a user VMA set to PROT_NONE or
-  write-only protection and trigger SVM range validation (e.g., by
-  causing GPU access). Before the fix, svm_range_restore_work would
-  continuously retry; after the fix, the range is unmapped and
-  validation proceeds without looping.
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Why this is safe and needed
-- The patch turns an unrecoverable, retry-forever condition into a
-  deterministic handling path by unmapping and moving on. It does not
-  try to force unsupported permissions and does not alter behavior for
-  the common case. It matches HMM’s requirement that mappings be at
-  least readable and avoids futile retry cycles. This is precisely the
-  kind of small, correctness-oriented fix that minimizes regression risk
-  and improves robustness for users of amdkfd/HMM.
-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 3d8b20828c068..cecdbcea0bb90 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1714,6 +1714,29 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 349c351e242b5..051a00152b089 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -1133,7 +1133,15 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
+ 	}
  
- 			next = min(vma->vm_end, end);
- 			npages = (next - addr) >> PAGE_SHIFT;
-+			/* HMM requires at least READ permissions. If provided with PROT_NONE,
-+			 * unmap the memory. If it's not already mapped, this is a no-op
-+			 * If PROT_WRITE is provided without READ, warn first then unmap
-+			 */
-+			if (!(vma->vm_flags & VM_READ)) {
-+				unsigned long e, s;
+ 	for (i = 0; i < kfd->num_nodes; i++) {
+-		node = kfd->nodes[i];
++		/* Race if another thread in b/w
++		 * kfd_cleanup_nodes and kfree(kfd),
++		 * when kfd->nodes[i] = NULL
++		 */
++		if (kfd->nodes[i])
++			node = kfd->nodes[i];
++		else
++			return;
 +
-+				svm_range_lock(prange);
-+				if (vma->vm_flags & VM_WRITE)
-+					pr_debug("VM_WRITE without VM_READ is not supported");
-+				s = max(start, prange->start);
-+				e = min(end, prange->last);
-+				if (e >= s)
-+					r = svm_range_unmap_from_gpus(prange, s, e,
-+						       KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
-+				svm_range_unlock(prange);
-+				/* If unmap returns non-zero, we'll bail on the next for loop
-+				 * iteration, so just leave r and continue
-+				 */
-+				addr = next;
-+				continue;
-+			}
-+
- 			WRITE_ONCE(p->svms.faulting_task, current);
- 			r = amdgpu_hmm_range_get_pages(&prange->notifier, addr, npages,
- 						       readonly, owner, NULL,
+ 		spin_lock_irqsave(&node->interrupt_lock, flags);
+ 
+ 		if (node->interrupts_active
 -- 
 2.51.0
 
