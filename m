@@ -4,51 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89E54CCF9E9
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Oct 2025 16:27:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45145CCF9E5
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Oct 2025 04:24:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B0AF10E2B3;
-	Sat, 25 Oct 2025 16:27:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA48E10E18A;
+	Sun, 26 Oct 2025 04:24:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R1aEFZAw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ua+L8Agf";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 066DF10E2B3
- for <amd-gfx@lists.freedesktop.org>; Sat, 25 Oct 2025 16:27:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0592710E18A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Oct 2025 04:24:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 432F3601E8;
- Sat, 25 Oct 2025 16:27:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 027DEC4CEFF;
- Sat, 25 Oct 2025 16:27:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5387843C6D;
+ Sun, 26 Oct 2025 04:24:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F66C4CEE7;
+ Sun, 26 Oct 2025 04:24:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761409655;
- bh=5If4RKkdBtzkAl5b5AKRrIkgrNLj7g4EhyojiPv7HD8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R1aEFZAwlpMAaWjwEcA7IzYGUUW7icAllZtPovQPugVOYbDA/6dQvcokq+R5oodLV
- ybMEH+goXmrsYmcQuBGgiHGJytwvtwxMSp0YFXwq5e5GfpoLGg+AFFgnixj+bGTpel
- ipz7psHSyVN6kLEXufkhzYB4HvYoxMHbN8eXdrG5uUNMHo5s+TLCaO0hSpqtQs2ROE
- rqddCljY4GT4x2bhZpcNyTl4ZmlAv6aodF1/iETWfyveMUxAD8nTxLr5mPrRp3mCwI
- UQmrNhm1ngDKxRz2O3+ZoiGubFGC3nTZMuMARbUb1nH5qc0aVLjYd7S7VlmsV8W4Jl
- v8oq2+2kfhvTA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Amber Lin <Amber.Lin@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.17-5.4] drm/amdkfd: Tie UNMAP_LATENCY to
- queue_preemption
-Date: Sat, 25 Oct 2025 12:00:39 -0400
-Message-ID: <20251025160905.3857885-408-sashal@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251025160905.3857885-1-sashal@kernel.org>
-References: <20251025160905.3857885-1-sashal@kernel.org>
+ s=k20201202; t=1761452684;
+ bh=dMPMRRoMJgccc7BS2ULEhV3/kgrJg53BMMGB3w7j5js=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ua+L8Agf5hcpblDHmegCmONXhl2Y2fS66TM/va1Cjyww2CNYSCF2rsuHWF0Syy47s
+ 2Pkl5Y9WGV6xWlKvYnPVO+9l1dWtk8YpFDs28QTKMHV21v0uN9mSnpxCBFTilcb6mk
+ 6r5sIsY1mswD7BKaRQPQ4bKNPssN7TXYPPqARZyffLOt7JnRhjYBNiXRonXQnjc/su
+ JGxD2LI/y9d1/rWz2ZdXQFmkYpuExY+A+hKNuR05FwvV3SFF/aO+mOJ6Nu53aCPM6H
+ J3pdyYvx/EtmLuRqZsK/4gUfjE+DKgjxd+uwlYKhcmqvqRI3UKacqhSdYKTIlgMLjd
+ 4FvZSVNRV4XDw==
+Message-ID: <2a9c8369-2fe6-45b3-84e3-b004bae74c47@kernel.org>
+Date: Sat, 25 Oct 2025 23:24:42 -0500
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.17.5
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: move PMFW rlc notifier to where it's
+ required
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: lkml@antheas.dev, bob.beckett@collabora.com
+References: <20251024170811.57760-1-alexander.deucher@amd.com>
+ <c10ff333-d120-4ecf-94bf-7099feb48fed@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <c10ff333-d120-4ecf-94bf-7099feb48fed@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,112 +60,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Amber Lin <Amber.Lin@amd.com>
 
-[ Upstream commit f3820e9d356132e18405cd7606e22dc87ccfa6d1 ]
 
-When KFD asks CP to preempt queues, other than preempt CP queues, CP
-also requests SDMA to preempt SDMA queues with UNMAP_LATENCY timeout.
-Currently queue_preemption_timeout_ms is 9000 ms by default but can be
-configured via module parameter. KFD_UNMAP_LATENCY_MS is hard coded as
-4000 ms though. This patch ties KFD_UNMAP_LATENCY_MS to
-queue_preemption_timeout_ms so in a slow system such as emulator, both
-CP and SDMA slowness are taken into account.
+On 10/24/25 12:11 PM, Mario Limonciello wrote:
+> 
+> 
+> On 10/24/2025 12:08 PM, Alex Deucher wrote:
+>> For S3 on vangogh, PMFW needs to be notified before the
+>> driver powers down RLC.  Move this notification to
+>> the rlc stop function so it will always get called bfore
+>> stopping the RLC. The call in amdgpu_device_suspend()
+>> seems to be superfluous so remove that as well.
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> One nit below.
+> 
 
-Signed-off-by: Amber Lin <Amber.Lin@amd.com>
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+Antheas had feedback that this version didn't work on another thread.
+Also I noticed that amdgpu_dpm_notify_rlc_state() no longer was needed 
+after this change.
 
-LLM Generated explanations, may be completely bogus:
+As my unwind series is on top of this I'm going to send an updated 
+unwind series that just takes the relevant chunk that we know works for now.
 
-YES
-
-- What changed
-  - Replaces hard-coded `KFD_UNMAP_LATENCY_MS (4000)` with a value
-    derived from the existing module parameter
-    `queue_preemption_timeout_ms`: `((queue_preemption_timeout_ms -
-    queue_preemption_timeout_ms / 10) >> 1)` in
-    `drivers/gpu/drm/amd/amdkfd/kfd_priv.h:120`. This budgets ~45% of
-    the total preemption timeout for each of the two SDMA engines,
-    leaving ~10% for CP overhead, per the new comment in
-    `drivers/gpu/drm/amd/amdkfd/kfd_priv.h:114`.
-  - `queue_preemption_timeout_ms` is already a public module parameter
-    with default 9000 ms in
-    `drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:833`, documented at
-    `drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:835`, and declared for KFD
-    use at `drivers/gpu/drm/amd/amdkfd/kfd_priv.h:195`.
-
-- Why it matters (bug and impact)
-  - When KFD asks CP to preempt queues, CP also requests SDMA to preempt
-    SDMA queues with an UNMAP latency. The driver waits for the CP fence
-    using `queue_preemption_timeout_ms` (see
-    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:2402`), but
-    previously SDMA’s UNMAP latency was fixed at 4000 ms. This mismatch
-    can cause spurious preemption timeouts on slow systems (e.g.,
-    emulators) or when users tune the module parameter, leading to
-    preempt failures and potential error paths like “The cp might be in
-    an unrecoverable state due to an unsuccessful queues preemption.”
-  - By tying `KFD_UNMAP_LATENCY_MS` to `queue_preemption_timeout_ms`,
-    the SDMA preemption budget scales consistently with the CP fence
-    wait, avoiding premature timeouts and improving reliability.
-
-- Where the new value is used
-  - Programmed into MES/PM4 packets (units of 100 ms):
-    `packet->bitfields2.unmap_latency = KFD_UNMAP_LATENCY_MS / 100;` in
-    `drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c:129` and
-    `drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c:205`.
-  - Passed as the timeout when destroying MQDs (preempt/unmap paths):
-    calls to `mqd_mgr->destroy_mqd(..., KFD_UNMAP_LATENCY_MS, ...)` in
-    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:884`,
-    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:996`, and
-    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:1175`.
-  - Used for resetting hung queues via `hqd_reset(...,
-    KFD_UNMAP_LATENCY_MS)` in
-    `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:2230`.
-
-- Stable criteria assessment
-  - Fixes a real-world reliability issue (timeouts/mismatched budgets)
-    that affects users, especially on slow systems and when
-    `queue_preemption_timeout_ms` is tuned.
-  - Change is small, contained to a single macro in one header
-    (`kfd_priv.h`) with clear rationale and no architectural
-    refactoring.
-  - Side effects are minimal: default behavior remains effectively
-    unchanged (for 9000 ms, `KFD_UNMAP_LATENCY_MS` becomes ~4050 ms;
-    when quantized to 100 ms units it still programs 40), while non-
-    default configurations become consistent and safer.
-  - Touches KFD/amdgpu preemption logic but only adjusts a timeout
-    parameter already designed to be user-configurable; no new features
-    introduced.
-
-Given the above, this is a low-risk, correctness-improving timeout
-alignment and a good candidate for backporting to stable.
-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 67694bcd94646..d01ef5ac07666 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -111,7 +111,14 @@
- 
- #define KFD_KERNEL_QUEUE_SIZE 2048
- 
--#define KFD_UNMAP_LATENCY_MS	(4000)
-+/*  KFD_UNMAP_LATENCY_MS is the timeout CP waiting for SDMA preemption. One XCC
-+ *  can be associated to 2 SDMA engines. queue_preemption_timeout_ms is the time
-+ *  driver waiting for CP returning the UNMAP_QUEUE fence. Thus the math is
-+ *  queue_preemption_timeout_ms = sdma_preemption_time * 2 + cp workload
-+ *  The format here makes CP workload 10% of total timeout
-+ */
-+#define KFD_UNMAP_LATENCY_MS	\
-+	((queue_preemption_timeout_ms - queue_preemption_timeout_ms / 10) >> 1)
- 
- #define KFD_MAX_SDMA_QUEUES	128
- 
--- 
-2.51.0
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 ----
+>>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 12 +++++++++++-
+>>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  | 10 ----------
+>>   3 files changed, 11 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/ 
+>> drm/amd/amdgpu/amdgpu_device.c
+>> index 5053c5f475ba9..78c0fc3a50ae8 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -5283,10 +5283,6 @@ int amdgpu_device_suspend(struct drm_device 
+>> *dev, bool notify_clients)
+>>       if (amdgpu_sriov_vf(adev))
+>>           amdgpu_virt_release_full_gpu(adev, false);
+>> -    r = amdgpu_dpm_notify_rlc_state(adev, false);
+>> -    if (r)
+>> -        return r;
+>> -
+>>       return 0;
+>>   }
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/ 
+>> amd/amdgpu/gfx_v10_0.c
+>> index 39b8adf23a9fa..d64579f5fb1f8 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> @@ -5470,8 +5470,18 @@ static int gfx_v10_0_init_csb(struct 
+>> amdgpu_device *adev)
+>>   static void gfx_v10_0_rlc_stop(struct amdgpu_device *adev)
+>>   {
+>> -    u32 tmp = RREG32_SOC15(GC, 0, mmRLC_CNTL);
+>> +    u32 tmp;
+>> +    int r;
+>> +
+>> +    /* Notify SMU RLC is going to be off, stop RLC and SMU interaction.
+>> +     * otherwise SMU will hang while interacting with RLC if RLC is 
+>> halted
+>> +     * this is a WA for Vangogh asic which fix the SMU hang issue.
+>> +     */
+>> +    r = amdgpu_dpm_notify_rlc_state(adev, false);
+>> +    if (r)
+>> +        dev_info(adev->dev, "failed to notify PMFW of RLC powerdown\n");
+> 
+> This should probably be dev_err().
+> 
+>> +    tmp = RREG32_SOC15(GC, 0, mmRLC_CNTL);
+>>       tmp = REG_SET_FIELD(tmp, RLC_CNTL, RLC_ENABLE_F32, 0);
+>>       WREG32_SOC15(GC, 0, mmRLC_CNTL, tmp);
+>>   }
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/ 
+>> drm/amd/pm/swsmu/amdgpu_smu.c
+>> index 4317da6f7c389..10d42267085b0 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> @@ -2072,16 +2072,6 @@ static int smu_disable_dpms(struct smu_context 
+>> *smu)
+>>           }
+>>       }
+>> -    /* Notify SMU RLC is going to be off, stop RLC and SMU interaction.
+>> -     * otherwise SMU will hang while interacting with RLC if RLC is 
+>> halted
+>> -     * this is a WA for Vangogh asic which fix the SMU hang issue.
+>> -     */
+>> -    ret = smu_notify_rlc_state(smu, false);
+>> -    if (ret) {
+>> -        dev_err(adev->dev, "Fail to notify rlc status!\n");
+>> -        return ret;
+>> -    }
+>> -
+>>       if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(9, 4, 2) &&
+>>           !((adev->flags & AMD_IS_APU) && adev->gfx.imu.funcs) &&
+>>           !amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs->stop)
+> 
+> 
 
