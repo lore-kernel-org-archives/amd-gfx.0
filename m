@@ -4,81 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6151DCCF9EE
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Oct 2025 09:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DAF3CCF9EA
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Oct 2025 09:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABC8210E41B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC83710E41C;
 	Mon, 27 Oct 2025 09:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="DuxPCdsg";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="STeW3p1K";
 	dkim-atps=neutral
-Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4085789A1E
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 17:02:43 +0000 (UTC)
-Received: from relay13 (localhost [127.0.0.1])
- by relay13.grserver.gr (Proxmox) with ESMTP id 7EFEB5E47C
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 20:02:42 +0300 (EEST)
+Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED4210E115
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 08:31:40 +0000 (UTC)
+Received: from relay11 (localhost.localdomain [127.0.0.1])
+ by relay11.grserver.gr (Proxmox) with ESMTP id 8B534C379D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 10:31:38 +0200 (EET)
 Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by relay13.grserver.gr (Proxmox) with ESMTPS id 5AB2A5E64A
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 20:02:41 +0300 (EEST)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id 1F792200A35
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Oct 2025 20:02:40 +0300 (EEST)
+ by relay11.grserver.gr (Proxmox) with ESMTPS id 75022C37B6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 10:31:37 +0200 (EET)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id DEA08200BF7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 10:31:36 +0200 (EET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1761325360;
- bh=gEpcV/HllkCVq7Z16MNUlS+YOxDPPWPkkI0cYqhx9mY=;
+ s=default; t=1761553897;
+ bh=6RwCK0VurZytvmkMh4u79GFzDSrKDS0i0KfMobygAGs=;
  h=Received:From:Subject:To;
- b=DuxPCdsgirEjLc6+McUA9niK95j2sIKfvgw9VakiuQK/N/21d7VhB1szcOJNbfWye
- lQzCsmKQrIAO3CyanVwETQo85N+rr0iKeKpdk+aXrT5L77LxwgtL2Ki8kii8b5bQo8
- sd4ytjGFqwNCoxCzdKyYxM1dSOYUePAECnqyPdLmDFvsSRUIqa0LWqN/XrByOcOdQa
- S5FT6EZRqi2ePb+oFBl/PBfLOPtHFjrw7ZWDTum7Boz2kS0WmUiM0JzQbQ05KKh+gf
- EcRKCWkESGI/koT9WGjty/XPO9FZgNFodYpWvDA4esMU7oxLl+Bm6DZSi5sfOyONQN
- Y9oxnRzGqR0Ow==
+ b=STeW3p1Krfs2GjK0zjoV3Qr5axi43W+bcK9ErPJ08tQfD1l0Gmb3M4z9m37HE5O/3
+ U6KIqWC2QlaWcu5F/0saflbbz5hScQ/RoxGLOjtuioLTg2N2TUcTuCdrVBo1MvqheL
+ MkFPsz265ZsqmAW96P3AFWuWr2fr+PpcANqx61N/CAneUdNR4cpAJRA/boTlCf+Mzh
+ +Fmz/kKk0AzXQaUz1z3oj2gtdp0L+3ShP3NQoa4VdzsqI3Vdtt9LmCkFQkAUb3OLJn
+ b1urbWJRaI7CppViMlJLZ16X7QrBDwm4cK5Gdro4hIi744eOymtlghmo8YDcyaletr
+ n/tMpcxkcvPbQ==
 Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 209.85.167.43) smtp.mailfrom=lkml@antheas.dev
- smtp.helo=mail-lf1-f43.google.com
+ spf=pass (sender IP is 209.85.167.48) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=mail-lf1-f48.google.com
 Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-591ea9ccfc2so2979487e87.1
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-592fb5d644bso3854988e87.1
  for <amd-gfx@lists.freedesktop.org>;
- Fri, 24 Oct 2025 10:02:40 -0700 (PDT)
+ Mon, 27 Oct 2025 01:31:36 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCULgqkAHAehRtZPyKhoGL1levO1bY6lKdopnkzadLeUs9warmGx94CLkSpywRDi7Znjs5EUlyOl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxP66n1vYdGs83idQBimkGBQ8fas4JCWPTh9bBXbdK/4TzvABoT
- Y20ZO4dFFuRWhxndjCpUYcUiMgsL9IF1kKC+bj/sKaSPkJVJ80VwcPBGgt1MXAibY7OEDGPKcuU
- catSDxFit6Ktlc89DRNslu4Vbj6KQRQc=
-X-Google-Smtp-Source: AGHT+IEKrbCWuSYfAPJP4FkxTmteHnnI6gTvT9z5rV+Fp3wvMV/cQLvS3MdjFpKV8WdMVw+XDdwelcyJodCs7o5l9/c=
-X-Received: by 2002:a05:6512:33d4:b0:57c:4428:4f14 with SMTP id
- 2adb3069b0e04-592fc1379fcmr1181236e87.24.1761325359526; Fri, 24 Oct 2025
- 10:02:39 -0700 (PDT)
+ AJvYcCWSCXhY7ViyRi8+BaEgqgrkKEeDQ7BhNb1bUH3VnowSGQSxN360FWwXvt0Pfcz1TDKsM0zQXWg8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqckFTJM42GEpAhKCkY7LU/zpKbFvW9m36niUtMhgee5QZxE47
+ pqp+2gkP3+nQ8/OFka+enehbc0gFVFPBZeebXpr+OteDW9I4UwXhF28IxsdzlQmWW4fg48R54UV
+ 07mSjZ1jAbzIBjj3VPjwsZU7p0CJpR3w=
+X-Google-Smtp-Source: AGHT+IEDMVW90A/430m6Bs5FRF8/ZQ9GPwk60tq16fOBZ0SWa2mn6iKG7CUxJ8SDua+Wch4rxP7AjPTA6NQfAbsFitE=
+X-Received: by 2002:a05:6512:3e19:b0:592:f263:a8b4 with SMTP id
+ 2adb3069b0e04-592f263ab5amr5643668e87.50.1761553896271; Mon, 27 Oct 2025
+ 01:31:36 -0700 (PDT)
 MIME-Version: 1.0
 References: <20251024152152.3981721-1-lkml@antheas.dev>
- <20251024152152.3981721-4-lkml@antheas.dev>
- <61da9864-b7c8-43f1-b437-36756077b545@amd.com>
- <27439123-98aa-4096-a4e4-3c8eecb3aaca@amd.com>
- <CAGwozwHAJAvgZEgn1M0ioRP4dT2urMUtQQzNXKXydu0ueoOzsA@mail.gmail.com>
- <CAGwozwH+UneR7uB0h_yrEWTBM=-uHapmzL3JnmrJ8S2v5WQ2SQ@mail.gmail.com>
- <d6f72b8f-1961-406a-aed8-5f4570ce98d1@amd.com>
-In-Reply-To: <d6f72b8f-1961-406a-aed8-5f4570ce98d1@amd.com>
+ <20251024152152.3981721-2-lkml@antheas.dev>
+ <3792db59-7dc1-4e34-9436-84df4b6c3e10@amd.com>
+ <CAGwozwFTDD2QrHy37axhanwQYv6ty9K_hfhxS05djKpv8HfY6g@mail.gmail.com>
+ <2684d3ab-d7cf-4eab-acd4-91bdd5debb6b@amd.com>
+ <058eda7c-ab93-40a5-b387-54f7a18f3922@amd.com>
+In-Reply-To: <058eda7c-ab93-40a5-b387-54f7a18f3922@amd.com>
 From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Fri, 24 Oct 2025 19:02:28 +0200
-X-Gmail-Original-Message-ID: <CAGwozwF7HBoX_hOgc5uKM1JeuFLD3anmQMQf8eqhxQBcK_9sHA@mail.gmail.com>
-X-Gm-Features: AWmQ_bljBDAjdQtCzD1QjfP5Tp0acAevQsmyEaeqADBBZ8vrysgtBsbkhNv-Txc
-Message-ID: <CAGwozwF7HBoX_hOgc5uKM1JeuFLD3anmQMQf8eqhxQBcK_9sHA@mail.gmail.com>
-Subject: Re: [PATCH v1 3/3] drm/amdgpu: only send the SMU RLC notification on
- S3
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+Date: Mon, 27 Oct 2025 09:31:24 +0100
+X-Gmail-Original-Message-ID: <CAGwozwGELOK_4KNADW6OvGi4TyiJsrbtEceaXRpk4CRNpqweZw@mail.gmail.com>
+X-Gm-Features: AWmQ_bl4UMyB6odidPWGa-1mQ9I-bfNM6bIzI__iqt3FqM0SxSO9BrzxRhuherU
+Message-ID: <CAGwozwGELOK_4KNADW6OvGi4TyiJsrbtEceaXRpk4CRNpqweZw@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] platform/x86/amd/pmc: Add support for Van Gogh SoC
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Perry Yuan <perry.yuan@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org
+ platform-driver-x86@vger.kernel.org, Sanket Goswami <Sanket.Goswami@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: <176132536044.2708887.16084228085444121748@linux3247.grserver.gr>
+X-PPP-Message-ID: <176155389715.22554.8921113490360755015@linux3247.grserver.gr>
 X-PPP-Vhost: antheas.dev
 X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
 X-Virus-Status: Clean
@@ -97,146 +95,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 24 Oct 2025 at 18:52, Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+On Mon, 27 Oct 2025 at 09:22, Shyam Sundar S K <Shyam-sundar.S-k@amd.com> wrote:
 >
 >
 >
-> On 10/24/2025 11:45 AM, Antheas Kapenekakis wrote:
-> > On Fri, 24 Oct 2025 at 18:24, Antheas Kapenekakis <lkml@antheas.dev> wrote:
-> >>
-> >> On Fri, 24 Oct 2025 at 18:20, Mario Limonciello
+> On 10/24/2025 22:02, Mario Limonciello wrote:
+> >
+> >
+> > On 10/24/2025 11:08 AM, Antheas Kapenekakis wrote:
+> >> On Fri, 24 Oct 2025 at 17:43, Mario Limonciello
 > >> <mario.limonciello@amd.com> wrote:
 > >>>
 > >>>
 > >>>
-> >>> On 10/24/2025 10:54 AM, Mario Limonciello wrote:
+> >>> On 10/24/2025 10:21 AM, Antheas Kapenekakis wrote:
+> >>>> The ROG Xbox Ally (non-X) SoC features a similar architecture to the
+> >>>> Steam Deck. While the Steam Deck supports S3 (s2idle causes a crash),
+> >>>> this support was dropped by the Xbox Ally which only S0ix suspend.
 > >>>>
+> >>>> Since the handler is missing here, this causes the device to not
+> >>>> suspend
+> >>>> and the AMD GPU driver to crash while trying to resume afterwards
+> >>>> due to
+> >>>> a power hang.
 > >>>>
-> >>>> On 10/24/2025 10:21 AM, Antheas Kapenekakis wrote:
-> >>>>> From: Alex Deucher <alexander.deucher@amd.com>
-> >>>>>
-> >>>>> For S0ix, the RLC is not powered down. Rework the Van Gogh logic to
-> >>>>> skip powering it down and skip part of post-init.
-> >>>>>
-> >>>>> Fixes: 8c4e9105b2a8 ("drm/amdgpu: optimize RLC powerdown notification
-> >>>>> on Vangogh")
-> >>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4659
-> >>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >>>>> Tested-by: Antheas Kapenekakis <lkml@antheas.dev>
-> >>>>> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
-> >>>>> ---
-> >>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 8 +++++---
-> >>>>>    drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c        | 6 ++++++
-> >>>>>    drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 3 +++
-> >>>>>    3 files changed, 14 insertions(+), 3 deletions(-)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/
-> >>>>> drm/amd/amdgpu/amdgpu_device.c
-> >>>>> index 3d032c4e2dce..220b12d59795 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>> @@ -5243,9 +5243,11 @@ int amdgpu_device_suspend(struct drm_device
-> >>>>> *dev, bool notify_clients)
-> >>>>>        if (amdgpu_sriov_vf(adev))
-> >>>>>            amdgpu_virt_release_full_gpu(adev, false);
-> >>>>> -    r = amdgpu_dpm_notify_rlc_state(adev, false);
-> >>>>> -    if (r)
-> >>>>> -        return r;
-> >>>>> +    if (!adev->in_s0ix) {
-> >>>>> +        r = amdgpu_dpm_notify_rlc_state(adev, false);
-> >>>>> +        if (r)
-> >>>>> +            return r;
-> >>>>> +    }
+> >>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4659
+> >>>> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+> >>>> ---
+> >>>>    drivers/platform/x86/amd/pmc/pmc.c | 3 +++
+> >>>>    drivers/platform/x86/amd/pmc/pmc.h | 1 +
+> >>>>    2 files changed, 4 insertions(+)
 > >>>>
-> >>>> Just FYI this is going to clash with my unwind failed suspend series [1].
-> >>>>
-> >>>> This is fine, just whichever "lands" first the other will need to rework
-> >>>> a little bit and I wanted to mention it.
-> >>>>
-> >>>> Link: https://lore.kernel.org/amd-gfx/20251023165243.317153-2-
-> >>>> mario.limonciello@amd.com/ [1]
-> >>>>
-> >>>> This does have me wondering though why amdgpu_dpm_notify_rlc_state() is
-> >>>> even in amdgpu_device_suspend()?  This is only used on Van Gogh.
-> >>>> Should we be pushing this deeper into amdgpu_device_ip_suspend_phase2()?
-> >>>>
-> >>>> Or should we maybe overhaul this to move the RLC notification into
-> >>>> a .set_mp1_state callback instead so it's more similar to all the other
-> >>>> ASICs?
-> >>>>
+> >>>> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/
+> >>>> platform/x86/amd/pmc/pmc.c
+> >>>> index bd318fd02ccf..cae3fcafd4d7 100644
+> >>>> --- a/drivers/platform/x86/amd/pmc/pmc.c
+> >>>> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> >>>> @@ -106,6 +106,7 @@ static void amd_pmc_get_ip_info(struct
+> >>>> amd_pmc_dev *dev)
+> >>>>        switch (dev->cpu_id) {
+> >>>>        case AMD_CPU_ID_PCO:
+> >>>>        case AMD_CPU_ID_RN:
+> >>>> +     case AMD_CPU_ID_VG:
+> >>>>        case AMD_CPU_ID_YC:
+> >>>>        case AMD_CPU_ID_CB:
+> >>>>                dev->num_ips = 12;
+> >>>> @@ -517,6 +518,7 @@ static int amd_pmc_get_os_hint(struct
+> >>>> amd_pmc_dev *dev)
+> >>>>        case AMD_CPU_ID_PCO:
+> >>>>                return MSG_OS_HINT_PCO;
+> >>>>        case AMD_CPU_ID_RN:
+> >>>> +     case AMD_CPU_ID_VG:
+> >>>>        case AMD_CPU_ID_YC:
+> >>>>        case AMD_CPU_ID_CB:
+> >>>>        case AMD_CPU_ID_PS:
+> >>>> @@ -717,6 +719,7 @@ static const struct pci_device_id
+> >>>> pmc_pci_ids[] = {
+> >>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_RV) },
+> >>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SP) },
+> >>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SHP) },
+> >>>> +     { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_VG) },
+> >>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD,
+> >>>> PCI_DEVICE_ID_AMD_1AH_M20H_ROOT) },
+> >>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD,
+> >>>> PCI_DEVICE_ID_AMD_1AH_M60H_ROOT) },
+> >>>>        { }
+> >>>> diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/
+> >>>> platform/x86/amd/pmc/pmc.h
+> >>>> index 62f3e51020fd..fe3f53eb5955 100644
+> >>>> --- a/drivers/platform/x86/amd/pmc/pmc.h
+> >>>> +++ b/drivers/platform/x86/amd/pmc/pmc.h
+> >>>> @@ -156,6 +156,7 @@ void amd_mp2_stb_deinit(struct amd_pmc_dev *dev);
+> >>>>    #define AMD_CPU_ID_RN                       0x1630
+> >>>>    #define AMD_CPU_ID_PCO                      AMD_CPU_ID_RV
+> >>>>    #define AMD_CPU_ID_CZN                      AMD_CPU_ID_RN
+> >>>> +#define AMD_CPU_ID_VG                        0x1645
 > >>>
-> >>> My proposal as such is here:
-> >>>
-> >>> https://lore.kernel.org/amd-gfx/20251024161216.345691-1-mario.limonciello@amd.com/
-> >>>
-> >>> It would need some testing though to make sure it didn't break Steam
-> >>> Deck or Steam Deck OLED.
+> >>> Can you see if 0xF14 gives you a reasonable value for the idle mask if
+> >>> you add it to amd_pmc_idlemask_read()?  Make a new define for it
+> >>> though,
+> >>> it shouldn't use the same define as 0x1a platforms.
 > >>
-> >> I will give it a quick go on my OLED.
+> >> It does not work. Reports 0. I also tested the other ones, but the
+> >> 0x1a was the same as you said. All report 0x0.
 > >
-> > Horribly broken. Did not enter S3 and when waking up fan maxed out and
-> > it bootlooped. Journalctl stops on suspend entry. It works on the Xbox
-> > ally though
+> > It's possible the platform doesn't report an idle mask.
 > >
-> > My series works on both
+> > 0xF14 is where I would have expected it to report.
+> >
+> > Shyam - can you look into this to see if it's in a different place
+> > than 0xF14 for Van Gogh?
 >
-> OK.
->
-> Can you try Alex's idea instead?  Just comment out the RLC notification
-> code in amdgpu_device_suspend().
->
-> It's supposed to already be called in smu_disable_dpms() anyway.
+> Van Gogh is before Cezzane? I am bit surprised that pmc is getting
+> loaded there.
 
-Yes, removing those lines works.
+The device only came out last week, so I suppose they had to add it
 
-> >
+> Antheas - what is the output of
+>
+> #lspci -s 00:00.0
+>
+> 0xF14 index is meant for 1Ah (i.e. Strix and above)
+
+lspci -s 00:00.0 -nn
+00:00.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] VanGogh
+Root Complex [1022:1645]
+
 > >
 > >>
-> >>>>>        return 0;
-> >>>>>    }
-> >>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/
-> >>>>> drm/amd/pm/swsmu/amdgpu_smu.c
-> >>>>> index fb8086859857..244b8c364d45 100644
-> >>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> >>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> >>>>> @@ -2040,6 +2040,12 @@ static int smu_disable_dpms(struct smu_context
-> >>>>> *smu)
-> >>>>>            smu->is_apu && (amdgpu_in_reset(adev) || adev->in_s0ix))
-> >>>>>            return 0;
-> >>>>> +    /* vangogh s0ix */
-> >>>>> +    if ((amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 5, 0) ||
-> >>>>> +         amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 5,
-> >>>>> 2)) &&
-> >>>>> +        adev->in_s0ix)
-> >>>>> +        return 0;
-> >>>>> +
-> >>>>
-> >>>> How about for GPU reset, does PMFW handle this too?
-> >>>>
-> >>>>>        /*
-> >>>>>         * For gpu reset, runpm and hibernation through BACO,
-> >>>>>         * BACO feature has to be kept enabled.
-> >>>>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/
-> >>>>> drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> >>>>> index 2c9869feba61..0708d0f0938b 100644
-> >>>>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> >>>>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> >>>>> @@ -2217,6 +2217,9 @@ static int vangogh_post_smu_init(struct
-> >>>>> smu_context *smu)
-> >>>>>        uint32_t total_cu = adev->gfx.config.max_cu_per_sh *
-> >>>>>            adev->gfx.config.max_sh_per_se * adev-
-> >>>>>> gfx.config.max_shader_engines;
-> >>>>> +    if (adev->in_s0ix)
-> >>>>> +        return 0;
-> >>>>> +
-> >>>>>        /* allow message will be sent after enable message on Vangogh*/
-> >>>>>        if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT) &&
-> >>>>>                (adev->pg_flags & AMD_PG_SUPPORT_GFX_PG)) {
-> >>>>
-> >>>
-> >>>
+> >> Any idea why the OS hint only works 90% of the time?
+>
+> What is the output of amd_pmc_dump_registers() when 10% of the time
+> when the OS_HINT is not working?
+
+First sleep with initial data:
+[   63.569557] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   63.569581] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:73f
+[   63.569597] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:9
+[   63.583472] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   63.583497] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:735677a0
+[   63.583513] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:5
+[   63.607472] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   63.607496] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[   63.607512] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:4
+[   63.607687] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   63.607702] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[   63.607709] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:7
+[   63.608417] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   63.608436] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[   63.608452] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:6
+[   63.608603] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   63.608621] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:1
+[   63.608637] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:3
+[   64.764466] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   64.764490] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[   64.764506] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:3
+[   64.764631] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[   64.764646] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[   64.764660] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:8
+
+Second sleep (successful):
+[  235.211752] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  235.211776] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  235.211790] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:7
+[  235.211931] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  235.211946] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  235.211960] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:6
+[  235.212083] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  235.212096] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:1
+[  235.212109] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:3
+[  236.520156] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  236.520177] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  236.520192] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:3
+[  236.520330] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  236.520346] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  236.520360] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:8
+
+Failed sleep:
+[  152.839926] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  152.839951] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  152.839965] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:7
+[  152.840115] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  152.840134] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  152.840148] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:6
+[  152.840270] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  152.840276] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:1
+[  152.840280] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:3
+[  158.037073] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  158.037097] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  158.037111] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:3
+[  158.037252] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_RESPONSE:1
+[  158.037268] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_ARGUMENT:0
+[  158.037282] amd_pmc AMDI0005:00: AMD_PMC_REGISTER_MESSAGE:8
+
+So it is the same
+
+> What I can surmise is, though pmc driver is sending the hint PMFW is
+> not taking any action (since the support in FW is missing)
+
+The hint is working... 90% of the time. Without the hint in the patch,
+sleep never works.
+
 > >
+> > If we get the idle mask reporting working we would have a better idea
+> > if that is what is reported wrong.
+> >
+>
+> IIRC, The concept of idlemask came only after cezzane that too after a
+> certain PMFW version. So I am not sure if idlemask actually exists.
+>
+>
+> > If I was to guess though; maybe GFX is still active.
+> >
+> > Depending upon what's going wrong smu_fw_info might have some more
+> > information too.
+>
+> That's a good point to try it out.
+>
+> Thanks,
+> Shyam
 >
 >
 
