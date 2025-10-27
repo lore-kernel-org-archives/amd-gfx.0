@@ -4,60 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A97C6CCF9E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Oct 2025 09:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40684CCF9EC
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Oct 2025 09:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5115410E417;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8C4610E418;
 	Mon, 27 Oct 2025 09:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="i39qhKqz";
+	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="oWFTtRDT";
 	dkim-atps=neutral
-X-Greylist: delayed 580 seconds by postgrey-1.36 at gabe;
- Fri, 24 Oct 2025 15:31:39 UTC
-Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0659E10E1FB;
- Fri, 24 Oct 2025 15:31:39 +0000 (UTC)
-Received: from relay13 (localhost [127.0.0.1])
- by relay13.grserver.gr (Proxmox) with ESMTP id 3EFCE5E681;
- Fri, 24 Oct 2025 18:21:58 +0300 (EEST)
+Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A6B210E392
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 08:41:38 +0000 (UTC)
+Received: from relay12 (localhost [127.0.0.1])
+ by relay12.grserver.gr (Proxmox) with ESMTP id 84130BCF32
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 10:41:36 +0200 (EET)
 Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by relay13.grserver.gr (Proxmox) with ESMTPS id 248575E672;
- Fri, 24 Oct 2025 18:21:56 +0300 (EEST)
-Received: from antheas-z13 (unknown
- [IPv6:2a05:f6c2:511b:0:8d8a:5967:d692:ea4e])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id CE7E31FD894;
- Fri, 24 Oct 2025 18:21:54 +0300 (EEST)
+ by relay12.grserver.gr (Proxmox) with ESMTPS id 90C2DBDBF6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 10:41:35 +0200 (EET)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id CD110200BF7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 10:41:34 +0200 (EET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1761319315;
- bh=pfGMDfUmZV6asO0wJ+O/PWLq8q1d5Rkx+DwIVdVCa/4=; h=From:To:Subject;
- b=i39qhKqzo9Xe+IuKI2dC1EPOT/osV17zvohXQgWNSESKAAZWslQPzWoXEC+ccLs9K
- sKDfVicjhjC8E7ab0kAeZwt7fmhL1JvKJgD0K3hM3ojYXeQhkYLkXUXHJGbiiWP3Ak
- rXbuPBS0pv14boH11EFs4GlxA4ICWVC6uZre2R2WWJ+eRzuP/4gKwX5oC+v7ouNv3Y
- jYs037oWKAqDtNQvmS59A7INEf89U1Tu2vJAAkzB0XinuN+OEjrwT+UGltdKBkKBLQ
- N4gMNkWCdoHlA5klScfex7VVA6CPQRYBVKjdThW44qo3Juht5nP5wzbjHJ+/t8nejI
- jPakxd7YssRtw==
+ s=default; t=1761554495;
+ bh=7bgq8scNhrB3Jg+UhfmEUiMsC76/nwmnGV6s5QJWkBA=;
+ h=Received:From:Subject:To;
+ b=oWFTtRDT8JAvrBRT44mqWS5ppQ2qCYCnvirEqg6tueAhG73W3Xu4DiTzDsIH8eoLJ
+ rCMkVHOtekuicCoZc5R1+CBXDM9Jvur3YejbtO3gZ7vuBfa2eKt+NgZjroB63l5fl5
+ lYaJzBwgcvAPmdQf3BTF7uW0K9B+UOX+CUedrCitzJ2LAIsakQggY7j8TIra7Oh7ld
+ quIPgaGlf9HHHPExr0izKsr6/y3LsoIUGM03e5fEc/rFUesHANVVmqISxZyW4SWOpS
+ KunHtqcZeMqE2adlMXwE3B9BBLxBif8hO1FEXxMnE9wYNCKNIYTFtBoOq8WdtlqbAA
+ fJmALzkodNK+w==
 Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 2a05:f6c2:511b:0:8d8a:5967:d692:ea4e)
- smtp.mailfrom=lkml@antheas.dev smtp.helo=antheas-z13
+ spf=pass (sender IP is 209.85.208.172) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=mail-lj1-f172.google.com
 Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-From: Antheas Kapenekakis <lkml@antheas.dev>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- Antheas Kapenekakis <lkml@antheas.dev>
-Subject: [PATCH v1 0/3] platform/x86/amd: Add S0ix support to the Xbox Ally
-Date: Fri, 24 Oct 2025 17:21:49 +0200
-Message-ID: <20251024152152.3981721-1-lkml@antheas.dev>
-X-Mailer: git-send-email 2.51.0
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-378ddb31efaso51645971fa.3
+ for <amd-gfx@lists.freedesktop.org>;
+ Mon, 27 Oct 2025 01:41:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVn/XsIJuBjDdVrCgIhGUYx/J3ns3yFFjYIWR0a/ltnDSX2V36JFRIbYHlXnRKRbGlteMkwJDkC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxqCSLKUonWRgSx/1G8NQi1ogT4wgUlcka+tvwnLtXqeBHMs6Ce
+ NVEVJNlwee30qrfmdCPSdOo0joDvr0dTZFqP6R0yf+ElMFLIMqkCsUM19Mmz42aQBpNpO1pYNzP
+ nXn5o2/dCBKF/TGyUsS1JkNuziZi9fYQ=
+X-Google-Smtp-Source: AGHT+IHQrnWhGSRKKWzvZYeImwBcHAM+gDl49kuOa35hnvx7oyBlnaIVQ+Sq6FuvfFsTVRdbbwTudFAhJBdtsJzwEZM=
+X-Received: by 2002:a05:651c:1595:b0:364:f7e2:3908 with SMTP id
+ 38308e7fff4ca-37797a1439bmr102634311fa.26.1761554494137; Mon, 27 Oct 2025
+ 01:41:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <176131931531.2356012.12308341767640511320@linux3247.grserver.gr>
+References: <20251024152152.3981721-1-lkml@antheas.dev>
+ <20251024152152.3981721-2-lkml@antheas.dev>
+ <3792db59-7dc1-4e34-9436-84df4b6c3e10@amd.com>
+ <CAGwozwFTDD2QrHy37axhanwQYv6ty9K_hfhxS05djKpv8HfY6g@mail.gmail.com>
+ <2684d3ab-d7cf-4eab-acd4-91bdd5debb6b@amd.com>
+ <058eda7c-ab93-40a5-b387-54f7a18f3922@amd.com>
+ <13fd3b12-03a0-457f-a5da-fe018b032211@amd.com>
+In-Reply-To: <13fd3b12-03a0-457f-a5da-fe018b032211@amd.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Mon, 27 Oct 2025 09:41:22 +0100
+X-Gmail-Original-Message-ID: <CAGwozwGLfcYdpetwTk=QH+k29u8SdroFxfkxb-KbAXh36sr1XQ@mail.gmail.com>
+X-Gm-Features: AWmQ_bmPAVmdP3bYKUv3LzGXCwTY0wQJciqhi0ctU4JYKLg0UaCVGWdkVe6fI_U
+Message-ID: <CAGwozwGLfcYdpetwTk=QH+k29u8SdroFxfkxb-KbAXh36sr1XQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] platform/x86/amd/pmc: Add support for Van Gogh SoC
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Perry Yuan <perry.yuan@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, Sanket Goswami <Sanket.Goswami@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: <176155449510.58163.12442044152314652188@linux3247.grserver.gr>
 X-PPP-Vhost: antheas.dev
 X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
 X-Virus-Status: Clean
@@ -76,46 +96,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Xbox Ally features a Van Gogh SoC that on the Steam Deck uses S3.
-Therefore, kernel support for S0ix was previously absent. Introduce
-this support in three patches:
+On Mon, 27 Oct 2025 at 09:36, Shyam Sundar S K <Shyam-sundar.S-k@amd.com> wrote:
+>
+>
+>
+> On 10/27/2025 13:52, Shyam Sundar S K wrote:
+> >
+> >
+> > On 10/24/2025 22:02, Mario Limonciello wrote:
+> >>
+> >>
+> >> On 10/24/2025 11:08 AM, Antheas Kapenekakis wrote:
+> >>> On Fri, 24 Oct 2025 at 17:43, Mario Limonciello
+> >>> <mario.limonciello@amd.com> wrote:
+> >>>>
+> >>>>
+> >>>>
+> >>>> On 10/24/2025 10:21 AM, Antheas Kapenekakis wrote:
+> >>>>> The ROG Xbox Ally (non-X) SoC features a similar architecture to the
+> >>>>> Steam Deck. While the Steam Deck supports S3 (s2idle causes a crash),
+> >>>>> this support was dropped by the Xbox Ally which only S0ix suspend.
+> >>>>>
+> >>>>> Since the handler is missing here, this causes the device to not
+> >>>>> suspend
+> >>>>> and the AMD GPU driver to crash while trying to resume afterwards
+> >>>>> due to
+> >>>>> a power hang.
+> >>>>>
+> >>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4659
+> >>>>> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+> >>>>> ---
+> >>>>>    drivers/platform/x86/amd/pmc/pmc.c | 3 +++
+> >>>>>    drivers/platform/x86/amd/pmc/pmc.h | 1 +
+> >>>>>    2 files changed, 4 insertions(+)
+> >>>>>
+> >>>>> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/
+> >>>>> platform/x86/amd/pmc/pmc.c
+> >>>>> index bd318fd02ccf..cae3fcafd4d7 100644
+> >>>>> --- a/drivers/platform/x86/amd/pmc/pmc.c
+> >>>>> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> >>>>> @@ -106,6 +106,7 @@ static void amd_pmc_get_ip_info(struct
+> >>>>> amd_pmc_dev *dev)
+> >>>>>        switch (dev->cpu_id) {
+> >>>>>        case AMD_CPU_ID_PCO:
+> >>>>>        case AMD_CPU_ID_RN:
+> >>>>> +     case AMD_CPU_ID_VG:
+> >>>>>        case AMD_CPU_ID_YC:
+> >>>>>        case AMD_CPU_ID_CB:
+> >>>>>                dev->num_ips = 12;
+> >>>>> @@ -517,6 +518,7 @@ static int amd_pmc_get_os_hint(struct
+> >>>>> amd_pmc_dev *dev)
+> >>>>>        case AMD_CPU_ID_PCO:
+> >>>>>                return MSG_OS_HINT_PCO;
+> >>>>>        case AMD_CPU_ID_RN:
+> >>>>> +     case AMD_CPU_ID_VG:
+> >>>>>        case AMD_CPU_ID_YC:
+> >>>>>        case AMD_CPU_ID_CB:
+> >>>>>        case AMD_CPU_ID_PS:
+> >>>>> @@ -717,6 +719,7 @@ static const struct pci_device_id
+> >>>>> pmc_pci_ids[] = {
+> >>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_RV) },
+> >>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SP) },
+> >>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SHP) },
+> >>>>> +     { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_VG) },
+> >>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD,
+> >>>>> PCI_DEVICE_ID_AMD_1AH_M20H_ROOT) },
+> >>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD,
+> >>>>> PCI_DEVICE_ID_AMD_1AH_M60H_ROOT) },
+> >>>>>        { }
+> >>>>> diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/
+> >>>>> platform/x86/amd/pmc/pmc.h
+> >>>>> index 62f3e51020fd..fe3f53eb5955 100644
+> >>>>> --- a/drivers/platform/x86/amd/pmc/pmc.h
+> >>>>> +++ b/drivers/platform/x86/amd/pmc/pmc.h
+> >>>>> @@ -156,6 +156,7 @@ void amd_mp2_stb_deinit(struct amd_pmc_dev *dev);
+> >>>>>    #define AMD_CPU_ID_RN                       0x1630
+> >>>>>    #define AMD_CPU_ID_PCO                      AMD_CPU_ID_RV
+> >>>>>    #define AMD_CPU_ID_CZN                      AMD_CPU_ID_RN
+> >>>>> +#define AMD_CPU_ID_VG                        0x1645
+> >>>>
+> >>>> Can you see if 0xF14 gives you a reasonable value for the idle mask if
+> >>>> you add it to amd_pmc_idlemask_read()?  Make a new define for it
+> >>>> though,
+> >>>> it shouldn't use the same define as 0x1a platforms.
+> >>>
+> >>> It does not work. Reports 0. I also tested the other ones, but the
+> >>> 0x1a was the same as you said. All report 0x0.
+> >>
+> >> It's possible the platform doesn't report an idle mask.
+> >>
+> >> 0xF14 is where I would have expected it to report.
+> >>
+> >> Shyam - can you look into this to see if it's in a different place
+> >> than 0xF14 for Van Gogh?
+> >
+> > Van Gogh is before Cezzane? I am bit surprised that pmc is getting
+> > loaded there.
+> >
+> > Antheas - what is the output of
+> >
+> > #lspci -s 00:00.0
+>
+> OK. I get it from the diff.
+>
+> +#define AMD_CPU_ID_VG                        0x1645
+>
+> S0 its 0x1645 that indicates SoC is 17h family and 90h model.
+>
+> What is the PMFW version running on your system?
+> amd_pmc_get_smu_version() tells you that information.
 
-1) Add Van Gogh to AMD PMC driver
-2) Enable spurious_8042 quirk, as it is common in those generations
-3) Adjust the Van Gogh init logic to avoid powering down the rlc
-   and tweak post init
+cat /sys/devices/platform/AMDI0005:00/smu_fw_version
+63.18.0
+cat /sys/devices/platform/AMDI0005:00/smu_program
+7
 
-This allows the Xbox Ally to properly enter and exit S0ix suspend.
-Perhaps it also allows the Steam Deck to use s2idle without crashing,
-note it is not currently possible [1].
+> Can you see if you put the scratch information same as Cezzane and if
+> that works? i.e.
+>
+> AMD_PMC_SCRATCH_REG_CZN(0x94) instead of AMD_PMC_SCRATCH_REG_1AH(0xF14)
 
-Currently, around 1/10 times the SoC misses the PMC hint and does not
-enter S0ix, so perhaps 1 or 3 need tweaking further. It wakes up always,
-however.
+I tried all idle masks and they return 0
 
-@Alex: I tweaked the text on patch 3 a bit. You can resend it separately
-after the issue with 1/10 failures is fixed.
+Antheas
 
-[1]: https://github.com/evlaV/linux-integration/commit/5ab73e9069017aa1b5351f91513ba540ce5905fb
-
-Alex Deucher (1):
-  drm/amdgpu: only send the SMU RLC notification on S3
-
-Antheas Kapenekakis (2):
-  platform/x86/amd/pmc: Add support for Van Gogh SoC
-  platform/x86/amd/pmc: Add spurious_8042 to Xbox Ally
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 8 +++++---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c        | 6 ++++++
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 3 +++
- drivers/platform/x86/amd/pmc/pmc-quirks.c        | 8 ++++++++
- drivers/platform/x86/amd/pmc/pmc.c               | 3 +++
- drivers/platform/x86/amd/pmc/pmc.h               | 1 +
- 6 files changed, 26 insertions(+), 3 deletions(-)
-
-
-base-commit: 6fab32bb6508abbb8b7b1c5498e44f0c32320ed5
--- 
-2.51.0
-
+> Thanks,
+> Shyam
+>
+>
+> >
+> > 0xF14 index is meant for 1Ah (i.e. Strix and above)
+> >
+> >>
+> >>>
+> >>> Any idea why the OS hint only works 90% of the time?
+> >
+> > What is the output of amd_pmc_dump_registers() when 10% of the time
+> > when the OS_HINT is not working?
+> >
+> > What I can surmise is, though pmc driver is sending the hint PMFW is
+> > not taking any action (since the support in FW is missing)
+> >
+> >>
+> >> If we get the idle mask reporting working we would have a better idea
+> >> if that is what is reported wrong.
+> >>
+> >
+> > IIRC, The concept of idlemask came only after cezzane that too after a
+> > certain PMFW version. So I am not sure if idlemask actually exists.
+> >
+> >
+> >> If I was to guess though; maybe GFX is still active.
+> >>
+> >> Depending upon what's going wrong smu_fw_info might have some more
+> >> information too.
+> >
+> > That's a good point to try it out.
+> >
+> > Thanks,
+> > Shyam
+> >
+>
+>
 
