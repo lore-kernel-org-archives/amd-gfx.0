@@ -4,96 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FEA9CCF9EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD7BBCCD1BF
 	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 08:38:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD72B10E5BE;
-	Tue, 28 Oct 2025 08:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22EBF10E5BF;
+	Tue, 28 Oct 2025 08:38:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ABuoW4Su";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iAlh4eUY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C1C10E48A;
- Mon, 27 Oct 2025 13:15:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C7AF10E195;
+ Mon, 27 Oct 2025 21:09:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761570904; x=1793106904;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DWRYbL2kewo1Mvi1sseMJGtPVRQaXtkZN1kaWSRoUUg=;
- b=ABuoW4SuyhtoajFqag+vTCioDssz9nGeTa30AfuLm3A6hmmsPaQljac2
- jyrM62rKnP5yMqnxut3ijLjOY+nfA+d/Jsslh0t9yg+8GjQbqitNTYWkT
- RZyptNmbgR0RCzh1P6RtrvSSPO9ClI8EmASZUbO5etKd8S2wDGBvuky2y
- 7h/p3sEXqfYH29TiMiAya/9A6+vhWYHjRhD/RL2tAhokxh8JbQAAt4gGI
- hOjG9qdb/of0yQRfSznMUA2qFo9/sal4neEGZqTvXmucAWbCZ1G2/SoM4
- GZI8NhI9kpPD0hV5EM4r79yjBeVDn11C2LBW6KNjhZfisTz/8iJgbXXlV A==;
-X-CSE-ConnectionGUID: eJngC/7QSKWB/tj5EHkGVQ==
-X-CSE-MsgGUID: ycJ78r+sQ6qqH19bCIOKnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="73936329"
-X-IronPort-AV: E=Sophos;i="6.19,258,1754982000"; d="scan'208";a="73936329"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2025 06:15:03 -0700
-X-CSE-ConnectionGUID: otbfpOYNSPG4aKsjVdjr2w==
-X-CSE-MsgGUID: /MjBCcUdS5a8kW3d9oxzPw==
+ t=1761599381; x=1793135381;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=yzo9d1tJCritr1IkZ9qtvuzyML8wRiSl3ojBHJ5+K+w=;
+ b=iAlh4eUY6YYS9IDGV5gOy9KoAxpHQQF3lNkcTY4BueRd13gIcw5KDMft
+ WgiJ+dZ53fnEd6MVEw2f+Q+E8CBIbLc5nD7MLwJJ/0AuDBkjrRhkDiotH
+ isEUHFK2X+Ek6ICNwGsXHJYe82p56y6ncBBsDI5sKHRT5325bWx3qOQvr
+ eTRTMHzlxwUpz7wH6QjY4SFpMdpnxnXi72xElTQ91ZrA4XvX4pysB4PXu
+ K4qiLXxy+JrQ8xmHap5StXZ30M0EoZmuJh1YSZlG2D65QZlNySUCeDgT1
+ cmS+qRZhfZcSOWCJMbQ3MV2sC7iIkrm9GRIQAQi+MCZrLTO3ZTTksellH w==;
+X-CSE-ConnectionGUID: DA+XYYOGSb+BiqyhHIoHQA==
+X-CSE-MsgGUID: BPATpW4cTTKbAzE7w0ztuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="62897033"
+X-IronPort-AV: E=Sophos;i="6.19,259,1754982000"; d="scan'208";a="62897033"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2025 14:09:41 -0700
+X-CSE-ConnectionGUID: ed5aZR5HSiao67Yk9N7Gow==
+X-CSE-MsgGUID: fhMmUB3CSBq1BsQdBi4nqw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,258,1754982000"; d="scan'208";a="185388162"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
- ([10.245.244.31])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2025 06:14:54 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
- by kekkonen.fi.intel.com (Postfix) with ESMTP id BBBDC121EC5;
- Mon, 27 Oct 2025 15:14:51 +0200 (EET)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
- (envelope-from <sakari.ailus@linux.intel.com>)
- id 1vDN3Y-00000001dzj-2wFH; Mon, 27 Oct 2025 15:14:40 +0200
+X-IronPort-AV: E=Sophos;i="6.19,259,1754982000"; d="scan'208";a="185914182"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.245.244.97])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2025 14:09:31 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+ by kekkonen.fi.intel.com (Postfix) with ESMTP id 23C4F11FADA;
+ Mon, 27 Oct 2025 23:09:28 +0200 (EET)
+Date: Mon, 27 Oct 2025 23:09:28 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "Feng, Kenneth" <Kenneth.Feng@amd.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Antonio Quartulli <antonio@mandelbit.com>,
- Pratap Nirujogi <pratap.nirujogi@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Yang Wang <kevinyang.wang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Jesse Zhang <jesse.zhang@amd.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "Hung, Alex" <Alex.Hung@amd.com>,
+ Antonio Quartulli <antonio@mandelbit.com>,
+ "Nirujogi, Pratap" <Pratap.Nirujogi@amd.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "Khatri, Sunil" <Sunil.Khatri@amd.com>,
+ "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
  Liviu Dudau <liviu.dudau@arm.com>,
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@kernel.org>,
- Liao Yuanhong <liaoyuanhong@vivo.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Prike Liang <Prike.Liang@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
- ganglxie <ganglxie@amd.com>, Xiang Liu <xiang.liu@amd.com>,
- Victor Skvortsov <victor.skvortsov@amd.com>, Ce Sun <cesun102@amd.com>,
- Dave Airlie <airlied@redhat.com>, Jani Nikula <jani.nikula@intel.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>,
+ Arnd Bergmann <arnd@arndb.de>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@kernel.org>, Liao Yuanhong <liaoyuanhong@vivo.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ "Liang, Prike" <Prike.Liang@amd.com>,
+ "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>,
+ "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>,
+ "Xie, Patrick" <Gangliang.Xie@amd.com>,
+ "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>,
+ "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
+ "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Jani Nikula <jani.nikula@intel.com>,
  "Gustavo A. R. Silva" <gustavoars@kernel.org>,
  Imre Deak <imre.deak@intel.com>, Ben Skeggs <bskeggs@nvidia.com>,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/nouveau: Remove redundant pm_runtime_mark_last_busy()
- calls
-Date: Mon, 27 Oct 2025 15:14:39 +0200
-Message-ID: <20251027131440.392052-2-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251027131440.392052-1-sakari.ailus@linux.intel.com>
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/3] drm/amd: Remove redundant
+ pm_runtime_mark_last_busy() calls
+Message-ID: <aP_fiCX8Cli2KL7s@kekkonen.localdomain>
 References: <20251027131440.392052-1-sakari.ailus@linux.intel.com>
+ <BL1PR12MB514490DCB870F296D1554C14F7FCA@BL1PR12MB5144.namprd12.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB514490DCB870F296D1554C14F7FCA@BL1PR12MB5144.namprd12.prod.outlook.com>
 X-Mailman-Approved-At: Tue, 28 Oct 2025 08:38:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,145 +114,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
-pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
-to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
-pm_runtime_mark_last_busy().
+Hi Alexander,
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/gpu/drm/nouveau/dispnv50/disp.c     | 2 --
- drivers/gpu/drm/nouveau/nouveau_connector.c | 1 -
- drivers/gpu/drm/nouveau/nouveau_debugfs.c   | 1 -
- drivers/gpu/drm/nouveau/nouveau_display.c   | 1 -
- drivers/gpu/drm/nouveau/nouveau_drm.c       | 4 ----
- drivers/gpu/drm/nouveau/nouveau_gem.c       | 6 +-----
- 6 files changed, 1 insertion(+), 14 deletions(-)
+On Mon, Oct 27, 2025 at 03:52:28PM +0000, Deucher, Alexander wrote:
+> [Public]
+> 
+> > -----Original Message-----
+> > From: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > Sent: Monday, October 27, 2025 9:15 AM
+> > To: dri-devel@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter
+> > <simona@ffwll.ch>; Kuehling, Felix <Felix.Kuehling@amd.com>; Feng, Kenneth
+> > <Kenneth.Feng@amd.com>; Lyude Paul <lyude@redhat.com>; Danilo Krummrich
+> > <dakr@kernel.org>; Maarten Lankhorst <maarten.lankhorst@linux.intel.com>;
+> > Maxime Ripard <mripard@kernel.org>; Thomas Zimmermann
+> > <tzimmermann@suse.de>; Limonciello, Mario <Mario.Limonciello@amd.com>;
+> > Hung, Alex <Alex.Hung@amd.com>; Antonio Quartulli <antonio@mandelbit.com>;
+> > Nirujogi, Pratap <Pratap.Nirujogi@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>;
+> > Dmitry Baryshkov <lumag@kernel.org>; SHANMUGAM, SRINIVASAN
+> > <SRINIVASAN.SHANMUGAM@amd.com>; Wang, Yang(Kevin)
+> > <KevinYang.Wang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Zhang,
+> > Jesse(Jie) <Jesse.Zhang@amd.com>; Ville Syrjälä <ville.syrjala@linux.intel.com>;
+> > Liviu Dudau <liviu.dudau@arm.com>; Laurent Pinchart
+> > <laurent.pinchart+renesas@ideasonboard.com>; Zhang, Hawking
+> > <Hawking.Zhang@amd.com>; Prosyak, Vitaly <Vitaly.Prosyak@amd.com>; Arnd
+> > Bergmann <arnd@arndb.de>; Thomas Gleixner <tglx@linutronix.de>; Ingo Molnar
+> > <mingo@kernel.org>; Liao Yuanhong <liaoyuanhong@vivo.com>; Rodrigo Siqueira
+> > <siqueira@igalia.com>; Liang, Prike <Prike.Liang@amd.com>; Sharma, Shashank
+> > <Shashank.Sharma@amd.com>; Paneer Selvam, Arunpravin
+> > <Arunpravin.PaneerSelvam@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;
+> > Chai, Thomas <YiPeng.Chai@amd.com>; Xie, Patrick <Gangliang.Xie@amd.com>;
+> > Liu, Xiang(Dean) <Xiang.Liu@amd.com>; Skvortsov, Victor
+> > <Victor.Skvortsov@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>; Dave
+> > Airlie <airlied@redhat.com>; Jani Nikula <jani.nikula@intel.com>; Gustavo A. R.
+> > Silva <gustavoars@kernel.org>; Imre Deak <imre.deak@intel.com>; Ben Skeggs
+> > <bskeggs@nvidia.com>; nouveau@lists.freedesktop.org; amd-
+> > gfx@lists.freedesktop.org
+> > Subject: [PATCH 1/3] drm/amd: Remove redundant pm_runtime_mark_last_busy()
+> > calls
+> >
+> > pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
+> > pm_runtime_autosuspend() and pm_request_autosuspend() now include a call to
+> > pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
+> > pm_runtime_mark_last_busy().
+> 
+> 
+> Typo: should be "now-redundant"
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e97e39abf3a2..682d21a8a82d 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1222,7 +1222,6 @@ nv50_mstc_detect(struct drm_connector *connector,
- 		goto out;
- 
- out:
--	pm_runtime_mark_last_busy(connector->dev->dev);
- 	pm_runtime_put_autosuspend(connector->dev->dev);
- 	return ret;
- }
-@@ -2411,7 +2410,6 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_state *state)
- 	drm_atomic_state_put(state);
- 
- 	/* Drop the RPM ref we got from nv50_disp_atomic_commit() */
--	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index 63621b1510f6..7d0c5e42d1dd 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -673,7 +673,6 @@ nouveau_connector_detect(struct drm_connector *connector, bool force)
- 	if (!nv_connector->edid)
- 		drm_dp_cec_unset_edid(&nv_connector->aux);
- 
--	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
- 
- 	return conn_status;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-index c7869a639bef..70ce03e9d7fc 100644
---- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-@@ -62,7 +62,6 @@ nouveau_debugfs_strap_peek(struct seq_file *m, void *data)
- 	seq_printf(m, "0x%08x\n",
- 		   nvif_rd32(&drm->client.device.object, 0x101000));
- 
--	pm_runtime_mark_last_busy(drm->dev->dev);
- 	pm_runtime_put_autosuspend(drm->dev->dev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 00515623a2cc..6747fb5f6b0c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -495,7 +495,6 @@ nouveau_display_hpd_work(struct work_struct *work)
- 	if (first_changed_connector)
- 		drm_connector_put(first_changed_connector);
- 
--	pm_runtime_mark_last_busy(dev->dev);
- noop:
- 	pm_runtime_put_autosuspend(dev->dev);
- }
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 1527b801f013..c077a2b8fc41 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1177,7 +1177,6 @@ nouveau_pmops_runtime_idle(struct device *dev)
- 		return -EBUSY;
- 	}
- 
--	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_autosuspend(dev);
- 	/* we don't want the main rpm_idle to call suspend - we want to autosuspend */
- 	return 1;
-@@ -1224,7 +1223,6 @@ nouveau_drm_open(struct drm_device *dev, struct drm_file *fpriv)
- 		kfree(cli);
- 	}
- 
--	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
- 	return ret;
- }
-@@ -1258,7 +1256,6 @@ nouveau_drm_postclose(struct drm_device *dev, struct drm_file *fpriv)
- 
- 	nouveau_cli_fini(cli);
- 	kfree(cli);
--	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
- 	drm_dev_exit(dev_index);
- }
-@@ -1306,7 +1303,6 @@ nouveau_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 		break;
- 	}
- 
--	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 395d92ab6271..2abb04ff09f5 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -89,7 +89,6 @@ nouveau_gem_object_del(struct drm_gem_object *gem)
- 
- 	ttm_bo_fini(&nvbo->bo);
- 
--	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_put_autosuspend(dev);
- }
- 
-@@ -127,7 +126,6 @@ nouveau_gem_object_open(struct drm_gem_object *gem, struct drm_file *file_priv)
- 		ret = nouveau_vma_new(nvbo, vmm, &vma);
- 	else
- 		ret = 0;
--	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_put_autosuspend(dev);
- out:
- 	ttm_bo_unreserve(&nvbo->bo);
-@@ -204,10 +202,8 @@ nouveau_gem_object_close(struct drm_gem_object *gem, struct drm_file *file_priv)
- 	if (vma) {
- 		if (--vma->refs == 0) {
- 			ret = pm_runtime_get_sync(dev);
--			if (!WARN_ON(ret < 0 && ret != -EACCES)) {
-+			if (!WARN_ON(ret < 0 && ret != -EACCES))
- 				nouveau_gem_object_unmap(nvbo, vma);
--				pm_runtime_mark_last_busy(dev);
--			}
- 			pm_runtime_put_autosuspend(dev);
- 		}
- 	}
+Oops. You're first one to notice, in fact.
+
+> 
+> >
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> 
+> Patches 1, 3 are:
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> When did mark_last_busy get pulled into the other runtime_pm functions?
+> Did you want me to pick these up or did you want to send them via some
+> other tree?
+
+Yes, please merge these.
+
+pm_runtime_mark_last_busy() has been part of autosuspend related functions
+since commit 18c1fe53d186867243f4cf17f4eef60737a16c4c, i.e. v6.17.
+
 -- 
-2.47.3
+Kind regards,
 
+Sakari Ailus
