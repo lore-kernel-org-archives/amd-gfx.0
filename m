@@ -4,56 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E528CCF9EA
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Oct 2025 12:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6026CCF9E5
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Oct 2025 13:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A972610E477;
-	Mon, 27 Oct 2025 12:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4298B10E497;
+	Mon, 27 Oct 2025 13:24:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="n9lhIPNd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wIuhLZdi";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF7A510E0BD;
- Mon, 27 Oct 2025 12:18:31 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4cwCGD5GCVz9v99;
- Mon, 27 Oct 2025 13:18:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1761567508; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dkHgLX2A6dFIK3Cyag00bOh2L0X4a2hUzQgqMrT9K+w=;
- b=n9lhIPNdn0WAmxl6uPJktsmqzolM1m6vma+1RFXRQJhaGKcgwXv0LdQNGB8koyYmHFWjbR
- /3C8gEhBwFRajnNEmOi7XrSuZfsCuOhfshwqkxqoilcSmixz8mbcO37d/0mwFiQlNk7NdW
- +1efIdwyE3RKTurEZMCgu2aSjaXEFa/TP53nm17zFfhZgjh3uW7NzURx5VcXeD5EQH7CNX
- SF26ibIUH5+14jmBSeK6bwNv7L7XuAT05+TtVSVdlp3SJthnP8RaOx4rzbRxfgaBdOyLva
- kt0lpduIXZY2imlu/NYCXwNU4g7yrfaL+bUiGAk7V/wCxXEZlTD262EWUkAlNw==
-Message-ID: <41474e2b14f34e1cd8369f50266843a88b7a86ba.camel@mailbox.org>
-Subject: Re: [PATCH v3 09/27] drm/sched: Add fair scheduling policy
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Date: Mon, 27 Oct 2025 13:18:26 +0100
-In-Reply-To: <20251024160800.79836-10-tvrtko.ursulin@igalia.com>
-References: <20251024160800.79836-1-tvrtko.ursulin@igalia.com>
- <20251024160800.79836-10-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011007.outbound.protection.outlook.com
+ [40.93.194.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89B910E497
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Oct 2025 13:24:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DnjuU1hhDJKfyYlvS5zm7udNvAitP/t+dXaeQwcF+bwdGLq/GuPcXgc5AGl9vy9zfaFhkIjVaw0rUPmuKhxWOe8PZjyF2XxGujsaqL3eyoCEk8HtRMsRDxofnEOfs7JdyHOxksgCLIi+tbZ1jgpsmGYuUnvv8WhIF/v2IO/TnlMczINpNTZxTXcA+sN5Un/ROLlhKfSL+yH5vjhttik+HMVYkvpCRmzucKNN+fEwIeswFprRDZELOYMMaw546oRDr1xxxGI0ktuhmngvXzGbUOxDiAfPc5BwVkg63drNpnrqhN7eIyM1mhCM1HCQT1C0bpx3fEwXbpw+gtKJlBmITA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ESc/k4qwU48bwWLh7aXG+oMar8snkTlrfl7wQvQZPWc=;
+ b=rF9BpoHIPNFJwWllzU1z1W7uKJBp1qQheOVIATnIVUvV5yY3VdPHO+U2PR2lLwQ/eBS7j2Bz5C/NThd8GdzDz/YMd2fzBEdlsTiTJr5LnjG48Y/W/lapdq7nySH8Vp3y1PRmS1tbJ9jq52IzJcz93guzZc6OF4dKswKkauG3faBLsjcBbObVIZPaar4Ftt7pwmP+ndMpIKInlHyepzOo16DtXb5P4g5d+OWznF4kh4kdgl7/9hjv2fe1VmzTh2Mg23zDQciWc4k54gMfQzr9wikIJJ5rcQj6WzHcZZ2k4/JeKOhk75YzvV/zcpk08QF+g43IUQyeA6tzQD2RvOVHQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ESc/k4qwU48bwWLh7aXG+oMar8snkTlrfl7wQvQZPWc=;
+ b=wIuhLZdiV+huJcDc1cg19ypjrXFusVhJEMz4YUcSQ1+WVRVd+4pSU/212ldVKoCj/UU8zJs7jpPZVydxtmvqCwK01MR1HkIoJOrYs4NGAlpSp2aGo643AF2EZ6iFgWwsJrVVjNHvDqt1/vpI16pJnJVKUS2dECkH1SWQK3vH7HI=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ SA1PR12MB7221.namprd12.prod.outlook.com (2603:10b6:806:2bd::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9253.18; Mon, 27 Oct 2025 13:24:30 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6%7]) with mapi id 15.20.9253.017; Mon, 27 Oct 2025
+ 13:24:29 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Lin, Wayne" <Wayne.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
+ "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
+ Alex" <Alex.Hung@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>
+Subject: RE: [PATCH 00/20] DC Patches October 27, 2025
+Thread-Topic: [PATCH 00/20] DC Patches October 27, 2025
+Thread-Index: AQHcQyY5qBC0zXZyyEayd4Ln4TU1RLTWA3YQ
+Date: Mon, 27 Oct 2025 13:24:29 +0000
+Message-ID: <DS0PR12MB6534236FC68555383425B5CD9CFCA@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20251022073332.666119-1-Wayne.Lin@amd.com>
+In-Reply-To: <20251022073332.666119-1-Wayne.Lin@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-10-27T13:23:44.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SA1PR12MB7221:EE_
+x-ms-office365-filtering-correlation-id: a4a84f41-83fc-417c-7527-08de155c28a4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|366016|1800799024|38070700021;
+x-microsoft-antispam-message-info: =?us-ascii?Q?vtYOXZLL0QZYZkxa7uI96+a6f1VBD9gP5hViWOsaoBvqbmZwWR7ejYVJYzlg?=
+ =?us-ascii?Q?BmK8TDoIiHHl8Ky923s1pUqGRrlJe49UdLPi/tFd3RWWIVQzc56dJcJds9F3?=
+ =?us-ascii?Q?Y4k0IRgwePN9Ykxklilpbud/9Sy8XcH9WKAgLCP3E0k9/WJTbu//2PDUyFkN?=
+ =?us-ascii?Q?4JDVswdWeAF8KYnE9ozekwd9R49JFMwc5aZCeIDhseWHis5u9e3XDLrgT+Sn?=
+ =?us-ascii?Q?l/3vaUlArVtWaIN71fBPUWhDqpjN5VQLrAiCEBMWFyaKXiVHJ4vkU62ImPsl?=
+ =?us-ascii?Q?owAYdkrDAUucSv6IpqJYRHyU7F6Bjv6kkLKS8CA5swD+zOij1Kw5vzTF5NAF?=
+ =?us-ascii?Q?6of+nkJgNBBhtY93vNvGW7R3YhxfZ1UBgDLViXcznXnVrmR5eivbsJrpGRnI?=
+ =?us-ascii?Q?w5dR4qDGMoNI9L6flCc9xvW690pd6YjMP+YJ5//nwPMf6tjEXUUrTXoedmbC?=
+ =?us-ascii?Q?j8luDcHg0kG0xasQnamoJfFkYnfOf0rRZw17dxkiVa3TcJXJD0/A7EVjirbo?=
+ =?us-ascii?Q?Pfw0NcFMwoZdsF1J8+53szN19SDx49EPPkcMEwNUsq2nB0qN3Mj6dobR8/mv?=
+ =?us-ascii?Q?GGRTr8vI60uPSsJwcqdBW/86A6PfJbRrbMrgilgJxVF4wJLrUlOVoSKiAGQN?=
+ =?us-ascii?Q?aP5OYl8GFvl+lYC/54KLTTvbLGQ0MGw4oaIxuOTO0apKbKkCdvWEbUUCd/v5?=
+ =?us-ascii?Q?23vaJPZvLa2Q7cm9rj5dfy4ylidFL1qhFrLQjZ2JM7Y+D9TaJ+1i6wbAxcCj?=
+ =?us-ascii?Q?/taDosE0lkjf+yzSC9kDQmAfLft5Xtna28GaW5Ux9lHl5glEOf+18RMom5kC?=
+ =?us-ascii?Q?jqhk/PqNKYOSyGAGxiviZguKYT/IgpsrHf2As4sU92998xM+KLeTAcqWCJnj?=
+ =?us-ascii?Q?dA7KE4F0qzc6tmrA7omO3VpGbJ1LyTFdV49ywj+6OjBbkck+Oz9ZUp0GhYqK?=
+ =?us-ascii?Q?mIqBpIPHdJ8da3ikd0wlx/lvEQczhreL+jDjwK9rQ+FMC7aC4A0ePR94KFHP?=
+ =?us-ascii?Q?9gprAi5a4KZVASOgMFTI1tZmST5DbXQkpyKcIBS7TLGcQfwDIjAohVfD5NS6?=
+ =?us-ascii?Q?KJ8bVNYu5L5F0wMOf3o7UIOe8WMA9Fw0sBOG9zHLaz/gIh7IIvlm3GoQJgNB?=
+ =?us-ascii?Q?/n7eVN26i/M7Y5OWoMHuyGhkJ4u4IpFaZFamoKqhcIUxOyhyGIIZYdAOBwzw?=
+ =?us-ascii?Q?rha1plAwwjKd1ddJsQF+FnNe9WchM8ujQK9Kh8B+7g8P0eWi2zk9vpzKMUKn?=
+ =?us-ascii?Q?r+6VcMzSntOP4wFaotiWl2vO9MkOWrHYyen9VCN2rlCs72X85xT6xVp50VfP?=
+ =?us-ascii?Q?DJQS+iIooWulhK2P4bKuz4UXVjV6UyaFHm6TKdL+tc3pl8H49XgH7U5gv76C?=
+ =?us-ascii?Q?H3CoEk1tWTUU2ACUkdP/XUGCb9oT63eGUG532bvb1m5gFOQe9Fc+7GvgYWRQ?=
+ =?us-ascii?Q?4jAPhgcoDllmzZp6Bq3HA6QeB9ofMNg69QhRMeB1/Vd0rYBSRBf2NGmCHXyP?=
+ =?us-ascii?Q?x3p+hw0y09cMGLILnZe2uvY6e9EjWbd5RbzN?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(38070700021); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?HZSYt/2dSyxN24suonADcZxlFKpUhopoZPOIflhpWL3Bp3vZFHslB9jWMdEh?=
+ =?us-ascii?Q?ee5exCGbvcyXoIU9pUzw6bZUr3LRinXGZqR8xgdTwV1UCjeZrsYpE74eHOCi?=
+ =?us-ascii?Q?pDuxde1RGK+3d9KFbsB3AELZg3aXENi8wqKjcqHJRLSXiweltKgJ0mRofwqO?=
+ =?us-ascii?Q?Tk7t3Uvq93/oFspZKJIxb0ge9PTJ3GyrmIdZTYKRnul0emZvFIss9J9Y/6HQ?=
+ =?us-ascii?Q?PFJreNEc7PEi8DRgWj28oW2lDDBMjOZf+gGc+2w6Q7VPZd8sxezGK1BN5+dA?=
+ =?us-ascii?Q?u+n/NE6Ja7AEuYu0teUr1eXQu7iw4mrsnS8cHZLzhZzpw0eaG/LwqGdM9zG3?=
+ =?us-ascii?Q?IuxTHnN9Pt6yi8X9on9wf+lFJoZMRVuHvSC1SIdSOY5fZy8yfP1mRyYMiCZo?=
+ =?us-ascii?Q?CelEGBV+lUdJ8VkEndmM7SVA2K0//uIEsnWzhYrYINJ1dPdKqMtJfvU6isOk?=
+ =?us-ascii?Q?5cZJ3nH1KxbJJYuYaIDuuRBwMLtKrcZqq7rEuNCD738QomA1iGs9iFb1QwXU?=
+ =?us-ascii?Q?PgKPW1KjseWuFmvsbCie7bLQR6bzBT/YCO/dOwvTBXcpP54QDMB4qHDw51so?=
+ =?us-ascii?Q?SY4kKi6B4CSZq+PNIBf0QTihBoavlBmkZvH39hhwwKYFRb0OjgKFAFJFZnVf?=
+ =?us-ascii?Q?L4egTqrSzc8JZ/6yXOMfKSqZbt8zOGAtuDw+MwsSgmyKla3tCC6AG9/WhgZl?=
+ =?us-ascii?Q?7bH6eth+xgqpf64guR0hR15o4f1qFqbx7m484sHvlvnCOwmEwhRdHenUDIl+?=
+ =?us-ascii?Q?wuJrA0DdAKdudde7eMBkdgnOka7+LH7gUME0MVKvLHpTsk50MBbfKe1PHxP+?=
+ =?us-ascii?Q?fsPTq6pvoQc2LlnI3Ns7sQPYiB974Zt5xaLLsbVkbRSJXGpbQIivtSkh0SE6?=
+ =?us-ascii?Q?nIaNbM4GLUBsHTA2g3arVVfjYlw4q4wtKKanZ8fohwuWQrcDp/FAQtsEYfru?=
+ =?us-ascii?Q?Y4YPJUr8iYPSv19J80OSYMPxVmzrR+66ntTgQ+WO1HuaqjrLXfQkIVOEPoM0?=
+ =?us-ascii?Q?KYW7QBf8t/XWo28o2ctj/g52dsAfsRVG6RHoZDGP7/72kdNtkabOMpg/Ge0d?=
+ =?us-ascii?Q?3M5zIGga7ZwThka6h9LB//UzY1pn0cUYHsT6djNChC+Fh+gURN1PDUNgoEK/?=
+ =?us-ascii?Q?JGmp6N8qT++KB2Pn8Givfv0gFJqtfMvVpPqS/56wxZ39muS1be8bNJ6KHm/q?=
+ =?us-ascii?Q?ZdCQqCM8x/xkjoMy1ALwU6rDs6uv9H5tIZfYQz71DNBhtSkEdT7kVWrlo1vy?=
+ =?us-ascii?Q?oW+0mbh2hsMvXni3aEZzrv0AkxfGsvpdMucabKuafsykO+XWEqD9aTLGkZVf?=
+ =?us-ascii?Q?regH5pTjc43XRl/E8mi5SZHAT5V7asQAXL0Dr6RZUN1SLeM1/CB8d/xs6SkO?=
+ =?us-ascii?Q?AzRLufxqtV8ouPAzlsV5nlAD0mmG/ZL2hJUjVftIezo+dbI0k77/NjPBKHFR?=
+ =?us-ascii?Q?ymS2zfSSk3z7oOHOXgFq6DlIl7GcaxgQOTyo2NLxionXWIiO4Kx1gNCTnEvu?=
+ =?us-ascii?Q?SeSUxoBgxSCE9SHNiS4jseEfnIB42MEYtHY5ebODtj15kaoLx0UyB/2gJKde?=
+ =?us-ascii?Q?qAH7Heg/wUCzRB9kAxA=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-META: 5uwrtppbec8kxahgffthmcecmqq876ze
-X-MBO-RS-ID: 72c5bd2dfe5bbfaf4f2
-X-Mailman-Approved-At: Mon, 27 Oct 2025 12:59:18 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4a84f41-83fc-417c-7527-08de155c28a4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2025 13:24:29.5785 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KvNYq+k4ruQLzNDhvwlG4GrWLBg1rS1PWjOT/n0S73yX0+TM5k4QzVFjuPaT8/7Mmzbgbrb031Tb33xY5qPIfg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7221
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,549 +155,443 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-10-24 at 17:07 +0100, Tvrtko Ursulin wrote:
-> The FAIR scheduling policy is built upon the same concepts as the well
-> known CFS CPU scheduler - entity run queue is sorted by the virtual GPU
-> time consumed by entities in a way that the entity with least vruntime
-> runs first.
->=20
-> It is able to avoid total priority starvation, which is one of the
-> problems with FIFO, and it also does not need for per priority run queues=
-.
-> As it scales the actual GPU runtime by an exponential factor as the
-> priority decreases, the virtual runtime for low priority entities grows
-> faster than for normal priority, pushing them further down the runqueue
-> order for the same real GPU time spent.
->=20
-> Apart from this fundamental fairness, fair policy is especially strong in
-> oversubscription workloads where it is able to give more GPU time to shor=
-t
-> and bursty workloads when they are running in parallel with GPU heavy
-> clients submitting deep job queues.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 |=C2=A0 28 ++-=
--
-> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h |=C2=A0=C2=A0 5 +
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 11 +-
-> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 182 ++++++++++++++++++++-
-> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 17 +-
-> =C2=A05 files changed, 224 insertions(+), 19 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index 565eddebb667..4144a97702a5 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -107,6 +107,8 @@ int drm_sched_entity_init(struct drm_sched_entity *en=
-tity,
-> =C2=A0	entity->guilty =3D guilty;
-> =C2=A0	entity->num_sched_list =3D num_sched_list;
-> =C2=A0	entity->priority =3D priority;
-> +	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
-> =C2=A0	/*
-> =C2=A0	 * It's perfectly valid to initialize an entity without having a v=
-alid
-> =C2=A0	 * scheduler attached. It's just not valid to use the scheduler be=
-fore it
-> @@ -123,17 +125,23 @@ int drm_sched_entity_init(struct drm_sched_entity *=
-entity,
-> =C2=A0		 */
-> =C2=A0		pr_warn("%s: called with uninitialized scheduler\n", __func__);
-> =C2=A0	} else if (num_sched_list) {
-> -		/* The "priority" of an entity cannot exceed the number of run-queues =
-of a
-> -		 * scheduler. Protect against num_rqs being 0, by converting to signed=
-. Choose
-> -		 * the lowest priority available.
-> +		enum drm_sched_priority p =3D entity->priority;
-> +
-> +		/*
-> +		 * The "priority" of an entity cannot exceed the number of
-> +		 * run-queues of a scheduler. Protect against num_rqs being 0,
-> +		 * by converting to signed. Choose the lowest priority
-> +		 * available.
-> =C2=A0		 */
-> -		if (entity->priority >=3D sched_list[0]->num_rqs) {
-> -			dev_err(sched_list[0]->dev, "entity has out-of-bounds priority: %u. n=
-um_rqs: %u\n",
-> -				entity->priority, sched_list[0]->num_rqs);
-> -			entity->priority =3D max_t(s32, (s32) sched_list[0]->num_rqs - 1,
-> -						 (s32) DRM_SCHED_PRIORITY_KERNEL);
-> +		if (p >=3D sched_list[0]->num_user_rqs) {
-> +			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u nu=
-m_user_rqs:%u\n",
-> +				p, sched_list[0]->num_user_rqs);
-> +			p =3D max_t(s32,
-> +				 (s32)sched_list[0]->num_user_rqs - 1,
-> +				 (s32)DRM_SCHED_PRIORITY_KERNEL);
-> +			entity->priority =3D p;
-> =C2=A0		}
-> -		entity->rq =3D sched_list[0]->sched_rq[entity->priority];
-> +		entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	init_completion(&entity->entity_idle);
-> @@ -566,7 +574,7 @@ void drm_sched_entity_select_rq(struct drm_sched_enti=
-ty *entity)
-> =C2=A0
-> =C2=A0	spin_lock(&entity->lock);
-> =C2=A0	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sche=
-d_list);
-> -	rq =3D sched ? sched->sched_rq[entity->priority] : NULL;
-> +	rq =3D sched ? sched->sched_rq[entity->rq_priority] : NULL;
-> =C2=A0	if (rq !=3D entity->rq) {
-> =C2=A0		drm_sched_rq_remove_entity(entity->rq, entity);
-> =C2=A0		entity->rq =3D rq;
-> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
-/scheduler/sched_internal.h
-> index 9adad48ec084..593e380a2d59 100644
-> --- a/drivers/gpu/drm/scheduler/sched_internal.h
-> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-> @@ -12,6 +12,8 @@
-> =C2=A0 * @kref: reference count for the object.
-> =C2=A0 * @lock: lock guarding the @runtime updates.
-> =C2=A0 * @runtime: time entity spent on the GPU.
-> + * @prev_runtime: previous @runtime used to get the runtime delta.
-> + * @vruntime: virtual runtime as accumulated by the fair algorithm.
-> =C2=A0 *
-> =C2=A0 * Because jobs and entities have decoupled lifetimes, ie. we canno=
-t access the
-> =C2=A0 * entity once the job is completed and we know how much time it to=
-ok on the
-> @@ -22,6 +24,8 @@ struct drm_sched_entity_stats {
-> =C2=A0	struct kref	kref;
-> =C2=A0	spinlock_t	lock;
-> =C2=A0	ktime_t		runtime;
-> +	ktime_t		prev_runtime;
-> +	ktime_t		vruntime;
-> =C2=A0};
-> =C2=A0
-> =C2=A0/* Used to choose between FIFO and RR job-scheduling */
-> @@ -29,6 +33,7 @@ extern int drm_sched_policy;
-> =C2=A0
-> =C2=A0#define DRM_SCHED_POLICY_RR=C2=A0=C2=A0=C2=A0 0
-> =C2=A0#define DRM_SCHED_POLICY_FIFO=C2=A0 1
-> +#define DRM_SCHED_POLICY_FAIR=C2=A0 2
-> =C2=A0
-> =C2=A0bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-> =C2=A0			 struct drm_sched_entity *entity);
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
-eduler/sched_main.c
-> index 0c5f7a0594bf..261886b1e18f 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -90,7 +90,7 @@ int drm_sched_policy =3D DRM_SCHED_POLICY_FIFO;
-> =C2=A0 * DOC: sched_policy (int)
-> =C2=A0 * Used to override default entities scheduling policy in a run que=
-ue.
-> =C2=A0 */
-> -MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entiti=
-es on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " =3D Round Robin, " =
-__stringify(DRM_SCHED_POLICY_FIFO) " =3D FIFO (default).");
-> +MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entiti=
-es on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " =3D Round Robin, " =
-__stringify(DRM_SCHED_POLICY_FIFO) " =3D FIFO (default), " __stringify(DRM_=
-SCHED_POLICY_FAIR) " =3D Fair.");
-> =C2=A0module_param_named(sched_policy, drm_sched_policy, int, 0444);
-> =C2=A0
-> =C2=A0static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sc=
-hed)
-> @@ -1133,11 +1133,14 @@ int drm_sched_init(struct drm_gpu_scheduler *sche=
-d, const struct drm_sched_init_
-> =C2=A0		sched->own_submit_wq =3D true;
-> =C2=A0	}
-> =C2=A0
-> -	sched->sched_rq =3D kmalloc_array(args->num_rqs, sizeof(*sched->sched_r=
-q),
-> +	sched->num_user_rqs =3D args->num_rqs;
-> +	sched->num_rqs =3D drm_sched_policy !=3D DRM_SCHED_POLICY_FAIR ?
-> +			 args->num_rqs : 1;
-> +	sched->sched_rq =3D kmalloc_array(sched->num_rqs, sizeof(*sched->sched_=
-rq),
-> =C2=A0					GFP_KERNEL | __GFP_ZERO);
-> =C2=A0	if (!sched->sched_rq)
-> =C2=A0		goto Out_check_own;
-> -	sched->num_rqs =3D args->num_rqs;
-> +
-> =C2=A0	for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> =C2=A0		sched->sched_rq[i] =3D kzalloc(sizeof(*sched->sched_rq[i]), GFP_K=
-ERNEL);
-> =C2=A0		if (!sched->sched_rq[i])
-> @@ -1279,7 +1282,7 @@ void drm_sched_increase_karma(struct drm_sched_job =
-*bad)
-> =C2=A0	if (bad->s_priority !=3D DRM_SCHED_PRIORITY_KERNEL) {
-> =C2=A0		atomic_inc(&bad->karma);
-> =C2=A0
-> -		for (i =3D DRM_SCHED_PRIORITY_HIGH; i < sched->num_rqs; i++) {
-> +		for (i =3D DRM_SCHED_PRIORITY_KERNEL; i < sched->num_rqs; i++) {
-> =C2=A0			struct drm_sched_rq *rq =3D sched->sched_rq[i];
-> =C2=A0
-> =C2=A0			spin_lock(&rq->lock);
-> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/sched=
-uler/sched_rq.c
-> index 2d1f579d8352..5df10f9cbb7f 100644
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> @@ -16,6 +16,35 @@ drm_sched_entity_compare_before(struct rb_node *a, con=
-st struct rb_node *b)
-> =C2=A0	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting=
-);
-> =C2=A0}
-> =C2=A0
-> +static void drm_sched_rq_update_prio(struct drm_sched_rq *rq)
-> +{
-> +	enum drm_sched_priority prio =3D DRM_SCHED_PRIORITY_INVALID;
-> +	struct rb_node *rb;
-> +
-> +	lockdep_assert_held(&rq->lock);
-> +
-> +	rb =3D rb_first_cached(&rq->rb_tree_root);
-> +	if (rb) {
-> +		struct drm_sched_entity *entity =3D
-> +			rb_entry(rb, typeof(*entity), rb_tree_node);
-> +
-> +		/*
-> +		 * The normal locking order is entity then run-queue so taking
-> +		 * the entity lock here would be a locking inversion for the
-> +		 * case when the current head of the run-queue is different from
-> +		 * the one we already have locked. The unlocked read is fine
-> +		 * though, because if the priority had just changed it is no big
-> +		 * deal for our algorithm, but just a transient reachable only
-> +		 * by drivers with userspace dynamic priority changes API. Equal
-> +		 * in effect to the priority change becoming visible a few
-> +		 * instructions later.
-> +		 */
-> +		prio =3D READ_ONCE(entity->priority);
+[Public]
 
-I want to take a deep look into the entire locking situation, too.
-Unfortunately I currently have to complete another important mile stone
-and can only dive into that by ~mid November.
+Hi all,
 
-> +	}
-> +
-> +	rq->head_prio =3D prio;
-> +}
-> +
-> =C2=A0static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity=
- *entity,
-> =C2=A0					=C2=A0=C2=A0=C2=A0 struct drm_sched_rq *rq)
-> =C2=A0{
-> @@ -25,6 +54,7 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_=
-sched_entity *entity,
-> =C2=A0	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> =C2=A0		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
-> =C2=A0		RB_CLEAR_NODE(&entity->rb_tree_node);
-> +		drm_sched_rq_update_prio(rq);
-> =C2=A0	}
-> =C2=A0}
-> =C2=A0
-> @@ -46,6 +76,7 @@ static void drm_sched_rq_update_fifo_locked(struct drm_=
-sched_entity *entity,
-> =C2=A0
-> =C2=A0	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_entity_compare_before);
-> +	drm_sched_rq_update_prio(rq);
-> =C2=A0}
-> =C2=A0
-> =C2=A0/**
-> @@ -62,6 +93,138 @@ void drm_sched_rq_init(struct drm_gpu_scheduler *sche=
-d,
-> =C2=A0	INIT_LIST_HEAD(&rq->entities);
-> =C2=A0	rq->rb_tree_root =3D RB_ROOT_CACHED;
-> =C2=A0	rq->sched =3D sched;
-> +	rq->head_prio =3D DRM_SCHED_PRIORITY_INVALID;
-> +}
-> +
-> +static ktime_t
-> +drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
-> +{
-> +	ktime_t vruntime =3D 0;
-> +	struct rb_node *rb;
-> +
-> +	lockdep_assert_held(&rq->lock);
-> +
-> +	for (rb =3D rb_first_cached(&rq->rb_tree_root); rb; rb =3D rb_next(rb))=
- {
-> +		struct drm_sched_entity *entity =3D
-> +			rb_entry(rb, typeof(*entity), rb_tree_node);
-> +		struct drm_sched_entity_stats *stats =3D entity->stats;
-> +
-> +		/*
-> +		 * We only need the spin lock here on platforms where access to
-> +		 * 64-bit ktime_t can tear but for simplicity we take it un-
-> +		 * conditionally.
-> +		 */
-> +		spin_lock(&stats->lock);
-> +		vruntime =3D stats->vruntime;
-> +		spin_unlock(&stats->lock);
+This week this patchset was tested on 4 systems, two dGPU and two APU based=
+, and tested across multiple display and connection types.
 
-That code here is plainly very correct and locking is the right thing
-to do; so the comment above is not necessary.
+APU
+        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
+, 4k 240hz (Includes USB-C to DP/HDMI adapters)
+        * Thunderbolt -> LG Ultrafine 5k
+        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
+lays, HP Hook G2 with 2x 4k60hz displays
+        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
+ DP and 1x 4k60hz HDMI displays
+        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
+ion supported by the dongle of 4k 120hz YUV420 12bpc.
+        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
+he adapter of 4k 120hz RGB 8bpc.
+
+DGPU
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multiple Display DP -> 4k240hz + 4k144hz
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
+        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
+isplays)
+
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to)
+        * Changing display configurations and settings
+        * Video/Audio playback
+        * Benchmark testing
+        * Suspend/Resume testing
+        * Feature testing (Freesync, HDCP, etc.)
+
+Automated testing includes (but is not limited to)
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The testing is mainly tested on the following displays, but occasionally th=
+ere are tests with other displays
+        * Samsung G8 Neo 4k240hz
+        * Samsung QN55QN95B 4k 120hz
+        * Acer XV322QKKV 4k144hz
+        * HP U27 4k Wireless 4k60hz
+        * LG 27UD58B 4k60hz
+        * LG 32UN650WA 4k60hz
+        * LG Ultrafine 5k 5k60hz
+        * AU Optronics B140HAN01.1 1080p 60hz eDP
+        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
+        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
 
 
-> +	}
-> +
-> +	return vruntime;
-> +}
-> +
-> +static void
-> +drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ktime_t min_vruntime)
-> +{
-> +	struct drm_sched_entity_stats *stats =3D entity->stats;
-> +	ktime_t vruntime;
-> +
-> +	spin_lock(&stats->lock);
-> +	vruntime =3D stats->vruntime;
-> +	if (min_vruntime && vruntime > min_vruntime)
-> +		vruntime =3D ktime_sub(vruntime, min_vruntime);
-> +	else
-> +		vruntime =3D 0;
-> +	stats->vruntime =3D vruntime;
-> +	spin_unlock(&stats->lock);
-> +}
-> +
-> +static ktime_t
-> +drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
-> +				=C2=A0 ktime_t min_vruntime,
-> +				=C2=A0 enum drm_sched_priority rq_prio)
-> +{
-> +	struct drm_sched_entity_stats *stats =3D entity->stats;
-> +	enum drm_sched_priority prio =3D entity->priority;
-> +	ktime_t vruntime;
-> +
-> +	BUILD_BUG_ON(DRM_SCHED_PRIORITY_NORMAL < DRM_SCHED_PRIORITY_HIGH);
-> +
-> +	spin_lock(&stats->lock);
-> +	vruntime =3D stats->vruntime;
-> +
-> +	/*
-> +	 * Special handling for entities which were picked from the top of the
-> +	 * queue and are now re-joining the top with another one already there.
-> +	 */
-> +	if (!vruntime && min_vruntime) {
-> +		if (prio > rq_prio) {
-> +			/*
-> +			 * Lower priority should not overtake higher when re-
-> +			 * joining at the top of the queue.
-> +			 */
-> +			vruntime =3D us_to_ktime(prio - rq_prio);
-> +		} else if (prio < rq_prio) {
-> +			/*
-> +			 * Higher priority can go first.
-> +			 */
-> +			vruntime =3D -us_to_ktime(rq_prio - prio);
-> +		}
-> +	}
-> +
-> +	/*
-> +	 * Restore saved relative position in the queue.
-> +	 */
-> +	vruntime =3D ktime_add(min_vruntime, vruntime);
-> +
-> +	stats->vruntime =3D vruntime;
-> +	spin_unlock(&stats->lock);
-> +
-> +	return vruntime;
-> +}
-> +
-> +static ktime_t drm_sched_entity_update_vruntime(struct drm_sched_entity =
-*entity)
-> +{
-> +	/*
-> +	 * Core part of the CFS-like algorithm is that the virtual runtime of
-> +	 * lower priority tasks should grow quicker than the higher priority
-> +	 * ones, so that when we then schedule entities with the aim of keeping
-> +	 * their accumulated virtual time balanced, we can approach fair
-> +	 * distribution of GPU time.
-> +	 *
-> +	 * For converting the real GPU time into virtual we pick some
-> +	 * multipliers with the idea to achieve the following GPU time
-> +	 * distribution:
-> +	 *
-> +	 *=C2=A0 - Kernel priority gets roughly 2x GPU time compared to high.
-> +	 *=C2=A0 - High gets ~4x relative to normal.
-> +	 *=C2=A0 - Normal gets ~8x relative to low.
-> +	 */
+The patchset consists of the amd-staging-drm-next branch (Head commit - 46d=
+d134bb2493e78fdc83622d8f9e2ed41c81518 -> drm/amdgpu: clear bad page info of=
+ ras module) with new patches added on top of it.
 
-I can make sense of 2 and 4, but how does 7 match to 8?
+Tested on Ubuntu 24.04.3, on Wayland and X11, using Gnome.
+
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 
 
-P.
 
-> +	static const unsigned int shift[] =3D {
-> +		[DRM_SCHED_PRIORITY_KERNEL] =3D 1,
-> +		[DRM_SCHED_PRIORITY_HIGH]=C2=A0=C2=A0 =3D 2,
-> +		[DRM_SCHED_PRIORITY_NORMAL] =3D 4,
-> +		[DRM_SCHED_PRIORITY_LOW]=C2=A0=C2=A0=C2=A0 =3D 7,
-> +	};
-> +	struct drm_sched_entity_stats *stats =3D entity->stats;
-> +	ktime_t runtime, prev;
-> +
-> +	spin_lock(&stats->lock);
-> +	prev =3D stats->prev_runtime;
-> +	runtime =3D stats->runtime;
-> +	stats->prev_runtime =3D runtime;
-> +	runtime =3D ktime_add_ns(stats->vruntime,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ktime_to_ns(ktime_sub(runtime, p=
-rev)) <<
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shift[entity->priority]);
-> +	stats->vruntime =3D runtime;
-> +	spin_unlock(&stats->lock);
-> +
-> +	return runtime;
-> +}
-> +
-> +static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *enti=
-ty)
-> +{
-> +	return drm_sched_entity_update_vruntime(entity);
-> =C2=A0}
-> =C2=A0
-> =C2=A0/**
-> @@ -98,8 +261,14 @@ drm_sched_rq_add_entity(struct drm_sched_entity *enti=
-ty, ktime_t ts)
-> =C2=A0		list_add_tail(&entity->list, &rq->entities);
-> =C2=A0	}
-> =C2=A0
-> -	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_RR)
-> +	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR) {
-> +		ts =3D drm_sched_rq_get_min_vruntime(rq);
-> +		ts =3D drm_sched_entity_restore_vruntime(entity, ts,
-> +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rq->head_prio);
-> +	} else if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_RR) {
-> =C2=A0		ts =3D entity->rr_ts;
-> +	}
-> +
-> =C2=A0	drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> =C2=A0
-> =C2=A0	spin_unlock(&rq->lock);
-> @@ -171,7 +340,9 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity =
-*entity)
-> =C2=A0	if (next_job) {
-> =C2=A0		ktime_t ts;
-> =C2=A0
-> -		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> +		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR)
-> +			ts =3D drm_sched_entity_get_job_ts(entity);
-> +		else if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO)
-> =C2=A0			ts =3D next_job->submit_ts;
-> =C2=A0		else
-> =C2=A0			ts =3D drm_sched_rq_next_rr_ts(rq, entity);
-> @@ -179,6 +350,13 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity=
- *entity)
-> =C2=A0		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-> =C2=A0	} else {
-> =C2=A0		drm_sched_rq_remove_fifo_locked(entity, rq);
-> +
-> +		if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR) {
-> +			ktime_t min_vruntime;
-> +
-> +			min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
-> +			drm_sched_entity_save_vruntime(entity, min_vruntime);
-> +		}
-> =C2=A0	}
-> =C2=A0	spin_unlock(&rq->lock);
-> =C2=A0	spin_unlock(&entity->lock);
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index be382cacabb5..f1d1a27b970a 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -63,6 +63,7 @@ struct drm_file;
-> =C2=A0 * to an array, and as such should start at 0.
-> =C2=A0 */
-> =C2=A0enum drm_sched_priority {
-> +	DRM_SCHED_PRIORITY_INVALID =3D -1, /* Internal marker - do not use. */
-> =C2=A0	DRM_SCHED_PRIORITY_KERNEL,
-> =C2=A0	DRM_SCHED_PRIORITY_HIGH,
-> =C2=A0	DRM_SCHED_PRIORITY_NORMAL,
-> @@ -150,6 +151,11 @@ struct drm_sched_entity {
-> =C2=A0	 */
-> =C2=A0	enum drm_sched_priority=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 priority;
-> =C2=A0
-> +	/**
-> +	 * @rq_priority: Run-queue priority
-> +	 */
-> +	enum drm_sched_priority=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- rq_priority;
-> +
-> =C2=A0	/**
-> =C2=A0	 * @rr_ts:
-> =C2=A0	 *
-> @@ -254,10 +260,11 @@ struct drm_sched_entity {
-> =C2=A0 * struct drm_sched_rq - queue of entities to be scheduled.
-> =C2=A0 *
-> =C2=A0 * @sched: the scheduler to which this rq belongs to.
-> - * @lock: protects @entities, @rb_tree_root and @rr_ts.
-> + * @lock: protects @entities, @rb_tree_root, @rr_ts and @head_prio.
-> =C2=A0 * @rr_ts: monotonically incrementing fake timestamp for RR mode.
-> =C2=A0 * @entities: list of the entities to be scheduled.
-> =C2=A0 * @rb_tree_root: root of time based priority queue of entities for=
- FIFO scheduling
-> + * @head_prio: priority of the top tree element.
-> =C2=A0 *
-> =C2=A0 * Run queue is a set of entities scheduling command submissions fo=
-r
-> =C2=A0 * one specific ring. It implements the scheduling policy that sele=
-cts
-> @@ -271,6 +278,7 @@ struct drm_sched_rq {
-> =C2=A0	ktime_t				rr_ts;
-> =C2=A0	struct list_head		entities;
-> =C2=A0	struct rb_root_cached		rb_tree_root;
-> +	enum drm_sched_priority		head_prio;
-> =C2=A0};
-> =C2=A0
-> =C2=A0/**
-> @@ -563,8 +571,10 @@ struct drm_sched_backend_ops {
-> =C2=A0 * @credit_count: the current credit count of this scheduler
-> =C2=A0 * @timeout: the time after which a job is removed from the schedul=
-er.
-> =C2=A0 * @name: name of the ring for which this scheduler is being used.
-> - * @num_rqs: Number of run-queues. This is at most DRM_SCHED_PRIORITY_CO=
-UNT,
-> - *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 as there'=
-s usually one run-queue per priority, but could be less.
-> + * @num_user_rqs: Number of run-queues. This is at most
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_COUNT, as there's usually one run-=
-queue per
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 priority, but could be less.
-> + * @num_rqs: Equal to @num_user_rqs for FIFO and RR and 1 for the FAIR p=
-olicy.
-> =C2=A0 * @sched_rq: An allocated array of run-queues of size @num_rqs;
-> =C2=A0 * @job_scheduled: once drm_sched_entity_flush() is called the sche=
-duler
-> =C2=A0 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 waits on this wait queue until all the sc=
-heduled jobs are
-> @@ -597,6 +607,7 @@ struct drm_gpu_scheduler {
-> =C2=A0	long				timeout;
-> =C2=A0	const char			*name;
-> =C2=A0	u32=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_rqs;
-> +	u32=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_user_rqs;
-> =C2=A0	struct drm_sched_rq=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 **sched_rq;
-> =C2=A0	wait_queue_head_t		job_scheduled;
-> =C2=A0	atomic64_t			job_id_count;
+Thank you,
+
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
+
+-----Original Message-----
+From: waynelin <Wayne.Lin@amd.com>
+Sent: Wednesday, October 22, 2025 3:30 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
+Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
+uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
+.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
+com>; Hung, Alex <Alex.Hung@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>
+Subject: [PATCH 00/20] DC Patches October 27, 2025
+
+This DC patchset brings improvements in multiple areas. In summary, we high=
+light:
+
+- Fix incorrect return of vblank enable on unconfigured crtc
+- Add HDR workaround for a specific eDP
+- Make observers const-correct
+- Add lock descriptor to check_update
+- Update cursor offload assignments
+- Add dc interface to log pre os firmware information
+- Init dispclk from bootup clock for DCN315
+- Remove dc param from check_update
+- Update link encoder assignment
+- Add more DC HW state info to underflow logging
+- Rename dml2 to dml2_0 folder
+- Fix notification of vtotal to DMU for cursor offload
+- Fix wrong index for DCN401 cursor offload
+- Add opp count validation to dml2.1
+- Fix DMUB reset sequence for DCN32
+- Bump minimum for frame_warn_limit
+
+---
+
+Alex Hung (1):
+  drm/amd/display: Add HDR workaround for a specific eDP
+
+Alvin Lee (1):
+  drm/amd/display: Update cursor offload assignments
+
+Austin Zheng (3):
+  drm/amd/display: Add dml2_0 folder
+  drm/amd/display: Update dml2 references to use dml2_0 folder
+  drm/amd/display: Remove dml2 Folder.
+
+Dillon Varone (1):
+  drm/amd/display: Fix DMUB reset sequence for DCN32
+
+Dmytro Laktyushkin (1):
+  drm/amd/display: Add opp count validation to dml2.1
+
+Dominik Kaszewski (3):
+  drm/amd/display: Remove dc param from check_update
+  drm/amd/display: Add lock descriptor to check_update
+  drm/amd/display: Make observers const-correct
+
+Ivan Lipski (1):
+  drm/amd/display: Fix incorrect return of vblank enable on unconfigured
+    crtc
+
+Karen Chen (1):
+  drm/amd/display: Add more DC HW state info to underflow logging
+
+Mario Limonciello (1):
+  drm/amd/display: Bump minimum for frame_warn_limit
+
+Meenakshikumar Somasundaram (2):
+  drm/amd/display: update link encoder assignment
+  drm/amd/display: Add dc interface to log pre os firmware information
+
+Nicholas Kazlauskas (2):
+  drm/amd/display: Fix wrong index for DCN401 cursor offload
+  drm/amd/display: Fix notification of vtotal to DMU for cursor offload
+
+Taimur Hassan (2):
+  drm/amd/display: [FW Promotion] Release 0.1.33.0
+  drm/amd/display: Promote DC to 3.2.356
+
+Zhongwei Zhang (1):
+  drm/amd/display: init dispclk from bootup clock for DCN315
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  10 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |   1 +
+ drivers/gpu/drm/amd/display/dc/Makefile       |   2 +-
+ .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |  87 ++++++-
+ .../dc/clk_mgr/dcn315/dcn315_clk_mgr.h        |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 220 ++++++++++--------
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  45 +++-
+ .../gpu/drm/amd/display/dc/core/dc_state.c    |   4 +-
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |   8 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |  68 ++++--
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  21 ++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   7 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  11 +-
+ .../amd/display/dc/dccg/dcn20/dcn20_dccg.h    |  64 ++++-
+ .../amd/display/dc/dccg/dcn31/dcn31_dccg.c    | 123 ++++++++++
+ .../amd/display/dc/dccg/dcn31/dcn31_dccg.h    |   2 +
+ .../amd/display/dc/dccg/dcn314/dcn314_dccg.c  |   3 +-
+ .../amd/display/dc/dccg/dcn314/dcn314_dccg.h  |   3 +-
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |   1 +
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.h    |   5 +-
+ .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |   1 +
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile  | 141 -----------
+ .../gpu/drm/amd/display/dc/dml2_0/Makefile    | 140 +++++++++++
+ .../display/dc/{dml2 =3D> dml2_0}/cmntypes.h    |  18 +-
+ .../dc/{dml2 =3D> dml2_0}/display_mode_core.c   |   2 +
+ .../dc/{dml2 =3D> dml2_0}/display_mode_core.h   |   0
+ .../display_mode_core_structs.h               |   3 +-
+ .../display_mode_lib_defines.h                |   2 +-
+ .../dc/{dml2 =3D> dml2_0}/display_mode_util.c   |   0
+ .../dc/{dml2 =3D> dml2_0}/display_mode_util.h   |   2 -
+ .../dml21/dml21_translation_helper.c          |   0
+ .../dml21/dml21_translation_helper.h          |   0
+ .../dc/{dml2 =3D> dml2_0}/dml21/dml21_utils.c   |   0
+ .../dc/{dml2 =3D> dml2_0}/dml21/dml21_utils.h   |   0
+ .../dc/{dml2 =3D> dml2_0}/dml21/dml21_wrapper.c |   4 +-
+ .../dc/{dml2 =3D> dml2_0}/dml21/dml21_wrapper.h |   0
+ .../dml21/inc/bounding_boxes/dcn4_soc_bb.h    |   1 -
+ .../dml21/inc/dml2_external_lib_deps.h        |   0
+ .../dc/{dml2 =3D> dml2_0}/dml21/inc/dml_top.h   |   0
+ .../dml21/inc/dml_top_dchub_registers.h       |   0
+ .../dml21/inc/dml_top_display_cfg_types.h     |   0
+ .../dml21/inc/dml_top_policy_types.h          |   0
+ .../dml21/inc/dml_top_soc_parameter_types.h   |   0
+ .../dml21/inc/dml_top_types.h                 |   0
+ .../dml21/src/dml2_core/dml2_core_dcn4.c      |   1 +
+ .../dml21/src/dml2_core/dml2_core_dcn4.h      |   0
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |  29 ++-
+ .../src/dml2_core/dml2_core_dcn4_calcs.h      |   0
+ .../dml21/src/dml2_core/dml2_core_factory.c   |   0
+ .../dml21/src/dml2_core/dml2_core_factory.h   |   0
+ .../src/dml2_core/dml2_core_shared_types.h    |   3 +
+ .../dml21/src/dml2_core/dml2_core_utils.c     |   0
+ .../dml21/src/dml2_core/dml2_core_utils.h     |   0
+ .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      |   0
+ .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.h      |   0
+ .../dml21/src/dml2_dpmm/dml2_dpmm_factory.c   |   0
+ .../dml21/src/dml2_dpmm/dml2_dpmm_factory.h   |   0
+ .../dml21/src/dml2_mcg/dml2_mcg_dcn4.c        |   0
+ .../dml21/src/dml2_mcg/dml2_mcg_dcn4.h        |   2 +-
+ .../dml21/src/dml2_mcg/dml2_mcg_factory.c     |   0
+ .../dml21/src/dml2_mcg/dml2_mcg_factory.h     |   0
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn3.c        |   0
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn3.h        |   0
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |   0
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.h  |   0
+ .../dml21/src/dml2_pmo/dml2_pmo_factory.c     |   0
+ .../dml21/src/dml2_pmo/dml2_pmo_factory.h     |   2 +-
+ .../lib_float_math.c                          |   0
+ .../lib_float_math.h                          |   0
+ .../dml21/src/dml2_top/dml2_top_interfaces.c  |   0
+ .../dml21/src/dml2_top/dml2_top_legacy.c      |   0
+ .../dml21/src/dml2_top/dml2_top_legacy.h      |   0
+ .../dml21/src/dml2_top/dml2_top_soc15.c       |   0
+ .../dml21/src/dml2_top/dml2_top_soc15.h       |   0
+ .../dml21/src/inc/dml2_debug.h                |   0
+ .../src/inc/dml2_internal_shared_types.h      |   0
+ .../{dml2 =3D> dml2_0}/dml2_dc_resource_mgmt.c  |   0
+ .../{dml2 =3D> dml2_0}/dml2_dc_resource_mgmt.h  |   0
+ .../dc/{dml2 =3D> dml2_0}/dml2_dc_types.h       |   0
+ .../dc/{dml2 =3D> dml2_0}/dml2_internal_types.h |   2 +-
+ .../dc/{dml2 =3D> dml2_0}/dml2_mall_phantom.c   |   1 +
+ .../dc/{dml2 =3D> dml2_0}/dml2_mall_phantom.h   |   0
+ .../display/dc/{dml2 =3D> dml2_0}/dml2_policy.c |   0
+ .../display/dc/{dml2 =3D> dml2_0}/dml2_policy.h |   0
+ .../dml2_translation_helper.c                 |   3 +
+ .../dml2_translation_helper.h                 |   0
+ .../display/dc/{dml2 =3D> dml2_0}/dml2_utils.c  |   0
+ .../display/dc/{dml2 =3D> dml2_0}/dml2_utils.h  |   0
+ .../dc/{dml2 =3D> dml2_0}/dml2_wrapper.c        |   0
+ .../dc/{dml2 =3D> dml2_0}/dml2_wrapper.h        |   0
+ .../display/dc/{dml2 =3D> dml2_0}/dml_assert.h  |   0
+ .../dc/{dml2 =3D> dml2_0}/dml_depedencies.h     |   1 +
+ .../dml_display_rq_dlg_calc.c                 |   0
+ .../dml_display_rq_dlg_calc.h                 |   0
+ .../display/dc/{dml2 =3D> dml2_0}/dml_logging.h |   1 +
+ .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp.h  |   4 +-
+ .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  |  16 ++
+ .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.h  |   2 +
+ .../drm/amd/display/dc/dpp/dcn32/dcn32_dpp.c  |   1 +
+ .../drm/amd/display/dc/dpp/dcn35/dcn35_dpp.c  |   1 +
+ .../amd/display/dc/dpp/dcn401/dcn401_dpp.c    |   1 +
+ .../amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c |   1 +
+ .../drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c  |   8 +
+ .../drm/amd/display/dc/dsc/dcn20/dcn20_dsc.h  |   1 +
+ .../drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c  |   1 +
+ .../amd/display/dc/dsc/dcn401/dcn401_dsc.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/dsc/dsc.h      |   5 +
+ .../display/dc/hubbub/dcn30/dcn30_hubbub.c    |  33 +--
+ .../display/dc/hubbub/dcn30/dcn30_hubbub.h    |   6 +-
+ .../display/dc/hubbub/dcn31/dcn31_hubbub.c    |   3 +-
+ .../display/dc/hubbub/dcn32/dcn32_hubbub.c    |   3 +-
+ .../display/dc/hubbub/dcn35/dcn35_hubbub.c    |   3 +-
+ .../display/dc/hubbub/dcn401/dcn401_hubbub.c  |   3 +-
+ .../amd/display/dc/hubp/dcn10/dcn10_hubp.h    | 136 ++++++++++-
+ .../amd/display/dc/hubp/dcn20/dcn20_hubp.h    |   8 +-
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.c    | 147 +++++++++---
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.h    |   2 +
+ .../amd/display/dc/hubp/dcn31/dcn31_hubp.c    |   4 +-
+ .../amd/display/dc/hubp/dcn32/dcn32_hubp.c    |   4 +-
+ .../amd/display/dc/hubp/dcn35/dcn35_hubp.c    |   4 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  28 +--
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |   2 +-
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  76 +++---
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |   2 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |   4 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   4 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  | 121 +++++++++-  .../gpu/dr=
+m/amd/display/dc/inc/hw/dchubbub.h  |  12 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  16 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   5 +-
+ .../gpu/drm/amd/display/dc/inc/hw/mem_input.h |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |  27 +++
+ drivers/gpu/drm/amd/display/dc/inc/hw/opp.h   |  13 ++
+ .../amd/display/dc/inc/hw/timing_generator.h  | 130 +++++++++++  .../drm/a=
+md/display/dc/mpc/dcn30/dcn30_mpc.c  |  16 ++
+ .../drm/amd/display/dc/mpc/dcn30/dcn30_mpc.h  |   5 +
+ .../drm/amd/display/dc/mpc/dcn32/dcn32_mpc.c  |   1 +
+ .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    |   1 +
+ .../drm/amd/display/dc/opp/dcn10/dcn10_opp.c  |  14 +-
+ .../drm/amd/display/dc/opp/dcn10/dcn10_opp.h  |   6 +-
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  |  13 ++
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.h  |   6 +-
+ .../drm/amd/display/dc/opp/dcn35/dcn35_opp.c  |  13 ++
+ .../drm/amd/display/dc/opp/dcn35/dcn35_opp.h  |   4 +-
+ .../amd/display/dc/optc/dcn10/dcn10_optc.h    |  38 ++-
+ .../amd/display/dc/optc/dcn31/dcn31_optc.c    | 131 +++++++++++
+ .../amd/display/dc/optc/dcn31/dcn31_optc.h    |   2 +
+ .../amd/display/dc/optc/dcn314/dcn314_optc.c  |   1 +
+ .../amd/display/dc/optc/dcn32/dcn32_optc.c    |   1 +
+ .../amd/display/dc/optc/dcn35/dcn35_optc.c    |   1 +
+ .../amd/display/dc/optc/dcn401/dcn401_optc.c  |   1 +
+ .../dc/resource/dce100/dce100_resource.c      |   7 +-
+ .../dc/resource/dce110/dce110_resource.c      |   5 +-
+ .../dc/resource/dce112/dce112_resource.c      |   7 +-
+ .../dc/resource/dce120/dce120_resource.c      |   8 +-
+ .../dc/resource/dce80/dce80_resource.c        |   8 +-
+ .../dc/resource/dcn10/dcn10_resource.c        |   7 +-
+ .../dc/resource/dcn20/dcn20_resource.c        |   6 +-
+ .../dc/resource/dcn201/dcn201_resource.c      |   6 +-
+ .../dc/resource/dcn21/dcn21_resource.c        |   6 +-
+ .../dc/resource/dcn30/dcn30_resource.c        |   6 +-
+ .../dc/resource/dcn301/dcn301_resource.c      |   6 +-
+ .../dc/resource/dcn302/dcn302_resource.c      |   6 +-
+ .../dc/resource/dcn303/dcn303_resource.c      |   6 +-
+ .../dc/resource/dcn31/dcn31_resource.c        |   6 +-
+ .../dc/resource/dcn314/dcn314_resource.c      |   6 +-
+ .../dc/resource/dcn315/dcn315_resource.c      |   7 +-
+ .../dc/resource/dcn316/dcn316_resource.c      |   6 +-
+ .../dc/resource/dcn32/dcn32_resource.c        |   8 +-
+ .../dc/resource/dcn321/dcn321_resource.c      |   6 +-
+ .../dc/resource/dcn35/dcn35_resource.c        |   8 +-
+ .../dc/resource/dcn351/dcn351_resource.c      |   8 +-
+ .../dc/resource/dcn36/dcn36_resource.c        |   8 +-
+ .../dc/resource/dcn401/dcn401_resource.c      |   8 +-
+ .../dcn401/dcn401_soc_and_ip_translator.h     |   2 +-
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  25 ++
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  12 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c |  50 ++--  .../gpu/drm/amd/=
+display/dmub/src/dmub_dcn35.c |  39 ++++
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn35.h |   2 +
+ .../drm/amd/display/dmub/src/dmub_dcn401.c    |  17 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |   9 +
+ 182 files changed, 1920 insertions(+), 530 deletions(-)  delete mode 10064=
+4 drivers/gpu/drm/amd/display/dc/dml2/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+ rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/cmntypes.h (93%) =
+ rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/display_mode_core=
+.c (99%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/display_=
+mode_core.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0=
+}/display_mode_core_structs.h (99%)  rename drivers/gpu/drm/amd/display/dc/=
+{dml2 =3D> dml2_0}/display_mode_lib_defines.h (95%)  rename drivers/gpu/drm=
+/amd/display/dc/{dml2 =3D> dml2_0}/display_mode_util.c (100%)  rename drive=
+rs/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/display_mode_util.h (99%)  ren=
+ame drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/dml21_translati=
+on_helper.c (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0=
+}/dml21/dml21_translation_helper.h (100%)  rename drivers/gpu/drm/amd/displ=
+ay/dc/{dml2 =3D> dml2_0}/dml21/dml21_utils.c (100%)  rename drivers/gpu/drm=
+/amd/display/dc/{dml2 =3D> dml2_0}/dml21/dml21_utils.h (100%)  rename drive=
+rs/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/dml21_wrapper.c (99%)  r=
+ename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/dml21_wrapper=
+.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/i=
+nc/bounding_boxes/dcn4_soc_bb.h (99%)  rename drivers/gpu/drm/amd/display/d=
+c/{dml2 =3D> dml2_0}/dml21/inc/dml2_external_lib_deps.h (100%)  rename driv=
+ers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/inc/dml_top.h (100%)  r=
+ename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/inc/dml_top_d=
+chub_registers.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> d=
+ml2_0}/dml21/inc/dml_top_display_cfg_types.h (100%)  rename drivers/gpu/drm=
+/amd/display/dc/{dml2 =3D> dml2_0}/dml21/inc/dml_top_policy_types.h (100%) =
+ rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/inc/dml_top=
+_soc_parameter_types.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =
+=3D> dml2_0}/dml21/inc/dml_top_types.h (100%)  rename drivers/gpu/drm/amd/d=
+isplay/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_core/dml2_core_dcn4.c (99%)  re=
+name drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_core/=
+dml2_core_dcn4.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> d=
+ml2_0}/dml21/src/dml2_core/dml2_core_dcn4_calcs.c (99%)  rename drivers/gpu=
+/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_core/dml2_core_dcn4_c=
+alcs.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml=
+21/src/dml2_core/dml2_core_factory.c (100%)  rename drivers/gpu/drm/amd/dis=
+play/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_core/dml2_core_factory.h (100%)  =
+rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_cor=
+e/dml2_core_shared_types.h (99%)  rename drivers/gpu/drm/amd/display/dc/{dm=
+l2 =3D> dml2_0}/dml21/src/dml2_core/dml2_core_utils.c (100%)  rename driver=
+s/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_core/dml2_core_u=
+tils.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml=
+21/src/dml2_dpmm/dml2_dpmm_dcn4.c (100%)  rename drivers/gpu/drm/amd/displa=
+y/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.h (100%)  rename=
+ drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_dpmm/dml2=
+_dpmm_factory.c (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dm=
+l2_0}/dml21/src/dml2_dpmm/dml2_dpmm_factory.h (100%)  rename drivers/gpu/dr=
+m/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_mcg/dml2_mcg_dcn4.c (100=
+%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2=
+_mcg/dml2_mcg_dcn4.h (97%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D=
+> dml2_0}/dml21/src/dml2_mcg/dml2_mcg_factory.c (100%)  rename drivers/gpu/=
+drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_mcg/dml2_mcg_factory.h=
+ (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src=
+/dml2_pmo/dml2_pmo_dcn3.c (100%)  rename drivers/gpu/drm/amd/display/dc/{dm=
+l2 =3D> dml2_0}/dml21/src/dml2_pmo/dml2_pmo_dcn3.h (100%)  rename drivers/g=
+pu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_pmo/dml2_pmo_dcn4_f=
+ams2.c (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml=
+21/src/dml2_pmo/dml2_pmo_dcn4_fams2.h (100%)  rename drivers/gpu/drm/amd/di=
+splay/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_pmo/dml2_pmo_factory.c (100%)  r=
+ename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_pmo/=
+dml2_pmo_factory.h (97%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> =
+dml2_0}/dml21/src/dml2_standalone_libraries/lib_float_math.c (100%)  rename=
+ drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_standalon=
+e_libraries/lib_float_math.h (100%)  rename drivers/gpu/drm/amd/display/dc/=
+{dml2 =3D> dml2_0}/dml21/src/dml2_top/dml2_top_interfaces.c (100%)  rename =
+drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_top/dml2_t=
+op_legacy.c (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0=
+}/dml21/src/dml2_top/dml2_top_legacy.h (100%)  rename drivers/gpu/drm/amd/d=
+isplay/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_top/dml2_top_soc15.c (100%)  re=
+name drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml21/src/dml2_top/d=
+ml2_top_soc15.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dm=
+l2_0}/dml21/src/inc/dml2_debug.h (100%)  rename drivers/gpu/drm/amd/display=
+/dc/{dml2 =3D> dml2_0}/dml21/src/inc/dml2_internal_shared_types.h (100%)  r=
+ename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml2_dc_resource_mg=
+mt.c (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml2_=
+dc_resource_mgmt.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D>=
+ dml2_0}/dml2_dc_types.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml=
+2 =3D> dml2_0}/dml2_internal_types.h (99%)  rename drivers/gpu/drm/amd/disp=
+lay/dc/{dml2 =3D> dml2_0}/dml2_mall_phantom.c (99%)  rename drivers/gpu/drm=
+/amd/display/dc/{dml2 =3D> dml2_0}/dml2_mall_phantom.h (100%)  rename drive=
+rs/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml2_policy.c (100%)  rename d=
+rivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml2_policy.h (100%)  rena=
+me drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml2_translation_helpe=
+r.c (99%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml2_tr=
+anslation_helper.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D>=
+ dml2_0}/dml2_utils.c (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =
+=3D> dml2_0}/dml2_utils.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dm=
+l2 =3D> dml2_0}/dml2_wrapper.c (100%)  rename drivers/gpu/drm/amd/display/d=
+c/{dml2 =3D> dml2_0}/dml2_wrapper.h (100%)  rename drivers/gpu/drm/amd/disp=
+lay/dc/{dml2 =3D> dml2_0}/dml_assert.h (100%)  rename drivers/gpu/drm/amd/d=
+isplay/dc/{dml2 =3D> dml2_0}/dml_depedencies.h (99%)  rename drivers/gpu/dr=
+m/amd/display/dc/{dml2 =3D> dml2_0}/dml_display_rq_dlg_calc.c (100%)  renam=
+e drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml_display_rq_dlg_calc=
+.h (100%)  rename drivers/gpu/drm/amd/display/dc/{dml2 =3D> dml2_0}/dml_log=
+ging.h (99%)
+
+--
+2.43.0
 
