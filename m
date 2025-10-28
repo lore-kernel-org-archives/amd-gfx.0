@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD219CCF9F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89738CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51AC210E934;
-	Thu, 30 Oct 2025 09:24:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1906710E937;
+	Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BY4x66L9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="czcqHsvu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB46B899D4;
- Thu, 30 Oct 2025 08:22:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60D6110E63D;
+ Tue, 28 Oct 2025 17:38:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761812559; x=1793348559;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=X1qoRbeR7cH7A76OaU8ea24X2x456u+mQGXe5BlwdDI=;
- b=BY4x66L9o23UZG3GDt6qR998UqhTBZiYyXgNTlETjtGY/qCcTx+i5Y2O
- 70zAJvZWKZDpDrr4iN97g6D93koH3zgExkjdttlyhNFFKnuD+pHxoQLET
- 8Dpn7hb2XpwCqolq8KRPY9Bgb8fY4rpTB3cZBpZ7q8J6q7ePVDHceXV08
- J1U1EtL2y59/DorfW7RFgQldBdoZ1RWjy4gMUzbCrmNvb6oiTAkUDtTa0
- KEk8WOjja+1THFCzs5swSvHxNY8zO27mDMeG9hQGA3WF5YIIqdXhJFh9l
- RGROhirSd3mWckssippbBdwoMiphLdBUuYQA3v9AXQlZRxrCJXzV2Gxpy w==;
-X-CSE-ConnectionGUID: Xh8Qda5LTfyqOpjWr7xOpA==
-X-CSE-MsgGUID: vQZIPc+JSKeKMqExl+fyqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11597"; a="81364916"
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="81364916"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2025 01:22:38 -0700
-X-CSE-ConnectionGUID: xR/MoA+3SYyESYupl8VUhw==
-X-CSE-MsgGUID: X50HDf1BT5eqFcsooueXiA==
+ t=1761673083; x=1793209083;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=rj0qgordGZNB+YdPjKDmtqTEG5yrczqeTMJCDVNmgm0=;
+ b=czcqHsvuBt+Cd0uR/ZTJ2AxTRMMSPqWM7JyltnWkaww25r7Iy7p8xH6m
+ w2LJJAPHSkbpNsDfOpdHV/Uls82kBh1e6d4vvgvhfLN5972U9a9whs9Jx
+ 8UTV652d4ki/iKmBQXNzSoaV6T4oKUa2jV+qnaLKoHkF9POKlK5V5qkbC
+ WoH/JYxyogM2J/nZFlBRnL/6AxxJUyMe9PyKmslpQiCpfqO53yDuJv5hO
+ smgC5HDMG8wD3Ro+DQq/LWrVjetndd9PSDQTlNdaVPZLb3WWcTqbCJZFr
+ 3DmskT1xk5uiatgkZkAXrZyotp44vWtf4X/lw5two5Mky0WGlNEYBEodi w==;
+X-CSE-ConnectionGUID: 34gN1EUdR+ew60r6H2C2eA==
+X-CSE-MsgGUID: iwieSlqSQB+oFYVrvghjBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="81413277"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="81413277"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:38:03 -0700
+X-CSE-ConnectionGUID: CNDiVW/JRC2hDk9azTLjtQ==
+X-CSE-MsgGUID: jG6aT9CEQn60hVk9anqSKQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="216745465"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="185304310"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.175])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2025 01:22:31 -0700
+ ([10.245.244.182])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:37:56 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 30 Oct 2025 10:22:27 +0200 (EET)
-To: Bjorn Helgaas <helgaas@kernel.org>
-cc: =?ISO-8859-15?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>, 
- Simon Richter <Simon.Richter@hogyros.de>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
- =?ISO-8859-2?Q?Micha=B3_Winiarski?= <michal.winiarski@intel.com>, 
- LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/9] PCI: Prevent resource tree corruption when BAR resize
- fails
-In-Reply-To: <20251029233644.GA1604285@bhelgaas>
-Message-ID: <d697c9e1-580e-6449-796c-a3f5198e0934@linux.intel.com>
-References: <20251029233644.GA1604285@bhelgaas>
+To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Simon Richter <Simon.Richter@hogyros.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 9/9] PCI: Prevent restoring assigned resources
+Date: Tue, 28 Oct 2025 19:35:51 +0200
+Message-Id: <20251028173551.22578-10-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
+References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-87365863-1761812347=:975"
-Content-ID: <cc63bc64-2c9d-bc3a-0105-b36ea9a88737@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 30 Oct 2025 09:24:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,43 +82,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+restore_dev_resource() copies saved addresses and flags from the struct
+pci_dev_resource back to the struct resource, typically, during
+rollback from a failure or in preparation for a retry attempt.
 
---8323328-87365863-1761812347=:975
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <b1bb7069-a25e-dcfe-65de-9b3ae8fc20b4@linux.intel.com>
+If the resource is within resource tree, the resource must not be
+modified as the resource tree could be corrupted. Thus, it's a bug to
+call restore_dev_resource() for assigned resources (which did happen
+due to logic flaws in the BAR resize rollback).
 
-On Wed, 29 Oct 2025, Bjorn Helgaas wrote:
+Add WARN_ON_ONCE() into restore_dev_resource() to detect such bugs
+easily and return without altering the resource to prevent corruption.
 
-> On Tue, Oct 28, 2025 at 07:35:43PM +0200, Ilpo J=E4rvinen wrote:
-> > pbus_reassign_bridge_resources() saves bridge windows into the saved
-> > list before attempting to adjust resource assignments to perform a BAR
-> > resize operation. If resource adjustments cannot be completed fully,
-> > rollback is attempted by restoring the resource from the saved list.
->=20
-> > Fixes: 8bb705e3e79d ("PCI: Add pci_resize_resource() for resizing BARs"=
-)
-> > Reported-by: Simon Richter <Simon.Richter@hogyros.de>
-> > Reported-by: Alex Benn=E9e <alex.bennee@linaro.org>
->=20
-> If these reports were public, can we include lore URLs for them?
->=20
-> Same question for [PATCH 5/9] PCI: Fix restoring BARs on BAR resize
-> rollback path.
->=20
-> I put these all on pci/resource for build testing.  I assume we'll
-> tweak these based on testing reports and sorting out the pci/rebar
-> conflicts.
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/pci/setup-bus.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks, the links will come in v2 along with fixing a few things found by=
-=20
-more extensive tests by LKP. E.g., it seems clang thinks guard() cannot be=
-=20
-used here because goto jumps over it (auto variable initialization gets=20
-skipped so it's kind of understandable limitation).
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index 8da83b612c59..28d6ae822c0b 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include <linux/bitops.h>
++#include <linux/bug.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+@@ -135,6 +136,9 @@ static void restore_dev_resource(struct pci_dev_resource *dev_res)
+ {
+ 	struct resource *res = dev_res->res;
+ 
++	if (WARN_ON_ONCE(res->parent))
++		return;
++
+ 	res->start = dev_res->start;
+ 	res->end = dev_res->end;
+ 	res->flags = dev_res->flags;
+-- 
+2.39.5
 
---=20
- i.
---8323328-87365863-1761812347=:975--
