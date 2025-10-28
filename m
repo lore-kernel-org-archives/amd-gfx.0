@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35B8ACCD1BF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0175BCCF9F1
 	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 22:06:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC49110E67B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B256510E67D;
 	Tue, 28 Oct 2025 22:06:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L//nNm4p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RYHwUx3u";
 	dkim-atps=neutral
 Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
  [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA8FB10E676
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:06:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EDED10E67A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:06:39 +0000 (UTC)
 Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-63c45c11be7so10609978a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:06:40 -0700 (PDT)
+ 4fb4d7f45d1cf-63c0eb94ac3so11586487a12.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:06:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761689199; x=1762293999; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1761689198; x=1762293998; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ZRKLQvDJvTFtMZiHMA4K/xzfPwXLFKq2fC8dn2Nvx5c=;
- b=L//nNm4pRbmCvIZtdBifCEdJPu8z+ncCs/hzq8gfW/o2ghrsuASFwOnffoJCWqvslH
- SUFIuGYH29Y9HFFZr8iPBJ/chXqi1UU8Ldkr0tvv/E+Urn8JhN6OHnTLmyv5YbHZ2END
- GRvPPXFKHoNwrbYSahdQ4CVQ+qjwRtN8NGw0OxSGp3dg0TBsH63g+F4Nzy+oY9UjJhtM
- KJ1ENDOhN8G2KE/49fdZ0PrPydRU7QXgIf2iDodW1x197J5Zweq9qHqd7smoWTLmxB1J
- X2714roCRGSSK576DwR75uvQ6k2cfc6+MeHo7xNP0Lwn8S4dVuxJPIjmxZIF4FX6oEH3
- UkFw==
+ :reply-to; bh=rygbqPSTkTaRF2YXh0oPW0/6GhhbiO7ShaOt1NDQFjs=;
+ b=RYHwUx3uPPxTxVwgc9PXqnV5YHqGLP/gUHWA9erFm1PYMbtv7aokOnIT/TgoK94KZp
+ 0TGshm78VUWOi5qVPyCgmqEB4IvS/Ca2VNmmtB8/UgbIehGmGIbaq9CLOXive1bChucL
+ cCzmKaDbt5jRWHpAtbKKDiYUIECm5zYRvqvdRk/YQyPG1ZRo+hTINrhKWB+Dm4POc2+b
+ lI67QOhcuDUmdZuM1Dw9dEE6gAdUih+jUr7U0eOxwoSgOp51YJVNY1mSkxaPHDKFZjPA
+ CROpLwrIRViktQcBjo14/tnPqFBr6m7cO0xyifU5Su5yQrVvrMLE5Yse35WqOi/YT55f
+ fuAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761689199; x=1762293999;
+ d=1e100.net; s=20230601; t=1761689198; x=1762293998;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZRKLQvDJvTFtMZiHMA4K/xzfPwXLFKq2fC8dn2Nvx5c=;
- b=cpYSFLJwXgifO3vLiM6Mf3w1nTV+yH4ep2GLjX/dEIh4Wo7X4Azc1oxK0ffk176ah7
- eq0dTixiY3Gz6JjWp9WJUle30oGilj2pkEiSOZErNY1L8FHVj8SOvcLf+L+gz0mezf6H
- kFOZzt4irjSZKmuAxmuKsDFHhePpextWPASFiVO2/J/KDrDNMjGazUMLClDa9c/7hvmq
- RAqvIYXjTit2neEWAQXpbb181DcVGJXPu8KijNjPXcdA2Q4o4PU8FCxtJXf0ee+3Bwim
- WRKRSuufMBKU3eKMBApPmq2XrJk094UjQPplpFq6NkgHpAjvO1tuDY6WcAc4zOj34gFl
- PfXw==
-X-Gm-Message-State: AOJu0YwU4KHR+N4mJzyn0vEhm1p2ytwihQFnAmUg8WJgku6Mk8OHxnB2
- ssPwsbdEc7b+Io0/Gh6z+zdZF34f2LHECUNiiW4iiTEm2WGobA6WABrq5ET65g==
-X-Gm-Gg: ASbGncsrV2lNwGvg+8HeodhN0zR9EqI1p0AsJ+jsPh4g1VdvuNx9t2gi2qRNBSk2j8T
- IXM21sDr4nnaVQY2pIyhKJgqJuxhJ1QDdaQxELvioyl04HI0DtdzO7Pt3lk0cT6jojLQ5sjituE
- bBTPZJjSA4YEKwawssj5Znr7Gv8CNQ/nYrz/2v9SfKzFMZ7nndoI0AvUzTVEW6XLFJiEAUMRGvW
- AqhTouwjfNiV/p4SnA2j8jiboszMqW1R+gasc/mfXlVQdIWxFw64RUO4VH5IDab/96OjabD/Q3l
- Fx2/lgKtWuxoNkgs6/PzQcEBMoapAC/pjgYuwc0E/ASRSZACu+0Pn+erGrqsTZWWtuENJo9fgQi
- rEPlHAcCWQapO34qkBM6CzhV/MxgpoWOd6Mgc8qYiQeQzT25b4Kzn6RHsRtEptViPjkbjp8HE8T
- gdMv0HhnzsHxioIYkEwokh/ndz4aWwAvIQHQ2LaKmjqHSSNs6HpiU2FYcO5Ub4QgMOzoliIvDPF
- PPbV7IU
-X-Google-Smtp-Source: AGHT+IGza3qI2nVmf0WCVieCs/fKZkC6Um5fFl9EhUmMFrn/SO9QZxnhmYv4uch5c6Bc0iyZiXgLBA==
-X-Received: by 2002:a05:6402:4415:b0:634:ab36:3c74 with SMTP id
- 4fb4d7f45d1cf-640441a956bmr486533a12.9.1761689199371; 
- Tue, 28 Oct 2025 15:06:39 -0700 (PDT)
+ bh=rygbqPSTkTaRF2YXh0oPW0/6GhhbiO7ShaOt1NDQFjs=;
+ b=t2rtY0E6B7b0+IIE04IbY25Y/s4Run9d7XVrJn05mt4J445rxxX90be8IxyPWSvuMr
+ eP/daBjNvv3NiAnAi07SkVwFJyNPjasU2IuQjS185l+JTWokl9QF8PlFpLKRQcXvjgQb
+ vtfJ/pQeAWh9XYngkD5x1VGQgwLXDamRWlZdad7wyF4SGUor9pBkq09gLdWYafpDXRvI
+ 4XSxnwYlKw8c8vjb/HPUQhL4+RWk9snFu1+JOGkvcDy5nyMHYERAaarWDXmFgdLYvZWL
+ ZSbCK7OC/s9ggKY7DL4ffXAh2Oe2rfiPoSTTyxBCQUeCmITxTFpDXuuyIHmKyFhVuafi
+ +/GQ==
+X-Gm-Message-State: AOJu0YykttTJ4PwlAVNstHOkdAP+JMJAYVleIFWN97CxRRK2hS5A12aU
+ ouvviodaErR6ED7JvRWysEBvkOwhN9gEi2gzE2IbM8fRK8GCCHhiPyVcqxLZBA==
+X-Gm-Gg: ASbGnctknnfHlhCXkmUu9nzgZOctiwWZUIwyT8ire5BZmvH0CLq/H8NA1b3xpBJrsyn
+ KlKq3zxtbVIHX1oTSasREIm2icikBJecr9n9bXE1oOJfiIKaTtfqwVW7MPO19HEqrGAoXOX6LeQ
+ kskfRxC63+LddJhTrv7P/vBhMZrCS52+elarMyBVjDkc6f33RXCGnUgCBQHY001nH9TJmCH7lbh
+ ydGe+x6AgMhB/+WT3zYzJX3amOC7JKF09t03bkMpfB5kP4gt2yi3VFgvTJig6iwK36JlTgVRhYb
+ xWa1OHu+TFORCAW7lo2SrPOzzl2552hmGbMNFf7IXAm62YiFlLWHP0XZ7M0ycNjtyMRuhPoZ3S/
+ 0WDSRt1FGdZpXc3/GGUtglp2TZGAF6DJQcZxsRXGPONHsFpfDwEnZB9WEWdKO3YG4xnxJELaoM/
+ 5lf4nFk75JK/oXoIsehd6jSrp4gfMDyiacmN7LV6gUMNZFDfIhJX22J5eKq64LEfu9ZqVWTI3n7
+ /k2LKvZ
+X-Google-Smtp-Source: AGHT+IFsoR0H+3hvpXXempgyLz6SNwF9ZZU9qdhMRcOX5K2Z25nHlkuJcGda05pb3Az1QW911UoCRg==
+X-Received: by 2002:a05:6402:d0e:b0:639:ffb5:3606 with SMTP id
+ 4fb4d7f45d1cf-640443752c1mr426297a12.33.1761689197627; 
+ Tue, 28 Oct 2025 15:06:37 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24CBF70057E8101A3AD09709.dsl.pool.telekom.hu.
  [2001:4c4e:24cb:f700:57e8:101a:3ad0:9709])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.37
+ 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Oct 2025 15:06:39 -0700 (PDT)
+ Tue, 28 Oct 2025 15:06:37 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 02/14] drm/amdgpu/gmc6: Place gart at low address range
-Date: Tue, 28 Oct 2025 23:06:16 +0100
-Message-ID: <20251028220628.8371-3-timur.kristof@gmail.com>
+Subject: [PATCH 01/14] drm/amdgpu/gmc: Don't hardcode GART page count before
+ GTT
+Date: Tue, 28 Oct 2025 23:06:15 +0100
+Message-ID: <20251028220628.8371-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251028220628.8371-1-timur.kristof@gmail.com>
 References: <20251028220628.8371-1-timur.kristof@gmail.com>
@@ -92,34 +93,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of using a best-fit algorithm to determine which part
-of the VMID 0 address space to use for GART, always use the low
-address range.
+GART contains some pages in its address space that come before
+the GTT and are used for BO copies.
 
-A subsequent commit will use this to map the VCPU BO in GART
-for the VCE1 IP block.
+Instead of hardcoding the size of the GART space before GTT,
+make it a field in the amdgpu_gmc struct. This allows us to map
+more things in GART before GTT.
 
-Split this into	a separate patch to make it easier to bisect,
-in case	there are any errors in	the future.
+Split this into a separate patch to make it easier to bisect,
+in case there are any errors in the future.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     | 2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 2 +-
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index f6ad7911f1e6..499dfd78092d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -213,7 +213,7 @@ static void gmc_v6_0_vram_gtt_location(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 97b562a79ea8..bf31bd022d6d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -325,6 +325,8 @@ void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc,
+ 		break;
+ 	}
  
- 	amdgpu_gmc_set_agp_default(adev, mc);
- 	amdgpu_gmc_vram_location(adev, mc, base);
--	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
-+	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_LOW);
- }
++	mc->num_gart_pages_before_gtt =
++		AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
+ 	mc->gart_start &= ~(four_gb - 1);
+ 	mc->gart_end = mc->gart_start + mc->gart_size - 1;
+ 	dev_info(adev->dev, "GART: %lluM 0x%016llX - 0x%016llX\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 55097ca10738..568eed3eb557 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -266,6 +266,7 @@ struct amdgpu_gmc {
+ 	u64			fb_end;
+ 	unsigned		vram_width;
+ 	u64			real_vram_size;
++	u32			num_gart_pages_before_gtt;
+ 	int			vram_mtrr;
+ 	u64                     mc_mask;
+ 	const struct firmware   *fw;	/* MC firmware */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+index 0760e70402ec..4c2563a70c2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+@@ -283,7 +283,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
  
- static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
+ 	ttm_resource_manager_init(man, &adev->mman.bdev, gtt_size);
+ 
+-	start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
++	start = adev->gmc.num_gart_pages_before_gtt;
+ 	size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
+ 	drm_mm_init(&mgr->mm, start, size);
+ 	spin_lock_init(&mgr->lock);
 -- 
 2.51.0
 
