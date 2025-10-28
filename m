@@ -4,121 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98F06CCF9E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 18:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C73BFCCD1BF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 19:54:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 364C710E64A;
-	Tue, 28 Oct 2025 18:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FAEE10E652;
+	Tue, 28 Oct 2025 19:54:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cj5eXJ35";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PtrDBg+z";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YHrc+n4k";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012043.outbound.protection.outlook.com
- [40.93.195.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64FC910E084
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 18:52:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BuXjGE7AMUUJZFnW7ZQ7JNPASpdAr+eDkhawjuGJPtC7bmt8pcU6J07b3eVO4g9RIGhS8w2YAR3sU3q6pDsai9kwptRvPWhZagfZ2xBh2T5nIe3aHdCgiqfC75ppgfDMjfT76MrjWgsrO82d7t8TroKgGApIMSffbj+YYVVjoUN5rAmX+TAuOB70Yu0X/wF924qb+TLB1f1il7YAfetgHEqnCfJx/nArmZCZDCQhP88ptvhSy6oYNZV+WPjSZ75YFvTdJfS/PCRUFLufuRL7pNIos9gCdAcIBqnvmMycRk6FQ4MRl8ibzXScw73Vn2V/WhWySsWDcJiyBylA91m4WA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5OVE3mlSSmghNoDaQRhPNiaS7PULZ0DVhkYy3Fa81SA=;
- b=mUxoIY3cjhkYvwvL2ZWTuoIS8b6MjcKIwR2hVgMF0P5ijABlI98l9DwLWAbfzIwhH7XY+/4nIGbqOKfoUvK1RLKwVT8+Ik4eBum8//QrXmN979GnhiixfUtYh3UgxybdiJuFf1NnhS69eoUnmhwJnGqYSD465EvOJ0dTj1DPMjuz7moqQJu4Eaf23K3l4mlw+or0vVXPRoGzjkpuvxwV8dEdTnsSlckVKF3g4JQwIiq8NGebAZuVDQ+diq8WuhTZLd1dQD8gSLfxak3E6Kl+Yd1g/EyrkdjQ9jOkNW44pdY1sCvf5zFNY5KJ7W2tA97CzJsaDhG4jScJbHynclPvag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5OVE3mlSSmghNoDaQRhPNiaS7PULZ0DVhkYy3Fa81SA=;
- b=cj5eXJ35aXrZnS5447ngNbyFML/uaUXzoq6jqT1ZojiNXmtPK1iM2ZnguxngsOBX5MT0QKDWgVAPVD60czaiQzK1fKRFHWFyAHrzvCGNEmonlUv5L3HKfq/OLN+s1e0WuCrAE5uJb0J++rHNE3C1YtrenN78EzlOI/JkuBwb6Fc=
-Received: from DM6PR12CA0012.namprd12.prod.outlook.com (2603:10b6:5:1c0::25)
- by LV2PR12MB5893.namprd12.prod.outlook.com (2603:10b6:408:175::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.12; Tue, 28 Oct
- 2025 18:52:48 +0000
-Received: from DS1PEPF00017096.namprd05.prod.outlook.com
- (2603:10b6:5:1c0:cafe::33) by DM6PR12CA0012.outlook.office365.com
- (2603:10b6:5:1c0::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.19 via Frontend Transport; Tue,
- 28 Oct 2025 18:52:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.10 via Frontend Transport; Tue, 28 Oct 2025 18:52:48 +0000
-Received: from sclement-ThinkStation-P8.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 28 Oct 2025 11:52:47 -0700
-From: Sunday Clement <Sunday.Clement@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Jonathan.Kim@amd.com>, <Harish.Kasiviswanathan@amd.com>,
- <Felix.Kuehling@amd.com>, Sunday Clement <Sunday.Clement@amd.com>
-Subject: [PATCH v2] drm/amdkfd: Fix Unchecked Return Values
-Date: Tue, 28 Oct 2025 14:52:35 -0400
-Message-ID: <20251028185235.3192159-1-Sunday.Clement@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96C6110E653
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 19:54:33 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 59SJlRbE2552965
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 19:54:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 2afrDbATXikU2P98B6c0J0m4ZgHNuW/14p+YdDAqu64=; b=PtrDBg+z1RJoSGZw
+ ngQn86Waw+T2U8zDWNrDutSLoe8j2rGOU4ErW+W7tYqptFgesimHadUVZrlht1ng
+ CmUKNwb7ereJCI5Q4e/KyV2GRswAopZAku1w5o5l4np9fDq5tIY4CfPbmpZRWH63
+ uA1o7cSLf7Fq7TbmIiSeq0pR7CGoHjqgD5H4SttoWiB5yd5o7x4ElY5GVsDiN8+T
+ BOZtA5o+WBjmIKIvr1/jXlM5oAajD8efbYjRmeinshLqFUGNz2KNfzhu2IrHFyxI
+ dvrhDN3guCj5uHHPZytfGhC2ApcnimbGGdEFEXC+2Haci447ir0uEEI7XhUhjehI
+ M2Lj6g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a34a2g0fh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 19:54:32 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-4e8b33c1d8eso159874271cf.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 12:54:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1761681272; x=1762286072;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=2afrDbATXikU2P98B6c0J0m4ZgHNuW/14p+YdDAqu64=;
+ b=YHrc+n4k2Zs2POjUDpEwGd1MbKTZBmKxl0LQ8XcnLr5evfFM3xhJIY9TZGpNzyCVCZ
+ S7my0a2Qc8W8SEEIsJNmb/yu3UWnK8hNWRvDMFqIFKwULpQs9QhqUzTK6QpSC2VQ5o3l
+ JSP6r2Jqj6W49yJQmiLW+aQ49PElMkkQhohU9Rt1gJ2AQmYz+ac+2UEhy3RFHUhy7Fhl
+ kXNKva2zaHa/G9zs8I8CyLAYr+lbFeVxfYL2EWAsYPLyOFjnMtpXQXHmOxK/24IpD9DE
+ O8TpsFo8JagyC8Fjul5EZLDdo96ZEPeGOU7M1fnzf8rpUclHP/VeVr7jeNX4O7WDotft
+ cqKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761681272; x=1762286072;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2afrDbATXikU2P98B6c0J0m4ZgHNuW/14p+YdDAqu64=;
+ b=KhI4MZrpfWTmL98ixpYuyMcTQOV7BBILt5cb3GD/02dADLizNMkEKXeQGiI/GkDmib
+ rE1IlpV/6C70mP2IBeChOdubUskaLFrkGpEeoI7k6Bci4TWqjB6iiOEClIv827MM8gUx
+ wM/Wj+r9gTwMideFC6k0pPDsB4ANHBnt2TN00Qab7sApObAToeZ6fwuMv5XJBfTf+hnT
+ oPprbVarHw4ve/IGlXaBAfDPIyrKwu3tO7uHPWER2k0rV2DF5hnXeZjqPbfCFviiEMU5
+ gC5jkLHqhEx9Z4lg1dZGEbIRz1rTjukIXtWlVLKG5S5+/6ssta4LMPxwu3+PHiGIZ7e4
+ SHFw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWvg4lQGlcu61PKRk3+UjmOYwA7khkjQMJp/LkpMrtoUlYZ75C7fGoF+hXTkU/ddQuUDFrp6/hA@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJuj6q8HgDB4N9pGyy9THPzEIdyKyuqhB3j5lL6jYyK9FFfk23
+ +1D9vdkfbnNdyHAk5t8NZctTfOmAV3hzw+HFjI9xDV76RPl0ultrgBZoG308b3cIusqG9EVuCgc
+ R5dZ6smfF2Qm3NN9n6iYuJy5TpX7ILUSRDButgfBKuOjaTouyb46BDOjadhdN9C91nlRM
+X-Gm-Gg: ASbGncvUgtOdjAJurEZLaaBAIMksG5+QLz+iIl6hvULi9QwW2YK9QRgeZD+X0Ly981h
+ oZdt8N9/67xSbCUYdWzJbfusUPMol6ha+s6wIWMH/bAMZrPhOE/WnMf50x4oo5PPtYwG8xzkMXx
+ Bi6p0MD8ng/C3D+U3aU5TJVKlGUkOwOoMGPu+uVa7x+jUihchj7xZLryFckwAyNTLleAR530sVr
+ kXUIq9ydN2e3PO5hMhYU016rpoCqiKZbyUFa0E3O65HsxPU7vqsCTJpiYkNAYA4dmbxMHthx8s/
+ EfStUklMTo+8UFW+YWxYlEFPR8447D+UaAbDx+llwEe9gSYehJVhlNBAXnMbOSIoXqDR8VqjBe/
+ XJjUtr3U91YpzDllV9J/Usewv9Cz3geZoBFnTXwlNErLAfjPn9fjWmcqgcd1COU6fd63mkGBj+2
+ IdN15AJoF7scxg
+X-Received: by 2002:ac8:5754:0:b0:4d7:bf73:7641 with SMTP id
+ d75a77b69052e-4ed15bb30c4mr5992931cf.17.1761681271920; 
+ Tue, 28 Oct 2025 12:54:31 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFp30l/mxiO0/x28DsAYuBVAOl6GnYN2VrIZ7Onq+dUKIoHEjlqng8hPS5TJz3djMSRii/+MQ==
+X-Received: by 2002:ac8:5754:0:b0:4d7:bf73:7641 with SMTP id
+ d75a77b69052e-4ed15bb30c4mr5992331cf.17.1761681271214; 
+ Tue, 28 Oct 2025 12:54:31 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-59301f87f14sm3312685e87.112.2025.10.28.12.54.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Oct 2025 12:54:30 -0700 (PDT)
+Date: Tue, 28 Oct 2025 21:54:28 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ airlied@gmail.com, simona@ffwll.ch, linux@armlinux.org.uk,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ inki.dae@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, patrik.r.jakobsson@gmail.com,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org,
+ abhinav.kumar@linux.dev, sean@poorly.run,
+ marijn.suijten@somainline.org, tomi.valkeinen@ideasonboard.com,
+ alexander.deucher@amd.com, thierry.reding@gmail.com,
+ mperttunen@nvidia.com, jonathanh@nvidia.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2] drm/fb-helper: Allocate and release fb_info in single
+ place
+Message-ID: <dlvkkogiueskk4emkwdkpst4pvqk54ordyuqobh3hzqckuzz3f@gguhnqagpvwj>
+References: <20251027081245.80262-1-tzimmermann@suse.de>
+ <3d1bc193-fbee-464a-b62e-ceca06d8829f@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|LV2PR12MB5893:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00425c43-f28f-40af-1c49-08de1653306b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?io73BlvYk2z4RTrJ1PzAjIloZG4NwWF1tS/61bZh1FAwaWBGrfaArsSC6TnH?=
- =?us-ascii?Q?n3ZEoy9l6Pq7YNCIoXRxs0ZR9amU+A9pjin/VSJPW0wf31IfV3OLVu1A9ADO?=
- =?us-ascii?Q?s8nenYRYwsUYW6kU8wKXpLpGhh+0lbP+2HQOwD/a7fH1SygSHjH+D7QTzqga?=
- =?us-ascii?Q?wQqbtO1fYiojOUtiFnMBRwGxO/AcIRz1u7MRIwSAPL5l2mj3o2F4sGuwFgPB?=
- =?us-ascii?Q?+eOPX8BTocAkOcb9PsJUm+exnUmxCBsxl2mxz+gClpscNsW/s6pl3I76GNEb?=
- =?us-ascii?Q?2qr+WyrMNWX47odEMStVN2kvBo5OOU0YPOQzDpYnvPm7FACc79TMbiSfwKdw?=
- =?us-ascii?Q?zAn+QSuMhopuwWh6+DCeOCOXi6tKhVvPrAlxqv9gYDDhyQGQIuQ8d/SA1cYp?=
- =?us-ascii?Q?BiK2BOD+vLeTxEh3YHuBMn+0uB+ylrLgHdX9w0+EH/UGsinYXngw/vCwGNZT?=
- =?us-ascii?Q?94mnefIwss+OvxDHLGqV6tucvUmjcjqFvYcWM5Egn37KGDnImf5rvJ58bqPr?=
- =?us-ascii?Q?yB52kix3pLZAjhXL3l0NhhaGTftaU1He39GbPjSrt1xURy1OxpEcZtW/0Rl+?=
- =?us-ascii?Q?altHwaN/WSHloPdKX5Ofsb5aZWwk54jAcKiiWGQtxl95pbtf2QDMNTwBwMbC?=
- =?us-ascii?Q?Mlb0GtlNfBwXVum0pNdRdRDUPjKrkeQvetHoei6jsHEdFIBtRMouCVnQgDf6?=
- =?us-ascii?Q?DRS35o/j9KMedgF4cdqR27ObcDgZfFKECNP3ezMSXBf0xkBNdlW2K/elpXf0?=
- =?us-ascii?Q?iFEvlT6oM3ZsuQv3Oy64VCO+vhFRsYzigDyEs0Y1vOm4egrVASAnvG2JQ2pt?=
- =?us-ascii?Q?kIV2W+ia7C6CioltAhgJ/LoDreX7Ot690ngKmXDMGN6ATqnpmwd8lvv0S6Jt?=
- =?us-ascii?Q?QR6M2WF2EXVlQNG4IrfetBgzf6t5dET+akaRiTkiqETw93FZcivRqa1rvi8/?=
- =?us-ascii?Q?WZnuL/Wdl9hFRmeQH5E0mBqBtjOdQbV7bM/uekQvYdB+idbC4b0WwLFdUyrn?=
- =?us-ascii?Q?IeVPCL/RalS9ajbmKbCcJKCH1J8zyNdd8rR2MFAm1/IwDoxyVaC0KiVlfA0B?=
- =?us-ascii?Q?8w8Ku0bcCR8l6AGEGBt7czd2SF3xEiQE29U5N9ENc9jUzWfR6pkma8LtOnIO?=
- =?us-ascii?Q?P4By/cASWfSO/yo2fbo9KMS58eVWmVmSu85AE2x9lioURa+fA/2Ckpsm3MPT?=
- =?us-ascii?Q?lyayz5F21LGDd+lWy28QDSWtTXQbzC8V4MgZHN1kN2LP3nwj5KQQGigvVc2J?=
- =?us-ascii?Q?vafR3Yjf2+1riXXftC5Yql3SfWPRvnI3gTutV2B4j5YwGHjq+7UvlDoOQ65J?=
- =?us-ascii?Q?cxhC8QC+Fs9aj+EF1SqyXYblmyazpPya0pXwniR9nfW8BGFXDTWQuolQd2e9?=
- =?us-ascii?Q?c2Qe3LaOqH4DWMAqSQR3dvyhGDoNmgxfXAHnkVECScA1nTQSI5OrIIdC+tCo?=
- =?us-ascii?Q?SicdaPaXTmC38Utv0h9c3ZW1yV7DTqQfXBXonqc0InoepUbobJDchK9+wzZc?=
- =?us-ascii?Q?qxPptdw8sJ+q4ZhIN1QzY4Q/Gr4lqdC+sFSSBWtfgLQEZtB/qYTJBEdJoQJ0?=
- =?us-ascii?Q?gFVedp5X6Ao1dqSgJC8=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2025 18:52:48.2876 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00425c43-f28f-40af-1c49-08de1653306b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017096.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5893
+In-Reply-To: <3d1bc193-fbee-464a-b62e-ceca06d8829f@amd.com>
+X-Proofpoint-GUID: FDp8gTI_6UP-6f1Rv8P7hROqEuZllij1
+X-Proofpoint-ORIG-GUID: FDp8gTI_6UP-6f1Rv8P7hROqEuZllij1
+X-Authority-Analysis: v=2.4 cv=PcvyRyhd c=1 sm=1 tr=0 ts=69011f78 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=zd2uoN0lAAAA:8 a=EUspDBNiAAAA:8 a=G-TusFqAXxKo-7y7638A:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI4MDE2NyBTYWx0ZWRfX4C+lSZOv2WSe
+ opG1F+J6m71CFVQ0vam+D7RfQn2epOHGB8PWvSqec/g7ETsKWum3IAab/p5gCt75Smb0dr5cuZx
+ DOuEqL05yFL9cZ8NzcMFQ8Q4JPrO/px7gvMQreCNWe6LMKRn3621fvFj2XqUBRqm8TEKFxSAip9
+ 8vb6hX3wDH2JfM7HIYAKAvu34B8y1CwbXX2wXTBvOxBeW1zgDzbpvdmy+XF/G42vq+PPo4RX3lJ
+ 2WLqyyV6mhGrSSZ+K9wwaoIywY+k/2KaQnhr5zq5m76OdGBugydGVvcJUeytPt6txDm7YlMPiDt
+ D8ltXRVQhALFgdGg+hbxFy8TPsbii6R27n7B13jk/48nWVdyk6y5ziHcxQN00B6VY9iv850aHAg
+ BAqi2zqd2KvBipD6ld1PXeUpPjCpBg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-28_07,2025-10-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510280167
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,58 +154,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Properly Check for return values from calls to debug functions in
-runtime_disable().
+On Tue, Oct 28, 2025 at 08:58:10AM +0100, Christian König wrote:
+> On 10/27/25 09:12, Thomas Zimmermann wrote:
+> > Move the calls to drm_fb_helper_alloc_info() from drivers into a
+> > single place in fbdev helpers. Allocates struct fb_info for a new
+> > framebuffer device. Then call drm_fb_helper_single_fb_probe() to
+> > create an fbdev screen buffer. Also release the instance on errors
+> > by calling drm_fb_helper_release_info().
+> > 
+> > Simplifies the code and fixes the error cleanup for some of the
+> > drivers.
+> > 
+> > Regular release of the struct fb_info instance still happens in
+> > drm_fb_helper_fini() as before.
+> > 
+> > v2:
+> > - remove error rollback in driver implementations (kernel test robot)
+> > - initialize info in TTM implementation (kernel test robot)
+> > 
+> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> 
+> Acked-by: Christian König <christian.koenig@amd.com> for the radeon changes.
+> 
 
-v2: storing the last non zero returned value from the loop.
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # msm
 
-Signed-off-by: Sunday Clement <Sunday.Clement@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 0f0719528bcc..22925df6a791 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2826,7 +2826,7 @@ static int runtime_enable(struct kfd_process *p, uint64_t r_debug,
- 
- static int runtime_disable(struct kfd_process *p)
- {
--	int i = 0, ret;
-+	int i = 0, ret = 0;
- 	bool was_enabled = p->runtime_info.runtime_state == DEBUG_RUNTIME_STATE_ENABLED;
- 
- 	p->runtime_info.runtime_state = DEBUG_RUNTIME_STATE_DISABLED;
-@@ -2863,6 +2863,7 @@ static int runtime_disable(struct kfd_process *p)
- 	/* disable ttmp setup */
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
-+		int last_err = 0;
- 
- 		if (kfd_dbg_is_per_vmid_supported(pdd->dev)) {
- 			pdd->spi_dbg_override =
-@@ -2872,14 +2873,17 @@ static int runtime_disable(struct kfd_process *p)
- 					pdd->dev->vm_info.last_vmid_kfd);
- 
- 			if (!pdd->dev->kfd->shared_resources.enable_mes)
--				debug_refresh_runlist(pdd->dev->dqm);
-+				last_err = debug_refresh_runlist(pdd->dev->dqm);
- 			else
--				kfd_dbg_set_mes_debug_mode(pdd,
-+				last_err = kfd_dbg_set_mes_debug_mode(pdd,
- 							   !kfd_dbg_has_cwsr_workaround(pdd->dev));
-+
-+			if (last_err)
-+				ret = last_err;
- 		}
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int kfd_ioctl_runtime_enable(struct file *filep, struct kfd_process *p, void *data)
 -- 
-2.43.0
-
+With best wishes
+Dmitry
