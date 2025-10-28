@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD89BCCFA03
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212ADCCFA04
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD5D10E943;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED6010E936;
 	Thu, 30 Oct 2025 09:24:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JVS3hHbY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jEDnLZpM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F3C10E630;
- Tue, 28 Oct 2025 17:37:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 218CC10E639;
+ Tue, 28 Oct 2025 17:37:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761673021; x=1793209021;
+ t=1761673059; x=1793209059;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EiT5hL30QLFm3yb5FssrJ17hLpcSHd+wx/30o6JfyWo=;
- b=JVS3hHbY7AWIi+k4U8O3JNXTxeBdpry4+eBb9/gR9Ql2MXL+chmzjGxh
- 6rLdjcNJRliTHJdihW8eT8rMSswUT7Yt1gEnfSVuyYq4l5yUSbTsjMtFf
- 5+Qm+2z1+Bq46HNQ4DPAXi4MidrI5yLCKQ0DzfJYREW8CsMXpRLWSo0nD
- bdPf1YWCEDMSCekD9m+dapwj1Xhwlfzp1PNtwhjRxEEmz098mcvoMqsUj
- KTv6u/X+wwbjwSSa03tEUuURzn8O3QPpMBcC9wtxpfxZGcYZjTsdrj6j2
- MTzI7JZfz1a9ZNiZN3hbEkCvuRXb6H+PqcvBb3VPFU32GLJ1+UhoYZaG1 A==;
-X-CSE-ConnectionGUID: EwSj/QvRQfOePIbTuMbq0g==
-X-CSE-MsgGUID: 40CmljWqQAigXqkwhVFcyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="63877934"
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="63877934"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:37:00 -0700
-X-CSE-ConnectionGUID: TC3quM/ERgeiXFGUpMlo2A==
-X-CSE-MsgGUID: vdt7woL2RBiSVzd55S1BGA==
+ bh=p0wHURDhEqxjdHQHtDybrhCJVt2NJrZ5/+N6qg46xHM=;
+ b=jEDnLZpMAA9V7AKokdNYQuOS/qnD9RHMHjpKuiXtpkOJ50f6tuYNyr7w
+ hsMk1tpiQsQogi9jJQ14k49AYtsdGywB5W+06lCVqIcZoV7M1qg8JuvRy
+ WCKIAcHzxTFG91wS/5zcSjbc4iCqfK4Vc0/QrSn3DKrdE2NozTiY08oZ7
+ RH3ZbBxK1y953HKeuGt5vfrbMPR1QwxzeW8JuMGcDEAMUSIn6wuo10+gV
+ 9kw+ptAc5LgPd/PvUdPKZ05+ggKUK8tCrq3Vmf/+sD3mXvvnEnWzqivWq
+ WRC73TKwxRdRj2ut8ycOO0zMm1KVN5W1kK1m0y3Kqu62EvER6YMMYOtya w==;
+X-CSE-ConnectionGUID: LISu3geLQnGZ9skIkKoSUg==
+X-CSE-MsgGUID: hqRoGMlgTwSBnm0gzZDbQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="63485044"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="63485044"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:37:38 -0700
+X-CSE-ConnectionGUID: aXywd5SLRtOwizDbGtwfqQ==
+X-CSE-MsgGUID: eG48uwFjQWGOxO2mxr2acw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="216072445"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="185746898"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.182])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:36:52 -0700
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:37:30 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Simon Richter <Simon.Richter@hogyros.de>,
@@ -58,9 +58,9 @@ To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
  linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 4/9] PCI: Try BAR resize even when no window was released
-Date: Tue, 28 Oct 2025 19:35:46 +0200
-Message-Id: <20251028173551.22578-5-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 7/9] drm/i915: Remove driver side BAR release before resize
+Date: Tue, 28 Oct 2025 19:35:49 +0200
+Message-Id: <20251028173551.22578-8-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
 References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
@@ -82,36 +82,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Usually, resizing BARs requires releasing bridge windows in order to
-resize it to fit a larged BAR into the window. This is not always the
-case, however, FW could have made the window large enough to accomodate
-larger BAR as is, or the user might prefer to shrink a BAR to make more
-space for another Resizable BAR.
+PCI core handles releasing device's resources and their rollback in
+case of failure of a BAR resizing operation. Releasing resource prior
+to calling pci_resize_resource() prevents PCI core from restoring the
+BARs as they were.
 
-Thus, replace the check that requires that at least one bridge window
-was released with a check that simply ensures bridge is not NULL.
+Remove driver-side release of BARs from the i915 driver.
 
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/pci/setup-bus.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index d58f025aeaff..76a4259ab076 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2459,10 +2459,8 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 		bus = bus->parent;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index 51bb27e10a4f..ca3de61451a3 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -18,16 +18,6 @@
+ #include "gt/intel_gt_regs.h"
  
--	if (list_empty(&saved)) {
--		up_read(&pci_bus_sem);
-+	if (!bridge)
- 		return -ENOENT;
+ #ifdef CONFIG_64BIT
+-static void _release_bars(struct pci_dev *pdev)
+-{
+-	int resno;
+-
+-	for (resno = PCI_STD_RESOURCES; resno < PCI_STD_RESOURCE_END; resno++) {
+-		if (pci_resource_len(pdev, resno))
+-			pci_release_resource(pdev, resno);
 -	}
+-}
+-
+ static void
+ _resize_bar(struct drm_i915_private *i915, int resno, resource_size_t size)
+ {
+@@ -35,8 +25,6 @@ _resize_bar(struct drm_i915_private *i915, int resno, resource_size_t size)
+ 	int bar_size = pci_rebar_bytes_to_size(size);
+ 	int ret;
  
- 	__pci_bus_size_bridges(bridge->subordinate, &added);
- 	__pci_bridge_assign_resources(bridge, &added, &failed);
+-	_release_bars(pdev);
+-
+ 	ret = pci_resize_resource(pdev, resno, bar_size);
+ 	if (ret) {
+ 		drm_info(&i915->drm, "Failed to resize BAR%d to %dM (%pe)\n",
 -- 
 2.39.5
 
