@@ -4,74 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 210FFCCF9F1
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 22:06:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35B8ACCD1BF
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 22:06:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1FD10E67A;
-	Tue, 28 Oct 2025 22:06:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC49110E67B;
+	Tue, 28 Oct 2025 22:06:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ivWCGEcR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L//nNm4p";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE8610E676
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:06:38 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-63bf76fc9faso11557801a12.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:06:38 -0700 (PDT)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA8FB10E676
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:06:40 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-63c45c11be7so10609978a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:06:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761689197; x=1762293997; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=0hPaTwqkfpuLJfxK694Mz3OYQu7ZtmZf78SMZGqLu/4=;
- b=ivWCGEcRVCBOSY2H2/p3cKP9ZgOFS49NaS2DgYjeZ7gNR7gWWEXDamEKmbLQt+91Pz
- a5VEmrvFVGB8WYw8Ul8rRhjKXf2ItStFbsWvgFMVsyjHNKG8xSL2YmxHmqCjQdGjeCAB
- 7zrFqncZL2CJ2p5MWpc3ZwJM+7Dhfm8RzujTrORpx8ThjtHVi8eFrsi2r2JWQKiscUNM
- +CmvkdFpsA5de7FgM3wyx5VHR+07pTCfmFXXzfVtlHoQOQhtEcure0bpMFqokOdSrPg4
- YPSho56R2GIuWDyour9W/orkZOlkxZ1mKmIGP8S1YlxIvFOoHBTq2EEZUZh12LmsipoL
- F3+w==
+ d=gmail.com; s=20230601; t=1761689199; x=1762293999; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=ZRKLQvDJvTFtMZiHMA4K/xzfPwXLFKq2fC8dn2Nvx5c=;
+ b=L//nNm4pRbmCvIZtdBifCEdJPu8z+ncCs/hzq8gfW/o2ghrsuASFwOnffoJCWqvslH
+ SUFIuGYH29Y9HFFZr8iPBJ/chXqi1UU8Ldkr0tvv/E+Urn8JhN6OHnTLmyv5YbHZ2END
+ GRvPPXFKHoNwrbYSahdQ4CVQ+qjwRtN8NGw0OxSGp3dg0TBsH63g+F4Nzy+oY9UjJhtM
+ KJ1ENDOhN8G2KE/49fdZ0PrPydRU7QXgIf2iDodW1x197J5Zweq9qHqd7smoWTLmxB1J
+ X2714roCRGSSK576DwR75uvQ6k2cfc6+MeHo7xNP0Lwn8S4dVuxJPIjmxZIF4FX6oEH3
+ UkFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761689197; x=1762293997;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0hPaTwqkfpuLJfxK694Mz3OYQu7ZtmZf78SMZGqLu/4=;
- b=v/qpW2amyENEwMeIPojirlRTun8Th4D4wOJBvcxZOh6B2XJegzD2veCvPFkwjExyKS
- 1e+82ecKaxyU6wPALYw6RBfeuxcMTrz6InlVARAqKvAJvnR/8UaKIKRYFdQLtn+vK3aE
- Wmh7/Bqo6v5qU5gPD8Q04irdlMcGbh/KTQQwe/9wXuyDV+m6PhL5+W88FI7y9jDNtGLS
- 4it2MMpxYblsuZYZs/d5WJ3Y2teXAw7XIc6IjcvihEVvk6oAzgTXTO+oGN4Ne6l4ZllA
- kfwkFPCxJsgy+g7E8rPwTYyCN4M9qGdzNJfLhsz8gxervqRRqUioyAoOsb48x6rp4rRz
- 69oA==
-X-Gm-Message-State: AOJu0Yy6I9rtC/qKgLsDLYUHZQOSvjjiC9TKkNgenuxQtkmlW7NnSns0
- sxB6y+s/uQUKNrYNrf0/NwQeHI0KjC6WmZxejwxttyGq9IIcsPD9X1+jMiUfCA==
-X-Gm-Gg: ASbGncspM7tMC/Ur/doCyjX6gD0Q93McyYqxhwj7knHUFdcMKg0MVM/WeyOwOZThIpL
- gHYv90ZXohq9+VeHQ7XLnGbOLNtxiYDOAFLaXbz4e7bSqEB4+339prmenMQPec20dlqBNhHyIXC
- +3/3VZasfOw/WZAADSuyW8mzfkWQ8BBYV6miIUp7qEgUj83sYToAeJgL3zosBq6HOotaAa4rWij
- tMJW/vNRYLOe7sjiV0YEAby58KQsFkaD9XD492aGi0RKB1mExw7mJwQi4xZbAtbZKZiVhRNVYRX
- MLjtvYiR82RXE5T66BOz3rm0Wnxp4bg9tQinRmtaVWVsROIdIKEz/vFmsaPk8hiLYlszed1BcUF
- R7E/krRqab9mpDI/gjmmG5/eODesH6D623SaVjpEaXRzsH0pwv+WV8zvNvO76/GxLGF3Uzz4EbW
- /3hTqunj6sL9NrDAZee1NWew5nx6GwqtPFdLEwLuk9FpnBiYO3N5OSl3a4Ouq94blC0YVXGTtxa
- mBj8QWK
-X-Google-Smtp-Source: AGHT+IEry1GJ6m/7gSvkR02fHqw1Pcb8G43qmj1pbSCZn8tobtbM3zfL2ioyHq3+2/pj1mYalDnfww==
-X-Received: by 2002:a05:6402:50cc:b0:63b:ee76:3f7a with SMTP id
- 4fb4d7f45d1cf-640443b66b0mr526717a12.26.1761689196637; 
- Tue, 28 Oct 2025 15:06:36 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1761689199; x=1762293999;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZRKLQvDJvTFtMZiHMA4K/xzfPwXLFKq2fC8dn2Nvx5c=;
+ b=cpYSFLJwXgifO3vLiM6Mf3w1nTV+yH4ep2GLjX/dEIh4Wo7X4Azc1oxK0ffk176ah7
+ eq0dTixiY3Gz6JjWp9WJUle30oGilj2pkEiSOZErNY1L8FHVj8SOvcLf+L+gz0mezf6H
+ kFOZzt4irjSZKmuAxmuKsDFHhePpextWPASFiVO2/J/KDrDNMjGazUMLClDa9c/7hvmq
+ RAqvIYXjTit2neEWAQXpbb181DcVGJXPu8KijNjPXcdA2Q4o4PU8FCxtJXf0ee+3Bwim
+ WRKRSuufMBKU3eKMBApPmq2XrJk094UjQPplpFq6NkgHpAjvO1tuDY6WcAc4zOj34gFl
+ PfXw==
+X-Gm-Message-State: AOJu0YwU4KHR+N4mJzyn0vEhm1p2ytwihQFnAmUg8WJgku6Mk8OHxnB2
+ ssPwsbdEc7b+Io0/Gh6z+zdZF34f2LHECUNiiW4iiTEm2WGobA6WABrq5ET65g==
+X-Gm-Gg: ASbGncsrV2lNwGvg+8HeodhN0zR9EqI1p0AsJ+jsPh4g1VdvuNx9t2gi2qRNBSk2j8T
+ IXM21sDr4nnaVQY2pIyhKJgqJuxhJ1QDdaQxELvioyl04HI0DtdzO7Pt3lk0cT6jojLQ5sjituE
+ bBTPZJjSA4YEKwawssj5Znr7Gv8CNQ/nYrz/2v9SfKzFMZ7nndoI0AvUzTVEW6XLFJiEAUMRGvW
+ AqhTouwjfNiV/p4SnA2j8jiboszMqW1R+gasc/mfXlVQdIWxFw64RUO4VH5IDab/96OjabD/Q3l
+ Fx2/lgKtWuxoNkgs6/PzQcEBMoapAC/pjgYuwc0E/ASRSZACu+0Pn+erGrqsTZWWtuENJo9fgQi
+ rEPlHAcCWQapO34qkBM6CzhV/MxgpoWOd6Mgc8qYiQeQzT25b4Kzn6RHsRtEptViPjkbjp8HE8T
+ gdMv0HhnzsHxioIYkEwokh/ndz4aWwAvIQHQ2LaKmjqHSSNs6HpiU2FYcO5Ub4QgMOzoliIvDPF
+ PPbV7IU
+X-Google-Smtp-Source: AGHT+IGza3qI2nVmf0WCVieCs/fKZkC6Um5fFl9EhUmMFrn/SO9QZxnhmYv4uch5c6Bc0iyZiXgLBA==
+X-Received: by 2002:a05:6402:4415:b0:634:ab36:3c74 with SMTP id
+ 4fb4d7f45d1cf-640441a956bmr486533a12.9.1761689199371; 
+ Tue, 28 Oct 2025 15:06:39 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24CBF70057E8101A3AD09709.dsl.pool.telekom.hu.
  [2001:4c4e:24cb:f700:57e8:101a:3ad0:9709])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.34
+ 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Oct 2025 15:06:35 -0700 (PDT)
+ Tue, 28 Oct 2025 15:06:39 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 00/14] drm/amdgpu: Support VCE1 IP block
-Date: Tue, 28 Oct 2025 23:06:14 +0100
-Message-ID: <20251028220628.8371-1-timur.kristof@gmail.com>
+Subject: [PATCH 02/14] drm/amdgpu/gmc6: Place gart at low address range
+Date: Tue, 28 Oct 2025 23:06:16 +0100
+Message-ID: <20251028220628.8371-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251028220628.8371-1-timur.kristof@gmail.com>
+References: <20251028220628.8371-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -89,76 +92,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VCE1 is the Video Coding Engine 1.0 found in SI GPUs.
-Add support for the VCE1 IP block, which is the last
-missing piece for fully-featured SI support in amdgpu.
-Co-developed by Alexandre Demers and Christian König.
+Instead of using a best-fit algorithm to determine which part
+of the VMID 0 address space to use for GART, always use the low
+address range.
 
-This VCE1 implementation is based on:
-VCE2 code in amdgpu
-VCE1 code in radeon
-Research by Alexandre and Christian
+A subsequent commit will use this to map the VCPU BO in GART
+for the VCE1 IP block.
 
-The biggest challenge was getting the firmware
-validation mechanism to work correctly. Due to
-some limitations in the HW, the VCE1 requires
-the VCPU BO to be located at a low 32-bit address.
-This was achieved by placing the GART in the
-LOW address space and manually mapping the
-VCPU BO in the GART page table.
+Split this into	a separate patch to make it easier to bisect,
+in case	there are any errors in	the future.
 
-Also hook up the VCE1 to the DPM.
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested on the following HW:
-Radeon R9 280X (Tahiti)
-Radeon HD 7990 (Tahiti)
-FirePro W9000 (Tahiti)
-Radeon R7 450 (Cape Verde)
-
-Looking forward to reviews and feedback!
-
-Timur Kristóf (14):
-  drm/amdgpu/gmc: Don't hardcode GART page count before GTT
-  drm/amdgpu/gmc6: Place gart at low address range
-  drm/amdgpu/gmc6: Add GART space for VCPU BO
-  drm/amdgpu/gart: Add helper to bind VRAM BO
-  drm/amdgpu/vce: Clear VCPU BO before copying firmware to it
-  drm/amdgpu/vce: Move firmware load to amdgpu_vce_early_init
-  drm/amdgpu/si,cik,vi: Verify IP block when querying video codecs
-  drm/amdgpu/vce1: Clean up register definitions
-  drm/amdgpu/vce1: Load VCE1 firmware
-  drm/amdgpu/vce1: Implement VCE1 IP block
-  drm/amdgpu/vce1: Ensure VCPU BO is in lower 32-bit address space
-  drm/amd/pm/si: Hook up VCE1 to SI DPM
-  drm/amdgpu/vce1: Enable VCE1 on Tahiti, Pitcairn, Cape Verde GPUs
-  drm/amdgpu/vce1: Tolerate VCE PLL timeout better
-
- drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      |  41 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c   |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c       | 134 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h       |   2 +
- drivers/gpu/drm/amd/amdgpu/cik.c              |   6 +
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |   7 +-
- drivers/gpu/drm/amd/amdgpu/si.c               |  26 +-
- drivers/gpu/drm/amd/amdgpu/sid.h              |  40 -
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         | 857 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.h         |  32 +
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |   5 +
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |   5 +
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |   5 +
- drivers/gpu/drm/amd/amdgpu/vi.c               |   6 +
- .../drm/amd/include/asic_reg/vce/vce_1_0_d.h  |   5 +
- .../include/asic_reg/vce/vce_1_0_sh_mask.h    |  10 +
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  18 +-
- 22 files changed, 1099 insertions(+), 112 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.h
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index f6ad7911f1e6..499dfd78092d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -213,7 +213,7 @@ static void gmc_v6_0_vram_gtt_location(struct amdgpu_device *adev,
+ 
+ 	amdgpu_gmc_set_agp_default(adev, mc);
+ 	amdgpu_gmc_vram_location(adev, mc, base);
+-	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_BEST_FIT);
++	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_LOW);
+ }
+ 
+ static void gmc_v6_0_mc_program(struct amdgpu_device *adev)
 -- 
 2.51.0
 
