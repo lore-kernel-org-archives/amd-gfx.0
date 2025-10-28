@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01D4ACCF9F2
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 22:07:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91616CCF9F1
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 22:07:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E53810E687;
-	Tue, 28 Oct 2025 22:07:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FCEA10E689;
+	Tue, 28 Oct 2025 22:07:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YMyYOO7k";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QXnI6MHB";
 	dkim-atps=neutral
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97C8F10E68B
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:07:01 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-63e18829aa7so8780774a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:07:01 -0700 (PDT)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F045110E688
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:06:59 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-63c1a0d6315so12187448a12.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:06:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761689220; x=1762294020; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1761689218; x=1762294018; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=W+Hwa01096g4k8k4G/RAHiiO4kZ6gTtCEy4tQftHz2Y=;
- b=YMyYOO7k2lo6rPVJvAbbR2b3l+u8tuMCKd0pG7wW+XvYZBEyuYDy74zpKCsDTkjqT/
- KDAAG/38sShdM5GT53X+paT8g3DviUNogDynLX9wDVyYASIrSH5UEhKkdgCCNfhOg8Cd
- LyDEZwCN+47nIX3yvaH/6f8zcVxiFzDo0bkCtDYNWkayXspn5+T9X1V1422c9a2R6PmG
- XeHvkGyfTqBaq0lFU5kEcWaSced4CIncfwI+zgaHKR+irRIW4iWKrIF4oJJ/m7kdOBFo
- MpCN3xj9b02/saAmKbMrFJlXsDMk7zW/x6BHGZ+j5iijQiNnv6RUNsqerR7JIhSeBX44
- kvlw==
+ :reply-to; bh=ZgKPgMIe2msC2hnGTLXopuu2v+EBVK/7Skjo5gWWuCI=;
+ b=QXnI6MHBJo4oFEhl5qAPI2FxO1grJ+gTc2IcdZQgiMTJdtgwzVlUFFJcN8TzUrj/W1
+ eT/1IEyPH+sV7NyVvghM1gQZozz+7mvyA+rCyU08xmU60/bypOtfAAb13JVorWHPjYHl
+ cTB/rIvC/lSDH21aHjm8eLbCa6zSMOxRoNji0wvN3YaMaROEVlYVWWTINLkSGWICWAjE
+ 9q2s2dOjlcD2OXQtPGAXu5EI9ACnBa56EwDz9/b9ac3HAXdPVSwdaiRX39S+0cuLX+Bt
+ ULjyEloNhy/3JmB3NDtW0Vef6jxdljG8IuazGQ4ihF41gcSY82YlxYpjYJd3eBHriLXX
+ WYPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761689220; x=1762294020;
+ d=1e100.net; s=20230601; t=1761689218; x=1762294018;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=W+Hwa01096g4k8k4G/RAHiiO4kZ6gTtCEy4tQftHz2Y=;
- b=Y99KDyuAZhwNy0rTMvVcDEYJMAFz67bv025qDHxUZg31Sl2xSx9OQfpV3bpsb3vFmh
- 8zlnOeQ0XYg02csHN73rLh7jcX4zW/KAELJBIvWZoef2AZX75rnPpU+3flTe7lHkKciz
- yo32yvIF2bf0tl1cNyXCdBkb11iRCvu483P8q8U0+Lrceu34qFR6B3lctz3iRrMrTcIN
- WP6GHeWICt5VjGI0wXoEqoo2WwyfWlGfPLY8E2pxzvNI2NALtJwbMBZWfi1eITnE0/Yo
- 9mAgwSnVfxXM8z0pHop31iX2MFnTeTyhTPsLKU0+xmzQ35gbN7w86KTp7iTgoaxcyCvs
- NUkA==
-X-Gm-Message-State: AOJu0YxUMSG7gRLALMjEX5IY1KCMvJ6EkbouHKBGxN+s3EjIJPD1QG62
- 9tOQRcELKesnmS8SeX5B99SamP1ax5TfH3WMF4mN2lmwbkK7mF3CPbRm0SbKXQ==
-X-Gm-Gg: ASbGncsLjYLvkFTQPMnzBznbe1qHPbQxFkHY3VNffg2kMi+F+CBfN1iAKyFA9YH3X6t
- CLdrofQdfucXrLcjSC9cx2wcB6HdPGHokfpRUhquMg+6dBIins6Nd3iH7WGLath1hCT4Ca/6BPp
- TXgv3N+5LcXGUZ75YDKyP+KERPOnA2rkgF0m/9wsMeMD5K10oASNkRxV1YizVasiCSSLIzSim85
- +Q66V0Na1W0egVsmUqVlgv1qiqV0UGLlK2V3/zXzN9Alfc/q08jSEkclByHnL1wIrUl/YHMLoMw
- lCM5XLkjJCTnRIKHaZnJCSTVjFuV2B7LuGav5zoDUuyhjRJ5/pGVa8NqWLXbDpU/3kLJKieTgNd
- zagoskQwuT77995RkCwZk3mYsmKwft65Wt/tq/Ragdv7pAOk8LEqpYBxegPZ4MJclXkSb3oQNxl
- 3QtGZ11caZoRaOKqVG430RDC7yFJK46jMW54n+UkHuAKMwpNrOP6L+VckKKgeVCGtJL4XEdr0wv
- DrbfR2m
-X-Google-Smtp-Source: AGHT+IFJH0ZJSQbZ6X3sqT7Umn+Ysofw4bNWDjp+YkHmesENrCo7ZdbDTQ4ManFNwoZQw+HrWlI3Uw==
-X-Received: by 2002:a05:6402:1e90:b0:63c:43e6:16f7 with SMTP id
- 4fb4d7f45d1cf-6404425af01mr474564a12.26.1761689220018; 
- Tue, 28 Oct 2025 15:07:00 -0700 (PDT)
+ bh=ZgKPgMIe2msC2hnGTLXopuu2v+EBVK/7Skjo5gWWuCI=;
+ b=lIkBw5r+jGqttyQgAZEW5tX6w3uRN1pb0RqeGvTu6qaI7bgWM+2noV72ULWPVrBmzA
+ DANPoqeAWKwrdex3oEZCvKdYU5QXnc5qbiBpxJvJCSSRqc1iaaJ2P16uDEKnhugR9z8t
+ +SbbX0HfvLlK1Wpq9wRgdTNGW51zA875LH9L1Fj3Dh60eb7e7Tx4jSETBey0rxEB2Ir1
+ z22roi9oG4nhnV0BEyu0Awu5UcHUndXQyZ9NuO73NiILkiU2cYyBKukKOYJQNU1fC3XM
+ eQFcjDkYgZH+6lg4+vkD+oL5DL4JWSKNBnR8bC+ukiCKlZyk+4scOKZQS6pzEKpsuyUJ
+ M5xg==
+X-Gm-Message-State: AOJu0Yx0D61NJlnPY6dSxAEjfUawYbkyskHGSt7KmEYwaZ0E9zmf13Bc
+ cERuMC6nE2SMSqgQ2M6penGomhx9FlGCm6Pq2eB2TQSgJA9IQvpbacH+e0oBIw==
+X-Gm-Gg: ASbGnctsm0DIy94NgphkRkpPZQ4BrAlecYPXfeb1ZJxByTTVFQrD1j0/Fm4rW2qu7jh
+ GukJmkMRcLW+7kPHbnqNaZ66eHH8u/Y5P8fIz70sL2UvR1C8vAcPnwPxtS5a32FdHQfuWleupsC
+ iExURZhF2BXVKxOidHOMXBGaZwjIvWLVEhhu1fq4gIkr+OkQUnqbRmpJ/5OlZ4OAVadW6V/vNoH
+ VuGbUeBv8AEZzmeMaiLMIZBXk5Ct2epUncVQT8gID8xmXEa8M9srnVFlJq8X1k8uPry9/DiaSOu
+ KYgFungANQ9LXkIJ8HNZOrcls4WGnLowK2Rv5ewa+gJKGU4HpxwMufI12Ft7Ixo2PzejPPImOq7
+ AeAE6OZWSy0ck3Skbx2fZt94Lf7VEcg45M6HiV1pW/pJH6frpnJnV1fPIPsRX3B/5+Sq2xEypAl
+ uhy+Yyo0u3qSkAAxdF9Ltw8Ko04h8SoZxMesv56BS44gcsnyvI8mNHKuyoWOb260n16WpFKACzb
+ 67RnlwE
+X-Google-Smtp-Source: AGHT+IEgwPTuV+y/YxgKmEMQ5JWR0Ph9FUtNVoCa4/KkPCvXSSNybLamP4zieVNPRz+A2xMD1/sodg==
+X-Received: by 2002:a05:6402:2793:b0:63c:3efe:d98a with SMTP id
+ 4fb4d7f45d1cf-64044279ed3mr493706a12.32.1761689218434; 
+ Tue, 28 Oct 2025 15:06:58 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24CBF70057E8101A3AD09709.dsl.pool.telekom.hu.
  [2001:4c4e:24cb:f700:57e8:101a:3ad0:9709])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.58
+ 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Oct 2025 15:06:58 -0700 (PDT)
+ Tue, 28 Oct 2025 15:06:57 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 14/14] drm/amdgpu/vce1: Tolerate VCE PLL timeout better
-Date: Tue, 28 Oct 2025 23:06:28 +0100
-Message-ID: <20251028220628.8371-15-timur.kristof@gmail.com>
+Subject: [PATCH 13/14] drm/amdgpu/vce1: Enable VCE1 on Tahiti, Pitcairn,
+ Cape Verde GPUs
+Date: Tue, 28 Oct 2025 23:06:27 +0100
+Message-ID: <20251028220628.8371-14-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251028220628.8371-1-timur.kristof@gmail.com>
 References: <20251028220628.8371-1-timur.kristof@gmail.com>
@@ -92,82 +93,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sometimes the VCE PLL times out while we are programming it.
-When it happens, the VCE still works, but much slower.
-Observed on some Tahiti boards, but not all:
-- FirePro W9000 has the issue
-- Radeon R9 280X not affected
-- Radeon HD 7990 not affected
-
-Continue the complete VCE PLL programming sequence even when
-it timed out. With this, the VCE will work fine and faster
-after the timeout happened.
+Add the VCE1 IP block to the SI GPUs that have it.
+Advertise the encoder capabilities corresponding to VCE1,
+so the userspace applications can detect and use it.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Co-developed-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+Co-developed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/si.c       |  6 +-----
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c | 10 +++++++++-
- 2 files changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/si.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index f7b35b860ba3..ed3d4f9bf9d9 100644
+index 9468c03bdb1b..f7b35b860ba3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/si.c
 +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1902,7 +1902,7 @@ static int si_vce_send_vcepll_ctlreq(struct amdgpu_device *adev)
- 	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~UPLL_CTLREQ_MASK);
+@@ -45,6 +45,7 @@
+ #include "dce_v6_0.h"
+ #include "si.h"
+ #include "uvd_v3_1.h"
++#include "vce_v1_0.h"
  
- 	if (i == SI_MAX_CTLACKS_ASSERTION_WAIT) {
--		DRM_ERROR("Timeout setting VCE clocks!\n");
-+		DRM_WARN("Timeout setting VCE clocks!\n");
- 		return -ETIMEDOUT;
- 	}
+ #include "uvd/uvd_4_0_d.h"
  
-@@ -1954,8 +1954,6 @@ static int si_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
- 	mdelay(1);
+@@ -921,8 +922,6 @@ static const u32 hainan_mgcg_cgcg_init[] =
+ 	0x3630, 0xfffffff0, 0x00000100,
+ };
  
- 	r = si_vce_send_vcepll_ctlreq(adev);
--	if (r)
--		return r;
- 
- 	/* Assert VCEPLL_RESET again */
- 	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, VCEPLL_RESET_MASK, ~VCEPLL_RESET_MASK);
-@@ -1988,8 +1986,6 @@ static int si_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
- 	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, 0, ~VCEPLL_BYPASS_EN_MASK);
- 
- 	r = si_vce_send_vcepll_ctlreq(adev);
--	if (r)
--		return r;
- 
- 	/* Switch VCLK and DCLK selection */
- 	WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL_2,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-index 27f70146293d..fdc455797258 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-@@ -401,7 +401,7 @@ static int vce_v1_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
- static int vce_v1_0_start(struct amdgpu_device *adev)
+-/* XXX: update when we support VCE */
+-#if 0
+ /* tahiti, pitcairn, verde */
+ static const struct amdgpu_video_codec_info tahiti_video_codecs_encode_array[] =
  {
- 	struct amdgpu_ring *ring;
--	int r;
-+	int r, i;
- 
- 	WREG32_P(mmVCE_STATUS, 1, ~1);
- 
-@@ -443,6 +443,14 @@ static int vce_v1_0_start(struct amdgpu_device *adev)
- 	/* Clear VCE_STATUS, otherwise SRBM thinks VCE1 is busy. */
- 	WREG32(mmVCE_STATUS, 0);
- 
-+	/* Wait for VCE_STATUS to actually clear.
-+	 * This helps when there was a timeout setting the VCE clocks.
-+	 */
-+	for (i = 0; i < adev->usec_timeout && RREG32(mmVCE_STATUS); ++i) {
-+		udelay(1);
-+		WREG32(mmVCE_STATUS, 0);
-+	}
+@@ -940,13 +939,7 @@ static const struct amdgpu_video_codecs tahiti_video_codecs_encode =
+ 	.codec_count = ARRAY_SIZE(tahiti_video_codecs_encode_array),
+ 	.codec_array = tahiti_video_codecs_encode_array,
+ };
+-#else
+-static const struct amdgpu_video_codecs tahiti_video_codecs_encode =
+-{
+-	.codec_count = 0,
+-	.codec_array = NULL,
+-};
+-#endif
 +
- 	if (r) {
- 		dev_err(adev->dev, "VCE not responding, giving up!!!\n");
- 		return r;
+ /* oland and hainan don't support encode */
+ static const struct amdgpu_video_codecs hainan_video_codecs_encode =
+ {
+@@ -2723,7 +2716,7 @@ int si_set_ip_blocks(struct amdgpu_device *adev)
+ 		else
+ 			amdgpu_device_ip_block_add(adev, &dce_v6_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &uvd_v3_1_ip_block);
+-		/* amdgpu_device_ip_block_add(adev, &vce_v1_0_ip_block); */
++		amdgpu_device_ip_block_add(adev, &vce_v1_0_ip_block);
+ 		break;
+ 	case CHIP_OLAND:
+ 		amdgpu_device_ip_block_add(adev, &si_common_ip_block);
+@@ -2741,7 +2734,6 @@ int si_set_ip_blocks(struct amdgpu_device *adev)
+ 		else
+ 			amdgpu_device_ip_block_add(adev, &dce_v6_4_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &uvd_v3_1_ip_block);
+-		/* amdgpu_device_ip_block_add(adev, &vce_v1_0_ip_block); */
+ 		break;
+ 	case CHIP_HAINAN:
+ 		amdgpu_device_ip_block_add(adev, &si_common_ip_block);
 -- 
 2.51.0
 
