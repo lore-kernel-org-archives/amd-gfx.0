@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E280CCF9F5
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1373ACCF9FC
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6BB10E93A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4776E10E93D;
 	Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NzTyO4Su";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VQKv+g3L";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B998F10E61F;
- Tue, 28 Oct 2025 17:36:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CDF510E639;
+ Tue, 28 Oct 2025 17:37:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761672981; x=1793208981;
+ t=1761673071; x=1793209071;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bZ8RzX3XhmEbNTDlxF5oMlGveV2u4y/v84rMSalX5XY=;
- b=NzTyO4Sut8rt1Pk8Iz9hNdLZZ4Lp/5aqlDJchDH1N3pBT/FK7XgOoXPW
- eYqKjxP8jZros+Hb4QeWNUNffjcAHsRWgEeAxQK5olCu83p99x5al8MFt
- vfu99sV1o9TtZqg3uEUbVSqkiH7+Knu7iJD9YutOMFpMH6OAIxGOHQ2FJ
- SW/A5HhEhoVOQNMtbF8EYSAqAWsEDGbI84NIlWzoOVAPibbOOrvSp+tME
- ZxYRUNZsQmo8kMxI6x197bOl48BdtCmWizB922grwniCaAh1Pyzg8t+ZQ
- NTMFCq+qevrq8vYdTyDIkdFkcEqhiuuAg/WR6iC+kmZFkfidlq/tD3UOM g==;
-X-CSE-ConnectionGUID: rUT7G5yBSOCW2552dtZcDw==
-X-CSE-MsgGUID: hHGFkSiIRoahHmknRvIESA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="74901438"
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="74901438"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:36:20 -0700
-X-CSE-ConnectionGUID: TkYtyQbvR7qXL+36gyfpQg==
-X-CSE-MsgGUID: uP1tK2S7QiS2CwBKUQKvLw==
+ bh=8HzYU02dn6gqkOKj2vIFpqRrMZ6pFIdvNMAeG0Ynh8Y=;
+ b=VQKv+g3LJAgO0OqFrZdRi86ZXbxcSHGByQbG059wkU5LPiOXf5tB0POQ
+ aHPTEkgVsnuFEHWozqSjWV1OuvZsKftC5N2MATiKjXU5AR0YZUzZYvoKk
+ ZU5QB3sm3dQIvljc4Vmfe2dXGe/24lIi+cg7AQNbjwZb2YNb2iEo+G58Y
+ kxsUjddqWnAUUioh4YLpgRdSHx/ZSS/ic7HSv5lP+kXzzinsfFz9/+QUJ
+ zqt4XsYJUWobVkXE48BwOTnq2xbfVk1WIdpuBvta7PRI49wSC5Z6luv+Y
+ LdRst/HzE7Zv8nnUH54pJ3zXHQjGRZTivt6t2t88eU5wgl+YC/WOzoz+T Q==;
+X-CSE-ConnectionGUID: iM89iywtSwyMS+3FJC9+gA==
+X-CSE-MsgGUID: oeEDHcbHQ3u4+TO0gHlSNg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="67425319"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="67425319"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:37:50 -0700
+X-CSE-ConnectionGUID: O7zkssxpThup/TW4+3yClA==
+X-CSE-MsgGUID: oeHFK8iZSu+Rblv5L3kuqA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="190548630"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="185112401"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.182])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:36:13 -0700
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:37:43 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Simon Richter <Simon.Richter@hogyros.de>,
@@ -58,10 +58,9 @@ To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
  linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 1/9] PCI: Prevent resource tree corruption when BAR resize
- fails
-Date: Tue, 28 Oct 2025 19:35:43 +0200
-Message-Id: <20251028173551.22578-2-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 8/9] drm/amdgpu: Remove driver side BAR release before resize
+Date: Tue, 28 Oct 2025 19:35:50 +0200
+Message-Id: <20251028173551.22578-9-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
 References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
@@ -83,59 +82,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pbus_reassign_bridge_resources() saves bridge windows into the saved
-list before attempting to adjust resource assignments to perform a BAR
-resize operation. If resource adjustments cannot be completed fully,
-rollback is attempted by restoring the resource from the saved list.
+PCI core handles releasing device's resources and their rollback in
+case of failure of a BAR resizing operation. Releasing resource prior
+to calling pci_resize_resource() prevents PCI core from restoring the
+BARs as they were.
 
-The rollback, however, does not check whether the resources it restores were
-assigned by the partial resize attempt. If restore changes addresses of the
-resource, it can result in corrupting the resource tree.
+Remove driver-side release of BARs from the amdgpu driver.
 
-An example of a corrupted resource tree with overlapping addresses:
+Also remove the driver initiated assignment as pci_resize_resource()
+should try to assign as much as possible. If the driver side call
+manages to get more required resources assigned in some scenario, such
+a problem should be fixed inside pci_resize_resource() instead.
 
-6200000000000-6203fbfffffff : pciex@620c3c0000000
-  6200000000000-6203fbff0ffff : PCI Bus 0030:01
-    6200020000000-62000207fffff : 0030:01:00.0
-    6200000000000-6203fbff0ffff : PCI Bus 0030:02
-
-A resource that are assigned into the resource tree must remain
-unchanged. Thus, release such a resource before attempting to restore
-and claim it back.
-
-For simplicity, always do the release and claim back for the resource
-even in the cases where it is restored to the same address range.
-
-Note: this fix may "break" some cases where devices "worked" because
-the resource tree corruption allowed address space double counting to
-fit more resource than what can now be assigned without double
-counting. The upcoming changes to BAR resizing should address those
-scenarios (to the extent possible).
-
-Fixes: 8bb705e3e79d ("PCI: Add pci_resize_resource() for resizing BARs")
-Reported-by: Simon Richter <Simon.Richter@hogyros.de>
-Reported-by: Alex Bennée <alex.bennee@linaro.org>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/pci/setup-bus.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 4a8735b275e4..e6984bb530ae 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2504,6 +2504,11 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 		bridge = dev_res->dev;
- 		i = pci_resource_num(bridge, res);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7a899fb4de29..65474d365229 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1729,12 +1729,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+ 	pci_write_config_word(adev->pdev, PCI_COMMAND,
+ 			      cmd & ~PCI_COMMAND_MEMORY);
  
-+		if (res->parent) {
-+			release_child_resources(res);
-+			pci_release_resource(bridge, i);
-+		}
-+
- 		restore_dev_resource(dev_res);
+-	/* Free the VRAM and doorbell BAR, we most likely need to move both. */
++	/* Tear down doorbell as resizing will release BARs */
+ 	amdgpu_doorbell_fini(adev);
+-	if (adev->asic_type >= CHIP_BONAIRE)
+-		pci_release_resource(adev->pdev, 2);
+-
+-	pci_release_resource(adev->pdev, 0);
  
- 		pci_claim_resource(bridge, i);
+ 	r = pci_resize_resource(adev->pdev, 0, rbar_size);
+ 	if (r == -ENOSPC)
+@@ -1743,8 +1739,6 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+ 	else if (r && r != -ENOTSUPP)
+ 		dev_err(adev->dev, "Problem resizing BAR0 (%d).", r);
+ 
+-	pci_assign_unassigned_bus_resources(adev->pdev->bus);
+-
+ 	/* When the doorbell or fb BAR isn't available we have no chance of
+ 	 * using the device.
+ 	 */
 -- 
 2.39.5
 
