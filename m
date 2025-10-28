@@ -4,53 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54641CCF9E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 00:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D3FCCF9E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 04:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C942210E1AF;
-	Tue, 28 Oct 2025 00:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5527D10E1D1;
+	Tue, 28 Oct 2025 04:58:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y6BwfASZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VWG5Iklr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9B6410E1AF
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 00:40:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 47DB4489A4;
- Tue, 28 Oct 2025 00:40:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE2DC116B1;
- Tue, 28 Oct 2025 00:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761612007;
- bh=TqwRwFFs387iVOAkocf+ezDLn2LssS+JbPqVIryJlgg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y6BwfASZ0SqfzKqTqd8s/dvlLex7+2mGPzmEnI5WKxGadqzmwrsaBy+PZEJ3rI+7t
- jZS73PbTzrk4PUzRIlG4fbYGbVoSQY2ZQ/d2RtQ8Q9ti6IqDDdScFc5tHNRuSxRqc4
- db1h7vN8tZ3io68vrzJcJ05CzvQL7MMIBBVMgcCBTMggW/2o5pXz8S6Eai19GqIBH+
- 8sSUpOCOoydar5IV9TEUqbSJmh3ic1qs6fjhw5hta9bSXWEFQWW+z+BKhmmdwBnfI1
- fd14GjYKj690V6my0hspU2NxcHyAjewZx1NRIof0FXrO7fD4D7oD1GP6pFZeA4xV8L
- YllJJi5U+x4MQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Jonathan Kim <jonathan.kim@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>,
- Sasha Levin <sashal@kernel.org>, Felix.Kuehling@amd.com,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.17] drm/amdkfd: fix suspend/resume all calls in mes
- based eviction path
-Date: Mon, 27 Oct 2025 20:38:55 -0400
-Message-ID: <20251028003940.884625-11-sashal@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251028003940.884625-1-sashal@kernel.org>
-References: <20251028003940.884625-1-sashal@kernel.org>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013041.outbound.protection.outlook.com
+ [40.93.196.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D288210E1D1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 04:58:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lvmddxRZ2RzwHjLM5vnSALPHjBBisjJ2ZFTR9PPs+oqNJuy8ZUhG4LUcbx05Rm0onqV4C7VeiQiQsuO/8SaDtnrtDlq7LCawExfSZaG/kWORXQNwzYLLbzMRK2FV1iAY1NJ+aVzvAcFfLXRCqYcX6I7/hEDuDQP3qiJRqRoF8dD0sJfss9IZw9K/siPqaAxtkI5Jd5WQG6Pv4+K0QeDIc+BWtJUDk3QZFU4rSr1D8oKmLuEvUtZ06kr94PD3Rb1M9H/BdskjIfIXi2gUiY8BiFkRNyfqxdPJ0WWRsHZFgkscDA7HuEYcneDkAQB19smpIb/e8r7h4qAA+WAM12k38g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ASS+Llb1jC4xpxyfkf6fgLtqbOt0vXfQ2/7W6WAteIY=;
+ b=BZXEbYxXmpxyGfnth38OsKna9Epa4hxlKKnMjETYMCAj2VYvBF2gpHY33P9LatjR+HEAjuLXjLMbW99jDMjUqledxe2wV3iLVqyLyzelWWJgJuWnQjb+T8csQqAxPQisLsc/L1g0USGTUOf5H5S3XjtOX5NWN6hNUdwmP23Bn1FxPSWyUChvJSIyZRhZexZ1q92fAnWnBPg2STRCYehS1HxBx3EonAZTy4v1rPcitRApSsLPbqbHInoYLydOtCSXctzdClAiOEehBQQxey5WgDVc0jkfOi1uhZBLpSDwIOMlrNBZYPtcQQEfXk/2cR6j36mDLboQQ+vUGwVYnViaaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ASS+Llb1jC4xpxyfkf6fgLtqbOt0vXfQ2/7W6WAteIY=;
+ b=VWG5IklrxSriPlnzymH9FO7xqZ3uY21UpLv9iV3NXbrWjyeaZCn/wvWlgRj+f3QKNv3iK1aRBwe3TiiYWBTlwjJ5wTF1z+bBfaE19DkfKFUXAbTK7DlkpSBWPoPF/DWeE0yoDl8/dvMXCBN5v6WVi+3pr9oA9o5MaJx9F0ip8mg=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by LV3PR12MB9354.namprd12.prod.outlook.com (2603:10b6:408:211::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.18; Tue, 28 Oct
+ 2025 04:58:19 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::d4b5:6a30:96d5:e3ed]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::d4b5:6a30:96d5:e3ed%5]) with mapi id 15.20.9253.018; Tue, 28 Oct 2025
+ 04:58:19 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: RE: [PATCH 3/3] drm/amdgpu: use irq-safe lock in
+ amdgpu_userq_fence_driver_process
+Thread-Topic: [PATCH 3/3] drm/amdgpu: use irq-safe lock in
+ amdgpu_userq_fence_driver_process
+Thread-Index: AQHcRMrjtYb1ip0tu0uhGn6D2jsPqrTXBMyw
+Date: Tue, 28 Oct 2025 04:58:18 +0000
+Message-ID: <DM4PR12MB5152AB69DB0AF046B9EAEDF1E3FDA@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20251024094445.3090110-1-Jesse.Zhang@amd.com>
+ <20251024094445.3090110-3-Jesse.Zhang@amd.com>
+In-Reply-To: <20251024094445.3090110-3-Jesse.Zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-10-28T04:56:16.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|LV3PR12MB9354:EE_
+x-ms-office365-filtering-correlation-id: 98fd5b11-2c83-4840-6c93-08de15de9cb4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?qRyyofpHo/mZDDFCRJXkjoj4fS/US7AKMcf/odIiSEVkrtHska+xx3m+OAZv?=
+ =?us-ascii?Q?18Ztehj3rodagTGJYWMkFti5JeLitmNYvokuPSrLOiqEsUHZWNfFqXcE/r8u?=
+ =?us-ascii?Q?5p5YU1UHiwRGsfX5ZK0dcgCOEm5BJCNCLsJZPnqtLIwrhKC5lZtfeqCKgMgv?=
+ =?us-ascii?Q?F3qpsZDr+nMZt73T147fvmHYXybEqNHOniKdfcgrugLRHQed1VFoKF54zroI?=
+ =?us-ascii?Q?ZGRaGDanwsJg+rlQT06yYj9zyjFW96TOtanIn9MqzJi0RPlHE09Fi8IRPabp?=
+ =?us-ascii?Q?IEddN8zAKcccwhGwtaqoKIZxO8+j56NEyMinr2SxnN35KzrVenriwisWawwr?=
+ =?us-ascii?Q?iKw7FCVoa3G0ErIHm7eTzobCGWnguGdnK5btxeIPt4QE/Vhb9uNzH+iracun?=
+ =?us-ascii?Q?h+cGaNJUw4i0gERFAMoOaGLW+zwm9oTXNRMf5H8469zyVDPV3JyJvYCvY07I?=
+ =?us-ascii?Q?B5QajEThbgqZ3frwxWiZ0Z4c9nvf4ncBPK0lts6C3E5QGxNv2UccFSoYW7Dd?=
+ =?us-ascii?Q?RW3KbGr3jaUfgQMuZ5scb/iNybsrkQYzUumdQPxW1NQVZcTiFIAlXnnMHgdT?=
+ =?us-ascii?Q?O3yG670GaBUn5GuKU2EXs6Ktps2Oe3t4II9lS0pn/AOPE1Jb+d0+J/G2xcZ3?=
+ =?us-ascii?Q?B7ubdyomt9u4yyF1dPk09kOxXiLvsaOjWfUTGahDWq5njETeyRDMnF9fO8GL?=
+ =?us-ascii?Q?Lda67xpmgWRfacw7vGU+1E+aetk53blcSzZlsX3F/UgkdOG4lTGhMCaOCv+T?=
+ =?us-ascii?Q?gSJ8ZIJ8hPwGX5ZeR/nd7+L6RgGLoyZx8wyFekT/a3ovhZP38BlWWn+Lj6dQ?=
+ =?us-ascii?Q?c3QibctHu0bQ5EnvnSc+1q8LknZHTcARRfKuB3EN6JMpSFznRPeCraLGxvWG?=
+ =?us-ascii?Q?IL3hTp1D3eLxmNfSQWEVN/iV1dRVv2gPnFWIFLq4LzyXqNXCNbaKGl68U8E8?=
+ =?us-ascii?Q?1xFbcQKTN4jUThZx5m6WygiNObMHiikJ9yw/7rTKdNcC1JnyLtuND1w3iJw6?=
+ =?us-ascii?Q?klvcmUFpylckONkhFpkgpTQ7yE2a1cOSbxckOfg11OYPVGX20K0vXqT4ML4g?=
+ =?us-ascii?Q?TEw3sjYk/QlAICQCgYdKR+t2UpBUGtQTuVOdbmiuv+U9QtHzuvD1fyXUiLSe?=
+ =?us-ascii?Q?8KDt/+DiZKTSRBnlYb4MfLtEzOQci57kc4hTOZDmR96z+JzG3L9zpXygMPm3?=
+ =?us-ascii?Q?cobB3KmKe4UUWrR/rTsT44g3nP1+OujANGpEIKBjFKRIfWisNJmi5+xhJhMo?=
+ =?us-ascii?Q?kIWG+JVLPoT7Q1bg/s9B7oGsYfdyx1Xlf/QiL1bCQi3/y2BOOuSWKhHekyNU?=
+ =?us-ascii?Q?PDg9k28SqaQ8OvhR0ujSaF49fTcKQnrdH7RWmPNJsFNUoAONEIONfqwB9lhu?=
+ =?us-ascii?Q?UPmgja3VPopMIldWQbpE1/eeQepXNPXAbK49GdhjjT973ulhbNIEujpIaStZ?=
+ =?us-ascii?Q?qlSLY98EzUqzbACMR8Hi2PZaofiZ6WRVyQCE55YL1Fqu0sFMMywYevmk65ON?=
+ =?us-ascii?Q?Z6LM8COLNaUy6qTrKF9C67QuaVDl/wSaPsFp?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1oGDMcv0nHWliScbKqYKpxYJcbFzvQaKp93c06G/FGhG+8FaXhU7d6PVlDlz?=
+ =?us-ascii?Q?VU/4tCOBSlA0j4XBDARNUlP0f2JTWCBu0iES6Dr/I2vrgo5WV6K85GoMZT4L?=
+ =?us-ascii?Q?X0huhWrgdq9jWxRhPukWtbMXpzIpIeu9rrE5co7DOwfTUsWwWmxIK/9YxGdi?=
+ =?us-ascii?Q?qRvgGdIH/PNXa5pOcSFsUT9elGeNN0NHG6+JobT59YJRbsVAAD4wT1MYvZDT?=
+ =?us-ascii?Q?jXCKVzAg3QrCHgK9SqVl5JYxqKdV5rqfhuRFHI+HsJSln1zp19l1slDkhTPJ?=
+ =?us-ascii?Q?0FLdoCf6AqsPZZ1poR2iaj7la0Qk3ulVt6nr9ynWq3b4XW9PnlOdDILURcWU?=
+ =?us-ascii?Q?SVzY/vgeZX4dyPSX14PTsBtyk09vmsRtM78hWbNCwkg3Yf4hayZls/TuIXy/?=
+ =?us-ascii?Q?taT9Rz1n0lGst82riqMbyvhIUndPYyUrh45foEM4ykOpu3CAVZm6Rt1qMqR8?=
+ =?us-ascii?Q?y6UbSGizJPSZhCMkJUgCbRM1zUI5Ccx9WwcuVpWhwXUa5fR2EpPfUChVzKd7?=
+ =?us-ascii?Q?9AmQ0i0Fww5wViOMOhQ40rp8PN4htM2SKow8RRj4ZjekNAlLejELJdhj3947?=
+ =?us-ascii?Q?RZ8/W4s4pT9dLqSAfBPakV5CEA//FHLOc4JKVaBVy2RGYHZ/OXTPlV5zXeNR?=
+ =?us-ascii?Q?q32jVL0O7OgczgV5ZP+a3rVCiTAifETcAGiD3qxXb34IigRA1eO8D0iZ8cqM?=
+ =?us-ascii?Q?dJkfLGft5VuvyzzCj5WuaGDVz5Vvtd7jufwEelbk8USi/Jpi6gr7jZrFr4mo?=
+ =?us-ascii?Q?jIN4fw7xUgKzZOjpNBfHbRbE70KyMABSUqvt3iXALxVCcEaQDBSCCUD2DRMN?=
+ =?us-ascii?Q?phgtp1VCP7J/D5ZO10eiA3KJVf+pXjMv/CREAuQ62m2R3WCi4VWAlnJWRvHX?=
+ =?us-ascii?Q?9ZUT4mlSVNOJNRydq9EIcVQWDh7YjYWyyTekn1bvlydyTcnzA2/SnkEV5occ?=
+ =?us-ascii?Q?0hv9U54heQgqqU7DpTIQbHifYbPzUdFnI+WOSRJYlvYccfzcn7rxlSWYdoXE?=
+ =?us-ascii?Q?6twO9kRFQKyxoK8GWJydr+LGMR5gGfxzwBaA6vD7Gwg3KppB9oz6PucbJyc6?=
+ =?us-ascii?Q?8sZw4c2g/w46pTYcuyU48fBKsV6gPGariacXcgRHZ/n/T80F6hflemhB68jl?=
+ =?us-ascii?Q?AeBhieNyudI7FWFrkDTR3VcCbAJdAUJdEdPWoXQOWBgTR0NknkDJQGoarbkY?=
+ =?us-ascii?Q?wDTldex1eCmn6nZh0Jp9odrTiOoFG3z+c4VJeV+QR6SxbkrQ8M6NsEh6JYVU?=
+ =?us-ascii?Q?BuJ+Sr9U0D9Cck+5L05ezXInKwUTNZ6cdr3nMQuZHs5vnGy4Tpr9wIbp3+wJ?=
+ =?us-ascii?Q?6VDmReqyE6f/w863wNNyTzB8KSlTn0nLp9tIrr/mEC38xzg1RTtU5K6RiIcN?=
+ =?us-ascii?Q?Dvpls+vJdiTNUN5SI0iKC3bdAr4GWioryIKnKzzjVBBM0nlgC3xeGtHLBU3b?=
+ =?us-ascii?Q?Q2S3IoFXs28MrhAuHuNye3LWIS3tlYin2qs5l+/+F5+NpLU8vAOZnuvmBfVr?=
+ =?us-ascii?Q?+yTC7vFE/KIqbMd2cxlINHrWQRXmiORGuS80dc9artp7ZTkjmmBjVabLB51j?=
+ =?us-ascii?Q?WTeRtJ9GRMgwhcrxn8k=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.17.5
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98fd5b11-2c83-4840-6c93-08de15de9cb4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2025 04:58:18.9012 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OuK0zDc0kC13CWRypYtWPU3GT8b/V5FcObj0UtT9KqyKI+8Gu9S5m8mMLdMwRfd1aMSkCewMxSwQRecF4gD1Cw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,266 +160,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jonathan Kim <jonathan.kim@amd.com>
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-[ Upstream commit 079ae5118e1f0dcf5b1ab68ffdb5760b06ed79a2 ]
+Ping this series.
 
-Suspend/resume all gangs should be done with the device lock is held.
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## BACKPORT RECOMMENDATION: YES
-
-### Summary
-This commit fixes a **locking correctness bug** in the AMD KFD (GPU
-compute) driver's MES-based eviction path. The bug allows
-suspend_all_queues_mes() and resume_all_queues_mes() to be called
-without holding the required device queue manager lock, creating race
-conditions that can cause GPU hangs and system instability.
-
----
-
-### Semantic Analysis Tools Used
-
-1. **mcp__semcode__find_function**: Located evict_process_queues_cpsch,
-   suspend_all_queues_mes, resume_all_queues_mes, and
-   kfd_evict_process_device functions
-2. **mcp__semcode__find_callers**: Identified 4 direct callers of
-   kfd_evict_process_device:
-   - kfd_set_dbg_ev_from_interrupt (debug interrupts)
-   - kfd_dbg_send_exception_to_runtime (ioctl handler)
-   - kfd_signal_vm_fault_event_with_userptr (VM fault handler)
-   - cik_event_interrupt_wq (interrupt handler)
-3. **mcp__semcode__find_callchain**: Traced call paths showing user-
-   space can trigger this via kfd_ioctl_set_debug_trap
-4. **Git history analysis**: Determined bug was introduced in v6.12
-   (commit 9a16042f02cd0) and fixed in v6.18-rc2
-
----
-
-### Code Analysis
-
-**The Bug (OLD CODE in kfd_dqm_evict_pasid_mes):**
-```c
-dqm_lock(dqm);
-if (qpd->evicted) { ... }
-dqm_unlock(dqm);  // ← Lock released here
-
-ret = suspend_all_queues_mes(dqm);  // ← Called WITHOUT lock
-ret = dqm->ops.evict_process_queues(dqm, qpd);
-ret = resume_all_queues_mes(dqm);  // ← Called WITHOUT lock
-```
-
-The old code released the dqm lock, then called suspend/resume without
-re-acquiring it. This violates the locking contract stated in the commit
-message: "Suspend/resume all gangs should be done with the device lock
-is held."
-
-**The Fix (NEW CODE in evict_process_queues_cpsch):**
-```c
-dqm_lock(dqm);  // ← Lock held from start
-if (dqm->dev->kfd->shared_resources.enable_mes) {
-    retval = suspend_all_queues_mes(dqm);  // ← Called WITH lock
-    if (retval) goto out;
-}
-// ... eviction work ...
-if (dqm->dev->kfd->shared_resources.enable_mes) {
-    retval = resume_all_queues_mes(dqm);  // ← Called WITH lock
-}
-out:
-    dqm_unlock(dqm);  // ← Lock held until end
-```
-
-The fix moves suspend/resume calls inside evict_process_queues_cpsch
-where the dqm lock is held throughout the entire operation. It also:
-- Eliminates the buggy kfd_dqm_evict_pasid_mes wrapper entirely
-- Improves error handling with early exit on suspend failure
-- Changes error path from continuing with `retval = err` to immediately
-  exiting with `goto out`
-
----
-
-### Impact Assessment
-
-**Severity: Medium-High**
-- **User-triggerable:** YES - via ioctl (kfd_ioctl_set_debug_trap) and
-  VM fault handlers
-- **Affected kernels:** v6.12 through v6.17 (6 major versions)
-- **Subsystem criticality:** GPU compute device queue management
-- **Potential consequences:**
-  - Race conditions during queue eviction
-  - GPU hangs and device state corruption
-  - System instability
-  - Possible kernel crashes
-
-**Scope: Well-contained**
-- Changes confined to AMD KFD driver (drivers/gpu/drm/amd/amdkfd/)
-- Only affects MES-based queue eviction path
-- No architectural changes or API modifications
-- Eliminates 44 lines of buggy code, adds proper locking discipline
-
----
-
-### Stable Tree Compliance
-
-✅ **Fixes an important bug:** Locking correctness issue causing race
-conditions
-✅ **Does not introduce new features:** Pure bug fix
-✅ **No architectural changes:** Refactors existing code path
-✅ **Minimal regression risk:** Simplifies code and improves locking
-discipline
-✅ **Self-contained:** Limited to single driver subsystem
-✅ **User-impacting:** Affects systems running AMD GPU compute workloads
-
-⚠️ **Missing Fixes: tag:** The commit doesn't have "Fixes:
-9a16042f02cd0" tag, but this doesn't disqualify it from backporting
-
----
-
-### Recommendation Rationale
-
-1. **Clear bug with clear fix:** The commit message explicitly states
-   the locking requirement that was violated
-2. **User-reachable code path:** Semantic analysis confirmed user-space
-   can trigger this via ioctl
-3. **Multi-version impact:** Bug has existed since v6.12 (June 2024),
-   affecting 6 kernel versions
-4. **Low backport risk:** Code change is straightforward - moves
-   function calls inside locked region
-5. **Historical precedent:** Similar locking fixes in this subsystem
-   have been backported (e.g., commit 70df8273ca0ce)
-
-This commit should be backported to **stable kernels v6.12+** to prevent
-GPU hangs and system instability on AMD compute workloads.
-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 73 ++++++-------------
- 1 file changed, 21 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 6c5c7c1bf5eda..6e7bc983fc0b6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1209,6 +1209,15 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 	pr_debug_ratelimited("Evicting process pid %d queues\n",
- 			    pdd->process->lead_thread->pid);
- 
-+	if (dqm->dev->kfd->shared_resources.enable_mes) {
-+		pdd->last_evict_timestamp = get_jiffies_64();
-+		retval = suspend_all_queues_mes(dqm);
-+		if (retval) {
-+			dev_err(dev, "Suspending all queues failed");
-+			goto out;
-+		}
-+	}
-+
- 	/* Mark all queues as evicted. Deactivate all active queues on
- 	 * the qpd.
- 	 */
-@@ -1221,23 +1230,27 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 		decrement_queue_count(dqm, qpd, q);
- 
- 		if (dqm->dev->kfd->shared_resources.enable_mes) {
--			int err;
--
--			err = remove_queue_mes(dqm, q, qpd);
--			if (err) {
-+			retval = remove_queue_mes(dqm, q, qpd);
-+			if (retval) {
- 				dev_err(dev, "Failed to evict queue %d\n",
- 					q->properties.queue_id);
--				retval = err;
-+				goto out;
- 			}
- 		}
- 	}
--	pdd->last_evict_timestamp = get_jiffies_64();
--	if (!dqm->dev->kfd->shared_resources.enable_mes)
-+
-+	if (!dqm->dev->kfd->shared_resources.enable_mes) {
-+		pdd->last_evict_timestamp = get_jiffies_64();
- 		retval = execute_queues_cpsch(dqm,
- 					      qpd->is_debug ?
- 					      KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES :
- 					      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0,
- 					      USE_DEFAULT_GRACE_PERIOD);
-+	} else {
-+		retval = resume_all_queues_mes(dqm);
-+		if (retval)
-+			dev_err(dev, "Resuming all queues failed");
-+	}
- 
- out:
- 	dqm_unlock(dqm);
-@@ -3098,61 +3111,17 @@ int kfd_dqm_suspend_bad_queue_mes(struct kfd_node *knode, u32 pasid, u32 doorbel
- 	return ret;
- }
- 
--static int kfd_dqm_evict_pasid_mes(struct device_queue_manager *dqm,
--				   struct qcm_process_device *qpd)
--{
--	struct device *dev = dqm->dev->adev->dev;
--	int ret = 0;
--
--	/* Check if process is already evicted */
--	dqm_lock(dqm);
--	if (qpd->evicted) {
--		/* Increment the evicted count to make sure the
--		 * process stays evicted before its terminated.
--		 */
--		qpd->evicted++;
--		dqm_unlock(dqm);
--		goto out;
--	}
--	dqm_unlock(dqm);
--
--	ret = suspend_all_queues_mes(dqm);
--	if (ret) {
--		dev_err(dev, "Suspending all queues failed");
--		goto out;
--	}
--
--	ret = dqm->ops.evict_process_queues(dqm, qpd);
--	if (ret) {
--		dev_err(dev, "Evicting process queues failed");
--		goto out;
--	}
--
--	ret = resume_all_queues_mes(dqm);
--	if (ret)
--		dev_err(dev, "Resuming all queues failed");
--
--out:
--	return ret;
--}
--
- int kfd_evict_process_device(struct kfd_process_device *pdd)
- {
- 	struct device_queue_manager *dqm;
- 	struct kfd_process *p;
--	int ret = 0;
- 
- 	p = pdd->process;
- 	dqm = pdd->dev->dqm;
- 
- 	WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
- 
--	if (dqm->dev->kfd->shared_resources.enable_mes)
--		ret = kfd_dqm_evict_pasid_mes(dqm, &pdd->qpd);
--	else
--		ret = dqm->ops.evict_process_queues(dqm, &pdd->qpd);
--
--	return ret;
-+	return dqm->ops.evict_process_queues(dqm, &pdd->qpd);
- }
- 
- int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
--- 
-2.51.0
+> -----Original Message-----
+> From: Jesse.Zhang <Jesse.Zhang@amd.com>
+> Sent: Friday, October 24, 2025 5:44 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
+> Subject: [PATCH 3/3] drm/amdgpu: use irq-safe lock in
+> amdgpu_userq_fence_driver_process
+>
+> The amdgpu_userq_fence_driver_process() function can be called from both
+> interrupt context (IRQ handlers like gfx_v11_0_eop_irq) and process conte=
+xt
+> (workqueues like eviction suspend worker). Using regular spin_lock() in i=
+nterrupt
+> context triggers lockdep warnings and could lead to potential deadlocks.
+>
+> Replace the regular spin_lock()/spin_unlock() with their interrupt- safe =
+variants
+> spin_lock_irqsave()/spin_unlock_irqrestore() to ensure proper locking sem=
+antics in
+> all execution contexts.
+>
+> This ensures:
+> - Interrupts are properly disabled when locking in interrupt context
+> - No lockdep warnings due to mixed context usage
+> - Safe execution across all code paths that process user queue fences
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 2aeeaa954882..69908b90d255 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -151,15 +151,16 @@ void amdgpu_userq_fence_driver_process(struct
+> amdgpu_userq_fence_driver *fence_d  {
+>       struct amdgpu_userq_fence *userq_fence, *tmp;
+>       struct dma_fence *fence;
+> +     unsigned long flags;
+>       u64 rptr;
+>       int i;
+>
+>       if (!fence_drv)
+>               return;
+>
+> +     spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
+>       rptr =3D amdgpu_userq_fence_read(fence_drv);
+>
+> -     spin_lock(&fence_drv->fence_list_lock);
+>       list_for_each_entry_safe(userq_fence, tmp, &fence_drv->fences, link=
+) {
+>               fence =3D &userq_fence->base;
+>
+> @@ -174,7 +175,7 @@ void amdgpu_userq_fence_driver_process(struct
+> amdgpu_userq_fence_driver *fence_d
+>               list_del(&userq_fence->link);
+>               dma_fence_put(fence);
+>       }
+> -     spin_unlock(&fence_drv->fence_list_lock);
+> +     spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
+>  }
+>
+>  void amdgpu_userq_fence_driver_destroy(struct kref *ref)
+> --
+> 2.49.0
 
