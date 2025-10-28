@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89738CCF9F8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE4D3CCF9F0
 	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1906710E937;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 190B310E938;
 	Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="czcqHsvu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CXMLsNi9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60D6110E63D;
- Tue, 28 Oct 2025 17:38:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E752410E630;
+ Tue, 28 Oct 2025 17:37:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761673083; x=1793209083;
+ t=1761673046; x=1793209046;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rj0qgordGZNB+YdPjKDmtqTEG5yrczqeTMJCDVNmgm0=;
- b=czcqHsvuBt+Cd0uR/ZTJ2AxTRMMSPqWM7JyltnWkaww25r7Iy7p8xH6m
- w2LJJAPHSkbpNsDfOpdHV/Uls82kBh1e6d4vvgvhfLN5972U9a9whs9Jx
- 8UTV652d4ki/iKmBQXNzSoaV6T4oKUa2jV+qnaLKoHkF9POKlK5V5qkbC
- WoH/JYxyogM2J/nZFlBRnL/6AxxJUyMe9PyKmslpQiCpfqO53yDuJv5hO
- smgC5HDMG8wD3Ro+DQq/LWrVjetndd9PSDQTlNdaVPZLb3WWcTqbCJZFr
- 3DmskT1xk5uiatgkZkAXrZyotp44vWtf4X/lw5two5Mky0WGlNEYBEodi w==;
-X-CSE-ConnectionGUID: 34gN1EUdR+ew60r6H2C2eA==
-X-CSE-MsgGUID: iwieSlqSQB+oFYVrvghjBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="81413277"
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="81413277"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:38:03 -0700
-X-CSE-ConnectionGUID: CNDiVW/JRC2hDk9azTLjtQ==
-X-CSE-MsgGUID: jG6aT9CEQn60hVk9anqSKQ==
+ bh=aCyNNcynk6Iwh3upBHjwChHEBH25NCgzbc0Xsbk5ieI=;
+ b=CXMLsNi9Ub0XFSMSly0oJI2kbfsYLXHa+kAmW9kSADYdWgQPbX/Z5cNR
+ RHXcycZNXwEi/bvFr81kGQn/fRrbZkr9sbUkYQUeP3SQiQEA3bPeFvYFz
+ bDDG7F6GRrJ5B8wCajOEzIqXA8l8STbMYI6QEO6yO6b9JmLVujTXSRA4E
+ JeRiD/3EZSo+68071TdCyxZkJgKmHobBdxVYN7hUNqGR7iOmyusic1KrQ
+ ACo79ejdnQMy0Nesb0qQZLGHhlSHFGkMpLPtuIR84PDSfrLZD1W+u/TKl
+ RKrhgLwgngb7RsKM1bPar4nCHTa2n3V0C8t/CUHM1zYk7rE55z6PaaGZq w==;
+X-CSE-ConnectionGUID: AAh7nMS1RcmAXsjn4FfLiQ==
+X-CSE-MsgGUID: qj1jEe8gRnSjMdQvy5aHCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="67621453"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="67621453"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:37:26 -0700
+X-CSE-ConnectionGUID: +HEFfINgTs2XP0zut8S6cg==
+X-CSE-MsgGUID: CKP/G/LHRrCWhnASdtrLTw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="185304310"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="185879228"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.182])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:37:56 -0700
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:37:18 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Simon Richter <Simon.Richter@hogyros.de>,
@@ -58,9 +58,9 @@ To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
  linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 9/9] PCI: Prevent restoring assigned resources
-Date: Tue, 28 Oct 2025 19:35:51 +0200
-Message-Id: <20251028173551.22578-10-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 6/9] drm/xe: Remove driver side BAR release before resize
+Date: Tue, 28 Oct 2025 19:35:48 +0200
+Message-Id: <20251028173551.22578-7-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
 References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
@@ -82,45 +82,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-restore_dev_resource() copies saved addresses and flags from the struct
-pci_dev_resource back to the struct resource, typically, during
-rollback from a failure or in preparation for a retry attempt.
+PCI core handles releasing device's resources and their rollback in
+case of failure of a BAR resizing operation. Releasing resource prior
+to calling pci_resize_resource() prevents PCI core from restoring the
+BARs as they were.
 
-If the resource is within resource tree, the resource must not be
-modified as the resource tree could be corrupted. Thus, it's a bug to
-call restore_dev_resource() for assigned resources (which did happen
-due to logic flaws in the BAR resize rollback).
-
-Add WARN_ON_ONCE() into restore_dev_resource() to detect such bugs
-easily and return without altering the resource to prevent corruption.
+Remove driver-side release of BARs from the xe driver.
 
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/pci/setup-bus.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/xe/xe_vram.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 8da83b612c59..28d6ae822c0b 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -15,6 +15,7 @@
-  */
+diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
+index b44ebf50fedb..929412f0d131 100644
+--- a/drivers/gpu/drm/xe/xe_vram.c
++++ b/drivers/gpu/drm/xe/xe_vram.c
+@@ -33,9 +33,6 @@ _resize_bar(struct xe_device *xe, int resno, resource_size_t size)
+ 	int bar_size = pci_rebar_bytes_to_size(size);
+ 	int ret;
  
- #include <linux/bitops.h>
-+#include <linux/bug.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -135,6 +136,9 @@ static void restore_dev_resource(struct pci_dev_resource *dev_res)
- {
- 	struct resource *res = dev_res->res;
- 
-+	if (WARN_ON_ONCE(res->parent))
-+		return;
-+
- 	res->start = dev_res->start;
- 	res->end = dev_res->end;
- 	res->flags = dev_res->flags;
+-	if (pci_resource_len(pdev, resno))
+-		pci_release_resource(pdev, resno);
+-
+ 	ret = pci_resize_resource(pdev, resno, bar_size);
+ 	if (ret) {
+ 		drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider enabling 'Resizable BAR' support in your BIOS\n",
 -- 
 2.39.5
 
