@@ -4,75 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 773D6CCF9F1
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 22:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB21CCF9F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Oct 2025 22:06:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06E6B10E682;
-	Tue, 28 Oct 2025 22:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AEAE10E676;
+	Tue, 28 Oct 2025 22:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LWORgVhp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JUq0kzU/";
 	dkim-atps=neutral
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7914B10E680
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:06:47 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-62fc0b7bf62so3340589a12.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:06:47 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD03D10E683
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 22:06:50 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-63c2d72581fso9511998a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Oct 2025 15:06:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761689206; x=1762294006; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1761689209; x=1762294009; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=ArpplmB8l4Lfo3RLpbDGW2Db8lajCaXkRcZFnRszzQc=;
- b=LWORgVhpISjgg3oZC3nPBwGVTan6hhVUv1Md2HP6WLsgG1x/izDQCscaDwKgrBcKYI
- OeaiM7WsSD25fjEckbiLwniqNLWKXEFzjGHgg2kTNvVqVkqpHVEAbWteYqUthhWwjiCA
- j93PVb1GbUe8DBatsjapoObKTXoYGuH5M9S9fnAREOe6SzefBtQIEspJ6On7pCb2imnj
- 8id0ahMKdS0EjEcWPjRv55FZ3NRFiCEu/hoCMhn1FlfH1H0uvuZZmnYMbpFtXBl+sc+P
- 3NPYDl8ML4HYIt1KlEo9ImaBJWqSBPJOYut/+rAkAEHwxk19EFWzCq1Wc6ow8YHfzJWN
- Dfvw==
+ :reply-to; bh=ywu9SCF+ZuSyHtfSGdOBnT1PjyHsW1z4PudyLZ+Y+LM=;
+ b=JUq0kzU/zx46SNYaOBMoPRRbKLWfheJAN6XULEHSHCpZc8iaGwH3hOVFFSMMJiJ8T5
+ 3J7GJMZXQcCVFaJUb/VE8TcXeEF0V1xohYK7LLN4lHPmtTssOoFVv1GKGWNHKr0UJrmO
+ tttf7zSIsaKvkHUrvLRqXCrlM8wpMvtL0Qy+YabsortwJZ1pSMLe30rZpT28rkMZQVsK
+ mDXY/kndjLlvESRL5lnwzJyHFeDGTcVCm0sua+JevjtebAgiShxnmQR00KWBlUac4pK3
+ aFTQGiRcz3+sYbQmo429bv1DCcSqNnAoshWRk7TD6W3WzUHiiHLZ5/GQUzNONcczAu6g
+ qi3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761689206; x=1762294006;
+ d=1e100.net; s=20230601; t=1761689209; x=1762294009;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ArpplmB8l4Lfo3RLpbDGW2Db8lajCaXkRcZFnRszzQc=;
- b=ZB5nSNpbtftX7B6be2RYPltioHUy292XMf77QeZk3FZy3Y44vBNAo17pF9mnf6oP/m
- tmHle0R/jdVqsJlLTocxkX2Z5MCCdj7ibqbPePkml9eGOGVnYLv/dpfqQfX+WeU1idIH
- ZHElQEHpJYbIYGMcgkl+mprdU0b48ZpG+bXvR53687mQ3UXsxCU6aJoqh5OANiRqhZKj
- IRT5zwldBgPutOcSIY/AWH+P6kH5YOdGCIdC31B7IJM5wTR0AF4ILc4t5EGIoykzlGHS
- cjHq9slNc1L7Qltx+xVEt41HjpnKFsYRMkWU8viNv8pEmmnpMzNc83PoEQgBiHGhFa/+
- ry3A==
-X-Gm-Message-State: AOJu0YxtY4AGDG3DWsDEtQBcL5HAcu6CtVLdvEj4ed1MAWRoV2T1VAHZ
- lNe52JAZS+1Mz1fTIh8+09W10wobBzQ2vx1FQwyb8V1tkZ6CK+Fvqbikgl9Jyg==
-X-Gm-Gg: ASbGncuvzrFmv4Qpmjo1LYsLlh46vAl6/NgEhK1j5SrM8UNmaWwtV1StW928R507M/X
- BSLRtPZNwULqTubPdQf7Co8mYgBS1IT1wzegcDQORdIAamKLcNSvhFBUrB6tLQQKRTT93gSj4Cw
- m1H8/927RukWhqJimVrJ9s+ztrC2IsbQnptEQLXq1j+7nAyVuXFJxQbiSsA6u1jHTr9S3JIM0DJ
- viUNATqna08K0nV6I67+srh58SLCPopfwR1KF/3Eta/KT2G3ubbuS1mDCvA1BbhzhP+G2/+iHNE
- EFH7UYQ6hEd4xGHZJqd8Ztwgd/OuhjgHt19a5VIn3z0IEdpoLGQMXOMtX+R8B4WQDin2jB6ep+L
- pmOLbBLFBhXO8J+FRzMwjP0XN7l4HaZYpYPH25/Cr14ZJZAx44t7+mxPHm8U7evpkGRJ9IK2/Bk
- uhbw+T3lE5A+/fdaKAgFTpl+SeJDyZm7Dg5Tj0Fd73XgohRensJqO7YOf3/8YRVCMaTm+gMKclT
- c8RoIioq+iM5Vqxcxk=
-X-Google-Smtp-Source: AGHT+IGOC0jIhv6EZQxqKcn+t0KuLf7TTKtSl+gcwxE0XexhGdJwGRtT3oXScCaNXOp7eG8H6jfsFA==
-X-Received: by 2002:a05:6402:84f:b0:640:3730:285c with SMTP id
- 4fb4d7f45d1cf-6404437fb38mr444285a12.36.1761689205852; 
- Tue, 28 Oct 2025 15:06:45 -0700 (PDT)
+ bh=ywu9SCF+ZuSyHtfSGdOBnT1PjyHsW1z4PudyLZ+Y+LM=;
+ b=gqwKrXYPW+aN6qLUFR5zQUmHuZfnMOUU1LrL9fnhiB/LHCJUDRJxaKo0OmUENpo4FZ
+ xXEXQFvUlOlqJkPHd3QRdsjoq1n9NhKp0enwsRSNQ/KUAm9BCqYop+E5qRYcd7dzzcb+
+ fnvGIHSWmEt0xw8aB/fMpTKUB+NIXkQi81h097YrTP5fx3XPlYxZ/I/ajCo5XouxDG6x
+ JlWIeakPsgwuj5Eqwx4us4fgSHovrEYGL9uEAY21/5skNhfAYAkNsldVK3/h1hXD0jG9
+ YVTaIlQIfDQDM53pR3PhqSB67lpKAH8pq1l1xIRY1dWRDETbj/rQAMicNAuug/DotxeX
+ evzg==
+X-Gm-Message-State: AOJu0YwozyUE/nXwqe8Zzj4d+MTOKCE0rjNzthXCwPtKBOzVOyjpiqLP
+ UDmlkbJ4F/Nm5hLHgS3IkDaOGgtIdje9GaR21fH8zIhYYYKMmvvtXmKWv0RclA==
+X-Gm-Gg: ASbGncsuBFmpC4KFAneZQekN9bVZmVWcTlXobSGESajkoLJoOht+03aNRWyQ/9/N7k8
+ TjRPgro8Hbn/sZv9zlKfYUUjlyC0d8nlhp6roZaNV4UrkcEff4iqEid6os+Kdlw4kQUQmHdpdiJ
+ jQd5lVCusxDbivb10hZUuEx/E7bcC0I+qW4y9G+k9CADuTudlZQDs0TygUAH75BA1y0cVSZm1i7
+ scB5zmfL00cNTWDB6rvsOfVsJf9Zwu6X2rMC/omz15ev68wetIjiFWxcSGmTWZWnmnZRBBHVtbC
+ SfntWLjXDit5AGaFvdCYm91F1d09a0fFuAUTJZIkY4B0cI/Z/iRxSI+qqnJiA0YnBDAQ+BMqVp0
+ mNvnNLGqLzYuKJSpqovvmjC4zF/Tp/jrqzzuQAAfUaxp9/pFaBkzpKtDqRReMZNQjVjI0QcIIWv
+ pw5O6/OuiY1iOGJrvnCIbYDoJSEKkQKlRu7WkYLP318l24cAO4PBq6YIkQ4xNWRuoICHHlxPXFj
+ HUoxQYj
+X-Google-Smtp-Source: AGHT+IF31ZRGlcrqpD2u7Zr4qr5/G3xWVWYq+/+gIOgvXp/PmtBLCJTKyeENPKjrgYkIgNsul7og7g==
+X-Received: by 2002:a05:6402:26d5:b0:63b:f909:df50 with SMTP id
+ 4fb4d7f45d1cf-640441bc6d3mr471467a12.14.1761689209090; 
+ Tue, 28 Oct 2025 15:06:49 -0700 (PDT)
 Received: from Timur-Hyperion.home
  (20014C4E24CBF70057E8101A3AD09709.dsl.pool.telekom.hu.
  [2001:4c4e:24cb:f700:57e8:101a:3ad0:9709])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.43
+ 4fb4d7f45d1cf-640342e5acesm1881182a12.28.2025.10.28.15.06.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Oct 2025 15:06:44 -0700 (PDT)
+ Tue, 28 Oct 2025 15:06:47 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 06/14] drm/amdgpu/vce: Move firmware load to
- amdgpu_vce_early_init
-Date: Tue, 28 Oct 2025 23:06:20 +0100
-Message-ID: <20251028220628.8371-7-timur.kristof@gmail.com>
+Subject: [PATCH 08/14] drm/amdgpu/vce1: Clean up register definitions
+Date: Tue, 28 Oct 2025 23:06:22 +0100
+Message-ID: <20251028220628.8371-9-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251028220628.8371-1-timur.kristof@gmail.com>
 References: <20251028220628.8371-1-timur.kristof@gmail.com>
@@ -93,269 +92,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Try to load the VCE firmware at early_init.
+The sid.h header contained some VCE1 register definitions, but
+they were using byte offsets (probably copied from the old radeon
+driver). Move all of these to the proper VCE1 headers.
 
-When the correct firmware is not found, return -ENOENT.
-This way, the driver initialization will complete even
-without VCE, and the GPU will be functional, albeit
-without video encoding capabilities.
-
-This is necessary because we are planning to add support
-for the VCE1, and AMD hasn't yet publised the correct
-firmware for this version. So we need to anticipate that
-users will try to boot amdgpu on SI GPUs without the
-correct VCE1 firmware present on their system.
+Also add the register definitions that we need for the
+firmware validation mechanism in VCE1.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Co-developed-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+Co-developed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 121 +++++++++++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h |   1 +
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c   |   5 +
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c   |   5 +
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c   |   5 +
- 5 files changed, 91 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sid.h              | 40 -------------------
+ .../drm/amd/include/asic_reg/vce/vce_1_0_d.h  |  5 +++
+ .../include/asic_reg/vce/vce_1_0_sh_mask.h    | 10 +++++
+ 3 files changed, 15 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-index eaa06dbef5c4..b23a48a1efc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -88,82 +88,87 @@ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
- 				      bool direct, struct dma_fence **fence);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgpu/sid.h
+index cbd4f8951cfa..561462a8332e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sid.h
++++ b/drivers/gpu/drm/amd/amdgpu/sid.h
+@@ -582,45 +582,6 @@
+ #define	DMA_PACKET_NOP					  0xf
  
- /**
-- * amdgpu_vce_sw_init - allocate memory, load vce firmware
-+ * amdgpu_vce_firmware_name() - determine the firmware file name for VCE
-  *
-  * @adev: amdgpu_device pointer
-- * @size: size for the new BO
-  *
-- * First step to get VCE online, allocate memory and load the firmware
-+ * Each chip that has VCE IP may need a different firmware.
-+ * This function returns the name of the VCE firmware file
-+ * appropriate for the current chip.
-  */
--int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
-+static const char *amdgpu_vce_firmware_name(struct amdgpu_device *adev)
- {
--	const char *fw_name;
--	const struct common_firmware_header *hdr;
--	unsigned int ucode_version, version_major, version_minor, binary_id;
--	int i, r;
+ /* VCE */
+-#define VCE_STATUS					0x20004
+-#define VCE_VCPU_CNTL					0x20014
+-#define		VCE_CLK_EN				(1 << 0)
+-#define VCE_VCPU_CACHE_OFFSET0				0x20024
+-#define VCE_VCPU_CACHE_SIZE0				0x20028
+-#define VCE_VCPU_CACHE_OFFSET1				0x2002c
+-#define VCE_VCPU_CACHE_SIZE1				0x20030
+-#define VCE_VCPU_CACHE_OFFSET2				0x20034
+-#define VCE_VCPU_CACHE_SIZE2				0x20038
+-#define VCE_SOFT_RESET					0x20120
+-#define 	VCE_ECPU_SOFT_RESET			(1 << 0)
+-#define 	VCE_FME_SOFT_RESET			(1 << 2)
+-#define VCE_RB_BASE_LO2					0x2016c
+-#define VCE_RB_BASE_HI2					0x20170
+-#define VCE_RB_SIZE2					0x20174
+-#define VCE_RB_RPTR2					0x20178
+-#define VCE_RB_WPTR2					0x2017c
+-#define VCE_RB_BASE_LO					0x20180
+-#define VCE_RB_BASE_HI					0x20184
+-#define VCE_RB_SIZE					0x20188
+-#define VCE_RB_RPTR					0x2018c
+-#define VCE_RB_WPTR					0x20190
+-#define VCE_CLOCK_GATING_A				0x202f8
+-#define VCE_CLOCK_GATING_B				0x202fc
+-#define VCE_UENC_CLOCK_GATING				0x205bc
+-#define VCE_UENC_REG_CLOCK_GATING			0x205c0
+-#define VCE_FW_REG_STATUS				0x20e10
+-#	define VCE_FW_REG_STATUS_BUSY			(1 << 0)
+-#	define VCE_FW_REG_STATUS_PASS			(1 << 3)
+-#	define VCE_FW_REG_STATUS_DONE			(1 << 11)
+-#define VCE_LMI_FW_START_KEYSEL				0x20e18
+-#define VCE_LMI_FW_PERIODIC_CTRL			0x20e20
+-#define VCE_LMI_CTRL2					0x20e74
+-#define VCE_LMI_CTRL					0x20e98
+-#define VCE_LMI_VM_CTRL					0x20ea0
+-#define VCE_LMI_SWAP_CNTL				0x20eb4
+-#define VCE_LMI_SWAP_CNTL1				0x20eb8
+-#define VCE_LMI_CACHE_CTRL				0x20ef4
 -
- 	switch (adev->asic_type) {
- #ifdef CONFIG_DRM_AMDGPU_CIK
- 	case CHIP_BONAIRE:
--		fw_name = FIRMWARE_BONAIRE;
--		break;
-+		return FIRMWARE_BONAIRE;
- 	case CHIP_KAVERI:
--		fw_name = FIRMWARE_KAVERI;
--		break;
-+		return FIRMWARE_KAVERI;
- 	case CHIP_KABINI:
--		fw_name = FIRMWARE_KABINI;
--		break;
-+		return FIRMWARE_KABINI;
- 	case CHIP_HAWAII:
--		fw_name = FIRMWARE_HAWAII;
--		break;
-+		return FIRMWARE_HAWAII;
- 	case CHIP_MULLINS:
--		fw_name = FIRMWARE_MULLINS;
--		break;
-+		return FIRMWARE_MULLINS;
+ #define VCE_CMD_NO_OP					0x00000000
+ #define VCE_CMD_END					0x00000001
+ #define VCE_CMD_IB					0x00000002
+@@ -629,7 +590,6 @@
+ #define VCE_CMD_IB_AUTO					0x00000005
+ #define VCE_CMD_SEMAPHORE				0x00000006
+ 
+-
+ //#dce stupp
+ /* display controller offsets used for crtc/cur/lut/grph/viewport/etc. */
+ #define CRTC0_REGISTER_OFFSET                 (0x1b7c - 0x1b7c) //(0x6df0 - 0x6df0)/4
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
+index 2176548e9203..9778822dd2a0 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h
+@@ -60,5 +60,10 @@
+ #define mmVCE_VCPU_CACHE_SIZE1 0x800C
+ #define mmVCE_VCPU_CACHE_SIZE2 0x800E
+ #define mmVCE_VCPU_CNTL 0x8005
++#define mmVCE_VCPU_SCRATCH7 0x8037
++#define mmVCE_FW_REG_STATUS 0x8384
++#define mmVCE_LMI_FW_PERIODIC_CTRL 0x8388
++#define mmVCE_LMI_FW_START_KEYSEL 0x8386
++
+ 
  #endif
- 	case CHIP_TONGA:
--		fw_name = FIRMWARE_TONGA;
--		break;
-+		return  FIRMWARE_TONGA;
- 	case CHIP_CARRIZO:
--		fw_name = FIRMWARE_CARRIZO;
--		break;
-+		return  FIRMWARE_CARRIZO;
- 	case CHIP_FIJI:
--		fw_name = FIRMWARE_FIJI;
--		break;
-+		return  FIRMWARE_FIJI;
- 	case CHIP_STONEY:
--		fw_name = FIRMWARE_STONEY;
--		break;
-+		return  FIRMWARE_STONEY;
- 	case CHIP_POLARIS10:
--		fw_name = FIRMWARE_POLARIS10;
--		break;
-+		return  FIRMWARE_POLARIS10;
- 	case CHIP_POLARIS11:
--		fw_name = FIRMWARE_POLARIS11;
--		break;
-+		return  FIRMWARE_POLARIS11;
- 	case CHIP_POLARIS12:
--		fw_name = FIRMWARE_POLARIS12;
--		break;
-+		return  FIRMWARE_POLARIS12;
- 	case CHIP_VEGAM:
--		fw_name = FIRMWARE_VEGAM;
--		break;
-+		return  FIRMWARE_VEGAM;
- 	case CHIP_VEGA10:
--		fw_name = FIRMWARE_VEGA10;
--		break;
-+		return  FIRMWARE_VEGA10;
- 	case CHIP_VEGA12:
--		fw_name = FIRMWARE_VEGA12;
--		break;
-+		return  FIRMWARE_VEGA12;
- 	case CHIP_VEGA20:
--		fw_name = FIRMWARE_VEGA20;
--		break;
-+		return  FIRMWARE_VEGA20;
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
+index ea5b26b11cb1..1f82d6f5abde 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h
+@@ -61,6 +61,8 @@
+ #define VCE_RB_WPTR__RB_WPTR__SHIFT 0x00000004
+ #define VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK 0x00000001L
+ #define VCE_SOFT_RESET__ECPU_SOFT_RESET__SHIFT 0x00000000
++#define VCE_SOFT_RESET__FME_SOFT_RESET_MASK 0x00000004L
++#define VCE_SOFT_RESET__FME_SOFT_RESET__SHIFT 0x00000002
+ #define VCE_STATUS__JOB_BUSY_MASK 0x00000001L
+ #define VCE_STATUS__JOB_BUSY__SHIFT 0x00000000
+ #define VCE_STATUS__UENC_BUSY_MASK 0x00000100L
+@@ -95,5 +97,13 @@
+ #define VCE_VCPU_CNTL__CLK_EN__SHIFT 0x00000000
+ #define VCE_VCPU_CNTL__RBBM_SOFT_RESET_MASK 0x00040000L
+ #define VCE_VCPU_CNTL__RBBM_SOFT_RESET__SHIFT 0x00000012
++#define VCE_CLOCK_GATING_A__CGC_DYN_CLOCK_MODE_MASK 0x00010000
++#define VCE_CLOCK_GATING_A__CGC_DYN_CLOCK_MODE_SHIFT 0x00000010
++#define VCE_FW_REG_STATUS__BUSY_MASK 0x0000001
++#define VCE_FW_REG_STATUS__BUSY__SHIFT 0x0000001
++#define VCE_FW_REG_STATUS__PASS_MASK 0x0000008
++#define VCE_FW_REG_STATUS__PASS__SHIFT 0x0000003
++#define VCE_FW_REG_STATUS__DONE_MASK 0x0000800
++#define VCE_FW_REG_STATUS__DONE__SHIFT 0x000000b
  
- 	default:
--		return -EINVAL;
-+		return NULL;
- 	}
-+}
-+
-+/**
-+ * amdgpu_vce_early_init() - try to load VCE firmware
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Tries to load the VCE firmware.
-+ *
-+ * When not found, returns ENOENT so that the driver can
-+ * still load and initialize the rest of the IP blocks.
-+ * The GPU can function just fine without VCE, they will just
-+ * not support video encoding.
-+ */
-+int amdgpu_vce_early_init(struct amdgpu_device *adev)
-+{
-+	const char *fw_name = amdgpu_vce_firmware_name(adev);
-+	const struct common_firmware_header *hdr;
-+	unsigned int ucode_version, version_major, version_minor, binary_id;
-+	int r;
-+
-+	if (!fw_name)
-+		return -ENOENT;
- 
- 	r = amdgpu_ucode_request(adev, &adev->vce.fw, AMDGPU_UCODE_REQUIRED, "%s", fw_name);
- 	if (r) {
--		dev_err(adev->dev, "amdgpu_vce: Can't validate firmware \"%s\"\n",
--			fw_name);
-+		dev_err(adev->dev,
-+			"amdgpu_vce: Firmware \"%s\" not found or failed to validate (%d)\n",
-+			fw_name, r);
-+
- 		amdgpu_ucode_release(&adev->vce.fw);
--		return r;
-+		return -ENOENT;
- 	}
- 
- 	hdr = (const struct common_firmware_header *)adev->vce.fw->data;
-@@ -172,11 +177,35 @@ int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
- 	version_major = (ucode_version >> 20) & 0xfff;
- 	version_minor = (ucode_version >> 8) & 0xfff;
- 	binary_id = ucode_version & 0xff;
--	DRM_INFO("Found VCE firmware Version: %d.%d Binary ID: %d\n",
-+	dev_info(adev->dev, "Found VCE firmware Version: %d.%d Binary ID: %d\n",
- 		version_major, version_minor, binary_id);
- 	adev->vce.fw_version = ((version_major << 24) | (version_minor << 16) |
- 				(binary_id << 8));
- 
-+	return 0;
-+}
-+
-+/**
-+ * amdgpu_vce_sw_init() - allocate memory for VCE BO
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @size: size for the new BO
-+ *
-+ * First step to get VCE online: allocate memory for VCE BO.
-+ * The VCE firmware binary is copied into the VCE BO later,
-+ * in amdgpu_vce_resume. The VCE executes its code from the
-+ * VCE BO and also uses the space in this BO for its stack and data.
-+ *
-+ * Ideally this BO should be placed in VRAM for optimal performance,
-+ * although technically it also runs from system RAM (albeit slowly).
-+ */
-+int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
-+{
-+	int i, r;
-+
-+	if (!adev->vce.fw)
-+		return -ENOENT;
-+
- 	r = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
- 				    AMDGPU_GEM_DOMAIN_VRAM |
- 				    AMDGPU_GEM_DOMAIN_GTT,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-index 6e53f872d084..22acd7b35945 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-@@ -53,6 +53,7 @@ struct amdgpu_vce {
- 	unsigned		num_rings;
- };
- 
-+int amdgpu_vce_early_init(struct amdgpu_device *adev);
- int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size);
- int amdgpu_vce_sw_fini(struct amdgpu_device *adev);
- int amdgpu_vce_entity_init(struct amdgpu_device *adev, struct amdgpu_ring *ring);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-index bee3e904a6bc..8ea8a6193492 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-@@ -407,6 +407,11 @@ static void vce_v2_0_enable_mgcg(struct amdgpu_device *adev, bool enable,
- static int vce_v2_0_early_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-+	int r;
-+
-+	r = amdgpu_vce_early_init(adev);
-+	if (r)
-+		return r;
- 
- 	adev->vce.num_rings = 2;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index 708123899c41..719e9643c43d 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -399,6 +399,7 @@ static unsigned vce_v3_0_get_harvest_config(struct amdgpu_device *adev)
- static int vce_v3_0_early_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-+	int r;
- 
- 	adev->vce.harvest_config = vce_v3_0_get_harvest_config(adev);
- 
-@@ -407,6 +408,10 @@ static int vce_v3_0_early_init(struct amdgpu_ip_block *ip_block)
- 	    (AMDGPU_VCE_HARVEST_VCE0 | AMDGPU_VCE_HARVEST_VCE1))
- 		return -ENOENT;
- 
-+	r = amdgpu_vce_early_init(adev);
-+	if (r)
-+		return r;
-+
- 	adev->vce.num_rings = 3;
- 
- 	vce_v3_0_set_ring_funcs(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index 335bda64ff5b..2d64002bed61 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -410,6 +410,11 @@ static int vce_v4_0_stop(struct amdgpu_device *adev)
- static int vce_v4_0_early_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-+	int r;
-+
-+	r = amdgpu_vce_early_init(adev);
-+	if (r)
-+		return r;
- 
- 	if (amdgpu_sriov_vf(adev)) /* currently only VCN0 support SRIOV */
- 		adev->vce.num_rings = 1;
+ #endif
 -- 
 2.51.0
 
