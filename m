@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE4D3CCF9F0
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E280CCF9F5
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 190B310E938;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6BB10E93A;
 	Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CXMLsNi9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NzTyO4Su";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E752410E630;
- Tue, 28 Oct 2025 17:37:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B998F10E61F;
+ Tue, 28 Oct 2025 17:36:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761673046; x=1793209046;
+ t=1761672981; x=1793208981;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aCyNNcynk6Iwh3upBHjwChHEBH25NCgzbc0Xsbk5ieI=;
- b=CXMLsNi9Ub0XFSMSly0oJI2kbfsYLXHa+kAmW9kSADYdWgQPbX/Z5cNR
- RHXcycZNXwEi/bvFr81kGQn/fRrbZkr9sbUkYQUeP3SQiQEA3bPeFvYFz
- bDDG7F6GRrJ5B8wCajOEzIqXA8l8STbMYI6QEO6yO6b9JmLVujTXSRA4E
- JeRiD/3EZSo+68071TdCyxZkJgKmHobBdxVYN7hUNqGR7iOmyusic1KrQ
- ACo79ejdnQMy0Nesb0qQZLGHhlSHFGkMpLPtuIR84PDSfrLZD1W+u/TKl
- RKrhgLwgngb7RsKM1bPar4nCHTa2n3V0C8t/CUHM1zYk7rE55z6PaaGZq w==;
-X-CSE-ConnectionGUID: AAh7nMS1RcmAXsjn4FfLiQ==
-X-CSE-MsgGUID: qj1jEe8gRnSjMdQvy5aHCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="67621453"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="67621453"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:37:26 -0700
-X-CSE-ConnectionGUID: +HEFfINgTs2XP0zut8S6cg==
-X-CSE-MsgGUID: CKP/G/LHRrCWhnASdtrLTw==
+ bh=bZ8RzX3XhmEbNTDlxF5oMlGveV2u4y/v84rMSalX5XY=;
+ b=NzTyO4Sut8rt1Pk8Iz9hNdLZZ4Lp/5aqlDJchDH1N3pBT/FK7XgOoXPW
+ eYqKjxP8jZros+Hb4QeWNUNffjcAHsRWgEeAxQK5olCu83p99x5al8MFt
+ vfu99sV1o9TtZqg3uEUbVSqkiH7+Knu7iJD9YutOMFpMH6OAIxGOHQ2FJ
+ SW/A5HhEhoVOQNMtbF8EYSAqAWsEDGbI84NIlWzoOVAPibbOOrvSp+tME
+ ZxYRUNZsQmo8kMxI6x197bOl48BdtCmWizB922grwniCaAh1Pyzg8t+ZQ
+ NTMFCq+qevrq8vYdTyDIkdFkcEqhiuuAg/WR6iC+kmZFkfidlq/tD3UOM g==;
+X-CSE-ConnectionGUID: rUT7G5yBSOCW2552dtZcDw==
+X-CSE-MsgGUID: hHGFkSiIRoahHmknRvIESA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="74901438"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="74901438"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:36:20 -0700
+X-CSE-ConnectionGUID: TkYtyQbvR7qXL+36gyfpQg==
+X-CSE-MsgGUID: uP1tK2S7QiS2CwBKUQKvLw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="185879228"
+X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="190548630"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.182])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:37:18 -0700
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2025 10:36:13 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  Simon Richter <Simon.Richter@hogyros.de>,
@@ -58,9 +58,10 @@ To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
  =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
  linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 6/9] drm/xe: Remove driver side BAR release before resize
-Date: Tue, 28 Oct 2025 19:35:48 +0200
-Message-Id: <20251028173551.22578-7-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 1/9] PCI: Prevent resource tree corruption when BAR resize
+ fails
+Date: Tue, 28 Oct 2025 19:35:43 +0200
+Message-Id: <20251028173551.22578-2-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
 References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
@@ -82,33 +83,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PCI core handles releasing device's resources and their rollback in
-case of failure of a BAR resizing operation. Releasing resource prior
-to calling pci_resize_resource() prevents PCI core from restoring the
-BARs as they were.
+pbus_reassign_bridge_resources() saves bridge windows into the saved
+list before attempting to adjust resource assignments to perform a BAR
+resize operation. If resource adjustments cannot be completed fully,
+rollback is attempted by restoring the resource from the saved list.
 
-Remove driver-side release of BARs from the xe driver.
+The rollback, however, does not check whether the resources it restores were
+assigned by the partial resize attempt. If restore changes addresses of the
+resource, it can result in corrupting the resource tree.
 
+An example of a corrupted resource tree with overlapping addresses:
+
+6200000000000-6203fbfffffff : pciex@620c3c0000000
+  6200000000000-6203fbff0ffff : PCI Bus 0030:01
+    6200020000000-62000207fffff : 0030:01:00.0
+    6200000000000-6203fbff0ffff : PCI Bus 0030:02
+
+A resource that are assigned into the resource tree must remain
+unchanged. Thus, release such a resource before attempting to restore
+and claim it back.
+
+For simplicity, always do the release and claim back for the resource
+even in the cases where it is restored to the same address range.
+
+Note: this fix may "break" some cases where devices "worked" because
+the resource tree corruption allowed address space double counting to
+fit more resource than what can now be assigned without double
+counting. The upcoming changes to BAR resizing should address those
+scenarios (to the extent possible).
+
+Fixes: 8bb705e3e79d ("PCI: Add pci_resize_resource() for resizing BARs")
+Reported-by: Simon Richter <Simon.Richter@hogyros.de>
+Reported-by: Alex Bennée <alex.bennee@linaro.org>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/xe/xe_vram.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/pci/setup-bus.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
-index b44ebf50fedb..929412f0d131 100644
---- a/drivers/gpu/drm/xe/xe_vram.c
-+++ b/drivers/gpu/drm/xe/xe_vram.c
-@@ -33,9 +33,6 @@ _resize_bar(struct xe_device *xe, int resno, resource_size_t size)
- 	int bar_size = pci_rebar_bytes_to_size(size);
- 	int ret;
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index 4a8735b275e4..e6984bb530ae 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2504,6 +2504,11 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
+ 		bridge = dev_res->dev;
+ 		i = pci_resource_num(bridge, res);
  
--	if (pci_resource_len(pdev, resno))
--		pci_release_resource(pdev, resno);
--
- 	ret = pci_resize_resource(pdev, resno, bar_size);
- 	if (ret) {
- 		drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider enabling 'Resizable BAR' support in your BIOS\n",
++		if (res->parent) {
++			release_child_resources(res);
++			pci_release_resource(bridge, i);
++		}
++
+ 		restore_dev_resource(dev_res);
+ 
+ 		pci_claim_resource(bridge, i);
 -- 
 2.39.5
 
