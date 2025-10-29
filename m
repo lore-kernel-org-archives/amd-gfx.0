@@ -4,86 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DC15CCF9EE
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 08:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BA22CCF9E9
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 08:48:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C42E510E719;
-	Wed, 29 Oct 2025 08:07:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3792110E74F;
+	Wed, 29 Oct 2025 08:48:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BvJtoOPX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZPnKbr8W";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3266D10E719
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 08:07:20 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-b7042e50899so79299966b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 01:07:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761725238; x=1762330038; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=0OrFXF36VhEXULs+xM5uUkEctAGjAeupmgro1NFT1Yo=;
- b=BvJtoOPXOwR1pJtToAszXCWMAe1w5ZK08wTsAZYORB6Hjeg64+1aT2Pz7uelzrS5nX
- BQycSYfbcB4nPKVhM0qhVGdzR9fZUf9REDMV4BARXnYmzvJbTqs+4EFAT1jGPB7WfClx
- SvkgeKZSM5BoPbtc0wBYwAAG02r1MM3brNff+Ea/nzVyfylq5hjTQl/a5HUQpGy225Oj
- 0JsvziakFkmmLWqQvVNmTCMk/GFD7GyUh8d6+q042XXSF5355+CTpdOt2zpJonJMTUwp
- 4qAsbD6hm9Ux5H45tpj+bLQ6OzymSMDkFUoFU0WVl2Zo/y1igJDjkztnlC173plsafRP
- +dgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761725238; x=1762330038;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0OrFXF36VhEXULs+xM5uUkEctAGjAeupmgro1NFT1Yo=;
- b=hvxrcreuh8WGCV1e4ZSyXS3s75ISytv9lSlfjqaA2HwBZkCaNQWZdmVrIwriayPeS8
- 7Q76VxUGOJoCQmUpaEl5c8gQjab66sbMhSaJHCnL9D97ytQpIvXj7b7CHDR3F7agOppC
- UMtsshCyuzVOwFh9Z1Ish8bloiEERbPnd2WcvaIsHUXlJj2V/aZUpJdyLkjpTbB5Wzxt
- 0lW1180R7bTmSCQ9kT36vBjtB22zVIDRjgBSjq8PTK6RZxdBtJzgew2xljmO4eGCWJfX
- RWLzpgg5L9qsvk4h7GcbT4KhzRedz4xHMKXiHHwuP4xCqZN5P6/ocKBaoU2i7xZ/SMuI
- kWVQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7dFbfU2tCQ/dDzOLkEpBuIcKEkDnraFFTSj/dT3Tf3hX/1Hlhqc2lHnQX0mwLPbutX2u9p2oH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHXyqdxVHWBnCE9WRiafWdbdOpCLRg1MFpYsbwtXnt7k/3Z/Lx
- sPnBBp6+yKY54CAHbMp1qsmaHobW3tMd+Nms4QJfvirjJG4ghQRc+0gK
-X-Gm-Gg: ASbGnctSQ1W79VtvXfUsb/Rk51iS1Q15d4N5p5XZ+Pex9/Whr9Pkad56ttwukCEwGVb
- /n5KZwDPGYdH/MPG3wOlSwKv+71l8QQ/6iw5OjgbBkt92+AgyCBWwfr/mlqxee3wv6pVWpOfSAE
- IeC6sGU4AnH37othpuON3fHIYsXvDhOlp3xFLOJ9STX2JcLzuNvSrg83gbmA2JbBpM+qnKnfPEg
- T96MOFv+0PhzLgw6Ybn311fhmfC9oU8n4WfKFeIIB9IX5RYb0h9d1Unq85T3+p1J7PQNW7cxffk
- iC8KrJEQayYwKrqU3Yjoscsx42m8lAifQWVhmxjTJFS3xWzt64HpzT7Ba/8E5tOfoxI3+4gI981
- 8d6tMo7orZ62g7sMegmRwt1TTAXQg9iYR0B4AEuKoCTTEqeLo+aCrvyEezYSUGMEyMrET9o+p9d
- hWn4hoFmnjQpcF6gLLScSJP2g5A9qCxgQ2dxlwgE5TFiXYhBqyPQmpeLJbo7wfEm82E8iUV93gt
- fNc3cQpHtlLeWh7h1QcPO2smBQueM8SrDlZENMw5uAn
-X-Google-Smtp-Source: AGHT+IGr+BqJTX/YCuAukrdVUZgab3ewSbC4v+K7y582bbHHo3kd96iQ76HnIMJ19C31Pl+RQmkkSw==
-X-Received: by 2002:a17:907:f496:b0:b33:671:8a58 with SMTP id
- a640c23a62f3a-b703d492fe1mr180805366b.37.1761725238358; 
- Wed, 29 Oct 2025 01:07:18 -0700 (PDT)
-Received: from ?IPv6:2001:4c4e:24cb:f700:23e8:3719:bda9:8268?
- (20014C4E24CBF70023E83719BDA98268.dsl.pool.telekom.hu.
- [2001:4c4e:24cb:f700:23e8:3719:bda9:8268])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b6d853c664asm1345292766b.42.2025.10.29.01.07.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Oct 2025 01:07:17 -0700 (PDT)
-Message-ID: <0756e73047c861ccaa326134e723d09722fe5ccb.camel@gmail.com>
-Subject: Re: [PATCH 11/13] drm/amd/display: Fix black screen with HDMI outputs
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Ray Wu <ray.wu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung	 <chiahsuan.chung@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler	 <daniel.wheeler@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Alex Hung	 <alex.hung@amd.com>, Mario
- Limonciello <mario.limonciello@amd.com>
-Date: Wed, 29 Oct 2025 09:07:17 +0100
-In-Reply-To: <20251029030935.2785560-12-ray.wu@amd.com>
-References: <20251029030935.2785560-1-ray.wu@amd.com>
- <20251029030935.2785560-12-ray.wu@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEA4910E74F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 08:48:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nYebrM+Bxb2sQM0TLIHI5ifVq4Up4Bd/jwVgDu8cIHMyeaLsPKTHzZ7J0KeFdefRo6ja4x7A6HzxEPuiVNbA8rp9oUuaqjkeJVf7glkU3hUtJFuB3EzSG1Vx/k48vgUjezONIsnGBeJb/heXIn7IPYcpTD/OvkM/c4VmINxW4mMGNgn8eKs7xI29V0IydgAjfCWLZv4pwJeawonORKDSQNT61rJNzrOmWbSsGgydgVuUe+YBss8Qtihz/Jztx4vvsz2v47djmgKGREnCj+6XT6UKCj6MZX2qSe1k7mqPv5E1wWViiXwCos31YKWd91cXuED5JlzSwwKYsCO3itKLAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XD/m55G22LguoOMq6ceE69xktcNeYkIuPZi6sZEEu78=;
+ b=J1uhpmOSIrLqN6bUSSgSyk3dIHN8GQR2+2UVj/5Z1vUmKiCb21bb8NXJMCckocaJyo359U+z7N8wgKpuMe02P4SiNhBCW5mt3L5XmjA2v/cbzaJXUadFlZo0oPURNcl0dLJ0+XcTu/d7p69Rdd7XRNu9tvvlEVFSZ6rCUhSACOAK+JCe8sxC+q+gxbud6aWvM+J+7O+jdm4U4U12TWABwrbdb8YmtyizaQeBWoCSSWChXBnA0z5FT8WOXLF8SFlFF4cMfx1opCu2ntfnIMEnIvPzNPHkKQuTxl7qhgNag1f4Qo9C/4ZLDOCZA2ymboZI0DCv9iKY/szZYs74u2xrfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XD/m55G22LguoOMq6ceE69xktcNeYkIuPZi6sZEEu78=;
+ b=ZPnKbr8WT0XLEkP5akqafXM2CkoZiC6NtOp+nc0c+7UHVUQb77D1pMPBydws2MGF/gV1xT+sg3uobiKL3b5+bT1tfoqWwpseMDmAm6N9KnLQm2MwALAtcLIuAZMASdROm+drFpdGICmCwNBkNmvLn9tfqlVU6DXPmdoZ78Eut9Q=
+Received: from BN9PR03CA0678.namprd03.prod.outlook.com (2603:10b6:408:10e::23)
+ by SA1PR12MB9489.namprd12.prod.outlook.com (2603:10b6:806:45c::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Wed, 29 Oct
+ 2025 08:48:12 +0000
+Received: from BN1PEPF00005FFD.namprd05.prod.outlook.com
+ (2603:10b6:408:10e:cafe::4a) by BN9PR03CA0678.outlook.office365.com
+ (2603:10b6:408:10e::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.13 via Frontend Transport; Wed,
+ 29 Oct 2025 08:48:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00005FFD.mail.protection.outlook.com (10.167.243.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9275.10 via Frontend Transport; Wed, 29 Oct 2025 08:48:11 +0000
+Received: from gangliang-mlse-vm.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 29 Oct 2025 01:48:07 -0700
+From: Gangliang Xie <ganglxie@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <tao.zhou1@amd.com>, Gangliang Xie <ganglxie@amd.com>
+Subject: [PATCH 01/10] drm/amd/pm: add new message definitions for pmfw eeprom
+ interface
+Date: Wed, 29 Oct 2025 16:47:42 +0800
+Message-ID: <20251029084751.1701305-1-ganglxie@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFD:EE_|SA1PR12MB9489:EE_
+X-MS-Office365-Filtering-Correlation-Id: da5e15dd-ccae-46b1-b509-08de16c7e475
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mfhnu7BTvIK3Nubg3rsG0CtWxwjSpkU/dx8wppK/IRNI3a4UwriNSSCeMoPL?=
+ =?us-ascii?Q?5j9kQhl2FlwC3zxoTo22fB0nepQUMrniALdRt80oSyL2ANBPpj7AFdy5Zwko?=
+ =?us-ascii?Q?ltHC1ZgT1oPiK0YUTG1sq2M+LH127wQHsFM2JFWJ12MqD3e5dX0o4CKbNRee?=
+ =?us-ascii?Q?jQ/OW+7NFUtN8rxj0JnMQ3+aFGjk0Kkwn3KXDeCG9g3HqTEDcIE9gGOONIOa?=
+ =?us-ascii?Q?ptM++c1oV9OIcHxSYsJAUJwZ1lDLCwSdEPRvyptnbrLOQdVMU6pkO+T/vpts?=
+ =?us-ascii?Q?euYyc5WD8q43ZT1Ji1BYVVNeywtlTFACkKnzfIzrbNvS0q7oUZN6NiPa6aLi?=
+ =?us-ascii?Q?kNcV7lUdeJRfxjKJysIrRBOQIUFXOiGjq+rC00LGRZLA6s0OZNY/KHLWdQSH?=
+ =?us-ascii?Q?C28jTswZUWtfQ/u536tncKeV1dSt9cf3XVeSBSpCgOkwVq3b8BFFb77gGzia?=
+ =?us-ascii?Q?c7VYeXhiSnf8J+xj5cyU5TJjAOdU/+0SG+h3arP2OTQIU/pyy4fTOlsgDnd1?=
+ =?us-ascii?Q?iQxIc601m5Zk6GnaURLdpRSw5uaEptpPLd8BUAIMnAu14UInftH2v/mDN1vH?=
+ =?us-ascii?Q?InuPJ/hxP2uFQaT18HZSyoWPPCPEMNhSt76XWcxC4rxhEgZgeofE1KGYi0s0?=
+ =?us-ascii?Q?miE4h6kF4+LZykY0BY0ODhe1aB5wXnOpxy8gurXDwnHNOhl1tZfd/sVNZai+?=
+ =?us-ascii?Q?aOhndHjt3328S9dk8bsO2ikYst2vCTEQOCsG8um0rpnxmffnkyFHJiQVxOPp?=
+ =?us-ascii?Q?kYNd0JwbpHR0GTDV5qfcpwdqDI7UcXpYbc5XYC4Z5sGGlE8HZ03WQjPrdtpc?=
+ =?us-ascii?Q?SmMFINevvXSh5kO5jXy+mLft9ksdg3/t9VQfo/rZejsg9I04aN1FV7VPNqtF?=
+ =?us-ascii?Q?z5hEN8DDbQIwvRvHxXEybWxEyyOsTf2i5KNCRSzER0BfRgC44FWR5qc6+P7p?=
+ =?us-ascii?Q?6KeuUe3QzPYvdR1Ahs2q2i/DO0gdiBkQsGAlLNysQJs2ODicoKMis4oVVlRn?=
+ =?us-ascii?Q?vnU0M9NRPf3h31w/KPPsZaK0C2gkD5fkZQ+pS/G6IdYIGVOzngxDpyRevNwb?=
+ =?us-ascii?Q?35ejk6bYFNygfiT7zUTgqfpixdUibAkI45ohsv78TJ0hIlNpHxCdGaGWZ5LU?=
+ =?us-ascii?Q?ie33wGjvlGU232UWFACID7X4bdvHvSmu0y1Rq4c0ziR17il9r4V/TQQmVr3w?=
+ =?us-ascii?Q?6UQ3M/nmLbZ7UhkPLjPK25HpSPeByHw8Iu602krUwG2VHT3bzACGoQv4DnnR?=
+ =?us-ascii?Q?YN5R8h65IIpMFmQla7TX6ZOV5pPlbqhMWwJBlTXY0kXXqVdYilADt0nBND2D?=
+ =?us-ascii?Q?0Hvh8spBCo21o+gaVe9hTi0QOgCqFAAKX31Ud5fYVlaMckCH+bItD4UmvLwG?=
+ =?us-ascii?Q?GHmphoLEreM5CzI9KFNpnmt+reMEiW4Z22nG5P2jYY94X3maBJ3359C28SrL?=
+ =?us-ascii?Q?Sn14vcat64NPnfQMOQwevsapAYQNKwvQrJYCpSVl+vZ8NbjS9xngGX9o6qk/?=
+ =?us-ascii?Q?uqYylSvdRg/O6xxdBHQWybfpydod6gs6TsyJ74QSrqp3oB5C894daZz3doAK?=
+ =?us-ascii?Q?6MvXA4JBy8aLYBnOlHM=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 08:48:11.9993 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da5e15dd-ccae-46b1-b509-08de16c7e475
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9489
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,73 +132,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Add new message definitions for pmfw eeprom interface
 
-On Wed, 2025-10-29 at 11:02 +0800, Ray Wu wrote:
-> From: Alex Hung <alex.hung@amd.com>
->=20
-> [Why & How]
-> This fixes the black screen issue on certain APUs with HDMI,
-> accompanied by the following messages:
->=20
-> amdgpu 0000:c4:00.0: amdgpu: [drm] Failed to setup vendor info
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 frame on connector DP-1: -=
-22
-> amdgpu 0000:c4:00.0: [drm] Cannot find any crtc or sizes [drm]
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cannot find any crtc or si=
-zes
->=20
-> Fixes: 99ff9bc57b02 ("drm/amd/display: Fix DVI-D/HDMI adapters")
-> Suggested-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Ray Wu <ray.wu@amd.com>
-> ---
-> =C2=A0drivers/gpu/drm/amd/display/dc/link/link_detection.c | 5 +++++
-> =C2=A01 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> index c417780f37bc..e8566a5218fc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -1252,11 +1252,16 @@ static bool detect_link_and_local_sink(struct
-> dc_link *link,
-> =C2=A0			sink->edid_caps.analog)
-> =C2=A0			sink->sink_signal =3D SIGNAL_TYPE_RGB;
-> =C2=A0
-> +		if (sink->sink_signal !=3D link->connector_signal)
-> +			DC_LOG_WARNING("sink_signal (%d) does not
-> match connector_signal (%d)\n",
-> +					sink->sink_signal, link-
-> >connector_signal);
-> +
+Signed-off-by: Gangliang Xie <ganglxie@amd.com>
+---
+ .../pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h    | 16 ++++++----------
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h     |  9 ++++++++-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c    |  7 +++++++
+ 3 files changed, 21 insertions(+), 11 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
+index 4b066c42e0ec..fe1b3ac50a75 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
+@@ -105,19 +105,15 @@
+ #define PPSMC_MSG_UpdatePccWaitDecMaxStr            0x4C
+ #define PPSMC_MSG_ResetSDMA                         0x4D
+ #define PPSMC_MSG_GetRasTableVersion                0x4E
+-#define PPSMC_MSG_GetRmaStatus                      0x4F
+-#define PPSMC_MSG_GetErrorCount                     0x50
+-#define PPSMC_MSG_GetBadPageCount                   0x51
+-#define PPSMC_MSG_GetBadPageInfo                    0x52
+-#define PPSMC_MSG_GetBadPagePaAddrLoHi              0x53
+-#define PPSMC_MSG_SetTimestampLoHi                  0x54
+-#define PPSMC_MSG_GetTimestampLoHi                  0x55
+-#define PPSMC_MSG_GetRasPolicy                      0x56
+-#define PPSMC_MSG_DumpErrorRecord                   0x57
++#define PPSMC_MSG_GetBadPageCount                   0x50
++#define PPSMC_MSG_GetBadPageMcaAddress              0x51
++#define PPSMC_MSG_SetTimestamp                      0x53
++#define PPSMC_MSG_SetTimestampHi                    0x54
++#define PPSMC_MSG_GetTimestamp                      0x55
++#define PPSMC_MSG_GetBadPageIpIdLoHi                0x57
+ #define PPSMC_MSG_EraseRasTable                     0x58
+ #define PPSMC_MSG_GetStaticMetricsTable             0x59
+ #define PPSMC_MSG_ResetVfArbitersByIndex            0x5A
+-#define PPSMC_MSG_GetBadPageSeverity                0x5B
+ #define PPSMC_MSG_GetSystemMetricsTable             0x5C
+ #define PPSMC_MSG_GetSystemMetricsVersion           0x5D
+ #define PPSMC_MSG_ResetVCN                          0x5E
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+index 2256c77da636..9315ce49b396 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+@@ -279,7 +279,14 @@
+ 	__SMU_DUMMY_MAP(ResetSDMA), \
+ 	__SMU_DUMMY_MAP(ResetVCN), \
+ 	__SMU_DUMMY_MAP(GetStaticMetricsTable), \
+-	__SMU_DUMMY_MAP(GetSystemMetricsTable),
++	__SMU_DUMMY_MAP(GetSystemMetricsTable), \
++	__SMU_DUMMY_MAP(GetRASTableVersion), \
++	__SMU_DUMMY_MAP(GetBadPageCount), \
++	__SMU_DUMMY_MAP(GetBadPageMcaAddr), \
++	__SMU_DUMMY_MAP(SetTimestamp), \
++	__SMU_DUMMY_MAP(GetTimestamp), \
++	__SMU_DUMMY_MAP(GetBadPageIpid), \
++	__SMU_DUMMY_MAP(EraseRasTable),
+ 
+ #undef __SMU_DUMMY_MAP
+ #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index cb3fea9e8cf3..27b950c126ab 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -139,6 +139,13 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_map[SMU_MSG_MAX_COUNT] =
+ 	MSG_MAP(ResetVCN,                            PPSMC_MSG_ResetVCN,                        0),
+ 	MSG_MAP(GetStaticMetricsTable,               PPSMC_MSG_GetStaticMetricsTable,           1),
+ 	MSG_MAP(GetSystemMetricsTable,               PPSMC_MSG_GetSystemMetricsTable,           1),
++	MSG_MAP(GetRASTableVersion,                  PPSMC_MSG_GetRasTableVersion,              0),
++	MSG_MAP(GetBadPageCount,                     PPSMC_MSG_GetBadPageCount,                 0),
++	MSG_MAP(GetBadPageMcaAddr,                   PPSMC_MSG_GetBadPageMcaAddress,            0),
++	MSG_MAP(SetTimestamp,                        PPSMC_MSG_SetTimestamp,                    0),
++	MSG_MAP(GetTimestamp,                        PPSMC_MSG_GetTimestamp,                    0),
++	MSG_MAP(GetBadPageIpid,                      PPSMC_MSG_GetBadPageIpIdLoHi,              0),
++	MSG_MAP(EraseRasTable,                       PPSMC_MSG_EraseRasTable,                   0),
+ };
+ 
+ int smu_v13_0_12_tables_init(struct smu_context *smu)
+-- 
+2.34.1
 
-We should not print warnings for things that occur during normal
-operation. Warning is incorrect because the different signal type is
-normal and expected on certain connectors, for example:
-
-- DVI-I: the signal type may be DVI (dual or single link) or RGB
-- DP: the signal type may be DP, DVI or HDMI (for dongles)
-- HDMI: the signal type may be HDMI or DVI (without native audio)
-
-My recommendation is the following:
-1. Change the warning to a debug message (DC_LOG_DC)
-2. Move it a few lines below where the sink_signal is determined.
-
-Thanks & best regards,
-Timur
-
-> =C2=A0		/* HDMI-DVI Dongle */
-> =C2=A0		if (sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A &&
-> =C2=A0		=C2=A0=C2=A0=C2=A0 !sink->edid_caps.edid_hdmi)
-> =C2=A0			sink->sink_signal =3D
-> SIGNAL_TYPE_DVI_SINGLE_LINK;
-> =C2=A0		else if (dc_is_dvi_signal(sink->sink_signal) &&
-> +			 dc_is_dvi_signal(link->connector_signal) &&
-> =C2=A0			 aud_support->hdmi_audio_native &&
-> =C2=A0			 sink->edid_caps.edid_hdmi)
-> =C2=A0			sink->sink_signal =3D SIGNAL_TYPE_HDMI_TYPE_A;
