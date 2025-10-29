@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A94BCCF9EE
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 17:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DEDECCF9EB
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 17:54:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95E5210E80B;
-	Wed, 29 Oct 2025 17:53:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3258410E809;
+	Wed, 29 Oct 2025 17:54:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k1Saa1mE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1Zo3x/iZ";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010024.outbound.protection.outlook.com
- [40.93.198.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F315110E809
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 17:53:21 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A2AE10E809
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 17:54:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qUSqlEpzca3ooz4zkhWUvyhpppFcWwC0XLYY5X2+ujIiFMjvWmVbGjnz9PvUn5lF66x0bXbD5J6NKqhsiksI79A3fQ+Ek+dc7BNxN64APo+S/vbU3UytokU+ZftB2IYc+SKhzkxqFT0+Vm7MbG5olaeHwb8Zsbihvg04ogdQlLP/idYltCvOWVenaF68No4mQxVnd9Ku+s6bCBGgu1BMyie9QmoeywAANUHKwLnJyLmfI3+REWYGsXnSB9/tZPQ1OqjpstZmEs1r00/OuhScwhK5GhNKM4wIcQOPeWHUN7+6S5oKLeifu3GMAlYb/eZDDypLoTXT4/SdTd9PDj4i5A==
+ b=Ho9Civma04AalTgrHU49HcPWi4cO+YDZPq6jieHY/dhWdNKPwwRjWfNM3BMckaQxKhY3TkIdbnE9xkOWYlTDcDcQzouRW8T5BaOw1haPsD+vLHG3LljYhqx0XyR/c8aXFlOnauruLimM43wtfyVeM4eK7JOkmv7aHowaS3JThpl0r3CNIoi94n2VtQY6q3A6mSIk5RL1J9EW2Ypi0qrIkOzqhReeAXe2AszxuV3EN5qudHvC/scSHG++1c6GWwSbLLnVvWqvDJaEeZi/1sNuYPIXi6X3g49jqZEOIDY7j2/DVyvA0KEhGRMFCGHmoKTfjooZiGuzuyJccqUo0Xpz9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bUOI0mCKA1IZIBe7/H/bEmrAzNveH8boizXndzk/dGA=;
- b=RhXXcngLmhd9pzAjGMe1/VbJ0Mj3gk9jN3u2Ks/VfxE6pYdPOXgu6C9gsEUlx2w7KwmdI3uDhLmaJHyLliQhg6KOG87mqRGDm1JLiqN/FoPVhkdAW1CRhTA0FFsJyqPvi+GU7PDKcbIo1O4hJ1yaub0oeoPchEXrYuj6PKuo7cXdMi/kbRiO2Gt0IlltPojloVfJNMnIZUDE4ApT5z9iHmw3NyuX5fjLgwXzjKYpzVpgqj6sQ73j9pt1ybJWJtFvTcBc4uUMy0plCn1Knxd/TrfheGYSZ7y0nQ93Ivvtw0LOaEPhEq3OakGZc1SqX5Ni21yYjAeeL5nOqK7v44iTLQ==
+ bh=j9XRNgKxv5kbxgsNrRbwoE6UeAbbMH90EykEXMvopFs=;
+ b=Dv6Wg9eWQaLspiuGQDdIdPvyDg6WQuxqvCMobeSWePm+nGTip+H++6L/kB3AAd3ZdGKq8L8zBy2iBoCbh2h/Z9duFenoyg5U4vCTH0yfqoT0mARBWugz5Z16iz/ddz7BdjKgSW2tJzjZ5pSnXMm5J0AOe9iCBV1qnHZeZ4qlZbga/RL0frg1PPd/lUY9okzEfYZJTR7MvG67hAf9K08GD2vJjb3AsQTw7JnL7j5nVwpJ7rmyV/0bxDNCPqtAaZmARo2uLPJMWQ/oU8i2Y7mMZW3tJhDhfaD5sLZ8hxZhlHSRIerfgMBv2JlHpnLEWW1v1nj3U/jdS/WGlVQGBJYi8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bUOI0mCKA1IZIBe7/H/bEmrAzNveH8boizXndzk/dGA=;
- b=k1Saa1mEGvgq8MXBQNk7HPGydX6x0IWsAtWeBdtQsrFECFaVJ6m3Ey9NnkcLsWrjjKo5e2MsY9NMQQ9H5PaAT0psq2OrFeoPK90sqW7czbj0tStdrhcFLJodwBYBpp2dooDr8FmOKMxPX+rhlgueRxzASw7Bcx/UXdQq6l6zOMo=
-Received: from MN2PR18CA0018.namprd18.prod.outlook.com (2603:10b6:208:23c::23)
- by SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18)
+ bh=j9XRNgKxv5kbxgsNrRbwoE6UeAbbMH90EykEXMvopFs=;
+ b=1Zo3x/iZmYrsMjDPqaci9UxdpTbUFm/EDIXcKXekLEkZ7nJCdf2LD5meaGNJhvlVxPRLJBEYuZc1aJQ/fSCFIcixrKUAVDenSCU5+gC+TeORcV6qIPMcUsFvIWVHecq1PZkeRa2FmPyqCMFIfMXuwYMZQU0cOtzMFK6I03YREKc=
+Received: from MN0PR04CA0018.namprd04.prod.outlook.com (2603:10b6:208:52d::11)
+ by CYXPR12MB9385.namprd12.prod.outlook.com (2603:10b6:930:e2::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.18; Wed, 29 Oct
- 2025 17:53:15 +0000
-Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
- (2603:10b6:208:23c:cafe::e6) by MN2PR18CA0018.outlook.office365.com
- (2603:10b6:208:23c::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.12 via Frontend Transport; Wed,
- 29 Oct 2025 17:53:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Wed, 29 Oct
+ 2025 17:54:09 +0000
+Received: from BL02EPF0001A108.namprd05.prod.outlook.com
+ (2603:10b6:208:52d:cafe::2b) by MN0PR04CA0018.outlook.office365.com
+ (2603:10b6:208:52d::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.14 via Frontend Transport; Wed,
+ 29 Oct 2025 17:54:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,24 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
+ BL02EPF0001A108.mail.protection.outlook.com (10.167.241.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.10 via Frontend Transport; Wed, 29 Oct 2025 17:53:15 +0000
+ 15.20.9275.10 via Frontend Transport; Wed, 29 Oct 2025 17:54:08 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 29 Oct
- 2025 10:53:07 -0700
+ 2025 10:54:07 -0700
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: Update vm start, end,
- hole to support 57bit address
-Date: Wed, 29 Oct 2025 13:52:42 -0400
-Message-ID: <20251029175242.2861740-3-alexander.deucher@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu: Add smuio v14_0_3 ip headers v3
+Date: Wed, 29 Oct 2025 13:53:50 -0400
+Message-ID: <20251029175353.2861924-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251029175242.2861740-1-alexander.deucher@amd.com>
-References: <20251029175242.2861740-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -75,53 +71,53 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|SA3PR12MB7782:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79e7ddce-ee2a-41ac-4a90-08de171408f8
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A108:EE_|CYXPR12MB9385:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e612ad7-d587-4588-ef62-08de17142910
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Y+G6YcOkKx3+yXsIGBucK9+NE6861h8RxNHRoMSNTGQF2eoML1l5iQ88GkqX?=
- =?us-ascii?Q?cvsC/cp5W1wNuLShvtFfPwX/HKxTsjZSBiVFI5ltulK29oq7rNUedy3ALW1u?=
- =?us-ascii?Q?xiJWlntlFEzlKxBYQ3vOf1ZgWhFJc5uvoiorLn6FDn9BkXURzJo3hTGReWVg?=
- =?us-ascii?Q?YVuMILXTK0uzlhu9tZh9k0Gl6ecKy+eY/3pEIuMusAGzGWIBkH3OSWV38gzR?=
- =?us-ascii?Q?J6PLlm9gUkxg64wKurgDOz7OlPyddITaGV4a46eGOfEU4UP1B6DXVjzb8BiH?=
- =?us-ascii?Q?k/AU4e+BSXNY0veGETwTtoTIYfB1hd3FWBQEebHdUsh7iWwKAtx1FZ9pzB7Z?=
- =?us-ascii?Q?7qLUDCQE/mxAeB9bn9VR555ykto/vkOkZ+NgJDR+ACDmcWCpYx9aSTRHlifR?=
- =?us-ascii?Q?yw1RWf2QrZ3PQxKp9CTKETxp2XCJRXopKGXDLcFAz0DPzneTYNNfD/7bnm6N?=
- =?us-ascii?Q?9hpCWFRAsQwW/RknTFOWMV7XuUdambkE+nL0IbYFWuNnd2OJ9cKewfkeyiSV?=
- =?us-ascii?Q?ZCpCtsn+kZpoyXErc3DdXDPKkhqp9cEXg2PIiamcgxsOjYXqS9U5VYiKFZzr?=
- =?us-ascii?Q?JjuPNsZSTeE7i9pQyiOA8JAkqZkkXrcTOUR1eEf1lYET9BEwwebaxOFt7edj?=
- =?us-ascii?Q?iYNqGM8EmJEE9LflGAS5fIJHXACqaNIs51vP527rmR1FxzXRx8LEcGVpOj4w?=
- =?us-ascii?Q?sqe4fHG1wvL2kCMD1+1P6Pol0MpYeu8cZhmxXLQv+U9PiPQU/GfWODxXV5eQ?=
- =?us-ascii?Q?Wy7qrty/r5cVlPh8pdsI/vW9SAvqbFX/Fyka7y2biK72WILNqp6SMENT+U8x?=
- =?us-ascii?Q?O6bfj01Td2I0MxXbayZk7rwy1NPqYKjZdo8E/J79lO6sWQEbZLDMYXBUuWRz?=
- =?us-ascii?Q?jFhE+NMKcDfAHziMj6+i7yZW2l/KrC2sNSBZLaIEWteJOac+XL5lPV5CETBj?=
- =?us-ascii?Q?f8qzqkqdWtq6ClVRnKjxgFxNv2yfir5P0+Spku3KOx6QNBH34rtbhmKl6ENb?=
- =?us-ascii?Q?P4WiDI0eOlCUpXVF4neQpbHvqJAcpReCovgu41lY6ztafWdLnz/Ja3FrQrhU?=
- =?us-ascii?Q?dNp9xqeQscETfFAbtizWfz3Hirjcs46Gp4nhmN9InfBwubfxXoSNcjy1+PDx?=
- =?us-ascii?Q?ZOniM8CFTfuAyiZlQVc4UnnvvdqPnldPcpOt9926sQDXP4TGwdNcTZFfaxmv?=
- =?us-ascii?Q?BLpfibLwd2w2YkVZUqs1g6pCJ6dS02m4kg31ebZ+bBoGphMzxUtcetBlIrA7?=
- =?us-ascii?Q?dIptU15TtuZisv3vre6/ZPfvvcdkCjkmGYQrSfvkqTgGasHQfGYqG6YiDX2b?=
- =?us-ascii?Q?Ba6cdZe13M2vnjWfWgVtCknvbXRL53+OpO/PpLQr9MFgBRqjNeJ41jydOT1S?=
- =?us-ascii?Q?OrA3fbDFl71Ucv6qaoVCoOVakD0JqB1L6V09fu8Wdspg+yFkqRTS/skGKOWV?=
- =?us-ascii?Q?loxw4PhFjb+KotdF4RjG8IdJ61uMUhfJ4OjUYoxERbQI8XpZeXEJ/r0FjBvV?=
- =?us-ascii?Q?vJm5Ia9XnDCohQDABVr5gwph0DlJfAnQaobmDjZ9KlOLaVH8yoS8mnZND2p4?=
- =?us-ascii?Q?nNFzZXizMwlQAmT9FTs=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cXuMUh6iAMRfWHcHNvKpDupl+uVsQr7hFJPkjBJbHKZ8HyB0iT7tKituSBFf?=
+ =?us-ascii?Q?CupZWObWVmFuSSXymI71BVy+VRVyU0XMrLihGiW9Q702A/M1S3fi4J65SOOw?=
+ =?us-ascii?Q?GcTtK7+BEYzupJSikoicV5zWz852vNFjPFOBXwXr+tXRaftwzPUdewlwDdjZ?=
+ =?us-ascii?Q?lqlhF53SqZRCTyWFQHvJDGX64pouAV/pGmXHEzToT1RoSbklcJzunlGxby0V?=
+ =?us-ascii?Q?ocEV8gxSoRuMT8ShyPvYSB+PvbjNnrJWjBvDK1jt9AY55CxTqfChBhOTIOYT?=
+ =?us-ascii?Q?YORn3ivO7yFsJFKlQGYI1GcZKMPaBu25c1IGVDHmsO/hVAhnz4F1jYt3LmM6?=
+ =?us-ascii?Q?7ya5W5RIUrwn7MkIJFrOl/LBq9ZINlu0SPrijl3kwx5zsBC9+ZRgCfjM17i7?=
+ =?us-ascii?Q?fgJ7LG7pAMCTvZ7h9lPTbgdyYMri+V+GnA10CUzqb+ln21Eb/qR/oJe8b1wA?=
+ =?us-ascii?Q?Ib2s6wVtBdtCoB1ZZG1ukXa7RuuQ7HfZd+qjEjroJiKmn9khyGj6OhCSLNTO?=
+ =?us-ascii?Q?Bvl8/OiZELS5JS+AYduihR10NuJvOnNyVU4q+aeoIHP47I9E0lV/piHePK8G?=
+ =?us-ascii?Q?9hCnmS0pWgm68bLZQTjHLqeHz29FpV05J+hfNjZ/ImpUkHVHRocLn4z3PI3Z?=
+ =?us-ascii?Q?NAJIsYsHhuqB+xn8AOz3QIrSI1VZhLyWgWycMqDr/vGwYEg4F/kUJnue98ZP?=
+ =?us-ascii?Q?00qaWRHG20TU/hDcv6A9AK/jNfDT9KWDTT4WNf9noQTJwWrNcZhcPqEAha0C?=
+ =?us-ascii?Q?lle2mjbLP9CGKCEpHn7GiKA0UI1oICFqoz0Y5kOsKZ31woP7m6zOk+eqw11s?=
+ =?us-ascii?Q?ldikSHEtRp39zRCALDXQOWf/0Q1LBRuYVro9IH/kNKfTFkrxC1yRAjzJKRKJ?=
+ =?us-ascii?Q?JHk6cTPuB9sdT8MrdxpdVM0s8TqHuQtMMOl1ZUmq4kVPX2HgeNYyH6wj/s9l?=
+ =?us-ascii?Q?Uovka4V2qqPXsK3jHUgadKMF2M0V5LT1NSJ32v2ZU7VYg4TfUVRhBuEJK5ei?=
+ =?us-ascii?Q?CK45Y9jLjQR5bIZSQypgi3XwcTh0jXqX/IkPcnJ8cFcJGbSwFGETPcWW3zlS?=
+ =?us-ascii?Q?F59akUXmPNiozCzYdd3mQoSxp0n/K9qyv3o37Pt6zbvt8h7iwo9Ec54f07Wx?=
+ =?us-ascii?Q?vpeeIWxWYwNH35ejKZHIWaxdvcrzzpbT1/XsNAR32K5wtuRjnzWAv+Dk83/z?=
+ =?us-ascii?Q?YR9477yO/tf/eVwRY8Q3gfk+xEZ94wYdby9a3iIHIxCJkkm4RCy6Wcd5+/qd?=
+ =?us-ascii?Q?tOBsnmNZaVy2u80UXN4RF2cWu9e3X+WsR+s5r6l7etmF+2R5mUnPOqsscu7d?=
+ =?us-ascii?Q?FpeQ5Dz+R3IcuBbLP6OFd8HA4rVdnVSrenFFR3m+NtMSGsdNSyd9jRAdJ5/p?=
+ =?us-ascii?Q?8VcczezG7LVK7WQFPrvLBLMXxvGyC2mLjHkG6cO1nEv5ORK15Q6npC1uk8k5?=
+ =?us-ascii?Q?MUyt3auChy9bwP033FAwhUz+f/7HXgxJbsqQPoJi0XmI1uZhfK64ooOmjQ5h?=
+ =?us-ascii?Q?vDgTIBhLJEtHYujjukcZ/0e5u963GYgNJCDBL483pQ7wVVEbJTHONYclecrU?=
+ =?us-ascii?Q?tzZIX82KCGeLSjpPIS4=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 17:53:15.0032 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79e7ddce-ee2a-41ac-4a90-08de171408f8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 17:54:08.8494 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e612ad7-d587-4588-ef62-08de17142910
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A108.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7782
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,276 +132,1661 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Change gmc macro AMDGPU_GMC_HOLE_START/END/MASK to 57bit if vm root
-level is PDB3 for 5-level page tables.
+Add header files for smuio v14_0_3 register offsets
+and shift masks
+v2: Update smuio v14_0_3 ip headers up to CL7337280
+v3: Update smuio v14_0_3 ip headers up to CL7749557
+v4: Clean up registers (Alex)
 
-The macro access adev without passing adev as parameter is to minimize
-the code change to support 57bit, then we have to add adev variable in
-several places to use the macro.
-
-Because adev definition is not available in all amdgpu c files which
-include amdgpu_gmc.h, change inline function amdgpu_gmc_sign_extend to
-macro.
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       | 20 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  9 +++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  3 ++-
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  7 +++++--
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c    | 13 ++++++------
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |  1 +
- 10 files changed, 33 insertions(+), 25 deletions(-)
+ .../asic_reg/smuio/smuio_14_0_3_offset.h      |  512 ++++++++
+ .../asic_reg/smuio/smuio_14_0_3_sh_mask.h     | 1113 +++++++++++++++++
+ 2 files changed, 1625 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_sh_mask.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index ecdfe6cb36ccd..d591dce0f3b3c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1021,6 +1021,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
- 			       struct amdgpu_job *job)
- {
- 	struct amdgpu_ring *ring = amdgpu_job_ring(job);
-+	struct amdgpu_device *adev = ring->adev;
- 	unsigned int i;
- 	int r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 55097ca107382..130310ae3c59e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -32,9 +32,11 @@
- #include "amdgpu_xgmi.h"
- #include "amdgpu_ras.h"
- 
--/* VA hole for 48bit addresses on Vega10 */
--#define AMDGPU_GMC_HOLE_START	0x0000800000000000ULL
--#define AMDGPU_GMC_HOLE_END	0xffff800000000000ULL
-+/* VA hole for 48bit and 57bit addresses */
-+#define AMDGPU_GMC_HOLE_START	(adev->vm_manager.root_level == AMDGPU_VM_PDB3 ?\
-+				0x0100000000000000ULL : 0x0000800000000000ULL)
-+#define AMDGPU_GMC_HOLE_END	(adev->vm_manager.root_level == AMDGPU_VM_PDB3 ?\
-+				0xff00000000000000ULL : 0xffff800000000000ULL)
- 
- /*
-  * Hardware is programmed as if the hole doesn't exists with start and end
-@@ -43,7 +45,8 @@
-  * This mask is used to remove the upper 16bits of the VA and so come up with
-  * the linear addr value.
-  */
--#define AMDGPU_GMC_HOLE_MASK	0x0000ffffffffffffULL
-+#define AMDGPU_GMC_HOLE_MASK	(adev->vm_manager.root_level == AMDGPU_VM_PDB3 ?\
-+				0x00ffffffffffffffULL : 0x0000ffffffffffffULL)
- 
- /*
-  * Ring size as power of two for the log of recent faults.
-@@ -389,13 +392,8 @@ static inline bool amdgpu_gmc_vram_full_visible(struct amdgpu_gmc *gmc)
-  *
-  * @addr: address to extend
-  */
--static inline uint64_t amdgpu_gmc_sign_extend(uint64_t addr)
--{
--	if (addr >= AMDGPU_GMC_HOLE_START)
--		addr |= AMDGPU_GMC_HOLE_END;
--
--	return addr;
--}
-+#define amdgpu_gmc_sign_extend(addr)	((addr) >= AMDGPU_GMC_HOLE_START ?\
-+					((addr) | AMDGPU_GMC_HOLE_END) : (addr))
- 
- bool amdgpu_gmc_is_pdb0_enabled(struct amdgpu_device *adev);
- int amdgpu_gmc_pdb0_alloc(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index cc2f96ed7004e..1b528311da4e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -64,7 +64,8 @@ static int amdgpu_userq_buffer_va_list_add(struct amdgpu_usermode_queue *queue,
- 	return 0;
- }
- 
--int amdgpu_userq_input_va_validate(struct amdgpu_usermode_queue *queue,
-+int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
-+				   struct amdgpu_usermode_queue *queue,
- 				   u64 addr, u64 expected_size)
- {
- 	struct amdgpu_bo_va_mapping *va_map;
-@@ -614,9 +615,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	db_info.doorbell_offset = args->in.doorbell_offset;
- 
- 	/* Validate the userq virtual address.*/
--	if (amdgpu_userq_input_va_validate(queue, args->in.queue_va, args->in.queue_size) ||
--	    amdgpu_userq_input_va_validate(queue, args->in.rptr_va, AMDGPU_GPU_PAGE_SIZE) ||
--	    amdgpu_userq_input_va_validate(queue, args->in.wptr_va, AMDGPU_GPU_PAGE_SIZE)) {
-+	if (amdgpu_userq_input_va_validate(adev, queue, args->in.queue_va, args->in.queue_size) ||
-+	    amdgpu_userq_input_va_validate(adev, queue, args->in.rptr_va, AMDGPU_GPU_PAGE_SIZE) ||
-+	    amdgpu_userq_input_va_validate(adev, queue, args->in.wptr_va, AMDGPU_GPU_PAGE_SIZE)) {
- 		r = -EINVAL;
- 		kfree(queue);
- 		goto unlock;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 09da0617bfa20..83358c3ea7c93 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -148,7 +148,8 @@ int amdgpu_userq_stop_sched_for_enforce_isolation(struct amdgpu_device *adev,
- 						  u32 idx);
- int amdgpu_userq_start_sched_for_enforce_isolation(struct amdgpu_device *adev,
- 						   u32 idx);
--int amdgpu_userq_input_va_validate(struct amdgpu_usermode_queue *queue,
-+int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
-+				   struct amdgpu_usermode_queue *queue,
- 				   u64 addr, u64 expected_size);
- int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
- 				       struct amdgpu_bo_va_mapping *mapping,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 2aeeaa9548820..78240fbbf8171 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -351,6 +351,7 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
- /**
-  * amdgpu_userq_fence_read_wptr - Read the userq wptr value
-  *
-+ * @adev: amdgpu_device pointer
-  * @queue: user mode queue structure pointer
-  * @wptr: write pointer value
-  *
-@@ -360,7 +361,8 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
-  *
-  * Returns wptr value on success, error on failure.
-  */
--static int amdgpu_userq_fence_read_wptr(struct amdgpu_usermode_queue *queue,
-+static int amdgpu_userq_fence_read_wptr(struct amdgpu_device *adev,
-+					struct amdgpu_usermode_queue *queue,
- 					u64 *wptr)
- {
- 	struct amdgpu_bo_va_mapping *mapping;
-@@ -453,6 +455,7 @@ amdgpu_userq_fence_driver_force_completion(struct amdgpu_usermode_queue *userq)
- int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
- 			      struct drm_file *filp)
- {
-+	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
- 	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
- 	struct drm_amdgpu_userq_signal *args = data;
-@@ -543,7 +546,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
- 		goto put_gobj_write;
- 	}
- 
--	r = amdgpu_userq_fence_read_wptr(queue, &wptr);
-+	r = amdgpu_userq_fence_read_wptr(adev, queue, &wptr);
- 	if (r)
- 		goto put_gobj_write;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index cad2d19105c4c..69d90a26ecf50 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -798,7 +798,7 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	 * Set the internal MC address mask This is the max address of the GPU's
- 	 * internal address space.
- 	 */
--	adev->gmc.mc_mask = 0xffffffffffffULL; /* 48 bit MC */
-+	adev->gmc.mc_mask = AMDGPU_GMC_HOLE_MASK;
- 
- 	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index 5aeadb2f0f473..85206557e1723 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -59,7 +59,8 @@ mes_userq_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
- }
- 
- static int
--mes_userq_create_wptr_mapping(struct amdgpu_userq_mgr *uq_mgr,
-+mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
-+			      struct amdgpu_userq_mgr *uq_mgr,
- 			      struct amdgpu_usermode_queue *queue,
- 			      uint64_t wptr)
- {
-@@ -293,7 +294,7 @@ static int mes_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
- 			goto free_mqd;
- 		}
- 
--		r = amdgpu_userq_input_va_validate(queue, compute_mqd->eop_va,
-+		r = amdgpu_userq_input_va_validate(adev, queue, compute_mqd->eop_va,
- 						   2048);
- 		if (r)
- 			goto free_mqd;
-@@ -334,11 +335,11 @@ static int mes_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
- 		userq_props->tmz_queue =
- 			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
- 
--		r = amdgpu_userq_input_va_validate(queue, mqd_gfx_v11->shadow_va,
-+		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->shadow_va,
- 						   shadow_info.shadow_size);
- 		if (r)
- 			goto free_mqd;
--		r = amdgpu_userq_input_va_validate(queue, mqd_gfx_v11->csa_va,
-+		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->csa_va,
- 						   shadow_info.csa_size);
- 		if (r)
- 			goto free_mqd;
-@@ -359,7 +360,7 @@ static int mes_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
- 			r = -ENOMEM;
- 			goto free_mqd;
- 		}
--		r = amdgpu_userq_input_va_validate(queue, mqd_sdma_v11->csa_va,
-+		r = amdgpu_userq_input_va_validate(adev, queue, mqd_sdma_v11->csa_va,
- 						   32);
- 		if (r)
- 			goto free_mqd;
-@@ -384,7 +385,7 @@ static int mes_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
- 	}
- 
- 	/* FW expects WPTR BOs to be mapped into GART */
--	r = mes_userq_create_wptr_mapping(uq_mgr, queue, userq_props->wptr_gpu_addr);
-+	r = mes_userq_create_wptr_mapping(adev, uq_mgr, queue, userq_props->wptr_gpu_addr);
- 	if (r) {
- 		DRM_ERROR("Failed to create WPTR mapping\n");
- 		goto free_ctx;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index a316797875a8f..e9d790914761c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -2053,6 +2053,7 @@ static int vcn_v1_0_validate_bo(struct amdgpu_cs_parser *parser,
- {
- 	struct ttm_operation_ctx ctx = { false, false };
- 	struct amdgpu_fpriv *fpriv = parser->filp->driver_priv;
-+	struct amdgpu_device *adev = parser->adev;
- 	struct amdgpu_vm *vm = &fpriv->vm;
- 	struct amdgpu_bo_va_mapping *mapping;
- 	struct amdgpu_bo *bo;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index d9cf8f0feeb3e..02d5c5af65f23 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -1907,6 +1907,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
- 			    uint64_t addr)
- {
- 	struct ttm_operation_ctx ctx = { false, false };
-+	struct amdgpu_device *adev = p->adev;
- 	struct amdgpu_bo_va_mapping *map;
- 	uint32_t *msg, num_buffers;
- 	struct amdgpu_bo *bo;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 3ae666522d570..d17219be50f39 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1824,6 +1824,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
- 			    uint64_t addr)
- {
- 	struct ttm_operation_ctx ctx = { false, false };
-+	struct amdgpu_device *adev = p->adev;
- 	struct amdgpu_bo_va_mapping *map;
- 	uint32_t *msg, num_buffers;
- 	struct amdgpu_bo *bo;
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_offset.h
+new file mode 100644
+index 0000000000000..4876f87d425ca
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_offset.h
+@@ -0,0 +1,512 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef _smuio_14_0_3_OFFSET_HEADER
++#define _smuio_14_0_3_OFFSET_HEADER
++
++
++
++// addressBlock: smuio_smuio_tsc_SmuSmuioDec
++// base address: 0x5a8a0
++#define regPWROK_REFCLK_GAP_CYCLES                                                                      0x0028
++#define regPWROK_REFCLK_GAP_CYCLES_BASE_IDX                                                             1
++#define regGOLDEN_TSC_INCREMENT_UPPER                                                                   0x002b
++#define regGOLDEN_TSC_INCREMENT_UPPER_BASE_IDX                                                          1
++#define regGOLDEN_TSC_INCREMENT_LOWER                                                                   0x002c
++#define regGOLDEN_TSC_INCREMENT_LOWER_BASE_IDX                                                          1
++#define regGOLDEN_TSC_COUNT_UPPER                                                                       0x0030
++#define regGOLDEN_TSC_COUNT_UPPER_BASE_IDX                                                              1
++#define regGOLDEN_TSC_COUNT_LOWER                                                                       0x0031
++#define regGOLDEN_TSC_COUNT_LOWER_BASE_IDX                                                              1
++#define regSOC_GOLDEN_TSC_SHADOW_UPPER                                                                  0x0032
++#define regSOC_GOLDEN_TSC_SHADOW_UPPER_BASE_IDX                                                         1
++#define regSOC_GOLDEN_TSC_SHADOW_LOWER                                                                  0x0033
++#define regSOC_GOLDEN_TSC_SHADOW_LOWER_BASE_IDX                                                         1
++#define regSOC_GAP_PWROK                                                                                0x0034
++#define regSOC_GAP_PWROK_BASE_IDX                                                                       1
++
++
++// addressBlock: smuio_smuio_swtimer_SmuSmuioDec
++// base address: 0x5aca8
++#define regPWR_VIRT_RESET_REQ                                                                           0x012a
++#define regPWR_VIRT_RESET_REQ_BASE_IDX                                                                  1
++#define regPWR_DISP_TIMER_CONTROL                                                                       0x012b
++#define regPWR_DISP_TIMER_CONTROL_BASE_IDX                                                              1
++#define regPWR_DISP_TIMER_DEBUG                                                                         0x012c
++#define regPWR_DISP_TIMER_DEBUG_BASE_IDX                                                                1
++#define regPWR_DISP_TIMER2_CONTROL                                                                      0x012d
++#define regPWR_DISP_TIMER2_CONTROL_BASE_IDX                                                             1
++#define regPWR_DISP_TIMER2_DEBUG                                                                        0x012e
++#define regPWR_DISP_TIMER2_DEBUG_BASE_IDX                                                               1
++#define regPWR_DISP_TIMER_GLOBAL_CONTROL                                                                0x012f
++#define regPWR_DISP_TIMER_GLOBAL_CONTROL_BASE_IDX                                                       1
++#define regPWR_IH_CONTROL                                                                               0x0130
++#define regPWR_IH_CONTROL_BASE_IDX                                                                      1
++
++
++// addressBlock: smuio_smuio_misc_SmuSmuioDec
++// base address: 0x5a000
++#define regSMUIO_MCM_CONFIG                                                                             0x0023
++#define regSMUIO_MCM_CONFIG_BASE_IDX                                                                    0
++#define regIP_DISCOVERY_VERSION                                                                         0x0000
++#define regIP_DISCOVERY_VERSION_BASE_IDX                                                                1
++#define regSCRATCH_REGISTER0                                                                            0x01c9
++#define regSCRATCH_REGISTER0_BASE_IDX                                                                   1
++#define regSCRATCH_REGISTER1                                                                            0x01ca
++#define regSCRATCH_REGISTER1_BASE_IDX                                                                   1
++#define regSCRATCH_REGISTER2                                                                            0x01cb
++#define regSCRATCH_REGISTER2_BASE_IDX                                                                   1
++#define regSCRATCH_REGISTER3                                                                            0x01cc
++#define regSCRATCH_REGISTER3_BASE_IDX                                                                   1
++#define regSCRATCH_REGISTER4                                                                            0x01cd
++#define regSCRATCH_REGISTER4_BASE_IDX                                                                   1
++#define regSCRATCH_REGISTER5                                                                            0x01ce
++#define regSCRATCH_REGISTER5_BASE_IDX                                                                   1
++#define regSCRATCH_REGISTER6                                                                            0x01cf
++#define regSCRATCH_REGISTER6_BASE_IDX                                                                   1
++#define regSCRATCH_REGISTER7                                                                            0x01d0
++#define regSCRATCH_REGISTER7_BASE_IDX                                                                   1
++
++
++// addressBlock: smuio_smuio_i2c_SmuSmuioDec
++// base address: 0x5a100
++#define regCKSVII2C_IC_CON                                                                              0x0040
++#define regCKSVII2C_IC_CON_BASE_IDX                                                                     0
++#define regCKSVII2C_IC_TAR                                                                              0x0041
++#define regCKSVII2C_IC_TAR_BASE_IDX                                                                     0
++#define regCKSVII2C_IC_SAR                                                                              0x0042
++#define regCKSVII2C_IC_SAR_BASE_IDX                                                                     0
++#define regCKSVII2C_IC_HS_MADDR                                                                         0x0043
++#define regCKSVII2C_IC_HS_MADDR_BASE_IDX                                                                0
++#define regCKSVII2C_IC_DATA_CMD                                                                         0x0044
++#define regCKSVII2C_IC_DATA_CMD_BASE_IDX                                                                0
++#define regCKSVII2C_IC_SS_SCL_HCNT                                                                      0x0045
++#define regCKSVII2C_IC_SS_SCL_HCNT_BASE_IDX                                                             0
++#define regCKSVII2C_IC_SS_SCL_LCNT                                                                      0x0046
++#define regCKSVII2C_IC_SS_SCL_LCNT_BASE_IDX                                                             0
++#define regCKSVII2C_IC_FS_SCL_HCNT                                                                      0x0047
++#define regCKSVII2C_IC_FS_SCL_HCNT_BASE_IDX                                                             0
++#define regCKSVII2C_IC_FS_SCL_LCNT                                                                      0x0048
++#define regCKSVII2C_IC_FS_SCL_LCNT_BASE_IDX                                                             0
++#define regCKSVII2C_IC_HS_SCL_HCNT                                                                      0x0049
++#define regCKSVII2C_IC_HS_SCL_HCNT_BASE_IDX                                                             0
++#define regCKSVII2C_IC_HS_SCL_LCNT                                                                      0x004a
++#define regCKSVII2C_IC_HS_SCL_LCNT_BASE_IDX                                                             0
++#define regCKSVII2C_IC_INTR_STAT                                                                        0x004b
++#define regCKSVII2C_IC_INTR_STAT_BASE_IDX                                                               0
++#define regCKSVII2C_IC_INTR_MASK                                                                        0x004c
++#define regCKSVII2C_IC_INTR_MASK_BASE_IDX                                                               0
++#define regCKSVII2C_IC_RAW_INTR_STAT                                                                    0x004d
++#define regCKSVII2C_IC_RAW_INTR_STAT_BASE_IDX                                                           0
++#define regCKSVII2C_IC_RX_TL                                                                            0x004e
++#define regCKSVII2C_IC_RX_TL_BASE_IDX                                                                   0
++#define regCKSVII2C_IC_TX_TL                                                                            0x004f
++#define regCKSVII2C_IC_TX_TL_BASE_IDX                                                                   0
++#define regCKSVII2C_IC_CLR_INTR                                                                         0x0050
++#define regCKSVII2C_IC_CLR_INTR_BASE_IDX                                                                0
++#define regCKSVII2C_IC_CLR_RX_UNDER                                                                     0x0051
++#define regCKSVII2C_IC_CLR_RX_UNDER_BASE_IDX                                                            0
++#define regCKSVII2C_IC_CLR_RX_OVER                                                                      0x0052
++#define regCKSVII2C_IC_CLR_RX_OVER_BASE_IDX                                                             0
++#define regCKSVII2C_IC_CLR_TX_OVER                                                                      0x0053
++#define regCKSVII2C_IC_CLR_TX_OVER_BASE_IDX                                                             0
++#define regCKSVII2C_IC_CLR_RD_REQ                                                                       0x0054
++#define regCKSVII2C_IC_CLR_RD_REQ_BASE_IDX                                                              0
++#define regCKSVII2C_IC_CLR_TX_ABRT                                                                      0x0055
++#define regCKSVII2C_IC_CLR_TX_ABRT_BASE_IDX                                                             0
++#define regCKSVII2C_IC_CLR_RX_DONE                                                                      0x0056
++#define regCKSVII2C_IC_CLR_RX_DONE_BASE_IDX                                                             0
++#define regCKSVII2C_IC_CLR_ACTIVITY                                                                     0x0057
++#define regCKSVII2C_IC_CLR_ACTIVITY_BASE_IDX                                                            0
++#define regCKSVII2C_IC_CLR_STOP_DET                                                                     0x0058
++#define regCKSVII2C_IC_CLR_STOP_DET_BASE_IDX                                                            0
++#define regCKSVII2C_IC_CLR_START_DET                                                                    0x0059
++#define regCKSVII2C_IC_CLR_START_DET_BASE_IDX                                                           0
++#define regCKSVII2C_IC_CLR_GEN_CALL                                                                     0x005a
++#define regCKSVII2C_IC_CLR_GEN_CALL_BASE_IDX                                                            0
++#define regCKSVII2C_IC_ENABLE                                                                           0x005b
++#define regCKSVII2C_IC_ENABLE_BASE_IDX                                                                  0
++#define regCKSVII2C_IC_STATUS                                                                           0x005c
++#define regCKSVII2C_IC_STATUS_BASE_IDX                                                                  0
++#define regCKSVII2C_IC_TXFLR                                                                            0x005d
++#define regCKSVII2C_IC_TXFLR_BASE_IDX                                                                   0
++#define regCKSVII2C_IC_RXFLR                                                                            0x005e
++#define regCKSVII2C_IC_RXFLR_BASE_IDX                                                                   0
++#define regCKSVII2C_IC_SDA_HOLD                                                                         0x005f
++#define regCKSVII2C_IC_SDA_HOLD_BASE_IDX                                                                0
++#define regCKSVII2C_IC_TX_ABRT_SOURCE                                                                   0x0060
++#define regCKSVII2C_IC_TX_ABRT_SOURCE_BASE_IDX                                                          0
++#define regCKSVII2C_IC_SLV_DATA_NACK_ONLY                                                               0x0061
++#define regCKSVII2C_IC_SLV_DATA_NACK_ONLY_BASE_IDX                                                      0
++#define regCKSVII2C_IC_DMA_CR                                                                           0x0062
++#define regCKSVII2C_IC_DMA_CR_BASE_IDX                                                                  0
++#define regCKSVII2C_IC_DMA_TDLR                                                                         0x0063
++#define regCKSVII2C_IC_DMA_TDLR_BASE_IDX                                                                0
++#define regCKSVII2C_IC_DMA_RDLR                                                                         0x0064
++#define regCKSVII2C_IC_DMA_RDLR_BASE_IDX                                                                0
++#define regCKSVII2C_IC_SDA_SETUP                                                                        0x0065
++#define regCKSVII2C_IC_SDA_SETUP_BASE_IDX                                                               0
++#define regCKSVII2C_IC_ACK_GENERAL_CALL                                                                 0x0066
++#define regCKSVII2C_IC_ACK_GENERAL_CALL_BASE_IDX                                                        0
++#define regCKSVII2C_IC_ENABLE_STATUS                                                                    0x0067
++#define regCKSVII2C_IC_ENABLE_STATUS_BASE_IDX                                                           0
++#define regCKSVII2C_IC_FS_SPKLEN                                                                        0x0068
++#define regCKSVII2C_IC_FS_SPKLEN_BASE_IDX                                                               0
++#define regCKSVII2C_IC_HS_SPKLEN                                                                        0x0069
++#define regCKSVII2C_IC_HS_SPKLEN_BASE_IDX                                                               0
++#define regCKSVII2C_IC_CLR_RESTART_DET                                                                  0x006a
++#define regCKSVII2C_IC_CLR_RESTART_DET_BASE_IDX                                                         0
++#define regCKSVII2C_IC_COMP_PARAM_1                                                                     0x006d
++#define regCKSVII2C_IC_COMP_PARAM_1_BASE_IDX                                                            0
++#define regCKSVII2C_IC_COMP_VERSION                                                                     0x006e
++#define regCKSVII2C_IC_COMP_VERSION_BASE_IDX                                                            0
++#define regCKSVII2C_IC_COMP_TYPE                                                                        0x006f
++#define regCKSVII2C_IC_COMP_TYPE_BASE_IDX                                                               0
++#define regCKSVII2C1_IC_CON                                                                             0x0080
++#define regCKSVII2C1_IC_CON_BASE_IDX                                                                    0
++#define regCKSVII2C1_IC_TAR                                                                             0x0081
++#define regCKSVII2C1_IC_TAR_BASE_IDX                                                                    0
++#define regCKSVII2C1_IC_SAR                                                                             0x0082
++#define regCKSVII2C1_IC_SAR_BASE_IDX                                                                    0
++#define regCKSVII2C1_IC_HS_MADDR                                                                        0x0083
++#define regCKSVII2C1_IC_HS_MADDR_BASE_IDX                                                               0
++#define regCKSVII2C1_IC_DATA_CMD                                                                        0x0084
++#define regCKSVII2C1_IC_DATA_CMD_BASE_IDX                                                               0
++#define regCKSVII2C1_IC_SS_SCL_HCNT                                                                     0x0085
++#define regCKSVII2C1_IC_SS_SCL_HCNT_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_SS_SCL_LCNT                                                                     0x0086
++#define regCKSVII2C1_IC_SS_SCL_LCNT_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_FS_SCL_HCNT                                                                     0x0087
++#define regCKSVII2C1_IC_FS_SCL_HCNT_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_FS_SCL_LCNT                                                                     0x0088
++#define regCKSVII2C1_IC_FS_SCL_LCNT_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_HS_SCL_HCNT                                                                     0x0089
++#define regCKSVII2C1_IC_HS_SCL_HCNT_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_HS_SCL_LCNT                                                                     0x008a
++#define regCKSVII2C1_IC_HS_SCL_LCNT_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_INTR_STAT                                                                       0x008b
++#define regCKSVII2C1_IC_INTR_STAT_BASE_IDX                                                              0
++#define regCKSVII2C1_IC_INTR_MASK                                                                       0x008c
++#define regCKSVII2C1_IC_INTR_MASK_BASE_IDX                                                              0
++#define regCKSVII2C1_IC_RAW_INTR_STAT                                                                   0x008d
++#define regCKSVII2C1_IC_RAW_INTR_STAT_BASE_IDX                                                          0
++#define regCKSVII2C1_IC_RX_TL                                                                           0x008e
++#define regCKSVII2C1_IC_RX_TL_BASE_IDX                                                                  0
++#define regCKSVII2C1_IC_TX_TL                                                                           0x008f
++#define regCKSVII2C1_IC_TX_TL_BASE_IDX                                                                  0
++#define regCKSVII2C1_IC_CLR_INTR                                                                        0x0090
++#define regCKSVII2C1_IC_CLR_INTR_BASE_IDX                                                               0
++#define regCKSVII2C1_IC_CLR_RX_UNDER                                                                    0x0091
++#define regCKSVII2C1_IC_CLR_RX_UNDER_BASE_IDX                                                           0
++#define regCKSVII2C1_IC_CLR_RX_OVER                                                                     0x0092
++#define regCKSVII2C1_IC_CLR_RX_OVER_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_CLR_TX_OVER                                                                     0x0093
++#define regCKSVII2C1_IC_CLR_TX_OVER_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_CLR_RD_REQ                                                                      0x0094
++#define regCKSVII2C1_IC_CLR_RD_REQ_BASE_IDX                                                             0
++#define regCKSVII2C1_IC_CLR_TX_ABRT                                                                     0x0095
++#define regCKSVII2C1_IC_CLR_TX_ABRT_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_CLR_RX_DONE                                                                     0x0096
++#define regCKSVII2C1_IC_CLR_RX_DONE_BASE_IDX                                                            0
++#define regCKSVII2C1_IC_CLR_ACTIVITY                                                                    0x0097
++#define regCKSVII2C1_IC_CLR_ACTIVITY_BASE_IDX                                                           0
++#define regCKSVII2C1_IC_CLR_STOP_DET                                                                    0x0098
++#define regCKSVII2C1_IC_CLR_STOP_DET_BASE_IDX                                                           0
++#define regCKSVII2C1_IC_CLR_START_DET                                                                   0x0099
++#define regCKSVII2C1_IC_CLR_START_DET_BASE_IDX                                                          0
++#define regCKSVII2C1_IC_CLR_GEN_CALL                                                                    0x009a
++#define regCKSVII2C1_IC_CLR_GEN_CALL_BASE_IDX                                                           0
++#define regCKSVII2C1_IC_ENABLE                                                                          0x009b
++#define regCKSVII2C1_IC_ENABLE_BASE_IDX                                                                 0
++#define regCKSVII2C1_IC_STATUS                                                                          0x009c
++#define regCKSVII2C1_IC_STATUS_BASE_IDX                                                                 0
++#define regCKSVII2C1_IC_TXFLR                                                                           0x009d
++#define regCKSVII2C1_IC_TXFLR_BASE_IDX                                                                  0
++#define regCKSVII2C1_IC_RXFLR                                                                           0x009e
++#define regCKSVII2C1_IC_RXFLR_BASE_IDX                                                                  0
++#define regCKSVII2C1_IC_SDA_HOLD                                                                        0x009f
++#define regCKSVII2C1_IC_SDA_HOLD_BASE_IDX                                                               0
++#define regCKSVII2C1_IC_TX_ABRT_SOURCE                                                                  0x00a0
++#define regCKSVII2C1_IC_TX_ABRT_SOURCE_BASE_IDX                                                         0
++#define regCKSVII2C1_IC_SLV_DATA_NACK_ONLY                                                              0x00a1
++#define regCKSVII2C1_IC_SLV_DATA_NACK_ONLY_BASE_IDX                                                     0
++#define regCKSVII2C1_IC_DMA_CR                                                                          0x00a2
++#define regCKSVII2C1_IC_DMA_CR_BASE_IDX                                                                 0
++#define regCKSVII2C1_IC_DMA_TDLR                                                                        0x00a3
++#define regCKSVII2C1_IC_DMA_TDLR_BASE_IDX                                                               0
++#define regCKSVII2C1_IC_DMA_RDLR                                                                        0x00a4
++#define regCKSVII2C1_IC_DMA_RDLR_BASE_IDX                                                               0
++#define regCKSVII2C1_IC_SDA_SETUP                                                                       0x00a5
++#define regCKSVII2C1_IC_SDA_SETUP_BASE_IDX                                                              0
++#define regCKSVII2C1_IC_ACK_GENERAL_CALL                                                                0x00a6
++#define regCKSVII2C1_IC_ACK_GENERAL_CALL_BASE_IDX                                                       0
++#define regCKSVII2C1_IC_ENABLE_STATUS                                                                   0x00a7
++#define regCKSVII2C1_IC_ENABLE_STATUS_BASE_IDX                                                          0
++#define regCKSVII2C1_IC_FS_SPKLEN                                                                       0x00a8
++#define regCKSVII2C1_IC_FS_SPKLEN_BASE_IDX                                                              0
++#define regCKSVII2C1_IC_HS_SPKLEN                                                                       0x00a9
++#define regCKSVII2C1_IC_HS_SPKLEN_BASE_IDX                                                              0
++#define regCKSVII2C1_IC_CLR_RESTART_DET                                                                 0x00aa
++#define regCKSVII2C1_IC_CLR_RESTART_DET_BASE_IDX                                                        0
++#define regCKSVII2C1_IC_COMP_PARAM_1                                                                    0x00ad
++#define regCKSVII2C1_IC_COMP_PARAM_1_BASE_IDX                                                           0
++#define regCKSVII2C1_IC_COMP_VERSION                                                                    0x00ae
++#define regCKSVII2C1_IC_COMP_VERSION_BASE_IDX                                                           0
++#define regCKSVII2C1_IC_COMP_TYPE                                                                       0x00af
++#define regCKSVII2C1_IC_COMP_TYPE_BASE_IDX                                                              0
++#define regSMUIO_PWRMGT                                                                                 0x018c
++#define regSMUIO_PWRMGT_BASE_IDX                                                                        0
++
++
++// addressBlock: smuio_smuio_rom_SmuSmuioDec
++// base address: 0x5a380
++#define regROM_CNTL                                                                                     0x00e0
++#define regROM_CNTL_BASE_IDX                                                                            0
++#define regPAGE_MIRROR_CNTL                                                                             0x00e1
++#define regPAGE_MIRROR_CNTL_BASE_IDX                                                                    0
++#define regROM_STATUS                                                                                   0x00e2
++#define regROM_STATUS_BASE_IDX                                                                          0
++#define regCGTT_ROM_CLK_CTRL0                                                                           0x00e3
++#define regCGTT_ROM_CLK_CTRL0_BASE_IDX                                                                  0
++#define regROM_INDEX                                                                                    0x00e4
++#define regROM_INDEX_BASE_IDX                                                                           0
++#define regROM_DATA                                                                                     0x00e5
++#define regROM_DATA_BASE_IDX                                                                            0
++#define regROM_START                                                                                    0x00e6
++#define regROM_START_BASE_IDX                                                                           0
++#define regROM_SW_CNTL                                                                                  0x00e8
++#define regROM_SW_CNTL_BASE_IDX                                                                         0
++#define regROM_SW_STATUS                                                                                0x00e9
++#define regROM_SW_STATUS_BASE_IDX                                                                       0
++#define regROM_SW_COMMAND                                                                               0x00ea
++#define regROM_SW_COMMAND_BASE_IDX                                                                      0
++#define regROM_SW_DATA_1                                                                                0x00ec
++#define regROM_SW_DATA_1_BASE_IDX                                                                       0
++#define regROM_SW_DATA_2                                                                                0x00ed
++#define regROM_SW_DATA_2_BASE_IDX                                                                       0
++#define regROM_SW_DATA_3                                                                                0x00ee
++#define regROM_SW_DATA_3_BASE_IDX                                                                       0
++#define regROM_SW_DATA_4                                                                                0x00ef
++#define regROM_SW_DATA_4_BASE_IDX                                                                       0
++#define regROM_SW_DATA_5                                                                                0x00f0
++#define regROM_SW_DATA_5_BASE_IDX                                                                       0
++#define regROM_SW_DATA_6                                                                                0x00f1
++#define regROM_SW_DATA_6_BASE_IDX                                                                       0
++#define regROM_SW_DATA_7                                                                                0x00f2
++#define regROM_SW_DATA_7_BASE_IDX                                                                       0
++#define regROM_SW_DATA_8                                                                                0x00f3
++#define regROM_SW_DATA_8_BASE_IDX                                                                       0
++#define regROM_SW_DATA_9                                                                                0x00f4
++#define regROM_SW_DATA_9_BASE_IDX                                                                       0
++#define regROM_SW_DATA_10                                                                               0x00f5
++#define regROM_SW_DATA_10_BASE_IDX                                                                      0
++#define regROM_SW_DATA_11                                                                               0x00f6
++#define regROM_SW_DATA_11_BASE_IDX                                                                      0
++#define regROM_SW_DATA_12                                                                               0x00f7
++#define regROM_SW_DATA_12_BASE_IDX                                                                      0
++#define regROM_SW_DATA_13                                                                               0x00f8
++#define regROM_SW_DATA_13_BASE_IDX                                                                      0
++#define regROM_SW_DATA_14                                                                               0x00f9
++#define regROM_SW_DATA_14_BASE_IDX                                                                      0
++#define regROM_SW_DATA_15                                                                               0x00fa
++#define regROM_SW_DATA_15_BASE_IDX                                                                      0
++#define regROM_SW_DATA_16                                                                               0x00fb
++#define regROM_SW_DATA_16_BASE_IDX                                                                      0
++#define regROM_SW_DATA_17                                                                               0x00fc
++#define regROM_SW_DATA_17_BASE_IDX                                                                      0
++#define regROM_SW_DATA_18                                                                               0x00fd
++#define regROM_SW_DATA_18_BASE_IDX                                                                      0
++#define regROM_SW_DATA_19                                                                               0x00fe
++#define regROM_SW_DATA_19_BASE_IDX                                                                      0
++#define regROM_SW_DATA_20                                                                               0x00ff
++#define regROM_SW_DATA_20_BASE_IDX                                                                      0
++#define regROM_SW_DATA_21                                                                               0x0100
++#define regROM_SW_DATA_21_BASE_IDX                                                                      0
++#define regROM_SW_DATA_22                                                                               0x0101
++#define regROM_SW_DATA_22_BASE_IDX                                                                      0
++#define regROM_SW_DATA_23                                                                               0x0102
++#define regROM_SW_DATA_23_BASE_IDX                                                                      0
++#define regROM_SW_DATA_24                                                                               0x0103
++#define regROM_SW_DATA_24_BASE_IDX                                                                      0
++#define regROM_SW_DATA_25                                                                               0x0104
++#define regROM_SW_DATA_25_BASE_IDX                                                                      0
++#define regROM_SW_DATA_26                                                                               0x0105
++#define regROM_SW_DATA_26_BASE_IDX                                                                      0
++#define regROM_SW_DATA_27                                                                               0x0106
++#define regROM_SW_DATA_27_BASE_IDX                                                                      0
++#define regROM_SW_DATA_28                                                                               0x0107
++#define regROM_SW_DATA_28_BASE_IDX                                                                      0
++#define regROM_SW_DATA_29                                                                               0x0108
++#define regROM_SW_DATA_29_BASE_IDX                                                                      0
++#define regROM_SW_DATA_30                                                                               0x0109
++#define regROM_SW_DATA_30_BASE_IDX                                                                      0
++#define regROM_SW_DATA_31                                                                               0x010a
++#define regROM_SW_DATA_31_BASE_IDX                                                                      0
++#define regROM_SW_DATA_32                                                                               0x010b
++#define regROM_SW_DATA_32_BASE_IDX                                                                      0
++#define regROM_SW_DATA_33                                                                               0x010c
++#define regROM_SW_DATA_33_BASE_IDX                                                                      0
++#define regROM_SW_DATA_34                                                                               0x010d
++#define regROM_SW_DATA_34_BASE_IDX                                                                      0
++#define regROM_SW_DATA_35                                                                               0x010e
++#define regROM_SW_DATA_35_BASE_IDX                                                                      0
++#define regROM_SW_DATA_36                                                                               0x010f
++#define regROM_SW_DATA_36_BASE_IDX                                                                      0
++#define regROM_SW_DATA_37                                                                               0x0110
++#define regROM_SW_DATA_37_BASE_IDX                                                                      0
++#define regROM_SW_DATA_38                                                                               0x0111
++#define regROM_SW_DATA_38_BASE_IDX                                                                      0
++#define regROM_SW_DATA_39                                                                               0x0112
++#define regROM_SW_DATA_39_BASE_IDX                                                                      0
++#define regROM_SW_DATA_40                                                                               0x0113
++#define regROM_SW_DATA_40_BASE_IDX                                                                      0
++#define regROM_SW_DATA_41                                                                               0x0114
++#define regROM_SW_DATA_41_BASE_IDX                                                                      0
++#define regROM_SW_DATA_42                                                                               0x0115
++#define regROM_SW_DATA_42_BASE_IDX                                                                      0
++#define regROM_SW_DATA_43                                                                               0x0116
++#define regROM_SW_DATA_43_BASE_IDX                                                                      0
++#define regROM_SW_DATA_44                                                                               0x0117
++#define regROM_SW_DATA_44_BASE_IDX                                                                      0
++#define regROM_SW_DATA_45                                                                               0x0118
++#define regROM_SW_DATA_45_BASE_IDX                                                                      0
++#define regROM_SW_DATA_46                                                                               0x0119
++#define regROM_SW_DATA_46_BASE_IDX                                                                      0
++#define regROM_SW_DATA_47                                                                               0x011a
++#define regROM_SW_DATA_47_BASE_IDX                                                                      0
++#define regROM_SW_DATA_48                                                                               0x011b
++#define regROM_SW_DATA_48_BASE_IDX                                                                      0
++#define regROM_SW_DATA_49                                                                               0x011c
++#define regROM_SW_DATA_49_BASE_IDX                                                                      0
++#define regROM_SW_DATA_50                                                                               0x011d
++#define regROM_SW_DATA_50_BASE_IDX                                                                      0
++#define regROM_SW_DATA_51                                                                               0x011e
++#define regROM_SW_DATA_51_BASE_IDX                                                                      0
++#define regROM_SW_DATA_52                                                                               0x011f
++#define regROM_SW_DATA_52_BASE_IDX                                                                      0
++#define regROM_SW_DATA_53                                                                               0x0120
++#define regROM_SW_DATA_53_BASE_IDX                                                                      0
++#define regROM_SW_DATA_54                                                                               0x0121
++#define regROM_SW_DATA_54_BASE_IDX                                                                      0
++#define regROM_SW_DATA_55                                                                               0x0122
++#define regROM_SW_DATA_55_BASE_IDX                                                                      0
++#define regROM_SW_DATA_56                                                                               0x0123
++#define regROM_SW_DATA_56_BASE_IDX                                                                      0
++#define regROM_SW_DATA_57                                                                               0x0124
++#define regROM_SW_DATA_57_BASE_IDX                                                                      0
++#define regROM_SW_DATA_58                                                                               0x0125
++#define regROM_SW_DATA_58_BASE_IDX                                                                      0
++#define regROM_SW_DATA_59                                                                               0x0126
++#define regROM_SW_DATA_59_BASE_IDX                                                                      0
++#define regROM_SW_DATA_60                                                                               0x0127
++#define regROM_SW_DATA_60_BASE_IDX                                                                      0
++#define regROM_SW_DATA_61                                                                               0x0128
++#define regROM_SW_DATA_61_BASE_IDX                                                                      0
++#define regROM_SW_DATA_62                                                                               0x0129
++#define regROM_SW_DATA_62_BASE_IDX                                                                      0
++#define regROM_SW_DATA_63                                                                               0x012a
++#define regROM_SW_DATA_63_BASE_IDX                                                                      0
++#define regROM_SW_DATA_64                                                                               0x012b
++#define regROM_SW_DATA_64_BASE_IDX                                                                      0
++
++
++// addressBlock: smuio_smuio_gpio_SmuSmuioDec
++// base address: 0x5a500
++#define regSMU_GPIOPAD_SW_INT_STAT                                                                      0x0140
++#define regSMU_GPIOPAD_SW_INT_STAT_BASE_IDX                                                             0
++#define regSMU_GPIOPAD_MASK                                                                             0x0141
++#define regSMU_GPIOPAD_MASK_BASE_IDX                                                                    0
++#define regSMU_GPIOPAD_A                                                                                0x0142
++#define regSMU_GPIOPAD_A_BASE_IDX                                                                       0
++#define regSMU_GPIOPAD_TXIMPSEL                                                                         0x0143
++#define regSMU_GPIOPAD_TXIMPSEL_BASE_IDX                                                                0
++#define regSMU_GPIOPAD_EN                                                                               0x0144
++#define regSMU_GPIOPAD_EN_BASE_IDX                                                                      0
++#define regSMU_GPIOPAD_Y                                                                                0x0145
++#define regSMU_GPIOPAD_Y_BASE_IDX                                                                       0
++#define regSMU_GPIOPAD_RXEN                                                                             0x0146
++#define regSMU_GPIOPAD_RXEN_BASE_IDX                                                                    0
++#define regSMU_GPIOPAD_RCVR_SEL0                                                                        0x0147
++#define regSMU_GPIOPAD_RCVR_SEL0_BASE_IDX                                                               0
++#define regSMU_GPIOPAD_RCVR_SEL1                                                                        0x0148
++#define regSMU_GPIOPAD_RCVR_SEL1_BASE_IDX                                                               0
++#define regSMU_GPIOPAD_PU_EN                                                                            0x0149
++#define regSMU_GPIOPAD_PU_EN_BASE_IDX                                                                   0
++#define regSMU_GPIOPAD_PD_EN                                                                            0x014a
++#define regSMU_GPIOPAD_PD_EN_BASE_IDX                                                                   0
++#define regSMU_GPIOPAD_PINSTRAPS                                                                        0x014b
++#define regSMU_GPIOPAD_PINSTRAPS_BASE_IDX                                                               0
++#define regDFT_PINSTRAPS                                                                                0x014c
++#define regDFT_PINSTRAPS_BASE_IDX                                                                       0
++#define regSMU_GPIOPAD_INT_STAT_EN                                                                      0x014d
++#define regSMU_GPIOPAD_INT_STAT_EN_BASE_IDX                                                             0
++#define regSMU_GPIOPAD_INT_STAT                                                                         0x014e
++#define regSMU_GPIOPAD_INT_STAT_BASE_IDX                                                                0
++#define regSMU_GPIOPAD_INT_STAT_AK                                                                      0x014f
++#define regSMU_GPIOPAD_INT_STAT_AK_BASE_IDX                                                             0
++#define regSMU_GPIOPAD_INT_EN                                                                           0x0150
++#define regSMU_GPIOPAD_INT_EN_BASE_IDX                                                                  0
++#define regSMU_GPIOPAD_INT_TYPE                                                                         0x0151
++#define regSMU_GPIOPAD_INT_TYPE_BASE_IDX                                                                0
++#define regSMU_GPIOPAD_INT_POLARITY                                                                     0x0152
++#define regSMU_GPIOPAD_INT_POLARITY_BASE_IDX                                                            0
++#define regSMUIO_PCC_GPIO_SELECT                                                                        0x0155
++#define regSMUIO_PCC_GPIO_SELECT_BASE_IDX                                                               0
++#define regSMU_GPIOPAD_S0                                                                               0x0156
++#define regSMU_GPIOPAD_S0_BASE_IDX                                                                      0
++#define regSMU_GPIOPAD_S1                                                                               0x0157
++#define regSMU_GPIOPAD_S1_BASE_IDX                                                                      0
++#define regSMU_GPIOPAD_SCHMEN                                                                           0x0158
++#define regSMU_GPIOPAD_SCHMEN_BASE_IDX                                                                  0
++#define regSMU_GPIOPAD_SCL_EN                                                                           0x0159
++#define regSMU_GPIOPAD_SCL_EN_BASE_IDX                                                                  0
++#define regSMU_GPIOPAD_SDA_EN                                                                           0x015a
++#define regSMU_GPIOPAD_SDA_EN_BASE_IDX                                                                  0
++#define regSMUIO_GPIO_INT0_SELECT                                                                       0x015b
++#define regSMUIO_GPIO_INT0_SELECT_BASE_IDX                                                              0
++#define regSMUIO_GPIO_INT1_SELECT                                                                       0x015c
++#define regSMUIO_GPIO_INT1_SELECT_BASE_IDX                                                              0
++#define regSMUIO_GPIO_INT2_SELECT                                                                       0x015d
++#define regSMUIO_GPIO_INT2_SELECT_BASE_IDX                                                              0
++#define regSMUIO_GPIO_INT3_SELECT                                                                       0x015e
++#define regSMUIO_GPIO_INT3_SELECT_BASE_IDX                                                              0
++#define regSMU_GPIOPAD_MP_INT0_STAT                                                                     0x015f
++#define regSMU_GPIOPAD_MP_INT0_STAT_BASE_IDX                                                            0
++#define regSMU_GPIOPAD_MP_INT1_STAT                                                                     0x0160
++#define regSMU_GPIOPAD_MP_INT1_STAT_BASE_IDX                                                            0
++#define regSMU_GPIOPAD_MP_INT2_STAT                                                                     0x0161
++#define regSMU_GPIOPAD_MP_INT2_STAT_BASE_IDX                                                            0
++#define regSMU_GPIOPAD_MP_INT3_STAT                                                                     0x0162
++#define regSMU_GPIOPAD_MP_INT3_STAT_BASE_IDX                                                            0
++#define regSMIO_INDEX                                                                                   0x0163
++#define regSMIO_INDEX_BASE_IDX                                                                          0
++#define regS0_VID_SMIO_CNTL                                                                             0x0164
++#define regS0_VID_SMIO_CNTL_BASE_IDX                                                                    0
++#define regS1_VID_SMIO_CNTL                                                                             0x0165
++#define regS1_VID_SMIO_CNTL_BASE_IDX                                                                    0
++#define regOPEN_DRAIN_SELECT                                                                            0x0166
++#define regOPEN_DRAIN_SELECT_BASE_IDX                                                                   0
++#define regSMIO_ENABLE                                                                                  0x0167
++#define regSMIO_ENABLE_BASE_IDX                                                                         0
++
++
++#endif
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_sh_mask.h
+new file mode 100644
+index 0000000000000..681221528f781
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_14_0_3_sh_mask.h
+@@ -0,0 +1,1113 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef _smuio_14_0_3_SH_MASK_HEADER
++#define _smuio_14_0_3_SH_MASK_HEADER
++
++
++// addressBlock: smuio_smuio_tsc_SmuSmuioDec
++//PWROK_REFCLK_GAP_CYCLES
++#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PreAssertion_clkgap_cycles__SHIFT                                      0x0
++#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PostAssertion_clkgap_cycles__SHIFT                                     0x8
++#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PreAssertion_clkgap_cycles_MASK                                        0x000000FFL
++#define PWROK_REFCLK_GAP_CYCLES__Pwrok_PostAssertion_clkgap_cycles_MASK                                       0x0000FF00L
++//GOLDEN_TSC_INCREMENT_UPPER
++#define GOLDEN_TSC_INCREMENT_UPPER__GoldenTscIncrementUpper__SHIFT                                            0x0
++#define GOLDEN_TSC_INCREMENT_UPPER__GoldenTscIncrementUpper_MASK                                              0x00FFFFFFL
++//GOLDEN_TSC_INCREMENT_LOWER
++#define GOLDEN_TSC_INCREMENT_LOWER__GoldenTscIncrementLower__SHIFT                                            0x0
++#define GOLDEN_TSC_INCREMENT_LOWER__GoldenTscIncrementLower_MASK                                              0xFFFFFFFFL
++//GOLDEN_TSC_COUNT_UPPER
++#define GOLDEN_TSC_COUNT_UPPER__GoldenTscCountUpper__SHIFT                                                    0x0
++#define GOLDEN_TSC_COUNT_UPPER__GoldenTscCountUpper_MASK                                                      0x00FFFFFFL
++//GOLDEN_TSC_COUNT_LOWER
++#define GOLDEN_TSC_COUNT_LOWER__GoldenTscCountLower__SHIFT                                                    0x0
++#define GOLDEN_TSC_COUNT_LOWER__GoldenTscCountLower_MASK                                                      0xFFFFFFFFL
++//SOC_GOLDEN_TSC_SHADOW_UPPER
++#define SOC_GOLDEN_TSC_SHADOW_UPPER__SocGoldenTscShadowUpper__SHIFT                                           0x0
++#define SOC_GOLDEN_TSC_SHADOW_UPPER__SocGoldenTscShadowUpper_MASK                                             0x00FFFFFFL
++//SOC_GOLDEN_TSC_SHADOW_LOWER
++#define SOC_GOLDEN_TSC_SHADOW_LOWER__SocGoldenTscShadowLower__SHIFT                                           0x0
++#define SOC_GOLDEN_TSC_SHADOW_LOWER__SocGoldenTscShadowLower_MASK                                             0xFFFFFFFFL
++//SOC_GAP_PWROK
++#define SOC_GAP_PWROK__soc_gap_pwrok__SHIFT                                                                   0x0
++#define SOC_GAP_PWROK__soc_gap_pwrok_MASK                                                                     0x00000001L
++
++
++// addressBlock: smuio_smuio_swtimer_SmuSmuioDec
++//PWR_VIRT_RESET_REQ
++#define PWR_VIRT_RESET_REQ__VF_FLR__SHIFT                                                                     0x0
++#define PWR_VIRT_RESET_REQ__PF_FLR__SHIFT                                                                     0x1f
++#define PWR_VIRT_RESET_REQ__VF_FLR_MASK                                                                       0x7FFFFFFFL
++#define PWR_VIRT_RESET_REQ__PF_FLR_MASK                                                                       0x80000000L
++//PWR_DISP_TIMER_CONTROL
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_COUNT__SHIFT                                                   0x0
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_ENABLE__SHIFT                                                  0x19
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_DISABLE__SHIFT                                                 0x1a
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MASK__SHIFT                                                    0x1b
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_STAT_AK__SHIFT                                                 0x1c
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_TYPE__SHIFT                                                    0x1d
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MODE__SHIFT                                                    0x1e
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_COUNT_MASK                                                     0x01FFFFFFL
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_ENABLE_MASK                                                    0x02000000L
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_DISABLE_MASK                                                   0x04000000L
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MASK_MASK                                                      0x08000000L
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_STAT_AK_MASK                                                   0x10000000L
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_TYPE_MASK                                                      0x20000000L
++#define PWR_DISP_TIMER_CONTROL__DISP_TIMER_INT_MODE_MASK                                                      0x40000000L
++//PWR_DISP_TIMER_DEBUG
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_RUNNING__SHIFT                                                   0x0
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_STAT__SHIFT                                                      0x1
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT__SHIFT                                                           0x2
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_RUN_VAL__SHIFT                                                       0x7
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_RUNNING_MASK                                                     0x00000001L
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_STAT_MASK                                                        0x00000002L
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_INT_MASK                                                             0x00000004L
++#define PWR_DISP_TIMER_DEBUG__DISP_TIMER_RUN_VAL_MASK                                                         0xFFFFFF80L
++//PWR_DISP_TIMER2_CONTROL
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_COUNT__SHIFT                                                  0x0
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_ENABLE__SHIFT                                                 0x19
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_DISABLE__SHIFT                                                0x1a
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MASK__SHIFT                                                   0x1b
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_STAT_AK__SHIFT                                                0x1c
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_TYPE__SHIFT                                                   0x1d
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MODE__SHIFT                                                   0x1e
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_COUNT_MASK                                                    0x01FFFFFFL
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_ENABLE_MASK                                                   0x02000000L
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_DISABLE_MASK                                                  0x04000000L
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MASK_MASK                                                     0x08000000L
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_STAT_AK_MASK                                                  0x10000000L
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_TYPE_MASK                                                     0x20000000L
++#define PWR_DISP_TIMER2_CONTROL__DISP_TIMER_INT_MODE_MASK                                                     0x40000000L
++//PWR_DISP_TIMER2_DEBUG
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_RUNNING__SHIFT                                                  0x0
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_STAT__SHIFT                                                     0x1
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT__SHIFT                                                          0x2
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_RUN_VAL__SHIFT                                                      0x7
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_RUNNING_MASK                                                    0x00000001L
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_STAT_MASK                                                       0x00000002L
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_INT_MASK                                                            0x00000004L
++#define PWR_DISP_TIMER2_DEBUG__DISP_TIMER_RUN_VAL_MASK                                                        0xFFFFFF80L
++//PWR_DISP_TIMER_GLOBAL_CONTROL
++#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_WIDTH__SHIFT                                          0x0
++#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_EN__SHIFT                                             0xa
++#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_WIDTH_MASK                                            0x000003FFL
++#define PWR_DISP_TIMER_GLOBAL_CONTROL__DISP_TIMER_PULSE_EN_MASK                                               0x00000400L
++//PWR_IH_CONTROL
++#define PWR_IH_CONTROL__MAX_CREDIT__SHIFT                                                                     0x0
++#define PWR_IH_CONTROL__DISP_TIMER_TRIGGER_MASK__SHIFT                                                        0x5
++#define PWR_IH_CONTROL__DISP_TIMER2_TRIGGER_MASK__SHIFT                                                       0x6
++#define PWR_IH_CONTROL__PWR_IH_CLK_GATE_EN__SHIFT                                                             0x1f
++#define PWR_IH_CONTROL__MAX_CREDIT_MASK                                                                       0x0000001FL
++#define PWR_IH_CONTROL__DISP_TIMER_TRIGGER_MASK_MASK                                                          0x00000020L
++#define PWR_IH_CONTROL__DISP_TIMER2_TRIGGER_MASK_MASK                                                         0x00000040L
++#define PWR_IH_CONTROL__PWR_IH_CLK_GATE_EN_MASK                                                               0x80000000L
++
++
++// addressBlock: smuio_smuio_misc_SmuSmuioDec
++//SMUIO_MCM_CONFIG
++#define SMUIO_MCM_CONFIG__DIE_ID__SHIFT                                                                       0x0
++#define SMUIO_MCM_CONFIG__PKG_TYPE__SHIFT                                                                     0x2
++#define SMUIO_MCM_CONFIG__SOCKET_ID__SHIFT                                                                    0x8
++#define SMUIO_MCM_CONFIG__CONSOLE_K__SHIFT                                                                    0x10
++#define SMUIO_MCM_CONFIG__CONSOLE_A__SHIFT                                                                    0x11
++#define SMUIO_MCM_CONFIG__PKG_SUBTYPE__SHIFT                                                                  0x12
++#define SMUIO_MCM_CONFIG__TOPOLOGY_ID__SHIFT                                                                  0x13
++#define SMUIO_MCM_CONFIG__PKG_TYPE_DFX__SHIFT                                                                 0x18
++#define SMUIO_MCM_CONFIG__DIE_ID_MASK                                                                         0x00000003L
++#define SMUIO_MCM_CONFIG__PKG_TYPE_MASK                                                                       0x0000003CL
++#define SMUIO_MCM_CONFIG__SOCKET_ID_MASK                                                                      0x00001F00L
++#define SMUIO_MCM_CONFIG__CONSOLE_K_MASK                                                                      0x00010000L
++#define SMUIO_MCM_CONFIG__CONSOLE_A_MASK                                                                      0x00020000L
++#define SMUIO_MCM_CONFIG__PKG_SUBTYPE_MASK                                                                    0x00040000L
++#define SMUIO_MCM_CONFIG__TOPOLOGY_ID_MASK                                                                    0x00F80000L
++//IP_DISCOVERY_VERSION
++#define IP_DISCOVERY_VERSION__IP_DISCOVERY_VERSION__SHIFT                                                     0x0
++#define IP_DISCOVERY_VERSION__IP_DISCOVERY_VERSION_MASK                                                       0xFFFFFFFFL
++//SCRATCH_REGISTER0
++#define SCRATCH_REGISTER0__ScratchPad0__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER0__ScratchPad0_MASK                                                                   0xFFFFFFFFL
++//SCRATCH_REGISTER1
++#define SCRATCH_REGISTER1__ScratchPad1__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER1__ScratchPad1_MASK                                                                   0xFFFFFFFFL
++//SCRATCH_REGISTER2
++#define SCRATCH_REGISTER2__ScratchPad2__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER2__ScratchPad2_MASK                                                                   0xFFFFFFFFL
++//SCRATCH_REGISTER3
++#define SCRATCH_REGISTER3__ScratchPad3__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER3__ScratchPad3_MASK                                                                   0xFFFFFFFFL
++//SCRATCH_REGISTER4
++#define SCRATCH_REGISTER4__ScratchPad4__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER4__ScratchPad4_MASK                                                                   0xFFFFFFFFL
++//SCRATCH_REGISTER5
++#define SCRATCH_REGISTER5__ScratchPad5__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER5__ScratchPad5_MASK                                                                   0xFFFFFFFFL
++//SCRATCH_REGISTER6
++#define SCRATCH_REGISTER6__ScratchPad6__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER6__ScratchPad6_MASK                                                                   0xFFFFFFFFL
++//SCRATCH_REGISTER7
++#define SCRATCH_REGISTER7__ScratchPad7__SHIFT                                                                 0x0
++#define SCRATCH_REGISTER7__ScratchPad7_MASK                                                                   0xFFFFFFFFL
++
++
++// addressBlock: smuio_smuio_i2c_SmuSmuioDec
++//CKSVII2C_IC_CON
++#define CKSVII2C_IC_CON__IC_MASTER_MODE__SHIFT                                                                0x0
++#define CKSVII2C_IC_CON__IC_MAX_SPEED_MODE__SHIFT                                                             0x1
++#define CKSVII2C_IC_CON__IC_10BITADDR_SLAVE__SHIFT                                                            0x3
++#define CKSVII2C_IC_CON__IC_10BITADDR_MASTER__SHIFT                                                           0x4
++#define CKSVII2C_IC_CON__IC_RESTART_EN__SHIFT                                                                 0x5
++#define CKSVII2C_IC_CON__IC_SLAVE_DISABLE__SHIFT                                                              0x6
++#define CKSVII2C_IC_CON__STOP_DET_IFADDRESSED__SHIFT                                                          0x7
++#define CKSVII2C_IC_CON__TX_EMPTY_CTRL__SHIFT                                                                 0x8
++#define CKSVII2C_IC_CON__RX_FIFO_FULL_HLD_CTRL__SHIFT                                                         0x9
++#define CKSVII2C_IC_CON__BUS_CLEAR_FEATURE_CTRL__SHIFT                                                        0xb
++#define CKSVII2C_IC_CON__IC_MASTER_MODE_MASK                                                                  0x00000001L
++#define CKSVII2C_IC_CON__IC_MAX_SPEED_MODE_MASK                                                               0x00000006L
++#define CKSVII2C_IC_CON__IC_10BITADDR_SLAVE_MASK                                                              0x00000008L
++#define CKSVII2C_IC_CON__IC_10BITADDR_MASTER_MASK                                                             0x00000010L
++#define CKSVII2C_IC_CON__IC_RESTART_EN_MASK                                                                   0x00000020L
++#define CKSVII2C_IC_CON__IC_SLAVE_DISABLE_MASK                                                                0x00000040L
++#define CKSVII2C_IC_CON__STOP_DET_IFADDRESSED_MASK                                                            0x00000080L
++#define CKSVII2C_IC_CON__TX_EMPTY_CTRL_MASK                                                                   0x00000100L
++#define CKSVII2C_IC_CON__RX_FIFO_FULL_HLD_CTRL_MASK                                                           0x00000200L
++//CKSVII2C_IC_TAR
++#define CKSVII2C_IC_TAR__IC_TAR__SHIFT                                                                        0x0
++#define CKSVII2C_IC_TAR__GC_OR_START__SHIFT                                                                   0xa
++#define CKSVII2C_IC_TAR__SPECIAL__SHIFT                                                                       0xb
++#define CKSVII2C_IC_TAR__IC_10BITADDR_MASTER__SHIFT                                                           0xc
++#define CKSVII2C_IC_TAR__IC_TAR_MASK                                                                          0x000003FFL
++#define CKSVII2C_IC_TAR__GC_OR_START_MASK                                                                     0x00000400L
++#define CKSVII2C_IC_TAR__SPECIAL_MASK                                                                         0x00000800L
++#define CKSVII2C_IC_TAR__IC_10BITADDR_MASTER_MASK                                                             0x00001000L
++//CKSVII2C_IC_SAR
++#define CKSVII2C_IC_SAR__IC_SAR__SHIFT                                                                        0x0
++#define CKSVII2C_IC_SAR__IC_SAR_MASK                                                                          0x000003FFL
++//CKSVII2C_IC_HS_MADDR
++#define CKSVII2C_IC_HS_MADDR__IC_HS_MADDR__SHIFT                                                              0x0
++#define CKSVII2C_IC_HS_MADDR__IC_HS_MADDR_MASK                                                                0x00000007L
++//CKSVII2C_IC_DATA_CMD
++#define CKSVII2C_IC_DATA_CMD__DAT__SHIFT                                                                      0x0
++#define CKSVII2C_IC_DATA_CMD__CMD__SHIFT                                                                      0x8
++#define CKSVII2C_IC_DATA_CMD__STOP__SHIFT                                                                     0x9
++#define CKSVII2C_IC_DATA_CMD__RESTART__SHIFT                                                                  0xa
++#define CKSVII2C_IC_DATA_CMD__FIRST_DATA_BYTE__SHIFT                                                          0xb
++#define CKSVII2C_IC_DATA_CMD__DAT_MASK                                                                        0x000000FFL
++#define CKSVII2C_IC_DATA_CMD__CMD_MASK                                                                        0x00000100L
++#define CKSVII2C_IC_DATA_CMD__STOP_MASK                                                                       0x00000200L
++#define CKSVII2C_IC_DATA_CMD__RESTART_MASK                                                                    0x00000400L
++//CKSVII2C_IC_SS_SCL_HCNT
++#define CKSVII2C_IC_SS_SCL_HCNT__IC_SS_SCL_HCNT__SHIFT                                                        0x0
++#define CKSVII2C_IC_SS_SCL_HCNT__IC_SS_SCL_HCNT_MASK                                                          0x0000FFFFL
++//CKSVII2C_IC_SS_SCL_LCNT
++#define CKSVII2C_IC_SS_SCL_LCNT__IC_SS_SCL_LCNT__SHIFT                                                        0x0
++#define CKSVII2C_IC_SS_SCL_LCNT__IC_SS_SCL_LCNT_MASK                                                          0x0000FFFFL
++//CKSVII2C_IC_FS_SCL_HCNT
++#define CKSVII2C_IC_FS_SCL_HCNT__IC_FS_SCL_HCNT__SHIFT                                                        0x0
++#define CKSVII2C_IC_FS_SCL_HCNT__IC_FS_SCL_HCNT_MASK                                                          0x0000FFFFL
++//CKSVII2C_IC_FS_SCL_LCNT
++#define CKSVII2C_IC_FS_SCL_LCNT__IC_FS_SCL_LCNT__SHIFT                                                        0x0
++#define CKSVII2C_IC_FS_SCL_LCNT__IC_FS_SCL_LCNT_MASK                                                          0x0000FFFFL
++//CKSVII2C_IC_HS_SCL_HCNT
++#define CKSVII2C_IC_HS_SCL_HCNT__IC_HS_SCL_HCNT__SHIFT                                                        0x0
++#define CKSVII2C_IC_HS_SCL_HCNT__IC_HS_SCL_HCNT_MASK                                                          0x0000FFFFL
++//CKSVII2C_IC_HS_SCL_LCNT
++#define CKSVII2C_IC_HS_SCL_LCNT__IC_HS_SCL_LCNT__SHIFT                                                        0x0
++#define CKSVII2C_IC_HS_SCL_LCNT__IC_HS_SCL_LCNT_MASK                                                          0x0000FFFFL
++//CKSVII2C_IC_INTR_STAT
++#define CKSVII2C_IC_INTR_STAT__R_RX_UNDER__SHIFT                                                              0x0
++#define CKSVII2C_IC_INTR_STAT__R_RX_OVER__SHIFT                                                               0x1
++#define CKSVII2C_IC_INTR_STAT__R_RX_FULL__SHIFT                                                               0x2
++#define CKSVII2C_IC_INTR_STAT__R_TX_OVER__SHIFT                                                               0x3
++#define CKSVII2C_IC_INTR_STAT__R_TX_EMPTY__SHIFT                                                              0x4
++#define CKSVII2C_IC_INTR_STAT__R_RD_REQ__SHIFT                                                                0x5
++#define CKSVII2C_IC_INTR_STAT__R_TX_ABRT__SHIFT                                                               0x6
++#define CKSVII2C_IC_INTR_STAT__R_RX_DONE__SHIFT                                                               0x7
++#define CKSVII2C_IC_INTR_STAT__R_ACTIVITY__SHIFT                                                              0x8
++#define CKSVII2C_IC_INTR_STAT__R_STOP_DET__SHIFT                                                              0x9
++#define CKSVII2C_IC_INTR_STAT__R_START_DET__SHIFT                                                             0xa
++#define CKSVII2C_IC_INTR_STAT__R_GEN_CALL__SHIFT                                                              0xb
++#define CKSVII2C_IC_INTR_STAT__R_RESTART_DET__SHIFT                                                           0xc
++#define CKSVII2C_IC_INTR_STAT__R_MST_ON_HOLD__SHIFT                                                           0xd
++#define CKSVII2C_IC_INTR_STAT__R_SCL_STUCK_AT_LOW__SHIFT                                                      0xe
++#define CKSVII2C_IC_INTR_STAT__R_RX_UNDER_MASK                                                                0x00000001L
++#define CKSVII2C_IC_INTR_STAT__R_RX_OVER_MASK                                                                 0x00000002L
++#define CKSVII2C_IC_INTR_STAT__R_RX_FULL_MASK                                                                 0x00000004L
++#define CKSVII2C_IC_INTR_STAT__R_TX_OVER_MASK                                                                 0x00000008L
++#define CKSVII2C_IC_INTR_STAT__R_TX_EMPTY_MASK                                                                0x00000010L
++#define CKSVII2C_IC_INTR_STAT__R_RD_REQ_MASK                                                                  0x00000020L
++#define CKSVII2C_IC_INTR_STAT__R_TX_ABRT_MASK                                                                 0x00000040L
++#define CKSVII2C_IC_INTR_STAT__R_RX_DONE_MASK                                                                 0x00000080L
++#define CKSVII2C_IC_INTR_STAT__R_ACTIVITY_MASK                                                                0x00000100L
++#define CKSVII2C_IC_INTR_STAT__R_STOP_DET_MASK                                                                0x00000200L
++#define CKSVII2C_IC_INTR_STAT__R_START_DET_MASK                                                               0x00000400L
++#define CKSVII2C_IC_INTR_STAT__R_GEN_CALL_MASK                                                                0x00000800L
++#define CKSVII2C_IC_INTR_STAT__R_RESTART_DET_MASK                                                             0x00001000L
++#define CKSVII2C_IC_INTR_STAT__R_MST_ON_HOLD_MASK                                                             0x00002000L
++//CKSVII2C_IC_INTR_MASK
++#define CKSVII2C_IC_INTR_MASK__M_RX_UNDER__SHIFT                                                              0x0
++#define CKSVII2C_IC_INTR_MASK__M_RX_OVER__SHIFT                                                               0x1
++#define CKSVII2C_IC_INTR_MASK__M_RX_FULL__SHIFT                                                               0x2
++#define CKSVII2C_IC_INTR_MASK__M_TX_OVER__SHIFT                                                               0x3
++#define CKSVII2C_IC_INTR_MASK__M_TX_EMPTY__SHIFT                                                              0x4
++#define CKSVII2C_IC_INTR_MASK__M_RD_REQ__SHIFT                                                                0x5
++#define CKSVII2C_IC_INTR_MASK__M_TX_ABRT__SHIFT                                                               0x6
++#define CKSVII2C_IC_INTR_MASK__M_RX_DONE__SHIFT                                                               0x7
++#define CKSVII2C_IC_INTR_MASK__M_ACTIVITY__SHIFT                                                              0x8
++#define CKSVII2C_IC_INTR_MASK__M_STOP_DET__SHIFT                                                              0x9
++#define CKSVII2C_IC_INTR_MASK__M_START_DET__SHIFT                                                             0xa
++#define CKSVII2C_IC_INTR_MASK__M_GEN_CALL__SHIFT                                                              0xb
++#define CKSVII2C_IC_INTR_MASK__M_RESTART_DET__SHIFT                                                           0xc
++#define CKSVII2C_IC_INTR_MASK__M_MST_ON_HOLD__SHIFT                                                           0xd
++#define CKSVII2C_IC_INTR_MASK__M_SCL_STUCK_AT_LOW__SHIFT                                                      0xe
++#define CKSVII2C_IC_INTR_MASK__M_RX_UNDER_MASK                                                                0x00000001L
++#define CKSVII2C_IC_INTR_MASK__M_RX_OVER_MASK                                                                 0x00000002L
++#define CKSVII2C_IC_INTR_MASK__M_RX_FULL_MASK                                                                 0x00000004L
++#define CKSVII2C_IC_INTR_MASK__M_TX_OVER_MASK                                                                 0x00000008L
++#define CKSVII2C_IC_INTR_MASK__M_TX_EMPTY_MASK                                                                0x00000010L
++#define CKSVII2C_IC_INTR_MASK__M_RD_REQ_MASK                                                                  0x00000020L
++#define CKSVII2C_IC_INTR_MASK__M_TX_ABRT_MASK                                                                 0x00000040L
++#define CKSVII2C_IC_INTR_MASK__M_RX_DONE_MASK                                                                 0x00000080L
++#define CKSVII2C_IC_INTR_MASK__M_ACTIVITY_MASK                                                                0x00000100L
++#define CKSVII2C_IC_INTR_MASK__M_STOP_DET_MASK                                                                0x00000200L
++#define CKSVII2C_IC_INTR_MASK__M_START_DET_MASK                                                               0x00000400L
++#define CKSVII2C_IC_INTR_MASK__M_GEN_CALL_MASK                                                                0x00000800L
++#define CKSVII2C_IC_INTR_MASK__M_RESTART_DET_MASK                                                             0x00001000L
++#define CKSVII2C_IC_INTR_MASK__M_MST_ON_HOLD_MASK                                                             0x00002000L
++//CKSVII2C_IC_RAW_INTR_STAT
++//CKSVII2C_IC_RX_TL
++#define CKSVII2C_IC_RX_TL__RX_TL__SHIFT                                                                       0x0
++//CKSVII2C_IC_TX_TL
++#define CKSVII2C_IC_TX_TL__TX_TL__SHIFT                                                                       0x0
++//CKSVII2C_IC_CLR_INTR
++//CKSVII2C_IC_CLR_RX_UNDER
++//CKSVII2C_IC_CLR_RX_OVER
++//CKSVII2C_IC_CLR_TX_OVER
++//CKSVII2C_IC_CLR_RD_REQ
++//CKSVII2C_IC_CLR_TX_ABRT
++//CKSVII2C_IC_CLR_RX_DONE
++//CKSVII2C_IC_CLR_ACTIVITY
++//CKSVII2C_IC_CLR_STOP_DET
++//CKSVII2C_IC_CLR_START_DET
++//CKSVII2C_IC_CLR_GEN_CALL
++//CKSVII2C_IC_ENABLE
++#define CKSVII2C_IC_ENABLE__ENABLE__SHIFT                                                                     0x0
++#define CKSVII2C_IC_ENABLE__ABORT__SHIFT                                                                      0x1
++#define CKSVII2C_IC_ENABLE__TX_CMD_BLOCK__SHIFT                                                               0x2
++#define CKSVII2C_IC_ENABLE__SDA_STUCK_RECOVERY_ENABLE__SHIFT                                                  0x3
++#define CKSVII2C_IC_ENABLE__ENABLE_MASK                                                                       0x00000001L
++#define CKSVII2C_IC_ENABLE__ABORT_MASK                                                                        0x00000002L
++//CKSVII2C_IC_STATUS
++#define CKSVII2C_IC_STATUS__ACTIVITY__SHIFT                                                                   0x0
++#define CKSVII2C_IC_STATUS__TFNF__SHIFT                                                                       0x1
++#define CKSVII2C_IC_STATUS__TFE__SHIFT                                                                        0x2
++#define CKSVII2C_IC_STATUS__RFNE__SHIFT                                                                       0x3
++#define CKSVII2C_IC_STATUS__RFF__SHIFT                                                                        0x4
++#define CKSVII2C_IC_STATUS__MST_ACTIVITY__SHIFT                                                               0x5
++#define CKSVII2C_IC_STATUS__SLV_ACTIVITY__SHIFT                                                               0x6
++#define CKSVII2C_IC_STATUS__MST_HOLD_TX_FIFO_EMPTY__SHIFT                                                     0x7
++#define CKSVII2C_IC_STATUS__MST_HOLD_RX_FIFO_FULL__SHIFT                                                      0x8
++#define CKSVII2C_IC_STATUS__SLV_HOLD_TX_FIFO_EMPTY__SHIFT                                                     0x9
++#define CKSVII2C_IC_STATUS__SLV_HOLD_RX_FIFO_FULL__SHIFT                                                      0xa
++#define CKSVII2C_IC_STATUS__SDA_STUCK_NOT_RECOVERED__SHIFT                                                    0xb
++#define CKSVII2C_IC_STATUS__ACTIVITY_MASK                                                                     0x00000001L
++#define CKSVII2C_IC_STATUS__TFNF_MASK                                                                         0x00000002L
++#define CKSVII2C_IC_STATUS__TFE_MASK                                                                          0x00000004L
++#define CKSVII2C_IC_STATUS__RFNE_MASK                                                                         0x00000008L
++#define CKSVII2C_IC_STATUS__RFF_MASK                                                                          0x00000010L
++#define CKSVII2C_IC_STATUS__MST_ACTIVITY_MASK                                                                 0x00000020L
++#define CKSVII2C_IC_STATUS__SLV_ACTIVITY_MASK                                                                 0x00000040L
++//CKSVII2C_IC_TXFLR
++#define CKSVII2C_IC_TXFLR__TXFLR__SHIFT                                                                       0x0
++//CKSVII2C_IC_RXFLR
++#define CKSVII2C_IC_RXFLR__RXFLR__SHIFT                                                                       0x0
++//CKSVII2C_IC_SDA_HOLD
++#define CKSVII2C_IC_SDA_HOLD__IC_SDA_TX_HOLD__SHIFT                                                           0x0
++#define CKSVII2C_IC_SDA_HOLD__IC_SDA_RX_HOLD__SHIFT                                                           0x10
++//CKSVII2C_IC_TX_ABRT_SOURCE
++//CKSVII2C_IC_SLV_DATA_NACK_ONLY
++//CKSVII2C_IC_DMA_CR
++//CKSVII2C_IC_DMA_TDLR
++//CKSVII2C_IC_DMA_RDLR
++//CKSVII2C_IC_SDA_SETUP
++#define CKSVII2C_IC_SDA_SETUP__SDA_SETUP__SHIFT                                                               0x0
++#define CKSVII2C_IC_SDA_SETUP__SDA_SETUP_MASK                                                                 0x000000FFL
++//CKSVII2C_IC_ACK_GENERAL_CALL
++#define CKSVII2C_IC_ACK_GENERAL_CALL__ACK_GENERAL_CALL__SHIFT                                                 0x0
++#define CKSVII2C_IC_ACK_GENERAL_CALL__ACK_GENERAL_CALL_MASK                                                   0x00000001L
++//CKSVII2C_IC_ENABLE_STATUS
++#define CKSVII2C_IC_ENABLE_STATUS__IC_EN__SHIFT                                                               0x0
++#define CKSVII2C_IC_ENABLE_STATUS__SLV_DISABLED_WHILE_BUSY__SHIFT                                             0x1
++#define CKSVII2C_IC_ENABLE_STATUS__SLV_RX_DATA_LOST__SHIFT                                                    0x2
++#define CKSVII2C_IC_ENABLE_STATUS__IC_EN_MASK                                                                 0x00000001L
++//CKSVII2C_IC_FS_SPKLEN
++#define CKSVII2C_IC_FS_SPKLEN__FS_SPKLEN__SHIFT                                                               0x0
++#define CKSVII2C_IC_FS_SPKLEN__FS_SPKLEN_MASK                                                                 0x000000FFL
++//CKSVII2C_IC_HS_SPKLEN
++#define CKSVII2C_IC_HS_SPKLEN__HS_SPKLEN__SHIFT                                                               0x0
++#define CKSVII2C_IC_HS_SPKLEN__HS_SPKLEN_MASK                                                                 0x000000FFL
++//CKSVII2C_IC_CLR_RESTART_DET
++//CKSVII2C_IC_COMP_PARAM_1
++#define CKSVII2C_IC_COMP_PARAM_1__APB_DATA_WIDTH__SHIFT                                                       0x0
++#define CKSVII2C_IC_COMP_PARAM_1__MAX_SPEED_MODE__SHIFT                                                       0x2
++#define CKSVII2C_IC_COMP_PARAM_1__HC_COUNT_VALUES__SHIFT                                                      0x4
++#define CKSVII2C_IC_COMP_PARAM_1__INTR_IO__SHIFT                                                              0x5
++#define CKSVII2C_IC_COMP_PARAM_1__HAS_DMA__SHIFT                                                              0x6
++#define CKSVII2C_IC_COMP_PARAM_1__ADD_ENCODED_PARAMS__SHIFT                                                   0x7
++#define CKSVII2C_IC_COMP_PARAM_1__RX_BUFFER_DEPTH__SHIFT                                                      0x8
++#define CKSVII2C_IC_COMP_PARAM_1__TX_BUFFER_DEPTH__SHIFT                                                      0x10
++//CKSVII2C_IC_COMP_VERSION
++#define CKSVII2C_IC_COMP_VERSION__COMP_VERSION__SHIFT                                                         0x0
++#define CKSVII2C_IC_COMP_VERSION__COMP_VERSION_MASK                                                           0xFFFFFFFFL
++//CKSVII2C_IC_COMP_TYPE
++#define CKSVII2C_IC_COMP_TYPE__COMP_TYPE__SHIFT                                                               0x0
++#define CKSVII2C_IC_COMP_TYPE__COMP_TYPE_MASK                                                                 0xFFFFFFFFL
++//CKSVII2C1_IC_CON
++#define CKSVII2C1_IC_CON__IC1_MASTER_MODE__SHIFT                                                              0x0
++#define CKSVII2C1_IC_CON__IC1_MAX_SPEED_MODE__SHIFT                                                           0x1
++#define CKSVII2C1_IC_CON__IC1_10BITADDR_SLAVE__SHIFT                                                          0x3
++#define CKSVII2C1_IC_CON__IC1_10BITADDR_MASTER__SHIFT                                                         0x4
++#define CKSVII2C1_IC_CON__IC1_RESTART_EN__SHIFT                                                               0x5
++#define CKSVII2C1_IC_CON__IC1_SLAVE_DISABLE__SHIFT                                                            0x6
++#define CKSVII2C1_IC_CON__STOP1_DET_IFADDRESSED__SHIFT                                                        0x7
++#define CKSVII2C1_IC_CON__TX1_EMPTY_CTRL__SHIFT                                                               0x8
++#define CKSVII2C1_IC_CON__RX1_FIFO_FULL_HLD_CTRL__SHIFT                                                       0x9
++#define CKSVII2C1_IC_CON__BUS_CLEAR_FEATURE_CTRL1__SHIFT                                                      0xb
++#define CKSVII2C1_IC_CON__IC1_MASTER_MODE_MASK                                                                0x00000001L
++#define CKSVII2C1_IC_CON__IC1_MAX_SPEED_MODE_MASK                                                             0x00000006L
++#define CKSVII2C1_IC_CON__IC1_10BITADDR_SLAVE_MASK                                                            0x00000008L
++#define CKSVII2C1_IC_CON__IC1_10BITADDR_MASTER_MASK                                                           0x00000010L
++#define CKSVII2C1_IC_CON__IC1_RESTART_EN_MASK                                                                 0x00000020L
++#define CKSVII2C1_IC_CON__IC1_SLAVE_DISABLE_MASK                                                              0x00000040L
++#define CKSVII2C1_IC_CON__STOP1_DET_IFADDRESSED_MASK                                                          0x00000080L
++#define CKSVII2C1_IC_CON__TX1_EMPTY_CTRL_MASK                                                                 0x00000100L
++#define CKSVII2C1_IC_CON__RX1_FIFO_FULL_HLD_CTRL_MASK                                                         0x00000200L
++//CKSVII2C1_IC_TAR
++#define CKSVII2C1_IC_TAR__IC1_TAR__SHIFT                                                                      0x0
++#define CKSVII2C1_IC_TAR__GC1_OR_START__SHIFT                                                                 0xa
++#define CKSVII2C1_IC_TAR__SPECIAL1__SHIFT                                                                     0xb
++#define CKSVII2C1_IC_TAR__IC1_10BITADDR_MASTER__SHIFT                                                         0xc
++#define CKSVII2C1_IC_TAR__IC1_TAR_MASK                                                                        0x000003FFL
++#define CKSVII2C1_IC_TAR__GC1_OR_START_MASK                                                                   0x00000400L
++#define CKSVII2C1_IC_TAR__SPECIAL1_MASK                                                                       0x00000800L
++#define CKSVII2C1_IC_TAR__IC1_10BITADDR_MASTER_MASK                                                           0x00001000L
++//CKSVII2C1_IC_SAR
++#define CKSVII2C1_IC_SAR__IC1_SAR__SHIFT                                                                      0x0
++#define CKSVII2C1_IC_SAR__IC1_SAR_MASK                                                                        0x000003FFL
++//CKSVII2C1_IC_HS_MADDR
++#define CKSVII2C1_IC_HS_MADDR__IC1_HS_MADDR__SHIFT                                                            0x0
++#define CKSVII2C1_IC_HS_MADDR__IC1_HS_MADDR_MASK                                                              0x00000007L
++//CKSVII2C1_IC_DATA_CMD
++#define CKSVII2C1_IC_DATA_CMD__DAT1__SHIFT                                                                    0x0
++#define CKSVII2C1_IC_DATA_CMD__CMD1__SHIFT                                                                    0x8
++#define CKSVII2C1_IC_DATA_CMD__STOP1__SHIFT                                                                   0x9
++#define CKSVII2C1_IC_DATA_CMD__RESTART1__SHIFT                                                                0xa
++#define CKSVII2C1_IC_DATA_CMD__FIRST1_DATA_BYTE__SHIFT                                                        0xb
++#define CKSVII2C1_IC_DATA_CMD__DAT1_MASK                                                                      0x000000FFL
++#define CKSVII2C1_IC_DATA_CMD__CMD1_MASK                                                                      0x00000100L
++#define CKSVII2C1_IC_DATA_CMD__STOP1_MASK                                                                     0x00000200L
++#define CKSVII2C1_IC_DATA_CMD__RESTART1_MASK                                                                  0x00000400L
++//CKSVII2C1_IC_SS_SCL_HCNT
++#define CKSVII2C1_IC_SS_SCL_HCNT__IC1_SS_SCL_HCNT__SHIFT                                                      0x0
++#define CKSVII2C1_IC_SS_SCL_HCNT__IC1_SS_SCL_HCNT_MASK                                                        0x0000FFFFL
++//CKSVII2C1_IC_SS_SCL_LCNT
++#define CKSVII2C1_IC_SS_SCL_LCNT__IC1_SS_SCL_LCNT__SHIFT                                                      0x0
++#define CKSVII2C1_IC_SS_SCL_LCNT__IC1_SS_SCL_LCNT_MASK                                                        0x0000FFFFL
++//CKSVII2C1_IC_FS_SCL_HCNT
++#define CKSVII2C1_IC_FS_SCL_HCNT__IC1_FS_SCL_HCNT__SHIFT                                                      0x0
++#define CKSVII2C1_IC_FS_SCL_HCNT__IC1_FS_SCL_HCNT_MASK                                                        0x0000FFFFL
++//CKSVII2C1_IC_FS_SCL_LCNT
++#define CKSVII2C1_IC_FS_SCL_LCNT__IC1_FS_SCL_LCNT__SHIFT                                                      0x0
++#define CKSVII2C1_IC_FS_SCL_LCNT__IC1_FS_SCL_LCNT_MASK                                                        0x0000FFFFL
++//CKSVII2C1_IC_HS_SCL_HCNT
++#define CKSVII2C1_IC_HS_SCL_HCNT__IC1_HS_SCL_HCNT__SHIFT                                                      0x0
++#define CKSVII2C1_IC_HS_SCL_HCNT__IC1_HS_SCL_HCNT_MASK                                                        0x0000FFFFL
++//CKSVII2C1_IC_HS_SCL_LCNT
++#define CKSVII2C1_IC_HS_SCL_LCNT__IC1_HS_SCL_LCNT__SHIFT                                                      0x0
++#define CKSVII2C1_IC_HS_SCL_LCNT__IC1_HS_SCL_LCNT_MASK                                                        0x0000FFFFL
++//CKSVII2C1_IC_INTR_STAT
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_UNDER__SHIFT                                                            0x0
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_OVER__SHIFT                                                             0x1
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_FULL__SHIFT                                                             0x2
++#define CKSVII2C1_IC_INTR_STAT__R1_TX_OVER__SHIFT                                                             0x3
++#define CKSVII2C1_IC_INTR_STAT__R1_TX_EMPTY__SHIFT                                                            0x4
++#define CKSVII2C1_IC_INTR_STAT__R1_RD_REQ__SHIFT                                                              0x5
++#define CKSVII2C1_IC_INTR_STAT__R1_TX_ABRT__SHIFT                                                             0x6
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_DONE__SHIFT                                                             0x7
++#define CKSVII2C1_IC_INTR_STAT__R1_ACTIVITY__SHIFT                                                            0x8
++#define CKSVII2C1_IC_INTR_STAT__R1_STOP_DET__SHIFT                                                            0x9
++#define CKSVII2C1_IC_INTR_STAT__R1_START_DET__SHIFT                                                           0xa
++#define CKSVII2C1_IC_INTR_STAT__R1_GEN_CALL__SHIFT                                                            0xb
++#define CKSVII2C1_IC_INTR_STAT__R1_RESTART_DET__SHIFT                                                         0xc
++#define CKSVII2C1_IC_INTR_STAT__R1_MST_ON_HOLD__SHIFT                                                         0xd
++#define CKSVII2C1_IC_INTR_STAT__R1_SCL_STUCK_AT_LOW__SHIFT                                                    0xe
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_UNDER_MASK                                                              0x00000001L
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_OVER_MASK                                                               0x00000002L
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_FULL_MASK                                                               0x00000004L
++#define CKSVII2C1_IC_INTR_STAT__R1_TX_OVER_MASK                                                               0x00000008L
++#define CKSVII2C1_IC_INTR_STAT__R1_TX_EMPTY_MASK                                                              0x00000010L
++#define CKSVII2C1_IC_INTR_STAT__R1_RD_REQ_MASK                                                                0x00000020L
++#define CKSVII2C1_IC_INTR_STAT__R1_TX_ABRT_MASK                                                               0x00000040L
++#define CKSVII2C1_IC_INTR_STAT__R1_RX_DONE_MASK                                                               0x00000080L
++#define CKSVII2C1_IC_INTR_STAT__R1_ACTIVITY_MASK                                                              0x00000100L
++#define CKSVII2C1_IC_INTR_STAT__R1_STOP_DET_MASK                                                              0x00000200L
++#define CKSVII2C1_IC_INTR_STAT__R1_START_DET_MASK                                                             0x00000400L
++#define CKSVII2C1_IC_INTR_STAT__R1_GEN_CALL_MASK                                                              0x00000800L
++#define CKSVII2C1_IC_INTR_STAT__R1_RESTART_DET_MASK                                                           0x00001000L
++#define CKSVII2C1_IC_INTR_STAT__R1_MST_ON_HOLD_MASK                                                           0x00002000L
++//CKSVII2C1_IC_INTR_MASK
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_UNDER__SHIFT                                                            0x0
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_OVER__SHIFT                                                             0x1
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_FULL__SHIFT                                                             0x2
++#define CKSVII2C1_IC_INTR_MASK__M1_TX_OVER__SHIFT                                                             0x3
++#define CKSVII2C1_IC_INTR_MASK__M1_TX_EMPTY__SHIFT                                                            0x4
++#define CKSVII2C1_IC_INTR_MASK__M1_RD_REQ__SHIFT                                                              0x5
++#define CKSVII2C1_IC_INTR_MASK__M1_TX_ABRT__SHIFT                                                             0x6
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_DONE__SHIFT                                                             0x7
++#define CKSVII2C1_IC_INTR_MASK__M1_ACTIVITY__SHIFT                                                            0x8
++#define CKSVII2C1_IC_INTR_MASK__M1_STOP_DET__SHIFT                                                            0x9
++#define CKSVII2C1_IC_INTR_MASK__M1_START_DET__SHIFT                                                           0xa
++#define CKSVII2C1_IC_INTR_MASK__M1_GEN_CALL__SHIFT                                                            0xb
++#define CKSVII2C1_IC_INTR_MASK__M1_RESTART_DET__SHIFT                                                         0xc
++#define CKSVII2C1_IC_INTR_MASK__M1_MST_ON_HOLD__SHIFT                                                         0xd
++#define CKSVII2C1_IC_INTR_MASK__M1_SCL_STUCK_AT_LOW__SHIFT                                                    0xe
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_UNDER_MASK                                                              0x00000001L
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_OVER_MASK                                                               0x00000002L
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_FULL_MASK                                                               0x00000004L
++#define CKSVII2C1_IC_INTR_MASK__M1_TX_OVER_MASK                                                               0x00000008L
++#define CKSVII2C1_IC_INTR_MASK__M1_TX_EMPTY_MASK                                                              0x00000010L
++#define CKSVII2C1_IC_INTR_MASK__M1_RD_REQ_MASK                                                                0x00000020L
++#define CKSVII2C1_IC_INTR_MASK__M1_TX_ABRT_MASK                                                               0x00000040L
++#define CKSVII2C1_IC_INTR_MASK__M1_RX_DONE_MASK                                                               0x00000080L
++#define CKSVII2C1_IC_INTR_MASK__M1_ACTIVITY_MASK                                                              0x00000100L
++#define CKSVII2C1_IC_INTR_MASK__M1_STOP_DET_MASK                                                              0x00000200L
++#define CKSVII2C1_IC_INTR_MASK__M1_START_DET_MASK                                                             0x00000400L
++#define CKSVII2C1_IC_INTR_MASK__M1_GEN_CALL_MASK                                                              0x00000800L
++#define CKSVII2C1_IC_INTR_MASK__M1_RESTART_DET_MASK                                                           0x00001000L
++#define CKSVII2C1_IC_INTR_MASK__M1_MST_ON_HOLD_MASK                                                           0x00002000L
++//CKSVII2C1_IC_RAW_INTR_STAT
++//CKSVII2C1_IC_RX_TL
++#define CKSVII2C1_IC_RX_TL__RX1_TL__SHIFT                                                                     0x0
++//CKSVII2C1_IC_TX_TL
++#define CKSVII2C1_IC_TX_TL__TX1_TL__SHIFT                                                                     0x0
++//CKSVII2C1_IC_CLR_INTR
++//CKSVII2C1_IC_CLR_RX_UNDER
++//CKSVII2C1_IC_CLR_RX_OVER
++//CKSVII2C1_IC_CLR_TX_OVER
++//CKSVII2C1_IC_CLR_RD_REQ
++//CKSVII2C1_IC_CLR_TX_ABRT
++//CKSVII2C1_IC_CLR_RX_DONE
++//CKSVII2C1_IC_CLR_ACTIVITY
++//CKSVII2C1_IC_CLR_STOP_DET
++//CKSVII2C1_IC_CLR_START_DET
++//CKSVII2C1_IC_CLR_GEN_CALL
++//CKSVII2C1_IC_ENABLE
++#define CKSVII2C1_IC_ENABLE__ENABLE1__SHIFT                                                                   0x0
++#define CKSVII2C1_IC_ENABLE__ABORT1__SHIFT                                                                    0x1
++#define CKSVII2C1_IC_ENABLE__TX1_CMD_BLOCK__SHIFT                                                             0x2
++#define CKSVII2C1_IC_ENABLE__SDA1_STUCK_RECOVERY_ENABLE__SHIFT                                                0x3
++#define CKSVII2C1_IC_ENABLE__ENABLE1_MASK                                                                     0x00000001L
++#define CKSVII2C1_IC_ENABLE__ABORT1_MASK                                                                      0x00000002L
++//CKSVII2C1_IC_STATUS
++#define CKSVII2C1_IC_STATUS__ACTIVITY1__SHIFT                                                                 0x0
++#define CKSVII2C1_IC_STATUS__TFNF1__SHIFT                                                                     0x1
++#define CKSVII2C1_IC_STATUS__TFE1__SHIFT                                                                      0x2
++#define CKSVII2C1_IC_STATUS__RFNE1__SHIFT                                                                     0x3
++#define CKSVII2C1_IC_STATUS__RFF1__SHIFT                                                                      0x4
++#define CKSVII2C1_IC_STATUS__MST1_ACTIVITY__SHIFT                                                             0x5
++#define CKSVII2C1_IC_STATUS__SLV1_ACTIVITY__SHIFT                                                             0x6
++#define CKSVII2C1_IC_STATUS__MST1_HOLD_TX_FIFO_EMPTY__SHIFT                                                   0x7
++#define CKSVII2C1_IC_STATUS__MST1_HOLD_RX_FIFO_FULL__SHIFT                                                    0x8
++#define CKSVII2C1_IC_STATUS__SLV1_HOLD_TX_FIFO_EMPTY__SHIFT                                                   0x9
++#define CKSVII2C1_IC_STATUS__SLV1_HOLD_RX_FIFO_FULL__SHIFT                                                    0xa
++#define CKSVII2C1_IC_STATUS__SDA1_STUCK_NOT_RECOVERED__SHIFT                                                  0xb
++#define CKSVII2C1_IC_STATUS__ACTIVITY1_MASK                                                                   0x00000001L
++#define CKSVII2C1_IC_STATUS__TFNF1_MASK                                                                       0x00000002L
++#define CKSVII2C1_IC_STATUS__TFE1_MASK                                                                        0x00000004L
++#define CKSVII2C1_IC_STATUS__RFNE1_MASK                                                                       0x00000008L
++#define CKSVII2C1_IC_STATUS__RFF1_MASK                                                                        0x00000010L
++#define CKSVII2C1_IC_STATUS__MST1_ACTIVITY_MASK                                                               0x00000020L
++#define CKSVII2C1_IC_STATUS__SLV1_ACTIVITY_MASK                                                               0x00000040L
++//CKSVII2C1_IC_TXFLR
++#define CKSVII2C1_IC_TXFLR__TXFLR1__SHIFT                                                                     0x0
++//CKSVII2C1_IC_RXFLR
++#define CKSVII2C1_IC_RXFLR__RXFLR1__SHIFT                                                                     0x0
++//CKSVII2C1_IC_SDA_HOLD
++#define CKSVII2C1_IC_SDA_HOLD__IC1_SDA_TX_HOLD__SHIFT                                                         0x0
++#define CKSVII2C1_IC_SDA_HOLD__IC1_SDA_RX_HOLD__SHIFT                                                         0x10
++//CKSVII2C1_IC_TX_ABRT_SOURCE
++//CKSVII2C1_IC_SLV_DATA_NACK_ONLY
++//CKSVII2C1_IC_DMA_CR
++//CKSVII2C1_IC_DMA_TDLR
++//CKSVII2C1_IC_DMA_RDLR
++//CKSVII2C1_IC_SDA_SETUP
++#define CKSVII2C1_IC_SDA_SETUP__SDA1_SETUP__SHIFT                                                             0x0
++#define CKSVII2C1_IC_SDA_SETUP__SDA1_SETUP_MASK                                                               0x000000FFL
++//CKSVII2C1_IC_ACK_GENERAL_CALL
++#define CKSVII2C1_IC_ACK_GENERAL_CALL__ACK1_GENERAL_CALL__SHIFT                                               0x0
++#define CKSVII2C1_IC_ACK_GENERAL_CALL__ACK1_GENERAL_CALL_MASK                                                 0x00000001L
++//CKSVII2C1_IC_ENABLE_STATUS
++#define CKSVII2C1_IC_ENABLE_STATUS__IC1_EN__SHIFT                                                             0x0
++#define CKSVII2C1_IC_ENABLE_STATUS__SLV1_DISABLED_WHILE_BUSY__SHIFT                                           0x1
++#define CKSVII2C1_IC_ENABLE_STATUS__SLV1_RX_DATA_LOST__SHIFT                                                  0x2
++#define CKSVII2C1_IC_ENABLE_STATUS__IC1_EN_MASK                                                               0x00000001L
++//CKSVII2C1_IC_FS_SPKLEN
++#define CKSVII2C1_IC_FS_SPKLEN__FS1_SPKLEN__SHIFT                                                             0x0
++//CKSVII2C1_IC_HS_SPKLEN
++#define CKSVII2C1_IC_HS_SPKLEN__HS1_SPKLEN__SHIFT                                                             0x0
++//CKSVII2C1_IC_CLR_RESTART_DET
++//CKSVII2C1_IC_COMP_PARAM_1
++#define CKSVII2C1_IC_COMP_PARAM_1__APB1_DATA_WIDTH__SHIFT                                                     0x0
++#define CKSVII2C1_IC_COMP_PARAM_1__MAX1_SPEED_MODE__SHIFT                                                     0x2
++#define CKSVII2C1_IC_COMP_PARAM_1__HC1_COUNT_VALUES__SHIFT                                                    0x4
++#define CKSVII2C1_IC_COMP_PARAM_1__INTR1_IO__SHIFT                                                            0x5
++#define CKSVII2C1_IC_COMP_PARAM_1__HAS1_DMA__SHIFT                                                            0x6
++#define CKSVII2C1_IC_COMP_PARAM_1__ADD1_ENCODED_PARAMS__SHIFT                                                 0x7
++#define CKSVII2C1_IC_COMP_PARAM_1__RX1_BUFFER_DEPTH__SHIFT                                                    0x8
++#define CKSVII2C1_IC_COMP_PARAM_1__TX1_BUFFER_DEPTH__SHIFT                                                    0x10
++//CKSVII2C1_IC_COMP_VERSION
++#define CKSVII2C1_IC_COMP_VERSION__COMP1_VERSION__SHIFT                                                       0x0
++//CKSVII2C1_IC_COMP_TYPE
++#define CKSVII2C1_IC_COMP_TYPE__COMP1_TYPE__SHIFT                                                             0x0
++//SMUIO_PWRMGT
++#define SMUIO_PWRMGT__i2c_clk_gate_en__SHIFT                                                                  0x0
++#define SMUIO_PWRMGT__i2c1_clk_gate_en__SHIFT                                                                 0x8
++#define SMUIO_PWRMGT__i2c_reg_reset__SHIFT                                                                    0x10
++#define SMUIO_PWRMGT__i2c_dwc_reset_en__SHIFT                                                                 0x11
++#define SMUIO_PWRMGT__i2c1_reg_reset__SHIFT                                                                   0x18
++#define SMUIO_PWRMGT__i2c1_dwc_reset_en__SHIFT                                                                0x19
++#define SMUIO_PWRMGT__i2c_clk_gate_en_MASK                                                                    0x00000001L
++#define SMUIO_PWRMGT__i2c1_clk_gate_en_MASK                                                                   0x00000100L
++
++
++// addressBlock: smuio_smuio_rom_SmuSmuioDec
++//ROM_CNTL
++#define ROM_CNTL__CLOCK_GATING_EN__SHIFT                                                                      0x0
++#define ROM_CNTL__READ_MODE__SHIFT                                                                            0x1
++#define ROM_CNTL__READ_MODE_OVERRIDE__SHIFT                                                                   0x3
++#define ROM_CNTL__SPI_TIMING_RELAX_SCK__SHIFT                                                                 0x4
++#define ROM_CNTL__SPI_TIMING_RELAX_SCK_OVERRIDE__SHIFT                                                        0x5
++#define ROM_CNTL__FOUR_BYTE_ADDRESS_MODE__SHIFT                                                               0x6
++#define ROM_CNTL__DUMMY_CYCLE_NUM__SHIFT                                                                      0x8
++#define ROM_CNTL__SPI_TIMING_RELAX__SHIFT                                                                     0x13
++#define ROM_CNTL__SPI_TIMING_RELAX_OVERRIDE__SHIFT                                                            0x14
++#define ROM_CNTL__SPI_FAST_MODE__SHIFT                                                                        0x15
++#define ROM_CNTL__SPI_FAST_MODE_OVERRIDE__SHIFT                                                               0x16
++#define ROM_CNTL__SCK_PRESCALE_REFCLK__SHIFT                                                                  0x17
++#define ROM_CNTL__SCK_PRESCALE_REFCLK_OVERRIDE__SHIFT                                                         0x1c
++#define ROM_CNTL__ROM_INDEX_ADDRESS_AUTO_INCREASE__SHIFT                                                      0x1d
++#define ROM_CNTL__PAD_SAMPLE_MODE__SHIFT                                                                      0x1e
++#define ROM_CNTL__PAD_SAMPLE_MODE_OVERRIDE__SHIFT                                                             0x1f
++#define ROM_CNTL__CLOCK_GATING_EN_MASK                                                                        0x00000001L
++#define ROM_CNTL__SPI_TIMING_RELAX_MASK                                                                       0x00080000L
++#define ROM_CNTL__SPI_TIMING_RELAX_OVERRIDE_MASK                                                              0x00100000L
++#define ROM_CNTL__SPI_FAST_MODE_MASK                                                                          0x00200000L
++#define ROM_CNTL__SPI_FAST_MODE_OVERRIDE_MASK                                                                 0x00400000L
++#define ROM_CNTL__SCK_PRESCALE_REFCLK_MASK                                                                    0x0F800000L
++#define ROM_CNTL__SCK_PRESCALE_REFCLK_OVERRIDE_MASK                                                           0x10000000L
++//PAGE_MIRROR_CNTL
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_BASE_ADDR__SHIFT                                                        0x0
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_ENABLE__SHIFT                                                           0x19
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_USAGE__SHIFT                                                            0x1a
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_INVALIDATE__SHIFT                                                       0x1c
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_BASE_ADDR_MASK                                                          0x01FFFFFFL
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_ENABLE_MASK                                                             0x02000000L
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_USAGE_MASK                                                              0x0C000000L
++#define PAGE_MIRROR_CNTL__PAGE_MIRROR_INVALIDATE_MASK                                                         0x10000000L
++//ROM_STATUS
++#define ROM_STATUS__ROM_BUSY__SHIFT                                                                           0x0
++#define ROM_STATUS__ROM_BUSY_MASK                                                                             0x00000001L
++//CGTT_ROM_CLK_CTRL0
++#define CGTT_ROM_CLK_CTRL0__ON_DELAY__SHIFT                                                                   0x0
++#define CGTT_ROM_CLK_CTRL0__OFF_HYSTERESIS__SHIFT                                                             0x4
++#define CGTT_ROM_CLK_CTRL0__SOFT_OVERRIDE1__SHIFT                                                             0x1e
++#define CGTT_ROM_CLK_CTRL0__SOFT_OVERRIDE0__SHIFT                                                             0x1f
++#define CGTT_ROM_CLK_CTRL0__ON_DELAY_MASK                                                                     0x0000000FL
++#define CGTT_ROM_CLK_CTRL0__OFF_HYSTERESIS_MASK                                                               0x00000FF0L
++#define CGTT_ROM_CLK_CTRL0__SOFT_OVERRIDE1_MASK                                                               0x40000000L
++#define CGTT_ROM_CLK_CTRL0__SOFT_OVERRIDE0_MASK                                                               0x80000000L
++//ROM_INDEX
++#define ROM_INDEX__ROM_INDEX__SHIFT                                                                           0x0
++#define ROM_INDEX__ROM_INDEX_MASK                                                                             0x01FFFFFFL
++//ROM_DATA
++#define ROM_DATA__ROM_DATA__SHIFT                                                                             0x0
++#define ROM_DATA__ROM_DATA_MASK                                                                               0xFFFFFFFFL
++//ROM_START
++#define ROM_START__ROM_START__SHIFT                                                                           0x0
++#define ROM_START__ROM_START_MASK                                                                             0x01FFFFFFL
++//ROM_SW_CNTL
++#define ROM_SW_CNTL__DATA_SIZE__SHIFT                                                                         0x0
++#define ROM_SW_CNTL__COMMAND_SIZE__SHIFT                                                                      0x10
++#define ROM_SW_CNTL__ROM_SW_RETURN_DATA_ENABLE__SHIFT                                                         0x13
++#define ROM_SW_CNTL__DATA_SIZE_MASK                                                                           0x0000FFFFL
++#define ROM_SW_CNTL__COMMAND_SIZE_MASK                                                                        0x00070000L
++#define ROM_SW_CNTL__ROM_SW_RETURN_DATA_ENABLE_MASK                                                           0x00080000L
++//ROM_SW_STATUS
++#define ROM_SW_STATUS__ROM_SW_DONE__SHIFT                                                                     0x0
++#define ROM_SW_STATUS__ROM_SW_DONE_MASK                                                                       0x00000001L
++//ROM_SW_COMMAND
++#define ROM_SW_COMMAND__ROM_SW_INSTRUCTION__SHIFT                                                             0x0
++#define ROM_SW_COMMAND__ROM_SW_ADDRESS__SHIFT                                                                 0x8
++#define ROM_SW_COMMAND__ROM_SW_INSTRUCTION_MASK                                                               0x000000FFL
++#define ROM_SW_COMMAND__ROM_SW_ADDRESS_MASK                                                                   0xFFFFFF00L
++//ROM_SW_DATA_1
++#define ROM_SW_DATA_1__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_1__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_2
++#define ROM_SW_DATA_2__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_2__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_3
++#define ROM_SW_DATA_3__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_3__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_4
++#define ROM_SW_DATA_4__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_4__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_5
++#define ROM_SW_DATA_5__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_5__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_6
++#define ROM_SW_DATA_6__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_6__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_7
++#define ROM_SW_DATA_7__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_7__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_8
++#define ROM_SW_DATA_8__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_8__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_9
++#define ROM_SW_DATA_9__ROM_SW_DATA__SHIFT                                                                     0x0
++#define ROM_SW_DATA_9__ROM_SW_DATA_MASK                                                                       0xFFFFFFFFL
++//ROM_SW_DATA_10
++#define ROM_SW_DATA_10__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_10__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_11
++#define ROM_SW_DATA_11__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_11__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_12
++#define ROM_SW_DATA_12__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_12__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_13
++#define ROM_SW_DATA_13__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_13__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_14
++#define ROM_SW_DATA_14__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_14__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_15
++#define ROM_SW_DATA_15__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_15__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_16
++#define ROM_SW_DATA_16__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_16__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_17
++#define ROM_SW_DATA_17__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_17__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_18
++#define ROM_SW_DATA_18__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_18__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_19
++#define ROM_SW_DATA_19__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_19__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_20
++#define ROM_SW_DATA_20__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_20__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_21
++#define ROM_SW_DATA_21__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_21__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_22
++#define ROM_SW_DATA_22__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_22__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_23
++#define ROM_SW_DATA_23__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_23__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_24
++#define ROM_SW_DATA_24__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_24__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_25
++#define ROM_SW_DATA_25__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_25__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_26
++#define ROM_SW_DATA_26__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_26__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_27
++#define ROM_SW_DATA_27__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_27__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_28
++#define ROM_SW_DATA_28__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_28__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_29
++#define ROM_SW_DATA_29__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_29__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_30
++#define ROM_SW_DATA_30__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_30__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_31
++#define ROM_SW_DATA_31__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_31__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_32
++#define ROM_SW_DATA_32__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_32__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_33
++#define ROM_SW_DATA_33__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_33__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_34
++#define ROM_SW_DATA_34__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_34__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_35
++#define ROM_SW_DATA_35__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_35__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_36
++#define ROM_SW_DATA_36__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_36__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_37
++#define ROM_SW_DATA_37__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_37__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_38
++#define ROM_SW_DATA_38__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_38__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_39
++#define ROM_SW_DATA_39__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_39__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_40
++#define ROM_SW_DATA_40__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_40__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_41
++#define ROM_SW_DATA_41__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_41__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_42
++#define ROM_SW_DATA_42__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_42__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_43
++#define ROM_SW_DATA_43__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_43__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_44
++#define ROM_SW_DATA_44__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_44__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_45
++#define ROM_SW_DATA_45__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_45__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_46
++#define ROM_SW_DATA_46__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_46__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_47
++#define ROM_SW_DATA_47__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_47__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_48
++#define ROM_SW_DATA_48__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_48__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_49
++#define ROM_SW_DATA_49__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_49__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_50
++#define ROM_SW_DATA_50__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_50__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_51
++#define ROM_SW_DATA_51__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_51__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_52
++#define ROM_SW_DATA_52__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_52__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_53
++#define ROM_SW_DATA_53__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_53__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_54
++#define ROM_SW_DATA_54__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_54__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_55
++#define ROM_SW_DATA_55__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_55__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_56
++#define ROM_SW_DATA_56__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_56__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_57
++#define ROM_SW_DATA_57__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_57__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_58
++#define ROM_SW_DATA_58__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_58__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_59
++#define ROM_SW_DATA_59__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_59__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_60
++#define ROM_SW_DATA_60__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_60__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_61
++#define ROM_SW_DATA_61__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_61__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_62
++#define ROM_SW_DATA_62__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_62__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_63
++#define ROM_SW_DATA_63__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_63__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++//ROM_SW_DATA_64
++#define ROM_SW_DATA_64__ROM_SW_DATA__SHIFT                                                                    0x0
++#define ROM_SW_DATA_64__ROM_SW_DATA_MASK                                                                      0xFFFFFFFFL
++
++
++// addressBlock: smuio_smuio_gpio_SmuSmuioDec
++//SMU_GPIOPAD_SW_INT_STAT
++#define SMU_GPIOPAD_SW_INT_STAT__SW_INT_STAT__SHIFT                                                           0x0
++#define SMU_GPIOPAD_SW_INT_STAT__SW_INT_STAT_MASK                                                             0x00000001L
++//SMU_GPIOPAD_MASK
++#define SMU_GPIOPAD_MASK__GPIO_MASK__SHIFT                                                                    0x0
++#define SMU_GPIOPAD_MASK__GPIO_MASK_MASK                                                                      0x7FFFFFFFL
++//SMU_GPIOPAD_A
++#define SMU_GPIOPAD_A__GPIO_A__SHIFT                                                                          0x0
++#define SMU_GPIOPAD_A__GPIO_A_MASK                                                                            0x7FFFFFFFL
++//SMU_GPIOPAD_TXIMPSEL
++#define SMU_GPIOPAD_TXIMPSEL__GPIO_TXIMPSEL__SHIFT                                                            0x0
++#define SMU_GPIOPAD_TXIMPSEL__GPIO_TXIMPSEL_MASK                                                              0x7FFFFFFFL
++//SMU_GPIOPAD_EN
++#define SMU_GPIOPAD_EN__GPIO_EN__SHIFT                                                                        0x0
++#define SMU_GPIOPAD_EN__GPIO_EN_MASK                                                                          0x7FFFFFFFL
++//SMU_GPIOPAD_Y
++#define SMU_GPIOPAD_Y__GPIO_Y__SHIFT                                                                          0x0
++#define SMU_GPIOPAD_Y__GPIO_Y_MASK                                                                            0x7FFFFFFFL
++//SMU_GPIOPAD_RXEN
++#define SMU_GPIOPAD_RXEN__GPIO_RXEN__SHIFT                                                                    0x0
++#define SMU_GPIOPAD_RXEN__GPIO_RXEN_MASK                                                                      0x7FFFFFFFL
++//SMU_GPIOPAD_RCVR_SEL0
++#define SMU_GPIOPAD_RCVR_SEL0__GPIO_RCVR_SEL0__SHIFT                                                          0x0
++#define SMU_GPIOPAD_RCVR_SEL0__GPIO_RCVR_SEL0_MASK                                                            0x7FFFFFFFL
++//SMU_GPIOPAD_RCVR_SEL1
++#define SMU_GPIOPAD_RCVR_SEL1__GPIO_RCVR_SEL1__SHIFT                                                          0x0
++#define SMU_GPIOPAD_RCVR_SEL1__GPIO_RCVR_SEL1_MASK                                                            0x7FFFFFFFL
++//SMU_GPIOPAD_PU_EN
++#define SMU_GPIOPAD_PU_EN__GPIO_PU_EN__SHIFT                                                                  0x0
++#define SMU_GPIOPAD_PU_EN__GPIO_PU_EN_MASK                                                                    0x7FFFFFFFL
++//SMU_GPIOPAD_PD_EN
++#define SMU_GPIOPAD_PD_EN__GPIO_PD_EN__SHIFT                                                                  0x0
++#define SMU_GPIOPAD_PD_EN__GPIO_PD_EN_MASK                                                                    0x7FFFFFFFL
++//SMU_GPIOPAD_PINSTRAPS
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_0__SHIFT                                                         0x0
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_1__SHIFT                                                         0x1
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_2__SHIFT                                                         0x2
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_3__SHIFT                                                         0x3
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_4__SHIFT                                                         0x4
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_5__SHIFT                                                         0x5
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_6__SHIFT                                                         0x6
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_7__SHIFT                                                         0x7
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_8__SHIFT                                                         0x8
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_9__SHIFT                                                         0x9
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_10__SHIFT                                                        0xa
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_11__SHIFT                                                        0xb
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_12__SHIFT                                                        0xc
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_13__SHIFT                                                        0xd
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_14__SHIFT                                                        0xe
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_15__SHIFT                                                        0xf
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_16__SHIFT                                                        0x10
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_17__SHIFT                                                        0x11
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_18__SHIFT                                                        0x12
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_19__SHIFT                                                        0x13
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_20__SHIFT                                                        0x14
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_21__SHIFT                                                        0x15
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_22__SHIFT                                                        0x16
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_23__SHIFT                                                        0x17
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_24__SHIFT                                                        0x18
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_25__SHIFT                                                        0x19
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_26__SHIFT                                                        0x1a
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_27__SHIFT                                                        0x1b
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_28__SHIFT                                                        0x1c
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_29__SHIFT                                                        0x1d
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_30__SHIFT                                                        0x1e
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_0_MASK                                                           0x00000001L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_1_MASK                                                           0x00000002L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_2_MASK                                                           0x00000004L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_3_MASK                                                           0x00000008L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_4_MASK                                                           0x00000010L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_5_MASK                                                           0x00000020L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_6_MASK                                                           0x00000040L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_7_MASK                                                           0x00000080L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_8_MASK                                                           0x00000100L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_9_MASK                                                           0x00000200L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_10_MASK                                                          0x00000400L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_11_MASK                                                          0x00000800L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_12_MASK                                                          0x00001000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_13_MASK                                                          0x00002000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_14_MASK                                                          0x00004000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_15_MASK                                                          0x00008000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_16_MASK                                                          0x00010000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_17_MASK                                                          0x00020000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_18_MASK                                                          0x00040000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_19_MASK                                                          0x00080000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_20_MASK                                                          0x00100000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_21_MASK                                                          0x00200000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_22_MASK                                                          0x00400000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_23_MASK                                                          0x00800000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_24_MASK                                                          0x01000000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_25_MASK                                                          0x02000000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_26_MASK                                                          0x04000000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_27_MASK                                                          0x08000000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_28_MASK                                                          0x10000000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_29_MASK                                                          0x20000000L
++#define SMU_GPIOPAD_PINSTRAPS__GPIO_PINSTRAP_30_MASK                                                          0x40000000L
++//DFT_PINSTRAPS
++#define DFT_PINSTRAPS__DFT_PINSTRAPS__SHIFT                                                                   0x0
++#define DFT_PINSTRAPS__DFT_PINSTRAPS_MASK                                                                     0x000003FFL
++//SMU_GPIOPAD_INT_STAT_EN
++#define SMU_GPIOPAD_INT_STAT_EN__GPIO_INT_STAT_EN__SHIFT                                                      0x0
++#define SMU_GPIOPAD_INT_STAT_EN__SW_INITIATED_INT_STAT_EN__SHIFT                                              0x1f
++#define SMU_GPIOPAD_INT_STAT_EN__GPIO_INT_STAT_EN_MASK                                                        0x1FFFFFFFL
++#define SMU_GPIOPAD_INT_STAT_EN__SW_INITIATED_INT_STAT_EN_MASK                                                0x80000000L
++//SMU_GPIOPAD_INT_STAT
++#define SMU_GPIOPAD_INT_STAT__GPIO_INT_STAT__SHIFT                                                            0x0
++#define SMU_GPIOPAD_INT_STAT__SW_INITIATED_INT_STAT__SHIFT                                                    0x1f
++#define SMU_GPIOPAD_INT_STAT__GPIO_INT_STAT_MASK                                                              0x1FFFFFFFL
++#define SMU_GPIOPAD_INT_STAT__SW_INITIATED_INT_STAT_MASK                                                      0x80000000L
++//SMU_GPIOPAD_INT_STAT_AK
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_0__SHIFT                                                    0x0
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_1__SHIFT                                                    0x1
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_2__SHIFT                                                    0x2
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_3__SHIFT                                                    0x3
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_4__SHIFT                                                    0x4
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_5__SHIFT                                                    0x5
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_6__SHIFT                                                    0x6
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_7__SHIFT                                                    0x7
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_8__SHIFT                                                    0x8
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_9__SHIFT                                                    0x9
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_10__SHIFT                                                   0xa
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_11__SHIFT                                                   0xb
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_12__SHIFT                                                   0xc
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_13__SHIFT                                                   0xd
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_14__SHIFT                                                   0xe
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_15__SHIFT                                                   0xf
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_16__SHIFT                                                   0x10
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_17__SHIFT                                                   0x11
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_18__SHIFT                                                   0x12
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_19__SHIFT                                                   0x13
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_20__SHIFT                                                   0x14
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_21__SHIFT                                                   0x15
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_22__SHIFT                                                   0x16
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_23__SHIFT                                                   0x17
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_24__SHIFT                                                   0x18
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_25__SHIFT                                                   0x19
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_26__SHIFT                                                   0x1a
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_27__SHIFT                                                   0x1b
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_28__SHIFT                                                   0x1c
++#define SMU_GPIOPAD_INT_STAT_AK__SW_INITIATED_INT_STAT_AK__SHIFT                                              0x1f
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_0_MASK                                                      0x00000001L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_1_MASK                                                      0x00000002L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_2_MASK                                                      0x00000004L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_3_MASK                                                      0x00000008L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_4_MASK                                                      0x00000010L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_5_MASK                                                      0x00000020L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_6_MASK                                                      0x00000040L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_7_MASK                                                      0x00000080L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_8_MASK                                                      0x00000100L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_9_MASK                                                      0x00000200L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_10_MASK                                                     0x00000400L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_11_MASK                                                     0x00000800L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_12_MASK                                                     0x00001000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_13_MASK                                                     0x00002000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_14_MASK                                                     0x00004000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_15_MASK                                                     0x00008000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_16_MASK                                                     0x00010000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_17_MASK                                                     0x00020000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_18_MASK                                                     0x00040000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_19_MASK                                                     0x00080000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_20_MASK                                                     0x00100000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_21_MASK                                                     0x00200000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_22_MASK                                                     0x00400000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_23_MASK                                                     0x00800000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_24_MASK                                                     0x01000000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_25_MASK                                                     0x02000000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_26_MASK                                                     0x04000000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_27_MASK                                                     0x08000000L
++#define SMU_GPIOPAD_INT_STAT_AK__GPIO_INT_STAT_AK_28_MASK                                                     0x10000000L
++#define SMU_GPIOPAD_INT_STAT_AK__SW_INITIATED_INT_STAT_AK_MASK                                                0x80000000L
++//SMU_GPIOPAD_INT_EN
++#define SMU_GPIOPAD_INT_EN__GPIO_INT_EN__SHIFT                                                                0x0
++#define SMU_GPIOPAD_INT_EN__SW_INITIATED_INT_EN__SHIFT                                                        0x1f
++#define SMU_GPIOPAD_INT_EN__GPIO_INT_EN_MASK                                                                  0x1FFFFFFFL
++#define SMU_GPIOPAD_INT_EN__SW_INITIATED_INT_EN_MASK                                                          0x80000000L
++//SMU_GPIOPAD_INT_TYPE
++#define SMU_GPIOPAD_INT_TYPE__GPIO_INT_TYPE__SHIFT                                                            0x0
++#define SMU_GPIOPAD_INT_TYPE__SW_INITIATED_INT_TYPE__SHIFT                                                    0x1f
++#define SMU_GPIOPAD_INT_TYPE__GPIO_INT_TYPE_MASK                                                              0x1FFFFFFFL
++#define SMU_GPIOPAD_INT_TYPE__SW_INITIATED_INT_TYPE_MASK                                                      0x80000000L
++//SMU_GPIOPAD_INT_POLARITY
++#define SMU_GPIOPAD_INT_POLARITY__GPIO_INT_POLARITY__SHIFT                                                    0x0
++#define SMU_GPIOPAD_INT_POLARITY__SW_INITIATED_INT_POLARITY__SHIFT                                            0x1f
++#define SMU_GPIOPAD_INT_POLARITY__GPIO_INT_POLARITY_MASK                                                      0x1FFFFFFFL
++#define SMU_GPIOPAD_INT_POLARITY__SW_INITIATED_INT_POLARITY_MASK                                              0x80000000L
++//SMUIO_PCC_GPIO_SELECT
++#define SMUIO_PCC_GPIO_SELECT__GPIO__SHIFT                                                                    0x0
++#define SMUIO_PCC_GPIO_SELECT__GPIO_MASK                                                                      0xFFFFFFFFL
++//SMU_GPIOPAD_S0
++#define SMU_GPIOPAD_S0__GPIO_S0__SHIFT                                                                        0x0
++#define SMU_GPIOPAD_S0__GPIO_S0_MASK                                                                          0x7FFFFFFFL
++//SMU_GPIOPAD_S1
++#define SMU_GPIOPAD_S1__GPIO_S1__SHIFT                                                                        0x0
++#define SMU_GPIOPAD_S1__GPIO_S1_MASK                                                                          0x7FFFFFFFL
++//SMU_GPIOPAD_SCHMEN
++#define SMU_GPIOPAD_SCHMEN__GPIO_SCHMEN__SHIFT                                                                0x0
++#define SMU_GPIOPAD_SCHMEN__GPIO_SCHMEN_MASK                                                                  0x7FFFFFFFL
++//SMU_GPIOPAD_SCL_EN
++#define SMU_GPIOPAD_SCL_EN__GPIO_SCL_EN__SHIFT                                                                0x0
++#define SMU_GPIOPAD_SCL_EN__GPIO_SCL_EN_MASK                                                                  0x7FFFFFFFL
++//SMU_GPIOPAD_SDA_EN
++#define SMU_GPIOPAD_SDA_EN__GPIO_SDA_EN__SHIFT                                                                0x0
++#define SMU_GPIOPAD_SDA_EN__GPIO_SDA_EN_MASK                                                                  0x7FFFFFFFL
++//SMUIO_GPIO_INT0_SELECT
++#define SMUIO_GPIO_INT0_SELECT__GPIO_INT0_SELECT__SHIFT                                                       0x0
++#define SMUIO_GPIO_INT0_SELECT__GPIO_INT0_SELECT_MASK                                                         0xFFFFFFFFL
++//SMUIO_GPIO_INT1_SELECT
++#define SMUIO_GPIO_INT1_SELECT__GPIO_INT1_SELECT__SHIFT                                                       0x0
++#define SMUIO_GPIO_INT1_SELECT__GPIO_INT1_SELECT_MASK                                                         0xFFFFFFFFL
++//SMUIO_GPIO_INT2_SELECT
++#define SMUIO_GPIO_INT2_SELECT__GPIO_INT2_SELECT__SHIFT                                                       0x0
++#define SMUIO_GPIO_INT2_SELECT__GPIO_INT2_SELECT_MASK                                                         0xFFFFFFFFL
++//SMUIO_GPIO_INT3_SELECT
++#define SMUIO_GPIO_INT3_SELECT__GPIO_INT3_SELECT__SHIFT                                                       0x0
++#define SMUIO_GPIO_INT3_SELECT__GPIO_INT3_SELECT_MASK                                                         0xFFFFFFFFL
++//SMU_GPIOPAD_MP_INT0_STAT
++#define SMU_GPIOPAD_MP_INT0_STAT__GPIO_MP_INT0_STAT__SHIFT                                                    0x0
++#define SMU_GPIOPAD_MP_INT0_STAT__GPIO_MP_INT0_STAT_MASK                                                      0x1FFFFFFFL
++//SMU_GPIOPAD_MP_INT1_STAT
++#define SMU_GPIOPAD_MP_INT1_STAT__GPIO_MP_INT1_STAT__SHIFT                                                    0x0
++#define SMU_GPIOPAD_MP_INT1_STAT__GPIO_MP_INT1_STAT_MASK                                                      0x1FFFFFFFL
++//SMU_GPIOPAD_MP_INT2_STAT
++#define SMU_GPIOPAD_MP_INT2_STAT__GPIO_MP_INT2_STAT__SHIFT                                                    0x0
++#define SMU_GPIOPAD_MP_INT2_STAT__GPIO_MP_INT2_STAT_MASK                                                      0x1FFFFFFFL
++//SMU_GPIOPAD_MP_INT3_STAT
++#define SMU_GPIOPAD_MP_INT3_STAT__GPIO_MP_INT3_STAT__SHIFT                                                    0x0
++#define SMU_GPIOPAD_MP_INT3_STAT__GPIO_MP_INT3_STAT_MASK                                                      0x1FFFFFFFL
++//SMIO_INDEX
++#define SMIO_INDEX__SW_SMIO_INDEX__SHIFT                                                                      0x0
++#define SMIO_INDEX__SW_SMIO_INDEX_MASK                                                                        0x00000001L
++//S0_VID_SMIO_CNTL
++#define S0_VID_SMIO_CNTL__S0_SMIO_VALUES__SHIFT                                                               0x0
++#define S0_VID_SMIO_CNTL__S0_SMIO_VALUES_MASK                                                                 0xFFFFFFFFL
++//S1_VID_SMIO_CNTL
++#define S1_VID_SMIO_CNTL__S1_SMIO_VALUES__SHIFT                                                               0x0
++#define S1_VID_SMIO_CNTL__S1_SMIO_VALUES_MASK                                                                 0xFFFFFFFFL
++//OPEN_DRAIN_SELECT
++#define OPEN_DRAIN_SELECT__OPEN_DRAIN_SELECT__SHIFT                                                           0x0
++#define OPEN_DRAIN_SELECT__RESERVED__SHIFT                                                                    0x1f
++#define OPEN_DRAIN_SELECT__OPEN_DRAIN_SELECT_MASK                                                             0x7FFFFFFFL
++#define OPEN_DRAIN_SELECT__RESERVED_MASK                                                                      0x80000000L
++//SMIO_ENABLE
++#define SMIO_ENABLE__SMIO_ENABLE__SHIFT                                                                       0x0
++#define SMIO_ENABLE__SMIO_ENABLE_MASK                                                                         0xFFFFFFFFL
++
++
++#endif
 -- 
 2.51.0
 
