@@ -4,148 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEF7FCCD1BF
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 07:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DC15CCF9EE
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 08:07:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4B210E172;
-	Wed, 29 Oct 2025 07:47:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C42E510E719;
+	Wed, 29 Oct 2025 08:07:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="grX1pj3C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BvJtoOPX";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79AD810E172
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 07:47:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yhzPDnfo9ETpYoKSyWTU/cVG30pB/dJY+RSTABR1pbBl50dEM7YZxqcUX8ur4KXJpaSTzeGEX+6j1vL46AYc/pX3ukPTFTNxKB/HwGB+8af9PhV9M04TnCs8wNS0O0pXWqjcuk1L+C2ACuFJLoBdiOlVUd3F18htFDS7zeu3vbWF17nkj4h/ralg6YYlh0hlYTBeKZMg52x9+tJGOHfLr53QjkVuqG2z7pkrKvzUL5KONu+xNPKVrweFtWiBDGKnj8r/PSUQrSw5q+4EjNP7+u5I5zyPSY6TNYAw45YtcgyIs61zYDx14i/itX+nIkm+WSeMiDZAIY97bi9ALj8Kpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5Dp9npUhMIyIcaihFTbP6SMltenPVRBIAMFRYgnHjmU=;
- b=Lba2lO0syLn/UalZoPLIv3z7zBQnSHuGlOdN9uklB//SXVVbk3nskRNBuIhwWXzN26yGQyA1MB9zIbO3el/hjlhb4414qxHlIsCKxvy2IR2jwDvXLrUZlXbAFxp0TmPsew3Tt3OWoKzbOs5MxIcgH3b5lo1oF0TbXzlqmQpqgFxJm2Uls0RaEPi593dg/qLQkVvrGYAJk7JAsq40IZYSyNZ/G2UQz/TK3aLDMLS8Suk/8KFIe5+fVrN9gkBFhxsyS1xjQoXYOZfKLsQkZ2gfh2wc5z4nNmS5g610HR+NFj1IKQDRnAVHgsaGG+3k2BLOOw69O+GU0nZT7/CnlSUbgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5Dp9npUhMIyIcaihFTbP6SMltenPVRBIAMFRYgnHjmU=;
- b=grX1pj3ColPExxjCh9p36RMEtYklVhpn4UtJ0VSF+TNAXrgPKA8feaY/zUIR72rPum4tlFj6PIrlLfgLGQHca4VC1PZewxFFB/ZsgcujA69l1L9FMkkiZ5fnz/EIRSEPaGZgr5G43Nglwx/k+CPYOMLx5X5GLo1cN8SE3S2j3v8=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by LV8PR12MB9081.namprd12.prod.outlook.com (2603:10b6:408:188::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.12; Wed, 29 Oct
- 2025 07:47:44 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::7547:2c7b:d652:8d04]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::7547:2c7b:d652:8d04%5]) with mapi id 15.20.9275.013; Wed, 29 Oct 2025
- 07:47:44 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Li, Candice" <Candice.Li@amd.com>, "Yang, Stanley"
- <Stanley.Yang@amd.com>, "Su, Joe" <Jinzhou.Su@amd.com>, kernel test robot
- <lkp@intel.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH] drm/amd/ras: Fix the error of undefined reference to
- `__udivdi3'
-Thread-Topic: [PATCH] drm/amd/ras: Fix the error of undefined reference to
- `__udivdi3'
-Thread-Index: AQHcSH37lvkrYAKMjUGk/FCqcWHL1LTYvf5w
-Date: Wed, 29 Oct 2025 07:47:44 +0000
-Message-ID: <PH7PR12MB599755319EC4B65B9B68C58E82FAA@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20251029024328.2068340-1-YiPeng.Chai@amd.com>
-In-Reply-To: <20251029024328.2068340-1-YiPeng.Chai@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-10-29T07:41:51.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|LV8PR12MB9081:EE_
-x-ms-office365-filtering-correlation-id: d67ad170-4c09-4d72-f704-08de16bf7221
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?9ydod3QAvAG9t4x4EXv499te24vQs5CyqJ0fbl6KlKT5+4GFduodVfRR/gXo?=
- =?us-ascii?Q?3amo8WkU6OG860KGEZ09FKq2FsUVWpwXEZ5PVZniH72vpWcdW8Ey5dndZHYi?=
- =?us-ascii?Q?w4Npitu3NcX+WlHRbKN2/neb5lZcXNltvqcDuJB9SxwvmM0dl1YWpHQh5zb+?=
- =?us-ascii?Q?YP11TFgAJPFtxjKr4U9AiRk+mTh/9SVHnrAJVY/Da+O8dIoYrfo3/bVH7APV?=
- =?us-ascii?Q?OgSJ/5JPXxHicrgxwlBUHMqGc6mYtDI92GOjqCuRZeUlzw4IvhTsUDv2oNW+?=
- =?us-ascii?Q?C1dVK44cxECX4IG2WLh6f9Xhqmo132y3KVl0xMvQht8RolE8YXfCT965cLH4?=
- =?us-ascii?Q?XuxZXFHsGMt0sJDs25xdoieGMPM4i+pmsyxw3CY8/+wXDH5+2wFld00BKqwd?=
- =?us-ascii?Q?tV1NYJY/fPOm0cL3Q3OdVXmhahjlVGkGaWwuXcU0OnhnRPoGbzPWnG4JDnmT?=
- =?us-ascii?Q?UrsFGXbqGffkeUJxnS6NuCTkNEhe+fUY0crs4gcayt3lOTKy6d7Y9IP4j2gW?=
- =?us-ascii?Q?l6b1T+fAqriH87yeJYtFfev/5bLbWbjixnrva1oCozYwvugcSsE5bDmTMv3n?=
- =?us-ascii?Q?hDbZ/uwRE7BEodGm06fhcKj8YvnJN+YY/6UB7VV3IR2MKtNvUfOAeAGoEbtL?=
- =?us-ascii?Q?riL4UDe6A3lUYWWoJxXzAdILWgaJtxueVwkJHvRFvCl5ppkADPIF/mIhZxUx?=
- =?us-ascii?Q?DwcwFZ6jEMlgwZYJCeZB6wuWPsph7XynjqWefl/flcUMmhDGzx/g/0qjtH6s?=
- =?us-ascii?Q?kVqVBLo6ZChbvFC+t0ckfoX2qI/owTID6EIJV7uQPjZ5LpSf1xTToXZ+eb3E?=
- =?us-ascii?Q?MJUj9coPjNoYSCcif3JFFTXO4/5W1hFZ78VTMXp8QIb0pNv/Lh0UVUcHYXt1?=
- =?us-ascii?Q?ZJtwBLG2NxgWFMXaTDZ6RVmqCK3wTDZ8BGV0iLn1gAOqKhAxyXZtxbjUB8Wd?=
- =?us-ascii?Q?GjgYDY/wPtXl2eyeSCGp/ijlARjJ0qEjF6ML2AS+uuGtWpNLuQEMjpGPuLvV?=
- =?us-ascii?Q?e8weyZr2eFF4CzdqlKWgaDHH6QZCXlQUuGwUyMn3ZDbTRbxJJpUzaTgXAnV3?=
- =?us-ascii?Q?Y9CcSARMpqyjvaYjum7ezXYTz6XIJTKM546MwLdA7J/3HntDFZP20oLAVDod?=
- =?us-ascii?Q?YLhgFD9NXdhVV91CNKPIF0tLRaJtodCXaPwhiRPahOHDdjDfoqQM57QqGUI7?=
- =?us-ascii?Q?keuXLHVdWebnfsjYgWhwNewZhDrbgsL6yDY4f5j//S5psLlCumf5DcCko+7A?=
- =?us-ascii?Q?ksfU7HUal8gtiLLcTSigzXSLA/prUqaUcHi4Q5IRKikEvECEpQgNgkX74kDk?=
- =?us-ascii?Q?zYqrg8DaXyKu5Mjpp5Gaz8qteWF8zzGKeVGEmFKsS7w7spRQ6Q5IV07L7ZSD?=
- =?us-ascii?Q?cW3Cc4UwtPtOacwdjizCeCqt/eqdElwduMZu3PYvM5zWj29U1k2uxCoyardN?=
- =?us-ascii?Q?XzF/OJPFt4gJO7XXN/+qbGMhIIwiskt0ncY7EUxga7tQFSkYg9kONU9qlcWj?=
- =?us-ascii?Q?REYBfQrCRZveDflQuMMn8X2W7FGwHbY+4KMQ?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QS73YTzKBr+F4BqJPh1tM62ivTSt0yTYnqWU/olFaeFRMfleQRlHrVby/UFn?=
- =?us-ascii?Q?sQfCqYqTKyui/e9e8gsVEvk+61ShuhBlCd0jhHW+ND6xDAPg6GUCT4oMiZQ0?=
- =?us-ascii?Q?2Cg7b3A0Dc4Deko5xvY1fw1EbGnpAMb6yGUSOLnGAPbDeUJii1OMMKAcwZGf?=
- =?us-ascii?Q?elKGtd59xzeXppW6478Tox/2fxYPdJdNfGfNia45bB0hZ8rkKls8c23F85mn?=
- =?us-ascii?Q?n9sV83aQyMziQjjh1ss+LOPtwl0Ck0v2wNnfgRB23t6RjsIb2QldvmB50kDf?=
- =?us-ascii?Q?3MrQcmgX0B9HhTr5uCIN73m9IG9hZWHY8UHXeknd6O8dHphslIxH8QeE+/0v?=
- =?us-ascii?Q?5Oklf2eILFvKCq0FqabEhNxYwPG9wNYdWvAgtJYhQ4MrwethHwSu2AQoZH1J?=
- =?us-ascii?Q?Jw0y0QuWgfSFngqWksj9Dj/0oXI8WxAcIRGzBBKU7IEjKf6VWKjDh90Zc5pA?=
- =?us-ascii?Q?JXYNEf5SOXwu0OX0KfNg65j41MJ1EPvWQxgNlIIVBnJg32tlI+f8ZkfPAjEe?=
- =?us-ascii?Q?PXcNRljeXEyJAoQuwbdrs0VJwT4oHRaXpqTKekTPaZNQbUZD69lOxofwi1DB?=
- =?us-ascii?Q?tLZNdt3gV5QIxr9riOXY23KynaV+yrIZj2o2lcFKV9/M822iFTH5wNFsfg4S?=
- =?us-ascii?Q?s/N/G01jSAYr6cB6oIJp8zTbis6ex80RSS4nLLoOLP0vq2QeaXmkzlGGGtVZ?=
- =?us-ascii?Q?cqcaMpFkszRp/jRjNTiuLBLR/98nu9M4qjpy4SuEqA+QeAOumwljHP0mI6wy?=
- =?us-ascii?Q?b00FephSomGPqG4LoP3CVT968bNusMVZL9ozhHQda2oCQOltuyMG5l1GzgU5?=
- =?us-ascii?Q?gYyRaHeYeFBD+tMe8RTAEvzUL9ktBU2qwHVFuZXpImTVsZFQFzOY/RQY+0w/?=
- =?us-ascii?Q?3myM1oIUsDWdZoh5O79/e9VSmlk8mqjwttGjXDyVAK+G0fy1M7fzEzrVOLRm?=
- =?us-ascii?Q?HMAQaFC41kZ0w5dYlNSPsBJ+Zb7+5+aAWtjgxbViGgrMit8zX6gtqJEjj5sh?=
- =?us-ascii?Q?BKJyF4MH8dupRLKZcZ8YYyG4bqjwt0CJkqpzCGpfG/HWtdr915taYCsvWvgw?=
- =?us-ascii?Q?jsJpiAniS6rDENfw1myDRFsNyUUSfVKPHKOFkYf/zjK/+ofYRfjwBDc7TJGA?=
- =?us-ascii?Q?Z82QRaem4QkOwWIMER50jEL8IpF0FIpHPFnZIPR4ciyV47N+4NHxt/aIU73T?=
- =?us-ascii?Q?+w1QNyTVsCyWRbRwpRYguKUfWgJfZAydNAD/1iAccWjQW0hZpQI2RZ2hV7yh?=
- =?us-ascii?Q?0fYo767jWczBAD+VN+I6JU0Xp1GdnAGitRPWFl5rEgnwVNln4HG96oJV5TzJ?=
- =?us-ascii?Q?r/hnn/v5RvaL6x8md90K/Vwp+oa41v6n1BguyzkhTYy4/JHuaEVxoUyXvBfP?=
- =?us-ascii?Q?eO+6bqdggaMKyuZuMdQe1GuDG+UcMVQpTZe/iVw6z36b3n6AR9zGzixUG+cM?=
- =?us-ascii?Q?gRg3pfU8we3YTHfgi63APS6l4phMnV+cnvq+StleFrKZtV6ox4z+FyVqsIJN?=
- =?us-ascii?Q?fsEbc6aE0P2aFqus6KLIoX9HVs7BRxbAb+ypkfJPsHJQCnlBZ0FOCaOYdsTp?=
- =?us-ascii?Q?axlnZ2wGmUUc71v07D8=3D?=
-Content-Type: text/plain; charset="us-ascii"
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3266D10E719
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 08:07:20 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-b7042e50899so79299966b.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 01:07:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761725238; x=1762330038; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=0OrFXF36VhEXULs+xM5uUkEctAGjAeupmgro1NFT1Yo=;
+ b=BvJtoOPXOwR1pJtToAszXCWMAe1w5ZK08wTsAZYORB6Hjeg64+1aT2Pz7uelzrS5nX
+ BQycSYfbcB4nPKVhM0qhVGdzR9fZUf9REDMV4BARXnYmzvJbTqs+4EFAT1jGPB7WfClx
+ SvkgeKZSM5BoPbtc0wBYwAAG02r1MM3brNff+Ea/nzVyfylq5hjTQl/a5HUQpGy225Oj
+ 0JsvziakFkmmLWqQvVNmTCMk/GFD7GyUh8d6+q042XXSF5355+CTpdOt2zpJonJMTUwp
+ 4qAsbD6hm9Ux5H45tpj+bLQ6OzymSMDkFUoFU0WVl2Zo/y1igJDjkztnlC173plsafRP
+ +dgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761725238; x=1762330038;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0OrFXF36VhEXULs+xM5uUkEctAGjAeupmgro1NFT1Yo=;
+ b=hvxrcreuh8WGCV1e4ZSyXS3s75ISytv9lSlfjqaA2HwBZkCaNQWZdmVrIwriayPeS8
+ 7Q76VxUGOJoCQmUpaEl5c8gQjab66sbMhSaJHCnL9D97ytQpIvXj7b7CHDR3F7agOppC
+ UMtsshCyuzVOwFh9Z1Ish8bloiEERbPnd2WcvaIsHUXlJj2V/aZUpJdyLkjpTbB5Wzxt
+ 0lW1180R7bTmSCQ9kT36vBjtB22zVIDRjgBSjq8PTK6RZxdBtJzgew2xljmO4eGCWJfX
+ RWLzpgg5L9qsvk4h7GcbT4KhzRedz4xHMKXiHHwuP4xCqZN5P6/ocKBaoU2i7xZ/SMuI
+ kWVQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV7dFbfU2tCQ/dDzOLkEpBuIcKEkDnraFFTSj/dT3Tf3hX/1Hlhqc2lHnQX0mwLPbutX2u9p2oH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzHXyqdxVHWBnCE9WRiafWdbdOpCLRg1MFpYsbwtXnt7k/3Z/Lx
+ sPnBBp6+yKY54CAHbMp1qsmaHobW3tMd+Nms4QJfvirjJG4ghQRc+0gK
+X-Gm-Gg: ASbGnctSQ1W79VtvXfUsb/Rk51iS1Q15d4N5p5XZ+Pex9/Whr9Pkad56ttwukCEwGVb
+ /n5KZwDPGYdH/MPG3wOlSwKv+71l8QQ/6iw5OjgbBkt92+AgyCBWwfr/mlqxee3wv6pVWpOfSAE
+ IeC6sGU4AnH37othpuON3fHIYsXvDhOlp3xFLOJ9STX2JcLzuNvSrg83gbmA2JbBpM+qnKnfPEg
+ T96MOFv+0PhzLgw6Ybn311fhmfC9oU8n4WfKFeIIB9IX5RYb0h9d1Unq85T3+p1J7PQNW7cxffk
+ iC8KrJEQayYwKrqU3Yjoscsx42m8lAifQWVhmxjTJFS3xWzt64HpzT7Ba/8E5tOfoxI3+4gI981
+ 8d6tMo7orZ62g7sMegmRwt1TTAXQg9iYR0B4AEuKoCTTEqeLo+aCrvyEezYSUGMEyMrET9o+p9d
+ hWn4hoFmnjQpcF6gLLScSJP2g5A9qCxgQ2dxlwgE5TFiXYhBqyPQmpeLJbo7wfEm82E8iUV93gt
+ fNc3cQpHtlLeWh7h1QcPO2smBQueM8SrDlZENMw5uAn
+X-Google-Smtp-Source: AGHT+IGr+BqJTX/YCuAukrdVUZgab3ewSbC4v+K7y582bbHHo3kd96iQ76HnIMJ19C31Pl+RQmkkSw==
+X-Received: by 2002:a17:907:f496:b0:b33:671:8a58 with SMTP id
+ a640c23a62f3a-b703d492fe1mr180805366b.37.1761725238358; 
+ Wed, 29 Oct 2025 01:07:18 -0700 (PDT)
+Received: from ?IPv6:2001:4c4e:24cb:f700:23e8:3719:bda9:8268?
+ (20014C4E24CBF70023E83719BDA98268.dsl.pool.telekom.hu.
+ [2001:4c4e:24cb:f700:23e8:3719:bda9:8268])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b6d853c664asm1345292766b.42.2025.10.29.01.07.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Oct 2025 01:07:17 -0700 (PDT)
+Message-ID: <0756e73047c861ccaa326134e723d09722fe5ccb.camel@gmail.com>
+Subject: Re: [PATCH 11/13] drm/amd/display: Fix black screen with HDMI outputs
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Ray Wu <ray.wu@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung	 <chiahsuan.chung@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler	 <daniel.wheeler@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung	 <alex.hung@amd.com>, Mario
+ Limonciello <mario.limonciello@amd.com>
+Date: Wed, 29 Oct 2025 09:07:17 +0100
+In-Reply-To: <20251029030935.2785560-12-ray.wu@amd.com>
+References: <20251029030935.2785560-1-ray.wu@amd.com>
+ <20251029030935.2785560-12-ray.wu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d67ad170-4c09-4d72-f704-08de16bf7221
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2025 07:47:44.2026 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ch19wa7Px0OVvRAK0RtqePjVwUA4v5cmH9rs/WF7wB5yI+Ns3/Xf5GlezTksjYG4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9081
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,72 +98,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi,
 
------Original Message-----
-From: Chai, Thomas <YiPeng.Chai@amd.com>
-Sent: Wednesday, October 29, 2025 10:43 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
- Li, Candice <Candice.Li@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.co=
-m>; Yang, Stanley <Stanley.Yang@amd.com>; Su, Joe <Jinzhou.Su@amd.com>; Cha=
-i, Thomas <YiPeng.Chai@amd.com>; kernel test robot <lkp@intel.com>; Zhou1, =
-Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH] drm/amd/ras: Fix the error of undefined reference to `__ud=
-ivdi3'
+On Wed, 2025-10-29 at 11:02 +0800, Ray Wu wrote:
+> From: Alex Hung <alex.hung@amd.com>
+>=20
+> [Why & How]
+> This fixes the black screen issue on certain APUs with HDMI,
+> accompanied by the following messages:
+>=20
+> amdgpu 0000:c4:00.0: amdgpu: [drm] Failed to setup vendor info
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 frame on connector DP-1: -=
+22
+> amdgpu 0000:c4:00.0: [drm] Cannot find any crtc or sizes [drm]
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cannot find any crtc or si=
+zes
+>=20
+> Fixes: 99ff9bc57b02 ("drm/amd/display: Fix DVI-D/HDMI adapters")
+> Suggested-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Ray Wu <ray.wu@amd.com>
+> ---
+> =C2=A0drivers/gpu/drm/amd/display/dc/link/link_detection.c | 5 +++++
+> =C2=A01 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> index c417780f37bc..e8566a5218fc 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> @@ -1252,11 +1252,16 @@ static bool detect_link_and_local_sink(struct
+> dc_link *link,
+> =C2=A0			sink->edid_caps.analog)
+> =C2=A0			sink->sink_signal =3D SIGNAL_TYPE_RGB;
+> =C2=A0
+> +		if (sink->sink_signal !=3D link->connector_signal)
+> +			DC_LOG_WARNING("sink_signal (%d) does not
+> match connector_signal (%d)\n",
+> +					sink->sink_signal, link-
+> >connector_signal);
+> +
 
-Fix the error:
-drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/amdgpu_ras_mgr.c:132:undefined re=
-ference to `__udivdi3'
 
-Fixs:b5bae0f01786d("drm/amd/ras: Add amdgpu ras management function")
-Reported-by: kernel test robot <lkp@intel.com> Closes:https://lore.kernel.o=
-rg/oe-kbuild-all/202510272144.6SUHUoWx-lkp@intel.com/
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+We should not print warnings for things that occur during normal
+operation. Warning is incorrect because the different signal type is
+normal and expected on certain connectors, for example:
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu=
-/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index 8007e49951d8..d09c4a75a7f4 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -37,7 +37,7 @@
- #define MAX_XCD_NUM_PER_AID                    2
+- DVI-I: the signal type may be DVI (dual or single link) or RGB
+- DP: the signal type may be DP, DVI or HDMI (for dongles)
+- HDMI: the signal type may be HDMI or DVI (without native audio)
 
- /* typical ECC bad page rate is 1 bad page per 100MB VRAM */
--#define ESTIMATE_BAD_PAGE_THRESHOLD(size)         ((size)/(100 * 1024 * 10=
-24ULL))
-+#define TYPICAL_ECC_BAD_PAGE_RATE (100 * 1024 * 1024ULL)
+My recommendation is the following:
+1. Change the warning to a debug message (DC_LOG_DC)
+2. Move it a few lines below where the sink_signal is determined.
 
-[kevin]:
-Please use Linux SZ_* macros instead of hardcoded value to make code more r=
-eadable.
-e.g: 100ULL * SZ_1M
+Thanks & best regards,
+Timur
 
-The patch is Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-
-Best Regards,
-Kevin
-
- #define COUNT_BAD_PAGE_THRESHOLD(size) (((size) >> 21) << 4)
-
-@@ -129,7 +129,7 @@ static int amdgpu_ras_mgr_init_eeprom_config(struct amd=
-gpu_device *adev,
-         */
-        if (amdgpu_bad_page_threshold =3D=3D NONSTOP_OVER_THRESHOLD)
-                eeprom_cfg->eeprom_record_threshold_count =3D
--                               ESTIMATE_BAD_PAGE_THRESHOLD(adev->gmc.mc_vr=
-am_size);
-+                       div64_u64(adev->gmc.mc_vram_size, TYPICAL_ECC_BAD_P=
-AGE_RATE);
-        else if (amdgpu_bad_page_threshold =3D=3D WARN_NONSTOP_OVER_THRESHO=
-LD)
-                eeprom_cfg->eeprom_record_threshold_count =3D
-                                COUNT_BAD_PAGE_THRESHOLD(RAS_RESERVED_VRAM_=
-SIZE_DEFAULT);
---
-2.34.1
-
+> =C2=A0		/* HDMI-DVI Dongle */
+> =C2=A0		if (sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A &&
+> =C2=A0		=C2=A0=C2=A0=C2=A0 !sink->edid_caps.edid_hdmi)
+> =C2=A0			sink->sink_signal =3D
+> SIGNAL_TYPE_DVI_SINGLE_LINK;
+> =C2=A0		else if (dc_is_dvi_signal(sink->sink_signal) &&
+> +			 dc_is_dvi_signal(link->connector_signal) &&
+> =C2=A0			 aud_support->hdmi_audio_native &&
+> =C2=A0			 sink->edid_caps.edid_hdmi)
+> =C2=A0			sink->sink_signal =3D SIGNAL_TYPE_HDMI_TYPE_A;
