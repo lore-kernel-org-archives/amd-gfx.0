@@ -4,70 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85632CCF9EE
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 18:14:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7276FCCF9EB
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 18:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 311EA10E162;
-	Wed, 29 Oct 2025 18:14:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14B0210E1BC;
+	Wed, 29 Oct 2025 18:30:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="azK2wFlt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xzFKCAx0";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F07A10E162
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 18:14:05 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-290aaff26c1so231895ad.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 11:14:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761761645; x=1762366445; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=adNQ/qV5F+oE2BT3bdy3A02449jZb7vSfsDpu1ZxqbA=;
- b=azK2wFltL4pQ0eMdK3qHbIQDaiwmO2rBL8Ws9dtqKLIb9SariO2CKLUhwjVrojqCHX
- 9x4PvLUn1iBq/Stw80nOySY/Qa+e1+KxAEM1bzhBa3wpodmJ7uMA4b2wcIGRbN47F6GP
- PQYmz8ndIgigYSbnG9uDvCkzmntqvSCPFHBtcHHaSP8+HBKgSXOO4B8UEl95IYnWtG+1
- UcNs2PvF/5PSX9VgKzaQt+10yT1xOxv4VqpuIB93wtRfSMdLAI0uG1U1AYlMMX90CEtM
- bIa7xQtUofdvsg/ht/ZtOgWtATjHy5VK7IvNbnhKmXT9bh+rU6thuxKv8wXCdIcSuc1X
- QtYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761761645; x=1762366445;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=adNQ/qV5F+oE2BT3bdy3A02449jZb7vSfsDpu1ZxqbA=;
- b=BvPnwWHZOJMv1Pxj/ohYXqETCUDT7H9oovnlxvwlCo1hdNLXCusIeuYv6U/pA4xnK9
- 8L010CuXqtjOpJKq1WpXfDRis/K0XAZ99JkDSZWAK4UraR+aRpPcQfq650XDz+ATJMqh
- ohvtiOyN/FXtA87oHb3mSo2NZhFOHyQRBQIhtXAjSlApV5uWKvuASK6KVSQzVYyM93/D
- fpfxozlGKWGcvMqnWWynKQmam2ITKZLRZjNNwa0R2/oHDNpPtGqibkvYaasYVdgUs/iI
- tP6ZV+H42Bd8h+aJQwUtFmzeHj+jm+M9BS30czDzDemnCNHjvOCvYoyz8sIlvfmZCCHl
- zWvw==
-X-Gm-Message-State: AOJu0YxzJc1XohYV91nH3mtMD2WxT9m077Dh1cKLE/cqIfbcy7/MoqiL
- 5ux9MYxQ8jNDmSE/TRyqFuloAZW3MjU93IIg0TZDBDzF+AIpR/LiRLCz0mVZb5VEuVeMe/C11Bd
- n8BiWv53B46V6+ZmI0hOFKQp4ahtIxYI=
-X-Gm-Gg: ASbGncveuoDOlZCnAc4gavwLjGcrGFM9lJD7TLUhMS/OhT5dN1u/8VCBu6YsjRP0s5W
- kJ9NQC13xp1bIjuMgNX65AP9qTSJGTGYNe7GbXG/ahqbrPwzQAhWEUTxdiVvRcH6cqqMjtsLZ7i
- lvy1AAMPHeN/Jb36/Lzv4f66ICKB7Z94JJ14/pR8eCUhEYxBxl/1hbeJ3lXr5rrTqBOqK4I0M/F
- wN/zm5fX/0T3NbJx/52f0BuvEgUT3bPZwkB8S6aFrAseqRfLdR/2JGsWxMl
-X-Google-Smtp-Source: AGHT+IHgmCS4JX3t3uB2xRtWyn8rjIjKgxi/4dW34cR46Tx6gILXujmbiixxVjqW9QSB2wutpeBE1USs6LqYbfZK7pQ=
-X-Received: by 2002:a17:903:2f85:b0:27e:e96a:4bf with SMTP id
- d9443c01a7336-294dee178a1mr24769835ad.2.1761761644373; Wed, 29 Oct 2025
- 11:14:04 -0700 (PDT)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011067.outbound.protection.outlook.com [40.107.208.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E77210E1BC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 18:30:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ANARhvZVIUHIAgb4icyx9/+vVD4kK/jZwBZndf9Nv/xE3p1v1cOxuOhndQ9U83VSNiagkfk0r8ztkhG134k3HmOsLxlhriLUARbJB+DM/0hYyy4wZ4JVRVpJZXiwxSCSAS1S8mBiv+mH+IK2QHPytBBC1bLio87vDxsl4L9fapq/yMJQ9GuBDmG5/pF2lQp2hQn4Renf9jpQ2cobdBNJnh52uYTucgyloLXvsNMGswLV7mOHIPHevtNj5xQG315Ae4TJ4fiTEPifm+IvUpe0HhEnrG+98ACJ1/6gwK9kCQ0Xeoi3Ur9WUmJLYY7BtcvPT+XHhibtQKA1Y577fYNzng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vHMhVAuEpqWYu2GRM8u0AGixFs4pWRYfdspAvJvA2tk=;
+ b=mWNovOC2haOEu8g0OqYTsc9e0e9PP4FtONL9IF5iVWpXR25iPyZjUIMHnx4OrRIFKv/EhY0LU5UnC2lqzfRuG2m2ifyxGcqsWKqs9piW6GPbWSjIbvVNpaPI8si72UVgXERSbm+SXpRfLquInkorXDKoPyYexygxFTGDN0HHBsHi/9EOpDKzBphn4T+o52SwapTv6ZR1YadCUykvgYiIt4mTfdjT9Bc0BFPOIt9NBd565+jAyF1qgD3zYU4sFIsECvEthY4L03j3cCXYJtPjIT/qDhABEAMH1hW5+keJlkSN0ME4qeUGhVJKnK0qwOl0B9j1RTGtAJd+OdDA5FvRzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vHMhVAuEpqWYu2GRM8u0AGixFs4pWRYfdspAvJvA2tk=;
+ b=xzFKCAx0HRr+1WlpRjuOfByStWVe+iuE+qkPVPVp5mh2UMrwGEVR7im0tTf7oz43E6g9yAgYeceQFW6UmLo3K5V4t33HinqePIxyNMuNvcWz7rA6LRPeKtd0c8slMVK21q/iNmvFeLz85Zez/T0iZ/p3grvkqYG/jHx8bNpOIm0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CH3PR12MB8970.namprd12.prod.outlook.com (2603:10b6:610:176::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Wed, 29 Oct
+ 2025 18:30:31 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::9e93:67dd:49ac:bc14]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::9e93:67dd:49ac:bc14%6]) with mapi id 15.20.9275.011; Wed, 29 Oct 2025
+ 18:30:31 +0000
+Message-ID: <e8d1205d-ed53-4fef-9075-2209a5718d8e@amd.com>
+Date: Wed, 29 Oct 2025 14:29:10 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix null pointer on analog detection
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20251029161607.401452-1-harry.wentland@amd.com>
+ <4b4aabe98541494474296d6f2062482dcfd9c193.camel@gmail.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <4b4aabe98541494474296d6f2062482dcfd9c193.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN9PR03CA0349.namprd03.prod.outlook.com
+ (2603:10b6:408:f6::24) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20251024094445.3090110-1-Jesse.Zhang@amd.com>
- <20251024094445.3090110-2-Jesse.Zhang@amd.com>
-In-Reply-To: <20251024094445.3090110-2-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Oct 2025 14:13:52 -0400
-X-Gm-Features: AWmQ_bnAj7h-qGzyvxvAwuz1t7TYc-N6RtjVUVrdcPeO4imHqhP9jiB1qJ6W07M
-Message-ID: <CADnq5_PMvfkcTcK9EKTc5PwLO3GEJKxOU2rL02CC6LiPKM51OQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/amdgpu: Add user queue reset mask support
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH3PR12MB8970:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf6bdbe5-a645-4298-9da0-08de17193d90
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dzlZRmZVR2t2bk9OR0dSc1hEbnB6YVd3OWRHYnFwbW4raWdLeGtPZEdGSmJ3?=
+ =?utf-8?B?blpUeEFwMWx2RHlDUkxRRmNDZzhTbnoyVEVVYXdibCtnM3F2eDZsbjZhUXlQ?=
+ =?utf-8?B?UFZtU1ZsQk9jbnBWdm5EbG5lUEhaaERmMnlQYVpxK3N6VGVnTERhZjl6V25q?=
+ =?utf-8?B?Nm9ycUJmZVk3UnNLeDZtN2pCSDR6cS9LdXF5eWdQbHhXYmhyek0wYjRBTFlV?=
+ =?utf-8?B?TWFmeFgxZkViQWF3NXdiOUJYYlJLS3VjVkFiY0paMjZqZlAzbk9GM0ZRK3NM?=
+ =?utf-8?B?eE9CNVRYMDlkU1RldXZxRUVKc1VpYkJxVUlieFZTQVRKTHlDa28wenExejVO?=
+ =?utf-8?B?dUxKZmh3eXhKRVk2R1djTGlsbk5ob2NYUkJPdmhqbjZBNURuZ1AvUndZU3dN?=
+ =?utf-8?B?N05MWisxNm9ldzZ4TnJxTTIvWkRPVzJpTFJ2RCtWdHRHZTZzR1Y4RlJWRWdF?=
+ =?utf-8?B?ajJ5SW10NW5EbUZKbkZ2U2dCMVQ3S3RhUFBJSzZ0L1JsRHhablpTeFRCNkdD?=
+ =?utf-8?B?Wko2NmlVRFg3VXVNOHl3TGhOeUtEcVNQN2ZCcHg0Y2NCbEd6SXh2Z2tibCtN?=
+ =?utf-8?B?U3lCQ3NPdmhveWZlMWhEQ0xOa3MybzQ4bGRpSjF6d254L3BJcUJ2UnF2SXBB?=
+ =?utf-8?B?Z2hzQnBRNkJuSHAySVY1bUlkZkxpZVNDU1Y0K0lPdjhtandzSGpobjJLY0g5?=
+ =?utf-8?B?MmNic09hVDVwWjFyeGsxcVF6OHQrbC85MkpnZkxqNE9jMjk4bWh1Vm84Z05P?=
+ =?utf-8?B?TjAydy8vckM5ejRZaGpPSEs4S0NrYW1lMHJPZmhtYndLVFpsS3Iva01tZ0NJ?=
+ =?utf-8?B?K1VpdkdFZ08vZXFxMGlUdzlCZ2h3S1dkSkl5ak1QbnNaNWEvYU15RW9OOGpo?=
+ =?utf-8?B?akF2bTdwNEJYSDk3UHV4TU9PRmIweUJnMENjSm95eHAyWTJId2szTFZIandO?=
+ =?utf-8?B?bXRaeGxtcS9DYkVvd2YzTDd4WmRWd0dkWFl2emxjTkgrMkJ2aUJ0SHg1Wi9q?=
+ =?utf-8?B?aDhqZU5ETVp3UWJkVnBzeDFuUmpnQVBrelFRenhlTXJ3cHhxNEFVK0pneE5Y?=
+ =?utf-8?B?OWZtVTgxb2VrMDhaenBtcm1qT3MvRFd2QWtHbUoyNGdmVksxNEMyZU5rUnl5?=
+ =?utf-8?B?aGlzTzhqdDNHSXlVcWV1MHRnbHpQdXJCem5BMlJPdERyMXo2TmloWHpkRUwy?=
+ =?utf-8?B?bHNlTFgvS1NmdTJ5cFZNQjdIUHFqdTBxeWZlZytGZGlpMklSMm9rTENUQm9Y?=
+ =?utf-8?B?bE9waVVESzVtUUJId1ZCeG1nUHU3TWtNU2trRXlIUVRPck9TTno1bEJSZlNZ?=
+ =?utf-8?B?VVFmWkt4c0xQNkp6R2E1SFUrK25mNzlCcjZGbWxMbHJiM1NLYnM4Y1h4RHE0?=
+ =?utf-8?B?K29rb21YUU93ZUVrcmZXL2V5Yy9ndE84L0NCTEgrOVMweDdrNG1yWW5LUWd4?=
+ =?utf-8?B?aUxxRnR4ZVpTV1NHcGIxUFZOKzNOSERQZzkzRnBUUEM2NEVZckVaMit0ZVIw?=
+ =?utf-8?B?WC80aks1ZVNUT2V0TWF6clBVU2tIczV3dTFRd3Jxb2EzWHNXL0VjRUlaT1ln?=
+ =?utf-8?B?OWVPNnhCQm42cERFRXMxTXBDcHlaMXRMRWlrNjNvc0ZLWUpFRGlMUkYvVE9q?=
+ =?utf-8?B?K3g1QnVJb2pFeUZsR3BncUQ1QjZDdk01eXpZTnZaa2RhL210ZjkyUEhSYml1?=
+ =?utf-8?B?RUtGbkN0K1RPU0NzUFpIVlgyS3VOVVU0eWxiOHYwRlB2a3NZN3lKWFpORmIz?=
+ =?utf-8?B?dXR2RWJSZFpZdEFIV1EvSEdQVmdCLzZnUHRnTnhJaWhqTTkzdzVxOEwzeFVT?=
+ =?utf-8?B?WEx3b1lEOTFVR2NOdTVzaHQwSStGY29URUJLaUtSWmVvTkwxR3VPbndrZUJU?=
+ =?utf-8?B?SEdHOWFLRGV3WjZ4RWxVa2pMWkhpYnhTN3R4c0N1VzA1RnE4S3ltajBYWHdI?=
+ =?utf-8?Q?Ko2ezWIGGPpmJVKOKCG6s2OkVhySgiER?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TlFPSzViY0JvTEU5Z3JUQ1VNMzZSNTlaNWdaVUltblJVWFVmK1NsWXp3UFFh?=
+ =?utf-8?B?UWxFTGFURXBhRGNaN0ZqQ0puR0dUN2loSmtNQThEU3FHZU8vS3pCNVB3Z3Zu?=
+ =?utf-8?B?M3hyWGlnMWEvanVnTzBSaFl1OWgwL1RFRnovbUZXSjJ3eFI3OVBrMWhiZnZT?=
+ =?utf-8?B?K2hHWnZYbFY5NlYwcEVCTEdONG1QVENiSlNDSTJJUXUrc0o0V3dUeGdDV1d6?=
+ =?utf-8?B?YVVXcVRzU0EwNkNiRlBjcXlmeDRjRW1YN1dESXhOS21XM3U1L05RUDZGY3ZX?=
+ =?utf-8?B?Wmx6d0I5Y2FoVlpiMlBnV1BTTzVTNDI0ME0zNlh1cmsxWmtXK1RqeENabDVW?=
+ =?utf-8?B?V0ZhdkNhZVhuNUZwZjIySGdYVUdJNVJFeHJPY3hkcTNqbjhISTErNVN0dlhV?=
+ =?utf-8?B?WUZBWEo3MWxjdVltcW8xbktwRUZCMzh4RngybzZMMzVHaVhaRFBvVk5TR0Y0?=
+ =?utf-8?B?dFVaRkphaVlrZ0V2QlRiSTB4ZUJtK1lVa0JLai8vdEZRSksrdXVXWFhOQVRx?=
+ =?utf-8?B?UGtZQXBBaU1QK09YNTBkMjgwd2FVL0hsSkJlM0JSczBPWEtzYlQvbkU3S2dz?=
+ =?utf-8?B?SFdHVDBLVFJMdUxjQUtud01IQkxPYmpmUGh3UElNaGJvN0d0STk0dUgyakRs?=
+ =?utf-8?B?Vi9ldTJaMW9Tdys5MjZySFlSZ0NEUERkb3hZdU0yYWpaTXpiQVZyYVVROXQx?=
+ =?utf-8?B?WHJFbDdWZGp2TDhpRGd0bkcvVmJLaHgyVUFzV3hTdytwUFcyNXFKYWpXRWpP?=
+ =?utf-8?B?RnlFY3l6RFg4SXo3MlJ0ay9MQmdMNEwrZ2o4MWgvbUxXSXNvNzFiT3NLMmoy?=
+ =?utf-8?B?eDJpSU5maE1lcFRnSjRDdjZwZW9yalQ4QkdLcEdJT3dYT1BJeTh4L2ZkWmRK?=
+ =?utf-8?B?YXkxRlV2cThPdWhYUmN2OWFjVkUvRWZXQnVGZUZnQU5ENnkrclR1azZkQ0Q2?=
+ =?utf-8?B?NnhNY2dBcWpoOHo2SktPTVlPcUllWU80b1ZySG9hdk1vT1lNMTVydmNNcTJ6?=
+ =?utf-8?B?Q2J1Q3RtUVJxZ05hU1RCWk11eXJka1pEdWJPclgvcEhaRnZ2WjlqMVcxK2dq?=
+ =?utf-8?B?YjhNd3djSVJmVGFudE5HdGZMUGM4YmZkREs1a2xLYXUvNzlkQ1FsdWV4U2Ry?=
+ =?utf-8?B?K0dwZlpXZXY3RHlJWVBTRmNZbUpMaFZOU3hubWZlWGdMbGd6WUtaVzRBdzgr?=
+ =?utf-8?B?QXlKUUpHYUJiL0tNNjJ1QUdla3JDbXFIM2dTVkJ6eTNWb0ZvaVROdFVIWnhD?=
+ =?utf-8?B?RGcvZnlIMnpBNVpWanJDQzFqeWl0ZWdOcmtwRGdWMEgwcUtZTGkzMVN3VWly?=
+ =?utf-8?B?M28vdVpURlhTMXpJMVZXUWs2QXV6SGVjN3M1YXZBU3RvaXU3WTZ2UFRrbTNS?=
+ =?utf-8?B?TUszVS9xbEpnSFY1TzlVVk9hZmhKZms2TTd2R0pzQmN0bUZ2Y20zd1dlSFd2?=
+ =?utf-8?B?Q2V5T0UwYlh0OGJibmQxSEMzZXRFTE9lRXZveHhwRlZxWm94RWVwaVd3U2ow?=
+ =?utf-8?B?Q2pFbzgxb3hEZ2JVRHZlS204eVVIaVlhZ25taEJQak8vQm9rdk43dTZhSEhl?=
+ =?utf-8?B?Q1Q4b2l4VzZjd2NIUUZ2UUJsRFRIZFA1RjZnSVJPQ2VEVitKUTZjOUdscW5q?=
+ =?utf-8?B?T09BZGc3bnRrMWZwdk1Fd3VQenFnYTJ0eTBDdWVQWTN5WWloWm01UHZxRDJl?=
+ =?utf-8?B?RGFHYkw0YVNjaTI5dSs2a2w2bHp5SFR4Z3ROb3NmZDVFNGJoQjVYVm9jYWg3?=
+ =?utf-8?B?VVVGRWJQOFExekZEVVZ3RDRkelExSmI3bnlaZFNmdWlIbmEvNWx1OUF1UlFn?=
+ =?utf-8?B?YWYrM0xzeEwzLzZPWXVKOUM3ZmFwS25Kd3F0VHM5NExWUDJkWHR5VGg3ZitN?=
+ =?utf-8?B?RWNSODFQZmIzK2F2bUFCZkdVU0xkVHRSZkhrSDlpWE0yOTZzeDY4SmZvcWNw?=
+ =?utf-8?B?QmFrelVUaHJtamtaelN4eHEweG9EVlZFaGd5OFY0Z2tWcG5xVmpiR3VJMVA4?=
+ =?utf-8?B?ellIcElvSE85UWFhZlZVV1l5ZEx5dGJaQ0ViZ1lKNk95MTFQbHdXRkEyTWtx?=
+ =?utf-8?B?UkZ3NjVjaVd0THZuQit2Y0lBRUdCWmpKWnIxb3FocnlNYjZBSm5ETEFYWUhk?=
+ =?utf-8?Q?nzt7dULD3I6P+oWxou2QCqQKv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf6bdbe5-a645-4298-9da0-08de17193d90
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 18:30:30.9388 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KGc5NOXpgz+NnlMjAaNGdNV03CgCGeQoKl5S+BlCvGcRf7ELbXJ/kxW4Ty6k90Q/vPxKKvPx9Q6uGrK8UO7NoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8970
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,476 +161,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 24, 2025 at 5:45=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
-rote:
->
-> This commit adds support for tracking and exposing the reset capabilities
-> of user mode queues across different IP blocks (GFX, Compute, SDMA).
->
-> These changes allow userspace to query the reset capabilities of user
-> mode queues and ensure reset operations are only attempted when supported
-> by the hardware and driver.
->
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 17 ++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 44 ++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c   | 21 +++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 13 +++++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 17 +++++++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 12 ++++++
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c     | 34 ++++++++++-------
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c     | 24 ++++++++----
->  9 files changed, 163 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index d0fb4eb1d7c4..48b21863065e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1182,6 +1182,7 @@ struct amdgpu_device {
->          * Value: struct amdgpu_usermode_queue
->          */
->         struct xarray userq_doorbell_xa;
-> +       u32 userq_supported_reset[AMDGPU_RING_TYPE_MAX];
 
-I don't think we need a separate userq_supported_reset array.  Just
-use the existing reset masks.  We use the same functionality in both
-kernel and userq cases so I don't see a reason to have a separate
-tracker.
 
-Alex
+On 2025-10-29 12:54, Timur Kristóf wrote:
+> On Wed, 2025-10-29 at 12:16 -0400, Harry Wentland wrote:
+>> Check if we have an amdgpu_dm_connector->dc_sink first before
+>> adding common modes for analog outputs. If we don't have a
+>> sink yet we can safely skip this.
+> 
+> Hi Harry, nice catch!
+> 
+> Out of curiosity, how is it possible to reach this code when the
+> dc_sink is NULL?
+> 
 
->
->         /* df */
->         struct amdgpu_df                df;
-> @@ -1612,6 +1613,8 @@ struct dma_fence *amdgpu_device_enforce_isolation(s=
-truct amdgpu_device *adev,
->                                                   struct amdgpu_ring *rin=
-g,
->                                                   struct amdgpu_job *job)=
-;
->  bool amdgpu_device_has_display_hardware(struct amdgpu_device *adev);
-> +ssize_t amdgpu_userq_get_full_reset_mask(struct amdgpu_device *adev,
-> +                                   int ring_type);
->  ssize_t amdgpu_get_soft_full_reset_mask(struct amdgpu_ring *ring);
->  ssize_t amdgpu_show_reset_mask(char *buf, uint32_t supported_reset);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 8480b72258f2..a0064c5314df 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -7649,7 +7649,8 @@ ssize_t amdgpu_get_soft_full_reset_mask(struct amdg=
-pu_ring *ring)
->         if (!ring || !ring->adev)
->                 return size;
->
-> -       if (amdgpu_device_should_recover_gpu(ring->adev))
-> +       if (amdgpu_device_should_recover_gpu(ring->adev) &&
-> +           unlikely(!ring->adev->debug_disable_gpu_ring_reset))
->                 size |=3D AMDGPU_RESET_TYPE_FULL;
->
->         if (unlikely(!ring->adev->debug_disable_soft_recovery) &&
-> @@ -7659,6 +7660,20 @@ ssize_t amdgpu_get_soft_full_reset_mask(struct amd=
-gpu_ring *ring)
->         return size;
->  }
->
-> +ssize_t amdgpu_userq_get_full_reset_mask(struct amdgpu_device *adev, int=
- ring_type)
-> +{
-> +       ssize_t size =3D 0;
-> +
-> +       if (!adev || !adev->userq_funcs[ring_type])
-> +               return size;
-> +
-> +       if (amdgpu_device_should_recover_gpu(adev) &&
-> +           unlikely(!adev->debug_disable_gpu_ring_reset))
-> +               size |=3D AMDGPU_RESET_TYPE_FULL;
-> +
-> +       return size;
-> +}
-> +
->  ssize_t amdgpu_show_reset_mask(char *buf, uint32_t supported_reset)
->  {
->         ssize_t size =3D 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 3d24f9cd750a..5597753ec61a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1826,6 +1826,32 @@ static ssize_t amdgpu_gfx_get_compute_reset_mask(s=
-truct device *dev,
->         return amdgpu_show_reset_mask(buf, adev->gfx.compute_supported_re=
-set);
->  }
->
-> +static ssize_t amdgpu_userq_get_gfx_reset_mask(struct device *dev,
-> +                                               struct device_attribute *=
-attr,
-> +                                               char *buf)
-> +{
-> +       struct drm_device *ddev =3D dev_get_drvdata(dev);
-> +       struct amdgpu_device *adev =3D drm_to_adev(ddev);
-> +
-> +       if (!adev)
-> +               return -ENODEV;
-> +
-> +       return amdgpu_show_reset_mask(buf, adev->userq_supported_reset[AM=
-DGPU_HW_IP_GFX]);
-> +}
-> +
-> +static ssize_t amdgpu_userq_get_compute_reset_mask(struct device *dev,
-> +                                               struct device_attribute *=
-attr,
-> +                                               char *buf)
-> +{
-> +       struct drm_device *ddev =3D dev_get_drvdata(dev);
-> +       struct amdgpu_device *adev =3D drm_to_adev(ddev);
-> +
-> +       if (!adev)
-> +               return -ENODEV;
-> +
-> +       return amdgpu_show_reset_mask(buf, adev->userq_supported_reset[AM=
-DGPU_HW_IP_COMPUTE]);
-> +}
-> +
->  static DEVICE_ATTR(run_cleaner_shader, 0200,
->                    NULL, amdgpu_gfx_set_run_cleaner_shader);
->
-> @@ -1845,6 +1871,12 @@ static DEVICE_ATTR(gfx_reset_mask, 0444,
->  static DEVICE_ATTR(compute_reset_mask, 0444,
->                    amdgpu_gfx_get_compute_reset_mask, NULL);
->
-> +static DEVICE_ATTR(gfx_userq_reset_mask, 0444,
-> +                  amdgpu_userq_get_gfx_reset_mask, NULL);
-> +
-> +static DEVICE_ATTR(compute_userq_reset_mask, 0444,
-> +                  amdgpu_userq_get_compute_reset_mask, NULL);
-> +
->  static int amdgpu_gfx_sysfs_xcp_init(struct amdgpu_device *adev)
->  {
->         struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
-> @@ -1928,6 +1960,18 @@ static int amdgpu_gfx_sysfs_reset_mask_init(struct=
- amdgpu_device *adev)
->                         return r;
->         }
->
-> +       if (adev->userq_funcs[AMDGPU_HW_IP_GFX]) {
-> +               r =3D device_create_file(adev->dev, &dev_attr_gfx_userq_r=
-eset_mask);
-> +               if (r)
-> +                       return r;
-> +       }
-> +
-> +       if (adev->userq_funcs[AMDGPU_HW_IP_COMPUTE]) {
-> +               r =3D device_create_file(adev->dev, &dev_attr_compute_use=
-rq_reset_mask);
-> +               if (r)
-> +                       return r;
-> +       }
-> +
->         return r;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.c
-> index 8b8a04138711..2fb288b2bfc4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -471,6 +471,21 @@ static ssize_t amdgpu_get_sdma_reset_mask(struct dev=
-ice *dev,
->  static DEVICE_ATTR(sdma_reset_mask, 0444,
->                    amdgpu_get_sdma_reset_mask, NULL);
->
-> +static ssize_t amdgpu_get_sdma_userq_reset_mask(struct device *dev,
-> +                                               struct device_attribute *=
-attr,
-> +                                               char *buf)
-> +{
-> +       struct drm_device *ddev =3D dev_get_drvdata(dev);
-> +       struct amdgpu_device *adev =3D drm_to_adev(ddev);
-> +
-> +       if (!adev)
-> +               return -ENODEV;
-> +
-> +       return amdgpu_show_reset_mask(buf, adev->userq_supported_reset[AM=
-DGPU_HW_IP_DMA]);
-> +}
-> +static DEVICE_ATTR(sdma_userq_reset_mask, 0444,
-> +                  amdgpu_get_sdma_userq_reset_mask, NULL);
-> +
->  int amdgpu_sdma_sysfs_reset_mask_init(struct amdgpu_device *adev)
->  {
->         int r =3D 0;
-> @@ -484,6 +499,12 @@ int amdgpu_sdma_sysfs_reset_mask_init(struct amdgpu_=
-device *adev)
->                         return r;
->         }
->
-> +       if (adev->userq_funcs[AMDGPU_HW_IP_DMA]) {
-> +               r =3D device_create_file(adev->dev, &dev_attr_sdma_userq_=
-reset_mask);
-> +               if (r)
-> +                       return r;
-> +       }
-> +
->         return r;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 188de848c229..15ae72e2d679 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -47,6 +47,16 @@ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_d=
-evice *adev)
->         return userq_ip_mask;
->  }
->
-> +bool amdgpu_userq_is_reset_type_supported(struct amdgpu_device *adev,
-> +                                         int ring_type,
-> +                                         int reset_type)
-> +{
-> +    if (ring_type < 0 || ring_type >=3D AMDGPU_RING_TYPE_MAX)
-> +        return false;
-> +
-> +    return (adev->userq_supported_reset[ring_type] & reset_type) !=3D 0;
-> +}
-> +
->  static void amdgpu_userq_gpu_reset(struct amdgpu_device *adev)
->  {
->         if (amdgpu_device_should_recover_gpu(adev)) {
-> @@ -94,6 +104,9 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_use=
-rq_mgr *uq_mgr)
->                 int ring_type =3D queue_types[i];
->                 const struct amdgpu_userq_funcs *funcs =3D adev->userq_fu=
-ncs[ring_type];
->
-> +               if (!amdgpu_userq_is_reset_type_supported(adev, ring_type=
-, AMDGPU_RESET_TYPE_PER_QUEUE))
-> +                               continue;
-> +
->                 if (atomic_read(&uq_mgr->userq_count[ring_type]) > 0 &&
->                     funcs && funcs->detect_and_reset) {
->                         r =3D funcs->detect_and_reset(adev, ring_type);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 252517ce5d5a..82b7c365d720 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1815,6 +1815,11 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                 amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
->         adev->gfx.compute_supported_reset =3D
->                 amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0=
-]);
-> +       adev->userq_supported_reset[AMDGPU_HW_IP_GFX] =3D
-> +                       amdgpu_userq_get_full_reset_mask(adev, AMDGPU_HW_=
-IP_GFX);
-> +       adev->userq_supported_reset[AMDGPU_HW_IP_COMPUTE] =3D
-> +                       amdgpu_userq_get_full_reset_mask(adev,AMDGPU_HW_I=
-P_COMPUTE);
-> +
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->         case IP_VERSION(11, 0, 0):
->         case IP_VERSION(11, 0, 2):
-> @@ -1824,12 +1829,24 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_blo=
-ck *ip_block)
->                     !amdgpu_sriov_vf(adev)) {
->                         adev->gfx.compute_supported_reset |=3D AMDGPU_RES=
-ET_TYPE_PER_QUEUE;
->                         adev->gfx.gfx_supported_reset |=3D AMDGPU_RESET_T=
-YPE_PER_QUEUE;
-> +                       if (adev->userq_funcs[AMDGPU_HW_IP_GFX] &&
-> +                           adev->userq_funcs[AMDGPU_HW_IP_GFX]->detect_a=
-nd_reset)
-> +                               adev->userq_supported_reset[AMDGPU_HW_IP_=
-GFX] |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
-> +                       if (adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] &&
-> +                           adev->userq_funcs[AMDGPU_HW_IP_COMPUTE]->dete=
-ct_and_reset)
-> +                               adev->userq_supported_reset[AMDGPU_HW_IP_=
-COMPUTE] |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
->                 }
->                 break;
->         default:
->                 if (!amdgpu_sriov_vf(adev)) {
->                         adev->gfx.compute_supported_reset |=3D AMDGPU_RES=
-ET_TYPE_PER_QUEUE;
->                         adev->gfx.gfx_supported_reset |=3D AMDGPU_RESET_T=
-YPE_PER_QUEUE;
-> +                       if (adev->userq_funcs[AMDGPU_HW_IP_GFX] &&
-> +                           adev->userq_funcs[AMDGPU_HW_IP_GFX]->detect_a=
-nd_reset)
-> +                               adev->userq_supported_reset[AMDGPU_HW_IP_=
-GFX] |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
-> +                       if (adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] &&
-> +                           adev->userq_funcs[AMDGPU_HW_IP_COMPUTE]->dete=
-ct_and_reset)
-> +                               adev->userq_supported_reset[AMDGPU_HW_IP_=
-COMPUTE] |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
->                 }
->                 break;
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index 35d5a7e99a7c..c5ac42a30789 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -1543,6 +1543,11 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                 amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
->         adev->gfx.compute_supported_reset =3D
->                 amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0=
-]);
-> +       adev->userq_supported_reset[AMDGPU_HW_IP_GFX] =3D
-> +               amdgpu_userq_get_full_reset_mask(adev, AMDGPU_HW_IP_GFX);
-> +       adev->userq_supported_reset[AMDGPU_HW_IP_COMPUTE] =3D
-> +               amdgpu_userq_get_full_reset_mask(adev,AMDGPU_HW_IP_COMPUT=
-E);
-> +
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->         case IP_VERSION(12, 0, 0):
->         case IP_VERSION(12, 0, 1):
-> @@ -1551,6 +1556,13 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                     !amdgpu_sriov_vf(adev)) {
->                         adev->gfx.compute_supported_reset |=3D AMDGPU_RES=
-ET_TYPE_PER_QUEUE;
->                         adev->gfx.gfx_supported_reset |=3D AMDGPU_RESET_T=
-YPE_PER_QUEUE;
-> +                       if (adev->userq_funcs[AMDGPU_HW_IP_GFX] &&
-> +                           adev->userq_funcs[AMDGPU_HW_IP_GFX]->detect_a=
-nd_reset)
-> +                               adev->userq_supported_reset[AMDGPU_HW_IP_=
-GFX] |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
-> +                       if (adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] &&
-> +                           adev->userq_funcs[AMDGPU_HW_IP_COMPUTE]->dete=
-ct_and_reset)
-> +                               adev->userq_supported_reset[AMDGPU_HW_IP_=
-COMPUTE] |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
-> +
->                 }
->                 break;
->         default:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v6_0.c
-> index db6e41967f12..8850eaf8d2c4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -1349,19 +1349,6 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                         return r;
->         }
->
-> -       adev->sdma.supported_reset =3D
-> -               amdgpu_get_soft_full_reset_mask(&adev->sdma.instance[0].r=
-ing);
-> -       switch (amdgpu_ip_version(adev, SDMA0_HWIP, 0)) {
-> -       case IP_VERSION(6, 0, 0):
-> -       case IP_VERSION(6, 0, 2):
-> -       case IP_VERSION(6, 0, 3):
-> -               if ((adev->sdma.instance[0].fw_version >=3D 21) &&
-> -                   !amdgpu_sriov_vf(adev))
-> -                       adev->sdma.supported_reset |=3D AMDGPU_RESET_TYPE=
-_PER_QUEUE;
-> -               break;
-> -       default:
-> -               break;
-> -       }
->
->         if (amdgpu_sdma_ras_sw_init(adev)) {
->                 dev_err(adev->dev, "Failed to initialize sdma ras block!\=
-n");
-> @@ -1412,6 +1399,27 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                 break;
->         }
->
-> +       adev->sdma.supported_reset =3D
-> +               amdgpu_get_soft_full_reset_mask(&adev->sdma.instance[0].r=
-ing);
-> +       adev->userq_supported_reset[AMDGPU_HW_IP_DMA] =3D
-> +               amdgpu_userq_get_full_reset_mask(adev, AMDGPU_HW_IP_DMA);
-> +
-> +       switch (amdgpu_ip_version(adev, SDMA0_HWIP, 0)) {
-> +       case IP_VERSION(6, 0, 0):
-> +       case IP_VERSION(6, 0, 2):
-> +       case IP_VERSION(6, 0, 3):
-> +               if ((adev->sdma.instance[0].fw_version >=3D 21) &&
-> +                   !amdgpu_sriov_vf(adev)) {
-> +                       adev->sdma.supported_reset |=3D AMDGPU_RESET_TYPE=
-_PER_QUEUE;
-> +                       if (adev->userq_funcs[AMDGPU_HW_IP_DMA] &&
-> +                           adev->userq_funcs[AMDGPU_HW_IP_DMA]->detect_a=
-nd_reset)
-> +                               adev->userq_supported_reset[AMDGPU_HW_IP_=
-DMA] |=3D AMDGPU_RESET_TYPE_PER_QUEUE;
-> +
-> +               }
-> +               break;
-> +       default:
-> +               break;
-> +       }
->         r =3D amdgpu_sdma_sysfs_reset_mask_init(adev);
->         if (r)
->                 return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v7_0.c
-> index 326ecc8d37d2..9de46ac8b1db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-> @@ -1335,14 +1335,6 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                         return r;
->         }
->
-> -       adev->sdma.supported_reset =3D
-> -               amdgpu_get_soft_full_reset_mask(&adev->sdma.instance[0].r=
-ing);
-> -       if (!amdgpu_sriov_vf(adev))
-> -               adev->sdma.supported_reset |=3D AMDGPU_RESET_TYPE_PER_QUE=
-UE;
-> -
-> -       r =3D amdgpu_sdma_sysfs_reset_mask_init(adev);
-> -       if (r)
-> -               return r;
->         /* Allocate memory for SDMA IP Dump buffer */
->         ptr =3D kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint=
-32_t), GFP_KERNEL);
->         if (ptr)
-> @@ -1360,6 +1352,22 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                 break;
->         }
->
-> +       adev->sdma.supported_reset =3D
-> +               amdgpu_get_soft_full_reset_mask(&adev->sdma.instance[0].r=
-ing);
-> +       adev->userq_supported_reset[AMDGPU_HW_IP_DMA] =3D
-> +               amdgpu_userq_get_full_reset_mask(adev, AMDGPU_HW_IP_DMA);
-> +
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               adev->sdma.supported_reset |=3D AMDGPU_RESET_TYPE_PER_QUE=
-UE;
-> +               if (adev->userq_funcs[AMDGPU_HW_IP_DMA] &&
-> +                   adev->userq_funcs[AMDGPU_HW_IP_DMA]->detect_and_reset=
-)
-> +                       adev->userq_supported_reset[AMDGPU_HW_IP_DMA] |=
-=3D AMDGPU_RESET_TYPE_PER_QUEUE;
-> +
-> +       }
-> +       r =3D amdgpu_sdma_sysfs_reset_mask_init(adev);
-> +       if (r)
-> +               return r;
-> +
->         return r;
->  }
->
-> --
-> 2.49.0
->
+Huh, that was a bit of a goose chase.
+
+amdgpu_dm_init
+> amdgpu_dm_initialize_drm_device
+> amdgpu_set_panel_orientation
+> amdgpu_dm_connector_get_modes
+
+This will run even on disconnected (i.e., without dc_sink)
+connectors.
+
+Maybe amdgpu_set_panel_orientation had better move into
+this hunk after the amdgpu_dm_update_connector_after_detect:
+
+	ret = dc_link_detect(link, DETECT_REASON_BOOT);
+	mutex_unlock(&dm->dc_lock);
+	printk("hwhw: %s %d\n", __func__, __LINE__);
+
+	if (ret) {
+		amdgpu_dm_update_connector_after_detect(aconnector);
+		printk("hwhw: %s %d\n", __func__, __LINE__);
+
+Either way, the NULL check is still prudent.
+
+Harry
+
+> The patch is:
+> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+> 
+>>
+>> Fixes: 0c9f9ca99238 ("drm/amd/display: Add common modes to analog
+>> displays without EDID")
+>> Cc: Timur Kristóf <timur.kristof@gmail.com>
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index c621e50f636a..bc5a8b8442a2 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -8669,7 +8669,7 @@ static int amdgpu_dm_connector_get_modes(struct
+>> drm_connector *connector)
+>>  			amdgpu_dm_connector->num_modes +=
+>>  				drm_add_modes_noedid(connector,
+>> 1920, 1080);
+>>  
+>> -		if (amdgpu_dm_connector->dc_sink->edid_caps.analog)
+>> {
+>> +		if (amdgpu_dm_connector->dc_sink &&
+>> amdgpu_dm_connector->dc_sink->edid_caps.analog) {
+>>  			/* Analog monitor connected by DAC load
+>> detection.
+>>  			 * Add common modes. It will be up to the
+>> user to select one that works.
+>>  			 */
+
