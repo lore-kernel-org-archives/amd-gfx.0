@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6688FCCF9F1
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 17:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12644CCF9EE
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Oct 2025 17:56:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE63810E81C;
-	Wed, 29 Oct 2025 17:56:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A194710E81A;
+	Wed, 29 Oct 2025 17:56:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="za1nKDXx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e3xo3ibR";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013036.outbound.protection.outlook.com
- [40.93.196.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39CFA10E81B
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 17:56:25 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010032.outbound.protection.outlook.com [52.101.61.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36F910E81B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 17:56:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qKd/k3X/CAaIKLVrBfYG/rTByzqkla9anKILBraIQkKeCi14IPjh0BPlOdHS8HhvQpGyA7K5guIBImcim0v//k7wYm2pN1bIPIDK2PNnynXJmrWfayoXmMa8ULTRGV6Qpu3NginqOS+9LnX7ZvOqCjkHUKamdFQaxgVtj3OxGtMEddep0rsdqCjjUy7tCj4joAGZMLbJEs/Ck5MqhsiA/hyHC3r7DY7fzIjjGjIayoTDjUAz36aUXk7bNuDhnUrFfFOHo5t7CnDXBmAjeXkubh7cWH9nEtnsOSDLiJghUEbLpjXtf7EtKk4yNDs67RBxVaH9DzF6YHRZt6HFBNdO7Q==
+ b=HSxYzZU6rpxbK+oYJIp1XCil0uljpn6gk9uVny71gXz/4u8pSpDR/r7R68F+w0kH2Y+DoJpd8TwlyM+pmy1Tczd/HOpJBh1H5CWIYH19EOjx1R3hVgPrDR2C9+CfDDGDEeccvAAzTb3do91mUWDwUufUtagOpeWi9FnHFQc4p8c/ki1QDWuviOd9VfmkxAnToRmf8fKmxJjIQkSh9Lg3MdarY4UiZ86XP7iviANP0/c8JpTXV31goJu7o3lO5y1sc6gicLr3WQm3im4KKKotGXi/ihD13Qy3PNhQqjcuzTQqrCH3cz+YqtQSd33ifUM3IAC2l95LeR8w1TFWea7Huw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jYW5X7vorMLHE8BqBdYpVvgZPfs3irUouQGbcSrOqqE=;
- b=wZ9vx9x/HieUDlZ4MXf1GwY0toYNSg1YXAz5S43FLMKWqUdIZNazh8eZtOPJ3z9UHLDrUTDvuqQxCmS/a7tckkVGBGqI1RXwqgJ7GdfiWDIkHkjvZqnerhVZ7NRA6uW0jhIOCmC57N2m6KjeC0meTWwFoPmGDDzi/G65tdy650n79FVU77n9cp0U/QME4Q55Sk5cVQUJRzxJsIufDyMupMtSlBLXh81AFdpU4JY1GDURqGkhxV97URDWUQ1OvumnXXMp8a4GpIna+FIoTG4ru+Q9qzFEK3Gu5HRRQ4f3xapvXP3VKxTTFcUCrw9nPA/W0bkISBFbQ8+zt0KLAkWoHA==
+ bh=jxN6cwIRyw80y46YDi7A3q/K5P/f4hRxAmR9HvjJNCE=;
+ b=dOUG24g8CfFx0VNzytaahpsWRUpK3N5GXmRfbKpelf9PM8KOUhKrnbgxLIxWBxLDY17cwShWbupDS1raSE0EA/AQgmoBzZOAzX20QOAC9K2vVIOEA6bd5ffPTluR4B5+4hvv3hzeSFIzef+ioRg2coxsYrZ2jbiR3ZJbowQzF6olZoxQENTieb9VkJTO5CARp3vb93b9q33e4rjSJLkIqKAn7dqDDmcl1APi0He+EEBYEDtJOtPzVA9gO1xtGgXBEH4JtrvMRND6v2AzNMhSXaY3S4CsdNc8E8pxRB+TbLKl4y0hi/KW5YD3Krag2eDdYxJnpbsY3h1Rxfod4E5Law==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jYW5X7vorMLHE8BqBdYpVvgZPfs3irUouQGbcSrOqqE=;
- b=za1nKDXxgwYYztAhulrB75fVkmecTKXUl9cidfwIVagaFdk4GNzIO2vPPnxXU6vxiX+IbVVAyj5jz2ZSS2n7dBCHiiIgASRArx26LfmwIfNG6CPaLJl2DSKaokhnh6xGl6GDsX5bWPgOT9V2Qdbsjd1nmUO9aGyP20cR0RnJQbw=
-Received: from BN9PR03CA0646.namprd03.prod.outlook.com (2603:10b6:408:13b::21)
- by DM6PR12MB4060.namprd12.prod.outlook.com (2603:10b6:5:216::15) with
+ bh=jxN6cwIRyw80y46YDi7A3q/K5P/f4hRxAmR9HvjJNCE=;
+ b=e3xo3ibR7WuyNmHd4uEdgfftiQGtJqnyeZMh83783ow7M/8AgY5tU5EcYuE/wKRnETGI9hStPl7+9iigx1YoUGTlQZMmbrd/Jq1RpGe/piEJGYvNiGbGjRKTZIEiP3l2XBgjJdudPTMJNNA39eV6ht+PBzZA7NJE4tuH2DS6uzI=
+Received: from BN9PR03CA0654.namprd03.prod.outlook.com (2603:10b6:408:13b::29)
+ by DS0PR12MB7509.namprd12.prod.outlook.com (2603:10b6:8:137::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Wed, 29 Oct
- 2025 17:56:18 +0000
+ 2025 17:56:22 +0000
 Received: from BL02EPF0001A105.namprd05.prod.outlook.com
- (2603:10b6:408:13b:cafe::86) by BN9PR03CA0646.outlook.office365.com
- (2603:10b6:408:13b::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.12 via Frontend Transport; Wed,
- 29 Oct 2025 17:56:18 +0000
+ (2603:10b6:408:13b:cafe::36) by BN9PR03CA0654.outlook.office365.com
+ (2603:10b6:408:13b::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.14 via Frontend Transport; Wed,
+ 29 Oct 2025 17:56:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF0001A105.mail.protection.outlook.com (10.167.241.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.10 via Frontend Transport; Wed, 29 Oct 2025 17:56:18 +0000
+ 15.20.9275.10 via Frontend Transport; Wed, 29 Oct 2025 17:56:20 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 29 Oct
- 2025 10:56:14 -0700
+ 2025 10:56:15 -0700
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Le Ma <le.ma@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH 3/6] drm/amdgpu: Add psp v14.0.7 ip block
-Date: Wed, 29 Oct 2025 13:55:54 -0400
-Message-ID: <20251029175557.2862156-3-alexander.deucher@amd.com>
+CC: Feifei Xu <Feifei.Xu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH 5/6] drm/amdgpu: update psp_get_fw_type() function
+Date: Wed, 29 Oct 2025 13:55:56 -0400
+Message-ID: <20251029175557.2862156-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251029175557.2862156-1-alexander.deucher@amd.com>
 References: <20251029175557.2862156-1-alexander.deucher@amd.com>
@@ -74,53 +73,53 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A105:EE_|DM6PR12MB4060:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf6fd581-7f92-487a-3085-08de17147626
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A105:EE_|DS0PR12MB7509:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f99ff99-a841-4ea6-7ebf-08de1714775d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?grOvQSajKNHttZ+HbZUGNbd/AvyvR+XHrAokwKzRQutUA51YZylwNoR5TabS?=
- =?us-ascii?Q?UB/075A6rhLOok1ThhaSEp6wmZ2tOJQC9KilkDrgRT3QBbDEKes+Ve/lIz0C?=
- =?us-ascii?Q?72eHssXwgXzKV3sZg/muDPIzD9dBdpbwVmbz3ehfoKp3lJ+vBnWP0bNzqrv+?=
- =?us-ascii?Q?579oM3WcdKTMa5d27UDQxaD8eNtqXvwCT4EtRm4HkIpvXdfoGqZum3rq4U1X?=
- =?us-ascii?Q?OYIQ20e/D2LZP4yc+/F8ypAdDIgmuH5xzxVyl0xOVBpI2QTBsP7G3N7Br8we?=
- =?us-ascii?Q?2wOJU+t5F7EXE8Ge3w+3i0dS+UR4wZjgGl+1X2VH5hj4GxKlbie4/8TV5JmD?=
- =?us-ascii?Q?67S9g3FprpvSU9dQwLK3lAmWdZ0a8ScQ9CAe+MM+UZDcPrTt183gXLqi4p/I?=
- =?us-ascii?Q?0XPo4TBh9WH/2814ddzHYMuTK/K5aT6ofS8XRLE85cDXpoBKAwrb7tv7U6Yn?=
- =?us-ascii?Q?I6Ou5gPaiUyo55Q/1yK498xBRGA8L6VJeZ/aYfwHlgtemtJ+iJ711DDpjITs?=
- =?us-ascii?Q?uIRoR3tiUtJW/L/UExQOcZzMZdez4cAD7zRkdYssdTawjeC+s98iq4oKD7A7?=
- =?us-ascii?Q?5y0rdunLKYOfGfeRTT7sekWSIhaPTG0KeAKFdrYUhR1VThJJzZHJsoQWrGqH?=
- =?us-ascii?Q?z43JuFRlswZ/Plb13QCSr390zrEkpLbdLTvfOJmf8ngwXKlYISKdutvcn0xh?=
- =?us-ascii?Q?XUxr8+RaXo3n2ZHqtWBmiiJMBZZ0oB4iyfMozPa9iMkTgutahPUdEhRRXiJL?=
- =?us-ascii?Q?p38eUElafpbB6bGxM9esK6t3r8PSlC0f63Z8q41z36CZ1MhFA/FjJgqsMGNB?=
- =?us-ascii?Q?B08aCvTkPKS4BlUMJw7Cbdog0BrMMNX0Y9tH2hfrab41X/SCa4CmLvWzIygu?=
- =?us-ascii?Q?dAKjZv5sJp5GNIxT9O5E/AH+azT4AmSq2IcrOb2Ux3sc1N0SyEfz1DSsVDvd?=
- =?us-ascii?Q?X2OZZv5w5EKi6qXLAVtpQgY7gXuI8K4E2u0RbjOedBwUByq6apQSKdvRQQEt?=
- =?us-ascii?Q?FPrb3jMtlc5TCFuImz7/12ymhl6tjTpL25w9BMbRiI1GGeN+n3XkUI2rj8v4?=
- =?us-ascii?Q?EpK22ytEGCl8h7v5bH/+D/X0twRR3/p4HikoVUwOY1nfLTYjRvRyYQBdfJOO?=
- =?us-ascii?Q?86u9YEr3akrCVmPnkVwKSpqq41RhR7+ModFs17yIKQIpY67XKjI/HHQloqwl?=
- =?us-ascii?Q?lALYpPYBhUSFNa8bPWKFF5/7KOz8zzmI9/57uKWLXFTIQwaSdooqfQcQ90ns?=
- =?us-ascii?Q?nBULm6kVbEqnVk1aYJAbuEFUJDX9iYmCak7QD4JDs0afN3MSLD73TPLBlxf6?=
- =?us-ascii?Q?8ldxj2E4LuElkzffNl8rwpPDLv28Zj54ZupE/ylS8NR5+yGZ1qrsYCq5YC6L?=
- =?us-ascii?Q?oil0BK5/e0WXkWDhWg4Gxw4EeYeMks54TR1rIWWdEJstRw9OY4Eyxoyqbq9Y?=
- =?us-ascii?Q?0buUA4KZxNmmMwPp4X2bl1E014lj0A2ucXUJV0Enc+vlROvhQKuJVylrtTJu?=
- =?us-ascii?Q?Me7yU1yh/Opu8E7fglgjo7gtFlQmCGX+GxplfXLFlAhoQ9yk13AzssXOGw?=
- =?us-ascii?Q?=3D=3D?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tA+d27RUqMxhLClNLKjL7ROxFbtmtTOh2LiujlpRlVDWbCdzz4xS5gHfUIXZ?=
+ =?us-ascii?Q?Mbxa8pdEbGcOsihYTsuAwjKvjn9cD/PpNSMOO9Eb0c0j4GWtIkj0vhiE5Jpv?=
+ =?us-ascii?Q?03juy5kv6geDhHn2ChxdozRWdBHbuW4eWEkne+qs7UccZQithfPXQc4IF4KI?=
+ =?us-ascii?Q?epwlL+8XxUqBrcdbDYVFlAktgPe0jQILJYyG8TJ8KH7yJQkENWEqfwCHvi7d?=
+ =?us-ascii?Q?k7E3gKovN8n0YULWrsgi6FSjnFRlvUjqqmZ48/nx4RBuD6UB8y7h6bPO+bTd?=
+ =?us-ascii?Q?7RVAfErCYC9BF0ZHW22Za6V3GmtTmTdzLoDD56TEqMjNALxuWoTO8iyYN1Dx?=
+ =?us-ascii?Q?moJ0j9hsTIGQef6YH4+O5oFJKPyyFeoa0NJf5NuNpVKaut5VYMltFcyDOBOh?=
+ =?us-ascii?Q?P3yIGdDs9mCTlXQjoUyslloasEcg/rkPWZ23CYh7AzL35yocEAdEkG35ssH3?=
+ =?us-ascii?Q?doS4jy/YfJ7fkWLxhGmaTicyFt17Ew0rzykRUZAaTWpmy0lB1G1qkGlLPJ8S?=
+ =?us-ascii?Q?IYy7MmOtGz4w6I8j/ff16W9ILZMoVeG5Q1sG5jl3sMxHjRgt+wprHrk2472N?=
+ =?us-ascii?Q?Ne6V7d2/fCfr+BD6zip2cpLLeOg71UvWFktDJ/Lq96GLPvPGI+Ie3snR/zRb?=
+ =?us-ascii?Q?iWuUmps9TTpH7vKPb6MNIrKgMSSx0ibkVk3/LjjW4FHgqamV8QfifrPNaUGd?=
+ =?us-ascii?Q?YsPhSN6GtluLds5K/H7sXr06nMU9M9bVaujASXSkQeALyvUfg+W8+2v9TMTK?=
+ =?us-ascii?Q?6WYM14MF3mw8BwC3XsAGOtAyrL3+SHODKJXYibzwOKIbB8C53aV5fC/VZTUo?=
+ =?us-ascii?Q?g49XFw8/GrYVA1mlAuEHG6to1OOSdecWF6P1936TTOwhyJx+pgM2s4ojPo3c?=
+ =?us-ascii?Q?BJL06QzKHsKk7+78/VjIsvkuCi9+sSsjbJ1F7gFxZj0NMHeYu0ts1Tjf33Ua?=
+ =?us-ascii?Q?3WwSCLN4uXFwoFi7Z3SnM13pkfhEdSQl4DsxtolftI65X2MbWIctFUzAqJel?=
+ =?us-ascii?Q?aAU5JIfm268y1GWozaVEj1nWdUf4wRthsIQeDSrfpQrNMI0uDk0d9uS9mQkR?=
+ =?us-ascii?Q?OvzVf3icNxVkkyhSNA8d3EcE2fgkgCYN6Fl3Zxi8Tj8oAWvKA5gESgW/qxkw?=
+ =?us-ascii?Q?GHO1WXmGeE/dFUgHPNivSzbwT0gevcP0c1n49Og8PjDZVo3nDxkizJRGXzUX?=
+ =?us-ascii?Q?kC/rZKbvpDc5C8DM9lCagDFxsriOwPxcKcDvTjMyNu1geONWNQJ6gP2bWyYo?=
+ =?us-ascii?Q?JEb/U5R3pxqsgpi/29Icy2+1FIV8Qa2+SoJ6QBYrePNJ3P4OaYfZP4svuKyD?=
+ =?us-ascii?Q?GEEftNd9K/q99fCKRc1qf2kzz8PmiNFfsJ3BGxKNOjg2Lk+VJAm3ZUYRv3aG?=
+ =?us-ascii?Q?BWTodAU16JD6Pq1fGU9Nba7h8v8+xO+JBezyTww6FMCt9M4iphMW8kZR9rq1?=
+ =?us-ascii?Q?RqHDLcu+OgF/8oNOVZ6E5YtOsUsD3yBnpxt3iQePFGlUMOND/sbu4q+f7V6m?=
+ =?us-ascii?Q?durmD5sxAoUwQPRdOxklZIuO4Pmf64s4+vL7NIPJG52rhUFKZrDgxnPFGeGy?=
+ =?us-ascii?Q?45HSJWS1IdsTFPbJg2I=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 17:56:18.1760 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf6fd581-7f92-487a-3085-08de17147626
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 17:56:20.2134 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f99ff99-a841-4ea6-7ebf-08de1714775d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A105.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4060
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7509
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,311 +134,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Le Ma <le.ma@amd.com>
+From: Feifei Xu <Feifei.Xu@amd.com>
 
-Add psp_v14_0_7.c for MPASP 14.0.7
+In psp 14.0.7, mes and sdma GFX_FW_TYPE have been changed.
 
-v2: drop memory training intf as they are only necessary for GDDR memory
+Define a psp common function: psp_get_fw_type().
+Hide the GFX_FW_TYPE Changes in each ip's psp->funcs_get_fw_type callback.
+(like psp_v14_0_7_get_fw_type()).
+If no GFX_FW_TYPE change, reuse the amdgpu_psp_get_fw_type().
 
-Signed-off-by: Le Ma <le.ma@amd.com>
+Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile      |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  |   8 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h  |   1 +
- drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.c | 202 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.h |  30 ++++
- 5 files changed, 243 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h  |   8 ++
+ drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.c | 140 +++++++++++++++++++++++
+ 3 files changed, 150 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index b408a981f4b03..1fc75f46b4273 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -134,7 +134,8 @@ amdgpu-y += \
- 	psp_v12_0.o \
- 	psp_v13_0.o \
- 	psp_v13_0_4.o \
--	psp_v14_0.o
-+	psp_v14_0.o \
-+	psp_v14_0_7.o
- 
- # add DCE block
- amdgpu-y += \
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 39d3b4ae82110..bf9a76289f537 100644
+index b17004c190d90..2d4bd4f2f9b93 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -4522,3 +4522,11 @@ const struct amdgpu_ip_block_version psp_v14_0_ip_block = {
- 	.rev = 0,
- 	.funcs = &psp_ip_funcs,
- };
-+
-+const struct amdgpu_ip_block_version psp_v14_0_7_ip_block = {
-+	.type = AMD_IP_BLOCK_TYPE_PSP,
-+	.major = 14,
-+	.minor = 0,
-+	.rev = 7,
-+	.funcs = &psp_ip_funcs,
-+};
+@@ -2620,7 +2620,7 @@ static int psp_hw_start(struct psp_context *psp)
+ 	return 0;
+ }
+ 
+-static int psp_get_fw_type(struct amdgpu_firmware_info *ucode,
++int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
+ 			   enum psp_gfx_fw_type *type)
+ {
+ 	switch (ucode->ucode_id) {
+@@ -2908,10 +2908,9 @@ static int psp_prep_load_ip_fw_cmd_buf(struct psp_context *psp,
+ 	cmd->cmd.cmd_load_ip_fw.fw_phy_addr_hi = upper_32_bits(fw_mem_mc_addr);
+ 	cmd->cmd.cmd_load_ip_fw.fw_size = ucode->ucode_size;
+ 
+-	ret = psp_get_fw_type(ucode, &cmd->cmd.cmd_load_ip_fw.fw_type);
++	ret = psp_get_fw_type(psp, ucode, &cmd->cmd.cmd_load_ip_fw.fw_type);
+ 	if (ret)
+ 		dev_err(psp->adev->dev, "Unknown firmware type\n");
+-
+ 	return ret;
+ }
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 237b624aa51ca..2733a7bf4ad6e 100644
+index 2733a7bf4ad6e..e8457715cc140 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -534,6 +534,7 @@ extern const struct amdgpu_ip_block_version psp_v12_0_ip_block;
- extern const struct amdgpu_ip_block_version psp_v13_0_ip_block;
- extern const struct amdgpu_ip_block_version psp_v13_0_4_ip_block;
- extern const struct amdgpu_ip_block_version psp_v14_0_ip_block;
-+extern const struct amdgpu_ip_block_version psp_v14_0_7_ip_block;
+@@ -172,6 +172,8 @@ struct psp_funcs {
+ 	bool (*is_reload_needed)(struct psp_context *psp);
+ 	int (*reg_program_no_ring)(struct psp_context *psp, uint32_t val,
+ 				   enum psp_reg_prog_id id);
++	int (*get_fw_type)(struct amdgpu_firmware_info *ucode,
++			enum psp_gfx_fw_type *type);
+ };
  
- int psp_wait_for(struct psp_context *psp, uint32_t reg_index,
- 		 uint32_t field_val, uint32_t mask, uint32_t flags);
+ struct ta_funcs {
+@@ -524,6 +526,10 @@ struct amdgpu_psp_funcs {
+ 	((psp)->funcs->reg_program_no_ring ? \
+ 	(psp)->funcs->reg_program_no_ring((psp), val, id) : -EINVAL)
+ 
++#define psp_get_fw_type(psp, ucode, type) \
++	((psp)->funcs->get_fw_type ? \
++	(psp)->funcs->get_fw_type(ucode, type):amdgpu_psp_get_fw_type(ucode, type))
++
+ extern const struct amd_ip_funcs psp_ip_funcs;
+ 
+ extern const struct amdgpu_ip_block_version psp_v3_1_ip_block;
+@@ -622,6 +628,8 @@ bool amdgpu_psp_tos_reload_needed(struct amdgpu_device *adev);
+ int amdgpu_psp_reg_program_no_ring(struct psp_context *psp, uint32_t val,
+ 				   enum psp_reg_prog_id id);
+ void amdgpu_psp_debugfs_init(struct amdgpu_device *adev);
++int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
++			   enum psp_gfx_fw_type *type);
+ 
+ 
+ #endif
 diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.c b/drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.c
-new file mode 100644
-index 0000000000000..a13fd866000a8
---- /dev/null
+index a13fd866000a8..27e74c340330e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.c
 +++ b/drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.c
-@@ -0,0 +1,202 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#include <drm/drm_drv.h>
-+#include <linux/vmalloc.h>
-+#include "amdgpu.h"
-+#include "amdgpu_psp.h"
-+#include "amdgpu_ucode.h"
-+#include "soc15_common.h"
-+#include "psp_v14_0_7.h"
-+
-+#include "mp/mp_14_0_7_offset.h"
-+#include "mp/mp_14_0_7_sh_mask.h"
-+
-+MODULE_FIRMWARE("amdgpu/psp_14_0_7_toc.bin");
-+
-+static int psp_v14_0_7_init_microcode(struct psp_context *psp)
+@@ -186,6 +186,145 @@ static void psp_v14_0_7_ring_set_wptr(struct psp_context *psp, uint32_t value)
+ 	} else
+ 		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_67, value);
+ }
++ 
++static int psp_v14_0_7_get_fw_type(struct amdgpu_firmware_info *ucode,
++			   enum psp_gfx_fw_type *type)
 +{
-+	struct amdgpu_device *adev = psp->adev;
-+	char ucode_prefix[30];
-+	int err = 0;
-+
-+	amdgpu_ucode_ip_version_decode(adev, MP0_HWIP, ucode_prefix, sizeof(ucode_prefix));
-+
-+	err = psp_init_toc_microcode(psp, ucode_prefix);
-+	if (err)
-+		return err;
++	switch (ucode->ucode_id) {
++	case AMDGPU_UCODE_ID_CAP:
++		*type = GFX_FW_TYPE_CAP;
++		break;
++	case AMDGPU_UCODE_ID_SDMA0:
++		*type = GFX_FW_TYPE_SDMA0;
++		break;
++	case AMDGPU_UCODE_ID_SDMA1:
++		*type = GFX_FW_TYPE_SDMA1;
++		break;
++	case AMDGPU_UCODE_ID_SDMA2:
++		*type = GFX_FW_TYPE_SDMA2;
++		break;
++	case AMDGPU_UCODE_ID_SDMA3:
++		*type = GFX_FW_TYPE_SDMA3;
++		break;
++	case AMDGPU_UCODE_ID_SDMA4:
++		*type = GFX_FW_TYPE_SDMA4;
++		break;
++	case AMDGPU_UCODE_ID_SDMA5:
++		*type = GFX_FW_TYPE_SDMA5;
++		break;
++	case AMDGPU_UCODE_ID_SDMA6:
++		*type = GFX_FW_TYPE_SDMA6;
++		break;
++	case AMDGPU_UCODE_ID_SDMA7:
++		*type = GFX_FW_TYPE_SDMA7;
++		break;
++	case AMDGPU_UCODE_ID_CP_MES:
++		*type = GFX_FW_TYPE_RS64_MES;
++		break;
++	case AMDGPU_UCODE_ID_CP_MES_DATA:
++		*type = GFX_FW_TYPE_RS64_MES_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_MES1:
++		*type = GFX_FW_TYPE_RS64_KIQ;
++		break;
++	case AMDGPU_UCODE_ID_CP_MES1_DATA:
++		*type = GFX_FW_TYPE_RS64_KIQ_STACK;
++		break;
++	case AMDGPU_UCODE_ID_RLC_P:
++		*type = GFX_FW_TYPE_RLC_P;
++		break;
++	case AMDGPU_UCODE_ID_RLC_V:
++		*type = GFX_FW_TYPE_RLC_V;
++		break;
++	case AMDGPU_UCODE_ID_RLC_G:
++		*type = GFX_FW_TYPE_RLC_G;
++		break;
++	case AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL:
++		*type = GFX_FW_TYPE_RLC_RESTORE_LIST_SRM_CNTL;
++		break;
++	case AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM:
++		*type = GFX_FW_TYPE_RLC_RESTORE_LIST_GPM_MEM;
++		break;
++	case AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM:
++		*type = GFX_FW_TYPE_RLC_RESTORE_LIST_SRM_MEM;
++		break;
++	case AMDGPU_UCODE_ID_RLC_IRAM:
++		*type = GFX_FW_TYPE_RLC_IRAM;
++		break;
++	case AMDGPU_UCODE_ID_RLC_DRAM:
++		*type = GFX_FW_TYPE_RLC_DRAM_BOOT;
++		break;
++	case AMDGPU_UCODE_ID_RLC_IRAM_1:
++		*type = GFX_FW_TYPE_RLX6_UCODE_CORE1;
++		break;
++	case AMDGPU_UCODE_ID_RLC_DRAM_1:
++		*type = GFX_FW_TYPE_RLX6_DRAM_BOOT_CORE1;
++		break;
++	case AMDGPU_UCODE_ID_SMC:
++		*type = GFX_FW_TYPE_SMU;
++		break;
++	case AMDGPU_UCODE_ID_PPTABLE:
++		*type = GFX_FW_TYPE_PPTABLE;
++		break;
++	case AMDGPU_UCODE_ID_VCN:
++		*type = GFX_FW_TYPE_VCN;
++		break;
++	case AMDGPU_UCODE_ID_VCN1:
++		*type = GFX_FW_TYPE_VCN1;
++		break;
++	case AMDGPU_UCODE_ID_VCN0_RAM:
++		*type = GFX_FW_TYPE_VCN0_RAM;
++		break;
++	case AMDGPU_UCODE_ID_VCN1_RAM:
++		*type = GFX_FW_TYPE_VCN1_RAM;
++		break;
++	case AMDGPU_UCODE_ID_SDMA_UCODE_TH0:
++	case AMDGPU_UCODE_ID_SDMA_RS64:
++		*type = GFX_FW_TYPE_SDMA0;
++		break;
++	case AMDGPU_UCODE_ID_SDMA_UCODE_TH1:
++		*type = GFX_FW_TYPE_SDMA_UCODE_TH1;
++		break;
++	case AMDGPU_UCODE_ID_IMU_I:
++		*type = GFX_FW_TYPE_IMU_I;
++		break;
++	case AMDGPU_UCODE_ID_IMU_D:
++		*type = GFX_FW_TYPE_IMU_D;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC:
++		*type = GFX_FW_TYPE_RS64_MEC;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P0_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P0_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P1_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P1_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P2_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P2_STACK;
++		break;
++	case AMDGPU_UCODE_ID_CP_RS64_MEC_P3_STACK:
++		*type = GFX_FW_TYPE_RS64_MEC_P3_STACK;
++		break;
++	case AMDGPU_UCODE_ID_UMSCH_MM_UCODE:
++		*type = GFX_FW_TYPE_UMSCH_UCODE;
++		break;
++	case AMDGPU_UCODE_ID_UMSCH_MM_DATA:
++		*type = GFX_FW_TYPE_UMSCH_DATA;
++		break;
++	case AMDGPU_UCODE_ID_UMSCH_MM_CMD_BUFFER:
++		*type = GFX_FW_TYPE_UMSCH_CMD_BUFFER;
++		break;
++	case AMDGPU_UCODE_ID_P2S_TABLE:
++		*type = GFX_FW_TYPE_P2S_TABLE;
++		break;
++	case AMDGPU_UCODE_ID_MAXIMUM:
++	default:
++		return -EINVAL;
++	}
 +
 +	return 0;
 +}
-+
-+static int psp_v14_0_7_ring_stop(struct psp_context *psp,
-+			       enum psp_ring_type ring_type)
-+{
-+	int ret = 0;
-+	struct amdgpu_device *adev = psp->adev;
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		/* Write the ring destroy command*/
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101,
-+			     GFX_CTRL_CMD_ID_DESTROY_GPCOM_RING);
-+		/* there might be handshake issue with hardware which needs delay */
-+		mdelay(20);
-+		/* Wait for response flag (bit 31) */
-+		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_SMN_C2PMSG_101),
-+				   0x80000000, 0x80000000, false);
-+	} else {
-+		/* Write the ring destroy command*/
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_64,
-+			     GFX_CTRL_CMD_ID_DESTROY_RINGS);
-+		/* there might be handshake issue with hardware which needs delay */
-+		mdelay(20);
-+		/* Wait for response flag (bit 31) */
-+		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_SMN_C2PMSG_64),
-+				   0x80000000, 0x80000000, false);
-+	}
-+
-+	return ret;
-+}
-+
-+static int psp_v14_0_7_ring_create(struct psp_context *psp,
-+				 enum psp_ring_type ring_type)
-+{
-+	int ret = 0;
-+	unsigned int psp_ring_reg = 0;
-+	struct psp_ring *ring = &psp->km_ring;
-+	struct amdgpu_device *adev = psp->adev;
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		ret = psp_v14_0_7_ring_stop(psp, ring_type);
-+		if (ret) {
-+			DRM_ERROR("psp_v14_0_ring_stop_sriov failed!\n");
-+			return ret;
-+		}
-+
-+		/* Write low address of the ring to C2PMSG_102 */
-+		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102, psp_ring_reg);
-+		/* Write high address of the ring to C2PMSG_103 */
-+		psp_ring_reg = upper_32_bits(ring->ring_mem_mc_addr);
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_103, psp_ring_reg);
-+
-+		/* Write the ring initialization command to C2PMSG_101 */
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101,
-+			     GFX_CTRL_CMD_ID_INIT_GPCOM_RING);
-+
-+		/* there might be handshake issue with hardware which needs delay */
-+		mdelay(20);
-+
-+		/* Wait for response flag (bit 31) in C2PMSG_101 */
-+		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_SMN_C2PMSG_101),
-+				   0x80000000, 0x8000FFFF, false);
-+
-+	} else {
-+		/* Wait for sOS ready for ring creation */
-+		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_SMN_C2PMSG_64),
-+				   0x80000000, 0x80000000, false);
-+		if (ret) {
-+			DRM_ERROR("Failed to wait for trust OS ready for ring creation\n");
-+			return ret;
-+		}
-+
-+		/* Write low address of the ring to C2PMSG_69 */
-+		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_69, psp_ring_reg);
-+		/* Write high address of the ring to C2PMSG_70 */
-+		psp_ring_reg = upper_32_bits(ring->ring_mem_mc_addr);
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_70, psp_ring_reg);
-+		/* Write size of ring to C2PMSG_71 */
-+		psp_ring_reg = ring->ring_size;
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_71, psp_ring_reg);
-+		/* Write the ring initialization command to C2PMSG_64 */
-+		psp_ring_reg = ring_type;
-+		psp_ring_reg = psp_ring_reg << 16;
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_64, psp_ring_reg);
-+
-+		/* there might be handshake issue with hardware which needs delay */
-+		mdelay(20);
-+
-+		/* Wait for response flag (bit 31) in C2PMSG_64 */
-+		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_SMN_C2PMSG_64),
-+				   0x80000000, 0x8000FFFF, false);
-+	}
-+
-+	return ret;
-+}
-+
-+static int psp_v14_0_7_ring_destroy(struct psp_context *psp,
-+				  enum psp_ring_type ring_type)
-+{
-+	int ret = 0;
-+	struct psp_ring *ring = &psp->km_ring;
-+	struct amdgpu_device *adev = psp->adev;
-+
-+	ret = psp_v14_0_7_ring_stop(psp, ring_type);
-+	if (ret)
-+		DRM_ERROR("Fail to stop psp ring\n");
-+
-+	amdgpu_bo_free_kernel(&adev->firmware.rbuf,
-+			      &ring->ring_mem_mc_addr,
-+			      (void **)&ring->ring_mem);
-+
-+	return ret;
-+}
-+
-+static uint32_t psp_v14_0_7_ring_get_wptr(struct psp_context *psp)
-+{
-+	uint32_t data;
-+	struct amdgpu_device *adev = psp->adev;
-+
-+	if (amdgpu_sriov_vf(adev))
-+		data = RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102);
-+	else
-+		data = RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_67);
-+
-+	return data;
-+}
-+
-+static void psp_v14_0_7_ring_set_wptr(struct psp_context *psp, uint32_t value)
-+{
-+	struct amdgpu_device *adev = psp->adev;
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102, value);
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101,
-+			     GFX_CTRL_CMD_ID_CONSUME_CMD);
-+	} else
-+		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_67, value);
-+}
-+
-+static const struct psp_funcs psp_v14_0_7_funcs = {
-+	.init_microcode = psp_v14_0_7_init_microcode,
-+	.ring_create = psp_v14_0_7_ring_create,
-+	.ring_stop = psp_v14_0_7_ring_stop,
-+	.ring_destroy = psp_v14_0_7_ring_destroy,
-+	.ring_get_wptr = psp_v14_0_7_ring_get_wptr,
-+	.ring_set_wptr = psp_v14_0_7_ring_set_wptr,
-+};
-+
-+void psp_v14_0_7_set_psp_funcs(struct psp_context *psp)
-+{
-+	psp->funcs = &psp_v14_0_7_funcs;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.h b/drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.h
-new file mode 100644
-index 0000000000000..676628af5c539
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v14_0_7.h
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef __PSP_V14_0_7_H__
-+#define __PSP_V14_0_7_H__
-+
-+#include "amdgpu_psp.h"
-+
-+void psp_v14_0_7_set_psp_funcs(struct psp_context *psp);
-+
-+#endif
+ 
+ static const struct psp_funcs psp_v14_0_7_funcs = {
+ 	.init_microcode = psp_v14_0_7_init_microcode,
+@@ -194,6 +333,7 @@ static const struct psp_funcs psp_v14_0_7_funcs = {
+ 	.ring_destroy = psp_v14_0_7_ring_destroy,
+ 	.ring_get_wptr = psp_v14_0_7_ring_get_wptr,
+ 	.ring_set_wptr = psp_v14_0_7_ring_set_wptr,
++	.get_fw_type = psp_v14_0_7_get_fw_type,
+ };
+ 
+ void psp_v14_0_7_set_psp_funcs(struct psp_context *psp)
 -- 
 2.51.0
 
