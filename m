@@ -4,81 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCEF8CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 16:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE59CCF9F0
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 17:10:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5470010E9FD;
-	Thu, 30 Oct 2025 16:15:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6889F10E2B2;
+	Thu, 30 Oct 2025 17:10:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KttJkeXX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q67r0nJi";
 	dkim-atps=neutral
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96CB110E9FD
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 16:15:49 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-4ed0d6d3144so11771371cf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 09:15:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761840948; x=1762445748; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cNSEPV58qZhIqk3ynDXSyhptUAhiFI23pm/2SdUBgBQ=;
- b=KttJkeXX3aHAsX+ZJJraFYx4HMmdV6ifqyaXquj/WxJNWta9aoKT2qhnCozpJwaGZS
- XY5tW1q/HcS1qAvcWR5agAYorpEBVxka0UniyUpcSRP7vdh+Sj9Yxw/4XvNwjTy5VA/1
- /AWuyNXe/AJtmjVyjlhuTsgSEqlOQby2LhHMTnValuWDCFpP/u2RIpv5VClHc+DGgG2j
- 7VDFWpYyDFHj01ZWnHuCKUq+Pg+tEOnrzyCHruQ0EGw9HAmUYnnlgGcocxbqHosNUD6S
- jZQ+QswsC/YjoTg3OoPBndqWFe7PHb1QmbgCkT8FLqunPXZXZhyvvImi0XoIeXUQzMZu
- ErOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761840948; x=1762445748;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cNSEPV58qZhIqk3ynDXSyhptUAhiFI23pm/2SdUBgBQ=;
- b=d2+8Qmdf2YPFAgcVicIEEK1fMAEq/k84s6YqogPbVe9Wm9KiB8bhpZWaOzNzzXwjzE
- n/Lf2kMkV93N/LjsyzmkIO3t8my2K8jdhMNK7KSSy/N0vxqfNoUc99eB0G8BHP8Eiye+
- TxdX90a+i0mESCyytKy1mHEL+UEHDbaavv6uhIdl/UixBvp3P2XkV1lJaf3v6b0hBS0v
- GwbO6C6sSa85ZUtYKo+jSvtmnsu9fo32bUyobTGf4JYNc89nHnegFAvpXS1HuQpDpH8W
- 6gwaBIdP3ZZFZ60HAX1+xNHZzKLuxQap49rQHJTMTonGoeM/YCeH9nY7Wkpt0tWa/RzQ
- x5OQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWjjkpuGs6GbwL0+D9M3lWl6jOi0xAhMJPKo9B0HrK/DAnF4svOOH6C9VgDTPTu+BhlsPaP5Itw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0t57DtRAmXINdDg8u431fmfwUTf1Qpnzj8ba0eS6x2rjl563I
- 7bzHdO3hFaZIY1vioF8UmhTHAWT5IzN4/QAJXrxf+VgHjNRDVkKUeL61
-X-Gm-Gg: ASbGncvaq6tR4rIB/ub631a159XmayFKEqpiLYkuXkZ552JNKB3H/TqLuBpmcRK433K
- bk7HU4Pxt5ABWMB5pAIPg4vMfDnE/WER+FZXCewdvWzV/KqR1WHr8CkazN7aZZp0V6zsAsKcjnD
- WBia0dHo2ArgoibLJ1xXUofW5bHzIOT/5XypHR8ydLFutd9r3C2qvmXxnZSHrnI9iaiiojMwhBE
- rgQEPPHnokyuWUcsX89S8Sx89pZyXDSysw+KQ3HXGMrc+jTtuTHmObwTwEadMONGzMSgRmugw+8
- K7b4reESDfxx7U+TK/MM7TnolYNJCCcs1S1lQhtk44cuxQ3G5A3txnI8ZKpCOUghIHj9igXMgWZ
- WFoBToVllKKtiLPUqWkQz42+n+Q8fuMaP1n+9UOTL3akzmUGvmglk4yCVZ0cRxxJDGfXwX3/WhU
- kOvYAQ9IYQvLiEqTHZz+pXyCebFdtZV5Dnv7pHEGPhpw==
-X-Google-Smtp-Source: AGHT+IEsPUUk04nyW+mDO4YtEGeUASmWU4z/53mKaMnSC+RUbGZ2KsaqcB0/z223m4ltVP77RKF/Dg==
-X-Received: by 2002:a05:622a:198b:b0:4ec:f001:e186 with SMTP id
- d75a77b69052e-4ed31055b54mr1652151cf.62.1761840948223; 
- Thu, 30 Oct 2025 09:15:48 -0700 (PDT)
-Received: from [10.254.120.28] (mkmvpn.amd.com. [165.204.54.211])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-87fc51e3809sm117002796d6.26.2025.10.30.09.15.46
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Oct 2025 09:15:47 -0700 (PDT)
-Message-ID: <052b10b1-00ac-4a2e-99c1-3433f2ea4513@gmail.com>
-Date: Thu, 30 Oct 2025 17:15:45 +0100
-MIME-Version: 1.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010034.outbound.protection.outlook.com [52.101.56.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD7510E2B2;
+ Thu, 30 Oct 2025 17:10:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KgDZE0+Gr7PJ2X/6rNcH7KM660bu4hFt1BfLNMDkRkH0tWOMkvJ8wLlu0zTEYQue59XxEO+tQIycvB7NxnPYcG7N4ewyGBBxuAG6tXJn1lSs9+qsATfme+L4rMzCcSxSeigLv2C69wBccxL4v0u4nsr5cXh36dN2iGYoDFo3ISwSoh+wqoocgJ/N62///bpYCRd3emHKET+dk5LL0xA4AeE0jJ0udvZBO3gx2GReZUkGjVZMvpL8xbcebfAk5ExzJP+0pEZT4HJ/iHgbOE5dBbIP0khvR9vp5/zBCV4GTPC4wNfQBdwWGZTLI04zaZAWgxw/gVbtssHqnQRe/NThHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LXB62v8t9XKkYzzTW1Dt3ndvg48Q9sTwWYp4CbGgAKc=;
+ b=uuEG2QcFCH4ay250aMl1wvEMiKk0V/tf33uvXNyPmZmh6V2Msj9FFcVh3HduqECqKtJUXpPSFpSbdyQdcwQszBKnII+sbEs1Uz13yTt7pNPWQxk298tDhnsKUoYV+p4Vna7NxVlKoQWhxO6JoyhAfboV3TIx8xpI5sC3WfjeXyXFIaH8EjW+xrwwXAsfvP3U9Kc67SKTlAYut0XAhaybfsB0C6Vxi1qwmHqsFQOXInfor4h+DA7sLhqTwA1PvXC/Uw6+EMlo+6kCfzP/Ec07FbOLk+jWvtF4RhZs5uPQ82uzJJmw6/slITNtMdsRh2gVd9oN89xlblKqkw5GY3TPqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LXB62v8t9XKkYzzTW1Dt3ndvg48Q9sTwWYp4CbGgAKc=;
+ b=q67r0nJiCLmrZkbTmOntWNtg9snUKGqa/v/1Slf3uF5Sqv++0IwzolCFbYADejUso4Sm+Vu6F74ggudg4wNtl69unVmhrFUEDqxpEULmOP6Q/qslndspcIsKwiSH+tA1Y7Ut/l7ItYAMdAcr06R6MwlR1iRFCwpYJmngIYvY/8k=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW4PR12MB6922.namprd12.prod.outlook.com (2603:10b6:303:207::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.12; Thu, 30 Oct
+ 2025 17:10:21 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9275.013; Thu, 30 Oct 2025
+ 17:10:21 +0000
+Message-ID: <34829993-a888-4f7c-a2c6-e87723644c3c@amd.com>
+Date: Thu, 30 Oct 2025 18:10:14 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdkfd: implement per process/device pasid in sysfs
-To: "Chen, Xiaogang" <xiaogang.chen@amd.com>,
- Zhu Lingshan <lingshan.zhu@amd.com>, felix.kuehling@amd.com,
- alexander.deucher@amd.com
-Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20251030034536.11356-1-lingshan.zhu@amd.com>
- <050ba477-c7d5-4420-8f06-6fce0db48726@amd.com>
+Subject: Re: [PATCH 2/4] drm/amdgpu: replace use of system_wq with
+ system_percpu_wq
+To: Marco Crivellari <marco.crivellari@suse.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20251030161011.282924-1-marco.crivellari@suse.com>
+ <20251030161011.282924-3-marco.crivellari@suse.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <050ba477-c7d5-4420-8f06-6fce0db48726@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20251030161011.282924-3-marco.crivellari@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0248.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10f::27) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6922:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4b4b468-51e4-4de1-bf5f-08de17d73517
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MUdXSHExUFA4RzczZ2l0ZmMyOVlIM2paaS8yZzBIRWI5YjNOeUFpaTJkT2E3?=
+ =?utf-8?B?S3VBQS80amlQTnJMbVdqTFNGWWhJVFpURWllRmtsVjJQSWFDNmhxYUIvWkxE?=
+ =?utf-8?B?Uko4VzBHeGM4WmRFc1U3aHZDY2lwY3N1ZkpwU3ZtY21BNG13OFErUkNWK3hV?=
+ =?utf-8?B?WVI4NzRHaFhGWncyWkxMZTNPbER0Tk45TWJScjNiWENQTmdmb0YyMVlDbzZG?=
+ =?utf-8?B?eU1WZTlkbEIvdERvY2dEM2VmbEpMRWZVZE5EUDY3ZG1nQUIyZ1RtN0tYd3hQ?=
+ =?utf-8?B?OGJpbk9SNHlkeUN0cU1SK2lrRjVISUd3amZFVEdNNnQ2N0ZmMUFPbE02ckNL?=
+ =?utf-8?B?Skw2c2tNaHZheXcvdzMwd3NHZzZIdzRaRkttZVFKY2YvaDJvUjl4QWZHZlV3?=
+ =?utf-8?B?eUJ3UEthRFlFMGxwck1RNzVCZFlMemoya1Y3bXIzcXdYSW1GbElDeEFxZUJQ?=
+ =?utf-8?B?MVRjVkhpUGc2UWNRM1dXWGpJNTE4cUd1YVBjaklFVzZLempNb0JyM3EwOGwv?=
+ =?utf-8?B?cFJiRUt0Z1YvSnRhZTdUUmlRWEc0YjR0NXVYSFJJN2VoTXNYR1dJVG1oMVVF?=
+ =?utf-8?B?eUhPalRSdjJoNnBWMzNCYWw2S1FEaTFqUHo4c0hkZElNRm9oRlJZbHFJM01V?=
+ =?utf-8?B?NnFpT2cwVk5ZSFlPZ0tieDlNcVh6SkU3L1pldWN1UEJYUUFHWS9LUnpybEx2?=
+ =?utf-8?B?Y1p3OWMzeU5CUmYyV3FVTmkxVUdqS2pQWUdlL1daMDlnaHgybXMrUS9vNjgy?=
+ =?utf-8?B?eFJrZTdsZ2V6Ym45YWdvaXBmVjVUMXo2UFNpZ0l5ZVFGV0wyczBwNzlhMTA5?=
+ =?utf-8?B?SUZYaFVZc3RZMFVxNFRQZFB6aDh3RWNwNHhBYXBoSTYzY3FVcDFiZzVCcXNY?=
+ =?utf-8?B?b3J5ZUdwbjBTbzE1ZUNuL2RpZDJHODFncUZFYU9ZaXQ4NmN1Z0RFRlFmT1h2?=
+ =?utf-8?B?VDA3SHNvV25BZlgwbFNSSFREeTFGdXNpQktLYlF5VFFqMUpRNlR1RnFkUUFZ?=
+ =?utf-8?B?bGdxeGx6a0RhYzNCQmIxZmpHejc4NFUwMlI2TmVud3REbEMyMFljZXdkZXpp?=
+ =?utf-8?B?WXJLN0ZTMEp6U1pKT0NyMnM0YStod3d2LzM2bnBQOUdGZ3l6dnp6VWpuUkRs?=
+ =?utf-8?B?Qk50SEVEV3hIaHgrcnIvTFRWaTJ1bWsvNXdsVUh3MG91OTE4eDBOZ2ovYTRV?=
+ =?utf-8?B?Z3dwczFrOWxqNlU3QkQzQ3N2VXBMenFrcGVCaHI2Tm04Yit2WUc0b0FnYlVn?=
+ =?utf-8?B?ME5HNUo3QkdrOGo3SHpXam56cU56NGhvL091aXJRM2VkaG1nRU5Wd2tkdlVF?=
+ =?utf-8?B?T3VqSFEwcmxWT3o4VFp2cUd5eWY4SVFhc0hqeGJYemMvVS8zM3hCdXdEVTFW?=
+ =?utf-8?B?ZC83QjlFcGROZzlJdmduU0RDV2tkc0cxdGlSa1l0QnRYQStLUVZ1MFZGR3Mz?=
+ =?utf-8?B?OFcyYWNaUmIrUVJ5WTlLTkpxNWkwWXpEREdZSUJWUXB4b2ljMVhsV2ZSSVM0?=
+ =?utf-8?B?bzRyYUIwVk02OGlIYmZxdEVUcGJ1UFZiZXRSdlJ2REtEejhNMnBkbjZOR05Z?=
+ =?utf-8?B?bzZiU3VPR0I2KzlMRFh6Q0pVWGxaQVUxWUhhNjlHL0o4ODM0cVBqMUYrS3Jl?=
+ =?utf-8?B?SDNQOC9kdVI2Q1NQOWM0cUp6NGp4V2VseEg4ZkJHN0tIMS9McFpVZ3FaTWRI?=
+ =?utf-8?B?NDNwcUUzeHdzV1FlR0ExeldlVTZ6VTJRTng5MFpmSCttU2VTelA1Kzc4MUJF?=
+ =?utf-8?B?RWo5YUlyQm9oaHVYdzljMzhYMFBqM1RKWWhKeXpCcjhKTHI5WFlwalpNTStK?=
+ =?utf-8?B?QXZ6bmpFL0ovYnNYNUJJazBVbWFDOHVXVjlwUjdMVzZQdWY5RVpwOEQva3BT?=
+ =?utf-8?B?NksxVGtjYjQ2NkljSkIzZytmMHZpYWpZNjUvMDAwRklUcmwrRTR4T1Q1M3pE?=
+ =?utf-8?Q?l0Uwtv6rnRnBq8i6Mx1VovJ+seXgeMuW?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHR0N013WkRBL3FqREd3SmZMbjkrR1JucWEyamtQRjkwZWYxMWs2OEJGWnVk?=
+ =?utf-8?B?bGEvNStXbGFWMDlZUi9BUHdOb0wvSnpEWlBvRGRiYTdFTDE2ZytpU2xIK3J6?=
+ =?utf-8?B?VnZTenJhNTU4S2xwRVMyYmNtSHI2REpCaDJjUVY1QVB6S2ROTUR5elRzaVly?=
+ =?utf-8?B?TTc2S0xyTVhUMm1sdzNDWTNwWi9FQTN3TXdEaGttUStnWDFGVllTRW1hZTJR?=
+ =?utf-8?B?ZWRWUjJQdzZjZWJWOTZJRTBzbXdYbk9NaVJ5bytWWlFUV2VDeWk3Z2RHeWR4?=
+ =?utf-8?B?U0ZyWUZ5LzYxOU1HbTMvTmhrWEVYSXdEaVJLNzh0MGRTZXo2VVI4Q3JpSi8r?=
+ =?utf-8?B?SFd0S0hDbkJOSXM3Q3BtWlZxT3NKaFI0L2ZpTHJCYmNOK2prNVR4R2FXTnRJ?=
+ =?utf-8?B?QjYzZ0RJbkZySHdTMFZhRkF3b2NiQ2Z0M004LzNTYjMySU5yKzUwNEY3eHVu?=
+ =?utf-8?B?dHFLRXk2QWJsekQzdFJpbnBRZDAxN0g0VUNzYlJyMnp4S0xKajZPNk93ZWM3?=
+ =?utf-8?B?MXZOeGpVcE1nZTIrTFpyNC90L3JjdTJsYU51L0J1MmVGWkdlZTVIcHBvaEFu?=
+ =?utf-8?B?bnhSS3JtSkJTdkVucUNadlVnNmNsRXFXM2wxSlllVG9WdnMyV2NoVS9aZTlS?=
+ =?utf-8?B?Yzg1UGF6a1hOZW5VVjNmeWZKTzhVd1lGZHFWejBMa3IwamRiTU9keHZmSEdr?=
+ =?utf-8?B?djdCUmpCUytCNUVRNzhzT2tSOVFoRmdSUXVEVVJpRmxYWFhZQzZSWklZWElS?=
+ =?utf-8?B?R1lOM0x1bUZtVnU5K3pCTUpVMlRqZnBCbm91SEZBb0cwWGFUdFM4amdJblBS?=
+ =?utf-8?B?eERxVTRqRGN3azFldmN5Q1ZVbk1MV1NPUDNKcDhCcTczYVorWlN6TjV6eWEr?=
+ =?utf-8?B?bVlMYjZGYStvYkhsUTlvKzhTdXBmUEhlT2Rwc1F1c0d0SmV3OHFYOGdwNTlQ?=
+ =?utf-8?B?cTVsa2pPOXZTNUNNbmRzb0dpSmlkYUhITWMrOCtXbWcxMXBpdXJURGVialJB?=
+ =?utf-8?B?dVExM1NRU0kzUWNyR3NJbjFHcjJtMFRPZ3FGWEs2M2ZiMlowTkZod1lHQ2Er?=
+ =?utf-8?B?UjQyQ3p4aGV3eHVOemUyTmUrUlhOU2F3S29Ib1YzWEpxalJMUGpXK1VyVnZk?=
+ =?utf-8?B?a0V5WDlEb2NPWHV0dS93eDliUG03ZllIV3NWTUpxbG5sUE1UQVFDU05hc2Z6?=
+ =?utf-8?B?NVF4bG1ENE9nZ1FkTWJpQ3lwVDdVYlZOOWZrdGNIRVZER2NhU0ZsbkVQellj?=
+ =?utf-8?B?dzdoTHRpMkZxaU5lMGVoa0JBZzRmcUprZUhkaXYxR2pITElMdUU5VmNibmJa?=
+ =?utf-8?B?U2JEVlo3SG1QZ2hCZUpsOXJWQmRNNjc1K1ZqTmgvR3BSc3FvekNkM0NzS1ZL?=
+ =?utf-8?B?UTNMZGtRMHNqZVJoVEF0b0dGUG43bWxmdiszV081ZWpaRUtlU2R1N2kvMHY5?=
+ =?utf-8?B?WlROaDFvYTZjUHRhYUFIYzdHdUxtdkllLzlOeFJBL2lUSkFlV2VpRkIvSnZO?=
+ =?utf-8?B?Zzljb292cUthNW9SenNVVGsyazl5K29ZanR1VEszbENKZmQwS3VLRlhhRnp4?=
+ =?utf-8?B?aXBxcFF3VGRqeXE1UUwrMUVPMG41UE1vVnlvd3N4WmtkdHMzQ2tWZmtVLzRE?=
+ =?utf-8?B?VTF1a0E2NlBwVldSWGUvM2hpNFRUSFFQZTJoYUI3SWRyRmFWaXgrTHZjWTR6?=
+ =?utf-8?B?QWI0ajh2WEJINW8yY3UvRWplcTZtaU9EdUM2MjFCNGhMT1BON1pPKzVtaGJB?=
+ =?utf-8?B?Nmg1bGpJSFFvWEdrR21jVW9DNjZFM0tWWjY5WG1wc1MyRGRmVW9HVnVVZXAr?=
+ =?utf-8?B?TDdRRnpoSjM1ZlRpR0VCQlROR2xmOUNoZDZ3OE40YVEyKzlQR3QvOEx3S1V5?=
+ =?utf-8?B?SUpBcXNwalhod3R0S09PRFM0SmFjOGY2SzY2dUVVRzNEV0NVQmFRbjNjNkR2?=
+ =?utf-8?B?NWllRG93YXNWeDlRRkVoRmtYYjhpRklGU053WWFVNC9lNDRLZk0rZzN1ZDNT?=
+ =?utf-8?B?YXVKbVJIT29URlpGVHNNYzgyT3hFU3BKTis3Q3BWVUkxTGxTUXhlekxsR2pn?=
+ =?utf-8?B?Z2I3ajUxODdoZmZIQ2xVNjFFK3RIblFUQ2lQUmZUMEQ3dXlYdVdNdE1pUFRS?=
+ =?utf-8?Q?d3QZSDFLfWqr0F2ZuJ2WzHjHu?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4b4b468-51e4-4de1-bf5f-08de17d73517
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 17:10:21.1484 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WDddzk2eb0lckWephLlpm1H8+yt1FqJn346QIWEQR1yRKGOq3KfL4GzawawpXglg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,124 +170,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/30/25 16:53, Chen, Xiaogang wrote:
+On 10/30/25 17:10, Marco Crivellari wrote:
+> Currently if a user enqueue a work item using schedule_delayed_work() the
+> used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
+> WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
+> schedule_work() that is using system_wq and queue_work(), that makes use
+> again of WORK_CPU_UNBOUND.
 > 
-> On 10/29/2025 10:45 PM, Zhu Lingshan wrote:
->> The pasid is a per-process-per-device attribute,
->> therefore this commit implements per
->> struct kfd_process_device->pasid in sysfs
-> This per device pasid is used internally in kfd, not used at user space. So no need to exposing it.
+> This lack of consistency cannot be addressed without refactoring the API.
+> 
+> system_wq should be the per-cpu workqueue, yet in this name nothing makes
+> that clear, so replace system_wq with system_percpu_wq.
+> 
+> The old wq (system_wq) will be kept for a few release cycles.
 
-Agree completely, the PASID is a technical attribute we use internally in the kernel and should not expose to userspace at all.
+Oh, good point!
 
-Maybe in debugfs to narrow down problems, but certainly not in sysfs. That would make the internal handling an uAPI and so not changeable any more.
+> 
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 8c4d79f6c14f..2f8160702f9a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4798,7 +4798,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  		}
+>  		/* must succeed. */
+>  		amdgpu_ras_resume(adev);
+> -		queue_delayed_work(system_wq, &adev->delayed_init_work,
+> +		queue_delayed_work(system_percpu_wq, &adev->delayed_init_work,
+>  				   msecs_to_jiffies(AMDGPU_RESUME_MS));
+>  	}
+>  
+> @@ -5328,7 +5328,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+>  	if (r)
+>  		goto exit;
+>  
+> -	queue_delayed_work(system_wq, &adev->delayed_init_work,
+> +	queue_delayed_work(system_percpu_wq, &adev->delayed_init_work,
+>  			   msecs_to_jiffies(AMDGPU_RESUME_MS));
+
+In this particular use case we actually don't want the percpu wq.
+
+This can execute on any CPU except for the current one.
 
 Regards,
 Christian.
 
->>
->> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  9 ++-------
->>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 18 +++++++++++-------
->>   2 files changed, 13 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index 70ef051511bb..6a3cfeccacd8 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -864,6 +864,8 @@ struct kfd_process_device {
->>       bool has_reset_queue;
->>         u32 pasid;
->> +    char pasid_filename[MAX_SYSFS_FILENAME_LEN];
->> +    struct attribute attr_pasid;
->>   };
->>     #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
->> @@ -983,7 +985,6 @@ struct kfd_process {
->>       /* Kobj for our procfs */
->>       struct kobject *kobj;
->>       struct kobject *kobj_queues;
->> -    struct attribute attr_pasid;
-> We keep it to have use space tools(ex rocm-smi) work as the tools still read it before they change.
->>         /* Keep track cwsr init */
->>       bool has_cwsr;
->> @@ -1100,12 +1101,6 @@ void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
->>                       int handle);
->>   struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
->>   -/* PASIDs */
->> -int kfd_pasid_init(void);
->> -void kfd_pasid_exit(void);
->> -u32 kfd_pasid_alloc(void);
->> -void kfd_pasid_free(u32 pasid);
-> This part is right, these declarations were forgotten to remove.
->> -
->>   /* Doorbells */
->>   size_t kfd_doorbell_process_slice(struct kfd_dev *kfd);
->>   int kfd_doorbell_init(struct kfd_dev *kfd);
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> index ddfe30c13e9d..24cf3b250b37 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> @@ -328,9 +328,11 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
->>   static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
->>                      char *buffer)
->>   {
->> -    if (strcmp(attr->name, "pasid") == 0)
->> -        return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
-> 
-> Same as above we keep it to have compatibility with current tools.
-> 
->  Regards
-> 
-> Xiaogang
-> 
->> -    else if (strncmp(attr->name, "vram_", 5) == 0) {
->> +    if (strncmp(attr->name, "pasid_", 6) == 0) {
->> +        struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
->> +                                  attr_pasid);
->> +        return snprintf(buffer, PAGE_SIZE, "%u\n", pdd->pasid);
->> +    } else if (strncmp(attr->name, "vram_", 5) == 0) {
->>           struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
->>                                     attr_vram);
->>           return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
->> @@ -662,6 +664,7 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
->>        * Create sysfs files for each GPU:
->>        * - proc/<pid>/vram_<gpuid>
->>        * - proc/<pid>/sdma_<gpuid>
->> +     * - proc/<pid>/pasid_<gpuid>
->>        */
->>       for (i = 0; i < p->n_pdds; i++) {
->>           struct kfd_process_device *pdd = p->pdds[i];
->> @@ -675,6 +678,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
->>                pdd->dev->id);
->>           kfd_sysfs_create_file(p->kobj, &pdd->attr_sdma,
->>                           pdd->sdma_filename);
->> +
->> +        snprintf(pdd->pasid_filename, MAX_SYSFS_FILENAME_LEN, "pasid_%u",
->> +             pdd->dev->id);
->> +        kfd_sysfs_create_file(p->kobj, &pdd->attr_pasid, pdd->pasid_filename);
->>       }
->>   }
->>   @@ -888,9 +895,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
->>               goto out;
->>           }
->>   -        kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
->> -                      "pasid");
->> -
->>           process->kobj_queues = kobject_create_and_add("queues",
->>                               process->kobj);
->>           if (!process->kobj_queues)
->> @@ -1104,7 +1108,6 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
->>       if (!p->kobj)
->>           return;
->>   -    sysfs_remove_file(p->kobj, &p->attr_pasid);
->>       kobject_del(p->kobj_queues);
->>       kobject_put(p->kobj_queues);
->>       p->kobj_queues = NULL;
->> @@ -1114,6 +1117,7 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
->>             sysfs_remove_file(p->kobj, &pdd->attr_vram);
->>           sysfs_remove_file(p->kobj, &pdd->attr_sdma);
->> +        sysfs_remove_file(p->kobj, &pdd->attr_pasid);
->>             sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
->>           if (pdd->dev->kfd2kgd->get_cu_occupancy)
+>  exit:
+>  	if (amdgpu_sriov_vf(adev)) {
 
