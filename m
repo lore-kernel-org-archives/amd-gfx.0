@@ -4,50 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F300CCF9F0
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 15:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68FDACCF9F0
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 15:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C226210E9DE;
-	Thu, 30 Oct 2025 15:20:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D39C10E28A;
+	Thu, 30 Oct 2025 15:20:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mBN0aoU1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P5C95DD2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8456B10E28A
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 15:20:24 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E3F6761CED;
- Thu, 30 Oct 2025 15:20:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4C2C4CEF8;
- Thu, 30 Oct 2025 15:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761837623;
- bh=YjSyGFym0qydSuS0W0gAnrXMJDmimvYgbHCNnj86w7s=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mBN0aoU1iQ6Gfz8xrU8TkxkjaNN92OcCPJV2m/l0DgjK1U2oYTMhGOV5//YBI/6bE
- Aw0tWrDJzTXAGBq+veuZBdY5wypOUV2ZIBs5QLoz2/i15zOqbm1dC0Ns+cempFJpFD
- AXJtRj8TmTmQG63MDmTWKZmvWWx3x97ttQatVCRvoH9EW2DjduLBeB/aiJRM7njrua
- fI0/GAcqqR5il4+4FepRX9uCjpTPpic9i6GOalMegwa8G/ESJoFV+DZVE/5bRBdUal
- 83eixpcJZtclWtrvQ/lCn1VpnlcDrtC2kZg8uiCEDponF/ZAz1tsl2nMypZ/o0Y0Am
- J1BAKPamg3HZA==
-Message-ID: <be426b87-ef51-40df-be42-b0a0a53209de@kernel.org>
-Date: Thu, 30 Oct 2025 10:20:22 -0500
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2F4910E9E0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 15:20:33 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-3404904539dso169978a91.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 08:20:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761837633; x=1762442433; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4n2ZAbC/7CporyooiQ9y7Oblbi4ys3ElhAZOq431qrQ=;
+ b=P5C95DD2vRwUcZ+E+z7IhDrdS+X6e76HdhTtNkjKYGx6eqFxYCL1C2yqOpicztrt2x
+ prlQolsJ7oNjdNxKx5IwYB4dAvIWvXKssdI/Sab3X7CUAmcDm0JtQ8vui81P9JN9qRFU
+ eI4Ex3B3ONnbmadvL4hxgT62IowoG5xDelZgNKwXazzGJoCS3+GRbWTKuVgqwbmC6xzz
+ h1K2lRE335d2+AdyN9MTDFrtby17PcsK4nW0XmJ0UsHbgHJd227mw1KJfycRYJnyPtvF
+ ER2xd1x6hmst7iQfEyu8gX/1H64CZciH9B+rEDiOlRq1XhLHjrDdCCh4Z/7cDdXYMDEY
+ lxMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761837633; x=1762442433;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4n2ZAbC/7CporyooiQ9y7Oblbi4ys3ElhAZOq431qrQ=;
+ b=QbUHcFaLcb8AnwWeOYQ9uJ/LTgbs3PmGKW3GgX2/jT49nwDVp8bneerdTgedknolYR
+ 2Ip3GhZZ0BuY2vsNww9LQivPCHw4Chp9HoUxufWEkSJ4MMwarM0wiwtj2pinzmY7sSm/
+ YeHzHjJ/TUOwySWSMujOJVYneg+WjvLroP2t7y/aJITKbFxucDe8PG1CN4HdFxh0+ajK
+ SSdkge8Q/QIN8kDcLr8BPngdqJEO7AkhkD0lIT14qMJdlbbyrx8ZK4inVxlknxRC5axJ
+ terJv6rOK05mYiEn0KhlFqU4FU9wmk2i+cPTOFS2mW8rdtWAt5/H87pyXLFdxjrRXG5V
+ VyOg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXqHuMqpd7DphWU9P2r6yL4gS53N7EqzHd9+Rt7QDneWqnHbo/UKf6hrrulMT2AUz5ms+AJMqon@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwkzQxl+ub+ersFh2/odtk1Mp1FiflfI4oM/vdVsxUy1QKH86wM
+ mp77VwG00CD8EBW+U3yb896guV+8FooMVh26k3ffNdFu4iqfB4Mgp8WwiKmAdQRwBcpmlnv+Eoh
+ up/BkK/exBI5fqsaP1lgDxlYX8iJuQ8s=
+X-Gm-Gg: ASbGncuNlKQ7DzMpCqEe/isWZiJr/kW3Nd+e2KKlCiW8BW30zofhzJ9FuTe183yqtzV
+ KtntGQ1mpBetTPNXdn2PubS5booCnurhuWMRz3udu4CVGDTsB8SxGZf0rpkXVHYNiXjKXXITnTj
+ yV521DO6aAzfC/5wxwvMQ23xxr2Sv1X42eQ8Y1uh3LzFrLUQb5L1iY4NVCwAOzx9NJ1Y3TubDel
+ S1wX6kC851fS5mMWH5/pkeSgTdgx4kRslsOb97GdwvgJGFFhXZiKEv8UnDu
+X-Google-Smtp-Source: AGHT+IFb9s2heQmxBOs16F9sJ4fOGsoBxkOFOsxPxU7gqSkUUjW9axA4peKPZGOc6kGJhiEtISZ7fWFZ7zDcJ9fzKU8=
+X-Received: by 2002:a17:902:f395:b0:26c:3c15:f780 with SMTP id
+ d9443c01a7336-2951a49dd38mr397265ad.8.1761837633262; Thu, 30 Oct 2025
+ 08:20:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/5] drm/amd: Add an unwind for failures in
- amdgpu_device_ip_suspend_phase1()
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20251026042942.549389-1-superm1@kernel.org>
- <20251026042942.549389-3-superm1@kernel.org>
- <CADnq5_NuD-h26B8tjPAKmWPE=48u6iFgYibi3uR9XXZuY=B5EA@mail.gmail.com>
- <fbf9fa5c-1c60-423c-a06b-b5e8525590ab@kernel.org>
- <CADnq5_Of+btg8pGcdOx1DDVv8uoeYq7myRZ5ycf0cK3hzTVNSg@mail.gmail.com>
-Content-Language: en-US
-From: "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-In-Reply-To: <CADnq5_Of+btg8pGcdOx1DDVv8uoeYq7myRZ5ycf0cK3hzTVNSg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20251030143737.136120-1-lukas.bulwahn@redhat.com>
+In-Reply-To: <20251030143737.136120-1-lukas.bulwahn@redhat.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 30 Oct 2025 11:20:21 -0400
+X-Gm-Features: AWmQ_bmVii5Alx1O5jsx56pQkAEpJlLlfevil6R4SK7ejJJXXuksGVL19-p25ec
+Message-ID: <CADnq5_OR72MJvXHTGzzW-oP+z8X=7vQiCpytmuBJNsN7=Tw=pA@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: adjust file entry in AMD DISPLAY CORE - DML
+To: Lukas Bulwahn <lbulwahn@redhat.com>
+Cc: Austin Zheng <austin.zheng@amd.com>, Dillon Varone <dillon.varone@amd.com>,
+ waynelin <Wayne.Lin@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Jun Lei <jun.lei@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ kernel-janitors@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Lukas Bulwahn <lukas.bulwahn@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,93 +91,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
-
-On 10/30/2025 10:18 AM, Alex Deucher wrote:
-> On Thu, Oct 30, 2025 at 11:16 AM Mario Limonciello (AMD) (kernel.org)
-> <superm1@kernel.org> wrote:
->>
->>
->>
->> On 10/30/2025 10:14 AM, Alex Deucher wrote:
->>> Patches 2-4 are:
->>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->>
->> Thanks!
->>
->> How about patch 1?  Patch 4 builds on it, so if that doesn't go in there
->> is another unwind step needed.
-> 
-> Oh, yeah, feel free to add my RB on that one as well, I guess it's not
-> quite the same as the one I sent out originally.
-
-OK Thanks.  Will queue up 1-4 and will drop #5 based on your comments 
-from v4.
-
-> 
-> Alex
-> 
->>
->>>
->>> On Sun, Oct 26, 2025 at 12:36 AM Mario Limonciello (AMD)
->>> <superm1@kernel.org> wrote:
->>>>
->>>> If any hardware IPs involved with the first phase of suspend fail, unwind
->>>> all steps to restore back to original state.
->>>>
->>>> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 18 ++++++++++++++++--
->>>>    1 file changed, 16 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> index f6850b86e96f..b9ea91b2c92f 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -178,6 +178,7 @@ struct amdgpu_init_level amdgpu_init_minimal_xgmi = {
->>>>                   BIT(AMD_IP_BLOCK_TYPE_COMMON) | BIT(AMD_IP_BLOCK_TYPE_IH) |
->>>>                   BIT(AMD_IP_BLOCK_TYPE_PSP)
->>>>    };
->>>> +static int amdgpu_device_ip_resume_phase3(struct amdgpu_device *adev);
->>>>
->>>>    static void amdgpu_device_load_switch_state(struct amdgpu_device *adev);
->>>>
->>>> @@ -3784,7 +3785,7 @@ static void amdgpu_device_delay_enable_gfx_off(struct work_struct *work)
->>>>     */
->>>>    static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
->>>>    {
->>>> -       int i, r;
->>>> +       int i, r, rec;
->>>>
->>>>           amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
->>>>           amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
->>>> @@ -3807,10 +3808,23 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
->>>>
->>>>                   r = amdgpu_ip_block_suspend(&adev->ip_blocks[i]);
->>>>                   if (r)
->>>> -                       return r;
->>>> +                       goto unwind;
->>>>           }
->>>>
->>>>           return 0;
->>>> +unwind:
->>>> +       rec = amdgpu_device_ip_resume_phase3(adev);
->>>> +       if (rec)
->>>> +               dev_err(adev->dev,
->>>> +                       "amdgpu_device_ip_resume_phase3 failed during unwind: %d\n",
->>>> +                       rec);
->>>> +
->>>> +       amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_ALLOW);
->>>> +
->>>> +       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
->>>> +       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
->>>> +
->>>> +       return r;
->>>>    }
->>>>
->>>>    /**
->>>> --
->>>> 2.51.1
->>>>
->>
-
+On Thu, Oct 30, 2025 at 10:46=E2=80=AFAM Lukas Bulwahn <lbulwahn@redhat.com=
+> wrote:
+>
+> From: Lukas Bulwahn <lukas.bulwahn@redhat.com>
+>
+> Commit e6a8a000cfe6 ("drm/amd/display: Rename dml2 to dml2_0 folder")
+> renames the directory dml2 to dml2_0 in ./drivers/gpu/drm/amd/display/dc,
+> but misses to adjust the file entry in AMD DISPLAY CORE - DML.
+>
+> Adjust the file entry after this directory renaming.
+>
+> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@redhat.com>
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 4d739e18aab6..7031ee1e7cff 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1080,7 +1080,7 @@ M:        Austin Zheng <austin.zheng@amd.com>
+>  M:     Jun Lei <jun.lei@amd.com>
+>  S:     Supported
+>  F:     drivers/gpu/drm/amd/display/dc/dml/
+> -F:     drivers/gpu/drm/amd/display/dc/dml2/
+> +F:     drivers/gpu/drm/amd/display/dc/dml2_0/
+>
+>  AMD FAM15H PROCESSOR POWER MONITORING DRIVER
+>  M:     Huang Rui <ray.huang@amd.com>
+> --
+> 2.51.0
+>
