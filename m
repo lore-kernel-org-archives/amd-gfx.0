@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F56ACCF9EA
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 03:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC5BCCF9EA
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 03:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D14D10E89F;
-	Thu, 30 Oct 2025 03:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3040E10E8AE;
+	Thu, 30 Oct 2025 03:46:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1li30yJ7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DwQOe81D";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012024.outbound.protection.outlook.com
- [40.93.195.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D784310E891;
- Thu, 30 Oct 2025 03:46:03 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010015.outbound.protection.outlook.com [52.101.201.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 552B110E8AE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 03:46:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=toYQVB5pWyYRprcEJu7JLe5sDA+DsEMNqBA5RUmK/rVsiVE6XDNjQZxQNBwix9tXBgEFTiVcsq0ahYnJXCjlm1BGlMjunHIjd949l7Z5tvm/JZZC+WYvc5axSdobmuewwMLFZ2AGMCeggenstxw8ABSVSjnbyzqmPzn/16rIOQ5Sy9FWA4CeUGQID7pHSYYGvFQgWFSgjLcI3NTr81bZwqenJvYoFdWb1WMfCv68tL2HgDDXJ3R2ceqzZFnGpGi0QD+hepweIjGBSakiZ5yKi/FPJVdv/YNCe8lJ9hcYIJOl8luxa0G0KRUf3orTPs+UkYYfr7O5SebquukbYMst4g==
+ b=KrSX1oN7tF9WOWK167YBZnW0XRbxSVHtfqKQLjNUo47E2AS25pT3I+ED46/+BctQjBPb8gxwI/qkLAd8vY0JQ+plYsCK3BvmPUe5HXZtCUhknYHnBiyy0c4FITKDekPCbv2QNIi6KAs+CtL3KU2ISRvU5kMiN/AhxC7wMJJ76zBan1zV1LHVmoDz2RsFaSR7GpIrf9LF6jeKCv0k64J9G8C3aKdEG3YQybI/+fFk/G599zQ91vlfX5x6j89fcFEG6xcLR1iIt1NqIq33CVJlOlqXyDqxt/vjBT5rmaR63ZJrJ2TldGy6jJ+dxcr55b1ihsrYeHWP14CYG99l3hvExg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JwhDV6JuAQZCUHqZoz5xm0VoCiieGdSsEgAqFZ5wHNE=;
- b=y5mj4ilYr5hIMURF+SmEChgoBZ14Dde4OvaI+0/kES7Huf9665EiLUyBbW4Qnx7EAg2PJKZgoerz/mYXuXPgzrkYObgYEwSLHtDHQZeRbWmrb/lA5Wy0raAhPCSXXtxD0eMYG+aNsdh8674sQDYMZuqay4rjdSx9gfOju3E8yny1kREhbeMXTdWAzMySMbJD2GszygTYwudrAWLFy0gmOuBRRGiTu0CSOKgHQPfNkzGkx4XPtWD0crLWr26vywEKUt3vxa/h5f6GynX8h2Eks5Y0Z2E41to/SPLDgmKY+hXKBrhZooks3YlBqS1ddnl42azPprOO1d3gy10nG7lDdw==
+ bh=M2YPJC+A6Xk851YyvG2MUU2+pXVs3b2xemfOx5nJw74=;
+ b=e4cL4zQMUSjN8JVCkIIM3ZUhatgLlLHK4sxUKHmSlsTg5tsR+jrCGb94bm4SFSN1/uxX2KD2LH8Vuo2sbf0WSo5zbSJ7sZg2gNB5FQ37zermL/W+CFBBl3WGi3OIHD/UD9CUqVf0s680cV6J8u1aBenFHufF0SyXeta/OQT4zKv+ERvXHkbtXtyLqPZMeYNfQLjxKx+6HLdMeI6TQc6mxPAKmWWxud9BIYmTGRMiVdd2A5mk+phFKLTmd5T9oMm+3OgHyetrCTRXzE2P3zYatwoQYb1N4w/CMI0Cp+2ms7Be3uIcCFPj1JbXZ27T2c8XmqcZVkMTtNfou2+4vNvAYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JwhDV6JuAQZCUHqZoz5xm0VoCiieGdSsEgAqFZ5wHNE=;
- b=1li30yJ71C/WOy5OI1P0wmx5ER/N8tD7cygUpO/LvRmoWYDKkTKV2/Dsu+/wHX6w78SOJTaTYv9oAbPXxg0cgVClPSNiXIv/NMvVCGf1xzx5t6Qpd9yaQDYh6G6jRzlaDaXZqfh0HjOrpr7lan78o3eiGqp3mRlTLs5ETS4WStw=
-Received: from BN0PR07CA0009.namprd07.prod.outlook.com (2603:10b6:408:141::8)
- by DM4PR12MB6184.namprd12.prod.outlook.com (2603:10b6:8:a6::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.12; Thu, 30 Oct 2025 03:45:57 +0000
-Received: from BN1PEPF00004684.namprd03.prod.outlook.com
- (2603:10b6:408:141:cafe::e8) by BN0PR07CA0009.outlook.office365.com
- (2603:10b6:408:141::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.13 via Frontend Transport; Thu,
- 30 Oct 2025 03:45:56 +0000
+ bh=M2YPJC+A6Xk851YyvG2MUU2+pXVs3b2xemfOx5nJw74=;
+ b=DwQOe81DkgauGNRHxKrZ+4+uviDqO//DpoYJ8p/S17GaW1B3V2HQW8H2+83xf44DYO95i0QZaH4/OGF41EOBmQ4CmK8ZWU5eyh+7ssNFh3K1uTkkFVhodMxkf3MeDrCbEQczHswDpMQ3X3FdFOHt/m8i1ix3dgywwubHYZpbYwo=
+Received: from BN9PR03CA0558.namprd03.prod.outlook.com (2603:10b6:408:138::23)
+ by DS4PR12MB9561.namprd12.prod.outlook.com (2603:10b6:8:282::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Thu, 30 Oct
+ 2025 03:46:12 +0000
+Received: from BN1PEPF00004681.namprd03.prod.outlook.com
+ (2603:10b6:408:138:cafe::51) by BN9PR03CA0558.outlook.office365.com
+ (2603:10b6:408:138::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.18 via Frontend Transport; Thu,
+ 30 Oct 2025 03:46:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,88 +48,76 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
+ BN1PEPF00004681.mail.protection.outlook.com (10.167.243.87) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9275.10 via Frontend Transport; Thu, 30 Oct 2025 03:45:56 +0000
-Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
+ 15.20.9275.10 via Frontend Transport; Thu, 30 Oct 2025 03:46:12 +0000
+Received: from fedora.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 29 Oct
- 2025 20:45:52 -0700
-From: Alex Hung <alex.hung@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
- <alex.hung@amd.com>, <leo.liu@amd.com>, <ville.syrjala@linux.intel.com>,
- <pekka.paalanen@collabora.com>, <contact@emersion.fr>, <mwen@igalia.com>,
- <jadahl@redhat.com>, <sebastian.wick@redhat.com>, <shashank.sharma@amd.com>,
- <agoins@nvidia.com>, <joshua@froggi.es>, <mdaenzer@redhat.com>,
- <aleixpol@kde.org>, <xaver.hugl@gmail.com>, <victoria@system76.com>,
- <daniel@ffwll.ch>, <uma.shankar@intel.com>, <quic_naseer@quicinc.com>,
- <quic_cbraga@quicinc.com>, <quic_abhinavk@quicinc.com>, <marcan@marcan.st>,
- <Liviu.Dudau@arm.com>, <sashamcintosh@google.com>,
- <chaitanya.kumar.borah@intel.com>, <louis.chauvet@bootlin.com>,
- <mcanal@igalia.com>, <nfraprado@collabora.com>, <arthurgrillo@riseup.net>,
- Daniel Stone <daniels@collabora.com>
-Subject: [PATCH V12 06/49] drm/colorop: Add 1D Curve subtype
-Date: Wed, 29 Oct 2025 21:42:11 -0600
-Message-ID: <20251030034349.2309829-7-alex.hung@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251030034349.2309829-1-alex.hung@amd.com>
-References: <20251030034349.2309829-1-alex.hung@amd.com>
+ 2025 20:46:09 -0700
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <felix.kuehling@amd.com>, <alexander.deucher@amd.com>
+CC: <ray.huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
+ <lingshan.zhu@amd.com>
+Subject: [PATCH] amdkfd: implement per process/device pasid in sysfs
+Date: Thu, 30 Oct 2025 11:45:36 +0800
+Message-ID: <20251030034536.11356-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|DM4PR12MB6184:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93374ba2-0591-4076-1610-08de1766d56f
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004681:EE_|DS4PR12MB9561:EE_
+X-MS-Office365-Filtering-Correlation-Id: 597c41d2-d4c6-4025-242a-08de1766de8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|7416014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?UYtZlnQxfyqoaG8ZQJqVoNGhoXkY5wt0QzvSlJZJ7jPrpDLxcat0Fbh/fl9T?=
- =?us-ascii?Q?HweUdXkBLzz7nCrVuB/sddvSHyDUg8g+tAwOOhazy/dGy/fanX3Gq1V9Q10W?=
- =?us-ascii?Q?JkY+Q5L2/Q8kItOOQ6Rxk6ae0zg3rUwytO292FhCiFKn2UFToI5ZrFiJjq1g?=
- =?us-ascii?Q?F4fuamI3a74tvDpQFTrBI4X8gwtiRruizbhJNOFBvi4jK2x1WZHa/bI94BQm?=
- =?us-ascii?Q?0584sPNIuhslXav7rBetnPBvm81b/zOVy+8GpvDWMmhzjkPquGz5lAXrvJH0?=
- =?us-ascii?Q?Gp+Gu0fr1GG/ShXzSrTQSmQJSclMZWNF1VLFMMsYJZ8oiifQmM/UgFkILo8w?=
- =?us-ascii?Q?ThnSKaSRb26G5WBIWIt3nco7NNat8Nd0t+gRy7Pmd6vknFpKllNrzWfOd3uR?=
- =?us-ascii?Q?25LZJg0jmrCH8HlZnFE3rsdfJZB9JyswSQinntb+IS2ihBhkgShZPxsQ6kSW?=
- =?us-ascii?Q?4/7wI5BRcAUkAu9F4xESRiuzhBQ2YktL9aFSvnBKpSsF/k8ER4maXi+r4wiN?=
- =?us-ascii?Q?GUZQu9DiGyQYRwvt1+5/rwCqDp0+FA1T3U2TuV4SKT110AcGYLsa7ym6rxXa?=
- =?us-ascii?Q?sDVzC3wYyba8dwyDSToIgbfP3ptVTyuFACuuxBLipTOKMc+Dim9e72S9EHSp?=
- =?us-ascii?Q?7nD6zDcclbn4NHSdPv4RKWHAxZRSu9dWZrVMKr7vvWq6/qZVsB0TswGvBxSP?=
- =?us-ascii?Q?GSTtJdWFvw1Y4oNkEaVqrAy/JFmNBfCSK/lDj6RHzykErDOCynMi+SxriMd7?=
- =?us-ascii?Q?qF63mwjk4lyAuVipjS6zH3UjSsMrTNE3Mpn6f4Ke+xafe3KZPWXmMIqBGQJw?=
- =?us-ascii?Q?+sLqEGiWQ8lsVgEAD9HClb5xka3fPWbR28wfk9Oee9m/fnz55q0cKUm/Tpbv?=
- =?us-ascii?Q?qfcmn+QmSQdBMYJDk1yXDSIIsw++bdA1i1r1mve2C/EvKyEc++Ca7BgUgSU6?=
- =?us-ascii?Q?i6iaeZT5JzFLgrkljWwcPgwtichh1oDL6NK14Rby/W433VZ9FubqWPKnqhup?=
- =?us-ascii?Q?9zQZcy4o7f62y4Jo8N9I3jxyMn8O/iD6vMnUR2uHsBmuTiRCbyCB7hzcGJAs?=
- =?us-ascii?Q?Pjr4NW+XxKKNN2bD1suSFjryW/EofZpEs1RMZtpWm6c7cwXcRIvpG2ij2YFH?=
- =?us-ascii?Q?Z6xtXzml6IokPVbLm1WiaHGNV8JzMV1bFlOlR3WY/KDnIJIso1AzOIQFnRT7?=
- =?us-ascii?Q?ZZU6liIeJsT4gK7dp4LgccW76kehzdvvmKlq2gcWZPjkGMvyr7AZ30xeVgiK?=
- =?us-ascii?Q?QJcJWKzqKyAjhqcyAh4bsEECyyl04hW8oG1SZJg/pYkiSGS0ukGeq6bHuiFd?=
- =?us-ascii?Q?MWAON873zMbPb9mV1o2OnBu2nu/+v88wD5215s+paw1Te0aCwe0jh8ReeHES?=
- =?us-ascii?Q?GBKLL1ZGjmYL9+qbYXeJjAe/CkEP4DHNBC1QnB65SqvOiMsmrHrjNJagozVz?=
- =?us-ascii?Q?ECBpzbGa92FC5UCDMMsXPiNyyW93SSHOZ9nNrwhSYtrNBBfwDRMwlKqUUL2o?=
- =?us-ascii?Q?6P9GKjUWo+l/ze0/fTaRa7Vk5UVL/eQGh0x5QM7ePgDJRQ25+WrEshZGa3Dz?=
- =?us-ascii?Q?B+7ZDDdP6kpRJs6sALk=3D?=
+ ARA:13230040|82310400026|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VG/2eZ2pQtkVZkIE3xy7FhIsJxfedvxTORf98vZ3ONRwwpkkfXd3jfxGFDf9?=
+ =?us-ascii?Q?n0PGFzAziYmuTDeB7zUjyo/rH0HMY5Rv7c50qwwwUQKykvj78AvNtbMwtxB8?=
+ =?us-ascii?Q?WfkrEBeNPwosgKsCLmB85cnmOEk1h/QVt0X67NCFmy2SoF3FYArfkQt6wZm9?=
+ =?us-ascii?Q?YdiwxrAMDYJt4yKvMW3HjYk5yZpOH6a4EPaQcqAhM56eM6qK5CTfPJOZ1Bdv?=
+ =?us-ascii?Q?2VgrrvgDALUgANz8kbW3dAzrZhdgjs3Xe5NDIEVftZ0/+FsDcUCjBPJRsH2q?=
+ =?us-ascii?Q?nj81BG1cCmYx9D+3eY4zp+yUbymmnpqeRiChqh2rGe94MCJLOCT1hXYFl5Gg?=
+ =?us-ascii?Q?/J9mvPB66nNztVUmMFHIP1pK3OuE2g4xFMzBr3o/oynlgzysRQtSiGlVQZE7?=
+ =?us-ascii?Q?ZdvxULlQTAtjLLL6NOqxbZ8/gJMp/2hSxAglucwzyn/Nd7iTg+vmVlUFNjub?=
+ =?us-ascii?Q?TQ1fJR41H8mwU1QV68iF4sRJ97vPnZn+EPNq2M7CBuw/bJ2Yain3rzc4eY95?=
+ =?us-ascii?Q?1/qky4y7p51/ydgZoNEkh7hMzMXINUQjOIOWtcOMKKIroF5wzeH/ajtufFD7?=
+ =?us-ascii?Q?iLZdk6DoqPZ1bC1c95uFWZtjF5KfOrCj1yJzZPh5V8OMmZUiHcIiXHYbG1TE?=
+ =?us-ascii?Q?HhDiUC85/HkMz4ZoOBSEJY89ddiiA0WEB7yjxMc0+VI/Cz2LNXMEgbSEUhlC?=
+ =?us-ascii?Q?aWp0b3xidBlARWNxMbHsULghcxOjmYPu4m1dpyzqe/q9lcAzCUnOrRfG6F8C?=
+ =?us-ascii?Q?MEgSHd7o9TAExNHIDOOIHjIkA6wcU2CLM7y1cqmEVbbjqOBGku9d/chdWaH0?=
+ =?us-ascii?Q?mN/KmRWZKmY6bMX5AyKeHEk9GIGNRvOPetMj+gEsoAae2mbJCx+/X4GXCudG?=
+ =?us-ascii?Q?nxUyK5NQOwu/vDiTmpViGgMTFlsg/7FiEW/GNnUA89Y7rGhgiYYU6ad8VuZf?=
+ =?us-ascii?Q?NfMz09nFNQMtcVk9+Czj3GQiQ96F9h2ZzkA5/v9+m4UiNCq2lpz9qDgH4NLJ?=
+ =?us-ascii?Q?7ZwgmOtM//na1Fpli57MnAt6WaCNPoLDuKGcJR74gp5dOmgHFeECKwonehTB?=
+ =?us-ascii?Q?KylYxe2qVYUNYiZMO9lZxFOJXClBMbZXgX9zCtEKj94Mqhvn+9c6V8T+bUeS?=
+ =?us-ascii?Q?YdV9gE6pCfrPlKuzLNQCTV+wd4dr9saFFhQkhBkIZIAZW7TXpSoWuxQanPtu?=
+ =?us-ascii?Q?vz1EMPOuJMe/EW2ENwBNzOOenQeZ/jgOUoiROW64CDBDZ4k3Rj2jhTN7silT?=
+ =?us-ascii?Q?v5tGCnKCuV+t5jlRoPtuFotGYRxQFdwwABaTlGgGWaGXf203LUiw4/uW0AVe?=
+ =?us-ascii?Q?SUVly8gCSpscD2bkXGKayttdTUqoVQ+v6m5cGLoBQcnxpSBDvopwzZFVNfyP?=
+ =?us-ascii?Q?f46hA8jk5yFftvMHvqj4ddTI3sTBZ6ff2zQ37+m0wxSDB4vkbVt39EJHA+R0?=
+ =?us-ascii?Q?1Dy83Z582h0pH6B1gFBwO76j0UlooaNVE4sVYWJpYPkldrUnpZX4Omwql2/Q?=
+ =?us-ascii?Q?8EmXjjBpAqOI0vTkLuYHPswHj6qy43pjgSuGwknFcNYrz/t2ltp+N/KSpub9?=
+ =?us-ascii?Q?JW/T2tIkYFv+lQZTfBQ=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 03:45:56.7690 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93374ba2-0591-4076-1610-08de1766d56f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 03:46:12.0663 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 597c41d2-d4c6-4025-242a-08de1766de8d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004684.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004681.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6184
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9561
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,331 +132,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+The pasid is a per-process-per-device attribute,
+therefore this commit implements per
+struct kfd_process_device->pasid in sysfs
 
-Add a new drm_colorop with DRM_COLOROP_1D_CURVE with two subtypes:
-DRM_COLOROP_1D_CURVE_SRGB_EOTF and DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF.
-
-Reviewed-by: Simon Ser <contact@emersion.fr>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Co-developed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-Reviewed-by: Sebastian Wick <sebastian.wick@redhat.com>
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 ---
-V9: Specify function names by _plane_ (Chaitanya Kumar Borah)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  9 ++-------
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 18 +++++++++++-------
+ 2 files changed, 13 insertions(+), 14 deletions(-)
 
-v5:
- - Add drm_get_colorop_curve_1d_type_name in header
- - Add drm_colorop_init
- - Set default curve
- - Add kernel docs
-
-v4:
- - Use drm_colorop_curve_1d_type_enum_list to get name (Pekka)
- - Create separate init function for 1D curve
- - Pass supported TFs into 1D curve init function
-
- drivers/gpu/drm/drm_atomic_uapi.c |  18 ++--
- drivers/gpu/drm/drm_colorop.c     | 134 ++++++++++++++++++++++++++++++
- include/drm/drm_colorop.h         |  63 ++++++++++++++
- 3 files changed, 210 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index ee233dab3cb2..df8ad79577cd 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -650,11 +650,17 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
- 		struct drm_colorop_state *state, struct drm_file *file_priv,
- 		struct drm_property *property, uint64_t val)
- {
--	drm_dbg_atomic(colorop->dev,
--			"[COLOROP:%d] unknown property [PROP:%d:%s]]\n",
--			colorop->base.id,
--			property->base.id, property->name);
--	return -EINVAL;
-+	if (property == colorop->curve_1d_type_property) {
-+		state->curve_1d_type = val;
-+	} else {
-+		drm_dbg_atomic(colorop->dev,
-+			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]]\n",
-+			       colorop->base.id, colorop->type,
-+			       property->base.id, property->name);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 70ef051511bb..6a3cfeccacd8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -864,6 +864,8 @@ struct kfd_process_device {
+ 	bool has_reset_queue;
  
- static int
-@@ -664,6 +670,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+ 	u32 pasid;
++	char pasid_filename[MAX_SYSFS_FILENAME_LEN];
++	struct attribute attr_pasid;
+ };
+ 
+ #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+@@ -983,7 +985,6 @@ struct kfd_process {
+ 	/* Kobj for our procfs */
+ 	struct kobject *kobj;
+ 	struct kobject *kobj_queues;
+-	struct attribute attr_pasid;
+ 
+ 	/* Keep track cwsr init */
+ 	bool has_cwsr;
+@@ -1100,12 +1101,6 @@ void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
+ 					int handle);
+ struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
+ 
+-/* PASIDs */
+-int kfd_pasid_init(void);
+-void kfd_pasid_exit(void);
+-u32 kfd_pasid_alloc(void);
+-void kfd_pasid_free(u32 pasid);
+-
+ /* Doorbells */
+ size_t kfd_doorbell_process_slice(struct kfd_dev *kfd);
+ int kfd_doorbell_init(struct kfd_dev *kfd);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index ddfe30c13e9d..24cf3b250b37 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -328,9 +328,11 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
+ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+ 			       char *buffer)
  {
- 	if (property == colorop->type_property) {
- 		*val = colorop->type;
-+	} else if (property == colorop->curve_1d_type_property) {
-+		*val = state->curve_1d_type;
- 	} else {
- 		return -EINVAL;
+-	if (strcmp(attr->name, "pasid") == 0)
+-		return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
+-	else if (strncmp(attr->name, "vram_", 5) == 0) {
++	if (strncmp(attr->name, "pasid_", 6) == 0) {
++		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
++							      attr_pasid);
++		return snprintf(buffer, PAGE_SIZE, "%u\n", pdd->pasid);
++	} else if (strncmp(attr->name, "vram_", 5) == 0) {
+ 		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
+ 							      attr_vram);
+ 		return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
+@@ -662,6 +664,7 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+ 	 * Create sysfs files for each GPU:
+ 	 * - proc/<pid>/vram_<gpuid>
+ 	 * - proc/<pid>/sdma_<gpuid>
++	 * - proc/<pid>/pasid_<gpuid>
+ 	 */
+ 	for (i = 0; i < p->n_pdds; i++) {
+ 		struct kfd_process_device *pdd = p->pdds[i];
+@@ -675,6 +678,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+ 			 pdd->dev->id);
+ 		kfd_sysfs_create_file(p->kobj, &pdd->attr_sdma,
+ 					    pdd->sdma_filename);
++
++		snprintf(pdd->pasid_filename, MAX_SYSFS_FILENAME_LEN, "pasid_%u",
++			 pdd->dev->id);
++		kfd_sysfs_create_file(p->kobj, &pdd->attr_pasid, pdd->pasid_filename);
  	}
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index 1459a28c7e7b..6fbc3c284d33 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -31,6 +31,123 @@
- 
- #include "drm_crtc_internal.h"
- 
-+static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
-+	{ DRM_COLOROP_1D_CURVE, "1D Curve" },
-+};
-+
-+static const char * const colorop_curve_1d_type_names[] = {
-+	[DRM_COLOROP_1D_CURVE_SRGB_EOTF] = "sRGB EOTF",
-+	[DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF] = "sRGB Inverse EOTF",
-+};
-+
-+
-+/* Init Helpers */
-+
-+static int drm_plane_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
-+			    struct drm_plane *plane, enum drm_colorop_type type)
-+{
-+	struct drm_mode_config *config = &dev->mode_config;
-+	struct drm_property *prop;
-+	int ret = 0;
-+
-+	ret = drm_mode_object_add(dev, &colorop->base, DRM_MODE_OBJECT_COLOROP);
-+	if (ret)
-+		return ret;
-+
-+	colorop->base.properties = &colorop->properties;
-+	colorop->dev = dev;
-+	colorop->type = type;
-+	colorop->plane = plane;
-+
-+	list_add_tail(&colorop->head, &config->colorop_list);
-+	colorop->index = config->num_colorop++;
-+
-+	/* add properties */
-+
-+	/* type */
-+	prop = drm_property_create_enum(dev,
-+					DRM_MODE_PROP_IMMUTABLE,
-+					"TYPE", drm_colorop_type_enum_list,
-+					ARRAY_SIZE(drm_colorop_type_enum_list));
-+
-+	if (!prop)
-+		return -ENOMEM;
-+
-+	colorop->type_property = prop;
-+
-+	drm_object_attach_property(&colorop->base,
-+				   colorop->type_property,
-+				   colorop->type);
-+
-+	return ret;
-+}
-+
-+/**
-+ * drm_plane_colorop_curve_1d_init - Initialize a DRM_COLOROP_1D_CURVE
-+ *
-+ * @dev: DRM device
-+ * @colorop: The drm_colorop object to initialize
-+ * @plane: The associated drm_plane
-+ * @supported_tfs: A bitfield of supported drm_plane_colorop_curve_1d_init enum values,
-+ *                 created using BIT(curve_type) and combined with the OR '|'
-+ *                 operator.
-+ * @return zero on success, -E value on failure
-+ */
-+int drm_plane_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				    struct drm_plane *plane, u64 supported_tfs)
-+{
-+	struct drm_prop_enum_list enum_list[DRM_COLOROP_1D_CURVE_COUNT];
-+	int i, len;
-+
-+	struct drm_property *prop;
-+	int ret;
-+
-+	if (!supported_tfs) {
-+		drm_err(dev,
-+			"No supported TFs for new 1D curve colorop on [PLANE:%d:%s]\n",
-+			plane->base.id, plane->name);
-+		return -EINVAL;
-+	}
-+
-+	if ((supported_tfs & -BIT(DRM_COLOROP_1D_CURVE_COUNT)) != 0) {
-+		drm_err(dev, "Unknown TF provided on [PLANE:%d:%s]\n",
-+			plane->base.id, plane->name);
-+		return -EINVAL;
-+	}
-+
-+	ret = drm_plane_colorop_init(dev, colorop, plane, DRM_COLOROP_1D_CURVE);
-+	if (ret)
-+		return ret;
-+
-+	len = 0;
-+	for (i = 0; i < DRM_COLOROP_1D_CURVE_COUNT; i++) {
-+		if ((supported_tfs & BIT(i)) == 0)
-+			continue;
-+
-+		enum_list[len].type = i;
-+		enum_list[len].name = colorop_curve_1d_type_names[i];
-+		len++;
-+	}
-+
-+	if (WARN_ON(len <= 0))
-+		return -EINVAL;
-+
-+
-+	/* initialize 1D curve only attribute */
-+	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "CURVE_1D_TYPE",
-+					enum_list, len);
-+	if (!prop)
-+		return -ENOMEM;
-+
-+	colorop->curve_1d_type_property = prop;
-+	drm_object_attach_property(&colorop->base, colorop->curve_1d_type_property,
-+				   enum_list[0].type);
-+	drm_colorop_reset(colorop);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_plane_colorop_curve_1d_init);
-+
- static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop,
- 							struct drm_colorop_state *state)
- {
-@@ -70,7 +187,16 @@ void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
- static void __drm_colorop_state_reset(struct drm_colorop_state *colorop_state,
- 				      struct drm_colorop *colorop)
- {
-+	u64 val;
-+
- 	colorop_state->colorop = colorop;
-+
-+	if (colorop->curve_1d_type_property) {
-+		drm_object_property_get_default_value(&colorop->base,
-+						colorop->curve_1d_type_property,
-+						&val);
-+		colorop_state->curve_1d_type = val;
-+	}
  }
  
- /**
-@@ -114,3 +240,11 @@ const char *drm_get_colorop_type_name(enum drm_colorop_type type)
+@@ -888,9 +895,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 			goto out;
+ 		}
  
- 	return colorop_type_name[type];
- }
-+
-+const char *drm_get_colorop_curve_1d_type_name(enum drm_colorop_curve_1d_type type)
-+{
-+	if (WARN_ON(type >= ARRAY_SIZE(colorop_curve_1d_type_names)))
-+		return "unknown";
-+
-+	return colorop_curve_1d_type_names[type];
-+}
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 9c9698545f63..fa167e642e0d 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -31,6 +31,42 @@
- #include <drm/drm_mode.h>
- #include <drm/drm_property.h>
+-		kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
+-				      "pasid");
+-
+ 		process->kobj_queues = kobject_create_and_add("queues",
+ 							process->kobj);
+ 		if (!process->kobj_queues)
+@@ -1104,7 +1108,6 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
+ 	if (!p->kobj)
+ 		return;
  
-+
-+/**
-+ * enum drm_colorop_curve_1d_type - type of 1D curve
-+ *
-+ * Describes a 1D curve to be applied by the DRM_COLOROP_1D_CURVE colorop.
-+ */
-+enum drm_colorop_curve_1d_type {
-+	/**
-+	 * @DRM_COLOROP_1D_CURVE_SRGB_EOTF:
-+	 *
-+	 * enum string "sRGB EOTF"
-+	 *
-+	 * sRGB piece-wise electro-optical transfer function. Transfer
-+	 * characteristics as defined by IEC 61966-2-1 sRGB. Equivalent
-+	 * to H.273 TransferCharacteristics code point 13 with
-+	 * MatrixCoefficients set to 0.
-+	 */
-+	DRM_COLOROP_1D_CURVE_SRGB_EOTF,
-+
-+	/**
-+	 * @DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF:
-+	 *
-+	 * enum string "sRGB Inverse EOTF"
-+	 *
-+	 * The inverse of &DRM_COLOROP_1D_CURVE_SRGB_EOTF
-+	 */
-+	DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF,
-+
-+	/**
-+	 * @DRM_COLOROP_1D_CURVE_COUNT:
-+	 *
-+	 * enum value denoting the size of the enum
-+	 */
-+	DRM_COLOROP_1D_CURVE_COUNT
-+};
-+
- /**
-  * struct drm_colorop_state - mutable colorop state
-  */
-@@ -46,6 +82,13 @@ struct drm_colorop_state {
- 	 * information.
- 	 */
+-	sysfs_remove_file(p->kobj, &p->attr_pasid);
+ 	kobject_del(p->kobj_queues);
+ 	kobject_put(p->kobj_queues);
+ 	p->kobj_queues = NULL;
+@@ -1114,6 +1117,7 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
  
-+	/**
-+	 * @curve_1d_type:
-+	 *
-+	 * Type of 1D curve.
-+	 */
-+	enum drm_colorop_curve_1d_type curve_1d_type;
-+
- 	/** @state: backpointer to global drm_atomic_state */
- 	struct drm_atomic_state *state;
- };
-@@ -127,6 +170,14 @@ struct drm_colorop {
- 	 * this color operation. The type is enum drm_colorop_type.
- 	 */
- 	struct drm_property *type_property;
-+
-+	/**
-+	 * @curve_1d_type_property:
-+	 *
-+	 * Sub-type for DRM_COLOROP_1D_CURVE type.
-+	 */
-+	struct drm_property *curve_1d_type_property;
-+
- };
+ 		sysfs_remove_file(p->kobj, &pdd->attr_vram);
+ 		sysfs_remove_file(p->kobj, &pdd->attr_sdma);
++		sysfs_remove_file(p->kobj, &pdd->attr_pasid);
  
- #define obj_to_colorop(x) container_of(x, struct drm_colorop, base)
-@@ -151,6 +202,9 @@ static inline struct drm_colorop *drm_colorop_find(struct drm_device *dev,
- 	return mo ? obj_to_colorop(mo) : NULL;
- }
- 
-+int drm_plane_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				    struct drm_plane *plane, u64 supported_tfs);
-+
- struct drm_colorop_state *
- drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
- 
-@@ -191,4 +245,13 @@ static inline unsigned int drm_colorop_index(const struct drm_colorop *colorop)
-  */
- const char *drm_get_colorop_type_name(enum drm_colorop_type type);
- 
-+/**
-+ * drm_get_colorop_curve_1d_type_name - return a string for 1D curve type
-+ * @type: 1d curve type to compute name of
-+ *
-+ * In contrast to the other drm_get_*_name functions this one here returns a
-+ * const pointer and hence is threadsafe.
-+ */
-+const char *drm_get_colorop_curve_1d_type_name(enum drm_colorop_curve_1d_type type);
-+
- #endif /* __DRM_COLOROP_H__ */
+ 		sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
+ 		if (pdd->dev->kfd2kgd->get_cu_occupancy)
 -- 
-2.43.0
+2.51.0
 
