@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 066CFCCFA00
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CF28CCF9FE
 	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 14:05:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B54F10E5D2;
-	Thu, 30 Oct 2025 14:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEF5410E9A1;
+	Thu, 30 Oct 2025 14:05:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dhH1JejG";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bK/0jh1c";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5933D10E9A0;
- Thu, 30 Oct 2025 14:05:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3681010E98B;
+ Thu, 30 Oct 2025 14:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1761833145;
- bh=xL+Viqv64mI+Im4ey3Ty/IK9F7Sj8Rb4pKiYLXdhThQ=;
+ s=mail; t=1761833142;
+ bh=G6Jverd7TNyaRPc0r8UoWEn49n5SOIwGDLD7r/nUJE4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dhH1JejGxCteeY+dDW0fqhedODVfthiuQGN+7L6FVL2a1O3QPIApiGguvqfbkmhsE
- 3l4uhx05vaOGmS/2vBzMRQRR96hTeeAPuNrKPUUCOZYxTVuiQ4QYASlQwEvI9y8a54
- hVJg4x91wupSsCu8rWbBgvRiHqlQKEwTX570Q+c/pI/uPvEXWzt7NFJ4mf92b7mysL
- hudj68u6ln1XwHv9/qQZwgy3pNBF9TVfiPsBO91DtKQt6xxl36OBeAj+vw2Y1NWhWX
- wYTdMFgAFwDRNb5nIy8/i5jVj4o2Ku14tYuWZBTqP1TEtnoYBsu7uXOfl5m1XPetX/
- 4/pb2BJ9S8Hpg==
+ b=bK/0jh1cXPPUEMbFavCqQFPZR52lxCnX4MWUmvLwnQ6yJa8Nu7mFt3BJE9SI34RY8
+ q4MeCtWtLEamg+YIQP4ObVpuFBNMVIGevRAfo+J4vUKB02BFjqZEoq2BXVp3QTcA9R
+ iac6nWPEfBTq6XuOh/MHqCKeY5/YYW4Dq+LY1W7ItcUjwHwpBFsRlprlw1IQ4IW45W
+ qsVtFIyL1UJ9xXDVXuQR/sytKgISujDSjSkLcwc2BJB2p3rMFt9MzQABzoGma7ykSx
+ qt2BsBFT1GrLvkTIm5nbFQrbOP+c2QjoHb/9/wYQR5oW7ldeRqmhN8B2t/Tsam2Mb4
+ nle5liL7hCN1w==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 16E9117E15AB;
- Thu, 30 Oct 2025 15:05:44 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 06E9C17E1550;
+ Thu, 30 Oct 2025 15:05:41 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -57,9 +57,10 @@ Cc: dri-devel@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org,
  Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com
-Subject: [PATCH v5 08/16] drm/panthor: Add an ioctl to query BO flags
-Date: Thu, 30 Oct 2025 15:05:17 +0100
-Message-ID: <20251030140525.366636-9-boris.brezillon@collabora.com>
+Subject: [PATCH v5 06/16] drm/panthor: Expose the selected coherency protocol
+ to the UMD
+Date: Thu, 30 Oct 2025 15:05:15 +0100
+Message-ID: <20251030140525.366636-7-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251030140525.366636-1-boris.brezillon@collabora.com>
 References: <20251030140525.366636-1-boris.brezillon@collabora.com>
@@ -79,21 +80,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is useful when importing BOs, so we can know about cacheability
-and flush the caches when needed.
-
-We can also know when the buffer comes from a different subsystem and
-take proper actions (avoid CPU mappings, or do kernel-based syncs
-instead of userland cache flushes).
+If we want to be able to skip CPU cache maintenance operations on
+CPU-cached mappings, the UMD needs to know the kind of coherency
+in place. Add a field to drm_panthor_gpu_info to do that. We can re-use
+a padding field for that since this object is write-only from the
+KMD perspective, and the UMD should just ignore it.
 
 v2:
 - New commit
 
 v3:
-- Add Steve's R-b
+- Make coherency protocol a real enum, not a bitmask
+- Add BUILD_BUG_ON()s to make sure the values in panthor_regs.h and
+  those exposed through the uAPI match
 
 v4:
-- No changes
+- Add Steve's R-b
 
 v5:
 - No changes
@@ -101,134 +103,117 @@ v5:
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/gpu/drm/panthor/panthor_drv.c | 24 +++++++++++
- include/uapi/drm/panthor_drm.h        | 57 +++++++++++++++++++++++++++
- 2 files changed, 81 insertions(+)
+ drivers/gpu/drm/panthor/panthor_device.c | 10 +++++-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  2 +-
+ include/uapi/drm/panthor_drm.h           | 39 ++++++++++++++++++++++--
+ 3 files changed, 46 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index cad5c4270b04..c07fc5dcd4a1 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1433,6 +1433,29 @@ static int panthor_ioctl_bo_sync(struct drm_device *ddev, void *data,
- 	return ret;
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index c7033d82cef5..492585014e9f 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -25,6 +25,12 @@
+ 
+ static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+ {
++	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
++	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
++	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
++
++	/* Start with no coherency, and update it if the device is flagged coherent. */
++	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
+ 	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
+ 
+ 	if (!ptdev->coherent)
+@@ -34,8 +40,10 @@ static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+ 	 * ACE protocol has never been supported for command stream frontend GPUs.
+ 	 */
+ 	if ((gpu_read(ptdev, GPU_COHERENCY_FEATURES) &
+-		      GPU_COHERENCY_PROT_BIT(ACE_LITE)))
++		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
++		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+ 		return 0;
++	}
+ 
+ 	drm_err(&ptdev->base, "Coherency not supported by the device");
+ 	return -ENOTSUPP;
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index 7f9a28e90409..a95c0b94ef58 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -49,7 +49,7 @@ struct panthor_gpu {
+ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
+ {
+ 	gpu_write(ptdev, GPU_COHERENCY_PROTOCOL,
+-		  ptdev->coherent ? GPU_COHERENCY_ACE_LITE : GPU_COHERENCY_NONE);
++		  ptdev->gpu_info.selected_coherency);
  }
  
-+static int panthor_ioctl_bo_query_info(struct drm_device *ddev, void *data,
-+				       struct drm_file *file)
-+{
-+	struct drm_panthor_bo_query_info *args = data;
-+	struct panthor_gem_object *bo;
-+	struct drm_gem_object *obj;
-+
-+	obj = drm_gem_object_lookup(file, args->handle);
-+	if (!obj)
-+		return -ENOENT;
-+
-+	bo = to_panthor_bo(obj);
-+	args->pad = 0;
-+	args->create_flags = bo->flags;
-+
-+	args->extra_flags = 0;
-+	if (drm_gem_is_imported(&bo->base.base))
-+		args->extra_flags |= DRM_PANTHOR_BO_IS_IMPORTED;
-+
-+	drm_gem_object_put(obj);
-+	return 0;
-+}
-+
- static int
- panthor_open(struct drm_device *ddev, struct drm_file *file)
- {
-@@ -1508,6 +1531,7 @@ static const struct drm_ioctl_desc panthor_drm_driver_ioctls[] = {
- 	PANTHOR_IOCTL(BO_SET_LABEL, bo_set_label, DRM_RENDER_ALLOW),
- 	PANTHOR_IOCTL(SET_USER_MMIO_OFFSET, set_user_mmio_offset, DRM_RENDER_ALLOW),
- 	PANTHOR_IOCTL(BO_SYNC, bo_sync, DRM_RENDER_ALLOW),
-+	PANTHOR_IOCTL(BO_QUERY_INFO, bo_query_info, DRM_RENDER_ALLOW),
- };
- 
- static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
+ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
 diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index bb12760abe99..7eec9f922183 100644
+index 467d365ed7ba..f0f637e0631d 100644
 --- a/include/uapi/drm/panthor_drm.h
 +++ b/include/uapi/drm/panthor_drm.h
-@@ -147,6 +147,13 @@ enum drm_panthor_ioctl_id {
- 
- 	/** @DRM_PANTHOR_BO_SYNC: Sync BO data to/from the device */
- 	DRM_PANTHOR_BO_SYNC,
-+
-+	/**
-+	 * @DRM_PANTHOR_BO_QUERY_INFO: Query information about a BO.
-+	 *
-+	 * This is useful for imported BOs.
-+	 */
-+	DRM_PANTHOR_BO_QUERY_INFO,
- };
- 
- /**
-@@ -1123,6 +1130,54 @@ struct drm_panthor_bo_sync {
- 	struct drm_panthor_obj_array ops;
+@@ -245,6 +245,26 @@ enum drm_panthor_dev_query_type {
+ 	DRM_PANTHOR_DEV_QUERY_GROUP_PRIORITIES_INFO,
  };
  
 +/**
-+ * enum drm_panthor_bo_extra_flags - Set of flags returned on a BO_QUERY_INFO request
-+ *
-+ * Those are flags reflecting BO properties that are not directly coming from the flags
-+ * passed are creation time, or information on BOs that were imported from other drivers.
++ * enum drm_panthor_gpu_coherency: Type of GPU coherency
 + */
-+enum drm_panthor_bo_extra_flags {
++enum drm_panthor_gpu_coherency {
 +	/**
-+	 * @DRM_PANTHOR_BO_IS_IMPORTED: BO has been imported from an external driver.
-+	 *
-+	 * Note that imported dma-buf handles are not flagged as imported if they
-+	 * where exported by panthor. Only buffers that are coming from other drivers
-+	 * (dma heaps, other GPUs, display controllers, V4L, ...).
-+	 *
-+	 * It's also important to note that all imported BOs are mapped cached and can't
-+	 * be considered IO-coherent even if the GPU is. This means they require explicit
-+	 * syncs that must go through the DRM_PANTHOR_BO_SYNC ioctl (userland cache
-+	 * maintenance is not allowed in that case, because extra operations might be
-+	 * needed to make changes visible to the CPU/device, like buffer migration when the
-+	 * exporter is a GPU with its own VRAM).
++	 * @DRM_PANTHOR_GPU_COHERENCY_ACE_LITE: ACE Lite coherency.
 +	 */
-+	DRM_PANTHOR_BO_IS_IMPORTED = (1 << 0),
-+};
-+
-+/**
-+ * struct drm_panthor_bo_query_info - Query BO info
-+ */
-+struct drm_panthor_bo_query_info {
-+	/** @handle: Handle of the buffer object to query flags on. */
-+	__u32 handle;
++	DRM_PANTHOR_GPU_COHERENCY_ACE_LITE = 0,
 +
 +	/**
-+	 * @extra_flags: Combination of enum drm_panthor_bo_extra_flags flags.
++	 * @DRM_PANTHOR_GPU_COHERENCY_ACE_LITE: ACE coherency.
 +	 */
-+	__u32 extra_flags;
++	DRM_PANTHOR_GPU_COHERENCY_ACE = 1,
 +
 +	/**
-+	 * @create_flags: Flags passed at creation time.
-+	 *
-+	 * Combination of enum drm_panthor_bo_flags flags.
-+	 * Will be zero if the buffer comes from a different driver.
++	 * @DRM_PANTHOR_GPU_COHERENCY_NONE: No coherency.
 +	 */
-+	__u32 create_flags;
-+
-+	/** @pad: Will be zero on return. */
-+	__u32 pad;
++	DRM_PANTHOR_GPU_COHERENCY_NONE = 31,
 +};
 +
  /**
-  * DRM_IOCTL_PANTHOR() - Build a Panthor IOCTL number
-  * @__access: Access type. Must be R, W or RW.
-@@ -1171,6 +1226,8 @@ enum {
- 		DRM_IOCTL_PANTHOR(WR, SET_USER_MMIO_OFFSET, set_user_mmio_offset),
- 	DRM_IOCTL_PANTHOR_BO_SYNC =
- 		DRM_IOCTL_PANTHOR(WR, BO_SYNC, bo_sync),
-+	DRM_IOCTL_PANTHOR_BO_QUERY_INFO =
-+		DRM_IOCTL_PANTHOR(WR, BO_QUERY_INFO, bo_query_info),
- };
+  * struct drm_panthor_gpu_info - GPU information
+  *
+@@ -301,7 +321,16 @@ struct drm_panthor_gpu_info {
+ 	 */
+ 	__u32 thread_max_barrier_size;
  
- #if defined(__cplusplus)
+-	/** @coherency_features: Coherency features. */
++	/**
++	 * @coherency_features: Coherency features.
++	 *
++	 * Combination of drm_panthor_gpu_coherency flags.
++	 *
++	 * Note that this is just what the coherency protocols supported by the
++	 * GPU, but the actual coherency in place depends on the SoC
++	 * integration and is reflected by
++	 * drm_panthor_gpu_info::selected_coherency.
++	 */
+ 	__u32 coherency_features;
+ 
+ 	/** @texture_features: Texture features. */
+@@ -310,8 +339,12 @@ struct drm_panthor_gpu_info {
+ 	/** @as_present: Bitmask encoding the number of address-space exposed by the MMU. */
+ 	__u32 as_present;
+ 
+-	/** @pad0: MBZ. */
+-	__u32 pad0;
++	/**
++	 * @select_coherency: Coherency selected for this device.
++	 *
++	 * One of drm_panthor_gpu_coherency.
++	 */
++	__u32 selected_coherency;
+ 
+ 	/** @shader_present: Bitmask encoding the shader cores exposed by the GPU. */
+ 	__u64 shader_present;
 -- 
 2.51.0
 
