@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A502DCCF9FC
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 14:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FA5ACCF9FC
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 14:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8B510E9A5;
-	Thu, 30 Oct 2025 14:05:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6E0E10E99B;
+	Thu, 30 Oct 2025 14:20:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kN7MJR2n";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nrY2ExGG";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98A9510E9A5;
- Thu, 30 Oct 2025 14:05:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1761833153;
- bh=eo694miARoNROWNeq/2TrYsy2Naa1jy/Cv+cFKRg+EQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kN7MJR2nGDjC5tpnvEA5VjTNAy96QOtGwvqr2ct+onpC8WsHJSKRr6OONFiQIrkAe
- Rh8rbsNFwEAaNJfPx+w2N3qpAkA+POSqRoWselflxcHEDS48Gbr+LY0x3DLqaIzkuL
- Z4LJ+uAkXnJx+SoifVfepB7kMS3D+8vKAQi7t0e/9YOIHd7KzaA1v5EJntX5bHF6af
- jX0isHJlCLsyD9rBXsiTUOvtvbOamNDpOMk9cQqEzoa1hX7nv9qqBrEy5P8O7/nIhQ
- TwJyp/7A1FCs1gIc0YnaJC4UemJ+Rwwf4XpbGFPnb4xNd7S03rMaWTQWPPLUaS8f8z
- bdZgParvkjl2Q==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5EA5817E37EB;
- Thu, 30 Oct 2025 15:05:52 +0100 (CET)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH v5 16/16] drm/panfrost: Bump the driver version to 1.6
-Date: Thu, 30 Oct 2025 15:05:25 +0100
-Message-ID: <20251030140525.366636-17-boris.brezillon@collabora.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251030140525.366636-1-boris.brezillon@collabora.com>
-References: <20251030140525.366636-1-boris.brezillon@collabora.com>
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 452B310E99B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 14:20:21 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-26808b24a00so2052875ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 07:20:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761834021; x=1762438821; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fr/xKsLYiju/u8n+oVAaehTAOm0s6fTcU0fGSAw84H8=;
+ b=nrY2ExGGv3F7c1cADeZQORRrZ2sETlM2rUHlBKIGrLTQ8m9c+MoT3f6DrFKgHDatka
+ Va/Jz9EANCZiddM0aDHFabLPSQv/JlPUo6+hEgmxgm6b9v0v1qUR7E+CKpAz7dWy3jSy
+ JgghCWImKsnU+Rl5RX5ZQ6bII9X0Jf8fkh6YtsIlK4cNj9cGj6C1M/Izj11eNIRuDqsx
+ 7OwkVmkGvzN9RI57rGWvsDI7+zmVECkkE/fr3kp/TJdEclRLm4wDg+r078cLZmgwTHUL
+ EQ1KN2gy1JB8WluqmCK/ur/89oZsAAvHppN0R/ixABeZmRyAYDha8Hl0073hFAzjz9G0
+ oJdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761834021; x=1762438821;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fr/xKsLYiju/u8n+oVAaehTAOm0s6fTcU0fGSAw84H8=;
+ b=F2ofd+Q6fUHMYPpUg+3cRUKJqkXySWK6ne2B5r5BAiDhIaZ/5wxAxdtMaUCATZDQOc
+ mBkRvkCfO7nzHhF+s6Ixc5MikVYQ4+rwlWdWfWZC2PPgRjkvwIWdbjw++PkofYOgF7qA
+ 3D/WGQUNlU38mxQ7vPfEqJgaY/kIkqu874Gsg3EHF6ABCN8EcS87XtHRFF7eMkMptCnh
+ 8PouPsU/Z13+SOWkWyxTAbJdTXjEVdIQy4efb8CZX8dSPHoFxiMiBmsQiRIDXdK2dqjn
+ lpx6Phirs89/OvK+ALNPt+fv5BK262AteMy9PZtm2BNLu2Xs+HZZKxoBmpc924AjxG+k
+ tXzQ==
+X-Gm-Message-State: AOJu0YzLsjOwl1Uzkzl+4yyKkH6nFAz6tbbhXOCfv64K3+dC++MUpbNQ
+ UeDZJWqRK1w/zcRDNLzx1hkRdx4y0ltslFeE6/uM3hrQ0ACpk8aKfq0WrNdlRzMnv2LN6yH2GJx
+ mxPIfa5NrlarKJBN6zkZmruLE4IsUGrjwMOc8
+X-Gm-Gg: ASbGncu0ryBY0FlwITWSPviRAh3jf689kS5B0bgy0rb/FP4DhJRbip0BqJ9DK230kLY
+ J0qTgg1br6vXyePtiHqPahyWJxfw5FXiITarMbKWqI1z9JveMaJa0eiqu1UjwuEbdJnjrBFSJdN
+ J/CTBE8h+F2Jvqw6Of5usL5a3y33vNzpjWZLd288knlifB4q1k4YYtHOMOD1WcDa5RH8AoRIfW1
+ XyQY+gpXjp5CGbDnGVEFx1EcIJpZxRllrHBAcXm0Lu7xYwuuXvkthYm0qf4
+X-Google-Smtp-Source: AGHT+IGiV0aIpVcEeqxtmA8/mb2XpRFh0QqnV4P1qYxDM4qPEyVtkE9D0nAgUzsp27ull5pICWDBZZN0LIv2bu5IEfE=
+X-Received: by 2002:a17:902:c404:b0:269:96d2:9c96 with SMTP id
+ d9443c01a7336-294dea100damr49638645ad.0.1761834020291; Thu, 30 Oct 2025
+ 07:20:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251030010027.2503555-1-Harish.Kasiviswanathan@amd.com>
+In-Reply-To: <20251030010027.2503555-1-Harish.Kasiviswanathan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 30 Oct 2025 10:20:07 -0400
+X-Gm-Features: AWmQ_bnpkZav4-AdnmIZ5hsiglOYr2b6jzzyVFoLndiMbbFxU6YOSPpXX1aPsqo
+Message-ID: <CADnq5_MMZ+mE1=0aRRLE7dbfpndVOXL9UCODB7BeQg9QMyspJw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdkfd: Fix GPU mappings for APU after prefetch
+To: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Philip Yang <Philip.Yang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,53 +80,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Faith Ekstrand <faith.ekstrand@collabora.com>
+On Wed, Oct 29, 2025 at 9:36=E2=80=AFPM Harish Kasiviswanathan
+<Harish.Kasiviswanathan@amd.com> wrote:
+>
+> Fix the following corner case:-
+>  Consider a 2M huge page SVM allocation, followed by prefetch call for
+> the first 4K page. The whole range is initially mapped with single PTE.
+> After the prefetch, this range gets split to first page + rest of the
+> pages. Currently, the first page mapping is not updated on MI300A (APU)
+> since page hasn't migrated. However, after range split PTE mapping it not
+> valid.
+>
+> Fix this by forcing page table update for the whole range when prefetch
+> is called.  Calling prefetch on APU doesn't improve performance. If all
+> it deteriotes. However, functionality has to be supported.
+>
+> v2: Use apu_prefer_gtt as this issue doesn't apply to APUs with carveout
+> VRAM
 
-Bump the driver version to reflect the new cached-CPU mapping
-capability.
+apu_prefer_gtt is used by small APUs as well.  It depends on how much
+VRAM vs GTT is available on the system.
 
-v2:
-- Quickly describe what the new version exposes in the commit message
+        if (adev->flags & AMD_IS_APU) {
+                if (adev->gmc.real_vram_size < gtt_size)
+                        adev->apu_prefer_gtt =3D true;
+        }
 
-v3:
-- Add Steve's R-b
+Alex
 
-v4:
-- No changes
-
-v5:
-- No changes
-
-Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
----
- drivers/gpu/drm/panfrost/panfrost_drv.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 74b7dc75d88b..b0f90b85cb39 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -924,6 +924,9 @@ static void panfrost_debugfs_init(struct drm_minor *minor)
-  * - 1.4 - adds SET_LABEL_BO
-  * - 1.5 - adds JM_CTX_{CREATE,DESTROY} ioctls and extend SUBMIT to allow
-  *	   context creation with configurable priorities/affinity
-+ * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
-+ *	   PANFROST_IOCTL_QUERY_BO_INFO and
-+ *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-  */
- static const struct drm_driver panfrost_drm_driver = {
- 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-@@ -936,7 +939,7 @@ static const struct drm_driver panfrost_drm_driver = {
- 	.name			= "panfrost",
- 	.desc			= "panfrost DRM",
- 	.major			= 1,
--	.minor			= 5,
-+	.minor			= 6,
- 
- 	.gem_create_object	= panfrost_gem_create_object,
- 	.gem_prime_import_sg_table = panfrost_gem_prime_import_sg_table,
--- 
-2.51.0
-
+>
+> Suggested-by: Philip Yang <Philip.Yang@amd.com>
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
+mdkfd/kfd_svm.c
+> index c30dfb8ec236..76cab1c8aaa2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -766,14 +766,21 @@ svm_range_apply_attrs(struct kfd_process *p, struct=
+ svm_range *prange,
+>  {
+>         uint32_t i;
+>         int gpuidx;
+> +       struct kfd_node *node;
+>
+>         for (i =3D 0; i < nattr; i++) {
+>                 switch (attrs[i].type) {
+>                 case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
+>                         prange->preferred_loc =3D attrs[i].value;
+> +                       node =3D svm_range_get_node_by_id(prange, attrs[i=
+].value);
+> +                       if (node && node->adev->apu_prefer_gtt && !p->xna=
+ck_enabled)
+> +                               *update_mapping =3D true;
+>                         break;
+>                 case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
+>                         prange->prefetch_loc =3D attrs[i].value;
+> +                       node =3D svm_range_get_node_by_id(prange, attrs[i=
+].value);
+> +                       if (node && node->adev->apu_prefer_gtt && !p->xna=
+ck_enabled)
+> +                               *update_mapping =3D true;
+>                         break;
+>                 case KFD_IOCTL_SVM_ATTR_ACCESS:
+>                 case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
+> --
+> 2.34.1
+>
