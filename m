@@ -4,114 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFFC1CCF9E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 14:50:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B729CCF9F0
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 15:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF1CC10E9C8;
-	Thu, 30 Oct 2025 14:50:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22F6110E288;
+	Thu, 30 Oct 2025 15:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="tfGi8iy7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pZjzF9UF";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1931110E9CA;
- Thu, 30 Oct 2025 14:50:24 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id E9D824E413FF;
- Thu, 30 Oct 2025 14:50:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B340D6068C;
- Thu, 30 Oct 2025 14:50:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5EC7511808B84; Thu, 30 Oct 2025 15:50:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1761835821; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references:autocrypt;
- bh=VYF6wcBcrs9z8OkwPSnhjc/SXaiPDbfDV9i5CSmBiIo=;
- b=tfGi8iy7Rb0YqR0JqB/k13YHfx2WHDGLweYm8pJSYemGtvxiP4QgQhCgTLXQD3hTgtyn/L
- D435F0lLV4XVXDmggHU5/J2T0soKdbwHWvcEzuNpDsYm0b0Ed9q/8++GVeIZhgV8O9/fQS
- U+6bWr2uxL0V8TFFNAz0QufzIeiIkE+q1kq1379dSUvPoRsLxcZRNsvjhZL3+uwfy1Dx0k
- 3bGUdUS38M6PxeGL1rnaK/efNpepvtN8Vgjytwu2uOsgXRV+eIxosgWG4hlbT+/AYkO23r
- caZvc4Vz56KSegHmAiZl0ld6cFB1hbheMCRUjRpDBBIT0NOK4KKLKtBQL2HHmQ==
-Message-ID: <cfdc46fd-2a02-45ed-a752-25ea5a46b52a@bootlin.com>
-Date: Thu, 30 Oct 2025 15:50:09 +0100
-MIME-Version: 1.0
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010000.outbound.protection.outlook.com
+ [40.93.198.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31E1710E288
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 15:05:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O7AFi8OqUJaoGs2MxE/B1dCrBFfhdu5/k5JWmaFhdbQgu/g3rBxPv92q2vm09JOAqBbvcMwX9MxkVmxdWlbp/QqFES+7VHt1MEbUYS1Kg0/DOnmt5jJk35HpWdpaEYEKXrAF14haTxK7dPU2W94PHvO5/BwFry1UjuieUGfuUsXhD/xSsnjpcB69TcI28OCAhDdK24QsLRxdMSztLJcdKqv6pdQS2YfvtIsPvN1EQd4PGRNMGGKXu/OFQ+X7yb59ESQMt5VmgfQjS983slebjnac78WIYmUVA389S07vi1DKK/a7Pg9N8DR+JPELe4eM2ZW0N3CzZTV0TwsrAhcz2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SauQjd/rYlG7d7FbDxTIvn+xLN91B9JPjbpufI5OlLg=;
+ b=ZBkfg9V4dnMKHznSHKfmfVaJ4WTL3wQGYgSmKXyj6C9I9mpxqC7J7BYSjFd9YJ3207eQgENiBZnMKqQxCakQAA69nX8Ed25Se5bfxOs1gsLYE3VF/ajfPGCMg50v3BNj8VegDd6NO6GgfMAR7c9QP6NL34BWhehy1ANnhmDd9wNArTm1bY2Wcj7lJssy9FdpecMbiDIKFHyKfZcxNySohBRg95JcvCRMvM79opzruMU/+/n3vs4hIPpq4lT1sOHDUqn6Oj0gnFLxHYOU3A5TuB31r68S+sZM5zskyBarYxeLvLLcp8a8ODKZS2sKYPZY+RHDhQLyCseD+WzT8mhytA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SauQjd/rYlG7d7FbDxTIvn+xLN91B9JPjbpufI5OlLg=;
+ b=pZjzF9UF47J2/nnvRec48CbF8hvEG9uzWcPKRoWYvBGlHo7TK7FpdKLdtGHEha4ojn+M/dbUJcq4n03DXHHl89kTFP4N7PChVgdvgbH4AbpG51O8mj0NmVch2XcJkN9/JhLbX8EQWCIvq30XpuuMrtoeHK17iRsNaLMuOlhKGss=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CH2PR12MB4248.namprd12.prod.outlook.com (2603:10b6:610:7a::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Thu, 30 Oct
+ 2025 15:05:14 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.9275.013; Thu, 30 Oct 2025
+ 15:05:14 +0000
+Message-ID: <24133b30-07bb-4ff3-923f-02d5a421fab6@amd.com>
+Date: Thu, 30 Oct 2025 11:05:13 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V12 14/49] drm/vkms: Add enumerated 1D curve colorop
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
- mcanal@igalia.com, nfraprado@collabora.com, arthurgrillo@riseup.net,
- Daniel Stone <daniels@collabora.com>
-References: <20251030034349.2309829-1-alex.hung@amd.com>
- <20251030034349.2309829-15-alex.hung@amd.com>
-Content-Language: en-US, fr
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
- 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
-In-Reply-To: <20251030034349.2309829-15-alex.hung@amd.com>
+Subject: Re: [PATCH] amdkfd: implement per process/device pasid in sysfs
+To: Zhu Lingshan <lingshan.zhu@amd.com>, alexander.deucher@amd.com
+Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20251030034536.11356-1-lingshan.zhu@amd.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20251030034536.11356-1-lingshan.zhu@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-ClientProxiedBy: YQBPR01CA0129.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::29) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH2PR12MB4248:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4278e460-2da6-45f7-321f-08de17c5bac3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WlZ5WTFFVW5vcmJDM0t6YndudFVhNUJlVEFQOFZqN2hpT3JqTng4eXZiaW0z?=
+ =?utf-8?B?bWdnaVROcEdDMzg5cWlScTVXMVB0VFpXcHVaajB0WFh2T0FHdTZhOE1MTkN2?=
+ =?utf-8?B?L0pqbVk4M0Uxa0l1KzFVRGh3akd6NzlmNTYxWldrZUxrN2tHbjVlY2VnaTlZ?=
+ =?utf-8?B?bE1EQXdDTnQ5aUFvY2hjblFMeWlVUWlNamNqSVJPYWU1NDl6TXptR1ZmcFV1?=
+ =?utf-8?B?Vlo2eUhMNTNoZkZyZk9NNmNscHRWMThBWnZDVGtrem0zMGZSaFJCeUZhMUND?=
+ =?utf-8?B?aHdDczhjcmV4R0dHZGZnTEg5V3BveWRxbHQwRFF3UU1tc1VzUXFJbFgrUXBL?=
+ =?utf-8?B?OERlUjc0aW5BdytGQjJDbzZlOTZFeTkzR2VETzczdGRacWlia1FJZzYrWUdP?=
+ =?utf-8?B?WDhXZzVnOHk1VHJBVWZrNFUrbmE0VHpBdkpXdGo1ZjFIRTd2Z0RITWlkUnlq?=
+ =?utf-8?B?dTI5SmhzU2p4MmpKaGd4REFCVHNxZFZYLzdjSEpkQTZvRmxZT2hJdmhZdEto?=
+ =?utf-8?B?aGVjNkt0VE9Edm9GZDZzNXFnNUxMZEdkY2lhcjQwZmFRNm50MjZoRmpJT1pQ?=
+ =?utf-8?B?eW1RMDhKaHBlMHBEdHNIV3cvTXVUOHBVMGJvZzBvRVBUMkpmakE1S0RxSFFk?=
+ =?utf-8?B?NEh4QTcyU3dQZGQ0cXdyakJzelUxL1hNa1dSb2FKbEhRSVVrTFR6UWdkVThD?=
+ =?utf-8?B?TDludUtVcmFlWEJ3dlBCcnp3ZmswV0lIUGZubVlZM3IrZmdpdWtwbzExOWN1?=
+ =?utf-8?B?S093ZW5TSk4ycmZLdzk3S3JOaEhFZ1Vtd1FSbGxhY1B0UmtuSnM5TGs4bWV2?=
+ =?utf-8?B?M0tWZXhWa0I0a2Jwa1FGNUpoeVkvN09CbEpVM09SU1ZVYXRaemFUV0ROUUJI?=
+ =?utf-8?B?c1VLVVRCZkRwblBQL1RKRnhCNmZ4OUV6aUFKejJzSWxQSUtKSWpnY0NFSDl4?=
+ =?utf-8?B?N3pmajNXekZ4UnRzRkVxYmJEMWFIZ08ycE1HY0xINkNWYWdKVmxBSXQzTHpJ?=
+ =?utf-8?B?Y3d0K0FPNnVDQjdFRGFkamJ3NWM4NXphNERTbHY1VEQ5YWw0M1h0RUhCOXF4?=
+ =?utf-8?B?Q29pVHVKWHQrWlN2dnF1ald0TTN2RjZ4UTVwUjZ0bmh6amwvbkt0eWZHY0dN?=
+ =?utf-8?B?SXR4NFphOU1EbFlGNjBaQ2dtV2M3RWxQWGlFc2RUck51QkpodE5ReTY3TzNZ?=
+ =?utf-8?B?NnhwQzdKZVg0S2lCS0lYYlJGWFVOcnB6NGhYdFowUXM4bG00TWZBZnpUejdR?=
+ =?utf-8?B?OVJoTkM2Rzg2UnhpUUh4Vy9LNTFJaHJDR1BlY2pIOFRGTlpkdnZYamVqSjhR?=
+ =?utf-8?B?MzdkS1hFbEsweGk4RkM2MXhvVmdIY3dwK0szTS9xZ1NYejBBMVpTdDhSNlVV?=
+ =?utf-8?B?dFRDbmFRcnh2amZUeS8yQjdpSllTak5NaDFDdXJiaWxrSmVkRkJZa3FpRVJz?=
+ =?utf-8?B?cTg0d1VyOUloVXVoT0lVYnFTZGlmUHM3MFFpUjAwbWlURlhVSWQvMTFMelI0?=
+ =?utf-8?B?anVtMTBRdFRzcmJoeVBBSjNWNW85TnA1QVM5ak5XNHp0YXY5Zi83MlF6V29B?=
+ =?utf-8?B?RS9zeUpmb0ptTDRGV0svdEtRdWNXQkNIZDdOVVBJV1dhVDJGRDU3UGRrQW1q?=
+ =?utf-8?B?NGJMcC9qTmtSdThiRWJ5SVAwOGdZcjJJWEN2WVpCcUh6N1hSNHFoTzdWaVFo?=
+ =?utf-8?B?OUMybEorNUZrNldSaWhKTXZ4Z3hidE1nSEdwWlphOFphRUF2aE9ZUlBlWVJk?=
+ =?utf-8?B?bERRekpDNWQrOXB5ZzVwWVJJcjFldW1sZktzRWpVdWZaYzFIVmQ2NVpIdlVk?=
+ =?utf-8?B?cXZlbk1yTGZtcEpEWVN2bElVZmgybmFBcjN5eEtwcVhpNVRLMVBReFltTEJE?=
+ =?utf-8?B?ZXZ6SVh0OE1NV3dMQWpyUHBiaVVaMmZUeG9kc09UMWRKS2hmTk1qQkg1enNk?=
+ =?utf-8?Q?6sMlgNEUHBSwEx+UofLPdo784oW7aDEn?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzIwbUlyY2s3TG9HdXBCUTdaZDV4c1luZmdJNTd6Y25MNUs2WXhYZmhEUHM0?=
+ =?utf-8?B?UC9nOGcrNzdVYnIvK2RxUUprOXl5WHRnV2l6bDhNMlFmWkNqdC9tRVlIKzNS?=
+ =?utf-8?B?bkpIenA1djFSaENTS2I3bWxKRHc0QUxxUlhRTWkxeURlVUw3amM2TVRwSTV6?=
+ =?utf-8?B?NU80U2Z5cGk4aE1DWk1DVy9lOUNIL3FlWlV5TlVKMlhmTkZQbktFdzhValV3?=
+ =?utf-8?B?S081QTdLTUhoZWdQeXZPWWQ5bGttaE9pR1poTmdzTEhnQlMwTlJWaEhoMFlt?=
+ =?utf-8?B?RVMrQnVGbitENUdVamNrRlFRd25TaGRsR1NIZXp0UENlZGVjWGh1TFp0M2VH?=
+ =?utf-8?B?UHNRcHBuSVZuajFPN3JTNmlNOGlEbC8vSktpWHA1U0hPNFNQeEVmeGNEaVVn?=
+ =?utf-8?B?c0MvRWtCQWcxWldTT3B6cnJuVS9jYzdDeVJ4dDdCTHVwem9uMnBRazBGanVO?=
+ =?utf-8?B?N2hweE43Z0YvUmI1aTdyZ25ucDArMDZzck4xTEt1ZE5kcGhkdWRHaklkS0Za?=
+ =?utf-8?B?TjVacnh5OVEzYndyckM1ZzNqUFYzZitOR3ZKSkZsZFg2cS9iZ3pXcnN6RnQr?=
+ =?utf-8?B?VFZNdU5SR1hWSFFQUkFVVk1UbmVIejR6S0w1WDZDdlNUV3ZEVmhIRG5YZ3R5?=
+ =?utf-8?B?YUxqMEFaOXlOY0JxbUc0VEZxazJMc1dIMjlPZHFsc1MrN0UyV2JjZ2NUQ2Ev?=
+ =?utf-8?B?a3NSWnB2b0tobUE0T29uVGRNcEhNZ3UvbzNsMzJwWXJWYnJobDN2dThZRVJZ?=
+ =?utf-8?B?Y3VhenhGU2VKOUV6cG4yOStqVmlLZTkxT2JyMERGWVZUT0crM21ZZEpqWFJC?=
+ =?utf-8?B?SnBOaHZFS0FxNk45MU1MR3RVaTRaMWNqVG9jQkNlcTQ0SjZnZzFoRlpkcmZx?=
+ =?utf-8?B?bUFsYkYvbWdRd0VXTnp1L2trWURkNDd1aHVJMS95MVRESG9lUnB0bUY1UCsw?=
+ =?utf-8?B?N3c4NTdrSmZGQ2t4STNBQTR4NjI0RUt3Z1pnTE8reGpIWVlFckw5NXh6UHZI?=
+ =?utf-8?B?VktUNVZjc1E1UElJU2FRTjBObHZ6WndSaUEvYzhEZytiQnFwQ2tvdjliN2M1?=
+ =?utf-8?B?T3VDRXA2L3h3cXFRNmZRaUkyZTlIaS8waHRGb3BLa2pwZWFOQWZqS1lBcHdB?=
+ =?utf-8?B?SnB3YVVUcHlOdzF2RUxxcEw4VmFZSXpDT0ZnQlRmclhPdHNpcDFXakFHTzdn?=
+ =?utf-8?B?ZW9WSk5IeFRkWXVvaThnNU5NT1J0V0FkTGNIRlFtOXh2WGtTVTRQWStlbklv?=
+ =?utf-8?B?QUlWZCtvVGttMVRYVmNOd3l4eTB4d1hUc0xJc0hiWk9wYjNOdng0dVRpVUwy?=
+ =?utf-8?B?cW4xeGZ2MDJvYUFYejg1djRsN1k1Mk1CL1A2eGVEYjNWbU81VkpJZjd3U1Yx?=
+ =?utf-8?B?U3ZQSWhhcXpsK21Ed1BqUTdXL0l4QWlWMm8zbFlBZ00xWGs3TmxObndSWWhx?=
+ =?utf-8?B?TXZBK1diWVdhdjNQT01pRitQRkFnblN6dld4UTJFVWVTOEVkeEwzdnlUSWZm?=
+ =?utf-8?B?dzBMSDY3NXZlRlFyTVE4bWo1UVJIRFJjeTdSVGdRaWZiU01CMGVZS0dLWEs0?=
+ =?utf-8?B?bW9vRzlUMC8xTkJPN05Cc1k1dHdUUkptNk9HNWUzemREY25sN1I0YlZRLzRG?=
+ =?utf-8?B?cDVVdEcrSEtvNXA4anlwMGY1TEFDTU9kZnlFSzRncjFhdkRnaFY5Y1Jrekdn?=
+ =?utf-8?B?QTlKZVYrM3NCZ3hMVVRoeWhEVUg3anZPSklZMjVSRWxJck9VQkdJRlZEMldO?=
+ =?utf-8?B?ayttU2hrRWlwUzNCZ2J5TVRsTVpTQnZ1SFM2eWxUdkYvM1hvS3B3Tmh3d0hV?=
+ =?utf-8?B?YThKM3Y2SjB0MFZPUTAzeVdLYWR1ZFdqbzFnMjVuUEsya1pTeWg5eE5jamxn?=
+ =?utf-8?B?WFExVVFSazFYWUhGdC9XMXV0Syt2UzhBUzZQbmFKUlpFMTVyajUwTDUwNnRU?=
+ =?utf-8?B?RmR5VFBZdXdVdHA5UjY0TmtybkJwWFFyVUVJTFUwZ2YzM1lLc0s4UytqelVp?=
+ =?utf-8?B?bFllT0x0NzhxS0lQeWlKQ3E4cE4wZGVuRW5Eek44aHNhdkUwL2lsenJuOUpK?=
+ =?utf-8?B?d29VZG1MdmZZL0Q1MVM1SmRLSXk4cE9TNWJpY3JoaEV4cGowRGJ4dzhUOHF5?=
+ =?utf-8?Q?KO2AKk8NhuS4560GmvWbNXjeu?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4278e460-2da6-45f7-321f-08de17c5bac3
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 15:05:14.4754 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3boIbM9r4dH8KNgf838qoDei/PSr+aLx9B9NQ3oacaw2mhoYiN3Dovepm3hwU0Nz5V0FIcoTg41oWBZidfeDAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4248
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,1173 +161,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-alex.hung@amd.com dri-devel@lists.freedesktop.org 
-amd-gfx@lists.freedesktop.org wayland-devel@lists.freedesktop.org 
-harry.wentland@amd.com leo.liu@amd.com ville.syrjala@linux.intel.com 
-pekka.paalanen@collabora.com contact@emersion.fr mwen@igalia.com 
-jadahl@redhat.com sebastian.wick@redhat.com shashank.sharma@amd.com 
-agoins@nvidia.com joshua@froggi.es mdaenzer@redhat.com aleixpol@kde.org 
-xaver.hugl@gmail.com victoria@system76.com daniel@ffwll.ch 
-uma.shankar@intel.com quic_naseer@quicinc.com quic_cbraga@quicinc.com 
-quic_abhinavk@quicinc.com marcan@marcan.st Liviu.Dudau@arm.com 
-sashamcintosh@google.com chaitanya.kumar.borah@intel.com 
-mcanal@igalia.com nfraprado@collabora.com arthurgrillo@riseup.net
+On 2025-10-29 23:45, Zhu Lingshan wrote:
+> The pasid is a per-process-per-device attribute,
+> therefore this commit implements per
+> struct kfd_process_device->pasid in sysfs
+
+Does anyone in user mode actually need this PASID? When we changed the 
+PASID allocation to be per-process-device, we changed a bunch of our 
+dmesg logging (and I think debugfs files, too) to report PIDs instead of 
+PASIDs. So there should be no good reason to know PASIDs in user mode.
+
+Regards,
+   Felix
 
 
-
-Le 30/10/2025 à 04:42, Alex Hung a écrit :
-> From: Harry Wentland <harry.wentland@amd.com>
-> 
-> This patch introduces a VKMS color pipeline that includes two
-> drm_colorops for named transfer functions. For now the only ones
-> supported are sRGB EOTF, sRGB Inverse EOTF, and a Linear TF.
-> We will expand this in the future but I don't want to do so
-> without accompanying IGT tests.
-> 
-> We introduce a new vkms_luts.c file that hard-codes sRGB EOTF,
-> sRGB Inverse EOTF, and a linear EOTF LUT. These have been
-> generated with 256 entries each as IGT is currently testing
-> only 8 bpc surfaces. We will likely need higher precision
-> but I'm reluctant to make that change without clear indication
-> that we need it. We'll revisit and, if necessary, regenerate
-> the LUTs when we have IGT tests for higher precision buffers.
-> 
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-
-This patch LGTM, but can you add the [1] (preparatory patch to reduce 
-the diff in this patch) and [2] (fixup to this patch, add a module 
-parameter to enable/disable the pipeline and disable it by default for 
-configfs devices) so it will make it easier to implement configfs for 
-color pipeline without breaking uAPI?
-
-[1]:https://paste.sr.ht/~fomys/16118ef2b5604226a7607db8a41941a27a43f168
-[2]:https://paste.sr.ht/~fomys/a98191b09ff7290dc6768bf7d54e789984cd3250
-
-With those patches: Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-
-Thanks a lot for your series!
-
+>
+> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 > ---
-> v12:
->   - Rework cleanup in vkms_initialize_color_pipeline (Louis Chauvet)
->   - Add drm_colorop_pipeline_destroy in vkms_destroy (Louis Chauvet)
-> 
-> v11:
->   - Update drm_colorop_pipeline_destroy from plane to dev (Nícolas Prado)
->   - Fix undefined errors by EXPORT_SYMBOL symbols (kernel test robot)
-> 
-> v9:
->   - Replace cleanup code by drm_colorop_pipeline_destroy (Simon Ser)
->   - Update function names by _plane_ (Chaitanya Kumar Borah)
-> 
-> v8:
->   - Replace DRM_ERROR by drm_err (Louis Chauvet)
->   - Replace DRM_WARN_ONCE by drm_WARN_ONCE (Louis Chauvet)
->   - Fix conflicts with upstream VKMS (Louis Chauvet)
->   - Add comments for drm_color_lut linear_array (Louis Chauvet)
-> 
-> v7:
->   - Fix checkpatch warnings (Louis Chauvet)
->    - Change kzalloc(sizeof(struct drm_colorop) ...) to kzalloc(sizeof(*ops[i]) ...)
->    - Remove if (ops[i]) before kfree(ops[i])
->    - Fix styles by adding and removing spaces (new lines, tabs and so on)
-> 
-> v6:
->   - drop 'len' var (Louis Chauvet)
->   - cleanup if colorop alloc or init fails (Louis Chauvet)
->   - switch loop in pre_blend_transform (Louis Chauvet)
->   - drop extraneous if (colorop) inside while (colorop) (Louis Chauvet)
-> 
-> v5:
->   - Squash with "Pull apply_colorop out of pre_blend_color_transform"
->     (Sebastian)
->   - Fix warnings
->   - Fix include
->   - Drop TODOs
-> 
-> v4:
->   - Drop _tf_ from color_pipeline init function
->   - Pass supported TFs into colorop init
->   - Create bypass pipeline in DRM helper (Pekka)
-> 
-> v2:
->   - Add commit description
->   - Fix sRGB EOTF LUT definition
->   - Add linear and sRGB inverse EOTF LUTs
-> 
->   drivers/gpu/drm/vkms/Makefile        |   4 +-
->   drivers/gpu/drm/vkms/vkms_colorop.c  |  86 +++
->   drivers/gpu/drm/vkms/vkms_composer.c |  51 +-
->   drivers/gpu/drm/vkms/vkms_drv.c      |   1 +
->   drivers/gpu/drm/vkms/vkms_drv.h      |   3 +
->   drivers/gpu/drm/vkms/vkms_luts.c     | 811 +++++++++++++++++++++++++++
->   drivers/gpu/drm/vkms/vkms_luts.h     |  12 +
->   drivers/gpu/drm/vkms/vkms_plane.c    |   2 +
->   8 files changed, 968 insertions(+), 2 deletions(-)
->   create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
->   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
->   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
-> 
-> diff --git a/drivers/gpu/drm/vkms/Makefile b/drivers/gpu/drm/vkms/Makefile
-> index 939991fc8233..9bb264091c38 100644
-> --- a/drivers/gpu/drm/vkms/Makefile
-> +++ b/drivers/gpu/drm/vkms/Makefile
-> @@ -9,7 +9,9 @@ vkms-y := \
->   	vkms_writeback.o \
->   	vkms_connector.o \
->   	vkms_config.o \
-> -	vkms_configfs.o
-> +	vkms_configfs.o \
-> +	vkms_colorop.o \
-> +	vkms_luts.o
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  9 ++-------
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 18 +++++++++++-------
+>   2 files changed, 13 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 70ef051511bb..6a3cfeccacd8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -864,6 +864,8 @@ struct kfd_process_device {
+>   	bool has_reset_queue;
 >   
->   obj-$(CONFIG_DRM_VKMS) += vkms.o
->   obj-$(CONFIG_DRM_VKMS_KUNIT_TEST) += tests/
-> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/vkms/vkms_colorop.c
-> new file mode 100644
-> index 000000000000..946e9641d940
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
-> @@ -0,0 +1,86 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +
-> +#include <linux/slab.h>
-> +#include <drm/drm_colorop.h>
-> +#include <drm/drm_print.h>
-> +#include <drm/drm_property.h>
-> +#include <drm/drm_plane.h>
-> +
-> +#include "vkms_drv.h"
-> +
-> +static const u64 supported_tfs =
-> +	BIT(DRM_COLOROP_1D_CURVE_SRGB_EOTF) |
-> +	BIT(DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF);
-> +
-> +#define MAX_COLOR_PIPELINE_OPS 2
-> +
-> +static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list)
-> +{
-> +	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
-> +	struct drm_device *dev = plane->dev;
-> +	int ret;
-> +	int i = 0, j = 0;
-> +
-> +	memset(ops, 0, sizeof(ops));
-> +
-> +	/* 1st op: 1d curve */
-> +	ops[i] = kzalloc(sizeof(*ops[i]), GFP_KERNEL);
-> +	if (!ops[i]) {
-> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> +		ret = -ENOMEM;
-> +		goto cleanup;
-> +	}
-> +
-> +	ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, supported_tfs);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	list->type = ops[i]->base.id;
-> +	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", ops[i]->base.id);
-> +
-> +	i++;
-> +
-> +	/* 2nd op: 1d curve */
-> +	ops[i] = kzalloc(sizeof(*ops[i]), GFP_KERNEL);
-> +	if (!ops[i]) {
-> +		drm_err(dev, "KMS: Failed to allocate colorop\n");
-> +		ret = -ENOMEM;
-> +		goto cleanup;
-> +	}
-> +
-> +	ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, supported_tfs);
-> +	if (ret)
-> +		goto cleanup;
-> +
-> +	drm_colorop_set_next_property(ops[i - 1], ops[i]);
-> +
-> +	return 0;
-> +
-> +cleanup:
-> +	for (j = 0; j < i; j++) {
-> +		if (ops[j]) {
-> +			drm_colorop_cleanup(ops[j]);
-> +			kfree(ops[j]);
-> +		}
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +int vkms_initialize_colorops(struct drm_plane *plane)
-> +{
-> +	struct drm_prop_enum_list pipeline;
-> +	int ret;
-> +
-> +	/* Add color pipeline */
-> +	ret = vkms_initialize_color_pipeline(plane, &pipeline);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Create COLOR_PIPELINE property and attach */
-> +	ret = drm_plane_create_color_pipeline_property(plane, &pipeline, 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-> index a0ca28a253d2..1f2d2265bec0 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -13,6 +13,7 @@
->   #include <kunit/visibility.h>
+>   	u32 pasid;
+> +	char pasid_filename[MAX_SYSFS_FILENAME_LEN];
+> +	struct attribute attr_pasid;
+>   };
 >   
->   #include "vkms_composer.h"
-> +#include "vkms_luts.h"
+>   #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+> @@ -983,7 +985,6 @@ struct kfd_process {
+>   	/* Kobj for our procfs */
+>   	struct kobject *kobj;
+>   	struct kobject *kobj_queues;
+> -	struct attribute attr_pasid;
 >   
->   static u16 pre_mul_blend_channel(u16 src, u16 dst, u16 alpha)
+>   	/* Keep track cwsr init */
+>   	bool has_cwsr;
+> @@ -1100,12 +1101,6 @@ void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
+>   					int handle);
+>   struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
+>   
+> -/* PASIDs */
+> -int kfd_pasid_init(void);
+> -void kfd_pasid_exit(void);
+> -u32 kfd_pasid_alloc(void);
+> -void kfd_pasid_free(u32 pasid);
+> -
+>   /* Doorbells */
+>   size_t kfd_doorbell_process_slice(struct kfd_dev *kfd);
+>   int kfd_doorbell_init(struct kfd_dev *kfd);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index ddfe30c13e9d..24cf3b250b37 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -328,9 +328,11 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
+>   static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+>   			       char *buffer)
 >   {
-> @@ -135,6 +136,54 @@ static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buff
+> -	if (strcmp(attr->name, "pasid") == 0)
+> -		return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
+> -	else if (strncmp(attr->name, "vram_", 5) == 0) {
+> +	if (strncmp(attr->name, "pasid_", 6) == 0) {
+> +		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
+> +							      attr_pasid);
+> +		return snprintf(buffer, PAGE_SIZE, "%u\n", pdd->pasid);
+> +	} else if (strncmp(attr->name, "vram_", 5) == 0) {
+>   		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
+>   							      attr_vram);
+>   		return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
+> @@ -662,6 +664,7 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+>   	 * Create sysfs files for each GPU:
+>   	 * - proc/<pid>/vram_<gpuid>
+>   	 * - proc/<pid>/sdma_<gpuid>
+> +	 * - proc/<pid>/pasid_<gpuid>
+>   	 */
+>   	for (i = 0; i < p->n_pdds; i++) {
+>   		struct kfd_process_device *pdd = p->pdds[i];
+> @@ -675,6 +678,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+>   			 pdd->dev->id);
+>   		kfd_sysfs_create_file(p->kobj, &pdd->attr_sdma,
+>   					    pdd->sdma_filename);
+> +
+> +		snprintf(pdd->pasid_filename, MAX_SYSFS_FILENAME_LEN, "pasid_%u",
+> +			 pdd->dev->id);
+> +		kfd_sysfs_create_file(p->kobj, &pdd->attr_pasid, pdd->pasid_filename);
 >   	}
 >   }
 >   
-> +static void apply_colorop(struct pixel_argb_u16 *pixel, struct drm_colorop *colorop)
-> +{
-> +	struct drm_colorop_state *colorop_state = colorop->state;
-> +	struct drm_device *dev = colorop->dev;
-> +
-> +	if (colorop->type == DRM_COLOROP_1D_CURVE) {
-> +		switch (colorop_state->curve_1d_type) {
-> +		case DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF:
-> +			pixel->r = apply_lut_to_channel_value(&srgb_inv_eotf, pixel->r, LUT_RED);
-> +			pixel->g = apply_lut_to_channel_value(&srgb_inv_eotf, pixel->g, LUT_GREEN);
-> +			pixel->b = apply_lut_to_channel_value(&srgb_inv_eotf, pixel->b, LUT_BLUE);
-> +			break;
-> +		case DRM_COLOROP_1D_CURVE_SRGB_EOTF:
-> +			pixel->r = apply_lut_to_channel_value(&srgb_eotf, pixel->r, LUT_RED);
-> +			pixel->g = apply_lut_to_channel_value(&srgb_eotf, pixel->g, LUT_GREEN);
-> +			pixel->b = apply_lut_to_channel_value(&srgb_eotf, pixel->b, LUT_BLUE);
-> +			break;
-> +		default:
-> +			drm_WARN_ONCE(dev, true,
-> +				      "unknown colorop 1D curve type %d\n",
-> +				      colorop_state->curve_1d_type);
-> +			break;
-> +		}
-> +	}
-> +}
-> +
-> +static void pre_blend_color_transform(const struct vkms_plane_state *plane_state,
-> +				      struct line_buffer *output_buffer)
-> +{
-> +	for (size_t x = 0; x < output_buffer->n_pixels; x++) {
-> +		struct drm_colorop *colorop = plane_state->base.base.color_pipeline;
-> +
-> +		while (colorop) {
-> +			struct drm_colorop_state *colorop_state;
-> +
-> +			colorop_state = colorop->state;
-> +
-> +			if (!colorop_state)
-> +				return;
-> +
-> +			if (!colorop_state->bypass)
-> +				apply_colorop(&output_buffer->pixels[x], colorop);
-> +
-> +			colorop = colorop->next;
-> +		}
-> +	}
-> +}
-> +
->   /**
->    * direction_for_rotation() - Get the correct reading direction for a given rotation
->    *
-> @@ -350,7 +399,7 @@ static void blend_line(struct vkms_plane_state *current_plane, int y,
->   	 */
->   	current_plane->pixel_read_line(current_plane, src_x_start, src_y_start, direction,
->   				       pixel_count, &stage_buffer->pixels[dst_x_start]);
+> @@ -888,9 +895,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>   			goto out;
+>   		}
+>   
+> -		kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
+> -				      "pasid");
 > -
-> +	pre_blend_color_transform(current_plane, stage_buffer);
->   	pre_mul_alpha_blend(stage_buffer, output_buffer,
->   			    dst_x_start, pixel_count);
->   }
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-> index 6d299903fab2..330b0e78b2ce 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.c
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
-> @@ -252,6 +252,7 @@ void vkms_destroy(struct vkms_config *config)
+>   		process->kobj_queues = kobject_create_and_add("queues",
+>   							process->kobj);
+>   		if (!process->kobj_queues)
+> @@ -1104,7 +1108,6 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
+>   	if (!p->kobj)
+>   		return;
 >   
->   	fdev = config->dev->faux_dev;
+> -	sysfs_remove_file(p->kobj, &p->attr_pasid);
+>   	kobject_del(p->kobj_queues);
+>   	kobject_put(p->kobj_queues);
+>   	p->kobj_queues = NULL;
+> @@ -1114,6 +1117,7 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
 >   
-> +	drm_colorop_pipeline_destroy(&config->dev->drm);
->   	drm_dev_unregister(&config->dev->drm);
->   	drm_atomic_helper_shutdown(&config->dev->drm);
->   	devres_release_group(&fdev->dev, NULL);
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-> index db260df1d4f6..ff0470049e0f 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.h
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
-> @@ -318,4 +318,7 @@ void vkms_writeback_row(struct vkms_writeback_job *wb, const struct line_buffer
->   /* Writeback */
->   int vkms_enable_writeback_connector(struct vkms_device *vkmsdev, struct vkms_output *vkms_out);
+>   		sysfs_remove_file(p->kobj, &pdd->attr_vram);
+>   		sysfs_remove_file(p->kobj, &pdd->attr_sdma);
+> +		sysfs_remove_file(p->kobj, &pdd->attr_pasid);
 >   
-> +/* Colorops */
-> +int vkms_initialize_colorops(struct drm_plane *plane);
-> +
->   #endif /* _VKMS_DRV_H_ */
-> diff --git a/drivers/gpu/drm/vkms/vkms_luts.c b/drivers/gpu/drm/vkms/vkms_luts.c
-> new file mode 100644
-> index 000000000000..82cb792f10d8
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/vkms_luts.c
-> @@ -0,0 +1,811 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +
-> +#include <drm/drm_mode.h>
-> +
-> +#include "vkms_drv.h"
-> +#include "vkms_luts.h"
-> +
-> +/*
-> + * These luts were generated with a LUT generated based on
-> + * skia's transfer function code. The LUT generator can be
-> + * found at
-> + * https://gitlab.freedesktop.org/hwentland/lutgen
-> + */
-> +
-> +static struct drm_color_lut linear_array[LUT_SIZE] = {
-> +	{ 0x0, 0x0, 0x0, 0 },
-> +	{ 0x101, 0x101, 0x101, 0 },
-> +	{ 0x202, 0x202, 0x202, 0 },
-> +	{ 0x303, 0x303, 0x303, 0 },
-> +	{ 0x404, 0x404, 0x404, 0 },
-> +	{ 0x505, 0x505, 0x505, 0 },
-> +	{ 0x606, 0x606, 0x606, 0 },
-> +	{ 0x707, 0x707, 0x707, 0 },
-> +	{ 0x808, 0x808, 0x808, 0 },
-> +	{ 0x909, 0x909, 0x909, 0 },
-> +	{ 0xa0a, 0xa0a, 0xa0a, 0 },
-> +	{ 0xb0b, 0xb0b, 0xb0b, 0 },
-> +	{ 0xc0c, 0xc0c, 0xc0c, 0 },
-> +	{ 0xd0d, 0xd0d, 0xd0d, 0 },
-> +	{ 0xe0e, 0xe0e, 0xe0e, 0 },
-> +	{ 0xf0f, 0xf0f, 0xf0f, 0 },
-> +	{ 0x1010, 0x1010, 0x1010, 0 },
-> +	{ 0x1111, 0x1111, 0x1111, 0 },
-> +	{ 0x1212, 0x1212, 0x1212, 0 },
-> +	{ 0x1313, 0x1313, 0x1313, 0 },
-> +	{ 0x1414, 0x1414, 0x1414, 0 },
-> +	{ 0x1515, 0x1515, 0x1515, 0 },
-> +	{ 0x1616, 0x1616, 0x1616, 0 },
-> +	{ 0x1717, 0x1717, 0x1717, 0 },
-> +	{ 0x1818, 0x1818, 0x1818, 0 },
-> +	{ 0x1919, 0x1919, 0x1919, 0 },
-> +	{ 0x1a1a, 0x1a1a, 0x1a1a, 0 },
-> +	{ 0x1b1b, 0x1b1b, 0x1b1b, 0 },
-> +	{ 0x1c1c, 0x1c1c, 0x1c1c, 0 },
-> +	{ 0x1d1d, 0x1d1d, 0x1d1d, 0 },
-> +	{ 0x1e1e, 0x1e1e, 0x1e1e, 0 },
-> +	{ 0x1f1f, 0x1f1f, 0x1f1f, 0 },
-> +	{ 0x2020, 0x2020, 0x2020, 0 },
-> +	{ 0x2121, 0x2121, 0x2121, 0 },
-> +	{ 0x2222, 0x2222, 0x2222, 0 },
-> +	{ 0x2323, 0x2323, 0x2323, 0 },
-> +	{ 0x2424, 0x2424, 0x2424, 0 },
-> +	{ 0x2525, 0x2525, 0x2525, 0 },
-> +	{ 0x2626, 0x2626, 0x2626, 0 },
-> +	{ 0x2727, 0x2727, 0x2727, 0 },
-> +	{ 0x2828, 0x2828, 0x2828, 0 },
-> +	{ 0x2929, 0x2929, 0x2929, 0 },
-> +	{ 0x2a2a, 0x2a2a, 0x2a2a, 0 },
-> +	{ 0x2b2b, 0x2b2b, 0x2b2b, 0 },
-> +	{ 0x2c2c, 0x2c2c, 0x2c2c, 0 },
-> +	{ 0x2d2d, 0x2d2d, 0x2d2d, 0 },
-> +	{ 0x2e2e, 0x2e2e, 0x2e2e, 0 },
-> +	{ 0x2f2f, 0x2f2f, 0x2f2f, 0 },
-> +	{ 0x3030, 0x3030, 0x3030, 0 },
-> +	{ 0x3131, 0x3131, 0x3131, 0 },
-> +	{ 0x3232, 0x3232, 0x3232, 0 },
-> +	{ 0x3333, 0x3333, 0x3333, 0 },
-> +	{ 0x3434, 0x3434, 0x3434, 0 },
-> +	{ 0x3535, 0x3535, 0x3535, 0 },
-> +	{ 0x3636, 0x3636, 0x3636, 0 },
-> +	{ 0x3737, 0x3737, 0x3737, 0 },
-> +	{ 0x3838, 0x3838, 0x3838, 0 },
-> +	{ 0x3939, 0x3939, 0x3939, 0 },
-> +	{ 0x3a3a, 0x3a3a, 0x3a3a, 0 },
-> +	{ 0x3b3b, 0x3b3b, 0x3b3b, 0 },
-> +	{ 0x3c3c, 0x3c3c, 0x3c3c, 0 },
-> +	{ 0x3d3d, 0x3d3d, 0x3d3d, 0 },
-> +	{ 0x3e3e, 0x3e3e, 0x3e3e, 0 },
-> +	{ 0x3f3f, 0x3f3f, 0x3f3f, 0 },
-> +	{ 0x4040, 0x4040, 0x4040, 0 },
-> +	{ 0x4141, 0x4141, 0x4141, 0 },
-> +	{ 0x4242, 0x4242, 0x4242, 0 },
-> +	{ 0x4343, 0x4343, 0x4343, 0 },
-> +	{ 0x4444, 0x4444, 0x4444, 0 },
-> +	{ 0x4545, 0x4545, 0x4545, 0 },
-> +	{ 0x4646, 0x4646, 0x4646, 0 },
-> +	{ 0x4747, 0x4747, 0x4747, 0 },
-> +	{ 0x4848, 0x4848, 0x4848, 0 },
-> +	{ 0x4949, 0x4949, 0x4949, 0 },
-> +	{ 0x4a4a, 0x4a4a, 0x4a4a, 0 },
-> +	{ 0x4b4b, 0x4b4b, 0x4b4b, 0 },
-> +	{ 0x4c4c, 0x4c4c, 0x4c4c, 0 },
-> +	{ 0x4d4d, 0x4d4d, 0x4d4d, 0 },
-> +	{ 0x4e4e, 0x4e4e, 0x4e4e, 0 },
-> +	{ 0x4f4f, 0x4f4f, 0x4f4f, 0 },
-> +	{ 0x5050, 0x5050, 0x5050, 0 },
-> +	{ 0x5151, 0x5151, 0x5151, 0 },
-> +	{ 0x5252, 0x5252, 0x5252, 0 },
-> +	{ 0x5353, 0x5353, 0x5353, 0 },
-> +	{ 0x5454, 0x5454, 0x5454, 0 },
-> +	{ 0x5555, 0x5555, 0x5555, 0 },
-> +	{ 0x5656, 0x5656, 0x5656, 0 },
-> +	{ 0x5757, 0x5757, 0x5757, 0 },
-> +	{ 0x5858, 0x5858, 0x5858, 0 },
-> +	{ 0x5959, 0x5959, 0x5959, 0 },
-> +	{ 0x5a5a, 0x5a5a, 0x5a5a, 0 },
-> +	{ 0x5b5b, 0x5b5b, 0x5b5b, 0 },
-> +	{ 0x5c5c, 0x5c5c, 0x5c5c, 0 },
-> +	{ 0x5d5d, 0x5d5d, 0x5d5d, 0 },
-> +	{ 0x5e5e, 0x5e5e, 0x5e5e, 0 },
-> +	{ 0x5f5f, 0x5f5f, 0x5f5f, 0 },
-> +	{ 0x6060, 0x6060, 0x6060, 0 },
-> +	{ 0x6161, 0x6161, 0x6161, 0 },
-> +	{ 0x6262, 0x6262, 0x6262, 0 },
-> +	{ 0x6363, 0x6363, 0x6363, 0 },
-> +	{ 0x6464, 0x6464, 0x6464, 0 },
-> +	{ 0x6565, 0x6565, 0x6565, 0 },
-> +	{ 0x6666, 0x6666, 0x6666, 0 },
-> +	{ 0x6767, 0x6767, 0x6767, 0 },
-> +	{ 0x6868, 0x6868, 0x6868, 0 },
-> +	{ 0x6969, 0x6969, 0x6969, 0 },
-> +	{ 0x6a6a, 0x6a6a, 0x6a6a, 0 },
-> +	{ 0x6b6b, 0x6b6b, 0x6b6b, 0 },
-> +	{ 0x6c6c, 0x6c6c, 0x6c6c, 0 },
-> +	{ 0x6d6d, 0x6d6d, 0x6d6d, 0 },
-> +	{ 0x6e6e, 0x6e6e, 0x6e6e, 0 },
-> +	{ 0x6f6f, 0x6f6f, 0x6f6f, 0 },
-> +	{ 0x7070, 0x7070, 0x7070, 0 },
-> +	{ 0x7171, 0x7171, 0x7171, 0 },
-> +	{ 0x7272, 0x7272, 0x7272, 0 },
-> +	{ 0x7373, 0x7373, 0x7373, 0 },
-> +	{ 0x7474, 0x7474, 0x7474, 0 },
-> +	{ 0x7575, 0x7575, 0x7575, 0 },
-> +	{ 0x7676, 0x7676, 0x7676, 0 },
-> +	{ 0x7777, 0x7777, 0x7777, 0 },
-> +	{ 0x7878, 0x7878, 0x7878, 0 },
-> +	{ 0x7979, 0x7979, 0x7979, 0 },
-> +	{ 0x7a7a, 0x7a7a, 0x7a7a, 0 },
-> +	{ 0x7b7b, 0x7b7b, 0x7b7b, 0 },
-> +	{ 0x7c7c, 0x7c7c, 0x7c7c, 0 },
-> +	{ 0x7d7d, 0x7d7d, 0x7d7d, 0 },
-> +	{ 0x7e7e, 0x7e7e, 0x7e7e, 0 },
-> +	{ 0x7f7f, 0x7f7f, 0x7f7f, 0 },
-> +	{ 0x8080, 0x8080, 0x8080, 0 },
-> +	{ 0x8181, 0x8181, 0x8181, 0 },
-> +	{ 0x8282, 0x8282, 0x8282, 0 },
-> +	{ 0x8383, 0x8383, 0x8383, 0 },
-> +	{ 0x8484, 0x8484, 0x8484, 0 },
-> +	{ 0x8585, 0x8585, 0x8585, 0 },
-> +	{ 0x8686, 0x8686, 0x8686, 0 },
-> +	{ 0x8787, 0x8787, 0x8787, 0 },
-> +	{ 0x8888, 0x8888, 0x8888, 0 },
-> +	{ 0x8989, 0x8989, 0x8989, 0 },
-> +	{ 0x8a8a, 0x8a8a, 0x8a8a, 0 },
-> +	{ 0x8b8b, 0x8b8b, 0x8b8b, 0 },
-> +	{ 0x8c8c, 0x8c8c, 0x8c8c, 0 },
-> +	{ 0x8d8d, 0x8d8d, 0x8d8d, 0 },
-> +	{ 0x8e8e, 0x8e8e, 0x8e8e, 0 },
-> +	{ 0x8f8f, 0x8f8f, 0x8f8f, 0 },
-> +	{ 0x9090, 0x9090, 0x9090, 0 },
-> +	{ 0x9191, 0x9191, 0x9191, 0 },
-> +	{ 0x9292, 0x9292, 0x9292, 0 },
-> +	{ 0x9393, 0x9393, 0x9393, 0 },
-> +	{ 0x9494, 0x9494, 0x9494, 0 },
-> +	{ 0x9595, 0x9595, 0x9595, 0 },
-> +	{ 0x9696, 0x9696, 0x9696, 0 },
-> +	{ 0x9797, 0x9797, 0x9797, 0 },
-> +	{ 0x9898, 0x9898, 0x9898, 0 },
-> +	{ 0x9999, 0x9999, 0x9999, 0 },
-> +	{ 0x9a9a, 0x9a9a, 0x9a9a, 0 },
-> +	{ 0x9b9b, 0x9b9b, 0x9b9b, 0 },
-> +	{ 0x9c9c, 0x9c9c, 0x9c9c, 0 },
-> +	{ 0x9d9d, 0x9d9d, 0x9d9d, 0 },
-> +	{ 0x9e9e, 0x9e9e, 0x9e9e, 0 },
-> +	{ 0x9f9f, 0x9f9f, 0x9f9f, 0 },
-> +	{ 0xa0a0, 0xa0a0, 0xa0a0, 0 },
-> +	{ 0xa1a1, 0xa1a1, 0xa1a1, 0 },
-> +	{ 0xa2a2, 0xa2a2, 0xa2a2, 0 },
-> +	{ 0xa3a3, 0xa3a3, 0xa3a3, 0 },
-> +	{ 0xa4a4, 0xa4a4, 0xa4a4, 0 },
-> +	{ 0xa5a5, 0xa5a5, 0xa5a5, 0 },
-> +	{ 0xa6a6, 0xa6a6, 0xa6a6, 0 },
-> +	{ 0xa7a7, 0xa7a7, 0xa7a7, 0 },
-> +	{ 0xa8a8, 0xa8a8, 0xa8a8, 0 },
-> +	{ 0xa9a9, 0xa9a9, 0xa9a9, 0 },
-> +	{ 0xaaaa, 0xaaaa, 0xaaaa, 0 },
-> +	{ 0xabab, 0xabab, 0xabab, 0 },
-> +	{ 0xacac, 0xacac, 0xacac, 0 },
-> +	{ 0xadad, 0xadad, 0xadad, 0 },
-> +	{ 0xaeae, 0xaeae, 0xaeae, 0 },
-> +	{ 0xafaf, 0xafaf, 0xafaf, 0 },
-> +	{ 0xb0b0, 0xb0b0, 0xb0b0, 0 },
-> +	{ 0xb1b1, 0xb1b1, 0xb1b1, 0 },
-> +	{ 0xb2b2, 0xb2b2, 0xb2b2, 0 },
-> +	{ 0xb3b3, 0xb3b3, 0xb3b3, 0 },
-> +	{ 0xb4b4, 0xb4b4, 0xb4b4, 0 },
-> +	{ 0xb5b5, 0xb5b5, 0xb5b5, 0 },
-> +	{ 0xb6b6, 0xb6b6, 0xb6b6, 0 },
-> +	{ 0xb7b7, 0xb7b7, 0xb7b7, 0 },
-> +	{ 0xb8b8, 0xb8b8, 0xb8b8, 0 },
-> +	{ 0xb9b9, 0xb9b9, 0xb9b9, 0 },
-> +	{ 0xbaba, 0xbaba, 0xbaba, 0 },
-> +	{ 0xbbbb, 0xbbbb, 0xbbbb, 0 },
-> +	{ 0xbcbc, 0xbcbc, 0xbcbc, 0 },
-> +	{ 0xbdbd, 0xbdbd, 0xbdbd, 0 },
-> +	{ 0xbebe, 0xbebe, 0xbebe, 0 },
-> +	{ 0xbfbf, 0xbfbf, 0xbfbf, 0 },
-> +	{ 0xc0c0, 0xc0c0, 0xc0c0, 0 },
-> +	{ 0xc1c1, 0xc1c1, 0xc1c1, 0 },
-> +	{ 0xc2c2, 0xc2c2, 0xc2c2, 0 },
-> +	{ 0xc3c3, 0xc3c3, 0xc3c3, 0 },
-> +	{ 0xc4c4, 0xc4c4, 0xc4c4, 0 },
-> +	{ 0xc5c5, 0xc5c5, 0xc5c5, 0 },
-> +	{ 0xc6c6, 0xc6c6, 0xc6c6, 0 },
-> +	{ 0xc7c7, 0xc7c7, 0xc7c7, 0 },
-> +	{ 0xc8c8, 0xc8c8, 0xc8c8, 0 },
-> +	{ 0xc9c9, 0xc9c9, 0xc9c9, 0 },
-> +	{ 0xcaca, 0xcaca, 0xcaca, 0 },
-> +	{ 0xcbcb, 0xcbcb, 0xcbcb, 0 },
-> +	{ 0xcccc, 0xcccc, 0xcccc, 0 },
-> +	{ 0xcdcd, 0xcdcd, 0xcdcd, 0 },
-> +	{ 0xcece, 0xcece, 0xcece, 0 },
-> +	{ 0xcfcf, 0xcfcf, 0xcfcf, 0 },
-> +	{ 0xd0d0, 0xd0d0, 0xd0d0, 0 },
-> +	{ 0xd1d1, 0xd1d1, 0xd1d1, 0 },
-> +	{ 0xd2d2, 0xd2d2, 0xd2d2, 0 },
-> +	{ 0xd3d3, 0xd3d3, 0xd3d3, 0 },
-> +	{ 0xd4d4, 0xd4d4, 0xd4d4, 0 },
-> +	{ 0xd5d5, 0xd5d5, 0xd5d5, 0 },
-> +	{ 0xd6d6, 0xd6d6, 0xd6d6, 0 },
-> +	{ 0xd7d7, 0xd7d7, 0xd7d7, 0 },
-> +	{ 0xd8d8, 0xd8d8, 0xd8d8, 0 },
-> +	{ 0xd9d9, 0xd9d9, 0xd9d9, 0 },
-> +	{ 0xdada, 0xdada, 0xdada, 0 },
-> +	{ 0xdbdb, 0xdbdb, 0xdbdb, 0 },
-> +	{ 0xdcdc, 0xdcdc, 0xdcdc, 0 },
-> +	{ 0xdddd, 0xdddd, 0xdddd, 0 },
-> +	{ 0xdede, 0xdede, 0xdede, 0 },
-> +	{ 0xdfdf, 0xdfdf, 0xdfdf, 0 },
-> +	{ 0xe0e0, 0xe0e0, 0xe0e0, 0 },
-> +	{ 0xe1e1, 0xe1e1, 0xe1e1, 0 },
-> +	{ 0xe2e2, 0xe2e2, 0xe2e2, 0 },
-> +	{ 0xe3e3, 0xe3e3, 0xe3e3, 0 },
-> +	{ 0xe4e4, 0xe4e4, 0xe4e4, 0 },
-> +	{ 0xe5e5, 0xe5e5, 0xe5e5, 0 },
-> +	{ 0xe6e6, 0xe6e6, 0xe6e6, 0 },
-> +	{ 0xe7e7, 0xe7e7, 0xe7e7, 0 },
-> +	{ 0xe8e8, 0xe8e8, 0xe8e8, 0 },
-> +	{ 0xe9e9, 0xe9e9, 0xe9e9, 0 },
-> +	{ 0xeaea, 0xeaea, 0xeaea, 0 },
-> +	{ 0xebeb, 0xebeb, 0xebeb, 0 },
-> +	{ 0xecec, 0xecec, 0xecec, 0 },
-> +	{ 0xeded, 0xeded, 0xeded, 0 },
-> +	{ 0xeeee, 0xeeee, 0xeeee, 0 },
-> +	{ 0xefef, 0xefef, 0xefef, 0 },
-> +	{ 0xf0f0, 0xf0f0, 0xf0f0, 0 },
-> +	{ 0xf1f1, 0xf1f1, 0xf1f1, 0 },
-> +	{ 0xf2f2, 0xf2f2, 0xf2f2, 0 },
-> +	{ 0xf3f3, 0xf3f3, 0xf3f3, 0 },
-> +	{ 0xf4f4, 0xf4f4, 0xf4f4, 0 },
-> +	{ 0xf5f5, 0xf5f5, 0xf5f5, 0 },
-> +	{ 0xf6f6, 0xf6f6, 0xf6f6, 0 },
-> +	{ 0xf7f7, 0xf7f7, 0xf7f7, 0 },
-> +	{ 0xf8f8, 0xf8f8, 0xf8f8, 0 },
-> +	{ 0xf9f9, 0xf9f9, 0xf9f9, 0 },
-> +	{ 0xfafa, 0xfafa, 0xfafa, 0 },
-> +	{ 0xfbfb, 0xfbfb, 0xfbfb, 0 },
-> +	{ 0xfcfc, 0xfcfc, 0xfcfc, 0 },
-> +	{ 0xfdfd, 0xfdfd, 0xfdfd, 0 },
-> +	{ 0xfefe, 0xfefe, 0xfefe, 0 },
-> +	{ 0xffff, 0xffff, 0xffff, 0 },
-> +};
-> +
-> +const struct vkms_color_lut linear_eotf = {
-> +	.base = linear_array,
-> +	.lut_length = LUT_SIZE,
-> +	.channel_value2index_ratio = 0xff00ffll
-> +};
-> +EXPORT_SYMBOL(linear_eotf);
-> +
-> +static struct drm_color_lut srgb_array[LUT_SIZE] = {
-> +	{ 0x0, 0x0, 0x0, 0 },
-> +	{ 0x13, 0x13, 0x13, 0 },
-> +	{ 0x27, 0x27, 0x27, 0 },
-> +	{ 0x3b, 0x3b, 0x3b, 0 },
-> +	{ 0x4f, 0x4f, 0x4f, 0 },
-> +	{ 0x63, 0x63, 0x63, 0 },
-> +	{ 0x77, 0x77, 0x77, 0 },
-> +	{ 0x8b, 0x8b, 0x8b, 0 },
-> +	{ 0x9f, 0x9f, 0x9f, 0 },
-> +	{ 0xb3, 0xb3, 0xb3, 0 },
-> +	{ 0xc6, 0xc6, 0xc6, 0 },
-> +	{ 0xdb, 0xdb, 0xdb, 0 },
-> +	{ 0xf0, 0xf0, 0xf0, 0 },
-> +	{ 0x107, 0x107, 0x107, 0 },
-> +	{ 0x11f, 0x11f, 0x11f, 0 },
-> +	{ 0x139, 0x139, 0x139, 0 },
-> +	{ 0x153, 0x153, 0x153, 0 },
-> +	{ 0x16f, 0x16f, 0x16f, 0 },
-> +	{ 0x18c, 0x18c, 0x18c, 0 },
-> +	{ 0x1aa, 0x1aa, 0x1aa, 0 },
-> +	{ 0x1ca, 0x1ca, 0x1ca, 0 },
-> +	{ 0x1eb, 0x1eb, 0x1eb, 0 },
-> +	{ 0x20d, 0x20d, 0x20d, 0 },
-> +	{ 0x231, 0x231, 0x231, 0 },
-> +	{ 0x256, 0x256, 0x256, 0 },
-> +	{ 0x27d, 0x27d, 0x27d, 0 },
-> +	{ 0x2a4, 0x2a4, 0x2a4, 0 },
-> +	{ 0x2ce, 0x2ce, 0x2ce, 0 },
-> +	{ 0x2f9, 0x2f9, 0x2f9, 0 },
-> +	{ 0x325, 0x325, 0x325, 0 },
-> +	{ 0x352, 0x352, 0x352, 0 },
-> +	{ 0x381, 0x381, 0x381, 0 },
-> +	{ 0x3b2, 0x3b2, 0x3b2, 0 },
-> +	{ 0x3e4, 0x3e4, 0x3e4, 0 },
-> +	{ 0x418, 0x418, 0x418, 0 },
-> +	{ 0x44d, 0x44d, 0x44d, 0 },
-> +	{ 0x484, 0x484, 0x484, 0 },
-> +	{ 0x4bc, 0x4bc, 0x4bc, 0 },
-> +	{ 0x4f6, 0x4f6, 0x4f6, 0 },
-> +	{ 0x531, 0x531, 0x531, 0 },
-> +	{ 0x56e, 0x56e, 0x56e, 0 },
-> +	{ 0x5ad, 0x5ad, 0x5ad, 0 },
-> +	{ 0x5ed, 0x5ed, 0x5ed, 0 },
-> +	{ 0x62f, 0x62f, 0x62f, 0 },
-> +	{ 0x672, 0x672, 0x672, 0 },
-> +	{ 0x6b7, 0x6b7, 0x6b7, 0 },
-> +	{ 0x6fe, 0x6fe, 0x6fe, 0 },
-> +	{ 0x746, 0x746, 0x746, 0 },
-> +	{ 0x791, 0x791, 0x791, 0 },
-> +	{ 0x7dc, 0x7dc, 0x7dc, 0 },
-> +	{ 0x82a, 0x82a, 0x82a, 0 },
-> +	{ 0x879, 0x879, 0x879, 0 },
-> +	{ 0x8ca, 0x8ca, 0x8ca, 0 },
-> +	{ 0x91d, 0x91d, 0x91d, 0 },
-> +	{ 0x971, 0x971, 0x971, 0 },
-> +	{ 0x9c7, 0x9c7, 0x9c7, 0 },
-> +	{ 0xa1f, 0xa1f, 0xa1f, 0 },
-> +	{ 0xa79, 0xa79, 0xa79, 0 },
-> +	{ 0xad4, 0xad4, 0xad4, 0 },
-> +	{ 0xb32, 0xb32, 0xb32, 0 },
-> +	{ 0xb91, 0xb91, 0xb91, 0 },
-> +	{ 0xbf2, 0xbf2, 0xbf2, 0 },
-> +	{ 0xc54, 0xc54, 0xc54, 0 },
-> +	{ 0xcb9, 0xcb9, 0xcb9, 0 },
-> +	{ 0xd1f, 0xd1f, 0xd1f, 0 },
-> +	{ 0xd88, 0xd88, 0xd88, 0 },
-> +	{ 0xdf2, 0xdf2, 0xdf2, 0 },
-> +	{ 0xe5e, 0xe5e, 0xe5e, 0 },
-> +	{ 0xecc, 0xecc, 0xecc, 0 },
-> +	{ 0xf3c, 0xf3c, 0xf3c, 0 },
-> +	{ 0xfad, 0xfad, 0xfad, 0 },
-> +	{ 0x1021, 0x1021, 0x1021, 0 },
-> +	{ 0x1096, 0x1096, 0x1096, 0 },
-> +	{ 0x110e, 0x110e, 0x110e, 0 },
-> +	{ 0x1187, 0x1187, 0x1187, 0 },
-> +	{ 0x1203, 0x1203, 0x1203, 0 },
-> +	{ 0x1280, 0x1280, 0x1280, 0 },
-> +	{ 0x12ff, 0x12ff, 0x12ff, 0 },
-> +	{ 0x1380, 0x1380, 0x1380, 0 },
-> +	{ 0x1404, 0x1404, 0x1404, 0 },
-> +	{ 0x1489, 0x1489, 0x1489, 0 },
-> +	{ 0x1510, 0x1510, 0x1510, 0 },
-> +	{ 0x1599, 0x1599, 0x1599, 0 },
-> +	{ 0x1624, 0x1624, 0x1624, 0 },
-> +	{ 0x16b2, 0x16b2, 0x16b2, 0 },
-> +	{ 0x1741, 0x1741, 0x1741, 0 },
-> +	{ 0x17d2, 0x17d2, 0x17d2, 0 },
-> +	{ 0x1865, 0x1865, 0x1865, 0 },
-> +	{ 0x18fb, 0x18fb, 0x18fb, 0 },
-> +	{ 0x1992, 0x1992, 0x1992, 0 },
-> +	{ 0x1a2c, 0x1a2c, 0x1a2c, 0 },
-> +	{ 0x1ac8, 0x1ac8, 0x1ac8, 0 },
-> +	{ 0x1b65, 0x1b65, 0x1b65, 0 },
-> +	{ 0x1c05, 0x1c05, 0x1c05, 0 },
-> +	{ 0x1ca7, 0x1ca7, 0x1ca7, 0 },
-> +	{ 0x1d4b, 0x1d4b, 0x1d4b, 0 },
-> +	{ 0x1df1, 0x1df1, 0x1df1, 0 },
-> +	{ 0x1e99, 0x1e99, 0x1e99, 0 },
-> +	{ 0x1f44, 0x1f44, 0x1f44, 0 },
-> +	{ 0x1ff0, 0x1ff0, 0x1ff0, 0 },
-> +	{ 0x209f, 0x209f, 0x209f, 0 },
-> +	{ 0x2150, 0x2150, 0x2150, 0 },
-> +	{ 0x2203, 0x2203, 0x2203, 0 },
-> +	{ 0x22b8, 0x22b8, 0x22b8, 0 },
-> +	{ 0x2370, 0x2370, 0x2370, 0 },
-> +	{ 0x2429, 0x2429, 0x2429, 0 },
-> +	{ 0x24e5, 0x24e5, 0x24e5, 0 },
-> +	{ 0x25a3, 0x25a3, 0x25a3, 0 },
-> +	{ 0x2663, 0x2663, 0x2663, 0 },
-> +	{ 0x2726, 0x2726, 0x2726, 0 },
-> +	{ 0x27ea, 0x27ea, 0x27ea, 0 },
-> +	{ 0x28b1, 0x28b1, 0x28b1, 0 },
-> +	{ 0x297a, 0x297a, 0x297a, 0 },
-> +	{ 0x2a45, 0x2a45, 0x2a45, 0 },
-> +	{ 0x2b13, 0x2b13, 0x2b13, 0 },
-> +	{ 0x2be3, 0x2be3, 0x2be3, 0 },
-> +	{ 0x2cb5, 0x2cb5, 0x2cb5, 0 },
-> +	{ 0x2d89, 0x2d89, 0x2d89, 0 },
-> +	{ 0x2e60, 0x2e60, 0x2e60, 0 },
-> +	{ 0x2f39, 0x2f39, 0x2f39, 0 },
-> +	{ 0x3014, 0x3014, 0x3014, 0 },
-> +	{ 0x30f2, 0x30f2, 0x30f2, 0 },
-> +	{ 0x31d2, 0x31d2, 0x31d2, 0 },
-> +	{ 0x32b4, 0x32b4, 0x32b4, 0 },
-> +	{ 0x3398, 0x3398, 0x3398, 0 },
-> +	{ 0x347f, 0x347f, 0x347f, 0 },
-> +	{ 0x3569, 0x3569, 0x3569, 0 },
-> +	{ 0x3654, 0x3654, 0x3654, 0 },
-> +	{ 0x3742, 0x3742, 0x3742, 0 },
-> +	{ 0x3832, 0x3832, 0x3832, 0 },
-> +	{ 0x3925, 0x3925, 0x3925, 0 },
-> +	{ 0x3a1a, 0x3a1a, 0x3a1a, 0 },
-> +	{ 0x3b11, 0x3b11, 0x3b11, 0 },
-> +	{ 0x3c0b, 0x3c0b, 0x3c0b, 0 },
-> +	{ 0x3d07, 0x3d07, 0x3d07, 0 },
-> +	{ 0x3e05, 0x3e05, 0x3e05, 0 },
-> +	{ 0x3f06, 0x3f06, 0x3f06, 0 },
-> +	{ 0x400a, 0x400a, 0x400a, 0 },
-> +	{ 0x410f, 0x410f, 0x410f, 0 },
-> +	{ 0x4218, 0x4218, 0x4218, 0 },
-> +	{ 0x4322, 0x4322, 0x4322, 0 },
-> +	{ 0x442f, 0x442f, 0x442f, 0 },
-> +	{ 0x453f, 0x453f, 0x453f, 0 },
-> +	{ 0x4650, 0x4650, 0x4650, 0 },
-> +	{ 0x4765, 0x4765, 0x4765, 0 },
-> +	{ 0x487c, 0x487c, 0x487c, 0 },
-> +	{ 0x4995, 0x4995, 0x4995, 0 },
-> +	{ 0x4ab1, 0x4ab1, 0x4ab1, 0 },
-> +	{ 0x4bcf, 0x4bcf, 0x4bcf, 0 },
-> +	{ 0x4cf0, 0x4cf0, 0x4cf0, 0 },
-> +	{ 0x4e13, 0x4e13, 0x4e13, 0 },
-> +	{ 0x4f39, 0x4f39, 0x4f39, 0 },
-> +	{ 0x5061, 0x5061, 0x5061, 0 },
-> +	{ 0x518b, 0x518b, 0x518b, 0 },
-> +	{ 0x52b9, 0x52b9, 0x52b9, 0 },
-> +	{ 0x53e8, 0x53e8, 0x53e8, 0 },
-> +	{ 0x551b, 0x551b, 0x551b, 0 },
-> +	{ 0x5650, 0x5650, 0x5650, 0 },
-> +	{ 0x5787, 0x5787, 0x5787, 0 },
-> +	{ 0x58c1, 0x58c1, 0x58c1, 0 },
-> +	{ 0x59fd, 0x59fd, 0x59fd, 0 },
-> +	{ 0x5b3c, 0x5b3c, 0x5b3c, 0 },
-> +	{ 0x5c7e, 0x5c7e, 0x5c7e, 0 },
-> +	{ 0x5dc2, 0x5dc2, 0x5dc2, 0 },
-> +	{ 0x5f09, 0x5f09, 0x5f09, 0 },
-> +	{ 0x6052, 0x6052, 0x6052, 0 },
-> +	{ 0x619e, 0x619e, 0x619e, 0 },
-> +	{ 0x62ec, 0x62ec, 0x62ec, 0 },
-> +	{ 0x643d, 0x643d, 0x643d, 0 },
-> +	{ 0x6591, 0x6591, 0x6591, 0 },
-> +	{ 0x66e7, 0x66e7, 0x66e7, 0 },
-> +	{ 0x6840, 0x6840, 0x6840, 0 },
-> +	{ 0x699b, 0x699b, 0x699b, 0 },
-> +	{ 0x6afa, 0x6afa, 0x6afa, 0 },
-> +	{ 0x6c5a, 0x6c5a, 0x6c5a, 0 },
-> +	{ 0x6dbe, 0x6dbe, 0x6dbe, 0 },
-> +	{ 0x6f24, 0x6f24, 0x6f24, 0 },
-> +	{ 0x708c, 0x708c, 0x708c, 0 },
-> +	{ 0x71f8, 0x71f8, 0x71f8, 0 },
-> +	{ 0x7366, 0x7366, 0x7366, 0 },
-> +	{ 0x74d6, 0x74d6, 0x74d6, 0 },
-> +	{ 0x764a, 0x764a, 0x764a, 0 },
-> +	{ 0x77c0, 0x77c0, 0x77c0, 0 },
-> +	{ 0x7938, 0x7938, 0x7938, 0 },
-> +	{ 0x7ab4, 0x7ab4, 0x7ab4, 0 },
-> +	{ 0x7c32, 0x7c32, 0x7c32, 0 },
-> +	{ 0x7db3, 0x7db3, 0x7db3, 0 },
-> +	{ 0x7f36, 0x7f36, 0x7f36, 0 },
-> +	{ 0x80bc, 0x80bc, 0x80bc, 0 },
-> +	{ 0x8245, 0x8245, 0x8245, 0 },
-> +	{ 0x83d1, 0x83d1, 0x83d1, 0 },
-> +	{ 0x855f, 0x855f, 0x855f, 0 },
-> +	{ 0x86f0, 0x86f0, 0x86f0, 0 },
-> +	{ 0x8884, 0x8884, 0x8884, 0 },
-> +	{ 0x8a1a, 0x8a1a, 0x8a1a, 0 },
-> +	{ 0x8bb4, 0x8bb4, 0x8bb4, 0 },
-> +	{ 0x8d50, 0x8d50, 0x8d50, 0 },
-> +	{ 0x8eee, 0x8eee, 0x8eee, 0 },
-> +	{ 0x9090, 0x9090, 0x9090, 0 },
-> +	{ 0x9234, 0x9234, 0x9234, 0 },
-> +	{ 0x93db, 0x93db, 0x93db, 0 },
-> +	{ 0x9585, 0x9585, 0x9585, 0 },
-> +	{ 0x9732, 0x9732, 0x9732, 0 },
-> +	{ 0x98e1, 0x98e1, 0x98e1, 0 },
-> +	{ 0x9a93, 0x9a93, 0x9a93, 0 },
-> +	{ 0x9c48, 0x9c48, 0x9c48, 0 },
-> +	{ 0x9e00, 0x9e00, 0x9e00, 0 },
-> +	{ 0x9fbb, 0x9fbb, 0x9fbb, 0 },
-> +	{ 0xa178, 0xa178, 0xa178, 0 },
-> +	{ 0xa338, 0xa338, 0xa338, 0 },
-> +	{ 0xa4fb, 0xa4fb, 0xa4fb, 0 },
-> +	{ 0xa6c1, 0xa6c1, 0xa6c1, 0 },
-> +	{ 0xa88a, 0xa88a, 0xa88a, 0 },
-> +	{ 0xaa56, 0xaa56, 0xaa56, 0 },
-> +	{ 0xac24, 0xac24, 0xac24, 0 },
-> +	{ 0xadf5, 0xadf5, 0xadf5, 0 },
-> +	{ 0xafc9, 0xafc9, 0xafc9, 0 },
-> +	{ 0xb1a0, 0xb1a0, 0xb1a0, 0 },
-> +	{ 0xb37a, 0xb37a, 0xb37a, 0 },
-> +	{ 0xb557, 0xb557, 0xb557, 0 },
-> +	{ 0xb736, 0xb736, 0xb736, 0 },
-> +	{ 0xb919, 0xb919, 0xb919, 0 },
-> +	{ 0xbafe, 0xbafe, 0xbafe, 0 },
-> +	{ 0xbce6, 0xbce6, 0xbce6, 0 },
-> +	{ 0xbed2, 0xbed2, 0xbed2, 0 },
-> +	{ 0xc0c0, 0xc0c0, 0xc0c0, 0 },
-> +	{ 0xc2b0, 0xc2b0, 0xc2b0, 0 },
-> +	{ 0xc4a4, 0xc4a4, 0xc4a4, 0 },
-> +	{ 0xc69b, 0xc69b, 0xc69b, 0 },
-> +	{ 0xc895, 0xc895, 0xc895, 0 },
-> +	{ 0xca91, 0xca91, 0xca91, 0 },
-> +	{ 0xcc91, 0xcc91, 0xcc91, 0 },
-> +	{ 0xce93, 0xce93, 0xce93, 0 },
-> +	{ 0xd098, 0xd098, 0xd098, 0 },
-> +	{ 0xd2a1, 0xd2a1, 0xd2a1, 0 },
-> +	{ 0xd4ac, 0xd4ac, 0xd4ac, 0 },
-> +	{ 0xd6ba, 0xd6ba, 0xd6ba, 0 },
-> +	{ 0xd8cb, 0xd8cb, 0xd8cb, 0 },
-> +	{ 0xdadf, 0xdadf, 0xdadf, 0 },
-> +	{ 0xdcf7, 0xdcf7, 0xdcf7, 0 },
-> +	{ 0xdf11, 0xdf11, 0xdf11, 0 },
-> +	{ 0xe12e, 0xe12e, 0xe12e, 0 },
-> +	{ 0xe34e, 0xe34e, 0xe34e, 0 },
-> +	{ 0xe571, 0xe571, 0xe571, 0 },
-> +	{ 0xe796, 0xe796, 0xe796, 0 },
-> +	{ 0xe9bf, 0xe9bf, 0xe9bf, 0 },
-> +	{ 0xebeb, 0xebeb, 0xebeb, 0 },
-> +	{ 0xee1a, 0xee1a, 0xee1a, 0 },
-> +	{ 0xf04c, 0xf04c, 0xf04c, 0 },
-> +	{ 0xf281, 0xf281, 0xf281, 0 },
-> +	{ 0xf4b9, 0xf4b9, 0xf4b9, 0 },
-> +	{ 0xf6f4, 0xf6f4, 0xf6f4, 0 },
-> +	{ 0xf932, 0xf932, 0xf932, 0 },
-> +	{ 0xfb73, 0xfb73, 0xfb73, 0 },
-> +	{ 0xfdb7, 0xfdb7, 0xfdb7, 0 },
-> +	{ 0xffff, 0xffff, 0xffff, 0 },
-> +};
-> +
-> +const struct vkms_color_lut srgb_eotf = {
-> +	.base = srgb_array,
-> +	.lut_length = LUT_SIZE,
-> +	.channel_value2index_ratio = 0xff00ffll
-> +};
-> +EXPORT_SYMBOL(srgb_eotf);
-> +
-> +static struct drm_color_lut srgb_inv_array[LUT_SIZE] = {
-> +	{ 0x0, 0x0, 0x0, 0 },
-> +	{ 0xcc2, 0xcc2, 0xcc2, 0 },
-> +	{ 0x15be, 0x15be, 0x15be, 0 },
-> +	{ 0x1c56, 0x1c56, 0x1c56, 0 },
-> +	{ 0x21bd, 0x21bd, 0x21bd, 0 },
-> +	{ 0x2666, 0x2666, 0x2666, 0 },
-> +	{ 0x2a8a, 0x2a8a, 0x2a8a, 0 },
-> +	{ 0x2e4c, 0x2e4c, 0x2e4c, 0 },
-> +	{ 0x31c0, 0x31c0, 0x31c0, 0 },
-> +	{ 0x34f6, 0x34f6, 0x34f6, 0 },
-> +	{ 0x37f9, 0x37f9, 0x37f9, 0 },
-> +	{ 0x3acf, 0x3acf, 0x3acf, 0 },
-> +	{ 0x3d80, 0x3d80, 0x3d80, 0 },
-> +	{ 0x4010, 0x4010, 0x4010, 0 },
-> +	{ 0x4284, 0x4284, 0x4284, 0 },
-> +	{ 0x44dd, 0x44dd, 0x44dd, 0 },
-> +	{ 0x4720, 0x4720, 0x4720, 0 },
-> +	{ 0x494e, 0x494e, 0x494e, 0 },
-> +	{ 0x4b69, 0x4b69, 0x4b69, 0 },
-> +	{ 0x4d73, 0x4d73, 0x4d73, 0 },
-> +	{ 0x4f6e, 0x4f6e, 0x4f6e, 0 },
-> +	{ 0x5159, 0x5159, 0x5159, 0 },
-> +	{ 0x5337, 0x5337, 0x5337, 0 },
-> +	{ 0x5509, 0x5509, 0x5509, 0 },
-> +	{ 0x56cf, 0x56cf, 0x56cf, 0 },
-> +	{ 0x588a, 0x588a, 0x588a, 0 },
-> +	{ 0x5a3b, 0x5a3b, 0x5a3b, 0 },
-> +	{ 0x5be2, 0x5be2, 0x5be2, 0 },
-> +	{ 0x5d80, 0x5d80, 0x5d80, 0 },
-> +	{ 0x5f16, 0x5f16, 0x5f16, 0 },
-> +	{ 0x60a4, 0x60a4, 0x60a4, 0 },
-> +	{ 0x6229, 0x6229, 0x6229, 0 },
-> +	{ 0x63a8, 0x63a8, 0x63a8, 0 },
-> +	{ 0x6520, 0x6520, 0x6520, 0 },
-> +	{ 0x6691, 0x6691, 0x6691, 0 },
-> +	{ 0x67fc, 0x67fc, 0x67fc, 0 },
-> +	{ 0x6961, 0x6961, 0x6961, 0 },
-> +	{ 0x6ac0, 0x6ac0, 0x6ac0, 0 },
-> +	{ 0x6c19, 0x6c19, 0x6c19, 0 },
-> +	{ 0x6d6e, 0x6d6e, 0x6d6e, 0 },
-> +	{ 0x6ebd, 0x6ebd, 0x6ebd, 0 },
-> +	{ 0x7008, 0x7008, 0x7008, 0 },
-> +	{ 0x714d, 0x714d, 0x714d, 0 },
-> +	{ 0x728f, 0x728f, 0x728f, 0 },
-> +	{ 0x73cc, 0x73cc, 0x73cc, 0 },
-> +	{ 0x7504, 0x7504, 0x7504, 0 },
-> +	{ 0x7639, 0x7639, 0x7639, 0 },
-> +	{ 0x776a, 0x776a, 0x776a, 0 },
-> +	{ 0x7897, 0x7897, 0x7897, 0 },
-> +	{ 0x79c1, 0x79c1, 0x79c1, 0 },
-> +	{ 0x7ae7, 0x7ae7, 0x7ae7, 0 },
-> +	{ 0x7c09, 0x7c09, 0x7c09, 0 },
-> +	{ 0x7d28, 0x7d28, 0x7d28, 0 },
-> +	{ 0x7e44, 0x7e44, 0x7e44, 0 },
-> +	{ 0x7f5d, 0x7f5d, 0x7f5d, 0 },
-> +	{ 0x8073, 0x8073, 0x8073, 0 },
-> +	{ 0x8186, 0x8186, 0x8186, 0 },
-> +	{ 0x8296, 0x8296, 0x8296, 0 },
-> +	{ 0x83a4, 0x83a4, 0x83a4, 0 },
-> +	{ 0x84ae, 0x84ae, 0x84ae, 0 },
-> +	{ 0x85b6, 0x85b6, 0x85b6, 0 },
-> +	{ 0x86bc, 0x86bc, 0x86bc, 0 },
-> +	{ 0x87bf, 0x87bf, 0x87bf, 0 },
-> +	{ 0x88bf, 0x88bf, 0x88bf, 0 },
-> +	{ 0x89be, 0x89be, 0x89be, 0 },
-> +	{ 0x8ab9, 0x8ab9, 0x8ab9, 0 },
-> +	{ 0x8bb3, 0x8bb3, 0x8bb3, 0 },
-> +	{ 0x8cab, 0x8cab, 0x8cab, 0 },
-> +	{ 0x8da0, 0x8da0, 0x8da0, 0 },
-> +	{ 0x8e93, 0x8e93, 0x8e93, 0 },
-> +	{ 0x8f84, 0x8f84, 0x8f84, 0 },
-> +	{ 0x9073, 0x9073, 0x9073, 0 },
-> +	{ 0x9161, 0x9161, 0x9161, 0 },
-> +	{ 0x924c, 0x924c, 0x924c, 0 },
-> +	{ 0x9335, 0x9335, 0x9335, 0 },
-> +	{ 0x941d, 0x941d, 0x941d, 0 },
-> +	{ 0x9503, 0x9503, 0x9503, 0 },
-> +	{ 0x95e7, 0x95e7, 0x95e7, 0 },
-> +	{ 0x96c9, 0x96c9, 0x96c9, 0 },
-> +	{ 0x97aa, 0x97aa, 0x97aa, 0 },
-> +	{ 0x9889, 0x9889, 0x9889, 0 },
-> +	{ 0x9966, 0x9966, 0x9966, 0 },
-> +	{ 0x9a42, 0x9a42, 0x9a42, 0 },
-> +	{ 0x9b1c, 0x9b1c, 0x9b1c, 0 },
-> +	{ 0x9bf5, 0x9bf5, 0x9bf5, 0 },
-> +	{ 0x9ccc, 0x9ccc, 0x9ccc, 0 },
-> +	{ 0x9da1, 0x9da1, 0x9da1, 0 },
-> +	{ 0x9e76, 0x9e76, 0x9e76, 0 },
-> +	{ 0x9f49, 0x9f49, 0x9f49, 0 },
-> +	{ 0xa01a, 0xa01a, 0xa01a, 0 },
-> +	{ 0xa0ea, 0xa0ea, 0xa0ea, 0 },
-> +	{ 0xa1b9, 0xa1b9, 0xa1b9, 0 },
-> +	{ 0xa286, 0xa286, 0xa286, 0 },
-> +	{ 0xa352, 0xa352, 0xa352, 0 },
-> +	{ 0xa41d, 0xa41d, 0xa41d, 0 },
-> +	{ 0xa4e7, 0xa4e7, 0xa4e7, 0 },
-> +	{ 0xa5af, 0xa5af, 0xa5af, 0 },
-> +	{ 0xa676, 0xa676, 0xa676, 0 },
-> +	{ 0xa73c, 0xa73c, 0xa73c, 0 },
-> +	{ 0xa801, 0xa801, 0xa801, 0 },
-> +	{ 0xa8c5, 0xa8c5, 0xa8c5, 0 },
-> +	{ 0xa987, 0xa987, 0xa987, 0 },
-> +	{ 0xaa48, 0xaa48, 0xaa48, 0 },
-> +	{ 0xab09, 0xab09, 0xab09, 0 },
-> +	{ 0xabc8, 0xabc8, 0xabc8, 0 },
-> +	{ 0xac86, 0xac86, 0xac86, 0 },
-> +	{ 0xad43, 0xad43, 0xad43, 0 },
-> +	{ 0xadff, 0xadff, 0xadff, 0 },
-> +	{ 0xaeba, 0xaeba, 0xaeba, 0 },
-> +	{ 0xaf74, 0xaf74, 0xaf74, 0 },
-> +	{ 0xb02d, 0xb02d, 0xb02d, 0 },
-> +	{ 0xb0e5, 0xb0e5, 0xb0e5, 0 },
-> +	{ 0xb19c, 0xb19c, 0xb19c, 0 },
-> +	{ 0xb252, 0xb252, 0xb252, 0 },
-> +	{ 0xb307, 0xb307, 0xb307, 0 },
-> +	{ 0xb3bb, 0xb3bb, 0xb3bb, 0 },
-> +	{ 0xb46f, 0xb46f, 0xb46f, 0 },
-> +	{ 0xb521, 0xb521, 0xb521, 0 },
-> +	{ 0xb5d3, 0xb5d3, 0xb5d3, 0 },
-> +	{ 0xb683, 0xb683, 0xb683, 0 },
-> +	{ 0xb733, 0xb733, 0xb733, 0 },
-> +	{ 0xb7e2, 0xb7e2, 0xb7e2, 0 },
-> +	{ 0xb890, 0xb890, 0xb890, 0 },
-> +	{ 0xb93d, 0xb93d, 0xb93d, 0 },
-> +	{ 0xb9ea, 0xb9ea, 0xb9ea, 0 },
-> +	{ 0xba96, 0xba96, 0xba96, 0 },
-> +	{ 0xbb40, 0xbb40, 0xbb40, 0 },
-> +	{ 0xbbea, 0xbbea, 0xbbea, 0 },
-> +	{ 0xbc94, 0xbc94, 0xbc94, 0 },
-> +	{ 0xbd3c, 0xbd3c, 0xbd3c, 0 },
-> +	{ 0xbde4, 0xbde4, 0xbde4, 0 },
-> +	{ 0xbe8b, 0xbe8b, 0xbe8b, 0 },
-> +	{ 0xbf31, 0xbf31, 0xbf31, 0 },
-> +	{ 0xbfd7, 0xbfd7, 0xbfd7, 0 },
-> +	{ 0xc07b, 0xc07b, 0xc07b, 0 },
-> +	{ 0xc120, 0xc120, 0xc120, 0 },
-> +	{ 0xc1c3, 0xc1c3, 0xc1c3, 0 },
-> +	{ 0xc266, 0xc266, 0xc266, 0 },
-> +	{ 0xc308, 0xc308, 0xc308, 0 },
-> +	{ 0xc3a9, 0xc3a9, 0xc3a9, 0 },
-> +	{ 0xc449, 0xc449, 0xc449, 0 },
-> +	{ 0xc4e9, 0xc4e9, 0xc4e9, 0 },
-> +	{ 0xc589, 0xc589, 0xc589, 0 },
-> +	{ 0xc627, 0xc627, 0xc627, 0 },
-> +	{ 0xc6c5, 0xc6c5, 0xc6c5, 0 },
-> +	{ 0xc763, 0xc763, 0xc763, 0 },
-> +	{ 0xc7ff, 0xc7ff, 0xc7ff, 0 },
-> +	{ 0xc89b, 0xc89b, 0xc89b, 0 },
-> +	{ 0xc937, 0xc937, 0xc937, 0 },
-> +	{ 0xc9d2, 0xc9d2, 0xc9d2, 0 },
-> +	{ 0xca6c, 0xca6c, 0xca6c, 0 },
-> +	{ 0xcb06, 0xcb06, 0xcb06, 0 },
-> +	{ 0xcb9f, 0xcb9f, 0xcb9f, 0 },
-> +	{ 0xcc37, 0xcc37, 0xcc37, 0 },
-> +	{ 0xcccf, 0xcccf, 0xcccf, 0 },
-> +	{ 0xcd66, 0xcd66, 0xcd66, 0 },
-> +	{ 0xcdfd, 0xcdfd, 0xcdfd, 0 },
-> +	{ 0xce93, 0xce93, 0xce93, 0 },
-> +	{ 0xcf29, 0xcf29, 0xcf29, 0 },
-> +	{ 0xcfbe, 0xcfbe, 0xcfbe, 0 },
-> +	{ 0xd053, 0xd053, 0xd053, 0 },
-> +	{ 0xd0e7, 0xd0e7, 0xd0e7, 0 },
-> +	{ 0xd17a, 0xd17a, 0xd17a, 0 },
-> +	{ 0xd20d, 0xd20d, 0xd20d, 0 },
-> +	{ 0xd2a0, 0xd2a0, 0xd2a0, 0 },
-> +	{ 0xd331, 0xd331, 0xd331, 0 },
-> +	{ 0xd3c3, 0xd3c3, 0xd3c3, 0 },
-> +	{ 0xd454, 0xd454, 0xd454, 0 },
-> +	{ 0xd4e4, 0xd4e4, 0xd4e4, 0 },
-> +	{ 0xd574, 0xd574, 0xd574, 0 },
-> +	{ 0xd603, 0xd603, 0xd603, 0 },
-> +	{ 0xd692, 0xd692, 0xd692, 0 },
-> +	{ 0xd720, 0xd720, 0xd720, 0 },
-> +	{ 0xd7ae, 0xd7ae, 0xd7ae, 0 },
-> +	{ 0xd83c, 0xd83c, 0xd83c, 0 },
-> +	{ 0xd8c9, 0xd8c9, 0xd8c9, 0 },
-> +	{ 0xd955, 0xd955, 0xd955, 0 },
-> +	{ 0xd9e1, 0xd9e1, 0xd9e1, 0 },
-> +	{ 0xda6d, 0xda6d, 0xda6d, 0 },
-> +	{ 0xdaf8, 0xdaf8, 0xdaf8, 0 },
-> +	{ 0xdb83, 0xdb83, 0xdb83, 0 },
-> +	{ 0xdc0d, 0xdc0d, 0xdc0d, 0 },
-> +	{ 0xdc97, 0xdc97, 0xdc97, 0 },
-> +	{ 0xdd20, 0xdd20, 0xdd20, 0 },
-> +	{ 0xdda9, 0xdda9, 0xdda9, 0 },
-> +	{ 0xde31, 0xde31, 0xde31, 0 },
-> +	{ 0xdeb9, 0xdeb9, 0xdeb9, 0 },
-> +	{ 0xdf41, 0xdf41, 0xdf41, 0 },
-> +	{ 0xdfc8, 0xdfc8, 0xdfc8, 0 },
-> +	{ 0xe04f, 0xe04f, 0xe04f, 0 },
-> +	{ 0xe0d5, 0xe0d5, 0xe0d5, 0 },
-> +	{ 0xe15b, 0xe15b, 0xe15b, 0 },
-> +	{ 0xe1e0, 0xe1e0, 0xe1e0, 0 },
-> +	{ 0xe266, 0xe266, 0xe266, 0 },
-> +	{ 0xe2ea, 0xe2ea, 0xe2ea, 0 },
-> +	{ 0xe36f, 0xe36f, 0xe36f, 0 },
-> +	{ 0xe3f3, 0xe3f3, 0xe3f3, 0 },
-> +	{ 0xe476, 0xe476, 0xe476, 0 },
-> +	{ 0xe4f9, 0xe4f9, 0xe4f9, 0 },
-> +	{ 0xe57c, 0xe57c, 0xe57c, 0 },
-> +	{ 0xe5fe, 0xe5fe, 0xe5fe, 0 },
-> +	{ 0xe680, 0xe680, 0xe680, 0 },
-> +	{ 0xe702, 0xe702, 0xe702, 0 },
-> +	{ 0xe783, 0xe783, 0xe783, 0 },
-> +	{ 0xe804, 0xe804, 0xe804, 0 },
-> +	{ 0xe884, 0xe884, 0xe884, 0 },
-> +	{ 0xe905, 0xe905, 0xe905, 0 },
-> +	{ 0xe984, 0xe984, 0xe984, 0 },
-> +	{ 0xea04, 0xea04, 0xea04, 0 },
-> +	{ 0xea83, 0xea83, 0xea83, 0 },
-> +	{ 0xeb02, 0xeb02, 0xeb02, 0 },
-> +	{ 0xeb80, 0xeb80, 0xeb80, 0 },
-> +	{ 0xebfe, 0xebfe, 0xebfe, 0 },
-> +	{ 0xec7b, 0xec7b, 0xec7b, 0 },
-> +	{ 0xecf9, 0xecf9, 0xecf9, 0 },
-> +	{ 0xed76, 0xed76, 0xed76, 0 },
-> +	{ 0xedf2, 0xedf2, 0xedf2, 0 },
-> +	{ 0xee6f, 0xee6f, 0xee6f, 0 },
-> +	{ 0xeeeb, 0xeeeb, 0xeeeb, 0 },
-> +	{ 0xef66, 0xef66, 0xef66, 0 },
-> +	{ 0xefe2, 0xefe2, 0xefe2, 0 },
-> +	{ 0xf05d, 0xf05d, 0xf05d, 0 },
-> +	{ 0xf0d7, 0xf0d7, 0xf0d7, 0 },
-> +	{ 0xf152, 0xf152, 0xf152, 0 },
-> +	{ 0xf1cc, 0xf1cc, 0xf1cc, 0 },
-> +	{ 0xf245, 0xf245, 0xf245, 0 },
-> +	{ 0xf2bf, 0xf2bf, 0xf2bf, 0 },
-> +	{ 0xf338, 0xf338, 0xf338, 0 },
-> +	{ 0xf3b0, 0xf3b0, 0xf3b0, 0 },
-> +	{ 0xf429, 0xf429, 0xf429, 0 },
-> +	{ 0xf4a1, 0xf4a1, 0xf4a1, 0 },
-> +	{ 0xf519, 0xf519, 0xf519, 0 },
-> +	{ 0xf590, 0xf590, 0xf590, 0 },
-> +	{ 0xf608, 0xf608, 0xf608, 0 },
-> +	{ 0xf67e, 0xf67e, 0xf67e, 0 },
-> +	{ 0xf6f5, 0xf6f5, 0xf6f5, 0 },
-> +	{ 0xf76b, 0xf76b, 0xf76b, 0 },
-> +	{ 0xf7e1, 0xf7e1, 0xf7e1, 0 },
-> +	{ 0xf857, 0xf857, 0xf857, 0 },
-> +	{ 0xf8cd, 0xf8cd, 0xf8cd, 0 },
-> +	{ 0xf942, 0xf942, 0xf942, 0 },
-> +	{ 0xf9b7, 0xf9b7, 0xf9b7, 0 },
-> +	{ 0xfa2b, 0xfa2b, 0xfa2b, 0 },
-> +	{ 0xfaa0, 0xfaa0, 0xfaa0, 0 },
-> +	{ 0xfb14, 0xfb14, 0xfb14, 0 },
-> +	{ 0xfb88, 0xfb88, 0xfb88, 0 },
-> +	{ 0xfbfb, 0xfbfb, 0xfbfb, 0 },
-> +	{ 0xfc6e, 0xfc6e, 0xfc6e, 0 },
-> +	{ 0xfce1, 0xfce1, 0xfce1, 0 },
-> +	{ 0xfd54, 0xfd54, 0xfd54, 0 },
-> +	{ 0xfdc6, 0xfdc6, 0xfdc6, 0 },
-> +	{ 0xfe39, 0xfe39, 0xfe39, 0 },
-> +	{ 0xfeaa, 0xfeaa, 0xfeaa, 0 },
-> +	{ 0xff1c, 0xff1c, 0xff1c, 0 },
-> +	{ 0xff8d, 0xff8d, 0xff8d, 0 },
-> +	{ 0xffff, 0xffff, 0xffff, 0 },
-> +};
-> +
-> +const struct vkms_color_lut srgb_inv_eotf = {
-> +	.base = srgb_inv_array,
-> +	.lut_length = LUT_SIZE,
-> +	.channel_value2index_ratio = 0xff00ffll
-> +};
-> +EXPORT_SYMBOL(srgb_inv_eotf);
-> diff --git a/drivers/gpu/drm/vkms/vkms_luts.h b/drivers/gpu/drm/vkms/vkms_luts.h
-> new file mode 100644
-> index 000000000000..925a4a7b84e2
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/vkms_luts.h
-> @@ -0,0 +1,12 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-> +
-> +#ifndef _VKMS_LUTS_H_
-> +#define _VKMS_LUTS_H_
-> +
-> +#define LUT_SIZE 256
-> +
-> +extern const struct vkms_color_lut linear_eotf;
-> +extern const struct vkms_color_lut srgb_eotf;
-> +extern const struct vkms_color_lut srgb_inv_eotf;
-> +
-> +#endif /* _VKMS_LUTS_H_ */
-> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-> index e592e47a5736..50fd3b9aa4ec 100644
-> --- a/drivers/gpu/drm/vkms/vkms_plane.c
-> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
-> @@ -243,5 +243,7 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
->   					  DRM_COLOR_YCBCR_BT601,
->   					  DRM_COLOR_YCBCR_FULL_RANGE);
->   
-> +	vkms_initialize_colorops(&plane->base);
-> +
->   	return plane;
->   }
-
--- 
---
-Louis Chauvet, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+>   		sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
+>   		if (pdd->dev->kfd2kgd->get_cu_occupancy)
