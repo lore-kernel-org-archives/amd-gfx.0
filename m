@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC5BCCF9EA
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 03:46:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A79A7CCF9EA
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 03:46:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3040E10E8AE;
-	Thu, 30 Oct 2025 03:46:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45DAD10E89E;
+	Thu, 30 Oct 2025 03:46:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DwQOe81D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="baw01YrE";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010015.outbound.protection.outlook.com [52.101.201.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 552B110E8AE
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 03:46:15 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013026.outbound.protection.outlook.com
+ [40.107.201.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5912B10E8A5;
+ Thu, 30 Oct 2025 03:46:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KrSX1oN7tF9WOWK167YBZnW0XRbxSVHtfqKQLjNUo47E2AS25pT3I+ED46/+BctQjBPb8gxwI/qkLAd8vY0JQ+plYsCK3BvmPUe5HXZtCUhknYHnBiyy0c4FITKDekPCbv2QNIi6KAs+CtL3KU2ISRvU5kMiN/AhxC7wMJJ76zBan1zV1LHVmoDz2RsFaSR7GpIrf9LF6jeKCv0k64J9G8C3aKdEG3YQybI/+fFk/G599zQ91vlfX5x6j89fcFEG6xcLR1iIt1NqIq33CVJlOlqXyDqxt/vjBT5rmaR63ZJrJ2TldGy6jJ+dxcr55b1ihsrYeHWP14CYG99l3hvExg==
+ b=Y793YbJ5UTZ05dwchc5td9jjGkbGmi1Vmw8Lq9zFMyZvEHt9IkyYqIxa6ZlbKmeJ6MDZNT9FsoC8WOK71M+BSHWLeBqGXP9qo7iya+Z0U+tlPDj7GrVsKcRj1lKVjjN24PB6S7xnENYRXp71n1veTKIwED6vcPxN5pzNLO3mFdXk4J+/8opS+UJJigNFAhTJbPyiJXcY5oNboqz1BgQT8iYNtyjPMLCih65aXje71zm0mvK5vnGAX53wawp8DGsD8KRJygnqdoHPNhnUtkp0clo9ArEKwGZHaEDo/miU38/uBeBWg1x+y8aAjfZlZq27J5CfjnzZ7Pbxd18eZ7PT5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M2YPJC+A6Xk851YyvG2MUU2+pXVs3b2xemfOx5nJw74=;
- b=e4cL4zQMUSjN8JVCkIIM3ZUhatgLlLHK4sxUKHmSlsTg5tsR+jrCGb94bm4SFSN1/uxX2KD2LH8Vuo2sbf0WSo5zbSJ7sZg2gNB5FQ37zermL/W+CFBBl3WGi3OIHD/UD9CUqVf0s680cV6J8u1aBenFHufF0SyXeta/OQT4zKv+ERvXHkbtXtyLqPZMeYNfQLjxKx+6HLdMeI6TQc6mxPAKmWWxud9BIYmTGRMiVdd2A5mk+phFKLTmd5T9oMm+3OgHyetrCTRXzE2P3zYatwoQYb1N4w/CMI0Cp+2ms7Be3uIcCFPj1JbXZ27T2c8XmqcZVkMTtNfou2+4vNvAYA==
+ bh=3TX0VKxbKjB4Crr4iDefKNlfI/XnWJ2fDJsk2+ZerrQ=;
+ b=o5VwcRG+9tCbDgNrEP3RWjgymPMg0eEgHmQnLO6pOyJc+m/IUJ65AOwwos/bkAo0+WLVDGmqMvFQRcFl2FgIDMvN7+0vOQRzmZyNFot9w3RdmF2HacV2I1Sgxxb7aSWlqTnxEa6AqAtxpmPM+QVIPQHtAuyrAiUCediW807Slj+0nXF9b7kb4FnNJmCNeMxBdmX6mmMDkrIZry4FlCQoCRLAliSdVnELvFXFBJHt2GY1w67nab2oU9XDYCmemwDycatY0HcOSPi9DWfCP4lv3qorOwweZsqWVIVrN6pP4EpPB1Z8JqUkIGoCqfVMcQrAfimUJFCP+qSHSrrTlHO1ZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M2YPJC+A6Xk851YyvG2MUU2+pXVs3b2xemfOx5nJw74=;
- b=DwQOe81DkgauGNRHxKrZ+4+uviDqO//DpoYJ8p/S17GaW1B3V2HQW8H2+83xf44DYO95i0QZaH4/OGF41EOBmQ4CmK8ZWU5eyh+7ssNFh3K1uTkkFVhodMxkf3MeDrCbEQczHswDpMQ3X3FdFOHt/m8i1ix3dgywwubHYZpbYwo=
-Received: from BN9PR03CA0558.namprd03.prod.outlook.com (2603:10b6:408:138::23)
- by DS4PR12MB9561.namprd12.prod.outlook.com (2603:10b6:8:282::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Thu, 30 Oct
+ bh=3TX0VKxbKjB4Crr4iDefKNlfI/XnWJ2fDJsk2+ZerrQ=;
+ b=baw01YrEsBjHCvvSlRPmAmve7uJAjR7ViuQOvS6Dcj36kRF/EgbrF86+Mo8HPLgYPNC0/GQ++d1WSBsrsNZUhSUjJL9gdko7xHG3/n43O6apNiPpeGmTX0/urly9CE3Aqe9W2skDiMMUJVa24X5NR6Do0FDKJtw/y1Ey5Vp/+S4=
+Received: from BN8PR04CA0023.namprd04.prod.outlook.com (2603:10b6:408:70::36)
+ by IA0PPFDC28CEE69.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::be8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.19; Thu, 30 Oct
  2025 03:46:12 +0000
-Received: from BN1PEPF00004681.namprd03.prod.outlook.com
- (2603:10b6:408:138:cafe::51) by BN9PR03CA0558.outlook.office365.com
- (2603:10b6:408:138::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.18 via Frontend Transport; Thu,
+Received: from BN1PEPF00004685.namprd03.prod.outlook.com
+ (2603:10b6:408:70:cafe::28) by BN8PR04CA0023.outlook.office365.com
+ (2603:10b6:408:70::36) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.13 via Frontend Transport; Thu,
  30 Oct 2025 03:46:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -48,76 +49,88 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004681.mail.protection.outlook.com (10.167.243.87) with Microsoft
+ BN1PEPF00004685.mail.protection.outlook.com (10.167.243.86) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9275.10 via Frontend Transport; Thu, 30 Oct 2025 03:46:12 +0000
-Received: from fedora.amd.com (10.180.168.240) by satlexmb07.amd.com
+Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 29 Oct
- 2025 20:46:09 -0700
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-To: <felix.kuehling@amd.com>, <alexander.deucher@amd.com>
-CC: <ray.huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
- <lingshan.zhu@amd.com>
-Subject: [PATCH] amdkfd: implement per process/device pasid in sysfs
-Date: Thu, 30 Oct 2025 11:45:36 +0800
-Message-ID: <20251030034536.11356-1-lingshan.zhu@amd.com>
-X-Mailer: git-send-email 2.51.0
+ 2025 20:46:07 -0700
+From: Alex Hung <alex.hung@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>,
+ <alex.hung@amd.com>, <leo.liu@amd.com>, <ville.syrjala@linux.intel.com>,
+ <pekka.paalanen@collabora.com>, <contact@emersion.fr>, <mwen@igalia.com>,
+ <jadahl@redhat.com>, <sebastian.wick@redhat.com>, <shashank.sharma@amd.com>,
+ <agoins@nvidia.com>, <joshua@froggi.es>, <mdaenzer@redhat.com>,
+ <aleixpol@kde.org>, <xaver.hugl@gmail.com>, <victoria@system76.com>,
+ <daniel@ffwll.ch>, <uma.shankar@intel.com>, <quic_naseer@quicinc.com>,
+ <quic_cbraga@quicinc.com>, <quic_abhinavk@quicinc.com>, <marcan@marcan.st>,
+ <Liviu.Dudau@arm.com>, <sashamcintosh@google.com>,
+ <chaitanya.kumar.borah@intel.com>, <louis.chauvet@bootlin.com>,
+ <mcanal@igalia.com>, <nfraprado@collabora.com>, <arthurgrillo@riseup.net>,
+ Daniel Stone <daniels@collabora.com>
+Subject: [PATCH V12 07/49] drm/colorop: Add BYPASS property
+Date: Wed, 29 Oct 2025 21:42:12 -0600
+Message-ID: <20251030034349.2309829-8-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251030034349.2309829-1-alex.hung@amd.com>
+References: <20251030034349.2309829-1-alex.hung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004681:EE_|DS4PR12MB9561:EE_
-X-MS-Office365-Filtering-Correlation-Id: 597c41d2-d4c6-4025-242a-08de1766de8d
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004685:EE_|IA0PPFDC28CEE69:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3ab1821-183a-4297-9619-08de1766dece
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VG/2eZ2pQtkVZkIE3xy7FhIsJxfedvxTORf98vZ3ONRwwpkkfXd3jfxGFDf9?=
- =?us-ascii?Q?n0PGFzAziYmuTDeB7zUjyo/rH0HMY5Rv7c50qwwwUQKykvj78AvNtbMwtxB8?=
- =?us-ascii?Q?WfkrEBeNPwosgKsCLmB85cnmOEk1h/QVt0X67NCFmy2SoF3FYArfkQt6wZm9?=
- =?us-ascii?Q?YdiwxrAMDYJt4yKvMW3HjYk5yZpOH6a4EPaQcqAhM56eM6qK5CTfPJOZ1Bdv?=
- =?us-ascii?Q?2VgrrvgDALUgANz8kbW3dAzrZhdgjs3Xe5NDIEVftZ0/+FsDcUCjBPJRsH2q?=
- =?us-ascii?Q?nj81BG1cCmYx9D+3eY4zp+yUbymmnpqeRiChqh2rGe94MCJLOCT1hXYFl5Gg?=
- =?us-ascii?Q?/J9mvPB66nNztVUmMFHIP1pK3OuE2g4xFMzBr3o/oynlgzysRQtSiGlVQZE7?=
- =?us-ascii?Q?ZdvxULlQTAtjLLL6NOqxbZ8/gJMp/2hSxAglucwzyn/Nd7iTg+vmVlUFNjub?=
- =?us-ascii?Q?TQ1fJR41H8mwU1QV68iF4sRJ97vPnZn+EPNq2M7CBuw/bJ2Yain3rzc4eY95?=
- =?us-ascii?Q?1/qky4y7p51/ydgZoNEkh7hMzMXINUQjOIOWtcOMKKIroF5wzeH/ajtufFD7?=
- =?us-ascii?Q?iLZdk6DoqPZ1bC1c95uFWZtjF5KfOrCj1yJzZPh5V8OMmZUiHcIiXHYbG1TE?=
- =?us-ascii?Q?HhDiUC85/HkMz4ZoOBSEJY89ddiiA0WEB7yjxMc0+VI/Cz2LNXMEgbSEUhlC?=
- =?us-ascii?Q?aWp0b3xidBlARWNxMbHsULghcxOjmYPu4m1dpyzqe/q9lcAzCUnOrRfG6F8C?=
- =?us-ascii?Q?MEgSHd7o9TAExNHIDOOIHjIkA6wcU2CLM7y1cqmEVbbjqOBGku9d/chdWaH0?=
- =?us-ascii?Q?mN/KmRWZKmY6bMX5AyKeHEk9GIGNRvOPetMj+gEsoAae2mbJCx+/X4GXCudG?=
- =?us-ascii?Q?nxUyK5NQOwu/vDiTmpViGgMTFlsg/7FiEW/GNnUA89Y7rGhgiYYU6ad8VuZf?=
- =?us-ascii?Q?NfMz09nFNQMtcVk9+Czj3GQiQ96F9h2ZzkA5/v9+m4UiNCq2lpz9qDgH4NLJ?=
- =?us-ascii?Q?7ZwgmOtM//na1Fpli57MnAt6WaCNPoLDuKGcJR74gp5dOmgHFeECKwonehTB?=
- =?us-ascii?Q?KylYxe2qVYUNYiZMO9lZxFOJXClBMbZXgX9zCtEKj94Mqhvn+9c6V8T+bUeS?=
- =?us-ascii?Q?YdV9gE6pCfrPlKuzLNQCTV+wd4dr9saFFhQkhBkIZIAZW7TXpSoWuxQanPtu?=
- =?us-ascii?Q?vz1EMPOuJMe/EW2ENwBNzOOenQeZ/jgOUoiROW64CDBDZ4k3Rj2jhTN7silT?=
- =?us-ascii?Q?v5tGCnKCuV+t5jlRoPtuFotGYRxQFdwwABaTlGgGWaGXf203LUiw4/uW0AVe?=
- =?us-ascii?Q?SUVly8gCSpscD2bkXGKayttdTUqoVQ+v6m5cGLoBQcnxpSBDvopwzZFVNfyP?=
- =?us-ascii?Q?f46hA8jk5yFftvMHvqj4ddTI3sTBZ6ff2zQ37+m0wxSDB4vkbVt39EJHA+R0?=
- =?us-ascii?Q?1Dy83Z582h0pH6B1gFBwO76j0UlooaNVE4sVYWJpYPkldrUnpZX4Omwql2/Q?=
- =?us-ascii?Q?8EmXjjBpAqOI0vTkLuYHPswHj6qy43pjgSuGwknFcNYrz/t2ltp+N/KSpub9?=
- =?us-ascii?Q?JW/T2tIkYFv+lQZTfBQ=3D?=
+ ARA:13230040|36860700013|82310400026|376014|7416014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VUHqw/T6RIuZ3BbMMm7tU1b2jq/2xE+MknkJvuaVViK46jfBTo2PCDu6FPkB?=
+ =?us-ascii?Q?t3FCkSbRGbdam4pxz4SLPG3UaS2RUMfbbsor0C+d7nPSBk2lkjNXVYKNd5V7?=
+ =?us-ascii?Q?xCE26wuJLT/wRIi0ILGUtSG6K78SS8Cm/Ah0vndZ6J6Ke5EgoO4CcLEtuimz?=
+ =?us-ascii?Q?/23lxLKcxUqFTGkItjvnPeBPFqRqXKgz3BQEvhX4GNaQFzzXlzFMvgborSWK?=
+ =?us-ascii?Q?PFRZdet99Hv7hhyhJiIgD1Guuatq88ylWM+jo4R0LzFZBvfJdWMw1UTeRbQr?=
+ =?us-ascii?Q?HDH6uVIn4FZ3fJqHIhYZGTO8mlkLtAnBhaQswNaDKVFoyTQbjiyCibZG3S5k?=
+ =?us-ascii?Q?yFky2ch8NnpjWPny2s5SPZMUmoltbHEN4nqL8Vj/4eBrknPbD32I1FWuIkW7?=
+ =?us-ascii?Q?n7CkCVfdftK43GphwU6LF1g3znFVE2CtG/LQvpskVQntzI6XYJRTO9u+sQd7?=
+ =?us-ascii?Q?QqZytyI662xWEQhC2oKm3LCltF+GnFn3090bA4wBulRq8tsL6QVMVzt6hXr4?=
+ =?us-ascii?Q?nt5W+6YAbxN5fCalLqU5TDtw0np+Ch3Zp5XY3bLQhHTXz/yRxpZpWO+sfh50?=
+ =?us-ascii?Q?GRNjNTVACEwFMzUzAaku0tp0C5vU5AENCRqkELnP18mWQjMccS/AC+IOOFlV?=
+ =?us-ascii?Q?vhBQza6jrxEgMWKMK/NytSrGRqy3NRWM9tkUMxhYltHoz0N2p1USrtc7NVEu?=
+ =?us-ascii?Q?0mbHI/SdY3Co/iOIMmbv33H7UTCTCxH3u8Q5khv0OpTigA538Ll7pJsW6gBH?=
+ =?us-ascii?Q?hx/QV8cgYGvncJQuR7VAtYth/c/gg8bNRoK8LqDuSKrnqmTIR/Kx65ELfVKg?=
+ =?us-ascii?Q?jVFpcaj+rDZoLcLwfoI8aSe3e1efliAxzo47nPv+cpkHYrGBFV8RCHet136X?=
+ =?us-ascii?Q?ODxeDMVa6LFbRn8wixA9XCnZ1w2uTpY+HdwkGSwJCa1DTdhWYR/PYXYgB/cN?=
+ =?us-ascii?Q?CD+ONQQT8+CFRd6hPaJXYJJ4Kl2QBGMyuM9rTgip9s7RaogqXs//Utq8NC5A?=
+ =?us-ascii?Q?Fu+3kMiL6yAZeJAmkChudCY03sBHMKV5nEXtzBXVSmylkcADA5lMfsf9fAuA?=
+ =?us-ascii?Q?crul1Z+Lb0Rr0Kcgrxw+vukptwDIUdOybfOuMEUyNy5W3x2gsOdPiE93hOH0?=
+ =?us-ascii?Q?4UNxEDmPJBc48DMlCWhPGTbl63tlKS5KNI1VVCFik/GVfk8NZzdiW4MdYwrQ?=
+ =?us-ascii?Q?iB7E/k7K4THMdlhERXtI4Khf+zWVgePq3Yuq03xUxRuKasNKADXMI5BEABRV?=
+ =?us-ascii?Q?sj5UDv6kBpKcTTSMVu6crQT/jzRoYc0gkI7/YoL3YjIZqJkcQ/2Xo/H01qVg?=
+ =?us-ascii?Q?4JKP1FaqgBuoBXeAZN46+SMdxQaK1EIz03CgApMc8emkrIQMOgMux/2pWxqX?=
+ =?us-ascii?Q?leYyUxBG/zw/ApGeNcpY86ErX383/ikFniSaaA0sHQXALB0dz/EfHhPk6/bJ?=
+ =?us-ascii?Q?DN9bQ15gICLdM0x5R2uZJvG8Z7VIYLQaH0hvqMpecRHZy0LiuRi5bVKmCX2/?=
+ =?us-ascii?Q?9samUatXw1yhJSvN06D6XtRXuUMX8N5/TnpVgs1bwcxJUsbcJc8iLpm6cuBG?=
+ =?us-ascii?Q?FPi0E1BTlHyIOk1xXQI=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(7416014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 03:46:12.0663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 597c41d2-d4c6-4025-242a-08de1766de8d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 03:46:12.4957 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3ab1821-183a-4297-9619-08de1766dece
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004681.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004685.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9561
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFDC28CEE69
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,114 +145,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The pasid is a per-process-per-device attribute,
-therefore this commit implements per
-struct kfd_process_device->pasid in sysfs
+From: Harry Wentland <harry.wentland@amd.com>
 
-Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+We want to be able to bypass each colorop at all times.
+Introduce a new BYPASS boolean property for this.
+
+Reviewed-by: Simon Ser <contact@emersion.fr>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+Reviewed-by: Sebastian Wick <sebastian.wick@redhat.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  9 ++-------
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 18 +++++++++++-------
- 2 files changed, 13 insertions(+), 14 deletions(-)
+v6:
+ - clarify that bypass is only valid if BYPASS prop exists (Louis Chauvet)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 70ef051511bb..6a3cfeccacd8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -864,6 +864,8 @@ struct kfd_process_device {
- 	bool has_reset_queue;
- 
- 	u32 pasid;
-+	char pasid_filename[MAX_SYSFS_FILENAME_LEN];
-+	struct attribute attr_pasid;
- };
- 
- #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-@@ -983,7 +985,6 @@ struct kfd_process {
- 	/* Kobj for our procfs */
- 	struct kobject *kobj;
- 	struct kobject *kobj_queues;
--	struct attribute attr_pasid;
- 
- 	/* Keep track cwsr init */
- 	bool has_cwsr;
-@@ -1100,12 +1101,6 @@ void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
- 					int handle);
- struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
- 
--/* PASIDs */
--int kfd_pasid_init(void);
--void kfd_pasid_exit(void);
--u32 kfd_pasid_alloc(void);
--void kfd_pasid_free(u32 pasid);
--
- /* Doorbells */
- size_t kfd_doorbell_process_slice(struct kfd_dev *kfd);
- int kfd_doorbell_init(struct kfd_dev *kfd);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index ddfe30c13e9d..24cf3b250b37 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -328,9 +328,11 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
- static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
- 			       char *buffer)
+ drivers/gpu/drm/drm_atomic_uapi.c |  6 +++++-
+ drivers/gpu/drm/drm_colorop.c     | 15 +++++++++++++++
+ include/drm/drm_colorop.h         | 22 ++++++++++++++++++++++
+ 3 files changed, 42 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index df8ad79577cd..b8307cb7682d 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -650,7 +650,9 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+ 		struct drm_colorop_state *state, struct drm_file *file_priv,
+ 		struct drm_property *property, uint64_t val)
  {
--	if (strcmp(attr->name, "pasid") == 0)
--		return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
--	else if (strncmp(attr->name, "vram_", 5) == 0) {
-+	if (strncmp(attr->name, "pasid_", 6) == 0) {
-+		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
-+							      attr_pasid);
-+		return snprintf(buffer, PAGE_SIZE, "%u\n", pdd->pasid);
-+	} else if (strncmp(attr->name, "vram_", 5) == 0) {
- 		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
- 							      attr_vram);
- 		return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
-@@ -662,6 +664,7 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
- 	 * Create sysfs files for each GPU:
- 	 * - proc/<pid>/vram_<gpuid>
- 	 * - proc/<pid>/sdma_<gpuid>
-+	 * - proc/<pid>/pasid_<gpuid>
- 	 */
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
-@@ -675,6 +678,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
- 			 pdd->dev->id);
- 		kfd_sysfs_create_file(p->kobj, &pdd->attr_sdma,
- 					    pdd->sdma_filename);
+-	if (property == colorop->curve_1d_type_property) {
++	if (property == colorop->bypass_property) {
++		state->bypass = val;
++	} else if (property == colorop->curve_1d_type_property) {
+ 		state->curve_1d_type = val;
+ 	} else {
+ 		drm_dbg_atomic(colorop->dev,
+@@ -670,6 +672,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+ {
+ 	if (property == colorop->type_property) {
+ 		*val = colorop->type;
++	} else if (property == colorop->bypass_property) {
++		*val = state->bypass;
+ 	} else if (property == colorop->curve_1d_type_property) {
+ 		*val = state->curve_1d_type;
+ 	} else {
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index 6fbc3c284d33..11c37916c758 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -79,6 +79,17 @@ static int drm_plane_colorop_init(struct drm_device *dev, struct drm_colorop *co
+ 				   colorop->type_property,
+ 				   colorop->type);
+ 
++	/* bypass */
++	prop = drm_property_create_bool(dev, DRM_MODE_PROP_ATOMIC,
++					"BYPASS");
++	if (!prop)
++		return -ENOMEM;
 +
-+		snprintf(pdd->pasid_filename, MAX_SYSFS_FILENAME_LEN, "pasid_%u",
-+			 pdd->dev->id);
-+		kfd_sysfs_create_file(p->kobj, &pdd->attr_pasid, pdd->pasid_filename);
- 	}
++	colorop->bypass_property = prop;
++	drm_object_attach_property(&colorop->base,
++				   colorop->bypass_property,
++				   1);
++
+ 	return ret;
  }
  
-@@ -888,9 +895,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
- 			goto out;
- 		}
+@@ -136,6 +147,7 @@ int drm_plane_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *
+ 	/* initialize 1D curve only attribute */
+ 	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "CURVE_1D_TYPE",
+ 					enum_list, len);
++
+ 	if (!prop)
+ 		return -ENOMEM;
  
--		kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
--				      "pasid");
--
- 		process->kobj_queues = kobject_create_and_add("queues",
- 							process->kobj);
- 		if (!process->kobj_queues)
-@@ -1104,7 +1108,6 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
- 	if (!p->kobj)
- 		return;
+@@ -152,6 +164,8 @@ static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colo
+ 							struct drm_colorop_state *state)
+ {
+ 	memcpy(state, colorop->state, sizeof(*state));
++
++	state->bypass = true;
+ }
  
--	sysfs_remove_file(p->kobj, &p->attr_pasid);
- 	kobject_del(p->kobj_queues);
- 	kobject_put(p->kobj_queues);
- 	p->kobj_queues = NULL;
-@@ -1114,6 +1117,7 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
+ struct drm_colorop_state *
+@@ -190,6 +204,7 @@ static void __drm_colorop_state_reset(struct drm_colorop_state *colorop_state,
+ 	u64 val;
  
- 		sysfs_remove_file(p->kobj, &pdd->attr_vram);
- 		sysfs_remove_file(p->kobj, &pdd->attr_sdma);
-+		sysfs_remove_file(p->kobj, &pdd->attr_pasid);
+ 	colorop_state->colorop = colorop;
++	colorop_state->bypass = true;
  
- 		sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
- 		if (pdd->dev->kfd2kgd->get_cu_occupancy)
+ 	if (colorop->curve_1d_type_property) {
+ 		drm_object_property_get_default_value(&colorop->base,
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index fa167e642e0d..49e6564c17ba 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -82,6 +82,16 @@ struct drm_colorop_state {
+ 	 * information.
+ 	 */
+ 
++
++	/**
++	 * @bypass:
++	 *
++	 * When the property BYPASS exists on this colorop, this stores
++	 * the requested bypass state: true if colorop shall be bypassed,
++	 * false if colorop is enabled.
++	 */
++	bool bypass;
++
+ 	/**
+ 	 * @curve_1d_type:
+ 	 *
+@@ -171,6 +181,18 @@ struct drm_colorop {
+ 	 */
+ 	struct drm_property *type_property;
+ 
++	/**
++	 * @bypass_property:
++	 *
++	 * Boolean property to control enablement of the color
++	 * operation. Setting bypass to "true" shall always be supported
++	 * in order to allow compositors to quickly fall back to
++	 * alternate methods of color processing. This is important
++	 * since setting color operations can fail due to unique
++	 * HW constraints.
++	 */
++	struct drm_property *bypass_property;
++
+ 	/**
+ 	 * @curve_1d_type_property:
+ 	 *
 -- 
-2.51.0
+2.43.0
 
