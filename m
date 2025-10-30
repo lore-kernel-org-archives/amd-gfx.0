@@ -4,68 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE491CCFA02
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D2DECCF9F8
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 09:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3C9C10E940;
-	Thu, 30 Oct 2025 09:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 022A110E941;
+	Thu, 30 Oct 2025 09:24:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V+xIw3Js";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="e3toTrux";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C32AF10E629;
- Tue, 28 Oct 2025 17:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761673007; x=1793209007;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=di5GEvT3KUkXT7OWsKsdLxJyHADgOdeBIjyqf73f89E=;
- b=V+xIw3JsrFXFFA497gTarYkgClZBZLAfqn9EZD30cjSpxwi4OfS592v/
- 2juUpZA0xQAWcOQP7ejmpySLgQjJ4K7TxulpaKL0u5lu02b4i0PyYQTyg
- f5SgOT21zma/8D+SiWmqqiC1UoLFjdfNhplrxoxhO24DkJpOTHZ7tmEGS
- +QhdtiuAHZWSggWjZKn2/pSiSbr30uMwH2nwj8E1ZHw5+SakQgJRrUBGE
- WXkatlBAAQ4wiJt3wCReeSqRkJCm+BUdy1+FMipVfarbI25K8jQmgrph0
- pC7VEEWHvmo/tqobhQo35On+8oPRoiz4hO9wlHN7nrNcoMrGveHI7hn4r g==;
-X-CSE-ConnectionGUID: 7FasELd/S6imjrzf5rMrGA==
-X-CSE-MsgGUID: ORRxzDL8QoqawJW2u441Hw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="63819366"
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="63819366"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:36:46 -0700
-X-CSE-ConnectionGUID: cIhGgUyjTVSF3DcB+zd31g==
-X-CSE-MsgGUID: KKP4sCC5Tvq+pn6ETKCdlg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,261,1754982000"; d="scan'208";a="189465498"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.182])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2025 10:36:39 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Simon Richter <Simon.Richter@hogyros.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 3/9] PCI: Change pci_dev variable from 'bridge' to 'dev'
-Date: Tue, 28 Oct 2025 19:35:45 +0200
-Message-Id: <20251028173551.22578-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
-References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9FE410E22B;
+ Thu, 30 Oct 2025 02:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1761789706; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=CTkSbhbsTSP6Nc12cy82Rk/0qORhZ5wAeJo00QNbzbg=;
+ b=e3toTruxS+dkRQyIK/rtpiunK1JDNdsUtSURAUrFchLMlScWKtB0H/rueGIUn9e5w98KxLw6yOVlhftj/hGpiqmw+WiVsJKNi+DlPmlSSoXk5aFAXimclYQ1Li20d7gV5e/Bwsyo1cUiLJq6CQ6geFJUk3RUZIqCksAYrsx8y4k=
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0WrI6Z-._1761789399 cluster:ay36) by smtp.aliyun-inc.com;
+ Thu, 30 Oct 2025 09:56:42 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Abaci Robot <abaci@linux.alibaba.com>
+Subject: [PATCH -next 2/3] drm/amd/display: remove unneeded semicolon
+Date: Thu, 30 Oct 2025 09:56:30 +0800
+Message-ID: <20251030015631.3106732-2-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
+In-Reply-To: <20251030015631.3106732-1-jiapeng.chong@linux.alibaba.com>
+References: <20251030015631.3106732-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 30 Oct 2025 09:24:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,71 +55,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Upcoming fix to BAR resize will store also device BAR resource into the
-saved list. Change the pci_dev variable in the loop from 'bridge' to
-'dev' as the former would be misleading with non-bridges in the list.
+No functional modification involved.
 
-This is in a separate change to reduce churn in the upcoming BAR resize
-fix.
+./drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c:1850:3-4: Unneeded semicolon.
 
-While it appears that the logic in the loop doing pci_setup_bridge() is
-altered as 'bridge' variable is no longer updated, a bridge should
-never appear more than once in the saved list so the if check can only
-match to the first entry. As such, the code with two distinct pci_dev
-variables better represent the intention of the check compared with the
-old code where bridge variable was reused for different purpose.
-
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=26821
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/pci/setup-bus.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index e6984bb530ae..d58f025aeaff 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2479,12 +2479,13 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 81e64e17d0cb..df0b664c0cd2 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -1847,7 +1847,7 @@ enum dc_status dcn32_validate_bandwidth(struct dc *dc,
+ 				dc_state_set_stream_cursor_subvp_limit(stream, context, true);
+ 				status = DC_FAIL_HW_CURSOR_SUPPORT;
+ 			}
+-		};
++		}
  	}
  
- 	list_for_each_entry(dev_res, &saved, list) {
-+		struct pci_dev *dev = dev_res->dev;
-+
- 		/* Skip the bridge we just assigned resources for */
--		if (bridge == dev_res->dev)
-+		if (bridge == dev)
- 			continue;
- 
--		bridge = dev_res->dev;
--		pci_setup_bridge(bridge->subordinate);
-+		pci_setup_bridge(dev->subordinate);
- 	}
- 
- 	free_list(&saved);
-@@ -2500,19 +2501,19 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 	/* Revert to the old configuration */
- 	list_for_each_entry(dev_res, &saved, list) {
- 		struct resource *res = dev_res->res;
-+		struct pci_dev *dev = dev_res->dev;
- 
--		bridge = dev_res->dev;
--		i = pci_resource_num(bridge, res);
-+		i = pci_resource_num(dev, res);
- 
- 		if (res->parent) {
- 			release_child_resources(res);
--			pci_release_resource(bridge, i);
-+			pci_release_resource(dev, i);
- 		}
- 
- 		restore_dev_resource(dev_res);
- 
--		pci_claim_resource(bridge, i);
--		pci_setup_bridge(bridge->subordinate);
-+		pci_claim_resource(dev, i);
-+		pci_setup_bridge(dev->subordinate);
- 	}
- 	free_list(&saved);
- 	up_read(&pci_bus_sem);
+ 	if (validate_mode == DC_VALIDATE_MODE_AND_PROGRAMMING && status == DC_FAIL_HW_CURSOR_SUPPORT) {
 -- 
-2.39.5
+2.43.5
 
