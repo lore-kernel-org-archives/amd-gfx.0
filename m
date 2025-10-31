@@ -4,151 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A0D6CCF9E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 22:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8435BCCF9E3
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 00:01:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B8910E0CD;
-	Thu, 30 Oct 2025 22:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6B8510E00B;
+	Fri, 31 Oct 2025 00:01:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N0ozbrX+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n3ZOdR8W";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010052.outbound.protection.outlook.com
- [52.101.193.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF61910E0CD
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 22:39:41 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010068.outbound.protection.outlook.com
+ [40.93.198.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97F4A10EAA3;
+ Fri, 31 Oct 2025 00:01:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jGQDsPkcCVLEkr0nU5mme1TGaJxUPeWQXJ+y2hm7e8Uq6Ehpr+QlCXeyX+MrKO0zKB2T39f5sTf8PfgBqJcAiu8gy6RNyoVVuGdageCr1R4R10TBAMxoMK8mmr/Lhdlg17vJWb2xoySmK3qwXTjRfQKoNDOWraHe9rnUP4jFPbBzNAYwzGVyS/BdAcxN4WIZEHqmeGiVyIGZg0++Bhn/0f8LbbHSa+u/Qvi0ma2Y+eC3wE5u4Id/upKXE1ilq3DgTp9l1ouSFFqbgt92MedmxRZ0gZFfABe9cUYTEfUJUE3KauGJNwWuFcvODprtMtWT3LklJ1m/ufFZU6DKlC2P4Q==
+ b=QFgUc8h5mJew0KBdR17HPAa67lf8d4iNBQ1jisqviKaiTWn+7v/LcJBdNbivJe9KqRJ1V/WmljRuHeQpw+XgZakaa1in68hRF2XQ1BMi2isGjoHpmsRlJcwVqcxs/loGaP8D2AMmlEvZX9DxgsFOvZush/yYW2ipsjLVitWnGOhr7yHn0ojoBmVzxUrBVkyQJPJip6cBObv5Ypy5iootgLeEhASd4ojNPeJFOPYsiIhWPk2bC5EXHKv3mnV7YTu5UVSca4lg7hsKFSxoGZanhII6lhLJEuO2k2i62KezO1EQWbafPql2BOKG40935P1N/5hsvpA9m0xjhGgmcfgqsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=urgJYW9CxEC8IHJ3bzNKtD3/4b4myxFvY6TCmp03LUE=;
- b=c0uQyA7YX6NuPbm0Ok2AOiIO65soW5dixcS068Fslnx7ozY4cBan+i+Eku88vsk1ln9gj6MUTkD8t29MCzi+CLwL86OUWM++r2ExODMpFu5FNzuaDZYqvBBZeH/aFxdgfx0gSq5t6Neb+PPZUKBa/tFmsMTLwno6q2eiFzVnJZosTEGwPd21j9Wq/Xw1iB7qGYL40Y+SJa27JZ2uqyH3ya/jf3H4HoKN/ulr4NmX3XwjBXwoaVofC3xZE8qOJVSrsVHGcUfxKYoBxVK7kEp0dVjEHX+Ahp575L/F2Zs+/Z5gPA7nb4yTaSZVxH+wdyfT1C/c09YJEhv1Yyv9WyiZ3g==
+ bh=fgkrJXmTARNXBrRqBvkMWDGYmBD8q2KYD78R6pQhY+I=;
+ b=Ms1Azmu9tPCl8g2hCxvF2F9LSw1GmiWajkWdWmGSH4GCDI+ymhoqlE1rS/7B70ySzJE4JOlUtBfczjK5sJvxdCVY22b1dysAkKyGalEM8AB3ZQjTpegRBp07bi8mjhVox6dWQtuv2GEmNvDMh5ZmDgxxQdGlTt47RZ/jWt/ZJ9ZhgXQP77K/SCFcA3P1K8KfFHbKtyCj7Vcn05qp9Efws8Vy1O0H5S/hRjartZuPSugsTM5zAUoDPZMj0DIAU/edavS0vcm+Sq6o4n2N9dgKeX9BiIjTq5AFQ638sAaSwcSsYoWj+eczcBJrHeljvobYIx22bZMl/lA4XH8ReUKQ1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=urgJYW9CxEC8IHJ3bzNKtD3/4b4myxFvY6TCmp03LUE=;
- b=N0ozbrX+h5YyMJsRCD5BqBSlOiOvjPuJV9t2GLvjhqOEvcTkFsUkEGEnaVeYKGKrTLzd4FaLJFJbLd42jTCJ+Oy8QLSd8tNy2bjOcESiO/TJ7JIcFI3PW0fPjLQy3HQbT0S0FxVOeeP9EBqrmqYMktnWoGockkhOp3y8dF393Tw=
+ bh=fgkrJXmTARNXBrRqBvkMWDGYmBD8q2KYD78R6pQhY+I=;
+ b=n3ZOdR8WxuoxhTbYdm/Zm2gUALvkGcvGWKS50ysGFWHvphXzR4OenS9MdvtuY9Kg885FWlN6ZxSuc0Ev+A43g98BxVZdigNXxD9UwiWt7kw6Lpm0Iaz5c1EUembIWj3gacmSPBpH1pvf+li4X2SLeuUSqYg0j3zZrnPN7xjyvZw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CH1PPF16C2BD7B0.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::607) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.19; Thu, 30 Oct
- 2025 22:39:38 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%6]) with mapi id 15.20.9275.013; Thu, 30 Oct 2025
- 22:39:38 +0000
-Content-Type: multipart/alternative;
- boundary="------------fa0rDmytPl9TzBb8d0fz5DwF"
-Message-ID: <bf4723fe-24f8-43d3-95b6-302015c26b46@amd.com>
-Date: Thu, 30 Oct 2025 18:39:36 -0400
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by MN0PR12MB6053.namprd12.prod.outlook.com (2603:10b6:208:3cf::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Fri, 31 Oct
+ 2025 00:01:12 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%6]) with mapi id 15.20.9275.013; Fri, 31 Oct 2025
+ 00:01:12 +0000
+Message-ID: <7a0c9f0c-6617-4870-8488-8a9c6576dd26@amd.com>
+Date: Thu, 30 Oct 2025 18:01:08 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdkfd: Fix GPU mappings for APU after prefetch
-To: amd-gfx@lists.freedesktop.org,
- Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>
-References: <20251030010027.2503555-1-Harish.Kasiviswanathan@amd.com>
+Subject: Re: [PATCH V12 02/49] drm/vkms: Add kunit tests for VKMS LUT handling
+To: Louis Chauvet <louis.chauvet@bootlin.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ mcanal@igalia.com, nfraprado@collabora.com, arthurgrillo@riseup.net,
+ Daniel Stone <daniels@collabora.com>
+References: <20251030034349.2309829-1-alex.hung@amd.com>
+ <20251030034349.2309829-3-alex.hung@amd.com>
+ <ab6cc898-a059-47c7-9ab6-8ab2a4b5783e@bootlin.com>
 Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Cc: Philip Yang <Philip.Yang@amd.com>
-In-Reply-To: <20251030010027.2503555-1-Harish.Kasiviswanathan@amd.com>
-X-ClientProxiedBy: YQBPR0101CA0288.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6d::8) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <ab6cc898-a059-47c7-9ab6-8ab2a4b5783e@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR03CA0046.namprd03.prod.outlook.com
+ (2603:10b6:303:8e::21) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH1PPF16C2BD7B0:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b4c848a-f6e4-484a-9e9a-08de18053507
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|MN0PR12MB6053:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea07994a-ecdb-4773-a486-08de18109a35
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dmlrT3ZKM1lCMERlWEh4MFh2Y1hhejh2ekFiM3FuaEpWbGZhc01wRmYxWTJM?=
- =?utf-8?B?WDZBc0ZhZ01JUU1WOFd3L3hVN01kWk43SWJUbGNaYzVpYk9sOTErVHc0WlNl?=
- =?utf-8?B?WUx5WFRsQitGL2NEQXluUnZ2MHkvWENJR00vbk9BQUMrVmgvSzMvYnQ0RWVO?=
- =?utf-8?B?WUV2VjlQR1d2RzI3VkpvblhqWUpNK2NoMEVkZFNNaTh6ZGtoZ3ZOREtvMGxx?=
- =?utf-8?B?Z3hQWmFCV2p0TVJqbG85S2xhQUtOcXNKeTMvZEFtdE1Xd3JzQk5HVkxyTVNB?=
- =?utf-8?B?Ti9JVzQ4SGVmd0pvcFV6M25jcDhPOGJyZ291c2ZlbHlsWHlPTVArenNHM2tR?=
- =?utf-8?B?Zk9hSWdSNmNzK1ZQenE3cngzallaSU5iL2paMm1sU1c1SWFqdmFpdHNIQU1N?=
- =?utf-8?B?ZS9xYjBNZVFDckFrd1JSNWVHZ2JWaWhUT0pFRG5OV2todGppM0VndWFLSjRF?=
- =?utf-8?B?SVpNdStxM0g5MzI2VmpoekJKQXp5OXpGVXZmNHNDZU5yUzlzc3JQWkZybDdr?=
- =?utf-8?B?eDc5cVNyMmJyVE9rZUtGZ2c2aFBXVC82cUJ3MmdJUDhVQXIxd3phdjZvSkY2?=
- =?utf-8?B?RlNGR3pyUWlCOXVUdUUzck5yUFFHNitjb2pzeFFpWnRvdEtDcWZxaXdqMXNw?=
- =?utf-8?B?WDh5dUdHeGlIa2xVbUw3NTRML3JQVEZLcWIrb3V3R0NlU0NEQ2FjVmVXaXBW?=
- =?utf-8?B?eGxoVDIwMW5hSHZvV09xZWYyWTBMN3dUTm0xSEQvUnJUMGpqRWNIck1Yd2k5?=
- =?utf-8?B?Wm9QUU5WMFpsVlZWM1h4d1RIU1B3RnNHb0VIeTdTRy9lMXVmaWlrQ0YrU2I3?=
- =?utf-8?B?TENUS2w4QW41bG9EQTd5UGZ1TUdPYmhTYlRjOTQ0eHM5QSsycnNtVVNyUTcv?=
- =?utf-8?B?V0cyK01DTUhSMWJRMFdoKzRuYnJGRDFQeGphK1FXM0UyMmRUTExOQ2Rva2ZL?=
- =?utf-8?B?aVA3b2txVW56VFE4Z0xTOHU3dTdzYnZ6K0NRV3RZMDFNeGtiOEZYdG9vOXJn?=
- =?utf-8?B?WUY1ZUNIWGpuN3phVS9zTHBDRURhaU5lZmZrSTFSOVRXbDl6N1U2RzJFZHZp?=
- =?utf-8?B?SlQwTWNiMzdDaGZlUHlPRzNTMUZTMjBja1JJRVQ2S2VOWFN1aXBvSU9mRHdS?=
- =?utf-8?B?amVQTk8rTGY5WG56NUZxeklHZkFtQ0Y0WEpVdXpGMEtaU1FtRGJ3VCtsaG9J?=
- =?utf-8?B?TXZ1dTh5WWVuVmk5QlBFRFFNdWNrU2hRT3N2SkJzUFg2NThMOEZWdlcwdGdS?=
- =?utf-8?B?VEdpQ3U1NHJyQlZKMVB0MW5mWVQzOG1FcExSWUdUQTdIZGZJK1dLcXdYZURt?=
- =?utf-8?B?bU1DZXcyQWU0eUlqR3FqYXZ6MGZDeGxqdjNhMlkvc1RtclpJTTkzNGxDTnRD?=
- =?utf-8?B?SzkrSzdyUmsrazB6Rmpwd0JQRHY4UThqTW9LQy9ld3BxdU1YZi9sTDZpcXNH?=
- =?utf-8?B?R2FvTXVQeUU1MDE3TmZCSlI2Y3lzVzRDUzMrMk05c2NzU3pZcm92ZFJWQzdQ?=
- =?utf-8?B?OFZNZ0ZtZnIxTVJjOXNXU2NYeGtzQ3RhcTYvV0dNMDdhVmpEVlBvM3ovVFNU?=
- =?utf-8?B?emEwYXBRRWE4MXVQc1Z6WkdOYUJCU2pTUUVUekpEKytNeURGaHV6cFljanF6?=
- =?utf-8?B?OUFLSVZ6L1NnRi94d2I2WjNhZUpiQjZ1cUpIMGtrQU1JNDd5aGRIa2szTHVm?=
- =?utf-8?B?eGYyMzJuRE5yR0E1T0IvaDJSUndOUWs2NHFCM2J2YzdlRVgrZXlnMVZSamJj?=
- =?utf-8?B?S0RaUkFHK0Jyemh0RExjcE1LM3BHTUlKSUxDOWNZUEwrQjRoNDhRbFlRVkVm?=
- =?utf-8?B?bkRjcW05eWQ5eklJbDhBVno4WEttSGdIOW1oTTBzNUoveUszNWtiam52NDJR?=
- =?utf-8?B?UjNLbDh5cHowL2o2bExpS1d0WXpIbkdsZG9xS2QxT0tDSmw3OTlNSVByaHlF?=
- =?utf-8?Q?cRvY3HlcSFv+7Wv41G8gQ/SNJGT0BCxy?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?d25NVS9JbjVxQjhRKzN5R21BU3BseVBFSkpmbmRkeCtobVNDZDhFYUoxYVM3?=
+ =?utf-8?B?RnhlYnBHSnFYTzVEblRuOGZ6d0dITHF4dVArb2hETUNRRDFHQ2Vqazd0S3V3?=
+ =?utf-8?B?OWYxK2ozUEhSVDY0c2gvY1pqbFBuZ2RBWXJydjk2UFFpWlZDS01Ba1pZMGhM?=
+ =?utf-8?B?SzBsUmMxeUdnMERDY2NFZjhxak5VSmpiRDlaYUFZSWxkd2k3elVUa0JJUWRN?=
+ =?utf-8?B?NUV5bWdhMGE3aWxIckFzODliTG1wYk9ianBiWkZ4S01BaFpDWFoxcUhqKzNs?=
+ =?utf-8?B?N1creCtGNHh6L2FuOFhkMXBhc05kQ2ZBV3dONHNPYitnQm81Mldmby94cFpx?=
+ =?utf-8?B?M0RBVStEdHFpdDA4KzFGc25keVJZTHlGM2pESGNEZXYvZ000YUZBSjU5eGpB?=
+ =?utf-8?B?OHkyZVgzUWRSdU1vVkZ6emprbnEwdjdrQ1RtMnhVNWRvTnMxSWFjL21UM2ZY?=
+ =?utf-8?B?QUxEa3Rjb1Z3eEFiUmsyV05majZLOUtCRjdmOXcvdlBhMkkzU1hXenhLTElI?=
+ =?utf-8?B?R2J1bjZZZHRwTjBDNG9WdVBReXF2ZEc4UTYyd0IzcVYwVDFqV1A3c040ZEdE?=
+ =?utf-8?B?d0M1MmdwUURPTHREcDRDSmlyRk5IU0tQMStSZVF4V05NRCtTU0lPNzN3NmZm?=
+ =?utf-8?B?SXQra2hnUk4zQ1B4SUhMWjNUSXkrY05XTnp5MHJhc2duUlNhekxVSng2cFNv?=
+ =?utf-8?B?OXg3TUtyR3JkcHRZbjREc1ZuRVp3a1kyNXQzR09vRy8rYTQrRVM1QkRhYWZ2?=
+ =?utf-8?B?S2V3aGlRSGlqVStraUlhUmlNVEZBUGxiMyt3d2lZbEIyMmhYUEp0MkphTFlS?=
+ =?utf-8?B?ODNVMW5oSXZoMUVGbEdOalJXcC96TEpHYTZtWm1HWm9ueXppWXQ0SE5Vang0?=
+ =?utf-8?B?cGlmdkNycVN1R2EvRDZUdVpJeGpKc3BiY0htczBBdU9YaVlobG5sOEtmOHR0?=
+ =?utf-8?B?OTJKY09oVExmZUVOVUtPMmZWbUIzS2dJbDNBYk9zU1hKcHp4VEpoSHdUcnZn?=
+ =?utf-8?B?QUcrNll1dXdnMEdXR3JIM0hxUG1tMDdXdGIrd01nY2ZPODB4NGxDOC9WcTI1?=
+ =?utf-8?B?TnhGR3JMT0FPNEtHV0JOVUJpbzMzektPdGJUdStTMXZVd29GbTRRalhSTXRq?=
+ =?utf-8?B?ejIxamhOcEFKTUFRSFlMSTE5bndoUHYxczhhd0lhLzBTM3ZYTSt2UVpMa3d2?=
+ =?utf-8?B?TlJkNXUvRU8rMVUvT0hHL3hRb3Ztc25YQmVFbEJON2tNSUFEYmNHcDlOcHVj?=
+ =?utf-8?B?aTNwNXVLWHAyVTkwekVURE5NZjRnYldUc2dPenBYZXNFNFJwWSsxSkE3enBD?=
+ =?utf-8?B?U1NCUTlwSUFuQ1VSeHBzTHp2aG1TM05LVlczZkY3RUJLN2RjK2xhQlNnZGZo?=
+ =?utf-8?B?NEZudjJEbC9RSy9odkhEWVU5NVE4dS9icXZnR0Z6RGpWNDBYdnVvQTBNTjM4?=
+ =?utf-8?B?dGNTNGdGMXNNV05WWTVWdXVTMm92bk9TOEpJWGZWMUtwME9xSkp1SEdSc2xx?=
+ =?utf-8?B?NlVTcksrNTh6cmpqOUE4aC9PY0FMTURGUFU3OFdnL0JwNTRyV1U3RGhXR0g4?=
+ =?utf-8?B?SVQ0a0t4Y2JaZGZXU1cvNm5SaTJlaDJpTjg4ai85MGEyTVM1OHZEcy8wajNY?=
+ =?utf-8?B?SEUzMVdna1pxWTZnak5SZFN2T3J6ZlNVWlZDSXJjd2dDMVUwTnM1cXdyN0ds?=
+ =?utf-8?B?WGh5MDJ1YTkyUkZSOVQzak10NWdpOWUwNS94YjZsSFdkWHlwY3VGYW5HVmhk?=
+ =?utf-8?B?eEVvczZ6alV6N08xc2dXTlpicmxqRGlXd2t4anhmQktKNWxNRzRZTm8reHE1?=
+ =?utf-8?B?RGs4R21KdFJPN3JLWkF5U3BWeDFic3lZL2FIV0htN2JjRkRKdSs4RXV0WklC?=
+ =?utf-8?B?M0JmdzlHMUh3K2t0cFQzOTFRNjFmRUw1WEdiUlAzYWdyNitzcHgwMW5rbkV5?=
+ =?utf-8?Q?7FmPXu4mmQ8IdlqFI/xQJ7QjovtMUNSY?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(8096899003); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXZyZW96RDZlbEJpYzhXdmZiNGJGK0tVZ1VMUFpubUtlNXVZOFZqMEZuTm5O?=
- =?utf-8?B?L0t5amFYMXN3cTFPZlRLT1c2UlI5OTFwQ2NOd0xhbzcybEFWZGE5M0s5WGlK?=
- =?utf-8?B?bTgyaHFPTnpsUVIrUWhxK1lZMUl5RDdQUjZKaWtUZmNaWmgvOGI5RzcvaDhT?=
- =?utf-8?B?K2UxcTJTSitJMEg1STU2ZUhUcXV6dmxQWUZhZzdZU3dzS0VobUdjbmdZaC9L?=
- =?utf-8?B?RHVKM3drUkRWZEtBVEs1YzQ5SHdUU1JUUGJwNkl0Tlo4TERQVmo3ZytnZjhD?=
- =?utf-8?B?VGl4QkZlUGJEL25PYXcrQndIQWlQMThxbDRLczVEa3RXZTBHdWdBOTRCSzkv?=
- =?utf-8?B?MDE0eEp2b3N1U3Z2d25aRjJKNXNIK1NlRlRUcTlnKzBFY1F1OFAwZVUxcU9t?=
- =?utf-8?B?bjlXRU9ueEs1b2VKSFQvSGlMMkh5OEwyQ1l5RUc2b2tzUXY4SmxXeDQ0eHY1?=
- =?utf-8?B?QjQ2ZnFDS3dQV3BWT3BkSlQrdjA2MmFSSVVmbmV1TStjTE9VRUgrMDRoVURm?=
- =?utf-8?B?VFBKRWl6WkV4eW51dVE2ZnlJc0pIQU9aOUlMajZHUE1HdDdRcXVkYmd0anFx?=
- =?utf-8?B?Tm05SU5yYk5BMi9zSzVieEhVRmkxSG1nTnFPS0xnM1RuQk5wWDF5Q1BObWRh?=
- =?utf-8?B?NGFJL043Nmt1Sk5QYUwwZlFIUmhqNDVUTmYxSGxVYVpWVGI0TUNEdldxZHRu?=
- =?utf-8?B?S0dHVzBVNURnRzBnQ3VLbmFoc2g0MEJ4UGh6dVlCM3pFUUNXclVrYm1HM1Jk?=
- =?utf-8?B?M1NzQmk3UVdxaXQ5K1JzSnVITGR2djJlZGNyTU91ZHlnQVorQVN6UnVjMTZm?=
- =?utf-8?B?cVdyeVg3d21TcGV1ZXhLNDhVZkNJMmxrTnNTREtrR2RKU2F2UzRIQzA4Mzlk?=
- =?utf-8?B?QW1QZEdtaG4xSmRBWE9yNTdoamwzMUJRWTBnazFWNVNCRCt0VTlJK1d5ZU1i?=
- =?utf-8?B?Mm90TXFtYVhZKzZvVmxGdG0yY09maXlFb1lEbVY5Sk5rME1rTm1DUFgyRThR?=
- =?utf-8?B?WHIwTVIydG5WYjhMM2hOalNJeTdyM3NrOEVKalVjNDdOSUc4YjNScHpPeFdt?=
- =?utf-8?B?cTYrNkRCbWRxOGNpSGFoMUV2S2dLalRGQlIxSncrTzR2ZlBVT0NtVlcxb1E5?=
- =?utf-8?B?TStJK05CKzF4em9uS3dKQ0N4eTBCYnZUaGJrS3NiaWM3WUVxVThyaVdYQWtM?=
- =?utf-8?B?b1RHY0hPNWNxVXI2MFZiNTN6d21seEg0dzJWbHRCcURQcTRnMSttVUZ6L2Q1?=
- =?utf-8?B?L2JjMTZkMS9RcHhidXpZclgyTU96Y2NPQXJaYitSb2d4b0RhYmJTZmhrdFp4?=
- =?utf-8?B?d1RXZk9qOHhRRmdOY3hxSE9UbTVtb212RE5VUTJQc25EaVpjclRhNDJ3dkdq?=
- =?utf-8?B?N3V3R2VFUXFPcTYxOW5RdUs2S3FkbzlwR3U0M0YzcDZCVU0rRjZkeXdlbzI1?=
- =?utf-8?B?SDBQbTEzQnVwQkI2WEpmVFBDbTlhN2FsUHZxOUxqbnZURzRrY2lkcXZSZ05Z?=
- =?utf-8?B?Rk4rR1VVaHJYd1ZyUTNWTkFRVG5SczVLeHU0T2VBdnc4clVEQzc3Sy9xYjNo?=
- =?utf-8?B?Q28xNEY2NjU2SjBKL2ZxSHhiMEZWMmhuMGQyakR4bUFDYlUvZ0x4c3pBZ0M2?=
- =?utf-8?B?QUlxeTB2YWxuUE45bVp1VDNoOVI3clY4eTNHdjNYaFlVTWNsQk9sMUNnR2tX?=
- =?utf-8?B?aWxHb1I0YjRDb2d0TWMzWlVqWEhYeWJOellHNkREdTl3RkgwbytoVWtEdmtN?=
- =?utf-8?B?SzZOZ3ZvL0k3MVZ5azFKWGpwMG83WXNFWURueEFrc2NtNHR4bGJFMFRZTU51?=
- =?utf-8?B?T01wejdROVYvZzF0cXU0amx6bVlKNG42cGVGWUJwVnJHUUYwR3lhNkRuZXRk?=
- =?utf-8?B?aWRjVDdNMFRMTk93eDNvN2MvcVJFYzdQRlMzU09qbEtJSWV6Z0dZdkxHTkxj?=
- =?utf-8?B?czhrWkJMN1BXOFVMRkVyT1BMREMyM3dMWERaZDhHZ2VkL3l6OFczS0FEMFMr?=
- =?utf-8?B?QXpyeXRPS3krN0w2UDY3Q056YktPbkNYT1ZBU1VvdUFacVUwM1o5VFFEK2Vs?=
- =?utf-8?B?NW9ubFU3UjlSZDFwR09INm00RGh2WkdoOE1MeVBkZ29FbzJFWVpidktKTTdX?=
- =?utf-8?Q?v6QkktXqiXc/ZgABHfEAIMOI0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXJJdDhCVFdOREhiYllqenQrejRFTzBINkxCNnZQdVRGN0pHTCs0WWJDdWta?=
+ =?utf-8?B?VEt5cDFiTGlKWkZsMlAxZ1ZXYWxuNzZnK0ViSG83bHQvTXYwWVJReXYwTlBY?=
+ =?utf-8?B?WllRd3lXYWtVVHFrOHZQSEFXbDlnUkVYalZCTS9rMFR1d0ljSEhPNlBMTHpH?=
+ =?utf-8?B?WGRrM2VnbFcrMkthRTFuT24yZGc1SzZ6N3kzdXZwOWJjdk0vNEY4MzdjTlV1?=
+ =?utf-8?B?aUJCZkxod0ZVSzhtT2M0KzJGM054a3pMMnFJL3ZNT2JoV3k1RjlmRHpwOEdJ?=
+ =?utf-8?B?NS9Ha3M1V29BcFZqeUVGaTk1Zko3Yk9mS3J1WHlKYmNhU1pkVFBkZ0ZpK1I4?=
+ =?utf-8?B?VFVFOXpUTHJSVDd4dStYakp4elpzOXM4Mk5JQlp0c1BsN0tYalNtOXBURTJH?=
+ =?utf-8?B?M0lnQ29JaTNPbFpJK05MNUxOcGZWSHA5RGt3SFo0YXRXTU5iOFR2SU5Ub0R0?=
+ =?utf-8?B?UXVoeVZXQ2RJZ0VKanh5KzJBTUpVVUZFQnE4Uy9SYlRTazZzVXg3YUYrY2lB?=
+ =?utf-8?B?SUZNSGdwOE44S2tzOWJGdGFHRHRBeXYvdWVXb1M2SExSRnFDdGpnd21nZjNM?=
+ =?utf-8?B?NHA2TkZsa0Frb25GYXlmbHNUblVhWmdxUjlvT2RKV3VQYjIvVmZNUDMrSTdU?=
+ =?utf-8?B?Z1ExZytOL2dVOXkyZm1UdHpwUU9iVWFvSm1aMmZFS0NlU3JBTzh2NVR1N2hR?=
+ =?utf-8?B?cTZFVDh0ZHJRVG5JaDBiTkZYb3dEeXFlR0tCZEg3aXlqMXZrdndFVHZuVDJZ?=
+ =?utf-8?B?Rm1sUUppZG5RV1BjWWVtNjkzVzdkVURwOCtNN2tFNjdyZkJ5dDNaM0NHNjVZ?=
+ =?utf-8?B?dldLRVpZUVg3OGRGdGRqS3NYeHpEVFpETVdma3AwOWh3Vjg0WGwyYk5zRWFX?=
+ =?utf-8?B?VzNvKzRXSkc0dDhxeVhLMUQweUpIN2M2U1IxdzRuNGRpLzBwWHhCZktsTzFF?=
+ =?utf-8?B?SEhEL1NpWm5GeVJmOE5DVHFOcERLR0ZIMmN1VjVGSzEvUHE4QVZuaTBaL2Vt?=
+ =?utf-8?B?MHI4NHFhSU9BSzBmUVBNdHJRRXlWcjhtTHJCdTcyblJ1QURtM3M3RW9IcnYr?=
+ =?utf-8?B?MlozUUpWQ1l0STVuU2J0K1JDRFd3d1l2NGd0TkRZTmRzeitKYWsvOXVuTkU3?=
+ =?utf-8?B?Tk5CRmNwQ2VBNmU3WGlnM0RUaEk5SEtTaVhNcUUwQ1VsV1p2MEZXRGVVTVFk?=
+ =?utf-8?B?eERPUEExamRyME5EUzZ1c0E0eUJ3clRham51aTIrYzJXSHo5N1RkR1NLU2FJ?=
+ =?utf-8?B?TCsvTTFKaUpMTzY0UENjWk1wR1l2Mm1xMlVicXRySnpDUkZZUklvOUpBdEsz?=
+ =?utf-8?B?UFlMaEl0cFhMcG5wUTcrSVJ3NVd3M25yT0grL3BpWlo2Y3FRdW9peEpYRDY3?=
+ =?utf-8?B?TEtNeVRhQ3g4R2d2QXFHQWZtejhMa0VsdlBYdzdsWWRSUnliMWJIOFJNNGRn?=
+ =?utf-8?B?dXdZbVFnWGRYVUt3ZGJmdGVKYlVrQVhrOC9EdE8zd1NCbjZmSjQwOXpMR0c5?=
+ =?utf-8?B?ZGJadW5HRGRPSkF1TDEvNkhUMlcwMkc0TE9leG9NZndwNmxrSExBeC9PUk91?=
+ =?utf-8?B?WXdDM3FrSHY2L2ZkTWFpT2xVQTF5QVI2TmwwNGJMZmc4emw5Rk9JYy9HcnAr?=
+ =?utf-8?B?YmhkN2pQOXhFalJHZk1IQ1NHaXRlRWY4UHJzMWF0cGNvN3R5UTk1c1pPQWpu?=
+ =?utf-8?B?SW1Fc3h0ajhjajZTSjlSdVFCWi9EaFVWUVcrT3VSUWpxemdiNTRXNkNaY25p?=
+ =?utf-8?B?cnVZMGw5TC9sWWdLVXBzWG8rbnJvd2RWRGFWUHVienNNMEdoT2JvT3V4Tlp5?=
+ =?utf-8?B?UWRhZWdEL3F5bEx5aks2aG5lY1BHdkNWRVZjNklyUTlHTmhwNlhGUE94VEpH?=
+ =?utf-8?B?c0UwSnkxaU00bUt1WThqSXFFUHl6cFNhcnQyaThOb0pHa0psQkVkZHNyYzdp?=
+ =?utf-8?B?VGRGbkpIZGgrbzZOYTVYNHlEQkJkZUhScGJNQi9QZlBWYWZQbXpvU0xucEFN?=
+ =?utf-8?B?NXQ4S2dnaElnMEprZXRlK0RaTnVVQStOWktqNldKbDBodXdkYUZVNHRNRlkr?=
+ =?utf-8?B?K1g1anI4alhDY2J4SmdFdG1EWW1lMEUvTW5kM0tTT0xzT2Jia0M4c1ByeGpa?=
+ =?utf-8?Q?HROYc9vsRvPCjwe4AwmFb8b15?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b4c848a-f6e4-484a-9e9a-08de18053507
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea07994a-ecdb-4773-a486-08de18109a35
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 22:39:37.8887 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 00:01:12.1003 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hu8KpJpTNFSK4z+L0T4zbTdE1ZpTDxezsd+cRmMmnq2RtELrh1elMIVVLJyfNnJ2V6rA8ER2EzghPnln0mivnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF16C2BD7B0
+X-MS-Exchange-CrossTenant-UserPrincipalName: X58RbbIn0jBcD9+V8byUrwjdMucszR0rApGAoRS53JbjPEZYgQwUXI1wUbZgwuFty0PKePHXg24G9iYPGpzCyw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6053
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,159 +174,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------fa0rDmytPl9TzBb8d0fz5DwF
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 2025-10-29 21:00, Harish Kasiviswanathan wrote:
-> Fix the following corner case:-
->   Consider a 2M huge page SVM allocation, followed by prefetch call for
-> the first 4K page. The whole range is initially mapped with single PTE.
-> After the prefetch, this range gets split to first page + rest of the
-> pages. Currently, the first page mapping is not updated on MI300A (APU)
-> since page hasn't migrated. However, after range split PTE mapping it not
-> valid.
->
-> Fix this by forcing page table update for the whole range when prefetch
-> is called.  Calling prefetch on APU doesn't improve performance. If all
-> it deteriotes. However, functionality has to be supported.
->
-> v2: Use apu_prefer_gtt as this issue doesn't apply to APUs with carveout
-> VRAM
->
-> Suggested-by: Philip Yang<Philip.Yang@amd.com>
-> Signed-off-by: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 +++++++
->   1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index c30dfb8ec236..76cab1c8aaa2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -766,14 +766,21 @@ svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
->   {
->   	uint32_t i;
->   	int gpuidx;
-> +	struct kfd_node *node;
->   
->   	for (i = 0; i < nattr; i++) {
->   		switch (attrs[i].type) {
->   		case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
->   			prange->preferred_loc = attrs[i].value;
-> +			node = svm_range_get_node_by_id(prange, attrs[i].value);
-> +			if (node && node->adev->apu_prefer_gtt && !p->xnack_enabled)
-
-I don't think you even need the condition based on apu_prefer_gtt. You 
-can always set update_mapping. If you are migrating, it would update the 
-mapping anyway, so it shouldn't make a difference on dGPUs.
-
-More importantly, I think this may apply to other attributes as well 
-that result in splitting of a range without causing a migration. So this 
-condition could be moved outside the switch-case block and the loop:
-
-	if (!p->xnack_enabled)
-		*update_mapping = true;
-
-I see we already do the same for the access attributes. Just generalize it.
-
-Regards,
-   Felix
 
 
-> +				*update_mapping = true;
->   			break;
->   		case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
->   			prange->prefetch_loc = attrs[i].value;
-> +			node = svm_range_get_node_by_id(prange, attrs[i].value);
-> +			if (node && node->adev->apu_prefer_gtt && !p->xnack_enabled)
-> +				*update_mapping = true;
->   			break;
->   		case KFD_IOCTL_SVM_ATTR_ACCESS:
->   		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
---------------fa0rDmytPl9TzBb8d0fz5DwF
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+On 10/30/25 08:50, Louis Chauvet wrote:
+> 
+> I need this to compile properly the test
+> 
+> diff --git a/drivers/gpu/drm/vkms/tests/Makefile b/drivers/gpu/drm/vkms/ 
+> tests/Makefile
+> index a834d182b022..d4d9ba8d4c54 100644
+> --- a/drivers/gpu/drm/vkms/tests/Makefile
+> +++ b/drivers/gpu/drm/vkms/tests/Makefile
+> @@ -2,6 +2,7 @@
+> 
+>   vkms-kunit-tests-y := \
+>          vkms_config_test.o \
+> -       vkms_format_test.o
+> +       vkms_format_test.o \
+> +       vkms_color_test.o
+> 
+> -obj-$(CONFIG_DRM_VKMS_KUNIT_TEST) += vkms-kunit-tests.o 
+> vkms_config_test.o vkms_color_test.o
+> +obj-$(CONFIG_DRM_VKMS_KUNIT_TEST) += vkms-kunit-tests.o
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2025-10-29 21:00, Harish
-      Kasiviswanathan wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20251030010027.2503555-1-Harish.Kasiviswanathan@amd.com">
-      <pre wrap="" class="moz-quote-pre">Fix the following corner case:-
- Consider a 2M huge page SVM allocation, followed by prefetch call for
-the first 4K page. The whole range is initially mapped with single PTE.
-After the prefetch, this range gets split to first page + rest of the
-pages. Currently, the first page mapping is not updated on MI300A (APU)
-since page hasn't migrated. However, after range split PTE mapping it not
-valid.
-
-Fix this by forcing page table update for the whole range when prefetch
-is called.  Calling prefetch on APU doesn't improve performance. If all
-it deteriotes. However, functionality has to be supported.
-
-v2: Use apu_prefer_gtt as this issue doesn't apply to APUs with carveout
-VRAM
-
-Suggested-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-Signed-off-by: Harish Kasiviswanathan <a class="moz-txt-link-rfc2396E" href="mailto:Harish.Kasiviswanathan@amd.com">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index c30dfb8ec236..76cab1c8aaa2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -766,14 +766,21 @@ svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
- {
- 	uint32_t i;
- 	int gpuidx;
-+	struct kfd_node *node;
- 
- 	for (i = 0; i &lt; nattr; i++) {
- 		switch (attrs[i].type) {
- 		case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
- 			prange-&gt;preferred_loc = attrs[i].value;
-+			node = svm_range_get_node_by_id(prange, attrs[i].value);
-+			if (node &amp;&amp; node-&gt;adev-&gt;apu_prefer_gtt &amp;&amp; !p-&gt;xnack_enabled)</pre>
-    </blockquote>
-    <p>I don't think you even need the condition based on
-      apu_prefer_gtt. You can always set update_mapping. If you are
-      migrating, it would update the mapping anyway, so it shouldn't
-      make a difference on dGPUs.</p>
-    <p>More importantly, I think this may apply to other attributes as
-      well that result in splitting of a range without causing a
-      migration. So this condition could be moved outside the
-      switch-case block and the loop:</p>
-    <pre>	if (!p-&gt;xnack_enabled)
-		*update_mapping = true;
-</pre>
-    <p>I see we already do the same for the access attributes. Just
-      generalize it.<br>
-    </p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20251030010027.2503555-1-Harish.Kasiviswanathan@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+				*update_mapping = true;
- 			break;
- 		case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
- 			prange-&gt;prefetch_loc = attrs[i].value;
-+			node = svm_range_get_node_by_id(prange, attrs[i].value);
-+			if (node &amp;&amp; node-&gt;adev-&gt;apu_prefer_gtt &amp;&amp; !p-&gt;xnack_enabled)
-+				*update_mapping = true;
- 			break;
- 		case KFD_IOCTL_SVM_ATTR_ACCESS:
- 		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------fa0rDmytPl9TzBb8d0fz5DwF--
+Thanks. I will add these changes to this patch.
