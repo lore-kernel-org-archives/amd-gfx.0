@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B448CCCF9E3
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 03:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C63E3CCF9EB
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 07:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45EE710E079;
-	Fri, 31 Oct 2025 03:32:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2603A10E144;
+	Fri, 31 Oct 2025 07:06:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jhR9+Rj/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0LoLQEx+";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011003.outbound.protection.outlook.com
- [40.93.194.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E34A10E079
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 03:32:56 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010017.outbound.protection.outlook.com [52.101.85.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8776F10E144
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 07:06:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ac8nYqsJKFTkKgZ3mPS/DA2cQZKKF8PWUen+0vTbZObMJ6y+gzZuNixll4Jb5giQwneVSkT7FmNB4ZvgVyfKEEMx66gDF6CQwZI6mNL4QTO66Jjy2+qoZetzQ7b7Lqq9SYLSJB0FYROA70YUtw+Ace421vy1k2cEamEOynuxlGV1JGNJHF3eb4E9ZkFYKcTFBJnBU5ykjqM3mYuiBQU6tqGHkxwpMvSJKmhdaWDGT4vAScU5uGd315KYtXvQngPclLAyeKQ3OuIbn138Iv0WBL6JDBPTk4qwuZyrXlAIzrZ3iZHf0hZr8bwM6B5YM9wNzff2WukiIbKwMLobGrRMeA==
+ b=iI2J+CTDkE9KGwlfewEbwDx1EzoUIQLmia4VMbWPa5MquIny/lqRSucxeJghLmWqSBUDV2xgw16Qbftw878Ni2QS5DACJZxhH7UA1FW1rdwNFBFzq6s66R3YTFtJLUcCvd3cvQI1yjskAGdzj6qcPe/NY6ZBjoRp0PAMDgXl8gM89/4rqfdKEHQ7hg0gKXeFMOqk4nx5/vx04Cj9wa3hm4hx2SP5hY9DG5HjRdSG678gWAYTVdudLFg/78+K8gCjdD6B8iqier4rpCgXRHLcnDdNHOVej+DuUCLz8NrYMBsV0ZGh4R/Nd/ifpVj1UMjKNGWmHIVFQ3HkNhSsDacqwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y1kg2rAAAnvXrVmhXYHQAIiDWUk7k61fHW3hBAygscI=;
- b=d8UNl3WsTNZrR/yxwW946azilWVyGfm5aiWjudnZDA0z0O6eeM73TlLNNCBCT6xsCTlykUz3ivsUXjG4TmSN98pm+oIkDmPMl0fvelRgO45tGYgmsViupZQ6836p4LXqDsUb5FKiAVuF9YVWDZuTKFfIkBne1xYUNL37qxFkxox9gP/dZ9WmJGz+TJayyRfru2M1mF9/Fb5UtCxRD+f/qwTPijDV6Qn32iRBouYS1+BQ7ajIqkJ0jhnl+5N1oR1hEawt4e5iMj0bvwXNZM+ayip1hVcVTnVsC9BZvxF6yasasFpZnED1t1IbsdXzMGhMtCNUBVeovFyfvc3ntzDGfQ==
+ bh=eCcnaoityuCEDRlvDs/z2A0QzAw2yxT9wO6P1xZmy5c=;
+ b=VyDuryKxut4H7oPPiu6BFNeHIiEl0vnecRxIPAg4wsUqVYRuurN1VJ04MQQO9LZkKC9Saxddgj3E/hQIMB65r1zvkN4iHc8v9U1nZ39OmpFGD1MrVkuosVxJjfo2lE6EczIAi9NZmax/WBduGQYOvmYprR+tgsD5CcMo+9S9W2ALhd+xuvG8ffXGD8TrSaEwFp2iPZEQf1FJBvX3BYHS4l36s6TEx2ffINsMWSC5qWT87PYHbKejK8aW7CW6AljWPTB2rKcM/pjaBt0l65TlCjZMEp6y7Xw2FfDbGjGnNx5L7+pfp3T7lhGz0R5GWGTbmDwU4HLXpqGtOKsSiHg9Uw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y1kg2rAAAnvXrVmhXYHQAIiDWUk7k61fHW3hBAygscI=;
- b=jhR9+Rj/umkSxcCrdig3qHjxjhvS4wzfseyqIzFQ1xu5ZUrTUeU9bRm908uZef6dFe6R0oxs8y/mSeQ25yR7XWL6wlFCdxU5x8LGefppO1TZlDYaQx4CPSd8Tpdye9c+Wvgy2TCmR6xFWSskU8XL16gFayeGSjciL1iAURqphj8=
-Received: from CH5P220CA0024.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::23)
- by LV3PR12MB9329.namprd12.prod.outlook.com (2603:10b6:408:21c::9)
+ bh=eCcnaoityuCEDRlvDs/z2A0QzAw2yxT9wO6P1xZmy5c=;
+ b=0LoLQEx+HjOOCFXA1BhPYBjqIj6MUF5aWVBat2V3tsJJf0UnWvRoxs+y8KhC9eoujipqAdVU2um2Nmpk4mco8J7jf4h6iHnONEm1HSy11nD4P+DBY8/93eUl4YouGQrJpuRkQ7CQ+6PNiPazpAWN5Cc5qw+xbDAbZMHNCftQHOg=
+Received: from SA1P222CA0099.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:35e::13)
+ by IA1PR12MB6627.namprd12.prod.outlook.com (2603:10b6:208:3a1::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Fri, 31 Oct
- 2025 03:32:51 +0000
-Received: from CH3PEPF00000014.namprd21.prod.outlook.com
- (2603:10b6:610:1ef:cafe::5d) by CH5P220CA0024.outlook.office365.com
- (2603:10b6:610:1ef::23) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 07:05:57 +0000
+Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
+ (2603:10b6:806:35e:cafe::e3) by SA1P222CA0099.outlook.office365.com
+ (2603:10b6:806:35e::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.15 via Frontend Transport; Fri,
- 31 Oct 2025 03:32:47 +0000
+ 31 Oct 2025 07:05:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +48,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000014.mail.protection.outlook.com (10.167.244.119) with Microsoft
+ SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.0 via Frontend Transport; Fri, 31 Oct 2025 03:32:50 +0000
-Received: from fedora.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.20.9275.10 via Frontend Transport; Fri, 31 Oct 2025 07:05:56 +0000
+Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Oct
- 2025 20:32:48 -0700
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-To: <felix.kuehling@amd.com>, <alexander.deucher@amd.com>
-CC: <ray.huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
- <lingshan.zhu@amd.com>
-Subject: [PATCH] amdkfd: remove pasid under kfd sysfs folders
-Date: Fri, 31 Oct 2025 11:32:28 +0800
-Message-ID: <20251031033228.2230-1-lingshan.zhu@amd.com>
-X-Mailer: git-send-email 2.51.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 31 Oct
+ 2025 00:05:54 -0700
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
+ <KevinYang.Wang@amd.com>, <Stanley.Yang@amd.com>, <Jinzhou.Su@amd.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>
+Subject: [PATCH 1/2] drm/amd/ras: Increase ras switch control range
+Date: Fri, 31 Oct 2025 15:04:34 +0800
+Message-ID: <20251031070435.2612918-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,53 +72,53 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000014:EE_|LV3PR12MB9329:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3ab9d66-cc24-495b-9db0-08de182e2b30
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|IA1PR12MB6627:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cdf575b-4ddf-4724-d940-08de184bf05a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lX1ozTn0cGd9eBznxzoPJ0UvQBLr8rh4bByCzB3lBsRbS3NSLuYmSJTfjNcv?=
- =?us-ascii?Q?+ed8Qqz/3aksKSl59TNu9HTrA225MYxUDln5Tq0QC+Xp4cyIo4SVpiy/6W/S?=
- =?us-ascii?Q?O9K1F0BBvvkR3s9EW/qn6j4QfdflCxY8hagJeTDtu+M63W745PhFuKb/LXVQ?=
- =?us-ascii?Q?n1wOMMFYnIaIOw7hm0hh+cicmyKkJnSZKDZtGJAG/c2ikvOwhEbkC7lSR3JO?=
- =?us-ascii?Q?pJ1ptToPOhKN2bnaeY1QyB1Zxv7h1VZKs+1JPtpoijyLybdOi8tffFnZv7py?=
- =?us-ascii?Q?kyaxP5ivm5D6eyYUd2SZziLMrZzC5CgMhweoYPt2GU+Zx3JfRiICDzKxlVIo?=
- =?us-ascii?Q?OF1yR3G4P++GgpxjS+w+xFnM/gteChurw6Q6qkfB7PG7v/do1BZWETEANyPa?=
- =?us-ascii?Q?2tJl0TK8whrR7Hnm9P/iSnn4RPH5ekxhVWJlFNQHL+2SmFDf+KUW1hbtyxxg?=
- =?us-ascii?Q?OxooWF4r3D6yHUCudzOIOAIQceVc33anJCxmL8Bf65ayY0LV61goTorfGL2u?=
- =?us-ascii?Q?HVBXqKrBo20aqKECd440CaPfTTm2FIkkMp/JMXyf4nKP15hNccWpTRv+xOQW?=
- =?us-ascii?Q?nm1RDZ8HwPlXpxYYsB0zuguW4Cu00QzBPKJAKV0ZXHPWFFeCa92xBREE+ass?=
- =?us-ascii?Q?nlUegNW2TX4xZiwr1GXfgjV9xsBZGSqMlvC39RGq/N1YKM4sxt/DK6peHjPM?=
- =?us-ascii?Q?JLH1fRJP2SFvtjKIK2mM8nveaIsg5gBFXJ5iC7aYdd2peF14VXs6ICpAVr3a?=
- =?us-ascii?Q?ognQ9wXyeaRKBP3wFtVV6FR4ALUTURqyKg2ox8NvgGhrV09AsukrOvGgmN+e?=
- =?us-ascii?Q?MBZ7t0kpe0nomMdz6HbZTDz1P+xVuHNhqLlyueeG5GM8KKOhbGTUCYxyQv/e?=
- =?us-ascii?Q?zUSYwQ5tBMC0F85Si0ZBGvA5gaBae8ehNVBJ14H5GrhrRWMtzeYWOMzR0FTV?=
- =?us-ascii?Q?r4J7AvjKl8dKHxtK2Ftk1XLarkyhw9OkZzgwBi6/DNBCZ/A/sU1siP5iNGhG?=
- =?us-ascii?Q?WinSJUejoQ3w0gOBg/l1PJMBZORWStiihDtbTwwt4zis6DjDKA2Gjnxku26J?=
- =?us-ascii?Q?HqgPt0osOpu4lQAvKbEz53bJdT6ptYyrCuGT5rsD4Z2hOtVuqg/3f77d/oum?=
- =?us-ascii?Q?6Ias2UTHVk7jOLl3pkay0a2gixTX7ajlH+GmOJBUfupNkRYDacs4CoWQZrTQ?=
- =?us-ascii?Q?RjFv43Mf5hXfsh/lDWS06oJrBjzQqX9CQdTVLkNYz6r+BppOe6Qet9T0PriH?=
- =?us-ascii?Q?8+Au7R+vIwZV8EDa9eCSzgrIjDgktwdazR6POqrPYTv0iIVDG3sofCMT76w2?=
- =?us-ascii?Q?FC3juHlvbKOhMsKUL4KbkSGYWu7uaeasxbdsqxCtGKJ7tvUxlr30sg0vwuCY?=
- =?us-ascii?Q?qqxK+E+jY0+zr++iKXy1lFgic2fH2i9qRJBj0IogGBCtghmow/npSqNxbmvl?=
- =?us-ascii?Q?mRBr/8ZGoAa/a712Qx3nW2y8z8GK8+ibKe1MEeGDxKH9vGKgeWoSbnakw1wy?=
- =?us-ascii?Q?9tx5r6diYP8UZXnKcUO/bIdLJpDO9NJMITXLhIhDZAmZ0ih3L6XRMeEXKMTL?=
- =?us-ascii?Q?y8aLreibuGaAf7N1ctE=3D?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ipjSh7VFowUqoq5oVLlONtDWrszUoA5H1ds2jIXhssnmddg3iBMJP2oOmTCT?=
+ =?us-ascii?Q?FwQxmn1S+Vv9xYoH1nuOeJ+JJqwWWWn4qhOzeMANAlj6RYOmIBz2FhFM5DZV?=
+ =?us-ascii?Q?ns7fSUDMjoV0I0ZsHmrFwsD6NjqUwjsmNzc7IEElzeAMjFyc//MxCPvvYZyJ?=
+ =?us-ascii?Q?BAmI4ZcIl7W07WhJLUSPF8OlIm4sgq5NFkEH88MEDgzNbOGF9TRD2nZuXk+I?=
+ =?us-ascii?Q?izkc0Sr5ASUyK/GLcqa2TNhQUm5NmGhWeK1coFPXdsQydON6smGwERkkqUht?=
+ =?us-ascii?Q?REZrrfYuXVVpQvoFQelgvolQzbLo8VfrlwgofU2ZLmwUEEEu2vfJCF23Jdrv?=
+ =?us-ascii?Q?6wNvGBKtyHqMKlQ1qbqAa+/49VZaoY7R0wN5E3gdQ6Mj+VbEzPwWA0MPFuo6?=
+ =?us-ascii?Q?1R6MhRvP0W3xkXV49F7ACKUvpsibNpCg7zyzT8RI5Udq+WPGFuV8mNjilsop?=
+ =?us-ascii?Q?5wslf+Cv4fZpjtbSXTh/wgRt9OqEIobB3CzeDDkXl00+uaCl+2jMHcxbLyLp?=
+ =?us-ascii?Q?9ykmdRk4rgaXqwSOV1dHuyaqizqyIVr7PYvUVCrE4STBlBdiGLq8hkCC6kNW?=
+ =?us-ascii?Q?ZsvQEq2amtu5JGlNA7789jX5a22+q7MyLCJ4a1MYDXL76xiIJOWBesauPfWj?=
+ =?us-ascii?Q?8sawGdSGAoNpuckoQz9wmRqbe/Uk6hE4qabYLb++7bNRmFAPK9BzF5kCzGO5?=
+ =?us-ascii?Q?t0Y1AErv3E2lY+aom37+3CD9SdexBWNlV72xeE7mErUfMGyPCwmm38/UHFgf?=
+ =?us-ascii?Q?5N0gcD6XJicmB7RWXvRRfMZTHuJqEIru40ZziPA315z1g8usloTCguTzoN5Q?=
+ =?us-ascii?Q?j+uFOktk79zz/gP1vgWfVGcfpsPgLujuE0PwMw4sGwI3XlQaGf2cFyn+o+NA?=
+ =?us-ascii?Q?N9i6Fcmyx8D8ZHu0hzWRXorWrzLr9L3ApX/+qWySO3eZKiBLn/YBg0g4bXD9?=
+ =?us-ascii?Q?s39DVmm4girDxy4ot9mXkdRpLLjn+2Uf9wD19G3iiZBiPsjzUx6Nn99utUBR?=
+ =?us-ascii?Q?DFK7beqThxyvoPPRmbQIKm7mSvM3kgJJ4PqZWKQHl54itKLEgFuz8CfQ9C4I?=
+ =?us-ascii?Q?mphOjmtDmyzuRENgxmoE7oMWdr7bqL39fkULmejcgE55aILEe18lQ4VGl4kQ?=
+ =?us-ascii?Q?awcSC/zv1maEZwPRqzEbo4EA3C2Cxnm71GLhLXGkQssQZSs3V+2C1T+s1Dc9?=
+ =?us-ascii?Q?LakAFMFDnLCMXa1xdBAjgHiwdHodpgzqxBtaM63BdIWIXdyzXvtOmdNHePUH?=
+ =?us-ascii?Q?Fo/zF5iOHeRR2YlcLY+k1kQJdKU26xoTBZN/uzoTnxTtdSrk01xZIOJDa536?=
+ =?us-ascii?Q?/KRX9/vhR8nPDZY2tXGbMMUdDyLGtn7hGU627lwJZPzKp11WX4ffDb+SqfFC?=
+ =?us-ascii?Q?LEMVLRG1hr6S6OrfiJ0PccYz0csJBd+MGYWaiyiqoF9JXaJocm8bUt25Rz1Q?=
+ =?us-ascii?Q?XBNJBB1HAetiAU9BaFrsM3cl0pmAbYXsR5zzO3ZIChC+DNPRYx4cmh7kTJGS?=
+ =?us-ascii?Q?88qmmvkO4jq7cHdCB8Hd3wnhghV/ZlNP3P17eV7a9ZTQwo853D7CYon2iK6G?=
+ =?us-ascii?Q?cWIzV2goli4GNU4tqAM=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 03:32:50.4814 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3ab9d66-cc24-495b-9db0-08de182e2b30
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 07:05:56.6620 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cdf575b-4ddf-4724-d940-08de184bf05a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000014.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9329
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,75 +133,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit removes pasid under kfd sysfs folders
-because pasid should only be used in kernel internally,
-should not be exposed to user space, and current
-pasid under kfd sysfs is buggy hard-coded 0.
+Increase ras switch control range.
 
-Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 7 -------
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 8 +-------
- 2 files changed, 1 insertion(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  3 +++
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 25 ++++++++++++++-----
+ 2 files changed, 22 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 70ef051511bb..d69079cab1e6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -983,7 +983,6 @@ struct kfd_process {
- 	/* Kobj for our procfs */
- 	struct kobject *kobj;
- 	struct kobject *kobj_queues;
--	struct attribute attr_pasid;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+index 556cf4d7b5ef..40c0bf85f1d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
+@@ -591,6 +591,9 @@ struct amdgpu_ras {
  
- 	/* Keep track cwsr init */
- 	bool has_cwsr;
-@@ -1100,12 +1099,6 @@ void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
- 					int handle);
- struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
+ 	/* Protect poison injection */
+ 	struct mutex poison_lock;
++
++	/* Disable/Enable uniras switch */
++	bool uniras_enabled;
+ };
  
--/* PASIDs */
--int kfd_pasid_init(void);
--void kfd_pasid_exit(void);
--u32 kfd_pasid_alloc(void);
--void kfd_pasid_free(u32 pasid);
--
- /* Doorbells */
- size_t kfd_doorbell_process_slice(struct kfd_dev *kfd);
- int kfd_doorbell_init(struct kfd_dev *kfd);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index ddfe30c13e9d..f45780502f06 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -328,9 +328,7 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
- static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
- 			       char *buffer)
+ struct ras_fs_data {
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+index 8007e49951d8..e1f6db13c55f 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+@@ -283,6 +283,18 @@ static int amdgpu_ras_mgr_sw_init(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_ras_mgr *ras_mgr;
+ 	int ret = 0;
+ 
++	/* Disabled by default */
++	con->uniras_enabled = false;
++
++	/* Enabled only in debug mode */
++	if (adev->debug_enable_ras_aca) {
++		con->uniras_enabled = true;
++		RAS_DEV_INFO(adev, "Debug amdgpu uniras!");
++	}
++
++	if (!con->uniras_enabled)
++		return 0;
++
+ 	ras_mgr = kzalloc(sizeof(*ras_mgr), GFP_KERNEL);
+ 	if (!ras_mgr)
+ 		return -EINVAL;
+@@ -315,6 +327,9 @@ static int amdgpu_ras_mgr_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct amdgpu_ras_mgr *ras_mgr = (struct amdgpu_ras_mgr *)con->ras_mgr;
+ 
++	if (!con->uniras_enabled)
++		return 0;
++
+ 	if (!ras_mgr)
+ 		return 0;
+ 
+@@ -332,12 +347,11 @@ static int amdgpu_ras_mgr_sw_fini(struct amdgpu_ip_block *ip_block)
+ static int amdgpu_ras_mgr_hw_init(struct amdgpu_ip_block *ip_block)
  {
--	if (strcmp(attr->name, "pasid") == 0)
--		return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
--	else if (strncmp(attr->name, "vram_", 5) == 0) {
-+	if (strncmp(attr->name, "vram_", 5) == 0) {
- 		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
- 							      attr_vram);
- 		return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
-@@ -888,9 +886,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
- 			goto out;
- 		}
+ 	struct amdgpu_device *adev = ip_block->adev;
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
+ 	int ret;
  
--		kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
--				      "pasid");
--
- 		process->kobj_queues = kobject_create_and_add("queues",
- 							process->kobj);
- 		if (!process->kobj_queues)
-@@ -1104,7 +1099,6 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
- 	if (!p->kobj)
- 		return;
+-	/* Currently only debug mode can enable the ras module
+-	 */
+-	if (!adev->debug_enable_ras_aca)
++	if (!con->uniras_enabled)
+ 		return 0;
  
--	sysfs_remove_file(p->kobj, &p->attr_pasid);
- 	kobject_del(p->kobj_queues);
- 	kobject_put(p->kobj_queues);
- 	p->kobj_queues = NULL;
+ 	if (!ras_mgr || !ras_mgr->ras_core)
+@@ -360,11 +374,10 @@ static int amdgpu_ras_mgr_hw_init(struct amdgpu_ip_block *ip_block)
+ static int amdgpu_ras_mgr_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
+ 
+-	/* Currently only debug mode can enable the ras module
+-	 */
+-	if (!adev->debug_enable_ras_aca)
++	if (!con->uniras_enabled)
+ 		return 0;
+ 
+ 	if (!ras_mgr || !ras_mgr->ras_core)
 -- 
-2.51.0
+2.34.1
 
