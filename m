@@ -4,149 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CAD5CCF9F0
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 02:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECBBECCF9E3
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 02:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B6C10EAA8;
-	Fri, 31 Oct 2025 02:46:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8749410EAA3;
+	Fri, 31 Oct 2025 02:48:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LlQmxXUt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v3CN90Zp";
 	dkim-atps=neutral
 Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010006.outbound.protection.outlook.com
- [40.93.198.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACACF10EAA3
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 02:46:55 +0000 (UTC)
+ (mail-westcentralusazon11010052.outbound.protection.outlook.com
+ [40.93.198.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA95E10EAA3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 02:48:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XjNwlhBzzvT1kZy8cNWZrTsPuH0I0HZoC/PKHuap6eLUShOMib/mQ3xcD0oti9VvsOeefNX6NSHceasFSuyMk08WHa3dTHjWUmkCx8glFvWIVtQAMdeBaR8Zn3o+sVlnGV+Ga2lrou6h+0+ZL2ls+X0PMlDVaA3rdIvIruOZghRabsDKue7lbzD6eNIZ9K66kxCm0Av8bDqyp7l2xyjO6xZZOBFGCaUMgywd+N1lGILzEA537absRe4TabWy2LjtbcnKHOCiZ+OEB8XvLoq6PO4ltZEX1eZHrWP8JjVBr1sDT1VUVUqSIgTWAadcJaL/K3QPsW+fNw4pyGBYmULE0w==
+ b=mbX9va8YJZxBQ2CinNubGWdKbfJr1WIcy7BBfWG+FzDsaWuBdvI8vVshp43TK/bYJb2BEFyPG7yhX3C+xyjjxiIpwl58zcvlkQgaccy54428RKQWlkskIACY/DUA/xQlRQaFw5L283X1BMd8yINUdLXwAkr4+ytSXzZAl9P9A7ZoletzhFOZ3qxoYlT/iocdc4GA0tOhyrCbcAjVHHHjCXMGWkVQQUpFMMThCQpvapSZIDIa6vwUmvQFO6tob6JiOvQG+aq81HPFTVCE5rKBqAIbJxa8sr632vN8iwVVq2JwL8M9QwVNNvk3VLTFaz+tgZb/RfHiWLLKf2dIKhb+tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ocP2CwR01jhktVd5vSJo9mBkYcqh32d+qGLYIlmQmiE=;
- b=U+uQQ9r4JcWp7XIA84jO44FKWEU7j5dK0g1Xd9z+77tqs9dUKcOMqIUV2Bn7Ur9g3W9qI8V9iOF42o4NRxiv6QzyNrrE/YgIhSQpZfvCRcllrrx2RSY4N4AvQutREfhuoi6B7kZBcWgZnJHFj7gCV/KnVhPh8hl3kJEqtvU3HhgsZjpKTM3dC82514xz8y/VYpP44YmJfEBr8eMt3Lqi2BCHF2WyPdsRqR9dcj4nQiiTijG4/WsepULhoTRF4OqD3Qjk08X6fhVwaByqa3JRnOvyIhrr46YjVC909pPSP48DxpVigQQM4dFz3OLrJVdXvg6B79dh3jvlp+9950GB1g==
+ bh=EFrvjwNbpzaSrCmMx7sbp9pu39LwXqIYrlrQlHUJ4Wg=;
+ b=b+baQsTtfYWyt4D2o4czqUuesmTMbtHuTSG18Y+OWKrtPXZWsuxsUZ7tdb1P6L3IoXah+s2gs0aydUkpuowGx2HRiobxEUq7gQGN/f6OqUcX0FOxvPT01+xKtm7+Jq1TIq39dxrgPMBY3m7m+zJSUu2DbNhhy4caBsVODg2jGufFGEwnMXsBXHVDqmQgllJiIO28CdlniXyPcxqwcuOuMG6SS8gom+bNWnKqKPxxB1WaqcW0rtH7OihdGaYFKR4hyveJfSwZ0IAGkkLARE3kwc6dHCO+3caxloNg3TptdDvMqI4iOY1Xcz5Hhhxzqugbhm3/y5tj3R+3O2N/PEG/4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ocP2CwR01jhktVd5vSJo9mBkYcqh32d+qGLYIlmQmiE=;
- b=LlQmxXUtAP6lfweR1vkQsIkdzgePO3bKcPNxrNhFmaiNQc1BY8Azpr+1CV1DJxgSdthYFO1Rn2iELQz9yj0LCk+IJM5tNspm3CQWWqVXMpG33u1n5RTHycmvyovTDP8dXrAvHM18wCPjAmVnRxA5bEsvXyDklKvfFD4nuiDf8+U=
+ bh=EFrvjwNbpzaSrCmMx7sbp9pu39LwXqIYrlrQlHUJ4Wg=;
+ b=v3CN90ZphW4ceL7rDev5a5xg+0pnKlqkcX71OwbBqCNlu4TCkn3oD1Ib6vTmvpo1J09hrCl0lSuTI1g+C5Rm1l+mnExdDIZmG11lS5zbNQDAPxeBzyT1sMuBvfOWEIh6uGg0aYmFd4yen0vlej/ytf+KFA/6+9H4JZKwmI2NwRQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
  by MN2PR12MB4046.namprd12.prod.outlook.com (2603:10b6:208:1da::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Fri, 31 Oct
- 2025 02:46:52 +0000
+ 2025 02:48:14 +0000
 Received: from SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
  ([fe80::ea3a:4720:99cb:32d8%7]) with mapi id 15.20.9228.015; Fri, 31 Oct 2025
- 02:46:52 +0000
+ 02:48:13 +0000
 Content-Type: multipart/alternative;
- boundary="------------2iEcclunxtYTxG8Ct5TeP1J4"
-Message-ID: <0f9ae20e-0e0b-4b59-9d79-f291ec4ef7c0@amd.com>
-Date: Fri, 31 Oct 2025 10:46:47 +0800
+ boundary="------------CWCQY0VHsmxu4FdUBDZB7jnv"
+Message-ID: <89b6057a-ff21-46a2-951b-b96888f60b3d@amd.com>
+Date: Fri, 31 Oct 2025 10:48:07 +0800
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] amdkfd: implement per process/device pasid in sysfs
-To: "Kuehling, Felix" <felix.kuehling@amd.com>, alexander.deucher@amd.com
+To: "Chen, Xiaogang" <xiaogang.chen@amd.com>, felix.kuehling@amd.com,
+ alexander.deucher@amd.com
 Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
 References: <20251030034536.11356-1-lingshan.zhu@amd.com>
- <24133b30-07bb-4ff3-923f-02d5a421fab6@amd.com>
+ <050ba477-c7d5-4420-8f06-6fce0db48726@amd.com>
 Content-Language: en-US
 From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <24133b30-07bb-4ff3-923f-02d5a421fab6@amd.com>
-X-ClientProxiedBy: SG2PR03CA0095.apcprd03.prod.outlook.com
- (2603:1096:4:7c::23) To SN7PR12MB7835.namprd12.prod.outlook.com
+In-Reply-To: <050ba477-c7d5-4420-8f06-6fce0db48726@amd.com>
+X-ClientProxiedBy: SG2PR03CA0093.apcprd03.prod.outlook.com
+ (2603:1096:4:7c::21) To SN7PR12MB7835.namprd12.prod.outlook.com
  (2603:10b6:806:328::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|MN2PR12MB4046:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62015e23-db6d-4659-115a-08de1827bf4e
+X-MS-Office365-Filtering-Correlation-Id: 842ef8ad-67ef-4183-2130-08de1827ef84
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NGN6aGovSzhUdjZGTjBOdW5jdVdHZDJobHJyYVVMdEpON2VyNmlHekxKTElp?=
- =?utf-8?B?MTVOK1JwWE5OcUlOeklsVkovQTliV25qMmtUTHMzUm5JY0czTHRERmd5bjdX?=
- =?utf-8?B?eVlIWGVjVy8rb1BzSGtIUXQwNkpuN2llOHg0bDFwY3hRYmNqbi9GWndNUFhp?=
- =?utf-8?B?dUtjOHlhNlBla3piOVdWcnlRcFJlTmhMelY3ekZVN0JDaXNRMFJyVmtjRzR5?=
- =?utf-8?B?Zm1oYmVSYWJwd0xKaUZCa1RGL3hmUFhQV1I1ejk2UElZb3BUSnFHeFhtSnlm?=
- =?utf-8?B?a2R0M1JLNU81Z1kzenRVSjhncHFvRDE0ajU4ZzJqTGhhSFNzSlhpQ1puRFhS?=
- =?utf-8?B?bTlzSTkwTnNHd25tcnlReDAzaU9EVXFNcWJrTmdWNElDL1pSdUt6MHoyRzRa?=
- =?utf-8?B?M1ZyM01kZkhETnRlc0Nvc0xhYjlCOElWUmczWTVtSW1KYlNReWExTlRTOGpr?=
- =?utf-8?B?Y0JXWFRJZkdNVHhrS2hXU2I0TEJjUVg0QTVsWjhMZTYwQUFJT2pKUHFOM1lt?=
- =?utf-8?B?bXF2czdqMFNBNndxSlVTWGRTYlJ1MXVQVlVjMERGU3VPd0NhaE4zQ2NTbTJl?=
- =?utf-8?B?SjMzcVJ2M0gwUERHZU1pdlNaYVpzWTJpWUNxWnB4UWx5WDcveFZQRWtVYlJU?=
- =?utf-8?B?YlVrYmUxTEM2RThKZ1ovaDgxY1VMR1BwZS9JMHdwNXpYSjluRW54TmhCWnI5?=
- =?utf-8?B?REYvT01veDJ3bGRIT09IMUdnUUZVV2h1OGF1SVNubEw4bHBzZWFYQjM4ditH?=
- =?utf-8?B?V1RZelFTMi9DZmw4dVVwNFJxRmE3SnpDUWpwM3VXcWpSSEtIQjF5M01wOUMx?=
- =?utf-8?B?dmZ0aGx4amZFeGpPNXhoNVc0anVFbHQzQWdITE1heHloT0RjaXNoTXJTNjJJ?=
- =?utf-8?B?dU1oL0dhK1VJdFJBRmphNXV4R3o4U1Fvd0E4emxzaWRwUGpybm43OFVvRXo5?=
- =?utf-8?B?Mm5Ib1l1MDhQK2ovMGkwWThYMDIvWVY1azNxeGxIZnBiQzUwSXVySmhGenBj?=
- =?utf-8?B?aDNxSS9SeHZzb3djbEg5aGpRcHFxOEFrcE93RU9HbjhOaGd4Q0pnUktCYmI4?=
- =?utf-8?B?dFRyMGVKKzFLTjF4WFRmUkxaRmdhU2t2NE1CekxpK0FnbitabkRlaUdiaWhQ?=
- =?utf-8?B?VXM1RXJJRjNqNWFwOFJNZi9NelVlRUV6ZU5LOGZpTnhsaTBDVVgxMHZjYjRV?=
- =?utf-8?B?aTRaQm5TYURtV25nSWlhVHZ5N1V4M1pCQkxJQm9GdWFKaC9MN3Q4ZG5zc3Yr?=
- =?utf-8?B?c0tPWmViQUdvRjFkdXRyb3hYN3UzaDRwb05leEF2d3JhWkVUMWVXMlEzNmcr?=
- =?utf-8?B?czNmbEkzN0kxVWVnYjNnQVJoRTM4ajNhc1dlOWx3aHlTbktwcFZQVFFuaE4x?=
- =?utf-8?B?ZGtRbkVWdFUrR2RjRWpZdzZxbmtSRmQ0TGYxMy8ySUZkYzY3aUYwVlo1MHNW?=
- =?utf-8?B?bWtuWm11Mk01L3VsNVJVLzlSZmpqa0tOQ243NThtN004STRpWGNnYjNSTlMw?=
- =?utf-8?B?ZWhBOXJwdEl2Vkp4WC90c2lzRWhKbUtXZzUzaDdRa0wyU3NkNzhGdG1tSGJv?=
- =?utf-8?B?eGVodkMwbVdkN2RNZTZVRmtFQS9Nc1R5eml1OUJGMFc3TGFXQ1F6T3FoSGdG?=
- =?utf-8?B?cGtvN0xtZ204SkxHZVg5N3BYck1FZSt2Zk56QURMNUF4bzVIOXpkWWVwc3Ux?=
- =?utf-8?B?ZzhNS3ZIb0llVGZJeFpDRDBkUHF4UWh2Sk1pS1Q1d0J3NTlKUEtLSTR0azh6?=
- =?utf-8?B?bFNrbW9SWUtzNDdkbFgzRmZ1SUxYQ2hJcEpWWk82bC80MGFydDY4MkU3dGc0?=
- =?utf-8?B?TWptdGIvOEFvSjk2OEtlNENLQWZKVFBaNlY5UFJWRk1NVUtkNjArVW9hV0o4?=
- =?utf-8?B?Z1pKbHN6b3RXWThvU2pPV3BIRFN3RXRQcWl5OXZQbUJPc3FDaCtFaUV3NFFm?=
- =?utf-8?Q?CjT88mQ2pir7tKyxno81BHLU2zXzR74s?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MWUyQVg1ZjJibnBROVBINjVjSitDRG1sVUNicEY1K1VzWU1jaW5VNXUwcWdo?=
+ =?utf-8?B?a2gwN2VZQ0hSWmlJaFZ1V002SmNuZEtYam5Wa0tpSHhVbWRleTNxNjR5akdG?=
+ =?utf-8?B?VFF1OC83ZGYvQUEyY0REZWpMZjVVWDFQaDhMNytHc0ZNQ2xtd3BMWmwxclFZ?=
+ =?utf-8?B?N2hnVjJSMTZVMTlYTyt5ZS9hZXNpZGFGYjFhU0d3ZG1ISEJGUGhYV1ZqWVZ1?=
+ =?utf-8?B?LzhFbmgxNGJRd0JSQzE0V1RVTzBPcXBlMS9TUURHZ1RhdXRhaUQzeDZXNWZo?=
+ =?utf-8?B?MHlwSGJaNzhDaVcxQm5iaExYWWxqOUVjY3RpWERqWDFpcG9tSVc2b2EzOXFI?=
+ =?utf-8?B?OWg0R2NDVlhEaWxrVFdaQnpPelBhNlZYTitVMU00QzJSR3ZKcGFiR1lnNnU2?=
+ =?utf-8?B?MDBNMlhrLzZCMDcrN0d1a0M3R29BNjV5SW9BaHB3ekpnRTRwelFrVWs4eXlG?=
+ =?utf-8?B?QUo1SzFxR2pUQlc0czdGaWg3QVNFS1ArUGtEa0pnb0Z4eHJFUUhNRThQM2M1?=
+ =?utf-8?B?UmlZZnA4aFpVMWtGT00vVkliS0J2TXg0R2h3Slp3VTB5R09mL2dCVnN2REFP?=
+ =?utf-8?B?MjJWVnlQVWJxcEhvNWpUeDhxWGRaekdqZDFCZ0IvV2ZHU3d2OTFmWjV0M1NV?=
+ =?utf-8?B?T2I4OG9BTVA2aldFdlNpa2NmcUlKQlBrcVVxaXVxNm9tZWV6RkFiekt5UUFR?=
+ =?utf-8?B?ZWx1N0F4dm5rS2UxOXNSNGxzb3lINVYxdHpBRE9nYndQQ2lZTmlLZ29DUXc0?=
+ =?utf-8?B?aldRS3FiSHlkNVA1ZU5iT1BOamVZbE94MzhBQ21CSUZRTGZnSi9ZeTBYSkNL?=
+ =?utf-8?B?c3liblAyT1BEbkZRME5MejZyano4dWd3ZjJJelNIQXJzUG1RM3l4VHpvaE50?=
+ =?utf-8?B?RDZ1YThKbVp1NFlvMmZOOHRvVHpMdnJ0bnRxaHFBazA3UktpNURMdVJpUWpl?=
+ =?utf-8?B?RmtoeWgrVUZsRElheGFRYnFkNFA5Rk5rdTJtRXBXZmRnK3VhVmd1RHBKN0Zs?=
+ =?utf-8?B?bEhLT1Z5cXp1Nnd5TWZXclhKcHhsQjUrLyt6bHBKVFNVcEozeHQvL211WWN1?=
+ =?utf-8?B?TzFuRDZGV1ZSVmRUUUVvY2ZDMlg3aGs3VkxpWUpUa3ZFMzRqc0Y1cU4veTVJ?=
+ =?utf-8?B?MmE4MXMwMDlZWWZSZnBKSXkzT0ZTWXJ3V1BoeTNWRGR4VWVHYlRwK2xWWFE1?=
+ =?utf-8?B?cUk5b0JjMGVDcE5MYmh6ZjZPWjZCZGhrRDByMktEdkhULzZrMElvNi92LzRs?=
+ =?utf-8?B?LzdrM1hUQlVZUTVBazhLS0ZyNGdhTW50Uk5uK2ZCWjdRNnlISUhGV0ZrOHEw?=
+ =?utf-8?B?WlBnZUNxQnk1aUp2T01OSGpmK1VOY0thRTFmRUJHcEZ0ZFY4ZDlMa0FzVUo4?=
+ =?utf-8?B?V20rS2lGeGx4NjdhVGtEUWRpYnZJdnpFWDZqdzNlaTZLdnJlOGI1aUxQYWo0?=
+ =?utf-8?B?ZFdGNkpUQ0cwRmFSWUR2QzZRaDl5YXR6S2J0OHdybzA3NmJIQnc2aEZ3dC9v?=
+ =?utf-8?B?b0wyMDcrSmQySmwvZGR0VmNiV3gwcnhPdmE5eWlzRVJlY1cvYnBDTXRzdHl3?=
+ =?utf-8?B?d3U2QW1QQnVLWEtEemlvOWcyaFMwK1VhWE1SVERWakVEMWg4RWpuOW40ckRk?=
+ =?utf-8?B?anZJQUJndTlYbWJDUUtzdG5LaW5WajBaNDR0NGxUbU9JUE5vb2plOU0xYVh3?=
+ =?utf-8?B?QWNqeXVxM2VHVnkzdXhocTdDQ1RUckg4bi9YR0xMVGp5eXZNbTRIWEVMdDJn?=
+ =?utf-8?B?NjZSY3JuVmM5b2ljQjV4QjA5NVZOaWpOblJEaXBPWWlxMFNaeEg4MDU1T2VC?=
+ =?utf-8?B?OW9zakRJZUFxLzA0eGhSZWMrNjU0Vy9wd0h3SnN4V1puOVY3Z0VJMVVlZytT?=
+ =?utf-8?B?UnFaK0JrTitrSFVydXdwM0Y3ZDM4dGlqUEw0YlB0elFUQmE3NStrSkp3bGdU?=
+ =?utf-8?Q?OEjzBGoYm0sM2wgK+O9Pj6yEK0dkxxsG?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(1800799024)(366016)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjlKaVhqQjE4c2hKTVNyRXJ4UCszNjRPVGw5S24zNW9BT3Vha1ZQQkRBWmtz?=
- =?utf-8?B?RmxDRmVZWU41UThGTHN3MnFmUzB3dWhWR1l6MEZEUzVGYlVKb2Q0VjZpdnIv?=
- =?utf-8?B?amM1ZG1GUzZ3b0tQak8xRHZObnlGK1VoL2lmVUwvVUhxZnVPOHBTY1hxclpx?=
- =?utf-8?B?dGlwNjJGMG9xWWMxYTRmbVFiVnZSaDk4d3dwbW0xYzdnK3J2NlVhVVkraXpR?=
- =?utf-8?B?SDRwUFY1VmRwZndVSXNTRmMzTVJGODBrcTdmeXd3U2JXcTE4bEZJZzNYcGY1?=
- =?utf-8?B?STAyZFdxQXVPY3V2bnRUSWxDWWNxa1BvR1Z4Z3hWMDNnMUFOWmN6cnBFa0Ji?=
- =?utf-8?B?TS9LWWRZblBjaHlZOEh2VmMxazJHRkVLSzRxWjJySVpSTW9tQVFWUEhvOXdv?=
- =?utf-8?B?MTJwQVlGNlQwd2trNEJ4cE1QcVU0d2N0azN4RTN6OXo3WG5rdVZZMWgzWWg0?=
- =?utf-8?B?aktOVUNMdERDOXZRL0lBR1dDVFFHdk1BdDRzZW9saXRWeVNPVmVzalg0ZUFy?=
- =?utf-8?B?Z1ZIaEJTSXQxSlJxQkVzQldXQ2cxSUZkaGVNOERjdkdsQnRzNkZBMDZDT0pS?=
- =?utf-8?B?K0tVUzBaMzAraVJoUDBESzJ0VktpVWpmRFoyNkxjUjJpbEJ0QnBzZGtEMm9R?=
- =?utf-8?B?SldvTXFySDBWU0NlQ1puY2RPZ1JhQ3oxRmdURzdzbnJpZ05TcmRIVWg5ejRp?=
- =?utf-8?B?dXYvOExYbktXRU0xaTNWU3UrdEJBejc3NzNoQmpZNFdHemorTTcrSlpIVFFH?=
- =?utf-8?B?NmUzcVRSL2VwRXp0blVXOTJ3ejlEcS9wTnJPaGFncHhTNEttM2o1U2g0MHBv?=
- =?utf-8?B?aDNVZ3lGSExCUkpKWlRab3RzRXEyaG9zd1JRV084RzJxZ1IzeFlQbnBQZnVl?=
- =?utf-8?B?bVdUeElZYjBnOGF0bGoxUENoaWUwQ25aUVhOWkZGMkZPQXowWjdsSTdnTzNo?=
- =?utf-8?B?V2ZhS1NpakRrM1BzUzFzTE5jM2hqRGcyczhDUDN0M3BQL1V3SmlnZW5NUnhi?=
- =?utf-8?B?elFtS2llMllzMG9STnB6YUtRNTBiTmFTbWlIeElmNGpiWWlJUmZCcW9Mdmkv?=
- =?utf-8?B?MjJxTVcvMzhxbTBWbDFvQmRCb0I3VzUxSzhPNHh6OGtOelBqZStoMitScVZ2?=
- =?utf-8?B?WkZONkRRZWMrbVpTUFRxUDYwY3ZtZWFncTg5dHBHSmpGWDNXYkRZdUk3aXZ3?=
- =?utf-8?B?ZlA2MzRBTFo4cGxiMjRPcVJTTjk5WlZXSm9vV3FTdmMwQ0txVXBOWWsvYkdj?=
- =?utf-8?B?V2VMbm5wRUMxMkJVVlZiMkdPaHZtY2xGZ2R2WEdvMloxOG9GdkJ2blFSTC85?=
- =?utf-8?B?M2VqRDBxZk80ZU1vWXgrMDYzV3ZIMTBkd2dxd1ZZSXZqdDBlWlZkMXNOd2Zr?=
- =?utf-8?B?WklFQnBwSHNiaUV6Q290aGtsM0JVQnE0cFFSbHpETVhRbEd0dmh4d2F4NndZ?=
- =?utf-8?B?MjFCczlWTStialV0bjU4NkUyeU9lUEtzZk5YN1Q0WlUvZG44c05xd1lRcXIx?=
- =?utf-8?B?Z2o4SE45RElaZlBxcytralJCL1I3ZC9EMkRjV0ZnTlMyVldhTWhjdmY1RmZG?=
- =?utf-8?B?UGlxVmVYZ05pWjAwN0liQStoRG1PSTF5SlM1SjhyOXhoaXJnV2U1cHQyekly?=
- =?utf-8?B?VWJPUExnN1dDT3FSajdOVEYrUmpBdk0rbHhUcTBtZVh4UmIvZFlpdDFzZFAx?=
- =?utf-8?B?WlRKRG9Nblk5RW9ETnZlK3R1cFhPdjJKM05TemxIWERvcmZST1IrMmUranhp?=
- =?utf-8?B?YVplaExaRTVWR0V4VmdsbFA5cHBPWVRJM2c0THdtaWp0eE4vZmJjZEJmWGhl?=
- =?utf-8?B?N3JWVG9sbDRpV3VKOHRoZVhBV3Jjc0dCN2V5dW4zVlBwM3VGM2hvcFhSTW5S?=
- =?utf-8?B?MWl2NHY2NkJoYWsyZjVJekR5cU15OFVrcjhyMjdhSVhnbm5KaFlPYlhWalJJ?=
- =?utf-8?B?T1MzSjZuODBXYm5PaU5icnB3NkdsbFd6a3d5ZHRWeVU5S3dmRDVNSkh2UFI3?=
- =?utf-8?B?Sk93a014b05wSUNETlp5ZnFYdUtzUnBQTFI4SGdPOWpsaFlQWEVDQWFqM3NI?=
- =?utf-8?B?ZjBmL1hnQjdKVnJFOXNFRXhVeEMvNnlFQ2Rnd2pMYVMrTmFDVDlXMUJaNkNT?=
- =?utf-8?Q?1yBDsvzoyoCGsW0e0HUfvufwu?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YVVzZlVLS3Rnb0pQQkR3QXVNM1E1ZGRhTzkxMEN0RnVDSVZjQlRGMlFXYW5Z?=
+ =?utf-8?B?S1BveWFBN2p3S2NsN1QzMlBhQkJ1b1NZQW9QaVRwQ3R6WW5uZ1NuelB4NFdr?=
+ =?utf-8?B?Ukhrck05L1ZFQjBzYXlVV0VIa0xmVUdpUDNhU1V4Vm4ralI4TnNvM3N0Tysr?=
+ =?utf-8?B?bUFjSVFMYTlwRWhVK2NHUjBOaVlRUGZYZDJoR1lzNUpXOTF3ZmxNd0tGNVZw?=
+ =?utf-8?B?clJEdHBLejZxVjNFbnUxU2hoWVV4MGNxSllyYnhsTDNuckVoRk55ZFV5VzRr?=
+ =?utf-8?B?b2pybXRGMlpJWWtWYm5NWFU3RXVFeXZJWmhrSVcyczdMN3J2eDdJR1VhU1VV?=
+ =?utf-8?B?SndsRmRXaW55VGFWclNYMFVQNHVIVmJjdTA1VnhHb21SNzUxWkk1RGlKSVpn?=
+ =?utf-8?B?dUx1eWExUExtWkI2V1V2ZXp3UmQrazVFMG1pRDB0Z2xseDBQMUZpK0lMY2J1?=
+ =?utf-8?B?NHgxcUdXdzdhSjdNUkQ4MDRtM0kzYVZZbk96YUJpWE1EZldRZHhRbUUrUFJn?=
+ =?utf-8?B?NnJIMXFucXdMRnIrVkY0OXZIZGZNYmpvV3NQaEVpYURpZ01MK2ZoOWdLOEYx?=
+ =?utf-8?B?Q3BPelQ1eW1qdFR0MytpbW12eEZjS2VpUWk3V2JwSkRwNFdFMmtxNmdhdW5s?=
+ =?utf-8?B?NGZWOW5xbzRWVS9HSzZrNTNGakl5RHYvRWI3cUc3MlY3L09DNlg0eEZtWk1Y?=
+ =?utf-8?B?dGc4OGtrNi9jRzVyM3I3RDNnN0Z2NXp6a1hSb3RkVk5kS1B2WFlsNjRmdGQx?=
+ =?utf-8?B?Y3d3Ym1ucVVHczhrdzZnZHF6R1E2bmlVdTNINVM4ejM3c0JVYVNVbDJObHdK?=
+ =?utf-8?B?T2pnZFZuaXJYOWQycFpCWHh3QVhtak1pQi9DNk1xNE5zd1IxUUdXV0dCOEJL?=
+ =?utf-8?B?cTUyZWxxWWx2alRsb2VDcEU1bTA5bkhJb0tHOVExWXZkRmhCMnE1YWUyNGZH?=
+ =?utf-8?B?MFVFREhXZlNmWFFtM2prTmpPUE5jODV3RkdYNkVZRGhvRkV2aFkzNUkzVjIx?=
+ =?utf-8?B?cUZwcGlrM2ZUZWZMTmh4bitoT0VHN2tKUGpCMWRLNVF3dlVrcUVFdkdPRFpQ?=
+ =?utf-8?B?NEt6KzRjWTBic2xpNXlFM0Q1SllJcXdHaTdNYkRTalVDalZsbHdSMTBLRlpX?=
+ =?utf-8?B?L2ZjeUxVNW5rNmFsM1RPK21Oamc0MU16VzNQbFZEMjhSWHB4ZkFXcXpYZDBk?=
+ =?utf-8?B?Nmo2WHY4L2wzYkM2VmJpRHBvRGIxN3JzbGlOTTg0UEpKZUpXcW41RkZ5azdD?=
+ =?utf-8?B?cWpmaUJLK0VSRTlKYVJXUVNFTUdJRWNZTkJsYlhwSi9hTWllOGRkRWhwU0lT?=
+ =?utf-8?B?engvQWV4Ykd0LzFQaUd2cU5Hb3ZpVUVUWlFiNmhBNytOQkxtcHBiNWZYV0tE?=
+ =?utf-8?B?bnkrT3VJVy9DTEZJYjJwMVdjczEra2JSQmVCQ2MvbHRmbFl3V1Fsai9DU204?=
+ =?utf-8?B?c2JsOXFjLzFlYW5GNUFQU3FwdHZ1ai8wTkJqRVJVQjVXMGxXTlJnaU9HeFp3?=
+ =?utf-8?B?UnEwVHREYkZPU0taeFN1UmJwb0NzQ29ITGo2R3lXMGdoc0Y0WVpoWHpseU5k?=
+ =?utf-8?B?N2EwMWJBbVVUU0lWRTFoMUJRRGtSSHhDMjhua29yOXFhQk1kOFhia0ZwZjI4?=
+ =?utf-8?B?UC9lTXJBR29ETUY3aUQyc010K0h5SVFNZzcwbGVmRlY0dTJ1TDFTRmZMWVZY?=
+ =?utf-8?B?b1NrNm5hYXppZ3Y2T1UrM3RZU2JOY0hGWXZHZStqSW5iNUNpMHoyTjRKMFJ5?=
+ =?utf-8?B?NFRUTXpmcEJtTHM5MUV6S1FBUEJvN3FHWjF1VlMyT0pRNmg0aWJDZFFXOHc5?=
+ =?utf-8?B?T25DSXVkVUhwaXMrSmhpM0c4OUNVejJmR3E4eDZBOWNRWmI1WS9SWi9waW5x?=
+ =?utf-8?B?UXRSdHd2UE5CS2dVcVRYZEpFOXg4Rmlha3NDNVMrU0dTVTYwbFI4dWpZRXRz?=
+ =?utf-8?B?MDVEL1FleEFRSlJ0S3ExSGdYOU9aUlhjL0tIN1ZqbE5UMWw5K2JGSmNWUFd6?=
+ =?utf-8?B?cjljL2pxVVdjLzhTWHFudHRGV0NHUzdYSldqWlZGYUZHRjJ6dG1rdUlTTDBL?=
+ =?utf-8?B?OThrVVRLT1FRVE9CdkJnVTM1MkJoYjJrWDhKcFg2Y2dFcHUvRFZ1SmFmWG9k?=
+ =?utf-8?Q?2h48eyo7BOGZOXkRbOdCvOvsb?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62015e23-db6d-4659-115a-08de1827bf4e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 842ef8ad-67ef-4183-2130-08de1827ef84
 X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 02:46:52.7053 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 02:48:13.6080 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m5653pLdeo7DWVsdGtBHny6A4ffZJlexg3nzSC7xfffNqCQH/+LDZ6YPg+hfRmXqbccQqQjJtcOWKQBhEjxaAw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xegwyx4iWxZXZtM/hczWxbIC23/w5Mu3Z0vhRKzzQBRyHs7SZCc5m5gjsvMVHXBrbHHyLO0242D0XdGIQ3JnOQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4046
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -162,35 +163,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------2iEcclunxtYTxG8Ct5TeP1J4
+--------------CWCQY0VHsmxu4FdUBDZB7jnv
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/30/2025 11:05 PM, Kuehling, Felix wrote:
+On 10/30/2025 11:53 PM, Chen, Xiaogang wrote:
 
-> On 2025-10-29 23:45, Zhu Lingshan wrote:
+>
+> On 10/29/2025 10:45 PM, Zhu Lingshan wrote:
 >> The pasid is a per-process-per-device attribute,
 >> therefore this commit implements per
 >> struct kfd_process_device->pasid in sysfs
->
-> Does anyone in user mode actually need this PASID? When we changed the
-> PASID allocation to be per-process-device, we changed a bunch of our
-> dmesg logging (and I think debugfs files, too) to report PIDs instead
-> of PASIDs. So there should be no good reason to know PASIDs in user mode. 
+> This per device pasid is used internally in kfd, not used at user
+> space. So no need to exposing it. 
 
-Hello Felix,
-
-This patch is to fix current buggy pasid in sysfs which is hard-coded 0,
-if we don't need to expose pasid to user space, I think we should remove it from sysfs.
+current sysfs implementation exposing PASID to user space, but buggy value 0, this commit
+intends to fix this issue.
 
 Thanks
 Lingshan
 
->
-> Regards,
->   Felix
->
->
 >>
 >> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 >> ---
@@ -216,6 +208,8 @@ Lingshan
 >>       struct kobject *kobj;
 >>       struct kobject *kobj_queues;
 >> -    struct attribute attr_pasid;
+> We keep it to have use space tools(ex rocm-smi) work as the tools
+> still read it before they change.
 >>         /* Keep track cwsr init */
 >>       bool has_cwsr;
 >> @@ -1100,12 +1101,6 @@ void
@@ -227,6 +221,7 @@ Lingshan
 >> -void kfd_pasid_exit(void);
 >> -u32 kfd_pasid_alloc(void);
 >> -void kfd_pasid_free(u32 pasid);
+> This part is right, these declarations were forgotten to remove.
 >> -
 >>   /* Doorbells */
 >>   size_t kfd_doorbell_process_slice(struct kfd_dev *kfd);
@@ -244,6 +239,13 @@ Lingshan
 >>   {
 >> -    if (strcmp(attr->name, "pasid") == 0)
 >> -        return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
+>
+> Same as above we keep it to have compatibility with current tools.
+>
+>  Regards
+>
+> Xiaogang
+>
 >> -    else if (strncmp(attr->name, "vram_", 5) == 0) {
 >> +    if (strncmp(attr->name, "pasid_", 6) == 0) {
 >> +        struct kfd_process_device *pdd = container_of(attr, struct
@@ -303,7 +305,7 @@ Lingshan
 >> +        sysfs_remove_file(p->kobj, &pdd->attr_pasid);
 >>             sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
 >>           if (pdd->dev->kfd2kgd->get_cu_occupancy)
---------------2iEcclunxtYTxG8Ct5TeP1J4
+--------------CWCQY0VHsmxu4FdUBDZB7jnv
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -311,9 +313,10 @@ Content-Transfer-Encoding: 8bit
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    <pre>On 10/30/2025 11:05 PM, Kuehling, Felix wrote:</pre>
-    <blockquote type="cite" cite="mid:24133b30-07bb-4ff3-923f-02d5a421fab6@amd.com">On
-      2025-10-29 23:45, Zhu Lingshan wrote:
+    <pre>On 10/30/2025 11:53 PM, Chen, Xiaogang wrote:</pre>
+    <blockquote type="cite" cite="mid:050ba477-c7d5-4420-8f06-6fce0db48726@amd.com">
+      <br>
+      On 10/29/2025 10:45 PM, Zhu Lingshan wrote:
       <br>
       <blockquote type="cite">The pasid is a per-process-per-device
         attribute,
@@ -323,27 +326,15 @@ Content-Transfer-Encoding: 8bit
         struct kfd_process_device-&gt;pasid in sysfs
         <br>
       </blockquote>
-      <br>
-      Does anyone in user mode actually need this PASID? When we changed
-      the PASID allocation to be per-process-device, we changed a bunch
-      of our dmesg logging (and I think debugfs files, too) to report
-      PIDs instead of PASIDs. So there should be no good reason to know
-      PASIDs in user mode.&nbsp;<br>
+      This per device pasid is used internally in kfd, not used at user
+      space. So no need to exposing it.&nbsp;<br>
     </blockquote>
-    <pre>Hello Felix,
-
-This patch is to fix current buggy pasid in sysfs which is hard-coded 0,
-if we don't need to expose pasid to user space, I think we should remove it from sysfs.
+    <pre>current sysfs implementation exposing PASID to user space, but buggy value 0, this commit
+intends to fix this issue.
 
 Thanks
 Lingshan</pre>
-    <blockquote type="cite" cite="mid:24133b30-07bb-4ff3-923f-02d5a421fab6@amd.com"><br>
-      Regards,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
+    <blockquote type="cite" cite="mid:050ba477-c7d5-4420-8f06-6fce0db48726@amd.com">
       <blockquote type="cite">
         <br>
         Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
@@ -392,7 +383,11 @@ Lingshan</pre>
         <br>
         -&nbsp;&nbsp;&nbsp; struct attribute attr_pasid;
         <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Keep track cwsr init */
+      </blockquote>
+      We keep it to have use space tools(ex rocm-smi) work as the tools
+      still read it before they change.
+      <br>
+      <blockquote type="cite">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Keep track cwsr init */
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool has_cwsr;
         <br>
@@ -415,7 +410,10 @@ Lingshan</pre>
         <br>
         -void kfd_pasid_free(u32 pasid);
         <br>
-        -
+      </blockquote>
+      This part is right, these declarations were forgotten to remove.
+      <br>
+      <blockquote type="cite">-
         <br>
         &nbsp; /* Doorbells */
         <br>
@@ -446,7 +444,19 @@ Lingshan</pre>
         <br>
         -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buffer, PAGE_SIZE, &quot;%d\n&quot;, 0);
         <br>
-        -&nbsp;&nbsp;&nbsp; else if (strncmp(attr-&gt;name, &quot;vram_&quot;, 5) == 0) {
+      </blockquote>
+      <br>
+      Same as above we keep it to have compatibility with current tools.
+      <br>
+      <br>
+      &nbsp;Regards
+      <br>
+      <br>
+      Xiaogang
+      <br>
+      <br>
+      <blockquote type="cite">-&nbsp;&nbsp;&nbsp; else if (strncmp(attr-&gt;name,
+        &quot;vram_&quot;, 5) == 0) {
         <br>
         +&nbsp;&nbsp;&nbsp; if (strncmp(attr-&gt;name, &quot;pasid_&quot;, 6) == 0) {
         <br>
@@ -565,4 +575,4 @@ Lingshan</pre>
   </body>
 </html>
 
---------------2iEcclunxtYTxG8Ct5TeP1J4--
+--------------CWCQY0VHsmxu4FdUBDZB7jnv--
