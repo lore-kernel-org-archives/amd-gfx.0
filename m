@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C93CCF9FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 12:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8464CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 13:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEB9810E2C9;
-	Fri, 31 Oct 2025 12:59:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4486E10EB51;
+	Fri, 31 Oct 2025 13:05:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HCQqu2NB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OuWmANOx";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D347810E2C9
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 12:59:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E20C510EB32;
+ Fri, 31 Oct 2025 13:05:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8FB2543A89;
- Fri, 31 Oct 2025 12:59:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 194ACC4CEE7;
- Fri, 31 Oct 2025 12:59:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A4787440E4;
+ Fri, 31 Oct 2025 13:05:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5338C4CEE7;
+ Fri, 31 Oct 2025 13:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761915562;
- bh=2+bKvseDzlU36uPI8SuBPsdfoSIchUIH5Tb8M5x+liY=;
+ s=k20201202; t=1761915927;
+ bh=d2k8BDYCwAf8v+dGV9tcaTrmfQ4UjRPuay0/M32F87w=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=HCQqu2NB90CiAEyDrlG8X166iR3B+sOyQmtrauNs38QgAkF6FB5OevnBZNWv0ripc
- MiEVKWvMy+cEbuUhWv68XR5F1qPqDRpri6A5WCBfLAR+aD9hpFeuQcy59uJYrtwHT6
- F+lfc56CMB4W1OemxX+rv6u8la1oFTfwFcNwdP25IGh7YIiiGWLr+Ba62XdEZL90oP
- azjyNMFFbrfrJVw4fCzX8JH0oBH0WxU5hQZTBpcNaj5AKYp7e6T1aQL5KDh6HbFNJ5
- vtYoRzFuxNJXIviSemsrHzZPVGtaPkDH57VtQC0ERHPFUga29825L+wOU3TG+yacDJ
- dtxLo1RDJ40rA==
-Message-ID: <b8cab278-fe8d-4edf-a951-ab1b1128be79@kernel.org>
-Date: Fri, 31 Oct 2025 07:59:21 -0500
+ b=OuWmANOxQyavr2OndYJ4s3kbVDHfKfszLhmIgVZKhHzwjBDqzGTubQ2YBAqu1rGxT
+ urxkoJBdqH1PYxSlKvzMPdcgEtBKR5biV0TAQIWLQKobGNrpYa/Dv1F14VthpK/dlJ
+ eObnmE2o8jK0A6/AHnHwrLoI1CzA1Qo1NnO4e2Vu43c0wNGKDUK5wmEDalNoWlv94l
+ mhcbnmHRPH44Us/d4K2hu6TErPnmo17QZLj2rzxcpcgPL4GTRlPSJOPq7kT9LO4GiP
+ CnzKCaxWN71vt8Z6SZtqm8kkeV0N72WKRzfjCih97B2qpiYqvZTsgLeSIncB+GsXFA
+ ZVa5oSOiGoo5w==
+Message-ID: <a10c7757-567d-4312-b72d-159ab0c41ece@kernel.org>
+Date: Fri, 31 Oct 2025 08:05:26 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/5] drm/amdgpu: Drop PMFW RLC notifier from
- amdgpu_device_suspend()
-To: Antheas Kapenekakis <lkml@antheas.dev>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-References: <20251026042942.549389-1-superm1@kernel.org>
- <20251026042942.549389-2-superm1@kernel.org>
- <CAGwozwHcbfct6REgHA1fb3rLFiNrpcb4nek+FYP7np15Laibng@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] platform/x86/amd/pmc: Add support for Van Gogh SoC
+To: Antheas Kapenekakis <lkml@antheas.dev>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Perry Yuan <perry.yuan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+References: <20251024152152.3981721-1-lkml@antheas.dev>
+ <20251024152152.3981721-2-lkml@antheas.dev>
 Content-Language: en-US
 From: "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-In-Reply-To: <CAGwozwHcbfct6REgHA1fb3rLFiNrpcb4nek+FYP7np15Laibng@mail.gmail.com>
+In-Reply-To: <20251024152152.3981721-2-lkml@antheas.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,112 +63,66 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 10/31/2025 7:01 AM, Antheas Kapenekakis wrote:
-> On Sun, 26 Oct 2025 at 05:30, Mario Limonciello (AMD)
-> <superm1@kernel.org> wrote:
->>
->> From: Alex Deucher <alexander.deucher@amd.com>
->>
->> For S3 on vangogh, PMFW needs to be notified before the
->> driver powers down RLC.  This already happens in smu_disable_dpms()
->> so drop the superfluous call in amdgpu_device_suspend().
->>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Co-developed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+On 10/24/2025 10:21 AM, Antheas Kapenekakis wrote:
+> The ROG Xbox Ally (non-X) SoC features a similar architecture to the
+> Steam Deck. While the Steam Deck supports S3 (s2idle causes a crash),
+> this support was dropped by the Xbox Ally which only S0ix suspend.
 > 
-> Just for this patch:
+> Since the handler is missing here, this causes the device to not suspend
+> and the AMD GPU driver to crash while trying to resume afterwards due to
+> a power hang.
 > 
-> Tested-by: Antheas Kapenekakis <lkml@antheas.dev>
-> 
-> If the subject is refactored to take into account that it fixes sleep add:
-> #Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4659
-> #Reported-by: Antheas Kapenekakis <lkml@antheas.dev>
-> 
-> Tested on a Steam Deck OLED and Xbox Ally.
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4659
+> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
 
-Thanks for checking.  This series is already merged so too late for 
-tags.  But I'll add your tags to the other patch.
+Having seen that a few things were tried for the idle mask which don't 
+work I think this patch makes sense as is.
 
-> 
-> @Mario: For my series, can you have a look at the first two patches
-> and if they are ok push forward with merging? Also, reminder for the
-> Legion Go 2 quirk.
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-I'll look at the two platform-x86 ones again and leave comments if 
-necessary.
-
+> ---
+>   drivers/platform/x86/amd/pmc/pmc.c | 3 +++
+>   drivers/platform/x86/amd/pmc/pmc.h | 1 +
+>   2 files changed, 4 insertions(+)
 > 
-> Best,
-> Antheas
-> 
->> ---
->> Cc: lkml@antheas.dev
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 ----
->>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c        | 18 ------------------
->>   drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  2 --
->>   3 files changed, 24 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index b8d91247f51a..f6850b86e96f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -5280,10 +5280,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
->>          if (amdgpu_sriov_vf(adev))
->>                  amdgpu_virt_release_full_gpu(adev, false);
->>
->> -       r = amdgpu_dpm_notify_rlc_state(adev, false);
->> -       if (r)
->> -               return r;
->> -
->>          return 0;
->>   }
->>
->> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->> index 5d08dc3b7110..5c4d0eb198c4 100644
->> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
->> @@ -195,24 +195,6 @@ int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
->>          return ret;
->>   }
->>
->> -int amdgpu_dpm_notify_rlc_state(struct amdgpu_device *adev, bool en)
->> -{
->> -       int ret = 0;
->> -       const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
->> -
->> -       if (pp_funcs && pp_funcs->notify_rlc_state) {
->> -               mutex_lock(&adev->pm.mutex);
->> -
->> -               ret = pp_funcs->notify_rlc_state(
->> -                               adev->powerplay.pp_handle,
->> -                               en);
->> -
->> -               mutex_unlock(&adev->pm.mutex);
->> -       }
->> -
->> -       return ret;
->> -}
->> -
->>   int amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
->>   {
->>          const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
->> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->> index 3bce74f8bb0a..c7ea29385682 100644
->> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
->> @@ -424,8 +424,6 @@ int amdgpu_dpm_mode1_reset(struct amdgpu_device *adev);
->>   int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
->>                               enum pp_mp1_state mp1_state);
->>
->> -int amdgpu_dpm_notify_rlc_state(struct amdgpu_device *adev, bool en);
->> -
->>   int amdgpu_dpm_set_gfx_power_up_by_imu(struct amdgpu_device *adev);
->>
->>   int amdgpu_dpm_baco_exit(struct amdgpu_device *adev);
->> --
->> 2.51.1
->>
->>
-> 
+> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+> index bd318fd02ccf..cae3fcafd4d7 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc.c
+> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> @@ -106,6 +106,7 @@ static void amd_pmc_get_ip_info(struct amd_pmc_dev *dev)
+>   	switch (dev->cpu_id) {
+>   	case AMD_CPU_ID_PCO:
+>   	case AMD_CPU_ID_RN:
+> +	case AMD_CPU_ID_VG:
+>   	case AMD_CPU_ID_YC:
+>   	case AMD_CPU_ID_CB:
+>   		dev->num_ips = 12;
+> @@ -517,6 +518,7 @@ static int amd_pmc_get_os_hint(struct amd_pmc_dev *dev)
+>   	case AMD_CPU_ID_PCO:
+>   		return MSG_OS_HINT_PCO;
+>   	case AMD_CPU_ID_RN:
+> +	case AMD_CPU_ID_VG:
+>   	case AMD_CPU_ID_YC:
+>   	case AMD_CPU_ID_CB:
+>   	case AMD_CPU_ID_PS:
+> @@ -717,6 +719,7 @@ static const struct pci_device_id pmc_pci_ids[] = {
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_RV) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SP) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SHP) },
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_VG) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_1AH_M20H_ROOT) },
+>   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_1AH_M60H_ROOT) },
+>   	{ }
+> diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/platform/x86/amd/pmc/pmc.h
+> index 62f3e51020fd..fe3f53eb5955 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc.h
+> +++ b/drivers/platform/x86/amd/pmc/pmc.h
+> @@ -156,6 +156,7 @@ void amd_mp2_stb_deinit(struct amd_pmc_dev *dev);
+>   #define AMD_CPU_ID_RN			0x1630
+>   #define AMD_CPU_ID_PCO			AMD_CPU_ID_RV
+>   #define AMD_CPU_ID_CZN			AMD_CPU_ID_RN
+> +#define AMD_CPU_ID_VG			0x1645
+>   #define AMD_CPU_ID_YC			0x14B5
+>   #define AMD_CPU_ID_CB			0x14D8
+>   #define AMD_CPU_ID_PS			0x14E8
 
