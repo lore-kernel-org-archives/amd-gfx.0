@@ -4,116 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F76CCF9FA
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 10:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBE32CCF9FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 10:31:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA54C10EAF1;
-	Fri, 31 Oct 2025 10:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E17C310EAFD;
+	Fri, 31 Oct 2025 10:31:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="U1jDAkWW";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="zNnC6PZJ";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5FBA10EAF1;
- Fri, 31 Oct 2025 10:15:48 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 4443BC0E950;
- Fri, 31 Oct 2025 10:15:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 9AC3760704;
- Fri, 31 Oct 2025 10:15:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id ECE111181125C; Fri, 31 Oct 2025 11:15:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1761905745; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references:autocrypt;
- bh=P+BvVQmBo0x0261tII52+BfsyF8fWG45YVeYsKFS7u0=;
- b=U1jDAkWWSrqi7CaYy502yh8Ru7VKQqjxiVH3yV71Tt8Elt68YcZMjftr/M0nsTbxBLbafc
- tYiWvuO/fDs4Gkb4/24SqbZ5EaGvOwTkcxu/MT6M3MUKPPw568NhOlPh4bNaw7sRBIi/rt
- FB6JbsGjHSw/YeguoKrPmkK3bnPuXgW2IP9ifGMjkcUW/BbLJ8ZavyCPfOgeI1z1qC8Lb+
- eJK3aQSOVRGD2xEltsTnPz0/VdbY/Lbz0NS3IhtRC+AZRPPdCHJStDnrUPcdNEEJm0Uot6
- gUJIOxDFIMl1iZ8P+ABiSgTD/ZbOuM7DAdSqUcefrelut23AAifSP3N083tgrA==
-Message-ID: <b81cdad9-69b9-48a9-a5bf-e5edde184c3b@bootlin.com>
-Date: Fri, 31 Oct 2025 11:15:33 +0100
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E5C010EAFD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 10:31:15 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-47117f92e32so17732975e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 03:31:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1761906674; x=1762511474;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VhcnVvzJq68ilvvMTuG3wnPWe1CR75mTZqdNC0fv3Ds=;
+ b=zNnC6PZJdR5O6sWDN5kur+Bqjtlx3ZiwwfJDr/I+xZNoIUa9/qJZ4bhtH/peW2ugIJ
+ pY1l+7h8NG4f/x9m7xjMtO+GSeVwcr1zZpNadVL6QtEyF2HFEk5Su3dDtGbi1Q5BzvXo
+ lhNkDDn82YK81QmXBZF3yiQVBglhZqmeF/1wrJJ4IEOflQVcFfNSkWqB0oScBkp8qVYD
+ YDj4JHlptL4ImtZDg2J8Ne1LjW1g6PG+jfTp3XTHTwdOi4cP1zj7H+/iBuOGAgzJgEaq
+ FckUXQI5e7wWYVJmIU4uJk2JDQppefKHU0RZj0VV8gbDlnzqEtRtqByTCPIvJHcV8xuv
+ qHcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761906674; x=1762511474;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VhcnVvzJq68ilvvMTuG3wnPWe1CR75mTZqdNC0fv3Ds=;
+ b=FkRRomlxSTg+b5bJrAyInYkhG8JB1UQawNONxqHrEZp3pHgVBtbNUZetxcSIDvMhnE
+ 94gS1dyZkKRpRj9oJrvTKrp8Pwsj36kKiDA3AIRTfKRJl+M+8SebMk42QhFeOkqXV4wj
+ sHi5FAqwXeOETWnTfDX/dDTiYfY7MGTzv6u1PZQRS2x3CQGFbB7ysL5W+62iQN8TFXiL
+ 84yyT7OSpJY5xqL6f8jXIremz8W4HVDF2jxby8VBMYnY+FfgNcFSjVfNHa3CD+ceR9Ky
+ F1Wjl8m7m64LPgvueG+MOcu2Yx/FQfC0uxn9uWhpibvqxfAWzvBMG+U+pE5QVkP3Apbi
+ 8SmA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU4lDLnTIg761gmqhuQnJnAh5ROE4uhhTICFrM7IQIgSTPUamVN2QJ+yFk3QV93+SJOrf2LP9Eb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfkCwuo/SP0jQZpjLFULUmvcGhUVB04rgTASEkAmOl8ShYBt4g
+ nBFtF6/7IlwC2wziR09759QVV7GHQ2q4jQAuTow4nwsaQffkmh0VJxDRdGi2vxEpY06Rpsb5ou2
+ t5IEa
+X-Gm-Gg: ASbGncvFOgFjZ8UFJ7hqPNS6CcIWGXuPCMUURQT3NZfalkcNhIHh5mdWfIYbOCzBe8L
+ L9oRMANnBdo0uoar6sK+PL4u8rtDGVBu573iuJi/CCHN3MVMGqUTTzpzMkvISt7vRA9wxqXlC95
+ goqtMtHxupYpadCjqcw+zDGE8MTQH/WSnnxcXorF+LAZkTYbyJDCHFTDsic7Z4BYnyC0dvQI3k1
+ SXXBLzLEE51kWaKFYvfj3fxrr2yH/TF7kRtLqmPBpNviPO1MJ2GzYNEE4FnaTLymjcfg0+Fwt+p
+ jlIk5TSfmulJc478nVj6IQz+RZDIRwYitnGKlvEsNve7Q2RCK/peDh728ksesP77NEogSb9oVZ7
+ bHYvZoJeftv9q+AwDcrxlPzF3efigIncHYLpu5eFTkbaYd+NwmoKbxqrds+h7IOuvXBQpzJCKwD
+ oQ7ULk7sKYqJ59v9C74TuTWQsfuI6UsdxtPBW3Xg==
+X-Google-Smtp-Source: AGHT+IEIbGGCqAyV8kfxEvh7yWfs4ZITibZGz+4agh6fbSFoyf4TYw9NJs5xeOEJ6o1aHIlHuiIEVQ==
+X-Received: by 2002:a05:600c:4e53:b0:46e:37fc:def0 with SMTP id
+ 5b1f17b1804b1-477307c2112mr25573195e9.9.1761906673778; 
+ Fri, 31 Oct 2025 03:31:13 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47728a97a1dsm80777585e9.12.2025.10.31.03.31.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 31 Oct 2025 03:31:13 -0700 (PDT)
+Message-ID: <3a707692-01eb-44cd-93df-cf93f9bad90d@ursulin.net>
+Date: Fri, 31 Oct 2025 10:31:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V12 14/49] drm/vkms: Add enumerated 1D curve colorop
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
- mcanal@igalia.com, nfraprado@collabora.com, arthurgrillo@riseup.net,
- Daniel Stone <daniels@collabora.com>
-References: <20251030034349.2309829-1-alex.hung@amd.com>
- <20251030034349.2309829-15-alex.hung@amd.com>
- <cfdc46fd-2a02-45ed-a752-25ea5a46b52a@bootlin.com>
- <41e6da0a-7f06-40b0-8e8b-ce2699fde760@amd.com>
-Content-Language: en-US, fr
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
- 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
-In-Reply-To: <41e6da0a-7f06-40b0-8e8b-ce2699fde760@amd.com>
+Subject: Re: [PATCH 04/15] dma-buf: detach fence ops on signal
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20251013143502.1655-1-christian.koenig@amd.com>
+ <20251013143502.1655-5-christian.koenig@amd.com>
+ <d5ea9ed0-d599-4b9f-92c8-a2e711371017@ursulin.net>
+ <23bafbad-fcc9-4baa-9bd5-d4ea37c397f3@ursulin.net>
+ <b723d1b8-1634-4c2a-a752-90ce75566890@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <b723d1b8-1634-4c2a-a752-90ce75566890@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,67 +98,197 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-Le 31/10/2025 à 01:04, Alex Hung a écrit :
+On 30/10/2025 13:52, Christian König wrote:
+> Hi Tvrtko,
 > 
-> 
-> On 10/30/25 08:50, Louis Chauvet wrote:
+> On 10/16/25 17:57, Tvrtko Ursulin wrote:
+>> On 16/10/2025 09:56, Tvrtko Ursulin wrote:
+>>>
+>>> On 13/10/2025 14:48, Christian König wrote:
+>>>> When neither a release nor a wait operation is specified it is possible
+>>>> to let the dma_fence live on independent of the module who issued it.
+>>>>
+>>>> This makes it possible to unload drivers and only wait for all their
+>>>> fences to signal.
+>>>
+>>> Have you looked at whether the requirement to not have the release and wait callbacks will exclude some drivers from being able to benefit from this?
 >>
->> This patch LGTM, but can you add the [1] (preparatory patch to reduce
->> the diff in this patch) and [2] (fixup to this patch, add a module
->> parameter to enable/disable the pipeline and disable it by default for
->> configfs devices) so it will make it easier to implement configfs for
->> color pipeline without breaking uAPI?
+>> I had a browse and this seems to be the situation:
+> 
+> Oh, thanks a lot for doing that!
+> 
 >>
->> [1]:https://paste.sr.ht/~fomys/16118ef2b5604226a7607db8a41941a27a43f168
->> [2]:https://paste.sr.ht/~fomys/a98191b09ff7290dc6768bf7d54e789984cd3250
+>> Custom .wait:
+>>   - radeon, qxl, nouveau, i915
 >>
->> With those patches: Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>> Those would therefore still be vulnerable to the unbind->unload sequence. Actually not sure about qxl, but other three are PCI so in theory at least. I915 at least supports unbind and unload.
+> 
+> radeon, yeah I know that is because of the reset handling there. Not going to change and as maintainer I honestly don't care.
+> 
+> qxl, pretty outdated as well and probably not worth fixing it.
+> 
+> nouveau, no idea why that is there in the first place. Philip?
+> 
+> i915, that is really surprising. What is the reason for that?
+
+I915 has some optimisations on the wait path like a short busy spin 
+before going to sleep (under limited conditions) and a way to kick the 
+hardware to improve the latencies caused by irq and softirq processing.
+
+But another one, and probably the most important one, is "wait boosting" 
+ie. raising GPU clocks if userspace is waiting on a specific GPU job. 
+This was a significant win for some workloads in the past.
+
+I tried to move this to generic code long time ago but AFAIR dma-fence 
+64B size was a concern. Perhaps now that we are thinking of breaking 
+that size barrier we could revisit. Let me try to find this work..
+
+Right, it was this: https://patchwork.freedesktop.org/series/113846/
+
+Executive summary would be: Allowing dma-fence owning drivers to see 
+when userspace is waiting on a specific fence.
+
+Longer story was an OpenCL application (IIRC a video conference 
+background blurring thingy) and a tale of two OpenCL stacks.
+
+The native Intel OpenCL library uses the i915 ioctls. So when it would 
+wait on a kernel to complete it would get the waitboost logic courtesy 
+of using the i915 wait ioctl.
+
+But then the same application running on the clvk stack would run much, 
+much slower, because the waits in that case are going via the DRM 
+syncobj route and i915 could not know to waitboost.
+
+And the duration and time distribution of these jobs was such that 
+hardware/firmware would not be ramping up the GPU clocks fast enough 
+without this external "someone is waiting, hurry up" signal.
+
+It may be worth to revisit this story if we are growing the dma-fence 
+struct anyway. With my changes drivers could then choose whether to do 
+anything with this info or not. Because it is essentially only allowing 
+drivers to see if someone is waiting.
+
+Or an alternative option would be to call a new fence ops vfunc from the 
+generic dma fence wait before going to sleep (with the number of 
+waiters), and after. But I would need to think more about this, to see 
+if it could potentially allow at least i915 to drop the custom wait 
+callback.
+>> Custom .release:
+>>   - vgem, nouveau, lima, pvr, i915, usb-gadget, industrialio, etnaviv, xe
 >>
->> Thanks a lot for your series!
+>> Out of those there do not actually need a custom release and could probably be weaned off it:
+>>   - usb-gadget, industrialio, etnaviv, xe
+>>
+>> (Xe would lose a debug assert and some would have their kfrees replaced with kfree_rcu. Plus build time asserts added the struct dma-fence remains first in the respective driver structs. It sounds feasible.)
 > 
-> Hi Louis,
+> Oh, crap! Using kfree_rcu for dma_fences is an absolutely must have!
 > 
-> Thanks for reviewing.
+> Where have you seen that? This is obviously a bug in the drivers doing that.
+
+Industrialio and usb-gadget use a plain kfree. But both looks easily 
+fixable by just making sure dma-fence is first in the inherited object 
+and then the custom release can be dropped.
+
+Etnaviv and xe aren't broken, they use some variant of RCU, but could 
+probably be weaned of the custom release easily. Especially etnaviv.
+
+>> That would leave us with .release in:
+>>   - vgem, nouveau, lima, pvr, i915
+>>
+>> Combined list of custom .wait + .release:
+>>   - radeon, qxl, nouveau, i915, lima, pvr, vgem
+>>
+>>  From those the ones which support unbind and module unload would remain potentially vulnerable to use after free.
+>>
+>> It doesn't sound great to only solve it partially but maybe it is a reasonable next step. Where could we go from there to solve it for everyone?
+> Well I only see the way of getting rid of the legacy stuff (like ->wait callbacks) for everybody who cares about their module unload.
 > 
-> Do you want to add these patch on top of this patch as below?
+> But I'm pretty sure that for things like radeon and qxl we don't care.
+
+Yeah, I agree the proposal moves into making things better. I would 
+incorporate some of the above easily fixable drivers into the series, 
+and the ones with known unresolved issues just list them in the cover 
+letter.
+
+Regards,
+
+Tvrtko
+
+>>>> ---
+>>>>    drivers/dma-buf/dma-fence.c | 16 ++++++++++++----
+>>>>    include/linux/dma-fence.h   |  4 ++--
+>>>>    2 files changed, 14 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>>>> index 982f2b2a62c0..39f73edf3a33 100644
+>>>> --- a/drivers/dma-buf/dma-fence.c
+>>>> +++ b/drivers/dma-buf/dma-fence.c
+>>>> @@ -374,6 +374,14 @@ int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>>>>                          &fence->flags)))
+>>>>            return -EINVAL;
+>>>> +    /*
+>>>> +     * When neither a release nor a wait operation is specified set the ops
+>>>> +     * pointer to NULL to allow the fence structure to become independent
+>>>> +     * who originally issued it.
+>>>> +     */
+>>>> +    if (!fence->ops->release && !fence->ops->wait)
+>>>> +        RCU_INIT_POINTER(fence->ops, NULL);
+>>>> +
+>>>>        /* Stash the cb_list before replacing it with the timestamp */
+>>>>        list_replace(&fence->cb_list, &cb_list);
+>>>> @@ -513,7 +521,7 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
+>>>>        rcu_read_lock();
+>>>>        ops = rcu_dereference(fence->ops);
+>>>>        trace_dma_fence_wait_start(fence);
+>>>> -    if (ops->wait) {
+>>>> +    if (ops && ops->wait) {
+>>>>            /*
+>>>>             * Implementing the wait ops is deprecated and not supported for
+>>>>             * issuer independent fences, so it is ok to use the ops outside
+>>>> @@ -578,7 +586,7 @@ void dma_fence_release(struct kref *kref)
+>>>>        }
+>>>>        ops = rcu_dereference(fence->ops);
+>>>> -    if (ops->release)
+>>>> +    if (ops && ops->release)
+>>>>            ops->release(fence);
+>>>>        else
+>>>>            dma_fence_free(fence);
+>>>> @@ -614,7 +622,7 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+>>>>        rcu_read_lock();
+>>>>        ops = rcu_dereference(fence->ops);
+>>>> -    if (!was_set && ops->enable_signaling) {
+>>>> +    if (!was_set && ops && ops->enable_signaling) {
+>>>>            trace_dma_fence_enable_signal(fence);
+>>>>            if (!ops->enable_signaling(fence)) {
+>>>> @@ -1000,7 +1008,7 @@ void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+>>>>        rcu_read_lock();
+>>>>        ops = rcu_dereference(fence->ops);
+>>>> -    if (ops->set_deadline && !dma_fence_is_signaled(fence))
+>>>> +    if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+>>>>            ops->set_deadline(fence, deadline);
+>>>>        rcu_read_unlock();
+>>>>    }
+>>>> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+>>>> index 38421a0c7c5b..e1ba1d53de88 100644
+>>>> --- a/include/linux/dma-fence.h
+>>>> +++ b/include/linux/dma-fence.h
+>>>> @@ -425,7 +425,7 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+>>>>        rcu_read_lock();
+>>>>        ops = rcu_dereference(fence->ops);
+>>>> -    if (ops->signaled && ops->signaled(fence)) {
+>>>> +    if (ops && ops->signaled && ops->signaled(fence)) {
+>>>>            rcu_read_unlock();
+>>>>            dma_fence_signal_locked(fence);
+>>>>            return true;
+>>>> @@ -461,7 +461,7 @@ dma_fence_is_signaled(struct dma_fence *fence)
+>>>>        rcu_read_lock();
+>>>>        ops = rcu_dereference(fence->ops);
+>>>> -    if (ops->signaled && ops->signaled(fence)) {
+>>>> +    if (ops && ops->signaled && ops->signaled(fence)) {
+>>>>            rcu_read_unlock();
+>>>>            dma_fence_signal(fence);
+>>>>            return true;
+>>>
+>>
 > 
->     e1c34c68dc33 fixup! drm/vkms: Add enumerated 1D curve colorop
->     68251534ebd1 drm/vkms: Pass plane_cfg to plane initialization
->     8160438be2b5 drm/vkms: Add enumerated 1D curve colorop
-> 
-> I noticed "fixup! drm/vkms: Add enumerated 1D curve colorop" has no
-> commit messages though.
-
-drm/vkms: Add config for default plane pipeline
-
-With the introduction of color pipeline in VKMS, the default device may 
-have planes with color pipelines. To avoid breaking existing uAPI, 
-create a kernel argument to disable them by default and a vkms_config 
-field to configure the plane.
-
-This field is not definitive and will be replaced once the uAPI will be 
-able to configure color pipelines. For now devices created with ConfigFS 
-will not have any color pipeline so we can decide later how the uAPI 
-will look like.
-
-> Or do you prefer them to squash them together?
-
-For me 68251534ebd1 is independent so keep it separate.
-
-But for e1c34c68dc33 I don't think this is important to squash or keep 
-them separate. You can do as you want.
-
-If you want to split it, I think you can put e1c34c68dc33 before 
-8160438be2b5 so you don't have to change the call to 
-vkms_initialize_colorops(&plane->base);.
-
-Thanks a lot,
-Louis Chauvet
-
--- 
---
-Louis Chauvet, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 
