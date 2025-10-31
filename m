@@ -4,151 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1222FCCF9FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:40:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7110DCCF9FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8405710EBB1;
-	Fri, 31 Oct 2025 14:40:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A58610EBCE;
+	Fri, 31 Oct 2025 14:41:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZG1WZboY";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XzjIeGGH";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011000.outbound.protection.outlook.com [40.107.208.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0563710EBB1
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 14:40:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a+4FJwrcFBVFlHobO2TmcfHfkg0jigyqO/GeJxUsdgfXRz+8nDlf0jQkxWBcVBlTnzQTYGMpwT2P5Bn/zQT92cf0rOUeJR4RBkQsvOJ5leKM+e15UYMf3U1vHP/Ai/PMEHa7ggFlh7Mr+qgnJ3q/6NdAw7drdIl6Mo2jbRoHpJwtp0U6nEENkHOXn+D/DEtnhAn1rSNYG9R3X6pKBEbmDk848qaRXMvJcLlyLfxT1AIBEstwkkztKPc21C9Rn1DKUBi6zzQz8hHj7o4YNBU2A2oDJU26vZdiVqM7wPHok7uHsCDSHtDt+Fy4I3iPNV9aQi3WjR9Ih5Hgyl0KHlNNaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oihb5wbWZ6jjgqToOTZVdIrdUHpkvsyBX42YdFhq+f4=;
- b=UuxAS1BSI4vji/JLcaHFGaLH8S+1imdu0s5a65vl2QWD5mvqTt+aaP6YPixHzahBcqz5d8BJMY2HxPKodFq8dZWGjIQ4PsZ0vCXgLx4bmUAi+l88I3RXTCoIBqAJPVV0JFmgUojN4wFpitWeJuTEelDWriXraVJOJgd0pVXp7ooy6J3J4e+buN9VBMjd4A0uEZ9mkIT5mqZUsE0HTDGh57ToMpVNw7dcy5rsWhTvWks04i+JV/XM2FkGW4JW1T7nRRrG/R9PiKJqO5rrt1QCUGt5kPuXNhfetw5XyymenofIm/PGxLQAI7qNCL8v8ROAN6DTIPWZtH1M4+DlL/92TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oihb5wbWZ6jjgqToOTZVdIrdUHpkvsyBX42YdFhq+f4=;
- b=ZG1WZboYQPiyvPE3pj22FaLTj2xiAQt5s8feE4sK4JBMktf9vqHhgfKu9lQNmVEUCd+OOgAjuFaxStbwkz0QUxouIIU2D8rhfWj8S06qMaqA+Hrqg+I+SR3lY+XQFwOXx1w0pC7uNdbAur8x0EVgkf02pYxTLSFsJ0fVJShBASw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- IA1PR12MB6308.namprd12.prod.outlook.com (2603:10b6:208:3e4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Fri, 31 Oct
- 2025 14:40:07 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.9275.013; Fri, 31 Oct 2025
- 14:40:07 +0000
-Content-Type: multipart/alternative;
- boundary="------------xCOXVk50aJYgvgjJ2xCsIsU5"
-Message-ID: <d2f42b51-3905-4274-be84-d4d086b4f072@amd.com>
-Date: Fri, 31 Oct 2025 09:40:05 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdkfd: implement per process/device pasid in sysfs
-To: "Zhu, Lingshan" <lingshan.zhu@amd.com>, felix.kuehling@amd.com,
- alexander.deucher@amd.com
-Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20251030034536.11356-1-lingshan.zhu@amd.com>
- <050ba477-c7d5-4420-8f06-6fce0db48726@amd.com>
- <89b6057a-ff21-46a2-951b-b96888f60b3d@amd.com>
-Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <89b6057a-ff21-46a2-951b-b96888f60b3d@amd.com>
-X-ClientProxiedBy: SA9PR13CA0149.namprd13.prod.outlook.com
- (2603:10b6:806:27::34) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14C2F10EBCE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 14:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=NVbsXkJs3dW1VuQ2T205z2bCs9A1J7Pw6T9ttayMvB4=; b=XzjIeGGH/B3nl5dgOpK8jDL5JV
+ hlQGIL2iG02kVI4zovK8xKKfqs55ZZOjOWCAyWCX1k9OP67xfhneBrKi6EvY8TtM4kOdYlVcS6cnF
+ JBpqSzhewARSulJmS0JP3BTIc1g/YRDg/pM21tJk/LdRR6iYMJIQFxUOCr8/u3aFfk0dGFIGsQa+j
+ +7N6UFxMlKRRGSq6KrAi+H66daJtbMWHGphLlkx0HrNcF0jS+uYqToEtRajh8Tcg2ZKtYA3pDCqLM
+ kEWG23laLFlGQy53bWWxlqBbDdFlpYJNMm8LfALuonZXJaFrwKeWOYFabaas2TGvcHHInZ6xlp/n7
+ LcIZJhrA==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1vEqJS-00HVgo-1d; Fri, 31 Oct 2025 15:41:10 +0100
+Message-ID: <8d920460-4174-4c2e-9064-f9611e72fec8@igalia.com>
+Date: Fri, 31 Oct 2025 14:41:09 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|IA1PR12MB6308:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdb2e6f6-aa61-423a-671a-08de188b62a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Tysrb2swT3JINjlUUVdIczkrSlZMYS84blIzRXBJbkZpWlluWmdhRTcwdW1M?=
- =?utf-8?B?QUhucXFScUhSQzkyUitzSUY0dVVpZ3d5MWhVZXgrbjg0S0lEdlRxR01ESVNH?=
- =?utf-8?B?WmtKTS93VUVDSFlXdGVEaWwxUnRaYlF1QVFGcWVaSDRvc2UxY0MyTzlUNlFM?=
- =?utf-8?B?Q2l3N3puY0RTbU9hdDdnc25LdThVbWNrRmtvRFpXQnFlM2xZUlhscisxWmYy?=
- =?utf-8?B?SHREM2hJaXFvVGNaQzkyYzMyMWVZU3E5TkdpVkM1c1h6T1ZodGYrUUFDNzVo?=
- =?utf-8?B?QlEyRzA4dC9XTThoZFRLMmhaOWlqYkZOeS9VNVlCaVZYeDVqNlI4ZTZlY0JH?=
- =?utf-8?B?NWo3UWVDZXpJVVU5TE0vMm9TMkVkOGpZeW1nUk5XVVJHbzF0UDlocDNpRDUr?=
- =?utf-8?B?eW9TRWtsU2dWVjR0WDVFWTZYTGJWMkoyMU9MMldtdlBSeWZwVjZPMDBrU0lz?=
- =?utf-8?B?MG1SclhidGhEaEs2Q2JkNEovZU9zRTFFQktIS2JTampTTTM3WHZhMVIyTndD?=
- =?utf-8?B?YXdaOFYvSlUvMElqMzlaSEFSMmJGU0tjNlVWYWRaU3RwenRTMWdmTDZ3YVUz?=
- =?utf-8?B?RENUWFJ2S0VpMUdhRitNU0d6ajg1Rk45M0FKNVVBaDVscm03bzd4SU5aQmZi?=
- =?utf-8?B?OUVQR2lPOHRWY1E0TGdUb2dKbnZPRlpVKzhqemQ1bzBWNCsvckF1cTlHamNh?=
- =?utf-8?B?WjFPY1BlR1oydmhPSFYzK1BKUHYvd3BMNDVQbVJpeDhxTmt4SlRMaURKWVNn?=
- =?utf-8?B?OWdjOW1MVm9YWHI5blRIZHhxa1ZYdGlrUm50WkdDaDdhR1N5NHZGT1VBdHVm?=
- =?utf-8?B?MjNVb2tQd1lBMnZhRk9WVXFGUWE3WEZaekI5ZXd2QWpRRHJYaXNqRnpicWFV?=
- =?utf-8?B?VXkyak9nODIyUmt0dGtqUy84QzFkZGJtVlIvRzBrMmZPajYyWG44Y0h4UkN2?=
- =?utf-8?B?SmxwR0lKNDJPdDdNUEFjZDRvMW1OTnZ2alNLTUZDcUpuamJyRjBoK2FnYlkx?=
- =?utf-8?B?QmFVY0hQOUV4L0ZvU1ZGZitwRERwY2JMbnE0bjBoemk2UVBYWnBoYnV2YkdF?=
- =?utf-8?B?UHYzMFk1bTY0TzVrWndTczlnTFpYVlQrS0wvS3FrNmg0ekFIcFFYQlhSMk5G?=
- =?utf-8?B?N0NFOThWWnhFWGlyRHI4ZEpkUmZjcG82dGt3WFhYLzU1QWhsQ1diaHIvR3Fs?=
- =?utf-8?B?UngvSzcvUEQxV1hCUnN3QTNqR0NROGhXakZVS0dWOWowN0pYUllZcVluR2tC?=
- =?utf-8?B?OFhBY0JBWWZqRmNnTEwzZGtVYk1nVVNpNnlUY3VsakxIa2tjYVFZeUdDUm1y?=
- =?utf-8?B?dmo5Zk5mNmZqYXYxUndwTlI0NWJOb2lVNXB3bEJ2dnMrQTNMRlQ3MmZ0TjNl?=
- =?utf-8?B?d241RnRWMjdYVnFtSldleDVJenhvZjQ2NTNCYk9ZKzJGL24yQlpvYWRQY2x4?=
- =?utf-8?B?MTBKUkVxcVJSTUhqVDZ6VHFvUllnSEM5MC8yTVYzb0J0ZzVXVitWRWVla09s?=
- =?utf-8?B?WnVjak56QVF6RDI1UVhhRDRGQ3lZc0YxOWtmWTlIRGJJR1BZcnkrbEFsU25K?=
- =?utf-8?B?ekJpWi9nWjR2ZTcxRy9JajlxbTN5SEFFWkVMbXd3Q21WS0ZpRktJR3UrQ3pn?=
- =?utf-8?B?M2l1TUZDZ2tCTEczQ2dBamJHSmJya0hMWWsra0ZWcW5jVGtTbWhMZEx5MW5p?=
- =?utf-8?B?QS9sSEZRbk5IOWE2cHpkSFFiR0ttN0gzeFMxc3lXbnhBTjc5cjdzUzNaUUlI?=
- =?utf-8?B?T2Q2TWxOMXArMkJjR1E0QkVmL3U2T1BqaWFMMUd6K3NReTIzRmdROWRxc0hM?=
- =?utf-8?B?NXdHcnMvRmE4UjNrOFZrQ0RSSFloekZ2WmJZRTNGdzQrU1pHSzllY1NqYXA0?=
- =?utf-8?B?SkRlbjNiYjMvTUQ1WURqMzAxQmJnTG5hVERBNjFodHNkMGVkQkRUVkRLNGxp?=
- =?utf-8?Q?fcrDCO+TTDuI0gCDq6WLqIjkY1XapABb?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QnlrMllHM2xWam00RnBCZ2N5cjFQUVoyWnpDSER2NWtwK24rUjdPVHU1RjY0?=
- =?utf-8?B?TTB5eTlPRVMwd0t1V1o0RWM1Tkl6VmxjVmY1aFpyVWVhOGswck9HOFlHVkxT?=
- =?utf-8?B?MDhZbG9XaEQ3cDhqV2RKNTBWeFpWUk1pVlFMNDhDVmRjVDRYalhTT3ZZWEFs?=
- =?utf-8?B?TzRvNS9KcXk2RFc3VkJEbjR0U0ZDb1hDMUhvZDVUUlh6cVpNZXIxcHBISW1r?=
- =?utf-8?B?a3RFbkowQm1PTHg4TWxQYkxieVRHZXhSUnVJS2pUT3ovclR6eGFFTk1sWEo3?=
- =?utf-8?B?YXd3Z29rbFVSSEllZk13MDZHZjhKaDFDaC9ubnB0NHFmc0NsQ0Jud296NTkr?=
- =?utf-8?B?eGtaZS9aVzVOVlNwTDN4TjZNbTJ1T2JVOFpwN1pBSFFNZW5WWHNSdXBtREJV?=
- =?utf-8?B?QVgwQmZKNGgwYWlXM3c4QllOd0lJR1hGemhRMFNweXZ1dXN1eE8xR0NkaGsw?=
- =?utf-8?B?OWZDSmZURy9zSmJMR1hIZVJXTE1kNEtlTldZcFlQbGVQc3FYOEY3MDQ4Wmcw?=
- =?utf-8?B?MXBtVElBcklhcEd6ME1LZ1BaYVpKSzRaU3Q3K1hVUzhPaU1HRDVFRXA3SmVj?=
- =?utf-8?B?ZXZUTGhVeXJYWnpHcUhiWHkyUTBoVXpIMXprTVpmMzNjbWpFTThZalVrT2lr?=
- =?utf-8?B?MXgwYngyU3k0NWFYVTNmUEN1L3NUcUFzaWxjU3J4YU9zREYyZHpVczNteEdx?=
- =?utf-8?B?SkZYM0Fna0VHV0lOOGZObi96RVdTQkMreVFLc0VqVzFwY0k3em9MM2dUS2dV?=
- =?utf-8?B?Um80ZHNtT3JTbVI3bzk1aURuN25ad1QvZGlnTGNSeHVhNk1pekNqejRZTnUz?=
- =?utf-8?B?ajlJNmRmUG9wcG13VUMvQVdXQWZ5OVR4M1dvNkhJQjRJK3BvaS8wc1hDZ3ZU?=
- =?utf-8?B?ZmJvS1p4K3MvSkNPVVBNaVAwdWUxWVh4dkFYNlQydldSNXhkVW5KaTlxYnI0?=
- =?utf-8?B?d2NvbkcxNmtFNTZ2OHRYNzk3OFBBczBrQk42MGhXdmgxc0cxa0FJdW9ONFIx?=
- =?utf-8?B?WXVpSzE4UHYzSU9zWkQzVDJuMlNpdDltSGxGMFQyQXdPNVBEaUZSaEVaRlhX?=
- =?utf-8?B?QVpVQ1ZWcytHOUZva2hnWW1XQnlWNHBVNDFDOWZXRlFaOHlFNXFVRXpITmEx?=
- =?utf-8?B?bG1aa3RoVEc4UVgxeHFveUNSOGJuUkZCL2wzSGg4UnNuOEVUaUhkNHd2OUhT?=
- =?utf-8?B?WTdpNm42ZjN6TVkvbXp3NmxGWTFMRlNWSUxWVHJac2JFS29TR2hrWTZVanF5?=
- =?utf-8?B?Q0NKK2d4OTdmWDVrMjYzc0poeVFuSzN0VTkzbGpaNk5GL1llazU4SEpxYm5o?=
- =?utf-8?B?eHFwNlo2OEVaS1NZY2NxdFV6WDR0VFgwWnpEblFsYUhadU5yb2tmU0JGaUE3?=
- =?utf-8?B?K3VGMkJNMWRjcURoNFZiTjQ2NkE1TnEvc0dkVnZ0cjZGN0VMOWloMGtjZm8z?=
- =?utf-8?B?NUVOQll3S3VTUlVDbnpvMXZ1czVpbHZPZ2hvSWJSakRMdWVjdzRpcWtjdjEr?=
- =?utf-8?B?UVd0MFo2aXhRdEVSd2xQZ09FL2d1OHRjMVczdUNFV2tDdHhURVVuZUhxNmpq?=
- =?utf-8?B?ZVVubGNNbHQwOVpQcytLWCtzZ1NVNGo3ODFZclhOczUvWlFqVWRlT1hWNmtv?=
- =?utf-8?B?d1lnWlBwVzZIclN1TFlzblZ5Mk1jdTF1MUdHclh4ZjB4RGVzYy84Z3BoaXZJ?=
- =?utf-8?B?eVNaWGVDeWJ3SU1qdFQ4VmM2cDJhZ2tCc1ZYdmJQZjEraWc0Q205TkZGYTVU?=
- =?utf-8?B?empnUDAvRDNpVUl2TXQ3YS9nYkpvQnRLQW4zei9uemJTSXkxUVpTWU93eGVq?=
- =?utf-8?B?WTMwc09nTi8rUDVCM0k0bFpnRGlQS2hzTGp3TjRzZ1ZHTWd0NS9TWmszOGZS?=
- =?utf-8?B?aGdLZkpDQkJwWjh1QSszcFF5Y3I4a3Z2RXpmOHdrUm5nY0hiVmJFSkVyY2FX?=
- =?utf-8?B?eDQveWlmSFVpMWZVOWJZb2tXQ0JaZDZuTklacDlxaURkdnVwdTc5b1dCdm1T?=
- =?utf-8?B?dklhL0pnMjUwYkJrK2puVEE5cmZ6Smw2Q3JQb09mQy9oWEthaENlbFlFWXJX?=
- =?utf-8?B?THFrV3NJTEFsR1F3SzczaWJPTkwzRzV2bnhxdVc3ejU2MVhBbkRCOEhjM2Nj?=
- =?utf-8?Q?tj7g=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdb2e6f6-aa61-423a-671a-08de188b62a1
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 14:40:06.9059 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WP9bteeP/3Shff0gexWwKZnzG9bNAacCKQcoAhG4PQ9OlwMmVuf4yzj6d7yCIwCN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6308
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/16] More compact IB emission
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20250911114155.24786-1-tvrtko.ursulin@igalia.com>
+ <CADnq5_OD2FoiNxj3FqrqQSLCs7h_a-4uRy5ucceEA+Px-5Ea7w@mail.gmail.com>
+ <b9edaad2-06bf-4b6e-95a3-9b5ba0e37b86@igalia.com>
+ <CADnq5_PPiCaAqv5juRjRSEpS4K6HQ6Wz0He8-2UqafANqD5qdg@mail.gmail.com>
+ <91bfc3fa-a742-4e86-a534-0c6c1c936894@igalia.com>
+ <CADnq5_MFmzZ9T6eDo79hVFhmzhUTey4dEV95dA8rqvmyby5w3g@mail.gmail.com>
+ <9b87aaad-f766-4d96-93d8-c5261816e429@igalia.com>
+ <CADnq5_OZJjuywGQWMqg+ZEe_TXwYBaWcAROEGrGenV9cPjB3bQ@mail.gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <CADnq5_OZJjuywGQWMqg+ZEe_TXwYBaWcAROEGrGenV9cPjB3bQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,340 +66,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------xCOXVk50aJYgvgjJ2xCsIsU5
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-
-On 10/30/2025 9:48 PM, Zhu, Lingshan wrote:
-> On 10/30/2025 11:53 PM, Chen, Xiaogang wrote:
+On 31/10/2025 14:21, Alex Deucher wrote:
+> On Fri, Oct 31, 2025 at 4:44 AM Tvrtko Ursulin
+> <tvrtko.ursulin@igalia.com> wrote:
 >>
->> On 10/29/2025 10:45 PM, Zhu Lingshan wrote:
->>> The pasid is a per-process-per-device attribute,
->>> therefore this commit implements per
->>> struct kfd_process_device->pasid in sysfs
->> This per device pasid is used internally in kfd, not used at user 
->> space. So no need to exposing it.
-> current sysfs implementation exposing PASID to user space, but buggy value 0, this commit
-> intends to fix this issue.
-
-It is just for keeping current tools working. The PASID value has no 
-meaning for use space that it would not get useful info about driver 
-through it or uses PASID to change driver behavior.
-
-Regards
-
-Xiaogang
-
->
-> Thanks
-> Lingshan
+>>
+>> On 24/10/2025 18:03, Alex Deucher wrote:
+>>> On Fri, Oct 24, 2025 at 12:36 PM Tvrtko Ursulin
+>>> <tvrtko.ursulin@igalia.com> wrote:
+>>>>
+>>>>
+>>>> On 24/10/2025 17:11, Alex Deucher wrote:
+>>>>> On Wed, Oct 8, 2025 at 10:28 AM Tvrtko Ursulin
+>>>>> <tvrtko.ursulin@igalia.com> wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 08/10/2025 15:08, Alex Deucher wrote:
+>>>>>>> Applied the series.  Thanks!
+>>>>>>
+>>>>>> Thank you and fingers crossed I did not fat finger anything that your CI
+>>>>>> wouldn't find!
+>>>>>
+>>>>> Sorry for the late reply.  This series broke the VCN IB tests on at
+>>>>> least navi4x.  The issue is a GPUVM page fault caused by VCN when
+>>>>> running the IB tests.
+>>>>> I don't see any obvious problems with the patches, but I haven't had a
+>>>>> chance to dig too much further.
+>>>>
+>>>> Oh I see the problem.. sorry about that.
+>>>>
+>>>> I missed the fact that after amdgpu_vcn_unified_ring_ib_header() I need
+>>>> to update the pointer.
+>>>>
+>>>> Good news is that only VCN has this pattern.
+>>>>
+>>>> Okay to send a fix next week? Would you need a fixup or a replacement
+>>>> patch in case you want to revert it in the meantime?
 >>>
->>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  9 ++-------
->>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 18 +++++++++++-------
->>>   2 files changed, 13 insertions(+), 14 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> index 70ef051511bb..6a3cfeccacd8 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> @@ -864,6 +864,8 @@ struct kfd_process_device {
->>>       bool has_reset_queue;
->>>         u32 pasid;
->>> +    char pasid_filename[MAX_SYSFS_FILENAME_LEN];
->>> +    struct attribute attr_pasid;
->>>   };
->>>     #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, 
->>> qpd)
->>> @@ -983,7 +985,6 @@ struct kfd_process {
->>>       /* Kobj for our procfs */
->>>       struct kobject *kobj;
->>>       struct kobject *kobj_queues;
->>> -    struct attribute attr_pasid;
->> We keep it to have use space tools(ex rocm-smi) work as the tools 
->> still read it before they change.
->>>         /* Keep track cwsr init */
->>>       bool has_cwsr;
->>> @@ -1100,12 +1101,6 @@ void 
->>> kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
->>>                       int handle);
->>>   struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
->>>   -/* PASIDs */
->>> -int kfd_pasid_init(void);
->>> -void kfd_pasid_exit(void);
->>> -u32 kfd_pasid_alloc(void);
->>> -void kfd_pasid_free(u32 pasid);
->> This part is right, these declarations were forgotten to remove.
->>> -
->>>   /* Doorbells */
->>>   size_t kfd_doorbell_process_slice(struct kfd_dev *kfd);
->>>   int kfd_doorbell_init(struct kfd_dev *kfd);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> index ddfe30c13e9d..24cf3b250b37 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> @@ -328,9 +328,11 @@ static int kfd_get_cu_occupancy(struct 
->>> attribute *attr, char *buffer)
->>>   static ssize_t kfd_procfs_show(struct kobject *kobj, struct 
->>> attribute *attr,
->>>                      char *buffer)
->>>   {
->>> -    if (strcmp(attr->name, "pasid") == 0)
->>> -        return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
+>>> Fixup is fine.  I'll squash it into the original VCN patch and give it
+>>> a test next week.
 >>
->> Same as above we keep it to have compatibility with current tools.
+>> How did it go? I noticed amd-staging-drm-next currently has the original
+>> buggy version.
+> 
+> Those were reverted.
+> 
 >>
->>  Regards
->>
->> Xiaogang
->>
->>> -    else if (strncmp(attr->name, "vram_", 5) == 0) {
->>> +    if (strncmp(attr->name, "pasid_", 6) == 0) {
->>> +        struct kfd_process_device *pdd = container_of(attr, struct 
->>> kfd_process_device,
->>> +                                  attr_pasid);
->>> +        return snprintf(buffer, PAGE_SIZE, "%u\n", pdd->pasid);
->>> +    } else if (strncmp(attr->name, "vram_", 5) == 0) {
->>>           struct kfd_process_device *pdd = container_of(attr, struct 
->>> kfd_process_device,
->>>                                     attr_vram);
->>>           return snprintf(buffer, PAGE_SIZE, "%llu\n", 
->>> atomic64_read(&pdd->vram_usage));
->>> @@ -662,6 +664,7 @@ static void kfd_procfs_add_sysfs_files(struct 
->>> kfd_process *p)
->>>        * Create sysfs files for each GPU:
->>>        * - proc/<pid>/vram_<gpuid>
->>>        * - proc/<pid>/sdma_<gpuid>
->>> +     * - proc/<pid>/pasid_<gpuid>
->>>        */
->>>       for (i = 0; i < p->n_pdds; i++) {
->>>           struct kfd_process_device *pdd = p->pdds[i];
->>> @@ -675,6 +678,10 @@ static void kfd_procfs_add_sysfs_files(struct 
->>> kfd_process *p)
->>>                pdd->dev->id);
->>>           kfd_sysfs_create_file(p->kobj, &pdd->attr_sdma,
->>>                           pdd->sdma_filename);
->>> +
->>> +        snprintf(pdd->pasid_filename, MAX_SYSFS_FILENAME_LEN, 
->>> "pasid_%u",
->>> +             pdd->dev->id);
->>> +        kfd_sysfs_create_file(p->kobj, &pdd->attr_pasid, 
->>> pdd->pasid_filename);
->>>       }
->>>   }
->>>   @@ -888,9 +895,6 @@ struct kfd_process *kfd_create_process(struct 
->>> task_struct *thread)
->>>               goto out;
->>>           }
->>>   -        kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
->>> -                      "pasid");
->>> -
->>>           process->kobj_queues = kobject_create_and_add("queues",
->>>                               process->kobj);
->>>           if (!process->kobj_queues)
->>> @@ -1104,7 +1108,6 @@ static void kfd_process_remove_sysfs(struct 
->>> kfd_process *p)
->>>       if (!p->kobj)
->>>           return;
->>>   -    sysfs_remove_file(p->kobj, &p->attr_pasid);
->>>       kobject_del(p->kobj_queues);
->>>       kobject_put(p->kobj_queues);
->>>       p->kobj_queues = NULL;
->>> @@ -1114,6 +1117,7 @@ static void kfd_process_remove_sysfs(struct 
->>> kfd_process *p)
->>>             sysfs_remove_file(p->kobj, &pdd->attr_vram);
->>>           sysfs_remove_file(p->kobj, &pdd->attr_sdma);
->>> +        sysfs_remove_file(p->kobj, &pdd->attr_pasid);
->>>             sysfs_remove_file(pdd->kobj_stats, &pdd->attr_evict);
->>>           if (pdd->dev->kfd2kgd->get_cu_occupancy)
---------------xCOXVk50aJYgvgjJ2xCsIsU5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+>> Given other patches from the series are also missing perhaps you are
+>> testing it in stages?
+> 
+> I was running it through CI again and noticed that polaris seems to
+> regress with these changes, so likely related to the VCE or UVD v6
+> changes.
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 10/30/2025 9:48 PM, Zhu, Lingshan
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:89b6057a-ff21-46a2-951b-b96888f60b3d@amd.com">
-      
-      <pre>On 10/30/2025 11:53 PM, Chen, Xiaogang wrote:</pre>
-      <blockquote type="cite" cite="mid:050ba477-c7d5-4420-8f06-6fce0db48726@amd.com"> <br>
-        On 10/29/2025 10:45 PM, Zhu Lingshan wrote: <br>
-        <blockquote type="cite">The pasid is a per-process-per-device
-          attribute, <br>
-          therefore this commit implements per <br>
-          struct kfd_process_device-&gt;pasid in sysfs <br>
-        </blockquote>
-        This per device pasid is used internally in kfd, not used at
-        user space. So no need to exposing it.&nbsp;<br>
-      </blockquote>
-      <pre>current sysfs implementation exposing PASID to user space, but buggy value 0, this commit
-intends to fix this issue.</pre>
-    </blockquote>
-    <p>It is just for keeping current tools working. The PASID value has
-      no meaning for use space that it would not get useful info about
-      driver through it or uses PASID to change driver behavior.&nbsp;</p>
-    <p>Regards</p>
-    <p>Xiaogang</p>
-    <blockquote type="cite" cite="mid:89b6057a-ff21-46a2-951b-b96888f60b3d@amd.com">
-      <pre>
+Not sure I follow and sorry if there is still some confusion.
 
-Thanks
-Lingshan</pre>
-      <blockquote type="cite" cite="mid:050ba477-c7d5-4420-8f06-6fce0db48726@amd.com">
-        <blockquote type="cite"> <br>
-          Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com" moz-do-not-send="true">&lt;lingshan.zhu@amd.com&gt;</a>
-          <br>
-          --- <br>
-          &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp; |&nbsp; 9 ++------- <br>
-          &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c | 18
-          +++++++++++------- <br>
-          &nbsp; 2 files changed, 13 insertions(+), 14 deletions(-) <br>
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-          b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h <br>
-          index 70ef051511bb..6a3cfeccacd8 100644 <br>
-          --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h <br>
-          +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h <br>
-          @@ -864,6 +864,8 @@ struct kfd_process_device { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool has_reset_queue; <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 pasid; <br>
-          +&nbsp;&nbsp;&nbsp; char pasid_filename[MAX_SYSFS_FILENAME_LEN]; <br>
-          +&nbsp;&nbsp;&nbsp; struct attribute attr_pasid; <br>
-          &nbsp; }; <br>
-          &nbsp; &nbsp; #define qpd_to_pdd(x) container_of(x, struct
-          kfd_process_device, qpd) <br>
-          @@ -983,7 +985,6 @@ struct kfd_process { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Kobj for our procfs */ <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kobject *kobj; <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kobject *kobj_queues; <br>
-          -&nbsp;&nbsp;&nbsp; struct attribute attr_pasid; <br>
-        </blockquote>
-        We keep it to have use space tools(ex rocm-smi) work as the
-        tools still read it before they change. <br>
-        <blockquote type="cite">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Keep track cwsr init */ <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool has_cwsr; <br>
-          @@ -1100,12 +1101,6 @@ void
-          kfd_process_device_remove_obj_handle(struct kfd_process_device
-          *pdd, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int handle); <br>
-          &nbsp; struct kfd_process *kfd_lookup_process_by_pid(struct pid
-          *pid); <br>
-          &nbsp; -/* PASIDs */ <br>
-          -int kfd_pasid_init(void); <br>
-          -void kfd_pasid_exit(void); <br>
-          -u32 kfd_pasid_alloc(void); <br>
-          -void kfd_pasid_free(u32 pasid); <br>
-        </blockquote>
-        This part is right, these declarations were forgotten to remove.
-        <br>
-        <blockquote type="cite">- <br>
-          &nbsp; /* Doorbells */ <br>
-          &nbsp; size_t kfd_doorbell_process_slice(struct kfd_dev *kfd); <br>
-          &nbsp; int kfd_doorbell_init(struct kfd_dev *kfd); <br>
-          diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-          b/drivers/gpu/drm/amd/amdkfd/kfd_process.c <br>
-          index ddfe30c13e9d..24cf3b250b37 100644 <br>
-          --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c <br>
-          +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c <br>
-          @@ -328,9 +328,11 @@ static int kfd_get_cu_occupancy(struct
-          attribute *attr, char *buffer) <br>
-          &nbsp; static ssize_t kfd_procfs_show(struct kobject *kobj, struct
-          attribute *attr, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buffer) <br>
-          &nbsp; { <br>
-          -&nbsp;&nbsp;&nbsp; if (strcmp(attr-&gt;name, &quot;pasid&quot;) == 0) <br>
-          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buffer, PAGE_SIZE, &quot;%d\n&quot;, 0); <br>
-        </blockquote>
-        <br>
-        Same as above we keep it to have compatibility with current
-        tools. <br>
-        <br>
-        &nbsp;Regards <br>
-        <br>
-        Xiaogang <br>
-        <br>
-        <blockquote type="cite">-&nbsp;&nbsp;&nbsp; else if (strncmp(attr-&gt;name,
-          &quot;vram_&quot;, 5) == 0) { <br>
-          +&nbsp;&nbsp;&nbsp; if (strncmp(attr-&gt;name, &quot;pasid_&quot;, 6) == 0) { <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd = container_of(attr,
-          struct kfd_process_device, <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr_pasid); <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buffer, PAGE_SIZE, &quot;%u\n&quot;,
-          pdd-&gt;pasid); <br>
-          +&nbsp;&nbsp;&nbsp; } else if (strncmp(attr-&gt;name, &quot;vram_&quot;, 5) == 0) { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd = container_of(attr,
-          struct kfd_process_device, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr_vram); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buffer, PAGE_SIZE, &quot;%llu\n&quot;,
-          atomic64_read(&amp;pdd-&gt;vram_usage)); <br>
-          @@ -662,6 +664,7 @@ static void
-          kfd_procfs_add_sysfs_files(struct kfd_process *p) <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Create sysfs files for each GPU: <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * - proc/&lt;pid&gt;/vram_&lt;gpuid&gt; <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * - proc/&lt;pid&gt;/sdma_&lt;gpuid&gt; <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp; * - proc/&lt;pid&gt;/pasid_&lt;gpuid&gt; <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */ <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; p-&gt;n_pdds; i++) { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd = p-&gt;pdds[i]; <br>
-          @@ -675,6 +678,10 @@ static void
-          kfd_procfs_add_sysfs_files(struct kfd_process *p) <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;dev-&gt;id); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_sysfs_create_file(p-&gt;kobj,
-          &amp;pdd-&gt;attr_sdma, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;sdma_filename); <br>
-          + <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(pdd-&gt;pasid_filename,
-          MAX_SYSFS_FILENAME_LEN, &quot;pasid_%u&quot;, <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;dev-&gt;id); <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_sysfs_create_file(p-&gt;kobj,
-          &amp;pdd-&gt;attr_pasid, pdd-&gt;pasid_filename); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-          &nbsp; } <br>
-          &nbsp; @@ -888,9 +895,6 @@ struct kfd_process
-          *kfd_create_process(struct task_struct *thread) <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out; <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_sysfs_create_file(process-&gt;kobj,
-          &amp;process-&gt;attr_pasid, <br>
-          -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;pasid&quot;); <br>
-          - <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;kobj_queues =
-          kobject_create_and_add(&quot;queues&quot;, <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process-&gt;kobj); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!process-&gt;kobj_queues) <br>
-          @@ -1104,7 +1108,6 @@ static void
-          kfd_process_remove_sysfs(struct kfd_process *p) <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!p-&gt;kobj) <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return; <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; sysfs_remove_file(p-&gt;kobj, &amp;p-&gt;attr_pasid); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kobject_del(p-&gt;kobj_queues); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kobject_put(p-&gt;kobj_queues); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p-&gt;kobj_queues = NULL; <br>
-          @@ -1114,6 +1117,7 @@ static void
-          kfd_process_remove_sysfs(struct kfd_process *p) <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs_remove_file(p-&gt;kobj,
-          &amp;pdd-&gt;attr_vram); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs_remove_file(p-&gt;kobj,
-          &amp;pdd-&gt;attr_sdma); <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs_remove_file(p-&gt;kobj,
-          &amp;pdd-&gt;attr_pasid); <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs_remove_file(pdd-&gt;kobj_stats,
-          &amp;pdd-&gt;attr_evict); <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pdd-&gt;dev-&gt;kfd2kgd-&gt;get_cu_occupancy) <br>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
+I did not spot anything obviously wrong in VCE and UVD v6.
 
---------------xCOXVk50aJYgvgjJ2xCsIsU5--
+But currently a broken version of "drm/amdgpu: More compact VCN IB 
+emission" is in the staging branch. It needs to be squashed with 
+"drm/amdgpu: Fixup VCN IB emission".
+
+Regards,
+
+Tvrtko
+
+
+> Alex
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>>>> I wish something similar could be done for amdgpu_ring_write too, but
+>>>>>> that one is waiting on Christian to, AFAIR, become idle enough to
+>>>>>> untangle some ptr masking issues.
+>>>>>>
+>>>>>> Regards,
+>>>>>>
+>>>>>> Tvrtko
+>>>>>>
+>>>>>>> On Thu, Sep 11, 2025 at 7:42 AM Tvrtko Ursulin
+>>>>>>> <tvrtko.ursulin@igalia.com> wrote:
+>>>>>>>>
+>>>>>>>> In short, this series mostly does a lot of replacing of this pattern:
+>>>>>>>>
+>>>>>>>>            ib->ptr[ib->length_dw++] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+>>>>>>>>                    SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+>>>>>>>>            ib->ptr[ib->length_dw++] = lower_32_bits(pe);
+>>>>>>>>            ib->ptr[ib->length_dw++] = upper_32_bits(pe);
+>>>>>>>>            ib->ptr[ib->length_dw++] = ndw - 1;
+>>>>>>>>            for (; ndw > 0; ndw -= 2) {
+>>>>>>>>                   ib->ptr[ib->length_dw++] = lower_32_bits(value);
+>>>>>>>>                   ib->ptr[ib->length_dw++] = upper_32_bits(value);
+>>>>>>>>                    value += incr;
+>>>>>>>>            }
+>>>>>>>>
+>>>>>>>> With this one:
+>>>>>>>>
+>>>>>>>>            u32 *ptr = &ib->ptr[ib->length_dw];
+>>>>>>>>
+>>>>>>>>            *ptr++ = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+>>>>>>>>                     SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+>>>>>>>>            *ptr++ = lower_32_bits(pe);
+>>>>>>>>            *ptr++ = upper_32_bits(pe);
+>>>>>>>>            *ptr++ = ndw - 1;
+>>>>>>>>            for (; ndw > 0; ndw -= 2) {
+>>>>>>>>                    *ptr++ = lower_32_bits(value);
+>>>>>>>>                    *ptr++ = upper_32_bits(value);
+>>>>>>>>                     value += incr;
+>>>>>>>>             }
+>>>>>>>>
+>>>>>>>>            ib->length_dw = ptr - ib->ptr;
+>>>>>>>>
+>>>>>>>> Latter avoids register reloads and length updates on every dword written, and on
+>>>>>>>> the overall makes the IB emission much more compact:
+>>>>>>>>
+>>>>>>>> add/remove: 0/1 grow/shrink: 10/58 up/down: 260/-6598 (-6338)
+>>>>>>>> Function                                     old     new   delta
+>>>>>>>> sdma_v7_0_ring_pad_ib                         99     127     +28
+>>>>>>>> sdma_v6_0_ring_pad_ib                         99     127     +28
+>>>>>>>> sdma_v5_2_ring_pad_ib                         99     127     +28
+>>>>>>>> sdma_v5_0_ring_pad_ib                         99     127     +28
+>>>>>>>> sdma_v4_4_2_ring_pad_ib                       99     127     +28
+>>>>>>>> sdma_v4_0_ring_pad_ib                         99     127     +28
+>>>>>>>> sdma_v3_0_ring_pad_ib                         99     127     +28
+>>>>>>>> sdma_v2_4_ring_pad_ib                         99     127     +28
+>>>>>>>> cik_sdma_ring_pad_ib                          99     127     +28
+>>>>>>>> si_dma_ring_pad_ib                            36      44      +8
+>>>>>>>> amdgpu_ring_generic_pad_ib                    56      52      -4
+>>>>>>>> si_dma_emit_fill_buffer                      108      71     -37
+>>>>>>>> si_dma_vm_write_pte                          158     115     -43
+>>>>>>>> amdgpu_vcn_dec_sw_send_msg                   810     767     -43
+>>>>>>>> si_dma_vm_copy_pte                           137      87     -50
+>>>>>>>> si_dma_emit_copy_buffer                      134      84     -50
+>>>>>>>> sdma_v3_0_vm_write_pte                       163     102     -61
+>>>>>>>> sdma_v2_4_vm_write_pte                       163     102     -61
+>>>>>>>> cik_sdma_vm_write_pte                        163     102     -61
+>>>>>>>> sdma_v7_0_vm_write_pte                       168     105     -63
+>>>>>>>> sdma_v7_0_emit_fill_buffer                   119      56     -63
+>>>>>>>> sdma_v6_0_vm_write_pte                       168     105     -63
+>>>>>>>> sdma_v6_0_emit_fill_buffer                   119      56     -63
+>>>>>>>> sdma_v5_2_vm_write_pte                       168     105     -63
+>>>>>>>> sdma_v5_2_emit_fill_buffer                   119      56     -63
+>>>>>>>> sdma_v5_0_vm_write_pte                       168     105     -63
+>>>>>>>> sdma_v5_0_emit_fill_buffer                   119      56     -63
+>>>>>>>> sdma_v4_4_2_vm_write_pte                     168     105     -63
+>>>>>>>> sdma_v4_4_2_emit_fill_buffer                 119      56     -63
+>>>>>>>> sdma_v4_0_vm_write_pte                       168     105     -63
+>>>>>>>> sdma_v4_0_emit_fill_buffer                   119      56     -63
+>>>>>>>> sdma_v3_0_emit_fill_buffer                   116      53     -63
+>>>>>>>> sdma_v2_4_emit_fill_buffer                   116      53     -63
+>>>>>>>> cik_sdma_emit_fill_buffer                    116      53     -63
+>>>>>>>> sdma_v6_0_emit_copy_buffer                   169      76     -93
+>>>>>>>> sdma_v5_2_emit_copy_buffer                   169      76     -93
+>>>>>>>> sdma_v5_0_emit_copy_buffer                   169      76     -93
+>>>>>>>> sdma_v4_4_2_emit_copy_buffer                 169      76     -93
+>>>>>>>> sdma_v4_0_emit_copy_buffer                   169      76     -93
+>>>>>>>> sdma_v3_0_vm_copy_pte                        158      64     -94
+>>>>>>>> sdma_v3_0_emit_copy_buffer                   155      61     -94
+>>>>>>>> sdma_v2_4_vm_copy_pte                        158      64     -94
+>>>>>>>> sdma_v2_4_emit_copy_buffer                   155      61     -94
+>>>>>>>> cik_sdma_vm_copy_pte                         158      64     -94
+>>>>>>>> cik_sdma_emit_copy_buffer                    155      61     -94
+>>>>>>>> sdma_v6_0_vm_copy_pte                        163      68     -95
+>>>>>>>> sdma_v5_2_vm_copy_pte                        163      68     -95
+>>>>>>>> sdma_v5_0_vm_copy_pte                        163      68     -95
+>>>>>>>> sdma_v4_4_2_vm_copy_pte                      163      68     -95
+>>>>>>>> sdma_v4_0_vm_copy_pte                        163      68     -95
+>>>>>>>> sdma_v7_0_vm_copy_pte                        183      75    -108
+>>>>>>>> sdma_v7_0_emit_copy_buffer                   317     202    -115
+>>>>>>>> si_dma_vm_set_pte_pde                        338     214    -124
+>>>>>>>> amdgpu_vce_get_destroy_msg                   784     652    -132
+>>>>>>>> sdma_v7_0_vm_set_pte_pde                     218      72    -146
+>>>>>>>> sdma_v6_0_vm_set_pte_pde                     218      72    -146
+>>>>>>>> sdma_v5_2_vm_set_pte_pde                     218      72    -146
+>>>>>>>> sdma_v5_0_vm_set_pte_pde                     218      72    -146
+>>>>>>>> sdma_v4_4_2_vm_set_pte_pde                   218      72    -146
+>>>>>>>> sdma_v4_0_vm_set_pte_pde                     218      72    -146
+>>>>>>>> sdma_v3_0_vm_set_pte_pde                     215      69    -146
+>>>>>>>> sdma_v2_4_vm_set_pte_pde                     215      69    -146
+>>>>>>>> cik_sdma_vm_set_pte_pde                      215      69    -146
+>>>>>>>> amdgpu_vcn_unified_ring_ib_header            172       -    -172
+>>>>>>>> gfx_v9_4_2_run_shader.constprop              739     532    -207
+>>>>>>>> uvd_v6_0_enc_ring_test_ib                   1464    1162    -302
+>>>>>>>> uvd_v7_0_enc_ring_test_ib                   1464    1138    -326
+>>>>>>>> amdgpu_vce_ring_test_ib                     1357     936    -421
+>>>>>>>> amdgpu_vcn_enc_ring_test_ib                 2042    1524    -518
+>>>>>>>> Total: Before=9262623, After=9256285, chg -0.07%
+>>>>>>>>
+>>>>>>>> * Notice how _pad_ib functions have grown. I think the compiler used the
+>>>>>>>> opportunity to unroll the loops.
+>>>>>>>>
+>>>>>>>> ** Series was only smoke tested on the Steam Deck.
+>>>>>>>>
+>>>>>>>> Tvrtko Ursulin (16):
+>>>>>>>>       drm/amdgpu: Use memset32 for IB padding
+>>>>>>>>       drm/amdgpu: More compact VCE IB emission
+>>>>>>>>       drm/amdgpu: More compact VCN IB emission
+>>>>>>>>       drm/amdgpu: More compact UVD 6 IB emission
+>>>>>>>>       drm/amdgpu: More compact UVD 7 IB emission
+>>>>>>>>       drm/amdgpu: More compact SI SDMA emission
+>>>>>>>>       drm/amdgpu: More compact CIK SDMA IB emission
+>>>>>>>>       drm/amdgpu: More compact GFX 9.4.2 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 2.4 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 3.0 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 4.0 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 4.4.2 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 5.0 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 5.2 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 6.0 IB emission
+>>>>>>>>       drm/amdgpu: More compact SDMA 7.0 IB emission
+>>>>>>>>
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  12 ++-
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  |  90 +++++++++--------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  | 101 ++++++++++---------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 105 ++++++++++++--------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c  |  46 ++++-----
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 108 ++++++++++++--------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 108 ++++++++++++--------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 109 ++++++++++++---------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 108 ++++++++++++--------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 106 ++++++++++++--------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 110 ++++++++++++---------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 110 ++++++++++++---------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 119 +++++++++++++----------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/si_dma.c      |  84 +++++++++-------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  66 +++++++------
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  66 +++++++------
+>>>>>>>>      16 files changed, 849 insertions(+), 599 deletions(-)
+>>>>>>>>
+>>>>>>>> --
+>>>>>>>> 2.48.0
+>>>>>>>>
+>>>>>>
+>>>>
+>>
+
