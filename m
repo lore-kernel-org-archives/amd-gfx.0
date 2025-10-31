@@ -4,76 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38625CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:49:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B26CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:53:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA86B10E06F;
-	Fri, 31 Oct 2025 14:49:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1C9010EBD3;
+	Fri, 31 Oct 2025 14:53:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iVMMgf0l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TI/zDiyf";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49C5010E06F
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 14:48:59 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-290af0e154fso3443625ad.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 07:48:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761922139; x=1762526939; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zDm30uxhOHb4CmoQ+otL2sXhKyXck4eHBGC7qCvg+Z4=;
- b=iVMMgf0lRcgaZXqN4iuaoemctSpLUE3QGT6EF6pUlqpc8JzB5zuXt9+/3pynlELssm
- FhDmrJNEBkyXYuErescQ6GZNVHFoeXKUMtaN4YAt0U4q2HNPuN2I7dDkKdIjiBnNGLGu
- 2ApQah41sqeTGxS/KHITf9WRKPN7tgrQLiTZY2vGkpF9VGkiCs2ZxI4iZGp0ErPPqRi3
- 4g3Yk+j45XEVqLF0SJmYAW9l23briWd2DnR9ElLgeiencITp6yeO5dCNqGbfyrme6izu
- J9q1m1QxgH6uqIzJC22xFpxzeIKAo5EkevRebQQA5TEH6yUxjrxgz7rdSf9AOFmmd1BR
- BTBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761922139; x=1762526939;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zDm30uxhOHb4CmoQ+otL2sXhKyXck4eHBGC7qCvg+Z4=;
- b=oEEnYcuaWz5Na7JPCNREDgX4yYDjkaLfnLaU4J7K+mGrnkXCquHyOSxaOBvRajUxGi
- UbYIbpMOApJtiJS29W1VMutlBfAN0BFCNMapa+QKu3Ot9dOFj2UGxI4y9kwXpxrm84lT
- /R+krn04att8dwOFuOrlhzfrwNvqeBelyyVr0HEgVLbXum5SoDkhn00u5KgeYWmThwSy
- PAWYZ6N4/tVXe/OHxeSKwQ/GWb7Bxr41InBMGiL99FiSmdmgZ1o2Uky2Tujii1VYHSw7
- tY81gjhz1zWbWUEOwM7/IWNIIPIO+9dhrWnVloEjjfKx5N7DJANQGAX4BwUqdaFjiRke
- BvCA==
-X-Gm-Message-State: AOJu0Yw4+rb/D8u6O9JDTkHQ2uxVZDP710iEYfrWw/5i2tHQ/6vBmJHE
- NO8pkdCZQ2/rEKZpA8THaEcMzoVuw+uiuhLnaSm6PwFKenHzQrhcLSreWA/W4mE3dSVxCzSGi7n
- spFBk1ax/XwS5vOF3tE0/yjf7pOFVTQQ5qFYs
-X-Gm-Gg: ASbGnctzzcGLBSZUE3UyeF3keyTiR2isQ6TZCTU43xug7IgszHp1RQvRmMgOArqJp4Q
- w7B6qw9m0eQzQt0K8QkH9Qgw8MUeu3iLZ6eq8crlfcBJCEu6mMenOhAUhXvzplh9GDzhwY3WNNz
- aabZeLzIBK/PBcVPfH56/CYMt+Me/p8Lehztvxr2loZ2XWof0gfIccez5D6JoiNw7hF+VImSadM
- bUBBSdcQ2U83f7kasARcKC0RKTDWuB55vMUY+JKxDEmphKQHcgLVa+ZQeSO
-X-Google-Smtp-Source: AGHT+IG3LWDp84k6gNN/V6H69BLbOwnH9X9eWPsw4IgmZE62AAq3Uo2nxzAPl9HXzV25wuh7PDkjnTeRds0P3g/WJ1Y=
-X-Received: by 2002:a17:902:f684:b0:290:af0d:9381 with SMTP id
- d9443c01a7336-2951a49830emr33482365ad.7.1761922138579; Fri, 31 Oct 2025
- 07:48:58 -0700 (PDT)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013027.outbound.protection.outlook.com
+ [40.93.201.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23AD710EBD5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 14:53:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P9SqckNWTTxjuJg9hpp4unltmQK1NvuF4k80SwfkFDJiHcyH/IjLi5/t6gOSp/p8iXJ8TlqQsN6iq21DkVotnS+zk9sOuUslbrggYp4KzQZ+oCxvJ2dQkCpNEldtOoxN/EoOOal1bJ/+8nUG5GJSKR8R6P8ieiul+9LV6zy8snaA53W7bn78QaMvmq/OSTj91aewLt0fXET4V/mpsU253mbtcN1qb27fw8bPGilvKg+nrKCAu7xbzpcU/ZvRsSxEERfcn1IXQeW1+KMyo+6CMtVfi66x22wi1dRsMCEI+FAFpGg/v3uJ/pKjxPlySUDyuSzHpeG9WfJIFljMd9587w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aRMOTiX+E4QJBwe5+eWv6WrC193Tez2yAWo7tmSeiIg=;
+ b=uAW17KETt3A4YwKARuCAYRjSAv94rhJhFW0UjLrjkgBHU8WgfiLiQrZrW0N7X7GUbuCGo3KQQ8HExrpSoQqm5hSzs0H+okTYd40n0HIhFbd49rT1wT/9QTzKObcu0nJnhYarfJpzuDN5lciFVSGxcwBSGVW3Y3jC5vnvlHSssNuxwe+BC6QyQpxsTrDUlkm79mgaFzdUAn1mXT6OYcENM7EvEcS/k+r3yLXqgNg7vQFt6a16CGnlAtT9ibkgch+RJDA90zENZQfieJQ+7wuS0cr47wuIwuz6enTpHV2nE5XTOXp5g6VFPlq5FHe5T3RvOjYfvZ136fxty8yWkEHejw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aRMOTiX+E4QJBwe5+eWv6WrC193Tez2yAWo7tmSeiIg=;
+ b=TI/zDiyffBO65vU1xXLFhJcVSarm2MZni0qc8nVgFzD6yxvGiImnxhw++wwWdwVxZQc8+kXG0idogp73qIPz5KOUIHMyvgLg7Rh1FeTyro8kmlr7LMMF/bFmOb0EwyWQQ5+iHhW+3c1oO6xSQtbauW8tvH9BldgbLrM1gTLByKo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ MN6PR12MB8515.namprd12.prod.outlook.com (2603:10b6:208:470::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.15; Fri, 31 Oct
+ 2025 14:53:42 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.9275.013; Fri, 31 Oct 2025
+ 14:53:42 +0000
+Message-ID: <79d6bc45-0415-4715-b651-65efec31d6df@amd.com>
+Date: Fri, 31 Oct 2025 09:53:40 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdkfd: Fix GPU mappings for APU after prefetch
+To: Philip Yang <yangp@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Philip Yang <Philip.Yang@amd.com>
+References: <20251030010027.2503555-1-Harish.Kasiviswanathan@amd.com>
+ <CADnq5_MMZ+mE1=0aRRLE7dbfpndVOXL9UCODB7BeQg9QMyspJw@mail.gmail.com>
+ <0c8c8f75-a4ab-d0c3-067f-cb389d7c61f1@amd.com>
+ <67f96c31-e0e7-4e1c-9ea7-d77c8e345f8e@amd.com>
+ <668f7ed1-8022-c706-875c-126ee2961cd7@amd.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <668f7ed1-8022-c706-875c-126ee2961cd7@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR04CA0003.namprd04.prod.outlook.com
+ (2603:10b6:806:f2::8) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
-References: <20250911114155.24786-1-tvrtko.ursulin@igalia.com>
- <CADnq5_OD2FoiNxj3FqrqQSLCs7h_a-4uRy5ucceEA+Px-5Ea7w@mail.gmail.com>
- <b9edaad2-06bf-4b6e-95a3-9b5ba0e37b86@igalia.com>
- <CADnq5_PPiCaAqv5juRjRSEpS4K6HQ6Wz0He8-2UqafANqD5qdg@mail.gmail.com>
- <91bfc3fa-a742-4e86-a534-0c6c1c936894@igalia.com>
- <CADnq5_MFmzZ9T6eDo79hVFhmzhUTey4dEV95dA8rqvmyby5w3g@mail.gmail.com>
- <9b87aaad-f766-4d96-93d8-c5261816e429@igalia.com>
- <CADnq5_OZJjuywGQWMqg+ZEe_TXwYBaWcAROEGrGenV9cPjB3bQ@mail.gmail.com>
- <8d920460-4174-4c2e-9064-f9611e72fec8@igalia.com>
-In-Reply-To: <8d920460-4174-4c2e-9064-f9611e72fec8@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 31 Oct 2025 10:48:47 -0400
-X-Gm-Features: AWmQ_blfQNnSvK-ZMQDBEY66P6OcwhUiodU7eljMmZkMRv4bxN9lH2VWQWc5g4s
-Message-ID: <CADnq5_PZ3Lir32KT7SnF4h1QJ--UueRHVW+5zQuTSXuGNaeVbQ@mail.gmail.com>
-Subject: Re: [PATCH 00/16] More compact IB emission
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|MN6PR12MB8515:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8abf44c-6f21-4925-000e-08de188d4860
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NjU4cU8rOTIvb1pkem55bkhqbE1uWFVhSlkrU0JKRlNZSWJVNWpzcktCRGR1?=
+ =?utf-8?B?Y1ppdW9hVmNGZ3preGR6SytoQUlPS1FnQlNXOEs0cXJoVW1nVDFNdTZqeUpJ?=
+ =?utf-8?B?ZFN1TTczZ2ljQlE3dHY5anRoZUFCdXRwQzY1S1UyejgvMFd3L2s0dDh4RWZZ?=
+ =?utf-8?B?blNlVGFRWm04OXkzUjF1YWFjL0Nkd3I2aHZRMThzdlBjUWdEdFI3MkJsbkl3?=
+ =?utf-8?B?Rm9uN1l5OW16cWllZDlaOFpJeWwvQ2dzbkZLUW1zSUNSTStuKzZYRExwek9S?=
+ =?utf-8?B?VjlJL3d1QnFPWGVJaFd5NHNDbWVIMy9ud3NkQlFrWk9IQ3JDeUpMRWw5UExG?=
+ =?utf-8?B?Q0l6OWp0NGxybTJLUGFXWjRRTWU1cXU3STZpK2tFNDNTS2dQQXJlcFNnUjkx?=
+ =?utf-8?B?Z0gwOFN5TGFsU3RWZW0zQ0wxWUpYRFYzekpsMkZVaHpOU0VramxtbUtUZDR1?=
+ =?utf-8?B?cko0TzM2dEJqNGlzSmpvd2Q0bk84RmZYM01CV3doa004aGJRZEZkUjAzTzJP?=
+ =?utf-8?B?VkN1eHFKMlhLKzhVSnNPTEZRZWZOYkVneUtwSjZqMU1hOERDaEpBZHIvb25Z?=
+ =?utf-8?B?cDdvRzlFcFdwbWZCR3ovd2tPZXBGRURDTTBaYVpXaHY2cG9NUmppL2QzejVs?=
+ =?utf-8?B?MG5ITnJEdVJWd2VFUUpIcEVwN0gxRG91ajY3cXIydlRvaXI4WGJiR2NxMmlF?=
+ =?utf-8?B?QVQyZVNmdTZGemlCMmtqekZxa24rUnRocHBQUjhSMG5pR1c4QU5WRk1PK1E5?=
+ =?utf-8?B?YUpNNlhlZ0VsQmdEcTdrckVjS2FlMkNSN05ZRUoyNVFLb2RIZ1grU1dBOWlj?=
+ =?utf-8?B?bFNrOUIwc0VYcEVERzFXWHZjUDg3eEh1blg4WnNxdVNHMk5CclFLMitpODdS?=
+ =?utf-8?B?MTV2ZEdUdytidHFHQWgvc3FmRWRGVnVxbWMvQVozWlJ0cFZsT2VSL0JzTlBw?=
+ =?utf-8?B?YWhCNVY0d0Z6ZSt2Z1dLT2svOGRWcmpveVlyckE2aGRxOUNydENCbk5aTk1I?=
+ =?utf-8?B?L2VNVVdUdXVUREZmNXhtN2htVEJJMWdaSUdOdU8zN2JRR0Z6Sm5pYnRoMmV0?=
+ =?utf-8?B?RXFmTis3SVBwVG10Ky9ScXg2T2VaWlpLdlVrVWUrcmhiQkJJZTRRUnVqVVR2?=
+ =?utf-8?B?MDhMSHNqS1Y1U1ZVMjNlSVE5L21INUIzVWhwSHQ5Rk9kMHRySlJMdmxTVm1T?=
+ =?utf-8?B?WGYvZ1NtZGRvaXVyUFdWNjZqM0VWTkVDcVVzMXR3UWtHRjdrUFZJR0Q4eUcx?=
+ =?utf-8?B?anFJWUlUR0hyU0pLTE04S2FPSUVzTjVpUWptVzU3TG5wT2s5eWxGTnpOdHl2?=
+ =?utf-8?B?ajJrWHk1S3Vic01NRFBBUGRDVmlzK2M4UDhucmN1RlhBNGpmZExCaVpjNDRE?=
+ =?utf-8?B?YlJVRzZvRmVlcy9mdUE5d2psWWlleVppd0JiVHRkMXc0S3BJVXhCenVRaTlR?=
+ =?utf-8?B?bWVXaTkzQjJhWEVMRHRTQm1kank5UDBpSkdJZXUxQUk1cDVVSExkbnVmVGVZ?=
+ =?utf-8?B?TTZ0YW83SnkrUEVjdzVYV3AvYmhWLzhmRzdMdkpzSTV2SVpDclhXWHhXOUpn?=
+ =?utf-8?B?emw4RGFnNlZ4V0oxalljV2RiSlpkcHFqcyszMnBLUmxJcUJ5Q3ZRVTlRV09k?=
+ =?utf-8?B?Z3BwcGFuV2YrZDlzaUZqRXdJMURwbGx4aFBiWUhrdTZEZ3hZL0E5OG9Vcmlp?=
+ =?utf-8?B?cU43NFZJRnFzcFJFZU1nZy9YQzlDZW5MUVE5WDBxeW53SFAraFJseXE1NUhj?=
+ =?utf-8?B?dXVZNndGYk50WTkyUHIvZWRRYWhNSGxkTnZxZXJwM05oYmNTNUpib2RydStw?=
+ =?utf-8?B?MG1XYjJnM2w0RVNPaVpiOENZSlVtMG5aNmFEUWtzdEd0VHdlYVNETFZ4U0xG?=
+ =?utf-8?B?bExzWFI0cUZWOTNhWWN5MDBzS0RGVkxPNWdNY0J1YmtESkl1ZkFaTUhvbTNH?=
+ =?utf-8?Q?MYEpsSCCXXHsmW3cPtcNdyMbzJWNu/rW?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUhwSUxPZW02em5ER1FZTUV0cjhZZ3FvQ1RETmRLMmxuaGlOcWw5eUExK3Jq?=
+ =?utf-8?B?V3draFRIRHJMY2JPT0l3VW1NOVJzbTlySlBxK1ROdVZudGpURmdhaHZQMnJV?=
+ =?utf-8?B?dm4xYzYyM2VBUkNWVkoyR01wZkpqVFo2WS9jN1d3ZFgyTFh0cGhxczNpS3I2?=
+ =?utf-8?B?cHN2YVJnVTRUN2ZQNnJTQWQ3Q0lZUTRHRWlWU1NhUDhBL1lxZS9ycU5SamJ4?=
+ =?utf-8?B?ZHpid00xeGoyR0pnSFNnSGJ0MU9FYjNGeVBLeGhMc2F2ZlRSWVUzUjMySEVN?=
+ =?utf-8?B?T1dzaStTbDc1R2hnWFFQaGJjdytNczJiSytVL3NTSmdHSHd5NGRzV1ZqS1ow?=
+ =?utf-8?B?MjFzcG0vOFBlYjd5RUh4QVloZ1llSmsybFVFbTlkODh4aFgybFdFQWZDMHhC?=
+ =?utf-8?B?aFhKcTlORmxXTjhVT3hERDAwemlVbzBESCtxZDZTNnlodGxvVlZNaU90UDVu?=
+ =?utf-8?B?RlN3WTJKZHhxaTYvd055clR3OTJsWGRzeDhVOW9KbFdBbFRvcHE2VUxuYkhn?=
+ =?utf-8?B?RWdCS1E2cVhaajBjSTA2M1B2a0JRWlBZbFMvNmk5NmJ6dGpXSVR4d1d6VDFl?=
+ =?utf-8?B?RWdJMGVXR1UrUzB2SjNrdk5TK0FQT0dEK2l6QXJSeHkzbFlZWjRpSTN5cGJp?=
+ =?utf-8?B?RTdOUzBrMVYrQTdNMGluaUpJYkdKdTlGNlJnRDB6OEtWUGc3ZWo1Zk5SU2lP?=
+ =?utf-8?B?Rk1WNDVPRUliNFlmeUlMT1ZIaWJrYzhwa09Ca01FVFc2Z0Q1ck9kRDBiOEZp?=
+ =?utf-8?B?UXBGekkva3FBTU54SHF3SkFmTzRWSmtaNUxrcE1BOGlwallRdSsvdGltZFM1?=
+ =?utf-8?B?LzFveXZEYnluQWt0RGs0dWg2Z2R0cmhlNjZ4MUJ4UmNkVnpJTkU1U0lFMjQ1?=
+ =?utf-8?B?cEtIN3BZUE96YXJKUVJ5QVdzbFFndDRITVl4ZDFyYkdrSmdIQ0VENUpmMmpn?=
+ =?utf-8?B?TE40VkRDd2Fyci9DOFprRmJ2WlRydmM0WHIrT1pteFUxOEhOQ3JSYXM0Sk90?=
+ =?utf-8?B?UEZkRmNrbWFXaHNkSUExelRiSXZ1RlNkMllVZ2lHby81OXFIYlFtNU9HWW5r?=
+ =?utf-8?B?WGpkNk5xZjZhU3JPbkVlUElrTDV1N3Z3eWdtS2lUb1ZVcjR0NEhESVd6bGJu?=
+ =?utf-8?B?bERYRkloczRxNWRRN1VTMXloNWd6UEZRbVpBT1hwWlBsWU5yQlpwejYzbCtW?=
+ =?utf-8?B?RnpmVUlqdFZKN1RGaXovRk1VK08yM1p0Qk1LQlJ0WWVrSXBlRDloSUpiWFVl?=
+ =?utf-8?B?Vkp6OW5oUVQyK2lsdTQzU0hOeVdaSE13OUdBcEFwQjkybkFOUUtJbzA4Qjh6?=
+ =?utf-8?B?cXROMjE3MGZueEtQak1jUld3NTNkWUprMkVSZzV2dWRkbFd0VklIb0Q0SW1w?=
+ =?utf-8?B?b0RYQWNZOHNkdy93Y2dXaExnMk0rWmdpM3V6S0RqeTN3aVNjRlVSeTNwTU5v?=
+ =?utf-8?B?TFVoaEhRYnZ5NXE1MGR0eVJoSXNmMTZaZGpQZDBRcmluK0hTQjBVVFRLTWRH?=
+ =?utf-8?B?NEdCZ3hHUy9Wa3pmbUYxSVR5N0lHaTJFLzY2cXllcVVvVjhMQ09paVF2b2Fk?=
+ =?utf-8?B?Q3FKVG5nQmRWRDVPbzVlbHBETUdpdnFvazJqR0NxZk4zaVVyL3FZSUlLdkt1?=
+ =?utf-8?B?TkdqdE1TY3kvN3MwcVBhMHBsUm56ckF5eXVXc1BjRGh6S2VaZmNnZ1ZqTkhh?=
+ =?utf-8?B?ME93dmEzQUdvTmNYck42WkhHcjY1ekR2Q1BBYjlEQnB6SUNMUm1QcTBIS0ht?=
+ =?utf-8?B?MVh4THRYS0RsN1BZT2tKOTN0TDVoeVZWRjVWb2lZci9yK3BDRURmeSsxQjFW?=
+ =?utf-8?B?L1IxZVNKeVN6V09vT0t6aXFOZXBLdDVkSDUwYTU3UGFoWjJqT2JVNXB3ZFQy?=
+ =?utf-8?B?azVFRmJ1dnVhRDVhWkhnYnUwaDIwdGxVVE5Pa3J2V3BUL3RGOEFNRjZYUmth?=
+ =?utf-8?B?RVN5M0NWNGhORmtCZkxZMlU2Y3habmowd205OWNySzBsd2NtSno5WkJxKzVV?=
+ =?utf-8?B?WHJmZzRTVHlpSEtrUlZpUEdiaitPak8zYWgxeGhJTzJXdlVaVGdSZUxHOVNV?=
+ =?utf-8?B?SFo5aU5uL1VaTWM0Q2krMEtTcEhGc1ExclZrWHZLbEgzMVQvOUd3TXBtbXVr?=
+ =?utf-8?Q?FtXU=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8abf44c-6f21-4925-000e-08de188d4860
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2025 14:53:41.9752 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g35vOSljUvgLQURQxxj6DeoXWJZwZTGQgG0/u1b3Ohyoad24b1XKg3+iiwz+t6ZB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8515
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,285 +166,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 31, 2025 at 10:41=E2=80=AFAM Tvrtko Ursulin
-<tvrtko.ursulin@igalia.com> wrote:
->
->
-> On 31/10/2025 14:21, Alex Deucher wrote:
-> > On Fri, Oct 31, 2025 at 4:44=E2=80=AFAM Tvrtko Ursulin
-> > <tvrtko.ursulin@igalia.com> wrote:
-> >>
-> >>
-> >> On 24/10/2025 18:03, Alex Deucher wrote:
-> >>> On Fri, Oct 24, 2025 at 12:36=E2=80=AFPM Tvrtko Ursulin
-> >>> <tvrtko.ursulin@igalia.com> wrote:
-> >>>>
-> >>>>
-> >>>> On 24/10/2025 17:11, Alex Deucher wrote:
-> >>>>> On Wed, Oct 8, 2025 at 10:28=E2=80=AFAM Tvrtko Ursulin
-> >>>>> <tvrtko.ursulin@igalia.com> wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>> On 08/10/2025 15:08, Alex Deucher wrote:
-> >>>>>>> Applied the series.  Thanks!
-> >>>>>>
-> >>>>>> Thank you and fingers crossed I did not fat finger anything that y=
-our CI
-> >>>>>> wouldn't find!
-> >>>>>
-> >>>>> Sorry for the late reply.  This series broke the VCN IB tests on at
-> >>>>> least navi4x.  The issue is a GPUVM page fault caused by VCN when
-> >>>>> running the IB tests.
-> >>>>> I don't see any obvious problems with the patches, but I haven't ha=
-d a
-> >>>>> chance to dig too much further.
-> >>>>
-> >>>> Oh I see the problem.. sorry about that.
-> >>>>
-> >>>> I missed the fact that after amdgpu_vcn_unified_ring_ib_header() I n=
-eed
-> >>>> to update the pointer.
-> >>>>
-> >>>> Good news is that only VCN has this pattern.
-> >>>>
-> >>>> Okay to send a fix next week? Would you need a fixup or a replacemen=
-t
-> >>>> patch in case you want to revert it in the meantime?
-> >>>
-> >>> Fixup is fine.  I'll squash it into the original VCN patch and give i=
-t
-> >>> a test next week.
-> >>
-> >> How did it go? I noticed amd-staging-drm-next currently has the origin=
-al
-> >> buggy version.
-> >
-> > Those were reverted.
-> >
-> >>
-> >> Given other patches from the series are also missing perhaps you are
-> >> testing it in stages?
-> >
-> > I was running it through CI again and noticed that polaris seems to
-> > regress with these changes, so likely related to the VCE or UVD v6
-> > changes.
->
-> Not sure I follow and sorry if there is still some confusion.
->
-> I did not spot anything obviously wrong in VCE and UVD v6.
->
-> But currently a broken version of "drm/amdgpu: More compact VCN IB
-> emission" is in the staging branch. It needs to be squashed with
-> "drm/amdgpu: Fixup VCN IB emission".
 
-It's already been reverted:
-https://gitlab.freedesktop.org/agd5f/linux/-/commit/bdb17ea8a391885c884d4e8=
-dfb27a1e22d3d03ce
-
-I was planning to land the whole series along with the VCN fix
-squashed into the original, but the CI for polaris keeps failing with
-this set.  I haven't had time to dig further yet.
-
-Alex
-
+On 10/31/2025 8:41 AM, Philip Yang wrote:
 >
+> On 2025-10-30 18:12, Chen, Xiaogang wrote:
+>>
+>> On 10/30/2025 3:14 PM, Philip Yang wrote:
+>>>
+>>> On 2025-10-30 10:20, Alex Deucher wrote:
+>>>> On Wed, Oct 29, 2025 at 9:36 PM Harish Kasiviswanathan
+>>>> <Harish.Kasiviswanathan@amd.com> wrote:
+>>>>> Fix the following corner case:-
+>>>>>   Consider a 2M huge page SVM allocation, followed by prefetch 
+>>>>> call for
+>>>>> the first 4K page. The whole range is initially mapped with single 
+>>>>> PTE.
+>>>>> After the prefetch, this range gets split to first page + rest of the
+>>>>> pages. Currently, the first page mapping is not updated on MI300A 
+>>>>> (APU)
+>>>>> since page hasn't migrated. However, after range split PTE mapping 
+>>>>> it not
+>>>>> valid.
+>>>>>
+>>>>> Fix this by forcing page table update for the whole range when 
+>>>>> prefetch
+>>>>> is called.  Calling prefetch on APU doesn't improve performance. 
+>>>>> If all
+>>>>> it deteriotes. However, functionality has to be supported.
+>>>>>
+>>>>> v2: Use apu_prefer_gtt as this issue doesn't apply to APUs with 
+>>>>> carveout
+>>>>> VRAM
+>>>> apu_prefer_gtt is used by small APUs as well.  It depends on how much
+>>>> VRAM vs GTT is available on the system.
+>>>>
+>>>>          if (adev->flags & AMD_IS_APU) {
+>>>>                  if (adev->gmc.real_vram_size < gtt_size)
+>>>>                          adev->apu_prefer_gtt = true;
+>>>>          }
+>>>
+>>> yes, if apu_perfer_gtt is true, then no page migration because 
+>>> best_prefetch_location is always CPU. For small APU, it will have 
+>>> same issue if KFD is used, prefetch split range page table not 
+>>> updated because no migration. This patch can fix the issue on both 
+>>> small APU and APP APU.
+>>>
+>>> Reviewed-by: Philip Yang<Philip.Yang@amd.com>
+>>
+>> Is the case like that: the svm range got split; the pages are not 
+>> migrated and attributes for the pages are not changed. Then why need 
+>> update pte as page physical locations and attributes are not changed? 
+>> Basically it used huge page pte, now you split the pte into smaller 
+>> ranges. Or I misunderstood the scenario?
+>
+> yes, the range mapped as huge page, use 2MB PDE entry as PTE, after 
+> spliting, the tail range mapping update, not 2MB alignment huge page, 
+> alloc pt bo for PDE entry, then tail PTEs updated, the head PTEs is 
+> invalid entry.
+>
+My concern is that since it is APU no page got migrated and access 
+attributes are not changes, just svm range got split. Then neither tail 
+or head sub-range would get mapping updated: the original 2MB PTE 
+mapping can still be used for both sub-ranges that gives better 
+performance. This patch spoil 2MB PTE vm mapping that is not necessary 
+for APU.
+
+Regards
+
+Xiaogang
+
 > Regards,
 >
-> Tvrtko
+> Philip
 >
->
-> > Alex
-> >
-> >>
-> >> Regards,
-> >>
-> >> Tvrtko
-> >>
-> >>>>>> I wish something similar could be done for amdgpu_ring_write too, =
-but
-> >>>>>> that one is waiting on Christian to, AFAIR, become idle enough to
-> >>>>>> untangle some ptr masking issues.
-> >>>>>>
-> >>>>>> Regards,
-> >>>>>>
-> >>>>>> Tvrtko
-> >>>>>>
-> >>>>>>> On Thu, Sep 11, 2025 at 7:42=E2=80=AFAM Tvrtko Ursulin
-> >>>>>>> <tvrtko.ursulin@igalia.com> wrote:
-> >>>>>>>>
-> >>>>>>>> In short, this series mostly does a lot of replacing of this pat=
-tern:
-> >>>>>>>>
-> >>>>>>>>            ib->ptr[ib->length_dw++] =3D SDMA_PKT_HEADER_OP(SDMA_=
-OP_WRITE) |
-> >>>>>>>>                    SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEA=
-R);
-> >>>>>>>>            ib->ptr[ib->length_dw++] =3D lower_32_bits(pe);
-> >>>>>>>>            ib->ptr[ib->length_dw++] =3D upper_32_bits(pe);
-> >>>>>>>>            ib->ptr[ib->length_dw++] =3D ndw - 1;
-> >>>>>>>>            for (; ndw > 0; ndw -=3D 2) {
-> >>>>>>>>                   ib->ptr[ib->length_dw++] =3D lower_32_bits(val=
-ue);
-> >>>>>>>>                   ib->ptr[ib->length_dw++] =3D upper_32_bits(val=
-ue);
-> >>>>>>>>                    value +=3D incr;
-> >>>>>>>>            }
-> >>>>>>>>
-> >>>>>>>> With this one:
-> >>>>>>>>
-> >>>>>>>>            u32 *ptr =3D &ib->ptr[ib->length_dw];
-> >>>>>>>>
-> >>>>>>>>            *ptr++ =3D SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
-> >>>>>>>>                     SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINE=
-AR);
-> >>>>>>>>            *ptr++ =3D lower_32_bits(pe);
-> >>>>>>>>            *ptr++ =3D upper_32_bits(pe);
-> >>>>>>>>            *ptr++ =3D ndw - 1;
-> >>>>>>>>            for (; ndw > 0; ndw -=3D 2) {
-> >>>>>>>>                    *ptr++ =3D lower_32_bits(value);
-> >>>>>>>>                    *ptr++ =3D upper_32_bits(value);
-> >>>>>>>>                     value +=3D incr;
-> >>>>>>>>             }
-> >>>>>>>>
-> >>>>>>>>            ib->length_dw =3D ptr - ib->ptr;
-> >>>>>>>>
-> >>>>>>>> Latter avoids register reloads and length updates on every dword=
- written, and on
-> >>>>>>>> the overall makes the IB emission much more compact:
-> >>>>>>>>
-> >>>>>>>> add/remove: 0/1 grow/shrink: 10/58 up/down: 260/-6598 (-6338)
-> >>>>>>>> Function                                     old     new   delta
-> >>>>>>>> sdma_v7_0_ring_pad_ib                         99     127     +28
-> >>>>>>>> sdma_v6_0_ring_pad_ib                         99     127     +28
-> >>>>>>>> sdma_v5_2_ring_pad_ib                         99     127     +28
-> >>>>>>>> sdma_v5_0_ring_pad_ib                         99     127     +28
-> >>>>>>>> sdma_v4_4_2_ring_pad_ib                       99     127     +28
-> >>>>>>>> sdma_v4_0_ring_pad_ib                         99     127     +28
-> >>>>>>>> sdma_v3_0_ring_pad_ib                         99     127     +28
-> >>>>>>>> sdma_v2_4_ring_pad_ib                         99     127     +28
-> >>>>>>>> cik_sdma_ring_pad_ib                          99     127     +28
-> >>>>>>>> si_dma_ring_pad_ib                            36      44      +8
-> >>>>>>>> amdgpu_ring_generic_pad_ib                    56      52      -4
-> >>>>>>>> si_dma_emit_fill_buffer                      108      71     -37
-> >>>>>>>> si_dma_vm_write_pte                          158     115     -43
-> >>>>>>>> amdgpu_vcn_dec_sw_send_msg                   810     767     -43
-> >>>>>>>> si_dma_vm_copy_pte                           137      87     -50
-> >>>>>>>> si_dma_emit_copy_buffer                      134      84     -50
-> >>>>>>>> sdma_v3_0_vm_write_pte                       163     102     -61
-> >>>>>>>> sdma_v2_4_vm_write_pte                       163     102     -61
-> >>>>>>>> cik_sdma_vm_write_pte                        163     102     -61
-> >>>>>>>> sdma_v7_0_vm_write_pte                       168     105     -63
-> >>>>>>>> sdma_v7_0_emit_fill_buffer                   119      56     -63
-> >>>>>>>> sdma_v6_0_vm_write_pte                       168     105     -63
-> >>>>>>>> sdma_v6_0_emit_fill_buffer                   119      56     -63
-> >>>>>>>> sdma_v5_2_vm_write_pte                       168     105     -63
-> >>>>>>>> sdma_v5_2_emit_fill_buffer                   119      56     -63
-> >>>>>>>> sdma_v5_0_vm_write_pte                       168     105     -63
-> >>>>>>>> sdma_v5_0_emit_fill_buffer                   119      56     -63
-> >>>>>>>> sdma_v4_4_2_vm_write_pte                     168     105     -63
-> >>>>>>>> sdma_v4_4_2_emit_fill_buffer                 119      56     -63
-> >>>>>>>> sdma_v4_0_vm_write_pte                       168     105     -63
-> >>>>>>>> sdma_v4_0_emit_fill_buffer                   119      56     -63
-> >>>>>>>> sdma_v3_0_emit_fill_buffer                   116      53     -63
-> >>>>>>>> sdma_v2_4_emit_fill_buffer                   116      53     -63
-> >>>>>>>> cik_sdma_emit_fill_buffer                    116      53     -63
-> >>>>>>>> sdma_v6_0_emit_copy_buffer                   169      76     -93
-> >>>>>>>> sdma_v5_2_emit_copy_buffer                   169      76     -93
-> >>>>>>>> sdma_v5_0_emit_copy_buffer                   169      76     -93
-> >>>>>>>> sdma_v4_4_2_emit_copy_buffer                 169      76     -93
-> >>>>>>>> sdma_v4_0_emit_copy_buffer                   169      76     -93
-> >>>>>>>> sdma_v3_0_vm_copy_pte                        158      64     -94
-> >>>>>>>> sdma_v3_0_emit_copy_buffer                   155      61     -94
-> >>>>>>>> sdma_v2_4_vm_copy_pte                        158      64     -94
-> >>>>>>>> sdma_v2_4_emit_copy_buffer                   155      61     -94
-> >>>>>>>> cik_sdma_vm_copy_pte                         158      64     -94
-> >>>>>>>> cik_sdma_emit_copy_buffer                    155      61     -94
-> >>>>>>>> sdma_v6_0_vm_copy_pte                        163      68     -95
-> >>>>>>>> sdma_v5_2_vm_copy_pte                        163      68     -95
-> >>>>>>>> sdma_v5_0_vm_copy_pte                        163      68     -95
-> >>>>>>>> sdma_v4_4_2_vm_copy_pte                      163      68     -95
-> >>>>>>>> sdma_v4_0_vm_copy_pte                        163      68     -95
-> >>>>>>>> sdma_v7_0_vm_copy_pte                        183      75    -108
-> >>>>>>>> sdma_v7_0_emit_copy_buffer                   317     202    -115
-> >>>>>>>> si_dma_vm_set_pte_pde                        338     214    -124
-> >>>>>>>> amdgpu_vce_get_destroy_msg                   784     652    -132
-> >>>>>>>> sdma_v7_0_vm_set_pte_pde                     218      72    -146
-> >>>>>>>> sdma_v6_0_vm_set_pte_pde                     218      72    -146
-> >>>>>>>> sdma_v5_2_vm_set_pte_pde                     218      72    -146
-> >>>>>>>> sdma_v5_0_vm_set_pte_pde                     218      72    -146
-> >>>>>>>> sdma_v4_4_2_vm_set_pte_pde                   218      72    -146
-> >>>>>>>> sdma_v4_0_vm_set_pte_pde                     218      72    -146
-> >>>>>>>> sdma_v3_0_vm_set_pte_pde                     215      69    -146
-> >>>>>>>> sdma_v2_4_vm_set_pte_pde                     215      69    -146
-> >>>>>>>> cik_sdma_vm_set_pte_pde                      215      69    -146
-> >>>>>>>> amdgpu_vcn_unified_ring_ib_header            172       -    -172
-> >>>>>>>> gfx_v9_4_2_run_shader.constprop              739     532    -207
-> >>>>>>>> uvd_v6_0_enc_ring_test_ib                   1464    1162    -302
-> >>>>>>>> uvd_v7_0_enc_ring_test_ib                   1464    1138    -326
-> >>>>>>>> amdgpu_vce_ring_test_ib                     1357     936    -421
-> >>>>>>>> amdgpu_vcn_enc_ring_test_ib                 2042    1524    -518
-> >>>>>>>> Total: Before=3D9262623, After=3D9256285, chg -0.07%
-> >>>>>>>>
-> >>>>>>>> * Notice how _pad_ib functions have grown. I think the compiler =
-used the
-> >>>>>>>> opportunity to unroll the loops.
-> >>>>>>>>
-> >>>>>>>> ** Series was only smoke tested on the Steam Deck.
-> >>>>>>>>
-> >>>>>>>> Tvrtko Ursulin (16):
-> >>>>>>>>       drm/amdgpu: Use memset32 for IB padding
-> >>>>>>>>       drm/amdgpu: More compact VCE IB emission
-> >>>>>>>>       drm/amdgpu: More compact VCN IB emission
-> >>>>>>>>       drm/amdgpu: More compact UVD 6 IB emission
-> >>>>>>>>       drm/amdgpu: More compact UVD 7 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SI SDMA emission
-> >>>>>>>>       drm/amdgpu: More compact CIK SDMA IB emission
-> >>>>>>>>       drm/amdgpu: More compact GFX 9.4.2 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 2.4 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 3.0 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 4.0 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 4.4.2 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 5.0 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 5.2 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 6.0 IB emission
-> >>>>>>>>       drm/amdgpu: More compact SDMA 7.0 IB emission
-> >>>>>>>>
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  12 ++-
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  |  90 +++++++++---=
------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c  | 101 ++++++++++--=
--------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 105 ++++++++++++=
---------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c  |  46 ++++-----
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 108 ++++++++++++=
---------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 108 ++++++++++++=
---------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   | 109 ++++++++++++=
----------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 108 ++++++++++++=
---------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 106 ++++++++++++=
---------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 110 ++++++++++++=
----------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   | 110 ++++++++++++=
----------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   | 119 ++++++++++++=
-+----------
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/si_dma.c      |  84 +++++++++---=
-----
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  66 +++++++-----=
--
-> >>>>>>>>      drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  66 +++++++-----=
--
-> >>>>>>>>      16 files changed, 849 insertions(+), 599 deletions(-)
-> >>>>>>>>
-> >>>>>>>> --
-> >>>>>>>> 2.48.0
-> >>>>>>>>
-> >>>>>>
-> >>>>
-> >>
->
+>>
+>> Regards
+>>
+>> Xiaogang
+>>
+>>>
+>>>> Alex
+>>>>
+>>>>> Suggested-by: Philip Yang <Philip.Yang@amd.com>
+>>>>> Signed-off-by: Harish Kasiviswanathan 
+>>>>> <Harish.Kasiviswanathan@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 +++++++
+>>>>>   1 file changed, 7 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
+>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>> index c30dfb8ec236..76cab1c8aaa2 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>>> @@ -766,14 +766,21 @@ svm_range_apply_attrs(struct kfd_process *p, 
+>>>>> struct svm_range *prange,
+>>>>>   {
+>>>>>          uint32_t i;
+>>>>>          int gpuidx;
+>>>>> +       struct kfd_node *node;
+>>>>>
+>>>>>          for (i = 0; i < nattr; i++) {
+>>>>>                  switch (attrs[i].type) {
+>>>>>                  case KFD_IOCTL_SVM_ATTR_PREFERRED_LOC:
+>>>>>                          prange->preferred_loc = attrs[i].value;
+>>>>> +                       node = svm_range_get_node_by_id(prange, 
+>>>>> attrs[i].value);
+>>>>> +                       if (node && node->adev->apu_prefer_gtt && 
+>>>>> !p->xnack_enabled)
+>>>>> +                               *update_mapping = true;
+>>>>>                          break;
+>>>>>                  case KFD_IOCTL_SVM_ATTR_PREFETCH_LOC:
+>>>>>                          prange->prefetch_loc = attrs[i].value;
+>>>>> +                       node = svm_range_get_node_by_id(prange, 
+>>>>> attrs[i].value);
+>>>>> +                       if (node && node->adev->apu_prefer_gtt && 
+>>>>> !p->xnack_enabled)
+>>>>> +                               *update_mapping = true;
+>>>>>                          break;
+>>>>>                  case KFD_IOCTL_SVM_ATTR_ACCESS:
+>>>>>                  case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
+>>>>> -- 
+>>>>> 2.34.1
+>>>>>
