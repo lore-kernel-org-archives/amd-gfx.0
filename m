@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1352CCF9FF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 13:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D948BCCF9FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 13:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB07C10EB47;
-	Fri, 31 Oct 2025 13:44:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7840410EB53;
+	Fri, 31 Oct 2025 13:44:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ma5hWRpb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AYpT51EO";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDB6A10EB43
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 13:44:48 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4770e7062b5so16275095e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 06:44:48 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAE4910EB55
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 13:44:52 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-4270491e9easo1974678f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 06:44:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761918287; x=1762523087; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=8l4ubcMd7fh1t9v6bYRfKmDgoG7zfmnbjqlGtcnGlQ4=;
- b=ma5hWRpbhOG2HoBos7+ThsqEm6o5UpFORhqJ79ExSuUN2nEw03tzyXf/azIL6Kg3iZ
- RWN5lxcBzH9krdEgLcHS4inNi0648k4sDMisVs6eNQYJcwc0jJScGbLO1obAwADubZXR
- KE6ScmSJdQ3bV7ZzELD0AMkqSgc51LuzulK3w83g/Os1fSyDm30Nj+P/3ORU4VL6mQFg
- 6e4SwvIDiL9u9WVv/ojHQ136v+yO+u+nn2QGZbffgCGPF1bGXmYvzBkYy70qQ/IiVABX
- Y41LVEm7hVISHX8sTsHg+Jk3n4KyjgQ1/rbmmplN8MDx48uTEie7BpVxAwpYpGG9cZJi
- IlcQ==
+ d=gmail.com; s=20230601; t=1761918291; x=1762523091; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Lz7nSJb0Sp+sy2fFkGoNzLTsSE9Ff1nmykLyZLMIIpA=;
+ b=AYpT51EODp/8RH1VKjiNlhV1fB0XPJbHEbH4VkB7ca6usg7WsZia8HD6eGUNCWG2y8
+ KV8tM+IjdJJr2FFr10hNrkNh3Nl94hiIXyPswFlSLE7YnI/1/B080eoxmSK5jEI6zTpf
+ JJTNYLVko6pcsvSCiXTluqlr3aR459DFBnALU0i9CyJuNG81OLipNaT5a+hmJTpAvptD
+ rvLS5V0AaUeneIVwq3iIWRYwq8ihYpfbzViF5um+ShU4P9ErWOrcQtCBbuPXbLBhhf9X
+ srBs+hCcWcstt9eMxFTusBwspka2+e+SPapY2pnfxfRonWDDER4gWfIKRQbLDAQNWeC/
+ uFcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761918287; x=1762523087;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8l4ubcMd7fh1t9v6bYRfKmDgoG7zfmnbjqlGtcnGlQ4=;
- b=p1sN6Qwv7tBYrrLcpWciEq8tpxm4HAQWzjqnaJzYmFteTCJKYVgPYzJv8BrzQObamL
- 2p49c5Pz6/4YufOjljEg8p/hdNlOz1jadSUXmmAmlQBnyzPHl73gZnevKujeaEnUBo1c
- LxFlNZLwf+BrpAn1sfiUelkPGNYtdpG9EUuchG0ay52f+lD79P0E9+wBQ32X0QeNHOaN
- CchT22Ix7MuDx9NPOT2qpMrr67MGxvrTZJpZWBx/hEblIiMH8vgtxTf+FPTVYsJ0FRSU
- HgAJ3UNwPxMg49LjFmkAqGyYuq/ASx/7LD8JVuLqOzST7GSk73u6MTneH8BagDlUty/E
- IkPA==
+ d=1e100.net; s=20230601; t=1761918291; x=1762523091;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Lz7nSJb0Sp+sy2fFkGoNzLTsSE9Ff1nmykLyZLMIIpA=;
+ b=Msf28jfCrdhakHJyB8lRCPC4gJmBidstjwL1M8sxomgJaW/GBaOhRkg6jVEnmH7u5D
+ uTX1j8xNm6au9y58Hq36WArcufnNlxhJ0M/bdgCi5aR7x8VrfzkOhY/tO/usl2RzwGkx
+ WT8j3PYn9og264VAo/RCoejqzTUAbwF1+PScWz1h2P+qqjeFi3a1ydnJ5Hapw+IvU5Yt
+ fZJmK1bpZdbTKaaEIv/zWQrDp5hn1caQo1QCStj7bQY4BMfc8iJwyQaiAiqkgSYJdMLS
+ maa79G4JTA8uM4KQv54y63gMe6txfodKTbLmQQqeX8Ym9GVHZVX1FeP8VGKMhEwzdZKB
+ Pc6A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVvcM1YCEMVC5AvtFl+cOxVYP8yBy3/eRgcG3YcXNyuNKxgOO3yOHmKCbs3bfzxu1EG7wNZMATC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzC3X2AiNW0Oc6j1nRrFKNNuVmHr8IcHCjgpEkStti3ZBAZom07
- pP8Sm1FPgpsWzxPcbOfWxJp6v8ZxtF7/EeBIJ4efcGliPUvHG4WgZ7hU
-X-Gm-Gg: ASbGncvH7aiX6U7wZTeMdyawVDyFGa1KJvv2Qli6TIPcRtIy2OxjlMboETbhIR6H2lC
- RTWQQWY7IRafazf+3knDx16C8Qi31Agndg/tfsc6nDQbIhYDixWjXx029UJu4wmYLqDUjEcPort
- AmtPJlJ8Pj2akOKsD0X/BnuMfFI70KmuHOjWUt3ZHf477WhhvqP/Ks8hHW6DFtW0UbzVtxVOZAB
- Nw//79XdCeEu3F62Dbx0MGMxpoZBiVn6MvvEFcnYbGicwgwMf23dxz56qG9WcjhWsYpxkisFT43
- XJkyK+UdQRlKLbv07Gb1QXdqa3ksfJc+SyP5F4B7HnKS/DVkZ/Pz6qLfcZGmzjrYpiHS3LG9yUU
- 03B42nA2XBWBwWSwfmZk4lC/TXyN0ysKBBvVjX40KxI9jrHy9TqlmgddQ71SWyiCdGqFJLSvAp0
- QIgFoTFyZXAWW1VA==
-X-Google-Smtp-Source: AGHT+IFPyGiMbJajkSi+avrTdCfsEH04+atqUrSKZodvnp1ote0dv/5nDF8K1ptv4L/v5ax2GjW3nw==
-X-Received: by 2002:a05:600c:871b:b0:475:dddc:8c08 with SMTP id
- 5b1f17b1804b1-47730833ec7mr32394245e9.15.1761918286821; 
- Fri, 31 Oct 2025 06:44:46 -0700 (PDT)
+ AJvYcCX0QD6b+aVoCznxEtOiYdhJw2Oma39GSD6PDAz5wugA8S1WLSdYB5igbFL2sEGfgavicD6y0jF6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNN2Ok7DdefAMiK47lKEjpeFnR5Bwz561BFGnwF2eD9BKpQ2NV
+ /ObPaJQ5O5Yx4t3z2Djd/jwjxwbANaPsld+iHn5UmgMaF5NdbloEJeh1W3d2zIyQ6ag=
+X-Gm-Gg: ASbGncsQ0mVBoF4nb2HL2q6JlqM8Hr3vRNuQ3HvaYHCOS4LIzXWbcM4mDNdJlefvK+m
+ b8tZA6W2Cn/SEm1wNEDSudhd2XYo+HUnJJkguOyh+JWIlrLmyYCu+M5KNheUFSBfhL+aQbtvfYm
+ v1OjLAwVpt2zKc8ixjccRPyTdtrajO27LJhIwjL36c5fUQ/ctsOv10eXDu1Vu3hIbOaL4w06EdO
+ xb3Qmnrc9XqafjS42nLzzqnvMSRVK/4uVbMHVyNBPWUI0L4GaTQq6p5g1oz5Np/X/AhBX4VS5rJ
+ UHdCSEveR4wu0yJ8NX/yLc9QOnHN9FavaR3eLkGXsN8o8LLBJj67Brzaoj+CDCJy5mAVfavlDQv
+ D9RVpGH3cdVGABd22yDO7LzPPVgPOe2ZY4Hxv7etI5hJ3VxdCLb8xUY/oJAA3Vxvx14RiiNyyas
+ BujVcdOZQf9XL9kaUG40Wu8HF+
+X-Google-Smtp-Source: AGHT+IFX6Ta9CYbUtJzM5PiYi/UpTYqzIRRkMQiJ4fP17ykxBqc5ghDpURSmf9BUutDj5IVWkT0/Jw==
+X-Received: by 2002:a05:600c:8185:b0:475:da13:2566 with SMTP id
+ 5b1f17b1804b1-477308a690dmr36307795e9.35.1761918291097; 
+ Fri, 31 Oct 2025 06:44:51 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:1599:7d00:73cb:d446:bf90:f1c0])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47732fe119bsm34502635e9.10.2025.10.31.06.44.44
+ 5b1f17b1804b1-47732fe119bsm34502635e9.10.2025.10.31.06.44.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Oct 2025 06:44:45 -0700 (PDT)
+ Fri, 31 Oct 2025 06:44:50 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -70,11 +71,14 @@ To: phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
  matthew.brost@intel.com
 Cc: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: Independence for dma_fences! v2
-Date: Fri, 31 Oct 2025 14:16:34 +0100
-Message-ID: <20251031134442.113648-1-christian.koenig@amd.com>
+Subject: [PATCH 02/20] dma-buf: rework stub fence initialisation v2
+Date: Fri, 31 Oct 2025 14:16:36 +0100
+Message-ID: <20251031134442.113648-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251031134442.113648-1-christian.koenig@amd.com>
+References: <20251031134442.113648-1-christian.koenig@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,48 +94,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi everyone,
+Instead of doing this on the first call of the function just initialize
+the stub fence during kernel load.
 
-dma_fences have ever lived under the tyranny dictated by the module
-lifetime of their issuer, leading to crashes should anybody still holding
-a reference to a dma_fence when the module of the issuer was unloaded.
+This has the clear advantage of lower overhead and also doesn't rely on
+the ops to not be NULL any more.
 
-The basic problem is that when buffer are shared between drivers
-dma_fence objects can leak into external drivers and stay there even
-after they are signaled. The dma_resv object for example only lazy releases
-dma_fences.
+v2: use correct signal function
 
-So what happens is that when the module who originally created the dma_fence
-unloads the dma_fence_ops function table becomes unavailable as well and so
-any attempt to release the fence crashes the system.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/dma-buf/dma-fence.c | 32 +++++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 17 deletions(-)
 
-Previously various approaches have been discussed, including changing the
-locking semantics of the dma_fence callbacks (by me) as well as using the
-drm scheduler as intermediate layer (by Sima) to disconnect dma_fences
-from their actual users, but none of them are actually solving all problems.
-
-Tvrtko did some really nice prerequisite work by protecting the returned
-strings of the dma_fence_ops by RCU. This way dma_fence creators where
-able to just wait for an RCU grace period after fence signaling before
-they could be save to free those data structures.
-
-Now this patch set here goes a step further and protects the whole
-dma_fence_ops structure by RCU, so that after the fence signals the
-pointer to the dma_fence_ops is set to NULL when there is no wait nor
-release callback given. All functionality which use the dma_fence_ops
-reference are put inside an RCU critical section, except for the
-deprecated issuer specific wait and of course the optional release
-callback.
-
-Additional to the RCU changes the lock protecting the dma_fence state
-previously had to be allocated external. This set here now changes the
-functionality to make that external lock optional and allows dma_fences
-to use an inline lock and be self contained.
-
-This patch set addressed all previous code review comments, is now based
-on drm-tip instead of amd-staging-drm-next, includes my changes for amdgpu
-as well as Mathew's patches for XE.
-
-Please review and comment,
-Christian.
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index cfa6ddcc1278..b229d96f551c 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -121,29 +121,27 @@ static const struct dma_fence_ops dma_fence_stub_ops = {
+ 	.get_timeline_name = dma_fence_stub_get_name,
+ };
+ 
++static int __init dma_fence_init_stub(void)
++{
++	dma_fence_init(&dma_fence_stub, &dma_fence_stub_ops,
++		       &dma_fence_stub_lock, 0, 0);
++
++	set_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
++		&dma_fence_stub.flags);
++
++	dma_fence_signal(&dma_fence_stub);
++	return 0;
++}
++subsys_initcall(dma_fence_init_stub);
++
+ /**
+  * dma_fence_get_stub - return a signaled fence
+  *
+- * Return a stub fence which is already signaled. The fence's
+- * timestamp corresponds to the first time after boot this
+- * function is called.
++ * Return a stub fence which is already signaled. The fence's timestamp
++ * corresponds to the initialisation time of the linux kernel.
+  */
+ struct dma_fence *dma_fence_get_stub(void)
+ {
+-	spin_lock(&dma_fence_stub_lock);
+-	if (!dma_fence_stub.ops) {
+-		dma_fence_init(&dma_fence_stub,
+-			       &dma_fence_stub_ops,
+-			       &dma_fence_stub_lock,
+-			       0, 0);
+-
+-		set_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+-			&dma_fence_stub.flags);
+-
+-		dma_fence_signal_locked(&dma_fence_stub);
+-	}
+-	spin_unlock(&dma_fence_stub_lock);
+-
+ 	return dma_fence_get(&dma_fence_stub);
+ }
+ EXPORT_SYMBOL(dma_fence_get_stub);
+-- 
+2.43.0
 
