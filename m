@@ -4,82 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CB48CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AB30CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 027A710EBC0;
-	Fri, 31 Oct 2025 14:05:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A96EA10EBC3;
+	Fri, 31 Oct 2025 14:06:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="ttVLCXdM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Blj9/Jj1";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17C7E10EBC2
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 14:05:33 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-426f1574a14so1525311f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 07:05:33 -0700 (PDT)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9540D10EBC3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 14:06:11 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-b62e55af64aso119475a12.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 07:06:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1761919532; x=1762524332;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=26q/n1I6RBOpvKVgbrEI7Ev5SGuxVTHG/ajFD1B6wJ0=;
- b=ttVLCXdMOudbi1V147OsLBcLLSorjuYQUMTuTLASC/03OlOfQ0E9hxnCZZHgDBnJ1g
- 4x2zze+6LTC//VAJ4I3x375ad0hZcUStD9nJ5bK0PvVAMkQqXcYOebDuSyXoIWw51Ra1
- o4V5G6E2GrX0EDiCA2/CYwZs7KRtiZhOgosdKlpoJcHsBRXCy8zBfQTnZ7lsxpO1kChs
- /yHYwtLwcHNZM7/9n61Tcysf5Y7b/j5+TU0ezgRa0ksBJOfCsHhz+rxY+rr7qXbitzzm
- croBesC/coAwwIvOi5s9QBeSakiV4pGds4syhBEnoZO6MiQ+1DPiPQlnfxaOjy9HwswH
- 5yYQ==
+ d=gmail.com; s=20230601; t=1761919571; x=1762524371; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M2/MtLyrw+5H7uhJKoTPpmPUsyiesXdaFoT/UPgBNps=;
+ b=Blj9/Jj1eY7kdly77Kgx2yl82bws8gCNIDbLNhA+SIbNxn3iInWXQ5ieVC1nkFYRi9
+ BSgD/sUpT3B8AeD+Peie6bZcqatTl6Z+RqAOXBGCtyUVS0zvidFnTFPgCAjVCjH1TDuY
+ hm0f/4p4rXes2M+vICRtiyLGYNWXkXNdT5fws9adf16mxtnCHMPARQSp5hBUXPYgMY1N
+ BUoyQ1YJgxsdufTnNU3C/i8yIUQhMps48sHrbJbfG6RZfCCKBlhoo1FP+twjEiJwTtFs
+ L8PWpxNQgFl8gWnivbLLl4KQxw0DFApg6KdLXy2lW4DMO6gR2z9WKDW06DElaTbsaMXa
+ pLOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761919532; x=1762524332;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=26q/n1I6RBOpvKVgbrEI7Ev5SGuxVTHG/ajFD1B6wJ0=;
- b=RJtuYr0Z6sol27NfTeiV7FCwMxCtkXS3kQ60ziAvQDSfMtjXJii8zwo93sDc7+QUPx
- QjZ1XHPyhrLuIVuPwZ9t+onCrFOAD/53zsgPI5ksLV4JW5fqW9WpKGn1i2yfqHxR9yiY
- qaV4AbqfYbBB83GWbjeE7QoW/W9fnJDBl7wCis+xBkBl7RMcrIzXc79tEUzd9QT8/3A5
- w7TcobgGuwXJqvB41NhVZDVWJeeTtZ30kZSNLBn5xn/8an88mL/mGcyiKZHAEk930FI+
- 9jUOwU06Klqc8TytqSPzync43bCBbaNM9eNNv0+s7fkJYUvCpDMh+1hKj3HEmghDHQ7Y
- HDZA==
+ d=1e100.net; s=20230601; t=1761919571; x=1762524371;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=M2/MtLyrw+5H7uhJKoTPpmPUsyiesXdaFoT/UPgBNps=;
+ b=R1yHRF0bx5cWq+I7KPq8ZVogSuLPYUF+kPbaiUDtYhUnYtt5Pwh/rFhE6oMXnfSZ4k
+ FdBufxKyKB5+eUq1Y44vvKmH2nhLcgKhF6eQzUNn43hwgGgON/4VhLHjbb9XsEU2McVi
+ UwTtZ8PsmPpIb5Xmxk7eeW5ppNirZlXgID3EBRe8b2QbOzoy6hS/Xvh0y5gX2SYo70Wm
+ kf2YiLDx3dZDDh7JNnwuwlD7QtE6clPbBTrujSRs8HgMKNjbYPV/hKNjTG65H056XKL+
+ VZ1taBvDBk9lJzOWsU/8ap6ZoNk4h8+2lKGLi0xMqScTUm7iFzV9xpqf/GvinTCoaOgY
+ Qv/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAgjFzHjIb7FnJPQN4Bv1TAEEd1qX+VuVUGaztCYvBsyeJeaPxMqScK85FTDaLxmmdffFTfQn9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwrNVMGWVchUbjZtYseC7crX6eaEmDB8kQ28CV1L1i/G5BEzgAt
- qUP/TxE3xYW3gTtJPjVMxSoqSrfGTl0avV7Q4dreL3TaXte/pSFz39+pqblm4rGxNLY=
-X-Gm-Gg: ASbGnct6fVitFuwrp29iT6+jyqcTtXbVuoJKGTLQxhyyFT/MoxVXgATV/WePnkXoq2h
- CJM0e4Zt9U0RIL5Sf9o9RYSln5qp+uziG/vQc6PsMat/u/Xr9m5q0RE0ODdl1hBEyaH+jmvH624
- WYhtW9rt+sUp2a7eVVBMHRab9aNyB9nEls0WGrOBHf1RytzBUjfGz0SeoxYzA7S4oyoGbNVMpVe
- zaj4/lwuNc9NVWG24pJnzc4Hj9rRb1BbpFKAsFpXdeaK2acnKEQLRJl4LnArkX2JTTnCnvNfYEx
- 9OOithle8f/fVALyKv1/CwrQ6sFqxhEiARirpbjswMPLe4AV2M+YuKLjRWTS5vXDjr7F+tXCyLz
- Bmw0ZLpPZ/BFEeOmYxn+h+AVYAVokctFGT8GBIM/mFyJwBKF2Wkm2Frz8rDvrqwhIROApuzt9X6
- 8bCpX/Cii11QZIUMHt
-X-Google-Smtp-Source: AGHT+IHRXGxdN00gjHYB/wISljDMfev6Cerd7KMtURx15FbCZW3YAN2LNQu20a90KoH33jsYry/2VQ==
-X-Received: by 2002:a05:6000:2905:b0:427:9d7:8720 with SMTP id
- ffacd0b85a97d-429bd68312amr3011484f8f.24.1761919531578; 
- Fri, 31 Oct 2025 07:05:31 -0700 (PDT)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429c13f62d0sm3802771f8f.44.2025.10.31.07.05.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Oct 2025 07:05:31 -0700 (PDT)
-Message-ID: <3975467c-3293-4e65-a729-703c7f819bad@ursulin.net>
-Date: Fri, 31 Oct 2025 14:05:30 +0000
+ AJvYcCV530IlBw3WFaDCzKAHXVpM0nM4jNWVKOGw0puCoRzCdpyKhAOeWXUeIJVo4KT86TQkmpykz1qW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymQAiMMvrz5CoIGUeXmqWDR5yGbhi/M4cYd2fT5DLcY1GkrGPP
+ 85uh0MmYozam2PgLPzjTcaNJCDeDDqoqo3aXmjAfY/4y4q/vg5/3ZflvzHus/Y7VMQLx173fsfB
+ GN0cX0Weob3E5T0n9xbLzg9940+OOjwU=
+X-Gm-Gg: ASbGncsj05EsfuOLbElRJzqSGe3tlkxI7h3BKiOlbBN/V4iufEmMkQ5+zTXxzkEgcIW
+ eMI9vu6ho13yLKFGD1kYV6xYpifQ6tAxHpt63loe02YIZixSGEB0yDFeR7ClVFBA6FQiDN8VJ16
+ +gDROjPckt4lwq+lUyiP1CY8ktiv57FTzIS7H65krY5z2uf7WlW32b+0Fr5Hw1zaOxSbHgGjyZr
+ NIGB8XK8DFJtdhIvXwfcdgg8dt4bddydzFlnwCNtnO3JaLsIlQsbf7qfhkD
+X-Google-Smtp-Source: AGHT+IHvJK9SIkV9dl9Eji3RiRlWH1uWPAux5bcNYl1sPfAjnWLh7D0YH534o6gcdB39DgycnxXf1dlOIo1GTgRNSBY=
+X-Received: by 2002:a17:903:1ca:b0:274:506d:7fe5 with SMTP id
+ d9443c01a7336-2951a3a58cbmr26325815ad.4.1761919570365; Fri, 31 Oct 2025
+ 07:06:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/20] dma-buf: rework stub fence initialisation v2
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
- airlied@gmail.com, felix.kuehling@amd.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20251031134442.113648-1-christian.koenig@amd.com>
- <20251031134442.113648-3-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20251031134442.113648-3-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20251027220255.507105-1-alexander.deucher@amd.com>
+ <20b7418c-c091-4e4f-aa40-556dd68605ee@amd.com>
+ <CADnq5_P0fT6PFDOz1Fn7mWz4Q=aC1G8vX-D3XbPmSx1dc9KLJg@mail.gmail.com>
+ <c4b73b23-441e-46c0-a752-3fe30d1bd9a0@amd.com>
+In-Reply-To: <c4b73b23-441e-46c0-a752-3fe30d1bd9a0@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 31 Oct 2025 10:05:58 -0400
+X-Gm-Features: AWmQ_bkK8jenNWNTBZoUR6e92pYSMrvq8BIwzOe0AtZAK-c71dtRSYpuTU69uqY
+Message-ID: <CADnq5_N3Wn4ev-FiR4PqSEZjpk=HNYZRRQLNSp-8KFsvKPHqYA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix possible fence leaks from job structure
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,75 +86,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, Oct 31, 2025 at 10:01=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 10/31/25 14:53, Alex Deucher wrote:
+> > On Fri, Oct 31, 2025 at 4:40=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >> On 10/27/25 23:02, Alex Deucher wrote:
+> >>> If we don't end up initializing the fences, free them when
+> >>> we free the job.
+> >>>
+> >>> v2: take a reference to the fences if we emit them
+> >>>
+> >>> Fixes: db36632ea51e ("drm/amdgpu: clean up and unify hw fence handlin=
+g")
+> >>> Reviewed-by: Jesse Zhang <Jesse.Zhang@amd.com> (v1)
+> >>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>> ---
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  2 ++
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 18 ++++++++++++++++++
+> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  2 ++
+> >>>  3 files changed, 22 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ib.c
+> >>> index 39229ece83f83..0596114377600 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> >>> @@ -302,6 +302,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, =
+unsigned int num_ibs,
+> >>>               return r;
+> >>>       }
+> >>>       *f =3D &af->base;
+> >>> +     /* get a ref for the job */
+> >>> +     dma_fence_get(*f);
+> >>
+> >> I think it would be better to set the fence inside the job to NULL as =
+soon as it is consumed/initialized.
+> >
+> > We need the pointer for the job timed out handling.
+>
+> I don't think that is true. During a timeout we should have job->s_fence-=
+>parent for the HW fence.
+>
+> But even when we go down that route here, you only grab a reference to th=
+e hw_fence but not the hw_vm_fence.
+>
+> That looks broken to me.
 
-On 31/10/2025 13:16, Christian König wrote:
-> Instead of doing this on the first call of the function just initialize
-> the stub fence during kernel load.
-> 
-> This has the clear advantage of lower overhead and also doesn't rely on
-> the ops to not be NULL any more.
-> 
-> v2: use correct signal function
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+I also grab a reference to the vm fence.  See the last hunk of the patch be=
+low.
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Alex
 
-Regards,
-
-Tvrtko
-
-> ---
->   drivers/dma-buf/dma-fence.c | 32 +++++++++++++++-----------------
->   1 file changed, 15 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index cfa6ddcc1278..b229d96f551c 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -121,29 +121,27 @@ static const struct dma_fence_ops dma_fence_stub_ops = {
->   	.get_timeline_name = dma_fence_stub_get_name,
->   };
->   
-> +static int __init dma_fence_init_stub(void)
-> +{
-> +	dma_fence_init(&dma_fence_stub, &dma_fence_stub_ops,
-> +		       &dma_fence_stub_lock, 0, 0);
-> +
-> +	set_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
-> +		&dma_fence_stub.flags);
-> +
-> +	dma_fence_signal(&dma_fence_stub);
-> +	return 0;
-> +}
-> +subsys_initcall(dma_fence_init_stub);
-> +
->   /**
->    * dma_fence_get_stub - return a signaled fence
->    *
-> - * Return a stub fence which is already signaled. The fence's
-> - * timestamp corresponds to the first time after boot this
-> - * function is called.
-> + * Return a stub fence which is already signaled. The fence's timestamp
-> + * corresponds to the initialisation time of the linux kernel.
->    */
->   struct dma_fence *dma_fence_get_stub(void)
->   {
-> -	spin_lock(&dma_fence_stub_lock);
-> -	if (!dma_fence_stub.ops) {
-> -		dma_fence_init(&dma_fence_stub,
-> -			       &dma_fence_stub_ops,
-> -			       &dma_fence_stub_lock,
-> -			       0, 0);
-> -
-> -		set_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
-> -			&dma_fence_stub.flags);
-> -
-> -		dma_fence_signal_locked(&dma_fence_stub);
-> -	}
-> -	spin_unlock(&dma_fence_stub_lock);
-> -
->   	return dma_fence_get(&dma_fence_stub);
->   }
->   EXPORT_SYMBOL(dma_fence_get_stub);
-
+>
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>
+> >>>
+> >>>       if (ring->funcs->insert_end)
+> >>>               ring->funcs->insert_end(ring);
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_job.c
+> >>> index 55c7e104d5ca0..dc970f5fe601b 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> >>> @@ -295,6 +295,15 @@ static void amdgpu_job_free_cb(struct drm_sched_=
+job *s_job)
+> >>>
+> >>>       amdgpu_sync_free(&job->explicit_sync);
+> >>>
+> >>> +     if (job->hw_fence->base.ops)
+> >>> +             dma_fence_put(&job->hw_fence->base);
+> >>> +     else
+> >>> +             kfree(job->hw_fence);
+> >>> +     if (job->hw_vm_fence->base.ops)
+> >>> +             dma_fence_put(&job->hw_vm_fence->base);
+> >>> +     else
+> >>> +             kfree(job->hw_vm_fence);
+> >>> +
+> >>
+> >> This way that here can just be a kfree(..).
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>       kfree(job);
+> >>>  }
+> >>>
+> >>> @@ -324,6 +333,15 @@ void amdgpu_job_free(struct amdgpu_job *job)
+> >>>       if (job->gang_submit !=3D &job->base.s_fence->scheduled)
+> >>>               dma_fence_put(job->gang_submit);
+> >>>
+> >>> +     if (job->hw_fence->base.ops)
+> >>> +             dma_fence_put(&job->hw_fence->base);
+> >>> +     else
+> >>> +             kfree(job->hw_fence);
+> >>> +     if (job->hw_vm_fence->base.ops)
+> >>> +             dma_fence_put(&job->hw_vm_fence->base);
+> >>> +     else
+> >>> +             kfree(job->hw_vm_fence);
+> >>> +
+> >>>       kfree(job);
+> >>>  }
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_vm.c
+> >>> index db66b4232de02..f8c67840f446f 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>> @@ -845,6 +845,8 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, str=
+uct amdgpu_job *job,
+> >>>               if (r)
+> >>>                       return r;
+> >>>               fence =3D &job->hw_vm_fence->base;
+> >>> +             /* get a ref for the job */
+> >>> +             dma_fence_get(fence);
+> >>>       }
+> >>>
+> >>>       if (vm_flush_needed) {
+> >>
+>
