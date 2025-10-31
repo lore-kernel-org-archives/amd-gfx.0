@@ -4,81 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A94FECCFA04
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:16:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59864CCFA06
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 14:16:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4D510EBC9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3141310EBCA;
 	Fri, 31 Oct 2025 14:16:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="FEl1PeTE";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XKRqTA+N";
 	dkim-atps=neutral
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5143810E2A4
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 08:49:03 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-592f098f7adso1465517e87.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 01:49:03 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC7810EB32
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 13:02:31 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-47114a40161so25270955e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 06:02:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1761900542; x=1762505342; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YcNQB2cz7cmMdG+LgLrQkA0i5OOSEJyUpwul2usY/M0=;
- b=FEl1PeTEJAkVEfmUvu9uPL2es7Xpz4XFyHdntup+BphQrid4w0khwRMunxDBjdH6lH
- zf3IyfmhgGdRcITzytE+uj+54NvXrGtnqoJA/hcCh2WXzGm62yYRnIFQpOdf8WIEwh6V
- ZGRHkmlI4vGjP+lHYizDlnHMJ6BfxJyb+QkJECChP1E/kSjwcPXgfzzDW+0TgPX+BJUQ
- fIYxRVR8H3KMPWNcN6UdTLjhYSwkhVfp80jPE1OBC9LspqfxpERKCKMaJGvPcf4ODTHN
- XfxyPZE0+qCzeWWkjXaUjtEQQsS7zUhQ+2yNaRkru9OkhWnHwaQqggx+TMsX3UoLr0ZS
- oaeA==
+ d=linaro.org; s=google; t=1761915750; x=1762520550; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2FQGZCGnHsgyhdfpYgLWb8UhWYQWnOT5iNG04Z0iL94=;
+ b=XKRqTA+N0FlOH8g4WHUgiXhqQ/loz/G5ZlKgaVEfoZLS2mbiBhdpYBSRAWcziIbiOB
+ wxdtLh5V1RDNiW9e3+Jw2IisjSQ8qlfMbjMuQjGiUomYpJWUw53BEMZLE/TzMO7/Q91x
+ 88kdR8rBUgBDbK0JN3TpBUYYF6H8iCTrVH2ioBAI5TKBg0YbLpfUkKS6kXtSQLxWARdp
+ IM4x85Zur4MDY/sMlthQvp8AA1pJcGwGP/dUnnhFy4yNk0jPJXBs+28clAC3TSzjXt4k
+ ftRhlSl2aStRu7ClP1sjUDhEM7DvnyfpLvVeI5Nk6oihVMFS9iy7n+Sz4HwalZRTjumR
+ Vz2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761900542; x=1762505342;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YcNQB2cz7cmMdG+LgLrQkA0i5OOSEJyUpwul2usY/M0=;
- b=ubaCoHap/HA9/umT7TTFrRoRyRfjqwVyuQDzwQ00MHvtHWesbrKFFJlHERaxNozOJm
- Gv936gFIN2SjSeo4qv823ZjSwCtmcevoPyTdzOck7waEPQ7p++y7wRbRU+z67lANy9u7
- HwMWlJdUT9+LZphfmdfP7ChlUVyHUu8jTcaCM6Q2jcSQk2ev/GFEGhIIfK+Dm0De9IDm
- 0D3kv75MdjJqZveIk6xHuoO09S1rPwiIPR4iKPy/OAucW2/VCsqDFAJC/NnhGnQpaQ2g
- k5AUtkiKnfTNfaot2wbuZNDEdwruKBwkWLrn+oIfYlF9WsytUETXx7aJjo/Ik835lhgV
- n+dQ==
+ d=1e100.net; s=20230601; t=1761915750; x=1762520550;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2FQGZCGnHsgyhdfpYgLWb8UhWYQWnOT5iNG04Z0iL94=;
+ b=PDnsqKM6hZFJY4yNj5AO2Y7sN8LfeUzlFKrcNK85ln+dmJ2UiAKdDOfZIEnu5MXtbj
+ xEf8PPidqNCnjejl7S4f16Q1TcDAc/R7OL5+u2z49161LmJQGeWjNCBZpuEPhyjU+Y2E
+ 75zCZUHApLUQWALIAG6iE449uHsKZrh7ePRNWzj64nyZMYOSgRtXnhj9N8AxfdIZmIcO
+ Lj4qot6KS7i5tOXWZQ65toST3OmgFBujFtNvMddeNImkqtsNNgxnz/VS4yFLQe/y83HK
+ ne+5uQAD1KKlt6G2w2zuNnvo0kdY1VOiPnZNlccgt1niPt3cs1iiDIvxltmbkKWTLsRN
+ VuvA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX9ORJ6o8ekUti1pRddAooHvvKqr4DQtN83rE9bPOgFs2C5wZLvhyfzN6Dl8GIZK0KNP1bMKj3B@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx55aJt86RdwT5Ub5/xBQd/LNxy5Sjk5uGxIwmdvxdK4ZdSJDzq
- EGSaSadgc7jDStBYb0TLxrRfIp4z0necSAEcMtNThNziC7J21YBUeGYRyZtsIZyaEQ0+EV4TJjm
- yyNCeUk02WWQ9BZxTlkrwwT43OWW36yzq4gu1UMT50Q==
-X-Gm-Gg: ASbGnctCipQ6VUqmz29cQ1s3XKt40iV/XZrjrradUBgPOWLt6RG9yy6smG/ZMqERZRB
- 3G5MhhYy1UneBnA/Fl6MYtS44cP0ztvpK/t1/kYSCpRwDVQWsnq3ySCxQax0BGWANOSbPWz0eq6
- LZ75tr2RYQ5dx2PDQjg0vqmw9bPHNm+yW7iNgO1vDfEp4PjzUwGODxOhuMVbCdzS/ogwgGbL7tE
- zBxGmDzkYobgaJIySGnfSsrgXeuCLK15/llYL1XjnjbhvuE2JvYMfsr4q5136DECfpiyu3CYk0I
- E81QwXAVRFULPvZm2Q==
-X-Google-Smtp-Source: AGHT+IG5f9LrT5nyeUFiNlUT6SjibsgaFtcZ7lVM5kJmZgFZMKb75gWV2jzCfnyesEQtIpQyfU8LfCkUsKtRhTh/eAQ=
-X-Received: by 2002:a05:6512:3d8a:b0:575:c6:edae with SMTP id
- 2adb3069b0e04-5941d5561cdmr988285e87.53.1761900541585; Fri, 31 Oct 2025
- 01:49:01 -0700 (PDT)
+ AJvYcCWrYcK0DkDJ2i6iRdBpkUVQSfJ97T9oBHHhFJzaxdIKttfM6V3WMw2TXu6RyP4c3YS1fEWnwilQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywE/BZCjniaReRy6LToLrfPvR8Nw6ZkLU77o8PI9o12LYyvdCd
+ jBfwMQcPGBD5J4JJPLY1qvREeC9064BNJcasECRaLva/tvVTMpEhwZIgmbyf1DfUTec=
+X-Gm-Gg: ASbGncsKhQ10VlNH6u//whc76PbE4Tic30RDv0x1I+ulmD4DIt9QYG3VnW+g96CN37y
+ mtabdMDxi8WAKmLA2HHwbTSBYzrqALBkm96bupO//W8SvuEQRWinegJNsphe/6n+HdAgMH5jB/K
+ vWdfqTal30I7ndonAuGOE+GoEt+K8vS81LXqUvs7bNePzGxVxdQGD5XOG6fxL5sk/azG2q0AuvJ
+ hhJ2Zv4ZLZ8X26bY2P7ZlPi42DmpXmqCWHTPm6P1DOuD3Gil7ZAiFk5+OYBNmDXhGVO8Na9Rl7+
+ m3dxZ9b60AOigz3Eu0JWGLaw4eTc0aLE/d2pQ4I8upbgB7IbIo9vYE+pDBsVKE6WLusstP7BHlk
+ hq+sfKT1Cp7/n1H7uiepwbzwRZW+nrqayk27OEZa+/HZ2PHJBqWIGEtqSGxU7hxjFMi6p2TGS68
+ EoyghfHA==
+X-Google-Smtp-Source: AGHT+IFtOV4W0Y8ZfIuQZW9gadDZKRpyQvtO7XZin6e2iW2zHXOgFcxmDRDXqGF4RU8aG0zT2NZ4TQ==
+X-Received: by 2002:a05:600c:3149:b0:475:dd89:acb with SMTP id
+ 5b1f17b1804b1-4773089c4a1mr29545645e9.22.1761915749827; 
+ Fri, 31 Oct 2025 06:02:29 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4772fbc32d9sm22667605e9.1.2025.10.31.06.02.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Oct 2025 06:02:29 -0700 (PDT)
+Date: Fri, 31 Oct 2025 16:02:25 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Harry Wentland <harry.wentland@amd.com>,
+ Harshit Mogalapalli <harshit.m.mogalapalli@gmail.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hamish Claxton <hamishclaxton@gmail.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Michael Strauss <michael.strauss@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Fix logical vs bitwise bug in
+ get_embedded_panel_info_v2_1()
+Message-ID: <aQSzYV0ytfQK2kvN@stanley.mountain>
 MIME-Version: 1.0
-References: <20251030161011.282924-1-marco.crivellari@suse.com>
- <20251030161011.282924-4-marco.crivellari@suse.com>
- <690b3fd0-20a1-4245-8fc4-4e8b40695c98@amd.com>
-In-Reply-To: <690b3fd0-20a1-4245-8fc4-4e8b40695c98@amd.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Fri, 31 Oct 2025 09:48:49 +0100
-X-Gm-Features: AWmQ_bn-4zPvtMBML6N9b1bZZjys-qRUhwoiBnh0rijwWGoJyeJGXQ7WQEI95VM
-Message-ID: <CAAofZF4V7gN=AqgLwcva+zhJyROYfSjzJ2uLxoNeS2KLuytW9Q@mail.gmail.com>
-Subject: Re: [PATCH 3/4] amd/amdkfd: WQ_PERCPU added to alloc_workqueue users
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, 
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, "Yang, Philip" <Philip.Yang@amd.com>, 
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Fri, 31 Oct 2025 14:16:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,25 +97,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 30, 2025 at 6:15=E2=80=AFPM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->[...]
-> Adding Philip and Felix to comment, but this should most likely also not =
-execute on the same CPU as the one who scheduled the work.
+The .H_SYNC_POLARITY and .V_SYNC_POLARITY variables are 1 bit bitfields
+of a u32.  The ATOM_HSYNC_POLARITY define is 0x2 and the
+ATOM_VSYNC_POLARITY is 0x4.  When we do a bitwise negate of 0, 2, or 4
+then the last bit is always 1 so this code always sets .H_SYNC_POLARITY
+and .V_SYNC_POLARITY to true.
 
-Hi Christian,
+This code is instead intended to check if the ATOM_HSYNC_POLARITY or
+ATOM_VSYNC_POLARITY flags are set and reverse the result.  In other
+words, it's supposed to be a logical negate instead of a bitwise negate.
 
-The actual behavior without WQ_PERCPU is exactly the same: with 0 it
-means the workqueue is per-cpu. We just enforced that, adding the
-WQ_PERCPU flag, so that it is explicit.
+Fixes: ae79c310b1a6 ("drm/amd/display: Add DCE12 bios parser support")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+Please note that I have not tested this.  It's straight forward enough to
+see that logical negate was intended, but it's always good to test things
+as well.
 
-So if you need this to be unbound, I can send the v2 with WQ_UNBOUND
-instead of WQ_PERCPU.
+Harshit and I only recently created this static checker warning.
 
-Thanks!
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
---
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 04eb647acc4e..550a9f1d03f8 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -1480,10 +1480,10 @@ static enum bp_result get_embedded_panel_info_v2_1(
+ 	/* not provided by VBIOS */
+ 	info->lcd_timing.misc_info.HORIZONTAL_CUT_OFF = 0;
+ 
+-	info->lcd_timing.misc_info.H_SYNC_POLARITY = ~(uint32_t) (lvds->lcd_timing.miscinfo
+-			& ATOM_HSYNC_POLARITY);
+-	info->lcd_timing.misc_info.V_SYNC_POLARITY = ~(uint32_t) (lvds->lcd_timing.miscinfo
+-			& ATOM_VSYNC_POLARITY);
++	info->lcd_timing.misc_info.H_SYNC_POLARITY = !(lvds->lcd_timing.miscinfo &
++						       ATOM_HSYNC_POLARITY);
++	info->lcd_timing.misc_info.V_SYNC_POLARITY = !(lvds->lcd_timing.miscinfo &
++						       ATOM_VSYNC_POLARITY);
+ 
+ 	/* not provided by VBIOS */
+ 	info->lcd_timing.misc_info.VERTICAL_CUT_OFF = 0;
+-- 
+2.51.0
 
-Marco Crivellari
-
-L3 Support Engineer, Technology & Product
