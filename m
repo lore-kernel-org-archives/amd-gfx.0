@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB16CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 22:24:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3FCACCF9F8
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 22:24:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3B5F10E4BB;
-	Mon,  3 Nov 2025 22:24:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C2D210E4BE;
+	Mon,  3 Nov 2025 22:24:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jF2gJIXo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UQ5V6eSF";
 	dkim-atps=neutral
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A23C210E4BD
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 22:24:01 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-6409e985505so3689641a12.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 14:24:01 -0800 (PST)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3296E10E4BE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 22:24:04 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-64080ccf749so6174405a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 14:24:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762208640; x=1762813440; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1762208643; x=1762813443; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=yKPs+Fi183RytCnUD6pLSDlK7mLpoxS1DT9lAX7aBe8=;
- b=jF2gJIXo/GViyIabzclRCSNyi8XzbKHtY1A0XY/ifGNSzKD0jHabjEuH+6AjfrhcsQ
- mxH9XWVsXUYoswhbGoCIwUfUuqcWnJhwiUYSdkyA65+lyqg1jiZ+B36qxbdcmR5499Ei
- uZaWdJOAIrB+1Y2YouIxJWLCWG5xKXcjmff1lC4659GHvL1wbg3CM8btgMPW4SXKWBZp
- qiPGte3wORnmOi/DPm0Wmoqr7CRpHDztivEzL7bfzrFTHv1fa//m+OcQNCY3VTgXgxj/
- B3sEiCusz5ZNtWrXhDGB8FI/SUz+KJEyWsXOxWhUichKJu8EkfQDsyJwzo+6q8ZVitxp
- sS+A==
+ :reply-to; bh=cT+d//URVvCaDQGIqsRLhZbuLDoeonR8rNy8BEPdDbo=;
+ b=UQ5V6eSF0sQIUhQJiPLiF1bQSkyvyxoOGnRyaXMY7QwH3JYd3/5Gn7iPvHl1lnUbey
+ OWQyieuaH+c1wUy/7VeNpdpmAeoTTt5qiJg9y/h0hjdyCBfPwPLtmjNBHFYH4sqNPuNt
+ yQ68dM5XjIV8NUyJI0FAf2f3d+cIQGlB/5iCVbIN7vap+gNVfMpgTHpHSbbrhnzdDI7j
+ MTO0Jno32K+Pgfno9zvbYlm8pY7w9Is7SWI/xeHwLByCJ/AAE2ddEabsgcf9IA0kRG89
+ QzUqqgYIa40p+uddi3yzImnvQTauj+B1eE/1f3N7ks+u0tn6Wdf8UEA0AzMBi1KVSoCr
+ CXuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762208640; x=1762813440;
+ d=1e100.net; s=20230601; t=1762208643; x=1762813443;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yKPs+Fi183RytCnUD6pLSDlK7mLpoxS1DT9lAX7aBe8=;
- b=UQG5U7jX8kz0tMHbYmdT89wNJjc6RcyYKwFJUL7LuafNGQ4Td+M9GjJ/V0Ohfqj+Or
- X3Fmn/MK9fys0G3JnvMAj70IsG39FFrj7oE4gLPN3ZqLMkwm11ZWisK+CeDiD+KbyM+r
- svU5njx/0xjHPK71p0qI+BdnG68D20Zetv6Wa1c07LZTf5HgkwuatP3rKhSB4MCXs7t8
- 9tDdS1ssCiqTheUlLFIwEJA5fMR3Agc2C8pc5JIlUOvoX9bUGZJtSwYLD6dtWfxMPDDv
- YzEroMtLpBAj3BK539BRs4acA5ppTf7m+Hmp5ANktSbeWwxlqiboZ73Ab8/L9ZRtAGkc
- YGng==
-X-Gm-Message-State: AOJu0YyYUjLbUDA1gQ2Lclq2L0rHScMUdQEC+rsAU3fAhrtKz0xA/tDT
- Mb1EUMqosVmZRR8a7/PzYuu6VCA8Vw8pVpc+gOhXLUXMonCC6QPErcL9KXI8luGX
-X-Gm-Gg: ASbGncvSDjO0DQL00QEJVnXcdZno5qhAONkWHdHb/DR6Gs/vaQScoZ0uugoZpLNO9Ux
- GW8/b3W4y1tgOU/upUQlL/sLbyHHNBHHKLknGt0a7+oAETNHtJ/9tadx3vQ24ZB0pXDErIwixKF
- D9LKVc4FbpZAhDa28ff2DLIQMmycCLiOD7LPe3BEyiaIBK4hMV7uIcw+nyre4pVLosgPsYEf7Pu
- 6KE2BI8SC1DZSf2vyBOYRoKDEGVUjuCXhBXzewi4eFG/IHE+ePTW9iWOQQX07jLUprS4ViOdLzK
- tCdP+Hs+vFVHjTD1Vyi8KYNXrZ/jdOUbvPAFPUwRpgz8qB7yi8uyNQGdSs8rSpP9SL6/QOe/0bN
- cmCUEjh4CfyCBbKK5EWRH8XRC3l3nTjzHrc4kfzL031SQ7Og/L2B8tRoRvA6Tzz/9qV1l7OP7hJ
- dPTI0wZRImADL8AGCgQ+WHtJqwiHwtEw==
-X-Google-Smtp-Source: AGHT+IHDDm+Y7qGyuYY7RKcpe/T7FWWC5VhhdIN2KKIj1+SX8/pMoKIZYc3NpD89mAGgxpdn8jHzxw==
-X-Received: by 2002:a05:6402:460d:20b0:640:af04:d71d with SMTP id
- 4fb4d7f45d1cf-640af04d8a7mr5584778a12.22.1762208640093; 
- Mon, 03 Nov 2025 14:24:00 -0800 (PST)
+ bh=cT+d//URVvCaDQGIqsRLhZbuLDoeonR8rNy8BEPdDbo=;
+ b=f13SjUMzOClbRAjmMbnWDxLUTAz3ceZmzogJdacKirf3LKC+ewfq+PpzJ3Ar9t0uS9
+ z5jNYuGbZ5iUMbabtELBn57TX0AkcmzEXNc6W0EqAv3KBW9k5fHQgVRAd2xJwt66fcf4
+ iIRC1Q4w8dq/pr2MNDHDPFy+FLNhNu8IFO4ehhNGNGXj75k6Kpm30vNBJ0mrTix5EEic
+ o7lo7ttVJe5EwCDp1EqLzUeG5wG8SjcwDmZYIeCf0rT4yD6VoHQZhjy8LvZanGjg99ca
+ btrzdsG2YySX/ir6JorpwVk1ptzzXP5tpSppZ4ocxOXQrIduOy1jd4X19MZB8EPBVKkO
+ baJg==
+X-Gm-Message-State: AOJu0YwEiU/MSH7MJLGyfzcFpRAmCVrDnsetWX6K+fGphfJadoLQKo7G
+ H41TeBOGBBzFygRnuZknWZ0AeYp6+8gpoiDnOR0wHiUnAeQv2ecr+JK4Qx2Jq4cw
+X-Gm-Gg: ASbGncsex3q1p7IRqfRTfyw54w5EkiySnOhGMfJ/vZ29AkR25ze/KAA4l59VXK6jlZG
+ s1ORjtv04fbrkraNW1j5jwhdkFfDkb9CFHtb7ycRlwwzoQVNXmbs7uWfkqtMmMeUkGsBD63wuGf
+ xiEQyb2xvIba1N2Gh50yFOv0WFxZU5sIH0sukIo59rT1JUP2AoXIhVb9eX9lPXzIGT8ot9sh6CC
+ z7FJ5CdR0VwLYC7DRGhrl16iYmZiSEvVfKuL80f0uQA/1ebxXOiz6hT6D1MrXVOpz0XBxqMXXrB
+ t7NelKzKqLzBPcRZhVde+N4UY23wMOe8HODfzoxd3u/1cBP7XRTKx7XJHqyJdj50daFwMqnKhCH
+ SqRxjfeStT3zcfWsZINps78DfLF19Uvz7WYaKQkAQ7oNVE8kZ7ydlIA+3hYCzZhmFMONdsePVM7
+ AEbg2iMdg1FhJy1BdXBQM=
+X-Google-Smtp-Source: AGHT+IEG9N31KzHTeH78Jq5o2oB2PAcNY8e3auqHGvuCwH8GK/SUWN6MhoZAFmSYF5bQo1bd1FbtLA==
+X-Received: by 2002:a05:6402:51cf:b0:639:ffb5:3606 with SMTP id
+ 4fb4d7f45d1cf-6407703ef39mr12616840a12.33.1762208642563; 
+ Mon, 03 Nov 2025 14:24:02 -0800 (PST)
 Received: from Timur-Hyperion.home ([2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-640e6a5cb5dsm486635a12.17.2025.11.03.14.23.58
+ 4fb4d7f45d1cf-640e6a5cb5dsm486635a12.17.2025.11.03.14.24.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Nov 2025 14:23:59 -0800 (PST)
+ Mon, 03 Nov 2025 14:24:01 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Subject: [PATCH 05/16] drm/amdgpu/ttm: Use GART helper to map VRAM pages (v2)
-Date: Mon,  3 Nov 2025 23:23:22 +0100
-Message-ID: <20251103222333.37817-6-timur.kristof@gmail.com>
+Subject: [PATCH 06/16] drm/amdgpu/vce: Clear VCPU BO before copying firmware
+ to it (v2)
+Date: Mon,  3 Nov 2025 23:23:23 +0100
+Message-ID: <20251103222333.37817-7-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251103222333.37817-1-timur.kristof@gmail.com>
 References: <20251103222333.37817-1-timur.kristof@gmail.com>
@@ -89,49 +90,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the GART helper function introduced in the previous commit
-to map the VRAM pages of the transfer window to GART.
-No functional changes, just code cleanup.
+The VCPU BO doesn't only contain the VCE firmware but also other
+ranges that the VCE uses for its stack and data. Let's initialize
+this to zero to avoid having garbage in the VCPU BO.
 
-Split this into a separate commit to make it easier to bisect,
-in case there are problems in the future.
+v2:
+- Only clear BO after creation, not on resume.
 
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index e226c3aff7d7..84f9d5a57d03 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -188,7 +188,6 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
- 	struct amdgpu_job *job;
- 	void *cpu_addr;
- 	uint64_t flags;
--	unsigned int i;
- 	int r;
- 
- 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
-@@ -254,16 +253,9 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
- 		dma_addr = &bo->ttm->dma_address[mm_cur->start >> PAGE_SHIFT];
- 		amdgpu_gart_map(adev, 0, num_pages, dma_addr, flags, cpu_addr);
- 	} else {
--		dma_addr_t dma_address;
--
--		dma_address = mm_cur->start;
--		dma_address += adev->vm_manager.vram_base_offset;
-+		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
- 
--		for (i = 0; i < num_pages; ++i) {
--			amdgpu_gart_map(adev, i << PAGE_SHIFT, 1, &dma_address,
--					flags, cpu_addr);
--			dma_address += PAGE_SIZE;
--		}
-+		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index b9060bcd4806..e028ad0d3b7a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -187,6 +187,8 @@ int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
+ 		return r;
  	}
  
- 	dma_fence_put(amdgpu_job_submit(job));
++	memset_io(adev->vce.cpu_addr, 0, size);
++
+ 	for (i = 0; i < AMDGPU_MAX_VCE_HANDLES; ++i) {
+ 		atomic_set(&adev->vce.handles[i], 0);
+ 		adev->vce.filp[i] = NULL;
 -- 
 2.51.0
 
