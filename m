@@ -4,69 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56CAFCCF9FE
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 14:18:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7FDCCF9F8
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 15:00:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 070C510E1F5;
-	Mon,  3 Nov 2025 14:18:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lchlkaIx";
-	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4007310E1F5
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 14:18:47 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-340ad724ea4so412505a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 06:18:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762179527; x=1762784327; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PX6CozsDs0ld19VEC3zWEODOVO7vCfYGOnETrT0jl9w=;
- b=lchlkaIxthTKX76fUpRqlr4riA6WtrBdxHOu+/QAqFggcJqxXijmsPLOd44pXIM8uP
- hZX70jPJ8tDnwzJsq+XsgztiIePfBZGZEGWLahfWOfc73nqwRY9lhgRGA67zx+wbGKHJ
- hTahqSNDZNSLdlaOBYR6+3md6UGB11hYNTjRUMziquqSdA9bgyWmIQCZjjgwqIn/wLPX
- KGUwgthlKzzFJrUI59LHrTCICT4ahO0LeVVVFB4mPtK7kXGZ5LGLg13uaCETarlMyuIp
- F+eyrkymWh57N8m6TGTe/iSiatq4EfOSTCfaLhyDaQQ2+80ZZJG8L3CA/OHDs2RLtKLZ
- FcQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762179527; x=1762784327;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PX6CozsDs0ld19VEC3zWEODOVO7vCfYGOnETrT0jl9w=;
- b=HTRYq2KW0Wdqhs9KpKc7zcrvoYJZCuFdAwA1CjjTXWDei401PtHw0+6mgiG0/9URcj
- AoVluW5Bc9fifnFTwGl7Ax36q0SpyvIsaRdnWuA05hgASmEJBEarkvd1jwyq7e33/JOL
- +7unwdEsLDjomRuDCUdFaIGgUxqVGUH5hQp3YNQu65Om5bH8xSEifFfugm503TBypm2m
- 64p8/YZ70avOeBKoaszn9XGRUUS/ZCzYjMRX0WlJw/7a5qikiqfTiVOxptu/et4AogU4
- AbwrIJUyhi+gE8lwuVg/JmC7lqggtoLJ6kiVCRyzv+jEtXqQLy2RKZ89Rw7+fOPFoO8F
- HS6g==
-X-Gm-Message-State: AOJu0YyhpcFOFMZ7x69rBHUJCUfBYeVXy8G4GTRotv+UIZU0K7oK+zpU
- MGLJr7TIsepRySmVuGvzvsLuvpTMN3FALRG1HayaOVKpMhdO6KJmPYO57HX1g5+xYG4PPvfNPDN
- 8WAq/Nsw4by4tKVgMVaTrWJ9Fwsenh14=
-X-Gm-Gg: ASbGncvgs7OBfYk5/ouwmH7+8U2xQ98MbbRrhvIr7U/Vxm9IA82L+x6TmkBngMQLZER
- Y/SUBE5jJcfAbSkLaYma0/jVnaR6vEtV60aNcTDv8IHp2XoB45P4+FlBW2nEXS5f2nqom086gcl
- fmBdqJR+tqfjXUC0BfwBkA5JvrX4F+2h0TpX31J2nB8m6IYdyY0BdePbcJ6bBQ0n5q0u/j0Ovcz
- DFUMqMSglGLln1pYx9WV7suiZ3PGu671AvdmSHAqwEmma9OUzCiaWPAgu3S
-X-Google-Smtp-Source: AGHT+IFMlj4XEKOKFoHIsAGCQXln8tbjDQ0N9QtELLlfQX2/8Rk/cVnH7ctsM7NK3/AFQZxWqR68pkq6vrxpYpIKtd4=
-X-Received: by 2002:a17:902:e74c:b0:258:a3a1:9aa5 with SMTP id
- d9443c01a7336-29519983b30mr92313455ad.0.1762179526634; Mon, 03 Nov 2025
- 06:18:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC45A10E415;
+	Mon,  3 Nov 2025 15:00:20 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 007EC10E415
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 15:00:19 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E8EE42A6B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 07:00:11 -0800 (PST)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7BF553F66E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 07:00:19 -0800 (PST)
+Date: Mon, 3 Nov 2025 15:00:10 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, kernel-list@raspberrypi.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ dmitry.baryshkov@oss.qualcomm.com, ankit.k.nautiyal@intel.com,
+ arun.r.murthy@intel.com, uma.shankar@intel.com,
+ jani.nikula@intel.com, harry.wentland@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ robin.clark@oss.qualcomm.com, abhinav.kumar@linux.dev,
+ tzimmermann@suse.de, jessica.zhang@oss.qualcomm.com,
+ sean@poorly.run, marijn.suijten@somainline.org,
+ laurent.pinchart+renesas@ideasonboard.com, mcanal@igalia.com,
+ dave.stevenson@raspberrypi.com, tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com, louis.chauvet@bootlin.com
+Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <aQjDejhzGRYJT614@e110455-lin.cambridge.arm.com>
+References: <20251007054528.2900905-1-suraj.kandpal@intel.com>
+ <20251007054528.2900905-2-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-References: <20251103113635.733891-1-lijo.lazar@amd.com>
-In-Reply-To: <20251103113635.733891-1-lijo.lazar@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 3 Nov 2025 09:18:34 -0500
-X-Gm-Features: AWmQ_bmqgd38Pu3pDL28bNM6Z97i07yrdenMDU-Ur8yn-_ve3y9c36fRzcEGCD4
-Message-ID: <CADnq5_P1C-oWXT=x2vJbn54cXHGrvFSQV1pFTrVgp7=dqPvdXg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix wait after reset sequence in S3
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251007054528.2900905-2-suraj.kandpal@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,96 +63,246 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 3, 2025 at 6:46=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wrot=
-e:
->
-> For a mode-1 reset done at the end of S3 on PSPv11 dGPUs, only check if
-> TOS is unloaded.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4649
-> Fixes : 440cec4ca1c2 ("drm/amdgpu: Wait for bootloader after PSPv11 reset=
-")
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Tue, Oct 07, 2025 at 11:15:23AM +0530, Suraj Kandpal wrote:
+> Some drivers cannot work with the current design where the connector
+> is embedded within the drm_writeback_connector such as Intel and
+> some drivers that can get it working end up adding a lot of checks
+> all around the code to check if it's a writeback conenctor or not,
+> this is due to the limitation of inheritance in C.
+> To solve this move the drm_writeback_connector within the
+> drm_connector and remove the drm_connector base which was in
+> drm_writeback_connector. Make this drm_writeback_connector
+> a union with hdmi connector to save memory and since a connector can
+> never be both writeback and hdmi it should serve us well.
+> Do all other required modifications that come with these changes
+> along with addition of new function which returns the drm_connector
+> when drm_writeback_connector is present.
+> Modify drivers using the drm_writeback_connector to
+> allow them to use this connector without breaking them.
+> The drivers modified here are amd, komeda, mali, vc4, vkms,
+> rcar_du, msm
+> 
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 26 ++++++++++++++++++++++++-
->  2 files changed, 32 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index cee90f9e58a9..3f42cf7c6193 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2627,9 +2627,14 @@ static int amdgpu_pmops_suspend_noirq(struct devic=
-e *dev)
+> V1 -> V2: Use &connector->writeback, make commit message imperative (Dmitry)
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
+>  .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
+>  .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+>  .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
+>  drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+>  drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+>  drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
+>  drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  2 +-
+>  drivers/gpu/drm/drm_writeback.c               | 35 ++++++----
+
+For the komeda and malidp drivers, as well as for the drm_writeback.c changes:
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+
+[snip]
+
+
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 8f34f4b8183d..1b090e6bddc1 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1882,6 +1882,61 @@ struct drm_connector_cec {
+>  	void *data;
+>  };
+>  
+> +/**
+> + * struct drm_writeback_connector - DRM writeback connector
+> + */
+> +struct drm_writeback_connector {
+> +	/**
+> +	 * @pixel_formats_blob_ptr:
+> +	 *
+> +	 * DRM blob property data for the pixel formats list on writeback
+> +	 * connectors
+> +	 * See also drm_writeback_connector_init()
+> +	 */
+> +	struct drm_property_blob *pixel_formats_blob_ptr;
+> +
+> +	/** @job_lock: Protects job_queue */
+> +	spinlock_t job_lock;
+> +
+> +	/**
+> +	 * @job_queue:
+> +	 *
+> +	 * Holds a list of a connector's writeback jobs; the last item is the
+> +	 * most recent. The first item may be either waiting for the hardware
+> +	 * to begin writing, or currently being written.
+> +	 *
+> +	 * See also: drm_writeback_queue_job() and
+> +	 * drm_writeback_signal_completion()
+> +	 */
+> +	struct list_head job_queue;
+> +
+> +	/**
+> +	 * @fence_context:
+> +	 *
+> +	 * timeline context used for fence operations.
+> +	 */
+> +	unsigned int fence_context;
+> +	/**
+> +	 * @fence_lock:
+> +	 *
+> +	 * spinlock to protect the fences in the fence_context.
+> +	 */
+> +	spinlock_t fence_lock;
+> +	/**
+> +	 * @fence_seqno:
+> +	 *
+> +	 * Seqno variable used as monotonic counter for the fences
+> +	 * created on the connector's timeline.
+> +	 */
+> +	unsigned long fence_seqno;
+> +	/**
+> +	 * @timeline_name:
+> +	 *
+> +	 * The name of the connector's fence timeline.
+> +	 */
+> +	char timeline_name[32];
+> +};
+> +
+>  /**
+>   * struct drm_connector - central DRM connector control structure
+>   *
+> @@ -2291,10 +2346,16 @@ struct drm_connector {
+>  	 */
+>  	struct llist_node free_node;
+>  
+> -	/**
+> -	 * @hdmi: HDMI-related variable and properties.
+> -	 */
+> -	struct drm_connector_hdmi hdmi;
+> +	union {
+
+This is a surprising choice. Before this patch one had to have a separate
+writeback connector besides the HDMI connector. Going forward it looks
+like you still need two connectors, one that uses the writeback member
+and one that uses the hdmi one. Is that intended?
+
+I was expecting that you're going to declare the writeback member next
+to the hdmi, without overlap. If you do that, then you also don't need
+to move the struct drm_writeback declaration from the header file and
+it should be enough to include the drm_writeback.h file.
+
+Best regards,
+Liviu
+
+> +		/**
+> +		 * @hdmi: HDMI-related variable and properties.
+> +		 */
+> +		struct drm_connector_hdmi hdmi;
+> +		/**
+> +		 * @writeback: Writeback related valriables.
+> +		 */
+> +		struct drm_writeback_connector writeback;
+> +	};
+>  
+>  	/**
+>  	 * @hdmi_audio: HDMI codec properties and non-DRM state.
+> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> index 958466a05e60..702141099520 100644
+> --- a/include/drm/drm_writeback.h
+> +++ b/include/drm/drm_writeback.h
+> @@ -15,66 +15,6 @@
+>  #include <drm/drm_encoder.h>
+>  #include <linux/workqueue.h>
+>  
+> -/**
+> - * struct drm_writeback_connector - DRM writeback connector
+> - */
+> -struct drm_writeback_connector {
+> -	/**
+> -	 * @base: base drm_connector object
+> -	 */
+> -	struct drm_connector base;
+> -
+> -	/**
+> -	 * @pixel_formats_blob_ptr:
+> -	 *
+> -	 * DRM blob property data for the pixel formats list on writeback
+> -	 * connectors
+> -	 * See also drm_writeback_connector_init()
+> -	 */
+> -	struct drm_property_blob *pixel_formats_blob_ptr;
+> -
+> -	/** @job_lock: Protects job_queue */
+> -	spinlock_t job_lock;
+> -
+> -	/**
+> -	 * @job_queue:
+> -	 *
+> -	 * Holds a list of a connector's writeback jobs; the last item is the
+> -	 * most recent. The first item may be either waiting for the hardware
+> -	 * to begin writing, or currently being written.
+> -	 *
+> -	 * See also: drm_writeback_queue_job() and
+> -	 * drm_writeback_signal_completion()
+> -	 */
+> -	struct list_head job_queue;
+> -
+> -	/**
+> -	 * @fence_context:
+> -	 *
+> -	 * timeline context used for fence operations.
+> -	 */
+> -	unsigned int fence_context;
+> -	/**
+> -	 * @fence_lock:
+> -	 *
+> -	 * spinlock to protect the fences in the fence_context.
+> -	 */
+> -	spinlock_t fence_lock;
+> -	/**
+> -	 * @fence_seqno:
+> -	 *
+> -	 * Seqno variable used as monotonic counter for the fences
+> -	 * created on the connector's timeline.
+> -	 */
+> -	unsigned long fence_seqno;
+> -	/**
+> -	 * @timeline_name:
+> -	 *
+> -	 * The name of the connector's fence timeline.
+> -	 */
+> -	char timeline_name[32];
+> -};
+> -
+>  /**
+>   * struct drm_writeback_job - DRM writeback job
+>   */
+> @@ -131,10 +71,10 @@ struct drm_writeback_job {
+>  	void *priv;
+>  };
+>  
+> -static inline struct drm_writeback_connector *
+> -drm_connector_to_writeback(struct drm_connector *connector)
+> +static inline struct drm_connector *
+> +drm_writeback_to_connector(struct drm_writeback_connector *wb_connector)
 >  {
->         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
-> +       int r;
->
-> -       if (amdgpu_acpi_should_gpu_reset(adev))
-> -               return amdgpu_asic_reset(adev);
-> +       if (amdgpu_acpi_should_gpu_reset(adev)) {
-> +               amdgpu_device_lock_reset_domain(adev->reset_domain);
-> +               r =3D amdgpu_asic_reset(adev);
-> +               amdgpu_device_unlock_reset_domain(adev->reset_domain);
-> +               return r;
-> +       }
->
->         return 0;
+> -	return container_of(connector, struct drm_writeback_connector, base);
+> +	return container_of(wb_connector, struct drm_connector, writeback);
 >  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/psp_v11_0.c
-> index 64b240b51f1a..a9be7a505026 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -142,13 +142,37 @@ static int psp_v11_0_init_microcode(struct psp_cont=
-ext *psp)
->         return err;
->  }
->
-> -static int psp_v11_0_wait_for_bootloader(struct psp_context *psp)
-> +static int psp_v11_wait_for_tos_unload(struct psp_context *psp)
->  {
->         struct amdgpu_device *adev =3D psp->adev;
-> +       uint32_t sol_reg1, sol_reg2;
-> +       int retry_loop;
->
-> +       /* Wait for the TOS to be unloaded */
-> +       for (retry_loop =3D 0; retry_loop < 20; retry_loop++) {
-> +               sol_reg1 =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
-> +               usleep_range(1000, 2000);
-> +               sol_reg2 =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
-> +               if (sol_reg1 =3D=3D sol_reg2)
-> +                       return 0;
-> +       }
-> +       dev_err(adev->dev, "TOS unload failed, C2PMSG_33: %x C2PMSG_81: %=
-x",
-> +               RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_33),
-> +               RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81));
-> +
-> +       return -ETIME;
-> +}
-> +
-> +static int psp_v11_0_wait_for_bootloader(struct psp_context *psp)
-> +{
-> +       struct amdgpu_device *adev =3D psp->adev;
->         int ret;
->         int retry_loop;
->
-> +       /* For a reset done at the end of S3, only wait for TOS to be unl=
-oaded */
-> +       if (adev->in_s3 && !(adev->flags & AMD_IS_APU) && amdgpu_in_reset=
-(adev))
-> +               return psp_v11_wait_for_tos_unload(psp);
-> +
->         for (retry_loop =3D 0; retry_loop < 20; retry_loop++) {
->                 /* Wait for bootloader to signify that is
->                     ready having bit 31 of C2PMSG_35 set to 1 */
-> --
-> 2.49.0
->
+>  
+>  int drm_writeback_connector_init(struct drm_device *dev,
+> -- 
+> 2.34.1
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
