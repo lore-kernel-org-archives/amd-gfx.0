@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7852CCFA04
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 22:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19530CCFA03
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 22:24:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 651E410E4C3;
-	Mon,  3 Nov 2025 22:24:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6ED810E4C0;
+	Mon,  3 Nov 2025 22:24:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TvkgEe7L";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qgw/o5vw";
 	dkim-atps=neutral
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3669010E4C0
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 22:24:08 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-63c489f1e6cso8857184a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 14:24:08 -0800 (PST)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC71910E4C5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 22:24:10 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-b3c2c748bc8so631195766b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 14:24:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762208647; x=1762813447; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1762208649; x=1762813449; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=kVIEVTmEwnZdHXAWkRY5qhlmNokGDBKXHhE7HxZS6Do=;
- b=TvkgEe7L35Lh9iIBi7o1bRHhhG+kXS9VGbYGBL7dSCh83o7yzm8Pj3YbsAKyk+OtKD
- /F91jCrgpHUO0B43l2WxrBwptkbM/QlGvzsn6NihYgIggBzSIVzHYF6JXb0XFxqbKGI0
- UnQ9Suh3DZiaXh/1ewKdr+CZ1Zgk+UENiN0Wey9AZ/FHZ1wtv4oP9gC00IYpoTkbMpAI
- 1UE3+GGOb8e5qok5B7yO6yc9KG5InijHireBKOpQb8dE3F9R3SzVT9GmcgsY1qxVT0Ki
- OtUGw0MmRoGaohy9DsqQYk76k2j4Dcy/YYZOKr4SZyDWw9cg3JbMIWq9bEmjVxuwA8sz
- nqqg==
+ :reply-to; bh=cXhbeAMFRlK4iHDlRuDvXvJciu+OP9vuZ/hqKeviHqI=;
+ b=Qgw/o5vwm7n0K+Xo786exiQUUQeayO6TnjWKkUXHxFOM40zMThu2xAmnSKXKunfd3r
+ keWGE8pEVc+o+ZM0CMcUN0dKkP6JSikOousST4mpasZLStOtSKLZ6rEJJLbGifcKwbIp
+ lVGfp4XIhH/+xRLDYk4nwvIX3Td02KXFxb/9vFKcah0QPWGd8KHmDZ46jeKRNNLCjk3M
+ EeP/VcyfJL/pOJ9NdvqMcF76242Vqh5/rNa05lmOPaMcQXnvEh0qatU/Q2f75FJBDwha
+ icKwCZBI9sIkXboS2rCYYhmcekeK6y1nZdvIT1mwuEPMgk+83eUPMFW02NtbYJGK9rqj
+ kYIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762208647; x=1762813447;
+ d=1e100.net; s=20230601; t=1762208649; x=1762813449;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kVIEVTmEwnZdHXAWkRY5qhlmNokGDBKXHhE7HxZS6Do=;
- b=MaPULovTGRJiJQxaai1ddmyHvJVkY0ClesyR96VJ56FtJ4/8jCS5j043Y2DsohOMq2
- 8cj8pELDO3QGC42GXco8YtMOQJaQFwq3giql10NfIbjC25GCX+UvKhxEaS6bKwluDLHY
- /7Z/P3Mr4aGrOMg8Jd6eaM+0Gi1UIhHHVSHRdjTP4jYT7GfjpKJ2eSIrySZsSJbP0iUS
- QFsJ+8vqdFfCtpLCOzIupat7Fh8Uxqen4INd2kDMnVT0t5V5m+drP0VeZzNpN9S2Lkhr
- ctNMEcuU1WXTSATYDgH7Y4dGznNAVSpclzINWn0MuU7X2uBEvyXeU6LHyxYKHqHpSb/c
- cvOw==
-X-Gm-Message-State: AOJu0YwIVFmstltLzxIn7NCjEOFm4j5jW2bPHUWPNQScrI98rufvqOLz
- e1nCv2xKeor1OV5mzHng9LOfakjVJvtyC08fiC9HSwHs2LUXjAU3NQT5QYoyAza+
-X-Gm-Gg: ASbGncvYp4t0JmMwDPghnEcpqwLQfkBnfallW0YaEDKOdHLJjS+7diO6KatLtJJ9Fh1
- 5pfFZGIP9LiWzw7aqWTDJD9UEvQbX53fuU2aKggUO9KLERksMxGgaLPX9e7/oUVNtV+5eJ9PFsQ
- bjtUQyJXvJT0wvOcfL3fmeOs3IFWecwbDeIWcO/FiWtBgmG1p1zN79NsiIV0BYY2d8P5iuL9mRY
- sXGULHZFQXPQA1fFNUOa8REEfQu93ZrFIZU/4sxpDhIsJGd4T2UybYhMDqhdDVJ32C6xTbIjMGw
- tD9lLpf3eBNPy1aW2AvDmFb5l7gIZKp/MbdKzOnxK1515FR6DmRtAP7t8DjR1YdoxhOTQXU1UJk
- pMdOfiiJxvVpevluekWGMY2yrHneOjSOZeXZbR4P8cl+nl5qxRLLFvbhLUDBXtzhiVhFcR1Ab6x
- uy9X39FUL6+SFOTHKBY3snOPGT96EHLg==
-X-Google-Smtp-Source: AGHT+IEVVB1IZADk5zV+LIf8kMaSJNjctyn9R2P5fTc5jgQv1aFFDdoQxlsRX24QbCAbdVawseeWWg==
-X-Received: by 2002:a05:6402:12d0:b0:640:e7bc:d3ce with SMTP id
- 4fb4d7f45d1cf-640e7bcd612mr360901a12.11.1762208646684; 
- Mon, 03 Nov 2025 14:24:06 -0800 (PST)
+ bh=cXhbeAMFRlK4iHDlRuDvXvJciu+OP9vuZ/hqKeviHqI=;
+ b=NN0QiguBn3pv6LuapKpDecmgoGXyMh6xi4a+jhtnvP2JKt3aujzGbMsw6eCPkkrPKF
+ 4rsnafZ3nEO5SqEyjQkSl0UzNP6/QZHAjXbsN59HDE1bgBED26wLut4ZOE4wJHNzp8FT
+ O+BLAz/A2Qcxeapmn+/MgQ5jMrxKm+xqvFncboRG05Um4RICLJqm1O9TUwMjUqfviUhM
+ IuhqwTMHqp8Cvej4MKG6DdLa9AUdTpN0DTAPIVUlaNzW4nHcsHS6M9TtzJaH9jSyDneS
+ BxWuzRnSCKItc8NpYD6KhQfIn/Dxg2PjRc/uk8Da1KjEEx/uQBufKDmcLGIOEJgcZZgm
+ NsCg==
+X-Gm-Message-State: AOJu0Yx34rEk9ML4UvMUau4BOrY8rZ/blEkDLbtqdprpriv2x1E2G2/N
+ HOHFinU8TGc3UrEm9yq4MZviel5W7G+WKC2PrJ6v20Afo83u0SUyOz3YjapsLg6g
+X-Gm-Gg: ASbGnctIddD2G9jSzQ9Fc1XXXVtFrvJ57VEJofU9SJD7yTvHkQxJnFgXZ4XggZCCD3c
+ sfiSyDePWSnC4Yn6JrlM6TbYQzfeAkhAF8S5IL+lwm7nZIs5ispJNyGIiUMAe/+Sc5ySHKfn+JN
+ IdlJxeVRnhVXzG699e8HUh3e1M2sK83Mb6HbURoIEl66oWGUgb1yCexX/2NDOblG/dbs+nrwvBz
+ sMWKMMyBC67jjD4QhBARfP5xpwlTRG4rDAw6wJyzLZ0OxKAEb2cXcM5XoNPXXWCzn4wK55iLBLq
+ TvnISzz4BjS542khiC85w49S37b5lMHYDW6nTjxjc63X+0P3yA0NnUCEauY/xHSdsBZszU9pseh
+ BsFIKNLPjkmLJZKgwoAyf/I8wJeT5C1yySonUqAMLHpkI+LPm8x3a3WGiRdhTLOgWjC9trD/gDm
+ LcsxcfcbcJQCM0BQZXmaE=
+X-Google-Smtp-Source: AGHT+IGbKUhNqXfZFigzm8T6/qWX5Z9546ZrhffUFxKPs7sPG1PGfe1IDP2iR+ULpig23SUP7EdxTg==
+X-Received: by 2002:a17:907:d29:b0:b33:b8bc:d1da with SMTP id
+ a640c23a62f3a-b70701061d4mr1294747566b.1.1762208649145; 
+ Mon, 03 Nov 2025 14:24:09 -0800 (PST)
 Received: from Timur-Hyperion.home ([2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-640e6a5cb5dsm486635a12.17.2025.11.03.14.24.04
+ 4fb4d7f45d1cf-640e6a5cb5dsm486635a12.17.2025.11.03.14.24.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Nov 2025 14:24:05 -0800 (PST)
+ Mon, 03 Nov 2025 14:24:08 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Subject: [PATCH 08/16] drm/amdgpu/vce: Save/restore and pin VCPU BO for all
- VCE (v2)
-Date: Mon,  3 Nov 2025 23:23:25 +0100
-Message-ID: <20251103222333.37817-9-timur.kristof@gmail.com>
+Subject: [PATCH 09/16] drm/amdgpu/si, cik,
+ vi: Verify IP block when querying video codecs (v2)
+Date: Mon,  3 Nov 2025 23:23:26 +0100
+Message-ID: <20251103222333.37817-10-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251103222333.37817-1-timur.kristof@gmail.com>
 References: <20251103222333.37817-1-timur.kristof@gmail.com>
@@ -90,200 +90,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VCE uses the VCPU BO to keep track of currently active
-encoding sessions. To make sure the VCE functions correctly
-after suspend/resume, save the VCPU BO to system RAM on
-suspend and restore it on resume.
+Some harvested chips may not have any IP blocks,
+or we may not have the firmware for the IP blocks.
+In these cases, the query should return that no video
+codec is supported.
 
-Additionally, make sure to keep the VCPU BO pinned.
-The VCPU BO needs to stay at the same location before and after
-sleep/resume because the FW code is not relocatable once it's
-started.
-
-Unfortunately this is not enough to make VCE suspend work when
-there are encoding sessions active, so don't allow that yet.
+v2:
+- When codecs is NULL, treat that as empty codec list.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 44 ++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c   | 52 ++++---------------------
- 2 files changed, 24 insertions(+), 72 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 7 +++++--
+ drivers/gpu/drm/amd/amdgpu/cik.c        | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/si.c         | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/vi.c         | 6 ++++++
+ 4 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-index 2297608c5191..4beec5b56c4f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -206,6 +206,10 @@ int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
- 	if (!adev->vce.fw)
- 		return -ENOENT;
- 
-+	adev->vce.saved_bo = kvmalloc(size, GFP_KERNEL);
-+	if (!adev->vce.saved_bo)
-+		return -ENOMEM;
-+
- 	r = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
- 				    AMDGPU_GEM_DOMAIN_VRAM |
- 				    AMDGPU_GEM_DOMAIN_GTT,
-@@ -254,6 +258,9 @@ int amdgpu_vce_sw_fini(struct amdgpu_device *adev)
- 	amdgpu_bo_free_kernel(&adev->vce.vcpu_bo, &adev->vce.gpu_addr,
- 		(void **)&adev->vce.cpu_addr);
- 
-+	kvfree(adev->vce.saved_bo);
-+	adev->vce.saved_bo = NULL;
-+
- 	return 0;
- }
- 
-@@ -290,13 +297,19 @@ int amdgpu_vce_entity_init(struct amdgpu_device *adev, struct amdgpu_ring *ring)
-  */
- int amdgpu_vce_suspend(struct amdgpu_device *adev)
- {
--	int i;
-+	int i, idx;
- 
- 	cancel_delayed_work_sync(&adev->vce.idle_work);
- 
- 	if (adev->vce.vcpu_bo == NULL)
- 		return 0;
- 
-+	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-+		memcpy_fromio(adev->vce.saved_bo, adev->vce.cpu_addr,
-+			      amdgpu_bo_size(adev->vce.vcpu_bo));
-+		drm_dev_exit(idx);
-+	}
-+
- 	for (i = 0; i < AMDGPU_MAX_VCE_HANDLES; ++i)
- 		if (atomic_read(&adev->vce.handles[i]))
- 			break;
-@@ -316,40 +329,17 @@ int amdgpu_vce_suspend(struct amdgpu_device *adev)
-  */
- int amdgpu_vce_resume(struct amdgpu_device *adev)
- {
--	void *cpu_addr;
--	const struct common_firmware_header *hdr;
--	unsigned int offset;
--	int r, idx;
-+	int idx;
- 
- 	if (adev->vce.vcpu_bo == NULL)
- 		return -EINVAL;
- 
--	r = amdgpu_bo_reserve(adev->vce.vcpu_bo, false);
--	if (r) {
--		dev_err(adev->dev, "(%d) failed to reserve VCE bo\n", r);
--		return r;
--	}
--
--	r = amdgpu_bo_kmap(adev->vce.vcpu_bo, &cpu_addr);
--	if (r) {
--		amdgpu_bo_unreserve(adev->vce.vcpu_bo);
--		dev_err(adev->dev, "(%d) VCE map failed\n", r);
--		return r;
--	}
--
--	hdr = (const struct common_firmware_header *)adev->vce.fw->data;
--	offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
--
- 	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
--		memcpy_toio(cpu_addr, adev->vce.fw->data + offset,
--			    adev->vce.fw->size - offset);
-+		memcpy_toio(adev->vce.cpu_addr, adev->vce.saved_bo,
-+			    amdgpu_bo_size(adev->vce.vcpu_bo));
- 		drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index b3e6b3fcdf2c..71eceac58fb6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1263,8 +1263,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 			-EFAULT : 0;
  	}
+ 	case AMDGPU_INFO_VIDEO_CAPS: {
+-		const struct amdgpu_video_codecs *codecs;
++		const struct amdgpu_video_codecs *codecs = NULL;
+ 		struct drm_amdgpu_info_video_caps *caps;
++		u32 codec_count;
+ 		int r;
  
--	amdgpu_bo_kunmap(adev->vce.vcpu_bo);
--
--	amdgpu_bo_unreserve(adev->vce.vcpu_bo);
--
- 	return 0;
- }
+ 		if (!adev->asic_funcs->query_video_codecs)
+@@ -1291,7 +1292,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		if (!caps)
+ 			return -ENOMEM;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index 2d64002bed61..21b6656b2f41 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -448,14 +448,8 @@ static int vce_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		return r;
+-		for (i = 0; i < codecs->codec_count; i++) {
++		codec_count = codecs ? codecs->codec_count : 0;
++
++		for (i = 0; i < codec_count; i++) {
+ 			int idx = codecs->codec_array[i].codec_type;
  
- 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--		const struct common_firmware_header *hdr;
--		unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
--
--		adev->vce.saved_bo = kvmalloc(size, GFP_KERNEL);
--		if (!adev->vce.saved_bo)
--			return -ENOMEM;
--
--		hdr = (const struct common_firmware_header *)adev->vce.fw->data;
-+		const struct common_firmware_header *hdr =
-+			(const struct common_firmware_header *)adev->vce.fw->data;
- 		adev->firmware.ucode[AMDGPU_UCODE_ID_VCE].ucode_id = AMDGPU_UCODE_ID_VCE;
- 		adev->firmware.ucode[AMDGPU_UCODE_ID_VCE].fw = adev->vce.fw;
- 		adev->firmware.fw_size +=
-@@ -506,11 +500,6 @@ static int vce_v4_0_sw_fini(struct amdgpu_ip_block *ip_block)
- 	/* free MM table */
- 	amdgpu_virt_free_mm_table(adev);
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--		kvfree(adev->vce.saved_bo);
--		adev->vce.saved_bo = NULL;
--	}
--
- 	r = amdgpu_vce_suspend(adev);
- 	if (r)
- 		return r;
-@@ -561,20 +550,7 @@ static int vce_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
- static int vce_v4_0_suspend(struct amdgpu_ip_block *ip_block)
+ 			switch (idx) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index 9cd63b4177bf..b755238c2c3d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -130,6 +130,12 @@ static const struct amdgpu_video_codecs cik_video_codecs_decode =
+ static int cik_query_video_codecs(struct amdgpu_device *adev, bool encode,
+ 				  const struct amdgpu_video_codecs **codecs)
  {
- 	struct amdgpu_device *adev = ip_block->adev;
--	int r, idx;
--
--	if (adev->vce.vcpu_bo == NULL)
--		return 0;
--
--	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
--		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--			unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
--			void *ptr = adev->vce.cpu_addr;
--
--			memcpy_fromio(adev->vce.saved_bo, ptr, size);
--		}
--		drm_dev_exit(idx);
--	}
-+	int r;
- 
- 	/*
- 	 * Proper cleanups before halting the HW engine:
-@@ -609,25 +585,11 @@ static int vce_v4_0_suspend(struct amdgpu_ip_block *ip_block)
- static int vce_v4_0_resume(struct amdgpu_ip_block *ip_block)
++	const enum amd_ip_block_type ip =
++		encode ? AMD_IP_BLOCK_TYPE_VCE : AMD_IP_BLOCK_TYPE_UVD;
++
++	if (!amdgpu_device_ip_is_valid(adev, ip))
++		return 0;
++
+ 	switch (adev->asic_type) {
+ 	case CHIP_BONAIRE:
+ 	case CHIP_HAWAII:
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index e0f139de7991..9468c03bdb1b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1003,6 +1003,12 @@ static const struct amdgpu_video_codecs hainan_video_codecs_decode =
+ static int si_query_video_codecs(struct amdgpu_device *adev, bool encode,
+ 				 const struct amdgpu_video_codecs **codecs)
  {
- 	struct amdgpu_device *adev = ip_block->adev;
--	int r, idx;
--
--	if (adev->vce.vcpu_bo == NULL)
--		return -EINVAL;
--
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
--
--		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
--			unsigned size = amdgpu_bo_size(adev->vce.vcpu_bo);
--			void *ptr = adev->vce.cpu_addr;
-+	int r;
- 
--			memcpy_toio(ptr, adev->vce.saved_bo, size);
--			drm_dev_exit(idx);
--		}
--	} else {
--		r = amdgpu_vce_resume(adev);
--		if (r)
--			return r;
--	}
-+	r = amdgpu_vce_resume(adev);
-+	if (r)
-+		return r;
- 
- 	return vce_v4_0_hw_init(ip_block);
- }
++	const enum amd_ip_block_type ip =
++		encode ? AMD_IP_BLOCK_TYPE_VCE : AMD_IP_BLOCK_TYPE_UVD;
++
++	if (!amdgpu_device_ip_is_valid(adev, ip))
++		return 0;
++
+ 	switch (adev->asic_type) {
+ 	case CHIP_VERDE:
+ 	case CHIP_TAHITI:
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index a611a7345125..f0e4193cf722 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -256,6 +256,12 @@ static const struct amdgpu_video_codecs cz_video_codecs_decode =
+ static int vi_query_video_codecs(struct amdgpu_device *adev, bool encode,
+ 				 const struct amdgpu_video_codecs **codecs)
+ {
++	const enum amd_ip_block_type ip =
++		encode ? AMD_IP_BLOCK_TYPE_VCE : AMD_IP_BLOCK_TYPE_UVD;
++
++	if (!amdgpu_device_ip_is_valid(adev, ip))
++		return 0;
++
+ 	switch (adev->asic_type) {
+ 	case CHIP_TOPAZ:
+ 		if (encode)
 -- 
 2.51.0
 
