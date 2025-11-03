@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E234ACCFA04
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 22:24:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E2E7CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 22:24:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 875AE10E4C8;
-	Mon,  3 Nov 2025 22:24:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD57C10E4CB;
+	Mon,  3 Nov 2025 22:24:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y9aS/icw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="komlqTx0";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9FA810E4C8
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 22:24:18 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-640c48b3b90so2087595a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 14:24:18 -0800 (PST)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B25410E4CA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 22:24:21 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-640c48b3b90so2087640a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 14:24:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762208657; x=1762813457; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1762208660; x=1762813460; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=88UG9YP1qna137jzTbn3n6ZmEaw08eAT8kZD4CpsEH8=;
- b=Y9aS/icwkL0K1r4c9955tvavoYAWuztPNknXIQP951prwB+2WXntvsDbYznrVbJMHr
- ZeS3HHghNgquqjKRWg2jG3jO8/MFZe8+LhtJixdSl5lAJbpcw5+PJdnyTo59B2eBC+lq
- qOHR1eV/gXmsLITrqJfuVW3xXSYOuCmTKPhdA/1+Fhwxba/dyXxF0j0DLX8dmZmtky4z
- OOHj9tdHmcLuZNV8XTxRZT4ANj2nkeSsOq83CjmxTyj3gdQebb/RN2d80Jp+FmfAu7lz
- 0n99EzWj0KsacJnQSEF9ELf7ztl6rJEDFQ+SUQKwV8ePZrJfs6xN4WvY0T8Au5d6fgL3
- FCeQ==
+ :reply-to; bh=nwk4KPjUYp+CBSdPH6KAp3lpg809vuCnYnaJadT1aG8=;
+ b=komlqTx0Eqidcv0mIkd92oyBbjEV1hnhnaXK4cQRePc8pC3UmAiVwiwsDqISgBux1k
+ F36dJk3WScCiDzkoYSmTuemitdQVnI6N8iyoFt8b8krKLvJymh8PoJkE8ljacPDVIR/a
+ VKYYt1+Ehr1YBitGe8HPTbVDvkmiFBUBZ1fOlkxZ9Y23OxBOK4hkTiS7U5rm01EHOjoT
+ 23fMt5XZRrJ7TdSeyzDdUmRUCpZqbRlcs0vA13m+DDYjKRfDlLk9sGWDnwRrt16dCWto
+ FajzLH7HQoeL7DnUF2tk50bJYns/wHVoVOq7A1UrNYMfVKIEEL+kSggXLJwhT+YZrAyo
+ ZCSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762208657; x=1762813457;
+ d=1e100.net; s=20230601; t=1762208660; x=1762813460;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=88UG9YP1qna137jzTbn3n6ZmEaw08eAT8kZD4CpsEH8=;
- b=AF0NqYM4Ws+TKuw3DN6IaX+mDoXCNs9vXam/enGG3U65fH3wlPmNcHCf9d4r9Ksck1
- kJhF9BVAkW0mz0hp9+oJvQs9ZXn+7+IYNZkWLyrvwbvmb8Jv72UPvYrdQycAMvo51Ppl
- OGu+/NmfVVGyyDYDFfQwfYRGaDbh7F98OP/atvUc2RSepdL1ktXE7wNt8nxUHpcvvLtP
- zN1K/QDc1xSY/rmQHosOv2WS1YleoiJn4e1ymD7soSpn+8loiLWlCUxHd6/xQ0EkhHsI
- v+OjhNnq6l7w6Syh5R8ptQejV1UEMwsDuNM4kA+gAV5wmt8GrMnufg1ABw5fVR07HEl5
- EB6A==
-X-Gm-Message-State: AOJu0YyIZHudtIhnz28Cp4YlC4xTzIeo7G/SP7keRJhlWRVnQjbihVES
- 5cv3jZ49ZZ5OgzyeUBubK3RwPtCCmFDcdiYGu1KmYPBR3kgy7qZh9XBzGmuy5b0n
-X-Gm-Gg: ASbGnctBQmKueRrAtXNi93zfq1WDy6OY6JQLdFXcK2AhOmv5PD1xYU9E/J0qldUjprV
- wPWlHnTuYngp+UixUvXUItcAZx18mn3bjuzMbT7q1wb7MnT8fztG6xVQRK8EKA3zdbhk/Dsx7BZ
- hBLjpFkIjkpcB2p34mB0cOkm2nwcxVkurmp+d2fUUDcuWbxUClXlIyMO6hRbfUjlYMU/eVcO2HX
- bddZK6WPsgAw4AB/8NODKL9X6BPJtAaAmHTM34np7dmfwmolKTDpYamINMY/G2XyaJq0tP7+xrT
- IAsTuLaRQgx3wH8puZ7MouubfdwtdqI0uxz/XYR2t/vUBpY3A7uPsOEVw3OtXW9U5yvnWwZIGaj
- FJL5s96lyEXSL9foD9lIi/SbYshfkuZY4njCt50rTynLtXg+od/yIsoYld8TMQCe5Ut6xiqLl6k
- 8J0trAUE2qQgM1uFaKcME=
-X-Google-Smtp-Source: AGHT+IHzsogQxs6NgcSqhPhrZeJaZEakSHAs8halNMLc3hdH+FugRY7ywOayioOzBT3FNSPUOO1/dA==
-X-Received: by 2002:a05:6402:440d:b0:640:6512:b9f with SMTP id
- 4fb4d7f45d1cf-640770209afmr14164156a12.28.1762208657115; 
- Mon, 03 Nov 2025 14:24:17 -0800 (PST)
+ bh=nwk4KPjUYp+CBSdPH6KAp3lpg809vuCnYnaJadT1aG8=;
+ b=MyTWwCeDkPEAQHkuk1/9TyFty7TAfpRU0VSkpKJZdcwjBG4ysJVvrBuu0mVnOVmBho
+ dAFfm+AdYFSNlZMLMYswYWg3CF7C7G/9xnm6MZIcMrcEMITQEozferZ1LOZ/LlnfPwi4
+ 3KVIQMnYukWqxWUXCbh3JKX5GRJfKSrYjGaPD5BS4T+98EOcYKyD4fdoqnFIYesrJ5gP
+ JIy51lfgcF0S3FfNOw8g8HoUapbR6Usi5OlTWat+iaogBG7Ocoy/2Pgb5qTOAvSG+9ap
+ +o5pdOfLHCT5MHVfIf/VafEWzG9raEzWtoPZQ3sUXH3HHbQe6cFTHBRNN6qRP6cv49Nc
+ mP5Q==
+X-Gm-Message-State: AOJu0YyTyF25U0dRPh0JBnyxy/xRBHwf67QVtE40YXrgxVLW/uFT9wDK
+ +mxTtUUl9X3KzX8rJKDMAG+TbUOH66JeKFbwoRpzl9Igi+0dUTbrPbER5dwgxFe3
+X-Gm-Gg: ASbGncsXI7SLuLGqO+jzY10PtL2HMqSItWgUcWamzVpUK097ktsV6tJIiyik3F5S9ms
+ oft5S1Ka8NqX/oqNmgLqmx2Tvxne+849QXfLLkYc8nTwsigve+QgmRjOHcQlvyaJmK/2t4BLU9/
+ WW/grHe4+FjQhPgseTPkafTqQsPNbSeukiOAVxZQ/2NaQ8EBOdWF4SXXuWe1P3XL2LjbbQDO9lt
+ xGiLdKRn+8N9Xv/GnHX3TVK3yyfTF8yus6p0X4Qdc+3JmtR0xnWWbszlHdUb0UmzBDYLlYSAP1h
+ rtIHnPwJ0aBmGXh9OKo/1+/76FwDRmv3DiZOfr5ax4Nugt76Ad8TvVnUtHkV8iU6HFm4yKAmQAZ
+ NTiGqh/2nOR8Q+j7hgJHakvdfqYu7jPyYgp4X6+STGns5OkWRmY3qSaycHy8pYs85kdaUesd0+t
+ sf9nIbssycToy/I4pVhyc=
+X-Google-Smtp-Source: AGHT+IGEJWm2EdoS2Yqgb2ovHM8IEoHPA8rkYPcQsNM4V6gWADbMUXKv8knyHkDBijIKKgaYkIJI5w==
+X-Received: by 2002:a05:6402:51c8:b0:640:931a:7c2f with SMTP id
+ 4fb4d7f45d1cf-640931a7eabmr9147839a12.7.1762208659844; 
+ Mon, 03 Nov 2025 14:24:19 -0800 (PST)
 Received: from Timur-Hyperion.home ([2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-640e6a5cb5dsm486635a12.17.2025.11.03.14.24.15
+ 4fb4d7f45d1cf-640e6a5cb5dsm486635a12.17.2025.11.03.14.24.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Nov 2025 14:24:16 -0800 (PST)
+ Mon, 03 Nov 2025 14:24:19 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Subject: [PATCH 13/16] drm/amdgpu/vce1: Ensure VCPU BO is in lower 32-bit
- address space (v2)
-Date: Mon,  3 Nov 2025 23:23:30 +0100
-Message-ID: <20251103222333.37817-14-timur.kristof@gmail.com>
+Subject: [PATCH 15/16] drm/amdgpu/vce1: Enable VCE1 on Tahiti, Pitcairn,
+ Cape Verde GPUs
+Date: Mon,  3 Nov 2025 23:23:32 +0100
+Message-ID: <20251103222333.37817-16-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251103222333.37817-1-timur.kristof@gmail.com>
 References: <20251103222333.37817-1-timur.kristof@gmail.com>
@@ -90,121 +90,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on research carried out by Alexandre and Christian.
-
-VCE1 actually executes its code from the VCPU BO.
-Due to various hardware limitations, the VCE1 requires
-the VCPU BO to be in the low 32 bit address range.
-However, VRAM is typically mapped at the high address range,
-which means the VCPU can't access VRAM through the FB aperture.
-
-To solve this, we write a few page table entries to
-map the VCPU BO in the GART address range. And we make sure
-that the GART is located at the low address range.
-That way the VCE1 can access the VCPU BO.
-
-v2:
-- Adjust to v2 of the GART helper commit.
-- Add empty line to multi-line comment.
+Add the VCE1 IP block to the SI GPUs that have it.
+Advertise the encoder capabilities corresponding to VCE1,
+so the userspace applications can detect and use it.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Co-developed-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c | 51 +++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/si.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-index bf9f943852cb..feb6eccbc025 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-@@ -34,6 +34,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 9468c03bdb1b..f7b35b860ba3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -45,6 +45,7 @@
+ #include "dce_v6_0.h"
+ #include "si.h"
+ #include "uvd_v3_1.h"
++#include "vce_v1_0.h"
  
- #include "amdgpu.h"
- #include "amdgpu_vce.h"
-+#include "amdgpu_gart.h"
- #include "sid.h"
- #include "vce_v1_0.h"
- #include "vce/vce_1_0_d.h"
-@@ -46,6 +47,11 @@
- #define VCE_V1_0_DATA_SIZE	(7808 * (AMDGPU_MAX_VCE_HANDLES + 1))
- #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
+ #include "uvd/uvd_4_0_d.h"
  
-+#define VCE_V1_0_GART_PAGE_START \
-+	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
-+#define VCE_V1_0_GART_ADDR_START \
-+	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
-+
- static void vce_v1_0_set_ring_funcs(struct amdgpu_device *adev);
- static void vce_v1_0_set_irq_funcs(struct amdgpu_device *adev);
+@@ -921,8 +922,6 @@ static const u32 hainan_mgcg_cgcg_init[] =
+ 	0x3630, 0xfffffff0, 0x00000100,
+ };
  
-@@ -513,6 +519,45 @@ static int vce_v1_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+/**
-+ * vce_v1_0_ensure_vcpu_bo_32bit_addr() - ensure the VCPU BO has a 32-bit address
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Due to various hardware limitations, the VCE1 requires
-+ * the VCPU BO to be in the low 32 bit address range.
-+ * Ensure that the VCPU BO has a 32-bit GPU address,
-+ * or return an error code when that isn't possible.
-+ */
-+static int vce_v1_0_ensure_vcpu_bo_32bit_addr(struct amdgpu_device *adev)
-+{
-+	u64 gpu_addr = amdgpu_bo_gpu_offset(adev->vce.vcpu_bo);
-+	u64 bo_size = amdgpu_bo_size(adev->vce.vcpu_bo);
-+	u64 max_vcpu_bo_addr = 0xffffffff - bo_size;
-+	u64 num_pages = ALIGN(bo_size, AMDGPU_GPU_PAGE_SIZE) / AMDGPU_GPU_PAGE_SIZE;
-+	u64 pa = amdgpu_gmc_vram_pa(adev, adev->vce.vcpu_bo);
-+	u64 flags = AMDGPU_PTE_READABLE | AMDGPU_PTE_WRITEABLE | AMDGPU_PTE_VALID;
-+
-+	/*
-+	 * Check if the VCPU BO already has a 32-bit address.
-+	 * Eg. if MC is configured to put VRAM in the low address range.
-+	 */
-+	if (gpu_addr <= max_vcpu_bo_addr)
-+		return 0;
-+
-+	/* Check if we can map the VCPU BO in GART to a 32-bit address. */
-+	if (adev->gmc.gart_start + VCE_V1_0_GART_ADDR_START > max_vcpu_bo_addr)
-+		return -EINVAL;
-+
-+	amdgpu_gart_map_vram_range(adev, pa, VCE_V1_0_GART_PAGE_START,
-+				   num_pages, flags, adev->gart.ptr);
-+	adev->vce.gpu_addr = adev->gmc.gart_start + VCE_V1_0_GART_ADDR_START;
-+	if (adev->vce.gpu_addr > max_vcpu_bo_addr)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static int vce_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
+-/* XXX: update when we support VCE */
+-#if 0
+ /* tahiti, pitcairn, verde */
+ static const struct amdgpu_video_codec_info tahiti_video_codecs_encode_array[] =
  {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -532,6 +577,9 @@ static int vce_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	r = vce_v1_0_load_fw_signature(adev);
-+	if (r)
-+		return r;
-+	r = vce_v1_0_ensure_vcpu_bo_32bit_addr(adev);
- 	if (r)
- 		return r;
- 
-@@ -647,6 +695,9 @@ static int vce_v1_0_resume(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	r = vce_v1_0_load_fw_signature(adev);
-+	if (r)
-+		return r;
-+	r = vce_v1_0_ensure_vcpu_bo_32bit_addr(adev);
- 	if (r)
- 		return r;
- 
+@@ -940,13 +939,7 @@ static const struct amdgpu_video_codecs tahiti_video_codecs_encode =
+ 	.codec_count = ARRAY_SIZE(tahiti_video_codecs_encode_array),
+ 	.codec_array = tahiti_video_codecs_encode_array,
+ };
+-#else
+-static const struct amdgpu_video_codecs tahiti_video_codecs_encode =
+-{
+-	.codec_count = 0,
+-	.codec_array = NULL,
+-};
+-#endif
++
+ /* oland and hainan don't support encode */
+ static const struct amdgpu_video_codecs hainan_video_codecs_encode =
+ {
+@@ -2723,7 +2716,7 @@ int si_set_ip_blocks(struct amdgpu_device *adev)
+ 		else
+ 			amdgpu_device_ip_block_add(adev, &dce_v6_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &uvd_v3_1_ip_block);
+-		/* amdgpu_device_ip_block_add(adev, &vce_v1_0_ip_block); */
++		amdgpu_device_ip_block_add(adev, &vce_v1_0_ip_block);
+ 		break;
+ 	case CHIP_OLAND:
+ 		amdgpu_device_ip_block_add(adev, &si_common_ip_block);
+@@ -2741,7 +2734,6 @@ int si_set_ip_blocks(struct amdgpu_device *adev)
+ 		else
+ 			amdgpu_device_ip_block_add(adev, &dce_v6_4_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &uvd_v3_1_ip_block);
+-		/* amdgpu_device_ip_block_add(adev, &vce_v1_0_ip_block); */
+ 		break;
+ 	case CHIP_HAINAN:
+ 		amdgpu_device_ip_block_add(adev, &si_common_ip_block);
 -- 
 2.51.0
 
