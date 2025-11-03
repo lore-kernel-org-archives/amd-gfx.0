@@ -4,75 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD8EECCF9FE
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 14:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A91B1CCFA05
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 14:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5728F10E3FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4988710E3F9;
 	Mon,  3 Nov 2025 14:06:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g4AUHa8m";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="CfKCabFW";
 	dkim-atps=neutral
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC9D10E3A1
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 10:10:21 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-640a3317b89so1666784a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 02:10:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762164619; x=1762769419; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=a3PXmC0IgYzElrMaLpcs/3Pmu0PchQ9cqTJphwonA/o=;
- b=g4AUHa8mcBY5mnEkbCsTtcGQOwhd9au0b8H18ypCCOv6D1P4RiPSgiGFAO+czkpIk6
- HO8YKtzHt2qiu5yzs6iBZGZLJpUEShHHAmwMb7zMqEN42iBRg8KZx0+LkH4nOtiBPfyh
- Nl/7KgO1a/clgjIt4z4sOv2LTdRcun5KZVDfE7Zzy7QpmPa32WVOeHNBPdJuUUCRIVx/
- yiJTta0XsNA7HKmC5bvajN0HU4UNH+AIDpWzPR8PkTd3Gkg9cGww6GSJlePEEkcyv8Z+
- iOzSRFGzbQ7DnJ44f0PZhQvFyG7TNnFLsBtXncWLISao4zFhrOWm3guqhwM1KVvffpV8
- +WBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762164619; x=1762769419;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=a3PXmC0IgYzElrMaLpcs/3Pmu0PchQ9cqTJphwonA/o=;
- b=jD+GeekHWRNNYvCe8F/29zX0w0JFAgLZzJTHt0gONa0K9pYsAvF7rd4eXbRH6afd8C
- x+WC/vZfCuy3eRlZK5l0g/R3qRUA8FIZAyK8mN5mbuuYPB0AHZPy770QNUJY6QcP93A5
- 4RImPE+V0j4dnXFSH3XVX7OimeVyM4hJILjjShAELBI9zdOABi5ncbDd2po3AkmdbSMn
- X1etS4u2ZfBr45C+UBp1dQy+4tG89jRyDKEoCaG7YC1QFPVoBpjQZ+LOrG5yBgfB29AD
- qvPFdSJsi45mAefxX3QWtpir71jNrqlgV4gX40HJmDqcPqwi8qKuFGuqDJZperKx9SQk
- wD+Q==
-X-Gm-Message-State: AOJu0YyrQtLjRjtg5abdkafJO/JlPMY6Qs0HdMfUDbCHUKepNbMr/Qsl
- GDt4g2aHd40CJyidDvu/UpQQV2E6erI+dYeoMNmWZ8cMLXGFljlRoqNvZtY0g2n/
-X-Gm-Gg: ASbGncv5Z8YslweXrCXbdENbP5L10Bol8fx178KTvQkI0+8pBDZQeN29WIoPyhpDhPg
- OEfR8PJXnN8kNUMPeOG4U/nMMAQfzszn/BZbfyDJv+xl8GnqmShWbLsqOtJj2/3bVBxr2wE5pjH
- U4FdmN/g+1tCrwmQ4sRRuMFVTUSHzyPEpBv0LGCheJkymd0RzboXYmtIOqoT888BzaobQG+anyx
- ZMaWmEvAWvZRIeh608WVNG6JpsL0JJfQaHl18+GC5jLoDN+lqGPftKqxVbXsx0ZnJfALrGji+vT
- 1IHplxC/1WX873VL3N6vgHhuTIR1TQbdpsVYJ8Ih0yqw0WKYsuoCa70C/sW7O7YZ7gDfiyVBrDe
- SH0Q9D9TY6YeEFG72H6egnKf/iyuY31Frr7H3iOuXipBa3ZL7hWeEQAXh55UewDpobO9DLX/LRh
- 5OM3cAzmdx3LDuVnnjaBpyPeBnTaaZbmBD03LRIBu79KsG1vBMvYfJd3L1DO+yXSkq8vQff+sM
-X-Google-Smtp-Source: AGHT+IFE5m2yHWNYm6c1wct4++rOwYRAX7qLun4fuDAZR0oq65xBHc/ujhVijTJwkcEni14iGcGtpA==
-X-Received: by 2002:a05:6402:5113:b0:640:6638:1b2c with SMTP id
- 4fb4d7f45d1cf-64077068aa9mr9819679a12.33.1762164619160; 
- Mon, 03 Nov 2025 02:10:19 -0800 (PST)
-Received: from T9H90HGVX2.discovery.roo.tools (PC-77-46-83-136.euro-net.pl.
- [77.46.83.136]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64093b3868esm7291519a12.28.2025.11.03.02.10.17
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 03 Nov 2025 02:10:18 -0800 (PST)
-From: "=?UTF-8?q?Micha=C5=82=20Bie=C5=82aga?=" <mbielaga1@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Micha=C5=82=20Bie=C5=82aga?=
- <michal.bielaga@deliveroo.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Michal Bielaga <mbielaga1@gmail.com>
-Subject: [PATCH] drm/amdgpu: Add VRR support for MST connectors
-Date: Mon,  3 Nov 2025 11:08:45 +0100
-Message-ID: <20251103100845.12802-1-michal.bielaga@deliveroo.com>
-X-Mailer: git-send-email 2.45.2
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD7410E3E3;
+ Mon,  3 Nov 2025 13:07:11 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4d0X182f9Cz9t9R;
+ Mon,  3 Nov 2025 14:07:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1762175228; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zZrgtRXQ5F/QF5D3Aad2k+HisoK3e/7+em+PotJDD6Y=;
+ b=CfKCabFWZceRBak15YW6S5/GDQqRk9FaaJUHdU8shGpykzmkOzMbO93d5r/XGCmXlvsSje
+ pYrKxGHe6IMT32ZUGP0Oi4SXopDl2Nh0fcXnfWNLe8y6n/bnbaB00a+BIp4+m1MLFsqCn0
+ WWudxreSOx/c5QrKL6J958lXlBBggTXfvk6cMl0udruMDBAI4eCUVWnh1H0WiMa68BsA5C
+ xqeAAieHhWTgjCdAbP0XiDci1+5wdAjuBxbw3NgA0DxZJCdcsqvMBwTJ5Dkqt1QkK+d27y
+ Gi7lnnyDACkH+p1R5wM1gXQqeMaWeZ5xTlxTD4ZmBZ+HQgmeWCxsqQ3bsAfSzw==
+Message-ID: <28db478040c23a237e859d288993208aee29cbc8.camel@mailbox.org>
+Subject: Re: [PATCH 05/15] dma-buf: inline spinlock for fence protection
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tursulin@ursulin.net>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ alexdeucher@gmail.com,  simona.vetter@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Date: Mon, 03 Nov 2025 14:07:06 +0100
+In-Reply-To: <17248bf5-39d6-44df-a2f3-f832abe48fcd@ursulin.net>
+References: <20251013143502.1655-1-christian.koenig@amd.com>
+ <20251013143502.1655-6-christian.koenig@amd.com>
+ <17248bf5-39d6-44df-a2f3-f832abe48fcd@ursulin.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: ktru3utfo8rx711xcbkgf9y93xxf34yy
+X-MBO-RS-ID: 781005a68abad6874d2
 X-Mailman-Approved-At: Mon, 03 Nov 2025 14:06:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,95 +64,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michal Bielaga <mbielaga1@gmail.com>
+On Thu, 2025-10-16 at 10:26 +0100, Tvrtko Ursulin wrote:
+>=20
+> Hi Christian,
+>=20
+> Only some preliminary comments while I am building a complete picture.
+>=20
+> On 13/10/2025 14:48, Christian K=C3=B6nig wrote:
+> > Allow implementations to not give a spinlock to protect the fence
+> > internal state, instead a spinlock embedded into the fence structure
+> > itself is used in this case.
+> >=20
+> > Apart from simplifying the handling for containers and the stub fence
+> > this has the advantage of allowing implementations to issue fences
+> > without caring about theit spinlock lifetime.
+> >=20
+> > That in turn is necessary for independent fences who outlive the module
+> > who originally issued them.
 
-Variable Refresh Rate (VRR/FreeSync) currently only works with
-Single-Stream Transport (SST) DisplayPort connections. Monitors
-connected via MST hubs cannot utilize VRR even when they support it,
-because the driver only enables VRR for SST connections.
+I like the overall idea and think that separate locks will help me with
+Rust dma_fence, where I also had begun to investigate the issue of
+module unload vs backend_ops.
 
-This patch enables VRR for DisplayPort MST by:
-- Including SIGNAL_TYPE_DISPLAY_PORT_MST in VRR capability detection
-- Reading VRR range from display EDID instead of MST hub DPCD, since
-  dc_link points to the hub rather than the actual display
-- Fixing call order to parse EDID before checking VRR capabilities,
-  ensuring display_info.monitor_range is populated
-- Properly attaching VRR property to MST connectors by reusing the
-  master connector's property
+> >=20
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >=20
 
-Without this patch, MST displays cannot use VRR even if they support
-it, limiting the user experience for multi-monitor DisplayPort MST
-setups.
+[=E2=80=A6]
 
-Signed-off-by: Michal Bielaga <mbielaga1@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c     | 11 +++++++++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   |  9 ++++++---
- 2 files changed, 15 insertions(+), 5 deletions(-)
+> > =C2=A0=20
+> > =C2=A0 static inline struct sync_timeline *dma_fence_parent(struct dma_=
+fence *fence)
+> > =C2=A0 {
+> > -	return container_of(fence->lock, struct sync_timeline, lock);
+> > +	return container_of(fence->extern_lock, struct sync_timeline, lock);
+>=20
+> These container_ofs are a bit annoying. Maybe even a bit fragile if=20
+> someone switches to embedded lock and forgets to update them all.
+>=20
+> Would prep patch to first replace them with some dma_fence_container_of=
+=20
+> wrapper make sense?=C2=A0
+>=20
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ef026143dc1c..ac5b6c22361f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -12644,9 +12644,16 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 		parse_edid_displayid_vrr(connector, edid);
- 
- 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
-+		     sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
- 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
--		if (amdgpu_dm_connector->dc_link &&
--		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_param) {
-+		/* For MST, check monitor range from EDID directly since the dc_link
-+		 * points to the MST hub, not the actual display
-+		 */
-+		if ((sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
-+		     (amdgpu_dm_connector->dc_link &&
-+		      amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_param)) &&
-+		    connector->display_info.monitor_range.min_vfreq &&
-+		    connector->display_info.monitor_range.max_vfreq) {
- 			amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
- 			amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
- 			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 77a9d2c7d318..062259514b3c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -443,6 +443,9 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 			}
- 		}
- 
-+		/* Update connector with EDID first so display_info.monitor_range is populated */
-+		drm_edid_connector_update(&aconnector->base, aconnector->drm_edid);
-+
- 		if (aconnector->dc_sink) {
- 			amdgpu_dm_update_freesync_caps(
- 					connector, aconnector->drm_edid);
-@@ -459,8 +462,6 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 		}
- 	}
- 
--	drm_edid_connector_update(&aconnector->base, aconnector->drm_edid);
--
- 	ret = drm_edid_connector_add_modes(connector);
- 
- 	return ret;
-@@ -650,9 +651,11 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	if (connector->max_bpc_property)
- 		drm_connector_attach_max_bpc_property(connector, 8, 16);
- 
-+	/* Reuse VRR property from master connector for MST connectors */
- 	connector->vrr_capable_property = master->base.vrr_capable_property;
- 	if (connector->vrr_capable_property)
--		drm_connector_attach_vrr_capable_property(connector);
-+		drm_object_attach_property(&connector->base,
-+					   connector->vrr_capable_property, 0);
- 
- 	drm_object_attach_property(
- 		&connector->base,
--- 
-2.51.1
++1, would be a nice change.
 
+It's not related to the series, though, so should be done in an
+independent patch (IMO).
+
+> Then it could even have a (debug builds only) assert=20
+> added to check for correct usage.
+>=20
+> > =C2=A0 }
+> > =C2=A0=20
+> > =C2=A0 /**
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.c
+> >=20
+> >=20
+
+[=E2=80=A6]
+
+> > =C2=A0=C2=A0 *
+> > + * DMA_FENCE_FLAG_INLINE_LOCK_BIT - use inline spinlock instead of ext=
+ernal one
+> > =C2=A0=C2=A0 * DMA_FENCE_FLAG_SIGNALED_BIT - fence is already signaled
+> > =C2=A0=C2=A0 * DMA_FENCE_FLAG_TIMESTAMP_BIT - timestamp recorded for fe=
+nce signaling
+> > =C2=A0=C2=A0 * DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT - enable_signaling migh=
+t have been called
+> > @@ -65,7 +67,10 @@ struct seq_file;
+> > =C2=A0=C2=A0 * been completed, or never called at all.
+> > =C2=A0=C2=A0 */
+> > =C2=A0 struct dma_fence {
+> > -	spinlock_t *lock;
+> > +	union {
+> > +		spinlock_t *extern_lock;
+> > +		spinlock_t inline_lock;
+>=20
+> This will grow the struct on some architectures so I think, given the
+> strong push back to struct past a 64B cacheline in the past, it should=
+=20
+> be called out in the commit message.
+
++1
+
+Although: Christian, you told me at XDC that you did some exact
+measurements about the new vs old cache line size. Can you help out my
+memory here, what were those sizes?
+
+
+P.
 
