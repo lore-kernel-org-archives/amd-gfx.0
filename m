@@ -4,53 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42DF8CCFA10
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9064CCFA07
 	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 08:30:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63AD310E548;
-	Tue,  4 Nov 2025 08:30:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40D2410E54B;
+	Tue,  4 Nov 2025 08:30:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="SyRSlfHE";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="X+b65Vnw";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3617410E452;
- Mon,  3 Nov 2025 19:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=IQKecPKtA23w7poQU0vT9sVIj6uUAejF4wv6afW5X84=; b=SyRSlfHENky94QLtYeWxHZ3tuS
- k6yO34FkLzcaJTtL6cklwnzVYw7A+M+kNSMufZHDr1GfGNxOXTSY3+xs0HYRGvzHTZmiCv6wGbQob
- bFImjX4D2Euhl0JvcotvZhkvnnUcc51db8rOHTZuGy+ifdsfxl6jddeNUDt6wLiiwXeJ5+NyfcL1m
- TzimRN1QC5TcN9WItTNtO0PxtiWQ823HEmO42ocwImK15Yhy14xxFigejn2RkjEW6Pr/DaFOI48C4
- qdKLUTevr6ybGLfNFvG3MnsIukvrI9INt6m7PQFLbqS8FWkM7m8xcQb6BNhYNgdENxoUAPltKCsUr
- LjSSd20w==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1vFztP-0000000AWf1-1gNC; Mon, 03 Nov 2025 19:07:03 +0000
-Message-ID: <810fd8d5-ae5f-489e-b78a-10bebc7d7eec@infradead.org>
-Date: Mon, 3 Nov 2025 11:07:02 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] Documentation/amdgpu: Add UMA carveout details
-To: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F8F10E434
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 15:58:04 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-475ca9237c2so24676875e9.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 07:58:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1762185483; x=1762790283; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BSjslf49+4C1KeXizurd3u1HRFo6JeAJTXRM556HvGI=;
+ b=X+b65VnwGamedqlRBC3nUBTdTvkA1xLkaLZT31yrWPcLcNmMF+OKMAvnQIEMwLluSz
+ 9GofmgCNthQebg+oW9Vw0UdJKkwWHuayNtdKXxHUsHiHJMr8FF3+bpHeFhjDywaN9WWt
+ SSSBgxAqkM1m8C1jLgK+gCblpHg2DcYViPd1t91zooNA0YFi6vjW3DOimLDzmvTbM+pF
+ fgjdKdnG8TBAnME6TUQjbB/zu/xGQMIToPiI6nu9D3mzz0imVZnhjCs7OHTKRPFUvRct
+ ev7hpV1rDbtA9KxOa16h5FwjoUK6H40x9vCOdqf+3uUgZkmubY7fotPHc0AJx6XHNxA0
+ UnJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762185483; x=1762790283;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BSjslf49+4C1KeXizurd3u1HRFo6JeAJTXRM556HvGI=;
+ b=W3unN41a7yypmmz/M499AAHdYxhwwONSo5Gp81QWFZThAHWS24BbFfAjWLZGG5ZKdN
+ tVqQUzT6K0MBjleJFNnpNlxXVSbp+rqsj6XG9FuyJqk4aR4e5uWlRrDsaU3KTIzW+STj
+ UMHJOZWYW42QJY2sgMants02AC61+qjuZMW8emd7+1BSRdZezi2H0yIKoCiZDaLMfuZ/
+ NCkydajjTWsCYegJ4NKierFTTaJzmHP5JpsyiGSmyOyz3WQESxLsspMOTkcp0CTm4kl5
+ DVAyxmLz66yZ8SCJMlLca07nV1HrFPwqYz2kG8VGlsjCEpIeNAh3Z+KBgdDP19KM8cUG
+ Youw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUaAjjV5I5c5YmZ26aBXoD1ZigC0fHCerX998RrY23EywWTFoyUvldJYmWn3ePqPWdSsDV4r3WM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz983h5/RfXoL/1jUTtGZJA2zrJ4shJO7qgjvZl6PPI2XXnu8Jf
+ 0DcURhaaTQldhK8ZZg30316SktMBK+NzgsGWkM1Vv+pp2ZD4PMEljKZ49oTS9roNXNA=
+X-Gm-Gg: ASbGncuxtsyqC+auMFYkfHUfZxNXus2TbO5Hul3tDTE1teyudqIyTL5Xm0E1oy4a9Ae
+ RT1duxdR3KYCZUHlbk7zyVjk5dMnspBWfC3yQN5Au7BE9RI/ZC/APj0z0GzPvIBLQvH96fVn/LN
+ 03LxXHVwdwkRqvh+A3rii+drRlMjjCGKGlK9nAnCLrQM9v6t4Dknk6pih5uOb6vjEnwi7U3FWjv
+ mVWugSQDFsdqj6as+5Tf0CiyxWuRzA8v8ZwWdroxEgH80oj8NiYV9Omee9AH2uKxplcUbIwoWGg
+ 2FOAcNYytiTpOJ1BqbWRCX7mOxhpl1xjEJl97q45N+6FJdV2bMFqYHUpWl/hn6RYN3mm+5AOpMQ
+ N7JFDLqopgRpp/iVvYP62oOusLr2CFIX8IZ2NFLY+2T5WtVGdHbW/axKNfDvFdiR+eaeghIS4ax
+ dYG+OPx2uW7OXh+0a4SFcabEsUjk6HBOqqLB4=
+X-Google-Smtp-Source: AGHT+IEBOwqlZ6rp5xc4yApoAq4SvaoICYZIEJ//QiOLN7wf/ONd9RM56bwB3wHPfebuEpSn8JNvnA==
+X-Received: by 2002:a05:600c:b85:b0:471:9da:5252 with SMTP id
+ 5b1f17b1804b1-477308900e0mr115180965e9.29.1762185483424; 
+ Mon, 03 Nov 2025 07:58:03 -0800 (PST)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47754adcd08sm48245e9.5.2025.11.03.07.58.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Nov 2025 07:58:03 -0800 (PST)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, anson.tsao@amd.com,
- superm1@kernel.org
-References: <20251103-vram-carveout-tuning-for-upstream-v1-0-17e2a72639c5@amd.com>
- <20251103-vram-carveout-tuning-for-upstream-v1-5-17e2a72639c5@amd.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20251103-vram-carveout-tuning-for-upstream-v1-5-17e2a72639c5@amd.com>
+ Philip Yang <yangp@amd.com>
+Subject: [PATCH v2 4/4] drm/radeon: add WQ_PERCPU to alloc_workqueue users
+Date: Mon,  3 Nov 2025 16:57:40 +0100
+Message-ID: <20251103155740.250398-5-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251103155740.250398-1-marco.crivellari@suse.com>
+References: <20251103155740.250398-1-marco.crivellari@suse.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 04 Nov 2025 08:30:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,99 +98,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Currently if a user enqueue a work item using schedule_delayed_work() the
+used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
+WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
+schedule_work() that is using system_wq and queue_work(), that makes use
+again of WORK_CPU_UNBOUND.
+This lack of consistentcy cannot be addressed without refactoring the API.
 
+alloc_workqueue() treats all queues as per-CPU by default, while unbound
+workqueues must opt-in via WQ_UNBOUND.
 
-On 11/2/25 11:51 PM, Yo-Jung Leo Lin (AMD) wrote:
-> Add documentation for the uma_carveout_options and uma_carveout
-> attributes in sysfs
-> 
-> Signed-off-by: Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
-> ---
->  Documentation/gpu/amdgpu/driver-misc.rst     | 26 ++++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 17 +++++++++++++++++
->  2 files changed, 43 insertions(+)
-> 
-> diff --git a/Documentation/gpu/amdgpu/driver-misc.rst b/Documentation/gpu/amdgpu/driver-misc.rst
-> index 25b0c857816e..5a71fa9c6782 100644
-> --- a/Documentation/gpu/amdgpu/driver-misc.rst
-> +++ b/Documentation/gpu/amdgpu/driver-misc.rst
-> @@ -128,3 +128,29 @@ smartshift_bias
->  
->  .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
->     :doc: smartshift_bias
-> +
-> +UMA Carveout
-> +============
-> +
-> +Some versions of Atom ROM expose available options for the VRAM carveout sizes,
-> +and allow changes to the carveout size via the ATCS function code 0xA on supported
-> +BIOS implementation.
+This default is suboptimal: most workloads benefit from unbound queues,
+allowing the scheduler to place worker threads where they’re needed and
+reducing noise when CPUs are isolated.
 
-        implementations.
+This change adds a new WQ_PERCPU flag to explicitly request
+alloc_workqueue() to be per-cpu when WQ_UNBOUND has not been specified.
 
-> +
-> +For those platforms, users can use the following file to set the carveout size,
-> +in a way similar to what Windows users can do in the "Tuning" tab in AMD
-> +Adrenalin.
-> +
-> +Note that for BIOS implementations that don't support this, these files will not
-> +get created at all.
+With the introduction of the WQ_PERCPU flag (equivalent to !WQ_UNBOUND),
+any alloc_workqueue() caller that doesn’t explicitly specify WQ_UNBOUND
+must now use WQ_PERCPU.
 
-   be created at all.
-or
-   exist.
-or
-   be present.
+The above change introduced in the Workqueue API has been introduced by:
 
-> +
-> +uma_carveout_options
-> +--------------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +   :doc: uma_carveout_options
-> +
-> +uma_carveout
-> +--------------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +   :doc: uma_carveout
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> index 1ebfd925b761..e9f71888ce57 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> @@ -1855,6 +1855,17 @@ const struct attribute_group amdgpu_vbios_version_attr_group = {
->  	.is_visible = amdgpu_vbios_version_attrs_is_visible,
->  };
->  
-> +/**
-> + * DOC: uma_carveout
-> + *
-> + * This file is both readable and writable. When read, it shows the
-> + * index of the current setting. Writing a valid index to this file
-> + * allows users to change the UMA carveout size to the selected option
-> + * on the next boot.
-> + *
-> + * The available options and their corresponding indices can be read
-> + * from the uma_carveout_options file.
-> + */
->  static ssize_t uma_carveout_show(struct device *dev,
->  				 struct device_attribute *attr,
->  				 char *buf)
-> @@ -1904,6 +1915,12 @@ static ssize_t uma_carveout_store(struct device *dev,
->  }
->  static DEVICE_ATTR_RW(uma_carveout);
->  
-> +/**
-> + * DOC: uma_carveout_options
-> + *
-> + * This is a read-only file that lists all available UMA allocation
-> + * options and their corresponding indices.
-> + */
->  static ssize_t uma_carveout_options_show(struct device *dev,
->  					 struct device_attribute *attr,
->  					 char *buf)
-> 
-Some examples like Mario mentioned would be nice.
+commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
+
+Once migration is complete, WQ_UNBOUND can be removed and unbound will
+become the implicit default.
+
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+---
+ drivers/gpu/drm/radeon/radeon_display.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 351b9dfcdad8..3c8aa5274c51 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -687,7 +687,8 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
+ 	if (radeon_crtc == NULL)
+ 		return;
+ 
+-	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc",
++						  WQ_HIGHPRI | WQ_PERCPU, 0);
+ 	if (!radeon_crtc->flip_queue) {
+ 		kfree(radeon_crtc);
+ 		return;
 -- 
-~Randy
+2.51.1
 
