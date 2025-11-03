@@ -4,85 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB877CCFA04
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 08:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52C69CCF9E3
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 08:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD48A10E545;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCF6110E543;
 	Tue,  4 Nov 2025 08:30:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="SXFu9WNT";
+	dkim=pass (1024-bit key; unprotected) header.d=rong.moe header.i=i@rong.moe header.b="RuIUaip0";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECC9C10E432
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 15:58:01 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-47719ad0c7dso40078395e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 07:58:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1762185480; x=1762790280; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lG7NrqQN35AJ0Wq7ouL8uMkG/dwt+C79zv693rtI1Go=;
- b=SXFu9WNTEO4RVFyXdJPp8/FIVaUai7M747LbTJjpivbQkgC7Bl5QM6xIsa7w9YF/I6
- gCIRnu08crD3L4LI6Zji272IyJH/POGgG5TMdhP+n0UKS2Z7JvdX7Y1tlTlcaiv3a7Z+
- hxj3uV/mgC7A0App4Es0g5zIKt9nM2UeRJ/cAubu8iLsKrGzQ4jkFp4G6suCmQ/WrVvs
- dudk+uZah3v3DjZwpWICFXZ8SCDo/3lyfJ4N/7SCitu0R1w549dASKwJRyHbGpYvb0z/
- jvGZgLBGkx/yhIZVR4WPy5RDT5r/St0v4HzbalroHA489hZYAa+uZihSCffYWFuHhOds
- dabQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762185480; x=1762790280;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lG7NrqQN35AJ0Wq7ouL8uMkG/dwt+C79zv693rtI1Go=;
- b=TkW/a3h6QWx1feXNyyE/OEKQOXWsMzSAKXATj+acmEDkbN00jyXtxRrbFW0FBbtKEc
- Nn4BJAimb2XSaV0e3bYFjVFUgrW7hvbQoqQ7G38Vw7pEJCBhLiEkYVzYET6vsNQeTL8h
- qQ7JG/pNlg5bsn2nHeqTUhbNe4xFkqDnRwSnXWl4ldYC39mJ7bB4A4vPxKi8hr5FNN8G
- xQPKA6knDZchH5SiPvsdoYtFa8A69SI+7xf9nh2kiGI1//IyDpX9zFObBOor9yNUJg3F
- N6SCgxzH8iu32FPon9TF0Y6FhP7ihZpLjmbdYSvS0tq5IbQ0ADxB0p9XM38blq7Q9C88
- axxw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/QmXeZOGBQMn0DLtrr/J4HhBnOWcFCVdekWO+CtNLbMPxxr2g2eABJE/4MuNr2nLl0HsF8yCm@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxknbA/GSmQWVXu1LL9SeMMp4D55sz9BHw38sknbWntk9cQjZaN
- OT/j5RT7h7873jWUE7x/Ra6OByOfJ5Lym3IV/9d5serJGi/Bzy68jm/FNDOJWQuUxiM=
-X-Gm-Gg: ASbGncs+SrlVdwL/lmkmK9y8sbYhW2/SI+lxTYsuuXT/V5ZLQu64FUOXu62SKq2qzS2
- 4Q7k5kks5tt23wKSxuXb2FrR9R46CDKCRO+gKf6UL6qEPd2fIsp3G6sMv9qTaFmM/n2cS/XIz2H
- i603edef4cghl5VwYJ2B81FSvmt5WqB6wdOWGDnuJW9VfgDBgirVBphrpcsfODoprZof4x9ipbL
- oYRAo6dA2phhJ4FvFo22lxxiUsX200VsjuF5VBzOoeadpnDnpwf2/PXplukg+EG3EylTpAT0EYB
- Vyk2eJJxnzbR/Q2ghoIFNTAnt0HjAhHCZ1yXkXOqNiV2GNO5TLACZfl5LymS5CKr2CRzuA5BgFR
- jR6TKWeA+F/iD40Rb8jK1bwQo8wRLFgMj0/8aN6JLB62UVJTmXpLMtnfKyE3vzlavQk+DWTvz6b
- 1fs+1xK7eYOSbW7pY7IryXaFG5s+1TPiEftT0=
-X-Google-Smtp-Source: AGHT+IEYB4RcO6/T/F6GdUJRGz5Gj8k/fCh8UC0fYenTSuHKZJgZ81fKWDHYEdBWnPyUSDcJxcdkUw==
-X-Received: by 2002:a05:600c:4f0b:b0:46e:4783:1a7a with SMTP id
- 5b1f17b1804b1-47730793c43mr123205675e9.3.1762185480364; 
- Mon, 03 Nov 2025 07:58:00 -0800 (PST)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47754adcd08sm48245e9.5.2025.11.03.07.57.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Nov 2025 07:58:00 -0800 (PST)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Philip Yang <yangp@amd.com>
-Subject: [PATCH v2 1/4] drm/amdgpu: replace use of system_unbound_wq with
- system_dfl_wq
-Date: Mon,  3 Nov 2025 16:57:37 +0100
-Message-ID: <20251103155740.250398-2-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251103155740.250398-1-marco.crivellari@suse.com>
-References: <20251103155740.250398-1-marco.crivellari@suse.com>
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
+ [136.143.188.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0785F10E46F;
+ Mon,  3 Nov 2025 18:21:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1762194071; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=VddSQLqbswyJo4B/inOXjFVXf41QdgWVdnm3KTuTq4/Fc1VOTr5XZ9DXOjMzVF7Jkw4xyovwzcya9hylBSOar4hvriLDy3tJvu5/9Oeuzl3DBvO1wB2XEmoN7Heow9rEDmYk5TwskCD2z+oFGqtW565HrimOHrnhDgBXGeJgzBY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1762194071;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Gyw06T/5m9Cp2WllVa8zW2c87rrQdcGV+9Fj1/2v7UM=; 
+ b=Qo3AV0asi7gaN9ihTI42cHHjVbyLbADc5xpx14n/FcNEiRZGVbaDf5+9DO+P4E3MvevbLo7tb61++DtE+y1D6y5YfEuAEbUQNh636X/R/07FmGPQ9fvmO/Hv+3Nq7rdPlQrUG466z2ZzJSJD6idfGrqnQgFibWvXp2U03gFpf7U=
+ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass  header.i=rong.moe;
+ spf=pass  smtp.mailfrom=i@rong.moe;
+ dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1762194071; 
+ s=zmail; d=rong.moe; i=i@rong.moe;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+ bh=Gyw06T/5m9Cp2WllVa8zW2c87rrQdcGV+9Fj1/2v7UM=;
+ b=RuIUaip0XeMyHjvjsjdiJOvSBMpY8sbMlOXFFT1ty5tx/FODwZ2xL6jJ0IHUCWWS
+ f/dgLdWTP7ycUS1UnAEtGfR2bXToxiWUFCE7/sShEZp0yEN6/p29u5+3hiVDz2W/4wB
+ cAtJQSLradY1YBj/dMkS2zz76KLGXePLewoqiflM=
+Received: by mx.zohomail.com with SMTPS id 1762194068066262.1453735507406;
+ Mon, 3 Nov 2025 10:21:08 -0800 (PST)
+Message-ID: <7ef252405946f6ab3feff38cc4bd9ddcc49bad56.camel@rong.moe>
+Subject: Re: [PATCH] drm/amd/display: Fix NULL deref in debugfs
+ odm_combine_segments
+From: Rong Zhang <i@rong.moe>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: Roman Li <roman.li@amd.com>, "ChiaHsuan (Tom) Chung"	
+ <chiahsuan.chung@amd.com>, Ray Wu <ray.wu@amd.com>, Mario Limonciello	
+ <mario.limonciello@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Hamza
+ Mahfooz	 <hamzamahfooz@linux.microsoft.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, 	amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+In-Reply-To: <20251013164742.24660-1-i@rong.moe>
+References: <20251013164742.24660-1-i@rong.moe>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Nov 2025 02:15:59 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.56.2-5 
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Tue, 04 Nov 2025 08:30:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,70 +75,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently if a user enqueue a work item using schedule_delayed_work() the
-used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-schedule_work() that is using system_wq and queue_work(), that makes use
-again of WORK_CPU_UNBOUND.
+Hi all,
 
-This lack of consistency cannot be addressed without refactoring the API.
+On Tue, 2025-10-14 at 00:47 +0800, Rong Zhang wrote:
+> When a connector is connected but inactive (e.g., disabled by desktop
+> environments), pipe_ctx->stream_res.tg will be destroyed. Then, reading
+> odm_combine_segments causes kernel NULL pointer dereference.
+>=20
+>  BUG: kernel NULL pointer dereference, address: 0000000000000000
+>  #PF: supervisor read access in kernel mode
+>  #PF: error_code(0x0000) - not-present page
+>  PGD 0 P4D 0
+>  Oops: Oops: 0000 [#1] SMP NOPTI
+>  CPU: 16 UID: 0 PID: 26474 Comm: cat Not tainted 6.17.0+ #2 PREEMPT(lazy)=
+  e6a17af9ee6db7c63e9d90dbe5b28ccab67520c6
+>  Hardware name: LENOVO 21Q4/LNVNB161216, BIOS PXCN25WW 03/27/2025
+>  RIP: 0010:odm_combine_segments_show+0x93/0xf0 [amdgpu]
+>  Code: 41 83 b8 b0 00 00 00 01 75 6e 48 98 ba a1 ff ff ff 48 c1 e0 0c 48 =
+8d 8c 07 d8 02 00 00 48 85 c9 74 2d 48 8b bc 07 f0 08 00 00 <48> 8b 07 48 8=
+b 80 08 02 00>
+>  RSP: 0018:ffffd1bf4b953c58 EFLAGS: 00010286
+>  RAX: 0000000000005000 RBX: ffff8e35976b02d0 RCX: ffff8e3aeed052d8
+>  RDX: 00000000ffffffa1 RSI: ffff8e35a3120800 RDI: 0000000000000000
+>  RBP: 0000000000000000 R08: ffff8e3580eb0000 R09: ffff8e35976b02d0
+>  R10: ffffd1bf4b953c78 R11: 0000000000000000 R12: ffffd1bf4b953d08
+>  R13: 0000000000040000 R14: 0000000000000001 R15: 0000000000000001
+>  FS:  00007f44d3f9f740(0000) GS:ffff8e3caa47f000(0000) knlGS:000000000000=
+0000
+>  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>  CR2: 0000000000000000 CR3: 00000006485c2000 CR4: 0000000000f50ef0
+>  PKRU: 55555554
+>  Call Trace:
+>   <TASK>
+>   seq_read_iter+0x125/0x490
+>   ? __alloc_frozen_pages_noprof+0x18f/0x350
+>   seq_read+0x12c/0x170
+>   full_proxy_read+0x51/0x80
+>   vfs_read+0xbc/0x390
+>   ? __handle_mm_fault+0xa46/0xef0
+>   ? do_syscall_64+0x71/0x900
+>   ksys_read+0x73/0xf0
+>   do_syscall_64+0x71/0x900
+>   ? count_memcg_events+0xc2/0x190
+>   ? handle_mm_fault+0x1d7/0x2d0
+>   ? do_user_addr_fault+0x21a/0x690
+>   ? exc_page_fault+0x7e/0x1a0
+>   entry_SYSCALL_64_after_hwframe+0x6c/0x74
+>  RIP: 0033:0x7f44d4031687
+>  Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 =
+fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 8=
+0 00 00 00 00>
+>  RSP: 002b:00007ffdb4b5f0b0 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
+>  RAX: ffffffffffffffda RBX: 00007f44d3f9f740 RCX: 00007f44d4031687
+>  RDX: 0000000000040000 RSI: 00007f44d3f5e000 RDI: 0000000000000003
+>  RBP: 0000000000040000 R08: 0000000000000000 R09: 0000000000000000
+>  R10: 0000000000000000 R11: 0000000000000202 R12: 00007f44d3f5e000
+>  R13: 0000000000000003 R14: 0000000000000000 R15: 0000000000040000
+>   </TASK>
+>  Modules linked in: tls tcp_diag inet_diag xt_mark ccm snd_hrtimer snd_se=
+q_dummy snd_seq_midi snd_seq_oss snd_seq_midi_event snd_rawmidi snd_seq snd=
+_seq_device x>
+>   snd_hda_codec_atihdmi snd_hda_codec_realtek_lib lenovo_wmi_helpers thin=
+k_lmi snd_hda_codec_generic snd_hda_codec_hdmi snd_soc_core kvm snd_compres=
+s uvcvideo sn>
+>   platform_profile joydev amd_pmc mousedev mac_hid sch_fq_codel uinput i2=
+c_dev parport_pc ppdev lp parport nvme_fabrics loop nfnetlink ip_tables x_t=
+ables dm_cryp>
+>  CR2: 0000000000000000
+>  ---[ end trace 0000000000000000 ]---
+>  RIP: 0010:odm_combine_segments_show+0x93/0xf0 [amdgpu]
+>  Code: 41 83 b8 b0 00 00 00 01 75 6e 48 98 ba a1 ff ff ff 48 c1 e0 0c 48 =
+8d 8c 07 d8 02 00 00 48 85 c9 74 2d 48 8b bc 07 f0 08 00 00 <48> 8b 07 48 8=
+b 80 08 02 00>
+>  RSP: 0018:ffffd1bf4b953c58 EFLAGS: 00010286
+>  RAX: 0000000000005000 RBX: ffff8e35976b02d0 RCX: ffff8e3aeed052d8
+>  RDX: 00000000ffffffa1 RSI: ffff8e35a3120800 RDI: 0000000000000000
+>  RBP: 0000000000000000 R08: ffff8e3580eb0000 R09: ffff8e35976b02d0
+>  R10: ffffd1bf4b953c78 R11: 0000000000000000 R12: ffffd1bf4b953d08
+>  R13: 0000000000040000 R14: 0000000000000001 R15: 0000000000000001
+>  FS:  00007f44d3f9f740(0000) GS:ffff8e3caa47f000(0000) knlGS:000000000000=
+0000
+>  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>  CR2: 0000000000000000 CR3: 00000006485c2000 CR4: 0000000000f50ef0
+>  PKRU: 55555554
+>=20
+> Fix this by checking pipe_ctx->stream_res.tg before dereferencing.
+>=20
+> Fixes: 07926ba8a44f ("drm/amd/display: Add debugfs interface for ODM comb=
+ine info")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rong Zhang <i@rong.moe>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index f263e1a4537e1..00dac862b665a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -1302,7 +1302,8 @@ static int odm_combine_segments_show(struct seq_fil=
+e *m, void *unused)
+>  	if (connector->status !=3D connector_status_connected)
+>  		return -ENODEV;
+> =20
+> -	if (pipe_ctx !=3D NULL && pipe_ctx->stream_res.tg->funcs->get_odm_combi=
+ne_segments)
+> +	if (pipe_ctx && pipe_ctx->stream_res.tg &&
+> +	    pipe_ctx->stream_res.tg->funcs->get_odm_combine_segments)
+>  		pipe_ctx->stream_res.tg->funcs->get_odm_combine_segments(pipe_ctx->str=
+eam_res.tg, &segments);
+> =20
+>  	seq_printf(m, "%d\n", segments);
+>=20
+> base-commit: 3a8660878839faadb4f1a6dd72c3179c1df56787
 
-system_unbound_wq should be the default workqueue so as not to enforce
-locality constraints for random work whenever it's not required.
+Gentle ping.
 
-The above change introduced in the Workqueue API has been introduced by:
-
-commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
-
-The old system_unbound_wq will be kept for a few release cycles.
-
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
----
- drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-index 9569dc16dd3d..7957e6c4c416 100644
---- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-@@ -175,7 +175,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_control *reset_ctl,
- 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
- 		/* For XGMI run all resets in parallel to speed up the process */
- 		if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--			if (!queue_work(system_unbound_wq,
-+			if (!queue_work(system_dfl_wq,
- 					&tmp_adev->reset_cntl->reset_work))
- 				r = -EALREADY;
- 		} else
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 3d032c4e2dce..041ee35684ed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6040,7 +6040,7 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
- 		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
- 			/* For XGMI run all resets in parallel to speed up the process */
- 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--				if (!queue_work(system_unbound_wq,
-+				if (!queue_work(system_dfl_wq,
- 						&tmp_adev->xgmi_reset_work))
- 					r = -EALREADY;
- 			} else
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 28c4ad62f50e..9c4631608526 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -116,7 +116,7 @@ static int amdgpu_reset_xgmi_reset_on_init_perform_reset(
- 	/* Mode1 reset needs to be triggered on all devices together */
- 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
- 		/* For XGMI run all resets in parallel to speed up the process */
--		if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_work))
-+		if (!queue_work(system_dfl_wq, &tmp_adev->xgmi_reset_work))
- 			r = -EALREADY;
- 		if (r) {
- 			dev_err(tmp_adev->dev,
--- 
-2.51.1
-
+Thanks,
+Rong
