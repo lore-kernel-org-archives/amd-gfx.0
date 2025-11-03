@@ -4,72 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D32A8CCF9E3
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 08:30:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0CF9CCFA00
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 08:30:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A30D10E541;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2B110E033;
 	Tue,  4 Nov 2025 08:30:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kluwrNpM";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="WsdfIlOW";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB5E310E201
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 18:08:17 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-b98e6ff90cbso1545451a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 10:08:17 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C2410E435
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 15:58:03 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-475dc0ed8aeso31260425e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 07:58:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762193297; x=1762798097; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Frfwa345H88CrVWdtRCwdX7IPCmH70e3211AOFpaNfs=;
- b=kluwrNpMoeG1nbZwM2WQkewnLOk3qOdirjuoih6ZszaZ3V7yDBLJn+Fxfbzo/09NST
- EuXRiEcHr7fz+6Zc18pE+Y/s+IXHHdfTJGHXGNbneB7GS0dfUFuH/X5YhhSexRtAl4Yf
- LEX2w0DKHjxT+e+tE3npvC2qlQFtcfme+dK1kmDByG0QhB4myjVb7xTtvrq3XOqSgHOC
- HFaTssFU7kpu+18IeAyKua/eNCdAdfEdDtpaT6XAfLtzA9P3lJcgGGiAoxevnF6zhvFc
- 8m1Hbm9FqHfhGUW/91x4R76CHE7/TVHGe87vudvGzNIoctv+DOByid5JHy6Oj8IihjUu
- C16w==
+ d=suse.com; s=google; t=1762185482; x=1762790282; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ks3pir6UgwzDtWvI5xfb6btd0LOWX1yOz6qXljAdndA=;
+ b=WsdfIlOW1+NP/8fzazvASHwywlD+A20dA4MkP5JRGcWAZibqISiwqvYwVuEkSStX5L
+ nDa4HITTXxMwujn+NOU9Aqg/yWUP8R9wclUybFyUSOhpS849Dnqj8VTAlIAgDyIcjN+v
+ YRn5NPbHFtKPSumqLF4tzaihpq+/wnlsIVgRS8HC91RyIlbujySgXrA3Fxh9rApxRNMs
+ Jb6AxMu9pQ4niVoJd3Sv3HNPXFq+OqOThyCfpR2Mwb2sALgnVFJYCvbxXmcskGKXpUsv
+ l7PBv8DutbdqadN0ztjArXINJ6+Et/uMr75AhgJAcr82zOjRk5Lj9cFr8oYXm5kGMsb+
+ 8vKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762193297; x=1762798097;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Frfwa345H88CrVWdtRCwdX7IPCmH70e3211AOFpaNfs=;
- b=dZwYhdMk4dP5rFHR3RzREkT8h5N0NXlmHgkL9UYHEEFn1kfXYbUTGOpaftwMUYha5N
- S/t6YCehWGsflQ2GWJGjSjcMGLjD5TGE0tWJOpfdJLoeK/fha9mxfJSrwwNz6D7j3jCT
- rSsNdAXDhqz3OJQq8htFEF1KRXGuBF3T3B4BQ5VWqGTWC3XLft0F1qdIai36cEuKOc2c
- fyJif1AHhsNrcYIYYORgLeQDO6VEi1BUci1uzsIwFSBhcRCgcZK1rpq3S7OkkVKHufVR
- lQnbmuPKojYY6jTd9So0rYRu/M9mm3hNwWLBV830K3oBs//LT4vAr4867/7TzHMCuflJ
- iVuA==
-X-Gm-Message-State: AOJu0Yy5fh/+gWaHprRlWi5ETFvco5OQSaw9EqcMA7JRRM2Yyy+6iJx0
- 9zj9r6oitAJxc8IUNg6J6JLY2gDflYhHWdX62Pq7C9UfQ9QJnqcPr1Mg
-X-Gm-Gg: ASbGnctlIksV/YbePsDPu6titxo/mjEofju+jFdToDaT4DNpIC4jDxpOfDuDUmCg7om
- /9i0uNG7Le9ikIb8J1AB1PpkeYXN1qzao/npo/hnl9N7XLazv8O2CTKAn5OSWlm4zyEgJoTtzfJ
- iJSN7t8Orv6Dy/x7iZn1ghCOJPfL0FX3WHEzmYWESOxhvfo7U61RwieOYii+kDkjfDCbqHCknCX
- W+/DECOu3I86oHlK3kBy22TO06vsmezwPKh4ZmtGSH3ujraYh33qH+5ofDH8D08t7b5c70TgJY+
- uOzs0xMhvjPSt6TrOm96bZGoGdfcAjrs0fhrU2cf6zI/Ym31P/As2/yejsER6PK2ANxg+ztN989
- rx9ylN9DbdtiaMwNjhOA6B2ILnFNIG4aWar07/5DJeQx09LB2hFh9lCmcBK4OaNziGCFfdpbEr9
- vbDnYsVoHV3XNq2krOJNVWiIdWfg==
-X-Google-Smtp-Source: AGHT+IHGntG1Sm02Nexg5ky/LahI7hng6h4/EiKDnICJQxmXLYfqJK7C95190g2OAfp3VipnLPLSww==
-X-Received: by 2002:a17:903:24f:b0:295:24c3:8b49 with SMTP id
- d9443c01a7336-29524c38fcdmr163866155ad.46.1762193297223; 
- Mon, 03 Nov 2025 10:08:17 -0800 (PST)
-Received: from yjshouse-pc.. ([2401:7400:c804:fff5:49a8:2576:bfa8:b373])
+ d=1e100.net; s=20230601; t=1762185482; x=1762790282;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ks3pir6UgwzDtWvI5xfb6btd0LOWX1yOz6qXljAdndA=;
+ b=BBcfjH0eNdenML0rIond44GwH3HEVSMJBgPhnyhIqVAesA2fnBf1S9g7XSzMEzs+ZQ
+ vVtOYMRJr0iM6Ffe2ZFyh+L1Bb11316I8bvkkDJTZKJUXCcjtLY4tXVkc3oNnZ/G71Id
+ SI6ejZ9g8InvvBXJw4mKjwFsJ478uhj+DDJsXswJ8o7n8UM7SaaXurdbrimMYEv0RUM3
+ uraIMpPw6YFBTIcLHnGZPR0SpceD3n/RswIO1kqyrbdDLuKtkjuM7lQmpSHF8NuQPv/m
+ 3MZ5hCoDL3qhPsbG06s7eRpIwBcK8iApT/KsN+9H5C+NYDgyKUXZtJSE31bOOXabA6im
+ 96UA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUfrJaRzKFMDP5vd9zGdeiPp1kRhnJhdvLqK1kS0fU0Ox/zRfqnht6HrPx49GMMNHK7d4FqBIgf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRd6edy0zkyWxC0zdGBGIi9q24wLPIjgmqmNlFftjGu/o0zBcA
+ wwF9KFAlgbiolV+77dFQw9FH3PhJtJ7bqGhYWCrBPvaNOxc+eoQ+3itWahYlq8kpXe4=
+X-Gm-Gg: ASbGncul1VqlwCRvqizKRlXtnh1LLdwV6+ZX9vA2h4sT41TU2SbQm2mmKZD0D7V+E24
+ Zuwhf47e5QQ6uYCeinlv9Z5LnUhGcxRucCopkrQcv9tDwjWIocydHm9ZwzTcbuFAtbn4RMGnb5J
+ QrK9UdOjVul/pQP325RMpq9EqnhxBhqipG3qZr1Hifbj9aA7a/bj28Ai79XWMNC+FgDYr+2tQ1S
+ MzaXiq4qLlVwh5wNMbmuDiBurbSPTGXxJd9Ze3nsw3SJp5SJa7Xtjb5kCL8oUzi+kjNTIDzAXdk
+ DmmzTSL/DQD7HnDcRMjuaf07HldiyIwlX9P8Ipj4n7rKeB3+Dt/vT6I1Cwe6fBi1mwe2I14vN00
+ 9ZnpeaRB15EXlIFkcim4WR9jjhp3h4bpgoIbuP5C4rhBoAxJB6ljs2sCGWIl8dKBepg77rMyCZf
+ T6BIKTQKlLWUbcMu6+9rmWQb9pSqOoIxfu6G0=
+X-Google-Smtp-Source: AGHT+IH2AwkZW9XycQosIy4+zjrxvNZTD/pU4xDf9vZ24FbI7K8D4vqtE4qlKSR3Kfp8+HSpcK7r0w==
+X-Received: by 2002:a05:600c:3548:b0:471:16b1:b824 with SMTP id
+ 5b1f17b1804b1-4773088be8bmr151144365e9.28.1762185482402; 
+ Mon, 03 Nov 2025 07:58:02 -0800 (PST)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-295357a1851sm115236505ad.27.2025.11.03.10.08.15
+ 5b1f17b1804b1-47754adcd08sm48245e9.5.2025.11.03.07.58.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Nov 2025 10:08:16 -0800 (PST)
-From: Yong Jie Wong <yjwong92@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	Yong Jie Wong <yjwong92@gmail.com>
-Subject: [PATCH] drm/amdgpu/vcn: Fix sysfs cleanup in vcn_v4_0_5_sw_fini
-Date: Tue,  4 Nov 2025 02:07:43 +0800
-Message-ID: <20251103180743.265023-1-yjwong92@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Mon, 03 Nov 2025 07:58:02 -0800 (PST)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Philip Yang <yangp@amd.com>
+Subject: [PATCH v2 3/4] amd/amdkfd: add WQ_UNBOUND to alloc_workqueue users
+Date: Mon,  3 Nov 2025 16:57:39 +0100
+Message-ID: <20251103155740.250398-4-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251103155740.250398-1-marco.crivellari@suse.com>
+References: <20251103155740.250398-1-marco.crivellari@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 04 Nov 2025 08:30:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,47 +98,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add missing amdgpu_vcn_sysfs_reset_mask_fini() call to properly clean
-up the vcn_reset_mask sysfs file during driver unload. Without this
-cleanup, subsequent driver reloads fail with "sysfs: cannot create
-duplicate filename" errors.
+Currently if a user enqueue a work item using schedule_delayed_work() the
+used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
+WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
+schedule_work() that is using system_wq and queue_work(), that makes use
+again of WORK_CPU_UNBOUND.
+This lack of consistentcy cannot be addressed without refactoring the API.
 
-The vcn_v4_0_5 driver creates the vcn_reset_mask sysfs file in
-vcn_v4_0_5_sw_init() via amdgpu_vcn_sysfs_reset_mask_init(), but was
-missing the corresponding amdgpu_vcn_sysfs_reset_mask_fini() call in
-vcn_v4_0_5_sw_fini(). This left the sysfs file orphaned after driver
-unload, causing -EEXIST errors on reload.
+alloc_workqueue() treats all queues as per-CPU by default, while unbound
+workqueues must opt-in via WQ_UNBOUND.
 
-Error without fix:
-  sysfs: cannot create duplicate filename '/devices/.../vcn_reset_mask'
-  amdgpu_vcn_sysfs_reset_mask_init+0x2c/0x40 [amdgpu]
-  vcn_v4_0_5_sw_init+0x2d6/0x480 [amdgpu]
-  [drm:amdgpu_device_ip_init [amdgpu]] *ERROR* sw_init of IP block
-  <vcn_v4_0_5> failed -17
+This default is suboptimal: most workloads benefit from unbound queues,
+allowing the scheduler to place worker threads where they’re needed and
+reducing noise when CPUs are isolated.
 
-Signed-off-by: Yong Jie Wong <yjwong92@gmail.com>
+With the introduction of the WQ_PERCPU flag (equivalent to !WQ_UNBOUND),
+any alloc_workqueue() caller that doesn’t explicitly specify WQ_UNBOUND
+must now use WQ_PERCPU.
+
+Because of that, add WQ_UNBOUND to alloc_workqueue users to make sure
+they are unbound.
+
+The above change introduced in the Workqueue API has been introduced by:
+
+commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
+
+Once migration is complete, WQ_UNBOUND can be removed and unbound will
+become the implicit default.
+
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index b107ee80e4728..cd26d45845322 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -269,9 +269,12 @@ static int vcn_v4_0_5_sw_fini(struct amdgpu_ip_block *ip_block)
- 		r = amdgpu_vcn_suspend(adev, i);
- 		if (r)
- 			return r;
-+	}
-+
-+	amdgpu_vcn_sysfs_reset_mask_fini(adev);
- 
-+	for (i = 0; i < adev->vcn.num_vcn_inst; i++)
- 		amdgpu_vcn_sw_fini(adev, i);
--	}
- 
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index ddfe30c13e9d..a41ebf257756 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -690,7 +690,8 @@ void kfd_procfs_del_queue(struct queue *q)
+ int kfd_process_create_wq(void)
+ {
+ 	if (!kfd_process_wq)
+-		kfd_process_wq = alloc_workqueue("kfd_process_wq", 0, 0);
++		kfd_process_wq = alloc_workqueue("kfd_process_wq", WQ_UNBOUND,
++						 0);
+ 	if (!kfd_restore_wq)
+ 		kfd_restore_wq = alloc_ordered_workqueue("kfd_restore_wq",
+ 							 WQ_FREEZABLE);
 -- 
-2.43.0
+2.51.1
 
