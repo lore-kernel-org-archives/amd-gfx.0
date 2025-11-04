@@ -4,121 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 013E6CCFA00
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 08:03:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB79CCF9E3
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 08:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84D5310E029;
-	Tue,  4 Nov 2025 08:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B882410E53D;
+	Tue,  4 Nov 2025 08:08:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3HA8gmXt";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ebFi5Zxv";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011032.outbound.protection.outlook.com [52.101.52.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8278310E029
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Nov 2025 08:03:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hj1Uoa9yXtre1jYv2MBdH6b14SYwf+mhkS3xq4CHRJVmLggNNBbn9cs8GFO0rBbKqag3UqYf5aJjNU0KD3xY42nmYTYqpOWuxMvoHxcHQe+QYniIf9EMNxy30M/X37WrgImFmqtCZ161YI0zsWHa8bM4VHWBxo7/BaK/PRGIj+62v8yKIwy5R0vKS9N+kECX7756vdWOS/JZD53BlRzw/FgxFy8kYMcwHsUUJEoPL6BueROWgx2brbHDcu/9TVHuRvQmUVjJ0I+VExJsPuzMGrlNacTvV39WSKHcsZ2e57Oa4L32JUDEeoMklekkvrQ5n7svPeemEyFrK9DHzpRVpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w4xwnjsqUq/y4e5s/uSHv1fOm7H3D5T8+/eP83eGPzA=;
- b=FsKS5c+EvrBH2Mo+uYKeX4nF8rO+HmDzJ/2bNo6eKbdv/5UMaxM1TddgUeIW/rrcOCt1yPR05+HxkYe4JZ7+qB2+ZwIzTuhBYkWxOR3T1dgStTqs7sHy/Kcc/HGjnN9K8PPJj1/AOJf+gs5VtAY1ltY73VDzh3ew6YJatERl60UfYGuCyurelqy7Ece6cS//zoJmuO6MM9wNzVb4jbsWOU0GfP/0wISoZkvUA/p/Rl6ZCD7dNPj3DuliPGt3ECpbxBIT/OYv32REfDnGGY1yoyR0/wZM44SlaWsBZkk5Q3hQ5/bPe0TdNcvwtbY8AcneChnPLSJN9nksCOgFCm1xSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w4xwnjsqUq/y4e5s/uSHv1fOm7H3D5T8+/eP83eGPzA=;
- b=3HA8gmXtoLB0TOWjcDnHHcaSzsqMcSndv2Dj26n+kXNYDjAnoZ4wzEGC19/GzU16Q/lSjW+0FFynK5EWEwwNYvrkwvqRlXKawfY57AofhfK6HHkSF7FsN4PPpVDA5pssWcmOxeDgYVNZ7tS9SMLazObblYCvxExyRjDyHtV7HFk=
-Received: from SJ0PR05CA0049.namprd05.prod.outlook.com (2603:10b6:a03:33f::24)
- by SA1PR12MB6917.namprd12.prod.outlook.com (2603:10b6:806:24c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.16; Tue, 4 Nov
- 2025 08:03:06 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:a03:33f:cafe::33) by SJ0PR05CA0049.outlook.office365.com
- (2603:10b6:a03:33f::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.7 via Frontend Transport; Tue, 4
- Nov 2025 08:03:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.6 via Frontend Transport; Tue, 4 Nov 2025 08:03:05 +0000
-Received: from amd-02.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 4 Nov
- 2025 00:03:03 -0800
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <yipechai@amd.com>, <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>,
- <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou
- <tao.zhou1@amd.com>
-Subject: [PATCH V5] drm/amdgpu: suspend ras module before gpu reset
-Date: Tue, 4 Nov 2025 16:02:12 +0800
-Message-ID: <20251104080212.3641072-1-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6350110E24B;
+ Tue,  4 Nov 2025 08:08:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1762243714;
+ bh=96JghmqqEDTGhb4Xq8jp87G9WQnebBX8RcOyfG+5Zqw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ebFi5ZxvDf6AolYy13CjufLMgAEMrkH9ZLY7kaf9uY3KgqVRFaVx7nYm5InI1+KNx
+ p0hc1SUT0FcLhta0Y4UduJUrcvca6QrH2oQZmCsyXlq2N/PaYgXTxLpeL6azDgqaBF
+ +gaxC9v0Sn3aH15/CSxSy2ZGiwvcvBq7gRSN24DeW4msqXw82RGNELgsSB/U4YjP+X
+ GlyIpUNOZ24SDf0QGeOqPMBdln9PJoeIhrWjLHUyRt1KJGTCA92v3HLXhRhc2Dgt/S
+ Y4g/c6NPxRCQFETKQtGjRb13yGiQQQmunMX0Xey6KY1OPPm9bslRd4kx+q5NPGQosb
+ TmjaL4fbLyCKQ==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E490E17E127F;
+ Tue,  4 Nov 2025 09:08:33 +0100 (CET)
+Date: Tue, 4 Nov 2025 09:08:28 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Steven Price <steven.price@arm.com>, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v5 02/16] drm/shmem: Provide a generic
+ {begin,end}_cpu_access() implementation
+Message-ID: <20251104090828.48decc16@fedora>
+In-Reply-To: <abbd34de-cbbf-4188-a236-e3eccc357fab@amd.com>
+References: <20251030140525.366636-1-boris.brezillon@collabora.com>
+ <20251030140525.366636-3-boris.brezillon@collabora.com>
+ <abbd34de-cbbf-4188-a236-e3eccc357fab@amd.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|SA1PR12MB6917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ed7d2a1-d8d1-4293-296f-08de1b7895f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?n6kkA/YQ4h9bujeZovOjfx2por/icgM3f0pUNU3IwY1PYD+YUBh8UV1HmOVJ?=
- =?us-ascii?Q?Ksf7OM9YutrmnJSzXEwSyNMzzLiJTN++0uNQkGT9K7KbeWv0/TimzUb4/mqJ?=
- =?us-ascii?Q?72/2aYUQpZg5upvRuDIYg0LNvKehv2ksAjRJLCNd9wG1VNwo7QNLLWnf2skG?=
- =?us-ascii?Q?L5IsFXwpYAyfJX6pw0v2mF+5ySEpXdA4CkOo8X1gQDUrSy1AvNR11kwwWrJW?=
- =?us-ascii?Q?yZYu5sTR7flDtEfv6a1ue6DysTuA1EFuYPFvSflqEMLwc21+w2F3Xl+oIF7H?=
- =?us-ascii?Q?ePGSpvcdUsZlnDMe2lUCJ5igbGe1k7B0Gasul3iJWhD3/aAB7DvTf1W1hcF8?=
- =?us-ascii?Q?1096vtiWNo9Cue6x5QxfCcOyz1+WmHok8sZciXd50f1otICes4c1IX0IqHqv?=
- =?us-ascii?Q?vmPUOxmafWhgovKCrkql9tP7VBtKxxjA0Cf8uFPXpivmgyW+hinayNZ8y1/A?=
- =?us-ascii?Q?n4tJ0LcJfLsDAdcSNYJjswAhTBpCDbv884dpgs6Rp3+h5DDli15kIUdUL8K1?=
- =?us-ascii?Q?qm9goUOFcr68PYNEx+TF8JNKVDZgPSgHwNbElz0kR29IjtpgT5cVVCJGks7a?=
- =?us-ascii?Q?PmUXS4KKAugty4chvFkCPxiyZeOiQm2rmY96G3mhvVXKfPYGMq/Px4a6xL1Y?=
- =?us-ascii?Q?5dkhnxd7VkdKWUqMOkFRBRxdfr4u1rXv99TByT8r8klId/Akx6GlqZBfWJQp?=
- =?us-ascii?Q?OEFkejaLp2WVJ/2B7DHRp+2yvah98s19lb3ETDnDIW1E1jhbVFluC5+U3vAB?=
- =?us-ascii?Q?OrJb/eZLx0rZ78CNRQ2CXbXmQWCgYPlo7hD9/BUiHlq3OlE1sIiqNloOGmAi?=
- =?us-ascii?Q?lsU4ydWjJRwQlPwdm2Y+XP/+b+JRGAJ3aplRKgrR3ipZ3bww8bF7OEyvNHMc?=
- =?us-ascii?Q?BGPMUb/v5zNCagO6vcleHjXE/SIrR8+9bljBdfW/CxkYSjah/3WMHus6OKbB?=
- =?us-ascii?Q?2+FoXyYYUCCzn0ajWjEfhmav3PVK+yx59JFfYDFVeyLEYKbD7H3IVjAeFRPR?=
- =?us-ascii?Q?+wKK59OETi4E2Xv1S2vrGyrXJhBG6jWFvHjTAuLSGQzsOWzzjj6CN/AJEFgR?=
- =?us-ascii?Q?QSKmbUzCxzLzo0A8w1272gSpm5wODUR+IAHYa0SWNcsEEzdThxb17C3p+ydS?=
- =?us-ascii?Q?Hp77YYHzzgyI6bhG9TRZ4UF6h0F+f/On0EtKi2XSDRmZqpDCRYzPeT7inC0l?=
- =?us-ascii?Q?WffoxJJxm25RvDAEo6nzKv/nINOK7lSj/CaqMHrGmaLqMvxxy9NoApXnMadY?=
- =?us-ascii?Q?SaRlZhuauE8j/E4dt+T9p2RHVYILyirZnPFl0yH9TIharc6yRSApt9e3MijI?=
- =?us-ascii?Q?9IF+LvKkrBoVBcsq6tyslpJOV5mrLr8PZj02lguCU3X3k2BqecK5I2cC8FYB?=
- =?us-ascii?Q?dQ/BYDg8iVHsJm9B3nw+39TV/MNdDHgIOhqct7myvbi6oT14I8Zzr7N7GwGS?=
- =?us-ascii?Q?X/JYcUFDUe72vG8w5bj2/wHQu7hgAo4ueX5c3nxZEk9PdM7B3O60JWEy6+gy?=
- =?us-ascii?Q?J3c0mc3qblPjldNeDyqvpHIRxiYGIvdzhB5GFGr/RVPoSH/s0mC/B9hF4IrL?=
- =?us-ascii?Q?2+1lY1sQsdGC0G7lfes=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2025 08:03:05.7550 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ed7d2a1-d8d1-4293-296f-08de1b7895f2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6917
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,341 +78,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During gpu reset, all GPU-related resources are
-inaccessible. To avoid affecting ras functionality,
-suspend ras module before gpu reset and resume
-it after gpu reset is complete.
+On Thu, 30 Oct 2025 15:31:44 +0100
+Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
 
-V2:
-  Rename functions to avoid misunderstanding.
+> On 10/30/25 15:05, Boris Brezillon wrote:
+> > The default implementation simply takes care of invalidating/flushing
+> > caches around CPU accesses. It takes care of both the exporter and
+> > the importers, which forces us to overload the default
+> > ::[un]map_dma_buf() implementation provided by drm_gem.c to store the
+> > sgt.
+> >=20
+> > v5:
+> > - New patch
+> >=20
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > ---
+> >  drivers/gpu/drm/drm_gem_shmem_helper.c | 114 +++++++++++++++++++++++++
+> >  include/drm/drm_gem_shmem_helper.h     |  10 +++
+> >  2 files changed, 124 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/d=
+rm_gem_shmem_helper.c
+> > index dc94a27710e5..e49c75739c20 100644
+> > --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> > @@ -893,6 +893,120 @@ struct drm_gem_object *drm_gem_shmem_prime_import=
+_no_map(struct drm_device *dev,
+> >  }
+> >  EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_import_no_map);
+> > =20
+> > +/**
+> > + * drm_gem_shmem_prime_unmap_dma_buf - Default unmap_dma_buf() for exp=
+orted buffers
+> > + * @attach: attachment
+> > + * @sgt: SG table to unmap
+> > + * @dir: type of access done by this attachment
+> > + *
+> > + * Default implementation for dma_buf_ops::map_dma_buf(). This is just=
+ a wrapper
+> > + * around drm_gem_map_dma_buf() that lets us set the dma_buf_attachmen=
+t::priv
+> > + * to the sgt so that drm_gem_shmem_prime_{begin,end}_cpu_access() can=
+ sync
+> > + * around CPU accesses.
+> > + */
+> > +struct sg_table *
+> > +drm_gem_shmem_prime_map_dma_buf(struct dma_buf_attachment *attach,
+> > +				enum dma_data_direction dir)
+> > +{
+> > +	struct sg_table *sgt =3D drm_gem_map_dma_buf(attach, dir);
+> > +
+> > +	if (!IS_ERR(sgt))
+> > +		attach->priv =3D sgt;
+> > +
+> > +	return sgt;
+> > +}
+> > +EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_map_dma_buf);
+> > +
+> > +/**
+> > + * drm_gem_shmem_prime_unmap_dma_buf - Default unmap_dma_buf() for exp=
+orted buffers
+> > + * @attach: attachment
+> > + * @sgt: SG table to unmap
+> > + * @dir: type of access done by this attachment
+> > + *
+> > + * Default implementation for dma_buf_ops::unmap_dma_buf(). This is ju=
+st a wrapper
+> > + * around drm_gem_unmap_dma_buf() that lets us reset the dma_buf_attac=
+hment::priv
+> > + * field so that drm_gem_shmem_prime_{begin,end}_cpu_access() don't co=
+nsider it
+> > + * as a mapped attachment to sync against.
+> > + */
+> > +void drm_gem_shmem_prime_unmap_dma_buf(struct dma_buf_attachment *atta=
+ch,
+> > +				       struct sg_table *sgt,
+> > +				       enum dma_data_direction dir)
+> > +{
+> > +	attach->priv =3D NULL;
+> > +	drm_gem_unmap_dma_buf(attach, sgt, dir);
+> > +}
+> > +EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_unmap_dma_buf);
+> > +
+> > +/**
+> > + * drm_gem_shmem_prime_begin_cpu_access - Default end_cpu_access() for=
+ exported buffers
+> > + * @dma_buf: The exported DMA buffer this acts on
+> > + * @dir: direction of the access
+> > + *
+> > + * Default implementation for dma_buf_ops::begin_cpu_access(). This on=
+ly takes care of
+> > + * cache maintenance.
+> > + */
+> > +int drm_gem_shmem_prime_begin_cpu_access(struct dma_buf *dma_buf,
+> > +					 enum dma_data_direction dir)
+> > +{
+> > +	struct drm_gem_object *obj =3D dma_buf->priv;
+> > +	struct drm_device *dev =3D obj->dev;
+> > +	struct drm_gem_shmem_object *shmem =3D to_drm_gem_shmem_obj(obj);
+> > +	struct dma_buf_attachment *attach;
+> > +
+> > +	dma_resv_lock(obj->resv, NULL);
+> > +	if (shmem->sgt)
+> > +		dma_sync_sgtable_for_cpu(dev->dev, shmem->sgt, dir);
+> > +
+> > +	if (shmem->vaddr)
+> > +		invalidate_kernel_vmap_range(shmem->vaddr, shmem->base.size);
+> > + =20
+>=20
+>=20
+> > +	list_for_each_entry(attach, &dma_buf->attachments, node) {
+> > +		struct sg_table *sgt =3D attach->priv;
+> > +
+> > +		if (sgt)
+> > +			dma_sync_sgtable_for_cpu(attach->dev, sgt, dir);
+> > +	} =20
+>=20
+> This conflicts with the debugging hack in DMA-buf.
+>=20
+> I've recently send out a patch to fix that, but it hasn't been pushed yet.
 
-V3:
-  Move flush_delayed_work to amdgpu_ras_process_pause,
-  Move schedule_delayed_work to amdgpu_ras_process_unpause.
+I guess you're talking about [1]. I'm not sure this is a problem
+actually, because we don't pass the exporter's sg_table, we allocate a
+new one each time. As for the importer's sg_table we attach to
+dma_buf_attach::priv, it would still be mangled, and I believe it's
+fine, because the dma_sync_xxx helpers manipulate dma_addr_t not pages.
+Am I missing something?
 
-V4:
-  Rename functions.
-
-V5:
-  Move the function to amdgpu_ras.c.
-
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  5 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 30 ++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  5 ++
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 22 +++++++
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h  |  5 ++
- .../drm/amd/ras/ras_mgr/amdgpu_ras_process.c  | 64 +++++++++++++++++++
- .../drm/amd/ras/ras_mgr/amdgpu_ras_process.h  |  4 ++
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c  |  6 ++
- drivers/gpu/drm/amd/ras/rascore/ras.h         |  2 +
- drivers/gpu/drm/amd/ras/rascore/ras_process.c |  7 ++
- 10 files changed, 148 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index cc6e59208cac..04e6a0c85065 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -71,6 +71,7 @@
- 
- #include "amdgpu_xgmi.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_ras_mgr.h"
- #include "amdgpu_pmu.h"
- #include "amdgpu_fru_eeprom.h"
- #include "amdgpu_reset.h"
-@@ -6660,6 +6661,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 			goto end_reset;
- 	}
- 
-+	/* Cannot be called after locking reset domain */
-+	amdgpu_ras_pre_reset(adev, &device_list);
-+
- 	/* We need to lock reset domain only once both for XGMI and single device */
- 	amdgpu_device_recovery_get_reset_lock(adev, &device_list);
- 
-@@ -6691,6 +6695,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- reset_unlock:
- 	amdgpu_device_recovery_put_reset_lock(adev, &device_list);
- end_reset:
-+	amdgpu_ras_post_reset(adev, &device_list);
- 	if (hive) {
- 		mutex_unlock(&hive->hive_lock);
- 		amdgpu_put_xgmi_hive(hive);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 5377cde0c55d..75d61a7653c0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2921,8 +2921,12 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
- 		type = amdgpu_ras_get_fatal_error_event(adev);
- 		list_for_each_entry(remote_adev,
- 				device_list_handle, gmc.xgmi.head) {
--			amdgpu_ras_query_err_status(remote_adev);
--			amdgpu_ras_log_on_err_counter(remote_adev, type);
-+			if (amdgpu_uniras_enabled(remote_adev)) {
-+				amdgpu_ras_mgr_update_ras_ecc(remote_adev);
-+			} else {
-+				amdgpu_ras_query_err_status(remote_adev);
-+				amdgpu_ras_log_on_err_counter(remote_adev, type);
-+			}
- 		}
- 
- 	}
-@@ -5672,3 +5676,25 @@ bool amdgpu_ras_check_critical_address(struct amdgpu_device *adev, uint64_t addr
- 
- 	return ret;
- }
-+
-+void amdgpu_ras_pre_reset(struct amdgpu_device *adev,
-+					  struct list_head *device_list)
-+{
-+	struct amdgpu_device *tmp_adev = NULL;
-+
-+	list_for_each_entry(tmp_adev, device_list, reset_list) {
-+		if (amdgpu_uniras_enabled(tmp_adev))
-+			amdgpu_ras_mgr_pre_reset(tmp_adev);
-+	}
-+}
-+
-+void amdgpu_ras_post_reset(struct amdgpu_device *adev,
-+					  struct list_head *device_list)
-+{
-+	struct amdgpu_device *tmp_adev = NULL;
-+
-+	list_for_each_entry(tmp_adev, device_list, reset_list) {
-+		if (amdgpu_uniras_enabled(tmp_adev))
-+			amdgpu_ras_mgr_post_reset(tmp_adev);
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index 40c0bf85f1d3..0bcf73f8c840 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -1012,4 +1012,9 @@ void amdgpu_ras_event_log_print(struct amdgpu_device *adev, u64 event_id,
- 				const char *fmt, ...);
- 
- bool amdgpu_ras_is_rma(struct amdgpu_device *adev);
-+
-+void amdgpu_ras_pre_reset(struct amdgpu_device *adev,
-+					  struct list_head *device_list);
-+void amdgpu_ras_post_reset(struct amdgpu_device *adev,
-+					  struct list_head *device_list);
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index adb01bdee003..afe8135b6258 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -624,3 +624,25 @@ int amdgpu_ras_mgr_handle_ras_cmd(struct amdgpu_device *adev,
- 
- 	return ret;
- }
-+
-+int amdgpu_ras_mgr_pre_reset(struct amdgpu_device *adev)
-+{
-+	if (!amdgpu_ras_mgr_is_ready(adev)) {
-+		RAS_DEV_ERR(adev, "Invalid ras suspend!\n");
-+		return -EPERM;
-+	}
-+
-+	amdgpu_ras_process_pre_reset(adev);
-+	return 0;
-+}
-+
-+int amdgpu_ras_mgr_post_reset(struct amdgpu_device *adev)
-+{
-+	if (!amdgpu_ras_mgr_is_ready(adev)) {
-+		RAS_DEV_ERR(adev, "Invalid ras resume!\n");
-+		return -EPERM;
-+	}
-+
-+	amdgpu_ras_process_post_reset(adev);
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-index 42f190a8feb9..8fb7eb4b8f13 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-@@ -52,6 +52,9 @@ struct amdgpu_ras_mgr {
- 	struct ras_event_manager ras_event_mgr;
- 	uint64_t last_poison_consumption_seqno;
- 	bool ras_is_ready;
-+
-+	bool is_paused;
-+	struct completion ras_event_done;
- };
- 
- extern const struct amdgpu_ip_block_version ras_v1_0_ip_block;
-@@ -75,4 +78,6 @@ bool amdgpu_ras_mgr_is_rma(struct amdgpu_device *adev);
- int amdgpu_ras_mgr_handle_ras_cmd(struct amdgpu_device *adev,
- 		uint32_t cmd_id, void *input, uint32_t input_size,
- 		void *output, uint32_t out_size);
-+int amdgpu_ras_mgr_pre_reset(struct amdgpu_device *adev);
-+int amdgpu_ras_mgr_post_reset(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.c
-index 6727fc9a2b9b..5782c007de71 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.c
-@@ -29,6 +29,7 @@
- #include "amdgpu_ras_process.h"
- 
- #define RAS_MGR_RETIRE_PAGE_INTERVAL  100
-+#define RAS_EVENT_PROCESS_TIMEOUT  1200
- 
- static void ras_process_retire_page_dwork(struct work_struct *work)
- {
-@@ -57,6 +58,9 @@ int amdgpu_ras_process_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
- 
-+	ras_mgr->is_paused = false;
-+	init_completion(&ras_mgr->ras_event_done);
-+
- 	INIT_DELAYED_WORK(&ras_mgr->retire_page_dwork, ras_process_retire_page_dwork);
- 
- 	return 0;
-@@ -66,6 +70,7 @@ int amdgpu_ras_process_fini(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
- 
-+	ras_mgr->is_paused = false;
- 	/* Save all cached bad pages to eeprom */
- 	flush_delayed_work(&ras_mgr->retire_page_dwork);
- 	cancel_delayed_work_sync(&ras_mgr->retire_page_dwork);
-@@ -124,3 +129,62 @@ int amdgpu_ras_process_handle_consumption_interrupt(struct amdgpu_device *adev,
- 
- 	return ras_process_add_interrupt_req(ras_mgr->ras_core, &req, false);
- }
-+
-+int amdgpu_ras_process_begin(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
-+
-+	if (ras_mgr->is_paused)
-+		return -EAGAIN;
-+
-+	reinit_completion(&ras_mgr->ras_event_done);
-+	return 0;
-+}
-+
-+int amdgpu_ras_process_end(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
-+
-+	complete(&ras_mgr->ras_event_done);
-+	return 0;
-+}
-+
-+int amdgpu_ras_process_pre_reset(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
-+	long rc;
-+
-+	if (!ras_mgr || !ras_mgr->ras_core)
-+		return -EINVAL;
-+
-+	if (!ras_mgr->ras_core->is_initialized)
-+		return -EPERM;
-+
-+	ras_mgr->is_paused = true;
-+
-+	/* Wait for RAS event processing to complete */
-+	rc = wait_for_completion_interruptible_timeout(&ras_mgr->ras_event_done,
-+			msecs_to_jiffies(RAS_EVENT_PROCESS_TIMEOUT));
-+	if (rc <= 0)
-+		RAS_DEV_WARN(adev, "Waiting for ras process to complete %s\n",
-+			 rc ? "interrupted" : "timeout");
-+
-+	flush_delayed_work(&ras_mgr->retire_page_dwork);
-+	return 0;
-+}
-+
-+int amdgpu_ras_process_post_reset(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
-+
-+	if (!ras_mgr || !ras_mgr->ras_core)
-+		return -EINVAL;
-+
-+	if (!ras_mgr->ras_core->is_initialized)
-+		return -EPERM;
-+
-+	ras_mgr->is_paused = false;
-+
-+	schedule_delayed_work(&ras_mgr->retire_page_dwork, 0);
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.h
-index b9502bd21beb..d55cdaeac441 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_process.h
-@@ -34,4 +34,8 @@ int amdgpu_ras_process_handle_unexpected_interrupt(struct amdgpu_device *adev,
- 		void *data);
- int amdgpu_ras_process_handle_consumption_interrupt(struct amdgpu_device *adev,
- 		void *data);
-+int amdgpu_ras_process_begin(struct amdgpu_device *adev);
-+int amdgpu_ras_process_end(struct amdgpu_device *adev);
-+int amdgpu_ras_process_pre_reset(struct amdgpu_device *adev);
-+int amdgpu_ras_process_post_reset(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
-index f21cd55a25be..45ed8c3b5563 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
-@@ -142,6 +142,12 @@ static int amdgpu_ras_sys_event_notifier(struct ras_core_context *ras_core,
- 	case RAS_EVENT_ID__RESET_GPU:
- 		ret = amdgpu_ras_mgr_reset_gpu(ras_core->dev, *(uint32_t *)data);
- 		break;
-+	case RAS_EVENT_ID__RAS_EVENT_PROC_BEGIN:
-+		ret = amdgpu_ras_process_begin(ras_core->dev);
-+		break;
-+	case RAS_EVENT_ID__RAS_EVENT_PROC_END:
-+		ret = amdgpu_ras_process_end(ras_core->dev);
-+		break;
- 	default:
- 		RAS_DEV_WARN(ras_core->dev, "Invalid ras notify event:%d\n", event_id);
- 		break;
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/rascore/ras.h
-index fa224b36e3f2..3396b2e0949d 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras.h
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
-@@ -115,6 +115,8 @@ enum ras_notify_event {
- 	RAS_EVENT_ID__FATAL_ERROR_DETECTED,
- 	RAS_EVENT_ID__RESET_GPU,
- 	RAS_EVENT_ID__RESET_VF,
-+	RAS_EVENT_ID__RAS_EVENT_PROC_BEGIN,
-+	RAS_EVENT_ID__RAS_EVENT_PROC_END,
- };
- 
- enum ras_gpu_status {
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.c b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
-index 02f0657f78a3..3267dcdb169c 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_process.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_process.c
-@@ -162,6 +162,11 @@ int ras_process_handle_ras_event(struct ras_core_context *ras_core)
- 	uint32_t umc_event_count;
- 	int ret;
- 
-+	ret = ras_core_event_notify(ras_core,
-+			RAS_EVENT_ID__RAS_EVENT_PROC_BEGIN, NULL);
-+	if (ret)
-+		return ret;
-+
- 	ras_aca_clear_fatal_flag(ras_core);
- 	ras_umc_log_pending_bad_bank(ras_core);
- 
-@@ -185,6 +190,8 @@ int ras_process_handle_ras_event(struct ras_core_context *ras_core)
- 		atomic_set(&ras_proc->umc_interrupt_count, 0);
- 	}
- 
-+	ras_core_event_notify(ras_core,
-+			RAS_EVENT_ID__RAS_EVENT_PROC_END, NULL);
- 	return ret;
- }
- 
--- 
-2.34.1
-
+[1]https://lists.linaro.org/archives/list/linaro-mm-sig@lists.linaro.org/th=
+read/HZDQ7SFOG4722BISB6BEEA34B7QESM2O/
