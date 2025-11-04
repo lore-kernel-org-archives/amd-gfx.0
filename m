@@ -4,85 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B03CCFA04
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 15:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81058CCF9E3
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 15:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80F8D10E623;
-	Tue,  4 Nov 2025 15:16:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F154810E28B;
+	Tue,  4 Nov 2025 15:24:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LKRsScDo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AKqkV5+z";
 	dkim-atps=neutral
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A93A810E625
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Nov 2025 15:16:17 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-b3b3a6f4dd4so1036431666b.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 Nov 2025 07:16:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762269376; x=1762874176; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DIbwXZqpIKGlKNNHRDZu/vPrGVZT+h8Pzd2Cj4L3Bh0=;
- b=LKRsScDoAB10Po6yq8oljfV+E8V9ifZorFZMOmjb0CuvFH9J2McD1pVYUeleJPUyma
- Bt/EJGIJFKj92gq8+AxexT9hB47+et4rE7UW41v/9+Gd2/xBwL+WGeSfP+o0JX+dqy2R
- JHbmTWfhYeLuDqM5d135aoDe+yyGUFx7HkQQ+rOfV+yfEEROxsU7RYdQqcYpFoRHR15P
- mBbPiTAtp35XTkSTyrUqn+0m312hn2aUjubG/a0eh5qjtKMl8rTyVO/SswOUb2AvAUtn
- BPifLbgF9nWMVBITRcTB5oHV/EqM3Xfbjko4pGn+UxcmWOrE127a1DXCb/+12B3OEVgu
- 6xHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762269376; x=1762874176;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=DIbwXZqpIKGlKNNHRDZu/vPrGVZT+h8Pzd2Cj4L3Bh0=;
- b=Mzn8CSBZSdQn0zpNbCbRspaQ6cxCsxMVBxqjdukcewgKhJ/9pvoGtJbc+76aK53YTW
- PVhiJEUVBknf7yJOzyhm2xiohMUZigfgq5nlMOPx6OdTDQr3YC4yCAoTixBtVx+rfPs2
- kSBEXmz9E39DiMqf2lavzi+8k6fkymt5e0y+CexaGXqP5PLSukfnGTCiH/FBkTxfGDas
- 4ao4S524/Up58GgKBBgjK9UMjEbakkF9nG24jZdsO7OhUEO6Um1612pDu0m3aUWQgIXT
- xbmSpdqiJ47679syG2OtE1M6Px2w2TAiBLPj0e6qki4MWaZTDVqdTJDVMzbKrsEZjbOr
- SQ/g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUPDZzzio+1V2bJN+nabCvPoaaakfEfyow9WBXW7N+wJvhAAiaGdJ28o+8KhmLbY3HilWmuju5g@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yye8qQi6YqN7/Lt+dPSsKoGWWVZ9gew0wDyWldDRgAXcR4pP+d4
- ZjWUwm1ZbKvD0gbnRgqJ2qY3ZvPvRz/2MotdsD7HLhPGpQU07jNhdaoe
-X-Gm-Gg: ASbGnctTnpXN6DmhkkwFuhIz29PJPmx7RaN9u0f9qx6gtEaZkdn+XI0v7IVuJkOY49M
- yJmhv4Txo1OumaeeJMj7q4DqV7p+p6VuKXbjOxL/s4J3X8S3nQkmyZ1M8lKXSFqhOkyBvUW+iQC
- DwP6Zj5EQv8OAijPdF3aN5nSnruLM6TggfMHfi5J0ypOdKT+7dGuQ+OK/yj/kpTVAIMRkUQUTs4
- A12WgNxf7JiVg1KxXqj9p1n2wWeRNU+hpSnD7toJLhSjzGTUNliIsSZE5857RFWo1tPdHuq+567
- zEQYClaLdJ57PHc8BXOuEiOvbUScw2zFXBIn0ZajSw5ZcBS+y5aavDo8VZbFp5UDBFkDCaKU/jw
- NC0mWvtvtbrpfFsUbD3KRY7J45Ldal6vJSntsdqHgY7Sy21/Jfa1TB3QNN+YIeoqF8n5sCnIrQV
- 7ueFZcNKKJL+zcRw/A+ieJRHT0zsCnAxwAFzVJRAaXI2bK2OvFiP8rczbBSiV0sErXplOk/4SWX
- QXNZBq8eZa9wI61EJoFeqV+u5oRVHG0t9TvGECNT6ryHCxq0MK7
-X-Google-Smtp-Source: AGHT+IHdPZifIcqwTckTeWgtorwEfvEuYKhAJi6TE3R+z2ARWPZSW1HVnlLoE0fkVBVFqvrV6n49qQ==
-X-Received: by 2002:a17:907:7ea0:b0:b70:4757:eb01 with SMTP id
- a640c23a62f3a-b70705ee87fmr1840687966b.32.1762269375822; 
- Tue, 04 Nov 2025 07:16:15 -0800 (PST)
-Received: from ?IPv6:2001:4c4e:24ca:a400:8825:f46d:d14d:d33?
- (20014C4E24CAA4008825F46DD14D0D33.dsl.pool.telekom.hu.
- [2001:4c4e:24ca:a400:8825:f46d:d14d:d33])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b725f72a688sm52730166b.49.2025.11.04.07.16.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Nov 2025 07:16:15 -0800 (PST)
-Message-ID: <01cfdc57f76218039efb67226b9c08189f8a1b1e.camel@gmail.com>
-Subject: Re: [PATCH 09/16] drm/amdgpu/si,cik,vi: Verify IP block when
- querying video codecs (v2)
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Alexandre Demers <alexandre.f.demers@gmail.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Date: Tue, 04 Nov 2025 16:16:12 +0100
-In-Reply-To: <97a3a818-6526-4447-ab92-14a6eb9551a3@amd.com>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED12910E28B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Nov 2025 15:24:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yj3N5J66eZPKfXpd1k7Id6oB+a0USy0dUv8QGKE6+grsa3HZUcpbu5zNTeI19+0+RMc3m/xhGAw69upV7LxDxchQl6uVDa9gTo+9HIaFJv/JlQ+u4Xwc5b7FLWlKeSiGy7thDRlJ1ZtTKuFJnEWAecvm0UGJ7NL2K0S/6nOZ4aNg0QjcciLQQ3etdS3UPGpJBhLIg3jEOBzu2pH9QhykUpPJ8ts3Ya14Hvjns30DPKDpKGk6eSRVR9k9HkHem8vVtrm4LWoyGp6A7L6tQnAhWh1NOxjIafsgb/uEZQ4Hou/FR+H3s4M3mgUjOkNjqgeQNQ1xVwuS/nFF0f9Wt5oAaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XAW1ez5yfYY9zLE/Y8InY1dOdLoy8LwQJbkqd9NaVzA=;
+ b=cziQZjNbaXarBXhVLbpVlJUzbXw4OaJSSyCzik26ItyoF6A2X62yeIyJBRIxhTaPC3nW3FCB7gTPu+IpzBafJG3ORFcdaJaqzMDfWVZsERh/gO7dY2Hm6S65Y8sK3g7zjEJ4czkvzb7J3hokvjHMtSH1C3gO/Wo7XRNsMcfjbx3Se1t5ISslsBxAgSCVQIHuzfXSB1PD1xVghGdgrEDXwGO3c2/8qccV8Zz5flzs0vmMCxhSUCpEAxUEjviouualHfM9kCYbAIKciNt30THZKJT24VPm/hCraClFiT+CHrCRwLpkPWXGf/SCnS+xHhJ5m5hGsimiADc7MPKuKuT7aQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XAW1ez5yfYY9zLE/Y8InY1dOdLoy8LwQJbkqd9NaVzA=;
+ b=AKqkV5+zXBR1f4tMwyoh/B5pPIUcnsm7649Trw2+gydt9VMk4YkElgG6cT/LmraB7GdEMoY3O2R6r3+lYgrmSWeMIwwiAC2Jed6+tWjb+u5Cg3uI2VUwQXxJd/S5Hl1WA9tGImjLxPL8CTVZI8v8PgzHmG8iVzE3rWKMdNp8F+4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB9456.namprd12.prod.outlook.com (2603:10b6:610:1c2::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.7; Tue, 4 Nov
+ 2025 15:24:23 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9275.015; Tue, 4 Nov 2025
+ 15:24:23 +0000
+Message-ID: <88849efb-f9a5-472b-8eab-929e0e1abf62@amd.com>
+Date: Tue, 4 Nov 2025 16:24:18 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/16] drm/amdgpu/gmc: Don't hardcode GART page count
+ before GTT
+To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Alexandre Demers <alexandre.f.demers@gmail.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
 References: <20251103222333.37817-1-timur.kristof@gmail.com>
- <20251103222333.37817-10-timur.kristof@gmail.com>
- <97a3a818-6526-4447-ab92-14a6eb9551a3@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+ <20251103222333.37817-2-timur.kristof@gmail.com>
+ <9b4daf2b-d97d-4b3d-bd7b-3b136a4e304c@amd.com>
+ <237b5110-bf9b-452a-ab51-51ca67f7589d@damsy.net>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <237b5110-bf9b-452a-ab51-51ca67f7589d@damsy.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN0PR08CA0007.namprd08.prod.outlook.com
+ (2603:10b6:408:142::32) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9456:EE_
+X-MS-Office365-Filtering-Correlation-Id: 409edb55-60f5-420b-231e-08de1bb63bec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eWpCZjR0cWtlcDJZQmphUEVIQUdPeWVMeXlTenhER25Jck05NzR5ajBwTTN6?=
+ =?utf-8?B?d2JqSE85bXJiamZpTjNOUERSVHI2ZkpKaHcxc1RaYVFKS3c2ZW8wV3QzWEMv?=
+ =?utf-8?B?K250MnlOMEMwYXhFOU1ZS2FpdHQ2TGZidWFFZ2hqRnFYUFhycG15VDJHKzBs?=
+ =?utf-8?B?WDJuQ1MrK1A2SWFYK0lhbExHTWViOU9zK0Q4cU1hN0VNczBSRS8zSDIzeWd0?=
+ =?utf-8?B?T3cySVJ3b3NwSVNoZFlNUzZiZVpHQ1d5VVVGOHB2MTJCSk1xWktxVU1sdXc4?=
+ =?utf-8?B?SkhiRjg5bG1nRHk1a3MzWU9vVlphTHk3MEVQWWZxNUhraTFJMHZXVC9laUc1?=
+ =?utf-8?B?cnVhRFNxTks5ejJNZHMyZk9YK2JKRjRpb3hsM3QvdE52Z3pNMk1DaWplWU82?=
+ =?utf-8?B?K0h4WTJhUGEwK2EwclFxQ2JKV3hoOGxvVXRURU5CYkwxNGxFYnJCVmcrT3Br?=
+ =?utf-8?B?MFpYVkE0RHB0Q1BQUDE5MnZiN2RyUDNmUWpkWXZ4ZEZjc1FOK2RCL05aYSs0?=
+ =?utf-8?B?TEhLL1JFMGw3cnFoaVZPenV1VE1VRlBIbWFXMHRMeHpVSjhMQ3Ezblh3cVdD?=
+ =?utf-8?B?Z1F2cnVFVW96R2J0bjAxTGYvTkFOK3k4Vys4VlZmdVZPUTdrR05RTlJVcm9V?=
+ =?utf-8?B?cEhlOE5jV1M5bHplNjA4ZHJaVENOdmhmQWpSUER5WXczd0t2M1NnbklOSDda?=
+ =?utf-8?B?Nk4yTWgzUnJTb1hOeXZxV1BxSEV6LzNYanhNeCtSRjVDVGdQTzhVMW0zekpU?=
+ =?utf-8?B?RXVjOEZoL3BzTUlZQ0VFREhLblJjakVqN1lFMk1qeVdKRkNOb1BKanR4MmZ6?=
+ =?utf-8?B?Wi85MGJjQjgwK0UrdVZQbDhsMHNuaE4vUmxJdXVMMkxZZmhQUXc4N2NRQk03?=
+ =?utf-8?B?NXJIU2JOMURsMkhkQjJ5RjZDYlF0aURsSUVlTUFKUlA4K3ZxTnZpRDdsWmRY?=
+ =?utf-8?B?Z1FRTlF3a051aEMrOW1OdFdXUVBudTFGVXhTSlA3ckVxenZIeXZ4UHFvQW84?=
+ =?utf-8?B?QVdGTzJHUmJCaVdrMkttM1NDVkFqakgxazhmcWtjblovNmM4OGV2dWxESXlT?=
+ =?utf-8?B?VDFHNng0dGpSZE4yeHlqbFdtSlpaZUZ5ekYxR21PcS9vT0hXOE8wcGIzdUtU?=
+ =?utf-8?B?UjdLenpmVGxRb1Y4RDdSQkNNTjc5Z05ycnJkam5DbEswR0NkUFFLZE0yMzFs?=
+ =?utf-8?B?SFZXdXgrNlpCQnVocE0zOGs5UlA3TFJsdnpKcWRodTZtMXh5OXAra1FvcEp1?=
+ =?utf-8?B?enpPcGlYVnlqNFZFUXNDcTJ6WHExSnkydzRLbFJrNGN3Tm5RZmVIL3lIL3N6?=
+ =?utf-8?B?UXZrcGs5Qnl2RERoM3ZJSkJDc1V5eTNiM0R5WEk5ZkJqM3MvRStjeUpNMktl?=
+ =?utf-8?B?Z3loaTBHWGowNTlVaGdBQStUaStPcGZob1ZWWTdoQWtBTjFqYlkvcThRR3pG?=
+ =?utf-8?B?U21ITStaTFV0S1drK1lWSlBoeFRMSkx6emk4akZBazZVVVRQTWl6eGx1Smhs?=
+ =?utf-8?B?UE1MRzVKNHc3YUVndEw2NmxCQnoyVHRhSWwybFpDNnR6K3dZdTdVcHhscWp3?=
+ =?utf-8?B?cTZRbkt1Zkk0WWNTbHdTZXZhVENCUDZTck9wSWN1SnJnYitpcmpWQWFHRk92?=
+ =?utf-8?B?cEpoZkpQSnZRZW1YZUhleCtFMTZEam1kVzVCZFlDdWs0NmNuR1g3SEd3U1lS?=
+ =?utf-8?B?M2Q2bEFZM052Qm1RNzhSbHVhS0JOK2hKellHdkpqaW5obHlPam9WY3pQZVpt?=
+ =?utf-8?B?cnZVWlFRYWNhTHg3Z3VkcGRBWE1MY0tKZDE0dFdmV0ZUZVVQWDZNanAvR2Nx?=
+ =?utf-8?B?eCtvWXZESXo3NnNNTk1MZng0YVJ2S0YxYlJwc21ndUJ6V0xsZ01zNlBhQmtH?=
+ =?utf-8?B?M1l0N0p5NHVuSGQ2WkU3Q0hWd2o4TTNJendEN2wvMVFXcUFycWl1Wmc3S01t?=
+ =?utf-8?Q?uT3kULXKnHFvDxYYRPgiZ8kdJKipA/NR?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjBWUG5hdGJrOFE4T0toZGpqNmFtblptYW42SzlVUDZJeFBiRXl3WXp4OHBp?=
+ =?utf-8?B?SmMvQ3BjcTlRUUZVR2dCd3NLWlgxemN6L1JxLy9PWFpiQWhHdnN5VmhRd214?=
+ =?utf-8?B?RXZTcnkydHBWc3JEck1TL0ZUbW5nTlJVaWdjeW9OVkI5M3Y4RU1NYUNRelBl?=
+ =?utf-8?B?ZUk0VnRqYk4reUJKMGZkWHBVaW9CMFVtVFByN0dWc2E4Zm1XdVE0QVZ3R3Mx?=
+ =?utf-8?B?L3U4d3FnOTZqSCtvRGhON09wMkhnM3A2RjNtU0paSmZtMmF2K3h1Z2NWdUxs?=
+ =?utf-8?B?em1DZDdJR3JPNVROelVoUUU1QzZLN0Q1YWJOMi9CODZQMzF0K0owcVFQdHlC?=
+ =?utf-8?B?YUxZSkxJcUFPbnNIUjZHajZpRmRTLzhxWEIyUGZ0cFJuSEZ1SFVJQVpUa3Rv?=
+ =?utf-8?B?djExVFk3MEFoVFZ4ZU9WeU02ajZqYlRBdkt1YzlYTWsrWFhLUFNPbUhlZXRa?=
+ =?utf-8?B?N3diSWZ1VDJxVmZjYzFUVjBXNUh3bzJaY1R6UXRkQ2Q0WE95NnNuQURWNmtU?=
+ =?utf-8?B?MktRbXhQaFVpdHI5eDZST2YwV3VLazRGVFIrblVJa3VQWUgvMmJmN3c1UXdq?=
+ =?utf-8?B?b2tyM1UvVkFmRlBSMjN5M0lDM0I4aFRKL1ExczF5K3ZEWFJKOE8rOHJ4b3ZC?=
+ =?utf-8?B?NG5OSDdwNUNDZ2V3S2VYYk1ndkY1WFEvK0hDb0xLV3pwYm10RC9zQXVVSnFG?=
+ =?utf-8?B?Rk5yZzlvTTVubkw5SnhLV1UyUGkvWEFUZTJQVDJPQ28xbDlJNVhCMmQ5NE03?=
+ =?utf-8?B?R1V3ZksxMElOY3pzMGtaRGxkNWhWVFdLdGhFVDhma1gvNGM2MkpxeWZ5NjRZ?=
+ =?utf-8?B?MnVlOEJ0M2dIM2ZIY05uOFVYMGhIWks5K29hQnlWS2J1QU5sRG9XV29mTTRS?=
+ =?utf-8?B?bC9wdjR6dmpPTm50TWpQZS9Qd0tGOWpIMG81RG5JU2dGODdRM1VNT29rK2du?=
+ =?utf-8?B?TEQyUXFlQzNLWUo5WlN5Wml4NWdqTGNoRXBuc1hBVGM3YmMxWjhaZXpzMWJK?=
+ =?utf-8?B?MlRrODl3NVg3eEgrZ0dKQ3MvQjlqKzAvbTNTaXRCdUkyREJocTZZZnErUi82?=
+ =?utf-8?B?c095a1E4ZHpvekFETnIyWmlneXg2K0VmOTUxSFlEOUJEa2NHTzRyVHlGWFNE?=
+ =?utf-8?B?bVNwNEFDQTRxcG5NcXZ0YXJrbWtlZVhDSFNFc3ZyZ1NuNjJ0eDNSZkJxQWR4?=
+ =?utf-8?B?Z0xRWGpSak5VcGRqd29KZ2hOZno5bkhvbzhqNGp2VHlBMit1RXQxRjFPalEx?=
+ =?utf-8?B?RnEwZitLK2oxVFY5Znd5QXFPQ1VuU0xzWVNzY09Wa29ERzNXbksraW0wQWRa?=
+ =?utf-8?B?RGZOdlZ6dGVrRThTcWNLc0QvTlg1dFozV3F2MXN2Mkd3T2ppS0JmWDBhQnJx?=
+ =?utf-8?B?bmJiTnplcnJFb28zSUpCT1AvOTN2WndBVmpkdnYybEhsN0hHZlBJWUFVYUZ5?=
+ =?utf-8?B?a2lheDBhWlRocVlsMU94ekh0RkxXem10TUlaaGhPeWQzb0VJRGJBYkwyanRY?=
+ =?utf-8?B?OTg1ajRXcjNyenNIeG5WYXJISGp2emdJYWo0WVo0b2RhL28rSjNrOTNQYlFI?=
+ =?utf-8?B?Q2tET01RaHRTMUFSOUJJc1lyaUlURVpxSVRyOU5ZWklvQ051bmVUQXBhd00w?=
+ =?utf-8?B?QXNGZzA2OXNwYkhjQjZyK2dCTHFUdTlHOXpmTEl3cEg0K0YyeWVFalNBa1pH?=
+ =?utf-8?B?TmNpb2RXK01OcjN3TjFNVVVJNlgxU0JxSElVSGtzRjc2VUx5d09oSGxlV1FM?=
+ =?utf-8?B?RjBjN3pXYXdRdmsrL0pqd2EwWUlTaHZrUHlhNUZtU1JTUUVnNi9lSUtVeXhC?=
+ =?utf-8?B?b05qd0UvcVJ5eit1WmZ2NXl4UDdjUnprbWZTZ2pSZzB5Um0yRzg2NzJjSzZq?=
+ =?utf-8?B?bkY4eFE1ZGMwZnVpUWVZcGp0b2NxWU9LM01sajdmTkl5SFZlZjcxSzhjNXpR?=
+ =?utf-8?B?YmJRR1I2TGwyK25xcmxoWmxiWUFZWGNXVU9sdENPR0F1N3p4Z1lQTDlQU0JL?=
+ =?utf-8?B?WFhDcGxVdjBtSnRmWFNzWEpzSURicVVJR2hCc0xXR0RQMTV4QlkxdWJsTkJr?=
+ =?utf-8?B?MlBSaUVPY0l0SmNCNW15c2NsY3NROFg4ZndubkkxVzRUaXI5c2RXOVRWN254?=
+ =?utf-8?Q?192cqFay8K9iR2bwMVykCYh9i?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 409edb55-60f5-420b-231e-08de1bb63bec
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2025 15:24:23.8421 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tAcTuHN9Em8BBJWujF94uoEUbgF8GlbFosYdtudR4aCyda6GeCEm+7C3r3C5+/8M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9456
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,140 +167,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-11-04 at 14:44 +0100, Christian K=C3=B6nig wrote:
-> On 11/3/25 23:23, Timur Krist=C3=B3f wrote:
-> > Some harvested chips may not have any IP blocks,
-> > or we may not have the firmware for the IP blocks.
-> > In these cases, the query should return that no video
-> > codec is supported.
-> >=20
-> > v2:
-> > - When codecs is NULL, treat that as empty codec list.
->=20
-> I'm still not sure if returning an error instead wouldn't be better.
->=20
-> @Alex and Leo what do you guys think?
->=20
+On 11/4/25 16:08, Pierre-Eric Pelloux-Prayer wrote:
+> 
+> 
+> Le 04/11/2025 à 14:23, Christian König a écrit :
+>>
+>>
+>> On 11/3/25 23:23, Timur Kristóf wrote:
+>>> GART contains some pages in its address space that come before
+>>> the GTT and are used for BO copies.
+>>>
+>>> Instead of hardcoding the size of the GART space before GTT,
+>>> make it a field in the amdgpu_gmc struct. This allows us to map
+>>> more things in GART before GTT.
+>>>
+>>> Split this into a separate patch to make it easier to bisect,
+>>> in case there are any errors in the future.
+>>>
+>>> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     | 2 ++
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     | 1 +
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 2 +-
+>>>   3 files changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> index 97b562a79ea8..bf31bd022d6d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> @@ -325,6 +325,8 @@ void amdgpu_gmc_gart_location(struct amdgpu_device *adev, struct amdgpu_gmc *mc,
+>>>           break;
+>>>       }
+>>>   +    mc->num_gart_pages_before_gtt =
+>>> +        AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
+>>>       mc->gart_start &= ~(four_gb - 1);
+>>>       mc->gart_end = mc->gart_start + mc->gart_size - 1;
+>>>       dev_info(adev->dev, "GART: %lluM 0x%016llX - 0x%016llX\n",
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>> index 55097ca10738..568eed3eb557 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+>>> @@ -266,6 +266,7 @@ struct amdgpu_gmc {
+>>>       u64            fb_end;
+>>>       unsigned        vram_width;
+>>>       u64            real_vram_size;
+>>> +    u32            num_gart_pages_before_gtt;
+>>>       int            vram_mtrr;
+>>>       u64                     mc_mask;
+>>>       const struct firmware   *fw;    /* MC firmware */
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>>> index 0760e70402ec..4c2563a70c2b 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>>> @@ -283,7 +283,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
+>>>         ttm_resource_manager_init(man, &adev->mman.bdev, gtt_size);
+>>>   -    start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
+>>> +    start = adev->gmc.num_gart_pages_before_gtt;
+>>
+>> I would prefer that we have a single function which returns the number of GART pages we need before the dynamic GTT mapping.
+>>
+>> But let me see how Pierre-Eric solved this first.
+>>
+> 
+> The only conflicting change with my series is that I changed this:
+> 
+> -    start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
+> +    start = AMDGPU_GTT_MAX_TRANSFER_SIZE * reserved_windows;
+> 
+> So to account for Timur's change, I would only need to adapt this part:
+> 
+> +    mc->num_gart_pages_before_gtt =
+> +        AMDGPU_GTT_MAX_TRANSFER_SIZE * reserved_windows;
+
+Where is reserved_windows comming from in this calculation?
+
+Regards,
+Christian.
+
+> 
 > Regards,
-> Christian.
+> Pierre-Eric
+> 
+> 
+>> Regards,
+>> Christian.
+>>
+>>>       size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
+>>>       drm_mm_init(&mgr->mm, start, size);
+>>>       spin_lock_init(&mgr->lock);
 
-Returning an error from this function would indicate to userspace that
-there was an error with querying the list of codecs.
-
-That is not what we want. We simply want to tell userspace that no
-codecs are supported.
-
-Thanks & best regards,
-Timur
-
-
->=20
-> >=20
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 7 +++++--
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/cik.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 6 ++++++
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/si.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 6 ++++++
-> > =C2=A0drivers/gpu/drm/amd/amdgpu/vi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 6 ++++++
-> > =C2=A04 files changed, 23 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > index b3e6b3fcdf2c..71eceac58fb6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > @@ -1263,8 +1263,9 @@ int amdgpu_info_ioctl(struct drm_device *dev,
-> > void *data, struct drm_file *filp)
-> > =C2=A0			-EFAULT : 0;
-> > =C2=A0	}
-> > =C2=A0	case AMDGPU_INFO_VIDEO_CAPS: {
-> > -		const struct amdgpu_video_codecs *codecs;
-> > +		const struct amdgpu_video_codecs *codecs =3D NULL;
-> > =C2=A0		struct drm_amdgpu_info_video_caps *caps;
-> > +		u32 codec_count;
-> > =C2=A0		int r;
-> > =C2=A0
-> > =C2=A0		if (!adev->asic_funcs->query_video_codecs)
-> > @@ -1291,7 +1292,9 @@ int amdgpu_info_ioctl(struct drm_device *dev,
-> > void *data, struct drm_file *filp)
-> > =C2=A0		if (!caps)
-> > =C2=A0			return -ENOMEM;
-> > =C2=A0
-> > -		for (i =3D 0; i < codecs->codec_count; i++) {
-> > +		codec_count =3D codecs ? codecs->codec_count : 0;
-> > +
-> > +		for (i =3D 0; i < codec_count; i++) {
-> > =C2=A0			int idx =3D codecs-
-> > >codec_array[i].codec_type;
-> > =C2=A0
-> > =C2=A0			switch (idx) {
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c
-> > b/drivers/gpu/drm/amd/amdgpu/cik.c
-> > index 9cd63b4177bf..b755238c2c3d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/cik.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-> > @@ -130,6 +130,12 @@ static const struct amdgpu_video_codecs
-> > cik_video_codecs_decode =3D
-> > =C2=A0static int cik_query_video_codecs(struct amdgpu_device *adev, boo=
-l
-> > encode,
-> > =C2=A0				=C2=A0 const struct amdgpu_video_codecs
-> > **codecs)
-> > =C2=A0{
-> > +	const enum amd_ip_block_type ip =3D
-> > +		encode ? AMD_IP_BLOCK_TYPE_VCE :
-> > AMD_IP_BLOCK_TYPE_UVD;
-> > +
-> > +	if (!amdgpu_device_ip_is_valid(adev, ip))
-> > +		return 0;
-> > +
-> > =C2=A0	switch (adev->asic_type) {
-> > =C2=A0	case CHIP_BONAIRE:
-> > =C2=A0	case CHIP_HAWAII:
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/si.c
-> > b/drivers/gpu/drm/amd/amdgpu/si.c
-> > index e0f139de7991..9468c03bdb1b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/si.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/si.c
-> > @@ -1003,6 +1003,12 @@ static const struct amdgpu_video_codecs
-> > hainan_video_codecs_decode =3D
-> > =C2=A0static int si_query_video_codecs(struct amdgpu_device *adev, bool
-> > encode,
-> > =C2=A0				 const struct amdgpu_video_codecs
-> > **codecs)
-> > =C2=A0{
-> > +	const enum amd_ip_block_type ip =3D
-> > +		encode ? AMD_IP_BLOCK_TYPE_VCE :
-> > AMD_IP_BLOCK_TYPE_UVD;
-> > +
-> > +	if (!amdgpu_device_ip_is_valid(adev, ip))
-> > +		return 0;
-> > +
-> > =C2=A0	switch (adev->asic_type) {
-> > =C2=A0	case CHIP_VERDE:
-> > =C2=A0	case CHIP_TAHITI:
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c
-> > b/drivers/gpu/drm/amd/amdgpu/vi.c
-> > index a611a7345125..f0e4193cf722 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> > @@ -256,6 +256,12 @@ static const struct amdgpu_video_codecs
-> > cz_video_codecs_decode =3D
-> > =C2=A0static int vi_query_video_codecs(struct amdgpu_device *adev, bool
-> > encode,
-> > =C2=A0				 const struct amdgpu_video_codecs
-> > **codecs)
-> > =C2=A0{
-> > +	const enum amd_ip_block_type ip =3D
-> > +		encode ? AMD_IP_BLOCK_TYPE_VCE :
-> > AMD_IP_BLOCK_TYPE_UVD;
-> > +
-> > +	if (!amdgpu_device_ip_is_valid(adev, ip))
-> > +		return 0;
-> > +
-> > =C2=A0	switch (adev->asic_type) {
-> > =C2=A0	case CHIP_TOPAZ:
-> > =C2=A0		if (encode)
