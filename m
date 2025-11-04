@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5B8CCCF9E3
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 14:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51076CCFA04
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 14:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D7C010E5E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E193F10E5E9;
 	Tue,  4 Nov 2025 14:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Y3LeFVqM";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ieCjGZGt";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1FCC10E5F1
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Nov 2025 14:06:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9510C10E5F3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Nov 2025 14:06:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,23 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=pNBBCY6DCE/B17Umf34LSjrCBLbIvo2neg8sFZXfHhw=; b=Y3LeFVqMyys4+6j4uj0Z5MkMwR
- MKgUnGaI5BHEpd6H4HYsbxB/K5D/oY75ucOEkonAiu6xq3rkjYFXaaCOURdwvFOfS56jly2tX3bTf
- oXNGvJTLkcJUyEKY3rSZA898lnBQ6BwTuCk9FjRYXM0eL0N956XTvVXeV+Kncj7zoQ85U+liYTqCu
- pE8b4WLANiQF+Z92OSCnkJX3TsnitHwx1rUuxzv5UjyH4dCo61MNTfLarLMc0T12C/qB1y1ISIPCR
- 0XtPXVjROaAneOgOOlw47XVH+AVMVE1960qJ+Q7XzhnRFHZDYyjHaLCxRaXbgO6wOSLRaeLDqQFP2
- k+RfmGSA==;
+ bh=LXPvlPqgI6ttbrg+INAMePjb/FpODronJXY+rGQAHF8=; b=ieCjGZGtGDpbVgk/LZkAGLqO/R
+ 23pgJteu5Y2ryQ1Iwa8NRunhuA7jNX+CkSwz82wHKit1itquRfSu9e2M9q8rbmSY2nPivZ/dH/g6W
+ DbMr3Z518j+Ou+0SAh0GAGMnUabEYtcavtAVnmF5Y3aybnkxtB7wSAEwcCXFNj2nNqZNbh80uk+wG
+ repc0FjOhokctju21YncIgcKA3Ai9MKJAYoqz1XeVQWYPIs0s5RZd2oIXJGLaWvIGOF1HaB9aNcTC
+ XphFiTCARdDTfBnoh8AZbLlQMk2biC2YJdHztKLDT43EmLUZ8SUuWNFsaf0lzRMEjkJVizAVy7oXu
+ d+FYaffg==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vGHg7-001OEM-5m; Tue, 04 Nov 2025 15:06:31 +0100
+ id 1vGHg8-001OEV-Ry; Tue, 04 Nov 2025 15:06:32 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 02/25] drm/amdgpu/jpeg3.0 Simplify idle check
-Date: Tue,  4 Nov 2025 14:03:58 +0000
-Message-ID: <20251104140421.88520-3-tvrtko.ursulin@igalia.com>
+Subject: [RFC 04/25] drm/amdgpu: Only calculate register offset once in SOC15
+ RLC
+Date: Tue,  4 Nov 2025 14:04:00 +0000
+Message-ID: <20251104140421.88520-5-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20251104140421.88520-1-tvrtko.ursulin@igalia.com>
 References: <20251104140421.88520-1-tvrtko.ursulin@igalia.com>
@@ -58,34 +59,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Simplify the idle check by looking at the done bit directly instead of
-clearing the assumed idle status if not done.
+We can save some text by only calculating the register offset once
+in a few of the SOC15 RLC register read/write macros.
+
+add/remove: 0/0 grow/shrink: 2/65 up/down: 32/-1078 (-1046)
+Total: Before=9079703, After=9078657, chg -0.01%
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h | 47 +++++++++++++----------
+ 1 file changed, 27 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-index d1a011c40ba2..e1b579451982 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -476,13 +476,10 @@ static void jpeg_v3_0_dec_ring_set_wptr(struct amdgpu_ring *ring)
- static bool jpeg_v3_0_is_idle(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
--	int ret = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+index b7f928521f39..5ee5867fe794 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+@@ -43,21 +43,25 @@
+ #define __RREG32_SOC15_RLC__(reg, flag, hwip, inst) \
+ 	adev->gfx.rlc.reg_funcs->rreg32(adev, reg, flag, hwip, inst)
  
--	ret &= (((RREG32_SOC15(JPEG, 0, mmUVD_JRBC_STATUS) &
-+	return (RREG32_SOC15(JPEG, 0, mmUVD_JRBC_STATUS) &
- 		UVD_JRBC_STATUS__RB_JOB_DONE_MASK) ==
--		UVD_JRBC_STATUS__RB_JOB_DONE_MASK));
--
--	return ret;
-+		UVD_JRBC_STATUS__RB_JOB_DONE_MASK;
- }
+-#define WREG32_FIELD15(ip, idx, reg, field, val)	\
+-	 __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg,	\
+-				(__RREG32_SOC15_RLC__( \
+-					adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+-					0, ip##_HWIP, idx) & \
+-				~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg, field), \
+-			      0, ip##_HWIP, idx)
++#define WREG32_FIELD15(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][mm##reg_name##_BASE_IDX] + mm##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, 0, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, 0, ip##_HWIP, idx); \
++} while (0)
  
- static int jpeg_v3_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+-#define WREG32_FIELD15_PREREG(ip, idx, reg_name, field, val)        \
+-	__WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name,   \
+-			(__RREG32_SOC15_RLC__( \
+-					adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name, \
+-					0, ip##_HWIP, idx) & \
+-					~REG_FIELD_MASK(reg_name, field)) | (val) << REG_FIELD_SHIFT(reg_name, field), \
+-			0, ip##_HWIP, idx)
++#define WREG32_FIELD15_PREREG(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, 0, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, 0, ip##_HWIP, idx); \
++} while (0)
+ 
+ #define RREG32_SOC15(ip, inst, reg) \
+ 	__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
+@@ -177,12 +181,15 @@
+ 			WREG32_RLC_EX(prefix, target_reg, value, inst); \
+ 	} while (0)
+ 
+-#define WREG32_FIELD15_RLC(ip, idx, reg, field, val)   \
+-	__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg), \
+-			     (__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+-						   AMDGPU_REGS_RLC, ip##_HWIP, idx) & \
+-			      ~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg, field), \
+-			     AMDGPU_REGS_RLC, ip##_HWIP, idx)
++#define WREG32_FIELD15_RLC(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][mm##reg_name##_BASE_IDX] + mm##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, AMDGPU_REGS_RLC, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, AMDGPU_REGS_RLC, ip##_HWIP, idx); \
++} while (0)
+ 
+ #define WREG32_SOC15_OFFSET_RLC(ip, inst, reg, offset, value) \
+ 	__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg) + offset, value, AMDGPU_REGS_RLC, ip##_HWIP, inst)
 -- 
 2.48.0
 
