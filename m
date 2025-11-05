@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0072CCFA1A
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 15:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1983BCCFA1C
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 15:41:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A784110E2D6;
-	Wed,  5 Nov 2025 15:41:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B7F810E700;
+	Wed,  5 Nov 2025 15:41:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yhe0xb2Q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xPgkYZy1";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010032.outbound.protection.outlook.com [52.101.61.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1470610E2D0
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 15:41:07 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013056.outbound.protection.outlook.com
+ [40.107.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C24110E2D2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 15:41:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OuV0wMuq1moyng8XUshs5QSy4hP8P1sruaZz3CGbFRaL1TLRO+XQThg3dYbLUN8vsIzgMzwJnNqp6gX1/jp75Difa42fsimD7ovtQFN15/PPOIaB4zVbvV7GuJDadVszH38J2nj6pgNURZriqf41Ug/buR9soC9aeoqCvkIv6tFub2TXhcAN+9ylAzC7FDafrJ7xS3JjpVap3/Ya2a5/SsfKI+uCTFkDCjRPvk/stY/a8dElLrc7CtmBq/SePZ7oslqiC3M86Fl29Qb32iKZISFIPhDiWQQjYha+aYYo+UGvV5ZWdbqn8OmBwgSqQ4zKq4K5Tc/0Bf6hnW3P3n2dQQ==
+ b=rPk4KiBjl07R8s3xh9NxBmwwt1J2CVfRBjN3+5511XMz0mmxTlHSOumCkXwBUQe5O4nqaCfzfs0thM+fB/mAZrWODzU8c3tSHNZkSGt3ZC8jvuDdW6TqNCwSybs3sA+u6DVO+5QsmGtKaqrD24adObfiVVrV2DqhQJhGoROB6Xb5t0HMIBMc093e3Fov6FhOkG1iUVGsiNBmnJDd6sjo5kw4SyWFDVJgryvoxJbhlSGQEUm1P3WljH3geTu3Lrcd/j6oVHAmdMmEuCKv5BxM17x8ieaZ2y3bpo1pXPFurN1TCvTBooEswLPLk0iZJVs5vx44KJZ1E+TDbT6Q8f9Jpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZtEJ/liAnhG2sNVMiApPway1Z/FGgKWHKzvrmZBzhfs=;
- b=QcQd8UgmoT8rvWm5uT7JJpxnylRbfF7Srlc0jbi6v3zH8xUpVsGuAEfsuzuN8tzAwirk6AapKpj/jai64iRC9BMzbVswyCwgE/xwRO77t0UpsY5m8HIYP7/oYcTp/8CGCjuBRr99JYDWrhDZnd1C7CuZ9TAED+uPHV7wfhCqaXoeWLvFsItwTLRds0XGB2+96o9Jh5fghIBSpZowNSBHWta7fNXt/n1/co1TbXEocy4e9MhKQKPtdkuJ7teZBi0XFLHp61uX8GIwbnk2M0wMdxnTMgQRVI+CM1QsPVFzZHq7ZKRvRZpzWZwfPGjJUYngOjO3Y4C8Fw/GucDTPOgYpw==
+ bh=2TTyg/5deR6agk/bg67mTr9UmkkLAu2ub401sCPdUfE=;
+ b=JCauyhfmKAqs9SeWI0XJ8W+iiFy1khPdIo6pYPTMhzFinrxu7+c/T6OUr+HeL1izp0c52E38nE6uXhGKCCg7qivrdXeqpGoRuj4poMEI+Ft7b+t4a8Wu/B9N3b7sjVaKEteBi7Z1/iJPXaVXo1nR339VBUrFuzukxnUZb2KZnVkxFXnpYXZHmYeuQ62mxG5vvIl0Ju5pfxO58lvPXc+iZpjytfJ4rKgC5WSGBl+tW9h+FTKH2PKVxCkHVR38muVgF85tVCCkKDfsOwVUiLzby+R0sEhq3IwAcG1w8Rg6IxVVXNkNNDMXbGReUe7g/BgENhZ7MufEtWOYOnYdcAJUEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZtEJ/liAnhG2sNVMiApPway1Z/FGgKWHKzvrmZBzhfs=;
- b=yhe0xb2Qvi+6+rpFny0DSyJcquZfmfFkzyu50BYxnIdTp3XZRXeARxisa5m6vXVWNJOHdwJXAwi8bY6lpJBppSdStj97ErbFPprFrkn08jc0c3AgzbJTxQvwJpShcwqFQGvg+ro6VaCGr0OXdOUAXUDFjmz2L0loy0EX6F/5z+A=
-Received: from BN1PR10CA0007.namprd10.prod.outlook.com (2603:10b6:408:e0::12)
- by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17)
+ bh=2TTyg/5deR6agk/bg67mTr9UmkkLAu2ub401sCPdUfE=;
+ b=xPgkYZy1mG7G334u+fQtDf+moQ7UGtbJSf4mQnXTVniuoAJ9TAyqWTXKFo/p1/uY46t/sNYzQVjw+t2LbqkCkBXCJhAQvyFmErr6GfmnkTdFP7JY9zkgsXM9J73bv8aqIYR7BoeBuSLk7DKpGej8o7kYFxdT2vtaroRtxYmfpkk=
+Received: from BN0PR04CA0013.namprd04.prod.outlook.com (2603:10b6:408:ee::18)
+ by CH3PR12MB7523.namprd12.prod.outlook.com (2603:10b6:610:148::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.8; Wed, 5 Nov
- 2025 15:41:01 +0000
-Received: from BN1PEPF0000468C.namprd05.prod.outlook.com
- (2603:10b6:408:e0:cafe::61) by BN1PR10CA0007.outlook.office365.com
- (2603:10b6:408:e0::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.16 via Frontend Transport; Wed,
- 5 Nov 2025 15:41:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.7; Wed, 5 Nov
+ 2025 15:41:04 +0000
+Received: from BN1PEPF0000468A.namprd05.prod.outlook.com
+ (2603:10b6:408:ee:cafe::de) by BN0PR04CA0013.outlook.office365.com
+ (2603:10b6:408:ee::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.8 via Frontend Transport; Wed, 5
+ Nov 2025 15:41:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0000468C.mail.protection.outlook.com (10.167.243.137) with Microsoft
+ BN1PEPF0000468A.mail.protection.outlook.com (10.167.243.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.6 via Frontend Transport; Wed, 5 Nov 2025 15:41:01 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ 15.20.9298.6 via Frontend Transport; Wed, 5 Nov 2025 15:41:03 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 5 Nov
- 2025 07:40:52 -0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 5 Nov
+ 2025 07:40:54 -0800
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Nov
+ 2025 09:40:54 -0600
 Received: from jzuo-laptop.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 5 Nov 2025 07:40:52 -0800
+ Transport; Wed, 5 Nov 2025 07:40:53 -0800
 From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,75 +70,67 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 03/13] drm/amd/display: Allow VRR params change if unsynced
- with the stream
-Date: Wed, 5 Nov 2025 10:36:18 -0500
-Message-ID: <20251105154035.883188-4-Jerry.Zuo@amd.com>
+ <alex.hung@amd.com>, Mohit Bawa <Mohit.Bawa@amd.com>, Nicholas Kazlauskas
+ <nicholas.kazlauskas@amd.com>, Charlene Liu <charlene.liu@amd.com>, "Wenjing
+ Liu" <wenjing.liu@amd.com>
+Subject: [PATCH 06/13] drm/amd/display: refactor DSC cap calculation for dcn35
+Date: Wed, 5 Nov 2025 10:36:21 -0500
+Message-ID: <20251105154035.883188-7-Jerry.Zuo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251105154035.883188-1-Jerry.Zuo@amd.com>
 References: <20251105154035.883188-1-Jerry.Zuo@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468C:EE_|SA0PR12MB4399:EE_
-X-MS-Office365-Filtering-Correlation-Id: d022759a-050a-415d-6dee-08de1c81b91a
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|CH3PR12MB7523:EE_
+X-MS-Office365-Filtering-Correlation-Id: cae369ed-58ba-4422-8aa4-08de1c81ba8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RUR2U1ZjSzFlVFF0YVA2Q25OK2lBd1Y3czVoa2pSM3hSRi9qQnR6VTVMbmd2?=
- =?utf-8?B?by8vRUc5emFIM0w0VzcrelllYWxQcXdxb29LVVNDR1A0eURMK04rN1BmMVBm?=
- =?utf-8?B?QjgrSzlBNWtBU2tKUDdSQVFNT3ZHbmdPTFNORXdLV1BXZnd0Znd0WVBFM0J0?=
- =?utf-8?B?L0pKYndTbTFsWk9aeHE1VCtiSWR0UDhoV1VvNWtpYWhlbGZ5TkN2aHZpTEM2?=
- =?utf-8?B?UWJFaHN0Z2JkNDlYd1hqeW9NeWp6K1Q1c0ZIOEJRWi9qR1NtL1AvTTdmMk54?=
- =?utf-8?B?cVo0V1pJZHkrUjkzR3p6WVg4cEtrZ09ZN0FWTTlCdkRCdHp3dE9nenJ4SHpi?=
- =?utf-8?B?TmwrZFdncW9WcnJKTVRzUFVIcDRJdVZLcjNIK1hMNzFoaUJFemlYblBIcFVw?=
- =?utf-8?B?OWJFN2cvMktQa2NvdUh3QzJ5bG5hWW1nb3VHZFQrbW9xVDVkMG90MUlnZXl2?=
- =?utf-8?B?Tnp0dlpHdVJHbEdENktRdjhtUmRza2k1UVVHNWswTVJSZFBzckJkc3JQdE1p?=
- =?utf-8?B?ZTFrOGFpdXFCNEY1blBzZFFjNjQ2VnVzeVVoNG13aHJWVTVJRjArYmhqQk5r?=
- =?utf-8?B?NXlidktoYlZIWnBKNUtLOUU5U2N4Ky9LVnM4dmRXenpNTzlobzBNb2c3aFRE?=
- =?utf-8?B?c2o0Snp1T2hhdVhTMUwzRUx0WU8yckRkczRvNS92RHNaS2hBWG5GamlOSDVl?=
- =?utf-8?B?Rnl0b3Q4NW96ZEJ3azdEdHIrT2FyVCtzN1ZQYjRUMjc1UWJwZnlrWndmN1NL?=
- =?utf-8?B?NTNvUWozS3BKdmVuejZpWmM5RnFFNmpHTUw5aU1LRldodnVwVFVndVRxUGpG?=
- =?utf-8?B?cG5XOWhJTElHbFNucldUa05qeUN5a3F3V1J2RThOblZIY1p4bHdBNjBjU3VZ?=
- =?utf-8?B?Nm02clZ1bFhvN1ArUkx3MzJtSUdUaEx6TmY3WWc2TnJUeEpsYjdMRXI1QVlO?=
- =?utf-8?B?RXNTYWRVbjNvbkxLT3dtQjJPY1JDNFNWbnQvOGprdkd3eWhLZ3Qrazhpc1g0?=
- =?utf-8?B?YzRNTWJKbm00aFV1VFhnOXVpVjFaYkZKZXFnZnNiU1RLYUlNMXhiTEhTT1lJ?=
- =?utf-8?B?MWViOWVhbWRGWGRqbTB1OHpBdWl6eGpkMlZVSFRVVmdkdUxkVkozd3lMRlBk?=
- =?utf-8?B?bXlZcDlySWRubCtBN0g2T0tLdDRFODRkSnBmbitPeWcyeitSY3QzZkJvTW1O?=
- =?utf-8?B?cTJ0QjBOYTcweEJodTdrajRqNk40Nk1Vc2hOMmdaejJXaFB4VVFZa2NTcXFu?=
- =?utf-8?B?TXpCU2cydlI0WlBvOGdmTDlSbjN3TzRaMUJVc2s2cUZrRG9nSHVwYUJLdit2?=
- =?utf-8?B?Ylh1cythOFAxbmo4MHFHOU1ZQmVEdzVyajlRN3o3VTVZZkFYVWNmWk5vY1Na?=
- =?utf-8?B?L3B5VWRvdHJaWUcxbjV0OVNCQXVDWnR3UUhzOW1kUU9QelR5eU9pR3o5bkRh?=
- =?utf-8?B?OGhMbXN1MHRJczBQM0lZMUs4aE0rUytyR28wSHBOSWxRSHZjWDBQeCtBMVM5?=
- =?utf-8?B?V1RCU1J6Ty9QelpPTk16NENiV3RCbWZ3RzRmb2M4Z3Zva0o1V2pURjBldlVJ?=
- =?utf-8?B?L3F2VFBpdlVLZ2N4SHhSeEU2RzFJKzFlaHRKeGhiaWg1aXZKQXlzV3F4WFZO?=
- =?utf-8?B?TDlSYmVFZlIzMExnbGNDbTBSSXlIMmdBNFFzRHpDQTlZZGJ4MWdycmZPZWY0?=
- =?utf-8?B?OTVDYkZ3S3RzNXowdUN6anFXZHZLNEZaalY2VVZldE1mUno3bFR2YU1ZWDZ6?=
- =?utf-8?B?LzMrRUFNNFI4VkFBTm5SbkRwWENSVVcxMjJVNWFIMENxYmRia2lITzRaUm1S?=
- =?utf-8?B?Ty9aTmxNTGNSUTFGQ2NGaFlyZjZVOWYrY2lyc2p3UmxldlhUS3pLQnRxNk1N?=
- =?utf-8?B?YmRCT1dwK1RhUkg0V3ROc3B0WFZEZmVGNGQ5cDc1dWU5Ly93YkZUT21xclVi?=
- =?utf-8?B?MkZtQ3VNY0pzeEg5ZWhPVk5IMUFpb3ZNdlB5MmhEYTNaZlkrN1pBWGRWTDRE?=
- =?utf-8?B?MDllbVFnV24rQmVMSnA4aWgrazU0cTVEVHdSaG1adXJwNFd6d3JOUTNlZnMv?=
- =?utf-8?B?eUdmMWVncklISnZXMi9FNkhuOXRMdFdqZGluYjgwdUtOZUFaby9OVDBrUFdQ?=
- =?utf-8?Q?k2UE=3D?=
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5V9uaIhJkXIPoAuN1QW49cw5qPxe8qpKXmdDS5/OXbTWd67t7CLi4SnLeXAv?=
+ =?us-ascii?Q?bXHqps49Gos5nro4i3wsIlzIdt9KgJSJLewKIerwoqf51iXCp7gb7/pTlK1h?=
+ =?us-ascii?Q?0TRzN6VN9piMZzG82bejEdaxewxQBazpgtxiSzZbOoeVEmBkw5aK83EYUeuk?=
+ =?us-ascii?Q?lVsbtGdZCmjQCt0zEQyIt+CC9iuSIyY3BLxjvmp3uGULW8i0SUBNF+VObAJr?=
+ =?us-ascii?Q?AG8stlMzQ1HyfAwLHe6iknDCTZ6bnLKSOvsPqVhSQpBfl16DJBq2NkULsE/1?=
+ =?us-ascii?Q?oEPm1NEsfXvxWpyqE+etrCLlcGbwAF9sG/Ph6RU1zD4Xc+Gy4xdAZDsCmNRY?=
+ =?us-ascii?Q?FIr5KxABL4QXCXSx4ar95Mg3LGKGIo4w+uxPK6sA4GPDwaVMNQyqXS0uud2s?=
+ =?us-ascii?Q?yV71gNjdtE4xoARDpRvqnSfi9JIwYlfmQ80PpnNq7PfKt9Akf+75F+6kj8gJ?=
+ =?us-ascii?Q?rsQdvIW3jFt1aoXN4WcRDsQTdzNSnk5R/Tr+xA7SRPRU29bHGC/OeFvC1x/H?=
+ =?us-ascii?Q?dgn/VUluDgF+l3SlFtV0M4vf0F7NjLXXYhZ8ASPJvQ2qllcDRw02jFQYOh4n?=
+ =?us-ascii?Q?+C65AwcTs9cGM/LUZNtYF7FQ/y1tNm5BBJdK07IqltGwR4tF5scGGQF60Zq1?=
+ =?us-ascii?Q?gBVTHtiRIfcLQpxmeUJpIlTBTlCUjY7eZ+Xg0a1D3KSqpHI0BsnZdyn4sRAK?=
+ =?us-ascii?Q?Kguq9g1KtRtsQpO8kW26gd+JkJ8wUxyEZCsIPw6xbFFjnDav8pbbnoQJtJD2?=
+ =?us-ascii?Q?pjlD7m+yV3kSq3nhYc5uHL75jBuCkh1OPRZHCFOfPvK+RX3XZr6a139lIX8y?=
+ =?us-ascii?Q?wBWmkkk0kz5mG0ZNzUqQhemj9azMbUlVagegjwb9SP5ZA/l+K9zZ/54Fst7D?=
+ =?us-ascii?Q?3Xc16+GKLEOWDQ2Bdktc5RrfBn0BopGdwKcq3GJNmLH3waKHxnwl6R0X6eaL?=
+ =?us-ascii?Q?jc54yYOYQgngNbzMntKXF95US41JUGOnocym2xasgAQyI7xzwJ6hNhpUwjyF?=
+ =?us-ascii?Q?VXJ4uFnrjKLjuqgp31LQMdLxeIRGhso4Bssedrw3qm9RiZkW2Gd4sEO1lG1a?=
+ =?us-ascii?Q?hP0lUTudUencVbn/RIbS6R2DKRlb0NA5aShXrzV6UKbFqVwkcVkLm9tBc+EQ?=
+ =?us-ascii?Q?4vtf/ykI4wnmd+2JePebjN2f0xUjkJWpoQg3l+sj+ey6llUOisANtaawa2+Q?=
+ =?us-ascii?Q?80MVYbfqEP7vRrw4z9ke+rvME1tFnjv7Jca2a5XRo9O6g4w/nnubARze1ues?=
+ =?us-ascii?Q?Br0E4zfYNdoGoTcKvQDCpnHFjC5piZGmJuNhx0kwKG8BoJ6NwLW1r6fZQvYH?=
+ =?us-ascii?Q?0nfqauY3sQs8farxliIwFP+73vq57OonuFhW2DNh2a9mYhM9djPslWH/3KTh?=
+ =?us-ascii?Q?Sv/Ep2q9EAZBna9w8Uxpd2buS4ZmEItzREKL1/1NXAGelBwsnEIBJX4bXCxZ?=
+ =?us-ascii?Q?c9yG3DkL2el7izcNhiYFQxPoqIlx0NZSx5n/DISRc8WMHzESsXTUC03WD8Bf?=
+ =?us-ascii?Q?eWNOLmiFvy+aKgLgbeZyu86DqTjtu/LYWTHrv6zUKya6D/GHFgsroQ0PMDKo?=
+ =?us-ascii?Q?l21YIB4lhoONr1QyugE=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 15:41:01.4633 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d022759a-050a-415d-6dee-08de1c81b91a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 15:41:03.8971 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cae369ed-58ba-4422-8aa4-08de1c81ba8d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7523
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,54 +145,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+From: Mohit Bawa <Mohit.Bawa@amd.com>
 
-[Why]
-When changing resolution (e.g., 4K → FHD) in mirror/clone mode with
-certain monitors, the monitor blanks and loses connection due to an early
-exit in vrr_settings_require_update(). The function only checks if VRR
-state, fixed refresh target, or min/max refresh rate range has changed.
+why:
+dcn35 currently uses a hardcoded DSC display clock value which is incorrect
+for some asic types. Newer DCN versions retrieve dsc display clock from
+clk_mgr. The same can be done for dcn35.
 
-During mode changes, if the calculated min/max refresh values remain the
-same even though the stream's v_total changed, the function returns early
-without updating vrr_params.adjust.v_total_min/max, leaving the monitor's
-VRR timing parameters unsynced with the new mode, causing it to blank out.
+how:
+Refactor the DSC cap calculation using pre-existing logic.
+Handle ODM combine requirements in dc_dsc.c.
+Replace hardcoded display clock with actual value retrieved from clk_mgr.
 
-[How]
-Explicitly adjust VRR parameters to the stream's nominal v_total when VRR
-is supported, but inactive.
-
-Fixes: 3fd606f57448 ("drm/amd/display: more liberal vmin/vmax update for freesync")
-
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Mohit Bawa <Mohit.Bawa@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
- .../gpu/drm/amd/display/modules/freesync/freesync.c   | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 30 ++++++++++++++++++
+ .../drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c  | 31 ++++++++++++++++++-
+ 2 files changed, 60 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index ce421bcddcb0..1aae46d703ba 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -1260,6 +1260,17 @@ void mod_freesync_handle_v_update(struct mod_freesync *mod_freesync,
- 		update_v_total_for_static_ramp(
- 				core_freesync, stream, in_out_vrr);
- 	}
-+
-+	/*
-+	 * If VRR is inactive, set vtotal min and max to nominal vtotal
-+	 */
-+	 if (in_out_vrr->state == VRR_STATE_INACTIVE) {
-+		in_out_vrr->adjust.v_total_min =
-+			mod_freesync_calc_v_total_from_refresh(stream,
-+				in_out_vrr->max_refresh_in_uhz);
-+		in_out_vrr->adjust.v_total_max = in_out_vrr->adjust.v_total_min;
-+		return;
-+	}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index 35d20a663d67..dfd0c9505af0 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -1295,6 +1295,35 @@ static void dcn35_update_clocks_fpga(struct clk_mgr *clk_mgr,
+ 	dcn35_update_clocks_update_dtb_dto(clk_mgr_int, context, clk_mgr->clks.ref_dtbclk_khz);
  }
  
- unsigned long long mod_freesync_calc_nominal_field_rate(
++static unsigned int dcn35_get_max_clock_khz(struct clk_mgr *clk_mgr_base, enum clk_type clk_type)
++{
++	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++
++	unsigned int num_clk_levels;
++
++	switch (clk_type) {
++	case CLK_TYPE_DISPCLK:
++		num_clk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_dispclk_levels;
++		return num_clk_levels ?
++				clk_mgr->base.bw_params->clk_table.entries[num_clk_levels - 1].dispclk_mhz * 1000 :
++				clk_mgr->base.boot_snapshot.dispclk;
++	case CLK_TYPE_DPPCLK:
++		num_clk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_dppclk_levels;
++		return num_clk_levels ?
++				clk_mgr->base.bw_params->clk_table.entries[num_clk_levels - 1].dppclk_mhz * 1000 :
++				clk_mgr->base.boot_snapshot.dppclk;
++	case CLK_TYPE_DSCCLK:
++		num_clk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_dispclk_levels;
++		return num_clk_levels ?
++				clk_mgr->base.bw_params->clk_table.entries[num_clk_levels - 1].dispclk_mhz * 1000 / 3 :
++				clk_mgr->base.boot_snapshot.dispclk / 3;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
+ static struct clk_mgr_funcs dcn35_funcs = {
+ 	.get_dp_ref_clk_frequency = dce12_get_dp_ref_freq_khz,
+ 	.get_dtb_ref_clk_frequency = dcn31_get_dtb_ref_freq_khz,
+@@ -1306,6 +1335,7 @@ static struct clk_mgr_funcs dcn35_funcs = {
+ 	.set_low_power_state = dcn35_set_low_power_state,
+ 	.exit_low_power_state = dcn35_exit_low_power_state,
+ 	.is_ips_supported = dcn35_is_ips_supported,
++	.get_max_clock_khz = dcn35_get_max_clock_khz,
+ };
+ 
+ struct clk_mgr_funcs dcn35_fpga_funcs = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
+index f9c6377ac66c..e712985f7abd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
+@@ -28,9 +28,9 @@
+ #include "reg_helper.h"
+ 
+ static void dsc35_enable(struct display_stream_compressor *dsc, int opp_pipe);
++static void dsc35_get_single_enc_caps(struct dsc_enc_caps *dsc_enc_caps, unsigned int max_dscclk_khz);
+ 
+ static const struct dsc_funcs dcn35_dsc_funcs = {
+-	.dsc_get_enc_caps = dsc2_get_enc_caps,
+ 	.dsc_read_state = dsc2_read_state,
+ 	.dsc_read_reg_state = dsc2_read_reg_state,
+ 	.dsc_validate_stream = dsc2_validate_stream,
+@@ -40,6 +40,7 @@ static const struct dsc_funcs dcn35_dsc_funcs = {
+ 	.dsc_disable = dsc2_disable,
+ 	.dsc_disconnect = dsc2_disconnect,
+ 	.dsc_wait_disconnect_pending_clear = dsc2_wait_disconnect_pending_clear,
++	.dsc_get_single_enc_caps = dsc35_get_single_enc_caps,
+ };
+ 
+ /* Macro definitios for REG_SET macros*/
+@@ -111,3 +112,31 @@ void dsc35_set_fgcg(struct dcn20_dsc *dsc20, bool enable)
+ {
+ 	REG_UPDATE(DSC_TOP_CONTROL, DSC_FGCG_REP_DIS, !enable);
+ }
++
++void dsc35_get_single_enc_caps(struct dsc_enc_caps *dsc_enc_caps, unsigned int max_dscclk_khz)
++{
++	dsc_enc_caps->dsc_version = 0x21; /* v1.2 - DP spec defined it in reverse order and we kept it */
++
++	dsc_enc_caps->slice_caps.bits.NUM_SLICES_1 = 1;
++	dsc_enc_caps->slice_caps.bits.NUM_SLICES_2 = 1;
++	dsc_enc_caps->slice_caps.bits.NUM_SLICES_3 = 1;
++	dsc_enc_caps->slice_caps.bits.NUM_SLICES_4 = 1;
++
++	dsc_enc_caps->lb_bit_depth = 13;
++	dsc_enc_caps->is_block_pred_supported = true;
++
++	dsc_enc_caps->color_formats.bits.RGB = 1;
++	dsc_enc_caps->color_formats.bits.YCBCR_444 = 1;
++	dsc_enc_caps->color_formats.bits.YCBCR_SIMPLE_422 = 1;
++	dsc_enc_caps->color_formats.bits.YCBCR_NATIVE_422 = 0;
++	dsc_enc_caps->color_formats.bits.YCBCR_NATIVE_420 = 1;
++
++	dsc_enc_caps->color_depth.bits.COLOR_DEPTH_8_BPC = 1;
++	dsc_enc_caps->color_depth.bits.COLOR_DEPTH_10_BPC = 1;
++	dsc_enc_caps->color_depth.bits.COLOR_DEPTH_12_BPC = 1;
++
++	dsc_enc_caps->max_total_throughput_mps = max_dscclk_khz * 3 / 1000;
++
++	dsc_enc_caps->max_slice_width = 5184; /* (including 64 overlap pixels for eDP MSO mode) */
++	dsc_enc_caps->bpp_increment_div = 16; /* 1/16th of a bit */
++}
 -- 
 2.43.0
 
