@@ -4,69 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2CECCF9E3
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Nov 2025 20:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A66DCCF9E3
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 00:32:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E647110E341;
-	Tue,  4 Nov 2025 20:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1121210E083;
+	Wed,  5 Nov 2025 00:32:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P6uI6V87";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GvhCnams";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB1110E341
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Nov 2025 20:54:21 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-26808b24a00so9064635ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 Nov 2025 12:54:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762289661; x=1762894461; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=38CS4dMLyTmbuMX/PTgsXw2LlPgZlPhvukBjistHz9k=;
- b=P6uI6V87nffqyJCdjhtZPqSb2469CNBz0vTJ77ZwmQRn3uGi8x88KQuDEAQCyUS48n
- B+g5AuKRg7aBc9/3Eryje4Yg7SLAeb8cvhccSTbTHWtI6sSE5NjBFbuUCx7g7xeu5kO/
- VExMJGhLk//VsmgCPOP/PF9/cTgrOgH7m08xx7Oj3ex+3EOXcfMsFLBIBIjvPCi2GnLw
- V5uvk3Ha4d1H+ncrOgNMCe8G62J4eDfa+m+Z9EAEEGqZFW4M5BNGSiLPqtDGvH/NMJhc
- nJKaijGZ6p2GOlZVlm1fZXlt2TKnP/xwoYspLeR1IHqjPPXlWi0/cvTho9VZXoiug8Rw
- xIUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762289661; x=1762894461;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=38CS4dMLyTmbuMX/PTgsXw2LlPgZlPhvukBjistHz9k=;
- b=jb/PSDxvgxE4xfl3R2bwTCwaVgwizYSULsjDM6OaqFsXavbKecdfeLH4gT2OOmFOTI
- 1lchKT5loz58iWIx+Q77VhlE6sUQCZO4FHujVWaNOS127uJuitJR9y/PoH9yg02OQM2u
- RVbnWYLM/YiVi/e0t1YWMIh5P6T/mQkZZvQSheRoVfhHpImGFLpa4emC55WQxCv3T3LG
- 8Kr0B5sR2RtVkdyZQCJK2QBVA51n5ygsx5cIK6Fav8/jMoKdltn0IwFwAHxSqZjodLjF
- ty0FfC7ueSzO5H9ZvMbpF80Nk9BIVCzTqdMRLxo1Nfd1APR7brxBlGrEiZkKx4YNsJP5
- CQ7A==
-X-Gm-Message-State: AOJu0YzeAEe2W1Yx3/EC86K9krHJCEy5fc4//qh/fG14wzp16RH/DONL
- aS1iKB85/IGlKCGhzc+y5aQ/pEyBwqOwbPYnOleazFf/c0EmJxt4Oa0Nv/H9vd0XhpevYhEfy0e
- IQZKXD7KEAyVHYa9tgWW/7S/xulPzD4I=
-X-Gm-Gg: ASbGncs7SgnQZavMto4wLHv62bKwLtCBOTS+16fD8b586HX+YAmJpknPr23b9QCZDsF
- jYJ5t9Qm84DAHopD3kj6RkyG63IEAh/e0k0y66oKU3MafaeEuXBwEXdPXL+3vzcyHvrA1/mbW4a
- U7OoKT/qpmvxaLW+y8fQO6RU93v6pyLIChgxgfkM6iMGgHX4rB4HhBgBGHhSMPTAChFn+fkg37p
- xeYKxKiM6E5Nefb65LiK1Os40HidhdjKCWHUsrYXhDbL7Q2vhCkkcyP23jf
-X-Google-Smtp-Source: AGHT+IHHMKU61LBsrixlbXdXn4URT5baMbS/qHn+uHmdpJlefWeTpe7yKriq97k3AZ0ris6eAK+5YbdsWTjKwW3T9fI=
-X-Received: by 2002:a17:902:f689:b0:290:af0d:9381 with SMTP id
- d9443c01a7336-2962adb116cmr6586445ad.7.1762289659646; Tue, 04 Nov 2025
- 12:54:19 -0800 (PST)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55EA410E083
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 00:32:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=nMBX64HY6ud57rYCn97gmer/VzjljNyS106BECuGABY=; b=GvhCnams6D6+xs0EcWV3d859cd
+ oQBjcqZcybdfnKhv4erxrAM+e/46TZyiG2D5LbFt7f7V3+rPwI7rNVpE/OgTSpqY3bM3mQuu0ILzG
+ ikKD33cTpgX5hzCPOZY4KWijzWnVcCnDDPOkdxv3TVVfMjg0YW1ZYsOBpS/b58JiRcawL3WurFa7u
+ iJnUNEv6wxhNmtWzN2+7IVJ/JXh5jlEv1Xw4tp9riG9kL6+QH5SIJrWXTk1kXAvxvV7zNzHauXUPC
+ S+hNF5yqUfwx4+u1jgZq21i8p2RkOLv8yjQ7Wj0zJnQxVyIniZyOKJrxQpsM5gh9GyRah8bryKflp
+ 3bLIoaDw==;
+Received: from [104.193.135.201] (helo=debian.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vGRRV-001eBU-Uj; Wed, 05 Nov 2025 01:32:06 +0100
+Date: Tue, 4 Nov 2025 17:32:01 -0700
+From: Rodrigo Siqueira <siqueira@igalia.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Robert Beckett <bob.beckett@collabora.com>, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+Subject: Re: [PATCH v3] drm/amdgpu: Fix GFX hang on SteamDeck when amdgpu is
+ reloaded
+Message-ID: <kfkpxu5xve4stdr7nkvqfwpj3a763237udvo5ki6qgq6gimdmo@e6c77y2u2rff>
+References: <20251020161606.67812-1-siqueira@igalia.com>
 MIME-Version: 1.0
-References: <20251104163932.263193-1-David.Wu3@amd.com>
-In-Reply-To: <20251104163932.263193-1-David.Wu3@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 4 Nov 2025 15:54:07 -0500
-X-Gm-Features: AWmQ_bmWNnzIXDn9yGQdjMBxlVo3zf86Lejmrt1GGYrkwSKff35q4ej17tifxZE
-Message-ID: <CADnq5_N1O6Yy77tZgWZxDb3Qv7R_e2M=u+HxKX6Px-WHy_SuKA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/userq: check NULL pointer
-To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, 
- alexander.deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251020161606.67812-1-siqueira@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,46 +60,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 4, 2025 at 11:56=E2=80=AFAM David (Ming Qiang) Wu <David.Wu3@am=
-d.com> wrote:
->
-> bo could be NULL in the vm->done list and the
-> access of it must be avoided.
->
-> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
-
-Sunil already fixed this in:
-commit b15e3cc46803daf49625ab3289d103c437310ec3
-Author: Sunil Khatri <sunil.khatri@amd.com>
-Date:   Fri Oct 31 14:10:13 2025 +0530
-
-    drm/amdgpu: validate the bo from done list for NULL
-
-    Make sure the bo is valid before using it.
-
-    Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-    Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-
-
+On 10/20, Rodrigo Siqueira wrote:
+> When trying to unload amdgpu in the SteamDeck (TTY mode), the following
+> set of errors happens and the system gets unstable:
+> 
+> [..]
+>  [drm] Initialized amdgpu 3.64.0 for 0000:04:00.0 on minor 0
+>  amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test failed on gfx_0.0.0 (-110).
+>  amdgpu 0000:04:00.0: amdgpu: ib ring test failed (-110).
+> [..]
+>  amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
+>  amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
+>  amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
+>  amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
+> [..]
+> 
+> When the driver initializes the GPU, the PSP validates all the firmware
+> loaded, and after that, it is not possible to load any other firmware
+> unless the device is reset. What is happening in the load/unload
+> situation is that PSP halts the GC engine because it suspects that
+> something is amiss. To address this issue, this commit ensures that the
+> GPU is reset (mode 2 reset) in the unload sequence.
+> 
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 0d5585bc3b04..0a7bcb2d5a50 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3649,6 +3649,13 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
+>  				"failed to release exclusive mode on fini\n");
+>  	}
+>  
+> +	/* Reset the device before entirely removing it to avoid load issues
+> +	 * caused by firmware validation.
+> +	 */
+> +	r = amdgpu_asic_reset(adev);
+> +	if (r)
+> +		dev_err(adev->dev, "asic reset on %s failed\n", __func__);
+> +
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.51.0
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index cc2f96ed7004..d0ff226c6dc1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -943,7 +943,7 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr *uq_=
-mgr)
->         list_for_each_entry(bo_va, &vm->done, base.vm_status) {
->                 bo =3D bo_va->base.bo;
->
-> -               if (!amdgpu_ttm_tt_is_userptr(bo->tbo.ttm))
-> +               if (!bo || !amdgpu_ttm_tt_is_userptr(bo->tbo.ttm))
->                         continue;
->
->                 range =3D xa_load(&xa, key);
-> --
-> 2.43.0
->
+
+Hi,
+
+I just want to follow-up about this patch. Do I need to make any other
+modification?
+
+Thanks
+
+-- 
+Rodrigo Siqueira
