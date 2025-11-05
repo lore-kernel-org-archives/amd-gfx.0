@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1983BCCFA1C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C431CCFA1B
 	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 15:41:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B7F810E700;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA6FB10E75D;
 	Wed,  5 Nov 2025 15:41:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xPgkYZy1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gc2OqcXV";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013056.outbound.protection.outlook.com
- [40.107.201.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C24110E2D2
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 15:41:08 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011056.outbound.protection.outlook.com [52.101.62.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0BCC10E700
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 15:41:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rPk4KiBjl07R8s3xh9NxBmwwt1J2CVfRBjN3+5511XMz0mmxTlHSOumCkXwBUQe5O4nqaCfzfs0thM+fB/mAZrWODzU8c3tSHNZkSGt3ZC8jvuDdW6TqNCwSybs3sA+u6DVO+5QsmGtKaqrD24adObfiVVrV2DqhQJhGoROB6Xb5t0HMIBMc093e3Fov6FhOkG1iUVGsiNBmnJDd6sjo5kw4SyWFDVJgryvoxJbhlSGQEUm1P3WljH3geTu3Lrcd/j6oVHAmdMmEuCKv5BxM17x8ieaZ2y3bpo1pXPFurN1TCvTBooEswLPLk0iZJVs5vx44KJZ1E+TDbT6Q8f9Jpw==
+ b=FGZ+anZyUG0GcooU890+UJrFrs5DZgZDDo2y5ItJUK20xvNtgHZw5MXCiXc9kqzGNlj63/VbqE6PFKfZraTewvVbRARVFa8vOzgQ/YVe32/4ug9tZE9rxk3k2nCGzrYA4WgKre4/IsMQBs3gGbMnLzMbgMPbNxccGt0mFIz6T/pMvJzHf/Xuvzcf1OfsqSmS7DyNm5R3o6NqGGLDA0+g5TuRq2HSaZtK6S0CtGhb43taA+4Rr74t/ClxSW4M7c7Yf7C/N0/uOTFOZPX5cKXvyRPlly7qzwOiqLUzLUgbVdQFp032vlm9l2Y3uXAGKuGtMMpmX99Jin2dcAlZYhvarw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2TTyg/5deR6agk/bg67mTr9UmkkLAu2ub401sCPdUfE=;
- b=JCauyhfmKAqs9SeWI0XJ8W+iiFy1khPdIo6pYPTMhzFinrxu7+c/T6OUr+HeL1izp0c52E38nE6uXhGKCCg7qivrdXeqpGoRuj4poMEI+Ft7b+t4a8Wu/B9N3b7sjVaKEteBi7Z1/iJPXaVXo1nR339VBUrFuzukxnUZb2KZnVkxFXnpYXZHmYeuQ62mxG5vvIl0Ju5pfxO58lvPXc+iZpjytfJ4rKgC5WSGBl+tW9h+FTKH2PKVxCkHVR38muVgF85tVCCkKDfsOwVUiLzby+R0sEhq3IwAcG1w8Rg6IxVVXNkNNDMXbGReUe7g/BgENhZ7MufEtWOYOnYdcAJUEA==
+ bh=I8XbYUbity0hRe2PXNvQMIR1fSk+LJ8iqA252dl//iE=;
+ b=uNeCNFFj0C1duv8sgQJ0FAJzSTCqQRYs7zazAnKPbjXeAN8BQm99RdzQhHkRYMuSrk4iJbctNa2vVpTl522n7U817DY69U5zgw+EISUlsMGgAs6fXy/c9O1xb5uI1QqF8kdiS92W7E0vg1uoKSRgXS3JmhbKBmFvytTpd4GIctB5STintm65WX0w3sV+ZBNQcsNe82na5FYQ8TDBQlRbrWU9pIvF8d1uSAe/nC1Fy0tCGX6JP45vjlVV6y3fpjI/9UIXGsP6uFMgsS1bvpekpPcr95vGrPRQ7upJSeW5RwRt+xN8VftRw7kZk4MNPgDZAiUKe4nz0kO8nqhOCa7u7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2TTyg/5deR6agk/bg67mTr9UmkkLAu2ub401sCPdUfE=;
- b=xPgkYZy1mG7G334u+fQtDf+moQ7UGtbJSf4mQnXTVniuoAJ9TAyqWTXKFo/p1/uY46t/sNYzQVjw+t2LbqkCkBXCJhAQvyFmErr6GfmnkTdFP7JY9zkgsXM9J73bv8aqIYR7BoeBuSLk7DKpGej8o7kYFxdT2vtaroRtxYmfpkk=
-Received: from BN0PR04CA0013.namprd04.prod.outlook.com (2603:10b6:408:ee::18)
- by CH3PR12MB7523.namprd12.prod.outlook.com (2603:10b6:610:148::13)
+ bh=I8XbYUbity0hRe2PXNvQMIR1fSk+LJ8iqA252dl//iE=;
+ b=gc2OqcXVggQ6YYocFoNfaTJkeC3Nu/el69x3lZ6iIdzKTYA7uarJuoIU9yxp/72424HK+zYInkMLceEuJPO19+V94N4orZgI5YM2ZWowXqcle5X8VUka/eFLsBvJ36oUE19C7YupTgFZp4NHxMlvVPZGalWjeDABD7oCBi2n6Lc=
+Received: from BN1PR10CA0022.namprd10.prod.outlook.com (2603:10b6:408:e0::27)
+ by SA1PR12MB9491.namprd12.prod.outlook.com (2603:10b6:806:458::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.7; Wed, 5 Nov
- 2025 15:41:04 +0000
-Received: from BN1PEPF0000468A.namprd05.prod.outlook.com
- (2603:10b6:408:ee:cafe::de) by BN0PR04CA0013.outlook.office365.com
- (2603:10b6:408:ee::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.8 via Frontend Transport; Wed, 5
- Nov 2025 15:41:04 +0000
+ 2025 15:41:05 +0000
+Received: from BN1PEPF0000468C.namprd05.prod.outlook.com
+ (2603:10b6:408:e0:cafe::38) by BN1PR10CA0022.outlook.office365.com
+ (2603:10b6:408:e0::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.16 via Frontend Transport; Wed,
+ 5 Nov 2025 15:41:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0000468A.mail.protection.outlook.com (10.167.243.135) with Microsoft
+ BN1PEPF0000468C.mail.protection.outlook.com (10.167.243.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.6 via Frontend Transport; Wed, 5 Nov 2025 15:41:03 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb07.amd.com
+ 15.20.9298.6 via Frontend Transport; Wed, 5 Nov 2025 15:41:04 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 5 Nov
- 2025 07:40:54 -0800
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Nov
- 2025 09:40:54 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 5 Nov
+ 2025 07:40:56 -0800
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 5 Nov
+ 2025 07:40:55 -0800
 Received: from jzuo-laptop.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 5 Nov 2025 07:40:53 -0800
+ Transport; Wed, 5 Nov 2025 07:40:55 -0800
 From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,12 +69,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Mohit Bawa <Mohit.Bawa@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>, Charlene Liu <charlene.liu@amd.com>, "Wenjing
- Liu" <wenjing.liu@amd.com>
-Subject: [PATCH 06/13] drm/amd/display: refactor DSC cap calculation for dcn35
-Date: Wed, 5 Nov 2025 10:36:21 -0500
-Message-ID: <20251105154035.883188-7-Jerry.Zuo@amd.com>
+ <alex.hung@amd.com>, Chuntao Tso <chunttso@amd.com>, Robin Chen
+ <robin.chen@amd.com>
+Subject: [PATCH 08/13] drm/amd/display: To support Replay frame skip mode
+Date: Wed, 5 Nov 2025 10:36:23 -0500
+Message-ID: <20251105154035.883188-9-Jerry.Zuo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251105154035.883188-1-Jerry.Zuo@amd.com>
 References: <20251105154035.883188-1-Jerry.Zuo@amd.com>
@@ -84,53 +82,53 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|CH3PR12MB7523:EE_
-X-MS-Office365-Filtering-Correlation-Id: cae369ed-58ba-4422-8aa4-08de1c81ba8d
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468C:EE_|SA1PR12MB9491:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4123fcc-e745-4f75-2b92-08de1c81bb03
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5V9uaIhJkXIPoAuN1QW49cw5qPxe8qpKXmdDS5/OXbTWd67t7CLi4SnLeXAv?=
- =?us-ascii?Q?bXHqps49Gos5nro4i3wsIlzIdt9KgJSJLewKIerwoqf51iXCp7gb7/pTlK1h?=
- =?us-ascii?Q?0TRzN6VN9piMZzG82bejEdaxewxQBazpgtxiSzZbOoeVEmBkw5aK83EYUeuk?=
- =?us-ascii?Q?lVsbtGdZCmjQCt0zEQyIt+CC9iuSIyY3BLxjvmp3uGULW8i0SUBNF+VObAJr?=
- =?us-ascii?Q?AG8stlMzQ1HyfAwLHe6iknDCTZ6bnLKSOvsPqVhSQpBfl16DJBq2NkULsE/1?=
- =?us-ascii?Q?oEPm1NEsfXvxWpyqE+etrCLlcGbwAF9sG/Ph6RU1zD4Xc+Gy4xdAZDsCmNRY?=
- =?us-ascii?Q?FIr5KxABL4QXCXSx4ar95Mg3LGKGIo4w+uxPK6sA4GPDwaVMNQyqXS0uud2s?=
- =?us-ascii?Q?yV71gNjdtE4xoARDpRvqnSfi9JIwYlfmQ80PpnNq7PfKt9Akf+75F+6kj8gJ?=
- =?us-ascii?Q?rsQdvIW3jFt1aoXN4WcRDsQTdzNSnk5R/Tr+xA7SRPRU29bHGC/OeFvC1x/H?=
- =?us-ascii?Q?dgn/VUluDgF+l3SlFtV0M4vf0F7NjLXXYhZ8ASPJvQ2qllcDRw02jFQYOh4n?=
- =?us-ascii?Q?+C65AwcTs9cGM/LUZNtYF7FQ/y1tNm5BBJdK07IqltGwR4tF5scGGQF60Zq1?=
- =?us-ascii?Q?gBVTHtiRIfcLQpxmeUJpIlTBTlCUjY7eZ+Xg0a1D3KSqpHI0BsnZdyn4sRAK?=
- =?us-ascii?Q?Kguq9g1KtRtsQpO8kW26gd+JkJ8wUxyEZCsIPw6xbFFjnDav8pbbnoQJtJD2?=
- =?us-ascii?Q?pjlD7m+yV3kSq3nhYc5uHL75jBuCkh1OPRZHCFOfPvK+RX3XZr6a139lIX8y?=
- =?us-ascii?Q?wBWmkkk0kz5mG0ZNzUqQhemj9azMbUlVagegjwb9SP5ZA/l+K9zZ/54Fst7D?=
- =?us-ascii?Q?3Xc16+GKLEOWDQ2Bdktc5RrfBn0BopGdwKcq3GJNmLH3waKHxnwl6R0X6eaL?=
- =?us-ascii?Q?jc54yYOYQgngNbzMntKXF95US41JUGOnocym2xasgAQyI7xzwJ6hNhpUwjyF?=
- =?us-ascii?Q?VXJ4uFnrjKLjuqgp31LQMdLxeIRGhso4Bssedrw3qm9RiZkW2Gd4sEO1lG1a?=
- =?us-ascii?Q?hP0lUTudUencVbn/RIbS6R2DKRlb0NA5aShXrzV6UKbFqVwkcVkLm9tBc+EQ?=
- =?us-ascii?Q?4vtf/ykI4wnmd+2JePebjN2f0xUjkJWpoQg3l+sj+ey6llUOisANtaawa2+Q?=
- =?us-ascii?Q?80MVYbfqEP7vRrw4z9ke+rvME1tFnjv7Jca2a5XRo9O6g4w/nnubARze1ues?=
- =?us-ascii?Q?Br0E4zfYNdoGoTcKvQDCpnHFjC5piZGmJuNhx0kwKG8BoJ6NwLW1r6fZQvYH?=
- =?us-ascii?Q?0nfqauY3sQs8farxliIwFP+73vq57OonuFhW2DNh2a9mYhM9djPslWH/3KTh?=
- =?us-ascii?Q?Sv/Ep2q9EAZBna9w8Uxpd2buS4ZmEItzREKL1/1NXAGelBwsnEIBJX4bXCxZ?=
- =?us-ascii?Q?c9yG3DkL2el7izcNhiYFQxPoqIlx0NZSx5n/DISRc8WMHzESsXTUC03WD8Bf?=
- =?us-ascii?Q?eWNOLmiFvy+aKgLgbeZyu86DqTjtu/LYWTHrv6zUKya6D/GHFgsroQ0PMDKo?=
- =?us-ascii?Q?l21YIB4lhoONr1QyugE=3D?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?9OICAvvQ3oXZGSuH4CTFBovEhIYThzMTjIQTPWN+q4JtgrMW/t93jmdGo1vV?=
+ =?us-ascii?Q?6p53TqP4Jmqih0yS4ECJzwXHqOrREl20ECERcNKpoW5SNO6aycikgFgryQLW?=
+ =?us-ascii?Q?OLM5Gs6374M+Gey/UroivjhgMmQ2hqWbQO3qUAQy0BUT3LOj2Z8kjIg09E25?=
+ =?us-ascii?Q?tBZqMBa2JpB8+7cv+HOHdwPMI4HRmtpFeAqTis2teAsrFoxHUzWjQVTLIPQg?=
+ =?us-ascii?Q?rpx3brOM3nj+KdQYGfPbNTbRzeuWX08Cg9AFUK8lXprembHTqt/QE3Z7niWu?=
+ =?us-ascii?Q?zL5p5XUK6xcB3htJUFMnYSnGZR/DHjOXEHymvjPHLUooKdHiCvIjswl7J/GG?=
+ =?us-ascii?Q?Sm3vkWKKZo6wtmIVsmnK49cHPAYCwWb0y6EYII/d7rTEKJPNsL5Di0m4+NFl?=
+ =?us-ascii?Q?5w4uY5oLqBiera1ZW7ZmCTUqItPqFciz1HFlC2xrm4zKEXpUANM6QM5lftyr?=
+ =?us-ascii?Q?9gl/JO7DGE3GL2UhLKGrW7APf4QYBXp4bu1IYEdXUvRxMsJ/fcs5k+HCONBN?=
+ =?us-ascii?Q?z3piglP5MKdYE/7/M4Ydn6462I0oLcwPY8uyVZtiktkMH+INWLcQ3Br4UTu9?=
+ =?us-ascii?Q?v/AVpvTb4tRf0F7y7o9Ka8CcieIqchMkmgQbozvC3Csg0Vjnyx4/p0wDSGkf?=
+ =?us-ascii?Q?v1JCxPuzPN+Y7tOALWEckXLLfBYWcpqQDz9b7gAorwY9yMT1BefymJfd/ba9?=
+ =?us-ascii?Q?87tWD9l6DbekgmMAD58YhM+y4iyK41ihP9c/34xahIUh1xzXoD3puauqLv6W?=
+ =?us-ascii?Q?rZaGida2lj5MZTTdNFiPjfhKfUR18JEViYktzN8ey1RKQNT+3RzXVY5sXrFL?=
+ =?us-ascii?Q?ehTISybia+5B0zlaYARh669I8nEzyYHXg+DlIGmux0PHmjeYR/SUPRmO3XoW?=
+ =?us-ascii?Q?+YzHn0fSHnD5EGzRVMp+DhvKshrOG3MZKcIGvNKERXjxD6gZCh8hILocJTCQ?=
+ =?us-ascii?Q?9axGtnyyzVMlnDAP+V5IjudelGOsQAgrJ/cqG/MyJbCJWC4jTGaN8kLlHqHx?=
+ =?us-ascii?Q?BGpJp2HXNRw7otWdpW3X+OxLuFfKIqXrWAWcd9V0nZJay/Ct0WcS0acKpvwa?=
+ =?us-ascii?Q?HAEv/YIoEeCKwmpJk9Ho7YAMZihOUAacLhyLZWIc6K8Lw6YzSlTk6lH4c8Yy?=
+ =?us-ascii?Q?7uAqfeTdcPs1wx2sqVfrsLv/NSuHxRbg6lRENO8I64+YwmYBc2J+CDDcKXjR?=
+ =?us-ascii?Q?CqfqCSapzyclST+YblXffY7BS9qawjqGd9KmKmG/sxLQAnCBzfk7qUvo/KtG?=
+ =?us-ascii?Q?Y4X/iJicvXR1S3Gmna+tlk0qTFr4lTZhQ9zLlPULBPU3XFrKvmNVJgrchQvp?=
+ =?us-ascii?Q?JyZvdUNAy+ezir5SDfaTo5UaNmjJKcht6pin52qm1TU2a76HvVW7Vdna4G8m?=
+ =?us-ascii?Q?Qs/p3PL1KWOgM8DN3FDP4ZC9SBgTzjp5I45wvk0c0W6PZsrKOek9a/BKaeZV?=
+ =?us-ascii?Q?YKGUITPH33cFGWLbhp8KRKR8++0+ky0bDDAOT84EGR4jBECuZ9vL0KfmGNG4?=
+ =?us-ascii?Q?tDzLPRoM7hk9n9NO3DQFawmpqIUCQrtgu0UdsuW0VsG4/50bQNDGjrW5jrl1?=
+ =?us-ascii?Q?0apU8TVYJBJStBXg2bI=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 15:41:03.8971 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cae369ed-58ba-4422-8aa4-08de1c81ba8d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 15:41:04.6665 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4123fcc-e745-4f75-2b92-08de1c81bb03
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468C.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7523
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,131 +143,279 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mohit Bawa <Mohit.Bawa@amd.com>
+From: Chuntao Tso <chunttso@amd.com>
 
-why:
-dcn35 currently uses a hardcoded DSC display clock value which is incorrect
-for some asic types. Newer DCN versions retrieve dsc display clock from
-clk_mgr. The same can be done for dcn35.
+[Why & How]
+The change is to optimize the Replay power saving by
+reducing the refresh rate with frame skipping mode
 
-how:
-Refactor the DSC cap calculation using pre-existing logic.
-Handle ODM combine requirements in dc_dsc.c.
-Replace hardcoded display clock with actual value retrieved from clk_mgr.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Mohit Bawa <Mohit.Bawa@amd.com>
+Reviewed-by: Robin Chen <robin.chen@amd.com>
+Signed-off-by: Chuntao Tso <chunttso@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
- .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 30 ++++++++++++++++++
- .../drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c  | 31 ++++++++++++++++++-
- 2 files changed, 60 insertions(+), 1 deletion(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_replay.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  6 ++++
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.c  |  7 +++--
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.h  |  5 ++--
+ .../gpu/drm/amd/display/dc/inc/link_service.h |  4 +--
+ .../link/protocols/link_edp_panel_control.c   | 17 +++++++----
+ .../link/protocols/link_edp_panel_control.h   |  4 +--
+ .../amd/display/modules/power/power_helpers.c | 30 +++++++++++++++++++
+ .../amd/display/modules/power/power_helpers.h |  5 ++++
+ 9 files changed, 65 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 35d20a663d67..dfd0c9505af0 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -1295,6 +1295,35 @@ static void dcn35_update_clocks_fpga(struct clk_mgr *clk_mgr,
- 	dcn35_update_clocks_update_dtb_dto(clk_mgr_int, context, clk_mgr->clks.ref_dtbclk_khz);
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+index 80704d709e44..da94e3544b65 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+@@ -162,7 +162,7 @@ bool amdgpu_dm_replay_enable(struct dc_stream_state *stream, bool wait)
  
-+static unsigned int dcn35_get_max_clock_khz(struct clk_mgr *clk_mgr_base, enum clk_type clk_type)
-+{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+
-+	unsigned int num_clk_levels;
-+
-+	switch (clk_type) {
-+	case CLK_TYPE_DISPCLK:
-+		num_clk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_dispclk_levels;
-+		return num_clk_levels ?
-+				clk_mgr->base.bw_params->clk_table.entries[num_clk_levels - 1].dispclk_mhz * 1000 :
-+				clk_mgr->base.boot_snapshot.dispclk;
-+	case CLK_TYPE_DPPCLK:
-+		num_clk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_dppclk_levels;
-+		return num_clk_levels ?
-+				clk_mgr->base.bw_params->clk_table.entries[num_clk_levels - 1].dppclk_mhz * 1000 :
-+				clk_mgr->base.boot_snapshot.dppclk;
-+	case CLK_TYPE_DSCCLK:
-+		num_clk_levels = clk_mgr->base.bw_params->clk_table.num_entries_per_clk.num_dispclk_levels;
-+		return num_clk_levels ?
-+				clk_mgr->base.bw_params->clk_table.entries[num_clk_levels - 1].dispclk_mhz * 1000 / 3 :
-+				clk_mgr->base.boot_snapshot.dispclk / 3;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
- static struct clk_mgr_funcs dcn35_funcs = {
- 	.get_dp_ref_clk_frequency = dce12_get_dp_ref_freq_khz,
- 	.get_dtb_ref_clk_frequency = dcn31_get_dtb_ref_freq_khz,
-@@ -1306,6 +1335,7 @@ static struct clk_mgr_funcs dcn35_funcs = {
- 	.set_low_power_state = dcn35_set_low_power_state,
- 	.exit_low_power_state = dcn35_exit_low_power_state,
- 	.is_ips_supported = dcn35_is_ips_supported,
-+	.get_max_clock_khz = dcn35_get_max_clock_khz,
+ 	if (link) {
+ 		link->dc->link_srv->edp_setup_replay(link, stream);
+-		link->dc->link_srv->edp_set_coasting_vtotal(link, stream->timing.v_total);
++		link->dc->link_srv->edp_set_coasting_vtotal(link, stream->timing.v_total, 0);
+ 		DRM_DEBUG_DRIVER("Enabling replay...\n");
+ 		link->dc->link_srv->edp_set_replay_allow_active(link, &replay_active, wait, false, NULL);
+ 		return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index ea6b71c43d2c..0495e6cfcca0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -1184,6 +1184,10 @@ struct replay_settings {
+ 	uint32_t coasting_vtotal_table[PR_COASTING_TYPE_NUM];
+ 	/* Defer Update Coasting vtotal table */
+ 	uint32_t defer_update_coasting_vtotal_table[PR_COASTING_TYPE_NUM];
++	/* Skip frame number table */
++	uint32_t frame_skip_number_table[PR_COASTING_TYPE_NUM];
++	/* Defer skip frame number table */
++	uint32_t defer_frame_skip_number_table[PR_COASTING_TYPE_NUM];
+ 	/* Maximum link off frame count */
+ 	uint32_t link_off_frame_count;
+ 	/* Replay pseudo vtotal for low refresh rate*/
+@@ -1192,6 +1196,8 @@ struct replay_settings {
+ 	uint16_t last_pseudo_vtotal;
+ 	/* Replay desync error */
+ 	uint32_t replay_desync_error_fail_count;
++	/* The frame skip number dal send to DMUB */
++	uint16_t frame_skip_number;
  };
  
- struct clk_mgr_funcs dcn35_fpga_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
-index f9c6377ac66c..e712985f7abd 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
-@@ -28,9 +28,9 @@
- #include "reg_helper.h"
- 
- static void dsc35_enable(struct display_stream_compressor *dsc, int opp_pipe);
-+static void dsc35_get_single_enc_caps(struct dsc_enc_caps *dsc_enc_caps, unsigned int max_dscclk_khz);
- 
- static const struct dsc_funcs dcn35_dsc_funcs = {
--	.dsc_get_enc_caps = dsc2_get_enc_caps,
- 	.dsc_read_state = dsc2_read_state,
- 	.dsc_read_reg_state = dsc2_read_reg_state,
- 	.dsc_validate_stream = dsc2_validate_stream,
-@@ -40,6 +40,7 @@ static const struct dsc_funcs dcn35_dsc_funcs = {
- 	.dsc_disable = dsc2_disable,
- 	.dsc_disconnect = dsc2_disconnect,
- 	.dsc_wait_disconnect_pending_clear = dsc2_wait_disconnect_pending_clear,
-+	.dsc_get_single_enc_caps = dsc35_get_single_enc_caps,
- };
- 
- /* Macro definitios for REG_SET macros*/
-@@ -111,3 +112,31 @@ void dsc35_set_fgcg(struct dcn20_dsc *dsc20, bool enable)
+ /* To split out "global" and "per-panel" config settings.
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+index f9542edff14b..fd8244c94687 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+@@ -213,7 +213,8 @@ static bool dmub_replay_copy_settings(struct dmub_replay *dmub,
+  */
+ static void dmub_replay_set_coasting_vtotal(struct dmub_replay *dmub,
+ 		uint32_t coasting_vtotal,
+-		uint8_t panel_inst)
++		uint8_t panel_inst,
++		uint16_t frame_skip_number)
  {
- 	REG_UPDATE(DSC_TOP_CONTROL, DSC_FGCG_REP_DIS, !enable);
+ 	union dmub_rb_cmd cmd;
+ 	struct dc_context *dc = dmub->ctx;
+@@ -227,6 +228,7 @@ static void dmub_replay_set_coasting_vtotal(struct dmub_replay *dmub,
+ 	pCmd->header.payload_bytes = sizeof(struct dmub_cmd_replay_set_coasting_vtotal_data);
+ 	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal = (coasting_vtotal & 0xFFFF);
+ 	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal_high = (coasting_vtotal & 0xFFFF0000) >> 16;
++	pCmd->replay_set_coasting_vtotal_data.frame_skip_number = frame_skip_number;
+ 
+ 	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
  }
-+
-+void dsc35_get_single_enc_caps(struct dsc_enc_caps *dsc_enc_caps, unsigned int max_dscclk_khz)
+@@ -283,7 +285,7 @@ static void dmub_replay_residency(struct dmub_replay *dmub, uint8_t panel_inst,
+  * Set REPLAY power optimization flags and coasting vtotal.
+  */
+ static void dmub_replay_set_power_opt_and_coasting_vtotal(struct dmub_replay *dmub,
+-		unsigned int power_opt, uint8_t panel_inst, uint32_t coasting_vtotal)
++		unsigned int power_opt, uint8_t panel_inst, uint32_t coasting_vtotal, uint16_t frame_skip_number)
+ {
+ 	union dmub_rb_cmd cmd;
+ 	struct dc_context *dc = dmub->ctx;
+@@ -301,6 +303,7 @@ static void dmub_replay_set_power_opt_and_coasting_vtotal(struct dmub_replay *dm
+ 	pCmd->replay_set_power_opt_data.panel_inst = panel_inst;
+ 	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal = (coasting_vtotal & 0xFFFF);
+ 	pCmd->replay_set_coasting_vtotal_data.coasting_vtotal_high = (coasting_vtotal & 0xFFFF0000) >> 16;
++	pCmd->replay_set_coasting_vtotal_data.frame_skip_number = frame_skip_number;
+ 
+ 	dc_wake_and_execute_dmub_cmd(dc, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
+index e6346c0ffc0e..07c79739a980 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
+@@ -27,11 +27,12 @@ struct dmub_replay_funcs {
+ 	void (*replay_send_cmd)(struct dmub_replay *dmub,
+ 		enum replay_FW_Message_type msg, union dmub_replay_cmd_set *cmd_element);
+ 	void (*replay_set_coasting_vtotal)(struct dmub_replay *dmub, uint32_t coasting_vtotal,
+-		uint8_t panel_inst);
++		uint8_t panel_inst, uint16_t frame_skip_number);
+ 	void (*replay_residency)(struct dmub_replay *dmub,
+ 		uint8_t panel_inst, uint32_t *residency, const bool is_start, const enum pr_residency_mode mode);
+ 	void (*replay_set_power_opt_and_coasting_vtotal)(struct dmub_replay *dmub,
+-		unsigned int power_opt, uint8_t panel_inst, uint32_t coasting_vtotal);
++		unsigned int power_opt, uint8_t panel_inst, uint32_t coasting_vtotal,
++		uint16_t frame_skip_number);
+ };
+ 
+ struct dmub_replay *dmub_replay_create(struct dc_context *ctx);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_service.h b/drivers/gpu/drm/amd/display/dc/inc/link_service.h
+index 1e34e84160aa..6f94e48a24d1 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/link_service.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/link_service.h
+@@ -292,12 +292,12 @@ struct link_service {
+ 			enum replay_FW_Message_type msg,
+ 			union dmub_replay_cmd_set *cmd_data);
+ 	bool (*edp_set_coasting_vtotal)(
+-			struct dc_link *link, uint32_t coasting_vtotal);
++			struct dc_link *link, uint32_t coasting_vtotal, uint16_t frame_skip_number);
+ 	bool (*edp_replay_residency)(const struct dc_link *link,
+ 			unsigned int *residency, const bool is_start,
+ 			const enum pr_residency_mode mode);
+ 	bool (*edp_set_replay_power_opt_and_coasting_vtotal)(struct dc_link *link,
+-			const unsigned int *power_opts, uint32_t coasting_vtotal);
++			const unsigned int *power_opts, uint32_t coasting_vtotal, uint16_t frame_skip_number);
+ 
+ 	bool (*edp_wait_for_t12)(struct dc_link *link);
+ 	bool (*edp_is_ilr_optimization_required)(struct dc_link *link,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index 5e806edbb9f6..9391c75a30e5 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -1110,7 +1110,7 @@ bool edp_send_replay_cmd(struct dc_link *link,
+ 	return true;
+ }
+ 
+-bool edp_set_coasting_vtotal(struct dc_link *link, uint32_t coasting_vtotal)
++bool edp_set_coasting_vtotal(struct dc_link *link, uint32_t coasting_vtotal, uint16_t frame_skip_number)
+ {
+ 	struct dc *dc = link->ctx->dc;
+ 	struct dmub_replay *replay = dc->res_pool->replay;
+@@ -1122,9 +1122,11 @@ bool edp_set_coasting_vtotal(struct dc_link *link, uint32_t coasting_vtotal)
+ 	if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
+ 		return false;
+ 
+-	if (coasting_vtotal && link->replay_settings.coasting_vtotal != coasting_vtotal) {
+-		replay->funcs->replay_set_coasting_vtotal(replay, coasting_vtotal, panel_inst);
++	if (coasting_vtotal && (link->replay_settings.coasting_vtotal != coasting_vtotal ||
++		link->replay_settings.frame_skip_number != frame_skip_number)) {
++		replay->funcs->replay_set_coasting_vtotal(replay, coasting_vtotal, panel_inst, frame_skip_number);
+ 		link->replay_settings.coasting_vtotal = coasting_vtotal;
++		link->replay_settings.frame_skip_number = frame_skip_number;
+ 	}
+ 
+ 	return true;
+@@ -1152,7 +1154,7 @@ bool edp_replay_residency(const struct dc_link *link,
+ }
+ 
+ bool edp_set_replay_power_opt_and_coasting_vtotal(struct dc_link *link,
+-	const unsigned int *power_opts, uint32_t coasting_vtotal)
++	const unsigned int *power_opts, uint32_t coasting_vtotal, uint16_t frame_skip_number)
+ {
+ 	struct dc  *dc = link->ctx->dc;
+ 	struct dmub_replay *replay = dc->res_pool->replay;
+@@ -1163,13 +1165,16 @@ bool edp_set_replay_power_opt_and_coasting_vtotal(struct dc_link *link,
+ 
+ 	/* Only both power and coasting vtotal changed, this func could return true */
+ 	if (power_opts && link->replay_settings.replay_power_opt_active != *power_opts &&
+-		coasting_vtotal && link->replay_settings.coasting_vtotal != coasting_vtotal) {
++		(coasting_vtotal &&
++		(link->replay_settings.coasting_vtotal != coasting_vtotal ||
++		link->replay_settings.frame_skip_number != frame_skip_number))) {
+ 		if (link->replay_settings.replay_feature_enabled &&
+ 			replay->funcs->replay_set_power_opt_and_coasting_vtotal) {
+ 			replay->funcs->replay_set_power_opt_and_coasting_vtotal(replay,
+-				*power_opts, panel_inst, coasting_vtotal);
++				*power_opts, panel_inst, coasting_vtotal, frame_skip_number);
+ 			link->replay_settings.replay_power_opt_active = *power_opts;
+ 			link->replay_settings.coasting_vtotal = coasting_vtotal;
++			link->replay_settings.frame_skip_number = frame_skip_number;
+ 		} else
+ 			return false;
+ 	} else
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
+index 62a6344e613e..dd79c7cd2828 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
+@@ -59,12 +59,12 @@ bool edp_setup_replay(struct dc_link *link,
+ bool edp_send_replay_cmd(struct dc_link *link,
+ 			enum replay_FW_Message_type msg,
+ 			union dmub_replay_cmd_set *cmd_data);
+-bool edp_set_coasting_vtotal(struct dc_link *link, uint32_t coasting_vtotal);
++bool edp_set_coasting_vtotal(struct dc_link *link, uint32_t coasting_vtotal, uint16_t frame_skip_number);
+ bool edp_replay_residency(const struct dc_link *link,
+ 	unsigned int *residency, const bool is_start, const enum pr_residency_mode mode);
+ bool edp_get_replay_state(const struct dc_link *link, uint64_t *state);
+ bool edp_set_replay_power_opt_and_coasting_vtotal(struct dc_link *link,
+-	const unsigned int *power_opts, uint32_t coasting_vtotal);
++	const unsigned int *power_opts, uint32_t coasting_vtotal, uint16_t frame_skip_number);
+ bool edp_wait_for_t12(struct dc_link *link);
+ bool edp_is_ilr_optimization_required(struct dc_link *link,
+        struct dc_crtc_timing *crtc_timing);
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+index 29ccd3532d13..88b5b716a084 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+@@ -975,6 +975,34 @@ bool psr_su_set_dsc_slice_height(struct dc *dc, struct dc_link *link,
+ 	return true;
+ }
+ 
++void set_replay_frame_skip_number(struct dc_link *link,
++	enum replay_coasting_vtotal_type type,
++	uint32_t coasting_vtotal_refresh_rate_mhz,
++	uint32_t flicker_free_refresh_rate_mhz,
++	bool is_defer)
 +{
-+	dsc_enc_caps->dsc_version = 0x21; /* v1.2 - DP spec defined it in reverse order and we kept it */
++	uint32_t *frame_skip_number_array = NULL;
++	uint32_t frame_skip_number = 0;
 +
-+	dsc_enc_caps->slice_caps.bits.NUM_SLICES_1 = 1;
-+	dsc_enc_caps->slice_caps.bits.NUM_SLICES_2 = 1;
-+	dsc_enc_caps->slice_caps.bits.NUM_SLICES_3 = 1;
-+	dsc_enc_caps->slice_caps.bits.NUM_SLICES_4 = 1;
++	if (link == NULL || flicker_free_refresh_rate_mhz == 0 || coasting_vtotal_refresh_rate_mhz == 0)
++		return;
 +
-+	dsc_enc_caps->lb_bit_depth = 13;
-+	dsc_enc_caps->is_block_pred_supported = true;
++	if (is_defer)
++		frame_skip_number_array = link->replay_settings.defer_frame_skip_number_table;
++	else
++		frame_skip_number_array = link->replay_settings.frame_skip_number_table;
 +
-+	dsc_enc_caps->color_formats.bits.RGB = 1;
-+	dsc_enc_caps->color_formats.bits.YCBCR_444 = 1;
-+	dsc_enc_caps->color_formats.bits.YCBCR_SIMPLE_422 = 1;
-+	dsc_enc_caps->color_formats.bits.YCBCR_NATIVE_422 = 0;
-+	dsc_enc_caps->color_formats.bits.YCBCR_NATIVE_420 = 1;
++	if (frame_skip_number_array == NULL)
++		return;
 +
-+	dsc_enc_caps->color_depth.bits.COLOR_DEPTH_8_BPC = 1;
-+	dsc_enc_caps->color_depth.bits.COLOR_DEPTH_10_BPC = 1;
-+	dsc_enc_caps->color_depth.bits.COLOR_DEPTH_12_BPC = 1;
++	frame_skip_number = coasting_vtotal_refresh_rate_mhz / flicker_free_refresh_rate_mhz;
 +
-+	dsc_enc_caps->max_total_throughput_mps = max_dscclk_khz * 3 / 1000;
-+
-+	dsc_enc_caps->max_slice_width = 5184; /* (including 64 overlap pixels for eDP MSO mode) */
-+	dsc_enc_caps->bpp_increment_div = 16; /* 1/16th of a bit */
++	if (frame_skip_number >= 1)
++		frame_skip_number_array[type] = frame_skip_number - 1;
++	else
++		frame_skip_number_array[type] = 0;
 +}
++
+ void set_replay_defer_update_coasting_vtotal(struct dc_link *link,
+ 	enum replay_coasting_vtotal_type type,
+ 	uint32_t vtotal)
+@@ -987,6 +1015,8 @@ void update_replay_coasting_vtotal_from_defer(struct dc_link *link,
+ {
+ 	link->replay_settings.coasting_vtotal_table[type] =
+ 		link->replay_settings.defer_update_coasting_vtotal_table[type];
++	link->replay_settings.frame_skip_number_table[type] =
++		link->replay_settings.defer_frame_skip_number_table[type];
+ }
+ 
+ void set_replay_coasting_vtotal(struct dc_link *link,
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
+index 391209a3bf29..87d31d9dce5a 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
++++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
+@@ -60,6 +60,11 @@ void set_replay_coasting_vtotal(struct dc_link *link,
+ void set_replay_defer_update_coasting_vtotal(struct dc_link *link,
+ 	enum replay_coasting_vtotal_type type,
+ 	uint32_t vtotal);
++void set_replay_frame_skip_number(struct dc_link *link,
++	enum replay_coasting_vtotal_type type,
++	uint32_t coasting_vtotal_refresh_rate_Mhz,
++	uint32_t flicker_free_refresh_rate_Mhz,
++	bool is_defer);
+ void update_replay_coasting_vtotal_from_defer(struct dc_link *link,
+ 	enum replay_coasting_vtotal_type type);
+ void set_replay_low_rr_full_screen_video_src_vtotal(struct dc_link *link, uint16_t vtotal);
 -- 
 2.43.0
 
