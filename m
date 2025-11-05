@@ -4,51 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2479ECCFA03
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA4DCCFA05
 	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 13:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6A6610E8CF;
-	Thu,  6 Nov 2025 13:41:04 +0000 (UTC)
-X-Greylist: delayed 378 seconds by postgrey-1.36 at gabe;
- Thu, 06 Nov 2025 03:20:28 UTC
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F138610E7F5;
- Thu,  6 Nov 2025 03:20:28 +0000 (UTC)
-Received: from localhost (unknown [124.16.138.129])
- by APP-01 (Coremail) with SMTP id qwCowADHMWx9Egxp0C2hAQ--.194S2;
- Thu, 06 Nov 2025 11:14:05 +0800 (CST)
-From: Chen Ni <nichen@iscas.ac.cn>
-To: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, lijo.lazar@amd.com, asad.kamal@amd.com,
- Hawking.Zhang@amd.com, kevinyang.wang@amd.com, ganglxie@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Chen Ni <nichen@iscas.ac.cn>
-Subject: [PATCH] drm/amd/pm: Remove unneeded semicolon
-Date: Sat,  8 Nov 2025 00:57:28 +0800
-Message-Id: <20251107165728.1365265-1-nichen@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0190110E8D1;
+	Thu,  6 Nov 2025 13:41:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GDuIGQZV";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46FD510E71D;
+ Wed,  5 Nov 2025 12:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1762345478; x=1793881478;
+ h=from:to:cc:in-reply-to:references:subject:message-id:
+ date:mime-version:content-transfer-encoding;
+ bh=0B1jhChxD6ZKpJ6Tuobc4Zvkfa6EY5vmp0IHl/3uNNo=;
+ b=GDuIGQZVCwCW4gKpiwvURHFO7ZX0ugDnn9mRu2Xz/yBq9rlM2iZZMSo9
+ lCtZ3QcA3Fbz36bE4yv4Y8iIwWSyXDv/QKgCjHN2MQ8E9FSUd5iXKeSs3
+ D/uBz4ndO4yX2vSuVczstpO8JPHXFR3CRTYIb0vTgr0it3WEOrZ5pcfZa
+ YHH+CnpLGyn9wrBW0FCdANW4LfHZyBteSNadBhEzHuLPu6QaOCgW7N1ab
+ 2JawefR4QowJYYJyzeLgsQBXzN1nVJgnnzfUNhG2Oxtbhwv+s4uLCbvjm
+ gXujSCq/fSgCAgiWg/ki7imXluVvcxCCA0I0iOkfXXymsUk7n6AdWUGqo Q==;
+X-CSE-ConnectionGUID: +3NOCuALSWOziZUiXKgdjg==
+X-CSE-MsgGUID: 9sf4XVHjRPeKwi/21pgyuA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11603"; a="75906385"
+X-IronPort-AV: E=Sophos;i="6.19,281,1754982000"; d="scan'208";a="75906385"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2025 04:24:38 -0800
+X-CSE-ConnectionGUID: hrEdSF8sSEOfh4uQ5YiACw==
+X-CSE-MsgGUID: Y8SSPBRqR+KSkimI4DZj/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,281,1754982000"; d="scan'208";a="192610893"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.252])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2025 04:24:34 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Perry Yuan <perry.yuan@amd.com>, Antheas Kapenekakis <lkml@antheas.dev>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+In-Reply-To: <20251024152152.3981721-1-lkml@antheas.dev>
+References: <20251024152152.3981721-1-lkml@antheas.dev>
+Subject: Re: [PATCH v1 0/3] platform/x86/amd: Add S0ix support to the Xbox Ally
+Message-Id: <176234546849.15175.7746615027448740430.b4-ty@linux.intel.com>
+Date: Wed, 05 Nov 2025 14:24:28 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowADHMWx9Egxp0C2hAQ--.194S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFWDuF4rXw4DXFWDZryUGFg_yoWftrb_CF
- y8JF9xur97CF98KF1UArWFqa4IyFs8urWktasF9ayrWw47XFs8Xa4ftF1DXw4fCF1UXasr
- J3WkXF15Z39xGjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbqkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M280x2IEY4vEnII2IxkI6ry26F1DM28lY4IEw2IIxx
- k0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK
- 6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7
- xvwVC2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
- 64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26F
- 4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
- 5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIec
- xEwVAFwVW8GwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
- ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRH
- UDAUUUUU=
-X-Originating-IP: [124.16.138.129]
-X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
 X-Mailman-Approved-At: Thu, 06 Nov 2025 13:41:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,27 +73,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove unnecessary semicolons reported by Coccinelle/coccicheck and the
-semantic patch at scripts/coccinelle/misc/semicolon.cocci.
+On Fri, 24 Oct 2025 17:21:49 +0200, Antheas Kapenekakis wrote:
 
-Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> The Xbox Ally features a Van Gogh SoC that on the Steam Deck uses S3.
+> Therefore, kernel support for S0ix was previously absent. Introduce
+> this support in three patches:
+> 
+> 1) Add Van Gogh to AMD PMC driver
+> 2) Enable spurious_8042 quirk, as it is common in those generations
+> 3) Adjust the Van Gogh init logic to avoid powering down the rlc
+>    and tweak post init
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index 24aaef1494a4..3aa674d348c7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -913,7 +913,7 @@ void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
- 			gpu_metrics->gfx_below_host_limit_total_acc
- 				[i] = SMUQ10_ROUND(
- 				metrics->GfxclkBelowHostLimitTotalAcc[inst]);
--		};
-+		}
- 	}
- 
- 	gpu_metrics->xgmi_link_width = metrics->XgmiWidth;
--- 
-2.25.1
+
+Thank you for your contribution, it has been applied to my local
+review-ilpo-fixes branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-fixes branch only once I've pushed my
+local branch there, which might take a while.
+
+The list of commits applied:
+[1/3] platform/x86/amd/pmc: Add support for Van Gogh SoC
+      commit: a400f448c1ad5e22e7ec1700e911f8f9c6a85475
+[2/3] platform/x86/amd/pmc: Add spurious_8042 to Xbox Ally
+      commit: 50cb52ee1dd60247746a984392632ec4237df127
+[3/3] drm/amdgpu: only send the SMU RLC notification on S3
+      (no commit info)
+
+--
+ i.
 
