@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B82C2CCFA0D
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 15:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81503CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 15:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6416E10E764;
-	Wed,  5 Nov 2025 15:41:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF0910E77B;
+	Wed,  5 Nov 2025 15:41:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZUwbB7IU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gnLcKy3A";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012059.outbound.protection.outlook.com [52.101.48.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2D310E764
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010017.outbound.protection.outlook.com [52.101.61.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9610010E777
  for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 15:41:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tjv3CRm+OWJSR3hxpxmH32kwL3ch+qSuZ38uoNSIsvL8vbQTMAh2bZ6rhyq5AtBz9uRjfAsy7Rg4GUVrebOXKzSOW56c/Jsh/r1NXcYW0IIhfdMpKFvmSLDb2wiNtwGxscBQIP0BX1rCKe490EWJKVRM1LQv1SaFfuMBNNqeOZL1CIdmWFSDSoOXPZhh2HIIKITUVdxUNJMB16XrP5X3sKa2rrjMLaOKPepeahfW9gyXSGACiCXu+qwFjLI6t8eiqjZ0D9wVgO8A+mbauyYbRLeTh0BeZHEw+szp6VnAv+9HDwv5m4PoZDYaeRF7vIueFSphdUoQ73mZOrDerxoJWQ==
+ b=I7NJe8wKfo6mcqaojvI6tqlT5XMJfvg41eWv1J3lfpdrnITaZuR4X1V0IrHKddRyA2iuNizOQCJ2/yRFFqAt/uBrBu3O6iOvrMFZ/em0zQba3VJ/6tLDPH+ICkWZMvgT0TMYysEInNEePrwH+BDe2evmDSkCpTlPsZXwpUNJe6dOPtV5X37HjJHx4bmlH8WRw1UW2qUd42pdNdbq965rreCD6HwwhmLEyVt3aEtugSf7DWhsG6HR63c5KRHRQSMKtbbGcycRqkn3yi1d0ioNHA/UyVp/TtRx5o6aiEY8Mqfpfs7LYqAQWlG1N05q5Lf6yfyP5npDi9ppvgh7fyAEsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aXvl6nNDy445W0tRslPQE1B27t9eIr/laQyA9b/E6nU=;
- b=xqTmkX7H4vxTaW1X+APz3D0oFmURApOrrUPSyX8gv13O6II/yk/YaZig8nyB+MDSMfUKET+UCjGvvwXEAUKyG3/DwhPgtXIyYNbDIWyQNphVSeh0psQkD0anOaJKUksrWGPi9qJzW008wIDd/ysXYUtM1Ub1wbRMqwBK2M9jbDMHVL7I8Cu1jkXvyLnhbGcJPH7CyKkgS2MZHJ6LXKh5KPANg/F4z9k+FhJG7+qmWG4fm/IRhboJzMP0+C1wCaBOnjGIi3fhFWTt2EkvXjsE21/JCFzwkdYGZiIAGhv9AgNWoD1oJ0ayJfa5vtarVa5Nzg5jG1yd2q0YsS0zCl+EDA==
+ bh=HHScRbVFKJNRNM5EK5wAoEfwUKTFiu6QrFJ1u9o+lt8=;
+ b=REZz28D7WkIBxZwiD9nVlu3/soqMoOvW7UVLt3zVN33ap0VqHESx0W+i2CLHdlJtig7FXkHKEtj1NutDDo4NSvglJ9XIdZKlPwBIqyZ+ef5sh7u821oR/wz6gpZp90Fv+4wdR8aWIGXwGU/pFzvjkqOCyz47fnMopidj2T+tNV1tQckSfj3D8FgxgHycUuKvSP9nJVyOdiKwfM3tdfkAfNFr88PPDUZAxtzOTiIX+3N0bbvlu1MWjyK9Fw2vQu89EeH3rCD3MKaafD0K3oWX4sGNCS9OybBexF6hKuY3NGU60o/TdDHGuix+WgdzIDw4OrO1xqcM1nbezgzhSxnkuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aXvl6nNDy445W0tRslPQE1B27t9eIr/laQyA9b/E6nU=;
- b=ZUwbB7IU6pGjrlo+QwzA50OwT5TA4jwHUFlGdZ+bCLtAOcs9iy0GETwmLDs6LfZv9Ur2TTN3FcoC2AnKXhKDNDy1AfjwwU76TbC7Z8ctDZHm9f+GhVWNGC6JrBhTQV18/2AzfDWWmzqi83tGAU/yIBYjHJzQ2XmnsUSIsxjKlpI=
-Received: from PH8P221CA0064.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::16)
- by PH7PR12MB8177.namprd12.prod.outlook.com (2603:10b6:510:2b4::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.7; Wed, 5 Nov
- 2025 15:41:24 +0000
+ bh=HHScRbVFKJNRNM5EK5wAoEfwUKTFiu6QrFJ1u9o+lt8=;
+ b=gnLcKy3A3Oe/RscyMTsFRSzlkJbSTzEN1mZmVI8/aqTiAj7bQ9EdnMkp4EW7P8bX7hb8lMf91cF1EqfK0fRwBEPqZym24AdYJR2QIm72G1H4Ts/Xn+WJSrCDbGw4IpbjEVza191uH64JYr2BZZfUMTnpfJZmFvW7Wm0eUxT/iKM=
+Received: from PH8P221CA0055.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::8)
+ by CYXPR12MB9319.namprd12.prod.outlook.com (2603:10b6:930:e8::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.9; Wed, 5 Nov
+ 2025 15:41:25 +0000
 Received: from SJ1PEPF000023DA.namprd21.prod.outlook.com
- (2603:10b6:510:349:cafe::88) by PH8P221CA0064.outlook.office365.com
- (2603:10b6:510:349::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.9 via Frontend Transport; Wed, 5
- Nov 2025 15:41:30 +0000
+ (2603:10b6:510:349:cafe::34) by PH8P221CA0055.outlook.office365.com
+ (2603:10b6:510:349::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.10 via Frontend Transport; Wed,
+ 5 Nov 2025 15:41:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SJ1PEPF000023DA.mail.protection.outlook.com (10.167.244.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.0 via Frontend Transport; Wed, 5 Nov 2025 15:41:23 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by satlexmb08.amd.com
+ 15.20.9320.0 via Frontend Transport; Wed, 5 Nov 2025 15:41:25 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 5 Nov
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 5 Nov
  2025 07:41:03 -0800
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Nov
- 2025 09:41:02 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 5 Nov
+ 2025 07:41:03 -0800
 Received: from jzuo-laptop.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 5 Nov 2025 07:40:57 -0800
+ Transport; Wed, 5 Nov 2025 07:41:03 -0800
 From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,67 +69,65 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
-Subject: [PATCH 11/13] drm/amd/display: Refactor HDCP Status Log Format
-Date: Wed, 5 Nov 2025 10:36:26 -0500
-Message-ID: <20251105154035.883188-12-Jerry.Zuo@amd.com>
+ <alex.hung@amd.com>, Taimur Hassan <Syed.Hassan@amd.com>
+Subject: [PATCH 12/13] drm/amd/display: [FW Promotion] Release 0.1.35.0
+Date: Wed, 5 Nov 2025 10:36:27 -0500
+Message-ID: <20251105154035.883188-13-Jerry.Zuo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251105154035.883188-1-Jerry.Zuo@amd.com>
 References: <20251105154035.883188-1-Jerry.Zuo@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: Jerry.Zuo@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023DA:EE_|PH7PR12MB8177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1773be0d-0c8b-4e09-af4f-08de1c81c672
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023DA:EE_|CYXPR12MB9319:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ef22ee8-ff11-4251-a130-08de1c81c764
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5ajYcm3cNSEl6KUuU17u8Sj9MSPUgc/0BRvuNIhAMfa7312pOYXk4cb5ZVVO?=
- =?us-ascii?Q?UxMm2sG4JLC5Jvt8orGQfO40YD/jp5UmkVpI7LWojbFgpeiYVi6Ip6hjL2LK?=
- =?us-ascii?Q?/cUbtUW9Rhz/k2E9cwXdG5Ux4VgUigY7vHwrauRyfin9HvWnVu5m06VFwZaz?=
- =?us-ascii?Q?wyOlGo+ZyAxxQH4/3Gc45YJpqomPGzUZRzJI6Q/y0eWpJfMuN0k9VxJGDK/8?=
- =?us-ascii?Q?iGHggZ4GxcDt9UO6EAHnatnXZt2UUatAAMBltuTefxRhzvydx2aoMavV/xuV?=
- =?us-ascii?Q?PW8cPUOK8LIGBqhaS4JvdiqwEatPGZbkqAoxYUQJ8Vyga5N01+SdNDbXKcXc?=
- =?us-ascii?Q?/SSE/bhWY1c5YK9pQwwzAK6fUqL9e9f11w1tlyNzcfmpZilFGxSNKfGsPSXo?=
- =?us-ascii?Q?wba3yxk3A+Ct5EDTHakvQWRiXWNVsXXXp6r130Dlgz4nZKXEsMJL4BBFC2KO?=
- =?us-ascii?Q?mTcfU7k5RxAwoEWIrTuAqbB/PWHESDIMKELMHkJMQS08kbJDmT+EVwygc5nQ?=
- =?us-ascii?Q?Hci+6wmTY20WkiuVdLCIjVBcwNvhNLmdh1vDV3UCFRbyckgk9UjyAGhmnnw1?=
- =?us-ascii?Q?7Kmw3idinP7+wHBICoMCo+wy9lyYkjq2M8dCP0rEayPW+c+faWgTKJVpVdJd?=
- =?us-ascii?Q?3jlrH1v/sRbEojyBPEpzAV+VszQwju/uHczXz08UKZRxCn3KhKBKazb1e0xM?=
- =?us-ascii?Q?VZDxuDDK5OEHzVssXV4kvfFu4LbAeW/yruaLUEU93ITJU0/6bTWjiAFJLjJN?=
- =?us-ascii?Q?fu/oL9CA7zx4Nh2iQtETxkiONP7OVp1wpwqoZo5re0QeDf5NNJh+iuayo0gy?=
- =?us-ascii?Q?htw784HOyUYb+4osgVXCpwnJtgSYF2VmZOD6zXItsnQu8ZUBgCMwXuNm81zU?=
- =?us-ascii?Q?JDdIJL2fuQ7uXRfFpKygRpRbFbgIo4bo3UHfK4hiujqFYJJssq4R1d3Z4sVD?=
- =?us-ascii?Q?qykpDKv78RelFFrowGDRM559PK1AnKWvguUmHFgsxFJP2XEaurpDnwh8xeE3?=
- =?us-ascii?Q?AB3JwoaUso1GYv+cLQK1/RY8rRVLZhkyOgb/5EBTUODik34Aq8DE99uVjKFn?=
- =?us-ascii?Q?5INCQEwoSA+hwGDeujnGdSCSBN510lCJVrVSrLhwUvdJyvrzXNoemIgbuZ9Q?=
- =?us-ascii?Q?Q/P7+r6jgVhji8+GF+7JQG8cfGlE4nkwRhBPcsUYbX8NIyyzvCpPcKe5BVTh?=
- =?us-ascii?Q?Dex4vKfUlOM1wpwEZBnGU7Rmow2avWWIpc/AYXZ6I/8wn2D8dSZLELxzkxdQ?=
- =?us-ascii?Q?Y7fiyzVlXnpgjpZkrejt1iQ/8mmTcJnXZ8rGszG5MDRLOfY9IqaGv2m4k3XW?=
- =?us-ascii?Q?BFVcAMb1Hy7WbtLxv52a985FnODHDYwTkSI7R2rpHs7+/BFaASuWAVXEsrpG?=
- =?us-ascii?Q?lzVhSqck8hejpaBGRn/74kvLz2Q8zMRbvxTvRNtqGrqrD6NV44OfQcdG6u1O?=
- =?us-ascii?Q?J1Yr017wCzSyIFhEL8LHrmptzCvqw7lMXg04s0C1taaU+WKFDgNjjiwsPCC+?=
- =?us-ascii?Q?2dg5+8LzgUPIQVkzdssp9pR8wmEsqJy29x69tS63TfQ5AjbTaCZDq4eUkXI9?=
- =?us-ascii?Q?kCFlZQ8aKMyXYzRWS0c=3D?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?M1KqCCk5c5rJuO7uUc25gzwbDtSrIsfYi7F/fko/W6r1AVxGE1/VDZJrPOJP?=
+ =?us-ascii?Q?OYVu34rIx5KyMUr82KgOFO6kKRgUrpC1iEoDmOs+j/6gSNYKC1DjQDF5Qlit?=
+ =?us-ascii?Q?U4tqwTSTXu9lRnE2EpJ1/l2BGcDpbJ0KiklfJH/IO+2sgq75M083rozxDzFL?=
+ =?us-ascii?Q?MtaAp7Pppl6+MUf2NRaUTGgWU0r/Jw40pO5GjbyAZcwrpkcImC1lFNqKz8X2?=
+ =?us-ascii?Q?u0qAAINOEWc5nN6+gJMgYdawCJvmiB/mFwzfS95sDV+adz28IYQGKvenIICl?=
+ =?us-ascii?Q?NjJJfIKGZNZqg2ZoxuCAcV22POv9lgPyNT75J5cm1JguEacndj+u4tHRzSWp?=
+ =?us-ascii?Q?OBbyslhhVK2Ue2tzeRedWoe1Gl6JWEKoofIkjYwI3tAI3chtLfgbhkthFnXF?=
+ =?us-ascii?Q?UxbdpZIe9xuOH+XHw0HSqurr4jbWQcDiuNcRkhoEOjFHn1uOv/JJ9ZssArit?=
+ =?us-ascii?Q?Fyh/7j98KUKnqM3dyHWvy0bgz3Vv9I5GTSjg3uQHJVKdsP7tgxFVAqjVBGAc?=
+ =?us-ascii?Q?7tBMyKbc+2P5eowtyl+1Igi+hY6FzfbZw2M/GUrNfEqa4kubkvBgVu1uSws6?=
+ =?us-ascii?Q?CgGEYXIS2Mc7CVBCjOtS62Wq7H0eIwjnn+R1O8hR9t+gq0pq2hgtEMzYumb0?=
+ =?us-ascii?Q?UXKGYwbhRcMEXhGumTrV8L1YdeuvToANSE7XlkY2w1liL1FZSjyo77VLa/Oc?=
+ =?us-ascii?Q?jsfW6GURhgvv1v7GgMoWkMplPKQXSh4pWGUc43wWNEVtKMjvMg2oKOK3ZERq?=
+ =?us-ascii?Q?nseh1c7TWCrdo7iYDcNLiRJ8mcLpfoXD6X/YcpCGsBvzLYKajtk0662i6nNS?=
+ =?us-ascii?Q?p2RHuapUOuAxnfER+TWRJxGPBkqu5iiV0n9tqOYD/tSjEsqMjDvDW87GCnUt?=
+ =?us-ascii?Q?lKjQksRTl7IpzY2F5+mLtFNYG1Kb+V3v7mTiPBDNQnmJusvnMm+x/XJHRS78?=
+ =?us-ascii?Q?+sBf4BQR0jHsmt4uft5pzD7w4xFBP70F2dJuehV21LAis1z5fQnI5oAPEoDT?=
+ =?us-ascii?Q?Zvq9U063tyDwFQsy9wm0ZXp3lWboQmkjhIMpXFdee50D1AmMy20QItEj0DyT?=
+ =?us-ascii?Q?Ovm7d6Q2B4liXP0+SinNxeHVtupdBYBOVWBd+hMDA5vWoRLU8Sobmu5wopgG?=
+ =?us-ascii?Q?l1hurEKGJznI9MstffNHXnYhYLRihqC+XHo8EOy+Ip8NACMHmN0mipJmQboV?=
+ =?us-ascii?Q?+m04+TfO60HG2bQ7qYBxXWGbvU/TQMExQGLkRFcZFNVgATZdYlv2p1vgGg7S?=
+ =?us-ascii?Q?oy8tRVQYY03wf2gQatdneRbzixIrp7wxc+/elPoXNXIAD8oMcMIVvSSg0Odi?=
+ =?us-ascii?Q?vr1frbQIYKLrqMKZ5SgeMhZSPf5dbSdOWONx442YcB4GC83qj56OYPaQOmt0?=
+ =?us-ascii?Q?Zo6Ts4BP/v4oDq/U5X1epdGfOys0lGUq5xnKvuNUdHcsXwyhRFoeo6B8b/l6?=
+ =?us-ascii?Q?LQct37AhWQoBcIn8+w7FapeOQBmcRbwT1Vue55ioJ5/ZfkmFfmoaEJf07svR?=
+ =?us-ascii?Q?sNMQkkNHVynluBxVzK4ay0FBCky0J39YO086f3SrhECUnbx8FiefGU5XlJEA?=
+ =?us-ascii?Q?4riVmXGHlDl55Y+94cM=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 15:41:23.7618 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1773be0d-0c8b-4e09-af4f-08de1c81c672
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 15:41:25.3471 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ef22ee8-ff11-4251-a130-08de1c81c764
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023DA.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8177
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,294 +142,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add missing part for
-drm/amd/display: fw locality check refactors
+From: Taimur Hassan <Syed.Hassan@amd.com>
+
+Summary for changes in firmware:
+* Use panel_inst instead of otg_inst when getting fw state
+* Contrast strength improves when HDR desktop mode
+* Ensure pipes have no outstanding HUBP requests prior to IPS RCG entry
+* Check for vm request and vm idle status in IPS1/2 entry sequence
 
 Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
- .../drm/amd/display/modules/hdcp/hdcp_log.c   | 124 +----------------
- .../drm/amd/display/modules/inc/mod_hdcp.h    | 126 +++++++++---------
- 2 files changed, 67 insertions(+), 183 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
-index ac44ee1532fd..5cb979c2cf8c 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
-@@ -125,131 +125,11 @@ void mod_hdcp_log_ddc_trace(struct mod_hdcp *hdcp)
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 067949d6eeb8..815b4ec82c11 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -491,7 +491,13 @@ union replay_debug_flags {
+ 		 */
+ 		uint32_t debug_log_enabled : 1;
  
-+#define CASE_FORMAT(entry) case entry: return #entry;
- char *mod_hdcp_status_to_str(int32_t status)
- {
- 	switch (status) {
--	case MOD_HDCP_STATUS_SUCCESS:
--		return "MOD_HDCP_STATUS_SUCCESS";
--	case MOD_HDCP_STATUS_FAILURE:
--		return "MOD_HDCP_STATUS_FAILURE";
--	case MOD_HDCP_STATUS_RESET_NEEDED:
--		return "MOD_HDCP_STATUS_RESET_NEEDED";
--	case MOD_HDCP_STATUS_DISPLAY_OUT_OF_BOUND:
--		return "MOD_HDCP_STATUS_DISPLAY_OUT_OF_BOUND";
--	case MOD_HDCP_STATUS_DISPLAY_NOT_FOUND:
--		return "MOD_HDCP_STATUS_DISPLAY_NOT_FOUND";
--	case MOD_HDCP_STATUS_INVALID_STATE:
--		return "MOD_HDCP_STATUS_INVALID_STATE";
--	case MOD_HDCP_STATUS_NOT_IMPLEMENTED:
--		return "MOD_HDCP_STATUS_NOT_IMPLEMENTED";
--	case MOD_HDCP_STATUS_INTERNAL_POLICY_FAILURE:
--		return "MOD_HDCP_STATUS_INTERNAL_POLICY_FAILURE";
--	case MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE:
--		return "MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE";
--	case MOD_HDCP_STATUS_CREATE_PSP_SERVICE_FAILURE:
--		return "MOD_HDCP_STATUS_CREATE_PSP_SERVICE_FAILURE";
--	case MOD_HDCP_STATUS_DESTROY_PSP_SERVICE_FAILURE:
--		return "MOD_HDCP_STATUS_DESTROY_PSP_SERVICE_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_CREATE_SESSION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_CREATE_SESSION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_DESTROY_SESSION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_DESTROY_SESSION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_VALIDATE_ENCRYPTION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_VALIDATE_ENCRYPTION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_NOT_HDCP_REPEATER:
--		return "MOD_HDCP_STATUS_HDCP1_NOT_HDCP_REPEATER";
--	case MOD_HDCP_STATUS_HDCP1_NOT_CAPABLE:
--		return "MOD_HDCP_STATUS_HDCP1_NOT_CAPABLE";
--	case MOD_HDCP_STATUS_HDCP1_R0_PRIME_PENDING:
--		return "MOD_HDCP_STATUS_HDCP1_R0_PRIME_PENDING";
--	case MOD_HDCP_STATUS_HDCP1_VALIDATE_RX_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_VALIDATE_RX_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_BKSV_REVOKED:
--		return "MOD_HDCP_STATUS_HDCP1_BKSV_REVOKED";
--	case MOD_HDCP_STATUS_HDCP1_KSV_LIST_NOT_READY:
--		return "MOD_HDCP_STATUS_HDCP1_KSV_LIST_NOT_READY";
--	case MOD_HDCP_STATUS_HDCP1_VALIDATE_KSV_LIST_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_VALIDATE_KSV_LIST_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_KSV_LIST_REVOKED:
--		return "MOD_HDCP_STATUS_HDCP1_KSV_LIST_REVOKED";
--	case MOD_HDCP_STATUS_HDCP1_ENABLE_ENCRYPTION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_ENABLE_ENCRYPTION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_ENABLE_STREAM_ENCRYPTION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_ENABLE_STREAM_ENCRYPTION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_MAX_CASCADE_EXCEEDED_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_MAX_CASCADE_EXCEEDED_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_MAX_DEVS_EXCEEDED_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_MAX_DEVS_EXCEEDED_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_LINK_INTEGRITY_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_LINK_INTEGRITY_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_REAUTH_REQUEST_ISSUED:
--		return "MOD_HDCP_STATUS_HDCP1_REAUTH_REQUEST_ISSUED";
--	case MOD_HDCP_STATUS_HDCP1_LINK_MAINTENANCE_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP1_LINK_MAINTENANCE_FAILURE";
--	case MOD_HDCP_STATUS_HDCP1_INVALID_BKSV:
--		return "MOD_HDCP_STATUS_HDCP1_INVALID_BKSV";
--	case MOD_HDCP_STATUS_DDC_FAILURE:
--		return "MOD_HDCP_STATUS_DDC_FAILURE";
--	case MOD_HDCP_STATUS_INVALID_OPERATION:
--		return "MOD_HDCP_STATUS_INVALID_OPERATION";
--	case MOD_HDCP_STATUS_HDCP2_NOT_CAPABLE:
--		return "MOD_HDCP_STATUS_HDCP2_NOT_CAPABLE";
--	case MOD_HDCP_STATUS_HDCP2_CREATE_SESSION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_CREATE_SESSION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_DESTROY_SESSION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_DESTROY_SESSION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_PREP_AKE_INIT_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_PREP_AKE_INIT_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_AKE_CERT_PENDING:
--		return "MOD_HDCP_STATUS_HDCP2_AKE_CERT_PENDING";
--	case MOD_HDCP_STATUS_HDCP2_H_PRIME_PENDING:
--		return "MOD_HDCP_STATUS_HDCP2_H_PRIME_PENDING";
--	case MOD_HDCP_STATUS_HDCP2_PAIRING_INFO_PENDING:
--		return "MOD_HDCP_STATUS_HDCP2_PAIRING_INFO_PENDING";
--	case MOD_HDCP_STATUS_HDCP2_VALIDATE_AKE_CERT_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_VALIDATE_AKE_CERT_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_AKE_CERT_REVOKED:
--		return "MOD_HDCP_STATUS_HDCP2_AKE_CERT_REVOKED";
--	case MOD_HDCP_STATUS_HDCP2_VALIDATE_H_PRIME_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_VALIDATE_H_PRIME_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_VALIDATE_PAIRING_INFO_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_VALIDATE_PAIRING_INFO_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_PREP_LC_INIT_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_PREP_LC_INIT_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_L_PRIME_PENDING:
--		return "MOD_HDCP_STATUS_HDCP2_L_PRIME_PENDING";
--	case MOD_HDCP_STATUS_HDCP2_VALIDATE_L_PRIME_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_VALIDATE_L_PRIME_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_PREP_EKS_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_PREP_EKS_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_ENABLE_ENCRYPTION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_ENABLE_ENCRYPTION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_VALIDATE_RX_ID_LIST_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_VALIDATE_RX_ID_LIST_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_REVOKED:
--		return "MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_REVOKED";
--	case MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_NOT_READY:
--		return "MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_NOT_READY";
--	case MOD_HDCP_STATUS_HDCP2_ENABLE_STREAM_ENCRYPTION_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_ENABLE_STREAM_ENCRYPTION_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_STREAM_READY_PENDING:
--		return "MOD_HDCP_STATUS_HDCP2_STREAM_READY_PENDING";
--	case MOD_HDCP_STATUS_HDCP2_VALIDATE_STREAM_READY_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_VALIDATE_STREAM_READY_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_PREPARE_STREAM_MANAGEMENT_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_PREPARE_STREAM_MANAGEMENT_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_REAUTH_REQUEST:
--		return "MOD_HDCP_STATUS_HDCP2_REAUTH_REQUEST";
--	case MOD_HDCP_STATUS_HDCP2_REAUTH_LINK_INTEGRITY_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_REAUTH_LINK_INTEGRITY_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE";
--	case MOD_HDCP_STATUS_UNSUPPORTED_PSP_VER_FAILURE:
--		return "MOD_HDCP_STATUS_UNSUPPORTED_PSP_VER_FAILURE";
--	case MOD_HDCP_STATUS_HDCP2_LOCALITY_COMBO_READ_FAILURE:
--		return "MOD_HDCP_STATUS_HDCP2_LOCALITY_COMBO_READ_FAILURE";
-+	MOD_HDCP_STATUS_LIST(CASE_FORMAT)
- 	default:
- 		return "MOD_HDCP_STATUS_UNKNOWN";
- 	}
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-index 264348989e9b..0db5ab90dc3b 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
-@@ -35,70 +35,74 @@ struct mod_hdcp;
- #define MAX_NUM_OF_DISPLAYS 6
- #define MAX_NUM_OF_ATTEMPTS 4
- #define MAX_NUM_OF_ERROR_TRACE 10
-+#define MOD_HDCP_STATUS_LIST(FORMAT) \
-+       FORMAT(MOD_HDCP_STATUS_SUCCESS) \
-+       FORMAT(MOD_HDCP_STATUS_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_RESET_NEEDED) \
-+       FORMAT(MOD_HDCP_STATUS_DISPLAY_OUT_OF_BOUND) \
-+       FORMAT(MOD_HDCP_STATUS_DISPLAY_NOT_FOUND) \
-+       FORMAT(MOD_HDCP_STATUS_INVALID_STATE) \
-+       FORMAT(MOD_HDCP_STATUS_NOT_IMPLEMENTED) \
-+       FORMAT(MOD_HDCP_STATUS_INTERNAL_POLICY_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_CREATE_PSP_SERVICE_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_DESTROY_PSP_SERVICE_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_CREATE_SESSION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_DESTROY_SESSION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_VALIDATE_ENCRYPTION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_NOT_HDCP_REPEATER) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_NOT_CAPABLE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_R0_PRIME_PENDING) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_VALIDATE_RX_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_BKSV_REVOKED) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_KSV_LIST_NOT_READY) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_VALIDATE_KSV_LIST_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_KSV_LIST_REVOKED) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_ENABLE_ENCRYPTION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_ENABLE_STREAM_ENCRYPTION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_MAX_CASCADE_EXCEEDED_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_MAX_DEVS_EXCEEDED_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_LINK_INTEGRITY_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_REAUTH_REQUEST_ISSUED) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_LINK_MAINTENANCE_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP1_INVALID_BKSV) \
-+       FORMAT(MOD_HDCP_STATUS_DDC_FAILURE) /* TODO: specific errors */ \
-+       FORMAT(MOD_HDCP_STATUS_INVALID_OPERATION) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_NOT_CAPABLE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_CREATE_SESSION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_DESTROY_SESSION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_PREP_AKE_INIT_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_AKE_CERT_PENDING) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_H_PRIME_PENDING) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_PAIRING_INFO_PENDING) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_VALIDATE_AKE_CERT_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_AKE_CERT_REVOKED) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_VALIDATE_H_PRIME_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_VALIDATE_PAIRING_INFO_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_PREP_LC_INIT_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_L_PRIME_PENDING) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_VALIDATE_L_PRIME_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_PREP_EKS_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_ENABLE_ENCRYPTION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_NOT_READY) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_VALIDATE_RX_ID_LIST_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_REVOKED) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_ENABLE_STREAM_ENCRYPTION_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_STREAM_READY_PENDING) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_VALIDATE_STREAM_READY_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_PREPARE_STREAM_MANAGEMENT_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_REAUTH_REQUEST) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_REAUTH_LINK_INTEGRITY_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_UNSUPPORTED_PSP_VER_FAILURE) \
-+       FORMAT(MOD_HDCP_STATUS_HDCP2_LOCALITY_COMBO_READ_FAILURE)
+-		uint32_t reserved : 17;
++		/**
++		 * 0x8000 (bit 15)
++		 * @enable_sub_feature_visual_confirm: Enable Sub Feature Visual Confirm
++		 */
++		uint32_t enable_sub_feature_visual_confirm : 1;
 +
-+#define ENUM_FORMAT(entry) entry,
++		uint32_t reserved : 16;
+ 	} bitfields;
  
- /* detailed return status */
- enum mod_hdcp_status {
--	MOD_HDCP_STATUS_SUCCESS = 0,
--	MOD_HDCP_STATUS_FAILURE,
--	MOD_HDCP_STATUS_RESET_NEEDED,
--	MOD_HDCP_STATUS_DISPLAY_OUT_OF_BOUND,
--	MOD_HDCP_STATUS_DISPLAY_NOT_FOUND,
--	MOD_HDCP_STATUS_INVALID_STATE,
--	MOD_HDCP_STATUS_NOT_IMPLEMENTED,
--	MOD_HDCP_STATUS_INTERNAL_POLICY_FAILURE,
--	MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE,
--	MOD_HDCP_STATUS_CREATE_PSP_SERVICE_FAILURE,
--	MOD_HDCP_STATUS_DESTROY_PSP_SERVICE_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_CREATE_SESSION_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_DESTROY_SESSION_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_VALIDATE_ENCRYPTION_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_NOT_HDCP_REPEATER,
--	MOD_HDCP_STATUS_HDCP1_NOT_CAPABLE,
--	MOD_HDCP_STATUS_HDCP1_R0_PRIME_PENDING,
--	MOD_HDCP_STATUS_HDCP1_VALIDATE_RX_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_BKSV_REVOKED,
--	MOD_HDCP_STATUS_HDCP1_KSV_LIST_NOT_READY,
--	MOD_HDCP_STATUS_HDCP1_VALIDATE_KSV_LIST_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_KSV_LIST_REVOKED,
--	MOD_HDCP_STATUS_HDCP1_ENABLE_ENCRYPTION_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_ENABLE_STREAM_ENCRYPTION_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_MAX_CASCADE_EXCEEDED_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_MAX_DEVS_EXCEEDED_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_LINK_INTEGRITY_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_REAUTH_REQUEST_ISSUED,
--	MOD_HDCP_STATUS_HDCP1_LINK_MAINTENANCE_FAILURE,
--	MOD_HDCP_STATUS_HDCP1_INVALID_BKSV,
--	MOD_HDCP_STATUS_DDC_FAILURE, /* TODO: specific errors */
--	MOD_HDCP_STATUS_INVALID_OPERATION,
--	MOD_HDCP_STATUS_HDCP2_NOT_CAPABLE,
--	MOD_HDCP_STATUS_HDCP2_CREATE_SESSION_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_DESTROY_SESSION_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_PREP_AKE_INIT_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_AKE_CERT_PENDING,
--	MOD_HDCP_STATUS_HDCP2_H_PRIME_PENDING,
--	MOD_HDCP_STATUS_HDCP2_PAIRING_INFO_PENDING,
--	MOD_HDCP_STATUS_HDCP2_VALIDATE_AKE_CERT_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_AKE_CERT_REVOKED,
--	MOD_HDCP_STATUS_HDCP2_VALIDATE_H_PRIME_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_VALIDATE_PAIRING_INFO_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_PREP_LC_INIT_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_L_PRIME_PENDING,
--	MOD_HDCP_STATUS_HDCP2_VALIDATE_L_PRIME_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_PREP_EKS_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_ENABLE_ENCRYPTION_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_NOT_READY,
--	MOD_HDCP_STATUS_HDCP2_VALIDATE_RX_ID_LIST_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_RX_ID_LIST_REVOKED,
--	MOD_HDCP_STATUS_HDCP2_ENABLE_STREAM_ENCRYPTION_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_STREAM_READY_PENDING,
--	MOD_HDCP_STATUS_HDCP2_VALIDATE_STREAM_READY_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_PREPARE_STREAM_MANAGEMENT_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_REAUTH_REQUEST,
--	MOD_HDCP_STATUS_HDCP2_REAUTH_LINK_INTEGRITY_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE,
--	MOD_HDCP_STATUS_UNSUPPORTED_PSP_VER_FAILURE,
--	MOD_HDCP_STATUS_HDCP2_LOCALITY_COMBO_READ_FAILURE,
-+	MOD_HDCP_STATUS_LIST(ENUM_FORMAT)
+ 	uint32_t u32All;
+@@ -4363,6 +4369,7 @@ enum dmub_cmd_replay_general_subtype {
+ 	REPLAY_GENERAL_CMD_DISABLED_DESYNC_ERROR_DETECTION,
+ 	REPLAY_GENERAL_CMD_UPDATE_ERROR_STATUS,
+ 	REPLAY_GENERAL_CMD_SET_LOW_RR_ACTIVATE,
++	REPLAY_GENERAL_CMD_VIDEO_CONFERENCING,
  };
  
- struct mod_hdcp_displayport {
+ struct dmub_alpm_auxless_data {
 -- 
 2.43.0
 
