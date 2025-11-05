@@ -4,45 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C47CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 15:42:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B14CCFA0D
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Nov 2025 15:49:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7493610E2BC;
-	Wed,  5 Nov 2025 15:42:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B85B10E77A;
+	Wed,  5 Nov 2025 15:49:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ePaX+Tfk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W0p36bgG";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0736910E2BC
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 15:42:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=iNpDZWutc+k85AVqT5gSMutLLpjt6v68MIp/ERA4lkk=; b=ePaX+Tfk9Mxib++qzvKRO9Lp64
- TdZd94K24BaHgTluFYqIUJpeH5tdgmLuYyD4TnDCGkcQKdbZD4nbpAqEBy0gBbgPZ8A4oxF4ThGzz
- nj8K5hW+CS3xh8b6P+zByBTo2CIfIBhOi8/Z/OZ+zcGHzonxjI0RCvdmKFlOKdnuhOmXbJDGt2zeA
- ZUjRWU76zPmAgjIAVk4Eb8ARApICJ6ohoYBGpkh4/0dpdudpZrtpiIsBF3eRcz9/zKa3zJ9wAH0/D
- 0+ypMwW9ZbYS07rdU27hm1efrk38c7EGBXS1TnwhGcSzyZfHUR/SCj83fon7eXwHeLPQqZv8xvwwP
- PhE8QpCA==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vGfee-002VPm-7C; Wed, 05 Nov 2025 16:42:36 +0100
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [RFC] drm/amdgpu: Streamline amdgpu_sync_resv() and amdgpu_sync_kfd()
-Date: Wed,  5 Nov 2025 15:42:32 +0000
-Message-ID: <20251105154232.13390-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.48.0
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012025.outbound.protection.outlook.com [52.101.53.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7154A10E78B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 15:49:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ju/N1PDhq3MqRG1Zqd1EbdI0usGq+bPNvltMwHhPIpjAQv8uxLYQmFqdCVYNao58GgFv1Y1K6ueL9pfZyTAoH5dQn1oyM+nQVsPcri4dTt5/4bxGRRqfDXmcqvj8ESv5JBwmysK8RDnv1kfqIpJMM/tDn8r3GC51KSFKMfVX9CgUOqAcDsyqdjn5uYUlIEf7eYv+dgou3Aje7YlPI6XMS+L+IOHV64BJokqatsWdjMW9RrRMi+ZxvQxJEwnOrvjTfDHBS8xsdKph8e7AAp3NXq1rXCsHvicMK2baBTmfM6s7+Uaf+swQuLGF2tij1PYPRWyWtO+neNO5Xy1afKeIVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ePqmpjppC/qu7A7ddr/Po7cRsBroq4foz/a1b4WPBfc=;
+ b=e8YHcBbaUCXOXUxeamw0Z8BNl9xVPAAzsiZIUOvQgsrtqoDoV011UjHhRbwrLt6i/ty4tUZsfjgkgh6EISRD9jt/0X9nIP57ow7y7ZL3h3ApZ2+3RXFYblbxagafSQ3w0CrKJZlrhc7mHjxNKvbt44MMYNAWlL6oPyeH5gFJ3t9BUXi9kRSazLetomNrPpHitfUjBAm62rzxJRjawcTPS3C7yAw0is89Rh1t+OTaR8iIihOoVLwPrvGkSW/KY3PH9Gj2T4BAtD5dgS+bicjcC4OdG5F+nzSSlSuQxFBOE3WuyqgQ2GZLHysL+UBUfVgCVFOlDHyAcZVKv5PoV9wb7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ePqmpjppC/qu7A7ddr/Po7cRsBroq4foz/a1b4WPBfc=;
+ b=W0p36bgGgj1fAfoFFphXWU4lVDlrUz5pfFZKbce2J6NQAjx1/P7e9xMt7RXo/al+8azhgUZbbnfEhyC9/IVqhHFG8j1C+50gwImGGpYB9rx4mWuDNwiMQ1An2kb0MOzmPe0u7MK2I4OQLfHb1+LVb3C79Jea1vM1m98nVgCkUJY=
+Received: from PH8PR02CA0029.namprd02.prod.outlook.com (2603:10b6:510:2da::27)
+ by IA4PR12MB9787.namprd12.prod.outlook.com (2603:10b6:208:54d::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.8; Wed, 5 Nov
+ 2025 15:49:16 +0000
+Received: from SN1PEPF0002BA51.namprd03.prod.outlook.com
+ (2603:10b6:510:2da:cafe::11) by PH8PR02CA0029.outlook.office365.com
+ (2603:10b6:510:2da::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.9 via Frontend Transport; Wed, 5
+ Nov 2025 15:49:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA51.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Wed, 5 Nov 2025 15:49:15 +0000
+Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 5 Nov 2025 07:49:14 -0800
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH] drm/amd: Fix suspend failure with secure display TA
+Date: Wed, 5 Nov 2025 09:49:02 -0600
+Message-ID: <20251105154902.75998-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA51:EE_|IA4PR12MB9787:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f157562-b87d-45d2-1301-08de1c82df8e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fZi03Tz/gZT/yhMSNaqk1TDYdfg3+OqT3ibTNhCAwMoRnkt+awQATKgTwJzd?=
+ =?us-ascii?Q?YQiZYGgPthjtMTSEa0h4Mh9IBilH1rvYt/Opfoj+esYd2hnkWmDMhukDS2YL?=
+ =?us-ascii?Q?N4d0W5ksZzWhsY7nIUaEYm72G3Gqe5jxBEjYYznWsjR1Mzw2Lu06T0WBMBkV?=
+ =?us-ascii?Q?oVUPdfPCFWrQ6gVJ/QHrK59H+1KcOuoZHBuGKFqgmzIm+TSRt9yONb3dVhJC?=
+ =?us-ascii?Q?mohIzrOfupo1AGFsf8tXyLxGIpC5dV3w9wW0z7T2l+GmLaVUI1i0O9I+dvJz?=
+ =?us-ascii?Q?RIbcD6+cCysP5bnX0Jo0u4ztvABCeUtXZjKFlAhIb/GEv9VNyqkxzFButd8W?=
+ =?us-ascii?Q?yrLIYIdhfcs/q/N3+392azA2p2oTKqSzvpeUybGWCdPkwEloz77s2URX59tz?=
+ =?us-ascii?Q?W/samzhaIVgxViAkDJhn9yzWFJKVwJ7YdFF2OXBimbnQ3Eqod0VfN6mqOP3x?=
+ =?us-ascii?Q?q7he3/ZIcG/z6vbrBhdVTj317hVN8CFgmUWlc1QOH0PG2Z1VCo9mPFj3mPYJ?=
+ =?us-ascii?Q?GKb6WC1vGoXSV/VL/gr5aBrfrvm6gGDtvwxgvlyEIB0aawjGduEgXWmqcRH0?=
+ =?us-ascii?Q?UFyWgbrMiVga1PXmy6jN9mQfQuVtLQQrUYPxdxtx3wJFyaaO8xbSikXGx9M6?=
+ =?us-ascii?Q?KP/6N+cSxCnybQKAHOgqDK1aaPHJ+chPWIN6GaI+aB9/4DxNuv4qPSPiIEyj?=
+ =?us-ascii?Q?5mhKYbygUbn9C5WMgDVnStmg9so+atoQVCuu5t5IbPSHFx93XW4fCXd7g4OS?=
+ =?us-ascii?Q?TYNXomrIXgVpjkdQW2gK1aQoQAQ9QbU3UGkCAk6MAlyFtrPIK9bVhf8xgbFW?=
+ =?us-ascii?Q?+Tf+ADUZIJA1i130QiX5wc8KOrAY0hhBin/YZI00G0GnNUEFZ6NqRjqusu7F?=
+ =?us-ascii?Q?o0WzQF5aUuVTA89CQn48rquHzQbWj6jr87YuL/ZkWDyQdHkr8lY7aPwmJQEc?=
+ =?us-ascii?Q?8TLPQWnZ5E2eB1pvcTWnFfsUZbLtyh74yZjbXKcvXIqIsYjbzqKBdTn9/E70?=
+ =?us-ascii?Q?S84w5uMAxGSuXEouowZtqXx9Ou+I+imT/qevsNKeGoDzPdGAWj+av6BWSQSh?=
+ =?us-ascii?Q?K7tnV3gR9jMSI8ISPBdoSqyqGJDMBJRd9bzw+ms9gaB2qrcyj2KtEanWKIQE?=
+ =?us-ascii?Q?j9foNS6XYAwVXPH8CE1hHRkxNQELfG1h2aMs438rJHBJi9W7gEq09SY+5rNn?=
+ =?us-ascii?Q?TzupncaUkxI5rpg3KvCKNnLKMXbzG7c0iZWPDlx/PVyaPByW6eKKjiNDYgp1?=
+ =?us-ascii?Q?I7vlql/NGiXo/o2xFlqTIzyVIsPQR5YuIhXHyl7VVhaXG0+FLNKcA+IZ2//p?=
+ =?us-ascii?Q?/KiedB+vxDThSM3Mdkvjt52FbwOrRziUbZ+5ZQ9bO1E2+9Z78X6BpTtwt1RU?=
+ =?us-ascii?Q?h3AZKHBxf+p8a12fXljAvfIjuHUCLJaa3JybDVr0mJJaLZuv2EZjXhbUgBVg?=
+ =?us-ascii?Q?kPDkeyhObd25OXPAeFtAVvipC15mFXV7tEHvzfOzBGTtbGoVvk0hG82qyFSz?=
+ =?us-ascii?Q?0vpDHN/iIBfLS6c=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2025 15:49:15.4533 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f157562-b87d-45d2-1301-08de1c82df8e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA51.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9787
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,188 +130,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If we remove the amdgpu_sync_get_owner() helper and replace it with local
-operations tailored for each of its two call sites, we get two benefits.
+commit c760bcda83571 ("drm/amd: Check whether secure display TA loaded
+successfully") attempted to fix extra messages, but failed to port the
+cleanup that was in commit 5c6d52ff4b61e ("drm/amd: Don't try to enable
+secure display TA multiple times") to prevent multiple tries.
 
-First is that in amdgpu_sync_resv() it enables us to avoid converting the
-fence to scheduler fence twice, first time to get the owner, second to
-check if it is coming from the same device.
+Add that to the failure handling path even on a quick failure.
 
-While at it, we also refactor the mode check ladder a bit to allow
-checking for the same device only once.
-
-Second benefit of replacing the helper with local operations is that in
-amdgpu_sync_kfd() we can now check for the only piece of information the
-caller is interested in.
-
-If the readability of the code is kept while reducing the lines of source,
-while at the same time amdgpu_sync.o bloat-o-meter sees a reduction, all
-should be good:
-
-add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-106 (-106)
-Function                                     old     new   delta
-amdgpu_sync_kfd                              259     228     -31
-amdgpu_sync_resv                             734     659     -75
-Total: Before=3123, After=3017, chg -3.39%
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4679
+Fixes: c760bcda83571 ("drm/amd: Check whether secure display TA loaded successfully")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-Regardless of whether the patch will be considered as improving or
-reducing redability, another reason why I am sending it is becuase I
-noticed in amdgpu_sync_resv() it peeks into the dma-fence-chain but it is
-not passing it to amdgpu_sync_fence(). I was curious what is the reason
-for this?
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Would it not be better to keep the unwrapped latest fence in the hash? For
-the case if it finds that it wants to sync to the fence, but if it is
-may not see that it already has one from the same context in there.
-
-TBH I did not find that it is happening in practice but maybe I just did
-not find the right userspace to trigger it.
-
-I did try passing the unwrapped fence from amdgpu_sync_test_fence() to
-amdgpu_sync_fence() and nothing appeared to have broke.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 88 ++++++++----------------
- 1 file changed, 29 insertions(+), 59 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index d6ae9974c952..3b113d4cdf75 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -58,49 +58,20 @@ void amdgpu_sync_create(struct amdgpu_sync *sync)
-  * amdgpu_sync_same_dev - test if fence belong to us
-  *
-  * @adev: amdgpu device to use for the test
-- * @f: fence to test
-+ * @s_fence: scheduler fence to test
-  *
-  * Test if the fence was issued by us.
-  */
- static bool amdgpu_sync_same_dev(struct amdgpu_device *adev,
--				 struct dma_fence *f)
-+				 struct drm_sched_fence *s_fence)
- {
--	struct drm_sched_fence *s_fence = to_drm_sched_fence(f);
-+	struct amdgpu_ring *ring;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 8c0e5d03de50..aa7987d0806c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2355,8 +2355,11 @@ static int psp_securedisplay_initialize(struct psp_context *psp)
+ 	if (!ret && !psp->securedisplay_context.context.resp_status) {
+ 		psp->securedisplay_context.context.initialized = true;
+ 		mutex_init(&psp->securedisplay_context.mutex);
+-	} else
++	} else {
++		/* don't try again */
++		psp->securedisplay_context.context.bin_desc.size_bytes = 0;
+ 		return ret;
++	}
  
--	if (s_fence) {
--		struct amdgpu_ring *ring;
-+	if (!s_fence)
-+		return false;
+ 	mutex_lock(&psp->securedisplay_context.mutex);
  
--		ring = container_of(s_fence->sched, struct amdgpu_ring, sched);
--		return ring->adev == adev;
--	}
--
--	return false;
--}
--
--/**
-- * amdgpu_sync_get_owner - extract the owner of a fence
-- *
-- * @f: fence get the owner from
-- *
-- * Extract who originally created the fence.
-- */
--static void *amdgpu_sync_get_owner(struct dma_fence *f)
--{
--	struct drm_sched_fence *s_fence;
--	struct amdgpu_amdkfd_fence *kfd_fence;
--
--	if (!f)
--		return AMDGPU_FENCE_OWNER_UNDEFINED;
--
--	s_fence = to_drm_sched_fence(f);
--	if (s_fence)
--		return s_fence->owner;
--
--	kfd_fence = to_amdgpu_amdkfd_fence(f);
--	if (kfd_fence)
--		return AMDGPU_FENCE_OWNER_KFD;
--
--	return AMDGPU_FENCE_OWNER_UNDEFINED;
-+	ring = container_of(s_fence->sched, struct amdgpu_ring, sched);
-+	return ring->adev == adev;
- }
- 
- /**
-@@ -183,7 +154,18 @@ static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
- 				   enum amdgpu_sync_mode mode,
- 				   void *owner, struct dma_fence *f)
- {
--	void *fence_owner = amdgpu_sync_get_owner(f);
-+	struct drm_sched_fence *s_fence;
-+	void *fence_owner;
-+
-+	f = dma_fence_chain_contained(f);
-+
-+	s_fence = to_drm_sched_fence(f);
-+	if (s_fence)
-+		fence_owner = s_fence->owner;
-+	else if (to_amdgpu_amdkfd_fence(f))
-+		fence_owner = AMDGPU_FENCE_OWNER_KFD;
-+	else
-+		fence_owner = AMDGPU_FENCE_OWNER_UNDEFINED;
- 
- 	/* Always sync to moves, no matter what */
- 	if (fence_owner == AMDGPU_FENCE_OWNER_UNDEFINED)
-@@ -203,24 +185,16 @@ static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
- 		return false;
- 
- 	/* Ignore fences depending on the sync mode */
--	switch (mode) {
--	case AMDGPU_SYNC_ALWAYS:
-+	if (mode == AMDGPU_SYNC_ALWAYS) {
- 		return true;
--
--	case AMDGPU_SYNC_NE_OWNER:
--		if (amdgpu_sync_same_dev(adev, f) &&
--		    fence_owner == owner)
--			return false;
--		break;
--
--	case AMDGPU_SYNC_EQ_OWNER:
--		if (amdgpu_sync_same_dev(adev, f) &&
--		    fence_owner != owner)
--			return false;
--		break;
--
--	case AMDGPU_SYNC_EXPLICIT:
-+	} else if (mode == AMDGPU_SYNC_EXPLICIT) {
- 		return false;
-+	} else if ((mode == AMDGPU_SYNC_NE_OWNER ||
-+		    mode == AMDGPU_SYNC_EQ_OWNER) &&
-+		   amdgpu_sync_same_dev(adev, s_fence)) {
-+		if ((mode == AMDGPU_SYNC_NE_OWNER && fence_owner == owner) ||
-+		    (mode == AMDGPU_SYNC_EQ_OWNER && fence_owner != owner))
-+			return false;
- 	}
- 
- 	WARN(debug_evictions && fence_owner == AMDGPU_FENCE_OWNER_KFD,
-@@ -252,9 +226,7 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
- 	/* Implicitly sync only to KERNEL, WRITE and READ */
- 	dma_resv_for_each_fence(&cursor, resv, DMA_RESV_USAGE_READ, f) {
- 		dma_fence_chain_for_each(f, f) {
--			struct dma_fence *tmp = dma_fence_chain_contained(f);
--
--			if (amdgpu_sync_test_fence(adev, mode, owner, tmp)) {
-+			if (amdgpu_sync_test_fence(adev, mode, owner, f)) {
- 				r = amdgpu_sync_fence(sync, f, GFP_KERNEL);
- 				dma_fence_put(f);
- 				if (r)
-@@ -282,9 +254,7 @@ int amdgpu_sync_kfd(struct amdgpu_sync *sync, struct dma_resv *resv)
- 
- 	dma_resv_iter_begin(&cursor, resv, DMA_RESV_USAGE_BOOKKEEP);
- 	dma_resv_for_each_fence_unlocked(&cursor, f) {
--		void *fence_owner = amdgpu_sync_get_owner(f);
--
--		if (fence_owner != AMDGPU_FENCE_OWNER_KFD)
-+		if (!to_amdgpu_amdkfd_fence(f))
- 			continue;
- 
- 		r = amdgpu_sync_fence(sync, f, GFP_KERNEL);
 -- 
-2.48.0
+2.51.2
 
