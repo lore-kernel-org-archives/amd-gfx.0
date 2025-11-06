@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37525CCFA03
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 11:44:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61F0CCCFA05
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 11:44:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFF6510E8A3;
-	Thu,  6 Nov 2025 11:44:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF0910E8A4;
+	Thu,  6 Nov 2025 11:44:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oGsCqpmW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GE+7OK+7";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012005.outbound.protection.outlook.com
- [40.107.200.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0798410E722
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 11:44:43 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010055.outbound.protection.outlook.com [52.101.46.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 506A810E8A4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 11:44:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gWiwE7bUz5VciO7RYGanb0nJMQ7bjRRgJzyk/0JTOlTP8jRnt7aDqlujHPMD0Ea4n3AUCZM5NUR89Uifbh30IB/r7sWYNe3CmgUvFIjwe5sotx1T8VdziepwQNl0BnzGPnnDk5Q8WnvgfLh7eZsNBVc4GBC5d7MVOOXL5Snr0fTwUPqljKxWpS2OcwA/xyzLb7eMKjWjcqzzRkp4vnpxq4jfmxBUhqLfoPQ8Ql/jbuyOYPGDqokPr5SUTxAQ/pNAeHdX0x/26c0C4w/l60lNbhneh/GeNxLu77Nat0BChAWfJxW+G1nf21aqbxQZKtPVZZKe/44KxnoMWVxfTDzrvg==
+ b=U0hFb9pciZpVeK3hGOlFskl53721ayZd5uOsbenX0DJrDg13lXLfjI08BAZzpFPgiJX8Vh9TC1Mm9tGBsSzGd1HMipTV/o1r1CbyrmRTw4en2mc7oX+X6fJApBGyA6gQwYVMmrtopSaE2spGd56vIr8QnQRKZGVkP1volJRTUKVBIr7P10nIRE4jTV0aHpQOu1V4dqXUNQLBGDkDLLpjCnZL08GYh72nYHlTOQvug4V0YmRIBrNC8QHHRkVrVWxY8dOj++mDtQSJFLcPDkqJRHniBLcPiO/dt591tz2i1mkN3wfKvMuzHhR6YK05kDffKkohUmARca/N8jYRnm/cYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0UMe1sBsHqQ1E/HLZ35FzlcxLb6djImwmMoYD/xHq/Q=;
- b=P6vveIbzv7h+hta9HpZAtAP/R9Wr0TeWzEIsTJ0xpE9QaZzJ6qgGW2w+pnzMoGXYGPhg3Q+UmMR2qBHwhoVdGdGNAwxQ/T4R3zd8Xglcli+lxCTlWTk50V/Tc3cvaZWaIe8k43GTkMEUeTDVZS5krAaPD6xZ9BOE0F92ci+AHTCCZiFgguVjXuiYJs0f1AUonQbhL4/sfqD2ft/DLHmqUkc1aXVVbmvWeXLohZ7nfqasHcmrjJtq5vWvlqpu5/EEwbWTbqhTs009OvyL3uRXkZ+tQtUpDNl6UG8SiibrmmTXEeRecvHddg+iNYXYMTtZ2it/MvGcKnQsuH8rNQqRgQ==
+ bh=wamvpF1hxaPrGw6hYmFfwrA4KZe9jsL1QvD6kfNJWu0=;
+ b=ok6Nz+h6Wh6sy5sQ7RsB5nHU3HqYrycM3RLbApQzZV9eqcPAStlMCTVbNnDubHubkIJU5MEGybbXDcdZakbOVyZQ/jtFvx/Cpw3ntkwJbDoOJ2P4fnhbH1XtC6RJLig6B0QseYxfsIj3hv0snQ9SVN6tsMEE5tWzNODQ26XPIA698FYs4bnOxrKDAUJNU/CpglVep59EnOwm418d7KGtJ6ds/FFNWp8kXvt5xlLcEqLQvPK8HOd40eYadphP6h5iSWK8VcIg3Cu55W1WyNRcmfJk87wthkuZBFFifMuWuGiSHDmL+B54gpxKkcgHaMfk7Pg7Mz+PMB7L1oV3XfI9JQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0UMe1sBsHqQ1E/HLZ35FzlcxLb6djImwmMoYD/xHq/Q=;
- b=oGsCqpmWZpZdzoYZDaUvOv3OfMELjFM+FXwwhj/ELDsrAYBzUaOjNXR9Jcw/f5AktepaLzOwdSnMDlujciorFrrat/QHn6dW7zXExTqpEjtAFSR/zQUBB3d3ulYBKbON8F7c1iV7t3GHdvCuWipfNKe+Utzb1uhb38B3mkfX2H4=
-Received: from BL1PR13CA0287.namprd13.prod.outlook.com (2603:10b6:208:2bc::22)
- by DM4PR12MB5868.namprd12.prod.outlook.com (2603:10b6:8:67::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Thu, 6 Nov
- 2025 11:44:38 +0000
-Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
- (2603:10b6:208:2bc:cafe::41) by BL1PR13CA0287.outlook.office365.com
- (2603:10b6:208:2bc::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.7 via Frontend Transport; Thu, 6
- Nov 2025 11:44:38 +0000
+ bh=wamvpF1hxaPrGw6hYmFfwrA4KZe9jsL1QvD6kfNJWu0=;
+ b=GE+7OK+7vDe8pNejlqsB0P8LEODP82dxVxyml8uHpmFHtsCiWK9XBhuS0MVR+hoMoesF2cd0Owp8UXS2y//NrGlmIXrlt15JdLyWmn4jgLCMcF1Ce7iLa/Hn+lqraniP7q2vMPQrZsjZP/8gEGdKBZ6Orc+DVgEQxDQHtDpDCe8=
+Received: from MN2PR22CA0009.namprd22.prod.outlook.com (2603:10b6:208:238::14)
+ by MN2PR12MB4253.namprd12.prod.outlook.com (2603:10b6:208:1de::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.9; Thu, 6 Nov
+ 2025 11:44:40 +0000
+Received: from BL6PEPF0001AB59.namprd02.prod.outlook.com
+ (2603:10b6:208:238:cafe::ec) by MN2PR22CA0009.outlook.office365.com
+ (2603:10b6:208:238::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.10 via Frontend Transport; Thu,
+ 6 Nov 2025 11:44:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ BL6PEPF0001AB59.mail.protection.outlook.com (10.167.241.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.6 via Frontend Transport; Thu, 6 Nov 2025 11:44:38 +0000
+ 15.20.9298.6 via Frontend Transport; Thu, 6 Nov 2025 11:44:40 +0000
 Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 6 Nov
- 2025 03:44:35 -0800
+ 2025 03:44:37 -0800
 From: Asad Kamal <asad.kamal@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
  <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <asad.kamal@amd.com>,
  <KevinYang.Wang@amd.com>
-Subject: [PATCH v2 2/4] drm/amd/pm: Add ppt1 support for smu_v13_0_12
-Date: Thu, 6 Nov 2025 19:44:19 +0800
-Message-ID: <20251106114421.3770378-2-asad.kamal@amd.com>
+Subject: [PATCH v2 3/4] drm/amd/pm: Expose ppt1 limit for gc_v9_5_0
+Date: Thu, 6 Nov 2025 19:44:20 +0800
+Message-ID: <20251106114421.3770378-3-asad.kamal@amd.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20251106114421.3770378-1-asad.kamal@amd.com>
 References: <20251106114421.3770378-1-asad.kamal@amd.com>
@@ -75,53 +74,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|DM4PR12MB5868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 656e60a2-d0a3-45a6-5f28-08de1d29ddc0
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB59:EE_|MN2PR12MB4253:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31eb1c9f-1bc9-4b47-74f4-08de1d29dee5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6wdISY1PFHS278sd7v3BjOgQhHvgk4XO9rP5Kzz20jGNSeY7JEL/t7kfijv0?=
- =?us-ascii?Q?CiU7hwIrmm+gQxDSicJg+v2xDK1oCNJ1m3hGeiJsnO+hwXjnLT8CECJTb1d0?=
- =?us-ascii?Q?6qkpq6GBYKuYyXOFVCRW+ekSTTu8VnwAUHtt+nohBg5k4n4tx1k7qm6oyBQ9?=
- =?us-ascii?Q?CMSGrVtyj48gRcoD6FO6eDKCUCR4nQUS4Uu0B8vhYOUmcCaHLBNI1GeL/X6o?=
- =?us-ascii?Q?eUg+FEmO4picZW8w2LsC8LOBrEPiekXNHDiFzBJWce+Kg/wwZWcALtb52kWZ?=
- =?us-ascii?Q?eBEVubNu8+n6N1qDuiudZgm87yQBzs4W+kmMj3RlUyVQeAp0YJWvjORlQQhz?=
- =?us-ascii?Q?taPfrgWFabFkInIZg9ZgWBeuLr08+4pOjyTGK5Fx+NpYy4uLvmmSBzZx82LV?=
- =?us-ascii?Q?t1BAQgUEY2g0WSN9KpvMUnlTB8FTobtWRUVN3j66nlONVvP02517jb+1LKyN?=
- =?us-ascii?Q?uRdHLqQ3CfOegZ/y20Udu7uGCng9haq8q0xWsNnoTmWoHVzNzp662B5096hR?=
- =?us-ascii?Q?Cy+Un2ry+wmifDsYZgrCaghjSScpMq6GmzTBML7opgghojatp+nnTvOG8FR3?=
- =?us-ascii?Q?3zU7oFlkkjVyBFhnZzjMVIwM0k7F9OtT74X3QBe8C+eBDfPTnoCdgx9BVeDd?=
- =?us-ascii?Q?1zBR8dRT4QxJJebbiCMXLCacbPDZ6DlXYh0LFXqd5Kp1Xufc3dTmV+/4EowV?=
- =?us-ascii?Q?e1xQx4ldYMUtumjod8Uj3QGKG1CNdLxhsBmdnFRxFhAVtuAZIUbRtt5Y2ivz?=
- =?us-ascii?Q?+ThwJBM2XHLYNTCQ7XoQiSitZazxs/O2U/RSEzsKIVznvKKL8NNkt/x1h4/k?=
- =?us-ascii?Q?M65WIPhYjagbH8t9M8x81iTjiNe1d+YK4zPKDpnWi/DM6tadISsCsEPQzbqX?=
- =?us-ascii?Q?lOfp9YeN0bvVCF7cRzg4AMoJCLN7JeXi/rHNEWOQ4TDMTYUL+86kshJB7Q9X?=
- =?us-ascii?Q?cIrqkm6bnK0/T77Pfxyzm6V7eJuTbeC/7NNsobwj2zcjDK8s2jii6Oou25XQ?=
- =?us-ascii?Q?BVEpZ+oNG1pHRr38XqSF2nCdDQgQpjjl+iaAiROi44W7vob8J6e7uknvJG/W?=
- =?us-ascii?Q?q8rMXF+DCz/ZWijDhOFgMIcqh5AjtIRgaT/C0ajIHiMp6d/XSy6IZU7/RHWM?=
- =?us-ascii?Q?SvAIm8LRi2z/Fd3h2Mbf93D7YHELwpWrNLuftZ5zw5AyL+FLn7ytnaUwSzY6?=
- =?us-ascii?Q?hl1yNJPWK9aflNFpEFgYrdG7tyUCnSIkdMLeAec3sf7Y6VRSP21WN7aG6LLU?=
- =?us-ascii?Q?I34QA8k/AnKrrGJib1hSxEw6uTuco5NY0wv5I1tHuq0gvdLuP1VZU5kwN3Co?=
- =?us-ascii?Q?RrgC4qDZw1m+rr1wstCdEyBDbOXckbYwerkWd+dLdutpnh4guYpaaHxq6avb?=
- =?us-ascii?Q?b10ZLP21F2wuiV8RFwPd9X7uk9HDKH/arEMjTpcenX4H++iSJzmzPK2Hfh4t?=
- =?us-ascii?Q?H5C+gb0S4GUK98PG2D0Pk1atFLvhbKkynNaRKjqnDkAMEzgTj8+Tduq6QdLP?=
- =?us-ascii?Q?BcgJC69KXnZ/6Dvqt5Wp0qRPzEux+qxYGKekjwIfLvoGapZj6USk9zAJsmHj?=
- =?us-ascii?Q?jzebS5qp9WNnoQgfqyo=3D?=
+ ARA:13230040|376014|1800799024|82310400026|30052699003|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JndGiUsJjn3wy1rvx3fFmFzjfwWFWlBDg3kWCxUv23KiI5TudUC8mBda2Lbz?=
+ =?us-ascii?Q?oOJnD/pA6Ie/VElJpHktmYtJgePR4q3Qza+nDALLdhE7SDi7R/GFy6E6G+2+?=
+ =?us-ascii?Q?HgLN23Ra2DBwdtnZAnpP10rv0dbdlAEj/NYAV6ZLn5Te1s8Uhub7H5bZQvVL?=
+ =?us-ascii?Q?CE+DvQRUC+m+bo3eDAPNR8vdQqApqW/5PdtVF8I9SjwZH0AAlcd9JZNTGP+J?=
+ =?us-ascii?Q?8dBIMZRngomm2gmZQDVKgbZaFAwjeH4gmd1oiVFbRPAGhm+4pwDD5xBYKtz5?=
+ =?us-ascii?Q?YC+jUW6CY0xyr053YpMDV0ccin0uGvGQz0N/LYEZFdZrtFDUmKVR7TKSk3x2?=
+ =?us-ascii?Q?kOB76Xxmp1T/SMjxPiLrzw2BaKBHbb6CTrrmy/7sHPy9MZOyPzHiEoLbTXaE?=
+ =?us-ascii?Q?qUsKRWogl3sFBBQea+lVQ3qGsrhTuRNYyLWHvy4RB82TQOeZ+XDqLmfdig3G?=
+ =?us-ascii?Q?ZhjczKKM2Rn/2NPZ8TJYWq1gexWl+yxCx1/SfCDktSf57+qmizbKJwmIeuCW?=
+ =?us-ascii?Q?1FtqvAUGhWLLW1VfLJOl62e2ywU6thRcf7EYin9R3QH5E1jcpcc1854FyXvb?=
+ =?us-ascii?Q?7JYndKeuqVNLKm69WfhrHoB4IFmCCeE73G67kPu3M8Z/Sa44CvYcBrubnBT4?=
+ =?us-ascii?Q?p/DQyfI85ZIrF9/XNvwoPu7e9qpGdQh6UBNX8ES65uTcoZT+DgF0QsKJ2gEU?=
+ =?us-ascii?Q?VujAm9l2/yXthN6hY3jyMbzPGDcX6KCEe4z0Gm3PD7zm6wkYp0nLTjdzJQ/c?=
+ =?us-ascii?Q?shbj4adbzcJ3Ffx7ESv/wQtAY4bP4qOoqPkHRiFlWReTHAKyAIAbEnWm7ZgF?=
+ =?us-ascii?Q?sQS1mrd+FASPL0ragoggWa2BS9yAsMLsHhFIFHrhcoZLNTZjP/3PpanQAuNp?=
+ =?us-ascii?Q?gKVlfgotD4I2O4gAkyDoK/A64ZnP7mjlxWSIT+uIeVWc4dYb633nY8qK5+Mv?=
+ =?us-ascii?Q?eREskI3zAd76fJiTPZJ9n+L7azAsZxdWNm99xsJuKJLZvinVouemq8zM0mV1?=
+ =?us-ascii?Q?0FIdCEoAYICaTNGLEH5K3tbnGM8dPLrlaYB7xmKHl6Yv4gNAQ0CQq3SPcctw?=
+ =?us-ascii?Q?6oqWx/XMXSG1oV5AF7bHIg2A18LP1sahSKcdIZVLRs1cPDxt/SzVH3U5HQju?=
+ =?us-ascii?Q?tlQ5amQsouMlyt1FjfVYh36d1ZD+b8/MRE/Wex7fBU5qWFVwwqiGa7Ls5Op/?=
+ =?us-ascii?Q?EbeL2duysgz4mMsyEbRfbfjy+JV37CW/2qfqzB2to8XcPCE5+l+8gOsluYBG?=
+ =?us-ascii?Q?lf9htVY64FtBWVhkNEy5UdwAD5uUxzrUcTjIyu5aquPvi8wEisq65jWc+k/C?=
+ =?us-ascii?Q?Bz1qN+PB/EtHKZ6xLrOUqJYgVqrOxFoyDj4A6jTjpPFzO3QBKsBUdpvb2Pka?=
+ =?us-ascii?Q?4zfKmmGf0j9DQoPFnN/LPd8Yi4cRiJIwAE0/SorF5T/8gp+P1w+BH2egvBKZ?=
+ =?us-ascii?Q?/LLSHh4RfeKZAaUd5s5/JL5fI2yUPsyq+t6yGqzMnqFOoTLJ7DKvmWGnrxIO?=
+ =?us-ascii?Q?RLkrC97QVXEz06Yq86RYKYATThiMBvb8SjVCZIrd727ES0ekV2UvRfwOS9bJ?=
+ =?us-ascii?Q?dVVKYukK8icEuXbZcno=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(82310400026)(30052699003)(36860700013);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2025 11:44:38.3993 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 656e60a2-d0a3-45a6-5f28-08de1d29ddc0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2025 11:44:40.3195 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31eb1c9f-1bc9-4b47-74f4-08de1d29dee5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB59.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5868
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4253
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,203 +135,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add support to configure and retrieve ppt1 limit for smu_v13_0_12
+Expose power2_cap hwmon node for retrieving and configuring ppt1
+limit on supported boards for gc_v9_5_0
 
-v2: Add update_caps function and update ppt1 cap based on max ppt1
-value, optimize the return values (Lijo)
+v2: Remove version check
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  4 +-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c |  8 ++
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 79 ++++++++++++++++++-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h  |  4 +
- 4 files changed, 91 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c        | 12 +++++++++---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c |  2 ++
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index 2256c77da636..5fb71d4398f4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -279,7 +279,9 @@
- 	__SMU_DUMMY_MAP(ResetSDMA), \
- 	__SMU_DUMMY_MAP(ResetVCN), \
- 	__SMU_DUMMY_MAP(GetStaticMetricsTable), \
--	__SMU_DUMMY_MAP(GetSystemMetricsTable),
-+	__SMU_DUMMY_MAP(GetSystemMetricsTable), \
-+	__SMU_DUMMY_MAP(SetFastPptLimit), \
-+	__SMU_DUMMY_MAP(GetFastPptLimit),
- 
- #undef __SMU_DUMMY_MAP
- #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index a0c844bf852c..e2851b26593a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -139,6 +139,8 @@ const struct cmn2asic_msg_mapping smu_v13_0_12_message_map[SMU_MSG_MAX_COUNT] =
- 	MSG_MAP(ResetVCN,                            PPSMC_MSG_ResetVCN,                        0),
- 	MSG_MAP(GetStaticMetricsTable,               PPSMC_MSG_GetStaticMetricsTable,           1),
- 	MSG_MAP(GetSystemMetricsTable,               PPSMC_MSG_GetSystemMetricsTable,           1),
-+	MSG_MAP(SetFastPptLimit,		     PPSMC_MSG_SetFastPptLimit,			1),
-+	MSG_MAP(GetFastPptLimit,		     PPSMC_MSG_GetFastPptLimit,			1),
- };
- 
- int smu_v13_0_12_tables_init(struct smu_context *smu)
-@@ -345,6 +347,12 @@ int smu_v13_0_12_setup_driver_pptable(struct smu_context *smu)
- 		if (smu_v13_0_6_cap_supported(smu, SMU_CAP(NPM_METRICS)))
- 			pptable->MaxNodePowerLimit =
- 				SMUQ10_ROUND(static_metrics->MaxNodePowerLimit);
-+		if (smu_v13_0_6_cap_supported(smu, SMU_CAP(FAST_PPT)) &&
-+		    static_metrics->PPT1Max) {
-+			pptable->PPT1Max = static_metrics->PPT1Max;
-+			pptable->PPT1Min = static_metrics->PPT1Min;
-+			pptable->PPT1Default = static_metrics->PPT1Default;
-+		}
- 		smu_v13_0_12_init_xgmi_data(smu, static_metrics);
- 		pptable->Init = true;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 197fd91e1fb4..282bd00a909c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -851,6 +851,17 @@ int smu_v13_0_6_get_static_metrics_table(struct smu_context *smu)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 69aa8e22f103..49cc5aaa749c 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3373,7 +3373,9 @@ static ssize_t amdgpu_hwmon_show_power_label(struct device *dev,
+ 				  to_sensor_dev_attr(attr)->index == PP_PWR_TYPE_FAST ?
+ 				  "fastPPT" : "slowPPT");
+ 	else
+-		return sysfs_emit(buf, "PPT\n");
++		return sysfs_emit(buf, "%s\n",
++				  to_sensor_dev_attr(attr)->index == PP_PWR_TYPE_FAST ?
++				  "PPT1" : "PPT");
  }
  
-+static void smu_v13_0_6_update_caps(struct smu_context *smu)
-+{
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	struct PPTable_t *pptable =
-+		(struct PPTable_t *)smu_table->driver_pptable;
-+
-+	if (smu_v13_0_6_cap_supported(smu, SMU_CAP(FAST_PPT)) &&
-+	    !pptable->PPT1Max)
-+		smu_v13_0_6_cap_clear(smu, SMU_CAP(FAST_PPT));
-+}
-+
- static int smu_v13_0_6_setup_driver_pptable(struct smu_context *smu)
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
-@@ -867,8 +878,12 @@ static int smu_v13_0_6_setup_driver_pptable(struct smu_context *smu)
- 	uint8_t max_width;
+ static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
+@@ -3737,7 +3739,8 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 		return 0;
  
- 	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 12) &&
--	    smu_v13_0_6_cap_supported(smu, SMU_CAP(STATIC_METRICS)))
--		return smu_v13_0_12_setup_driver_pptable(smu);
-+	    smu_v13_0_6_cap_supported(smu, SMU_CAP(STATIC_METRICS))) {
-+		ret = smu_v13_0_12_setup_driver_pptable(smu);
-+		if (ret)
-+			return ret;
-+		goto out;
-+	}
+ 	/* not all products support both average and instantaneous */
+-	if (attr == &sensor_dev_attr_power1_average.dev_attr.attr &&
++	if ((attr == &sensor_dev_attr_power1_average.dev_attr.attr ||
++	     attr == &sensor_dev_attr_power2_average.dev_attr.attr) &&
+ 	    amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER,
+ 					 (void *)&tmp) == -EOPNOTSUPP)
+ 		return 0;
+@@ -3832,7 +3835,10 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 	     attr == &sensor_dev_attr_power2_cap_min.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_power2_cap.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_power2_cap_default.dev_attr.attr ||
+-	     attr == &sensor_dev_attr_power2_label.dev_attr.attr))
++	     attr == &sensor_dev_attr_power2_label.dev_attr.attr) &&
++	     (amdgpu_dpm_get_power_limit(adev, &tmp,
++					 PP_PWR_LIMIT_MAX,
++					 PP_PWR_TYPE_FAST) == -EOPNOTSUPP))
+ 		return 0;
  
- 	/* Store one-time values in driver PPTable */
- 	if (!pptable->Init) {
-@@ -948,7 +963,8 @@ static int smu_v13_0_6_setup_driver_pptable(struct smu_context *smu)
- 			smu_v13_0_6_fill_static_metrics_table(smu, static_metrics);
- 		}
- 	}
--
-+out:
-+	smu_v13_0_6_update_caps(smu);
- 	return 0;
- }
- 
-@@ -1882,9 +1898,65 @@ static int smu_v13_0_6_set_power_limit(struct smu_context *smu,
- 				       enum smu_ppt_limit_type limit_type,
- 				       uint32_t limit)
- {
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	struct PPTable_t *pptable =
-+		(struct PPTable_t *)smu_table->driver_pptable;
-+	int ret;
-+
-+	if (limit_type == SMU_FAST_PPT_LIMIT) {
-+		if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(FAST_PPT)))
+ 	return effective_mode;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 4317da6f7c38..73a063748c86 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2921,6 +2921,8 @@ int smu_get_power_limit(void *handle,
+ 	if (limit_type != SMU_DEFAULT_PPT_LIMIT) {
+ 		if (smu->ppt_funcs->get_ppt_limit)
+ 			ret = smu->ppt_funcs->get_ppt_limit(smu, limit, limit_type, limit_level);
++		else
 +			return -EOPNOTSUPP;
-+		if (limit > pptable->PPT1Max || limit < pptable->PPT1Min) {
-+			dev_err(smu->adev->dev,
-+				"New power limit (%d) should be between min %d max %d\n",
-+				limit, pptable->PPT1Min, pptable->PPT1Max);
-+			return -EINVAL;
-+		}
-+		ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetFastPptLimit,
-+						      limit, NULL);
-+		if (ret)
-+			dev_err(smu->adev->dev, "Set fast PPT limit failed!\n");
-+		return ret;
-+	}
-+
- 	return smu_v13_0_set_power_limit(smu, limit_type, limit);
- }
- 
-+static int smu_v13_0_6_get_ppt_limit(struct smu_context *smu,
-+				     uint32_t *ppt_limit,
-+				     enum smu_ppt_limit_type type,
-+				     enum smu_ppt_limit_level level)
-+{
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	struct PPTable_t *pptable =
-+		(struct PPTable_t *)smu_table->driver_pptable;
-+	int ret = 0;
-+
-+	if (type == SMU_FAST_PPT_LIMIT) {
-+		if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(FAST_PPT)))
-+			return -EOPNOTSUPP;
-+		switch (level) {
-+		case SMU_PPT_LIMIT_MAX:
-+			*ppt_limit = pptable->PPT1Max;
-+			break;
-+		case SMU_PPT_LIMIT_CURRENT:
-+			ret = smu_cmn_send_smc_msg(smu, SMU_MSG_GetFastPptLimit, ppt_limit);
-+			if (ret)
-+				dev_err(smu->adev->dev, "Get fast PPT limit failed!\n");
-+			break;
-+		case SMU_PPT_LIMIT_DEFAULT:
-+			*ppt_limit = pptable->PPT1Default;
-+			break;
-+		case SMU_PPT_LIMIT_MIN:
-+			*ppt_limit = pptable->PPT1Min;
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+	return ret;
-+}
-+
- static int smu_v13_0_6_irq_process(struct amdgpu_device *adev,
- 				   struct amdgpu_irq_src *source,
- 				   struct amdgpu_iv_entry *entry)
-@@ -3934,6 +4006,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
- 	.get_enabled_mask = smu_v13_0_6_get_enabled_mask,
- 	.feature_is_enabled = smu_cmn_feature_is_enabled,
- 	.set_power_limit = smu_v13_0_6_set_power_limit,
-+	.get_ppt_limit = smu_v13_0_6_get_ppt_limit,
- 	.set_xgmi_pstate = smu_v13_0_set_xgmi_pstate,
- 	.register_irq_handler = smu_v13_0_6_register_irq_handler,
- 	.enable_thermal_alert = smu_v13_0_enable_thermal_alert,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-index 7ef5f3e66c27..4a47025b49e0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
-@@ -50,6 +50,9 @@ struct PPTable_t {
- 	uint32_t MinLclkDpmRange;
- 	uint64_t PublicSerialNumber_AID;
- 	uint32_t MaxNodePowerLimit;
-+	uint32_t PPT1Max;
-+	uint32_t PPT1Min;
-+	uint32_t PPT1Default;
- 	bool Init;
- };
- 
-@@ -72,6 +75,7 @@ enum smu_v13_0_6_caps {
- 	SMU_CAP(PLDM_VERSION),
- 	SMU_CAP(TEMP_METRICS),
- 	SMU_CAP(NPM_METRICS),
-+	SMU_CAP(FAST_PPT),
- 	SMU_CAP(ALL),
- };
- 
+ 	} else {
+ 		switch (limit_level) {
+ 		case SMU_PPT_LIMIT_CURRENT:
 -- 
 2.46.0
 
