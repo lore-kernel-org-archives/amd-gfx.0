@@ -4,70 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02068CCFA05
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 15:19:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C33CCFA05
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 15:22:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EEBF10E8FF;
-	Thu,  6 Nov 2025 15:19:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B7D10E343;
+	Thu,  6 Nov 2025 15:22:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kMNbeWNE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YJuniJ52";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86A6E10E8FF
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 15:19:08 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-33257e0fb88so211874a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 07:19:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762442348; x=1763047148; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SX1RsfZ06gmC2m0vv0M8ynPPzto1fT8TMS7v02HJeT0=;
- b=kMNbeWNEXhXEedW3bJq5N/jt7hQxi9GQppXPOuABSxdbKpTOy2sRJj53FlIxbe9s9j
- 1PxbuYdWDHC1x42luRDLJJjGkZWsEA2Ql20+Oqws3MqX9+nLsKoefwBICq366yg7qzyC
- sE4BUIHlvUHMVv29gbYzAOJEQoA2m31niNxckq1KCbu3C75ga5FpYOOQAxYwK31JEA0T
- +y3MhbcCuHeJkUFWlqrv3991fyJ1uLy55Fj/plQ2k3QFu1wBa4VyCQE8x2lkIRn3NpHp
- RBJLVs+Sy1RWnPB9LSoFkOO0aQOFLf+YIpkxo1kgvgISPNjJfr2EbR7WKxekKJc/aBR8
- Vg4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762442348; x=1763047148;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SX1RsfZ06gmC2m0vv0M8ynPPzto1fT8TMS7v02HJeT0=;
- b=vzYk2d572HQo2MmIP90o52q8TEJGKqjmO958GDksApaId0kAPM8ENo2DkyxgUxFehE
- 7ZtotfUtLeGIJvLYzOZLbaWeS39GALV/pDc7NmVJEsGsFpVNJJNNGD7OkepnyfH1l5n2
- VGLq9kG9l2K91cwmU45wGsu46WMPqncTHcwc3GXizaBxAHE7DXkslpocIAWw1EQybkSr
- ia87kDLr0IrCp9gvp+mzEmolTHFzEsB6p3LjtjQPR+NSupNYB3GRg/NIyYetDdVnGGL3
- Yrwfbm1gwSccHm5AJE9KXc+dzc/wy8T6B5mgzkOZjWp54PMCdhmRu67Nu8fZ7UdLIBDO
- xicw==
-X-Gm-Message-State: AOJu0YylXIG2Y85vu1uZXVRjNzvyOZp4J//dhpiLlSt2aSyjVUkznlbx
- dtq+vn6IAcvuQvH23rbJbRGmaA7T/Anb7Yfx9bayogLXizqo4+V84QInHSzNLAgnpqrvEoBBuDn
- +Nl8Z1U+Bni3q6JDeSaTSECTBPPsf830c8ZKF
-X-Gm-Gg: ASbGncu6QsEYAfY92UjkJqETrXXDPFmfT9558+srn2fd7/ZtlZO0TOwDynrUszx1uX7
- S9doQiNVXJ3OBzXqmduKRzmsa3ii5S0Rb1f609GzCWntxJFM/jSlZtGtKsR/4oakRMeLGtMZAm/
- LPAqU5m5Az8l0Y3UpuOXAPHxJ572eZSw1IUAMhFlyQHW6GS5kR0smpdwY6Lte1DvyNdegvtthYJ
- DqIZ3JH09qQKjYyhByVnSD3ixHSjjOQbzl3pFXjZyTG9INu9tS3MxdqGF8C6qe8Do3yw7k=
-X-Google-Smtp-Source: AGHT+IFdv1OfD0zigltebs1yl/GsycM2yBZu+OctMxU3gfjsc38AFhZQgRt2Be2MjL+dZcF9GI80EHhDHvWd81p2KKA=
-X-Received: by 2002:a17:90b:17c1:b0:341:b5a2:3e78 with SMTP id
- 98e67ed59e1d1-341cf41436fmr2369518a91.3.1762442347800; Thu, 06 Nov 2025
- 07:19:07 -0800 (PST)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA3CB10E343
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 15:22:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id E82116133D;
+ Thu,  6 Nov 2025 15:22:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EDADC116D0;
+ Thu,  6 Nov 2025 15:22:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1762442559;
+ bh=jH8/OicpRdZVK5i9bhKBlm5igYSma30z58VJhEcAtLU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=YJuniJ52j+6AaxurDtJf0cut1Uq9YtHFeZtpIadORBIrRSmOZhL1QgX/PNOKMFzC0
+ UrTuG6NunJob8w663emd1a5PpAAoGm9dSdsyQWL1gTU291c6euortjyv/P/NR+bLfs
+ ted6yygqDt7FvDeI1cLA+aainLoEdcqbO9VlEQz0EiMV8AaF5gjm5AsS3ppiV7EmUR
+ Wxk+FbJ8t1tWQpbT+KlQOgP6I6XDyOSjG4r+HvaLDIcLiSvysOKWybp2KZL7tGS3VI
+ 7/XmY4CRlJn9qeFVDOlK7abHpZ5FkEfYpSgy9vWYeDXp4N91Rgv2RDa4dUf0XMugZ1
+ zMMCoxFvzQSqg==
+Message-ID: <ac528b8d-bb68-4b66-83f4-1fcaa1475d9c@kernel.org>
+Date: Thu, 6 Nov 2025 09:22:38 -0600
 MIME-Version: 1.0
-References: <20251106130637.2187-1-christian.koenig@amd.com>
- <20251106130637.2187-2-christian.koenig@amd.com>
-In-Reply-To: <20251106130637.2187-2-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Nov 2025 10:18:56 -0500
-X-Gm-Features: AWmQ_bk5TBAdgp49GbaR8ygwlpGALfXru5tz3yHrNTZIs0sl8F60CrOyi_NIYo8
-Message-ID: <CADnq5_OpEN57hh0WvprRBK2NKSTh7Yk5kYMUB6YHRfBWH8cAvA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: use GFP_ATOMIC instead of NOWAIT in the
- critical path
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdgpu: Fix GFX hang on SteamDeck when amdgpu is
+ reloaded
+To: Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Robert Beckett <bob.beckett@collabora.com>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20251020161606.67812-1-siqueira@igalia.com>
+ <kfkpxu5xve4stdr7nkvqfwpj3a763237udvo5ki6qgq6gimdmo@e6c77y2u2rff>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <kfkpxu5xve4stdr7nkvqfwpj3a763237udvo5ki6qgq6gimdmo@e6c77y2u2rff>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,63 +62,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 6, 2025 at 8:06=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Otherwise job submissions can fail with ENOMEM.
->
-> We probably need to re-design the per VMID tracking at some point.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Fixes: https://gitlab.freedesktop.org/drm/amd/-/issues/4258#note_3179934
+On 11/4/25 6:32 PM, Rodrigo Siqueira wrote:
+> On 10/20, Rodrigo Siqueira wrote:
+>> When trying to unload amdgpu in the SteamDeck (TTY mode), the following
+>> set of errors happens and the system gets unstable:
+>>
+>> [..]
+>>   [drm] Initialized amdgpu 3.64.0 for 0000:04:00.0 on minor 0
+>>   amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB test failed on gfx_0.0.0 (-110).
+>>   amdgpu 0000:04:00.0: amdgpu: ib ring test failed (-110).
+>> [..]
+>>   amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
+>>   amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
+>>   amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous command: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
+>>   amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
+>> [..]
+>>
+>> When the driver initializes the GPU, the PSP validates all the firmware
+>> loaded, and after that, it is not possible to load any other firmware
+>> unless the device is reset. What is happening in the load/unload
+>> situation is that PSP halts the GC engine because it suspects that
+>> something is amiss. To address this issue, this commit ensures that the
+>> GPU is reset (mode 2 reset) in the unload sequence.
+>>
+>> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+>> Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index 0d5585bc3b04..0a7bcb2d5a50 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -3649,6 +3649,13 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
+>>   				"failed to release exclusive mode on fini\n");
+>>   	}
+>>   
+>> +	/* Reset the device before entirely removing it to avoid load issues
+>> +	 * caused by firmware validation.
+>> +	 */
+>> +	r = amdgpu_asic_reset(adev);
+>> +	if (r)
+>> +		dev_err(adev->dev, "asic reset on %s failed\n", __func__);
+>> +
+>>   	return 0;
+>>   }
+>>   
+>> -- 
+>> 2.51.0
+>>
+> 
+> Hi,
+> 
+> I just want to follow-up about this patch. Do I need to make any other
+> modification?
+> 
+> Thanks
+> 
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4258
+I was a little bit worried about implications for the 6.19 changes 
+around shutdown, but I talked to siqueira about some testing for it and 
+he did a wide array of testing across different GPUs with load/unload 
+and shutdown.  To me this looks fine, but I think Alex should give his 
+thoughts too.
 
-With that fixed, series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ids.c
-> index 5f94a66511af..ecf2b1f13ca7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> @@ -286,7 +286,7 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm=
- *vm,
->         * user of the VMID.
->         */
->         r =3D amdgpu_sync_fence(&(*id)->active, &job->base.s_fence->finis=
-hed,
-> -                             GFP_NOWAIT);
-> +                             GFP_ATOMIC);
->         if (r)
->                 return r;
->
-> @@ -346,7 +346,7 @@ static int amdgpu_vmid_grab_used(struct amdgpu_vm *vm=
-,
->                  */
->                 r =3D amdgpu_sync_fence(&(*id)->active,
->                                       &job->base.s_fence->finished,
-> -                                     GFP_NOWAIT);
-> +                                     GFP_ATOMIC);
->                 if (r)
->                         return r;
->
-> @@ -399,7 +399,7 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amd=
-gpu_ring *ring,
->                         /* Remember this submission as user of the VMID *=
-/
->                         r =3D amdgpu_sync_fence(&id->active,
->                                               &job->base.s_fence->finishe=
-d,
-> -                                             GFP_NOWAIT);
-> +                                             GFP_ATOMIC);
->                         if (r)
->                                 goto error;
->
-> --
-> 2.43.0
->
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
