@@ -4,82 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18342CCFA03
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 10:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F132CCFA1A
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 10:03:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FD6910E870;
-	Thu,  6 Nov 2025 10:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D66EB10E877;
+	Thu,  6 Nov 2025 10:03:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="RSQ6VQfh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ast4a2/Y";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2100210E86F
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 10:00:17 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-477549b3082so6663105e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 02:00:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1762423215; x=1763028015; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4/Zq2ZMLTkW/3rjXrb4929ZqxG9YuHUsxu8QuLD1NzA=;
- b=RSQ6VQfh/AYyEpTQhCp8huyTeIe2Wf1Z0LYy3NDgv90L/dRow0FSyfO5MEdvLXXPMJ
- Ur5G4BPRCrULQKTI9eCqbdKw9WNKrLcSyHj4jMtD1I8773JqAcAFXSZ45guyz5MANcOB
- XzXvAPYcXL2tS6ghol3PFwcdasbA/hf65X9gzfOB3+89scu2opj1HgVqGQOkmCZjFzkD
- GL0/zKF0q6jb37QCdDVLYGoNyFw8dxsLasULD1Vm53TgoR2cy7O3z2YO4OcQf+gxw/gV
- s6L9Kbg+U7dcUkYgN0s1UmKlcH70nZaUK8C7UatAVIRhKy/nSEW7aafj0xO2UzW0Mvt+
- k2MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762423215; x=1763028015;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4/Zq2ZMLTkW/3rjXrb4929ZqxG9YuHUsxu8QuLD1NzA=;
- b=xIRdAnJI2WWH7o+XgWteD+aJRyerFtB/twjEvSEFYqETjFbdljtqjs6OBwRwhaumXm
- 0/cHwBvTjfQHv7aiK5yCjEmC90F5EwwN9dFRX9dfWLbYZEzvSKbDSqlZJEyHKOPSVa9S
- mH5vbwI4Wjl8RzqHj9P7LDZOyJ93NidNmwyXFJnHA251kcsVyr2nB5arhpXbFFSYL53O
- ipav28RaR5RBzeFyHUBUzpCbk1RhBht0ABo+05nr1NyZreu7aaSFAj2K2SUk/O+FJho7
- fi9zMKTXDAZ21ODHaWPjXPuJus3Rkt/RQ+lRfNKV3jw/MLqHru7gVb+ZBTmn4l1fKhg9
- +LqA==
-X-Gm-Message-State: AOJu0YxqcRCS+ecoePF1xp7VJlQ0l2O2JsP3fxk6e4JjV02Cq2Xs4yOc
- KYTSlJLWGw2WoUwj2T0YeNmtJfsTGEO4eBgyXKQAvZhdlu/ye9EtgdVxHNbrR17dgCQ=
-X-Gm-Gg: ASbGncsxu6AVMJmluRvTCXCvPSCv9Khp/+eo2TfpMvA6a2QWiPIndqTVRXWtr/sOo0x
- mzhhjlerH8VQI9lzEPelb+7kXgeVB+USMgQA1SkO2TTJk2Fpsa6nuAddCgpg74SuB+5JRpGQ9mB
- u/dkHuswDsH0itZvymha92zPaQxF7zNH7M7EAvfKgFdjEg3Lgf1UGCUlYNOSOBra8ws/8Zc/Sfd
- U64HeZ0BJGohif/NAph/fofK2Kv+T9EQ9wPfUpTnGMpyymudYYAI+XCMAWn3fZJ378ThR7HNr+x
- ivqrsRvUgQ2bhORf01hTMrIVN2yup1kvKnTyOUfEJ0c1B6t2e3bMiE/GvyMAnYbZf57kyJ49Pcb
- 7oofTkuM8Azlrf6WRpnQ/P8i190kFA3CmdlWoFm26Hf1pcGYTjyG4o586eu6jHqsmPVZBJ9YXoJ
- 2+M3WYpstciMw1TpSKQA0kOeGg6Z4=
-X-Google-Smtp-Source: AGHT+IEZKVyRG59cakGUG/uu7olGLVJjMN0xfbpmUq5+ampqbuf/q1ePNFMJ6cguRcdgyKCUSlBC+w==
-X-Received: by 2002:a05:6000:210c:b0:429:8daa:c6b1 with SMTP id
- ffacd0b85a97d-429e3308887mr4652869f8f.38.1762423214827; 
- Thu, 06 Nov 2025 02:00:14 -0800 (PST)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429eb41102bsm4118122f8f.17.2025.11.06.02.00.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Nov 2025 02:00:14 -0800 (PST)
-Message-ID: <9e5abc5f-1948-4b18-8485-6540f84cdfd8@ursulin.net>
-Date: Thu, 6 Nov 2025 10:00:13 +0000
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012058.outbound.protection.outlook.com
+ [40.93.195.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE3C510E86D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 10:03:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q3f11WGKW9yVAFsFglAt9prc/kUGMa39XJHl6IyYfZT5gd4yzBzqYFJbOcgBEPkMt7CJbbGRFiTowdTO0tBfELPCID4A4cIYMEkki8iYnM2RnIKy6msFRQttNs9rN3593T5h3OR/nbc3tNDtW0PCEDWk++iVAJhrtUe1lG7/e/ywEPvTpmHEH93Nn83WTZwED3FTyyMJLaOxYdDSSsbLaqfO3YvYx3BBT0cKTwgtzlMtPFST3GmB0jRtZCSlJFYL6+u8c1lGklglPyUdCsngn+heVyFRoEU0Q73MsBB4EBnrVol/9bQ4yKyXU6kKtzjIP+7uBO8br4dfodp8GiT2Hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cpa5fOqHoPoeY/7OwH/QiWRs7z4ZWc9E/FTl/HnY2Ek=;
+ b=yOM+6PeWHGuVBosKWylqCjzqV8E0Lyh8szmNsqNovm+1qLCsawM5FZ8D6KfZZaB9OnNP90CMOk1+uNJga75AiLZF31b98B6Y2vcsMU5TWwI+kG7xtG4Ciz87Wtob/Lb0ZJWqUjWG15tpbq3i1V7Y15OvBJ21f0dVnqxkfYBUeT8AOvsDjOGOmGyN3GkAKnwszPMlCjzJiLfJ944r7+hHHnuCHlvNYETXZ98qtjeGM7ZfDcJmpyl4Ae9u2KyFypj8QowPlsOfwNqp4wyAmW8F5AFPREF0wJzEq1B6vQ1n7rvoDD3gwPWY91A0uWwpDGgrBY3bpUY+2tV0UuoNWQLPhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cpa5fOqHoPoeY/7OwH/QiWRs7z4ZWc9E/FTl/HnY2Ek=;
+ b=ast4a2/YjYWPQiVlK6u+D2iuUqNKPBvkIGK/QH8L7J8+8I+83Q7+6UvZrZXbYas3/TmHu6qq2MTeOtzk07u5JpMczsejql/t2wdA/ZyJzJnK2NwKCcOmgJBn4L27cvtHmQn+xQ7PMoKC2blkadq/5w8lZEz13Ii7tKlNTiy/1WI=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by BL3PR12MB6569.namprd12.prod.outlook.com (2603:10b6:208:38c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Thu, 6 Nov
+ 2025 10:03:26 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009%4]) with mapi id 15.20.9298.010; Thu, 6 Nov 2025
+ 10:03:26 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Xie, Patrick" <Gangliang.Xie@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Xie, Patrick" <Gangliang.Xie@amd.com>
+Subject: RE: [PATCH] drm/amd/pm: remove unnecessary prints for smu busy
+Thread-Topic: [PATCH] drm/amd/pm: remove unnecessary prints for smu busy
+Thread-Index: AQHcTvqeD9QlNux68kGqd1dj4r2gi7Tlax4A
+Date: Thu, 6 Nov 2025 10:03:26 +0000
+Message-ID: <BN9PR12MB52570B0815AE2C7F71BCBF0BFCC2A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20251106085125.1949875-1-ganglxie@amd.com>
+In-Reply-To: <20251106085125.1949875-1-ganglxie@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-11-06T10:03:02.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BL3PR12MB6569:EE_
+x-ms-office365-filtering-correlation-id: eaed2ece-a511-43d3-e14e-08de1d1bba5b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?MmeC0sPZaK1yCZn4wrw12YenbjBnU2IiYVruIMWXde0+m87/KofpQVP+sSpH?=
+ =?us-ascii?Q?ynBBJNVQc16nWu/uOBRT3sIpZ1NZHMfH7G+jCRRiDhSJ15luSVNWrXH0uUTg?=
+ =?us-ascii?Q?h7PztICW76SPvjIsu6hljUe2Pl3X5iY7V1aAiHW9xIrZ/++7Wywttk6s3kug?=
+ =?us-ascii?Q?hBFmWkQIlpLCtlmxRiGCvpk3vr1WSee4jpRSzpsuegp5sHAqiSBt6Z4/RQl8?=
+ =?us-ascii?Q?8lTjXhM+wAn6zDAEcclFZrP+nE6xPDv0iGYHz9Wlth69IrU16hbLoOsW9IJr?=
+ =?us-ascii?Q?SZwMLxdWSYCj/EJm1eku0E/8aJOn45enIRH7f6oNjc6B5pI/Y8uuBsaX6p1q?=
+ =?us-ascii?Q?erEgtqywh8zzed6h/3JOIetzt2Rx4dHYgN5ro+YFLqPtRPs8F/9VsL+hCV+u?=
+ =?us-ascii?Q?Kl6k2FLpQwurOHrqshxFiD+JCHun68qw/eM9GTfVT/KhAfy940WWv3yC/c5l?=
+ =?us-ascii?Q?MYaESLnsWVNBMbcjcGuMaTprQmZI+a4x88GU3xaZ2zKNaAYNVyKpY0TPmRBC?=
+ =?us-ascii?Q?i6WMuSAxoN8rKuFlMSnKpCR1U/5LY0B2gJMSDEBMUo5m8JllbxW3rTexxlUa?=
+ =?us-ascii?Q?1tWU3AdgqglDAFL2lanyzf+yLlvbRNNTKpNKZccqHktjANyH3x3qpK07fnrS?=
+ =?us-ascii?Q?/Y8fpcMDSe99weJv7/zBr8b1x5EzYw0YJXpN2s151awv7afqTrWjrHjTNTBG?=
+ =?us-ascii?Q?oCiItmQWlvEXd+ZxmzRt0yCkYNN/5XyUI/u3O2j33D3dOgCilwFZrERrZ2FX?=
+ =?us-ascii?Q?UeWQrm2ADCvuHwqfNqAYsgIO5U1UYgtZqK1nQnEqYBsWN3qZstkDs7uXw30d?=
+ =?us-ascii?Q?96rJ2Hr4FA6vGf7SYLLdB9kKpvkz7njgBSjQ4GyvlpJvemV7IpEgfzhsbBa8?=
+ =?us-ascii?Q?qAZdAxUSHjRLzk8++Rtl/denVhULK4REK0XuJlR68F+Y6SdvkgcmHtnzl8MK?=
+ =?us-ascii?Q?bGyB+iaR5P28io50yI1ZVfOJS+g5WY+i6jFMgBagwb7iHZl4V8idx4h38KRv?=
+ =?us-ascii?Q?R55hpqcA5qufwGx1TmWs/dOfgKa1TcPiEEBLNWXFu8dhoZMHWMNZkxuXyRpc?=
+ =?us-ascii?Q?DbsZ6yjDR5Vi8IzoGvYdQOzAMDxsa7T5+QaNDQ7MZLgZFpv27UrrOMaPudQd?=
+ =?us-ascii?Q?QSArVDviKF4HqljXkrjJCn5AqpXsCOZMPoFJ7tMKuu7Rk7bDknZ/yRsW5SDa?=
+ =?us-ascii?Q?YLgiA9bx4Dwta3EtNKVBxoDAZ4gvDVjWWPt2yw2LzvqkVjAJrGCYzYRq+Ndi?=
+ =?us-ascii?Q?W3vHJ5/1vAG34c21SnkTg2B6EwJemsI5J8nO1elkw6r5d7BzsLFEzu2lLiTV?=
+ =?us-ascii?Q?EaJZaBwWGuOaEufQzYUAKPinRDVXUi0b2RDFY1k0tnjpz1v/5blIUBVX+LNj?=
+ =?us-ascii?Q?5D38t0mkqT42xUJFntKEBnv86NGJligukqt/bQdZDu4HYtHv/dWNmf6s/aQG?=
+ =?us-ascii?Q?FwxgVssjFgRQz8mL6pLqjUK2c2XCvMFTCVzCT1PzQw0QYdIG2rD4x/lmGX++?=
+ =?us-ascii?Q?wLyY9mEQ7Ujd0eFyLB434ghI5eiFk5zgzpWW?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ecoT/inkte0DQzwFeRLbVYsqjtav1bpvzlYslYK8lhOd2a0z69NYXGPTSyQZ?=
+ =?us-ascii?Q?MZhad0PGnDmOvYl6XYgy7aU0xj9O+lR6REW58N47yRrStB/eii+5TD+Imziu?=
+ =?us-ascii?Q?6c0CHvB9mSR6WWjIVHeRpYpfMNpIrrObqBgMywuTN4W26xXGiPt+SsrIg2yu?=
+ =?us-ascii?Q?cFLD4ynQEKF2D6e8tSyTWn/0p5vzEacNt51ngqYl4tjl9GQ3h4H4UZCwj1xI?=
+ =?us-ascii?Q?zZ0/gjwBoBMNG9rwcr/qHOrlYPK7iouu2JUKxJUGY38LxACBai07bwnYTVfb?=
+ =?us-ascii?Q?DTp9eVqCfmH/lcIynrqENIovbPHDtyF2w1clBP4S0ipi3I3Sp+G4SdQGyvdP?=
+ =?us-ascii?Q?stztIJReyiLMErEAiAxFSyPNj3rlng+XvGj966du6+0LfD5e/o2E7r+295BN?=
+ =?us-ascii?Q?HzAbPsNCwwEeBxk82x/nfrF2gC191gvfJR+1HINzLOr7UsQO5aDfHRAM56kA?=
+ =?us-ascii?Q?D543dR0VNKeO2i4ngwVrzMxGRlbeIoyuoLoMMO1Dn4+m7Qv2PPom5ESaKboQ?=
+ =?us-ascii?Q?fLk42Bt8Mo8FPuqA2qT44W8l8qK0tBK7vsBRdhx99Y2U2jQvMCt0sPc/zYpk?=
+ =?us-ascii?Q?QeMoWsLCXk72MCuwbjhP86cjnN6uDR/u6ney/fFDGE0y6EcTi5P5LKglelM0?=
+ =?us-ascii?Q?8UVCwrMpY/L8NFclBOKqwet+0YlbE3bqhaELPYDrKMvPHjQMkYyxdzbP+Mym?=
+ =?us-ascii?Q?2CaIQ2SIkq7Hbv5dpee8dH6wBtCFTH6it2W8owoyY5Igu6PWSQsKbtPqnEBp?=
+ =?us-ascii?Q?bZDm/a/gF9RUvFcM3JxtBYAu8kwqtrnJg6r+OWiCttfhYW09EgHeJ6Mkq+Tt?=
+ =?us-ascii?Q?0PFr2WhAAhbLSak7rNXRPoZ/C0AQkE+sErdl8GzYSLY6iMveQ6xjEOXhobL5?=
+ =?us-ascii?Q?IdhbdjdqFLazvKH0yu/zc0CgXgXkg78nXHuxIAWpmnS9sYSX0CsbOx00W2TB?=
+ =?us-ascii?Q?6z3i1iinM/Hg0lIfnnSZBzCzaFqRTQKuUoAZ2EkeORrnk6sWJP9XiEuLJSG2?=
+ =?us-ascii?Q?MZu+9wAGSpbcA1OKMaPsnKVaV3jI6upQXdKCJDwMM4wapV3WK5jUuM80QG8R?=
+ =?us-ascii?Q?jTpjwmGRvVEo4TwmkF8uL21bVBFza04HXj0gcr3gS/22p8OaGNUt6vIMs6kB?=
+ =?us-ascii?Q?GeRvsNwWS9ve5WpCQHzvgCNWAj6RsXPsDU+D3qTOnxKayHdBON4g1JXcNZg7?=
+ =?us-ascii?Q?LwvJVnHV46PtFIazC2kpCz9h1T4mFUI1UBo3FxC0s4oIh1NHEuHm/lobWaDh?=
+ =?us-ascii?Q?kg5fvkMXHSrhPikm6cZnueUVhIaBhlGMS192z0bGnkM6nv5wG+cUwM7NVXo6?=
+ =?us-ascii?Q?bWzv/RStSRshLjf85wLTpL1z4dvxOgD+2jih05MUQn19fVSNxq04kXt0B/R2?=
+ =?us-ascii?Q?1hHNiZXuttxVu1kpHF9HsWkgWhK/kw0nlWm7iEKLn9WSrCkE32rAMmT66VEW?=
+ =?us-ascii?Q?TRo9AjowLVPoPljcFAyhciKAGL5bZTpGA3w88oTcTKXLBtGZ3FIacMv8qm1X?=
+ =?us-ascii?Q?kWf1shAq+T8rdsQ69PBkE6fnqEHZLdEO2jVrpEfFyDs4RH1SILWVTEUgTTp1?=
+ =?us-ascii?Q?2kHZsrxdRNySLtpxKTQ=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] drm/amdgpu: increment sched score on entity
- selection
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20251106093933.18859-1-pierre-eric.pelloux-prayer@amd.com>
- <20251106093933.18859-3-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20251106093933.18859-3-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eaed2ece-a511-43d3-e14e-08de1d1bba5b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2025 10:03:26.1028 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9jC92iwiJ6dxChaH+SGN/YoBGTBv5UkJpJqvPMXmJRR5IJcOwH0vWFwJLanjwzfd38dyj4K1qWUv0YyIDFCO5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6569
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,115 +156,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-On 06/11/2025 09:39, Pierre-Eric Pelloux-Prayer wrote:
-> For hw engines that can't load balance jobs, entities are
-> "statically" load balanced: on their first submit, they select
-> the best scheduler based on its score.
-> The score is made up of 2 parts:
-> * the job queue depth (how much jobs are executing/waiting)
-> * the number of entities assigned
-> 
-> The second part is only relevant for the static load balance:
-> it's a way to consider how many entities are attached to this
-> scheduler, knowing that if they ever submit jobs they will go
-> to this one.
-> 
-> For rings that can load balance jobs freely, idle entities
-> aren't a concern and shouldn't impact the scheduler's decisions.
-> 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 21 ++++++++++++++++-----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
->   2 files changed, 17 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index afedea02188d..953c81c928c1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -209,6 +209,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
->   	struct amdgpu_ctx_entity *entity;
->   	enum drm_sched_priority drm_prio;
->   	unsigned int hw_prio, num_scheds;
-> +	struct amdgpu_ring *aring;
->   	int32_t ctx_prio;
->   	int r;
->   
-> @@ -239,11 +240,13 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
->   			goto error_free_entity;
->   	}
->   
-> -	/* disable load balance if the hw engine retains context among dependent jobs */
-> -	if (hw_ip == AMDGPU_HW_IP_VCN_ENC ||
-> -	    hw_ip == AMDGPU_HW_IP_VCN_DEC ||
-> -	    hw_ip == AMDGPU_HW_IP_UVD_ENC ||
-> -	    hw_ip == AMDGPU_HW_IP_UVD) {
-> +	sched = scheds[0];
-> +	aring = container_of(sched, struct amdgpu_ring, sched);
-> +
-> +	if (aring->funcs->engine_retains_context) {
-> +		/* Disable load balancing between multiple schedulers if the hw
-> +		 * engine retains context among dependent jobs.
-> +		 */
->   		sched = drm_sched_pick_best(scheds, num_scheds);
->   		scheds = &sched;
->   		num_scheds = 1;
-> @@ -258,6 +261,11 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
->   	if (cmpxchg(&ctx->entities[hw_ip][ring], NULL, entity))
->   		goto cleanup_entity;
->   
-> +	if (aring->funcs->engine_retains_context) {
-> +		entity->sched_score = sched->score;
-> +		atomic_inc(entity->sched_score);
-
-Maybe you missed it, in the last round I asked this:
-
-"""
-Here is would always be sched->score == aring->sched_score, right?
-
-If so it would probably be good to either add that assert, or even to 
-just fetch it from there. Otherwise it can look potentially concerning 
-to be fishing out the pointer from scheduler internals.
-
-The rest looks good to me.
-"""
-
-Because grabbing a pointer from drm_sched->score and storing it in AMD 
-entity can look scary, since sched->score can be scheduler owned.
-
-Hence I was suggesting to either fish it out from aring->sched_score. If 
-it is true that they are always the same atomic_t at this point.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ganglian=
+g Xie
+Sent: Thursday, November 6, 2025 16:51
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Xie, Patrick <Gangliang.Xie@amd.com>
+Subject: [PATCH] drm/amd/pm: remove unnecessary prints for smu busy
 
-Tvrtko
+smu busy is a normal case when calling SMU_MSG_GetBadPageCount, so no need =
+to print error status at each time.Instead, only print error status when ti=
+meout given by user is reached.
 
-> +	}
-> +
->   	return 0;
->   
->   cleanup_entity:
-> @@ -514,6 +522,9 @@ static void amdgpu_ctx_do_release(struct kref *ref)
->   			if (!ctx->entities[i][j])
->   				continue;
->   
-> +			if (ctx->entities[i][j]->sched_score)
-> +				atomic_dec(ctx->entities[i][j]->sched_score);
-> +
->   			drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
->   		}
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> index 090dfe86f75b..f7b44f96f374 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
-> @@ -39,6 +39,7 @@ struct amdgpu_ctx_entity {
->   	uint32_t		hw_ip;
->   	uint64_t		sequence;
->   	struct drm_sched_entity	entity;
-> +	atomic_t		*sched_score;
->   	struct dma_fence	*fences[];
->   };
->   
+Signed-off-by: Gangliang Xie <ganglxie@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c |  2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c                | 10 +++++++---
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/driver=
+s/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 0ce8cff27bf9..fc580800609c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -956,6 +956,8 @@ static int smu_v13_0_12_get_badpage_count(struct amdgpu=
+_device *adev, uint32_t *
+                now =3D (uint64_t)ktime_to_ms(ktime_get());
+        } while (now < end);
+
++       dev_err(adev->dev,
++                        "smu get bad page count timeout!\n");
+        return ret;
+ }
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index 3b98065dac1d..4040ff926544 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -164,9 +164,13 @@ static void __smu_cmn_reg_print_error(struct smu_conte=
+xt *smu,
+                                    msg_index, param, message);
+                break;
+        case SMU_RESP_BUSY_OTHER:
+-               dev_err_ratelimited(adev->dev,
+-                                   "SMU: I'm very busy for your command: i=
+ndex:%d param:0x%08X message:%s",
+-                                   msg_index, param, message);
++               /* It is normal for SMU_MSG_GetBadPageCount to return busy
++                * so don't print error at this case.
++                */
++               if (msg !=3D SMU_MSG_GetBadPageCount)
++                       dev_err_ratelimited(adev->dev,
++                                               "SMU: I'm very busy for you=
+r command: index:%d param:0x%08X message:%s",
++                                               msg_index, param, message);
+                break;
+        case SMU_RESP_DEBUG_END:
+                dev_err_ratelimited(adev->dev,
+--
+2.34.1
 
