@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42C59CCFA13
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 18:46:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91C41CCFA05
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 18:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABB5410E9B3;
-	Thu,  6 Nov 2025 18:45:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE7D10E9B8;
+	Thu,  6 Nov 2025 18:46:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DxgOcY2J";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HXvC5H37";
 	dkim-atps=neutral
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
- [209.85.221.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB8AC10E9C7
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 18:45:57 +0000 (UTC)
-Received: by mail-vk1-f172.google.com with SMTP id
- 71dfb90a1353d-5599b119b4aso230583e0c.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 10:45:57 -0800 (PST)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com
+ [209.85.217.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 578D410E9C0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 18:45:59 +0000 (UTC)
+Received: by mail-vs1-f47.google.com with SMTP id
+ ada2fe7eead31-5db2a0661e0so734690137.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 10:45:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762454757; x=1763059557; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1762454758; x=1763059558; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=x9Ee4bv7sR2AFxo/vUjo5M1r1a/es39m4N9L4mQ76ts=;
- b=DxgOcY2Jrezlv66gy2emOAlLXBbaXL6ZfCDQRpgXcEH7upQ+mN/bKVdT/fvMB1wu/j
- aAjL+Z7lyR0rEEG92loy47ZeNnZsntTsHXTrGC+ZnndRpvTU12gi9CxGpJZP29PLtb/B
- IZHEDjb8Op8fRLUvlL7cGPk1cfnVo5vZ9ZgLgYu96URBXEe3UOXzKFxu/Fn1/zTmx/T1
- 1NJ0rKKCSKmfqSAVl0Q6juRDjXNOz/cjLQR9ITTw/+mY+Md6GTiwNmnDDk2eiUuo+00e
- fguB9638fIFdWEiAFbI1Wxs6aIXmrnz5F/J+LZc7JfR4/6EZ6DP1gLJF7ClVpx4IsquK
- bu4g==
+ :reply-to; bh=B2UWtUqs5AK8npqmJ85sZXOrTODYAbAXlQ+fsq4qtes=;
+ b=HXvC5H37rBUbwe9y4DYgRvISKMIktkzNqH83P/uTDqjeQ3K+C98vLHiW/2+wjNt8uF
+ BaTmGx8G6Iaz/9wZFayC2A0bhnn+LZ69tlg+S5cvDSVUKlFMLIlS0JF0QLXi1hheQVT3
+ pBxJXReDB3gyiFB6l95Ug30zWNMBCv6/nGyLiw8zP6AArLT0WsCBXRIzGwGkc/XxZwUQ
+ xHtj1NEH4ZWRlyive55EoO6MD0+2nAcJI+WZXIGmzTK3/GeK0TG6cCK3pFHDy6MQTRpc
+ 8Q3QVuJqJUggeWhOyAbDcYNYSGFqG+iVT+NHU9Lq92pBMLhvDenMx3+qrhAWgimtU6EQ
+ PviA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762454757; x=1763059557;
+ d=1e100.net; s=20230601; t=1762454758; x=1763059558;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=x9Ee4bv7sR2AFxo/vUjo5M1r1a/es39m4N9L4mQ76ts=;
- b=K/NLncPqSZV2Mton5E8nUxYMfYuBEReihLg6taTHHloizF0GqzNX52nxT2x3Gq4g0E
- /oyyLuJGfB4PF26WuH7uGl8mI00/P2NfKgQtrwHeaz9MR45KOwMb+Q6ejEnfyvkxin7o
- A9W2xiCJ3bUL9901dI3B+tt1bXtzr9OyBoHhI/uZyT2RkRtUCTGabuf1mRPn7ITRTWAs
- hf98uiTjvDmKMK09RfC7DPcQrQ9xCr6+GH7i0l6h+11nEQ42A9pAeak3qYCRElrlvXNw
- qtzXvEK55FMFVBRCoa2VioYt/5IXG/Her6KCs6Oo2l0sKgblTkTFm1ug49rJqYFbito7
- MLfw==
-X-Gm-Message-State: AOJu0YzyrLuKR647H8WebpKmboOPS4A0DNOr1V+4h5hG+gkoZiA5JicG
- vQPVf2Sz9uWjKLlEOYbQHWwhXazxA3hv4u6xYDB8gnonaqAkiPf0db/nChjeqfPe
-X-Gm-Gg: ASbGncuUws7cqDela+phcAeQb/0IgVN0aPmboX32iVv3CGdgh+LriRphAoIp82XMjSQ
- 9hasmIqKWZ+lFCenXZhx3iwMNDoUPADpUApEp6K/o9zG3K9T+G+I/Poxb/Ofss6l2EYRRs+eYfJ
- ag/VH3pT/PV8vvUmkgFQEyddEhPPlSUKni5DmokmreVgd3jdXR6v0Q+ypdTfUxe+zo3BW4pgh/L
- mkNZVqtvieQR9+0w8rjrDA0F3uYU1jrJLM3CWW+OYiyK9LDv4yL6hl5KZzPHfF7Qi8D4f7o8ofT
- Dx2MJicbwd6fvUGOcMZ5UXLfCdN/4IxQNqE4ap+tIjcCQfJjCg62eY78/dW2BCXU5+Hc7C+ZZ2a
- M5MB+tjnrHUgPI4yRQT5F9SoE1A6QMEjr9lIA9nYJ2uCatW+KHa8bhUACPpzYTU7klUGfA6R5xK
- l+T3gGDEvQwbkkLBVULb6JsKYpO0n4pg==
-X-Google-Smtp-Source: AGHT+IFzoEKzrFeEjw4K1O5wu0JPT1ysHL9Sv2/w7+OiXqAwhuwpIxloB0po48goqMHP3TfFnxTi+Q==
-X-Received: by 2002:a05:6122:d27:b0:54c:da0:f711 with SMTP id
- 71dfb90a1353d-559a3a0f306mr235537e0c.7.1762454756776; 
- Thu, 06 Nov 2025 10:45:56 -0800 (PST)
+ bh=B2UWtUqs5AK8npqmJ85sZXOrTODYAbAXlQ+fsq4qtes=;
+ b=XuXiurO0UzSZDJLPUJEdYO6Bo2Hhminx6BpoO47oUBQd9sxT64c0D3LPQ9MVpHB6Mz
+ 5/fGpbvbXecLFiRDHSWEbyI3sYybInUcOcF9ae+MZRAvQ7BOxALrJ1dySXXAztwgqgh8
+ ix7gCaV9RJ3Kt0j30aljGhNWpBinoC9hgXU93BCL9HTkZ/U3uhx7FChtgk9TepSNqV4c
+ UT8QWLkj9QL167aguqVM5L2HyZK+4WoIK6OLbgQKD1dCgcpnpEWISPx3YUAtYwW+98mS
+ S+TQRVGkmSa4RnsuNEad9ct7gRqoKZLOLemcWWdzf+OcCkH7mQqVLzygeN8KLv7Rvp9+
+ pX9w==
+X-Gm-Message-State: AOJu0YyLUFcpPJhEMjDqhlC6bGr/HgW73Tk7L6pjgxWtALRtkdTeFHo8
+ 4qqMYjiZMjAnOhV2wH6L7QCirVa/sw+8b6BLr5vuSeSCFHWHw2rxmoFKgLojfhrX
+X-Gm-Gg: ASbGncskrKtPzNu1FPK3FmE5BOIkgHVCSX7PaooeQ/YdT0UjHHqk7Xys8PIkJOAycka
+ sUQjLd1fIfbrlAASg+5Ve1sGsq/ZSqt+GsdfrF5+EV1qhNUTZ4YnsmiSUU6wgV6jAJBAUcVOgW+
+ o0dRgg0SUZ81tLGa07RN4sSY+uBrVD4RrBeTbs+1NozXScVkUAwrRWlHjh/TNyKiHPNwJbNpSz+
+ ImfhFJyJ23cvz60L7RoCRbDMhWvlLIO/S+vhpalS//XTkXwJ1BNPE25DCEEGn42W8GB6qwdb+30
+ HzBne78zoEgsahkmLCrmFfV7LA+S3HtgDQJ6QKevor38GGoiyFC3DN1Jnvo57AvylND1Ku1BbPC
+ DgvLHm3h6Z71Ew7hbclSsz9gsKslhpWxAs7w0jlQ5s+jSy2mzApPjWDJM/y4SGCyxGIKmXNZdAN
+ LYgihCe6ESsV01E9r1RYA=
+X-Google-Smtp-Source: AGHT+IHkWL2oN4NI++t4ZLt6iJ6uUz5Xu2xV0wBe8kPbtKM1IbX5fCRcGYdS5k9EGp/NmoHNs7m12g==
+X-Received: by 2002:a05:6102:a4e:b0:5d6:2bf0:32ed with SMTP id
+ ada2fe7eead31-5ddb2294a47mr237105137.34.1762454758386; 
+ Thu, 06 Nov 2025 10:45:58 -0800 (PST)
 Received: from Timur-Hyperion.home ([2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
  by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-559957fb3c1sm1810004e0c.12.2025.11.06.10.45.55
+ 71dfb90a1353d-559957fb3c1sm1810004e0c.12.2025.11.06.10.45.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Nov 2025 10:45:56 -0800 (PST)
+ Thu, 06 Nov 2025 10:45:58 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Subject: [PATCH 10/13] drm/amdgpu/vce1: Ensure VCPU BO is in lower 32-bit
- address space (v3)
-Date: Thu,  6 Nov 2025 19:44:45 +0100
-Message-ID: <20251106184448.8099-11-timur.kristof@gmail.com>
+Subject: [PATCH 11/13] drm/amd/pm/si: Hook up VCE1 to SI DPM
+Date: Thu,  6 Nov 2025 19:44:46 +0100
+Message-ID: <20251106184448.8099-12-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251106184448.8099-1-timur.kristof@gmail.com>
 References: <20251106184448.8099-1-timur.kristof@gmail.com>
@@ -90,185 +89,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on research and ideas by Alexandre and Christian.
+On SI GPUs, the SMC needs to be aware of whether or not the VCE1
+is used. The VCE1 is enabled/disabled through the DPM code.
 
-VCE1 actually executes its code from the VCPU BO.
-Due to various hardware limitations, the VCE1 requires
-the VCPU BO to be in the low 32 bit address range.
-However, VRAM is typically mapped at the high address range,
-which means the VCPU can't access VRAM through the FB aperture.
-
-To solve this, we write a few page table entries to
-map the VCPU BO in the GART address range. And we make sure
-that the GART is located at the low address range.
-That way the VCE1 can access the VCPU BO.
-
-v2:
-- Adjust to v2 of the GART helper commit.
-- Add empty line to multi-line comment.
-
-v3:
-- Instead of relying on gmc_v6 to set the GART space before GTT,
-  add a new function amdgpu_vce_required_gart_pages() which is
-  called from amdgpu_gtt_mgr_init() directly.
+Also print VCE clocks in amdgpu_pm_info.
+Users can inspect the current power state using:
+cat /sys/kernel/debug/dri/<card>/amdgpu_pm_info
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Co-developed-by: Alexandre Demers <alexandre.f.demers@gmail.com>
-Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c     | 18 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h     |  1 +
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c       | 55 +++++++++++++++++++++
- 4 files changed, 75 insertions(+)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-index 0760e70402ec..895c1e4c6747 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -284,6 +284,7 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
- 	ttm_resource_manager_init(man, &adev->mman.bdev, gtt_size);
- 
- 	start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
-+	start += amdgpu_vce_required_gart_pages(adev);
- 	size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
- 	drm_mm_init(&mgr->mm, start, size);
- 	spin_lock_init(&mgr->lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-index 2761c096c4cd..e825184f244c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-@@ -459,6 +459,24 @@ void amdgpu_vce_free_handles(struct amdgpu_device *adev, struct drm_file *filp)
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 020e05c137e4..1f539cc65f41 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7046,13 +7046,20 @@ static void si_set_vce_clock(struct amdgpu_device *adev,
+ 	if ((old_rps->evclk != new_rps->evclk) ||
+ 	    (old_rps->ecclk != new_rps->ecclk)) {
+ 		/* Turn the clocks on when encoding, off otherwise */
++		dev_dbg(adev->dev, "set VCE clocks: %u, %u\n", new_rps->evclk, new_rps->ecclk);
++
+ 		if (new_rps->evclk || new_rps->ecclk) {
+-			/* Place holder for future VCE1.0 porting to amdgpu
+-			vce_v1_0_enable_mgcg(adev, false, false);*/
++			amdgpu_asic_set_vce_clocks(adev, new_rps->evclk, new_rps->ecclk);
++			amdgpu_device_ip_set_clockgating_state(
++				adev, AMD_IP_BLOCK_TYPE_VCE, AMD_CG_STATE_UNGATE);
++			amdgpu_device_ip_set_powergating_state(
++				adev, AMD_IP_BLOCK_TYPE_VCE, AMD_PG_STATE_UNGATE);
+ 		} else {
+-			/* Place holder for future VCE1.0 porting to amdgpu
+-			vce_v1_0_enable_mgcg(adev, true, false);
+-			amdgpu_asic_set_vce_clocks(adev, new_rps->evclk, new_rps->ecclk);*/
++			amdgpu_device_ip_set_powergating_state(
++				adev, AMD_IP_BLOCK_TYPE_VCE, AMD_PG_STATE_GATE);
++			amdgpu_device_ip_set_clockgating_state(
++				adev, AMD_IP_BLOCK_TYPE_VCE, AMD_CG_STATE_GATE);
++			amdgpu_asic_set_vce_clocks(adev, 0, 0);
+ 		}
  	}
  }
- 
-+/**
-+ * amdgpu_vce_required_gart_pages() - gets number of GART pages required by VCE
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Returns how many GART pages we need before GTT for the VCE IP block.
-+ * For VCE1, see vce_v1_0_ensure_vcpu_bo_32bit_addr for details.
-+ * For VCE2+, this is not needed so return zero.
-+ */
-+u32 amdgpu_vce_required_gart_pages(struct amdgpu_device *adev)
-+{
-+	/* VCE IP block not added yet, so can't use amdgpu_ip_version */
-+	if (adev->family == AMDGPU_FAMILY_SI)
-+		return 512;
-+
-+	return 0;
-+}
-+
- /**
-  * amdgpu_vce_get_create_msg - generate a VCE create msg
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-index 050783802623..1c3464ce5037 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
-@@ -61,6 +61,7 @@ int amdgpu_vce_entity_init(struct amdgpu_device *adev, struct amdgpu_ring *ring)
- int amdgpu_vce_suspend(struct amdgpu_device *adev);
- int amdgpu_vce_resume(struct amdgpu_device *adev);
- void amdgpu_vce_free_handles(struct amdgpu_device *adev, struct drm_file *filp);
-+u32 amdgpu_vce_required_gart_pages(struct amdgpu_device *adev);
- int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
- 			     struct amdgpu_ib *ib);
- int amdgpu_vce_ring_parse_cs_vm(struct amdgpu_cs_parser *p,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-index bf9f943852cb..9ae424618556 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-@@ -34,6 +34,7 @@
- 
- #include "amdgpu.h"
- #include "amdgpu_vce.h"
-+#include "amdgpu_gart.h"
- #include "sid.h"
- #include "vce_v1_0.h"
- #include "vce/vce_1_0_d.h"
-@@ -46,6 +47,11 @@
- #define VCE_V1_0_DATA_SIZE	(7808 * (AMDGPU_MAX_VCE_HANDLES + 1))
- #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
- 
-+#define VCE_V1_0_GART_PAGE_START \
-+	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
-+#define VCE_V1_0_GART_ADDR_START \
-+	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
-+
- static void vce_v1_0_set_ring_funcs(struct amdgpu_device *adev);
- static void vce_v1_0_set_irq_funcs(struct amdgpu_device *adev);
- 
-@@ -513,6 +519,49 @@ static int vce_v1_0_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+/**
-+ * vce_v1_0_ensure_vcpu_bo_32bit_addr() - ensure the VCPU BO has a 32-bit address
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ * Due to various hardware limitations, the VCE1 requires
-+ * the VCPU BO to be in the low 32 bit address range.
-+ * Ensure that the VCPU BO has a 32-bit GPU address,
-+ * or return an error code when that isn't possible.
-+ *
-+ * To accomodate that, we put GART to the LOW address range
-+ * and reserve some GART pages where we map the VCPU BO,
-+ * so that it gets a 32-bit address.
-+ */
-+static int vce_v1_0_ensure_vcpu_bo_32bit_addr(struct amdgpu_device *adev)
-+{
-+	u64 gpu_addr = amdgpu_bo_gpu_offset(adev->vce.vcpu_bo);
-+	u64 bo_size = amdgpu_bo_size(adev->vce.vcpu_bo);
-+	u64 max_vcpu_bo_addr = 0xffffffff - bo_size;
-+	u64 num_pages = ALIGN(bo_size, AMDGPU_GPU_PAGE_SIZE) / AMDGPU_GPU_PAGE_SIZE;
-+	u64 pa = amdgpu_gmc_vram_pa(adev, adev->vce.vcpu_bo);
-+	u64 flags = AMDGPU_PTE_READABLE | AMDGPU_PTE_WRITEABLE | AMDGPU_PTE_VALID;
-+
-+	/*
-+	 * Check if the VCPU BO already has a 32-bit address.
-+	 * Eg. if MC is configured to put VRAM in the low address range.
-+	 */
-+	if (gpu_addr <= max_vcpu_bo_addr)
-+		return 0;
-+
-+	/* Check if we can map the VCPU BO in GART to a 32-bit address. */
-+	if (adev->gmc.gart_start + VCE_V1_0_GART_ADDR_START > max_vcpu_bo_addr)
-+		return -EINVAL;
-+
-+	amdgpu_gart_map_vram_range(adev, pa, VCE_V1_0_GART_PAGE_START,
-+				   num_pages, flags, adev->gart.ptr);
-+	adev->vce.gpu_addr = adev->gmc.gart_start + VCE_V1_0_GART_ADDR_START;
-+	if (adev->vce.gpu_addr > max_vcpu_bo_addr)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static int vce_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -532,6 +581,9 @@ static int vce_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	r = vce_v1_0_load_fw_signature(adev);
-+	if (r)
-+		return r;
-+	r = vce_v1_0_ensure_vcpu_bo_32bit_addr(adev);
- 	if (r)
- 		return r;
- 
-@@ -647,6 +699,9 @@ static int vce_v1_0_resume(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	r = vce_v1_0_load_fw_signature(adev);
-+	if (r)
-+		return r;
-+	r = vce_v1_0_ensure_vcpu_bo_32bit_addr(adev);
- 	if (r)
- 		return r;
- 
+@@ -7574,6 +7581,7 @@ static void si_dpm_debugfs_print_current_performance_level(void *handle,
+ 	} else {
+ 		pl = &ps->performance_levels[current_index];
+ 		seq_printf(m, "uvd    vclk: %d dclk: %d\n", rps->vclk, rps->dclk);
++		seq_printf(m, "vce    evclk: %d ecclk: %d\n", rps->evclk, rps->ecclk);
+ 		seq_printf(m, "power level %d    sclk: %u mclk: %u vddc: %u vddci: %u pcie gen: %u\n",
+ 			   current_index, pl->sclk, pl->mclk, pl->vddc, pl->vddci, pl->pcie_gen + 1);
+ 	}
 -- 
 2.51.0
 
