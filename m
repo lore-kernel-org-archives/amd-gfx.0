@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D587CCFA05
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 13:06:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F6ECCFA03
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 13:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDD5310E141;
-	Thu,  6 Nov 2025 13:06:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0D6310E2EF;
+	Thu,  6 Nov 2025 13:06:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXEQp2zn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ah9VuHuc";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E0AF10E141
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 13:06:40 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-47112a73785so6120255e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 05:06:40 -0800 (PST)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 563DE10E2EF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 13:06:42 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-47754547a38so7515045e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 05:06:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762434399; x=1763039199; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=KuP1tX9bFfy2LxhPyrTfgTHZJBEVJRKPahcwkS5YzNg=;
- b=CXEQp2znmV/hkJQ9kgOKW3OTNdbjtGcCusBrMuR/eSfWPycv5YDTHy5M7HF2mJ3Utz
- J2NiUBYga2D3OxLY4iZyUtuNc/Z9BPE4HaY3MI00KloPhxT/r1mQOhoUAWdD1KA9YfLm
- F7yau5TboU+J1tDHMAVlk8xIgD/XbzvyXmrzCitEiAFsZFxcWKjlPOESr1EJE9pX29ZP
- tUexeOFPy9/YytSeC4KI2U10bVr+rlhJdC+Ym5b/+OSJgSB/bGLzYMkEnjSIhm3Gmgi3
- F09JR44HpBlItbaDoDgqxKUdB8tPACYA8q0hc5WbQbYi8gkYtADkvl5X7YAGWx85Y6+O
- GHhw==
+ d=gmail.com; s=20230601; t=1762434400; x=1763039200; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=vjqFuZ5h5ovUDGmFRUqsYuVQzjkagbR0oSSbYUbU4Ys=;
+ b=Ah9VuHuc981MnZC7F34jrS8e1M4805xXOwjQ1R9N9PgsAhM8HzyR3cfG0cOxFIGOzw
+ HFo9hRhMVKTejgEhwW1BMrdj3zYrT2GkQ8G+QguFQUZrH8M1ZPiAQ3alCbHxZHlHIMXf
+ /iAEsRR+CpTUJe2ECd8G3keF4FAj0zBNYRKlmcV98vSZtdNNKKtqj9SOCs47dgAwE69m
+ nnA3/YS5Aw5uBxw9O/9sD3tYOxDWCGPXsNq0Au3WasTD841Ky6Q4Ys+Zs39Gme8DjXFv
+ 9m0dPpisverOs1w3J29WXf2mq181v1ItGS01qK/WGvj8D1eKlDJyGx6fPmbdJr1i/mW2
+ 0DGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762434399; x=1763039199;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KuP1tX9bFfy2LxhPyrTfgTHZJBEVJRKPahcwkS5YzNg=;
- b=AZ2C8x5a1x5hdc/e28ecOlCNXOfUGZUHY11mXTOLo1Zk24MRdVnS8G4bebbT3iIdfB
- nocSVzdI8a58HtWZ33hfwS/UGreXacl62dHNo/W/OGZRic017lINtSg8MOMWgmKIh5YZ
- /EAJwIZjgGGwW6C6Q2LVRLcz95p/x2dN4NX7svsB2ErLn5NkHU4iEyjNNy6hARswNf+l
- Wjy3IFdTvAkOka6/5rkw41fnZJLWvKGzzFS7YCB3QuIi8+/nAfe/Jeg06aDwivYA8IPr
- YxtI3b0BWM3msbc891TGOwcMWiHo0dzNkFOI0L3K1lo5KxbMIpL6vnukvjQr939arhe8
- DIuw==
-X-Gm-Message-State: AOJu0YyYNLkAj7k8gVnf2dUz5UWDMv9UA5Vd0fNCui6b4Pl7KmpW4CK3
- Lz3Dc9L6L+nOj+XFq/GkOW+rOMzhj2bPb9nhmIq4WBVKmniOFPeEbJEG6sTdiQ==
-X-Gm-Gg: ASbGncvh5kWEtcOBbnJS2PSZ+vlbQWE7QnOhAbD34sosuMYS7w9zKRC40MTbKnTPDYk
- J1yx3H7nHofNN1uDJuZ0Se1yMus8cKUX5NwjpQ5I4bv8dvpXYy/tRZRkuJ2BYPuQwmYWM7dlp+w
- 0pH7FuFdmZSw8XuCLW0hh5FUtVQslrc6WrOvwhK2LSPoerHhJJfLiwX+PAYmKCPlwSflQK3vQWI
- 1FbBVt65woAI3C4XUsi/SjcQMqROblAkjHy+RSYnNhTmRIyFAoa7ZycPI18z9K2MsT0PQ9wInr4
- 8sYb7sC4UzPJ3BasodQ//QeGyuHpgz3vkW/6UM9Yy8nvegcM7io3hYgbGn6ZN7qBNcxqImla6RA
- TeKWG4LpPYVDiAvoGqsjg0z8ldZvLrrWdISh/zePLCWodnIC0GhuxMLxSQXsXefvWt6uY3/7E0t
- /mOK3jJjN03Bgw
-X-Google-Smtp-Source: AGHT+IEcycMgl85+o5JD2nwV5a0asbOzFzdbje+x2FQoixbsjUsnbwDbSnmraFmJ10QnrsT+sYNu3g==
-X-Received: by 2002:a05:600c:474e:b0:45d:dc85:c009 with SMTP id
- 5b1f17b1804b1-4776a911bcfmr7476555e9.10.1762434398770; 
- Thu, 06 Nov 2025 05:06:38 -0800 (PST)
+ d=1e100.net; s=20230601; t=1762434400; x=1763039200;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vjqFuZ5h5ovUDGmFRUqsYuVQzjkagbR0oSSbYUbU4Ys=;
+ b=USB+QVdsM6cLjvCXOagjJfCskWMqGf4YX6fmWgrpgry1JbcSoyxDY6oZ6B4+Kb7CLn
+ toFPlGpehHeOaM1L98zMSp/8TFogjZZNM8bZw8xYME6vSh1W1GJO5sPD+1jQ1dvSW0pz
+ CqKQx55rYlGiicN/uozaeEFE3cjbRDdgiuoBAYiVN1ounQfIF7gk7c5toULmbVQeDkzf
+ pLikM9qVWQKvxxCbYRnLKkEztzDu849U1mpI3KtTzECDQcr6vn/RYDJrtLAZkTO49tpE
+ W7SvIFRXHatDrzz1l+O5z08cOVS9diAhuDiffNbiytKvBeWlH0eVwexkZFUNzvAy4ROy
+ CBhg==
+X-Gm-Message-State: AOJu0YzgMcd5pwznqN2PMhc7dC4Xx/R6QNzFYoXAzufGbAakn4RPBAAr
+ xnzfZzRM/alA8/mkJlNbJ84FLls2lhMF6ahMcsiyR+BSi+h6FFwyd74sVeiHkp+B0xc=
+X-Gm-Gg: ASbGncvbtTmQ2Fw83QeJyOEKayWSLn0cGoxLCCStqT4BPLRYOY/k8W59/T6tRWhuBcZ
+ ekvD4UYAYYGvFcaT8zmgg5bkTgCDPN+3/nWvh2u+5XtVviGKsb0ml7JW502AI9j3RGBktTlFCef
+ jeHHKbiPvlvtRQzFV6bloVhn7Bs+A21MVnkpHyJWC5N86TpLMlWTNY1zYAU1Q8GFxrEM2T1Q+xm
+ PTBUv/Y84aGamDrM+Ih+/hFw/ghOt/M4awq5mDLiE7ZEjhTyyh4fNA8qfRxUkeM3thg31B5omOn
+ eigpXs9EJvIVsKcasboMee2OGF4lFxkWy4mjYiDWkVjGhU/XT1QExjuZZdVPuOBPIziNopDuLWP
+ ZPhyUpsyAbAbo4kJOOlRi1VAlewoW2I7fmPatl6UY6s6cq/lJ8gVa6YULA90SNtfTAhE/fls/KF
+ 3aN8SNFACkcUiKouwLXAYTJMm/Gsue+pO1zw==
+X-Google-Smtp-Source: AGHT+IExS7fZlogKbe1umPY7Y4pkBQ5rxWELgjQClS3ryp3Z19zGGoHfK2InF2KmXq1t5mlIyOQibg==
+X-Received: by 2002:a05:600c:4e8e:b0:471:5bf:cd02 with SMTP id
+ 5b1f17b1804b1-4775cdc5416mr61567395e9.11.1762434400188; 
+ Thu, 06 Nov 2025 05:06:40 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:151c:500:cbed:dc34:903c:1eab])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47763e4f13dsm15710095e9.5.2025.11.06.05.06.37
+ 5b1f17b1804b1-47763e4f13dsm15710095e9.5.2025.11.06.05.06.38
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Nov 2025 05:06:38 -0800 (PST)
+ Thu, 06 Nov 2025 05:06:39 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amdgpu: avoid memory allocation in the critical code
- path
-Date: Thu,  6 Nov 2025 14:06:36 +0100
-Message-ID: <20251106130637.2187-1-christian.koenig@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: use GFP_ATOMIC instead of NOWAIT in the
+ critical path
+Date: Thu,  6 Nov 2025 14:06:37 +0100
+Message-ID: <20251106130637.2187-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251106130637.2187-1-christian.koenig@amd.com>
+References: <20251106130637.2187-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -86,94 +89,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When we run out of VMIDs we need to wait for some to become available.
-Previously we were using a dma_fence_array for that, but this means that
-we have to allocate memory.
+Otherwise job submissions can fail with ENOMEM.
 
-Instead just wait for the first not signaled fence from the least recently
-used VMID to signal. That is not as efficient since we end up in this
-function multiple times again, but allocating memory can easily fail or
-deadlock if we have to wait for memory to become available.
+We probably need to re-design the per VMID tracking at some point.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: https://gitlab.freedesktop.org/drm/amd/-/issues/4258#note_3179934
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 51 ++++++-------------------
- 1 file changed, 12 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 3ef5bc95642c..5f94a66511af 100644
+index 5f94a66511af..ecf2b1f13ca7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -201,58 +201,31 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_ring *ring,
- 	struct amdgpu_device *adev = ring->adev;
- 	unsigned vmhub = ring->vm_hub;
- 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
--	struct dma_fence **fences;
--	unsigned i;
+@@ -286,7 +286,7 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+ 	* user of the VMID.
+ 	*/
+ 	r = amdgpu_sync_fence(&(*id)->active, &job->base.s_fence->finished,
+-			      GFP_NOWAIT);
++			      GFP_ATOMIC);
+ 	if (r)
+ 		return r;
  
-+	/* If anybody is waiting for a VMID let everybody wait for fairness */
- 	if (!dma_fence_is_signaled(ring->vmid_wait)) {
- 		*fence = dma_fence_get(ring->vmid_wait);
- 		return 0;
- 	}
+@@ -346,7 +346,7 @@ static int amdgpu_vmid_grab_used(struct amdgpu_vm *vm,
+ 		 */
+ 		r = amdgpu_sync_fence(&(*id)->active,
+ 				      &job->base.s_fence->finished,
+-				      GFP_NOWAIT);
++				      GFP_ATOMIC);
+ 		if (r)
+ 			return r;
  
--	fences = kmalloc_array(id_mgr->num_ids, sizeof(void *), GFP_NOWAIT);
--	if (!fences)
--		return -ENOMEM;
--
- 	/* Check if we have an idle VMID */
--	i = 0;
--	list_for_each_entry((*idle), &id_mgr->ids_lru, list) {
-+	list_for_each_entry_reverse((*idle), &id_mgr->ids_lru, list) {
- 		/* Don't use per engine and per process VMID at the same time */
- 		struct amdgpu_ring *r = adev->vm_manager.concurrent_flush ?
- 			NULL : ring;
- 
--		fences[i] = amdgpu_sync_peek_fence(&(*idle)->active, r);
--		if (!fences[i])
--			break;
--		++i;
--	}
--
--	/* If we can't find a idle VMID to use, wait till one becomes available */
--	if (&(*idle)->list == &id_mgr->ids_lru) {
--		u64 fence_context = adev->vm_manager.fence_context + ring->idx;
--		unsigned seqno = ++adev->vm_manager.seqno[ring->idx];
--		struct dma_fence_array *array;
--		unsigned j;
--
--		*idle = NULL;
--		for (j = 0; j < i; ++j)
--			dma_fence_get(fences[j]);
--
--		array = dma_fence_array_create(i, fences, fence_context,
--					       seqno, true);
--		if (!array) {
--			for (j = 0; j < i; ++j)
--				dma_fence_put(fences[j]);
--			kfree(fences);
--			return -ENOMEM;
--		}
--
--		*fence = dma_fence_get(&array->base);
--		dma_fence_put(ring->vmid_wait);
--		ring->vmid_wait = &array->base;
--		return 0;
-+		*fence = amdgpu_sync_peek_fence(&(*idle)->active, r);
-+		if (!(*fence))
-+			return 0;
- 	}
--	kfree(fences);
- 
-+	/*
-+	 * If we can't find a idle VMID to use, wait on a fence from the least
-+	 * recently used in the hope that it will be available soon.
-+	 */
-+	*idle = NULL;
-+	dma_fence_put(ring->vmid_wait);
-+	ring->vmid_wait = dma_fence_get(*fence);
- 	return 0;
- }
+@@ -399,7 +399,7 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 			/* Remember this submission as user of the VMID */
+ 			r = amdgpu_sync_fence(&id->active,
+ 					      &job->base.s_fence->finished,
+-					      GFP_NOWAIT);
++					      GFP_ATOMIC);
+ 			if (r)
+ 				goto error;
  
 -- 
 2.43.0
