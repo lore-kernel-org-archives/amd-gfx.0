@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58868CCFA13
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 18:45:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E060CCFA13
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 18:45:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C555010E9BA;
-	Thu,  6 Nov 2025 18:45:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7F6810E9B2;
+	Thu,  6 Nov 2025 18:45:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f4Jxe5+J";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="emQN7zyE";
 	dkim-atps=neutral
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
- [209.85.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C1F10E9B2
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 18:45:42 +0000 (UTC)
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-54bc08ef45dso812660e0c.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 10:45:42 -0800 (PST)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24CDE10E9B1
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 18:45:45 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-55953d7486cso797071e0c.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 10:45:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762454741; x=1763059541; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1762454744; x=1763059544; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qP4H6b8idNhc5NlCtQyib5SKH/dkiNYhjeyEL1D1w+k=;
- b=f4Jxe5+JrbzDS/8yF5kZKe1VWoRCy8nPnvZdAtjb2UKtSi0cVSVinwZBTwmrpI6fqL
- QZ20DhEU93tyO4yRzj2l2GGG84Wr0NdvjGp9RAMJNh4V1Gwii6GaAJMl65BvYQb1W70Y
- ecJ8MU6Vm+QZbUIaJH2250mk0DYjuyE+VZgNS0ySBQfo8bgsqNWQzl90vH3x6MtSxh9N
- EZBl4lL7IBjAeQnOtPnAyPV8qT7gu9Zj9n0x8vokuR5UVFEoPDmcBc9lVHuidWU6DNHS
- qyhdravGf2+eJ+RK52B3rsYJojRZ87H7Xd+PKakKzfOJVsT7/fcop5Wl9wXLhHIFX/ik
- FMDw==
+ :reply-to; bh=dCrbnWh+EGSj9vJg1Bb1SWr+vMTakV4QgqHGgI8vgj0=;
+ b=emQN7zyEuUu8+B98gheUsgTBACWbKSuawEhKMlfEWhdXsByOJXBRmshbaZ0WnV6MRR
+ 3SVE6aGvv/zrmc8Js/jBNnj573UMPjO7D6ivdbzM+3iWYshuZsFL0Gk0P7/sNr7sQVPk
+ zroRt9+omEn1a72Hr0dbFOEqFxb4bpNRLofDYXTc9VeyrBWai71yDb87pK9lpUqbCiEu
+ QWn6b6qu5xCPxw0b0pJWHFdVY5fx5FS9+0ckb5pcNf+N+tKWy8zVDZNcYkkbaFXifTmH
+ z48Oa8UgjLniL/NQJggBO414OMCHokgVNy8PPnbwjFgyT1THf3zfV338nwftR38cxpiJ
+ YXBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762454741; x=1763059541;
+ d=1e100.net; s=20230601; t=1762454744; x=1763059544;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=qP4H6b8idNhc5NlCtQyib5SKH/dkiNYhjeyEL1D1w+k=;
- b=UyddnN8e+1KGMmWonkhCDgExwJzYxvEhnGb/VHC7MZ2QToyXDaZaYHKBL5h8TGgugi
- tWkTu7hwmLxF96l5NbXZQA3uIG7YCZq5qPbgiplh31sN7rnvnE0RE88ZC+uxe3G3C6LD
- aDQ9ZCTA2jItAQR1CHGv4gBTQSVQfWbhmBqyUZ05RLalCbOYgFB7UiDz6jyx7MtQjwoj
- PZKqJTytUuqgPBGR0bbm3XQnwiG6AFh1a28j3lN5aaGTZhm6PP6b8PQW7SeoXOxHsD6g
- NIEiuHrs9nYM0Rva8OmCZuBiQ61dq695He/+hK6XtupYyPLJGetng4sqPdpOJAiA2J3m
- zJyg==
-X-Gm-Message-State: AOJu0Ywemoa4f9Q9oCM7L2+gncTzWzfQwkzBkCTgGA0BUTXs0nWCAZhZ
- XnuvI2pHAr7BlSBsQw8/M4vr2uSRD8TMGyLQSgz86KuHE5gLwQve2xzJFyE8Gj1a
-X-Gm-Gg: ASbGncs/c5r+ztGrQIjXvnEl4jJ0w84P8zDAPwCnljWOPM3m3F8sLGZC6ofxhRQNPBQ
- sf66On/XMQ/ACFc9wOW2xkVbbKJ6zv3MKBShkJ9u/0Yd1GHtCxNjYRibPphQ5NC5jQZlda5n7kP
- 6OuR05hLL6MqFFidX6jfEKn7xuo2zUbuZVO5yTcuAL2ZHsRDDjYv56WT44A1i0SrqTxswCtVKBh
- /Sdkjx4gEJPRwVcvzFXuTHgz0lijPAZ1vC6cKWyQYaapztU0i2i/58Odwu972ObCj6EJxiz/Pot
- zHZGyuf0NHJx372bvxcLxV2LVVZYTcOJNv/9kRjeVVQz6ZNUgYUMl7Uc22EBccWfYqDQit3a18Q
- c4s2Pf2l1zkXzSHNZZNN/Sh5TT5wM/X6Z9eure/ClipbtF4ipDar520kiqDi+hfibePuKOerixN
- J+HD+kujjMzevevmH7crc=
-X-Google-Smtp-Source: AGHT+IHPEGWu2EalZarFpb0b6tcgy91EqTJkRX5js4Zxwaf5Tk5VESph3QBfBlTIRRBd/rj8fXFoYQ==
-X-Received: by 2002:a05:6122:2a12:b0:556:3bd1:85aa with SMTP id
- 71dfb90a1353d-559a3ac2387mr252561e0c.8.1762454741276; 
- Thu, 06 Nov 2025 10:45:41 -0800 (PST)
+ bh=dCrbnWh+EGSj9vJg1Bb1SWr+vMTakV4QgqHGgI8vgj0=;
+ b=bQqwRgaal3+xFJTPOHq9myUxaYGoyd8/63UVquVNepqlFpgVGDjuTIzo91zOrjOYzh
+ o9sZ4SBMdcR9rrN1W1L0LIlGrBahYfuhiL8umsPmttafQJcRJwoYB+XOfu7Y0wQKcWCi
+ ePjoKAwqyb3I1+EWjYjUv2b6VJNDt2EEJmGF97OuUndICzKYU1FI1VW+8GwI5sG30wHo
+ elpnFK9ts4dRvj8UVvdclZ/exVi2hwa0DUOlJnWz3TySSKXT0QFUnxVOQ5PJeTbomfSZ
+ k9Bgp95gSEQS/jrMjem69n4lDyL/16hgRqcorW6u4gWLjJ4eQIWlhmONwYDsclG8JEOT
+ 8MPw==
+X-Gm-Message-State: AOJu0YyDHTgvUE0rExWrMBz0t7sLyz7hNetAUXSmA9PGmGXAZZ3R9LUR
+ PfuZKtUKOqNN8d9++hCLbSBzchzwS4ESYb5BCLG9jFaAbVdPi+G+Px2Nd2XKYrZP
+X-Gm-Gg: ASbGnct080lM6njQIa2Gpo/RnsL6C5j/4agMeik9osmCX1el4kmaEr5bfRWbk7KaHVZ
+ ZOg+vQtEQYp0gtjdQYyuNCT+jKaSeucg5sNht728GlEuIwsUH4mMGU3arayMnDBZ4/XaWfjN8ML
+ 4NZVW/aVsCrsm+RxFQ26uSaCPBq8Dt5qQCDtaEyTo+9KEbfDmDv+wAI74yZwh7gGwUDv3r3cf28
+ hdmTwmKybkbyU3O4EuJ4nIF6AzNZ94z5g/vrtA8HULiyu9rwxLk1nKMno7f3iBfRn5UFfKgF+0E
+ cwAKInq8bXG4mkqH7j+NAMHzf9lFWw8dgQiWIVf/k3MgjI84HViRphsKRlT/T4mSZhxNufbVSa5
+ T8Gcny6YERHCL99MiUTv3TQzSxlwAMPe87pyQx9Oec0pFkWysjfOaeuMvtdW3RlspaS7FW7bufU
+ KSES0awKQDztkSpWCuM2c=
+X-Google-Smtp-Source: AGHT+IFXz0qOkMUdzJtS5EmCwds7OUBFGRjUUxugjZyePlxlsS3ZPLlwoD3+8O9SWjfJzVmwXKHukg==
+X-Received: by 2002:a05:6122:180d:b0:54a:992c:815e with SMTP id
+ 71dfb90a1353d-559a3acb047mr238074e0c.8.1762454744096; 
+ Thu, 06 Nov 2025 10:45:44 -0800 (PST)
 Received: from Timur-Hyperion.home ([2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
  by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-559957fb3c1sm1810004e0c.12.2025.11.06.10.45.38
+ 71dfb90a1353d-559957fb3c1sm1810004e0c.12.2025.11.06.10.45.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Nov 2025 10:45:41 -0800 (PST)
+ Thu, 06 Nov 2025 10:45:43 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Subject: [PATCH 02/13] drm/amdgpu/gart: Add helper to bind VRAM pages (v2)
-Date: Thu,  6 Nov 2025 19:44:37 +0100
-Message-ID: <20251106184448.8099-3-timur.kristof@gmail.com>
+Subject: [PATCH 03/13] drm/amdgpu/ttm: Use GART helper to map VRAM pages (v2)
+Date: Thu,  6 Nov 2025 19:44:38 +0100
+Message-ID: <20251106184448.8099-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251106184448.8099-1-timur.kristof@gmail.com>
 References: <20251106184448.8099-1-timur.kristof@gmail.com>
@@ -89,83 +89,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Binds pages that located in VRAM to the GART page table.
+Use the GART helper function introduced in the previous commit
+to map the VRAM pages of the transfer window to GART.
+No functional changes, just code cleanup.
 
-Useful when a kernel BO is located in VRAM but
-needs to be accessed from the GART address space,
-for example to give a kernel BO a 32-bit address
-when GART is placed in LOW address space.
-
-v2:
-- Refactor function to be more reusable
+Split this into a separate commit to make it easier to bisect,
+in case there are problems in the future.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 36 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h |  3 ++
- 2 files changed, 39 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index 83f3b94ed975..d2237ce9da70 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -367,6 +367,42 @@ void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
- 	drm_dev_exit(idx);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index e226c3aff7d7..84f9d5a57d03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -188,7 +188,6 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+ 	struct amdgpu_job *job;
+ 	void *cpu_addr;
+ 	uint64_t flags;
+-	unsigned int i;
+ 	int r;
  
-+/**
-+ * amdgpu_gart_map_vram_range - map VRAM pages into the GART page table
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @pa: physical address of the first page to be mapped
-+ * @start_page: first page to map in the GART aperture
-+ * @num_pages: number of pages to be mapped
-+ * @flags: page table entry flags
-+ * @dst: CPU address of the GART table
-+ *
-+ * Binds a BO that is allocated in VRAM to the GART page table
-+ * (all ASICs).
-+ *
-+ * Useful when a kernel BO is located in VRAM but
-+ * needs to be accessed from the GART address space.
-+ */
-+void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
-+				uint64_t start_page, uint64_t num_pages,
-+				uint64_t flags, void *dst)
-+{
-+	u32 i, idx;
-+
-+	/* The SYSTEM flag indicates the pages aren't in VRAM. */
-+	WARN_ON_ONCE(flags & AMDGPU_PTE_SYSTEM);
-+
-+	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-+		return;
-+
-+	for (i = 0; i < num_pages; ++i) {
-+		amdgpu_gmc_set_pte_pde(adev, adev->gart.ptr,
-+			start_page + i, pa + AMDGPU_GPU_PAGE_SIZE * i, flags);
-+	}
-+
-+	drm_dev_exit(idx);
-+}
-+
- /**
-  * amdgpu_gart_bind - bind pages into the gart page table
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-index 7cc980bf4725..d3118275ddae 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
-@@ -64,5 +64,8 @@ void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
- 		     void *dst);
- void amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
- 		      int pages, dma_addr_t *dma_addr, uint64_t flags);
-+void amdgpu_gart_map_vram_range(struct amdgpu_device *adev, uint64_t pa,
-+				uint64_t start_page, uint64_t num_pages,
-+				uint64_t flags, void *dst);
- void amdgpu_gart_invalidate_tlb(struct amdgpu_device *adev);
- #endif
+ 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
+@@ -254,16 +253,9 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+ 		dma_addr = &bo->ttm->dma_address[mm_cur->start >> PAGE_SHIFT];
+ 		amdgpu_gart_map(adev, 0, num_pages, dma_addr, flags, cpu_addr);
+ 	} else {
+-		dma_addr_t dma_address;
+-
+-		dma_address = mm_cur->start;
+-		dma_address += adev->vm_manager.vram_base_offset;
++		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
+ 
+-		for (i = 0; i < num_pages; ++i) {
+-			amdgpu_gart_map(adev, i << PAGE_SHIFT, 1, &dma_address,
+-					flags, cpu_addr);
+-			dma_address += PAGE_SIZE;
+-		}
++		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+ 	}
+ 
+ 	dma_fence_put(amdgpu_job_submit(job));
 -- 
 2.51.0
 
