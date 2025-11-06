@@ -4,88 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDBFBCCFA13
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 13:41:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F57CCFA1A
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 13:41:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2590B10E8D3;
-	Thu,  6 Nov 2025 13:41:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C03C10E8D4;
+	Thu,  6 Nov 2025 13:41:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=temperror (0-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="jB4BBWOn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D+u6JNu5";
 	dkim-atps=neutral
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25C0610E702
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 11:35:14 +0000 (UTC)
-Received: from relay10 (localhost.localdomain [127.0.0.1])
- by relay10.grserver.gr (Proxmox) with ESMTP id 688D43FCF5
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 13:35:13 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by relay10.grserver.gr (Proxmox) with ESMTPS id 8232B3FDB9
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 13:35:12 +0200 (EET)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- by linux3247.grserver.gr (Postfix) with ESMTPSA id 8872C200AF0
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 13:35:11 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
- s=default; t=1762342512;
- bh=2zPD0WBVf4i/ezq7b1QUKnCu2WljXyXeAe1e8dFi6io=;
- h=Received:From:Subject:To;
- b=jB4BBWOnaZAV6DDVkHkeggLTXDDFMBXaJ5k0p/2iscLzSr+gLaQPu5kB6z7YoYEks
- 2h4xYdcmg+JAApH0vDyOVXi5PmPle6d0BOKVDD0m9si+AETLPYNjVaM6wvrBNSGX9w
- b2eVgTWm5Fj/KW5S8gNJwmEJAgro96CnnM2oZmU5joNjnMLjLe9PJpUAnMhe1DQstG
- XYKIbNuzpYqX9GUEnHEex6DJWoxoLFfKnHOPVM9/5VL69d8BG4Jf1tvY1aIbuaOnWe
- vuIQxWXyO5DvMntSMCD34ZdmdT8xZQ2BatQC83PKmVKGySlBszKjXlPw2mBzO32VE3
- XNViHcUeMI2iA==
-Authentication-Results: linux3247.grserver.gr;
- spf=pass (sender IP is 209.85.208.177) smtp.mailfrom=lkml@antheas.dev
- smtp.helo=mail-lj1-f177.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-378e8d10494so69562551fa.2
- for <amd-gfx@lists.freedesktop.org>;
- Wed, 05 Nov 2025 03:35:11 -0800 (PST)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2780D10E7EA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 02:34:07 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-88f239686f2so43735985a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Nov 2025 18:34:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1762396446; x=1763001246; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:in-reply-to
+ :mime-version:references:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=eT7eRw9/5ISp15CGBzCrhGE2pmdJMgXW2DzUMkcebuc=;
+ b=D+u6JNu5QKnTF9ou5+7/ipuLVtyECnn53+2ru7IvCkpdzrUL3TuWlOKQpgl4srnEXQ
+ q8o1sCX76Kxic1xm8L7JnelHks6JJybyV4rtYP22tLxAR8gl1B5G+EcMX4uUlpLjrDfF
+ D3xLSVmEKckxyMsxk0ZdDgU/dp7ofvgjJmmlLm3I2Y7zcxCocYDazaxEF+YalxTxTl2F
+ 2Ngh3qgn9sgREYp4gO3a0JXoM4pxWmhxm4cBbou1JCiiEXFVvQB0Idj/wu45Du3dKTWU
+ HedlqYdbRAIhucdpQ+vdQAs9nY6Gm58zmZoLEkel1jQUfevY/46kxwyBUVFvJgPl6hKC
+ r12A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762396446; x=1763001246;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:in-reply-to
+ :mime-version:references:from:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=eT7eRw9/5ISp15CGBzCrhGE2pmdJMgXW2DzUMkcebuc=;
+ b=ZSEARky/V+h5M5gVQrMvnGchlQ63eXBremelSvO9j8p2fuRBCw0vQrM6yRhfKU8skA
+ CFv/gCv0BIJMnfANrOXL1/GrUSR0YfsV/0UsP4HabLq1V+mbdMIrHIoEIFyZDa99BRto
+ zUuRJ8qyMPtno2ZyUaDF4V28LEmdmkwel0G1TbywhJX6zVDSo4jd1J7LQL2o7f43m2mH
+ PFSRfXqSjUCaRwdQzUohI3a3p6NTbntzUBU9lbtO7w8xXK5qCX2r22rdaYj6JYXg3V/D
+ uaxP0lsMcf6Tg94kgTtoH36NgMZo7V5dNpC4ADrycMs77SLH6DsCKdKN4ub09Sl6NgBa
+ 2NiA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVx4IHMXkmWQXyxHjWegtrH4Tk8ZcFbbd4lpJEzHXz2+FwOHa3eeQ6kQoeECCfyGJ80TYJbbWSG@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5OL9ZOCGAJxEsebCyHXXAN7q5NWIYjU19Li7+YZ8bP4CvhKc1
- FKUvB/3KxBxEBOU+GOwiOXWJFrmSEXhHSIoypdrq8XGuR/gaMUsVskbf7LAnNHtXONzcy+IfJK7
- V/Dd7y424GqHl75c8mDAImKQwi78Gts4=
-X-Google-Smtp-Source: AGHT+IHGQj4EZeUimtkbjgF1IeB2tetC4shdETjzwtgaULQ5O6waLgVlriowcbZfmBoH0NWumdnutXg5Frg7mKzgBN0=
-X-Received: by 2002:a2e:a58d:0:b0:37a:584c:23ef with SMTP id
- 38308e7fff4ca-37a584c24bbmr4808481fa.31.1762342510693; Wed, 05 Nov 2025
- 03:35:10 -0800 (PST)
+ AJvYcCU/YI6oMQGA7bJkD+rSwoYt5YPMbjDDjRfeL4TRP4oQFjRTUhwAHojREkOLTQR198hXLEw262gr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyiFpY7X31qzRuQfSZ0O0cCmwwE4uJsqFd9ER9VLvmFa1wYyozV
+ gXRFAWDvxqoSDT+zf2lQ7q4dOBFn5Ma/TkeA1l2SZUfHOcjqDqNVJ7coSnLvHdXveaV5rNRNGYc
+ 8RSbHHctrxpRDGJTnFQ0xpsGX7cKnNKg=
+X-Gm-Gg: ASbGncvxAqrduh0JXtUMPWeFdRx+9fmDY2hRkd9UuCMZjvpr0opubIk5UZUwdjFrH8J
+ qPZ2eXw+VQE/X1Vfe7RnKqHxsddNA+rYy7luUIe7PkETaEAOcuz/m9oij048syHgpAGpoeuiboH
+ xS+YUSyrn6vM4f7yF31mHXBD2FwMOb49pMzf2Ie5sM/aMLcbwB06i9fMTOueZv0E1BnBU/WCeEx
+ CHbh19ux9YjxcCiEd+IQazTMT6lrN6gjIqa+EyCoyWJmBDGV7AdBlnRkVqILZ3DYz9zAO8=
+X-Google-Smtp-Source: AGHT+IH2ISUQbjAz5ENjJq/uEOXvU62m10as471BmbjyWcmy6OOBDzk9WNfXvUmmHlsJmOVTi0GMIAjSy9tbtMgo0v0=
+X-Received: by 2002:a05:620a:2892:b0:86e:ff4e:d55e with SMTP id
+ af79cd13be357-8b220add1a4mr678564185a.39.1762396446056; Wed, 05 Nov 2025
+ 18:34:06 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 5 Nov 2025 18:34:05 -0800
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 5 Nov 2025 18:34:05 -0800
+From: Amit Dhingra <mechanicalamit@gmail.com>
+References: <1043551.1761844832@turing-police>
+ <32ed124e9d603cad950c4836c7a14a3ba8bc2068.camel@gmail.com>
+ <1296761.1762045181@turing-police>
+ <CAFF-SiU3XL5pZAzsB=eXi7e1LKzx5XwiNOyfGpPXOnnc6uo2cw@mail.gmail.com>
 MIME-Version: 1.0
-References: <20251024152152.3981721-1-lkml@antheas.dev>
- <20251024152152.3981721-2-lkml@antheas.dev>
- <3792db59-7dc1-4e34-9436-84df4b6c3e10@amd.com>
- <CAGwozwFTDD2QrHy37axhanwQYv6ty9K_hfhxS05djKpv8HfY6g@mail.gmail.com>
- <2684d3ab-d7cf-4eab-acd4-91bdd5debb6b@amd.com>
- <058eda7c-ab93-40a5-b387-54f7a18f3922@amd.com>
- <13fd3b12-03a0-457f-a5da-fe018b032211@amd.com>
- <CAGwozwGLfcYdpetwTk=QH+k29u8SdroFxfkxb-KbAXh36sr1XQ@mail.gmail.com>
- <100c2f25-d1f4-5b82-4a76-a08394ece471@linux.intel.com>
- <fe9bb350-6dc5-4911-ad32-a95911251167@amd.com>
-In-Reply-To: <fe9bb350-6dc5-4911-ad32-a95911251167@amd.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Wed, 5 Nov 2025 12:34:59 +0100
-X-Gmail-Original-Message-ID: <CAGwozwFRWiR4xQ422tp6H0R9knLjNkn4ewERyYtZgzOYfnJWxw@mail.gmail.com>
-X-Gm-Features: AWmQ_bmwOsN6-7nnJfMI7_4qSh-nyTpW0WB_Wo9A0VaG9xskOZ9zDoHsNLjt4fc
-Message-ID: <CAGwozwFRWiR4xQ422tp6H0R9knLjNkn4ewERyYtZgzOYfnJWxw@mail.gmail.com>
-Subject: Re: [PATCH v1 1/3] platform/x86/amd/pmc: Add support for Van Gogh SoC
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
- platform-driver-x86@vger.kernel.org, Sanket Goswami <Sanket.Goswami@amd.com>
+In-Reply-To: <CAFF-SiU3XL5pZAzsB=eXi7e1LKzx5XwiNOyfGpPXOnnc6uo2cw@mail.gmail.com>
+Date: Wed, 5 Nov 2025 18:34:05 -0800
+X-Gm-Features: AWmQ_bmTHJ5o4ky7tugyGqg4q6fbF3cBYHNJw35f2J6kkB6wRtQdQHP2gUMWv7g
+Message-ID: <CAO=gReF+sWpKZFa+wbtGxa3+wSjAQG1UMG3iJaDt2EOPmH-7mQ@mail.gmail.com>
+Subject: Re: linux-next-20251029 - build error in amdgpu
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: =?UTF-8?Q?Valdis_Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>, 
+ Alex Deucher <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ David Airlie <airlied@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-PPP-Message-ID: <176234251186.480830.1978205036664917149@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
-X-Virus-Status: Clean
 X-Mailman-Approved-At: Thu, 06 Nov 2025 13:41:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,241 +92,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 5 Nov 2025 at 12:28, Shyam Sundar S K <Shyam-sundar.S-k@amd.com> wr=
-ote:
+On Sun, Nov 02, 2025 at 10:27:54AM +0100, Timur Krist=C3=B3f wrote:
+> Hello Valdis,
 >
-> Hi Ilpo,
+> I use Fedora and I developed that patch on Fedora, using the same GCC
+> version. It did not give me an error or warning when I wrote the patch. I=
+t
+> is still not giving me an error or warning about that code now.
 >
-> On 11/5/2025 16:43, Ilpo J=C3=A4rvinen wrote:
-> > On Mon, 27 Oct 2025, Antheas Kapenekakis wrote:
-> >
-> >> On Mon, 27 Oct 2025 at 09:36, Shyam Sundar S K <Shyam-sundar.S-k@amd.c=
-om> wrote:
-> >>>
-> >>>
-> >>>
-> >>> On 10/27/2025 13:52, Shyam Sundar S K wrote:
-> >>>>
-> >>>>
-> >>>> On 10/24/2025 22:02, Mario Limonciello wrote:
-> >>>>>
-> >>>>>
-> >>>>> On 10/24/2025 11:08 AM, Antheas Kapenekakis wrote:
-> >>>>>> On Fri, 24 Oct 2025 at 17:43, Mario Limonciello
-> >>>>>> <mario.limonciello@amd.com> wrote:
-> >>>>>>>
-> >>>>>>>
-> >>>>>>>
-> >>>>>>> On 10/24/2025 10:21 AM, Antheas Kapenekakis wrote:
-> >>>>>>>> The ROG Xbox Ally (non-X) SoC features a similar architecture to=
- the
-> >>>>>>>> Steam Deck. While the Steam Deck supports S3 (s2idle causes a cr=
-ash),
-> >>>>>>>> this support was dropped by the Xbox Ally which only S0ix suspen=
-d.
-> >>>>>>>>
-> >>>>>>>> Since the handler is missing here, this causes the device to not
-> >>>>>>>> suspend
-> >>>>>>>> and the AMD GPU driver to crash while trying to resume afterward=
-s
-> >>>>>>>> due to
-> >>>>>>>> a power hang.
-> >>>>>>>>
-> >>>>>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4659
-> >>>>>>>> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
-> >>>>>>>> ---
-> >>>>>>>>    drivers/platform/x86/amd/pmc/pmc.c | 3 +++
-> >>>>>>>>    drivers/platform/x86/amd/pmc/pmc.h | 1 +
-> >>>>>>>>    2 files changed, 4 insertions(+)
-> >>>>>>>>
-> >>>>>>>> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/
-> >>>>>>>> platform/x86/amd/pmc/pmc.c
-> >>>>>>>> index bd318fd02ccf..cae3fcafd4d7 100644
-> >>>>>>>> --- a/drivers/platform/x86/amd/pmc/pmc.c
-> >>>>>>>> +++ b/drivers/platform/x86/amd/pmc/pmc.c
-> >>>>>>>> @@ -106,6 +106,7 @@ static void amd_pmc_get_ip_info(struct
-> >>>>>>>> amd_pmc_dev *dev)
-> >>>>>>>>        switch (dev->cpu_id) {
-> >>>>>>>>        case AMD_CPU_ID_PCO:
-> >>>>>>>>        case AMD_CPU_ID_RN:
-> >>>>>>>> +     case AMD_CPU_ID_VG:
-> >>>>>>>>        case AMD_CPU_ID_YC:
-> >>>>>>>>        case AMD_CPU_ID_CB:
-> >>>>>>>>                dev->num_ips =3D 12;
-> >>>>>>>> @@ -517,6 +518,7 @@ static int amd_pmc_get_os_hint(struct
-> >>>>>>>> amd_pmc_dev *dev)
-> >>>>>>>>        case AMD_CPU_ID_PCO:
-> >>>>>>>>                return MSG_OS_HINT_PCO;
-> >>>>>>>>        case AMD_CPU_ID_RN:
-> >>>>>>>> +     case AMD_CPU_ID_VG:
-> >>>>>>>>        case AMD_CPU_ID_YC:
-> >>>>>>>>        case AMD_CPU_ID_CB:
-> >>>>>>>>        case AMD_CPU_ID_PS:
-> >>>>>>>> @@ -717,6 +719,7 @@ static const struct pci_device_id
-> >>>>>>>> pmc_pci_ids[] =3D {
-> >>>>>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_RV) },
-> >>>>>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SP) },
-> >>>>>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_SHP) },
-> >>>>>>>> +     { PCI_DEVICE(PCI_VENDOR_ID_AMD, AMD_CPU_ID_VG) },
-> >>>>>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD,
-> >>>>>>>> PCI_DEVICE_ID_AMD_1AH_M20H_ROOT) },
-> >>>>>>>>        { PCI_DEVICE(PCI_VENDOR_ID_AMD,
-> >>>>>>>> PCI_DEVICE_ID_AMD_1AH_M60H_ROOT) },
-> >>>>>>>>        { }
-> >>>>>>>> diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/
-> >>>>>>>> platform/x86/amd/pmc/pmc.h
-> >>>>>>>> index 62f3e51020fd..fe3f53eb5955 100644
-> >>>>>>>> --- a/drivers/platform/x86/amd/pmc/pmc.h
-> >>>>>>>> +++ b/drivers/platform/x86/amd/pmc/pmc.h
-> >>>>>>>> @@ -156,6 +156,7 @@ void amd_mp2_stb_deinit(struct amd_pmc_dev *=
-dev);
-> >>>>>>>>    #define AMD_CPU_ID_RN                       0x1630
-> >>>>>>>>    #define AMD_CPU_ID_PCO                      AMD_CPU_ID_RV
-> >>>>>>>>    #define AMD_CPU_ID_CZN                      AMD_CPU_ID_RN
-> >>>>>>>> +#define AMD_CPU_ID_VG                        0x1645
-> >>>>>>>
-> >>>>>>> Can you see if 0xF14 gives you a reasonable value for the idle ma=
-sk if
-> >>>>>>> you add it to amd_pmc_idlemask_read()?  Make a new define for it
-> >>>>>>> though,
-> >>>>>>> it shouldn't use the same define as 0x1a platforms.
-> >>>>>>
-> >>>>>> It does not work. Reports 0. I also tested the other ones, but the
-> >>>>>> 0x1a was the same as you said. All report 0x0.
-> >>>>>
-> >>>>> It's possible the platform doesn't report an idle mask.
-> >>>>>
-> >>>>> 0xF14 is where I would have expected it to report.
-> >>>>>
-> >>>>> Shyam - can you look into this to see if it's in a different place
-> >>>>> than 0xF14 for Van Gogh?
-> >>>>
-> >>>> Van Gogh is before Cezzane? I am bit surprised that pmc is getting
-> >>>> loaded there.
-> >>>>
-> >>>> Antheas - what is the output of
-> >>>>
-> >>>> #lspci -s 00:00.0
-> >>>
-> >>> OK. I get it from the diff.
-> >>>
-> >>> +#define AMD_CPU_ID_VG                        0x1645
-> >>>
-> >>> S0 its 0x1645 that indicates SoC is 17h family and 90h model.
-> >>>
-> >>> What is the PMFW version running on your system?
-> >>> amd_pmc_get_smu_version() tells you that information.
-> >>
-> >> cat /sys/devices/platform/AMDI0005:00/smu_fw_version
-> >> 63.18.0
-> >> cat /sys/devices/platform/AMDI0005:00/smu_program
-> >> 7
-> >>
-> >>> Can you see if you put the scratch information same as Cezzane and if
-> >>> that works? i.e.
-> >>>
-> >>> AMD_PMC_SCRATCH_REG_CZN(0x94) instead of AMD_PMC_SCRATCH_REG_1AH(0xF1=
-4)
-> >>
-> >> I tried all idle masks and they return 0
-> >
-> > Hi Shyam & Antheas,
-> >
-> > This discussion seems to have died down without clear indication what's
-> > the best course of action here. Should I still wait?
-> >
-> > There's no particular hurry from my side but it seems Mario gave his
-> > Reviewed-by already and there hasn't been any follow-ups between you tw=
-o,
-> > I'm left a bit unsure how to interpret that.
-> >
+> I am working with the amd-staging-drm-next branch.
 >
-> The thought process to was understand how do we debug the rest 5%
-> failures when we do no not have idlemask concept, which got introduced
-> after sometime. But both the patches should work independently, so I
-> am ok with both patch 1/3 and 2/3.
+> What do I need to do to trigger the warning?
 >
-> Acked-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
->
->
-> >
-> > In addition, is the patch 3/3 entire independent from these two PMC one=
-s?
-> > (If yes, I don't know why they were submitted as a series as that just
-> > manages to add a little bit of uncertainty when combined into a series.=
-)
->
-> I see a note from Mario on the cover letter that the patch 3/3 can be
-> dropped from this series and a newer approach is being planned.
+I have the same problem.
 
-To be more specific, patch 3 became two separate patches that went through =
-drm.
+linux-next on Arch Linux
+GCC : 15.2.1 20250813
 
-For the rare failure, it would be an additional patch (if appropriate)
-that does not affect 1 and 2.
 
-Do you have any idea of where the failure for the other 5% of cases
-comes from? I noticed that after I hibernated my device and it booted
-up, it would never go into LPS0, the OS hint stopped working, would
-that be a hint?
+Steps to reproduce the error
+- make mrproper
+- make allmodconfig
+- make drivers/gpu/drm/amd/amdgpu/
 
-Antheas
+Turns out its due to randconfig, See [1]
 
-> So, 1/3 and 2/3 of this series can be taken.
+Setting RANDSTRUCT_NONE=3Dy seems to stop the error.
+
+[1] https://lore.kernel.org/all/2025062439-tamer-diner-68e9@gregkh/
+
+- Amit
+
+> Thanks & best regards,
+> Timur
 >
-> Thanks,
-> Shyam
-> >
-> > Thanks in advance,
-> >
-> > --
-> >  i.
-> >
-> >> Antheas
-> >>
-> >>> Thanks,
-> >>> Shyam
-> >>>
-> >>>
-> >>>>
-> >>>> 0xF14 index is meant for 1Ah (i.e. Strix and above)
-> >>>>
-> >>>>>
-> >>>>>>
-> >>>>>> Any idea why the OS hint only works 90% of the time?
-> >>>>
-> >>>> What is the output of amd_pmc_dump_registers() when 10% of the time
-> >>>> when the OS_HINT is not working?
-> >>>>
-> >>>> What I can surmise is, though pmc driver is sending the hint PMFW is
-> >>>> not taking any action (since the support in FW is missing)
-> >>>>
-> >>>>>
-> >>>>> If we get the idle mask reporting working we would have a better id=
-ea
-> >>>>> if that is what is reported wrong.
-> >>>>>
-> >>>>
-> >>>> IIRC, The concept of idlemask came only after cezzane that too after=
- a
-> >>>> certain PMFW version. So I am not sure if idlemask actually exists.
-> >>>>
-> >>>>
-> >>>>> If I was to guess though; maybe GFX is still active.
-> >>>>>
-> >>>>> Depending upon what's going wrong smu_fw_info might have some more
-> >>>>> information too.
-> >>>>
-> >>>> That's a good point to try it out.
-> >>>>
-> >>>> Thanks,
-> >>>> Shyam
-> >>>>
-> >>>
-> >>>
-> >>
-> >>
-> >
+> Valdis Kl=C4=93tnieks <valdis.kletnieks@vt.edu> ezt =C3=ADrta (id=C5=91po=
+nt: 2025. nov.
+> 2., Vas 1:59):
 >
->
-
+> > On Thu, 30 Oct 2025 19:05:30 +0100, Timur Krist=C3=B3f said:
+> >
+> > > Can you say how to reproduce that?
+> > > I use the same version of GCC but it hasn't given me any warning or
+> > > error for that patch.
+> >
+> > Upon further testing,
+> >
+> > [/usr/src/linux-next] make
+> >
+> > is sufficient on my system. Turns out that it errors out even without W=
+=3D1.
+> > My
+> > next guess was that it had to do with -Werror, which would cause warnin=
+gs
+> > to
+> > be treated as errors, but my .config has
+> >
+> > # CONFIG_WERROR is not set
+> > # CONFIG_DRM_WERROR is not set
+> > # CONFIG_DRM_AMDGPU_WERROR is not set
+> >
+> > Do you perhaps have patches in your tree that aren't in next-20251029?
+> >
+> > I wonder if Fedora's build of gcc 15.2.1 is different somehow from the
+> > build you're using....
+> >
+> >
+> >
+> >
