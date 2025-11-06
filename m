@@ -4,145 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3BACCCFA05
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 10:46:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302C0CCFA03
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 11:04:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB9C10E88C;
-	Thu,  6 Nov 2025 10:46:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RVEDz4YF";
-	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0342F10E88E
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 10:46:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QjB96kqAW4p2GDz19h5TIS3pr/OW+Emp+kcB5aujk2Kucw1dpL3y6QgJwGs9dQO/lg4MgHDG40Ss6ZoMIZg/Np+H6aOGBRQ/GXI9IXxwB3FMcHQK3346QJmljf0qNZgeQ5x3Vhgoh8DPCTDWr1piZOtYcaw2IybBKT3+6BHK15in/FiXNwz5Flgw/HUmRZPEiPRnDlhXHELtN+XNg9PMOvmdjsNqVyclCIYHXr2gZUvSYjqOYPhckKEtdYKDR/rEroNC/2Vzog0AtX3quepJAM61nQxz/9JxBetv5UjMyqKUkLwDCD7mpYRfePZmD+FQZhECh22Msm8g6+dAukdIGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2dpTPAWK1y6f942pDjMfsYN41/WI9mhip9tZkQK0mYg=;
- b=WuxOsCylcdQ1/BnQAjQpRRTQtvq6ueBzJzImKgTAAivg9U3/nYgIyUNesU4YGhDNmE8phXF6XJoKDsrVAdV1Ce11XF25uI3GAiZc/JCrQyASOciqtNpNAcIU4fnnAmb+Zo2maveNm/ucsFyY7NQMllCKBdFet2lauOcxXk1pRs9KefxDp/qpSGvlg/4+ZgT9oIujpZCrgMkKiUG4Rjq9S3G0EvEHdAgjrQyeyswOJp903NvDAyIcHsBLIoUobwxJkPfDjXi7qdTxeFzSzF7TW6X/3asoBHgNb0qEIziW78LhNhBYUONjCKaf39pWw6k2ziIYE0A1K1Gwnn5XtK/1KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2dpTPAWK1y6f942pDjMfsYN41/WI9mhip9tZkQK0mYg=;
- b=RVEDz4YFnLINTPiREUsfAmQA0JKQaFX4GUuHJguWeBZ9d5l9I6gosAa49e74dG2Y/Gy9Rw8Ch3qkTHhyN5ZOxpMaJyYXEDjCLLaA4iIRqhsbkP8qJApgQgbaopZu4/EUn9WUMurzNn67A8lV/cTxl5TOkx6USClCg+G6YROn7Gk=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DS7PR12MB5887.namprd12.prod.outlook.com (2603:10b6:8:7a::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.12; Thu, 6 Nov 2025 10:46:10 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%4]) with mapi id 15.20.9298.010; Thu, 6 Nov 2025
- 10:46:10 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: optimize timeout implemention in
- ras_eeprom_update_record_num
-Thread-Topic: [PATCH] drm/amdgpu: optimize timeout implemention in
- ras_eeprom_update_record_num
-Thread-Index: AQHcTwozT7ZDUGCT6kSv3Xnl31wBubTldvYg
-Date: Thu, 6 Nov 2025 10:46:10 +0000
-Message-ID: <BN9PR12MB5257E4BBDE1DC91805B00EC2FCC2A@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20251106104256.1440318-1-tao.zhou1@amd.com>
-In-Reply-To: <20251106104256.1440318-1-tao.zhou1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-11-06T10:45:51.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DS7PR12MB5887:EE_
-x-ms-office365-filtering-correlation-id: c32faf0a-59bc-4dd2-5e0a-08de1d21b2bb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?BJR+Q9EDqELaetFC4LokcpVeFqlFTQwaRJeydCvisA1jFPsW7+lznjTErH0g?=
- =?us-ascii?Q?8D32LsoDj2JigJcdrOzDyj2t81XD5SkaqJcEKoTujbG+B/d19y2nucdzUJmu?=
- =?us-ascii?Q?rsimy+KWozFDTbmOMxDsagCuKI8iGDspacAlKFBwsYW4fplK6VeB5IJ2FNah?=
- =?us-ascii?Q?fW9emTxv6bxNKr2dulOGbWjSdn+rpfMNcqb3U+OMJFt6/MJ6gaU9J0hBx9qx?=
- =?us-ascii?Q?mQXKcXy1LYoshy3QsUHEep3W/ea+BZ7HhdnkuUbS6edt4G8jozgRi/lrz1Fa?=
- =?us-ascii?Q?kQ0EMf6AVzvIndu0HSjj7Cpp7G/mTUj3a+8mYC2+tK1mjQl2qNSiUu839wEA?=
- =?us-ascii?Q?ruWD3AQ91IuhOf/42jMysIXcZPMYefHobtRcCZkpSeagt+JxzMrev8+xevOf?=
- =?us-ascii?Q?MUxBHvdoKBG4KgEoUm23+3fzLAnnzS2GRxjWEPJHpYJST20xprp05P3BE/2w?=
- =?us-ascii?Q?T6JCjfkJ+DLLM4Gm9C5nfbTSgyChB+W2dDGVmDLq5SSS5CfsXy16JtxkjwQm?=
- =?us-ascii?Q?+4VdeeoxXEoucpJ/umWXSbTFNuWwrRbtPCxTgOOjuHsc/cgdG1bIxNhnxo1D?=
- =?us-ascii?Q?TMv/qDpvokR/+Tz8TLb+9R82TSrQMh7W/NqW8Vu5Xxc5sFqv0LZ4kdbnE4YX?=
- =?us-ascii?Q?KdpyugVg5Qq3Mo8VoZah9QDW1bIpe7ASoM81/LP0FmxLg+SYdNebvz7vkqy5?=
- =?us-ascii?Q?cfU7dPiPVUEfbDY8zH82i7JuCMbVmvOw0imCAMmmIkzgqaYBsYdQseNSLsnl?=
- =?us-ascii?Q?TQfB4iTVgUmsrpr5yoNsGBOIIGOlVvYW5gmulmRyLzFooxTE3jA+9xU4BTqI?=
- =?us-ascii?Q?aiY3ObguSWpm2QdKP3EkuCgie7m4fgOA0Ag3VDEhaiANol7Kcrwrva6t4LEh?=
- =?us-ascii?Q?bzlFtHl0QX9oKPYdd6qocpwzrrE0mFPTZdjmobf2ik/gkC3aXZpZVOKR2Oye?=
- =?us-ascii?Q?EFHyYxuwQmOeryZs8OWYFW5x0H+EeXDRnWxO7CGKcEQnBWokPpI2CwWiBWFC?=
- =?us-ascii?Q?7P6PzFgI2fOtupZxVF8Lb4+7X3pIx6fTDUivzOu1tz8YAlqHtk1le3UIACvc?=
- =?us-ascii?Q?NHme9wjbTizKc/r9rEIJf4noHi5DaN0jxOqm+H/IFtFIoZPLoSlGTsFbq7Zh?=
- =?us-ascii?Q?cQrpp+Y1pK+CIAaWKydSTZHDfgBoyM2PL3jcBSWjyFS5UdiGTinYb0YKMJao?=
- =?us-ascii?Q?OhRKE1dEAu/aX2llFJ7Fefjhl29UGrwkNsYl7D8FqkUPtcpMUav5mN2WXNfs?=
- =?us-ascii?Q?aQR99RAXScOYKFS5Lhh286un4kby36rIRmGYQY9JOG6NHA2i6zZIvBhRHJrd?=
- =?us-ascii?Q?zMqaqB5u/rrXgcT/c9N+TfrXvNnDNKlpqhCtMhHeG4WEGriXx0JwzUxMPnFq?=
- =?us-ascii?Q?jF8MTFUIEaVS/6Ewx3Qm6K0Rr2b6TjHvBpFiY9BHKPGc4UM/aQTeSTBL9ynv?=
- =?us-ascii?Q?PSXKOMSPmUgz1eYH2XaaJDJ/oRHJFATLggJCPCUbyt1dYS4NuFlY6fd4ck76?=
- =?us-ascii?Q?638CWoKFSVmRPX+VCfycaMahk0v7PmP4zWjj?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?E0z4nN82HOwJmtrMJT3LwwG0ZyBTkeinN0aoxH+tbvjuKmoH0e+XgvShJPH6?=
- =?us-ascii?Q?oL/I8GXAUeXD+4BS8n7+emFUbyeGnAsorxeQUP7w8qrb2WoTh3r09885vot3?=
- =?us-ascii?Q?kxC9LZBxSNnafEz4b/h/NhSbEnVJkSLT1g9YuHibABo6DEwxMkY5iYULFoT4?=
- =?us-ascii?Q?EQnYd7uUwe3QAE4mLyOJ+svuSiNmNOwcGG0dG3ecXMkQiiOwmdkC6BEj05p6?=
- =?us-ascii?Q?h3+cMnBmbgQIjVoOISdeNUs3duRU/ShwbtGRHvF/NHqCYNL3f0XGvrYTwzEV?=
- =?us-ascii?Q?ZHwlgm9ADJt3YIpPmpQXgT8N8vlDD/Pc+9J9fSKuCo/H8zID9CuQKIhopbMm?=
- =?us-ascii?Q?GMglbnybKCZgOVJvhJNhKJNIfsLBv27g2AxDIg2m4tOv/7EZEZjZFpOO2Af+?=
- =?us-ascii?Q?2R2x4nbGWmb70jJRx6pwG8xPSUqdbjoj/bEICixJ/OpQR1HY7zxaGwi7TxhJ?=
- =?us-ascii?Q?FmHzOKlZh0ruCVmsSM+sYtzOKsL9xm/dnEPCPo+ZQc3x682U4CpIDOYD6z8B?=
- =?us-ascii?Q?enKut+t+PrnA2Qjcy3uqxa9nPpqpcndejO9eHE1A4bxIQTpc0E97tM3KWRwB?=
- =?us-ascii?Q?OqJza9Q/J32G8Xycw0lTP/ut/PFEyq1JzbuQUAFDGq39YEo2wmDMjFX6DMfF?=
- =?us-ascii?Q?Ce+IfRzHY8TZ4NiwAuRRqYgtloF1licxsVTc+rMc3HakFS+bOHl3nk3RSuQj?=
- =?us-ascii?Q?QVx3xfvXRWWNcZ1wvIDf9bH0JEcXXORvJaA/rbSrmW5YCE9rY1oy5e91TkPu?=
- =?us-ascii?Q?xWKI1DJeXwxniArZ3aa2QkkREp6/ZshjkegOPUmLbc+3XwVpPnHZYtFrujqr?=
- =?us-ascii?Q?iSs41ubCpIx/aMd1rpCenUcYJ4U/A84TRE6v3xSaQm6+oY3EVWuJqniTpq6d?=
- =?us-ascii?Q?goIBvEA88NYYuOfxJeftZSjT17H5RFzemlS2o5//KrPFc21YlbH01yx/P7iu?=
- =?us-ascii?Q?IBKoUwxasGp5+VMCFEvbAAgazF9bN9a3Xd7mpjgK9isZH6lFwuG6XKl/FB1h?=
- =?us-ascii?Q?ZN5hur5fIVr/oLdBxVmVxk2PnMQJ0czVcz+6Lsw6SvtyC/TT1Jz8ej1kKTZS?=
- =?us-ascii?Q?lyrE+W8cnNR7W9NTuSUnzB0pH2x/i6Uwe0y75NckMoKRYn3qoobhSXArUxNm?=
- =?us-ascii?Q?DkfgGAnYh7l58jvScDpc53ZN9++2Tf4a7RbVfsvmi8PRekp94ViuaZ+Kh/XZ?=
- =?us-ascii?Q?uLg5UfCyNyyToSDkoOT0pwT3dJxVUOIsLHcskTnjulLpY2tp50IHMIayeojO?=
- =?us-ascii?Q?SoTlR0IY4eKzWac1Mfa3ji54nzdaycwyZpBXEirZ4zWdn2JXAcbQsi+QWs6R?=
- =?us-ascii?Q?G3MzgiiJ/AFKrME/BiT8MYAFVbmVusM63dnfdJckVpC4E1Mo+yt9mhT7zzfh?=
- =?us-ascii?Q?GeSE2aHM42Ovx0WWjokmO7QEjCB/mz3fAvaLeYpii7eJW5IeZkTdMDihz2Hn?=
- =?us-ascii?Q?X/XXcTkEX5zYxJgmo7f7JLlsta/G/mXry9WUDgUYs0kFgAAuTputmcN36vhA?=
- =?us-ascii?Q?zYx75YNphsKIiB8cTznK3Yayjdgw336hhQht5DetLzTgsVu7cuZt8YueSyi2?=
- =?us-ascii?Q?UJrX5LyGmL6zrkAGE2w=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5CDB10E8AD;
+	Thu,  6 Nov 2025 11:04:18 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6180110E8A5
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 11:04:17 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EAE11596
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 03:04:09 -0800 (PST)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D155F3F63F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 03:04:16 -0800 (PST)
+Date: Thu, 6 Nov 2025 11:04:06 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ "Shankar, Uma" <uma.shankar@intel.com>,
+ "Nikula, Jani" <jani.nikula@intel.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "siqueira@igalia.com" <siqueira@igalia.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
+ "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "laurent.pinchart+renesas@ideasonboard.com"
+ <laurent.pinchart+renesas@ideasonboard.com>, 
+ "mcanal@igalia.com" <mcanal@igalia.com>,
+ "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
+ "tomi.valkeinen+renesas@ideasonboard.com"
+ <tomi.valkeinen+renesas@ideasonboard.com>, 
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>, 
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
+Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <aQyApokLttxf9spU@e110455-lin.cambridge.arm.com>
+References: <20251007054528.2900905-1-suraj.kandpal@intel.com>
+ <20251007054528.2900905-2-suraj.kandpal@intel.com>
+ <aQjDejhzGRYJT614@e110455-lin.cambridge.arm.com>
+ <DM3PPF208195D8D5DDD56AA88E006E66AD9E3C4A@DM3PPF208195D8D.namprd11.prod.outlook.com>
+ <aQoIBroBqQc3B-RD@e110455-lin.cambridge.arm.com>
+ <CAO9ioeX2qEyjwi9LsnUh-cRv88iaRcdZtFr_yidf55A9_ZbLWw@mail.gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c32faf0a-59bc-4dd2-5e0a-08de1d21b2bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2025 10:46:10.2632 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: v0Duwe5FYo+URiLWV98FyDdddhYQa3EiG5WzT6/C0rey7OvMCaHn57EJwlwNZuETODZhoF7jHw2ID7y3tege+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5887
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO9ioeX2qEyjwi9LsnUh-cRv88iaRcdZtFr_yidf55A9_ZbLWw@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,87 +87,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On Wed, Nov 05, 2025 at 02:39:15AM +0200, Dmitry Baryshkov wrote:
+> On Tue, 4 Nov 2025 at 16:05, Liviu Dudau <liviu.dudau@arm.com> wrote:
+> >
+> > On Tue, Nov 04, 2025 at 05:11:25AM +0000, Kandpal, Suraj wrote:
+> > > > Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor
+> > > > drm_writeback_connector structure
+> > > >
+> > > > On Tue, Oct 07, 2025 at 11:15:23AM +0530, Suraj Kandpal wrote:
+> > > > > Some drivers cannot work with the current design where the connector
+> > > > > is embedded within the drm_writeback_connector such as Intel and some
+> > > > > drivers that can get it working end up adding a lot of checks all
+> > > > > around the code to check if it's a writeback conenctor or not, this is
+> > > > > due to the limitation of inheritance in C.
+> > > > > To solve this move the drm_writeback_connector within the
+> > > > > drm_connector and remove the drm_connector base which was in
+> > > > > drm_writeback_connector. Make this drm_writeback_connector a union
+> > > > > with hdmi connector to save memory and since a connector can never be
+> > > > > both writeback and hdmi it should serve us well.
+> > > > > Do all other required modifications that come with these changes along
+> > > > > with addition of new function which returns the drm_connector when
+> > > > > drm_writeback_connector is present.
+> > > > > Modify drivers using the drm_writeback_connector to allow them to use
+> > > > > this connector without breaking them.
+> > > > > The drivers modified here are amd, komeda, mali, vc4, vkms, rcar_du,
+> > > > > msm
+> > > > >
+> > > > > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > > > > ---
+> > > > > V1 -> V2: Use &connector->writeback, make commit message imperative
+> > > > > (Dmitry)
+> > > > > ---
+> > > > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+> > > > > .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+> > > > > .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
+> > > > > .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
+> > > > >  .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+> > > > >  .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
+> > > > >  drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+> > > > >  drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+> > > > >  drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
+> > > > >  drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
+> > > > >  drivers/gpu/drm/drm_atomic_uapi.c             |  2 +-
+> > > > >  drivers/gpu/drm/drm_writeback.c               | 35 ++++++----
+> > > >
+> > > > For the komeda and malidp drivers, as well as for the drm_writeback.c
+> > > > changes:
+> > > >
+> > > > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> > > >
+> > > >
+> > > > [snip]
+> > > >
+> > > >
+> > > > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> > > > > index 8f34f4b8183d..1b090e6bddc1 100644
+> > > > > --- a/include/drm/drm_connector.h
+> > > > > +++ b/include/drm/drm_connector.h
+> > > > > @@ -1882,6 +1882,61 @@ struct drm_connector_cec {
+> > > > >   void *data;
+> > > > >  };
+> > > > >
+> > > > > +/**
+> > > > > + * struct drm_writeback_connector - DRM writeback connector  */
+> > > > > +struct drm_writeback_connector {
+> > > > > + /**
+> > > > > +  * @pixel_formats_blob_ptr:
+> > > > > +  *
+> > > > > +  * DRM blob property data for the pixel formats list on writeback
+> > > > > +  * connectors
+> > > > > +  * See also drm_writeback_connector_init()
+> > > > > +  */
+> > > > > + struct drm_property_blob *pixel_formats_blob_ptr;
+> > > > > +
+> > > > > + /** @job_lock: Protects job_queue */
+> > > > > + spinlock_t job_lock;
+> > > > > +
+> > > > > + /**
+> > > > > +  * @job_queue:
+> > > > > +  *
+> > > > > +  * Holds a list of a connector's writeback jobs; the last item is the
+> > > > > +  * most recent. The first item may be either waiting for the hardware
+> > > > > +  * to begin writing, or currently being written.
+> > > > > +  *
+> > > > > +  * See also: drm_writeback_queue_job() and
+> > > > > +  * drm_writeback_signal_completion()
+> > > > > +  */
+> > > > > + struct list_head job_queue;
+> > > > > +
+> > > > > + /**
+> > > > > +  * @fence_context:
+> > > > > +  *
+> > > > > +  * timeline context used for fence operations.
+> > > > > +  */
+> > > > > + unsigned int fence_context;
+> > > > > + /**
+> > > > > +  * @fence_lock:
+> > > > > +  *
+> > > > > +  * spinlock to protect the fences in the fence_context.
+> > > > > +  */
+> > > > > + spinlock_t fence_lock;
+> > > > > + /**
+> > > > > +  * @fence_seqno:
+> > > > > +  *
+> > > > > +  * Seqno variable used as monotonic counter for the fences
+> > > > > +  * created on the connector's timeline.
+> > > > > +  */
+> > > > > + unsigned long fence_seqno;
+> > > > > + /**
+> > > > > +  * @timeline_name:
+> > > > > +  *
+> > > > > +  * The name of the connector's fence timeline.
+> > > > > +  */
+> > > > > + char timeline_name[32];
+> > > > > +};
+> > > > > +
+> > > > >  /**
+> > > > >   * struct drm_connector - central DRM connector control structure
+> > > > >   *
+> > > > > @@ -2291,10 +2346,16 @@ struct drm_connector {
+> > > > >    */
+> > > > >   struct llist_node free_node;
+> > > > >
+> > > > > - /**
+> > > > > -  * @hdmi: HDMI-related variable and properties.
+> > > > > -  */
+> > > > > - struct drm_connector_hdmi hdmi;
+> > > > > + union {
+> > > >
+> > > > This is a surprising choice. Before this patch one had to have a separate
+> > > > writeback connector besides the HDMI connector. Going forward it looks like
+> > > > you still need two connectors, one that uses the writeback member and one
+> > > > that uses the hdmi one. Is that intended?
+> > > >
+> > > > I was expecting that you're going to declare the writeback member next to the
+> > > > hdmi, without overlap. If you do that, then you also don't need to move the
+> > > > struct drm_writeback declaration from the header file and it should be enough
+> > > > to include the drm_writeback.h file.
+> > >
+> > > Hi,
+> > > Thanks for the review
+> > > The reason for this came from the discussion on previous patches and was suggested by Dmitry.
+> > > The idea is that a connector can never be both an HDMI and writeback connector at the same time
+> > > Hence we save space if we pack them together.
+> >
+> > Hmm, but you can still have all the CEC and HDMI codecs data in that connector,
+> > which feels strange.  Also, what's the issue with having a connector that has
+> > both a valid HDMI state and an associated writeback at the same time (i.e.
+> > don't use the union)? Writing back the memory the output that goes to HDMI is
+> > valid, right?
+> 
+> Writing back to memory requires a separate connector (with separate
+> setup). The CRTC should also support outputting data to both HDMI
+> _and_ Writeback connectors at the same time (aka cloning). Not all
+> configurations are possible, writeback requires additional bandwidth,
+> etc., etc.
+> 
+> >
+> > Maybe that is not something that you considered, but with this patch (without union)
+> > we can drop the need to have a separate connector just for writeback. We're breaking
+> > user space compatibility, true, but it feels like a good change to be able to
+> > attach a writeback to any connector and get its output. The drivers that don't support
+> > that can reject the commit that attaches the writeback to the existing connector.
+> 
+> Well... No. It's not how it is being handled in the (existing)
+> hardware. Nor does it make it easier to handle resources for the
+> writeback.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Which (existing) hardware? Komeda can do it mainly because it doesn't have an HDMI connector,
+but an output that can be cloned to writeback while it is being sent out on a bus to an encoder.
+You have to remember that writeback is a connector because we didn't have a better concept for
+it. It doesn't have to be a separate connector from an HDMI or eDP or DP.
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
-Sent: Thursday, November 6, 2025 18:43
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH] drm/amdgpu: optimize timeout implemention in ras_eeprom_up=
-date_record_num
+Best regards,
+Liviu
 
-The busy status returned by ras_eeprom_update_record_num may not be an erro=
-r, increase timeout to exclude false busy status. Also add more comments to=
- make the code readable.
+> 
+> -- 
+> With best wishes
+> Dmitry
 
-v2: define a macro for the timeout value.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 99aa1908833d..64dd7a81bff5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -124,6 +124,8 @@
-                                        RAS_TABLE_V2_1_INFO_SIZE) \
-                                        / RAS_TABLE_RECORD_SIZE)
-
-+#define RAS_SMU_MESSAGE_TIMEOUT_MS 1000 /* 1s */
-+
- /* Given a zero-based index of an EEPROM RAS record, yields the EEPROM
-  * offset off of RAS_TABLE_START.  That is, this is something you can
-  * add to control->i2c_address, and then tell I2C layer to read @@ -874,7 =
-+876,7 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eeprom_control =
-*control)  int amdgpu_ras_eeprom_update_record_num(struct amdgpu_ras_eeprom=
-_control *control)  {
-        struct amdgpu_device *adev =3D to_amdgpu_device(control);
--       int ret, timeout =3D 1000;
-+       int ret, retry =3D 20;
-
-        if (!amdgpu_ras_smu_eeprom_supported(adev))
-                return 0;
-@@ -882,17 +884,23 @@ int amdgpu_ras_eeprom_update_record_num(struct amdgpu=
-_ras_eeprom_control *contro
-        control->ras_num_recs_old =3D control->ras_num_recs;
-
-        do {
-+               /* 1000ms timeout is long enough, smu_get_badpage_count won=
-'t
-+                * return -EBUSY before timeout.
-+                */
-                ret =3D amdgpu_ras_smu_get_badpage_count(adev,
--                       &(control->ras_num_recs), 12);
-+                       &(control->ras_num_recs), RAS_SMU_MESSAGE_TIMEOUT_M=
-S);
-                if (!ret &&
-                    (control->ras_num_recs_old =3D=3D control->ras_num_recs=
-)) {
--                       /* record number update in PMFW needs some time */
-+                       /* record number update in PMFW needs some time,
-+                        * smu_get_badpage_count may return immediately wit=
-hout
-+                        * count update, sleep for a while and retry again.
-+                        */
-                        msleep(50);
--                       timeout -=3D 50;
-+                       retry--;
-                } else {
-                        break;
-                }
--       } while (timeout);
-+       } while (retry);
-
-        /* no update of record number is not a real failure,
-         * don't print warning here
---
-2.34.1
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
