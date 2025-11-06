@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEBB6CCFA05
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 21:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A081ECCFA13
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 21:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9DB10E9DD;
-	Thu,  6 Nov 2025 21:47:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC01210E9DF;
+	Thu,  6 Nov 2025 21:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g7O+223H";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g8Bq6TMr";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95C1110E9DD
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 21:47:04 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-295395ceda3so69705ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 13:47:04 -0800 (PST)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2110F10E9DF
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 21:49:07 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-26808b24a00so153175ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 13:49:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762465624; x=1763070424; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1762465746; x=1763070546; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uWPFs84U37BlV4HR4UfJZaWnurNpPXzSHUa9OWSU1Mk=;
- b=g7O+223Hh0w9Q4sO2QWPgvjs+BGq1eEWuVK1yeQg5AtupmuEYVGYeL5CSqoD8E7rBZ
- mZEfxzOvPAhEO5oqCpgHiy/orHTaQ9pW1cF6GKAvJeT48pvfAP6fI1G5/Dkoqbxz0clc
- jFQ04ppF/xkZpGfgfh829YgF0RW/kpEQF1QXNlkq3685PQY2s25lu6/q/5DNuSFnYbwo
- tJ3OwVwfJ1Uuup+/P9qr53FwDf/wKm1forMXcJH8v1GNpe5JsilPKgyFJzoxjj9HSG8o
- 56suGVKVEhbplRZVUebPx9wp6UlzAtRpfrlwBzskoGCrPXeQvYrHs1X9BWyUsvT7t+U1
- h1zQ==
+ bh=uHDhed1xlMuM0l3pm//GeOi7oG2flLtrYbxUibdWkPQ=;
+ b=g8Bq6TMrex5wG/sGfB+kUhLV2WOwJ5m93xCYuo0M/G3LoZfRoauyFRxZvbSzSqZgzy
+ DQStvPPb/QP07uqkmMXHYOIM866JRWgwIYdkVIP/5BgqirxUVYMu7zA6meG/t/8Y6ZY9
+ L8uCcZeBZQl+rj0VInSl0kmI3ptum22Sp/awyWY19bZv0ZU+ILTBnhjMbsV2/vwpKm/T
+ xIJVB6WvHEJ1lODcJHNU3P5Md0Am5e+YlCaQGMvExzzQ5369oL7D3bi4JNXGoB2GRZAZ
+ P8PJhas1T7/wmKGiE78rOivuUBQUQNmm0vR+BVDqpUbtoJFLGzwnrYu422tA+ONTAZC0
+ wg9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762465624; x=1763070424;
+ d=1e100.net; s=20230601; t=1762465746; x=1763070546;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=uWPFs84U37BlV4HR4UfJZaWnurNpPXzSHUa9OWSU1Mk=;
- b=hhNflcZ9Sx9W+wM8e1XxhYvOTQhHOwjbSrTCIXpjaEN9qXqX0Fc3uxi6vmbjfUt7sc
- fXzA1zDLoYMpE+kXFwEUGt5T45CJJG6FZ1CAKRxyPCjBaXpBAMYk019vYwUAKArUFOUK
- Ra0VE6WbP2r9c5Cvb5n9T0/WvXEC0bPgN+Twr+GUPHDk1/CGthzlChv8NyOX+g7BfMeD
- SDLm0kk7abOi+wvXBlJEmAsK/Zdk3r7nyprVFY2C0vkI82sbMUeSP7e1Oy+zuHYBBq8e
- C3XvrpMFnmmmGGarqdMi+Eyw0t/yO9g9DRQb5NgpZ99fYUEZ4cxwjKUq4AWom9cqO1rt
- K62A==
+ bh=uHDhed1xlMuM0l3pm//GeOi7oG2flLtrYbxUibdWkPQ=;
+ b=M5RVnaaJdVznUElRRKt2D9YHctHkXwN8LRbx8mc16kB+SV8LNDUzFT073pzgBXIgxZ
+ AoqLfF2Bxnhb6ODeokoVA3fMt5JaDVg+IucKx6yKEyYFcQJGn6+5lQPC5p/aMNy9Yf6O
+ MstG9ylB/a7Z5pCZjuKtn7PG+TPVY6VuoHTnfA+2Z6TfKqS96FuRQ6hfHco+OB6OZOCG
+ IwoPDDu2xfmVgZjMNO4UGKI5wcvH+r1vyFP0j0npBVce6oYjnVpSqPkskhhIgZToPzaL
+ 7FHqu5yXIBydal3GVAtf4YNdMTeVsbMlEgsb2sByjREDNjuWdl4mN8v5ShCevIiVxY33
+ EMGA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWSmLOi4lKqxHejrc86i7iSVSh2Cm0VbmrQYGAZ4043gVSdXyiUj+J5xaTL4Sj/JsMiByhe3M33@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxpWwBU1UQCQFIpMIbVaoRj6YU6S5UBEJLZyDZIuVkPmBtvV65D
- QNZbVzrhnxwIYW8GMlJ9AyuMymeIwNBVzTKWf15c1v9qiAz4qfTkQK17OGqFl7oBq1ZlOFFH1LQ
- 5W7C6IVHGfRCfdvmhkppJQWk4AwRtZeg=
-X-Gm-Gg: ASbGncvM/QOPsw72PGmZzMMCGMIK70QImCJhfTjKAzDLUTgjmGQxjNUdONrdrDm0f9a
- 9yHRMSbIeaQ/+7KqSQbr9RWqAjNthaPx/Qv8ZP4hm9Mugy08LOGyBvzl3WtF31gKB4zughprkrs
- CuyElqOE5JYMV+/gRudyAk9HiY4FhdPdAMBDazamSQPg2TJ2siU70sVNxfpKdB2TBnjq/1wrhM5
- x9GpYefxoxn5zlpqg2UB2x6KFj7PnxZI4JeVMl9k9UFSAPsbVxgnkh0jGVE
-X-Google-Smtp-Source: AGHT+IGwLxGeQwObIqsiRu60FgdR14mXv74V9sIBJquRbETpjgO/u71xJ576vnpk0XVXFQIkzHnAysyK3vaO7ZiVXAg=
-X-Received: by 2002:a17:902:e552:b0:295:2cab:dbc2 with SMTP id
- d9443c01a7336-297c045708bmr8072615ad.6.1762465624074; Thu, 06 Nov 2025
- 13:47:04 -0800 (PST)
+ AJvYcCXv8LqDhfgKw6gZKYTBwVLliq6Pv5FAOIIVSbmUeDwIA5WZxHhJTwO83QmoUoKU/VFNzEqWgtJJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yykpxw6T3zVn+PYbAK+6RtQ2xSL/osOkZq4nQ2AgD9/ZXIoiV6e
+ uzovT30L3RagyirkB100PjzOA/sh7sLDTn50kWQ9ityafBVV7srQAO4J4j527FrCHI82B0QVtgy
+ FqepHi1O8OB5oRV5rXM7eJnWlIlY0WaI=
+X-Gm-Gg: ASbGncvUoHSBaN07NHllTAwTZyuGwbyQt4NlOg3mdO111Bm8SFcwNyUn93gUjnr5moh
+ KzTQorFmqBgNr9PXqYQVm9Hb85P7QMCg8YoH/AxdGVqAADkr7pNiaYARFO7CRR4/WQ++AbcOhiq
+ qm7ZLLOz6ZSMUZUd2jVxZoyieAzcMIAYQxt8envYWGmhElnU+KsEssxgEPWwD9gIgWIpuqFF+I7
+ ch7BOsdbFi6q90J0ykQ2eQ9KFr5CGlE6/GJBBEMrvVMruxq6IgprAJKMyt/a6oBZkSsS98=
+X-Google-Smtp-Source: AGHT+IECvWv8KFVYWhULL1havhRJOC/3HGgqkJSC/X+SinrENYwcrIdwHYlfpoCzI3kpR7Yxyqg5o8xR42bvXhkmZjg=
+X-Received: by 2002:a17:902:f60d:b0:295:54cd:d2e2 with SMTP id
+ d9443c01a7336-297c02c4835mr7390665ad.0.1762465746597; Thu, 06 Nov 2025
+ 13:49:06 -0800 (PST)
 MIME-Version: 1.0
-References: <20251106014747.46768-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20251106014747.46768-1-jiapeng.chong@linux.alibaba.com>
+References: <20251020161606.67812-1-siqueira@igalia.com>
+ <pr56g6xi5ji7mrcfjr5uh6uwwf4wmbrfi2gnbdwhokowovwsk6@qvump5zll6vl>
+In-Reply-To: <pr56g6xi5ji7mrcfjr5uh6uwwf4wmbrfi2gnbdwhokowovwsk6@qvump5zll6vl>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Nov 2025 16:46:51 -0500
-X-Gm-Features: AWmQ_bnzUjJ6HcFWpYUZnTLKwOZeb_N2f4pDuMRdliAyH8rVEieFGHJCx9d4LU4
-Message-ID: <CADnq5_N5bZ20A4gwfKevVgzTrTRw=pGPmXEB+1wTMNMqfOHy2Q@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amdgpu/userqueue: Remove duplicate
- amdgpu_reset.h header
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Abaci Robot <abaci@linux.alibaba.com>
+Date: Thu, 6 Nov 2025 16:48:55 -0500
+X-Gm-Features: AWmQ_bliaVFEsNKXwfw7KkyzobTa_i7mmMt5y_zcJ0a9mFKZWRFCdf_LNZnXHEA
+Message-ID: <CADnq5_McVM9KknWanUvJejE4F38GXcdbUTOBxkrZOjsCJd-36Q@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Fix GFX hang on SteamDeck when amdgpu is
+ reloaded
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Robert Beckett <bob.beckett@collabora.com>, amd-gfx@lists.freedesktop.org, 
+ kernel-dev@igalia.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,34 +87,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Thu, Oct 23, 2025 at 6:50=E2=80=AFPM Rodrigo Siqueira <siqueira@igalia.c=
+om> wrote:
+>
+> On 10/20, Rodrigo Siqueira wrote:
+> > When trying to unload amdgpu in the SteamDeck (TTY mode), the following
+> > set of errors happens and the system gets unstable:
+> >
+> > [..]
+> >  [drm] Initialized amdgpu 3.64.0 for 0000:04:00.0 on minor 0
+> >  amdgpu 0000:04:00.0: [drm:amdgpu_ib_ring_tests [amdgpu]] *ERROR* IB te=
+st failed on gfx_0.0.0 (-110).
+> >  amdgpu 0000:04:00.0: amdgpu: ib ring test failed (-110).
+> > [..]
+> >  amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous comm=
+and: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
+> >  amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
+> >  amdgpu 0000:04:00.0: amdgpu: SMU: I'm not done with your previous comm=
+and: SMN_C2PMSG_66:0x0000001E SMN_C2PMSG_82:0x00000000
+> >  amdgpu 0000:04:00.0: amdgpu: Failed to disable gfxoff!
+> > [..]
+> >
+> > When the driver initializes the GPU, the PSP validates all the firmware
+> > loaded, and after that, it is not possible to load any other firmware
+> > unless the device is reset. What is happening in the load/unload
+> > situation is that PSP halts the GC engine because it suspects that
+> > something is amiss. To address this issue, this commit ensures that the
+> > GPU is reset (mode 2 reset) in the unload sequence.
+> >
+> > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Rodrigo Siqueira <siqueira@igalia.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 0d5585bc3b04..0a7bcb2d5a50 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -3649,6 +3649,13 @@ static int amdgpu_device_ip_fini_early(struct am=
+dgpu_device *adev)
+> >                               "failed to release exclusive mode on fini=
+\n");
+> >       }
+> >
+> > +     /* Reset the device before entirely removing it to avoid load iss=
+ues
+> > +      * caused by firmware validation.
+> > +      */
+> > +     r =3D amdgpu_asic_reset(adev);
+> > +     if (r)
+> > +             dev_err(adev->dev, "asic reset on %s failed\n", __func__)=
+;
+> > +
+> >       return 0;
+> >  }
+> >
+> > --
+> > 2.51.0
+> >
+>
+> Hi Alex,
+> If this change is okay with you, may I send a revert for the change below=
+?
+>
+>  72a98763b473890e6605604bfcaf71fc212b4720 - drm/amd: fix gfx hang on reno=
+ir in IGT reload test
+>
+> The above change adds GPU reset during load time.
 
-On Thu, Nov 6, 2025 at 3:56=E2=80=AFAM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
+Yes, please do.  Thanks!
+
+Alex
+
 >
-> ./drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c: amdgpu_reset.h is included m=
-ore than once.
+> Thanks
 >
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D26930
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 836a14ef0052..9a969175900e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -32,7 +32,6 @@
->  #include "amdgpu_vm.h"
->  #include "amdgpu_userq.h"
->  #include "amdgpu_hmm.h"
-> -#include "amdgpu_reset.h"
->  #include "amdgpu_userq_fence.h"
->
->  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
 > --
-> 2.43.5
->
+> Rodrigo Siqueira
