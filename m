@@ -4,121 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B6C3CCFA05
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 15:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDEEECCF9F8
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 15:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FF210E943;
-	Thu,  6 Nov 2025 15:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9DC10E946;
+	Thu,  6 Nov 2025 15:55:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Xn+Yz04N";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="ouw1d/E5";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012046.outbound.protection.outlook.com [52.101.48.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C728C10E943
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 15:49:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IPJqQOAYPyc2XkxK2nVuUzCvk/Z8WvAb1cPOH+BVoXMHCxwDJ4onsasY84KS4vDUTLHKHM5QwZQJX6ew8SX3mS4S3KHP0TwgiwWGdxkm1HbgcEE8t82kV7L0AlH+FpB2QfLttcwEBahGAxpxjFIGqHev7kG2cTxqmLOMZoz87S5ulgk21NpdjcBQuvD1NfbonWZftLUOzxDNhoRLwtRn+1tt6LD2YOV6YkOR661APSiP7VArN6QrjKK6gIFGDFez23TbJtqpMUExhOlgIvDw2yavOU/hb7uz7hftl3eR4u+/yRBdN4ZId4/Uj3GjSjfXLEdEsgiQ7mR0TmWHcVxpXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DwJkT5FLH2YowtPBXv6+Ji2fpkN82HZjhpYG3iokxX4=;
- b=C0FQK6A+j6SdlMU/TwJ15gZ7411N6QMzhOfeig1PhHWvKdBxBW0mUoE5Yf/nTs8aQ6AanF1X0Pny/2GJeB4TxIx9oiTapR/Ef6ww+g1BY6EK/GbT+W6i9wsAO5HgHKwq/cvUVODgntqPe8bG/ehlVXKMjNUSwK48y3f5bHWwp1YGSExJ8rUDNYIcSC26y7or2zn1wN8JP2akLVx+2RTacfhpNaFCuLRgjrCQYgWoaiM/5pHgnbkvUVmCJMvPloDsYsjMKpNDUSYcDwSjU7fFzptgwUzERoPIBaAwpv6waemDPo9fplqbMVEBHFO0Zgd7IiTWEAC9oDQfoIKuTTCtpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DwJkT5FLH2YowtPBXv6+Ji2fpkN82HZjhpYG3iokxX4=;
- b=Xn+Yz04N5KGAwC+ugCX4XsSu1epgQ8cn5SzePEEaHkPHcAJ0Rz0n+i7pPjG/0P9XKh/OrdvKj4to3tt02kqyHIyRCvYRk5TkwddXB/i6PNEPnCFoeqDVW+a2N5yKrvs/6aQ+A2DkpG5axQa0oumcSl8EReo9uQsXJ8KUJaqLmhk=
-Received: from BY3PR03CA0010.namprd03.prod.outlook.com (2603:10b6:a03:39a::15)
- by PH7PR12MB6955.namprd12.prod.outlook.com (2603:10b6:510:1b8::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.9; Thu, 6 Nov
- 2025 15:49:32 +0000
-Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10b6:a03:39a:cafe::a7) by BY3PR03CA0010.outlook.office365.com
- (2603:10b6:a03:39a::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.12 via Frontend Transport; Thu,
- 6 Nov 2025 15:49:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.6 via Frontend Transport; Thu, 6 Nov 2025 15:49:31 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 6 Nov
- 2025 07:49:28 -0800
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
- <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <asad.kamal@amd.com>,
- <KevinYang.Wang@amd.com>
-Subject: [PATCH] drm/amd/pm: Add NULL check for power limit
-Date: Thu, 6 Nov 2025 23:49:16 +0800
-Message-ID: <20251106154916.3783877-1-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4507E10E944
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 15:55:52 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-3ece1102998so685511f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 07:55:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1762444551; x=1763049351; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=XGALeVCzsF4f1DpNVJqhX7BqrS0OH0cjP7ktRCQLQRY=;
+ b=ouw1d/E5+wWCvjgSrkaZqsIc23tPuyv57Y9Uwp8RVpf08rcSI7VkQOdU7C+oYJzsCX
+ hS9BAEjOkkpY27z51YSWwfboVtgtsAne0RFBIrCgEb7AsWbMg3qKBmNq4rpfJ0xvYLKt
+ 49cPrbcYwppcY01zAkk7klEn2XoHueOV3K0EYbKrv4oifKHhXdXWMo0ygz4uL/dFI+NH
+ j8IphYRtuILiTIqOIz8LmSjj2RJzUZMjEA73vIxV032XiErYSmzSSuIssGNnmMMzBA0Q
+ uNQIHjHQhk10HLwUhBuxeYJKxESrfvl5eSSfb97cJu1T2AJCa1gHSu82Uc78GfrwdObz
+ bbtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762444551; x=1763049351;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XGALeVCzsF4f1DpNVJqhX7BqrS0OH0cjP7ktRCQLQRY=;
+ b=fsXmxQv1K/7g9CwSs1ZOfbU3fWsxas/7XI3EqIUQBZdC0kupc/66/kjgzYhHcjCbOt
+ +1E3UkiOIKutmAp4oGA5vmiNMfwB6lLmGp7GoJxcHSbPJXb/CqRL1Ekma80PJ0cQ0+Tb
+ 5CIOrXBjerFcjCblUVIa5Hfga/qVGU/faHwBMP2/+pGn8XlSXfXpBqjxrngChaIDlkKB
+ 3SilTd8DNqiDYftyE7lQoQet6IMP0pILzL2/G6Go0LL410dpkaexpUQWQYw5+BaaVjNL
+ 3rxWyKmplvucE/HVXy3tHUxrCcK3vrTKzaqDIjsLX8SBBhIPrP7Zhm76Ri9rmfhka2TZ
+ qqkw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWlcj3iFVqu8T2GDDhYN4gKKd+8b/RcZiz4e4FIqDv7KfNV5HNR2l3ITnSkBlPo3lsB4UdRyoJG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQ46jvA8URX+PutjH3/TOGU7m0Eo7pldB1wlTHjxYwDKHgtcLc
+ JWOd4RcAMSb/rKFiH+qvxzAQtrIqBCnrmGWEkrGtfPEXq8tcY9sOdr3TMyRHqsVDDRM=
+X-Gm-Gg: ASbGncslsMIQb9+1T9RATSxC7Go4Lsx51YGtGtitCyh9iEY3YkHilc9uHbhiGUs9Nt9
+ MDO5AETiFCfJKxPXoyPbKghJGnaZuIdr1GfVynREXaTknwv3MjvVRtEP6T4OnWzBgfI8XIvIWtm
+ 3B1zyC9XRfZ/9RYTnOxXbvXpCFflz9NQlJpMehaE1LLGQ5BoBsIekLiMuDOMKN2CyMmCv7/8pQ3
+ n8PAc3evDjYB74p+Nt3t0j9pFEeSCk7CLrCrv3bNM/TSp3E83JouI9HmySvp06yCvpfrqYsQN2K
+ Co8NnCTtmMEu7wI1EAW7IQq82gzWCJiX9QRgkXMwFX3jhTDZfGgLC7kln2fLWykz0EBbj3dBfwZ
+ UmIQh0GkTP/r8oZ1EyWSpj9Ke+TmE6YGdQPLkiveQTOiAYdPzv7XIpRoiZMaivCMlnkXKPhl53D
+ jhnbyUhFdrr/PSWuFM65i/peFRHZgbr2IATNsviQ==
+X-Google-Smtp-Source: AGHT+IEs3aDcon/JLTOdNSN1C15M5g5lHSSzfi57ASTswJ4ZtM6j5ELAqJYi7pro8EqNlmlE6rKmhg==
+X-Received: by 2002:a05:6000:2901:b0:3ec:db87:e5f4 with SMTP id
+ ffacd0b85a97d-429e32c6c7emr5441412f8f.7.1762444550422; 
+ Thu, 06 Nov 2025 07:55:50 -0800 (PST)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429eb4037c7sm5801109f8f.3.2025.11.06.07.55.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Nov 2025 07:55:50 -0800 (PST)
+Message-ID: <b5f9eb6c-0b40-40cd-813a-09bd8442b28c@ursulin.net>
+Date: Thu, 6 Nov 2025 15:55:49 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: avoid memory allocation in the critical
+ code path
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20251106130637.2187-1-christian.koenig@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20251106130637.2187-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|PH7PR12MB6955:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4da69309-f4c8-4055-0c48-08de1d4c139e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YgXwxBYGiKt+yUvJdIS47So915pafICnUwagTFmgWxHMKOK0mEnW+A0WQGvN?=
- =?us-ascii?Q?zU/E+gyks2uZe+qA7sLDa76HWqrcfcWMFaXYMObffFGxYvls1Di7njjehNss?=
- =?us-ascii?Q?a0E93UDHCmy8JPBKsk0N8pgirsVLddWBuGjtMfrdstweHZYfJOF8wTFfZtn3?=
- =?us-ascii?Q?oQ3o8L17KnpkLj78cm0/pTGdOPs/aT/pfhQAqksMCEG36w1IXnjt04zg1v4x?=
- =?us-ascii?Q?VtLW7YKSiDDL30VOYFucd0W9leOnKmwIy82JCpfUOY+CXSVMnK4m0m3sxtJ3?=
- =?us-ascii?Q?hdH+eHwT1t6rp4/cPnBo5L3QpL92cKlAH4sQGreErD5otItcQZgnc2ouPE5r?=
- =?us-ascii?Q?ANriwB/Oiir2Iu5KZhgVVnMeFZIrMuoGJAVlmnOQdaruyyKDr/eywORPKXsU?=
- =?us-ascii?Q?xeh8ytleu07oQh5bS84guH+7zcmLBY9KPWqvtQS5nDXiHDNoHfZgtYAPZUhT?=
- =?us-ascii?Q?o5P8GB6vibvM5qnkiOYzQzXBqCTdr2SKs16rKgSTz2Fb656GajUguVKTilcs?=
- =?us-ascii?Q?2IgLm19Y+VvBAebvNpLlVJwNfzlP0S4AwkENDDTFGp4yE69QCzG6yFVqgSJc?=
- =?us-ascii?Q?c0M5SghJ1fZf6T7gVzUc6qQ4TFbqMbn0awXl/1WVzD/ZuMkQzDs0ONr4aHLL?=
- =?us-ascii?Q?I9WFIGsoxM5kW7J9qtkqJy/tGjSocc4N4UNZRngpu1AjP21ygurySKlxiV82?=
- =?us-ascii?Q?SzA1QR+J8wsWkh8JW06dZN6ix+CsGVJCA2V9xzWOP/d1b6ID5ssrao3WWf49?=
- =?us-ascii?Q?BlJwsCdNTREvexxpkdz3m+CHmHgJYDyVpHWWL+H3QeDrCu0S52Xc311jQMQ8?=
- =?us-ascii?Q?JhIZ1cdBWXSZalEdsynC7Aq9LuaPk8CwZ+Fr2x0OFqeUrrhL66w8jqnWKEu0?=
- =?us-ascii?Q?eUfoZZ14DYmimltYLIvDExnL5gM/rfsyA1IiRKh6hsHLFd4TTJIQD/BHYMWF?=
- =?us-ascii?Q?00Zo0sSBNAK/iH4tsXcgdFKAUBChT5OfbpzUyIZl/Gzlqh5J10Q/bM/Y2Ihy?=
- =?us-ascii?Q?4BD+FBXGPfeDzA+fpuYpRrCuhoCAXChqcU3CfeLD4/UHNY3cZc/Cx19RrYsp?=
- =?us-ascii?Q?anXIn/Yy+nRhmHlZnjivEWDWcqT1vDF/iapw5/Nbf3E9Kmlzed+LuX42q6RO?=
- =?us-ascii?Q?0tJ4dggkqUu7lKp7ySLnt98kMP+q1b9DhbWGdsM4XmOr2UPNh82CCKQz9FSX?=
- =?us-ascii?Q?9R085Xxb8GaIB+UkPi3+/rP9gKxQfcqwyzUd4fxFyP0GCI9RwchdwwdMXS7E?=
- =?us-ascii?Q?Q1PMGjfCVdcIAyt7XycGKs1IRHhugfJz2iGCuCNWG1GOrkM3ZlEem4f7qeEA?=
- =?us-ascii?Q?4s9CE+zEbRVFJ+52dCVb7aAz+q1FqIp4xfEHlDGvAwfTacdKMpG5jgmy4tl1?=
- =?us-ascii?Q?E5iOAv6FycYkKKYoWprOcHTyKLi6WKWeGlyW9ro2pxffT1c6xZc0dDTLv2GY?=
- =?us-ascii?Q?QM1h+sgAbOJP40dTvcYvwLYV/RhZkqy1cSt4Fnd8SMaQ807AWTgpk+oaZJ9p?=
- =?us-ascii?Q?7wbls9eBYk6UcPZPTHxp03FgsMIU6VX/qoVir8oGIjsTgxwJS4ZoAtJF1YqE?=
- =?us-ascii?Q?7sFQiCYWZiO2QuKIses=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2025 15:49:31.5690 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4da69309-f4c8-4055-0c48-08de1d4c139e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075ED.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6955
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,27 +91,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add NULL check for smu power limit pointer
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 +++
- 1 file changed, 3 insertions(+)
+On 06/11/2025 13:06, Christian König wrote:
+> When we run out of VMIDs we need to wait for some to become available.
+> Previously we were using a dma_fence_array for that, but this means that
+> we have to allocate memory.
+> 
+> Instead just wait for the first not signaled fence from the least recently
+> used VMID to signal. That is not as efficient since we end up in this
+> function multiple times again, but allocating memory can easily fail or
+> deadlock if we have to wait for memory to become available.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 51 ++++++-------------------
+>   1 file changed, 12 insertions(+), 39 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index 3ef5bc95642c..5f94a66511af 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -201,58 +201,31 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_ring *ring,
+>   	struct amdgpu_device *adev = ring->adev;
+>   	unsigned vmhub = ring->vm_hub;
+>   	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+> -	struct dma_fence **fences;
+> -	unsigned i;
+>   
+> +	/* If anybody is waiting for a VMID let everybody wait for fairness */
+>   	if (!dma_fence_is_signaled(ring->vmid_wait)) {
+>   		*fence = dma_fence_get(ring->vmid_wait);
+>   		return 0;
+>   	}
+>   
+> -	fences = kmalloc_array(id_mgr->num_ids, sizeof(void *), GFP_NOWAIT);
+> -	if (!fences)
+> -		return -ENOMEM;
+> -
+>   	/* Check if we have an idle VMID */
+> -	i = 0;
+> -	list_for_each_entry((*idle), &id_mgr->ids_lru, list) {
+> +	list_for_each_entry_reverse((*idle), &id_mgr->ids_lru, list) {
+>   		/* Don't use per engine and per process VMID at the same time */
+>   		struct amdgpu_ring *r = adev->vm_manager.concurrent_flush ?
+>   			NULL : ring;
+>   
+> -		fences[i] = amdgpu_sync_peek_fence(&(*idle)->active, r);
+> -		if (!fences[i])
+> -			break;
+> -		++i;
+> -	}
+> -
+> -	/* If we can't find a idle VMID to use, wait till one becomes available */
+> -	if (&(*idle)->list == &id_mgr->ids_lru) {
+> -		u64 fence_context = adev->vm_manager.fence_context + ring->idx;
+> -		unsigned seqno = ++adev->vm_manager.seqno[ring->idx];
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 8b49fb86c77b..835e9c9da521 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2907,6 +2907,9 @@ int smu_get_power_limit(void *handle,
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
- 
-+	if  (!limit)
-+		return -ENOMEM;
-+
- 	switch (pp_power_type) {
- 	case PP_PWR_TYPE_SUSTAINED:
- 		limit_type = SMU_DEFAULT_PPT_LIMIT;
--- 
-2.46.0
+Maybe vm_manager.fence_context && seqno are now unused and can be removed?
+
+Regards,
+
+Tvrtko
+
+> -		struct dma_fence_array *array;
+> -		unsigned j;
+> -
+> -		*idle = NULL;
+> -		for (j = 0; j < i; ++j)
+> -			dma_fence_get(fences[j]);
+> -
+> -		array = dma_fence_array_create(i, fences, fence_context,
+> -					       seqno, true);
+> -		if (!array) {
+> -			for (j = 0; j < i; ++j)
+> -				dma_fence_put(fences[j]);
+> -			kfree(fences);
+> -			return -ENOMEM;
+> -		}
+> -
+> -		*fence = dma_fence_get(&array->base);
+> -		dma_fence_put(ring->vmid_wait);
+> -		ring->vmid_wait = &array->base;
+> -		return 0;
+> +		*fence = amdgpu_sync_peek_fence(&(*idle)->active, r);
+> +		if (!(*fence))
+> +			return 0;
+>   	}
+> -	kfree(fences);
+>   
+> +	/*
+> +	 * If we can't find a idle VMID to use, wait on a fence from the least
+> +	 * recently used in the hope that it will be available soon.
+> +	 */
+> +	*idle = NULL;
+> +	dma_fence_put(ring->vmid_wait);
+> +	ring->vmid_wait = dma_fence_get(*fence);
+>   	return 0;
+>   }
+>   
 
