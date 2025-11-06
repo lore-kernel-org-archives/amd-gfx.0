@@ -4,75 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302C0CCFA03
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 11:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FADDCCFA05
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 11:44:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5CDB10E8AD;
-	Thu,  6 Nov 2025 11:04:18 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6180110E8A5
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 11:04:17 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EAE11596
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 03:04:09 -0800 (PST)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D155F3F63F
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 03:04:16 -0800 (PST)
-Date: Thu, 6 Nov 2025 11:04:06 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "Shankar, Uma" <uma.shankar@intel.com>,
- "Nikula, Jani" <jani.nikula@intel.com>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>,
- "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
- "sean@poorly.run" <sean@poorly.run>,
- "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
- "laurent.pinchart+renesas@ideasonboard.com"
- <laurent.pinchart+renesas@ideasonboard.com>, 
- "mcanal@igalia.com" <mcanal@igalia.com>,
- "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>,
- "tomi.valkeinen+renesas@ideasonboard.com"
- <tomi.valkeinen+renesas@ideasonboard.com>, 
- "kieran.bingham+renesas@ideasonboard.com"
- <kieran.bingham+renesas@ideasonboard.com>, 
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
-Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor drm_writeback_connector
- structure
-Message-ID: <aQyApokLttxf9spU@e110455-lin.cambridge.arm.com>
-References: <20251007054528.2900905-1-suraj.kandpal@intel.com>
- <20251007054528.2900905-2-suraj.kandpal@intel.com>
- <aQjDejhzGRYJT614@e110455-lin.cambridge.arm.com>
- <DM3PPF208195D8D5DDD56AA88E006E66AD9E3C4A@DM3PPF208195D8D.namprd11.prod.outlook.com>
- <aQoIBroBqQc3B-RD@e110455-lin.cambridge.arm.com>
- <CAO9ioeX2qEyjwi9LsnUh-cRv88iaRcdZtFr_yidf55A9_ZbLWw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCA3510E722;
+	Thu,  6 Nov 2025 11:44:43 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VBrOWljA";
+	dkim-atps=neutral
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010041.outbound.protection.outlook.com
+ [52.101.193.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63EEC10E722
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 11:44:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g1uQxpJXHhhSmloMjOIxTVIIjVmCtOpteTYphe9z/JHiA3tXa0/KBidNjr18SJDAA+ETZvi1r0/3rrNcf22Km20p/vhAQ91r41jdip3Y5HaK9TCfKQt/ACBeyvdEKgXhsN8Y+QW3MXdxL5Ah331e+Mq/GsEMP5NjT40LFU5N1JyglXlZyi+0NEYU7zx9+/NIjpDx356bPfKEIqF2rod2bzzQ0pL3Cp2moPRiJ+l9BvmttrcH3QMi5StG5dMBUbC3tqaPBtJN9szv/FkcEfirPcpsQ3ZWOdIWrXlVR3AMRDetGgeKCKbJAKF43Cs1HiE2HCdacbgA6i8LwQUlMlC5Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UYjYRBjw3f6Q5jL/KEo9rgiZFUGFn/yyWIsC+OH6ZtQ=;
+ b=VDgCZt6FkTohqclsCrKg/cI9jE1C3Ds83H9FyVGqm5ffQi5Sr0UDaKm9FWGrja3jtX0PS/g+1dp7AbHI3e7QIthHrrGR/R8lHIVTK5WAJ/zbTj5iu66brRgab1RO4qEx4wUb7Eg9s6eho4qExFCT6u8e5/Cn2EvtxJPXnqZztEwN7M9cmnfK3ILhhOM/AlxB3ZrRe4zefFUr6Gg03a6Ck125bUwyD6Hs4lPlXc946YmDv/BUpo6B1UxKuBKFYHhcbwJDay83oCNcWRh53VivxR4GVGaXFsQAZ0Tem3zOsqmROeyrQuv0W9EdIlAL1AMFoIe5tI/IGJD8HNHoxiQlBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UYjYRBjw3f6Q5jL/KEo9rgiZFUGFn/yyWIsC+OH6ZtQ=;
+ b=VBrOWljATx2suHTP+KIowa4rurBN999W94MyFMtUsehJdTZH59cnft2JZj5M3P4xd27rnWQyqAnMfk8M221cPi1M5CFJUFVb4+b1MeRSlkGchj/AoqHtcfI/5uyJk8GCMnOIDHVglbvsn1qvOXxBw6lhE8jAxUwJ5cbK0nw2C0w=
+Received: from BL1PR13CA0292.namprd13.prod.outlook.com (2603:10b6:208:2bc::27)
+ by BY5PR12MB4097.namprd12.prod.outlook.com (2603:10b6:a03:213::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Thu, 6 Nov
+ 2025 11:44:36 +0000
+Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
+ (2603:10b6:208:2bc:cafe::19) by BL1PR13CA0292.outlook.office365.com
+ (2603:10b6:208:2bc::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.7 via Frontend Transport; Thu, 6
+ Nov 2025 11:44:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Thu, 6 Nov 2025 11:44:35 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 6 Nov
+ 2025 03:44:33 -0800
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <asad.kamal@amd.com>,
+ <KevinYang.Wang@amd.com>
+Subject: [PATCH v2 1/4] drm/amd/pm: Update pmfw headers for smuv_13_0_12
+Date: Thu, 6 Nov 2025 19:44:18 +0800
+Message-ID: <20251106114421.3770378-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAO9ioeX2qEyjwi9LsnUh-cRv88iaRcdZtFr_yidf55A9_ZbLWw@mail.gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|BY5PR12MB4097:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d4d87c0-1690-4441-8714-08de1d29dc16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gus35DVzJ+8ezxPUXOvdlhVLA13c/7cVhFrdMAfFEdl7BGs7AJtyLkOtBA9W?=
+ =?us-ascii?Q?Xzvw8QBmoJXo7siOhlZCTugr/Sjb5iKF7up+dhHc1yCZ+BSGL7Ykhft4Nogt?=
+ =?us-ascii?Q?5a/VDMLRLOsaeakmVgS6ekCBMBJmRC9N5GQAqTO9V4nlQGLyHpu3LuRvfYEi?=
+ =?us-ascii?Q?NcNc4JG7FfEkh4k+NGfsqwC08r2sX6ZNm6nChWvZpX2kLkgSJl3hYDx3GrPB?=
+ =?us-ascii?Q?UUupDaCLZRi12syfBwUZWR8BaRD897UuFf4P71Z+IoLZW+ua55UHZaSYME/V?=
+ =?us-ascii?Q?Nxw+rQYMh4fkCrzGO1LBSkW5FeixKBr5y/V69e7SuRPNWigkrNiQGTxrONUf?=
+ =?us-ascii?Q?UlvsIUrA980KHD4RgstC05hbLSJZhw8fV3iLAfxKLgiPhhBctkohLaRH/WDT?=
+ =?us-ascii?Q?hnBbrRtNhHSaebuiLxzv94+NPPjDaJc1xXk5IkhvdoB5vrOyXgIzHzOq1IFU?=
+ =?us-ascii?Q?iWoQ5Cph2UuGLg1iNfxAfM4E7ZXnViAy7ENT0Vnn6epY8h0ccqUNWYWH3cKF?=
+ =?us-ascii?Q?X7WKxKBPhENBk8btW4YbAOOq/7/gFhMVA3tAQtz1NcZNGeviyt1uPU4mwCtd?=
+ =?us-ascii?Q?nZZKrxhEEeAB1OPLVjU2lIpT0F6ZmYQ2xta/5Dx8QT7koQr0MVgN9rZpJYdX?=
+ =?us-ascii?Q?g+6qcGp2YFZjuGSjZffZr49Jx4PFIzWrgeH5KR+E9uFj299A6xXL56DPcOy9?=
+ =?us-ascii?Q?KQ4pAGqCQg/Sy2cT/oYpaA6z4WB5qZrApIeDfq9uXSlde9S4g4RFJwOWILK/?=
+ =?us-ascii?Q?F2fxb8nfWHcY2q4AmhlmWQuIAFy4ZHU8c1RPMNTWh6ZGnlGZW+bIAEMg8Ff0?=
+ =?us-ascii?Q?9b/quO37cKZEg5Shl1A+OVoGH+C2pytoB49WGSpEj+VM7Pm8zYgf70Dww7O3?=
+ =?us-ascii?Q?YdHOyyoH6BmtLgddJM+98OYKRNHbnHbbYJvWTrELcfbsTlTD1wW4CmfpYcp+?=
+ =?us-ascii?Q?CDfAuPZ5Az+Ycf47wtW8Xdn28bS20dHbht9MDE2YEQeeOtunNBdFXFpB30SZ?=
+ =?us-ascii?Q?xYnOnFd6a/oeQykYsfFhf8WATFalh0KHNZ1fBaXtMVLlC4aMqZyu5VYqCczQ?=
+ =?us-ascii?Q?D7FOIFYV+GyXUK4gdgEqIOnWqAlx2moZnr8vnv/r5qIvaUKiWlpoXwSO45kb?=
+ =?us-ascii?Q?NgB59V445/1ADcTLL9PMWWgJDEbQbJYUoPgt6CwH7pcYoX12qMYwVnD5Tf9l?=
+ =?us-ascii?Q?zHhBZkjB7Tbe3IV8qLVt9iFKtGGWztnDG5hBC+zknbAy6yJo4nWPm/kr9EdV?=
+ =?us-ascii?Q?/U2uPRs5kxbr1fy0LPSiRiJeXTHxz9Yjq51mNkn9XbGuVu6BidjCshedE/cL?=
+ =?us-ascii?Q?dG9eulYlZkIYF7CgHaDaL4O6FuGt8oPbd/aPV9s/3BZwQIjV3tCPGdX0lU7m?=
+ =?us-ascii?Q?J7tnp/psixKtblxJvZnHxjooPcCQEiEtOhQBzzImlUx/7VqV1o1uy2on7uj5?=
+ =?us-ascii?Q?7MhMTUg3iFLHQw7g+qkUmu7ar8pgRI64yY+FTAX9t0w0zlic1JD+6oTYZVQg?=
+ =?us-ascii?Q?bf8LzEi1FnvDpreeJLwR3S8jw6UfKV8K2zk1gMFQuBDG2L9snVKdBy65TcVT?=
+ =?us-ascii?Q?tG2kXa8fV+QqZlKc8H4=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2025 11:44:35.6089 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d4d87c0-1690-4441-8714-08de1d29dc16
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4097
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,192 +134,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 05, 2025 at 02:39:15AM +0200, Dmitry Baryshkov wrote:
-> On Tue, 4 Nov 2025 at 16:05, Liviu Dudau <liviu.dudau@arm.com> wrote:
-> >
-> > On Tue, Nov 04, 2025 at 05:11:25AM +0000, Kandpal, Suraj wrote:
-> > > > Subject: Re: [PATCH v2 1/7] drm: writeback: Refactor
-> > > > drm_writeback_connector structure
-> > > >
-> > > > On Tue, Oct 07, 2025 at 11:15:23AM +0530, Suraj Kandpal wrote:
-> > > > > Some drivers cannot work with the current design where the connector
-> > > > > is embedded within the drm_writeback_connector such as Intel and some
-> > > > > drivers that can get it working end up adding a lot of checks all
-> > > > > around the code to check if it's a writeback conenctor or not, this is
-> > > > > due to the limitation of inheritance in C.
-> > > > > To solve this move the drm_writeback_connector within the
-> > > > > drm_connector and remove the drm_connector base which was in
-> > > > > drm_writeback_connector. Make this drm_writeback_connector a union
-> > > > > with hdmi connector to save memory and since a connector can never be
-> > > > > both writeback and hdmi it should serve us well.
-> > > > > Do all other required modifications that come with these changes along
-> > > > > with addition of new function which returns the drm_connector when
-> > > > > drm_writeback_connector is present.
-> > > > > Modify drivers using the drm_writeback_connector to allow them to use
-> > > > > this connector without breaking them.
-> > > > > The drivers modified here are amd, komeda, mali, vc4, vkms, rcar_du,
-> > > > > msm
-> > > > >
-> > > > > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> > > > > ---
-> > > > > V1 -> V2: Use &connector->writeback, make commit message imperative
-> > > > > (Dmitry)
-> > > > > ---
-> > > > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
-> > > > > .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
-> > > > > .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  |  8 +--
-> > > > > .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  6 +-
-> > > > >  .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
-> > > > >  .../arm/display/komeda/komeda_wb_connector.c  |  8 +--
-> > > > >  drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
-> > > > >  drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
-> > > > >  drivers/gpu/drm/arm/malidp_hw.c               |  6 +-
-> > > > >  drivers/gpu/drm/arm/malidp_mw.c               |  8 +--
-> > > > >  drivers/gpu/drm/drm_atomic_uapi.c             |  2 +-
-> > > > >  drivers/gpu/drm/drm_writeback.c               | 35 ++++++----
-> > > >
-> > > > For the komeda and malidp drivers, as well as for the drm_writeback.c
-> > > > changes:
-> > > >
-> > > > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> > > >
-> > > >
-> > > > [snip]
-> > > >
-> > > >
-> > > > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> > > > > index 8f34f4b8183d..1b090e6bddc1 100644
-> > > > > --- a/include/drm/drm_connector.h
-> > > > > +++ b/include/drm/drm_connector.h
-> > > > > @@ -1882,6 +1882,61 @@ struct drm_connector_cec {
-> > > > >   void *data;
-> > > > >  };
-> > > > >
-> > > > > +/**
-> > > > > + * struct drm_writeback_connector - DRM writeback connector  */
-> > > > > +struct drm_writeback_connector {
-> > > > > + /**
-> > > > > +  * @pixel_formats_blob_ptr:
-> > > > > +  *
-> > > > > +  * DRM blob property data for the pixel formats list on writeback
-> > > > > +  * connectors
-> > > > > +  * See also drm_writeback_connector_init()
-> > > > > +  */
-> > > > > + struct drm_property_blob *pixel_formats_blob_ptr;
-> > > > > +
-> > > > > + /** @job_lock: Protects job_queue */
-> > > > > + spinlock_t job_lock;
-> > > > > +
-> > > > > + /**
-> > > > > +  * @job_queue:
-> > > > > +  *
-> > > > > +  * Holds a list of a connector's writeback jobs; the last item is the
-> > > > > +  * most recent. The first item may be either waiting for the hardware
-> > > > > +  * to begin writing, or currently being written.
-> > > > > +  *
-> > > > > +  * See also: drm_writeback_queue_job() and
-> > > > > +  * drm_writeback_signal_completion()
-> > > > > +  */
-> > > > > + struct list_head job_queue;
-> > > > > +
-> > > > > + /**
-> > > > > +  * @fence_context:
-> > > > > +  *
-> > > > > +  * timeline context used for fence operations.
-> > > > > +  */
-> > > > > + unsigned int fence_context;
-> > > > > + /**
-> > > > > +  * @fence_lock:
-> > > > > +  *
-> > > > > +  * spinlock to protect the fences in the fence_context.
-> > > > > +  */
-> > > > > + spinlock_t fence_lock;
-> > > > > + /**
-> > > > > +  * @fence_seqno:
-> > > > > +  *
-> > > > > +  * Seqno variable used as monotonic counter for the fences
-> > > > > +  * created on the connector's timeline.
-> > > > > +  */
-> > > > > + unsigned long fence_seqno;
-> > > > > + /**
-> > > > > +  * @timeline_name:
-> > > > > +  *
-> > > > > +  * The name of the connector's fence timeline.
-> > > > > +  */
-> > > > > + char timeline_name[32];
-> > > > > +};
-> > > > > +
-> > > > >  /**
-> > > > >   * struct drm_connector - central DRM connector control structure
-> > > > >   *
-> > > > > @@ -2291,10 +2346,16 @@ struct drm_connector {
-> > > > >    */
-> > > > >   struct llist_node free_node;
-> > > > >
-> > > > > - /**
-> > > > > -  * @hdmi: HDMI-related variable and properties.
-> > > > > -  */
-> > > > > - struct drm_connector_hdmi hdmi;
-> > > > > + union {
-> > > >
-> > > > This is a surprising choice. Before this patch one had to have a separate
-> > > > writeback connector besides the HDMI connector. Going forward it looks like
-> > > > you still need two connectors, one that uses the writeback member and one
-> > > > that uses the hdmi one. Is that intended?
-> > > >
-> > > > I was expecting that you're going to declare the writeback member next to the
-> > > > hdmi, without overlap. If you do that, then you also don't need to move the
-> > > > struct drm_writeback declaration from the header file and it should be enough
-> > > > to include the drm_writeback.h file.
-> > >
-> > > Hi,
-> > > Thanks for the review
-> > > The reason for this came from the discussion on previous patches and was suggested by Dmitry.
-> > > The idea is that a connector can never be both an HDMI and writeback connector at the same time
-> > > Hence we save space if we pack them together.
-> >
-> > Hmm, but you can still have all the CEC and HDMI codecs data in that connector,
-> > which feels strange.  Also, what's the issue with having a connector that has
-> > both a valid HDMI state and an associated writeback at the same time (i.e.
-> > don't use the union)? Writing back the memory the output that goes to HDMI is
-> > valid, right?
-> 
-> Writing back to memory requires a separate connector (with separate
-> setup). The CRTC should also support outputting data to both HDMI
-> _and_ Writeback connectors at the same time (aka cloning). Not all
-> configurations are possible, writeback requires additional bandwidth,
-> etc., etc.
-> 
-> >
-> > Maybe that is not something that you considered, but with this patch (without union)
-> > we can drop the need to have a separate connector just for writeback. We're breaking
-> > user space compatibility, true, but it feels like a good change to be able to
-> > attach a writeback to any connector and get its output. The drivers that don't support
-> > that can reject the commit that attaches the writeback to the existing connector.
-> 
-> Well... No. It's not how it is being handled in the (existing)
-> hardware. Nor does it make it easier to handle resources for the
-> writeback.
+Update pmfw headers for smmu_v13_0_12 to include ppt1 messages and
+static parameters
 
-Which (existing) hardware? Komeda can do it mainly because it doesn't have an HDMI connector,
-but an output that can be cloned to writeback while it is being sent out on a bus to an encoder.
-You have to remember that writeback is a connector because we didn't have a better concept for
-it. It doesn't have to be a separate connector from an HDMI or eDP or DP.
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h | 5 +++++
+ .../gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h    | 4 +++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-Best regards,
-Liviu
-
-> 
-> -- 
-> With best wishes
-> Dmitry
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h
+index bf6aa9620911..bb7d48e3b60e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h
+@@ -367,6 +367,11 @@ typedef struct {
+ 
+   //Node Power Limit
+   uint32_t MaxNodePowerLimit;
++
++  // PPT1 Configuration
++  uint32_t PPT1Max;
++  uint32_t PPT1Min;
++  uint32_t PPT1Default;
+ } StaticMetricsTable_t;
+ #pragma pack(pop)
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
+index 4b066c42e0ec..bd811efa3232 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h
+@@ -121,7 +121,9 @@
+ #define PPSMC_MSG_GetSystemMetricsTable             0x5C
+ #define PPSMC_MSG_GetSystemMetricsVersion           0x5D
+ #define PPSMC_MSG_ResetVCN                          0x5E
+-#define PPSMC_Message_Count                         0x5F
++#define PPSMC_MSG_SetFastPptLimit                   0x5F
++#define PPSMC_MSG_GetFastPptLimit                   0x60
++#define PPSMC_Message_Count                         0x61
+ 
+ //PPSMC Reset Types for driver msg argument
+ #define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.46.0
+
