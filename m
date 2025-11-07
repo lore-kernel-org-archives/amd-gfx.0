@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81DDECCF9F8
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 14:15:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44246CCFA05
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 14:29:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E096510EAD6;
-	Fri,  7 Nov 2025 14:15:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9842210EAF0;
+	Fri,  7 Nov 2025 14:29:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mRIAOER1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Pd/QSaQy";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010038.outbound.protection.outlook.com
- [40.93.198.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1877010EAD6
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 14:15:38 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013019.outbound.protection.outlook.com
+ [40.107.201.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A674710EAE9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 14:29:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hVkgfOngBtYNX3JqPt3YgOG9vpkdg+gj/51phzbhAHrNxsDuonSQz6g0Zduwe7ZazL1vC5uRfN+tKn5KSvgMq9o5ENecK1mqqgUHED9MPBkQWbJCtZAg2g7F7zXrAJ4Qz9j4wVJ+Gfjr9lcVWYRWmeLtjx2m1kMAy0o6Dw8VpTXhedIXFINZ/GFoZ2YSc7rNnteg0dPUUXWJWbDnrKpFsqSDm7bpiCD8yMmeG7GSDvvVVxp1B6fXb7Ur8uY4mgIqBXo7Zk0CPLxBZSiKwQx58b1lDeaCGkfxwdCfwi6oufNgtFwJCSDxn/fBlOjlaakT/3IZqC/wCiLA9UUntJFIyQ==
+ b=ZCbZjUGpOzoREKBRBlzDA/l8NChLKRpGHAzKGWYVtzAnwmKdnJdu3qRg3LtPxXaTSr6QpZPhisc73bh4f1V8ysugPjwX8hsTt+kCbqQmAaLl37OxdgmFblLUZ7B9DaInkOH1AQe/EtCyNGJk0boHosktV5mpTqnnzWhEkVPjpKDJ3FEIQ1Vv3nRrzgIkiuLeIgGMaEYmWnlpAbh48TfdySEotwJyute9kwyUnQNSPMFkD6C5k8DxxStNbkDAab7eLqjddMMUHniiZe5ypwHEQOK7X/E7cZcoK5DcQ8dEUwTIykMoLCP6Oc0g7MI4F/ujBcZzp8Wl+am+QadkYwxAIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=42Fyvg83EKHpAAhyZTrihjQEK2QELjrfmcdkB65dvno=;
- b=lUKWtqnKXc+HHAiV6vaNxhrc6kQO0GMXrhV2F9SDv36oIdFiQYdGEvbaPLD8YdOFhZ+xtyASmlJ2U4jt21H7SsWLrC9wfKuOtWs5dO62BmaAuHqg3Hndyuihra+C/CvqmRs9lLJ/5WdeX7i3CI6+31Kq+u9fhi/B2DHPep2Ukl2NBFaowTOYlm5Ou0geIeEsAx/Q3Xzz2D0j5nxhu5bX7om57ZIRgkrDCW46OhuQqOGmGRdQkxV1+EMb/omSOS6yuQMwOVo+r9bOs1PIEPwW9fzqiFXF37y58/D+JBn5pWb7zuH9lIOk6HcmtocNz0XM+vcHBYJE2mnl57+vcp4Ocg==
+ bh=k00r0I0YSPvhtEhn6QeBlggp3BuK2g8njGgwEbJYUZc=;
+ b=LVnqG/1jHULbH21IKwISc9+HIHZnyKcekLQmc+Ul8V/Si/hkgI8ES3uiR1CB2EB8DRz4ug4vpWoZ5s7oy57/xbWqnAHMEK0VSoL2Gp+dTDtwghJp1Azs+Xq9mevJ2K+30L8a6IAGYmNZMcwNBgLNx5e1mYC3MH959wkyiFq0CaWVXSn/Yxri2C4SQThMjFaqwK/OHnpJLXdIK20EL0AfXUTKMc3ANW1Mb9ZY3vJ6Jn3ypDuuWRIAijcWCZIgWjeb5VUQS1ik05+nwspw4GrIS1lfWKHOpnOQKluCQ+ERSGVWcHaGIeRkM20Ivgd3gangMXczqmddtIufNPJFrkoHpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=42Fyvg83EKHpAAhyZTrihjQEK2QELjrfmcdkB65dvno=;
- b=mRIAOER1gmFa/VTPHtGxUVY3VRrWv1PO+RxYeq2wX7od9kNimNd3M+1/RbvWaJXve/+mlOmjaaAE5ODuulG4H80lQRck3/uElm1YNPHbkksnhAshb1fWU5IhGqB4IjRyaVRtQk3b8ayidkIlU8V+CNjfKkBTcjnICPXlPFjIO5M=
-Received: from MN2PR19CA0016.namprd19.prod.outlook.com (2603:10b6:208:178::29)
- by LV8PR12MB9714.namprd12.prod.outlook.com (2603:10b6:408:2a0::5)
+ bh=k00r0I0YSPvhtEhn6QeBlggp3BuK2g8njGgwEbJYUZc=;
+ b=Pd/QSaQyFujZYvxdll3NtrqLLLdjxZLFSlESsQQMAVezAB71wOU8WYoVovgi4+xY+p8lctBzmF+fHNUibHyG3MNX5yu4pDZUH7mdiZRMrQsJX8b2v6zWx772Da5Sf465rDqLeZkBTPzwB5yuucgKxh8k3onnlyPql9obzY8eVZI=
+Received: from PH8PR07CA0032.namprd07.prod.outlook.com (2603:10b6:510:2cf::6)
+ by IA0PR12MB8277.namprd12.prod.outlook.com (2603:10b6:208:3de::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.13; Fri, 7 Nov
- 2025 14:15:34 +0000
-Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
- (2603:10b6:208:178:cafe::77) by MN2PR19CA0016.outlook.office365.com
- (2603:10b6:208:178::29) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 14:29:51 +0000
+Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
+ (2603:10b6:510:2cf:cafe::f2) by PH8PR07CA0032.outlook.office365.com
+ (2603:10b6:510:2cf::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.13 via Frontend Transport; Fri,
- 7 Nov 2025 14:15:37 +0000
+ 7 Nov 2025 14:29:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,87 +49,78 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
+ CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9298.6 via Frontend Transport; Fri, 7 Nov 2025 14:15:34 +0000
+ 15.20.9298.6 via Frontend Transport; Fri, 7 Nov 2025 14:29:50 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 7 Nov 2025 06:15:31 -0800
+ 15.2.2562.17; Fri, 7 Nov 2025 06:29:47 -0800
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
  <srinivasan.shanmugam@amd.com>, Harry Wentland <harry.wentland@amd.com>, "Tom
  Chung" <chiahsuan.chung@amd.com>
-Subject: [PATCH] drm/amd/display: Fix annotations for connector poll/detect
- parameters
-Date: Fri, 7 Nov 2025 19:45:17 +0530
-Message-ID: <20251107141517.3044480-1-srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amd/display: Add kdoc params/returns in dc/link detection
+ helpers
+Date: Fri, 7 Nov 2025 19:59:34 +0530
+Message-ID: <20251107142934.3058349-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|LV8PR12MB9714:EE_
-X-MS-Office365-Filtering-Correlation-Id: 535f53b0-fab8-4a9b-8d4c-08de1e081db9
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|IA0PR12MB8277:EE_
+X-MS-Office365-Filtering-Correlation-Id: de3d7f45-e5c9-45e3-400e-08de1e0a1c18
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WG95bHNnNlZnUWI4dGFhTFl3b21Qc1RwV09zSG5ONnc1b2tXQzBmeGFsQ1RU?=
- =?utf-8?B?VHg0TFpiazZKRndGWmxnNEdqSmVacTFrRVZjNHFoamYrTWo0Zm9ReExpUFJn?=
- =?utf-8?B?Q2tSZ1ZNWWhxUXZsQ3ppT1hoS1hZSjd4bGt3enN1V0xqcEVBcGFhTnlrYjV6?=
- =?utf-8?B?SnZrZkpVYUJJRkoremtFK3EyNGdKWjZQdHhYaXZlLzUyeFpGZlZ0K0RDNFNt?=
- =?utf-8?B?aHB5Um5TVXhMS0w4Tm80TjRiVCtiUEtaRC9pbFVnUDZZY2lYYzZOMDFwek5v?=
- =?utf-8?B?b3JiOWxxMWNZN09lWTdmQklmM0QrUVBaK0NNbnJNT29lamxST05NMWVWNUoy?=
- =?utf-8?B?YXRrUnpsdFRLMG52ZjgwV3UrdStyU0FUVDVrWXVZQjljQlgyekFZU25qWmhm?=
- =?utf-8?B?Yzg1c2VtRGFLZ25JL011NXVHemFmQmx6U09HMGFyRVNtSndGMnB6NVBBeU5Q?=
- =?utf-8?B?RUVXaDhIc3VWbXBFK0FKU3RUNWRYMWFLeERvRmp0a1pXZXNHb2NySHlzdUQr?=
- =?utf-8?B?K29vT09IZStrM0NoOVMrZUEvaTlvM3F1czdsRkVVc242NU02OWVRanFYN2hy?=
- =?utf-8?B?b2ZPQUFKdVNyVEFrZ1FRN0dZWURwWUEyYUtYb1B1c0xyb1k4YmRiaVUvbjZ0?=
- =?utf-8?B?eHJEM01MSHlGTWFBV2NKUDFGeUhkOHZHbzlmckU2a3BaUTQ0Tjg2R3c1anV4?=
- =?utf-8?B?b2dLRDFjUUJqelJyV0toUDBkd3ZNWEZIb1J3ditFaC9aTTdLMVNwUVNyanhG?=
- =?utf-8?B?MFI2WHZYT21ZY0tVODl1S28vTFRYNjI2NzNwdS9LT1Z6ak9YRmJqQUNLL0t2?=
- =?utf-8?B?cVVRRmpzRk1YQ2dVMTk0YnJxdjk3bGN3bDJvblFBSko2ZFNRN3d2RE5lRzMx?=
- =?utf-8?B?cGxWR2p2UnFzeG1Ga2hJbkhiTFgweldpZEdNdnpOWjlNOUUvK3N5RHhtMzA4?=
- =?utf-8?B?ckhZbFhmblZubDV4SGM2WWVqdmhLUGRzZHFFSnZwa3hEK1JicVFEN2JoemIr?=
- =?utf-8?B?OEd5U21kSkVTVy9Nc1lvaVd6VjVSQnZoQ2M4L2kyOFgxalRGNkw2WjQzMkMx?=
- =?utf-8?B?RXFXdkJZbmZMb0g1aXBWOHBmZXF2V0orb1NRbXdWdUdmVXhQUjVNbnEzajNC?=
- =?utf-8?B?YmtLSUNMUnpGNmhNeitsOEN0V2Y0UGFMcUZCcmhESEJCenFiVjVvek5WOTUr?=
- =?utf-8?B?UTI0WEVnWHNRUUlPTGhNWkpxbExhS25pTkx3eStuQk0vYklXNnpEZEd6bHNO?=
- =?utf-8?B?Y0NGdUxXWTR6czlYeEwvdmRhditVQ2dVM3NtWFhONE5IZkF5amtjSVVYVEtj?=
- =?utf-8?B?TjYvRFZVcmxneVMwYXZwNFNveEh3TDFzbW03VWpWWE51eUNnYVpxRGJEcUla?=
- =?utf-8?B?MlJjVEtBWFJ5TUNhZjVhNWhGejlaSk1RdGlsc0M3NmFJZUs5SVM0aStVRVAy?=
- =?utf-8?B?dGhrc2dvcHMzTUtvcTlMNU04OHU4aGpabGs4RGdHYXRNTUpjUEVBNWI5OXpi?=
- =?utf-8?B?UUhpcHB3MFZidnU1bmc4UE9wV2RIL1VKRmxtQzZoMEhEc3FtRTk3ZitENW5Q?=
- =?utf-8?B?d2RKUThweWRXNGRJM0M0ODB4TUl1TXhUVm8zN0ZpTzlVZGpsU3JQYkxRVHly?=
- =?utf-8?B?S1pFWTRwVlpKWHZWN2pHRjNzUGs3MmhZYVdGRi9OZ20vNXRKV1dVdlFSY3FR?=
- =?utf-8?B?aGc4aUNsb3NJczRKM08vNndFNWdIeGtZS3pQTjlFbXFObjI4T2hMMGZsdEJ5?=
- =?utf-8?B?NFlkeVozRTF4ZXNsdGpMZmd2emFOcm1TS3V2TG1JTkx0RjFsWVFxUWtTQ1dV?=
- =?utf-8?B?WXZwK0RaNmk3cklxR0tsQlBKVG95QkMyK1Vvdy9FQ1R1L0VvNjVJMWJ6eTVw?=
- =?utf-8?B?M2JXS1ZvSTNHMnhnNzV4VkV6eEJ4b0ZzUTVEOGs4SU1KT1psWC9Vd0dla1NW?=
- =?utf-8?B?QjB4T1dlQlErNGNrZExpa1NRRDZ6QUpYOHVWbUMwN1E5dEZhTFZlcTFDejBO?=
- =?utf-8?B?b1NteXhxK0Qrc0FFb3ZwSDdBRlhDRG5TT3JoWld3Z1hBNlNjOEEycUh5VFZB?=
- =?utf-8?B?c0Q0TjV5Umk5M3pxRDBFOEFuTERGZDBCTFhSYm1wekpUZU1Kdlk5MVJpeVRB?=
- =?utf-8?Q?Od9o=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?u/LugsfXACjSosPg/LIMEHUYtEH1SEmHCUgQ6FpZwnS/3i8crkOfFhLiuSRM?=
+ =?us-ascii?Q?ZP7yPUkXiIO4aZ9wWTUTyroiDDt09V/nuomj8kbOMVfwjFUCTk2ooPyOzsgq?=
+ =?us-ascii?Q?W+kgAS2z/B9wb/vX8+XzFq3e3qpGsQ+mNoYoksCwe9yq83bgLaD+x54m3u5O?=
+ =?us-ascii?Q?1WLxn3Z2ddEBRBgXTi2XLdFcp/D0PHpAcq19YaCsfAZsks1oWYIucMwQqf4G?=
+ =?us-ascii?Q?y84EBV3owakNIm9yjztGjDDq5ESN9qbkxBPpfkZTurFIHVOMxrXKcj17WFha?=
+ =?us-ascii?Q?TqMH5+WScfDS+f3caCJfVDynVizvnkt28r3EPMp9+oNlaj/Xrcm238Mqq/H+?=
+ =?us-ascii?Q?94lHADtXToZrag3COAwZghjXdR11T/xY0WrfQcd4RYB65Ny0XzTNamP+gfje?=
+ =?us-ascii?Q?HvBTpHeSIkI2nTcBw1koNx0B+Sozc8Vj2/NMlZ4rLc/JLTrO9n1KxzNIirP0?=
+ =?us-ascii?Q?N3br8ho0MwgTvO5HxIpxDQyuvpqJx2337Pdb1zC0sjA1R0UQg3c0DKAPRreD?=
+ =?us-ascii?Q?2+nbmHPykB/ZzUm/fnqHCI3MMA1EolyLyMkqMTl03clmrZ/csy4ZqIsBIxZ2?=
+ =?us-ascii?Q?NuKuvKLZR4c8ZYWFbKFATdxUo21zq6973/KSkclSveUb8YqUa9zouSpQ5BGH?=
+ =?us-ascii?Q?URuEjqhmeG4Cc6hJxNzmEUffqs3K+oeCuwUSvLPAWuhj94GL9BjXiOtgEapI?=
+ =?us-ascii?Q?e1LZz/eNr5PqFd9uwOkFEcwiZgxALEExrgKgGAyHTmBtP8bgCRAJD9H07/xB?=
+ =?us-ascii?Q?zG6C5iEzRDXL4ztOC3kZuVHlDmcDW3GCsJllfx6Pc/MLpNvCc9PnaKjRV42w?=
+ =?us-ascii?Q?CXtTb0eSt73tEn0W/XLtVU7RM4Ra6QfYcP6z8O0TO6JRcvy8ovZfdKkj1fnt?=
+ =?us-ascii?Q?Lc7qPJ7RRpUsz2e7A5+eqm/JdnEddZ8fQr2e4gxfPJLe6ss6uJx4aTLkxR1k?=
+ =?us-ascii?Q?7Uks3uWOwd0+JwoSyuKmDELXJLSWqwVVY87oc97cuwdOvZXwLK57KuHrdsoq?=
+ =?us-ascii?Q?7+D05tAu4kTg5ZCaR4oQk/nO4m9A7dzaCHRYga3zATJz94vqNY6HJFnG3O6q?=
+ =?us-ascii?Q?YLtfJBTG12rpnEOIT87McdCgjySt33vcPIn9tq4ZoIo4d49X2PDlTVQjVXn+?=
+ =?us-ascii?Q?q4jRk3fmNQlEVvfK2KJgzSmipYIGpbUl2FYfrWj44gkpnU0c6ukuSujKDFHx?=
+ =?us-ascii?Q?i/mCabnk6Eaal/LJffUcQDhNbg8CX03h+qRu13sKIlCJx29UMAhBvfNSKW12?=
+ =?us-ascii?Q?HMsedYHyIdWi3MjedNqf7BzG+NJcJpnzfg9kmb7Ehr3xPxVDBDeSBMmKGG2r?=
+ =?us-ascii?Q?KWJAhet0OxwzIwYm1TTusM3dKz7m9A1nUuDZn2x60SYX7Zy1XTFPnHgO4K08?=
+ =?us-ascii?Q?I4oh7QKItWxxRUz0JAs9XWCqBU4dj41cciHdxiUeBq3JAWJ0zih+jZiCrIel?=
+ =?us-ascii?Q?hKUQ/TuwKfpwgkSU9yLQN3tC4vNBCkLiJEkiM8A4NqRAulHryF273yFGpfiG?=
+ =?us-ascii?Q?siJ28u8G/Gl8eSr4P3QQkg4cFeCxDAEsewtKmtxYoP3K+qCFyY308ECgEfbQ?=
+ =?us-ascii?Q?7M+jRa59sfr8MmmS/RI=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 14:15:34.0019 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 535f53b0-fab8-4a9b-8d4c-08de1e081db9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 14:29:50.2174 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de3d7f45-e5c9-45e3-400e-08de1e0a1c18
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD1.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9714
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8277
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,26 +135,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adds the missing @aconnector, @connector, and @force descriptions:
-
-@aconnector – This is the DM (Display Manager) connector.  It gives
-access to the DRM connector, the DC link, and hotplug/poll state.  The
-code uses it to check the link, update the sink, and manage connector
-state changes.
-
-@connector – This is the main DRM connector given by the DRM core.
-Inside the detect function, it is converted to amdgpu_dm_connector so we
-can run DC link detection, either light or full.
-
-@force – This flag tells the function whether to run a full detect
-again. If false, we avoid heavy DAC load detect steps to prevent
-flicker. If true, we force a re-detect even when we normally skip it.
+The link detection helpers in dc/link/link_detection.c were missing
+kdoc annotations for parameters and return values.
 
 Fixes the below with gcc W=1:
-function param 'aconnector' not described in 'amdgpu_dm_connector_poll'
-function param 'force' not described in 'amdgpu_dm_connector_poll'
-function param 'connector' not described in 'amdgpu_dm_connector_detect'
-function param 'force' not described in 'amdgpu_dm_connector_detect'
+...link_detection.c:872 parameter 'edid_header' not described
+...link_detection.c:890 parameter 'link' not described
+...link_detection.c:914 parameter 'link' not described
+...link_detection.c:1355 parameter 'link' not described
+...link_detection.c:1355 parameter 'type' not described
 
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Cc: Roman Li <roman.li@amd.com>
@@ -171,50 +151,64 @@ Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Tom Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ .../drm/amd/display/dc/link/link_detection.c  | 23 +++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ba11421332da..aa31e969b39d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7220,10 +7220,18 @@ create_stream_for_sink(struct drm_connector *connector,
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index 5d287874c125..d163360a2bf6 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -868,6 +868,11 @@ static void verify_link_capability(struct dc_link *link, struct dc_sink *sink,
+  * Evaluates an 8-byte EDID header to check if it's good enough
+  * for the purpose of determining whether a display is connected
+  * without reading the full EDID.
++ *
++ * @edid_header: The first 8 bytes of the EDID read from DDC.
++ *
++ * Return: true if the header looks valid (>= 6 of 8 bytes match the
++ *         expected 00/FF pattern), false otherwise.
+  */
+ static bool link_detect_evaluate_edid_header(uint8_t edid_header[8])
+ {
+@@ -886,6 +891,11 @@ static bool link_detect_evaluate_edid_header(uint8_t edid_header[8])
+  * Detect whether a display is connected to DDC without reading full EDID.
+  * Reads only the EDID header (the first 8 bytes of EDID) from DDC and
+  * evaluates whether that matches.
++ *
++ * @link: DC link whose DDC/I2C is probed for the EDID header.
++ *
++ * Return: true if the EDID header was read and passes validation,
++ *         false otherwise.
+  */
+ static bool link_detect_ddc_probe(struct dc_link *link)
+ {
+@@ -910,6 +920,11 @@ static bool link_detect_ddc_probe(struct dc_link *link)
+  * Load detection can be used to detect the presence of an
+  * analog display when we can't read DDC. This causes a visible
+  * visual glitch so it should be used sparingly.
++ *
++ * @link: DC link to test using the DAC load-detect path.
++ *
++ * Return: true if the VBIOS load-detect call reports OK, false
++ *         otherwise.
+  */
+ static bool link_detect_dac_load_detect(struct dc_link *link)
+ {
+@@ -1351,6 +1366,14 @@ static bool detect_link_and_local_sink(struct dc_link *link,
  
  /**
-- * amdgpu_dm_connector_poll() - Poll a connector to see if it's connected to a display
-+ * amdgpu_dm_connector_poll - Poll a connector to see if it's connected to a display
-+ * @aconnector: DM connector to poll (owns @base drm_connector and @dc_link)
-+ * @force: if true, force polling even when DAC load detection was used
-  *
-- * Used for connectors that don't support HPD (hotplug detection)
-- * to periodically checked whether the connector is connected to a display.
-+ * Used for connectors that don't support HPD (hotplug detection) to
-+ * periodically check whether the connector is connected to a display.
+  * link_detect_analog() - Determines if an analog sink is connected.
 + *
-+ * When connection was determined via DAC load detection, we avoid
-+ * re-running it on normal polls to prevent visible glitches, unless
-+ * @force is set.
++ * @link: DC link to evaluate (must support analog signalling).
++ * @type: Updated with the detected connection type:
++ *        dc_connection_single (analog via DDC),
++ *        dc_connection_dac_load (via load-detect),
++ *        or dc_connection_none.
 + *
-+ * Return: The probed connector status (connected/disconnected/unknown).
++ * Return: true if detection completed.
   */
- static enum drm_connector_status
- amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
-@@ -7291,6 +7299,14 @@ amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
-  * 1. This interface is NOT called in context of HPD irq.
-  * 2. This interface *is called* in context of user-mode ioctl. Which
-  *    makes it a bad place for *any* MST-related activity.
-+ *
-+ * @connector: The DRM connector we are checking. We convert it to
-+ *             amdgpu_dm_connector so we can read the DC link and state.
-+ * @force:     If true, do a full detect again. This is used even when
-+ *             a lighter check would normally be used to avoid flicker.
-+ *
-+ * Return: The connector status (connected, disconnected, or unknown).
-+ *
-  */
- static enum drm_connector_status
- amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
+ static bool link_detect_analog(struct dc_link *link, enum dc_connection_type *type)
+ {
 -- 
 2.34.1
 
