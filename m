@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D552CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 13:58:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273A8CCFA1E
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 13:58:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5131510EAD1;
-	Fri,  7 Nov 2025 13:58:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBDB10EAD3;
+	Fri,  7 Nov 2025 13:58:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="puG4CNvx";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TgCVgYIv";
 	dkim-atps=neutral
 Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4300710EA3E;
- Fri,  7 Nov 2025 08:33:45 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F75C10EA7E;
+ Fri,  7 Nov 2025 11:04:19 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4d2slp1Qtrz9tX6;
- Fri,  7 Nov 2025 09:33:42 +0100 (CET)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4d2x5W5S6Mz9tlN;
+ Fri,  7 Nov 2025 12:04:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1762504422; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1762513456; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TwOucyxdKzHHsR2SHO5/ChzLIhCyXMTTWSRL4ngYFyQ=;
- b=puG4CNvxO5QVUNAXS6dw7R3alVmnBNtWJsD7pZwc7ILXlT5pYV7Oey+kstxe/xgf+BMlar
- 4HisVWt1hCDiXXynxR0UqEWdaJgrwnuj+Y5OdYXJkqOTgixoXquS6F9e8CnO9b4diDBZH2
- ltPm8wzSEEC+viUe18Mtkg9RhJZNgAr52FHbybg3CogWACnrCZ+f8tZJ0X7BiMfwoEJ70M
- xt3r4pUejcGgnqojBt9M0bpPURFsR792ml9S9ueNKStO5mIea1Pc1t7chyd8o5DHlofPA9
- yULQnvfiPIcUttQkl8uzsRvWsdP14KNaFNQNVyfv6UsxTKJhD+Rgo8D5IAm2nw==
-Message-ID: <6f7b62fa37650c0a1bfdfe77e2b7b9e9a19eb234.camel@mailbox.org>
-Subject: Re: [PATCH 09/20] drm/sched: use inline locks for the drm-sched-fence
+ bh=xJuXYko6wm4OGpjXMub0mKpCnekGhJXH5H/6a7o4rCo=;
+ b=TgCVgYIvX6juz4Yosq2y1DybB3EwACsBrntTBFoWJW7vj6yVvxIk4TWFnWgAK9BkiRXqGQ
+ bhvDSDF5APvMDcr8PVFfsUHV1SHThRkIaCXdAE520FqNXeuiDgcCpLma3RJn+xj5vcuzEb
+ CwRdmu8rBJ7uY8OuVB1htbKZcLpOrx6fmJNTmjNpi+we6Jv0HT7s+s+/NcHAVZ1UztXgAL
+ l/pLfk4ArjWlpnEfp3w6q/tCObBRNl8o7MlOgk0+nUl5AP4aYieSZOA1h+ThtzTUbOdh2k
+ nMKD0rS6BO6CZ/hBsKp+cY8cnXch9rFn8B3eBrwB1tvM9PLKmSgVxm0ZZF6Lkg==
+Message-ID: <7e4ce1fbc736fab77d8c1ee80f1e1d30d2e3f89c.camel@mailbox.org>
+Subject: Re: [PATCH 04/20] dma-buf: detach fence ops on signal
 From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- alexdeucher@gmail.com,  simona.vetter@ffwll.ch, airlied@gmail.com,
- felix.kuehling@amd.com,  matthew.brost@intel.com
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
+ airlied@gmail.com, felix.kuehling@amd.com, matthew.brost@intel.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Date: Fri, 07 Nov 2025 09:33:38 +0100
-In-Reply-To: <21cbf337-45be-4418-b9dc-d3e2034b4962@ursulin.net>
+Date: Fri, 07 Nov 2025 12:04:11 +0100
+In-Reply-To: <20251031134442.113648-5-christian.koenig@amd.com>
 References: <20251031134442.113648-1-christian.koenig@amd.com>
- <20251031134442.113648-10-christian.koenig@amd.com>
- <21cbf337-45be-4418-b9dc-d3e2034b4962@ursulin.net>
+ <20251031134442.113648-5-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: ffe30a0436634e732ff
-X-MBO-RS-META: 4sbbiej76wc3q3nnbi7abr8ck3yn44f7
+X-MBO-RS-ID: 22d357565791cdd8b75
+X-MBO-RS-META: kjb6f5jyhpuiknamriy8k46mtfhu1cso
 X-Mailman-Approved-At: Fri, 07 Nov 2025 13:58:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,78 +67,36 @@ Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-11-04 at 15:12 +0000, Tvrtko Ursulin wrote:
->=20
-> On 31/10/2025 13:16, Christian K=C3=B6nig wrote:
-> > Just as proof of concept and minor cleanup.
+On Fri, 2025-10-31 at 14:16 +0100, Christian K=C3=B6nig wrote:
+> When neither a release nor a wait operation is specified it is possible
 
-That's by the way why I'm asking whether this series is intended as an
-RFC.
+Maybe call it "backend ops" instead of "operation"?
 
-> >=20
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> > =C2=A0 drivers/gpu/drm/scheduler/sched_fence.c | 11 +++++------
-> > =C2=A0 include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ----
-> > =C2=A0 2 files changed, 5 insertions(+), 10 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/=
-scheduler/sched_fence.c
-> > index 9391d6f0dc01..7a94e03341cb 100644
-> > --- a/drivers/gpu/drm/scheduler/sched_fence.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_fence.c
-> > @@ -156,19 +156,19 @@ static void drm_sched_fence_set_deadline_finished=
-(struct dma_fence *f,
-> > =C2=A0=C2=A0	struct dma_fence *parent;
-> > =C2=A0=C2=A0	unsigned long flags;
-> > =C2=A0=20
-> > -	spin_lock_irqsave(&fence->lock, flags);
-> > +	dma_fence_lock(f, flags);
->=20
-> Moving to dma_fence_lock should either be a separate patch or squashed=
-=20
-> into the one which converts many other drivers. Even a separate patch
-> before that previous patch would be better.
+> to let the dma_fence live on independent of the module who issued it.
 
-Yes. +1
+s/independent/independently
 
 >=20
-> Naming wise, I however still think dma_fence_lock_irqsave would probably=
-=20
-> be better to stick with the same pattern everyone is so used too.
+> This makes it possible to unload drivers and only wait for all their
+> fences to signal.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+> =C2=A0drivers/dma-buf/dma-fence.c | 16 ++++++++++++----
+> =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A02 files changed, 14 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index ed82e8361096..cd222984e2e1 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -374,6 +374,14 @@ int dma_fence_signal_timestamp_locked(struct dma_fen=
+ce *fence,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags)))
+> =C2=A0		return -EINVAL;
+> =C2=A0
+> +	/*
+> +	 * When neither a release nor a wait operation is specified set the ops
+> +	 * pointer to NULL to allow the fence structure to become independent
 
-I also think this would be better. Who knows, one day maybe someone
-really wants a lock that definitely must not be irqsave for some
-reason, and then the naming pattern would completely break.
-
-> >=20
-> >=20
-
-[=E2=80=A6]
-
-> > @@ -230,9 +229,9 @@ void drm_sched_fence_init(struct drm_sched_fence *f=
-ence,
-> > =C2=A0=C2=A0	fence->sched =3D entity->rq->sched;
-> > =C2=A0=C2=A0	seq =3D atomic_inc_return(&entity->fence_seq);
-> > =C2=A0=C2=A0	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_sch=
-eduled,
-> > -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->lock, entity->fence_con=
-text, seq);
-> > +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NULL, entity->fence_context, se=
-q);
-> > =C2=A0=C2=A0	dma_fence_init(&fence->finished, &drm_sched_fence_ops_fini=
-shed,
-> > -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->lock, entity->fence_con=
-text + 1, seq);
-> > +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NULL, entity->fence_context + 1=
-, seq);
-> > =C2=A0 }
-
-Do we agree that there is no benefit in porting the scheduler to the
-non-shared spinlock?
-
-If so, I really prefer to not do it.
-
-
-P.
+missing "from"
