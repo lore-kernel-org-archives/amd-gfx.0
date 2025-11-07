@@ -4,149 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EEECCF9E3
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 13:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F29CCFA05
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 13:31:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34FED10EABF;
-	Fri,  7 Nov 2025 13:20:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDB910E16F;
+	Fri,  7 Nov 2025 13:31:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0gI/lDkU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ME92rIoH";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFDE10EABF
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 13:20:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qwyl24A0NZqiAx9jbCo8amwTiqXl/s3kwGCV9deXg9+CJt34mVgAYkNhBSnnkp+p5Vpw+EUZCJtjLVulN8EK/3T0EHbXuo0DsfqjgN+7na2sdtVe6aurrA5b38YHIbSisFnOi7NbOBKmGql0d1WEo1QBpKdIMAcdYc+Ev3zwEnOLrR18RLv4iUEOY3iDp9A74iozyAMnthUV/Fjp5WB7jdlflffUJGXnV0DSNg9Aw7NWO8uDfJbvuRMOW2z9VjzrjUVTIR2IyUIbhKoAJcGqYMufouISuL1te9rYi6XKjfiH3+bQYGLRPBPr2RwNsj7pJ2gszZ18Kh3ZM5FSMGeULg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RzCza0dPqucHPgql9GAEZ7iij7EFabRG8qvFD7Tgg5s=;
- b=ef1o3LKJ1ImWDQLhgqGf8DGWHb/CxVVWwZQdNv0mhCuWjB2Lb5a10zZfs85R/i7AxFOEsREfC8UsbLD+zGyNP7xuuiEprysHW2guLJv8dLRFbKLdswl4kV5f7stkqEQ0din+wBGyQpv6+qSDPUNozeVtp5m76b86EmMhT8SS5AbfYbY5rUJXqo7wvP7lljxG+u4xj8kIJLB/2Wz3ISFMu5P593nUI1FQHysNXj6uOnUXiIiQVzcOzlGPI2W+PgHVRB4wNfbIoura/22fyP8G8aRC0CahFnBmEmthAjxRh8oW3lwR247LatPaQmMCIX0ufsazD06h+OJIJiw6MvgkHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RzCza0dPqucHPgql9GAEZ7iij7EFabRG8qvFD7Tgg5s=;
- b=0gI/lDkUZ7Qcp7MgNk8456rGAHo2jFdGe3p2QDFCb7xFif7720eI7iN1UXpgiuN61aZ/eNwQ4AE34pNnqCw+YFh52Rh28QPn7bB9A8TG1wtgWA/ZsZKpbmB4iGDeJVjKHqM0bzhIPiQr6EES7BMdeC6VhWq4qb9RtjNV14L0wj4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4468.namprd12.prod.outlook.com (2603:10b6:5:2ac::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Fri, 7 Nov
- 2025 13:20:04 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9298.010; Fri, 7 Nov 2025
- 13:20:03 +0000
-Message-ID: <9c0fb677-caf5-4eef-b77e-0691f3950f6c@amd.com>
-Date: Fri, 7 Nov 2025 14:19:59 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: avoid memory allocation in the critical
- code path
-To: Tvrtko Ursulin <tursulin@ursulin.net>, amd-gfx@lists.freedesktop.org
-References: <20251106130637.2187-1-christian.koenig@amd.com>
- <b5f9eb6c-0b40-40cd-813a-09bd8442b28c@ursulin.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <b5f9eb6c-0b40-40cd-813a-09bd8442b28c@ursulin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0043.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8340810E16F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 13:31:33 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-429b7ba208eso446546f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 05:31:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1762522292; x=1763127092; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lOd3Kn3TZ9JFnNYj8CkfYlM5ori5k136DDmRwzG8muw=;
+ b=ME92rIoHpOuGFw7R/XS45cc98eVtaO/SN+SxPp4v5eCmy21SYd3K+w8A9vieC4Cjm4
+ 59JKCEZHFUaE0JqDrSVeZUF0sTOg29XrtOMWu80P2wh9hkLhlTep9ky7eSi59UTiOLs2
+ 8Fj0lRnrVuyG3LgQ2BqrlBlW4hllmXgDToDkU939YGR6F04lsVIkAOfFLoU+Vn6J2YFg
+ 0v2ZbExWrEkbkjttaNhSm+GE128uZb50bxZw8vq00KaXN4W3SqfVR7FIMvuSpbaVj3lo
+ /qdB2k8NFInQabxYFYK/rOet8oXCsqS3FXNfj1VxV9IYsnB17nkQlK7lONFfzmf7/pq1
+ swbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762522292; x=1763127092;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=lOd3Kn3TZ9JFnNYj8CkfYlM5ori5k136DDmRwzG8muw=;
+ b=cRal2p1/rTr4yaJ7+8k0uh4Vqi1z7gcgbcPbSGPIiixJSwmBh1NhRPZOpjEeBAZyny
+ X9Va/c/e16eBdT133BqCqPtKiuCufqBfwOu6aAdWZ4w0RSfAhZSryHRc3/n+JVa3mybk
+ ZpXd52OGDJrX9veBNdoNuhPCYSbqiUZi0n1VXiWMhhiVolS9bTiipsDjKuhestT/37Tu
+ z2rNWfGHRz4XD7KVayv+nefQNOdsg9wOCurpk6rTEoC+ygBlnaJYWR20b93GM6med1iA
+ GvqMkn78k2JdsaeUPcrejR3Bf4h/15Z44pepFtGs1c9y0xLnEyBuawnTshmnxxiPLZS0
+ byRg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW9SYwG5gbRAK/hctq2ak+8EPFjLgCSXCZu3X1VTfPXtvfTHm6WRe2Seurts5q4i1lh6/l/NvU3@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyvfvg6xplcLt9/YkGBFAcjcaeoMzfynJkb3Bfl56a+kSyqweau
+ QIMafrVgftXY6CW0GuWXtzgfmQNI+E336ocAIeioeN+9ZVq/XOAmqlx3
+X-Gm-Gg: ASbGncuwCvAVQuLFngTs5Ueo6+LlIALaxt2DYHLRw10WdfCkar5+ktslpRm74sFLTeW
+ 5LBtGO6er85wCI3CUefly8UqskPvXnlkgkBEeXVzb0ECg/8aI8rk6cAMwrdZBGuLdXXhnL+6X7i
+ uOPjV7hMiMiXd5Vusc58BtIpbZjYEfhatHY/VqIxOVOpA+sAcT3aW/jIUYJXsSUQ8Lgl1/73NjD
+ 7TLg4rM6xsOegemEMK/zUU9UmVKbrT8m8o6SuMr16NB9QKIz0kOAp6BHT4+uTWBHEme2Aqy8CXF
+ 4wsXN2SQeERBDMyD5KGCMLUgVkbMeYj1xO2JhzcDG5G7aXfc4jbA/IbV+eVoApn+RXKtKy2Ldlh
+ SlnFzyTrLy7N8J2m83XB8y7OQ5X0W7Cg8Isu/XpFdRJGQdMHe9ovFgXl/GmfX6I7zhMjeEqAhp5
+ ieZgnDtdzQQxTQqzrNYIjr78Al3A7P78Y8OYNByR3ahuMA/pifEyVRhnjX1LcPqTiqHpBvcC0R7
+ ybHoZwMmHP4o5/Fd1ryAKZp6B+9+QPHvFpmmWUoq9NQzkQEc6iS6V0=
+X-Google-Smtp-Source: AGHT+IGHY58sGu2L1mxv/RlwiZ4bZnGCqx/cYJUqu68aHD+Q4gYcOHvoTJPxb4/pd9WMnCz81QSp3g==
+X-Received: by 2002:a05:6000:2284:b0:3ff:d5c5:6b01 with SMTP id
+ ffacd0b85a97d-42ae5880ca1mr2930918f8f.19.1762522291525; 
+ Fri, 07 Nov 2025 05:31:31 -0800 (PST)
+Received: from ?IPv6:2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3?
+ (20014C4E24CAA400C3D82D5ACB81C0D3.dsl.pool.telekom.hu.
+ [2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42ac675c9fdsm5262379f8f.28.2025.11.07.05.31.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Nov 2025 05:31:31 -0800 (PST)
+Message-ID: <9363414739e3053e04d971424a38293552c51348.camel@gmail.com>
+Subject: Re: [PATCH 06/13] drm/amdgpu/vce: Save/restore and pin VCPU BO for
+ all VCE (v2)
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Alexandre Demers <alexandre.f.demers@gmail.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>,  "Dong, Ruijing"
+ <Ruijing.Dong@amd.com>
+Date: Fri, 07 Nov 2025 14:31:30 +0100
+In-Reply-To: <180c651a-1711-4618-96d4-692d0c9c8996@amd.com>
+References: <20251106184448.8099-1-timur.kristof@gmail.com>
+ <20251106184448.8099-7-timur.kristof@gmail.com>
+ <991f6d36-81e4-42d2-b301-0755fa00ffde@amd.com>
+ <b7eb6efea5606c6d9b6d1bcdea6552b3602517bf.camel@gmail.com>
+ <f0bbffa2-3b34-4f36-9fb2-44bcbcb5b8a3@amd.com>
+ <a1f6e8e49d4f3d3a90afa8d3232b15626c34d991.camel@gmail.com>
+ <180c651a-1711-4618-96d4-692d0c9c8996@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53d0097f-4900-4cf8-d3a1-08de1e005c65
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V1oyZ1p3ZjI4N1E0bTl2SitWVHVXNUl6M3NBN3hUNHhHVnF0YzEwOWx6bG5N?=
- =?utf-8?B?SVRpcFVrWGxhWWRYb0l1Z1hVbmJ5WFYzNFB1WFFkM0ZlelpIZFY2d21MR0th?=
- =?utf-8?B?QXV3U1hRMEhEdW83U1k5d3JNQmJwb1BwSWhuekVOSDFlVWt1T0MzL3p5Vkcy?=
- =?utf-8?B?aVU3ZG9uQllUQUFCR2h4anZZMXkyMjlnbWJtZTZtVTFlNzlxT0F0WDZBWGY4?=
- =?utf-8?B?aGF1OXZDWlh0Z3piRVhETlg3WCt1T25GTG9zS2dUd20yVXZyRU1OanM2SElW?=
- =?utf-8?B?T2F1enpqdUwrUXpuYitGbjhiUVpQZDBNZEJuUCtKUnRabGNGK1hkVEVtTU55?=
- =?utf-8?B?U2VyU2phQXdWL04rQ0xsYml0NUsvUFd3cytjQ0VsbThQYnJDL1luTnQ3b1By?=
- =?utf-8?B?T3BjMGhoV3ppSVpYS3g2NHJCQ0JnbTB6MHFLM1h4WjNwTTBydlZNMkNLRUh1?=
- =?utf-8?B?SGlpK0pJM0U1Q0srU2o2VUdFUmRTVGU4cUp0RUpHVCtCbTBzOERxTDUvZHFt?=
- =?utf-8?B?T2pOZFBCZUJJd3Z3dWVuMzNxWlFBS2IrZEQzS29nOUx5aE50Z0h0NWgzNmVQ?=
- =?utf-8?B?dkJSS2hmMitDelR5Y1V4OUFyZTRIU3dLZXdYeHF3NmdSSXFRb1hlaVN5MjYz?=
- =?utf-8?B?VjdIRmVscUpGbVNBOWd4RCtCblhnMDRDbEN4clpOSFJwL1hsUFdWNTlwekJm?=
- =?utf-8?B?WFdIMjdDMU4yMTRtak1VQStDQjdJMDRUN0pnR0p5eUhZei9YZDVNNFJIZ09Z?=
- =?utf-8?B?WmVheGFoUzcyZlNWd1JFTWJqSDJXYmFFdnhLeTlrbmZiaFBzdWZOUU1Vbkkz?=
- =?utf-8?B?V1ZXamg5ejVBVVZYV29vNWg0WVhHZ00vc21hY3p0ejk2R005QUVtU0lMVHZY?=
- =?utf-8?B?eUloSG5XM0ZGeEdrMFhWZmYzTUlrOCthZlZjanlLOUkvcWxyRS93akN1Y0tz?=
- =?utf-8?B?cE1JMUxRdTBVU2EzeE9YZFlpREUvWWF5M2E3WkhaRUNJbU52WlFOTFZqeEto?=
- =?utf-8?B?RjFMdWlvbThyMVhCQ1JTWUc4VTRVVkJGNXhaUUZRU3RVWDRIdGZpV29rRmJ0?=
- =?utf-8?B?RzFOVlo5K2JwRWE4UTBhSlFHK2s4UFdvNUtNbkRLS3RnQ1ZuN3RORTc5Q2U3?=
- =?utf-8?B?eVpxL0ZPakJtU0MzMjJoOTlYVlBJamZPMkFyTWxHZzVDeDhiQTFGUW1jS2dz?=
- =?utf-8?B?QVpHUmFwYUxkQXFmWExtUDZ6Zzd5R1lXempuQXVPNzlEQ21RSDVSN01VZTVs?=
- =?utf-8?B?VWs2U0pYejQwdlVmeG1DaDJPWFVWaFMwZnN2MHU2ZzlNUDRHRWdac291eXNE?=
- =?utf-8?B?UndGQzBvTDdGSFRVbHNoY3NZSFQ1ckZjYjgyUmpQRlJMV1AyYUlKZENLSytr?=
- =?utf-8?B?ZUR0ZDd1ZmlNQkJMZE0xSlVzZnFVWk10MnlBeDk1RDVVbllEMXQ0RWdiYWRB?=
- =?utf-8?B?WldPUmtXNTI2RjR1Sm80RkZRQ3JlTXA5aU9uem80TGlrUXRPTmdNMlZoVmtx?=
- =?utf-8?B?c1V4Tml1M3kxemxGbkpQKzUwQTVPQ3ZuSjI4QkZuL3doTjd2OS90M2d1RUdv?=
- =?utf-8?B?RkdjcjA1dld2VFdiUmttdE9aUW1mWUgxdy9yUGwyWjI5V0ZhbnhzVXdyZUpN?=
- =?utf-8?B?NHBVQUZ0Y3VXYzhKN0FQbWJ3QWpTdlMvcktCcDg2am5VL0JaQ2FXSGFQMCtw?=
- =?utf-8?B?elgzQVgwMGZCQ1FHL0FIWTZvQ1B1VklEaXpzcDdiZUtuTHJvcWZPN29CNHFJ?=
- =?utf-8?B?MU9TSXUxS3M2M2oxYS85b0NEcXFtcUd1WnhEbG84clRpU3E2Q09hTmVQeWx3?=
- =?utf-8?B?MTJLYS8zYyttWTMxM3VUNFRrcm1ESnAwaWM5eGJQMVZGbVA4dVFSMm1kYjNB?=
- =?utf-8?B?bGJHSnA2U0gyWlVXWTVNRGU1M1BlYUFXZEJWTEg4VGx5L3VrQk9QV21oODNw?=
- =?utf-8?Q?G8L30b6rYEg6e1GjJmPKeQ5boHGBMkQ4?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V3cxSFZZZ0xxUld2a091WUhJSHVHRTJaRTJRUTc4Y1FiQlhkZWxJeTltM3RV?=
- =?utf-8?B?ZFVpYVF5bVBTVkszV0dHbFJRY01WSTZKRU9DUUtySHVSOFREV2d0b2pZUFBB?=
- =?utf-8?B?NkdUa2t0MjVkSUx0M2pBS05Cam9YU0pkb1dWb0VrK0tVcVcrZ2VmbFBVdmt5?=
- =?utf-8?B?K21vaDlpbTFZaktOamNzUVFFOTJTM2tCNHFqOUY5MkloY1ZXZzd0cE5SbVZT?=
- =?utf-8?B?RXZGaEd3RzJCTEtqNWl3M1dlY3RkSFNScDVsbHFlSm85a0FCeHNqY1JidTg3?=
- =?utf-8?B?alJ6eGVHbktkd04wMUxpZWRWL1NLd09lWUN0S0E1N2hBblUzQTk3NlBtUjQ4?=
- =?utf-8?B?bWlEbkFtTEhLV0lvSlRyT1k5eGs3bm9XdUlpVHpqTUljQ0N1dWtkU2ZwY0Vj?=
- =?utf-8?B?Q1R4MHpLZGI4VXBVRks1RW82UWRqV2xyNkdURHdkYVhuVkhvZzgveExIRTZW?=
- =?utf-8?B?YkVoRHVuYU8yTzkzWit1WFY0WmZRcy84dkJqOWlOclc3amxUbzZaUnFnUyt2?=
- =?utf-8?B?dnluQlZDUzNzVlc5MU1Qc2NkWGpqc0Z2QUViWkt3Z3NicXBxdzkvV1ZJOTI2?=
- =?utf-8?B?SkRVRTlHa3krUnk1N1lYQWZyOGhQS2l0OE9HWTFObmdoeTEzVTJIMU9POFpI?=
- =?utf-8?B?QVFwaFdLZVRXTWozNVpibkpIYWhCRlpYNEdzUGRJUml3ejlOLzZZb3FzTHR6?=
- =?utf-8?B?MG1DZWRMa3BMS3lvZXJPbndBRFI5UkZkbkEwU2ZjMzM4cHRtZnIrR2ljNksw?=
- =?utf-8?B?VkNPZEtldzNkTUV2cVVNWVgzZzZReVh0cnJ5eEVhQ1VYcVhzSm1yVEplNGpT?=
- =?utf-8?B?MDNNR0NCRjRZMHI0T3VEYjZkNzAzNldjYmc3QVNIOFB3UHQvUHBLd0dWcDlj?=
- =?utf-8?B?bU5zbThDUmVyWnBDZVBEZEZ2dCtTTE1kYTN6UDJpOTZiRnM5NEVWeXBFL21y?=
- =?utf-8?B?ZzN2QXVvRzNQcDdKWG9hS2dVWGN2WkMzMVUzM0xIUEI1ZmgvZ1V3Uzd1LzJK?=
- =?utf-8?B?bDI3dHo4VkQzTVJ2M2VYZUlTdThaVzhyUmtNVk8ya05Bdmc1TUxpKzhFR1Rz?=
- =?utf-8?B?ck52a3A4VWhJeU5KeHk1UjdJWnozdi9DYWUyNGhHUnZFcHJXUjJRWElWWXFn?=
- =?utf-8?B?VTRIMk5semVteWhTZ2FmNVRIRFhkQjNXd0tTWEc0dkJXTmRqQUxGc0tXdnlu?=
- =?utf-8?B?UFY3YW44MHNpOGNKVGlmREpoTkZhZi95djVKT3pqWUhlM052M2RWZVY2eDB6?=
- =?utf-8?B?U29mY25maFNyTFk0WEYxT2pUV1FZK0FNeVd1SjFIdkNrZzg2amhDZDVpcE4x?=
- =?utf-8?B?MDEza3lxaWExQnVQcmllcGdNWDM2bGpxeHBibzhwcHN6UlB5TjA5dzNHc1c4?=
- =?utf-8?B?M0lhQW1JM0RJMmJoeWQxeFpEamVuVGRNdGFlVVkyVGVmVVBpc21mV0U3L1pZ?=
- =?utf-8?B?QjNVV2w0Y3VsVmFsYkhFVVlBQk1rdFB5eisyVXRuSWg2UURuUzZzazRJUWN0?=
- =?utf-8?B?Z2phcnFEQmdWQ1A5N3BIYy9NUlZzVU5acHp0bzhwSUhCMUllcytBbVY4QXNL?=
- =?utf-8?B?OVVFNE9YT0xBTTAxRnUrWlhiWkRnK0szaWFOWEgwUGFNQ2pJdDZodUFrV0c4?=
- =?utf-8?B?RTdoVnpuUEFOaXRMZE9JWXFBbHRhWkdRdUc2NSt5aFpYSGZBR0M3cUhXK1pu?=
- =?utf-8?B?YjAwYTBLRXJ0N1NLdWh3K3VLMllJaDBpSmt2aFJiY0M5R2lmaSt3NFdaTno2?=
- =?utf-8?B?czNVMllld1RXL1EraEJUOE5neUtveDdFKzgxQmhYRGF3dkRPaTJ5KzZrV3pK?=
- =?utf-8?B?QWdCYSsxeXRYNk9nWUd1V25Ic3kram5adGtWS1YyYmhVRFBNd3duYWZYWjJh?=
- =?utf-8?B?Q3QreUJ6NXNLaXN2b0djV2N2VUxvdEx0bE9oT29SbzlES2JoSnRYYkIzK08r?=
- =?utf-8?B?Z0JDeWF3OVBORkNITjJxc2E5bytHcUpkUmpTMDdXV1BLRDNCZVJJdVBPbWho?=
- =?utf-8?B?Y0FRazRPMjdqQ01NSFJ3ak9VVnRDQlFoYjFQY3VjYlBqbjlNVDVrV0crVnRh?=
- =?utf-8?B?N1FGVE1PTzQ0VzJ0c2lVNzA2NGRtMUR4ZGg5NG1UN2RJRGxNRnNBdnBYT3RN?=
- =?utf-8?Q?oTGX7kgTvNI5z2K90IS75HtnT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53d0097f-4900-4cf8-d3a1-08de1e005c65
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 13:20:03.4791 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MwgADUS0G2S6s4r+pdijNpCtrd6RQUv59Ox/fQvETqLdkKST0zEY7M8501YCBM6X
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4468
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,106 +102,345 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/6/25 16:55, Tvrtko Ursulin wrote:
-> 
-> On 06/11/2025 13:06, Christian König wrote:
->> When we run out of VMIDs we need to wait for some to become available.
->> Previously we were using a dma_fence_array for that, but this means that
->> we have to allocate memory.
->>
->> Instead just wait for the first not signaled fence from the least recently
->> used VMID to signal. That is not as efficient since we end up in this
->> function multiple times again, but allocating memory can easily fail or
->> deadlock if we have to wait for memory to become available.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 51 ++++++-------------------
->>   1 file changed, 12 insertions(+), 39 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->> index 3ef5bc95642c..5f94a66511af 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->> @@ -201,58 +201,31 @@ static int amdgpu_vmid_grab_idle(struct amdgpu_ring *ring,
->>       struct amdgpu_device *adev = ring->adev;
->>       unsigned vmhub = ring->vm_hub;
->>       struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
->> -    struct dma_fence **fences;
->> -    unsigned i;
->>   +    /* If anybody is waiting for a VMID let everybody wait for fairness */
->>       if (!dma_fence_is_signaled(ring->vmid_wait)) {
->>           *fence = dma_fence_get(ring->vmid_wait);
->>           return 0;
->>       }
->>   -    fences = kmalloc_array(id_mgr->num_ids, sizeof(void *), GFP_NOWAIT);
->> -    if (!fences)
->> -        return -ENOMEM;
->> -
->>       /* Check if we have an idle VMID */
->> -    i = 0;
->> -    list_for_each_entry((*idle), &id_mgr->ids_lru, list) {
->> +    list_for_each_entry_reverse((*idle), &id_mgr->ids_lru, list) {
->>           /* Don't use per engine and per process VMID at the same time */
->>           struct amdgpu_ring *r = adev->vm_manager.concurrent_flush ?
->>               NULL : ring;
->>   -        fences[i] = amdgpu_sync_peek_fence(&(*idle)->active, r);
->> -        if (!fences[i])
->> -            break;
->> -        ++i;
->> -    }
->> -
->> -    /* If we can't find a idle VMID to use, wait till one becomes available */
->> -    if (&(*idle)->list == &id_mgr->ids_lru) {
->> -        u64 fence_context = adev->vm_manager.fence_context + ring->idx;
->> -        unsigned seqno = ++adev->vm_manager.seqno[ring->idx];
-> 
-> Maybe vm_manager.fence_context && seqno are now unused and can be removed?
+On Fri, 2025-11-07 at 14:14 +0100, Christian K=C3=B6nig wrote:
+> On 11/7/25 11:47, Timur Krist=C3=B3f wrote:
+> > On Fri, 2025-11-07 at 11:01 +0100, Christian K=C3=B6nig wrote:
+> > > On 11/7/25 10:53, Timur Krist=C3=B3f wrote:
+> > > > On Fri, 2025-11-07 at 10:49 +0100, Christian K=C3=B6nig wrote:
+> > > > > On 11/6/25 19:44, Timur Krist=C3=B3f wrote:
+> > > > > > VCE uses the VCPU BO to keep track of currently active
+> > > > > > encoding sessions. To make sure the VCE functions correctly
+> > > > > > after suspend/resume, save the VCPU BO to system RAM on
+> > > > > > suspend and restore it on resume.
+> > > > > >=20
+> > > > > > Additionally, make sure to keep the VCPU BO pinned.
+> > > > > > The VCPU BO needs to stay at the same location before and
+> > > > > > after
+> > > > > > sleep/resume because the FW code is not relocatable once
+> > > > > > it's
+> > > > > > started.
+> > > > > >=20
+> > > > > > Unfortunately this is not enough to make VCE suspend work
+> > > > > > when
+> > > > > > there are encoding sessions active, so don't allow that
+> > > > > > yet.
+> > > > >=20
+> > > > > The question if this is the right approach or not can only
+> > > > > Leo
+> > > > > and
+> > > > > Ruijing answer.
+> > > > >=20
+> > > > > If we can get VCE1-3 to keep session working after
+> > > > > suspend/resume
+> > > > > we
+> > > > > should make this change otherwise we should rather make all
+> > > > > old
+> > > > > sessions invalid after suspend/resume and only re-load the
+> > > > > FW.
+> > > > >=20
+> > > > > Anyway I think you should make the removal of
+> > > > > "amdgpu_bo_kmap(adev-
+> > > > > > vce.vcpu_bo, &cpu_addr);" a separate patch, cause that
+> > > > > > seems to
+> > > > > > be a
+> > > > > good cleanup no matter what.
+> > > > >=20
+> > > >=20
+> > > > This change is necessary for the VCE1 code when it loads the
+> > > > firmware
+> > > > signature. Without this patch, we would need to call reserve(),
+> > > > kmap(),
+> > > > kunmap(), kunreserve() in vce_v1_0_load_fw_signature().
+> > > >=20
+> > > > Let me know which approach you prefer.
+> > >=20
+> > > In this case definately make removal of amdgpu_bo_kmap(adev-
+> > > > vce.vcpu_bo, &cpu_addr) a separate patch.
+> >=20
+> > Sorry, can you clarify what you mean?
+> > Should I just go back to the way things were on the first version
+> > of
+> > the series, and then clean it up later?
+>=20
+> Just add a patch (early in the series, probably as first patch) to
+> remove amdgpu_bo_kmap(adev-> vce.vcpu_bo, &cpu_addr).
 
-Good point!
+Is it allowed to keep a BO mapped when it is unreserved?
 
-Thanks,
-Christian.
+>=20
+> Then put the memset_io() into amdgpu_vce_resume() like you had in the
+> first series of the patch so that VCE1 behaves the same as VCE2-3.
 
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->> -        struct dma_fence_array *array;
->> -        unsigned j;
->> -
->> -        *idle = NULL;
->> -        for (j = 0; j < i; ++j)
->> -            dma_fence_get(fences[j]);
->> -
->> -        array = dma_fence_array_create(i, fences, fence_context,
->> -                           seqno, true);
->> -        if (!array) {
->> -            for (j = 0; j < i; ++j)
->> -                dma_fence_put(fences[j]);
->> -            kfree(fences);
->> -            return -ENOMEM;
->> -        }
->> -
->> -        *fence = dma_fence_get(&array->base);
->> -        dma_fence_put(ring->vmid_wait);
->> -        ring->vmid_wait = &array->base;
->> -        return 0;
->> +        *fence = amdgpu_sync_peek_fence(&(*idle)->active, r);
->> +        if (!(*fence))
->> +            return 0;
->>       }
->> -    kfree(fences);
->>   +    /*
->> +     * If we can't find a idle VMID to use, wait on a fence from the least
->> +     * recently used in the hope that it will be available soon.
->> +     */
->> +    *idle = NULL;
->> +    dma_fence_put(ring->vmid_wait);
->> +    ring->vmid_wait = dma_fence_get(*fence);
->>       return 0;
->>   }
->>   
-> 
+Ok
 
+>=20
+> And when the series has landed we can clean everything up depending
+> on what Leo/Ruijing has decided to do with suspend/resume on VCE1-3.
+
+Sounds good.
+
+
+
+>=20
+>=20
+> >=20
+> > >=20
+> > > I want to get initial VCE1 working and landed independent of what
+> > > Leo/Ruijing say to suspend/resume.
+> >=20
+> > Agreed.
+> >=20
+> > >=20
+> > > Can be that suspend/resume is then still broken, but that is also
+> > > the
+> > > case for VCE2-3 then.
+> >=20
+> > Yes, some extra work is going to be needed on top of this patch to
+> > make
+> > suspend/resume work (if it's possible at all).
+> >=20
+> > >=20
+> > >=20
+> > > >=20
+> > > > >=20
+> > > > > >=20
+> > > > > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > > > > ---
+> > > > > > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 44 ++++++++----=
+-
+> > > > > > ----
+> > > > > > ----
+> > > > > > =C2=A0drivers/gpu/drm/amd/amdgpu/vce_v4_0.c=C2=A0=C2=A0 | 52 ++=
+++---------
+> > > > > > ----
+> > > > > > ----
+> > > > > > ----
+> > > > > > =C2=A02 files changed, 24 insertions(+), 72 deletions(-)
+> > > > > >=20
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > > > > > index 2297608c5191..4beec5b56c4f 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> > > > > > @@ -206,6 +206,10 @@ int amdgpu_vce_sw_init(struct
+> > > > > > amdgpu_device
+> > > > > > *adev, unsigned long size)
+> > > > > > =C2=A0	if (!adev->vce.fw)
+> > > > > > =C2=A0		return -ENOENT;
+> > > > > > =C2=A0
+> > > > > > +	adev->vce.saved_bo =3D kvmalloc(size, GFP_KERNEL);
+> > > > > > +	if (!adev->vce.saved_bo)
+> > > > > > +		return -ENOMEM;
+> > > > > > +
+> > > > > > =C2=A0	r =3D amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
+> > > > > > =C2=A0				=C2=A0=C2=A0=C2=A0 AMDGPU_GEM_DOMAIN_VRAM
+> > > > > > |
+> > > > > > =C2=A0				=C2=A0=C2=A0=C2=A0 AMDGPU_GEM_DOMAIN_GTT,
+> > > > > > @@ -254,6 +258,9 @@ int amdgpu_vce_sw_fini(struct
+> > > > > > amdgpu_device
+> > > > > > *adev)
+> > > > > > =C2=A0	amdgpu_bo_free_kernel(&adev->vce.vcpu_bo, &adev-
+> > > > > > > vce.gpu_addr,
+> > > > > > =C2=A0		(void **)&adev->vce.cpu_addr);
+> > > > > > =C2=A0
+> > > > > > +	kvfree(adev->vce.saved_bo);
+> > > > > > +	adev->vce.saved_bo =3D NULL;
+> > > > > > +
+> > > > > > =C2=A0	return 0;
+> > > > > > =C2=A0}
+> > > > > > =C2=A0
+> > > > > > @@ -290,13 +297,19 @@ int amdgpu_vce_entity_init(struct
+> > > > > > amdgpu_device *adev, struct amdgpu_ring *ring)
+> > > > > > =C2=A0 */
+> > > > > > =C2=A0int amdgpu_vce_suspend(struct amdgpu_device *adev)
+> > > > > > =C2=A0{
+> > > > > > -	int i;
+> > > > > > +	int i, idx;
+> > > > > > =C2=A0
+> > > > > > =C2=A0	cancel_delayed_work_sync(&adev->vce.idle_work);
+> > > > > > =C2=A0
+> > > > > > =C2=A0	if (adev->vce.vcpu_bo =3D=3D NULL)
+> > > > > > =C2=A0		return 0;
+> > > > > > =C2=A0
+> > > > > > +	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+> > > > > > +		memcpy_fromio(adev->vce.saved_bo, adev-
+> > > > > > > vce.cpu_addr,
+> > > > > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_bo_size(adev-
+> > > > > > > vce.vcpu_bo));
+> > > > > > +		drm_dev_exit(idx);
+> > > > > > +	}
+> > > > > > +
+> > > > > > =C2=A0	for (i =3D 0; i < AMDGPU_MAX_VCE_HANDLES; ++i)
+> > > > > > =C2=A0		if (atomic_read(&adev->vce.handles[i]))
+> > > > > > =C2=A0			break;
+> > > > > > @@ -316,40 +329,17 @@ int amdgpu_vce_suspend(struct
+> > > > > > amdgpu_device
+> > > > > > *adev)
+> > > > > > =C2=A0 */
+> > > > > > =C2=A0int amdgpu_vce_resume(struct amdgpu_device *adev)
+> > > > > > =C2=A0{
+> > > > > > -	void *cpu_addr;
+> > > > > > -	const struct common_firmware_header *hdr;
+> > > > > > -	unsigned int offset;
+> > > > > > -	int r, idx;
+> > > > > > +	int idx;
+> > > > > > =C2=A0
+> > > > > > =C2=A0	if (adev->vce.vcpu_bo =3D=3D NULL)
+> > > > > > =C2=A0		return -EINVAL;
+> > > > > > =C2=A0
+> > > > > > -	r =3D amdgpu_bo_reserve(adev->vce.vcpu_bo, false);
+> > > > > > -	if (r) {
+> > > > > > -		dev_err(adev->dev, "(%d) failed to reserve
+> > > > > > VCE
+> > > > > > bo\n", r);
+> > > > > > -		return r;
+> > > > > > -	}
+> > > > > > -
+> > > > > > -	r =3D amdgpu_bo_kmap(adev->vce.vcpu_bo, &cpu_addr);
+> > > > > > -	if (r) {
+> > > > > > -		amdgpu_bo_unreserve(adev->vce.vcpu_bo);
+> > > > > > -		dev_err(adev->dev, "(%d) VCE map
+> > > > > > failed\n",
+> > > > > > r);
+> > > > > > -		return r;
+> > > > > > -	}
+> > > > > > -
+> > > > > > -	hdr =3D (const struct common_firmware_header *)adev-
+> > > > > > > vce.fw-
+> > > > > > > data;
+> > > > > > -	offset =3D le32_to_cpu(hdr-
+> > > > > > >ucode_array_offset_bytes);
+> > > > > > -
+> > > > > > =C2=A0	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+> > > > > > -		memcpy_toio(cpu_addr, adev->vce.fw->data +
+> > > > > > offset,
+> > > > > > -			=C2=A0=C2=A0=C2=A0 adev->vce.fw->size - offset);
+> > > > > > +		memcpy_toio(adev->vce.cpu_addr, adev-
+> > > > > > > vce.saved_bo,
+> > > > > > +			=C2=A0=C2=A0=C2=A0 amdgpu_bo_size(adev-
+> > > > > > > vce.vcpu_bo));
+> > > > > > =C2=A0		drm_dev_exit(idx);
+> > > > > > =C2=A0	}
+> > > > > > =C2=A0
+> > > > > > -	amdgpu_bo_kunmap(adev->vce.vcpu_bo);
+> > > > > > -
+> > > > > > -	amdgpu_bo_unreserve(adev->vce.vcpu_bo);
+> > > > > > -
+> > > > > > =C2=A0	return 0;
+> > > > > > =C2=A0}
+> > > > > > =C2=A0
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+> > > > > > index 2d64002bed61..21b6656b2f41 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+> > > > > > @@ -448,14 +448,8 @@ static int vce_v4_0_sw_init(struct
+> > > > > > amdgpu_ip_block *ip_block)
+> > > > > > =C2=A0		return r;
+> > > > > > =C2=A0
+> > > > > > =C2=A0	if (adev->firmware.load_type =3D=3D
+> > > > > > AMDGPU_FW_LOAD_PSP) {
+> > > > > > -		const struct common_firmware_header *hdr;
+> > > > > > -		unsigned size =3D amdgpu_bo_size(adev-
+> > > > > > > vce.vcpu_bo);
+> > > > > > -
+> > > > > > -		adev->vce.saved_bo =3D kvmalloc(size,
+> > > > > > GFP_KERNEL);
+> > > > > > -		if (!adev->vce.saved_bo)
+> > > > > > -			return -ENOMEM;
+> > > > > > -
+> > > > > > -		hdr =3D (const struct common_firmware_header
+> > > > > > *)adev-
+> > > > > > > vce.fw->data;
+> > > > > > +		const struct common_firmware_header *hdr =3D
+> > > > > > +			(const struct
+> > > > > > common_firmware_header
+> > > > > > *)adev->vce.fw->data;
+> > > > > > =C2=A0		adev-
+> > > > > > > firmware.ucode[AMDGPU_UCODE_ID_VCE].ucode_id
+> > > > > > =3D AMDGPU_UCODE_ID_VCE;
+> > > > > > =C2=A0		adev-
+> > > > > > >firmware.ucode[AMDGPU_UCODE_ID_VCE].fw =3D
+> > > > > > adev->vce.fw;
+> > > > > > =C2=A0		adev->firmware.fw_size +=3D
+> > > > > > @@ -506,11 +500,6 @@ static int vce_v4_0_sw_fini(struct
+> > > > > > amdgpu_ip_block *ip_block)
+> > > > > > =C2=A0	/* free MM table */
+> > > > > > =C2=A0	amdgpu_virt_free_mm_table(adev);
+> > > > > > =C2=A0
+> > > > > > -	if (adev->firmware.load_type =3D=3D
+> > > > > > AMDGPU_FW_LOAD_PSP) {
+> > > > > > -		kvfree(adev->vce.saved_bo);
+> > > > > > -		adev->vce.saved_bo =3D NULL;
+> > > > > > -	}
+> > > > > > -
+> > > > > > =C2=A0	r =3D amdgpu_vce_suspend(adev);
+> > > > > > =C2=A0	if (r)
+> > > > > > =C2=A0		return r;
+> > > > > > @@ -561,20 +550,7 @@ static int vce_v4_0_hw_fini(struct
+> > > > > > amdgpu_ip_block *ip_block)
+> > > > > > =C2=A0static int vce_v4_0_suspend(struct amdgpu_ip_block
+> > > > > > *ip_block)
+> > > > > > =C2=A0{
+> > > > > > =C2=A0	struct amdgpu_device *adev =3D ip_block->adev;
+> > > > > > -	int r, idx;
+> > > > > > -
+> > > > > > -	if (adev->vce.vcpu_bo =3D=3D NULL)
+> > > > > > -		return 0;
+> > > > > > -
+> > > > > > -	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+> > > > > > -		if (adev->firmware.load_type =3D=3D
+> > > > > > AMDGPU_FW_LOAD_PSP) {
+> > > > > > -			unsigned size =3D
+> > > > > > amdgpu_bo_size(adev-
+> > > > > > > vce.vcpu_bo);
+> > > > > > -			void *ptr =3D adev->vce.cpu_addr;
+> > > > > > -
+> > > > > > -			memcpy_fromio(adev->vce.saved_bo,
+> > > > > > ptr,
+> > > > > > size);
+> > > > > > -		}
+> > > > > > -		drm_dev_exit(idx);
+> > > > > > -	}
+> > > > > > +	int r;
+> > > > > > =C2=A0
+> > > > > > =C2=A0	/*
+> > > > > > =C2=A0	 * Proper cleanups before halting the HW engine:
+> > > > > > @@ -609,25 +585,11 @@ static int vce_v4_0_suspend(struct
+> > > > > > amdgpu_ip_block *ip_block)
+> > > > > > =C2=A0static int vce_v4_0_resume(struct amdgpu_ip_block
+> > > > > > *ip_block)
+> > > > > > =C2=A0{
+> > > > > > =C2=A0	struct amdgpu_device *adev =3D ip_block->adev;
+> > > > > > -	int r, idx;
+> > > > > > -
+> > > > > > -	if (adev->vce.vcpu_bo =3D=3D NULL)
+> > > > > > -		return -EINVAL;
+> > > > > > -
+> > > > > > -	if (adev->firmware.load_type =3D=3D
+> > > > > > AMDGPU_FW_LOAD_PSP) {
+> > > > > > -
+> > > > > > -		if (drm_dev_enter(adev_to_drm(adev),
+> > > > > > &idx)) {
+> > > > > > -			unsigned size =3D
+> > > > > > amdgpu_bo_size(adev-
+> > > > > > > vce.vcpu_bo);
+> > > > > > -			void *ptr =3D adev->vce.cpu_addr;
+> > > > > > +	int r;
+> > > > > > =C2=A0
+> > > > > > -			memcpy_toio(ptr, adev-
+> > > > > > >vce.saved_bo,
+> > > > > > size);
+> > > > > > -			drm_dev_exit(idx);
+> > > > > > -		}
+> > > > > > -	} else {
+> > > > > > -		r =3D amdgpu_vce_resume(adev);
+> > > > > > -		if (r)
+> > > > > > -			return r;
+> > > > > > -	}
+> > > > > > +	r =3D amdgpu_vce_resume(adev);
+> > > > > > +	if (r)
+> > > > > > +		return r;
+> > > > > > =C2=A0
+> > > > > > =C2=A0	return vce_v4_0_hw_init(ip_block);
+> > > > > > =C2=A0}
