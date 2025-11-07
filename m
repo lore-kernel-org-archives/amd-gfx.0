@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B6EECCFA05
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 15:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21570CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 15:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF01710EAFE;
-	Fri,  7 Nov 2025 15:57:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C039A10EB00;
+	Fri,  7 Nov 2025 15:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JgJwtYz0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xbud4Wty";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E81310E0E5
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 15:57:57 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-477442b1de0so5945845e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 07:57:57 -0800 (PST)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA6010EB00
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 15:57:59 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-47117f92e32so7613835e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 07:57:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762531076; x=1763135876; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1762531078; x=1763135878; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=dCrbnWh+EGSj9vJg1Bb1SWr+vMTakV4QgqHGgI8vgj0=;
- b=JgJwtYz0bCFEHEHXnsA+F26nQ9IpIT0dn0L7/xLNtgwi4kNLvyJUrZrDi8RZkwwlNm
- jOMuFql/OJA+/3VeKiXZUAZcaIWdiCLLeNsImu1La7VvdrOA1sn3fpfq0QNcGD0Ewp9Q
- qkyfP2rGfJyDTtxeWvyYbmD4SHawIHe1MJT3aKEGrNufrB09dwI6oTTIMWLaQhcrQin0
- hOUiYE286Yb4/zuXiC2O2RwHySZW9KtmY/L/tTnwB/hzwG+k1aqpnPgf8v+iLbLqTIMs
- 7PkpHWfeld5BjQ17K1Xm+1L2kbl8y2chXrGlWmH/x1z7L+ySaC0FEy+WAm/HYzNKPeuf
- PtFg==
+ :reply-to; bh=P+yo75OB9aOzv5vyd6hRd19EJN+7xlOdXgpdpST6mQI=;
+ b=Xbud4Wty0wUEdW0QY8hDZRCDVbmQm7qSVK8P/Q+LQOb4JYIv+F8L4zFKJQ1qFxoe/y
+ D+//4yKM1lXJbAuS3gt0csg30+yLeslMMfdNlqQ8Kn1ErfZEOQLoc3kgHYwWVLEDPrDe
+ S5rOi3WjhA4OjJxT6yjnB/9xgQo9lA4SwhqMNbOas56wjAUW49GC101Goqz0dpsEMK86
+ 2YPUyTMqSATBVXJHrLqCl9N/EfucxVVQi6mYoRFNKPnl695HRFWKyWRBh6Jn3HbKzCTB
+ cSJYQ5jwFPNxHCOrSRR70bmMhspYNMLvqdd97IbsA0nxhg0eJN6T4MkMS2BStVNoWWsU
+ baNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762531076; x=1763135876;
+ d=1e100.net; s=20230601; t=1762531078; x=1763135878;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=dCrbnWh+EGSj9vJg1Bb1SWr+vMTakV4QgqHGgI8vgj0=;
- b=G9vm2hR6luLvEZbLzgBr2Z+wgvgWt5elHMwvr9bxKez/8oZUS2CXCycZvzE1aBr00S
- sM4kyqTVh/3wWaR83YNK/Dv9YKlJRhPQjjTIPEw8PRpKm/kqPj1cj3KHCCTZoahYILPS
- tP/YqDpN82sxRf1p4I42EgugnQDs0CcIkyquZLZJrTARtD/tB5/8pyf73ZayUf8ucUhG
- Nkha7pjt+OqnnMtOT9m3MSBM21lf/Oj+MdbxFRH1rkjA8SPjm8IRMoB949kPWAWnD2OO
- kN3lngvIc5+tbm3l3aeRRcIG48RadDKH+uKJrhbafaZAeexET8dexbXoysKitJztugFP
- GzWA==
-X-Gm-Message-State: AOJu0YxgBiKdbeRl3U29PUa8/vsFOH6yS3ZtcYqDaEzPrGBHhfkfwTMX
- xWo7bmxq87gpsFo8lZZjkpD9tX+dOU+2STG6Yl3MAZzvbnA93JZ5caQq/aLZEA==
-X-Gm-Gg: ASbGncv7emU7wi27rMWdPmncK+LoNSPHMddovfxRNv6V//1QorBjKMv3kyAWivjHOo9
- v4AYGrUvAopX+eZLngnqJEnJGuVVEiGFTcvx9OO87S0HXfz5+4+nD4L3LqhxB+DyLs8FlmEH9XP
- CHBA+1+ne+RWGBk2VvvH+o9UEHnCpkwVyyiVA6fM1DidY7L3RxjBKVzTJIwoegnH7s74uokOR8a
- +hhO/OhHsJokocyyH1ZtH7gY+xbuzEmV8eGkYlC/RtC9w9a46URW9hr9Oi896pL4CPlYFZCXPFy
- 3iNMqdzMaPV9C7Xkpf3PMxqerJNalmBvIfcfIB/+lCE6/JEy6unYmmUSYCXyoKVkA3Os5uXeQ/n
- u7wZIdOAZesvAJz10fO3F7zZkkL0OqC2zF8CwaBclVxdyIDqJR7XaSsyeTaw9cP+hE5Ae7beVxq
- GRilD6j2nxYTwb2cq656k=
-X-Google-Smtp-Source: AGHT+IEdR3ie1La1Q6Njp9/OhsXqiVQsTsR/SnGjiTkRYbJYpWKisfsIOcDJdHJeVh6VIzKxoYOqvA==
-X-Received: by 2002:a05:600c:6287:b0:46e:2801:84aa with SMTP id
- 5b1f17b1804b1-4776bc22ca2mr32064995e9.0.1762531076049; 
- Fri, 07 Nov 2025 07:57:56 -0800 (PST)
+ bh=P+yo75OB9aOzv5vyd6hRd19EJN+7xlOdXgpdpST6mQI=;
+ b=BJu2S5giOB7dDb36zeVZlSEUiEk9D0EJfJnYWzhlC+QE4XQTbn6BVXuX+AqRK4yogz
+ Q8phXcGIFxhxk5xPRx/2zftNUCkaF2ZUo0j0xmBD3s42INooJGBjUsEVu35mZAs43FXq
+ huWgUB9Uk2K2TEyTFDuvtoAsd6pIP4bIxl3JoWWB8Dcc1Gry6HOiEz3AsyEX12K0amwx
+ Y4/JAb83kJetE06nbEQEFzFCo9nAyp2UuPaFPSnhSVf1N0OKh0Cn5tN6Kt9s1Y18TQgd
+ 78tcbzIP53Xw6qp7do+X+ynf/gxOX6bARruTB5nl/E+t63Wz6tgycByN1/hJagvt12qz
+ 2iww==
+X-Gm-Message-State: AOJu0Yx/Obgzr89xpA9f8x55OgcHah0gSa6cayzV7a9EoXaa9R6jwuYx
+ 6FewJA93TUyXA+GbfStm/oZyN40Zie2hGGcCXKWAM8VWUMzij1saMu36uwiu3g==
+X-Gm-Gg: ASbGncsyW+e+hYFpnCXnqBRsOviqM7USL/FeMnm7KWHp57lVfCb2QOxGho1W4SSTLWF
+ gZw9FDMMnXCM5rrAEJVFSlRhWzOFQg6BfEBywpbeclwfiMshF+Fldmlt1ljStkL59qOp+Y8ijsv
+ Bcf50M8Mi72RXRxsKujbOB5IR5PEMf66J5+yJGfVRaPboKMtumX7+/vP5YK1Ae3M62T/GtYZcBP
+ gZ7RgDqEe85ERNQjGtFlFszITMrJMbGPrWA/41aeKqzlYc5wGoI4/aK/oGxh2nKzbJYBbxOu/Tc
+ 9Uv5JpY9bgBhvPduKsMIjqP7ZQrZZSvR3oA7kyZunvE3RBP2aiyQwoc4DKNUZzQAu6ZA1I9xEht
+ F2OYpjY/2uwuSP/nz1SMWqOnoqWJCim/z2g1K1aKNHdm7n+3FRPyAKVma4EfFqBdtWnl3cECmyS
+ KPJmCAs8j/R4aJg6hzxG0=
+X-Google-Smtp-Source: AGHT+IHcsJvM396E+K685Q9PqMycQ2u2hUVEey3IbTACnsRsrbWrFXaaSzdSDb5CCY8ZErCV9/jdQQ==
+X-Received: by 2002:a05:6000:1869:b0:427:630:4106 with SMTP id
+ ffacd0b85a97d-42ae5ac209emr2556077f8f.34.1762531077904; 
+ Fri, 07 Nov 2025 07:57:57 -0800 (PST)
 Received: from Timur-Hyperion.home ([2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4775cdc33c8sm170266365e9.2.2025.11.07.07.57.55
+ 5b1f17b1804b1-4775cdc33c8sm170266365e9.2.2025.11.07.07.57.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Nov 2025 07:57:55 -0800 (PST)
+ Fri, 07 Nov 2025 07:57:57 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Subject: [PATCH 03/12] drm/amdgpu/ttm: Use GART helper to map VRAM pages (v2)
-Date: Fri,  7 Nov 2025 16:57:36 +0100
-Message-ID: <20251107155745.8334-4-timur.kristof@gmail.com>
+Subject: [PATCH 05/12] drm/amdgpu/vce: Clear VCPU BO,
+ don't unmap/unreserve (v4)
+Date: Fri,  7 Nov 2025 16:57:38 +0100
+Message-ID: <20251107155745.8334-6-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251107155745.8334-1-timur.kristof@gmail.com>
 References: <20251107155745.8334-1-timur.kristof@gmail.com>
@@ -89,50 +90,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the GART helper function introduced in the previous commit
-to map the VRAM pages of the transfer window to GART.
-No functional changes, just code cleanup.
+The VCPU BO doesn't only contain the VCE firmware but also other
+ranges that the VCE uses for its stack and data. Let's initialize
+this to zero to avoid having garbage in the VCPU BO.
 
-Split this into a separate commit to make it easier to bisect,
-in case there are problems in the future.
+Additionally, don't unmap/unreserve the VCPU BO.
+The VCPU BO needs to stay at the same location before and after
+sleep/resume because the FW code is not relocatable once it's
+started.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 23 +++--------------------
+ 1 file changed, 3 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index e226c3aff7d7..84f9d5a57d03 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -188,7 +188,6 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
- 	struct amdgpu_job *job;
- 	void *cpu_addr;
- 	uint64_t flags;
--	unsigned int i;
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index c4e9d1862108..3a986e3589a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -314,40 +314,23 @@ int amdgpu_vce_suspend(struct amdgpu_device *adev)
+  */
+ int amdgpu_vce_resume(struct amdgpu_device *adev)
+ {
+-	void *cpu_addr;
+ 	const struct common_firmware_header *hdr;
+ 	unsigned int offset;
+-	int r, idx;
++	int idx;
  
- 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
-@@ -254,16 +253,9 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
- 		dma_addr = &bo->ttm->dma_address[mm_cur->start >> PAGE_SHIFT];
- 		amdgpu_gart_map(adev, 0, num_pages, dma_addr, flags, cpu_addr);
- 	} else {
--		dma_addr_t dma_address;
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return -EINVAL;
+ 
+-	r = amdgpu_bo_reserve(adev->vce.vcpu_bo, false);
+-	if (r) {
+-		dev_err(adev->dev, "(%d) failed to reserve VCE bo\n", r);
+-		return r;
+-	}
 -
--		dma_address = mm_cur->start;
--		dma_address += adev->vm_manager.vram_base_offset;
-+		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
+-	r = amdgpu_bo_kmap(adev->vce.vcpu_bo, &cpu_addr);
+-	if (r) {
+-		amdgpu_bo_unreserve(adev->vce.vcpu_bo);
+-		dev_err(adev->dev, "(%d) VCE map failed\n", r);
+-		return r;
+-	}
+-
+ 	hdr = (const struct common_firmware_header *)adev->vce.fw->data;
+ 	offset = le32_to_cpu(hdr->ucode_array_offset_bytes);
  
--		for (i = 0; i < num_pages; ++i) {
--			amdgpu_gart_map(adev, i << PAGE_SHIFT, 1, &dma_address,
--					flags, cpu_addr);
--			dma_address += PAGE_SIZE;
--		}
-+		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
+ 	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+-		memcpy_toio(cpu_addr, adev->vce.fw->data + offset,
++		memset_io(adev->vce.cpu_addr, 0, amdgpu_bo_size(adev->vce.vcpu_bo));
++		memcpy_toio(adev->vce.cpu_addr, adev->vce.fw->data + offset,
+ 			    adev->vce.fw->size - offset);
+ 		drm_dev_exit(idx);
  	}
  
- 	dma_fence_put(amdgpu_job_submit(job));
+-	amdgpu_bo_kunmap(adev->vce.vcpu_bo);
+-
+-	amdgpu_bo_unreserve(adev->vce.vcpu_bo);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.51.0
 
