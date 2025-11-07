@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273A8CCFA1E
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 13:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3DE5CCFA1D
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 13:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBDB10EAD3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57AC610EAD2;
 	Fri,  7 Nov 2025 13:58:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="TgCVgYIv";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="RKVsLVwt";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F75C10EA7E;
- Fri,  7 Nov 2025 11:04:19 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07AC310E09B;
+ Fri,  7 Nov 2025 11:59:51 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4d2x5W5S6Mz9tlN;
- Fri,  7 Nov 2025 12:04:15 +0100 (CET)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4d2yKb0cHhz9tRW;
+ Fri,  7 Nov 2025 12:59:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1762513456; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1762516787; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xJuXYko6wm4OGpjXMub0mKpCnekGhJXH5H/6a7o4rCo=;
- b=TgCVgYIvX6juz4Yosq2y1DybB3EwACsBrntTBFoWJW7vj6yVvxIk4TWFnWgAK9BkiRXqGQ
- bhvDSDF5APvMDcr8PVFfsUHV1SHThRkIaCXdAE520FqNXeuiDgcCpLma3RJn+xj5vcuzEb
- CwRdmu8rBJ7uY8OuVB1htbKZcLpOrx6fmJNTmjNpi+we6Jv0HT7s+s+/NcHAVZ1UztXgAL
- l/pLfk4ArjWlpnEfp3w6q/tCObBRNl8o7MlOgk0+nUl5AP4aYieSZOA1h+ThtzTUbOdh2k
- nMKD0rS6BO6CZ/hBsKp+cY8cnXch9rFn8B3eBrwB1tvM9PLKmSgVxm0ZZF6Lkg==
-Message-ID: <7e4ce1fbc736fab77d8c1ee80f1e1d30d2e3f89c.camel@mailbox.org>
-Subject: Re: [PATCH 04/20] dma-buf: detach fence ops on signal
+ bh=0KTxCIu+64AN+6WYhjPTERLiBeZXPHOZfhRXNGpsmbs=;
+ b=RKVsLVwtpIijziFxh1InDdanFafnkWOJvq7vfCc4jeRKwZnkc5Os/vASHU4S2v0ikUTavD
+ gvH0zC8vQiQg2fvvWw6wKf7qin7eFz5utLf8YopGyKCStdDWegJqnyTJDbAnAIB+DEPkSW
+ 6SOVwh8n9HOyQ9zhmhPUAxxUhlBX0SPMfnSKQFKSlQc0LoPtkDcf+XVAvLAbVn6ymxKLRo
+ wZmFAtRjjp8mffZ4oQx4T73a/Tc1pIWc3WUdCOvpnUrZPZSGqZN45K1+ai5r8f6zb9iTW8
+ GtKsa53WNzEPaF5mYPpmuABBOjQ9wHtjETugbTKg0HlCo+zdalfbG/WWxR4noQ==
+Message-ID: <d2dc56f73ac723f1273e71335b00261335db838d.camel@mailbox.org>
+Subject: Re: [PATCH 05/20] dma-buf: inline spinlock for fence protection
 From: Philipp Stanner <phasta@mailbox.org>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
  alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
  airlied@gmail.com, felix.kuehling@amd.com, matthew.brost@intel.com
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Date: Fri, 07 Nov 2025 12:04:11 +0100
-In-Reply-To: <20251031134442.113648-5-christian.koenig@amd.com>
+Date: Fri, 07 Nov 2025 12:59:43 +0100
+In-Reply-To: <20251031134442.113648-6-christian.koenig@amd.com>
 References: <20251031134442.113648-1-christian.koenig@amd.com>
- <20251031134442.113648-5-christian.koenig@amd.com>
+ <20251031134442.113648-6-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 22d357565791cdd8b75
-X-MBO-RS-META: kjb6f5jyhpuiknamriy8k46mtfhu1cso
+X-MBO-RS-ID: 5437c07880670df560e
+X-MBO-RS-META: xqpj693wtt141o3fnkix4r7d78b6hpaq
 X-Mailman-Approved-At: Fri, 07 Nov 2025 13:58:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,35 +67,69 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 2025-10-31 at 14:16 +0100, Christian K=C3=B6nig wrote:
-> When neither a release nor a wait operation is specified it is possible
+> Allow implementations to not give a spinlock to protect the fence
+> internal state, instead a spinlock embedded into the fence structure
+> itself is used in this case.
 
-Maybe call it "backend ops" instead of "operation"?
-
-> to let the dma_fence live on independent of the module who issued it.
-
-s/independent/independently
+I'd rather say sth like "Implement per-fence spinlocks. Shared
+spinlocks have the problem that [=E2=80=A6]"
 
 >=20
-> This makes it possible to unload drivers and only wait for all their
-> fences to signal.
+> Apart from simplifying the handling for containers and the stub fence
+> this has the advantage of allowing implementations to issue fences
+> without caring about theit spinlock lifetime.
+
+s/theit/their.
+
+But rather "it allows for completely decoupling spinlock producer and
+consumer life times"
+
 >=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
-> =C2=A0drivers/dma-buf/dma-fence.c | 16 ++++++++++++----
-> =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A02 files changed, 14 insertions(+), 6 deletions(-)
+> That in turn is necessary for independent fences who outlive the module
+> who originally issued them.
+
+s/who/which
+
 >=20
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index ed82e8361096..cd222984e2e1 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -374,6 +374,14 @@ int dma_fence_signal_timestamp_locked(struct dma_fen=
-ce *fence,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags)))
-> =C2=A0		return -EINVAL;
+>=20
+
+[=E2=80=A6]
+
 > =C2=A0
-> +	/*
-> +	 * When neither a release nor a wait operation is specified set the ops
-> +	 * pointer to NULL to allow the fence structure to become independent
+> =C2=A0enum dma_fence_flag_bits {
+> +	DMA_FENCE_FLAG_INLINE_LOCK_BIT,
+> =C2=A0	DMA_FENCE_FLAG_SEQNO64_BIT,
+> =C2=A0	DMA_FENCE_FLAG_SIGNALED_BIT,
+> =C2=A0	DMA_FENCE_FLAG_TIMESTAMP_BIT,
+> @@ -351,6 +357,38 @@ dma_fence_get_rcu_safe(struct dma_fence __rcu **fenc=
+ep)
+> =C2=A0	} while (1);
+> =C2=A0}
+> =C2=A0
+> +/**
+> + * dma_fence_spinlock - return pointer to the spinlock protecting the fe=
+nce
+> + * @fence: the fence to get the lock from
+> + *
+> + * Return either the pointer to the embedded or the external spin lock.
+> + */
+> +static inline spinlock_t *dma_fence_spinlock(struct dma_fence *fence)
+> +{
+> +	return test_bit(DMA_FENCE_FLAG_INLINE_LOCK_BIT, &fence->flags) ?
+> +		&fence->inline_lock : fence->extern_lock;
 
-missing "from"
+Wouldn't you agree that an 'if' is much more readable? I prefer using
+the ternary operator only for tiny operations.
+
+if test_bit(=E2=80=A6)
+	return &fence->inline_lock;
+
+return fence->extern_lock;
+
+
+
+Besides, I agree with the idea and I think I actually need a feature like t=
+hat in dma_fence.
+
+
+P.
