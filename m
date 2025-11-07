@@ -4,84 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22270CCFA1A
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 11:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C16CCFA05
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 11:27:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37AE910EA8F;
-	Fri,  7 Nov 2025 11:09:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD26A10EA7F;
+	Fri,  7 Nov 2025 11:27:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="yCl9Z74S";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O5TSIBmI";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8634810EA87
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 11:09:43 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-477632d45c9so3932645e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 03:09:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1762513782; x=1763118582; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Hucu1UhZREYkJANtmE9hQ/FaRpYzftzgN7wW8361yT4=;
- b=yCl9Z74SLpnfmEdf4/FP0Sv8PjzGXrf1qflp/I/N8V5AG5OMexupTcs6UUc79m4D7y
- P6NvfFwcH8auC7aRAlvCqrmmDwvn3hSZnbu3ZrxPWFYYIESB6t/nXbU1Cw0vWZ1Qfai3
- VfJphaBK3flqUPar9oN8r5Y3lywZ+wsHc23F9a5etfrxmnGyKpKftukVd4QWduB2h+fZ
- BQtlLhnaUWEQLqxAfFg/XV8cfpwEwCmZqrINJcfB5R1DIWE/LBiD7Vwjl097qgmeb5UH
- 4T0fQRfODYeBRQiuGoFl9JXV3VkIG3Sa20F0PR0Nf+sIkFPvih5DN1aL+/pbeUdbGpS/
- Xl7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762513782; x=1763118582;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Hucu1UhZREYkJANtmE9hQ/FaRpYzftzgN7wW8361yT4=;
- b=HkBExWhEdxx+sADap298/Fs9y1HgikBprY2OCRN8oKdQZmZP2Y/4T8oblkpC3h6oog
- wVk21L843KPwyuYX2TcrhD5n19oT+i0qrb6hFhxDRJioXNVTDs53j6SaML8pZQfDHuxB
- iKh80rRZmUxHqn3+nH20AQzNY2pshYPJ9Rqf6HyVcLDyyEJCR4khrEK/QeAtgbk1J2Ju
- 12gAWvSlqduheKRZCBub954NSuuqqRYl8cIzTLtX3IXvltnH17GNF6dFRdPqoRzWyJb9
- cJyJjEspsFER5bA8oaBSwGRrSRbF0ihcqLX8P+M270UOl+SLNPicZiEai1KNm0tdeMrK
- Zr5g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU10XjLRWOi9/JJBDGERUrBAD1heB0WWzMr5QmwHJnDImsW6/4a6H+hQVgTaCTjz4XMIdGCudd6@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwnfKDCRPqvR+kemdSpVodfgzBdFkSfhwADqBC1N9bPUPDolYN
- 1t/eAvnUDX23vhggEhf0tugTJ98etu41+Jogxpue9IA50OWhsHuGtGYH9ZiWx8L1i6k=
-X-Gm-Gg: ASbGncu6OBhyS7kJRE8f5qDqZnJhywYDyzWbrYarNrUHru3BvuZwKkJsTZ/WKn2WDHA
- BDcLH3O472H0kd8LM7lzkYREJo5RjzqYcsixA4gEmq7UcBh/eDJuyff2ZiTWJwFRHmty4OJGbU7
- ddN9byUCh7pPhY/nj6aG2HaUEdoT/74YRoQ4Ub9hhrnzSfBLvdNKPdOYT+tVD8Ql6eR/84+6Dw1
- +m1sHNjmVAyf3/GUHMmQbTZTXQpi8cr38WwX0sFLlkHabOevgHCm8ivRtPVnyiYeV8xW6P6J/xT
- brpIVZcQx88hTja5pSirnsCSyHwR74ak2DQ5+Ji3Lp3wlfKmoCl952LMV9jf/qwehWkTgAG+ZpC
- gLDtjlFLqCFe3jAEQN6pB7q0PJ2jYjeSZQ2OkLLwvHeUWgaTH6041kqQlvSPJrRru2uTXYYUBke
- YA7lCIk4KiJzwqmVO0yBArfGr0MXg=
-X-Google-Smtp-Source: AGHT+IGghjP1J1/jVtKwY64jaxXE+ADd+Tl/GDBehY3RxN3iNDvUoBZ7EnOvmfsJo/j+jZT6GNPRCA==
-X-Received: by 2002:a05:600c:4f8e:b0:477:1af2:f40a with SMTP id
- 5b1f17b1804b1-4776bc9bd43mr19306985e9.17.1762513781985; 
- Fri, 07 Nov 2025 03:09:41 -0800 (PST)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4775ce20ff3sm155700715e9.10.2025.11.07.03.09.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Nov 2025 03:09:41 -0800 (PST)
-Message-ID: <54466a0e-1019-4fd1-b8a8-1b9448698b67@ursulin.net>
-Date: Fri, 7 Nov 2025 11:09:40 +0000
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010030.outbound.protection.outlook.com [52.101.46.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1350210EA7F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 11:27:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tTGpQU6ozcHNYI8bpjG33eZ+JcW5Wiv/xy0o6elKmqOVCMEFIaAaUQT0wpTlY0z7n2wyrCh5mUEyREkSjzlU5gPZg2A6g3LnCMVhw8Wyh3z6JFKIWHyIm5BCE+CqyNJSCAnCEO87i4kx6G0R93Jr4o6kaCqhAen+yHLJjlMXL9dV/GhjKQxZvl6hp87+bJ7slUsmwPaZARQ1Q4lK8entPoKGUlLYZ0/u3aEWNoy90nxbeWbV2mK3dBA9xxM0WM6j7Z12/iM9eaMRzbUlr+00gVPcpk4fuVdLQBd+whXBC96ttOYz8sLusOK+TOxLfsiXBpTHF7cWvCWopRIjU8ffxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=16gGcD2QdFK6Q+x+Y5cHNpT0jeT0ZjXBe1L5tvI0NiY=;
+ b=TB9MrceCtZwRbjN9oHz2W6dnqu7HN3vcZ47wUBLFDBzwvcCTiOAJKf1TIo8EzGQOdHJa8eRhr76f/Pkhc6gCkXpcye36QnDZ8nubyO06p39tC6PzJxPT+UXC1CRCerSyQtBwnYHyvh+UjgYZ135u/rsOhD0PLwCwYhAMt5pCVpF3eEGOCgpWM4El/YlOJirDs1vHZWZUPMkoj2O1j4QTLpdcDWuCAgnAte5CiaKBCN8Ro15VlE2EXI6/iM9or7gYovcO84Nq4PuIrXKdLSCf8dnXq9T9RVZdJlwc2Ze8pajulbmQDekzWAqP6QwcTqfS606P1eo0mFcMYsRITxQg2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=16gGcD2QdFK6Q+x+Y5cHNpT0jeT0ZjXBe1L5tvI0NiY=;
+ b=O5TSIBmIJA+4wJnqqoPI7p5yy5At0e1obxE9bV3/KfUbEZqSLgOkOscPwh8Dcfe7uAflclIj4h6dFAC+aWEUBLqOhe/LkZEttzEjJjiSB7D5LQLY94CnALTa8X50Y8xE6Dv6ik04L4lxiurCYwFYQA14UZaM+r7q2/NgRSrtFuc=
+Received: from MN2PR07CA0011.namprd07.prod.outlook.com (2603:10b6:208:1a0::21)
+ by IA1PR12MB6185.namprd12.prod.outlook.com (2603:10b6:208:3e7::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Fri, 7 Nov
+ 2025 11:27:08 +0000
+Received: from BL6PEPF0001AB4A.namprd04.prod.outlook.com
+ (2603:10b6:208:1a0:cafe::53) by MN2PR07CA0011.outlook.office365.com
+ (2603:10b6:208:1a0::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.12 via Frontend Transport; Fri,
+ 7 Nov 2025 11:26:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4A.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Fri, 7 Nov 2025 11:27:08 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 7 Nov
+ 2025 03:27:06 -0800
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 7 Nov
+ 2025 05:27:06 -0600
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Fri, 7 Nov 2025 03:27:04 -0800
+From: Jesse.Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse.Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: resume MES scheduling after user queue hang
+ detection and recovery
+Date: Fri, 7 Nov 2025 19:26:12 +0800
+Message-ID: <20251107112704.4080134-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/20] dma-buf: protected fence ops by RCU v2
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
- airlied@gmail.com, felix.kuehling@amd.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20251031134442.113648-1-christian.koenig@amd.com>
- <20251031134442.113648-4-christian.koenig@amd.com>
- <0bdc899f-8c03-40fa-92ad-1b907a015c77@ursulin.net>
- <59fb14d3-63b6-4943-be80-dfad7f59028c@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <59fb14d3-63b6-4943-be80-dfad7f59028c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: Jesse.Zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4A:EE_|IA1PR12MB6185:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7e0425f-0ab3-465b-1052-08de1df0965d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fcypRAoXD18AZT7aVvvzToK/1R16hR0u0wdHOc7vPFJiO3jIAJEAstcx4rr4?=
+ =?us-ascii?Q?AMAcTwG/AUxwchJqlNdU7ZY99J0IHeMtwNDGkGPoaichWa8ArtlAfibf5H3U?=
+ =?us-ascii?Q?qUmQ+gR4INAy+8BzRnrZ35wSNrT5GqyjZSd1qbqhI481OF41fWbjy+9IcWUz?=
+ =?us-ascii?Q?r1bJghlsTT6UuG9nSM4/StKNet83XGj1E5S/TGMg7GLL2xsjrI0UODIL/cEa?=
+ =?us-ascii?Q?ouii9lkEis/vGs3N4sRSQci0QI/8NJt9Kn4N0ngs1eJanIVV7zGcmSd0i5iX?=
+ =?us-ascii?Q?yjc4O+lkIz3Om4MNi2yuRv0UTAf4grNlpJsZrs1/H3oWw5eSj/AyeYLCWmsk?=
+ =?us-ascii?Q?m8rI7VtKWPP/4YXm8R0KvWX/je+IiZP34ehJ+vmK5QOc48QqbTQnhpEVH9sJ?=
+ =?us-ascii?Q?Y4n+3YWThWVPtrIoKMS0tm2dySGm4ufDWADTlS8gpSfEfODGld4WEaWZkTgq?=
+ =?us-ascii?Q?Z/dVx9uHVLn0BsupVEPA3hlQfXt5H6gXj/CkyQwUBfT5AG+XDdRHiQwiH4hG?=
+ =?us-ascii?Q?VaoC0vulfZJCsDIZG+r91IU09DiJFGlfSfDjrDXixY7p8BaMPB0gBj6VQP03?=
+ =?us-ascii?Q?tDfJy09cR8kBLEpVUdHVQLhMX9Olv0KhOTW67gtHHlCFszJUipm2QQWGT3R5?=
+ =?us-ascii?Q?a+nQdbOSWPmx+wDa3VGF5fKw+26m4MYauJmBevDCHfoQjGvmk6HPyOSnBmB6?=
+ =?us-ascii?Q?O4MyFv+OBUzjTssHD2farMKAGLATxtTWWl7+6w9gpEa/gWD50ZRwa/+agt8A?=
+ =?us-ascii?Q?CWyS5y4fgG71hopr9/sqxaCIC6xmJm6E6wo0Fn3vjLD19wC9qw1iZ3ak9Wfq?=
+ =?us-ascii?Q?1EEcTDcGfXx7Wwo0mEDRLIUK/1uKT80/yxFt5MovaqNplWhkHUdhWg0XQ/4j?=
+ =?us-ascii?Q?OAcm+wovCZFrE1NFFwDfPhAqoZOdpybETUsUtGXfmJTCeROxeKM6c860QAKA?=
+ =?us-ascii?Q?cEKi3Ll6LLijxNgmeoRDkSeAV4cS+DBXntM0gYwX6g5NxelDuFYwZKTaQF0H?=
+ =?us-ascii?Q?hTvGao3IIEKZ3lug/uQAuY/j8MtJhaDqPOsjv2WcOXF135jJBh0KLsObVkx7?=
+ =?us-ascii?Q?3OPOptfFuGu/mOB7BxEn1ZHXE9Q09sMstdO2IzgkhXq0RW6RCPZnl/8z7YQB?=
+ =?us-ascii?Q?vorPc4rs3mIMaDt4TUfz/Vdl8qDoXcoQGlnybzVmZe7rIQv9f3DTHncZ2YLi?=
+ =?us-ascii?Q?Nw20ryCddouxG1+wfLaps4Ijqg4SX6Sb5dxE7c52NWuvUDYycSps+SHudzra?=
+ =?us-ascii?Q?gSv979sGnPwLuHky7n2iiJbCjTH0riYgR9JVzpuXFy0eixk9TQoAc6zuS7L0?=
+ =?us-ascii?Q?mnd7zB4/saUOhKd0/fuSqwmmcvVrktl9WtHvTKOykLABv8iwOy/XFxueqzv7?=
+ =?us-ascii?Q?Yi5qCW2Kue/7bnLkE7tq1iw4WbJPkaPHB0mVcdZ/wjPlVM0SVW8JXpVthRSl?=
+ =?us-ascii?Q?IMaNP9RIjn8RHQ5j5H5SX18+S4+Q1pASQWvny+145sSd1BJe5yRaJbY3bGNd?=
+ =?us-ascii?Q?g5BmO39XSe+ryv5OJZA3MzLlukI2ORGIJAdE67tlDCVuJIVBm8PY+6+ok9zn?=
+ =?us-ascii?Q?N8EpmEFXWVc3LqYrwkU=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 11:27:08.4787 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7e0425f-0ab3-465b-1052-08de1df0965d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,238 +139,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This patch ensures the MES is properly resumed
+after detecting and recovering from a user queue hang condition.
 
-On 06/11/2025 13:14, Christian König wrote:
-> On 10/31/25 15:29, Tvrtko Ursulin wrote:
->> On 31/10/2025 13:16, Christian König wrote:
->>> At first glance it is counter intuitive to protect a constant function
->>> pointer table by RCU, but this allows modules providing the function
->>> table to unload by waiting for an RCU grace period.
->>>
->>> v2: make one the now duplicated lockdep warnings a comment instead.
->>>
->>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>> ---
->>>    drivers/dma-buf/dma-fence.c | 69 +++++++++++++++++++++++++------------
->>>    include/linux/dma-fence.h   | 18 ++++++++--
->>>    2 files changed, 62 insertions(+), 25 deletions(-)
->>>
->>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->>> index b229d96f551c..ed82e8361096 100644
->>> --- a/drivers/dma-buf/dma-fence.c
->>> +++ b/drivers/dma-buf/dma-fence.c
->>> @@ -498,6 +498,7 @@ EXPORT_SYMBOL(dma_fence_signal);
->>>    signed long
->>>    dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
->>>    {
->>> +    const struct dma_fence_ops *ops;
->>>        signed long ret;
->>>          if (WARN_ON(timeout < 0))
->>> @@ -509,15 +510,21 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
->>>          dma_fence_enable_sw_signaling(fence);
->>>    -    if (trace_dma_fence_wait_start_enabled()) {
->>> -        rcu_read_lock();
->>> -        trace_dma_fence_wait_start(fence);
->>> +    rcu_read_lock();
->>> +    ops = rcu_dereference(fence->ops);
->>> +    trace_dma_fence_wait_start(fence);
->>> +    if (ops->wait) {
->>> +        /*
->>> +         * Implementing the wait ops is deprecated and not supported for
->>> +         * issuer independent fences, so it is ok to use the ops outside
->>> +         * the RCU protected section.
->>> +         */
->>
->> Probably a good idea to put this explanation about issue independent fences to struct dma_fence_ops kerneldoc. At the moment only .wait is documented as deprecated, so both it and .release can be expanded with this additional angle.
-> 
-> Done, but I'm not sure if my documentation is sufficient. You should probably take a look at the next version.
+Key changes:
+1. Track when a hung user queue is detected using found_hung_queue flag
+2. Call amdgpu_mes_resume() to restart MES scheduling after completing
+   the hang recovery process
+3. This complements the existing recovery steps (fence force completion
+   and device wedging) by ensuring the scheduler can process new work
 
-Will do.
+Without this resume call, the MES scheduler may remain in a paused state
+even after the hung queue has been handled, preventing newly submitted
+work from being processed and leading to system stalls.
 
->>> +        rcu_read_unlock();
->>> +        ret = ops->wait(fence, intr, timeout);
->>> +    } else {
->>>            rcu_read_unlock();
->>> -    }
->>> -    if (fence->ops->wait)
->>> -        ret = fence->ops->wait(fence, intr, timeout);
->>> -    else
->>>            ret = dma_fence_default_wait(fence, intr, timeout);
->>> +    }
->>>        if (trace_dma_fence_wait_end_enabled()) {
->>>            rcu_read_lock();
->>>            trace_dma_fence_wait_end(fence);
->>> @@ -538,6 +545,7 @@ void dma_fence_release(struct kref *kref)
->>>    {
->>>        struct dma_fence *fence =
->>>            container_of(kref, struct dma_fence, refcount);
->>> +    const struct dma_fence_ops *ops;
->>>          rcu_read_lock();
->>>        trace_dma_fence_destroy(fence);
->>> @@ -569,12 +577,12 @@ void dma_fence_release(struct kref *kref)
->>>            spin_unlock_irqrestore(fence->lock, flags);
->>>        }
->>>    -    rcu_read_unlock();
->>> -
->>> -    if (fence->ops->release)
->>> -        fence->ops->release(fence);
->>> +    ops = rcu_dereference(fence->ops);
->>> +    if (ops->release)
->>> +        ops->release(fence);
->>>        else
->>>            dma_fence_free(fence);
->>> +    rcu_read_unlock();
->>>    }
->>>    EXPORT_SYMBOL(dma_fence_release);
->>>    @@ -593,6 +601,7 @@ EXPORT_SYMBOL(dma_fence_free);
->>>      static bool __dma_fence_enable_signaling(struct dma_fence *fence)
->>>    {
->>> +    const struct dma_fence_ops *ops;
->>>        bool was_set;
->>>          lockdep_assert_held(fence->lock);
->>> @@ -603,14 +612,18 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
->>>        if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>>            return false;
->>>    -    if (!was_set && fence->ops->enable_signaling) {
->>> +    rcu_read_lock();
->>> +    ops = rcu_dereference(fence->ops);
->>> +    if (!was_set && ops->enable_signaling) {
->>>            trace_dma_fence_enable_signal(fence);
->>>    -        if (!fence->ops->enable_signaling(fence)) {
->>> +        if (!ops->enable_signaling(fence)) {
->>
->> Have you tried the series with PREEMPT_RT enabled?
-> 
-> No, that is not something we usually test with.
-> 
->> I am worried about spin locks in any fence ops callbacks which now run with preemption disabled.
-> 
-> Hui? Why would spin_locks be problematic here?
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-They become sleeping locks and IIRC there's a might_sleep equivalent in 
-there somewhere which fires when inside the preempt_disable section.
-
-Regards,
-
-Tvrtko
-
->>> +            rcu_read_unlock();
->>>                dma_fence_signal_locked(fence);
->>>                return false;
->>>            }
->>>        }
->>> +    rcu_read_unlock();
->>>          return true;
->>>    }
->>> @@ -983,8 +996,13 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
->>>     */
->>>    void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->>>    {
->>> -    if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
->>> -        fence->ops->set_deadline(fence, deadline);
->>> +    const struct dma_fence_ops *ops;
->>> +
->>> +    rcu_read_lock();
->>> +    ops = rcu_dereference(fence->ops);
->>> +    if (ops->set_deadline && !dma_fence_is_signaled(fence))
->>> +        ops->set_deadline(fence, deadline);
->>> +    rcu_read_unlock();
->>>    }
->>>    EXPORT_SYMBOL(dma_fence_set_deadline);
->>>    @@ -1024,7 +1042,12 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
->>>        BUG_ON(!ops || !ops->get_driver_name || !ops->get_timeline_name);
->>>          kref_init(&fence->refcount);
->>> -    fence->ops = ops;
->>> +    /*
->>> +     * At first glance it is counter intuitive to protect a constant
->>> +     * function pointer table by RCU, but this allows modules providing the
->>> +     * function table to unload by waiting for an RCU grace period.
->>> +     */
->>> +    RCU_INIT_POINTER(fence->ops, ops);
->>>        INIT_LIST_HEAD(&fence->cb_list);
->>>        fence->lock = lock;
->>>        fence->context = context;
->>> @@ -1104,11 +1127,12 @@ EXPORT_SYMBOL(dma_fence_init64);
->>>     */
->>>    const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
->>>    {
->>> -    RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->>> -             "RCU protection is required for safe access to returned string");
->>> +    const struct dma_fence_ops *ops;
->>>    +    /* RCU protection is required for safe access to returned string */
->>> +    ops = rcu_dereference(fence->ops);
->>>        if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>> -        return fence->ops->get_driver_name(fence);
->>> +        return ops->get_driver_name(fence);
->>>        else
->>>            return "detached-driver";
->>>    }
->>> @@ -1136,11 +1160,12 @@ EXPORT_SYMBOL(dma_fence_driver_name);
->>>     */
->>>    const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
->>>    {
->>> -    RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->>> -             "RCU protection is required for safe access to returned string");
->>> +    const struct dma_fence_ops *ops;
->>>    +    /* RCU protection is required for safe access to returned string */
->>> +    ops = rcu_dereference(fence->ops);
->>>        if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>> -        return fence->ops->get_timeline_name(fence);
->>> +        return ops->get_timeline_name(fence);
->>>        else
->>>            return "signaled-timeline";
->>>    }
->>> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
->>> index 64639e104110..38421a0c7c5b 100644
->>> --- a/include/linux/dma-fence.h
->>> +++ b/include/linux/dma-fence.h
->>> @@ -66,7 +66,7 @@ struct seq_file;
->>>     */
->>>    struct dma_fence {
->>>        spinlock_t *lock;
->>> -    const struct dma_fence_ops *ops;
->>> +    const struct dma_fence_ops __rcu *ops;
->>>        /*
->>>         * We clear the callback list on kref_put so that by the time we
->>>         * release the fence it is unused. No one should be adding to the
->>> @@ -418,13 +418,19 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
->>>    static inline bool
->>>    dma_fence_is_signaled_locked(struct dma_fence *fence)
->>>    {
->>> +    const struct dma_fence_ops *ops;
->>> +
->>>        if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>>            return true;
->>>    -    if (fence->ops->signaled && fence->ops->signaled(fence)) {
->>> +    rcu_read_lock();
->>> +    ops = rcu_dereference(fence->ops);
->>> +    if (ops->signaled && ops->signaled(fence)) {
->>> +        rcu_read_unlock();
->>>            dma_fence_signal_locked(fence);
->>>            return true;
->>>        }
->>> +    rcu_read_unlock();
->>>          return false;
->>>    }
->>> @@ -448,13 +454,19 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
->>>    static inline bool
->>>    dma_fence_is_signaled(struct dma_fence *fence)
->>>    {
->>> +    const struct dma_fence_ops *ops;
->>> +
->>>        if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
->>>            return true;
->>>    -    if (fence->ops->signaled && fence->ops->signaled(fence)) {
->>> +    rcu_read_lock();
->>> +    ops = rcu_dereference(fence->ops);
->>> +    if (ops->signaled && ops->signaled(fence)) {
->>> +        rcu_read_unlock();
->>>            dma_fence_signal(fence);
->>>            return true;
->>>        }
->>> +    rcu_read_unlock();
->>>          return false;
->>>    }
->>
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index b1ee9473d628..6d1af72916a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -208,6 +208,7 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
+ 	unsigned int hung_db_num = 0;
+ 	unsigned long queue_id;
+ 	u32 db_array[8];
++	bool found_hung_queue =false;
+ 	int r, i;
+ 
+ 	if (db_array_size > 8) {
+@@ -232,6 +233,7 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
+ 				for (i = 0; i < hung_db_num; i++) {
+ 					if (queue->doorbell_index == db_array[i]) {
+ 						queue->state = AMDGPU_USERQ_STATE_HUNG;
++						found_hung_queue = true;
+ 						atomic_inc(&adev->gpu_reset_counter);
+ 						amdgpu_userq_fence_driver_force_completion(queue);
+ 						drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
+@@ -241,6 +243,11 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
+ 		}
+ 	}
+ 
++	if (found_hung_queue) {
++		/* Resume scheduling after hang recovery */
++		r = amdgpu_mes_resume(adev);
++	}
++
+ 	return r;
+ }
+ 
+-- 
+2.49.0
 
