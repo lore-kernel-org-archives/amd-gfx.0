@@ -4,82 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 806F9CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 10:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 831BBCCFA05
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 10:22:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1703910EA68;
-	Fri,  7 Nov 2025 10:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CD3B10EA74;
+	Fri,  7 Nov 2025 10:22:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="hmPxzHhZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ldYytdHc";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F18D910EA68
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 10:14:34 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-47754547a38so4537295e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 02:14:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1762510473; x=1763115273; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7BfazoHqWYQE87lslY9CXnZpsO5TV9TIgLU45i4jh/o=;
- b=hmPxzHhZBI2kji3SdHQJ7hjfwEyvRkncQI0UiAZZZfV5fTPvXedzCcscg5jKOCeuUT
- C937JVfeVmJgSMFJ3eB1e/lU/hZ+YAASuDrbfUvSDIn7PrIZKz3Nq3832Yk5gF8zd5mi
- otWmVHKzheW2gEbUpowyX3COY0C+IbRZwdxs038jZLlAVj7xtle+8AopQgxlYJnGi60e
- /puQJylw4TzlOg2GLdaR2z6erZmRK7qo5+d7geTet5ExAMPl7Wg4Eji/Xfi+qXczxf/w
- 5RJVPMnc2jtKsTq1Bx1gyxmrtdnoZWiv6tkvEKenMizzQvAvBlFZ4LdiZYDoDDMRZZm0
- vLjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762510473; x=1763115273;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7BfazoHqWYQE87lslY9CXnZpsO5TV9TIgLU45i4jh/o=;
- b=Px5VNbkOJ9yBr7pXmArYaiDuzcZq0S7ROncNU3PbTOQc8tYzt4YaKbegK9duWEBQXA
- cWgk+iSjL4d0+m/ERIm8eMQOC96KSWX++2H48W6PYsm/+eaj9WU3aer8EhHOW0fhJZiB
- aocOJXkXRwlGkTyV1LozG/ZUIzDQQ1tmrfS2g0Xohv0v0peP5DoJ13f/Z4TLJUu37glf
- kbpcou3q6btF6Dm4cpYISs9n5b02XkWtb2bJRuALvKRFglYdnzkwU6F7NKlIHBdbsJMw
- BmNoQsPHAQ7Cf4romTTlKMtFO/hrSAFG5v5tpD/lAGNwZRcx91NzyoFCi97uXIucs1jn
- b2jA==
-X-Gm-Message-State: AOJu0YzosPtEULzNGJ8WQ5lPeRv0uOrtfRZrf9MA8xVA5ZBsYHe/XZ+H
- c1pJb9pRu/D9BDd28eMUToeY6Jjkd3OTzTkHIEYn9rZL6ADN7fW6BexdMBIdKpedd+w=
-X-Gm-Gg: ASbGnctYlzReWuo0iGfv6+cd0YZ4wVosVEW+/5xW05WlEU7EOGcqKiWQIBWyq6+frKH
- m0Tm4QpXiJi8sIG2PuSAhlMZYfcqgg2wxSL1j33gsV/hfM7qWwXyDlEdgEpqvWI14yv6tdrJ1NN
- B1WgmqzXVxvzfirVEhDi4UZjQlS3zYkQNe0dXNfxcBj++iwaOiK5q9ZJtRSX+7/u249ccmwJfIt
- ygLE4ZCsEy8zNllS+aXMEx73Y7qoY6MVB8AVkQ+D0RNnSNDqv0MosoozmwJlZmXBdSj8Ku++ATu
- csouu41eWC3uKfCvRqlCGe4XU/u9d+oM1NnyHQ04itc2xzBiUHej++yNQgjXzt5Cyn3iL+yiEH5
- /SdEFwMPoX5N1TUdHBN44/UzSHuVAabztd7QQBMQIZzdmertU9rvW8b0qVLNX7FrhxPsbE9K8Dl
- TllB1QHG27AbHvyM9+PipzR4BLQyk=
-X-Google-Smtp-Source: AGHT+IEp8JUAaMnZ4SnBSr0rcVN4Klwf8IQ64WyYmOuRgmzLuIy7MJXiArG0X6gqQXD8QWQtn8IntQ==
-X-Received: by 2002:a05:600c:3ba9:b0:477:c71:1fc1 with SMTP id
- 5b1f17b1804b1-4776bcbbc90mr27048055e9.19.1762510472824; 
- Fri, 07 Nov 2025 02:14:32 -0800 (PST)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4776bcfcfc7sm47399045e9.12.2025.11.07.02.14.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Nov 2025 02:14:32 -0800 (PST)
-Message-ID: <6d2a4e81-8cfe-4ce8-82da-e5b0718ccbc7@ursulin.net>
-Date: Fri, 7 Nov 2025 10:14:31 +0000
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010001.outbound.protection.outlook.com [52.101.56.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F89210EA6B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 10:22:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mKhqgocv+V+Kz54TktYVS3TDOu6kzEwE66Jv+UECrzez7FPv0I0dV1FGSrWQik1im7WK+rjobHa36jF9MkCYdpdWUhd4/npVyszHMHnjmlv53p+HJkSU2wt9Wm9Uhc3t5Bw5pJzCwLZxN9vVBD6RmaBBGDby+bJ4LeW26WIGNSqFCltkb+aAeR5hswCA5KbmM/5bcUsPCneys/Ajjh8zhDo1/x3pgtEckZxqZKqSLmmKy2xbH/PJR9ZpK2k3QZ7G/hqNiwixa7XlNL+eZzj4EJNN7g1aL8hE1wCRWxNKjS8bYIyAO/hP0kOetKxHxM09NoVMhIuD/TMcMSMioPhDjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NEYNoA4lzc9g+7hL7YvMzXGUyNcZvAdtALRVFvAMw7c=;
+ b=xXv021BG3ppuNexaMSDIJQP/FEv3xtC6yGNinRabxylPnATtu26+qc1oCjVMtOfrEAWBhrHlwBq3J0Cvl0wUH2SMZKK6AqrzN6rDmplKvRwbriMbLsoMDMyRHaXSjkb/fdp8oOQQUqOVmymvpnAb3r/Zz7z0SaWaYM6XR+/qn8WxOhZLVg7nENCQQFYjtOj0NoHRFAq2FNmCwDMrI2KWQ3f0UtXZXbKBoVJpLqbZwLL8XfowQuGwOvZc39iaLHSACtn1bzInHjxWzVSGVram1jQ0k1/mYnG3I6B+OY2YEnkeBYUc3NcyYIlhB4S3+N3hJ3tlDYYpmjN/3E4uDjGj3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NEYNoA4lzc9g+7hL7YvMzXGUyNcZvAdtALRVFvAMw7c=;
+ b=ldYytdHctv5HlYYQpQ0Fq0uZJRC3wtCQkvFb0dftr7urKzV6+8eV+J0RP4eHxiHHwq/YhHvoArd2megMAPw3r3lDqNxU32Z6QlSiiEbI2wCahTFI2OQi7g1KkDIInfJ73PrJ/6Ue14q3+OoX/335ezUQBLtadxlrucuFRJLOAWs=
+Received: from BN0PR04CA0179.namprd04.prod.outlook.com (2603:10b6:408:eb::34)
+ by BY5PR12MB4113.namprd12.prod.outlook.com (2603:10b6:a03:207::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.13; Fri, 7 Nov
+ 2025 10:22:36 +0000
+Received: from BN2PEPF000044A0.namprd02.prod.outlook.com
+ (2603:10b6:408:eb:cafe::f1) by BN0PR04CA0179.outlook.office365.com
+ (2603:10b6:408:eb::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.13 via Frontend Transport; Fri,
+ 7 Nov 2025 10:22:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF000044A0.mail.protection.outlook.com (10.167.243.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Fri, 7 Nov 2025 10:22:35 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 7 Nov
+ 2025 02:22:34 -0800
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 7 Nov
+ 2025 04:22:34 -0600
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Fri, 7 Nov 2025 02:22:33 -0800
+From: Jesse.Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse.Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: fix lock warning in
+ amdgpu_userq_fence_driver_process
+Date: Fri, 7 Nov 2025 18:21:28 +0800
+Message-ID: <20251107102232.4066722-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/amdgpu: add engine_retains_context to
- amdgpu_ring_funcs
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20251107090425.23199-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20251107090425.23199-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: Jesse.Zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A0:EE_|BY5PR12MB4113:EE_
+X-MS-Office365-Filtering-Correlation-Id: 812d9c69-b6a6-4448-dc65-08de1de791e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?54AztEFvuEoseyhqjQSXhv2umSHw98otyjuO2wE+rmz7x7mzqe+5558TRrxp?=
+ =?us-ascii?Q?SVIolQ+cDc5un89wKk/EvIiCOmGZfIPCcEnohuaHp3iJnRAn/0uA/9LsKQom?=
+ =?us-ascii?Q?MJm3EueaUVkPwrL2ERi1jTXaqdCMzlMaoDOUfEAF0cMPBtfAVz5V6oWTUYme?=
+ =?us-ascii?Q?oRd9htvaPyzhGkF0ujyrJzmH4lj2BPsi47MsjCyUGv+LuLYsUvdXl0ZLPDSz?=
+ =?us-ascii?Q?CnD1xLH4lgiFln9MwD35z7ugndi5vRGH2gwA3EqoovfA062/6cgjbc3Jm6lo?=
+ =?us-ascii?Q?VuGoveUp3DhaRQIyNxTmPGSmfPIawXMtqSa9RMLLOJNTYyp2OFiRoI8Ssyrw?=
+ =?us-ascii?Q?TD1szT/nIkMYh4xTLK+vZOkTVDGAQbJBjkmimyXeOUSCsSrPyz+w4H2SnKxB?=
+ =?us-ascii?Q?ErbVGD21p2Iwxx/9NMFJZmyiVVuXQzVkXXVEBQFTeH+0+3PliYyU95YGyMcg?=
+ =?us-ascii?Q?0unHPZiy8l/gq6efZ2AXz1raWGYxx7rB9e3bCvUIPLzpnTfBgs9l53fBI90+?=
+ =?us-ascii?Q?J3BP89EMVibAozDHd+PEiy0dD7C2Fgsk7AdYBM1rWUKL0hn8wfIyVmkuew1Y?=
+ =?us-ascii?Q?vFJfV7BeTt7eM5agN6yLu61cJSKENUPyr0RvavyCFppcczNMCu58OTHPiq++?=
+ =?us-ascii?Q?7DEyAoeD6jmdALS5JQ9RWxVqdqg1Ga5+5U4NanoEEDNLFmuqelsdwoA73ui6?=
+ =?us-ascii?Q?WM81nws1xBJ1PdAnzeU2VYpJp/+2YEegvGPfdjrpoQectjdvg5ivATFwcuHx?=
+ =?us-ascii?Q?dtu+ixaquHO8H+c1FftkMb/2Vh6nmSOb+gV8bqTF79QgkYEkV/7uHvqb+pDB?=
+ =?us-ascii?Q?JWFnu63aU3/i03C/qKmlEP0m7pZesZ74xKcPFCMm5Sx2cH122G4vN+YGUxBV?=
+ =?us-ascii?Q?8C7dATu83bb7mQgNIKcsdd5881IL7gKB3qpGd6ywY5eqylcOvgahA21Y9RDN?=
+ =?us-ascii?Q?1h2BqZ/aXtL9pbHr42B0tTCbUDnLtZqTxuUh6F3DHJ3vXg6gesmpdaQMO9nj?=
+ =?us-ascii?Q?3z3g2u7smnedFwZN/ifFbHML0MX3EU/32EC1V/0AB/eeszl31gpGnnCNs2T9?=
+ =?us-ascii?Q?GUKPAln+IqWZ88BCxDuv/nFKNXKuNK5TU7Hs5tYQ7QCK3iEwCKxlrafuRxJP?=
+ =?us-ascii?Q?9oPgPVwXe1MIRRlIIU0TK3BJqHEBi+3toGam0C4cKAs83J/I2Qw/I6zF3KE8?=
+ =?us-ascii?Q?4YAqlRE9TrMZix6TOJYrO1jkE+cda9JdtWorgOzRsCJAVDPI8EL6rQwJNyRK?=
+ =?us-ascii?Q?33b/6/a1ImS4vbIA29t5QzfzIGeoIPTV6J9I7SZ41qOnXUwx0Ikc7dZF8od8?=
+ =?us-ascii?Q?DDhS1VP0klkS9EnkA+WVJ9TldPqIVJmaaCWxF30qmBeL+9Z8awz1dpDUnc/d?=
+ =?us-ascii?Q?I8Df0H4ofZjEoIF4M0x3mDDw41Id1KV9AdGGFN+2gP3v2ra6+/RYtSrK5jqM?=
+ =?us-ascii?Q?XJESUKPFYxtE5O2SkbThyUdyVvSM+1n2BT9rbkwZxUTPxzK4fLCa3qMS+hMY?=
+ =?us-ascii?Q?Trvd3T1rWNbfQ4TK2nqC0SCp9rNt6W4cmDLb0/Bu6aJWRotnQI9popK30KX5?=
+ =?us-ascii?Q?etB6ktxUfa+spiJK2fU=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 10:22:35.5165 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 812d9c69-b6a6-4448-dc65-08de1de791e5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4113
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,284 +139,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Fix a potential deadlock caused by inconsistent spinlock usage
+between interrupt and process contexts in the userq fence driver.
 
-On 07/11/2025 09:04, Pierre-Eric Pelloux-Prayer wrote:
-> If true, the hw engine retains context among dependent jobs, which means
-> load balancing between schedulers cannot be used at the job level.
-> 
-> amdgpu_ctx_init_entity uses this information to disable load balancing,
-> but it's best to store it as a property rather than deduce it based on
-> hw_ip.
-> 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
->   drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c    | 1 +
->   drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c    | 1 +
->   drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c    | 1 +
->   drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    | 3 +++
->   drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    | 2 ++
->   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 2 ++
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    | 2 ++
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    | 2 ++
->   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c    | 3 +++
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    | 1 +
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 1 +
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c  | 1 +
->   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  | 1 +
->   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c  | 1 +
->   15 files changed, 23 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index 4b46e3c26ff3..a10efac2fc54 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -211,6 +211,7 @@ struct amdgpu_ring_funcs {
->   	bool			support_64bit_ptrs;
->   	bool			no_user_fence;
->   	bool			secure_submission_supported;
-> +	bool			engine_retains_context;
->   
->   	/**
->   	 * @extra_bytes:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> index 2e79a3afc774..4a85b5465bb2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-> @@ -181,6 +181,7 @@ static const struct amdgpu_ring_funcs uvd_v3_1_ring_funcs = {
->   	.align_mask = 0xf,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v3_1_ring_get_rptr,
->   	.get_wptr = uvd_v3_1_ring_get_wptr,
->   	.set_wptr = uvd_v3_1_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> index 4b96fd583772..e7c1d12f0596 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-> @@ -775,6 +775,7 @@ static const struct amdgpu_ring_funcs uvd_v4_2_ring_funcs = {
->   	.align_mask = 0xf,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v4_2_ring_get_rptr,
->   	.get_wptr = uvd_v4_2_ring_get_wptr,
->   	.set_wptr = uvd_v4_2_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> index 71409ad8b7ed..a62788e4af96 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> @@ -882,6 +882,7 @@ static const struct amdgpu_ring_funcs uvd_v5_0_ring_funcs = {
->   	.align_mask = 0xf,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v5_0_ring_get_rptr,
->   	.get_wptr = uvd_v5_0_ring_get_wptr,
->   	.set_wptr = uvd_v5_0_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> index ceb94bbb03a4..0435577b9b3b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> @@ -1552,6 +1552,7 @@ static const struct amdgpu_ring_funcs uvd_v6_0_ring_phys_funcs = {
->   	.align_mask = 0xf,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v6_0_ring_get_rptr,
->   	.get_wptr = uvd_v6_0_ring_get_wptr,
->   	.set_wptr = uvd_v6_0_ring_set_wptr,
-> @@ -1578,6 +1579,7 @@ static const struct amdgpu_ring_funcs uvd_v6_0_ring_vm_funcs = {
->   	.align_mask = 0xf,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v6_0_ring_get_rptr,
->   	.get_wptr = uvd_v6_0_ring_get_wptr,
->   	.set_wptr = uvd_v6_0_ring_set_wptr,
-> @@ -1607,6 +1609,7 @@ static const struct amdgpu_ring_funcs uvd_v6_0_enc_ring_vm_funcs = {
->   	.nop = HEVC_ENC_CMD_NO_OP,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v6_0_enc_ring_get_rptr,
->   	.get_wptr = uvd_v6_0_enc_ring_get_wptr,
->   	.set_wptr = uvd_v6_0_enc_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> index 1f8866f3f63c..3720d72f2c3e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-> @@ -1539,6 +1539,7 @@ static const struct amdgpu_ring_funcs uvd_v7_0_ring_vm_funcs = {
->   	.align_mask = 0xf,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v7_0_ring_get_rptr,
->   	.get_wptr = uvd_v7_0_ring_get_wptr,
->   	.set_wptr = uvd_v7_0_ring_set_wptr,
-> @@ -1571,6 +1572,7 @@ static const struct amdgpu_ring_funcs uvd_v7_0_enc_ring_vm_funcs = {
->   	.nop = HEVC_ENC_CMD_NO_OP,
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = uvd_v7_0_enc_ring_get_rptr,
->   	.get_wptr = uvd_v7_0_enc_ring_get_wptr,
->   	.set_wptr = uvd_v7_0_enc_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> index a316797875a8..1691d0f955a9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> @@ -2117,6 +2117,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
->   	.support_64bit_ptrs = false,
->   	.no_user_fence = true,
->   	.secure_submission_supported = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v1_0_dec_ring_get_rptr,
->   	.get_wptr = vcn_v1_0_dec_ring_get_wptr,
->   	.set_wptr = vcn_v1_0_dec_ring_set_wptr,
-> @@ -2150,6 +2151,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_enc_ring_vm_funcs = {
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
->   	.support_64bit_ptrs = false,
-> +	.engine_retains_context = true,
->   	.no_user_fence = true,
->   	.get_rptr = vcn_v1_0_enc_ring_get_rptr,
->   	.get_wptr = vcn_v1_0_enc_ring_get_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> index 8897dcc9c1a0..046dd6b216e9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -2113,6 +2113,7 @@ static const struct amdgpu_ring_funcs vcn_v2_0_dec_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_DEC,
->   	.align_mask = 0xf,
->   	.secure_submission_supported = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v2_0_dec_ring_get_rptr,
->   	.get_wptr = vcn_v2_0_dec_ring_get_wptr,
->   	.set_wptr = vcn_v2_0_dec_ring_set_wptr,
-> @@ -2144,6 +2145,7 @@ static const struct amdgpu_ring_funcs vcn_v2_0_enc_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v2_0_enc_ring_get_rptr,
->   	.get_wptr = vcn_v2_0_enc_ring_get_wptr,
->   	.set_wptr = vcn_v2_0_enc_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> index cebee453871c..063f88da120b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -1777,6 +1777,7 @@ static const struct amdgpu_ring_funcs vcn_v2_5_dec_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_DEC,
->   	.align_mask = 0xf,
->   	.secure_submission_supported = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v2_5_dec_ring_get_rptr,
->   	.get_wptr = vcn_v2_5_dec_ring_get_wptr,
->   	.set_wptr = vcn_v2_5_dec_ring_set_wptr,
-> @@ -1877,6 +1878,7 @@ static const struct amdgpu_ring_funcs vcn_v2_5_enc_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v2_5_enc_ring_get_rptr,
->   	.get_wptr = vcn_v2_5_enc_ring_get_wptr,
->   	.set_wptr = vcn_v2_5_enc_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> index d9cf8f0feeb3..8dcc07b3f631 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -1857,6 +1857,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_dec_sw_ring_vm_funcs = {
->   	.align_mask = 0x3f,
->   	.nop = VCN_DEC_SW_CMD_NO_OP,
->   	.secure_submission_supported = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v3_0_dec_ring_get_rptr,
->   	.get_wptr = vcn_v3_0_dec_ring_get_wptr,
->   	.set_wptr = vcn_v3_0_dec_ring_set_wptr,
-> @@ -2021,6 +2022,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_dec_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_DEC,
->   	.align_mask = 0xf,
->   	.secure_submission_supported = true,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v3_0_dec_ring_get_rptr,
->   	.get_wptr = vcn_v3_0_dec_ring_get_wptr,
->   	.set_wptr = vcn_v3_0_dec_ring_set_wptr,
-> @@ -2122,6 +2124,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_enc_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v3_0_enc_ring_get_rptr,
->   	.get_wptr = vcn_v3_0_enc_ring_get_wptr,
->   	.set_wptr = vcn_v3_0_enc_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index 3ae666522d57..f1306316dc3c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -1977,6 +1977,7 @@ static struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.extra_bytes = sizeof(struct amdgpu_vcn_rb_metadata),
->   	.get_rptr = vcn_v4_0_unified_ring_get_rptr,
->   	.get_wptr = vcn_v4_0_unified_ring_get_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> index eacf4e93ba2f..5a935c07352a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -1628,6 +1628,7 @@ static const struct amdgpu_ring_funcs vcn_v4_0_3_unified_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v4_0_3_unified_ring_get_rptr,
->   	.get_wptr = vcn_v4_0_3_unified_ring_get_wptr,
->   	.set_wptr = vcn_v4_0_3_unified_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> index b107ee80e472..1a485f5825dd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> @@ -1481,6 +1481,7 @@ static struct amdgpu_ring_funcs vcn_v4_0_5_unified_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v4_0_5_unified_ring_get_rptr,
->   	.get_wptr = vcn_v4_0_5_unified_ring_get_wptr,
->   	.set_wptr = vcn_v4_0_5_unified_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> index 0202df5db1e1..2d8214f591f1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -1203,6 +1203,7 @@ static const struct amdgpu_ring_funcs vcn_v5_0_0_unified_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v5_0_0_unified_ring_get_rptr,
->   	.get_wptr = vcn_v5_0_0_unified_ring_get_wptr,
->   	.set_wptr = vcn_v5_0_0_unified_ring_set_wptr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> index 714350cabf2f..bd3a04f1414d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-> @@ -1328,6 +1328,7 @@ static const struct amdgpu_ring_funcs vcn_v5_0_1_unified_ring_vm_funcs = {
->   	.type = AMDGPU_RING_TYPE_VCN_ENC,
->   	.align_mask = 0x3f,
->   	.nop = VCN_ENC_CMD_NO_OP,
-> +	.engine_retains_context = true,
->   	.get_rptr = vcn_v5_0_1_unified_ring_get_rptr,
->   	.get_wptr = vcn_v5_0_1_unified_ring_get_wptr,
->   	.set_wptr = vcn_v5_0_1_unified_ring_set_wptr,
+The issue occurs when amdgpu_userq_fence_driver_process() is called
+from both:
+- Interrupt context: gfx_v11_0_eop_irq() -> amdgpu_userq_fence_driver_process()
+- Process context: amdgpu_eviction_fence_suspend_worker() ->
+  amdgpu_userq_fence_driver_force_completion() -> amdgpu_userq_fence_driver_process()
 
-All checks out, nothing seems forgotten.
+In interrupt context, the spinlock was acquired without disabling
+interrupts, leaving it in {IN-HARDIRQ-W} state. When the same lock
+is acquired in process context, the kernel detects inconsistent
+locking since the process context acquisition would enable interrupts
+while holding a lock previously acquired in interrupt context.
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Kernel log shows:
+[ 4039.310790] inconsistent {IN-HARDIRQ-W} -> {HARDIRQ-ON-W} usage.
+[ 4039.310804] kworker/7:2/409 [HC0[0]:SC0[0]:HE1:SE1] takes:
+[ 4039.310818] ffff9284e1bed000 (&fence_drv->fence_list_lock){?...}-{3:3},
+[ 4039.310993] {IN-HARDIRQ-W} state was registered at:
+[ 4039.311004]   lock_acquire+0xc6/0x300
+[ 4039.311018]   _raw_spin_lock+0x39/0x80
+[ 4039.311031]   amdgpu_userq_fence_driver_process.part.0+0x30/0x180 [amdgpu]
+[ 4039.311146]   amdgpu_userq_fence_driver_process+0x17/0x30 [amdgpu]
+[ 4039.311257]   gfx_v11_0_eop_irq+0x132/0x170 [amdgpu]
 
-Regards,
+Fix by using spin_lock_irqsave()/spin_unlock_irqrestore() to properly
+manage interrupt state regardless of calling context.
 
-Tvrtko
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 99ae1d19b751..eba9fb359047 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -151,15 +151,16 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
+ {
+ 	struct amdgpu_userq_fence *userq_fence, *tmp;
+ 	struct dma_fence *fence;
++	unsigned long flags;
+ 	u64 rptr;
+ 	int i;
+ 
+ 	if (!fence_drv)
+ 		return;
+ 
++	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
+ 	rptr = amdgpu_userq_fence_read(fence_drv);
+ 
+-	spin_lock(&fence_drv->fence_list_lock);
+ 	list_for_each_entry_safe(userq_fence, tmp, &fence_drv->fences, link) {
+ 		fence = &userq_fence->base;
+ 
+@@ -174,7 +175,7 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
+ 		list_del(&userq_fence->link);
+ 		dma_fence_put(fence);
+ 	}
+-	spin_unlock(&fence_drv->fence_list_lock);
++	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
+ }
+ 
+ void amdgpu_userq_fence_driver_destroy(struct kref *ref)
+-- 
+2.49.0
 
