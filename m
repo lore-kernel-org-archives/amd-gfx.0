@@ -4,77 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7731CCFA1D
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 15:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E537CCFA05
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 16:38:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E67710EB0F;
-	Fri,  7 Nov 2025 15:58:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C263210E0EA;
+	Fri,  7 Nov 2025 16:38:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QH95TERJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pxYb6Fca";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B452710E0DD
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 15:58:05 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-47755a7652eso6161915e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 07:58:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762531084; x=1763135884; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=B2VwpGomUwRPZqjRXGCtNBCf6fesZanLVgOz4KfWSBc=;
- b=QH95TERJhbJQterTKECiGNMU5AaOBOM5k/Z/OO6P1iOn7FZYxap3wllrxmp27rSSm1
- cZqBmWkAmay7w3QIvCvxyfXbHDZihvjv6KfPQcBgLpYtvKtzRdTMb90iXBhRb9H3fDhV
- JYQQGYYrmlFlSQ2P3LUEK2OSy8nhpbf2Xs0CSMTLPWjhFTxi0qgRfM7NiAozA+gpTvwm
- QIppjS60nZqpMzn029YloIlNVCIjDDo/acGS3xGbpLHgyQTB9bMo8LKf6MqSbqo+smLO
- wtvbP17yjikmOs1PKnhMC4vlV7ewfPlTgdSChxcv7g/HLT1X7CcQQiyVT+pYizMWdNZB
- A0fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762531084; x=1763135884;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=B2VwpGomUwRPZqjRXGCtNBCf6fesZanLVgOz4KfWSBc=;
- b=qnc+JKXCSOyOdMANvv3xzojai+rRCvAbzrrlcW8PnEITeonuAees1J471OpTTEHlDP
- JGkUn9woUTNgQy0gwQR6Ajbb7wqBdT/ip/P0EBtbzh4v9XXjpMwjNi8Z2sIeN7BeHiDD
- 6QPjCAAOh7OqLuxZaDLObsSac1LXFV2qjnEzgedPjmnKEwaTZr0r8+Kk7xhgZ06BjBlk
- 8OPc+6CTHXoJvxvRYZ04PVhif1K5F0dsZUzus9EbE0Jq8PXsUgXELOd1bB1KyfkOx/YT
- UokXJVL9Bi77F62femaKrgaCOptjH62ObcwBP3E4pOz0cn2NCXBZiBpig50sUi5QNV2d
- oBoA==
-X-Gm-Message-State: AOJu0YwIEjuOYO9k3skBa41J6ozDlDIK4fisaH46CIU2BkWmriK7bqIT
- /whyJaEN5Q8g7bjxN1PPk51mUQ70tBOgIqZV4cj5Ekl6BQx1mIikM8xTWtzwcQ==
-X-Gm-Gg: ASbGncvi4x9dq5QUzq3CcP54vbF6XgGTvh1T2CjSz0izJYPpmLuThocT1aBm1oJELB9
- N17hkBUVzF8wtdksXFmYL8mfrRH1myYeu7azGt9lReW16uDF48u3WmEGvM/SZ9nJuHtFV69xeC0
- x4+6Lpxri3vrkAzQBIwx/aiM0JkJfmgi2OelXG8jUfcMHDt6EkHvdgQ18cvnZ880PXm4p+bk4Vj
- Ruh3LqlpMbm66NrIlxcXzmkEw3g1dNO2ROBcRwLolUEfC9CkpXH1/sTa1Y7/72Cvq6c9xzZj+mi
- eqBCsl7yYJAk97iqrtCPGTggsGQhA/9tYG1Y+hVvuCjtomQE9p58yGR+ffDmjTdwjRb4j7h0Mt6
- xoiDLgnceM+p600PL9KGKgB2GdRFkojcUR2DO6ELhqfCYMW4sgPYdEr8NciEczEuSMkQ9m1Vfl9
- bdpFAXlgx3sgGRKTKdif8=
-X-Google-Smtp-Source: AGHT+IEirmSJOG/rEz9GfKzCn8ZUS2MN/eVLxF04dy0hx6TqAbRnin+bYvz6nvWWkuNH2UijsxkA6Q==
-X-Received: by 2002:a05:600c:1e8a:b0:477:e66:406e with SMTP id
- 5b1f17b1804b1-4776bcc376emr31994745e9.29.1762531084010; 
- Fri, 07 Nov 2025 07:58:04 -0800 (PST)
-Received: from Timur-Hyperion.home ([2001:4c4e:24ca:a400:c3d8:2d5a:cb81:c0d3])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4775cdc33c8sm170266365e9.2.2025.11.07.07.58.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Nov 2025 07:58:03 -0800 (PST)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alexandre Demers <alexandre.f.demers@gmail.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Leo Liu <Leo.Liu@amd.com>
-Subject: [PATCH 12/12] drm/amdgpu/vce1: Workaround PLL timeout on FirePro W9000
-Date: Fri,  7 Nov 2025 16:57:45 +0100
-Message-ID: <20251107155745.8334-13-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251107155745.8334-1-timur.kristof@gmail.com>
-References: <20251107155745.8334-1-timur.kristof@gmail.com>
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010056.outbound.protection.outlook.com [52.101.46.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B86B10E0EA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 16:38:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AfpatZAhWmmYFR+cXhlrtnBCXPzOoV37hdQNTy75uVYXInVZ00DBLfesIeAal7G8GSX1WlaadLEzFjBGT+E7p1mbuDQPBN7SCPvToqxGRaZXfnFYctTre+8tkXpb0Ui9BQkPr8v2l761FZcqISNow8Pxe+yapdEPjv/6Qqtbn3hufeKGAEzkod5LrVksG1cJjdsBusg54tbL6vqVZHpcn1Lz064V2xOU8aodZcfRKTWUOpOUNijnP/FPt4nTJcrUT2XeeKIOj1qC9mDO21HcVoic7svurpaxyOao9NWeL/ohxDK8u7IVxdyZ0uZLgLJvVVuz1uR428BTZaYoSeSApw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7vMTYIBmiQHC6Kre9p0M6Qtc8QkwiuCg1SUsXWszc40=;
+ b=BPWY5rdpGCpfZaGk5xifbMY9SUz+YQcW4MZz/439Wb/B+FtN/Ea06uygR1DUUrWp0sNNcKH2z+oa7Qy/0Alha/gIvZ8gcxP+1kxYATe2sB+W/MJ/Yk9M/fPIwJaRqq0GQGHL4IDzu6ShdNrsXn7bE4Mrxi/HC99ZBEqr+mpT07v7HEXdHsEDFevxe+eT7oSq/gcSRmU1x1u4X7NWbjZwHAeqDPnG0OMLhRJzVtpJsBRB5WCpkWE2p8d8tbe7RjLwzaZfIKpb1HwJDuuzTOVFA/BE0xGau5n7dgdPRI3Qz4Pug+g2JQD87dXiY5KK4BFVEtK09kEAv2h4fAL9Ap0nlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7vMTYIBmiQHC6Kre9p0M6Qtc8QkwiuCg1SUsXWszc40=;
+ b=pxYb6FcaaYkdTkfZAnBZt69n4YL1ALGlePCiDJcZaPInZImqR+DhsuEMiGQX+TgdpiXD6PX3hJul6JjeL52cSdcdcB1LEqsyxxJ3ag+BuG7RuyuZQlf4k0IZJV4/8SXkVP+eqdV4Ozz7N9/GhEuYMpB+VGHmaDBEWyVwdNizZ9I=
+Received: from BL1P221CA0034.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:5b5::18)
+ by LV9PR12MB9760.namprd12.prod.outlook.com (2603:10b6:408:2f0::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Fri, 7 Nov
+ 2025 16:38:55 +0000
+Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
+ (2603:10b6:208:5b5:cafe::a) by BL1P221CA0034.outlook.office365.com
+ (2603:10b6:208:5b5::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.13 via Frontend Transport; Fri,
+ 7 Nov 2025 16:39:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Fri, 7 Nov 2025 16:38:55 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 7 Nov
+ 2025 08:38:54 -0800
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 7 Nov
+ 2025 08:38:54 -0800
+Received: from [10.4.12.116] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 7 Nov 2025 08:38:53 -0800
+Message-ID: <c6c3e2ae-17b6-48e5-af76-dff421e9ebf3@amd.com>
+Date: Fri, 7 Nov 2025 11:38:53 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix annotations for connector
+ poll/detect parameters
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Roman Li
+ <roman.li@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Harry Wentland <harry.wentland@amd.com>, 
+ Tom Chung <chiahsuan.chung@amd.com>
+References: <20251107141517.3044480-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <20251107141517.3044480-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|LV9PR12MB9760:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2f30453-db82-46fc-764a-08de1e1c2457
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NzhycU5uV3NwMVZyRVRxT0xpT1BMY0kyZHlKRVFyclMxZlpCeGhnU1hBWlVk?=
+ =?utf-8?B?bCtjdUpmU2FzTmhwNjJ0VlJ0NDNZZ3FJYVFEbjY4ZjE4aGgwZW53ODNZY2Ew?=
+ =?utf-8?B?b08waUt0N0liUXg2YmxjTUhYUi9BM05LQjlkZnNLZVZ0dEdkK25MbnpMdjJz?=
+ =?utf-8?B?RUFxV2FOOHAzc0tTdGZSSW54WnRXQXltY3g4Y1d1WVlITGwxYklNc2xtSUFM?=
+ =?utf-8?B?b0x2WlMxQzZRM3ZvdEhUd3FvNDRMNU5RUTFreWV3N2t0TW1tci9TM2xkWGdj?=
+ =?utf-8?B?b3V0ZHRRVjhvc3I4eUxqVGRXckN0WUlTZHJhdm0wb1lRVjRqVDlKWWltOXV6?=
+ =?utf-8?B?S0Jwc1lkNW9vMUJoRTlqWWMvQXVETzJSZGJWemdTZXZHeHRWYk4ra01qbXdL?=
+ =?utf-8?B?MitKSi9XbWZ2RzNKejhUMlp1dDFXbFprQ1ZOeitsRmNiekpiTk44UjBPeTVY?=
+ =?utf-8?B?YnBla1ZKY3FPV1R3eVNzLzNQUUFTOUNNN1c3TkE3T3ZsU0J0YUg5WHltdHoz?=
+ =?utf-8?B?TDAvNDE0NExNOEdDQVhvZk1Xem5SbEw1NnNWM0hKTGx2b3JsMUZTNnVtaG0w?=
+ =?utf-8?B?di9HZmNDN1B0UHlIcEp1QU1EMHRrdENPeGFxTUtURWNjUHR4SkxzWjJleURq?=
+ =?utf-8?B?T09SUzZSSkZBYk1EZHBnZ1ZkS1lEaHhOYVBjN1M5eGFTeGFNM3MvOHVmaVpS?=
+ =?utf-8?B?WU1qNmYralJvMXJTUEdyNk1sMHBtZkRNWUhVT01zU0dHb0F3Ym9nWHJORVF2?=
+ =?utf-8?B?Q3R5K1FzL2Z1NUR0ZExkN2haMHdDc1BwcFJiQlZ3cnovckNDd0xqYnhRa21i?=
+ =?utf-8?B?VFY5VlFrZmtoUkdmLzRLRTN1QVBrV1hTZXh0UlRaOU1NYW0yalgzZ3FaTkFJ?=
+ =?utf-8?B?MW5DNDd0L1F1MFFmWnNQbVpLU0dTZGJCTkpML0pGNUNnd210aWpiL3JHL3Av?=
+ =?utf-8?B?c05FMjR4bW83UXUralYvSmRhRjZ3ZnV4VFBFZGMrRGVWTlVmWllDejRxQk1h?=
+ =?utf-8?B?ZzRRYTdET0hFdlQxSW95R0thZnJkVGYvL0dLRlRzQzFvZ0l4ZjFybFA5elJX?=
+ =?utf-8?B?MkpTUWxtazlYVEZpK0JnKzgvWWNaM0oxUHhmRzdiU29xUEtvTk5xcWFobEFU?=
+ =?utf-8?B?cTdKQmdiNDVWRTJubUVXQ2xrVGRqdHpQd1RKaWpJOEVkMWFML015YzlVWjd1?=
+ =?utf-8?B?c0gxL0JQU0RXMXpOV01HL2k3SWJTbHpROHFBQlJDdTFka3B6c2xjWFNaQWRQ?=
+ =?utf-8?B?cTFPaGljNUZML0cxQTh0eDlsV0c5elFPNnNJeWNXSVV4WU9TRm01Uk5wV3gz?=
+ =?utf-8?B?N1dzVmV4NUdqdGhOUXA2elcrZFMwZDJQdEkweFg1YTBwRWhtNFJHdng4QVBs?=
+ =?utf-8?B?S3IzSkdlN0FUN3k4ZmdoWU0zbUxLNzhGT0N2THNVODZqT1JnRm1nNkFESmpH?=
+ =?utf-8?B?ejZDTkljZkFnOWtNbEZ1dGJFR0Z3bGIvL0ZBWDBqOEU4R3J4WEZ5VGVzdEhp?=
+ =?utf-8?B?TWZOVVF5eExNaDZpVXB3V2FxUjdLWEY4TWJYY05ncW5YWnE4bmdWWkRac090?=
+ =?utf-8?B?bDFxV0hvVEZybHl4VUE4OFNFTDM1R2pZUmlhdWc3OFpzT1NPNjdtL0F4UWo0?=
+ =?utf-8?B?eHRxc0l0UmRnQXVQYmEwejBpRW1XWnRZVHp3Q0Fkay90cHQwODByaFFWUjVH?=
+ =?utf-8?B?Vlg3UWZnYUt5bEduL1dkb2NraVVLR01hN2xsbzZLNG1pUjg3NFkxcWl5b2Qy?=
+ =?utf-8?B?cllwVkROcWRPVFRjSjRxaGlLSFlRYnNNUEY5ZEdodUJFdk5pOUtIR1NZckFI?=
+ =?utf-8?B?RCtQK015VGRuYWs2cUgzVFJMMC82S3p4b1Z4NHJnRXJ6SDNaU2V2TGFPYmdC?=
+ =?utf-8?B?QTI1dHlMRFZDWTdPUzFuUDYxckNNOGMzQ3FBc0t3NzBEYTZycnMwZWVzT2pz?=
+ =?utf-8?B?NEs2VGdHU2ZuM0g2N1lwNmtmMTY1S0RXWjdmMkxxdGlBVXV5TEtWTGNoNWV4?=
+ =?utf-8?B?Mks1a2pkSkJ4OE9LZitWazZiZ0swSGE5ZHFadVd0MkM0enp6a2Vjc3hNL3ZV?=
+ =?utf-8?B?TGQ4WlAyb2RVWTZBMVpzYUJ4b3NidnZCVENoOWx6YjI0S0FaYy95dW43RG9P?=
+ =?utf-8?Q?2sSE=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 16:38:55.0347 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2f30453-db82-46fc-764a-08de1e1c2457
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9760
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,42 +150,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sometimes the VCE PLL times out waiting for CTLACK/CTLACK2.
-When it happens, the VCE still works, but much slower.
-Observed on a Tahiti GPU, but not all:
-- FirePro W9000 has the issue
-- Radeon R9 280X not affected
-- Radeon HD 7990 not affected
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-As a workaround, on the affected chip just don't put the
-VCE PLL in sleep mode. Leaving the VCE PLL in bypass mode
-or reset mode both work. Using bypass mode is simpler.
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Acked-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/si.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 9d769222784c..f7288372ee61 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1918,6 +1918,14 @@ static int si_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
- 		     ~VCEPLL_BYPASS_EN_MASK);
- 
- 	if (!evclk || !ecclk) {
-+		/*
-+		 * On some chips, the PLL takes way too long to get out of
-+		 * sleep mode, causing a timeout waiting on CTLACK/CTLACK2.
-+		 * Leave the PLL running in bypass mode.
-+		 */
-+		if (adev->pdev->device == 0x6780)
-+			return 0;
-+
- 		/* Keep the Bypass mode, put PLL to sleep */
- 		WREG32_SMC_P(CG_VCEPLL_FUNC_CNTL, VCEPLL_SLEEP_MASK,
- 			     ~VCEPLL_SLEEP_MASK);
--- 
-2.51.0
+On 11/7/25 9:15 AM, Srinivasan Shanmugam wrote:
+> Adds the missing @aconnector, @connector, and @force descriptions:
+> 
+> @aconnector – This is the DM (Display Manager) connector.  It gives
+> access to the DRM connector, the DC link, and hotplug/poll state.  The
+> code uses it to check the link, update the sink, and manage connector
+> state changes.
+> 
+> @connector – This is the main DRM connector given by the DRM core.
+> Inside the detect function, it is converted to amdgpu_dm_connector so we
+> can run DC link detection, either light or full.
+> 
+> @force – This flag tells the function whether to run a full detect
+> again. If false, we avoid heavy DAC load detect steps to prevent
+> flicker. If true, we force a re-detect even when we normally skip it.
+> 
+> Fixes the below with gcc W=1:
+> function param 'aconnector' not described in 'amdgpu_dm_connector_poll'
+> function param 'force' not described in 'amdgpu_dm_connector_poll'
+> function param 'connector' not described in 'amdgpu_dm_connector_detect'
+> function param 'force' not described in 'amdgpu_dm_connector_detect'
+> 
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++++++---
+>   1 file changed, 19 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ba11421332da..aa31e969b39d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -7220,10 +7220,18 @@ create_stream_for_sink(struct drm_connector *connector,
+>   }
+>   
+>   /**
+> - * amdgpu_dm_connector_poll() - Poll a connector to see if it's connected to a display
+> + * amdgpu_dm_connector_poll - Poll a connector to see if it's connected to a display
+> + * @aconnector: DM connector to poll (owns @base drm_connector and @dc_link)
+> + * @force: if true, force polling even when DAC load detection was used
+>    *
+> - * Used for connectors that don't support HPD (hotplug detection)
+> - * to periodically checked whether the connector is connected to a display.
+> + * Used for connectors that don't support HPD (hotplug detection) to
+> + * periodically check whether the connector is connected to a display.
+> + *
+> + * When connection was determined via DAC load detection, we avoid
+> + * re-running it on normal polls to prevent visible glitches, unless
+> + * @force is set.
+> + *
+> + * Return: The probed connector status (connected/disconnected/unknown).
+>    */
+>   static enum drm_connector_status
+>   amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
+> @@ -7291,6 +7299,14 @@ amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
+>    * 1. This interface is NOT called in context of HPD irq.
+>    * 2. This interface *is called* in context of user-mode ioctl. Which
+>    *    makes it a bad place for *any* MST-related activity.
+> + *
+> + * @connector: The DRM connector we are checking. We convert it to
+> + *             amdgpu_dm_connector so we can read the DC link and state.
+> + * @force:     If true, do a full detect again. This is used even when
+> + *             a lighter check would normally be used to avoid flicker.
+> + *
+> + * Return: The connector status (connected, disconnected, or unknown).
+> + *
+>    */
+>   static enum drm_connector_status
+>   amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
 
