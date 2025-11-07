@@ -4,80 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0CF9CCFA18
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 Nov 2025 09:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AD7ACCFA1A
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Nov 2025 09:39:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39C3C10E1B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7345210E351;
 	Sat,  8 Nov 2025 09:39:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RxyO+Z1T";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JChn/KmQ";
 	dkim-atps=neutral
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
- [209.85.219.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20E5610E242
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Nov 2025 02:24:21 +0000 (UTC)
-Received: by mail-qv1-f46.google.com with SMTP id
- 6a1803df08f44-8738c6fdbe8so13175336d6.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 18:24:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762568660; x=1763173460; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=NY2LbgvIY/fMzsfOBXS1nVDAgZLdeObOtoX1Ris2Kn0=;
- b=RxyO+Z1TbWZEkCs9M8De9DIy8Ua1n2elYntKXMEYuQnn9f/eVRVyyIeIWMhmQUaVNZ
- xOIwm33TXCB+G7rpl1VvAnM5GCLNzXTcpRE9WzZ8GZaYJPRCI7dYvOTKSMSt7pGmiXFq
- zI+zS3SoCLqXbF97y5e4C1osxJAeJMpMn54/QR0pO6x+SKqrJ4KROgfkw3mSHYjEm33y
- h/MnOkgIe/pR3RE7LJaQx8gYTAnoEtilNW1D3lmlKTMltLxz666JYT1SVBbqAg7rzQtV
- 9g6w/AyjSoQFL+ERGSTfJq5quFLLPu0Awz98olReFJDg8i4ZWJ5qqgP8PmqV43kI6dAF
- DZGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762568660; x=1763173460;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NY2LbgvIY/fMzsfOBXS1nVDAgZLdeObOtoX1Ris2Kn0=;
- b=f97O7EK+b5J2Di1J5qFttmNUHxtZqsPX9X+pj6u6Lci0GCeFaKQ/oRL9UzomSFDQ0M
- XJHyiBQe/6FgV1KUyyWz8lAQitR4dFb1lJuCtDKDlGHtLsfITu0mNBCGG/PS6ET2C0BK
- 9puHePy2YfDYgahI4jEHBMNHFleC4l1eRsbWtteM1vX9bZhV9ZtRscN6fFYrX4EWI0m8
- hfneWdJI8/UtHI9WSfntqXiMSGGUEOoPdWRKQcQ5bHCKuaQYpukdsw9Hc3IzAgKz5NCw
- XY++q+9vLAl0chcrnhFLaOPtjhJykY0Ar3VUfgIjWMseJ65JlnqBOnlIXykv4vwsD4lj
- D8Dw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXBvEI/MpNgLRVyPLh9K6quGvNDhMlcJjinJlj57smO2Q6bR7pVoYn2W4qzB+zY85AZ4CunEDVl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNn46bjBeXJmskdJPa4IJI8RYxx92n/fDRWbd8vPHrhIUUwEnz
- 0VcpZRBkPRg+07h12JToFXyMQ4P4mhnFHw/cn0ayRqT1H1QI8PqiZ7yG
-X-Gm-Gg: ASbGncvddqsq4ICiejZqo9v0xSkiYTu+dzwsWHo+cfHBDzpGy8uBjiNxrzoL87dgLo8
- SwA34fSdWIztlOwSzJ1ltUKsubV2RjhFlJNZXNUrLkNf3ThFCEdsTJlO73SoXpuJZdhifbDf6cK
- 9StDN2eJqYoe+++aBcobvDVwkh2fN/OocmHUyPfdpqu8hB5uSuHB9GRGlWeJ9y2pf0XjenIWJ35
- 7XHvXTBccwNdmG6GF7eQ8qfqKkMF4q0o79+3Xws4kXwzDKrwI1/g4pl5AIGhjTKeXxKqdx5peSV
- ZTJTL21JN1mtn+1mxdZIVGua643ZUaxDMLTZLsll+NXx3JUxMBaMLp6Tg9cwmxgZOoULwQALDhB
- ljoHAO2ztt6jIrumvNoPQhQSIYasZI7VPOsW0LY7uN4aC38Y=
-X-Google-Smtp-Source: AGHT+IFg9wz6lhJl8Q0/MXiDVkvZKRCFkQJ5hkPlMaUqnbTVBXvIucOF1fAknSssoiuUZ/XVQ1oB7g==
-X-Received: by 2002:a05:6214:2aad:b0:880:580f:27c8 with SMTP id
- 6a1803df08f44-8822f4d3cbemr47329436d6.6.1762568659947; 
- Fri, 07 Nov 2025 18:24:19 -0800 (PST)
-Received: from ryzen ([2601:644:8000:8e26::ea0])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-88238928af8sm7493646d6.6.2025.11.07.18.24.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Nov 2025 18:24:19 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: dri-devel@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/amd/display:: fix designated initializer error
-Date: Fri,  7 Nov 2025 18:24:01 -0800
-Message-ID: <20251108022401.270909-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.51.2
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CA1210EB5C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 17:48:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1762537694;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=OtB+sZpQawht6Y2wkMhn/jRh99U8DiHTZvyeB15mQow=;
+ b=JChn/KmQoPXvc9upZrr035/hg2QLczAm+I5z5tBkAnnPzHpgAY93KFBuFbw+1I2P5tXK55
+ wKywTQDtqBhXpYwjJfss6glMKQtbW6VRWGE5hhyAjb8PqhkdlMq3wG0ECYhozpcQ5aIhDz
+ e7IQ+BJXUuhrBYMPhGNuPc47naKdpn4=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-527-pyVrMrA2OsmnKgqooUZhkg-1; Fri,
+ 07 Nov 2025 12:48:10 -0500
+X-MC-Unique: pyVrMrA2OsmnKgqooUZhkg-1
+X-Mimecast-MFC-AGG-ID: pyVrMrA2OsmnKgqooUZhkg_1762537689
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6AB36195605B; Fri,  7 Nov 2025 17:48:09 +0000 (UTC)
+Received: from [10.45.225.163] (unknown [10.45.225.163])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id C0671196B8FC; Fri,  7 Nov 2025 17:48:06 +0000 (UTC)
+Date: Fri, 7 Nov 2025 18:48:01 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@redhat.com>
+cc: amd-gfx@lists.freedesktop.org, linux-mm@kvack.org
+Subject: [PATCH v2] fix AMDGPU failure with periodic signal
+Message-ID: <6f16b618-26fc-3031-abe8-65c2090262e7@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: X6UEvPuyTl-ZdptgIe88_I-vm2Kicf9Y38GjkP9lziE_1762537689
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Sat, 08 Nov 2025 09:39:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,29 +71,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-{} instead of {0} avoids the error with W=1
+If a process sets up a timer that periodically sends a signal in short
+intervals and if it uses OpenCL on AMDGPU at the same time, we get random
+errors. Sometimes, probing the OpenCL device fails (strace shows that
+open("/dev/kfd") failed with -EINTR). Sometimes we get the message
+"amdgpu: init_user_pages: Failed to register MMU notifier: -4" in the
+syslog.
 
-error: positional initialization of field in ‘struct’ declared
-with ‘designated_init’ attribute [-Werror=designated-init]
+The bug can be reproduced with this program:
+http://www.jikos.cz/~mikulas/testcases/opencl/opencl-bug-small.c
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+The root cause for these failures is in the function mm_take_all_locks.
+This function fails with -EINTR if there is pending signal. The -EINTR is
+propagated up the call stack to userspace and userspace fails if it gets
+this error.
+
+There is the following call chain: kfd_open -> kfd_create_process ->
+create_process -> mmu_notifier_get -> mmu_notifier_get_locked ->
+__mmu_notifier_register -> mm_take_all_locks -> "return -EINTR"
+
+If the failure happens in init_user_pages, there is the following call
+chain: init_user_pages -> amdgpu_hmm_register ->
+mmu_interval_notifier_insert -> mmu_notifier_register ->
+__mmu_notifier_register -> mm_take_all_locks -> "return -EINTR"
+
+In order to fix these failures, this commit changes
+signal_pending(current) to fatal_signal_pending(current) in
+mm_take_all_locks, so that it is interrupted only if the signal is
+actually killing the process.
+
+Also, this commit skips pr_err in init_user_pages if the process is being
+killed - in this situation, there was no error and so we don't want to
+report it in the syslog.
+
+I'm submitting this patch for the stable kernels, because this bug may
+cause random failures in any OpenCL code.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org
+
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |    9 +++++++--
+ mm/vma.c                                         |    8 ++++----
+ 2 files changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-index f8996ee2856b..574618d5d4a4 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-@@ -1568,7 +1568,7 @@ void dce110_stream_encoder_construct(
- 	enc110->se_mask = se_mask;
- }
+Index: linux-6.17.7/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+===================================================================
+--- linux-6.17.7.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ linux-6.17.7/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1069,8 +1069,13 @@ static int init_user_pages(struct kgd_me
  
--static const struct stream_encoder_funcs dce110_an_str_enc_funcs = {0};
-+static const struct stream_encoder_funcs dce110_an_str_enc_funcs = {};
+ 	ret = amdgpu_hmm_register(bo, user_addr);
+ 	if (ret) {
+-		pr_err("%s: Failed to register MMU notifier: %d\n",
+-		       __func__, ret);
++		/*
++		 * If we got EINTR because the process was killed, don't report
++		 * it, because no error happened.
++		 */
++		if (!(fatal_signal_pending(current) && ret == -EINTR))
++			pr_err("%s: Failed to register MMU notifier: %d\n",
++			       __func__, ret);
+ 		goto out;
+ 	}
  
- void dce110_analog_stream_encoder_construct(
- 	struct dce110_stream_encoder *enc110,
--- 
-2.51.2
+Index: linux-6.17.7/mm/vma.c
+===================================================================
+--- linux-6.17.7.orig/mm/vma.c
++++ linux-6.17.7/mm/vma.c
+@@ -2175,14 +2175,14 @@ int mm_take_all_locks(struct mm_struct *
+ 	 * is reached.
+ 	 */
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		vma_start_write(vma);
+ 	}
+ 
+ 	vma_iter_init(&vmi, mm, 0);
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		if (vma->vm_file && vma->vm_file->f_mapping &&
+ 				is_vm_hugetlb_page(vma))
+@@ -2191,7 +2191,7 @@ int mm_take_all_locks(struct mm_struct *
+ 
+ 	vma_iter_init(&vmi, mm, 0);
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		if (vma->vm_file && vma->vm_file->f_mapping &&
+ 				!is_vm_hugetlb_page(vma))
+@@ -2200,7 +2200,7 @@ int mm_take_all_locks(struct mm_struct *
+ 
+ 	vma_iter_init(&vmi, mm, 0);
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		if (vma->anon_vma)
+ 			list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
 
