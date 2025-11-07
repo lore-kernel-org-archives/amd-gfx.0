@@ -4,86 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1E3BCCF9F8
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 08:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD59ECCF9E3
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 09:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB7CC10E1D0;
-	Fri,  7 Nov 2025 08:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5D510E1AF;
+	Fri,  7 Nov 2025 09:04:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kerneltoast.com header.i=@kerneltoast.com header.b="O4Ntv96e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O+wwPsoW";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B377A10E9C8
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 20:31:18 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-292fd52d527so319445ad.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Nov 2025 12:31:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kerneltoast.com; s=google; t=1762461078; x=1763065878;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Dps7FEPfxSkC0HLho87v7WV4ok95ETKEAfWGKPjxse4=;
- b=O4Ntv96eQZccuSLWAvb8EFSdIrhS9WTxUcu8V2kfQfT/hSMBG7/js0ueR+Lo5KEFTp
- GqmC0jKCwKbj1kBwKP2y7IBknujRb5BAjn0EW+0vyigt2ohGRWdHRLptzEYPigLC5Ulo
- YisQ84AtjfYnAOEjDSy7iEZHKOzTU67sXgZSIseXHSZkoVTwrBfcOnTOwpHpucc6F1k5
- H3kaH+n4Wlk19at11EqKX98GyAjk0Vv2mNXkBIZHxxWrsO0wmFX68U20fnaEORNVHU2h
- YWhFjhWeLDqS05YEGEzvfbkpmOLMzP6RdAlN9T2uv6G8o5+oeajea2OnJQNdW6ld/p4v
- c1XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762461078; x=1763065878;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Dps7FEPfxSkC0HLho87v7WV4ok95ETKEAfWGKPjxse4=;
- b=E1CkTkbI1RTcWOjv+GITEUl+8QsPSERe0P+W27QLWjV9DDNtU6TAn6YUr3nm7AF3SW
- 0aFtyaTEhm0CH1zZNRXvZkgwKnTJr/EUPqlMCCqkcrJ4IdIfE/zTzdicQw6TVv33Z5f6
- Sc2G3q94Kv+iSxjBW3IjFo8POh/bgHdV7QT2rFJrTDjwsZS41/sgcicMP3RptqYvLnF8
- xk1TBaR5W7SXe0NFnfIFo0xyVcMsDU8ZYPIcwaVYZc8RV9h5086br+q3pCwfMvKION3s
- SFxKgCPJ545RHIidrJGGPhPR7aExuPf1MGEjfccnKpCTuVzoXuRN4Da0PDKiCATIr+HF
- WkFQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUO/pTNgm08gPaUyuei6cTNoqleM/uzgtIawyy2X4ZAT2u9pbNBchfG8EninKQTmqNda77TM7Lp@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOKzu0qNog6r1yvAbjZPWVM4harzB6fG1XzSlhWfGW+LH/O5XR
- w1pHwGmv+vVDXz+y18LwI2sRLZIjGEd6zam68A05YwFdXTXH2yt6mpou4NNNm1rmfDO0
-X-Gm-Gg: ASbGncvJwt8EalACy9pGq7BTOGTP5FZzRKcvgFpaZQwRzjl4rIluL2rfxEGKi3Y4GP6
- jE1Ls34OzeD+hZuF0nBjM6oN8UIcVfAZF8vQbiEGUv8y1w8ghYmBSk0TwMeIhlL7pWXRw/UJj5Z
- xEGMRGssgQwgyzQQXL/Bn3TCDKVg5aGGdnkPFx8KoRNEqfFlVA++QynV1RBvYwlyBKuQyvIGI/J
- UXZxYMcUkwOWaCjH1PHBeWPtakea/4504m8wQPDqzinQZ4HiJzKz5SBwizHJvamHUlK4oUXetUV
- FFkgvIR+iS5+cvBZr23zezC6Rlhf0kVuac5KHN7su9R0DlDZSs2qomBMJIBOY8f19xBkKMMLlfO
- hbCExn+JrEhgWZoZ/ri2JX95cWaLoTRCU3ezDnqXQmFKRodY9p5YpVEg502GJYsn3pzZvZ4DLbI
- wiFs9Ym7URtym11A==
-X-Google-Smtp-Source: AGHT+IGAUc9HeLLcMeF3QfUbhcwov31S3k7DjPxtRQdgKS1cFuyrnJHQYN3yc95QcYPIRsYGbX1sPw==
-X-Received: by 2002:a17:903:19c7:b0:295:4251:838d with SMTP id
- d9443c01a7336-297c04a60camr9979345ad.55.1762461077969; 
- Thu, 06 Nov 2025 12:31:17 -0800 (PST)
-Received: from sultan-box ([142.147.89.233]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29650c5e3c5sm37676445ad.43.2025.11.06.12.31.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Nov 2025 12:31:17 -0800 (PST)
-Date: Thu, 6 Nov 2025 12:31:13 -0800
-From: Sultan Alsawaf <sultan@kerneltoast.com>
-To: "Nirujogi, Pratap" <pnirujog@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, bin.du@amd.com,
- pratap.nirujogi@amd.com, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, alexander.deucher@amd.com,
- benjamin.chan@amd.com, christian.koenig@amd.com, dantony@amd.com,
- gjorgji.rosikopulos@amd.com, king.li@amd.com, phil.jawich@amd.com
-Subject: Re: [PATCH] drm/amd/amdgpu: Ensure isp_kernel_buffer_alloc() creates
- a new BO
-Message-ID: <aQ0FkZv_l8UPLhvr@sultan-box>
-References: <20251105232108.107765-1-sultan@kerneltoast.com>
- <a6063bc0-4ba1-4cad-9045-5fa31ea4ed7a@amd.com>
- <aQzv00We7FyKAWk7@sultan-box>
- <cbf09540-df4b-4e2d-9e46-e6893af79fba@amd.com>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010058.outbound.protection.outlook.com [52.101.61.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 319C810E1BA;
+ Fri,  7 Nov 2025 09:04:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VcJBrx+cbZtLpEWdDUMHukXmhjUidTQj3AMwmy6oCCtTESM8UA4reaCvPCbjYKkdLckD5NjE20+Y48G9sSgmjvzwv88tjiy8B3gIqgezqjFoYxHYPfHQsqDSLAcPLaGpYeJzcWegbCtzba1lZEKfkT2vx443YHDrDsA6t0fSoQDYGxTD1/K9aol5zWS2zQPSHvujr83toO6HX1/TrvnGoWArRWWzMg/OPvXqf7Z2DGRsyEEbRlKbxuNE4FRbIXfyl4ShVYwVY2yt9gcj93KAMzQ/3ezz3nKsN+mHTM1d5zO2+ma/Q19iylPYLw+vzZhTToYbwjppY54Wp57qlaEesQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1xPMpl8VEA8QBzh65oO2lBWtlg4Tp/boL50io4vE8rw=;
+ b=oesTPxJOUfXdl7KMT0MNs9WSOIPVNMi6aXjTHzv8a9ULMv+fw2v1k4m1VaIVwPr70wvtFD9bpdTSnIMlPQPPdHc/gYIj7kJO/OJU+K/+H0IW9ZhMMdBurV9/e5L77Pk/JPWG98uwl3aFjL/Zwf4y8oTW/oXWY/ypTI8R9oYWi46zOMzHKa1bLmJ9pfimuDAHVkfKiVDwCqDbb84mXK6qadggfVs9tegKoif+sEiZe+mGlT8g9Sdsi17As8aKXDEvcuiZcnvIYpZV0jILAxflGlfPigtgL1doyQbPvNnVIgh/Hl+cwEBmhe+mVJdxvnrWFnNE6xe4/fKRKjOsjN1hEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1xPMpl8VEA8QBzh65oO2lBWtlg4Tp/boL50io4vE8rw=;
+ b=O+wwPsoWFn5YgmaUTdFDoKqjZLvCsCFPaxbTC84HTLMP4zxEBor8UvHBW+q7YDxBwrIhMlnE/yWIEkaUzOnmp+MsP88nKCibRIB/MnHfwfblQAAfTgfQUmpE25AZkaBCwh1xj59gnZEiem6FiEVRWyQGK23T7dGX2DQX+LqPEo8=
+Received: from BN0PR04CA0036.namprd04.prod.outlook.com (2603:10b6:408:e8::11)
+ by SA1PR12MB8699.namprd12.prod.outlook.com (2603:10b6:806:389::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Fri, 7 Nov
+ 2025 09:04:44 +0000
+Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
+ (2603:10b6:408:e8:cafe::f2) by BN0PR04CA0036.outlook.office365.com
+ (2603:10b6:408:e8::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.13 via Frontend Transport; Fri,
+ 7 Nov 2025 09:04:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Fri, 7 Nov 2025 09:04:43 +0000
+Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Fri, 7 Nov 2025 01:04:42 -0800
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 1/3] drm/amdgpu: add engine_retains_context to
+ amdgpu_ring_funcs
+Date: Fri, 7 Nov 2025 10:04:19 +0100
+Message-ID: <20251107090425.23199-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <cbf09540-df4b-4e2d-9e46-e6893af79fba@amd.com>
-X-Mailman-Approved-At: Fri, 07 Nov 2025 08:21:53 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|SA1PR12MB8699:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d482203-2d97-4265-ac57-08de1ddcb15b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?f+/K5oUXRQojRm56eWb+DZNt0iWfeKAi+iFRXdPyq48i1yNeeWzTtymv03D0?=
+ =?us-ascii?Q?CR/XR/ukOlBUt5l+WkSSScT/P8/YX04eh68GEt+7wlRBu82X2khxiOXXa4aA?=
+ =?us-ascii?Q?3p6kEkzKcBrpi4GqXwN/9jodbbPI5ViNmzG47SRr7+ZebJH0bgCK/k/MkpjW?=
+ =?us-ascii?Q?2b69yKSyU6lwBhc+LoFPALWD+P0efrzxKktrAobZ7cMTFaEB6sNWUM4XMeS5?=
+ =?us-ascii?Q?z4oUR/Le4/BfjQYofWFaB7nV4XVNeJj2AOvsRJlY20j41jRkSnkuRZDusxJC?=
+ =?us-ascii?Q?lz5T+KanaWTfbsBFNleFFl8ehq/oYCPiSSQTPXzcrIFN7KE4jrEnbyJXzAtX?=
+ =?us-ascii?Q?ihjkHN7VPZ2fTk2orvXTOmw402hEFCz/I8IpysBn7tUgNvvPmtbFVLh/frBM?=
+ =?us-ascii?Q?zFkyy8YM693a3DHBy2mFx16sX1v5pokLYmNdwgnnC3RqWQ3Iujw9nmGR/T2R?=
+ =?us-ascii?Q?D7voLHS+06ljGsdpBuIfdQMFjapf3uXZAhJOH2qsrxK7MOU47htlW9fQ7Vx1?=
+ =?us-ascii?Q?E6+errm2LYYjM04/i7s3TrtKOtYrye8Sne9wozwHy7VU6ak87aGWTMjOzsPh?=
+ =?us-ascii?Q?inf42KsJp3d+z76oXRHcvgi63HEI6MB2Mge/U64bHs/H4BRKNw4z2UPMj1Ve?=
+ =?us-ascii?Q?OHOS1utJp+6hhZi7dE2GPASAuFr8w2HUmA11cILXUYLwlXCAYmBHKxP6eN3p?=
+ =?us-ascii?Q?fbydWhh/mnRbBIRpj9fY0SwLb+YGfcFZzZ9AsxjYF5sT0bb4JVymWx42uXcO?=
+ =?us-ascii?Q?9JW1KEQTKJWZqn4zAK3i8Cnovqc0ZrM0Ix8wgox04/g7Rq8uAw35YVMHy27M?=
+ =?us-ascii?Q?2NyHElfSekjUpvA+YgC66cE/sN5jsEIkmw5SO3g3rN3xYNtk3WnRLZRTL9Oq?=
+ =?us-ascii?Q?GDjwnc2mitsgqXtxro5Qe3xrVShCMXxtv5KPZqFyPqEVB6jboFkO5cl5SDrS?=
+ =?us-ascii?Q?DgFlgbNekV+lf6PTu9QJYozSpXSAYA67zSg62T2yMYqVv9f5e/oJgec9lJso?=
+ =?us-ascii?Q?f6FExxJHPQoaJkcAlspkbjOMMihQx03qpw/UzjoR15PR7FDAC1v3XOooD15y?=
+ =?us-ascii?Q?2jPX0Jv6WZAY6VEcmleB2dwRBKf37wn7sEaRT87kqaKrSTByEycBuGWyQTLn?=
+ =?us-ascii?Q?Vhnx5QgXfAJuL6TPkU+bAJs6Ax9ErpLuRiwoSKFKW6tSx/bgeSed7LI8iNYG?=
+ =?us-ascii?Q?mqNq+XTvyeTkX0wAvzICFWmsTl8SGxtnXLokGISc6uS6L4uqoelsgmY3s+1v?=
+ =?us-ascii?Q?u0IJMxCyp0otIAMTLU5B+etIkJPJouOVESzMnhPOVyHjWKf/V5HeNg9sIikx?=
+ =?us-ascii?Q?7wQEPZwKHmCCjGenMAQR2K5pvdbyCza3cAU7mXqh4Zgo2T+eQYDNTHGvlCNO?=
+ =?us-ascii?Q?Vx2xgNqxEIV4hIE+Ebxu0/pHBV+Oev+hXIRIoxbLnUlxcGTvdDazUZljdsBe?=
+ =?us-ascii?Q?XsWWTwQlUndtMN/+D3GrxazJG9H7pNeWaUgeUrGvQLfqJtI7+2uURtYCh0/C?=
+ =?us-ascii?Q?sqqeBuHDZMGkcKKgRR+akejq/N8GqtxeqX5PM4VkY3AojXPGeiQnpq2gnJhO?=
+ =?us-ascii?Q?yXlMBgw6wDsQdbztcB4=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 09:04:43.8349 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d482203-2d97-4265-ac57-08de1ddcb15b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8699
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,260 +136,276 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 06, 2025 at 03:08:44PM -0500, Nirujogi, Pratap wrote:
->=20
->=20
-> On 11/6/2025 1:58 PM, Sultan Alsawaf wrote:
-> > Caution: This message originated from an External Source. Use proper ca=
-ution when opening attachments, clicking links, or responding.
-> >=20
-> >=20
-> > On Thu, Nov 06, 2025 at 12:46:51PM -0600, Mario Limonciello wrote:
-> > > On 11/5/25 5:21 PM, Sultan Alsawaf wrote:
-> > > > From: Sultan Alsawaf <sultan@kerneltoast.com>
-> > > >=20
-> > > > When the BO pointer provided to amdgpu_bo_create_kernel() points to
-> > > > non-NULL, amdgpu_bo_create_kernel() takes it as a hint to pin that =
-address
-> > > > rather than allocate a new BO.
-> > > >=20
-> > > > This functionality is never desired for allocating ISP buffers. A n=
-ew BO
-> > > > should always be created when isp_kernel_buffer_alloc() is called, =
-per the
-> > > > description for isp_kernel_buffer_alloc().
-> > >=20
-> > > Are you just going off descriptions, or is there a problem with reuse?
-> >=20
-> > I am going based off the ISP4 driver's usage of isp_kernel_buffer_alloc=
-().
-> >=20
-> > This fixes the following crash I experienced on v5 of the ISP4 patchset:
-> >=20
-> >    [  175.485627] BUG: unable to handle page fault for address: 00007f6=
-b1092e888
-> >    [  175.485799] #PF: supervisor read access in kernel mode
-> >    [  175.485840] #PF: error_code(0x0000) - not-present page
-> >    [  175.485869] PGD 0 P4D 0
-> >    [  175.485889] Oops: Oops: 0000 [#1] SMP
-> >    [  175.485908] CPU: 15 UID: 1000 PID: 57022 Comm: cheese Tainted: G =
-    U  W           6.17.7 #1 PREEMPT
-> >    [  175.485921] Tainted: [U]=3DUSER, [W]=3DWARN
-> >    [  175.485933] Hardware name: HP HP ZBook Ultra G1a 14 inch Mobile W=
-orkstation PC/8D01, BIOS X89 Ver. 01.03.00 04/25/2025
-> >    [  175.485943] RIP: 0010:amdgpu_bo_create_reserved+0xb1/0x1c0 [amdgp=
-u]
-> >    [  175.485961] Code: 8b 30 44 89 64 24 20 48 89 44 24 28 c7 44 24 30=
- 01 00 00 00 c7 44 24 1c b8 02 00 00 c6 44 24 08 00 4d 85 f6 0f 84 a9 00 00=
- 00 <49> 8b 86 a8 01 00 00 49 8b be 40 01 00 00 31 f6 48 89 04 24 e8 d6
-> >    [  175.485976] RSP: 0018:ffff97b14e097ad0 EFLAGS: 00010202
-> >    [  175.485988] RAX: 0000000000000021 RBX: ffff97b085af04d0 RCX: 0000=
-000000000000
-> >    [  175.486002] RDX: 0000000000008000 RSI: ffff97b14e097ae0 RDI: ffff=
-97b14e097b20
-> >    [  175.486012] RBP: ffff97b085af04c8 R08: ffff97b085af04d8 R09: ffff=
-97b085af04c8
-> >    [  175.486023] R10: 0000000000ffffff R11: ffff97b085af0560 R12: 0000=
-000000000002
-> >    [  175.486031] R13: ffff97b085af04d8 R14: 00007f6b1092e6e0 R15: ffff=
-97b0a0f00000
-> >    [  175.486037] FS:  00007faf60ffe6c0(0000) GS:ffff97cfa7133000(0000)=
- knlGS:0000000000000000
-> >    [  175.486046] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >    [  175.486058] CR2: 00007f6b1092e888 CR3: 0000000101c3f000 CR4: 0000=
-000000f50ef0
-> >    [  175.486067] PKRU: 55555554
-> >    [  175.486072] Call Trace:
-> >    [  175.486081]  <TASK>
-> >    [  175.486092]  ? smu_cmn_send_smc_msg_with_param+0xc0/0x360 [amdgpu]
-> >    [  175.486102]  amdgpu_bo_create_kernel+0x15/0x70 [amdgpu]
-> >    [  175.486110]  isp_kernel_buffer_alloc+0x56/0xa0 [amdgpu]
-> >    [  175.486118]  isp4if_gpu_mem_alloc.isra.0+0x45/0x70 [amd_capture]
-> >    [  175.486126]  isp4if_start+0x3a/0x320 [amd_capture]
-> >    [  175.486141]  isp4sd_set_power+0x96/0x1e0 [amd_capture]
-> >    [  175.486148]  pipeline_pm_power_one+0xf2/0x110 [videodev]
-> >    [  175.486155]  pipeline_pm_power+0x51/0x90 [videodev]
-> >    [  175.486161]  v4l2_pipeline_pm_use+0x3b/0x60 [videodev]
-> >    [  175.486169]  isp4vid_qops_start_streaming+0x22/0x140 [amd_capture]
-> >    [  175.486176]  ? isp4vid_qops_buffer_queue+0xb1/0x140 [amd_capture]
-> >    [  175.486185]  vb2_start_streaming+0x79/0x140 [videobuf2_common]
-> >    [  175.486192]  vb2_core_qbuf+0x3b5/0x480 [videobuf2_common]
-> >    [  175.486200]  vb2_qbuf+0x98/0x100 [videobuf2_v4l2]
-> >    [  175.486208]  __video_do_ioctl+0x480/0x4b0 [videodev]
-> >    [  175.486219]  video_usercopy+0x1e5/0x760 [videodev]
-> >    [  175.486226]  ? v4l_s_output+0x50/0x50 [videodev]
-> >    [  175.486237]  v4l2_ioctl+0x45/0x50 [videodev]
-> >    [  175.486245]  __x64_sys_ioctl+0x77/0xc0
-> >    [  175.486251]  do_syscall_64+0x48/0xbf0
-> >    [  175.486260]  entry_SYSCALL_64_after_hwframe+0x50/0x58
-> >    [  175.486268] RIP: 0033:0x7fb03371674d
-> >    [  175.486275] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10=
- c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f=
- 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-> >    [  175.486282] RSP: 002b:00007faf60ffc9d0 EFLAGS: 00000246 ORIG_RAX:=
- 0000000000000010
-> >    [  175.486292] RAX: ffffffffffffffda RBX: 00007fafb40050b0 RCX: 0000=
-7fb03371674d
-> >    [  175.486301] RDX: 00007faf60ffca70 RSI: 00000000c058560f RDI: 0000=
-00000000002c
-> >    [  175.486306] RBP: 00007faf60ffca20 R08: 13455f273d2513b9 R09: 0000=
-000000000210
-> >    [  175.486313] R10: 0000000000000215 R11: 0000000000000246 R12: 0000=
-7faf9801c4b0
-> >    [  175.486318] R13: 0000000000000001 R14: 00007faf60ffcad0 R15: 0000=
-000000000001
-> >    [  175.486324]  </TASK>
-> >    [  175.486330] Modules linked in: ccm hid_sensor_prox hid_sensor_gyr=
-o_3d hid_sensor_trigger industrialio_triggered_buffer kfifo_buf hid_sensor_=
-iio_common industrialio hid_sensor_hub rfcomm snd_seq_dummy snd_hrtimer snd=
-_seq snd_seq_device amd_capture videobuf2_memops videobuf2_v4l2 videobuf2_c=
-ommon videodev mc pinctrl_amdisp i2c_designware_amdisp uhid cmac algif_hash=
- algif_skcipher af_alg bnep uinput nls_iso8859_1 vfat fat snd_acp_legacy_ma=
-ch snd_acp_mach snd_soc_nau8821 snd_acp3x_rn snd_acp70 snd_acp_i2s snd_acp_=
-pdm joydev snd_soc_dmic snd_acp_pcm mousedev intel_rapl_msr snd_sof_amd_acp=
-70 snd_sof_amd_acp63 snd_hda_scodec_cs35l56_spi intel_rapl_common snd_ctl_l=
-ed snd_sof_amd_vangogh snd_sof_amd_rembrandt snd_hda_codec_alc269 snd_sof_a=
-md_renoir snd_hda_scodec_component snd_sof_amd_acp snd_hda_codec_realtek_li=
-b snd_sof_pci snd_sof_xtensa_dsp snd_hda_codec_generic snd_sof snd_sof_util=
-s snd_pci_ps snd_soc_acpi_amd_match amdgpu snd_amd_sdw_acpi snd_hda_codec_a=
-tihdmi soundwire_amd soundwire_generic_allocation snd_hda_codec_hdmi
-> >    [  175.486373]  soundwire_bus snd_soc_sdca snd_soc_core snd_compress=
- snd_hda_intel ac97_bus snd_pcm_dmaengine mt7925e drm_panel_backlight_quirk=
-s amdxcp snd_hda_codec snd_rpl_pci_acp6x mt7925_common btusb drm_buddy cdc_=
-mbim mt792x_lib snd_acp_pci cdc_wdm btrtl drm_exec snd_hda_core snd_amd_acp=
-i_mach mt76_connac_lib snd_hda_scodec_cs35l56_i2c btintel snd_acp_legacy_co=
-mmon drm_suballoc_helper cdc_ncm snd_intel_dspcfg mt76 snd_hda_scodec_cs35l=
-56 snd_pci_acp6x cdc_ether drm_ttm_helper btbcm snd_intel_sdw_acpi snd_hda_=
-cirrus_scodec snd_hwdep usbnet ttm snd_pci_acp5x btmtk snd_soc_cs35l56_shar=
-ed ucsi_acpi kvm_amd mac80211 snd_pcm r8152 i2c_algo_bit snd_rn_pci_acp3x t=
-ypec_ucsi snd_soc_cs_amp_lib libarc4 spd5118 bluetooth mii drm_display_help=
-er snd_timer cs_dsp kvm typec snd_acp_config hp_wmi snd cfg80211 libphy amd=
-xdna roles cec snd_soc_acpi ecdh_generic sp5100_tco hid_multitouch irqbypas=
-s sparse_keymap rfkill rapl mdio_bus video gpu_sched amd_pmf wmi_bmof snd_p=
-ci_acp3x soundcore amdtee i2c_hid_acpi serial_multi_instantiate
-> >    [  175.486384]  i2c_hid amd_sfh thunderbolt wireless_hotkey amd_pmc =
-platform_profile wmi mac_hid i2c_piix4 i2c_smbus i2c_dev sg crypto_user loo=
-p nfnetlink ip_tables x_tables dm_crypt encrypted_keys trusted asn1_encoder=
- tee dm_mod polyval_clmulni ghash_clmulni_intel aesni_intel nvme nvme_core =
-nvme_keyring serio_raw ccp nvme_auth
-> >    [  175.486394] CR2: 00007f6b1092e888
-> >    [  175.486402] ---[ end trace 0000000000000000 ]---
-> >    [  175.486409] RIP: 0010:amdgpu_bo_create_reserved+0xb1/0x1c0 [amdgp=
-u]
-> >    [  175.486416] Code: 8b 30 44 89 64 24 20 48 89 44 24 28 c7 44 24 30=
- 01 00 00 00 c7 44 24 1c b8 02 00 00 c6 44 24 08 00 4d 85 f6 0f 84 a9 00 00=
- 00 <49> 8b 86 a8 01 00 00 49 8b be 40 01 00 00 31 f6 48 89 04 24 e8 d6
-> >    [  175.486422] RSP: 0018:ffff97b14e097ad0 EFLAGS: 00010202
-> >    [  175.486429] RAX: 0000000000000021 RBX: ffff97b085af04d0 RCX: 0000=
-000000000000
-> >    [  175.486433] RDX: 0000000000008000 RSI: ffff97b14e097ae0 RDI: ffff=
-97b14e097b20
-> >    [  175.486439] RBP: ffff97b085af04c8 R08: ffff97b085af04d8 R09: ffff=
-97b085af04c8
-> >    [  175.486444] R10: 0000000000ffffff R11: ffff97b085af0560 R12: 0000=
-000000000002
-> >    [  175.486448] R13: ffff97b085af04d8 R14: 00007f6b1092e6e0 R15: ffff=
-97b0a0f00000
-> >    [  175.486455] FS:  00007faf60ffe6c0(0000) GS:ffff97cfa7133000(0000)=
- knlGS:0000000000000000
-> >    [  175.486460] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >    [  175.486464] CR2: 00007f6b1092e888 CR3: 0000000101c3f000 CR4: 0000=
-000000f50ef0
-> >    [  175.486470] PKRU: 55555554
-> >=20
-> > Admittedly, it's my fault that ISP4 stopped zeroing the BO pointer argu=
-ment
-> > (&mem_info->mem_handle) passed to isp_kernel_buffer_alloc() [1]. But si=
-nce this
-> > issue slipped past Bin and presumably others who reviewed the code, it
-> > highlights that isp_kernel_buffer_alloc() is not working as expected in=
- this
-> > respect, and the description for isp_kernel_buffer_alloc() reinforces t=
-his.
-> >=20
-> Thanks Sultan for suggesting this fix. Yes, its hard to believe that this
-> slipped through until now.
->=20
-> Instead of initializing *bo=3DNULL, I suggest ensuring *bo is actually NU=
-LL
-> before calling amdgpu_bo_create_kernel().
->=20
-> int isp_kernel_buffer_alloc(...)
-> {
-> 	...
-> 	if (WARN_ON(*bo))
-> 		return -EINVAL;
-> 	...
-> 	ret =3D amdgpu_bo_create_kernel(..)
-> 	...
-> }
->=20
-> This way the caller will get to know parameters passed are invalid and can
-> take care of initializing the handles appropriately.
+If true, the hw engine retains context among dependent jobs, which means
+load balancing between schedulers cannot be used at the job level.
 
-Hi Pratap,
+amdgpu_ctx_init_entity uses this information to disable load balancing,
+but it's best to store it as a property rather than deduce it based on
+hw_ip.
 
-I am opposed to this idea for multiple reasons:
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c    | 1 +
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c    | 1 +
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c    | 1 +
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    | 3 +++
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    | 2 ++
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 2 ++
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    | 2 ++
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    | 2 ++
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c    | 3 +++
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    | 1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c  | 1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  | 1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c  | 1 +
+ 15 files changed, 23 insertions(+)
 
-1. *bo is an output parameter from isp_kernel_buffer_alloc(), so the input =
-value
-   should not matter.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 4b46e3c26ff3..a10efac2fc54 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -211,6 +211,7 @@ struct amdgpu_ring_funcs {
+ 	bool			support_64bit_ptrs;
+ 	bool			no_user_fence;
+ 	bool			secure_submission_supported;
++	bool			engine_retains_context;
+ 
+ 	/**
+ 	 * @extra_bytes:
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+index 2e79a3afc774..4a85b5465bb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -181,6 +181,7 @@ static const struct amdgpu_ring_funcs uvd_v3_1_ring_funcs = {
+ 	.align_mask = 0xf,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v3_1_ring_get_rptr,
+ 	.get_wptr = uvd_v3_1_ring_get_wptr,
+ 	.set_wptr = uvd_v3_1_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+index 4b96fd583772..e7c1d12f0596 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+@@ -775,6 +775,7 @@ static const struct amdgpu_ring_funcs uvd_v4_2_ring_funcs = {
+ 	.align_mask = 0xf,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v4_2_ring_get_rptr,
+ 	.get_wptr = uvd_v4_2_ring_get_wptr,
+ 	.set_wptr = uvd_v4_2_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+index 71409ad8b7ed..a62788e4af96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -882,6 +882,7 @@ static const struct amdgpu_ring_funcs uvd_v5_0_ring_funcs = {
+ 	.align_mask = 0xf,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v5_0_ring_get_rptr,
+ 	.get_wptr = uvd_v5_0_ring_get_wptr,
+ 	.set_wptr = uvd_v5_0_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+index ceb94bbb03a4..0435577b9b3b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -1552,6 +1552,7 @@ static const struct amdgpu_ring_funcs uvd_v6_0_ring_phys_funcs = {
+ 	.align_mask = 0xf,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v6_0_ring_get_rptr,
+ 	.get_wptr = uvd_v6_0_ring_get_wptr,
+ 	.set_wptr = uvd_v6_0_ring_set_wptr,
+@@ -1578,6 +1579,7 @@ static const struct amdgpu_ring_funcs uvd_v6_0_ring_vm_funcs = {
+ 	.align_mask = 0xf,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v6_0_ring_get_rptr,
+ 	.get_wptr = uvd_v6_0_ring_get_wptr,
+ 	.set_wptr = uvd_v6_0_ring_set_wptr,
+@@ -1607,6 +1609,7 @@ static const struct amdgpu_ring_funcs uvd_v6_0_enc_ring_vm_funcs = {
+ 	.nop = HEVC_ENC_CMD_NO_OP,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v6_0_enc_ring_get_rptr,
+ 	.get_wptr = uvd_v6_0_enc_ring_get_wptr,
+ 	.set_wptr = uvd_v6_0_enc_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+index 1f8866f3f63c..3720d72f2c3e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+@@ -1539,6 +1539,7 @@ static const struct amdgpu_ring_funcs uvd_v7_0_ring_vm_funcs = {
+ 	.align_mask = 0xf,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v7_0_ring_get_rptr,
+ 	.get_wptr = uvd_v7_0_ring_get_wptr,
+ 	.set_wptr = uvd_v7_0_ring_set_wptr,
+@@ -1571,6 +1572,7 @@ static const struct amdgpu_ring_funcs uvd_v7_0_enc_ring_vm_funcs = {
+ 	.nop = HEVC_ENC_CMD_NO_OP,
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
++	.engine_retains_context = true,
+ 	.get_rptr = uvd_v7_0_enc_ring_get_rptr,
+ 	.get_wptr = uvd_v7_0_enc_ring_get_wptr,
+ 	.set_wptr = uvd_v7_0_enc_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index a316797875a8..1691d0f955a9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -2117,6 +2117,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_dec_ring_vm_funcs = {
+ 	.support_64bit_ptrs = false,
+ 	.no_user_fence = true,
+ 	.secure_submission_supported = true,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v1_0_dec_ring_get_rptr,
+ 	.get_wptr = vcn_v1_0_dec_ring_get_wptr,
+ 	.set_wptr = vcn_v1_0_dec_ring_set_wptr,
+@@ -2150,6 +2151,7 @@ static const struct amdgpu_ring_funcs vcn_v1_0_enc_ring_vm_funcs = {
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
+ 	.support_64bit_ptrs = false,
++	.engine_retains_context = true,
+ 	.no_user_fence = true,
+ 	.get_rptr = vcn_v1_0_enc_ring_get_rptr,
+ 	.get_wptr = vcn_v1_0_enc_ring_get_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 8897dcc9c1a0..046dd6b216e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -2113,6 +2113,7 @@ static const struct amdgpu_ring_funcs vcn_v2_0_dec_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_DEC,
+ 	.align_mask = 0xf,
+ 	.secure_submission_supported = true,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v2_0_dec_ring_get_rptr,
+ 	.get_wptr = vcn_v2_0_dec_ring_get_wptr,
+ 	.set_wptr = vcn_v2_0_dec_ring_set_wptr,
+@@ -2144,6 +2145,7 @@ static const struct amdgpu_ring_funcs vcn_v2_0_enc_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v2_0_enc_ring_get_rptr,
+ 	.get_wptr = vcn_v2_0_enc_ring_get_wptr,
+ 	.set_wptr = vcn_v2_0_enc_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index cebee453871c..063f88da120b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -1777,6 +1777,7 @@ static const struct amdgpu_ring_funcs vcn_v2_5_dec_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_DEC,
+ 	.align_mask = 0xf,
+ 	.secure_submission_supported = true,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v2_5_dec_ring_get_rptr,
+ 	.get_wptr = vcn_v2_5_dec_ring_get_wptr,
+ 	.set_wptr = vcn_v2_5_dec_ring_set_wptr,
+@@ -1877,6 +1878,7 @@ static const struct amdgpu_ring_funcs vcn_v2_5_enc_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v2_5_enc_ring_get_rptr,
+ 	.get_wptr = vcn_v2_5_enc_ring_get_wptr,
+ 	.set_wptr = vcn_v2_5_enc_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index d9cf8f0feeb3..8dcc07b3f631 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -1857,6 +1857,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_dec_sw_ring_vm_funcs = {
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_DEC_SW_CMD_NO_OP,
+ 	.secure_submission_supported = true,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v3_0_dec_ring_get_rptr,
+ 	.get_wptr = vcn_v3_0_dec_ring_get_wptr,
+ 	.set_wptr = vcn_v3_0_dec_ring_set_wptr,
+@@ -2021,6 +2022,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_dec_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_DEC,
+ 	.align_mask = 0xf,
+ 	.secure_submission_supported = true,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v3_0_dec_ring_get_rptr,
+ 	.get_wptr = vcn_v3_0_dec_ring_get_wptr,
+ 	.set_wptr = vcn_v3_0_dec_ring_set_wptr,
+@@ -2122,6 +2124,7 @@ static const struct amdgpu_ring_funcs vcn_v3_0_enc_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v3_0_enc_ring_get_rptr,
+ 	.get_wptr = vcn_v3_0_enc_ring_get_wptr,
+ 	.set_wptr = vcn_v3_0_enc_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 3ae666522d57..f1306316dc3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1977,6 +1977,7 @@ static struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.extra_bytes = sizeof(struct amdgpu_vcn_rb_metadata),
+ 	.get_rptr = vcn_v4_0_unified_ring_get_rptr,
+ 	.get_wptr = vcn_v4_0_unified_ring_get_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index eacf4e93ba2f..5a935c07352a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -1628,6 +1628,7 @@ static const struct amdgpu_ring_funcs vcn_v4_0_3_unified_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v4_0_3_unified_ring_get_rptr,
+ 	.get_wptr = vcn_v4_0_3_unified_ring_get_wptr,
+ 	.set_wptr = vcn_v4_0_3_unified_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index b107ee80e472..1a485f5825dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -1481,6 +1481,7 @@ static struct amdgpu_ring_funcs vcn_v4_0_5_unified_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v4_0_5_unified_ring_get_rptr,
+ 	.get_wptr = vcn_v4_0_5_unified_ring_get_wptr,
+ 	.set_wptr = vcn_v4_0_5_unified_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index 0202df5db1e1..2d8214f591f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -1203,6 +1203,7 @@ static const struct amdgpu_ring_funcs vcn_v5_0_0_unified_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v5_0_0_unified_ring_get_rptr,
+ 	.get_wptr = vcn_v5_0_0_unified_ring_get_wptr,
+ 	.set_wptr = vcn_v5_0_0_unified_ring_set_wptr,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+index 714350cabf2f..bd3a04f1414d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+@@ -1328,6 +1328,7 @@ static const struct amdgpu_ring_funcs vcn_v5_0_1_unified_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
++	.engine_retains_context = true,
+ 	.get_rptr = vcn_v5_0_1_unified_ring_get_rptr,
+ 	.get_wptr = vcn_v5_0_1_unified_ring_get_wptr,
+ 	.set_wptr = vcn_v5_0_1_unified_ring_set_wptr,
+-- 
+2.43.0
 
-2. The only correct value for *bo is NULL when isp_kernel_buffer_alloc() pa=
-sses
-   it to amdgpu_bo_create_kernel(). Since there is only one correct value, =
-there
-   is no reason to burden callers of isp_kernel_buffer_alloc() with intiali=
-zing
-   *bo to NULL.
-
-3. This adds more code, another WARN_ON(), and another error case to
-   isp_kernel_buffer_alloc(). All of that can be eliminated entirely by just
-   initializing *bo to NULL in isp_kernel_buffer_alloc(), as I've done.
-
-4. The reason *bo needs to be NULL is an implementation detail that is inte=
-rnal
-   to isp_kernel_buffer_alloc(), because amdgpu_bo_create_kernel() needs it=
- to
-   be NULL in order to allocate a new buffer. isp_kernel_buffer_alloc() sho=
-uld
-   handle its own internal implementation details instead of punting the
-   responsibility onto callers.
-
-Sultan
-
->=20
-> Thanks,
-> Pratap
->=20
-> > > >=20
-> > > > Ensure this by zeroing *bo right before the amdgpu_bo_create_kernel=
-() call.
-> > > >=20
-> > > > Fixes: 55d42f616976 ("drm/amd/amdgpu: Add helper functions for isp =
-buffers")
-> > > > Signed-off-by: Sultan Alsawaf <sultan@kerneltoast.com>
-> > > > ---
-> > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 2 ++
-> > > >    1 file changed, 2 insertions(+)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_isp.c
-> > > > index 9cddbf50442a..37270c4dab8d 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> > > > @@ -280,6 +280,8 @@ int isp_kernel_buffer_alloc(struct device *dev,=
- u64 size,
-> > > >      if (ret)
-> > > >              return ret;
-> > > > +   /* Ensure *bo is NULL so a new BO will be created */
-> > > > +   *bo =3D NULL;
-> > > >      ret =3D amdgpu_bo_create_kernel(adev,
-> > > >                                    size,
-> > > >                                    ISP_MC_ADDR_ALIGN,
-> > >=20
-> >=20
-> > [1] https://lore.kernel.org/all/aNB0P18ytI1KopWI@sultan-box/
-> >=20
-> > Sultan
->=20
