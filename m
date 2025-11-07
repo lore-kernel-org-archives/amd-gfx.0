@@ -4,77 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CB4DCCFA1A
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 13:41:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2479ECCFA03
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 13:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A123D10E8CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6A6610E8CF;
 	Thu,  6 Nov 2025 13:41:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kerneltoast.com header.i=@kerneltoast.com header.b="RO/jxi87";
-	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E7F10E7C6
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Nov 2025 23:21:43 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-b95cdcacd95so207232a12.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Nov 2025 15:21:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kerneltoast.com; s=google; t=1762384903; x=1762989703;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=bJiprROu63G1frHmGSO+l8oyb9oBLslAg4j/kLd4BHY=;
- b=RO/jxi87hjsaAOqxznd952V2wz2b8axlLYZVuI87NuYDWdvXXu7Rn5Fa3zYrLGh5jE
- Zh9bt5zDq6Ov+dWx5Xt7UFcKGAXw1nAGeIbR3ufXvaxV9y5qrEbh3KZsHZZWlTnwRPBk
- Zhg0s5fNzgxnUC1X33cPQoljBxqiwmtJlcTmZfpBRAavv89CH9IEQCPLiAFpqGQbWAz/
- 8JI3zaPYB9E4Avn/701wxm6gJjZ8KdFMSiEdS0gwuy1cK9uXNEumBX3husqWuQbxV+46
- OKInFPH7K1AiICa3IjzVIqWP2AekHpGX/d1fP4q0QKFXrhbxS89OV8LjFEN/AwP09Cxn
- 9LrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762384903; x=1762989703;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bJiprROu63G1frHmGSO+l8oyb9oBLslAg4j/kLd4BHY=;
- b=X6J+S6JkpJ4rrXHvOn5WCBAJWXi/168Cdet/udMTvofVFPLaEVmgiBjAKyWlz2yyDR
- jO6uF2Jbl+tMewaE2lOVv2MXsDY8L3YZIbERYx5z+9H+oSvAa25wae+M+UpG6/LDFNps
- /P479gfj8Opd6t5fSGGTXbqkVuiyICViRf4Oz01ehaH2+zxyWaI6WEi6t7rwqgofUG9H
- RoP8KqOvfv07XJ8uS0WAi5PKs7nck6d2MMcigWGSty+6NC0JuPFSDNe7d3SLFnLgoc01
- P24ua5vWBBdOKoqXwfGVQtKZg7YFCADqYR1z64vWAdqhoeUuWcn3GtFMwilQfjbgOKuZ
- ipcw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXd3gpgNa2603jQXSaLimVBY8fiAKGwfTA7XVvQGxSlxeBty9uccDgSVTM/MdLt0PxGNgDOQLhx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwCyhp33lL5U2kFtoT4rmkaAIF7KQEvhu5yCdVmlnR8TRDtjoc2
- wRS5eK+YHtxp5N7ZXbQjYPo0mEGQs5JfxmkIf+JeaiEMXxjnE3rlebBDAtXz4LG36zlV
-X-Gm-Gg: ASbGncuih48qqQowIYfE13YRkBa/HaTSQ770Sm/l/75U2tlFwmBhouQ0VfL29wx+GHd
- QkZFt5uKz0UZ71FLNSXM5aDMwyonIKTspL35hQMXexBfcuJskr+HIz1QVtKS2Cpozi7gNVhRrfT
- 4TypMhQSta0ATaNlej9fZq9A4vlDfrd0DLwCXajRvhbydU7d45CFxRPYRN8ybdH/V/16eCWbeVb
- QO+/+mBWvcnE55cSIOCpPmQaF4+2O0/iSr7siPJ50RLKUU4KdzUlGP+KkVKArR+ykbpTxobM1U4
- qkTI76XRUHuTjRFa//rOynvDHiD5JU4vq7Vge7d5pd+fISBhPg09G/YE29Dqbigv/rcoQHeW8eZ
- k7HJiw7Xb11wE4LEBrUD6Al9CwUbcU7vqR8CyYStDjjcjHcG4FQ==
-X-Google-Smtp-Source: AGHT+IE091+lzdrv+Nj+YfcdrpAjegKIiESDWT7sHR4JWv61MvJE6IaL9ddG35gHuIh3zRLs14+FRg==
-X-Received: by 2002:a17:902:d2c6:b0:295:7453:b58b with SMTP id
- d9443c01a7336-2962adb29cdmr52328925ad.4.1762384902532; 
- Wed, 05 Nov 2025 15:21:42 -0800 (PST)
-Received: from sultan-box ([142.147.89.233]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29650968298sm6719765ad.6.2025.11.05.15.21.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Nov 2025 15:21:42 -0800 (PST)
-From: Sultan Alsawaf <sultan@kerneltoast.com>
-X-Google-Original-From: Sultan Alsawaf
-To: bin.du@amd.com, pratap.nirujogi@amd.com, mario.limonciello@amd.com,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: alexander.deucher@amd.com, benjamin.chan@amd.com, christian.koenig@amd.com,
- dantony@amd.com, gjorgji.rosikopulos@amd.com, king.li@amd.com,
- phil.jawich@amd.com
-Subject: [PATCH] drm/amd/amdgpu: Ensure isp_kernel_buffer_alloc() creates a
- new BO
-Date: Wed,  5 Nov 2025 15:21:08 -0800
-Message-ID: <20251105232108.107765-1-sultan@kerneltoast.com>
-X-Mailer: git-send-email 2.51.2
+X-Greylist: delayed 378 seconds by postgrey-1.36 at gabe;
+ Thu, 06 Nov 2025 03:20:28 UTC
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F138610E7F5;
+ Thu,  6 Nov 2025 03:20:28 +0000 (UTC)
+Received: from localhost (unknown [124.16.138.129])
+ by APP-01 (Coremail) with SMTP id qwCowADHMWx9Egxp0C2hAQ--.194S2;
+ Thu, 06 Nov 2025 11:14:05 +0800 (CST)
+From: Chen Ni <nichen@iscas.ac.cn>
+To: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, lijo.lazar@amd.com, asad.kamal@amd.com,
+ Hawking.Zhang@amd.com, kevinyang.wang@amd.com, ganglxie@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chen Ni <nichen@iscas.ac.cn>
+Subject: [PATCH] drm/amd/pm: Remove unneeded semicolon
+Date: Sat,  8 Nov 2025 00:57:28 +0800
+Message-Id: <20251107165728.1365265-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowADHMWx9Egxp0C2hAQ--.194S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZFWDuF4rXw4DXFWDZryUGFg_yoWftrb_CF
+ y8JF9xur97CF98KF1UArWFqa4IyFs8urWktasF9ayrWw47XFs8Xa4ftF1DXw4fCF1UXasr
+ J3WkXF15Z39xGjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbqkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M280x2IEY4vEnII2IxkI6ry26F1DM28lY4IEw2IIxx
+ k0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK
+ 6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7
+ xvwVC2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
+ 64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26F
+ 4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
+ 5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIec
+ xEwVAFwVW8GwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+ ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+ 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRH
+ UDAUUUUU=
+X-Originating-IP: [124.16.138.129]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
 X-Mailman-Approved-At: Thu, 06 Nov 2025 13:41:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,37 +64,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sultan Alsawaf <sultan@kerneltoast.com>
+Remove unnecessary semicolons reported by Coccinelle/coccicheck and the
+semantic patch at scripts/coccinelle/misc/semicolon.cocci.
 
-When the BO pointer provided to amdgpu_bo_create_kernel() points to
-non-NULL, amdgpu_bo_create_kernel() takes it as a hint to pin that address
-rather than allocate a new BO.
-
-This functionality is never desired for allocating ISP buffers. A new BO
-should always be created when isp_kernel_buffer_alloc() is called, per the
-description for isp_kernel_buffer_alloc().
-
-Ensure this by zeroing *bo right before the amdgpu_bo_create_kernel() call.
-
-Fixes: 55d42f616976 ("drm/amd/amdgpu: Add helper functions for isp buffers")
-Signed-off-by: Sultan Alsawaf <sultan@kerneltoast.com>
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-index 9cddbf50442a..37270c4dab8d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-@@ -280,6 +280,8 @@ int isp_kernel_buffer_alloc(struct device *dev, u64 size,
- 	if (ret)
- 		return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 24aaef1494a4..3aa674d348c7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -913,7 +913,7 @@ void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
+ 			gpu_metrics->gfx_below_host_limit_total_acc
+ 				[i] = SMUQ10_ROUND(
+ 				metrics->GfxclkBelowHostLimitTotalAcc[inst]);
+-		};
++		}
+ 	}
  
-+	/* Ensure *bo is NULL so a new BO will be created */
-+	*bo = NULL;
- 	ret = amdgpu_bo_create_kernel(adev,
- 				      size,
- 				      ISP_MC_ADDR_ALIGN,
+ 	gpu_metrics->xgmi_link_width = metrics->XgmiWidth;
 -- 
-2.51.2
+2.25.1
 
