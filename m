@@ -4,53 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3DE5CCFA1D
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 13:58:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86396CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 14:07:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57AC610EAD2;
-	Fri,  7 Nov 2025 13:58:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3078710EAD4;
+	Fri,  7 Nov 2025 14:07:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="RKVsLVwt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ln0X+I91";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07AC310E09B;
- Fri,  7 Nov 2025 11:59:51 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4d2yKb0cHhz9tRW;
- Fri,  7 Nov 2025 12:59:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1762516787; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0KTxCIu+64AN+6WYhjPTERLiBeZXPHOZfhRXNGpsmbs=;
- b=RKVsLVwtpIijziFxh1InDdanFafnkWOJvq7vfCc4jeRKwZnkc5Os/vASHU4S2v0ikUTavD
- gvH0zC8vQiQg2fvvWw6wKf7qin7eFz5utLf8YopGyKCStdDWegJqnyTJDbAnAIB+DEPkSW
- 6SOVwh8n9HOyQ9zhmhPUAxxUhlBX0SPMfnSKQFKSlQc0LoPtkDcf+XVAvLAbVn6ymxKLRo
- wZmFAtRjjp8mffZ4oQx4T73a/Tc1pIWc3WUdCOvpnUrZPZSGqZN45K1+ai5r8f6zb9iTW8
- GtKsa53WNzEPaF5mYPpmuABBOjQ9wHtjETugbTKg0HlCo+zdalfbG/WWxR4noQ==
-Message-ID: <d2dc56f73ac723f1273e71335b00261335db838d.camel@mailbox.org>
-Subject: Re: [PATCH 05/20] dma-buf: inline spinlock for fence protection
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
- airlied@gmail.com, felix.kuehling@amd.com, matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Date: Fri, 07 Nov 2025 12:59:43 +0100
-In-Reply-To: <20251031134442.113648-6-christian.koenig@amd.com>
-References: <20251031134442.113648-1-christian.koenig@amd.com>
- <20251031134442.113648-6-christian.koenig@amd.com>
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F05410EAD4
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Nov 2025 14:07:42 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-ba3b6f1df66so55835a12.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Nov 2025 06:07:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1762524462; x=1763129262; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ds+q2neQilw5fsxVSP+mmmDeu4LuM57J5EJorG1onXQ=;
+ b=Ln0X+I91M+EFf2aTrSdQhR7ckdsT2820KcBFDXBWbHL79ekFisizAQAWyB+xQ7n0nC
+ 4UdYW6L0KhyOJNrNWXHTwE3YPAjN3yQNlnRH5G2sBGBDyyOHVEhRDbzOuSW60KK+rNCp
+ D2ksIuyH1rLHZZLQkMTxa91cE1elkCHfEKxu87OWgbvGm78OHR6p5AGJ5/iPZZ47jh3q
+ xOC6DSpbJoxnbC1Hfdxspt45RgDUttCP+AuwpHjL1FfIRWL1IHQM6MV5qGTz+hWkWiSN
+ wFIp+lGNIAxyNSinGxL/aweTwbRuwy9IaBX+IWdiHq4dgnq2gIsmliTVwK5aIt7whAiV
+ Epyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762524462; x=1763129262;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ds+q2neQilw5fsxVSP+mmmDeu4LuM57J5EJorG1onXQ=;
+ b=dXNHf5WhvQUlogCeYF0J+y7J6endaylc3OYb8PYMllLOR0978fd5X7C+cPUq1Faqs3
+ 5EC6ebo66YHobEa7KYniXktYKolQ78lSvq6BtzxTTs0ik7Qqv1H4Iex0v/BHC5mf+Omi
+ ts1Gy1Pzu82CXjz8o4scyByHEusRa8HtpWUoV16tHLidCOw/EFdNQf4pHwXncBCBAZLX
+ Vr7xXfzNrudxZzNlwXj4IdW0WWNtLfTF5mlO3l0+Ks1ckTqfytDbmPpotVppkLOtjhfw
+ GSvXjwboygzhniC0S6VCav0ITjNnRL6E25T1IJmPZtt/rK9a0kTxtv4vZ1hne3n0JNn4
+ Uy4g==
+X-Gm-Message-State: AOJu0YyCs2vu+1FaZiSYtdmxl8e5dYGsHQUQQQ6F2FzFOd2ff6x/9BdE
+ fnOXCFMdRtuTQTj2Ox+pX0UjjoNkEg5OjFfbDJ2Tmg7pbKsAvkxjfjq0pBejI+REzsDPoL8OZ2r
+ YDTxjcp3cI9VshCZKVy58B1BnYmp8Uob4SA==
+X-Gm-Gg: ASbGncsUjww3fX3vi4eDBATQQwC+ZBBvTRxrtvyRAGFLE71hstygtNCcMMcOWPAFFtI
+ z0sZICbKBzovebXoBXyAsNztK5+2V6F1IY06RVs+3GM1tlAP9ViV2SAiRkVT9LybsNh7LMgZu1Q
+ Phatv7kazqkaqhTPEFGaYdk8QpmEpvzb5Cym67Gxi2u572Tdofd+piBk3f8DQOPJnxDSHLmFFSk
+ gy8L+zH+2yITTQF0Az/kWnUYcWkborZX6apsUc2OQlWLeVddXbVlvsgAUBz
+X-Google-Smtp-Source: AGHT+IGW4K7jw2NHu86gPfVjIAcfhqPskVvAfFiL+V4XjPQJVBfdZD6AHqTYH6WV6tXKILlTeNzx2dVH3nnwNAC2eNQ=
+X-Received: by 2002:a17:902:cec7:b0:295:5898:ff51 with SMTP id
+ d9443c01a7336-297c03e1956mr24733255ad.2.1762524461944; Fri, 07 Nov 2025
+ 06:07:41 -0800 (PST)
+MIME-Version: 1.0
+References: <20251107112704.4080134-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20251107112704.4080134-1-Jesse.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 7 Nov 2025 09:07:29 -0500
+X-Gm-Features: AWmQ_blwq07ewQhTHr64HdQzBtdUNUGoW6-xZhGQ1GladEmUKVstkEQh2NNEiq0
+Message-ID: <CADnq5_MtwYtWN-63DAyeRHnLNKG=4qH5PMXdqfBAtXeoe7aFVw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: resume MES scheduling after user queue hang
+ detection and recovery
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-ID: 5437c07880670df560e
-X-MBO-RS-META: xqpj693wtt141o3fnkix4r7d78b6hpaq
-X-Mailman-Approved-At: Fri, 07 Nov 2025 13:58:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,74 +79,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-10-31 at 14:16 +0100, Christian K=C3=B6nig wrote:
-> Allow implementations to not give a spinlock to protect the fence
-> internal state, instead a spinlock embedded into the fence structure
-> itself is used in this case.
+On Fri, Nov 7, 2025 at 6:27=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> wr=
+ote:
+>
+> This patch ensures the MES is properly resumed
+> after detecting and recovering from a user queue hang condition.
+>
+> Key changes:
+> 1. Track when a hung user queue is detected using found_hung_queue flag
+> 2. Call amdgpu_mes_resume() to restart MES scheduling after completing
+>    the hang recovery process
+> 3. This complements the existing recovery steps (fence force completion
+>    and device wedging) by ensuring the scheduler can process new work
+>
+> Without this resume call, the MES scheduler may remain in a paused state
+> even after the hung queue has been handled, preventing newly submitted
+> work from being processed and leading to system stalls.
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-I'd rather say sth like "Implement per-fence spinlocks. Shared
-spinlocks have the problem that [=E2=80=A6]"
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
->=20
-> Apart from simplifying the handling for containers and the stub fence
-> this has the advantage of allowing implementations to issue fences
-> without caring about theit spinlock lifetime.
-
-s/theit/their.
-
-But rather "it allows for completely decoupling spinlock producer and
-consumer life times"
-
->=20
-> That in turn is necessary for independent fences who outlive the module
-> who originally issued them.
-
-s/who/which
-
->=20
->=20
-
-[=E2=80=A6]
-
-> =C2=A0
-> =C2=A0enum dma_fence_flag_bits {
-> +	DMA_FENCE_FLAG_INLINE_LOCK_BIT,
-> =C2=A0	DMA_FENCE_FLAG_SEQNO64_BIT,
-> =C2=A0	DMA_FENCE_FLAG_SIGNALED_BIT,
-> =C2=A0	DMA_FENCE_FLAG_TIMESTAMP_BIT,
-> @@ -351,6 +357,38 @@ dma_fence_get_rcu_safe(struct dma_fence __rcu **fenc=
-ep)
-> =C2=A0	} while (1);
-> =C2=A0}
-> =C2=A0
-> +/**
-> + * dma_fence_spinlock - return pointer to the spinlock protecting the fe=
-nce
-> + * @fence: the fence to get the lock from
-> + *
-> + * Return either the pointer to the embedded or the external spin lock.
-> + */
-> +static inline spinlock_t *dma_fence_spinlock(struct dma_fence *fence)
-> +{
-> +	return test_bit(DMA_FENCE_FLAG_INLINE_LOCK_BIT, &fence->flags) ?
-> +		&fence->inline_lock : fence->extern_lock;
-
-Wouldn't you agree that an 'if' is much more readable? I prefer using
-the ternary operator only for tiny operations.
-
-if test_bit(=E2=80=A6)
-	return &fence->inline_lock;
-
-return fence->extern_lock;
-
-
-
-Besides, I agree with the idea and I think I actually need a feature like t=
-hat in dma_fence.
-
-
-P.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index b1ee9473d628..6d1af72916a5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -208,6 +208,7 @@ static int mes_userq_detect_and_reset(struct amdgpu_d=
+evice *adev,
+>         unsigned int hung_db_num =3D 0;
+>         unsigned long queue_id;
+>         u32 db_array[8];
+> +       bool found_hung_queue =3Dfalse;
+>         int r, i;
+>
+>         if (db_array_size > 8) {
+> @@ -232,6 +233,7 @@ static int mes_userq_detect_and_reset(struct amdgpu_d=
+evice *adev,
+>                                 for (i =3D 0; i < hung_db_num; i++) {
+>                                         if (queue->doorbell_index =3D=3D =
+db_array[i]) {
+>                                                 queue->state =3D AMDGPU_U=
+SERQ_STATE_HUNG;
+> +                                               found_hung_queue =3D true=
+;
+>                                                 atomic_inc(&adev->gpu_res=
+et_counter);
+>                                                 amdgpu_userq_fence_driver=
+_force_completion(queue);
+>                                                 drm_dev_wedged_event(adev=
+_to_drm(adev), DRM_WEDGE_RECOVERY_NONE, NULL);
+> @@ -241,6 +243,11 @@ static int mes_userq_detect_and_reset(struct amdgpu_=
+device *adev,
+>                 }
+>         }
+>
+> +       if (found_hung_queue) {
+> +               /* Resume scheduling after hang recovery */
+> +               r =3D amdgpu_mes_resume(adev);
+> +       }
+> +
+>         return r;
+>  }
+>
+> --
+> 2.49.0
+>
