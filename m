@@ -4,86 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7284CD3425
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EC2DCD13DA
 	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E724510E5BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82BA10E5BE;
 	Tue, 11 Nov 2025 13:39:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UIgXPaoo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i//J1rP8";
 	dkim-atps=neutral
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90E2710E039
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Nov 2025 00:17:34 +0000 (UTC)
-Received: by mail-io1-f50.google.com with SMTP id
- ca18e2360f4ac-9486696aafeso332909439f.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Nov 2025 16:17:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762820253; x=1763425053; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2Q8HKQ4KcnH36XoiAPXuxGl+urZnJV8rIP1Qwq36EqA=;
- b=UIgXPaoohds1MS0w1urUh+ff+XYDAaDnBgr3fNro0n26jqttbCPetvCYctcre+o5Ls
- tlB9vCc6PfpHIgH+6yIHqdTG0c+kHVLelSf0Zzlvp6kOgRMAIrK89R1N+rzYuC6kzr1V
- m9itxiWSl1c64a12Zn3FbudvGCNhX7oO2y537bGmsniow9/Wd6okUfRkmVblI6DHVsb/
- a5MMTomHh8PWKQ5XRpcgvP413ZlMDriFNOdEmkaYQHJ9twHKtehkcWrg6KdKIc4C6qa7
- Pzx8xhZJkc0iMqIZ9M2sg+AB8GNYKIUE1dSJ0PzwyaHWJA+nAMzBWU6poxJ/8uMGf5Xu
- OU9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762820253; x=1763425053;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=2Q8HKQ4KcnH36XoiAPXuxGl+urZnJV8rIP1Qwq36EqA=;
- b=thE4ESlID9TZNIyp3CdNEcoar4OCJPap+L1Aotqm8y+iEPxbRBFZLo5qIZV0Qp/y+f
- 8EOBNdIJFclbAZu2CpLh+W97W90ZwoV5EWIpvtueYf20g1jqwBPxlFzWWzvNEyjaLGeK
- xsbTUq0U6W/8uYcNf9jentiXifwi5uIOQWy8oyXXNY1Cz6BnMWt+pKToadEDtGdneufj
- 6VghWInyluBXVaxKeg8em7QjcnORtq21Jajw4MZZsshQTpB61rtz8N6K8w3zf0G7RPNB
- 2JAMB099+zlCDxDGniGS+Zr4bZentw+sERMHy7nqqZ79fywt0Ex1AiDgvyrSARse6gMo
- P9BA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzboC0Yy2hKO11FDLQKsmBjBv0yWNKSRAjTJr3b0mAvnZKwJdW9Lqskm7SB/wzYRwDTBeazAve@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw++rlZYaq1nwmUsBLKIk1L97LwNwOwl0PvqzrRuQ4cPcELWp/r
- 4DonnbTEnHfxKfV8kjds3h1iYzUZog3ZXvRg+XzPTN66rPQL4yKDb/BC
-X-Gm-Gg: ASbGncvbNbzoGMARS+VvnLJgC1viuloWWM06ftOhXcInyw052vYQJEoGs/Xc+UTSDdw
- Zj8xbzcC77xRP1p3kOHWnIMCCFpNTJlLeHHv2sm7Nx4rZu4LrEUiAnsistGMfwr5e6mNnmGJ/VF
- Qih9yRQJQrzPHTSYBIUwcEb0bPZNMb2LctEFKIGh2ojjgu5IItx8YdLzXw3H7VWG5rrQRcN220M
- lxHFXvqJkusVIESJetUoHjvyztppd0fZWgLjnWcs0muru5XxnN0mGqqIJ81YUcmIfC8stc8aQfa
- cCJw+fn5S70Z4MKZXhWtRUzuOz0cKfOoTURV69I7LhWnjZGvPP5qJ/1HhKx/quvddV2wHZ76Jb6
- 5mqyODtC+vixVWA7XEB8RylTYcyGUjlrMEmoAvxQ1N7vULi/iiCEySTWsPK0y+kZeTI1csA8Eyg
- bVHbC4IKnv2QtZ8plK19b9/BV5noFi1qJRGOnmPU4Ii0SRyd3utgU=
-X-Google-Smtp-Source: AGHT+IEAm+mJm6K/xigqu97Kf9Pb7DwxatHpmYK1k/IstJxUHVyghC6X6TBmTN8zYaB+T4/gOtOTNw==
-X-Received: by 2002:a05:6602:6412:b0:948:5f42:32a1 with SMTP id
- ca18e2360f4ac-94895f8ea61mr1547811039f.5.1762820253527; 
- Mon, 10 Nov 2025 16:17:33 -0800 (PST)
-Received: from [100.64.0.17] (c-68-55-107-1.hsd1.mi.comcast.net. [68.55.107.1])
- by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-5b746923f26sm5588519173.38.2025.11.10.16.17.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Nov 2025 16:17:33 -0800 (PST)
-Message-ID: <13627c6c-f428-4520-b0d4-32fca1e7a2a0@gmail.com>
-Date: Mon, 10 Nov 2025 19:17:31 -0500
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A90210E2E6;
+ Mon, 10 Nov 2025 18:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1762800486; x=1794336486;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2GLm4NVkdUuOv+K7T0bT1SYFkvMIdVSo+0VB+hLNaFU=;
+ b=i//J1rP8ssbNe/joZv2rkYUrq7zmD5QTIsGtoalT2HRvijanGcFpnuVX
+ kkQLQ7ctNdblwND5Xz1ZWtkOPjxqTEx1l0QdCmZHTxk9YYb+pt3dNvfM/
+ msQsjYuGOORj0h+qoX9d9ZAzzPndQbuiwA0001KaOnp7OMrmiH5AxkQsA
+ K5yCDcN1ZRfeB1ztErompNctj5Hgll+G9uC7C99qrOqum9clNg5IvkUqn
+ 3nFmvXJlzd3+Gv1PRN6XzRV0eJ+ht7Fv7adllbrHasKG9HzJ430AZZjrj
+ 73f0x4pP8F/rvGGxnCA5nmuTwI1dPfRKimoAbPy3f3vCSfr2LHPRyyjDo Q==;
+X-CSE-ConnectionGUID: 898UvrgUR6+lEfxTCLjRiA==
+X-CSE-MsgGUID: O3UetNPrQZeCJwtCibMdQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="68705409"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="68705409"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2025 10:48:06 -0800
+X-CSE-ConnectionGUID: T9JvXfd2RP6uhr7fMRGrgQ==
+X-CSE-MsgGUID: Pv4wkjngReqizgRny5HiIw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="188985842"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa008.fm.intel.com with ESMTP; 10 Nov 2025 10:47:58 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 71F03A8; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Max Kellermann <max.kellermann@ionos.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v1 19/23] ptp: ocp: Switch to use %ptSp
+Date: Mon, 10 Nov 2025 19:40:38 +0100
+Message-ID: <20251110184727.666591-20-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
+References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: use static ids for ACP platform devs
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, boyuan.zhang@amd.com
-References: <20250325210517.2097188-1-bradynorander@gmail.com>
- <CADnq5_MNBUY=jWbnq-gZQ_4_M_sBJGAgMD0bj2cMdnkoU9G=HA@mail.gmail.com>
- <9ab05b38-6f77-4b0b-8a1b-8314e2873047@gmail.com>
- <CADnq5_No+w+tco9j35GBM3+CYBTo018eLwWec278d3VBJHPQxw@mail.gmail.com>
-Content-Language: en-US
-From: Brady Norander <bradynorander@gmail.com>
-In-Reply-To: <CADnq5_No+w+tco9j35GBM3+CYBTo018eLwWec278d3VBJHPQxw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:06 +0000
+X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,24 +137,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/10/25 14:14, Alex Deucher wrote:
-> On Tue, Mar 25, 2025 at 7:11 PM Brady Norander <bradynorander@gmail.com> wrote:
->>
->> On 3/25/25 6:12 PM, Alex Deucher wrote:
->>>
->>> While you are at it, can you take a look at
->>> drivers/gpu/drm/amd/amdgpu/isp_v4_1_0.c and
->>> drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c as well?
->>>
->>> Alex
->>
->> I think it makes more sense to handle that in a separate patch as it is
->> an unrelated ip block.
-> 
-> Sure. Can you send a patch to fix those up as well if needed?
-> 
-> Alex
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
-I don't know if that driver needs this, and I also don't have that 
-hardware to test it. If that driver needs this fix, then this can be 
-revisited but I don't think it should block this patch being merged now.
+While at it, fix wrong use of %ptT against struct timespec64.
+It's kinda lucky that it worked just because the first member
+there 64-bit and it's of time64_t type. Now with %ptS it may
+be used correctly.
+
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/ptp/ptp_ocp.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+index a5c363252986..a0bb8d3045d2 100644
+--- a/drivers/ptp/ptp_ocp.c
++++ b/drivers/ptp/ptp_ocp.c
+@@ -3261,7 +3261,7 @@ signal_show(struct device *dev, struct device_attribute *attr, char *buf)
+ 			   signal->duty, signal->phase, signal->polarity);
+ 
+ 	ts = ktime_to_timespec64(signal->start);
+-	count += sysfs_emit_at(buf, count, " %ptT TAI\n", &ts);
++	count += sysfs_emit_at(buf, count, " %ptS TAI\n", &ts);
+ 
+ 	return count;
+ }
+@@ -4287,11 +4287,9 @@ ptp_ocp_summary_show(struct seq_file *s, void *data)
+ 		ns += (s64)bp->utc_tai_offset * NSEC_PER_SEC;
+ 		sys_ts = ns_to_timespec64(ns);
+ 
+-		seq_printf(s, "%7s: %lld.%ld == %ptT TAI\n", "PHC",
+-			   ts.tv_sec, ts.tv_nsec, &ts);
+-		seq_printf(s, "%7s: %lld.%ld == %ptT UTC offset %d\n", "SYS",
+-			   sys_ts.tv_sec, sys_ts.tv_nsec, &sys_ts,
+-			   bp->utc_tai_offset);
++		seq_printf(s, "%7s: %ptSp == %ptS TAI\n", "PHC", &ts, &ts);
++		seq_printf(s, "%7s: %ptSp == %ptS UTC offset %d\n", "SYS",
++			   &sys_ts, &sys_ts, bp->utc_tai_offset);
+ 		seq_printf(s, "%7s: PHC:SYS offset: %lld  window: %lld\n", "",
+ 			   timespec64_to_ns(&ts) - ns,
+ 			   post_ns - pre_ns);
+@@ -4499,9 +4497,8 @@ ptp_ocp_phc_info(struct ptp_ocp *bp)
+ 		 ptp_clock_index(bp->ptp));
+ 
+ 	if (!ptp_ocp_gettimex(&bp->ptp_info, &ts, NULL))
+-		dev_info(&bp->pdev->dev, "Time: %lld.%ld, %s\n",
+-			 ts.tv_sec, ts.tv_nsec,
+-			 bp->sync ? "in-sync" : "UNSYNCED");
++		dev_info(&bp->pdev->dev, "Time: %ptSp, %s\n",
++			 &ts, bp->sync ? "in-sync" : "UNSYNCED");
+ }
+ 
+ static void
+-- 
+2.50.1
+
