@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57C4DCD13D3
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF75CCCFA1E
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3230E10E2F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3932B10E33E;
 	Tue, 11 Nov 2025 13:39:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J2MSzmBF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ecqhye7F";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B79010E2E6;
- Mon, 10 Nov 2025 18:48:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2345210E47F;
+ Mon, 10 Nov 2025 18:47:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762800486; x=1794336486;
+ t=1762800478; x=1794336478;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/jrYLjDfZzQMPUrwgBXX7noMOw5eDva5SlIg2j2SoEQ=;
- b=J2MSzmBFm1Zrc5fR+fVcO1sDoYkPfR8y4ao8OnGwFy4TeRIkkZs2YPay
- jk+mEfCmHmB/RzczBOG7i2j6/qIJW2w48LVTVOK8aJKLmThbRS+0Kg0ym
- SSOxpL6PH+uFATV32r0okGWmMP9/ma1k9L8TDTtwhY3A/MG6/178Nqih7
- ZU8QQ0xAFlLVryQTVK4r3S+Ku1W+OZj6Ck13HrmqCd5cjlLfMJprSME8p
- 3Qw/RGCHsvQQhaT6tk05b6cUTmguSU7egzHsG/vJgmFwbwXacrhN85nH5
- h+zZgzf+Cau5XlNTHO7ds99qBvWMPtf+OSFBpBquh8utqzXvTWO18brCI g==;
-X-CSE-ConnectionGUID: Z0D3adrmSVq1n5qrpTbG2g==
-X-CSE-MsgGUID: q9kRtVKiTYurUtNVFEv8pg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="68705407"
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="68705407"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2025 10:48:05 -0800
-X-CSE-ConnectionGUID: tQxkWAukTcCWsmo5RGoj9w==
-X-CSE-MsgGUID: 5oUCymEZTJWvji6oAMQPvQ==
+ bh=EefPNFQBUNuGlR0DgULcxn8v9QseDyeQnp72XVg7OAg=;
+ b=ecqhye7FcXHLe32mu9VfAE0sBccrWQd2ww6f27RHz+WmPNcPRpQ377Yt
+ ee/nfyRsQ1DPT6oBqy3hQcDhwZr9qDle1BqzSPn4J/ADExracgwAJkmPR
+ yZJEm2fhmKxTYBCHyCpaCXrklrgG+dwDkNHcM4FBGRSobwDlK0cFsv0Sz
+ aDuk5ii4U+xhmgHJWqd8YLUASu1555h5D7dr9Jl0m8TU/dTON1Uv3AqPe
+ p1Au+2VlXf8HE4lQWo3okq97y3CIyXXL+uUxS7qKBNWYiT/4vDIVm4rOS
+ WpASVKJYl94Wr48hmnl3JHV6+HWIWWVIh0cbgAu2V6Y3SG8jm8z9WpowD Q==;
+X-CSE-ConnectionGUID: 0rGUmyKkSb2FELB4lGvczw==
+X-CSE-MsgGUID: nWrOAAALTuuMxvaKf5f/Hg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="52415044"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="52415044"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2025 10:47:57 -0800
+X-CSE-ConnectionGUID: JQgrXJLORNW2HY1q3xXF0w==
+X-CSE-MsgGUID: eWnKFiFsTB2df9DUUTyu4Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="188985837"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="188385694"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa008.fm.intel.com with ESMTP; 10 Nov 2025 10:47:57 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 10 Nov 2025 10:47:48 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 6B742A7; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
+ id 289899D; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -114,9 +114,9 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 18/23] pps: Switch to use %ptSp
-Date: Mon, 10 Nov 2025 19:40:37 +0100
-Message-ID: <20251110184727.666591-19-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 08/23] drm/vblank: Switch to use %ptSp
+Date: Mon, 10 Nov 2025 19:40:27 +0100
+Message-ID: <20251110184727.666591-9-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
 References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
@@ -142,38 +142,26 @@ struct timespec64 in human readable format.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pps/generators/pps_gen_parport.c | 3 +--
- drivers/pps/kapi.c                       | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_vblank.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pps/generators/pps_gen_parport.c b/drivers/pps/generators/pps_gen_parport.c
-index f5eeb4dd01ad..05bbf8d30ef1 100644
---- a/drivers/pps/generators/pps_gen_parport.c
-+++ b/drivers/pps/generators/pps_gen_parport.c
-@@ -80,8 +80,7 @@ static enum hrtimer_restart hrtimer_event(struct hrtimer *timer)
- 	/* check if we are late */
- 	if (expire_time.tv_sec != ts1.tv_sec || ts1.tv_nsec > lim) {
- 		local_irq_restore(flags);
--		pr_err("we are late this time %lld.%09ld\n",
--				(s64)ts1.tv_sec, ts1.tv_nsec);
-+		pr_err("we are late this time %ptSp\n", &ts1);
- 		goto done;
- 	}
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index 32d013c5c8fc..5c14140cd0c2 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -806,10 +806,8 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+ 	ts_vblank_time = ktime_to_timespec64(*vblank_time);
  
-diff --git a/drivers/pps/kapi.c b/drivers/pps/kapi.c
-index e9389876229e..6985c34de2ce 100644
---- a/drivers/pps/kapi.c
-+++ b/drivers/pps/kapi.c
-@@ -163,8 +163,7 @@ void pps_event(struct pps_device *pps, struct pps_event_time *ts, int event,
- 	/* check event type */
- 	BUG_ON((event & (PPS_CAPTUREASSERT | PPS_CAPTURECLEAR)) == 0);
+ 	drm_dbg_vbl(dev,
+-		    "crtc %u : v p(%d,%d)@ %lld.%06ld -> %lld.%06ld [e %d us, %d rep]\n",
+-		    pipe, hpos, vpos,
+-		    (u64)ts_etime.tv_sec, ts_etime.tv_nsec / 1000,
+-		    (u64)ts_vblank_time.tv_sec, ts_vblank_time.tv_nsec / 1000,
++		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
++		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
+ 		    duration_ns / 1000, i);
  
--	dev_dbg(&pps->dev, "PPS event at %lld.%09ld\n",
--			(s64)ts->ts_real.tv_sec, ts->ts_real.tv_nsec);
-+	dev_dbg(&pps->dev, "PPS event at %ptSp\n", &ts->ts_real);
- 
- 	timespec_to_pps_ktime(&ts_real, ts->ts_real);
- 
+ 	return true;
 -- 
 2.50.1
 
