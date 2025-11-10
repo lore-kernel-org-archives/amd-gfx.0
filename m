@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B65EECD13DD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F97ACCFA1E
 	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 053C310E5C0;
-	Tue, 11 Nov 2025 13:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7EE10E5AA;
+	Tue, 11 Nov 2025 13:39:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Le9JGOfk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NDwnW5l4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93AFF10E2F7;
- Mon, 10 Nov 2025 18:47:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 538A810E2D8;
+ Mon, 10 Nov 2025 18:47:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762800477; x=1794336477;
+ t=1762800459; x=1794336459;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Owa/uZSyQflLahGS6CmSwDqgbO1CL5jfKyID5Cl9frQ=;
- b=Le9JGOfkPCOJhGhRZIwyXMH3Ujz1AZ4f8KDc59pl7hRsIScnewKEH8sx
- EBItoA+RWEjU+jVVejh/2WVXTARVIt9+kvjm9YAxY0uymymwNjaIR4cPQ
- /pJMT3al4S2Q3MDlA+coxc8Vag+3BAEn4nMy1EAYLFcosU+xQciBfgor3
- DEOck375Wyqi0+f+NWcI2INHihlJY2cfLzwg9Y939jE3DD6XXyrrzqLrt
- cswBzZUmezcvRLtNY8ihNcdkubBXv5mHftAMD1mMsgJ0t7HpcxpMsGCPM
- 9fWRKy38ihvDkTul4hVgmgQhdWTMwOE3eLtV6SpU4wZEZ+NnLmQkA4X5o Q==;
-X-CSE-ConnectionGUID: 7CGpLZSbRs6sZolQ+9/CWQ==
-X-CSE-MsgGUID: O6W4kAviQYuwRmaOvsWcEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="64897585"
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="64897585"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2025 10:47:57 -0800
-X-CSE-ConnectionGUID: 2eJVkzqZS9eMe6nzc5hX5g==
-X-CSE-MsgGUID: eXHDXNSIQoOeoIXPu177HQ==
+ bh=Kew62E3E6IXuZlcG7gu+P9XzNY1zD9FK9bnTsI2boF4=;
+ b=NDwnW5l4ntBIv1a1pFnVgxm1BSlANzDKZHA7DLkjhaRFPwZj331i84vI
+ num0p2iaKmKDbERCnRQSf+Fn85JRxhF1RSdmxhqGJLgVDDnZM8eLLdG0I
+ KkeuUJpWIT69W0rinS8FU88uSkAvzT17hXc4jArgicCx9muvrxQSBus4b
+ ONA1CExMThbDZfwM6qYZlua2fur0ypxxgOTc3EN15qiExkyEz+v6Ak0b2
+ 2nbPPqQbZXxFlLkcwigwmMAYeYVGDRySvSsIivNLMBnnDdxv5/lysWhIm
+ TeEpqa1jdzOKQ/etM94DuqA49dwRnN9d/Mh9GoURsCsVwe9JmsdTpurQl A==;
+X-CSE-ConnectionGUID: QSbByffOS2yESgdakknOXg==
+X-CSE-MsgGUID: E/dZRlFqQxm+34McgcIVMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="82484612"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="82484612"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2025 10:47:38 -0800
+X-CSE-ConnectionGUID: tjBTfSXPSK+R85GBxnBx7Q==
+X-CSE-MsgGUID: icFeQ/OWQnuNNObR45nQtA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="189190257"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="193749559"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa009.fm.intel.com with ESMTP; 10 Nov 2025 10:47:49 -0800
+ by fmviesa004.fm.intel.com with ESMTP; 10 Nov 2025 10:47:29 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 356449F; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
+ id EEA2B96; Mon, 10 Nov 2025 19:47:28 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -114,9 +114,10 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 10/23] e1000e: Switch to use %ptSp
-Date: Mon, 10 Nov 2025 19:40:29 +0100
-Message-ID: <20251110184727.666591-11-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 01/23] lib/vsprintf: Add specifier for printing struct
+ timespec64
+Date: Mon, 10 Nov 2025 19:40:20 +0100
+Message-ID: <20251110184727.666591-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
 References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
@@ -137,35 +138,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use %ptSp instead of open coded variants to print content of
-struct timespec64 in human readable format.
+A handful drivers want to print a content of the struct timespec64
+in a format of %lld:%09ld. In order to make their lives easier, add
+the respecting specifier directly to the printf() implementation.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/net/ethernet/intel/e1000e/ptp.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ Documentation/core-api/printk-formats.rst | 11 ++++++++--
+ lib/tests/printf_kunit.c                  |  4 ++++
+ lib/vsprintf.c                            | 25 +++++++++++++++++++++++
+ 3 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/e1000e/ptp.c b/drivers/net/ethernet/intel/e1000e/ptp.c
-index ea3c3eb2ef20..ec39e35f3857 100644
---- a/drivers/net/ethernet/intel/e1000e/ptp.c
-+++ b/drivers/net/ethernet/intel/e1000e/ptp.c
-@@ -229,14 +229,11 @@ static void e1000e_systim_overflow_work(struct work_struct *work)
- 						     systim_overflow_work.work);
- 	struct e1000_hw *hw = &adapter->hw;
- 	struct timespec64 ts;
--	u64 ns;
+diff --git a/Documentation/core-api/printk-formats.rst b/Documentation/core-api/printk-formats.rst
+index 7f2f11b48286..6fdb417f5140 100644
+--- a/Documentation/core-api/printk-formats.rst
++++ b/Documentation/core-api/printk-formats.rst
+@@ -547,11 +547,13 @@ Time and date
+ 	%pt[RT]s		YYYY-mm-dd HH:MM:SS
+ 	%pt[RT]d		YYYY-mm-dd
+ 	%pt[RT]t		HH:MM:SS
+-	%pt[RT][dt][r][s]
++	%ptSp			<seconds>.<nanoseconds>
++	%pt[RST][dt][r][s]
  
- 	/* Update the timecounter */
--	ns = timecounter_read(&adapter->tc);
-+	ts = ns_to_timespec64(timecounter_read(&adapter->tc));
+ For printing date and time as represented by::
  
--	ts = ns_to_timespec64(ns);
--	e_dbg("SYSTIM overflow check at %lld.%09lu\n",
--	      (long long) ts.tv_sec, ts.tv_nsec);
-+	e_dbg("SYSTIM overflow check at %ptSp\n", &ts);
+-	R  struct rtc_time structure
++	R  content of struct rtc_time
++	S  content of struct timespec64
+ 	T  time64_t type
  
- 	schedule_delayed_work(&adapter->systim_overflow_work,
- 			      E1000_SYSTIM_OVERFLOW_PERIOD);
+ in human readable format.
+@@ -563,6 +565,11 @@ The %pt[RT]s (space) will override ISO 8601 separator by using ' ' (space)
+ instead of 'T' (Capital T) between date and time. It won't have any effect
+ when date or time is omitted.
+ 
++The %ptSp is equivalent to %lld.%09ld for the content of the struct timespec64.
++When the other specifiers given, it becomes the respective equivalent of
++%ptT[dt][r][s].%09ld. In other words, the seconds are being printed in the
++human readable format followed by dot and nanoseconds.
++
+ Passed by reference.
+ 
+ struct clk
+diff --git a/lib/tests/printf_kunit.c b/lib/tests/printf_kunit.c
+index bc54cca2d7a6..7617e5b8b02c 100644
+--- a/lib/tests/printf_kunit.c
++++ b/lib/tests/printf_kunit.c
+@@ -504,6 +504,7 @@ time_and_date(struct kunit *kunittest)
+ 	};
+ 	/* 2019-01-04T15:32:23 */
+ 	time64_t t = 1546615943;
++	struct timespec64 ts = { .tv_sec = t, .tv_nsec = 11235813 };
+ 
+ 	test("(%pt?)", "%pt", &tm);
+ 	test("2018-11-26T05:35:43", "%ptR", &tm);
+@@ -522,6 +523,9 @@ time_and_date(struct kunit *kunittest)
+ 	test("0119-00-04 15:32:23", "%ptTsr", &t);
+ 	test("15:32:23|2019-01-04", "%ptTts|%ptTds", &t, &t);
+ 	test("15:32:23|0119-00-04", "%ptTtrs|%ptTdrs", &t, &t);
++
++	test("2019-01-04T15:32:23.011235813", "%ptS", &ts);
++	test("1546615943.011235813", "%ptSp", &ts);
+ }
+ 
+ static void
+diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+index 3f99834fd788..f29eb6368891 100644
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -1989,6 +1989,28 @@ char *time64_str(char *buf, char *end, const time64_t time,
+ 	return rtc_str(buf, end, &rtc_time, spec, fmt);
+ }
+ 
++static noinline_for_stack
++char *timespec64_str(char *buf, char *end, const struct timespec64 *ts,
++                     struct printf_spec spec, const char *fmt)
++{
++	static const struct printf_spec default_dec09_spec = {
++		.base = 10,
++		.field_width = 9,
++		.precision = -1,
++		.flags = ZEROPAD,
++	};
++
++	if (fmt[2] == 'p')
++		buf = number(buf, end, ts->tv_sec, default_dec_spec);
++	else
++		buf = time64_str(buf, end, ts->tv_sec, spec, fmt);
++	if (buf < end)
++		*buf = '.';
++	buf++;
++
++	return number(buf, end, ts->tv_nsec, default_dec09_spec);
++}
++
+ static noinline_for_stack
+ char *time_and_date(char *buf, char *end, void *ptr, struct printf_spec spec,
+ 		    const char *fmt)
+@@ -1999,6 +2021,8 @@ char *time_and_date(char *buf, char *end, void *ptr, struct printf_spec spec,
+ 	switch (fmt[1]) {
+ 	case 'R':
+ 		return rtc_str(buf, end, (const struct rtc_time *)ptr, spec, fmt);
++	case 'S':
++		return timespec64_str(buf, end, (const struct timespec64 *)ptr, spec, fmt);
+ 	case 'T':
+ 		return time64_str(buf, end, *(const time64_t *)ptr, spec, fmt);
+ 	default:
+@@ -2464,6 +2488,7 @@ early_param("no_hash_pointers", no_hash_pointers_enable);
+  * - 'g' For block_device name (gendisk + partition number)
+  * - 't[RT][dt][r][s]' For time and date as represented by:
+  *      R    struct rtc_time
++ *      S    struct timespec64
+  *      T    time64_t
+  * - 'C' For a clock, it prints the name (Common Clock Framework) or address
+  *       (legacy clock framework) of the clock
 -- 
 2.50.1
 
