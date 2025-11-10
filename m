@@ -4,125 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF75CCCFA1E
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D435ECCFA18
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3932B10E33E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4F0E10E57E;
 	Tue, 11 Nov 2025 13:39:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ecqhye7F";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="xoqqzTwy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2345210E47F;
- Mon, 10 Nov 2025 18:47:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762800478; x=1794336478;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=EefPNFQBUNuGlR0DgULcxn8v9QseDyeQnp72XVg7OAg=;
- b=ecqhye7FcXHLe32mu9VfAE0sBccrWQd2ww6f27RHz+WmPNcPRpQ377Yt
- ee/nfyRsQ1DPT6oBqy3hQcDhwZr9qDle1BqzSPn4J/ADExracgwAJkmPR
- yZJEm2fhmKxTYBCHyCpaCXrklrgG+dwDkNHcM4FBGRSobwDlK0cFsv0Sz
- aDuk5ii4U+xhmgHJWqd8YLUASu1555h5D7dr9Jl0m8TU/dTON1Uv3AqPe
- p1Au+2VlXf8HE4lQWo3okq97y3CIyXXL+uUxS7qKBNWYiT/4vDIVm4rOS
- WpASVKJYl94Wr48hmnl3JHV6+HWIWWVIh0cbgAu2V6Y3SG8jm8z9WpowD Q==;
-X-CSE-ConnectionGUID: 0rGUmyKkSb2FELB4lGvczw==
-X-CSE-MsgGUID: nWrOAAALTuuMxvaKf5f/Hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="52415044"
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="52415044"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2025 10:47:57 -0800
-X-CSE-ConnectionGUID: JQgrXJLORNW2HY1q3xXF0w==
-X-CSE-MsgGUID: eWnKFiFsTB2df9DUUTyu4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="188385694"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa007.fm.intel.com with ESMTP; 10 Nov 2025 10:47:48 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 289899D; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Corey Minyard <corey@minyard.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
- Max Kellermann <max.kellermann@ionos.com>, Takashi Iwai <tiwai@suse.de>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-sound@vger.kernel.org
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 08/23] drm/vblank: Switch to use %ptSp
-Date: Mon, 10 Nov 2025 19:40:27 +0100
-Message-ID: <20251110184727.666591-9-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
-References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD57410E403
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Nov 2025 15:26:48 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-47755de027eso21712075e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Nov 2025 07:26:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1762788407; x=1763393207;
+ darn=lists.freedesktop.org; 
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4hufuGaFBjIQOeY3oiJn4UcPMAxeKU5nx6U0+OKioQY=;
+ b=xoqqzTwytzXMQgMawBvqBCsyLgLsiI6WKUrNeUebhDtVwNymu2cctX7ImSk7WqPUU9
+ gR5FFG7a3A/kxpjP+pGr4BaXaFfwH3Nni+aNV7W8W4Y5a+X3YDy7YVAnwz/4Y5zJMInG
+ GJq6B7hCtAD9enURRw0/aXhtykY6zLO83+eLQmzL5FiFdJWQAKQ5hbRmhgHzbuB9CuhT
+ N+sz4pPyENWuy8PCEXKdyC02T6SZL6dwPXETymwrF+ZD8LNc7MlEo1lDOTYT/jku2eY8
+ H067iyAqSh43GvR3cWxFSlVdbLNMfd8SbMqlekCdvlw+RmWt4ZwSfe5zmRSvGCmW/CRy
+ +Fiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762788407; x=1763393207;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4hufuGaFBjIQOeY3oiJn4UcPMAxeKU5nx6U0+OKioQY=;
+ b=M0J4naPn6dNg/cp9SQBveVEgIkhIhgSCzzMh3Z2hltKyYrmYBP+9w0EjffXWYbYj3p
+ 8p2lam9wuEZDjTNDq5dA6/h9G5HmOwl6khbfwW0HHbYV0fBXuKdNliNJ79e8TN6j2Hq5
+ rZY2LUAtXD1wMDOCu/9cPNB6BY2/oiusHhhmLvULSAIczsZxe8ONziIjY597NJ9vC74j
+ yg2ySxkyyg0Ep16mu0ajGwWuAyZcgrF4qatIwRpsZOEg/tyWMAk9XTK67KBnDtk381LS
+ sqV347dDb5P6OB/iV/65aeWxI3G9OyMrziW5nlaAnPMDXcapiEZrvkrmGx8Mobdk4jv3
+ VOvQ==
+X-Gm-Message-State: AOJu0YwTBT2dkK78AI7ca8pOxYIqs8sHYY7xnr3YCCkMESoUzoIoQS+J
+ JlZ4d2PyKN/njiAx/MFfzqiKIPlxMT+I6kh5axrMvGbPMkdGFZCBlpuJtXpJRHnJqj4=
+X-Gm-Gg: ASbGncvAKjvGXydyO9Nag/6qmeSmZAhvB7VX4+YPknDGkWONJua1N7WFo6Sm9p3baOB
+ 1jlOo230zByljz0cWXpi3mpN3qrZcXiJ8nabYJ4YdZ6BouRQPpS/NOC6L1+DhKM/sdt/4/p3Q+U
+ Qi2cn/lIDC0iYvcO7A1Da5xVgpxNxrES39FFfovZYywAujh1G6fxSXK+Ha6zvweond1UsgWzOrn
+ xNsgA6BQf9EBftJ8Agp99Fy/rV+3qoSuGt5d61qbCpsnoviK0fwqcHOl0XaZRwbkhwrpUzMRVcB
+ +YpRpP4jFPT5JRxCOs50IXKIN9CVHg8UEkGIrbxBkAEp9UJZzSYW2Gl4jr8MHh9PC4hRrgJk5L3
+ Q2Zvl/fxbMWILvVRa+3Hlt7MH7zgzoAsuY8eITtRg+MEbvPf5VMJc0zqdmoOob/Dd2tOwymQRQ3
+ f1iow9PQJW81qodHpeulse9ydb1zlh/tPl7D/OcmzAWqCIZ1mpLzF1iPGWcUmgM8DE
+X-Google-Smtp-Source: AGHT+IE3KsiTvJIewXb+3ogBMUER1zAAa71pK2E88TNZuIfMA+ylYPhSN6HW/0RuZinFnwLY++wYCw==
+X-Received: by 2002:a05:600c:46d0:b0:45d:d8d6:7fcc with SMTP id
+ 5b1f17b1804b1-4777327b249mr80284175e9.27.1762788406946; 
+ Mon, 10 Nov 2025 07:26:46 -0800 (PST)
+Received: from localhost
+ (p200300f65f235304535ebd79d849669b.dip0.t-ipconnect.de.
+ [2003:f6:5f23:5304:535e:bd79:d849:669b])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4776bcfd021sm256714785e9.11.2025.11.10.07.26.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Nov 2025 07:26:46 -0800 (PST)
+Date: Mon, 10 Nov 2025 16:26:45 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, 1118349@bugs.debian.org, 
+ Roman Savochenko <roman@oscada.org>
+Subject: dpm broken on Radeon HD 8570D
+Message-ID: <epyf7tdz3azb3fflb6rwuhax7mpccmqlsmzqqe2pcm7mxrdur4@zpx2uo5pvoqs>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:07 +0000
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4j45tlwdfnxrvonm"
+Content-Disposition: inline
+X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,31 +90,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use %ptSp instead of open coded variants to print content of
-struct timespec64 in human readable format.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/gpu/drm/drm_vblank.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+--4j45tlwdfnxrvonm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: dpm broken on Radeon HD 8570D
+MIME-Version: 1.0
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index 32d013c5c8fc..5c14140cd0c2 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -806,10 +806,8 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
- 	ts_vblank_time = ktime_to_timespec64(*vblank_time);
- 
- 	drm_dbg_vbl(dev,
--		    "crtc %u : v p(%d,%d)@ %lld.%06ld -> %lld.%06ld [e %d us, %d rep]\n",
--		    pipe, hpos, vpos,
--		    (u64)ts_etime.tv_sec, ts_etime.tv_nsec / 1000,
--		    (u64)ts_vblank_time.tv_sec, ts_vblank_time.tv_nsec / 1000,
-+		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
-+		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
- 		    duration_ns / 1000, i);
- 
- 	return true;
--- 
-2.50.1
+Control: forwarded -1 https://lore.kernel.org/amd-gfx/epyf7tdz3azb3fflb6rwuhax7mpccmqlsmzqqe2pcm7mxrdur4@zpx2uo5pvoqs
 
+Hello,
+
+A Debian user (Roman Savochenko, on Cc:) reports issues (freezing with
+black screen) with a Radeon HD 8570D graphics adapter. When passing
+`radeon.dpm=0` on the kernel commandline the problems are gone.
+
+Is it a sensible quirk to let dpm default to 0 with that hardware? Or
+does the behaviour depend on (e.g.) the actual monitor in use?
+
+Or is there a bug to fix? If so, do you have a hint what to do, is there
+more information needed from the affected system?
+
+The full bug history is available at https://bugs.debian.org/1118349,
+which also contains some hardware information.
+
+Best regards
+Uwe
+
+--4j45tlwdfnxrvonm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmkSBDMACgkQj4D7WH0S
+/k5zWAgAqju8BpDB1hAAAVNE8j7dLI56fUYPPChiiaX/8H59lbni/EpSQOsN+U06
+U1PBZEtriZBDtmP733YLF0SWG53XsJCNKZFUVJ+kFP9Frh6UmAvthxWAmY0YYgvM
+gQABgVrWPEzFRoUR29vaJQj2K/fAnUxyWMLRiqSHrSWFsloxVNeVqkj7Z77ppOeq
+6IvXgzA2EQ0YJalqC/bGJsON+6lX70MaRTUiWV5FUeXTACrqSkpFdFAnV+PW6k3W
+ago+PyxsTXPI+5v/I1cbJ1wPBUmE5ORICZ8nG5fg84gAQSXuG9RW4ByXtjtfGjsF
+YppEhe2+pcjPBgHWTkFuADfr7qWe0Q==
+=oWab
+-----END PGP SIGNATURE-----
+
+--4j45tlwdfnxrvonm--
