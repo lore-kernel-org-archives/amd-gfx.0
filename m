@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A924CCD13D2
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E95CD13D3
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E2AB10E2CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4572510E567;
 	Tue, 11 Nov 2025 13:39:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CiBdtdyW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mm2w5ycZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0959B10E2EA;
- Mon, 10 Nov 2025 18:47:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A0B10E2F7;
+ Mon, 10 Nov 2025 18:47:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762800468; x=1794336468;
+ t=1762800470; x=1794336470;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fCt0uZJtXQzZViSDNcneyMtrnn/y5yDZ8tsLO9qgG3A=;
- b=CiBdtdyWymNjBZZ8GKXHeKNsOdLWp7u4dqTdo8MaYrWPkmlxjEL4yM0O
- +3m0AWSypxbTjU0VG+LbGClindsmh3YiD8fCAbcE7obqqpLfAvR14PgjA
- IEoTBd/TmGnWaq7rhIcDC07Zpmi58vSIBeVa5RUo4naGqRAJ+sywyTHfG
- FqlqwUAUmRs7sYghlTqx4E4YFYVwnVOnX3GkEyyc2gxTelsNemQPoQ+a9
- XYUulVOZq8E/I8VyVkiBZVxuQCzy6BplNBhW6b9H1y2gHJZkUpCR0vUQH
- w0xZ1AlLF+YMeuQUQT7KtHbJZ6h4AGZ6HSpfjeAt/UZVbggw7KLjaRIj+ Q==;
-X-CSE-ConnectionGUID: woMRvPeJT0uiNKo1Lqyptg==
-X-CSE-MsgGUID: k3g3Uz+NRICGhNILiI+7Qw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="63861710"
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="63861710"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2025 10:47:48 -0800
-X-CSE-ConnectionGUID: vLwpzXxWTlqMkVe0jU7QSA==
-X-CSE-MsgGUID: vqdaBx3wRd2oCOgUpZsMtg==
+ bh=EAZPhqK1RMT/qk5MrCQgSpebw1/0a3p3ZrELaAc3EQY=;
+ b=mm2w5ycZ7e2WyLXCRE4sKc/nHzunlmz3U6BS19h7F01tgtzcsX/Oz+vo
+ w3SHLBY8z17TwRmCRE0yfpYxtRfY4pBajVkiVht2aABxEI36hL2Wx775A
+ MXXNnNXyv8Iawc7spYEOPG+/7a67TOzolZqjqRZdfSNohUjNlcogXRgQ/
+ ZpLu37h4C1y1EgyiEbIt5Xsszg3pbsZe0PlLktuEg39Rz8o93863PN9xr
+ xKvE+BvxcmY/IMhHl4xcAxjvRwS6OeGDUD7CQl5twMRb4byCFs2Tyqa3B
+ PZKon3OB7K5/KeomE4hfXoISW9lNY3u4+LCFFsTQr+unJMYAgKQbtxmqf g==;
+X-CSE-ConnectionGUID: OpZvnXSETymBtadD51Mlng==
+X-CSE-MsgGUID: E+6mIGuMSFC680YyCuX9cA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="64769621"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="64769621"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2025 10:47:49 -0800
+X-CSE-ConnectionGUID: 3MOiDlwAReKoNg/jkNC/rg==
+X-CSE-MsgGUID: 9+AiZSP3S2yT9GSNLCrbhw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="189190196"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="188705021"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa009.fm.intel.com with ESMTP; 10 Nov 2025 10:47:39 -0800
+ by orviesa007.jf.intel.com with ESMTP; 10 Nov 2025 10:47:40 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 0116B97; Mon, 10 Nov 2025 19:47:28 +0100 (CET)
+ id 1B3ED9B; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -114,9 +114,9 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 02/23] ALSA: seq: Switch to use %ptSp
-Date: Mon, 10 Nov 2025 19:40:21 +0100
-Message-ID: <20251110184727.666591-3-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 06/23] drm/amdgpu: Switch to use %ptSp
+Date: Mon, 10 Nov 2025 19:40:25 +0100
+Message-ID: <20251110184727.666591-7-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
 References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
@@ -142,47 +142,23 @@ struct timespec64 in human readable format.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/core/seq/seq_queue.c | 2 +-
- sound/core/seq/seq_timer.c | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
-index f5c0e401c8ae..f6e86cbf38bc 100644
---- a/sound/core/seq/seq_queue.c
-+++ b/sound/core/seq/seq_queue.c
-@@ -699,7 +699,7 @@ void snd_seq_info_queues_read(struct snd_info_entry *entry,
- 		snd_iprintf(buffer, "current tempo      : %d\n", tmr->tempo);
- 		snd_iprintf(buffer, "tempo base         : %d ns\n", tmr->tempo_base);
- 		snd_iprintf(buffer, "current BPM        : %d\n", bpm);
--		snd_iprintf(buffer, "current time       : %d.%09d s\n", tmr->cur_time.tv_sec, tmr->cur_time.tv_nsec);
-+		snd_iprintf(buffer, "current time       : %ptSp s\n", &tmr->cur_time);
- 		snd_iprintf(buffer, "current tick       : %d\n", tmr->tick.cur_tick);
- 		snd_iprintf(buffer, "\n");
- 	}
-diff --git a/sound/core/seq/seq_timer.c b/sound/core/seq/seq_timer.c
-index 29b018a212fc..06074d822bae 100644
---- a/sound/core/seq/seq_timer.c
-+++ b/sound/core/seq/seq_timer.c
-@@ -442,7 +442,7 @@ void snd_seq_info_timer_read(struct snd_info_entry *entry,
- 	int idx;
- 	struct snd_seq_timer *tmr;
- 	struct snd_timer_instance *ti;
--	unsigned long resolution;
-+	struct timespec64 resolution;
- 	
- 	for (idx = 0; idx < SNDRV_SEQ_MAX_QUEUES; idx++) {
- 		struct snd_seq_queue *q __free(snd_seq_queue) = queueptr(idx);
-@@ -457,8 +457,8 @@ void snd_seq_info_timer_read(struct snd_info_entry *entry,
- 			if (!ti)
- 				break;
- 			snd_iprintf(buffer, "Timer for queue %i : %s\n", q->queue, ti->timer->name);
--			resolution = snd_timer_resolution(ti) * tmr->ticks;
--			snd_iprintf(buffer, "  Period time : %lu.%09lu\n", resolution / 1000000000, resolution % 1000000000);
-+			resolution = ns_to_timespec64(snd_timer_resolution(ti) * tmr->ticks);
-+			snd_iprintf(buffer, "  Period time : %ptSp\n", &resolution);
- 			snd_iprintf(buffer, "  Skew : %u / %u\n", tmr->skew, tmr->skew_base);
- 		}
-  	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index 8a026bc9ea44..4e2fe6674db8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -217,8 +217,7 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
+ 	drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
+ 	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
+ 	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
+-	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec,
+-		   coredump->reset_time.tv_nsec);
++	drm_printf(&p, "time: %ptSp\n", &coredump->reset_time);
+ 
+ 	if (coredump->reset_task_info.task.pid)
+ 		drm_printf(&p, "process_name: %s PID: %d\n",
 -- 
 2.50.1
 
