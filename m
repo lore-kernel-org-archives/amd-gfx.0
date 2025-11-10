@@ -4,55 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DBF9CCFA1A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F260CD13DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84D2110E5C6;
-	Tue, 11 Nov 2025 13:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4CD310E5DA;
+	Tue, 11 Nov 2025 13:39:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jh6LIRvy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Sj4SGBwa";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31AAA10E50D;
- Tue, 11 Nov 2025 08:52:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1762851144;
- bh=AOtxztYb3EUCtWNh0dzQl6PgAK/9e+Oi10O5JPoqGo4=;
- h=From:Date:Subject:To:Cc:From;
- b=jh6LIRvyb5680qh6eoFuSxCsS8+ArGe3FK9/qzJEoSmtRz2ntM7Mb4bTVmmQzN3e6
- j4pKsxb3onlQK3Uh1SN5DjmczMcg0ROBoBLlXR8usMf/yduegz0jAujmQPiBsfUFwC
- mIIBXqAgtQfzUh/8TQMniH6DP80D5Z8p1s4jRmgEzdWvwY4bT+Lyy8LIxK4pTzQVhk
- EiOO0GtUB3OLMy3n7KdAbw2my55p84M63pYVjCSarhqaQSUO9HPxmBbLWERTb9FZ2v
- RvK03gfr4TA/MreDaCafqE0IbouGKxAn/tbtIV0f34+xSo9OZzocEoyIBqQYssg1NO
- abMMlPbqw9aFg==
-Received: from localhost (unknown [82.79.138.145])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with UTF8SMTPSA id 9A7C017E1318;
- Tue, 11 Nov 2025 09:52:24 +0100 (CET)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 11 Nov 2025 10:52:11 +0200
-Subject: [PATCH v2] drm/amdgpu: Fix kernel-doc comments for some LUT properties
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E35C10E2F7;
+ Mon, 10 Nov 2025 18:47:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1762800480; x=1794336480;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=OzdF6HTk4h3/oUsmY5IfpSD2bmNX4EBLpymNpYyHIRk=;
+ b=Sj4SGBwa/i6v67ca+t6yf1wvHlIA7sLHK3aYtH+wfHQYua/KACfXBzSz
+ D3y0tWnmOq6W+LRzqFI3QepUVgrcBUcnmeoFNJypOGdIQEek7SxO9C/Dn
+ 3AnxVmujiYSJHw84kBoSyV4gtvprDtEObWHr5SDMZazDhCztbHXqFHA2d
+ l3JfabHujyBIKT5DMdYhvxG0gCEadbLTaJwynxikkyOUi5Ps6rJnvKiYe
+ ZlaVLSUEIhJbOxIkn7aS9tBFMHQRH7U5x5LzouM2TzR4X1v08GO5OyOkm
+ 5WlVv42+y7t454biU8YwDQsqwoNWezm5QJ2/b9IuuqtQg1vXAH724TCVA A==;
+X-CSE-ConnectionGUID: Ol1x1V1RRZGuhzCbgcoupA==
+X-CSE-MsgGUID: Z99uX4+DSSGrGl/0uYjlbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="90327173"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="90327173"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2025 10:47:59 -0800
+X-CSE-ConnectionGUID: KOb4f4b3RM6tdzmNBqgdkw==
+X-CSE-MsgGUID: yn8eDI+aQmWsr3VL9QEEYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="219401997"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa002.jf.intel.com with ESMTP; 10 Nov 2025 10:47:49 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 508CAA3; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Max Kellermann <max.kellermann@ionos.com>, Takashi Iwai <tiwai@suse.de>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v1 14/23] media: v4l2-ioctl: Switch to use %ptSp
+Date: Mon, 10 Nov 2025 19:40:33 +0100
+Message-ID: <20251110184727.666591-15-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
+References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251111-amdgpu-fix-kdoc-lut-v2-1-bcfcc82e962d@collabora.com>
-X-B4-Tracking: v=1; b=H4sIADr5EmkC/32NTQ6CMBSEr0Le2mdoa4G48h6GRX8e0AiUtEA0p
- He3cgCX30zmmwMiBUcR7sUBgXYXnZ8z8EsBZlBzT+hsZuAll2XDBarJ9suGnXvjy3qD47aikLX
- VjZZ1RwR5uQTK/Wl9tpkHF1cfPufJzn7pf9/OkKEoK22UvTFe1Q/jx1FpH9TV+AnalNIXkYsEN
- roAAAA=
-X-Change-ID: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:06 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,69 +137,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The following members of struct amdgpu_mode_info do not have valid
-references in the related kernel-doc sections:
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
- - plane_shaper_lut_property
- - plane_shaper_lut_size_property,
- - plane_lut3d_size_property
-
-Correct all affected comment blocks.
-
-Fixes: f545d82479b4 ("drm/amd/display: add plane shaper LUT and TF driver-specific properties")
-Fixes: 671994e3bf33 ("drm/amd/display: add plane 3D LUT driver-specific properties")
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
-Changes in v2:
-- Collected R-b tag from Melissa
-- Rebased onto latest drm-misc-next
-- Link to v1: https://lore.kernel.org/r/20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/media/v4l2-core/v4l2-ioctl.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index dc8d2f52c7d6..e244c12ceb23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -368,15 +368,15 @@ struct amdgpu_mode_info {
+diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+index 01cf52c3ea33..edc4d97b4161 100644
+--- a/drivers/media/v4l2-core/v4l2-ioctl.c
++++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+@@ -791,9 +791,8 @@ static void v4l_print_event(const void *arg, bool write_only)
+ 	const struct v4l2_event *p = arg;
+ 	const struct v4l2_event_ctrl *c;
  
- 	struct drm_property *plane_ctm_property;
- 	/**
--	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
--	 * that converts color content before 3D LUT. If
--	 * plane_shaper_tf_property != Identity TF, AMD color module will
-+	 * @plane_shaper_lut_property: Plane property to set pre-blending
-+	 * shaper LUT that converts color content before 3D LUT.
-+	 * If plane_shaper_tf_property != Identity TF, AMD color module will
- 	 * combine the user LUT values with pre-defined TF into the LUT
- 	 * parameters to be programmed.
- 	 */
- 	struct drm_property *plane_shaper_lut_property;
- 	/**
--	 * @shaper_lut_size_property: Plane property for the size of
-+	 * @plane_shaper_lut_size_property: Plane property for the size of
- 	 * pre-blending shaper LUT as supported by the driver (read-only).
- 	 */
- 	struct drm_property *plane_shaper_lut_size_property;
-@@ -400,10 +400,10 @@ struct amdgpu_mode_info {
- 	 */
- 	struct drm_property *plane_lut3d_property;
- 	/**
--	 * @plane_degamma_lut_size_property: Plane property to define the max
--	 * size of 3D LUT as supported by the driver (read-only). The max size
--	 * is the max size of one dimension and, therefore, the max number of
--	 * entries for 3D LUT array is the 3D LUT size cubed;
-+	 * @plane_lut3d_size_property: Plane property to define the max size
-+	 * of 3D LUT as supported by the driver (read-only). The max size is
-+	 * the max size of one dimension and, therefore, the max number of
-+	 * entries for 3D LUT array is the 3D LUT size cubed.
- 	 */
- 	struct drm_property *plane_lut3d_size_property;
- 	/**
-
----
-base-commit: be4cd2a13a31496c7fb9e46a244c4391b8b7cf31
-change-id: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
+-	pr_cont("type=0x%x, pending=%u, sequence=%u, id=%u, timestamp=%llu.%9.9llu\n",
+-			p->type, p->pending, p->sequence, p->id,
+-			p->timestamp.tv_sec, p->timestamp.tv_nsec);
++	pr_cont("type=0x%x, pending=%u, sequence=%u, id=%u, timestamp=%ptSp\n",
++		p->type, p->pending, p->sequence, p->id, &p->timestamp);
+ 	switch (p->type) {
+ 	case V4L2_EVENT_VSYNC:
+ 		printk(KERN_DEBUG "field=%s\n",
+-- 
+2.50.1
 
