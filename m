@@ -4,44 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2095CD13DE
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B65EECD13DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51F2C10E5AE;
-	Tue, 11 Nov 2025 13:39:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 053C310E5C0;
+	Tue, 11 Nov 2025 13:39:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="U0xyIRec";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Le9JGOfk";
 	dkim-atps=neutral
-X-Greylist: delayed 464 seconds by postgrey-1.36 at gabe;
- Mon, 10 Nov 2025 23:45:33 UTC
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
- [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67B0310E0FF
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Nov 2025 23:45:33 +0000 (UTC)
-Message-ID: <3eb5379f-c7ad-4aea-ab9a-20e07b7f34d0@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1762817866;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=N5NdZ3Il1D+l8lwQLcK5dXwNIadjasDY9t8ilnV/mV0=;
- b=U0xyIRecUBR+iYd+jFcmevJu/4H+A2bbNJnN96yfE0hlgn9ZMrH3LxAIKYqZS4s3cJ1uvm
- +7WK+gk43pd/VuQQ8rDReqm1AlKlWm8GBWmK3v11GgPPZIdbI1RU8LPuoyCqW5EbUBDj5d
- 3Ou4TSlLX99wMRUdq/vNAC0vrqSI3Ow=
-Date: Mon, 10 Nov 2025 23:37:33 +0000
-MIME-Version: 1.0
-Subject: Re: [PATCH v1 19/23] ptp: ocp: Switch to use %ptSp
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Corey Minyard <corey@minyard.net>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93AFF10E2F7;
+ Mon, 10 Nov 2025 18:47:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1762800477; x=1794336477;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Owa/uZSyQflLahGS6CmSwDqgbO1CL5jfKyID5Cl9frQ=;
+ b=Le9JGOfkPCOJhGhRZIwyXMH3Ujz1AZ4f8KDc59pl7hRsIScnewKEH8sx
+ EBItoA+RWEjU+jVVejh/2WVXTARVIt9+kvjm9YAxY0uymymwNjaIR4cPQ
+ /pJMT3al4S2Q3MDlA+coxc8Vag+3BAEn4nMy1EAYLFcosU+xQciBfgor3
+ DEOck375Wyqi0+f+NWcI2INHihlJY2cfLzwg9Y939jE3DD6XXyrrzqLrt
+ cswBzZUmezcvRLtNY8ihNcdkubBXv5mHftAMD1mMsgJ0t7HpcxpMsGCPM
+ 9fWRKy38ihvDkTul4hVgmgQhdWTMwOE3eLtV6SpU4wZEZ+NnLmQkA4X5o Q==;
+X-CSE-ConnectionGUID: 7CGpLZSbRs6sZolQ+9/CWQ==
+X-CSE-MsgGUID: O6W4kAviQYuwRmaOvsWcEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="64897585"
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="64897585"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2025 10:47:57 -0800
+X-CSE-ConnectionGUID: 2eJVkzqZS9eMe6nzc5hX5g==
+X-CSE-MsgGUID: eXHDXNSIQoOeoIXPu177HQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="189190257"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa009.fm.intel.com with ESMTP; 10 Nov 2025 10:47:49 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 356449F; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>, Hans Verkuil <hverkuil@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Hans Verkuil <hverkuil@kernel.org>,
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
  Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Vitaly Lifshits <vitaly.lifshits@intel.com>,
  Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
  Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
@@ -72,43 +85,44 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
  Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Rodolfo Giometti
- <giometti@enneenne.com>, Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
  Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>,
  Christian Borntraeger <borntraeger@linux.ibm.com>,
  Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
  Sesidhar Baddela <sebaddel@cisco.com>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xiubo Li
- <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v1 10/23] e1000e: Switch to use %ptSp
+Date: Mon, 10 Nov 2025 19:40:29 +0100
+Message-ID: <20251110184727.666591-11-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
 References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
- <20251110184727.666591-20-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20251110184727.666591-20-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:06 +0000
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,59 +137,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/11/2025 18:40, Andy Shevchenko wrote:
-> Use %ptSp instead of open coded variants to print content of
-> struct timespec64 in human readable format.
-> 
-> While at it, fix wrong use of %ptT against struct timespec64.
-> It's kinda lucky that it worked just because the first member
-> there 64-bit and it's of time64_t type. Now with %ptS it may
-> be used correctly.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->   drivers/ptp/ptp_ocp.c | 15 ++++++---------
->   1 file changed, 6 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-> index a5c363252986..a0bb8d3045d2 100644
-> --- a/drivers/ptp/ptp_ocp.c
-> +++ b/drivers/ptp/ptp_ocp.c
-> @@ -3261,7 +3261,7 @@ signal_show(struct device *dev, struct device_attribute *attr, char *buf)
->   			   signal->duty, signal->phase, signal->polarity);
->   
->   	ts = ktime_to_timespec64(signal->start);
-> -	count += sysfs_emit_at(buf, count, " %ptT TAI\n", &ts);
-> +	count += sysfs_emit_at(buf, count, " %ptS TAI\n", &ts);
->   
->   	return count;
->   }
-> @@ -4287,11 +4287,9 @@ ptp_ocp_summary_show(struct seq_file *s, void *data)
->   		ns += (s64)bp->utc_tai_offset * NSEC_PER_SEC;
->   		sys_ts = ns_to_timespec64(ns);
->   
-> -		seq_printf(s, "%7s: %lld.%ld == %ptT TAI\n", "PHC",
-> -			   ts.tv_sec, ts.tv_nsec, &ts);
-> -		seq_printf(s, "%7s: %lld.%ld == %ptT UTC offset %d\n", "SYS",
-> -			   sys_ts.tv_sec, sys_ts.tv_nsec, &sys_ts,
-> -			   bp->utc_tai_offset);
-> +		seq_printf(s, "%7s: %ptSp == %ptS TAI\n", "PHC", &ts, &ts);
-> +		seq_printf(s, "%7s: %ptSp == %ptS UTC offset %d\n", "SYS",
-> +			   &sys_ts, &sys_ts, bp->utc_tai_offset);
->   		seq_printf(s, "%7s: PHC:SYS offset: %lld  window: %lld\n", "",
->   			   timespec64_to_ns(&ts) - ns,
->   			   post_ns - pre_ns);
-> @@ -4499,9 +4497,8 @@ ptp_ocp_phc_info(struct ptp_ocp *bp)
->   		 ptp_clock_index(bp->ptp));
->   
->   	if (!ptp_ocp_gettimex(&bp->ptp_info, &ts, NULL))
-> -		dev_info(&bp->pdev->dev, "Time: %lld.%ld, %s\n",
-> -			 ts.tv_sec, ts.tv_nsec,
-> -			 bp->sync ? "in-sync" : "UNSYNCED");
-> +		dev_info(&bp->pdev->dev, "Time: %ptSp, %s\n",
-> +			 &ts, bp->sync ? "in-sync" : "UNSYNCED");
->   }
->   
->   static void
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
-Acked-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/net/ethernet/intel/e1000e/ptp.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/e1000e/ptp.c b/drivers/net/ethernet/intel/e1000e/ptp.c
+index ea3c3eb2ef20..ec39e35f3857 100644
+--- a/drivers/net/ethernet/intel/e1000e/ptp.c
++++ b/drivers/net/ethernet/intel/e1000e/ptp.c
+@@ -229,14 +229,11 @@ static void e1000e_systim_overflow_work(struct work_struct *work)
+ 						     systim_overflow_work.work);
+ 	struct e1000_hw *hw = &adapter->hw;
+ 	struct timespec64 ts;
+-	u64 ns;
+ 
+ 	/* Update the timecounter */
+-	ns = timecounter_read(&adapter->tc);
++	ts = ns_to_timespec64(timecounter_read(&adapter->tc));
+ 
+-	ts = ns_to_timespec64(ns);
+-	e_dbg("SYSTIM overflow check at %lld.%09lu\n",
+-	      (long long) ts.tv_sec, ts.tv_nsec);
++	e_dbg("SYSTIM overflow check at %ptSp\n", &ts);
+ 
+ 	schedule_delayed_work(&adapter->systim_overflow_work,
+ 			      E1000_SYSTIM_OVERFLOW_PERIOD);
+-- 
+2.50.1
+
