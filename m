@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E433CD13D2
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF3CDCD342C
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27FAB10E5C4;
-	Tue, 11 Nov 2025 13:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2653410E5D3;
+	Tue, 11 Nov 2025 13:39:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nute6YzX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Cr7kGpqF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5310210E579;
- Tue, 11 Nov 2025 12:28:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CBD310E571;
+ Tue, 11 Nov 2025 12:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762864085; x=1794400085;
+ t=1762864087; x=1794400087;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Owa/uZSyQflLahGS6CmSwDqgbO1CL5jfKyID5Cl9frQ=;
- b=nute6YzXgE+kpYX/129mcP/gkqvQB1BVc+P3GOqRS1PuPOzxu8BAHlps
- OgoOS92qG3wB78WNotM3Elc8v5zk28oHIORv/o0e35KNRDhsnbcyzT7FR
- CfAMxmUnQI06eSDQHUbhPQ4BGf9RTAVPNVvuQB3shk2k0bkAHvGPsah5E
- 4GYTJGHaBFZe4O6o+h+YoT38tHb+idjysqZ0TYpIeGpDao+Us6itIpxGW
- 9PkYm/k7NExRjKe6CTv9aIDpnPq3QN2PdNde+6j90YI1q//10nmpe/QkR
- 6JmntkktY764SfD7vq23JGtFo0QuBbs8r7M5eoN/7R4or68quAFE+jNkq g==;
-X-CSE-ConnectionGUID: g20bJ2Z5Te61N7vp4dUSiA==
-X-CSE-MsgGUID: DanaCYywRH+euWt7epOtvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="75606978"
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="75606978"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2025 04:28:04 -0800
-X-CSE-ConnectionGUID: QpOvoTP2TYKT5V9dhrKvZA==
-X-CSE-MsgGUID: DJfjMKFlRSW8JzjS12Rp8g==
+ bh=VVg62TqQIJ7Evijsdq8qdbXdEeiYTcr6am16uCHXNkE=;
+ b=Cr7kGpqFbMNZY3Hsc+IU8Rwzjf3AlCrdlsctP1Tpw90MU8JOdrXQg+qI
+ E6YkRiwTAg4Y5uCaR0kptqyGu8UTa424xfY8WfKIEjfdl7NCt90SZmYuO
+ hH8r6VBzG6jg8R+qj+SMEiQD92TBWzS8TjHlmzGG0J2K6xkq0KCkIIe4j
+ y6cQLKzHbtV8Y8VzwsFqb0hy6n/QJoYjn0u3hWZUsWyU8639dTD2JH/f4
+ qbdXlI1NQvqnGqEl5JZbsLsmm2GutC8M0K3NFopLZGddbxA3lxjguxTxi
+ uaB+thf8xm7jQaxVwCjyGNgiF0626G2eF/za1e9BX1j1SZK500YNHf7tJ Q==;
+X-CSE-ConnectionGUID: tP8Wh6Q2QFeO6y1nnDWwLg==
+X-CSE-MsgGUID: mMskVaciSDS6SdgkIZG73Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="82553148"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="82553148"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2025 04:28:05 -0800
+X-CSE-ConnectionGUID: 5HPrSPquTkWxhLAPOYOnLg==
+X-CSE-MsgGUID: /AbwGWmbRHOIvg8v9CpXQQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="188592916"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="212343320"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa007.fm.intel.com with ESMTP; 11 Nov 2025 04:27:57 -0800
+ by fmviesa002.fm.intel.com with ESMTP; 11 Nov 2025 04:27:57 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 10F139F; Tue, 11 Nov 2025 13:27:38 +0100 (CET)
+ id 2A97AA3; Tue, 11 Nov 2025 13:27:38 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -112,9 +112,9 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2 09/21] e1000e: Switch to use %ptSp
-Date: Tue, 11 Nov 2025 13:20:09 +0100
-Message-ID: <20251111122735.880607-10-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 13/21] mmc: mmc_test: Switch to use %ptSp
+Date: Tue, 11 Nov 2025 13:20:13 +0100
+Message-ID: <20251111122735.880607-14-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
 References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
@@ -140,30 +140,47 @@ struct timespec64 in human readable format.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/net/ethernet/intel/e1000e/ptp.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/mmc/core/mmc_test.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/e1000e/ptp.c b/drivers/net/ethernet/intel/e1000e/ptp.c
-index ea3c3eb2ef20..ec39e35f3857 100644
---- a/drivers/net/ethernet/intel/e1000e/ptp.c
-+++ b/drivers/net/ethernet/intel/e1000e/ptp.c
-@@ -229,14 +229,11 @@ static void e1000e_systim_overflow_work(struct work_struct *work)
- 						     systim_overflow_work.work);
- 	struct e1000_hw *hw = &adapter->hw;
- 	struct timespec64 ts;
--	u64 ns;
+diff --git a/drivers/mmc/core/mmc_test.c b/drivers/mmc/core/mmc_test.c
+index a74089df4547..01d1e62c2ce7 100644
+--- a/drivers/mmc/core/mmc_test.c
++++ b/drivers/mmc/core/mmc_test.c
+@@ -586,14 +586,11 @@ static void mmc_test_print_avg_rate(struct mmc_test_card *test, uint64_t bytes,
+ 	rate = mmc_test_rate(tot, &ts);
+ 	iops = mmc_test_rate(count * 100, &ts); /* I/O ops per sec x 100 */
  
- 	/* Update the timecounter */
--	ns = timecounter_read(&adapter->tc);
-+	ts = ns_to_timespec64(timecounter_read(&adapter->tc));
+-	pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took "
+-			 "%llu.%09u seconds (%u kB/s, %u KiB/s, "
+-			 "%u.%02u IOPS, sg_len %d)\n",
+-			 mmc_hostname(test->card->host), count, sectors, count,
+-			 sectors >> 1, (sectors & 1 ? ".5" : ""),
+-			 (u64)ts.tv_sec, (u32)ts.tv_nsec,
+-			 rate / 1000, rate / 1024, iops / 100, iops % 100,
+-			 test->area.sg_len);
++	pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took %ptSp seconds (%u kB/s, %u KiB/s, %u.%02u IOPS, sg_len %d)\n",
++		mmc_hostname(test->card->host), count, sectors, count,
++		sectors >> 1, (sectors & 1 ? ".5" : ""), &ts,
++		rate / 1000, rate / 1024, iops / 100, iops % 100,
++		test->area.sg_len);
  
--	ts = ns_to_timespec64(ns);
--	e_dbg("SYSTIM overflow check at %lld.%09lu\n",
--	      (long long) ts.tv_sec, ts.tv_nsec);
-+	e_dbg("SYSTIM overflow check at %ptSp\n", &ts);
+ 	mmc_test_save_transfer_result(test, count, sectors, ts, rate, iops);
+ }
+@@ -3074,10 +3071,9 @@ static int mtf_test_show(struct seq_file *sf, void *data)
+ 		seq_printf(sf, "Test %d: %d\n", gr->testcase + 1, gr->result);
  
- 	schedule_delayed_work(&adapter->systim_overflow_work,
- 			      E1000_SYSTIM_OVERFLOW_PERIOD);
+ 		list_for_each_entry(tr, &gr->tr_lst, link) {
+-			seq_printf(sf, "%u %d %llu.%09u %u %u.%02u\n",
+-				tr->count, tr->sectors,
+-				(u64)tr->ts.tv_sec, (u32)tr->ts.tv_nsec,
+-				tr->rate, tr->iops / 100, tr->iops % 100);
++			seq_printf(sf, "%u %d %ptSp %u %u.%02u\n",
++				   tr->count, tr->sectors, &tr->ts, tr->rate,
++				   tr->iops / 100, tr->iops % 100);
+ 		}
+ 	}
+ 
 -- 
 2.50.1
 
