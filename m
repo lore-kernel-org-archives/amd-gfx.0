@@ -4,89 +4,205 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50D42CCFA1A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6021CCFA1A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 14:50:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE4A210E332;
-	Tue, 11 Nov 2025 13:47:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EAC910E0D4;
+	Tue, 11 Nov 2025 14:50:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q98ujS9q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4P9MiOXg";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5EA10E332
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Nov 2025 13:47:20 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-42b2dc17965so2521261f8f.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Nov 2025 05:47:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1762868839; x=1763473639; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=ly63k+uQ36PRYVBBMUEsolHGJhhPruNEH5O585g5cVs=;
- b=Q98ujS9q6HDYigmjPdr+TBnOcq/w7C+XQBvUeQa7ctkuugvOQaNF6rncNSQ9O0HLFq
- qrAU5b3mSEYUleSLGRPZh8r28+wZqMH+ZXj+r9Nqx9VVWu3nbvVLkn2SlgZml9WsnUwa
- npM+jt01RLf9F1eonVf7aBuaoXSOl0EdJuiNHGE16Df9xlwH/WSS642p9snpgYC0axx8
- 3NsHEUGXVGNcGN2O9hDh4EpMY79ejBWZGO4lc+nmGTsYab8Az31DoL0zLki4F0a6lB07
- RTZe11ZUz384fruqzaU8LyPu++i/oldbxUXj1fQrCav22V+SeovDGcSVooy2EwmhcQPU
- 5Lrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762868839; x=1763473639;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ly63k+uQ36PRYVBBMUEsolHGJhhPruNEH5O585g5cVs=;
- b=CFIIGzyv5Gf2PpOS1tJHGDc09e80mrdTOustN5ClHUR2plZW+dYp/3zvhnb0oPAd7t
- AgLWltMBjjSnduOl7QyzSA0Tida4VmKe7sWoIjSwUCVtUKq/vMQXAH0csLurDfhe9c6n
- ZO3KBtb7Ugcz/pD2GwqcO/xijHVB3Y2bbkOhU9EpAJV8bCgeyZu9bwMUXuBZ2FGa11Kp
- ojRcv6O93RaMbGQ5JfC8VPPtF721GAfSIJ7yaEuS1e/f0lIi4/WnPFETtUFE0jnsDhmc
- gNeDm40Q2jXe2bJWGWRGBzwLD6OcV+woh2cIzz6h111059PB13gbl4zhfiy7MfNK/Pe3
- uQqw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVpRlPO/zDrJNuBzVT8W8tVBDA+oh042UnmhQGVnSvqKp01DaC8VN87+y2SGSPTAghbK/mOtEF2@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyY+hssQ8q1tMyKgYKE+k2cn1eNpe5vmPO0e60IgR5Qllxv5gms
- FIdVFLGcQn9CEkYnW0DVeaC0xqiXs9QCgM6qHgQveyNxRrjGydduFVnF
-X-Gm-Gg: ASbGncu5jwRqW15sgsvUwymeCrQsXMOgH5UVNAxR2zmvj4xWc0BIV9WnSsNiADwQLZV
- R7rz52X9prqH7v+2uAsLCNxRGCdoPLBse/qtwTWDQObbVVfkHHnzDJSHZMHi990D9azbo0LG8YB
- gMjxaSUjEHFclL1y29uEl0tZXRqCzzjDnd0jrt4YFN069ihIUNfS1pxTVC+ToVZ5c0Qp581y/CF
- dbpNlsM5PUy+9elagLdHcfdikMJrgInO8QMzHST9yRnVV93JD+oReIF5sGP8sn4hr4DiirqM5Xb
- CzsrGgwJuX9dLnzHTS/nCxisN3tZCMPLGLyv+pxnSiJSQh0/u00GSUNLAKH2AUJEpyEzGL9gsSR
- OZqrOTC5CQgiV9baesnjnC44aZ4oLi5BztMw3sDZQH6z9hBAsdno2A98p5gcUNYjZaNVyenPr8R
- iWi+iv2G0yz6z5RRkGvuk/kXyA6Xo+N/kJLSd8wqWUJbTeyEp1yljg
-X-Google-Smtp-Source: AGHT+IEaHVbovSzAk2lICJIM9e+6Qh2XrQ7YBl8vD/liOcYKJlhB97hC6Mu5CZwVI181Skv5+W7Ytg==
-X-Received: by 2002:adf:9c82:0:b0:42b:3090:2683 with SMTP id
- ffacd0b85a97d-42b3090289amr7696308f8f.53.1762868839072; 
- Tue, 11 Nov 2025 05:47:19 -0800 (PST)
-Received: from ?IPv6:2001:4c4e:24e1:af00:ca8b:1d2c:125:e560?
- ([2001:4c4e:24e1:af00:ca8b:1d2c:125:e560])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b2e9644fbsm20357500f8f.25.2025.11.11.05.47.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Nov 2025 05:47:18 -0800 (PST)
-Message-ID: <34b8e7bdc34003cf82c1d660ad949abb8901f99a.camel@gmail.com>
-Subject: Re: [PATCH v7 07/15] drm/amd/display: get SAD from drm_eld when
- parsing EDID caps
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Melissa Wen <mwen@igalia.com>, Harry Wentland <harry.wentland@amd.com>, 
- Alex Hung <alex.hung@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Rodrigo Siqueira	 <siqueira@igalia.com>,
- airlied@gmail.com, alexander.deucher@amd.com, 	andrzej.hajda@intel.com,
- christian.koenig@amd.com, jernej.skrabec@gmail.com, 	jonas@kwiboo.se,
- Laurent.pinchart@ideasonboard.com, 	maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, neil.armstrong@linaro.org, 	rfoss@kernel.org,
- simona@ffwll.ch, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Michel Daenzer <michel.daenzer@mailbox.org>, Jani Nikula
- <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-Date: Tue, 11 Nov 2025 14:47:15 +0100
-In-Reply-To: <20251106165536.161662-8-mwen@igalia.com>
-References: <20251106165536.161662-1-mwen@igalia.com>
- <20251106165536.161662-8-mwen@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54E7D10E00C;
+ Tue, 11 Nov 2025 14:49:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tLr6zKieMSVVefIlFTh7nsIlEvZpHlmLKfgr8BaEY0Y8L5rqp0Fj3BxStwAIBbT5BGQq1k67Uh00lg6IOUu6z7+68JNOe+6BJ5sywANpENpahOCVgN5sNEIekfhYBCZ1Tm1xDGNIV4O/gQo51keDFUfhN7oCVMUGYxtBukaXZxi8SqO+vubeD25jv5He1IaKDAuqqsdrxf7CzTQUGJebnOxx+K1TCGWwYnizVSg5SorW/8xTR1m0LUTBq9AOozQCVgvgXYJEHg8Wio1BNC91aH4ojUOJ02KjaRRsxjcyZ9uqD4ayxZdOyGFjAe79f/K6soKZr8KE1omYk9ex0pbOyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GkwU1mVH+FzBYHWZ3X6mk/Izupa+NNZcIjjrI7JLXfo=;
+ b=AOudp2oYNzb9houkyo++FnpeGyGX0J5MHiIWdJfdMNZJTqw/1zUbCC0+2M+o+gFF52D32J9Y9LWAANI1keCnJPbVVLgchVmwtmtB2N+rVJUXBmTstK5lSCA7jWzn1ZL/mJTHMdV+MYWOjztNGMHtEJHoYKC5u+oDxBsIrbaTiRja7keZYFQhqd4svBu7KtgHzKK9nfQswo4RnzP+qOG5ZDP5jsW1Qo2SrZS30TGTvJTYmpFamBxSka3CseZTOFwp1iJMrlDZP7jPrVtIDWq/CPGLPhgsh+J53ZR0wFAH6HVhVL/tebQ3ZHA4rUuaxckh9C53KjO4WkW01owOr5iNvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GkwU1mVH+FzBYHWZ3X6mk/Izupa+NNZcIjjrI7JLXfo=;
+ b=4P9MiOXgvEP+e7EzPGB5BGeeuBZHm2J677y9FNU1WMGmPWwaOhSXPDvMxl0uv8xTfoPZeDJVTGqK3e/GeBu6cxClu0JYS1+9LWRsH6W2WWGiZB2ZrD0fq6nI90UOCmvHGVzrVUKwbB87qtvUOkzbqVy34JSJs3ATrrVFM1qdcIo=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by CH3PR12MB9147.namprd12.prod.outlook.com (2603:10b6:610:19a::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.16; Tue, 11 Nov
+ 2025 14:49:53 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.9320.013; Tue, 11 Nov 2025
+ 14:49:53 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Corey Minyard
+ <corey@minyard.net>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Dr.
+ David Alan Gilbert" <linux@treblig.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Matthew Brost
+ <matthew.brost@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, Vitaly
+ Lifshits <vitaly.lifshits@intel.com>, Manivannan Sadhasivam
+ <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>, Calvin Owens
+ <calvin@wbinvd.org>, Vadim Fedorenko <vadim.fedorenko@linux.dev>, Sagi Maimon
+ <maimon.sagi@gmail.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>, Hans Verkuil
+ <hverkuil+cisco@kernel.org>, Casey Schaufler <casey@schaufler-ca.com>, Steven
+ Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, Viacheslav
+ Dubeyko <Slava.Dubeyko@ibm.com>, Max Kellermann <max.kellermann@ionos.com>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>, "linux-media@vger.kernel.org"
+ <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org"
+ <linaro-mm-sig@lists.linaro.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>, "linux-mmc@vger.kernel.org"
+ <linux-mmc@vger.kernel.org>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "intel-wired-lan@lists.osuosl.org"
+ <intel-wired-lan@lists.osuosl.org>, "linux-pci@vger.kernel.org"
+ <linux-pci@vger.kernel.org>, "linux-s390@vger.kernel.org"
+ <linux-s390@vger.kernel.org>, "linux-scsi@vger.kernel.org"
+ <linux-scsi@vger.kernel.org>, "linux-staging@lists.linux.dev"
+ <linux-staging@lists.linux.dev>, "ceph-devel@vger.kernel.org"
+ <ceph-devel@vger.kernel.org>, "linux-trace-kernel@vger.kernel.org"
+ <linux-trace-kernel@vger.kernel.org>
+CC: Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Jonathan Corbet <corbet@lwn.net>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Konrad
+ Dybcio <konradybcio@kernel.org>, Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?iso-8859-2?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek
+ Kitszel <przemyslaw.kitszel@intel.com>,
+ =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, Kishon
+ Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>, Richard Cochran
+ <richardcochran@gmail.com>, Jonathan Lemon <jonathan.lemon@gmail.com>, Stefan
+ Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko
+ Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander
+ Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
+ <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Satish
+ Kharat <satishkh@cisco.com>, Sesidhar Baddela <sebaddel@cisco.com>, "James
+ E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Mauro Carvalho
+ Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, Masami
+ Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Andrew Morton <akpm@linux-foundation.org>
+Subject: RE: [PATCH v2 05/21] drm/amdgpu: Switch to use %ptSp
+Thread-Topic: [PATCH v2 05/21] drm/amdgpu: Switch to use %ptSp
+Thread-Index: AQHcUwahm1/91wHoNkKlQRJwdZtlULTtjo6Q
+Date: Tue, 11 Nov 2025 14:49:53 +0000
+Message-ID: <BL1PR12MB5144DAA1CB83640FBE834FFFF7CFA@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
+ <20251111122735.880607-6-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20251111122735.880607-6-andriy.shevchenko@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-11-11T14:49:03.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|CH3PR12MB9147:EE_
+x-ms-office365-filtering-correlation-id: d4b40aa3-753f-488e-1215-08de213192e4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|921020|38070700021; 
+x-microsoft-antispam-message-info: =?iso-8859-2?Q?OrgQba1o8VRkBRZy5KjWGPJFxxdvb9PI2OytFVyn9ss6KeRgUuNKhjHq35?=
+ =?iso-8859-2?Q?TostFJ91nWS81XunmUZXFcM2dNwFIbkVmwmviAN+9MjVoCn72yk+qV9/5A?=
+ =?iso-8859-2?Q?21+5lZS4OSEk52i+HU2wOlVTAPVHrqsJeulWOiRwU3/W7rwng+pLW2yAp+?=
+ =?iso-8859-2?Q?As3Ne6InDCuJtLmdM8uov6bkArZCyP2vOHy+lt3GAWT01g6K5BgDCr2uC9?=
+ =?iso-8859-2?Q?gf4ACKmQUAIB7dloGnx7EDamcoMLI7LN7KDxEM/GgryhlxofaJUn54ONUo?=
+ =?iso-8859-2?Q?87XOuy1pofi8FmPIPCfM2TnaXnPHxJAV0CBZqO6++8OdKlBUDhpCMtlIZm?=
+ =?iso-8859-2?Q?aunWC2gJWf6w0vRU3d9r7qYJTuKlUZZM9YLSTWYgwHzAOiTEoGuYVN2SEn?=
+ =?iso-8859-2?Q?hbbGJ09XHFDsWtThS7skygDzK0JLlRoixUeCBowVxhRxdT9qCGUaESEHZz?=
+ =?iso-8859-2?Q?inQGnPOVbW1Ym7bDVbXMAiH6oG6Pk3QVQwVoAEe1FroEFxhmFkNfjOliQI?=
+ =?iso-8859-2?Q?TSBwpejmYUIomMkjHXkMn/TZ+A2CBlihIjFM0LN+Ttl3qet+43xn0ORJny?=
+ =?iso-8859-2?Q?c6k6BReErVvD5d/rPI2DEJd+wLjA3QGsBhggqq+j+SIyRx69buZvU5zOGB?=
+ =?iso-8859-2?Q?Iovxhmb5Hev18SvFA3KGQHd+9cC8H/FFHvoO0zAQ++a5eoduMTa6BIYJCM?=
+ =?iso-8859-2?Q?KM8Hm28rtQBlYR37ydHv8Ix1gpMobT6UHT9m4rYv1FeeV1S6CH9gzPviZd?=
+ =?iso-8859-2?Q?iRBR/QrNWdDIOs53ce6k8U6BVctuRZP/B8fEW0rS/sR4g0GqBBvS0K2Lcs?=
+ =?iso-8859-2?Q?ooXVutaSDB5BgNCt2OFKXSqZmozfl3Wi17iZHZlEnq4Uxwndzyh0xV035m?=
+ =?iso-8859-2?Q?Zd/y26S9fGY8r4WKahf9kzkOtVXM50z+Znb5Igz94CrhVMvB6G3CqIJ31z?=
+ =?iso-8859-2?Q?C0aWEQ4nSVIzW7LrUPygs19CkKZLZ0+k+SlA5pbFEoB/0GXk09e+tbaDGZ?=
+ =?iso-8859-2?Q?tQwmpzNwF7Lkphf9pszGwyl7CsRPAV5/OnmXvYIGCiCuVqfckFKDFkTUr3?=
+ =?iso-8859-2?Q?Q2VRcX9xwHIQS2QKu2Zsi3AotquwCdxWm4a46szrCjX9xPSQs027Rm7Cl9?=
+ =?iso-8859-2?Q?4b085D4VFJV0eboQCARbXD2zkQ76uWewrb+xqoHw3onhtBEPlWOezuxiSH?=
+ =?iso-8859-2?Q?PtvjCkcR3kZ7x6cjCVOdh6Bcnigv6mXjZWYm7kMNFh8XlAt0M135Y/vzuP?=
+ =?iso-8859-2?Q?4kHzyErkKxpFPVf+wj7UWcwfYNKqkP+XTkHACDpnvNjyFieGfOYm/IEr/6?=
+ =?iso-8859-2?Q?h93VPcZULXAj4o9XCHEh/f5CxjM0h/55TO4i0pS8C704uFEmSCreSXZzkq?=
+ =?iso-8859-2?Q?DFkORbsr9XMN+B+8bpblyDG6BB5Mu7wP/b4jm2Bn3qzPx2XRhHwduUFLyc?=
+ =?iso-8859-2?Q?ngfIa6ZBGzNEAUio7tLJqTIpPwAYf0BhC/gvyivI6UEpHF6YrCTeGYG+tp?=
+ =?iso-8859-2?Q?/HKhtRnFwD7iRSeeaIy94LpY7oQi1insn6B8R/kOoYspHnlG8YuppUjqHs?=
+ =?iso-8859-2?Q?0glvuqnkbygBFDPvLiba3YNSWWURlRA8Vo9XEbKseLDk9A/bFw=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(921020)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-2?Q?YdFRE1eWrPnF1GjQxYY0iivBiOqCLGtbo/c8RewREhlsgtC52oCM8zemPI?=
+ =?iso-8859-2?Q?0qvXvKbT+ZMeYZQXNbhSEV8Sg8tSlMGI5V2NO0+p6pxP99hKRk1COI4llZ?=
+ =?iso-8859-2?Q?ST/JV80w6gw+skR6ltDbLAnwO2u/lLPr2sO21LQh1+CXnIRMinHpG8MZx1?=
+ =?iso-8859-2?Q?nEW0grvYDrKv97xxD7p69ayMEcyrpAYL1KwPs6f5M7syyFwQB7/xxtcCNT?=
+ =?iso-8859-2?Q?/bsNITszdE5LmV4JeNJOTz4Q0PEfx36uLSXyMyFtjPFNGBkZlz8p3TdPCw?=
+ =?iso-8859-2?Q?NApYU7IU7DQCUNCWwTq1UKY0MDBCcvYjDJ7UgtoMKQoco2TX8sgzA5FjR7?=
+ =?iso-8859-2?Q?SgrOJQfMoipCUnG5+xURExhi8TNpm9Z+S69rbDNORhsb9Hr6+i8UutL1JA?=
+ =?iso-8859-2?Q?Pss1pw2Ox+ih9kSrok60aWWMn4ak12yytPJ2u9svnFi1WELcZr1n0R01l9?=
+ =?iso-8859-2?Q?XnnD2imFQ9ZKk3NRZ7QfWKZKYFvSaY3kSTYYzA1hWUX8UIlxDjos+zkgXd?=
+ =?iso-8859-2?Q?Z721P/FFL4iJeooBRjT9HtUIfIpi/w61N4W5e0IT+jxcmFR9qngdP2vG3N?=
+ =?iso-8859-2?Q?yDxarCQayMQDH7FcttW7LnPNiszlNR72jUyLAL94FTnEv7T8009qnZPJyX?=
+ =?iso-8859-2?Q?SU0FdWiZJ3sBv6u9NglxMcudswyLdufcX+a0tlHma2PxWJvNnMf0SvClXe?=
+ =?iso-8859-2?Q?oLPfLaCtYfMPQdHbviakBEL65iMf3lbmRfLDC/MBLawgmYbDOD0oK51Cht?=
+ =?iso-8859-2?Q?js+b1cG4f+9yWC28tIq3s/m6PeCO9CRY9WjaEbJUktLtwUhNZWUYgWkb2U?=
+ =?iso-8859-2?Q?+vNbELTISQ/KeHKGITtUmsnGpUXStXWSvaFx/PEGqrhyBVXmP9hJE6IdJs?=
+ =?iso-8859-2?Q?KWk7i+gfjPJh7oGin0qoJ5q63Di5I0x9zHNNPsbnTu8nHTZOw+WzfjR2Ig?=
+ =?iso-8859-2?Q?IevCIZDu7N6V1fR6+pOn9bUD7grI8lKghyP/ziUA7dM5XzzXJXl8DtW3zc?=
+ =?iso-8859-2?Q?qkJr7ItoFSSv2+kNOA+03nTw0GecoT/x4ETpC+1f8JXgaH5TDc6i+Ouh2O?=
+ =?iso-8859-2?Q?kBCS9BWRtGq0kS3EJlqHYGFkTc/RDazOYHLReoXS0KW9NUw76g5IzbBu5M?=
+ =?iso-8859-2?Q?JL87YPJ5Nn4py0aP4oqbPLjuTfUqatXTGdgy2FgDG+kyfGJZlrTZfKJuw5?=
+ =?iso-8859-2?Q?GFm4WH+0OSWqq4qL8knsiKECPX4NWNXdQ1etGJGCHFqew9wb6pPckPMqV9?=
+ =?iso-8859-2?Q?14QR8ZZS9fvH2tWGG/wOFfCeEu7jKHouX1heuvxBE0pnSzEBGxRrKL/+Ik?=
+ =?iso-8859-2?Q?pq0s5ZoSz6537o1pgzuSprTrALvxluza4vmbWJg2D0vX2jMYP3D39/kesj?=
+ =?iso-8859-2?Q?+LguNMz2DQ2xnIJaGDQufP1KUJSDuUcoqEDnXzZJuzkcfNspQ6PNZI24Rx?=
+ =?iso-8859-2?Q?1C2BpsS4iEpMa7Ab5yKzLyWDDMtUqEqSnFNzFhbMLfzDSUhVU2gogmr8oz?=
+ =?iso-8859-2?Q?A+1/S7/hrAujQl07+mHY4SZsGs4CQzDLN6sd5mU1H1R6kUIJKQ68YbM16N?=
+ =?iso-8859-2?Q?DlCyqmqXDoEEqS6n04RPnZIKOJYWo3OfQWqTTxfCJ/4ywkBhfIdsI0yBK1?=
+ =?iso-8859-2?Q?GE0em/cq9Hlrc=3D?=
+Content-Type: text/plain; charset="iso-8859-2"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4b40aa3-753f-488e-1215-08de213192e4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2025 14:49:53.4262 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +UWf/dYI0w3WKb4fcGJtSH5FXiPAuJpcMfWbfhyLN3SsBFmhHj6n4u4N2adU0+K4dmMYqSb6UrCDOkmV4OPSLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9147
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,99 +217,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-11-06 at 13:49 -0300, Melissa Wen wrote:
-> drm_edid_connector_update() updates display info, filling ELD with
-> audio
-> info from Short-Audio Descriptors in the last step of
-> update_dislay_info(). Our goal is stopping using raw edid, so we can
-> extract SAD from drm_eld instead of access raw edid to get audio
-> caps.
->=20
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
+[Public]
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> -----Original Message-----
+> From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Sent: Tuesday, November 11, 2025 7:20 AM
+> To: Corey Minyard <corey@minyard.net>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Dr. David Alan Gilbert <linux@treblig.org>;
+> Deucher, Alexander <Alexander.Deucher@amd.com>; Thomas Zimmermann
+> <tzimmermann@suse.de>; Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com>; Rob Clark
+> <robin.clark@oss.qualcomm.com>; Matthew Brost
+> <matthew.brost@intel.com>; Ulf Hansson <ulf.hansson@linaro.org>; Andy
+> Shevchenko <andriy.shevchenko@linux.intel.com>; Vitaly Lifshits
+> <vitaly.lifshits@intel.com>; Manivannan Sadhasivam <mani@kernel.org>;
+> Niklas Cassel <cassel@kernel.org>; Calvin Owens <calvin@wbinvd.org>; Vadi=
+m
+> Fedorenko <vadim.fedorenko@linux.dev>; Sagi Maimon
+> <maimon.sagi@gmail.com>; Martin K. Petersen
+> <martin.petersen@oracle.com>; Karan Tilak Kumar <kartilak@cisco.com>;
+> Hans Verkuil <hverkuil+cisco@kernel.org>; Casey Schaufler <casey@schaufle=
+r-
+> ca.com>; Steven Rostedt <rostedt@goodmis.org>; Petr Mladek
+> <pmladek@suse.com>; Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>; Max
+> Kellermann <max.kellermann@ionos.com>; linux-doc@vger.kernel.org; linux-
+> kernel@vger.kernel.org; openipmi-developer@lists.sourceforge.net; linux-
+> media@vger.kernel.org; dri-devel@lists.freedesktop.org; linaro-mm-
+> sig@lists.linaro.org; amd-gfx@lists.freedesktop.org; linux-arm-
+> msm@vger.kernel.org; freedreno@lists.freedesktop.org; intel-
+> xe@lists.freedesktop.org; linux-mmc@vger.kernel.org;
+> netdev@vger.kernel.org; intel-wired-lan@lists.osuosl.org; linux-
+> pci@vger.kernel.org; linux-s390@vger.kernel.org; linux-scsi@vger.kernel.o=
+rg;
+> linux-staging@lists.linux.dev; ceph-devel@vger.kernel.org; linux-trace-
+> kernel@vger.kernel.org
+> Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>; Sergey Senozhatsky
+> <senozhatsky@chromium.org>; Jonathan Corbet <corbet@lwn.net>; Sumit
+> Semwal <sumit.semwal@linaro.org>; Gustavo Padovan
+> <gustavo@padovan.org>; David Airlie <airlied@gmail.com>; Simona Vetter
+> <simona@ffwll.ch>; Maarten Lankhorst
+> <maarten.lankhorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>;
+> Dmitry Baryshkov <lumag@kernel.org>; Abhinav Kumar
+> <abhinav.kumar@linux.dev>; Jessica Zhang <jesszhan0024@gmail.com>; Sean
+> Paul <sean@poorly.run>; Marijn Suijten <marijn.suijten@somainline.org>;
+> Konrad Dybcio <konradybcio@kernel.org>; Lucas De Marchi
+> <lucas.demarchi@intel.com>; Thomas Hellstr=F6m
+> <thomas.hellstrom@linux.intel.com>; Rodrigo Vivi <rodrigo.vivi@intel.com>=
+;
+> Vladimir Oltean <olteanv@gmail.com>; Andrew Lunn <andrew@lunn.ch>;
+> David S. Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; Tony Nguyen <anthony.l.nguyen@intel.com>;
+> Przemek Kitszel <przemyslaw.kitszel@intel.com>; Krzysztof Wilczy=F1ski
+> <kwilczynski@kernel.org>; Kishon Vijay Abraham I <kishon@kernel.org>;
+> Bjorn Helgaas <bhelgaas@google.com>; Rodolfo Giometti
+> <giometti@enneenne.com>; Richard Cochran <richardcochran@gmail.com>;
+> Jonathan Lemon <jonathan.lemon@gmail.com>; Stefan Haberland
+> <sth@linux.ibm.com>; Jan Hoeppner <hoeppner@linux.ibm.com>; Heiko
+> Carstens <hca@linux.ibm.com>; Vasily Gorbik <gor@linux.ibm.com>;
+> Alexander Gordeev <agordeev@linux.ibm.com>; Christian Borntraeger
+> <borntraeger@linux.ibm.com>; Sven Schnelle <svens@linux.ibm.com>; Satish
+> Kharat <satishkh@cisco.com>; Sesidhar Baddela <sebaddel@cisco.com>;
+> James E.J. Bottomley <James.Bottomley@HansenPartnership.com>; Mauro
+> Carvalho Chehab <mchehab@kernel.org>; Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org>; Xiubo Li <xiubli@redhat.com>; Ilya Dryomov
+> <idryomov@gmail.com>; Masami Hiramatsu <mhiramat@kernel.org>;
+> Mathieu Desnoyers <mathieu.desnoyers@efficios.com>; Andrew Morton
+> <akpm@linux-foundation.org>
+> Subject: [PATCH v2 05/21] drm/amdgpu: Switch to use %ptSp
+>
+> Use %ptSp instead of open coded variants to print content of struct
+> timespec64 in human readable format.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
-> =C2=A0.../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 ++++++++++------=
--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index 8a026bc9ea44..4e2fe6674db8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -217,8 +217,7 @@ amdgpu_devcoredump_read(char *buffer, loff_t
+> offset, size_t count,
+>       drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
+>       drm_printf(&p, "kernel: " UTS_RELEASE "\n");
+>       drm_printf(&p, "module: " KBUILD_MODNAME "\n");
+> -     drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec,
+> -                coredump->reset_time.tv_nsec);
+> +     drm_printf(&p, "time: %ptSp\n", &coredump->reset_time);
+>
+>       if (coredump->reset_task_info.task.pid)
+>               drm_printf(&p, "process_name: %s PID: %d\n",
 > --
-> =C2=A01 file changed, 12 insertions(+), 10 deletions(-)
->=20
-> diff --git
-> a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index c055841c3a8f..4333b02dc552 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -34,6 +34,7 @@
-> =C2=A0#include <drm/drm_probe_helper.h>
-> =C2=A0#include <drm/amdgpu_drm.h>
-> =C2=A0#include <drm/drm_edid.h>
-> +#include <drm/drm_eld.h>
-> =C2=A0#include <drm/drm_fixed.h>
-> =C2=A0
-> =C2=A0#include "dm_services.h"
-> @@ -107,9 +108,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
-> =C2=A0	struct edid *edid_buf =3D edid ? (struct edid *) edid-
-> >raw_edid : NULL;
-> =C2=A0	const struct drm_edid *drm_edid;
-> =C2=A0	struct drm_edid_product_id product_id;
-> -	struct cea_sad *sads;
-> -	int sad_count =3D -1;
-> -	int sadb_count =3D -1;
-> +	int sad_count, sadb_count;
-> =C2=A0	int i =3D 0;
-> =C2=A0	uint8_t *sadb =3D NULL;
-> =C2=A0	enum dc_edid_status result =3D EDID_OK;
-> @@ -123,6 +122,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
-> =C2=A0	if (!drm_edid_valid(drm_edid))
-> =C2=A0		result =3D EDID_BAD_CHECKSUM;
-> =C2=A0
-> +	drm_edid_connector_update(connector, drm_edid);
-> =C2=A0	drm_edid_get_product_id(drm_edid, &product_id);
-> =C2=A0
-> =C2=A0	edid_caps->manufacturer_id =3D product_id.manufacturer_name;
-> @@ -140,7 +140,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
-> =C2=A0
-> =C2=A0	apply_edid_quirks(dev, drm_edid, edid_caps);
-> =C2=A0
-> -	sad_count =3D drm_edid_to_sad((struct edid *) edid->raw_edid,
-> &sads);
-> +	sad_count =3D drm_eld_sad_count(connector->eld);
-> =C2=A0	if (sad_count <=3D 0) {
-> =C2=A0		drm_edid_free(drm_edid);
-> =C2=A0		return result;
-> @@ -148,12 +148,15 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
-> =C2=A0
-> =C2=A0	edid_caps->audio_mode_count =3D min(sad_count,
-> DC_MAX_AUDIO_DESC_COUNT);
-> =C2=A0	for (i =3D 0; i < edid_caps->audio_mode_count; ++i) {
-> -		struct cea_sad *sad =3D &sads[i];
-> +		struct cea_sad sad;
-> =C2=A0
-> -		edid_caps->audio_modes[i].format_code =3D sad->format;
-> -		edid_caps->audio_modes[i].channel_count =3D sad-
-> >channels + 1;
-> -		edid_caps->audio_modes[i].sample_rate =3D sad->freq;
-> -		edid_caps->audio_modes[i].sample_size =3D sad->byte2;
-> +		if (drm_eld_sad_get(connector->eld, i, &sad) < 0)
-> +			continue;
-> +
-> +		edid_caps->audio_modes[i].format_code =3D sad.format;
-> +		edid_caps->audio_modes[i].channel_count =3D
-> sad.channels + 1;
-> +		edid_caps->audio_modes[i].sample_rate =3D sad.freq;
-> +		edid_caps->audio_modes[i].sample_size =3D sad.byte2;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	sadb_count =3D drm_edid_to_speaker_allocation((struct edid *)
-> edid->raw_edid, &sadb);
-> @@ -168,7 +171,6 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
-> =C2=A0	else
-> =C2=A0		edid_caps->speaker_flags =3D DEFAULT_SPEAKER_LOCATION;
-> =C2=A0
-> -	kfree(sads);
-> =C2=A0	kfree(sadb);
-> =C2=A0	drm_edid_free(drm_edid);
-> =C2=A0
+> 2.50.1
+
