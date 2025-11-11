@@ -4,205 +4,167 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6021CCFA1A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 14:50:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 852F3CCFA18
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 15:08:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EAC910E0D4;
-	Tue, 11 Nov 2025 14:50:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0421D10E5EF;
+	Tue, 11 Nov 2025 15:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4P9MiOXg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uhMSDgQ+";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E7D10E00C;
- Tue, 11 Nov 2025 14:49:59 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013070.outbound.protection.outlook.com
+ [40.107.201.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8CA10E5EF;
+ Tue, 11 Nov 2025 15:08:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tLr6zKieMSVVefIlFTh7nsIlEvZpHlmLKfgr8BaEY0Y8L5rqp0Fj3BxStwAIBbT5BGQq1k67Uh00lg6IOUu6z7+68JNOe+6BJ5sywANpENpahOCVgN5sNEIekfhYBCZ1Tm1xDGNIV4O/gQo51keDFUfhN7oCVMUGYxtBukaXZxi8SqO+vubeD25jv5He1IaKDAuqqsdrxf7CzTQUGJebnOxx+K1TCGWwYnizVSg5SorW/8xTR1m0LUTBq9AOozQCVgvgXYJEHg8Wio1BNC91aH4ojUOJ02KjaRRsxjcyZ9uqD4ayxZdOyGFjAe79f/K6soKZr8KE1omYk9ex0pbOyg==
+ b=ede0L8/43OCbdcExcWAxZaON2YXE1tsnAGUiTM/ZM4OLr0z1d2keXMoim3MKwCeuN1ZqG5S5csSbyj/lGAssXQDneVj6jbtebmrXOK5OuUV5gudApuRbbDUUH8MDE3s4n/6m2OJvEANCoTWx/8DnV1JPgWnsvKhi+Q+RkZWgAq8KbU7LCG8fovW+eZZvyskCwb9WjCZEInZIsvu2AEXz0ZeJC54GqJxx8d+sWcTxvh0Pko6Ln4cYDqSIGdo7Ovg3Dj9lLBNux3rhQPzmE6Vysg6TdWkXZGZZLQnEIqRniFZJder1OzuQe0aJhAv7DFTyKuD3EE0uMUyGSZJ9C4U96A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GkwU1mVH+FzBYHWZ3X6mk/Izupa+NNZcIjjrI7JLXfo=;
- b=AOudp2oYNzb9houkyo++FnpeGyGX0J5MHiIWdJfdMNZJTqw/1zUbCC0+2M+o+gFF52D32J9Y9LWAANI1keCnJPbVVLgchVmwtmtB2N+rVJUXBmTstK5lSCA7jWzn1ZL/mJTHMdV+MYWOjztNGMHtEJHoYKC5u+oDxBsIrbaTiRja7keZYFQhqd4svBu7KtgHzKK9nfQswo4RnzP+qOG5ZDP5jsW1Qo2SrZS30TGTvJTYmpFamBxSka3CseZTOFwp1iJMrlDZP7jPrVtIDWq/CPGLPhgsh+J53ZR0wFAH6HVhVL/tebQ3ZHA4rUuaxckh9C53KjO4WkW01owOr5iNvw==
+ bh=mPRf/oIaQDkSPT/nAQedmyt4TDVuvwZAIHenVmoCH0w=;
+ b=aKL4E0YsLJ5m7qydT9jD4HTSSFMSrCPbEUR1pY58IUVHwzLjCE9qJSy52Pd8nQ9+UWwE0My9Y7gXrCw30j7ZH8Gfy6KTNVEGLch5i6WHMB/icvIDm4KZf8f6PpYJkOGCuvyMoMcfS+Oky/LyO7vIOsD6boYaBsgFotATaitNTVVBmmNVLqQGiVKIzDAWaa5jgwHwsGfZI4fWJNzKUI8ynfuu9u+b5pfPgE4Lrpax+3XO7A4Ws0iyfwLbtU1Lkb1llITv4KCAMdd0BSQTl47PJIblgXKKvMwyInAUcTbWrALihyvt41VfJeYIvN5tQuOBjRw9sJIlGrpHBLVOVStJEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GkwU1mVH+FzBYHWZ3X6mk/Izupa+NNZcIjjrI7JLXfo=;
- b=4P9MiOXgvEP+e7EzPGB5BGeeuBZHm2J677y9FNU1WMGmPWwaOhSXPDvMxl0uv8xTfoPZeDJVTGqK3e/GeBu6cxClu0JYS1+9LWRsH6W2WWGiZB2ZrD0fq6nI90UOCmvHGVzrVUKwbB87qtvUOkzbqVy34JSJs3ATrrVFM1qdcIo=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by CH3PR12MB9147.namprd12.prod.outlook.com (2603:10b6:610:19a::9)
+ bh=mPRf/oIaQDkSPT/nAQedmyt4TDVuvwZAIHenVmoCH0w=;
+ b=uhMSDgQ+w1Bxz62JhB/fgLyp65/4YW6SONdbG19r9myOPXmmDDphKPGCUZb4YTG5TVraBG+KNKJfmEJPlI4qxFdtLu1c63pDnAIPihxNh1PimUEEXnTPPhyfrcMJIaMhQ/+XQo+2MiGvgCRlzlB32ZstrL/Htf0hsZvv3qvX14M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH8PR12MB6675.namprd12.prod.outlook.com (2603:10b6:510:1c2::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.16; Tue, 11 Nov
- 2025 14:49:53 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.9320.013; Tue, 11 Nov 2025
- 14:49:53 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Corey Minyard
- <corey@minyard.net>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Dr.
- David Alan Gilbert" <linux@treblig.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Matthew Brost
- <matthew.brost@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, Vitaly
- Lifshits <vitaly.lifshits@intel.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>, Calvin Owens
- <calvin@wbinvd.org>, Vadim Fedorenko <vadim.fedorenko@linux.dev>, Sagi Maimon
- <maimon.sagi@gmail.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>, Hans Verkuil
- <hverkuil+cisco@kernel.org>, Casey Schaufler <casey@schaufler-ca.com>, Steven
- Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, Viacheslav
- Dubeyko <Slava.Dubeyko@ibm.com>, Max Kellermann <max.kellermann@ionos.com>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org"
- <linaro-mm-sig@lists.linaro.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "linux-mmc@vger.kernel.org"
- <linux-mmc@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "intel-wired-lan@lists.osuosl.org"
- <intel-wired-lan@lists.osuosl.org>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, "linux-s390@vger.kernel.org"
- <linux-s390@vger.kernel.org>, "linux-scsi@vger.kernel.org"
- <linux-scsi@vger.kernel.org>, "linux-staging@lists.linux.dev"
- <linux-staging@lists.linux.dev>, "ceph-devel@vger.kernel.org"
- <ceph-devel@vger.kernel.org>, "linux-trace-kernel@vger.kernel.org"
- <linux-trace-kernel@vger.kernel.org>
-CC: Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
- <senozhatsky@chromium.org>, Jonathan Corbet <corbet@lwn.net>, Sumit Semwal
- <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Konrad
- Dybcio <konradybcio@kernel.org>, Lucas De Marchi <lucas.demarchi@intel.com>,
- =?iso-8859-2?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek
- Kitszel <przemyslaw.kitszel@intel.com>,
- =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, Kishon
- Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>, Richard Cochran
- <richardcochran@gmail.com>, Jonathan Lemon <jonathan.lemon@gmail.com>, Stefan
- Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko
- Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, Alexander
- Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Satish
- Kharat <satishkh@cisco.com>, Sesidhar Baddela <sebaddel@cisco.com>, "James
- E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Mauro Carvalho
- Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, Masami
- Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Andrew Morton <akpm@linux-foundation.org>
-Subject: RE: [PATCH v2 05/21] drm/amdgpu: Switch to use %ptSp
-Thread-Topic: [PATCH v2 05/21] drm/amdgpu: Switch to use %ptSp
-Thread-Index: AQHcUwahm1/91wHoNkKlQRJwdZtlULTtjo6Q
-Date: Tue, 11 Nov 2025 14:49:53 +0000
-Message-ID: <BL1PR12MB5144DAA1CB83640FBE834FFFF7CFA@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
- <20251111122735.880607-6-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20251111122735.880607-6-andriy.shevchenko@linux.intel.com>
-Accept-Language: en-US
+ 2025 15:08:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9320.013; Tue, 11 Nov 2025
+ 15:08:01 +0000
+Message-ID: <eb776004-c798-453d-bfbf-a40810308253@amd.com>
+Date: Tue, 11 Nov 2025 16:07:54 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 8/9] drm/amdgpu: Remove driver side BAR release before
+ resize
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Simon Richter <Simon.Richter@hogyros.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Micha=C5=82_Winiarski?= <michal.winiarski@intel.com>,
+ LKML <linux-kernel@vger.kernel.org>
+References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
+ <20251028173551.22578-9-ilpo.jarvinen@linux.intel.com>
+ <c90f155f-44fe-4144-af68-309531392d22@amd.com>
+ <aaaf27cf-5de0-c4ef-0758-59849878a99f@linux.intel.com>
+ <fd7fdf61-cb08-4dfc-ba7a-a8a5b7eb9fda@amd.com>
+ <10b095b5-f433-3bfc-c1c9-5da7db560696@linux.intel.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-11-11T14:49:03.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|CH3PR12MB9147:EE_
-x-ms-office365-filtering-correlation-id: d4b40aa3-753f-488e-1215-08de213192e4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|921020|38070700021; 
-x-microsoft-antispam-message-info: =?iso-8859-2?Q?OrgQba1o8VRkBRZy5KjWGPJFxxdvb9PI2OytFVyn9ss6KeRgUuNKhjHq35?=
- =?iso-8859-2?Q?TostFJ91nWS81XunmUZXFcM2dNwFIbkVmwmviAN+9MjVoCn72yk+qV9/5A?=
- =?iso-8859-2?Q?21+5lZS4OSEk52i+HU2wOlVTAPVHrqsJeulWOiRwU3/W7rwng+pLW2yAp+?=
- =?iso-8859-2?Q?As3Ne6InDCuJtLmdM8uov6bkArZCyP2vOHy+lt3GAWT01g6K5BgDCr2uC9?=
- =?iso-8859-2?Q?gf4ACKmQUAIB7dloGnx7EDamcoMLI7LN7KDxEM/GgryhlxofaJUn54ONUo?=
- =?iso-8859-2?Q?87XOuy1pofi8FmPIPCfM2TnaXnPHxJAV0CBZqO6++8OdKlBUDhpCMtlIZm?=
- =?iso-8859-2?Q?aunWC2gJWf6w0vRU3d9r7qYJTuKlUZZM9YLSTWYgwHzAOiTEoGuYVN2SEn?=
- =?iso-8859-2?Q?hbbGJ09XHFDsWtThS7skygDzK0JLlRoixUeCBowVxhRxdT9qCGUaESEHZz?=
- =?iso-8859-2?Q?inQGnPOVbW1Ym7bDVbXMAiH6oG6Pk3QVQwVoAEe1FroEFxhmFkNfjOliQI?=
- =?iso-8859-2?Q?TSBwpejmYUIomMkjHXkMn/TZ+A2CBlihIjFM0LN+Ttl3qet+43xn0ORJny?=
- =?iso-8859-2?Q?c6k6BReErVvD5d/rPI2DEJd+wLjA3QGsBhggqq+j+SIyRx69buZvU5zOGB?=
- =?iso-8859-2?Q?Iovxhmb5Hev18SvFA3KGQHd+9cC8H/FFHvoO0zAQ++a5eoduMTa6BIYJCM?=
- =?iso-8859-2?Q?KM8Hm28rtQBlYR37ydHv8Ix1gpMobT6UHT9m4rYv1FeeV1S6CH9gzPviZd?=
- =?iso-8859-2?Q?iRBR/QrNWdDIOs53ce6k8U6BVctuRZP/B8fEW0rS/sR4g0GqBBvS0K2Lcs?=
- =?iso-8859-2?Q?ooXVutaSDB5BgNCt2OFKXSqZmozfl3Wi17iZHZlEnq4Uxwndzyh0xV035m?=
- =?iso-8859-2?Q?Zd/y26S9fGY8r4WKahf9kzkOtVXM50z+Znb5Igz94CrhVMvB6G3CqIJ31z?=
- =?iso-8859-2?Q?C0aWEQ4nSVIzW7LrUPygs19CkKZLZ0+k+SlA5pbFEoB/0GXk09e+tbaDGZ?=
- =?iso-8859-2?Q?tQwmpzNwF7Lkphf9pszGwyl7CsRPAV5/OnmXvYIGCiCuVqfckFKDFkTUr3?=
- =?iso-8859-2?Q?Q2VRcX9xwHIQS2QKu2Zsi3AotquwCdxWm4a46szrCjX9xPSQs027Rm7Cl9?=
- =?iso-8859-2?Q?4b085D4VFJV0eboQCARbXD2zkQ76uWewrb+xqoHw3onhtBEPlWOezuxiSH?=
- =?iso-8859-2?Q?PtvjCkcR3kZ7x6cjCVOdh6Bcnigv6mXjZWYm7kMNFh8XlAt0M135Y/vzuP?=
- =?iso-8859-2?Q?4kHzyErkKxpFPVf+wj7UWcwfYNKqkP+XTkHACDpnvNjyFieGfOYm/IEr/6?=
- =?iso-8859-2?Q?h93VPcZULXAj4o9XCHEh/f5CxjM0h/55TO4i0pS8C704uFEmSCreSXZzkq?=
- =?iso-8859-2?Q?DFkORbsr9XMN+B+8bpblyDG6BB5Mu7wP/b4jm2Bn3qzPx2XRhHwduUFLyc?=
- =?iso-8859-2?Q?ngfIa6ZBGzNEAUio7tLJqTIpPwAYf0BhC/gvyivI6UEpHF6YrCTeGYG+tp?=
- =?iso-8859-2?Q?/HKhtRnFwD7iRSeeaIy94LpY7oQi1insn6B8R/kOoYspHnlG8YuppUjqHs?=
- =?iso-8859-2?Q?0glvuqnkbygBFDPvLiba3YNSWWURlRA8Vo9XEbKseLDk9A/bFw=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(921020)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-2?Q?YdFRE1eWrPnF1GjQxYY0iivBiOqCLGtbo/c8RewREhlsgtC52oCM8zemPI?=
- =?iso-8859-2?Q?0qvXvKbT+ZMeYZQXNbhSEV8Sg8tSlMGI5V2NO0+p6pxP99hKRk1COI4llZ?=
- =?iso-8859-2?Q?ST/JV80w6gw+skR6ltDbLAnwO2u/lLPr2sO21LQh1+CXnIRMinHpG8MZx1?=
- =?iso-8859-2?Q?nEW0grvYDrKv97xxD7p69ayMEcyrpAYL1KwPs6f5M7syyFwQB7/xxtcCNT?=
- =?iso-8859-2?Q?/bsNITszdE5LmV4JeNJOTz4Q0PEfx36uLSXyMyFtjPFNGBkZlz8p3TdPCw?=
- =?iso-8859-2?Q?NApYU7IU7DQCUNCWwTq1UKY0MDBCcvYjDJ7UgtoMKQoco2TX8sgzA5FjR7?=
- =?iso-8859-2?Q?SgrOJQfMoipCUnG5+xURExhi8TNpm9Z+S69rbDNORhsb9Hr6+i8UutL1JA?=
- =?iso-8859-2?Q?Pss1pw2Ox+ih9kSrok60aWWMn4ak12yytPJ2u9svnFi1WELcZr1n0R01l9?=
- =?iso-8859-2?Q?XnnD2imFQ9ZKk3NRZ7QfWKZKYFvSaY3kSTYYzA1hWUX8UIlxDjos+zkgXd?=
- =?iso-8859-2?Q?Z721P/FFL4iJeooBRjT9HtUIfIpi/w61N4W5e0IT+jxcmFR9qngdP2vG3N?=
- =?iso-8859-2?Q?yDxarCQayMQDH7FcttW7LnPNiszlNR72jUyLAL94FTnEv7T8009qnZPJyX?=
- =?iso-8859-2?Q?SU0FdWiZJ3sBv6u9NglxMcudswyLdufcX+a0tlHma2PxWJvNnMf0SvClXe?=
- =?iso-8859-2?Q?oLPfLaCtYfMPQdHbviakBEL65iMf3lbmRfLDC/MBLawgmYbDOD0oK51Cht?=
- =?iso-8859-2?Q?js+b1cG4f+9yWC28tIq3s/m6PeCO9CRY9WjaEbJUktLtwUhNZWUYgWkb2U?=
- =?iso-8859-2?Q?+vNbELTISQ/KeHKGITtUmsnGpUXStXWSvaFx/PEGqrhyBVXmP9hJE6IdJs?=
- =?iso-8859-2?Q?KWk7i+gfjPJh7oGin0qoJ5q63Di5I0x9zHNNPsbnTu8nHTZOw+WzfjR2Ig?=
- =?iso-8859-2?Q?IevCIZDu7N6V1fR6+pOn9bUD7grI8lKghyP/ziUA7dM5XzzXJXl8DtW3zc?=
- =?iso-8859-2?Q?qkJr7ItoFSSv2+kNOA+03nTw0GecoT/x4ETpC+1f8JXgaH5TDc6i+Ouh2O?=
- =?iso-8859-2?Q?kBCS9BWRtGq0kS3EJlqHYGFkTc/RDazOYHLReoXS0KW9NUw76g5IzbBu5M?=
- =?iso-8859-2?Q?JL87YPJ5Nn4py0aP4oqbPLjuTfUqatXTGdgy2FgDG+kyfGJZlrTZfKJuw5?=
- =?iso-8859-2?Q?GFm4WH+0OSWqq4qL8knsiKECPX4NWNXdQ1etGJGCHFqew9wb6pPckPMqV9?=
- =?iso-8859-2?Q?14QR8ZZS9fvH2tWGG/wOFfCeEu7jKHouX1heuvxBE0pnSzEBGxRrKL/+Ik?=
- =?iso-8859-2?Q?pq0s5ZoSz6537o1pgzuSprTrALvxluza4vmbWJg2D0vX2jMYP3D39/kesj?=
- =?iso-8859-2?Q?+LguNMz2DQ2xnIJaGDQufP1KUJSDuUcoqEDnXzZJuzkcfNspQ6PNZI24Rx?=
- =?iso-8859-2?Q?1C2BpsS4iEpMa7Ab5yKzLyWDDMtUqEqSnFNzFhbMLfzDSUhVU2gogmr8oz?=
- =?iso-8859-2?Q?A+1/S7/hrAujQl07+mHY4SZsGs4CQzDLN6sd5mU1H1R6kUIJKQ68YbM16N?=
- =?iso-8859-2?Q?DlCyqmqXDoEEqS6n04RPnZIKOJYWo3OfQWqTTxfCJ/4ywkBhfIdsI0yBK1?=
- =?iso-8859-2?Q?GE0em/cq9Hlrc=3D?=
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <10b095b5-f433-3bfc-c1c9-5da7db560696@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN9PR03CA0764.namprd03.prod.outlook.com
+ (2603:10b6:408:13a::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6675:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d45a772-11f5-4563-5338-08de21341b1d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YW10UW0xVWdZSVpYQ1FKd0htNTIzK0p6allvSjl4UTlJOHphMnVOL0NDYzFt?=
+ =?utf-8?B?SzcycTc3cWV1SHJMK0lXd25IenYzd3pma1NSbDJDYmNsUG9IVG5zMlREaXAy?=
+ =?utf-8?B?L3BvV09YWFVUeTZUbUxZTFVBQkVZaE9BS3R3TDIwMXN4SEdFaSt0ejN1MFk5?=
+ =?utf-8?B?bU0yVExrZVowTDRWMW5HaXJselNabWVaTXpPWTVxenFldU1mRXh6OVZld3JP?=
+ =?utf-8?B?bWtpVUJvYW9uM0p2TXMxMitPOXZENG5HaFdnVFVNNmFCMGcrUWhIdjdZRit5?=
+ =?utf-8?B?VDFUc2V6RzdvcnVsOG54WXhnSXB1YXBiY1dSc2FRb0VVcnhNU0p6bnU0Q0Jx?=
+ =?utf-8?B?NjRhOXRCRXZ5dEhXREtEVGltUHJ0ck5aRHkzNHZQcVNwTis2Z1d5UmdJb3kz?=
+ =?utf-8?B?VmFKejZrcytHS3Y0cVpucU8wSm1JMDhyUmtKNVdzRU9oZDMzdnZqMjdUTzN2?=
+ =?utf-8?B?OEcrSWpITWJGMGtpOTNUdUJSNTI2b1VmKzlGQ1V1MWNzR3BKandEVWF4T09M?=
+ =?utf-8?B?M0VrdG10Sm53UUlMTGZCQVhEbXhrQ1RiQjcrSnNuL002dGc2Y1d1R0dxOFdX?=
+ =?utf-8?B?RU9haVhUSy9CSHVJNmdPWVlCamtJdzRnYUNYaVlNMFdkTmdYbHBKMzVkT3V3?=
+ =?utf-8?B?THlZNHFxTHRDQUJqdHVlSWwxQm5YczByQmtpblBuc1N6WUpDKzlDS3d2Skgw?=
+ =?utf-8?B?RnFSN2w5azg4TjFZUDhSQUs1VG1jcmRSaHA5a1c0bVZsbGRvM250UkcxN2RX?=
+ =?utf-8?B?Ti91YXllcHIxd3BkTUZxYkw5TzNoK3ZFbVBFYnBKam9veWdZZ2tlOGZqakxH?=
+ =?utf-8?B?TGJMZDlGUC9nbkVrYi9JNWQ3bTNzSnJGVlhsODFtaE1VUWxFdlNCeGcxdGJX?=
+ =?utf-8?B?VUlEV3FLVnhiWnUrN3VJd1dCbVJ5ZThqb09QYlVkZEtBS0tPVW1ibXlUeTFl?=
+ =?utf-8?B?bDdiYXlCdFRyMUdEbTlPVGF4dEQ4Qk1CL1ZtaTVQZVB2b2dMbFpHVkJZbVRv?=
+ =?utf-8?B?OTdZQlNqQTdhdmRRRUtnVHVMUE9ISkx1aXo3cGJRRkhsWnpNNmZUeXhpejkx?=
+ =?utf-8?B?UDA0SzRTL0w0c0RTOEZ3cnJ1RXFzSFRTWERPWTlMdzVwU1FybVo1N09xekZL?=
+ =?utf-8?B?K1pDTUVjL2gzVlZiaUFrRCtNVjFNUHJTTWNkYXRCaElraFNNbXBzRXRkVElP?=
+ =?utf-8?B?NFdXQmF4THJvNVhzTUljRkczNUdYdk5EdEF1V0o0RHhFcmtsNUtKamJCT2t0?=
+ =?utf-8?B?QjlSSlhaS1ZTVFFLYU44MGJIZDN3K3g2eGVVUlVYQWVESDhJVXZRZjFCdnJp?=
+ =?utf-8?B?ZFd1UDhFZEgzWExMVEdZMnNwSHBERXlIRjE3QzE3MkRleG84OXJKNHFjZnZ2?=
+ =?utf-8?B?bjM5NVZ3SU1hSnVqc2Rsd200R0pHMGhvR3dhblZaYWxNTUllMXo2Nmg2ZEZQ?=
+ =?utf-8?B?cGZIekpBYjY5ZkxiOVlWVTE3bHlXdFJMQkUxbTFUd05INS9oeURIdDdIS0d5?=
+ =?utf-8?B?QTJTalJyd2ZzU1ArampRSnlNSzhhZmFCYWtQa1o5UENmeDBmKzhXSFRJS2Nu?=
+ =?utf-8?B?bEJsMG9ia1h6KzZSOHlOTG5pS3ZTUDdjdjRLcytrMlNXNkxqYkhvcG8vYXpE?=
+ =?utf-8?B?VTlLcjBnTkNkdXM1MzIrc09MaW9hRkFTeEo5VjFudm9UWkpJc3UzbTR1VFlY?=
+ =?utf-8?B?VHA3VTJOYkFIN1VBdTJZTzVielhzNkx2T2lSV3AzdXBQNGVzSVhuakdFa1Z2?=
+ =?utf-8?B?UzJTVnZLd0wxVmJXOFFDNG4vbW0yeXZMdjJpSzBianhKTzdXV0U4dGJRa2V1?=
+ =?utf-8?B?dXZna1F6ZFRKeU82WkRKenRUdkFSekpCVlc3SmYvcDFBRnhReUVhVUR2Q2xa?=
+ =?utf-8?B?bC95TUI0TWFoYWVTRXlZSkJLbjBYNERzSnR5L1huQkpzZGpkeFlEejZzYTdF?=
+ =?utf-8?Q?YjK93bPTz8zlnpAbdINgXqUV1WoZxmLg?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjJNNE1rYWNkaE9uazNqaDFNUC9UbkVlaW9oLzlBL0F6aWkyUVdnNTZDQWF0?=
+ =?utf-8?B?WlR1TEFFQ3pQeWlNMDFRYWlocmN4cGJUTFQwRWsra2xEM3lCcDFiSEtrcy96?=
+ =?utf-8?B?UVBzTVZLNy82WmhqOTNMSVJETysxRzlReDA4QzlEMEcxYmxFeGdoWUdLbXRa?=
+ =?utf-8?B?Ui9mNHVrZW9rRmZiTjhscWI1MlRuY3R5RDRmc1RhalJ3SFV3dDdab0lncVpI?=
+ =?utf-8?B?SWZIYytKZjJFbDhxQlB2MVZmb0tIeEJmemdCMFZmQ2ZPbHR6M0p0MFNKcFNB?=
+ =?utf-8?B?NTlJZjEvZnlMMlUzb2xtUThFb29xZG1zMFVSdVVYbFo2TXdQVmJHcmI5Mnhm?=
+ =?utf-8?B?YVIxRktBQThxTVVubi94b0R6Y0MrQnZFdHIyMUl2RG55REtPWDBpWEV2Z1lU?=
+ =?utf-8?B?MVlKOGRlQlRtUElxTkloRXpiK0pUQUVMOXplSlBkRk9wbnN0QkRRUGQ2VDJH?=
+ =?utf-8?B?UTEzTGoyendNRDZyZGpSSVpoYUcvWktEVU9Oc1M0RGFUOEFJU2dCUit1bk1K?=
+ =?utf-8?B?azVvSElyZ3VyVjdROEZCUS9hd0FtM3NxaWN0V2REeEE5R0dZQXlpaVhGT0Q1?=
+ =?utf-8?B?SHM2YnhUNXNYd3V5ZUQwZE1mckVZa3BHY3E0REthTFhJVE93TnhZNUZ2VjI3?=
+ =?utf-8?B?UjF3enVDbjdSZTM0RWRtL1N3eEtXNmVxNG1WRkdyTStDckxzQlJqaFBBN2pw?=
+ =?utf-8?B?cUFpamdkK3dNNjdzT1NiOWw3QU9QSzdTSzZVTVFueUg4V3pObGpnSFdlbzR1?=
+ =?utf-8?B?a2VVZlJvOVZ0S1ErQzhrY294dElwbC9UeW9KZU05SlRVYXdDWDlKNW9YRWdz?=
+ =?utf-8?B?THJwd0ZxZDV5VWpIc0NXcHdGdTdoOFdyT0lZS095VTR2RjNGa1BhOWVhUXdv?=
+ =?utf-8?B?MFppS1pYMlNCcG0vdGxPaldLTC9uaFgwaW56OEhpb3IyVTQrYmR3MmlidHZU?=
+ =?utf-8?B?NHloVFVYRnkxdHFzTWRTUG8xZDlybEd1RjRtalYvU21WWUt3b1ljQ2twbkdU?=
+ =?utf-8?B?VVppNDFIRWYvdnJUMDQxejNHZGtHL2xLT3hoZmVURXA5aWlYbXUra1hZbVVQ?=
+ =?utf-8?B?V0RES0hSbXhYZk9KZHA0emRONTFlVFVrSVplL0Noa1Mxd1RMK3JVYis4ZlBz?=
+ =?utf-8?B?YnFUc2lCR2Z5TU5SQUlEUm5OYjVQbmNuYW14UGZCQm96SmdlWkhSeWpscXpi?=
+ =?utf-8?B?TGdUYlUydTJTMFlsT1RsdzJiU2lzeU5KWW9lMGtiakh6MXliVk9PcFJTTGN5?=
+ =?utf-8?B?K25mYjhsUnlNcm5ueXRoUW5nVVFQQmoxNGdWekg0TC9wNzNObHdTc0VhRkFy?=
+ =?utf-8?B?ZHhVZkRsVUhvNUJJMkVTV2hGWUhzRXhmMmljOWJDSEJTeWFIcFlwV0FtK0JD?=
+ =?utf-8?B?TkpOZmQyOXlZRnZid2l1aW0yYlJWaEQreFJORGlTNnJiWHA5SUxITEFNd3Fh?=
+ =?utf-8?B?akc4VFY3RTBwVVlMMlhadExSRjI5R0drWWE0S09LZm5tRy9vQXRUSnRJcDFa?=
+ =?utf-8?B?cmRSUFJBcUorQmw4bFhxTlhBV0dWL0REb1hYSU01bUdQY0gxOEhQV25MRVBH?=
+ =?utf-8?B?ejlSWk5yQlA1WHhmRTl2Zm1VWTNPYzV1UnYzWWU1L1lvRDg0b2VNa0VXTUEv?=
+ =?utf-8?B?aXhNdkdVTHNnZzlzdk1aTnZwbEVjWEJGdm9uZ1pUaWZ5eWxwaUo0ZVV5TWRo?=
+ =?utf-8?B?bFhmd1VRRWRHNGFDUHAxRXI1SnljT01vTFJxVkR5dWZPNEhweEE4VVJEcEhE?=
+ =?utf-8?B?L0ZpNThCWkt6bVF2cjRvay9tVElXc2QraG00ZFVRMGRqZ3U4UzliQ2RYeXI5?=
+ =?utf-8?B?cUR4Slg0TmJQTDF3TGplQ1VTNHhxclFHbkNrL3dwTnVsWWRxZFRQS1dxVjY2?=
+ =?utf-8?B?R1F6QXQxK3kwVUxSdWtqV014YXdSakQ0SGV4OEhHbmltZzN1S1JqemxySVlI?=
+ =?utf-8?B?M1g3NkpObXdxZC9tdCthclFHS0cwMkhSWnJRL1I0YWFLdWN1a09RZ3pnK05q?=
+ =?utf-8?B?bzEyVXorekdCb3B5NmJ2b0U1Q3pyWGRrN0pjQTdWTVZMQ3llUytDT2lKaE9a?=
+ =?utf-8?B?alJZSUs4bEJyQjBuQi9VYUhlNEF0bXkzR2FIRHM2cnN3S0lERUYzU2RQUTlz?=
+ =?utf-8?Q?850GVvG6CcWYXL2qhAUzEr+u2?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d45a772-11f5-4563-5338-08de21341b1d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4b40aa3-753f-488e-1215-08de213192e4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2025 14:49:53.4262 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +UWf/dYI0w3WKb4fcGJtSH5FXiPAuJpcMfWbfhyLN3SsBFmhHj6n4u4N2adU0+K4dmMYqSb6UrCDOkmV4OPSLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9147
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2025 15:08:01.3233 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MWx10EF5ArSrzivrUsLfSCMLOasXUNNlirnSq5XehVBvgxEUq/CmahtBTfWEsZoD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6675
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -217,102 +179,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On 11/11/25 13:56, Ilpo Järvinen wrote:
+> On Tue, 11 Nov 2025, Christian König wrote:
+> 
+>> On 11/11/25 12:08, Ilpo Järvinen wrote:
+>>> On Tue, 11 Nov 2025, Christian König wrote:
+>>>
+>>>> Sorry for the late reply I'm really busy at the moment.
+>>>>
+>>>> On 10/28/25 18:35, Ilpo Järvinen wrote:
+>>>>> PCI core handles releasing device's resources and their rollback in
+>>>>> case of failure of a BAR resizing operation. Releasing resource prior
+>>>>> to calling pci_resize_resource() prevents PCI core from restoring the
+>>>>> BARs as they were.
+>>>>
+>>>> I've intentionally didn't do it this way because at least on AMD HW we 
+>>>> could only release the VRAM and doorbell BAR (both 64bit), but not the 
+>>>> register BAR (32bit only).
+>>>>
+>>>> This patch set looks like the right thing in general, but which BARs are 
+>>>> now released by pci_resize_resource()?
+>>>>
+>>>> If we avoid releasing the 32bit BAR as well then that should work, 
+>>>> otherwise we will probably cause problems.
+>>>
+>>> After these changes, pci_resize_resource() releases BARs that share the 
+>>> bridge window with the BAR to be resized. So the answer depends on the 
+>>> upstream bridge.
+>>>
+>>> However, amdgpu_device_resize_fb_bar() also checks that root bus has a
+>>> resource with a 64-bit address. That won't tell what the nearest bridge 
+>>> has though. Maybe that check should be converted to check the resources of 
+>>> the nearest bus instead? It would make it impossible to have the 
+>>> 32-bit resource share the bridge window with the 64-bit resources so the 
+>>> resize would be safe.
+>>
+>> Mhm, I don't think that will work.
+>>
+>>
+>> I've added the check for the root bus to avoid a couple of issues during 
+>> resize, but checking the nearest bridge would block a whole bunch of use 
+>> cases and isn't even 100% save.
+>>
+>> See one use case of this is that all the BARs of the device start in the 
+>> same 32bit bridge window (or a mixture of 64bit and 32bit window).
+> 
+> "32bit bridge window" is ambiguous. There are non-prefetchable and 
+> prefetchable bridge windows, out of which the latter can be 64-bit as 
+> well. Which one you're talking about?
 
-> -----Original Message-----
-> From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Sent: Tuesday, November 11, 2025 7:20 AM
-> To: Corey Minyard <corey@minyard.net>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Dr. David Alan Gilbert <linux@treblig.org>;
-> Deucher, Alexander <Alexander.Deucher@amd.com>; Thomas Zimmermann
-> <tzimmermann@suse.de>; Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com>; Rob Clark
-> <robin.clark@oss.qualcomm.com>; Matthew Brost
-> <matthew.brost@intel.com>; Ulf Hansson <ulf.hansson@linaro.org>; Andy
-> Shevchenko <andriy.shevchenko@linux.intel.com>; Vitaly Lifshits
-> <vitaly.lifshits@intel.com>; Manivannan Sadhasivam <mani@kernel.org>;
-> Niklas Cassel <cassel@kernel.org>; Calvin Owens <calvin@wbinvd.org>; Vadi=
-m
-> Fedorenko <vadim.fedorenko@linux.dev>; Sagi Maimon
-> <maimon.sagi@gmail.com>; Martin K. Petersen
-> <martin.petersen@oracle.com>; Karan Tilak Kumar <kartilak@cisco.com>;
-> Hans Verkuil <hverkuil+cisco@kernel.org>; Casey Schaufler <casey@schaufle=
-r-
-> ca.com>; Steven Rostedt <rostedt@goodmis.org>; Petr Mladek
-> <pmladek@suse.com>; Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>; Max
-> Kellermann <max.kellermann@ionos.com>; linux-doc@vger.kernel.org; linux-
-> kernel@vger.kernel.org; openipmi-developer@lists.sourceforge.net; linux-
-> media@vger.kernel.org; dri-devel@lists.freedesktop.org; linaro-mm-
-> sig@lists.linaro.org; amd-gfx@lists.freedesktop.org; linux-arm-
-> msm@vger.kernel.org; freedreno@lists.freedesktop.org; intel-
-> xe@lists.freedesktop.org; linux-mmc@vger.kernel.org;
-> netdev@vger.kernel.org; intel-wired-lan@lists.osuosl.org; linux-
-> pci@vger.kernel.org; linux-s390@vger.kernel.org; linux-scsi@vger.kernel.o=
-rg;
-> linux-staging@lists.linux.dev; ceph-devel@vger.kernel.org; linux-trace-
-> kernel@vger.kernel.org
-> Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>; Sergey Senozhatsky
-> <senozhatsky@chromium.org>; Jonathan Corbet <corbet@lwn.net>; Sumit
-> Semwal <sumit.semwal@linaro.org>; Gustavo Padovan
-> <gustavo@padovan.org>; David Airlie <airlied@gmail.com>; Simona Vetter
-> <simona@ffwll.ch>; Maarten Lankhorst
-> <maarten.lankhorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>;
-> Dmitry Baryshkov <lumag@kernel.org>; Abhinav Kumar
-> <abhinav.kumar@linux.dev>; Jessica Zhang <jesszhan0024@gmail.com>; Sean
-> Paul <sean@poorly.run>; Marijn Suijten <marijn.suijten@somainline.org>;
-> Konrad Dybcio <konradybcio@kernel.org>; Lucas De Marchi
-> <lucas.demarchi@intel.com>; Thomas Hellstr=F6m
-> <thomas.hellstrom@linux.intel.com>; Rodrigo Vivi <rodrigo.vivi@intel.com>=
-;
-> Vladimir Oltean <olteanv@gmail.com>; Andrew Lunn <andrew@lunn.ch>;
-> David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Tony Nguyen <anthony.l.nguyen@intel.com>;
-> Przemek Kitszel <przemyslaw.kitszel@intel.com>; Krzysztof Wilczy=F1ski
-> <kwilczynski@kernel.org>; Kishon Vijay Abraham I <kishon@kernel.org>;
-> Bjorn Helgaas <bhelgaas@google.com>; Rodolfo Giometti
-> <giometti@enneenne.com>; Richard Cochran <richardcochran@gmail.com>;
-> Jonathan Lemon <jonathan.lemon@gmail.com>; Stefan Haberland
-> <sth@linux.ibm.com>; Jan Hoeppner <hoeppner@linux.ibm.com>; Heiko
-> Carstens <hca@linux.ibm.com>; Vasily Gorbik <gor@linux.ibm.com>;
-> Alexander Gordeev <agordeev@linux.ibm.com>; Christian Borntraeger
-> <borntraeger@linux.ibm.com>; Sven Schnelle <svens@linux.ibm.com>; Satish
-> Kharat <satishkh@cisco.com>; Sesidhar Baddela <sebaddel@cisco.com>;
-> James E.J. Bottomley <James.Bottomley@HansenPartnership.com>; Mauro
-> Carvalho Chehab <mchehab@kernel.org>; Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org>; Xiubo Li <xiubli@redhat.com>; Ilya Dryomov
-> <idryomov@gmail.com>; Masami Hiramatsu <mhiramat@kernel.org>;
-> Mathieu Desnoyers <mathieu.desnoyers@efficios.com>; Andrew Morton
-> <akpm@linux-foundation.org>
-> Subject: [PATCH v2 05/21] drm/amdgpu: Switch to use %ptSp
->
-> Use %ptSp instead of open coded variants to print content of struct
-> timespec64 in human readable format.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+The non-prefetchable 32bit window.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> If a 64-bit prefetchable window exists, pbus_size_mem() nor 
+> __pci_assign_resource() would not have produced such a configuration where 
+> they're put into the same bridge window, even before the commit 
+> ae88d0b9c57f ("PCI: Use pbus_select_window_for_type() during mem window 
+> sizing") (I think). Now pbus_size_mem() certainly doesn't.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> index 8a026bc9ea44..4e2fe6674db8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> @@ -217,8 +217,7 @@ amdgpu_devcoredump_read(char *buffer, loff_t
-> offset, size_t count,
->       drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
->       drm_printf(&p, "kernel: " UTS_RELEASE "\n");
->       drm_printf(&p, "module: " KBUILD_MODNAME "\n");
-> -     drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec,
-> -                coredump->reset_time.tv_nsec);
-> +     drm_printf(&p, "time: %ptSp\n", &coredump->reset_time);
->
->       if (coredump->reset_task_info.task.pid)
->               drm_printf(&p, "process_name: %s PID: %d\n",
-> --
-> 2.50.1
+I need to double check, but if I'm not completely mistaken that is assigned by the BIOS.
+
+Here is an example of a "good" configuration where both VRAM (BAR0) and doorbell (BAR2) is in the prefetchable window and MMIO in the non-prefetchable:
+
+Device:
+	Region 0: Memory at 80000000 (64-bit, prefetchable) [size=256M]
+	Region 2: Memory at 90000000 (64-bit, prefetchable) [size=2M]
+	Region 4: I/O ports at 3000 [size=256]
+	Region 5: Memory at 9f300000 (32-bit, non-prefetchable) [size=1M]
+
+Bridge:
+	Memory behind bridge: 9f300000-9f4fffff [size=2M] [32-bit]
+	Prefetchable memory behind bridge: 80000000-901fffff [size=258M] [32-bit]
+
+And here is an example of another system where things are mixed up:
+
+Device:
+	Region 0: Memory at 2c00000000 (64-bit, prefetchable) [size=256M]
+	Region 2: Memory at 94000000 (64-bit, prefetchable) [size=2M]
+	Region 4: I/O ports at 1000 [size=256]
+	Region 5: Memory at 94600000 (32-bit, non-prefetchable) [size=512K]
+
+Bridge:
+	Memory behind bridge: 94000000-946fffff [size=7M] [32-bit]
+	Prefetchable memory behind bridge: 2c00000000-2c107fffff [size=264M] [32-bit]
+
+In that example the doorbell ended up in the non-prefetchable window for some reason. And that config comes in all possible variations.
+
+On AMD GPUs both BAR0 and BAR2 are resizeable.
+
+So far we have only implemented resizing of BAR0, but essentially we want to have both for some use cases.
+
+>> What we have is that BAR 0 and 2 are 64bit BARs which can (after some 
+>> preparation) move around freely. But IIRC BAR 4 are the legacy I/O ports 
+>> and BAR 5 is the 32bit MMIO registers (don't nail me on that, could be 
+>> just the other way around).
+>>
+>> Especially that 32bit MMIO BAR *can't* move! Not only because it is 
+>> 32bit, but also because the amdgpu driver as well as the HW itself 
+>> through the VGA emulation, as well as the EFI/VESA/VBIOS code might 
+>> reference its absolute address.
+> 
+> So if the 64-bit check is replaced with this:
+> 
+> +       /* Check if the parent bridge has a 64-bit (pref) memory resource */
+> +       res = pci_resource_n(adev->pdev, 0)->parent;
+> +       /* Trying to resize is pointless without a window above 4GB */
+> +       if (!(res->flags & IORESOURCE_MEM_64))
+> 		return 0;
+> 
+> ...I don't think it's possible for 32-bit resource to share that window 
+> under _any_ circumstance.
+
+Well see the example above. I have SSH access to a system where exactly that is the configuration.
+
+> If you say that ->parent somehow points to a non-IORESOURCE_MEM_64 window 
+> at this point, you're implying allocation for the 64-bit prefetchable 
+> window was tried and failed, and __pci_assign_resource() then used one of 
+> its fallbacks.
+
+No, as I said that comes from the BIOS.
+
+> Are you saying that "some preparation" includes making room for that 
+> 64-bit prefetchable window that failed to assign earlier as I cannot see 
+> how else it would ever get assigned so that the 64-bit BARs could be moved 
+> there?
+
+No, at least from the amdgpu driver side we don't touch the resource allocation at all.
+
+In this case preparation means disabling the VGA emulation, cause otherwise trying to resize the BAR can just cause a spontaneous system reboot for some reason. 
+
+>> Could we give pci_resize_resource() a mask of BARs which are save to 
+>> release?
+> 
+> It is possible.
+
+Then let us solve this issue by this somehow.
+
+Regards,
+Christian.
+
+> 
+>> Or maybe a flag to indicate that it can only free up 64bit BARs?
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Thanks a lot for checking this out!
+>>>
+>>
+> 
 
