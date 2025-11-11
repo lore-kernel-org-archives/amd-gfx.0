@@ -4,123 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF3CDCD342C
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DBF9CCFA1A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2653410E5D3;
-	Tue, 11 Nov 2025 13:39:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D2110E5C6;
+	Tue, 11 Nov 2025 13:39:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Cr7kGpqF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jh6LIRvy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CBD310E571;
- Tue, 11 Nov 2025 12:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762864087; x=1794400087;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=VVg62TqQIJ7Evijsdq8qdbXdEeiYTcr6am16uCHXNkE=;
- b=Cr7kGpqFbMNZY3Hsc+IU8Rwzjf3AlCrdlsctP1Tpw90MU8JOdrXQg+qI
- E6YkRiwTAg4Y5uCaR0kptqyGu8UTa424xfY8WfKIEjfdl7NCt90SZmYuO
- hH8r6VBzG6jg8R+qj+SMEiQD92TBWzS8TjHlmzGG0J2K6xkq0KCkIIe4j
- y6cQLKzHbtV8Y8VzwsFqb0hy6n/QJoYjn0u3hWZUsWyU8639dTD2JH/f4
- qbdXlI1NQvqnGqEl5JZbsLsmm2GutC8M0K3NFopLZGddbxA3lxjguxTxi
- uaB+thf8xm7jQaxVwCjyGNgiF0626G2eF/za1e9BX1j1SZK500YNHf7tJ Q==;
-X-CSE-ConnectionGUID: tP8Wh6Q2QFeO6y1nnDWwLg==
-X-CSE-MsgGUID: mMskVaciSDS6SdgkIZG73Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="82553148"
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="82553148"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2025 04:28:05 -0800
-X-CSE-ConnectionGUID: 5HPrSPquTkWxhLAPOYOnLg==
-X-CSE-MsgGUID: /AbwGWmbRHOIvg8v9CpXQQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="212343320"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa002.fm.intel.com with ESMTP; 11 Nov 2025 04:27:57 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 2A97AA3; Tue, 11 Nov 2025 13:27:38 +0100 (CET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Corey Minyard <corey@minyard.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Calvin Owens <calvin@wbinvd.org>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
- Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
- Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
- ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2 13/21] mmc: mmc_test: Switch to use %ptSp
-Date: Tue, 11 Nov 2025 13:20:13 +0100
-Message-ID: <20251111122735.880607-14-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
-References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31AAA10E50D;
+ Tue, 11 Nov 2025 08:52:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1762851144;
+ bh=AOtxztYb3EUCtWNh0dzQl6PgAK/9e+Oi10O5JPoqGo4=;
+ h=From:Date:Subject:To:Cc:From;
+ b=jh6LIRvyb5680qh6eoFuSxCsS8+ArGe3FK9/qzJEoSmtRz2ntM7Mb4bTVmmQzN3e6
+ j4pKsxb3onlQK3Uh1SN5DjmczMcg0ROBoBLlXR8usMf/yduegz0jAujmQPiBsfUFwC
+ mIIBXqAgtQfzUh/8TQMniH6DP80D5Z8p1s4jRmgEzdWvwY4bT+Lyy8LIxK4pTzQVhk
+ EiOO0GtUB3OLMy3n7KdAbw2my55p84M63pYVjCSarhqaQSUO9HPxmBbLWERTb9FZ2v
+ RvK03gfr4TA/MreDaCafqE0IbouGKxAn/tbtIV0f34+xSo9OZzocEoyIBqQYssg1NO
+ abMMlPbqw9aFg==
+Received: from localhost (unknown [82.79.138.145])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with UTF8SMTPSA id 9A7C017E1318;
+ Tue, 11 Nov 2025 09:52:24 +0100 (CET)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Tue, 11 Nov 2025 10:52:11 +0200
+Subject: [PATCH v2] drm/amdgpu: Fix kernel-doc comments for some LUT properties
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:07 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251111-amdgpu-fix-kdoc-lut-v2-1-bcfcc82e962d@collabora.com>
+X-B4-Tracking: v=1; b=H4sIADr5EmkC/32NTQ6CMBSEr0Le2mdoa4G48h6GRX8e0AiUtEA0p
+ He3cgCX30zmmwMiBUcR7sUBgXYXnZ8z8EsBZlBzT+hsZuAll2XDBarJ9suGnXvjy3qD47aikLX
+ VjZZ1RwR5uQTK/Wl9tpkHF1cfPufJzn7pf9/OkKEoK22UvTFe1Q/jx1FpH9TV+AnalNIXkYsEN
+ roAAAA=
+X-Change-ID: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,52 +67,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use %ptSp instead of open coded variants to print content of
-struct timespec64 in human readable format.
+The following members of struct amdgpu_mode_info do not have valid
+references in the related kernel-doc sections:
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+ - plane_shaper_lut_property
+ - plane_shaper_lut_size_property,
+ - plane_lut3d_size_property
+
+Correct all affected comment blocks.
+
+Fixes: f545d82479b4 ("drm/amd/display: add plane shaper LUT and TF driver-specific properties")
+Fixes: 671994e3bf33 ("drm/amd/display: add plane 3D LUT driver-specific properties")
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/mmc/core/mmc_test.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+Changes in v2:
+- Collected R-b tag from Melissa
+- Rebased onto latest drm-misc-next
+- Link to v1: https://lore.kernel.org/r/20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/mmc/core/mmc_test.c b/drivers/mmc/core/mmc_test.c
-index a74089df4547..01d1e62c2ce7 100644
---- a/drivers/mmc/core/mmc_test.c
-+++ b/drivers/mmc/core/mmc_test.c
-@@ -586,14 +586,11 @@ static void mmc_test_print_avg_rate(struct mmc_test_card *test, uint64_t bytes,
- 	rate = mmc_test_rate(tot, &ts);
- 	iops = mmc_test_rate(count * 100, &ts); /* I/O ops per sec x 100 */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index dc8d2f52c7d6..e244c12ceb23 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -368,15 +368,15 @@ struct amdgpu_mode_info {
  
--	pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took "
--			 "%llu.%09u seconds (%u kB/s, %u KiB/s, "
--			 "%u.%02u IOPS, sg_len %d)\n",
--			 mmc_hostname(test->card->host), count, sectors, count,
--			 sectors >> 1, (sectors & 1 ? ".5" : ""),
--			 (u64)ts.tv_sec, (u32)ts.tv_nsec,
--			 rate / 1000, rate / 1024, iops / 100, iops % 100,
--			 test->area.sg_len);
-+	pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took %ptSp seconds (%u kB/s, %u KiB/s, %u.%02u IOPS, sg_len %d)\n",
-+		mmc_hostname(test->card->host), count, sectors, count,
-+		sectors >> 1, (sectors & 1 ? ".5" : ""), &ts,
-+		rate / 1000, rate / 1024, iops / 100, iops % 100,
-+		test->area.sg_len);
- 
- 	mmc_test_save_transfer_result(test, count, sectors, ts, rate, iops);
- }
-@@ -3074,10 +3071,9 @@ static int mtf_test_show(struct seq_file *sf, void *data)
- 		seq_printf(sf, "Test %d: %d\n", gr->testcase + 1, gr->result);
- 
- 		list_for_each_entry(tr, &gr->tr_lst, link) {
--			seq_printf(sf, "%u %d %llu.%09u %u %u.%02u\n",
--				tr->count, tr->sectors,
--				(u64)tr->ts.tv_sec, (u32)tr->ts.tv_nsec,
--				tr->rate, tr->iops / 100, tr->iops % 100);
-+			seq_printf(sf, "%u %d %ptSp %u %u.%02u\n",
-+				   tr->count, tr->sectors, &tr->ts, tr->rate,
-+				   tr->iops / 100, tr->iops % 100);
- 		}
- 	}
- 
--- 
-2.50.1
+ 	struct drm_property *plane_ctm_property;
+ 	/**
+-	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
+-	 * that converts color content before 3D LUT. If
+-	 * plane_shaper_tf_property != Identity TF, AMD color module will
++	 * @plane_shaper_lut_property: Plane property to set pre-blending
++	 * shaper LUT that converts color content before 3D LUT.
++	 * If plane_shaper_tf_property != Identity TF, AMD color module will
+ 	 * combine the user LUT values with pre-defined TF into the LUT
+ 	 * parameters to be programmed.
+ 	 */
+ 	struct drm_property *plane_shaper_lut_property;
+ 	/**
+-	 * @shaper_lut_size_property: Plane property for the size of
++	 * @plane_shaper_lut_size_property: Plane property for the size of
+ 	 * pre-blending shaper LUT as supported by the driver (read-only).
+ 	 */
+ 	struct drm_property *plane_shaper_lut_size_property;
+@@ -400,10 +400,10 @@ struct amdgpu_mode_info {
+ 	 */
+ 	struct drm_property *plane_lut3d_property;
+ 	/**
+-	 * @plane_degamma_lut_size_property: Plane property to define the max
+-	 * size of 3D LUT as supported by the driver (read-only). The max size
+-	 * is the max size of one dimension and, therefore, the max number of
+-	 * entries for 3D LUT array is the 3D LUT size cubed;
++	 * @plane_lut3d_size_property: Plane property to define the max size
++	 * of 3D LUT as supported by the driver (read-only). The max size is
++	 * the max size of one dimension and, therefore, the max number of
++	 * entries for 3D LUT array is the 3D LUT size cubed.
+ 	 */
+ 	struct drm_property *plane_lut3d_size_property;
+ 	/**
+
+---
+base-commit: be4cd2a13a31496c7fb9e46a244c4391b8b7cf31
+change-id: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
 
