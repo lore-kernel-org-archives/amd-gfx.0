@@ -4,58 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4FD9CD13CF
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Nov 2025 23:00:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87035CCF9E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 00:11:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8471710E327;
-	Mon, 10 Nov 2025 23:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF1010E101;
+	Tue, 11 Nov 2025 00:11:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fq25NlIc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RQNhfVxW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D24E10E0F7;
- Mon, 10 Nov 2025 23:00:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4C2F10E101;
+ Tue, 11 Nov 2025 00:11:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 267E144289;
- Mon, 10 Nov 2025 23:00:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D6EC116B1;
- Mon, 10 Nov 2025 23:00:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 708F960147;
+ Tue, 11 Nov 2025 00:11:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3B5C113D0;
+ Tue, 11 Nov 2025 00:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762815601;
- bh=BujzcxiDCu1XUvYvuSazspHPPX6uO2Q49KTJHCnBteM=;
+ s=k20201202; t=1762819899;
+ bh=UJb6mXnrZynjLpPgHUrW0+nPkNlnIA1ohpPmrhdt5kI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=Fq25NlIcNfb7ZrirU5L6qzWU2I/qH/CWKW/w8OQC2ZXdZNuXWy0/pVOpyDz+PppPs
- 3cnnoS0+U7zqxefMGHK+GcEJ1bPvMoc9WS5T/PFJNOdssnEq8A1E4C/BY8kNYJO98f
- YAfdrTMd2JgFSj+9TM8Va4dY/j+X06X1GOXnZDGrWg3G4JdxW+BZrft8hp8xxrEbtN
- a1v++eycBKbmZ0FpC1z3pgSkWip7JeVzveINO/Tl8Sc09OVUpiRhUagLR5vm58ignH
- 7BjniRQXXNFTzb/SlajwviaVC9iw2kmcUH4O/at9YIK46ab2ZALQt8lHOIBaXVqYGS
- 0zWwumfG8/b8w==
-Date: Mon, 10 Nov 2025 16:59:58 -0600
+ b=RQNhfVxWS3kSkUZ3/Yn/h0BmXL51tmLd+96fcvkdQVv1vGLPiWTHRkycOoEeo86n+
+ AomTbI2OwWKrh916BvopP2FmTFRSTMpM+ffKgocFApMJHdp1EKgU6X5hO4qa0osljw
+ 17UC1rMSI+vUK4hzsEvsvxu9BntOhbPUYi/m0034GgTDaN8qQYvPNZ+teI5+B2ybWa
+ HwOKozmrkxff/CrJtzPPwDnYAm5CuGW9jLgaRZXE1tGy7RFW1GXxjP1lsvTw64BiD6
+ 3+AvpY4WKIjmTgnbEp1K+YKbfLbuPtZz53Jb09WBB7saLr4xY2Ybz2RWqug2curgjQ
+ RYENRwzTM6ubQ==
+Date: Mon, 10 Nov 2025 18:11:37 -0600
 From: Bjorn Helgaas <helgaas@kernel.org>
-To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Simon Richter <Simon.Richter@hogyros.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Corey Minyard <corey@minyard.net>,
  Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Max Kellermann <max.kellermann@ionos.com>,
+ Takashi Iwai <tiwai@suse.de>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
  Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
- LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/9] PCI: Prevent resource tree corruption when BAR
- resize fails
-Message-ID: <20251110225958.GA2142254@bhelgaas>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v1 17/23] PCI: epf-test: Switch to use %ptSp
+Message-ID: <20251111001137.GA2145521@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d697c9e1-580e-6449-796c-a3f5198e0934@linux.intel.com>
+In-Reply-To: <20251110184727.666591-18-andriy.shevchenko@linux.intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,35 +125,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 30, 2025 at 10:22:27AM +0200, Ilpo Järvinen wrote:
-> On Wed, 29 Oct 2025, Bjorn Helgaas wrote:
+On Mon, Nov 10, 2025 at 07:40:36PM +0100, Andy Shevchenko wrote:
+> Use %ptSp instead of open coded variants to print content of
+> struct timespec64 in human readable format.
 > 
-> > On Tue, Oct 28, 2025 at 07:35:43PM +0200, Ilpo Järvinen wrote:
-> > > pbus_reassign_bridge_resources() saves bridge windows into the saved
-> > > list before attempting to adjust resource assignments to perform a BAR
-> > > resize operation. If resource adjustments cannot be completed fully,
-> > > rollback is attempted by restoring the resource from the saved list.
-> > 
-> > > Fixes: 8bb705e3e79d ("PCI: Add pci_resize_resource() for resizing BARs")
-> > > Reported-by: Simon Richter <Simon.Richter@hogyros.de>
-> > > Reported-by: Alex Bennée <alex.bennee@linaro.org>
-> > 
-> > If these reports were public, can we include lore URLs for them?
-> > 
-> > Same question for [PATCH 5/9] PCI: Fix restoring BARs on BAR resize
-> > rollback path.
-> > 
-> > I put these all on pci/resource for build testing.  I assume we'll
-> > tweak these based on testing reports and sorting out the pci/rebar
-> > conflicts.
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+
+> ---
+>  drivers/pci/endpoint/functions/pci-epf-test.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 > 
-> Thanks, the links will come in v2 along with fixing a few things found by 
-> more extensive tests by LKP. E.g., it seems clang thinks guard() cannot be 
-> used here because goto jumps over it (auto variable initialization gets 
-> skipped so it's kind of understandable limitation).
-
-Just a ping on this.  The lkp robot did build this fine:
-https://lore.kernel.org/r/202510311139.1VIkw3Ez-lkp@intel.com
-
-I'm happy to put it in pci/next as-is, especially if the amdgpu and
-i915 folks are ok with it.
+> diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
+> index b05e8db575c3..debd235253c5 100644
+> --- a/drivers/pci/endpoint/functions/pci-epf-test.c
+> +++ b/drivers/pci/endpoint/functions/pci-epf-test.c
+> @@ -331,9 +331,8 @@ static void pci_epf_test_print_rate(struct pci_epf_test *epf_test,
+>  		rate = div64_u64(size * NSEC_PER_SEC, ns * 1000);
+>  
+>  	dev_info(&epf_test->epf->dev,
+> -		 "%s => Size: %llu B, DMA: %s, Time: %llu.%09u s, Rate: %llu KB/s\n",
+> -		 op, size, dma ? "YES" : "NO",
+> -		 (u64)ts.tv_sec, (u32)ts.tv_nsec, rate);
+> +		 "%s => Size: %llu B, DMA: %s, Time: %ptSp s, Rate: %llu KB/s\n",
+> +		 op, size, dma ? "YES" : "NO", &ts, rate);
+>  }
+>  
+>  static void pci_epf_test_copy(struct pci_epf_test *epf_test,
+> -- 
+> 2.50.1
+> 
