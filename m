@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F260CD13DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F011CD3427
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4CD310E5DA;
-	Tue, 11 Nov 2025 13:39:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C3E310E5CB;
+	Tue, 11 Nov 2025 13:39:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Sj4SGBwa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EUoO0L6U";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E35C10E2F7;
- Mon, 10 Nov 2025 18:47:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 450DC10E577;
+ Tue, 11 Nov 2025 12:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762800480; x=1794336480;
+ t=1762864084; x=1794400084;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OzdF6HTk4h3/oUsmY5IfpSD2bmNX4EBLpymNpYyHIRk=;
- b=Sj4SGBwa/i6v67ca+t6yf1wvHlIA7sLHK3aYtH+wfHQYua/KACfXBzSz
- D3y0tWnmOq6W+LRzqFI3QepUVgrcBUcnmeoFNJypOGdIQEek7SxO9C/Dn
- 3AnxVmujiYSJHw84kBoSyV4gtvprDtEObWHr5SDMZazDhCztbHXqFHA2d
- l3JfabHujyBIKT5DMdYhvxG0gCEadbLTaJwynxikkyOUi5Ps6rJnvKiYe
- ZlaVLSUEIhJbOxIkn7aS9tBFMHQRH7U5x5LzouM2TzR4X1v08GO5OyOkm
- 5WlVv42+y7t454biU8YwDQsqwoNWezm5QJ2/b9IuuqtQg1vXAH724TCVA A==;
-X-CSE-ConnectionGUID: Ol1x1V1RRZGuhzCbgcoupA==
-X-CSE-MsgGUID: Z99uX4+DSSGrGl/0uYjlbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="90327173"
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="90327173"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2025 10:47:59 -0800
-X-CSE-ConnectionGUID: KOb4f4b3RM6tdzmNBqgdkw==
-X-CSE-MsgGUID: yn8eDI+aQmWsr3VL9QEEYA==
+ bh=BmDr+9WwyAhMzsfsAApxDHVanVdl5gKra56KPccq0Eg=;
+ b=EUoO0L6UXKmkEWOZpzHeZr5/Oky9G+Aoa5Rmj1oivuaDhFW9v51K4CBy
+ wa26fkaamsZzXV+r8Hwd9gOPzF0Gis6NFkdvyRq71I8yuGZAEFpXfb9cm
+ XMZUWmi3XSN85TnFR7Z95/FQ9u8YxreE7ZvfHUv+rMh6r0ptIDm9NHDeI
+ qE12XFuuaSaCZL3K2IIdfrWP+l+kkDMzjv0z6gXDxXlgac412JBaKA9MM
+ zvlKr/0KB8BqwsTs++9uGsI+mcOYuZT1yYlWxXhhaTC0Cr1IgrlPk8s5/
+ grtmNHqVOEBGZyWC5PSC+uhKE+1vtC3WOk2gNrU2EHyg5CqUNf6NDC1vd A==;
+X-CSE-ConnectionGUID: G7ew9JHWRwOODbCQOO1nfQ==
+X-CSE-MsgGUID: s/60067+TYmu7kcXyVeh2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="75606968"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="75606968"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2025 04:28:03 -0800
+X-CSE-ConnectionGUID: yb65GK5dTgmnslAPrRM0gA==
+X-CSE-MsgGUID: J9zlwCCETMGq265hl7+R7Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="219401997"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="188592913"
 Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa002.jf.intel.com with ESMTP; 10 Nov 2025 10:47:49 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 11 Nov 2025 04:27:55 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 508CAA3; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
+ id 0AB809E; Tue, 11 Nov 2025 13:27:38 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -51,28 +51,29 @@ To: Corey Minyard <corey@minyard.net>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
  Matthew Brost <matthew.brost@intel.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
  Ulf Hansson <ulf.hansson@linaro.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Vitaly Lifshits <vitaly.lifshits@intel.com>,
  Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
+ Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
  "Martin K. Petersen" <martin.petersen@oracle.com>,
  Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
  Casey Schaufler <casey@schaufler-ca.com>,
  Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
- Max Kellermann <max.kellermann@ionos.com>, Takashi Iwai <tiwai@suse.de>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
 Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
  Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -86,10 +87,8 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
  Przemek Kitszel <przemyslaw.kitszel@intel.com>,
@@ -97,9 +96,8 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>,
  Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
  Richard Cochran <richardcochran@gmail.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
  Stefan Haberland <sth@linux.ibm.com>,
  Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
  Vasily Gorbik <gor@linux.ibm.com>,
@@ -108,18 +106,18 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
  Sesidhar Baddela <sebaddel@cisco.com>,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 14/23] media: v4l2-ioctl: Switch to use %ptSp
-Date: Mon, 10 Nov 2025 19:40:33 +0100
-Message-ID: <20251110184727.666591-15-andriy.shevchenko@linux.intel.com>
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v2 08/21] drm/xe: Switch to use %ptSp
+Date: Tue, 11 Nov 2025 13:20:08 +0100
+Message-ID: <20251111122735.880607-9-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
-References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
+References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:07 +0000
@@ -140,27 +138,28 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Use %ptSp instead of open coded variants to print content of
 struct timespec64 in human readable format.
 
+Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/media/v4l2-core/v4l2-ioctl.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_devcoredump.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index 01cf52c3ea33..edc4d97b4161 100644
---- a/drivers/media/v4l2-core/v4l2-ioctl.c
-+++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-@@ -791,9 +791,8 @@ static void v4l_print_event(const void *arg, bool write_only)
- 	const struct v4l2_event *p = arg;
- 	const struct v4l2_event_ctrl *c;
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
+index 203e3038cc81..d444eda65ca6 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump.c
++++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+@@ -106,9 +106,9 @@ static ssize_t __xe_devcoredump_read(char *buffer, ssize_t count,
+ 	drm_puts(&p, "module: " KBUILD_MODNAME "\n");
  
--	pr_cont("type=0x%x, pending=%u, sequence=%u, id=%u, timestamp=%llu.%9.9llu\n",
--			p->type, p->pending, p->sequence, p->id,
--			p->timestamp.tv_sec, p->timestamp.tv_nsec);
-+	pr_cont("type=0x%x, pending=%u, sequence=%u, id=%u, timestamp=%ptSp\n",
-+		p->type, p->pending, p->sequence, p->id, &p->timestamp);
- 	switch (p->type) {
- 	case V4L2_EVENT_VSYNC:
- 		printk(KERN_DEBUG "field=%s\n",
+ 	ts = ktime_to_timespec64(ss->snapshot_time);
+-	drm_printf(&p, "Snapshot time: %lld.%09ld\n", ts.tv_sec, ts.tv_nsec);
++	drm_printf(&p, "Snapshot time: %ptSp\n", &ts);
+ 	ts = ktime_to_timespec64(ss->boot_time);
+-	drm_printf(&p, "Uptime: %lld.%09ld\n", ts.tv_sec, ts.tv_nsec);
++	drm_printf(&p, "Uptime: %ptSp\n", &ts);
+ 	drm_printf(&p, "Process: %s [%d]\n", ss->process_name, ss->pid);
+ 	xe_device_snapshot_print(xe, &p);
+ 
 -- 
 2.50.1
 
