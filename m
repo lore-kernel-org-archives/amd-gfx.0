@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8915BCCFA1E
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E659CD13DA
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3D810E5A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20DBE10E59F;
 	Tue, 11 Nov 2025 13:39:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BUzbLsmf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IgOXPTIE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B75310E56F;
- Tue, 11 Nov 2025 12:28:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31D7C10E56B;
+ Tue, 11 Nov 2025 12:27:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762864084; x=1794400084;
+ t=1762864076; x=1794400076;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EefPNFQBUNuGlR0DgULcxn8v9QseDyeQnp72XVg7OAg=;
- b=BUzbLsmf3/oQvVOFHAzLwxXLCths7Vfx/oyIpPL0r0kK4zIhqMShIDFV
- lQ9YebAS9XKvJFIfTOhULolhwnIk7wdDRiKiIpc/VjXoSzyE66zVMC2Zf
- 1tOS77+se129UsYHnIJzClDTbg7o4Zp/33GadyuoPlObHCM+YETCKNqEQ
- 5XHPhXOqI+e3u7O+WL+BqGuR1KUhC+pd84afHwlYJY0FYJhFIANg8mA6z
- PgTVtGchHUnq2eJg7XjAt0O5uhLooAjnppA6hMqeuYANOTqRdBUlxtkCU
- s3GSJJQ+E3HCCi49ljVp6w9Vpg4U+f1KwpVQNONDdOZ5s40L8L4mPxdav w==;
-X-CSE-ConnectionGUID: DWqVlu9wToW2DdNDXaRSTw==
-X-CSE-MsgGUID: rGRcg0ojRf6TUNvLp05Spg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="75606933"
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="75606933"
+ bh=biAt7h9SZCWEseGnW36hqThT4FR7mM7YTOf8pyCUSJI=;
+ b=IgOXPTIEi/zJQaA6HDwjIXDjgNTnk5xETzcjg3HSvP+xnSYjomEJakGj
+ pcMUEjhYjC5wX48V3RoTdaU7FyUYwGKAJs2tNHmMA2i/tFOBjeQt6cxWJ
+ RnhHCIKsBiJ9bPKadvLKQ4mXtm2loIFPBFnsNGyWcJFPW8W3Xz4H1O260
+ YIpS4fKbDu/KJxiEt+Mw8tQxK6V3JUj2TYH9XwAVtBMrIOXUobiAUgGFW
+ Wq0++sSoZ6kybVwUKp7Rn/jE1zLoPzakKmOpwPBoefYTPmA+Cuh9SeyTg
+ BQxXh9aw9HOSRU46GPSowera5Taft1WFSVJBPy5k+lYLaq3pupbYRB83d g==;
+X-CSE-ConnectionGUID: aHsj8ZigR8yBFtEbqpPeew==
+X-CSE-MsgGUID: 9DSya0X0SKGbEIxqTa1CJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="75606869"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="75606869"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2025 04:28:03 -0800
-X-CSE-ConnectionGUID: 3kTDYZbdSGuh8Y2wW057ug==
-X-CSE-MsgGUID: 0+0RXBJqS5e5h/JXqx5zIg==
+ 11 Nov 2025 04:27:55 -0800
+X-CSE-ConnectionGUID: liFe4ozoTXCmNT5tPfSnAQ==
+X-CSE-MsgGUID: gKVH+9KbSESEHGgPJqvBHg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="188592912"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="188592904"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa007.fm.intel.com with ESMTP; 11 Nov 2025 04:27:55 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 11 Nov 2025 04:27:47 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 03F3C9D; Tue, 11 Nov 2025 13:27:38 +0100 (CET)
+ id DEBCD99; Tue, 11 Nov 2025 13:27:37 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -112,9 +112,9 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2 07/21] drm/vblank: Switch to use %ptSp
-Date: Tue, 11 Nov 2025 13:20:07 +0100
-Message-ID: <20251111122735.880607-8-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 03/21] libceph: Switch to use %ptSp
+Date: Tue, 11 Nov 2025 13:20:03 +0100
+Message-ID: <20251111122735.880607-4-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
 References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
@@ -138,28 +138,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Use %ptSp instead of open coded variants to print content of
 struct timespec64 in human readable format.
 
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/gpu/drm/drm_vblank.c | 6 ++----
+ net/ceph/messenger_v2.c | 6 ++----
  1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-index 32d013c5c8fc..5c14140cd0c2 100644
---- a/drivers/gpu/drm/drm_vblank.c
-+++ b/drivers/gpu/drm/drm_vblank.c
-@@ -806,10 +806,8 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
- 	ts_vblank_time = ktime_to_timespec64(*vblank_time);
+diff --git a/net/ceph/messenger_v2.c b/net/ceph/messenger_v2.c
+index 9e39378eda00..6e676e2d4ba0 100644
+--- a/net/ceph/messenger_v2.c
++++ b/net/ceph/messenger_v2.c
+@@ -1535,8 +1535,7 @@ static int prepare_keepalive2(struct ceph_connection *con)
+ 	struct timespec64 now;
  
- 	drm_dbg_vbl(dev,
--		    "crtc %u : v p(%d,%d)@ %lld.%06ld -> %lld.%06ld [e %d us, %d rep]\n",
--		    pipe, hpos, vpos,
--		    (u64)ts_etime.tv_sec, ts_etime.tv_nsec / 1000,
--		    (u64)ts_vblank_time.tv_sec, ts_vblank_time.tv_nsec / 1000,
-+		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
-+		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
- 		    duration_ns / 1000, i);
+ 	ktime_get_real_ts64(&now);
+-	dout("%s con %p timestamp %lld.%09ld\n", __func__, con, now.tv_sec,
+-	     now.tv_nsec);
++	dout("%s con %p timestamp %ptSp\n", __func__, con, &now);
  
- 	return true;
+ 	ceph_encode_timespec64(ts, &now);
+ 
+@@ -2729,8 +2728,7 @@ static int process_keepalive2_ack(struct ceph_connection *con,
+ 	ceph_decode_need(&p, end, sizeof(struct ceph_timespec), bad);
+ 	ceph_decode_timespec64(&con->last_keepalive_ack, p);
+ 
+-	dout("%s con %p timestamp %lld.%09ld\n", __func__, con,
+-	     con->last_keepalive_ack.tv_sec, con->last_keepalive_ack.tv_nsec);
++	dout("%s con %p timestamp %ptSp\n", __func__, con, &con->last_keepalive_ack);
+ 
+ 	return 0;
+ 
 -- 
 2.50.1
 
