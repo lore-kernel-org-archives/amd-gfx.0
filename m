@@ -4,125 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85EABCCFA1A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C42DCD13D8
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE6D10E59E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A11710E592;
 	Tue, 11 Nov 2025 13:39:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SNveR/f2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q1CORbZf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2585F10E48A;
- Mon, 10 Nov 2025 18:47:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BDCE10E552;
+ Tue, 11 Nov 2025 11:08:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762800477; x=1794336477;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Re9XzxeVgaRpFu9Nr8p7rXjuLRXS6TBbrXT9/XQ7Zd0=;
- b=SNveR/f2KBiO0XEB8ZvRWWvBacbmrj7IoAUb81kXwImd1gGpl+Bc1D9t
- 5Luo2tOLn6nNUopVDXWkRGARPsQV7LR5x1e4ytlZrVV5E4+ih7f7wuBjM
- A9JpcBsc4DYlxkhpqPxIxJx5NyiQkyvrdypKM7U/67cpx2VneADoq+61c
- 8QIhuGY/6Q6Ckr8LSWV6OZRmxi5y+9TUL6aZOXQa8Y5rpDNR2rTLwmZJl
- so4dIFdhB/7SnZnj0BaZYwjAieaYx12+yk2Xx6iicCcdt0YI6AzBmOjlV
- 1ccwXXIUCFU1PCMkIMd3aVPhbQBk2QRVf3Ztfk/LcaVQbOmXm8QjxT20T Q==;
-X-CSE-ConnectionGUID: /Sei6BCnTH+cjZtfpbRm0Q==
-X-CSE-MsgGUID: Mr6kzgsZQnOOA/TdfAkUjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="64897583"
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="64897583"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Nov 2025 10:47:57 -0800
-X-CSE-ConnectionGUID: xYHtbT9SR/mNMyLa35Gtcw==
-X-CSE-MsgGUID: o0fIDUZxQyyrUK7H/cG3FA==
+ t=1762859326; x=1794395326;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=tSSxs4SRCVrhf+9y3subQDg/bxFJRtJk39gNDsVo8VU=;
+ b=Q1CORbZfnN//rK+Md3s6hbXI4w2HqrK3eiU0+yNGXXHtgIPXU3NDJ3lL
+ 6frmFVCrabdcNC/4yxz+saaLKNYionW1/n4hi4cAiaZSPXxcybMhj6DXb
+ kmKxpef3c1V8xqdCjTKHI6IBZznzPjto/Eg5m88PL4YbK8+PjYKhnbFsH
+ rKXQyChzJ3qtAGhFCSS2YbeTucU+7wfMxPY8ydsa7FoZhkV4tVLex+qL0
+ TKQ4IPWOaBhev1lMNkewRDX66PQu2BwK0a3fPcuj1lnkS6BM8vDImun0k
+ tVuk6ujbwKoevZka+a7bC7MmoJmTSNpFxXoGnlnlMN/WDXp7/i8FddD3Y A==;
+X-CSE-ConnectionGUID: 3Nu1wWrcTfqEpFkUAfsY2A==
+X-CSE-MsgGUID: T65uZy9bSLWVE2Pa5/w1dw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="68780216"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="68780216"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2025 03:08:45 -0800
+X-CSE-ConnectionGUID: Bo0n7HhxSVizVjm/+57XOg==
+X-CSE-MsgGUID: czyw2sN5Tm2Vo1qc7SCbWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,294,1754982000"; d="scan'208";a="189190253"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa009.fm.intel.com with ESMTP; 10 Nov 2025 10:47:48 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 219C19C; Mon, 10 Nov 2025 19:47:29 +0100 (CET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Corey Minyard <corey@minyard.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Calvin Owens <calvin@wbinvd.org>, Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
- Max Kellermann <max.kellermann@ionos.com>, Takashi Iwai <tiwai@suse.de>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-sound@vger.kernel.org
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v1 07/23] drm/msm: Switch to use %ptSp
-Date: Mon, 10 Nov 2025 19:40:26 +0100
-Message-ID: <20251110184727.666591-8-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
-References: <20251110184727.666591-1-andriy.shevchenko@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="226198918"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.132])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2025 03:08:39 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 11 Nov 2025 13:08:35 +0200 (EET)
+To: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+cc: =?ISO-8859-15?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>, 
+ Simon Richter <Simon.Richter@hogyros.de>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
+ =?ISO-8859-2?Q?Micha=B3_Winiarski?= <michal.winiarski@intel.com>, 
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 8/9] drm/amdgpu: Remove driver side BAR release before
+ resize
+In-Reply-To: <c90f155f-44fe-4144-af68-309531392d22@amd.com>
+Message-ID: <aaaf27cf-5de0-c4ef-0758-59849878a99f@linux.intel.com>
+References: <20251028173551.22578-1-ilpo.jarvinen@linux.intel.com>
+ <20251028173551.22578-9-ilpo.jarvinen@linux.intel.com>
+ <c90f155f-44fe-4144-af68-309531392d22@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:07 +0000
+Content-Type: multipart/mixed; boundary="8323328-480724837-1762859315=:1002"
+X-Mailman-Approved-At: Tue, 11 Nov 2025 13:39:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,43 +82,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use %ptSp instead of open coded variants to print content of
-struct timespec64 in human readable format.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 3 +--
- drivers/gpu/drm/msm/msm_gpu.c                     | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+--8323328-480724837-1762859315=:1002
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-index 071bcdea80f7..19b470968f4d 100644
---- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-+++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-@@ -82,8 +82,7 @@ void msm_disp_state_print(struct msm_disp_state *state, struct drm_printer *p)
- 	drm_printf(p, "kernel: " UTS_RELEASE "\n");
- 	drm_printf(p, "module: " KBUILD_MODNAME "\n");
- 	drm_printf(p, "dpu devcoredump\n");
--	drm_printf(p, "time: %lld.%09ld\n",
--		state->time.tv_sec, state->time.tv_nsec);
-+	drm_printf(p, "time: %ptSp\n", &state->time);
- 
- 	list_for_each_entry_safe(block, tmp, &state->blocks, node) {
- 		drm_printf(p, "====================%s================\n", block->name);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 17759abc46d7..a4251afe4541 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -197,8 +197,7 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
- 	drm_printf(&p, "---\n");
- 	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
- 	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
--	drm_printf(&p, "time: %lld.%09ld\n",
--		state->time.tv_sec, state->time.tv_nsec);
-+	drm_printf(&p, "time: %ptSp\n", &state->time);
- 	if (state->comm)
- 		drm_printf(&p, "comm: %s\n", state->comm);
- 	if (state->cmd)
--- 
-2.50.1
+On Tue, 11 Nov 2025, Christian K=C3=B6nig wrote:
 
+> Sorry for the late reply I'm really busy at the moment.
+>=20
+> On 10/28/25 18:35, Ilpo J=C3=A4rvinen wrote:
+> > PCI core handles releasing device's resources and their rollback in
+> > case of failure of a BAR resizing operation. Releasing resource prior
+> > to calling pci_resize_resource() prevents PCI core from restoring the
+> > BARs as they were.
+>=20
+> I've intentionally didn't do it this way because at least on AMD HW we=20
+> could only release the VRAM and doorbell BAR (both 64bit), but not the=20
+> register BAR (32bit only).
+>=20
+> This patch set looks like the right thing in general, but which BARs are=
+=20
+> now released by pci_resize_resource()?
+>=20
+> If we avoid releasing the 32bit BAR as well then that should work,=20
+> otherwise we will probably cause problems.
+
+After these changes, pci_resize_resource() releases BARs that share the=20
+bridge window with the BAR to be resized. So the answer depends on the=20
+upstream bridge.
+
+However, amdgpu_device_resize_fb_bar() also checks that root bus has a
+resource with a 64-bit address. That won't tell what the nearest bridge=20
+has though. Maybe that check should be converted to check the resources of=
+=20
+the nearest bus instead? It would make it impossible to have the=20
+32-bit resource share the bridge window with the 64-bit resources so the=20
+resize would be safe.
+
+Thanks a lot for checking this out!
+
+--=20
+ i.
+
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Remove driver-side release of BARs from the amdgpu driver.
+> >=20
+> > Also remove the driver initiated assignment as pci_resize_resource()
+> > should try to assign as much as possible. If the driver side call
+> > manages to get more required resources assigned in some scenario, such
+> > a problem should be fixed inside pci_resize_resource() instead.
+> >=20
+> > Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +-------
+> >  1 file changed, 1 insertion(+), 7 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 7a899fb4de29..65474d365229 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -1729,12 +1729,8 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_de=
+vice *adev)
+> >  =09pci_write_config_word(adev->pdev, PCI_COMMAND,
+> >  =09=09=09      cmd & ~PCI_COMMAND_MEMORY);
+> > =20
+> > -=09/* Free the VRAM and doorbell BAR, we most likely need to move both=
+=2E */
+> > +=09/* Tear down doorbell as resizing will release BARs */
+> >  =09amdgpu_doorbell_fini(adev);
+> > -=09if (adev->asic_type >=3D CHIP_BONAIRE)
+> > -=09=09pci_release_resource(adev->pdev, 2);
+> > -
+> > -=09pci_release_resource(adev->pdev, 0);
+> > =20
+> >  =09r =3D pci_resize_resource(adev->pdev, 0, rbar_size);
+> >  =09if (r =3D=3D -ENOSPC)
+> > @@ -1743,8 +1739,6 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_dev=
+ice *adev)
+> >  =09else if (r && r !=3D -ENOTSUPP)
+> >  =09=09dev_err(adev->dev, "Problem resizing BAR0 (%d).", r);
+> > =20
+> > -=09pci_assign_unassigned_bus_resources(adev->pdev->bus);
+> > -
+> >  =09/* When the doorbell or fb BAR isn't available we have no chance of
+> >  =09 * using the device.
+> >  =09 */
+>=20
+--8323328-480724837-1762859315=:1002--
