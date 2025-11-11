@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C3FCCD13D2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 148AACCFA1E
 	for <amd-gfx@archiver.kernel.org>; Tue, 11 Nov 2025 13:39:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8714110E5CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5818610E5B6;
 	Tue, 11 Nov 2025 13:39:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CUB+l1r2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W4JbW7Bw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C664F10E581;
- Tue, 11 Nov 2025 12:28:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1B7210E571;
+ Tue, 11 Nov 2025 12:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762864088; x=1794400088;
+ t=1762864094; x=1794400094;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=o4N7T+qVK77oOwqrK9kudMEIR18gnJzq4LSbPHl39rw=;
- b=CUB+l1r2Xc8LXzWfPfO23zpDPWWnfWKU0pxmoQBEyZcq0sMBrtf0Azeq
- LYkNA3b5fFKHr7wkPP1MWpvXe+Vr4BoUNLRq8TmwERdQhQ8LVkulcOomE
- rp9HxUjb1G1aFQmIgj1TcDrOuQCXQxahYKglX743kIG9TQvWDApBXuTXx
- 26o6G0DdXL+KYn0V5BTKSZPryhjhdiN9nU5Pn8fqfBPiH8U2Yg0YMv+3D
- FfIFUw6bDQF5+ymSbucnnwM6s91Av2DFyY4TDYRXCgBUzB89wRLy/iUqb
- 8gpv87fE4dO+qWef67z/IF8D94DPBW+47QE+wfZPpkGCjK32cXHEE0NKL w==;
-X-CSE-ConnectionGUID: /PCNizDLRXm0B1glcPRObA==
-X-CSE-MsgGUID: 0op3gGBOQfKU5pssLhqfsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="82553156"
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="82553156"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2025 04:28:06 -0800
-X-CSE-ConnectionGUID: Hn85aRXLRIiDkJXShcu/eg==
-X-CSE-MsgGUID: m86TCvpNRS+dWjQns2H6LA==
+ bh=OtFs4nYXEH1ThWKykhpKfwgYG7osOn2qi/Z49bIrWUw=;
+ b=W4JbW7BwWOoE3uz4gpV2Xfh8v8wb1gR9/MMLgonQkGipvKsM093YSJx4
+ cBLcsayrtZRHm3y1q/D+u8wQAIxmwwMJ4I5qHdOuyyc4W5c6b+RjJps7a
+ nR800e3EVIiA4FRF7QPtLX+L0nrWt/Kpe+tC04czDa3W3zbCBIfbZW4hI
+ pdjK0iHJ+ANtChasiQ2zRuYzoY3YiKyPC5aB2HxFKEg6KO119B35p/RJO
+ YSED9Cat+ZsoDkZjcIqBraGaQyO7or7ifNkQPWnS8ickHL1TV+evDUg23
+ R+b/VwTa+Lj6YsfXzd65G+B0mFrvdocak7rqA0HyCGYPLqEp+28Y+ITKP w==;
+X-CSE-ConnectionGUID: 94HXGECRTTej02tm2Tq5LA==
+X-CSE-MsgGUID: JR8lgT0CQd6uouAdehNu5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11609"; a="75607208"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="75607208"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Nov 2025 04:28:13 -0800
+X-CSE-ConnectionGUID: tMUh47YlR0iztmLUL7ZOeg==
+X-CSE-MsgGUID: n8CanOcvRy2xvoMOm6Z2iA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="212343325"
+X-IronPort-AV: E=Sophos;i="6.19,296,1754982000"; d="scan'208";a="188592937"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa002.fm.intel.com with ESMTP; 11 Nov 2025 04:27:58 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 11 Nov 2025 04:28:05 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 37AEBA5; Tue, 11 Nov 2025 13:27:38 +0100 (CET)
+ id 5E57DAB; Tue, 11 Nov 2025 13:27:38 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -112,9 +112,9 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2 15/21] PCI: epf-test: Switch to use %ptSp
-Date: Tue, 11 Nov 2025 13:20:15 +0100
-Message-ID: <20251111122735.880607-16-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 21/21] tracing: Switch to use %ptSp
+Date: Tue, 11 Nov 2025 13:20:21 +0100
+Message-ID: <20251111122735.880607-22-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
 References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
@@ -138,28 +138,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Use %ptSp instead of open coded variants to print content of
 struct timespec64 in human readable format.
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Acked-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pci/endpoint/functions/pci-epf-test.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ kernel/trace/trace_output.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
-index b05e8db575c3..debd235253c5 100644
---- a/drivers/pci/endpoint/functions/pci-epf-test.c
-+++ b/drivers/pci/endpoint/functions/pci-epf-test.c
-@@ -331,9 +331,8 @@ static void pci_epf_test_print_rate(struct pci_epf_test *epf_test,
- 		rate = div64_u64(size * NSEC_PER_SEC, ns * 1000);
+diff --git a/kernel/trace/trace_output.c b/kernel/trace/trace_output.c
+index ebbab3e9622b..cc2d3306bb60 100644
+--- a/kernel/trace/trace_output.c
++++ b/kernel/trace/trace_output.c
+@@ -1490,12 +1490,12 @@ trace_hwlat_print(struct trace_iterator *iter, int flags,
  
- 	dev_info(&epf_test->epf->dev,
--		 "%s => Size: %llu B, DMA: %s, Time: %llu.%09u s, Rate: %llu KB/s\n",
--		 op, size, dma ? "YES" : "NO",
--		 (u64)ts.tv_sec, (u32)ts.tv_nsec, rate);
-+		 "%s => Size: %llu B, DMA: %s, Time: %ptSp s, Rate: %llu KB/s\n",
-+		 op, size, dma ? "YES" : "NO", &ts, rate);
- }
+ 	trace_assign_type(field, entry);
  
- static void pci_epf_test_copy(struct pci_epf_test *epf_test,
+-	trace_seq_printf(s, "#%-5u inner/outer(us): %4llu/%-5llu ts:%lld.%09ld count:%d",
++	trace_seq_printf(s, "#%-5u inner/outer(us): %4llu/%-5llu ts:%ptSp count:%d",
+ 			 field->seqnum,
+ 			 field->duration,
+ 			 field->outer_duration,
+-			 (long long)field->timestamp.tv_sec,
+-			 field->timestamp.tv_nsec, field->count);
++			 &field->timestamp,
++			 field->count);
+ 
+ 	if (field->nmi_count) {
+ 		/*
 -- 
 2.50.1
 
