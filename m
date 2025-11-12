@@ -4,61 +4,242 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB45CD4F50
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 08:36:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4C5DCD4F5F
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 08:36:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F4FF10E602;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D8310E604;
 	Thu, 13 Nov 2025 08:36:12 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C42D10E751
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Nov 2025 15:18:48 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-42b3b29153fso526312f8f.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Nov 2025 07:18:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762960727; x=1763565527;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=X1KXel6Qy/7m9K4NuS3jmCrDuFbX4pw+8Ecrilun1is=;
- b=EzTc8ZbBc8Lt6p98ARywPhKQmR9U23zd3HhAcrJIQiD+6i9x7SzSXtf9ZlGAzknl4D
- bntwji7FUCZH8nype1UqoKKD6Pi4GaRHTbSZZDLx1QFV42gEXtavvHrZN92YFXC29Llg
- EZnEgQSudrNFjbmqHwXYq+/Ies/wtCqmZ2gxEsYDR7Xz3S8VMNxg4DGHLbU3CygD8sCi
- F0ribDAQp0w5beVV7KurZNRllsn55dC79lZAS+d+Bf7S0lEwQrTHoAIlVpkKYZ6A+7Yr
- hNI9LZVEG9WUREu2Mm8lYe9UjSa9p6+kKd85NCsAD+5FuKmS+gEycRoGBxRxFaslRCTn
- KCRQ==
-X-Gm-Message-State: AOJu0YzIOQtdw8KJwQ27NoXXEwoXHUkzEUlyxtPyki9Ww0giE3ZDM/0O
- /41kgleOTr9fsrThlpFiuxFepmdpFfZmV0KRpW4ciXoX6iYeRslhgU9T
-X-Gm-Gg: ASbGncvM8ZUySXnQJ/Zkqmp9QMli4eK1LlSfv6unkOT0fJTEKXcvF/7vVGy6XA/HRZZ
- v7zgIOLDdjHqmJOfnpGH0B1DsbxNYf4u1Lcb/Xc56593LplY5RYUXvUgkGLYJGXdcowApFIt5Rk
- IYyFS7RLVhnMaJfM/ZJLt6ofRc+L8rKN6bwrOnYtqD+7cdicpye/P+EFRrs1ppTAGBd7Q6z9pYf
- XU+uJ6H/ZWauLSynbxzmsfPJil7Il+mi0YoItGrUHSiS7zM4lwpTaQvoBdl/FsOxn4r3POj/8jo
- MsQSPzG4B9CJFpJGhvwqF3O5Hnslb3QwLc3KVwFGv7TVe4X79bQJ4ov04aTY6Hyt5vphZ7dDNN6
- SYZD+nCzW+yH2sagFcYRIZo3LOTrtSw57xZs/+sW6BNvULqk95ymk4OGwIVNLl7pCJsIifyC7VC
- Z5T/Vo+DCnslu4AxiVu18=
-X-Google-Smtp-Source: AGHT+IEExQ41M3pc3vufOuMnv5kj0G3Q1neuAJGL6Bi1ukKfbEtQgZRVJUQ4VEqLNJ0PynCjxn4wVw==
-X-Received: by 2002:a05:6000:61e:b0:42b:3ee9:4772 with SMTP id
- ffacd0b85a97d-42b4bdb6744mr2952981f8f.52.1762960726777; 
- Wed, 12 Nov 2025 07:18:46 -0800 (PST)
-Received: from xavers-framework.fritz.box ([193.124.138.23])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b32c1ad2bsm23255211f8f.6.2025.11.12.07.18.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Nov 2025 07:18:46 -0800 (PST)
-From: Xaver Hugl <xaver.hugl@kde.org>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- harry.wentland@amd.com, Xaver Hugl <xaver.hugl@kde.org>
-Subject: [PATCH 3/3] drm,
- amdgpu: add the "FreeSync HDR Mode" connector property
-Date: Wed, 12 Nov 2025 16:18:32 +0100
-Message-ID: <20251112151832.77867-3-xaver.hugl@kde.org>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251112151832.77867-1-xaver.hugl@kde.org>
-References: <20251112151832.77867-1-xaver.hugl@kde.org>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="HA7I/1Rz";
+	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="W+fHs7sm";
+	dkim-atps=neutral
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E35B610E127;
+ Wed, 12 Nov 2025 21:11:46 +0000 (UTC)
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5ACL0x6x020711;
+ Wed, 12 Nov 2025 21:11:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=corp-2025-04-25; bh=CTPa4rylIO4buuN6AT
+ 0ngxlmtscwDy27k99RTSkv4/c=; b=HA7I/1Rzhue/6C7t5ldQbbJYH3x0hWUw8m
+ ihwsMvvU5e4QwQcjiIdeRygA86Iu8fnPoo6bSf31mEKl9nf9jPFnkx1aKsWGbH1n
+ SouVk5v+d/phFPjWIbWFz2eR0wsL/dA7DQJhufBWb4rbBHdHa9gv7D6DmMnKSUfY
+ YS0lSkJayOQpDCiKywjEG2PMMAraeItbjLKQgkJ1AvWATQB2u9U25y2iQHGin+Bk
+ wfTCfqyRP8HUXHSuty4HO9PxPLGBjpsthPUzC4oVut39RzixazmLnQnuHg9jgczm
+ ySC2UozwHH1gNBWZhnJ1UVRQvMRMABh3JOZLUAx8Cb9gi9ayazMg==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4acxfvgg2b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 12 Nov 2025 21:11:28 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 5ACJxJVF005486; Wed, 12 Nov 2025 21:11:27 GMT
+Received: from cy7pr03cu001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010041.outbound.protection.outlook.com
+ [40.93.198.41])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4a9vab86s9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 12 Nov 2025 21:11:27 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gZaGu4gcySK+j4LXpb5rkp1BZc/XqvYEd0SF0ZtCzH+TnBsWZJ4YKXLd5U+LRa16yYwc3L/aEb4oeuLSi99DBy5G2+8AW5xQe+YvQmIYryrvbQGhgBIBC1mA/R3n83aEhcP7X5ygU6hF9nSxpC6+MT7OKDx5X0DOKxZY+ck/yRVmbj2y+Qh5fajAju8laDwXZfkdIVHsr5wYDJz78ZGLSoGrGjmblHtwT1ANj3CSGZLdVimtoWqvmS31cZwS0NMDqpH0BDkIHycQAe1SY7Xen9QESjR8GAG1vqr+7ClpHiwOUUdPwA5LzU9MbJNDQAzqglHcqL8rw9AVAFm9q/KW6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CTPa4rylIO4buuN6AT0ngxlmtscwDy27k99RTSkv4/c=;
+ b=tfGPP9sarIWzflTD6k21iDHqN7wtuRomQqMKvOVOBX34WbZ5G5Q3VUmCz0i3GOiKnro14VAAlSfKa/3UL3RteggWqB0mXyrsEQP85xUQ0RrW1CUWUrTsE8Wlm2xSt9mzXy1FYopML7tfw0vp+xpKBnbA4V172nkw4bsv7PNvEi3ju08n+z481teK8ZeNO7WxgqskXmSTs89ynNjLnE3Jlndb4cYanZgtEEb+w7FqY0D0X8+LPlaV4uZ4+kpkiYdtXOhpgiE9Xdzbc7wxSFfZYkFjHusznb5SDkCpSsqK9M5Tm6fJfDPAXHegJZB/6oB0rYW3vd4gR5oWBzOKqgpWug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CTPa4rylIO4buuN6AT0ngxlmtscwDy27k99RTSkv4/c=;
+ b=W+fHs7smyfKcLolUvtW/pL+jOF+qI3xoUx+Y6nHWAEKWARPtS5ywG+H+JUiJ0UpKus+acJ+VPmtyflWcPpExqHU+gIyyXVG0oBr6WtYWR3koel0lbxmJlLXzMZhmLGtZumB/cCOl97VEYcIPf/oqMKs9ETarcuSLikVStoTdzjo=
+Received: from DS7PR10MB5344.namprd10.prod.outlook.com (2603:10b6:5:3ab::6) by
+ MW6PR10MB7613.namprd10.prod.outlook.com (2603:10b6:303:23b::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Wed, 12 Nov
+ 2025 21:11:17 +0000
+Received: from DS7PR10MB5344.namprd10.prod.outlook.com
+ ([fe80::b527:ca1f:1129:a680]) by DS7PR10MB5344.namprd10.prod.outlook.com
+ ([fe80::b527:ca1f:1129:a680%4]) with mapi id 15.20.9320.013; Wed, 12 Nov 2025
+ 21:11:17 +0000
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Corey Minyard <corey@minyard.net>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Vitaly Lifshits
+ <vitaly.lifshits@intel.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, Sagi Maimon
+ <maimon.sagi@gmail.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Casey Schaufler
+ <casey@schaufler-ca.com>, Steven Rostedt <rostedt@goodmis.org>, Petr
+ Mladek <pmladek@suse.com>, Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Rasmus
+ Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Jonathan Corbet <corbet@lwn.net>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, Krzysztof =?utf-8?Q?Wil?=
+ =?utf-8?Q?czy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Rodolfo Giometti
+ <giometti@enneenne.com>, Richard Cochran <richardcochran@gmail.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>, Stefan Haberland
+ <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko
+ Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
+ <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Satish
+ Kharat <satishkh@cisco.com>, Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Xiubo Li <xiubli@redhat.com>, Ilya Dryomov
+ <idryomov@gmail.com>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Andrew Morton
+ <akpm@linux-foundation.org>
+Subject: Re: [PATCH v2 20/21] scsi: snic: Switch to use %ptSp
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+In-Reply-To: <20251111122735.880607-21-andriy.shevchenko@linux.intel.com>
+ (Andy Shevchenko's message of "Tue, 11 Nov 2025 13:20:20 +0100")
+Organization: Oracle Corporation
+Message-ID: <yq1bjl7ez3u.fsf@ca-mkp.ca.oracle.com>
+References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
+ <20251111122735.880607-21-andriy.shevchenko@linux.intel.com>
+Date: Wed, 12 Nov 2025 16:11:15 -0500
+Content-Type: text/plain
+X-ClientProxiedBy: YQBPR0101CA0181.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::24) To DS7PR10MB5344.namprd10.prod.outlook.com
+ (2603:10b6:5:3ab::6)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR10MB5344:EE_|MW6PR10MB7613:EE_
+X-MS-Office365-Filtering-Correlation-Id: f15191a9-4a53-4cc3-3480-08de2230050e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hfQ8qw4dxh1a8R6PlAJUpT1Nefu5WYuZARtupzIbSLytW8e3ri53xs/OdyGH?=
+ =?us-ascii?Q?tt5Ltv8UICKOcByX52MW4XQqezKqamksIwNoi5pWSBJvHrebPATgWEekShUj?=
+ =?us-ascii?Q?YMJpen5EEJmQQPepsKKXrwDrufcUXMLjk4SEBoBH/9lLGwJ94XAPFBuQ4svX?=
+ =?us-ascii?Q?zLZ1wbPWxnrMDi3pJOOLteWxTpAa/p3LAwGQmH2hnSlpPflkxRCTXFuLWxWb?=
+ =?us-ascii?Q?fW9Jo5upfcHjJFtR0gluX8sL0OFWN51XaXvjGHrJ7mw4YOAJ5+g7WzM5zuiC?=
+ =?us-ascii?Q?aveSC2e+mKXFlzaFBnzMmxMT+FEhvMNunlR4/FNhH/n94EfMBPh8Ewu7oZwK?=
+ =?us-ascii?Q?t6U3uj/6RI6mK51Gfghc5MBSa3b7kKxrlCIE2Z6oGCCK+6nmGkCMekquDAy7?=
+ =?us-ascii?Q?z7nWeRoPN/3ZfvWSo7q1DqEu4PxpdPnw3bZGgxD3bh9Ur/viJn10ot3L9obE?=
+ =?us-ascii?Q?dsMfv14k9Zkr2guqaHSuXgL5mHKnH1fRElyK9HDwKBkhcNJu0bGDHJsELAFE?=
+ =?us-ascii?Q?EnxHHNJHA7f6FJMZT4aqJyaF/P6eY3sKipvwQP1ygHcb5B3caC8V/IGFO1d+?=
+ =?us-ascii?Q?UoUfmUuzhk2r9msBDSAPWg7Gh771QHUqGoKAvdyicpwCbA6QgFfF2DKseFeC?=
+ =?us-ascii?Q?JtX8o2LwUyQ3iMHtwPRXqe99hI5mBIjWgYJGRs/54cqYFwgY+viC7JPPU5+2?=
+ =?us-ascii?Q?25BVe+IQr+LRUetcx3P5ScFbiA6DTSChVYAm9Y/TcJxGYEVr+f6UAK/HAuD5?=
+ =?us-ascii?Q?AVVKTFozWg7nbqS84HGV3a1zo+BL7LFBHGlbj7WhawR5nMunHRPiYiw+VYOu?=
+ =?us-ascii?Q?ox9EhlkMmIujnz7fELqHR/RVQebwNvPODVFhHawNkhCO9eNrO1vYKzxkFe4L?=
+ =?us-ascii?Q?ijnHbwfScATRWeXgJJq6uawgTTWp8kiNrgL6S4zR5opAXRs5F7FTo6MDvhWC?=
+ =?us-ascii?Q?LNGqN5OLWdEYB/Xp2RWqPWBCJ/avNAjhVC3l6cAAld+TxUQekTKnuJMZIXSy?=
+ =?us-ascii?Q?6Tl9S8nH3/7HPVGQQ36RiXaP8fY8ZaFwedOsemSxOWHpA9KU45rOEuIB1N+h?=
+ =?us-ascii?Q?mhQWIbSINiVUnSSSz+AC/0tKUd3L+wAnZc7o14OW0fvjaiVAotEMOplB5J83?=
+ =?us-ascii?Q?Lm7gqdtOMbcmDNzH0BtIu3aZ84PvTtbOsoCUhTfXm9b8ZCvWvm9BIClsOhlS?=
+ =?us-ascii?Q?3rsteHFH+Xz9JeJWVjDDoNe+YY32r/tEvfzslTFOt4Lij485FRUDwAbCvZqA?=
+ =?us-ascii?Q?7Y6iI7G3Mdv30mBbnReCyCg53T1GwcRmDbIrWzLZlSuSHVLBABk6f4bFMrKE?=
+ =?us-ascii?Q?3NKEj+ZPof38qMdy/JZNp3TjERbm7XlYP2/xiJMTh37zZVxVgRi7Idch2n67?=
+ =?us-ascii?Q?19rMwoX//oKrJchtjYj8o3QIBiGQviQqXeS5GFkgBFxLAZ6K8qXpgIDipxpt?=
+ =?us-ascii?Q?ZUgsB787dar3tlYp4chJlAQph9v9ZxPi?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR10MB5344.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?NcH0EVIrFu3t34Z8cL81Iql+wt9Gp7/YSnyRXGdqQyCKSRVEPiicv/pBkzwf?=
+ =?us-ascii?Q?/XKmGBfF3akrVKaWc6UynxAr1Ie6YsFAykciNij4OYbZ/00aXZacNE/CaZab?=
+ =?us-ascii?Q?wC99q6b68fBa54nLE+RgjyorAawMjYCnN03ATh2Pf/IFBYN7+pS3Nr8WUWhh?=
+ =?us-ascii?Q?gna0EpWKuuEEQxdrX8co/PnQnXbb4y+EEqS2h5SpTFWwdL23fgrAH/9vOUIt?=
+ =?us-ascii?Q?LaFg4/xN2xcUD3LYgwvXX15kJ+l6D2NRL/m3UOq36A1R65jxemy+4lw31Ig7?=
+ =?us-ascii?Q?X4QBh2seRxoVJdJ/JhtH/EHlNtuFQPjQ8NmU+PGewS0i+T6cDaXR6kxwm8pF?=
+ =?us-ascii?Q?rBmf1CLUp4fjwR3kst0RQwLu1DKeK9ClC3GcLT5tDCKZTMcC9lFDmMpsCLJ0?=
+ =?us-ascii?Q?dt4SRqMVKyyH3hl7I9selDfd8sangckgoBFbHAgn2n32lHjhH9vSHdA3vWTY?=
+ =?us-ascii?Q?1vnuu52rW2GCCfw7w0LJw+K38Q5K5GX2CVvFXYoweK5xxyZEoBDQrdOu0g4v?=
+ =?us-ascii?Q?XbcJMUhRf6qX1h+9cCmeanWVUCl94klljZUcG1C02ubWx5Omdr4gX4NDw8+v?=
+ =?us-ascii?Q?O7Ev9PEvTMt9Ox+8JY/ZpgvsDysVc/sDkZmT8ZV16TXp1/56j90Wv+ThDaom?=
+ =?us-ascii?Q?lkWmZ/+S9+G1PKY06Krr1AAUSND+myML46dON567LU4M7uPdTFemuf0j2n3A?=
+ =?us-ascii?Q?gs2PednzSf9nAbyHwZV1XCx6KiUtR3QiK411oVFUt6uWaj/YUVg+jlPjMAzl?=
+ =?us-ascii?Q?JUA5v4TTpBa3U/J5HwEqJQRSTu7536Mf+GUY2xZk+XSjadkbtVCYssUbMMqZ?=
+ =?us-ascii?Q?iGti5rC25IyWeghnuRQ+CaRquoNQg2PbLYC20TVti2bgbLfi9LIKck/+leux?=
+ =?us-ascii?Q?toCsGUZHK/7BuTuQ5kgRMusBzejaJFMBMpmHtnnmFOVOOWf1Ov7bHhuIxwac?=
+ =?us-ascii?Q?Q+LaWT9ZpOsMN+T7d9NxT7mtNRjyfgp05bNxBDQl4zmUlzmX5fRCyR6300ZI?=
+ =?us-ascii?Q?znYZHho7N7d4PcpujBG2ZHHx0RvtbQ/f40E2aHNRCeTxqiofokouohyNz7J3?=
+ =?us-ascii?Q?KYqfZR7m9WpYvGDsDM4p9aOpdBQLtBaL7toJAF8a7zymMxRYo539r0nSiqlZ?=
+ =?us-ascii?Q?8mg24JUUaxydA3kUd8+RC5NXXWW2MT9pOxVWr/R6f3uE4rEtpQyJfZc7CljQ?=
+ =?us-ascii?Q?yWgF4C9hq/pSrvWAex6f4Er5mCLj2jLt98Z37uFVlT3k0dms07biTN2Gb0fJ?=
+ =?us-ascii?Q?dPa742T/efwPUwF9f5hF+EvoEGa/WIwDcT4FXlzgrlotRQircI6PRUrNl1dv?=
+ =?us-ascii?Q?VwYivn75nmR6layOYf4RefrwcOZMlnq4AwpV0Fa4ztbm9CdyCOBlT8qoAV2Q?=
+ =?us-ascii?Q?1RKq2GbJY+RtlMOmaM2R0zJ43J1xigaVXy+3g7TJXeLmA7MMKlnNCpIKEs5S?=
+ =?us-ascii?Q?eD0TSJb1N0RH2LvmTHcvRx3FM21oHGU/6p2CTwDUN8EyxUkXYKHOGrcjG6lp?=
+ =?us-ascii?Q?54OIjPTh+460fEy/jGH/eFf3KCptSB5WbIATGx8Hlg//GbLWaWWEBUg+a9g0?=
+ =?us-ascii?Q?2FqdxhbNLyJ1nm+wrjLIcwG+EeYbJGN1Ij++bOIIvvAYuhf4lg3Aubr7al7H?=
+ =?us-ascii?Q?PA=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: L21j1axj6aNV9IXhqSavBW7TMcJqPfjdWR3KZvY49kqQGptBvjNvwdq5Nej0pl1QeB00ER/geeHOnpyzZ4QFn20Ytat4eKBwFRNimvGC7ag+goeMjNoz/3lwfQXSnBlIKM3Q0HYGqEhoe5ABTgZ6g7hOZvCf4if3oVQij9xgXHJVxrnW1C3UTSPvVlXvqNo74K7Cr93qShJJQOYP2kUgvd9QaKbvIVUHi4SLtJM8IeVqbY8rQvHqXqWluj2t4m4g9m0hnompevJEZbNoZOG5oVeWocbaIN8TCvfLc1vLJaP6/cWQioas+DMeDuv5Gn0JeN0t4a5lFBVIA0KZLcaCMILe6+3wUTm8Gy/9h/cvycSU0goxbMoMkuSJkSkTpD0lkX3MiL3K+hrqEq5Csmc8Vy3INewdjtB3DuFUDEiJ5Q2A1JtTYT8+PzeTAU4gGTCIIswlV46qQ93fZn0C2UiHo9Xou32KbelpSXtbl8FKgOsT7Gonz2L8B8ivjaA56Jt42n9pHSyUHnBev+6XZareU4/IEswLWv0EuTTCreA3Rw6MTsD3a0xhzrydfSXBTEbNWdI1VIvMzyX3TxKdaXJsxpzcRW41qTNUzFesJ8/Nvns=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f15191a9-4a53-4cc3-3480-08de2230050e
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB5344.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 21:11:17.4080 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MCSZO8cRzJ95rt05evNANN+D4s/9Js83TtQIeBTo5Kbxcx7MvviSOKpmaXvju+Osu3vBd4vNnBr6BBsCEmlfdyJblFQBnfB+f0lPnI2aSMM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR10MB7613
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-12_06,2025-11-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ malwarescore=0
+ adultscore=0 bulkscore=0 suspectscore=0 spamscore=0 mlxscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2510240000 definitions=main-2511120171
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTEyMDEzOSBTYWx0ZWRfX6AVRuhFauGdG
+ jIaaauiravrN3zEQqJunO6ppk97EPMNnutTy8QwJcQOtqhIBrxuiE/LgtHzqLef++6zlSAAxBSm
+ u350pYHlF1w9kazVyV5yL0HlkQ5r8uskwajbWQSmyK+L4R09bidmcutUzmaSFB2WrYsvJ8/2oT2
+ lNWSJNHvrtdY9iN16lwkRjquiVpLmpqvP/JQ2D6ADDkdi7q+dtbYP7RViDNVVd5p7U23UbrXqmV
+ 4PDfqTRMuhuus4kMFArUKueTtaNRw9BXs8yJ8oNQFmeJBAVUqo0Wy9OOcaeJ/4xDvuLD1v10ujs
+ TppyyrHFwcfHjpahs0wBcSffpOVpJXM2hEnWZCODXn3ApE+jeDIoh9wcRYoiUFpIR0VutNbGJ4d
+ CCIhjkNKpUm4bWvkRwqdBhdgNAj/Ow==
+X-Proofpoint-ORIG-GUID: ws2ULu3dqGG4LhhwVgwQtU4Xk5Z_DCU9
+X-Proofpoint-GUID: ws2ULu3dqGG4LhhwVgwQtU4Xk5Z_DCU9
+X-Authority-Analysis: v=2.4 cv=FKYWBuos c=1 sm=1 tr=0 ts=6914f800 cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=6UeiqGixMTsA:10
+ a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=yPCof4ZbAAAA:8
+ a=JNz3O4sEs4oywJvo4n4A:9 a=MTAcVbZMd_8A:10 a=UhEZJTgQB8St2RibIkdl:22
+ a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=QOGEsqRv6VhmHaoFNykA:22
 X-Mailman-Approved-At: Thu, 13 Nov 2025 08:36:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,232 +255,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This property allows userspace to make the driver signal the display that it
-should switch to FreeSync 2 HDR mode, which uses the native primaries and a
-gamma 2.2 transfer function, instead of BT2020 + PQ in the more common HDR
-mode.
-FreeSync HDR provides the big benefit that display behavior is more
-predictable, and the "native" signal doesn't waste any color resolution on
-out of bounds colors or luminance values.
 
-The property has two values right now, "Disabled" and "FreeSync 2 Native".
-If any other FreeSync HDR modes exist or will be added at some point, they
-can be added as new enum values as well.
+Andy,
 
-Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
- drivers/gpu/drm/drm_atomic_uapi.c             |  4 ++
- drivers/gpu/drm/drm_connector.c               | 45 +++++++++++++++++++
- include/drm/drm_connector.h                   | 18 ++++++++
- 5 files changed, 81 insertions(+), 1 deletion(-)
+> Use %ptSp instead of open coded variants to print content of
+> struct timespec64 in human readable format.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 6597fe07e984..82951c53562b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8494,6 +8494,10 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 		if (adev->dm.hdcp_workqueue)
- 			drm_connector_attach_content_protection_property(&aconnector->base, true);
- 	}
-+
-+	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
-+		drm_connector_attach_freesync_hdr_property(&aconnector->base);
-+	}
- }
- 
- static int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
-@@ -9011,6 +9015,7 @@ static void update_freesync_state_on_stream(
- 	bool pack_sdp_v1_3 = false;
- 	struct amdgpu_dm_connector *aconn;
- 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
-+	enum color_transfer_func tf = TRANSFER_FUNC_UNKNOWN;
- 
- 	if (!new_stream)
- 		return;
-@@ -9066,12 +9071,16 @@ static void update_freesync_state_on_stream(
- 							   &new_stream->adaptive_sync_infopacket);
- 	}
- 
-+	if (aconn && aconn->freesync_hdr_mode == FREESYNC_2_HDR_NATIVE) {
-+		tf = TRANSFER_FUNC_GAMMA_22;
-+	}
-+
- 	mod_freesync_build_vrr_infopacket(
- 		dm->freesync_module,
- 		new_stream,
- 		&vrr_params,
- 		packet_type,
--		TRANSFER_FUNC_UNKNOWN,
-+		tf,
- 		&vrr_infopacket,
- 		pack_sdp_v1_3);
- 
-@@ -10291,6 +10300,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 		struct dc_stream_update stream_update;
- 		struct dc_info_packet hdr_packet;
- 		struct dc_stream_status *status = NULL;
-+		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
- 		bool abm_changed, hdr_changed, scaling_changed, output_color_space_changed = false;
- 
- 		memset(&stream_update, 0, sizeof(stream_update));
-@@ -10300,6 +10310,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 			old_crtc_state = drm_atomic_get_old_crtc_state(state, &acrtc->base);
- 		}
- 
-+		aconnector->freesync_hdr_mode = dm_new_con_state->base.freesync_hdr_mode;
-+
- 		/* Skip any modesets/resets */
- 		if (!acrtc || drm_atomic_crtc_needs_modeset(new_crtc_state))
- 			continue;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index b937da0a4e4a..b9b669efc075 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -795,6 +795,7 @@ struct amdgpu_dm_connector {
- 	bool pack_sdp_v1_3;
- 	enum adaptive_sync_type as_type;
- 	struct amdgpu_hdmi_vsdb_info vsdb_info;
-+	enum freesync_hdr_mode freesync_hdr_mode;
- };
- 
- static inline void amdgpu_dm_set_mst_status(uint8_t *status,
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 85dbdaa4a2e2..c56ca11322c1 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -780,6 +780,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		state->privacy_screen_sw_state = val;
- 	} else if (property == connector->broadcast_rgb_property) {
- 		state->hdmi.broadcast_rgb = val;
-+	} else if (property == connector->freesync_hdr_property) {
-+		state->freesync_hdr_mode = val;
- 	} else if (connector->funcs->atomic_set_property) {
- 		return connector->funcs->atomic_set_property(connector,
- 				state, property, val);
-@@ -865,6 +867,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
- 		*val = state->privacy_screen_sw_state;
- 	} else if (property == connector->broadcast_rgb_property) {
- 		*val = state->hdmi.broadcast_rgb;
-+	} else if (property == connector->freesync_hdr_property) {
-+		*val = state->freesync_hdr_mode;
- 	} else if (connector->funcs->atomic_get_property) {
- 		return connector->funcs->atomic_get_property(connector,
- 				state, property, val);
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 272d6254ea47..93727992f757 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1802,6 +1802,15 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
-  *
-  *	Drivers can set up these properties by calling
-  *	drm_mode_create_tv_margin_properties().
-+ *
-+ * FreeSync HDR Mode:
-+ * 	This optional property allows userspace to signal the display to switch
-+ * 	into FreeSync 2 HDR mode, which assumes a colorspace with native
-+ * 	primaries and a gamma 2.2 transfer function with min and max luminance
-+ * 	matching the display.
-+ * 	Like with HDR_OUTPUT_METADATA, it is up to userspace to find out which
-+ * 	mode the display supports, and which primaries and luminance levels it
-+ * 	has to use.
-  */
- 
- int drm_connector_create_standard_properties(struct drm_device *dev)
-@@ -2947,6 +2956,42 @@ bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_sta
- }
- EXPORT_SYMBOL(drm_connector_atomic_hdr_metadata_equal);
- 
-+static const struct drm_prop_enum_list freesync_hdr_mode_names[] = {
-+	{ FREESYNC_HDR_DISABLED, "Disabled" },
-+	{ FREESYNC_2_HDR_NATIVE, "FreeSync 2 Native" },
-+};
-+
-+/**
-+ * drm_connector_attach_freesync_hdr_property - attach "FreeSync HDR Mode"property
-+ * @connector: connector to attach the property on.
-+ *
-+ * This is used to allow the userspace to enable or disable FreeSync HDR.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_connector_attach_freesync_hdr_property(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_property *prop = connector->freesync_hdr_property;
-+	if (!prop) {
-+		prop = drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
-+						"FreeSync HDR Mode",
-+						freesync_hdr_mode_names,
-+						ARRAY_SIZE(freesync_hdr_mode_names));
-+		if (!prop)
-+			return -EINVAL;
-+
-+		connector->freesync_hdr_property = prop;
-+	}
-+
-+	drm_object_attach_property(&connector->base, prop,
-+				   FREESYNC_HDR_DISABLED);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_connector_attach_freesync_hdr_property);
-+
- /**
-  * drm_connector_set_vrr_capable_property - sets the variable refresh rate
-  * capable property for a connector
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 8f34f4b8183d..33e557a2d985 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -462,6 +462,11 @@ enum drm_privacy_screen_status {
- 	PRIVACY_SCREEN_ENABLED_LOCKED,
- };
- 
-+enum freesync_hdr_mode {
-+    FREESYNC_HDR_DISABLED = 0,
-+    FREESYNC_2_HDR_NATIVE = 1,
-+};
-+
- /**
-  * enum drm_colorspace - color space
-  *
-@@ -1149,6 +1154,12 @@ struct drm_connector_state {
- 	 * @drm_atomic_helper_connector_hdmi_check().
- 	 */
- 	struct drm_connector_hdmi_state hdmi;
-+
-+	/**
-+	* @freesync_hdr_mode: Connector property to enable
-+	* or disable FreeSync HDR
-+	*/
-+	enum freesync_hdr_mode freesync_hdr_mode;
- };
- 
- struct drm_connector_hdmi_audio_funcs {
-@@ -2103,6 +2114,12 @@ struct drm_connector {
- 	 */
- 	struct drm_property *broadcast_rgb_property;
- 
-+	/**
-+	* @freesync_hdr_property: Connector property to enable
-+	* or disable FreeSync HDR
-+	*/
-+	struct drm_property *freesync_hdr_property;
-+
- #define DRM_CONNECTOR_POLL_HPD (1 << 0)
- #define DRM_CONNECTOR_POLL_CONNECT (1 << 1)
- #define DRM_CONNECTOR_POLL_DISCONNECT (1 << 2)
-@@ -2453,6 +2470,7 @@ int drm_connector_attach_colorspace_property(struct drm_connector *connector);
- int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *connector);
- bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_state,
- 					     struct drm_connector_state *new_state);
-+int drm_connector_attach_freesync_hdr_property(struct drm_connector *connector);
- int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
- int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector,
- 					     u32 supported_colorspaces);
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+
 -- 
-2.51.1
-
+Martin K. Petersen
