@@ -4,158 +4,236 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B53CCF9F8
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Nov 2025 12:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38A7ACCFA1A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Nov 2025 13:42:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7B8210E70F;
-	Wed, 12 Nov 2025 12:50:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86FBA10E714;
+	Wed, 12 Nov 2025 13:42:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z7AprRyt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y7xvYCpr";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013048.outbound.protection.outlook.com
- [40.93.201.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8646E10E0B6;
- Wed, 12 Nov 2025 12:50:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 624E610E025;
+ Wed, 12 Nov 2025 13:08:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1762952883; x=1794488883;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Mb1Bj19rSfimNr2BM/TuxfUxNEi5wXSShmC2fhFvnNc=;
+ b=Y7xvYCprbKG1Ldbiar+zH1Vk0A8N/t2+lVxyyDQWM9lncVyYMEnOs5Kt
+ EwJlRwlyc4+Wohb8SHUcL7y8nGkWOofJLn6aQd/PFFJFOv4ZrgKs9gbs5
+ 5LbW19OUzyH6aMHUkvH+gD78na0RQXsWsC/iAgcux2kwMsEbP6vOJbm5f
+ Dg62SB1KFxSesWR8Fa/qQAgZrbwSbOFsVmzS4FTH1gohg2GU1fEuCz/0m
+ UHVwgAGvPLGFcBXuD0/Eab+jr4gqHxTTK2vZuDaJDD2jVT/9XRcNkQ+BB
+ yis1RlR5U+Ppouqc3VJ5XzeiAh4xz/zOUr1G9GXI7ujgnbmiiFHSfGcpb Q==;
+X-CSE-ConnectionGUID: fAzAC7wdTr2z6M6Bj46daQ==
+X-CSE-MsgGUID: hFtLRYFmQtqxgh+v67cSZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11611"; a="64896649"
+X-IronPort-AV: E=Sophos;i="6.19,299,1754982000"; d="scan'208";a="64896649"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2025 05:08:01 -0800
+X-CSE-ConnectionGUID: 87Wy+9BAStyEcZQAhoYfTw==
+X-CSE-MsgGUID: NKTLzhD0TlSrdZ3BjEWk5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,299,1754982000"; d="scan'208";a="189192400"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2025 05:08:01 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Wed, 12 Nov 2025 05:08:00 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27 via Frontend Transport; Wed, 12 Nov 2025 05:08:00 -0800
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.27)
+ by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Wed, 12 Nov 2025 05:08:00 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K9rmdnYL/uXeWFMlExwySTgw6eNKPY5cqZgKn3g94vdButQzTLR8s5cJI9QU65KoTbV8o9TxJXY6lDqfICjdlQcnR6GTwZeFznhn8WAWkbpHaD+MonFAsLS0qJJQElC7BbGQs31TGO3bu/Ooqq6+F8OelutO6fxlsEn6aMV9nELwJN2PWlfVmNka9P5oWVGEo7ZLtMCYRzGIjTJaIuROhwoUplKAG+/PJg515hDqAgE+0b+H3kieYZ+zUIL5JeQx+ZNj73vEd1wXArPVN/b0/jyVxqX9+BX0j58Ou4DrKcnROMnTk6Llrxx6hm1NGyL1GUmfEnG5g6aJ0gqIPSQuRQ==
+ b=bctvslf9uAmO6LVk6cLn1F07877WZNp2U1nTbBfhzoOEEWWAJZCuenYAj+E9ATBHhGln5fAC29Y3v/EfOPjLGXVWXU1TgM+b/9HI9FOopqpopoaQjP44t1fV/foo8TUF6wpoSJ7h6PM0ZUMKgrHHG2cZJdpPIsLRLEDP7blhlTHmrt3lVy7p5qa5o6d5mrztw+TfMSEdf4v+hUM3Quzbqj13XLRNSuVERAEo1w8/46F1o9L/ng9iLdW037lVEKXyu3JECIuPisokipLtiRu7Qskk1fM95epATDcLrVTmhkhOk/b0u/Ls3s8+vQx+VclWnYuURh0SB/dvjxozzkSH6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6pcK81sDiySzeK/tuQgk0eeeSiODaCg7Fico8bmbIJA=;
- b=WmDBdJw03i1tmeJko7f2qFcg4wwV3zvwhZdcoBu5+3pWi7yx6gr13OARZhMaQ5BUmj/0wHAlEU6pG81i/NcrUtNwAJ+9JeRNUfoK+mG5X8p4eDX74z/ML/RI7ot6uFhxk17BO8fO2DLd/zeqUxmmHVMW3TflwKrTwCbeZhdN1Zxt5H6pW2uRNC2tYyQVlus7cDbihgKKhN+ETavi5M7M7N0JvK5Aeqx9B9dw1ufLL+vG2fF+6CekTygC5zMLd/W2kqWptM/uEgvKEO6RZu9r/5MttzLxIZqH22yMwL3kspMtG2u62yOIUhHDSWcgCstYnCjOstuqnrAvMyIWqyUfPQ==
+ bh=+He0JKHwNRfFkUXMs/gw6414DItcEqwBVsiweZMelus=;
+ b=CwkhCL610JfjeffNrW63fwUr/Nvh5AEN3JrZSrTAt2GeL5bHNCP8EkNHPWmt3NslVeQk6/AsR28vOOf8V9lvsIpLahQHH0T6JBsCRqdHc7gIFc54RBRvZhJxYRiISO/BJnR3xasqQn8B/LMtCj6CbwueQkCT/RXBQVeVuYxoPdemv41fH5hE5oEQ7LmjTpruiBAkqaoCw5rFU3NcMsoOm7XmwULi6hXX+EhkJNgjAWeeVnNh2M5s67h30KCpSiCIj9Om8oY6Vymv1XxV8bmkDE8dGRRzssmcTk3Jm+gr/BrwMPtA8ckJA/KxrStHvJO9QT7kGoCoHbbJ1kINsse1DQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6pcK81sDiySzeK/tuQgk0eeeSiODaCg7Fico8bmbIJA=;
- b=Z7AprRytn5BALucJdkZBqWGMbw2WqCTi5iS89BJQ5rFGzeGeKWcaOBMPQtQIp+b5hm5DbVw9qnK77yXxngLkbQNStPZRwAblK0Xz4cu+1LIYfUkoPWtmcStaWBIlFbItCoo7j1KqyASH4F2AXTCz1ueuH205dBwUG7GkDNiZsT4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB9042.namprd12.prod.outlook.com (2603:10b6:8:ed::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Wed, 12 Nov
- 2025 12:50:45 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9320.013; Wed, 12 Nov 2025
- 12:50:44 +0000
-Message-ID: <5488f98e-4101-42c1-a0ff-0e0054e0e08c@amd.com>
-Date: Wed, 12 Nov 2025 13:50:39 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/5] drm/amdkfd: Add batch SVM range registration
- support
-To: "Honglei1.Huang@amd.com" <honghuan@amd.com>
-Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, Ray.Huang@amd.com,
- dmitry.osipenko@collabora.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, akpm@linux-foundation.org,
- Honglei Huang <honglei1.huang@amd.com>
-References: <20251112072910.3716944-1-honglei1.huang@amd.com>
- <32a918b6-37bc-4d83-ae72-35010d4f1a8d@amd.com>
- <03b8be5c-64e0-4577-b4f0-0d505eff04bf@amd.com>
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by DS7PR11MB6128.namprd11.prod.outlook.com (2603:10b6:8:9c::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9320.15; Wed, 12 Nov 2025 13:07:55 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::395e:7a7f:e74c:5408]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::395e:7a7f:e74c:5408%3]) with mapi id 15.20.9320.013; Wed, 12 Nov 2025
+ 13:07:55 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Corey Minyard
+ <corey@minyard.net>, =?iso-8859-2?Q?Christian_K=F6nig?=
+ <christian.koenig@amd.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, "Brost, Matthew"
+ <matthew.brost@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, "Lifshits,
+ Vitaly" <vitaly.lifshits@intel.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>, "Vadim
+ Fedorenko" <vadim.fedorenko@linux.dev>, Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, Karan Tilak Kumar
+ <kartilak@cisco.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, "Casey
+ Schaufler" <casey@schaufler-ca.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Petr Mladek <pmladek@suse.com>, Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, "linux-doc@vger.kernel.org"
+ <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>, "linux-media@vger.kernel.org"
+ <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org"
+ <linaro-mm-sig@lists.linaro.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>, "linux-mmc@vger.kernel.org"
+ <linux-mmc@vger.kernel.org>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "intel-wired-lan@lists.osuosl.org"
+ <intel-wired-lan@lists.osuosl.org>, "linux-pci@vger.kernel.org"
+ <linux-pci@vger.kernel.org>, "linux-s390@vger.kernel.org"
+ <linux-s390@vger.kernel.org>, "linux-scsi@vger.kernel.org"
+ <linux-scsi@vger.kernel.org>, "linux-staging@lists.linux.dev"
+ <linux-staging@lists.linux.dev>, "ceph-devel@vger.kernel.org"
+ <ceph-devel@vger.kernel.org>, "linux-trace-kernel@vger.kernel.org"
+ <linux-trace-kernel@vger.kernel.org>
+CC: Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Jonathan Corbet <corbet@lwn.net>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>, "David
+ Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
+ <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, "Konrad
+ Dybcio" <konradybcio@kernel.org>, "De Marchi, Lucas"
+ <lucas.demarchi@intel.com>, =?iso-8859-2?Q?Thomas_Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, 
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Nguyen,
+ Anthony L" <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+ <przemyslaw.kitszel@intel.com>, =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?=
+ <kwilczynski@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, Rodolfo Giometti <giometti@enneenne.com>,
+ Richard Cochran <richardcochran@gmail.com>, Jonathan Lemon
+ <jonathan.lemon@gmail.com>, Stefan Haberland <sth@linux.ibm.com>, "Jan
+ Hoeppner" <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev
+ <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ "Baddela, Sesidhar" <sebaddel@cisco.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Xiubo
+ Li" <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: RE: [Intel-wired-lan] [PATCH v2 09/21] e1000e: Switch to use %ptSp
+Thread-Topic: [Intel-wired-lan] [PATCH v2 09/21] e1000e: Switch to use %ptSp
+Thread-Index: AQHcUwa0J2CvCRf/ME+WZDB2JQIFo7TvBJOg
+Date: Wed, 12 Nov 2025 13:07:54 +0000
+Message-ID: <IA3PR11MB89868413E1F3C7F5793ECB3FE5CCA@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20251111122735.880607-1-andriy.shevchenko@linux.intel.com>
+ <20251111122735.880607-10-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20251111122735.880607-10-andriy.shevchenko@linux.intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <03b8be5c-64e0-4577-b4f0-0d505eff04bf@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0036.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|DS7PR11MB6128:EE_
+x-ms-office365-filtering-correlation-id: 3a3dd84b-2201-416c-b63d-08de21ec7e67
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|38070700021|921020; 
+x-microsoft-antispam-message-info: =?iso-8859-2?Q?3sXmqmBPnfs2n6v+QTVhjEZBknMKm66SiA7h5/IajrMwrnBSCzWdQ5sXa7?=
+ =?iso-8859-2?Q?EWJigVZjZg4WqvEu+tBVOrcsjR2RbVDazxcFBWqnvaFdudW9Edu3mS9rQw?=
+ =?iso-8859-2?Q?OoRZkC4ZmYF02yvBGmR5f0T1E2fC7acs5ETJQnq+S2f7OLBez0RlvDVCoq?=
+ =?iso-8859-2?Q?uqeR0lySAI7IMfjrU9wpAonS9DBwXQhwySL/jFvKrbHVwYLMNkjXmnzuMc?=
+ =?iso-8859-2?Q?bzBxsyme3oxIgGMR1MlTOmpi5YI/lXa0hzmjBgHshcMSUbTz7igHf36CRc?=
+ =?iso-8859-2?Q?/dhLuQW9Fw1qFVAOgpCQf17PxUotRO0NbPLDDwrXUj7QsPRZCM/faGj5j9?=
+ =?iso-8859-2?Q?vJzZO9GNEoNIWNsH5PKN4V0fHSYZTmE2FDYj97395B60ZpUSvC5GbVr9G1?=
+ =?iso-8859-2?Q?wbAVU+seoyvlWmJmrDe97Ybpsq6Ix/b2EkhFGFmVUQhAdNcjUXbojnJSJd?=
+ =?iso-8859-2?Q?V+D+Neo395HPacd4MJ+NmhvmF3fJy/Xgkn8F2fbE1DK8J68++zW8IrGnpB?=
+ =?iso-8859-2?Q?R+lCJaUCqgxz8Xl4uAsa2rOI0qWKMaQRLVitMsyEId/ECbZja/kbTWstW9?=
+ =?iso-8859-2?Q?rgRdOJhnpf0E004EhNp3feFQec5am2Te8rb6psCXgMe5atdKj5N3F9uyXx?=
+ =?iso-8859-2?Q?MIAo7n/kQdXrJ3h3tbM73JLS0OFg/ya7LSKh6F2MQ0jjrQiEKKVQFIhmHJ?=
+ =?iso-8859-2?Q?jiWwLuV2xXpE5CDoniIHQAYxQTJvhI1KpQpYc1ou42WkD2rN5/XbvrX1NQ?=
+ =?iso-8859-2?Q?k3eqLnKe84AGzHsnNA/g7+/so8LjQxu1L+fJbTpirTRpfvMR23i2aqi+UJ?=
+ =?iso-8859-2?Q?2J8QhaXPMpjLQVv2+6dSuPrIy39u0HX9mS1ly7qVkKNUMaO+3kQ/9qJvj4?=
+ =?iso-8859-2?Q?f0iPsq3luDtYOdpLvxnZFhGQfm3vv6z1xSQA+zgEodJNzVmF+ec+w/+q8a?=
+ =?iso-8859-2?Q?HYphAamXFyEZqhl/rsSQBk6MbhY8/smKEXF3bmUA7Xjao/Pq/dcCHH/yPS?=
+ =?iso-8859-2?Q?3jrjiev7EVPXp3FAXF9QUUSE4op9QsMnjQhqnkH5TZfTYbQgqpFgHQPboA?=
+ =?iso-8859-2?Q?Xuiyw/q4PtZGAXUjwS0v3wj5dYHdyHnhrITCqhTIsomayV5ca7IxPy2S20?=
+ =?iso-8859-2?Q?2qaq5c/YVT3uRwQA0GnfPIlTXEzel8mXeCHRrvRgKn8Uug7ug9L+Zwftoy?=
+ =?iso-8859-2?Q?46vtDhcCyOwBONnxxbD8VAIriveBQsFlteNaEmwy9CSVEOrq8KhujPMH23?=
+ =?iso-8859-2?Q?xRrAx+RKki7GK5/SojVanNu78tQCHoCx0ygteOdfVpTEuY5tmQOwCvtUWI?=
+ =?iso-8859-2?Q?vBUvXyse+98CiSmrDvw5k4anKV1uBg+dd6vMwXmuRqoD8KZ/1IoRk21wH1?=
+ =?iso-8859-2?Q?8jYLQPWk7qW4huDmzp/jCM5/6nlUZecYamZCrspiyiJiJ33ewL2G1X/kNr?=
+ =?iso-8859-2?Q?qeUoyyuy628H89Zb1p7FbZkK6nRSboUY8q1dY5x6Ip9r7HtZApUoRnDPWb?=
+ =?iso-8859-2?Q?r2xMLpf+gFhYpfOwE3b+twFIyxo5hLj3s5hCxlzygvuoZJ0UIlYvnpugl8?=
+ =?iso-8859-2?Q?pSmkTNxgoFWMfqka1M/sXXf+rhuL6ytEX3TnX9QTb5YEhQQksw=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA3PR11MB8986.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(38070700021)(921020);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-2?Q?GPQQ+FddiDSmqqqY2U4Lif65spO+BvG6ifqwhw0a04aLRYmYLcerde1g/U?=
+ =?iso-8859-2?Q?C6pjIeTnxQU8yV7eg91W5UALu3LUiXE/Buyp3VEBMySAL60RHgAJEYvx6C?=
+ =?iso-8859-2?Q?xoxAZ7EriN9jUfxZs3d25fKxIfByEil9NWz8oLIZksckPgmPeXZq3juQ2/?=
+ =?iso-8859-2?Q?RYqLmKhruOTrmyV0syYODTJrScBlvmJ+84KlFJeuh0x5BtrnOpmM1o3vor?=
+ =?iso-8859-2?Q?c0FvfNaGEf0J44U6zfVWnrVs6GB7eHuBlUl7mM4eOF7cd0gCGu3w53xvEs?=
+ =?iso-8859-2?Q?F5jiW6Us2t88mjb0Dq3pvzWGjs01DMhnKrcXvtrXaVu4PT1fDkFZaB6Htq?=
+ =?iso-8859-2?Q?zTd4zibkYe82qJYfSyGXejXmcmg/BfmXKMtMFxsmNb1hMf6UTAdEdOSG+U?=
+ =?iso-8859-2?Q?Ik+DH7DEYnHLJfjqIaROFQe60etDJtb2v3+WBe65FVfzfsuoTPCcfYKamN?=
+ =?iso-8859-2?Q?uvy4DnIup4D3UWUMg8yfhtvfVa6W4mlP/mal8lSTZmSqcorYMbkJGABOQ9?=
+ =?iso-8859-2?Q?jo13SRBBHSsKTKB2AhV+E+xm9HhV+GaaxNu5AUkNRMgG3lIC4VChUerYXo?=
+ =?iso-8859-2?Q?39aZyiUAEGqOtPX3/W3iPGYOZyKcfQ22wGzVCxbs6kV/9/aFVEsc9+xtJ6?=
+ =?iso-8859-2?Q?s1aVmwlW18TU1AVGlhiagzkik/8p1iqTxvwLsm6kF9QdvKyMF6V4QExshF?=
+ =?iso-8859-2?Q?JCLh/rth6z8DEk9GEwtZr5BO8Ni9FqbuU3/ct1LZU0lUk1ZFrjUMo+Kipw?=
+ =?iso-8859-2?Q?yGmUAXIhtAf1D9+56MvjnMgCXAVcGUhbPrT2XuBxZ+xkE/kmRxqcAH46dK?=
+ =?iso-8859-2?Q?XBXx9KwwV0Sg7RJoxBP/AriyEW8j7Y8LNJKkWlz7J0sBWe5ZywklJWZC/X?=
+ =?iso-8859-2?Q?N3gpJUPXuem5ivecOPzhgx+ujKjgtL+31bOe46bLFYu3uxADQixRcO0uVF?=
+ =?iso-8859-2?Q?Nb0SembweP8GLMyK4LyM4xxU4TQ622axfZ4gUEiTbrQtD4FpEXalNYG7E0?=
+ =?iso-8859-2?Q?zPRd9sBQF8UsU7MvNMz0DZX3nV2nZhWeo38VHogbVzaezAr+trHuYvTs1a?=
+ =?iso-8859-2?Q?A2zJAZ6tSKZMzlqVpcLK2PRDpODwkgTpZS5grK+39KEjAORKW+osftBe08?=
+ =?iso-8859-2?Q?qzHD68Hm+YN2AXeZeqSrzdUwEJVqTU4P/vq0CAL0q3TkGe4SG8pJ35hpe1?=
+ =?iso-8859-2?Q?BhBRR6SEggFE/yFCr1gnUGgXDxARUTd2oXCcMPzfqOwC5R4s1q0SdEIwVX?=
+ =?iso-8859-2?Q?ofpt0cn/ZzAjomBzXFKIUyG903wIo5vN9Vrjag8qSCYjEkGv6RkTBDfddo?=
+ =?iso-8859-2?Q?KoCb0NW6pGoOSrvrfEmMSPAvGh1TPp7yohKdw2vZd9wxtmmePpe59NMJfz?=
+ =?iso-8859-2?Q?NmcCg4h1EjZLoio3HOS7LcaeP0mHDv2qzghTNDnW4Laox8+0K1gyl6Du1J?=
+ =?iso-8859-2?Q?7vcKzJ1SS209Nrbx5Uw0a7ppNDlFvtFGF00d5t/SltsUSu0kLFxlIg4RjM?=
+ =?iso-8859-2?Q?fkOAANTeQTvfXlHGyQjCHpFjq1vZbideCQ1ThKmcfQH8Ovr4h5ZXyWk/xK?=
+ =?iso-8859-2?Q?la5Lz5DWNB/P7O3F2HhJS+fkFFZFnIj0NthhElwBt6GKqqXIiQpI9hiTLy?=
+ =?iso-8859-2?Q?e1ooHe97PDT+yD1Mm3UM7WFEtHKFKNX5Qsd/bRxRcnt8iTkJE7MmyktA?=
+ =?iso-8859-2?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB9042:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3114d91-f2e6-42f6-13b9-08de21ea1829
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QWZsRmhlc2F3VXZTcXJxMmg2ejFud0xweFpDN3lBUVFzRG1HeVJIejJPUnk5?=
- =?utf-8?B?bU1mOFNJUDNIS00ydnh2eTVqcFZwbFU1ZjFRWnl6dXVLTjZGTndxamcrZHJu?=
- =?utf-8?B?ZXJZYnMycHNKZ1FRU2I5bWJHREQ3R2dFSmtpeTZsV2hXOW5MaFlySnpaOTJE?=
- =?utf-8?B?Q3hnR1VYcERiVHpocXV4ZklTQ3B6eUFVczVjT0NsTkZReGt6VmpQb0VRQUEr?=
- =?utf-8?B?NDlNQmlXT1RGdnhkRGZkTVRmMDVaZXhjbnpCL281Q2lMWjZtd2xvWTQycUF3?=
- =?utf-8?B?T3ZhalpPbkdKbEYrUWdPc3p3Z25KQU0wTEs3Yi9CaUFQNkJZNE1leVNyTEN4?=
- =?utf-8?B?dlJIaG1RYk1paUc2d2tDUzFjS21JNXZrcUJFSzY0TDZQUUUrUkRVcysrZWh6?=
- =?utf-8?B?bit2TzZjMmFLdVVPWkpOU3BLelRKU05lUUtIQUcxWmdEZWNQUk4yanI1RFpu?=
- =?utf-8?B?ZUQ5TEhkeEVKZ2c4RXVBSTNBOXRHWDJ5dXpheDVWR2Z4U244VHQ0emdCeUlj?=
- =?utf-8?B?VlIwU3ViTDJ6Wnc4WEhGZlZpMWZZWE9ITmRIWFdUYXZKQkxoZkZtVWFKdjA4?=
- =?utf-8?B?aCt0Y1BzdklnQ3BabWJ4OHk5d011b1l5Tk1STGUyS1RLZnJxZWV6Yk5yOXRY?=
- =?utf-8?B?MnVBdXgvSnRsd25pbFAweGVKUlB1cGM0dmpadUdBMDNpcHFHaGo2aThxWDBW?=
- =?utf-8?B?MDhUdXN6TE1PdDF5R0xGNi9rVGgyUjI1WVBKMktOcnA4bGNMdUR5ZUFMYVp5?=
- =?utf-8?B?a2MzamFSeEpSNU9YaFJlV3Y4K3JHejZZc1dTZllueTRRS01FRFJGQmdjc3Y5?=
- =?utf-8?B?Nnc3SHBuRytvWjd0elNBYTFWZk1yYkFUaXZJZnNUb1phYnV1cWhETDFPZWcv?=
- =?utf-8?B?UStMOEFNQzlpSXZkY3FYWU5kOGFvWWRVa1RqTzNpRnNDZGRFTlh0d1cvcThT?=
- =?utf-8?B?S1huS2dUeUNQR3ovZjhVS3MvU2FvZVIyUG9PejRYTGRNdGQ4U3J3TjZJd0Vw?=
- =?utf-8?B?ZDAyVmRxYjN1dlVCZHlWU1dqSDNSRm5uVmEvbFJldXhaTTZoeTF2d0toMktL?=
- =?utf-8?B?M0UzdGZVZDRrd1dYendmUlhnZ1RPTEJnVUJDSnprOHNkTjBHOEVrWVppN3VE?=
- =?utf-8?B?NjJEUFZXTWhGMHpOaDBkdGV2NlF0dlZKZlVRYzg0aEUrOCtrczMrUnlid1Vp?=
- =?utf-8?B?dGE5TGM5U2tySzR3ODFYazE0Q2diV1k2bzhLN0dmcWFaUlJhS2t6a1MxZEJI?=
- =?utf-8?B?YllMc3dXRmI0V1RZRGVXeGVENVJyVFZNeDE0ek5XeFRJWUJGbjdpb045YlhV?=
- =?utf-8?B?a3EvNWo4ZTROVTdhWkJzOTd1L2tYeDRMN2J3blo0UDVIU0pvV2RES0RHS3pz?=
- =?utf-8?B?c2xYNThMTUhsMzRYa1ljQnBpb0s2QUFnVWJFbjFtcDZVeEYwSnNVTFZUbXpm?=
- =?utf-8?B?STdwb2lVRVlkV1N5MktHNjkrZVRDMEZKU044dG1SVldXSlhyUUwyTE14UmtE?=
- =?utf-8?B?R1crb3VGS3I5QTlueFlZK1ltYWdPd01ZaGJhT2hVc1UvVTROQzkvb1UvaitM?=
- =?utf-8?B?Zm1qZSs0YmdqNVlJTks0UzFJd3FTeVcvOGpWbWoxMXczSnBoUFpCbnZMNURq?=
- =?utf-8?B?NWhhSTVxek5nTFgzMUYxNXJIUnNjV3crOEpqb0JUNFByOVk3Zlh3R1dUaGFw?=
- =?utf-8?B?ZzhEUzRjTnp1Q21GQ3crNjBFVVh0OVIwMkNGb0IvZk1rRmpiTkUwRDN4RkN1?=
- =?utf-8?B?UysyZG9XaU9NNHhGbUN2NmQwbE93Qi9zZE14SlBuc1kxWWxNSWtlUGhtalhv?=
- =?utf-8?B?NE1kaHRRUUdaU2FsYVNseEZ6VFdRR1A5N1kyck5MNXU2N3BWN3MvZi9SWVBh?=
- =?utf-8?B?REhpT3o3N2tJR1dlcE9lQTUyK0pYTVd1eHhFOHZ0RjhrRlRNVnp5NlIxbW1V?=
- =?utf-8?B?OFYwclVWVW9LeERKM1Ezb2g5NEJCQXA2WXdjTm5ETWR2QngwNnBwTG9TL1Fp?=
- =?utf-8?B?aW1rUUQ5RnRBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXMwbVVGQk1iZUhJdytmZjVLUzVaemMwTloreUR4WjhlYWRSR2gwc3FFLzRo?=
- =?utf-8?B?ZDZwNlNVeVVMbzJlTnMvSFdFNmhyYitNVlhWOTlnLzB4dTFpZVl1aDZNdUZ0?=
- =?utf-8?B?SlU5ZHlWemR2aFFzekR5bUcvRldlUWxwWkRhaFVneUNtSjBidVJkNXVWcXJn?=
- =?utf-8?B?SGNaNzdvUFh3eHpOOXdySmU4M1kyQ0lhV0dxbkF1N1NnTWFEVUROb1RWTFVL?=
- =?utf-8?B?WDltUHd5ZlV1Y2lPZ1poSUhHWit6Y2FWcUlJMzM1OGgxdC9MODErWWdvVzdq?=
- =?utf-8?B?Qlp2eXcvSjBFRERwRUVTU0dTUEt4NURaaDArblZsZXREUjR0UWl5RTNtOE1n?=
- =?utf-8?B?TFRYMTdhTlVLUnJ6YnNNeVl0UXkxSldUU3hWWllNc09KZkR6cGVkQXlsRTJY?=
- =?utf-8?B?MXdpQi9pT3QwS1hYUnpvQ2l6dU04Z1lJelB6Mk55c1ZYS0h6L2orRWlES0ZE?=
- =?utf-8?B?Y3BFZXUxM3lwbnI1N3I0WG5HWkNnTkJONWdyaldZNkhEQWFtd3I0eWJPbG84?=
- =?utf-8?B?Y0JHaEJvc0RKb3RoSUpOZDlIVXZPM0tyYzFMQXAvM1pwQWtXMlcxeWNhTTN2?=
- =?utf-8?B?ZjNtRExZc0ZIZlJFdHJaMHovSVhMQkduSWNMSlVjTU00YUR6MUordmJUMU02?=
- =?utf-8?B?VHM2N1gwL2UvQ1YrQmlWbndNSHJ4UDRWZVRqd1NoWkZMSlVLQmpabHovamIx?=
- =?utf-8?B?ejN2MU5GbDdlaURhcEtIMS9mMUpiZVBWcmdOcTlGZElBYTExQmx2SHpDd2xS?=
- =?utf-8?B?Szc2NDRRNEplQUg5MndvOVM4bUhkQ3hQN0dvQStwVEZlQllEZFdvQ2ZGazNn?=
- =?utf-8?B?QW9XMkxiUDZEcU9FVzhSWG84NVFJTmROZmVIc2duNDZISktRSGdVb1VKRHZo?=
- =?utf-8?B?aXRDUzJJeHpuQTA3YjhYRFNxbHRVR1BqdWZCQnZuR3Vzdk50LzdjNkI3KzBO?=
- =?utf-8?B?Z05RUUZ4NUNwbmJ4dmtjS2w2YTUzZ1gvaE51YXFITnFWM29abG9rTi85WTV3?=
- =?utf-8?B?dm03WFJsdjF1bGlKVmd5VzllTnlxS0tGbXBIVE93ZmpWTldpM2tWZlB2blNW?=
- =?utf-8?B?SkhtZTFoM2MwdnpQalVDa0J0QzRrdUZicXNuRFhrcU9hblBhZU1QOU9zMVdR?=
- =?utf-8?B?dEw1VDRHcmprVUdiV1daQjZBZExEcnRpTWMxbEZjVGJZeEdnSGtjOUJhTE9v?=
- =?utf-8?B?SksxVGdPQmtQR2ZiWktCbGdGZE1kQWNaUC96ckU3N21FSEZsSHVEc29yREJq?=
- =?utf-8?B?Vlpla1Z3TklONVFRVERSYXk1WEFaU2d0ekNVQSsrVnYvSGJoRDA2NUtRQUdG?=
- =?utf-8?B?SThaY1dNK29UNStINElqOCsrckZSUlNiUUg3eTZMYzA4VHdpUEtDVjMycURP?=
- =?utf-8?B?YmZ0aGZMdDhFelNTKzhJZDhHMXJNNTJPRnBVR1RxS3U5YUpkVURCYktnNWV2?=
- =?utf-8?B?dytNU2dGS053RW1tTHp1YXNrKzZNWUY5cFlCSWtNSmkrbUFiUGlHZzg2NW1K?=
- =?utf-8?B?ZzhwMWVpbTQ1clFZN0xBTEJROTdJcnlUV3RQSFVxaXF0SlJoa1F5UkJkK3ln?=
- =?utf-8?B?U2lxbytmTHBvVzA1ZFZWQ0NaYVVHY0JZSnpxMnBFRkdWRE14R2V2ZU5rMTFB?=
- =?utf-8?B?S2laNDJXUEdMK1Z2b1NkRk14OXlVTUNvaFF2TXR1Qmt1WWprRm4weXc3MGpN?=
- =?utf-8?B?NERQZTdQUEhVT1FHVWNhQlVaTG5CRUU3SmNsdUF0TkVvdnpoVUYyMGhJM3hu?=
- =?utf-8?B?S3VyTnNpbzMrREo0YTdLRHNPUEU1MCs0MEJtajlzRmhZbWoyK0szYmxWNXgz?=
- =?utf-8?B?M1RKRnVTWGYzdWVuMFRKZ0ZZbnBKVXNDcWZoZW9JVHNxSE9nbzNKUHkzUm1m?=
- =?utf-8?B?NjZWQkQxeGI0QUJmdlJicjluSGN0Zzc4NjRaSC82Z3RDQXBsSEpjMm5FRy9w?=
- =?utf-8?B?WFNub0RsNFdrOUUwYmdMSGN4cGZRZmJWbThJREN2cGhrTlBxMFY0akRrcUta?=
- =?utf-8?B?bnhQS2d3RlVrS09BczlQRHY4SGRLb1RLTWpqOWtVeHlWbFFQR2dYTWJhU0FV?=
- =?utf-8?B?dEx0eithUTU5a1hUalljeVBDMkZlNkdlOG56L1k5YWFOakxNa0xzWU9iVHBS?=
- =?utf-8?Q?CBC6LL8jGzVbTA9Nnw8FpInnI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3114d91-f2e6-42f6-13b9-08de21ea1829
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 12:50:44.7099 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T+/1A83palQGbDfl5KpWCErfR5+NCX4nNzfyxw30wJgdqBhMrCKFIuQZ6h6ag/4R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9042
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a3dd84b-2201-416c-b63d-08de21ec7e67
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2025 13:07:54.9747 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BxfxWKp+SC6aEUjMkfQJJksWX5hM2VDCZsDP3MmuQz7OxEW+JTH5J4AkYmO80ARAYEcW5QKoECfFmXcbmiSpLI5CHafn7t4e/k2PdhPB6Ws=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6128
+X-OriginatorOrg: intel.com
+X-Mailman-Approved-At: Wed, 12 Nov 2025 13:42:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,151 +248,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Honglei,
 
-On 11/12/25 13:10, Honglei1.Huang@amd.com wrote:
->>> Paravirtualized environments exacerbate this issue, as KVM's memory backing
->>> is often non-contiguous at the host level. In virtualized environments, guest
->>> physical memory appears contiguous to the VM but is actually scattered across
->>> host memory pages. This fragmentation means that what appears as a single
->>> large allocation in the guest may require multiple discrete SVM registrations
->>> to properly handle the underlying host memory layout, further multiplying the
->>> number of required ioctl calls.
->> SVM with dynamic migration under KVM is most likely a dead end to begin with.
->>
->> The only possibility to implement it is with memory pinning which is basically userptr.
->>
->> Or a rather slow client side IOMMU emulation to catch concurrent DMA transfers to get the necessary information onto the host side.
->>
->> Intel calls this approach colIOMMU: https://www.usenix.org/system/files/atc20-paper236-slides-tian.pdf
->>
-> 
-> This is very helpful context.Your confirmation that memory pinning (userptr-style) is the practical approach helps me understand that what I initially saw as a "workaround" is actually the intended solution for this use case.
 
-Well "intended" is maybe not the right term, I would rather say "possible" with the current SW/HW stack design in virtualization.
+> -----Original Message-----
+> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf
+> Of Andy Shevchenko
+> Sent: Tuesday, November 11, 2025 1:20 PM
+> To: Corey Minyard <corey@minyard.net>; Christian K=F6nig
+> <christian.koenig@amd.com>; Dr. David Alan Gilbert
+> <linux@treblig.org>; Alex Deucher <alexander.deucher@amd.com>; Thomas
+> Zimmermann <tzimmermann@suse.de>; Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com>; Rob Clark
+> <robin.clark@oss.qualcomm.com>; Brost, Matthew
+> <matthew.brost@intel.com>; Ulf Hansson <ulf.hansson@linaro.org>; Andy
+> Shevchenko <andriy.shevchenko@linux.intel.com>; Lifshits, Vitaly
+> <vitaly.lifshits@intel.com>; Manivannan Sadhasivam <mani@kernel.org>;
+> Niklas Cassel <cassel@kernel.org>; Calvin Owens <calvin@wbinvd.org>;
+> Vadim Fedorenko <vadim.fedorenko@linux.dev>; Sagi Maimon
+> <maimon.sagi@gmail.com>; Martin K. Petersen
+> <martin.petersen@oracle.com>; Karan Tilak Kumar <kartilak@cisco.com>;
+> Hans Verkuil <hverkuil+cisco@kernel.org>; Casey Schaufler
+> <casey@schaufler-ca.com>; Steven Rostedt <rostedt@goodmis.org>; Petr
+> Mladek <pmladek@suse.com>; Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>;
+> Max Kellermann <max.kellermann@ionos.com>; linux-doc@vger.kernel.org;
+> linux-kernel@vger.kernel.org; openipmi-
+> developer@lists.sourceforge.net; linux-media@vger.kernel.org; dri-
+> devel@lists.freedesktop.org; linaro-mm-sig@lists.linaro.org; amd-
+> gfx@lists.freedesktop.org; linux-arm-msm@vger.kernel.org;
+> freedreno@lists.freedesktop.org; intel-xe@lists.freedesktop.org;
+> linux-mmc@vger.kernel.org; netdev@vger.kernel.org; intel-wired-
+> lan@lists.osuosl.org; linux-pci@vger.kernel.org; linux-
+> s390@vger.kernel.org; linux-scsi@vger.kernel.org; linux-
+> staging@lists.linux.dev; ceph-devel@vger.kernel.org; linux-trace-
+> kernel@vger.kernel.org
+> Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>; Sergey Senozhatsky
+> <senozhatsky@chromium.org>; Jonathan Corbet <corbet@lwn.net>; Sumit
+> Semwal <sumit.semwal@linaro.org>; Gustavo Padovan
+> <gustavo@padovan.org>; David Airlie <airlied@gmail.com>; Simona Vetter
+> <simona@ffwll.ch>; Maarten Lankhorst
+> <maarten.lankhorst@linux.intel.com>; Maxime Ripard
+> <mripard@kernel.org>; Dmitry Baryshkov <lumag@kernel.org>; Abhinav
+> Kumar <abhinav.kumar@linux.dev>; Jessica Zhang
+> <jesszhan0024@gmail.com>; Sean Paul <sean@poorly.run>; Marijn Suijten
+> <marijn.suijten@somainline.org>; Konrad Dybcio
+> <konradybcio@kernel.org>; De Marchi, Lucas <lucas.demarchi@intel.com>;
+> Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>; Vivi, Rodrigo
+> <rodrigo.vivi@intel.com>; Vladimir Oltean <olteanv@gmail.com>; Andrew
+> Lunn <andrew@lunn.ch>; David S. Miller <davem@davemloft.net>; Eric
+> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
+> Abeni <pabeni@redhat.com>; Nguyen, Anthony L
+> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+> <przemyslaw.kitszel@intel.com>; Krzysztof Wilczy=F1ski
+> <kwilczynski@kernel.org>; Kishon Vijay Abraham I <kishon@kernel.org>;
+> Bjorn Helgaas <bhelgaas@google.com>; Rodolfo Giometti
+> <giometti@enneenne.com>; Richard Cochran <richardcochran@gmail.com>;
+> Jonathan Lemon <jonathan.lemon@gmail.com>; Stefan Haberland
+> <sth@linux.ibm.com>; Jan Hoeppner <hoeppner@linux.ibm.com>; Heiko
+> Carstens <hca@linux.ibm.com>; Vasily Gorbik <gor@linux.ibm.com>;
+> Alexander Gordeev <agordeev@linux.ibm.com>; Christian Borntraeger
+> <borntraeger@linux.ibm.com>; Sven Schnelle <svens@linux.ibm.com>;
+> Satish Kharat <satishkh@cisco.com>; Baddela, Sesidhar
+> <sebaddel@cisco.com>; James E.J. Bottomley
+> <James.Bottomley@HansenPartnership.com>; Mauro Carvalho Chehab
+> <mchehab@kernel.org>; Greg Kroah-Hartman <gregkh@linuxfoundation.org>;
+> Xiubo Li <xiubli@redhat.com>; Ilya Dryomov <idryomov@gmail.com>;
+> Masami Hiramatsu <mhiramat@kernel.org>; Mathieu Desnoyers
+> <mathieu.desnoyers@efficios.com>; Andrew Morton <akpm@linux-
+> foundation.org>
+> Subject: [Intel-wired-lan] [PATCH v2 09/21] e1000e: Switch to use
+> %ptSp
+>=20
+> Use %ptSp instead of open coded variants to print content of struct
+> timespec64 in human readable format.
+>=20
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/net/ethernet/intel/e1000e/ptp.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/e1000e/ptp.c
+> b/drivers/net/ethernet/intel/e1000e/ptp.c
+> index ea3c3eb2ef20..ec39e35f3857 100644
+> --- a/drivers/net/ethernet/intel/e1000e/ptp.c
+> +++ b/drivers/net/ethernet/intel/e1000e/ptp.c
+> @@ -229,14 +229,11 @@ static void e1000e_systim_overflow_work(struct
+> work_struct *work)
+>=20
+> systim_overflow_work.work);
+>  	struct e1000_hw *hw =3D &adapter->hw;
+>  	struct timespec64 ts;
+> -	u64 ns;
+>=20
+>  	/* Update the timecounter */
+> -	ns =3D timecounter_read(&adapter->tc);
+> +	ts =3D ns_to_timespec64(timecounter_read(&adapter->tc));
+>=20
+> -	ts =3D ns_to_timespec64(ns);
+> -	e_dbg("SYSTIM overflow check at %lld.%09lu\n",
+> -	      (long long) ts.tv_sec, ts.tv_nsec);
+> +	e_dbg("SYSTIM overflow check at %ptSp\n", &ts);
+>=20
+>  	schedule_delayed_work(&adapter->systim_overflow_work,
+>  			      E1000_SYSTIM_OVERFLOW_PERIOD);
+> --
+> 2.50.1
 
-In general fault based SVM/HMM would still be nice to have even under virtualization environment, it's just simply not really feasible at the moment.
-
-> For colIOMMU, I'll study it to better understand the alternatives and their trade-offs.
-
-I haven't looked into it in detail either. It's mostly developed with the pass-through use case in mind, but avoiding pinning memory on the host side which is one of many per-requisites to have some HMM based migration working as well.
-
-...>>> Why Submit This RFC?
->>> ====================
->>>
->>> Despite the limitations above, I am submitting this series to:
->>>
->>> 1. **Start the Discussion**: I want community feedback on whether batch
->>>     registration is a useful feature worth pursuing.
->>>
->>> 2. **Explore Better Alternatives**: Is there a way to achieve batch
->>>     registration without pinning? Could I extend HMM to better support
->>>     this use case?
->>
->> There is an ongoing unification project between KFD and KGD, we are currently looking into the SVM part on a weekly basis.
->>
->> Saying that we probably need a really good justification to add new features to the KFD interfaces cause this is going to delay the unification.
->>
->> Regards,
->> Christian.
-> 
-> Thank you for sharing this critical information. Is there a public discussion forum or mailing list for the KFD/KGD unification where I could follow progress and understand the design direction?
-
-Alex is driving this. No mailing list, but IIRC Alex has organized a lot of topics on some confluence page, but I can't find it of hand.
-
-> Regarding the use case justification: I need to be honest here - the
-> primary driver for this feature is indeed KVM/virtualized environments.
-> The scattered allocation problem exists in native environments too, but
-> the overhead is tolerable there. However, I do want to raise one consideration for the unified interface design:
-> 
-> GPU computing in virtualized/cloud environments is growing rapidly, major cloud providers (AWS, Azure) now offer GPU instances ROCm in containers/VMs is becoming more common.So while my current use case is specific to KVM, the virtualized GPU workload pattern may become more prevalent.
-> 
-> So during the unified interface design, please keep the door open for batch-style operations if they don't complicate the core design.
-
-Oh, yes! That's definitely valuable information to have and a more or less a new requirement for the SVM userspace API.
-
-I already expected that we sooner or later run into such things, but having it definitely confirmed is really good to have.
-
-Regards,
-Christian.
-
-> 
-> I really appreciate your time and guidance on this.
-> 
-> Regards,
-> Honglei
-> 
-> 
-> 
->>
->>>
->>> 3. **Understand Trade-offs**: For some workloads, the performance benefit
->>>     of batch registration might outweigh the drawbacks of pinning. I'd
->>>     like to understand where the balance lies.
->>>
->>> Questions for the Community
->>> ============================
->>>
->>> 1. Are there existing mechanisms in HMM or mm that could support batch
->>>     operations without pinning?
->>>
->>> 2. Would a different approach (e.g., async registration, delayed validation)
->>>     be more acceptable?
->>>
->>> Alternative Approaches Considered
->>> ==================================
->>>
->>> I've considered several alternatives:
->>>
->>> A) **Pure HMM approach**: Register ranges without pinning, rely entirely on
->>>
->>> B) **Userspace batching library**: Hide multiple ioctls behind a library.
->>>
->>> Patch Series Overview
->>> =====================
->>>
->>> Patch 1: Add KFD_IOCTL_SVM_ATTR_MAPPED attribute type
->>> Patch 2: Define data structures for batch SVM range registration
->>> Patch 3: Add new AMDKFD_IOC_SVM_RANGES ioctl command
->>> Patch 4: Implement page pinning mechanism for scattered ranges
->>> Patch 5: Wire up the ioctl handler and attribute processing
->>>
->>> Testing
->>> =======
->>>
->>> The series has been tested with:
->>> - Multiple scattered malloc() allocations (2-2000+ ranges)
->>> - Various allocation sizes (4KB to 1G+)
->>> - GPU compute workloads using the registered ranges
->>> - Memory pressure scenarios
->>> - OpecnCL CTS in KVM guest environment
->>> - HIP catch tests in KVM guest environment
->>> - Some AI applications like Stable Diffusion, ComfyUI, 3B LLM models based
->>>    on HuggingFace transformers
->>>
->>> I understand this approach is not ideal and are committed to working on a
->>> better solution based on community feedback. This RFC is the starting point
->>> for that discussion.
->>>
->>> Thank you for your time and consideration.
->>>
->>> Best regards,
->>> Honglei Huang
->>>
->>> ---
->>>
->>> Honglei Huang (5):
->>>    drm/amdkfd: Add KFD_IOCTL_SVM_ATTR_MAPPED attribute
->>>    drm/amdkfd: Add SVM ranges data structures
->>>    drm/amdkfd: Add AMDKFD_IOC_SVM_RANGES ioctl command
->>>    drm/amdkfd: Add support for pinned user pages in SVM ranges
->>>    drm/amdkfd: Wire up SVM ranges ioctl handler
->>>
->>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  67 +++++++++++
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 232 +++++++++++++++++++++++++++++--
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |   3 +
->>>   include/uapi/linux/kfd_ioctl.h           |  52 +++++++-
->>>   4 files changed, 348 insertions(+), 6 deletions(-)
->>
-> 
-
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
