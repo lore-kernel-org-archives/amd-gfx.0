@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B5BCCF9F8
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Nov 2025 12:11:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B53CCF9F8
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Nov 2025 12:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6690E10E702;
-	Wed, 12 Nov 2025 12:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B8210E70F;
+	Wed, 12 Nov 2025 12:50:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UEIB9+0X";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z7AprRyt";
 	dkim-atps=neutral
 Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013066.outbound.protection.outlook.com
- [40.93.201.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B4A10E6FA;
- Wed, 12 Nov 2025 12:11:14 +0000 (UTC)
+ (mail-westcentralusazon11013048.outbound.protection.outlook.com
+ [40.93.201.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8646E10E0B6;
+ Wed, 12 Nov 2025 12:50:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WME0bLcLsbBydbJ10heOt1Wbg0qJRXSSwhuLFI9r4KZSGyWTwNIrrlIYlcvMvpV5jInkHiPrMfBGN+EUxAEdDkjOzd235TUKSRUOGjyMicB31+xpraLJqt8JIuodQKUYyx/x7cseocLY6dxm52oWAkBJ2ncYZeLOvwmIKFUbnT0/QD7oMml0HfWChDXu+tw83JccMau2xhaMopqPnlztdWkShXcU5ecq+OpXVuqNh51cqx+8nuw1DC7Ad6ZByQVb9YQSkyg6adfVMCrWHR5dAUHeEJnYSwPNWrqWwcBe6mxrqqgQcy1Q9QiBHOgQlq8iqPMwmREzKwWWU7vIo4trZA==
+ b=K9rmdnYL/uXeWFMlExwySTgw6eNKPY5cqZgKn3g94vdButQzTLR8s5cJI9QU65KoTbV8o9TxJXY6lDqfICjdlQcnR6GTwZeFznhn8WAWkbpHaD+MonFAsLS0qJJQElC7BbGQs31TGO3bu/Ooqq6+F8OelutO6fxlsEn6aMV9nELwJN2PWlfVmNka9P5oWVGEo7ZLtMCYRzGIjTJaIuROhwoUplKAG+/PJg515hDqAgE+0b+H3kieYZ+zUIL5JeQx+ZNj73vEd1wXArPVN/b0/jyVxqX9+BX0j58Ou4DrKcnROMnTk6Llrxx6hm1NGyL1GUmfEnG5g6aJ0gqIPSQuRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5IHXztvXWdsrNuUi9MrgCOZrY15pt6/eUZegbexVljc=;
- b=TessT+ri4IyaRSGtIOBctTdNYEMBznYgHHL+nQ6NRf9gAjD2KxV4VCrxBuijyaDeHcjt0Z79GgXQkOv/hdvP458XLlFfzXTRR0U5QE0FVTNDClkhIp/3MbabExmUYcTfydmeYB7D6OMz8qTrUEOwFMdvzBoCSjDbQOkywG0mqeyPVqzECqfBJANzqj45FG6ELkRDyG7B26kcMhlpILUDiXbv3FlzrX/jnoazH5c8+CpEvXXBOvzT6miQ2CKv59ueDJ/2PYP+LbNDuyE6NJScvv5hpRF9gDK+OFgZz/qauIS5zmRCabomd1hbMWuIb40oPNE+bICwTmNUNivsgik2RA==
+ bh=6pcK81sDiySzeK/tuQgk0eeeSiODaCg7Fico8bmbIJA=;
+ b=WmDBdJw03i1tmeJko7f2qFcg4wwV3zvwhZdcoBu5+3pWi7yx6gr13OARZhMaQ5BUmj/0wHAlEU6pG81i/NcrUtNwAJ+9JeRNUfoK+mG5X8p4eDX74z/ML/RI7ot6uFhxk17BO8fO2DLd/zeqUxmmHVMW3TflwKrTwCbeZhdN1Zxt5H6pW2uRNC2tYyQVlus7cDbihgKKhN+ETavi5M7M7N0JvK5Aeqx9B9dw1ufLL+vG2fF+6CekTygC5zMLd/W2kqWptM/uEgvKEO6RZu9r/5MttzLxIZqH22yMwL3kspMtG2u62yOIUhHDSWcgCstYnCjOstuqnrAvMyIWqyUfPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5IHXztvXWdsrNuUi9MrgCOZrY15pt6/eUZegbexVljc=;
- b=UEIB9+0X8YuEDKgFJmY65jMLMC740xWqLMZQ1U2lsBeX8OaaE96q3VfFYV45lUMzjFQSe9dsyfkD0I3Wk/S3VGOEIEcXgDnMEme/5AqvcPIGU6njBHIUFY2mBMo2WX4hzBLy5Ne0/B+huI2ynrJ3tiDdhPbdDQB/3sIrdqXEhqc=
+ bh=6pcK81sDiySzeK/tuQgk0eeeSiODaCg7Fico8bmbIJA=;
+ b=Z7AprRytn5BALucJdkZBqWGMbw2WqCTi5iS89BJQ5rFGzeGeKWcaOBMPQtQIp+b5hm5DbVw9qnK77yXxngLkbQNStPZRwAblK0Xz4cu+1LIYfUkoPWtmcStaWBIlFbItCoo7j1KqyASH4F2AXTCz1ueuH205dBwUG7GkDNiZsT4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
- by SJ2PR12MB8184.namprd12.prod.outlook.com (2603:10b6:a03:4f2::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Wed, 12 Nov
- 2025 12:11:10 +0000
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::273a:80c9:35fc:6941]) by IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::273a:80c9:35fc:6941%3]) with mapi id 15.20.9275.015; Wed, 12 Nov 2025
- 12:11:07 +0000
-Message-ID: <03b8be5c-64e0-4577-b4f0-0d505eff04bf@amd.com>
-Date: Wed, 12 Nov 2025 20:10:58 +0800
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB9042.namprd12.prod.outlook.com (2603:10b6:8:ed::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Wed, 12 Nov
+ 2025 12:50:45 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9320.013; Wed, 12 Nov 2025
+ 12:50:44 +0000
+Message-ID: <5488f98e-4101-42c1-a0ff-0e0054e0e08c@amd.com>
+Date: Wed, 12 Nov 2025 13:50:39 +0100
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH 0/5] drm/amdkfd: Add batch SVM range registration
  support
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+To: "Honglei1.Huang@amd.com" <honghuan@amd.com>
 Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, Ray.Huang@amd.com,
  dmitry.osipenko@collabora.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
@@ -56,105 +56,106 @@ Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, Ray.Huang@amd.com,
  Honglei Huang <honglei1.huang@amd.com>
 References: <20251112072910.3716944-1-honglei1.huang@amd.com>
  <32a918b6-37bc-4d83-ae72-35010d4f1a8d@amd.com>
+ <03b8be5c-64e0-4577-b4f0-0d505eff04bf@amd.com>
 Content-Language: en-US
-From: "Honglei1.Huang@amd.com" <honghuan@amd.com>
-In-Reply-To: <32a918b6-37bc-4d83-ae72-35010d4f1a8d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <03b8be5c-64e0-4577-b4f0-0d505eff04bf@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: KL1PR01CA0117.apcprd01.prod.exchangelabs.com
- (2603:1096:820:3::33) To IA1PR12MB6435.namprd12.prod.outlook.com
- (2603:10b6:208:3ad::10)
+X-ClientProxiedBy: FR4P281CA0036.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c7::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|SJ2PR12MB8184:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47ae8518-f09c-451c-59aa-08de21e48f76
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB9042:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3114d91-f2e6-42f6-13b9-08de21ea1829
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dkV3WllBbEpqQzNFeFUrUnRhMjlHVU1kTjVueDBDV25yR2FxSFduZVkvNFFO?=
- =?utf-8?B?N28yYVZDc2lFb09FbEZsR3VwcWRRazJNWFg4QnNkemd1dy9raGN6OWRVUVZz?=
- =?utf-8?B?U0RGQkt0THA5NDNJTktYK29KZzhUSDh1RlpBYUdUaXVBT2tiMy8yNkJUd3Vy?=
- =?utf-8?B?ZTJRMmE5RkljSG5PMUtGN3BqZlAvTHphWENMajlVRXBoL0srOGFKT1JqOTdO?=
- =?utf-8?B?WjM2eklEZnJUYmdVTVJmanJ3UjBpVTJDeDBrNmdiZnhray9xQ1VpRjVqdm1o?=
- =?utf-8?B?R1Q1c29PekVrbDhydnhLeXIxKzFmaGp5bldHMjhza0xoT2ZIaWdod2VCQnNJ?=
- =?utf-8?B?TTIzOURmQ3lBNG1OS20waUErWlBQeXNJWmQ1Uy9lWU42QXFqTDdvRysyQWx4?=
- =?utf-8?B?ZmRPMUsrRWZhZzd2aTNhcnduMkQyRE41MVZGdFRraE9kM3BUcjBoTXhtTVhj?=
- =?utf-8?B?MzZMVGhqTjBYd0Q1ZjlvMDVHeHNJbUhYTi9Mc1F6VVdXeFBFVDQ4ZW9maHJL?=
- =?utf-8?B?ZVB5cnpVeUVvekJ1aEJVc1c0WlVtcjQwT1N1ZUpFMlBvK2hkeFp6KzBMT1hs?=
- =?utf-8?B?T3h1TFVaNmVqRU5GVkhxd3BtNjZzWVliVVJlU1ptb0o4NEdXclFUcGhVbHBY?=
- =?utf-8?B?L1BOVlEySTZnelgwRGVkUU9MWFplYkhZcERleG0waTBZSVBVSmF6RTQrODlH?=
- =?utf-8?B?VG5SSmJBU3NiYmoyb0ZFM0xuMnYrSjFVRG91U1Y2eXV3cVFjWElzUmpaWEVp?=
- =?utf-8?B?Rk1XUGRqdm9PbVFyZklsRzllSmU5cVdnT1Bhd1IyRHFrNTljS3RVWGora1hN?=
- =?utf-8?B?ckhKRkEyN0t3dkRwMGRuRVFLM2ZKRzhkSm54QStHR0ZseHNYUStnN2R2UTk5?=
- =?utf-8?B?YjE1cElLS2QwdVhiTGpRMHFXMXg1eTJ1aEltdTBZdlNCQ2FsYmpqNFdDSjdz?=
- =?utf-8?B?YWcwbkpVS2VsWGhmMkg4MVRBSS92TXhiRDhDZ2RIWUVxSy8wRXQvTVNoS1BS?=
- =?utf-8?B?QTJEQ054TmhDTG5NZnU5dXNxZmN3TW1qb2x2Y28vNlgvUUdPUTdaZXdRbzdy?=
- =?utf-8?B?cjNXWEtSQVJqU3hXN2txSVFxLzlBMUZrdU4zZUsvQkJ5b2JrUG9VQ1VNUXha?=
- =?utf-8?B?TzBEdnZXbjF0Vm1neDA3WkN5T1BlNkxLaWlseUloUDRpc3UxcitCVy92QjVZ?=
- =?utf-8?B?bFpMM3YrYmJhZWZ0cndKMjY5bTdLbWYrUU5CSmIxV2RQMnExWUFKRnYwckta?=
- =?utf-8?B?VDlrNzlya0ZiOVo4RWp0cVhpcmNFQWRKN2tybndjK2hDYWZvL0FtVjRuNTlL?=
- =?utf-8?B?K3hlZU9MVTlpdlQzMk9JSGU5NWVSRWpuOVpBK2FpSktUNnppNlFSemRScHB3?=
- =?utf-8?B?blkxbWdPemVSV3pzZklLRWFvYWU3VXN5Myt2QkFmeFlrZVhpSndLREMxSG42?=
- =?utf-8?B?RHo4Uzl2bll2eC9XMVd2blFWNEhRL1RDL1E2T2tjU0psL29OcnU4OGhnL2VF?=
- =?utf-8?B?TTAvcllUSzRPK2c5SXd4NG1oVit1ZTJ3YVRZcERhby9LWlI3MzMxWFcwUjJu?=
- =?utf-8?B?SW1HWHlmQVNxaFI2MzBsVFlobTRiTHEzSWJ2bXJJK1RpNU5KVTBIQ1JxRmpE?=
- =?utf-8?B?bGZMM3MvZWZqS29oczVydGRkUWZsdURyOURHRTBDcUpleFlrdmR1V010blZG?=
- =?utf-8?B?UGlBY0dvQXFtbWprYnlMMzVjNWRwaDFrdHkvTnorMXMwaWsxaUVUWXBBeFhv?=
- =?utf-8?B?OEw1THQ1bDRUZ0JmbithemxKZE1pSHcyRUxWaFVOVlZMR3lYd1cyNmVOMDQ1?=
- =?utf-8?B?cU5uYXVOMWtXVnZxYXd1WHAvK1FkbFBzOERqMG11eU5ReU5HR2F6OUZHNnc3?=
- =?utf-8?B?NEwxd0hZVmRMaThJYVN0RTJYOXRjaEtkeEVwNmpSVWdTL08vYUJTQnM4VUtj?=
- =?utf-8?B?UlhZdktiTDdyOGVYUnZwTGFvT0ZnYmNNa0Zad3k2MGpub3BTWUswYlNSSTFC?=
- =?utf-8?B?VkxITUc0UFVBPT0=?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QWZsRmhlc2F3VXZTcXJxMmg2ejFud0xweFpDN3lBUVFzRG1HeVJIejJPUnk5?=
+ =?utf-8?B?bU1mOFNJUDNIS00ydnh2eTVqcFZwbFU1ZjFRWnl6dXVLTjZGTndxamcrZHJu?=
+ =?utf-8?B?ZXJZYnMycHNKZ1FRU2I5bWJHREQ3R2dFSmtpeTZsV2hXOW5MaFlySnpaOTJE?=
+ =?utf-8?B?Q3hnR1VYcERiVHpocXV4ZklTQ3B6eUFVczVjT0NsTkZReGt6VmpQb0VRQUEr?=
+ =?utf-8?B?NDlNQmlXT1RGdnhkRGZkTVRmMDVaZXhjbnpCL281Q2lMWjZtd2xvWTQycUF3?=
+ =?utf-8?B?T3ZhalpPbkdKbEYrUWdPc3p3Z25KQU0wTEs3Yi9CaUFQNkJZNE1leVNyTEN4?=
+ =?utf-8?B?dlJIaG1RYk1paUc2d2tDUzFjS21JNXZrcUJFSzY0TDZQUUUrUkRVcysrZWh6?=
+ =?utf-8?B?bit2TzZjMmFLdVVPWkpOU3BLelRKU05lUUtIQUcxWmdEZWNQUk4yanI1RFpu?=
+ =?utf-8?B?ZUQ5TEhkeEVKZ2c4RXVBSTNBOXRHWDJ5dXpheDVWR2Z4U244VHQ0emdCeUlj?=
+ =?utf-8?B?VlIwU3ViTDJ6Wnc4WEhGZlZpMWZZWE9ITmRIWFdUYXZKQkxoZkZtVWFKdjA4?=
+ =?utf-8?B?aCt0Y1BzdklnQ3BabWJ4OHk5d011b1l5Tk1STGUyS1RLZnJxZWV6Yk5yOXRY?=
+ =?utf-8?B?MnVBdXgvSnRsd25pbFAweGVKUlB1cGM0dmpadUdBMDNpcHFHaGo2aThxWDBW?=
+ =?utf-8?B?MDhUdXN6TE1PdDF5R0xGNi9rVGgyUjI1WVBKMktOcnA4bGNMdUR5ZUFMYVp5?=
+ =?utf-8?B?a2MzamFSeEpSNU9YaFJlV3Y4K3JHejZZc1dTZllueTRRS01FRFJGQmdjc3Y5?=
+ =?utf-8?B?Nnc3SHBuRytvWjd0elNBYTFWZk1yYkFUaXZJZnNUb1phYnV1cWhETDFPZWcv?=
+ =?utf-8?B?UStMOEFNQzlpSXZkY3FYWU5kOGFvWWRVa1RqTzNpRnNDZGRFTlh0d1cvcThT?=
+ =?utf-8?B?S1huS2dUeUNQR3ovZjhVS3MvU2FvZVIyUG9PejRYTGRNdGQ4U3J3TjZJd0Vw?=
+ =?utf-8?B?ZDAyVmRxYjN1dlVCZHlWU1dqSDNSRm5uVmEvbFJldXhaTTZoeTF2d0toMktL?=
+ =?utf-8?B?M0UzdGZVZDRrd1dYendmUlhnZ1RPTEJnVUJDSnprOHNkTjBHOEVrWVppN3VE?=
+ =?utf-8?B?NjJEUFZXTWhGMHpOaDBkdGV2NlF0dlZKZlVRYzg0aEUrOCtrczMrUnlid1Vp?=
+ =?utf-8?B?dGE5TGM5U2tySzR3ODFYazE0Q2diV1k2bzhLN0dmcWFaUlJhS2t6a1MxZEJI?=
+ =?utf-8?B?YllMc3dXRmI0V1RZRGVXeGVENVJyVFZNeDE0ek5XeFRJWUJGbjdpb045YlhV?=
+ =?utf-8?B?a3EvNWo4ZTROVTdhWkJzOTd1L2tYeDRMN2J3blo0UDVIU0pvV2RES0RHS3pz?=
+ =?utf-8?B?c2xYNThMTUhsMzRYa1ljQnBpb0s2QUFnVWJFbjFtcDZVeEYwSnNVTFZUbXpm?=
+ =?utf-8?B?STdwb2lVRVlkV1N5MktHNjkrZVRDMEZKU044dG1SVldXSlhyUUwyTE14UmtE?=
+ =?utf-8?B?R1crb3VGS3I5QTlueFlZK1ltYWdPd01ZaGJhT2hVc1UvVTROQzkvb1UvaitM?=
+ =?utf-8?B?Zm1qZSs0YmdqNVlJTks0UzFJd3FTeVcvOGpWbWoxMXczSnBoUFpCbnZMNURq?=
+ =?utf-8?B?NWhhSTVxek5nTFgzMUYxNXJIUnNjV3crOEpqb0JUNFByOVk3Zlh3R1dUaGFw?=
+ =?utf-8?B?ZzhEUzRjTnp1Q21GQ3crNjBFVVh0OVIwMkNGb0IvZk1rRmpiTkUwRDN4RkN1?=
+ =?utf-8?B?UysyZG9XaU9NNHhGbUN2NmQwbE93Qi9zZE14SlBuc1kxWWxNSWtlUGhtalhv?=
+ =?utf-8?B?NE1kaHRRUUdaU2FsYVNseEZ6VFdRR1A5N1kyck5MNXU2N3BWN3MvZi9SWVBh?=
+ =?utf-8?B?REhpT3o3N2tJR1dlcE9lQTUyK0pYTVd1eHhFOHZ0RjhrRlRNVnp5NlIxbW1V?=
+ =?utf-8?B?OFYwclVWVW9LeERKM1Ezb2g5NEJCQXA2WXdjTm5ETWR2QngwNnBwTG9TL1Fp?=
+ =?utf-8?B?aW1rUUQ5RnRBPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUt3Y3o0RFROUFlCYWxPVWVyU0F5MmlueUQrSnR6R2xqelpHcWswS01rSGpZ?=
- =?utf-8?B?cXRwSk1QQVVVVHkxWlk2L1B2b085MXVUQ0c3Y28wZTFheUtxdlZVVFZacWdM?=
- =?utf-8?B?a1ZOSWQ3L0ovZWdVdmJGbU83UnhJZS9QQ3d5OG92V2dmeXZvYWdNRWFReHhw?=
- =?utf-8?B?d0d2ZW9aVUZ5WUlkV3A1a0JTSCtWV05oY0xLRTZIcHlDd2FOdFdVU0M1UXpJ?=
- =?utf-8?B?UEM3anQxUS85UW9QNjF2K1lUS0psWWRzYU5FRTJRdlRUd1F6VzlYVXR0VWg1?=
- =?utf-8?B?NFdiV29jakNNdVNVMUNzbTREaW1hSzJocEdxVFY3QVNlRitZMENvYkN6U2VO?=
- =?utf-8?B?dEhhRGdDS2g0UTM3Q0tvbDVzUTNMQXJ5OHdsb09IbEtlVURKbTgvejlQeHh2?=
- =?utf-8?B?Ums0NzBidVJsZVl4dmRtV0taOGhWMm0zT3dTWk9jWno5N2dPRXBOYjNBWXRU?=
- =?utf-8?B?Q2JGeVRyUVdsckxjem9YRE85akhydnEzc3ptOHdGN04vR25ydXJLSEg2Q2V3?=
- =?utf-8?B?SE5NdUhOUlY0c2VBSDFzVUNIakp6WG82TklCaU1GVTBUOERhR3hWMFhlZ0RE?=
- =?utf-8?B?N3JmamtWVVdSU2FVeUdQaWJodVNaNjV1R0lFdFZHOWNtR3kvOFZzUlVEVGlM?=
- =?utf-8?B?ZE9IbkJEd2xRbHBsK2x1ZUhTdjY0L0hjeHdyWmJZYXVaY2I4QkQ5RXhpUnc1?=
- =?utf-8?B?Vy9XN0U0Yi81bUpYalJUNFl4cGpyR1F2MFlFUGdHb0daY1RNWkVlSU5CVmp1?=
- =?utf-8?B?c1cvZ2RwSmFIMXBGdkpBSWtwcDh5YkZPVWx6TWFwS3lqZzdmd1JwRmxiaHJD?=
- =?utf-8?B?bWgrNW9oWmdEcFhYV0lHWlJLb0lySVhUbVFIL1BpZndHMjFkUXZoMHZEMVEx?=
- =?utf-8?B?aHBRd2lLMFlvT2JUSFJnUW9SRlNNaVZsT3FVUGVISGlJdjYrZ01WU2p0SEFr?=
- =?utf-8?B?RXdzQ0E2aGluTk5PLzdRbklzZ3ZjL0NpUzlyWDA2YVFlK3NhRk1BSFVIclRy?=
- =?utf-8?B?cWdyQ1BKMVV1ajRUOGtud0Zya1FOV1hVVDhyTmZLYjRRU1pHK3RxRlk4cCtx?=
- =?utf-8?B?MUxMRUVRazJHVEpUTDNvUnR6MWVPWTlaR1huNkNMNFkzR3JMMzJKblNCQjdD?=
- =?utf-8?B?SWVma3B1Ny8rMzJKRWFWVGN5ODFsWjR2ZVZiVWFjMmRpUGNHQ0hPRUpEaTd1?=
- =?utf-8?B?RUE5NXRKQ3B6ZjkrY1ZLL2dXMHdXdDg5ZE90ZnRJNUlmR1pWUVVTcE1DazV2?=
- =?utf-8?B?aGs1L0dMS2VJVk5FWDN6ZC9nUXlYRzVtYlBCVTVFTjN5M3R5MXFqWEhJRzRP?=
- =?utf-8?B?SThsWjNaZ0EwL3Q0MWtHSzFMRzJSa2t5TlNFRm4zUTc0S1ltN2p4VkRzS3Mz?=
- =?utf-8?B?elRqb0Z2ZWlaRkNUQmZFNnZUL0VmSDI5V0p0c2ExRnhFZGZqTnliamV6RU5I?=
- =?utf-8?B?RnhweTdmSDlZY3hSdFczbWh1c3dFMWZ6QndDVS9qaDhROFNVTFlWMmptRHEy?=
- =?utf-8?B?TnFZdERvUklNMjAvNUxPcUpBdTdGbFI3TlE3QXBWL1NRd3RuVHF5MFJKc3Nm?=
- =?utf-8?B?d01sOXZxV1VFUTNUdGZwVjFEbkQ1cEN3eW16WGdEUGlLZTM5YW5LYzBHQyta?=
- =?utf-8?B?WkdpU0RkZXljRWRyV2ZJUWNPZjVDQXZ3RmQzY0tvdXZ1c0ZtQ1BWTDFuSDJN?=
- =?utf-8?B?N25QQ0RvbWdiTjJ5Q0Y2MEI2aGdKbUI5Tm1hS0Z2Ly9SNVduTlJWQkpjL2V3?=
- =?utf-8?B?c1RndzRQdHVkWGtPTVNsM3lGbVFXcWVBcmRiMmQvMGxKbXg1WEpTdWtlN01I?=
- =?utf-8?B?eEdhSVNuNTRDUGgxRi9oOWtndEZzTkc2T3ViYnpQNDJKaVowL0FNbFVGRVFX?=
- =?utf-8?B?Q0g2U2hESWpYaUtzK0NvVXc0cisyL3dLNS9kdWUwWWFpcDk4ZDRwSHVRZ01r?=
- =?utf-8?B?N0ZpSS9vWHl1NWNUWVdpR3dtcG9CcFEvdGRqWTZRSmx5UUdqSkJhOW9kTDNX?=
- =?utf-8?B?M2xhTmlwUnVaWmdmWU1yWFloWk95YW9YZmtSWUxtc1c1K1Q5YmNSL295QTBG?=
- =?utf-8?B?WWxBTnFVVWM0eWN0RUZrMXJkRXRiRlh6cVVNTUx2Njg0TmN0UmxheVRDTWwy?=
- =?utf-8?Q?+NAAqxU8hU+469BqHg03RKjCm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXMwbVVGQk1iZUhJdytmZjVLUzVaemMwTloreUR4WjhlYWRSR2gwc3FFLzRo?=
+ =?utf-8?B?ZDZwNlNVeVVMbzJlTnMvSFdFNmhyYitNVlhWOTlnLzB4dTFpZVl1aDZNdUZ0?=
+ =?utf-8?B?SlU5ZHlWemR2aFFzekR5bUcvRldlUWxwWkRhaFVneUNtSjBidVJkNXVWcXJn?=
+ =?utf-8?B?SGNaNzdvUFh3eHpOOXdySmU4M1kyQ0lhV0dxbkF1N1NnTWFEVUROb1RWTFVL?=
+ =?utf-8?B?WDltUHd5ZlV1Y2lPZ1poSUhHWit6Y2FWcUlJMzM1OGgxdC9MODErWWdvVzdq?=
+ =?utf-8?B?Qlp2eXcvSjBFRERwRUVTU0dTUEt4NURaaDArblZsZXREUjR0UWl5RTNtOE1n?=
+ =?utf-8?B?TFRYMTdhTlVLUnJ6YnNNeVl0UXkxSldUU3hWWllNc09KZkR6cGVkQXlsRTJY?=
+ =?utf-8?B?MXdpQi9pT3QwS1hYUnpvQ2l6dU04Z1lJelB6Mk55c1ZYS0h6L2orRWlES0ZE?=
+ =?utf-8?B?Y3BFZXUxM3lwbnI1N3I0WG5HWkNnTkJONWdyaldZNkhEQWFtd3I0eWJPbG84?=
+ =?utf-8?B?Y0JHaEJvc0RKb3RoSUpOZDlIVXZPM0tyYzFMQXAvM1pwQWtXMlcxeWNhTTN2?=
+ =?utf-8?B?ZjNtRExZc0ZIZlJFdHJaMHovSVhMQkduSWNMSlVjTU00YUR6MUordmJUMU02?=
+ =?utf-8?B?VHM2N1gwL2UvQ1YrQmlWbndNSHJ4UDRWZVRqd1NoWkZMSlVLQmpabHovamIx?=
+ =?utf-8?B?ejN2MU5GbDdlaURhcEtIMS9mMUpiZVBWcmdOcTlGZElBYTExQmx2SHpDd2xS?=
+ =?utf-8?B?Szc2NDRRNEplQUg5MndvOVM4bUhkQ3hQN0dvQStwVEZlQllEZFdvQ2ZGazNn?=
+ =?utf-8?B?QW9XMkxiUDZEcU9FVzhSWG84NVFJTmROZmVIc2duNDZISktRSGdVb1VKRHZo?=
+ =?utf-8?B?aXRDUzJJeHpuQTA3YjhYRFNxbHRVR1BqdWZCQnZuR3Vzdk50LzdjNkI3KzBO?=
+ =?utf-8?B?Z05RUUZ4NUNwbmJ4dmtjS2w2YTUzZ1gvaE51YXFITnFWM29abG9rTi85WTV3?=
+ =?utf-8?B?dm03WFJsdjF1bGlKVmd5VzllTnlxS0tGbXBIVE93ZmpWTldpM2tWZlB2blNW?=
+ =?utf-8?B?SkhtZTFoM2MwdnpQalVDa0J0QzRrdUZicXNuRFhrcU9hblBhZU1QOU9zMVdR?=
+ =?utf-8?B?dEw1VDRHcmprVUdiV1daQjZBZExEcnRpTWMxbEZjVGJZeEdnSGtjOUJhTE9v?=
+ =?utf-8?B?SksxVGdPQmtQR2ZiWktCbGdGZE1kQWNaUC96ckU3N21FSEZsSHVEc29yREJq?=
+ =?utf-8?B?Vlpla1Z3TklONVFRVERSYXk1WEFaU2d0ekNVQSsrVnYvSGJoRDA2NUtRQUdG?=
+ =?utf-8?B?SThaY1dNK29UNStINElqOCsrckZSUlNiUUg3eTZMYzA4VHdpUEtDVjMycURP?=
+ =?utf-8?B?YmZ0aGZMdDhFelNTKzhJZDhHMXJNNTJPRnBVR1RxS3U5YUpkVURCYktnNWV2?=
+ =?utf-8?B?dytNU2dGS053RW1tTHp1YXNrKzZNWUY5cFlCSWtNSmkrbUFiUGlHZzg2NW1K?=
+ =?utf-8?B?ZzhwMWVpbTQ1clFZN0xBTEJROTdJcnlUV3RQSFVxaXF0SlJoa1F5UkJkK3ln?=
+ =?utf-8?B?U2lxbytmTHBvVzA1ZFZWQ0NaYVVHY0JZSnpxMnBFRkdWRE14R2V2ZU5rMTFB?=
+ =?utf-8?B?S2laNDJXUEdMK1Z2b1NkRk14OXlVTUNvaFF2TXR1Qmt1WWprRm4weXc3MGpN?=
+ =?utf-8?B?NERQZTdQUEhVT1FHVWNhQlVaTG5CRUU3SmNsdUF0TkVvdnpoVUYyMGhJM3hu?=
+ =?utf-8?B?S3VyTnNpbzMrREo0YTdLRHNPUEU1MCs0MEJtajlzRmhZbWoyK0szYmxWNXgz?=
+ =?utf-8?B?M1RKRnVTWGYzdWVuMFRKZ0ZZbnBKVXNDcWZoZW9JVHNxSE9nbzNKUHkzUm1m?=
+ =?utf-8?B?NjZWQkQxeGI0QUJmdlJicjluSGN0Zzc4NjRaSC82Z3RDQXBsSEpjMm5FRy9w?=
+ =?utf-8?B?WFNub0RsNFdrOUUwYmdMSGN4cGZRZmJWbThJREN2cGhrTlBxMFY0akRrcUta?=
+ =?utf-8?B?bnhQS2d3RlVrS09BczlQRHY4SGRLb1RLTWpqOWtVeHlWbFFQR2dYTWJhU0FV?=
+ =?utf-8?B?dEx0eithUTU5a1hUalljeVBDMkZlNkdlOG56L1k5YWFOakxNa0xzWU9iVHBS?=
+ =?utf-8?Q?CBC6LL8jGzVbTA9Nnw8FpInnI?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47ae8518-f09c-451c-59aa-08de21e48f76
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3114d91-f2e6-42f6-13b9-08de21ea1829
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 12:11:07.7536 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 12:50:44.7099 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IjRpD5/sl9+zpvUrSVfEBsz0hg334Pm9WWIlSrIGAyvaIejjj9usrbwROgyuH8PhWe91t6jLODNBdjw92Qxzqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8184
+X-MS-Exchange-CrossTenant-UserPrincipalName: T+/1A83palQGbDfl5KpWCErfR5+NCX4nNzfyxw30wJgdqBhMrCKFIuQZ6h6ag/4R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9042
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,213 +170,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Hi Honglei,
 
-Really thanks for the detailed feedback and insights. Your comments are 
-incredibly helpful and clear.
-
-On 2025/11/12 16:34, Christian König wrote:
-> Hi,
-> 
-> On 11/12/25 08:29, Honglei Huang wrote:
->> Hi all,
+On 11/12/25 13:10, Honglei1.Huang@amd.com wrote:
+>>> Paravirtualized environments exacerbate this issue, as KVM's memory backing
+>>> is often non-contiguous at the host level. In virtualized environments, guest
+>>> physical memory appears contiguous to the VM but is actually scattered across
+>>> host memory pages. This fragmentation means that what appears as a single
+>>> large allocation in the guest may require multiple discrete SVM registrations
+>>> to properly handle the underlying host memory layout, further multiplying the
+>>> number of required ioctl calls.
+>> SVM with dynamic migration under KVM is most likely a dead end to begin with.
 >>
->> This RFC patch series introduces a new mechanism for batch registration of
->> multiple non-contiguous SVM (Shared Virtual Memory) ranges in a single ioctl
->> call. The primary goal of this series is to start a discussion about the best
->> approach to handle scattered user memory allocations in GPU workloads.
+>> The only possibility to implement it is with memory pinning which is basically userptr.
 >>
->> Background and Motivation
->> ==========================
+>> Or a rather slow client side IOMMU emulation to catch concurrent DMA transfers to get the necessary information onto the host side.
 >>
->> Current applications using ROCm/HSA often need to register many scattered
->> memory buffers (e.g., multiple malloc() allocations) for GPU access. With the
->> existing AMDKFD_IOC_SVM ioctl, each range must be registered individually,
->> leading to:
->> - Blocking issue in some special use cases with many memory ranges
->> - High system call overhead when dealing with dozens or hundreds of ranges
->> - Inefficient resource management
->> - Complexity in userspace applications
+>> Intel calls this approach colIOMMU: https://www.usenix.org/system/files/atc20-paper236-slides-tian.pdf
 >>
->> Use Case Example
->> ================
+> 
+> This is very helpful context.Your confirmation that memory pinning (userptr-style) is the practical approach helps me understand that what I initially saw as a "workaround" is actually the intended solution for this use case.
+
+Well "intended" is maybe not the right term, I would rather say "possible" with the current SW/HW stack design in virtualization.
+
+In general fault based SVM/HMM would still be nice to have even under virtualization environment, it's just simply not really feasible at the moment.
+
+> For colIOMMU, I'll study it to better understand the alternatives and their trade-offs.
+
+I haven't looked into it in detail either. It's mostly developed with the pass-through use case in mind, but avoiding pinning memory on the host side which is one of many per-requisites to have some HMM based migration working as well.
+
+...>>> Why Submit This RFC?
+>>> ====================
+>>>
+>>> Despite the limitations above, I am submitting this series to:
+>>>
+>>> 1. **Start the Discussion**: I want community feedback on whether batch
+>>>     registration is a useful feature worth pursuing.
+>>>
+>>> 2. **Explore Better Alternatives**: Is there a way to achieve batch
+>>>     registration without pinning? Could I extend HMM to better support
+>>>     this use case?
 >>
->> Consider a typical ML/HPC workload that allocates 100+ small buffers across
->> different parts of the address space. Currently, this requires 100+ separate
->> ioctl calls. The proposed batch interface reduces this to a single call.
-> 
-> Yeah, that's an intentional limitation.
-> 
-> In an IOCTL interface you usually need to guarantee that the operation either completes or fails in a transactional manner.
-> 
-> It is possible to implement this, but usually rather tricky if you do multiple operations in a single IOCTL. So you really need a good use case to justify the added complexity.
-> 
-
-You're absolutely right about the transactional complexity. This 
-operation indeed requires proper rollback mechanisms and error handling 
-to maintain atomicity.
-
-
->> Paravirtualized environments exacerbate this issue, as KVM's memory backing
->> is often non-contiguous at the host level. In virtualized environments, guest
->> physical memory appears contiguous to the VM but is actually scattered across
->> host memory pages. This fragmentation means that what appears as a single
->> large allocation in the guest may require multiple discrete SVM registrations
->> to properly handle the underlying host memory layout, further multiplying the
->> number of required ioctl calls.
-> SVM with dynamic migration under KVM is most likely a dead end to begin with.
-> 
-> The only possibility to implement it is with memory pinning which is basically userptr.
-> 
-> Or a rather slow client side IOMMU emulation to catch concurrent DMA transfers to get the necessary information onto the host side.
-> 
-> Intel calls this approach colIOMMU: https://www.usenix.org/system/files/atc20-paper236-slides-tian.pdf
-> 
-
-This is very helpful context.Your confirmation that memory pinning 
-(userptr-style) is the practical approach helps me understand that what 
-I initially saw as a "workaround" is actually the intended solution for 
-this use case.
-For colIOMMU, I'll study it to better understand the alternatives and 
-their trade-offs.
-
->> Current Implementation - A Workaround Approach
->> ===============================================
+>> There is an ongoing unification project between KFD and KGD, we are currently looking into the SVM part on a weekly basis.
 >>
->> This patch series implements a WORKAROUND solution that pins user pages in
->> memory to enable batch registration. While functional, this approach has
->> several significant limitations:
+>> Saying that we probably need a really good justification to add new features to the KFD interfaces cause this is going to delay the unification.
 >>
->> **Major Concern: Memory Pinning**
->> - The implementation uses pin_user_pages_fast() to lock pages in RAM
->> - This defeats the purpose of SVM's on-demand paging mechanism
->> - Prevents memory oversubscription and dynamic migration
->> - May cause memory pressure on systems with limited RAM
->> - Goes against the fundamental design philosophy of HMM-based SVM
+>> Regards,
+>> Christian.
 > 
-> That again is perfectly intentional. Any other mode doesn't really make sense with KVM.
+> Thank you for sharing this critical information. Is there a public discussion forum or mailing list for the KFD/KGD unification where I could follow progress and understand the design direction?
+
+Alex is driving this. No mailing list, but IIRC Alex has organized a lot of topics on some confluence page, but I can't find it of hand.
+
+> Regarding the use case justification: I need to be honest here - the
+> primary driver for this feature is indeed KVM/virtualized environments.
+> The scattered allocation problem exists in native environments too, but
+> the overhead is tolerable there. However, I do want to raise one consideration for the unified interface design:
 > 
->> **Known Limitations:**
->> 1. Increased memory footprint due to pinned pages
->> 2. Potential for memory fragmentation
->> 3. No support for transparent huge pages in pinned regions
->> 4. Limited interaction with memory cgroups and resource controls
->> 5. Complexity in handling VMA operations and lifecycle management
->> 6. May interfere with NUMA optimization and page migration
->>
->> Why Submit This RFC?
->> ====================
->>
->> Despite the limitations above, I am submitting this series to:
->>
->> 1. **Start the Discussion**: I want community feedback on whether batch
->>     registration is a useful feature worth pursuing.
->>
->> 2. **Explore Better Alternatives**: Is there a way to achieve batch
->>     registration without pinning? Could I extend HMM to better support
->>     this use case?
+> GPU computing in virtualized/cloud environments is growing rapidly, major cloud providers (AWS, Azure) now offer GPU instances ROCm in containers/VMs is becoming more common.So while my current use case is specific to KVM, the virtualized GPU workload pattern may become more prevalent.
 > 
-> There is an ongoing unification project between KFD and KGD, we are currently looking into the SVM part on a weekly basis.
-> 
-> Saying that we probably need a really good justification to add new features to the KFD interfaces cause this is going to delay the unification.
-> 
-> Regards,
-> Christian.
+> So during the unified interface design, please keep the door open for batch-style operations if they don't complicate the core design.
 
-Thank you for sharing this critical information. Is there a public 
-discussion forum or mailing list for the KFD/KGD unification where I 
-could follow progress and understand the design direction?
+Oh, yes! That's definitely valuable information to have and a more or less a new requirement for the SVM userspace API.
 
-Regarding the use case justification: I need to be honest here - the
-primary driver for this feature is indeed KVM/virtualized environments.
-The scattered allocation problem exists in native environments too, but
-the overhead is tolerable there. However, I do want to raise one 
-consideration for the unified interface design:
-
-GPU computing in virtualized/cloud environments is growing rapidly, 
-major cloud providers (AWS, Azure) now offer GPU instances ROCm in 
-containers/VMs is becoming more common.So while my current use case is 
-specific to KVM, the virtualized GPU workload pattern may become more 
-prevalent.
-
-So during the unified interface design, please keep the door open for 
-batch-style operations if they don't complicate the core design.
-
-I really appreciate your time and guidance on this.
+I already expected that we sooner or later run into such things, but having it definitely confirmed is really good to have.
 
 Regards,
-Honglei
-
-
+Christian.
 
 > 
+> I really appreciate your time and guidance on this.
+> 
+> Regards,
+> Honglei
+> 
+> 
+> 
 >>
->> 3. **Understand Trade-offs**: For some workloads, the performance benefit
->>     of batch registration might outweigh the drawbacks of pinning. I'd
->>     like to understand where the balance lies.
+>>>
+>>> 3. **Understand Trade-offs**: For some workloads, the performance benefit
+>>>     of batch registration might outweigh the drawbacks of pinning. I'd
+>>>     like to understand where the balance lies.
+>>>
+>>> Questions for the Community
+>>> ============================
+>>>
+>>> 1. Are there existing mechanisms in HMM or mm that could support batch
+>>>     operations without pinning?
+>>>
+>>> 2. Would a different approach (e.g., async registration, delayed validation)
+>>>     be more acceptable?
+>>>
+>>> Alternative Approaches Considered
+>>> ==================================
+>>>
+>>> I've considered several alternatives:
+>>>
+>>> A) **Pure HMM approach**: Register ranges without pinning, rely entirely on
+>>>
+>>> B) **Userspace batching library**: Hide multiple ioctls behind a library.
+>>>
+>>> Patch Series Overview
+>>> =====================
+>>>
+>>> Patch 1: Add KFD_IOCTL_SVM_ATTR_MAPPED attribute type
+>>> Patch 2: Define data structures for batch SVM range registration
+>>> Patch 3: Add new AMDKFD_IOC_SVM_RANGES ioctl command
+>>> Patch 4: Implement page pinning mechanism for scattered ranges
+>>> Patch 5: Wire up the ioctl handler and attribute processing
+>>>
+>>> Testing
+>>> =======
+>>>
+>>> The series has been tested with:
+>>> - Multiple scattered malloc() allocations (2-2000+ ranges)
+>>> - Various allocation sizes (4KB to 1G+)
+>>> - GPU compute workloads using the registered ranges
+>>> - Memory pressure scenarios
+>>> - OpecnCL CTS in KVM guest environment
+>>> - HIP catch tests in KVM guest environment
+>>> - Some AI applications like Stable Diffusion, ComfyUI, 3B LLM models based
+>>>    on HuggingFace transformers
+>>>
+>>> I understand this approach is not ideal and are committed to working on a
+>>> better solution based on community feedback. This RFC is the starting point
+>>> for that discussion.
+>>>
+>>> Thank you for your time and consideration.
+>>>
+>>> Best regards,
+>>> Honglei Huang
+>>>
+>>> ---
+>>>
+>>> Honglei Huang (5):
+>>>    drm/amdkfd: Add KFD_IOCTL_SVM_ATTR_MAPPED attribute
+>>>    drm/amdkfd: Add SVM ranges data structures
+>>>    drm/amdkfd: Add AMDKFD_IOC_SVM_RANGES ioctl command
+>>>    drm/amdkfd: Add support for pinned user pages in SVM ranges
+>>>    drm/amdkfd: Wire up SVM ranges ioctl handler
+>>>
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  67 +++++++++++
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 232 +++++++++++++++++++++++++++++--
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |   3 +
+>>>   include/uapi/linux/kfd_ioctl.h           |  52 +++++++-
+>>>   4 files changed, 348 insertions(+), 6 deletions(-)
 >>
->> Questions for the Community
->> ============================
->>
->> 1. Are there existing mechanisms in HMM or mm that could support batch
->>     operations without pinning?
->>
->> 2. Would a different approach (e.g., async registration, delayed validation)
->>     be more acceptable?
->>
->> Alternative Approaches Considered
->> ==================================
->>
->> I've considered several alternatives:
->>
->> A) **Pure HMM approach**: Register ranges without pinning, rely entirely on
->>
->> B) **Userspace batching library**: Hide multiple ioctls behind a library.
->>
->> Patch Series Overview
->> =====================
->>
->> Patch 1: Add KFD_IOCTL_SVM_ATTR_MAPPED attribute type
->> Patch 2: Define data structures for batch SVM range registration
->> Patch 3: Add new AMDKFD_IOC_SVM_RANGES ioctl command
->> Patch 4: Implement page pinning mechanism for scattered ranges
->> Patch 5: Wire up the ioctl handler and attribute processing
->>
->> Testing
->> =======
->>
->> The series has been tested with:
->> - Multiple scattered malloc() allocations (2-2000+ ranges)
->> - Various allocation sizes (4KB to 1G+)
->> - GPU compute workloads using the registered ranges
->> - Memory pressure scenarios
->> - OpecnCL CTS in KVM guest environment
->> - HIP catch tests in KVM guest environment
->> - Some AI applications like Stable Diffusion, ComfyUI, 3B LLM models based
->>    on HuggingFace transformers
->>
->> I understand this approach is not ideal and are committed to working on a
->> better solution based on community feedback. This RFC is the starting point
->> for that discussion.
->>
->> Thank you for your time and consideration.
->>
->> Best regards,
->> Honglei Huang
->>
->> ---
->>
->> Honglei Huang (5):
->>    drm/amdkfd: Add KFD_IOCTL_SVM_ATTR_MAPPED attribute
->>    drm/amdkfd: Add SVM ranges data structures
->>    drm/amdkfd: Add AMDKFD_IOC_SVM_RANGES ioctl command
->>    drm/amdkfd: Add support for pinned user pages in SVM ranges
->>    drm/amdkfd: Wire up SVM ranges ioctl handler
->>
->>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  67 +++++++++++
->>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 232 +++++++++++++++++++++++++++++--
->>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |   3 +
->>   include/uapi/linux/kfd_ioctl.h           |  52 +++++++-
->>   4 files changed, 348 insertions(+), 6 deletions(-)
 > 
 
