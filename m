@@ -4,74 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71712CD8CA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:33:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7987FCD8CA4
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1217210E8AB;
-	Thu, 13 Nov 2025 16:33:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1685510E8C0;
+	Thu, 13 Nov 2025 16:33:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P/Wt5r7D";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h45MkuuK";
 	dkim-atps=neutral
 Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
  [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6003210E8AB
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 16:33:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C0D510E8AB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 16:33:53 +0000 (UTC)
 Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4777a9aeedaso9038715e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 08:33:52 -0800 (PST)
+ 5b1f17b1804b1-47721743fd0so6311845e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 08:33:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763051631; x=1763656431; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=HT02VC5z4xZ5i1RzcAP/CPZxFEMnVgC9b/o+LpQKW0M=;
- b=P/Wt5r7DhI9B+EwWD3IqEFpkwulxUAEhu1/n6sfF9UdnnU4ZOyASSfJvqs82mAPUKX
- mSFVSmFn4AfS1/4UGV3YzalrBvN8uh9HPEXJiT6oQqwGTmouGNARFua83bYXl+ly4jS0
- xyQ+3DUeVjUPYPC6xHnRQGmfCiN1FBY/L3iEBJR0TDq89jkFaGwodro4JWkhtLjxWnwp
- D2VBr4YGaDBfWZf79fYeU+MR0lqIOFDgRiS4nLhMAW2HS53rF/djZZHLDIfU1YXtRny5
- 61Xn4pq2d6a802wsGQnukrL4n0LFk8vY3owrplXUX3CgJ8u3W+R3ZhKx6mLiGnHUeSmL
- H8ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763051631; x=1763656431;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1763051632; x=1763656432; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HT02VC5z4xZ5i1RzcAP/CPZxFEMnVgC9b/o+LpQKW0M=;
- b=pN5+gkjVUzomqlCbnTNVNE8+R7YmMYBTbraOtcPkRQV6wi59AKNPeSnrALBvHkRKlV
- VxRgMiGWIBcCKLxhQAT+BTyBW6WgRvFKBzswMJZsbg0dL/rE4JBGVqaScYreeLR4FwhQ
- L8IvBEhLZDxv7FhDxhOUGO6nhTkp7MJTr6qbsdmyNcOkLMSXf0mplyvdpE+vF0VtCbeL
- BNlWd0ItEmcZqJaVKR6gir58mJyxyCublqNox6mBoivT8j2EZnp1mlOS8RkaxT811ZVA
- 8uV1T28mWM2rFpHdeMRebPS2EPB24XPZZozAxcksVxK7Ga83Kp59OT0ceGT7ZfYNgI8Z
- lYKw==
-X-Gm-Message-State: AOJu0YwEQ+pxF2LC5m5Ly01/vQgnhScp0UL7BWWR8me1jctQn8NaaUJR
- FfRkBA4TwhR5h/tu7EJH2UI2RWnT2ETQHT2bZzNQ1gixB9rv7NHAEn1bXRUxOw==
-X-Gm-Gg: ASbGnctACvRsqlRMNabreBenImNY6m/8Qw15hsSkOip/BJJI4x53xZHLrFhpYT0YMnq
- AZbQLp0kU7N61HNG7ww7lKxKEbrQMioTq8BQcLfl8Ed7iW0PuTGZ8whZH5ItPzOZHLJaJY05dSK
- LX7zyd04DjukAcSLbB2R5Tw6b2rCV1wn5WhJFrF+U6JBm0AOTDLxq1ixKF+yEJ76Nr7hvghZqWi
- DmGu97SoJnJ/MuIhPY3Ycy2SPxw8ohG5pHoSrLy+P0b+VBGF95e6kfsTt5h6rnLkS3BVBBCF+Um
- xXNj9TTcEEuqOqy4fg19j1xhyXe6l6QVP8UHRRFwsL4kpL0E5GPbCUjw+U1xnJf9mDx4aX0M4ds
- iEOWtdGLx7ZOvZj/G9eetUTAi+lMo8qvPs+Os5+mUcpB06+1qArh3xZChc/WZn0K8tvMQF6l0Xu
- pRPA+9CxSpUJkRW3ZH7rNnQ5a//nrwj8fSa7h7s+DbsjRU+JpTrf5eralAjBFUGZ1Bry3YTtl/8
- fs8M3h4dKoFQb4Yk4BnzHefuggiYQ==
-X-Google-Smtp-Source: AGHT+IETcQ0QqjtX+j0cbOpZU8qnpSbynNsJtGLpi8eUxdTxv2XZAP2dZQyHb00p+uKW4ITvO1Gc6A==
-X-Received: by 2002:a05:600c:8b43:b0:477:fcb:2267 with SMTP id
- 5b1f17b1804b1-4778fe521d6mr1333055e9.8.1763051630636; 
- Thu, 13 Nov 2025 08:33:50 -0800 (PST)
+ bh=Ecv2KQfgWZYYSt2linzxpkiFINq6tw/SjaJ2OJ03m4Y=;
+ b=h45MkuuKKyIUj4/FU0VrCBvQjJ0dSKLbFz0TmmuMHW0wMbw3X0rFjH1hSKnXhY8BS+
+ fJghEZA/gOeE+crCJDlfF9bhNjUmD361Sxmqdia1jxmXy/cvyLW0ucFAY7CkAemobjyd
+ fqor+0Jh0Cahe8wCHhYlNK8MmuIDeBEHCzn5PxxtnDs29k2RLGT4Q6JaZVJn2vap+q6a
+ zncH3BEmq0y0xFeem9fzsgR5i0S3YYoZ2yiHykU9zDEEEH38CGGsY7Irw74M0g9O2H0U
+ wdgy5QbMk6sZGBI+Z38cSuV8aoizRixLDfpP5L+0TzvVNvThKQYUWx8cjIIcNdYdLyX6
+ 5XDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763051632; x=1763656432;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Ecv2KQfgWZYYSt2linzxpkiFINq6tw/SjaJ2OJ03m4Y=;
+ b=FpUw0qVfO9Pu5cvJCMEs5cd+tkRNbSp976Ti2vcnFJp2IVs5eacrdrf5J68VXIb5s3
+ CZcTlDzr7rcRnBI0H1M/Ms8qBW34KhrbMpb6OgTuU9dTp1SQoJ1XzJNRqKw5AzYxO3Wk
+ fNPGdK9B09sEWpp8Dlnqfr+dvYwIQdl/q1ZSumEkWzjiZDrzmBr7SEmJRE0apxTeImXq
+ Xr3eU28gwfUkjvDn9nrSk3FX1SQB84qXyKvA5W5UVgLfmmKZiaiROeIYSsPlAsFE3Z0q
+ 0zq6H0U2z7nWpgfIgJxR7S9Axjxv55qVJEZ1QyukF37L1z4Njpm5ZsnwildvoEuJCEj1
+ inZQ==
+X-Gm-Message-State: AOJu0YyTZP3PkrkqBYzLeebOv0LlDkRf5vckdZ4cGVJ6zinvqYD0+obA
+ J+wO8MDG2ojMut45GS4k1jiUQjzzxaEc8B/qftci+sXh/OrH8FzLeIIymmA7XA==
+X-Gm-Gg: ASbGncunZcVlK1kEAhSbLilaQL5FT6XJUT6pnu6EyqtbxT5oJQrYgMbr+YOwaIowWqQ
+ NpOBUYH0WGZTCNQd9/hvQymrDNNHUY7PrYc9ogmLn6JPa70HO1hJeAiEStg1HF/2MQYkqEcKnwk
+ DnJwyUfCVSv469M/v7uUpMUBDT0Vn5fjCZOnDDwdfoqOfeEXEPDKb7xs+jzqeSmpHeZtR/Vryfo
+ Y432ke55DqDrPomrw+Tziv6qcVhHb0GGv0wjNbNzhrd5miEKh/2RuFlqss10FrZWbDsbB6+BxUY
+ FWC5H/0533yWYEqw0jU2NPk6ZLZBcS/VRWWQPP2seohEmybka79Kj9/W6/vqxcQFRo+tMwaseqw
+ 2ZY/5OTwY1fIHiKfHnUdHjBU4k/c1tJWeFp7r2/LCSgLFJPDZS5i2mO9/Q/xVwzlZqBd9Bhd2mP
+ 2E9SgB/2sku62FUVBqT0rl6iHeAhNBZjuBTAnwkmKewYHrZ2pSqCtqbdQXWZRmLItcrm1pnHYgj
+ 0QI38dlblRIN20sGB4=
+X-Google-Smtp-Source: AGHT+IHRvNuHGbx8bGHuPrZUe1pcBk8Yt8sDI2xGXJob99H4fiNhsSM0dFMxVMdEHEM+eLhN0KcDSA==
+X-Received: by 2002:a05:600c:4585:b0:45d:d97c:236c with SMTP id
+ 5b1f17b1804b1-4778fea883bmr911305e9.21.1763051631688; 
+ Thu, 13 Nov 2025 08:33:51 -0800 (PST)
 Received: from Timur-Hyperion.home
  (20014C4E24E1AF00BA2088E69F553967.dsl.pool.telekom.hu.
  [2001:4c4e:24e1:af00:ba20:88e6:9f55:3967])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47789ffea1esm76376335e9.13.2025.11.13.08.33.49
+ 5b1f17b1804b1-47789ffea1esm76376335e9.13.2025.11.13.08.33.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Nov 2025 08:33:50 -0800 (PST)
+ Thu, 13 Nov 2025 08:33:51 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Ray.Wu@amd.com, Harry.Wentland@amd.com,
  Alex.Hung@amd.com, Wenjing.Liu@amd.com, Chris.Park@amd.com,
  Yu.Wang4@amd.com
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 0/4] drm/amd/display: Follow-up patches to analog support
-Date: Thu, 13 Nov 2025 17:33:44 +0100
-Message-ID: <20251113163348.137315-1-timur.kristof@gmail.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH 1/4] drm/amd/display: Fix warning for analog stream encoders
+Date: Thu, 13 Nov 2025 17:33:45 +0100
+Message-ID: <20251113163348.137315-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251113163348.137315-1-timur.kristof@gmail.com>
+References: <20251113163348.137315-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -89,25 +93,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series addresses some feedback that I received after the DC analog
-series support landed. Harry already gave a review to the patches.
-Please feel free to let me know if you have any other feedback that I
-should address regarding the analog connector support.
+Fixes the following warning that some users are reporting
+with some kernel configurations:
 
-Timur Kristóf (4):
-  drm/amd/display: Fix warning for analog stream encoders
-  drm/amd/display: Cleanup uses of the analog flag
-  drm/amd/display: Cleanup early return in construct_phy
-  drm/amd/display: Move analog check to dce110_hwseq
+"positional initialization of field in 'struct' declared
+with 'designated_init' attribute"
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++++++---
- .../drm/amd/display/dc/dce/dce_stream_encoder.c   |  2 +-
- .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c |  6 ++++--
- .../gpu/drm/amd/display/dc/link/link_detection.c  |  2 --
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c   |  3 +--
- .../gpu/drm/amd/display/dc/link/link_factory.c    | 13 +++++++------
- 6 files changed, 25 insertions(+), 16 deletions(-)
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+index f8996ee2856b..574618d5d4a4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
+@@ -1568,7 +1568,7 @@ void dce110_stream_encoder_construct(
+ 	enc110->se_mask = se_mask;
+ }
+ 
+-static const struct stream_encoder_funcs dce110_an_str_enc_funcs = {0};
++static const struct stream_encoder_funcs dce110_an_str_enc_funcs = {};
+ 
+ void dce110_analog_stream_encoder_construct(
+ 	struct dce110_stream_encoder *enc110,
 -- 
 2.51.1
 
