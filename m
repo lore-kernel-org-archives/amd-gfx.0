@@ -4,127 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE87CD484E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Nov 2025 22:27:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E74ECD4F28
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 06:30:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E34B10E7B1;
-	Wed, 12 Nov 2025 22:27:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE1EE10E0EC;
+	Thu, 13 Nov 2025 06:30:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l4pQ9z+w";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Liysx/1p";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013056.outbound.protection.outlook.com
- [40.107.201.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D9810E08C;
- Wed, 12 Nov 2025 22:27:23 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012042.outbound.protection.outlook.com [52.101.53.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C41B10E0EC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 06:30:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PUc8IhiVlhPf6fzAZ5ZhU1X8oA3IbD1q0GY/a1pqoiy8owg84p4DT6nyYJ13SauD2fsxWdx8SJfNHvp1/mXD6Nz9SMVuzVNBPmROYd0DfVK1tKgDWdZwsugA2iwDRXKmaWiEL8Qtor9zWBgP47alN8lmrQgnT2a0RDy371aIuQybTXQHpTtBy5wCvZ9XQd2ORRBsGBpNc5svMoN+NldWm9XZBWtOHk/DUxJDbo61xLu3BSXI38/C7xWJ5VoMNziZhQIoofnAjlZxdPS8Ip1uWn5PX8isy+f8OOHRySw7aYYk7q1cJ9uSbZuErRs1t4EhqelIDbLb3zMDhfAPnkhZyg==
+ b=xNdYJ1qQEhAXnw2WgHpaUKIkUKNV2xV3RSHbyaEYYvGmHFEQO8O81yJvM9idn0RLinHrxFPQZckLGl18jmzGdfARqctm7dTYrNjYpSG/LZHL2acSmKjxGgB0lSHmWA8t3AKaAp5s/sCMFSKRrLly9bH2V+mYCSSahBNf3+1qwY/GjDY+dncpKQ49idY3OaHRFKtgLmva3yBIUxIrLJIX0na/e5vQpLgcR3XWZZZUF3su7lztNSPJuBDs4VdpyCl2AcU1ouat4fpyXBhRKUU+lY46YReP3bf8hCz4hfM7KYPwKYTcJFKQj+Wd+5SDRZ4P6FdcrvkDuWp1lV1GzXKaJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W9awpognap/YT6iIJNxCWqkU+X3OWts3FBoskuj8cxY=;
- b=XgGgHoYpYTz2pQTpY4rb4j5Jucq3TPsBFu9f3Nnlac7aYb4uTDJLdT6k7sShV7N9ueFP58d5fh3+Fer28QfY2Uy5PGU7QSsbZMvFjDECAb3sB6+AIoMz8oSD5ePTIl9qCON4C2NW5Ux9PxJbHiKYzCbViE8XiAgH0MMmMfxKNkLD0g8DY+X/OgxyetxAlec1l3DaySJvViITlb9JGfZ8z1Ac7uSDyKouZ23IKJkDtcrn53oZeyUX6XIEaKe0F2WhF9ydR2BOtBuAs4sja4EObIB9BvZHi8qJj4Cim+LouYE/n98hsjbAcUyfFz3hI/qMuuZUw6jvoe+uYNNyAcJRdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=UGS5LDL+P1pvi/lsv28fsP/wlHv+9S3LTPB30DqRl8s=;
+ b=UEVfZdLP5f5GtV50ncP6m5vW7T5CUaCbziKqCz0/7pz7/xLXHnJEN7agNRFcRvERWiaDs6ps6Yk8cCjasrVBEIUc4TGRiKVBmxZbQZw/UhfZWZ62Ul6f44svnWUkJwR/731HtXQSzHlV2K1vU8JzC+feuXwGp4dlVhdpstDW5ph4ZvujTqrU/NFNAJwBqIi6MI39oqZ7eBa5diCkPajPO7IE1AoZgRrFP88USmVL0ihMWfTXd/8Kpqy7eRPFtaKHn7g0OsSYqMgj9SByzqTvo8jPgql8EHQoTpXo0RaXRIUb9TnbFhoZXPyi1yF0BUOsEzc/C3n7ZcJprMVpvN7kfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W9awpognap/YT6iIJNxCWqkU+X3OWts3FBoskuj8cxY=;
- b=l4pQ9z+wS2pAoPOHXohRXqdN9cxPmrT7IxO86wSXWHJpZ+p67mGkuiifBd0g99F9Jwbi3BNINUjSlEsqWlssxgUNggVwrG7BDv1iQ0eL8k40RJezASWoRJtnZ4W2tYIVqtIVJCqMQ18wpcDtCHIPen3oAIWqqj6X/r7qfb5t4qM=
-Received: from SJ0PR13CA0036.namprd13.prod.outlook.com (2603:10b6:a03:2c2::11)
- by SA1PR12MB7318.namprd12.prod.outlook.com (2603:10b6:806:2b3::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.16; Wed, 12 Nov
- 2025 22:27:12 +0000
-Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::e1) by SJ0PR13CA0036.outlook.office365.com
- (2603:10b6:a03:2c2::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.5 via Frontend Transport; Wed,
- 12 Nov 2025 22:27:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.13 via Frontend Transport; Wed, 12 Nov 2025 22:27:11 +0000
-Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 12 Nov 2025 14:27:07 -0800
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Simona Vetter <simona@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, "open list:RADEON and AMDGPU DRM DRIVERS"
- <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>, Simona Vetter
- <simona.vetter@ffwll.ch>, Harry Wentland <Harry.Wentland@amd.com>
-Subject: [PATCH] drm/amd: Move adaptive backlight modulation property to drm
- core
-Date: Wed, 12 Nov 2025 16:26:46 -0600
-Message-ID: <20251112222646.495189-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.51.2
+ bh=UGS5LDL+P1pvi/lsv28fsP/wlHv+9S3LTPB30DqRl8s=;
+ b=Liysx/1pd7YDfWMVZXIxECH3oA8K8hYm3AB8GQ6O4uNLpp9vWcpfljybTjAOVpSALfI/Ykwj8rmJT75jDKagEqEJdamNbrLQkFiBnyosT6DnY9gs6R7GILWPlPE1bf3Rufxov+SEeY3wrIk+KG5eFfJpdy1Sts7PeI08TVjw83w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DS0PR12MB7900.namprd12.prod.outlook.com (2603:10b6:8:14e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Thu, 13 Nov
+ 2025 06:30:41 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d%4]) with mapi id 15.20.9320.013; Thu, 13 Nov 2025
+ 06:30:41 +0000
+Message-ID: <0bd34547-e444-4037-a46c-0ff2975813d5@amd.com>
+Date: Thu, 13 Nov 2025 12:00:33 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] drm/amd/pm: Add sysfs node for ubb power
+To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: hawking.zhang@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
+ alexander.deucher@amd.com, KevinYang.Wang@amd.com
+References: <20251112152815.203110-1-asad.kamal@amd.com>
+ <20251112152815.203110-2-asad.kamal@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20251112152815.203110-2-asad.kamal@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA1PR01CA0149.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:71::19) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|SA1PR12MB7318:EE_
-X-MS-Office365-Filtering-Correlation-Id: e375af5b-5060-40de-d7fd-08de223a9feb
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS0PR12MB7900:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0547d08c-34d2-4265-6c5b-08de227e2ac3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+v7Xmr3f4QW+gLEFCUjTbw1P1AohS9s0b2M3yAIxcF095s36ZpspvuJT/2/v?=
- =?us-ascii?Q?Bx/Je01WIVMwf5VnlyQEq5YwT9RhRgSUoDCA6wKAaTA6d7Oe2hPc4erpq8WL?=
- =?us-ascii?Q?wO34bNcd2n2u6R1jDOJzrd4LpnkO/fl39SGWEDqJskN1DyOaUzeZRLuEBJWw?=
- =?us-ascii?Q?/N3CkrDJ/Wt3QUnBfpW1ElW5ZGBu1IKTIX0cGO+6VtUtujywVret3+d1CMro?=
- =?us-ascii?Q?QMm0xTD72IU8a156ubYZ94cC67U5B+dGh4VsPnR/2dwiiGDhkm43jOM/XyVi?=
- =?us-ascii?Q?O3UUXNby8y65R+Sx6nwKh/gssxIHAFx7p+lAO3ilguIe+45fILidefygXEm8?=
- =?us-ascii?Q?HzjcOipKqbZrKZ+Vf7nxwjwyeOlg0ylwuVJo/s+50q7NwquxKEiLjV1usPLK?=
- =?us-ascii?Q?0NqJdk/vKh/FfBpBu6I2DfZFoIptcqyEcFx1MdfpZHtydBoljVwVskd1q2VT?=
- =?us-ascii?Q?7F7DFaRL9Z0KMBg3RXlK2bTFTXkYHjLqkg1So+Y+Fv5tm43khhD/H1TzCZ5V?=
- =?us-ascii?Q?CiWtho5TkA1hcrq5QlVwBfKJwqgOr5Dj8Mp5j5VAutXkDVfdWdfl6nhgv+dR?=
- =?us-ascii?Q?iyRGYIhP2fDaGvPJ8Vz8hwuXPRHdGIc6lfzIJKqMUPUjI8RHQvGjetIgxYy7?=
- =?us-ascii?Q?LPKuSCza2Jm20xPDqwcnkmXNdI1t0Ex+5yXrlpsCG4Di0iS7mm41bkIEUcqG?=
- =?us-ascii?Q?NToo+xRVPHRsCIlgRwgIJgcOdVh/EtTHeFUxEe7Uy1d5qDWi23mmxjFEihAA?=
- =?us-ascii?Q?fjXRpvoFSMAXSSgrWWMHWzMGsXHdIEpX/LdDmPUeQbXDcLD4D1jOtTGGLcfu?=
- =?us-ascii?Q?OIBC7SAj5c/QpJ44BAFLGHdM3In4Eq8exyG4gXYiVYo05YbdBNlzT6tJSqKg?=
- =?us-ascii?Q?pMCgZ/C/u2yZZ8GlzuSDnDmMGjzkhyk5bGRzkrxhAmH7mRDmuti5ieyt/MEo?=
- =?us-ascii?Q?66P93nUoV/OZ57ADDmjPU+lGYyoVRxwWVrgZNn1YAtNyCGkuWhtuN5gMhUC1?=
- =?us-ascii?Q?RuCHaiGcFA+RpU21zvwRxy5T5sxl55OkFEqjVZ3YzLfFaNuh5UA5FU9XeCPr?=
- =?us-ascii?Q?KSzBdPvvC9vviFAsmlnyAO1MYRytpIrdrngC8WiiK9Qb9oUBxr9229OLuRuM?=
- =?us-ascii?Q?Vm/585ArYjltlpKidu1IP3ZpwfPlade6ekFpEaS7AjzJQqI7J3P9D5sQP8XN?=
- =?us-ascii?Q?CxgtVptx6y38Z/BaXdcdztCkvmETh1DaXLRdoyR2NJnfWKStw6lwppn4yeNy?=
- =?us-ascii?Q?in1Z3W3a5jqo3pVbBvQFbNa0dWZ4JD2dJhP5sUaCqY3yR1g/0vnv1EvxSsz3?=
- =?us-ascii?Q?8u8JAkL+fa8L6chtIb7UrQ5CGe+8mDOu6xWeuiwWFOB79W8GoARd3Etg9bZA?=
- =?us-ascii?Q?tjBDIxuifaE433Va3bSOsn25cnejOoRojT0eF3EIxBcqelLy0IChdYMqZ+Ns?=
- =?us-ascii?Q?wm6T87qQovEEvN19n06eBO6PL/ikaczhyJOxlKcBUkkpnvVwFlXTw8PTY3VS?=
- =?us-ascii?Q?Mf+6ijDEUxauEr5DMXxd8rakytCSIZjhzT25fOyoQZmzHjTbTy2Bp3GPpmFw?=
- =?us-ascii?Q?Ry69y+X0PbuyJVuMYz8=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Sk1NdkwzTC8zeFZObDVlSVNYdmJmTTJnT2dkaHJ2NTFPbDk2YTlFZ3VCVURX?=
+ =?utf-8?B?ck5weTRvUWdSSnErb1pmc3M0dTM0b0JVWWRoemcrV1pwUGEycmhiMnFiUzF5?=
+ =?utf-8?B?cDMxUXJ5RjdhQlZBcWlkQnNEYlZQSkErZDZlSHBma1VWZGlaRzlSQ0gwOG9z?=
+ =?utf-8?B?eVFVRFlEMU1VKzZlb1NtRlBzOWxCcmVTdmdOdnc3b2ZQcHJjSXFtcnZXdnVU?=
+ =?utf-8?B?ZGpUbUNXd1dCeDJKQnVyTFBZc1pqdDFMTEE1d1pVYW12NVVsOGdZOGpPYW5m?=
+ =?utf-8?B?SlhqVElqUGlKd2R0a1ZHRUx6Y2pXRXhic3FEbTVLeEEvUldTODhVcmswWDA5?=
+ =?utf-8?B?bEZ5WnFvSUpjZWVtUTdqemh1eG8zcUxkank0OC9tTGp5YkNZUkgzSE1WNkV2?=
+ =?utf-8?B?VVVwWWZjMDUyZm9RQ2JoejJkZHg2NzFRWW9kK25GMXhFUFplN1NjdkVtQ3Zt?=
+ =?utf-8?B?Wkhtb1BZT1BMdHptSDVTbDJhbDByN2VkL21WZFJSM0hsQ0g1bGpORDJENDhp?=
+ =?utf-8?B?MHJBM2ltbGdZOE1SV2o0QllFbXNWUnpBa3JOSSt1QUlEZ1Y3eDNrckZEYXlC?=
+ =?utf-8?B?MGNSb05jNndCcVY5NlhzMnZ0Ymh4cUt6U283enZ0QnMxdytFajUySHgzRE5R?=
+ =?utf-8?B?RzVXMDFLVXRuQUhXRTgrcW1pcG9TQnArK2JWczZReGFuRm0rMHZtKzlCclRB?=
+ =?utf-8?B?d2JFclE4ck5Mbmx3eEp5VzVua3FGQkl5YUJPUkV1M3ZKWHZNeWNaVEEyK2ky?=
+ =?utf-8?B?K0ZnbElGaDZHRnNiYk5aUjBWZXFpUXBTaEhPMHAyQ0JBVDJDS2JDaE9xUDFE?=
+ =?utf-8?B?c1l0VlJPUFRVM0VFNEpEOFlVRnhobjJLWGRTZXNTNmRMbXBBaGdmcjNEZ1ZF?=
+ =?utf-8?B?QUo5NllhQnVPRlZTYVhVQkJWbGJES216SnkxRWFmZHR6TE1LS013eExrdzFj?=
+ =?utf-8?B?NkFrdFlwQ0xwdk1uS2ZyUlRDWmQzVFd1bFpFTkc1OHo2dEF3SktXS0tFSmFI?=
+ =?utf-8?B?UXRPK1R3Z2NmZ00yckdoOVJnWklhWUlHbmNEQXc4UHZWZUhtSXkza0FWR1Fi?=
+ =?utf-8?B?dG1JSGhwdjVNT0JLNjlrM1JpVnE5RjJYMFFKRjNhdWYxb3YxUmtmTDE2VlZR?=
+ =?utf-8?B?UUNKbVNGWmFWUzAvMFQ4T21NQWlrK0s2M1Z0cTlnUjlSZ3RSQTlBUlhjaUZR?=
+ =?utf-8?B?b0lsaTZZUUNicTQzek1nay9SZUNtT21hMy9md3RQanZMbk1lbG9DenNYQjVS?=
+ =?utf-8?B?R1d5QU5iYlhIQlFiRUMwN3k0UHBnMnlwM3ZXbSswOEhRYU1BcnpzMU1kTFVn?=
+ =?utf-8?B?SUJMbVBUL0VWVnJHbENCZFZUbXdWTFFqcE9UYlBRVHp4cFRzci9sNGpYKzkw?=
+ =?utf-8?B?U2Q2VVpQdThLNS9ITXE4Z1M4YUtOYTE3MU8zaFZaelZZa2hzejVnYVRrRml1?=
+ =?utf-8?B?aVM4bmh6UzgrZHBwQzRhT0pQVlowbU52S3JvNUVmeklRRXk2NkdpZ3ZnV1BO?=
+ =?utf-8?B?TlpIdURPS0xBL2t3M2pTbjh1djc4OExUeURGTFpjQlRZVkVaeHI0VkRNNFdu?=
+ =?utf-8?B?QmNZNTVxeWJpZHd1TlJUQkVQTkFKOTVHS0hhTmZRcUIrUG84d2NSUzFFZklk?=
+ =?utf-8?B?TW8zRmw3Vm5rSlNrUE5tbWxsSG9CTUVjZVRDRVBEMGhXYnFYTGlUNzJiV1FC?=
+ =?utf-8?B?NllXVDFaa1d2Wi9rZVdMeUlMcU9hMFI1WVNhVDEwbjVTZXdMWTRtS3BvQmF1?=
+ =?utf-8?B?dnJlT0kvalRvK0dpK01kSlkrY0lFUk5TOHZFdGNqaTd1ZlMxS0VhWmljenBt?=
+ =?utf-8?B?R2pQbEZKMFN5U2EyM05SeENwT2ZScDBYeENoRlIyUHJLNU9NbmpWazVqT3ZV?=
+ =?utf-8?B?WGN4TFRwSnNUdTRQQXhHV2RzQkpDNmphTGdUNGlBTE1lY0tGY3BRYU84TWhu?=
+ =?utf-8?Q?7yliMNhdSmz5jZIKDRvOTrZYE6a8ibdF?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UURCeXdCTFBybklMTC9oTUlKVjNDMytGVzRBOFRvMnBLUTVWWkpibko5aDRX?=
+ =?utf-8?B?THdkRDRGWWI5dEppSDNmWlFpUTNrbHphVEt2TXlDZ0JMZE04Nnc2QkpDL0dq?=
+ =?utf-8?B?NHVVY2xTQklGbFZSaGs2WWpzUlQ5N29GUnRnR1JvUE9meXBJeCtBMU51SWg0?=
+ =?utf-8?B?V2xqWUs2NkQwMUFOYUdKSGh6ckdBUkpDd21KR2VXUzZwRUdZZUJGUFlBc0V5?=
+ =?utf-8?B?VEpRMnBtRFhHSERMV1BrQ3BoTW9ML3VsVGtka1dURjJnK1JxRWwxTzlxNTZ3?=
+ =?utf-8?B?SXY5MmFaRjczQ1BkZkRtRGY2VGNrN2pldnpmVzZ4UUlhdDcyRGd1NzJSQ0lp?=
+ =?utf-8?B?T0JGRUVObDYyd0x5SmZtNmNmeGlXdWgrYzhCRUlJNDRDV1QvS2ZPNnpxcUp5?=
+ =?utf-8?B?YVI3S1pJR3lEczVSZmpiMnYzS2QzVGgrVHhVVmRadzBGTkNrYlVqK2xDdlZi?=
+ =?utf-8?B?c2tFVDRlNW9wd3VjemRqTjg0NHZQdytiMktvMU1iSTk4TjMwN3lnV2w3dmpj?=
+ =?utf-8?B?WGtNNTRnTk9kSXZPT2syWFgvNk5VVFBtZTJuZWhqY1J4MXBsUFE1OWVUOWkw?=
+ =?utf-8?B?SU1KcW93RUxOMXRZUXZsa090S3ZLVVlkOEJwS0JIT0hCcTRJYlk5azljdzFt?=
+ =?utf-8?B?d2ZmWXlheGJIblJNL04zZVNzRUJkelZLVWd3Sk5iNzk3U29NeHhZR0lpNi9a?=
+ =?utf-8?B?Vk5rR1JHOHh5bnB1NHFQeW1hTXYvOUJjVWU3S3pIUk8yN2FXZkQxZlFVQ2xE?=
+ =?utf-8?B?blNVVzhyYTlxUExoMHdxbEhFTndtUkN0VktFaGhQT0FnOEh6SlVraDdhUWFa?=
+ =?utf-8?B?M0xHY0Y5bFl3bEg2RVJCK21wVDFaNStWcFZwc0lkVlBQZmxoT3VGcWlmU0t1?=
+ =?utf-8?B?ZjBEZ2tsYmZRZjQwMHQ5czJiS2l5L0I3NWFYRjJIY1NlNVgyVDlBeTc2SjlW?=
+ =?utf-8?B?WWhJbllYd1E4SlJQMU5Eb2FDbTZGVmhHblozazExaDZUQnhmcW13L1dqa0wr?=
+ =?utf-8?B?bDFGd09DU29mRXAzOFdIREd4QjhHblE4WmFWTFBkc1FGWkwrT3Q3SFBhQlpN?=
+ =?utf-8?B?cHBpVkVnMUt5WjZlOTdGL1lDTElMTVE2cmdEQThROVJOR29jd3lHSkZyN2hp?=
+ =?utf-8?B?TGxtYzl6L2tFYnhnWFd5dXdLcDU5VU5XZTBBcUQyODFSb3RCcndmU2k2dllF?=
+ =?utf-8?B?bkdYUndzWGxKUWFqbERhWTdEYVd6K2xrb1VTNnNjaERxcHNDODRDZVVvYmNQ?=
+ =?utf-8?B?c3hqN0ZUVTBZZXdLbElydHRtUWJwdGRqOXhSd1IrM1R2UEUrTlU2S0tDdEJX?=
+ =?utf-8?B?dUo0QUpzN2FVQjlzU09NQUR6VTVzNlVQcUJ1dno3bXg4MkJValp1alVyeUFQ?=
+ =?utf-8?B?OU50bldsRW40dVFQMFpzVERpMVpKc1BJQ2s3ajJZVjhIVm96NXpNN0N0Z0Fh?=
+ =?utf-8?B?TEFlYTdjY1RmZGtRZEpWV3I1dkhxbVFiRzRLbnRmeC9zS2pudzlWREVwbHUy?=
+ =?utf-8?B?TFl1eVlPOHBxMUNlN25Yb1IvS01kL0l2cUVhaGpFcENzVkU4L0s5TEZTUWF1?=
+ =?utf-8?B?M0swMnBzZlU4QXgxb1lWNXdUbmt3czh2cTZ2OWlhWDkySTRVUjQreTYvaWR2?=
+ =?utf-8?B?R01BVXRaZkxET2d0cCs2U1FiMUpjZDRSWHFHK3dvbjk1aG5mUHVPZEEzODFM?=
+ =?utf-8?B?dEZVb2Y3VHV0TWp0Q2o4MVZXcjFZQWdPQzZhajdOWkhZUnlwQUNKN0hZQ0hX?=
+ =?utf-8?B?bTIzc3Y4YWRNYWgySS9uU1dKdGNkUHVPeHlTQ1ZaaXhNRDZNVjJDOEFSMFVO?=
+ =?utf-8?B?VmJSK1pwd0N0K1JxeVBYWXBoVGdocjFEWFVJeC8ybjdKbHZDbWkxRWNlTmg5?=
+ =?utf-8?B?WXdEY0lwMFhaQUhINGc1Vmsxcy9FV2dWMFZzSDRIY0pzcFR1MEdUaHBvOGNl?=
+ =?utf-8?B?aXpsV3RkMjRYNnE3b1R2YTlFRlJBaUY0ZytrdU1ORnVSUkFXcS9jaC9pZzdG?=
+ =?utf-8?B?TEdqeElaWGxuS2Q0Zkp4RUlMbVVNRzhIVGs4YzJEd0VLSG9VbEI3RjNEcXhO?=
+ =?utf-8?B?cFlDa3VvazRLT1FpMTEwSlVHTmNDWFl5L0JTT3ZxcGcvd0NCWEpWbldDNjZV?=
+ =?utf-8?Q?fk+LM/l5oOiBGbzqRZRfdsXLX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2025 22:27:11.8330 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e375af5b-5060-40de-d7fd-08de223a9feb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0547d08c-34d2-4265-6c5b-08de227e2ac3
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2025 06:30:41.5735 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7318
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JkwFoPgXWR/R/irrJK/ppB20ICoBQuA7MX4z89KzdxK2A98PBKCHTQI9ql56fV8s
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7900
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,224 +162,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The adaptive backlight modulation property is supported on AMD hardware but
-compositors should be aware of it in standard DRM property documentation.
 
-Move the helper to create the property and documentation into DRM.
 
-Suggested-by: Simona Vetter <simona.vetter@ffwll.ch>
-Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 69 +++------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  7 ---
- drivers/gpu/drm/drm_connector.c             | 63 +++++++++++++++++++
- include/drm/drm_connector.h                 |  8 +++
- 4 files changed, 80 insertions(+), 67 deletions(-)
+On 11/12/2025 8:58 PM, Asad Kamal wrote:
+> Add sysfs node to expose ubb power limit for smu_v13_0_12
+> 
+> v2: Update sysfs node name to baseboard_power & baseboard_power_limit to
+> make it consistent with other node names (Lijo)
+> 
+> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+> ---
+>   .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 65 ++++++++++++++++++-
+>   2 files changed, 65 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> index 2366e68262e6..92477120c28d 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> @@ -166,6 +166,8 @@ enum amd_pp_sensors {
+>   	AMDGPU_PP_SENSOR_NODEPOWER,
+>   	AMDGPU_PP_SENSOR_GPPTRESIDENCY,
+>   	AMDGPU_PP_SENSOR_MAXNODEPOWERLIMIT,
+> +	AMDGPU_PP_SENSOR_UBB_POWER,
+> +	AMDGPU_PP_SENSOR_UBB_POWER_LIMIT,
+>   };
+>   
+>   enum amd_pp_task {
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index d9e37fd6e186..1efa08771361 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -2082,9 +2082,10 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
+>    * for user application to monitor various board reated attributes.
+>    *
+>    * The amdgpu driver provides a sysfs API for reporting board attributes. Presently,
+> - * seven types of attributes are reported. Baseboard temperature and
+> + * nine types of attributes are reported. Baseboard temperature and
+>    * gpu board temperature are reported as binary files. Npm status, current node power limit,
+> - * max node power limit, node power and global ppt residency is reported as ASCII text file.
+> + * max node power limit, node power, global ppt residency, baseboard_power, baseboard_power_limit
+> + * is reported as ASCII text file.
+>    *
+>    * * .. code-block:: console
+>    *
+> @@ -2101,6 +2102,10 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
+>    *      hexdump /sys/bus/pci/devices/.../board/node_power
+>    *
+>    *      hexdump /sys/bus/pci/devices/.../board/global_ppt_resid
+> + *
+> + *      hexdump /sys/bus/pci/devices/.../board/baseboard_power
+> + *
+> + *      hexdump /sys/bus/pci/devices/.../board/baseboard_power_limit
+>    */
+>   
+>   /**
+> @@ -2295,6 +2300,52 @@ static ssize_t amdgpu_show_max_node_power_limit(struct device *dev,
+>   	return sysfs_emit(buf, "%u\n", max_nplimit);
+>   }
+>   
+> +/**
+> + * DOC: baseboard_power
+> + *
+> + * The amdgpu driver provides a sysfs API for retrieving current ubb power.
+> + * The file baseboard_power is used for this.
+> + */
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index f8b35c487b6c..3d840bef77bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1363,67 +1363,9 @@ static const struct drm_prop_enum_list amdgpu_dither_enum_list[] = {
- 	{ AMDGPU_FMT_DITHER_ENABLE, "on" },
- };
- 
--/**
-- * DOC: property for adaptive backlight modulation
-- *
-- * The 'adaptive backlight modulation' property is used for the compositor to
-- * directly control the adaptive backlight modulation power savings feature
-- * that is part of DCN hardware.
-- *
-- * The property will be attached specifically to eDP panels that support it.
-- *
-- * The property is by default set to 'sysfs' to allow the sysfs file 'panel_power_savings'
-- * to be able to control it.
-- * If set to 'off' the compositor will ensure it stays off.
-- * The other values 'min', 'bias min', 'bias max', and 'max' will control the
-- * intensity of the power savings.
-- *
-- * Modifying this value can have implications on color accuracy, so tread
-- * carefully.
-- */
--static int amdgpu_display_setup_abm_prop(struct amdgpu_device *adev)
--{
--	const struct drm_prop_enum_list props[] = {
--		{ ABM_SYSFS_CONTROL, "sysfs" },
--		{ ABM_LEVEL_OFF, "off" },
--		{ ABM_LEVEL_MIN, "min" },
--		{ ABM_LEVEL_BIAS_MIN, "bias min" },
--		{ ABM_LEVEL_BIAS_MAX, "bias max" },
--		{ ABM_LEVEL_MAX, "max" },
--	};
--	struct drm_property *prop;
--	int i;
--
--	if (!adev->dc_enabled)
--		return 0;
--
--	prop = drm_property_create(adev_to_drm(adev), DRM_MODE_PROP_ENUM,
--				"adaptive backlight modulation",
--				6);
--	if (!prop)
--		return -ENOMEM;
--
--	for (i = 0; i < ARRAY_SIZE(props); i++) {
--		int ret;
--
--		ret = drm_property_add_enum(prop, props[i].type,
--						props[i].name);
--
--		if (ret) {
--			drm_property_destroy(adev_to_drm(adev), prop);
--
--			return ret;
--		}
--	}
--
--	adev->mode_info.abm_level_property = prop;
--
--	return 0;
--}
--
- int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
- {
--	int sz;
-+	int ret, sz;
- 
- 	adev->mode_info.coherent_mode_property =
- 		drm_property_create_range(adev_to_drm(adev), 0, "coherent", 0, 1);
-@@ -1467,7 +1409,14 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
- 					 "dither",
- 					 amdgpu_dither_enum_list, sz);
- 
--	return amdgpu_display_setup_abm_prop(adev);
-+	adev->mode_info.abm_level_property = drm_create_abm_property(adev_to_drm(adev));
-+	if (IS_ERR(adev->mode_info.abm_level_property)) {
-+		ret = PTR_ERR(adev->mode_info.abm_level_property);
-+		adev->mode_info.abm_level_property = NULL;
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- void amdgpu_display_update_priority(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-index 2b1536a16752..dfa0d642ac16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-@@ -54,11 +54,4 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev);
- int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
- 				      struct drm_scanout_buffer *sb);
- 
--#define ABM_SYSFS_CONTROL	-1
--#define ABM_LEVEL_OFF		0
--#define ABM_LEVEL_MIN		1
--#define ABM_LEVEL_BIAS_MIN	2
--#define ABM_LEVEL_BIAS_MAX	3
--#define ABM_LEVEL_MAX		4
--
- #endif
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 272d6254ea47..376169dac247 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2603,6 +2603,69 @@ static int drm_mode_create_colorspace_property(struct drm_connector *connector,
- 	return 0;
- }
- 
-+/**
-+ * DOC: integrated panel properties
-+ *
-+ * adaptive backlight modulation:
-+ *	Adaptive backlight modulation (ABM) is a power savings feature that
-+ *	dynamically adjusts the backlight brightness based on the content
-+ *	displayed on the screen. By reducing the backlight brightness for
-+ *	darker images and increasing it for brighter images, ABM helps to
-+ *	conserve energy and extend battery life on devices with integrated
-+ *	displays.  This feature is part of AMD DCN hardware.
-+ *
-+ *	sysfs
-+ *		The ABM property is exposed to userspace via sysfs interface
-+ *		located at 'amdgpu/panel_power_savings' under the DRM device.
-+ *	off
-+ *		Adaptive backlight modulation is disabled.
-+ *	min
-+ *		Adaptive backlight modulation is enabled at minimum intensity.
-+ *	bias min
-+ *		Adaptive backlight modulation is enabled at a more intense
-+ *		level than 'min'.
-+ *	bias max
-+ *		Adaptive backlight modulation is enabled at a more intense
-+ *		level than 'bias min'.
-+ *	max
-+ *		Adaptive backlight modulation is enabled at maximum intensity.
-+ */
-+struct drm_property *drm_create_abm_property(struct drm_device *dev)
-+{
-+	const struct drm_prop_enum_list props[] = {
-+		{ ABM_SYSFS_CONTROL, "sysfs" },
-+		{ ABM_LEVEL_OFF, "off" },
-+		{ ABM_LEVEL_MIN, "min" },
-+		{ ABM_LEVEL_BIAS_MIN, "bias min" },
-+		{ ABM_LEVEL_BIAS_MAX, "bias max" },
-+		{ ABM_LEVEL_MAX, "max" },
-+	};
-+	struct drm_property *prop;
-+	int i;
-+
-+	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM,
-+				"adaptive backlight modulation",
-+				6);
-+	if (!prop)
-+		return ERR_PTR(-ENOMEM);
-+
-+	for (i = 0; i < ARRAY_SIZE(props); i++) {
-+		int ret;
-+
-+		ret = drm_property_add_enum(prop, props[i].type,
-+						props[i].name);
-+
-+		if (ret) {
-+			drm_property_destroy(dev, prop);
-+
-+			return ERR_PTR(ret);
-+		}
-+	}
-+
-+	return prop;
-+}
-+EXPORT_SYMBOL(drm_create_abm_property);
-+
- /**
-  * drm_mode_create_hdmi_colorspace_property - create hdmi colorspace property
-  * @connector: connector to create the Colorspace property on.
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 8f34f4b8183d..644c0d49500f 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2454,6 +2454,7 @@ int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *conn
- bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_state,
- 					     struct drm_connector_state *new_state);
- int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
-+struct drm_property *drm_create_abm_property(struct drm_device *dev);
- int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector,
- 					     u32 supported_colorspaces);
- int drm_mode_create_dp_colorspace_property(struct drm_connector *connector,
-@@ -2563,4 +2564,11 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
- 	drm_for_each_encoder_mask(encoder, (connector)->dev, \
- 				  (connector)->possible_encoders)
- 
-+#define ABM_SYSFS_CONTROL	-1
-+#define ABM_LEVEL_OFF		0
-+#define ABM_LEVEL_MIN		1
-+#define ABM_LEVEL_BIAS_MIN	2
-+#define ABM_LEVEL_BIAS_MAX	3
-+#define ABM_LEVEL_MAX		4
-+
- #endif
--- 
-2.51.2
+Please also update the unit for both (W/kW/mW etc.).
+
+Thanks,
+Lijo
+
+> +static ssize_t amdgpu_show_baseboard_power(struct device *dev,
+> +					   struct device_attribute *attr, char *buf)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +	u32 ubbpower;
+> +	int r;
+> +
+> +	/* get the node power */
+> +	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_UBB_POWER,
+> +					 (void *)&ubbpower);
+> +	if (r)
+> +		return r;
+> +
+> +	return sysfs_emit(buf, "%u\n", ubbpower);
+> +}
+> +
+> +/**
+> + * DOC: baseboard_power_limit
+> + *
+> + * The amdgpu driver provides a sysfs API for retrieving threshold ubb power.
+> + * The file baseboard_power_limit is used for this.
+> + */
+> +static ssize_t amdgpu_show_baseboard_power_limit(struct device *dev,
+> +						 struct device_attribute *attr, char *buf)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +	u32 ubbpowerlimit;
+> +	int r;
+> +
+> +	/* get the node power */
+> +	r = amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_UBB_POWER_LIMIT,
+> +					 (void *)&ubbpowerlimit);
+> +	if (r)
+> +		return r;
+> +
+> +	return sysfs_emit(buf, "%u\n", ubbpowerlimit);
+> +}
+> +
+>   static DEVICE_ATTR(baseboard_temp, 0444, amdgpu_get_baseboard_temp_metrics, NULL);
+>   static DEVICE_ATTR(gpuboard_temp, 0444, amdgpu_get_gpuboard_temp_metrics, NULL);
+>   static DEVICE_ATTR(cur_node_power_limit, 0444, amdgpu_show_cur_node_power_limit, NULL);
+> @@ -2302,6 +2353,8 @@ static DEVICE_ATTR(node_power, 0444, amdgpu_show_node_power, NULL);
+>   static DEVICE_ATTR(global_ppt_resid, 0444, amdgpu_show_global_ppt_resid, NULL);
+>   static DEVICE_ATTR(max_node_power_limit, 0444, amdgpu_show_max_node_power_limit, NULL);
+>   static DEVICE_ATTR(npm_status, 0444, amdgpu_show_npm_status, NULL);
+> +static DEVICE_ATTR(baseboard_power, 0444, amdgpu_show_baseboard_power, NULL);
+> +static DEVICE_ATTR(baseboard_power_limit, 0444, amdgpu_show_baseboard_power_limit, NULL);
+>   
+>   static struct attribute *board_attrs[] = {
+>   	&dev_attr_baseboard_temp.attr,
+> @@ -4748,6 +4801,14 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+>   			sysfs_add_file_to_group(&adev->dev->kobj, &dev_attr_npm_status.attr,
+>   						amdgpu_board_attr_group.name);
+>   		}
+> +		if (amdgpu_pm_get_sensor_generic(adev, AMDGPU_PP_SENSOR_UBB_POWER_LIMIT,
+> +						 (void *)&tmp) != -EOPNOTSUPP) {
+> +			sysfs_add_file_to_group(&adev->dev->kobj,
+> +						&dev_attr_baseboard_power_limit.attr,
+> +						amdgpu_board_attr_group.name);
+> +			sysfs_add_file_to_group(&adev->dev->kobj, &dev_attr_baseboard_power.attr,
+> +						amdgpu_board_attr_group.name);
+> +		}
+>   	}
+>   
+>   	adev->pm.sysfs_initialized = true;
 
