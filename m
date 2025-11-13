@@ -4,69 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F13FACDE02A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D779CCDE029
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60B5210E9FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E01410EA07;
 	Fri, 14 Nov 2025 08:17:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bIMbvRtT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PrPdozC6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D241B10E901;
- Thu, 13 Nov 2025 18:01:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0AEF10E866;
+ Thu, 13 Nov 2025 15:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763056868; x=1794592868;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=nA81Fk9n7LIA98JvH5Hk8Vg1CCfb82xA0OlHFv7E1lg=;
- b=bIMbvRtTh16/JyATDWB+V0q9fdGUD9WJxEP4/xxURg4BndECdzJgmI4x
- tR9cOov9VTBzEgoFokM/itcfoBO0lO301v/33FK4Oa3UyIyG4dD5PMrt5
- rB5gnpE1ix5gm70BXEHYK3tGJMPsllERtG96rQpfZz5f47FMPXA3ZX8JX
- Ldv0v5X6OMCElxN+mkKlOVLVy94ldhYliV6sCpzUYOumj5YW3EYOmkYIE
- xvMAjFveBWvL5Gkdb00gu8wBVALXlkVY0uX+VBAh3lhx+uM/jCklvjyH4
- AvfWAh3g62mWuWtML4LwsFZzZaY1jwkjd/Y24ryDXiTSyyNRUMaft6kV8 w==;
-X-CSE-ConnectionGUID: JIWez+mhQm6NzYHrcNcitw==
-X-CSE-MsgGUID: DDsrVXyfRyGBm4CNBf8XLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="75826823"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="75826823"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 10:01:08 -0800
-X-CSE-ConnectionGUID: amGgviHGTPilQnAo1TeNbw==
-X-CSE-MsgGUID: g0CH5JkHSjq0koaZP/hR0w==
+ t=1763046203; x=1794582203;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=mKCfGvyzNhw96Cnh7FIRHLBI440Q6rRaNHGoDV+QYYs=;
+ b=PrPdozC609gDHHe33jnkM+omof/ThnLh3DLtLIwECVF6Yh7ygIVli5rw
+ v3I6qu5xjja/1yzkmfYH0iSXCjcJXha6X8hXgqMXSnmnylpnLa0KD3TCi
+ mcjEITFdvmJ2J8vMzcafz/1rYHj79U+dYTgSqh7lwqGG6bEiBU3G/nqD5
+ kiGfo6Cv+uFJKaHtG/e2Tset5phAvmat36r+uit6ZXvnr7wjyyybk7Jsz
+ pgeSXi3scTPeoD8ACASdznMStshcL/VS4o2xgs8cMdULs5j90qXs0JEG3
+ SALZ6AnFyDvpkuA29YK9kRnTVmUY9jX9L0TB9RnHg5ykGnBebgYKYSzpp Q==;
+X-CSE-ConnectionGUID: 3N/mfCc8RZiM5RVJppGfAw==
+X-CSE-MsgGUID: RM+YA1dSSYGble9gtK13kA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054734"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054734"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:03:03 -0800
+X-CSE-ConnectionGUID: yKzzlJzzQWapQitGWcT/+Q==
+X-CSE-MsgGUID: xLZAMTLNQZqO3A74MNxPAA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="194713548"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.164])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 10:01:01 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325230"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:54 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 81C62AA; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- "Michael J . Ruhl" <mjruhl@habana.ai>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v4 00/11] PCI: Resizable BAR improvements
-Date: Thu, 13 Nov 2025 20:00:42 +0200
-Message-Id: <20251113180053.27944-1-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3 20/21] scsi: snic: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:34 +0100
+Message-ID: <20251113150217.3030010-21-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
+X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,79 +136,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pci.c has been used as catch everything that doesn't fits elsewhere
-within PCI core and thus resizable BAR code has been placed there as
-well. Move Resizable BAR related code to a newly introduced rebar.c to
-reduce size of pci.c. After move, there are no pci_rebar_*() calls from
-pci.c indicating this is indeed well-defined subset of PCI core.
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
-Endpoint drivers perform Resizable BAR related operations which could
-well be performed by PCI core to simplify driver-side code. This
-series adds a few new API functions to that effect and converts the
-drivers to use the new APIs (in separate patches).
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/scsi/snic/snic_debugfs.c | 10 ++++------
+ drivers/scsi/snic/snic_trc.c     |  5 ++---
+ 2 files changed, 6 insertions(+), 9 deletions(-)
 
-While at it, also convert BAR sizes bitmask to u64 as PCIe spec already
-specifies more sizes than what will fit u32 to make the API typing more
-future-proof. The extra sizes beyond 128TB are not added at this point.
-
-Some parts of this are to be used by the resizable BAR changes into the
-resource fitting/assingment logic but these seem to stand on their own
-so sending these out now to reduce the size of the other patch series.
-
-This v4 rebases what's currently in pci/rebar on top of the BAR resize
-changes in pci/resource as they'd have nasty conflicts otherwise so
-they can start to peacefully coexist in the pci/resource branch.
-
-v4:
-- Rebased on top of pci/resource changes to solve conflicts
-
-v3: https://lore.kernel.org/linux-pci/20251022133331.4357-1-ilpo.jarvinen@linux.intel.com/
-- Rebased to solve minor conflicts
-
-v2: https://lore.kernel.org/linux-pci/20250915091358.9203-1-ilpo.jarvinen@linux.intel.com/
-- Kerneldoc:
-  - Improve formatting of errno returns
-  - Open "ctrl" -> "control"
-  - Removed mislead "bit" words (when referring to BAR size)
-  - Rewrote pci_rebar_get_possible_sizes() kernel doc to not claim the
-    returned bitmask is defined in PCIe spec as the capability bits now
-    span across two registers in the spec and are not continuous (we
-    don't support the second block of bits yet, but this API is expected
-    to return the bits without the hole so it will not be matching with
-    the spec layout).
-- Dropped superfluous zero check from pci_rebar_size_supported()
-- Small improvement to changelog of patch 7
-
-Ilpo Järvinen (11):
-  PCI: Move Resizable BAR code to rebar.c
-  PCI: Clean up pci_rebar_bytes_to_size() and move to rebar.c
-  PCI: Move pci_rebar_size_to_bytes() and export it
-  PCI: Improve Resizable BAR functions kernel doc
-  PCI: Add pci_rebar_size_supported() helper
-  drm/i915/gt: Use pci_rebar_size_supported()
-  drm/xe/vram: Use PCI rebar helpers in resize_vram_bar()
-  PCI: Add pci_rebar_get_max_size()
-  drm/xe/vram: Use pci_rebar_get_max_size()
-  drm/amdgpu: Use pci_rebar_get_max_size()
-  PCI: Convert BAR sizes bitmasks to u64
-
- Documentation/driver-api/pci/pci.rst        |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   8 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  10 +-
- drivers/gpu/drm/xe/xe_vram.c                |  32 +-
- drivers/pci/Makefile                        |   2 +-
- drivers/pci/iov.c                           |  10 +-
- drivers/pci/pci-sysfs.c                     |   2 +-
- drivers/pci/pci.c                           | 149 ---------
- drivers/pci/pci.h                           |   5 +-
- drivers/pci/rebar.c                         | 325 ++++++++++++++++++++
- drivers/pci/setup-res.c                     |  85 -----
- include/linux/pci.h                         |  15 +-
- 12 files changed, 361 insertions(+), 285 deletions(-)
- create mode 100644 drivers/pci/rebar.c
-
-
-base-commit: 5388d5c3a95dd4f28714a4689c2877ba8c990b6b
+diff --git a/drivers/scsi/snic/snic_debugfs.c b/drivers/scsi/snic/snic_debugfs.c
+index 9dd975b36b5b..edf3e5ef28a6 100644
+--- a/drivers/scsi/snic/snic_debugfs.c
++++ b/drivers/scsi/snic/snic_debugfs.c
+@@ -282,8 +282,8 @@ snic_stats_show(struct seq_file *sfp, void *data)
+ 	jiffies_to_timespec64(stats->misc.last_ack_time, &last_ack_tms);
+ 
+ 	seq_printf(sfp,
+-		   "Last ISR Time               : %llu (%8llu.%09lu)\n"
+-		   "Last Ack Time               : %llu (%8llu.%09lu)\n"
++		   "Last ISR Time               : %llu (%ptSp)\n"
++		   "Last Ack Time               : %llu (%ptSp)\n"
+ 		   "Ack ISRs                    : %llu\n"
+ 		   "IO Cmpl ISRs                : %llu\n"
+ 		   "Err Notify ISRs             : %llu\n"
+@@ -298,10 +298,8 @@ snic_stats_show(struct seq_file *sfp, void *data)
+ 		   "Queue Ramp Down             : %lld\n"
+ 		   "Queue Last Queue Depth      : %lld\n"
+ 		   "Target Not Ready            : %lld\n",
+-		   (u64) stats->misc.last_isr_time,
+-		   last_isr_tms.tv_sec, last_isr_tms.tv_nsec,
+-		   (u64)stats->misc.last_ack_time,
+-		   last_ack_tms.tv_sec, last_ack_tms.tv_nsec,
++		   (u64) stats->misc.last_isr_time, &last_isr_tms,
++		   (u64) stats->misc.last_ack_time, &last_ack_tms,
+ 		   (u64) atomic64_read(&stats->misc.ack_isr_cnt),
+ 		   (u64) atomic64_read(&stats->misc.cmpl_isr_cnt),
+ 		   (u64) atomic64_read(&stats->misc.errnotify_isr_cnt),
+diff --git a/drivers/scsi/snic/snic_trc.c b/drivers/scsi/snic/snic_trc.c
+index c2e5ab7e976c..6bad1ea9a6a7 100644
+--- a/drivers/scsi/snic/snic_trc.c
++++ b/drivers/scsi/snic/snic_trc.c
+@@ -56,9 +56,8 @@ snic_fmt_trc_data(struct snic_trc_data *td, char *buf, int buf_sz)
+ 	jiffies_to_timespec64(td->ts, &tmspec);
+ 
+ 	len += snprintf(buf, buf_sz,
+-			"%llu.%09lu %-25s %3d %4x %16llx %16llx %16llx %16llx %16llx\n",
+-			tmspec.tv_sec,
+-			tmspec.tv_nsec,
++			"%ptSp %-25s %3d %4x %16llx %16llx %16llx %16llx %16llx\n",
++			&tmspec,
+ 			td->fn,
+ 			td->hno,
+ 			td->tag,
 -- 
-2.39.5
+2.50.1
 
