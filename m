@@ -4,122 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F531CDE036
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB38CDE019
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 245C110E9E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E2D410E9DD;
 	Fri, 14 Nov 2025 08:17:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LEDyz1Ac";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eshkKC8i";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC6910E889;
- Thu, 13 Nov 2025 15:03:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C973A10E8B3;
+ Thu, 13 Nov 2025 16:28:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763046189; x=1794582189;
+ t=1763051292; x=1794587292;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9P5AC3KVHcn4TcLoSKblVZwstZQ28owfF1NSWgu0v6M=;
- b=LEDyz1AcoJZN0tLlma6c3rh+TZZFhFnRb5Wworkfesyi82Cz19cRP+el
- 64RVa38MOVQBoL3Yyz2UAa6J/xTS/kGXYfRSxGAkbYWKeYkQVjqCiUdl7
- prttF3V3MPA/7WxS1N4yzBlH/dD2VGOt7qmx7BtvU1j5h4YKlqU8AJer/
- BHQWy0izveX2Vvg8PU4Jsz5OqzwAwULMtjjvqrq+lczK3WJJCXEJwdfsI
- 84Rv/tH2/nhtWSDeV/BfhX9NL+/dMi7TNf5EmYWaw6vTaoIXz+GDetxNz
- wPbeo9NNrSr2nPjYk0MIMp/cA14AeOnPJK6XE5KGMi33Ky7FYJ0ho3ooL g==;
-X-CSE-ConnectionGUID: DgkyeFCvSPeaZMRZfX6ZFA==
-X-CSE-MsgGUID: dE3h2fZ4T8GB0KrHcYTsIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054543"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054543"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 07:02:57 -0800
-X-CSE-ConnectionGUID: AydCmECNRpCLYzOsn/mxTw==
-X-CSE-MsgGUID: WE2PlCIlTNqCt+7aCVDUWA==
+ bh=T67rUIzcpoy6szI0dlVUnS3b/3FKuUeuX2dq/TY/3JM=;
+ b=eshkKC8iMhIakEHkZKtCFHz+aVPjZdDSre0+/KZXrcIEdD3LxLBvHlMO
+ bVdcrQ9hFqDBCsgC/ZHM+Y3+C8qoEVuGYsNqzT6y2ztn1dXdJi49l8Mdb
+ UwBYNKWHSc/D81bN9TVfIe9ebJoZKI+FtQvSYPS2VIVVNFQ2GkxoMwZha
+ jOKqSaXtKa+ctraiu2eH+gfVBKSK5GLVVIQjg4MCd3R0B3X8njRasfRvO
+ iWEeB9oQ9Av5wqUnF38P5YTq9DNE1b/JHFU4HEwsq5HMdPS3T7Ymya40q
+ El2S44kX3plWc0Bvu0aPQiAoyu6BvQEJv4jJPR2HMBLfvT83aX+Makutb Q==;
+X-CSE-ConnectionGUID: yRb64DnPQIiUP3QKoltfHw==
+X-CSE-MsgGUID: BYlv+88+Q1uuqYxCpehqBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="69002382"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="69002382"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 08:28:11 -0800
+X-CSE-ConnectionGUID: J9KyXnk1TXONEoLILEnV+w==
+X-CSE-MsgGUID: gpaDOCATQE+SYMkJkackIQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325115"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:45 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 67493A6; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Corey Minyard <corey@minyard.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Calvin Owens <calvin@wbinvd.org>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
- Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
- Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
- ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="194699502"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.164])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 08:28:03 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Simon Richter <Simon.Richter@hogyros.de>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v3 16/21] pps: Switch to use %ptSp
-Date: Thu, 13 Nov 2025 15:32:30 +0100
-Message-ID: <20251113150217.3030010-17-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
-References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+ =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v2 08/11] drm/xe: Remove driver side BAR release before resize
+Date: Thu, 13 Nov 2025 18:26:25 +0200
+Message-Id: <20251113162628.5946-9-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -136,44 +82,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use %ptSp instead of open coded variants to print content of
-struct timespec64 in human readable format.
+PCI core handles releasing device's resources and their rollback in
+case of failure of a BAR resizing operation. Releasing resource prior
+to calling pci_resize_resource() prevents PCI core from restoring the
+BARs as they were.
 
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Remove driver-side release of BARs from the xe driver.
+
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/pps/generators/pps_gen_parport.c | 3 +--
- drivers/pps/kapi.c                       | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_vram.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/pps/generators/pps_gen_parport.c b/drivers/pps/generators/pps_gen_parport.c
-index f5eeb4dd01ad..05bbf8d30ef1 100644
---- a/drivers/pps/generators/pps_gen_parport.c
-+++ b/drivers/pps/generators/pps_gen_parport.c
-@@ -80,8 +80,7 @@ static enum hrtimer_restart hrtimer_event(struct hrtimer *timer)
- 	/* check if we are late */
- 	if (expire_time.tv_sec != ts1.tv_sec || ts1.tv_nsec > lim) {
- 		local_irq_restore(flags);
--		pr_err("we are late this time %lld.%09ld\n",
--				(s64)ts1.tv_sec, ts1.tv_nsec);
-+		pr_err("we are late this time %ptSp\n", &ts1);
- 		goto done;
- 	}
+diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
+index 00dd027057df..5aacab9358a4 100644
+--- a/drivers/gpu/drm/xe/xe_vram.c
++++ b/drivers/gpu/drm/xe/xe_vram.c
+@@ -33,9 +33,6 @@ _resize_bar(struct xe_device *xe, int resno, resource_size_t size)
+ 	int bar_size = pci_rebar_bytes_to_size(size);
+ 	int ret;
  
-diff --git a/drivers/pps/kapi.c b/drivers/pps/kapi.c
-index e9389876229e..6985c34de2ce 100644
---- a/drivers/pps/kapi.c
-+++ b/drivers/pps/kapi.c
-@@ -163,8 +163,7 @@ void pps_event(struct pps_device *pps, struct pps_event_time *ts, int event,
- 	/* check event type */
- 	BUG_ON((event & (PPS_CAPTUREASSERT | PPS_CAPTURECLEAR)) == 0);
- 
--	dev_dbg(&pps->dev, "PPS event at %lld.%09ld\n",
--			(s64)ts->ts_real.tv_sec, ts->ts_real.tv_nsec);
-+	dev_dbg(&pps->dev, "PPS event at %ptSp\n", &ts->ts_real);
- 
- 	timespec_to_pps_ktime(&ts_real, ts->ts_real);
- 
+-	if (pci_resource_len(pdev, resno))
+-		pci_release_resource(pdev, resno);
+-
+ 	ret = pci_resize_resource(pdev, resno, bar_size, 0);
+ 	if (ret) {
+ 		drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider enabling 'Resizable BAR' support in your BIOS\n",
 -- 
-2.50.1
+2.39.5
 
