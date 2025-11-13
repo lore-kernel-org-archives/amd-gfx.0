@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C406BCDE028
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47F13CDE02C
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2435710E9EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87FB010E9F1;
 	Fri, 14 Nov 2025 08:17:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A8tCM0xH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HGgUdQNS";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5C210E887;
- Thu, 13 Nov 2025 15:03:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF2810E897;
+ Thu, 13 Nov 2025 15:03:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763046192; x=1794582192;
+ t=1763046200; x=1794582200;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=A975XfHCRPt/SGOY9KPV2BC/xVEqsYogPzxpf03ZbBE=;
- b=A8tCM0xH4+dFEFJF8Y0ZsQUiM5GtVC8GZdu2c2rJmD4Q97T21n+v6Gdj
- etUQKsPjIS3705JFIde8igObvDU6R6vTLNfaIIWQKIu+7DdsOQc5ZK/t6
- 9uYADHt6mttXOZKaAohPBRjiGgMSk9iMLLNCYVkp98+BVOaiMumPVdADK
- n2noVF5ZMQ2jwj7t5mlcZgPelEl+vav6xlrD9pkCzkL/BrHX9Ewkdq6B+
- qIWjeZA70GEahk2x6OgtnUL+pSjGTIUCMJdPezGnJfSBp6fR3HCMHgkyp
- Dv/5fHQVYf+kAPG+u0ebGm4cbhTzYa44Obb4ZODNhL74vhTjQ5pJtnpwb w==;
-X-CSE-ConnectionGUID: Eh86c16ORVeumqMhZzheVw==
-X-CSE-MsgGUID: TFHpkDneTLOy9tjUKa6Gcw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054588"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054588"
+ bh=rml3ckj6WdvqCWJSsraCv9TD4b9UeGEJUCuDsF2dQ+c=;
+ b=HGgUdQNS58+0tIq8GG+dWHxkpEoW2mN5PW3r10FLfzhZ0/z+I711IsvH
+ cEcMGRQPhOD0sXtiyHYpW+JeqztjNeIydzXQShhbavjPZLmNkZyDQAE32
+ LXfOscI3AV1CiUEp8jlL4wlSUVjiDcHc0UfumEj5jYPhl3eVnFPX4zbnt
+ GI46KCtLoBwbQmY1UcnjHMn8CjqMBj0GwMGE4SGuZL9XRR49a2S9IT8QB
+ 9dTurwzZa73idar51C7WDYt8gte7BaosbB0HNnJP9tw14WCelNawo/4l7
+ lnds3NDegiwZKWZolv5Smnql7JmHimGlcLCCEp4xrwwFhetbcNcGLtHW5 Q==;
+X-CSE-ConnectionGUID: 3FH1GGu/RMOHzt7sIxwn3g==
+X-CSE-MsgGUID: YCiV54akSlqSbK3V3dMDEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054681"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054681"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 07:02:57 -0800
-X-CSE-ConnectionGUID: MRqfhPF0SeWMn+GQYCg4mw==
-X-CSE-MsgGUID: TLYpYaZfSH6Qb6Q5p/osFw==
+ 13 Nov 2025 07:03:02 -0800
+X-CSE-ConnectionGUID: Lk6390cSTuy1iyCSEXsOKw==
+X-CSE-MsgGUID: zFe0AInXSZ2BK9lh5MsEcA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325109"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325210"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:44 -0800
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:52 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 5A8EAA4; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+ id 7B381A9; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -113,9 +113,9 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v3 14/21] net: dsa: sja1105: Switch to use %ptSp
-Date: Thu, 13 Nov 2025 15:32:28 +0100
-Message-ID: <20251113150217.3030010-15-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v3 19/21] scsi: fnic: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:33 +0100
+Message-ID: <20251113150217.3030010-20-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
@@ -139,38 +139,118 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Use %ptSp instead of open coded variants to print content of
 struct timespec64 in human readable format.
 
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/net/dsa/sja1105/sja1105_tas.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/scsi/fnic/fnic_trace.c | 52 ++++++++++++++--------------------
+ 1 file changed, 22 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/net/dsa/sja1105/sja1105_tas.c b/drivers/net/dsa/sja1105/sja1105_tas.c
-index d7818710bc02..d5949d2c3e71 100644
---- a/drivers/net/dsa/sja1105/sja1105_tas.c
-+++ b/drivers/net/dsa/sja1105/sja1105_tas.c
-@@ -775,9 +775,8 @@ static void sja1105_tas_state_machine(struct work_struct *work)
- 		base_time_ts = ns_to_timespec64(base_time);
- 		now_ts = ns_to_timespec64(now);
+diff --git a/drivers/scsi/fnic/fnic_trace.c b/drivers/scsi/fnic/fnic_trace.c
+index cdc6b12b1ec2..0a849a195a8e 100644
+--- a/drivers/scsi/fnic/fnic_trace.c
++++ b/drivers/scsi/fnic/fnic_trace.c
+@@ -138,9 +138,8 @@ int fnic_get_trace_data(fnic_dbgfs_t *fnic_dbgfs_prt)
+ 			 */
+ 			len += scnprintf(fnic_dbgfs_prt->buffer + len,
+ 				  (trace_max_pages * PAGE_SIZE * 3) - len,
+-				  "%16llu.%09lu %-50s %8x %8x %16llx %16llx "
+-				  "%16llx %16llx %16llx\n", (u64)val.tv_sec,
+-				  val.tv_nsec, str, tbp->host_no, tbp->tag,
++				  "%ptSp %-50s %8x %8x %16llx %16llx %16llx %16llx %16llx\n",
++				  &val, str, tbp->host_no, tbp->tag,
+ 				  tbp->data[0], tbp->data[1], tbp->data[2],
+ 				  tbp->data[3], tbp->data[4]);
+ 			rd_idx++;
+@@ -180,9 +179,8 @@ int fnic_get_trace_data(fnic_dbgfs_t *fnic_dbgfs_prt)
+ 			 */
+ 			len += scnprintf(fnic_dbgfs_prt->buffer + len,
+ 				  (trace_max_pages * PAGE_SIZE * 3) - len,
+-				  "%16llu.%09lu %-50s %8x %8x %16llx %16llx "
+-				  "%16llx %16llx %16llx\n", (u64)val.tv_sec,
+-				  val.tv_nsec, str, tbp->host_no, tbp->tag,
++				  "%ptSp %-50s %8x %8x %16llx %16llx %16llx %16llx %16llx\n",
++				  &val, str, tbp->host_no, tbp->tag,
+ 				  tbp->data[0], tbp->data[1], tbp->data[2],
+ 				  tbp->data[3], tbp->data[4]);
+ 			rd_idx++;
+@@ -215,30 +213,26 @@ int fnic_get_stats_data(struct stats_debug_info *debug,
+ {
+ 	int len = 0;
+ 	int buf_size = debug->buf_size;
+-	struct timespec64 val1, val2;
++	struct timespec64 val, val1, val2;
+ 	int i = 0;
  
--		dev_dbg(ds->dev, "OPER base time %lld.%09ld (now %lld.%09ld)\n",
--			base_time_ts.tv_sec, base_time_ts.tv_nsec,
--			now_ts.tv_sec, now_ts.tv_nsec);
-+		dev_dbg(ds->dev, "OPER base time %ptSp (now %ptSp)\n",
-+			&base_time_ts, &now_ts);
+-	ktime_get_real_ts64(&val1);
++	ktime_get_real_ts64(&val);
+ 	len = scnprintf(debug->debug_buffer + len, buf_size - len,
+ 		"------------------------------------------\n"
+ 		 "\t\tTime\n"
+ 		"------------------------------------------\n");
  
- 		break;
++	val1 = timespec64_sub(val, stats->stats_timestamps.last_reset_time);
++	val2 = timespec64_sub(val, stats->stats_timestamps.last_read_time);
+ 	len += scnprintf(debug->debug_buffer + len, buf_size - len,
+-		"Current time :          [%lld:%ld]\n"
+-		"Last stats reset time:  [%lld:%09ld]\n"
+-		"Last stats read time:   [%lld:%ld]\n"
+-		"delta since last reset: [%lld:%ld]\n"
+-		"delta since last read:  [%lld:%ld]\n",
+-	(s64)val1.tv_sec, val1.tv_nsec,
+-	(s64)stats->stats_timestamps.last_reset_time.tv_sec,
+-	stats->stats_timestamps.last_reset_time.tv_nsec,
+-	(s64)stats->stats_timestamps.last_read_time.tv_sec,
+-	stats->stats_timestamps.last_read_time.tv_nsec,
+-	(s64)timespec64_sub(val1, stats->stats_timestamps.last_reset_time).tv_sec,
+-	timespec64_sub(val1, stats->stats_timestamps.last_reset_time).tv_nsec,
+-	(s64)timespec64_sub(val1, stats->stats_timestamps.last_read_time).tv_sec,
+-	timespec64_sub(val1, stats->stats_timestamps.last_read_time).tv_nsec);
++			 "Current time :          [%ptSp]\n"
++			 "Last stats reset time:  [%ptSp]\n"
++			 "Last stats read time:   [%ptSp]\n"
++			 "delta since last reset: [%ptSp]\n"
++			 "delta since last read:  [%ptSp]\n",
++			 &val,
++			 &stats->stats_timestamps.last_reset_time, &val1,
++			 &stats->stats_timestamps.last_read_time, &val2);
  
-@@ -798,8 +797,7 @@ static void sja1105_tas_state_machine(struct work_struct *work)
- 		if (now < tas_data->oper_base_time) {
- 			/* TAS has not started yet */
- 			diff = ns_to_timespec64(tas_data->oper_base_time - now);
--			dev_dbg(ds->dev, "time to start: [%lld.%09ld]",
--				diff.tv_sec, diff.tv_nsec);
-+			dev_dbg(ds->dev, "time to start: [%ptSp]", &diff);
- 			break;
- 		}
+ 	stats->stats_timestamps.last_read_time = val1;
  
+@@ -416,8 +410,8 @@ int fnic_get_stats_data(struct stats_debug_info *debug,
+ 	jiffies_to_timespec64(stats->misc_stats.last_ack_time, &val2);
+ 
+ 	len += scnprintf(debug->debug_buffer + len, buf_size - len,
+-		  "Last ISR time: %llu (%8llu.%09lu)\n"
+-		  "Last ACK time: %llu (%8llu.%09lu)\n"
++		  "Last ISR time: %llu (%ptSp)\n"
++		  "Last ACK time: %llu (%ptSp)\n"
+ 		  "Max ISR jiffies: %llu\n"
+ 		  "Max ISR time (ms) (0 denotes < 1 ms): %llu\n"
+ 		  "Corr. work done: %llu\n"
+@@ -437,10 +431,8 @@ int fnic_get_stats_data(struct stats_debug_info *debug,
+ 		  "Number of rport not ready: %lld\n"
+ 		 "Number of receive frame errors: %lld\n"
+ 		 "Port speed (in Mbps): %lld\n",
+-		  (u64)stats->misc_stats.last_isr_time,
+-		  (s64)val1.tv_sec, val1.tv_nsec,
+-		  (u64)stats->misc_stats.last_ack_time,
+-		  (s64)val2.tv_sec, val2.tv_nsec,
++		  (u64)stats->misc_stats.last_isr_time, &val1,
++		  (u64)stats->misc_stats.last_ack_time, &val2,
+ 		  (u64)atomic64_read(&stats->misc_stats.max_isr_jiffies),
+ 		  (u64)atomic64_read(&stats->misc_stats.max_isr_time_ms),
+ 		  (u64)atomic64_read(&stats->misc_stats.corr_work_done),
+@@ -857,8 +849,8 @@ void copy_and_format_trace_data(struct fc_trace_hdr *tdata,
+ 	len = *orig_len;
+ 
+ 	len += scnprintf(fnic_dbgfs_prt->buffer + len, max_size - len,
+-			 "%ptTs.%09lu ns%8x       %c%8x\t",
+-			 &tdata->time_stamp.tv_sec, tdata->time_stamp.tv_nsec,
++			 "%ptSs ns%8x       %c%8x\t",
++			 &tdata->time_stamp,
+ 			 tdata->host_no, tdata->frame_type, tdata->frame_len);
+ 
+ 	fc_trace = (char *)FC_TRACE_ADDRESS(tdata);
 -- 
 2.50.1
 
