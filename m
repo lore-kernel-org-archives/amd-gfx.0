@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEF28CDE021
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A32CDE019
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4CE10E352;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B029610E9ED;
 	Fri, 14 Nov 2025 08:17:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OqwrCDYC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X51RPD2T";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC4D10E8C1;
- Thu, 13 Nov 2025 16:28:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEFE410E91B;
+ Thu, 13 Nov 2025 18:03:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763051304; x=1794587304;
+ t=1763056987; x=1794592987;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3gicyKIAp5+Tdg6fbzRkVNCgC4gW75kbXan2uC1VABk=;
- b=OqwrCDYC3ygRHG2Yg/6xbE0U0S0d2B+grAEnKSMyKzhk6xAktqerUQMd
- wvXAt1sWjG90XA0hvvg1ES7ux+eKhfCxeA8EulGaqrcRU7Q4nEtCf/Veq
- GZo8mpLoBzKrf26h+5HepRc1tkUBmyflIqtu0XnYH53iIb5ciyLk/p5fU
- WkArLVOvGFtIDVyA0Lg1Xnjx3daUkb7saKw0xaap+up3IGwcntA4b6blk
- 3uQlSUz4OT7ygCgYdO8EObfufnl35LmBS/29The29K77/r/ZNDIu9efnz
- GFelHJSD2U/VsLxicogQu+2razaNX4qLGD/U3pM23Y6NRib+SGHwF7GkI g==;
-X-CSE-ConnectionGUID: zv0fKE4STiu8p6VeFvUOFw==
-X-CSE-MsgGUID: CqFYVmXlTj+3HB84USwt5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="69002408"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="69002408"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:28:24 -0800
-X-CSE-ConnectionGUID: C/EHdc1NRPKGwQO++diRyw==
-X-CSE-MsgGUID: o9z4l7s6QOGbq2peue/4vA==
+ bh=zzHUHDFiSrAkWDG3zV+mEV8zw5HhIV42xiqeOVVULv8=;
+ b=X51RPD2TKEPUFHDLYEIoJ/nPESYfuN25ko4fupWe7Pxs+l2nIFdWOYSz
+ jZRs7SsfMqqw2tVht3pPuqmGIl/WOD/GjF1JqZJ7xTDVNli54hm1UIent
+ unLbDgcRs6BLZN3FK1EydhOiqVC6P2mg5dy5ELodCKJYLKREUC8/qZszJ
+ QfydIzFPjsfXfm2EwgpnTmXriLjoeP3iUYAlLq7oplvQS4UA/M4ksBaP4
+ gMamCw/iD4biF9HYtyCjhUJ1cBh1YtXBvbVTu66+b9BRxa1eK+E0Dkz+N
+ QlQ3DXo4cRLdUpLhZtYXCscj8OCHNStDJsuH6U+k/Lb/bEa6DT8PB7rPh A==;
+X-CSE-ConnectionGUID: JBMAfmj3T3mj3WUtdWlCnQ==
+X-CSE-MsgGUID: cuE64Lg2SQC3KCseLulKxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="76490903"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="76490903"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 10:03:07 -0800
+X-CSE-ConnectionGUID: jfhU2e5sR4OutZlp++bzsg==
+X-CSE-MsgGUID: OQItNN3zSxaXHybVHw/VwQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="194699530"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="189407998"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.164])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:28:16 -0800
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 10:02:59 -0800
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Simon Richter <Simon.Richter@hogyros.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ "Michael J . Ruhl" <mjruhl@habana.ai>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  linux-kernel@vger.kernel.org
 Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v2 09/11] drm/i915: Remove driver side BAR release before
- resize
-Date: Thu, 13 Nov 2025 18:26:26 +0200
-Message-Id: <20251113162628.5946-10-ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v4 09/11] drm/xe/vram: Use pci_rebar_get_max_size()
+Date: Thu, 13 Nov 2025 20:00:51 +0200
+Message-Id: <20251113180053.27944-10-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
-References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+In-Reply-To: <20251113180053.27944-1-ilpo.jarvinen@linux.intel.com>
+References: <20251113180053.27944-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
+X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,48 +84,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PCI core handles releasing device's resources and their rollback in
-case of failure of a BAR resizing operation. Releasing resource prior
-to calling pci_resize_resource() prevents PCI core from restoring the
-BARs as they were.
-
-Remove driver-side release of BARs from the i915 driver.
+Use pci_rebar_get_max_size() from PCI core in resize_vram_bar() to simplify
+code.
 
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_region_lmem.c | 12 ------------
- 1 file changed, 12 deletions(-)
+ drivers/gpu/drm/xe/xe_vram.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index 7699e8fcf5ed..c37a0560ebe0 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -18,16 +18,6 @@
- #include "gt/intel_gt_regs.h"
+diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
+index 57c224fa0b56..524469f8a4bd 100644
+--- a/drivers/gpu/drm/xe/xe_vram.c
++++ b/drivers/gpu/drm/xe/xe_vram.c
+@@ -53,16 +53,11 @@ static void resize_vram_bar(struct xe_device *xe)
+ 	resource_size_t current_size;
+ 	resource_size_t rebar_size;
+ 	struct resource *root_res;
+-	u32 bar_size_mask;
++	int max_size, i;
+ 	u32 pci_cmd;
+-	int i;
  
- #ifdef CONFIG_64BIT
--static void _release_bars(struct pci_dev *pdev)
--{
--	int resno;
+ 	/* gather some relevant info */
+ 	current_size = pci_resource_len(pdev, LMEM_BAR);
+-	bar_size_mask = pci_rebar_get_possible_sizes(pdev, LMEM_BAR);
 -
--	for (resno = PCI_STD_RESOURCES; resno < PCI_STD_RESOURCE_END; resno++) {
--		if (pci_resource_len(pdev, resno))
--			pci_release_resource(pdev, resno);
--	}
--}
--
- static void
- _resize_bar(struct drm_i915_private *i915, int resno, resource_size_t size)
- {
-@@ -35,8 +25,6 @@ _resize_bar(struct drm_i915_private *i915, int resno, resource_size_t size)
- 	int bar_size = pci_rebar_bytes_to_size(size);
- 	int ret;
+-	if (!bar_size_mask)
+-		return;
  
--	_release_bars(pdev);
--
- 	ret = pci_resize_resource(pdev, resno, bar_size, 0);
- 	if (ret) {
- 		drm_info(&i915->drm, "Failed to resize BAR%d to %dM (%pe)\n",
+ 	if (force_vram_bar_size < 0)
+ 		return;
+@@ -76,7 +71,8 @@ static void resize_vram_bar(struct xe_device *xe)
+ 			drm_info(&xe->drm,
+ 				 "Requested size: %lluMiB is not supported by rebar sizes: 0x%x. Leaving default: %lluMiB\n",
+ 				 (u64)pci_rebar_size_to_bytes(rebar_size) >> 20,
+-				 bar_size_mask, (u64)current_size >> 20);
++				 pci_rebar_get_possible_sizes(pdev, LMEM_BAR),
++				 (u64)current_size >> 20);
+ 			return;
+ 		}
+ 
+@@ -84,7 +80,10 @@ static void resize_vram_bar(struct xe_device *xe)
+ 		if (rebar_size == current_size)
+ 			return;
+ 	} else {
+-		rebar_size = pci_rebar_size_to_bytes(__fls(bar_size_mask));
++		max_size = pci_rebar_get_max_size(pdev, LMEM_BAR);
++		if (max_size < 0)
++			return;
++		rebar_size = pci_rebar_size_to_bytes(max_size);
+ 
+ 		/* only resize if larger than current */
+ 		if (rebar_size <= current_size)
 -- 
 2.39.5
 
