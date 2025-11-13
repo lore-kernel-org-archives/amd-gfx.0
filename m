@@ -4,68 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BBE3CDE031
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C857DCDE033
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA9110E9E3;
-	Fri, 14 Nov 2025 08:17:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB6310E9E1;
+	Fri, 14 Nov 2025 08:17:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d502RUC/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h/94/e9f";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C369910E8C3;
- Thu, 13 Nov 2025 16:28:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE9610E87E;
+ Thu, 13 Nov 2025 15:03:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763051328; x=1794587328;
+ t=1763046181; x=1794582181;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=00YqMn1xgNfaa8IyKneU1YTwVRsL/5ObnW9VBzHq/ws=;
- b=d502RUC/EoG0ni9d5LYjvL0TLwWXkYQacJ7D1CwO+CWr+Y8uJa/0xn+F
- CwrlliRfR4tnfnJndCjuy8BdlV2VO7wr/BdyuMlAe7t8oF/GG+AoBusYd
- hzXcljP5sGsZfeLV9fFjx3TUNXQQddcwtnZ1+xTOZho1jm7q/xLFDChPT
- 8PAyluVND05nKVhy8/a/9Ne7zDg+0rBYKX45JrjnA1MNT2hyWGqbRXC2w
- 6IWm5OfHFmRt2Jew0fSJI4Edyw8/aJaJw79sBkX4VcTwDSx2FkVKMQox6
- soNG09hPOI3GEqCfhabJ6Ql4s0qKkr/Co5Yfp11Y8Pz+UB0kv2Nu9HhRH w==;
-X-CSE-ConnectionGUID: xdDF8DgITJOPyos+HeF+iQ==
-X-CSE-MsgGUID: Z1dEJm5JR1iNb0S8qOhGew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="75817085"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="75817085"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:28:47 -0800
-X-CSE-ConnectionGUID: 3UTbcYBIT6uFhTCEDf9Vtw==
-X-CSE-MsgGUID: M1wNkJYUSeS9uzt+zjeutg==
+ bh=BmDr+9WwyAhMzsfsAApxDHVanVdl5gKra56KPccq0Eg=;
+ b=h/94/e9fyAhVvtRjNFLE5kWwFrzUXToLyjnjm+PRAV5GDfcqXaSgAwWO
+ I63xvlszeYd8h6oWxInaQ5Obg9Ep/g6128ss/2coZEF5PHUJIYxkE9eYt
+ p7COKFg3b6dpLgrpQ3/Kcgau7CAv6KubQ8+23rUQ72dZnfISdURwqd+Zn
+ aYGON9VUYDOJperdeG37Pn+12HlPWqmkrHr1Apb/LrGKE04JrpffBQdGv
+ JbzP7yV4cNpd9g5Sdtq2aLXCV6GRvd3d8/VAVTR6SkRrQgs10oDrUIJmJ
+ tmo6bkvC0iriGi+HJSDXKfBrFhs82BAswcMHQmX229mpn8ycY8s7YarKe Q==;
+X-CSE-ConnectionGUID: bNpotVj0RLuBfiLqwPgIYQ==
+X-CSE-MsgGUID: GgfnaaqJTfu4GuKJvWphLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054336"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054336"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:02:52 -0800
+X-CSE-ConnectionGUID: i+uk+YmVT6yyR/RJArKjQQ==
+X-CSE-MsgGUID: utD/kA7rTZCozTSdlaQNlw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="189184706"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.164])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:28:41 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Simon Richter <Simon.Richter@hogyros.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325002"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:39 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 33C929E; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v2 11/11] PCI: Prevent restoring assigned resources
-Date: Thu, 13 Nov 2025 18:26:28 +0200
-Message-Id: <20251113162628.5946-12-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
-References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3 08/21] drm/xe: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:22 +0100
+Message-ID: <20251113150217.3030010-9-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,45 +136,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-restore_dev_resource() copies saved addresses and flags from the struct
-pci_dev_resource back to the struct resource, typically, during
-rollback from a failure or in preparation for a retry attempt.
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
-If the resource is within resource tree, the resource must not be
-modified as the resource tree could be corrupted. Thus, it's a bug to
-call restore_dev_resource() for assigned resources (which did happen
-due to logic flaws in the BAR resize rollback).
-
-Add WARN_ON_ONCE() into restore_dev_resource() to detect such bugs
-easily and return without altering the resource to prevent corruption.
-
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Acked-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pci/setup-bus.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/xe/xe_devcoredump.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 7e268960954b..1d9fc078c7ad 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -15,6 +15,7 @@
-  */
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
+index 203e3038cc81..d444eda65ca6 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump.c
++++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+@@ -106,9 +106,9 @@ static ssize_t __xe_devcoredump_read(char *buffer, ssize_t count,
+ 	drm_puts(&p, "module: " KBUILD_MODNAME "\n");
  
- #include <linux/bitops.h>
-+#include <linux/bug.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -135,6 +136,9 @@ static void restore_dev_resource(struct pci_dev_resource *dev_res)
- {
- 	struct resource *res = dev_res->res;
+ 	ts = ktime_to_timespec64(ss->snapshot_time);
+-	drm_printf(&p, "Snapshot time: %lld.%09ld\n", ts.tv_sec, ts.tv_nsec);
++	drm_printf(&p, "Snapshot time: %ptSp\n", &ts);
+ 	ts = ktime_to_timespec64(ss->boot_time);
+-	drm_printf(&p, "Uptime: %lld.%09ld\n", ts.tv_sec, ts.tv_nsec);
++	drm_printf(&p, "Uptime: %ptSp\n", &ts);
+ 	drm_printf(&p, "Process: %s [%d]\n", ss->process_name, ss->pid);
+ 	xe_device_snapshot_print(xe, &p);
  
-+	if (WARN_ON_ONCE(res->parent))
-+		return;
-+
- 	res->start = dev_res->start;
- 	res->end = dev_res->end;
- 	res->flags = dev_res->flags;
 -- 
-2.39.5
+2.50.1
 
