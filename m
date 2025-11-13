@@ -4,270 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3689CDE02A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E138CDE035
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F74210E9E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D6A10E9E2;
 	Fri, 14 Nov 2025 08:17:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cisco.com header.i=@cisco.com header.b="c8eTXUnC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NQiFBPPP";
 	dkim-atps=neutral
-X-Greylist: delayed 425 seconds by postgrey-1.36 at gabe;
- Thu, 13 Nov 2025 22:41:52 UTC
-Received: from alln-iport-5.cisco.com (alln-iport-5.cisco.com [173.37.142.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2203F10E951;
- Thu, 13 Nov 2025 22:41:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cisco.com; i=@cisco.com; l=5367; q=dns/txt;
- s=iport01; t=1763073712; x=1764283312;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=8JVJ68Ci8hH+vA9bF8YiFlkwB1Lv6uIdcNwtst+8pPM=;
- b=c8eTXUnCieKdMxG0CUbcNew+EaOQNgaVbDH493GKQJPnWtxUDL8apmAB
- lpBm077YPq0bHmYrG9aGbErWlrYyXUdm1LA8yg+40mQLpojM5+7VVdUCH
- HJD8cPk5ZTU0VXIg9ag8EUyo3ZI5thLod1GMNkcUMfUPgBH9+V1b2MT9k
- 1Nok0bujkIkpNb/kkmyjuv6jdfVl5FH/Jan7/KQUCSh7OqylyhYG0zNGE
- BLBT5sikt+oJktRJi9Qg9Bu0xC92M32wUyrZmi43xK1MJEQ0AXLG6ism8
- wVSvAjYyyPa224OCV9vVN5w4/6FtTXnco2Oo57ot8uRSbeyWfIt65wRkV w==;
-X-CSE-ConnectionGUID: YTSVUW0tTfCbPUIE7/AuvA==
-X-CSE-MsgGUID: G118re47R8GUKroEzTrCMQ==
-X-IPAS-Result: =?us-ascii?q?A0BAAAByXBZp/5IQJK1aHAEBAQEBAQcBARIBAQQEAQFAJ?=
- =?us-ascii?q?YEYBgEBCwGBbVIHghtJiCADhSyGWIIhA54aFIFrDwEBAQ0CUQQBAYUHAoxaA?=
- =?us-ascii?q?iY1CA4BAgQBAQEBAwIDAQEBAQEBAQEBAQELAQEFAQEBAgEHBYEOE4ZchloBA?=
- =?us-ascii?q?QEBAxIVUhACAQgOCi4xJQIEAQ0FCBqFVAMBAqRLAYFAAooreIEBM4EB4CaBS?=
- =?us-ascii?q?gGIUgGFbjuEPScbgg2BV3mBbz6EKhuEE4IvBIIigQ6GJ3mLYIZjUngcA1ksA?=
- =?us-ascii?q?VUTFwsHBYEgEDMDIAo0LQIUDRASDwQWBS0dcAwoEhAfGBFgVECDSRAMBmgPB?=
- =?us-ascii?q?oESGUkCAgIFAisVOoFoBQEcBhwSAgMBAgI6VQ2BdwICBIIZfoFvGw+JSIEaA?=
- =?us-ascii?q?wttPTcGDhsFBIE1BZQUghNpAT1RgTEMUwQsY5JsCIMjAbAfCoQcog0XhASNE?=
- =?us-ascii?q?4cCklKZBiKodAIEAgQFAhABAQaBaQE6gVlwFYMiUhkPji0WkxsBtUN4AjoCB?=
- =?us-ascii?q?wsBAQMJk2cBAQ?=
-IronPort-PHdr: A9a23:WEvVuhAdVoRfCoohv67+UyQVXRdPi9zP1kY9454jjfdJaqu8us+kN
- 03E7vIrh1jMDs3X6PNB3vLfqLuoGXcB7pCIrG0YfdRSWgUEh8Qbk01oAMOMBUDhav+/Ryc7B
- 89FElRi+hmG
-IronPort-Data: A9a23:QjNwfq2erFPh209V2vbD5eJwkn2cJEfYwER7XKvMYLTBsI5bpzxSz
- jNJWDyPOa6MZWWkKIxxYYjg8EMHvpHcnN5iSQtl3Hw8FHgiRegpqji6wuYcGwvIc6UvmWo+t
- 512huHodZ5yFjmH4E/xbtANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq8wIDqtYAbeORXUXU6
- Lsen+WFYAX4gmctaTpPg06+gEoHUMra6WtwUmMWPZinjHeG/1EJAZQWI72GLneQauF8Au6gS
- u/f+6qy92Xf8g1FIovNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ajs7XAMEhhXJ/0F1lqTzeJ
- OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXcG7lyX7n3XQL/pGPX0NA7AnovpLD0pEz
- cE5BW9KRw2drrfjqF67YrEEasULJc3vOsYb/3pn1zycVadgSpHYSKKM7thdtNsyrpkRRrCFO
- YxAN3w2MEqojx5nYj/7DLo9lf20h332cBVTqUmeouw85G27IAlZjuGwa4aPJI3SLSlTtmnB/
- zLc8jimOEE1Cf+FzheXzmiHo9aayEsXX6pXTtVU7MVCiVifg2MdGDUSVECnur+3kEOzV99EK
- FAT4mwpt6da3ECxT5zxUgO1pFaAvwUAQJxeCeA35AyWybbT+0CeHGdsZjBbZdEqrsIwQhQu1
- 0SVhJXnHzFivLCOSm6a7vGTtzzaESkTMWIGID8JZQ8E+MX45o8pgx/DQ81gDKmtyNrvFlnNL
- yuipSw6gfAXyMUMzaj+pQGBiDO3rZ+PRQkwjunKYl+YAspCTNfNT6Sj6EPQ6rBLK4Pxc7VLl
- CRsdxS2hAzWMaywqQ==
-IronPort-HdrOrdr: A9a23:6QFaW6lX1nfrZ/y3ozsQ1WKBLqfpDfNjiWdD5ihNYBxZY6Wkfp
- +V7ZcmPE7P6Ar5BktApTnZAtj/fZq9z/JICYl4B8bFYOCUghrYEGgE1/qs/9SAIVyzygcz79
- YbT0ETMqyVMbE+t7eE3ODaKadv/DDkytHUuQ629R4EJm8aCdAE0+46MHfmLqQcfng+OXNNLu
- vm2iMxnUvZRZ14VLXdOlA1G8L4i5ngkpXgbRQaBxghxjWvoFqTgoLSIlyz5DtbdylA74sD3A
- H+/jAR4J/Nj9iLjjvnk0PD5ZVfn9XsjvFZAtaXt8QTIjLwzi61eYVIQdS5zXAIidDqzGxvvM
- jHoh8mMcg2wWjWZHuJrRzk3BSl+Coy6kXl1USTjRLY0I/ErXMBeoh8bLBiA1/kAnkbzZZBOW
- VwriSkXq9sfFb9deLGloH1vl9R5xKJSDEZ4J4uZjRkIPgjgflq3M0iFIc/KuZbIMo8g7pXS9
- VGHYXS4u1bfkidaG2ctm5zwMa0VnB2BRueRFMe0/blmAS+sUoJhnfw/vZv1kso5dY4Ud1J9u
- 7EOqNnmPVHSdIXd7t0AKMETdGsAmLATBrQOCbKSG6XWZ0vKjbIsdr68b817OaldNgBy4Yzgo
- 3IVBdduXQpc0zjBMWS1NlA8wzLQm+6QTPxo/suraRRq/n5Xv7mICeDQFchn4+ppOgeGNTSX7
- KpNJdfE5bYXB3T8EZyrnrDsrVpWA0juZcuy6QGsnq107f2FrE=
-X-Talos-CUID: 9a23:zhDel2AvhGzVkqX6Exhbz3ApJZg5TnP2xk/tAmLnTk90VpTAHA==
-X-Talos-MUID: 9a23:QefMOQZqTQnOhuBTmGa11CtvaJhSs4uTK1oKvIc6oeKhDHkl
-X-IronPort-Anti-Spam-Filtered: true
-Received: from alln-l-core-09.cisco.com ([173.36.16.146])
- by alln-iport-5.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384;
- 13 Nov 2025 22:34:45 +0000
-Received: from alln-opgw-3.cisco.com (alln-opgw-3.cisco.com [173.37.147.251])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by alln-l-core-09.cisco.com (Postfix) with ESMTPS id 8F49118000162;
- Thu, 13 Nov 2025 22:34:45 +0000 (GMT)
-X-CSE-ConnectionGUID: GCrkPvmrQQyYT0zT2MC+fg==
-X-CSE-MsgGUID: XijHqBfrRMaTSrqVw0ziAg==
-Authentication-Results: alln-opgw-3.cisco.com;
- dkim=pass (signature verified) header.i=@cisco.com
-X-IronPort-AV: E=Sophos;i="6.19,303,1754956800"; d="scan'208";a="36153306"
-Received: from mail-ch4pr07cu00101.outbound.protection.outlook.com (HELO
- CH4PR07CU001.outbound.protection.outlook.com) ([40.93.20.97])
- by alln-opgw-3.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384;
- 13 Nov 2025 22:34:40 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gzxoebjS9ToWZ6hkFn/yQS0iiplaQq1B4uUQr0RFXuTMtZe72qWKPaG3zeMn26vWbIUlrcW0xe1x5Z6AE/AQ0C3bRseVPhIvBh3olnvhwkAvI1F8xuvYDAqZY+ca8QP9WQOpcwDN0FIJjZm7eFuCIJCHeOFchgTOrzE5tGxI318PpwHZH/atRcXt0450+vS7OqWhGblRJM6hGqVaLVHf+Gn0pfH59UDzAzTCqwBFYuynnIPrV8z/D0SF780/FcP5TPFqLGc4Jz7vVUu5owU/wPyl+CqljKGnPurboag5vnjAWCn0pDFc7X1cRjSr929YyrQV+gyZrAx+Dk/ie/Bu7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8JVJ68Ci8hH+vA9bF8YiFlkwB1Lv6uIdcNwtst+8pPM=;
- b=wQak6JIoINwHL1xP/fq5L8vTabF8f9R4aD+z5MVNdyLO+dN/g9+GwFS4wtQ4KpOUrOV/kRnaI+ktN3ACIpuQul8qUUSJt04bppepZcDS8kp98Ps9pCxaNLxJkNI7pJXih62kvQ2gfhiToK69kKhcJA49IIEDsk4YkNzmRnS7EqBTimK6tiMMDQnRpHB2J7BO0RHFdWfEiwT++GtOp40H2PsMvirkCTQ6e25HPa76rYFIrzzc+kbkUO5v43lrHyZ47I8j8uICIS3yyPyUrko2G3AXGl4YRv5pOeXPVjDK9CtK2HT3DJjv3kY5fNw+MwypfUD15ctnAIHmdjTbfUdP8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cisco.com; dmarc=pass action=none header.from=cisco.com;
- dkim=pass header.d=cisco.com; arc=none
-Received: from SJ0PR11MB5896.namprd11.prod.outlook.com (2603:10b6:a03:42c::19)
- by IA1PR11MB7755.namprd11.prod.outlook.com (2603:10b6:208:420::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Thu, 13 Nov
- 2025 22:34:36 +0000
-Received: from SJ0PR11MB5896.namprd11.prod.outlook.com
- ([fe80::2081:bcd4:cb3e:e2dd]) by SJ0PR11MB5896.namprd11.prod.outlook.com
- ([fe80::2081:bcd4:cb3e:e2dd%4]) with mapi id 15.20.9320.013; Thu, 13 Nov 2025
- 22:34:36 +0000
-From: "Karan Tilak Kumar (kartilak)" <kartilak@cisco.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Corey Minyard
- <corey@minyard.net>, =?iso-8859-2?Q?Christian_K=F6nig?=
- <christian.koenig@amd.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Matthew Brost
- <matthew.brost@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, Aleksandr
- Loktionov <aleksandr.loktionov@intel.com>, Vitaly Lifshits
- <vitaly.lifshits@intel.com>, Manivannan Sadhasivam <mani@kernel.org>, Niklas
- Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>, Vadim Fedorenko
- <vadim.fedorenko@linux.dev>, Sagi Maimon <maimon.sagi@gmail.com>, "Martin K.
- Petersen" <martin.petersen@oracle.com>, Hans Verkuil
- <hverkuil+cisco@kernel.org>, Casey Schaufler <casey@schaufler-ca.com>, Steven
- Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, Viacheslav
- Dubeyko <Slava.Dubeyko@ibm.com>, Max Kellermann <max.kellermann@ionos.com>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org"
- <linaro-mm-sig@lists.linaro.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "linux-mmc@vger.kernel.org"
- <linux-mmc@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "intel-wired-lan@lists.osuosl.org"
- <intel-wired-lan@lists.osuosl.org>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, "linux-s390@vger.kernel.org"
- <linux-s390@vger.kernel.org>, "linux-scsi@vger.kernel.org"
- <linux-scsi@vger.kernel.org>, "linux-staging@lists.linux.dev"
- <linux-staging@lists.linux.dev>, "ceph-devel@vger.kernel.org"
- <ceph-devel@vger.kernel.org>, "linux-trace-kernel@vger.kernel.org"
- <linux-trace-kernel@vger.kernel.org>
-CC: Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
- <senozhatsky@chromium.org>, Jonathan Corbet <corbet@lwn.net>, Sumit Semwal
- <sumit.semwal@linaro.org>, Gustavo Padovan <gustavo@padovan.org>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
- <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Konrad
- Dybcio <konradybcio@kernel.org>, Lucas De Marchi <lucas.demarchi@intel.com>,
- =?iso-8859-2?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek
- Kitszel <przemyslaw.kitszel@intel.com>,
- =?iso-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, Kishon
- Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>, Jonathan Lemon
- <jonathan.lemon@gmail.com>, Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, "Satish
- Kharat (satishkh)" <satishkh@cisco.com>, "Sesidhar Baddela (sebaddel)"
- <sebaddel@cisco.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xiubo
- Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: RE: [PATCH v3 19/21] scsi: fnic: Switch to use %ptSp
-Thread-Topic: [PATCH v3 19/21] scsi: fnic: Switch to use %ptSp
-Thread-Index: AQHcVK6ozanKNwbcFU2LSi/oClNkW7TxMIPg
-Date: Thu, 13 Nov 2025 22:34:36 +0000
-Message-ID: <SJ0PR11MB5896D2F9DAC35FF8ADB29087C3CDA@SJ0PR11MB5896.namprd11.prod.outlook.com>
-References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
- <20251113150217.3030010-20-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20251113150217.3030010-20-andriy.shevchenko@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR11MB5896:EE_|IA1PR11MB7755:EE_
-x-ms-office365-filtering-correlation-id: 3cf75da7-1b8e-4777-1265-08de2304d313
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|38070700021|921020; 
-x-microsoft-antispam-message-info: =?iso-8859-2?Q?EV+qDQ4opgT6YErEt+UTHCFYqvHTNJI5xuKV0TWvVDABI0Ef8+VDdGTavR?=
- =?iso-8859-2?Q?SNJR5b3R0U9xD3zMHb8nX29wKP3IboINDE5Vu3YwhbTGwLiATuVYXvnS/z?=
- =?iso-8859-2?Q?IuCxsetISmon5JlHrjND3OG8FJcZK0TctHcd7wsSq0vX5gTK4Mly8e2tXB?=
- =?iso-8859-2?Q?8niGQPhFBtcfIvxSP02U+OsRVhVAlAZU9FNl3umrxpWNh2Ou/gAUtKMMja?=
- =?iso-8859-2?Q?vuk/ZOK8y62KRUh4+Yqy1hLRgoy4MzxIQm9ENoDUDKejiY6VAmxaHBtFMv?=
- =?iso-8859-2?Q?khC+LYVKosq8tq4fM65y1+JzsHqZPyWKtv2KiMvx/00QoNn4AxpcNxgov/?=
- =?iso-8859-2?Q?f7J3E9cKAtg2zReMnMxzzrtN3tDrlmZvQPQGDFohM7peloBOxRkKX2glgv?=
- =?iso-8859-2?Q?6p593bO9o3W6G9PSesKeQ9Qk4a9MIRTejqyErN++fwt7BiOL2Oda2guwYK?=
- =?iso-8859-2?Q?DzzccPSUzCrJOelr77JA9iEVIu8KJnD2fd66UlCv7gk3Fh/B5QZXLJaGtu?=
- =?iso-8859-2?Q?5LG5k8+7w3IoPhyFfMFqo25jCT+TxxiBwFSXTUJEPDjp9yLPR/o545NFJ7?=
- =?iso-8859-2?Q?dqplbeu5arprxhwRAyU085ei3Qb9ABYMk0kBR5G3nrwItNBjoNKE7rLfZ2?=
- =?iso-8859-2?Q?WL5jfsO+dsZjt6gxuOMRbyO47AgSAm5bCq5TMLEEoXRz3bwvr6uK1rr3Ns?=
- =?iso-8859-2?Q?yRSBerbmJD/ZZ+ObnNDbOOH2iCkHUJuVJxvO43eV7MHOp354KyauFmaAnx?=
- =?iso-8859-2?Q?ve3W8QuXW9HC8E002cKp+JmxPMtAaet0UYmffOQ/QtH9pwqs4RWURUqq10?=
- =?iso-8859-2?Q?AjWtBDSOgaBz07nb/wVUnhjGu3IlwbuOc05yLo7NAt+ogtQuPheZLWdkse?=
- =?iso-8859-2?Q?sVJEQXE+iIsU6NtdDfGyvgqpPx+wEai/fzTe1OsBTT3g4ISw8I0lqUo7PN?=
- =?iso-8859-2?Q?Ui58IOsGbxGXrkTbfHasebGXowPe7ji1AbBtVYVvz/fA7riU7f6beYLRg1?=
- =?iso-8859-2?Q?s8CRYhMj5gncWcknGIRth3Ni/LpRDlE3jvW0TIByQodKFwcoTNRcZqS9VZ?=
- =?iso-8859-2?Q?u3BmU+kB3fay6joTlS1WDA4diI9X9Pduq+SPZuk3EqHOLxb3YEP2NNMM+V?=
- =?iso-8859-2?Q?F9ehoScC422VY4fWpfpEaSZpNiOMQNq0233ZGVagJMez1oEpHJolJ4IYDF?=
- =?iso-8859-2?Q?rr95lC/zxpoLNZwcwqL5nHwh+kfByty09Vl9v6IhYVaw416rCIM5swf9cr?=
- =?iso-8859-2?Q?cPUHa7lW/29d0PAAhUgphYMjq79TEGuuu+U9e5RQGvksOA26HWqQdVvcN0?=
- =?iso-8859-2?Q?+WW1bi3sCAWfoKq6H5qjbVJe21oBV3lx6AnX6rS+XSG4QMSETxmaFEKKVb?=
- =?iso-8859-2?Q?7y5luHp8/I+Y8wqeUtKPqJ5rH2x/El887tArDaXVwW1B6ayD3B+SPdK+E5?=
- =?iso-8859-2?Q?ju2AWJVNKsxRVZOx/Fi/WE971MHiHUvsR/yupHVmPZC/6Ewd+LlaC1Q8uA?=
- =?iso-8859-2?Q?iV1i/kX1mV6VgVa4nc14YAcu9qryk57wAI+Wd+gH+oypoZd76+5cQufEzy?=
- =?iso-8859-2?Q?1EOlIiZCP+WpsYf5xLKPUCNLz49r?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR11MB5896.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(921020);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-2?Q?JAcZu+XLiUOU8CJSSgwLGu7Y/XMu8k1WUI7Ah4cqVJUMBWde4kmxiTEO9K?=
- =?iso-8859-2?Q?dpJ5rZhOLpU5T9t2I/XlB3US7ufDrG0lM/DZfTCqdaK946hnz5F77s3wKJ?=
- =?iso-8859-2?Q?qgMA0wh2jdBFePzNXbR77En+zJXbyV1ndr+UumsF8SMXKQJ+OOdSR8UrSN?=
- =?iso-8859-2?Q?RklHn/G95gf/JEC5Pdn9PYix/KgqLWjYnGNlXVniFqQzmiQWxxn4ht70VM?=
- =?iso-8859-2?Q?KVEpzpUuas1b+v/EjYw8umW4FzWillX9WIeKnPt/6oQBFIJI/oLhWHdQP1?=
- =?iso-8859-2?Q?wnDX4bYaOllhPkyzIUDdEAo0NLx6N78O8eMe8ZJmYBnW2JmZXA2nqFIXpP?=
- =?iso-8859-2?Q?IuZUYiIFNz+bkdMYmPth6KYoNyyeT22qA89rVpsfDxgYbRNhk+PEGwIJTg?=
- =?iso-8859-2?Q?EUmtoXbbYR/FobrnsouXDWjP1UYOdDAcAqbXlCqucsdi+lqasmhosWEH6D?=
- =?iso-8859-2?Q?yNcXgt2c/bB/umXc8F0Faueqx5RwVzzx1kJs3F9ENKkf1aAs988BbpP98s?=
- =?iso-8859-2?Q?Hs9lqXCsJKbR2SjsIP71J7dJzshIi1m/+MaiOcNcZZwmFLH6OA0oLN1v/R?=
- =?iso-8859-2?Q?gFzW/ELHRS0DbgWKB7GYozXa+3UMEldiHkSWT8gJ8bswch5/+t8VcYpSM2?=
- =?iso-8859-2?Q?7SxAuxLOsE4QePikmND7AeXMC6ojUIO228eQUOPqV8Q/DBI8skTva0pEq8?=
- =?iso-8859-2?Q?zvS9imhV+clIJAH2JfiiDhLUVs2sscc4qUGi7J2MtsE/vr2xHwA4aYNEAH?=
- =?iso-8859-2?Q?6yrdru3DI77uvaD6At6OwOqH8Cmm7+UoYAq8DCO9E8LN6OJrIuO2BtQ4pM?=
- =?iso-8859-2?Q?zCcBbB7unQO+pQnEjPMFLwaweL6TuXmQ6cYEaSaS2pEssJFr1F8vb617QA?=
- =?iso-8859-2?Q?uT/5s+cP16uCXXJFqfF3HTg9YOlpH/R/l6hTu4a/BhcvDzGOiSOjsgsPIi?=
- =?iso-8859-2?Q?n9HTEQdHTjI25vY7N5PqZRdEsd8G4jP3CZT8lPbyLaEWO+vCshV22lTRxr?=
- =?iso-8859-2?Q?L1R9JCkMR7q2rtXScfGH7K7h/L8Y4ssMradPA8ycNfEVRJ9hs7vFneUsaZ?=
- =?iso-8859-2?Q?NjLQJ46yxpyfzQipPYwIHLDKqzhQa/+bo1lTBGm4YOEMP318iH+ibcrv5q?=
- =?iso-8859-2?Q?R1IVAFTppmRUMzxJLuJTqV57wDRNmFlU7iqH65Jni/Bvxaf6pbLIE7shYi?=
- =?iso-8859-2?Q?/2BGpuUbA4hZwANp5E2Ih0hTWre1X0SeJHcQSXLAbEfTlpiVg7+yPt6E8N?=
- =?iso-8859-2?Q?JRr22MREJHr68n99H9VNcbUoTQWVXswgoHEiBGZHzfX7HKaT4Yc7Lfh/ek?=
- =?iso-8859-2?Q?75nIHJeeC9hhA4SXFNcxHI4uVyIrmRngkUolr2urenyu5zezfaxO8JmDX4?=
- =?iso-8859-2?Q?euhetnR8XyZRSStChswMTaP4l+NvTgcbWtuVl/Qe+7Q+bANcHMFtChFlcX?=
- =?iso-8859-2?Q?rNZDbbAepHlFEvJYUvQOhkjbDJ5+ve7TfD5nwyLfqN6vDPi+FVRCaB0GDX?=
- =?iso-8859-2?Q?K2I1JeGZQuGp30dM9ISX8xW5V+CTM78+bCoYjXzG4dt2onHVAGTQagC4Xu?=
- =?iso-8859-2?Q?0sHGJ1xqsQUIK7WWDvUVIyf7n4jVA4sIYkNo5AI1i7GyLjrvEd2IlwNxsF?=
- =?iso-8859-2?Q?Q9PMXYfRADkiwN7AmZyMvDbaLqpemSwu9Y?=
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0C5810E8CA;
+ Thu, 13 Nov 2025 16:46:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763052379; x=1794588379;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=leNjymy4IrsrANo98enac3hyuX+efgKo4NeKdRrW9AI=;
+ b=NQiFBPPPs2hCM+e7usm/nYuB7JRaNrRB7avfEhvNX7ruX21sW5lGL1SG
+ 0/XPzwI4QQkWRw2srm+Ay5Rg5k+UFhA6tKQzP1VUasVYcdqpTmZ8aIkrB
+ tN7YQXufe9cG7z1hBYYpUmSbtzFP6N8Axu08jZ59XmH6I8OWSy3VBfFHk
+ bOmNYd0OLglGQJVdgyvHR6bu3HmRMGJtPVBDjCZEgG0NsHejqjQC2XVsb
+ 6mDAkdTvJ60qFzqAMrSdcIchl2QdlPGOOTvfS14TrQmAbHZA/+zK3yMfe
+ +g3Md/LIfNG1XLkeOoEhsYN5cozZjCMYECuTq+pWYWFy2Z1e3PIr0yXVu A==;
+X-CSE-ConnectionGUID: PCqnRTj2RYCMRStfxT1wrA==
+X-CSE-MsgGUID: OSHJYDJZRNKa3qBoHAjIZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="65046353"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="65046353"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 08:46:18 -0800
+X-CSE-ConnectionGUID: 2B04FgYhRlyg4sFFreNVog==
+X-CSE-MsgGUID: nZE32FcgT+egbvXjO9RXJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220365848"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.164])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 08:46:11 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 13 Nov 2025 18:46:07 +0200 (EET)
+To: Bjorn Helgaas <bhelgaas@google.com>
+cc: =?ISO-8859-15?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>, 
+ Simon Richter <Simon.Richter@hogyros.de>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
+ =?ISO-8859-2?Q?Micha=B3_Winiarski?= <michal.winiarski@intel.com>, 
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 06/11] PCI: Fix restoring BARs on BAR resize rollback
+ path
+In-Reply-To: <20251113162628.5946-7-ilpo.jarvinen@linux.intel.com>
+Message-ID: <ba725a72-7863-3dd2-6ba2-ff2259229bbe@linux.intel.com>
+References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+ <20251113162628.5946-7-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: cisco.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5896.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cf75da7-1b8e-4777-1265-08de2304d313
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2025 22:34:36.0943 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5ae1af62-9505-4097-a69a-c1553ef7840e
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qzy1shonmI5zJGs1dmaG8CrCP6foCu3hlDlOh8wFz+DyMGfoDNvNl+htR9RXXM+Thcff9uKfnLugIX4fvwAgxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7755
-X-Outbound-SMTP-Client: 173.37.147.251, alln-opgw-3.cisco.com
-X-Outbound-Node: alln-l-core-09.cisco.com
+Content-Type: multipart/mixed; boundary="8323328-64272619-1763052367=:1464"
 X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -283,152 +82,436 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, November 13, 2025 6:33 AM, Andy Shevchenko <andriy.shevchenko@=
-linux.intel.com> wrote:
->
-> Use %ptSp instead of open coded variants to print content of
-> struct timespec64 in human readable format.
->
-> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-64272619-1763052367=:1464
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+
+On Thu, 13 Nov 2025, Ilpo J=C3=A4rvinen wrote:
+
+> BAR resize operation is implemented in the pci_resize_resource() and
+> pbus_reassign_bridge_resources() functions. pci_resize_resource() can
+> be called either from __resource_resize_store() from sysfs or directly
+> by the driver for the Endpoint Device.
+>=20
+> The pci_resize_resource() requires that caller has released the device
+> resources that share the bridge window with the BAR to be resized as
+> otherwise the bridge window is pinned in place and cannot be changed.
+>=20
+> pbus_reassign_bridge_resources() implement rollback of the resources if
+> the resize operation fails, but rollback is performed only for the
+> bridge windows. Because releasing the device resources are done by the
+> caller of the BAR resize interface, these functions performing the BAR
+> resize do not have access to the device resources as they were before
+> the resize.
+>=20
+> pbus_reassign_bridge_resources() could try to
+> __pci_bridge_assign_resources() after rolling back the bridge windows
+> as they were, however, it will not guarantee the resource are assigned
+> due to differences how FW and the kernel may want to assign the
+> resources (alignment of the start address and tail).
+>=20
+> In order to perform rollback robustly, the BAR resize interface has to
+> be altered to also release the device resources that share the bridge
+> window with the BAR to be resized.
+>=20
+> Also, remove restoring from the entries failed list as saved list
+> should now contain both the bridge windows and device resources so
+> the extra restore is duplicated work.
+>=20
+> Some drivers (currently only amdgpu) want to prevent releasing some
+> resources. Add exclude_bars param to pci_resize_resource() and make
+> amdgpu to pass its register BAR (BAR 5) which should never be released
+> during resize operation. Normally 64-bit prefetchable resources do not
+> share bridge window with it as the register BAR (32-bit only) but there
+> are various fallbacks in the resource assignment logic which may make
+> the resources to share the bridge window in rare cases.
+>=20
+> This change (together with the driver side changes) is to counter the
+> resource releases that had to be done to prevent resource tree
+> corruption in the ("PCI: Release assigned resource before restoring
+> them") change. As such, it likely restores functionality in cases where
+> device resources were released to avoid resource tree conflicts which
+> appeared to be "working" when such conflicts were not correctly
+> detected by the kernel.
+>=20
+> Link: https://lore.kernel.org/linux-pci/f9a8c975-f5d3-4dd2-988e-4371a1433=
+a60@hogyros.de/
+> Link: https://lore.kernel.org/linux-pci/874irqop6b.fsf@draig.linaro.org/
+> Reported-by: Simon Richter <Simon.Richter@hogyros.de>
+> Reported-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 > ---
-> drivers/scsi/fnic/fnic_trace.c | 52 ++++++++++++++--------------------
-> 1 file changed, 22 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/scsi/fnic/fnic_trace.c b/drivers/scsi/fnic/fnic_trac=
-e.c
-> index cdc6b12b1ec2..0a849a195a8e 100644
-> --- a/drivers/scsi/fnic/fnic_trace.c
-> +++ b/drivers/scsi/fnic/fnic_trace.c
-> @@ -138,9 +138,8 @@ int fnic_get_trace_data(fnic_dbgfs_t *fnic_dbgfs_prt)
-> */
-> len +=3D scnprintf(fnic_dbgfs_prt->buffer + len,
-> (trace_max_pages * PAGE_SIZE * 3) - len,
-> -                               "%16llu.%09lu %-50s %8x %8x %16llx %16llx=
- "
-> -                               "%16llx %16llx %16llx\n", (u64)val.tv_sec=
-,
-> -                               val.tv_nsec, str, tbp->host_no, tbp->tag,
-> +                               "%ptSp %-50s %8x %8x %16llx %16llx %16llx=
- %16llx %16llx\n",
-> +                               &val, str, tbp->host_no, tbp->tag,
-> tbp->data[0], tbp->data[1], tbp->data[2],
-> tbp->data[3], tbp->data[4]);
-> rd_idx++;
-> @@ -180,9 +179,8 @@ int fnic_get_trace_data(fnic_dbgfs_t *fnic_dbgfs_prt)
-> */
-> len +=3D scnprintf(fnic_dbgfs_prt->buffer + len,
-> (trace_max_pages * PAGE_SIZE * 3) - len,
-> -                               "%16llu.%09lu %-50s %8x %8x %16llx %16llx=
- "
-> -                               "%16llx %16llx %16llx\n", (u64)val.tv_sec=
-,
-> -                               val.tv_nsec, str, tbp->host_no, tbp->tag,
-> +                               "%ptSp %-50s %8x %8x %16llx %16llx %16llx=
- %16llx %16llx\n",
-> +                               &val, str, tbp->host_no, tbp->tag,
-> tbp->data[0], tbp->data[1], tbp->data[2],
-> tbp->data[3], tbp->data[4]);
-> rd_idx++;
-> @@ -215,30 +213,26 @@ int fnic_get_stats_data(struct stats_debug_info *de=
-bug,
-> {
-> int len =3D 0;
-> int buf_size =3D debug->buf_size;
-> -     struct timespec64 val1, val2;
-> +     struct timespec64 val, val1, val2;
-> int i =3D 0;
->
-> -     ktime_get_real_ts64(&val1);
-> +     ktime_get_real_ts64(&val);
-> len =3D scnprintf(debug->debug_buffer + len, buf_size - len,
-> "------------------------------------------\n"
-> "\t\tTime\n"
-> "------------------------------------------\n");
->
-> +     val1 =3D timespec64_sub(val, stats->stats_timestamps.last_reset_tim=
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   2 +-
+>  drivers/gpu/drm/i915/gt/intel_region_lmem.c |   2 +-
+>  drivers/gpu/drm/xe/xe_vram.c                |   2 +-
+>  drivers/pci/pci-sysfs.c                     |  17 +---
+>  drivers/pci/pci.h                           |   4 +-
+>  drivers/pci/setup-bus.c                     | 100 +++++++++++++++-----
+>  drivers/pci/setup-res.c                     |  23 ++---
+>  include/linux/pci.h                         |   3 +-
+>  8 files changed, 91 insertions(+), 62 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 7a899fb4de29..4e241836ae68 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1736,7 +1736,7 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_devic=
+e *adev)
+> =20
+>  =09pci_release_resource(adev->pdev, 0);
+> =20
+> -=09r =3D pci_resize_resource(adev->pdev, 0, rbar_size);
+> +=09r =3D pci_resize_resource(adev->pdev, 0, rbar_size, 1 << 5);
+>  =09if (r =3D=3D -ENOSPC)
+>  =09=09dev_info(adev->dev,
+>  =09=09=09 "Not enough PCI address space for a large BAR.");
+> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/dr=
+m/i915/gt/intel_region_lmem.c
+> index 51bb27e10a4f..7699e8fcf5ed 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+> @@ -37,7 +37,7 @@ _resize_bar(struct drm_i915_private *i915, int resno, r=
+esource_size_t size)
+> =20
+>  =09_release_bars(pdev);
+> =20
+> -=09ret =3D pci_resize_resource(pdev, resno, bar_size);
+> +=09ret =3D pci_resize_resource(pdev, resno, bar_size, 0);
+>  =09if (ret) {
+>  =09=09drm_info(&i915->drm, "Failed to resize BAR%d to %dM (%pe)\n",
+>  =09=09=09 resno, 1 << bar_size, ERR_PTR(ret));
+> diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
+> index b44ebf50fedb..00dd027057df 100644
+> --- a/drivers/gpu/drm/xe/xe_vram.c
+> +++ b/drivers/gpu/drm/xe/xe_vram.c
+> @@ -36,7 +36,7 @@ _resize_bar(struct xe_device *xe, int resno, resource_s=
+ize_t size)
+>  =09if (pci_resource_len(pdev, resno))
+>  =09=09pci_release_resource(pdev, resno);
+> =20
+> -=09ret =3D pci_resize_resource(pdev, resno, bar_size);
+> +=09ret =3D pci_resize_resource(pdev, resno, bar_size, 0);
+>  =09if (ret) {
+>  =09=09drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider =
+enabling 'Resizable BAR' support in your BIOS\n",
+>  =09=09=09 resno, 1 << bar_size, ERR_PTR(ret));
+> diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+> index 9d6f74bd95f8..2a1b5456c2dc 100644
+> --- a/drivers/pci/pci-sysfs.c
+> +++ b/drivers/pci/pci-sysfs.c
+> @@ -1599,18 +1599,13 @@ static ssize_t __resource_resize_store(struct dev=
+ice *dev, int n,
+>  {
+>  =09struct pci_dev *pdev =3D to_pci_dev(dev);
+>  =09struct pci_bus *bus =3D pdev->bus;
+> -=09struct resource *b_win, *res;
+>  =09unsigned long size;
+> -=09int ret, i;
+> +=09int ret;
+>  =09u16 cmd;
+> =20
+>  =09if (kstrtoul(buf, 0, &size) < 0)
+>  =09=09return -EINVAL;
+> =20
+> -=09b_win =3D pbus_select_window(bus, pci_resource_n(pdev, n));
+> -=09if (!b_win)
+> -=09=09return -EINVAL;
+> -
+>  =09device_lock(dev);
+>  =09if (dev->driver || pci_num_vf(pdev)) {
+>  =09=09ret =3D -EBUSY;
+> @@ -1632,15 +1627,7 @@ static ssize_t __resource_resize_store(struct devi=
+ce *dev, int n,
+> =20
+>  =09pci_remove_resource_files(pdev);
+> =20
+> -=09pci_dev_for_each_resource(pdev, res, i) {
+> -=09=09if (i >=3D PCI_BRIDGE_RESOURCES)
+> -=09=09=09break;
+> -
+> -=09=09if (b_win =3D=3D pbus_select_window(bus, res))
+> -=09=09=09pci_release_resource(pdev, i);
+> -=09}
+> -
+> -=09ret =3D pci_resize_resource(pdev, n, size);
+> +=09ret =3D pci_resize_resource(pdev, n, size, 0);
+> =20
+>  =09pci_assign_unassigned_bus_resources(bus);
+> =20
+> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+> index bf1a577e9623..9893ea12d1f2 100644
+> --- a/drivers/pci/pci.h
+> +++ b/drivers/pci/pci.h
+> @@ -421,8 +421,10 @@ enum pci_bar_type {
+>  struct device *pci_get_host_bridge_device(struct pci_dev *dev);
+>  void pci_put_host_bridge_device(struct device *dev);
+> =20
+> +void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int si=
+ze);
+> +int pci_do_resource_release_and_resize(struct pci_dev *dev, int resno, i=
+nt size,
+> +=09=09=09=09       int exclude_bars);
+>  unsigned int pci_rescan_bus_bridge_resize(struct pci_dev *bridge);
+> -int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource =
+*res);
+>  int __must_check pci_reassign_resource(struct pci_dev *dev, int i, resou=
+rce_size_t add_size, resource_size_t align);
+> =20
+>  int pci_configure_extended_tags(struct pci_dev *dev, void *ign);
+> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+> index 51f5e5a80b54..7e268960954b 100644
+> --- a/drivers/pci/setup-bus.c
+> +++ b/drivers/pci/setup-bus.c
+> @@ -2420,18 +2420,16 @@ EXPORT_SYMBOL_GPL(pci_assign_unassigned_bridge_re=
+sources);
+>   * release it when possible. If the bridge window contains assigned
+>   * resources, it cannot be released.
+>   */
+> -int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource =
+*res)
+> +static int pbus_reassign_bridge_resources(struct pci_bus *bus, struct re=
+source *res,
+> +=09=09=09=09=09  struct list_head *saved)
+>  {
+>  =09unsigned long type =3D res->flags;
+>  =09struct pci_dev_resource *dev_res;
+>  =09struct pci_dev *bridge =3D NULL;
+> -=09LIST_HEAD(saved);
+>  =09LIST_HEAD(added);
+>  =09LIST_HEAD(failed);
+>  =09unsigned int i;
+> -=09int ret;
+> -
+> -=09down_read(&pci_bus_sem);
+> +=09int ret =3D 0;
+> =20
+>  =09while (!pci_is_root_bus(bus)) {
+>  =09=09bridge =3D bus->self;
+> @@ -2443,9 +2441,9 @@ int pbus_reassign_bridge_resources(struct pci_bus *=
+bus, struct resource *res)
+> =20
+>  =09=09/* Ignore BARs which are still in use */
+>  =09=09if (!res->child) {
+> -=09=09=09ret =3D add_to_list(&saved, bridge, res, 0, 0);
+> +=09=09=09ret =3D add_to_list(saved, bridge, res, 0, 0);
+>  =09=09=09if (ret)
+> -=09=09=09=09goto cleanup;
+> +=09=09=09=09return ret;
+> =20
+>  =09=09=09pci_release_resource(bridge, i);
+>  =09=09} else {
+> @@ -2468,34 +2466,78 @@ int pbus_reassign_bridge_resources(struct pci_bus=
+ *bus, struct resource *res)
+>  =09=09free_list(&added);
+> =20
+>  =09if (!list_empty(&failed)) {
+> -=09=09if (pci_required_resource_failed(&failed, type)) {
+> +=09=09if (pci_required_resource_failed(&failed, type))
+>  =09=09=09ret =3D -ENOSPC;
+> -=09=09=09goto cleanup;
+> -=09=09}
+> -=09=09/* Only resources with unrelated types failed (again) */
+>  =09=09free_list(&failed);
+> +=09=09if (ret)
+> +=09=09=09return ret;
+> +
+> +=09=09/* Only resources with unrelated types failed (again) */
+>  =09}
+> =20
+> -=09list_for_each_entry(dev_res, &saved, list) {
+> +=09list_for_each_entry(dev_res, saved, list) {
+>  =09=09struct pci_dev *dev =3D dev_res->dev;
+> =20
+>  =09=09/* Skip the bridge we just assigned resources for */
+>  =09=09if (bridge =3D=3D dev)
+>  =09=09=09continue;
+> =20
+> +=09=09if (!dev->subordinate)
+> +=09=09=09continue;
+> +
+>  =09=09pci_setup_bridge(dev->subordinate);
+>  =09}
+> =20
+> -=09free_list(&saved);
+> -=09up_read(&pci_bus_sem);
+>  =09return 0;
+> +}
+> =20
+> -cleanup:
+> -=09/* Restore size and flags */
+> -=09list_for_each_entry(dev_res, &failed, list)
+> -=09=09restore_dev_resource(dev_res);
+> -=09free_list(&failed);
+> +int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, =
+int size,
+> +=09=09=09=09       int exclude_bars)
+> +{
+> +=09struct resource *res =3D pci_resource_n(pdev, resno);
+> +=09struct pci_dev_resource *dev_res;
+> +=09struct pci_bus *bus =3D pdev->bus;
+> +=09struct resource *b_win, *r;
+> +=09LIST_HEAD(saved);
+> +=09unsigned int i;
+> +=09int ret =3D 0;
+> +
+> +=09b_win =3D pbus_select_window(bus, res);
+> +=09if (!b_win)
+> +=09=09return -EINVAL;
+> +
+> +=09pci_dev_for_each_resource(pdev, r, i) {
+> +=09=09if (i >=3D PCI_BRIDGE_RESOURCES)
+> +=09=09=09break;
+> +
+> +=09=09if (exclude_bars & BIT(i))
+> +=09=09=09continue;
+> =20
+> +=09=09if (b_win !=3D pbus_select_window(bus, r))
+> +=09=09=09continue;
+> +
+> +=09=09ret =3D add_to_list(&saved, pdev, r, 0, 0);
+> +=09=09if (ret)
+> +=09=09=09goto restore;
+> +=09=09pci_release_resource(pdev, i);
+> +=09}
+> +
+> +=09pci_resize_resource_set_size(pdev, resno, size);
+> +
+> +=09if (!bus->self)
+> +=09=09goto out;
+> +
+> +=09down_read(&pci_bus_sem);
+> +=09ret =3D pbus_reassign_bridge_resources(bus, res, &saved);
+> +=09if (ret)
+> +=09=09goto restore;
+> +
+> +out:
+> +=09up_read(&pci_bus_sem);
+> +=09free_list(&saved);
+> +=09return ret;
+> +
+> +restore:
+>  =09/* Revert to the old configuration */
+>  =09list_for_each_entry(dev_res, &saved, list) {
+>  =09=09struct resource *res =3D dev_res->res;
+> @@ -2510,13 +2552,21 @@ int pbus_reassign_bridge_resources(struct pci_bus=
+ *bus, struct resource *res)
+> =20
+>  =09=09restore_dev_resource(dev_res);
+> =20
+> -=09=09pci_claim_resource(dev, i);
+> -=09=09pci_setup_bridge(dev->subordinate);
+> -=09}
+> -=09up_read(&pci_bus_sem);
+> -=09free_list(&saved);
+> +=09=09ret =3D pci_claim_resource(dev, i);
+> +=09=09if (ret)
+> +=09=09=09continue;
+> =20
+> -=09return ret;
+> +=09=09if (i < PCI_BRIDGE_RESOURCES) {
+> +=09=09=09const char *res_name =3D pci_resource_name(dev, i);
+> +
+> +=09=09=09pci_update_resource(dev, i);
+> +=09=09=09pci_info(dev, "%s %pR: old value restored\n",
+> +=09=09=09=09 res_name, res);
+> +=09=09}
+> +=09=09if (dev->subordinate)
+> +=09=09=09pci_setup_bridge(dev->subordinate);
+> +=09}
+> +=09goto out;
+>  }
+> =20
+>  void pci_assign_unassigned_bus_resources(struct pci_bus *bus)
+> diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+> index 3d0b0b3f60c4..e4486d7030c0 100644
+> --- a/drivers/pci/setup-res.c
+> +++ b/drivers/pci/setup-res.c
+> @@ -444,8 +444,7 @@ static bool pci_resize_is_memory_decoding_enabled(str=
+uct pci_dev *dev,
+>  =09return cmd & PCI_COMMAND_MEMORY;
+>  }
+> =20
+> -static void pci_resize_resource_set_size(struct pci_dev *dev, int resno,
+> -=09=09=09=09=09 int size)
+> +void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int si=
+ze)
+>  {
+>  =09resource_size_t res_size =3D pci_rebar_size_to_bytes(size);
+>  =09struct resource *res =3D pci_resource_n(dev, resno);
+> @@ -456,9 +455,9 @@ static void pci_resize_resource_set_size(struct pci_d=
+ev *dev, int resno,
+>  =09resource_set_size(res, res_size);
+>  }
+> =20
+> -int pci_resize_resource(struct pci_dev *dev, int resno, int size)
+> +int pci_resize_resource(struct pci_dev *dev, int resno, int size,
+> +=09=09=09int exclude_bars)
+>  {
+> -=09struct resource *res =3D pci_resource_n(dev, resno);
+>  =09struct pci_host_bridge *host;
+>  =09int old, ret;
+>  =09u32 sizes;
+> @@ -468,10 +467,6 @@ int pci_resize_resource(struct pci_dev *dev, int res=
+no, int size)
+>  =09if (host->preserve_config)
+>  =09=09return -ENOTSUPP;
+> =20
+> -=09/* Make sure the resource isn't assigned before resizing it. */
+> -=09if (!(res->flags & IORESOURCE_UNSET))
+> -=09=09return -EBUSY;
+> -
+>  =09if (pci_resize_is_memory_decoding_enabled(dev, resno))
+>  =09=09return -EBUSY;
+> =20
+> @@ -490,19 +485,13 @@ int pci_resize_resource(struct pci_dev *dev, int re=
+sno, int size)
+>  =09if (ret)
+>  =09=09return ret;
+> =20
+> -=09pci_resize_resource_set_size(dev, resno, size);
+> -
+> -=09/* Check if the new config works by trying to assign everything. */
+> -=09if (dev->bus->self) {
+> -=09=09ret =3D pbus_reassign_bridge_resources(dev->bus, res);
+> -=09=09if (ret)
+> -=09=09=09goto error_resize;
+> -=09}
+> +=09ret =3D pci_do_resource_release_and_resize(dev, resno, size, exclude_=
+bars);
+> +=09if (ret)
+> +=09=09goto error_resize;
+>  =09return 0;
+> =20
+>  error_resize:
+>  =09pci_rebar_set_size(dev, resno, old);
+> -=09pci_resize_resource_set_size(dev, resno, old);
+>  =09return ret;
+>  }
+>  EXPORT_SYMBOL(pci_resize_resource);
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d1fdf81fbe1e..cc58abbd2b20 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -1428,7 +1428,8 @@ static inline int pci_rebar_bytes_to_size(u64 bytes=
+)
+>  }
+> =20
+>  u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar);
+> -int __must_check pci_resize_resource(struct pci_dev *dev, int i, int siz=
 e);
-> +     val2 =3D timespec64_sub(val, stats->stats_timestamps.last_read_time=
-);
-> len +=3D scnprintf(debug->debug_buffer + len, buf_size - len,
-> -             "Current time :          [%lld:%ld]\n"
-> -             "Last stats reset time:  [%lld:%09ld]\n"
-> -             "Last stats read time:   [%lld:%ld]\n"
-> -             "delta since last reset: [%lld:%ld]\n"
-> -             "delta since last read:  [%lld:%ld]\n",
-> -     (s64)val1.tv_sec, val1.tv_nsec,
-> -     (s64)stats->stats_timestamps.last_reset_time.tv_sec,
-> -     stats->stats_timestamps.last_reset_time.tv_nsec,
-> -     (s64)stats->stats_timestamps.last_read_time.tv_sec,
-> -     stats->stats_timestamps.last_read_time.tv_nsec,
-> -     (s64)timespec64_sub(val1, stats->stats_timestamps.last_reset_time).=
-tv_sec,
-> -     timespec64_sub(val1, stats->stats_timestamps.last_reset_time).tv_ns=
-ec,
-> -     (s64)timespec64_sub(val1, stats->stats_timestamps.last_read_time).t=
-v_sec,
-> -     timespec64_sub(val1, stats->stats_timestamps.last_read_time).tv_nse=
-c);
-> +                      "Current time :          [%ptSp]\n"
-> +                      "Last stats reset time:  [%ptSp]\n"
-> +                      "Last stats read time:   [%ptSp]\n"
-> +                      "delta since last reset: [%ptSp]\n"
-> +                      "delta since last read:  [%ptSp]\n",
-> +                      &val,
-> +                      &stats->stats_timestamps.last_reset_time, &val1,
-> +                      &stats->stats_timestamps.last_read_time, &val2);
->
-> stats->stats_timestamps.last_read_time =3D val1;
->
-> @@ -416,8 +410,8 @@ int fnic_get_stats_data(struct stats_debug_info *debu=
-g,
-> jiffies_to_timespec64(stats->misc_stats.last_ack_time, &val2);
->
-> len +=3D scnprintf(debug->debug_buffer + len, buf_size - len,
-> -               "Last ISR time: %llu (%8llu.%09lu)\n"
-> -               "Last ACK time: %llu (%8llu.%09lu)\n"
-> +               "Last ISR time: %llu (%ptSp)\n"
-> +               "Last ACK time: %llu (%ptSp)\n"
-> "Max ISR jiffies: %llu\n"
-> "Max ISR time (ms) (0 denotes < 1 ms): %llu\n"
-> "Corr. work done: %llu\n"
-> @@ -437,10 +431,8 @@ int fnic_get_stats_data(struct stats_debug_info *deb=
-ug,
-> "Number of rport not ready: %lld\n"
-> "Number of receive frame errors: %lld\n"
-> "Port speed (in Mbps): %lld\n",
-> -               (u64)stats->misc_stats.last_isr_time,
-> -               (s64)val1.tv_sec, val1.tv_nsec,
-> -               (u64)stats->misc_stats.last_ack_time,
-> -               (s64)val2.tv_sec, val2.tv_nsec,
-> +               (u64)stats->misc_stats.last_isr_time, &val1,
-> +               (u64)stats->misc_stats.last_ack_time, &val2,
-> (u64)atomic64_read(&stats->misc_stats.max_isr_jiffies),
-> (u64)atomic64_read(&stats->misc_stats.max_isr_time_ms),
-> (u64)atomic64_read(&stats->misc_stats.corr_work_done),
-> @@ -857,8 +849,8 @@ void copy_and_format_trace_data(struct fc_trace_hdr *=
-tdata,
-> len =3D *orig_len;
->
-> len +=3D scnprintf(fnic_dbgfs_prt->buffer + len, max_size - len,
-> -                      "%ptTs.%09lu ns%8x       %c%8x\t",
-> -                      &tdata->time_stamp.tv_sec, tdata->time_stamp.tv_ns=
-ec,
-> +                      "%ptSs ns%8x       %c%8x\t",
-> +                      &tdata->time_stamp,
-> tdata->host_no, tdata->frame_type, tdata->frame_len);
->
-> fc_trace =3D (char *)FC_TRACE_ADDRESS(tdata);
-> --
-> 2.50.1
->
->
+> +int __must_check pci_resize_resource(struct pci_dev *dev, int i, int siz=
+e,
+> +=09=09=09=09     int exlucde_bars);
 
-Acked-by: Karan Tilak Kumar <kartilak@cisco.com>
+It seems I managed to mistype this in the prototype, please let me know if=
+=20
+you want me to send v3 addressing this and the other comments.
 
-Thanks for the change, Andy.
+--=20
+ i.
 
-Can you please advise how I can compile test this change?
-
-Regards,
-Karan
+--8323328-64272619-1763052367=:1464--
