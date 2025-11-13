@@ -4,69 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1F0CDE027
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C406BCDE028
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8377F10E9E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2435710E9EF;
 	Fri, 14 Nov 2025 08:17:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IaFMDke3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A8tCM0xH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05C8610E8AD;
- Thu, 13 Nov 2025 16:27:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5C210E887;
+ Thu, 13 Nov 2025 15:03:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763051222; x=1794587222;
+ t=1763046192; x=1794582192;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pP2qdP4u+ICU1JJgrdkxbA70iheGpoJDi0HzNQQbOZg=;
- b=IaFMDke3Oa5an5NYdLuBsEVdSph2ensXehKEBuGQl0TkTc6+QGYkMEmR
- GZqRN6dmklg6keG+R6RJL9TjD1zsQdSmBmEPBnIcvOmmmgFxZI23zdn98
- 0PaYL2Cr5/JMiiKRVA6EcAZvVNWaW1cZa7GHMzK5N1wJAMW7jWTVuJENy
- iL8kv3KJDWyVwNihBX7jyjaUHQwJAzRQ7Bv46lyAJnVXlq5HHosMmNJtz
- +oNSpf32aRamIqco84Ap3KKA+miy/jaRTh304Q5gJsNNYQX2V/1KAnMS8
- UuzYQM7OWy7BC2eyHhjuPoLyU3t9AdptAXurQJ6UY4FCgl4hjQo/nYG/0 Q==;
-X-CSE-ConnectionGUID: hpR9/dunRa6X/Jo8IWPK+Q==
-X-CSE-MsgGUID: 2Qmfy55dSLWGG6sRi3U9JQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="68766583"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="68766583"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:26:54 -0800
-X-CSE-ConnectionGUID: Ut4d6JHtRUWL2VMj1wFksA==
-X-CSE-MsgGUID: qC0+uIqVRhWYCEbRTmVR9Q==
+ bh=A975XfHCRPt/SGOY9KPV2BC/xVEqsYogPzxpf03ZbBE=;
+ b=A8tCM0xH4+dFEFJF8Y0ZsQUiM5GtVC8GZdu2c2rJmD4Q97T21n+v6Gdj
+ etUQKsPjIS3705JFIde8igObvDU6R6vTLNfaIIWQKIu+7DdsOQc5ZK/t6
+ 9uYADHt6mttXOZKaAohPBRjiGgMSk9iMLLNCYVkp98+BVOaiMumPVdADK
+ n2noVF5ZMQ2jwj7t5mlcZgPelEl+vav6xlrD9pkCzkL/BrHX9Ewkdq6B+
+ qIWjeZA70GEahk2x6OgtnUL+pSjGTIUCMJdPezGnJfSBp6fR3HCMHgkyp
+ Dv/5fHQVYf+kAPG+u0ebGm4cbhTzYa44Obb4ZODNhL74vhTjQ5pJtnpwb w==;
+X-CSE-ConnectionGUID: Eh86c16ORVeumqMhZzheVw==
+X-CSE-MsgGUID: TFHpkDneTLOy9tjUKa6Gcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054588"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054588"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:02:57 -0800
+X-CSE-ConnectionGUID: MRqfhPF0SeWMn+GQYCg4mw==
+X-CSE-MsgGUID: TLYpYaZfSH6Qb6Q5p/osFw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="189553797"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.164])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:26:47 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Simon Richter <Simon.Richter@hogyros.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325109"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:44 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 5A8EAA4; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v2 01/11] PCI: Prevent resource tree corruption when BAR
- resize fails
-Date: Thu, 13 Nov 2025 18:26:18 +0200
-Message-Id: <20251113162628.5946-2-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
-References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3 14/21] net: dsa: sja1105: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:28 +0100
+Message-ID: <20251113150217.3030010-15-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,61 +136,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pbus_reassign_bridge_resources() saves bridge windows into the saved
-list before attempting to adjust resource assignments to perform a BAR
-resize operation. If resource adjustments cannot be completed fully,
-rollback is attempted by restoring the resource from the saved list.
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
-The rollback, however, does not check whether the resources it restores were
-assigned by the partial resize attempt. If restore changes addresses of the
-resource, it can result in corrupting the resource tree.
-
-An example of a corrupted resource tree with overlapping addresses:
-
-  6200000000000-6203fbfffffff : pciex@620c3c0000000
-    6200000000000-6203fbff0ffff : PCI Bus 0030:01
-      6200020000000-62000207fffff : 0030:01:00.0
-      6200000000000-6203fbff0ffff : PCI Bus 0030:02
-
-A resource that are assigned into the resource tree must remain
-unchanged. Thus, release such a resource before attempting to restore
-and claim it back.
-
-For simplicity, always do the release and claim back for the resource
-even in the cases where it is restored to the same address range.
-
-Note: this fix may "break" some cases where devices "worked" because
-the resource tree corruption allowed address space double counting to
-fit more resource than what can now be assigned without double
-counting. The upcoming changes to BAR resizing should address those
-scenarios (to the extent possible).
-
-Fixes: 8bb705e3e79d ("PCI: Add pci_resize_resource() for resizing BARs")
-Link: https://lore.kernel.org/linux-pci/67840a16-99b4-4d8c-9b5c-4721ab0970a2@hogyros.de/
-Link: https://lore.kernel.org/linux-pci/874irqop6b.fsf@draig.linaro.org/
-Reported-by: Simon Richter <Simon.Richter@hogyros.de>
-Reported-by: Alex Bennée <alex.bennee@linaro.org>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pci/setup-bus.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/dsa/sja1105/sja1105_tas.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 4a8735b275e4..e6984bb530ae 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2504,6 +2504,11 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 		bridge = dev_res->dev;
- 		i = pci_resource_num(bridge, res);
+diff --git a/drivers/net/dsa/sja1105/sja1105_tas.c b/drivers/net/dsa/sja1105/sja1105_tas.c
+index d7818710bc02..d5949d2c3e71 100644
+--- a/drivers/net/dsa/sja1105/sja1105_tas.c
++++ b/drivers/net/dsa/sja1105/sja1105_tas.c
+@@ -775,9 +775,8 @@ static void sja1105_tas_state_machine(struct work_struct *work)
+ 		base_time_ts = ns_to_timespec64(base_time);
+ 		now_ts = ns_to_timespec64(now);
  
-+		if (res->parent) {
-+			release_child_resources(res);
-+			pci_release_resource(bridge, i);
-+		}
-+
- 		restore_dev_resource(dev_res);
+-		dev_dbg(ds->dev, "OPER base time %lld.%09ld (now %lld.%09ld)\n",
+-			base_time_ts.tv_sec, base_time_ts.tv_nsec,
+-			now_ts.tv_sec, now_ts.tv_nsec);
++		dev_dbg(ds->dev, "OPER base time %ptSp (now %ptSp)\n",
++			&base_time_ts, &now_ts);
  
- 		pci_claim_resource(bridge, i);
+ 		break;
+ 
+@@ -798,8 +797,7 @@ static void sja1105_tas_state_machine(struct work_struct *work)
+ 		if (now < tas_data->oper_base_time) {
+ 			/* TAS has not started yet */
+ 			diff = ns_to_timespec64(tas_data->oper_base_time - now);
+-			dev_dbg(ds->dev, "time to start: [%lld.%09ld]",
+-				diff.tv_sec, diff.tv_nsec);
++			dev_dbg(ds->dev, "time to start: [%ptSp]", &diff);
+ 			break;
+ 		}
+ 
 -- 
-2.39.5
+2.50.1
 
