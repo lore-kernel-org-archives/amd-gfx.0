@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D56CCD6E78
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 14:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27B17CD6E73
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 14:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 414A810E830;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45F2D10E833;
 	Thu, 13 Nov 2025 14:53:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bIHNDqG/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XfAho2e/";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9682310E830
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:53:38 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-b72db05e50fso160090166b.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 06:53:38 -0800 (PST)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A74410E820
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:53:37 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-64162c04f90so1578626a12.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 06:53:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763045617; x=1763650417; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1763045615; x=1763650415; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=TKX9weevS+NcJ407xi5DYySlL9DlXey2iX34pOiJQdM=;
- b=bIHNDqG/iIE67Sc3qtVVeTos4ALCaOEoK82Ipdd3K1DpEUFnnnqMu0p5t2FJMgwSJS
- y3QvUpzzkB/Cj0PEkfyg1jDlkdYC5PEtP3P6a4fXRu4R4xqFYItiwVqMckUY8R7X4pFT
- 8ygq/tlv90RkFDYfcymdPilZryLPsKQaRf1ZcS0mrmRW31XrMSqkF7XphQurTFf7NzMH
- j1utl569YVCLWlo5LnOTX8tqW6U6gZKO+M8WoB27d3b6snqVW+Y1OROzDa0hIyz3rKR7
- C/hQzzjFl6J78p3AGb9YkVyRCT7EWX1XxSw8bG/2YyPozxQcTjFpQ7/0ymxpL1yw3HrR
- b8HQ==
+ :reply-to; bh=RPR3UfrNYxFDjh6mqln5EMxB6otbdQrc1I1BewMqrEE=;
+ b=XfAho2e/nX+bRY8iMN4A4VOZcFlVc8Jfnt2m9ROi3WNuU12aWNImah5pquy0k3jHW0
+ oZoip1NdEHaYKrUcnZf7Vz5s1eJ34hnJaWxWKTGtvjtrG4MZN9iYo8lW6IKDaBon1dVC
+ vtEY/M/PdeloeAMClHQewjHmgrmQQYGwYx5I3xoIcyVm6AxZA0Ux6C++IyuD9sJZ81mS
+ e8rhO+eP2aCbqUyPUuBX9+5mjKEdiUbpuKFLCHrzuLgy+PPfwkEiYJBlRyYlEj0MRlxl
+ Y1k2wyjpuL9kHRLotQAsTA1HvPgHmNZ2auP833xEJmqwme5Y60Tx4Ox4rvL6l4fzTSV6
+ W1tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763045617; x=1763650417;
+ d=1e100.net; s=20230601; t=1763045615; x=1763650415;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=TKX9weevS+NcJ407xi5DYySlL9DlXey2iX34pOiJQdM=;
- b=A8wl6ksOpUcz1TJW4g3Wz5a2IUy8xTiL5iqK+EJOJ2jN6qCyp0xWZ9THyR7VCiiZh/
- OIFpB26xRORTXxhIs1Zjf8jeOD9xddyn1g6zVmqs2EhZjWGkr1EJuyttEspMRVfK7owD
- S07V+wYm/VQN3kO5GMYJ2MLclYvlPmdNTHp6PPyPGl+Du4SMMJyqoHjvVnhMWLeW5AN2
- yooZmY6CJgcCLf7JHWqWm2qqhiRSs8P/V9uX6b9ZGH8im90XyRw0v4l0FHUCx0/2gj6D
- UZDd4co7IX4xcfg0on4NODVVQ6dgFjIBQ13bci1fJuXZwpQOiq971BD46tqIIzuwHDla
- hPHw==
+ bh=RPR3UfrNYxFDjh6mqln5EMxB6otbdQrc1I1BewMqrEE=;
+ b=QqVTegRdVuemH+GXinXB3sA9Mu3ktJ+b/Ba4YS+ebA0oVVOqoNHiDr2/ma8/REeOeW
+ WoPikKdsbIWRgYH30sDPzr5pV4fypUDKUD1SuBV2+MRTaMvr0NvwkItsN5B/N8gLTUV1
+ CPLhKp9J8nzcJJHJO8+q6qaWE4bE9L2Vyf85v/bMNmXo2VdkZAnZTVH115IGYw9NGgFm
+ Ft9gVq5RwVRiyrkZaS9ItQv3mmSrGhGRMhXnY6KIQ2Ze9cqM5nn6GiyyQHxqt89+awSK
+ r5/jZVE5ua7oxeWWRYjUNyeQeGgikH01whtrhQyGYz7slqxSO/WspdO1nSvxRXDt/TJd
+ PR/w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhC5ElusCVh9IH71v2uSJfr6iOUIzE61Qqr9xC9WKCrEW36/oWb8mYEDRwi3KxzESNFf3+Ym5l@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgzRt+th8UnfxbAyF3+tyMu0ndXqCvXraPV+T5brZN7KwvQBSs
- RgLfFf1fXtjnrnMk4l2rs8xl/qoRS55LtAghvOKuHbUSV3ckepzzp2qZll+ypQ==
-X-Gm-Gg: ASbGncuRk0JepJ8CbYRZk4nzWSyD9C8UpKZC/zPsIvjpRaj5CbufPiPOxoHHQXaxQEl
- HASJmj6OZPGcS+nkv6N/JypKWYSFdGx6MD2jAhDjHnF4MIEwkvIBbR2yBi9vnb7BtGEtT3GpOQA
- XuM72zUsLqANIC0wq4YOxoEoruTX6djlHLECQ0Qy/6MbrM2+PnWjFsBKe6+2ZbI+zDv1iLA7bjZ
- sjVKCiX9ScCQ8tKjQu1E89H5WEgWS6a5oObu/o3ujvWbKlUi6ANqTMw58GONl50K2pLbvijZzFv
- k/YKu0egPzmW9yY1roGoCRhMU2yyGFmkY1bZkgve4XSjx6s9r14FDuLT/Gmxlixe0wN+V1fat+7
- eNLx2kAp6t/Qe6cv+S8O1oVbgwjhq0meWm6TY2x58ny4uUbx6XDK0B5Ofb/aWKBeoBCjxs8kupz
- 4M0Q1YN4Y8g7Me3Lvnk8+qbg==
-X-Google-Smtp-Source: AGHT+IGXKsqirjAlMp585gkAkiQJO7pFlXJ2rNvLaF2oiytnabvZYB83EV9YYgjEuGG19e6QmbGeaQ==
-X-Received: by 2002:a17:906:a207:b0:b73:39c3:b4f with SMTP id
- a640c23a62f3a-b7339c30d46mr374756366b.50.1763045617052; 
- Thu, 13 Nov 2025 06:53:37 -0800 (PST)
+ AJvYcCX0svwBah79qjgOd+cFDEHHHGlWJ71F8LEPhQNZBPWzxdpqN2G1vh2hq6rL3sBStrVUOuEgo2Ol@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzmpJLyx+KJ4RdKR30hDB/Qo1HQCjGbNxxP8Sh4KvXb106rgEqf
+ N1d1UU64cY0qWgXP8zuyGphQWR1vH8PFlLnGie/MY5YZlE76kUMPACtg
+X-Gm-Gg: ASbGncuxBStddfL5tYzD7iv8YIvp9HBjUK6XjZfFaXZateohqGOH7lidXv8aIsS4G3T
+ qL+62QSZyFtsv88NwzbQIEeRYgXXTJGqyBeRZ3oBAVQRNV9D57YpdJAxUYVUhN76CxdjeKFlxfI
+ jEUFI7XyFNBQo+OIwD2WjSAZqbHNqS8h9PEZqQqHPsY1i0/s1H7ExUQlhqPJm5aqLSwLDqilCeF
+ iAmBGd56t79HW8GqysQV3q20f5NrIJJsmRz0jxpj/2NTUFBm22vVwMAHEzTU4wwa9eydgyJyF9D
+ Lny9CeIEtUCczuTXgCcD6vKBPXbnz+FIpfS9l/gjXTjdKsDLJpyr1Mnx7/UW34SekZfeTSDUAUr
+ cdw6uWSQ+2logeK+AryJAp+se66N4A1N9nwhKIh4kcpjCWKcgTIp5I1zOQKW7OQMuRJPN2LMJZE
+ ZjYW1mkvC9Jo9rMOsnjLBhgA==
+X-Google-Smtp-Source: AGHT+IH3EaxLSnCv9gLMHoWsafC+66G7Zf4PqH9YrKbECxXDf49gDk8XCoLQwGvA4IfFvykHWqo2Nw==
+X-Received: by 2002:a17:907:60d1:b0:b73:21af:c0e7 with SMTP id
+ a640c23a62f3a-b7331af147bmr800895766b.53.1763045615330; 
+ Thu, 13 Nov 2025 06:53:35 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:15aa:c600:cef:d94:436c:abc5])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b73513b400fsm173747166b.1.2025.11.13.06.53.36
+ a640c23a62f3a-b73513b400fsm173747166b.1.2025.11.13.06.53.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Nov 2025 06:53:36 -0800 (PST)
+ Thu, 13 Nov 2025 06:53:34 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -69,9 +69,9 @@ To: phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
  tursulin@ursulin.net, matthew.brost@intel.com,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, sumit.semwal@linaro.org
-Subject: [PATCH 03/18] dma-buf: detach fence ops on signal v2
-Date: Thu, 13 Nov 2025 15:51:40 +0100
-Message-ID: <20251113145332.16805-4-christian.koenig@amd.com>
+Subject: [PATCH 01/18] dma-buf: cleanup dma_fence_describe v3
+Date: Thu, 13 Nov 2025 15:51:38 +0100
+Message-ID: <20251113145332.16805-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251113145332.16805-1-christian.koenig@amd.com>
 References: <20251113145332.16805-1-christian.koenig@amd.com>
@@ -92,97 +92,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When neither a release nor a wait backend ops is specified it is possible
-to let the dma_fence live on independently of the module who issued it.
+The driver and timeline name are meaningless for signaled fences.
 
-This makes it possible to unload drivers and only wait for all their
-fences to signal.
+Drop them and also print the context number.
 
-v2: fix typo in comment
+v2: avoid the calls when the BO is already signaled.
+v3: use same format as trace points for context and seqno.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/dma-buf/dma-fence.c | 16 ++++++++++++----
- include/linux/dma-fence.h   |  4 ++--
- 2 files changed, 14 insertions(+), 6 deletions(-)
+ drivers/dma-buf/dma-fence.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index ec21be9b089a..7074347f506d 100644
+index c5d1478b28dd..b4f5c8635276 100644
 --- a/drivers/dma-buf/dma-fence.c
 +++ b/drivers/dma-buf/dma-fence.c
-@@ -374,6 +374,14 @@ int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 				      &fence->flags)))
- 		return -EINVAL;
- 
-+	/*
-+	 * When neither a release nor a wait operation is specified set the ops
-+	 * pointer to NULL to allow the fence structure to become independent
-+	 * from who originally issued it.
-+	 */
-+	if (!fence->ops->release && !fence->ops->wait)
-+		RCU_INIT_POINTER(fence->ops, NULL);
-+
- 	/* Stash the cb_list before replacing it with the timestamp */
- 	list_replace(&fence->cb_list, &cb_list);
- 
-@@ -513,7 +521,7 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
- 	rcu_read_lock();
- 	ops = rcu_dereference(fence->ops);
- 	trace_dma_fence_wait_start(fence);
--	if (ops->wait) {
-+	if (ops && ops->wait) {
- 		/*
- 		 * Implementing the wait ops is deprecated and not supported for
- 		 * issuer independent fences, so it is ok to use the ops outside
-@@ -578,7 +586,7 @@ void dma_fence_release(struct kref *kref)
- 	}
- 
- 	ops = rcu_dereference(fence->ops);
--	if (ops->release)
-+	if (ops && ops->release)
- 		ops->release(fence);
- 	else
- 		dma_fence_free(fence);
-@@ -614,7 +622,7 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+@@ -997,19 +997,21 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
+  */
+ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
+ {
+-	const char __rcu *timeline;
+-	const char __rcu *driver;
++	const char __rcu *timeline = "";
++	const char __rcu *driver = "";
++	const char *signaled = "";
  
  	rcu_read_lock();
- 	ops = rcu_dereference(fence->ops);
--	if (!was_set && ops->enable_signaling) {
-+	if (!was_set && ops && ops->enable_signaling) {
- 		trace_dma_fence_enable_signal(fence);
  
- 		if (!ops->enable_signaling(fence)) {
-@@ -1000,7 +1008,7 @@ void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+-	timeline = dma_fence_timeline_name(fence);
+-	driver = dma_fence_driver_name(fence);
++	if (!dma_fence_is_signaled(fence)) {
++		timeline = dma_fence_timeline_name(fence);
++		driver = dma_fence_driver_name(fence);
++		signaled = "un";
++	}
  
- 	rcu_read_lock();
- 	ops = rcu_dereference(fence->ops);
--	if (ops->set_deadline && !dma_fence_is_signaled(fence))
-+	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
- 		ops->set_deadline(fence, deadline);
+-	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
+-		   rcu_dereference(driver),
+-		   rcu_dereference(timeline),
+-		   fence->seqno,
+-		   dma_fence_is_signaled(fence) ? "" : "un");
++	seq_printf(seq, "%llu:%llu %s %s %ssignalled\n",
++		   fence->context, fence->seqno, timeline, driver,
++		   signaled);
+ 
  	rcu_read_unlock();
  }
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 77f07735f556..eb57bcc8712f 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -436,7 +436,7 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
- 
- 	rcu_read_lock();
- 	ops = rcu_dereference(fence->ops);
--	if (ops->signaled && ops->signaled(fence)) {
-+	if (ops && ops->signaled && ops->signaled(fence)) {
- 		rcu_read_unlock();
- 		dma_fence_signal_locked(fence);
- 		return true;
-@@ -472,7 +472,7 @@ dma_fence_is_signaled(struct dma_fence *fence)
- 
- 	rcu_read_lock();
- 	ops = rcu_dereference(fence->ops);
--	if (ops->signaled && ops->signaled(fence)) {
-+	if (ops && ops->signaled && ops->signaled(fence)) {
- 		rcu_read_unlock();
- 		dma_fence_signal(fence);
- 		return true;
 -- 
 2.43.0
 
