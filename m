@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD5A9CD8C87
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F34CD8C85
 	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 14:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF49A10E858;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B297A10E857;
 	Thu, 13 Nov 2025 14:53:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hcHyBTFR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I8cQLBKC";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CCC10E841
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:53:48 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-6418b55f86dso1509059a12.1
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07D2210E849
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:53:49 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-b72dc0c15abso154653066b.1
  for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 06:53:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1763045627; x=1763650427; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=GCZeJVfvfEkQYdgy793PGjn+BtLipo5yJTYuBq0cOZM=;
- b=hcHyBTFRdUA3v9CY8RhKUPXGJt6fct9MGETSeBxTzIzd3a2x8FJ9oJKT4DIxAisMK1
- hdXLa9ugPeyyGjSwz4sCK/uOf15rRbW+4YkYs8qH615l+WI/H/khDEB4ae0ppJ+HMm5k
- HchNO+vpwNJeARjwf7zMjZF3hMsHiD8VMJC+VpnxPaCvYE9776x/1/S8kcq2+yxgDEh1
- vLzcHBIPvhgnqMSwM5Est3HkM/gv8mxDS4moOT3To2P3DdqfiP/77wRMrD+Zou0WHTVo
- 0so/5dYMDtzd6zrGxultFYUPkqviq8Jpkja0vZaX7kgsvRqLAs7hRFGCrOn5h5OXbEtk
- Xyfg==
+ :reply-to; bh=1vtve7xgnWRe/vOdHtoREn4DAu8sZ2mMOpzTrHCPaxI=;
+ b=I8cQLBKCLHafg6SC9Rb7Bf9EoQd+dFyYoWKmrEWL+B7710mcG8zKURcg5SIprrg4g3
+ qmcL1/CKJCOY8R9bwpil6tnscvTa8wiTqDlwc/JwL51R8VJd1vfFnZsSOkjNbJM/cdLZ
+ xG8nU1glu5Cg4lp3rmfrewKW2OKxWiNWEMMpI31R8ywdA2d+7NhCxiWUqkQHIkwSHRFI
+ 1tD37Xeara3TW95VW56shMzoa9x4NXOqnw12Gia3Wu9uO92zFfO3iMSp/t8BvGBenQOz
+ eN+Ym1lYwV/ydJ29q8Dum/8PTD12Ztsioyssh8GSNn57vjiu701Z0S0s/gdeDA3LyFZU
+ NGpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1763045627; x=1763650427;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=GCZeJVfvfEkQYdgy793PGjn+BtLipo5yJTYuBq0cOZM=;
- b=ncXyHwwCqutdHCFrgLSahba4pT0PHTf7zaI13N7dty+4h/dEUSlxoRzlavdyFNfAiR
- u6BshoAzpdmRUxbd+SBI13oM0VV0lUUGmxbvP4FPxkbwZGd5cNDGoZBY/JN/JEaLi9d0
- t0UmCAJrMzAGHHSg+uEEn+6xK6baV2+nWLFpi+NznNQl1uWUxuHSxv4FryJ22gJXrhWL
- RsPUZCjf8wOVpY+pmjgghQ+0G7dRRLwBN09CLVNntvFtB/8o2EiCAS4shuPo52y2KUR0
- uY6W+Wz4gu7X48MsfGTD+U5Pn5jE+AEpAZRX9L8vsiv/pUFn7rs+HXo+BJgOpMCC7XYo
- 5lQg==
+ bh=1vtve7xgnWRe/vOdHtoREn4DAu8sZ2mMOpzTrHCPaxI=;
+ b=rMAJBrK8UqdrAozcyjSIyB7Jz+ui3T7idDbVEFBXRQb8iF94qfkhVX2a2ZymR2McCD
+ 4pqkmnlnACoQ1G++lhPfFIz6XEU912DuN0zLK9y9L3hqm9eN35DJnJ8wMXBBijGF6j6L
+ LVySQTdhdMowLPbuQHJmXFST41x1EQGS3BQu90x/nsUvmv9axWCL/SQCSqM1RbZwLxvg
+ y7NMWpPgKSkpEe11tn1W1SGDWWqbm1KlQJVOuR73YvhjSQ/lWBDdmLXG2EpX7E/cQ9jx
+ 24hzaIN785pKU3XXnmRN8ehOSBp+fnchRhJS+5PF5wtF2VeLtyz5udpuPHwyzsyefFcz
+ 2xLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWTcKQpcVT7EObNNeTxEsVA5tp6Dser6pEq9h0mIRpuOd51DCGWe6e/icy4247OIWB4giInMwbK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2tpWV2ZmZUtSr8VYUgL/je7l2+JX4aAsVN/Aj3nUeY1ty90rN
- rRnQeKLoJV3znpSIb1lDpb9d4AjBc4iSLSpi/SptFAxm+dO65fxZYL5R
-X-Gm-Gg: ASbGncuzc54oixzht3foMCBdGRkzHVP8xcBjJQKYWQ7EGbIVpjUQGLEIfqSmaJHO2rY
- WsBR9cUQla7+bX4IzFZl4hyzMyDyz4rXcJ7i5Pxj6FU0EYr0OGHz/LwCt3R/0Y6Qc+Tch6cXPmX
- X6f6fIRAqE4cy4tjE4kJqzbEsNLYxIhFLZTRspt+/eQyo0n4ZRTZj9ogHcs/hKah/1aQNHDmUHD
- 65WCS1UI2TjSK6I2/WF+AwCYnGl6K4SZnow6jmcRO419aoUCz+tDz1H2Yku8STTg6dEk+QoI/bv
- HgBQQmXveINMig8EecaDCPRYeF44xG4kCA+cwzuH8mu9O/5lh8h66cRVYMNP+WsujwVBZHkYazz
- AFFmz/3yff7wBEalDa/qE5tDg1dW6TwYO1dv8ogpTrE5izLKEVzB9JSLpME2xutEwLAIAV09lho
- G/7wI8ZNmnJtfo6pSh4i6Yqg==
-X-Google-Smtp-Source: AGHT+IFTUpjYEZEKibKPo8txad1YlVZTcvDTCnxM3ibhTL5DA++BidJqqAp7OqK5WH2EjKo5LdtqZg==
-X-Received: by 2002:a17:907:962a:b0:b6d:67b0:ca0b with SMTP id
- a640c23a62f3a-b7331c06865mr662805566b.61.1763045626671; 
- Thu, 13 Nov 2025 06:53:46 -0800 (PST)
+ AJvYcCWeeAjj4RXS9GAiswJFy4tnqon0PrkeMoAeUWD9ldhFh/lvCDjPI9tcTUXHNIcAjrJ8Hk+bmyAN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzBlI5/GVKoFzddTeuV69cOpU8NPGmnH3JdlEI19SYLmg+VneO
+ cS0WeJIayPtWeel9bwtU0ztRs0Fv2V4hT7l/LBR9YMet3ZIlxkF4+grB
+X-Gm-Gg: ASbGncsroKTPH44af7rdZdJMtbDzbuyX6UntOYWFJM0bWEsA1EEx47G5a6P/IL03sYO
+ InDhDBxTXf9sJ35TXSnRgvJiJilHUwGVEGb7019/HPXgRv0QrqWhjskg2EiT7eaPjQwyZaej9G/
+ huk8TZ7bFf9P3Of/LgK7MTGPPzwATRxPbm/oJTa52exDlUY0aR96KRNrMR5pyQ1+B0e8Tr8CyiR
+ 33GN0qx62Wiudyx12/KdFg2c0Qgij2DlqUOPVVe59mirC89TyS2DSPm17ddoxX4sMUU391J23D2
+ t/jMHZFBymb/ijidMdSx7P5ucGxrpXbRkJ4hqBfIyjRK1TonQpZczhC7rbHatDCxBY8OSQ+6FDV
+ egML+gFhtHFM8us0Mtn/BDf1XG8sqxbUusetovjgOj54h/JjuzmlYu5EGZ9OdEIIHKBa5R8E0ep
+ y+htBytBbep60=
+X-Google-Smtp-Source: AGHT+IGhN0BwuRz6xHS4a4rKQwJnNXuC7Dv18mVfD20rjR0xsbY2hGCz0+6Jk5TkTMzE1pREPfPY0Q==
+X-Received: by 2002:a17:907:3e23:b0:b71:df18:9fd6 with SMTP id
+ a640c23a62f3a-b7331aaac19mr727099166b.50.1763045627465; 
+ Thu, 13 Nov 2025 06:53:47 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:15aa:c600:cef:d94:436c:abc5])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b73513b400fsm173747166b.1.2025.11.13.06.53.45
+ a640c23a62f3a-b73513b400fsm173747166b.1.2025.11.13.06.53.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Nov 2025 06:53:46 -0800 (PST)
+ Thu, 13 Nov 2025 06:53:47 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -69,9 +69,9 @@ To: phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
  tursulin@ursulin.net, matthew.brost@intel.com,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, sumit.semwal@linaro.org
-Subject: [PATCH 15/18] drm/xe: Disconnect the low hanging fences from Xe module
-Date: Thu, 13 Nov 2025 15:51:52 +0100
-Message-ID: <20251113145332.16805-16-christian.koenig@amd.com>
+Subject: [PATCH 16/18] drm/xe: Drop HW fence slab
+Date: Thu, 13 Nov 2025 15:51:53 +0100
+Message-ID: <20251113145332.16805-17-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251113145332.16805-1-christian.koenig@amd.com>
 References: <20251113145332.16805-1-christian.koenig@amd.com>
@@ -93,105 +93,104 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Matthew Brost <matthew.brost@intel.com>
 
-Preempt, tlb invalidation, and OA fences now use embedded fence lock.
+Helps with disconnecting fences from Xe module.
 
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/xe/xe_oa.c                  | 5 +----
- drivers/gpu/drm/xe/xe_preempt_fence.c       | 3 +--
- drivers/gpu/drm/xe/xe_preempt_fence_types.h | 2 --
- drivers/gpu/drm/xe/xe_tlb_inval.c           | 5 +----
- drivers/gpu/drm/xe/xe_tlb_inval_types.h     | 2 --
- 5 files changed, 3 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/xe/xe_hw_fence.c | 25 ++-----------------------
+ drivers/gpu/drm/xe/xe_hw_fence.h |  3 ---
+ drivers/gpu/drm/xe/xe_module.c   |  5 -----
+ 3 files changed, 2 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-index 7a13a7bd99a6..41d081781060 100644
---- a/drivers/gpu/drm/xe/xe_oa.c
-+++ b/drivers/gpu/drm/xe/xe_oa.c
-@@ -112,8 +112,6 @@ struct xe_oa_config_bo {
- struct xe_oa_fence {
- 	/* @base: dma fence base */
- 	struct dma_fence base;
--	/* @lock: lock for the fence */
--	spinlock_t lock;
- 	/* @work: work to signal @base */
- 	struct delayed_work work;
- 	/* @cb: callback to schedule @work */
-@@ -1017,8 +1015,7 @@ static int xe_oa_emit_oa_config(struct xe_oa_stream *stream, struct xe_oa_config
- 	}
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
+index 3456bec93c70..5edcf057aceb 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.c
++++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+@@ -6,7 +6,6 @@
+ #include "xe_hw_fence.h"
  
- 	/* Point of no return: initialize and set fence to signal */
--	spin_lock_init(&ofence->lock);
--	dma_fence_init(&ofence->base, &xe_oa_fence_ops, &ofence->lock, 0, 0);
-+	dma_fence_init(&ofence->base, &xe_oa_fence_ops, NULL, 0, 0);
+ #include <linux/device.h>
+-#include <linux/slab.h>
  
- 	for (i = 0; i < stream->num_syncs; i++) {
- 		if (stream->syncs[i].flags & DRM_XE_SYNC_FLAG_SIGNAL)
-diff --git a/drivers/gpu/drm/xe/xe_preempt_fence.c b/drivers/gpu/drm/xe/xe_preempt_fence.c
-index 7f587ca3947d..75f433aee747 100644
---- a/drivers/gpu/drm/xe/xe_preempt_fence.c
-+++ b/drivers/gpu/drm/xe/xe_preempt_fence.c
-@@ -145,9 +145,8 @@ xe_preempt_fence_arm(struct xe_preempt_fence *pfence, struct xe_exec_queue *q,
+ #include "xe_bo.h"
+ #include "xe_device.h"
+@@ -16,28 +15,9 @@
+ #include "xe_map.h"
+ #include "xe_trace.h"
+ 
+-static struct kmem_cache *xe_hw_fence_slab;
+-
+-int __init xe_hw_fence_module_init(void)
+-{
+-	xe_hw_fence_slab = kmem_cache_create("xe_hw_fence",
+-					     sizeof(struct xe_hw_fence), 0,
+-					     SLAB_HWCACHE_ALIGN, NULL);
+-	if (!xe_hw_fence_slab)
+-		return -ENOMEM;
+-
+-	return 0;
+-}
+-
+-void xe_hw_fence_module_exit(void)
+-{
+-	rcu_barrier();
+-	kmem_cache_destroy(xe_hw_fence_slab);
+-}
+-
+ static struct xe_hw_fence *fence_alloc(void)
  {
- 	list_del_init(&pfence->link);
- 	pfence->q = xe_exec_queue_get(q);
--	spin_lock_init(&pfence->lock);
- 	dma_fence_init(&pfence->base, &preempt_fence_ops,
--		      &pfence->lock, context, seqno);
-+		       NULL, context, seqno);
- 
- 	return &pfence->base;
+-	return kmem_cache_zalloc(xe_hw_fence_slab, GFP_KERNEL);
++	return kzalloc(sizeof(struct xe_hw_fence), GFP_KERNEL);
  }
-diff --git a/drivers/gpu/drm/xe/xe_preempt_fence_types.h b/drivers/gpu/drm/xe/xe_preempt_fence_types.h
-index ac125c697a41..a98de8d1c723 100644
---- a/drivers/gpu/drm/xe/xe_preempt_fence_types.h
-+++ b/drivers/gpu/drm/xe/xe_preempt_fence_types.h
-@@ -25,8 +25,6 @@ struct xe_preempt_fence {
- 	struct xe_exec_queue *q;
- 	/** @preempt_work: work struct which issues preemption */
- 	struct work_struct preempt_work;
--	/** @lock: dma-fence fence lock */
--	spinlock_t lock;
- 	/** @error: preempt fence is in error state */
- 	int error;
- };
-diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
-index 918a59e686ea..5c23e76b0241 100644
---- a/drivers/gpu/drm/xe/xe_tlb_inval.c
-+++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
-@@ -133,7 +133,6 @@ int xe_gt_tlb_inval_init_early(struct xe_gt *gt)
- 	tlb_inval->seqno = 1;
- 	INIT_LIST_HEAD(&tlb_inval->pending_fences);
- 	spin_lock_init(&tlb_inval->pending_lock);
--	spin_lock_init(&tlb_inval->lock);
- 	INIT_DELAYED_WORK(&tlb_inval->fence_tdr, xe_tlb_inval_fence_timeout);
  
- 	err = drmm_mutex_init(&xe->drm, &tlb_inval->seqno_lock);
-@@ -420,10 +419,8 @@ void xe_tlb_inval_fence_init(struct xe_tlb_inval *tlb_inval,
- {
- 	xe_pm_runtime_get_noresume(tlb_inval->xe);
+ static void fence_free(struct rcu_head *rcu)
+@@ -45,8 +25,7 @@ static void fence_free(struct rcu_head *rcu)
+ 	struct xe_hw_fence *fence =
+ 		container_of(rcu, struct xe_hw_fence, dma.rcu);
  
--	spin_lock_irq(&tlb_inval->lock);
--	dma_fence_init(&fence->base, &inval_fence_ops, &tlb_inval->lock,
-+	dma_fence_init(&fence->base, &inval_fence_ops, NULL,
- 		       dma_fence_context_alloc(1), 1);
--	spin_unlock_irq(&tlb_inval->lock);
- 	INIT_LIST_HEAD(&fence->link);
- 	if (stack)
- 		set_bit(FENCE_STACK_BIT, &fence->base.flags);
-diff --git a/drivers/gpu/drm/xe/xe_tlb_inval_types.h b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-index 8f8b060e9005..80e893950099 100644
---- a/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-+++ b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
-@@ -104,8 +104,6 @@ struct xe_tlb_inval {
- 	struct delayed_work fence_tdr;
- 	/** @job_wq: schedules TLB invalidation jobs */
- 	struct workqueue_struct *job_wq;
--	/** @tlb_inval.lock: protects TLB invalidation fences */
--	spinlock_t lock;
- };
+-	if (!WARN_ON_ONCE(!fence))
+-		kmem_cache_free(xe_hw_fence_slab, fence);
++	kfree(fence);
+ }
  
- /**
+ static void hw_fence_irq_run_cb(struct irq_work *work)
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.h b/drivers/gpu/drm/xe/xe_hw_fence.h
+index f13a1c4982c7..96f34332fd8d 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.h
++++ b/drivers/gpu/drm/xe/xe_hw_fence.h
+@@ -11,9 +11,6 @@
+ /* Cause an early wrap to catch wrapping errors */
+ #define XE_FENCE_INITIAL_SEQNO (-127)
+ 
+-int xe_hw_fence_module_init(void);
+-void xe_hw_fence_module_exit(void);
+-
+ void xe_hw_fence_irq_init(struct xe_hw_fence_irq *irq);
+ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq);
+ void xe_hw_fence_irq_run(struct xe_hw_fence_irq *irq);
+diff --git a/drivers/gpu/drm/xe/xe_module.c b/drivers/gpu/drm/xe/xe_module.c
+index d08338fc3bc1..32517bcd533c 100644
+--- a/drivers/gpu/drm/xe/xe_module.c
++++ b/drivers/gpu/drm/xe/xe_module.c
+@@ -12,7 +12,6 @@
+ 
+ #include "xe_drv.h"
+ #include "xe_configfs.h"
+-#include "xe_hw_fence.h"
+ #include "xe_pci.h"
+ #include "xe_pm.h"
+ #include "xe_observation.h"
+@@ -114,10 +113,6 @@ static const struct init_funcs init_funcs[] = {
+ 		.init = xe_configfs_init,
+ 		.exit = xe_configfs_exit,
+ 	},
+-	{
+-		.init = xe_hw_fence_module_init,
+-		.exit = xe_hw_fence_module_exit,
+-	},
+ 	{
+ 		.init = xe_sched_job_module_init,
+ 		.exit = xe_sched_job_module_exit,
 -- 
 2.43.0
 
