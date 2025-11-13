@@ -4,66 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A197DCDE034
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 648D8CDE029
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 125C310E9E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1256410E9E4;
 	Fri, 14 Nov 2025 08:17:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FImPdnPQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="gLoIap/e";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B41C10E8AA;
- Thu, 13 Nov 2025 16:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763051203; x=1794587203;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=q5Skt0OtlAqHnc+PsJMhZYM80doWwAu7rSkxepWYXmk=;
- b=FImPdnPQCn/ELYRVHVUDcamQVPH/pHB4WCSdZK7tsWCVF1KnS1JS8jhd
- S3+iRygCXnM5NyXbBaXBhf3MKLZU+K66qwL135EwIsH2nTXmqTB2p76lq
- EJfcZLNi4oboooI1rypVWvEoV2AgmKgDjQJXJRzFLYAK0FlSHtDnVBoN1
- 9MC3L8mJ9bWjtZaAA34H13FnPU6hvtg2ApS0N7nsFLgHX5/fFlz7mAVqf
- 9i/BpT9nwS1ZQ82BimpIBqtEi0M4cQFVu2H0qmOb6NE3Txxx3Jnwp9deH
- 8djTihoYXg+nVWBaG+ms+Oq5PzmsVtUqd3Lizfg9LM1skoovE37v7Ulev A==;
-X-CSE-ConnectionGUID: +0BII+L4R0iyn+jSCFuu3w==
-X-CSE-MsgGUID: BV4vFdoUTsCMrGg7kiQIgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65074077"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65074077"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:26:42 -0800
-X-CSE-ConnectionGUID: Mp0m3lPLSZSKY1ATLvKgcw==
-X-CSE-MsgGUID: OVCixanWRwmVQCKrct9tjg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="226864796"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.164])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:26:35 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Simon Richter <Simon.Richter@hogyros.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v2 00/11] PCI: BAR resizing fix/rework
-Date: Thu, 13 Nov 2025 18:26:17 +0200
-Message-Id: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 872A810E827
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:12:16 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 3CEBE33F737
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:12:15 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1763043135; bh=JoVORXO0RTAANywHlkFvF0Ah6ITaFw2yxmHRYOFrUE8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=gLoIap/eItavrbpqVnmqCrUzOnQkMdKn6pIMkwlsrfqrjvWoJqMwXDd6qf/GZQZRd
+ cdvfQkYRZWuqy05vKu1WDCwlBlpNjt8Dh9LX5R9v51RglG/J2FXnDYIn6DcZd74+IA
+ ogES7mGU8MXczeJyOy3IflaHllZvBeJipzROKdZllvDSGV0xDBzBD3Vnq0upX/9KsV
+ gm6ivNrjMB486a/LEVfa0904wvTa8EJ6XAgtvjF0QG+iO1aS1fitZN7GUILB+pouEs
+ giFCO61jUxPw2XsyWUqI6XkaN2LpUmO8bDaspREed1Cpd6hGPD1/o9mUy4dHrgixao
+ 8vVqTOP8qgfEQ==
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-64165cd689eso3313666a12.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 06:12:15 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUZZ4UlXCrqyg5RPOZIgr0IIel0iMHr4I8chbXRLzmYObRVyNiDW2rwFRrmMYhpvQNUB9POXuXN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKk0v7QQnkG7UbpdQEh0CC3fLGkneatFZborBip4lwoaQzTZ/8
+ tgeX40NtL9WydRgCvlXTIdBhxLh7Ec7ADxlK2+X2U7wfJxro+ZrMv/q7/ajcn/2bVwYpXOo0dlJ
+ l79sa5BuYFbpvoSxeV24nc2iBs0zvum4=
+X-Google-Smtp-Source: AGHT+IG/nkGMEapYYQV7UPKfzC7Swl+cbhe2Budd13PGHafjH+7VgH9CKZ+cBJWvD4urgKmwtG/jave/jm1NH1cZKyA=
+X-Received: by 2002:a17:907:3d0e:b0:b72:dcda:fe5a with SMTP id
+ a640c23a62f3a-b73480bdcbemr352716866b.5.1763043134690; Thu, 13 Nov 2025
+ 06:12:14 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20251112151832.77867-1-xaver.hugl@kde.org>
+ <20251112151832.77867-3-xaver.hugl@kde.org>
+ <20251113112249.4273a324@eldfell>
+In-Reply-To: <20251113112249.4273a324@eldfell>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Thu, 13 Nov 2025 15:12:03 +0100
+X-Gmail-Original-Message-ID: <CAFZQkGz=N8JNiQkV2mMiG7qV5e+1xbgZZ3OVE1Gw+rcsAgJdhg@mail.gmail.com>
+X-Gm-Features: AWmQ_bmjkuupQvB14tPaCpLRXfXOqKlzpT_BCRJPN1Wz3C0fJj9g8wMMtPwC-1o
+Message-ID: <CAFZQkGz=N8JNiQkV2mMiG7qV5e+1xbgZZ3OVE1Gw+rcsAgJdhg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm,
+ amdgpu: add the "FreeSync HDR Mode" connector property
+To: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,88 +71,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
+> > FreeSync HDR provides the big benefit that display behavior is more
+> > predictable, and the "native" signal doesn't waste any color resolution on
+> > out of bounds colors or luminance values.
+> >
+> > The property has two values right now, "Disabled" and "FreeSync 2 Native".
+> > If any other FreeSync HDR modes exist or will be added at some point, they
+> > can be added as new enum values as well.
+>
+> How should this interact with the connector properties "Colorspace" and
+> "HDR_OUTPUT_METADATA"?
+From experimentation, my display seems to ignore the colorspace and
+"traditional gamma SDR" in HDR_OUTPUT_METADATA while FreeSync HDR is
+active.
+Setting the eotf to PQ however turns FreeSync HDR off and switches the
+display into conventional HDR mode.
 
-Thanks to issue reports from Simon Richter and Alex Bennée, I
-discovered BAR resize rollback can corrupt the resource tree. As fixing
-corruption requires avoiding overlapping resource assignments, the
-correct fix can unfortunately results in worse user experience, what
-appeared to be "working" previously might no longer do so. Thus, I had
-to do a larger rework to pci_resize_resource() in order to properly
-restore resource states as it was prior to BAR resize.
+Making any definite statements about this will require someone from
+AMD to provide documentation, which is why I didn't put anything
+explicit about it into the patch.
 
-This rework has been on my TODO list anyway but it wasn't the highest
-prio item until pci_resize_resource() started to cause regressions due
-to other resource assignment algorithm changes.
+> Does one override the other when they disagree? Is userspace
+> expected to program all of them into agreement? Should the atomic
+> commit fail if they disagree?
+Just like with HDR_OUTPUT_METADATA, it should just be up to userspace
+to set things up in a way that works with the display.
 
-BAR resize rollback does not always restore BAR resources as they were
-before the resize operation was started. Currently, when
-pci_resize_resource() call is made by a driver, the driver must release
-device resource prior to the call. This is a design flaw in
-pci_resize_resource() API as PCI core cannot then save the state of
-those resources from what it was prior to release so it could restore
-them later if the BAR size change has to be rolled back.
+> What about instead of a new property, make a new value called "Native"
+> for "Colorspace", and require userspace to set HDR_OUTPUT_METADATA eotf
+> field to "traditional gamma HDR"? This might be a silly idea, but I'd
+> like to hear why. Alternatively, HDR_OUTPUT_METADATA could use a new
+> 'metadata_type' value for the eotf.
+I thought (and hoped) it would end up being just like that, but at
+least my display doesn't support the "traditional gamma HDR" at all.
+If you set it anyways, it seems to just fall back to "traditional
+gamma SDR".
 
-PCI core's BAR resize operation doesn't even attempt to restore the
-device resources currently when rolling back BAR resize operation. If
-the normal resource assignment algorithm assigned those resources, then
-device resources might be assigned after pci_resize_resource() call but
-that could also trigger the resource tree corruption issue so what
-appeared to an user as "working" might be a corrupted state.
+As HDR output metadata and colorspace have been more or less just
+passed through to the display without modifications so far, I'd rather
+not have the kernel step in between and try to translate things -
+especially not if there's actually displays out there that do support
+the "traditional gamma HDR", in which case that value may become
+ambiguous.
 
-With the new pci_resize_resource() interface, the driver calling
-pci_resize_resource() should no longer release the device resources.
-
-I've added WARN_ON_ONCE() to pick up similar bugs that cause resource
-tree corruption. At least in my tests all looked clear on that front
-after this series.
-
-It would still be nice if the reporters could test these changes
-resolve the claim conflicts (while I've tested the series to some extent,
-I don't have such conflicts here).
-
-This series will likely conflict with some drm changes from Lucas (will
-make them partially obsolete by removing the need to release dev's
-resources on the driver side).
-
-I'll soon submit refresh of pci/rebar series on top of this series as
-there are some conflicts with them.
-
-v2:
-- Add exclude_bars parameter to pci_resize_resource()
-- Add Link tags
-- Add kerneldoc patch
-- Add patch to release pci_bus_sem earlier.
-- Fix to uninitialized var warnings.
-- Don't use guard() as goto from before it triggers error with clang.
-
-Ilpo Järvinen (11):
-  PCI: Prevent resource tree corruption when BAR resize fails
-  PCI/IOV: Adjust ->barsz[] when changing BAR size
-  PCI: Change pci_dev variable from 'bridge' to 'dev'
-  PCI: Try BAR resize even when no window was released
-  PCI: Freeing saved list does not require holding pci_bus_sem
-  PCI: Fix restoring BARs on BAR resize rollback path
-  PCI: Add kerneldoc for pci_resize_resource()
-  drm/xe: Remove driver side BAR release before resize
-  drm/i915: Remove driver side BAR release before resize
-  drm/amdgpu: Remove driver side BAR release before resize
-  PCI: Prevent restoring assigned resources
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  10 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c |  14 +--
- drivers/gpu/drm/xe/xe_vram.c                |   5 +-
- drivers/pci/iov.c                           |  15 +--
- drivers/pci/pci-sysfs.c                     |  17 +--
- drivers/pci/pci.c                           |   4 +
- drivers/pci/pci.h                           |   9 +-
- drivers/pci/setup-bus.c                     | 126 ++++++++++++++------
- drivers/pci/setup-res.c                     |  52 ++++----
- include/linux/pci.h                         |   3 +-
- 10 files changed, 142 insertions(+), 113 deletions(-)
-
-
-base-commit: 3a8660878839faadb4f1a6dd72c3179c1df56787
--- 
-2.39.5
-
+- Xaver
