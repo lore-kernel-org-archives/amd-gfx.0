@@ -4,53 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9259CD8CAA
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74C72CD8CAC
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B03510E8C6;
-	Thu, 13 Nov 2025 16:43:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FA8610E8DA;
+	Thu, 13 Nov 2025 16:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="rOqI9L1T";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="dMGNyJQi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e+qg4lkz";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF3610E8C7;
- Thu, 13 Nov 2025 16:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1763052209;
- bh=NJSnPkVvH7xY6kY2ZZ7qcZ0
- QmyJLiVtggX4UglWKEzc=; b=rOqI9L1T/zsxT2GprcbxfTD760Dihdk9Grf11UsOGPfg45K/eJ
- 5nv11jZwvqbISzpVO669YOHaE4ZjfrHiAAClCsLLlu94GPXeym03kDvaY8lxaOaIDCSm7XC2ntZ
- dE/wFf6OrNlgreSv6Qietbp7Gk2o53qvb9AOTpTyKtTKbhUUqSbml1maPeL0EIdcinr/NtApJ0r
- 10QI+1WEZWSal/W5C2lE20w9XWFcG7rAxloksldPyrH9+oDEC0Q7C4gYNz8FQrKkT9ES12EQxPI
- flQNFrh/E7DTPKRPn8inBiDNTAMpedzYhHYe0zQriaa6wBLg4p9VtUln08l3n3TFTKw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1763052209; bh=NJSnPkVvH7xY6kY2ZZ7qcZ0
- QmyJLiVtggX4UglWKEzc=; b=dMGNyJQip1hx78aX9Td42fdPum8wK8yjb0/wrVx7FE/h6lYWbC
- MjgLMTSmFGbIFiazgb0jahI2M08Yv6uZtpDA==;
-Message-ID: <e9b84f62-f4e4-4c11-a1df-d429f0135cab@damsy.net>
-Date: Thu, 13 Nov 2025 17:43:28 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D7B10E8D5;
+ Thu, 13 Nov 2025 16:57:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id CFCD941A7D;
+ Thu, 13 Nov 2025 16:57:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85372C4CEFB;
+ Thu, 13 Nov 2025 16:57:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1763053062;
+ bh=GYMl84uOyw1qOLVxM8g1QeRFBc0QP2rjuLETvSvGF+8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=e+qg4lkzb8JVZPmAq8f+RZNKCKx7PBOXzfdHxJ9AoAazhEv+USLriQCChCv3RE3s4
+ r3mUFdHjD6xH5Rf3gK/6vPhvw0gdiRDUe5CfpKd5jFdCkIlNDcYnuDYVbSW4MTURa5
+ oVMn9fmO1taFYFp9e9AGrE8jHBUS0hORyHyOOItLgIBFiecHbsPAT7CzCT81NNIDR1
+ 5GnznoD7VSdmm/DBWDXyBaQHTzzx5kUTNK2Nj2EYc4E4LLe5zzg3iOIZv6ADwhYZh0
+ EgzSZcipbUZtZbFM7etNYGxkiP0r0hwZybkvUEmj7b3CXEDuqeaLVSTGxy3Edd+gUl
+ 8OiupaqeLTIBA==
+Date: Thu, 13 Nov 2025 10:57:41 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Simon Richter <Simon.Richter@hogyros.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org, Bjorn Helgaas <bhelgaas@google.com>,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/9] PCI/IOV: Adjust ->barsz[] when changing BAR size
+Message-ID: <20251113165741.GA2288786@bhelgaas>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] drm/amdgpu: increment sched score on entity
- selection
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20251107090425.23199-1-pierre-eric.pelloux-prayer@amd.com>
- <20251107090425.23199-2-pierre-eric.pelloux-prayer@amd.com>
- <5717c024-0200-4b23-a25b-681ef0937d6f@amd.com>
- <9950dd13-d5c1-4b34-b3f9-2528a1ffb989@igalia.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <9950dd13-d5c1-4b34-b3f9-2528a1ffb989@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <fe9bd3af-51f6-c1af-9cdc-c78aee7aaef9@linux.intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,131 +69,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Le 07/11/2025 à 11:39, Tvrtko Ursulin a écrit :
+On Thu, Nov 13, 2025 at 06:35:26PM +0200, Ilpo Järvinen wrote:
+> On Thu, 13 Nov 2025, Bjorn Helgaas wrote:
+> > On Tue, Oct 28, 2025 at 07:35:44PM +0200, Ilpo Järvinen wrote:
+> > > pci_rebar_set_size() adjusts BAR size for both normal and IOV BARs. The
+> > > struct pci_srvio keeps a cached copy of BAR size in unit of
+> > > resource_size_t in ->barsz[] ...
+> > 
+> > Nit: s/pci_srvio/pci/sriov/  (fixed locally, FYI in case you post a v2)
 > 
-> On 07/11/2025 10:26, Christian König wrote:
->> On 11/7/25 10:04, Pierre-Eric Pelloux-Prayer wrote:
->>> For hw engines that can't load balance jobs, entities are
->>> "statically" load balanced: on their first submit, they select
->>> the best scheduler based on its score.
->>> The score is made up of 2 parts:
->>> * the job queue depth (how much jobs are executing/waiting)
->>> * the number of entities assigned
->>>
->>> The second part is only relevant for the static load balance:
->>> it's a way to consider how many entities are attached to this
->>> scheduler, knowing that if they ever submit jobs they will go
->>> to this one.
->>>
->>> For rings that can load balance jobs freely, idle entities
->>> aren't a concern and shouldn't impact the scheduler's decisions.
->>>
->>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->>> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 22 +++++++++++++++++-----
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
->>>   2 files changed, 18 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/ 
->>> amdgpu/amdgpu_ctx.c
->>> index afedea02188d..4d91cbcbcf25 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> @@ -209,6 +209,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, 
->>> u32 hw_ip,
->>>       struct amdgpu_ctx_entity *entity;
->>>       enum drm_sched_priority drm_prio;
->>>       unsigned int hw_prio, num_scheds;
->>> +    struct amdgpu_ring *aring;
->>>       int32_t ctx_prio;
->>>       int r;
->>> @@ -239,11 +240,13 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx 
->>> *ctx, u32 hw_ip,
->>>               goto error_free_entity;
->>>       }
->>> -    /* disable load balance if the hw engine retains context among dependent 
->>> jobs */
->>> -    if (hw_ip == AMDGPU_HW_IP_VCN_ENC ||
->>> -        hw_ip == AMDGPU_HW_IP_VCN_DEC ||
->>> -        hw_ip == AMDGPU_HW_IP_UVD_ENC ||
->>> -        hw_ip == AMDGPU_HW_IP_UVD) {
->>> +    sched = scheds[0];
->>> +    aring = container_of(sched, struct amdgpu_ring, sched);
->>> +
->>> +    if (aring->funcs->engine_retains_context) {
->>> +        /* Disable load balancing between multiple schedulers if the hw
->>> +         * engine retains context among dependent jobs.
->>> +         */
->>>           sched = drm_sched_pick_best(scheds, num_scheds);
->>>           scheds = &sched;
->>>           num_scheds = 1;
->>> @@ -258,6 +261,12 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx 
->>> *ctx, u32 hw_ip,
->>>       if (cmpxchg(&ctx->entities[hw_ip][ring], NULL, entity))
->>>           goto cleanup_entity;
->>> +    if (aring->funcs->engine_retains_context) {
->>> +        aring = container_of(sched, struct amdgpu_ring, sched);
->>> +        entity->sched_score = aring->sched_score;
->>> +        atomic_inc(entity->sched_score);
->>> +    }
->>> +
->>>       return 0;
->>>   cleanup_entity:
->>> @@ -514,6 +523,9 @@ static void amdgpu_ctx_do_release(struct kref *ref)
->>>               if (!ctx->entities[i][j])
->>>                   continue;
->>> +            if (ctx->entities[i][j]->sched_score)
->>> +                atomic_dec(ctx->entities[i][j]->sched_score);
->>> +
->>>               drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
->>>           }
->>>       }
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/ 
->>> amdgpu/amdgpu_ctx.h
->>> index 090dfe86f75b..f7b44f96f374 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>> @@ -39,6 +39,7 @@ struct amdgpu_ctx_entity {
->>>       uint32_t        hw_ip;
->>>       uint64_t        sequence;
->>>       struct drm_sched_entity    entity;
->>> +    atomic_t        *sched_score;
->>
->> I would rather prefer to not have that additional member here.
->>
->> Additional to that we are messing with the internals of the scheduler here and 
->> should probably have two clean functions to increase/decrease the score.
+> I just posted v2 without seeing this first. :-(
 
-The problem of exposing a function to cleanly inc/dec the score, is that it 
-requires entity->rq to never be set to NULL.
-
-So I'd rather keep the current code / workaround in amdgpu. Or, I could modify 
-the next one to do something like this:
-
-if (entity->inc_score_on_add)
-    atomic_inc(rq->sched->score);
-
-= keeping the existing logic in the scheduler, but making it opt-in instead of 
-the default behavior.
-
-Pierre-Eric
-
-
-> 
-> Don't forget it is a driver owned atomic_t so I think it is fine driver 
-> manipulates it on its own.
-> 
-> Regards,
-> 
-> Tvrtko
-> 
-> 
->> Regards,
->> Christian.
->>
->>>       struct dma_fence    *fences[];
->>>   };
->>
+Perfect, we crossed in the mail!  I'll tweak this locally.
