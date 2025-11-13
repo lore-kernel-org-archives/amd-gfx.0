@@ -4,80 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1D6CCD8CA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:34:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9259CD8CAA
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7817C10E8D2;
-	Thu, 13 Nov 2025 16:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B03510E8C6;
+	Thu, 13 Nov 2025 16:43:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VAYYqzFK";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="rOqI9L1T";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="dMGNyJQi";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE4B510E8C0
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 16:33:55 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-47118259fd8so7741725e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 08:33:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763051634; x=1763656434; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EBjOqFJU8IfmSQi1e5KlIEO+YZVq2W+I3N/cwznMz9M=;
- b=VAYYqzFKtlw1ichIWSKHWlWR/BkM+j5etVMRAEecNa9lYyIjDvlMiR6/zCqXeFV7Z/
- 2mq9Gkww6YWjdxBhEHex1iiqYLIxCHtHV7lrMUMc3GLwGBtDgHNG6kNMAoSZMk3h9whj
- 2wzYNAqp/Gy/+Mq2atuc5vtMRTUERU+BPSNJKzp7XwHYBMMXI0Gi7xEINbEuN3Zmhq8H
- LPj2dUbyeVTsOxUD5trmbsnA2lI1LVG8hR33sY8lIvBWdE9M4MFFUpyVJSHe17iIHLh+
- REZ+mEqEN4FG1ziPy15sAnpiOObe6tpbIe3plgyUBcCMpJBz0gQxuZyhyMxt1S58Id6u
- m5Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763051634; x=1763656434;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=EBjOqFJU8IfmSQi1e5KlIEO+YZVq2W+I3N/cwznMz9M=;
- b=ideFv6Yx3xDNrnKx/UaIvkpTuCY9KsbLvu1lnZg2/WkfNY33sTLzJW6pDBU7t/eNnp
- IbxbJ3YuUNIMaoKx1bJQTxvzC/cKhIUgR0NeYJWdu+jaa9L/oLmg9GQKWBj7CD/ZVTkh
- 6XaZ/STe4kr+aQ0778fHDEfH2ugpHMezvbYPoM0HwDNp6XrTvtuIWftCG06xmABLWKby
- 4qlKfvsj8t2h7lbz9hyEtCDyaZfQVwn6xkmxk1SFSQKmDxjBXo2Gmvcuw1Nd5AD9sAY2
- CdwZnnsbNQZgQgCbzYV6ji6OqhZC8c+ld+tvqesFcpg8kSisJxABZ3Tr01rU7PUqQfP/
- V0OQ==
-X-Gm-Message-State: AOJu0YwINa1lkP2ldJcwvI73t71OZlLLp2ZHIeRu/5SPCLXj+HofYDOa
- lz5fjqvfOd9RvTWwfb0KYy30yqp3tB4uF2E2NjVhbwo9uCO51uGPX8lAzGfobA==
-X-Gm-Gg: ASbGnctINOI82A+yeG3aZCdtm+wv03DlVDiNeX8UD18iRcwWI67Gho00JrvDoGYwUxo
- +c2fd4+rmrLsO5ttcBr7vj4+udQBGIxp8plT5/d26gTgqb7gw3a2/gUZTS4BjHXv7VTII626hfi
- Vh6H+p8CNS6ROOAjCxb0TJxzL3koPi72K2OysSLcei7Lll5M2yO7HoqQlL1h7H+ETpYQD0PWfs+
- +XBglFcZOUHBLZSvGVJCvqjxCD3LbcyNaYzKv/rJw+3Pt+WODB61VnXwebm1RFVRar9lslTwr8V
- 7UKu1NwuWkwyk/JCPEALwPj2xD4/oJ/mTfuSYCiTqWUxFv3/hCMo9Ij6GRyI56ASs+S8ARN/H4l
- rWgDtRlU3/cYxIrRX9MM/cRa3ba0jYtcSL8UAfefj3I9z7HN1I0fa1ug97xYZrVyHPVdskRuRiR
- F84l8S68kxGjcUM8emu7slf9/RainVe7qDoaAsHmnqxe6MErsVagfiFzW9W9m7LuOSnLbUWIpXR
- Bbohqt5Snne6z4Zh2chIMVYhVDiQw==
-X-Google-Smtp-Source: AGHT+IF6d5Sa5huPQlbSE0sJqku6pzlKSooL7HtDwWSJGjEc9Lf5uWh1rHNG+mXYIZnocafClD6pqQ==
-X-Received: by 2002:a05:600c:1387:b0:477:7b30:a6fc with SMTP id
- 5b1f17b1804b1-4778feb13femr1027175e9.30.1763051633364; 
- Thu, 13 Nov 2025 08:33:53 -0800 (PST)
-Received: from Timur-Hyperion.home
- (20014C4E24E1AF00BA2088E69F553967.dsl.pool.telekom.hu.
- [2001:4c4e:24e1:af00:ba20:88e6:9f55:3967])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47789ffea1esm76376335e9.13.2025.11.13.08.33.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Nov 2025 08:33:52 -0800 (PST)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Ray.Wu@amd.com, Harry.Wentland@amd.com,
- Alex.Hung@amd.com, Wenjing.Liu@amd.com, Chris.Park@amd.com,
- Yu.Wang4@amd.com
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH 2/4] drm/amd/display: Cleanup uses of the analog flag
-Date: Thu, 13 Nov 2025 17:33:46 +0100
-Message-ID: <20251113163348.137315-3-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251113163348.137315-1-timur.kristof@gmail.com>
-References: <20251113163348.137315-1-timur.kristof@gmail.com>
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF3610E8C7;
+ Thu, 13 Nov 2025 16:43:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1763052209;
+ bh=NJSnPkVvH7xY6kY2ZZ7qcZ0
+ QmyJLiVtggX4UglWKEzc=; b=rOqI9L1T/zsxT2GprcbxfTD760Dihdk9Grf11UsOGPfg45K/eJ
+ 5nv11jZwvqbISzpVO669YOHaE4ZjfrHiAAClCsLLlu94GPXeym03kDvaY8lxaOaIDCSm7XC2ntZ
+ dE/wFf6OrNlgreSv6Qietbp7Gk2o53qvb9AOTpTyKtTKbhUUqSbml1maPeL0EIdcinr/NtApJ0r
+ 10QI+1WEZWSal/W5C2lE20w9XWFcG7rAxloksldPyrH9+oDEC0Q7C4gYNz8FQrKkT9ES12EQxPI
+ flQNFrh/E7DTPKRPn8inBiDNTAMpedzYhHYe0zQriaa6wBLg4p9VtUln08l3n3TFTKw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1763052209; bh=NJSnPkVvH7xY6kY2ZZ7qcZ0
+ QmyJLiVtggX4UglWKEzc=; b=dMGNyJQip1hx78aX9Td42fdPum8wK8yjb0/wrVx7FE/h6lYWbC
+ MjgLMTSmFGbIFiazgb0jahI2M08Yv6uZtpDA==;
+Message-ID: <e9b84f62-f4e4-4c11-a1df-d429f0135cab@damsy.net>
+Date: Thu, 13 Nov 2025 17:43:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] drm/amdgpu: increment sched score on entity
+ selection
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20251107090425.23199-1-pierre-eric.pelloux-prayer@amd.com>
+ <20251107090425.23199-2-pierre-eric.pelloux-prayer@amd.com>
+ <5717c024-0200-4b23-a25b-681ef0937d6f@amd.com>
+ <9950dd13-d5c1-4b34-b3f9-2528a1ffb989@igalia.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <9950dd13-d5c1-4b34-b3f9-2528a1ffb989@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,65 +65,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the detect_link_and_local_sink() function, do not modify the
-EDID capabilities of the display based on the connector. Instead,
-respect the analog flag better and when the analog flag is set,
-check that the connector indeed supports analog displays.
 
-Suggested-by: Ray Wu <Ray.Wu@amd.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++++++---
- .../gpu/drm/amd/display/dc/link/link_detection.c  |  2 --
- 2 files changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index aa31e969b39d..9703f7fc957d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8665,8 +8665,14 @@ static void amdgpu_dm_connector_add_freesync_modes(struct drm_connector *connect
- 	if (!(amdgpu_freesync_vid_mode && drm_edid))
- 		return;
- 
--	if (!amdgpu_dm_connector->dc_sink || amdgpu_dm_connector->dc_sink->edid_caps.analog ||
--		!dc_supports_vrr(amdgpu_dm_connector->dc_sink->ctx->dce_version))
-+	if (!amdgpu_dm_connector->dc_sink || !amdgpu_dm_connector->dc_link)
-+		return;
-+
-+	if (!dc_supports_vrr(amdgpu_dm_connector->dc_sink->ctx->dce_version))
-+		return;
-+
-+	if (dc_connector_supports_analog(amdgpu_dm_connector->dc_link->link_id.id) &&
-+	    amdgpu_dm_connector->dc_sink->edid_caps.analog)
- 		return;
- 
- 	if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
-@@ -8693,7 +8699,10 @@ static int amdgpu_dm_connector_get_modes(struct drm_connector *connector)
- 			amdgpu_dm_connector->num_modes +=
- 				drm_add_modes_noedid(connector, 1920, 1080);
- 
--		if (amdgpu_dm_connector->dc_sink && amdgpu_dm_connector->dc_sink->edid_caps.analog) {
-+		if (amdgpu_dm_connector->dc_sink &&
-+		    amdgpu_dm_connector->dc_link &&
-+		    amdgpu_dm_connector->dc_sink->edid_caps.analog &&
-+		    dc_connector_supports_analog(amdgpu_dm_connector->dc_link->link_id.id)) {
- 			/* Analog monitor connected by DAC load detection.
- 			 * Add common modes. It will be up to the user to select one that works.
- 			 */
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index d163360a2bf6..6d31f4967f1a 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1224,8 +1224,6 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 			break;
- 		}
- 
--		sink->edid_caps.analog &= dc_connector_supports_analog(link->link_id.id);
--
- 		// Check if edid is the same
- 		if ((prev_sink) &&
- 		    (edid_status == EDID_THE_SAME || edid_status == EDID_OK))
--- 
-2.51.1
+Le 07/11/2025 à 11:39, Tvrtko Ursulin a écrit :
+> 
+> On 07/11/2025 10:26, Christian König wrote:
+>> On 11/7/25 10:04, Pierre-Eric Pelloux-Prayer wrote:
+>>> For hw engines that can't load balance jobs, entities are
+>>> "statically" load balanced: on their first submit, they select
+>>> the best scheduler based on its score.
+>>> The score is made up of 2 parts:
+>>> * the job queue depth (how much jobs are executing/waiting)
+>>> * the number of entities assigned
+>>>
+>>> The second part is only relevant for the static load balance:
+>>> it's a way to consider how many entities are attached to this
+>>> scheduler, knowing that if they ever submit jobs they will go
+>>> to this one.
+>>>
+>>> For rings that can load balance jobs freely, idle entities
+>>> aren't a concern and shouldn't impact the scheduler's decisions.
+>>>
+>>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>>> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 22 +++++++++++++++++-----
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  1 +
+>>>   2 files changed, 18 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/ 
+>>> amdgpu/amdgpu_ctx.c
+>>> index afedea02188d..4d91cbcbcf25 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>> @@ -209,6 +209,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, 
+>>> u32 hw_ip,
+>>>       struct amdgpu_ctx_entity *entity;
+>>>       enum drm_sched_priority drm_prio;
+>>>       unsigned int hw_prio, num_scheds;
+>>> +    struct amdgpu_ring *aring;
+>>>       int32_t ctx_prio;
+>>>       int r;
+>>> @@ -239,11 +240,13 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx 
+>>> *ctx, u32 hw_ip,
+>>>               goto error_free_entity;
+>>>       }
+>>> -    /* disable load balance if the hw engine retains context among dependent 
+>>> jobs */
+>>> -    if (hw_ip == AMDGPU_HW_IP_VCN_ENC ||
+>>> -        hw_ip == AMDGPU_HW_IP_VCN_DEC ||
+>>> -        hw_ip == AMDGPU_HW_IP_UVD_ENC ||
+>>> -        hw_ip == AMDGPU_HW_IP_UVD) {
+>>> +    sched = scheds[0];
+>>> +    aring = container_of(sched, struct amdgpu_ring, sched);
+>>> +
+>>> +    if (aring->funcs->engine_retains_context) {
+>>> +        /* Disable load balancing between multiple schedulers if the hw
+>>> +         * engine retains context among dependent jobs.
+>>> +         */
+>>>           sched = drm_sched_pick_best(scheds, num_scheds);
+>>>           scheds = &sched;
+>>>           num_scheds = 1;
+>>> @@ -258,6 +261,12 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx 
+>>> *ctx, u32 hw_ip,
+>>>       if (cmpxchg(&ctx->entities[hw_ip][ring], NULL, entity))
+>>>           goto cleanup_entity;
+>>> +    if (aring->funcs->engine_retains_context) {
+>>> +        aring = container_of(sched, struct amdgpu_ring, sched);
+>>> +        entity->sched_score = aring->sched_score;
+>>> +        atomic_inc(entity->sched_score);
+>>> +    }
+>>> +
+>>>       return 0;
+>>>   cleanup_entity:
+>>> @@ -514,6 +523,9 @@ static void amdgpu_ctx_do_release(struct kref *ref)
+>>>               if (!ctx->entities[i][j])
+>>>                   continue;
+>>> +            if (ctx->entities[i][j]->sched_score)
+>>> +                atomic_dec(ctx->entities[i][j]->sched_score);
+>>> +
+>>>               drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
+>>>           }
+>>>       }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/ 
+>>> amdgpu/amdgpu_ctx.h
+>>> index 090dfe86f75b..f7b44f96f374 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+>>> @@ -39,6 +39,7 @@ struct amdgpu_ctx_entity {
+>>>       uint32_t        hw_ip;
+>>>       uint64_t        sequence;
+>>>       struct drm_sched_entity    entity;
+>>> +    atomic_t        *sched_score;
+>>
+>> I would rather prefer to not have that additional member here.
+>>
+>> Additional to that we are messing with the internals of the scheduler here and 
+>> should probably have two clean functions to increase/decrease the score.
 
+The problem of exposing a function to cleanly inc/dec the score, is that it 
+requires entity->rq to never be set to NULL.
+
+So I'd rather keep the current code / workaround in amdgpu. Or, I could modify 
+the next one to do something like this:
+
+if (entity->inc_score_on_add)
+    atomic_inc(rq->sched->score);
+
+= keeping the existing logic in the scheduler, but making it opt-in instead of 
+the default behavior.
+
+Pierre-Eric
+
+
+> 
+> Don't forget it is a driver owned atomic_t so I think it is fine driver 
+> manipulates it on its own.
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+> 
+>> Regards,
+>> Christian.
+>>
+>>>       struct dma_fence    *fences[];
+>>>   };
+>>
