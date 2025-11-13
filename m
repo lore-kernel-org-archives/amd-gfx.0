@@ -4,69 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C495ACDE019
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 607D2CDE02D
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A4010E9D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0787C10E9D0;
 	Fri, 14 Nov 2025 08:17:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BupXEZi+";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="WQa6KZMH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BECE10E8AD;
- Thu, 13 Nov 2025 16:27:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763051239; x=1794587239;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+9U8bLoG5vhDi4CT1cCak0qMkenNIeswIbFL4jpF094=;
- b=BupXEZi+dTOf99g4zj41AekIcXNFPzSTSNduEFpQPDao4kIB7o1fj59N
- 2DyFywNkKI1b8oPDo82CgTYaSBCI8dYTsCcSUaY6YKHUl7nUDFrVbeqIl
- Wspv3JREjbouN2O6qY/LdZAIcCoTuINqljgr+RipZWzpEIsVESWLFoSCh
- yarCjEmfaKKu/v49Qqeja5r5O02kWDJK1p3ibcGe+Iof7KBUTc3yieLby
- FoyXGdtMUJ0fisKcLBNL5+Iyx380w5LsrYr5AKHa9D3UirjmfdAd39+5S
- kLzW1eBoDSkWT+AvHY5xfZqrGCfKy5wO5ha9Wj+ozXwZkA5/GpiaU8pNP w==;
-X-CSE-ConnectionGUID: ir0g5CvcQgSItm9Xu2Aaiw==
-X-CSE-MsgGUID: AobRp3TqQ0SwaIHSA/Q2Pg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="68766646"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="68766646"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:27:19 -0800
-X-CSE-ConnectionGUID: 5KkuisasTgW4lHbn5DQh+A==
-X-CSE-MsgGUID: ZS4+oLvyTb+mDc3Q1TU3wQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="189553864"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.164])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 08:27:12 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
- Simon Richter <Simon.Richter@hogyros.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v2 03/11] PCI: Change pci_dev variable from 'bridge' to 'dev'
-Date: Thu, 13 Nov 2025 18:26:20 +0200
-Message-Id: <20251113162628.5946-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
-References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5719710E151;
+ Thu, 13 Nov 2025 16:20:18 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4d6lqL3TQpz9sR1;
+ Thu, 13 Nov 2025 17:20:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1763050814; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YmRdbE5yV4ESUST58NcAN6JqHsVuMkNSnMIS9GDZAGU=;
+ b=WQa6KZMHCUapheBVUl2E09g0X2rIXp5QuLRKtn6jam5FE29gVdaDvMRjrQXcu/auldmsXk
+ hwPMU+/5XPRgDr63/cEGkCiVrPSPWpJwjS78WMe+XmEKPla+nWm8RSZzdni0e2UcGmAoSD
+ ke6/QQrZyZpPMFESp2966Jnxoil9yqhMKHBIxMYCTakvCOcQ9xLa4C+BuXXgL/QXzXYeoi
+ HZ6KQpSnhg5+VLP6zIxvr5e58xx4EKxYf8SmI5TE8Mgyu240cSJ9Y2eOMfCQUhExb72YDC
+ K8hh2cGQxomIIjMLME7lJDQZRZ1QOKG1n0E9a3ZYll/iItgB0W5Ybluz2R/Nuw==
+Message-ID: <26a1379427d97e969654061224fb36d37e87af24.camel@mailbox.org>
+Subject: Re: Independence for dma_fences! v3
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
+ matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ sumit.semwal@linaro.org
+Date: Thu, 13 Nov 2025 17:20:09 +0100
+In-Reply-To: <20251113145332.16805-1-christian.koenig@amd.com>
+References: <20251113145332.16805-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 5ba540eb57a2f5f87b1
+X-MBO-RS-META: 86wo5zyfm9y79pcoertnf597wdntngqd
 X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,74 +62,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Upcoming fix to BAR resize will store also device BAR resource in the
-saved list. Change the pci_dev variable in the loop from 'bridge' to
-'dev' as the former would be misleading with non-bridges in the list.
+On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
+> Hi everyone,
+>=20
+> dma_fences have ever lived under the tyranny dictated by the module
+> lifetime of their issuer, leading to crashes should anybody still holding
+> a reference to a dma_fence when the module of the issuer was unloaded.
+>=20
+> The basic problem is that when buffer are shared between drivers
+> dma_fence objects can leak into external drivers and stay there even
+> after they are signaled. The dma_resv object for example only lazy releas=
+es
+> dma_fences.
+>=20
+> So what happens is that when the module who originally created the dma_fe=
+nce
+> unloads the dma_fence_ops function table becomes unavailable as well and =
+so
+> any attempt to release the fence crashes the system.
+>=20
+> Previously various approaches have been discussed, including changing the
+> locking semantics of the dma_fence callbacks (by me) as well as using the
+> drm scheduler as intermediate layer (by Sima) to disconnect dma_fences
+> from their actual users, but none of them are actually solving all proble=
+ms.
+>=20
+> Tvrtko did some really nice prerequisite work by protecting the returned
+> strings of the dma_fence_ops by RCU. This way dma_fence creators where
+> able to just wait for an RCU grace period after fence signaling before
+> they could be save to free those data structures.
+>=20
+> Now this patch set here goes a step further and protects the whole
+> dma_fence_ops structure by RCU, so that after the fence signals the
+> pointer to the dma_fence_ops is set to NULL when there is no wait nor
+> release callback given. All functionality which use the dma_fence_ops
+> reference are put inside an RCU critical section, except for the
+> deprecated issuer specific wait and of course the optional release
+> callback.
+>=20
+> Additional to the RCU changes the lock protecting the dma_fence state
+> previously had to be allocated external. This set here now changes the
+> functionality to make that external lock optional and allows dma_fences
+> to use an inline lock and be self contained.
+>=20
+> This patch set addressed all previous code review comments and is based
+> on drm-tip, includes my changes for amdgpu as well as Mathew's patches fo=
+r XE.
+>=20
+> Going to push the core DMA-buf changes to drm-misc-next as soon as I get
+> the appropriate rb. The driver specific changes can go upstream through
+> the driver channels as necessary.
 
-This is in a separate change to reduce churn in the upcoming BAR resize
-fix.
+No changelog? :(
 
-While it appears that the logic in the loop doing pci_setup_bridge() is
-altered as 'bridge' variable is no longer updated, a bridge should
-never appear more than once in the saved list so the if check can only
-match to the first entry. As such, the code with two distinct pci_dev
-variables better represents the intention of the check compared with the
-old code where bridge variable was reused for a different purpose.
+P.
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- drivers/pci/setup-bus.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index e6984bb530ae..d58f025aeaff 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2479,12 +2479,13 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 	}
- 
- 	list_for_each_entry(dev_res, &saved, list) {
-+		struct pci_dev *dev = dev_res->dev;
-+
- 		/* Skip the bridge we just assigned resources for */
--		if (bridge == dev_res->dev)
-+		if (bridge == dev)
- 			continue;
- 
--		bridge = dev_res->dev;
--		pci_setup_bridge(bridge->subordinate);
-+		pci_setup_bridge(dev->subordinate);
- 	}
- 
- 	free_list(&saved);
-@@ -2500,19 +2501,19 @@ int pbus_reassign_bridge_resources(struct pci_bus *bus, struct resource *res)
- 	/* Revert to the old configuration */
- 	list_for_each_entry(dev_res, &saved, list) {
- 		struct resource *res = dev_res->res;
-+		struct pci_dev *dev = dev_res->dev;
- 
--		bridge = dev_res->dev;
--		i = pci_resource_num(bridge, res);
-+		i = pci_resource_num(dev, res);
- 
- 		if (res->parent) {
- 			release_child_resources(res);
--			pci_release_resource(bridge, i);
-+			pci_release_resource(dev, i);
- 		}
- 
- 		restore_dev_resource(dev_res);
- 
--		pci_claim_resource(bridge, i);
--		pci_setup_bridge(bridge->subordinate);
-+		pci_claim_resource(dev, i);
-+		pci_setup_bridge(dev->subordinate);
- 	}
- 	free_list(&saved);
- 	up_read(&pci_bus_sem);
--- 
-2.39.5
+>=20
+> Please review and comment,
+> Christian.
+>=20
+>=20
 
