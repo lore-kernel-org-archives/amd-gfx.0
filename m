@@ -4,79 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F34CD8C85
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 14:53:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBFC3CD8C83
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 15:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B297A10E857;
-	Thu, 13 Nov 2025 14:53:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9B910E897;
+	Thu, 13 Nov 2025 15:08:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I8cQLBKC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MP4wNlIJ";
 	dkim-atps=neutral
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07D2210E849
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:53:49 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-b72dc0c15abso154653066b.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 06:53:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763045627; x=1763650427; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1vtve7xgnWRe/vOdHtoREn4DAu8sZ2mMOpzTrHCPaxI=;
- b=I8cQLBKCLHafg6SC9Rb7Bf9EoQd+dFyYoWKmrEWL+B7710mcG8zKURcg5SIprrg4g3
- qmcL1/CKJCOY8R9bwpil6tnscvTa8wiTqDlwc/JwL51R8VJd1vfFnZsSOkjNbJM/cdLZ
- xG8nU1glu5Cg4lp3rmfrewKW2OKxWiNWEMMpI31R8ywdA2d+7NhCxiWUqkQHIkwSHRFI
- 1tD37Xeara3TW95VW56shMzoa9x4NXOqnw12Gia3Wu9uO92zFfO3iMSp/t8BvGBenQOz
- eN+Ym1lYwV/ydJ29q8Dum/8PTD12Ztsioyssh8GSNn57vjiu701Z0S0s/gdeDA3LyFZU
- NGpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763045627; x=1763650427;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=1vtve7xgnWRe/vOdHtoREn4DAu8sZ2mMOpzTrHCPaxI=;
- b=rMAJBrK8UqdrAozcyjSIyB7Jz+ui3T7idDbVEFBXRQb8iF94qfkhVX2a2ZymR2McCD
- 4pqkmnlnACoQ1G++lhPfFIz6XEU912DuN0zLK9y9L3hqm9eN35DJnJ8wMXBBijGF6j6L
- LVySQTdhdMowLPbuQHJmXFST41x1EQGS3BQu90x/nsUvmv9axWCL/SQCSqM1RbZwLxvg
- y7NMWpPgKSkpEe11tn1W1SGDWWqbm1KlQJVOuR73YvhjSQ/lWBDdmLXG2EpX7E/cQ9jx
- 24hzaIN785pKU3XXnmRN8ehOSBp+fnchRhJS+5PF5wtF2VeLtyz5udpuPHwyzsyefFcz
- 2xLA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWeeAjj4RXS9GAiswJFy4tnqon0PrkeMoAeUWD9ldhFh/lvCDjPI9tcTUXHNIcAjrJ8Hk+bmyAN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwzBlI5/GVKoFzddTeuV69cOpU8NPGmnH3JdlEI19SYLmg+VneO
- cS0WeJIayPtWeel9bwtU0ztRs0Fv2V4hT7l/LBR9YMet3ZIlxkF4+grB
-X-Gm-Gg: ASbGncsroKTPH44af7rdZdJMtbDzbuyX6UntOYWFJM0bWEsA1EEx47G5a6P/IL03sYO
- InDhDBxTXf9sJ35TXSnRgvJiJilHUwGVEGb7019/HPXgRv0QrqWhjskg2EiT7eaPjQwyZaej9G/
- huk8TZ7bFf9P3Of/LgK7MTGPPzwATRxPbm/oJTa52exDlUY0aR96KRNrMR5pyQ1+B0e8Tr8CyiR
- 33GN0qx62Wiudyx12/KdFg2c0Qgij2DlqUOPVVe59mirC89TyS2DSPm17ddoxX4sMUU391J23D2
- t/jMHZFBymb/ijidMdSx7P5ucGxrpXbRkJ4hqBfIyjRK1TonQpZczhC7rbHatDCxBY8OSQ+6FDV
- egML+gFhtHFM8us0Mtn/BDf1XG8sqxbUusetovjgOj54h/JjuzmlYu5EGZ9OdEIIHKBa5R8E0ep
- y+htBytBbep60=
-X-Google-Smtp-Source: AGHT+IGhN0BwuRz6xHS4a4rKQwJnNXuC7Dv18mVfD20rjR0xsbY2hGCz0+6Jk5TkTMzE1pREPfPY0Q==
-X-Received: by 2002:a17:907:3e23:b0:b71:df18:9fd6 with SMTP id
- a640c23a62f3a-b7331aaac19mr727099166b.50.1763045627465; 
- Thu, 13 Nov 2025 06:53:47 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:15aa:c600:cef:d94:436c:abc5])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b73513b400fsm173747166b.1.2025.11.13.06.53.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Nov 2025 06:53:47 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
- tursulin@ursulin.net, matthew.brost@intel.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, sumit.semwal@linaro.org
-Subject: [PATCH 16/18] drm/xe: Drop HW fence slab
-Date: Thu, 13 Nov 2025 15:51:53 +0100
-Message-ID: <20251113145332.16805-17-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251113145332.16805-1-christian.koenig@amd.com>
-References: <20251113145332.16805-1-christian.koenig@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 029DA10E87A;
+ Thu, 13 Nov 2025 15:08:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763046523; x=1794582523;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=wAVRgEmnZIxgyQBCgbBxqS2a2X7Tql8nxCsscAkX2Bw=;
+ b=MP4wNlIJrSKZpsjJFqbhiVbtCLP8AIksFTaKGsYVAU3TLmkfvXV1/Y0B
+ frTuVT5ltz7mNe1wciLrsUv2pBYWRW7fdk/ahKg59e77qFEMv5Lab3iEF
+ gGuq46wjjj/ZpBLocP9L3aGqO5Q44HtQ/toM6Xo/wulm9SMikZL+6Gua+
+ EHtYZ2c5BBAOlw4yMg7JdxRbZ4IIoTMOJEXR0sQZXggPRhx0ITH0Bdavs
+ 803Qr78oXgrUB41W53YOpcdgNRjeo/+IUfBXnPajOUEUlnR4woKEKhs60
+ nyUr2s4t5QKzh4kWogYY10iVZFjt8rmPQCADpjKlyJVWGSQdk5IpTqSf+ w==;
+X-CSE-ConnectionGUID: C1GcMnGxQTGnvLiLr71pHg==
+X-CSE-MsgGUID: KGfOARKuSmqCZoTDqX9VPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="65167153"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="65167153"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:08:42 -0800
+X-CSE-ConnectionGUID: 1LrMgLnvTDqu5M3RxPuokA==
+X-CSE-MsgGUID: O3nhC1jRTXOx6EkjLFXpqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="193961130"
+Received: from aotchere-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.135])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:08:39 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mario Limonciello <mario.limonciello@amd.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
+ =?utf-8?Q?ig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, "open
+ list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open
+ list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list
+ <linux-kernel@vger.kernel.org>, Mario Limonciello
+ <mario.limonciello@amd.com>, Simona Vetter <simona.vetter@ffwll.ch>, Harry
+ Wentland <Harry.Wentland@amd.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
+Subject: Re: [PATCH] drm/amd: Move adaptive backlight modulation property to
+ drm core
+In-Reply-To: <20251112222646.495189-1-mario.limonciello@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251112222646.495189-1-mario.limonciello@amd.com>
+Date: Thu, 13 Nov 2025 17:08:36 +0200
+Message-ID: <83aa8a816cf301085a3e3638238f8fba11053dc2@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,106 +78,267 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Matthew Brost <matthew.brost@intel.com>
+On Wed, 12 Nov 2025, Mario Limonciello <mario.limonciello@amd.com> wrote:
+> The adaptive backlight modulation property is supported on AMD hardware but
+> compositors should be aware of it in standard DRM property documentation.
 
-Helps with disconnecting fences from Xe module.
+I think the reason for adding a property in drm core code should be to
+share the ABI between drivers.
 
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/xe/xe_hw_fence.c | 25 ++-----------------------
- drivers/gpu/drm/xe/xe_hw_fence.h |  3 ---
- drivers/gpu/drm/xe/xe_module.c   |  5 -----
- 3 files changed, 2 insertions(+), 31 deletions(-)
+> Move the helper to create the property and documentation into DRM.
+>
 
-diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
-index 3456bec93c70..5edcf057aceb 100644
---- a/drivers/gpu/drm/xe/xe_hw_fence.c
-+++ b/drivers/gpu/drm/xe/xe_hw_fence.c
-@@ -6,7 +6,6 @@
- #include "xe_hw_fence.h"
- 
- #include <linux/device.h>
--#include <linux/slab.h>
- 
- #include "xe_bo.h"
- #include "xe_device.h"
-@@ -16,28 +15,9 @@
- #include "xe_map.h"
- #include "xe_trace.h"
- 
--static struct kmem_cache *xe_hw_fence_slab;
--
--int __init xe_hw_fence_module_init(void)
--{
--	xe_hw_fence_slab = kmem_cache_create("xe_hw_fence",
--					     sizeof(struct xe_hw_fence), 0,
--					     SLAB_HWCACHE_ALIGN, NULL);
--	if (!xe_hw_fence_slab)
--		return -ENOMEM;
--
--	return 0;
--}
--
--void xe_hw_fence_module_exit(void)
--{
--	rcu_barrier();
--	kmem_cache_destroy(xe_hw_fence_slab);
--}
--
- static struct xe_hw_fence *fence_alloc(void)
- {
--	return kmem_cache_zalloc(xe_hw_fence_slab, GFP_KERNEL);
-+	return kzalloc(sizeof(struct xe_hw_fence), GFP_KERNEL);
- }
- 
- static void fence_free(struct rcu_head *rcu)
-@@ -45,8 +25,7 @@ static void fence_free(struct rcu_head *rcu)
- 	struct xe_hw_fence *fence =
- 		container_of(rcu, struct xe_hw_fence, dma.rcu);
- 
--	if (!WARN_ON_ONCE(!fence))
--		kmem_cache_free(xe_hw_fence_slab, fence);
-+	kfree(fence);
- }
- 
- static void hw_fence_irq_run_cb(struct irq_work *work)
-diff --git a/drivers/gpu/drm/xe/xe_hw_fence.h b/drivers/gpu/drm/xe/xe_hw_fence.h
-index f13a1c4982c7..96f34332fd8d 100644
---- a/drivers/gpu/drm/xe/xe_hw_fence.h
-+++ b/drivers/gpu/drm/xe/xe_hw_fence.h
-@@ -11,9 +11,6 @@
- /* Cause an early wrap to catch wrapping errors */
- #define XE_FENCE_INITIAL_SEQNO (-127)
- 
--int xe_hw_fence_module_init(void);
--void xe_hw_fence_module_exit(void);
--
- void xe_hw_fence_irq_init(struct xe_hw_fence_irq *irq);
- void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq);
- void xe_hw_fence_irq_run(struct xe_hw_fence_irq *irq);
-diff --git a/drivers/gpu/drm/xe/xe_module.c b/drivers/gpu/drm/xe/xe_module.c
-index d08338fc3bc1..32517bcd533c 100644
---- a/drivers/gpu/drm/xe/xe_module.c
-+++ b/drivers/gpu/drm/xe/xe_module.c
-@@ -12,7 +12,6 @@
- 
- #include "xe_drv.h"
- #include "xe_configfs.h"
--#include "xe_hw_fence.h"
- #include "xe_pci.h"
- #include "xe_pm.h"
- #include "xe_observation.h"
-@@ -114,10 +113,6 @@ static const struct init_funcs init_funcs[] = {
- 		.init = xe_configfs_init,
- 		.exit = xe_configfs_exit,
- 	},
--	{
--		.init = xe_hw_fence_module_init,
--		.exit = xe_hw_fence_module_exit,
--	},
- 	{
- 		.init = xe_sched_job_module_init,
- 		.exit = xe_sched_job_module_exit,
+Link: to the userspace implementation according to
+Documentation/gpu/drm-uapi.rst
+
+> Suggested-by: Simona Vetter <simona.vetter@ffwll.ch>
+> Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 69 +++------------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  7 ---
+>  drivers/gpu/drm/drm_connector.c             | 63 +++++++++++++++++++
+>  include/drm/drm_connector.h                 |  8 +++
+>  4 files changed, 80 insertions(+), 67 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index f8b35c487b6c..3d840bef77bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -1363,67 +1363,9 @@ static const struct drm_prop_enum_list amdgpu_dither_enum_list[] = {
+>  	{ AMDGPU_FMT_DITHER_ENABLE, "on" },
+>  };
+>  
+> -/**
+> - * DOC: property for adaptive backlight modulation
+> - *
+> - * The 'adaptive backlight modulation' property is used for the compositor to
+> - * directly control the adaptive backlight modulation power savings feature
+> - * that is part of DCN hardware.
+> - *
+> - * The property will be attached specifically to eDP panels that support it.
+> - *
+> - * The property is by default set to 'sysfs' to allow the sysfs file 'panel_power_savings'
+> - * to be able to control it.
+> - * If set to 'off' the compositor will ensure it stays off.
+> - * The other values 'min', 'bias min', 'bias max', and 'max' will control the
+> - * intensity of the power savings.
+> - *
+> - * Modifying this value can have implications on color accuracy, so tread
+> - * carefully.
+> - */
+> -static int amdgpu_display_setup_abm_prop(struct amdgpu_device *adev)
+> -{
+> -	const struct drm_prop_enum_list props[] = {
+> -		{ ABM_SYSFS_CONTROL, "sysfs" },
+> -		{ ABM_LEVEL_OFF, "off" },
+> -		{ ABM_LEVEL_MIN, "min" },
+> -		{ ABM_LEVEL_BIAS_MIN, "bias min" },
+> -		{ ABM_LEVEL_BIAS_MAX, "bias max" },
+> -		{ ABM_LEVEL_MAX, "max" },
+> -	};
+> -	struct drm_property *prop;
+> -	int i;
+> -
+> -	if (!adev->dc_enabled)
+> -		return 0;
+> -
+> -	prop = drm_property_create(adev_to_drm(adev), DRM_MODE_PROP_ENUM,
+> -				"adaptive backlight modulation",
+> -				6);
+> -	if (!prop)
+> -		return -ENOMEM;
+> -
+> -	for (i = 0; i < ARRAY_SIZE(props); i++) {
+> -		int ret;
+> -
+> -		ret = drm_property_add_enum(prop, props[i].type,
+> -						props[i].name);
+> -
+> -		if (ret) {
+> -			drm_property_destroy(adev_to_drm(adev), prop);
+> -
+> -			return ret;
+> -		}
+> -	}
+> -
+> -	adev->mode_info.abm_level_property = prop;
+> -
+> -	return 0;
+> -}
+> -
+>  int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+>  {
+> -	int sz;
+> +	int ret, sz;
+>  
+>  	adev->mode_info.coherent_mode_property =
+>  		drm_property_create_range(adev_to_drm(adev), 0, "coherent", 0, 1);
+> @@ -1467,7 +1409,14 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+>  					 "dither",
+>  					 amdgpu_dither_enum_list, sz);
+>  
+> -	return amdgpu_display_setup_abm_prop(adev);
+> +	adev->mode_info.abm_level_property = drm_create_abm_property(adev_to_drm(adev));
+> +	if (IS_ERR(adev->mode_info.abm_level_property)) {
+> +		ret = PTR_ERR(adev->mode_info.abm_level_property);
+> +		adev->mode_info.abm_level_property = NULL;
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+>  }
+>  
+>  void amdgpu_display_update_priority(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+> index 2b1536a16752..dfa0d642ac16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+> @@ -54,11 +54,4 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev);
+>  int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
+>  				      struct drm_scanout_buffer *sb);
+>  
+> -#define ABM_SYSFS_CONTROL	-1
+> -#define ABM_LEVEL_OFF		0
+> -#define ABM_LEVEL_MIN		1
+> -#define ABM_LEVEL_BIAS_MIN	2
+> -#define ABM_LEVEL_BIAS_MAX	3
+> -#define ABM_LEVEL_MAX		4
+> -
+>  #endif
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index 272d6254ea47..376169dac247 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -2603,6 +2603,69 @@ static int drm_mode_create_colorspace_property(struct drm_connector *connector,
+>  	return 0;
+>  }
+>  
+> +/**
+> + * DOC: integrated panel properties
+> + *
+> + * adaptive backlight modulation:
+> + *	Adaptive backlight modulation (ABM) is a power savings feature that
+> + *	dynamically adjusts the backlight brightness based on the content
+> + *	displayed on the screen. By reducing the backlight brightness for
+> + *	darker images and increasing it for brighter images, ABM helps to
+> + *	conserve energy and extend battery life on devices with integrated
+> + *	displays.  This feature is part of AMD DCN hardware.
+
+So this is basically Content Adaptive Brightness Control, but with the
+technology ("backlight" and "modulation") unnecessarily encoded in the
+ABI.
+
+You could have the same knob for adjusting CABC implemented in an OLED
+panel, controlled via DPCD.
+
+> + *
+> + *	sysfs
+> + *		The ABM property is exposed to userspace via sysfs interface
+> + *		located at 'amdgpu/panel_power_savings' under the DRM device.
+
+Err what? Seriously suggesting that to the common ABI? We shouldn't have
+sysfs involved at all, let alone vendor specific sysfs.
+
+> + *	off
+> + *		Adaptive backlight modulation is disabled.
+> + *	min
+> + *		Adaptive backlight modulation is enabled at minimum intensity.
+> + *	bias min
+> + *		Adaptive backlight modulation is enabled at a more intense
+> + *		level than 'min'.
+> + *	bias max
+> + *		Adaptive backlight modulation is enabled at a more intense
+> + *		level than 'bias min'.
+> + *	max
+> + *		Adaptive backlight modulation is enabled at maximum intensity.
+
+So values 0-4 but with names. I don't know what "bias" means here, and I
+probably shouldn't even have to know. It's an implementation detail
+leaking to the ABI.
+
+In the past I've encountered CABC with different modes based on the use
+case, e.g. "video" or "game", but I don't know how those would map to
+the intensities.
+
+I'm concerned the ABI serves AMD hardware, no one else, and everyone
+else coming after this is forced to shoehorn their implementation into
+this.
+
+> + */
+> +struct drm_property *drm_create_abm_property(struct drm_device *dev)
+> +{
+> +	const struct drm_prop_enum_list props[] = {
+> +		{ ABM_SYSFS_CONTROL, "sysfs" },
+> +		{ ABM_LEVEL_OFF, "off" },
+> +		{ ABM_LEVEL_MIN, "min" },
+> +		{ ABM_LEVEL_BIAS_MIN, "bias min" },
+> +		{ ABM_LEVEL_BIAS_MAX, "bias max" },
+> +		{ ABM_LEVEL_MAX, "max" },
+> +	};
+> +	struct drm_property *prop;
+> +	int i;
+> +
+> +	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM,
+> +				"adaptive backlight modulation",
+> +				6);
+
+Please use drm_property_create_enum(), see
+e.g. drm_connector_attach_broadcast_rgb_property().
+
+> +	if (!prop)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(props); i++) {
+> +		int ret;
+> +
+> +		ret = drm_property_add_enum(prop, props[i].type,
+> +						props[i].name);
+> +
+> +		if (ret) {
+> +			drm_property_destroy(dev, prop);
+> +
+> +			return ERR_PTR(ret);
+> +		}
+> +	}
+> +
+> +	return prop;
+> +}
+> +EXPORT_SYMBOL(drm_create_abm_property);
+> +
+>  /**
+>   * drm_mode_create_hdmi_colorspace_property - create hdmi colorspace property
+>   * @connector: connector to create the Colorspace property on.
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 8f34f4b8183d..644c0d49500f 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -2454,6 +2454,7 @@ int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *conn
+>  bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_state,
+>  					     struct drm_connector_state *new_state);
+>  int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
+> +struct drm_property *drm_create_abm_property(struct drm_device *dev);
+>  int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector,
+>  					     u32 supported_colorspaces);
+>  int drm_mode_create_dp_colorspace_property(struct drm_connector *connector,
+> @@ -2563,4 +2564,11 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
+>  	drm_for_each_encoder_mask(encoder, (connector)->dev, \
+>  				  (connector)->possible_encoders)
+>  
+> +#define ABM_SYSFS_CONTROL	-1
+> +#define ABM_LEVEL_OFF		0
+> +#define ABM_LEVEL_MIN		1
+> +#define ABM_LEVEL_BIAS_MIN	2
+> +#define ABM_LEVEL_BIAS_MAX	3
+> +#define ABM_LEVEL_MAX		4
+
+These need to be an enum, with documentation, name prefixes, the works.
+
+BR,
+Jani.
+
+> +
+>  #endif
+
 -- 
-2.43.0
-
+Jani Nikula, Intel
