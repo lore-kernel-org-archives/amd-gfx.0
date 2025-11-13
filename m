@@ -4,52 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 607D2CDE02D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAEA2CDE027
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0787C10E9D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1646010E9D4;
 	Fri, 14 Nov 2025 08:17:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="WQa6KZMH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HpFlOjjJ";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5719710E151;
- Thu, 13 Nov 2025 16:20:18 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4d6lqL3TQpz9sR1;
- Thu, 13 Nov 2025 17:20:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1763050814; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YmRdbE5yV4ESUST58NcAN6JqHsVuMkNSnMIS9GDZAGU=;
- b=WQa6KZMHCUapheBVUl2E09g0X2rIXp5QuLRKtn6jam5FE29gVdaDvMRjrQXcu/auldmsXk
- hwPMU+/5XPRgDr63/cEGkCiVrPSPWpJwjS78WMe+XmEKPla+nWm8RSZzdni0e2UcGmAoSD
- ke6/QQrZyZpPMFESp2966Jnxoil9yqhMKHBIxMYCTakvCOcQ9xLa4C+BuXXgL/QXzXYeoi
- HZ6KQpSnhg5+VLP6zIxvr5e58xx4EKxYf8SmI5TE8Mgyu240cSJ9Y2eOMfCQUhExb72YDC
- K8hh2cGQxomIIjMLME7lJDQZRZ1QOKG1n0E9a3ZYll/iItgB0W5Ybluz2R/Nuw==
-Message-ID: <26a1379427d97e969654061224fb36d37e87af24.camel@mailbox.org>
-Subject: Re: Independence for dma_fences! v3
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
- matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- sumit.semwal@linaro.org
-Date: Thu, 13 Nov 2025 17:20:09 +0100
-In-Reply-To: <20251113145332.16805-1-christian.koenig@amd.com>
-References: <20251113145332.16805-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 256D210E866;
+ Thu, 13 Nov 2025 15:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763046204; x=1794582204;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=OtFs4nYXEH1ThWKykhpKfwgYG7osOn2qi/Z49bIrWUw=;
+ b=HpFlOjjJwS/KP/kXhIYqxcryemDrFhfAw/lYJfFeoG7+ZzyNZKfb2a6N
+ wJS4C5X4QkND3eOZCXENN3UVQv4nl37zM9/opXGkIgIAaRLjPBZuzpsjP
+ D3GcBG2CXr/Px2SYR4M8tAZUfygAWDLgaYqP4r1Br002HHkUWEpiLZu7y
+ 104S3+SaGOx7Hr1A7FkfTD0wu3OAluMoNb34Ru4JoNnjQ1Jp+xB3AYdRR
+ 4rwwR9hx7ZtBActopR8sZuN4EAgI8mbXT4nzpm/XPscww9f7xlN5SGVpI
+ lfCKxk9Scxy/8LOySzH4votjz4TgruEXl+zBIMxNCCls0CrhskOfIG9NQ w==;
+X-CSE-ConnectionGUID: Oh+mGb5QRhivgwjbvoZ5ZQ==
+X-CSE-MsgGUID: 1BAQzRR8ROuEFZ+QqGycyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054758"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054758"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:03:03 -0800
+X-CSE-ConnectionGUID: wsJEWqiyRSOTWbBWxtwAyw==
+X-CSE-MsgGUID: TObbgzKmSz6dKnfJs+E4CA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325238"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:55 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 88811AB; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3 21/21] tracing: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:35 +0100
+Message-ID: <20251113150217.3030010-22-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-X-MBO-RS-ID: 5ba540eb57a2f5f87b1
-X-MBO-RS-META: 86wo5zyfm9y79pcoertnf597wdntngqd
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,68 +133,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
-> Hi everyone,
->=20
-> dma_fences have ever lived under the tyranny dictated by the module
-> lifetime of their issuer, leading to crashes should anybody still holding
-> a reference to a dma_fence when the module of the issuer was unloaded.
->=20
-> The basic problem is that when buffer are shared between drivers
-> dma_fence objects can leak into external drivers and stay there even
-> after they are signaled. The dma_resv object for example only lazy releas=
-es
-> dma_fences.
->=20
-> So what happens is that when the module who originally created the dma_fe=
-nce
-> unloads the dma_fence_ops function table becomes unavailable as well and =
-so
-> any attempt to release the fence crashes the system.
->=20
-> Previously various approaches have been discussed, including changing the
-> locking semantics of the dma_fence callbacks (by me) as well as using the
-> drm scheduler as intermediate layer (by Sima) to disconnect dma_fences
-> from their actual users, but none of them are actually solving all proble=
-ms.
->=20
-> Tvrtko did some really nice prerequisite work by protecting the returned
-> strings of the dma_fence_ops by RCU. This way dma_fence creators where
-> able to just wait for an RCU grace period after fence signaling before
-> they could be save to free those data structures.
->=20
-> Now this patch set here goes a step further and protects the whole
-> dma_fence_ops structure by RCU, so that after the fence signals the
-> pointer to the dma_fence_ops is set to NULL when there is no wait nor
-> release callback given. All functionality which use the dma_fence_ops
-> reference are put inside an RCU critical section, except for the
-> deprecated issuer specific wait and of course the optional release
-> callback.
->=20
-> Additional to the RCU changes the lock protecting the dma_fence state
-> previously had to be allocated external. This set here now changes the
-> functionality to make that external lock optional and allows dma_fences
-> to use an inline lock and be self contained.
->=20
-> This patch set addressed all previous code review comments and is based
-> on drm-tip, includes my changes for amdgpu as well as Mathew's patches fo=
-r XE.
->=20
-> Going to push the core DMA-buf changes to drm-misc-next as soon as I get
-> the appropriate rb. The driver specific changes can go upstream through
-> the driver channels as necessary.
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
-No changelog? :(
+Acked-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ kernel/trace/trace_output.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-P.
-
->=20
-> Please review and comment,
-> Christian.
->=20
->=20
+diff --git a/kernel/trace/trace_output.c b/kernel/trace/trace_output.c
+index ebbab3e9622b..cc2d3306bb60 100644
+--- a/kernel/trace/trace_output.c
++++ b/kernel/trace/trace_output.c
+@@ -1490,12 +1490,12 @@ trace_hwlat_print(struct trace_iterator *iter, int flags,
+ 
+ 	trace_assign_type(field, entry);
+ 
+-	trace_seq_printf(s, "#%-5u inner/outer(us): %4llu/%-5llu ts:%lld.%09ld count:%d",
++	trace_seq_printf(s, "#%-5u inner/outer(us): %4llu/%-5llu ts:%ptSp count:%d",
+ 			 field->seqnum,
+ 			 field->duration,
+ 			 field->outer_duration,
+-			 (long long)field->timestamp.tv_sec,
+-			 field->timestamp.tv_nsec, field->count);
++			 &field->timestamp,
++			 field->count);
+ 
+ 	if (field->nmi_count) {
+ 		/*
+-- 
+2.50.1
 
