@@ -4,66 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBFC3CD8C83
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 15:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 658CCCD6E78
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 15:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B9B910E897;
-	Thu, 13 Nov 2025 15:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE72110E85C;
+	Thu, 13 Nov 2025 15:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MP4wNlIJ";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="lwwG7N31";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 029DA10E87A;
- Thu, 13 Nov 2025 15:08:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763046523; x=1794582523;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=wAVRgEmnZIxgyQBCgbBxqS2a2X7Tql8nxCsscAkX2Bw=;
- b=MP4wNlIJrSKZpsjJFqbhiVbtCLP8AIksFTaKGsYVAU3TLmkfvXV1/Y0B
- frTuVT5ltz7mNe1wciLrsUv2pBYWRW7fdk/ahKg59e77qFEMv5Lab3iEF
- gGuq46wjjj/ZpBLocP9L3aGqO5Q44HtQ/toM6Xo/wulm9SMikZL+6Gua+
- EHtYZ2c5BBAOlw4yMg7JdxRbZ4IIoTMOJEXR0sQZXggPRhx0ITH0Bdavs
- 803Qr78oXgrUB41W53YOpcdgNRjeo/+IUfBXnPajOUEUlnR4woKEKhs60
- nyUr2s4t5QKzh4kWogYY10iVZFjt8rmPQCADpjKlyJVWGSQdk5IpTqSf+ w==;
-X-CSE-ConnectionGUID: C1GcMnGxQTGnvLiLr71pHg==
-X-CSE-MsgGUID: KGfOARKuSmqCZoTDqX9VPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="65167153"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="65167153"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 07:08:42 -0800
-X-CSE-ConnectionGUID: 1LrMgLnvTDqu5M3RxPuokA==
-X-CSE-MsgGUID: O3nhC1jRTXOx6EkjLFXpqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="193961130"
-Received: from aotchere-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.135])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 07:08:39 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
- =?utf-8?Q?ig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, "open
- list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open
- list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list
- <linux-kernel@vger.kernel.org>, Mario Limonciello
- <mario.limonciello@amd.com>, Simona Vetter <simona.vetter@ffwll.ch>, Harry
- Wentland <Harry.Wentland@amd.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67E0910E859
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 15:15:18 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4710022571cso9197545e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 07:15:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1763046917; x=1763651717; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1WIyx4FoiIJ0CWUrLGPOpWyxSuEUcoWV0c7Rxw2upNw=;
+ b=lwwG7N31XTSlptGAZLAaX+X8R+4YwKWekNh9gqhMtdaKdn5uUZ/Ibt6+wdCxjBv47b
+ YjThGqvojvpzleJTY1gtBMPExfFIGkf7zQM0EvsYcXey2Qhr9/DaSLK5rinnsMtwEsXH
+ 3SqtdF5ElRrTFVHqCjahoYB5e6MoZm+Q3FV+o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763046917; x=1763651717;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=1WIyx4FoiIJ0CWUrLGPOpWyxSuEUcoWV0c7Rxw2upNw=;
+ b=o+ScAhX41bkTs09DKNAM92ocYCQd+Zxs9g1O6TGXL9FEVJZ2w7eVwshw18sqo3vMzb
+ V2iUwGRSoZXPBfhIWk15Vq02KJADOFGh5b0OBxNgTE41qPf3F2niRMhEVkLcyG7RmjQS
+ Io5ohJHIeUNzbJpqAL3xKrzsKcFbnfxCi3WFeTmb/mbjz7W7zfzkp4yPEphkWmN+czKd
+ UoqfR+wXxoSKvXESsvuUrtBQHdtjIzX41QxJAzNE+s2X+aE3KMb4ZBj3ShOhqzttcMId
+ mQldWUlY6qOztaMAUKWVAWOA7poVZmKQg7o3/Tia6zhye2EINfTmCRCpesKwjucYYZ9i
+ oM4A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWM3/Hg8VKGey1KnowU4EX7PjAWZq6dKt5/P9Xhslb7UwXD9Phn7daxufwxGlHH2INVTk2CkZWv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCQIkxSJbFM3Y/sSxj7p1TaK0gi7YoR7G7EFDXleqjUijgd8dH
+ uz4lBD7ifXfs1SOh02CB+jFRzIN2Y5bsfPdAA1CVK9xS4oSaQlpFS9aosO542QAl+kE=
+X-Gm-Gg: ASbGncs0rktlDbty7bDZN3CI/LaM8zX9LHRoIcMhNrrk2Xm/5uRylFCHMj+uLkONpyl
+ kiWJoqAIIFjrAj2mrZklStEvyVlHA6hd3LVyo5Lvxuh8rvx+z1OwJURO6cSc7sTgsVL+ApCmbRl
+ aM5G+CLF43zU713iNYKGVALMC2n/VMHnzVj+F46moLAgpxln1g/4HAP3fXrGv7CbnpUtdpaSHxX
+ 2qxkjtGWNb11Oj70olAcnPY6Cx8qG6ONOnPdBGgcQvPzD9xwDHlsO/puPx9tOpfwGwM5i6hOIkF
+ 1oU0LOfwtlVyyhu7tD+i9mNGpGl3fRNqGmL9um29NmlLmyQrNDvi5Fx7CSj3E4IX8Z18xYmGDYP
+ GA7tLctbhITeUesrNS2wGeAt3AQOjWYvgfzIdNM0+zSvUgdzuAIfOzE6jXiPcb8m19fY3TCvHch
+ dObVvgVIrqg50=
+X-Google-Smtp-Source: AGHT+IFoRg+d+pL391Nz1AIVvXRJX3r10NwZrLU28XXz89idaEZx0Ay9ePoKh9ZhXKLOg5pBzi9jlw==
+X-Received: by 2002:a05:6000:2086:b0:42b:4247:b07e with SMTP id
+ ffacd0b85a97d-42b4bd90a34mr6567401f8f.25.1763046916668; 
+ Thu, 13 Nov 2025 07:15:16 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42b53f21948sm4476270f8f.43.2025.11.13.07.15.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Nov 2025 07:15:15 -0800 (PST)
+Date: Thu, 13 Nov 2025 16:15:13 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Harry Wentland <Harry.Wentland@amd.com>
 Subject: Re: [PATCH] drm/amd: Move adaptive backlight modulation property to
  drm core
-In-Reply-To: <20251112222646.495189-1-mario.limonciello@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID: <aRX2AQYIX-FZ_xrE@phenom.ffwll.local>
+Mail-Followup-To: Mario Limonciello <mario.limonciello@amd.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Harry Wentland <Harry.Wentland@amd.com>
 References: <20251112222646.495189-1-mario.limonciello@amd.com>
-Date: Thu, 13 Nov 2025 17:08:36 +0200
-Message-ID: <83aa8a816cf301085a3e3638238f8fba11053dc2@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251112222646.495189-1-mario.limonciello@amd.com>
+X-Operating-System: Linux phenom 6.12.38+deb13-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,19 +103,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 12 Nov 2025, Mario Limonciello <mario.limonciello@amd.com> wrote:
+On Wed, Nov 12, 2025 at 04:26:46PM -0600, Mario Limonciello wrote:
 > The adaptive backlight modulation property is supported on AMD hardware but
 > compositors should be aware of it in standard DRM property documentation.
-
-I think the reason for adding a property in drm core code should be to
-share the ABI between drivers.
-
+> 
 > Move the helper to create the property and documentation into DRM.
->
-
-Link: to the userspace implementation according to
-Documentation/gpu/drm-uapi.rst
-
+> 
 > Suggested-by: Simona Vetter <simona.vetter@ffwll.ch>
 > Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
@@ -100,7 +118,7 @@ Documentation/gpu/drm-uapi.rst
 >  drivers/gpu/drm/drm_connector.c             | 63 +++++++++++++++++++
 >  include/drm/drm_connector.h                 |  8 +++
 >  4 files changed, 80 insertions(+), 67 deletions(-)
->
+> 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
 > index f8b35c487b6c..3d840bef77bf 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
@@ -216,6 +234,29 @@ Documentation/gpu/drm-uapi.rst
 >  
 > +/**
 > + * DOC: integrated panel properties
+
+Thanks for doing this, but just moving the function isn't enough. Aside
+from what Jani said there's a few more things that are more about the
+technicallities of making good docs for uabi.
+
+- We want proper kerneldoc for the function drm_create_abm_property() like
+  for any other function the drm core/helper code exports to drivers.
+
+- The property documentation needs to be moved (or included, but I think
+  moving is better) so it shows up in the generated html docs at the right
+  place with all the other connector properties.
+
+- We need a mention from the 2nd place to the function (which should
+  result in a working hyperlink in the generated docs, please check that
+  by generating the docs and confirming with the output) so that driver
+  authors can find this. Als the function needs to link to the enum (which
+  also needs kerneldoc) and the other direction so that docs are easily
+  discoverable.
+
+Thanks a lot!
+
+Cheers, Sima
+
 > + *
 > + * adaptive backlight modulation:
 > + *	Adaptive backlight modulation (ABM) is a power savings feature that
@@ -224,22 +265,10 @@ Documentation/gpu/drm-uapi.rst
 > + *	darker images and increasing it for brighter images, ABM helps to
 > + *	conserve energy and extend battery life on devices with integrated
 > + *	displays.  This feature is part of AMD DCN hardware.
-
-So this is basically Content Adaptive Brightness Control, but with the
-technology ("backlight" and "modulation") unnecessarily encoded in the
-ABI.
-
-You could have the same knob for adjusting CABC implemented in an OLED
-panel, controlled via DPCD.
-
 > + *
 > + *	sysfs
 > + *		The ABM property is exposed to userspace via sysfs interface
 > + *		located at 'amdgpu/panel_power_savings' under the DRM device.
-
-Err what? Seriously suggesting that to the common ABI? We shouldn't have
-sysfs involved at all, let alone vendor specific sysfs.
-
 > + *	off
 > + *		Adaptive backlight modulation is disabled.
 > + *	min
@@ -252,19 +281,6 @@ sysfs involved at all, let alone vendor specific sysfs.
 > + *		level than 'bias min'.
 > + *	max
 > + *		Adaptive backlight modulation is enabled at maximum intensity.
-
-So values 0-4 but with names. I don't know what "bias" means here, and I
-probably shouldn't even have to know. It's an implementation detail
-leaking to the ABI.
-
-In the past I've encountered CABC with different modes based on the use
-case, e.g. "video" or "game", but I don't know how those would map to
-the intensities.
-
-I'm concerned the ABI serves AMD hardware, no one else, and everyone
-else coming after this is forced to shoehorn their implementation into
-this.
-
 > + */
 > +struct drm_property *drm_create_abm_property(struct drm_device *dev)
 > +{
@@ -282,10 +298,6 @@ this.
 > +	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM,
 > +				"adaptive backlight modulation",
 > +				6);
-
-Please use drm_property_create_enum(), see
-e.g. drm_connector_attach_broadcast_rgb_property().
-
 > +	if (!prop)
 > +		return ERR_PTR(-ENOMEM);
 > +
@@ -331,14 +343,13 @@ e.g. drm_connector_attach_broadcast_rgb_property().
 > +#define ABM_LEVEL_BIAS_MIN	2
 > +#define ABM_LEVEL_BIAS_MAX	3
 > +#define ABM_LEVEL_MAX		4
-
-These need to be an enum, with documentation, name prefixes, the works.
-
-BR,
-Jani.
-
 > +
 >  #endif
+> -- 
+> 2.51.2
+> 
 
 -- 
-Jani Nikula, Intel
+Simona Vetter
+Software Engineer
+http://blog.ffwll.ch
