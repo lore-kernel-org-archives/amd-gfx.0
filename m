@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C1CCD98E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 20:50:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE3DCD98E3
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 21:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00DC410E20A;
-	Thu, 13 Nov 2025 20:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D01310E943;
+	Thu, 13 Nov 2025 21:01:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BIW7k8kd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bTpdnjky";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C331610E162;
- Thu, 13 Nov 2025 20:50:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763067010; x=1794603010;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=c14Im5Ycw0cJ83G30ozwTETFt4r0l7bFAsL/iOYSZDY=;
- b=BIW7k8kdqIjmxylY2yOCkgYljbvxExqX87EfnZzYn4sexAG5T8zWGtev
- M7IJLle4iBVU1BOh3vC2SiLwSGK2eoLlSdS3y2JH3xWVwGaplbBbRxjb7
- XBdQ7C9f8xjKAqvlY1PabgG21R2n25EjwOfOqIUF75yhDMPxYuqDAVK/2
- iCOMouQBMUAcZ307yaWr3n86wPxUEnOjSRzpwhXcRH+psMjsZxyoEmONN
- IqoaDDvUgsq79rh92Mz1TVmkZLfHkAkObn5s3Uaelc0HVbbnsyKIqzaVC
- u5i4BjSjDbMiVI/BQRgyKQCKxPStpMQibSMiYXTShw/ggXC2Gx11HhAHN A==;
-X-CSE-ConnectionGUID: eXqGFZk/QJywcsMjh5fcAQ==
-X-CSE-MsgGUID: 49YJkWBORy6goArE2mlIIQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="64165042"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="64165042"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 12:50:09 -0800
-X-CSE-ConnectionGUID: zCf4xlQuQzOoYE5SoOHg8Q==
-X-CSE-MsgGUID: kOJv2nQJTP+JB47h3uDyxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="194044028"
-Received: from lkp-server01.sh.intel.com (HELO 7b01c990427b) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 13 Nov 2025 12:50:05 -0800
-Received: from kbuild by 7b01c990427b with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1vJeGY-0005qx-0p;
- Thu, 13 Nov 2025 20:50:02 +0000
-Date: Fri, 14 Nov 2025 04:49:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
- tursulin@ursulin.net, matthew.brost@intel.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, sumit.semwal@linaro.org
-Cc: oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH 04/18] dma-buf: inline spinlock for fence protection v2
-Message-ID: <202511140459.HpT5i7v9-lkp@intel.com>
-References: <20251113145332.16805-5-christian.koenig@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9E9910E93F;
+ Thu, 13 Nov 2025 21:01:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8A79B440C4;
+ Thu, 13 Nov 2025 21:01:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496EDC4CEFB;
+ Thu, 13 Nov 2025 21:01:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1763067673;
+ bh=D3kautNBX7VHVPxLlPAzlmTDnxHyydHklCkRChinAyQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=bTpdnjky/7MCB/iFzjyK5M0y5opSt/cCYv4pnRkBE5UmQv9ww8SxC6wRdatRUKoZ4
+ 3wxv6DBOILB5LDPnVp80+6TbkEuEKHzwLP/u/l20D3iMRM3huZYvNJPsLwW+kPbSdl
+ PE0pbkUlDTDoLNx+3whvnslxuYur0X9iONuYXad64Ye4hNogw6MjU4gDu4rbfTDjGR
+ aYZY3glOwqDGUi3h2PkIxgQGibPMCcehySTzPaDTwLaDQPwoaZI5JWV14G0rPRIBwX
+ vcYycL4RHepuBRnELvOyIG/TNeGLd7eBO06oIsyzE5TqxbjU9EZybRzrPqcieQ7Zko
+ pDBc36To+lo1w==
+Date: Thu, 13 Nov 2025 15:01:12 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Simon Richter <Simon.Richter@hogyros.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 06/11] PCI: Fix restoring BARs on BAR resize rollback
+ path
+Message-ID: <20251113210112.GA2314791@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20251113145332.16805-5-christian.koenig@amd.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ba725a72-7863-3dd2-6ba2-ff2259229bbe@linux.intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,51 +70,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+On Thu, Nov 13, 2025 at 06:46:07PM +0200, Ilpo Järvinen wrote:
+> On Thu, 13 Nov 2025, Ilpo Järvinen wrote:
 
-kernel test robot noticed the following build errors:
+> > -int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size);
+> > +int __must_check pci_resize_resource(struct pci_dev *dev, int i, int size,
+> > +				     int exlucde_bars);
+> 
+> It seems I managed to mistype this in the prototype, please let me know if 
+> you want me to send v3 addressing this and the other comments.
 
-[auto build test ERROR on next-20251113]
-[also build test ERROR on v6.18-rc5]
-[cannot apply to drm-xe/drm-xe-next linus/master v6.18-rc5 v6.18-rc4 v6.18-rc3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-K-nig/dma-buf-protected-fence-ops-by-RCU-v3/20251113-235209
-base:   next-20251113
-patch link:    https://lore.kernel.org/r/20251113145332.16805-5-christian.koenig%40amd.com
-patch subject: [PATCH 04/18] dma-buf: inline spinlock for fence protection v2
-config: openrisc-randconfig-r072-20251114 (https://download.01.org/0day-ci/archive/20251114/202511140459.HpT5i7v9-lkp@intel.com/config)
-compiler: or1k-linux-gcc (GCC) 14.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251114/202511140459.HpT5i7v9-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202511140459.HpT5i7v9-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/dma-buf/st-dma-fence.c: In function '__wait_for_callbacks':
->> drivers/dma-buf/st-dma-fence.c:454:24: error: 'struct dma_fence' has no member named 'lock'
-     454 |         spin_lock_irq(f->lock);
-         |                        ^~
-   drivers/dma-buf/st-dma-fence.c:455:26: error: 'struct dma_fence' has no member named 'lock'
-     455 |         spin_unlock_irq(f->lock);
-         |                          ^~
-
-
-vim +454 drivers/dma-buf/st-dma-fence.c
-
-2989f6451084ae Chris Wilson 2019-08-19  451  
-2989f6451084ae Chris Wilson 2019-08-19  452  static void __wait_for_callbacks(struct dma_fence *f)
-2989f6451084ae Chris Wilson 2019-08-19  453  {
-2989f6451084ae Chris Wilson 2019-08-19 @454  	spin_lock_irq(f->lock);
-2989f6451084ae Chris Wilson 2019-08-19  455  	spin_unlock_irq(f->lock);
-2989f6451084ae Chris Wilson 2019-08-19  456  }
-2989f6451084ae Chris Wilson 2019-08-19  457  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Fixed this one, thanks.
