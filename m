@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E11CDE029
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD3C0CDE02A
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B81C10E9D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF9B10E9D8;
 	Fri, 14 Nov 2025 08:17:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D8mRZTQM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XUqO52xJ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF3310E880;
- Thu, 13 Nov 2025 15:03:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE08A10E86F;
+ Thu, 13 Nov 2025 15:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763046181; x=1794582181;
+ t=1763046173; x=1794582173;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QGRUCvRhLj/TwbX4dQMKGketmqckWUD9lEEl/Hr0Xm0=;
- b=D8mRZTQM1ZWGgj4agkipRoDo1FK3IsPGjkTn0j2HgWIcYRFZGZGGMiqx
- ha54RcIVB6ptmcdZDTWBfCXvuHZ9y6JF+FkNvSnBhwd1aw7NgdeBdlUCJ
- w+WDeGJ0HHuppRMKe8iUaHHUeyMxxkDymbi9ZsKaPFSJ3Lp9ajBA+8puQ
- 571r950Vi7fSnqk2wPkLQCcfuCIteNDs9+FNtGN3mKUOgQAbwYyZBPQej
- 0d3Ne1slvgJw9itwT8hFle7ukVyYtS+uzrpfO62P9b7YkuDcEZeCp0UTj
- X6bfGexJT2P8jEFOdOLuTCYAfLEarLahN/tCfFcrGEqihVMSrAWK7//uE A==;
-X-CSE-ConnectionGUID: t906C0fhQbC86mbfpnuwVg==
-X-CSE-MsgGUID: /KQp5x3SQFWdEV2r3TxA6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="68991758"
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="68991758"
+ bh=tDxqR7dAcbJglLrfzlBGLBNHFzQ2/Otni5OnaahsuNI=;
+ b=XUqO52xJHv0fUI/UhhDhnqopUGWl6MJ+DnbatRDvDRNMrxVUXukMIzc4
+ 6FGGWevipEka6UZLJOeoycLmQdfJHGMVfzzlXERFRpd+sqXYF1XopDyxE
+ Fo895KnVcPaT84+ZoXh0PPx/rpbNfb9Qg0DiASdIknJ9AZ+sVv7+kmJVZ
+ Nl/Q9DG5HSo0LR17RykqewNx6p/RjnZPzFSwuqxo8u3/Q3fgUdrlWc+t4
+ Cl/u9WP9viaa2/WvLy6z5ypqSI8lUy6CDkTRtACLypdRhA8Ltel5cFIHU
+ ySVOeA29Q6Rv+9MDGE8cyf/1NEBgXCACG47WI5q1o74g9nk/FI6reYE3K A==;
+X-CSE-ConnectionGUID: VtTbjypwT9qK9/q80c97aA==
+X-CSE-MsgGUID: Abd9s7w4S8e5fbpDIZ5cIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="68991645"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="68991645"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 07:03:00 -0800
-X-CSE-ConnectionGUID: 5CUhbO4uTiu+bkjCSEH4EQ==
-X-CSE-MsgGUID: YAzCFLIJQGOxDYsCfcVI5g==
+ 13 Nov 2025 07:02:51 -0800
+X-CSE-ConnectionGUID: vNlzzxqlTtetYj5sIcG75w==
+X-CSE-MsgGUID: Eel//svlQKiDVtEupL6ang==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="188810343"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="188810299"
 Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa010.jf.intel.com with ESMTP; 13 Nov 2025 07:02:50 -0800
+ by orviesa010.jf.intel.com with ESMTP; 13 Nov 2025 07:02:42 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 74964A8; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+ id 47356A1; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -112,16 +112,17 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v3 18/21] s390/dasd: Switch to use %ptSp
-Date: Thu, 13 Nov 2025 15:32:32 +0100
-Message-ID: <20251113150217.3030010-19-andriy.shevchenko@linux.intel.com>
+ Andrew Morton <akpm@linux-foundation.org>,
+ Corey Minyard <cminyard@mvista.com>
+Subject: [PATCH v3 11/21] ipmi: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:25 +0100
+Message-ID: <20251113150217.3030010-12-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
+X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,25 +140,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Use %ptSp instead of open coded variants to print content of
 struct timespec64 in human readable format.
 
+Acked-by: Corey Minyard <cminyard@mvista.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/s390/block/dasd.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/char/ipmi/ipmi_si_intf.c | 3 +--
+ drivers/char/ipmi/ipmi_ssif.c    | 6 ++----
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index 7765e40f7cea..97dcc70f669e 100644
---- a/drivers/s390/block/dasd.c
-+++ b/drivers/s390/block/dasd.c
-@@ -974,8 +974,7 @@ static void dasd_stats_array(struct seq_file *m, unsigned int *array)
- static void dasd_stats_seq_print(struct seq_file *m,
- 				 struct dasd_profile_info *data)
- {
--	seq_printf(m, "start_time %lld.%09ld\n",
--		   (s64)data->starttod.tv_sec, data->starttod.tv_nsec);
-+	seq_printf(m, "start_time %ptSp\n", &data->starttod);
- 	seq_printf(m, "total_requests %u\n", data->dasd_io_reqs);
- 	seq_printf(m, "total_sectors %u\n", data->dasd_io_sects);
- 	seq_printf(m, "total_pav %u\n", data->dasd_io_alias);
+diff --git a/drivers/char/ipmi/ipmi_si_intf.c b/drivers/char/ipmi/ipmi_si_intf.c
+index 70e55f5ff85e..5459ffdde8dc 100644
+--- a/drivers/char/ipmi/ipmi_si_intf.c
++++ b/drivers/char/ipmi/ipmi_si_intf.c
+@@ -275,8 +275,7 @@ void debug_timestamp(struct smi_info *smi_info, char *msg)
+ 	struct timespec64 t;
+ 
+ 	ktime_get_ts64(&t);
+-	dev_dbg(smi_info->io.dev, "**%s: %lld.%9.9ld\n",
+-		msg, t.tv_sec, t.tv_nsec);
++	dev_dbg(smi_info->io.dev, "**%s: %ptSp\n", msg, &t);
+ }
+ #else
+ #define debug_timestamp(smi_info, x)
+diff --git a/drivers/char/ipmi/ipmi_ssif.c b/drivers/char/ipmi/ipmi_ssif.c
+index 1b63f7d2fcda..ef1582a029f4 100644
+--- a/drivers/char/ipmi/ipmi_ssif.c
++++ b/drivers/char/ipmi/ipmi_ssif.c
+@@ -1083,10 +1083,8 @@ static int sender(void *send_info, struct ipmi_smi_msg *msg)
+ 		struct timespec64 t;
+ 
+ 		ktime_get_real_ts64(&t);
+-		dev_dbg(&ssif_info->client->dev,
+-			"**Enqueue %02x %02x: %lld.%6.6ld\n",
+-			msg->data[0], msg->data[1],
+-			(long long)t.tv_sec, (long)t.tv_nsec / NSEC_PER_USEC);
++		dev_dbg(&ssif_info->client->dev, "**Enqueue %02x %02x: %ptSp\n",
++			msg->data[0], msg->data[1], &t);
+ 	}
+ 	return IPMI_CC_NO_ERROR;
+ }
 -- 
 2.50.1
 
