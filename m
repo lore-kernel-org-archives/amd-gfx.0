@@ -4,60 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A4ECDE01A
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 07:31:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC41CDE019
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C70C10E22D;
-	Fri, 14 Nov 2025 07:31:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79E5A10E9CE;
+	Fri, 14 Nov 2025 08:17:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EYUxZogh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TcEfITID";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7858010E22D;
- Fri, 14 Nov 2025 07:31:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0217D10E85D;
+ Thu, 13 Nov 2025 15:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763105467; x=1794641467;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=YqUWGkPbN/V/TNvPETtR8gEtdGo82kPHsqkE8jDKi9Q=;
- b=EYUxZoghjDjIYm/rPTAQDWZHKPkvxnGEdYq4BdoqzA44el27x/GxPB9t
- +o2y5gOuAmPNFA9c0CcLAl4S3CYir5cLzXPfzRBMyUlMpVbLDHd222RW/
- /1uqtUTL9iDNz8sLAdim9bVmEfa2kUj/ZQzqwk9TMH+YpPAdlcSOAwI3o
- Uw2goBk/DFaDsdrzzzaTHVpVywUnJC7htysVIEGKtgNaJTA90Qhr+0PJ1
- 4wA3DSaRtiwzxy3lSBMq9Tsm8ejHsG/F+ng9sEtnGdTSPzQmEThU2wXkq
- DTqPoErNkVsP02vrFmqRCBvf7cmrNjmR5tR+jrfgxUWb4rDbN3DnEpz/m g==;
-X-CSE-ConnectionGUID: rcLTuaL1S4aFxLm5a9nB5A==
-X-CSE-MsgGUID: 4NCafxZ2QkKMPxhRVF9goA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="64201504"
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="64201504"
+ t=1763046177; x=1794582177;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=EefPNFQBUNuGlR0DgULcxn8v9QseDyeQnp72XVg7OAg=;
+ b=TcEfITIDZMj5bC7dbrMsby6hJIvVcDnuNXYDGxqRqo/DROr6KLJ8SwPL
+ d+EMOE8tHwfb2ObcGfGn+IZlVPDAeyYHAXwqTZEUMHBfViV4SfCsfq+Ms
+ tWN2U8HEeQ/BwQsW5wTt7qH4aj6HP4igPwPj8soEV1uiTQBwS82ZPwZ+d
+ t9eXo3u7LwdTS4Gdntc1IFDMmC5nFZkrkWZDYElkc1ItzUi+tqoWkPrX8
+ 6fyVDAcyEqcdz/bdifFGvDQxePAGL6GF2bUNsxoRRO7EMV+rY9mdCfgeS
+ TU0NPEvxkvoomUtl66IDftVXaWBNs/3Y7HPMZWpUYW0H7jwGojO5UdTa1 g==;
+X-CSE-ConnectionGUID: T5VKwJ3CSRC0e/GPw23qVg==
+X-CSE-MsgGUID: CSqeBVa1QoiY/WWUUfcC2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054299"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054299"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 23:31:07 -0800
-X-CSE-ConnectionGUID: KJKJ9fdmQW63RP8Wa1dZ3w==
-X-CSE-MsgGUID: mfThGXB1SpW2ZGEEWO0+1A==
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 07:02:50 -0800
+X-CSE-ConnectionGUID: t3LH8vXXT7maKnUeZlI+Ig==
+X-CSE-MsgGUID: oTk1ntIWRFul66CPsbOOZg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="220572128"
-Received: from lkp-server01.sh.intel.com (HELO 7b01c990427b) ([10.239.97.150])
- by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 23:31:04 -0800
-Received: from kbuild by 7b01c990427b with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1vJoGs-0006Ix-17;
- Fri, 14 Nov 2025 07:31:02 +0000
-Date: Fri, 14 Nov 2025 15:30:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
- tursulin@ursulin.net, matthew.brost@intel.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, sumit.semwal@linaro.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH 04/18] dma-buf: inline spinlock for fence protection v2
-Message-ID: <202511141529.mZKt8xhV-lkp@intel.com>
-References: <20251113145332.16805-5-christian.koenig@amd.com>
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220324984"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:37 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 2D4249D; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3 07/21] drm/vblank: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:21 +0100
+Message-ID: <20251113150217.3030010-8-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251113145332.16805-5-christian.koenig@amd.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,51 +136,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Use %ptSp instead of open coded variants to print content of
+struct timespec64 in human readable format.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/gpu/drm/drm_vblank.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-[auto build test ERROR on next-20251113]
-[also build test ERROR on v6.18-rc5]
-[cannot apply to drm-xe/drm-xe-next linus/master v6.18-rc5 v6.18-rc4 v6.18-rc3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-K-nig/dma-buf-protected-fence-ops-by-RCU-v3/20251113-235209
-base:   next-20251113
-patch link:    https://lore.kernel.org/r/20251113145332.16805-5-christian.koenig%40amd.com
-patch subject: [PATCH 04/18] dma-buf: inline spinlock for fence protection v2
-config: arm-randconfig-004-20251114 (https://download.01.org/0day-ci/archive/20251114/202511141529.mZKt8xhV-lkp@intel.com/config)
-compiler: clang version 22.0.0git (https://github.com/llvm/llvm-project 0bba1e76581bad04e7d7f09f5115ae5e2989e0d9)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251114/202511141529.mZKt8xhV-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202511141529.mZKt8xhV-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/dma-buf/st-dma-fence.c:454:19: error: no member named 'lock' in 'struct dma_fence'
-     454 |         spin_lock_irq(f->lock);
-         |                       ~  ^
-   drivers/dma-buf/st-dma-fence.c:455:21: error: no member named 'lock' in 'struct dma_fence'
-     455 |         spin_unlock_irq(f->lock);
-         |                         ~  ^
-   2 errors generated.
-
-
-vim +454 drivers/dma-buf/st-dma-fence.c
-
-2989f6451084ae Chris Wilson 2019-08-19  451  
-2989f6451084ae Chris Wilson 2019-08-19  452  static void __wait_for_callbacks(struct dma_fence *f)
-2989f6451084ae Chris Wilson 2019-08-19  453  {
-2989f6451084ae Chris Wilson 2019-08-19 @454  	spin_lock_irq(f->lock);
-2989f6451084ae Chris Wilson 2019-08-19  455  	spin_unlock_irq(f->lock);
-2989f6451084ae Chris Wilson 2019-08-19  456  }
-2989f6451084ae Chris Wilson 2019-08-19  457  
-
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index 32d013c5c8fc..5c14140cd0c2 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -806,10 +806,8 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+ 	ts_vblank_time = ktime_to_timespec64(*vblank_time);
+ 
+ 	drm_dbg_vbl(dev,
+-		    "crtc %u : v p(%d,%d)@ %lld.%06ld -> %lld.%06ld [e %d us, %d rep]\n",
+-		    pipe, hpos, vpos,
+-		    (u64)ts_etime.tv_sec, ts_etime.tv_nsec / 1000,
+-		    (u64)ts_vblank_time.tv_sec, ts_vblank_time.tv_nsec / 1000,
++		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
++		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
+ 		    duration_ns / 1000, i);
+ 
+ 	return true;
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.50.1
+
