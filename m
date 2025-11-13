@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AF0CD8CA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:33:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1D6CCD8CA4
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 16:34:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5D910E8D0;
-	Thu, 13 Nov 2025 16:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7817C10E8D2;
+	Thu, 13 Nov 2025 16:34:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TBSJ671I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VAYYqzFK";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA47A10E8CF
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 16:33:56 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-47755de027eso7817235e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 08:33:56 -0800 (PST)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE4B510E8C0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 16:33:55 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-47118259fd8so7741725e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 08:33:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763051635; x=1763656435; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1763051634; x=1763656434; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XCE0sW08nHLHbs9PMCm0+9FrEKxKDw9NCY10M/l5ECM=;
- b=TBSJ671IbPu5yFfCoHUU2ia6jXE+jR0yMrrP7qT9DoH82fytQL7o3LoB7qizHICFre
- sEdIT5T3OtgTcF4lAoXFRki0+r5yUKzPeeCCdzQh3Z9r/z1/fsMmnPwndK/wvXSEeVF2
- SnJZ5WR4kQO2C5EtQhY7tYQclJj02QQaM1reQZZ774S2h5RPmU5CvcQQt2Yj/riaAIbj
- RHyYkTgaQKQduEvmY/P9Ym3lJY4khKkIuCeI7Awhbcj2lgfqdzPIJ96213O1M/HOqTB0
- uiZ6XmTSY+77z/XD8nELI82+FiD8t1qYhzrhAxaUrTCI9+J/Ks74YyMixbY1f904WCQq
- DRGg==
+ bh=EBjOqFJU8IfmSQi1e5KlIEO+YZVq2W+I3N/cwznMz9M=;
+ b=VAYYqzFKtlw1ichIWSKHWlWR/BkM+j5etVMRAEecNa9lYyIjDvlMiR6/zCqXeFV7Z/
+ 2mq9Gkww6YWjdxBhEHex1iiqYLIxCHtHV7lrMUMc3GLwGBtDgHNG6kNMAoSZMk3h9whj
+ 2wzYNAqp/Gy/+Mq2atuc5vtMRTUERU+BPSNJKzp7XwHYBMMXI0Gi7xEINbEuN3Zmhq8H
+ LPj2dUbyeVTsOxUD5trmbsnA2lI1LVG8hR33sY8lIvBWdE9M4MFFUpyVJSHe17iIHLh+
+ REZ+mEqEN4FG1ziPy15sAnpiOObe6tpbIe3plgyUBcCMpJBz0gQxuZyhyMxt1S58Id6u
+ m5Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763051635; x=1763656435;
+ d=1e100.net; s=20230601; t=1763051634; x=1763656434;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=XCE0sW08nHLHbs9PMCm0+9FrEKxKDw9NCY10M/l5ECM=;
- b=JHU1ud5L8zvF8v/FUrAx3h47WyXPVClqtU4BnhRiUTm1RSQxw5UCcbdWnkPVhsfxUB
- dO08e7kySyqo3CgmqpRIaPy/b8nu6oimDM/2xNW3XeKd9O/u19x3n+C9xmq2hH90yNgd
- 5WsrMgJmokwhBHr7TnXMoYdpDF5Qht9ThHiRFiO4siGbLFh/uknt2CZVEc4qlnn+UzQa
- 62b9jfyvobX5fMn+jcbayZbkN/suqacFEXZSoD+GB0qj4vAUYdLFO20wuvbhgJuMUHLB
- eoxQdU8San9ab2ql3P1I8MG6VH3+qh5KkWSM110vReaMWBy8uRdlnx66yX3UK/GzC9/8
- 1F1g==
-X-Gm-Message-State: AOJu0YxgQL65h6NjYhC5W7TspdY2SSL/pNPI1ozSMOXiKGNy7J68gkCK
- Wz3QNSz+OFuFBcZxKiSRA2QeiSYJSjaFcTiDiE61b/RwsaOYqafNTe6XMNu1qg==
-X-Gm-Gg: ASbGnct8Pd5DzqLIB7W3wur/XcKDMrMVtVbGg+I7wKResZANwP85Op20BAvBAjwBLZ/
- 3/Wvi/paPdm97gPYa2j0QhoHw9pPiwJBuB9FAa9nDSoU2Q0dWBr5U51ZDxp9iv0w8drg96gCmmj
- SlK2v/4th8FDLFiRkP1EOlKGi8wDJDW9HnH2AwBhUxGRzmSnsX/ouITenlBRDZOREvjoW5/2ZTH
- ZO0k5eqhxYbEA6YTQTYNgVDF7Kl9o4b9JAW0AAuP8FRX3/BRRG6CeTN8jdV+iDzR6rIlv37CSq5
- 700B1oazY9Fn+Q0OmPVl1yZ52q8WJTyeG1hKh+nacpR5mCASprPAHJzysP2OlB+6flkA34UbwY2
- 3Yxe+4WlR5ow1HrTFBFkQLhB1QP1vqppHcqU8q03GvztAjeGmQJB7untRDUlV8mWkG4BflDJOc5
- MzRlNHGx23hl3FdRDLSfoLSA6OfgpIUoUM3rA1RlU3wSjLVp53eIWZtYpJkFzVQ+2/BdofR9F9T
- L2okBOR5Jf1RfexneSb1DBWfCMjUdTUnHOJH7NO
-X-Google-Smtp-Source: AGHT+IFKRZfJK1B1PeXtjA4EFYq3dg0Vh/40xxXelvpAwTaswmRmg1eS9ng7a1wpADzOKxUHpXQCXg==
-X-Received: by 2002:a05:600c:a44:b0:46e:4a30:2b0f with SMTP id
- 5b1f17b1804b1-4778fe89e93mr1050975e9.29.1763051635351; 
- Thu, 13 Nov 2025 08:33:55 -0800 (PST)
+ bh=EBjOqFJU8IfmSQi1e5KlIEO+YZVq2W+I3N/cwznMz9M=;
+ b=ideFv6Yx3xDNrnKx/UaIvkpTuCY9KsbLvu1lnZg2/WkfNY33sTLzJW6pDBU7t/eNnp
+ IbxbJ3YuUNIMaoKx1bJQTxvzC/cKhIUgR0NeYJWdu+jaa9L/oLmg9GQKWBj7CD/ZVTkh
+ 6XaZ/STe4kr+aQ0778fHDEfH2ugpHMezvbYPoM0HwDNp6XrTvtuIWftCG06xmABLWKby
+ 4qlKfvsj8t2h7lbz9hyEtCDyaZfQVwn6xkmxk1SFSQKmDxjBXo2Gmvcuw1Nd5AD9sAY2
+ CdwZnnsbNQZgQgCbzYV6ji6OqhZC8c+ld+tvqesFcpg8kSisJxABZ3Tr01rU7PUqQfP/
+ V0OQ==
+X-Gm-Message-State: AOJu0YwINa1lkP2ldJcwvI73t71OZlLLp2ZHIeRu/5SPCLXj+HofYDOa
+ lz5fjqvfOd9RvTWwfb0KYy30yqp3tB4uF2E2NjVhbwo9uCO51uGPX8lAzGfobA==
+X-Gm-Gg: ASbGnctINOI82A+yeG3aZCdtm+wv03DlVDiNeX8UD18iRcwWI67Gho00JrvDoGYwUxo
+ +c2fd4+rmrLsO5ttcBr7vj4+udQBGIxp8plT5/d26gTgqb7gw3a2/gUZTS4BjHXv7VTII626hfi
+ Vh6H+p8CNS6ROOAjCxb0TJxzL3koPi72K2OysSLcei7Lll5M2yO7HoqQlL1h7H+ETpYQD0PWfs+
+ +XBglFcZOUHBLZSvGVJCvqjxCD3LbcyNaYzKv/rJw+3Pt+WODB61VnXwebm1RFVRar9lslTwr8V
+ 7UKu1NwuWkwyk/JCPEALwPj2xD4/oJ/mTfuSYCiTqWUxFv3/hCMo9Ij6GRyI56ASs+S8ARN/H4l
+ rWgDtRlU3/cYxIrRX9MM/cRa3ba0jYtcSL8UAfefj3I9z7HN1I0fa1ug97xYZrVyHPVdskRuRiR
+ F84l8S68kxGjcUM8emu7slf9/RainVe7qDoaAsHmnqxe6MErsVagfiFzW9W9m7LuOSnLbUWIpXR
+ Bbohqt5Snne6z4Zh2chIMVYhVDiQw==
+X-Google-Smtp-Source: AGHT+IF6d5Sa5huPQlbSE0sJqku6pzlKSooL7HtDwWSJGjEc9Lf5uWh1rHNG+mXYIZnocafClD6pqQ==
+X-Received: by 2002:a05:600c:1387:b0:477:7b30:a6fc with SMTP id
+ 5b1f17b1804b1-4778feb13femr1027175e9.30.1763051633364; 
+ Thu, 13 Nov 2025 08:33:53 -0800 (PST)
 Received: from Timur-Hyperion.home
  (20014C4E24E1AF00BA2088E69F553967.dsl.pool.telekom.hu.
  [2001:4c4e:24e1:af00:ba20:88e6:9f55:3967])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47789ffea1esm76376335e9.13.2025.11.13.08.33.54
+ 5b1f17b1804b1-47789ffea1esm76376335e9.13.2025.11.13.08.33.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Nov 2025 08:33:55 -0800 (PST)
+ Thu, 13 Nov 2025 08:33:52 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Ray.Wu@amd.com, Harry.Wentland@amd.com,
  Alex.Hung@amd.com, Wenjing.Liu@amd.com, Chris.Park@amd.com,
  Yu.Wang4@amd.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH 4/4] drm/amd/display: Move analog check to dce110_hwseq
-Date: Thu, 13 Nov 2025 17:33:48 +0100
-Message-ID: <20251113163348.137315-5-timur.kristof@gmail.com>
+Subject: [PATCH 2/4] drm/amd/display: Cleanup uses of the analog flag
+Date: Thu, 13 Nov 2025 17:33:46 +0100
+Message-ID: <20251113163348.137315-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251113163348.137315-1-timur.kristof@gmail.com>
 References: <20251113163348.137315-1-timur.kristof@gmail.com>
@@ -93,56 +93,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of checking that the signal is analog before calling the
-HWSS disable_audio_stream() function to disable audio, move
-the check inside the HWSS function.
+In the detect_link_and_local_sink() function, do not modify the
+EDID capabilities of the display based on the connector. Instead,
+respect the analog flag better and when the analog flag is set,
+check that the connector indeed supports analog displays.
 
 Suggested-by: Ray Wu <Ray.Wu@amd.com>
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 6 ++++--
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c           | 3 +--
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++++++---
+ .../gpu/drm/amd/display/dc/link/link_detection.c  |  2 --
+ 2 files changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 3005115c8505..94e66d96c403 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1139,6 +1139,9 @@ void dce110_disable_audio_stream(struct pipe_ctx *pipe_ctx)
- 	if (!pipe_ctx || !pipe_ctx->stream)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index aa31e969b39d..9703f7fc957d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8665,8 +8665,14 @@ static void amdgpu_dm_connector_add_freesync_modes(struct drm_connector *connect
+ 	if (!(amdgpu_freesync_vid_mode && drm_edid))
  		return;
  
-+	if (dc_is_rgb_signal(pipe_ctx->stream->signal))
+-	if (!amdgpu_dm_connector->dc_sink || amdgpu_dm_connector->dc_sink->edid_caps.analog ||
+-		!dc_supports_vrr(amdgpu_dm_connector->dc_sink->ctx->dce_version))
++	if (!amdgpu_dm_connector->dc_sink || !amdgpu_dm_connector->dc_link)
 +		return;
 +
- 	dc = pipe_ctx->stream->ctx->dc;
- 	clk_mgr = dc->clk_mgr;
- 	link_hwss = get_link_hwss(pipe_ctx->stream->link, &pipe_ctx->link_res);
-@@ -1193,8 +1196,7 @@ void dce110_disable_stream(struct pipe_ctx *pipe_ctx)
- 		pipe_ctx->stream_res.stream_enc->funcs->stop_dp_info_packets(
- 			pipe_ctx->stream_res.stream_enc);
++	if (!dc_supports_vrr(amdgpu_dm_connector->dc_sink->ctx->dce_version))
++		return;
++
++	if (dc_connector_supports_analog(amdgpu_dm_connector->dc_link->link_id.id) &&
++	    amdgpu_dm_connector->dc_sink->edid_caps.analog)
+ 		return;
  
--	if (!dc_is_rgb_signal(pipe_ctx->stream->signal))
--		dc->hwss.disable_audio_stream(pipe_ctx);
-+	dc->hwss.disable_audio_stream(pipe_ctx);
+ 	if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+@@ -8693,7 +8699,10 @@ static int amdgpu_dm_connector_get_modes(struct drm_connector *connector)
+ 			amdgpu_dm_connector->num_modes +=
+ 				drm_add_modes_noedid(connector, 1920, 1080);
  
- 	link_hwss->reset_stream_encoder(pipe_ctx);
+-		if (amdgpu_dm_connector->dc_sink && amdgpu_dm_connector->dc_sink->edid_caps.analog) {
++		if (amdgpu_dm_connector->dc_sink &&
++		    amdgpu_dm_connector->dc_link &&
++		    amdgpu_dm_connector->dc_sink->edid_caps.analog &&
++		    dc_connector_supports_analog(amdgpu_dm_connector->dc_link->link_id.id)) {
+ 			/* Analog monitor connected by DAC load detection.
+ 			 * Add common modes. It will be up to the user to select one that works.
+ 			 */
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index d163360a2bf6..6d31f4967f1a 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1224,8 +1224,6 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 			break;
+ 		}
  
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 4ddcdc222913..f7ac26598c39 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -2374,8 +2374,7 @@ void link_set_dpms_off(struct pipe_ctx *pipe_ctx)
- 			set_avmute(pipe_ctx, true);
- 	}
- 
--	if (!dc_is_rgb_signal(pipe_ctx->stream->signal))
--		dc->hwss.disable_audio_stream(pipe_ctx);
-+	dc->hwss.disable_audio_stream(pipe_ctx);
- 
- 	update_psp_stream_config(pipe_ctx, true);
- 	dc->hwss.blank_stream(pipe_ctx);
+-		sink->edid_caps.analog &= dc_connector_supports_analog(link->link_id.id);
+-
+ 		// Check if edid is the same
+ 		if ((prev_sink) &&
+ 		    (edid_status == EDID_THE_SAME || edid_status == EDID_OK))
 -- 
 2.51.1
 
