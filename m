@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 352CECDE02C
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D803CDE021
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC7310E9D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADA010E9DC;
 	Fri, 14 Nov 2025 08:17:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L20XwA9g";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eqePY1M3";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7968310E868;
- Thu, 13 Nov 2025 15:02:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65FE710E868;
+ Thu, 13 Nov 2025 15:03:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763046165; x=1794582165;
+ t=1763046185; x=1794582185;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+UQGsnSg1BaEGnQW/GmmVLAGeLaVWJuQCcCUScfVp7s=;
- b=L20XwA9gbc2gxOweTN1iLwEC93oKsJvQxfs6CPSVn7VVWY94m1cT4c2w
- DWNkfp3cHZIs4Udss69T2M+MHwIHx/6iRlnccIq1UMk4qdjvcQtpGjwsE
- CJQ+nSaSolTpIYvo7+7uW+ekNyUqZTJRWBX/Kg9n+a4yNVfHQQAh91iWf
- AJg3NP+UKrukE6Gf3anuilOMyvYX21jIvkMU2csnp33AIvlX617GWhwVI
- I5m1bLs+SaRqwM9BGPE2VRlShAGbda4MLPkUwfLANjIlD4k/WFHA73992
- gS7KBJyVEyQTeTpZrlsjPZrBaubFQOX+oF1hV5rc70bast7TANF/e/bVr w==;
-X-CSE-ConnectionGUID: G//AjC2wSZKQ98JTh+5s/A==
-X-CSE-MsgGUID: MJHYckjPTxqxnW0rXkPZkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054105"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054105"
+ bh=VVg62TqQIJ7Evijsdq8qdbXdEeiYTcr6am16uCHXNkE=;
+ b=eqePY1M3e7tK1jKQXFGbWGfMh05Jzlhs2scBizLpQpsml75W9+/MqkJF
+ GbtDEbS/dzTqIXJ4Db11AqMX3F3Et4iH9XfujgVlYxMNfz+N+HvUWtCpM
+ 57KNI+v8+1rW1rKF4elsH8tYFs8UEr897+0xhPBYEfGOBY7MAue3tt3rp
+ vjvyz4UidUdJz7luGBtEq6dvEhcFj7ujZUZuIeC6FsgYJtqOJKO4+3evO
+ 5V7AT0uZpOmGuPRGqCtynRPniOtFVsSwFJngwmpKqQsIR0wTUxgaOE2bV
+ t+MGWN0OOoBuopyQv5h8HdTQnwVwcBN+oTLB0FVKQWSBngnboB3PCTjzI A==;
+X-CSE-ConnectionGUID: 8huxK0bHSduOFNndJCxMVw==
+X-CSE-MsgGUID: k96XMvMNSTGJt8YVStP1Cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65054436"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65054436"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2025 07:02:43 -0800
-X-CSE-ConnectionGUID: Gh81ul90S4eaqrN4Ccmlxg==
-X-CSE-MsgGUID: fLgdc4n6TQqGiy/oFGdUSA==
+ 13 Nov 2025 07:02:55 -0800
+X-CSE-ConnectionGUID: JYWYU7QLT9C4XjxLiDOJvg==
+X-CSE-MsgGUID: nn8IkTNTRWuP0CZXVoFHhg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220324829"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="220325080"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:29 -0800
+ by fmviesa001.fm.intel.com with ESMTP; 13 Nov 2025 07:02:43 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 0D0C998; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
+ id 53E72A3; Thu, 13 Nov 2025 16:02:19 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Corey Minyard <corey@minyard.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -113,15 +113,15 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v3 02/21] ceph: Switch to use %ptSp
-Date: Thu, 13 Nov 2025 15:32:16 +0100
-Message-ID: <20251113150217.3030010-3-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v3 13/21] mmc: mmc_test: Switch to use %ptSp
+Date: Thu, 13 Nov 2025 15:32:27 +0100
+Message-ID: <20251113150217.3030010-14-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
+X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,165 +139,49 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Use %ptSp instead of open coded variants to print content of
 struct timespec64 in human readable format.
 
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- fs/ceph/dir.c   |  5 ++---
- fs/ceph/inode.c | 49 ++++++++++++++++---------------------------------
- fs/ceph/xattr.c |  6 ++----
- 3 files changed, 20 insertions(+), 40 deletions(-)
+ drivers/mmc/core/mmc_test.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-index d18c0eaef9b7..bf50c6e7a029 100644
---- a/fs/ceph/dir.c
-+++ b/fs/ceph/dir.c
-@@ -2155,7 +2155,7 @@ static ssize_t ceph_read_dir(struct file *file, char __user *buf, size_t size,
- 				" rfiles:   %20lld\n"
- 				" rsubdirs: %20lld\n"
- 				"rbytes:    %20lld\n"
--				"rctime:    %10lld.%09ld\n",
-+				"rctime:    %ptSp\n",
- 				ci->i_files + ci->i_subdirs,
- 				ci->i_files,
- 				ci->i_subdirs,
-@@ -2163,8 +2163,7 @@ static ssize_t ceph_read_dir(struct file *file, char __user *buf, size_t size,
- 				ci->i_rfiles,
- 				ci->i_rsubdirs,
- 				ci->i_rbytes,
--				ci->i_rctime.tv_sec,
--				ci->i_rctime.tv_nsec);
-+				&ci->i_rctime);
+diff --git a/drivers/mmc/core/mmc_test.c b/drivers/mmc/core/mmc_test.c
+index a74089df4547..01d1e62c2ce7 100644
+--- a/drivers/mmc/core/mmc_test.c
++++ b/drivers/mmc/core/mmc_test.c
+@@ -586,14 +586,11 @@ static void mmc_test_print_avg_rate(struct mmc_test_card *test, uint64_t bytes,
+ 	rate = mmc_test_rate(tot, &ts);
+ 	iops = mmc_test_rate(count * 100, &ts); /* I/O ops per sec x 100 */
+ 
+-	pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took "
+-			 "%llu.%09u seconds (%u kB/s, %u KiB/s, "
+-			 "%u.%02u IOPS, sg_len %d)\n",
+-			 mmc_hostname(test->card->host), count, sectors, count,
+-			 sectors >> 1, (sectors & 1 ? ".5" : ""),
+-			 (u64)ts.tv_sec, (u32)ts.tv_nsec,
+-			 rate / 1000, rate / 1024, iops / 100, iops % 100,
+-			 test->area.sg_len);
++	pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took %ptSp seconds (%u kB/s, %u KiB/s, %u.%02u IOPS, sg_len %d)\n",
++		mmc_hostname(test->card->host), count, sectors, count,
++		sectors >> 1, (sectors & 1 ? ".5" : ""), &ts,
++		rate / 1000, rate / 1024, iops / 100, iops % 100,
++		test->area.sg_len);
+ 
+ 	mmc_test_save_transfer_result(test, count, sectors, ts, rate, iops);
+ }
+@@ -3074,10 +3071,9 @@ static int mtf_test_show(struct seq_file *sf, void *data)
+ 		seq_printf(sf, "Test %d: %d\n", gr->testcase + 1, gr->result);
+ 
+ 		list_for_each_entry(tr, &gr->tr_lst, link) {
+-			seq_printf(sf, "%u %d %llu.%09u %u %u.%02u\n",
+-				tr->count, tr->sectors,
+-				(u64)tr->ts.tv_sec, (u32)tr->ts.tv_nsec,
+-				tr->rate, tr->iops / 100, tr->iops % 100);
++			seq_printf(sf, "%u %d %ptSp %u %u.%02u\n",
++				   tr->count, tr->sectors, &tr->ts, tr->rate,
++				   tr->iops / 100, tr->iops % 100);
+ 		}
  	}
  
- 	if (*ppos >= dfi->dir_info_len)
-diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
-index 37d3a2477c17..a596cb53f1ac 100644
---- a/fs/ceph/inode.c
-+++ b/fs/ceph/inode.c
-@@ -879,7 +879,9 @@ void ceph_fill_file_time(struct inode *inode, int issued,
- {
- 	struct ceph_client *cl = ceph_inode_to_client(inode);
- 	struct ceph_inode_info *ci = ceph_inode(inode);
-+	struct timespec64 iatime = inode_get_atime(inode);
- 	struct timespec64 ictime = inode_get_ctime(inode);
-+	struct timespec64 imtime = inode_get_mtime(inode);
- 	int warn = 0;
- 
- 	if (issued & (CEPH_CAP_FILE_EXCL|
-@@ -889,39 +891,26 @@ void ceph_fill_file_time(struct inode *inode, int issued,
- 		      CEPH_CAP_XATTR_EXCL)) {
- 		if (ci->i_version == 0 ||
- 		    timespec64_compare(ctime, &ictime) > 0) {
--			doutc(cl, "ctime %lld.%09ld -> %lld.%09ld inc w/ cap\n",
--			     ictime.tv_sec, ictime.tv_nsec,
--			     ctime->tv_sec, ctime->tv_nsec);
-+			doutc(cl, "ctime %ptSp -> %ptSp inc w/ cap\n", &ictime, ctime);
- 			inode_set_ctime_to_ts(inode, *ctime);
- 		}
- 		if (ci->i_version == 0 ||
- 		    ceph_seq_cmp(time_warp_seq, ci->i_time_warp_seq) > 0) {
- 			/* the MDS did a utimes() */
--			doutc(cl, "mtime %lld.%09ld -> %lld.%09ld tw %d -> %d\n",
--			     inode_get_mtime_sec(inode),
--			     inode_get_mtime_nsec(inode),
--			     mtime->tv_sec, mtime->tv_nsec,
--			     ci->i_time_warp_seq, (int)time_warp_seq);
-+			doutc(cl, "mtime %ptSp -> %ptSp tw %d -> %d\n", &imtime, mtime,
-+			      ci->i_time_warp_seq, (int)time_warp_seq);
- 
- 			inode_set_mtime_to_ts(inode, *mtime);
- 			inode_set_atime_to_ts(inode, *atime);
- 			ci->i_time_warp_seq = time_warp_seq;
- 		} else if (time_warp_seq == ci->i_time_warp_seq) {
--			struct timespec64	ts;
--
- 			/* nobody did utimes(); take the max */
--			ts = inode_get_mtime(inode);
--			if (timespec64_compare(mtime, &ts) > 0) {
--				doutc(cl, "mtime %lld.%09ld -> %lld.%09ld inc\n",
--				     ts.tv_sec, ts.tv_nsec,
--				     mtime->tv_sec, mtime->tv_nsec);
-+			if (timespec64_compare(mtime, &imtime) > 0) {
-+				doutc(cl, "mtime %ptSp -> %ptSp inc\n", &imtime, mtime);
- 				inode_set_mtime_to_ts(inode, *mtime);
- 			}
--			ts = inode_get_atime(inode);
--			if (timespec64_compare(atime, &ts) > 0) {
--				doutc(cl, "atime %lld.%09ld -> %lld.%09ld inc\n",
--				     ts.tv_sec, ts.tv_nsec,
--				     atime->tv_sec, atime->tv_nsec);
-+			if (timespec64_compare(atime, &iatime) > 0) {
-+				doutc(cl, "atime %ptSp -> %ptSp inc\n", &iatime, atime);
- 				inode_set_atime_to_ts(inode, *atime);
- 			}
- 		} else if (issued & CEPH_CAP_FILE_EXCL) {
-@@ -2703,10 +2692,8 @@ int __ceph_setattr(struct mnt_idmap *idmap, struct inode *inode,
- 	if (ia_valid & ATTR_ATIME) {
- 		struct timespec64 atime = inode_get_atime(inode);
- 
--		doutc(cl, "%p %llx.%llx atime %lld.%09ld -> %lld.%09ld\n",
--		      inode, ceph_vinop(inode),
--		      atime.tv_sec, atime.tv_nsec,
--		      attr->ia_atime.tv_sec, attr->ia_atime.tv_nsec);
-+		doutc(cl, "%p %llx.%llx atime %ptSp -> %ptSp\n",
-+		      inode, ceph_vinop(inode), &atime, &attr->ia_atime);
- 		if (!do_sync && (issued & CEPH_CAP_FILE_EXCL)) {
- 			ci->i_time_warp_seq++;
- 			inode_set_atime_to_ts(inode, attr->ia_atime);
-@@ -2780,10 +2767,8 @@ int __ceph_setattr(struct mnt_idmap *idmap, struct inode *inode,
- 	if (ia_valid & ATTR_MTIME) {
- 		struct timespec64 mtime = inode_get_mtime(inode);
- 
--		doutc(cl, "%p %llx.%llx mtime %lld.%09ld -> %lld.%09ld\n",
--		      inode, ceph_vinop(inode),
--		      mtime.tv_sec, mtime.tv_nsec,
--		      attr->ia_mtime.tv_sec, attr->ia_mtime.tv_nsec);
-+		doutc(cl, "%p %llx.%llx mtime %ptSp -> %ptSp\n",
-+		      inode, ceph_vinop(inode), &mtime, &attr->ia_mtime);
- 		if (!do_sync && (issued & CEPH_CAP_FILE_EXCL)) {
- 			ci->i_time_warp_seq++;
- 			inode_set_mtime_to_ts(inode, attr->ia_mtime);
-@@ -2804,13 +2789,11 @@ int __ceph_setattr(struct mnt_idmap *idmap, struct inode *inode,
- 
- 	/* these do nothing */
- 	if (ia_valid & ATTR_CTIME) {
-+		struct timespec64 ictime = inode_get_ctime(inode);
- 		bool only = (ia_valid & (ATTR_SIZE|ATTR_MTIME|ATTR_ATIME|
- 					 ATTR_MODE|ATTR_UID|ATTR_GID)) == 0;
--		doutc(cl, "%p %llx.%llx ctime %lld.%09ld -> %lld.%09ld (%s)\n",
--		      inode, ceph_vinop(inode),
--		      inode_get_ctime_sec(inode),
--		      inode_get_ctime_nsec(inode),
--		      attr->ia_ctime.tv_sec, attr->ia_ctime.tv_nsec,
-+		doutc(cl, "%p %llx.%llx ctime %ptSp -> %ptSp (%s)\n",
-+		      inode, ceph_vinop(inode), &ictime, &attr->ia_ctime,
- 		      only ? "ctime only" : "ignored");
- 		if (only) {
- 			/*
-diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
-index 537165db4519..ad1f30bea175 100644
---- a/fs/ceph/xattr.c
-+++ b/fs/ceph/xattr.c
-@@ -249,8 +249,7 @@ static ssize_t ceph_vxattrcb_dir_rbytes(struct ceph_inode_info *ci, char *val,
- static ssize_t ceph_vxattrcb_dir_rctime(struct ceph_inode_info *ci, char *val,
- 					size_t size)
- {
--	return ceph_fmt_xattr(val, size, "%lld.%09ld", ci->i_rctime.tv_sec,
--				ci->i_rctime.tv_nsec);
-+	return ceph_fmt_xattr(val, size, "%ptSp", &ci->i_rctime);
- }
- 
- /* dir pin */
-@@ -307,8 +306,7 @@ static bool ceph_vxattrcb_snap_btime_exists(struct ceph_inode_info *ci)
- static ssize_t ceph_vxattrcb_snap_btime(struct ceph_inode_info *ci, char *val,
- 					size_t size)
- {
--	return ceph_fmt_xattr(val, size, "%lld.%09ld", ci->i_snap_btime.tv_sec,
--				ci->i_snap_btime.tv_nsec);
-+	return ceph_fmt_xattr(val, size, "%ptSp", &ci->i_snap_btime);
- }
- 
- static ssize_t ceph_vxattrcb_cluster_fsid(struct ceph_inode_info *ci,
 -- 
 2.50.1
 
