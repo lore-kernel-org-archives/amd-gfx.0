@@ -4,59 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 648D8CDE029
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82091CDE037
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1256410E9E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7313E10E9DB;
 	Fri, 14 Nov 2025 08:17:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="gLoIap/e";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VB/CmBlI";
 	dkim-atps=neutral
-Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 872A810E827
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:12:16 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48]) (Authenticated sender: zamundaaa)
- by letterbox.kde.org (Postfix) with ESMTPSA id 3CEBE33F737
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 14:12:15 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1763043135; bh=JoVORXO0RTAANywHlkFvF0Ah6ITaFw2yxmHRYOFrUE8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=gLoIap/eItavrbpqVnmqCrUzOnQkMdKn6pIMkwlsrfqrjvWoJqMwXDd6qf/GZQZRd
- cdvfQkYRZWuqy05vKu1WDCwlBlpNjt8Dh9LX5R9v51RglG/J2FXnDYIn6DcZd74+IA
- ogES7mGU8MXczeJyOy3IflaHllZvBeJipzROKdZllvDSGV0xDBzBD3Vnq0upX/9KsV
- gm6ivNrjMB486a/LEVfa0904wvTa8EJ6XAgtvjF0QG+iO1aS1fitZN7GUILB+pouEs
- giFCO61jUxPw2XsyWUqI6XkaN2LpUmO8bDaspREed1Cpd6hGPD1/o9mUy4dHrgixao
- 8vVqTOP8qgfEQ==
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-64165cd689eso3313666a12.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Nov 2025 06:12:15 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUZZ4UlXCrqyg5RPOZIgr0IIel0iMHr4I8chbXRLzmYObRVyNiDW2rwFRrmMYhpvQNUB9POXuXN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKk0v7QQnkG7UbpdQEh0CC3fLGkneatFZborBip4lwoaQzTZ/8
- tgeX40NtL9WydRgCvlXTIdBhxLh7Ec7ADxlK2+X2U7wfJxro+ZrMv/q7/ajcn/2bVwYpXOo0dlJ
- l79sa5BuYFbpvoSxeV24nc2iBs0zvum4=
-X-Google-Smtp-Source: AGHT+IG/nkGMEapYYQV7UPKfzC7Swl+cbhe2Budd13PGHafjH+7VgH9CKZ+cBJWvD4urgKmwtG/jave/jm1NH1cZKyA=
-X-Received: by 2002:a17:907:3d0e:b0:b72:dcda:fe5a with SMTP id
- a640c23a62f3a-b73480bdcbemr352716866b.5.1763043134690; Thu, 13 Nov 2025
- 06:12:14 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDAE10E8BC;
+ Thu, 13 Nov 2025 16:27:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763051278; x=1794587278;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=MVDaAvkelaEcHOmBsAKoL7x0hnHzvyKwT0qtGb/G8DA=;
+ b=VB/CmBlICm1zZREeaAtvmuDKnMGy9LT9LLPEFpJCnutLp12L6kcoGb9C
+ el7Eu1l2PW8NnCXY2tn/mcRnDeTmQkP/TrqYnMPI2zWzIExrQvIkts9dg
+ RQVPG9a1Yp6xm9KhrKc7BfGk8Vtbplk4Y6N85Yidxm0MomU3ksLpG0xvJ
+ nVj5/A/8XlFy5O7H/v2hEIQMBxqBICXJC6zk6h5/LcwfaqCUO70rsp6Uo
+ EEMQQG76Lz8fus9bSgpCf/M+d80zfJ9qwvnc3O2BXOfoTHwm7K+9yyo+C
+ D3YjrXb8i3cNzDW3QqaIRkFkP2HdkXBlEHOKkJGv6EJIQ5bPHrr5yChOF w==;
+X-CSE-ConnectionGUID: wkAXIgimSMqQcRt03tkDmQ==
+X-CSE-MsgGUID: W5vuPpcOSH2DyZLZRalnRA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="65176227"
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="65176227"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 08:27:57 -0800
+X-CSE-ConnectionGUID: AslXPsLmQdiqPBGhi2cnOQ==
+X-CSE-MsgGUID: oo/KyPEhQ+K9TOFXLFU/KA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,302,1754982000"; d="scan'208";a="189971963"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.164])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2025 08:27:53 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Simon Richter <Simon.Richter@hogyros.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v2 07/11] PCI: Add kerneldoc for pci_resize_resource()
+Date: Thu, 13 Nov 2025 18:26:24 +0200
+Message-Id: <20251113162628.5946-8-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
-References: <20251112151832.77867-1-xaver.hugl@kde.org>
- <20251112151832.77867-3-xaver.hugl@kde.org>
- <20251113112249.4273a324@eldfell>
-In-Reply-To: <20251113112249.4273a324@eldfell>
-From: Xaver Hugl <xaver.hugl@kde.org>
-Date: Thu, 13 Nov 2025 15:12:03 +0100
-X-Gmail-Original-Message-ID: <CAFZQkGz=N8JNiQkV2mMiG7qV5e+1xbgZZ3OVE1Gw+rcsAgJdhg@mail.gmail.com>
-X-Gm-Features: AWmQ_bmjkuupQvB14tPaCpLRXfXOqKlzpT_BCRJPN1Wz3C0fJj9g8wMMtPwC-1o
-Message-ID: <CAFZQkGz=N8JNiQkV2mMiG7qV5e+1xbgZZ3OVE1Gw+rcsAgJdhg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm,
- amdgpu: add the "FreeSync HDR Mode" connector property
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:14 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 14 Nov 2025 08:17:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,47 +82,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> > FreeSync HDR provides the big benefit that display behavior is more
-> > predictable, and the "native" signal doesn't waste any color resolution on
-> > out of bounds colors or luminance values.
-> >
-> > The property has two values right now, "Disabled" and "FreeSync 2 Native".
-> > If any other FreeSync HDR modes exist or will be added at some point, they
-> > can be added as new enum values as well.
->
-> How should this interact with the connector properties "Colorspace" and
-> "HDR_OUTPUT_METADATA"?
-From experimentation, my display seems to ignore the colorspace and
-"traditional gamma SDR" in HDR_OUTPUT_METADATA while FreeSync HDR is
-active.
-Setting the eotf to PQ however turns FreeSync HDR off and switches the
-display into conventional HDR mode.
+As pci_resize_resource() is meant to be used also outside of PCI core,
+document the interface with kerneldoc.
 
-Making any definite statements about this will require someone from
-AMD to provide documentation, which is why I didn't put anything
-explicit about it into the patch.
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/pci/setup-res.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-> Does one override the other when they disagree? Is userspace
-> expected to program all of them into agreement? Should the atomic
-> commit fail if they disagree?
-Just like with HDR_OUTPUT_METADATA, it should just be up to userspace
-to set things up in a way that works with the display.
+diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+index e4486d7030c0..558e452fc799 100644
+--- a/drivers/pci/setup-res.c
++++ b/drivers/pci/setup-res.c
+@@ -455,6 +455,25 @@ void pci_resize_resource_set_size(struct pci_dev *dev, int resno, int size)
+ 	resource_set_size(res, res_size);
+ }
+ 
++/**
++ * pci_resize_resource - reconfigure a Resizable BAR and resources
++ * @dev: the PCI device
++ * @resno: index of the BAR to be resized
++ * @size: new size as defined in the spec (0=1MB, 31=128TB)
++ * @exclude_bars: a mask of BARs that should not be released
++ *
++ * Reconfigures @resno to @size and re-runs resource assignment algorithm
++ * with the new size.
++ *
++ * Prior to resize, @dev resources that share the bridge window with @resno
++ * are released (unpins the bridge window resource to allow changing it).
++ * The caller may prevent releasing a particular BAR by providing
++ * @exclude_bars mask but it may result in the resize operation failing due
++ * to insufficient space.
++ *
++ * Return: 0 on success, or negative on error. In case of an error, the
++ *         resources are restored to their original places.
++ */
+ int pci_resize_resource(struct pci_dev *dev, int resno, int size,
+ 			int exclude_bars)
+ {
+-- 
+2.39.5
 
-> What about instead of a new property, make a new value called "Native"
-> for "Colorspace", and require userspace to set HDR_OUTPUT_METADATA eotf
-> field to "traditional gamma HDR"? This might be a silly idea, but I'd
-> like to hear why. Alternatively, HDR_OUTPUT_METADATA could use a new
-> 'metadata_type' value for the eotf.
-I thought (and hoped) it would end up being just like that, but at
-least my display doesn't support the "traditional gamma HDR" at all.
-If you set it anyways, it seems to just fall back to "traditional
-gamma SDR".
-
-As HDR output metadata and colorspace have been more or less just
-passed through to the display without modifications so far, I'd rather
-not have the kernel step in between and try to translate things -
-especially not if there's actually displays out there that do support
-the "traditional gamma HDR", in which case that value may become
-ambiguous.
-
-- Xaver
