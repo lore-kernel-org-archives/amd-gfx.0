@@ -4,67 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47536CE7A8B
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B1BFCE7A8B
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 08:43:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD50410E9FA;
-	Fri, 14 Nov 2025 08:39:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF07210EA12;
+	Fri, 14 Nov 2025 08:43:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mTUbUOdG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IAwBmTrE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0031810E9FA;
- Fri, 14 Nov 2025 08:39:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763109588; x=1794645588;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=F+CStbTIxHFcTW3z0z+Poj36ZgypQe63mye2MkcSfy4=;
- b=mTUbUOdGXI5Iguvpjsh2rDYNx82Je5pBHOskblrgkNK9OB76yEWt7YGE
- m8I6eP06jFcPE5PoJFtX01wZlB/ClS14ctfworrFof77892C4RJq4k0/V
- 3e6iVxnRjEKezeI12HBXjQ3BG8P/+wP/KvJosXeouicN4XoObj8NeDywA
- nSfxTlePtiNLEc2wkn+uWiLWQ33FKQU13c41fXmZuRJoaQryzyHvUJJFa
- nP3iR6V0zVZRAUYbDfo2U0pDnKk0/V7gkfNIYotkO8Arrw+Xwc7lkdbOe
- wDF4IWL+6sxBUNTN24LqSDTG4N2cpZ0VhemGCGug5Vju8xshtrGULLzmP w==;
-X-CSE-ConnectionGUID: TD1XW724QryRSx/eykU/dw==
-X-CSE-MsgGUID: zgKYt4UJQdyDFjiiyXhuKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="75882970"
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="75882970"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2025 00:39:40 -0800
-X-CSE-ConnectionGUID: nZOAlWeHTgGIl0LRBYXVFQ==
-X-CSE-MsgGUID: DbNLt1YjRPa6kN9nLQAlTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="189554951"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.202])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2025 00:39:35 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
- =?utf-8?Q?ig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, "open
- list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open
- list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list
- <linux-kernel@vger.kernel.org>, Mario Limonciello
- <mario.limonciello@amd.com>, Simona Vetter <simona.vetter@ffwll.ch>, Harry
- Wentland <Harry.Wentland@amd.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH] drm/amd: Move adaptive backlight modulation property to
- drm core
-In-Reply-To: <83aa8a816cf301085a3e3638238f8fba11053dc2@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20251112222646.495189-1-mario.limonciello@amd.com>
- <83aa8a816cf301085a3e3638238f8fba11053dc2@intel.com>
-Date: Fri, 14 Nov 2025 10:39:32 +0200
-Message-ID: <449ee5ba065e1ceee8f7a04038442cff24772df9@intel.com>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011052.outbound.protection.outlook.com [40.107.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 942D610EA09;
+ Fri, 14 Nov 2025 08:43:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xiYrp2MLsM8mY/OZkGLNevtSHtUnbY200ISMGm+4Av1kh9UOMhW5B65f440jr3DFXOGr8F4zhaybFcrzFUevw1d9ylpuWTrzWbuWJX6pQspspr6NAIcFSCcHJQZzVJe4VLaH0IkuiNK5vA92da1etqk4lzykfxF/+S2KWGL64AMkKz7RSgxvkRzPTIoqQ2CJ18/foqkBrPlcGx9nsKC1fwc9hPCTmpJMVl7xpsPSL8WuQZmkGGpo9KZscj0yJjn0813K2YJqKlp1ftrpBciC2BwdDzvi25rw4nBuuXExHikTzJgS+J9WKzS3b8K6MczR7FIMcIIQEJpoxI08d0lUGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=grTCDEMMZUlj6YmroWbbY38fqkZyct6ONxhkriJjMGo=;
+ b=U1LQtnUICk4sxMWEsctssqKeea9790llVmV2TXQvBH1hp7ioxynXrkl/zKJZIRnqMV8h12LiQ64V4rcCj5ayXC7CoVfFdOjVawniWoTAlxtsy+TnoAsBQ4EdpPX5GYELX7E1nIR8TaTWupg8EcSIe5KRI7KYIHZuuEAyHxS+oqAQpe+56Td+SpnbWxDY/6Cr7lyrCgnG8Yn9bl4nMJBVFHOR6L+U1fqbUKJ8OLSPjw3Fp/gM/hLLR5WwdC+hdOzNIa1LWpTc2WjUevDEvuBjL+RTBB7bzlQ9BWkSD9Tasoh1htDJ1XGDvrJ86T9tmsqQ8CWPwBreOaPncHGtuvN1Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=grTCDEMMZUlj6YmroWbbY38fqkZyct6ONxhkriJjMGo=;
+ b=IAwBmTrE/5CRc2o4a7iT3cgzwnLe8Rl2Jh13f4hAjdWqdZIEUsr6cOgwBf3zDnFfW8B73Us+hlmYgeyskRmhlAmOcc2kcXOwddaXMyrauJxzGzay9wiyK0BQ/EsavPBklm2uLqgMkluQEYRg7AhiMOHQFWREvqUF4GgGFD9eOzM=
+Received: from SN7PR18CA0011.namprd18.prod.outlook.com (2603:10b6:806:f3::19)
+ by SJ2PR12MB7893.namprd12.prod.outlook.com (2603:10b6:a03:4cc::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.17; Fri, 14 Nov
+ 2025 08:43:17 +0000
+Received: from SN1PEPF0002BA4D.namprd03.prod.outlook.com
+ (2603:10b6:806:f3:cafe::fd) by SN7PR18CA0011.outlook.office365.com
+ (2603:10b6:806:f3::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.17 via Frontend Transport; Fri,
+ 14 Nov 2025 08:43:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4D.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9320.13 via Frontend Transport; Fri, 14 Nov 2025 08:43:16 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 14 Nov
+ 2025 00:43:12 -0800
+From: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>
+Subject: [PATCH v2 0/5] drm/amdgpu: add UMA carveout tuning interfaces
+Date: Fri, 14 Nov 2025 16:42:20 +0800
+Message-ID: <20251114-vram-carveout-tuning-for-upstream-v2-0-4f6bdd48030d@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGzrFmkC/5WNOw6DMBAFr4JcZyNsxC9V7hFRWPYCW2Cj9UeJE
+ HePww1SznvSzCECMmEQj+oQjJkCeVdA3SphVu0WBLKFhapVK2XdQGa9gdGc0acIMTlyC8yeIe0
+ hMpZT2lYOYzcMtm9E8eyMM72vxmsqvFKInj9XMsvf+o89S6hB9qh0r7pmNO1Tb/Zu/Cam8zy/C
+ kdsWdAAAAA=
+To: Alex Deucher <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>, "Tsao, Anson"
+ <anson.tsao@amd.com>, "Mario Limonciello (AMD) (kernel.org)"
+ <superm1@kernel.org>, "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2381; i=Leo.Lin@amd.com;
+ h=from:subject:message-id; bh=IDt0FWh+7o6PgxspriirFBt9KtXFIZQKo46zg2suxOA=;
+ b=owEBbQKS/ZANAwAKAV8XsZZKKe6GAcsmYgBpFuue+Mc7hr7HC83hp4BpDaOLqd9D04HYStDRQ
+ 8OaCF8uh9yJAjMEAAEKAB0WIQQzqV4kW+yguuqHrw5fF7GWSinuhgUCaRbrngAKCRBfF7GWSinu
+ hrwhEACRoU2sHsX4OWRETwYYpfkwpxtMkmBZeD4ijFrE/XYPCkvg2MxLjKC8NPaDLZxPAw9YmMJ
+ xJAE4mbuvxR8ly7Ey+GIux+oxjID4YVQSytWIUe1fxW1/55JdTsP9lCrxBSnHZ4X63DL2YXK1SJ
+ JjPk5w97sY8X/LnxxmF0CByK3bLooUH9+IWfOXai6mrHGS8SPnbFZX273f6n2TWBFdSdK0STC4m
+ NTWUVmNsKcSyps9w6jS7YIoBU513hMGpQ6ATFJdexdUe6sPqENTLQBdj7mCgc2eETS0EfsOHx6A
+ v4MH5PNO+mlHeS+mbi2m/DaG+YSy2kUsM3rqJxSwCrNdyWwXIrwVLlFzHtnfFlkDcD0yZy3yKYh
+ TIKoUZrGFk6iAoEktsncH50b1hEyIJ6twhdH+zhS2liALZM1oBOKE7JmTT2NKkVmKLPNmgOu6UD
+ GzecKDScztMHorwolJX6WUK1NoCMTnI23WT4W5yr6gafEUb16Cte+DxPGDsPX4XnkCgtL20qyE7
+ zsmZZHp5DIbjq5B397ltB7XYW4cv09+tNdWpJS5gjLEGQVEMwIxT6BRY82ORoHqEyx5j4F8cFlr
+ F7dzQeZyIX8knAJpBgTsjz9yHb3iRwRB7yXmM3eioochN38BsHdoWYUvcnIWiyuk85seiBuYCmk
+ Wwx2AI8wvfYE/1Q==
+X-Developer-Key: i=Leo.Lin@amd.com; a=openpgp;
+ fpr=33A95E245BECA0BAEA87AF0E5F17B1964A29EE86
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4D:EE_|SJ2PR12MB7893:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fd6099e-8279-44f6-14ae-08de2359db35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|82310400026|36860700013|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RWZkbmt1NXNPT3ZlT1BhZHNJZGwybTQwdUVtQUxnNitybkd6bUprYTZRYS9X?=
+ =?utf-8?B?SVNWVktVcmV4VmpjSStyaTJVTE04N2hST2hkUXo1bExJNnVzMngrSHdSSkR4?=
+ =?utf-8?B?S1g2ZmRlOWNhM3lwUVdJLzBXZml0L0U0TkZOQzhrbDJ3ZDRBOUg4dnJZMFFN?=
+ =?utf-8?B?YnlDeGM1Q3NKazM0MzB3R2RsOEczRWIzZG91U0JLN3gxU283NkFFZk1TVmww?=
+ =?utf-8?B?QTJ2Y3M0WjlZNCt1ZUpsd2dHN2s4dFpDR1doaHZES1R3U0QzMTBTM2RUSHh1?=
+ =?utf-8?B?NVpGOXFWdEhSdWdxeEpLM3JCVUpHNkJRbnAyeEg2MHN4VCsyaVhkQUh0VDVP?=
+ =?utf-8?B?UHoxeDZxS3ZneWxyalFZdXRtOWtrRS9nd2Q3anBidHY0WG5xbm1qbnBWZVdq?=
+ =?utf-8?B?Y25jQ05jRVh6ZXM2eGR0YkVHMDFqK0djQmZTS3BhR1h1d3YvcTlPZmZQOUhV?=
+ =?utf-8?B?VHlMU1lQRG5ZblZCYVdZVDJjQ2svTVBpWmJMaFJ6MXhFanNOYVpyWW5yVGtn?=
+ =?utf-8?B?MUZMNGdJL2UrZFQ0ZDFnOTExSkpsQ1lkMUhHYXRjb3lsa3ZwMVNXYU5PaFNh?=
+ =?utf-8?B?VlIrSkdUZkEzRlpnakdDUFhMMWZRYitYZU1HS2VoNHBBaWNsbWtCeHF6Ykho?=
+ =?utf-8?B?MEw1K05kTlAzTFQ4S05vVDluRHNHTVUvRU5qMDZsdnphc0xUQytwYkl1anh4?=
+ =?utf-8?B?a3owZ2lwY3FzMzBtVEcreGtFSk45YmtnMm8wWXZVbFpNc3cyMFBldjVMZ3Aw?=
+ =?utf-8?B?UnlNWXRYOTlFV3pvbUJWeHdHMEdGcjFoL09hNWticG5Xd0lkcVhsREJTSXM5?=
+ =?utf-8?B?REJCeUxHcE9lOUtWc2lkRUNhZVYyMmFzeDFPdUNUWnBlU3FzZnBCR2xqS3BL?=
+ =?utf-8?B?TEc4YTN6ak04RHM4NXRTMnFNMU5lQnVqN0xDL1BWKzFPS05pZDcwTTlUeGZJ?=
+ =?utf-8?B?M29FTXdVbnpDazVad3BNZDNLYVROREVQQWRKcUovOGVINU5qODFuOW9RczdB?=
+ =?utf-8?B?d3V5Z2lIRVgyRFNuZFVjakUrWVBxbExuZXNTR0hYbFNvK3cycDBZOGJNMWdM?=
+ =?utf-8?B?aUxuaCtnQUVUUXRoamJZUVNaalhuUUI5SkF3eEkzNHVsT0NVcGh3R1ZXa2RY?=
+ =?utf-8?B?NzRJcG5JeGcycWp1a045NzR1SGJZQUVycEhmdXBxY3ZMUXhucENSYk9EaWg0?=
+ =?utf-8?B?cWxXRVI0dFJnazVhWGVTVG56aHpWdVlQYXhwNFlXcFFiYU1seHpFS3VFOGk1?=
+ =?utf-8?B?OEpDMGI4eitIbGNaZUwzQmRrSTZXRlpKZ04rYlArQkQ1cmNmaFFlNmw0OW5w?=
+ =?utf-8?B?cDJXbmNzQlFxb2VQN0IrYWFaK214SENFZ3ZRQ3diTnV6WmhQY3FvWmIvaXBh?=
+ =?utf-8?B?Q2hpS0dVMUtLbTB3aVBjM3d1bjFJUHFncW9kUXo4VG40WWpXSWE0SGpnMDR1?=
+ =?utf-8?B?VlRKZVRvV2d4cGl6MnBlK2o4VW16T0dJZnAvYTN0K1k1VDVaaTlyQW95NTJi?=
+ =?utf-8?B?ZER1SUZ6RVBlUitPYjdUVkZSQ0lMM1FXazZTNlU5UThJVVVNaXE5NU1OMW14?=
+ =?utf-8?B?YlZKZEJYZ0hsZzJlU3VWTUZSRkx3RjE1b1U4WGp6Q3kxd1ozUk9rRGZxMTk1?=
+ =?utf-8?B?Wm9hMXJjKzRNUk1CdUNjcHhQWk45eWxOY2d2VmFNV0MrdEtNSnZMZUpQVnVU?=
+ =?utf-8?B?S0ljMXFtSEw2cm9lWmVTajYwTWh3MG0wU2gxV2FwSVppN0Racm5TRldGWTgz?=
+ =?utf-8?B?NkY2UDhKZk1vR1JaUERKRDlkZ003Wmk1MUJaZEs3U2I2dWpQMDhMdU84Z1BQ?=
+ =?utf-8?B?Z0k3Y1JycGRoTVM5aTZUWi9jWkxQbmtyZWtkZnBWU25URHVNUlpCUi9UczYr?=
+ =?utf-8?B?dU0xbWVMYWs1M3VmTm5JL0lORE9uOFBIZXpZelBkWm92K1E3bG9RaE1SQVkv?=
+ =?utf-8?B?YmFKQU1INnd4WHdHODFMRzI3T0FLYlcyOGwreGdrQkxJUW5jQnZ3RnpSbUtM?=
+ =?utf-8?B?SGFBbzlUdkJFVEFDano5OXdPd0pYbFAzY0JYVFFnejZCYUJJQ1lVditiN0RB?=
+ =?utf-8?B?M09FWVFPVzRPUCtJcThKaHk1eENWK3A1OStrQ3QvNWlhNjdsSHcwQTBNbGlp?=
+ =?utf-8?Q?GqCM=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(36860700013)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2025 08:43:16.9285 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fd6099e-8279-44f6-14ae-08de2359db35
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7893
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,278 +167,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 13 Nov 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Wed, 12 Nov 2025, Mario Limonciello <mario.limonciello@amd.com> wrote:
->> The adaptive backlight modulation property is supported on AMD hardware but
->> compositors should be aware of it in standard DRM property documentation.
->
-> I think the reason for adding a property in drm core code should be to
-> share the ABI between drivers.
->
->> Move the helper to create the property and documentation into DRM.
->>
->
-> Link: to the userspace implementation according to
-> Documentation/gpu/drm-uapi.rst
->
->> Suggested-by: Simona Vetter <simona.vetter@ffwll.ch>
->> Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 69 +++------------------
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  7 ---
->>  drivers/gpu/drm/drm_connector.c             | 63 +++++++++++++++++++
->>  include/drm/drm_connector.h                 |  8 +++
->>  4 files changed, 80 insertions(+), 67 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> index f8b35c487b6c..3d840bef77bf 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
->> @@ -1363,67 +1363,9 @@ static const struct drm_prop_enum_list amdgpu_dither_enum_list[] = {
->>  	{ AMDGPU_FMT_DITHER_ENABLE, "on" },
->>  };
->>  
->> -/**
->> - * DOC: property for adaptive backlight modulation
->> - *
->> - * The 'adaptive backlight modulation' property is used for the compositor to
->> - * directly control the adaptive backlight modulation power savings feature
->> - * that is part of DCN hardware.
->> - *
->> - * The property will be attached specifically to eDP panels that support it.
->> - *
->> - * The property is by default set to 'sysfs' to allow the sysfs file 'panel_power_savings'
->> - * to be able to control it.
->> - * If set to 'off' the compositor will ensure it stays off.
->> - * The other values 'min', 'bias min', 'bias max', and 'max' will control the
->> - * intensity of the power savings.
->> - *
->> - * Modifying this value can have implications on color accuracy, so tread
->> - * carefully.
->> - */
->> -static int amdgpu_display_setup_abm_prop(struct amdgpu_device *adev)
->> -{
->> -	const struct drm_prop_enum_list props[] = {
->> -		{ ABM_SYSFS_CONTROL, "sysfs" },
->> -		{ ABM_LEVEL_OFF, "off" },
->> -		{ ABM_LEVEL_MIN, "min" },
->> -		{ ABM_LEVEL_BIAS_MIN, "bias min" },
->> -		{ ABM_LEVEL_BIAS_MAX, "bias max" },
->> -		{ ABM_LEVEL_MAX, "max" },
->> -	};
->> -	struct drm_property *prop;
->> -	int i;
->> -
->> -	if (!adev->dc_enabled)
->> -		return 0;
->> -
->> -	prop = drm_property_create(adev_to_drm(adev), DRM_MODE_PROP_ENUM,
->> -				"adaptive backlight modulation",
->> -				6);
->> -	if (!prop)
->> -		return -ENOMEM;
->> -
->> -	for (i = 0; i < ARRAY_SIZE(props); i++) {
->> -		int ret;
->> -
->> -		ret = drm_property_add_enum(prop, props[i].type,
->> -						props[i].name);
->> -
->> -		if (ret) {
->> -			drm_property_destroy(adev_to_drm(adev), prop);
->> -
->> -			return ret;
->> -		}
->> -	}
->> -
->> -	adev->mode_info.abm_level_property = prop;
->> -
->> -	return 0;
->> -}
->> -
->>  int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
->>  {
->> -	int sz;
->> +	int ret, sz;
->>  
->>  	adev->mode_info.coherent_mode_property =
->>  		drm_property_create_range(adev_to_drm(adev), 0, "coherent", 0, 1);
->> @@ -1467,7 +1409,14 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
->>  					 "dither",
->>  					 amdgpu_dither_enum_list, sz);
->>  
->> -	return amdgpu_display_setup_abm_prop(adev);
->> +	adev->mode_info.abm_level_property = drm_create_abm_property(adev_to_drm(adev));
->> +	if (IS_ERR(adev->mode_info.abm_level_property)) {
->> +		ret = PTR_ERR(adev->mode_info.abm_level_property);
->> +		adev->mode_info.abm_level_property = NULL;
->> +		return ret;
->> +	}
->> +
->> +	return 0;
->>  }
->>  
->>  void amdgpu_display_update_priority(struct amdgpu_device *adev)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->> index 2b1536a16752..dfa0d642ac16 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
->> @@ -54,11 +54,4 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev);
->>  int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
->>  				      struct drm_scanout_buffer *sb);
->>  
->> -#define ABM_SYSFS_CONTROL	-1
->> -#define ABM_LEVEL_OFF		0
->> -#define ABM_LEVEL_MIN		1
->> -#define ABM_LEVEL_BIAS_MIN	2
->> -#define ABM_LEVEL_BIAS_MAX	3
->> -#define ABM_LEVEL_MAX		4
->> -
->>  #endif
->> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->> index 272d6254ea47..376169dac247 100644
->> --- a/drivers/gpu/drm/drm_connector.c
->> +++ b/drivers/gpu/drm/drm_connector.c
->> @@ -2603,6 +2603,69 @@ static int drm_mode_create_colorspace_property(struct drm_connector *connector,
->>  	return 0;
->>  }
->>  
->> +/**
->> + * DOC: integrated panel properties
->> + *
->> + * adaptive backlight modulation:
->> + *	Adaptive backlight modulation (ABM) is a power savings feature that
->> + *	dynamically adjusts the backlight brightness based on the content
->> + *	displayed on the screen. By reducing the backlight brightness for
->> + *	darker images and increasing it for brighter images, ABM helps to
->> + *	conserve energy and extend battery life on devices with integrated
->> + *	displays.  This feature is part of AMD DCN hardware.
->
-> So this is basically Content Adaptive Brightness Control, but with the
-> technology ("backlight" and "modulation") unnecessarily encoded in the
-> ABI.
->
-> You could have the same knob for adjusting CABC implemented in an OLED
-> panel, controlled via DPCD.
->
->> + *
->> + *	sysfs
->> + *		The ABM property is exposed to userspace via sysfs interface
->> + *		located at 'amdgpu/panel_power_savings' under the DRM device.
->
-> Err what? Seriously suggesting that to the common ABI? We shouldn't have
-> sysfs involved at all, let alone vendor specific sysfs.
->
->> + *	off
->> + *		Adaptive backlight modulation is disabled.
->> + *	min
->> + *		Adaptive backlight modulation is enabled at minimum intensity.
->> + *	bias min
->> + *		Adaptive backlight modulation is enabled at a more intense
->> + *		level than 'min'.
->> + *	bias max
->> + *		Adaptive backlight modulation is enabled at a more intense
->> + *		level than 'bias min'.
->> + *	max
->> + *		Adaptive backlight modulation is enabled at maximum intensity.
->
-> So values 0-4 but with names. I don't know what "bias" means here, and I
-> probably shouldn't even have to know. It's an implementation detail
-> leaking to the ABI.
->
-> In the past I've encountered CABC with different modes based on the use
-> case, e.g. "video" or "game", but I don't know how those would map to
-> the intensities.
->
-> I'm concerned the ABI serves AMD hardware, no one else, and everyone
-> else coming after this is forced to shoehorn their implementation into
-> this.
+The integrated info v2.3 table in the Atom ROM exposes available
+options for the VRAM carveout sizes. The carveout size can be changed
+using the ATCS function code 0xA for BIOS that supports this.
 
-Apparently Harry had the same concerns [1].
+Make these features available as sysfs files, so that users can set
+the carveout size in a way similar to what a Windows user can do in
+the "Tuning" tab in the AMD Adrenalin. The newly added sysfs files
+are:
 
-BR,
-Jani.
+- uma_carveout_options: this a read-only file listing all available
+  carveout options. They are fetched from the Atom ROM on driver
+  initialization.
 
+- uma_carveout: this shows the index of the currently selected option,
+  as shown in the uma_carveout_options. Writing a valid option index
+  to this file will change the carveout option on next boot.
 
-[1] https://lore.kernel.org/r/2d4cbf1e-f8f7-4f6e-9e7e-15fb05234248@amd.com
+Note that above files are created only if BIOS indicates support for
+it, i.e. where the table shows non-zero UMACarveoutIndexMax.
 
+Signed-off-by: Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
+---
+Changes in v2:
+- Move VBIOS table parsing and sysfs interface creation from atomfirmware
+  initialization code to amdgpu_acpi_init()
+- Create structs that abstract the uma options
+- Move the parsed carveout options from atom_context to the amdgpu_atcs
+- Minor kdoc fixes, as well as adding example output for uma_carveout_options
+- Link to v1: https://lore.kernel.org/r/20251103-vram-carveout-tuning-for-upstream-v1-0-17e2a72639c5@amd.com
 
->
->> + */
->> +struct drm_property *drm_create_abm_property(struct drm_device *dev)
->> +{
->> +	const struct drm_prop_enum_list props[] = {
->> +		{ ABM_SYSFS_CONTROL, "sysfs" },
->> +		{ ABM_LEVEL_OFF, "off" },
->> +		{ ABM_LEVEL_MIN, "min" },
->> +		{ ABM_LEVEL_BIAS_MIN, "bias min" },
->> +		{ ABM_LEVEL_BIAS_MAX, "bias max" },
->> +		{ ABM_LEVEL_MAX, "max" },
->> +	};
->> +	struct drm_property *prop;
->> +	int i;
->> +
->> +	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM,
->> +				"adaptive backlight modulation",
->> +				6);
->
-> Please use drm_property_create_enum(), see
-> e.g. drm_connector_attach_broadcast_rgb_property().
->
->> +	if (!prop)
->> +		return ERR_PTR(-ENOMEM);
->> +
->> +	for (i = 0; i < ARRAY_SIZE(props); i++) {
->> +		int ret;
->> +
->> +		ret = drm_property_add_enum(prop, props[i].type,
->> +						props[i].name);
->> +
->> +		if (ret) {
->> +			drm_property_destroy(dev, prop);
->> +
->> +			return ERR_PTR(ret);
->> +		}
->> +	}
->> +
->> +	return prop;
->> +}
->> +EXPORT_SYMBOL(drm_create_abm_property);
->> +
->>  /**
->>   * drm_mode_create_hdmi_colorspace_property - create hdmi colorspace property
->>   * @connector: connector to create the Colorspace property on.
->> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
->> index 8f34f4b8183d..644c0d49500f 100644
->> --- a/include/drm/drm_connector.h
->> +++ b/include/drm/drm_connector.h
->> @@ -2454,6 +2454,7 @@ int drm_connector_attach_hdr_output_metadata_property(struct drm_connector *conn
->>  bool drm_connector_atomic_hdr_metadata_equal(struct drm_connector_state *old_state,
->>  					     struct drm_connector_state *new_state);
->>  int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
->> +struct drm_property *drm_create_abm_property(struct drm_device *dev);
->>  int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector,
->>  					     u32 supported_colorspaces);
->>  int drm_mode_create_dp_colorspace_property(struct drm_connector *connector,
->> @@ -2563,4 +2564,11 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
->>  	drm_for_each_encoder_mask(encoder, (connector)->dev, \
->>  				  (connector)->possible_encoders)
->>  
->> +#define ABM_SYSFS_CONTROL	-1
->> +#define ABM_LEVEL_OFF		0
->> +#define ABM_LEVEL_MIN		1
->> +#define ABM_LEVEL_BIAS_MIN	2
->> +#define ABM_LEVEL_BIAS_MAX	3
->> +#define ABM_LEVEL_MAX		4
->
-> These need to be an enum, with documentation, name prefixes, the works.
->
-> BR,
-> Jani.
->
->> +
->>  #endif
+---
+Yo-Jung Leo Lin (AMD) (5):
+      drm/amdgpu: parse UMA size-getting/setting bits in ATCS mask
+      drm/amdgpu: add helper to read UMA carveout info
+      drm/amdgpu: add UMA allocation setting helpers
+      drm/amdgpu: add UMA allocation interfaces to sysfs
+      Documentation/amdgpu: Add UMA carveout details
 
+ Documentation/gpu/amdgpu/driver-misc.rst         |  26 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h              |  39 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c         | 205 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c |  73 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h |   2 +
+ drivers/gpu/drm/amd/include/amd_acpi.h           |  34 +++-
+ 6 files changed, 378 insertions(+), 1 deletion(-)
+---
+base-commit: ac9914fa72a5a917bb61c5e87bee6b8f9b751f33
+change-id: 20251103-vram-carveout-tuning-for-upstream-1d5189688d73
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
+
