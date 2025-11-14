@@ -4,121 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB23CEACEF
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 06:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6AACCE8D6B
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 08:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18CAA10E2CD;
-	Mon, 17 Nov 2025 06:53:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6080E89C0A;
+	Mon, 17 Nov 2025 08:02:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jE8p681b";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QXt6OgYv";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012015.outbound.protection.outlook.com
- [40.93.195.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2862310E2CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 06:53:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XNksWrCbkgvzzp93/u8xbur4xgdGCB74mB2m3uVmAlpTtmUy1BKNnU9zvtpTPcGOiSFsQFlkE+dkUF7ekgZdnWt4GCc/5MFMVlogXzUQt66k9Zk8buxaDT/FKSgkBJeHUKDpFugDLyU2hdZHEdm+5wEHpxy3dFiJ/uLo8FGveOw5jnR2ti+KnzZFIstsNS8zTm/R7uIUX42ltFVnoUrIyjUUri2xo3Oqc4JUUbbzdZZ+o01ullUQJIQt5pwlN/D3obRJqh+kBTK0HsVGn/R4ZxCsLALrOAwU7rrxb2Yit0uY3nF4cOMtcAKVl9xIXIJtSvYUqspIr0+nePR9SA9kYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qsfRz7ovPVSGOmD7iDEsIeTpVYUH91MMVsUIk3Lwl7o=;
- b=abkbbVEu18zNLrdi1vDutwSLah56j9uANSr2hXl/3RsHLQl6jLAOs3660IVa7GRllv5mZsLoYiV92UGBzxa5SeK3ikCT8fYADXeQEjc9Z6Slc+/hRNi3qqbT/vXUlsd0zBhBsXm7hX2VFezTILC6X3RdEW3wehyM7QDOIZ+pWZM5LDAn8PNpHpNfhfeQCFjfKCaTrjAoKXvBoB+F7F//u9Y51Mb45HYZ1767rc47IqKm95Ldn09umf3hHareKPw/k29535nheQbWAQ4TUuQIL0IET4l5/pstXsEkC1UQuYq2uuQVs2Pvm8Ea2PwgLruA60gYcrbbYuFw5WCdpWpBgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qsfRz7ovPVSGOmD7iDEsIeTpVYUH91MMVsUIk3Lwl7o=;
- b=jE8p681byO8qLwNI79RA45bsQOheddBbH8WhDaQFOsOuqztEM4X1HSvUo/EPx02gOUuab5AELS9Id4oMRgcJMBXwtly+Z9NNo+Yw53bXUisM0g+KzSHio/bGCu3QgyyYpMwg2fpZhfq1cr0DZd28lHM7WQ2GtjAC+2gp8HqIzMo=
-Received: from BN9PR03CA0419.namprd03.prod.outlook.com (2603:10b6:408:111::34)
- by LV8PR12MB9716.namprd12.prod.outlook.com (2603:10b6:408:2a1::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.22; Mon, 17 Nov
- 2025 06:53:43 +0000
-Received: from BN3PEPF0000B073.namprd04.prod.outlook.com
- (2603:10b6:408:111:cafe::6d) by BN9PR03CA0419.outlook.office365.com
- (2603:10b6:408:111::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.21 via Frontend Transport; Mon,
- 17 Nov 2025 06:53:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B073.mail.protection.outlook.com (10.167.243.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Mon, 17 Nov 2025 06:53:43 +0000
-Received: from chonglidebug.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sun, 16 Nov
- 2025 22:53:42 -0800
-From: chong li <chongli2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, chong li <chongli2@amd.com>
-Subject: [PATCH] drm/amdgpu: in sriov multiple vf mode,
- 2 seconds timeout is not enough for sdma job
-Date: Mon, 17 Nov 2025 14:53:23 +0800
-Message-ID: <20251117065323.3435034-1-chongli2@amd.com>
-X-Mailer: git-send-email 2.48.1
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B2E10EA8B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 14:35:12 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-42b3b29153fso1212333f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 06:35:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763130911; x=1763735711; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dWXLhPsJovH76m+UWdSFM19WXCf+smwi4mOSlHBAWM0=;
+ b=QXt6OgYvB0GrccRY4O/EVcLjkMbn+DlDWyNkAUdiOnNwqvKk92sOwFWTezHXn58Q9S
+ mw1siUfJL0+hkSKLuRo3si3NdEbU14tElEK/Y4WAxVUwSsHAt0dpNxiQLhr71+eh8Wgs
+ 7Epk38xAJNLQwkeGlqvJZs+ZfPC3TTfugHMmiSeJAzD9S5CPadte7p/kZ3E1QjHhjjd1
+ X6RQiGLmC+HFNJnemHOkeOkpaIZ3Umoj91TEf1AQgq1uernXrN9JmTuWSEOVWSMGMSop
+ fVU9elwaWX7QI5HDzGTVOFQuajEfhrZyZ9MGcuYRAJG1bi1bwrLc1Vt+5+r02/7urLQl
+ V8Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763130911; x=1763735711;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dWXLhPsJovH76m+UWdSFM19WXCf+smwi4mOSlHBAWM0=;
+ b=uQbYzGK8+up2VRw++5a6aua2HixeyAiDxNHt5lIz2aD7oyUbiSFAXjx749UGo6apW8
+ ogpy3a/lAsfxQj1CHgUYiLLL6TLP0ejYeL9HGW9Zf+YC91cyly2ZDIAFQLx5deJx2//U
+ oJTytQOKAS4Q2wquuTmhOj+80+mJRtWoqoYE+ylFM/iIIRg2dtFmRazsLArUffypj7t6
+ /LFtb5oXiviE6o2PXHkEdYX59iJYJfN6V1azxJnojprHQGEEuX0cEPeAPij58osAby/a
+ hzySUoYP7MChQe16+gHb79nCBCvKSEiJJsuD8KBC+fRYjyG4kf/XjJrx7M1bUAq0ifnO
+ RAsQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUryDS4HChdeA4Y0V51fF+TzaY4pF3t0s5yr0w4f4lqHjkiceIsmdWVPi3m7M1Vv3iHTjh0bOc1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6E2WQ0nYUPQZ6gicmNrPUR4JVlUp6qgUN0c7gyoaTseKV5+Vc
+ 9T4aG0tyts3uWq6akRYgKQQWvyHSNfQDtzAApqR5MzPkwTzPgK7KjCZeMnFvSFJmRtY=
+X-Gm-Gg: ASbGnctNBxwAW7MQw7JJPj1HQehBLupOi0y3VYmpfYdddWIcz1EYo2VR3WP2UNJecf/
+ 903dMv59AQGFAeOJk0MDxiG5Z+7nIKHBQ03Th+3W2nfkTLC5oM/7Vz1mCFdr+3VyEmlfc0tF2Tu
+ PQye8yW1GP3BOeIeFAUmG1mfTATCT243Uj2DHQdIQBk7aODbGP7oJa2vJ9i2g4agTM2F+4ojGck
+ U+Byy7Ci29Q0vLpedhligmkJ1BJqzLW1re62Bj/RVAoc4mKNSbXDrpm4esOV3YzxIz3xKMqtGDP
+ wr7rnltl1N0SJA7dxAF2SyV8oRXi9t+YdLOd5wUXQWL0kBTCQCSSPiUu3Iga+j9jJiHlXyZk03C
+ 0+ID/QKGP242/BjrQVqzhennZnBZ+L6d0GHhJcLxifNdoxTFCUY3k17hn/DfHbE3gLMqi8kqXjm
+ iA
+X-Google-Smtp-Source: AGHT+IHw5DY+d3JMXj0ehkwCi00kh1fcOQgwNxL358oZwa3xTlItactqY9kSp562T/u4HnhssT9g/A==
+X-Received: by 2002:a05:6000:230b:b0:42b:40b5:e681 with SMTP id
+ ffacd0b85a97d-42b593450f3mr3355692f8f.26.1763130910639; 
+ Fri, 14 Nov 2025 06:35:10 -0800 (PST)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42b53f0b8a0sm10330771f8f.25.2025.11.14.06.35.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 06:35:09 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id CCE895F820;
+ Fri, 14 Nov 2025 14:35:08 +0000 (GMT)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
+ <lucas.demarchi@intel.com>,  Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org,  Bjorn Helgaas <bhelgaas@google.com>,
+ David Airlie <airlied@gmail.com>,  dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,  Jani
+ Nikula <jani.nikula@linux.intel.com>,  Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  linux-pci@vger.kernel.org,  Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  Simona Vetter <simona@ffwll.ch>,  Tvrtko
+ Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
+ <michal.winiarski@intel.com>,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 03/11] PCI: Change pci_dev variable from 'bridge' to
+ 'dev'
+In-Reply-To: <20251113162628.5946-4-ilpo.jarvinen@linux.intel.com> ("Ilpo
+ =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:20
+ +0200")
+References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+ <20251113162628.5946-4-ilpo.jarvinen@linux.intel.com>
+User-Agent: mu4e 1.12.14-dev2; emacs 30.1
+Date: Fri, 14 Nov 2025 14:35:08 +0000
+Message-ID: <87346gptr7.fsf@draig.linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B073:EE_|LV8PR12MB9716:EE_
-X-MS-Office365-Filtering-Correlation-Id: 013c2abc-c8c9-4999-275a-08de25a60c62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?v9HsgxeMhBk0CEQobord1tZNxYwssHujx+1R4nUy2Zrz+HxMPlbiSisMj3gz?=
- =?us-ascii?Q?0NswCcUnzdODTOiJkzfhWps9URQoKYdXt6l9IktaQqP0oFi32vbIZbntaHPB?=
- =?us-ascii?Q?JtLmimkAk20smuMWPXYlwrw8rJclXuMINLyXUaoR3ROjAKQrIFEqllaCG9EY?=
- =?us-ascii?Q?/Hqf/wV74kbwZsnFE9olaIJId5mNG4Ul9yUwEtQ99P45nBFA0LB917lETq8L?=
- =?us-ascii?Q?COYWlFPiz8/5UEwLCIO91w/2o7qe85y+T6P9hGDCmuY+iUb6DbIQLa1Ea35q?=
- =?us-ascii?Q?Eu2QhPTXF1uX5QXuIelxRY+bt2/rXB7waiwYyPBY5v9FCo6nvDRfEjOvTajR?=
- =?us-ascii?Q?j/060Uf8sxNrZGFDEj+zuUj6lgprq28OR4k7EFKBnNWKJiTCt5PFFqN2mQ8I?=
- =?us-ascii?Q?jkRhSWJcPkWvf4SIcQsmwKRpjqu4yAlmPeouBN/npqOImMGwlhn5++Dm/qt1?=
- =?us-ascii?Q?uSfGPGZTBHtReyHvba3/KVqZ4jG6iMnlxWz2l4Sh2D5pGmMZbkO0WenjyXta?=
- =?us-ascii?Q?4gGMlwe/ZI3gTCbdPCsKjXODpMln2c8x74aR1zDqsiRXSiKeNuGHo5V5eyMU?=
- =?us-ascii?Q?60ETCXVbdIsB1u5BqnMTNs/X5TFdNes5UdcbNivGQIcBlUmVBEBP7WXP37Dr?=
- =?us-ascii?Q?VNM2q4xgEYLDjes7D44pv/FatS40QEKkkzVo2HaPCUzKY87d3y+U2BGxLvFf?=
- =?us-ascii?Q?WopQDhfTT3YiX5s038MJFqT7OJXL21B24RAM9CDQ8kqZauWLqmPAgGZtIN3M?=
- =?us-ascii?Q?rf38hDj6G+wnyFj44t6wAY32EjZNTNhqe4CQXYVVtmdzXWSS6aLCLpwwQSoN?=
- =?us-ascii?Q?ArxYVsTOPnD9A7KHRklHPjyiaIMMycsYP4fKsxpn/FKVd0ZVJUb//XAbPRLf?=
- =?us-ascii?Q?459JsMzGzEKlBrV0i4elTkMve0/FbeMCXBQ0XC9rVkMQRFlkNrS2zFNA8vKy?=
- =?us-ascii?Q?o6oRaNDvyvtE3l49HqZxDIHrmkLYc5JuOlcLI7u+wJcOuhviEgA+bcw2t7AE?=
- =?us-ascii?Q?ZyYgrzJteMAEzdleKqA3ACFLvTXXhDBeXi3HsejB8loEpzffU4NtCBFhDQJg?=
- =?us-ascii?Q?vbesYh65jao6zpPba6Prb0pSIXL9wnHagjYgWIaeLHHhIt1oBqhEciWHDS8U?=
- =?us-ascii?Q?ZkRWRSanGwpi4TOCMMXwLlFW6bb8KS6C0tziYthMikqmUTsxL9RV70fHmilC?=
- =?us-ascii?Q?l1yikZTfWwLpVjJGc1eBr7+Rh2Z85saUiBaYuSRf5W9MdACCSWmM/YAYP2dL?=
- =?us-ascii?Q?nUkNZFccWQk1RRvqXEHcIzxxCQ1YMrx5XbmZaP6l6F6ABNOu9rV8SE3u/3mJ?=
- =?us-ascii?Q?o8xZ3xJBW3TbnN1Ktc3VuDy70AHdHlaq9wf0hUSncqQF1m/+fDO3iTh07qEc?=
- =?us-ascii?Q?lLHfMmqlDvG9s0CVx8lKpCovnVnyZLTT/z4Abu1xWZ0onDqAOfUwDpFmbIl9?=
- =?us-ascii?Q?2dLolx6v6XbPMdaEmCR5CVEUkObTniV+es+vUXmMN9guJNcj2ulMA+9hA+Sq?=
- =?us-ascii?Q?PTLAj1VaeXhjJxmKDb53xAdzm1wuxx46OSXnziy6PFJ7GUjBJv2/eGfs86uO?=
- =?us-ascii?Q?+ZTe4+2SjmivWI1pV1w=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2025 06:53:43.5321 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 013c2abc-c8c9-4999-275a-08de25a60c62
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B073.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9716
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 17 Nov 2025 08:02:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,51 +107,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: chong li <chongli2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 4 ++--
- 2 files changed, 9 insertions(+), 4 deletions(-)
+Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 69c29f47212d..4ab755eb5ec1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4341,10 +4341,15 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
- 	int index = 0;
- 	long timeout;
- 	int ret = 0;
-+	long timeout_default;
- 
--	/* By default timeout for all queues is 2 sec */
-+	if (amdgpu_sriov_vf(adev))
-+		timeout_default = msecs_to_jiffies(10000);
-+	else
-+		timeout_default = msecs_to_jiffies(2000);
-+	/* By default timeout for all queues is 10 sec in sriov, 2 sec not in sriov*/
- 	adev->gfx_timeout = adev->compute_timeout = adev->sdma_timeout =
--		adev->video_timeout = msecs_to_jiffies(2000);
-+		adev->video_timeout = timeout_default;
- 
- 	if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index f508c1a9fa2c..43bdd6c1bec2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -358,10 +358,10 @@ module_param_named(svm_default_granularity, amdgpu_svm_default_granularity, uint
-  * [GFX,Compute,SDMA,Video] to set individual timeouts.
-  * Negative values mean infinity.
-  *
-- * By default(with no lockup_timeout settings), the timeout for all queues is 2000.
-+ * By default(with no lockup_timeout settings), the timeout for all queues is 10000 in sriov, 2000 not in sriov.
-  */
- MODULE_PARM_DESC(lockup_timeout,
--		 "GPU lockup timeout in ms (default: 2000. 0: keep default value. negative: infinity timeout), format: [single value for all] or [GFX,Compute,SDMA,Video].");
-+		 "GPU lockup timeout in ms (default: 10000 in sriov, 2000 not in sriov. 0: keep default value. negative: infinity timeout), format: [single value for all] or [GFX,Compute,SDMA,Video].");
- module_param_string(lockup_timeout, amdgpu_lockup_timeout,
- 		    sizeof(amdgpu_lockup_timeout), 0444);
- 
--- 
-2.48.1
+> Upcoming fix to BAR resize will store also device BAR resource in the
+> saved list. Change the pci_dev variable in the loop from 'bridge' to
+> 'dev' as the former would be misleading with non-bridges in the list.
+>
+> This is in a separate change to reduce churn in the upcoming BAR resize
+> fix.
+>
+> While it appears that the logic in the loop doing pci_setup_bridge() is
+> altered as 'bridge' variable is no longer updated, a bridge should
+> never appear more than once in the saved list so the if check can only
+> match to the first entry. As such, the code with two distinct pci_dev
+> variables better represents the intention of the check compared with the
+> old code where bridge variable was reused for a different purpose.
+>
+> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 
+Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
