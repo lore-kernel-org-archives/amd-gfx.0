@@ -4,67 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE721CE7B13
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:08:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA473CE7B0E
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9748210EA7C;
-	Fri, 14 Nov 2025 14:08:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E96510EA7F;
+	Fri, 14 Nov 2025 14:08:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="az1xF04J";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VSFKmqJo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6363C10EA60;
- Fri, 14 Nov 2025 12:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763124542; x=1794660542;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=Vs1j3k+egiqigYTw8Bu/0q6YTfCwbX01X7FAVLFuegQ=;
- b=az1xF04JkPFUQN9wzHn0L40lBXzwLzwlvSTrglLM5DYUqMUpURrpegS1
- h1xug+Sdq71gA6MPbj+bt9JEbBzrRwwPJpNGTdYZQOy7XOw+5MsBJhEZ/
- 6/Ifuq6rJ7lNnIJFMM4t6EGGtbZYJIZ3A5bqAWhMmGy2nj/DaGVvvoXKD
- vdCPfwVEuW6H+kpkk+TNLDNKUSHuBVPaV2+MGIAts0FjuhREVD0AHHA5Q
- lGaxr14Ivok5WAOwkHMwnLts+KzKI1qWORlNLLmNZKK1RotuUG7e0P3Ph
- l7Z9L1iH9Q6A1TzR7Qn1P82pBn/kgrubKAdDLqdUTWtVNTJ4qVmIzBfAQ A==;
-X-CSE-ConnectionGUID: AM5z1+OMS3OgFiv6YtHB/Q==
-X-CSE-MsgGUID: 5t4aBq6oRSenMWjnQHUPlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="65120323"
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="65120323"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2025 04:48:55 -0800
-X-CSE-ConnectionGUID: U6d+MCYmTIq1xaNsEtxY+Q==
-X-CSE-MsgGUID: KpimQk4BTG+luBVtzfZkPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="189616838"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.31])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2025 04:48:50 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 14 Nov 2025 14:48:46 +0200 (EET)
-To: =?ISO-8859-15?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>
-cc: Simon Richter <Simon.Richter@hogyros.de>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
- =?ISO-8859-2?Q?Micha=B3_Winiarski?= <michal.winiarski@intel.com>
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13C0910EA1F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 09:31:00 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-47775fb6c56so19548425e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 01:30:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763112658; x=1763717458; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uG1ndTGu7u+afhv3ORckpwAAuy9xCYDjJCa9P3afHXY=;
+ b=VSFKmqJofgns78ltpmS1ASkWeNV2mSgOaGzuWxvQPhyM+xlVciPBRqiOMfkw4z6Eaa
+ spUpBDdGPVfJm34vDxwFSZif4Haig3WVIAYO3VKy1f+D/gNYfxqkM7gCwVpbDG0E2Xtk
+ DkF3RlWUCq2EcPfmV6K8bmP3UJaBWgkJRBHq6wX7TR5Nc33cAqcsbD3KMlVwLNevgt9m
+ 4QEYXTbiGBchjCadWlgKeBUowt0l4CWdr3GA7rubp/AbHUpMrBzluazbbv8J2hppng68
+ 7hZvunXcqdfhGymxj82eQaYpQFlR1azaCsnzKyxO0Vc4S2d8Z3P1F/VTLcvJOptwOn8D
+ mLlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763112658; x=1763717458;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uG1ndTGu7u+afhv3ORckpwAAuy9xCYDjJCa9P3afHXY=;
+ b=li0v40ETcKl1lbdF/N7zzlqca9YUjfT0+ejmLkosb7m63mALuWGEW3otWk/aY8W03W
+ jUEh5fmlJSiIl6kubPIwmXYqPDwexB5AgOiNkrnrIw0g8d5YA+2BJPsCXfcVsVdkCebR
+ qISBUla2U6cWpzMhb4hNwJzdMzpeut3Xx17PPvyrsUrSNI3zH0ifKW037an1IDBLW1ne
+ ZnZtOgQtG31B4CbTkReC9njM/+Xt2/yUldjbOonXk0xzCFJi4TvOF2blfBPpg7laZGkm
+ Jg3a23QOJz/GTtYuppn5MGYzbiXzDLtjkUXU7xrXVpDMusp1ajkLR/b5jnldEDAunuxr
+ WYpg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUt0ZBUpdg9Go6DaPJ2hYdYC9UB86f+yB2bGOZqJh6YzQORyEcQ+x5fYsyIe+r6BedHIT4uP80f@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYE4P74jxX5vJWyq6ZHviAJ+GnAuol8ITMO5G6p+co0wiCFkXO
+ sxacgo8GiC8bbcIV5ivfkpiiYgnD881dwRfRFS3oJTIaciVZr73z14fxLOam0qrv7Vw=
+X-Gm-Gg: ASbGncslSlgoD1X/vwPnGQglmzARfZmCiSkxgyXdI5Zlp8/zI6i3CioHQO/v1fNLJei
+ tiAC3D2denlGkY4NrUmDoAZTuT6xstZhkj/mrVw184kCyjWl4dc0S1hkYlFANJWK6y6T0D28TCs
+ XGo2NK3d5xXq99U3a5Y/k8dGsyA9P3o5tTPeDEVlGvWjDVD5L8rZV1pyMFLw6pnj3M0/hi4JLmV
+ CDbTns4bRfkiErdqi2fkML3P5fEFFMIkhgZs2DdGBLzVFRSK5ZycUuaJ/EWptCEcDP4r/7Poor4
+ 0qIZEi9irqmfMqvDQ+e/uU4k+jBsB0GlAGA+usFnrB3ohu3mWDGUfioRLUEXGxRfUEopo0vptq4
+ 5tN+S8KYv8G60uJIBX2e36ZZU9VtNsgBUDlgeY6g3Jyi33bC79eA55PCwEbaNVaLffzWaBNvcAJ
+ m/
+X-Google-Smtp-Source: AGHT+IFJ0DG17bS7Bpxic+Ik1NHnlwSocVb3TsoIa+Uww+ltuZjndP90MdsbrAR2R5TWE+X80Slu9A==
+X-Received: by 2002:a05:600c:4706:b0:471:9b5:6fd3 with SMTP id
+ 5b1f17b1804b1-4778fe0e0a9mr20589695e9.0.1763112658371; 
+ Fri, 14 Nov 2025 01:30:58 -0800 (PST)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4778c897bb8sm77561695e9.12.2025.11.14.01.30.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 01:30:57 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id DBD265F820;
+ Fri, 14 Nov 2025 09:30:56 +0000 (GMT)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
+ <lucas.demarchi@intel.com>,  Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org,  Bjorn Helgaas <bhelgaas@google.com>,
+ David Airlie <airlied@gmail.com>,  dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,  Jani
+ Nikula <jani.nikula@linux.intel.com>,  Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  linux-pci@vger.kernel.org,  Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  Simona Vetter <simona@ffwll.ch>,  Tvrtko
+ Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
+ <michal.winiarski@intel.com>
 Subject: Re: [PATCH v2 00/11] PCI: BAR resizing fix/rework
-In-Reply-To: <87jyzsq0nr.fsf@draig.linaro.org>
-Message-ID: <7321c165-e38b-6016-54b0-48fcdfdaa199@linux.intel.com>
+In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com> ("Ilpo
+ =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:17
+ +0200")
 References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
- <87jyzsq0nr.fsf@draig.linaro.org>
+User-Agent: mu4e 1.12.14-dev2; emacs 30.1
+Date: Fri, 14 Nov 2025 09:30:56 +0000
+Message-ID: <87pl9lot9r.fsf@draig.linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-860166094-1763122538=:1008"
-Content-ID: <8d7e8208-1885-0d8b-a6cf-f1895a519fae@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 14 Nov 2025 14:08:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,58 +105,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
 
---8323328-860166094-1763122538=:1008
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <01e8aae0-c24c-7924-0748-50421fa6d7ac@linux.intel.com>
+> Hi all,
+>
+> Thanks to issue reports from Simon Richter and Alex Benn=C3=A9e, I
+> discovered BAR resize rollback can corrupt the resource tree. As fixing
+> corruption requires avoiding overlapping resource assignments, the
+> correct fix can unfortunately results in worse user experience, what
+> appeared to be "working" previously might no longer do so. Thus, I had
+> to do a larger rework to pci_resize_resource() in order to properly
+> restore resource states as it was prior to BAR resize.
+>
+> This rework has been on my TODO list anyway but it wasn't the highest
+> prio item until pci_resize_resource() started to cause regressions due
+> to other resource assignment algorithm changes.
 
-On Fri, 14 Nov 2025, Alex Benn=E9e wrote:
+Thanks I'll have a look.
 
-> Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> writes:
->=20
-> > Hi all,
-> >
-> > Thanks to issue reports from Simon Richter and Alex Benn=E9e, I
-> > discovered BAR resize rollback can corrupt the resource tree. As fixing
-> > corruption requires avoiding overlapping resource assignments, the
-> > correct fix can unfortunately results in worse user experience, what
-> > appeared to be "working" previously might no longer do so. Thus, I had
-> > to do a larger rework to pci_resize_resource() in order to properly
-> > restore resource states as it was prior to BAR resize.
-> <snip>
-> >
-> > base-commit: 3a8660878839faadb4f1a6dd72c3179c1df56787
->=20
-> Ahh I have applied to 6.18-rc5 with minor conflicts and can verify that
-> on my AVA the AMD GPU shows up again and I can run inference jobs
-> against it. So for that case:
->=20
-> Tested-by: Alex Benn=E9e <alex.bennee@linaro.org>
+Where does this apply? At least v6.17 doesn't seem to have
+pbus_reassign_bridge_resources which 4/11 is trying to tweak.
 
-Thanks for testing! (And saving me the effort of backporting to 6.17 :-))
-
-I'd be interested to see the dmesg with this series applied just to check=
-=20
-there isn't anything else I should still look at (even if it now appears=20
-to work).
-
-You seemed to have only a few io resource assignment failures to occur=20
-during BAR resize which might be the reason the kernel thought rollback=20
-is necessary (so AFAICT, the rollback likely was entirely unnecessary as=20
-the mem resources did assign successfully).
-
-I made the resize to ignore unrelated (reoccuring) io resource failures in=
-=20
-the commit 31af09b3eaf3 ("PCI: Fix failure detection during resource=20
-resize"), but that might not have been backported to 6.15 you took the log=
-=20
-from (in the initial report). So kernel might not even do rollback at all=
-=20
-with 6.18-rc5.
+>
+> BAR resize rollback does not always restore BAR resources as they were
+> before the resize operation was started. Currently, when
+> pci_resize_resource() call is made by a driver, the driver must release
+> device resource prior to the call. This is a design flaw in
+> pci_resize_resource() API as PCI core cannot then save the state of
+> those resources from what it was prior to release so it could restore
+> them later if the BAR size change has to be rolled back.
+>
+> PCI core's BAR resize operation doesn't even attempt to restore the
+> device resources currently when rolling back BAR resize operation. If
+> the normal resource assignment algorithm assigned those resources, then
+> device resources might be assigned after pci_resize_resource() call but
+> that could also trigger the resource tree corruption issue so what
+> appeared to an user as "working" might be a corrupted state.
+>
+> With the new pci_resize_resource() interface, the driver calling
+> pci_resize_resource() should no longer release the device resources.
+>
+> I've added WARN_ON_ONCE() to pick up similar bugs that cause resource
+> tree corruption. At least in my tests all looked clear on that front
+> after this series.
+>
+> It would still be nice if the reporters could test these changes
+> resolve the claim conflicts (while I've tested the series to some extent,
+> I don't have such conflicts here).
+>
+> This series will likely conflict with some drm changes from Lucas (will
+> make them partially obsolete by removing the need to release dev's
+> resources on the driver side).
+>
+> I'll soon submit refresh of pci/rebar series on top of this series as
+> there are some conflicts with them.
+>
+> v2:
+> - Add exclude_bars parameter to pci_resize_resource()
+> - Add Link tags
+> - Add kerneldoc patch
+> - Add patch to release pci_bus_sem earlier.
+> - Fix to uninitialized var warnings.
+> - Don't use guard() as goto from before it triggers error with clang.
+>
+> Ilpo J=C3=A4rvinen (11):
+>   PCI: Prevent resource tree corruption when BAR resize fails
+>   PCI/IOV: Adjust ->barsz[] when changing BAR size
+>   PCI: Change pci_dev variable from 'bridge' to 'dev'
+>   PCI: Try BAR resize even when no window was released
+>   PCI: Freeing saved list does not require holding pci_bus_sem
+>   PCI: Fix restoring BARs on BAR resize rollback path
+>   PCI: Add kerneldoc for pci_resize_resource()
+>   drm/xe: Remove driver side BAR release before resize
+>   drm/i915: Remove driver side BAR release before resize
+>   drm/amdgpu: Remove driver side BAR release before resize
+>   PCI: Prevent restoring assigned resources
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  10 +-
+>  drivers/gpu/drm/i915/gt/intel_region_lmem.c |  14 +--
+>  drivers/gpu/drm/xe/xe_vram.c                |   5 +-
+>  drivers/pci/iov.c                           |  15 +--
+>  drivers/pci/pci-sysfs.c                     |  17 +--
+>  drivers/pci/pci.c                           |   4 +
+>  drivers/pci/pci.h                           |   9 +-
+>  drivers/pci/setup-bus.c                     | 126 ++++++++++++++------
+>  drivers/pci/setup-res.c                     |  52 ++++----
+>  include/linux/pci.h                         |   3 +-
+>  10 files changed, 142 insertions(+), 113 deletions(-)
+>
+>
+> base-commit: 3a8660878839faadb4f1a6dd72c3179c1df56787
 
 --=20
- i.
---8323328-860166094-1763122538=:1008--
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
