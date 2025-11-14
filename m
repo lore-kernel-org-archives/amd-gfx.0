@@ -4,70 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8ADCCE7B0E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:08:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CCDACE7B14
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:08:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A68510EA79;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4E110EA7B;
 	Fri, 14 Nov 2025 14:08:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lWRSZh28";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YU++uOa/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9602D10EA6F;
- Fri, 14 Nov 2025 13:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763126217; x=1794662217;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-id;
- bh=RzE25d2d9v/fSEKhDggTlj9ePRKiOdKbPr8EKVUlmfU=;
- b=lWRSZh28kbdAhx35m7IzI6O2Yq9HE+5FH2Bck8SSc4IJqSXa3lT1SgPA
- AxkUigOMGFPM1noQlmsurIi2Rerqir9ROGu8OSZyKYjjA+QS7yu9o6o36
- kfKUOOqjTOsXTeaPxYkxTggWfle+3u71wZ9H5SaqeDL50ZA9yO+Vl7+WI
- RYXkIAxYDUozE+mdZtVyPiLZLPcta1rR/UNP2hJtnJzlhnmuN1XtD61O0
- MVfbm44rnP4BDQ7s3m0l/YjVIUU4uOTNHPLN/AWDn9FiIIGp7F5Or7GvM
- DHYOYqDXOSKZxo1PrGN0uPq2YUTEMHXB4dQfcxepM0zUYUjnIOUJbrWIg Q==;
-X-CSE-ConnectionGUID: 3E+wznmcSzqgF6qmUvEkww==
-X-CSE-MsgGUID: xpxBI64OSP+zE47J5qUnAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11612"; a="82612788"
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="82612788"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2025 05:16:56 -0800
-X-CSE-ConnectionGUID: tLpJ9J04REWyET8TY8pkSQ==
-X-CSE-MsgGUID: vAIfT8BCT2iy+wMU147Rzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,304,1754982000"; d="scan'208";a="189620457"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.31])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2025 05:16:51 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 14 Nov 2025 15:16:48 +0200 (EET)
-To: =?ISO-8859-15?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>
-cc: Simon Richter <Simon.Richter@hogyros.de>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Bjorn Helgaas <bhelgaas@google.com>, David Airlie <airlied@gmail.com>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- linux-pci@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
- =?ISO-8859-2?Q?Micha=B3_Winiarski?= <michal.winiarski@intel.com>, 
- LKML <linux-kernel@vger.kernel.org>
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B69FF10EA6B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 13:10:14 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-471191ac79dso21250805e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 05:10:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763125813; x=1763730613; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EJ9S8y/liwc1XSXK0RvzbAJey2hh3NqcyHJfhnjyxSE=;
+ b=YU++uOa/prmyZdae+fODyXW3wecgtfGXB+Mt8uCcw5T07DnltADGzjPP2nkrVrU61g
+ FwploZLaPwsU5qgTnCw6xYlJgyi7WWLUdeMIt/9xe9sSs4wOdN84qY+WcE1Q7EbMApLG
+ 4m90WEdsyuJiHaS3Rg4fSqO6o9YZlYNl37ZgfweAtZK+dXxKosJM707C1+SuT1wfj1mn
+ 7M/2Nb/PfqPna17ZfJAJx2CPguUDmUMF2XMoFMr1pha5FcsnCF+2Emj3ToYBcO0ALLyF
+ nhf/zMjhLcBQt6P9YQAEudvWWnUhSt9DlC5bB7jpTraP223MuehUpjT5BPgbOtMSWrtJ
+ S/Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763125813; x=1763730613;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=EJ9S8y/liwc1XSXK0RvzbAJey2hh3NqcyHJfhnjyxSE=;
+ b=XEXE1O4kDIBG/LR3bSBp/KW3CX/wLokAmEV0YiNNq0e2/dZ/jFcroAmpZ2rGQ6Dd7X
+ xX/rUU3YxRJtfQjR/ujj+uYGgrTsaMc1/5p1BdD7yDoLGDxAzFn9DF/hTELmtrgARA9V
+ dt8+8QDKgk3llgLt3KQD49tFGBPOd1fQBFBq/N9kzBPJiGIL/8N3lK1oMRLJakAC2alZ
+ c4o2/cYbfdXlYyTGgmAfl/hpLii9+lDT4BCaBV7bRqAzGUqiCiD0NCrbY1oiCwxlGxbc
+ vhphqytS60xVwDRhCD33UymBMchz4vci/bjHyxbeRjlcHpCkNEOcEa6hS0ZeVw07OY4c
+ mvzA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUg6F170jF2ccUMgmpUKgchc2XbdKnPOsjfmfxj9KUdjLN005XXmEhgLL/QIoKshF0a7vvegnQC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDIq9XZTpQLQ3qLYJH89Tt2WICBnxPnsuksxDh1ioZPRyJC1GT
+ 5KnvxXIoH0zLWFOu2M8fbvfjs6MPaI1Ek/Ba18mJ6sIXWqdThaySWH51Mb1AcgW7+3U=
+X-Gm-Gg: ASbGncvUbYSm2TetQmBGoSHURBLowRxcO5s/w5IcjM2ZGCjqQnaNBXi5aiioAC9GV50
+ Yl4YuP2jE/JxSwZISixjJgOHG8QQo5+JL/QqEMt1P64/O25+Uq3A+4ntO3zI+Qn9UKxcN9ZwcYu
+ UAfrio2tbL6zgMGIxIUqZ3m7vBdxtod53HHjMneYXPXs5nDMlwwxeu//YjggIBDhPYMXFNh0wbw
+ 95yn2USXSXVe14d64WvGuNDAwKyJ/J7A2/jU/SfrJEWeOhUSLFNPhxTNNTiuhW+eVKJULxdzENO
+ 16UymoWgahj4OMrX6W/SUKxDguMnZLJLSmDNO/pNOvYz0BNJK3mMkrabGxMoCk44/ebDxH8sWPe
+ sMpt9XouW4rv9cAUrYrNsKApZyhzuNQApIN/5bhVOtRKDzq5ZoU5vDBnoL8fgOZIs4bW45ZrywA
+ 1q
+X-Google-Smtp-Source: AGHT+IFRUwKdmMnVHD85N3NvYRNZUnPZKMrSMMhF+DQcXz4gku9fHv+s1niWianlCFXxAAY6/RwthA==
+X-Received: by 2002:a05:600c:3587:b0:477:63b5:7148 with SMTP id
+ 5b1f17b1804b1-4778fe55174mr31972855e9.6.1763125812943; 
+ Fri, 14 Nov 2025 05:10:12 -0800 (PST)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4779527a656sm5951845e9.10.2025.11.14.05.10.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 05:10:11 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 1B92A5F820;
+ Fri, 14 Nov 2025 13:10:11 +0000 (GMT)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
+ <lucas.demarchi@intel.com>,  Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org,  Bjorn Helgaas <bhelgaas@google.com>,
+ David Airlie <airlied@gmail.com>,  dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,  Jani
+ Nikula <jani.nikula@linux.intel.com>,  Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  linux-pci@vger.kernel.org,  Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  Simona Vetter <simona@ffwll.ch>,  Tvrtko
+ Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
+ <michal.winiarski@intel.com>,  linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v2 08/11] drm/xe: Remove driver side BAR release before
  resize
-In-Reply-To: <87ecq0pxos.fsf@draig.linaro.org>
-Message-ID: <3dd004b8-6710-e73b-fad9-d7685d2de5cc@linux.intel.com>
+In-Reply-To: <20251113162628.5946-9-ilpo.jarvinen@linux.intel.com> ("Ilpo
+ =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:25
+ +0200")
 References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
  <20251113162628.5946-9-ilpo.jarvinen@linux.intel.com>
- <87ecq0pxos.fsf@draig.linaro.org>
+User-Agent: mu4e 1.12.14-dev2; emacs 30.1
+Date: Fri, 14 Nov 2025 13:10:11 +0000
+Message-ID: <87ecq0pxos.fsf@draig.linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-10488022-1763126168=:1008"
-Content-ID: <17787d87-d6d0-c4a6-d47c-0de46448de3d@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 14 Nov 2025 14:08:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,61 +107,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
 
---8323328-10488022-1763126168=:1008
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <1f479a4d-2c67-db3b-3dd7-09632eef6845@linux.intel.com>
+> PCI core handles releasing device's resources and their rollback in
+> case of failure of a BAR resizing operation. Releasing resource prior
+> to calling pci_resize_resource() prevents PCI core from restoring the
+> BARs as they were.
+>
+> Remove driver-side release of BARs from the xe driver.
+>
+> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+> ---
+>  drivers/gpu/drm/xe/xe_vram.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
+> index 00dd027057df..5aacab9358a4 100644
+> --- a/drivers/gpu/drm/xe/xe_vram.c
+> +++ b/drivers/gpu/drm/xe/xe_vram.c
+> @@ -33,9 +33,6 @@ _resize_bar(struct xe_device *xe, int resno, resource_s=
+ize_t size)
+>  	int bar_size =3D pci_rebar_bytes_to_size(size);
+>  	int ret;
+>=20=20
+> -	if (pci_resource_len(pdev, resno))
+> -		pci_release_resource(pdev, resno);
+> -
+>  	ret =3D pci_resize_resource(pdev, resno, bar_size, 0);
+>  	if (ret) {
+>  		drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider enab=
+ling 'Resizable BAR' support in your BIOS\n",
 
-On Fri, 14 Nov 2025, Alex Benn=E9e wrote:
+This didn't apply, I assume due to a clash with:
 
-> Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> writes:
->=20
-> > PCI core handles releasing device's resources and their rollback in
-> > case of failure of a BAR resizing operation. Releasing resource prior
-> > to calling pci_resize_resource() prevents PCI core from restoring the
-> > BARs as they were.
-> >
-> > Remove driver-side release of BARs from the xe driver.
-> >
-> > Signed-off-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
-> > Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> > ---
-> >  drivers/gpu/drm/xe/xe_vram.c | 3 ---
-> >  1 file changed, 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.=
-c
-> > index 00dd027057df..5aacab9358a4 100644
-> > --- a/drivers/gpu/drm/xe/xe_vram.c
-> > +++ b/drivers/gpu/drm/xe/xe_vram.c
-> > @@ -33,9 +33,6 @@ _resize_bar(struct xe_device *xe, int resno, resource=
-_size_t size)
-> >  =09int bar_size =3D pci_rebar_bytes_to_size(size);
-> >  =09int ret;
-> > =20
-> > -=09if (pci_resource_len(pdev, resno))
-> > -=09=09pci_release_resource(pdev, resno);
-> > -
-> >  =09ret =3D pci_resize_resource(pdev, resno, bar_size, 0);
-> >  =09if (ret) {
-> >  =09=09drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Conside=
-r enabling 'Resizable BAR' support in your BIOS\n",
->=20
-> This didn't apply, I assume due to a clash with:
->=20
->   d30203739be79 (drm/xe: Move rebar to be done earlier)
-
-The xe driver changes do not matter if you using only amdgpu.
-
-We know those xe changes in the drm tree conflict as the need for this=20
-BAR resizing rework was not know when the xe changes were made. The=20
-resolution is just to remove the release_bars() function from xe driver=20
-completely as BAR releasing prior to resize is now handled by=20
-pci_resize_resource().
+  d30203739be79 (drm/xe: Move rebar to be done earlier)
 
 --=20
- i.
---8323328-10488022-1763126168=:1008--
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
