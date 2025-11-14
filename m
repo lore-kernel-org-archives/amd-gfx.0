@@ -4,151 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 968BCCE7AA8
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 10:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80BDFCE7AA8
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 10:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B26010EA36;
-	Fri, 14 Nov 2025 10:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2131410EA33;
+	Fri, 14 Nov 2025 10:47:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NA/Euet5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y6Q7Me51";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012060.outbound.protection.outlook.com [52.101.43.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5652E10EA33
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 10:41:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X522zHeIfPGIJwvJtxxCaM5k55YmVld4E/k9UgakM/bDWwaoBWO1fhq0EMl+c9k81Lw63klu+zPalYw9yuzyOzLCdihoDaw/cPUIPgsR/C5yS1RDSgJ5528TwyOMENfQAL4UDUqdWh87yD33BlLJUFQrV/3WqhcHrIuyB0tWI69/dRftD7M14L/put0n0x68GSDD7YP0YWyzrckgXjY7XNEf9MBWjIj0Tg3SHsLolP0aPQmIT8rnxHidJiNnE9mLW4he700rWLZA/JVGUTWUU8rFnu/KDkGL10zED58c4nZS+0OtFuFt08kthWHYcpAG1Q0Eqlg7yIshHj5eqSd4qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6NPm7uDGmaUCn/UAEBGt9+q2CthXVczDCBBe2NzajHs=;
- b=iINbprkkfw71HQf4I4dc4yEP2MBgOH8eIIbCswsuVY6SNXAGPhTgsvxj9dkpSZia2Xq2V0TFDilYYyCgpCC1IrDfK535hfvrlpIJDZcqSNP/rSo5fwZ2R6c6lKn5Qci2WlMvpNxSDYQYK5L2Ab9yExvPRtQ8Gjw5D1mo2mVC6oTif34Tel/7dq+k4ZaSo4zGNG471vs02WMBk4kQAhnHi0fFWoAEdOkljS3bMSOYVgv6ekgJVf8ZduyjHCeJ4UmSXUQIObaZfvKhvYaPoNal+6r4Kk1cU6HhNx4sxxg2Ar0HJ3uFUSlHvMVloeWVHcMXA+iMg9gvdO68yJsWzfytVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6NPm7uDGmaUCn/UAEBGt9+q2CthXVczDCBBe2NzajHs=;
- b=NA/Euet5wBIgR1WRKIvUSl/NcFIpApvTrphoLwFVW8raZXILbN+TyvhkGBuXirzC45Xzg0qqvVTaEvd9FWPzutiaRaI1B5rZ5Ngcmsq+oqAAaGw+Lxl/y51CHCwdRkRhje0ohuwyYG0mdODY2IlJjewqVDH8RiRSTa3xoIbUNvk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN2PR12MB4344.namprd12.prod.outlook.com (2603:10b6:208:26e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Fri, 14 Nov
- 2025 10:40:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9320.013; Fri, 14 Nov 2025
- 10:40:57 +0000
-Message-ID: <7604807a-86ac-4e46-8690-3a605e9023f1@amd.com>
-Date: Fri, 14 Nov 2025 11:40:51 +0100
-User-Agent: Mozilla Thunderbird
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B60FF10EA33
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 10:47:28 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4711810948aso12467785e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 02:47:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1763117247; x=1763722047; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=p7fiyCvhEpO4OH5/Qa7F1MFmUPEwyBn/BiZmawVTUVI=;
+ b=Y6Q7Me51MuY+3CGF1x/uZvPTaHTO1i3vjs1y8NuuEIE9BDgGBCXj7oEdi2o4rQi3na
+ 8Q0xB0zAL5RI3QsYn2MflxDD2GZi370UKkw22VfGefMwUrvajhXtLOVsFVF824Wv0Y5m
+ 0zqT2PvDFFodu4fPjMueqGeGyGzcnOxAMebfPsg6boQX4UX2LrBmMcBUraLTDkoeGxHH
+ Pz+C1cyN0f7ebbHNn/vUFWCk8BA91d7H7X4rmL1xvTuWoAJu5GgJB+wA0TX81sUx5llg
+ XMV319FWh9Hkvm4a4cEOK/+tmz61ZMnizQvpYOiIwsjav0UAtDilWVmcVF6MBMTss3Te
+ CRxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763117247; x=1763722047;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=p7fiyCvhEpO4OH5/Qa7F1MFmUPEwyBn/BiZmawVTUVI=;
+ b=ArRrRTWDqhmK4rmhALN4LlLpVIOPQ1SYYCQiO2n9k6HzbxnQZOi3OgvAdKleo/b0Rf
+ zpLK8OKTd/jmFR+sqtn0PQ0F34DkF2hNjflCiFZ5S9fMVo+zQm5elLGk+vnT2poVKuw2
+ E/tT/OnZyMnYWhEx0aL1j/52PB59lXtBXXMJrqjs0tvLf7zG7ToU0T08wswzFu1tu62j
+ ySVXqeP6TZns2SYtHR5P6CI7ITKn1ZVyCismD/UdIJda1oc/qTsrFd7hEUGykmkZLfod
+ baCM+u24tHxnboR84KPECamYlPOVOhWHjJsE3X0DQButnNjgdhWXjFq/u/yF2f6t7E4V
+ /vqQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXXb0ltiP2AIz4FKvFPFjFh2o1RykWOVP2wWd9EDwhWdWgXNl070wcDZvHB4XBMUWhxwusolrkd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5eE8AXM0eFXDyukmn/5WvFfDffoFbB5537dpFllRAifVuhYmH
+ 3Gtbn/3WZjCqMP76dBX/JogX36CB82ejlMTuKcRt16jH6xLUQpkScocE
+X-Gm-Gg: ASbGncuQ1T7XvBBptAm+03GmQgU1LNufRKXUMFFatpk6QpwvZwlMXJPtwmhOKbG8l4i
+ mswUJLSY6941ilTS+J0a2ol0MxhU0z4D7e43sO/e4YkkQ2VQzdGjtlRXO8yjnb7OmUuYJqGPp2j
+ oqyajGsQZR3dJBnFIsFtAFpYBuSoipAd99W/jzI9GLmcCTYaQks9jiA85AnbRVwWs+8wxaVTjJ/
+ zbUTWD0Dtlmw1kZpJNFOunnYT//WLQQLOO0q7AER4SK6TP3onXsOVRvleOoLUPWf45U6SXIza4T
+ HqHDlMNU2YW6P74B9p/TqpnCw0AFDxR6XN+zF3Cv+0EKUb9b49Bk4Dkxdw1Mi+kWskigBUEc+vS
+ zKgHq9FdV5+2NtNKksuX7Ego7hjcEAoCDA6t8oaA6jCb6LyZkPkvjWufW+ySZ6aQZFs6bVlwyMq
+ wVy9t0nWZjM0ZXwsSognZETUHp57QmUd6M8YthX3TuecpmpqbKXLCVX1vnHSXBSXbKSUMKpFBqe
+ jiBzURVF3f18J3/nSauk7/9P/abMxlnyj1eH9c7cpdETU7Q7KmfhqF6x4e+sfs+b4Bwk9k3S4i4
+X-Google-Smtp-Source: AGHT+IEJqbVwynQfCXkeHlxuhaHLoL+yCRfk/+NsLOqZcvWI1cGqWwPGwE96SQU9CPBfbwd0wGgOhg==
+X-Received: by 2002:a05:600c:c4ab:b0:477:8b2e:aa7d with SMTP id
+ 5b1f17b1804b1-4778feaf8e6mr25619315e9.30.1763117247006; 
+ Fri, 14 Nov 2025 02:47:27 -0800 (PST)
+Received: from ?IPv6:2001:4c4e:24e1:af00:ba20:88e6:9f55:3967?
+ (20014C4E24E1AF00BA2088E69F553967.dsl.pool.telekom.hu.
+ [2001:4c4e:24e1:af00:ba20:88e6:9f55:3967])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4778bd1bf5asm40619835e9.14.2025.11.14.02.47.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 02:47:26 -0800 (PST)
+Message-ID: <3cb44392f5fac69558bbf2933d2a8806a05379e8.camel@gmail.com>
 Subject: Re: [PATCH 1/1] drm/amdgpu: Use amdgpu by default on SI dedicated GPUs
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Alexandre Demers <alexandre.f.demers@gmail.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Alexandre Demers <alexandre.f.demers@gmail.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>
+Date: Fri, 14 Nov 2025 11:47:25 +0100
+In-Reply-To: <7604807a-86ac-4e46-8690-3a605e9023f1@amd.com>
 References: <20251113190721.258617-1-timur.kristof@gmail.com>
  <20251113190721.258617-2-timur.kristof@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251113190721.258617-2-timur.kristof@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0124.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ <7604807a-86ac-4e46-8690-3a605e9023f1@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4344:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec2956ea-7937-4814-1e6d-08de236a4b43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N2hiM0NIVzBmRHdkY2tlTk9VcnpSb0hDczd2N01NaU5MNUVDNUZMS3gzWG5J?=
- =?utf-8?B?Vk9hekxUaHROZUczMitWZWVoT3hSdkFCc016dVFsNXNRK0lhSXBkSjV6aHQ4?=
- =?utf-8?B?M25hV2Q5SDdoc09IOHlXTTUzSlE3Zmc2RkI2YW85NHFNZzlreGsyNGl2ZVhw?=
- =?utf-8?B?VW5vQUhRL0VQdjkvRXhOV0tKMHdKeHlxQldTdW9NTm1aSUk3aE1FR3MrRXZY?=
- =?utf-8?B?YUtoT3NDMmVKSzFhZE9RclhWRWxPR09FbXRJbGNvdjMySHM0MjZXYzQxVmVP?=
- =?utf-8?B?S1dIOUhhclRuYU91V09WQTNUelUzNk10MlJud2FNNk1VNXNKWVBkNEFZdWZK?=
- =?utf-8?B?akxMTk1kT1dSYzBaaEVjbkpGWWdSUTdKYy9XVkNnMTJEL3pPTjB3L2F0d0Zp?=
- =?utf-8?B?ZnlZNmtSVzVTMXFxNjhJVTExRDNLWDV2QjkvWmRXbE9jQS81bGFZZUppOVUr?=
- =?utf-8?B?eEhlTTV0NHYxZWdaUHIvUkFtY1Zqck5yRVNyaWhicnA0WlpIY1FmUWZXM25L?=
- =?utf-8?B?TUxvbGxOSVRWOG4rYW94WG9EU2hnWmNIMXRyWENkSUZiTExndGZaTXQwdGRQ?=
- =?utf-8?B?L1F6ZTNCaFFRU1hqSWNwV3FwY3UzdDRyanZ4RlliRE9NRUZ4RFBSQ3plUER0?=
- =?utf-8?B?NzNaMUtoYkVsL3g0MXREVUh1RUMwbTU3OEtLdHhxa0plL1NZMGszWStYSFo0?=
- =?utf-8?B?Zkp1bzIwZFRzejlCNEFhRlFLdTRSNjFrVFpLYUdYRDhNc2RpcGE1K2dsZzE4?=
- =?utf-8?B?UGJIdTUvNHdXYWs2TDFJNEZISDNVOEN4STRMenQrbmtrc0VkN09XYTdCblB5?=
- =?utf-8?B?SWlkanpZWUJmTWFtcEx5R0M3bnhiTlA1eHR1QUZZV0VtVFovUEw5Q0xrKzlr?=
- =?utf-8?B?czBvREkwVk9oY2tHSWswYjhCeC9XY1BzbmpoSkh5RlRCa05SVVNCMmhWOHBX?=
- =?utf-8?B?OFJqUzBUY1lFRklSMzlBK3dDZVZ5dGRxS2xsajR1NTVoR1UyUGVKVFdsOTNR?=
- =?utf-8?B?WDlUZWpCU01IdU9iYWhLZWpIU2Ztb05MeTdjV0dBZ0FXVjcvMm43QzNOMzdV?=
- =?utf-8?B?K0wyRXJpUnZsRkIxa2p0b1VBM200NVE1SVRBWFJ6MGdCME52ZHpDNlNHSndD?=
- =?utf-8?B?UWRpZUZJZzdKUEVVQldZTDUycjE5d1VhRWN5bzRMTzlxTEVWUVUzaUdxQllF?=
- =?utf-8?B?QWl6d1k0Yk5CcTZZSjBpQWVRK3NlRTcyd1QzUEh6TWswQU1pRGNaellNQ3gv?=
- =?utf-8?B?N3JYR1FuVWR2c0MvNURBaUNkb0QzQUhBaTdxNStNMmVOMlRpUTJFbmwrMEJu?=
- =?utf-8?B?N21sUTQ5Y0kvTEptSTk0SndRZTNOazRHRFFTMVpmZFljOW5jSTJrRGh1NnVq?=
- =?utf-8?B?MTZmM3VIZi9BTWdWelRjY3M0dFJOR1NDcDdtdk81RGxycEZwWHB4d0xrN1RS?=
- =?utf-8?B?MUlsNjhzK09VOGNXbHlhK0kvV05pYlg3TVdQTHd5NEJsZkUvdFJzdk5ncHh1?=
- =?utf-8?B?UVBDSWw4VEMrTzRVcTVTcjhIU0l5T1dBV0liVjZZSFJnZWVNbHQ4cWdrS2d5?=
- =?utf-8?B?NmVrRXBDck1GaVRPSjgrNVBSR3BhaENXVlphWVBLL3hFVlBJaWk4eTAwN2Zz?=
- =?utf-8?B?cmltcGlJdWk0SDVtOHVMeW13RkYzSUFTT3NoRnBDdWhoZW9QZWVzNHdMZXdR?=
- =?utf-8?B?Q3RVYXp1NEk4c25oMm1oVjFkS2pkdEFBYkllanB5aUtic2FsUGZLc0Z5bW5S?=
- =?utf-8?B?eWlsRkoyUTFMTU94UVBjbm1sdW92Q3lKdFJPVXhJbDN1enptekNObFBTSkpm?=
- =?utf-8?B?Y3p3THBRckRUR0ljT2ZYU29WRU5ubG5tVVRMb1o2dnAzTjRFRXhPOXp1a0kw?=
- =?utf-8?B?VXNQOHBNeUFVTURkdmhkWDFaOWd1OERnRU5QdGI0N1E5ckttRE0xVFQ0MGF2?=
- =?utf-8?Q?QO+n1WrkSqCxWrdfDxmnAUOugkqINp/u?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVVlRWhLRmZOOUlmUHJOQlc2clVYRXFvYm1OWElIRkQrczNhU1U1dlBybWJX?=
- =?utf-8?B?cTltNFRiUkgzUk9oRzFtdjlhbzB6ZUU5NzlqVDJZMmNnQWgxbEV5Vm5vZUlh?=
- =?utf-8?B?ajNHYmFmV2FaazhiVlZHOUE0OTAydm5lSUV6cW5iSllSNVovYWtPbUlGU0Mv?=
- =?utf-8?B?LzRpUXo4UzRRaCs0UVFRNlNJRU1OQUo2d0lwanBnV3VQS0ZXRkk0YmZpUHNo?=
- =?utf-8?B?cDRkTUs3NVVrcGdMb0h6bFVuMFdycVFKdTlGdXV5ZzdkM0w5YXE4OU1zRldl?=
- =?utf-8?B?cDNtdjZhSkJWSk8xd0JoZERVYVIvcjRZclppVEszYWhoRVFWS0N1d3l6ajhF?=
- =?utf-8?B?dUk2ZTFLRGoxdTZzaXB4eXlhSmRNajhNUHZhd2pxT2h6T3RiU0EzSU01bHUr?=
- =?utf-8?B?dTg1Tlgxd3ZZNHowclJFeGJCNWpOSmUvbVZidkxvbXlNWEhYMzhKbEdDNzNj?=
- =?utf-8?B?MnlUVDJNRm5yQUd5NlA3YXcwUlIzTU5LbjltcWFERXVrSTJPTTF6dGdNWkdh?=
- =?utf-8?B?dFV3WWFpakJyajFXaWJ5VzlmT0FPSkxKdGFwZGw2R2tQekk5U3NOcFR4cU9u?=
- =?utf-8?B?RXNOV2owcitkeG1ZTldUQTZQYm5JVnp6T0Rldk5obW9hNld0SlNNTjBDUTNv?=
- =?utf-8?B?MklzV3VDbEFnYW5rWWdYeGgyRnZtM24zRURMOEhBWFY0V3kwL1lQVjRCMVlo?=
- =?utf-8?B?TFhXektpemlGelp3K1A1ZkZSNzZRSGhCM3RpZEpzSEY0b2dLMEJJSER0MDlk?=
- =?utf-8?B?WWJicElBSlM0SG81aXdPUTRIVUVEREVtZnl2NWlmMUZhOVZ4ZHlIdmlMa2VY?=
- =?utf-8?B?MUdoKzRJSER3WXlzd3ZxVnBjVldmQWpWNVB2azN5c1drZHYvUnZFOEtVSUhX?=
- =?utf-8?B?MlVGZkFXMGt0M0xpOG5SbldBTlRqNWNRMGNXWmV4MVNUUzdXQkVVMmxKZWNt?=
- =?utf-8?B?eXArb0hnNmk1d1ArSmsyTDVVdlNIa09ZQ0h2MjVaU0VqdlFQM2o5eXJKOTRS?=
- =?utf-8?B?Q0FjVkhycDFaUXBwY1RCQkhRcG9VeHgvMHRFZmtmT0RqbklBdmw3RVNZNG8x?=
- =?utf-8?B?RG5mV3NYWTNBeTJleTkzRGwwQTk0QlRoUHB5c01LdHVCSld6OHBnaUExR0J6?=
- =?utf-8?B?OXFKaHlsTUltczlWQWxKYW44LzBuQXZvMTc2LzNlT2EzekIxbHQrWjQycnNk?=
- =?utf-8?B?TElnd0sybG02VisycVAvc0RVdXNjQ1p2WXVpdXhlVTJ4R0R2Mm9meFNJSGlD?=
- =?utf-8?B?bkhKMUh1Mjk0Rm1xSnZqblp1VmVIQy9NWEYxTFptdFg0WXFuRU1mTnk5a1g2?=
- =?utf-8?B?NGxpbzRKaFExMXhGcUNnRlBNdEd2OTJ2emxtTnNHczlZSURPc1hxalFoUGR0?=
- =?utf-8?B?OHZaWG9yZDFJemR6VHZPbVdSMlhGdWo2K1Q1OFZiRFBuRk8zWW1ndnUvOFRB?=
- =?utf-8?B?ejYzUzJMeW41U2k2MEJCTWZrN3NaZ0cxam9XUXBWdEFzb1RybDJTeGtDOENq?=
- =?utf-8?B?ZzRmNHZJdGdpdkFVWGd6aHozY1dKa24zck1jU1ZFUGtuSDJUOEN2SEU1ODBw?=
- =?utf-8?B?VUdaNWRTbFVkNHlhUlJnaUJHSklNaG1McmxNNTY2MDkxaEJZS2oyWGtBeWx6?=
- =?utf-8?B?VUhYTmtuK2d1cVNrRUZDajNSYjhudHIzRFBjbXc2K2svSVJjZUpncGpIUUV5?=
- =?utf-8?B?dTA2L1l4aTBoN1B2UXRHS3R0UVJONWpialZTRGtWSDlGSS8vb1I3aVpwV0I4?=
- =?utf-8?B?dDRHdG9wMlFXc1RmSElIaklneXJNRDZIdGg5UVJTTDRFNHJvQjFMWUlORUVa?=
- =?utf-8?B?NWFFSXl6SjI4dHJhRVFoWWpWTDBndFhOQTBWWFBZZGFOZUw4V2k5eUR0cS8w?=
- =?utf-8?B?dXluemFKelVWTzhzVnBUQThZYXp0RVVOSFZzU1F2Zy81TFZvaWdaVDdlaEMy?=
- =?utf-8?B?aEg2MDF4TUsweHNqdkhLVytlc1BtR1RFWFdkTis2U1cvRFVYQ1FveDAxSDcx?=
- =?utf-8?B?K2d5ZGhFeHR2Z2NCRjlpWXVJNkN0akhKeFpuSXZrcnBUMzA3ME1MMmR6SXdp?=
- =?utf-8?B?bWYzMldrMmFxNFQ3V25BZ1pYaWp6T2lhQ3BheGx6MFhrdWVhcHBBTFVYUW5m?=
- =?utf-8?Q?YVZrPnUoExlv9rpUrF1KzOpaH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec2956ea-7937-4814-1e6d-08de236a4b43
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2025 10:40:57.3836 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EwNLNnUZ4rQe3dbsdBciQeHN/U8chi+9Rgp6s0/DEwAEhrypQZj0qWlc1onZ18k/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4344
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,72 +96,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/13/25 20:07, Timur Kristóf wrote:
-> Now that the DC analog connector support and VCE1 support landed,
-> SI dGPUs are at feature parity with the old radeon driver.
-> 
-> Enabling the amdgpu driver by default for SI dGPUs has the
-> following benefits:
-> 
-> - More stable OpenGL support through RadeonSI
-> - Vulkan support through RADV
-> - Improved performance
-> - Better display features through DC
-> 
-> Users who want to keep using the old driver can do so using:
-> amdgpu.si_support=0 radeon.si_support=1
-> 
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+On Fri, 2025-11-14 at 11:40 +0100, Christian K=C3=B6nig wrote:
+> On 11/13/25 20:07, Timur Krist=C3=B3f wrote:
+> > Now that the DC analog connector support and VCE1 support landed,
+> > SI dGPUs are at feature parity with the old radeon driver.
+> >=20
+> > Enabling the amdgpu driver by default for SI dGPUs has the
+> > following benefits:
+> >=20
+> > - More stable OpenGL support through RadeonSI
+> > - Vulkan support through RADV
+> > - Improved performance
+> > - Better display features through DC
+> >=20
+> > Users who want to keep using the old driver can do so using:
+> > amdgpu.si_support=3D0 radeon.si_support=3D1
+> >=20
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+>=20
+> The patch should probably also update the text in the Kconfig file
+> drivers/gpu/drm/amd/amdgpu/Kconfig.
 
-The patch should probably also update the text in the Kconfig file drivers/gpu/drm/amd/amdgpu/Kconfig.
+Nice catch.
 
-That currently reads:
+I will send a second version for both SI and CIK to update the Konfig
+file as well.
 
-config DRM_AMDGPU_SI
-        bool "Enable amdgpu support for SI parts"
-        depends on DRM_AMDGPU
-        help
-          Choose this option if you want to enable experimental support
-          for SI (Southern Islands) asics.
-
-          SI is already supported in radeon. Experimental support for SI
-          in amdgpu will be disabled by default and is still provided by
-          radeon. Use module options to override this:
-
-          radeon.si_support=0 amdgpu.si_support=1
-
-Same for CIK BTW.
-
-Apart from that look good to me,
-Christian.
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
->  drivers/gpu/drm/radeon/radeon_drv.c     | 1 +
->  2 files changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 3cf36d28d27f..0539f97fa2f5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2327,6 +2327,7 @@ static bool amdgpu_support_enabled(struct device *dev,
->  		param = "si_support";
->  		module_param = amdgpu_si_support;
->  		amdgpu_support_built = IS_ENABLED(CONFIG_DRM_AMDGPU_SI);
-> +		support_by_default = true;
->  		break;
->  
->  	case CHIP_BONAIRE:
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-> index 40dff6feac8a..fe7ed70f4703 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -273,6 +273,7 @@ static bool radeon_support_enabled(struct device *dev,
->  		gen = "SI";
->  		module_param = radeon_si_support;
->  		amdgpu_support_built &= IS_ENABLED(CONFIG_DRM_AMDGPU_SI);
-> +		support_by_default = false;
->  		break;
->  
->  	case CHIP_BONAIRE:
-
+>=20
+> That currently reads:
+>=20
+> config DRM_AMDGPU_SI
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool "Enable amdgpu support fo=
+r SI parts"
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 depends on DRM_AMDGPU
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 help
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Choose this option=
+ if you want to enable experimental
+> support
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for SI (Southern I=
+slands) asics.
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 SI is already supp=
+orted in radeon. Experimental support for
+> SI
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 in amdgpu will be =
+disabled by default and is still provided
+> by
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 radeon. Use module=
+ options to override this:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 radeon.si_support=
+=3D0 amdgpu.si_support=3D1
+>=20
+> Same for CIK BTW.
+>=20
+> Apart from that look good to me,
+> Christian.
+>=20
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
+> > =C2=A0drivers/gpu/drm/radeon/radeon_drv.c=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
+> > =C2=A02 files changed, 2 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index 3cf36d28d27f..0539f97fa2f5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -2327,6 +2327,7 @@ static bool amdgpu_support_enabled(struct
+> > device *dev,
+> > =C2=A0		param =3D "si_support";
+> > =C2=A0		module_param =3D amdgpu_si_support;
+> > =C2=A0		amdgpu_support_built =3D
+> > IS_ENABLED(CONFIG_DRM_AMDGPU_SI);
+> > +		support_by_default =3D true;
+> > =C2=A0		break;
+> > =C2=A0
+> > =C2=A0	case CHIP_BONAIRE:
+> > diff --git a/drivers/gpu/drm/radeon/radeon_drv.c
+> > b/drivers/gpu/drm/radeon/radeon_drv.c
+> > index 40dff6feac8a..fe7ed70f4703 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> > @@ -273,6 +273,7 @@ static bool radeon_support_enabled(struct
+> > device *dev,
+> > =C2=A0		gen =3D "SI";
+> > =C2=A0		module_param =3D radeon_si_support;
+> > =C2=A0		amdgpu_support_built &=3D
+> > IS_ENABLED(CONFIG_DRM_AMDGPU_SI);
+> > +		support_by_default =3D false;
+> > =C2=A0		break;
+> > =C2=A0
+> > =C2=A0	case CHIP_BONAIRE:
