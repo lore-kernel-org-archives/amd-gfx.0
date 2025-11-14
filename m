@@ -4,119 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36CBDCE7B13
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:40:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98192CE7B13
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:41:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB52210EA89;
-	Fri, 14 Nov 2025 14:40:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6079F10EA97;
+	Fri, 14 Nov 2025 14:41:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nah68aZQ";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="S/es1NCT";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="5ei/kBEp";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012065.outbound.protection.outlook.com [52.101.43.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD7910EA89
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 14:40:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wwrp3KG3nQefcYH1HqlM1i4rkq4Azgg4HOtwK5bxeDipLSEaautQj3vzkJes3Zz8/jqSfxIiHHqN9JsmvAodOfEkQPJfjsSnxByVa2xehhKwv131UjBQEyPm9JzJWGXaIv9LMTd5FAfy/F64KJvWTVV/3J3+1XgWLWy67MFnq2vnbNJHgElucHUPBmewlZXI3Gqc9rwhcEUXPr2rEGpPhXfIW5F1CGyZSIMnUjckzCic569nSi7i63cPXCXRiE87L+G6PPEeam00BvIt6Y/6vgPPAcZDY3K/80zoxSwDoYXMCaEFgwvEZGlSKmRFAZeKvj+tTUQ9e30M+XqzGP/j0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fqJkOiYr6cjhbfVLRveOQ2YXbWstlOWZwp1vGvHMfak=;
- b=IqaBrLPn4r3haU7v4HrEp+BmlkFt5fUk/DiwpspdAFvNxh8YNqIBeQjw3RvQm6wKHV4MQrDlJXFj3oCXPQWhNGvf/CgYO8Q4NVDByeyqZAVOEWZNXDmdi0WLGHkwC9rjzxRYVBqNd+0qdUHq9EM6EtV3bt6IB0+3GRP3FYzPJ6M3Id8XMF7xHjDiVqKIbAzG5GLsZdV6fFhRAQuEnuEXaKQOxszLXYa7kuOWJWQOL3oWvsBDCn6ADS95lYLmKj3mBsNDPMuKuLfpG6YoMKzbjHz+qNbhnpa/6qGjF+mIPZ6vMwXFDJXowVD3nen5HEoGPxLTW2V4iQ8PnovBxkQPbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fqJkOiYr6cjhbfVLRveOQ2YXbWstlOWZwp1vGvHMfak=;
- b=Nah68aZQZMkUdAUBqJkPqOIiKuiWzqhuXtrei+FNR6z6XUVQkxyyRUniTSlKi9snisur5n76P+fs+y/YnvN+U4o1fQKt2YyASO+uIwTlxidjsLy+XEJpbcdFLqrXWKJOF5iwJYDZdKGsOwIOqi/QT3UMFL51Tuad3yayIIhkYOY=
-Received: from SN6PR16CA0053.namprd16.prod.outlook.com (2603:10b6:805:ca::30)
- by BL1PR12MB5995.namprd12.prod.outlook.com (2603:10b6:208:39b::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.12; Fri, 14 Nov
- 2025 14:40:51 +0000
-Received: from SN1PEPF000252A1.namprd05.prod.outlook.com
- (2603:10b6:805:ca:cafe::d7) by SN6PR16CA0053.outlook.office365.com
- (2603:10b6:805:ca::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.18 via Frontend Transport; Fri,
- 14 Nov 2025 14:40:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000252A1.mail.protection.outlook.com (10.167.242.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.13 via Frontend Transport; Fri, 14 Nov 2025 14:40:50 +0000
-Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 14 Nov 2025 06:40:49 -0800
-From: Andrew Martin <andrew.martin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Andrew Martin <andrew.martin@amd.com>
-Subject: [PATCH] drm/amdkfd: FORWARD NULL
-Date: Fri, 14 Nov 2025 09:40:33 -0500
-Message-ID: <20251114144033.1432008-1-andrew.martin@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D68510EA94;
+ Fri, 14 Nov 2025 14:41:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1763131303;
+ bh=nYgLJec6Kojr+3Bkv+F2UQ1
+ dh5CbMmGwLYqprxaTm0I=; b=S/es1NCTPdwWEnbhsQZIyp4MlomPedoOycy3FUiytiwMxpv76U
+ f0E6PTHBF2ciLW6LqKqeLQn1SYsnPAT7MJPMXdlf2+zCRsUUApJENEC+jC3AJwArQoN3vJQWuVy
+ h4XLriRPcIpRau5GLzU0S/d3k/JkOdiochZNPCS0VONkreoFCbtN5v92+rUbfFWTSY0YeLy4Qfk
+ QOhRNdLwP1woexCvvN4OYDArmM0NkbjuoxmU5T2zZue3GVqH6B71daQUHa0k5qz766WqcLxX4XC
+ eE23DxNKQKVLTADPalEGflAQOpYsM+sWRIB7R5qh+vP5uejBBaHxD+0/UiUcLsrW+Cw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1763131303; bh=nYgLJec6Kojr+3Bkv+F2UQ1
+ dh5CbMmGwLYqprxaTm0I=; b=5ei/kBEpxO8McpEAcbiiYnHqz7sjTMX15MZf5irA+GEvjfllfg
+ aAwJsXJGUyF+FacNwaNfdwNhTc+dyibxvJBw==;
+Message-ID: <1ef63068-1352-4e8a-abea-bfad5f7a2198@damsy.net>
+Date: Fri, 14 Nov 2025 15:41:43 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/20] drm/amdgpu: pass the entity to use to ttm
+ functions
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20251113160632.5889-1-pierre-eric.pelloux-prayer@amd.com>
+ <20251113160632.5889-6-pierre-eric.pelloux-prayer@amd.com>
+ <6469a0ce-89d9-42ad-867b-1d8094293e44@amd.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <6469a0ce-89d9-42ad-867b-1d8094293e44@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A1:EE_|BL1PR12MB5995:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85648170-088d-4dac-d44c-08de238bce9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kAt5zcX3bMdU4ig4fNOdWWE2EaMya8pb5ggFjQM2/IFwPsp3r5BuMcUrCMDG?=
- =?us-ascii?Q?3nMKkBqWTrD3vdrhuhYdb3ODABeL22yLFk65DxHoG+2q5QaLERmHYlcHAZaq?=
- =?us-ascii?Q?rx0rfTFiftLKR7CwJZTUVyv1bQRfPGQ8u8BAa+f8HorNbGvTWlnU9bcfkMot?=
- =?us-ascii?Q?/ifTouR9Wb8SxQYZjN4t95Ribwyi2CSdG26UF/utYL9sRQU6Yc8vEybuzigI?=
- =?us-ascii?Q?WdybW8taq07UjOnKhWNhS8Lhl3zm6Npi6zb1TVsVFYX7TeqHV7AiQ2YVaGmY?=
- =?us-ascii?Q?88NFCURmXb0IcbKMkr7Gm4+teQ5ZsBcP+kuBCEfm0BOLgyu7IbCRrI3jyNY8?=
- =?us-ascii?Q?bNSOYryX+KazAytS0HJULl7CROckB6JHsJJVhrBXkzeFhFkxkshDaGU7uTR4?=
- =?us-ascii?Q?S2KjK3zMI5X0U7OuTgmY+UpdvvuOZ3jTxCOnCuIfLkPeB/RKyhNuwq0/B4jk?=
- =?us-ascii?Q?ZK2UtppDnm7vf4ebWE5m1MMs/5RtnG5yqcVBBBL2VmjkVwSoqd62MPpjNDSL?=
- =?us-ascii?Q?IQAoOEWjH56Au9SLOQbO1+BkQViK4Y5J/FkYeN/+22OqQqsvWEDgUKGt9wed?=
- =?us-ascii?Q?AROKbwVtu3e2AugVibuQEk43ThoNd5SKGi6BU9qIsk8V8Hs0L+PomgrjOsr2?=
- =?us-ascii?Q?gipXLjjx8wkjc52HhQYOOy3ZZ0RepE5cJyQDAMBdm1PyGGLnVWu8Yg2BgJwQ?=
- =?us-ascii?Q?6qthn1bF4btmGFgtpSW96/wc/IO9aCQc7synrWkj4UT4M7fUftUl9nAdvEoO?=
- =?us-ascii?Q?TpFKvylEbqUoWXav15/9PHB7ksZiKkW5z4oZ4E6ElbhsPGJcGoRPAnCtGVu1?=
- =?us-ascii?Q?ztpdx0zIHq/Yjf91NqgcL+8CqU0hWoPzCXzXgvSMHVL34Ub3NFeLPYRebhLw?=
- =?us-ascii?Q?uYFRdheQcbFcq4Pnsv0P/h//+4xsK/2F+DfMfWHHm/1+MWiKR8sCmdAMBRaG?=
- =?us-ascii?Q?EN470ZEhf1SuO3okoaetMko0Mz83Jm9e+E+guHJwN4l7pDwGCq99jAjp+iR5?=
- =?us-ascii?Q?9EsiDh3M6qBWev/ZfFBg57BFPUPjcXsCTFNMqlECjqsl+ItacHUp0vRmf0xy?=
- =?us-ascii?Q?UysqrBEGMAzHm+lhY7ovnO6H32lJI6oY5Rd/V2hIY/IqElEK30X2EWOTCdYm?=
- =?us-ascii?Q?08+DE8gnojAcVnHXZKSYsZop5vCov5v0tQo6YVkvG7xYE36/BJiohoDyb+W5?=
- =?us-ascii?Q?Uj7GiWDb/ZG26gL97NOvp8gFlU91Ou46gEj6IrcXWxsh2q0dSuRq43npxAv1?=
- =?us-ascii?Q?zAaTQt81NaM7x/7OyV6KtTAH3r4t6HUJUsgaJ4wN7rNTmXq7D9V69OaTxFdm?=
- =?us-ascii?Q?+JoJg6zIbcDmwwZyakNJu+et49PhhUFIBtHvKpOFICk0VUl8WoRNw7jj0zZi?=
- =?us-ascii?Q?1ReC5XrOvb91slCcUMFKyDGftVDVznvkZbOF+ncwyfrm4sCDN622gzcJRrYy?=
- =?us-ascii?Q?qw5hW65ZYBwbedTle4hcXBr0UPZvNoMdf93M+gJ3l3qKiMgIQqVHYo9HdY4r?=
- =?us-ascii?Q?AHXrtHwndtsLZgDI2v6IxdUX/60nSkgHq8sJY4O7AaXlAW6m0yXoyaS+LsK8?=
- =?us-ascii?Q?z/z8WKMmJivmYNzYRdk=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2025 14:40:50.6406 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85648170-088d-4dac-d44c-08de238bce9d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5995
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,67 +65,338 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch fixes issues when the code moves forward with a potential
-NULL pointer, without checking.
 
-Signed-off-by: Andrew Martin <andrew.martin@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c           | 6 +++++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 3 +++
- 3 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-index 1ef758ac5076..71b7db5de69f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-@@ -104,6 +104,8 @@ static const char *amdkfd_fence_get_driver_name(struct dma_fence *f)
- static const char *amdkfd_fence_get_timeline_name(struct dma_fence *f)
- {
- 	struct amdgpu_amdkfd_fence *fence = to_amdgpu_amdkfd_fence(f);
-+	if (!fence)
-+		return NULL;
- 
- 	return fence->timeline_name;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index ba99e0f258ae..42fa137bdb2f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -517,7 +517,9 @@ int kfd_dbg_trap_set_flags(struct kfd_process *target, uint32_t *flags)
- 
- 	for (i = 0; i < target->n_pdds; i++) {
- 		struct kfd_topology_device *topo_dev =
--				kfd_topology_device_by_id(target->pdds[i]->dev->id);
-+			kfd_topology_device_by_id(target->pdds[i]->dev->id);
-+		if (!topo_dev)
-+			continue;
- 		uint32_t caps = topo_dev->node_props.capability;
- 
- 		if (!(caps & HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED) &&
-@@ -1071,6 +1073,8 @@ int kfd_dbg_trap_device_snapshot(struct kfd_process *target,
- 	for (i = 0; i < tmp_num_devices; i++) {
- 		struct kfd_process_device *pdd = target->pdds[i];
- 		struct kfd_topology_device *topo_dev = kfd_topology_device_by_id(pdd->dev->id);
-+		if (!topo_dev)
-+			continue;
- 
- 		device_info.gpu_id = pdd->dev->id;
- 		device_info.exception_status = pdd->exception_status;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index f5d173f1ca3b..f40d93f82ede 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1685,6 +1685,9 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
- 	struct kfd_node *dev;
- 	int ret;
- 
-+	if (!pdd)
-+		return -EINVAL;
-+
- 	if (!drm_file)
- 		return -EINVAL;
- 
--- 
-2.43.0
+Le 14/11/2025 à 14:07, Christian König a écrit :
+> On 11/13/25 17:05, Pierre-Eric Pelloux-Prayer wrote:
+>> This way the caller can select the one it wants to use.
+>>
+>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c |  3 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  4 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 75 +++++++++++--------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       | 16 ++--
+>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |  3 +-
+>>   5 files changed, 60 insertions(+), 41 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+>> index 02c2479a8840..b59040a8771f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+>> @@ -38,7 +38,8 @@ static int amdgpu_benchmark_do_move(struct amdgpu_device *adev, unsigned size,
+>>   	stime = ktime_get();
+>>   	for (i = 0; i < n; i++) {
+>>   		struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+>> -		r = amdgpu_copy_buffer(ring, saddr, daddr, size, NULL, &fence,
+>> +		r = amdgpu_copy_buffer(ring, &adev->mman.default_entity.base,
+>> +				       saddr, daddr, size, NULL, &fence,
+>>   				       false, 0);
+>>   		if (r)
+>>   			goto exit_do_move;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> index e08f58de4b17..c06c132a753c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> @@ -1321,8 +1321,8 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+>>   	if (r)
+>>   		goto out;
+>>   
+>> -	r = amdgpu_fill_buffer(abo, 0, &bo->base._resv, &fence, true,
+>> -			       AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
+>> +	r = amdgpu_fill_buffer(&adev->mman.clear_entity, abo, 0, &bo->base._resv,
+>> +			       &fence, AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
+>>   	if (WARN_ON(r))
+>>   		goto out;
+>>   
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index 42d448cd6a6d..c8d59ca2b3bd 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -164,6 +164,7 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
+>>   
+>>   /**
+>>    * amdgpu_ttm_map_buffer - Map memory into the GART windows
+>> + * @entity: entity to run the window setup job
+>>    * @bo: buffer object to map
+>>    * @mem: memory object to map
+>>    * @mm_cur: range to map
+>> @@ -176,7 +177,8 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
+>>    * Setup one of the GART windows to access a specific piece of memory or return
+>>    * the physical address for local memory.
+>>    */
+>> -static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+>> +static int amdgpu_ttm_map_buffer(struct drm_sched_entity *entity,
+>> +				 struct ttm_buffer_object *bo,
+> 
+> 
+> Probably better to split this patch into multiple patches.
+> 
+> One which changes amdgpu_ttm_map_buffer() and then another one or two for the higher level copy_buffer and fill_buffer functions.
 
+OK.
+
+> 
+>>   				 struct ttm_resource *mem,
+>>   				 struct amdgpu_res_cursor *mm_cur,
+>>   				 unsigned int window, struct amdgpu_ring *ring,
+>> @@ -224,7 +226,7 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+>>   	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+>>   	num_bytes = num_pages * 8 * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+>>   
+>> -	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.default_entity.base,
+>> +	r = amdgpu_job_alloc_with_ib(adev, entity,
+>>   				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>>   				     num_dw * 4 + num_bytes,
+>>   				     AMDGPU_IB_POOL_DELAYED, &job,
+>> @@ -274,6 +276,7 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+>>   /**
+>>    * amdgpu_ttm_copy_mem_to_mem - Helper function for copy
+>>    * @adev: amdgpu device
+>> + * @entity: entity to run the jobs
+>>    * @src: buffer/address where to read from
+>>    * @dst: buffer/address where to write to
+>>    * @size: number of bytes to copy
+>> @@ -288,6 +291,7 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+>>    */
+>>   __attribute__((nonnull))
+>>   static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>> +				      struct drm_sched_entity *entity,
+>>   				      const struct amdgpu_copy_mem *src,
+>>   				      const struct amdgpu_copy_mem *dst,
+>>   				      uint64_t size, bool tmz,
+>> @@ -320,12 +324,14 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>>   		cur_size = min3(src_mm.size, dst_mm.size, 256ULL << 20);
+>>   
+>>   		/* Map src to window 0 and dst to window 1. */
+>> -		r = amdgpu_ttm_map_buffer(src->bo, src->mem, &src_mm,
+>> +		r = amdgpu_ttm_map_buffer(entity,
+>> +					  src->bo, src->mem, &src_mm,
+>>   					  0, ring, tmz, &cur_size, &from);
+>>   		if (r)
+>>   			goto error;
+>>   
+>> -		r = amdgpu_ttm_map_buffer(dst->bo, dst->mem, &dst_mm,
+>> +		r = amdgpu_ttm_map_buffer(entity,
+>> +					  dst->bo, dst->mem, &dst_mm,
+>>   					  1, ring, tmz, &cur_size, &to);
+>>   		if (r)
+>>   			goto error;
+>> @@ -353,7 +359,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>>   							     write_compress_disable));
+>>   		}
+>>   
+>> -		r = amdgpu_copy_buffer(ring, from, to, cur_size, resv,
+>> +		r = amdgpu_copy_buffer(ring, entity, from, to, cur_size, resv,
+>>   				       &next, true, copy_flags);
+>>   		if (r)
+>>   			goto error;
+>> @@ -394,7 +400,9 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+>>   	src.offset = 0;
+>>   	dst.offset = 0;
+>>   
+>> -	r = amdgpu_ttm_copy_mem_to_mem(adev, &src, &dst,
+>> +	r = amdgpu_ttm_copy_mem_to_mem(adev,
+>> +				       &adev->mman.move_entity.base,
+>> +				       &src, &dst,
+>>   				       new_mem->size,
+>>   				       amdgpu_bo_encrypted(abo),
+>>   				       bo->base.resv, &fence);
+>> @@ -406,8 +414,9 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+>>   	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
+>>   		struct dma_fence *wipe_fence = NULL;
+>>   
+>> -		r = amdgpu_fill_buffer(abo, 0, NULL, &wipe_fence,
+>> -				       false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
+>> +		r = amdgpu_fill_buffer(&adev->mman.move_entity,
+>> +				       abo, 0, NULL, &wipe_fence,
+>> +				       AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
+>>   		if (r) {
+>>   			goto error;
+>>   		} else if (wipe_fence) {
+>> @@ -2223,16 +2232,15 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+>>   }
+>>   
+>>   static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
+>> +				  struct drm_sched_entity *entity,
+>>   				  unsigned int num_dw,
+>>   				  struct dma_resv *resv,
+>>   				  bool vm_needs_flush,
+>>   				  struct amdgpu_job **job,
+>> -				  bool delayed, u64 k_job_id)
+>> +				  u64 k_job_id)
+>>   {
+>>   	enum amdgpu_ib_pool_type pool = AMDGPU_IB_POOL_DELAYED;
+>>   	int r;
+>> -	struct drm_sched_entity *entity = delayed ? &adev->mman.clear_entity.base :
+>> -						    &adev->mman.move_entity.base;
+>>   	r = amdgpu_job_alloc_with_ib(adev, entity,
+>>   				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>>   				     num_dw * 4, pool, job, k_job_id);
+>> @@ -2252,7 +2260,9 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
+>>   						   DMA_RESV_USAGE_BOOKKEEP);
+>>   }
+>>   
+>> -int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>> +int amdgpu_copy_buffer(struct amdgpu_ring *ring,
+>> +		       struct drm_sched_entity *entity,
+>> +		       uint64_t src_offset,
+>>   		       uint64_t dst_offset, uint32_t byte_count,
+>>   		       struct dma_resv *resv,
+>>   		       struct dma_fence **fence,
+>> @@ -2274,8 +2284,8 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>>   	max_bytes = adev->mman.buffer_funcs->copy_max_bytes;
+>>   	num_loops = DIV_ROUND_UP(byte_count, max_bytes);
+>>   	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->copy_num_dw, 8);
+>> -	r = amdgpu_ttm_prepare_job(adev, num_dw,
+>> -				   resv, vm_needs_flush, &job, false,
+>> +	r = amdgpu_ttm_prepare_job(adev, entity, num_dw,
+>> +				   resv, vm_needs_flush, &job,
+>>   				   AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER);
+>>   	if (r)
+>>   		return r;
+>> @@ -2304,11 +2314,13 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>>   	return r;
+>>   }
+>>   
+>> -static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
+>> +static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring,
+>> +			       struct drm_sched_entity *entity,
+>> +			       uint32_t src_data,
+>>   			       uint64_t dst_addr, uint32_t byte_count,
+>>   			       struct dma_resv *resv,
+>>   			       struct dma_fence **fence,
+>> -			       bool vm_needs_flush, bool delayed,
+>> +			       bool vm_needs_flush,
+>>   			       u64 k_job_id)
+>>   {
+>>   	struct amdgpu_device *adev = ring->adev;
+>> @@ -2321,8 +2333,8 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
+>>   	max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
+>>   	num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
+>>   	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->fill_num_dw, 8);
+>> -	r = amdgpu_ttm_prepare_job(adev, num_dw, resv, vm_needs_flush,
+>> -				   &job, delayed, k_job_id);
+>> +	r = amdgpu_ttm_prepare_job(adev, entity, num_dw, resv,
+>> +				   vm_needs_flush, &job, k_job_id);
+>>   	if (r)
+>>   		return r;
+>>   
+>> @@ -2386,13 +2398,14 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
+>>   		/* Never clear more than 256MiB at once to avoid timeouts */
+>>   		size = min(cursor.size, 256ULL << 20);
+>>   
+>> -		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &cursor,
+>> +		r = amdgpu_ttm_map_buffer(&adev->mman.clear_entity.base,
+>> +					  &bo->tbo, bo->tbo.resource, &cursor,
+>>   					  1, ring, false, &size, &addr);
+>>   		if (r)
+>>   			goto err;
+>>   
+>> -		r = amdgpu_ttm_fill_mem(ring, 0, addr, size, resv,
+>> -					&next, true, true,
+>> +		r = amdgpu_ttm_fill_mem(ring, &adev->mman.clear_entity.base, 0, addr, size, resv,
+>> +					&next, true,
+>>   					AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
+>>   		if (r)
+>>   			goto err;
+>> @@ -2408,12 +2421,12 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
+>>   	return r;
+>>   }
+>>   
+>> -int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>> -			uint32_t src_data,
+>> -			struct dma_resv *resv,
+>> -			struct dma_fence **f,
+>> -			bool delayed,
+>> -			u64 k_job_id)
+>> +int amdgpu_fill_buffer(struct amdgpu_ttm_entity *entity,
+>> +		       struct amdgpu_bo *bo,
+>> +		       uint32_t src_data,
+>> +		       struct dma_resv *resv,
+>> +		       struct dma_fence **f,
+>> +		       u64 k_job_id)
+>>   {
+>>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>>   	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+>> @@ -2437,13 +2450,15 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>>   		/* Never fill more than 256MiB at once to avoid timeouts */
+>>   		cur_size = min(dst.size, 256ULL << 20);
+>>   
+>> -		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &dst,
+>> +		r = amdgpu_ttm_map_buffer(&entity->base,
+>> +					  &bo->tbo, bo->tbo.resource, &dst,
+>>   					  1, ring, false, &cur_size, &to);
+>>   		if (r)
+>>   			goto error;
+>>   
+>> -		r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
+>> -					&next, true, delayed, k_job_id);
+>> +		r = amdgpu_ttm_fill_mem(ring, &entity->base,
+>> +					src_data, to, cur_size, resv,
+>> +					&next, true, k_job_id);
+>>   		if (r)
+>>   			goto error;
+>>   
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> index d2295d6c2b67..e1655f86a016 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> @@ -167,7 +167,9 @@ int amdgpu_ttm_init(struct amdgpu_device *adev);
+>>   void amdgpu_ttm_fini(struct amdgpu_device *adev);
+>>   void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
+>>   					bool enable);
+>> -int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>> +int amdgpu_copy_buffer(struct amdgpu_ring *ring,
+>> +		       struct drm_sched_entity *entity,
+> 
+> If I'm not completely mistaken you should be able to drop the ring argument since that can be determined from the entity.
+
+OK will do.
+
+Pierre-Eric
+
+
+> 
+> Apart from that looks rather good to me.
+> 
+> Regards,
+> Christian.
+> 
+>> +		       uint64_t src_offset,
+>>   		       uint64_t dst_offset, uint32_t byte_count,
+>>   		       struct dma_resv *resv,
+>>   		       struct dma_fence **fence,
+>> @@ -175,12 +177,12 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>>   int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
+>>   			    struct dma_resv *resv,
+>>   			    struct dma_fence **fence);
+>> -int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>> -			uint32_t src_data,
+>> -			struct dma_resv *resv,
+>> -			struct dma_fence **fence,
+>> -			bool delayed,
+>> -			u64 k_job_id);
+>> +int amdgpu_fill_buffer(struct amdgpu_ttm_entity *entity,
+>> +		       struct amdgpu_bo *bo,
+>> +		       uint32_t src_data,
+>> +		       struct dma_resv *resv,
+>> +		       struct dma_fence **f,
+>> +		       u64 k_job_id);
+>>   
+>>   int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
+>>   void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index d74ff6e90590..09756132fa1b 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -157,7 +157,8 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, dma_addr_t *sys,
+>>   			goto out_unlock;
+>>   		}
+>>   
+>> -		r = amdgpu_copy_buffer(ring, gart_s, gart_d, size * PAGE_SIZE,
+>> +		r = amdgpu_copy_buffer(ring, &entity->base,
+>> +				       gart_s, gart_d, size * PAGE_SIZE,
+>>   				       NULL, &next, true, 0);
+>>   		if (r) {
+>>   			dev_err(adev->dev, "fail %d to copy memory\n", r);
