@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CCDACE7B14
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24966CE7B12
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 14:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4E110EA7B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 381A110EA77;
 	Fri, 14 Nov 2025 14:08:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YU++uOa/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GRWwBapB";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B69FF10EA6B
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 13:10:14 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-471191ac79dso21250805e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 05:10:14 -0800 (PST)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 487D310EA4D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 12:06:03 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-42b31507ed8so1524120f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 04:06:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1763125813; x=1763730613; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1763121962; x=1763726762; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:user-agent
  :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EJ9S8y/liwc1XSXK0RvzbAJey2hh3NqcyHJfhnjyxSE=;
- b=YU++uOa/prmyZdae+fODyXW3wecgtfGXB+Mt8uCcw5T07DnltADGzjPP2nkrVrU61g
- FwploZLaPwsU5qgTnCw6xYlJgyi7WWLUdeMIt/9xe9sSs4wOdN84qY+WcE1Q7EbMApLG
- 4m90WEdsyuJiHaS3Rg4fSqO6o9YZlYNl37ZgfweAtZK+dXxKosJM707C1+SuT1wfj1mn
- 7M/2Nb/PfqPna17ZfJAJx2CPguUDmUMF2XMoFMr1pha5FcsnCF+2Emj3ToYBcO0ALLyF
- nhf/zMjhLcBQt6P9YQAEudvWWnUhSt9DlC5bB7jpTraP223MuehUpjT5BPgbOtMSWrtJ
- S/Tg==
+ bh=K95f3YlNhCQTt8GtlNX0mi3FKRnBks4BFfnVQ8YE34o=;
+ b=GRWwBapBrsxyfWgLaEjXF8spVlM9bDDnz3HdGDFO3FHhgE1LDolctkWZq1IxKS/stu
+ tuZR4kLKlHC0QUzpidKgCHTnvo33QBacxT2y1r5gW/N2+ESeLqncQz9VzowdW+SL9kg5
+ UkpCAzy9QZk55YJ58XvouEZbyRgEE8jIvP/vK0ipV3DzpPAKwNEGkZ+yNDV5vaLioP2l
+ DpQd7DNsoNT35RuLFcumfFsHyOhOZ8gqBsATGdKDOzjs2alKdyh1ShiGryvFKFrgszG+
+ fI257YBRnEwlpOF5kulu4b7ctr8okk5Fw58EIDkiCncGJMwjxHNM99r/socuJXcIoldT
+ A1YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763125813; x=1763730613;
+ d=1e100.net; s=20230601; t=1763121962; x=1763726762;
  h=content-transfer-encoding:mime-version:message-id:date:user-agent
  :references:in-reply-to:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EJ9S8y/liwc1XSXK0RvzbAJey2hh3NqcyHJfhnjyxSE=;
- b=XEXE1O4kDIBG/LR3bSBp/KW3CX/wLokAmEV0YiNNq0e2/dZ/jFcroAmpZ2rGQ6Dd7X
- xX/rUU3YxRJtfQjR/ujj+uYGgrTsaMc1/5p1BdD7yDoLGDxAzFn9DF/hTELmtrgARA9V
- dt8+8QDKgk3llgLt3KQD49tFGBPOd1fQBFBq/N9kzBPJiGIL/8N3lK1oMRLJakAC2alZ
- c4o2/cYbfdXlYyTGgmAfl/hpLii9+lDT4BCaBV7bRqAzGUqiCiD0NCrbY1oiCwxlGxbc
- vhphqytS60xVwDRhCD33UymBMchz4vci/bjHyxbeRjlcHpCkNEOcEa6hS0ZeVw07OY4c
- mvzA==
+ bh=K95f3YlNhCQTt8GtlNX0mi3FKRnBks4BFfnVQ8YE34o=;
+ b=iS8KFBALKXdyj8sSfocfCCwOfRQ6vA+mxUUpoha3xwWd8NfQ+7+inFR31GSoPSmxO6
+ +c4/R2k+LOOTiSyDVQL+EksJS2kTExcgODTu52eAhvkzlg6h2KiZrhQ/JAwI/E1xpasL
+ i7v8B4SeuQW6TclrApcRhukjCj1oNL5jnXCZlft2aN1gHuqQwUWb/bMD+oqjk1aVEkX7
+ akg9m9AFwFPx1CH43Y17V4gDEJTdhAA3zTZAXhCgLOEHdUg4VkIMrIcHXMIZCX5tJHKV
+ lyuNHVKseSLjJ4vKRijTdxJDbU0FKLJECvrYA30mpdyRq2V8ln8knyelmsyum3NOELq0
+ YD5Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUg6F170jF2ccUMgmpUKgchc2XbdKnPOsjfmfxj9KUdjLN005XXmEhgLL/QIoKshF0a7vvegnQC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDIq9XZTpQLQ3qLYJH89Tt2WICBnxPnsuksxDh1ioZPRyJC1GT
- 5KnvxXIoH0zLWFOu2M8fbvfjs6MPaI1Ek/Ba18mJ6sIXWqdThaySWH51Mb1AcgW7+3U=
-X-Gm-Gg: ASbGncvUbYSm2TetQmBGoSHURBLowRxcO5s/w5IcjM2ZGCjqQnaNBXi5aiioAC9GV50
- Yl4YuP2jE/JxSwZISixjJgOHG8QQo5+JL/QqEMt1P64/O25+Uq3A+4ntO3zI+Qn9UKxcN9ZwcYu
- UAfrio2tbL6zgMGIxIUqZ3m7vBdxtod53HHjMneYXPXs5nDMlwwxeu//YjggIBDhPYMXFNh0wbw
- 95yn2USXSXVe14d64WvGuNDAwKyJ/J7A2/jU/SfrJEWeOhUSLFNPhxTNNTiuhW+eVKJULxdzENO
- 16UymoWgahj4OMrX6W/SUKxDguMnZLJLSmDNO/pNOvYz0BNJK3mMkrabGxMoCk44/ebDxH8sWPe
- sMpt9XouW4rv9cAUrYrNsKApZyhzuNQApIN/5bhVOtRKDzq5ZoU5vDBnoL8fgOZIs4bW45ZrywA
- 1q
-X-Google-Smtp-Source: AGHT+IFRUwKdmMnVHD85N3NvYRNZUnPZKMrSMMhF+DQcXz4gku9fHv+s1niWianlCFXxAAY6/RwthA==
-X-Received: by 2002:a05:600c:3587:b0:477:63b5:7148 with SMTP id
- 5b1f17b1804b1-4778fe55174mr31972855e9.6.1763125812943; 
- Fri, 14 Nov 2025 05:10:12 -0800 (PST)
+ AJvYcCXDIbq+pIW9NRNC1LIbK2yHOAK3derG+tS7cyooqwgu8eIa/Ke2AW0LWFUDGaSXXqnJasR7hdFv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVUbaQYdcqXRUwderqT0dL0SIplnPyJ0ND5MWTeEjwDVV4VFcG
+ CnrBgf92Rv9YJ+JR2Toghy+K09WYUvLScn8JMgAVX7K1U+P6ep9ducvOClOQo12C2pA=
+X-Gm-Gg: ASbGncsNG8J1jxjjKLtCSySbASZYfLitiXBNv0OBoLN5CuMMLtR9VZsyZZ3svLqkU/Y
+ yH8gorOhc2bSrWT5z3VvMzTM6Wde9vwmVUngLQJnESKo/e2+lr+o3OWmjKDTjgVCUErZfVa1/+6
+ FtHghKKz55sYlY+w0m3WhnxNzGjNLdPJyyjNG9GV4FRqc6mQi5FXuSgQNd78EBVWgASYjBnZkxA
+ ulnPuRPtLfemgxumOiLFgYb6wQ3w2x/wwnn83bvvlHRhx47xGYluHrt49xpF7XPWSaTwEkTzFFB
+ GWhZ77HgoCuxljbyxJzzCXIkraUpAZJPMBU3ZkcBjJw8QMbjuSmyO0wu79BzuPKFqaXS9yOscRj
+ 39LmLjj/cVraud8pSHFgb12OVJhd2WsFRJfMIk1GaQNxE/fu4UP7qk2rjkPKTkJnamqBQGE5Q5c
+ mi
+X-Google-Smtp-Source: AGHT+IHE8wmfBLRimraz6qGrkqAB1kcfDLmC9Ei9799tyFpwTbyC2bx5mJA0Z5MS/+tIuTgQ7sZknA==
+X-Received: by 2002:a05:6000:25c8:b0:429:c851:69bc with SMTP id
+ ffacd0b85a97d-42b59342f3fmr1891458f8f.8.1763121961723; 
+ Fri, 14 Nov 2025 04:06:01 -0800 (PST)
 Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4779527a656sm5951845e9.10.2025.11.14.05.10.11
+ ffacd0b85a97d-42b53f206e2sm9569035f8f.41.2025.11.14.04.06.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Nov 2025 05:10:11 -0800 (PST)
+ Fri, 14 Nov 2025 04:06:00 -0800 (PST)
 Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 1B92A5F820;
- Fri, 14 Nov 2025 13:10:11 +0000 (GMT)
+ by draig.lan (Postfix) with ESMTP id 1D11A5F820;
+ Fri, 14 Nov 2025 12:06:00 +0000 (GMT)
 From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
 To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
@@ -78,17 +78,15 @@ Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
  Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
  <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
  <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
- <michal.winiarski@intel.com>,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 08/11] drm/xe: Remove driver side BAR release before
- resize
-In-Reply-To: <20251113162628.5946-9-ilpo.jarvinen@linux.intel.com> ("Ilpo
- =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:25
+ <michal.winiarski@intel.com>
+Subject: Re: [PATCH v2 00/11] PCI: BAR resizing fix/rework
+In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com> ("Ilpo
+ =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:17
  +0200")
 References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
- <20251113162628.5946-9-ilpo.jarvinen@linux.intel.com>
 User-Agent: mu4e 1.12.14-dev2; emacs 30.1
-Date: Fri, 14 Nov 2025 13:10:11 +0000
-Message-ID: <87ecq0pxos.fsf@draig.linaro.org>
+Date: Fri, 14 Nov 2025 12:06:00 +0000
+Message-ID: <87jyzsq0nr.fsf@draig.linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -109,39 +107,24 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
 
-> PCI core handles releasing device's resources and their rollback in
-> case of failure of a BAR resizing operation. Releasing resource prior
-> to calling pci_resize_resource() prevents PCI core from restoring the
-> BARs as they were.
+> Hi all,
 >
-> Remove driver-side release of BARs from the xe driver.
+> Thanks to issue reports from Simon Richter and Alex Benn=C3=A9e, I
+> discovered BAR resize rollback can corrupt the resource tree. As fixing
+> corruption requires avoiding overlapping resource assignments, the
+> correct fix can unfortunately results in worse user experience, what
+> appeared to be "working" previously might no longer do so. Thus, I had
+> to do a larger rework to pci_resize_resource() in order to properly
+> restore resource states as it was prior to BAR resize.
+<snip>
 >
-> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_vram.c | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
-> index 00dd027057df..5aacab9358a4 100644
-> --- a/drivers/gpu/drm/xe/xe_vram.c
-> +++ b/drivers/gpu/drm/xe/xe_vram.c
-> @@ -33,9 +33,6 @@ _resize_bar(struct xe_device *xe, int resno, resource_s=
-ize_t size)
->  	int bar_size =3D pci_rebar_bytes_to_size(size);
->  	int ret;
->=20=20
-> -	if (pci_resource_len(pdev, resno))
-> -		pci_release_resource(pdev, resno);
-> -
->  	ret =3D pci_resize_resource(pdev, resno, bar_size, 0);
->  	if (ret) {
->  		drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider enab=
-ling 'Resizable BAR' support in your BIOS\n",
+> base-commit: 3a8660878839faadb4f1a6dd72c3179c1df56787
 
-This didn't apply, I assume due to a clash with:
+Ahh I have applied to 6.18-rc5 with minor conflicts and can verify that
+on my AVA the AMD GPU shows up again and I can run inference jobs
+against it. So for that case:
 
-  d30203739be79 (drm/xe: Move rebar to be done earlier)
+Tested-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
 
 --=20
 Alex Benn=C3=A9e
