@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96740CE7AF9
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 12:07:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C21CE7AFC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 12:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3380910EA4D;
-	Fri, 14 Nov 2025 12:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2634510EA4E;
+	Fri, 14 Nov 2025 12:07:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A2XFTIAk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dwBo3I29";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB65E10EA4C
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 12:07:40 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-471191ac79dso20583445e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 04:07:40 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2DE210EA4D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 12:07:41 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4711810948aso13109885e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 04:07:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763122059; x=1763726859; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1763122060; x=1763726860; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=OtGiziEAQRSh374dZNFTBRkqOabU3JhbZOPlATyYhr0=;
- b=A2XFTIAkLQsIJ3a89g/9uSSSMS7lqXOw6YJg6ZYB6EB3AKiDlSajuU7+uGKtyO7Owu
- TnbefD5tP2lBJ5e1Qcgyk3uqz3lSQYKyrDZcD092CglneX262PAEd7HQFpGoTQIUvohU
- gsvYnqZbtBtvJmi9VcP3gEUUu5hWzfPWJ7JTSk0ay89BRDd5+9H0EBicpvr8X6bW+lUJ
- QhxYzUVBuctJuoVEXz35GJxPWvfp+yuQlCsScBnonLQczyC+uM8PS+hioUeCeie/uf86
- 5VzWappyg606id0gxZi9m/9mP0tQvuOi65/rIouqckA/hLUEDvspLLsqY4GZyFTOyn5R
- t1dg==
+ :reply-to; bh=ZNKQf+quQZLMzohBNGzZD/tKblNgM06zsk8a3ZUI4dE=;
+ b=dwBo3I29PJq07EkEnYFVI1zXfnleSkQIW81ywgGJnQY+I8InI8PGSeZil01gU4EDKu
+ oNnsFGMyCHMLqGzIrJ2Pr+rugk0hoB3sIeREGLBHvpI1zFfxtDtWsmcaUafwosdBEx90
+ zqHPztNVNBlz1HP/NFvwQRoeNpG3dyiNfZbi6AD3vETFNxc7ZjSsSl61+tPZ3lsSWmv6
+ nbJDqoRotXZNm7Fx2hOFKMEfTec6UPiYoineGrIRgirkzjGfAOz4rsbLiYPFQJVbmF4L
+ gzyULT1HaDtP7XonfGDn/ZwCMIffkuvy39bvUiVKR1Pa4YX0cP7038CSUpcphte4y495
+ G/hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763122059; x=1763726859;
+ d=1e100.net; s=20230601; t=1763122060; x=1763726860;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=OtGiziEAQRSh374dZNFTBRkqOabU3JhbZOPlATyYhr0=;
- b=iYW+tVSFUYjooTV25fqFSCJmbfQdxne95/h0z2vRRuSSyumOoIeYLb+OWiC5PfahYi
- oKkHNgaMCIJM1SFiDj4zWsG4SzJ75vMjs0zNbJVXKs92AkOYN8igS9CLmbSqgvwo1Ezd
- HxjjXw+4Ydf1Dcw8OkjcGk1JPFWtSXezNQh4Lm4cEOYVTR05nBDoEX1wUn36YOfwCiY+
- LQ1PpVuKBpUGMRSywc1NlnIy0TJu7LyYQ9j1ll4PWAew+X/lczYG8eF34NsqTidEMt5T
- SWM03BySPSJmyeOuQ+YxcxSYHsheUfp7ej6LwgMUMSUPbAht/ckP10rM8aX2CJdTJbUO
- EPpg==
-X-Gm-Message-State: AOJu0Yxu4W8zNu2F3u65yRDOWQir4LVfgfoNIcYS6Ha/j3b9ZxUKCP32
- l6rLGaxnCVqLwuCl1DkJER41Bjh/PwRZjTU2kiL5OSqtJ3uf+8ZXvnEdMfDakQwY
-X-Gm-Gg: ASbGnctjnbecD4w6AWrw4jJBROU87Ny2ASGAfnA0I3rOLshSNgzgHzuOFXFHJ4WCBQr
- 3PS6l65tElal1mYvWjMAa1BbeKcEn17Thli3vayzw90VwF7EsTEAL4GwQPRN1jsczfziCDaojok
- S1xDjURoTKZkjfo3ajw1MTXv2zose3iQWbpHeXn7vc2cJuWKj+wzlAKozlqNPs0Y7UeaAbR/4hr
- nK7CMoGaUMgecry0ymhq35bg6mR/UV6V2aMfuxZYDPQg72iNGfxgXxvgCJ+k6ZKt0VfEXuaGb/9
- ShkYp7dPEKtz/v64NHFyatV+AgQnCwdtThBV0OkPsBj9dGLtHb8p8cZl8WXppHICm8lln4YumB7
- GvdsyUCYFT98sX5Ti1nd75iY4P+879Xpy6oy2jp5CziGWtsXlyH91Q7eaj/zsPJVuvbBxRYjH2r
- RkF+BGRtF8sPSvoGnYBhHZChHfwSEE8LpvQXUD3zG0EYVR8gV72wcLHrw9OPtTgatVswdanPflw
- 3Ir643PL3NtxLeFNw==
-X-Google-Smtp-Source: AGHT+IHmGGe0GP4ULLQLf+CWESpZ7lI5n+l/OT7qsv92Rtx3ncqOIs/YwbdaXBB70f7ye9KHqrIG7g==
-X-Received: by 2002:a05:600c:8b22:b0:477:7b16:5fb1 with SMTP id
- 5b1f17b1804b1-4778fe553a5mr27761705e9.7.1763122059311; 
- Fri, 14 Nov 2025 04:07:39 -0800 (PST)
+ bh=ZNKQf+quQZLMzohBNGzZD/tKblNgM06zsk8a3ZUI4dE=;
+ b=iqlsqssuq3A1Yx2y8bV6J6Jo6JjH71llc0wtD7/cm76HNul4L7YC09LDtSLTbTYcRx
+ yGTajgdaW2WJTP3Wf09pw5WyzyNZtGBxOLucajNeamyEbA6TdGb7LkKwS5LNj1MpQXKs
+ 9Nk37OIqQso8GSVBmAPXtU7HViqsftPJqEK9Mn1n+xS0wLIRFzhrvHr/xdajsA3SHM1T
+ CE4u8iC1L0PAbz+O8mZ8Hs0s8ITT4Srsr+Tmyu48Hon664n4rq0A49yC2fscBJtQCY23
+ Fh0S1xUDvoHENCj9wWEeY/gg1xa2vQiB5Sjr2UCGLydVROGsXZu3ai5w4TtdUVOhT9kv
+ cpSA==
+X-Gm-Message-State: AOJu0YxukeJoqSV9cpkvROFzw6WhAjrw8EX+PwrWLZGsBB46/1rR0Gc/
+ oC3Riv1qEoBUSm1dTHh+b8PhWcRl7Rtoac1GtbCPDs6QVg7BYisj8AIsPdyxPpLR
+X-Gm-Gg: ASbGncsX+FKQUpETLCYuqev23MSNDcxYgQKAlFvLmgIgpmB6qwsWOantOExVxROq/b5
+ KouC+gOlWamWdPOqYDaCsedQYaa1aPPkW3tcysMaDibnavrU7ZuK1ECxQSz9fKmvXIsk5ZqAWie
+ AoDKLFlKqwyy9yF5yo9w/bwnBWcvWl/lQy3WZLJ1idjocJf84l+JoghY8QcvL4l7mcH2kSdy5gG
+ yaPy6oStPOhQKNb5v02d2f5XMMWRV29/J0XnbD1VNgqvAu8Gs5RdYWfzAnfYT38LxxIIm8NU0KU
+ 9wVT+nfI/jYQJvPGOP4lyWKkdpHfxkFQWLAFdatANgfgP2MNFGWon4Xh9UEtetopn+TX6mz5fz9
+ Uq/50TYVEGVd3ZQoFptRdRzBijbQePdFKO/Y081XNkOr7nqtPqbobfDqCGllB3XVviiXpHlXHoF
+ nlj2CQMjziFh8zvi/C7LijA1rP9oWPkk75k6SEPrEL252qXaE+g674XWhRgeVVel1s7Z9BkI65l
+ nHv5LTUxn5p8NvTEw==
+X-Google-Smtp-Source: AGHT+IGZAyRpNasP60oDL3+mOE452fO23ISVa+/rFBuXPyz8qvZMv6eKceT1rxfkdsUnfJLnlWQYrg==
+X-Received: by 2002:a05:600c:3b25:b0:477:7925:f7f3 with SMTP id
+ 5b1f17b1804b1-4778fe62d4emr22215895e9.14.1763122060233; 
+ Fri, 14 Nov 2025 04:07:40 -0800 (PST)
 Received: from Timur-Hyperion.home
  (20014C4E24E1AF00CA8B1D2C0125E560.dsl.pool.telekom.hu.
  [2001:4c4e:24e1:af00:ca8b:1d2c:125:e560])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4778bd2fa91sm42078025e9.17.2025.11.14.04.07.38
+ 5b1f17b1804b1-4778bd2fa91sm42078025e9.17.2025.11.14.04.07.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Nov 2025 04:07:38 -0800 (PST)
+ Fri, 14 Nov 2025 04:07:39 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexandre Demers <alexandre.f.demers@gmail.com>,
  =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Rodrigo Siqueira <siqueira@igalia.com>
-Subject: [PATCH 1/4] drm/radeon: Refactor how SI and CIK support is determined
-Date: Fri, 14 Nov 2025 13:07:33 +0100
-Message-ID: <20251114120736.31310-2-timur.kristof@gmail.com>
+Subject: [PATCH 2/4] drm/amdgpu: Refactor how SI and CIK support is determined
+Date: Fri, 14 Nov 2025 13:07:34 +0100
+Message-ID: <20251114120736.31310-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251114120736.31310-1-timur.kristof@gmail.com>
 References: <20251114120736.31310-1-timur.kristof@gmail.com>
@@ -93,49 +93,100 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Move the determination into a separate function.
-Change radeon.si_support and radeon.cik_support so that their
-default value is -1 (default).
+Change amdgpu.si_support and amdgpu.cik_support so that their
+default	value is -1 (default).
 
-This prepares the code for changing the default driver based
+This prepares the code for changing the	default	driver based
 on the chip.
+
+Also adjust the module param documentation.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_drv.c | 78 ++++++++++++++++++-----------
- 1 file changed, 50 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 155 ++++++++++++++----------
+ 1 file changed, 88 insertions(+), 67 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 350f88af888d..ac175442d806 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -241,12 +241,12 @@ module_param_named(uvd, radeon_uvd, int, 0444);
- MODULE_PARM_DESC(vce, "vce enable/disable vce support (1 = enable, 0 = disable)");
- module_param_named(vce, radeon_vce, int, 0444);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index f508c1a9fa2c..95224dffc367 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -618,39 +618,37 @@ module_param_named(timeout_period, amdgpu_watchdog_timer.period, uint, 0644);
  
--int radeon_si_support = 1;
+ /**
+  * DOC: si_support (int)
+- * Set SI support driver. This parameter works after set config CONFIG_DRM_AMDGPU_SI. For SI asic, when radeon driver is enabled,
+- * set value 0 to use radeon driver, while set value 1 to use amdgpu driver. The default is using radeon driver when it available,
+- * otherwise using amdgpu driver.
+- */
++ * 1 = enabled, 0 = disabled, -1 = default
++ *
++ * SI (Southern Islands) are first generation GCN GPUs, supported by both
++ * drivers: radeon (old) and amdgpu (new). This parameter controls whether
++ * amdgpu should support SI.
++ * By default, SI chips are supported by radeon (except when radeon is not built).
++ * Only relevant when CONFIG_DRM_AMDGPU_SI is enabled to build SI support in amdgpu.
++ * See also radeon.si_support which should be disabled when amdgpu.si_support is
++ * enabled, and vice versa.
++ */
++int amdgpu_si_support = -1;
+ #ifdef CONFIG_DRM_AMDGPU_SI
+-
+-#if IS_ENABLED(CONFIG_DRM_RADEON) || IS_ENABLED(CONFIG_DRM_RADEON_MODULE)
+-int amdgpu_si_support;
+-MODULE_PARM_DESC(si_support, "SI support (1 = enabled, 0 = disabled (default))");
+-#else
+-int amdgpu_si_support = 1;
 -MODULE_PARM_DESC(si_support, "SI support (1 = enabled (default), 0 = disabled)");
-+int radeon_si_support = -1;
+-#endif
+-
 +MODULE_PARM_DESC(si_support, "SI support (1 = enabled, 0 = disabled, -1 = default)");
- module_param_named(si_support, radeon_si_support, int, 0444);
+ module_param_named(si_support, amdgpu_si_support, int, 0444);
+ #endif
  
--int radeon_cik_support = 1;
+ /**
+  * DOC: cik_support (int)
+- * Set CIK support driver. This parameter works after set config CONFIG_DRM_AMDGPU_CIK. For CIK asic, when radeon driver is enabled,
+- * set value 0 to use radeon driver, while set value 1 to use amdgpu driver. The default is using radeon driver when it available,
+- * otherwise using amdgpu driver.
+- */
++ * 1 = enabled, 0 = disabled, -1 = default
++ *
++ * CIK (Sea Islands) are second generation GCN GPUs, supported by both
++ * drivers: radeon (old) and amdgpu (new). This parameter controls whether
++ * amdgpu should support CIK.
++ * By default, CIK chips are supported by radeon (except when radeon is not built).
++ * Only relevant when CONFIG_DRM_AMDGPU_CIK is enabled to build CIK support in amdgpu.
++ * See also radeon.cik_support which should be disabled when amdgpu.cik_support is
++ * enabled, and vice versa.
++ */
++int amdgpu_cik_support = -1;
+ #ifdef CONFIG_DRM_AMDGPU_CIK
+-
+-#if IS_ENABLED(CONFIG_DRM_RADEON) || IS_ENABLED(CONFIG_DRM_RADEON_MODULE)
+-int amdgpu_cik_support;
+-MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled, 0 = disabled (default))");
+-#else
+-int amdgpu_cik_support = 1;
 -MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled (default), 0 = disabled)");
-+int radeon_cik_support = -1;
-+MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled, 0 = disabled, -1 = default)");
- module_param_named(cik_support, radeon_cik_support, int, 0444);
+-#endif
+-
++MODULE_PARM_DESC(cik_support, "CIK support  (1 = enabled, 0 = disabled, -1 = default)");
+ module_param_named(cik_support, amdgpu_cik_support, int, 0444);
+ #endif
  
- static const struct pci_device_id pciidlist[] = {
-@@ -256,6 +256,50 @@ MODULE_DEVICE_TABLE(pci, pciidlist);
+@@ -2307,6 +2305,69 @@ static unsigned long amdgpu_fix_asic_type(struct pci_dev *pdev, unsigned long fl
+ 	return flags;
+ }
  
- static const struct drm_driver kms_driver;
- 
-+static bool radeon_support_enabled(struct device *dev,
-+				   const enum radeon_family family)
++static bool amdgpu_support_enabled(struct device *dev,
++				   const enum amd_asic_type family)
 +{
 +	const char *gen;
++	const char *param;
 +	int module_param = -1;
-+	bool amdgpu_support_built = IS_ENABLED(CONFIG_DRM_AMDGPU);
-+	bool support_by_default = true;
++	bool radeon_support_built = IS_ENABLED(CONFIG_DRM_RADEON);
++	bool amdgpu_support_built = false;
++	bool support_by_default = false;
 +
 +	switch (family) {
 +	case CHIP_TAHITI:
@@ -144,8 +195,9 @@ index 350f88af888d..ac175442d806 100644
 +	case CHIP_OLAND:
 +	case CHIP_HAINAN:
 +		gen = "SI";
-+		module_param = radeon_si_support;
-+		amdgpu_support_built &= IS_ENABLED(CONFIG_DRM_AMDGPU_SI);
++		param = "si_support";
++		module_param = amdgpu_si_support;
++		amdgpu_support_built = IS_ENABLED(CONFIG_DRM_AMDGPU_SI);
 +		break;
 +
 +	case CHIP_BONAIRE:
@@ -154,61 +206,94 @@ index 350f88af888d..ac175442d806 100644
 +	case CHIP_KABINI:
 +	case CHIP_MULLINS:
 +		gen = "CIK";
-+		module_param = radeon_cik_support;
-+		amdgpu_support_built &= IS_ENABLED(CONFIG_DRM_AMDGPU_CIK);
++		param = "cik_support";
++		module_param = amdgpu_cik_support;
++		amdgpu_support_built = IS_ENABLED(CONFIG_DRM_AMDGPU_CIK);
 +		break;
 +
 +	default:
-+		/* All other chips are supported by radeon only */
++		/* All other chips are supported by amdgpu only */
 +		return true;
 +	}
 +
-+	if ((module_param == -1 && (support_by_default || !amdgpu_support_built)) ||
-+	    module_param == 1)
-+		return true;
++	if (!amdgpu_support_built) {
++		dev_info(dev, "amdgpu built without %s support\n", gen);
++		return false;
++	}
 +
-+	if (!module_param)
++	if ((module_param == -1 && (support_by_default || !radeon_support_built)) ||
++	    module_param == 1) {
++		if (radeon_support_built)
++			dev_info(dev, "%s support provided by amdgpu.\n"
++				 "Use radeon.%s=1 amdgpu.%s=0 to override.\n",
++				 gen, param, param);
++
++		return true;
++	}
++
++	if (radeon_support_built)
++		dev_info(dev, "%s support provided by radeon.\n"
++			 "Use radeon.%s=0 amdgpu.%s=1 to override.\n",
++			 gen, param, param);
++	else if (module_param == 0)
 +		dev_info(dev, "%s support disabled by module param\n", gen);
 +
 +	return false;
 +}
 +
- static int radeon_pci_probe(struct pci_dev *pdev,
+ static int amdgpu_pci_probe(struct pci_dev *pdev,
  			    const struct pci_device_id *ent)
  {
-@@ -271,30 +315,8 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+@@ -2354,48 +2415,8 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 		return -ENOTSUPP;
+ 	}
  
- 	flags = ent->driver_data;
- 
--	if (!radeon_si_support) {
--		switch (flags & RADEON_FAMILY_MASK) {
--		case CHIP_TAHITI:
--		case CHIP_PITCAIRN:
--		case CHIP_VERDE:
--		case CHIP_OLAND:
--		case CHIP_HAINAN:
--			dev_info(dev,
--				 "SI support disabled by module param\n");
+-	switch (flags & AMD_ASIC_MASK) {
+-	case CHIP_TAHITI:
+-	case CHIP_PITCAIRN:
+-	case CHIP_VERDE:
+-	case CHIP_OLAND:
+-	case CHIP_HAINAN:
+-#ifdef CONFIG_DRM_AMDGPU_SI
+-		if (!amdgpu_si_support) {
+-			dev_info(&pdev->dev,
+-				 "SI support provided by radeon.\n");
+-			dev_info(&pdev->dev,
+-				 "Use radeon.si_support=0 amdgpu.si_support=1 to override.\n"
+-				);
 -			return -ENODEV;
 -		}
--	}
--	if (!radeon_cik_support) {
--		switch (flags & RADEON_FAMILY_MASK) {
--		case CHIP_KAVERI:
--		case CHIP_BONAIRE:
--		case CHIP_HAWAII:
--		case CHIP_KABINI:
--		case CHIP_MULLINS:
--			dev_info(dev,
--				 "CIK support disabled by module param\n");
+-		break;
+-#else
+-		dev_info(&pdev->dev, "amdgpu is built without SI support.\n");
++	if (!amdgpu_support_enabled(&pdev->dev, flags & AMD_ASIC_MASK))
+ 		return -ENODEV;
+-#endif
+-	case CHIP_KAVERI:
+-	case CHIP_BONAIRE:
+-	case CHIP_HAWAII:
+-	case CHIP_KABINI:
+-	case CHIP_MULLINS:
+-#ifdef CONFIG_DRM_AMDGPU_CIK
+-		if (!amdgpu_cik_support) {
+-			dev_info(&pdev->dev,
+-				 "CIK support provided by radeon.\n");
+-			dev_info(&pdev->dev,
+-				 "Use radeon.cik_support=0 amdgpu.cik_support=1 to override.\n"
+-				);
 -			return -ENODEV;
 -		}
+-		break;
+-#else
+-		dev_info(&pdev->dev, "amdgpu is built without CIK support.\n");
+-		return -ENODEV;
+-#endif
+-	default:
+-		break;
 -	}
-+	if (!radeon_support_enabled(dev, flags & RADEON_FAMILY_MASK))
-+		return -ENODEV;
  
- 	if (vga_switcheroo_client_probe_defer(pdev))
- 		return -EPROBE_DEFER;
+ 	adev = devm_drm_dev_alloc(&pdev->dev, &amdgpu_kms_driver, typeof(*adev), ddev);
+ 	if (IS_ERR(adev))
 -- 
 2.51.1
 
