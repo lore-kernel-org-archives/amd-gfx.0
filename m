@@ -4,128 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ECBACE8D7D
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 19:26:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E66C5CE8D7D
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 19:30:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3404A10EAEB;
-	Fri, 14 Nov 2025 19:26:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9628F10E089;
+	Fri, 14 Nov 2025 19:30:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rdIg7f1k";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K0eb0E7l";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010061.outbound.protection.outlook.com [52.101.85.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F74910E25F;
- Fri, 14 Nov 2025 19:26:29 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012059.outbound.protection.outlook.com
+ [40.107.200.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5926F10E089
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 19:30:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XVvqqXyifHue/Ynw5Y3Vfo/X0mS9Wh1yc3GDzohO9G2Xaritcb4F3nKHS1yYLCjgwD8sPvi/V9+94HCGp9imxPP60dNrr0FurvENnWGr8Drc3EAIOIkrNXyJtlGCpiTxXztAsI6NN/kUYav0BzCujMOsYWmKUiURVWcgnjM7JPGqgLGCN6q1yCetIytMczGCHKscPzkor/wbMv/5M24Lo//1m6w37IKyFJ3KahlWd9/72HrwL15HD9LqSLKmYv2xfYIt+DgNERvtdhLNlVUMekuD+8v7IgpJTdr0e8lV8oLJYoiy07k44Ol54ktUoMXACXR5+QXpxX1gzL5DqiS7Dg==
+ b=t1dp7kHAJuVo2UlrZVBP5YhmihaetNzeZdFQvY1SOfQr36CJRvJU/4IKoV1kBvCbKTqVqtAwGfyTIz8ExmSUR/0CwBI6tm8SjPxRtBvyQ0D/ey5fIIo19FNIidXLCFxHTg7ibl7+fMre8StIToyPB1fS6z5UHjPVzIl+lFxit9yFEADJsz+8N8p4WF0bihyuP9CeKGHntE0ciZwuqNx2Wqlg+YXzDsoKy4xQHQLbkwzagubbit0vK9prZH8SraeaEORaRNXAwUDmsH6UrXHYjG5tB7JSe+lZjpbUUD/wjkTcEERj/OCkzIZZd2bNMuTRdk9/HGeqzEURZdTedX2CvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I5+Jw11Zoys+Fb0NwP7BGT5wkxcvp2Er6SII+WYX3Eo=;
- b=jaHrNNgedvp/fy41rRaLnUh16UUMaSZi0dDK9wU/Qc/HFbmyctfhkbgUfzvR5FfjPkKTtpjDsmU72vBJI19cBmoOyiGKUhD4gsq2jAh1p7kKF0gMQiTE4tUoVdhfpMzQRSlxPfMZfDVIV1a3hEbVn6+VmrN7M7eftiN18rmAAQbNVHduS59WDxIaE7ynb+9aw//2ygYNx9r7aFlQ9cqS4Buw9myjd95BUeQ19zAKDtVnuaT6IUwcxYWKslzBaOUrCB0s/Sa6cQ1Qvd9L4U9+AcsO9WrKIBPaLB3VPWIv0ww9G/B4I+s9amExPDfLlcT2sUDnbMEnJSzgM8ZeiT1GEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=UX7AzI8AppZqip0gH6VNV7OQPJxxX/bYVs5fg7fTTmg=;
+ b=PhAG5SaRBxuzBnqoZkYUhkWQWmTtLewXbbKvPflH4TqCIhVHL268CZX+2p3XlJUqUTPmhsk534a3zIpZcZKL3w3RLob34R6ncUDfc0fS1/DPtbkbhzSoDeQXdmLwrH9PEfKS+5rj/js5olebAQqbBjC6BdOPsgcHl9iAq7gKUcqPXEmEcOKdjP60nqp190VqXgR8Zp50iSknZ97a/sMQRbiYhUa4jVgUDBCCkezDsFhpaMLzIDBYIu8Tlf3NM3VF4sBNvOjzO+xx3EADLrGmshctx9LCM8FYQrKC/4yXC5EHdolHwktH3PO2qV2Cj7XZXEjxWNb/6XuBCeez+Cmhqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I5+Jw11Zoys+Fb0NwP7BGT5wkxcvp2Er6SII+WYX3Eo=;
- b=rdIg7f1k4Ly9aoJdnBM1olXxbHWrtkm2v4DWyPhGAjsOeJsoTCOS0xalDldF91e1iVEnnh/sOKvOrXGgSmezwhe7sy+OGay4w9NJNoiRpqudp6A9exEfP6y1E5cB+t48shycrGMTJa/+HU1qW8gnkoAvmvF6UOGKkq2RQgSUn3A=
-Received: from SJ0PR05CA0190.namprd05.prod.outlook.com (2603:10b6:a03:330::15)
- by DM4PR12MB7696.namprd12.prod.outlook.com (2603:10b6:8:100::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=UX7AzI8AppZqip0gH6VNV7OQPJxxX/bYVs5fg7fTTmg=;
+ b=K0eb0E7lP6odYSSMJbZq4LeqSgUCof+cd8ujnuB3T3eiPLiuvRKo8KhSg/jUyPjSi81tXLa8z2sWHuiN9hc6lJ4rD6iZG/J90NIjufYS17kPqsrgXc1xaN+p0utdjKRxIaCmSmGiL6VNcOVSyX2pU6ucDUKovbIK2izqk0Y/wi4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH3PR12MB9079.namprd12.prod.outlook.com (2603:10b6:610:1a1::9)
+ by DS5PPF5A66AFD1C.namprd12.prod.outlook.com (2603:10b6:f:fc00::64d)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.15; Fri, 14 Nov
- 2025 19:26:23 +0000
-Received: from BY1PEPF0001AE1A.namprd04.prod.outlook.com
- (2603:10b6:a03:330:cafe::c) by SJ0PR05CA0190.outlook.office365.com
- (2603:10b6:a03:330::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.7 via Frontend Transport; Fri,
- 14 Nov 2025 19:26:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE1A.mail.protection.outlook.com (10.167.242.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9320.13 via Frontend Transport; Fri, 14 Nov 2025 19:26:22 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 14 Nov
- 2025 11:26:18 -0800
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd, radeon drm-next-6.19
-Date: Fri, 14 Nov 2025 14:25:53 -0500
-Message-ID: <20251114192553.442621-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ 2025 19:30:14 +0000
+Received: from CH3PR12MB9079.namprd12.prod.outlook.com
+ ([fe80::8c67:8cec:7c4a:ccaa]) by CH3PR12MB9079.namprd12.prod.outlook.com
+ ([fe80::8c67:8cec:7c4a:ccaa%4]) with mapi id 15.20.9320.013; Fri, 14 Nov 2025
+ 19:30:14 +0000
+Message-ID: <38c18f35-3f7a-44dd-ac11-fb116408a248@amd.com>
+Date: Fri, 14 Nov 2025 19:30:10 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdkfd: Trap handler support for expert scheduling
+ mode
+To: Jay Cornwall <jay.cornwall@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20251114174407.769287-1-jay.cornwall@amd.com>
+Content-Language: en-US
+From: Lancelot SIX <Lancelot.Six@amd.com>
+In-Reply-To: <20251114174407.769287-1-jay.cornwall@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR2P281CA0147.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::12) To CH3PR12MB9079.namprd12.prod.outlook.com
+ (2603:10b6:610:1a1::9)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1A:EE_|DM4PR12MB7696:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9cf8681e-76e5-46ff-df6c-08de23b3b233
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9079:EE_|DS5PPF5A66AFD1C:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3e293ae-a6af-4b32-c654-08de23b43be4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VTlyYzBwTGhHZFFFQUlsOXVIOEFodzF0K1JOVERPWFZuWVhBczZvbEVDd2xM?=
- =?utf-8?B?aTd3WTZ0Q3h4WkJtclBRT2Ywd2hZSXFocGkxblhoZUViOXpFeU8reHZTUHVT?=
- =?utf-8?B?c3BycUdqUDgySDhUcFJlSjlXM1NXMTJzWWgzSy9DWHBkYVRtZ1ZZUCtSZ09n?=
- =?utf-8?B?K1kvazdLM1Y0QUplTGtmZ2gxQjl1K28zV3AzUTUxTnJXc2ZRY01XcGpXeHRY?=
- =?utf-8?B?b0d2bHJrRHJJcVRsZTVjY1B4a2g0TEJLaDZWa0xiSU15ejUraE1lY1JVSjdF?=
- =?utf-8?B?cjM2V21EaVh5d3gyZGZzdTBlZGtxOG5QVmxUMWkxVW5pWUU3OVMrMXNRQUVu?=
- =?utf-8?B?QmpjNkRGNnVnalR1eThRbVNGQ0RQdzNCZW50V2lBNGxBNGVyRlUvMFNrTngz?=
- =?utf-8?B?RFJCVlFOeWo3MUF1T3BVSko4eVRJdGM5OXNBM0dLeEI3QWNycmdtUGppemt6?=
- =?utf-8?B?VHhqZGRWaWZsWGVLSXk5c3c0UTdTSUN3VzJWaG8wcTloQjJGSURLV2xBcDdS?=
- =?utf-8?B?dTdFenZhRkZFaFBWaGNjeFJTYUdzZnBTaEtESW5IRzZIWkJrcWpqRGF4bXdX?=
- =?utf-8?B?bFUvclJHTXhOZXliNy9ZU0pZeGFyN3JBY2hwQWRSKzRhR0FHOU5kR3BvTlls?=
- =?utf-8?B?RVhYWHF1KzZYL3RRU1k2R3JGMUM1U0ZtbVJuNitoNzQ5VGdkOHZkM1p3Smo5?=
- =?utf-8?B?MzhhcVZzL0xsZDlaZzhiRE40VjE3SnV2OEN2MCtnWFo1eDNFK0p1RG1yQit6?=
- =?utf-8?B?bXM2RmJONWZTdnYwSWpubDlXdnNlazhGQnhKcWVwOGVRN09PajVaN0g0eGw0?=
- =?utf-8?B?MXEwNGN1NitOdjRyYVc3U3hPdjk5M3ZYalFMQjY3Vy8yc1crclRGaWg4dTRz?=
- =?utf-8?B?SC9wQWVXSGpHRUdhS1Z2VitHZ3ZkelZBbEZPWm90dW5UU01ETmRBOVQyc3M1?=
- =?utf-8?B?NXZVRUR3VjB2eVJaWHhxZEwwSk1zUGh0N0p1MFVjN3Q0VXJ3dUxXdDhLd01N?=
- =?utf-8?B?SEJUYmt4cTZrQkFEOFFVRU1naml6VmlPU2w3NXhneFVEN1VrSVAzK3RySmVJ?=
- =?utf-8?B?U1h0YzM2ajRNdkFXdjUwcU05aDZSNWJJYmtodGxSYm9MVTBWb01RWWlxQy9a?=
- =?utf-8?B?ZEdudWRhekMyNzJzelhXVzMwMEZ2SGNXQXJkQk5iR3NlUVNzV21pM2J5ZURQ?=
- =?utf-8?B?VlVxa1hOZC9WZGczc2JqUEVLVGlYakpFbU93ekVPTE1KSXpVS1g2SmRzY25B?=
- =?utf-8?B?eGdlQ3V1MWlsQ0o1b3VQWGYwR0tTTXoySThNNFhKRTQ0MitaU3FRbFhVREZB?=
- =?utf-8?B?enlGeTRkL1ZZQkhuWVB4ZE81dCtnbkVxL1JRbTBZcDlRNFRvQXozNjBML2Ey?=
- =?utf-8?B?QWU4ZTdkWEUrTG5ZbU5McWZwZithQVd0YktIRklZcWZzTUlqenM3Ly9hcDc5?=
- =?utf-8?B?UElMQ1JKRUNBajdKOEw2Yjd6RVo2VlpoZjgrbG02dDc3WUZEVkhYK1loZit0?=
- =?utf-8?B?WlJpbzFabS9Pb0h4cmI1SFFxSzNKOVA2OUxKcXkzMFcwNGMvVUFHTkJLcG9o?=
- =?utf-8?B?blFEeGQ0ckpOOTVQcWZYdGFqaWN4dzNvbVBkN21aZ3E0U3dQc0ZiL000T1VY?=
- =?utf-8?B?SFgwZHRUNkxEMU0zdFJDVitMYzlDdlpkVkNzL3JjQ05pVzFrVk9ZTnV2anBX?=
- =?utf-8?B?YU1WSXBXY003aEQwUnZ5bjlmMDJiaklhejRycW9kOXBIeWQ0RkY4WU9JeC9E?=
- =?utf-8?B?amROVzUrWUJEUEd6WFBSL25GQldWMGN5c0lXOU1PMDVUdURtbi92Yjk0VHl6?=
- =?utf-8?B?a2pxaGZGNTdFZnpVWnpZekZKNEZ2S29MQ2tVblVqZ2tjb3M3YUJ5WXFQN0F6?=
- =?utf-8?B?MzFWVnRFKzFQN0I4Y1liWElWdGRqVzdrVEFJb0ZYYVNzZHVmWGo0aURKRDlZ?=
- =?utf-8?B?MTF1Mm9Pa2VQc3JGZHptSm1Fc01xczVsbDNITU9oUUNodkVwcE1hU21icm0z?=
- =?utf-8?B?L3djT3d3UjRwai83dWN6bGVibnMzQ1hxVytNY2RTcVVpMDhrUXVCZXBKUFVm?=
- =?utf-8?Q?hZiazI?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026)(13003099007);
- DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?STZLMXZJQTJrWkJrUmo3ZnlUWnRORUcrMC9RWTdpNkJNSG5yNk5rczRkaUNC?=
+ =?utf-8?B?RGRHMURZMEppL1lpR2R4clltMWkza2hGamRoN241NklNQUhZaVA0Q3lrQVdO?=
+ =?utf-8?B?aDVqVTJQN2xHUHQ3SFpnOW05azVQbFl3Rm5qUDFXc0w5NlEzd2xhYXcwOHg5?=
+ =?utf-8?B?azBsUzhHN0RNVDlpR2RlZ3RzR1lEOGszMUd1azVObnN2UFdZQk9pZVZLbE42?=
+ =?utf-8?B?UzI1VkJ0Ym1NRTJPbjgyZEh1dUJVMWhaclpvd1hzNVc5L2x3VUpMSkFkYncz?=
+ =?utf-8?B?aHZwYjVSWnBDNFVBcVloUlVDa2xjTllvcm5nTDZHOG1jQ3Z3NVpYeFJDcVNP?=
+ =?utf-8?B?akNwdXhULzhjRFlNc2lwM3FicHoyaDVUaXhQdkxKSXd3dlluUVpSZHJUSmRz?=
+ =?utf-8?B?NENGRk84a2NOVUFWTUl3YVMxNzJaMkxsSitFbWR3UDdXRkR3QkVUYTRKVUtS?=
+ =?utf-8?B?STRBSXVGR3labUlFL1lRajU5L3lzaHh2VFE3OWdVLzBFT2MzUzZHeGJ1YXZX?=
+ =?utf-8?B?emN0Qzh2bmY5VEN1WFJ6ZHpIODZ3R1F4NXpTWk1wSTE4Y0pCSzdHOUJGd1Mw?=
+ =?utf-8?B?VFFQenl2dm44QWJlcXMvaHJ0QVdWUEV2a0dMRXBEYlhPMjJ6eG9LSjl5ZUdI?=
+ =?utf-8?B?T0FJN0JjcVAvOThRQnJKYUdocWorbml6MEFEeURTb0N0WTdnY3BnUjlSK1RW?=
+ =?utf-8?B?QUdxL1ZtNCtaUUtqeFlKSHNRTFhWSTVSYzJUcGx3bkhZcTVCT29zY0RoZnIy?=
+ =?utf-8?B?QVN1bXJES0k2YWNBdlVPZmlXdm9yQ1c5RnJEZFlTZEpHbktpQ3F2SXVPd1hj?=
+ =?utf-8?B?NVZ5RU1oaFltd0lCcUFHS2txZnZYWjl5UGMwYjZDNVJQZUI5YUJzc1FYbWpr?=
+ =?utf-8?B?U0x5WjJicFUxUDdVbFhvTm9Oa2crS09VQ3pnSmNhU1psNkNicUNlSWl5eVBS?=
+ =?utf-8?B?S25CMXlXMzhybEgrVElnTkFEYm1Tc1pzQlk4OFZKZm81SVJTYWVmUmx0SjJE?=
+ =?utf-8?B?ZjNDYStBaXVtdjFiYjJKYjhYQVFUUDhEWjE0Y2Y1bzQyY0hOd1dIVGRxSW9m?=
+ =?utf-8?B?cHRjUWhqWERERkpGb3lXWUJ5VkRjTjBidFVwRzA4SzBNeEVJSzdZUENNbWF2?=
+ =?utf-8?B?RTVDT3RscXBJZWZoS3Y5QnBxK0ZtZ3RnV2lnQkFFN3BmUmd1cGNvOUxwdjNN?=
+ =?utf-8?B?NHlwYWw2TXJ0d2huN3Zkc2pPL0xQd1M5bklJMnRxaFZTdlgrNnlIdjgxVVJN?=
+ =?utf-8?B?RnJ3cXBlRHdac09ObHJnN09PbEo4SVJsV2ZsYXlheHBDV0JJVmJIQmFLc24z?=
+ =?utf-8?B?S2tBRkdTR2lKTnV0V05xbERydWNSWVBoeVVaUUpzUk1OTCs4RXhZekZPZ3Z3?=
+ =?utf-8?B?OWlSLy8rTXhVeDZWQXBaTmVBOWhtRGhCTk1nVlE0eUQ0Tk5WazBvcTRDSndS?=
+ =?utf-8?B?T3BoYkl2SU51ZU9OeE42b0hDNXlGd0k2dmdodVhQWW9YSGpNVGFSdzRkRkxN?=
+ =?utf-8?B?ajMraTROQWxOa3VZNk8yemIyL1owUWxwRkkzenBodnF1bWpPY3BOQklqblRa?=
+ =?utf-8?B?aUFqQjE2TzFMNU0yQmpuamd4Mzg2TUN2T3FSZnJYT2g0MEc3S2dPcVNhckgr?=
+ =?utf-8?B?aDVIbm8vNmoweDYwSjErOXVoY29tZ3lKb3VaUWhaZHQ0T21xQjRyZEI3QVI4?=
+ =?utf-8?B?Qmd2ZnlYQk9uWGlCMHpPa0FndXRhSnFYaUh1TnZvOVNMZ3ZIM3g4VDRuM0JZ?=
+ =?utf-8?B?YUQwb2ZkTVhQNUh4N3BWNDZ0by85MUxxeHh1aWNsNVo5bmJsTjFaeTlzeVVj?=
+ =?utf-8?B?eXBtNlZKZlFMaXBMb2VJbEFmSDk2UGltWUd4K1dyaGhqMjIwcEdpdjBkcTR0?=
+ =?utf-8?B?ZFRRT0lPdnVEb0VFZXRqanMxanlIeHNndlA5ZG5ENXB6eDJQbm1yalJjT3ZL?=
+ =?utf-8?Q?upyttjJxQDcadanog8UM0H+SYXyIufON?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB9079.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cHNwa2ZXb2oyMThNRi92a2pjeUZwRENxV1R6K25GTUJLT0VocUZ4bklVRUx6?=
+ =?utf-8?B?YmpCSnNoNmlQNW0yMGhWUDlqendNb21nVmpvZUFWa29HQm5JRGhPYVA1OGZR?=
+ =?utf-8?B?amJqVFo4UW1qU21pWWVSTGhzNVNzcDBYMU1MNDdibEppVjA4ZDJHZ1VqVmRp?=
+ =?utf-8?B?NHF0dTJCZHhDL3RGRDZ3L08wV0xjOUdmbmNraEJJSnpDSnBla3dLM0FSeXRH?=
+ =?utf-8?B?NjVGRms4Z0NER1ZMLzdyYUFZRDJIQ3kySlBGVTNJY2VGMkdjRmtoWGsrRW5v?=
+ =?utf-8?B?WExEYkRJV0JWVGJURW4rUldZVVRHRDZ2NzNjcC9yYnZaSkpiVG1zRkhLdHc5?=
+ =?utf-8?B?ZlpQMWxjbm1EQ2xrbGxYVE1OVnBEMi9yMnFweTV4V0JIOUpKSnE3T0NIZ0Qx?=
+ =?utf-8?B?MUtJZzdPbzZqdUFEVDZaaGFLaTloMUJvYTZYSnVCTXVvODFSTER6NlNuNFVK?=
+ =?utf-8?B?WVdFVTNRSmhBZlExaTRUaDU1VW5zVGs1WGw2eG9tUXZZR0t1RVJueDNEMzhx?=
+ =?utf-8?B?U3BMSWVTcEVyVWVZQ1VtZGpDRUVKT05ML0R3NlJGSVpuaW92N1FkZjNGRGpI?=
+ =?utf-8?B?bDVpVHdTVzRyVnBrL1V2YXo4clBsM0pqZ0tTTjZOcGRMWlhISkI5RVNBd1lP?=
+ =?utf-8?B?TklFa2ZmN3I3RlRWNGpDeWwyVU1VK3NSS0NtY1VTREY2ekF2S2RaZFk0RXNG?=
+ =?utf-8?B?dFloVXV3b3Q5SkRId3FYVkNIZ0VSUGFzOUY0Z2IydTJFT1BUOWJtNHprNnRF?=
+ =?utf-8?B?bjJYL3I2eEtnM1JLTzlNYmppd0o3eWtFQ2pIR3pUT09ZVlFrV1p2M0Q1QVJ6?=
+ =?utf-8?B?UXN4RGlyWmJYZXRHc2JVS1ByR0h4TEd6eUh2bnF4b29kQ1RIczhZRGpHNWI3?=
+ =?utf-8?B?bDFKYkJ1OVFCRDRUZXVNL0RTSHZIYkRMemg5WTVDQnB1ZzEvME44cTdGM1VX?=
+ =?utf-8?B?S3NzTkdhckk2elIxdlhBaExCVDJVKys4ejVzUTZFM0g5TXVaQ1lqblM5Ui96?=
+ =?utf-8?B?eUw2M3BBU0V0TTJoN1dnZzN6M0IyT1p6VjlzQjZOV0YrK3NyZ3IrY25sRmJF?=
+ =?utf-8?B?NzNNMWo3UkJTYmFVUVJxODU0dlA0RlpSaEh1SjE1R05BbjdGYmFMLzdNY0pV?=
+ =?utf-8?B?TStKOTY0RGdDcFZsT2cydlBTcXUvME9lN2VCNWUwWFpYTStXbzMreUdzYlp3?=
+ =?utf-8?B?OUhYU1QrdmM5RGszK0pSQXBtMGsyZ0JwZ1Z0WExSR2RkMFFKYlRXdUMzVTNu?=
+ =?utf-8?B?RHhCUWtQaFB5QS90dTZiTTl5aTE4d1U3T2Q4SzRIK0dWK1FqNHJyR21xZDZK?=
+ =?utf-8?B?N2p3L2hyZE1ZRkZqTEhuSFR5NEdudE5haU80ZjdSM2tMbHpGc0dIYU5BTkZ3?=
+ =?utf-8?B?ZW9tOUJXQkZCZTZMVG9CN0crd3BBbjNPNmdwTjlXNWZ1SGJNNlZWYWt2cmdX?=
+ =?utf-8?B?WXM4cGFTK0dXcnFQaHhQU3hNMEY0K1dyRldiNFZJVGNpVHlmaW1YN0ZHZCtJ?=
+ =?utf-8?B?WHBQUWNNZjNFTDIxRXFiNDhOYjNNQlZ1WDNtTHFLWU5IWmhLdmlpVnM5QmN1?=
+ =?utf-8?B?M2ZxSHZCVlN3QWhobG9EaURqWllGYmt5RWJickw5UUNGZDRnejlraU9sVzB0?=
+ =?utf-8?B?Ui9MV0Y1MStLaCs2NlBnMkQ4YmN5R25MQzJWN1JYSFNwWEROd2tMMHY4dG5R?=
+ =?utf-8?B?eHpUb0E0ZERwdksySmVIQkV4Zkpia3JBM2M5QUd5OHdkejBjQXhCT3VoMWNl?=
+ =?utf-8?B?SndkNnlwUTJqRU0wdkNxMkxNZVJYYkZneGRIVERZZ012ZDhkeWw1cVRiclNB?=
+ =?utf-8?B?VllSazZ2NExEeVExV3RqM0JhR3JMNHZmaVBkZEpoSlRsc0cvbUhFYWdvL0Fx?=
+ =?utf-8?B?ZXZKZXhobThsVlFvTTlBalBDd1VMQVZDbmsxbUlQNVU5Mm5mcUVhTGlOWGw5?=
+ =?utf-8?B?ZU9HZlY4N281RGZXaXplMThIenNqZTYzd05tNHdFd2c5UjY4WUlPejZsbWE5?=
+ =?utf-8?B?aG1TTFZ5OE5aZ21XbGRUUm9RT1lpUmZYN3FyU0t1VU0xaGx1YkRFb1BSeU1H?=
+ =?utf-8?B?RFlDV2paajBpZGpoRTV5bFQ0WWhDY3NwdDJGWE5tWlNGUkZYcG9uRWZxaXNi?=
+ =?utf-8?Q?bO7zrt7dYhvbPNQu6sZbK0rCm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2025 19:26:22.7716 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9cf8681e-76e5-46ff-df6c-08de23b3b233
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3e293ae-a6af-4b32-c654-08de23b43be4
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9079.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2025 19:30:14.2363 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7696
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: F3+ExwLlvvJCmOybYuF6L9/yH7zqe/Rx42Ri6XPa8e4a+T95TWx10D6akVZ5EoClgb2BpPEGONsmgQXqCJXblw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5A66AFD1C
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,263 +161,1120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
 
-Updates for 6.19.
 
-The following changes since commit 2a084f4ad727244768b919455aa9dc1c04630487:
+On 14/11/2025 17:44, Jay Cornwall wrote:
+> The trap handler may be entered with dependency checking disabled.
+> Wait for dependency counters and save/restore scheduling mode.
+> 
+> v2:
+> 
+> Use ttmp1 instead of ttmp11. ttmp11 is not zero-initialized.
+> While the trap handler does zero this field before use, a user-mode
+> second-level trap handler could not rely on this being zero when
+> using an older kernel mode driver.
 
-  Merge tag 'amd-drm-next-6.19-2025-11-07' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2025-11-11 15:35:49 +1000)
+Hi,
 
-are available in the Git repository at:
+I think I would have kept ttmp11 for most places, just copied those 2 
+bits in ttmp1 just before jumping to 2nd level trap handler to avoid the 
+tracking of when ttmp1 and s_sched_mode can alias.
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.19-2025-11-14
+I think one spot might have issue, see below.
 
-for you to fetch changes up to ccd3b4c7c37fbbd3e5244d3c54ca24ae0a37810d:
+> 
+> Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+> Cc: Lancelot Six <lancelot.six@amd.com>
+> ---
+>   .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 853 +++++++++---------
+>   .../amd/amdkfd/cwsr_trap_handler_gfx12.asm    |  39 +-
+>   2 files changed, 468 insertions(+), 424 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+> index 0320163b6e74..5b09fac1c09e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+> @@ -3644,14 +3644,18 @@ static const uint32_t cwsr_trap_gfx9_4_3_hex[] = {
+>   };
+>   
+>   static const uint32_t cwsr_trap_gfx12_hex[] = {
+> -	0xbfa00001, 0xbfa002a2,
+> -	0xb0804009, 0xb8f8f804,
+> +	0xbfa00001, 0xbfa002ad,
+> +	0xb0804009, 0xb8eef81a,
+> +	0xbf880000, 0xb980081a,
+> +	0x00000000, 0xb8f8f804,
+> +	0x916dff6d, 0x0c000000,
+> +	0x846e9a6e, 0x8c6d6e6d,
+>   	0x9178ff78, 0x00008c00,
+>   	0xb8fbf811, 0x8b6eff78,
+>   	0x00004000, 0xbfa10008,
+>   	0x8b6eff7b, 0x00000080,
+>   	0xbfa20018, 0x8b6ea07b,
+> -	0xbfa20042, 0xbf830010,
+> +	0xbfa20045, 0xbf830010,
+>   	0xb8fbf811, 0xbfa0fffb,
+>   	0x8b6eff7b, 0x00000bd0,
+>   	0xbfa20010, 0xb8eef812,
+> @@ -3662,7 +3666,7 @@ static const uint32_t cwsr_trap_gfx12_hex[] = {
+>   	0xf0000000, 0xbfa20005,
+>   	0x8b6fff6f, 0x00000200,
+>   	0xbfa20002, 0x8b6ea07b,
+> -	0xbfa2002c, 0xbefa4d82,
+> +	0xbfa2002f, 0xbefa4d82,
+>   	0xbf8a0000, 0x84fa887a,
+>   	0xbf0d8f7b, 0xbfa10002,
+>   	0x8c7bff7b, 0xffff0000,
+> @@ -3681,99 +3685,45 @@ static const uint32_t cwsr_trap_gfx12_hex[] = {
+>   	0x00004000, 0x80ec886c,
+>   	0x82ed806d, 0xbfa00002,
+>   	0x806c846c, 0x826d806d,
+> +	0x936eff6d, 0x0002001a,
+>   	0x8b6dff6d, 0x0000ffff,
+>   	0x8bfe7e7e, 0x8bea6a6a,
+> -	0x85788978, 0xb9783244,
+> -	0xbe804a6c, 0xb8faf802,
+> -	0xbf0d987a, 0xbfa10001,
+> -	0xbfb00000, 0x8b6dff6d,
+> -	0x0000ffff, 0xbefa0080,
+> -	0xb97a0151, 0xbeee007e,
+> -	0xbeef007f, 0xbefe0180,
+> -	0xbefe4d84, 0xbf8a0000,
+> -	0x8b7aff7f, 0x04000000,
+> -	0x847a857a, 0x8c6d7a6d,
+> -	0xbefa007e, 0x8b7bff7f,
+> -	0x0000ffff, 0xbefe00c1,
+> -	0xbeff00c1, 0xee0a407a,
+> -	0x000c0000, 0x00000000,
+> -	0x7e000280, 0xbefe007a,
+> -	0xbeff007b, 0xb8fb0742,
+> -	0x847b997b, 0xb8fa3b05,
+> -	0x807a817a, 0xbf0d997b,
+> -	0xbfa20002, 0x847a897a,
+> -	0xbfa00001, 0x847a8a7a,
+> -	0xb8fb1e06, 0x847b8a7b,
+> -	0x807a7b7a, 0x8b7bff7f,
+> -	0x0000ffff, 0x807aff7a,
+> -	0x00000200, 0x807a7e7a,
+> -	0x827b807b, 0xd7610000,
+> -	0x00010870, 0xd7610000,
+> -	0x00010a71, 0xd7610000,
+> -	0x00010c72, 0xd7610000,
+> -	0x00010e73, 0xd7610000,
+> -	0x00011074, 0xd7610000,
+> -	0x00011275, 0xd7610000,
+> -	0x00011476, 0xd7610000,
+> -	0x00011677, 0xd7610000,
+> -	0x00011a79, 0xd7610000,
+> -	0x00011c7e, 0xd7610000,
+> -	0x00011e7f, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xbefe00ff,
+> -	0x00003fff, 0xbeff0080,
+> +	0x85788978, 0xb96e081a,
+> +	0xb9783244, 0xbe804a6c,
+> +	0xb8faf802, 0xbf0d987a,
+> +	0xbfa10001, 0xbfb00000,
+> +	0x916dff6d, 0xf0000000,
+> +	0xbefa0080, 0xb97a0151,
+> +	0xbeee007e, 0xbeef007f,
+> +	0xbefe0180, 0xbefe4d84,
+> +	0xbf8a0000, 0x8b7aff7f,
+> +	0x04000000, 0x847a857a,
+> +	0x8c6d7a6d, 0xbefa007e,
+> +	0x8b7bff7f, 0x0000ffff,
+> +	0xbefe00c1, 0xbeff00c1,
+>   	0xee0a407a, 0x000c0000,
+> -	0x00004000, 0xd760007a,
+> -	0x00011d00, 0xd760007b,
+> -	0x00011f00, 0xbefe007a,
+> -	0xbeff007b, 0xbef4007e,
+> -	0x8b75ff7f, 0x0000ffff,
+> -	0x8c75ff75, 0x00040000,
+> -	0xbef60080, 0xbef700ff,
+> -	0x10807fac, 0xbef1007d,
+> -	0xbef00080, 0xb8f30742,
+> -	0x84739973, 0xbefe00c1,
+> -	0x857d9973, 0x8b7d817d,
+> -	0xbf06817d, 0xbfa20002,
+> -	0xbeff0080, 0xbfa00002,
+> -	0xbeff00c1, 0xbfa0000c,
+> -	0xbef600ff, 0x01000000,
+> -	0xc4068070, 0x008ce801,
+> -	0x00008000, 0xc4068070,
+> -	0x008ce802, 0x00010000,
+> -	0xc4068070, 0x008ce803,
+> -	0x00018000, 0xbfa0000b,
+> -	0xbef600ff, 0x01000000,
+> -	0xc4068070, 0x008ce801,
+> -	0x00010000, 0xc4068070,
+> -	0x008ce802, 0x00020000,
+> -	0xc4068070, 0x008ce803,
+> -	0x00030000, 0xb8f03b05,
+> -	0x80708170, 0xbf0d9973,
+> -	0xbfa20002, 0x84708970,
+> -	0xbfa00001, 0x84708a70,
+> -	0xb8fa1e06, 0x847a8a7a,
+> -	0x80707a70, 0x8070ff70,
+> -	0x00000200, 0xbef600ff,
+> -	0x01000000, 0x7e000280,
+> -	0x7e020280, 0x7e040280,
+> -	0xbe804ec2, 0xbf94fffe,
+> -	0xb8faf804, 0x8b7a847a,
+> -	0x91788478, 0x8c787a78,
+> -	0x917aff6d, 0x80000000,
+> -	0xd7610002, 0x00010071,
+> -	0xd7610002, 0x0001026c,
+> -	0xd7610002, 0x0001047a,
+> -	0xd7610002, 0x0001066e,
+> -	0xd7610002, 0x0001086f,
+> -	0xd7610002, 0x00010a78,
+> -	0xd7610002, 0x00010e7b,
+> +	0x00000000, 0x7e000280,
+> +	0xbefe007a, 0xbeff007b,
+> +	0xb8fb0742, 0x847b997b,
+> +	0xb8fa3b05, 0x807a817a,
+> +	0xbf0d997b, 0xbfa20002,
+> +	0x847a897a, 0xbfa00001,
+> +	0x847a8a7a, 0xb8fb1e06,
+> +	0x847b8a7b, 0x807a7b7a,
+> +	0x8b7bff7f, 0x0000ffff,
+> +	0x807aff7a, 0x00000200,
+> +	0x807a7e7a, 0x827b807b,
+> +	0xd7610000, 0x00010870,
+> +	0xd7610000, 0x00010a71,
+> +	0xd7610000, 0x00010c72,
+> +	0xd7610000, 0x00010e73,
+> +	0xd7610000, 0x00011074,
+> +	0xd7610000, 0x00011275,
+> +	0xd7610000, 0x00011476,
+> +	0xd7610000, 0x00011677,
+> +	0xd7610000, 0x00011a79,
+> +	0xd7610000, 0x00011c7e,
+> +	0xd7610000, 0x00011e7f,
+>   	0xd8500000, 0x00000000,
+>   	0xd8500000, 0x00000000,
+>   	0xd8500000, 0x00000000,
+> @@ -3782,113 +3732,54 @@ static const uint32_t cwsr_trap_gfx12_hex[] = {
+>   	0xd8500000, 0x00000000,
+>   	0xd8500000, 0x00000000,
+>   	0xd8500000, 0x00000000,
+> -	0xb8faf811, 0xd7610002,
+> -	0x00010c7a, 0xb8faf801,
+> -	0xd7610002, 0x0001107a,
+> -	0xb8faf814, 0xd7610002,
+> -	0x0001127a, 0xb8faf815,
+> -	0xd7610002, 0x0001147a,
+> -	0xb8faf812, 0xd7610002,
+> -	0x0001167a, 0xb8faf813,
+> -	0xd7610002, 0x0001187a,
+> -	0xb8faf802, 0xd7610002,
+> -	0x00011a7a, 0xbefa50c1,
+> -	0xbfc70000, 0xd7610002,
+> -	0x00011c7a, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xbefe00ff,
+> -	0x0000ffff, 0xbeff0080,
+> +	0xbefe00ff, 0x00003fff,
+> +	0xbeff0080, 0xee0a407a,
+> +	0x000c0000, 0x00004000,
+> +	0xd760007a, 0x00011d00,
+> +	0xd760007b, 0x00011f00,
+> +	0xbefe007a, 0xbeff007b,
+> +	0xbef4007e, 0x8b75ff7f,
+> +	0x0000ffff, 0x8c75ff75,
+> +	0x00040000, 0xbef60080,
+> +	0xbef700ff, 0x10807fac,
+> +	0xbef1007d, 0xbef00080,
+> +	0xb8f30742, 0x84739973,
+> +	0xbefe00c1, 0x857d9973,
+> +	0x8b7d817d, 0xbf06817d,
+> +	0xbfa20002, 0xbeff0080,
+> +	0xbfa00002, 0xbeff00c1,
+> +	0xbfa0000c, 0xbef600ff,
+> +	0x01000000, 0xc4068070,
+> +	0x008ce801, 0x00008000,
+>   	0xc4068070, 0x008ce802,
+> -	0x00000000, 0xbefe00c1,
+> +	0x00010000, 0xc4068070,
+> +	0x008ce803, 0x00018000,
+> +	0xbfa0000b, 0xbef600ff,
+> +	0x01000000, 0xc4068070,
+> +	0x008ce801, 0x00010000,
+> +	0xc4068070, 0x008ce802,
+> +	0x00020000, 0xc4068070,
+> +	0x008ce803, 0x00030000,
+>   	0xb8f03b05, 0x80708170,
+>   	0xbf0d9973, 0xbfa20002,
+>   	0x84708970, 0xbfa00001,
+>   	0x84708a70, 0xb8fa1e06,
+>   	0x847a8a7a, 0x80707a70,
+> +	0x8070ff70, 0x00000200,
+>   	0xbef600ff, 0x01000000,
+> -	0xbef90080, 0xbefd0080,
+> -	0xbf800000, 0xbe804100,
+> -	0xbe824102, 0xbe844104,
+> -	0xbe864106, 0xbe884108,
+> -	0xbe8a410a, 0xbe8c410c,
+> -	0xbe8e410e, 0xbf068079,
+> -	0xbfa10032, 0xd7610002,
+> -	0x00010000, 0xd7610002,
+> -	0x00010201, 0xd7610002,
+> -	0x00010402, 0xd7610002,
+> -	0x00010603, 0xd7610002,
+> -	0x00010804, 0xd7610002,
+> -	0x00010a05, 0xd7610002,
+> -	0x00010c06, 0xd7610002,
+> -	0x00010e07, 0xd7610002,
+> -	0x00011008, 0xd7610002,
+> -	0x00011209, 0xd7610002,
+> -	0x0001140a, 0xd7610002,
+> -	0x0001160b, 0xd7610002,
+> -	0x0001180c, 0xd7610002,
+> -	0x00011a0d, 0xd7610002,
+> -	0x00011c0e, 0xd7610002,
+> -	0x00011e0f, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0x80799079,
+> -	0xbfa00038, 0xd7610002,
+> -	0x00012000, 0xd7610002,
+> -	0x00012201, 0xd7610002,
+> -	0x00012402, 0xd7610002,
+> -	0x00012603, 0xd7610002,
+> -	0x00012804, 0xd7610002,
+> -	0x00012a05, 0xd7610002,
+> -	0x00012c06, 0xd7610002,
+> -	0x00012e07, 0xd7610002,
+> -	0x00013008, 0xd7610002,
+> -	0x00013209, 0xd7610002,
+> -	0x0001340a, 0xd7610002,
+> -	0x0001360b, 0xd7610002,
+> -	0x0001380c, 0xd7610002,
+> -	0x00013a0d, 0xd7610002,
+> -	0x00013c0e, 0xd7610002,
+> -	0x00013e0f, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0xd8500000,
+> -	0x00000000, 0x80799079,
+> -	0xc4068070, 0x008ce802,
+> -	0x00000000, 0x8070ff70,
+> -	0x00000080, 0xbef90080,
+> -	0x7e040280, 0x807d907d,
+> -	0xbf0aff7d, 0x00000060,
+> -	0xbfa2ff88, 0xbe804100,
+> -	0xbe824102, 0xbe844104,
+> -	0xbe864106, 0xbe884108,
+> -	0xbe8a410a, 0xd7610002,
+> -	0x00010000, 0xd7610002,
+> -	0x00010201, 0xd7610002,
+> -	0x00010402, 0xd7610002,
+> -	0x00010603, 0xd7610002,
+> -	0x00010804, 0xd7610002,
+> -	0x00010a05, 0xd7610002,
+> -	0x00010c06, 0xd7610002,
+> -	0x00010e07, 0xd7610002,
+> -	0x00011008, 0xd7610002,
+> -	0x00011209, 0xd7610002,
+> -	0x0001140a, 0xd7610002,
+> -	0x0001160b, 0xd8500000,
+> +	0x7e000280, 0x7e020280,
+> +	0x7e040280, 0xbe804ec2,
+> +	0xbf94fffe, 0xb8faf804,
+> +	0x8b7a847a, 0x91788478,
+> +	0x8c787a78, 0x917aff6d,
+> +	0x80000000, 0xd7610002,
+> +	0x00010071, 0xd7610002,
+> +	0x0001026c, 0xd7610002,
+> +	0x0001047a, 0xd7610002,
+> +	0x0001066e, 0xd7610002,
+> +	0x0001086f, 0xd7610002,
+> +	0x00010a78, 0xd7610002,
+> +	0x00010e7b, 0xd8500000,
+>   	0x00000000, 0xd8500000,
+>   	0x00000000, 0xd8500000,
+>   	0x00000000, 0xd8500000,
+> @@ -3896,273 +3787,389 @@ static const uint32_t cwsr_trap_gfx12_hex[] = {
+>   	0x00000000, 0xd8500000,
+>   	0x00000000, 0xd8500000,
+>   	0x00000000, 0xd8500000,
+> -	0x00000000, 0xc4068070,
+> +	0x00000000, 0xb8faf811,
+> +	0xd7610002, 0x00010c7a,
+> +	0xb8faf801, 0xd7610002,
+> +	0x0001107a, 0xb8faf814,
+> +	0xd7610002, 0x0001127a,
+> +	0xb8faf815, 0xd7610002,
+> +	0x0001147a, 0xb8faf812,
+> +	0xd7610002, 0x0001167a,
+> +	0xb8faf813, 0xd7610002,
+> +	0x0001187a, 0xb8faf802,
+> +	0xd7610002, 0x00011a7a,
+> +	0xbefa50c1, 0xbfc70000,
+> +	0xd7610002, 0x00011c7a,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xbefe00ff, 0x0000ffff,
+> +	0xbeff0080, 0xc4068070,
+> +	0x008ce802, 0x00000000,
+> +	0xbefe00c1, 0xb8f03b05,
+> +	0x80708170, 0xbf0d9973,
+> +	0xbfa20002, 0x84708970,
+> +	0xbfa00001, 0x84708a70,
+> +	0xb8fa1e06, 0x847a8a7a,
+> +	0x80707a70, 0xbef600ff,
+> +	0x01000000, 0xbef90080,
+> +	0xbefd0080, 0xbf800000,
+> +	0xbe804100, 0xbe824102,
+> +	0xbe844104, 0xbe864106,
+> +	0xbe884108, 0xbe8a410a,
+> +	0xbe8c410c, 0xbe8e410e,
+> +	0xbf068079, 0xbfa10032,
+> +	0xd7610002, 0x00010000,
+> +	0xd7610002, 0x00010201,
+> +	0xd7610002, 0x00010402,
+> +	0xd7610002, 0x00010603,
+> +	0xd7610002, 0x00010804,
+> +	0xd7610002, 0x00010a05,
+> +	0xd7610002, 0x00010c06,
+> +	0xd7610002, 0x00010e07,
+> +	0xd7610002, 0x00011008,
+> +	0xd7610002, 0x00011209,
+> +	0xd7610002, 0x0001140a,
+> +	0xd7610002, 0x0001160b,
+> +	0xd7610002, 0x0001180c,
+> +	0xd7610002, 0x00011a0d,
+> +	0xd7610002, 0x00011c0e,
+> +	0xd7610002, 0x00011e0f,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0x80799079, 0xbfa00038,
+> +	0xd7610002, 0x00012000,
+> +	0xd7610002, 0x00012201,
+> +	0xd7610002, 0x00012402,
+> +	0xd7610002, 0x00012603,
+> +	0xd7610002, 0x00012804,
+> +	0xd7610002, 0x00012a05,
+> +	0xd7610002, 0x00012c06,
+> +	0xd7610002, 0x00012e07,
+> +	0xd7610002, 0x00013008,
+> +	0xd7610002, 0x00013209,
+> +	0xd7610002, 0x0001340a,
+> +	0xd7610002, 0x0001360b,
+> +	0xd7610002, 0x0001380c,
+> +	0xd7610002, 0x00013a0d,
+> +	0xd7610002, 0x00013c0e,
+> +	0xd7610002, 0x00013e0f,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0x80799079, 0xc4068070,
+>   	0x008ce802, 0x00000000,
+> -	0xbefe00c1, 0x857d9973,
+> -	0x8b7d817d, 0xbf06817d,
+> -	0xbfa20002, 0xbeff0080,
+> -	0xbfa00001, 0xbeff00c1,
+> -	0xb8fb4306, 0x8b7bc17b,
+> -	0xbfa10044, 0x8b7aff6d,
+> -	0x80000000, 0xbfa10041,
+> -	0x847b897b, 0xbef6007b,
+> -	0xb8f03b05, 0x80708170,
+> -	0xbf0d9973, 0xbfa20002,
+> -	0x84708970, 0xbfa00001,
+> -	0x84708a70, 0xb8fa1e06,
+> -	0x847a8a7a, 0x80707a70,
+> -	0x8070ff70, 0x00000200,
+>   	0x8070ff70, 0x00000080,
+> -	0xbef600ff, 0x01000000,
+> -	0xd71f0000, 0x000100c1,
+> -	0xd7200000, 0x000200c1,
+> -	0x16000084, 0x857d9973,
+> -	0x8b7d817d, 0xbf06817d,
+> -	0xbefd0080, 0xbfa20013,
+> -	0xbe8300ff, 0x00000080,
+> -	0xbf800000, 0xbf800000,
+> -	0xbf800000, 0xd8d80000,
+> -	0x01000000, 0xbf8a0000,
+> -	0xc4068070, 0x008ce801,
+> -	0x00000000, 0x807d037d,
+> -	0x80700370, 0xd5250000,
+> -	0x0001ff00, 0x00000080,
+> -	0xbf0a7b7d, 0xbfa2fff3,
+> -	0xbfa00012, 0xbe8300ff,
+> -	0x00000100, 0xbf800000,
+> +	0xbef90080, 0x7e040280,
+> +	0x807d907d, 0xbf0aff7d,
+> +	0x00000060, 0xbfa2ff88,
+> +	0xbe804100, 0xbe824102,
+> +	0xbe844104, 0xbe864106,
+> +	0xbe884108, 0xbe8a410a,
+> +	0xd7610002, 0x00010000,
+> +	0xd7610002, 0x00010201,
+> +	0xd7610002, 0x00010402,
+> +	0xd7610002, 0x00010603,
+> +	0xd7610002, 0x00010804,
+> +	0xd7610002, 0x00010a05,
+> +	0xd7610002, 0x00010c06,
+> +	0xd7610002, 0x00010e07,
+> +	0xd7610002, 0x00011008,
+> +	0xd7610002, 0x00011209,
+> +	0xd7610002, 0x0001140a,
+> +	0xd7610002, 0x0001160b,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xd8500000, 0x00000000,
+> +	0xc4068070, 0x008ce802,
+> +	0x00000000, 0xbefe00c1,
+> +	0x857d9973, 0x8b7d817d,
+> +	0xbf06817d, 0xbfa20002,
+> +	0xbeff0080, 0xbfa00001,
+> +	0xbeff00c1, 0xb8fb4306,
+> +	0x8b7bc17b, 0xbfa10044,
+> +	0x8b7aff6d, 0x80000000,
+> +	0xbfa10041, 0x847b897b,
+> +	0xbef6007b, 0xb8f03b05,
+> +	0x80708170, 0xbf0d9973,
+> +	0xbfa20002, 0x84708970,
+> +	0xbfa00001, 0x84708a70,
+> +	0xb8fa1e06, 0x847a8a7a,
+> +	0x80707a70, 0x8070ff70,
+> +	0x00000200, 0x8070ff70,
+> +	0x00000080, 0xbef600ff,
+> +	0x01000000, 0xd71f0000,
+> +	0x000100c1, 0xd7200000,
+> +	0x000200c1, 0x16000084,
+> +	0x857d9973, 0x8b7d817d,
+> +	0xbf06817d, 0xbefd0080,
+> +	0xbfa20013, 0xbe8300ff,
+> +	0x00000080, 0xbf800000,
+>   	0xbf800000, 0xbf800000,
+>   	0xd8d80000, 0x01000000,
+>   	0xbf8a0000, 0xc4068070,
+>   	0x008ce801, 0x00000000,
+>   	0x807d037d, 0x80700370,
+>   	0xd5250000, 0x0001ff00,
+> -	0x00000100, 0xbf0a7b7d,
+> -	0xbfa2fff3, 0xbefe00c1,
+> -	0x857d9973, 0x8b7d817d,
+> -	0xbf06817d, 0xbfa20004,
+> -	0xbef000ff, 0x00000200,
+> -	0xbeff0080, 0xbfa00003,
+> -	0xbef000ff, 0x00000400,
+> -	0xbeff00c1, 0xb8fb3b05,
+> -	0x807b817b, 0x847b827b,
+> -	0x857d9973, 0x8b7d817d,
+> -	0xbf06817d, 0xbfa2001b,
+> -	0xbef600ff, 0x01000000,
+> -	0xbefd0084, 0xbf0a7b7d,
+> -	0xbfa10040, 0x7e008700,
+> -	0x7e028701, 0x7e048702,
+> -	0x7e068703, 0xc4068070,
+> -	0x008ce800, 0x00000000,
+> +	0x00000080, 0xbf0a7b7d,
+> +	0xbfa2fff3, 0xbfa00012,
+> +	0xbe8300ff, 0x00000100,
+> +	0xbf800000, 0xbf800000,
+> +	0xbf800000, 0xd8d80000,
+> +	0x01000000, 0xbf8a0000,
+>   	0xc4068070, 0x008ce801,
+> -	0x00008000, 0xc4068070,
+> -	0x008ce802, 0x00010000,
+> -	0xc4068070, 0x008ce803,
+> -	0x00018000, 0x807d847d,
+> -	0x8070ff70, 0x00000200,
+> -	0xbf0a7b7d, 0xbfa2ffeb,
+> -	0xbfa0002a, 0xbef600ff,
+> +	0x00000000, 0x807d037d,
+> +	0x80700370, 0xd5250000,
+> +	0x0001ff00, 0x00000100,
+> +	0xbf0a7b7d, 0xbfa2fff3,
+> +	0xbefe00c1, 0x857d9973,
+> +	0x8b7d817d, 0xbf06817d,
+> +	0xbfa20004, 0xbef000ff,
+> +	0x00000200, 0xbeff0080,
+> +	0xbfa00003, 0xbef000ff,
+> +	0x00000400, 0xbeff00c1,
+> +	0xb8fb3b05, 0x807b817b,
+> +	0x847b827b, 0x857d9973,
+> +	0x8b7d817d, 0xbf06817d,
+> +	0xbfa2001b, 0xbef600ff,
+>   	0x01000000, 0xbefd0084,
+> -	0xbf0a7b7d, 0xbfa10015,
+> +	0xbf0a7b7d, 0xbfa10040,
+>   	0x7e008700, 0x7e028701,
+>   	0x7e048702, 0x7e068703,
+>   	0xc4068070, 0x008ce800,
+>   	0x00000000, 0xc4068070,
+> -	0x008ce801, 0x00010000,
+> +	0x008ce801, 0x00008000,
+>   	0xc4068070, 0x008ce802,
+> -	0x00020000, 0xc4068070,
+> -	0x008ce803, 0x00030000,
+> +	0x00010000, 0xc4068070,
+> +	0x008ce803, 0x00018000,
+>   	0x807d847d, 0x8070ff70,
+> -	0x00000400, 0xbf0a7b7d,
+> -	0xbfa2ffeb, 0xb8fb1e06,
+> -	0x8b7bc17b, 0xbfa1000d,
+> -	0x847b837b, 0x807b7d7b,
+> -	0xbefe00c1, 0xbeff0080,
+> -	0x7e008700, 0xc4068070,
+> -	0x008ce800, 0x00000000,
+> -	0x807d817d, 0x8070ff70,
+> -	0x00000080, 0xbf0a7b7d,
+> -	0xbfa2fff7, 0xbfa0016e,
+> -	0xbef4007e, 0x8b75ff7f,
+> -	0x0000ffff, 0x8c75ff75,
+> -	0x00040000, 0xbef60080,
+> -	0xbef700ff, 0x10807fac,
+> -	0xbef1007f, 0xb8f20742,
+> -	0x84729972, 0x8b6eff7f,
+> -	0x04000000, 0xbfa1003b,
+> -	0xbefe00c1, 0x857d9972,
+> -	0x8b7d817d, 0xbf06817d,
+> -	0xbfa20002, 0xbeff0080,
+> -	0xbfa00001, 0xbeff00c1,
+> -	0xb8ef4306, 0x8b6fc16f,
+> -	0xbfa10030, 0x846f896f,
+> -	0xbef6006f, 0xb8f83b05,
+> -	0x80788178, 0xbf0d9972,
+> -	0xbfa20002, 0x84788978,
+> -	0xbfa00001, 0x84788a78,
+> -	0xb8ee1e06, 0x846e8a6e,
+> -	0x80786e78, 0x8078ff78,
+> -	0x00000200, 0x8078ff78,
+> -	0x00000080, 0xbef600ff,
+> -	0x01000000, 0x857d9972,
+> -	0x8b7d817d, 0xbf06817d,
+> -	0xbefd0080, 0xbfa2000d,
+> -	0xc4050078, 0x0080e800,
+> -	0x00000000, 0xbf8a0000,
+> -	0xdac00000, 0x00000000,
+> -	0x807dff7d, 0x00000080,
+> -	0x8078ff78, 0x00000080,
+> -	0xbf0a6f7d, 0xbfa2fff4,
+> -	0xbfa0000c, 0xc4050078,
+> -	0x0080e800, 0x00000000,
+> -	0xbf8a0000, 0xdac00000,
+> -	0x00000000, 0x807dff7d,
+> -	0x00000100, 0x8078ff78,
+> -	0x00000100, 0xbf0a6f7d,
+> -	0xbfa2fff4, 0xbef80080,
+> -	0xbefe00c1, 0x857d9972,
+> -	0x8b7d817d, 0xbf06817d,
+> -	0xbfa20002, 0xbeff0080,
+> -	0xbfa00001, 0xbeff00c1,
+> -	0xb8ef3b05, 0x806f816f,
+> -	0x846f826f, 0x857d9972,
+> -	0x8b7d817d, 0xbf06817d,
+> -	0xbfa2002c, 0xbef600ff,
+> -	0x01000000, 0xbeee0078,
+> -	0x8078ff78, 0x00000200,
+> -	0xbefd0084, 0xbf0a6f7d,
+> -	0xbfa10061, 0xc4050078,
+> -	0x008ce800, 0x00000000,
+> -	0xc4050078, 0x008ce801,
+> -	0x00008000, 0xc4050078,
+> -	0x008ce802, 0x00010000,
+> -	0xc4050078, 0x008ce803,
+> -	0x00018000, 0xbf8a0000,
+> -	0x7e008500, 0x7e028501,
+> -	0x7e048502, 0x7e068503,
+> -	0x807d847d, 0x8078ff78,
+> -	0x00000200, 0xbf0a6f7d,
+> -	0xbfa2ffea, 0xc405006e,
+> -	0x008ce800, 0x00000000,
+> -	0xc405006e, 0x008ce801,
+> -	0x00008000, 0xc405006e,
+> -	0x008ce802, 0x00010000,
+> -	0xc405006e, 0x008ce803,
+> -	0x00018000, 0xbf8a0000,
+> -	0xbfa0003d, 0xbef600ff,
+> -	0x01000000, 0xbeee0078,
+> -	0x8078ff78, 0x00000400,
+> -	0xbefd0084, 0xbf0a6f7d,
+> -	0xbfa10016, 0xc4050078,
+> -	0x008ce800, 0x00000000,
+> -	0xc4050078, 0x008ce801,
+> -	0x00010000, 0xc4050078,
+> -	0x008ce802, 0x00020000,
+> -	0xc4050078, 0x008ce803,
+> -	0x00030000, 0xbf8a0000,
+> -	0x7e008500, 0x7e028501,
+> -	0x7e048502, 0x7e068503,
+> -	0x807d847d, 0x8078ff78,
+> -	0x00000400, 0xbf0a6f7d,
+> -	0xbfa2ffea, 0xb8ef1e06,
+> -	0x8b6fc16f, 0xbfa1000f,
+> -	0x846f836f, 0x806f7d6f,
+> -	0xbefe00c1, 0xbeff0080,
+> -	0xc4050078, 0x008ce800,
+> -	0x00000000, 0xbf8a0000,
+> -	0x7e008500, 0x807d817d,
+> -	0x8078ff78, 0x00000080,
+> -	0xbf0a6f7d, 0xdiff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+index 7d6219cd5bd2c..6883f16b89cfd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+@@ -461,7 +461,7 @@ L_SAVE_HWREG:
+         s_andn2_b32     s_save_state_priv, s_save_state_priv, 
+SQ_WAVE_STATE_PRIV_BARRIER_COMPLETE_MASK
+         s_or_b32        s_save_state_priv, s_save_state_priv, s_save_tmp
 
-  drm/amdgpu: Use amdgpu by default on SI dedicated GPUs (v2) (2025-11-14 11:28:29 -0500)
+-       s_andn2_b32     s_save_tmp, s_save_pc_hi, 
+S_SAVE_PC_HI_FIRST_WAVE_MASK
++       s_and_b32       s_save_tmp, s_save_pc_hi, ADDRESS_HI32_MASK
+         v_writelane_b32 v2, s_save_m0, 0x0
+         v_writelane_b32 v2, s_save_pc_lo, 0x1
+         v_writelane_b32 v2, s_save_tmp, 0x2bfa2fff6,
+> -	0xbeff00c1, 0xc405006e,
+> +	0x00000200, 0xbf0a7b7d,
+> +	0xbfa2ffeb, 0xbfa0002a,
+> +	0xbef600ff, 0x01000000,
+> +	0xbefd0084, 0xbf0a7b7d,
+> +	0xbfa10015, 0x7e008700,
+> +	0x7e028701, 0x7e048702,
+> +	0x7e068703, 0xc4068070,
+>   	0x008ce800, 0x00000000,
+> -	0xc405006e, 0x008ce801,
+> -	0x00010000, 0xc405006e,
+> +	0xc4068070, 0x008ce801,
+> +	0x00010000, 0xc4068070,
+>   	0x008ce802, 0x00020000,
+> -	0xc405006e, 0x008ce803,
+> -	0x00030000, 0xbf8a0000,
+> +	0xc4068070, 0x008ce803,
+> +	0x00030000, 0x807d847d,
+> +	0x8070ff70, 0x00000400,
+> +	0xbf0a7b7d, 0xbfa2ffeb,
+> +	0xb8fb1e06, 0x8b7bc17b,
+> +	0xbfa1000d, 0x847b837b,
+> +	0x807b7d7b, 0xbefe00c1,
+> +	0xbeff0080, 0x7e008700,
+> +	0xc4068070, 0x008ce800,
+> +	0x00000000, 0x807d817d,
+> +	0x8070ff70, 0x00000080,
+> +	0xbf0a7b7d, 0xbfa2fff7,
+> +	0xbfa00171, 0xbef4007e,
+> +	0x8b75ff7f, 0x0000ffff,
+> +	0x8c75ff75, 0x00040000,
+> +	0xbef60080, 0xbef700ff,
+> +	0x10807fac, 0xbef1007f,
+> +	0xb8f20742, 0x84729972,
+> +	0x8b6eff7f, 0x04000000,
+> +	0xbfa1003b, 0xbefe00c1,
+> +	0x857d9972, 0x8b7d817d,
+> +	0xbf06817d, 0xbfa20002,
+> +	0xbeff0080, 0xbfa00001,
+> +	0xbeff00c1, 0xb8ef4306,
+> +	0x8b6fc16f, 0xbfa10030,
+> +	0x846f896f, 0xbef6006f,
+>   	0xb8f83b05, 0x80788178,
+>   	0xbf0d9972, 0xbfa20002,
+>   	0x84788978, 0xbfa00001,
+>   	0x84788a78, 0xb8ee1e06,
+>   	0x846e8a6e, 0x80786e78,
+>   	0x8078ff78, 0x00000200,
+> -	0x80f8ff78, 0x00000050,
+> +	0x8078ff78, 0x00000080,
+>   	0xbef600ff, 0x01000000,
+> -	0xbefd00ff, 0x0000006c,
+> -	0x80f89078, 0xf462403a,
+> -	0xf0000000, 0xbf8a0000,
+> -	0x80fd847d, 0xbf800000,
+> -	0xbe804300, 0xbe824302,
+> -	0x80f8a078, 0xf462603a,
+> -	0xf0000000, 0xbf8a0000,
+> -	0x80fd887d, 0xbf800000,
+> -	0xbe804300, 0xbe824302,
+> -	0xbe844304, 0xbe864306,
+> -	0x80f8c078, 0xf462803a,
+> -	0xf0000000, 0xbf8a0000,
+> -	0x80fd907d, 0xbf800000,
+> -	0xbe804300, 0xbe824302,
+> -	0xbe844304, 0xbe864306,
+> -	0xbe884308, 0xbe8a430a,
+> -	0xbe8c430c, 0xbe8e430e,
+> -	0xbf06807d, 0xbfa1fff0,
+> -	0xb980f801, 0x00000000,
+> -	0xb8f83b05, 0x80788178,
+> -	0xbf0d9972, 0xbfa20002,
+> -	0x84788978, 0xbfa00001,
+> -	0x84788a78, 0xb8ee1e06,
+> -	0x846e8a6e, 0x80786e78,
+> +	0x857d9972, 0x8b7d817d,
+> +	0xbf06817d, 0xbefd0080,
+> +	0xbfa2000d, 0xc4050078,
+> +	0x0080e800, 0x00000000,
+> +	0xbf8a0000, 0xdac00000,
+> +	0x00000000, 0x807dff7d,
+> +	0x00000080, 0x8078ff78,
+> +	0x00000080, 0xbf0a6f7d,
+> +	0xbfa2fff4, 0xbfa0000c,
+> +	0xc4050078, 0x0080e800,
+> +	0x00000000, 0xbf8a0000,
+> +	0xdac00000, 0x00000000,
+> +	0x807dff7d, 0x00000100,
+> +	0x8078ff78, 0x00000100,
+> +	0xbf0a6f7d, 0xbfa2fff4,
+> +	0xbef80080, 0xbefe00c1,
+> +	0x857d9972, 0x8b7d817d,
+> +	0xbf06817d, 0xbfa20002,
+> +	0xbeff0080, 0xbfa00001,
+> +	0xbeff00c1, 0xb8ef3b05,
+> +	0x806f816f, 0x846f826f,
+> +	0x857d9972, 0x8b7d817d,
+> +	0xbf06817d, 0xbfa2002c,
+> +	0xbef600ff, 0x01000000,
+> +	0xbeee0078, 0x8078ff78,
+> +	0x00000200, 0xbefd0084,
+> +	0xbf0a6f7d, 0xbfa10061,
+> +	0xc4050078, 0x008ce800,
+> +	0x00000000, 0xc4050078,
+> +	0x008ce801, 0x00008000,
+> +	0xc4050078, 0x008ce802,
+> +	0x00010000, 0xc4050078,
+> +	0x008ce803, 0x00018000,
+> +	0xbf8a0000, 0x7e008500,
+> +	0x7e028501, 0x7e048502,
+> +	0x7e068503, 0x807d847d,
+>   	0x8078ff78, 0x00000200,
+> +	0xbf0a6f7d, 0xbfa2ffea,
+> +	0xc405006e, 0x008ce800,
+> +	0x00000000, 0xc405006e,
+> +	0x008ce801, 0x00008000,
+> +	0xc405006e, 0x008ce802,
+> +	0x00010000, 0xc405006e,
+> +	0x008ce803, 0x00018000,
+> +	0xbf8a0000, 0xbfa0003d,
+>   	0xbef600ff, 0x01000000,
+> -	0xbeff0071, 0xf4621bfa,
+> +	0xbeee0078, 0x8078ff78,
+> +	0x00000400, 0xbefd0084,
+> +	0xbf0a6f7d, 0xbfa10016,
+> +	0xc4050078, 0x008ce800,
+> +	0x00000000, 0xc4050078,
+> +	0x008ce801, 0x00010000,
+> +	0xc4050078, 0x008ce802,
+> +	0x00020000, 0xc4050078,
+> +	0x008ce803, 0x00030000,
+> +	0xbf8a0000, 0x7e008500,
+> +	0x7e028501, 0x7e048502,
+> +	0x7e068503, 0x807d847d,
+> +	0x8078ff78, 0x00000400,
+> +	0xbf0a6f7d, 0xbfa2ffea,
+> +	0xb8ef1e06, 0x8b6fc16f,
+> +	0xbfa1000f, 0x846f836f,
+> +	0x806f7d6f, 0xbefe00c1,
+> +	0xbeff0080, 0xc4050078,
+> +	0x008ce800, 0x00000000,
+> +	0xbf8a0000, 0x7e008500,
+> +	0x807d817d, 0x8078ff78,
+> +	0x00000080, 0xbf0a6f7d,
+> +	0xbfa2fff6, 0xbeff00c1,
+> +	0xc405006e, 0x008ce800,
+> +	0x00000000, 0xc405006e,
+> +	0x008ce801, 0x00010000,
+> +	0xc405006e, 0x008ce802,
+> +	0x00020000, 0xc405006e,
+> +	0x008ce803, 0x00030000,
+> +	0xbf8a0000, 0xb8f83b05,
+> +	0x80788178, 0xbf0d9972,
+> +	0xbfa20002, 0x84788978,
+> +	0xbfa00001, 0x84788a78,
+> +	0xb8ee1e06, 0x846e8a6e,
+> +	0x80786e78, 0x8078ff78,
+> +	0x00000200, 0x80f8ff78,
+> +	0x00000050, 0xbef600ff,
+> +	0x01000000, 0xbefd00ff,
+> +	0x0000006c, 0x80f89078,
+> +	0xf462403a, 0xf0000000,
+> +	0xbf8a0000, 0x80fd847d,
+> +	0xbf800000, 0xbe804300,
+> +	0xbe824302, 0x80f8a078,
+> +	0xf462603a, 0xf0000000,
+> +	0xbf8a0000, 0x80fd887d,
+> +	0xbf800000, 0xbe804300,
+> +	0xbe824302, 0xbe844304,
+> +	0xbe864306, 0x80f8c078,
+> +	0xf462803a, 0xf0000000,
+> +	0xbf8a0000, 0x80fd907d,
+> +	0xbf800000, 0xbe804300,
+> +	0xbe824302, 0xbe844304,
+> +	0xbe864306, 0xbe884308,
+> +	0xbe8a430a, 0xbe8c430c,
+> +	0xbe8e430e, 0xbf06807d,
+> +	0xbfa1fff0, 0xb980f801,
+> +	0x00000000, 0xb8f83b05,
+> +	0x80788178, 0xbf0d9972,
+> +	0xbfa20002, 0x84788978,
+> +	0xbfa00001, 0x84788a78,
+> +	0xb8ee1e06, 0x846e8a6e,
+> +	0x80786e78, 0x8078ff78,
+> +	0x00000200, 0xbef600ff,
+> +	0x01000000, 0xbeff0071,
+> +	0xf4621bfa, 0xf0000000,
+> +	0x80788478, 0xf4621b3a,
+>   	0xf0000000, 0x80788478,
+> -	0xf4621b3a, 0xf0000000,
+> -	0x80788478, 0xf4621b7a,
+> +	0xf4621b7a, 0xf0000000,
+> +	0x80788478, 0xf4621c3a,
+>   	0xf0000000, 0x80788478,
+> -	0xf4621c3a, 0xf0000000,
+> -	0x80788478, 0xf4621c7a,
+> +	0xf4621c7a, 0xf0000000,
+> +	0x80788478, 0xf4621eba,
+>   	0xf0000000, 0x80788478,
+> -	0xf4621eba, 0xf0000000,
+> -	0x80788478, 0xf4621efa,
+> +	0xf4621efa, 0xf0000000,
+> +	0x80788478, 0xf4621e7a,
+>   	0xf0000000, 0x80788478,
+> -	0xf4621e7a, 0xf0000000,
+> -	0x80788478, 0xf4621cfa,
+> +	0xf4621cfa, 0xf0000000,
+> +	0x80788478, 0xf4621bba,
+>   	0xf0000000, 0x80788478,
+> +	0xbf8a0000, 0xb96ef814,
+>   	0xf4621bba, 0xf0000000,
+>   	0x80788478, 0xbf8a0000,
+> -	0xb96ef814, 0xf4621bba,
+> +	0xb96ef815, 0xf4621bba,
+>   	0xf0000000, 0x80788478,
+> -	0xbf8a0000, 0xb96ef815,
+> +	0xbf8a0000, 0xb96ef812,
+>   	0xf4621bba, 0xf0000000,
+>   	0x80788478, 0xbf8a0000,
+> -	0xb96ef812, 0xf4621bba,
+> +	0xb96ef813, 0x8b6eff7f,
+> +	0x04000000, 0xbfa1000d,
+> +	0x80788478, 0xf4621bba,
+>   	0xf0000000, 0x80788478,
+> -	0xbf8a0000, 0xb96ef813,
+> -	0x8b6eff7f, 0x04000000,
+> -	0xbfa1000d, 0x80788478,
+> -	0xf4621bba, 0xf0000000,
+> -	0x80788478, 0xbf8a0000,
+> -	0xbf0d806e, 0xbfa10006,
+> -	0x856e906e, 0x8b6e6e6e,
+> -	0xbfa10003, 0xbe804ec1,
+> -	0x816ec16e, 0xbfa0fffb,
+> -	0xbefd006f, 0xbefe0070,
+> -	0xbeff0071, 0xb97b2011,
+> -	0x857b867b, 0xb97b0191,
+> -	0x857b827b, 0xb97bba11,
+> -	0xb973f801, 0xb8ee3b05,
+> -	0x806e816e, 0xbf0d9972,
+> -	0xbfa20002, 0x846e896e,
+> -	0xbfa00001, 0x846e8a6e,
+> -	0xb8ef1e06, 0x846f8a6f,
+> -	0x806e6f6e, 0x806eff6e,
+> -	0x00000200, 0x806e746e,
+> -	0x826f8075, 0x8b6fff6f,
+> -	0x0000ffff, 0xf4605c37,
+> -	0xf8000050, 0xf4605d37,
+> -	0xf8000060, 0xf4601e77,
+> -	0xf8000074, 0xbf8a0000,
+> -	0x8b6dff6d, 0x0000ffff,
+> -	0x8bfe7e7e, 0x8bea6a6a,
+> +	0xbf8a0000, 0xbf0d806e,
+> +	0xbfa10006, 0x856e906e,
+> +	0x8b6e6e6e, 0xbfa10003,
+> +	0xbe804ec1, 0x816ec16e,
+> +	0xbfa0fffb, 0xbefd006f,
+> +	0xbefe0070, 0xbeff0071,
+> +	0xb97b2011, 0x857b867b,
+> +	0xb97b0191, 0x857b827b,
+> +	0xb97bba11, 0xb973f801,
+> +	0xb8ee3b05, 0x806e816e,
+> +	0xbf0d9972, 0xbfa20002,
+> +	0x846e896e, 0xbfa00001,
+> +	0x846e8a6e, 0xb8ef1e06,
+> +	0x846f8a6f, 0x806e6f6e,
+> +	0x806eff6e, 0x00000200,
+> +	0x806e746e, 0x826f8075,
+> +	0x8b6fff6f, 0x0000ffff,
+> +	0xf4605c37, 0xf8000050,
+> +	0xf4605d37, 0xf8000060,
+> +	0xf4601e77, 0xf8000074,
+> +	0xbf8a0000, 0x936eff6d,
+> +	0x0002001a, 0x8b6dff6d,
+> +	0x0000ffff, 0x8bfe7e7e,
+> +	0x8bea6a6a, 0xb96e081a,
+>   	0xb97af804, 0xbe804ec2,
+>   	0xbf94fffe, 0xbe804a6c,
+>   	0xbe804ec2, 0xbf94fffe,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+> index 5a1a1b1f897f..7d6219cd5bd2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+> @@ -78,6 +78,10 @@ var SQ_WAVE_EXCP_FLAG_PRIV_RESTORE_PART_2_SHIFT	= SQ_WAVE_EXCP_FLAG_PRIV_ILLEGAL
+>   var SQ_WAVE_EXCP_FLAG_PRIV_RESTORE_PART_2_SIZE	= SQ_WAVE_EXCP_FLAG_PRIV_HOST_TRAP_SHIFT - SQ_WAVE_EXCP_FLAG_PRIV_ILLEGAL_INST_SHIFT
+>   var SQ_WAVE_EXCP_FLAG_PRIV_RESTORE_PART_3_SHIFT	= SQ_WAVE_EXCP_FLAG_PRIV_WAVE_START_SHIFT
+>   var SQ_WAVE_EXCP_FLAG_PRIV_RESTORE_PART_3_SIZE	= 32 - SQ_WAVE_EXCP_FLAG_PRIV_RESTORE_PART_3_SHIFT
+> +
+> +var SQ_WAVE_SCHED_MODE_DEP_MODE_SHIFT		= 0
+> +var SQ_WAVE_SCHED_MODE_DEP_MODE_SIZE		= 2
+> +
+>   var BARRIER_STATE_SIGNAL_OFFSET			= 16
+>   var BARRIER_STATE_VALID_OFFSET			= 0
+>   
+> @@ -94,6 +98,14 @@ var S_SAVE_SPI_INIT_FIRST_WAVE_SHIFT		= 26
+>   var S_SAVE_PC_HI_FIRST_WAVE_MASK		= 0x80000000
+>   var S_SAVE_PC_HI_FIRST_WAVE_SHIFT		= 31
+>   
+> +var S_SCHED_MODE_DEP_MODE_SHIFT			= 26
+> +var S_SCHED_MODE_DEP_MODE_SIZE			= 2
+> +var S_SCHED_MODE_DEP_MODE_MASK			= 0xC000000
+> +
+> +#if ASIC_FAMILY == CHIP_GFX12
+> +var s_sched_mode				= ttmp1
+> +#endif
+> +
+>   var s_sgpr_save_num				= 108
+>   
+>   var s_save_spi_init_lo				= exec_lo
+> @@ -160,8 +172,19 @@ L_JUMP_TO_RESTORE:
+>   	s_branch	L_RESTORE
+>   
+>   L_SKIP_RESTORE:
+> +	// Assume most relaxed scheduling mode is set. Save and revert to normal mode.
+> +	s_getreg_b32	ttmp2, hwreg(HW_REG_WAVE_SCHED_MODE)
+> +	s_wait_alu	0
+> +	s_setreg_imm32_b32	hwreg(HW_REG_WAVE_SCHED_MODE, \
+> +		SQ_WAVE_SCHED_MODE_DEP_MODE_SHIFT, SQ_WAVE_SCHED_MODE_DEP_MODE_SIZE), 0
+> +
+>   	s_getreg_b32	s_save_state_priv, hwreg(HW_REG_WAVE_STATE_PRIV)	//save STATUS since we will change SCC
+>   
+> +	// Save SCHED_MODE[1:0] into s_sched_mode[27:26].
+> +	s_andn2_b32	s_sched_mode, s_sched_mode, S_SCHED_MODE_DEP_MODE_MASK
+> +	s_lshl_b32	ttmp2, ttmp2, S_SCHED_MODE_DEP_MODE_SHIFT
+> +	s_or_b32	s_sched_mode, s_sched_mode, ttmp2
+> +
+>   	// Clear SPI_PRIO: do not save with elevated priority.
+>   	// Clear ECC_ERR: prevents SQC store and triggers FATAL_HALT if setreg'd.
+>   	s_andn2_b32	s_save_state_priv, s_save_state_priv, SQ_WAVE_STATE_PRIV_ALWAYS_CLEAR_MASK
+> @@ -278,6 +301,8 @@ L_TRAP_CASE:
+>   	s_addc_u32	ttmp1, ttmp1, 0x0
+>   
+>   L_EXIT_TRAP:
+> +	// ttmp1 may alias s_sched_mode.
+> +	s_bfe_u32	ttmp2, s_sched_mode, (S_SCHED_MODE_DEP_MODE_SHIFT | (S_SCHED_MODE_DEP_MODE_SIZE << 0x10))
+>   	s_and_b32	ttmp1, ttmp1, 0xFFFF
+>   
+>   	// Restore SQ_WAVE_STATUS.
+> @@ -287,6 +312,11 @@ L_EXIT_TRAP:
+>   	// STATE_PRIV.BARRIER_COMPLETE may have changed since we read it.
+>   	// Only restore fields which the trap handler changes.
+>   	s_lshr_b32	s_save_state_priv, s_save_state_priv, SQ_WAVE_STATE_PRIV_SCC_SHIFT
+> +
+> +	// Assume relaxed scheduling mode after this point.
+> +	s_setreg_b32	hwreg(HW_REG_WAVE_SCHED_MODE, SQ_WAVE_SCHED_MODE_DEP_MODE_SHIFT, \
+> +		 SQ_WAVE_SCHED_MODE_DEP_MODE_SIZE), ttmp2
+> +
+>   	s_setreg_b32	hwreg(HW_REG_WAVE_STATE_PRIV, SQ_WAVE_STATE_PRIV_SCC_SHIFT, \
+>   		SQ_WAVE_STATE_PRIV_POISON_ERR_SHIFT - SQ_WAVE_STATE_PRIV_SCC_SHIFT + 1), s_save_state_priv
+>   
+> @@ -301,7 +331,7 @@ L_SAVE:
+>   	s_endpgm
+>   L_HAVE_VGPRS:
+>   
+> -	s_and_b32	s_save_pc_hi, s_save_pc_hi, 0x0000ffff			//pc[47:32]
+> +	s_andn2_b32	s_save_pc_hi, s_save_pc_hi, S_SAVE_PC_HI_TRAP_ID_MASK	// Clear unused bits for storage
 
-----------------------------------------------------------------
-amd-drm-next-6.19-2025-11-14:
+Do we need that? We are saving, we will not restore the scheduling mode 
+from this point.  With this change, we would save the sched_mode in the 
+PC slot.
 
-amdgpu:
-- RAS updates
-- GC12 DCC P2P fix
-- Documentation fixes
-- Power limit code cleanup
-- Userq updates
-- VRR fix
-- SMART OLED support
-- DSC refactor for DCN 3.5
-- Replay updates
-- DC clockgating updates
-- HDCP refactor
-- ISP fix
-- SMU 13.0.12 updates
-- JPEG 5.0.1 fix
-- VCE1 support
-- Enable DC by default on SI
-- Refactor CIK and SI enablement
-- Enable amdgpu by default for CI dGPUs
-- XGMI fixes
-- SR-IOV fixes
-- Memory allocation critical path fixes
-- Enable amdgpu by default on SI dGPUs
+Would need something like that to avoid the issue:
 
-amdkfd:
-- Relax checks on save area overallocations
-- Fix GPU mappings after prefetch
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm 
+b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+index 7d6219cd5bd2c..6883f16b89cfd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+@@ -461,7 +461,7 @@ L_SAVE_HWREG:
+         s_andn2_b32     s_save_state_priv, s_save_state_priv, 
+SQ_WAVE_STATE_PRIV_BARRIER_COMPLETE_MASK
+         s_or_b32        s_save_state_priv, s_save_state_priv, s_save_tmp
 
-radeon:
-- Refactor CIK and SI enablement
+-       s_andn2_b32     s_save_tmp, s_save_pc_hi, 
+S_SAVE_PC_HI_FIRST_WAVE_MASK
++       s_and_b32       s_save_tmp, s_save_pc_hi, 0x0000ffff
+         v_writelane_b32 v2, s_save_m0, 0x0
+         v_writelane_b32 v2, s_save_pc_lo, 0x1
+         v_writelane_b32 v2, s_save_tmp, 0x2
 
-----------------------------------------------------------------
-Ahmad Rehman (1):
-      drm/amdkfd: Fixing the clang format
+but I think it would be easier to just clear the top bits in ttmp1 as 
+soon as we know that we won't s_rfe.
 
-Alvin Lee (1):
-      drm/amd/display: Only initialize LSDMA if it is supported in DMU
+Best,
+Lancelot.
 
-Asad Kamal (6):
-      drm/amd/pm: Add NULL check for power limit
-      drm/amd/pm: Update pmfw headers for smu_v13_0_12
-      drm/amd/pm: Add ppt1 support for smu_v13_0_12
-      drm/amd/pm: Expose ppt1 limit for gc_v9_5_0
-      drm/amd/pm: Enable ppt1 caps for smu_v13_0_12
-      drm/amd/pm: Remove power2_average node
+>   	s_mov_b32	s_save_tmp, 0
+>   	s_setreg_b32	hwreg(HW_REG_WAVE_EXCP_FLAG_PRIV, SQ_WAVE_EXCP_FLAG_PRIV_SAVE_CONTEXT_SHIFT, 1), s_save_tmp	//clear saveCtx bit
+>   
+> @@ -1039,10 +1069,17 @@ L_SKIP_BARRIER_RESTORE:
+>   	s_load_dword	ttmp13, [s_restore_ttmps_lo, s_restore_ttmps_hi], 0x74 scope:SCOPE_SYS
+>   	s_wait_idle
+>   
+> +	// s_restore_pc_hi may alias s_sched_mode.
+> +	s_bfe_u32	s_restore_tmp, s_sched_mode, (S_SCHED_MODE_DEP_MODE_SHIFT | (S_SCHED_MODE_DEP_MODE_SIZE << 0x10))
+>   	s_and_b32	s_restore_pc_hi, s_restore_pc_hi, 0x0000ffff		//pc[47:32] //Do it here in order not to affect STATUS
+> +
+>   	s_and_b64	exec, exec, exec					// Restore STATUS.EXECZ, not writable by s_setreg_b32
+>   	s_and_b64	vcc, vcc, vcc						// Restore STATUS.VCCZ, not writable by s_setreg_b32
+>   
+> +	// Assume relaxed scheduling mode after this point.
+> +	s_setreg_b32	hwreg(HW_REG_WAVE_SCHED_MODE, SQ_WAVE_SCHED_MODE_DEP_MODE_SHIFT, \
+> +		 SQ_WAVE_SCHED_MODE_DEP_MODE_SIZE), s_restore_tmp
+> +
+>   	s_setreg_b32	hwreg(HW_REG_WAVE_STATE_PRIV), s_restore_state_priv	// SCC is included, which is changed by previous salu
+>   
+>   	// Make barrier and LDS state visible to all waves in the group.
 
-Christian König (2):
-      drm/amdgpu: avoid memory allocation in the critical code path v3
-      drm/amdgpu: use GFP_ATOMIC instead of NOWAIT in the critical path
-
-Chuntao Tso (1):
-      drm/amd/display: To support Replay frame skip mode
-
-Dillon Varone (1):
-      drm/amd/display: Fix index bug for fill latency
-
-Dominik Kaszewski (2):
-      drm/amd/display: Change lock descriptor values
-      drm/amd/display: Revert in_transfer_func_change to MED
-
-Gangliang Xie (1):
-      drm/amd/pm: remove unnecessary prints for smu busy
-
-George Shen (1):
-      drm/amd/display: Add interface to capture power feature status for debug logging
-
-Harish Kasiviswanathan (1):
-      drm/amdkfd: Fix GPU mappings for APU after prefetch
-
-Ian Chen (1):
-      drm/amd/display: Add new SMART POWER OLED interfaces
-
-Ivan Lipski (1):
-      drm/amd/display: Allow VRR params change if unsynced with the stream
-
-Jesse.Zhang (2):
-      drm/amdgpu: fix lock warning in amdgpu_userq_fence_driver_process
-      drm/amdgpu: resume MES scheduling after user queue hang detection and recovery
-
-Jiapeng Chong (1):
-      drm/amdgpu/userqueue: Remove duplicate amdgpu_reset.h header
-
-Jonathan Kim (1):
-      drm/amdkfd: relax checks for over allocation of save area
-
-Leo Chen (1):
-      drm/amd/display: dynamically clock gate before and after prefetch
-
-Lijo Lazar (2):
-      drm/amdgpu: Check if AID is active before access
-      drm/amdgpu: Avoid xgmi register access
-
-Mario Limonciello (AMD) (1):
-      drm/amd: Clarify that amdgpu.audio only works for non-DC
-
-Mohit Bawa (1):
-      drm/amd/display: refactor DSC cap calculation for dcn35
-
-Pierre-Eric Pelloux-Prayer (1):
-      drm/amdgpu: jump to the correct label on failure
-
-Sathishkumar S (1):
-      drm/amdgpu/jpeg: Add parse_cs for JPEG5_0_1
-
-Srinivasan Shanmugam (2):
-      drm/amd/display: Fix annotations for connector poll/detect parameters
-      drm/amd/display: Add kdoc params/returns in dc/link detection helpers
-
-Sultan Alsawaf (1):
-      drm/amd/amdgpu: Ensure isp_kernel_buffer_alloc() creates a new BO
-
-Taimur Hassan (2):
-      drm/amd/display: [FW Promotion] Release 0.1.35.0
-      drm/amd/display: Promote DC to 3.2.358
-
-Tao Zhou (5):
-      drm/amdgpu: load RAS bad page from PMFW in page retirement
-      drm/amdgpu: get RAS bad page address from MCA address
-      drm/amdgpu: try for more times if RAS bad page number is not updated
-      drm/amdgpu: add RAS bad page threshold handling for PMFW manages eeprom
-      drm/amdgpu: optimize timeout implemention in ras_eeprom_update_record_num
-
-Timur Kristóf (18):
-      drm/amdgpu/gmc6: Place gart at low address range
-      drm/amdgpu/gart: Add helper to bind VRAM pages (v2)
-      drm/amdgpu: Use DC by default on SI dGPUs
-      drm/amdgpu/ttm: Use GART helper to map VRAM pages (v2)
-      drm/amdgpu/vce: Move firmware load to amdgpu_vce_early_init
-      drm/amdgpu/vce: Clear VCPU BO, don't unmap/unreserve (v4)
-      drm/amdgpu/vce1: Clean up register definitions
-      drm/amdgpu/vce1: Load VCE1 firmware
-      drm/amdgpu/vce1: Implement VCE1 IP block (v2)
-      drm/amdgpu/vce1: Ensure VCPU BO is in lower 32-bit address space (v3)
-      drm/amd/pm/si: Hook up VCE1 to SI DPM
-      drm/amdgpu/vce1: Enable VCE1 on Tahiti, Pitcairn, Cape Verde GPUs
-      drm/amdgpu/vce1: Workaround PLL timeout on FirePro W9000
-      drm/radeon: Refactor how SI and CIK support is determined
-      drm/amdgpu: Refactor how SI and CIK support is determined
-      drm/amdgpu: Use amdgpu by default on CIK dedicated GPUs
-      drm/amdgpu: Use amdgpu by default on CIK dedicated GPUs
-      drm/amdgpu: Use amdgpu by default on SI dedicated GPUs (v2)
-
-Vitaly Prosyak (1):
-      drm/amdgpu: disable peer-to-peer access for DCC-enabled GC12 VRAM surfaces
-
-Wenjing Liu (2):
-      drm/amd/display: add macros to simplify code
-      drm/amd/display: Refactor HDCP Status Log Format
-
-Will Aitken (3):
-      drm/amdgpu: Refactor sriov xgmi topology filling to common code
-      drm/amdgpu: Update headers for sriov xgmi ext peer link support feature flag
-      drm/amdgpu: Enable xgmi extended peer links for sriov guest
-
-YiPeng Chai (3):
-      drm/amdgpu: Synchronize sriov host to add block_mmsch bit field
-      drm/amdgpu: Add lock to serialize sriov command execution
-      drm/amdgpu: Fix the issue of missing ras message on sriov host
-
- drivers/gpu/drm/amd/amdgpu/Kconfig                 |  24 +-
- drivers/gpu/drm/amd/amdgpu/Makefile                |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |  15 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c        |  12 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 162 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           |  36 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h           |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  58 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c            |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  23 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  23 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |  72 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  12 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            | 147 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |   1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            | 174 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h            |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h           |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   7 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   4 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |  37 +-
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h        |   6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c              |   2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c           |   1 +
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   7 +
- drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c              |  17 +-
- drivers/gpu/drm/amd/amdgpu/si.c                    |  22 +-
- drivers/gpu/drm/amd/amdgpu/sid.h                   |  40 -
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c              | 839 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.h              |  32 +
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c              |   5 +
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c              |   5 +
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c              |   5 +
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  12 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   2 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  22 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   2 +-
- .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   |  30 +
- drivers/gpu/drm/amd/display/dc/core/dc.c           | 242 ++++--
- drivers/gpu/drm/amd/display/dc/dc.h                |  28 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |   3 +
- drivers/gpu/drm/amd/display/dc/dc_types.h          |   6 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c   |   7 +-
- drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h   |   5 +-
- .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c     |   2 +-
- .../gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c   |  31 +-
- .../drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c |   7 +-
- .../drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c |  52 +-
- .../drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.h |   1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h   |   2 +
- drivers/gpu/drm/amd/display/dc/inc/link_service.h  |   4 +-
- .../gpu/drm/amd/display/dc/link/link_detection.c   |  23 +
- .../dc/link/protocols/link_edp_panel_control.c     |  17 +-
- .../dc/link/protocols/link_edp_panel_control.h     |   4 +-
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  10 +-
- .../drm/amd/display/modules/freesync/freesync.c    |  11 +
- .../gpu/drm/amd/display/modules/hdcp/hdcp_log.c    | 124 +--
- drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h | 126 ++--
- .../drm/amd/display/modules/power/power_helpers.c  |  30 +
- .../drm/amd/display/modules/power/power_helpers.h  |   5 +
- .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   |   5 +
- .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |  10 +
- drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  15 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         |  18 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   5 +
- .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h   |   7 +-
- .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_ppsmc.h  |   4 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   4 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  |  10 +
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  83 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h   |   4 +
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  10 +-
- drivers/gpu/drm/radeon/radeon_drv.c                |  81 +-
- 79 files changed, 2152 insertions(+), 742 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.h
