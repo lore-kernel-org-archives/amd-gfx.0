@@ -4,99 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56D99CEB2C0
-	for <amd-gfx@archiver.kernel.org>; Sat, 15 Nov 2025 03:43:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0618BCD4F48
+	for <amd-gfx@archiver.kernel.org>; Sat, 15 Nov 2025 03:43:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0F0710E293;
-	Sat, 15 Nov 2025 03:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E6E10EB73;
+	Sat, 15 Nov 2025 03:43:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z5/ZteZQ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DFRuhnyV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HboKQy1y";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="irIlHTQH";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 449F510E292
- for <amd-gfx@lists.freedesktop.org>; Sat, 15 Nov 2025 03:42:59 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD68210EB76
+ for <amd-gfx@lists.freedesktop.org>; Sat, 15 Nov 2025 03:43:01 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5AEIQ52u043084
- for <amd-gfx@lists.freedesktop.org>; Sat, 15 Nov 2025 03:42:58 GMT
+ 5AF28Yj91066068
+ for <amd-gfx@lists.freedesktop.org>; Sat, 15 Nov 2025 03:43:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- BhpfJLji6/fhtqDCZ24EK575S0ON8OrjNodLzdYi1t8=; b=Z5/ZteZQFnfcvd9H
- zhmucCCTPYkD59BYzuozHbarBemxmP65bY/oVvwto7naAdmTmiPK8mOC9RWfu2Kl
- OVdSCVXOEQqCyWT2z44jvH1G2DWfTwwyMxwzG4BWjy1TxCGTA3ufSpLbm3JAZEa/
- dtSpIACUTz/yDcXAg6p7yH7fO183Mn0dWtB1fi+akEMJC0Wda/7YochzrqNfckIR
- xkJjg3ePCXJ9g5y0/qxg9t8BSUKXG27yGCKE54BpQNQu5glSWtdilRhMMKtT0/PK
- Oe+d7SDAqzqIxOBf6UWciFuaBK45AEiEzI6xNeQeUOZHNamQRuf5yQ6qEziMFX+P
- gsjiFA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ae3t9ta3a-1
+ aamIlscdOZY2NtMNmIDW1DpTwPFXcWriH5eM+ZN8CSY=; b=HboKQy1yA7vhgXyT
+ P1ia12JurKgStGgWb6jbJ4jftC9Uz4xPMG0FfCZ+xi8gG1lwxVQg7zReFC8weKGM
+ erZsILtU3/ib4bpGndhO/ubNd3uU1Qwb2GqPvT+w16xjxEySW3Irj6+oJxLpP8Hx
+ NMQQFIr6LT/xrzIMB9nWfUK40SrZNsT1DAppakH7D7Z1LtZNBLMvoMu/wXqYC7uT
+ +2ZjxSOkQGwn2jh/EI5yllCZtC/gwyp91jUqRE6CLwQN8mzC639r/4HKIyMKgVrv
+ BPaS0/nHk+NEa1O6o1E3f65EX+wGR/98n/DnSorOoZc3JiFm2nVUig9XxiJXGYfa
+ 06gEWQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4aegfq84gf-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Sat, 15 Nov 2025 03:42:58 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8b24383b680so221586185a.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 19:42:58 -0800 (PST)
+ for <amd-gfx@lists.freedesktop.org>; Sat, 15 Nov 2025 03:43:01 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8824b00ee8bso41835986d6.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 19:43:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1763178176; x=1763782976;
+ d=oss.qualcomm.com; s=google; t=1763178180; x=1763782980;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=BhpfJLji6/fhtqDCZ24EK575S0ON8OrjNodLzdYi1t8=;
- b=DFRuhnyVD/pZ6S5slrTT99UoQKDHCRDGzst03eUBGKDpFW6u8KF0/dm5RxcBntAkF3
- I9i7IbsM5HJN0g168M4DrD7GA0Q+Gr5fbUX/GMeS2rLhrkUSRBs3migSLmTKF8jt6FmM
- Cy4D+8wWyZ4W0HYsttqgrgaWCMVYXfDBGD25Ubbbxk/SugNxb0gqYz3vk/uf9MFkUam6
- FYZOzW5Xvx8ba+rEICTTf5jc2Z+Qz4ruVXuy/ql2oqSIlkZMe0iFEKtCzDv1IPGj0vWV
- s7ipPwfqRwncdF4aw4MDuPXS3oRxpVA64z+exYaeuL/B4t6s/tYjKBAFpae+qI2PCzXV
- Oa8g==
+ :reply-to; bh=aamIlscdOZY2NtMNmIDW1DpTwPFXcWriH5eM+ZN8CSY=;
+ b=irIlHTQH9Ue9O8KLcoD4gIQ3+dEOG3TLAcLlg4wA2YaOVac0Danx1/463ZGPhVQNhI
+ Y8b5mSLiZG9vC3EeALDQHqaXKXjO4OGw+YssemeXUezc3M/wiR2kYoV+1OCS/JS+qGix
+ WVaaZ0Py5OqUrxsowkZWqqRkHzBpvxuHE7dcK5Lku0EzcsR2v6rf+Sz/bp9013MG1FhB
+ fzf+8EFJ+FZQUIo5Xve8YKaqBacfzff+NAm2pSQwbh9mOyyE4FcR9X1X/F1Uht/IQXuQ
+ 688FkLkvsgvOta+wtvLrUJ2sH4s0c+2tNQPuS3ZMecxceB4qA2hy7a7Di8KdAFGP6PgH
+ WDkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763178176; x=1763782976;
+ d=1e100.net; s=20230601; t=1763178180; x=1763782980;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=BhpfJLji6/fhtqDCZ24EK575S0ON8OrjNodLzdYi1t8=;
- b=AHsJ9+/Kuzy2DbzBcDrAAq4e4XFgrcX9rjNX3/VGMFgX3o1RmBHUvhNozYZ1HI6pVD
- dffXhf9qbGMmKcvV41a98bnpV98k67YsLdR3bygSxoSbp4HnWi098+Wm0MnrW6V8h9AJ
- WqLTdS3/NlmFBUqQxxViyN6+eL81cxYfZeHsEN080sBEreb3gs/pC5LeBvxnbH3ajfft
- LA2SY9dYAPIN+b4fyBDC7NuOSBuv6EsCvqsJQT2agWTAdY/mVXdzycIeWR2V/jNBajeq
- bFp4QlxfpM1E9LWXNZ/n7ZRCmFqhIiPstWYyXWE0rxXW6xYNGmyIE2VwzafITCJLFLU5
- IGPA==
+ bh=aamIlscdOZY2NtMNmIDW1DpTwPFXcWriH5eM+ZN8CSY=;
+ b=rhNntIeamTozwoTFN0rpS1P/JgJyOl0XvayDbDZgj+aoASiMFbxC6ShWHDfoVLROV1
+ GfCeFsulpwVqNhGrSZK6mk+R8Xve6nF5sorBjeCvGNOQjjFM8qOc92fyqNOgMJXMjh98
+ PK8PsxN6Ck5/uN2/edhyK/xwdNqp+q2WKxytULWifEEwzpUxgYqvpBdxy9Hg9DsX0QyP
+ l0x7NPOy+nww2iZgaxU9k6g+E2bOMawp1fqiFg/D93v1pe/fJTm5Uha/ZCnMuI7f6t2U
+ 8m5L6W280+nKyYOgnyVefiCCpXqv20PdT/s93sai0Hag3K2xR13PO+23qz8bOMvUOf9u
+ V5pw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOt/aYQ6RKF44VKJg3+wMJfq+qevFGYuI4KkRbLuluoYqaaUKSZkP8JPx6lsj7QF7EDKSoqIqj@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+RxwPzsfdzV0WkyMFPzH40XfQMuozmyfoUikzHDo+REROcfK5
- IQAKczr0PXTEBV83rGUMSy+DB5WvKZ0/AWbsn/8dEAUXWUgRihFObp9L7POTCnEdC/zjC5ibqiX
- pt2DAfyV9iBzcbcelVzOynuFoztpm0QTaGF3PeH15D9zm8goxAMELTASgoAP/YyD5CCGa
-X-Gm-Gg: ASbGnctC4sU3O4diOrZl9+5rA4nTK3/MVI4qAP15ngZu4h0fH2IXqudloBP0BP0vPJx
- InyBnxeg06zg57yhAxKp4QMgLBqg50hK2v1J22fMNZGyhSFJwz+3aZtIMHKp/j+5pjT00K8cfSq
- nSreLvohrEmSvMJ7WSY72PAI/Im7TC3Ba4+kug0whwXkCRr9CvctjIRQa/UBKYKuTlr5l+UkqMW
- 8tWbZp5SwpwvoKppz5KZbdP5EmNxspSNjXmM3cIcIiwMo52GHArHmFDMFGebyuxblKn2YDTDPjy
- TbZ1ivs8812QuovsmajnsbKGg4yWyUnnsAw61fh/vR6ncQBkYhgfoJtT5gQXeWdWm5jj6dp+sBA
- nziq7YQ/7daO7IwqeBk2o2X2kNiPDp7G3jdbyAGFwgQll51H3LE00P8IUaHpqeCY1AQQFawDXjx
- A1j0qYm70Op4Ml
-X-Received: by 2002:a05:620a:390e:b0:8b2:77aa:73d3 with SMTP id
- af79cd13be357-8b2c31409bamr724154685a.2.1763178175601; 
- Fri, 14 Nov 2025 19:42:55 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFv7gCdw6HKgZhMlZOXjPB0By0UhngBMETBduc0VjgNYn8qw6cDgmC2imheV8we/zNyBowEOQ==
-X-Received: by 2002:a05:620a:390e:b0:8b2:77aa:73d3 with SMTP id
- af79cd13be357-8b2c31409bamr724152685a.2.1763178175004; 
- Fri, 14 Nov 2025 19:42:55 -0800 (PST)
+ AJvYcCULdgFMhSwbqcoiVaJ2Rn2podk6UYYQp8u+usiNeiiCpvJ+lc6ihqBw2Bu+1cdq7KVXGWkIrbja@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxXMkuchhUGKxwG3l0Q2ws7r4sbRNz/g3oAlz+q4yj5StSlq5R+
+ jW2uDCKoNvDVngpItZtIYuHirtKsOKhIOo70IviTGcRmbd2qywXmKMBxWgtnnGxV2mBU3NlAJcV
+ 9Ja9m1ReYcC/+zRdIIISeAdjGVqkLxxSvDbBDEjOtevhZ93nMKJEbqNcgZhy2uke7VH+D
+X-Gm-Gg: ASbGncsAqq+CJhWv0P67t+dCnOnGsA+Zt0RxCf2xupMtiZbPJQ4+jfmMNmz/R2UuuNH
+ 71SLmHZ0c/TpHTNUqYNnIZiqAUXqKDAC2VOA+0xfwjaQF2qjg7X/CzY5uPnn4/0G+ZweWvk/Lij
+ r0VJXKYli4rm8iSj8u5ivm+xBFXrVlGXwCJVY9ve6Ea7n9IwjkJeJ8MqUMK5n4BdEkrgZO+aKby
+ LtmkB6hwyRROYo9UE9rnHtFOD7982yEE/paSbD3KNeb7Ufc2uxaQP0che+GgD4UyvDq+NRnYO67
+ 41FeZSHSG/rkRED9w645CmZvr5QKg9cj1pAKC64o0cV9GxC0JaOrO5INPtYsPt6BYw5+VqmXYJb
+ BQ7HsEC+i2S0hVugshayHZmezhFPWLq6/pzKNbJINIJ1coB7XJpiCzCNyHrismomWrq2C0+JN3V
+ oTgZ8UyRB2l48Q
+X-Received: by 2002:a05:6214:248e:b0:882:3453:8248 with SMTP id
+ 6a1803df08f44-882925f67a9mr77232006d6.28.1763178180253; 
+ Fri, 14 Nov 2025 19:43:00 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHhVxtE2vzDpCPxpniykwzQn02uMaRseK9nYWsrY16MxhuNwjNND/ElPUxOxZWzG5XyLWKoMQ==
+X-Received: by 2002:a05:6214:248e:b0:882:3453:8248 with SMTP id
+ 6a1803df08f44-882925f67a9mr77231846d6.28.1763178179750; 
+ Fri, 14 Nov 2025 19:42:59 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5958040578fsm1475880e87.78.2025.11.14.19.42.54
+ 2adb3069b0e04-5958040578fsm1475880e87.78.2025.11.14.19.42.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Nov 2025 19:42:54 -0800 (PST)
+ Fri, 14 Nov 2025 19:42:55 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 15 Nov 2025 05:42:50 +0200
-Subject: [PATCH 2/3] drm/atomic: add max_size check to
- drm_property_replace_blob_from_id()
+Date: Sat, 15 Nov 2025 05:42:51 +0200
+Subject: [PATCH 3/3] drm/atomic: verify that gamma/degamma LUTs are not too big
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251115-drm-fix-lut-checks-v1-2-3586f5855bc7@oss.qualcomm.com>
+Message-Id: <20251115-drm-fix-lut-checks-v1-3-3586f5855bc7@oss.qualcomm.com>
 References: <20251115-drm-fix-lut-checks-v1-0-3586f5855bc7@oss.qualcomm.com>
 In-Reply-To: <20251115-drm-fix-lut-checks-v1-0-3586f5855bc7@oss.qualcomm.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -110,41 +109,40 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6345;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2089;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Zrx3F7zYvNugK1FdTfV6C4jbMJzk2pb6chyouaUp1/k=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ6b4t931fGVRZn/3KBwu59oo42C+gumWghjbqshfKxv/v
- E5w+Da9k9GYhYGRi0FWTJHFp6Blasym5LAPO6bWwwxiZQKZwsDFKQATqchn/6fsMXPfam13vxMS
- koJqp88Gds9Qf9x8YWls8jHXysM3lnnHKSbt6jyfe+X6wVs3nK5t/Kuz+4ct3/Mduw6c2GxvWs7
- fF/LjQVussV4le+OepIdaZ1r9jYNE7Ctn1cq6OxvuDvRVz6zp7pScfYh76e3DJ7uZY3rXplboby
- v2ZmqL0HtanNX7//KCs4mcMlG1ylGclsIBsr6dqzJTmVUOBxgGPfwu8Hvi1n/2LQJROpnLdvUdC
- HGbdNhV8Wcaz70+zsnbxKs/mBXL3nvcsi47/Ha8hFfNYaPnbnFL167fekjkoMB+W831a31/uhdt
- ELRLb5hnZFp07TQrg82hE0sdlN9uVJjdWPiqRaeRaUc9AA==
+ bh=4P1wMVl+cr5YuoK0uLDDF4U6r3t4wXggB06NKtuqjxQ=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpF/a7T5WnPS0+6Tv496xy0Hm3V4HUcepWVOh7+
+ VCvXzZ0ycWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaRf2uwAKCRCLPIo+Aiko
+ 1YkmB/wPsLc6KEvkV424vpLAEbHyA6xjgnMKZ8tD9uJ/+MD6hxhPqfREqsSyl+MQ5pLR3IceAoS
+ /kRCvgLGHirkV2I4x1xAwX+1Huqe2X8PL9InneIHyOgtV+G6Tm+sOxSeroduVzfJ/878dKw2rdh
+ +6MQwO5CGzxmegoJ1uwt+cmQFi5ZQIRso9+YbQNSZUqw9m/54fgaZsDYyZ1CRTTNtRUkOBGBSTy
+ jtzW9mSXfn4oeivRipQEgsOXmacKBxIU2LgE3wcFCEdbZoEd5dgrBG/MzM8Ll+XI/WbUm0+0pfd
+ oUmsdaraNAe8qLgCznpVkSLyzHlVcKwODR9r6MfIPXGnNohi
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=IOAPywvG c=1 sm=1 tr=0 ts=6917f6c2 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE1MDAyOCBTYWx0ZWRfX4foTqxB9Yr9y
+ plestuSuEGv6zn3Pp/kLUOA7yUTQ99FWOBm5yb4Qm6peDhS3/G9uUeeH59q1EDyOqAGuFNpdESI
+ cO1Pvywn+gM1ezuFv6uv69TzYdg1rCTaC88q0yfOO75d9zAlXikNC08e4/vOv16GsX7+75xSErZ
+ XZJ2e3elDaZX9tUaPN7/T9NHv68q6O3CxcfvWyU4KKq4lZHgZXdKudRL/TOkc9C303QolBBVmJ2
+ pyeiJMsP8dwF/qQnlPVcRExx8lzYiTAb1N0NPunF/TNFnXPq5YZbeYuD9VOdpOVzv+mWGm2JdRx
+ pfeJSriFbi4BtxmmiKKT29FXxSKWE0rqNdszwoEH+lc2icNGCshQnjNM8BlHuNVSS+2R9S6Op9O
+ /AFojtnZE2BH2+7u6ddvOIsBtWQa6Q==
+X-Proofpoint-ORIG-GUID: cJ0JD1JvmNrx1s35tO36iWVEFzg7UH8T
+X-Authority-Analysis: v=2.4 cv=NezrFmD4 c=1 sm=1 tr=0 ts=6917f6c5 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=GF-90_O6f30kfN1CyEYA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTE1MDAyOCBTYWx0ZWRfXzrtiXvoX6QZ3
- 2PXzScboq//5KdL4clKdtib1X3uFHJiLb3mLbmqc0gJ3RHzajzwx6NL7jyGtrOa/HOLl88khMhI
- 2WhUgaj7pt/JEKxLBwOxrPbu92JdExgP30jHaOKmvTEm+juQhGrR7701A66uKlCZyhqvvMUif9t
- +mwhDkxk1yDLakIvpuop8IfyZNR99Cmz/Uq0TjfdozMVKFXUjsE6tVz553X6dnC8snaSnJkmsxI
- zq2srDIuyCjeK0n9Q28aax9q85VnW1ijq/aHy94XRhjqU23nvAc5VlWYf+F3xN2axDCBGIGbu85
- mhJwdWfpvPmdjqxcCNNKkAo3N6RburkvNJNgiv3KsqdFFhh1aCGVfh7902kK2uCogJ/Z58MZMgx
- vMSxlrxkeb/xculvGqwFSZzxrYsAxw==
-X-Proofpoint-GUID: SxvlODAV1WgmZke93dEjzoKHB_QV-pp5
-X-Proofpoint-ORIG-GUID: SxvlODAV1WgmZke93dEjzoKHB_QV-pp5
+ a=EUspDBNiAAAA:8 a=_v5trmpiMvKuf-VRmTkA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: cJ0JD1JvmNrx1s35tO36iWVEFzg7UH8T
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-15_01,2025-11-13_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 adultscore=0 impostorscore=0
- bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2511150028
+ malwarescore=0 suspectscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ bulkscore=0 adultscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511150028
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,159 +157,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function drm_property_replace_blob_from_id() allows checking whether
-the blob size is equal to a predefined value. In case of variable-size
-properties (like the gamma / degamma LUTs) we might want to check for
-the blob size against the maximum, allowing properties of the size
-lesser than the max supported by the hardware. Extend the function in
-order to support such checks.
+The kernel specifies LUT table sizes in a separate property, however it
+doesn't enforce it as a maximum. Some drivers implement max suze check
+on their own in the atomic_check path. Other drivers simply ignore the
+issue. Perform LUT size validation in the generic place.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c |  5 +++++
- drivers/gpu/drm/drm_atomic_uapi.c                       |  7 +++++--
- drivers/gpu/drm/drm_property.c                          | 11 +++++++++++
- include/drm/drm_property.h                              |  1 +
- 4 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index e027798ece03226338a4ff6ca9e06eb77436bac4..d19631b5d9e1237849e081b156d23b933848faef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1677,6 +1677,7 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 							&dm_plane_state->degamma_lut,
- 							val, -1,
- 							sizeof(struct drm_color_lut),
-+							0,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-@@ -1695,6 +1696,7 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 							&dm_plane_state->ctm,
- 							val,
- 							sizeof(struct drm_color_ctm_3x4), -1,
-+							0,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-@@ -1703,6 +1705,7 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 							&dm_plane_state->shaper_lut,
- 							val, -1,
- 							sizeof(struct drm_color_lut),
-+							0,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-@@ -1716,6 +1719,7 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 							&dm_plane_state->lut3d,
- 							val, -1,
- 							sizeof(struct drm_color_lut),
-+							0,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-@@ -1724,6 +1728,7 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 							&dm_plane_state->blend_lut,
- 							val, -1,
- 							sizeof(struct drm_color_lut),
-+							0,
- 							&replaced);
- 		dm_plane_state->base.color_mgmt_changed |= replaced;
- 		return ret;
 diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 85dbdaa4a2e25878c953b9b41539c8566d55c6d9..7d2076f1006e976de73c898a838ceb4b5c4370e4 100644
+index 7d2076f1006e976de73c898a838ceb4b5c4370e4..178d983b2378e1910a8afff4da24e090f02f3bd4 100644
 --- a/drivers/gpu/drm/drm_atomic_uapi.c
 +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -388,6 +388,7 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+@@ -384,11 +384,19 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 	} else if (property == config->prop_vrr_enabled) {
+ 		state->vrr_enabled = val;
+ 	} else if (property == config->degamma_lut_property) {
++		u64 lut_size;
++
++		ret = drm_object_immutable_property_get_value(&crtc->base,
++							      config->degamma_lut_size_property,
++							      &lut_size);
++		if (ret)
++			return ret;
++
+ 		ret = drm_property_replace_blob_from_id(dev,
  					&state->degamma_lut,
  					val,
  					-1, sizeof(struct drm_color_lut),
-+					0,
+-					0,
++					sizeof(struct drm_color_lut) * lut_size,
  					&replaced);
  		state->color_mgmt_changed |= replaced;
  		return ret;
-@@ -395,7 +396,7 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+@@ -401,11 +409,19 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 		state->color_mgmt_changed |= replaced;
+ 		return ret;
+ 	} else if (property == config->gamma_lut_property) {
++		u64 lut_size;
++
++		ret = drm_object_immutable_property_get_value(&crtc->base,
++							      config->gamma_lut_size_property,
++							      &lut_size);
++		if (ret)
++			return ret;
++
  		ret = drm_property_replace_blob_from_id(dev,
- 					&state->ctm,
- 					val,
--					sizeof(struct drm_color_ctm), -1,
-+					sizeof(struct drm_color_ctm), -1, 0,
- 					&replaced);
- 		state->color_mgmt_changed |= replaced;
- 		return ret;
-@@ -404,6 +405,7 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
  					&state->gamma_lut,
  					val,
  					-1, sizeof(struct drm_color_lut),
-+					0,
+-					0,
++					sizeof(struct drm_color_lut) * lut_size,
  					&replaced);
  		state->color_mgmt_changed |= replaced;
  		return ret;
-@@ -546,6 +548,7 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 					val,
- 					-1,
- 					sizeof(struct drm_mode_rect),
-+					0,
- 					&replaced);
- 		return ret;
- 	} else if (property == plane->scaling_filter_property) {
-@@ -741,7 +744,7 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		ret = drm_property_replace_blob_from_id(dev,
- 				&state->hdr_output_metadata,
- 				val,
--				sizeof(struct hdr_output_metadata), -1,
-+				sizeof(struct hdr_output_metadata), -1, 0,
- 				&replaced);
- 		return ret;
- 	} else if (property == config->aspect_ratio_property) {
-diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-index 596272149a3599130186a470e5a5a3c1150b377d..5befe443135d3861289183d1b6fa1ac0e5e46515 100644
---- a/drivers/gpu/drm/drm_property.c
-+++ b/drivers/gpu/drm/drm_property.c
-@@ -759,6 +759,7 @@ EXPORT_SYMBOL(drm_property_replace_blob);
-  * @blob_id: the id of the new blob to replace with
-  * @expected_size: expected size of the blob property
-  * @expected_elem_size: expected size of an element in the blob property
-+ * @max_size: the maximum size of the blob property for variable-size blobs
-  * @replaced: if the blob was in fact replaced
-  *
-  * Look up the new blob from id, take its reference, check expected sizes of
-@@ -773,6 +774,7 @@ int drm_property_replace_blob_from_id(struct drm_device *dev,
- 					 uint64_t blob_id,
- 					 ssize_t expected_size,
- 					 ssize_t expected_elem_size,
-+					 ssize_t max_size,
- 					 bool *replaced)
- {
- 	struct drm_property_blob *new_blob = NULL;
-@@ -801,6 +803,15 @@ int drm_property_replace_blob_from_id(struct drm_device *dev,
- 			drm_property_blob_put(new_blob);
- 			return -EINVAL;
- 		}
-+
-+		if (max_size > 0 &&
-+		    new_blob->length > max_size) {
-+			drm_dbg_atomic(dev,
-+				       "[BLOB:%d] length %zu greater than max %zu\n",
-+				       new_blob->base.id, new_blob->length, max_size);
-+			drm_property_blob_put(new_blob);
-+			return -EINVAL;
-+		}
- 	}
- 
- 	*replaced |= drm_property_replace_blob(blob, new_blob);
-diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
-index 082f29156b3e3fd2de0d6a3864022388cd61e17d..aa49b5a42bb56d9331d8d3397b150e33aae67451 100644
---- a/include/drm/drm_property.h
-+++ b/include/drm/drm_property.h
-@@ -284,6 +284,7 @@ int drm_property_replace_blob_from_id(struct drm_device *dev,
- 				      uint64_t blob_id,
- 				      ssize_t expected_size,
- 				      ssize_t expected_elem_size,
-+				      ssize_t max_size,
- 				      bool *replaced);
- int drm_property_replace_global_blob(struct drm_device *dev,
- 				     struct drm_property_blob **replace,
 
 -- 
 2.47.3
