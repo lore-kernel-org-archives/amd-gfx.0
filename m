@@ -4,94 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6AACCE8D6B
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 08:02:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24ACBCEBF96
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 08:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6080E89C0A;
-	Mon, 17 Nov 2025 08:02:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7913010E19A;
+	Mon, 17 Nov 2025 08:03:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="QXt6OgYv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kzlIpFol";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58B2E10EA8B
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 14:35:12 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-42b3b29153fso1212333f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 06:35:12 -0800 (PST)
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
+ [209.85.219.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C10F10E037
+ for <amd-gfx@lists.freedesktop.org>; Sun, 16 Nov 2025 17:33:32 +0000 (UTC)
+Received: by mail-qv1-f47.google.com with SMTP id
+ 6a1803df08f44-8823dfa84c5so40656416d6.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 16 Nov 2025 09:33:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1763130911; x=1763735711; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dWXLhPsJovH76m+UWdSFM19WXCf+smwi4mOSlHBAWM0=;
- b=QXt6OgYvB0GrccRY4O/EVcLjkMbn+DlDWyNkAUdiOnNwqvKk92sOwFWTezHXn58Q9S
- mw1siUfJL0+hkSKLuRo3si3NdEbU14tElEK/Y4WAxVUwSsHAt0dpNxiQLhr71+eh8Wgs
- 7Epk38xAJNLQwkeGlqvJZs+ZfPC3TTfugHMmiSeJAzD9S5CPadte7p/kZ3E1QjHhjjd1
- X6RQiGLmC+HFNJnemHOkeOkpaIZ3Umoj91TEf1AQgq1uernXrN9JmTuWSEOVWSMGMSop
- fVU9elwaWX7QI5HDzGTVOFQuajEfhrZyZ9MGcuYRAJG1bi1bwrLc1Vt+5+r02/7urLQl
- V8Vw==
+ d=gmail.com; s=20230601; t=1763314411; x=1763919211; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=aTNaqpV1M9Ei1511bJGHTwkA7seKFEx3WsZoUY+KXHg=;
+ b=kzlIpFolRG5WEcdRLrupDPsZUzE3Dui215ENDl8+Z0yddvYaFGLr6fjFfCcB7dFDUv
+ GCkW8lnscQUIcxQrUc9c3q/d0FHeFxiw7bnF8Ekx5YVftVuFe3eYo/R2UgjfO1BV7tV8
+ aTQh4aOA2nw0m0vEypBOEklvqiV7dN9P6NHmEc2cO3aRbi7OdAUdpMjFUEuBA9u+LF/S
+ 3bu0xxXtXThGp/aoW6vT5C8jfqE7FbJzldpPXLGY/mcogTLw6dNVK+N1P81tJebeoZNQ
+ DC17xl6HRz1pSXYE/f1G3+W05jYEkXGPhShWOdcAX9lY/l/B9iQets7GWbVh9T2FcBaD
+ JaNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763130911; x=1763735711;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dWXLhPsJovH76m+UWdSFM19WXCf+smwi4mOSlHBAWM0=;
- b=uQbYzGK8+up2VRw++5a6aua2HixeyAiDxNHt5lIz2aD7oyUbiSFAXjx749UGo6apW8
- ogpy3a/lAsfxQj1CHgUYiLLL6TLP0ejYeL9HGW9Zf+YC91cyly2ZDIAFQLx5deJx2//U
- oJTytQOKAS4Q2wquuTmhOj+80+mJRtWoqoYE+ylFM/iIIRg2dtFmRazsLArUffypj7t6
- /LFtb5oXiviE6o2PXHkEdYX59iJYJfN6V1azxJnojprHQGEEuX0cEPeAPij58osAby/a
- hzySUoYP7MChQe16+gHb79nCBCvKSEiJJsuD8KBC+fRYjyG4kf/XjJrx7M1bUAq0ifnO
- RAsQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUryDS4HChdeA4Y0V51fF+TzaY4pF3t0s5yr0w4f4lqHjkiceIsmdWVPi3m7M1Vv3iHTjh0bOc1@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6E2WQ0nYUPQZ6gicmNrPUR4JVlUp6qgUN0c7gyoaTseKV5+Vc
- 9T4aG0tyts3uWq6akRYgKQQWvyHSNfQDtzAApqR5MzPkwTzPgK7KjCZeMnFvSFJmRtY=
-X-Gm-Gg: ASbGnctNBxwAW7MQw7JJPj1HQehBLupOi0y3VYmpfYdddWIcz1EYo2VR3WP2UNJecf/
- 903dMv59AQGFAeOJk0MDxiG5Z+7nIKHBQ03Th+3W2nfkTLC5oM/7Vz1mCFdr+3VyEmlfc0tF2Tu
- PQye8yW1GP3BOeIeFAUmG1mfTATCT243Uj2DHQdIQBk7aODbGP7oJa2vJ9i2g4agTM2F+4ojGck
- U+Byy7Ci29Q0vLpedhligmkJ1BJqzLW1re62Bj/RVAoc4mKNSbXDrpm4esOV3YzxIz3xKMqtGDP
- wr7rnltl1N0SJA7dxAF2SyV8oRXi9t+YdLOd5wUXQWL0kBTCQCSSPiUu3Iga+j9jJiHlXyZk03C
- 0+ID/QKGP242/BjrQVqzhennZnBZ+L6d0GHhJcLxifNdoxTFCUY3k17hn/DfHbE3gLMqi8kqXjm
- iA
-X-Google-Smtp-Source: AGHT+IHw5DY+d3JMXj0ehkwCi00kh1fcOQgwNxL358oZwa3xTlItactqY9kSp562T/u4HnhssT9g/A==
-X-Received: by 2002:a05:6000:230b:b0:42b:40b5:e681 with SMTP id
- ffacd0b85a97d-42b593450f3mr3355692f8f.26.1763130910639; 
- Fri, 14 Nov 2025 06:35:10 -0800 (PST)
-Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42b53f0b8a0sm10330771f8f.25.2025.11.14.06.35.09
+ d=1e100.net; s=20230601; t=1763314411; x=1763919211;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aTNaqpV1M9Ei1511bJGHTwkA7seKFEx3WsZoUY+KXHg=;
+ b=BsJx39sMlY9IuB2dIE4nfr+dfDEIBiGGgxYOU5apqzGmCXiqMwKN28RlBDyqQbb7O7
+ DbzfJSz/DAjVUzg+SzTYewCCpR15+BdiXvccTVILp2OyuwnatjvttoNaZHkXQyI2YScv
+ MDJjaPs+40f89jkFfAl4EIHjfFp5g+jahcevN30pElSN6gscTCC5xtg1OD3ZVJX07pVR
+ QU1tvxA9fgitU6+A1VOokL0inqnVBRVfbbDjE65IHUrYLM5KTeUCu94MlyAFRhP+Lgre
+ 4R/qW9pS94lkRBEkDjBanx8xJZbcFu16GkVSbheJDji8b8U1J6Hi7M9jbNdOuwPCFEWq
+ VsSA==
+X-Gm-Message-State: AOJu0Yy45gKg6WC+qH9Zjfi7T1bBoenotkPqt67p71Y1/ioR8aYykYs7
+ J05uX8Cw0bzWQP4PTpYd44uG5CG2GoVjbiehFejQxXlhlTey5kzbf267sXeKrmEc5uU=
+X-Gm-Gg: ASbGncuy2xNWHe5g3IXmucyoaeN1IL3K9EBcqbCzlYR/gdclQismiObOESfMbcWLoI3
+ rVy4b/w3IJAMRXBBZ/5J9gVBRm5L6BUO/TVvkK1CyaqEX+lRDDnKMCRRiHpgd6N4aveMpp54wF0
+ sXKXVxR1W7jbk0/bcgdsomdXVq8JlC0V/d/aD1cddjl7XBH5DRCHG1ngEnWgLJfXKntbbat7kRq
+ QgIrtRHersqzSinLeCEkqGvW0+wb26t3sLRXFeZESvR/NJgIsV8SMfWmz59oeOUgP4tk1brh/rH
+ p0qWlW33b6yGQggsVmwLXAJnBiQRNO88q3uMnBb/CZC27AkKHk1WdLr/iHBQDIPnsIM6T01OM3/
+ CqHV+8FeFR/UKRygf5qbtMSvC2bgCa2b6TP1lfQHKqItlGYeh+8dGJFljU326O0qM6N0z3wlIbB
+ 6psW+81pcSKVhq9dFelN0gCVF4khnHY7yv5oPzhhx+CZxEJYpKIRPjtSFk1zn2NlL3+NROpVh93
+ tIL0iQYL8k1Ww==
+X-Google-Smtp-Source: AGHT+IHSnTQS24UuUH9rl7UnvsBNdDPlTMJarcl0yOTKBLb5q+jffZsOwrLpkrusLbtn4nUdL1luew==
+X-Received: by 2002:a05:6214:1d2d:b0:882:7571:c012 with SMTP id
+ 6a1803df08f44-8829273c0c8mr143960626d6.55.1763314410878; 
+ Sun, 16 Nov 2025 09:33:30 -0800 (PST)
+Received: from namdlewifi.mynetworksettings.com
+ (pool-108-18-100-114.washdc.fios.verizon.net. [108.18.100.114])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-88286313d85sm73664596d6.23.2025.11.16.09.33.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Nov 2025 06:35:09 -0800 (PST)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id CCE895F820;
- Fri, 14 Nov 2025 14:35:08 +0000 (GMT)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
- <lucas.demarchi@intel.com>,  Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org,  Bjorn Helgaas <bhelgaas@google.com>,
- David Airlie <airlied@gmail.com>,  dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,  Jani
- Nikula <jani.nikula@linux.intel.com>,  Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  linux-pci@vger.kernel.org,  Rodrigo
- Vivi <rodrigo.vivi@intel.com>,  Simona Vetter <simona@ffwll.ch>,  Tvrtko
- Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
- <michal.winiarski@intel.com>,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 03/11] PCI: Change pci_dev variable from 'bridge' to
- 'dev'
-In-Reply-To: <20251113162628.5946-4-ilpo.jarvinen@linux.intel.com> ("Ilpo
- =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:20
- +0200")
-References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
- <20251113162628.5946-4-ilpo.jarvinen@linux.intel.com>
-User-Agent: mu4e 1.12.14-dev2; emacs 30.1
-Date: Fri, 14 Nov 2025 14:35:08 +0000
-Message-ID: <87346gptr7.fsf@draig.linaro.org>
+ Sun, 16 Nov 2025 09:33:30 -0800 (PST)
+From: Robert McClinton <rbmccav@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Robert McClinton <rbmccav@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Subject: [PATCH] drm/radeon: delete radeon_fence_process in is_signaled,
+ no deadlock
+Date: Sun, 16 Nov 2025 12:33:21 -0500
+Message-ID: <20251116173321.4831-1-rbmccav@gmail.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Nov 2025 08:02:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,26 +88,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
+Delete the attempt to progress the queue when checking if fence is
+signaled. This avoids deadlock.
 
-> Upcoming fix to BAR resize will store also device BAR resource in the
-> saved list. Change the pci_dev variable in the loop from 'bridge' to
-> 'dev' as the former would be misleading with non-bridges in the list.
->
-> This is in a separate change to reduce churn in the upcoming BAR resize
-> fix.
->
-> While it appears that the logic in the loop doing pci_setup_bridge() is
-> altered as 'bridge' variable is no longer updated, a bridge should
-> never appear more than once in the saved list so the if check can only
-> match to the first entry. As such, the code with two distinct pci_dev
-> variables better represents the intention of the check compared with the
-> old code where bridge variable was reused for a different purpose.
->
-> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+dma-fence_ops::signaled can be called with the fence lock in unknown
+state. For radeon, the fence lock is also the wait queue lock. This can
+cause a self deadlock when signaled() tries to make forward progress on
+the wait queue. But advancing the queue is unneeded because incorrectly
+returning false from signaled() is perfectly acceptable.
 
-Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+Link: https://github.com/brave/brave-browser/issues/49182
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4641
+
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Robert McClinton <rbmccav@gmail.com>
+---
+ drivers/gpu/drm/radeon/radeon_fence.c | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
+index 5b5b54e876d4..167d6f122b8e 100644
+--- a/drivers/gpu/drm/radeon/radeon_fence.c
++++ b/drivers/gpu/drm/radeon/radeon_fence.c
+@@ -360,13 +360,6 @@ static bool radeon_fence_is_signaled(struct dma_fence *f)
+ 	if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
+ 		return true;
+ 
+-	if (down_read_trylock(&rdev->exclusive_lock)) {
+-		radeon_fence_process(rdev, ring);
+-		up_read(&rdev->exclusive_lock);
+-
+-		if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
+-			return true;
+-	}
+ 	return false;
+ }
+ 
+-- 
+2.51.2
+
