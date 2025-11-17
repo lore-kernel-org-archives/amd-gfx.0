@@ -4,131 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7602DCEBF61
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA06CEACEF
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A9510E39E;
-	Mon, 17 Nov 2025 13:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED56710E0D5;
+	Mon, 17 Nov 2025 13:42:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B/kFMwa/";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rGWYzEGJ";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012032.outbound.protection.outlook.com [40.107.209.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F6110E39E
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 13:31:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DpPC9Qh6X8uIVBqtCcuAxKASD2OIQNaQ2K8YPZ1pPLxnazCA4yxXwhx4uNEMBQtdpyiF8AnBWQNUHTdn7l5rRqjpGbhLzKBMW83vfoVw15ISSDVBpKaQo59mPorfa8c5sDP35LlrNbjs5jSBVfV8KFKsL999XRqAAGC9WYo36tWyHF7yiS6xQYigg/pocBFGxRYucy/G4dIpZA4JApKk0T+3l8YfpHFFMpZkwBAEII2Ih33GPC3PBknyenSa/nh6gcCbMw82ozSfKV2fqJyycLjPmLqNd9NMkVV/RczuG/5kRB2fU6UeEnOUtugxiYYi0Am9NxvQgEKy9ChySIyMag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gHfoOk/wdoeTMC7HdYKp0c4dh3Q2FznE4LIQa9j/C94=;
- b=XqwB6Sjz1eX7FXPrY+vChbmS7tBKNcBRy9Ndeuga86SvdpURhId9xsvIxJ5S2NA6GpoSED3KowNnTf3OG6dFNVsQswpRqN1/T8TrhoSfI9v5NrKkyDBG5KWdrBLELjR7AoAbTrUjZLlehW7oZ8KKlG+3qBvLYkCE6zW/H/fXzuLVjke217ZP/p4ocQEqFw8rIZ+lu2q7TS7FmzWUpNpwFQVxUQQCofhla1xrMvSkTk8+cC2ik+vyINXtj8x9aXy+JnJ/7VkF315VVKfExtQBw1Eod2p/RT7w2Fv8AviisW/goHAkCZ6dJ6X+OQY9ChGbB8t6PKj9VIc7UR1a34j+jQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gHfoOk/wdoeTMC7HdYKp0c4dh3Q2FznE4LIQa9j/C94=;
- b=B/kFMwa/e8qG7HK4O00zoVm3wzW9XkqRITMv3xNm22bipKrhnmP8/CjTClSWgfRA31AGqqHOThgaNvzlPnjS2vtooLX152nSCF78LxoMs4GSSbqWxuCOXOTQ1BieaW+mvsDNrAa/RFCY59vqNCmrVBzQlJbcoA0mwcVoXiaLzlQ=
-Received: from BN9PR03CA0511.namprd03.prod.outlook.com (2603:10b6:408:131::6)
- by CY3PR12MB9656.namprd12.prod.outlook.com (2603:10b6:930:101::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.22; Mon, 17 Nov
- 2025 13:31:16 +0000
-Received: from BN1PEPF00004688.namprd05.prod.outlook.com
- (2603:10b6:408:131:cafe::43) by BN9PR03CA0511.outlook.office365.com
- (2603:10b6:408:131::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.22 via Frontend Transport; Mon,
- 17 Nov 2025 13:31:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Mon, 17 Nov 2025 13:31:13 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 17 Nov 2025 05:31:04 -0800
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu/ttm: Fix crash when handling MMIO_REMAP in PDE
- flags
-Date: Mon, 17 Nov 2025 19:00:49 +0530
-Message-ID: <20251117133049.102851-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com
+ [74.125.224.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 356DF10E3A7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 11:01:15 +0000 (UTC)
+Received: by mail-yx1-f51.google.com with SMTP id
+ 956f58d0204a3-63e16fbdd50so3634806d50.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 03:01:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763377274; x=1763982074; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=/RSfdrwfxNJQiZz80hQXf9twz6yOQXKrW5ZfA5HxaxE=;
+ b=rGWYzEGJqEi99qHctaP87trGMrdAGuwv4GrrQXjH3cU+eAResOFjd1qo5/ugh57pLN
+ /32eix5G2SniEuad4khM+xi4mkAbBnQwcnoOFxUEnebbVBRK8cjBFVkP2mGpsJF4xH7v
+ 40kl4fX1DNVz6LkWqGQDaJeU8ID+Y2JM2FqOQ5HzrzZJQ44rA4NlP+Fpug5M3XdUr6X1
+ 6lYE0UCqUTwjiONC6szlx/AHer8mzCgOBdGJq7LhX/QfFxxJDHktGefqs9UZq3B6cLMb
+ ExtpH9Wu9whBjnboY8+T/HokG15TUIzP8nK3fB12na76M9Tz9XDr3tCz5k29G+hNvnoO
+ ZSZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763377274; x=1763982074;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/RSfdrwfxNJQiZz80hQXf9twz6yOQXKrW5ZfA5HxaxE=;
+ b=PfXiZuz3d63eLTmBSyzUWmRqXS6vef2EFiYpwyoOSERb2Pm3piq2C6tYbyTS86J8Jn
+ /9ag1AAf55+FXJpLTu568PiWDxJvPRvjqWuB+mX69+54mBk0/Te2t0g5+RcTMImsrdlj
+ mI1EywuyAsiWcqSImiL/CDxDeZv9cC09jiD9kCrq6c1GNERss4R6aIIqWIe9G9OkAjPt
+ Njn5oj5Aol7TehLMJaedBdN6APzLgvfQ17T7tLoPI+14LorcNZmBCj9F897MoktYi/Kx
+ QHq0Qewf2TN7GJcRcahpjIrve1IDb13Hhr8GTsLEAHUqB/jQw+ytcRaxzSHlH5Owpr9n
+ ah1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWEeuAPwikHfaHdPfJMNJI6rV21OsrcudQdFsAQBpGjstvZ8NNJeDxAibGzSooJt9YD4OKuezEh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGbeSdNYlPEdBEn7n/9brkE18quI7EV6IqQpCqYg/EkCIG7SDc
+ H301PIArB/KSyjHJsfL+b7xvslvT8nhDzhedp8lE7iqzxIr7mYWU7SmLWx9ePyTItLyitmI430Q
+ 84EWNOrMAXj/sIsuvxq3yKJsZAc4WxoBBqsmea8qfNw==
+X-Gm-Gg: ASbGncuzLuvYxTDlqmS7JTb3JRz1rGc7XFq9BL5jyCE6ONFqp5/KZtSC3W+WaEuEwnd
+ siKBcGilQYiupUx6efBtpf46e+IS0VkrSn+W4aiH11bx+57v+CXzln+eU8AIdWQPMMFTWux6BX5
+ JMZRKrHk5MgJdctvkbwEU8AJBVnAQamQqaKwMnpGEYfUGu2VSUn0tgEiwb3D8YbSOgWawjtyBMp
+ 9jgvbK9doaoBrAbthIHNpVYAh+bpPrs7jw6EMZeiU4rWaPSGfCRSKAFxTGEpYspSejZW32P3QEI
+ DyYjX0Y=
+X-Google-Smtp-Source: AGHT+IEjvegoUIWfi8UaBD0jEKwHtT+y2Cbu5UHhJ+VHUPJu6okR0AoxTFiIq+cxtmlIxdFEnLzs3e2dtieQR/hKIVs=
+X-Received: by 2002:a05:690e:d86:b0:642:84a:7ba4 with SMTP id
+ 956f58d0204a3-642084a7c6bmr1567493d50.85.1763377273901; Mon, 17 Nov 2025
+ 03:01:13 -0800 (PST)
 MIME-Version: 1.0
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+ <20251113150217.3030010-14-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20251113150217.3030010-14-andriy.shevchenko@linux.intel.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 17 Nov 2025 12:00:38 +0100
+X-Gm-Features: AWmQ_bk2fwrMGKoLr3e8DW_NORum6cYwB-Ynf9Wgckyt3WUUk5QWFuYE7vXt0wM
+Message-ID: <CAPDyKFotmQyHzBim-8nib-KVvQaQgA_ELbgdC_Q4Y95-GrvRSw@mail.gmail.com>
+Subject: Re: [PATCH v3 13/21] mmc: mmc_test: Switch to use %ptSp
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Corey Minyard <corey@minyard.net>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Matthew Brost <matthew.brost@intel.com>, 
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Calvin Owens <calvin@wbinvd.org>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, 
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-mmc@vger.kernel.org, netdev@vger.kernel.org, 
+ intel-wired-lan@lists.osuosl.org, linux-pci@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-staging@lists.linux.dev, ceph-devel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vladimir Oltean <olteanv@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>, 
+ Richard Cochran <richardcochran@gmail.com>,
+ Stefan Haberland <sth@linux.ibm.com>, 
+ Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Satish Kharat <satishkh@cisco.com>, Sesidhar Baddela <sebaddel@cisco.com>, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|CY3PR12MB9656:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20110f20-8029-48e9-7daf-08de25dd940f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Vkh1NnJqRld1SlorSFBqYUs2ODFlNVpyVEJSTDBWelFESWNPWUFZbVNWWHJz?=
- =?utf-8?B?N0UyNnRjaW84L0NPYzF0UmdKK1d6NkJNaUM2Tnh4VUZBTm5oTmpPMWp6emJa?=
- =?utf-8?B?clQ2ZUM3bDBGdDZ0WStEZENNRkVRTU8zcUtnamRmUHVqazQ0RHZFTElkMTBO?=
- =?utf-8?B?S3VnN1Q1bU1RYUMrZDhKRHFoNlNPNkdPR2RsRzd6Y242RVdhUFZTdXplSDFp?=
- =?utf-8?B?K0lYNngyM2d4VzEvc0pobURrVUtWajg1YVB5WHllV2JOOUQ0Y3BMRnI0cUNj?=
- =?utf-8?B?cllWS2pMb1ExcWRSanBpeHBReWVVSTlUaFhvNHBRZjBKdndvVXFOUTRhN1Ro?=
- =?utf-8?B?RUpPajVVTER3dmJxSHRhMFlTaDBwZk51Y1FFOUNSVjhpNFc0SW5MRTl3Sith?=
- =?utf-8?B?SkRMdzRoOUNmMjgwdmpYQlc3THlQUUJJcU9VNnpxN1dFNlk3b3NqR0lnUDU2?=
- =?utf-8?B?VlF2SmdHUE5ucmhKNVlhQWE2M2dEUlFRVTE2MjRSYnQvMG13Q1pTSW5kcXpL?=
- =?utf-8?B?T25aRG1IS2ZpOXcyRE16YkxIaW01TU5CUFdDc3NRV0IwS1J6emJ0YTBpcGNr?=
- =?utf-8?B?VUJqT0FCSjdjdG45SDZYNkM1ZFhkRGhXRUsvYmx2VDdQRzB3aEhyRWVuVWNT?=
- =?utf-8?B?WnJ4RmprTE5KYm9Da1lnZ2NjTTVEdE9SOTgvRkFNRG1WL0JoZi9OK013VnNV?=
- =?utf-8?B?S0RZSDFydUFnRkowWkRadlMzdVBvRWxuMFFwc1pIdXkrZEpuRWVnRWNndW01?=
- =?utf-8?B?VEVKSURiMmYwYXVRZWFweHduNlhiMlJZbnFqdnhqUm1wcmhzNGxHVXlBNXFx?=
- =?utf-8?B?bzdST0ZZSUdTZGhXeEIxaCsxSnRRdjcyQ3h5LzJMWWFWRDZScTRVbU0zNHZ1?=
- =?utf-8?B?blFoT3FKVnV1ZTdSL3RtZFZHclo4TzBjZlA3STRpQlpXUHNsOTRTSEdpTHF6?=
- =?utf-8?B?NjlOaURaUlRtOTEwOTdTamtsTXh1aGtTWVd2N00rZWswQnhSZ1lIUW4yZS9l?=
- =?utf-8?B?S1NxVlpZWmR4dUFLMktjVjY1clJObGUzZXlGQXpjR2JwWlFEN2JrbnVkM2JN?=
- =?utf-8?B?VUFwU1NROWIzdnNxdjRXT0ZqOHBLbzRlcVIyNU0rSFJWT0I0bWlOL0NsR3Qw?=
- =?utf-8?B?RnNlSVpzc2lCbXBhL2xJaXBWeU9jaTB2OWhyNFMwSW1YWVZFRmFuTmoyQldB?=
- =?utf-8?B?bnhwdXNWeVlJd0JXZlNQVFRTalovOCtPdTFpNHN5YjMzZFpKTG40aVJRR0hw?=
- =?utf-8?B?K2NhSHA4Qm5MQlM4TW9QTHlwQmpJU0pEMy9PbmlaK0Y4Vk9Kbms5K1VTblp3?=
- =?utf-8?B?b0toZWdBc015MHF5VU5UVC91RTVQWVo5SXdvVVB1OUp4WlJlMnhjVHpVdEUw?=
- =?utf-8?B?Z2p0dXlSWWcyakgvSHhJc3pwbitoU1BPcmxIMkdQckxTMlFpc0RpL2FSTXJz?=
- =?utf-8?B?OUxKNmZ2NU5WLzUxTVdlbURjMFpFQVp6eHFRanEvOXJmVGFOVlZJaXVlZGI1?=
- =?utf-8?B?STV1TjZNUFV1OUxMK2hKTDRGMUFOTmQyU1BiU2pYTnZiTmhZQ05wbTU5KzVp?=
- =?utf-8?B?QUVMbEdNRDN3NG1kblpXWnFHMHlDYU16Si9vL0xQVTdXTm9ZNE1za1pndlNI?=
- =?utf-8?B?aTVDVEgrQmxPbXUvWVBqYUtKazZMdWhtOEhUWUJpbys0Zmp3djJ4cGZObE1C?=
- =?utf-8?B?OVZweERkdkxtSVhCV3JOMDk2OVBrQVFKOWtGb21iUW1ocGM4K0w1elE2a01y?=
- =?utf-8?B?L0dCUy9VQzdaMFRTdDVyRWROdE50ZzJJV3B5MFp3RnFsWmd3MjlUYzEzRnJv?=
- =?utf-8?B?ZlJ1YkVUZFI3aU0rV3Vic0swVzdmM0hEY2dEQmgzLzU5YmJCTStORlR1ak5C?=
- =?utf-8?B?ZFhNS2RXUlNsWGxQLzIxV3BxL1djQk90ZEpUcFk0VTRYd0k2L3IzZG1tSy9u?=
- =?utf-8?B?eCttcGdwb3RtTGRDclB5SGQxNTF3RzBDWFdnTmhyajVCcFZZUjBxdFNKbEpJ?=
- =?utf-8?B?c0MwZS9hYy93c1FzZE84aE5yUEdpMEpFMFJmUTkydTYxaGd5a1RhREtKd21W?=
- =?utf-8?B?THhHYUtVc1NaL0xld0oyNVhTTWNFU0E3eUxzS3FwMUFSZUF6V0VNSDhaQStx?=
- =?utf-8?Q?dwj4=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2025 13:31:13.4807 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20110f20-8029-48e9-7daf-08de25dd940f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004688.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9656
+X-Mailman-Approved-At: Mon, 17 Nov 2025 13:42:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,63 +150,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MMIO_REMAP is a special IO page backed by the device's remap BAR
-(adev->rmmio_remap.bus_addr) rather than regular TT-backed system
-memory.  There is no meaningful ttm_tt/sg behind the MMIO_REMAP
-singleton BO.
+On Thu, 13 Nov 2025 at 16:03, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> Use %ptSp instead of open coded variants to print content of
+> struct timespec64 in human readable format.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-amdgpu_ttm_tt_pde_flags() was treating AMDGPU_PL_MMIO_REMAP like
-TT/doorbell/ preempt memory and would eventually rely on ttm/ttm->sg
-being valid. For the MMIO_REMAP BO this assumption does not hold and can
-lead to a NULL pointer dereference when computing PDE flags for that
-placement.
+Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
 
-For AMDGPU_PL_MMIO_REMAP we now set both AMDGPU_PTE_VALID and
-AMDGPU_PTE_SYSTEM and return early. PTE_VALID is needed so the GPU
-treats the remap page as a real, usable mapping, and PTE_SYSTEM marks it
-as system/IO memory instead of VRAM. Returning early makes sure we do
-not touch ttm or ttm->sg, which are not valid for this special BO and
-previously caused a NULL pointer crash.
+Kind regards
+Uffe
 
-Fixes: d716b3a2df1b ("drm/amdgpu: Implement TTM handling for MMIO_REMAP placement")
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 84f9d5a57d03..0e7a631a9081 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1319,13 +1319,23 @@ uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem)
- {
- 	uint64_t flags = 0;
- 
-+	/*
-+	 * MMIO_REMAP is a special IO page backed by the device's remap BAR
-+	 * (adev->rmmio_remap.bus_addr). There is no meaningful ttm_tt/sg
-+	 * behind it, so do NOT touch ttm->sg here. Just treat it as
-+	 * SYSTEM / IO memory and bail out.
-+	 */
-+	if (mem && mem->mem_type == AMDGPU_PL_MMIO_REMAP) {
-+		flags |= AMDGPU_PTE_VALID | AMDGPU_PTE_SYSTEM;
-+		return flags;
-+	}
-+
- 	if (mem && mem->mem_type != TTM_PL_SYSTEM)
- 		flags |= AMDGPU_PTE_VALID;
- 
- 	if (mem && (mem->mem_type == TTM_PL_TT ||
- 		    mem->mem_type == AMDGPU_PL_DOORBELL ||
--		    mem->mem_type == AMDGPU_PL_PREEMPT ||
--		    mem->mem_type == AMDGPU_PL_MMIO_REMAP)) {
-+		    mem->mem_type == AMDGPU_PL_PREEMPT)) {
- 		flags |= AMDGPU_PTE_SYSTEM;
- 
- 		if (ttm->caching == ttm_cached)
--- 
-2.34.1
-
+> ---
+>  drivers/mmc/core/mmc_test.c | 20 ++++++++------------
+>  1 file changed, 8 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/mmc/core/mmc_test.c b/drivers/mmc/core/mmc_test.c
+> index a74089df4547..01d1e62c2ce7 100644
+> --- a/drivers/mmc/core/mmc_test.c
+> +++ b/drivers/mmc/core/mmc_test.c
+> @@ -586,14 +586,11 @@ static void mmc_test_print_avg_rate(struct mmc_test_card *test, uint64_t bytes,
+>         rate = mmc_test_rate(tot, &ts);
+>         iops = mmc_test_rate(count * 100, &ts); /* I/O ops per sec x 100 */
+>
+> -       pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took "
+> -                        "%llu.%09u seconds (%u kB/s, %u KiB/s, "
+> -                        "%u.%02u IOPS, sg_len %d)\n",
+> -                        mmc_hostname(test->card->host), count, sectors, count,
+> -                        sectors >> 1, (sectors & 1 ? ".5" : ""),
+> -                        (u64)ts.tv_sec, (u32)ts.tv_nsec,
+> -                        rate / 1000, rate / 1024, iops / 100, iops % 100,
+> -                        test->area.sg_len);
+> +       pr_info("%s: Transfer of %u x %u sectors (%u x %u%s KiB) took %ptSp seconds (%u kB/s, %u KiB/s, %u.%02u IOPS, sg_len %d)\n",
+> +               mmc_hostname(test->card->host), count, sectors, count,
+> +               sectors >> 1, (sectors & 1 ? ".5" : ""), &ts,
+> +               rate / 1000, rate / 1024, iops / 100, iops % 100,
+> +               test->area.sg_len);
+>
+>         mmc_test_save_transfer_result(test, count, sectors, ts, rate, iops);
+>  }
+> @@ -3074,10 +3071,9 @@ static int mtf_test_show(struct seq_file *sf, void *data)
+>                 seq_printf(sf, "Test %d: %d\n", gr->testcase + 1, gr->result);
+>
+>                 list_for_each_entry(tr, &gr->tr_lst, link) {
+> -                       seq_printf(sf, "%u %d %llu.%09u %u %u.%02u\n",
+> -                               tr->count, tr->sectors,
+> -                               (u64)tr->ts.tv_sec, (u32)tr->ts.tv_nsec,
+> -                               tr->rate, tr->iops / 100, tr->iops % 100);
+> +                       seq_printf(sf, "%u %d %ptSp %u %u.%02u\n",
+> +                                  tr->count, tr->sectors, &tr->ts, tr->rate,
+> +                                  tr->iops / 100, tr->iops % 100);
+>                 }
+>         }
+>
+> --
+> 2.50.1
+>
