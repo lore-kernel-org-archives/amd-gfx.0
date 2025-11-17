@@ -4,55 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA1CCED249
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07AB1CEBF97
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 08:14:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4EBE10E41E;
-	Tue, 18 Nov 2025 08:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8628710E431;
+	Tue, 18 Nov 2025 08:14:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="owxjWkN5";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="MdKRq+YO";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6414010E04A;
- Tue, 18 Nov 2025 07:10:57 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4d9bPB24ZPz9t1S;
- Tue, 18 Nov 2025 08:10:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1763449854; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=m3Svf89VpHT2wQGwonxJQfHJCvpIpi34OCtA1IiIzKU=;
- b=owxjWkN5pULlF64dau2zdaypb2ZTg4jacy54mZzptXHJjvB8Cchj4Wd0i86nkjDF20Qd+e
- NQT25A6f8G4Rfm5gA3d1ba3Z296wZhRCpM9Lsw8TF0SXFksuss2yIcMNCFJO0BSEvY5l3E
- L8niiWscyhnyPxvIG4J90BdXQGqCjOfX/OA8/kRJfV6V3khbr30oYk2MS6qG4wKvpDlUUx
- N7r5Av2evV1mTEiXzem7Pck7SFouEcAvNKfY5AJVhVqYDMNcBVKhvOI8h1KGMhSfryyLmr
- 4XTKD5KRcOrtC82HLqIY+QKlKEza7O6vRPzIyQDa/nhfV8gXWiwew4S7oSdvFg==
-Message-ID: <5ada5c442d391173cd723270c3c1b15f375bf2f7.camel@mailbox.org>
-Subject: Re: [PATCH 08/18] drm/sched: use inline locks for the drm-sched-fence
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch, 
- tursulin@ursulin.net, matthew.brost@intel.com,
- dri-devel@lists.freedesktop.org,  amd-gfx@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org,  sumit.semwal@linaro.org
-Date: Tue, 18 Nov 2025 08:10:49 +0100
-In-Reply-To: <6862f4a8-a23f-4930-aef7-802bc65a4d36@amd.com>
-References: <20251113145332.16805-1-christian.koenig@amd.com>
- <20251113145332.16805-9-christian.koenig@amd.com>
- <cfa60e2d9902602c41b277fd8bd254576b2f4187.camel@mailbox.org>
- <6862f4a8-a23f-4930-aef7-802bc65a4d36@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6984210E402
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 19:13:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1763406780; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=bKhjf1LPoDUsYRI/XVlndhGzahdCB7LFWKu+VFWUoE+saIvCo3tE2jWWmjQ6ZuFZFSz1Lfv4Icl+RdRkMw+MS/ib3EWDS/ol246AiPcdDtLJbrCqcnOI8la8nsQ/MC9q5L07RBsB1hsyIzjJEGFg0wRVTrx8NgP/1SdWrBs50FU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1763406780;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=6vst0GacCoZY4XRI9Hn+td4UBzH0QM1v36mSY8yM3so=; 
+ b=QUYN0P90ZnLmVWs+Rxc5AWsPSBTO5UEucQaWSeWuS6jKJGQ2OhCjygvb73ArbLCvoFGjk8cB1PRaETC1N2cmg3KYOiHXwAoIXB/hH/PBW3BZSvYvKozG6R4Ha7s2mcGLupAb7oM7+uFQkHUMkEdca2Xm2hpawLyDLUNzfG28POU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763406780; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=6vst0GacCoZY4XRI9Hn+td4UBzH0QM1v36mSY8yM3so=;
+ b=MdKRq+YOFGv6KUnGYMs0HcVtN7dHgwnm1U8CpFYF0Aa3SirZKSbgGQXvLO+ZdiA4
+ kGV9fzcTfPeBSsCcmMrCeXPYmHLPLDeCCc1ZUDua7TXTII+FUzz7EaqIV5rtRDs0MYi
+ nO3hBVagxYt1oOo1+z8ouk1cZ7Zf3aJAQrDEAGeE=
+Received: by mx.zohomail.com with SMTPS id 1763406778281162.77930182909824;
+ Mon, 17 Nov 2025 11:12:58 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 17 Nov 2025 20:11:50 +0100
+Subject: [PATCH v4 06/10] drm/rockchip: dw_hdmi_qp: Set supported_formats
+ platdata
 MIME-Version: 1.0
-X-MBO-RS-ID: 7f302530e54e8814219
-X-MBO-RS-META: koouwgisxzeuzkg53pikqhcz1kf8i4hm
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251117-color-format-v4-6-0ded72bd1b00@collabora.com>
+References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
+In-Reply-To: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Tue, 18 Nov 2025 08:13:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,37 +83,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-11-17 at 16:32 +0100, Christian K=C3=B6nig wrote:
-> On 11/13/25 17:23, Philipp Stanner wrote:
-> > On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
-> > > Using the inline lock is now the recommended way for dma_fence
-> > > implementations.
-> > >=20
-> > > So use this approach for the scheduler fences as well just in
-> > > case if
-> > > anybody uses this as blueprint for its own implementation.
-> > >=20
-> > > Also saves about 4 bytes for the external spinlock.
-> >=20
-> > So you changed your mind and want to keep this patch?
->=20
-> Actually it was you who changed my mind.
->=20
-> When we want to document that using the internal lock is now the norm
-> and all implementations should switch to that if possible we should
-> push as much as possible for using this in the driver common code as
-> well.
+With the introduction of the supported_formats member in the
+dw-hdmi-qp platform data struct, drivers that have access to this
+information should now set it.
 
-Mentioning that in a changelog would be neat. How is anyone else
-supposed to know whether you forgot or changed your mind?
+Set it in the rockchip dw_hdmi_qp glue driver, where such a bitmask of
+supported color formats already exists. It just needs to be converted to
+the appropriate HDMI_COLORSPACE_ mask.
 
+This allows this information to be passed down to the dw-hdmi-qp core,
+which sets it in the bridge it creates, and consequently will allow the
+common HDMI bridge code to act on it.
 
-And have you tested this? Kernel build bot is firing warnings. And
-touching the scheduler's spinlocks makes me nervous in general <.<
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index c9fe6aa3e3e3..7c294751de19 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -468,6 +468,28 @@ static const struct of_device_id dw_hdmi_qp_rockchip_dt_ids[] = {
+ };
+ MODULE_DEVICE_TABLE(of, dw_hdmi_qp_rockchip_dt_ids);
+ 
++static const u32 supported_colorformats = DRM_COLOR_FORMAT_AUTO |
++					  DRM_COLOR_FORMAT_RGB444 |
++					  DRM_COLOR_FORMAT_YCBCR444;
++
++static unsigned int __pure drm_to_hdmi_fmts(const u32 fmt)
++{
++	unsigned int res = 0;
++
++	if (fmt & DRM_COLOR_FORMAT_AUTO)
++		res |= BIT(HDMI_COLORSPACE_RGB);
++	if (fmt & DRM_COLOR_FORMAT_RGB444)
++		res |= BIT(HDMI_COLORSPACE_RGB);
++	if (fmt & DRM_COLOR_FORMAT_YCBCR444)
++		res |= BIT(HDMI_COLORSPACE_YUV444);
++	if (fmt & DRM_COLOR_FORMAT_YCBCR422)
++		res |= BIT(HDMI_COLORSPACE_YUV422);
++	if (fmt & DRM_COLOR_FORMAT_YCBCR420)
++		res |= BIT(HDMI_COLORSPACE_YUV420);
++
++	return res;
++}
++
+ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 				    void *data)
+ {
+@@ -521,6 +543,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	plat_data.phy_data = hdmi;
+ 	plat_data.max_bpc = 10;
+ 
++	plat_data.supported_formats = drm_to_hdmi_fmts(supported_colorformats);
++
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+ 
 
-P.
+-- 
+2.51.2
+
