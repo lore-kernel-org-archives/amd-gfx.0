@@ -4,148 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A465CEACEF
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 06:41:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D67CEACEF
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 06:49:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE3CD10E2C7;
-	Mon, 17 Nov 2025 06:41:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78FB610E2CB;
+	Mon, 17 Nov 2025 06:49:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mbSYpzth";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EbJaAZ9P";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010015.outbound.protection.outlook.com
- [40.93.198.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 448F510E2C7
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 06:41:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dvg8AMnqYvUvn6MP6Ca6BiCnyqyWBH5UuJtVbbMKxV5vkC5Tba6azR1Y+WiIpGMzFMfp+ngxX/xBJ3DUxWGTS/I0cPC95+xERlfhapYehqMsO65/alRD8XIBfCeu7P8nZ58dNHLPa6B2hiXDSuiaoXVCU80hUEyzJ8u3tTRTTAH2xD3q49kmMn4sEhham3xFLteEAOLRZVWWgMkQStDk7jM8fOy3Ed5YlkkMbUrw6zyaFPsXNiUer56jlXbdXEZcUyRdtJcYEA6ELwxEBdfyMpZnQp5dP4U0dM6t227Hlwy5mmFvYzeIyn4E6FU3x7EpFseFM8EySgzptxGKGSizaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PjK8kCXD26KgNLK1BeqC21yWpffg/zfuTHnOVOykM40=;
- b=dG4h/4Jx0XHgBWr69KG0dhrC76x5DpUPDAijiPEOjPZHLE3GIraSzy5/BN8wdVZwENFsRkPCR658vsfaf5xpbxQXBWzRpAVX7/Xystzd2bK4WwAEMcZhSUYAciG1fTGp0dE/5Pf3WpREhouRn4VvGxakMMtdX2XT0Lmjrukb2Iw7YnFwVlmispt2Z6WQdSlshQtVg/hA1SqM2Dq5Ht6LPC8Kyg6KFMKuSAVsX1bsPF3tnN5kGAgahWqDtFED5EYnsGvbiLnKBq1nOmm1Ri30dS/avUgdYzoJddzU2hxY4pQgJQS43RDdLE8YvWWr+kIU1qir5DJ0EyUjYdfH2kFkoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PjK8kCXD26KgNLK1BeqC21yWpffg/zfuTHnOVOykM40=;
- b=mbSYpzthUzT9v5Cg3t/c/wBmlEjkpsujJGtKuQPzmSpfw8KKvYnAn38VEuv/PPDT4gSYEpYeUhO7N/FoUa8fUHg3GcQ4RjQwu2IgsgvVHEKgIv3x7qeotAVrFKPID6hy4VYJ6TY9I01bqLTVsaA2v9xpwoq16jvbZifbnTdgIH4=
-Received: from DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) by
- LV0PR12MB999067.namprd12.prod.outlook.com (2603:10b6:408:32d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.21; Mon, 17 Nov
- 2025 06:41:49 +0000
-Received: from DS7PR12MB5768.namprd12.prod.outlook.com
- ([fe80::ae90:ca3:5db2:1a78]) by DS7PR12MB5768.namprd12.prod.outlook.com
- ([fe80::ae90:ca3:5db2:1a78%4]) with mapi id 15.20.9298.010; Mon, 17 Nov 2025
- 06:41:49 +0000
-From: "Li, Chong(Alan)" <Chong.Li@amd.com>
-To: "Yang, Philip" <Philip.Yang@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>
-CC: "Deng, Emily" <Emily.Deng@amd.com>, "Zhao, Victor" <Victor.Zhao@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: reduce the full gpu access time in
- amdgpu_device_init.
-Thread-Topic: [PATCH] drm/amdgpu: reduce the full gpu access time in
- amdgpu_device_init.
-Thread-Index: AQHcV4zXFUhXLmdr4kOtOBYJUQ4Yx7T2aqzg
-Date: Mon, 17 Nov 2025 06:41:48 +0000
-Message-ID: <DS7PR12MB57688B92299CD948A68820479BC9A@DS7PR12MB5768.namprd12.prod.outlook.com>
-References: <20251117063821.3434458-1-chongli2@amd.com>
-In-Reply-To: <20251117063821.3434458-1-chongli2@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-Mentions: Philip.Yang@amd.com,Felix.Kuehling@amd.com
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-11-17T06:39:12.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB5768:EE_|LV0PR12MB999067:EE_
-x-ms-office365-filtering-correlation-id: 79fede6c-407b-4de9-69ec-08de25a46272
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?+aQi7ihz8j8Cflyjvw4rJr8NZ+tbPGHDxiTmULf3plfg06Sis0WfRT1anqoT?=
- =?us-ascii?Q?q3dxFusJslgBt+2jiwJnHiUdJSyqc3QPZOVRV07YU/a0PS/MNUEwFAkIK7ZA?=
- =?us-ascii?Q?mb8/mpdqPM/wQ2Bbv7pBNdagcUv3MPOvw+MhyRsYQ5BFTauRFwBoBgAV1vzR?=
- =?us-ascii?Q?GfYIqfw/bW7F2ZdIeiowj5etYBjHTfwEmn+uOEd1zBy0YAzT/VawKHcXuRtU?=
- =?us-ascii?Q?mThX61NnM7n8UrmYkCOhCQ0CwqAw0fT5mpotYbwAXIm6dReQCxKsxd9M+6dq?=
- =?us-ascii?Q?MDdzYGLL7WPlkdoTHgLuxhQCjnUP9bJk+/XtbYQ6H0KLvdcCLMndntIWVy33?=
- =?us-ascii?Q?SIFzSTrqrm+cZeTUf20QSTDG1CecMd/t2PMxO2AaZw7xo3Pk4WzDxnXQ3WrF?=
- =?us-ascii?Q?ysyQud6xR0HOOsh0TUXv8me1FRORfd9kf8fGuZejYg6v++d9C0qoDvmukN3T?=
- =?us-ascii?Q?Z3AQlky9MXWsAShLM0DE5o/87nPo9l67VFLMiHS0owNewxwS6/tCGEbFuqJ8?=
- =?us-ascii?Q?5UstzRYfqtUic/tdJRNDrlhHnDbni3ISPi5VyuKpRJm6iwRA0gEjtCIpygiT?=
- =?us-ascii?Q?M6Ttz19qpjg3NSpxGOCfLUVY+U5ihgOkAgF1VL5TYpCK6eFidVlX2Qp9ymIA?=
- =?us-ascii?Q?IvUaOXn7BgjQj+ngC+qqBRyy5Exd82HaXr3vEMQEXzzRwaXs+09MDgS0xMSL?=
- =?us-ascii?Q?lw5T9XIxgNd0LppiPxonAfHwMLjg7lU5+o6dTFdzGOKebzBT8Dkp7cF8991D?=
- =?us-ascii?Q?2bvtwkMPv7KkUL8J8B89bEbw4732GF7N4CCPtqN1TGdLpYb1yfLcKP+ye0/N?=
- =?us-ascii?Q?+KSHXRmknee6EbeZCUXFvK1jhJtrz1JphrhX/qqPhvhPKsfakE3JC4q31odj?=
- =?us-ascii?Q?ZBa3+erMgVk2+JQOohqRRYWBtm5zlPVSMTV53qUyOFr0ykvSRLpmTeIEXlRo?=
- =?us-ascii?Q?3TJlzaKQQ+ESCb4ylZzDuE9rDc019N1WB2JHVn7b4D5Dl5phTKPDFX4d/uOK?=
- =?us-ascii?Q?TdKIcbnQMs1MlVWxJgMFt4BcZeyw00gYuBaO72qyQdD3vP5H4cUAUaKvgOIA?=
- =?us-ascii?Q?Qf0h1Zp7H8JhsDCkGtf8Ic78WJCLcriQfTBNHx+2BSlVujHp83iGW23RkM3x?=
- =?us-ascii?Q?72nAazSiKG9Yj7Bejb7IWU80iX9dAUOzE+W8jaTIX7GtG/YlyFjkYhxPbzzp?=
- =?us-ascii?Q?RE6rlOz0fT2ac7BJ1qznMOJcE1iTsNzOYO1uzub7gO13paN3lEKjTYa7nHCE?=
- =?us-ascii?Q?uFOQAD7yO8zHCzlai21OSrKZBAfRoJLXoKtl5zpR2CjAi7rdMh2xFHTBt8dr?=
- =?us-ascii?Q?XqwxArI6nUANwFbDViVKZxeCYmGfd6xpwaxej1+2tFyTJx+2MpZgtIk4l95T?=
- =?us-ascii?Q?4fe7qV06FtX7cGweFgcDnZOZMY9xqDtNaX7i7dWbU/0dhu3sPjJagsAyTYc5?=
- =?us-ascii?Q?krH5GTDNcV7H4thBguCD633frPcdILyizgm2xTWRoTt4k4Kecgsccc5z0vOo?=
- =?us-ascii?Q?ensCa3tLiXDHWQbYqSjnVKV2lfNrPi6+zvqz?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB5768.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tv+IddOoiWhSjENF++3TYFMrpCD41ZvfCs4Lxyjw9mnBJtVfXOTdM4RjX4eL?=
- =?us-ascii?Q?92n6zzAQi27fcPtFoU1wnl2+jRV4fDXVF8+JymNZUbeEgB1M2+2PYbA/XDc/?=
- =?us-ascii?Q?GelXnzsGZeHpKfaqvZFIRCaqg6K+bmTSc/BN3lQm3Cx78ac1VHW7z17Krs5q?=
- =?us-ascii?Q?Ofayjd42IV25DL7aEwm3HPBMf8jcmGo4pusVM2LExyz2XRlI8kxvF/sJOSGh?=
- =?us-ascii?Q?y8OrM1JQ5I8MHqctS0NjberLX8onabudqqLEwrTLvSfJ+Q7isr0fjEgsVOHX?=
- =?us-ascii?Q?8BPUfR3I9myjd48ghLN529+5kZFhJEF8LU6Qc9s2UosBxDCcq3j6B5PHCWG3?=
- =?us-ascii?Q?wU3jGQBXFPwMs9TJ0XnPrRUXCEn9xcHPjJBpwhvzuLy3FOv91cnvSWSToYuE?=
- =?us-ascii?Q?kOoCg/zECHOo49r1AUXIhdWOgsV6JKYYpPL3zTAUo3CUATpqdP6poql+e4Uk?=
- =?us-ascii?Q?/Su7G4ig59YAWJ/cNmm2ZSRjzrr6s+LuVByna3lN0sneq51ud98awrnrJbac?=
- =?us-ascii?Q?ddnMXlXUruifADtSDuSDMDLmxo7IBNPf14veOqbonwBQv1Itq7TQgNBB3OUa?=
- =?us-ascii?Q?HIIhf3eIMBp87sdkue5srtyeuNtbiBxhfNEA86t+nQ4trRirm0yXCaSaaCvO?=
- =?us-ascii?Q?um+ddabPczPHut6aELjX48m3pvHj5KeOY37jJj0qWT4XxG82+Upyv7IiIRgA?=
- =?us-ascii?Q?jJCasJx4oRf90WD6s2+RGJMGkpfZRWpQrSGgNkd1ytOXI7MFJYTln72Yd63k?=
- =?us-ascii?Q?aGQIB831vE/J8yYwYqSf+q79FBjirGLqBdTj4/W3N2AEwgLzcsF2R+wjwQXp?=
- =?us-ascii?Q?Oglv5T0mp8f0WzsA44fZvwiOx2aOgNjjyk9ookYznNTXMYvdkeExTxDJfeoR?=
- =?us-ascii?Q?gzywMiJ6r2KSKjqtAyYmUXE90VXqYi1PsfGJKQ5FHIea73p9KoQGl/0yQcR3?=
- =?us-ascii?Q?ayq7tKVXP5kYq3gfVo28BM8XGixQBjVuA5fsIYwZfhNhuueFk6ymgfJY14Bt?=
- =?us-ascii?Q?rHG7bLYCTj6KOZ0AyyL0OpRBANOjx1ZDGVS/BGKJayeKmZF3VtyWJlE8J31X?=
- =?us-ascii?Q?VhpJ2Yx4IrzHvFj4Fu9JoIjNKbmA1SGs5OLvDkm7B/Jn4xAm0GmSHSqLpfGm?=
- =?us-ascii?Q?lz2hIa3Za95MDtpoZSDLgDmE3exN7So0VPAS0nskZSTKZ08QSCxxADnrlSgt?=
- =?us-ascii?Q?equJuSW1iiODbdn5wcooeN0dpOZSqZeGKMz+VUDjb2lGrl1X4cmAkj1g0Z/H?=
- =?us-ascii?Q?SBGyW3hqiDqFKo+nZY2gJ58TPdEgBj2O30m0Qrdg1uAfdjbJM27mnEKQyCdR?=
- =?us-ascii?Q?dPiQG2Dv7OkOMr/0Cg6i4moRees5ctZLN5okx7YUETFHs8Qk6xI9uDjfTw6s?=
- =?us-ascii?Q?mzh07Hr9dZRLcX4pN4BUr5fRCPt1x9rR+LCpGh2ISx73TYvhqIU4zzFj35sK?=
- =?us-ascii?Q?vUmjbuiUIiVeRcDIWp8JndUYmsFACdXf34prxzGImX8GMW/X7p7J2NNLHpBM?=
- =?us-ascii?Q?7bWpbJ7WkeGCoXsGT9QvjhB0CGYALWYT9tDHWJfUTpilXnnyGpgXhJ65x5Im?=
- =?us-ascii?Q?/Q8MkWMe39q2Mq9ZpKs=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DS7PR12MB57688B92299CD948A68820479BC9ADS7PR12MB5768namp_"
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B10A410E2CB;
+ Mon, 17 Nov 2025 06:49:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763362165; x=1794898165;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=NwknJqAvjELBef7CTQsUf+fdvLXW0SsIGNW2s4GpATU=;
+ b=EbJaAZ9PcI1/6QojVkiX/LnOkvTDLOE8lS9sQLl6ja11CCoPZe466cHW
+ Z53uGZN3eZiCo7iAo7hIs6FtUrNlVp+Mr3LWE7a2qjdDte218IbFsu6of
+ 8d/ZiYTJ8wpHnfwqI2WUIMCzlLPPGJm3iBAQkoUjDl9aY0xEHIrUD/cMO
+ J5ff2CsFEwHbuy7vwtsDfSiM0Y+Pl1a4k2jAOicR1iEuQw6KP0PdBOsa/
+ NJcXmBE42ybWNz2IMJUAjr3qX1g2plCPt/GyBZgVbvwQvWdI1Nkf4E7l/
+ p9bk1cnQdLsp0vocIItO52h+UUElIEitg/QoDQc5t6SHSKpAacYGPdo0o A==;
+X-CSE-ConnectionGUID: UxcJvVm0RAuu+nzT/Sv6Rw==
+X-CSE-MsgGUID: gh/F+GbjTV2oAwSaADIpHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="82742148"
+X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="82742148"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2025 22:49:25 -0800
+X-CSE-ConnectionGUID: nhKpCg9bTXCOXYLo0uFEMg==
+X-CSE-MsgGUID: 0yHV5K1bS8+1+aOBPtcH3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="189668870"
+Received: from lkp-server01.sh.intel.com (HELO adf6d29aa8d9) ([10.239.97.150])
+ by orviesa010.jf.intel.com with ESMTP; 16 Nov 2025 22:49:21 -0800
+Received: from kbuild by adf6d29aa8d9 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1vKt38-0000EU-1M;
+ Mon, 17 Nov 2025 06:49:18 +0000
+Date: Mon, 17 Nov 2025 14:48:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
+Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, "Tsao, Anson" <anson.tsao@amd.com>,
+ "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>,
+ "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>
+Subject: Re: [PATCH v2 3/5] drm/amdgpu: add UMA allocation setting helpers
+Message-ID: <202511171049.kFPjY5Br-lkp@intel.com>
+References: <20251114-vram-carveout-tuning-for-upstream-v2-3-4f6bdd48030d@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB5768.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79fede6c-407b-4de9-69ec-08de25a46272
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2025 06:41:48.9095 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1/5xpigEm2lUiFOExTahi+c+ocz4uImQaxKU6hOERoXj901lqLyraMUCcHAALTWC0rfTz8ylGP6FN69zeAb8EQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB999067
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251114-vram-carveout-tuning-for-upstream-v2-3-4f6bdd48030d@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,535 +78,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DS7PR12MB57688B92299CD948A68820479BC9ADS7PR12MB5768namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-
-Hi, @Kuehling, Felix<mailto:Felix.Kuehling@amd.com>, @Yang, Philip<mailto:P=
-hilip.Yang@amd.com>.
-
-
-
-Can you help to review my patch?
-
-
-
-
-
-
-
-Thanks,
-
-Chong.
-
-
-
-
-
------Original Message-----
-From: Li, Chong(Alan) <Chong.Li@amd.com>
-Sent: Monday, November 17, 2025 2:38 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deng, Emily <Emily.Deng@amd.com>; Zhao, Victor <Victor.Zhao@amd.com>; Y=
-ang, Philip <Philip.Yang@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>=
-; Li, Chong(Alan) <Chong.Li@amd.com>
-Subject: [PATCH] drm/amdgpu: reduce the full gpu access time in amdgpu_devi=
-ce_init.
-
-
-
-[Why]
-
-function "devm_memremap_pages" in function "kgd2kfd_init_zone_device", some=
-times cost too much time.
-
-
-
-[How]
-
-move the function "kgd2kfd_init_zone_device"
-
-after release full gpu access(amdgpu_virt_release_full_gpu).
-
-
-
-v2:
-
-improve the coding style.
-
-
-
-Signed-off-by: chong li <chongli2@amd.com<mailto:chongli2@amd.com>>
-
----
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  2 +-  drivers/gpu/drm/amd/amd=
-gpu/amdgpu_device.c |  8 +++++++-  drivers/gpu/drm/amd/amdkfd/kfd_topology.=
-c  | 23 ++++++++++++++++++++++  drivers/gpu/drm/amd/amdkfd/kfd_topology.h  =
-|  6 ++++++
-
-4 files changed, 37 insertions(+), 2 deletions(-)
-
-
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.h
-
-index 40c46e6c8898..6d204ba2c267 100644
-
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-
-@@ -37,7 +37,7 @@
-
-#include "amdgpu_sync.h"
-
-#include "amdgpu_vm.h"
-
-#include "amdgpu_xcp.h"
-
--
-
-+#include "kfd_topology.h"
-
-extern uint64_t amdgpu_amdkfd_total_mem_size;
-
- enum TLB_FLUSH_TYPE {
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-
-index 0b40ddcb8ba1..b4e1f258119c 100644
-
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-
-@@ -3333,7 +3333,6 @@ static int amdgpu_device_ip_init(struct amdgpu_device=
- *adev)
-
-            /* Don't init kfd if whole hive need to be reset during init */
-
-           if (adev->init_lvl->level !=3D AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
-
--                       kgd2kfd_init_zone_device(adev);
-
-                       amdgpu_amdkfd_device_init(adev);
-
-           }
-
-@@ -4931,6 +4930,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-
-            if (adev->init_lvl->level =3D=3D AMDGPU_INIT_LEVEL_MINIMAL_XGMI=
-)
-
-                       amdgpu_xgmi_reset_on_init(adev);
-
-+
-
-+          /* Don't init kfd if whole hive need to be reset during init */
-
-+          if (adev->init_lvl->level !=3D AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
-
-+                      kgd2kfd_init_zone_device(adev);
-
-+                      kfd_update_svm_support_properties(adev);
-
-+          }
-
-+
-
-           /*
-
-            * Place those sysfs registering after `late_init`. As some of t=
-hose
-
-            * operations performed in `late_init` might affect the sysfs di=
-ff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_topology.c
-
-index 8644039777b8..8511b00a7463 100644
-
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-
-@@ -2475,3 +2475,26 @@ int kfd_debugfs_rls_by_device(struct seq_file *m, vo=
-id *data)  }
-
- #endif
-
-+
-
-+void kfd_update_svm_support_properties(struct amdgpu_device *adev) {
-
-+          struct kfd_topology_device *dev;
-
-+          int ret;
-
-+
-
-+          down_write(&topology_lock);
-
-+          list_for_each_entry(dev, &topology_device_list, list) {
-
-+                      if (!dev->gpu || dev->gpu->adev !=3D adev)
-
-+                                  continue;
-
-+
-
-+                      if (KFD_IS_SVM_API_SUPPORTED(adev)) {
-
-+                                  dev->node_props.capability |=3D HSA_CAP_=
-SVMAPI_SUPPORTED;
-
-+                                  ret =3D kfd_topology_update_sysfs();
-
-+                                  if (!ret)
-
-+                                              sys_props.generation_count++=
-;
-
-+                                  else
-
-+                                              dev_err(adev->dev, "Failed t=
-o update SVM support properties. ret=3D%d\n", ret);
-
-+                      } else
-
-+                                  dev->node_props.capability &=3D ~HSA_CAP=
-_SVMAPI_SUPPORTED;
-
-+          }
-
-+          up_write(&topology_lock);
-
-+}
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/am=
-d/amdkfd/kfd_topology.h
-
-index ab7a3bf1bdef..129b447fcf84 100644
-
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-
-@@ -202,4 +202,10 @@ struct kfd_topology_device *kfd_create_topology_device=
-(
-
-                       struct list_head *device_list);
-
-void kfd_release_topology_device_list(struct list_head *device_list);
-
-+#if IS_ENABLED(CONFIG_HSA_AMD)
-
-+void kfd_update_svm_support_properties(struct amdgpu_device *adev);
-
-+#else static inline void kfd_update_svm_support_properties(struct
-
-+amdgpu_device *adev) {} #endif
-
-+
-
-#endif /* __KFD_TOPOLOGY_H__ */
-
---
-
-2.48.1
-
-
-
---_000_DS7PR12MB57688B92299CD948A68820479BC9ADS7PR12MB5768namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-/* Style Definitions */
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
-	margin:0in;
-	font-size:11.0pt;
-	font-family:"Arial",sans-serif;
-	mso-ligatures:standardcontextual;}
-span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:"Arial",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoPlainText">Hi, <a id=3D"OWAAM2D427DBB0EF6485184A7A2A17B3FF4B=
-7" href=3D"mailto:Felix.Kuehling@amd.com">
-<span style=3D"font-family:&quot;Arial&quot;,sans-serif;text-decoration:non=
-e">@Kuehling, Felix</span></a>,
-<a id=3D"OWAAMDC892D4CB6B2433C82AB8499F2D0D85C" href=3D"mailto:Philip.Yang@=
-amd.com"><span style=3D"font-family:&quot;Arial&quot;,sans-serif;text-decor=
-ation:none">@Yang, Philip</span></a>.<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">Can you help to review my patch?<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">Thanks,<o:p></o:p></p>
-<p class=3D"MsoPlainText">Chong.<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">-----Original Message-----<br>
-From: Li, Chong(Alan) &lt;Chong.Li@amd.com&gt; <br>
-Sent: Monday, November 17, 2025 2:38 PM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Deng, Emily &lt;Emily.Deng@amd.com&gt;; Zhao, Victor &lt;Victor.Zhao@am=
-d.com&gt;; Yang, Philip &lt;Philip.Yang@amd.com&gt;; Kuehling, Felix &lt;Fe=
-lix.Kuehling@amd.com&gt;; Li, Chong(Alan) &lt;Chong.Li@amd.com&gt;<br>
-Subject: [PATCH] drm/amdgpu: reduce the full gpu access time in amdgpu_devi=
-ce_init.</p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">[Why]<o:p></o:p></p>
-<p class=3D"MsoPlainText">function &quot;devm_memremap_pages&quot; in funct=
-ion &quot;kgd2kfd_init_zone_device&quot;, sometimes cost too much time.<o:p=
-></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">[How]<o:p></o:p></p>
-<p class=3D"MsoPlainText">move the function &quot;kgd2kfd_init_zone_device&=
-quot;<o:p></o:p></p>
-<p class=3D"MsoPlainText">after release full gpu access(amdgpu_virt_release=
-_full_gpu).<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">v2:<o:p></o:p></p>
-<p class=3D"MsoPlainText">improve the coding style.<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">Signed-off-by: chong li &lt;<a href=3D"mailto:cho=
-ngli2@amd.com"><span style=3D"color:windowtext;text-decoration:none">chongl=
-i2@amd.com</span></a>&gt;<o:p></o:p></p>
-<p class=3D"MsoPlainText">---<o:p></o:p></p>
-<p class=3D"MsoPlainText">drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |&nbsp=
-; 2 +-&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |&nbsp; 8 +++++++-&=
-nbsp; drivers/gpu/drm/amd/amdkfd/kfd_topology.c&nbsp; | 23 ++++++++++++++++=
-++++++&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_topology.h&nbsp; |&nbsp; 6 ++++=
-++<o:p></o:p></p>
-<p class=3D"MsoPlainText">4 files changed, 37 insertions(+), 2 deletions(-)=
-<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoPlainText">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_am=
-dkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<o:p></o:p></p>
-<p class=3D"MsoPlainText">index 40c46e6c8898..6d204ba2c267 100644<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<=
-o:p></o:p></p>
-<p class=3D"MsoPlainText">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<=
-o:p></o:p></p>
-<p class=3D"MsoPlainText">@@ -37,7 +37,7 @@<o:p></o:p></p>
-<p class=3D"MsoPlainText">#include &quot;amdgpu_sync.h&quot;<o:p></o:p></p>
-<p class=3D"MsoPlainText">#include &quot;amdgpu_vm.h&quot;<o:p></o:p></p>
-<p class=3D"MsoPlainText">#include &quot;amdgpu_xcp.h&quot;<o:p></o:p></p>
-<p class=3D"MsoPlainText">-<o:p></o:p></p>
-<p class=3D"MsoPlainText">+#include &quot;kfd_topology.h&quot;<o:p></o:p></=
-p>
-<p class=3D"MsoPlainText">extern uint64_t amdgpu_amdkfd_total_mem_size;<o:p=
-></o:p></p>
-<p class=3D"MsoPlainText"><o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;enum TLB_FLUSH_TYPE {<o:p></o:p></p>
-<p class=3D"MsoPlainText">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_de=
-vice.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<o:p></o:p></p>
-<p class=3D"MsoPlainText">index 0b40ddcb8ba1..b4e1f258119c 100644<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<=
-o:p></o:p></p>
-<p class=3D"MsoPlainText">+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<=
-o:p></o:p></p>
-<p class=3D"MsoPlainText">@@ -3333,7 +3333,6 @@ static int amdgpu_device_ip=
-_init(struct amdgpu_device *adev)<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; /* Don't init kfd if whole hive need to be reset during i=
-nit */<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; if (adev-&gt;init_lvl-&gt;level !=3D AMDGPU_INIT_LEVEL_MINIMAL_=
-XGMI) {<o:p></o:p></p>
-<p class=3D"MsoPlainText">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; kgd2kfd_init_zone_device(adev);<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; amdgpu_amdkfd_device_init(adev);<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p></o:p></p>
-<p class=3D"MsoPlainText">@@ -4931,6 +4930,13 @@ int amdgpu_device_init(str=
-uct amdgpu_device *adev,<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (adev-&gt;init_lvl-&gt;level =3D=3D AMDGPU_INIT_LEVEL_=
-MINIMAL_XGMI)<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; amdgpu_xgmi_reset_on_init(adev);<o:p></o:p></p>
-<p class=3D"MsoPlainText">+<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; /* Don't init kfd if whole hive need to be reset during init */<o:p>=
-</o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; if (adev-&gt;init_lvl-&gt;level !=3D AMDGPU_INIT_LEVEL_MINIMAL_XGMI)=
- {<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; kgd2kfd_init_zone_device(adev);<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; kfd_update_svm_support_properties(adev);<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoPlainText">+<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; /*<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; &nbsp;* Place those sysfs registering after `late_init`. As som=
-e of those<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; &nbsp;* operations performed in `late_init` might affect the sy=
-sfs diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_topology.c<o:p></o:p></p>
-<p class=3D"MsoPlainText">index 8644039777b8..8511b00a7463 100644<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<o=
-:p></o:p></p>
-<p class=3D"MsoPlainText">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<o=
-:p></o:p></p>
-<p class=3D"MsoPlainText">@@ -2475,3 +2475,26 @@ int kfd_debugfs_rls_by_dev=
-ice(struct seq_file *m, void *data)&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;#endif<o:p></o:p></p>
-<p class=3D"MsoPlainText">+<o:p></o:p></p>
-<p class=3D"MsoPlainText">+void kfd_update_svm_support_properties(struct am=
-dgpu_device *adev) {<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; struct kfd_topology_device *dev;<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; int ret;<o:p></o:p></p>
-<p class=3D"MsoPlainText">+<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; down_write(&amp;topology_lock);<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; list_for_each_entry(dev, &amp;topology_device_list, list) {<o:p></o:=
-p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (!dev-&gt;gpu || dev-&gt;gpu-&gt;adev !=3D adev)<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- continue;<o:p></o:p></p>
-<p class=3D"MsoPlainText">+<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (KFD_IS_SVM_API_SUPPORTED(adev)) {<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- dev-&gt;node_props.capability |=3D HSA_CAP_SVMAPI_SUPPORTED;<o:p></o:p></p=
->
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- ret =3D kfd_topology_update_sysfs();<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- if (!ret)<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sy=
-s_props.generation_count++;<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- else<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; de=
-v_err(adev-&gt;dev, &quot;Failed to update SVM support properties. ret=3D%d=
-\n&quot;, ret);<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; } else<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- dev-&gt;node_props.capability &amp;=3D ~HSA_CAP_SVMAPI_SUPPORTED;<o:p></o:=
-p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoPlainText">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; up_write(&amp;topology_lock);<o:p></o:p></p>
-<p class=3D"MsoPlainText">+}<o:p></o:p></p>
-<p class=3D"MsoPlainText">diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topol=
-ogy.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h<o:p></o:p></p>
-<p class=3D"MsoPlainText">index ab7a3bf1bdef..129b447fcf84 100644<o:p></o:p=
-></p>
-<p class=3D"MsoPlainText">--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h<o=
-:p></o:p></p>
-<p class=3D"MsoPlainText">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h<o=
-:p></o:p></p>
-<p class=3D"MsoPlainText">@@ -202,4 +202,10 @@ struct kfd_topology_device *=
-kfd_create_topology_device(<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; struct list_head *device_list);<o:p></o:p></p>
-<p class=3D"MsoPlainText">void kfd_release_topology_device_list(struct list=
-_head *device_list);<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p></o:p></p>
-<p class=3D"MsoPlainText">+#if IS_ENABLED(CONFIG_HSA_AMD)<o:p></o:p></p>
-<p class=3D"MsoPlainText">+void kfd_update_svm_support_properties(struct am=
-dgpu_device *adev);
-<o:p></o:p></p>
-<p class=3D"MsoPlainText">+#else static inline void kfd_update_svm_support_=
-properties(struct
-<o:p></o:p></p>
-<p class=3D"MsoPlainText">+amdgpu_device *adev) {} #endif<o:p></o:p></p>
-<p class=3D"MsoPlainText">+<o:p></o:p></p>
-<p class=3D"MsoPlainText">#endif /* __KFD_TOPOLOGY_H__ */<o:p></o:p></p>
-<p class=3D"MsoPlainText">--<o:p></o:p></p>
-<p class=3D"MsoPlainText">2.48.1<o:p></o:p></p>
-<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
-</div>
-</div>
-</body>
-</html>
-
---_000_DS7PR12MB57688B92299CD948A68820479BC9ADS7PR12MB5768namp_--
+Hi Yo-Jung,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on ac9914fa72a5a917bb61c5e87bee6b8f9b751f33]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Yo-Jung-Leo-Lin-AMD/drm-amdgpu-parse-UMA-size-getting-setting-bits-in-ATCS-mask/20251114-164505
+base:   ac9914fa72a5a917bb61c5e87bee6b8f9b751f33
+patch link:    https://lore.kernel.org/r/20251114-vram-carveout-tuning-for-upstream-v2-3-4f6bdd48030d%40amd.com
+patch subject: [PATCH v2 3/5] drm/amdgpu: add UMA allocation setting helpers
+config: parisc-randconfig-002-20251117 (https://download.01.org/0day-ci/archive/20251117/202511171049.kFPjY5Br-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251117/202511171049.kFPjY5Br-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202511171049.kFPjY5Br-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_device.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_kms.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/atombios_crtc.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/atom.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_fence.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_object.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_gart.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_display.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_i2c.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_gem.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ring.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_cs.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_bios.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/atombios_dp.o: in function `amdgpu_acpi_set_uma_allocation_size':
+>> (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_afmt.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_trace_points.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/atombios_encoders.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_sa.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/atombios_i2c.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_vm.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ib.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_pll.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_sync.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_virt.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_vf_error.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_sched.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ids.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_hdp.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_csa.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_umc.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_rap.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_securedisplay.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_mca.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_lsdma.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_aca.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+   hppa-linux-ld: drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.o: in function `amdgpu_acpi_set_uma_allocation_size':
+   (.text.amdgpu_acpi_set_uma_allocation_size+0x0): multiple definition of `amdgpu_acpi_set_uma_allocation_size'; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.o:(.text.amdgpu_acpi_set_uma_allocation_size+0x0): first defined here
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
