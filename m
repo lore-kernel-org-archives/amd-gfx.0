@@ -4,81 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97464CEDDA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 16:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 059B3CEDDA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 16:56:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA6F10E4F8;
-	Tue, 18 Nov 2025 16:50:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A271B10E4FD;
+	Tue, 18 Nov 2025 16:56:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N1OGM+qE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YKxB2U8T";
 	dkim-atps=neutral
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4C6510E4F8
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 16:50:43 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-b9da0ae5763so465151a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 08:50:43 -0800 (PST)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C4F310E4FC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 16:56:30 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-640b06fa959so10202760a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 08:56:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763484643; x=1764089443; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LMBStLbmVj9D7fO/BG5wvPc03//LUMNICQd5R8DxF60=;
- b=N1OGM+qEGWSG59fxwyBGQghr9XjJuLbBuWRtmR9X2fuRVZRWtg55yLpo3vBY0ezREw
- 5cFu8+cumqgl2j5fo4QvDHmYcA/7FnKldrCPAGYTMD/1lvSara08JDYXZsaQi2nL2Puz
- aMy4TYVTzOndbo9Npx7IepTHSlIKQcyf/OC8hFmPm8yXHhlgGWV5ArBZWSvqvz/SiomG
- jUYR66M3ZBAZs+uCYY3TAvkklRBqId9lrOQt/puKNYbSmZV5vICVgNbmjdUq8xGK9N2t
- GGujK4aLu7TFnwO/7wKZT2Wq6GLVyHcOpOljAx65HzGT2v4qHtjtA/RNxYZKmEIb1vti
- g4Qw==
+ d=gmail.com; s=20230601; t=1763484988; x=1764089788; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=m+Z5CyMhKQPXlsItEyudFf7/QoMgZJzaF8p6O4ei5vQ=;
+ b=YKxB2U8T3O6t1xNkKT9fnw9L445twd9obRODaAxr5XQQwc/uu/33Hxr92TTYkXLKhV
+ PttgRPBls2/hiWBu62C+ZkjLyS3XwsJR79piCMDNbmb07o/G7vgXaw307yZ/XawqZlRn
+ c3x2qh6ZHhcdE3s6sFe3LIGIjLl/CDFRpWMEZG/YQgGuTd5lWOra8lHxOclmzlU13PRd
+ xNY6InWgcZh+nNiU8Q+zTmzmtTU8wdWe+vS0l4mfL7oToDbvjTUs4bBhNqWga1SxERIe
+ dyCukruDD1yseBqCakq8QQllcsVY3QvMAZBYlIq2VCj2yYMr5p4j5YkAtgMSg2MaGPVv
+ /v2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763484643; x=1764089443;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=LMBStLbmVj9D7fO/BG5wvPc03//LUMNICQd5R8DxF60=;
- b=E0m82qxD+EC0wXF4mgx4IRFUqddE8B7BvHlbkISnF/HTEs39h+YcZXLEyXh9qqFAaM
- eIPBR577giQMQrAQhRz0O701J2dwsIG7TszYiEqyQKb9IGL4qlMVSUboxQdy5oJypfQs
- jcJzqrU2yVAaOBriBWXLbnP+9RWBgRH1cqfaJFC0DopwQ6TpinVxlmJ5eFJbr481x4Bz
- YOpx/7FIBxFLScYuJTqlpnSk3Y5rdFYkf7O4DP8Dw11ZDcAwY+s6MfkDvp2HfwI4Rusd
- kOFc9F1YO5RueK8CUHIKbTL4JwVBkxNX3qeWPCXvdPUcfbJ2swW9r89UnrBocZ3ObX7q
- HmwA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV3rP8kQ7CDYKj5xJnMUUBRs2pA3G3SsH+z9uXGOvlZ7ez1ivZY24Xmpsw0KHKulSxVBoouSQmq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxebqzNa3PX81kfcOvUDDe05kqEh5I9unNhTSnWcDniBzXug7KB
- VRnHOeX7V9o9Lx+pbQEeQ+enaD+Q8VNfGLzUKpwd4QjLJVIyrVU+nqb1xAEaOr7Y7KLtq3ZOkx8
- jfWHlgLqfoYh1EHEt6nmXmPRDEyvzkmDUXA==
-X-Gm-Gg: ASbGncunTZupHflzihTYQXiX5oEL9RjrtdpYcwP8yyjPx9eN4FH00a9llpVzapV6Jab
- 09AP/Z6GjBXQuVGUgzk2D2zOq12MJLXI/00IQNOnDRN2L8wFUXrqMhJH/J8Jbd/y3ZCw/ENzdot
- 2EWoJsUPl7+y8Gcn+LAZsS2YMJTDokndxNqiQG8uaZjfFb0nfU+oE4RiUKYiet7umCefkVQBWLC
- s2AQQnDVlW4im8aJWCEjPE+4kTDiskGfqBBWke8bNycZHrvpS10dDsgjpjq8u0d0QF6IHygRyB7
- N9h5eg==
-X-Google-Smtp-Source: AGHT+IH/B47gWp6ECTKeYV9s1ojU3nBgKBpd50KZtt0ruvLygZs6cKnfaLlNR7nSDQtxmKJDvFijU4D9EfJilZylvzE=
-X-Received: by 2002:a05:7022:6885:b0:11a:344f:7a74 with SMTP id
- a92af1059eb24-11b4120a7cemr6364576c88.3.1763484643100; Tue, 18 Nov 2025
- 08:50:43 -0800 (PST)
+ d=1e100.net; s=20230601; t=1763484988; x=1764089788;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=m+Z5CyMhKQPXlsItEyudFf7/QoMgZJzaF8p6O4ei5vQ=;
+ b=FyuZSPlG1WCEHoZJuZLMPR7jld+Co1FNwaki9pIK0P5rHtiAb95oDA+Urb779vTIMM
+ 7utkP/UGp3ttrd/nw6ZgMRMkOlfiQcafnsdFX7AVmOxpMFNsy9F6qUsDIteT+0lOnv1M
+ tutxPKYn4+egisSFpmLEXLtey11MZwIcsaVtRaXTqBmCQbjWgxJLqM0ktvTawwhiytCu
+ pyX6oVgC/eUMAN7nngmoD4pLRpiW0QIFrL3ITqrHS0Y0niPb/eFtNnHbvzx4cpXWEOjf
+ 2WjPHByhdSEKIKajIyd5QIXkVLxUOx2LqTCIJqhk82TKiXllWIl1yblaovm4VC/3QHlm
+ F8Ng==
+X-Gm-Message-State: AOJu0Yzk6Gb+m1mcbYYAVCE8xOUHX7eiKAIX9+5zDHCypz72xKSSAuU1
+ bu7YDwumD62045sfi6in8nJhQxYPWKlljqXyGoZvKht80+0IUjFPk0f+XT4FFBLH
+X-Gm-Gg: ASbGncsxwr5z6bKmwCLBgQTzw5obHeOr9Nb/dgLKo6pHCf9Crtsd5yRvaQ7kyDTFEYL
+ nw/+9NgisGfht7muOKyvM+0EjNLXz4CUh42XfcYiGZy+Wb1CIyYBUsZIw52QJP+nzyka/1oI8vg
+ YHMq8Ej1tqfMq88YmYI2jN/eYWAiLafPbSUNBAMy3RlaoHiZq78zD0wlszppER2+rb+uKPXpxM5
+ Q3n/7xdxu7aJ1hmWxwfA/qDrGcrMx0Bd5muetPXgowT2aInw46Ki2nDYWOjgVl6/YAKTpt77M6R
+ 3stkregV4BwCFo35nvzAMnDoXXJ9cNnRQUrFxk7AoZ04qzD2Rf6kVJFj/vW2ezL9q1P2qGg+BwJ
+ MPBkJtmJNrole/Nr7JtGEkpV43tZ2le1qidK63X5QSGsd0PIw6qxA6PggXIzunWHrcnlrlrJTEn
+ Y7LZzlrK432pVfC+aHPi6KmczZazIr+lyyyjyQbSlv9+TwfFw=
+X-Google-Smtp-Source: AGHT+IElctE7Fh3YPg7LcTSEsPQK75lpFVfZp/bKIZHnRm/bBKF6EMO496gepetD6+gHef1QjCXj9w==
+X-Received: by 2002:a17:906:2542:b0:b71:51b:bd4c with SMTP id
+ a640c23a62f3a-b736794a6ccmr1280883566b.50.1763484988102; 
+ Tue, 18 Nov 2025 08:56:28 -0800 (PST)
+Received: from Timur-Max (82-198-214-3.briteline.de. [82.198.214.3])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b734fad44b4sm1408197766b.28.2025.11.18.08.56.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Nov 2025 08:56:27 -0800 (PST)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 1/3] drm/amdgpu/vm: Check PRT uAPI flag instead of PTE flag
+Date: Tue, 18 Nov 2025 17:56:18 +0100
+Message-ID: <20251118165620.216753-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-References: <20251117065323.3435034-1-chongli2@amd.com>
- <cde95388-b48c-4310-b5e5-bcff56a31744@amd.com>
- <DS7PR12MB576863BD7C14E3671B31EC0E9BD6A@DS7PR12MB5768.namprd12.prod.outlook.com>
- <b6c09fdc-168c-4489-9a20-d20c472b16ff@amd.com>
- <DS7PR12MB57682BD7E22D58475BC395F19BD6A@DS7PR12MB5768.namprd12.prod.outlook.com>
- <0d43d145-9845-46e5-a06a-29bfe9db5991@amd.com>
- <CADnq5_PcVD-VVmx=83Mbv2+CTyJyXf5UmR2GB6OVahBK2ACAoA@mail.gmail.com>
- <84aa5815-4e33-43d0-91b0-c1f2bec06cc8@amd.com>
-In-Reply-To: <84aa5815-4e33-43d0-91b0-c1f2bec06cc8@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 18 Nov 2025 11:50:30 -0500
-X-Gm-Features: AWmQ_bkwvUoW0X846E3l828Khz29Wpm8q9a2SNYEEiT0m4_-BXOieXQu0l_PiRk
-Message-ID: <CADnq5_MFS+4m77rKLhVffgp+K=VO8NoWO2iTSxvVw9ooyBY9Sw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: in sriov multiple vf mode, 2 seconds timeout
- is not enough for sdma job
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Li, Chong(Alan)" <Chong.Li@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
- Horace" <Horace.Chen@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,217 +85,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 18, 2025 at 9:57=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 11/18/25 15:43, Alex Deucher wrote:
-> > On Tue, Nov 18, 2025 at 5:49=E2=80=AFAM Christian K=C3=B6nig
-> > <christian.koenig@amd.com> wrote:
-> >>
-> >> Hi Chong,
-> >>
-> >> yeah and exactly that argumentation is not correct.
-> >>
-> >> We have to guarantee a min minimum response time and that is what the =
-timeout is all about.
-> >>
-> >> And it doesn't matter if the available HW time is split between 1,2,4 =
-or 8 virtual functions. The minimum reponse time we need to guarantee is st=
-ill the same, it's just that the available HW time is lowered.
-> >>
-> >> So as long as we don't have an explicit customer request which asks fo=
-r longer default timeouts this change is rejected.
-> >
-> > I think the change makes sense.  It needs to be longer to compensate
-> > for the world switch latency.  0.5 seconds of runtime is probably too
-> > short for many larger workloads.
->
-> The calculation that you have a 0.5 second timeout because the HW is shar=
-ed among 4 VF doesn't make sense.
->
-> It's just that each VF has 1/4 of the calculation power of the PF, but we=
- also don't increase the timeout for slower physical HW either.
->
+This fixes sparse mappings (aka. partially resident textures).
 
-But in this case, it doesn't actually reflect the GPU time spent on
-the job, it only reflects a percentage of it so it's not really an
-apples to apples comparison with non-SR-IOV.  That said, from a wall
-clock perspective, it does reflect the time spent even if you only got
-a percentage of that time.
+Check the correct flags.
+Since a recent refactor, the code works with uAPI flags (for
+mapping buffer objects), and not PTE (page table entry) flags.
 
-Alex
+Fixes: 0fdf257286d7 ("drm/amdgpu: rework how PTE flags are generated v3")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> The timeout is there to guarantee a certain response time and that comes =
-from both customer requirements as well as requirements of the Linux memory=
- management.
->
-> And at least the memory management doesn't care if you have a virtual fun=
-ction or physical hardware, you have to complete all operations in a certai=
-n time or otherwise the system can run into a panic during low memory situa=
-tions.
->
-> What could be is that we have customers who don't care about OOM situatio=
-ns and want this longer timeout, but that is then on their own risk.
->
-> We certainly shouldn't increase the timeout to something unreasonable jus=
-t because some CI system is failing.
->
-> Regards,
-> Christian.
->
-> >
-> > Alex
-> >
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >> On 11/18/25 11:08, Li, Chong(Alan) wrote:
-> >>> [AMD Official Use Only - AMD Internal Distribution Only]
-> >>>
-> >>> Hi, Christian.
-> >>>
-> >>> what I mean is:
-> >>> in sriov mode, when customer need limit timeout value ,
-> >>> they should set the "lockup_timeout" according to the vf number they =
-load.
-> >>>
-> >>>
-> >>> Why:
-> >>>
-> >>> The real timeout value in sriov for each vf is " lockup_timeout / vf_=
-number",
-> >>>
-> >>> As you said they want to limit the timeout to 2s,
-> >>> when customer load 8vf, they should set the "lockup_timeout" to 16s, =
- 4vf need set "lockup_timeout" to 8s.
-> >>>
-> >>>
-> >>> (After we test, when value "lockup_timeout" set to 2s, the 4vf mode c=
-an't work as each vf only get 0.5s)
-> >>>
-> >>>
-> >>>
-> >>>
-> >>>
-> >>> Thanks,
-> >>> Chong.
-> >>>
-> >>>
-> >>>
-> >>> -----Original Message-----
-> >>> From: Koenig, Christian <Christian.Koenig@amd.com>
-> >>> Sent: Tuesday, November 18, 2025 5:31 PM
-> >>> To: Li, Chong(Alan) <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.org
-> >>> Cc: Chen, Horace <Horace.Chen@amd.com>
-> >>> Subject: Re: [PATCH] drm/amdgpu: in sriov multiple vf mode, 2 seconds=
- timeout is not enough for sdma job
-> >>>
-> >>> Hi Chong,
-> >>>
-> >>> that is not a valid justification.
-> >>>
-> >>> What customer requirement is causing this SDMA timeout?
-> >>>
-> >>> When it is just your CI system then change the CI system.
-> >>>
-> >>> As long as you can't come up with a customer requirement this change =
-is rejected.
-> >>>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>> On 11/18/25 10:29, Li, Chong(Alan) wrote:
-> >>>> [AMD Official Use Only - AMD Internal Distribution Only]
-> >>>>
-> >>>> Hi, Christian.
-> >>>>
-> >>>> In multiple vf mode( in our CI environment the vf number is 4), the =
-timeout value is shared across all vfs.
-> >>>> After timeout value change to 2s, each vf only get 0.5s, cause sdma =
-ring timeout and trigger gpu reset.
-> >>>>
-> >>>>
-> >>>> Thanks,
-> >>>> Chong.
-> >>>>
-> >>>> -----Original Message-----
-> >>>> From: Koenig, Christian <Christian.Koenig@amd.com>
-> >>>> Sent: Tuesday, November 18, 2025 4:34 PM
-> >>>> To: Li, Chong(Alan) <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.or=
-g
-> >>>> Subject: Re: [PATCH] drm/amdgpu: in sriov multiple vf mode, 2 second=
-s timeout is not enough for sdma job
-> >>>>
-> >>>> Clear NAK to this patch.
-> >>>>
-> >>>> It is explicitely requested by customers that we only have a 2 secon=
-d timeout.
-> >>>>
-> >>>> So you need a very good explanation to have that changed for SRIOV.
-> >>>>
-> >>>> Regards,
-> >>>> Christian.
-> >>>>
-> >>>> On 11/17/25 07:53, chong li wrote:
-> >>>>> Signed-off-by: chong li <chongli2@amd.com>
-> >>>>> ---
-> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++++--
-> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 4 ++--
-> >>>>>  2 files changed, 9 insertions(+), 4 deletions(-)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>> index 69c29f47212d..4ab755eb5ec1 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> >>>>> @@ -4341,10 +4341,15 @@ static int amdgpu_device_get_job_timeout_se=
-ttings(struct amdgpu_device *adev)
-> >>>>>       int index =3D 0;
-> >>>>>       long timeout;
-> >>>>>       int ret =3D 0;
-> >>>>> +     long timeout_default;
-> >>>>>
-> >>>>> -     /* By default timeout for all queues is 2 sec */
-> >>>>> +     if (amdgpu_sriov_vf(adev))
-> >>>>> +             timeout_default =3D msecs_to_jiffies(10000);
-> >>>>> +     else
-> >>>>> +             timeout_default =3D msecs_to_jiffies(2000);
-> >>>>> +     /* By default timeout for all queues is 10 sec in sriov, 2 se=
-c not in sriov*/
-> >>>>>       adev->gfx_timeout =3D adev->compute_timeout =3D adev->sdma_ti=
-meout =3D
-> >>>>> -             adev->video_timeout =3D msecs_to_jiffies(2000);
-> >>>>> +             adev->video_timeout =3D timeout_default;
-> >>>>>
-> >>>>>       if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
-> >>>>>               return 0;
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_drv.c
-> >>>>> index f508c1a9fa2c..43bdd6c1bec2 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> >>>>> @@ -358,10 +358,10 @@ module_param_named(svm_default_granularity, a=
-mdgpu_svm_default_granularity, uint
-> >>>>>   * [GFX,Compute,SDMA,Video] to set individual timeouts.
-> >>>>>   * Negative values mean infinity.
-> >>>>>   *
-> >>>>> - * By default(with no lockup_timeout settings), the timeout for al=
-l queues is 2000.
-> >>>>> + * By default(with no lockup_timeout settings), the timeout for al=
-l queues is 10000 in sriov, 2000 not in sriov.
-> >>>>>   */
-> >>>>>  MODULE_PARM_DESC(lockup_timeout,
-> >>>>> -              "GPU lockup timeout in ms (default: 2000. 0: keep de=
-fault value. negative: infinity timeout), format: [single value for all] or=
- [GFX,Compute,SDMA,Video].");
-> >>>>> +              "GPU lockup timeout in ms (default: 10000 in sriov, =
-2000 not in sriov. 0: keep default value. negative: infinity timeout), form=
-at: [single value for all] or [GFX,Compute,SDMA,Video].");
-> >>>>>  module_param_string(lockup_timeout, amdgpu_lockup_timeout,
-> >>>>>                   sizeof(amdgpu_lockup_timeout), 0444);
-> >>>>>
-> >>>>
-> >>>
-> >>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index e803d173e25b..1a8155bdce5e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2091,7 +2091,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 		struct amdgpu_bo *bo = before->bo_va->base.bo;
+ 
+ 		amdgpu_vm_it_insert(before, &vm->va);
+-		if (before->flags & AMDGPU_PTE_PRT_FLAG(adev))
++		if (before->flags & AMDGPU_VM_PAGE_PRT)
+ 			amdgpu_vm_prt_get(adev);
+ 
+ 		if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
+@@ -2106,7 +2106,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 		struct amdgpu_bo *bo = after->bo_va->base.bo;
+ 
+ 		amdgpu_vm_it_insert(after, &vm->va);
+-		if (after->flags & AMDGPU_PTE_PRT_FLAG(adev))
++		if (after->flags & AMDGPU_VM_PAGE_PRT)
+ 			amdgpu_vm_prt_get(adev);
+ 
+ 		if (amdgpu_vm_is_bo_always_valid(vm, bo) &&
+-- 
+2.51.1
+
