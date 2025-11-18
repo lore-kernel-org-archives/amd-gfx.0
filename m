@@ -4,68 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E0CDCF34B2
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 13:46:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB795CF34A1
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 13:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E106E10E619;
-	Wed, 19 Nov 2025 13:46:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CDBA10E614;
+	Wed, 19 Nov 2025 13:46:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iYm68Ve8";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UTV8MhzG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7F7F10E134;
- Tue, 18 Nov 2025 15:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763478017; x=1795014017;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=Zz9YWiBTLV0B0EhGOFmhpjfs0b4houvXiVpjgI8aT8E=;
- b=iYm68Ve8ss4wC2TSYebQprhGPBvTzYVytlP4c3G+c0rZSCCBd44sBoYk
- 5Am26V79UyxHGSyhTr0ROdmCXyLmZQPaUubb5bt8X60OxEPfCqooM0xCT
- RhXR1NjXHEq8x9MZsn1TXwpdVhMvT6kiA7PQlv7raDuamxPif5s1tjepB
- 70SOpKiW1utneWF9xEHejVDVTlm4CZwuP547w0rnQgJxYowLc691cH7WE
- SB0DXXHnbWO8uWKlwsl6bltqQwmIM9Aa9nAp+9Wx/PzpQ1fndydgGayGq
- CyoXkcaBdrud2h1ZskH+ld0r9L44Tz+5ZYgK3CYkeDRAgGMhSiprYwga1 Q==;
-X-CSE-ConnectionGUID: qp3YSb7ZRimDuh7qNyRkmg==
-X-CSE-MsgGUID: Nct0W3ONS9GPPuqYfFmaVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11617"; a="88151655"
-X-IronPort-AV: E=Sophos;i="6.19,314,1754982000"; d="scan'208";a="88151655"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2025 07:00:16 -0800
-X-CSE-ConnectionGUID: srJjTBFPTNCsvAFsGMnVzg==
-X-CSE-MsgGUID: fGCuAn9pSpC8wbsDghrqMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,314,1754982000"; d="scan'208";a="190931473"
-Received: from inaky-mobl1.amr.corp.intel.com (HELO [10.245.245.166])
- ([10.245.245.166])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2025 07:00:12 -0800
-Message-ID: <471b61ae7b130ea05b509a5fb0b7f3a4de59531a.camel@linux.intel.com>
-Subject: Re: [PATCH v2 02/20] drm/ttm: rework pipelined eviction fence handling
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>,  David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Huang Rui <ray.huang@amd.com>, Matthew Auld
- <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Sumit
- Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org
-Date: Tue, 18 Nov 2025 16:00:10 +0100
-In-Reply-To: <20251113160632.5889-3-pierre-eric.pelloux-prayer@amd.com>
-References: <20251113160632.5889-1-pierre-eric.pelloux-prayer@amd.com>
- <20251113160632.5889-3-pierre-eric.pelloux-prayer@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E82610E504;
+ Tue, 18 Nov 2025 20:00:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1763496009;
+ bh=Ouz3sykA6NZWtw6Ox5elkRDV5HgOt7b0f0GP8Kov1EI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=UTV8MhzGZCT6pEbkvadKMx88eRgkHh/BuJwjL7ViFkX8GYKo/Kklgll2xVBXkZlQF
+ ZBDDmOe+RdQMe08+xVVPmYlsa3GF5Lw/PjdGBsKdTsYqoZJV/wQ9Zh0YMyPvEGzo7Y
+ axSvCTEV+OYbBjghz5nybkVV2zcXM6sAxV4Umijn2BdAvXKVbgA3DCf2VDs3YT9YOT
+ LYz8OowQRHgsRHjB2iaR0yuFmK+CgnHMkfF4uwNYt4ueo9cu20LqAY4W3Y9sm4j8EH
+ Rwdm06n+iHYdq08roCIF3rHHZD3K+D9QZinZRYCgC5ADRTB0V3+J9sPvmlujWxP5QR
+ HP+nOID4xnnpQ==
+Received: from [192.168.1.90] (unknown [82.79.138.145])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C39BF17E0610;
+ Tue, 18 Nov 2025 21:00:08 +0100 (CET)
+Message-ID: <3863e0e5-677b-4225-9854-3ee420828275@collabora.com>
+Date: Tue, 18 Nov 2025 22:00:08 +0200
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 19 Nov 2025 13:46:39 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 05/10] drm/bridge: dw-hdmi-qp: Set bridge
+ supported_formats
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
+ <20251117-color-format-v4-5-0ded72bd1b00@collabora.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20251117-color-format-v4-5-0ded72bd1b00@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 19 Nov 2025 13:46:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,29 +82,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Pierre-Eric
+Hi Nicolas,
 
-On Thu, 2025-11-13 at 17:05 +0100, Pierre-Eric Pelloux-Prayer wrote:
-> Until now ttm stored a single pipelined eviction fence which means
-> drivers had to use a single entity for these evictions.
->=20
-> To lift this requirement, this commit allows up to 8 entities to
-> be used.
->=20
-> Ideally a dma_resv object would have been used as a container of
-> the eviction fences, but the locking rules makes it complex.
-> dma_resv all have the same ww_class, which means "Attempting to
-> lock more mutexes after ww_acquire_done." is an error.
->=20
-> One alternative considered was to introduced a 2nd ww_class for
-> specific resv to hold a single "transient" lock (=3D the resv lock
-> would only be held for a short period, without taking any other
-> locks).
+On 11/17/25 9:11 PM, Nicolas Frattaroli wrote:
+> The drm_bridge "supported_formats" member stores a bitmask of supported
+> HDMI output formats if the bridge is in fact an HDMI bridge.
+> 
+> However, until now, the synopsys dw-hdmi-qp driver did not set this
+> member in the bridge it creates.
+> 
+> Set it based on the platform data's supported_formats member, and
+> default to BIT(HDMI_COLORSPACE_RGB) if it's absent, which preserves the
+> previous behaviour.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> index fe4c026280f0..cf888236bd65 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -1269,6 +1269,11 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+>  		dev_warn(dev, "Set ref_clk_rate to vendor default\n");
+>  	}
+>  
+> +	if (plat_data->supported_formats)
+> +		hdmi->bridge.supported_formats = plat_data->supported_formats;
 
-Wouldn't it be possible to use lockdep_set_class_and_name() to modify
-the resv lock class for these particular resv objects after they are
-allocated? Reusing the resv code certainly sounds attractive.
+This duplicates a change already introduced via commit 1ff27c5929ab
+("drm/bridge: dw-hdmi-qp: Handle platform supported formats and color depth").
 
-Thanks,
-Thomas
+> +	else
+> +		hdmi->bridge.supported_formats = BIT(HDMI_COLORSPACE_RGB);
+
+And this one looks redundant as well, since RGB is supposed to be mandatory:
+supported_formats defaults to RGB in drm_bridge_connector_init() if there's no
+HDMI bridge in the pipeline overriding it, while drmm_connector_hdmi_init()
+errors out if supported_formats is unset or doesn't advertise RGB.
+
+Hence I think this patch can be dropped.
+
+Regards,
+Cristian
 
