@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1BB8CF2563
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 011EFCF2564
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 22:55:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8065C10E53B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 597EF10E53A;
 	Tue, 18 Nov 2025 22:55:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gae8+DlY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="euO6G4ak";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D5E810E539
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010009.outbound.protection.outlook.com [52.101.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB8C210E53A
  for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 22:55:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mvte4qT4Qv0xeG/QI4J324s9Inynxj3HE/nODn/UjCjHEN72JXCNDnsfrZd+72zGOUV9goXbpPc7KsLkp/C1kjAnzfuWX/0jMVgozqtKGSU8Imi/2nGC7qXFTzbYOy4d0oVPmG0FKP8s+zkDiv8S9vKnHyf9DxXxnPZ0iLKb1mgWNhmcSGeVpNEsm2vvWittzNkmH5uhtb6KGU5l6UgHJJj00vj1D6jhQSZFney8IMbdEsvQlmS/2mt0Feogm5vEJQIk76niq9GqjLep7K24+DrTHn05sZbzDl9iGBWLohQY4iTAMz3K9gWBvrZSLbE50AEvm4uhJpxw2pKsj5ABgA==
+ b=sMj4hzj2eQ654TZXqGaFPNZ45pxZAB99bmeG9PNXInaTdYR1UyI68kmHe1iZKegLEEnCZdEPP07o4K0yqyLfUzT8Q2ZA1sMWi2T2kQdSCmzScTCWVRguWSTeWHehR+3FSYp3+2gyEk4NYxIYSSGOPeJBXyIBClih1UB1HSikUhGxfpTHH/oToBq1GQYqm3HUVy2zNWziegCl6qQNm8WZ5I3OhGw3EBNWVjFecSds7fjs27/+RaAW8rtDZXGIaCmeu/dInk8U1GN1zYDcyDvoXDWZRBQrNL9eV0W/D3YXcqzg0kvWjQn9OrqrINwmBbQoiVX3igvT+QTJHJPJng1xBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4JJpRlauBWRkzg7FvUFaq2XrEMMx5IsT9wLWfi9YxkY=;
- b=ZK2+y3vmTjjO/Xz3phaMVLAbxOzq473NNdPgeRFEx9JvVGrvIwKjyfU93FP7S6fy459LA2HuROohFrJwAQj7C3jkLdrZFGbz/ffHv1w0W/9ujsb2Bbya0sevp603zLzM9PzQECVSrWEuhlqDjEbD4jSklFenCxQsIPzLo80Vu/WFJxPv7q6EFXjnLlYXOd03N6nAc+bMqyMfeamyzMY4zWPjmpG00u8Ab+U6FznXw74XZMtUZarYRoidPCmmTKTj9xIvDBc4mLgTMNp01JcNZ3N20RZL7d4yIfSJidXqCDeuVVhMJc+mmgY07X9VEk5nnnTnKIZ3Whxsfc9ZzlFX0A==
+ bh=cIVmiiX6ybHr07ggByh8FminhrulSf7PsMMSkzYAkJ0=;
+ b=lUPAgO1iv6nN5A2iZ4merCxTKMEAiRZ+b+wvEXGdMTWYJRdiKExFOriob3DeJgaZshBnHIogFP0/TX/OE/cNcJOp+IPgr32Cw60o5p5xiJ4NBrgWXdzSS4VPrMUYUh4olYjyDtaBF+T7qlvHsCFXVuLhiJIlsZlzxMh8f5yNXKW1D1VGROap8rVfOMLbA51B6xy4Enb4BWdTw29d4eco+QfJihIkcEaWvQudSiE/wYLPy3By2EI0IUESBtsOmpXRc541pjbYNsxyZskex6LBEP4oO6NmSGW5/FLGZXRXaIHEzacCVhfoU1dvYW462THkxRypMsauRiMijSj0dj33EQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4JJpRlauBWRkzg7FvUFaq2XrEMMx5IsT9wLWfi9YxkY=;
- b=gae8+DlY+OogqSkOAXXmARPsOjQMmFIaR5LGQAbLKvFlxfRtmc701p9/ZvD65Gr45VlMUVZbAV0QBzIbB4vTuPvYbznNSq3ldq/El8O784EuXT2H+DSwpg+PzVv1DpYLA9h1ASN467BFvOxS8mEzKoooJmDzvwaAhk19YG/QmNg=
-Received: from CH2PR14CA0036.namprd14.prod.outlook.com (2603:10b6:610:56::16)
- by CH3PR12MB9393.namprd12.prod.outlook.com (2603:10b6:610:1c5::8)
+ bh=cIVmiiX6ybHr07ggByh8FminhrulSf7PsMMSkzYAkJ0=;
+ b=euO6G4ak4N2HD2owWrMm1CYXnAoHTPDxZhnlcNUT23aq6QAd7feFpe9SOk+adpKJllVx1HMb2n501NzzAnbYPLovqLa+VyT2bNbs+AnkeGUcaDBP9WdlhqTYSPmk+kOXCHF75EOzAnIj8duHVmPsj5AOQoX7Da0Q4qwF7JQ5BOc=
+Received: from CH2PR14CA0031.namprd14.prod.outlook.com (2603:10b6:610:56::11)
+ by MN2PR12MB4341.namprd12.prod.outlook.com (2603:10b6:208:262::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.22; Tue, 18 Nov
- 2025 22:54:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.23; Tue, 18 Nov
+ 2025 22:54:57 +0000
 Received: from CH2PEPF0000009D.namprd02.prod.outlook.com
- (2603:10b6:610:56:cafe::2b) by CH2PR14CA0036.outlook.office365.com
- (2603:10b6:610:56::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.23 via Frontend Transport; Tue,
- 18 Nov 2025 22:54:55 +0000
+ (2603:10b6:610:56:cafe::f4) by CH2PR14CA0031.outlook.office365.com
+ (2603:10b6:610:56::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.10 via Frontend Transport; Tue,
+ 18 Nov 2025 22:54:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH2PEPF0000009D.mail.protection.outlook.com (10.167.244.25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Tue, 18 Nov 2025 22:54:55 +0000
+ 15.20.9343.9 via Frontend Transport; Tue, 18 Nov 2025 22:54:56 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 18 Nov
- 2025 14:54:54 -0800
+ 2025 14:54:55 -0800
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>
-Subject: [PATCH 2/5] drm/amdgpu: Add smuio v15_0_8 support v4
-Date: Tue, 18 Nov 2025 17:54:37 -0500
-Message-ID: <20251118225440.3613071-1-alexander.deucher@amd.com>
+CC: Feifei Xu <Feifei.Xu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH 4/5] drm/amdgpu: Add rlcv firmware for frontdoor loading.
+Date: Tue, 18 Nov 2025 17:54:39 -0500
+Message-ID: <20251118225440.3613071-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251118225440.3613071-1-alexander.deucher@amd.com>
+References: <20251118225440.3613071-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,53 +73,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|CH3PR12MB9393:EE_
-X-MS-Office365-Filtering-Correlation-Id: f349330a-387e-43bc-a56d-08de26f57e06
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|MN2PR12MB4341:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57fb37a0-76d3-4aab-c807-08de26f57ed0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?biu/IjLX24oxJTk/WRnKPTxZMrt1MRzjDlLtgTdI+GfQ729f8nyIR6kp1nCW?=
- =?us-ascii?Q?13Mvju5cNly5jl2vzMFG1wB6YD/kpzHk19g14vOuojUREz9E0LY6MOcSaEkc?=
- =?us-ascii?Q?7Z8BYIRCwtI9obbRZsrf6YeDR+0s6Q7Ldt/L3QpeGIOhkLzOEEpDzX8PxWhl?=
- =?us-ascii?Q?Rl00F9qNs+Os4moY29swcrOgzSgjDf5kwZg0iy12BMtVBd6ncul6PzLEVDyg?=
- =?us-ascii?Q?xWTtnfLmEgmKHeIfYIKaZbOfHlFqybt710Mh2K5Abe5hLqPAF8lJnNHeozKJ?=
- =?us-ascii?Q?ATdUOZ/74SgyxQwtd0Rkf2VX+rEk6k45XBX7CNmLlQ8VsbKw4SYj2NPvnUeY?=
- =?us-ascii?Q?WkZv7F12utYTPzIUJfTZXRghicAlYatiFKz+eun4bQf1GPlr7UjnLvjxgs7O?=
- =?us-ascii?Q?BKIEVFK3zOySVDwd6ffwsBOJiPICjkGd/E6wvYfMqxB+SDJR1w0P6R5mvzzS?=
- =?us-ascii?Q?tQDdOeZ5Ow6zL54S0zKUDpgpYXJ914AvuwC08ZuQtdpElljbYylTGZngdm6v?=
- =?us-ascii?Q?YT59u9gdnwVpRIqy0a4pOiDiXgcjf1QpndGLTWfSY6P/HRq/Cyu+BgnCb7+t?=
- =?us-ascii?Q?O6/8zLB5YFhOpt3J2ATNmJEyaub/qC2lbQYK+1Oak0Km3AmIb1slJe0cgzr7?=
- =?us-ascii?Q?y25t0gBQ16sZfHT70nDGdr3Em+NJKb7bPq2y71ZwV/7FgZCNJj6H4Z9IgiIt?=
- =?us-ascii?Q?gV4FBoHCHwSJi9h4qrDk2PgkmplSZuFrLFnboWfN5c0JaZ2EBRWbHNtqeLRr?=
- =?us-ascii?Q?yYOKr3OYLn+/Urxf3DOVIaeUu0KOwyY7JBTxXQtJ2AMfk288/svVvf4bE303?=
- =?us-ascii?Q?yx5ixmG5wbjBoAlTkn9k2LoiuJ7RK6a1gThOFbf64wq7AsSK3y6Q/B4xrRub?=
- =?us-ascii?Q?PdJ49KH+x2m4PFN7mCneSq2Nh1+3nESLnbs+hOxmTeT6KiVgF46e3nhoBGQq?=
- =?us-ascii?Q?JtJEyeJstrp5lrYQ71nxhb94dCMXgJPC+dY43wUkUJDqV11ac56ZlQeWejx9?=
- =?us-ascii?Q?EFtdQwqfM3Tc+dn6xPvpzauOamblRD9SQm2qdFYg+MeS/KV5KVsKYC60UKQF?=
- =?us-ascii?Q?R8cPJvyz4VS6jM4rjzs27W26JDlQoD44KLm5edAUwRUbT/hUjnV7o4UDnVEH?=
- =?us-ascii?Q?+BuRrx4cYDd8I+zXMMA8OGDDd6OIuMNT34CgqOXUzc1XeluKSyK+n21HVVD8?=
- =?us-ascii?Q?V7hD8Wl8RKp07L8ROkifWch4feHMRoO8Wdpo4o9v0RaVrkFEkG0Q/wamHKrS?=
- =?us-ascii?Q?peYcGLSYHarEsVAJ45NvrrwINDwtcvUp6a6yipuS4qwLhokgObsWOrb8YDgZ?=
- =?us-ascii?Q?bpy7d+sSadVngjSU97Uuw3F4h5RJdmF2p4Spl1q3h6gQZuEzmDU7QcySevMv?=
- =?us-ascii?Q?HzU9y2+A/ekz1iaRGMJsIuVE1tW+e9l9jjM5oDW4lCuqcuHTrY9ZGQTJwjpW?=
- =?us-ascii?Q?ph+03CkzWQJh0phXmIwXYfLixk+OaUAhKjAcyG2ryg7Wscc+BNiVkSWKb1d/?=
- =?us-ascii?Q?qeXbWjnd43G4dTiuqvIU8SNUDz4gwZX8uWipxnyx+DgavoxXHo/HbpIbqDPn?=
- =?us-ascii?Q?Ik4O5z7p3Uift7CKyuo=3D?=
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YKwU9bYyT3AGl/iwaxA0Xd/QnihMi5nPbonXmAAliUHWjm0rp43YJkJB9f18?=
+ =?us-ascii?Q?9BorVOv2/eTh6OmsF1dcGc2jVf56tFV1MXqOkp/H8pQS4B/ER+uC1fkotUxz?=
+ =?us-ascii?Q?WwmMlWozUMOhlNdgKK94FgWJncVeonyQY2Fb1J3lnQUqqt5VjmO2i2k0Vb2E?=
+ =?us-ascii?Q?cNYTekhSIv4GM3WuDvdoKBZYRgF6BTKwqHlZJnZCoSzIhrRj/YBK31E77BsD?=
+ =?us-ascii?Q?DCJvmIBxqYB+rqoU4NRTcIOSrWeZjYlAudgJ2Ge74zhQu0E0nvkHMupvlf7e?=
+ =?us-ascii?Q?QX/ARNiuz8xEYdycd6TIX2qTfRWiV9FSKPz3l3wu97jWc2KckGWz58B3gWk8?=
+ =?us-ascii?Q?ZfxiyYw4/Pupp1HER45hbI70lWV1hbavEUnZHH8plWANk0wbjyU/7fs+2jzJ?=
+ =?us-ascii?Q?e8XG7964X4PY5e0F5NOy2twbHi+bfGiZfDKkxqYd5CCwY6r8SDZdssM7gLFs?=
+ =?us-ascii?Q?w2XTuMIQ9hpxqE0UzFKzzsLQxWjkZwexMsH+06Ccz6uaJNCeQRT8KiMRq/Tc?=
+ =?us-ascii?Q?3VZGeqM4vhsAT+QFSuj+Ei1PrE1NBLvP6wnS2dxWNo1m5MvZRJHnQAW3mmWW?=
+ =?us-ascii?Q?f/JpvloB0TtDtkASP4INzw+lHINBV4gkQqXj3WGrvJLquonfFGkdAxZnNzBq?=
+ =?us-ascii?Q?GvW8SXHvjYkdXzmPNInVLjwS6/vEQG/oxlztCASFMdgVFiMDcaNdi5vN1ikg?=
+ =?us-ascii?Q?6FlWPZCmN8ki7pcX9SSDqerKxamnKRZD3Ow9Q6b9f17D+NJ15Qj+jAbJ5txA?=
+ =?us-ascii?Q?4MeXo6qsZa2bK431wNBLm8u1ceOTPmTPGVVARATs+ioNR0tYXwY21FpOUCQf?=
+ =?us-ascii?Q?Gxh6vfQCywTUFiDkbks67R74TotScsA8qMRn62PYSJ6Q5oWYoFJVFsYM/UT2?=
+ =?us-ascii?Q?7aK4U6DHcHITiWprn82trUtcwcklovXnZM0WhjUjtsGjhtBmwXMD6/qwaD5Q?=
+ =?us-ascii?Q?3NzdX98EBJpX01qwB60UDa2k8jTT3kfiu9ybu84ndec3sD5Q6CFb0AUnkRIu?=
+ =?us-ascii?Q?4YH/Q135efTc6/blcPF+OpDu5ykonD4/uw0dIFelpC+QHfcIl8EBt2jMOdTV?=
+ =?us-ascii?Q?F7si81BgKOlj/5FWuwmfoLGoA2F/eT4bxei1KvqIFxSccqO94C5ly5YVaFP4?=
+ =?us-ascii?Q?LIfBC3eJ14YHT6Yp4yAoLG+Xa4CgZ1uh1+GgfECnJoVs/U+gdKh9xv1rA1Tv?=
+ =?us-ascii?Q?3gCNOHESbIaRldIWIbFrS9V3DZ6svpgMgIBLwM44dvhwElhfmU2X4xqjmvZq?=
+ =?us-ascii?Q?la+qJFXjgKAI6qxwxj1GJSjp+r59XiJzZ2xm90hONxLyF/HEyMTLAAQq/dAJ?=
+ =?us-ascii?Q?15mqcsDxizOcs/q70fJhqwPuLgmlJZw2jclbPP3JqRjdqtxRYL2IVeWowhsj?=
+ =?us-ascii?Q?jRL7w3qm0g3Y8O0lkjOl812gs0FCDmHJqshvuNAM02MQSuGtVv5tur8foUm+?=
+ =?us-ascii?Q?BLlub5gUiAvGg6jLnpyNL+dDO1GjCLtHfz3mEUaSI4njUjQitKJD5zziaIRa?=
+ =?us-ascii?Q?zevVd3zMX5Tbd5ofdtCX1fghoINVi1l2M0NKjr9DMeqa/aw2KY16PrBtryCh?=
+ =?us-ascii?Q?7omQLfBYgY+uBH6aTyQ=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2025 22:54:55.5836 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f349330a-387e-43bc-a56d-08de26f57e06
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2025 22:54:56.9109 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57fb37a0-76d3-4aab-c807-08de26f57ed0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9393
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4341
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,316 +134,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Feifei Xu <Feifei.Xu@amd.com>
 
-v15_0_8 is a new generation smuio ip block
-v2: Add smuio callbacks for interface id
-v3: Add smuio callback to identify custom hbm
-v4: comment out unused functions (Alex)
+Rlcv is required to be loaded for frontdoor.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
+1. Add 2 rlcv ucode ids:
+    AMDGPU_UCODE_RLC_IRAM_1 and AMDGPU_UCODE_RLC_DRAM_1
+
+2. Add rlc_firmware_header_v2_5 for above 2 rlcv headers.
+
+3. Add 2 types in psp_fw_gfx_if interface interacting with asp:
+    GFX_FW_TYPE_RLX6_UCODE_CORE1 - RLCV IRAM
+    GFX_FW_TYPE_RLX6_DRAM_BOOT_CORE1 - RLCV DRAM BOOT
+
+Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile        |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h  |   3 +
- drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c | 213 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h |  30 +++
- 4 files changed, 248 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   |  8 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c   | 37 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h   |  4 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 34 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h | 12 ++++++++
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h   |  2 ++
+ 6 files changed, 96 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index c88760fb52ea5..b10e9988a831f 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -244,7 +244,8 @@ amdgpu-y += \
- 	smuio_v13_0.o \
- 	smuio_v13_0_3.o \
- 	smuio_v13_0_6.o \
--	smuio_v14_0_2.o
-+	smuio_v14_0_2.o \
-+	smuio_v15_0_8.o
- 
- # add reset block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
-index ec9d12f85f39f..124b13a68f3f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
-@@ -27,6 +27,7 @@ enum amdgpu_pkg_type {
- 	AMDGPU_PKG_TYPE_APU = 2,
- 	AMDGPU_PKG_TYPE_CEM = 3,
- 	AMDGPU_PKG_TYPE_OAM = 4,
-+	AMDGPU_PKG_TYPE_BB  = 5,
- 	AMDGPU_PKG_TYPE_UNKNOWN,
- };
- 
-@@ -44,6 +45,8 @@ struct amdgpu_smuio_funcs {
- 	u32 (*get_socket_id)(struct amdgpu_device *adev);
- 	enum amdgpu_pkg_type (*get_pkg_type)(struct amdgpu_device *adev);
- 	bool (*is_host_gpu_xgmi_supported)(struct amdgpu_device *adev);
-+	bool (*is_connected_with_ethernet_switch)(struct amdgpu_device *adev);
-+	bool (*is_custom_hbm_supported)(struct amdgpu_device *adev);
- 	u64 (*get_gpu_clock_counter)(struct amdgpu_device *adev);
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c
-new file mode 100644
-index 0000000000000..ef29424c26cce
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c
-@@ -0,0 +1,213 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#include "amdgpu.h"
-+#include "smuio_v15_0_8.h"
-+#include "smuio/smuio_15_0_8_offset.h"
-+#include "smuio/smuio_15_0_8_sh_mask.h"
-+
-+#define SMUIO_MCM_CONFIG__HOST_GPU_XGMI_MASK	0x00000001L
-+#define SMUIO_MCM_CONFIG__ETHERNET_SWITCH_MASK	0x00000008L
-+#define SMUIO_MCM_CONFIG__CUSTOM_HBM_MASK	0x00000001L
-+
-+static u32 smuio_v15_0_8_get_rom_index_offset(struct amdgpu_device *adev)
-+{
-+	return SOC15_REG_OFFSET(SMUIO, 0, regROM_INDEX);
-+}
-+
-+static u32 smuio_v15_0_8_get_rom_data_offset(struct amdgpu_device *adev)
-+{
-+	return SOC15_REG_OFFSET(SMUIO, 0, regROM_DATA);
-+}
-+
-+static void smuio_v15_0_8_update_rom_clock_gating(struct amdgpu_device *adev, bool enable)
-+{
-+	return;
-+}
-+
-+static u64 smuio_v15_0_8_get_gpu_clock_counter(struct amdgpu_device *adev)
-+{
-+	u64 clock;
-+	u64 clock_counter_lo, clock_counter_hi_pre, clock_counter_hi_after;
-+
-+	preempt_disable();
-+	clock_counter_hi_pre = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_UPPER);
-+	clock_counter_lo = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_LOWER);
-+	/* the clock counter may be udpated during polling the counters */
-+	clock_counter_hi_after = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_UPPER);
-+	if (clock_counter_hi_pre != clock_counter_hi_after)
-+		clock_counter_lo = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_LOWER);
-+	preempt_enable();
-+
-+	clock = clock_counter_lo | (clock_counter_hi_after << 32ULL);
-+
-+	return clock;
-+}
-+
-+static void smuio_v15_0_8_get_clock_gating_state(struct amdgpu_device *adev, u64 *flags)
-+{
-+	u32 data;
-+
-+	/* CGTT_ROM_CLK_CTRL0 is not available for APU */
-+	if (adev->flags & AMD_IS_APU)
-+		return;
-+
-+	data = RREG32_SOC15(SMUIO, 0, regCGTT_ROM_CLK_CTRL0);
-+	if (!(data & CGTT_ROM_CLK_CTRL0__SOFT_OVERRIDE0_MASK))
-+		*flags |= AMD_CG_SUPPORT_ROM_MGCG;
-+}
-+
-+/**
-+ * smuio_v15_0_8_get_die_id - query die id from FCH.
-+ *
-+ * @adev: amdgpu device pointer
-+ *
-+ * Returns die id
-+ */
-+static u32 smuio_v15_0_8_get_die_id(struct amdgpu_device *adev)
-+{
-+	u32 data, die_id;
-+
-+	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
-+	die_id = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, DIE_ID);
-+
-+	return die_id;
-+}
-+
-+/**
-+ * smuio_v15_0_8_get_socket_id - query socket id from FCH
-+ *
-+ * @adev: amdgpu device pointer
-+ *
-+ * Returns socket id
-+ */
-+static u32 smuio_v15_0_8_get_socket_id(struct amdgpu_device *adev)
-+{
-+	u32 data, socket_id;
-+
-+	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
-+	socket_id = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, SOCKET_ID);
-+
-+	return socket_id;
-+}
-+
-+/**
-+ * smuio_v15_0_8_is_host_gpu_xgmi_supported - detect xgmi interface between cpu and gpu/s.
-+ *
-+ * @adev: amdgpu device pointer
-+ *
-+ * Returns true on success or false otherwise.
-+ */
-+static bool smuio_v15_0_8_is_host_gpu_xgmi_supported(struct amdgpu_device *adev)
-+{
-+	u32 data;
-+
-+	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
-+	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, TOPOLOGY_ID);
-+	/* data[4:0]
-+	 * bit 0 == 0 host-gpu interface is PCIE
-+	 * bit 0 == 1 host-gpu interface is Alternate Protocal
-+	 * for AMD, this is XGMI
-+	 */
-+	data &= SMUIO_MCM_CONFIG__HOST_GPU_XGMI_MASK;
-+
-+	return data ? true : false;
-+}
-+
-+#if 0
-+/*
-+ * smuio_v15_0_8_is_connected_with_ethernet_switch - detect systems connected with ethernet switch
-+ *
-+ * @adev: amdgpu device pointer
-+ *
-+ * Returns true on success or false otherwise.
-+ */
-+static bool smuio_v15_0_8_is_connected_with_ethernet_switch(struct amdgpu_device *adev)
-+{
-+	u32 data;
-+
-+	if (!(adev->flags & AMD_IS_APU))
-+		return false;
-+
-+	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
-+	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, TOPOLOGY_ID);
-+	/* data[4:0]
-+	 * bit 3 == 0 systems connected with ethernet switch
-+	 */
-+	data &= SMUIO_MCM_CONFIG__ETHERNET_SWITCH_MASK;
-+
-+	return data ? false : true;
-+}
-+#endif
-+
-+static enum amdgpu_pkg_type smuio_v15_0_8_get_pkg_type(struct amdgpu_device *adev)
-+{
-+	enum amdgpu_pkg_type pkg_type;
-+	u32 data;
-+
-+	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
-+	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, PKG_TYPE);
-+
-+	/* data [3:0]
-+	 bit 2 and bit 3 identifies the pkg type */
-+	switch (data & 0xC) {
-+	case 0x0:
-+		pkg_type = AMDGPU_PKG_TYPE_BB;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index b0191635c8f21..0c32d27cf2b34 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2719,6 +2719,12 @@ static int psp_get_fw_type(struct amdgpu_firmware_info *ucode,
+ 	case AMDGPU_UCODE_ID_RLC_DRAM:
+ 		*type = GFX_FW_TYPE_RLC_DRAM_BOOT;
+ 		break;
++	case AMDGPU_UCODE_ID_RLC_IRAM_1:
++		*type = GFX_FW_TYPE_RLX6_UCODE_CORE1;
 +		break;
-+	case 0x8:
-+		pkg_type = AMDGPU_PKG_TYPE_CEM;
++	case AMDGPU_UCODE_ID_RLC_DRAM_1:
++		*type = GFX_FW_TYPE_RLX6_DRAM_BOOT_CORE1;
 +		break;
-+	default:
-+		pkg_type = AMDGPU_PKG_TYPE_UNKNOWN;
-+		break;
+ 	case AMDGPU_UCODE_ID_GLOBAL_TAP_DELAYS:
+ 		*type = GFX_FW_TYPE_GLOBAL_TAP_DELAYS;
+ 		break;
+@@ -2887,6 +2893,8 @@ static void psp_print_fw_hdr(struct psp_context *psp,
+ 		amdgpu_ucode_print_gfx_hdr(hdr);
+ 		break;
+ 	case AMDGPU_UCODE_ID_RLC_G:
++	case AMDGPU_UCODE_ID_RLC_DRAM_1:
++	case AMDGPU_UCODE_ID_RLC_IRAM_1:
+ 		hdr = (struct common_firmware_header *)adev->gfx.rlc_fw->data;
+ 		amdgpu_ucode_print_rlc_hdr(hdr);
+ 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+index 5aa830a02d80b..572a60e1b3cbb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
+@@ -515,6 +515,40 @@ static void amdgpu_gfx_rlc_init_microcode_v2_4(struct amdgpu_device *adev)
+ 	}
+ }
+ 
++static void amdgpu_gfx_rlc_init_microcode_v2_5(struct amdgpu_device *adev)
++{
++	const struct rlc_firmware_header_v2_5 *rlc_hdr;
++	struct amdgpu_firmware_info *info;
++
++	rlc_hdr = (const struct rlc_firmware_header_v2_5 *)adev->gfx.rlc_fw->data;
++	adev->gfx.rlc.rlc_1_iram_ucode_size_bytes =
++		le32_to_cpu(rlc_hdr->rlc_1_iram_ucode_size_bytes);
++	adev->gfx.rlc.rlc_1_iram_ucode = (u8 *)rlc_hdr +
++		le32_to_cpu(rlc_hdr->rlc_1_iram_ucode_offset_bytes);
++	adev->gfx.rlc.rlc_1_dram_ucode_size_bytes =
++		le32_to_cpu(rlc_hdr->rlc_1_dram_ucode_size_bytes);
++	adev->gfx.rlc.rlc_1_dram_ucode = (u8 *)rlc_hdr +
++		le32_to_cpu(rlc_hdr->rlc_1_dram_ucode_offset_bytes);
++
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		if (adev->gfx.rlc.rlc_1_iram_ucode_size_bytes) {
++			info = &adev->firmware.ucode[AMDGPU_UCODE_ID_RLC_IRAM_1];
++			info->ucode_id = AMDGPU_UCODE_ID_RLC_IRAM_1;
++			info->fw = adev->gfx.rlc_fw;
++			adev->firmware.fw_size +=
++				ALIGN(adev->gfx.rlc.rlc_1_iram_ucode_size_bytes, PAGE_SIZE);
++		}
++
++		if (adev->gfx.rlc.rlc_1_dram_ucode_size_bytes) {
++			info = &adev->firmware.ucode[AMDGPU_UCODE_ID_RLC_DRAM_1];
++			info->ucode_id = AMDGPU_UCODE_ID_RLC_DRAM_1;
++			info->fw = adev->gfx.rlc_fw;
++			adev->firmware.fw_size +=
++				ALIGN(adev->gfx.rlc.rlc_1_dram_ucode_size_bytes, PAGE_SIZE);
++		}
 +	}
-+
-+	return pkg_type;
 +}
 +
-+#if 0
-+static bool smuio_v15_0_8_is_custom_hbm_supported(struct amdgpu_device *adev)
-+{
-+	u32 data;
-+
-+	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
-+	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, PKG_TYPE);
-+
-+	/* data [3:0]
-+	 * bit 0 identifies custom HBM module */
-+	data &= SMUIO_MCM_CONFIG__CUSTOM_HBM_MASK;
-+
-+	return data ? true : false;
-+}
-+#endif
-+
-+const struct amdgpu_smuio_funcs smuio_v15_0_8_funcs = {
-+	.get_rom_index_offset = smuio_v15_0_8_get_rom_index_offset,
-+	.get_rom_data_offset = smuio_v15_0_8_get_rom_data_offset,
-+	.get_gpu_clock_counter = smuio_v15_0_8_get_gpu_clock_counter,
-+	.get_die_id = smuio_v15_0_8_get_die_id,
-+	.get_socket_id = smuio_v15_0_8_get_socket_id,
-+	.is_host_gpu_xgmi_supported = smuio_v15_0_8_is_host_gpu_xgmi_supported,
-+	.update_rom_clock_gating = smuio_v15_0_8_update_rom_clock_gating,
-+	.get_clock_gating_state = smuio_v15_0_8_get_clock_gating_state,
-+	.get_pkg_type = smuio_v15_0_8_get_pkg_type,
+ int amdgpu_gfx_rlc_init_microcode(struct amdgpu_device *adev,
+ 				  uint16_t version_major,
+ 				  uint16_t version_minor)
+@@ -545,6 +579,7 @@ int amdgpu_gfx_rlc_init_microcode(struct amdgpu_device *adev,
+ 		amdgpu_gfx_rlc_init_microcode_v2_3(adev);
+ 	if (version_minor == 4)
+ 		amdgpu_gfx_rlc_init_microcode_v2_4(adev);
+-
++	if (version_minor == 5)
++		amdgpu_gfx_rlc_init_microcode_v2_5(adev);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+index 3e2d2e333907d..32408574548dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+@@ -311,6 +311,8 @@ struct amdgpu_rlc {
+ 	u32 save_restore_list_srm_size_bytes;
+ 	u32 rlc_iram_ucode_size_bytes;
+ 	u32 rlc_dram_ucode_size_bytes;
++	u32 rlc_1_iram_ucode_size_bytes;
++	u32 rlc_1_dram_ucode_size_bytes;
+ 	u32 rlcp_ucode_size_bytes;
+ 	u32 rlcv_ucode_size_bytes;
+ 	u32 global_tap_delays_ucode_size_bytes;
+@@ -326,6 +328,8 @@ struct amdgpu_rlc {
+ 	u8 *save_restore_list_srm;
+ 	u8 *rlc_iram_ucode;
+ 	u8 *rlc_dram_ucode;
++	u8 *rlc_1_iram_ucode;
++	u8 *rlc_1_dram_ucode;
+ 	u8 *rlcp_ucode;
+ 	u8 *rlcv_ucode;
+ 	u8 *global_tap_delays_ucode;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index e96f24e9ad571..1ab61e7b35db6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -166,6 +166,8 @@ void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr)
+ 			container_of(rlc_hdr_v2_2, struct rlc_firmware_header_v2_3, v2_2);
+ 		const struct rlc_firmware_header_v2_4 *rlc_hdr_v2_4 =
+ 			container_of(rlc_hdr_v2_3, struct rlc_firmware_header_v2_4, v2_3);
++		const struct rlc_firmware_header_v2_5 *rlc_hdr_v2_5 =
++			container_of(rlc_hdr_v2_2, struct rlc_firmware_header_v2_5, v2_2);
+ 
+ 		switch (version_minor) {
+ 		case 0:
+@@ -287,6 +289,26 @@ void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr)
+ 			DRM_DEBUG("se3_tap_delays_ucode_offset_bytes: %u\n",
+ 				  le32_to_cpu(rlc_hdr_v2_4->se3_tap_delays_ucode_offset_bytes));
+ 			break;
++		case 5:
++			/* rlc_hdr v2_5 */
++			DRM_INFO("rlc_iram_ucode_size_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->v2_2.rlc_iram_ucode_size_bytes));
++			DRM_INFO("rlc_iram_ucode_offset_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->v2_2.rlc_iram_ucode_offset_bytes));
++			DRM_INFO("rlc_dram_ucode_size_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->v2_2.rlc_dram_ucode_size_bytes));
++			DRM_INFO("rlc_dram_ucode_offset_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->v2_2.rlc_dram_ucode_offset_bytes));
++			/* rlc_hdr v2_5 */
++			DRM_INFO("rlc_1_iram_ucode_size_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->rlc_1_iram_ucode_size_bytes));
++			DRM_INFO("rlc_1_iram_ucode_offset_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->rlc_1_iram_ucode_offset_bytes));
++			DRM_INFO("rlc_1_dram_ucode_size_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->rlc_1_dram_ucode_size_bytes));
++			DRM_INFO("rlc_1_dram_ucode_offset_bytes: %u\n",
++				  le32_to_cpu(rlc_hdr_v2_5->rlc_1_dram_ucode_offset_bytes));
++			break;
+ 		default:
+ 			DRM_ERROR("Unknown RLC v2 ucode: v2.%u\n", version_minor);
+ 			break;
+@@ -631,6 +653,10 @@ const char *amdgpu_ucode_name(enum AMDGPU_UCODE_ID ucode_id)
+ 		return "RLC_IRAM";
+ 	case AMDGPU_UCODE_ID_RLC_DRAM:
+ 		return "RLC_DRAM";
++	case AMDGPU_UCODE_ID_RLC_IRAM_1:
++		return "RLC_IRAM_1";
++	case AMDGPU_UCODE_ID_RLC_DRAM_1:
++		return "RLC_DRAM_1";
+ 	case AMDGPU_UCODE_ID_RLC_G:
+ 		return "RLC_G";
+ 	case AMDGPU_UCODE_ID_RLC_P:
+@@ -911,6 +937,14 @@ static int amdgpu_ucode_init_single_fw(struct amdgpu_device *adev,
+ 			ucode->ucode_size = adev->gfx.rlc.rlc_dram_ucode_size_bytes;
+ 			ucode_addr = adev->gfx.rlc.rlc_dram_ucode;
+ 			break;
++		case AMDGPU_UCODE_ID_RLC_IRAM_1:
++			ucode->ucode_size = adev->gfx.rlc.rlc_1_iram_ucode_size_bytes;
++			ucode_addr = adev->gfx.rlc.rlc_1_iram_ucode;
++			break;
++		case AMDGPU_UCODE_ID_RLC_DRAM_1:
++			ucode->ucode_size = adev->gfx.rlc.rlc_1_dram_ucode_size_bytes;
++			ucode_addr = adev->gfx.rlc.rlc_1_dram_ucode;
++			break;
+ 		case AMDGPU_UCODE_ID_RLC_P:
+ 			ucode->ucode_size = adev->gfx.rlc.rlcp_ucode_size_bytes;
+ 			ucode_addr = adev->gfx.rlc.rlcp_ucode;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+index 6349aad6da35b..f316776fe950a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+@@ -300,6 +300,15 @@ struct rlc_firmware_header_v2_4 {
+     uint32_t se3_tap_delays_ucode_offset_bytes;
+ };
+ 
++/* version_major=2, version_minor=5 */
++struct rlc_firmware_header_v2_5 {
++	struct rlc_firmware_header_v2_2 v2_2;
++	uint32_t rlc_1_iram_ucode_size_bytes;
++	uint32_t rlc_1_iram_ucode_offset_bytes;
++	uint32_t rlc_1_dram_ucode_size_bytes;
++	uint32_t rlc_1_dram_ucode_offset_bytes;
 +};
-diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h
-new file mode 100644
-index 0000000000000..508547fcce035
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef __SMUIO_V15_0_8_H__
-+#define __SMUIO_V15_0_8_H__
 +
-+#include "soc15_common.h"
-+
-+extern const struct amdgpu_smuio_funcs smuio_v15_0_8_funcs;
-+
-+#endif /* __SMUIO_V15_0_8_H__ */
+ /* version_major=1, version_minor=0 */
+ struct sdma_firmware_header_v1_0 {
+ 	struct common_firmware_header header;
+@@ -449,6 +458,7 @@ union amdgpu_firmware_header {
+ 	struct rlc_firmware_header_v2_2 rlc_v2_2;
+ 	struct rlc_firmware_header_v2_3 rlc_v2_3;
+ 	struct rlc_firmware_header_v2_4 rlc_v2_4;
++	struct rlc_firmware_header_v2_5 rlc_v2_5;
+ 	struct sdma_firmware_header_v1_0 sdma;
+ 	struct sdma_firmware_header_v1_1 sdma_v1_1;
+ 	struct sdma_firmware_header_v2_0 sdma_v2_0;
+@@ -512,6 +522,8 @@ enum AMDGPU_UCODE_ID {
+ 	AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM,
+ 	AMDGPU_UCODE_ID_RLC_IRAM,
+ 	AMDGPU_UCODE_ID_RLC_DRAM,
++	AMDGPU_UCODE_ID_RLC_IRAM_1,
++	AMDGPU_UCODE_ID_RLC_DRAM_1,
+ 	AMDGPU_UCODE_ID_RLC_P,
+ 	AMDGPU_UCODE_ID_RLC_V,
+ 	AMDGPU_UCODE_ID_RLC_G,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+index 73f87131a7e9f..e8f768638fd59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
++++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+@@ -299,6 +299,8 @@ enum psp_gfx_fw_type {
+ 	GFX_FW_TYPE_RS64_MEC_P1_STACK               = 95,   /* RS64 MEC stack P1        SOC21   */
+ 	GFX_FW_TYPE_RS64_MEC_P2_STACK               = 96,   /* RS64 MEC stack P2        SOC21   */
+ 	GFX_FW_TYPE_RS64_MEC_P3_STACK               = 97,   /* RS64 MEC stack P3        SOC21   */
++	GFX_FW_TYPE_RLX6_UCODE_CORE1                = 98,   /* RLCV_IRAM                MI      */
++	GFX_FW_TYPE_RLX6_DRAM_BOOT_CORE1            = 99,   /* RLCV DRAM BOOT           MI      */
+ 	GFX_FW_TYPE_VPEC_FW1                        = 100,  /* VPEC FW1 To Save         VPE     */
+ 	GFX_FW_TYPE_VPEC_FW2                        = 101,  /* VPEC FW2 To Save         VPE     */
+ 	GFX_FW_TYPE_VPE                             = 102,
 -- 
 2.51.1
 
