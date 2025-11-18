@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB9EFCF2560
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 22:55:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1BB8CF2563
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 22:55:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72B8810E20B;
-	Tue, 18 Nov 2025 22:55:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8065C10E53B;
+	Tue, 18 Nov 2025 22:55:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kIpkhsc4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gae8+DlY";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011067.outbound.protection.outlook.com
- [40.93.194.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 655C510E20B
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 22:55:00 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D5E810E539
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 22:55:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g65pIS+mtoYfvlUdnjO/ZOZqjDDbJTMOMzpdnLZq9RJKwHVXBYeYFOucgSaCDMHNuvrl+yu8PxcHZ6GQYBbIKPYlu8FeMHEYO0tyPPGip+TONVkKQ6ptoZz/6sZN8VGCH/OmBT78aBW8BEd3hajfE5a1S/xp9wsGFAELhldyP3sawDhVzJZkPAXVkBkJFC71z3wL8RFecSVBUIe6GDxBDNANoeMA34yddAJzSFc6uJ61JjKDnNuWxHj6/HEbj/bqWuVRCdQ1J/p+KFmZd55SMUShvv1IkHgSvtoltylzl3b8VfvmJHTf+7k7/o41N3RWZF1dnYl2sIl7qdgC97BZfQ==
+ b=mvte4qT4Qv0xeG/QI4J324s9Inynxj3HE/nODn/UjCjHEN72JXCNDnsfrZd+72zGOUV9goXbpPc7KsLkp/C1kjAnzfuWX/0jMVgozqtKGSU8Imi/2nGC7qXFTzbYOy4d0oVPmG0FKP8s+zkDiv8S9vKnHyf9DxXxnPZ0iLKb1mgWNhmcSGeVpNEsm2vvWittzNkmH5uhtb6KGU5l6UgHJJj00vj1D6jhQSZFney8IMbdEsvQlmS/2mt0Feogm5vEJQIk76niq9GqjLep7K24+DrTHn05sZbzDl9iGBWLohQY4iTAMz3K9gWBvrZSLbE50AEvm4uhJpxw2pKsj5ABgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GECePgLxAfXGGRp0gnDcb7HNl82M7CT7THED9SwpDPw=;
- b=aATP0t5h9WGBa8WjYGwBEP0FuJWcSivDcQ0ptZpUY+F142bbWQ5Qh8NxYhvSreQZ/P4d+xCBamRv/d+ME1blqZaYQ7bF00Vw1dG3lmOg0c8RyaVKaAHxDzJUm4yBGbE/7Muh3riuf7bRf/kzk8lo3h6BRp9WBl+PZuo1Wn2taTbFju064K6liAu2UBA2tp5W6n2TjECU2x2OLxamDVft5nfjp0pqsa2xokPz+zznxRU2yWg2zetKEh9knHS0XIXNSu7q9ahnWWZoHTcoEJUgX1+9y/iGcTsA0vMlG+ikSZWgsUq9A28bBj7C8wtRT3uctoW2Sn5lO2VmByga1qLQZg==
+ bh=4JJpRlauBWRkzg7FvUFaq2XrEMMx5IsT9wLWfi9YxkY=;
+ b=ZK2+y3vmTjjO/Xz3phaMVLAbxOzq473NNdPgeRFEx9JvVGrvIwKjyfU93FP7S6fy459LA2HuROohFrJwAQj7C3jkLdrZFGbz/ffHv1w0W/9ujsb2Bbya0sevp603zLzM9PzQECVSrWEuhlqDjEbD4jSklFenCxQsIPzLo80Vu/WFJxPv7q6EFXjnLlYXOd03N6nAc+bMqyMfeamyzMY4zWPjmpG00u8Ab+U6FznXw74XZMtUZarYRoidPCmmTKTj9xIvDBc4mLgTMNp01JcNZ3N20RZL7d4yIfSJidXqCDeuVVhMJc+mmgY07X9VEk5nnnTnKIZ3Whxsfc9ZzlFX0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GECePgLxAfXGGRp0gnDcb7HNl82M7CT7THED9SwpDPw=;
- b=kIpkhsc4GkBuwK/Ab75GKK53bCiBc3bZi8pP1CEmVYffZKQmHMGkmytHcRStdZC+7DF1zGIjz+Np7SkcEeGk4dmJGK4evx6obnbXHZLENG7uw9BMoSJIsfbJxlQJZwizvCRhlUY6pgGIZDqs6z6B2J7qvMmAjnXpFK2ez90RnVM=
-Received: from CH2PR14CA0048.namprd14.prod.outlook.com (2603:10b6:610:56::28)
- by CH8PR12MB9765.namprd12.prod.outlook.com (2603:10b6:610:264::6)
+ bh=4JJpRlauBWRkzg7FvUFaq2XrEMMx5IsT9wLWfi9YxkY=;
+ b=gae8+DlY+OogqSkOAXXmARPsOjQMmFIaR5LGQAbLKvFlxfRtmc701p9/ZvD65Gr45VlMUVZbAV0QBzIbB4vTuPvYbznNSq3ldq/El8O784EuXT2H+DSwpg+PzVv1DpYLA9h1ASN467BFvOxS8mEzKoooJmDzvwaAhk19YG/QmNg=
+Received: from CH2PR14CA0036.namprd14.prod.outlook.com (2603:10b6:610:56::16)
+ by CH3PR12MB9393.namprd12.prod.outlook.com (2603:10b6:610:1c5::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.22; Tue, 18 Nov
- 2025 22:54:57 +0000
+ 2025 22:54:55 +0000
 Received: from CH2PEPF0000009D.namprd02.prod.outlook.com
- (2603:10b6:610:56:cafe::70) by CH2PR14CA0048.outlook.office365.com
- (2603:10b6:610:56::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.10 via Frontend Transport; Tue,
- 18 Nov 2025 22:54:57 +0000
+ (2603:10b6:610:56:cafe::2b) by CH2PR14CA0036.outlook.office365.com
+ (2603:10b6:610:56::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.23 via Frontend Transport; Tue,
+ 18 Nov 2025 22:54:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,21 +50,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH2PEPF0000009D.mail.protection.outlook.com (10.167.244.25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Tue, 18 Nov 2025 22:54:57 +0000
+ 15.20.9343.9 via Frontend Transport; Tue, 18 Nov 2025 22:54:55 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 18 Nov
- 2025 14:54:56 -0800
+ 2025 14:54:54 -0800
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Feifei Xu <Feifei.Xu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 5/5] drm/amdgpu: update psp_get_fw_type() function
-Date: Tue, 18 Nov 2025 17:54:40 -0500
-Message-ID: <20251118225440.3613071-4-alexander.deucher@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>
+Subject: [PATCH 2/5] drm/amdgpu: Add smuio v15_0_8 support v4
+Date: Tue, 18 Nov 2025 17:54:37 -0500
+Message-ID: <20251118225440.3613071-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251118225440.3613071-1-alexander.deucher@amd.com>
-References: <20251118225440.3613071-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,53 +71,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|CH8PR12MB9765:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0077b802-9605-4c99-f68b-08de26f57f0f
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|CH3PR12MB9393:EE_
+X-MS-Office365-Filtering-Correlation-Id: f349330a-387e-43bc-a56d-08de26f57e06
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cvJPcjQM1A0kbP3lYWYVUFM1koAn81FgvvfZteg40o6SnbPBaR14VmSsL718?=
- =?us-ascii?Q?MNDX+tm/gspNgbmzWNmxYhCjX016mlHtrlFuX3VKWxQKVy+V6A+onmL++dpc?=
- =?us-ascii?Q?oWteRMzbz38M6hFruUgq4I5BKjys8p3YukCEKgZE120jBJMBVgO+96uUryrE?=
- =?us-ascii?Q?W1a65w/nEVZEZ5KKKjMsV3rqW03DHDodLy/s4xV95dspyzwnGGRSkZKFwJEN?=
- =?us-ascii?Q?UwvbQgOmpvVv7LkJmCzQ11BWp48koXRyAx/x59gMTBHpgbpd0EUA3jPPd8vs?=
- =?us-ascii?Q?e36dX1DVVDj4jclxB0FzAHPm1FCfN7A+7WDuSj8ce3TEGgS81+9VKjhCwoXh?=
- =?us-ascii?Q?HnU6cK0mqrjaqNJM3vEUfU1alU94kQahaE7XDQ+hHiBK6vG+DmgsKZhG6yDQ?=
- =?us-ascii?Q?Io5fa18mEfyN56+X2PzY0y6tBCRg5XWN1JQmx9z7KiZW/90YOIL8/+Bh5I+F?=
- =?us-ascii?Q?OIPzrHCjLAG0Zinmhi911Gj1mxSbm6YWBlYjP2DrtyUPZyxkqqsSAOo8Re2P?=
- =?us-ascii?Q?Ottp7fYfX+DSFzgbHbapSv8fH4YZ6SBZCCXyRlgno+VAchTDo96PP+iJsl6q?=
- =?us-ascii?Q?4cjzw1zgSGTDUPDKjm4E9BZibc7/HOPCZXYUHX9l3mHYAgwh+yPVTwmEuE42?=
- =?us-ascii?Q?vKkMfweb0jnUTZQT/hH0XBxWnmcR2x1ebXXhwzBtJM2AI2o6BS9I7iPSdA1g?=
- =?us-ascii?Q?A/yYjI9IiaN67DB9NsnNyHpyzfcHso/Gr3rEoCGUuo6drI0sSKppJd8XuLBe?=
- =?us-ascii?Q?hoMS47fCQ8zQoIyPc7gT+lLUpWc410jx2F33aEHe3P3GM9UrWaU7b7ODT6lw?=
- =?us-ascii?Q?5/aCd2NLGEb0foDaw/rs2++s2poZVbVhQ1jhQBv0WmMbCqXhzT6jtsJXJtAB?=
- =?us-ascii?Q?sRc9n+08NKeULUfAuePCUhZHgZruOFex7g8ApdpxkL+m+Wy8EFynk0VImOU2?=
- =?us-ascii?Q?rFRsmDF/vBUI7WBEq/8tdpmK9s5vZURksuS70pQ4WjBJNH3ScxMKRzVx8Xdf?=
- =?us-ascii?Q?Ri09VFcTmnLNPNfpHrIxTf6oSEWKlweQsqCx4HdYTsAqVQkUr8J4THDL1Zw4?=
- =?us-ascii?Q?GzqiYr2gvlSESwRMR5atd8JfAf4DYO+tZtfUQD5dfWNEZ7C2McOOkeFDMdiS?=
- =?us-ascii?Q?14F4JFRiNFo5OOJPtnb2pcHqKOYo5ii5xDG7ZmqYql2hH7WJz726r4a/d6OP?=
- =?us-ascii?Q?3mZg3la1Fs7JPFFRLwHspB2+0jQhvPJIYk42gJXymOpQ9KHoDDoI0IZywmWx?=
- =?us-ascii?Q?PtqubHANRP1VO/VjlVx3n7noJmGamOGHmU/3tqsn+vcZjEB70XxeUzo8FhXQ?=
- =?us-ascii?Q?JOlS2ugh8dVw3u8hjeDuEPlUFmv+dB35weXP5mlTtPNnMbyHZsIZ6c4UdDj/?=
- =?us-ascii?Q?G7Llz4OEP9lJCyaCN0rgEu6XCN1omqPsN/N0p0xhk/WPn7QnBkb9ronUEumI?=
- =?us-ascii?Q?s7Wf1zDjp/anD8airVfPCGsXs9rU5McSz5sO+0uB9AWJmr1686jP9UHVC7IN?=
- =?us-ascii?Q?WsTsFkGIE4WZFzpS/N4EJKgKfKPZdEtLOXv/dTHbMOEoRYlR+gUKaofpV0rr?=
- =?us-ascii?Q?dLp4oDJ92GL4w+nZkRU=3D?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?biu/IjLX24oxJTk/WRnKPTxZMrt1MRzjDlLtgTdI+GfQ729f8nyIR6kp1nCW?=
+ =?us-ascii?Q?13Mvju5cNly5jl2vzMFG1wB6YD/kpzHk19g14vOuojUREz9E0LY6MOcSaEkc?=
+ =?us-ascii?Q?7Z8BYIRCwtI9obbRZsrf6YeDR+0s6Q7Ldt/L3QpeGIOhkLzOEEpDzX8PxWhl?=
+ =?us-ascii?Q?Rl00F9qNs+Os4moY29swcrOgzSgjDf5kwZg0iy12BMtVBd6ncul6PzLEVDyg?=
+ =?us-ascii?Q?xWTtnfLmEgmKHeIfYIKaZbOfHlFqybt710Mh2K5Abe5hLqPAF8lJnNHeozKJ?=
+ =?us-ascii?Q?ATdUOZ/74SgyxQwtd0Rkf2VX+rEk6k45XBX7CNmLlQ8VsbKw4SYj2NPvnUeY?=
+ =?us-ascii?Q?WkZv7F12utYTPzIUJfTZXRghicAlYatiFKz+eun4bQf1GPlr7UjnLvjxgs7O?=
+ =?us-ascii?Q?BKIEVFK3zOySVDwd6ffwsBOJiPICjkGd/E6wvYfMqxB+SDJR1w0P6R5mvzzS?=
+ =?us-ascii?Q?tQDdOeZ5Ow6zL54S0zKUDpgpYXJ914AvuwC08ZuQtdpElljbYylTGZngdm6v?=
+ =?us-ascii?Q?YT59u9gdnwVpRIqy0a4pOiDiXgcjf1QpndGLTWfSY6P/HRq/Cyu+BgnCb7+t?=
+ =?us-ascii?Q?O6/8zLB5YFhOpt3J2ATNmJEyaub/qC2lbQYK+1Oak0Km3AmIb1slJe0cgzr7?=
+ =?us-ascii?Q?y25t0gBQ16sZfHT70nDGdr3Em+NJKb7bPq2y71ZwV/7FgZCNJj6H4Z9IgiIt?=
+ =?us-ascii?Q?gV4FBoHCHwSJi9h4qrDk2PgkmplSZuFrLFnboWfN5c0JaZ2EBRWbHNtqeLRr?=
+ =?us-ascii?Q?yYOKr3OYLn+/Urxf3DOVIaeUu0KOwyY7JBTxXQtJ2AMfk288/svVvf4bE303?=
+ =?us-ascii?Q?yx5ixmG5wbjBoAlTkn9k2LoiuJ7RK6a1gThOFbf64wq7AsSK3y6Q/B4xrRub?=
+ =?us-ascii?Q?PdJ49KH+x2m4PFN7mCneSq2Nh1+3nESLnbs+hOxmTeT6KiVgF46e3nhoBGQq?=
+ =?us-ascii?Q?JtJEyeJstrp5lrYQ71nxhb94dCMXgJPC+dY43wUkUJDqV11ac56ZlQeWejx9?=
+ =?us-ascii?Q?EFtdQwqfM3Tc+dn6xPvpzauOamblRD9SQm2qdFYg+MeS/KV5KVsKYC60UKQF?=
+ =?us-ascii?Q?R8cPJvyz4VS6jM4rjzs27W26JDlQoD44KLm5edAUwRUbT/hUjnV7o4UDnVEH?=
+ =?us-ascii?Q?+BuRrx4cYDd8I+zXMMA8OGDDd6OIuMNT34CgqOXUzc1XeluKSyK+n21HVVD8?=
+ =?us-ascii?Q?V7hD8Wl8RKp07L8ROkifWch4feHMRoO8Wdpo4o9v0RaVrkFEkG0Q/wamHKrS?=
+ =?us-ascii?Q?peYcGLSYHarEsVAJ45NvrrwINDwtcvUp6a6yipuS4qwLhokgObsWOrb8YDgZ?=
+ =?us-ascii?Q?bpy7d+sSadVngjSU97Uuw3F4h5RJdmF2p4Spl1q3h6gQZuEzmDU7QcySevMv?=
+ =?us-ascii?Q?HzU9y2+A/ekz1iaRGMJsIuVE1tW+e9l9jjM5oDW4lCuqcuHTrY9ZGQTJwjpW?=
+ =?us-ascii?Q?ph+03CkzWQJh0phXmIwXYfLixk+OaUAhKjAcyG2ryg7Wscc+BNiVkSWKb1d/?=
+ =?us-ascii?Q?qeXbWjnd43G4dTiuqvIU8SNUDz4gwZX8uWipxnyx+DgavoxXHo/HbpIbqDPn?=
+ =?us-ascii?Q?Ik4O5z7p3Uift7CKyuo=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2025 22:54:57.3250 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0077b802-9605-4c99-f68b-08de26f57f0f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2025 22:54:55.5836 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f349330a-387e-43bc-a56d-08de26f57e06
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000009D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9765
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9393
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,81 +132,316 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Feifei Xu <Feifei.Xu@amd.com>
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-In psp 14.0.7, mes and sdma GFX_FW_TYPE have been changed.
+v15_0_8 is a new generation smuio ip block
+v2: Add smuio callbacks for interface id
+v3: Add smuio callback to identify custom hbm
+v4: comment out unused functions (Alex)
 
-Define a psp common function: psp_get_fw_type().
-Hide the GFX_FW_TYPE Changes in each ip's psp->funcs_get_fw_type callback.
-(like psp_v14_0_7_get_fw_type()).
-If no GFX_FW_TYPE change, reuse the amdgpu_psp_get_fw_type().
-
-Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 ++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 8 ++++++++
- 2 files changed, 10 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/Makefile        |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h  |   3 +
+ drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c | 213 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h |  30 +++
+ 4 files changed, 248 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 0c32d27cf2b34..480a3c6ae13b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2631,7 +2631,7 @@ static int psp_hw_start(struct psp_context *psp)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index c88760fb52ea5..b10e9988a831f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -244,7 +244,8 @@ amdgpu-y += \
+ 	smuio_v13_0.o \
+ 	smuio_v13_0_3.o \
+ 	smuio_v13_0_6.o \
+-	smuio_v14_0_2.o
++	smuio_v14_0_2.o \
++	smuio_v15_0_8.o
  
--static int psp_get_fw_type(struct amdgpu_firmware_info *ucode,
-+int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
- 			   enum psp_gfx_fw_type *type)
- {
- 	switch (ucode->ucode_id) {
-@@ -2919,10 +2919,9 @@ static int psp_prep_load_ip_fw_cmd_buf(struct psp_context *psp,
- 	cmd->cmd.cmd_load_ip_fw.fw_phy_addr_hi = upper_32_bits(fw_mem_mc_addr);
- 	cmd->cmd.cmd_load_ip_fw.fw_size = ucode->ucode_size;
- 
--	ret = psp_get_fw_type(ucode, &cmd->cmd.cmd_load_ip_fw.fw_type);
-+	ret = psp_get_fw_type(psp, ucode, &cmd->cmd.cmd_load_ip_fw.fw_type);
- 	if (ret)
- 		dev_err(psp->adev->dev, "Unknown firmware type\n");
--
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 237b624aa51ca..8f8578054191b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -172,6 +172,8 @@ struct psp_funcs {
- 	bool (*is_reload_needed)(struct psp_context *psp);
- 	int (*reg_program_no_ring)(struct psp_context *psp, uint32_t val,
- 				   enum psp_reg_prog_id id);
-+	int (*get_fw_type)(struct amdgpu_firmware_info *ucode,
-+			enum psp_gfx_fw_type *type);
+ # add reset block
+ amdgpu-y += \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
+index ec9d12f85f39f..124b13a68f3f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_smuio.h
+@@ -27,6 +27,7 @@ enum amdgpu_pkg_type {
+ 	AMDGPU_PKG_TYPE_APU = 2,
+ 	AMDGPU_PKG_TYPE_CEM = 3,
+ 	AMDGPU_PKG_TYPE_OAM = 4,
++	AMDGPU_PKG_TYPE_BB  = 5,
+ 	AMDGPU_PKG_TYPE_UNKNOWN,
  };
  
- struct ta_funcs {
-@@ -524,6 +526,10 @@ struct amdgpu_psp_funcs {
- 	((psp)->funcs->reg_program_no_ring ? \
- 	(psp)->funcs->reg_program_no_ring((psp), val, id) : -EINVAL)
+@@ -44,6 +45,8 @@ struct amdgpu_smuio_funcs {
+ 	u32 (*get_socket_id)(struct amdgpu_device *adev);
+ 	enum amdgpu_pkg_type (*get_pkg_type)(struct amdgpu_device *adev);
+ 	bool (*is_host_gpu_xgmi_supported)(struct amdgpu_device *adev);
++	bool (*is_connected_with_ethernet_switch)(struct amdgpu_device *adev);
++	bool (*is_custom_hbm_supported)(struct amdgpu_device *adev);
+ 	u64 (*get_gpu_clock_counter)(struct amdgpu_device *adev);
+ };
  
-+#define psp_get_fw_type(psp, ucode, type) \
-+	((psp)->funcs->get_fw_type ? \
-+	(psp)->funcs->get_fw_type(ucode, type):amdgpu_psp_get_fw_type(ucode, type))
+diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c
+new file mode 100644
+index 0000000000000..ef29424c26cce
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.c
+@@ -0,0 +1,213 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#include "amdgpu.h"
++#include "smuio_v15_0_8.h"
++#include "smuio/smuio_15_0_8_offset.h"
++#include "smuio/smuio_15_0_8_sh_mask.h"
 +
- extern const struct amd_ip_funcs psp_ip_funcs;
- 
- extern const struct amdgpu_ip_block_version psp_v3_1_ip_block;
-@@ -621,6 +627,8 @@ bool amdgpu_psp_tos_reload_needed(struct amdgpu_device *adev);
- int amdgpu_psp_reg_program_no_ring(struct psp_context *psp, uint32_t val,
- 				   enum psp_reg_prog_id id);
- void amdgpu_psp_debugfs_init(struct amdgpu_device *adev);
-+int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
-+			   enum psp_gfx_fw_type *type);
- 
- 
- #endif
++#define SMUIO_MCM_CONFIG__HOST_GPU_XGMI_MASK	0x00000001L
++#define SMUIO_MCM_CONFIG__ETHERNET_SWITCH_MASK	0x00000008L
++#define SMUIO_MCM_CONFIG__CUSTOM_HBM_MASK	0x00000001L
++
++static u32 smuio_v15_0_8_get_rom_index_offset(struct amdgpu_device *adev)
++{
++	return SOC15_REG_OFFSET(SMUIO, 0, regROM_INDEX);
++}
++
++static u32 smuio_v15_0_8_get_rom_data_offset(struct amdgpu_device *adev)
++{
++	return SOC15_REG_OFFSET(SMUIO, 0, regROM_DATA);
++}
++
++static void smuio_v15_0_8_update_rom_clock_gating(struct amdgpu_device *adev, bool enable)
++{
++	return;
++}
++
++static u64 smuio_v15_0_8_get_gpu_clock_counter(struct amdgpu_device *adev)
++{
++	u64 clock;
++	u64 clock_counter_lo, clock_counter_hi_pre, clock_counter_hi_after;
++
++	preempt_disable();
++	clock_counter_hi_pre = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_UPPER);
++	clock_counter_lo = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_LOWER);
++	/* the clock counter may be udpated during polling the counters */
++	clock_counter_hi_after = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_UPPER);
++	if (clock_counter_hi_pre != clock_counter_hi_after)
++		clock_counter_lo = (u64)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_LOWER);
++	preempt_enable();
++
++	clock = clock_counter_lo | (clock_counter_hi_after << 32ULL);
++
++	return clock;
++}
++
++static void smuio_v15_0_8_get_clock_gating_state(struct amdgpu_device *adev, u64 *flags)
++{
++	u32 data;
++
++	/* CGTT_ROM_CLK_CTRL0 is not available for APU */
++	if (adev->flags & AMD_IS_APU)
++		return;
++
++	data = RREG32_SOC15(SMUIO, 0, regCGTT_ROM_CLK_CTRL0);
++	if (!(data & CGTT_ROM_CLK_CTRL0__SOFT_OVERRIDE0_MASK))
++		*flags |= AMD_CG_SUPPORT_ROM_MGCG;
++}
++
++/**
++ * smuio_v15_0_8_get_die_id - query die id from FCH.
++ *
++ * @adev: amdgpu device pointer
++ *
++ * Returns die id
++ */
++static u32 smuio_v15_0_8_get_die_id(struct amdgpu_device *adev)
++{
++	u32 data, die_id;
++
++	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
++	die_id = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, DIE_ID);
++
++	return die_id;
++}
++
++/**
++ * smuio_v15_0_8_get_socket_id - query socket id from FCH
++ *
++ * @adev: amdgpu device pointer
++ *
++ * Returns socket id
++ */
++static u32 smuio_v15_0_8_get_socket_id(struct amdgpu_device *adev)
++{
++	u32 data, socket_id;
++
++	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
++	socket_id = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, SOCKET_ID);
++
++	return socket_id;
++}
++
++/**
++ * smuio_v15_0_8_is_host_gpu_xgmi_supported - detect xgmi interface between cpu and gpu/s.
++ *
++ * @adev: amdgpu device pointer
++ *
++ * Returns true on success or false otherwise.
++ */
++static bool smuio_v15_0_8_is_host_gpu_xgmi_supported(struct amdgpu_device *adev)
++{
++	u32 data;
++
++	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
++	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, TOPOLOGY_ID);
++	/* data[4:0]
++	 * bit 0 == 0 host-gpu interface is PCIE
++	 * bit 0 == 1 host-gpu interface is Alternate Protocal
++	 * for AMD, this is XGMI
++	 */
++	data &= SMUIO_MCM_CONFIG__HOST_GPU_XGMI_MASK;
++
++	return data ? true : false;
++}
++
++#if 0
++/*
++ * smuio_v15_0_8_is_connected_with_ethernet_switch - detect systems connected with ethernet switch
++ *
++ * @adev: amdgpu device pointer
++ *
++ * Returns true on success or false otherwise.
++ */
++static bool smuio_v15_0_8_is_connected_with_ethernet_switch(struct amdgpu_device *adev)
++{
++	u32 data;
++
++	if (!(adev->flags & AMD_IS_APU))
++		return false;
++
++	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
++	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, TOPOLOGY_ID);
++	/* data[4:0]
++	 * bit 3 == 0 systems connected with ethernet switch
++	 */
++	data &= SMUIO_MCM_CONFIG__ETHERNET_SWITCH_MASK;
++
++	return data ? false : true;
++}
++#endif
++
++static enum amdgpu_pkg_type smuio_v15_0_8_get_pkg_type(struct amdgpu_device *adev)
++{
++	enum amdgpu_pkg_type pkg_type;
++	u32 data;
++
++	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
++	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, PKG_TYPE);
++
++	/* data [3:0]
++	 bit 2 and bit 3 identifies the pkg type */
++	switch (data & 0xC) {
++	case 0x0:
++		pkg_type = AMDGPU_PKG_TYPE_BB;
++		break;
++	case 0x8:
++		pkg_type = AMDGPU_PKG_TYPE_CEM;
++		break;
++	default:
++		pkg_type = AMDGPU_PKG_TYPE_UNKNOWN;
++		break;
++	}
++
++	return pkg_type;
++}
++
++#if 0
++static bool smuio_v15_0_8_is_custom_hbm_supported(struct amdgpu_device *adev)
++{
++	u32 data;
++
++	data = RREG32_SOC15(SMUIO, 0, regSMUIO_MCM_CONFIG);
++	data = REG_GET_FIELD(data, SMUIO_MCM_CONFIG, PKG_TYPE);
++
++	/* data [3:0]
++	 * bit 0 identifies custom HBM module */
++	data &= SMUIO_MCM_CONFIG__CUSTOM_HBM_MASK;
++
++	return data ? true : false;
++}
++#endif
++
++const struct amdgpu_smuio_funcs smuio_v15_0_8_funcs = {
++	.get_rom_index_offset = smuio_v15_0_8_get_rom_index_offset,
++	.get_rom_data_offset = smuio_v15_0_8_get_rom_data_offset,
++	.get_gpu_clock_counter = smuio_v15_0_8_get_gpu_clock_counter,
++	.get_die_id = smuio_v15_0_8_get_die_id,
++	.get_socket_id = smuio_v15_0_8_get_socket_id,
++	.is_host_gpu_xgmi_supported = smuio_v15_0_8_is_host_gpu_xgmi_supported,
++	.update_rom_clock_gating = smuio_v15_0_8_update_rom_clock_gating,
++	.get_clock_gating_state = smuio_v15_0_8_get_clock_gating_state,
++	.get_pkg_type = smuio_v15_0_8_get_pkg_type,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h
+new file mode 100644
+index 0000000000000..508547fcce035
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/smuio_v15_0_8.h
+@@ -0,0 +1,30 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef __SMUIO_V15_0_8_H__
++#define __SMUIO_V15_0_8_H__
++
++#include "soc15_common.h"
++
++extern const struct amdgpu_smuio_funcs smuio_v15_0_8_funcs;
++
++#endif /* __SMUIO_V15_0_8_H__ */
 -- 
 2.51.1
 
