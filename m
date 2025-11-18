@@ -4,72 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2271CED24D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA1CCED249
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 08:14:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4097110E426;
-	Tue, 18 Nov 2025 08:14:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4EBE10E41E;
+	Tue, 18 Nov 2025 08:14:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="h5mnxMVb";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="owxjWkN5";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F05510E1CA
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 19:13:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1763406768; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=cVM9978GDavgE50qYqu/y/GBTUKtg3eiRR5t6sf9f64Rf50DbbU3nqSJEAxVskfXsGARweifmsqym/Cfe4W74z0kcs97SVo4iKhD53tw7jAJSwUD2pdw0JkcMV81Jk5jIP6Nl3FBlgCevS9w1B4Qfbb7a19mSJT+t5EQR788cYo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1763406768;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=S6LcICyBa/1soH/3gHBQS+INlICwkZAcXtWkwxSMBkQ=; 
- b=MktG0vxhPEiJmpcbNWUw3bfyL3uMsrZbWiJwUUuYwQmsqZQEEWUek66E0nQ3Ini0sAYP2xXJ1Ox+qtSgyDmx/UnyOFUj8p07EOdAPbAq0VyvrmpFn9Fjupee44ZpRPdfDrwXh8OYp7HuLSijyCpGCzG2UvNFcFmlXtIHbfkz7jc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763406768; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=S6LcICyBa/1soH/3gHBQS+INlICwkZAcXtWkwxSMBkQ=;
- b=h5mnxMVbJ75hfO3GUG5awBD3Be9327Rs80GR6qflKO84rDj1lwNlCXDaTAZ4ONob
- VW0NPofk659ym0BLJYpwmT8KgvT0AW4LVhJ0reojxBXIMAMQgXPF6E563Z5QKU2rI7a
- bQNdXDAKNtDYqCUbpOtjZwgOrrD801Qvu/8ztvQg=
-Received: by mx.zohomail.com with SMTPS id 1763406765821183.3489410114414;
- Mon, 17 Nov 2025 11:12:45 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 17 Nov 2025 20:11:48 +0100
-Subject: [PATCH v4 04/10] drm/bridge: Act on the DRM color format property
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6414010E04A;
+ Tue, 18 Nov 2025 07:10:57 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4d9bPB24ZPz9t1S;
+ Tue, 18 Nov 2025 08:10:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1763449854; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=m3Svf89VpHT2wQGwonxJQfHJCvpIpi34OCtA1IiIzKU=;
+ b=owxjWkN5pULlF64dau2zdaypb2ZTg4jacy54mZzptXHJjvB8Cchj4Wd0i86nkjDF20Qd+e
+ NQT25A6f8G4Rfm5gA3d1ba3Z296wZhRCpM9Lsw8TF0SXFksuss2yIcMNCFJO0BSEvY5l3E
+ L8niiWscyhnyPxvIG4J90BdXQGqCjOfX/OA8/kRJfV6V3khbr30oYk2MS6qG4wKvpDlUUx
+ N7r5Av2evV1mTEiXzem7Pck7SFouEcAvNKfY5AJVhVqYDMNcBVKhvOI8h1KGMhSfryyLmr
+ 4XTKD5KRcOrtC82HLqIY+QKlKEza7O6vRPzIyQDa/nhfV8gXWiwew4S7oSdvFg==
+Message-ID: <5ada5c442d391173cd723270c3c1b15f375bf2f7.camel@mailbox.org>
+Subject: Re: [PATCH 08/18] drm/sched: use inline locks for the drm-sched-fence
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch, 
+ tursulin@ursulin.net, matthew.brost@intel.com,
+ dri-devel@lists.freedesktop.org,  amd-gfx@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,  sumit.semwal@linaro.org
+Date: Tue, 18 Nov 2025 08:10:49 +0100
+In-Reply-To: <6862f4a8-a23f-4930-aef7-802bc65a4d36@amd.com>
+References: <20251113145332.16805-1-christian.koenig@amd.com>
+ <20251113145332.16805-9-christian.koenig@amd.com>
+ <cfa60e2d9902602c41b277fd8bd254576b2f4187.camel@mailbox.org>
+ <6862f4a8-a23f-4930-aef7-802bc65a4d36@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251117-color-format-v4-4-0ded72bd1b00@collabora.com>
-References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
-In-Reply-To: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.14.3
+X-MBO-RS-ID: 7f302530e54e8814219
+X-MBO-RS-META: koouwgisxzeuzkg53pikqhcz1kf8i4hm
 X-Mailman-Approved-At: Tue, 18 Nov 2025 08:13:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,98 +65,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The new DRM color format property allows userspace to request a specific
-color format on a connector. In turn, this fills the connector state's
-color_format member to switch color formats.
+On Mon, 2025-11-17 at 16:32 +0100, Christian K=C3=B6nig wrote:
+> On 11/13/25 17:23, Philipp Stanner wrote:
+> > On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
+> > > Using the inline lock is now the recommended way for dma_fence
+> > > implementations.
+> > >=20
+> > > So use this approach for the scheduler fences as well just in
+> > > case if
+> > > anybody uses this as blueprint for its own implementation.
+> > >=20
+> > > Also saves about 4 bytes for the external spinlock.
+> >=20
+> > So you changed your mind and want to keep this patch?
+>=20
+> Actually it was you who changed my mind.
+>=20
+> When we want to document that using the internal lock is now the norm
+> and all implementations should switch to that if possible we should
+> push as much as possible for using this in the driver common code as
+> well.
 
-Make drm_bridges consider the color_format set in the connector state
-during the atomic bridge check. Specifically, reject any output bus
-formats that do not correspond to the requested color format.
+Mentioning that in a changelog would be neat. How is anyone else
+supposed to know whether you forgot or changed your mind?
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/drm_bridge.c | 57 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 8f355df883d8..b7df5cbad832 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1052,6 +1052,59 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
- 	return ret;
- }
- 
-+static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format fmt)
-+{
-+	if (bus_fmt == MEDIA_BUS_FMT_FIXED)
-+		return true;
-+
-+	switch (fmt) {
-+	case DRM_COLOR_FORMAT_NONE:
-+	case DRM_COLOR_FORMAT_AUTO:
-+		return true;
-+	case DRM_COLOR_FORMAT_RGB444:
-+		switch (bus_fmt) {
-+		case MEDIA_BUS_FMT_RGB888_1X24:
-+		case MEDIA_BUS_FMT_RGB101010_1X30:
-+		case MEDIA_BUS_FMT_RGB121212_1X36:
-+		case MEDIA_BUS_FMT_RGB161616_1X48:
-+			return true;
-+		default:
-+			return false;
-+		}
-+	case DRM_COLOR_FORMAT_YCBCR444:
-+		switch (bus_fmt) {
-+		case MEDIA_BUS_FMT_YUV8_1X24:
-+		case MEDIA_BUS_FMT_YUV10_1X30:
-+		case MEDIA_BUS_FMT_YUV12_1X36:
-+		case MEDIA_BUS_FMT_YUV16_1X48:
-+			return true;
-+		default:
-+			return false;
-+		}
-+	case DRM_COLOR_FORMAT_YCBCR422:
-+		switch (bus_fmt) {
-+		case MEDIA_BUS_FMT_UYVY8_1X16:
-+		case MEDIA_BUS_FMT_UYVY10_1X20:
-+		case MEDIA_BUS_FMT_UYVY12_1X24:
-+			return true;
-+		default:
-+			return false;
-+		}
-+	case DRM_COLOR_FORMAT_YCBCR420:
-+		switch (bus_fmt) {
-+		case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+		case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-+		case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-+			return true;
-+		default:
-+			return false;
-+		}
-+	}
-+
-+	return false;
-+}
-+
- /*
-  * This function is called by &drm_atomic_bridge_chain_check() just before
-  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-@@ -1137,6 +1190,10 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 	}
- 
- 	for (i = 0; i < num_out_bus_fmts; i++) {
-+		if (!bus_format_is_color_fmt(out_bus_fmts[i], conn_state->color_format)) {
-+			ret = -ENOTSUPP;
-+			continue;
-+		}
- 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
- 					       conn_state, out_bus_fmts[i]);
- 		if (ret != -ENOTSUPP)
+And have you tested this? Kernel build bot is firing warnings. And
+touching the scheduler's spinlocks makes me nervous in general <.<
 
--- 
-2.51.2
 
+P.
