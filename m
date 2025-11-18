@@ -4,160 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5050FCEE338
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 16:23:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97464CEDDA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 16:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E02F310E054;
-	Tue, 18 Nov 2025 16:23:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA6F10E4F8;
+	Tue, 18 Nov 2025 16:50:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N8jrvac7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N1OGM+qE";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012062.outbound.protection.outlook.com
- [40.107.200.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32C4F10E054
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 16:23:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PW2Z2R0Ph/onZPsb7MG1Ua8f5dlHwqY1F5QBRtsBXLMjMY6ZOgJs9QffATtbE/IGvK/1e2UX/6Yl/TUmyJrcvqqTLdqlhtRGepMeqXyNu2TpCtdGJDSAXB9aU6QGBimxtAgikRoQIXSxbCu0xYBdxfNnebpNdS5VokGW1m26viv1Rqs7F+hX8fcdNwUKf65zcMdlV2aA0+mTlPxk2E16my50X+pdpTYu4nl9IrKgblKjL7yy7wE49JG3BFRxnBd5pv9GqywPy47vc7qnz6VWuLJNTFyx4Dv66HVxJ3nSHrebrkLcWMEb77RmD5f3/3NNPRH9LV5zaA8G0os+pGkVYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SIUQlxPIo6LoRArO9PYdPl/imuySpxvwZQYAq2w7Ry4=;
- b=lW2diNQJOhLNSo52esGALkovjW4deeVC155Uhe2DwTXSaakjns/UcwD3mjPJMgC9FiRTVcr7PR1FQn7WXlWh4/KQmu/CVuncRc3rGeRHU+TAQNyv1zKvnKPZxTOUnfR2MSuka+8UMbRWnLl3NabjhY8jKxIWitYh5FXgimOQYnuE6XvJTjzeRiqzT3BrBqjXjumu1ZpM8iqBQaKol/uqbyLTLpePCC2SYn5CHLReB1gIe54+7AiOIWUlXggjApMaA9D6omcw2IY8mwlcQKGlwqx/Z4Hj5Cb7Em9AcpJfuYKyW0U4Fvy/Hi+AnicqVgkspwGACY7hYp0DEcxCKzbLDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SIUQlxPIo6LoRArO9PYdPl/imuySpxvwZQYAq2w7Ry4=;
- b=N8jrvac7egfWRvPdSnCBYr7uOIXWHuPsvEN95GQkX/uFp/QISNK1/iju45TOka/IvFijuVHa21QPqHv2f74t8ZhDSteCxIYccx8EiuSMuTmlwHcXw7DeTaklk4DdNsb5++knYqUBhxUkgX8WmxN4yDDVg2b5La8dhyaVKdqDd9U=
-Received: from SJ0PR12MB8138.namprd12.prod.outlook.com (2603:10b6:a03:4e0::7)
- by MN0PR12MB5787.namprd12.prod.outlook.com (2603:10b6:208:376::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.19; Tue, 18 Nov
- 2025 16:23:11 +0000
-Received: from SJ0PR12MB8138.namprd12.prod.outlook.com
- ([fe80::633:3c3f:3a9b:993]) by SJ0PR12MB8138.namprd12.prod.outlook.com
- ([fe80::633:3c3f:3a9b:993%4]) with mapi id 15.20.9320.021; Tue, 18 Nov 2025
- 16:23:11 +0000
-From: "Martin, Andrew" <Andrew.Martin@amd.com>
-To: "Yang, Philip" <Philip.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2] drm/amdkfd: Uninitialized and Unused variables
-Thread-Topic: [PATCH v2] drm/amdkfd: Uninitialized and Unused variables
-Thread-Index: AQHcWAXAzxUk3QIdyUWGapwXfxDM2LT4lT6AgAAH/qA=
-Date: Tue, 18 Nov 2025 16:23:11 +0000
-Message-ID: <SJ0PR12MB81388904A944EEDCDC41668FF5D6A@SJ0PR12MB8138.namprd12.prod.outlook.com>
-References: <20251117210402.2213429-1-andrew.martin@amd.com>
- <49df5d58-1482-f6e1-3b5e-3b8e785ea2bf@amd.com>
-In-Reply-To: <49df5d58-1482-f6e1-3b5e-3b8e785ea2bf@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-11-18T16:16:05.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB8138:EE_|MN0PR12MB5787:EE_
-x-ms-office365-filtering-correlation-id: 037bee8d-dcc2-4b84-2fcd-08de26bec446
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700021;
-x-microsoft-antispam-message-info: =?utf-8?B?QzhmSEh0SnVQei9sWE9xUFZOTjV2WjFkdkRWWERaQUtZQVBLeGtoaTBieGtt?=
- =?utf-8?B?VGJKWjlpYnYvMUNnc214YzlpakE3Y3ZJQWVyOFdna1JDU2czeHZVTytOV2xD?=
- =?utf-8?B?ZnFaamVpZG9aVWxqa2hPSWVua1NwVmdyck4yS2g1c0dqL0M2emJRYzA2T21X?=
- =?utf-8?B?czF3M3JQQSsvc0Ztd21nZUZiVkRGV3FvdmkwOGJPeDU2UHpBUGtFWUlTdUhz?=
- =?utf-8?B?UVRlRW1Xenc0WnNOSzc4TG1SUGFXK2ZmTTlSRlZpdG44L2pYNTk4MkFrOUNS?=
- =?utf-8?B?OG5acGZEU1VUZkN3YU9LSWRpR2pGVVk2TTNUNFduMy9kZGE5eVpSTjc2T0ZG?=
- =?utf-8?B?enVVaXZXODlwcEIrdFVxWnNMT2gwbE1ZNHp0NWpNWmJHL254ZHpBRmJZZkxo?=
- =?utf-8?B?ejhydTNiaEd0MERUM3crNXZaM0l1NDVGa2hOeXYyTWN1UHNVM1dwUGx0UVln?=
- =?utf-8?B?Kzlxby8yQ1FQRExUdkVOUkY5ZnEwc1Bvc2hJdXYxWXBMKzlOVTB0bDRRTFpP?=
- =?utf-8?B?OWY2WmtnVmdjNUNOaTZMM3BPOGp6SmlDWkNkbmYxRnRqZkdPaDBpVXRiYTVz?=
- =?utf-8?B?QzN1aW5HSlRCSUlOck1idW1QeG1GdWRhWTQ5R2ZJdC9vN1VMOTk5a1l4b0d6?=
- =?utf-8?B?WWRub0tYTWpvdkVlR2VoNkJFYlBna2pLcVpjcUgvNFhEMXlha29ialE2dm9M?=
- =?utf-8?B?emxueExTelYzMlo4R21idEttb1BPSU5oMEFHVVUvTXc0T1B4WlpIeUFGR1hB?=
- =?utf-8?B?ZG9KcnJnZDFiYnoyTmxJUU5xbmVDd01qZVRQai95VW1Ea2xKbDlKVkZ5WnFK?=
- =?utf-8?B?Z09BQ3BEd3VSblNPamI3VnVsRy84QTVDb294Q0xxNVE5QWJmQk1rOVR5ZE14?=
- =?utf-8?B?ckdOQXQxZ3dnTU5rSU15TTcyTFQ1OC9PeUtNQzJtS2NIU0lNNjlJU21WT09i?=
- =?utf-8?B?VHdPb1hPY01kbE1CY05SaEd5RGo5RVZ4YTJQYXpkWStJdzVpQytkQmlsc0Rm?=
- =?utf-8?B?azdEYWV6SUJPVXNLenBVa2FwRzF1b2NZKzhEYk1ubjNjOXhHUUNGN05uUEEy?=
- =?utf-8?B?d2p3UGVuVUJVNUNhL2NmTlpEd3FwNy9LZ3B4TFZhNFk1ckMzN0FGWDEvM0Va?=
- =?utf-8?B?OUpFYVU1dUZEWUN6TitGeUR4by9QdTA0cjEySkNJb3Fxa0ZJQkE4Zy9ObTE4?=
- =?utf-8?B?VlAwTVdqTXF0cWt1L0ZGMElDa2tUZWVPblU4cTVOeFNJRTlqNC91OTRMaVo1?=
- =?utf-8?B?K3pFdm1aV2EyQmUxWTVDZGJzbFJoeVBPelNseFczWFQrb0c0QnVGc2ZYOGgz?=
- =?utf-8?B?N0dsTmh5ekEwUm9vWWFEMUJCOFdWN0QvaEp5OU1peFZuWW9YVkdIc2RWREQ3?=
- =?utf-8?B?ZzhiY0U0Z3hnKzNpODdrTnN6OUxsc3FXbjlBWERQLzlyRVN4aENsR0JGbnJR?=
- =?utf-8?B?dUhYOG1OZnIvdnJqa1NGRlIxR010QWd5Mi92ajRmRDFhTHZxRE9UY1djZGFp?=
- =?utf-8?B?WDBQaG1QTElGM0g5b3dETDR3OFlQSmxLUTNibXMxZC9hZ2pLS085MVRsUmk4?=
- =?utf-8?B?eFhSKy8xVmNEd29wdlh0SmptVDdYS1BqUWhIaW1rODc4ZFhiaE9aUlRzUlBq?=
- =?utf-8?B?Z1B2eTFzNkQ3aEZEcVZEK3MvZExBZ0RPVEcybFprdEt5SVRzU0xUN1dRWE5P?=
- =?utf-8?B?MnU0UjluZlJReEVlcjNSYTFRaWFBaEg2TWV5L012V1V4R3hNR0tTYXpxaTNP?=
- =?utf-8?B?aHZmc2xZYlcyY3NaR1RtTVBXbk5pWHFyMWJrVlhpeHVNa2lnSGJKbWZDWS9q?=
- =?utf-8?B?VDkzZXpnZnJaZGVFTnBVRy9tcVRrSVZLTXBmdzV6RzJzNjk5SWtFY0FybnQv?=
- =?utf-8?B?Ri9LeHg3dGlqeWxSUmViTnpjaDJabTVhMVY0SkNLQ1dVaHluc1dwNHYvaFhi?=
- =?utf-8?B?amc4U2ZSanpwR3FqTFRrMGdzaThQTUszYmdScHpmclRZay9PakFxYnBjSC9p?=
- =?utf-8?B?Y2E2UGhPQzhWaVlyRC9OSm1pZStTcUwxdGxSaWV2ZjdqZ1VXYTRNdXlqM1RF?=
- =?utf-8?Q?j3BRjF?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB8138.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RWUvc0RXbEZ5cXBwWkYrR3ZiK09OUHF5MlpycGVtcUF0RWNxanl6ZHNUQXlL?=
- =?utf-8?B?WUVPWFZiTUtCbHVTV0RmZm9wS2dITE5Gb1lFamRGeXNpS1lTTmhFM2xwUE9k?=
- =?utf-8?B?RnptNnlZWkViQWNZZnBUdkt0U0ZBaTJZdHlrSkhYa0VUdHVSYVE5OGRGTytO?=
- =?utf-8?B?TDJ3Y01tL2pHTzhYTkJPdDF5OGRiVDNvS0F2T0FoZDBqbkpoeTY3Q2Z0aEcy?=
- =?utf-8?B?S3hPdG45WE1yV2JENmFOLzQwN2NYUTRBODlJeXhKdmxCQVV3NWcwYitSaWlw?=
- =?utf-8?B?TGpxWDlvZWw1TUlCZjNxMzc4N3NXVEc5UkhWWWM5WWRrdWFnSzFpL0hsa0Iy?=
- =?utf-8?B?bUY5MWFYT0lZc0Nqd3FFbEpHbDAzNS84WjNCOUgzMjNCbGlEbDBUWDZDQjhE?=
- =?utf-8?B?R0REUWtsd0lBK0I2SW9jQTdUOTdTKzRQam4rUWp5SDFBNHFIQWQ0VnVHYjkr?=
- =?utf-8?B?VitXNkpJVVhDSzYwTjV0aVBFTy9pOE54UFFlM2RscVZ6WVU3QnhqdlRveGtV?=
- =?utf-8?B?RlBSRXFlRFRCOWRqOU54TW8rekZTSCt6ZDlvNUlObFBHNUV1bVRwdnZiRnpx?=
- =?utf-8?B?UmlhN2Y1OTJjWlhYd3Bsa3RKbFBrZ1haNCtEVEg1Qi9CejB2bGZtNjdmMGV3?=
- =?utf-8?B?OHBiYW1KYlRWTmlLaDBRbGtvRVJyUjM4bmxjVHVuTWM3THdnTkU2Q3RycHJM?=
- =?utf-8?B?YXVUZ0lucStTV0h3VEUyNzllY0JaRmg1bmp5YTdOTFFHc3Nxcm9iVDQyWmhQ?=
- =?utf-8?B?N2oremtCdUppUzNMMVVsZUVUS01Dd0NiV1BncFMrNXNEQW1GRUxzV1Q5Snpz?=
- =?utf-8?B?dGJUQzhtdUV5U0IvTWIzcjI4VU1zVjZxL3ArSUNVVmlNU0dNYlMzZml2bkxi?=
- =?utf-8?B?VlVOeGo4VkpIalJnQnB4VGxJRVE1NWFvRGs3S21KQ3ZneWd4dndxWG9WVDNs?=
- =?utf-8?B?ODFrQnRQOEVyK1kyTWZuQmp3UlQzNVBtbE1zbzlmNzlZcXRPR00xTVRXQmth?=
- =?utf-8?B?R241eStYYTdDS3pYZDlVWnZhRStic3NLRFUzWnA1V2xPRlN0cjA0QXlNc2Fz?=
- =?utf-8?B?bjRhT0RUODlrdVkxQXIxaHNvNnN1WWw3eWdwVEdUTlpnWmMwRUd0bVpHckFU?=
- =?utf-8?B?VkRvdGpqTU10ZDdSZWRrMzZTdHNPQlJtVUpkS3VMVTd6SUpUUkhPZTVzMTZP?=
- =?utf-8?B?a2JlZXFFNGJ2cHhGTXVKYXJ6dGdWL2lEcG4zZEd5bzBTaXl2RHpzZGZneEJQ?=
- =?utf-8?B?RjEyQktySHYzbDBEK1pWNkppYzhDOVR5aGRMRXJVRUpDdUJxOE9oaUE2T1Na?=
- =?utf-8?B?NHVUWXZ0WkZ6RlFuSWZwUHdlcHU1YTFLVStMRFlQT1lTdSt3V09VN0Y3aWZ6?=
- =?utf-8?B?dTJWNVZzRFVsUmpJM1lmQ25ia1hWMFJYVisrTS9HQnY3N1dESTh0QjE4S2p6?=
- =?utf-8?B?NXZ1dGRoMnl2Q1h2c0pIYWFmKzQ5OVFuaW1KOU83dlNlQUdsS1A2REh3MW0r?=
- =?utf-8?B?ZThzbHZ0TjlFc1FoeCtiWVdjNklCQUlBZVRNTjA3S09pTmQ5Ryt3THRtdUdl?=
- =?utf-8?B?eUVXRENueUpvU0t1eHA3V2QwZ3RSaVRDVkFhcysrQXkwTzJzam92ZUw5YXQ5?=
- =?utf-8?B?ejJzY3RjanNzTEEzVHBxR1ZxRHVBekpzaGo2ei9aV2g2NW10OWNMVC83TGg2?=
- =?utf-8?B?SWhnVkczSktzNmkvR1pPVWI0WjlkaDdJN2NzVkVRTzZIT1JZelpBSTFMVkRk?=
- =?utf-8?B?K1l3MEFhdHhLb2ZqTjdUUFA0SjBJNjRMcnBoUjZwNXU4cTlBY25yVkRNRmhq?=
- =?utf-8?B?QldpOURyZ2VtZDExdFNQTXNEd0VqaXFiY3VjWU4va2RzMUNNbFk0WEIxNjNk?=
- =?utf-8?B?NFUwWVlJckRSa3RhZEx2Qyt1RERrTHB0RnRJODBSSERqby9WVkRIMkNuUVh4?=
- =?utf-8?B?ZGkvSTFYZ1FkN1YvaEg4ZGNWWTVBTTM5akJuQW1YQ0RzdURNNkdmUEJUWTBD?=
- =?utf-8?B?TWt3ZjRzeGp2QWp1NXc2QiszZ254V3pLcXlXZmhLZzhCVUczMmhISVdWWWV2?=
- =?utf-8?B?YjZOUzBJSGh5dFRVbHhnaStSVmxNU0VSUWwya0FMTkxYSWxjajIrNis3YnRp?=
- =?utf-8?Q?7MHE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4C6510E4F8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 16:50:43 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-b9da0ae5763so465151a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 08:50:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1763484643; x=1764089443; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LMBStLbmVj9D7fO/BG5wvPc03//LUMNICQd5R8DxF60=;
+ b=N1OGM+qEGWSG59fxwyBGQghr9XjJuLbBuWRtmR9X2fuRVZRWtg55yLpo3vBY0ezREw
+ 5cFu8+cumqgl2j5fo4QvDHmYcA/7FnKldrCPAGYTMD/1lvSara08JDYXZsaQi2nL2Puz
+ aMy4TYVTzOndbo9Npx7IepTHSlIKQcyf/OC8hFmPm8yXHhlgGWV5ArBZWSvqvz/SiomG
+ jUYR66M3ZBAZs+uCYY3TAvkklRBqId9lrOQt/puKNYbSmZV5vICVgNbmjdUq8xGK9N2t
+ GGujK4aLu7TFnwO/7wKZT2Wq6GLVyHcOpOljAx65HzGT2v4qHtjtA/RNxYZKmEIb1vti
+ g4Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763484643; x=1764089443;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=LMBStLbmVj9D7fO/BG5wvPc03//LUMNICQd5R8DxF60=;
+ b=E0m82qxD+EC0wXF4mgx4IRFUqddE8B7BvHlbkISnF/HTEs39h+YcZXLEyXh9qqFAaM
+ eIPBR577giQMQrAQhRz0O701J2dwsIG7TszYiEqyQKb9IGL4qlMVSUboxQdy5oJypfQs
+ jcJzqrU2yVAaOBriBWXLbnP+9RWBgRH1cqfaJFC0DopwQ6TpinVxlmJ5eFJbr481x4Bz
+ YOpx/7FIBxFLScYuJTqlpnSk3Y5rdFYkf7O4DP8Dw11ZDcAwY+s6MfkDvp2HfwI4Rusd
+ kOFc9F1YO5RueK8CUHIKbTL4JwVBkxNX3qeWPCXvdPUcfbJ2swW9r89UnrBocZ3ObX7q
+ HmwA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV3rP8kQ7CDYKj5xJnMUUBRs2pA3G3SsH+z9uXGOvlZ7ez1ivZY24Xmpsw0KHKulSxVBoouSQmq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxebqzNa3PX81kfcOvUDDe05kqEh5I9unNhTSnWcDniBzXug7KB
+ VRnHOeX7V9o9Lx+pbQEeQ+enaD+Q8VNfGLzUKpwd4QjLJVIyrVU+nqb1xAEaOr7Y7KLtq3ZOkx8
+ jfWHlgLqfoYh1EHEt6nmXmPRDEyvzkmDUXA==
+X-Gm-Gg: ASbGncunTZupHflzihTYQXiX5oEL9RjrtdpYcwP8yyjPx9eN4FH00a9llpVzapV6Jab
+ 09AP/Z6GjBXQuVGUgzk2D2zOq12MJLXI/00IQNOnDRN2L8wFUXrqMhJH/J8Jbd/y3ZCw/ENzdot
+ 2EWoJsUPl7+y8Gcn+LAZsS2YMJTDokndxNqiQG8uaZjfFb0nfU+oE4RiUKYiet7umCefkVQBWLC
+ s2AQQnDVlW4im8aJWCEjPE+4kTDiskGfqBBWke8bNycZHrvpS10dDsgjpjq8u0d0QF6IHygRyB7
+ N9h5eg==
+X-Google-Smtp-Source: AGHT+IH/B47gWp6ECTKeYV9s1ojU3nBgKBpd50KZtt0ruvLygZs6cKnfaLlNR7nSDQtxmKJDvFijU4D9EfJilZylvzE=
+X-Received: by 2002:a05:7022:6885:b0:11a:344f:7a74 with SMTP id
+ a92af1059eb24-11b4120a7cemr6364576c88.3.1763484643100; Tue, 18 Nov 2025
+ 08:50:43 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB8138.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 037bee8d-dcc2-4b84-2fcd-08de26bec446
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2025 16:23:11.1694 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OFeSpa5AUItLZtoptSFur+nl7GIwcyzGUhuwHTKGYtFrIgwCYyW/Nw04/Y+R61+myHPJqH/Dsmy8TULgssoRHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5787
+References: <20251117065323.3435034-1-chongli2@amd.com>
+ <cde95388-b48c-4310-b5e5-bcff56a31744@amd.com>
+ <DS7PR12MB576863BD7C14E3671B31EC0E9BD6A@DS7PR12MB5768.namprd12.prod.outlook.com>
+ <b6c09fdc-168c-4489-9a20-d20c472b16ff@amd.com>
+ <DS7PR12MB57682BD7E22D58475BC395F19BD6A@DS7PR12MB5768.namprd12.prod.outlook.com>
+ <0d43d145-9845-46e5-a06a-29bfe9db5991@amd.com>
+ <CADnq5_PcVD-VVmx=83Mbv2+CTyJyXf5UmR2GB6OVahBK2ACAoA@mail.gmail.com>
+ <84aa5815-4e33-43d0-91b0-c1f2bec06cc8@amd.com>
+In-Reply-To: <84aa5815-4e33-43d0-91b0-c1f2bec06cc8@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 18 Nov 2025 11:50:30 -0500
+X-Gm-Features: AWmQ_bkwvUoW0X846E3l828Khz29Wpm8q9a2SNYEEiT0m4_-BXOieXQu0l_PiRk
+Message-ID: <CADnq5_MFS+4m77rKLhVffgp+K=VO8NoWO2iTSxvVw9ooyBY9Sw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: in sriov multiple vf mode, 2 seconds timeout
+ is not enough for sdma job
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Li, Chong(Alan)" <Chong.Li@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
+ Horace" <Horace.Chen@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,11 +93,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KR3JlZXRpbmdzIFBoaWxpcA0KDQo+IEFsbCBvdGhlciBjaGFuZ2VzIGxvb2sgZ29vZCB0byBt
-ZSwgd2l0aCB0aG9zZSAyIGNoYW5nZXMgZml4ZWQsIHRoaXMgcGF0Y2ggaXMNCj4NCj4gUmV2aWV3
-ZWQtYnk6IFBoaWxpcCBZYW5nIDxQaGlsaXAuWWFuZ0BhbWQuY29tPg0KDQoNClRoYW5rcywgSSBh
-bSBub3Qgc3VyZSB3aHkgdGhlIGVtYWlsIGBnaXQgc2VuZC1lbWFpbGAgZGlkIG5vdCBwaWNrZWQg
-dXAgdGhvc2UgMiBvdXRzdGFuZGluZyBjaGFuZ2VzLCBiL2MgSSBkaWQgbWFrZSB0aGVtIChBbmQg
-YGdpdCBzaG93YCwgY29uZmlybXMgdGhleSBhcmUgZG9uZSkuICBBbnlob3csIEkgd2lsbCBtYWtl
-IHRoZXkgYXJlIHByZXNlbnQgYmVmb3JlIHB1c2hpbmcuDQoNCg0K
+On Tue, Nov 18, 2025 at 9:57=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 11/18/25 15:43, Alex Deucher wrote:
+> > On Tue, Nov 18, 2025 at 5:49=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >> Hi Chong,
+> >>
+> >> yeah and exactly that argumentation is not correct.
+> >>
+> >> We have to guarantee a min minimum response time and that is what the =
+timeout is all about.
+> >>
+> >> And it doesn't matter if the available HW time is split between 1,2,4 =
+or 8 virtual functions. The minimum reponse time we need to guarantee is st=
+ill the same, it's just that the available HW time is lowered.
+> >>
+> >> So as long as we don't have an explicit customer request which asks fo=
+r longer default timeouts this change is rejected.
+> >
+> > I think the change makes sense.  It needs to be longer to compensate
+> > for the world switch latency.  0.5 seconds of runtime is probably too
+> > short for many larger workloads.
+>
+> The calculation that you have a 0.5 second timeout because the HW is shar=
+ed among 4 VF doesn't make sense.
+>
+> It's just that each VF has 1/4 of the calculation power of the PF, but we=
+ also don't increase the timeout for slower physical HW either.
+>
+
+But in this case, it doesn't actually reflect the GPU time spent on
+the job, it only reflects a percentage of it so it's not really an
+apples to apples comparison with non-SR-IOV.  That said, from a wall
+clock perspective, it does reflect the time spent even if you only got
+a percentage of that time.
+
+Alex
+
+> The timeout is there to guarantee a certain response time and that comes =
+from both customer requirements as well as requirements of the Linux memory=
+ management.
+>
+> And at least the memory management doesn't care if you have a virtual fun=
+ction or physical hardware, you have to complete all operations in a certai=
+n time or otherwise the system can run into a panic during low memory situa=
+tions.
+>
+> What could be is that we have customers who don't care about OOM situatio=
+ns and want this longer timeout, but that is then on their own risk.
+>
+> We certainly shouldn't increase the timeout to something unreasonable jus=
+t because some CI system is failing.
+>
+> Regards,
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >> On 11/18/25 11:08, Li, Chong(Alan) wrote:
+> >>> [AMD Official Use Only - AMD Internal Distribution Only]
+> >>>
+> >>> Hi, Christian.
+> >>>
+> >>> what I mean is:
+> >>> in sriov mode, when customer need limit timeout value ,
+> >>> they should set the "lockup_timeout" according to the vf number they =
+load.
+> >>>
+> >>>
+> >>> Why:
+> >>>
+> >>> The real timeout value in sriov for each vf is " lockup_timeout / vf_=
+number",
+> >>>
+> >>> As you said they want to limit the timeout to 2s,
+> >>> when customer load 8vf, they should set the "lockup_timeout" to 16s, =
+ 4vf need set "lockup_timeout" to 8s.
+> >>>
+> >>>
+> >>> (After we test, when value "lockup_timeout" set to 2s, the 4vf mode c=
+an't work as each vf only get 0.5s)
+> >>>
+> >>>
+> >>>
+> >>>
+> >>>
+> >>> Thanks,
+> >>> Chong.
+> >>>
+> >>>
+> >>>
+> >>> -----Original Message-----
+> >>> From: Koenig, Christian <Christian.Koenig@amd.com>
+> >>> Sent: Tuesday, November 18, 2025 5:31 PM
+> >>> To: Li, Chong(Alan) <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.org
+> >>> Cc: Chen, Horace <Horace.Chen@amd.com>
+> >>> Subject: Re: [PATCH] drm/amdgpu: in sriov multiple vf mode, 2 seconds=
+ timeout is not enough for sdma job
+> >>>
+> >>> Hi Chong,
+> >>>
+> >>> that is not a valid justification.
+> >>>
+> >>> What customer requirement is causing this SDMA timeout?
+> >>>
+> >>> When it is just your CI system then change the CI system.
+> >>>
+> >>> As long as you can't come up with a customer requirement this change =
+is rejected.
+> >>>
+> >>> Regards,
+> >>> Christian.
+> >>>
+> >>> On 11/18/25 10:29, Li, Chong(Alan) wrote:
+> >>>> [AMD Official Use Only - AMD Internal Distribution Only]
+> >>>>
+> >>>> Hi, Christian.
+> >>>>
+> >>>> In multiple vf mode( in our CI environment the vf number is 4), the =
+timeout value is shared across all vfs.
+> >>>> After timeout value change to 2s, each vf only get 0.5s, cause sdma =
+ring timeout and trigger gpu reset.
+> >>>>
+> >>>>
+> >>>> Thanks,
+> >>>> Chong.
+> >>>>
+> >>>> -----Original Message-----
+> >>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+> >>>> Sent: Tuesday, November 18, 2025 4:34 PM
+> >>>> To: Li, Chong(Alan) <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.or=
+g
+> >>>> Subject: Re: [PATCH] drm/amdgpu: in sriov multiple vf mode, 2 second=
+s timeout is not enough for sdma job
+> >>>>
+> >>>> Clear NAK to this patch.
+> >>>>
+> >>>> It is explicitely requested by customers that we only have a 2 secon=
+d timeout.
+> >>>>
+> >>>> So you need a very good explanation to have that changed for SRIOV.
+> >>>>
+> >>>> Regards,
+> >>>> Christian.
+> >>>>
+> >>>> On 11/17/25 07:53, chong li wrote:
+> >>>>> Signed-off-by: chong li <chongli2@amd.com>
+> >>>>> ---
+> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 +++++++--
+> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 4 ++--
+> >>>>>  2 files changed, 9 insertions(+), 4 deletions(-)
+> >>>>>
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_device.c
+> >>>>> index 69c29f47212d..4ab755eb5ec1 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> >>>>> @@ -4341,10 +4341,15 @@ static int amdgpu_device_get_job_timeout_se=
+ttings(struct amdgpu_device *adev)
+> >>>>>       int index =3D 0;
+> >>>>>       long timeout;
+> >>>>>       int ret =3D 0;
+> >>>>> +     long timeout_default;
+> >>>>>
+> >>>>> -     /* By default timeout for all queues is 2 sec */
+> >>>>> +     if (amdgpu_sriov_vf(adev))
+> >>>>> +             timeout_default =3D msecs_to_jiffies(10000);
+> >>>>> +     else
+> >>>>> +             timeout_default =3D msecs_to_jiffies(2000);
+> >>>>> +     /* By default timeout for all queues is 10 sec in sriov, 2 se=
+c not in sriov*/
+> >>>>>       adev->gfx_timeout =3D adev->compute_timeout =3D adev->sdma_ti=
+meout =3D
+> >>>>> -             adev->video_timeout =3D msecs_to_jiffies(2000);
+> >>>>> +             adev->video_timeout =3D timeout_default;
+> >>>>>
+> >>>>>       if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
+> >>>>>               return 0;
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_drv.c
+> >>>>> index f508c1a9fa2c..43bdd6c1bec2 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >>>>> @@ -358,10 +358,10 @@ module_param_named(svm_default_granularity, a=
+mdgpu_svm_default_granularity, uint
+> >>>>>   * [GFX,Compute,SDMA,Video] to set individual timeouts.
+> >>>>>   * Negative values mean infinity.
+> >>>>>   *
+> >>>>> - * By default(with no lockup_timeout settings), the timeout for al=
+l queues is 2000.
+> >>>>> + * By default(with no lockup_timeout settings), the timeout for al=
+l queues is 10000 in sriov, 2000 not in sriov.
+> >>>>>   */
+> >>>>>  MODULE_PARM_DESC(lockup_timeout,
+> >>>>> -              "GPU lockup timeout in ms (default: 2000. 0: keep de=
+fault value. negative: infinity timeout), format: [single value for all] or=
+ [GFX,Compute,SDMA,Video].");
+> >>>>> +              "GPU lockup timeout in ms (default: 10000 in sriov, =
+2000 not in sriov. 0: keep default value. negative: infinity timeout), form=
+at: [single value for all] or [GFX,Compute,SDMA,Video].");
+> >>>>>  module_param_string(lockup_timeout, amdgpu_lockup_timeout,
+> >>>>>                   sizeof(amdgpu_lockup_timeout), 0444);
+> >>>>>
+> >>>>
+> >>>
+> >>
+>
