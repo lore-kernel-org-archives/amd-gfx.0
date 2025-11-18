@@ -4,60 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE980CEBF92
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 08:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5855ECCD19A
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Nov 2025 09:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8716E10E43D;
-	Tue, 18 Nov 2025 08:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F126510E456;
+	Tue, 18 Nov 2025 09:03:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mv7MwMXE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ktYWwRkR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8501410E43F;
- Tue, 18 Nov 2025 08:47:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2D5F043C88;
- Tue, 18 Nov 2025 08:47:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C608C4CEF1;
- Tue, 18 Nov 2025 08:47:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1763455660;
- bh=yEkTP6A6Q90tpRw+hIU9f5PDGzIoms5NOyyzk570e7M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mv7MwMXEBBC+7T9ihRJQIKkPOc6iaQhBYeW1nYaeDmYOJL5ZnQeB52Cw7ZaNeHhKX
- wc21OT3XhkgvQ9iJvLBr/Rfq/R+jP1yTWz1eOecsyF//83of5y+aqlgg+rdkaa5Qq2
- OXPxWMJt1xAElsqx1nL2Kz9Cx5DozCS5fMyS17tHnI0HWOA6f5O34/tFDQOOA8fz0v
- a5RvRit+jNo6z2habODLcqzLiikLGlxJdcOnb+U4W/xVskN9PsFGo1wAxK430hrHWP
- l+qJFzK4L7Me0t0zgkaSli5XU60RtSdwiQq8mDYfjxGQDzaSP879G+XGt5DxlrMO+M
- F/R1ivVqPxoOg==
-Date: Tue, 18 Nov 2025 09:47:37 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- Simona Vetter <simona@ffwll.ch>, xaver.hugl@kde.org,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, 
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
- open list <linux-kernel@vger.kernel.org>,
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Harry Wentland <Harry.Wentland@amd.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH] drm/amd: Move adaptive backlight modulation property to
- drm core
-Message-ID: <o737pxpoq5t62xlvgflhypn67o6d7qohl5zm5ufgtojxlkw4cv@ao6d4gscekny>
-References: <20251112222646.495189-1-mario.limonciello@amd.com>
- <83aa8a816cf301085a3e3638238f8fba11053dc2@intel.com>
- <449ee5ba065e1ceee8f7a04038442cff24772df9@intel.com>
- <e934ece8-d70d-44fd-abe6-fcecae8abc85@amd.com>
- <81da4bd8bcf6110145964f0c314dae1ea3046d10@intel.com>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012045.outbound.protection.outlook.com [40.107.209.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 298AA10E456
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 09:03:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qu5219TOHwb8Tjq9th8xMdcpf0NQg38sHJUeUuDtPGhQ40FJcuknEOKzx197ESM1jVVW6WEPCb2z+wLyo1LO34zdEGhJ3F6NCFMPclYO3Ph416EJ6YiThV5/vDeoqKD3hNKgmrAbmT6/xfznfaK0AOf5DV0VGx4UaOXpeIMVVcuzWqcqZf35jikg76Muqq7RWV3ZMCVjiMg0TIy6+ZlagWNo+QQRJ72dMhyuO6SXz0lFX/PlxADfsHsri6uhQzkFx6JL1BGFyLN6Zv12dRlfBeXxrCJP9faZfsCJNFqBQZ+0taBK+VknN5QeArXIpMvSg394DEbezP+qG28MMT5lcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r0N/kg1/CeB6SEhMm+BzFeeYPntG8keVlHmHG3DxVMg=;
+ b=Bs6NM/2d2PKtjSW4U+5orFRfatIZ5nKOJP2tiX8v1uS7S5i3rVIHOfT3V5IeXi2DSDp+rOr9RFhe+PJueFtONTJHSJ0GqvHBffCQl3oR1VvsSav5L8hgTBjmaec+KtFc7ymDBOY0I3z1UELBRnyQyUa+jKHTLPHEbGr0EdhdKkXxorN9AB8YqFxdogicHADEQKVRkZRz6qsfy+hspVu4Czi9szSkXJut6G617G8ZqkRB73HGv95joPa3rmws8QoAxFFu2PV/tF4xNoZSk5d2ydFg6gQAEPogCy7ZjBNFBCJDzigtrz0QtDyJSsBcoO6oRsX0qBgy9IaEu8DPJlU+pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r0N/kg1/CeB6SEhMm+BzFeeYPntG8keVlHmHG3DxVMg=;
+ b=ktYWwRkR/aRJTUPDIVcdtGKWB/Bt3Xgp184mFH1Sncu93o2Xx7+xAN3rhnGF1P3gi4PnOqY2SI+HKgdxRciryDYGjEu0gXxYtkN7RWGtrNRsRRDh7jjSFNKYl9mbsVHM/kR7f9ZiovmBg6noaXb7FLo8Ulq2MKuIXH/Zt72wTb4=
+Received: from MW4PR03CA0107.namprd03.prod.outlook.com (2603:10b6:303:b7::22)
+ by MN2PR12MB4159.namprd12.prod.outlook.com (2603:10b6:208:1da::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Tue, 18 Nov
+ 2025 09:03:49 +0000
+Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
+ (2603:10b6:303:b7:cafe::88) by MW4PR03CA0107.outlook.office365.com
+ (2603:10b6:303:b7::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.10 via Frontend Transport; Tue,
+ 18 Nov 2025 09:03:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9343.9 via Frontend Transport; Tue, 18 Nov 2025 09:03:48 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 18 Nov 2025 01:03:46 -0800
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH v2] drm/amdgpu/ttm: Fix crash when handling MMIO_REMAP in PDE
+ flags
+Date: Tue, 18 Nov 2025 14:33:33 +0530
+Message-ID: <20251118090333.109361-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20251117133049.102851-1-srinivasan.shanmugam@amd.com>
+References: <20251117133049.102851-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="mcqwv34vtqf6hvad"
-Content-Disposition: inline
-In-Reply-To: <81da4bd8bcf6110145964f0c314dae1ea3046d10@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|MN2PR12MB4159:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3c4792d-a4a6-4462-b320-08de26816308
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RExMWFcyTm5ZV0N4aksvNmpVQ3h6dWs3UkJoNkhxVEpaL2w1dllYVTFtTDF0?=
+ =?utf-8?B?M0Y3K2NiQWoxcUtKbm4wcWVSbXFQV1ZqT0FrT2dhRG9yK2VHbnRJT1N0a0E0?=
+ =?utf-8?B?anozNFlSR0Zjb0pvUVZqWUtBUDJwNy9hZmFDTE9pSDk1VHFhamwvNWxrcDhr?=
+ =?utf-8?B?U3Zzc2FsT0MwMnJOM2tPY0xDWnVvbTdEcmd4czQ3MlYxSFJPL0Z1eWtTUWpr?=
+ =?utf-8?B?ZjIwZGQ4U1k4UmlQc2pLemN3K3BpTmFFdzdGeVhPeDkzKzlEY3JWY1UvZSt3?=
+ =?utf-8?B?OFBoL1NhSEtUUG1xU25lTVZodUlyc2JIaU9nLzRZMGJHb01oR1MyOEhQd1Jr?=
+ =?utf-8?B?WkpoSFR4YlRBcnFGTVJQRkF1U2M1NE5sVWNjQzhpOUYzcU5Mb1pVSm1wRENu?=
+ =?utf-8?B?WEN0OERVdTBEc0Ntd1lxcEZRcUtZTGNxQ2E3UHI1R3lxM0JmVzNheEZ6aEkr?=
+ =?utf-8?B?d0NpOFVQQ3ZKb1lGbE16MVR6Z2xPaEZjTE5MWmNrSk45cEJaeVNleEdmbzZD?=
+ =?utf-8?B?bm1DRllwUE1maTd2TktGZnAwT3l3emNOcjBOZ2M2WDJpT2ZHOUFra2xBMEtE?=
+ =?utf-8?B?U1dVWlJvTnpHTnBxWEJTL042VG1JT09WZjFpWXE1d3krTHlJSS9zUFdiNng0?=
+ =?utf-8?B?M1o2STNjclFqbDZmNUdVMXVMSmY5UE15T3UzZk1ucTlKaDJqSyswRllrZ3Iz?=
+ =?utf-8?B?amdNMlpXd0EwaHRRTUJla0lKS1kxRkZkL01jSlE0UGVzVGYvQWVVUmxxbFdo?=
+ =?utf-8?B?NGM0cXhuSlhzTjd4WmJ0VDdUZzBoMFRORXQ5QXBQWjRsMTN4V2lnTEYrMHc2?=
+ =?utf-8?B?NDRhNk16bytCRU1oQjlJM1Bzd2I4YUtTeWxvSEtkQnU2VEMyVEQrN3FUT0pr?=
+ =?utf-8?B?WHBocHZCck5uY3VIT3YrVVF2SnUrWWpRaU1XRGJsdlh1K2wyZDBWbGZjOC9h?=
+ =?utf-8?B?NHVlMlV1cDVycVpZTHowS3lBMDlXV1E5T29Wem1oS2RCaTRjR1JiNkFnalpj?=
+ =?utf-8?B?eUxTSjJ5WEVobWo3UndsZ3JYUnB0RGEyMWhnSzFOY01LeGYwd1NvbkFiRWVz?=
+ =?utf-8?B?cEROZXd2NXQ1aDJzeGVEOW4rK3k2T1BReTVSTzY5SEt2ZzE5ZTNwMWl0Nm9q?=
+ =?utf-8?B?dC9IZ2NrZkFIZjNHcXl3ZW4zcVBpV1lvaThHY2xaSmlsOUtWdW5rWmZIbnBV?=
+ =?utf-8?B?ZTQ4Q0lyakJjNUVyUm1VL0ErS2hIY0lhWGxLcUQ1MHRZeHl4NmxJeWNPOVRH?=
+ =?utf-8?B?K29ZT1NkWHIycC9iZkdQRXBzdzdVVXRHMlRieTMzcHJlVEZML0hkZzIxSHhL?=
+ =?utf-8?B?TW10ejk5cHYyemJRek5NOW9haWp3K3Fabms3Zmc2aDR0b2d2eHlsWi9NaEpt?=
+ =?utf-8?B?L2Z0eVc5THVkazJxcmFoOFp1bnE5Z1JPS0ROa1M2WkNDdHVHQkhRSG9rc2x2?=
+ =?utf-8?B?R3Z1aVR5alQ1emhvR1JYMDNHTEtPNk8vM2lDbVd3cnlJSndUK09MR2tNeXNG?=
+ =?utf-8?B?aDhlQURNbjl5QmdtYW1NUUpJWUVBV0x6amd4SGpmSEh5ZWsxNjB1VFo4bjJQ?=
+ =?utf-8?B?Q09hdXA1WXpQdmorL0liRWZMaDgzZU1lR3ArSHBMK1BkT2pYNndzTVBrM1N2?=
+ =?utf-8?B?RUlxSXpyQ0RJNTdTLzhEQ3NTMVBDaDJmdnN2MzBVREhEZjZlMndrSGQzL2wz?=
+ =?utf-8?B?b1NOVnNjQk9CaG9ZVCs0U2tScCtuRStUTkYvUUhMQXV1MFhPd1RXU3h4bjA5?=
+ =?utf-8?B?dmo5a1NvMWVYTmNUQjFTY0pDTHMxQ0JvdlAvUURLeGM4cUpCdkQ3QXEwSVJS?=
+ =?utf-8?B?R1oyN3ZBMUY3MHViU0hJMGdhTkN3Y1d5RUFIYVFZUGZCYlVMb3JDenlybkZa?=
+ =?utf-8?B?NXpuRmNVYjl1eVBjZDYreHZVSUtUejRCQUFGNEo3L0svWUtDME9jWHNYTXlX?=
+ =?utf-8?B?QmlHVzVHM2pkSThPTFNScXhCYW5wdlg2WHpkS0VTTTJ5d0M1M1ZaMHNXK3cy?=
+ =?utf-8?B?RG1oVWFvUE9RN2FNM0FwRUI5dmVhemR6WDR3RGMzQVBZM25yOGJBQlJlS25r?=
+ =?utf-8?B?emVzTWg5aTBLZFd3WVBXTXlDcTA5MjVqMVNWU3FDV1hRNUlIZFJUTGFnMzlZ?=
+ =?utf-8?Q?d660=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2025 09:03:48.6003 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3c4792d-a4a6-4462-b320-08de26816308
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,148 +145,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The MMIO_REMAP BO is a special 4K IO page that does not have a ttm_tt
+behind it. However, amdgpu_ttm_tt_pde_flags() was treating it like
+normal TT/doorbell/preempt memory and unconditionally accessed
+ttm->caching. For the MMIO_REMAP BO, ttm is NULL, so this leads to a
+NULL pointer dereference when computing PDE flags.
 
---mcqwv34vtqf6hvad
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/amd: Move adaptive backlight modulation property to
- drm core
-MIME-Version: 1.0
+Fix this by checking that ttm is non-NULL before reading ttm->caching.
+This prevents the crash for MMIO_REMAP and also makes the code more
+defensive if other BOs ever come through without a ttm_tt.
 
-On Mon, Nov 17, 2025 at 11:05:10AM +0200, Jani Nikula wrote:
-> On Fri, 14 Nov 2025, Mario Limonciello <mario.limonciello@amd.com> wrote:
-> > +Xaver
-> >
-> > On 11/14/2025 2:39 AM, Jani Nikula wrote:
-> > <snip>
-> >
-> >>>
-> >>> So this is basically Content Adaptive Brightness Control, but with the
-> >>> technology ("backlight" and "modulation") unnecessarily encoded in the
-> >>> ABI.
-> >>>
-> >>> You could have the same knob for adjusting CABC implemented in an OLED
-> >>> panel, controlled via DPCD.
-> >>>
-> >>>> + *
-> >>>> + *	sysfs
-> >>>> + *		The ABM property is exposed to userspace via sysfs interface
-> >>>> + *		located at 'amdgpu/panel_power_savings' under the DRM device.
-> >>>
-> >>> Err what? Seriously suggesting that to the common ABI? We shouldn't h=
-ave
-> >>> sysfs involved at all, let alone vendor specific sysfs.
-> >>>
-> >>>> + *	off
-> >>>> + *		Adaptive backlight modulation is disabled.
-> >>>> + *	min
-> >>>> + *		Adaptive backlight modulation is enabled at minimum intensity.
-> >>>> + *	bias min
-> >>>> + *		Adaptive backlight modulation is enabled at a more intense
-> >>>> + *		level than 'min'.
-> >>>> + *	bias max
-> >>>> + *		Adaptive backlight modulation is enabled at a more intense
-> >>>> + *		level than 'bias min'.
-> >>>> + *	max
-> >>>> + *		Adaptive backlight modulation is enabled at maximum intensity.
-> >>>
-> >>> So values 0-4 but with names. I don't know what "bias" means here, an=
-d I
-> >>> probably shouldn't even have to know. It's an implementation detail
-> >>> leaking to the ABI.
-> >>>
-> >>> In the past I've encountered CABC with different modes based on the u=
-se
-> >>> case, e.g. "video" or "game", but I don't know how those would map to
-> >>> the intensities.
-> >>>
-> >>> I'm concerned the ABI serves AMD hardware, no one else, and everyone
-> >>> else coming after this is forced to shoehorn their implementation into
-> >>> this.
-> >>=20
-> >> Apparently Harry had the same concerns [1].
-> >>=20
-> > So let me explain how we got here.  At the display next hackfest last=
-=20
-> > year (2024) we talked about how to get compositors to indicate they wan=
-t=20
-> > technologies like this to get out the way.  A patch series was made tha=
-t=20
-> > would allow compositor to say "Require color accuracy" or "Require low=
-=20
-> > latency" are required.
-> >
-> > https://lore.kernel.org/amd-gfx/20240703051722.328-1-mario.limonciello@=
-amd.com/
-> >
-> > This got reverted because userspace didn't have an implementation ready=
-=20
-> > to go at the time.  One was created and so I rebased/resent the series=
-=20
-> > earlier this year.
-> >
-> > https://lore.kernel.org/amd-gfx/20250621152657.1048807-1-superm1@kernel=
-=2Eorg/
-> >
-> > Xaver had some change of heart and wanted to talk about it at the next=
-=20
-> > hackfest.
-> >
-> > https://lore.kernel.org/amd-gfx/CAFZQkGxUwodf5bW0qQkXoPoz0CFFA1asJfUxFf=
-tMGgs5-VK2Hw@mail.gmail.com/
-> >
-> > So we talked about it again at the hackfest this year and the decision=
-=20
-> > was not everyone can an octagon into a peg hole, so we're better off=20
-> > re-introducing vendor properties for this.  So series was respun per=20
-> > that discussion.
-> >
-> > https://lore.kernel.org/amd-gfx/20250718192045.2091650-1-superm1@kernel=
-=2Eorg/
-> >
-> > Userspace implementation was done and so we merged this for 6.19.
-> >
-> > https://lore.kernel.org/amd-gfx/CAFZQkGwLWcyS0SqCHoiGsJd5J_u4aBJ0HMV5Bx=
-3NknLdLkr8Uw@mail.gmail.com/
-> >
-> > Then Simona suggested we need to make some changes where the propertye=
-=20
-> > should be in generic documentation etc:
-> >
-> > https://lore.kernel.org/amd-gfx/aQUz-mbM_WlXn_uZ@phenom.ffwll.local/
-> >
-> > So that's where we are now with this patch.  I can clean it up per the=
-=20
-> > feedback so far - but I think we need to be in agreement that this=20
-> > property is actually the way forward or we should revert the property i=
-n=20
-> > amdgpu instead of this moving approach and keep discussing.
->=20
-> IMO we should either
->=20
-> - admit we can't do a generic property for this *and* keep the vendor
->   specific property details hidden in drivers, or
->=20
-> - figure out a generic property and add that in drm core
->=20
-> But I'm pretty much against adding an AMD vendor specific property in
-> drm core.
+Fixes: d716b3a2df1b ("drm/amdgpu: Implement TTM handling for MMIO_REMAP placement")
+Suggested-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Agreed
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 84f9d5a57d03..04a79ef05f90 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1328,7 +1328,7 @@ uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem)
+ 		    mem->mem_type == AMDGPU_PL_MMIO_REMAP)) {
+ 		flags |= AMDGPU_PTE_SYSTEM;
+ 
+-		if (ttm->caching == ttm_cached)
++		if (ttm && ttm->caching == ttm_cached)
+ 			flags |= AMDGPU_PTE_SNOOPED;
+ 	}
+ 
+-- 
+2.34.1
 
-Maxime
-
---mcqwv34vtqf6hvad
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaRwyqAAKCRAnX84Zoj2+
-djgZAX4uWM8iQp/nyH8zILnMWFvSQW/TJfaxKfj8W0Pj1lhuKqIsVzEPT2UKGW/q
-eo5M5/cBgLmiArF80uVPiYfZsuX9V/CVXuTq2OrpNqKAVIokynPmak+mo8VO9DfB
-Xn5oRPDkCQ==
-=nnpF
------END PGP SIGNATURE-----
-
---mcqwv34vtqf6hvad--
