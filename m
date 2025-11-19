@@ -4,147 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6022ACF34B0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65F1CF34AD
 	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 13:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1CD410E615;
-	Wed, 19 Nov 2025 13:46:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C66A10E616;
+	Wed, 19 Nov 2025 13:46:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gvTslMjy";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="lOK0BGrs";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2658C10E10A
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 18:50:29 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4779fd615a3so2277485e9.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Nov 2025 10:50:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763491828; x=1764096628; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=/xelqTh0MJxdYizhebw3VTy7C2C4gWnDlrkViLNdgoU=;
- b=gvTslMjyHqSFnIJ0jXlO3q/bKlFYTDxReAhuu8rOy8LYGEUx4Xesu7Z92Y32SrQuHd
- W1NCTAIjmh5UIw2JIK2fXyla1vfX6TIlvcEslNlwVUyzVX5oagVddujX1hKavLPo333l
- 556o/wqnMnDwI+BoDuX7Ul6cyKi6YJi5MxO93ciCbN7F4lKawg69pB72asGJPJLQB/vC
- WBQO9kjMkvulL+GE5Ch88JM1LgIRoatXb6ApNoXV6gpWp511brNYgeaxvJCc6W9qxfj/
- qX+OSn/IV5OkMeM2fbEYlNSq5DAAWgQTkolEkh0J6cwIw8NM31o4W/v67XTPV2MNvHm8
- Didw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763491828; x=1764096628;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/xelqTh0MJxdYizhebw3VTy7C2C4gWnDlrkViLNdgoU=;
- b=UVu7wjAe03icnwDaSvwQyWuEapB7OtbVF4XqD+6L2/fxhvQ4gcwI5kr6HQYwo/YB5S
- qRsp95KgsXQVNKCGvjIoyPRmNnc7Dw/c8N4SwKUXSMIx9ehEZUY9MWaRIVkc2y1v9r/C
- 6+m2N5HhJoLKlZsCttR3wiioWfxgFvf272e/J3U5XZlkn+4AOpfTaV93/Q9A02VD6129
- fRi6j+yQS7HNzK8v/HAPvp2BpsZKJa904PAoSzEw4xpMXVe/bOTdlv0oWmnR5i2U5Pct
- t7g7pOEpa3pBtOBiP6GysIrW3y228HOPJFNcf50Pbk+6RnYmfYnc1Ch6iH7iWExHxYgO
- xJ2w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVH3lM1egzQeLvgAtJUw1wBC14Im/UMDVeuz1xCUpyB2W+CnqibBE4FVwViBW980HVcbL0D0pzT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHpdE8t+VnIaPlY/t6g1E70N7yvV3g75WeDJvJ3Oj1QFuh3thY
- sks/7VAqJ7iPIBddemnxxvx6CwrSBFPXA40pcAwmv9SUTQCcBtmgv5fC
-X-Gm-Gg: ASbGncs5aoqZh4ZinZgs17k8HrlSZS/MpODYxnF2YOT8mQD4GhM6jJP1UWf8L2ptBSf
- 4W8eHh4bcP3Jqra7oxvlW3TEOrpunZlvJt4I2GcT6CGqiajuiFjmIEButHGvDzIib6F6zwPvpyH
- +WKp+n0+FbRqxTkhLiQYEXCNrPeOEmHnNTlg4SFHGuBSWsuMyE4x6nEqK5xM1YzfC+Hh5G2RWbO
- UF3ToGAZb074m77p9i3XLxbImdRoTq/Wa2x98YYg6oE2wH8JK57QsDi7vatvE6r5it8BqWgMCBM
- 3REVoS9Of61PMGY9fWBTxRSzDc0vfsZkgsTtHMJGM/cSmX1msc5j/LGkRKje2G4qJVTwlnqV/6i
- 6bXhCFMzxwRSKfSsCBCLdUFrZ1zcyN4/9a94FQIFVLsj6It/TDlezK2/nJkEyDWEQgqjZ/QEo9p
- d/pzxwws9oxz60
-X-Google-Smtp-Source: AGHT+IHx6i4VYWR6pSTcXtSoFlN4Y9U/3Z/PI54PVyQA5JnsfbBaJwpdM3LzkIBKtiuh5JtXbYxanA==
-X-Received: by 2002:a05:600c:1547:b0:477:5c70:e14e with SMTP id
- 5b1f17b1804b1-4778feabadamr87966605e9.5.1763491827278; 
- Tue, 18 Nov 2025 10:50:27 -0800 (PST)
-Received: from skbuf ([2a02:2f04:d106:d600:9ac1:9a91:7d1:a813])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477a9df99d3sm22110705e9.12.2025.11.18.10.50.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Nov 2025 10:50:23 -0800 (PST)
-Date: Tue, 18 Nov 2025 20:50:17 +0200
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Corey Minyard <corey@minyard.net>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85B6F10E60C;
+ Wed, 19 Nov 2025 13:38:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1763559482; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=CuwjR2h4Ha6FdX9YcmYJiHsMLW8UhFvlnuR8RsskwaZcOcgRJe+R6sdtnrxYVApCqwS/19y5nZYG42D9Zlo+RPeXtzzCIOhL7xTXZAz0qiAIUDj2DLaCrpAEizra3PiJFw6vLc/o5ZV1QnX+3YBSMP4wjqXjBkQgHjK505A5Xwg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1763559482;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=7kLvj5qlOUkKcedzN+9zXzz8KHY8mPvxCmgiQNKASC0=; 
+ b=BCAuUf7lbq92vuxRMz/1dYjtXKeB4V2AgeLPbEvGKCNo1PsZBEWNnNL2rE/S5OB4m8uvbPJM+mIrekYRF4AgbS0ucOFBSaquhoFf6ZvIn81nZo5B/vh4I3TLFX7c9E3OjY6Hxu74BAGjUte++apzjOfX++EnahUAgYz5w6+dBmE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763559482; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=7kLvj5qlOUkKcedzN+9zXzz8KHY8mPvxCmgiQNKASC0=;
+ b=lOK0BGrsyBiEDevslzfJVvrHYzJKW5KQ4sVEUjGezcv3IIJHy5sc4MlGVNfICCIN
+ R0Bhi6yfEfVGmx5g0Y392pEDMHk0run1ePP/ik30HEqOq+cQIV0+Y3+9aOcBibP0RjH
+ aInqlNcei+5GnD4BbDSIMlOsR2qwk/3VOUtRhD1g=
+Received: by mx.zohomail.com with SMTPS id 1763559480451443.4437908471832;
+ Wed, 19 Nov 2025 05:38:00 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- Vitaly Lifshits <vitaly.lifshits@intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Sagi Maimon <maimon.sagi@gmail.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Karan Tilak Kumar <kartilak@cisco.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>,
- Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
- Max Kellermann <max.kellermann@ionos.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
- ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Andrew Lunn <andrew@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Rodolfo Giometti <giometti@enneenne.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Stefan Haberland <sth@linux.ibm.com>,
- Jan Hoeppner <hoeppner@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>,
- Sesidhar Baddela <sebaddel@cisco.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH v3 14/21] net: dsa: sja1105: Switch to use %ptSp
-Message-ID: <20251118185017.kk7binsumhh27n7x@skbuf>
-References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
- <20251113150217.3030010-15-andriy.shevchenko@linux.intel.com>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v4 06/10] drm/rockchip: dw_hdmi_qp: Set supported_formats
+ platdata
+Date: Wed, 19 Nov 2025 14:37:51 +0100
+Message-ID: <11723230.nUPlyArG6x@workhorse>
+In-Reply-To: <edc12051-6e50-4ef6-98cf-713abb49dd90@collabora.com>
+References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
+ <20251117-color-format-v4-6-0ded72bd1b00@collabora.com>
+ <edc12051-6e50-4ef6-98cf-713abb49dd90@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251113150217.3030010-15-andriy.shevchenko@linux.intel.com>
-X-Mailman-Approved-At: Wed, 19 Nov 2025 13:46:39 +0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailman-Approved-At: Wed, 19 Nov 2025 13:46:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,21 +87,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andy,
-
-On Thu, Nov 13, 2025 at 03:32:28PM +0100, Andy Shevchenko wrote:
-> Use %ptSp instead of open coded variants to print content of
-> struct timespec64 in human readable format.
+On Tuesday, 18 November 2025 21:14:31 Central European Standard Time Cristian Ciocaltea wrote:
+> On 11/17/25 9:11 PM, Nicolas Frattaroli wrote:
+> > With the introduction of the supported_formats member in the
+> > dw-hdmi-qp platform data struct, drivers that have access to this
+> > information should now set it.
+> > 
+> > Set it in the rockchip dw_hdmi_qp glue driver, where such a bitmask of
+> > supported color formats already exists. It just needs to be converted to
+> > the appropriate HDMI_COLORSPACE_ mask.
+> > 
+> > This allows this information to be passed down to the dw-hdmi-qp core,
+> > which sets it in the bridge it creates, and consequently will allow the
+> > common HDMI bridge code to act on it.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 24 ++++++++++++++++++++++++
+> >  1 file changed, 24 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> > index c9fe6aa3e3e3..7c294751de19 100644
+> > --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> > +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> > @@ -468,6 +468,28 @@ static const struct of_device_id dw_hdmi_qp_rockchip_dt_ids[] = {
+> >  };
+> >  MODULE_DEVICE_TABLE(of, dw_hdmi_qp_rockchip_dt_ids);
+> >  
+> > +static const u32 supported_colorformats = DRM_COLOR_FORMAT_AUTO |
+> > +					  DRM_COLOR_FORMAT_RGB444 |
+> > +					  DRM_COLOR_FORMAT_YCBCR444;
+> > +
+> > +static unsigned int __pure drm_to_hdmi_fmts(const u32 fmt)
+> > +{
+> > +	unsigned int res = 0;
+> > +
+> > +	if (fmt & DRM_COLOR_FORMAT_AUTO)
+> > +		res |= BIT(HDMI_COLORSPACE_RGB);
+> > +	if (fmt & DRM_COLOR_FORMAT_RGB444)
+> > +		res |= BIT(HDMI_COLORSPACE_RGB);
+> > +	if (fmt & DRM_COLOR_FORMAT_YCBCR444)
+> > +		res |= BIT(HDMI_COLORSPACE_YUV444);
+> > +	if (fmt & DRM_COLOR_FORMAT_YCBCR422)
+> > +		res |= BIT(HDMI_COLORSPACE_YUV422);
+> > +	if (fmt & DRM_COLOR_FORMAT_YCBCR420)
+> > +		res |= BIT(HDMI_COLORSPACE_YUV420);
+> > +
+> > +	return res;
+> > +}
+> > +
+> >  static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+> >  				    void *data)
+> >  {
+> > @@ -521,6 +543,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+> >  	plat_data.phy_data = hdmi;
+> >  	plat_data.max_bpc = 10;
+> >  
+> > +	plat_data.supported_formats = drm_to_hdmi_fmts(supported_colorformats);
 > 
-> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
+> Any reason why this cannot be simply set as
+> 
+>   BIT(HDMI_COLORSPACE_RGB) | BIT(HDMI_COLORSPACE_YUV444) | BIT(HDMI_COLORSPACE_YUV422)
+> 
+> and get rid of the unnecessary conversion?
 
-Acked-by: Vladimir Oltean <olteanv@gmail.com>
-Tested-by: Vladimir Oltean <olteanv@gmail.com>
+My gut feeling lead me towards trying to have a single source of
+truth for the supported color formats, but upon further reflection
+this is indeed way too verbose and lead me to move the
+supported_colorformats definition into this patch rather than the
+one where it's needed for registering the property.
 
-Thanks!
+So I agree with you here and will simplify this by just setting
+these as you described.
 
-This is a rarely modified portion of the SJA1105 driver, and it doesn't
-conflict with other changes that I have planned, so from my PoV there is
-no problem with the patch being picked up via other trees.
+Kind regards,
+Nicolas Frattaroli
+
+> 
+> > +
+> >  	encoder = &hdmi->encoder.encoder;
+> >  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+> >  
+> > 
+> 
+> 
+
+
+
+
