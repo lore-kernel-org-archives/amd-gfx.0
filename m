@@ -4,58 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9139CF885C
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 13:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DCB0CF885A
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 13:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44F5F10E2A0;
-	Thu, 20 Nov 2025 13:53:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 220A910E2A2;
+	Thu, 20 Nov 2025 13:53:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=runbox.com header.i=@runbox.com header.b="mDlHjQLr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PwqIxE92";
 	dkim-atps=neutral
-X-Greylist: delayed 1786 seconds by postgrey-1.36 at gabe;
- Wed, 19 Nov 2025 23:12:23 UTC
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com
- [185.226.149.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B4B010E26D
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 23:12:23 +0000 (UTC)
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
- by mailtransmit04.runbox.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david.laight.linux_spam@runbox.com>)
- id 1vLqsl-006yoa-LL; Wed, 19 Nov 2025 23:42:35 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
- s=selector1;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
- :Message-Id:Date:Subject:Cc:To:From;
- bh=KZaeZLqE5bpE2oI7JueUUAQfCDTGIs3rJJZPcaqXWlw=; b=mDlHjQLr3ylsbhaToLWMaW21yW
- 3UVy21XkacH0+aMXmbQJGgcaEEUcpaPdkWRfbeLgpnQWeuE5UazmtfWFCAxw4PAywzYxbWcWRE5wi
- yydZf/9QgusRj2ZIM70TwSLTYD0H8U34DcCttEXjGzQbWV1vIw2D5mA1dbb/AfJUSZxy0gC0UxGzm
- 3mhsqOossZ8FbtNoL7e/1hiK5mJJTtkE/SebrhXQF2cSm2NHVTf/4d9Tp7280RfRfVkSEXjg0swpr
- Gkjt72YT776jjIc8yqIXhdAFDxwNP31J3hEXpaDULau580GcJrDs4cTQLlPfzOIXGaBPL2mH0NWnz
- RW6tI2CQ==;
-Received: from [10.9.9.74] (helo=submission03.runbox)
- by mailtransmit03.runbox with esmtp (Exim 4.86_2)
- (envelope-from <david.laight.linux_spam@runbox.com>)
- id 1vLqsk-00005F-RE; Wed, 19 Nov 2025 23:42:35 +0100
-Received: by submission03.runbox with esmtpsa [Authenticated ID (1493616)]
- (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.93) id 1vLqsd-00Fos6-R9; Wed, 19 Nov 2025 23:42:27 +0100
-From: david.laight.linux@gmail.com
-To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Simona Vetter <simona@ffwll.ch>,
- David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH 19/44] drivers/gpu/drm/amd: use min() instead of min_t()
-Date: Wed, 19 Nov 2025 22:41:15 +0000
-Message-Id: <20251119224140.8616-20-david.laight.linux@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20251119224140.8616-1-david.laight.linux@gmail.com>
-References: <20251119224140.8616-1-david.laight.linux@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC5A210E64F;
+ Wed, 19 Nov 2025 15:00:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1763564451; x=1795100451;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6VLOKmDo4WviGUhM4qQZA7IzCWHn1ZvDUbxiE4MHVTw=;
+ b=PwqIxE92BHunt/rCEM+35DFrV5Js1lkLdEcSgqSbWQ2mwnb8LXlyrYu1
+ Xsw2Yi6CgDptdwZG9jKX596BkpTmpBBJylkwjDdCMsjF8y92SYeTBni0V
+ L02L8Y5UT+gqi2D6XKxUF+eH3Ca0rGuH+TXvrmEtyFgk1hqkzRhpZtlgt
+ KXVTlFFSDt7Etbq4dc1NmLWNgP6Yd31CJWBmFf8zADODprEjFIREKzK/F
+ mwLdwOfYrLZiXQiQgoGSNy46zTrBn6ee95a6vYbN4PBI9GmAZvBwfO9Mo
+ INWT85WJNnnK7Dl1iO7JjwEWPzSfVUOVeeObxFD6CQWD/NRl1llDAwUuw g==;
+X-CSE-ConnectionGUID: KtOsV4EgRGWFZCoXNOli9A==
+X-CSE-MsgGUID: 49qp4tYFQzaG4LRpcg5LIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="91085420"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="91085420"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2025 06:59:36 -0800
+X-CSE-ConnectionGUID: 1p6r6x9uS5u32zRd1eVaZg==
+X-CSE-MsgGUID: voIFHWIqQSaE97KThetVqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="191329073"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.245])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2025 06:59:30 -0800
+Date: Wed, 19 Nov 2025 16:59:28 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Subject: Re: [PATCH v3 00/21] treewide: Introduce %ptS for struct timespec64
+ and convert users
+Message-ID: <aR3bUMvPCqZr5utj@smile.fi.intel.com>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+ <aR3B8ECx9W6F0BV_@pathway.suse.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aR3B8ECx9W6F0BV_@pathway.suse.cz>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-Mailman-Approved-At: Thu, 20 Nov 2025 13:53:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,66 +84,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Laight <david.laight.linux@gmail.com>
+On Wed, Nov 19, 2025 at 02:11:12PM +0100, Petr Mladek wrote:
+> On Thu 2025-11-13 15:32:14, Andy Shevchenko wrote:
+> > Here is the third part of the unification time printing in the kernel.
+> > This time for struct timespec64. The first patch brings a support
+> > into printf() implementation (test cases and documentation update
+> > included) followed by the treewide conversion of the current users.
+> > 
+> > Petr, we got like more than a half being Acked, I think if you are okay
+> > with this, the patches that have been tagged can be applied.
+> > 
+> > Note, not everything was compile-tested. Kunit test has been passed, though.
+> 
+> JFYI, the patchset has been committed into printk/linux.git,
+> branch for-6.19-vsprintf-timespec64.
+> 
+> Note, that I have:
+> 
+>    + fixed the 19th patch as proposed, see
+>      https://lore.kernel.org/all/aR2XAYWTEgMZu_Mx@pathway.suse.cz/
+> 
+>    + reviewed all patches but I triple checked 7th patch which
+>      did not have any ack yet. And I added my Reviewed-by tag
+>      there. ;-)
+> 
+>    + I tried build with allyesconfig. It succeeded. I am not 100%
+>      sure that it built all modified sources but...
 
-min_t(unsigned int, a, b) casts an 'unsigned long' to 'unsigned int'.
-Use min(a, b) instead as it promotes any 'unsigned int' to 'unsigned long'
-and so cannot discard significant bits.
+Thank you!
 
-min_t(u8, a, b) is particularly likely to be problematic
-
-In this case I think the values are small enough that the result is ok.
-
-Detected by an extra check added to min_t().
-
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-index 3040437d99c2..1eb88327a18b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
-@@ -211,8 +211,8 @@ int amdgpu_doorbell_init(struct amdgpu_device *adev)
- 	adev->doorbell.size = pci_resource_len(adev->pdev, 2);
- 
- 	adev->doorbell.num_kernel_doorbells =
--		min_t(u32, adev->doorbell.size / sizeof(u32),
--		      adev->doorbell_index.max_assignment + 1);
-+		min(adev->doorbell.size / sizeof(u32),
-+		    adev->doorbell_index.max_assignment + 1);
- 	if (adev->doorbell.num_kernel_doorbells == 0)
- 		return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c1a801203949..124ce3e7310e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2388,7 +2388,7 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
- 	if (amdgpu_vm_block_size != -1)
- 		tmp >>= amdgpu_vm_block_size - 9;
- 	tmp = DIV_ROUND_UP(fls64(tmp) - 1, 9) - 1;
--	adev->vm_manager.num_level = min_t(unsigned int, max_level, tmp);
-+	adev->vm_manager.num_level = min(max_level, tmp);
- 	switch (adev->vm_manager.num_level) {
- 	case 3:
- 		adev->vm_manager.root_level = AMDGPU_VM_PDB2;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 91c0188a29b2..0180675e76a4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6257,7 +6257,7 @@ convert_color_depth_from_display_info(const struct drm_connector *connector,
- 		 * or if this was called outside of atomic check, so it
- 		 * can't be used directly.
- 		 */
--		bpc = min_t(u8, bpc, requested_bpc);
-+		bpc = umin(bpc, requested_bpc);
- 
- 		/* Round down to the nearest even number. */
- 		bpc = bpc - (bpc & 1);
 -- 
-2.39.5
+With Best Regards,
+Andy Shevchenko
+
 
