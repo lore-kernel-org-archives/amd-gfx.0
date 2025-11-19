@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74AABCF3184
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 09:25:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1491CCF256B
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 09:25:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A27610E5BC;
-	Wed, 19 Nov 2025 09:25:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAD8E10E5BD;
+	Wed, 19 Nov 2025 09:25:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L8HiYRCk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R0HdI7ZW";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE32F10E5BA
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 142A310E086
  for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 09:25:55 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-b735ce67d1dso845782066b.3
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6418b55f86dso10424881a12.1
  for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 01:25:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1763544354; x=1764149154; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uWWxJSGqbn9hNMfMnZGZYi/X6ktOsJm3dypr+d9C/BI=;
- b=L8HiYRCk+iIXAYzbO/qtxq7k87GEmP4waBuv91AGaIVqPIf4Re7dNa4bRI4Bvm2p0B
- Xji5T/9aeFuEBYHJzjiAtbwIFYHNXWtXi31lMSWr0Py45wuC5Vx8kchPwjkV7B2vjtdT
- V4RXCjhZR25/GX7xW3qyVDcJW2uaqkt15FFjjmOSso3a7jjTNXmtO+d6EH5RIorjIbb2
- S4jz0TUk8z//dsTNOGMVk3HmGtIfDCZ94MWqI5x04RpNz+ZpAM2V4l8OS6yad5eOZSWV
- zg5CvQNzQpV8QfaO459eLw5Z31W6Kkh004Q3szByXxdhhcgmh4H2siQYSyY7MKtWcFiZ
- TONg==
+ bh=N6T3Z9EJ0i2DniMUuPck8BxNYPJBIQ5YiH3G0gyeFHE=;
+ b=R0HdI7ZWgQILsouLmYbR/93HNnAOjFtPTyVW78h9xxmesWHUee4/bmRm3tQ0JKDnBn
+ E9rwYx2oUXw6JDoaA2RmdXmNDNQgBz3jUsJGTGWBBEDTyHbbYqJ+4akNRgVCyMGqRfWH
+ WDvVnkp3hj7GD12Dn0KobnZkw2CBX9i9IzxMpJ2UTrogY/aJ9DLZJ6Ms47Nhbwarhr4N
+ KodV/CwIV8o4h7JfMulvsEJTQtGM/t7anxPNTMT2rtWexehVIqB+IUOUbMe7WzZqFHK4
+ Mc4wm/3bAMtdWEkgNVu6IFSUo27/VMBYxH5Jr/YydIZSvGpknqHqxsQ/2+a6wemh/x6h
+ 6ZoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1763544354; x=1764149154;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=uWWxJSGqbn9hNMfMnZGZYi/X6ktOsJm3dypr+d9C/BI=;
- b=TjfsnIHdEM0fblLdEqMev/dNHYtdVcjgRrpnYOnFBoJChnlFJ8Tc4yfUeQ/n4ZDP5W
- 2niN//3KKtVyuJMpIhaB5ZeJ503JxO13w8fJERPGIChOjP7H6PHWUF1JR9kIzQLvsStR
- Ak6l3CL/Ozox915h5OKHTuUFaHIjXhvtzghTycjQjlGdS6Bl9sQrH1t2SCxCO0agvSLn
- jeMEEDRpU6A0qvL8yjbu+0jZ+oOAykaIF3dCKXkrUUwoaHHo075FfiLNZpkssEt5Jf6H
- KVPU8zNMnHl8/lxioUGNKn+/EpHslp0/o7k1nAhMCAN83fIcyIOakn3ciQ04L4YFdaVI
- T1ag==
-X-Gm-Message-State: AOJu0Yz3IcVfgrT29paXbJJFJJCpfGvdaJjT9xbH7l+WMkTTncoJ/imI
- L3V/4uNHrcBRopdsn+7XVVmbNaMCjvcCN+P/5pxVRrZUMh+1a1ZpJjg+ZRjYMaic
-X-Gm-Gg: ASbGncvadb6Cqr1gKkPaVxa8B0YEyWw9w2fl8YuRPkimR5XrecDrUklcD67FY5WjjM/
- I+fj6LfAgIIsiwFNdesiKU5MDgoKB0xGgJ9V7ouhoTSyyZlxN0WcqyBgNSftGpj5y6Cn7VY/wQl
- PzDDJsz3+ltNF4s/NoQChM+v/zHXWCuXB9cEdIAQ5qWwl54q27Sl8ha/oRQKovaJCDhjc0qBqNC
- ZUv/ZV+PMhkfozd99STkhP5DfPZepPHuBajmR4zMN2UXX77KkIiLhC3zj2l/QmwH69TQx0TDVsR
- QpXqNMMx5oUUy5zXXd/2huqJHNUwcolavfPwyuoQ3IJoxDQUdz8ixXO80auMBpnBQJ7UJbOFa0D
- uUDlRRCtAeRGXShiREmtZ3RALRT+zCCFYt9ZSifoRozp/gNJO+VfVzSe7G7GJDy2qr99MNWhdLa
- 2tCwITMoThkGmi99XPCiml0FctJitllo+Nv1M6
-X-Google-Smtp-Source: AGHT+IFhvS1WUFc0Bea6qwJxX5cuZO3vMHWDCU9vqGhsjKGN3hsY0Kls0JbY7Cr8zyzOrT3mDIrdgg==
-X-Received: by 2002:a17:907:94cf:b0:b72:c1e9:5f1e with SMTP id
- a640c23a62f3a-b7367808670mr1970255066b.3.1763544354107; 
- Wed, 19 Nov 2025 01:25:54 -0800 (PST)
+ bh=N6T3Z9EJ0i2DniMUuPck8BxNYPJBIQ5YiH3G0gyeFHE=;
+ b=Lhl91B6BE6Bjokk9ZWxisonc7BHa0NeIb4JnqCT/TCZEJ5ePEbch9W9SLKX+jurpuz
+ VTOGoy33sldNGsOqC4U926PXhYAmRSDBzMAwJg3PoszZx8hjOV9xPlKZnMJxjg18sY2D
+ zxWYOdu4LQKDh/yMJqKWIs50I6jHYYXaYNQ0QguTOAf1fEC+pLavJqr+5U940TvQZrKT
+ rUq/+7DY5RD9AcsvbF3rtIT84Vdxu2aP9KgNRYp9vb8cvIdCE6stpXu3keKj15I1oUAM
+ DRVzO+d2f6twMNpSsxUD1ha8x+IaoOEF28Tklu5HJYYssuc0oZMciYy85zZ1uhb2EbW/
+ +kLQ==
+X-Gm-Message-State: AOJu0YzXrHTawKfPGrlAPhBEbIb8RhVfWK7rwJiyHS+hD/CbfLEX83SK
+ Sf9AyW1XM+J29+M62lXG3/pqSBGQI58fAPLp+zYM/NSHQkhoKMcqwVjbA+SvYlqp
+X-Gm-Gg: ASbGnctlSivGL3tFRfdgF6EpdOqFt3byfTSN1X2/16BekFlWHpjlPGEOxjAnhY7jjfZ
+ vSERZh7RrBHz6RCuG/PPwLDPw5D/LOFkiDeRQMG2Vruf08tPk+GGUezmVL9yjEL1EnDLFt49kZe
+ ULFeHKxVRNcJ6viQsg/fpN1E989rQPrxuge6K/+4pbeZ5hDSZ5GnyJ9g+wyZOOm97KV18wtOmQa
+ TYnHdETdpwtaHdqgOZvbYdm2kOOooMIEoGK29lCn1AJOBd03OjACclmJoPz6RJ+8Pd4uW9BWlJ0
+ b6iVWadTDvJZ6CU1Q1Yuu2tDfBSTpgUfNwKW9Z0nnsTA9qOdQ64VIF37KKX3vAKFBk+XssfBeq4
+ G45HbZaMr0yUV4cc19o0EUciwK9I1K7KnQTT9At75S1un8OJpO0v212xoAgNuJKbHWNuy6G/AzO
+ tZAxKg+hKr7uIZAhl/YxoyzP9RYt+fNhg6Lt8B
+X-Google-Smtp-Source: AGHT+IGXs9bYSr8ZEaFi6k0ugIeT36FFrTIbFTDgOSYVLmxAikZA13AcE+6CCimkt7vXc5RFJSdGyw==
+X-Received: by 2002:a05:6402:52d5:b0:643:c8b:8d30 with SMTP id
+ 4fb4d7f45d1cf-64350eac57bmr15648343a12.30.1763544353361; 
+ Wed, 19 Nov 2025 01:25:53 -0800 (PST)
 Received: from Timur-Max (82-198-214-3.briteline.de. [82.198.214.3])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6433a497fc5sm14698634a12.22.2025.11.19.01.25.53
+ 4fb4d7f45d1cf-6433a497fc5sm14698634a12.22.2025.11.19.01.25.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Nov 2025 01:25:53 -0800 (PST)
+ Wed, 19 Nov 2025 01:25:52 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/3] Documentation/gpu: Add PRT, PTE,
- PDE to amdgpu glossary (v2)
-Date: Wed, 19 Nov 2025 10:25:44 +0100
-Message-ID: <20251119092544.222670-3-timur.kristof@gmail.com>
+Subject: [PATCH 2/3] drm/amdgpu/uapi: Clarify comment on AMDGPU_VM_PAGE_PRT
+Date: Wed, 19 Nov 2025 10:25:43 +0100
+Message-ID: <20251119092544.222670-2-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251119092544.222670-1-timur.kristof@gmail.com>
 References: <20251119092544.222670-1-timur.kristof@gmail.com>
@@ -89,48 +88,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PRT = Partially Resident Texture (aka. sparse residency)
-PTE = Page Table Entry
-PDE = Page Directory Entry
+In the context of the amdgpu uAPI, the PRT flag is referring only
+to unmapped pages of a partially resident texture (aka. sparse
+resource), but not the full resource.
 
-v2:
-- Add PDE
+Virtual addresses marked with this flag behave as follows:
+- Reads return zero
+- Writes are discarded
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- Documentation/gpu/amdgpu/amdgpu-glossary.rst | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ include/uapi/drm/amdgpu_drm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/amdgpu/amdgpu-glossary.rst b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-index 30812d9d53c6..43a36362dc73 100644
---- a/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-+++ b/Documentation/gpu/amdgpu/amdgpu-glossary.rst
-@@ -143,15 +143,24 @@ we have a dedicated glossary for Display Core at
-     PA
-       Primitive Assembler / Physical Address
- 
-+    PDE
-+      Page Directory Entry
-+
-     PFP
-       Pre-Fetch Parser (Graphics)
- 
-     PPLib
-       PowerPlay Library - PowerPlay is the power management component.
- 
-+    PRT
-+      Partially Resident Texture (also known as sparse residency)
-+
-     PSP
-         Platform Security Processor
- 
-+    PTE
-+      Page Table Entry
-+
-     RB
-       Render Backends. Some people called it ROPs.
- 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 406a42be429b..f43592997b49 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -883,7 +883,7 @@ struct drm_amdgpu_gem_list_handles_entry {
+ #define AMDGPU_VM_PAGE_WRITEABLE	(1 << 2)
+ /* executable mapping, new for VI */
+ #define AMDGPU_VM_PAGE_EXECUTABLE	(1 << 3)
+-/* partially resident texture */
++/* unmapped page of partially resident textures */
+ #define AMDGPU_VM_PAGE_PRT		(1 << 4)
+ /* MTYPE flags use bit 5 to 8 */
+ #define AMDGPU_VM_MTYPE_MASK		(0xf << 5)
 -- 
 2.51.1
 
