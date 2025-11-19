@@ -4,90 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2CCCF8860
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 13:53:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80889CF885E
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 13:53:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22DD810E746;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17FB110E29D;
 	Thu, 20 Nov 2025 13:53:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="wI5nmViu";
+	dkim=pass (2048-bit key; unprotected) header.d=runbox.com header.i=@runbox.com header.b="PsN5RGYw";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2FF210E66A
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 17:05:08 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-42b3c965cc4so664024f8f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 09:05:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1763571906; x=1764176706;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=SpIUuWPAq8xqPaEg9x1oOUftTzMiswVUqIcnyOOxJ7A=;
- b=wI5nmViu6bAJGRqnWjwI2JPDUExMcbgA9lLgKWAAQaCxWq2P0DlP92BLAf8+cAHzQ6
- p3vGVFdaX9QrW6cyVY/0nhuIGihuYTWrGwVoDXyeXYo8rK0xpoWpIQzQTdDnnT3s+6Dh
- H2wT82EAeIBrh+kKL441ZKWfWMtvD9SWQYfPetxNPjZzZ3+0S7khqSMCvqtDlyMrtLgP
- jl/nGbvcVIS3aIJpgrbZaxZ54RGpM1wwekdIeCY7WHtPdnyZlVk0T3kegqdfGC19xlzw
- sho9coV6It81IScht/sqSME45IOzOkmEJqDHKZkve8hGcYI1VQFYMBudGrkh8bV5rAsr
- UYBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763571906; x=1764176706;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SpIUuWPAq8xqPaEg9x1oOUftTzMiswVUqIcnyOOxJ7A=;
- b=dxPRXjnixU02TsiUM0CFhIC+7Db1hR1dGlNQOKHsPXrMm/uU7hGBrKeQr5Ws6fjRpp
- 2JkURFv3oZVxOVHHV+jJFLXiV8tccatzofgvNxBzVYWdAbFkeMaGXWy9RIy/rc9ldX4D
- xqOBd6BLzrZyVq3lfb6EQQFvDonvJg2YaMDaWzM7EBzpE52XzCVwZcvc5XAyWjybzgQy
- giQaODeXJoQjlGKDqpwoQhbEHgqGtuPSY5MJpfEyS+tniz5Cw0m8/7WgYtuCE7E7RXSj
- lqJigsEqi+SyVWHT1NHzJqeT4JHqRyh5y65gOL/nHAl03EnozNEV6CqI7phDE20ywuXU
- O5UA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdDJg2wxerS2xLObYSn7kdKkJtqKRao+tQBqQ5TJPrtYyvv/Y32Fycq15BkR/bKxz97jtVFNin@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyUTtE1j+QvOHt20zk4e5TKUC60k28oQzEqbIxQ7dtkcTOlnatR
- 1h6eMiw0tvBcj+/0kf8gQTMssVo25X6NLWrZLd6Hs7XmsHTP5eb+/WdeFJdnffZU1JQ=
-X-Gm-Gg: ASbGncuEI6cpSwiFBGB78Y6sNNFogg6tzk00hBmtJhyyXAKuDHYiDR4k2GgnewiAEFi
- SPwpijVQWXsKc9Pm9o7aQJIHTV8OEwx/KTPLQGH8fOQZ3pgUJdXQSesvSh+8yR2/0e3ZO0FNVCc
- LczPSNZai2buW9+Gp7qb3jae1HEhaKuXnCNjQS+JrM7qtxzFMfLNbbuiMebUp1324N0+iluzam/
- qTTQZeAQI0VJWYaGs4Z8Y2l6JQw2oCfLBreCI9qkcg/ssjwUlDZwTfSXfdv22ylRLuAUnxRjalD
- ECqWeSjSnVEXtYDzTXVDki9iPWGzDnj5jCEkYvC1wf6QkEYyfydUBEzNbYTt3JshU5vkDksROT7
- T6ouBmfrwP+r1Po2zZyMDuDjARFWc3jovwfCoavU1Hxdyecl/tCgVEHD872oNUhxoA+Fkl7IDuF
- RVGFcg/qUuClY2qjm7+TyPPwZOFi4azMmRyBE8ogaxQYgNVlQjzSN+3peBm82avg39yXLgZuT65
- D21SrXuuAk6kA==
-X-Google-Smtp-Source: AGHT+IGyjnLVU4D9u2D45u2Wal+Kezx1sPJlYQiqNfFPTwYYUqn33JZO3glMlmY2VOJjvcoe2RtzPA==
-X-Received: by 2002:adf:f98f:0:b0:42b:5448:7b34 with SMTP id
- ffacd0b85a97d-42cb21e7690mr2799841f8f.7.1763571906479; 
- Wed, 19 Nov 2025 09:05:06 -0800 (PST)
-Received: from localhost
- (p200300f65f02670883c4a3b3f2bee88d.dip0.t-ipconnect.de.
- [2003:f6:5f02:6708:83c4:a3b3:f2be:e88d])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-42cb7f2e454sm252057f8f.2.2025.11.19.09.05.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Nov 2025 09:05:05 -0800 (PST)
-Date: Wed, 19 Nov 2025 18:05:04 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Roman Savochenko <roman@oscada.org>, 1118349@bugs.debian.org
-Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: Bug#1118349: dpm broken on Radeon HD 8570D
-Message-ID: <jkkqfvey7b6evfq6ojj7nldwka6a2s5y32ehybyoi47nfn25ck@hqh7d2zrvlr3>
-References: <epyf7tdz3azb3fflb6rwuhax7mpccmqlsmzqqe2pcm7mxrdur4@zpx2uo5pvoqs>
- <BL1PR12MB51448357F3CCE2B2F9D346ADF7CEA@BL1PR12MB5144.namprd12.prod.outlook.com>
- <176078292467.2932.7155687538828443067.reportbug@home.home>
- <f689f22a-f53a-435a-b79c-d79b4cfd810c@oscada.org>
- <2qxsyt34y4gmwuxwyvs7qh6ekypair6mt3h7n5txdhletjnpsc@vygqxoo7oacn>
- <e0d85321-733d-4b89-ba5f-5efd5f1b18ac@oscada.org>
- <931c33cf-26cd-4d23-827d-8c61f9028ca9@amd.com>
- <176078292467.2932.7155687538828443067.reportbug@home.home>
- <389a9e45-0f92-4810-a8ed-91640750d973@oscada.org>
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com
+ [185.226.149.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFFEE10E26D;
+ Wed, 19 Nov 2025 23:14:33 +0000 (UTC)
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+ by mailtransmit05.runbox.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david.laight.linux_spam@runbox.com>)
+ id 1vLqsC-006kl6-Cb; Wed, 19 Nov 2025 23:42:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
+ s=selector1;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From; bh=vH8FIvcSxGANwVWko1oGmXX5GS5gNWUC/JCXBzpAFv8=; b=PsN5RG
+ Yw4adVp36kJvtQBzaOeT30b6SW8wtA5jYGrJdbMMMsYsvDj4CzgnWokM1Sou28r+uOGKmcLsCEfjF
+ x7vRqk4x0ZUk5Q3m4pLyHeUUi+2iNW4NTnKESfxwnZdG/Am3FVwILrLSmsIUe5z7hIsRaqS00FKIb
+ wpBgN3ajl01apzJtdlTrMHmSUaRE77jg78EefkqX+M/OVhBFzrdgCcdKMETn1d8vUsGL8F9h+RdA+
+ wbd/Fhu7XqijCSkRTMRCMNALzN5ANR/Nkxu1LF1FZnjDAvEZUMlegQ7pY4fPBR4It4haMp7qd5v5s
+ K6zPsakFUTM6CKZVixkuDzeoxeCg==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+ by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+ (envelope-from <david.laight.linux_spam@runbox.com>)
+ id 1vLqs5-0007yi-PP; Wed, 19 Nov 2025 23:41:53 +0100
+Received: by submission03.runbox with esmtpsa [Authenticated ID (1493616)]
+ (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.93) id 1vLqs1-00Fos6-6h; Wed, 19 Nov 2025 23:41:49 +0100
+From: david.laight.linux@gmail.com
+To: linux-kernel@vger.kernel.org
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Alexei Starovoitov <ast@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Andreas Dilger <adilger.kernel@dilger.ca>, Andrew Lunn <andrew@lunn.ch>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andrii Nakryiko <andrii@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Borislav Petkov <bp@alien8.de>,
+ Christian Brauner <brauner@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christoph Hellwig <hch@lst.de>, Daniel Borkmann <daniel@iogearbox.net>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Dave Jiang <dave.jiang@intel.com>, David Ahern <dsahern@kernel.org>,
+ David Hildenbrand <david@redhat.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ "David S. Miller" <davem@davemloft.net>, Dennis Zhou <dennis@kernel.org>,
+ Eric Dumazet <edumazet@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Ingo Molnar <mingo@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, Jakub Sitnicki <jakub@cloudflare.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, Jens Axboe <axboe@kernel.dk>,
+ Jiri Slaby <jirislaby@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Allen <john.allen@amd.com>,
+ Jonathan Cameron <jonathan.cameron@huawei.com>,
+ Juergen Gross <jgross@suse.com>, Kees Cook <kees@kernel.org>,
+ KP Singh <kpsingh@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Mika Westerberg <westeri@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Miklos Szeredi <miklos@szeredi.hu>, Namhyung Kim <namhyung@kernel.org>,
+ Neal Cardwell <ncardwell@google.com>, nic_swsd@realtek.com,
+ OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
+ Olivia Mackall <olivia@selenic.com>, Paolo Abeni <pabeni@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Huewe <peterhuewe@gmx.de>,
+ Peter Zijlstra <peterz@infradead.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sean Christopherson <seanjc@google.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Tejun Heo <tj@kernel.org>,
+ "Theodore Ts'o" <tytso@mit.edu>, Thomas Gleixner <tglx@linutronix.de>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, x86@kernel.org,
+ Yury Norov <yury.norov@gmail.com>, amd-gfx@lists.freedesktop.org,
+ bpf@vger.kernel.org, cgroups@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, io-uring@vger.kernel.org,
+ kvm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-cxl@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-mm@kvack.org,
+ linux-nvme@lists.infradead.org, linux-pci@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, mptcp@lists.linux.dev, netdev@vger.kernel.org,
+ usb-storage@lists.one-eyed-alien.net,
+ David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH 00/44] Change a lot of min_t() that might mask high bits
+Date: Wed, 19 Nov 2025 22:40:56 +0000
+Message-Id: <20251119224140.8616-1-david.laight.linux@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wjh2nulgapw6al2j"
-Content-Disposition: inline
-In-Reply-To: <389a9e45-0f92-4810-a8ed-91640750d973@oscada.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 20 Nov 2025 13:53:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,77 +122,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: David Laight <david.laight.linux@gmail.com>
 
---wjh2nulgapw6al2j
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: Bug#1118349: dpm broken on Radeon HD 8570D
-MIME-Version: 1.0
+It in not uncommon for code to use min_t(uint, a, b) when one of a or b
+is 64bit and can have a value that is larger than 2^32;
+This is particularly prevelant with:
+	uint_var = min_t(uint, uint_var, uint64_expression);
 
-Hello,
+Casts to u8 and u16 are very likely to discard significant bits.
 
-On Wed, Nov 12, 2025 at 06:19:07PM +0200, Roman Savochenko wrote:
-> 12.11.25 17:03, Christian K=F6nig:
-> > On 11/12/25 15:28, Roman Savochenko wrote:
-> > > 12.11.25 13:14, Uwe Kleine-K=F6nig:
-> > > > > On my hardware that doesn't work and there is no specific.
-> > > > >=20
-> > > > > Now just I set "radeon.dpm=3D1", I got immediately restart with d=
-isabling USB,
-> > > > > so I have needed to restart for successful download with "radeon.=
-dpm=3D0".
-> > > > Can you try a different monitor?
-> > > I have only one, connected through DVI, and there is no problem on Li=
-nux Kernel 5.
-> > Kernel 5 what? E.g. which concrete version number? (output of uname -a).
-> user@debian:~$ cat /proc/version
->=20
-> Linux version 5.10.0-32-amd64 (debian-kernel@lists.debian.org) (gcc-10
-> (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.=
-2)
-> #1 SMP Debian 5.10.223-1 (2024-08-10)
->=20
-> > > > Can you try which Debian kernel was the last one working fine respe=
-ctive
-> > > > the first being broken in this regard? You can find all kernels on
-> > > > https://snapshot.debian.org/. Please ask if it's unclear how to do =
-that.
-> > > I can try all kernels in Debian starting 7 and finishing 13, but I ha=
-ve traced that before and the problem reproduction started from Debian 9, t=
-erminated on Debian 11 and renewed on Debian 12.
+These can be detected at compile time by changing min_t(), for example:
+#define CHECK_SIZE(fn, type, val) \
+	BUILD_BUG_ON_MSG(sizeof (val) > sizeof (type) && \
+		!statically_true(((val) >> 8 * (sizeof (type) - 1)) < 256), \
+		fn "() significant bits of '" #val "' may be discarded")
 
-Not sure I follow. Does that mean that Debian 9, Debian 10, Debian 12
-and Debian 13 show the symptom and Debian 11 doesn't?
+#define min_t(type, x, y) ({ \
+	CHECK_SIZE("min_t", type, x); \
+	CHECK_SIZE("min_t", type, y); \
+	__cmp_once(min, type, x, y); })
 
-In that case the interesting interval is 5.10 .. 6.1. If you could
-pinpoint the oldest kernel image package that shows the symptoms that
-would be great.
+(and similar changes to max_t() and clamp_t().)
 
-> > How keen are you to compile the kernel yourself? That is usually relati=
-vely easy to do and git has a bisect command which allows you to pinpoint w=
-hich kernel patch actually changes something.
+This shows up some real bugs, some unlikely bugs and some false positives.
+In most cases both arguments are unsigned type (just different ones)
+and min_t() can just be replaced by min().
 
-For the typical Linux user compiling their own kernel is a big hurdle,
-so usually we (=3D Debian kernel team) ask for bisecting using
-distribution kernel packages first which tends to be a bit easier.
+The patches are all independant and are most of the ones needed to
+get the x86-64 kernel I build to compile.
+I've not tried building an allyesconfig or allmodconfig kernel.
+I've also not included the patch to minmax.h itself.
 
-Best regards
-Uwe
+I've tried to put the patches that actually fix things first.
+The last one is 0009.
 
---wjh2nulgapw6al2j
-Content-Type: application/pgp-signature; name="signature.asc"
+I gave up on fixing sched/fair.c - it is too broken for a single patch!
+The patch for net/ipv4/tcp.c is also absent because do_tcp_getsockopt()
+needs multiple/larger changes to make it 'sane'.
 
------BEGIN PGP SIGNATURE-----
+I've had to trim the 124 maintainers/lists that get_maintainer.pl finds
+from 124 to under 100 to be able to send the cover letter.
+The individual patches only go to the addresses found for the associated files.
+That reduces the number of emails to a less unsane number.
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmkd+L4ACgkQj4D7WH0S
-/k6AAAf/UHJoqq0WyfYRhxRKZ8ECDXEjZDuH4bnjk58eZyptpBYly5gFbzpWBcX0
-oudEcYN9meLg5FRqePIELcRSXR1KxosfEFJfiQ8JW3qFawj8mXi0IXZHP8jd5LUX
-PjugHx9JQ5P8R4+0O+TsdLz/0aPn58pLAa5yXCsBZYM4mKlfkyXi/rB0G6hpgLvb
-KL8EamySGA3ZalBcZyPa4jjJ9l6Zx6A+REP5SJsSF6IGXxqDrSR7Mhwbox3J4iVF
-YxwH4gOJKq7u0at05zAsyOAiUcmXIe66hlCfRnLrZLhVLY9OMnctkcVC7DttVpjY
-UynXQ856esYcZbULM6J6g9jve4ZNyw==
-=/St3
------END PGP SIGNATURE-----
+David Laight (44):
+  x86/asm/bitops: Change the return type of variable__ffs() to unsigned
+    int
+  ext4: Fix saturation of 64bit inode times for old filesystems
+  perf: Fix branch stack callchain limit
+  io_uring/net: Change some dubious min_t()
+  ipc/msg: Fix saturation of percpu counts in msgctl_info()
+  bpf: Verifier, remove some unusual uses of min_t() and max_t()
+  net/core/flow_dissector: Fix cap of __skb_flow_dissect() return value.
+  net: ethtool: Use min3() instead of nested min_t(u16,...)
+  ipv6: __ip6_append_data() don't abuse max_t() casts
+  x86/crypto: ctr_crypt() use min() instead of min_t()
+  arch/x96/kvm: use min() instead of min_t()
+  block: use min() instead of min_t()
+  drivers/acpi: use min() instead of min_t()
+  drivers/char/hw_random: use min3() instead of nested min_t()
+  drivers/char/tpm: use min() instead of min_t()
+  drivers/crypto/ccp: use min() instead of min_t()
+  drivers/cxl: use min() instead of min_t()
+  drivers/gpio: use min() instead of min_t()
+  drivers/gpu/drm/amd: use min() instead of min_t()
+  drivers/i2c/busses: use min() instead of min_t()
+  drivers/net/ethernet/realtek: use min() instead of min_t()
+  drivers/nvme: use min() instead of min_t()
+  arch/x86/mm: use min() instead of min_t()
+  drivers/nvmem: use min() instead of min_t()
+  drivers/pci: use min() instead of min_t()
+  drivers/scsi: use min() instead of min_t()
+  drivers/tty/vt: use umin() instead of min_t(u16, ...) for row/col
+    limits
+  drivers/usb/storage: use min() instead of min_t()
+  drivers/xen: use min() instead of min_t()
+  fs: use min() or umin() instead of min_t()
+  block: bvec.h: use min() instead of min_t()
+  nodemask: use min() instead of min_t()
+  ipc: use min() instead of min_t()
+  bpf: use min() instead of min_t()
+  bpf_trace: use min() instead of min_t()
+  lib/bucket_locks: use min() instead of min_t()
+  lib/crypto/mpi: use min() instead of min_t()
+  lib/dynamic_queue_limits: use max() instead of max_t()
+  mm: use min() instead of min_t()
+  net: Don't pass bitfields to max_t()
+  net/core: Change loop conditions so min() can be used
+  net: use min() instead of min_t()
+  net/netlink: Use umin() to avoid min_t(int, ...) discarding high bits
+  net/mptcp: Change some dubious min_t(int, ...) to min()
 
---wjh2nulgapw6al2j--
+ arch/x86/crypto/aesni-intel_glue.c            |  3 +-
+ arch/x86/include/asm/bitops.h                 | 18 +++++-------
+ arch/x86/kvm/emulate.c                        |  3 +-
+ arch/x86/kvm/lapic.c                          |  2 +-
+ arch/x86/kvm/mmu/mmu.c                        |  2 +-
+ arch/x86/mm/pat/set_memory.c                  | 12 ++++----
+ block/blk-iocost.c                            |  6 ++--
+ block/blk-settings.c                          |  2 +-
+ block/partitions/efi.c                        |  3 +-
+ drivers/acpi/property.c                       |  2 +-
+ drivers/char/hw_random/core.c                 |  2 +-
+ drivers/char/tpm/tpm1-cmd.c                   |  2 +-
+ drivers/char/tpm/tpm_tis_core.c               |  4 +--
+ drivers/crypto/ccp/ccp-dev.c                  |  2 +-
+ drivers/cxl/core/mbox.c                       |  2 +-
+ drivers/gpio/gpiolib-acpi-core.c              |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ drivers/i2c/busses/i2c-designware-master.c    |  2 +-
+ drivers/net/ethernet/realtek/r8169_main.c     |  3 +-
+ drivers/nvme/host/pci.c                       |  3 +-
+ drivers/nvme/host/zns.c                       |  3 +-
+ drivers/nvmem/core.c                          |  2 +-
+ drivers/pci/probe.c                           |  3 +-
+ drivers/scsi/hosts.c                          |  2 +-
+ drivers/tty/vt/selection.c                    |  9 +++---
+ drivers/usb/storage/protocol.c                |  3 +-
+ drivers/xen/grant-table.c                     |  2 +-
+ fs/buffer.c                                   |  2 +-
+ fs/exec.c                                     |  2 +-
+ fs/ext4/ext4.h                                |  2 +-
+ fs/ext4/mballoc.c                             |  3 +-
+ fs/ext4/resize.c                              |  2 +-
+ fs/ext4/super.c                               |  2 +-
+ fs/fat/dir.c                                  |  4 +--
+ fs/fat/file.c                                 |  3 +-
+ fs/fuse/dev.c                                 |  2 +-
+ fs/fuse/file.c                                |  8 ++---
+ fs/splice.c                                   |  2 +-
+ include/linux/bvec.h                          |  3 +-
+ include/linux/nodemask.h                      |  9 +++---
+ include/linux/perf_event.h                    |  2 +-
+ include/net/tcp_ecn.h                         |  5 ++--
+ io_uring/net.c                                |  6 ++--
+ ipc/mqueue.c                                  |  4 +--
+ ipc/msg.c                                     |  6 ++--
+ kernel/bpf/core.c                             |  4 +--
+ kernel/bpf/log.c                              |  2 +-
+ kernel/bpf/verifier.c                         | 29 +++++++------------
+ kernel/trace/bpf_trace.c                      |  2 +-
+ lib/bucket_locks.c                            |  2 +-
+ lib/crypto/mpi/mpicoder.c                     |  2 +-
+ lib/dynamic_queue_limits.c                    |  2 +-
+ mm/gup.c                                      |  4 +--
+ mm/memblock.c                                 |  2 +-
+ mm/memory.c                                   |  2 +-
+ mm/percpu.c                                   |  2 +-
+ mm/truncate.c                                 |  3 +-
+ mm/vmscan.c                                   |  2 +-
+ net/core/datagram.c                           |  6 ++--
+ net/core/flow_dissector.c                     |  7 ++---
+ net/core/net-sysfs.c                          |  3 +-
+ net/core/skmsg.c                              |  4 +--
+ net/ethtool/cmis_cdb.c                        |  7 ++---
+ net/ipv4/fib_trie.c                           |  2 +-
+ net/ipv4/tcp_input.c                          |  4 +--
+ net/ipv4/tcp_output.c                         |  5 ++--
+ net/ipv4/tcp_timer.c                          |  4 +--
+ net/ipv6/addrconf.c                           |  8 ++---
+ net/ipv6/ip6_output.c                         |  7 +++--
+ net/ipv6/ndisc.c                              |  5 ++--
+ net/mptcp/protocol.c                          |  8 ++---
+ net/netlink/genetlink.c                       |  9 +++---
+ net/packet/af_packet.c                        |  2 +-
+ net/unix/af_unix.c                            |  4 +--
+ 76 files changed, 141 insertions(+), 176 deletions(-)
+
+-- 
+2.39.5
+
