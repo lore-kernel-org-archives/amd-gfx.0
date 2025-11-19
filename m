@@ -4,52 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3667FCF3189
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 09:55:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEFEFCF3186
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 10:03:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD24D10E5C8;
-	Wed, 19 Nov 2025 09:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D1CC10E5C9;
+	Wed, 19 Nov 2025 10:03:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="UyT4GCMi";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="UXh+Uth6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AiqQms1B";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1286F10E038;
- Wed, 19 Nov 2025 09:55:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1763546112;
- bh=oGHcwLOlMslChliuqHxaVqK
- bKGrqb7USj2zfYnJUKNg=; b=UyT4GCMiKN4K++U+LfnmA23g2xbPVxXLw4doOjePKCUBlyK6FT
- rx/luBeREiWs8p3qIeOfM7Zfhj9yyNHwqhnasNv/7zzQpRsB3SOTTy1ziwSwpK6dj9QvakOMqoe
- f4kVQTocvf4m/vPbn6sHxuWzWqB3/7akQtEB6DByynqDVOCUObdxH+5nT9tBcTsl8jItcOo4hU2
- yiD1OF8HKvQYufwKlLVDHnXtuS0Q9bOZauahC1V3is0Pm5V5tkAPaXWOBtlqbF+6ubX6YAPesS4
- QcYlYoHQT8VT5SzRlyeWF3EBjrQ0kGHZ+9OxOZkb2Vysu8f/+OdQfloFO6/RaSrsVHw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1763546112; bh=oGHcwLOlMslChliuqHxaVqK
- bKGrqb7USj2zfYnJUKNg=; b=UXh+Uth6IjUQ7J8NnEdMuJgCFr/vf6J+IQF2FBRWpGx+kL035j
- Zd/qAdgL295984SkTGFqjuvcBNiRnXEjBmAw==;
-Message-ID: <4f42b19a-5382-4da3-83e9-ac156ffebe5c@damsy.net>
-Date: Wed, 19 Nov 2025 10:55:11 +0100
-MIME-Version: 1.0
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011065.outbound.protection.outlook.com
+ [40.93.194.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D0F710E5C9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 10:03:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b4uAQybDqQdBBKw+DxEUXb1joTx9Oocf8Cmse4MaWOq5+83Gp02pn+9Muci0gAg24rRdkTHUoNnswboGN+Z3BZYTD5MlZ87eVato+AosswB0HUMHZCk/S8NYD2xQIZD1QYEzzA2Bzko7zyJo0xOIpN+ih0qm4pNYmmrj2lUSRVo1xs0L1pXgxmJzqFJd9pXLRviWzoaTEo3pnOEYFb60n7tL3EeQFKpVH2kJgpOr1RiGyOzniSpGgKiqsU9oIN1dMyteHa3PIBH1wBbRKAqP9sS4FSCLFVO/o1jgIDCxTPjfJ/ul2uhvU4ndt8478hmrTBXU1Pi2+SlBCbhiHXhnrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sfGEyJ76RTsBDe10O20Bge9Id+zYI1f0K8sGYYpclqA=;
+ b=wd6JMFLMSSB5Z8fwA+URjjFib2+RZafeDDODBgRWv71ZR2jkK1Au/PHZpNAoKOKSv9f0rU4iSgY8JjDD5Md/r6Xkomgnqkm5e7K0F5mBKVOJ1bejs0W6et6m3LI+wWfZE2K1dFg+pupAzhKdcaNyo6AFYf9mzz+Lht/LctGn3TzCY3pfjV0AU3ZKHdaktH+pzlrKmSt+fBhCKeQeLMxkpRWYWSJC/hiYBlqEYGfAzLWepMitjmlhiaeROHdl249H2VT7KwLguXrhK18Ur94Lbv2Gc6yv9PoOxdUJBlY/KlCrfEwUUmoLPQhNA6Q0bq4eiVfh05MLQPLEMjUQgyOapQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sfGEyJ76RTsBDe10O20Bge9Id+zYI1f0K8sGYYpclqA=;
+ b=AiqQms1BgU7aXFa/O+fpDQJ9KWwIqF2FnRsYahmx/dC/EgQE6IPFangu4o9B+HVQpVubEixAUM1OzX9FvE/i1x73O20gJQdOTQsexXZGczZ4OVkjNezOjpynEfN3HREVdOFI6s2DeysPy0QuEgRxwMprpJWUjRqg0MwZkdbu9/o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by SA1PR12MB9516.namprd12.prod.outlook.com (2603:10b6:806:45b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Wed, 19 Nov
+ 2025 10:03:19 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d%4]) with mapi id 15.20.9343.009; Wed, 19 Nov 2025
+ 10:03:19 +0000
+Message-ID: <b1fc79bd-11e2-49f2-8483-a21cf6e9952a@amd.com>
+Date: Wed, 19 Nov 2025 15:33:12 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/20] drm/amdgpu: statically assign gart windows to
- ttm entities
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20251113160632.5889-1-pierre-eric.pelloux-prayer@amd.com>
- <20251113160632.5889-7-pierre-eric.pelloux-prayer@amd.com>
- <1e503518-01ed-4562-833f-170ee2be5659@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Add sriov vf check for VCN per queue reset
+ support.
+To: Shikang Fan <shikang.fan@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com
+References: <20251118100657.1222595-1-shikang.fan@amd.com>
 Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <1e503518-01ed-4562-833f-170ee2be5659@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20251118100657.1222595-1-shikang.fan@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0141.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::21) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA1PR12MB9516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 087e93bc-8d68-4e03-af76-08de2752dd8a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cUZ6aDJrcG9ia094V2YreHRwRWEyUXNpVWRJaGZTZUNjQmE5Wk5Qby9KL0VW?=
+ =?utf-8?B?VjQrQlJXQTZ2T05DcTJibmRpMzY3eG44SkpQZThOaTR3YmhWNlNNTEtLaGZw?=
+ =?utf-8?B?NUc4U2liNWozczRrT0ZPOTJJUStXR1BiRzJjdktVanFUcDdLNW5FWjF2S2hr?=
+ =?utf-8?B?NTZqdGJOMWpoUHFkRG95NDdjcEdFMEZCVlI5dW5zU2l4QmFyYnVJSkpBMGpV?=
+ =?utf-8?B?OTJFSk9YS2txdjJRYVNhQ3hJM0RHSWd3SzI3S0FXYjlvZy9vV3QrcW05c3hn?=
+ =?utf-8?B?SEFONGFFMDNFcytyUXI4NmNSd0JhNjFPN244bkVsRFJjYjNIWk5qVHdKc3l4?=
+ =?utf-8?B?ZmJvREpmWitOSmJkUlAzaDVWUUZFaHNTVlR2QjhEMS9tOTN5eGNzRGFYZW12?=
+ =?utf-8?B?dDA2dnZqV0ZKV3ZvVTRhZ2FxZHNpbm1xRmdMcG5MM3FhMEk0bm1tYjZYeVdK?=
+ =?utf-8?B?ZFYwSGQwRWc2Um94Y1I0d2IySlV1cWlSR1VCWU5ReE9LcTJPem05SFhmUits?=
+ =?utf-8?B?WEJpWXF6bVdPTGFlRGp1NlB4K1I3WEhpeGpsOUJMTlhBLzQ1OEc1bmh1aWhW?=
+ =?utf-8?B?dEo0akVPUkswK0VRRGo5MVpUcURpd3hxdEdGejlvVG8vWENMbW1PcnlnVHQv?=
+ =?utf-8?B?V0F4cDUvbkErY2ZmckVOOGNuL0xweGdHV3ljVkYxbTFIWGtWYmN6SEp2bjBz?=
+ =?utf-8?B?QXJwS3l5bU9DNU8yWUxaMm1tMjk3TUF5OVMxUkpvZkMwZGg4SFoxSWdLZzVx?=
+ =?utf-8?B?WWloNTF1L0UzZklic0VLaWhyRnZKVHR4dVMzZVVPN0UwMnUyNUFEakFpdFN3?=
+ =?utf-8?B?a3dWR05XdDVzVmk4MEFRbjBNMHhnMy82TDl4ak10SEhITEFsQUswY2d0QmIv?=
+ =?utf-8?B?cDA5M0t0c2R4T1dYSE9QUDJmM2U0azRaMFRPeHVSYVNJdVVIdG9aZGpMZVNv?=
+ =?utf-8?B?UHIxTE9pRXBDSDcrUml2b1dSQzNudVdqWVBkcTZ1L1NVTHB2ekx4L2JNMWVt?=
+ =?utf-8?B?dWc0MkNhQWIxWktmY1FEZ2xjdmhIL3FMRjd5NnRuMXc3RmhqbzJtL1hwd2xP?=
+ =?utf-8?B?UGI5bDlQOFN6UzVhNmJ4SGRpUnpKNlZXUkxRL1laR3hzbjkwTFcwQ0NyMnRR?=
+ =?utf-8?B?Uy9makg1WnhNTUVCbENSRkxRMXlQcnNpR0J6TzByQW56blM3dVNHMUx0amtE?=
+ =?utf-8?B?eThkRklPNlhnUWZxZGdmcVB4c2dLNG02ZjZBTFNVdzJGZEx2bExkcjFQZmQ3?=
+ =?utf-8?B?OXBkZ0l5QTc1UXYyald6QjZDc2ozaVgydm9HRFZoU1lTQ3ZVMmRoYUpLZXRZ?=
+ =?utf-8?B?aTdGZGR1QUhtM29TcDJEdGM2MHBTU1hrdVlEb29KQnpNS1Z1VWxCZ0JEbVNp?=
+ =?utf-8?B?KytFS08xL0poRzl2VXZDeXFES0JkSVg4dkRwb2V2SmtsMjhnUkVSN1RlS3V6?=
+ =?utf-8?B?cWlMR2JaSUd5M3hVNDZNWVNGb2w4bDJoT0pBeXlRSVp0cnYvLy9qRitESkxY?=
+ =?utf-8?B?WDlIQnZzc2pGOHhDN1pUdnh5eklkOUxydXQzK0JiRzlCRGUwaGZacExvelI3?=
+ =?utf-8?B?NTA1ZGhTTGltS3o2b2h4Zk1kSkJudjk0c2h2UmgrdW8yUVNMQzE4Tm1WbDdx?=
+ =?utf-8?B?dUVrSTFUWmNraUgxSDlmYWFGSmYvbzZiV2Q2RDI3WkVFTzNrNmVIS3NVbjl6?=
+ =?utf-8?B?WEtuczhOL0NpeGhQTXZvaVZ3WE56VFRicUNxMVpTekZwSnVsT04rRWNTT3ls?=
+ =?utf-8?B?ZjEzT0lVUlY4dEhWZmJIR2dnOG94Nm16bDVkMEFvYlRUUitTNEVKUkJ5cFVp?=
+ =?utf-8?B?MXdsY0F5Uy9nVmRTMXlkVTRnSy8zT2Z2cDExNTF5M0RjbnViUElDR1pjZ2ta?=
+ =?utf-8?B?RXYra0tjaCs3UWphREs5K0hoWGM0a2VGSUN0NWp0RTc0K21sU3BYNkpkcmsy?=
+ =?utf-8?Q?P8+/2s2M6mOUb20f6eSoG992eq4i381T?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkVkZy9VZzBzdk4zUEVsTnM2Q3IvQzN3OUNWb0RsRHpGWXhyVjJ4cDRQbzUx?=
+ =?utf-8?B?Lzg1SE5FQUhoVk9nTCtyNmp1ekJKMDQxZUxyOGpoZGxuSVZzZEtCMGxjQVJ3?=
+ =?utf-8?B?bTlCalMvN29yRVNuZjduUnQvRGxKT3hHQm5vb1N0M20yL0lIUkpoNEUwY2xl?=
+ =?utf-8?B?OVcrL1ZwdWhiZTJNOWs4Z3BDeXFIVzdqM2hnOFUxZWxuVzEvQy9mUUVYZ3Va?=
+ =?utf-8?B?dUNDTVduVWRTZEsrQVBiNW9oZFl2S3lUWGVhWlhhdWpzN3FMaHVNb29SMVlu?=
+ =?utf-8?B?cW9pdnQwVkdVMjh6ZmdCdXhRaC9YVmRTcWpranVJeU90WXUwTlFidUk3aXIz?=
+ =?utf-8?B?YjJGdnhvSWV3SlZSd3A2SHpzU1gvTVVDODNLRnVZc0lRYmNVQjg0ZjQrUXRO?=
+ =?utf-8?B?MWFEa053L1FTUVdEb1F6YVlRYmVsempxTno1RkJnUVVBWjdLa1NUaTl1NDE2?=
+ =?utf-8?B?VjEyTXFiREtNZnpJaURNNVIwMFRiQTU5NnlKSm1WbVVRQWpSUmtqYXJzZEw1?=
+ =?utf-8?B?NUxic0pUbGZ4bTRPbzd0WFJyTlpmeUdXZWp6OWNuK05FL2R6RGYxTEZoSUZa?=
+ =?utf-8?B?bkgycVBId1o5N09LNHhoZ3pMMGlHQXRpZ1MyRVc1dGNZdlh2NlNiN1BQSUw2?=
+ =?utf-8?B?TVRJcG1wTm5HY01pZE85Q2JxZnN3NFZ1S0N4citKdVRvWVQvaGdCa1hJYmRK?=
+ =?utf-8?B?YU82ejROYXVpNWFhRklQMGdHWDRKcHZsMktEZFdnYThvalkxTEpGUUdXZi85?=
+ =?utf-8?B?M1dwTmhPUnlMKzNSaWdjK014bGhqd3lrZFhyZU9QeFVYZmM2YTFkS2NLaHlp?=
+ =?utf-8?B?YkpqVEV0TktGK29LUXBJYWw0b0NGTUUxRWx2LytraHdvZzdzZ0JUTmNJQVds?=
+ =?utf-8?B?ZGhYdjVwMXYrT1dzRnNJUWxJWFJzUmd0Vll6bjlwUFJPTUZPZjJXZ3RjNkpj?=
+ =?utf-8?B?TGVWdERzeGxjUWExVitENlBjMGdLL2hoSkx0NUJOVVBvOSsrT1BYN3NBN1U0?=
+ =?utf-8?B?NDMrUjJoRTR5RlNvTUI2dlJCZzluWWdrenA2TkxYSUQ5ekV6eEtDa0UrTjN2?=
+ =?utf-8?B?VVUyUTQwRlRvWHUzYmF4QjF6TGF3WkxnK2R6SFJYZml1TFZyRWRzazJqbXRT?=
+ =?utf-8?B?NnZBYUdGQWtqTUpFOEl2WjlKamFnVUxzSGJCd1RPV05IQjhEVnBTYUxNWWJZ?=
+ =?utf-8?B?SzRVRTRQVW9ONFJVV3ZMbC9LbnZIS2F6bzZQaU5uZjZ5WitPdGNGNHpxQWZU?=
+ =?utf-8?B?ZXFhWjBRanJTQThCTCsyT2pkOGFOUTlBL0lESWNBWDNILzEyYjVmejZOQVcz?=
+ =?utf-8?B?MlNqTWR5Z3JjeEJvaFRBSFpJRGVscU1sWi9peFdJbHUxNjRsc1JzVHRoUkxv?=
+ =?utf-8?B?amswYUN0WWxka2RrL0hXd0h6SHZEMmJ3Ty9qSnUzaHhqclB5dkQwNVBleUQ5?=
+ =?utf-8?B?SjRtQ3BnNkI0MU93WVNoa3Awb0tVdC9FRVYyeU5XYUJNcjBSZy9qbUxuaS9w?=
+ =?utf-8?B?MHN3Qi9NNU1IZ2pjWU1NekJQRFRISzNObytVR29BN3dKdmVsVGdCSkd2OThI?=
+ =?utf-8?B?MktiVVNCZDd3YldUd3JJd1poVEF0OWxHcHFqTTdTK0dDTzJOZ2E4RzEzbjJI?=
+ =?utf-8?B?Y1NrdUdDblI1Rll1Y2hRMW5CZG9zTG10NisrSFF5czgvQ3hKQ2pBZlk0eTNZ?=
+ =?utf-8?B?ZDVvTDd4N3RsOSt6Wnlrc0pKaExVckxsRExvN0RSc29CNExwS1M5b3NBT08z?=
+ =?utf-8?B?UVZVU08xUUZ1U3FBNWxFdUdaZlVTbG1uczFIajZjSDVoc0NFbklxNXNwcFZK?=
+ =?utf-8?B?VGlTWFJCVXhEL3JPNEJWckFxT3V0bndyOEdGWldqMVF4cC83ejRGSVBOc01W?=
+ =?utf-8?B?bHA1QXcxWGRibS9MVHMwd1F0THFlQW5XeUNScFRyYThyVGhtWkRsTWY3cjJh?=
+ =?utf-8?B?RGU4SzJWQTdHU3ZaYmF0LzByb0NFWVNIR09DVVc2dVdaK1VWaFE4QWJIM0NB?=
+ =?utf-8?B?eCtpR1p4RVl4enB2ZlJFRHFSTEtYRmRuMWZFMmxkLzAxWXJWaVFCK3ZuNThG?=
+ =?utf-8?B?b3BnYmhLSmdmbThnRy94UkZYTW81eEN2SmhKUllZZzZ0dFJqUWtPcTZvdmhX?=
+ =?utf-8?Q?N8JZHINE4grJqWbrAlt4ubo16?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 087e93bc-8d68-4e03-af76-08de2752dd8a
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2025 10:03:19.5014 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LrSCPeMUXobDcRBAUeczkL7E0feLPqznuGcVwpjGc+FO9WsQl9meF39PyhrwQiQB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9516
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,318 +164,47 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-Le 14/11/2025 à 21:24, Felix Kuehling a écrit :
+On 11/18/2025 3:36 PM, Shikang Fan wrote:
+> Add SRIOV check when setting VCN ring's supported reset mask.
 > 
-> On 2025-11-13 11:05, Pierre-Eric Pelloux-Prayer wrote:
->> If multiple entities share the same window we must make sure
->> that jobs using them are executed sequentially.
->>
->> This commit gives separate window id to each entity, so jobs
->> from multiple entities could execute in parallel if needed.
->> (for now they all use the first sdma engine, so it makes no
->> difference yet).
->>
->> default_entity doesn't get any windows reserved since there is
->> no use for them.
->>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  |  9 +++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 50 ++++++++++++++----------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h  |  9 +++--
->>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  8 ++--
->>   4 files changed, 46 insertions(+), 30 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/ 
->> amdgpu/amdgpu_gmc.c
->> index 8e2d41c9c271..2a444d02cf4b 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->> @@ -686,7 +686,8 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, 
->> uint32_t vmid,
->>        * translation. Avoid this by doing the invalidation from the SDMA
->>        * itself at least for GART.
->>        */
->> -    mutex_lock(&adev->mman.gtt_window_lock);
->> +    mutex_lock(&adev->mman.clear_entity.gart_window_lock);
->> +    mutex_lock(&adev->mman.move_entity.gart_window_lock);
->>       r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.default_entity.base,
->>                        AMDGPU_FENCE_OWNER_UNDEFINED,
->>                        16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
->> @@ -699,7 +700,8 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, 
->> uint32_t vmid,
->>       job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
->>       amdgpu_ring_pad_ib(ring, &job->ibs[0]);
->>       fence = amdgpu_job_submit(job);
->> -    mutex_unlock(&adev->mman.gtt_window_lock);
->> +    mutex_unlock(&adev->mman.move_entity.gart_window_lock);
->> +    mutex_unlock(&adev->mman.clear_entity.gart_window_lock);
->>       dma_fence_wait(fence, false);
->>       dma_fence_put(fence);
->> @@ -707,7 +709,8 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, 
->> uint32_t vmid,
->>       return;
->>   error_alloc:
->> -    mutex_unlock(&adev->mman.gtt_window_lock);
->> +    mutex_unlock(&adev->mman.move_entity.gart_window_lock);
->> +    mutex_unlock(&adev->mman.clear_entity.gart_window_lock);
->>       dev_err(adev->dev, "Error flushing GPU TLB using the SDMA (%d)!\n", r);
->>   }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/ 
->> amdgpu/amdgpu_ttm.c
->> index c8d59ca2b3bd..7193a341689d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -291,7 +291,7 @@ static int amdgpu_ttm_map_buffer(struct drm_sched_entity 
->> *entity,
->>    */
->>   __attribute__((nonnull))
->>   static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
->> -                      struct drm_sched_entity *entity,
->> +                      struct amdgpu_ttm_buffer_entity *entity,
->>                         const struct amdgpu_copy_mem *src,
->>                         const struct amdgpu_copy_mem *dst,
->>                         uint64_t size, bool tmz,
->> @@ -314,7 +314,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device 
->> *adev,
->>       amdgpu_res_first(src->mem, src->offset, size, &src_mm);
->>       amdgpu_res_first(dst->mem, dst->offset, size, &dst_mm);
->> -    mutex_lock(&adev->mman.gtt_window_lock);
->> +    mutex_lock(&entity->gart_window_lock);
->>       while (src_mm.remaining) {
->>           uint64_t from, to, cur_size, tiling_flags;
->>           uint32_t num_type, data_format, max_com, write_compress_disable;
->> @@ -324,15 +324,15 @@ static int amdgpu_ttm_copy_mem_to_mem(struct 
->> amdgpu_device *adev,
->>           cur_size = min3(src_mm.size, dst_mm.size, 256ULL << 20);
->>           /* Map src to window 0 and dst to window 1. */
->> -        r = amdgpu_ttm_map_buffer(entity,
->> +        r = amdgpu_ttm_map_buffer(&entity->base,
->>                         src->bo, src->mem, &src_mm,
->> -                      0, ring, tmz, &cur_size, &from);
->> +                      entity->gart_window_id0, ring, tmz, &cur_size, &from);
->>           if (r)
->>               goto error;
->> -        r = amdgpu_ttm_map_buffer(entity,
->> +        r = amdgpu_ttm_map_buffer(&entity->base,
->>                         dst->bo, dst->mem, &dst_mm,
->> -                      1, ring, tmz, &cur_size, &to);
->> +                      entity->gart_window_id1, ring, tmz, &cur_size, &to);
->>           if (r)
->>               goto error;
->> @@ -359,7 +359,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device 
->> *adev,
->>                                    write_compress_disable));
->>           }
->> -        r = amdgpu_copy_buffer(ring, entity, from, to, cur_size, resv,
->> +        r = amdgpu_copy_buffer(ring, &entity->base, from, to, cur_size, resv,
->>                          &next, true, copy_flags);
->>           if (r)
->>               goto error;
->> @@ -371,7 +371,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device 
->> *adev,
->>           amdgpu_res_next(&dst_mm, cur_size);
->>       }
->>   error:
->> -    mutex_unlock(&adev->mman.gtt_window_lock);
->> +    mutex_unlock(&entity->gart_window_lock);
->>       *f = fence;
->>       return r;
->>   }
->> @@ -401,7 +401,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
->>       dst.offset = 0;
->>       r = amdgpu_ttm_copy_mem_to_mem(adev,
->> -                       &adev->mman.move_entity.base,
->> +                       &adev->mman.move_entity,
->>                          &src, &dst,
->>                          new_mem->size,
->>                          amdgpu_bo_encrypted(abo),
->> @@ -1893,8 +1893,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->>       uint64_t gtt_size;
->>       int r;
->> -    mutex_init(&adev->mman.gtt_window_lock);
->> -
->>       dma_set_max_seg_size(adev->dev, UINT_MAX);
->>       /* No others user of address space so set it to 0 */
->>       r = ttm_device_init(&adev->mman.bdev, &amdgpu_bo_driver, adev->dev,
->> @@ -2207,6 +2205,15 @@ void amdgpu_ttm_set_buffer_funcs_status(struct 
->> amdgpu_device *adev, bool enable)
->>               drm_sched_entity_destroy(&adev->mman.clear_entity.base);
->>               goto error_free_entity;
->>           }
->> +
->> +        /* Statically assign GART windows to each entity. */
->> +        mutex_init(&adev->mman.default_entity.gart_window_lock);
->> +        adev->mman.move_entity.gart_window_id0 = 0;
->> +        adev->mman.move_entity.gart_window_id1 = 1;
->> +        mutex_init(&adev->mman.move_entity.gart_window_lock);
->> +        /* Clearing entity doesn't use id0 */
->> +        adev->mman.clear_entity.gart_window_id1 = 2;
->> +        mutex_init(&adev->mman.clear_entity.gart_window_lock);
->>       } else {
->>           drm_sched_entity_destroy(&adev->mman.default_entity.base);
->>           drm_sched_entity_destroy(&adev->mman.clear_entity.base);
->> @@ -2371,6 +2378,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
->>   {
->>       struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->>       struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
->> +    struct amdgpu_ttm_buffer_entity *entity;
->>       struct amdgpu_res_cursor cursor;
->>       u64 addr;
->>       int r = 0;
->> @@ -2381,11 +2389,12 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
->>       if (!fence)
->>           return -EINVAL;
->> +    entity = &adev->mman.clear_entity;
->>       *fence = dma_fence_get_stub();
->>       amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &cursor);
->> -    mutex_lock(&adev->mman.gtt_window_lock);
->> +    mutex_lock(&entity->gart_window_lock);
->>       while (cursor.remaining) {
->>           struct dma_fence *next = NULL;
->>           u64 size;
->> @@ -2398,13 +2407,13 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
->>           /* Never clear more than 256MiB at once to avoid timeouts */
->>           size = min(cursor.size, 256ULL << 20);
->> -        r = amdgpu_ttm_map_buffer(&adev->mman.clear_entity.base,
->> +        r = amdgpu_ttm_map_buffer(&entity->base,
->>                         &bo->tbo, bo->tbo.resource, &cursor,
->> -                      1, ring, false, &size, &addr);
->> +                      entity->gart_window_id1, ring, false, &size, &addr);
->>           if (r)
->>               goto err;
->> -        r = amdgpu_ttm_fill_mem(ring, &adev->mman.clear_entity.base, 0, addr, 
->> size, resv,
->> +        r = amdgpu_ttm_fill_mem(ring, &entity->base, 0, addr, size, resv,
->>                       &next, true,
->>                       AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
->>           if (r)
->> @@ -2416,12 +2425,12 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
->>           amdgpu_res_next(&cursor, size);
->>       }
->>   err:
->> -    mutex_unlock(&adev->mman.gtt_window_lock);
->> +    mutex_unlock(&entity->gart_window_lock);
->>       return r;
->>   }
->> -int amdgpu_fill_buffer(struct amdgpu_ttm_entity *entity,
->> +int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>                  struct amdgpu_bo *bo,
->>                  uint32_t src_data,
->>                  struct dma_resv *resv,
->> @@ -2442,7 +2451,7 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_entity *entity,
->>       amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
->> -    mutex_lock(&adev->mman.gtt_window_lock);
->> +    mutex_lock(&entity->gart_window_lock);
->>       while (dst.remaining) {
->>           struct dma_fence *next;
->>           uint64_t cur_size, to;
->> @@ -2452,7 +2461,8 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_entity *entity,
->>           r = amdgpu_ttm_map_buffer(&entity->base,
->>                         &bo->tbo, bo->tbo.resource, &dst,
->> -                      1, ring, false, &cur_size, &to);
->> +                      entity->gart_window_id1, ring, false,
->> +                      &cur_size, &to);
->>           if (r)
->>               goto error;
->> @@ -2468,7 +2478,7 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_entity *entity,
->>           amdgpu_res_next(&dst, cur_size);
->>       }
->>   error:
->> -    mutex_unlock(&adev->mman.gtt_window_lock);
->> +    mutex_unlock(&entity->gart_window_lock);
->>       if (f)
->>           *f = dma_fence_get(fence);
->>       dma_fence_put(fence);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/ 
->> amdgpu/amdgpu_ttm.h
->> index e1655f86a016..f4f762be9fdd 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> @@ -39,7 +39,7 @@
->>   #define __AMDGPU_PL_NUM    (TTM_PL_PRIV + 6)
->>   #define AMDGPU_GTT_MAX_TRANSFER_SIZE    512
->> -#define AMDGPU_GTT_NUM_TRANSFER_WINDOWS    2
->> +#define AMDGPU_GTT_NUM_TRANSFER_WINDOWS    3
->>   extern const struct attribute_group amdgpu_vram_mgr_attr_group;
->>   extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
->> @@ -54,6 +54,9 @@ struct amdgpu_gtt_mgr {
->>   struct amdgpu_ttm_buffer_entity {
->>       struct drm_sched_entity base;
->> +    struct mutex        gart_window_lock;
->> +    u32            gart_window_id0;
->> +    u32            gart_window_id1;
->>   };
->>   struct amdgpu_mman {
->> @@ -69,7 +72,7 @@ struct amdgpu_mman {
->>       struct mutex                gtt_window_lock;
->> -    struct amdgpu_ttm_buffer_entity default_entity;
->> +    struct amdgpu_ttm_buffer_entity default_entity; /* has no gart windows */
->>       struct amdgpu_ttm_buffer_entity clear_entity;
->>       struct amdgpu_ttm_buffer_entity move_entity;
->> @@ -177,7 +180,7 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring,
->>   int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
->>                   struct dma_resv *resv,
->>                   struct dma_fence **fence);
->> -int amdgpu_fill_buffer(struct amdgpu_ttm_entity *entity,
->> +int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>                  struct amdgpu_bo *bo,
->>                  uint32_t src_data,
->>                  struct dma_resv *resv,
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/ 
->> amdkfd/kfd_migrate.c
->> index 09756132fa1b..bc47fc362a17 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> @@ -60,7 +60,7 @@ svm_migrate_gart_map(struct amdgpu_ring *ring,
->>       int r;
->>       /* use gart window 0 */
->> -    *gart_addr = adev->gmc.gart_start;
->> +    *gart_addr = entity->gart_window_id0;
-> 
-> gart_window_id0 doesn't look like an address. What's the actual MC address that 
-> any copy through this window should use?
+> Signed-off-by: Shikang Fan <shikang.fan@amd.com>
 
-I believe the address should be:
-
-    adev->gmc.gart_start + (u64)entity->gart_window_id0 * 
-AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGE_SIZE
-
-I'll update in v3.
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Thanks,
-Pierre-Eric
+Lijo
 
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c | 4 +++-
+>   2 files changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> index eacf4e93ba2f..cb7123ec1a5d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> @@ -141,7 +141,7 @@ static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
+>   	adev->vcn.supported_reset =
+>   		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
+>   
+> -	if (amdgpu_dpm_reset_vcn_is_supported(adev))
+> +	if (amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev))
+>   		adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+> index 714350cabf2f..8bd457dea4cf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+> @@ -122,7 +122,9 @@ static int vcn_v5_0_1_late_init(struct amdgpu_ip_block *ip_block)
+>   
+>   	switch (amdgpu_ip_version(adev, MP0_HWIP, 0)) {
+>   	case IP_VERSION(13, 0, 12):
+> -		if ((adev->psp.sos.fw_version >= 0x00450025) && amdgpu_dpm_reset_vcn_is_supported(adev))
+> +		if ((adev->psp.sos.fw_version >= 0x00450025) &&
+> +			amdgpu_dpm_reset_vcn_is_supported(adev) &&
+> +			!amdgpu_sriov_vf(adev))
+>   			adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+>   		break;
+>   	default:
 
-> 
-> Regards,
->    Felix
-> 
-> 
->>       num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
->>       num_bytes = npages * 8;
->> @@ -116,7 +116,7 @@ svm_migrate_gart_map(struct amdgpu_ring *ring,
->>    * multiple GTT_MAX_PAGES transfer, all sdma operations are serialized, wait 
->> for
->>    * the last sdma finish fence which is returned to check copy memory is done.
->>    *
->> - * Context: Process context, takes and releases gtt_window_lock
->> + * Context: Process context, takes and releases gart_window_lock
->>    *
->>    * Return:
->>    * 0 - OK, otherwise error code
->> @@ -138,7 +138,7 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, 
->> dma_addr_t *sys,
->>       entity = &adev->mman.move_entity;
->> -    mutex_lock(&adev->mman.gtt_window_lock);
->> +    mutex_lock(&entity->gart_window_lock);
->>       while (npages) {
->>           size = min(GTT_MAX_PAGES, npages);
->> @@ -175,7 +175,7 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, 
->> dma_addr_t *sys,
->>       }
->>   out_unlock:
->> -    mutex_unlock(&adev->mman.gtt_window_lock);
->> +    mutex_unlock(&entity->gart_window_lock);
->>       return r;
->>   }
