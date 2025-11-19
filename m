@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C066CF885A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9139CF885C
 	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 13:53:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F27E10E749;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F5F10E2A0;
 	Thu, 20 Nov 2025 13:53:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oscada.org header.i=@oscada.org header.b="jxb+LehE";
+	dkim=pass (2048-bit key; unprotected) header.d=runbox.com header.i=@runbox.com header.b="mDlHjQLr";
 	dkim-atps=neutral
-Received: from oscada.org (oscada.org [46.98.2.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15DEB10E265
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 19:35:25 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by oscada.org (Postfix) with ESMTP id EC85F43D4;
- Wed, 19 Nov 2025 21:35:23 +0200 (EET)
-Received: from oscada.org ([127.0.0.1])
- by localhost (mail.oscada [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id xHYD-vd3NTbI; Wed, 19 Nov 2025 21:35:23 +0200 (EET)
-Received: from [192.168.1.2] (oscada [192.168.1.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by oscada.org (Postfix) with ESMTPSA id 4555943D2;
- Wed, 19 Nov 2025 21:35:23 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=oscada.org;
- s=default; t=1763580923;
- bh=2jypUAfXIAajU/PjtIm5BKW8fwY0BGa08xe7pmyCzJk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jxb+LehEX/AUbDyfj6VRXGPbeNtUhYpJLMkZtU+5Yx7AOdXjLd9Kwrnf29L7NYj25
- hCAVm8qhaL8hYIZT8hIJ2xkID0/X7X3X/LQM0gY9KV1fEf+mF63DsulSFlbRBoX6cX
- wTuiUZQiZORrHjBlmcU9eyvNXC8+p3Am7BNIuRjhuHbo70yVKKBWT3M84JWDQaU/Gq
- R8YG6rIdYZRltSN19Snldwf3AS7el0Gs6T4MG6YNs4VJ3hXQ5G+K7yRKRPOnVpGSYK
- vVe2Oz5ZgtNg1HfOjQPG0T6xkojZ4NGWhoxfAuNq8zfvtTWR0OlwMvmmWMu4OoFybI
- tYWDcxWklb0Ig==
-Content-Type: multipart/mixed; boundary="------------tF6iNQmg80RU4DWGstx88TNx"
-Message-ID: <9e663ca2-8de2-49da-8616-805318b5fe8c@oscada.org>
-Date: Wed, 19 Nov 2025 21:35:22 +0200
+X-Greylist: delayed 1786 seconds by postgrey-1.36 at gabe;
+ Wed, 19 Nov 2025 23:12:23 UTC
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com
+ [185.226.149.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B4B010E26D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 23:12:23 +0000 (UTC)
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+ by mailtransmit04.runbox.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david.laight.linux_spam@runbox.com>)
+ id 1vLqsl-006yoa-LL; Wed, 19 Nov 2025 23:42:35 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com; 
+ s=selector1;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
+ :Message-Id:Date:Subject:Cc:To:From;
+ bh=KZaeZLqE5bpE2oI7JueUUAQfCDTGIs3rJJZPcaqXWlw=; b=mDlHjQLr3ylsbhaToLWMaW21yW
+ 3UVy21XkacH0+aMXmbQJGgcaEEUcpaPdkWRfbeLgpnQWeuE5UazmtfWFCAxw4PAywzYxbWcWRE5wi
+ yydZf/9QgusRj2ZIM70TwSLTYD0H8U34DcCttEXjGzQbWV1vIw2D5mA1dbb/AfJUSZxy0gC0UxGzm
+ 3mhsqOossZ8FbtNoL7e/1hiK5mJJTtkE/SebrhXQF2cSm2NHVTf/4d9Tp7280RfRfVkSEXjg0swpr
+ Gkjt72YT776jjIc8yqIXhdAFDxwNP31J3hEXpaDULau580GcJrDs4cTQLlPfzOIXGaBPL2mH0NWnz
+ RW6tI2CQ==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+ by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+ (envelope-from <david.laight.linux_spam@runbox.com>)
+ id 1vLqsk-00005F-RE; Wed, 19 Nov 2025 23:42:35 +0100
+Received: by submission03.runbox with esmtpsa [Authenticated ID (1493616)]
+ (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.93) id 1vLqsd-00Fos6-R9; Wed, 19 Nov 2025 23:42:27 +0100
+From: david.laight.linux@gmail.com
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH 19/44] drivers/gpu/drm/amd: use min() instead of min_t()
+Date: Wed, 19 Nov 2025 22:41:15 +0000
+Message-Id: <20251119224140.8616-20-david.laight.linux@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20251119224140.8616-1-david.laight.linux@gmail.com>
+References: <20251119224140.8616-1-david.laight.linux@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Bug#1118349: dpm broken on Radeon HD 8570D
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- 1118349@bugs.debian.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <epyf7tdz3azb3fflb6rwuhax7mpccmqlsmzqqe2pcm7mxrdur4@zpx2uo5pvoqs>
- <BL1PR12MB51448357F3CCE2B2F9D346ADF7CEA@BL1PR12MB5144.namprd12.prod.outlook.com>
- <176078292467.2932.7155687538828443067.reportbug@home.home>
- <f689f22a-f53a-435a-b79c-d79b4cfd810c@oscada.org>
- <2qxsyt34y4gmwuxwyvs7qh6ekypair6mt3h7n5txdhletjnpsc@vygqxoo7oacn>
- <e0d85321-733d-4b89-ba5f-5efd5f1b18ac@oscada.org>
- <931c33cf-26cd-4d23-827d-8c61f9028ca9@amd.com>
- <176078292467.2932.7155687538828443067.reportbug@home.home>
- <389a9e45-0f92-4810-a8ed-91640750d973@oscada.org>
- <jkkqfvey7b6evfq6ojj7nldwka6a2s5y32ehybyoi47nfn25ck@hqh7d2zrvlr3>
-Content-Language: en-US
-From: Roman Savochenko <roman@oscada.org>
-Organization: OpenSCADA Team
-In-Reply-To: <jkkqfvey7b6evfq6ojj7nldwka6a2s5y32ehybyoi47nfn25ck@hqh7d2zrvlr3>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 20 Nov 2025 13:53:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,44 +71,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------tF6iNQmg80RU4DWGstx88TNx
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: David Laight <david.laight.linux@gmail.com>
 
-19.11.25 19:05, Uwe Kleine-König:
-> In that case the interesting interval is 5.10 .. 6.1. If you could
-> pinpoint the oldest kernel image package that shows the symptoms that
-> would be great.
+min_t(unsigned int, a, b) casts an 'unsigned long' to 'unsigned int'.
+Use min(a, b) instead as it promotes any 'unsigned int' to 'unsigned long'
+and so cannot discard significant bits.
 
-The oldest Linux kernel 6 is only one on the actual Debian 12 
-installation on this PC:
+min_t(u8, a, b) is particularly likely to be problematic
 
-roman@home:~$ cat /proc/version
-Linux version 6.1.0-33-amd64 (debian-kernel@lists.debian.org) (gcc-12 
-(Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP 
-PREEMPT_DYNAMIC Debian 6.1.133-1 (2025-04-10)
+In this case I think the values are small enough that the result is ok.
 
-And the problem is actual here since I have loaded from the kernel only 
-with "radeon.dpm=0":
+Detected by an extra check added to min_t().
 
-roman@home:~$ cat /proc/cmdline
-BOOT_IMAGE=/boot/vmlinuz-6.1.0-33-amd64 
-root=UUID=dd0275fe-934a-4742-8f89-0bc5c0357dad ro radeon.dpm=0 quiet splash
+Signed-off-by: David Laight <david.laight.linux@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-Regards, Roman
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+index 3040437d99c2..1eb88327a18b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+@@ -211,8 +211,8 @@ int amdgpu_doorbell_init(struct amdgpu_device *adev)
+ 	adev->doorbell.size = pci_resource_len(adev->pdev, 2);
+ 
+ 	adev->doorbell.num_kernel_doorbells =
+-		min_t(u32, adev->doorbell.size / sizeof(u32),
+-		      adev->doorbell_index.max_assignment + 1);
++		min(adev->doorbell.size / sizeof(u32),
++		    adev->doorbell_index.max_assignment + 1);
+ 	if (adev->doorbell.num_kernel_doorbells == 0)
+ 		return -EINVAL;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index c1a801203949..124ce3e7310e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2388,7 +2388,7 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
+ 	if (amdgpu_vm_block_size != -1)
+ 		tmp >>= amdgpu_vm_block_size - 9;
+ 	tmp = DIV_ROUND_UP(fls64(tmp) - 1, 9) - 1;
+-	adev->vm_manager.num_level = min_t(unsigned int, max_level, tmp);
++	adev->vm_manager.num_level = min(max_level, tmp);
+ 	switch (adev->vm_manager.num_level) {
+ 	case 3:
+ 		adev->vm_manager.root_level = AMDGPU_VM_PDB2;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 91c0188a29b2..0180675e76a4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6257,7 +6257,7 @@ convert_color_depth_from_display_info(const struct drm_connector *connector,
+ 		 * or if this was called outside of atomic check, so it
+ 		 * can't be used directly.
+ 		 */
+-		bpc = min_t(u8, bpc, requested_bpc);
++		bpc = umin(bpc, requested_bpc);
+ 
+ 		/* Round down to the nearest even number. */
+ 		bpc = bpc - (bpc & 1);
+-- 
+2.39.5
 
---------------tF6iNQmg80RU4DWGstx88TNx
-Content-Type: text/vcard; charset=UTF-8; name="roman.vcf"
-Content-Disposition: attachment; filename="roman.vcf"
-Content-Transfer-Encoding: base64
-
-QkVHSU46VkNBUkQNClZFUlNJT046NC4wDQpFTUFJTDtQUkVGPTE6cm9tYW5Ab3NjYWRhLm9y
-Zw0KRk46Um9tYW4gU2F2b2NoZW5rbw0KT1JHOk9wZW5TQ0FEQSBUZWFtOw0KVElUTEU6T3Bl
-blNDQURBIGF1dGhvciBhbmQgbWFpbiBkZXZlbG9wZXINCk46U2F2b2NoZW5rbztSb21hbjs7
-Ow0KQURSOjs7O0thbWphbnNrZTtTaWNoZXNsYXZza2E7NTE5Mzk7VWtyYWluZQ0KVEVMO1ZB
-TFVFPVRFWFQ6KzM4MDY3OTg1OTgxNQ0KVVJMO1RZUEU9d29yaztWQUxVRT1VUkw6aHR0cDov
-L29zY2FkYS5vcmcNClVJRDpiYzkyY2E2My03NWNhLTQ5OGItODAxYy01NGJlMmIzNDMyOGUN
-CkVORDpWQ0FSRA0K
-
---------------tF6iNQmg80RU4DWGstx88TNx--
