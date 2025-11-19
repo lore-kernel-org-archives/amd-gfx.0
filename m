@@ -4,120 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E05FCF34C9
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 15:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B857CF3941
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 15:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F1D10E657;
-	Wed, 19 Nov 2025 15:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B10E10E66B;
+	Wed, 19 Nov 2025 15:50:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p/XaSrjW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Laj4zYxh";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010011.outbound.protection.outlook.com
- [52.101.193.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ECD410E657
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Nov 2025 15:17:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QMdvcE0gLUqlVnNIZQxFMy/5wc17TebUnWJxlpptL8oMTrntv7PLBby60E7UCHRTpIr9KgMhoWrWxq8Fln6glKnP0sK1CcSZroFeHRDoHoQDCsG6pWOBJz8iSq/q7eGb8OHRF8pIeNkYtPgzQKINDKSl1MRWy+wCyktoVN6qC9MIC0IeeLbXzbGOF+u0JQfmWOdfsw06TiA9/m3q8q2oyEaxUAJ9mvenu/qgBHATIeBb6urmTk7ZjP/o2c55cfPoSo+VEl+XW/0YWnUYCNjt/0VO+9uXS5B/9CQYl2QBcvU4ecCdGz4sB9vIWHbtgmWSlfUG6Wz5+ERXOEnr31I/cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TuSstSxJbmLuTbFQCePNMIuQmz3P+iloo82hMNMtfVY=;
- b=R+BDyq/wEAe/Sj2u1mzY3J8xUzzV1G9LceRLfbspCGBTsIxvqQD5VaJphV+Qckx/y0yhostGgOZ/JDwGpwPimgv+v9wZSfzoZA7WhBEYWRPakqvOXjKEZm4myBli2CRlUtFeqDvAXcyTP14Vd01VyNzcEtfNpZlFoegYnLTr8azScEkJ7eu34bTMS6+hN7K7SO3BbrNHRE4Fw++Csb8SVVWEqvf9aWAS0O8bVg5gaWQZqiWp/qr5qlfuFH/t9KtzYyDctdY1gacHCBddKcOrRH0uRicAzHKfAibBpKRnrigm0Ze4hAFqZ3uTCrY6R++1Rw1yky5H42gRiM/AndWBBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TuSstSxJbmLuTbFQCePNMIuQmz3P+iloo82hMNMtfVY=;
- b=p/XaSrjWCuanIysptEaxKVbRNxhrLxjFXAYieLGviaK1Hi5r8yz/L0KYZI/UnyfUNA2a7aqMh50jg4z04PuO8dt1CJDmOqVSvjLuf9h+m9bcQ0GCKaleKQIAe/VlHHY+zu5/ev9G06Ffq1rJaGo9WudXOuKWM/SzFLLySweVjSs=
-Received: from BN9PR03CA0660.namprd03.prod.outlook.com (2603:10b6:408:13b::35)
- by DM4PR12MB7695.namprd12.prod.outlook.com (2603:10b6:8:101::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.21; Wed, 19 Nov
- 2025 15:17:10 +0000
-Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
- (2603:10b6:408:13b:cafe::28) by BN9PR03CA0660.outlook.office365.com
- (2603:10b6:408:13b::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.10 via Frontend Transport; Wed,
- 19 Nov 2025 15:17:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Wed, 19 Nov 2025 15:17:09 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 19 Nov
- 2025 07:17:08 -0800
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: fix spelling in gmc9/10 code
-Date: Wed, 19 Nov 2025 10:16:54 -0500
-Message-ID: <20251119151654.3664461-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43CBB10E666;
+ Wed, 19 Nov 2025 15:50:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C746243696;
+ Wed, 19 Nov 2025 15:50:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A51C2BCB0;
+ Wed, 19 Nov 2025 15:49:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1763567407;
+ bh=mtl+IHM/JXtrCO8ISnitiGZcya/g9fsTYHXlgtCEzjQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Laj4zYxhFW+Cyz8oEoGr4IEUQkfwUMdLv7HRG6pEmMXhq+vvRB62wNZAYyCBhwMgW
+ ydZ26okaryoinvEE8tIJbLlJoY1/cMOVAl5gZWnUjbENpW2a9mfRw+vAlvoqjU3euP
+ pbkZQ00ScKclvx/Fc7+VWCtde1BoO4ZllGxuhaaQ6oHWiJx30xfmdUGu2l8xqahHsp
+ T+hG+IPeCO3xnQsYkJ7VatBdtqrEHMzKKg55/4DdSBYnYup2E2b5/XfowD8zPoAvGV
+ SUjpmYocHoRKpWNGz1Ow4h6dPUUWYAJv0jrXiCMFF0CA6h8rz5TtzNJHhRm6MSXZFU
+ PqBSfmBBhtEiA==
+Date: Wed, 19 Nov 2025 21:19:25 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Corey Minyard <corey@minyard.net>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ Vitaly Lifshits <vitaly.lifshits@intel.com>, 
+ Niklas Cassel <cassel@kernel.org>, Calvin Owens <calvin@wbinvd.org>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Sagi Maimon <maimon.sagi@gmail.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Petr Mladek <pmladek@suse.com>, 
+ Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+ Max Kellermann <max.kellermann@ionos.com>, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ openipmi-developer@lists.sourceforge.net, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mmc@vger.kernel.org, 
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+ linux-pci@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-staging@lists.linux.dev, 
+ ceph-devel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Gustavo Padovan <gustavo@padovan.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Rodolfo Giometti <giometti@enneenne.com>, 
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>, 
+ Stefan Haberland <sth@linux.ibm.com>, Jan Hoeppner <hoeppner@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Satish Kharat <satishkh@cisco.com>, 
+ Sesidhar Baddela <sebaddel@cisco.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Xiubo Li <xiubli@redhat.com>, Ilya Dryomov <idryomov@gmail.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v3 15/21] PCI: epf-test: Switch to use %ptSp
+Message-ID: <wuyn4v625xw4n2jm4eiullfrprmjiw4aiwo4zudcp4ppd2yeva@s7vzfoinnavt>
+References: <20251113150217.3030010-1-andriy.shevchenko@linux.intel.com>
+ <20251113150217.3030010-16-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|DM4PR12MB7695:EE_
-X-MS-Office365-Filtering-Correlation-Id: c254a420-2042-4a4b-91ed-08de277eb582
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?n7hdgZzHJtG3EZiZjJ0ehRKSSQ2i1ZFQKOeyRrIDwHYrCtd6dwO3DweuHS9/?=
- =?us-ascii?Q?W7ULPXyGbp5uRMm7lUiJ05VLe3AcOsPN9Y8bJYwwc+EDaK9Pgp73M3GzyJH/?=
- =?us-ascii?Q?4tswtVETeDTcIp1Hj5+PT9hL2VrH/v/VZ7exKVWWGNGO6XMuCLMpJXoG6laA?=
- =?us-ascii?Q?OGWETe2KJM4+rQX36OIxg9Tc4jBoS37dxcOcz7hpqBviQxbKTrb/PNfnfsBM?=
- =?us-ascii?Q?rjMvMi444STxjzpuddLTBr9fYIwNjGg2RcDVfQZAAfmoeTkrhA6JlaL1+EUJ?=
- =?us-ascii?Q?d2wJtPeI9zATWMqstXDnJHqmIKCy06Qurm1e06A8L2aRI8fJMeg+JfjAk0OM?=
- =?us-ascii?Q?P7su1I4xVn0X9qGbqm3gxv/pSBfcPoI5rDRghRCCp/AsJqTwdJxEoAsIj2rQ?=
- =?us-ascii?Q?Tiq3g8gcWL9WAX+XazNQGGywtX8TTW0l9in/yI1EbFwctZTGt+qnhKYOeQ/q?=
- =?us-ascii?Q?uKc2qu4pZEbKFD/ufeubL+szRrNqXdvZ4YSnA7nvo9wLILQLToBC4ZyqLFqm?=
- =?us-ascii?Q?bkYtwuf9LjVdR4ESoXQrgVvF7CywCbWuAsCnaGJJ/tN+PdS7zG7g6JdQslJc?=
- =?us-ascii?Q?4PcKzCtHH5l7qJr0aOrn6zkfaC6s+3wHU3/8jjazD2CSBzL0djI1V0S4Aaow?=
- =?us-ascii?Q?10I+uWVKlkmQpHtGM512G9h/bmDNw+CA/pZERTVzxJmm3nnNZ624bDbnIHxT?=
- =?us-ascii?Q?PdNEAdSiIEjBzaS4rfXpgT4qyzBKJ1rdPxVMGtMlQZvLNiVIof8WsRk7hHWO?=
- =?us-ascii?Q?KeG5dzcebgvzFsXoQDpo3WZMCnYp5PEPFBNijvcKLNvFRWTQ/fra1z2k7LTc?=
- =?us-ascii?Q?gGzUBsMgaovFmyD32kmNZbBJ0a4zyDYZwZlmNbWpyDVxCo5b4HMqFvN6f+SI?=
- =?us-ascii?Q?5y0e+SN/aURK7mLE9f0l61MlgwtDJPixzWqdKcR4uyoA0yMoP8z7itV2Rdl+?=
- =?us-ascii?Q?5p6iptx48AMmXXfhTPs458uZ/iryT3WHsYzclvPnpu6Jkse8jBI4SYGIyMCj?=
- =?us-ascii?Q?Mmi1p3sygqvVeiDZzfdSrLXuaQdHiQgCKT+T1O8mb4VePDGxCkIoUWsH4qUq?=
- =?us-ascii?Q?+bjpfTC//5IavYSz9qxDBxcavG7XjCSBqC18DFcXCx3asLnA5SzPZeM8I2bv?=
- =?us-ascii?Q?J/5LV5I5R+4ZrDfbyvjCi4eKEBiZnl69wOqvWOQQ+s1riZpsWTrjZU2tpHNS?=
- =?us-ascii?Q?2j9VDCTznZ0l7Fl90FxK9BCWvv1/vnDvdODsd19NnplpSC13v7osrrnGr+Yl?=
- =?us-ascii?Q?PnrSK9IqL1zg13gxqDzTAZ5qElIRRLmkZiFHMCZgLmTZplNUSiCtRwxZcTKN?=
- =?us-ascii?Q?wZx0BqmrTzAnWA1Bg2ASkXMjmMubLqizxrJfTVu18VCTzwspgKEMh7LZ/RPo?=
- =?us-ascii?Q?8nNDnQb+i+aPvIskh6A1kvec0ut/Pv38+Du7E0NkIhT569F36cSHFvWZRcYx?=
- =?us-ascii?Q?/cilOkJMKNaSuehkKL9CpNSeCG4iIT18nD4SfeVQMwrnYmHAreskfBU5RoD3?=
- =?us-ascii?Q?N/O1JjrLnNMZyjC5gz2Z6wW8Ih3WoTFU8UTXBLeqeoiuf0xunO8U9J+HPmTF?=
- =?us-ascii?Q?TtoDdnCGjEVtoMRcDmM=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2025 15:17:09.7348 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c254a420-2042-4a4b-91ed-08de277eb582
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7695
+In-Reply-To: <20251113150217.3030010-16-andriy.shevchenko@linux.intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,40 +124,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-onyl -> only
+On Thu, Nov 13, 2025 at 03:32:29PM +0100, Andy Shevchenko wrote:
+> Use %ptSp instead of open coded variants to print content of
+> struct timespec64 in human readable format.
+> 
+> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Manivannan Sadhasivam <mani@kernel.org>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index ce6e04242c522..47558e572553a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -117,7 +117,7 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 	if (retry_fault) {
- 		/* Returning 1 here also prevents sending the IV to the KFD */
- 
--		/* Process it onyl if it's the first fault for this address */
-+		/* Process it only if it's the first fault for this address */
- 		if (entry->ih != &adev->irq.ih_soft &&
- 		    amdgpu_gmc_filter_faults(adev, entry->ih, addr, entry->pasid,
- 					     entry->timestamp))
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 8ad7519f7b581..778ad7ac6d086 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -600,7 +600,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 			if (ret)
- 				return 1;
- 		} else {
--			/* Process it onyl if it's the first fault for this address */
-+			/* Process it only if it's the first fault for this address */
- 			if (entry->ih != &adev->irq.ih_soft &&
- 			    amdgpu_gmc_filter_faults(adev, entry->ih, addr, entry->pasid,
- 					     entry->timestamp))
+- Mani
+
+> ---
+>  drivers/pci/endpoint/functions/pci-epf-test.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
+> index b05e8db575c3..debd235253c5 100644
+> --- a/drivers/pci/endpoint/functions/pci-epf-test.c
+> +++ b/drivers/pci/endpoint/functions/pci-epf-test.c
+> @@ -331,9 +331,8 @@ static void pci_epf_test_print_rate(struct pci_epf_test *epf_test,
+>  		rate = div64_u64(size * NSEC_PER_SEC, ns * 1000);
+>  
+>  	dev_info(&epf_test->epf->dev,
+> -		 "%s => Size: %llu B, DMA: %s, Time: %llu.%09u s, Rate: %llu KB/s\n",
+> -		 op, size, dma ? "YES" : "NO",
+> -		 (u64)ts.tv_sec, (u32)ts.tv_nsec, rate);
+> +		 "%s => Size: %llu B, DMA: %s, Time: %ptSp s, Rate: %llu KB/s\n",
+> +		 op, size, dma ? "YES" : "NO", &ts, rate);
+>  }
+>  
+>  static void pci_epf_test_copy(struct pci_epf_test *epf_test,
+> -- 
+> 2.50.1
+> 
+
 -- 
-2.51.1
-
+மணிவண்ணன் சதாசிவம்
