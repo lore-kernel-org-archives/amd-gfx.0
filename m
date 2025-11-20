@@ -4,126 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB95FCF9C7D
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 18:23:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 496F0CF9C7E
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 18:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B72710E7C5;
-	Thu, 20 Nov 2025 18:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6CAA10E7C7;
+	Thu, 20 Nov 2025 18:33:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AFfHB4zp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CO4h6JYK";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010026.outbound.protection.outlook.com [52.101.61.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0640110E7C5
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 18:23:21 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010029.outbound.protection.outlook.com
+ [40.93.198.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0171B10E7C7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 18:33:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tv6g9Wc/J4CoGJASxQJ21AjMb5M8CmqLM91ntcnpKiblIsjpK9FAZL+KHrXUgqPnYM/E5ozwpcwCbtbv60QA9M5/2FBLRRQHzO1YUgvpW8ASKR44DxUutl+mDZbWh72xdi20qNor0L9GOwIGIE8mzYCrkITaeEhSDYiLx4NXdareZsib3tZLndy/pbQdwGGu/AnWiotG6ZMAQy4MtI8L9qPalfFgyA4PpMmQ5n4ypl9KuOoctJZosKzplLdVX2c4C6reHTC+uNVWoOVdGp5buc00U3hOJ2flTQWwrPRaeYsL2ZZdb8qC4TfhKGBfZqiKqxkJU3/QKOmGK5EbARejDw==
+ b=GKT3un08gQPLc+ag43ANMmWA5b3uqbrI1bW+MRLVkZoy1IeV8BlvFpzfs1hLKvCx+o6JrVyfEVnE+xuQi2ruO0XLk6+Iw31sTC0ZR238iLmk00Nk68vDwhMN497srKsWNVd0gyqp8FtptHAyHkfIhK+ZOkOGyXOyTkWRIhhTqJ+PiyYuV58eZBIg421wYwQpWZxUhC1QBqCfT+24SScSP78ty4BqZ3197WCFIXsgF9BmT1qcIppgeZvsIyr+Qv9BN3Ue4SRYpAo2r+FewPO7NsZdC/P4d5VOgOwXIwQ69qDEMY/y411sufZcaSFfpaVpNAcNY5JehgoAsOetUW7JeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mKD382caRB4TXj+OPz0s/qjOambp1HX2EU2o82tUGtU=;
- b=Uv6W/NTGMo28Ueoii2a9iyIhIxLGi0riSJNwzvOHAYUGCUESu7ho1UtW4XvCq5E+LA+OlVezdCuhGgzpuwHSx2T9PsAYsqu6hdmnOKRgkB0fSQ+tTYFGT8izzWZ9JGKyfxgaRctgL5khDSnO/tdYV1qb37IH4XqNu7msZ1jn9LOh5jCb74aj9lUK9ajXSmqxM0v/lgnI1PRRFRRdn85LBvnl3p5w3Esvy2h5JEl3ZEIpGRrgjJHvYwpg3vTyVUEcWsAKcB4Z1LIwD5NSJ8PLSopABCpjpuH7gIxwq8TFaTkETG/wG2pO0P+63vNW6gH8wNLin+uREYle+gFt1ktrHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=Q9iD2SAbb7R/k/6eLzKuDvtlWoSIe1vulSoK4jB/hJ4=;
+ b=U9PSGqW9pYE1/xp0IieblZVhurRMYffqKVll3wVI32mfaEFXnuDtTMEabuCi+LGNPlNF4zMndk3QDBOKOj4LOnFYXDsM9el40zBKDn/yUhau/fmh/ibH0DmIxsYic3oCjhEUoCR2rtp92tiC3/n7BrnIIoFelsPtfMhMj8uTrVuO9gM55ztmXLTHQpNUlkbuGLiaADix/gD1AnodfDLXSiMQCEwaPsG1JZ0QEJ6pASP5PfDT+OapLENa7tkyyS50Z3h55I1Uewm/BnJqbUJcyWrUjp0fpr1v7uirFp8kQGXyRj9qARA2W9E1UDGmk1IUToy5XHAcBF3vwtIqRBV6NA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mKD382caRB4TXj+OPz0s/qjOambp1HX2EU2o82tUGtU=;
- b=AFfHB4zpqlffzL3ELbQAqc+FksgiylxWH705fe1FnfYDzF4h1RABwYc2NC52eS7jEkHKmNYh+io+cAbAkWaM34qHGLUenzfPWyi4nammZxhoHZ+nSaMDeN//d2ePDxr5FP+LMTo04db+TId1H5DPNxbGMgyxgWgRq2He6wCKKvE=
-Received: from BYAPR06CA0068.namprd06.prod.outlook.com (2603:10b6:a03:14b::45)
- by DM4PR12MB9733.namprd12.prod.outlook.com (2603:10b6:8:225::13) with
+ bh=Q9iD2SAbb7R/k/6eLzKuDvtlWoSIe1vulSoK4jB/hJ4=;
+ b=CO4h6JYKhDwLXzMuf8LQ+SKPfmJrmOxu6QSXMfmFl645ceJ6nLaLEsTJzI9RoPbPYfVOYShGWXZ8+L9RAsImCItM4NATm93gUMsERhByJhrdhJ4MijEHYgUMMqhVLftunyoj+vaY6ZY4eaGDIKFMMt/kMexJtRX6M1sPIHUBpTo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS7PR12MB6095.namprd12.prod.outlook.com (2603:10b6:8:9c::19) by
+ LV2PR12MB5989.namprd12.prod.outlook.com (2603:10b6:408:171::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Thu, 20 Nov
- 2025 18:23:17 +0000
-Received: from SJ1PEPF00001CE5.namprd03.prod.outlook.com
- (2603:10b6:a03:14b:cafe::3d) by BYAPR06CA0068.outlook.office365.com
- (2603:10b6:a03:14b::45) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.11 via Frontend Transport; Thu,
- 20 Nov 2025 18:23:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE5.mail.protection.outlook.com (10.167.242.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Thu, 20 Nov 2025 18:23:16 +0000
-Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 20 Nov
- 2025 10:23:13 -0800
-From: Alex Hung <alex.hung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ 2025 18:33:24 +0000
+Received: from DS7PR12MB6095.namprd12.prod.outlook.com
+ ([fe80::d87b:2c6a:4793:b4f5]) by DS7PR12MB6095.namprd12.prod.outlook.com
+ ([fe80::d87b:2c6a:4793:b4f5%5]) with mapi id 15.20.9343.009; Thu, 20 Nov 2025
+ 18:33:24 +0000
+Message-ID: <49c24aad-90cb-4d87-afe2-1a65d2d85e80@amd.com>
+Date: Thu, 20 Nov 2025 12:33:21 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 23/26] drm/amd/display: Correct DSC padding accounting
+To: Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Taimur Hassan <Syed.Hassan@amd.com>
-Subject: [PATCH 26/26] drm/amd/display: Promote DC to 3.2.360
-Date: Thu, 20 Nov 2025 11:03:22 -0700
-Message-ID: <20251120181527.317107-27-alex.hung@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251120181527.317107-1-alex.hung@amd.com>
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Ray Wu <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Relja Vojvodic <rvojvodi@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ stable@vger.kernel.org, Chris Park <chris.park@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>
 References: <20251120181527.317107-1-alex.hung@amd.com>
+ <20251120181527.317107-24-alex.hung@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20251120181527.317107-24-alex.hung@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1PR04CA0022.namprd04.prod.outlook.com
+ (2603:10b6:806:2ce::17) To DS7PR12MB6095.namprd12.prod.outlook.com
+ (2603:10b6:8:9c::19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE5:EE_|DM4PR12MB9733:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4c052aa-51fe-4dd9-5cf3-08de2861dfa1
+X-MS-TrafficTypeDiagnostic: DS7PR12MB6095:EE_|LV2PR12MB5989:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9507414-3dbc-4562-f85e-08de286349cd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FLPqLzimp+1HMO7UKScl5dG6AlSTE4f6HLeuat21CUxNT/u0Oti/zusbp9Uk?=
- =?us-ascii?Q?LhOTUjjOtv3qsDqW3UusoaPDmxQxJ80z9wk9sUo720SagT+KxCAbOaxXjHjp?=
- =?us-ascii?Q?hKjEvckSHjURiLyit73uFUbBZLmAWNg/MTbdW1yU0BdBZp7k7mvOvMWZ1oUJ?=
- =?us-ascii?Q?ssWMmlhga2SasMq2vJIyS53ycUIaTq1C9fFrrDIiQ9p4dYTUbfLhr7HFCc47?=
- =?us-ascii?Q?NSN2wRHsiDKaW/zLrtYQ1oM3rm8VoobWjtxEGdpV0yEd12Ir60qKPhWDrGes?=
- =?us-ascii?Q?CXxgSUmuenRgyS0mVxrhTllgtqts1CfOmi+OshYN4QUsIyrLxjX1QiCgapL2?=
- =?us-ascii?Q?5E8RIuO+0PhB3K/BPKFoI3dKpGLTJIsZTRGvyhr+39RZRWbMUXrtrJssF8Rk?=
- =?us-ascii?Q?jCLNMsr/oxS02tVWWCkBIxCGdzZmd93/Kk2ReP240MAoOnTznyrxSX47G3yN?=
- =?us-ascii?Q?NuzxYftUbkfJj4j2R6ATG1T7wNeVn9o4BuWl9JkHgg/o5KdIgpQDWsmWVogR?=
- =?us-ascii?Q?S1MOl5SJzYa82adkG8uilZGc+NASZeAdqGD50N34oxlLGdasMi/MpRGzKjwZ?=
- =?us-ascii?Q?AXuJPSMUgLobNo2GmiPZIYIymhvC+Z2BgX0muvHK0ZzOyuO+yo7cf6WTmJMv?=
- =?us-ascii?Q?lrRcRxNEtb31SnJ5a6TyRrxT8y8HkazObEyqcPcax5Zkm4kApaJeknFdLPZH?=
- =?us-ascii?Q?mLOP0LZwhXU7JZPCdFiOgVOulPwqBmsGfnRGog83xllSuNdpvFIsmikY6VP9?=
- =?us-ascii?Q?bNAZowlg9Nc5eF+QAdImQh9o+31PT/0s3rqoeRNpqnL5eqFizYjs0C5NKr1d?=
- =?us-ascii?Q?foz0KqmMmalr7dUpUc0ss/GDVAW67nnDv5qD0At0tk+5iNbSR5dWWb6Wn2jM?=
- =?us-ascii?Q?fnvoJIW1uyABtyylZTpOEnHt/k5g5EkQN+EP+jogDtgaA+L2P/CVzbnPYx/T?=
- =?us-ascii?Q?TXe1eItxLK0h4wMObZlKaLPxhSsqJrrRmuGbYgqLekickAaRHzhEn1Yoicaq?=
- =?us-ascii?Q?aCflgyXticF+SQ/J3sSWGa90bs9a5SsZzpkTaWlXVZl3uVJzePlE3QKgdKZc?=
- =?us-ascii?Q?1AYpORKl45L4RJwvVA1AhPZYy/SXGpUfP+mhlXsHRwJOUFJaJraoGr0u2t3+?=
- =?us-ascii?Q?k/PlW+3Vn7+PZPlKnBcfJiqa7lKt1qN5kI7cW+8nJccnDCw/n+fjbgQXtoG4?=
- =?us-ascii?Q?RfNK/nSjMtG4IL4rVElZ17uqAm8eUi8keUJ4UMVSWR5EJKd+Kns94t985zyg?=
- =?us-ascii?Q?w9BZaMf4F9ZnX/gUzmVRv2PHMJR3PUVcmWtlPRikwypgtom1QSucrd77YfPm?=
- =?us-ascii?Q?EP4sdac29/CnED3UKfPf2pwEols1H3aPA+Rz6RjZJW2BtE7640HLNf+MGfIZ?=
- =?us-ascii?Q?JzzDeI1xIQ3WvR2//+BpISDFvX3/T4fWtGksXf4kClZoI0HhlGZUZx8RwhHU?=
- =?us-ascii?Q?WOpzhYGyhadXbc8Xn8nBX4I07k2gEQAe2ujwm+uNtWjCACVsIoaAy3M/cdb9?=
- =?us-ascii?Q?in0MJ91P0DU7vXcYDyA6RgBm+AlEGqsIbMAXzVZqo2p6DNSYut9E3QdQmvuA?=
- =?us-ascii?Q?UAgHrB8AjnhThmh5D7M=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WWRoRjdia3NpUnFUU2V4aWVQeitsVTYwZThNL3F0SEZiaW0rNnU2ZThtaytW?=
+ =?utf-8?B?aWgrOXQrSW9IQzhicmZnM2hSb0VuNjdVSkpMYkJmdTIzMndpdTdmOHE1bEk0?=
+ =?utf-8?B?VW02VkRBaDhJV3ZoV2k4R09FVlUxU1NUQ1FqaXJtb1JQdHRMMTJlWmF2YTNT?=
+ =?utf-8?B?RERBaytSQVJYVTB4cnIyREhoWmFTNzVlT1VXaDhtd2tCZXFJZ3QvWFkxeEEv?=
+ =?utf-8?B?Ukx3d2VUd0ZFOS80RlVqWE9xUmdhNWh1WTBGN0d6MkY2VnBoSmtvYUZFbktP?=
+ =?utf-8?B?a1VLWDUwVDFUZ1ZFcnhWd0w4ZEVBckRLaVRHYXlaTld5eGt2dlI5aHJYQlU0?=
+ =?utf-8?B?K2FrRkVzTmJyUXhGY0ZQdUxEckFTeTdJWVl4UGxXREtpVDQwRG5lWWY3UFM5?=
+ =?utf-8?B?NHVXTlh3dWFCb1E4SzhzRmY1aFBxWTBXZm9XM2hMSW1iS0lGUnBhVWNJdXJq?=
+ =?utf-8?B?QmxnSi9nc0g1dDAxTkY4eU1PYlYrcjhFUFhhU0lkYUxQM2VYd3p1OGNudnlv?=
+ =?utf-8?B?aUR3Y3VXcktvbkNhNnIrNncrcW54S2Q2bUplMmVESDM5dzBmZXB1VlU1R1F1?=
+ =?utf-8?B?aGkxWmRNbTRaM1ZKNDNINnhJQ2l3b2pwY0J5UjI4VjNlRkQ0QjZQWHZTdEhM?=
+ =?utf-8?B?WjZaa3ZyTE45VDEwSUlJRXgvL21Bd2N4MDdGWk1vVVV0WWI0RUdveCt5dG5Z?=
+ =?utf-8?B?SnE5L0NjY0RXeENZMVVOMVB6VW9ZZkFNSGR1TU1ZOWJDelpuNHh5TFdFdkZF?=
+ =?utf-8?B?MDVHdndkck5nSkZpMlMwalVQQ0orODh2UnBrZm1oMkU1NFNMd0IxR3hXeUVp?=
+ =?utf-8?B?MTdONU41ZUVyOW0yUkxma1dxNmV5ZzBIM2tQdVBpbUFYRWg5T3RXRjVxaFNS?=
+ =?utf-8?B?bUhVcDFHZE9sMTIrdnVMaDM1dGYrNWNKOGNpQi9WLzVlbXVYTWxWV1JiV0xX?=
+ =?utf-8?B?cWhOU3BCbm9Ecm5rME05OVJZVThHNzJUcnA3NmFmQ3FqL2JpWWRIL2R1TlVs?=
+ =?utf-8?B?a096cWc4aE0vUVl2VjFSU2FJTm54bFFlZk1renl1dTBIRFBud2lUVytGa0F0?=
+ =?utf-8?B?OGpOSzIxUkhjYkw2K0EyMmd3WExvY01PWGwxbTZQQWNXc3NScGR0MWsrN2pz?=
+ =?utf-8?B?bWUybnZWaURvL0dXQmNQQTl1dFVPbkZRbjhqRlh0ZEdpT1BUSTVROWxnV3hC?=
+ =?utf-8?B?c0J2eENGTnVKVFpqVk5DNndsbTZrSkxyVXpQV1ZnTU5TVzMrZmNGUEdNSkdT?=
+ =?utf-8?B?OW5vQmdIRG9WdDVPaGZiK2JiNURNaUFsVFJaTDh0R1Y3dnM1UWN1K2g5Uk9q?=
+ =?utf-8?B?M2RNbURFVCtEb2Q0K052aHUzV2VFc0YyaEVpTWxyTVdtbnBHaVNuUDdqWGgr?=
+ =?utf-8?B?WDJRV2YrSWl3S1VSdklNdlQ5eG96Q2dvaDYzc1VIWjdVbTk2YkRBUUU2b0JZ?=
+ =?utf-8?B?cmxZN2pkQVJpMlRIWG5TODRWZkVBOGhIMDVvVzF1RG5BRWNRZnBNTVoxRE1D?=
+ =?utf-8?B?UHNpVTZyTGMwVE4rSVcxSG5PWExxUXlKd04vVkRxZW1hWjlhM0QxZUd0OWdP?=
+ =?utf-8?B?d0l3QzZVd2V0cGJTVC81RHA0MTBjamcyNGFzWTZrUjNlQUp0cEcrSkw1SlJ5?=
+ =?utf-8?B?MEJwblNvYk1iRXh2Z2E2L0kxa2xmUWhHdkhXeHF3aEdXdmFJTkpDNHZBUU1R?=
+ =?utf-8?B?VE1wQkM4WnZLWUd0Q29wL3BDL0JNc2w5Wnk0cXZCVFV2S3Q0NlJ4eTZkS2Jx?=
+ =?utf-8?B?NjVSMFlzdUpwVUFFTUR0L0trM3QrUnNzdG5WcktUNWdlZHArL2RDdzg4UVMx?=
+ =?utf-8?B?UWNNbzlJU09uc0RsMk83K05LV0NCM3pmRm5CWXZZbnAxakhVSkN6MTFWWGh2?=
+ =?utf-8?B?ZDNQaGQ4VWI2Uyt0UWgyQWU3YkY0MlF4WFV6ODMyOXVnalJLTnJ4L2ViNEtx?=
+ =?utf-8?Q?jALO3OcLQz2r3oTdVRRbShDnRfNF+pVv?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6095.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXJqa3UvV09jdDIvTndrY0FkUHV3YTErTlZzeVNPME9sQ2U0ZGZTU0V3M01F?=
+ =?utf-8?B?U3RCb2ZnT0I0dytMOHp4VXNVOEhWYTlNa0MvQjcwMHFONVVjUzY1Mk1qQ1Ja?=
+ =?utf-8?B?d0VieERkSDNCTHV6ZVhubjRxNW9KeU5COE1IaHpkWGxrM3VkeDlYcXBvU2xv?=
+ =?utf-8?B?a0Z4aHVvT090ZG41S2ZSWlZlT3Y1azArKy8zdmpCc2NnbHFrOWplaTBvbzlI?=
+ =?utf-8?B?REtlZkRpM1liMTU1VUdSaVpYMUNhcFdkdVFLa3ZSN2dZYmtXckJWSWZnMy9T?=
+ =?utf-8?B?REFPT2tQejcwZ2FRd3BBZXpkZDk3UVN3cEZDWGQwa1VpYzJCdkpnM0ZBTytY?=
+ =?utf-8?B?SElIc0ZRTmhoM0J1NG5hSkRUYXNpMmRBODBzQTFTR1JOeHlZbjRZelk1Z0NP?=
+ =?utf-8?B?blI0V0pkenZSZzJSU0JiSWFFOEtnQ016OXpidWpJREVGdDhXK2xVQy9JU3J1?=
+ =?utf-8?B?ek9qOVlpaFlNb0xFY2cyZnJhYTBtSEV5THpEWFBjT1BWOEZWQkloVGtwQzN6?=
+ =?utf-8?B?WlgweFFPcGpPN0pFM1pESmpPL2R4aWErMXAySW94U3FIV09WWnZRcE15cE42?=
+ =?utf-8?B?RFY3ZldjVWg0OE9TcTFaRUtzeXpKVzgzQnUwZWIxOGlBanRDNmE5MS9mTTFj?=
+ =?utf-8?B?TnNKWllwek13dHF2a3BCUlNRSkh2VDdWeE1uZDY3M0V4ZmNrUnVtaWhXQXZ1?=
+ =?utf-8?B?cTg5VTRXOXpQQmo0UEgvZU40UU9XVGVveHZGWmxmU082NkpjZDRUWFRVandl?=
+ =?utf-8?B?M3FBUzZaai9oS2srYnRFWGx1cmV0YnNmMVBJODl0R2hZSnhnYmlxZXZOVWNq?=
+ =?utf-8?B?c3pQa1N4d21FV3NzYVN0aHJkdHlKQXVaRFQxdFcwcWN4YjAvMTRyQnVoc1dQ?=
+ =?utf-8?B?c0RmcFpYMStVQXdnRzVRRTh5NS85RXU3T2R3dW0zdG1KTlZjK3pDOUM5cjR3?=
+ =?utf-8?B?aG9mSzJLUzJodDQ2bGdNb3h2aDFNdVNJRUgwZGZCVzlTTDhxRG5xL3pqN01n?=
+ =?utf-8?B?TldVcUdXMlV6NkNvVnAvUnl6WitveUZ3SzRqVFpWNlkzWHorcnNLVi9sdzdm?=
+ =?utf-8?B?cDBGODRQVEFHUE1EWWdQb0ZOWXQxZXI2YjFRanFnM25YdjVWTDRxVWp6WVpR?=
+ =?utf-8?B?MVpyMkgrY1E0L0JreENRSDRJdXZ6dHhWT2ZRcDRDZENEZCtVck40SzJyV3Vm?=
+ =?utf-8?B?K2E1TUtCeFlVZ1VWU1RQaDFhVWg4WVFibklmbVg2ZjRjUDdrL3lleTcybmZF?=
+ =?utf-8?B?VHNDV2RyalVZeEovL0ZpQ2ZFbFJxZkdDRndia2RvVFF6Z1huS1NzU3VPcjha?=
+ =?utf-8?B?SzNaNGVabHRoZERDdk91ZGRwZkIzOUVmMzNYdklGTForekFuelkwR1hMSTNQ?=
+ =?utf-8?B?dUpycVkyMzZTT0xIVWpwT3BCTTVwU3NmR1B6TnVDRDc5MmJyQnFpV2ljMElr?=
+ =?utf-8?B?cXhPdnFjeGhmbTA5OTlXbWxtNFRDVzlrZTdndHA3V210MU15ZkxwYUlyMmQ0?=
+ =?utf-8?B?YXk5aWlacFduVGFIWkRtR00zRG9TVW8zckJaRG1LRGJUd2hNZE44VTIxK2Fi?=
+ =?utf-8?B?cllYemRXVmdXRHNtRG05d2lYRnM1bTVsSGxheDUzQ3VkNmNVUWFKWm1VTHBQ?=
+ =?utf-8?B?SlllNVhOV3hSYXF2Q0dnY0J4V3oxR2V3ZHplTGR5V0swVVV4dWlGWk1DTjlh?=
+ =?utf-8?B?dmw5MmhvcmhBN3ZFb1BoTzE4dHNRd0NVZXZobUF1YThrRWVTVTBGUTR2R3ha?=
+ =?utf-8?B?VUFwd1UyZ21WUThPR0pqN3JYaGxWM3pwWFhRek1KcS9rOCtsZFJMS2g3ekpQ?=
+ =?utf-8?B?ckhCMU01QkREZytSaGE1ay9yOER1dmtpemlQVXVVVUtvUVF2aTQrSzZiT3hL?=
+ =?utf-8?B?cDhSQW9pbU1PVUFxR1R1eDMvOVlUR3NCMnBLeWVpRzhDVlZVWDFJZE52N3Q4?=
+ =?utf-8?B?QUt3dUZpVFhKVG9SQzUvMWJyNXduY3F0Mk9KMHdLdTBIZDBtMCsrRDJzbHNu?=
+ =?utf-8?B?OUJpWnVYTW9zbHg3WC9ZMDFhMURvYWgzaitaSXh4OGtCcDhVWGkyM1pWYUNN?=
+ =?utf-8?B?bnU0MUVzNnRPbkYyNlZla0xOUW9qeG80OHQxdSsvZUYyUFRJU3p6d3hUSGln?=
+ =?utf-8?Q?ML0/4YJnRTYErA5JrCaUXDO3h?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 18:23:16.0686 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4c052aa-51fe-4dd9-5cf3-08de2861dfa1
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9507414-3dbc-4562-f85e-08de286349cd
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6095.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 18:33:24.0367 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE5.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9733
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dj7od+3rKYuAF6CsWNQ13Z77xZGQ/181jRE8A8i7clUJ0KrSEPB8Jvwj3KEsIPTW/U/UtDJF1/r+t0MMvJbILQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5989
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,53 +169,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Taimur Hassan <Syed.Hassan@amd.com>
 
-This version brings along the following updates:
-- Add additional checks for PSP footer size
-- Correct DSC padding accounting
-- Check ATOM_DEVICE_CRT2_SUPPORT in dc_load_detection
-- Drop FPU flags from dml21_wrapper.c
-- Permit DC_FP_START/END only in non-FP compilation units
-- Add cursor offload abort to the new HWSS path
-- Move dml2_create and init to the non-FPU dml2_wrapper
-- Move dml2_validate to the non-FPU dml2_wrapper
-- Rename dml2_wrapper.c to dml2_wrapper_fpu.c
-- Increase EDID read retries
-- Correct comment style
-- Move CONNECTOR_ID_PCIE into switch/case
-- Drop needless check for link->link_id.id
-- Improve readability of link_detect_sink_signal_type
-- Don't change brightness for disabled connectors
-- Write default Vesa Aux backlight control in dmub
-- Refactor panel replay dc libs
-- Revise VSC SDP header for Panel Replay
-- Fix sending redundant enable command to dmub
-- Parse debug flag to PR FW
-- Add AS-SDP v2 support for eDP feature
-- Refactor panel replay set dmub cmd flow
-- Improve HDMI info retrieval
-- Check NULL before accessing
 
-Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 11/20/2025 12:03 PM, Alex Hung wrote:
+> From: Relja Vojvodic <rvojvodi@amd.com>
+> 
+> [WHY]
+> - After the addition of all OVT patches, DSC padding was being accounted
+>    for multiple times, effectively doubling the padding
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 531d4a4c9326..60c5d8627bc7 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -63,7 +63,7 @@ struct dcn_dsc_reg_state;
- struct dcn_optc_reg_state;
- struct dcn_dccg_reg_state;
- 
--#define DC_VER "3.2.359"
-+#define DC_VER "3.2.360"
- 
- /**
-  * MAX_SURFACES - representative of the upper bound of surfaces that can be piped to a single CRTC
--- 
-2.43.0
+Can you double check when the OVT patches were submitted and if they 
+were CC @stable?  If not; I think the stable tag should be dropped on 
+this patch.
+
+> - This caused compliance failures or corruption
+> 
+> [HOW]
+> - Add padding to DSC pic width when required by HW, and do not re-add
+>    when calculating reg values
+> - Do not add padding when computing PPS values, and instead track padding
+>    separately to add when calculating slice width values
+> 
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Chris Park <chris.park@amd.com>
+> Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+> Signed-off-by: Relja Vojvodic <rvojvodi@amd.com>
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c   | 2 +-
+>   drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c     | 2 +-
+>   drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c     | 2 +-
+>   drivers/gpu/drm/amd/display/dc/link/link_dpms.c             | 3 ++-
+>   .../gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c  | 6 +++---
+>   5 files changed, 8 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+> index 4ee6ed610de0..3e239124c17d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+> @@ -108,7 +108,7 @@ static void update_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
+>   		dsc_cfg.dc_dsc_cfg = stream->timing.dsc_cfg;
+>   		ASSERT(dsc_cfg.dc_dsc_cfg.num_slices_h % opp_cnt == 0);
+>   		dsc_cfg.dc_dsc_cfg.num_slices_h /= opp_cnt;
+> -		dsc_cfg.dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
+> +		dsc_cfg.dsc_padding = 0;
+>   
+>   		dsc->funcs->dsc_set_config(dsc, &dsc_cfg, &dsc_optc_cfg);
+>   		dsc->funcs->dsc_enable(dsc, pipe_ctx->stream_res.opp->inst);
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> index bf19ba65d09a..b213a2ac827a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> @@ -1061,7 +1061,7 @@ void dcn32_update_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
+>   		dsc_cfg.dc_dsc_cfg = stream->timing.dsc_cfg;
+>   		ASSERT(dsc_cfg.dc_dsc_cfg.num_slices_h % opp_cnt == 0);
+>   		dsc_cfg.dc_dsc_cfg.num_slices_h /= opp_cnt;
+> -		dsc_cfg.dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
+> +		dsc_cfg.dsc_padding = 0;
+>   
+>   		if (should_use_dto_dscclk)
+>   			dccg->funcs->set_dto_dscclk(dccg, dsc->inst, dsc_cfg.dc_dsc_cfg.num_slices_h);
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+> index 7aa0f452e8f7..cb2dfd34b5e2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+> @@ -364,7 +364,7 @@ static void update_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
+>   		dsc_cfg.dc_dsc_cfg = stream->timing.dsc_cfg;
+>   		ASSERT(dsc_cfg.dc_dsc_cfg.num_slices_h % opp_cnt == 0);
+>   		dsc_cfg.dc_dsc_cfg.num_slices_h /= opp_cnt;
+> -		dsc_cfg.dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
+> +		dsc_cfg.dsc_padding = 0;
+>   
+>   		dsc->funcs->dsc_set_config(dsc, &dsc_cfg, &dsc_optc_cfg);
+>   		dsc->funcs->dsc_enable(dsc, pipe_ctx->stream_res.opp->inst);
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> index 1b1ce3839922..77e049917c4d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+> @@ -841,7 +841,7 @@ void link_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
+>   		dsc_cfg.dc_dsc_cfg = stream->timing.dsc_cfg;
+>   		ASSERT(dsc_cfg.dc_dsc_cfg.num_slices_h % opp_cnt == 0);
+>   		dsc_cfg.dc_dsc_cfg.num_slices_h /= opp_cnt;
+> -		dsc_cfg.dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
+> +		dsc_cfg.dsc_padding = 0;
+>   
+>   		if (should_use_dto_dscclk)
+>   			dccg->funcs->set_dto_dscclk(dccg, dsc->inst, dsc_cfg.dc_dsc_cfg.num_slices_h);
+> @@ -857,6 +857,7 @@ void link_set_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
+>   		}
+>   		dsc_cfg.dc_dsc_cfg.num_slices_h *= opp_cnt;
+>   		dsc_cfg.pic_width *= opp_cnt;
+> +		dsc_cfg.dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
+>   
+>   		optc_dsc_mode = dsc_optc_cfg.is_pixel_format_444 ? OPTC_DSC_ENABLED_444 : OPTC_DSC_ENABLED_NATIVE_SUBSAMPLED;
+>   
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+> index 6679c1a14f2f..8d10aac9c510 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+> @@ -1660,8 +1660,8 @@ bool dcn20_validate_dsc(struct dc *dc, struct dc_state *new_ctx)
+>   		if (pipe_ctx->top_pipe || pipe_ctx->prev_odm_pipe || !stream || !stream->timing.flags.DSC)
+>   			continue;
+>   
+> -		dsc_cfg.pic_width = (stream->timing.h_addressable + stream->timing.h_border_left
+> -				+ stream->timing.h_border_right) / opp_cnt;
+> +		dsc_cfg.pic_width = (stream->timing.h_addressable + pipe_ctx->dsc_padding_params.dsc_hactive_padding
+> +				+ stream->timing.h_border_left + stream->timing.h_border_right) / opp_cnt;
+>   		dsc_cfg.pic_height = stream->timing.v_addressable + stream->timing.v_border_top
+>   				+ stream->timing.v_border_bottom;
+>   		dsc_cfg.pixel_encoding = stream->timing.pixel_encoding;
+> @@ -1669,7 +1669,7 @@ bool dcn20_validate_dsc(struct dc *dc, struct dc_state *new_ctx)
+>   		dsc_cfg.is_odm = pipe_ctx->next_odm_pipe ? true : false;
+>   		dsc_cfg.dc_dsc_cfg = stream->timing.dsc_cfg;
+>   		dsc_cfg.dc_dsc_cfg.num_slices_h /= opp_cnt;
+> -		dsc_cfg.dsc_padding = pipe_ctx->dsc_padding_params.dsc_hactive_padding;
+> +		dsc_cfg.dsc_padding = 0;
+>   
+>   		if (!pipe_ctx->stream_res.dsc->funcs->dsc_validate_stream(pipe_ctx->stream_res.dsc, &dsc_cfg))
+>   			return false;
 
