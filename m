@@ -4,83 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D4FCF8862
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 14:17:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C530CF8862
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 14:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C094110E2A3;
-	Thu, 20 Nov 2025 14:17:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ECB210E29E;
+	Thu, 20 Nov 2025 14:18:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="CcN0T9bS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QhQTJIF7";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E46210E2A3
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 14:17:26 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-47795f6f5c0so6616655e9.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 06:17:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1763648244; x=1764253044; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=CXBH8LKXAoztnmU0gR6y1RS7gCB6+Ux7CKJn5h1WDCY=;
- b=CcN0T9bSdJu15hluKUbX3GFuvdVcLZYzsWz995msWlyhsTFeQQ9uH4hKRThEI7nh2Y
- oLcykbYuaqP1paJfDcHnCm1HoEpC6JvwCf5UPsyeDhu79HYXN9P8mh2gZCbbAlv49ROJ
- pMUIRb8rRgJ6snLEGEhVkDZDgPiPKj4WxgzcKyYlhy6oX2AsKS2Zd0TlW5KmxNVBkzhj
- baId+dVGBG6zKRF5xWZ8wfUUYTcnBAE9mC8JPRRXYtgdFAYbM0lJ5SMuLXmdsL2NDLwV
- 2vzd/NkK5hYSviiWI+LzRFyWuU6eyHqC+SEhQMU+ebROlCk1/MFZ2kqJIwOG7drHBhhu
- yu7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763648244; x=1764253044;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CXBH8LKXAoztnmU0gR6y1RS7gCB6+Ux7CKJn5h1WDCY=;
- b=laY1zmRP7N7E4o8smLdJBonuXsFB1I6ZTeN/9PI/eNb2s0hkiySJ173aHB4NxhLxf3
- YjFe0T3dh0t/Sn6Kad42H7TrPU6wVJbnZfWaMyl5/Q+SU73B1p687QcwF+VZoX364TEI
- 7y+kJgvcGcJqDeWuLD4EwhahtD101/OKCJeV50nIhAdIXoU3/UJQVcRrQnSi3hNeODMr
- coFtt4l1uz0tXNkKtl+WtI6OGIMZRkuKu/boIZnJPCCZM5OZ4dcGkw9XPbBuZ3qW91by
- Nb+YuAi14MYuFYjYRpkTwEDpbzhb9qsKSbAJcCxUMGwSl/63+RGUuN7roCbhNlIYnvfZ
- iSCw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVirWh1ArtKb1OfLbtq5MQVIx8Nx2DNwiZwZEpG6dGExt5ZbGPzV6t3uDvPFt77zBdqyffYKJGc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRhvloAlnRM27T3cYKvCxu/6ErMOi3KJsOn+C6B39KgXBn//oD
- pGovjFxLP7WRWY8SVAgUh0vOZbHbWukNW3Y5y+9i2rJNTM4a/J9y0SThr6ifuRB6j3k=
-X-Gm-Gg: ASbGncsOWepqo9NPhL8MAs/JhmMRUYCmBk9P6qGdp0v9YlgjJkEb5ZT2EtuSryetjPp
- t3QBUAj0wOhs8cLd48MtSmiwF+zJrYvRnOgceLnJH5NJf5nXQvusNkUMnM+wCeJ7RfwupEAGfhH
- e2qUwF54GlKpwzwOoZzmikWX5eeW1tKcauFaQTCRZOmBRbqT2MMP8J/TWtpGGiBhHomLOiGVMOx
- 9/bWWZgkhM+5q/Cm6TM1PYU+TgcrLgWyISbmc83JnUWkDbk+ROmBI2Cp5hREbuXfTgRoMQR7sNl
- ru1xzm4joET128SNivKlCXKFHHJ1kOmzoycFilCpZtuPLK9AopVGNvE8w2LuKnwlhe4CDE6UnrD
- joC2z9iClOWpVzkP/iWKPQKb8wJHBnf5LwMNiSEMdEZlPYhTYnn5T8lHcgFIm5Bzb6NvSikqsiw
- W+pptM/BvKrCY2pMkQyNIdNBwzkduzDU+P
-X-Google-Smtp-Source: AGHT+IHjZqvTkkmRZ8Ij302pTC794n7WQdn7xGg0iWq0ORbFykU/+7LM6vc6fC7DhyZogpe/qnQw/Q==
-X-Received: by 2002:a05:600c:3553:b0:477:55ce:f3c3 with SMTP id
- 5b1f17b1804b1-477babc1f61mr20645215e9.5.1763648244298; 
- Thu, 20 Nov 2025 06:17:24 -0800 (PST)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477b82d8251sm49652785e9.6.2025.11.20.06.17.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Nov 2025 06:17:23 -0800 (PST)
-Message-ID: <805c7537-7d75-4eb0-84ae-bad7064ff166@ursulin.net>
-Date: Thu, 20 Nov 2025 14:17:23 +0000
-MIME-Version: 1.0
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011038.outbound.protection.outlook.com [52.101.52.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F278E10E29E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 14:18:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZJGlCNWvrqy9665TnGPm3FAJ+1Ye08m3HkvKI3ryGsOUu6OF2V9vaMefa3XW3tpIsER1JqxfKQec0V7sC8u/K40iLmwVYjP4YkjNnbr4Q9MlIec5y4jR4siaQL5MkzcuBhVDm9k24nVi2bMEB9wAX/cZfGZqapFM0dqXNzhWdvIkt9wFWHLWjh0xKSeXfTXF4KgRvFLOBnTS6AuvgnIUP9SEAoc84FFICYWXxOiIU4xLSEYsLY19RsPqgs4TubxcHY9x37inAVa0EPsi80Dv7arY/NphdfqDmFqtuTF4ZUC6dU0zdA3vn7oe0L6mEzklTkeZe7GsJkgzIwAlm57ixg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vSUjyJpthefAjyzSTgELc1npingc3rdFyvwoenA4TZs=;
+ b=f96M58rW/sCXa5K3PXs28gGLDtt7CfPe5YZk22GM8lp3NYUvYriTGc15q4OMPFTCiUL7/fJ84IyHncKj8yDwCq/TwkjPm9bGCB/UEuUPkHMoBeqj4FHbFPrtBouqCBiNm9MvalIn1ecqm/ySw6vJO703ulOdPGxUedxkqZp2bJi1OYY+FniQoHTWe1F+s+N/giSZ8sUATzC1PmVTHFDJYCMnMIp5JkO6K/NnEqKl2XKJt+5Rm2NCrSadPx/h0cmGISVbIRB6l8kv/cjpoAJ2Ot97zMYhURRUGpyriihqBZjeZtKknQaC0qHhIAoJ8z8nmjYnEWt27jIhk77kJWe0Vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vSUjyJpthefAjyzSTgELc1npingc3rdFyvwoenA4TZs=;
+ b=QhQTJIF7YwozfmvHfft2sFeMi7ZdniQYEpI3mPffRGAyOKs4A1U3xCurIcg/zAPG9hu7Xlwj1Lvtjd9GZFMPWxfgJ0iR2bnAVSKK2WMAghyGujF2m/RyTaCV8eDJezzcp2Oy00VNMEV9rw+MIPMTo35lx5OtMIzBaSCd2a6knpY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ CH3PR12MB8484.namprd12.prod.outlook.com (2603:10b6:610:158::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9343.10; Thu, 20 Nov 2025 14:18:04 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.9343.009; Thu, 20 Nov 2025
+ 14:18:04 +0000
+Message-ID: <50847ed9-bc6d-4523-9b8f-ca96b658b56f@amd.com>
+Date: Thu, 20 Nov 2025 08:18:02 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/18] drm/sched: use inline locks for the drm-sched-fence
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
- matthew.brost@intel.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- sumit.semwal@linaro.org
-References: <20251113145332.16805-1-christian.koenig@amd.com>
- <20251113145332.16805-9-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20251113145332.16805-9-christian.koenig@amd.com>
+Subject: Re: [PATCH v3] drm/amdkfd: Use huge page size to check split svm
+ range alignment
+To: Philip Yang <yangp@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20251118173228.1873433-1-xiaogang.chen@amd.com>
+ <8382d7f5-4743-416d-87d8-8b892dff4976@amd.com>
+ <e2801bd9-3a63-4c94-9e4c-ef64b2fcb67b@amd.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <e2801bd9-3a63-4c94-9e4c-ef64b2fcb67b@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA9P223CA0009.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:806:26::14) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|CH3PR12MB8484:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22967e60-8f2b-44b5-81b2-08de283f9eb3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UzlHb1Q1RE0zMnFjSEtzb1Z0RU1QWUFYaGlFSWE0N04vZVdHK1MxbmFGYVkr?=
+ =?utf-8?B?SWtHU0UyQlkwRC9RdXBqcDl2dFNHd0Q0Mk5GVGhNMXdqbi9ieGVGdDlXa1E3?=
+ =?utf-8?B?VzlUcHdEekdTdnZENWhXeVVQYlEraC91Y1M2dGQ2SWxIT1I0WlhLaGVwQVFl?=
+ =?utf-8?B?RGVrSjY2WmRJc2IxZlI2YmlZQlIrbzFMYVVUZzg3WVJTZ0FFK1ZYYzJaSHdR?=
+ =?utf-8?B?VmdETXAzblFCaGd0TXZHQWIxMjBMa0ZzR3Nla1A1Q3FCZGdUQ1pzTzdNQ21z?=
+ =?utf-8?B?eEZBUERTWU13SzIzSGxra3N5cWJnTDV2WHZPRzNYMjhLcVZBbGhiVXo4NlRT?=
+ =?utf-8?B?MjNQK3A1VmtBWG52TFZ6T3dFTUdPbC9HTWFaOEFONm1VeHRwbkxpcnZoMEw1?=
+ =?utf-8?B?aTVITEpscmhBQjNTUHR4QVlrNHp0akljaTJzN0d3RUJsS0FQMlhnVUhxT0x1?=
+ =?utf-8?B?Q2JpUUlUTlFVTVJLeXhPMGFZb09tYUFIalJQZ0lSUDdRcEozdnpkWk5OQ0JZ?=
+ =?utf-8?B?YkV1KzYzTDdHb08rd2hEaTF6b0hOTUJkN0ZxUTgycDJhSDZDTlhiZEpneTdL?=
+ =?utf-8?B?NldMblpJMlRnY0NWVHhmNEtCQ2JEZjlUNG8yWUVjMGdxcytIbW5wSXNGY3N4?=
+ =?utf-8?B?YjV4YUNHbWVZOUFCZ0NQaENzLytGYnNQZlgwU2s4eDkxaDZZWFk4aW9oZEov?=
+ =?utf-8?B?SWJNSDVjS0hEZzNYRVlaamxFT1pRWFBtRW4yN3FXNWVHMm9NaFViKytzZnpC?=
+ =?utf-8?B?Q0dUalVZWitza2l6YWp5a1VXZ0FxT0w4ZTF0dW55Sm14dmFHVmhpWHNaYmVn?=
+ =?utf-8?B?SWhId3RtZy9wZlk1NU93Tk5jNW1rRGcvNjVYQkJLZk9zcjB4V2R1elZyM2N4?=
+ =?utf-8?B?VEdRd3luMlRwa2dHN3BOTFJVeVRwblg1Q1ZSd2F5ZC8zSDJPT2tNM0wxNXpK?=
+ =?utf-8?B?dmpma0krbkZZWDIxK2JiZkxkTWUxVkg5UzdlNTlXR25RWGJhTzJ6akNWZXcy?=
+ =?utf-8?B?TmUxNGJ5cml4amt4QWMrempleTd0WUVXZXl0NmNKS0VhMjNoTXI2MnJyTS9m?=
+ =?utf-8?B?ZnlReWpObFFDbUVrNUE1Y0tCTzVtaXN0TktjeTdLeThLYXI4Sy8xeWxHaTZm?=
+ =?utf-8?B?UHRxMUFQNkJnQmVkcXpGVHUyREZ6OTFvM1IvSll0OW9WaVhjWFI1VzNaMFhK?=
+ =?utf-8?B?SWJLcGJTaWttdDVpd0d2Sy9qMGZHY0tGMnhtNThvR3FGNkpjT0VXcG0yTEgx?=
+ =?utf-8?B?NE5ldVRqODk2UGdwVFloRFFwb25qdndaTURGVWZZbCtNdWxRWElmQlNnNnIw?=
+ =?utf-8?B?cjJ3Yk1NeVhybjhLM085VlBIY0RaaXkrdFFlWU96c1pQcS8rWTZHOEhlMEZy?=
+ =?utf-8?B?a2tNbmRoekN6ZU8zZDlkeGpnaU5EOCt4RUVkRUlabDk2OUhBVkFtTE1WNFBx?=
+ =?utf-8?B?eGpwUnREOUNmRlBvZWRReG5iMi9UY3BpWE9hbkdrdEFlRnNuMEtmWXQ2S0VI?=
+ =?utf-8?B?RkZqa2orbFFsL3psdHNqYXNRcFh6UkFPWGc3VEx0djlDMzZaYkYrY202SnVp?=
+ =?utf-8?B?L2VYbmNvR2ZUS3dxZ0RVeFhOWFArU21TeUhwZHVnM0RUZGlhb2JIdDRBQTNW?=
+ =?utf-8?B?UTFEUVpjQTA5ME9FN2xOenNZTmlFZUd2bDZJQWwxTWF4bnJSR0RFbDB4VXRj?=
+ =?utf-8?B?MHZINnBOZ1AwZURlN3A4VlJnOTljamRlRGU0MHZKZmRwcFBRU0NITXJOUnBW?=
+ =?utf-8?B?eUl6eFFLVGJDajZTdFZjTVd0YTJJeTVieE1ucmxMYS9Na1N6RVJQS1k4SzVP?=
+ =?utf-8?B?K1NkcFI1bWVhdzBiODdSMms4b2ZBNlFBR0prb0s0emVNNnFWQUpPaGlJUmw1?=
+ =?utf-8?B?dldmY243Q2JXc2dkb1YrbEx1Qm1CK0RvWThvS0l5byszM3l0VmtTKzJUNEx5?=
+ =?utf-8?Q?ABCwqX2TT1w0wHv4HI1li7u828V5h29O?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGlKYk5rTDhpbWVibXdEM2tMUng1cmdOaXlINmRCcTVJRzQwQlRaeTY1RkJk?=
+ =?utf-8?B?dXJ1RXIzRFpBRjhhTjFlRmZmODFCRkM5NEhqWkpCbzE4TW9FWCs1T2w0SHpT?=
+ =?utf-8?B?b2c4alV2b2Y0MkpxamFqSUhHTVZWNXd2ZGRhRytlQ2tJOUdFWVQrdmRJWkk1?=
+ =?utf-8?B?V002LytLVWFFakRRVHNMVW0wdGZKZkRQbEw3OUZpb0FnL2IwMkRQWDA0NDFC?=
+ =?utf-8?B?b1dJNDNJZ3BXM3IzS25rb1NRQnhrUjhFNU1UcDZWUGNzMWZkOHB3eSszVUZ2?=
+ =?utf-8?B?WWZkOHNZbGRXRjFmS3lCS0FEZU9xS2p6WERiTXJNamJFVXNEM05XanFMYXB4?=
+ =?utf-8?B?WFRKVDZIaXJJYmlHbTduY0prUkpUdDVkQjdiYUxRN00rVXZVdkhNaEtFYy9Q?=
+ =?utf-8?B?M1ZRWEZNWW00RmxJeUthN2FxeWpVUlF1VTBGTDBWaXJHcElubnlFaVRjSWFL?=
+ =?utf-8?B?djMyaXJHSk1tNDhQS0svRm5uTzRDNVdsd0VPK0JubGNiTmJES3hETTExaGEv?=
+ =?utf-8?B?bGVsT0pxTWc3UkpaN3VxT0J3VnovQ2RWM2dHWXVzcFU0NUVVd05vRkoyR1ZL?=
+ =?utf-8?B?K2NvTTVPOUQrMTdhTnpQL29ucTdTY3lVR3Fhc215SnI5V210bFpVUzVlZlgv?=
+ =?utf-8?B?Nzd4TGNHTjljNXFJalVkSGVkSzZPbFIrQUh0MW5FaGdtU1Rta0U2NlBTdGow?=
+ =?utf-8?B?RG1HTFNhc1VCTUNCZldlODhiVy9DQ2w5aXVHUnNVUEltSkQ5ZDE1cWpXQzR3?=
+ =?utf-8?B?ZmZ6cTVUb3FyVEcydXNNQmlvMFpmVXhFUm5WbUFKN3Y5VngxR1ErTmFicUVF?=
+ =?utf-8?B?Y2NPR29GbE1JcU56ZGhhN1BEUGZDREY5aE1DSkJrcUx0K2doOTFPRTltTndx?=
+ =?utf-8?B?empXeFBkQTJ3UWhkMHNsSEx2WEhOTlIwN0tSY1VGc0psak5JbjFuM0U0djVU?=
+ =?utf-8?B?NmVzVE1UOHNDUEVzNzJlWmlrTkw0ZmhyMEdqd2J6UzVoMVBzQ2ZBdjZ5SmRW?=
+ =?utf-8?B?SWZaU1p3cTBUR1IxRUZ3SmZGMjJqTStoVkpHMUI4cjkvdk0xKytHNG9ucHJh?=
+ =?utf-8?B?cTFnczdiS25WejYrRUZvZEpHbDhhUWFDcCtXRzNtVnpsRU1TdENMUDhjREdq?=
+ =?utf-8?B?Wjh3cVBVZVBDWEp0QlR5dHFhbWtvT2VmejYza0JjRmQ3aDhRRnVORTRXUS9P?=
+ =?utf-8?B?RWNKbE1QdUd1dGhrVVppY0E2REpvMGszTURVQU8xUVY4SWVNeE9neEFsd0lM?=
+ =?utf-8?B?NVVtM1ZnTnVHR1VDVWsxUGYxZCtsN0NNUCtSR3c2U2lIQlNYTXRxSE9ibHAy?=
+ =?utf-8?B?VjBidWd1cGZ2VmUxZmkyZkhRajBkaWErMmIyd0h1OE9ackhKdEw0TENsYmNp?=
+ =?utf-8?B?bUMrTVl1c1NMbHMvQXUwNlpJVzhUWVViamxySWlpcURleXlIWVg4SnFqV1p1?=
+ =?utf-8?B?TnphVm9YVC96L1R4aWN6OTIvKzh4dkZxaWdoTElYSXNObmszTjFwS01BZ3F3?=
+ =?utf-8?B?YTRrV1lBMGtKNk9Yd1VxWTVobTQyczk0aFg2YXZGaFBqL2FVR3RkZFgrZ1Vu?=
+ =?utf-8?B?ejltWEw2RzMxRHhuS09MRTFicjJkWGo2NkVzTUJNc2g5UndmUm15VUV1aSs0?=
+ =?utf-8?B?QnJQZzJYc21NSGZtTElHdEtnNmh4OENZR2xodC80ek9IckpSRWVFOU9uV2xr?=
+ =?utf-8?B?NmlUZ29UenhsaVhnUS9JY2F1ZUJVRDBUVUVnNVp1NGhkZWdkNzJYWmJraS9S?=
+ =?utf-8?B?QytjMitDOCtxcDhkWGZQaW5uNU5IeTlKVytmYTFYdXgvUm05MTV1VUViVU96?=
+ =?utf-8?B?YmVLWCtKVVBzMUhMSS9JQk1Ba3JVT1RhR3NvRUhrdnMrdjQwRXhHRG96S0N2?=
+ =?utf-8?B?b0N0V29OVG83KzIrbzB4YlFmelpqSWZ1TUxqWFRaOXNZWlAwa1Bzb2ozNmQ5?=
+ =?utf-8?B?QUJaeVV3dUo4cHE3Qitrd0Fqc3EyNFl5QWErLzRSakkybUpFSnpuZVQzeEla?=
+ =?utf-8?B?VlpIY1JlM0JILy9HSjdZQ0RScFpuaDdZUzZHUUgrRkFTRHJwZDYvY0g5Uk1M?=
+ =?utf-8?B?eEJUNEFCd2xlYUU3U241eEhnUVlWeGVyVTY1bGN4YURhR29kZmhZSkFvdE80?=
+ =?utf-8?Q?A/Vc=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22967e60-8f2b-44b5-81b2-08de283f9eb3
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 14:18:04.5626 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i8/wJ7lh65JstsXc7gUMfbgAJi4+r317mDYEIgJLslgC/KqYP0kJizZairTHzBAm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,75 +163,168 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 13/11/2025 14:51, Christian König wrote:
-> Using the inline lock is now the recommended way for dma_fence implementations.
-> 
-> So use this approach for the scheduler fences as well just in case if
-> anybody uses this as blueprint for its own implementation.
-> 
-> Also saves about 4 bytes for the external spinlock.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_fence.c | 7 +++----
->   include/drm/gpu_scheduler.h             | 4 ----
->   2 files changed, 3 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
-> index 08ccbde8b2f5..47471b9e43f9 100644
-> --- a/drivers/gpu/drm/scheduler/sched_fence.c
-> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
-> @@ -161,7 +161,7 @@ static void drm_sched_fence_set_deadline_finished(struct dma_fence *f,
->   	/* If we already have an earlier deadline, keep it: */
->   	if (test_bit(DRM_SCHED_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags) &&
->   	    ktime_before(fence->deadline, deadline)) {
-> -		spin_unlock_irqrestore(&fence->lock, flags);
-> +		dma_fence_unlock_irqrestore(f, flags);
->   		return;
->   	}
->   
-> @@ -217,7 +217,6 @@ struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *entity,
->   
->   	fence->owner = owner;
->   	fence->drm_client_id = drm_client_id;
-> -	spin_lock_init(&fence->lock);
->   
->   	return fence;
->   }
-> @@ -230,9 +229,9 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
->   	fence->sched = entity->rq->sched;
->   	seq = atomic_inc_return(&entity->fence_seq);
->   	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
-> -		       &fence->lock, entity->fence_context, seq);
-> +		       NULL, entity->fence_context, seq);
->   	dma_fence_init(&fence->finished, &drm_sched_fence_ops_finished,
-> -		       &fence->lock, entity->fence_context + 1, seq);
-> +		       NULL, entity->fence_context + 1, seq);
->   }
->   
->   module_init(drm_sched_fence_slab_init);
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index fb88301b3c45..b77f24a783e3 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -297,10 +297,6 @@ struct drm_sched_fence {
->            * belongs to.
->            */
->   	struct drm_gpu_scheduler	*sched;
-> -        /**
-> -         * @lock: the lock used by the scheduled and the finished fences.
-> -         */
-> -	spinlock_t			lock;
->           /**
->            * @owner: job owner for debugging
->            */
+On 11/19/2025 6:22 PM, Philip Yang wrote:
+> resend, to fix the code format issue.
+>
+> On 2025-11-19 18:33, Philip Yang wrote:
+>>
+>> On 2025-11-18 12:32, Xiaogang.Chen wrote:
+>>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>>
+>>> Fixes: 7ef6b2d4b7e5 (drm/amdkfd: remap unaligned svm ranges that 
+>>> have split)
+>>>
+>>> When split svm ranges that have been mapped using huge page should 
+>>> use huge
+>>> page size(2MB) to check split range alignment, not 
+>>> prange->granularity that
+>>> means migration granularity.
+>>>
+>>> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>:
+>>> ---
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 63 
+>>> ++++++++++++++++++++++++++--
+>>>   1 file changed, 59 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> index 521c14c7a789..7bb94555e5f9 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>> @@ -1145,12 +1145,39 @@ svm_range_split_tail(struct svm_range 
+>>> *prange, uint64_t new_last,
+>>>                struct list_head *insert_list, struct list_head 
+>>> *remap_list)
+>>>   {
+>>>       struct svm_range *tail = NULL;
+>>> +    unsigned long start_align = ALIGN(prange->start, 512);
+>>> +    unsigned long last_align_down = ALIGN_DOWN(prange->last, 512);
+>>>       int r = svm_range_split(prange, prange->start, new_last, &tail);
+>> move this function call after variable definition, easier to read.
+>>> +    bool huge_page_mapping = (last_align_down > start_align) &&
+>>> +                 (last_align_down - start_align) >= 512;
+>> >= 512 is redundant because start, last already aligned to 512
+>>>         if (!r) {
+>>>           list_add(&tail->list, insert_list);
+>>> -        if (!IS_ALIGNED(new_last + 1, 1UL << prange->granularity))
+>>> -            list_add(&tail->update_list, remap_list);
+>>> +        /* original prange has huge page mapping */
+>>> +        if (huge_page_mapping) {
+>>> +
+>>> +            /* tail->start is inside huge page mapping but not 2MB 
+>>> aligned
+>>> +             * or tail size is smaller than 512 pages
+>>> +             */
+>>> +            if (tail->start >= start_align && tail->start <= 
+>>> last_align_down &&
+>>> +                (!IS_ALIGNED(tail->start, 512) ||
+>> split from the tail, new range is the last part of prange, don't need 
+>> check size
+>>> +                (tail->last - tail->start) < 512)) {
+>>> +
+>>> +                list_add(&tail->update_list, remap_list);
+>>> +                return 0;
+>>> +            }
+>>> +
+>>> +            /* tail->last is inside huge page mapping but not 2MB 
+>>> aligned
+>>> +             * or tail size is smaller than 512 pages
+>>> +             */
+>> tail->last is the original prange->last, impossible inside prange.
+>>> +            if (tail->last >= start_align && tail->last <= 
+>>> last_align_down &&
+>>> +                (!IS_ALIGNED(tail->last, 512) ||
+>>> +                (tail->last - tail->start) < 512)) {
+>>> +
+>>> +                list_add(&tail->update_list, remap_list);
+>>> +                return 0;
+>>> +            }
+>>> +        }
+>>>       }
+>>
+>> to refactor the conditions
+>
+>     unsigned long start_align = ALIGN(prange->start, 512);
+>     unsigned long last_align_down = ALIGN_DOWN(prange->last, 512);
+>     bool huge_page_mapping = last_align_down > start_align;
+>     int r;
+>
+>     r = svm_range_split(prange, prange->start, new_last, &tail);
+>
+>     if (r || !huge_page_mapping)
+>         return r;
+>
+>     if (tail->start > start_align && tail->start < last_align_down &&
+>         (!IS_ALIGNED(tail->start, 512))
+>         list_add(&tail->update_list, remap_list);
+>
+>     return 0;
 
-Looks good to me and the kernel test robot warnings Philipp mentions 
-AFAICT are from a different patch relating to trivial selftest changes.
+ok, that makes code concise. Thanks.
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Still need add tail to insert list:
 
-Regards,
+list_add(&tail->list, insert_list);
 
-Tvrtko
+Regards
 
+Xiaogang
+
+>>
+>> do the similar change for below split head.
+>>
+>> Regards,
+>> Philip
+>>
+>> @@ -1160,13 +1187,41 @@ svm_range_split_head(struct svm_range 
+>> *prange, uint64_t new_start,
+>>               struct list_head *insert_list, struct list_head 
+>> *remap_list)
+>>  {
+>>      struct svm_range *head = NULL;
+>> +    unsigned long start_align = ALIGN(prange->start, 512);
+>> +    unsigned long last_align_down = ALIGN_DOWN(prange->last, 512);
+>>      int r = svm_range_split(prange, new_start, prange->last, &head);
+>> +    bool huge_page_mapping = (last_align_down >= start_align) &&
+>> +                 (last_align_down - start_align) >= 512;
+>>
+>>      if (!r) {
+>>          list_add(&head->list, insert_list);
+>> -        if (!IS_ALIGNED(new_start, 1UL << prange->granularity))
+>> -            list_add(&head->update_list, remap_list);
+>> +
+>> +        /* original prange has huge page mapping */
+>> +        if (huge_page_mapping) {
+>> +            /* head->start is inside huge page mapping but not 2MB 
+>> aligned
+>> +             * or head size is smaller than 512 pages
+>> +             */
+>> +            if (head->start >= start_align && head->start <= 
+>> last_align_down &&
+>> +                (!IS_ALIGNED(head->start, 512) ||
+>> +                (head->last - head->start) < 512)) {
+>> +
+>> +                list_add(&head->update_list, remap_list);
+>> +                return 0;
+>> +            }
+>> +
+>> +            /* head->last is inside huge page mapping but not 2MB 
+>> aligned
+>> +             * or head size is smaller than 512 pages
+>> +             */
+>> +            if (head->last >= start_align && head->last <= 
+>> last_align_down &&
+>> +                (!IS_ALIGNED(head->last, 512) ||
+>> +                (head->last - head->start) < 512)) {
+>> +
+>> +                list_add(&head->update_list, remap_list);
+>> +                return 0;
+>> +            }
+>> +        }
+>>      }
+>> +
+>>      return r;
+>>  }
+>>
+>>
+>
