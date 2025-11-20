@@ -4,81 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58CBBCF8861
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 14:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D4FCF8862
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 14:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC9F10E759;
-	Thu, 20 Nov 2025 14:14:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C094110E2A3;
+	Thu, 20 Nov 2025 14:17:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="VecqKQVm";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="CcN0T9bS";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE5910E756
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 14:14:28 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-477a1c28778so11350685e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 06:14:28 -0800 (PST)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E46210E2A3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 14:17:26 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-47795f6f5c0so6616655e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 06:17:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1763648067; x=1764252867; darn=lists.freedesktop.org;
+ d=ursulin.net; s=google; t=1763648244; x=1764253044; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=l4aXDIqbXLzQPpFmVuBKROa0mL/5b0LUIDBWeii3LLw=;
- b=VecqKQVmhTGGepnBnAqYP5HfEYGRk4yXexKMRRviWsEt7BNd8AG1d3Z5pk8vpa3bOv
- tTD8qizeDuatxJzS43MVwVhcK2cVoZ99JTKKetgzXFvVDEugLpPcAVH1Ol/oaCy9E/lh
- alzRcKgcBWKicCUyVXQTIEud7qUF+TGGueAuQibT1cgGc3fX6tosW4+YqkegWB3mKMKh
- oE3VTLAi5qKex6Wr6hIxrZQkVw5Gs2KAIORASOuS8oAvsoByTfBVwW8qI07Sseq+38qr
- vdBwdyZiCrYqbI1B7jPGMlr5VFef2eUpcCAX8+RnvPW1zWGy61y9A40fzhlKpVBQXD9u
- TRyQ==
+ bh=CXBH8LKXAoztnmU0gR6y1RS7gCB6+Ux7CKJn5h1WDCY=;
+ b=CcN0T9bSdJu15hluKUbX3GFuvdVcLZYzsWz995msWlyhsTFeQQ9uH4hKRThEI7nh2Y
+ oLcykbYuaqP1paJfDcHnCm1HoEpC6JvwCf5UPsyeDhu79HYXN9P8mh2gZCbbAlv49ROJ
+ pMUIRb8rRgJ6snLEGEhVkDZDgPiPKj4WxgzcKyYlhy6oX2AsKS2Zd0TlW5KmxNVBkzhj
+ baId+dVGBG6zKRF5xWZ8wfUUYTcnBAE9mC8JPRRXYtgdFAYbM0lJ5SMuLXmdsL2NDLwV
+ 2vzd/NkK5hYSviiWI+LzRFyWuU6eyHqC+SEhQMU+ebROlCk1/MFZ2kqJIwOG7drHBhhu
+ yu7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763648067; x=1764252867;
+ d=1e100.net; s=20230601; t=1763648244; x=1764253044;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=l4aXDIqbXLzQPpFmVuBKROa0mL/5b0LUIDBWeii3LLw=;
- b=HWCr8UErLnmWmW28HUTZ8Se6NLxONZUaI7eWXLY5TL/Vz0KbPGoEDXN/NsTOLR+c0i
- 7W0mqY97kMOsd0BwJXy8Jh3V7QPK/KOh7VaIYcQnXsyESfAJsnnpRjA2SIBjfDxOFpZ9
- TOfXl6pGs5wEANrvuxWz2ifB7G/Yrcj4ntVxxf542nzdgt5dvGObGx3F9fLSrrSJ2OTG
- GiD4CNMySo6ovrVkg31uDVGOwGZz+Kknn8cdDOH3yPciVn37ZfAy82D4MZ6VdlXMP2G9
- K0yhMpWMd/CV5o2G+pnUdnfxyN7ZBQmIQVK+nytTcASQk/fVVI6zNcFCPf1sQcdSqHHD
- Hpsg==
+ bh=CXBH8LKXAoztnmU0gR6y1RS7gCB6+Ux7CKJn5h1WDCY=;
+ b=laY1zmRP7N7E4o8smLdJBonuXsFB1I6ZTeN/9PI/eNb2s0hkiySJ173aHB4NxhLxf3
+ YjFe0T3dh0t/Sn6Kad42H7TrPU6wVJbnZfWaMyl5/Q+SU73B1p687QcwF+VZoX364TEI
+ 7y+kJgvcGcJqDeWuLD4EwhahtD101/OKCJeV50nIhAdIXoU3/UJQVcRrQnSi3hNeODMr
+ coFtt4l1uz0tXNkKtl+WtI6OGIMZRkuKu/boIZnJPCCZM5OZ4dcGkw9XPbBuZ3qW91by
+ Nb+YuAi14MYuFYjYRpkTwEDpbzhb9qsKSbAJcCxUMGwSl/63+RGUuN7roCbhNlIYnvfZ
+ iSCw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXrz9lLEGG7bnr2CJXTKOkRGZRql5TELsSl6Syi1VPZUxjIFt/cfcxKLSNW9QaejWGkLInGfbn+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwrG7kBJ1Sxpme3m4JAhJwQ7GG1UUVFDf3A+qukG1ja7N+GWUD
- YBxBQbNX3JLWiQaDZHafHhzwlqFEjzZqZaZuciYBTLnuEOQBfABxOBwqTVJWNlwK6jk=
-X-Gm-Gg: ASbGncvrTOf6A0013xFgjyL4eD7yr1yax61I4mftPYZpgM4SjMqrswuVF97Kuel4wWK
- NgU9E2d5MWgvP9nkSIHAtxRihSxatWB8Q3B6w/JwujMKDGJgnqMkz95hF6hAzqgPY5XpPyDy8Pw
- VRJkthQK7AXQY1khIWbpHO9GGtL7TgPa/amUxijLQt/zyuKG5ZYYzDkmczYX2BZZXZcb7CG3Dw3
- i/JFFPLMEKNRCalORHWzqcCXGUh8TONVdnFQj3mbpyZYobnMO1GWPES5jKbUoNfpgSRulXOsjv+
- lDu7b6vuTOlefZ1ULdOZZMwb3w5mRcyHX7H/iImNwqOX59Jhcvc8F/jWukQawgE3r+1zAOCLpDc
- B4NjTp1TyR9vPrr/Xf0VV0BNf5q8/ya+SeSSiRdQ4qColqrh5ifyaf7fVLkv6DDUhsMXedYMRzx
- EKlCGC8ECBBTKYdY2y8msaG8tBowb3Wewl16xnTNfvQj0=
-X-Google-Smtp-Source: AGHT+IFnJhlqTiz2wCZ5pq9bATxrBbTFVbGNJfe4zz/siDIlX2GmBiOG/I+Jy/HPMkfisN/o/4Y3WQ==
-X-Received: by 2002:a05:600c:1c25:b0:477:5c58:3d42 with SMTP id
- 5b1f17b1804b1-477b895912cmr43182905e9.10.1763648067124; 
- Thu, 20 Nov 2025 06:14:27 -0800 (PST)
+ AJvYcCVirWh1ArtKb1OfLbtq5MQVIx8Nx2DNwiZwZEpG6dGExt5ZbGPzV6t3uDvPFt77zBdqyffYKJGc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRhvloAlnRM27T3cYKvCxu/6ErMOi3KJsOn+C6B39KgXBn//oD
+ pGovjFxLP7WRWY8SVAgUh0vOZbHbWukNW3Y5y+9i2rJNTM4a/J9y0SThr6ifuRB6j3k=
+X-Gm-Gg: ASbGncsOWepqo9NPhL8MAs/JhmMRUYCmBk9P6qGdp0v9YlgjJkEb5ZT2EtuSryetjPp
+ t3QBUAj0wOhs8cLd48MtSmiwF+zJrYvRnOgceLnJH5NJf5nXQvusNkUMnM+wCeJ7RfwupEAGfhH
+ e2qUwF54GlKpwzwOoZzmikWX5eeW1tKcauFaQTCRZOmBRbqT2MMP8J/TWtpGGiBhHomLOiGVMOx
+ 9/bWWZgkhM+5q/Cm6TM1PYU+TgcrLgWyISbmc83JnUWkDbk+ROmBI2Cp5hREbuXfTgRoMQR7sNl
+ ru1xzm4joET128SNivKlCXKFHHJ1kOmzoycFilCpZtuPLK9AopVGNvE8w2LuKnwlhe4CDE6UnrD
+ joC2z9iClOWpVzkP/iWKPQKb8wJHBnf5LwMNiSEMdEZlPYhTYnn5T8lHcgFIm5Bzb6NvSikqsiw
+ W+pptM/BvKrCY2pMkQyNIdNBwzkduzDU+P
+X-Google-Smtp-Source: AGHT+IHjZqvTkkmRZ8Ij302pTC794n7WQdn7xGg0iWq0ORbFykU/+7LM6vc6fC7DhyZogpe/qnQw/Q==
+X-Received: by 2002:a05:600c:3553:b0:477:55ce:f3c3 with SMTP id
+ 5b1f17b1804b1-477babc1f61mr20645215e9.5.1763648244298; 
+ Thu, 20 Nov 2025 06:17:24 -0800 (PST)
 Received: from [192.168.0.101] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-477a9e051d8sm66346425e9.5.2025.11.20.06.14.26
+ 5b1f17b1804b1-477b82d8251sm49652785e9.6.2025.11.20.06.17.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Nov 2025 06:14:26 -0800 (PST)
-Message-ID: <cb0b8f5b-11f8-4fee-8d72-396b05f9f708@ursulin.net>
-Date: Thu, 20 Nov 2025 14:14:25 +0000
+ Thu, 20 Nov 2025 06:17:23 -0800 (PST)
+Message-ID: <805c7537-7d75-4eb0-84ae-bad7064ff166@ursulin.net>
+Date: Thu, 20 Nov 2025 14:17:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/18] dma-buf: detach fence ops on signal v2
+Subject: Re: [PATCH 08/18] drm/sched: use inline locks for the drm-sched-fence
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  phasta@mailbox.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch,
  matthew.brost@intel.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
  sumit.semwal@linaro.org
 References: <20251113145332.16805-1-christian.koenig@amd.com>
- <20251113145332.16805-4-christian.koenig@amd.com>
+ <20251113145332.16805-9-christian.koenig@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20251113145332.16805-4-christian.koenig@amd.com>
+In-Reply-To: <20251113145332.16805-9-christian.koenig@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -97,97 +97,70 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 13/11/2025 14:51, Christian König wrote:
-> When neither a release nor a wait backend ops is specified it is possible
-> to let the dma_fence live on independently of the module who issued it.
+> Using the inline lock is now the recommended way for dma_fence implementations.
 > 
-> This makes it possible to unload drivers and only wait for all their
-> fences to signal.
+> So use this approach for the scheduler fences as well just in case if
+> anybody uses this as blueprint for its own implementation.
 > 
-> v2: fix typo in comment
+> Also saves about 4 bytes for the external spinlock.
 > 
 > Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->   drivers/dma-buf/dma-fence.c | 16 ++++++++++++----
->   include/linux/dma-fence.h   |  4 ++--
->   2 files changed, 14 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/scheduler/sched_fence.c | 7 +++----
+>   include/drm/gpu_scheduler.h             | 4 ----
+>   2 files changed, 3 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index ec21be9b089a..7074347f506d 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -374,6 +374,14 @@ int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->   				      &fence->flags)))
->   		return -EINVAL;
->   
-> +	/*
-> +	 * When neither a release nor a wait operation is specified set the ops
-> +	 * pointer to NULL to allow the fence structure to become independent
-> +	 * from who originally issued it.
-> +	 */
-> +	if (!fence->ops->release && !fence->ops->wait)
-> +		RCU_INIT_POINTER(fence->ops, NULL);
-> +
->   	/* Stash the cb_list before replacing it with the timestamp */
->   	list_replace(&fence->cb_list, &cb_list);
->   
-> @@ -513,7 +521,7 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
->   	rcu_read_lock();
->   	ops = rcu_dereference(fence->ops);
->   	trace_dma_fence_wait_start(fence);
-> -	if (ops->wait) {
-> +	if (ops && ops->wait) {
->   		/*
->   		 * Implementing the wait ops is deprecated and not supported for
->   		 * issuer independent fences, so it is ok to use the ops outside
-> @@ -578,7 +586,7 @@ void dma_fence_release(struct kref *kref)
+> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+> index 08ccbde8b2f5..47471b9e43f9 100644
+> --- a/drivers/gpu/drm/scheduler/sched_fence.c
+> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+> @@ -161,7 +161,7 @@ static void drm_sched_fence_set_deadline_finished(struct dma_fence *f,
+>   	/* If we already have an earlier deadline, keep it: */
+>   	if (test_bit(DRM_SCHED_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags) &&
+>   	    ktime_before(fence->deadline, deadline)) {
+> -		spin_unlock_irqrestore(&fence->lock, flags);
+> +		dma_fence_unlock_irqrestore(f, flags);
+>   		return;
 >   	}
 >   
->   	ops = rcu_dereference(fence->ops);
-> -	if (ops->release)
-> +	if (ops && ops->release)
->   		ops->release(fence);
->   	else
->   		dma_fence_free(fence);
-> @@ -614,7 +622,7 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+> @@ -217,7 +217,6 @@ struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *entity,
 >   
->   	rcu_read_lock();
->   	ops = rcu_dereference(fence->ops);
-> -	if (!was_set && ops->enable_signaling) {
-> +	if (!was_set && ops && ops->enable_signaling) {
->   		trace_dma_fence_enable_signal(fence);
+>   	fence->owner = owner;
+>   	fence->drm_client_id = drm_client_id;
+> -	spin_lock_init(&fence->lock);
 >   
->   		if (!ops->enable_signaling(fence)) {
-> @@ -1000,7 +1008,7 @@ void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
->   
->   	rcu_read_lock();
->   	ops = rcu_dereference(fence->ops);
-> -	if (ops->set_deadline && !dma_fence_is_signaled(fence))
-> +	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
->   		ops->set_deadline(fence, deadline);
->   	rcu_read_unlock();
+>   	return fence;
 >   }
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 77f07735f556..eb57bcc8712f 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -436,7 +436,7 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+> @@ -230,9 +229,9 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
+>   	fence->sched = entity->rq->sched;
+>   	seq = atomic_inc_return(&entity->fence_seq);
+>   	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
+> -		       &fence->lock, entity->fence_context, seq);
+> +		       NULL, entity->fence_context, seq);
+>   	dma_fence_init(&fence->finished, &drm_sched_fence_ops_finished,
+> -		       &fence->lock, entity->fence_context + 1, seq);
+> +		       NULL, entity->fence_context + 1, seq);
+>   }
 >   
->   	rcu_read_lock();
->   	ops = rcu_dereference(fence->ops);
-> -	if (ops->signaled && ops->signaled(fence)) {
-> +	if (ops && ops->signaled && ops->signaled(fence)) {
->   		rcu_read_unlock();
->   		dma_fence_signal_locked(fence);
->   		return true;
-> @@ -472,7 +472,7 @@ dma_fence_is_signaled(struct dma_fence *fence)
->   
->   	rcu_read_lock();
->   	ops = rcu_dereference(fence->ops);
-> -	if (ops->signaled && ops->signaled(fence)) {
-> +	if (ops && ops->signaled && ops->signaled(fence)) {
->   		rcu_read_unlock();
->   		dma_fence_signal(fence);
->   		return true;
+>   module_init(drm_sched_fence_slab_init);
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index fb88301b3c45..b77f24a783e3 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -297,10 +297,6 @@ struct drm_sched_fence {
+>            * belongs to.
+>            */
+>   	struct drm_gpu_scheduler	*sched;
+> -        /**
+> -         * @lock: the lock used by the scheduled and the finished fences.
+> -         */
+> -	spinlock_t			lock;
+>           /**
+>            * @owner: job owner for debugging
+>            */
+
+Looks good to me and the kernel test robot warnings Philipp mentions 
+AFAICT are from a different patch relating to trivial selftest changes.
 
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
