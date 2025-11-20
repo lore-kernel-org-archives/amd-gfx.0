@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A36CF9C7C
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 18:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56761CF9C7B
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 18:19:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19BC910E7B2;
-	Thu, 20 Nov 2025 18:18:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE42710E7B3;
+	Thu, 20 Nov 2025 18:19:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z64N+YNR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qyMVaSfx";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012022.outbound.protection.outlook.com [40.107.209.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB52410E7B2
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 18:18:55 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010045.outbound.protection.outlook.com
+ [40.93.198.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 775FA10E7B3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Nov 2025 18:19:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wNpYipYrZpnVWVdC4ORleryDWNF3zSjmanqpuz5skD+AQruSkgkwJukOVwWJi8rvNKDMy2pArEBja+LtNwskFwq2oyAnZ6ToXFv47BIX0vY8UsYuCOhKqd4Y4EQH71mAusM58Dalt9nGxV1cKcRGY0/G2DY2HJqstAEFXZL4+oaXLhGEMoDjl+fbaBoQRdHe7vp4aB5F06ucxgol5JVHqwzn4Xme1WCN2qVRsmLEGwh6v3GBDD0r/1rPNwTWr7G00CHjk7hH6CXp+3UnU3oS3Wdjq4rdJV0Hkb0q3YEL5efbFmb0YpyFgJfCiPQ/oNKmlo9G7tnoI672Ob5OJcU7bg==
+ b=sAB+pK81lGE/YKhOS+OvB7+kxYJ72Zt3p7XqmkiQF0GeHjgeIoMYyAXjk5+OhKSdELr/AhQiv+OjaEy/+W3zXAShPFQ9a3ItUiFFxfdThCuQ3rwMtMu/mHaOt6KR7msUGIzX0R15i+MGdPelb7uXFxUWmVPDP4BY6iNb9e6+hhCtb4Cg6cp+xXSKJEqCtdBQ7gQ0MPgkGiXNfAOkq+WN5uYPvaY48l3U1cGwoJjOXOV5SQmBUYHix+8zCKX+byJPDAPaFjyaMTCNE7RLZWwOMnqeBgABqrHfBIw7XdMMgKrwTcHglVh2pRcr6T8eR3ySbVQoRLzsNJG9rXwKyD+beQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d/EHq6JIKW7xDG3bCp4VKAf/fdzj+NwWqwgwojdfqYU=;
- b=q6dE3ch0RQEnRfnD9+mua9tW0nAI1uMfdjbLgeEPGM1JHJhlpZZJgr2M845EGh+2f2ObRUyXTMfA5RfontvmhQfpjoWCpL0tuENuGwbZf738E24Qixo//A5kIXtfSmZb1ivjJTvYrqbE3XLhL83474tJ2hcMpkiCI0tcFNDsWXoOE5iYZiWXPCZSbz+AOoqIsG4sugF84fpUApO2I5gUDHuBy9AZuBB/jqBJk3eP9bo5KR9SeWVj7MEjuWiznC1QgGfvexiXIivvjSpGSFXmmnl/2C2rozvpoIQ2zqp0qPCVuZ9L/kGuITLIJOrnWKtETeCWVi5R4t+xxjTbvwXlsA==
+ bh=AJQ7fmpRsGnJm6A+W0suD00gtM8gjoO6iLP4U1uhJNo=;
+ b=jJCJqIr5EBdsQoAOhl8Yr0VtrnBIXiKRy2BiUDwmRq1Ut36f3+4gaR9AOYHF9HpoOFsMB7DDlDfUmeeIf6T+Mh3P4pzHI9hrpQnkrsM6yQLe2KH4OO4a0yYchLoJC+opAtRmMtMrUyOvLawiWzjxlqaR1FNTGWBHMwqbWHB9ESkMprsPPUqL5IMrv3/KpIWRyNUlb+VYTNriR7NcTJ3WWHhRw5QM88YEE1GYcyNo2zCgK8vH+sC1plzvAT5viq7S9c5+MUtN5AMMfQ7ZcIUvoSyrhLMCHFq0F1s/Peup08RdVu82cjnSopoP22L7usShH14gD46ZBvQnR6SAT0DjCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d/EHq6JIKW7xDG3bCp4VKAf/fdzj+NwWqwgwojdfqYU=;
- b=z64N+YNRWQ4c8X+fqDcIjlLOohsEhGExxqION3/iwtM87AYlmE3l4psUWeR97w39K0nhznObuWn/maXByjrMRjV+A2Hi4pc8RufmNFAomh6Hi+ymD6qDy8TuGk/OeQ5fZynjW3NJfydLABxj0b3xDYm32e8NV/zsKHh+54N1d18=
-Received: from DM6PR02CA0083.namprd02.prod.outlook.com (2603:10b6:5:1f4::24)
- by DM6PR12MB4041.namprd12.prod.outlook.com (2603:10b6:5:210::18) with
+ bh=AJQ7fmpRsGnJm6A+W0suD00gtM8gjoO6iLP4U1uhJNo=;
+ b=qyMVaSfxgBC74ezPXTUgsBsaCp7NceZHb8dV5po4pLj//z9kRfuTF+hQESM0Yid7Rfk//oOK9XBfrc+eg6LEDatUwtIbKIlcjvT/fwKHGItiURhSRT71cgJAYh/DpPIvDPSCb+4QsFjueX+gSNJ0PPQWwWP6a4kAJI80rdl4FQk=
+Received: from DS7PR03CA0189.namprd03.prod.outlook.com (2603:10b6:5:3b6::14)
+ by DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.11; Thu, 20 Nov
- 2025 18:18:52 +0000
-Received: from DS3PEPF000099DB.namprd04.prod.outlook.com
- (2603:10b6:5:1f4:cafe::78) by DM6PR02CA0083.outlook.office365.com
- (2603:10b6:5:1f4::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.11 via Frontend Transport; Thu,
- 20 Nov 2025 18:18:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Thu, 20 Nov
+ 2025 18:19:06 +0000
+Received: from DS3PEPF000099DC.namprd04.prod.outlook.com
+ (2603:10b6:5:3b6:cafe::ef) by DS7PR03CA0189.outlook.office365.com
+ (2603:10b6:5:3b6::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9320.23 via Frontend Transport; Thu,
+ 20 Nov 2025 18:19:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF000099DB.mail.protection.outlook.com (10.167.17.197) with Microsoft
+ DS3PEPF000099DC.mail.protection.outlook.com (10.167.17.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.9 via Frontend Transport; Thu, 20 Nov 2025 18:18:52 +0000
+ 15.20.9343.9 via Frontend Transport; Thu, 20 Nov 2025 18:19:06 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 20 Nov
- 2025 10:18:50 -0800
+ 2025 10:19:03 -0800
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Jack Chang <jack.chang@amd.com>, Robin Chen
- <robin.chen@amd.com>
-Subject: [PATCH 08/26] drm/amd/display: Refactor panel replay dc libs
-Date: Thu, 20 Nov 2025 11:03:04 -0700
-Message-ID: <20251120181527.317107-9-alex.hung@amd.com>
+ <alex.hung@amd.com>, Derek Lai <Derek.Lai@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>
+Subject: [PATCH 09/26] drm/amd/display: Write default Vesa Aux backlight
+ control in dmub
+Date: Thu, 20 Nov 2025 11:03:05 -0700
+Message-ID: <20251120181527.317107-10-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251120181527.317107-1-alex.hung@amd.com>
 References: <20251120181527.317107-1-alex.hung@amd.com>
@@ -78,53 +80,53 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DB:EE_|DM6PR12MB4041:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ce46faa-bc23-49ea-a6e4-08de2861426b
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DC:EE_|DS0PR12MB8245:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2eb24bb-ec7d-447a-e821-08de28614a97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4kTA4eHsL8tb0MnrhhefxGPU+/cqMNxGp3LZDeYiZ4VeWw0JK8zT1HKklqCY?=
- =?us-ascii?Q?EstAu0B7FJ8BJgnO98ifO1JkujeKaTvqIIf3tGis3tSEPWi5XHxdF6YzsB6D?=
- =?us-ascii?Q?6cqkfGluatfTSBvCIwB92+0aCROt1YVg2kYR6yWS2ByFD1X1X02/jGNx/Bd7?=
- =?us-ascii?Q?PWhYh6j2W5+fWo/DrA1LWW0+e/xyNwOd4HvlEbU0J7Ich0hVlQluGPSf0noP?=
- =?us-ascii?Q?F5csZtv9dDLgL+SbRSaAK7tfpkfxzNUddJtqsQzHvciViEytG1JJwl0heSjT?=
- =?us-ascii?Q?uVvGFFhNFRTYkhZdTeVQozZhiqGHTJJOuZT0InTEbi2jxsB9E9uFdnzO4niT?=
- =?us-ascii?Q?UQ6SWUQfKjwO3cb+FxDHxXMZC5e1DuzpUVvuWMaO1WxnIX7dpi18h5u+IqCT?=
- =?us-ascii?Q?ICK8YBMuswNdCbtjmm68Anv8lxX4i61bcs/x8D3WFnag2NM+jn3nNjbFbpLE?=
- =?us-ascii?Q?OHOT2l1xBzhzHnti5ekAB+/RJyOtshm6rMmYwqrn9HkjTuHjV3u8BzK8sPnH?=
- =?us-ascii?Q?ZkHYjqsryk1hsgt5SRnYwbAnG6MLqobzBEL+QyfqVVPE/LHcjhhPNfaHNyCC?=
- =?us-ascii?Q?8eEMT1IDpuK2u9YbZfPoQq/ZfYojh4AtZaobMv6WvbSKRKsIVTtYBhcGnzU7?=
- =?us-ascii?Q?5wDoQKQni8NS4d6SGGfOLHH7jlqA3sVT73zCVrDLAjyZienzjOkqdFuPnM0K?=
- =?us-ascii?Q?JWjAgUroANf6bfaE5kRNN1ytpBwiMNA+ttPbMhlx5SOZG3UUquTwmuFl2Fqi?=
- =?us-ascii?Q?zW3mhY2eACl8RsDdR3+M1u3wxiGL8J5DJQYAyEGm39+E3gNOhFsEg0vvGjlr?=
- =?us-ascii?Q?1v8yv/hqzX8TU4xeH6fUb3nozImQdeGvcRw0+zEwSCP2K9IgKZM1AHXtUVBa?=
- =?us-ascii?Q?LJkFxjNzNBpJL6T2y0E0GtkFFmAdQY9XaSZPf7XvbKTeBecJH22/HiK2Y0Xf?=
- =?us-ascii?Q?weKUfvVILJyHQOYdhXPJw3NiLeXDqYOW++XKZgSNQq6thAF8LU3wzyrgRVqM?=
- =?us-ascii?Q?JRBIxMLC2uoShHOtZiyCN8wfVctmshCaHTbj0uYjApOn/ZTHf0xi7Wpn4FVp?=
- =?us-ascii?Q?GlPCSY0NuysKabrXX1qTpjjWBhgPtB+nuJGt5g0WhCaGl7zZ3xtBlNV3lQ5A?=
- =?us-ascii?Q?mOBeOL3Bxk12Tb6DXdvy1qme4poMMkYRkwVI2Gf4jm7lwM5JodVndQaN3Dl/?=
- =?us-ascii?Q?PJlxb+wpTRpwK7z+urdx+ErkjdIysClhbntEb4DcL24sXMYaajHi/jDJbf5H?=
- =?us-ascii?Q?0yJEbfrfM77PTqYoBqcJo+zFAwiPdJWn02jpElGEEnV4TEpHBnrsxgc7ZTjI?=
- =?us-ascii?Q?altA2lD6pP5aX4OAeo28O0wRVpH7KMt+4M5wd6c+koqQ6DlX+OdNQEAlSXcS?=
- =?us-ascii?Q?+FWksYVCDI4WSKphI7IKeucfuIXU6LmtNfl+daN6iEDq89WFRDRPsHqj8H66?=
- =?us-ascii?Q?KcnOrsQmK155btvUx2HZ2HdGHjiRnyyg8hm/qCo3kG3rE/y/ivsvAHo2WvU3?=
- =?us-ascii?Q?zv5ZWnVmlWFYIioXczIfzefmJnwGxz1VJp2ctV326EjiGPAQ79DiEzWTCrM0?=
- =?us-ascii?Q?x3UusGfk9fb/fx7JQvQ=3D?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NSy6Lc9R0GoFcN1C/D43fSLgLjaSk+VX/ZvA0qh8uS0sCeWJh9Jnn3i52R6e?=
+ =?us-ascii?Q?YbOB0qnzCwPIZVn8vzintfSSdh/FkffRtJFlsBNAYFWPek36zA+ZPuGlSBPw?=
+ =?us-ascii?Q?9+dfYwzTEylib6vTL2K0dSbKd7r/D424Um3zoIo3rysFDwSW23NffCEpUkUj?=
+ =?us-ascii?Q?F6Oa2dVAMj+7wmcqXjHZtgDaVA8xu60Lwzuvtl/9CP7QFfdkmVT+u0wRUgvE?=
+ =?us-ascii?Q?EdzP0NEw6OWYT4pNpojUWA9cJsMs/W4UEnca3g1bbM+Ho7EgdTZSle+nhgUw?=
+ =?us-ascii?Q?nOesKhh3Igz4PZKAf9OW8hnVdwIjvdoLdKM1fXIhBxhSP1TWObELV2Yqo9lU?=
+ =?us-ascii?Q?rGfY/ocpMb+9Oe0hMxFD7b/15NJQT3d7+we91gPQ/pWHJDwi8jTVMggS0Jn8?=
+ =?us-ascii?Q?aFJSoGBj2hw1cEIyvBWkmip76Jf/Q6tJ+mRPJm/i/MV3z9jMfd4yiwnKRHCg?=
+ =?us-ascii?Q?/qrvAMXHLOejxxUIrIBqa7ez4W+t4KemQIElnpBs5QgD1Rk9Ytjd/qc7fTen?=
+ =?us-ascii?Q?iDsYY2gPi/MDQHTH9ibLGU16J0urz9EOVo9PZ1WeV6SEjB51r7chI9J8/mCl?=
+ =?us-ascii?Q?dnzUR1zPXC1v8QGBdUE91MaL/tKil4BeAF6rA5/dvpElS1vYrudeIY2wk9jr?=
+ =?us-ascii?Q?cAp2n9NzhL9d2o7JwSvQ7dIO5dg/0LLPO3O4J6VzBGgvEe3GJPvWOF5BKMVG?=
+ =?us-ascii?Q?DXGBn3fIIUZP8OmMUliNbpAmEmA67gLkngI1QT41FkhbTa1GyjXKShAgv1iS?=
+ =?us-ascii?Q?neDmOEanaaZ0iDgp6UyxouA72xSwTDOQM2ZFqTxtnpDK5lZrUkHMVdzVwYWc?=
+ =?us-ascii?Q?qjj8s0tYgsXpwvdW7uxHga8P30q9sN5GklVlB0UTpfyyuG04WaZq3UICIwKu?=
+ =?us-ascii?Q?VESwOrzdDhxIkNSvSmkg/u8xPjU6lXiH6aboFYI3VN5wtBxJTkCAU6bEjAw4?=
+ =?us-ascii?Q?UwNOV4TRdZFgL7MuRlFHAkbHfXb1m8cMMLATPYGr2LOwcrzNnBw+nVFoi7kY?=
+ =?us-ascii?Q?fo7ZpCfAOKTmK65HSmKBkl4r4WSuHwdh6flXDfy9gf2zFf2wHTq97Uc3bNCh?=
+ =?us-ascii?Q?2Knu+fvWvAA8sckrAKjtWkoGFej+s7EsyEK1X1ogeT4gulNfYq00K5yHV39X?=
+ =?us-ascii?Q?yaVZVxN8bAtLW/vOE6Ck7xnhE3RG/XC3dgJXdMMV1cvN7XvPYOEnVpCxqFiW?=
+ =?us-ascii?Q?34PpPLwMFWr1kJb1YQrb37zxQOIhulNr3V7M0T2/mt/5tIN6Kw6Q5/mMGpNr?=
+ =?us-ascii?Q?op0p4Ah2dQnWJqbkQC39E1CP6KWr9ztzFIMdUChXvRHxETjnxur/iZ3cyJHw?=
+ =?us-ascii?Q?zcWMiRvW+kfkGRmmnPMFqyxhrBiwsRsEmqv4DT2cCSedkrTfatsHNZ0j4Vgl?=
+ =?us-ascii?Q?ADMBx2T5ba44ximxJoxaD0U5rwsWYAu2h2uaVD0DBz8vU42cbkQ3aYoMJmcX?=
+ =?us-ascii?Q?KrSvFC2TrnNavwgxiX8Oa0V4GDXD8RWjS1uV4saSgusUnOX6QL0HsckIoVE3?=
+ =?us-ascii?Q?fmBBWYwBLAMrT6Uncn/E3jBv0GcwuY7nTfmcLBDRnVJrxWJjWgZUp6mX5ftF?=
+ =?us-ascii?Q?kkmbz6L8VOVGdi1JqSU=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 18:18:52.3759 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ce46faa-bc23-49ea-a6e4-08de2861426b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 18:19:06.0792 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2eb24bb-ec7d-447a-e821-08de28614a97
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DC.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4041
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8245
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,105 +141,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jack Chang <jack.chang@amd.com>
+From: Derek Lai <Derek.Lai@amd.com>
 
 [WHY]
-Add dc interface to export link service libs for setting PR dmub command.
+Some OLED panels require driver to write Aux BL before link training or
+turning on backlight; otherwise monitor brightness will change.
 
-Reviewed-by: Robin Chen <robin.chen@amd.com>
-Signed-off-by: Jack Chang <jack.chang@amd.com>
+[HOW]
+Write the default Vesa Aux backlight control in dmub.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Derek Lai <Derek.Lai@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../drm/amd/display/dc/core/dc_link_exports.c | 22 ++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           | 42 +++++++++++++++++++
- 2 files changed, 64 insertions(+)
+ .../drm/amd/display/dc/link/link_detection.c  |  2 +-
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |  4 +--
+ .../dc/link/protocols/link_dp_capability.c    |  2 +-
+ .../link/protocols/link_edp_panel_control.c   | 26 ++++++++++++++++---
+ .../link/protocols/link_edp_panel_control.h   |  2 +-
+ 5 files changed, 28 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-index 9acd30019717..a8d7228907c2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-@@ -491,6 +491,28 @@ bool dc_link_get_replay_state(const struct dc_link *link, uint64_t *state)
- 	return link->dc->link_srv->edp_get_replay_state(link, state);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index 6d31f4967f1a..9746bb2f6c3b 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -989,7 +989,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 			(link->dpcd_sink_ext_caps.bits.oled == 1)) {
+ 			dpcd_set_source_specific_data(link);
+ 			msleep(post_oui_delay);
+-			set_default_brightness_aux(link);
++			set_default_brightness(link);
+ 		}
+ 
+ 		return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 475f71bb48ff..1b1ce3839922 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -2115,7 +2115,7 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 		skip_video_pattern = false;
+ 
+ 	if (stream->sink_patches.oled_optimize_display_on)
+-		set_default_brightness_aux(link);
++		set_default_brightness(link);
+ 
+ 	if (perform_link_training_with_retries(link_settings,
+ 					       skip_video_pattern,
+@@ -2141,7 +2141,7 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 		link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control == 1 ||
+ 		link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1) {
+ 		if (!stream->sink_patches.oled_optimize_display_on) {
+-			set_default_brightness_aux(link);
++			set_default_brightness(link);
+ 			if (link->dpcd_sink_ext_caps.bits.oled == 1)
+ 				msleep(bl_oled_enable_delay);
+ 			edp_backlight_enable_aux(link, true);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index ad90a0106938..3884851e2a9e 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -2167,7 +2167,7 @@ void detect_edp_sink_caps(struct dc_link *link)
+ 	link->dpcd_caps.set_power_state_capable_edp =
+ 				(general_edp_cap & DP_EDP_SET_POWER_CAP) ? true : false;
+ 
+-	set_default_brightness_aux(link);
++	set_default_brightness(link);
+ 
+ 	core_link_read_dpcd(link, DP_EDP_DPCD_REV,
+ 		&link->dpcd_caps.edp_rev,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index 99741c1334ca..0b05ee9f6ea1 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -50,6 +50,11 @@ static const uint8_t DP_VGA_LVDS_CONVERTER_ID_2[] = "sivarT";
+ /* Nutmeg */
+ static const uint8_t DP_VGA_LVDS_CONVERTER_ID_3[] = "dnomlA";
+ 
++static const unsigned int pwr_default_min_brightness_millinits = 1000;
++static const unsigned int pwr_default_sdr_brightness_millinits = 270000;
++static const unsigned int pwr_default_min_backlight_pwm = 0xC0C;
++static const unsigned int pwr_default_max_backlight_pwm = 0xFFFF;
++
+ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
+ {
+ 	union dpcd_edp_config edp_config_set;
+@@ -309,7 +314,7 @@ static bool read_default_bl_aux(struct dc_link *link, uint32_t *backlight_millin
+ 	return true;
  }
  
-+bool dc_link_set_pr_enable(struct dc_link *link, bool enable)
-+{
-+	return link->dc->link_srv->edp_pr_enable(link, enable);
-+}
-+
-+bool dc_link_update_pr_state(struct dc_link *link,
-+		struct dmub_cmd_pr_update_state_data *update_state_data)
-+{
-+	return link->dc->link_srv->edp_pr_update_state(link, update_state_data);
-+}
-+
-+bool dc_link_set_pr_general_cmd(struct dc_link *link,
-+		struct dmub_cmd_pr_general_cmd_data *general_cmd_data)
-+{
-+	return link->dc->link_srv->edp_pr_set_general_cmd(link, general_cmd_data);
-+}
-+
-+bool dc_link_get_pr_state(const struct dc_link *link, uint64_t *state)
-+{
-+	return link->dc->link_srv->edp_pr_get_state(link, state);
-+}
-+
- bool dc_link_wait_for_t12(struct dc_link *link)
+-bool set_default_brightness_aux(struct dc_link *link)
++bool set_default_brightness(struct dc_link *link)
  {
- 	return link->dc->link_srv->edp_wait_for_t12(link);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4205f896aadc..a1fb5ed653a9 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2455,6 +2455,48 @@ bool dc_link_set_replay_allow_active(struct dc_link *dc_link, const bool *enable
+ 	uint32_t default_backlight;
  
- bool dc_link_get_replay_state(const struct dc_link *dc_link, uint64_t *state);
+@@ -320,8 +325,23 @@ bool set_default_brightness_aux(struct dc_link *link)
+ 		if (default_backlight < 1000 || default_backlight > 5000000)
+ 			default_backlight = 150000;
  
-+/*
-+ * Enable or disable Panel Replay on the specified link:
-+ *
-+ * @link: pointer to the dc_link struct instance
-+ * @enable: enable or disable Panel Replay
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_set_pr_enable(struct dc_link *link, bool enable);
+-		return edp_set_backlight_level_nits(link, true,
+-				default_backlight, 0);
++		if (link->backlight_control_type == BACKLIGHT_CONTROL_VESA_AUX &&
++			link->dc->caps.dmub_caps.aux_backlight_support) {
++			struct set_backlight_level_params backlight_level_params = { 0 };
 +
-+/*
-+ * Update Panel Replay state parameters:
-+ *
-+ * @link: pointer to the dc_link struct instance
-+ * @update_state_data: pointer to state update data structure
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_update_pr_state(struct dc_link *link,
-+		struct dmub_cmd_pr_update_state_data *update_state_data);
-+
-+/*
-+ * Send general command to Panel Replay firmware:
-+ *
-+ * @link: pointer to the dc_link struct instance
-+ * @general_cmd_data: pointer to general command data structure
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_set_pr_general_cmd(struct dc_link *link,
-+		struct dmub_cmd_pr_general_cmd_data *general_cmd_data);
-+
-+/*
-+ * Get Panel Replay state:
-+ *
-+ * @link: pointer to the dc_link struct instance
-+ * @state: pointer to store the Panel Replay state
-+ *
-+ * return: true if successful, false otherwise
-+ */
-+bool dc_link_get_pr_state(const struct dc_link *link, uint64_t *state);
-+
- /* On eDP links this function call will stall until T12 has elapsed.
-  * If the panel is not in power off state, this function will return
-  * immediately.
++			backlight_level_params.aux_inst =  link->ddc->ddc_pin->hw_info.ddc_channel;
++			backlight_level_params.control_type = BACKLIGHT_CONTROL_VESA_AUX;
++			backlight_level_params.backlight_pwm_u16_16 = default_backlight;
++			backlight_level_params.transition_time_in_ms = 0;
++			// filled in the driver BL default values
++			backlight_level_params.min_luminance = pwr_default_min_brightness_millinits;
++			backlight_level_params.max_luminance = pwr_default_sdr_brightness_millinits;
++			backlight_level_params.min_backlight_pwm = pwr_default_min_backlight_pwm;
++			backlight_level_params.max_backlight_pwm = pwr_default_max_backlight_pwm;
++			return edp_set_backlight_level(link, &backlight_level_params);
++		} else
++			return edp_set_backlight_level_nits(link, true,
++					default_backlight, 0);
+ 	}
+ 	return false;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
+index 360129732109..fd63b5d0f948 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.h
+@@ -29,7 +29,7 @@
+ 
+ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link);
+ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode);
+-bool set_default_brightness_aux(struct dc_link *link);
++bool set_default_brightness(struct dc_link *link);
+ bool is_smartmux_suported(struct dc_link *link);
+ void edp_panel_backlight_power_on(struct dc_link *link, bool wait_for_hpd);
+ int edp_get_backlight_level(const struct dc_link *link);
 -- 
 2.43.0
 
