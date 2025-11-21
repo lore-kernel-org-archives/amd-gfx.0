@@ -4,80 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D156CFD31C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E79CBCFA466
 	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 08:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA5110E1DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B04FA10E1DE;
 	Mon, 24 Nov 2025 08:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cM0CQeBK";
+	dkim=pass (2048-bit key; secure) header.d=freebsd.org header.i=@freebsd.org header.b="DLS2c0pP";
 	dkim-atps=neutral
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 740A010E113
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 17:51:12 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-644f90587e5so3615279a12.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 09:51:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763747471; x=1764352271; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9syd0iDwsyEu4s/8iEAd1AcquGv2uEIeHc2ss2ClUv0=;
- b=cM0CQeBKp7WDHvn05RhwCqY1wq3MPQimLTE0ekrJPsoU8ZNnzg3G50Wws36UN1beca
- OopuhHXcFfzqrXLRy8iSW0oZ8FWEumcBJ3av9FnYOzZEcujNreWzJFGCzqROM8KYcKiW
- i1SVjh50/kg41vpM5TiynTRz8ja9m36g9K3WYjXW7VYCkDrxymih7NZCaTR3kvko6FJu
- LpJq75EId63usD/vBjZv4LeH+ehJU5dRVNI9bAGjz6QmlYjNcdZQkGbUKa0R+MM9Tbrh
- kn0RpVSVLxkV9+qxlsG6lGqTAFHOS8Fec2jwGK+aBJ1AzMazMYO+F524cUY+dz/f/5SR
- Kf5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763747471; x=1764352271;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9syd0iDwsyEu4s/8iEAd1AcquGv2uEIeHc2ss2ClUv0=;
- b=L+pGk3X7k6lhbAPDHAPm0qHuNAKCju0mUbrC50/+GwWr9TKk5MQoEhpEieaYr8TSKE
- asXmIHi0Hd7zfhgabH1YkTwIZ3LUUAHRLVLrw2ftf60FwRKNoNsi82ufwKs0NSTDqOzV
- 9wCrst1+6pUutnULyABZM+/iUKPw32GkoySvnI9wUZoNBSTy4GZQI28olZ34jkB5juWn
- UU75RfSktTtpn/3nAYYLvLdg86XXZi2n90+paS9IyLDWh/KRWd7hdxub8P2KZvx8lHn2
- AJ/D/F/W4vFRL6h9aeoeM57tfqfTk/F+SvP9jgn+Ry+dawqhZf2cJWK2efyQo5pgdKbs
- aE0g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX0gtLCDzddJ7J1yuPb1KK7/yWn8zpgG61mVnbu8W/GKJR69CwH7zf1REyUmwimx4AhxWx9GOr4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0iyYvFJEPtnrlvshF+F2NecRjgFRpR6QWorddz8P8JohiaNls
- /nbqlTsTN58ET7neYLKPifokZMvdCW71cqzfW68nQkiy2c0xN5kl8DDIkAZQ1dk0o+4xN19BgDX
- BdgZtVjyADGMS/UHnvusSDVy0dpfhgFE=
-X-Gm-Gg: ASbGnctSwW1qqifs5oHDb7wL3tb/PPGyds0YsC8p2fTXXmlGqwTNAphy9LYWM90zSiG
- FeSBqBprBqr2CgnfEG1bzRw9Ro/oyYDM3+hr6DgL+uSLDTFUYEaWH/oYY07N2Zh9Vi4XxUQKz/G
- fe3AkMB7bp7zJ7REC0sdws7Bp4YCUyUZ6ak6jSeL2MYVySReuvipHRTyuaNU0Z6AVpWwPYjsutP
- mJr42qRkxg/FvTeMcxoppCbDGoSb0x8akRFrp4B232OwZVs66VtvBikgQOGzDnldt2t0uEUjPHL
- dVX+VPw+6RD0js7Kr+3FRo67igvaZg==
-X-Google-Smtp-Source: AGHT+IF3hROYoDCS1hO41P1oM8NXxKoOBwYdjkSygtTGJdSCz+R5viMeN+1Yw/VFITJkAcfVYyLIW4VR2yoQ0cXw6J0=
-X-Received: by 2002:a17:906:dc89:b0:b73:6b85:1a9a with SMTP id
- a640c23a62f3a-b7671591ebemr330236166b.21.1763747470654; Fri, 21 Nov 2025
- 09:51:10 -0800 (PST)
+Received: from mx2.freebsd.org (mx2.freebsd.org [96.47.72.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2834F10E89C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 15:12:44 +0000 (UTC)
+Received: from mx1.freebsd.org (mx1.freebsd.org [96.47.72.80])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits)
+ client-signature RSA-PSS (4096 bits))
+ (Client CN "mx1.freebsd.org", Issuer "R12" (verified OK))
+ by mx2.freebsd.org (Postfix) with ESMTPS id 4dCdxk5602z3lDf;
+ Fri, 21 Nov 2025 15:12:42 +0000 (UTC)
+ (envelope-from emaste@freebsd.org)
+Received: from freefall.freebsd.org (freefall.freebsd.org
+ [IPv6:2610:1c1:1:6074::16:84])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
+ client-signature RSA-PSS (4096 bits) client-digest SHA256)
+ (Client CN "freefall.freebsd.org", Issuer "R12" (verified OK))
+ by mx1.freebsd.org (Postfix) with ESMTPS id 4dCdxk3T4dz3n8K;
+ Fri, 21 Nov 2025 15:12:42 +0000 (UTC)
+ (envelope-from emaste@freebsd.org)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freebsd.org; s=dkim;
+ t=1763737962;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=LnZhhazrCnsFMOT4E79BHroufGAGou9v69FtU2sFfGM=;
+ b=DLS2c0pPlbKOUiIs9mGK2/bDBq+GWqbpcKY6wAuci2+bPXzRx19dI7ZpKY2/N+IeYTrP2R
+ JqYAt/2n1OtBP9NPAWdciSOBlZuYbvch4xzZJibUdTEIpgNuYvGkVmrJv31EQuiN+OT5Yp
+ Kfhau5ZSeFaVDR0VAgkzzcs05YolLknQ+SeZrf29EWaZnW0C+SCjubthcsFEGCdltWU7SU
+ 62BjblkqxdFNf9VlAheU4r8nUpipdnUjx/rCZkHTpeOTVdeZ96k6CSzBFs+ttbMU17XbZH
+ kq93LxQh8D6XCKwdrj1V2b5hV0ZhzO0JVXbEmsKsV57HhDFFcjGPUgO2KeTD3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=freebsd.org;
+ s=dkim; t=1763737962;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=LnZhhazrCnsFMOT4E79BHroufGAGou9v69FtU2sFfGM=;
+ b=dq7uSS+3wNPH+N2h4O0ExRultXgD8xap2r6zmc9KhzvOycMwWesI9m0vJ9OYM4DnTSYdxH
+ lW6lZPSbPk3q9yFX4bnYjhktgjj4NDFl/Hqwgd9Pku8ePb0vrYPcZM1KqQrG/C2WQeLsz2
+ YaT6sV3W/eFuZljyV045JVoSCG+UWr0nhtGFB0WpnpDJpgAJYWdEhxIRqemo+UAiqwc7wz
+ t2AB9XW/A8eD+DRQV1wSwAON4G3t8ZXTnBUQT+V5Vqn2hmEuoNc0JG4k372oFu3VA6ROHY
+ jYRdYYSzvT5tunFJzDZf4zsNGrVxWnpiPmOohazsPOt2guTexlRYszt2ikV+DQ==
+ARC-Seal: i=1; s=dkim; d=freebsd.org; t=1763737962; a=rsa-sha256; cv=none;
+ b=ubIJl7vt3HuS+AiqK1ffKTPeTOQ85nOzO2EE+Q3asn8AlFNlKirIzqXMT4kVwFH9cAby90
+ 7OgV7xf7SmSBvKozWXOyuWcE99PZmBzZhH/wxGwHu+s6sL7H6gI4sgb6SA3Lpw9HOZb+C5
+ ezBQbWRmj60+hmT9ElLQ4AbcZ1r3IGkVjaFBh9aHm6YklvX8/T7iavYgXjcPj/HKwZPEe/
+ iAG3CPPNDcodElaHdY1qv+uHy16pIKsSNeYsW9kRVRWzTomIqpikMlKKGk9X/6nn+erqye
+ IJ2auzCTFCSVyjnIJKPa4fhAMHRxgs+b7aNLb8IyTdwdSAZZTy3w50x2IP2EHg==
+ARC-Authentication-Results: i=1;
+	mx1.freebsd.org;
+	none
+Received: by freefall.freebsd.org (Postfix, from userid 1079)
+ id 608BF4749; Fri, 21 Nov 2025 15:12:42 +0000 (-00)
+From: Ed Maste <emaste@FreeBSD.org>
+To: amd-gfx@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Ed Maste <emaste@FreeBSD.org>
+Subject: [PATCH] drm/amd/amdgpu: Add missing newline in DRM_DEBUG_DRIVER
+ message
+Date: Fri, 21 Nov 2025 15:12:36 +0000
+Message-ID: <20251121151236.26852-1-emaste@FreeBSD.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <20251115000237.3561250-1-alex.hung@amd.com>
- <cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com>
-In-Reply-To: <cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com>
-From: Xaver Hugl <xaver.hugl@gmail.com>
-Date: Fri, 21 Nov 2025 18:50:59 +0100
-X-Gm-Features: AWmQ_blPOyJRHHyAhmzIMJ97nbk2_s8DU5jtcmQ-QZC3hMwvXMbdNW-TOUolRQ8
-Message-ID: <CAFZQkGwRbuE9Whp0YNMA9Q8074B_c3+MhzzUQ_Y+gHaBkogKuQ@mail.gmail.com>
-Subject: Re: [PATCH V13 00/51][FINAL] Color Pipeline API w/ VKMS
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
- leo.liu@amd.com, ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, 
- contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com, 
- sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
- joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com, mcanal@igalia.com, 
- nfraprado@collabora.com, arthurgrillo@riseup.net
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 24 Nov 2025 08:12:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,16 +92,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Do., 20. Nov. 2025 um 21:13 Uhr schrieb Harry Wentland
-<harry.wentland@amd.com>:
-> Xaver, are the kwin patches ready to be merged?
+This error message was emitted without a newline during bring-up on
+FreeBSD.  Presumably the error doesn't occur on Linux so was not noticed
+before.
 
-Yes. I'll need to take another look at making the rewritten KWin->KMS
-color pipeline matching algorithm easier to follow, but I split that
-out into a separate commit, and basic support for drm color operations
-is ready to be merged (the only thing the basic version can't do is
-tonemapping, but it's useful without that as well).
-Just to be sure, I also tested it again on top of the latest kernel
-patches and it works as expected.
+Signed-off-by: Ed Maste <emaste@FreeBSD.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Xaver
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 6c62e27b9800..d8a4e918846c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1109,7 +1109,7 @@ static int amdgpu_acpi_enumerate_xcc(void)
+ 		 * one is not found, no need to check the rest.
+ 		 */
+ 		if (!acpi_dev) {
+-			DRM_DEBUG_DRIVER("No matching acpi device found for %s",
++			DRM_DEBUG_DRIVER("No matching acpi device found for %s\n",
+ 					 hid);
+ 			break;
+ 		}
+-- 
+2.51.1
+
