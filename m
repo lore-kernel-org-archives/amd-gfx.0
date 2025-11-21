@@ -4,152 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CC90CFC283
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 15:02:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14B1ECFC283
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 15:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A2910E8A6;
-	Fri, 21 Nov 2025 15:02:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA04910E89F;
+	Fri, 21 Nov 2025 15:03:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GcGlarXZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vJPfls6r";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011066.outbound.protection.outlook.com [40.107.208.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C000A10E895;
- Fri, 21 Nov 2025 15:02:56 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011046.outbound.protection.outlook.com [52.101.52.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7727010E89F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 15:03:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rJ1Wu+gGVpuMsRh/4EWJV8guZrSEjI+VQrd6r1yM1kPW+ippB4qbL/1CVF29oOTU5nk25LTwlh/H91nE2Zq39bv+snbOUJ9uI41+9ydGKfzk34yZQphMjvgYpDdnJoHgnfZ60FH03dk2E2lwR8FhP5wJQWuHCcOe7yAZTvYNWLX94C7ez2jlb1CYZ1uTHauGJImgKeJ0sHu1m4WLi7kFEIEAZGbppJgiAbnXN3KZvDGfq0kVL8n9+yyiM03YStDd6fJbdU5yFzxBGWSf9cW8vsZ0Osu+AE6GQ7LlxZQn4n3sM0SmcQYqZRL6VsC+Yif0LpLz6q1C1nyAEF+njjncYQ==
+ b=QDg5MysUpjV1INzSTZNRDO1/xxLn7C71A8DIeSDPAceAbSQmdCuqjQcyhNkvoNOpXinYS9DQIJmaJ5+C1Rfy9mN7MmORXZaPSley8e2ghm/41Cu9kEmIErKAc4bxOZjjSDA3UuFCHMzRweGYZw4FDzGqiNfRCvPmF/Lj/EXFC3p3eP8F619t1L0g+v+3qIuR1coiVDK1l0N7317pBTKJvNP6zThFp15I1sw9/Em5nu7dvl26AotFEuhjFub/CYEX/dzeGLzxb4mGe169S25K5K1+8ZiNjiFHTldSBojxDpFaYqzHyT4Aa1gdlvrrapmZlDipwQskT++AyP+py9AjVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=At4C4qaWh9piH6LWI0eRrs1S35u9eJfuJkdtSyJakEo=;
- b=GVStk8auMjR40qkYIA5gGjx596pLyG955ReVRFdVenEkIvDriAlIU/51gwmaK3xdyrEL13LfTGPiGkmAi+z2NdzTnv+Sx+x19FChQB5uEJ6lwMyAnAGetcKSAloBYzDavXB/rOEMRbP+eEG/t6UVoPv3Lsq5YLYrOWSaeR3Gk+9tC9CY6xSioRvCp+E0H+H/bDEKjsGWucwTNNvFfxB7wZkTgvNAU6jjE9HAfsO0gdyHC3cHvfuYsNryugH0D+rXYafoZm6kdEn+RU2XgPPtFw9GCsWno551vJ+oND0I48Zrvz6aYsGfcLO+HqUYyy5xb6OOL5NpLWK6MjtjwucV3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=7HT50bj5euxti2s4No/xS7X89MuODLb9vCYhzgXtPPU=;
+ b=VrXqNHiXdoppOGi8/C6EpBNjNFpvKN1WJwD5qAJWv2dHCj0lcDoNS4QnH2ajsP/9aUEFKe2Jvg8EslBZPPm/smHH9H2WzWvm5DouMuwZnOwBIP7Co5gjWehVN2lZdC/Ww1LxQfxLvChE9H6X/5z5kAzP/GnNRWRKJcnPLSisjmxCJ0DGWaH9kaS/E5JXkza6qFVfQaMeLf/pwSV0UOcS+Lstx7fM3TOq73adaP+kkmSvHg7MfLIClNPecPJpLQ/t0lQWkVT5JlCAg8YWtD2Fbh5zcL0f4PD9uLzDdEdiBlQbAgwu/+nVtV1ugkFDGYONGARbHfna3qXzznLQsIm7FQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=At4C4qaWh9piH6LWI0eRrs1S35u9eJfuJkdtSyJakEo=;
- b=GcGlarXZuzmhbubClYfGy2D0KvKLOKxacINmaGKzI3nDMHLfUCWiXm0VSbx5At0zO7F+AC2+HnhW+pUeuLDowDBXVcwtcKe8ss0qv2x88GEaO3madzBdu+BPhyneIhgWP9yb1xK4h2+TqPSsDEs9zDkaFbQRnsoHi01jsajvMeg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB8081.namprd12.prod.outlook.com (2603:10b6:8:e6::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=7HT50bj5euxti2s4No/xS7X89MuODLb9vCYhzgXtPPU=;
+ b=vJPfls6r3tVAOp7abHidLO6wR+dIpcgGzi4Bwrvhus68+3wuarYmAZ0YfpHK7RORZ1x5Kv2V5S1pVCKv8XVSxnxzpBiZDlekzofCSdv+nxKtdJobCAiQwugHgnxopJSz//tjqlZQ8fgVWsDqMX2EJIeGKrsOk8kQSrabpMRjLN8=
+Received: from MN0PR02CA0009.namprd02.prod.outlook.com (2603:10b6:208:530::12)
+ by CH3PR12MB7689.namprd12.prod.outlook.com (2603:10b6:610:14d::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Fri, 21 Nov
- 2025 15:02:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9320.021; Fri, 21 Nov 2025
- 15:02:51 +0000
-Message-ID: <a8ed8682-5546-493b-825c-3545081250bc@amd.com>
-Date: Fri, 21 Nov 2025 16:02:43 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 16/28] drm/amdgpu: use larger gart window when possible
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20251121101315.3585-1-pierre-eric.pelloux-prayer@amd.com>
- <20251121101315.3585-17-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251121101315.3585-17-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SG2P153CA0023.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::10)
- To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2025 15:03:06 +0000
+Received: from BL6PEPF0001AB54.namprd02.prod.outlook.com
+ (2603:10b6:208:530:cafe::e1) by MN0PR02CA0009.outlook.office365.com
+ (2603:10b6:208:530::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.12 via Frontend Transport; Fri,
+ 21 Nov 2025 15:03:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB54.mail.protection.outlook.com (10.167.241.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9343.9 via Frontend Transport; Fri, 21 Nov 2025 15:03:05 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Fri, 21 Nov 2025 07:03:01 -0800
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Roman Li <roman.li@amd.com>, Harry Wentland
+ <harry.wentland@amd.com>, Tom Chung <chiahsuan.chung@amd.com>
+Subject: [PATCH] drm/amd/display: Fix dereference-before-check for dc_link
+Date: Fri, 21 Nov 2025 20:32:47 +0530
+Message-ID: <20251121150247.181583-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8081:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bbe965c-5970-4f8b-4f80-08de290f0a94
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB54:EE_|CH3PR12MB7689:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f1b0865-7688-4b59-d397-08de290f1349
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RVp6bXMydnJaVktaUGh6MmgrRG9ZMDdRNlR0VFo2MTdwNzRtb294MEMvVGNC?=
- =?utf-8?B?U0F1OEpNWkZWSnM5YkpmMElzUjdpdWcyQ2lBc2dxc0RzRzN2bGcwUVJia0tx?=
- =?utf-8?B?eVVXeWlMR0g5dmNDZVd0Nk9CVDd1MUFwMWRXR04vQlhoS29tWjk0ZjZkN0Rm?=
- =?utf-8?B?dkpMTGNTdE56bDU2WVNtZi9oWkdmR2I3dGJNSjlqZXhYMFpEaDh2UkZNQW82?=
- =?utf-8?B?RTFlUDZpaWZTYnBRVzdpMmVSM1FwNUdhY2JpUDErTXB1aDlSWWswMCthNk9N?=
- =?utf-8?B?ZWJmajd4ZGp5V1RUV0pYVXc1MGpIaXViUittZHg0U1ZpQ1VDbUZTTGhhMlJ5?=
- =?utf-8?B?djhhVkUvbmlCOWhsbzQrWFQ4dWNLc3E0QWJRSXliSnV3WUw0VDNVRWVSVXFx?=
- =?utf-8?B?SHB3amFweEtmT0hVVHhsaVJxV2NqUkpjdGFOZkpmT0ZDbTk5NG9pdFVJS3ov?=
- =?utf-8?B?WVJHd3dVcE9NTnNQeWE3aWJ4b1o2ZUJSR1VzeWY4aUo3eWJEMllkZnV1WjA0?=
- =?utf-8?B?TDlHQk42NFViTTFjMmllcStmQ2lGYjlRTHQxR3prSnNxUHRLNEtOemJhbjZR?=
- =?utf-8?B?UDFiNUFwNDdWYjRpYWlqSEtrbDhnTUg4WnZtRFBGSERlNWZvbnlUbDYxaWN5?=
- =?utf-8?B?L0JobC93RFE5NktqUDVPOWNpQlNaOHRnVFB3bjdRT3V1RTZwTnk2OEtNZXpY?=
- =?utf-8?B?MSt5QSsvSWgvNkhPVWtIbXlvdXROZjFqelczQWlyRXhoamp5UkIyczByRlUr?=
- =?utf-8?B?ZXB4MkJRK0haQnkyVTVYVVJkSHB3MklLUFZSR0QyaTVVenA3R1VwSFFyV2FL?=
- =?utf-8?B?UVNmM3BPVGV6SFhSOEp4VlpOYklnOEZqZnFQN2hmRjFIbEQ0RXVhcUdhOHdU?=
- =?utf-8?B?dGRxWnJFTVNXczVrRjA3ZVZkZk9aeVpweUdoZkdpejc5MEswUkUrVTFqYjMr?=
- =?utf-8?B?VXgvUGd2anNHRnNlVmVpcnV6dFJld1RUc3BncXdjaWNzUExsNXpxVERlTmRJ?=
- =?utf-8?B?VTZhSEdTa2RUa2RyNjcyRGtaNHFrTHFQMkY5b1ZUMTkzdU9kN0ZQeVdiS2Y2?=
- =?utf-8?B?RHAvVGZtZjZ4cUNZOEZjQWpoekpXbkhSbzkwY1NISmRoZ3F1a1NrUTM5cE9h?=
- =?utf-8?B?dE1CZC9hMW5ySDZhb0JWWGdIK2NRL2Faa0FXZmtXMnRNeXlIQ09CVFFBUWYz?=
- =?utf-8?B?WWJIdndIVitGWkhVWXZmRHNoTXFrSDYxaU1RL2hvK3BXY1lLWUhEcUNkdVF1?=
- =?utf-8?B?YzZZSWJWa1ZSekNtenJ4U3F4NkxPV0F0TnZNV3JCcFB4RFNxU0gwRldHdmJl?=
- =?utf-8?B?a2VhWWttancvTDJHWFNqd2lPY0g1RE5RS1lraGhPUXdPT0d2RUYzZEpXVFV3?=
- =?utf-8?B?bEVZMnRvRk5YQUxQMUJQbDh5YlVNeTFRT1hrbngxSTcwK0p3R0ZVSkJpVWpY?=
- =?utf-8?B?QWRHWnFQWWZWNkVOR3BmQzFUNWhRNUpRcmgxdi9NcGVyRThIQkF2SzRyTTJG?=
- =?utf-8?B?NERYVTY3RHk5S291QjBRZmRhdUd4bkpwZ090MEEzazkrNVU1a3dER0w0ZDdM?=
- =?utf-8?B?NysxRXkwbDhwQnM1L0YyeXdndDFCa1p5c3YvM0hTZUlHbUVta1pPOTVneG9p?=
- =?utf-8?B?OFVQS3U4MTMwVkRJVFZrUVhaVkNSZVB6djZYWVQ0RGNESU5sb0s1UTh1TEdh?=
- =?utf-8?B?bjh4MEhRV0JUTHF0eDNXWWYvK0llaFExMzUyNGEzb3piSEtGeEtJK0ZIWU9n?=
- =?utf-8?B?S0RlaDZwMHRqd0R4U0w5TkRvRHpLNWlmZ3NCbEQ2bGcvNytrWjBIMVpSdk0z?=
- =?utf-8?B?U21seCs5YjZ5T09EaHA2VmROWVdPbk5Wb1MvaUc3WTBpMjg0ZlNScUVlbXB4?=
- =?utf-8?B?WGZuZWw4dEM1dEZ0aHIzbVVNaHVTdGR5NTg2bjhiUkRYSnhvMGNPUnNYaUtx?=
- =?utf-8?Q?p7llk5vtrq++ZYxBtWRJ4zqYrffVI7WY?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V21lNmlPZDlMUE80UEhwTWRVWWlWNFRCcXpqZ0xiWlJEY2FTUG1zbnNRVWZR?=
- =?utf-8?B?U2NnRmIyYjdhYjdFMGVldFd5Vk52cldUbjVKYTRJdkd5QVJjK0VlVmliZExv?=
- =?utf-8?B?QTVtc2dUcXpCSWZjREhkYm15d2IvZXRVSWlXZXMxRnU1TkFjcWwwZUN6M1du?=
- =?utf-8?B?OWRIaHY5T2w5SURLdHJNektSSHZzUFpPUC9Hdi9SR1hRMCtZNFh2YXBaRHJX?=
- =?utf-8?B?Skk4UnU2cU56djFCMllRTE4yYU9teHhGa1VyaHdtM1BkZmxlam5IVFpDUjRS?=
- =?utf-8?B?bktTL2lhanJYSG9VY3JlZ3RSMEhnZ3UvQlpSUVd1N2FzV3hYb040dFdHcEU5?=
- =?utf-8?B?ZFE0Ny9wNmlFc0JkYUllNGZNT0lkTnVEUmRXQmVycDFyTjNaMEZqV0psWG1E?=
- =?utf-8?B?Y1VMYkdrcGYzWGpDRVFrMTM3MWE4MDIvNG42V2w2RHNWQ0diQnpKc3RsWGxz?=
- =?utf-8?B?Q0RVR0MwTlViUTlyTi9WNXJ4VEtqNmxzank3enc0MU9LaU1pMjNWU292dk9I?=
- =?utf-8?B?Ym5YM1A5VE81dldaQmNVTGxVZ2ZDV0UweDc1ZHozdytoTkZYOEZpSHRYeG1Q?=
- =?utf-8?B?QmRPZnUycEUwaDY2YW9FaDdocUdTNGpadVNIWW1kRHNIZ2xoTUU3SUxVTVdD?=
- =?utf-8?B?SXA1Uzdqc2czalFXWFVEYldXU1RJQW82MjVpZ1BrN1J1NkVsZ2s1a2U0MHBG?=
- =?utf-8?B?RmY2TnVoMWZyRXUxbHdjT3pyaTM4blZDTXNGSTRaRWN0YVRpbnFNSUFSdG9K?=
- =?utf-8?B?QjNOSzIwejJGWitBdGlHNXZ2V3lwZnF5blpwVGUyMndtK1dqcmF0bDVzT0Y0?=
- =?utf-8?B?eUZVQU9SY2FmL2wwVkxTalZuY2ZBWTZodWVhallXQlR4bXBlelluWGtlWUll?=
- =?utf-8?B?eitvdDlNU2Z2SndVdWpkeXA5TUJpcE9CK3QyWHVaTDNDdUxsSzBkRzAxTWZr?=
- =?utf-8?B?SnB4TnBlUS9HNFA2TjJ3ZExFVmxtTXRKbGM1VUI1Zng1QmVpdWRCZ3hVem0x?=
- =?utf-8?B?eS9sN096UlgweHB5blNFRmpBR0pUV2p2VmoybWdZVXRMVnVxaWxva0VlakNR?=
- =?utf-8?B?bENieXJwVXZLd3FITVMzb21RbkF3MC8zMUVldFlya0U1bytDVUFkNjF0VGZG?=
- =?utf-8?B?WnJZazFSY2dQMjN5cGllWHVXcXdzTTIzRWh6WHlNK0F0TnZSc2k5Z2hHOURO?=
- =?utf-8?B?TjlJdDNmWk4vQkQvWWh3b1VpWEh6b2VlTEpldDJ1dnprTVhxeGdFazlnUG9i?=
- =?utf-8?B?QThrMWp4WlB5cWxLUHNScGFCbEd4RkwrUWphaEZGQ0VRa2ZqQUdVcy9WdUdF?=
- =?utf-8?B?dU5KRk5uQnlMejV5VTVMNUJ3b3Z5dWh5aW9hTzUwNTRUNjB0YTlCYU8wNHBY?=
- =?utf-8?B?dVl4d2craG9pdHhBbWJKeTk5d3ZRUUM5dDJ6QW5KcWVXdTJOaWphVk1wZVRD?=
- =?utf-8?B?K3QxaTdHOXg1cHVQQWZiZWhqVTdJeUR6MUxCYi9BVnVUYUhZcGUzQUgzUWoy?=
- =?utf-8?B?Sld3akFrUDdrS1I3ZDlPaTh4anpyYmxhWWViTDlmMWovU21ML3owU1BOS3Va?=
- =?utf-8?B?QWZwUy9lYnErWk5KZGJyRGNFTmFTMHd3OUVxZ21uaFhjK0VmK3NOVmRnL2ZZ?=
- =?utf-8?B?ZXozbUd2YjhQdTlwanZYUFNSZzBSUmNGWTJ0Rjg0cUg3OEVySk84WUVaUk0y?=
- =?utf-8?B?UjBObGNUREY1eE5EVk1vMTBDcHhaelRVRGZzeFRybVd4byszL2pabjZYZERL?=
- =?utf-8?B?STV5ekUzMk5Wa0hUYXpiWFNTWkh5TS9RZm92YU43cjhwd0h0eHZPaDNzbnd4?=
- =?utf-8?B?NUhJTGJTS0p4RithdEVoY0ZZKzVrRXB3bzlRSlhDVi9mVHgreVZtL2NIWVMy?=
- =?utf-8?B?dFNOQ3NkVHJiTFBRS0sydG51ZloxR2JjTTFqRXBnMjJnTkhRVzdHeTlvbWJB?=
- =?utf-8?B?Vnh0K2l4NzB0alZMZitjbnJhL1VMTHowSW9LUU8wSStSR2V4RFF6Uko4WmE4?=
- =?utf-8?B?MCtaRHR3RWVoR2cwM0RjbmE0RUQ2eFBlUjFVS1RJMGI0aDA5ekpoNkczSzcz?=
- =?utf-8?B?NFZjczdaVnFaTTdEd25VK3lodE1RTWUwL0RtTERiVFBZRDZCR0UxNEtiR052?=
- =?utf-8?Q?Rqo3g+8vauo2YBjZ763E8OdaU?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VGhSSVQ0UEV2ZXM2ZG5SQ3FCaW9ZY1VaMjYyNkxkVVplaE9uTkwzRkRGK2s2?=
+ =?utf-8?B?c25KMUxQNTdveE82dWNPM3V1RHM5a1pMZnR2NjhTYU5uMlVmNE1PcDFxNmd5?=
+ =?utf-8?B?VVBPVTd1OWQ1YiswZXRhUFZ6RDZjekdRN2ppVHNXMHdzMXY0Y2FPMkRETENk?=
+ =?utf-8?B?OGVuaTk0S0w1MHlRSk94NWcxNUVoWFBwemNIWnRMaGhmVEczNE4raXJXZGpl?=
+ =?utf-8?B?NTdjcHFVdjhuaVY2VWdKZ1pJWXdqazg0bXZtNGhDQURqWUtpVHlLSzgzZHBL?=
+ =?utf-8?B?aVEyVU55YXA0THdmd01abVZtbWVEOEMzZVdPNE5kWTZPTHlqQTRsb25IVEly?=
+ =?utf-8?B?ZkFlc0VJcHFBbWhWUzZ2dmRQSHZRVGc0cXVFYmdsTXhJQVJzaEpaNVhrTXgz?=
+ =?utf-8?B?c3lLODQ2YzBwSTQvVEphVjkzZDdYZWpXL0lQREhUdEE0RFlOSkszZ1VXcy9G?=
+ =?utf-8?B?aWVuOW5KbjNralEvUVJJclh1OVVFUE5KRHZDZC9TQTZxWHJ1eG82ZnF1RnRv?=
+ =?utf-8?B?Q3Rsd2Q2T0dVMExNNXZMUWR2ZjU1SmdET3daYUc2M2pua2dWWmxNSlFoTHZq?=
+ =?utf-8?B?dDFMS2xvN2N0S2dvVE9zSDlhMDZYSUdyZVNrcG15U01WckJLKzFnczhvbGJU?=
+ =?utf-8?B?YTI0UTlCcmdJYXk4WGpaMkRWS1ZRRzIrNGVRUkhvU2FXVTBGNVpCMzdYYjZT?=
+ =?utf-8?B?dW0xK3p1cmJ6SUYvdlJub09EWVMzbHR1c2ptUURMNXVYL201OUQ4WW9Eb1Jk?=
+ =?utf-8?B?d3ZNS1N6bXoxcTFBSnlnWEFQQzVKa0pwM3IvWlhmUHdDV2VIUjdUYmZhQkc3?=
+ =?utf-8?B?amV6Q2tvbEVUUENYczJ5RW0xSE1vOStpQjFHYnFMN3lMSGVOcUdPZVQyRnRl?=
+ =?utf-8?B?dkN3dkFzbU9TdEJ3ejNjalBLMnBzc0RFRHl1UTRZUmEyUjNqdVgzZ1FrY0dz?=
+ =?utf-8?B?dUtCcGkzS0xtR0FMTytsRDdBTDZoU2locGVQZUVTWUgzajdMQkZSSklhWVdN?=
+ =?utf-8?B?T1NpZGVidi9FTy8xZ0RldWsxdTN2M3A1T1FCa0QweUZyQlhzU0EwdFcwdUxt?=
+ =?utf-8?B?djBoN2xiM1JWclNvbDNBVUVJYXdrREtGZzdKTGZMYjVsd1lKV2NrNXJCSjgv?=
+ =?utf-8?B?emJ6ZCtIRkE1Z1pZWXlSYkx5M2JTV1ZXMmZWV01iOE10WGVEVEZiZ2ltRGg2?=
+ =?utf-8?B?dUdEQUVGZ29zSFhqMjFQbW1yR2NrZS83d3UzQmdTSmVpWDIyZS9aaEc1LzNa?=
+ =?utf-8?B?eXVDU0pkQjV3YmUrQ2FqWXd4RGRKajlLWktvS2hwZm8yTE5XRWVML2JYNnZy?=
+ =?utf-8?B?RDMvWGZHdUxZVzRQVFoxelk5RzRvN0pjTkZmMUZYWGhITHRsOStaOFpZZkQ1?=
+ =?utf-8?B?aWtDUm5jVjdOZVhXRHVQNU1Ld3NRN0FUL1BUcDZXTnlwYnU0dXhCQnJJMzdh?=
+ =?utf-8?B?ZmdtM0FrUFVDQTVzK2FVNGc3VXlqTnJnY2VVR3BxWTMvUFcxbnBjSHNRTHFP?=
+ =?utf-8?B?amJ2dnNrZ3g4MTVLbmxpZUNrOHZvdGIvSWhOOVNaSnZqZklHejJ6cTlIS0hv?=
+ =?utf-8?B?c1pEcFZhT2FDbTVJaENJN1duczB0RE5QTjZyZm9CR2puNCtrcldBc3MwOE5F?=
+ =?utf-8?B?NzNVL1lOc0oybElvQUFiKytsVlpRWlpzTmxUNlFIZ01JYmlZa1BYYm1Hd2tQ?=
+ =?utf-8?B?Z3k1SGlQcFV3LzYydWFwK2hRaCtsc1JnU3BRN2lPcW4vMW81QzJGQ2orOUNa?=
+ =?utf-8?B?R0ovNHRNWkJBbVFRejlTZ3FOeFNIRVVMaG9YbVhUZms0YThCbWxvSFNKUWhZ?=
+ =?utf-8?B?MXF3MVdEZnNKRUdRK0ppek5kQWJXaFdFWXJLWlBMZ3YxR3pZK0h6UDJLVTBw?=
+ =?utf-8?B?SWUxL01rQkF4aWgyc1VvSlV0WGhoWGphMFlYNmpvV1RGQWdHYUxXUGxpcUc3?=
+ =?utf-8?B?WHh3M0JEWGtBQ1FVeWlOVFpRdndZQ3hWeW0vZnExZU5SVkhISjYxNlovN3pX?=
+ =?utf-8?B?cityWGVBbmtBTnpTMW85MWFyUFRWbTYxM0NNdFZYc1BlVEtINXlML3RUdTIy?=
+ =?utf-8?B?NHFja2xIZFI4L1l0dnRCMGRGNFpBQVd4aGlIUzgvcVZVMW44a0pQcFVRUUJZ?=
+ =?utf-8?Q?gSmM=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bbe965c-5970-4f8b-4f80-08de290f0a94
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2025 15:02:51.3611 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2025 15:03:05.7654 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f1b0865-7688-4b59-d397-08de290f1349
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /iZcQHDwm0zhk8AepxfBFachTIvhEz9Uejvthe6tRgAB8t9hhTTNoeS5k7Wuq3Ye
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8081
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB54.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7689
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,188 +143,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/21/25 11:12, Pierre-Eric Pelloux-Prayer wrote:
-> Entities' gart windows are contiguous so when copying a buffer
-> and src doesn't need a gart window, its window can be used to
-> extend dst one (and vice versa).
-> 
-> This doubles the gart window size and reduces the number of jobs
-> required.
-> 
-> ---
-> v2: pass adev instead of ring to amdgpu_ttm_needs_gart_window
-> ---
-> 
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 78 ++++++++++++++++++-------
->  1 file changed, 58 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 164b49d768d8..489880b2fb8e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -177,6 +177,21 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
->  	return amdgpu_job_submit(job);
->  }
->  
-> +static bool amdgpu_ttm_needs_gart_window(struct amdgpu_device *adev,
-> +					 struct ttm_resource *mem,
-> +					 struct amdgpu_res_cursor *mm_cur,
-> +					 bool tmz,
-> +					 uint64_t *addr)
-> +{
-> +	/* Map only what can't be accessed directly */
-> +	if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
+The function dereferences amdgpu_dm_connector->dc_link early to
+initialize verified_link_cap and dc, but later still checks
+amdgpu_dm_connector->dc_link for NULL in the analog path.
 
-Checking mem->start here is actually a really bad idea.
+This late NULL check is redundant, introduce a local dc_link pointer,
+use it consistently, and drop the superfluous NULL check while using
+dc_link->link_id.id instead.
 
-IIRC Amar was once working on patches to fix that, but never finished them.
+The function uses dc_link at the very beginning without checking if it
+is NULL.  But later in the code, it suddenly checks if dc_link is NULL.
 
-On the other hand, that is certainly not a problem for this patch here.
+This check is too late to be useful, because the code has already used
+dc_link earlier.  So this NULL check does nothing.
 
-> +		*addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
-> +			mm_cur->start;
-> +		return false;
-> +	}
-> +	return true;
-> +}
-> +
->  /**
->   * amdgpu_ttm_map_buffer - Map memory into the GART windows
->   * @adev: the device being used
-> @@ -185,6 +200,7 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
->   * @mem: memory object to map
->   * @mm_cur: range to map
->   * @window: which GART window to use
-> + * @use_two_windows: if true, use a double window
->   * @tmz: if we should setup a TMZ enabled mapping
->   * @size: in number of bytes to map, out number of bytes mapped
->   * @addr: resulting address inside the MC address space
-> @@ -198,6 +214,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_device *adev,
->  				 struct ttm_resource *mem,
->  				 struct amdgpu_res_cursor *mm_cur,
->  				 unsigned int window,
-> +				 bool use_two_windows,
->  				 bool tmz, uint64_t *size, uint64_t *addr)
->  {
->  	unsigned int offset, num_pages, num_dw, num_bytes;
-> @@ -213,13 +230,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_device *adev,
->  	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
->  		return -EINVAL;
->  
-> -	/* Map only what can't be accessed directly */
-> -	if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
-> -		*addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
-> -			mm_cur->start;
-> +	if (!amdgpu_ttm_needs_gart_window(adev, mem, mm_cur, tmz, addr))
->  		return 0;
-> -	}
-> -
+We simplify the code by storing amdgpu_dm_connector->dc_link in a local
+dc_link variable and using it throughout the function.  Since dc_link is
+already dereferenced early, the later NULL check is unnecessary and is
+removed.
 
-When that is now checkout outside of the function this shouldn't be necessary any more and we should be able to remove that here.
+Fixes the below:
+  amdgpu_dm_connector_get_modes():
+  variable dereferenced before check 'amdgpu_dm_connector->dc_link'
 
->  
->  	/*
->  	 * If start begins at an offset inside the page, then adjust the size
-> @@ -228,7 +240,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_device *adev,
->  	offset = mm_cur->start & ~PAGE_MASK;
->  
->  	num_pages = PFN_UP(*size + offset);
-> -	num_pages = min_t(uint32_t, num_pages, AMDGPU_GTT_MAX_TRANSFER_SIZE);
-> +	num_pages = min_t(uint32_t,
-> +		num_pages, AMDGPU_GTT_MAX_TRANSFER_SIZE * (use_two_windows ? 2 : 1));
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+  8845				&amdgpu_dm_connector->dc_link->verified_link_cap;
+  8846		const struct dc *dc = amdgpu_dm_connector->dc_link->dc;
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                      Dereference
+  ...
 
-Rather use two separate calls to amdgpu_ttm_map_buffer() and just increment the cursor before the second call.
+  8856
+  8857			if (amdgpu_dm_connector->dc_sink &&
+  8858			    amdgpu_dm_connector->dc_link &&
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            Checked too late.
+                            Presumably this NULL check could be removed?
+  ...
 
->  
->  	*size = min(*size, (uint64_t)num_pages * PAGE_SIZE - offset);
->  
-> @@ -300,7 +313,9 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
->  				      struct dma_resv *resv,
->  				      struct dma_fence **f)
->  {
-> +	bool src_needs_gart_window, dst_needs_gart_window, use_two_gart_windows;
->  	struct amdgpu_res_cursor src_mm, dst_mm;
-> +	int src_gart_window, dst_gart_window;
->  	struct dma_fence *fence = NULL;
->  	int r = 0;
->  	uint32_t copy_flags = 0;
-> @@ -324,18 +339,40 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
->  		/* Never copy more than 256MiB at once to avoid a timeout */
->  		cur_size = min3(src_mm.size, dst_mm.size, 256ULL << 20);
->  
-> -		/* Map src to window 0 and dst to window 1. */
-> -		r = amdgpu_ttm_map_buffer(adev, entity,
-> -					  src->bo, src->mem, &src_mm,
-> -					  0, tmz, &cur_size, &from);
-> -		if (r)
-> -			goto error;
-> +		/* If only one direction needs a gart window to access memory, use both
-> +		 * windows for it.
-> +		 */
-> +		src_needs_gart_window =
-> +			amdgpu_ttm_needs_gart_window(adev, src->mem, &src_mm, tmz, &from);
-> +		dst_needs_gart_window =
-> +			amdgpu_ttm_needs_gart_window(adev, dst->mem, &dst_mm, tmz, &to);
+Fixes: c8f52ca2cefb ("drm/amd/display: Cleanup uses of the analog flag")
+Reported by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-The coding style looks a bit odd.
-
-Regards,
-Christian.
-
->  
-> -		r = amdgpu_ttm_map_buffer(adev, entity,
-> -					  dst->bo, dst->mem, &dst_mm,
-> -					  1, tmz, &cur_size, &to);
-> -		if (r)
-> -			goto error;
-> +		if (src_needs_gart_window) {
-> +			src_gart_window = 0;
-> +			use_two_gart_windows = !dst_needs_gart_window;
-> +		}
-> +		if (dst_needs_gart_window) {
-> +			dst_gart_window = src_needs_gart_window ? 1 : 0;
-> +			use_two_gart_windows = !src_needs_gart_window;
-> +		}
-> +
-> +		if (src_needs_gart_window) {
-> +			r = amdgpu_ttm_map_buffer(adev, entity,
-> +						  src->bo, src->mem, &src_mm,
-> +						  src_gart_window, use_two_gart_windows,
-> +						  tmz, &cur_size, &from);
-> +			if (r)
-> +				goto error;
-> +		}
-> +
-> +		if (dst_needs_gart_window) {
-> +			r = amdgpu_ttm_map_buffer(adev, entity,
-> +						  dst->bo, dst->mem, &dst_mm,
-> +						  dst_gart_window, use_two_gart_windows,
-> +						  tmz, &cur_size, &to);
-> +			if (r)
-> +				goto error;
-> +		}
->  
->  		abo_src = ttm_to_amdgpu_bo(src->bo);
->  		abo_dst = ttm_to_amdgpu_bo(dst->bo);
-> @@ -2434,7 +2471,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_device *adev,
->  
->  		r = amdgpu_ttm_map_buffer(adev, entity,
->  					  &bo->tbo, bo->tbo.resource, &cursor,
-> -					  1, false, &size, &addr);
-> +					  1, false, false, &size, &addr);
->  		if (r)
->  			goto err;
->  
-> @@ -2485,7 +2522,8 @@ int amdgpu_fill_buffer(struct amdgpu_device *adev,
->  
->  		r = amdgpu_ttm_map_buffer(adev, entity,
->  					  &bo->tbo, bo->tbo.resource, &dst,
-> -					  1, false, &cur_size, &to);
-> +					  1, false, false,
-> +					  &cur_size, &to);
->  		if (r)
->  			goto error;
->  
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 8a0555365719..6eb88a96cc33 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8818,11 +8818,11 @@ static int amdgpu_dm_connector_get_modes(struct drm_connector *connector)
+ {
+ 	struct amdgpu_dm_connector *amdgpu_dm_connector =
+ 			to_amdgpu_dm_connector(connector);
++	struct dc_link *dc_link = amdgpu_dm_connector->dc_link;
+ 	struct drm_encoder *encoder;
+ 	const struct drm_edid *drm_edid = amdgpu_dm_connector->drm_edid;
+-	struct dc_link_settings *verified_link_cap =
+-			&amdgpu_dm_connector->dc_link->verified_link_cap;
+-	const struct dc *dc = amdgpu_dm_connector->dc_link->dc;
++	struct dc_link_settings *verified_link_cap = &dc_link->verified_link_cap;
++	const struct dc *dc = dc_link->dc;
+ 
+ 	encoder = amdgpu_dm_connector_to_encoder(connector);
+ 
+@@ -8834,9 +8834,8 @@ static int amdgpu_dm_connector_get_modes(struct drm_connector *connector)
+ 				drm_add_modes_noedid(connector, 1920, 1080);
+ 
+ 		if (amdgpu_dm_connector->dc_sink &&
+-		    amdgpu_dm_connector->dc_link &&
+ 		    amdgpu_dm_connector->dc_sink->edid_caps.analog &&
+-		    dc_connector_supports_analog(amdgpu_dm_connector->dc_link->link_id.id)) {
++		    dc_connector_supports_analog(dc_link->link_id.id)) {
+ 			/* Analog monitor connected by DAC load detection.
+ 			 * Add common modes. It will be up to the user to select one that works.
+ 			 */
+-- 
+2.34.1
 
