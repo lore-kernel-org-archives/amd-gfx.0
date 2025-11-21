@@ -4,64 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FEE0CFC27C
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 13:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0600CFC279
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 13:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A57210E874;
-	Fri, 21 Nov 2025 13:48:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F02B10E87D;
+	Fri, 21 Nov 2025 13:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oscada.org header.i=@oscada.org header.b="cnTHhMG2";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VEIJ8owk";
 	dkim-atps=neutral
-Received: from oscada.org (oscada.org [46.98.2.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A822910E800
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 09:11:43 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by oscada.org (Postfix) with ESMTP id 231AB43DD;
- Fri, 21 Nov 2025 11:11:41 +0200 (EET)
-Received: from oscada.org ([127.0.0.1])
- by localhost (mail.oscada [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id gzm7WEAKkXw4; Fri, 21 Nov 2025 11:11:39 +0200 (EET)
-Received: from [192.168.1.3] (oscada [192.168.1.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by oscada.org (Postfix) with ESMTPSA id DA66143D2;
- Fri, 21 Nov 2025 11:11:39 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=oscada.org;
- s=default; t=1763716299;
- bh=9eXi3rCfREO9mb0OTF0v7mD2kYgOTOEshhzRl+so1IU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=cnTHhMG2W+WUlKSCBxQlTA4VoJQn8bm4peDTJc8SsX+jGS7tE5LU6IVhDF2Z0qaJh
- qdaOB9IlGvQu4DBUExe5YDFwOJoMBy9tjC+cw1o/j/x0ydX4i7KN59IJfYfCvHqjZ3
- 5gxOqUXqm2kCApuTj/G1Jl9xHZ5uAmV0D/U3cF0eSqdFArPZjFlzK2/Azg+6QuudLL
- aIvGhVKEFsptz9McNNjrV6EmEPahyVX6uHErpwV/uqN8tcPI2wz2kbTWr2v5Cy8GA6
- rgXxyU2H1yvW//FEu5rWPmcAjVAaHYAYMbqPL5EgGZjPas8ymkR9Ua+2eD6g+Ahqtx
- DqSM3BbHW2mQQ==
-Content-Type: multipart/mixed; boundary="------------3XeXJjGTD8CF2ny8z3oS0FCT"
-Message-ID: <f3b685d2-bb09-481f-bb54-3ef75613ccb7@oscada.org>
-Date: Fri, 21 Nov 2025 11:11:39 +0200
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49AAD10E86E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 13:35:47 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4775895d69cso9053715e9.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 05:35:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763732146; x=1764336946; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JQTDlLSHya5ZJFcSZ4CgYKRRhdfnceV1QeecZlmRQYU=;
+ b=VEIJ8owkAXLuzL+gvHxCcZm9Hk4d/w0/t9mvBfDAx9GD/kAxbzlEfnPwYxYERsIa36
+ kwf70pIKxx7nUO2nYJxDdOQWzIJTxsiZAHnUU8rNp5GhKv7N4fCSEPPrFHUG24yQ3Nd8
+ HMbos7iZQyx7/0m7NjoIkm0/2uuA7PUBpYI4ktlir0BqVvtcrV0BioiycMEmsfBcyTE+
+ paOFrs+0cBJxqRIH3cjlKWKcnO5hew8vECg/cEZ0RLUgYdphVH5L0Pdjkx0kEF6B33G2
+ dEppf3TLPA5wSkiVOFA2XTKCsiPQVg00chsq1N2SCn5YW6R9LtwE69qA6df4af927WlF
+ bXeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763732146; x=1764336946;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JQTDlLSHya5ZJFcSZ4CgYKRRhdfnceV1QeecZlmRQYU=;
+ b=gIA9tZxNOXQ/HfYWKz0xes0rWhs2Ut+IjS7DL421Ih7ZsTx4BY20mpeO6+sPeY7meS
+ XlOvR4jMJxfErPR7g6LdpqVbQn1nGCfXxmvT7MWbhLBlggxX0zEn1z7kItfP9buyiMkz
+ kYg7RBy+y7ZDD1uDlrp/HDIHax5KURVeB5IgWKJECSULQtrxBt6alub6qZlvZ01QblGE
+ lbNe7ozkyMYsXdBDAkc26y6ZJo2q37LjVBcRHaF2wQ7Srw+TYwUXMZwT52+lTL5BlK7E
+ JKlI5A4xc1qFRJoZ6WA/y8jl2ag3Uerklog9d3i3Z7iT530s9edaUkQa6Imhl/RMma0h
+ Ic0Q==
+X-Gm-Message-State: AOJu0Yyhhva14384Ozjq/kWe4b0ZG3rKXins5d42FUsvIVw55y5MfBNF
+ TlrIhcxDjLmMqP8KsGcuvB+3t/ZQmylOGxT8m/S9dM5HoEYErw+m2ZeeLkUNFH7Qygs=
+X-Gm-Gg: ASbGncu1rn93o/5ogQoeyjDG+YJd5mo5NXYiRqV/ezQkp70Z9r+X1/jZJ4O2+3RWGaX
+ etSCmG1/422hlkCZgLRcZJchX1xxDZGwvm3+ErTGFPnJghels8GFsvzG/YyhfXWOE7ffEDMjKzi
+ qMFq6KwVuTsZH1Ussi4ELJpk4BxXDOAaYkqOIk0qvyre0aIdHcbiZvmx4oS/kmnMSR9NvxZgeqj
+ xhJeYzbwqjDRfgmNVEEOgRqLkZo7yrlX2pfqVXIufsudsWShKrCy4UrEptlb2fDZQJS9RcJ1ojn
+ zA2i2bULB2jw+sl1lEZ9P8UefjMhRmJ2LRx0EP6aICQHlBReev6oomJnxdM2DbMwe5hUNG1fhW1
+ HUPj2iK2ANsWw66atA6Qg3HNjR34II/PIENjGd5FWydm98zYSC/gdgTMXvX8zclBgJRt8d6/YHO
+ EplGMFJ7zwAbOrAuM7/AzLoTJsJHQ=
+X-Google-Smtp-Source: AGHT+IF48UZsl84AvUaz0yRQwq1RSA9byQE0yoohws0P1EphOv9uOpY2K7n/i7Twry36Uhm8udlIkQ==
+X-Received: by 2002:a05:600c:354f:b0:477:641a:1402 with SMTP id
+ 5b1f17b1804b1-477c016e74bmr26120025e9.4.1763732145659; 
+ Fri, 21 Nov 2025 05:35:45 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-42cb7f3635bsm11262391f8f.17.2025.11.21.05.35.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Nov 2025 05:35:45 -0800 (PST)
+Date: Fri, 21 Nov 2025 16:35:42 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd/display: Cleanup uses of the analog flag
+Message-ID: <aSBqrjTkmpMhLJmF@stanley.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Bug#1118349: dpm broken on Radeon HD 8570D
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: 1118349@bugs.debian.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <f689f22a-f53a-435a-b79c-d79b4cfd810c@oscada.org>
- <2qxsyt34y4gmwuxwyvs7qh6ekypair6mt3h7n5txdhletjnpsc@vygqxoo7oacn>
- <e0d85321-733d-4b89-ba5f-5efd5f1b18ac@oscada.org>
- <931c33cf-26cd-4d23-827d-8c61f9028ca9@amd.com>
- <176078292467.2932.7155687538828443067.reportbug@home.home>
- <389a9e45-0f92-4810-a8ed-91640750d973@oscada.org>
- <jkkqfvey7b6evfq6ojj7nldwka6a2s5y32ehybyoi47nfn25ck@hqh7d2zrvlr3>
- <ef917b90-3ed3-4c57-8af8-12012e1dfc1e@oscada.org>
- <qgdse6s2nzjfdbiudf5xv54mtg3tz2jopyvzijfn4vcdoxxlkr@xm56p5qrjndb>
- <cd316805-65a9-4f78-96bc-4ced6226db1a@oscada.org>
- <pipwh3hfkzm24t3qxknkpj44d3esmr7g46ldjgreb2357qmzra@7fekfuwv6udi>
-Content-Language: en-US
-From: Roman Savochenko <roman@oscada.org>
-Organization: OpenSCADA Team
-In-Reply-To: <pipwh3hfkzm24t3qxknkpj44d3esmr7g46ldjgreb2357qmzra@7fekfuwv6udi>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 21 Nov 2025 13:48:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,140 +87,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------3XeXJjGTD8CF2ny8z3oS0FCT
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hello Timur Krist�f,
 
-Hi, Uwe Kleine-König
+This is a semi-automatic email about new static checker warnings.
 
-21.11.25 10:35, Uwe Kleine-König:
-> On Thu, Nov 20, 2025 at 06:45:48PM +0200, Roman Savochenko wrote:
->> 20.11.25 10:38, Uwe Kleine-König:
->>> On Wed, Nov 19, 2025 at 08:23:31PM +0200, Roman Savochenko wrote:
->>>> 19.11.25 19:05, Uwe Kleine-König:
->>>>> On Wed, Nov 12, 2025 at 06:19:07PM +0200, Roman Savochenko wrote:
->>>>>> 12.11.25 17:03, Christian König:
->>>>>>> On 11/12/25 15:28, Roman Savochenko wrote:
->>>>>>>> 12.11.25 13:14, Uwe Kleine-König:
->>>>>>>>>> On my hardware that doesn't work and there is no specific.
->>>>>>>>>>
->>>>>>>>>> Now just I set "radeon.dpm=1", I got immediately restart with disabling USB,
->>>>>>>>>> so I have needed to restart for successful download with "radeon.dpm=0".
->>>>>>>>> Can you try a different monitor?
->>>>>>>> I have only one, connected through DVI, and there is no problem on Linux Kernel 5.
->>>>>>> Kernel 5 what? E.g. which concrete version number? (output of uname -a).
->>>>>> user@debian:~$ cat /proc/version
->>>>>>
->>>>>> Linux version 5.10.0-32-amd64 (debian-kernel@lists.debian.org) (gcc-10
->>>>>> (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2)
->>>>>> #1 SMP Debian 5.10.223-1 (2024-08-10)
->>>>>>
->>>>>>>>> Can you try which Debian kernel was the last one working fine respective
->>>>>>>>> the first being broken in this regard? You can find all kernels on
->>>>>>>>> https://snapshot.debian.org/. Please ask if it's unclear how to do that.
->>>>>>>> I can try all kernels in Debian starting 7 and finishing 13, but I have traced that before and the problem reproduction started from Debian 9, terminated on Debian 11 and renewed on Debian 12.
->>>>> Not sure I follow. Does that mean that Debian 9, Debian 10, Debian 12
->>>>> and Debian 13 show the symptom and Debian 11 doesn't?
->>>> Yes, and in kernels that is 4, 6 show the symptom and 3, 5 don't.
->>> I think this statement isn't helpful unless you're saying that Linux
->>> 5.19 was good and 6.0 was bad. Kernel versions started with 5 between
->>> 2019-03-03 and 2022-07-31, not taking stable releases into account. And
->>> there are 294457 commits in that range
->>> (`git rev-list v5.0..v5.19 | wc -l`). So "kernel 5" and "kernel 6" is a
->>> bit too fuzzy to work with.
->> OK, and what do you want from me?
-> Quoting an earlier mail in that thread:
->
-> 	Can you try which Debian kernel was the last one working fine
-> 	respective the first being broken in this regard? You can find
-> 	all kernels on https://snapshot.debian.org/. Please ask if it's
-> 	unclear how to do that.
+Commit d46e422f65ae ("drm/amd/display: Cleanup uses of the analog
+flag") from Nov 13, 2025, leads to the following Smatch complaint:
 
-I have told that as the kernel in Debian 11.
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:8858 amdgpu_dm_connector_get_modes()
+    warn: variable dereferenced before check 'amdgpu_dm_connector->dc_link' (see line 8846)
 
->> Must I say you the exact commit or what,
->> or you are waiting I must recompile all kernels with 294457 commits?
->>
->> I say you in what way the problem related through the stable kernels in
->> Debian releases and that is exactly assigned to the major versions of the
->> Linux kernel, even for broken v5.19 which can include backports from 6!
-> Yeah, you keep talking about Linux 3, 4, 5 and 6. These categories cover
-> several years of development each and thus are not helpful to locate the
-> change that broke your setup. Unless it is really 5.19 that was good and
-> 6.0 that is bad which limits the amount of changes from:
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+  8845				&amdgpu_dm_connector->dc_link->verified_link_cap;
+  8846		const struct dc *dc = amdgpu_dm_connector->dc_link->dc;
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Dereference
 
-I keep talking that only for understanding the problem depth and not for 
-fixing that in 4 kernels!
+  8847	
+  8848		encoder = amdgpu_dm_connector_to_encoder(connector);
+  8849	
+  8850		if (!drm_edid) {
+  8851			amdgpu_dm_connector->num_modes =
+  8852					drm_add_modes_noedid(connector, 640, 480);
+  8853			if (dc->link_srv->dp_get_encoding_format(verified_link_cap) == DP_128b_132b_ENCODING)
+  8854				amdgpu_dm_connector->num_modes +=
+  8855					drm_add_modes_noedid(connector, 1920, 1080);
+  8856	
+  8857			if (amdgpu_dm_connector->dc_sink &&
+  8858			    amdgpu_dm_connector->dc_link &&
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Checked too late.  Presumably this NULL check could be removed?
 
-That is, there can be simpler to apply that workaround.
+  8859			    amdgpu_dm_connector->dc_sink->edid_caps.analog &&
+  8860			    dc_connector_supports_analog(amdgpu_dm_connector->dc_link->link_id.id)) {
 
-> . This is still a lot and we might ask you to do more tests to further
-> limit the set of candidate commits that are broken on your end.
-
-OK, ask.
-
->>> Can you please confirm that 5.19.x (e.g. a kernel package from
->>> https://snapshot.debian.org/package/linux/5.19.11-1/) works fine and
->>> 6.0.x (e.g.https://snapshot.debian.org/package/linux/6.0.12-1/)
->>> doesn't? (Or a similar statement with other consecutive mainline
->>> versions.)
->> 5.19.0 has this problem in view of hanging.
-> You lost me here. What is "problem in view of hanging"? Are we talking
-> about more than one problem? Or different variants of the same problem?
-
-We talk about different variants, and the hanging I saw also on one 6 
-kernel just after installing Debian 13 and that is why #1118349 I opened 
-about the hanging but not rebooting in the initial report #879992.
-
->>> Note that even that might not be enough to spot the problem and you
->>> might have to get your hands dirty then and compile development kernels
->>> and test them.
->> Note, my hands in that "dirty" are 22 years already and I hoped I will not
->> get their at least on Linux kernel again — http://oscada.org/wiki/Special:MyLanguage/Sub-projects/Automation_Linux_distributive
->> . :)
->>
->> And I have resolved the problem for myself by the option "radeon.dpm=0" in
->> all my Live Disks. If you want to tell that is my problem, throw it away and
->> reject the workaround!:)
-> There might be a misconception about the roles involved here.
->
-> In my eyes the situation is as follows: You have a problem.
-
-I have resolved the problem for myself far ago.
-
-> I (and possibly others) offer to help.
-
-To help for other with same hardware, since I can fix that for myself if 
-I need.
-
-> For now your problem report isn't in a form that I can act upon. So it's in your interest to provide the
-> information that I ask for. If you don't want to do that, that's fine,
-> and I won't have sleepless nights about it. The likely outcome is that
-> the problem isn't addressed.
-
-Whether I don't provide you all information beyond "get my hand in the 
-dirty"? :)
-
-> Parts of the misunderstanding here might also be a language barrier. So
-> maybe try to get some help in the kernel community that speaks your
-> native tongue.
-
-So, English isn't native one for you? :)
-
-Regards, Roman
-
---------------3XeXJjGTD8CF2ny8z3oS0FCT
-Content-Type: text/vcard; charset=UTF-8; name="roman.vcf"
-Content-Disposition: attachment; filename="roman.vcf"
-Content-Transfer-Encoding: base64
-
-QkVHSU46VkNBUkQNClZFUlNJT046NC4wDQpFTUFJTDtQUkVGPTE6cm9tYW5Ab3NjYWRhLm9y
-Zw0KRk46Um9tYW4gU2F2b2NoZW5rbw0KT1JHOk9wZW5TQ0FEQSBUZWFtOw0KVElUTEU6T3Bl
-blNDQURBIGF1dGhvciBhbmQgbWFpbiBkZXZlbG9wZXINCk46U2F2b2NoZW5rbztSb21hbjs7
-Ow0KQURSOjs7O0thbWphbnNrZTtTaWNoZXNsYXZza2E7NTE5Mzk7VWtyYWluZQ0KVEVMO1ZB
-TFVFPVRFWFQ6KzM4MDY3OTg1OTgxNQ0KVVJMO1RZUEU9d29yaztWQUxVRT1VUkw6aHR0cDov
-L29zY2FkYS5vcmcNClVJRDpiYzkyY2E2My03NWNhLTQ5OGItODAxYy01NGJlMmIzNDMyOGUN
-CkVORDpWQ0FSRA0K
-
---------------3XeXJjGTD8CF2ny8z3oS0FCT--
+regards,
+dan carpenter
