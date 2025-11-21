@@ -4,144 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BE72CFC266
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 11:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03C90CFC271
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 12:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4082210E859;
-	Fri, 21 Nov 2025 11:31:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9148B10E2B1;
+	Fri, 21 Nov 2025 12:52:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Onk85Bn/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="adbVecaQ";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013053.outbound.protection.outlook.com
- [40.93.196.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8D710E859
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Nov 2025 11:31:19 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013067.outbound.protection.outlook.com
+ [40.107.201.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85FED10E2AD;
+ Fri, 21 Nov 2025 12:52:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n8gDMOxqp4CiDOTIXJNy5QdReJ4KHk/EAOymgT7A/8bb624D43unD0OhFSLVVX3kibKZ2fXD/c9b8ljfMUYesGoV/vmvaM4dS3z0Pm4xB3PYEj32naFVHrzZmOwbjmvs1pAzmBKPGvfW6SwY+TavoOeOy/JrJEHBrlRh5ypnxCcTGRx6lyVpQU7VwtQ+beImH1yE3xh0f+nb3/Najj2ui4Yrnpt8IRPNZCVdobC1w/UpkV6yj4WQlY/as3D1bOVZsJQhr0HSQchTXzaLLtQNHz8hlIIAqmp+7bAw7Z7t6JaKfI1r5u0EceLz5kp3jOLX9LBoVN0N0DRC8IPWPPhEfA==
+ b=tW91ciKgX4XSNiWQlqvYN7+BdGAKUHWb3r17iUZb8C4Asilq1yqW73a6M5wmXZHeYuY9MOvZ4FMJN28x6FTNPFST5cas0+mApfmuFsqIgb3tedX7iHuJn0WGla3aL5VJuimmYxsbs9hJqCi+6PpqROAmSXGIJbuRjpZ5BzibWl3szYa0AckfIu59Fy63XDv5BwN+1OejXbEObqEhgYV727Xd0XgWIB3ST7k7j21vzSeLJ4Ve0z/Y+eqLE1rj1mYiz4V0jowBfX3et6RmJHQizHSUTVFqiV39+DsM2IwqHvP9cMQdVTnah7La3YaY1Jh0k9TWVqCGwRqZTtJ5kyn80Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ndpptDdu7zmTUnbW/uIn8I9R9xG3rZF2WlZiFEA8rUk=;
- b=tKaupy37eWe1w21j0Uqut52A6C+BxZOeRI7T3Azf0NXq6DoL8zM/+lwNuhgNd5BbG8ivkTs8tjZSL3+vcINqUzXS98FZ0VHMz44TnwTLNkhl24YTuvfXi79MIEz7u/EEoQfraqSa2yy1nk9d4xdFshBRBJUAFR8apruX2v5b2b+J3V8rSLiNaS1624r9Wk+YNX5lXot5b/ouA4g40pUcpaDo/KLbhlXXG16Idwe3NJcJmARAGQgWtO6oieJ3HumUhe+g26oj9BnIiXtsf5cp6RJPTihd6oThcIm/5SRq0/ubINKTIqZJl1fdhFhVwgAl1uKmVOBvJ+onPdqbsqSwlA==
+ bh=DOBZr6tTxutbhwuR8Lkfgy5MMjzfKDfbFN5uN4REeAE=;
+ b=P36mu5kSfTW80cMxamomBmAyeXpUG82K9wfEV5t9FCkXAFcJkeu/oW8tBvH3KM/SpLxyoyHBs3rk+ttfk7u4W9Rn6fWsd2MQSGG5rNM8UAAh/79A2aSCDWhj/Qeco4dI+wMcqGpyyQUsvy/FEe1wGv2Y0AopZDiOhUvg7UPIM2wd70X62AhsM6blJnJ1W7N+RdxXMGWZ10CHGVqyDmNVv9yWVP90lR8MGkTBRmzH0ykej5oTx5eIeOEOsgxT2yAQZn/eDPfYKyLjlqBBWYZ7fpNXDsHyjRsO2yWUP03xsCM+2k81WXTiJrRxnQcSEeyJDNgemt4Gp2ML0Y8kHHIEoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ndpptDdu7zmTUnbW/uIn8I9R9xG3rZF2WlZiFEA8rUk=;
- b=Onk85Bn/gepUPJaWbKfQOaut8CWBrn7VppvooX0dUeVOY1Wykdqm3FiaxgDArxXGya16uQnRXlDrDTW3eKmOPcZo2PKPeuWgcxTMgeG4NRs58bmxlHIJpsYQgoiomwuc5HM4MPCmKl9hL4IEGIFo2gZ1LNXrzFR2FCa5/HGp83E=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by DM6PR12MB4155.namprd12.prod.outlook.com (2603:10b6:5:221::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.19; Fri, 21 Nov
- 2025 11:31:16 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::542:90bb:6ae5:a2b%6]) with mapi id 15.20.9343.009; Fri, 21 Nov 2025
- 11:31:16 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: Re: [bug report] drm/amd/ras: Add CPER ring read for uniras
-Thread-Topic: [bug report] drm/amd/ras: Add CPER ring read for uniras
-Thread-Index: AQHcWsOXPoibIkq/TUC/GmnuuV8KkbT8/Z+l
-Date: Fri, 21 Nov 2025 11:31:16 +0000
-Message-ID: <CY5PR12MB63454C81432E0C3BEE31648BFAD5A@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <aSAbtCGcXRqNRFq0@stanley.mountain>
-In-Reply-To: <aSAbtCGcXRqNRFq0@stanley.mountain>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-11-21T11:31:15.982Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=DOBZr6tTxutbhwuR8Lkfgy5MMjzfKDfbFN5uN4REeAE=;
+ b=adbVecaQ5MWN4bGST10uQZd4AnKwCS3IRhXlgaRJE+bxpxeKuODPyPEUrrTvnikfIGgG1eg9VtSx1wp7DozWjz105dLFZ+wFRd2j4Qrhdvr9RczOhLnJFh4jc1+GgWzKAaf4y4T5PpjfdQOul6GrTS9q9vYx6LLiXPJanlpGgsI=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|DM6PR12MB4155:EE_
-x-ms-office365-filtering-correlation-id: 5073e95e-daa1-4d93-b6aa-08de28f17bd5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|38070700021|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?Khexz0pg6wtIx/BoSRfqdK/acwpNOPGQ5UK+aXQezWLtSP+73wgd1TmRrw4K?=
- =?us-ascii?Q?TsUf0JveU0wviuiVfUhuBh4xBgzsJAbdlOKZTuBKUtV6ndnjyH0YlrtT3VQA?=
- =?us-ascii?Q?DOpY141Prfw8ZgWVRiAe2k1JHDw3UkwqxiPGmc3Juy/pYt1da70CfBFMhn8D?=
- =?us-ascii?Q?zilCUa/a+zbx6o1RoIMLpg4N6XBVR8xMSFBmSJXT97Hy1JEeJeemA22c+57H?=
- =?us-ascii?Q?eMqAqXPHrdq5HC6CVmlkiYwysA4BCLQyKA8WnJi6jF8qBS6234O2zgd7+ibK?=
- =?us-ascii?Q?At1NJyegvcAm+56vqc8OCbK58AWNuU47X/msLALyMSDXUIVfjuajEyf/v91B?=
- =?us-ascii?Q?StsTMDJRQ63TQ/30qFajhsm/4P+JDmG5LZywjEq1wevUwn/yx8pp5Ka4gfxE?=
- =?us-ascii?Q?/+5vOMrfx9xZdKXK7TqNtQdZdXDOzb/FQ7dcJu6M9EM0FEKN00S/WVep+Vrl?=
- =?us-ascii?Q?rjui7j+x8uAg4GuMoH7uIWE1PeQIPnF/WDqAtTXaEzY6gEXtdKk87PfionY7?=
- =?us-ascii?Q?8vmpbHepbMOQHwFrEl6LJZjrKH6NhqwskkP3vLNS9b8zZnwPURp/v9UV/zRt?=
- =?us-ascii?Q?Z63KZ2CIhlfH+ZSzRBVLuly4pX5wGiwBzj/cD3ZlxkxPferAAeJPeSjZY30i?=
- =?us-ascii?Q?baqAT6LJ0hsG72aK10SfcBm4sNVwO9GyWYZ6PTAA+nEzHtyBll+OGe5inw+M?=
- =?us-ascii?Q?Be8YzeKpCCtouC2vAVRhUeHNjvG0ue/NEz6Gayqf1uMyNiJofrHLm/H4dtSv?=
- =?us-ascii?Q?Y/SpNFHXFgaxlpHCuUnvDc2n4QtTxzWPbLmOuowM4qkf1HL2E1OtFiBTvVu7?=
- =?us-ascii?Q?W6ejO6VKTOBJKxQStL8v+zQrTfXE/U3gPGcEmDW2GdLg3swr+p0PRm6BVnRr?=
- =?us-ascii?Q?lVO9UQpkjRgC5c4cWkg+RDkBNsCDUL4lUBRKg9kM9bItbvuNMbE5Hy5xwNOb?=
- =?us-ascii?Q?rK1xMDB194BXLHeu7dGX+Q/P/O7PlQse9A07ZgONrX7GqaB1T4EWo0CS+u1O?=
- =?us-ascii?Q?D4lWcb1Ki+6RU3A/3gsR5UPlB231WQ4OYL1Ok/9+Njm1Za6NwOocqII/VRPi?=
- =?us-ascii?Q?D96TtwUS7sHJ1/qrRQY5i+3jrq7AcMfvH0HZm45QyYcxFkZjsfiBl4Js3MOI?=
- =?us-ascii?Q?oj0EG/EuRdkcuO5ucQJYhN+lBe0mwcZ/0RYg9+ALr5h6tAXFA+8SSaF7UyMZ?=
- =?us-ascii?Q?/E3UuxBvWppZw2XSCLXua2CNKQweDeJqqJcFhqh+lAx/Ra0iWAZHioiX2vso?=
- =?us-ascii?Q?N5GAnEzoKCP4KhmRVRsT6aM4IfIJX5z+TOId/nUWT4n4/V5u1uW6HcJLw3D/?=
- =?us-ascii?Q?9iHrPhWU2oa1gZV4HDjctOmE4mC6dHaZkGZ1n1Lbns95Nexe6u7cxMKOpwa4?=
- =?us-ascii?Q?wMqj0eN3hHoJH9lkyyqrZfStt6wGTfE7vF9gItuTpuQ4wEMtaonHZ5CiDxKH?=
- =?us-ascii?Q?x7gl3OvmUplxrepWIurkLMIAkZPLeivfg6WDRG6imwxduI8lTf5TScO9j+NN?=
- =?us-ascii?Q?OBsbEfJBKOHxL8T4BtsHkmdVnYb/APkx+h3T?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?M73qR+FMcYhQ5IOZ8NGCnBzlxGhYq/mSpzHa6tCExbCKf/mOxIBlm2CrWnE7?=
- =?us-ascii?Q?wxSxjzrKG6ZFz+OfLwqSM5SU0P4iLzz0t2C7rYoGp42yT5+v+PlUeHV6cHPn?=
- =?us-ascii?Q?CdNYmyeo0yPW2XGx1Bq6hC4NoNFj3aqbKhZlQeuRQpUeLQCt4ScjIi66WR3h?=
- =?us-ascii?Q?nZsNkd8Af4vOGY3eGf2fCW9x7BBUTaNhVy3qaZqjglf/6+11YMci3QBdxaeu?=
- =?us-ascii?Q?vQedKfdvrUSA3TwOOrt3mgH+K2BRmnFR+rYeygq005tnHjE0Ny3WEpMt6VAC?=
- =?us-ascii?Q?z2cDEn+N4gXripaFi2LF4i/Pno0uEGmlmDpizJIKGwMop/KgtAtPzDftzxr2?=
- =?us-ascii?Q?KCXg8kduPtjM6Rhz6Fcs7nQfnyJuagb26FRdS3EAIMzCen8uEUMbywfhR7OX?=
- =?us-ascii?Q?DGqqo1e9ENvqAPp7WNvnY/ElPTvT1Gm2RhAQQnP63DfHFcHjKiQKTIYn0Rfn?=
- =?us-ascii?Q?XGAbXokNgXcP2B1x8cixHM6dfxL3jteConRKSJfuOONjUP0EZj0Y3/tWAKBm?=
- =?us-ascii?Q?jY/X0A3MbycCwtbJ6it3f5vRb9l8+s63MXQEx6c0Fpa6SltclCvDdgEvtpD/?=
- =?us-ascii?Q?74Wf3jWiPY9nSSNg+vAItwfPwExhMEPXjzBWN7mSRCX1uQZDYrQNJ+cRz90Z?=
- =?us-ascii?Q?FCwHCzN8OA1rPpshOTNLV2HJyhzTNgmzuvHa+bqvOVACt4wTHjAgQF2C8enS?=
- =?us-ascii?Q?fC1TzYvRi5xHVhVo77/F1lbMo28bl2CJDc7X/ZYghwbTBebfYPFW9ig9Np8l?=
- =?us-ascii?Q?7tckfx8QuzIZVAhuQdQB+07jCNAS2PkAmGkzYajUWxcQgqUfQZOqv8+kH992?=
- =?us-ascii?Q?vCQxTjZP9iUQdPp3M6lO3ugjS9vfa8+oIHwF+MkJlSg25b/TDa+qzRZKIDZt?=
- =?us-ascii?Q?BOAY2Ap8lVUMujGmo00W9S0wbMyuny5BwjpeyXk2CEbSqLOQtWangrKrRJ4K?=
- =?us-ascii?Q?XslXiju9SKD1j3MkWui6fb2IgrEbQq0vIub+JCgdDj0N/n70JzREKuVcyuoj?=
- =?us-ascii?Q?XgqrVY1KtzCdVPINcStyEaaJ9WBNRO8gDZTyxDmDwsYky3pJS4mVJ0N/GurS?=
- =?us-ascii?Q?V3o68JTo8fASdFFhOsQ1c7070ia6+RjrtBepFMibVJYdxZFCejEv0whM6ivR?=
- =?us-ascii?Q?6snFqXz3SuQkpEEtgBEfcgq0q+nA2if5eNNtQn4m4PJzw4vL/J9k2RYi79fz?=
- =?us-ascii?Q?Jc+FVaZs8ToZbM3PsD+1Jhksirhuiwe5xh8viKTO2RrHcLdeD78dQ/6wDx5l?=
- =?us-ascii?Q?BZbL5sKfhXxQJQWU3IWuKr9eBroiAjV+PRnUP62tYdBxiMvXnUeLzhVL1ahG?=
- =?us-ascii?Q?ua6tpR7+56fSe7F84nMFiSBdp25KVbPKbSKokEUCBHZU3WV20af1GfZzNLH/?=
- =?us-ascii?Q?+Fex3/GiPYusiJOZ5AY45hy9HPQPICnNfRqCwr7T4zzVPWdGLSDgYSnZm2RL?=
- =?us-ascii?Q?q8ewXwLqyWj6zmNC1lXk/atEQX8bliMM1IGTPUHR7qrNjQiNKu/1x9kyde2E?=
- =?us-ascii?Q?RkVbBIT1cIMBtneL8C8AOIIheDofhgyOIVzw9kBcsuXRK/LAwBpEbkuH/rMh?=
- =?us-ascii?Q?/2IgFfMrQC4X5cS03Ks=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB63454C81432E0C3BEE31648BFAD5ACY5PR12MB6345namp_"
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH8PR12MB8431.namprd12.prod.outlook.com (2603:10b6:510:25a::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Fri, 21 Nov
+ 2025 12:52:08 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9320.021; Fri, 21 Nov 2025
+ 12:52:08 +0000
+Message-ID: <64e8cebe-0f68-48ef-938c-7307da1b6393@amd.com>
+Date: Fri, 21 Nov 2025 13:51:58 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/28] drm/amdgpu: give each kernel job a unique id
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20251121101315.3585-1-pierre-eric.pelloux-prayer@amd.com>
+ <20251121101315.3585-2-pierre-eric.pelloux-prayer@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20251121101315.3585-2-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR01CA0188.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB8431:EE_
+X-MS-Office365-Filtering-Correlation-Id: 427ba241-81ca-4697-bd5f-08de28fcc75a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VFVFWGg4ckUyWHRNK09QL3h2UUhsTHRyNk1iZnZjNm5XSWpaVjZ4OXZ4VTlJ?=
+ =?utf-8?B?K1pjeW5NZHhwTmo5cGMxMGpkM0s0L1R2d1NaSGhkL3J2dFM4YkprRnNFSjVN?=
+ =?utf-8?B?NVdEckRIUXhYOE1kc0VWL3BYQWxzZWIwUWp6STBNVFBRaEdCWnJsdHNjU2Qy?=
+ =?utf-8?B?YVBzQmYzaGVjYUtEeWY2OFJ4WTRJV1BTZlQwZGJUZGdla2lxQXkrT2tiaG1H?=
+ =?utf-8?B?eFB1Ri9OTlFlY1ZYV2FLempZZmFzV3pkLzF5WlBadFE1UERJWSt3WlZLVnNV?=
+ =?utf-8?B?TFQ5Znp0NklVQmhTcFBiZEZFdVBxTWRRZjBPMEFDbURONnVyQXMyLytuaWRS?=
+ =?utf-8?B?S2p4UTRLTktrM2RMdkplRlMrRHIzeFZjRW5sdzB4alloUmlIQUtnSFNTL3pa?=
+ =?utf-8?B?dk9ya2hFQnZmdVpYNnVCaG52Q3daMHQyRExqUGtCd01PNVRCOUtFZDc5cm1j?=
+ =?utf-8?B?S0JEemcvNis1VjlUWk04bWF3ZUNVdjdSOEpBUDBncEtmOEthNzdYcjRQL2pj?=
+ =?utf-8?B?WlR4STQ5Uk12dmxYbktpYVZudDA3WjNOT0lPWXl1eGFjM2ttc1hoTEtnZEdT?=
+ =?utf-8?B?Q3ArWkl4ckI1U08vc1RDUSsrUTc4bWhPazZmeXNPSU5YMFp0VVpUdFR6TmhO?=
+ =?utf-8?B?OFdTaHFhYjJmbmw2SEpZV3N3bit6dnlNbkFKc3VsZ0VCdmdJY0Z3bVQ4clBa?=
+ =?utf-8?B?dmV0bGtHeVRaYjRiUHMzUFJFTStVNmVEMzJYeVh6Zjdwdmcwc2xoMEkzNFY4?=
+ =?utf-8?B?WjdoajdqK2YvM0hmRFhESjNuVEthbjBFakNHaFc0NDZ1VXlxS0tRbnM5cng4?=
+ =?utf-8?B?V1lIOVpTbG45Z3dmdUVzTDMrZWtjV0I3VmMyU0JaY08zK0Yzakw5cFV1endj?=
+ =?utf-8?B?UU1OVUFtbHhzWllGdm5vS3FpTEFGMXRPbmd5dXJwaWNONEExcFpxMFRJUnll?=
+ =?utf-8?B?YVZtUVhmc1JHTEZiQ1B0cVNjVzFJSXVWS0wzRnFET1JIbzluaTRwSlBodXBn?=
+ =?utf-8?B?YmNmWnJRdjVJTVg5Y2lDc0NCOHpCSENVY0I3QUFLMG1hNGYwOUlBYXoyNWNS?=
+ =?utf-8?B?cXBLa293Mk5NdVphQmo1OVA1Z3VZSDVLQ3hOZlpQWUJZWHRvRWNHUVVYcEp5?=
+ =?utf-8?B?QUhuMmpUL2NycG9ZMDlmOFB5c3l0eXVnNTF3UlFwS1d4SDF5eGFoYmxRRWJU?=
+ =?utf-8?B?c2laV1ZaWjJEcEZCSFdsS01PNUtPWnRDdHF2Q2I2ZWd4YWpHVE1tenVJZkdq?=
+ =?utf-8?B?Q05OOFY0SzdORGlnMFJ5UzBhTnlvbDNiM1QvWGRqWWVQeGFFaS94SFN2NFY3?=
+ =?utf-8?B?UmZoTllTR0V4REFESlIxOTYzbVltT2xJS1AvaEdBWVNySTRXMW43MEVtQWRH?=
+ =?utf-8?B?RGhma1pIN254TkxkZkxEaUx1WHJHRFhRL3ZjVGh3L3g2SldjQ0pmQ01TQVNW?=
+ =?utf-8?B?T3dIcnh5d213VCtpdEY2bzNNTS9VZDZmRXg0TWRmcU1tT0tlQmtIY1FtREJk?=
+ =?utf-8?B?dU5saVFMUnNoRlBFVFNZRUQ5bG9scG00eDczaEwyRXRwLzMvZm5reUtQZEJK?=
+ =?utf-8?B?ekxyMHVlRTdKQnhxeE04aXplWjVBZmRaekpOdVQyeEM2b1l4VHNzSjIrOHJP?=
+ =?utf-8?B?c1lBVXA3TjZ5ZjcwSlplc1hsSVFWRjdzUDlnWEcrRGNXU1EvejdQWG15Nm1Q?=
+ =?utf-8?B?YW5scUpQQkdOUkMxaXhoWUxFZWpHaWFvZ0ZqdFptbnBjdTZ6NDV3UDVwa2ZH?=
+ =?utf-8?B?YlhKb2F1Ym96VURrNzRaa0JxVmhEdEJ0bDQ4UUZaMm4wSUFDekQxM21EVFkv?=
+ =?utf-8?B?dU85cVlmS2dmTTZPL3d2ZjZhclJNRTRxM25TVVdzbnlyMTRkK3VZamVobFRL?=
+ =?utf-8?B?ckdMaHZKdEpsK1dqYWt6d3o5UVhPejY4eS9idjd1MVVDS012UnJpNmg2ZFA3?=
+ =?utf-8?B?enZicExpaWw5OXhidXpVQkh4N21wYXdwQUM4YXh0aGhBZVI5SzBEN3VDbGFy?=
+ =?utf-8?B?VWFTSDJjek13PT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUFULzFFMmhFTFdCMTJMdzJaWGZmMlFHVk5MN0wwZGwyajdobUo3TUU1WWMw?=
+ =?utf-8?B?TE9DS2RERGtpdVFhb1EvUzZSRDVYaUkxeTV0OWtseG9FdXBsUk1tYTc4UmpH?=
+ =?utf-8?B?TGwvMktWeGU2MkhGY2gyQ2xUNWViYmdDZlFUVGQ5MCttVEtiZkRZZnZUSHI3?=
+ =?utf-8?B?QWJ5K1pHd1lDeW1scXRseTdTQjlnVXgrNDI0WWcwWmo0WDBtZUVPTzNNLzVW?=
+ =?utf-8?B?dHJnR0Z1U2pCd1ZNWS9zcnMyWnorNnlLN05CQ0ZOcWIzaVJjaDJZRlRYV1VX?=
+ =?utf-8?B?Tm9ydXA1VUhmKzVWZHo0SmFqUFYybGNiNWJFbWxESTQ3MHY2WWRuRjhzWnk4?=
+ =?utf-8?B?Rjhmc29RSHkyK05Dd2JTa1VHampUNkUvdm0xNnR1dWtXekFVc3ZMQitpNGJ2?=
+ =?utf-8?B?dzJESm9CelRKSEZFdE5kd1FZblFsREJHNERVZDFVWFJSUXRUYmpFRUUzcU9r?=
+ =?utf-8?B?ZVhqSmhua0ZxcUlQelRHZHlnMDgvNlZvRndwQTMwWTZBd0ZxQktqcnlVem80?=
+ =?utf-8?B?ZlZYdk9TdEdLdVJjVENUVTI3WnVVNXg3NVgxbEZEVEUxRTNLdHFkZ1o5cHVt?=
+ =?utf-8?B?dExNc3JBTjRPNS9aeUNoSDNuRUJZWFA5cCtuN1NBbWVqYWlVbEJFV1VYMjhE?=
+ =?utf-8?B?cjlzbE5pUERnRWU0b0dKbjZ0aDlHQmlFY3JFQTlraXRMcTZkZFhEdkVWanlE?=
+ =?utf-8?B?WEcveHpwK0VIVkN0bWxNeTF3WmlWUmZOMUtlSnZsN3JsR2dmZHhWaGlZSWZD?=
+ =?utf-8?B?S2lldWFTNGpZUDhhSFNFazM5ZGFGZWdRanh4ZFZCQUxCY1BBNEpLRVNmenZK?=
+ =?utf-8?B?YVlRbFR3cGQ0a3Z1Sm5YVEIrQmZXTWRvQ3JBUzJuY3lEdU8raW5ZM2FYTlh5?=
+ =?utf-8?B?REtya2g1QUgvSDZoWDE1cnNXUHJhNkRDUXA2akhkSzB0enl0U3FwT3hKcFBt?=
+ =?utf-8?B?SEt5MkJzekgrRFV5K3RwUSt5Z2gvM2tzS3hHcy82QWFQZnhLNmRiZFM5MGdj?=
+ =?utf-8?B?UWJGZWk5eGFzNEthVDVaQjZoMUNtMFd2bTJOSjNyWXE5MmNkUEtjVm50MmI1?=
+ =?utf-8?B?UTl4ZVRiQnVJeDBXMTBDc3g0VlZOLzB5czNlTk4rckVhYXNLOWFTZExaZTBF?=
+ =?utf-8?B?Y0hSWUJ2M2xicXRnNVRNK0paaDd1aGhNQlVVR2hGdnpiZWlKaTgrS3FjSUtM?=
+ =?utf-8?B?cllxVjdUT3NsaEhSU2MwZWdiY1BKeUt0Z3I0bHBwcTQrQUJsMlBZRmEvbURi?=
+ =?utf-8?B?QmFFbkhTOWxjY2ljSXp3UWZQclA1OUxqc3A0Q1ozSGcrdDBqQUR6MTZ6SERl?=
+ =?utf-8?B?VitMUk5pWXF1LzQvZGZmK0RkK24ycHcrc1pmRVhBRGFoZU5CbWEyNkhoVGM2?=
+ =?utf-8?B?b1RHeFRCV3h0dU5VcnFnWjZPSjNCazQvY0Vyb2h3TUM3UDdwTE5QR25DVGJJ?=
+ =?utf-8?B?MVduNWFzNzZQUG1UNGlWSkNKaDUyRVo1ZU5zaEZVK0NXQTdUUU5sNGFhV01i?=
+ =?utf-8?B?QmI4MitQbDJlSkxMOEJJNGNZVlNYTE44QWY3Qmt0aWU0aVZDYkRnVzNIOUdW?=
+ =?utf-8?B?UDJFVVN3OFpvN08yV3l2QVNuMk9WUGNqVjZDSzdCZjN3MS83RE1EYzFIekpH?=
+ =?utf-8?B?M1M0ZkZqNC9BazBackxjM0RhSjUwNkNoV0hjTWtaZUJyL1paeTg3RHVBWFdX?=
+ =?utf-8?B?ZlRLN2ZRMTdjcEFlT3JiZm1QMU9mTUFEVXR5c3Bnd0VPNkgxbVJXblNLRXBH?=
+ =?utf-8?B?ODJIalYzMzJvRnZVNzVtQTNJV3JtTHUrSnQ1ZFhIUnYyMVBxMHVNaGZ0eno5?=
+ =?utf-8?B?clNmOHdxQzVTZ00rUG9NZi9PWE1qN05HSExSUmFHeHRkQS9maDU1Y1d4UzV5?=
+ =?utf-8?B?d3FkR04wUGZsRnJmUDh2RWRncnNRcU01WVRGT1c1QnJJYk0vanRRVWtQbllC?=
+ =?utf-8?B?NGZiY3FjQjdHY1NldGNkRU42Q0tyR3g4Z01VbEF1K01SZUZIYTlhRXRRZG1t?=
+ =?utf-8?B?UVoyZ2dXN0ZUaHBXVUJYUUdnVFJIdy9pOCtmTktTcjBMcDZzNWlCbEhxcyta?=
+ =?utf-8?B?bTQxZ2ZaTHdiZGhrT2ViSDlORlllK0xCcGRRbzJESDFoWkJMaTZxSXdDVTlh?=
+ =?utf-8?Q?GAm2BGDKxU2z92ATFscbNUyFh?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 427ba241-81ca-4697-bd5f-08de28fcc75a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5073e95e-daa1-4d93-b6aa-08de28f17bd5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2025 11:31:16.2799 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SMRMStGeJhMQjRibn+8ab8mV94TW8UD+2Tacg3NIiF81BD5OMnf+InmylWqsxJ1iIrLX0Tso74z6NCYsLUlaXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4155
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2025 12:52:07.8807 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lAQEfrL3Oi7Ga5AL72u/IwesXXimMCieQ1beZMWVcZ/bux+am9ODjDr2oSVVIYpN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8431
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,318 +167,551 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB63454C81432E0C3BEE31648BFAD5ACY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 11/21/25 11:12, Pierre-Eric Pelloux-Prayer wrote:
+> Userspace jobs have drm_file.client_id as a unique identifier
+> as job's owners. For kernel jobs, we can allocate arbitrary
+> values - the risk of overlap with userspace ids is small (given
+> that it's a u64 value).
+> In the unlikely case the overlap happens, it'll only impact
+> trace events.
+> 
+> Since this ID is traced in the gpu_scheduler trace events, this
+> allows to determine the source of each job sent to the hardware.
+> 
+> To make grepping easier, the IDs are defined as they will appear
+> in the trace output.
+> 
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Link: https://lore.kernel.org/r/20250604122827.2191-1-pierre-eric.pelloux-prayer@amd.com
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Acked-by: Christian König <christian.koenig@amd.com>
 
-Hello Dan Carpenter,
-Thanks for your reporting. SHANMUGAM, SRINIVASAN has sent the fix patch and=
- it works for me.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  5 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     | 19 +++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c    |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 28 +++++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c     |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c     |  5 ++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     |  8 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  6 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  |  4 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |  4 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 12 +++++----
+>  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c       |  6 +++--
+>  drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c       |  6 +++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c    |  3 ++-
+>  19 files changed, 84 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index 5a1904b0b064..1ffbd416a8ad 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1551,7 +1551,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+>  	owner = (void *)(unsigned long)atomic_inc_return(&counter);
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
+> -				     64, 0, &job);
+> +				     64, 0, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER);
+>  	if (r)
+>  		goto err;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 0017bd10d452..ea8ec160b98a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -690,7 +690,7 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.high_pr,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
+> -				     &job);
+> +				     &job, AMDGPU_KERNEL_JOB_ID_FLUSH_GPU_TLB);
+>  	if (r)
+>  		goto error_alloc;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index efa3281145f6..b284bd8021df 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -232,11 +232,12 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+>  			     struct drm_sched_entity *entity, void *owner,
+>  			     size_t size, enum amdgpu_ib_pool_type pool_type,
+> -			     struct amdgpu_job **job)
+> +			     struct amdgpu_job **job, u64 k_job_id)
+>  {
+>  	int r;
+>  
+> -	r = amdgpu_job_alloc(adev, NULL, entity, owner, 1, job, 0);
+> +	r = amdgpu_job_alloc(adev, NULL, entity, owner, 1, job,
+> +			     k_job_id);
+>  	if (r)
+>  		return r;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> index d25f1fcf0242..7abf069d17d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -44,6 +44,22 @@
+>  struct amdgpu_fence;
+>  enum amdgpu_ib_pool_type;
+>  
+> +/* Internal kernel job ids. (decreasing values, starting from U64_MAX). */
+> +#define AMDGPU_KERNEL_JOB_ID_VM_UPDATE              (18446744073709551615ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_VM_UPDATE_PDES         (18446744073709551614ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_VM_UPDATE_RANGE        (18446744073709551613ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR            (18446744073709551612ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER         (18446744073709551611ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_TTM_ACCESS_MEMORY_SDMA (18446744073709551610ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER        (18446744073709551609ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE       (18446744073709551608ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_MOVE_BLIT              (18446744073709551607ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER       (18446744073709551606ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER         (18446744073709551605ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_FLUSH_GPU_TLB          (18446744073709551604ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_KFD_GART_MAP           (18446744073709551603ULL)
+> +#define AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST          (18446744073709551602ULL)
+> +
+>  struct amdgpu_job {
+>  	struct drm_sched_job    base;
+>  	struct amdgpu_vm	*vm;
+> @@ -97,7 +113,8 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+>  			     struct drm_sched_entity *entity, void *owner,
+>  			     size_t size, enum amdgpu_ib_pool_type pool_type,
+> -			     struct amdgpu_job **job);
+> +			     struct amdgpu_job **job,
+> +			     u64 k_job_id);
+>  void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
+>  			      struct amdgpu_bo *gws, struct amdgpu_bo *oa);
+>  void amdgpu_job_free_resources(struct amdgpu_job *job);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> index 91678621f1ff..63ee6ba6a931 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> @@ -196,7 +196,8 @@ static int amdgpu_jpeg_dec_set_reg(struct amdgpu_ring *ring, uint32_t handle,
+>  	int i, r;
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job);
+> +				     AMDGPU_IB_POOL_DIRECT, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 24ebba43a469..926a3f09a776 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1322,7 +1322,8 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
+>  	if (r)
+>  		goto out;
+>  
+> -	r = amdgpu_fill_buffer(abo, 0, &bo->base._resv, &fence, true);
+> +	r = amdgpu_fill_buffer(abo, 0, &bo->base._resv, &fence, true,
+> +			       AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
+>  	if (WARN_ON(r))
+>  		goto out;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 04a79ef05f90..6a1434391fb8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -226,7 +226,8 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
+>  	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.high_pr,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     num_dw * 4 + num_bytes,
+> -				     AMDGPU_IB_POOL_DELAYED, &job);
+> +				     AMDGPU_IB_POOL_DELAYED, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER);
+>  	if (r)
+>  		return r;
+>  
+> @@ -398,7 +399,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+>  		struct dma_fence *wipe_fence = NULL;
+>  
+>  		r = amdgpu_fill_buffer(abo, 0, NULL, &wipe_fence,
+> -				       false);
+> +				       false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
+>  		if (r) {
+>  			goto error;
+>  		} else if (wipe_fence) {
+> @@ -1480,7 +1481,8 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
+>  	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.high_pr,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     num_dw * 4, AMDGPU_IB_POOL_DELAYED,
+> -				     &job);
+> +				     &job,
+> +				     AMDGPU_KERNEL_JOB_ID_TTM_ACCESS_MEMORY_SDMA);
+>  	if (r)
+>  		goto out;
+>  
+> @@ -2204,7 +2206,7 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
+>  				  struct dma_resv *resv,
+>  				  bool vm_needs_flush,
+>  				  struct amdgpu_job **job,
+> -				  bool delayed)
+> +				  bool delayed, u64 k_job_id)
+>  {
+>  	enum amdgpu_ib_pool_type pool = direct_submit ?
+>  		AMDGPU_IB_POOL_DIRECT :
+> @@ -2214,7 +2216,7 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
+>  						    &adev->mman.high_pr;
+>  	r = amdgpu_job_alloc_with_ib(adev, entity,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+> -				     num_dw * 4, pool, job);
+> +				     num_dw * 4, pool, job, k_job_id);
+>  	if (r)
+>  		return r;
+>  
+> @@ -2254,7 +2256,8 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
+>  	num_loops = DIV_ROUND_UP(byte_count, max_bytes);
+>  	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->copy_num_dw, 8);
+>  	r = amdgpu_ttm_prepare_job(adev, direct_submit, num_dw,
+> -				   resv, vm_needs_flush, &job, false);
+> +				   resv, vm_needs_flush, &job, false,
+> +				   AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER);
+>  	if (r)
+>  		return r;
+>  
+> @@ -2289,7 +2292,8 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
+>  			       uint64_t dst_addr, uint32_t byte_count,
+>  			       struct dma_resv *resv,
+>  			       struct dma_fence **fence,
+> -			       bool vm_needs_flush, bool delayed)
+> +			       bool vm_needs_flush, bool delayed,
+> +			       u64 k_job_id)
+>  {
+>  	struct amdgpu_device *adev = ring->adev;
+>  	unsigned int num_loops, num_dw;
+> @@ -2302,7 +2306,7 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
+>  	num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
+>  	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->fill_num_dw, 8);
+>  	r = amdgpu_ttm_prepare_job(adev, false, num_dw, resv, vm_needs_flush,
+> -				   &job, delayed);
+> +				   &job, delayed, k_job_id);
+>  	if (r)
+>  		return r;
+>  
+> @@ -2372,7 +2376,8 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
+>  			goto err;
+>  
+>  		r = amdgpu_ttm_fill_mem(ring, 0, addr, size, resv,
+> -					&next, true, true);
+> +					&next, true, true,
+> +					AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
+>  		if (r)
+>  			goto err;
+>  
+> @@ -2391,7 +2396,8 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>  			uint32_t src_data,
+>  			struct dma_resv *resv,
+>  			struct dma_fence **f,
+> -			bool delayed)
+> +			bool delayed,
+> +			u64 k_job_id)
+>  {
+>  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>  	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+> @@ -2421,7 +2427,7 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>  			goto error;
+>  
+>  		r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
+> -					&next, true, delayed);
+> +					&next, true, delayed, k_job_id);
+>  		if (r)
+>  			goto error;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index 054d48823d5f..577ee04ce0bf 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -175,7 +175,8 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>  			uint32_t src_data,
+>  			struct dma_resv *resv,
+>  			struct dma_fence **fence,
+> -			bool delayed);
+> +			bool delayed,
+> +			u64 k_job_id);
+>  
+>  int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
+>  void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> index 74758b5ffc6c..5c38f0d30c87 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -1136,7 +1136,8 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, &adev->uvd.entity,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     64, direct ? AMDGPU_IB_POOL_DIRECT :
+> -				     AMDGPU_IB_POOL_DELAYED, &job);
+> +				     AMDGPU_IB_POOL_DELAYED, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> index 709ca369cb52..a7d8f1ce6ac2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+> @@ -491,7 +491,7 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, &ring->adev->vce.entity,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
+> -				     &job);
+> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> @@ -582,7 +582,8 @@ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     ib_size_dw * 4,
+>  				     direct ? AMDGPU_IB_POOL_DIRECT :
+> -				     AMDGPU_IB_POOL_DELAYED, &job);
+> +				     AMDGPU_IB_POOL_DELAYED, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> index 5ae7cc0d5f57..5e0786ea911b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -626,7 +626,7 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     64, AMDGPU_IB_POOL_DIRECT,
+> -				     &job);
+> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		goto err;
+>  
+> @@ -806,7 +806,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
+> -				     &job);
+> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		goto err;
+>  
+> @@ -936,7 +936,7 @@ static int amdgpu_vcn_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
+> -				     &job);
+> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> @@ -1003,7 +1003,7 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL,
+>  				     ib_size_dw * 4, AMDGPU_IB_POOL_DIRECT,
+> -				     &job);
+> +				     &job, AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index e2587eea6c4a..193de267984e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -989,7 +989,8 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>  	params.vm = vm;
+>  	params.immediate = immediate;
+>  
+> -	r = vm->update_funcs->prepare(&params, NULL);
+> +	r = vm->update_funcs->prepare(&params, NULL,
+> +				      AMDGPU_KERNEL_JOB_ID_VM_UPDATE_PDES);
+>  	if (r)
+>  		goto error;
+>  
+> @@ -1158,7 +1159,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  		dma_fence_put(tmp);
+>  	}
+>  
+> -	r = vm->update_funcs->prepare(&params, sync);
+> +	r = vm->update_funcs->prepare(&params, sync,
+> +				      AMDGPU_KERNEL_JOB_ID_VM_UPDATE_RANGE);
+>  	if (r)
+>  		goto error_free;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 330e4bdea387..139642eacdd0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -310,7 +310,7 @@ struct amdgpu_vm_update_params {
+>  struct amdgpu_vm_update_funcs {
+>  	int (*map_table)(struct amdgpu_bo_vm *bo);
+>  	int (*prepare)(struct amdgpu_vm_update_params *p,
+> -		       struct amdgpu_sync *sync);
+> +		       struct amdgpu_sync *sync, u64 k_job_id);
+>  	int (*update)(struct amdgpu_vm_update_params *p,
+>  		      struct amdgpu_bo_vm *bo, uint64_t pe, uint64_t addr,
+>  		      unsigned count, uint32_t incr, uint64_t flags);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+> index 0c1ef5850a5e..22e2e5b47341 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
+> @@ -40,12 +40,14 @@ static int amdgpu_vm_cpu_map_table(struct amdgpu_bo_vm *table)
+>   *
+>   * @p: see amdgpu_vm_update_params definition
+>   * @sync: sync obj with fences to wait on
+> + * @k_job_id: the id for tracing/debug purposes
+>   *
+>   * Returns:
+>   * Negativ errno, 0 for success.
+>   */
+>  static int amdgpu_vm_cpu_prepare(struct amdgpu_vm_update_params *p,
+> -				 struct amdgpu_sync *sync)
+> +				 struct amdgpu_sync *sync,
+> +				 u64 k_job_id)
+>  {
+>  	if (!sync)
+>  		return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index f6ffc207ec2a..c7a7d51080a8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -26,6 +26,7 @@
+>  #include "amdgpu.h"
+>  #include "amdgpu_trace.h"
+>  #include "amdgpu_vm.h"
+> +#include "amdgpu_job.h"
+>  
+>  /*
+>   * amdgpu_vm_pt_cursor - state for for_each_amdgpu_vm_pt
+> @@ -396,7 +397,8 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  	params.vm = vm;
+>  	params.immediate = immediate;
+>  
+> -	r = vm->update_funcs->prepare(&params, NULL);
+> +	r = vm->update_funcs->prepare(&params, NULL,
+> +				      AMDGPU_KERNEL_JOB_ID_VM_PT_CLEAR);
+>  	if (r)
+>  		goto exit;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> index 46d9fb433ab2..36805dcfa159 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> @@ -40,7 +40,7 @@ static int amdgpu_vm_sdma_map_table(struct amdgpu_bo_vm *table)
+>  
+>  /* Allocate a new job for @count PTE updates */
+>  static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
+> -				    unsigned int count)
+> +				    unsigned int count, u64 k_job_id)
+>  {
+>  	enum amdgpu_ib_pool_type pool = p->immediate ? AMDGPU_IB_POOL_IMMEDIATE
+>  		: AMDGPU_IB_POOL_DELAYED;
+> @@ -56,7 +56,7 @@ static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
+>  	ndw = min(ndw, AMDGPU_VM_SDMA_MAX_NUM_DW);
+>  
+>  	r = amdgpu_job_alloc_with_ib(p->adev, entity, AMDGPU_FENCE_OWNER_VM,
+> -				     ndw * 4, pool, &p->job);
+> +				     ndw * 4, pool, &p->job, k_job_id);
+>  	if (r)
+>  		return r;
+>  
+> @@ -69,16 +69,17 @@ static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
+>   *
+>   * @p: see amdgpu_vm_update_params definition
+>   * @sync: amdgpu_sync object with fences to wait for
+> + * @k_job_id: identifier of the job, for tracing purpose
+>   *
+>   * Returns:
+>   * Negativ errno, 0 for success.
+>   */
+>  static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+> -				  struct amdgpu_sync *sync)
+> +				  struct amdgpu_sync *sync, u64 k_job_id)
+>  {
+>  	int r;
+>  
+> -	r = amdgpu_vm_sdma_alloc_job(p, 0);
+> +	r = amdgpu_vm_sdma_alloc_job(p, 0, k_job_id);
+>  	if (r)
+>  		return r;
+>  
+> @@ -249,7 +250,8 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+>  			if (r)
+>  				return r;
+>  
+> -			r = amdgpu_vm_sdma_alloc_job(p, count);
+> +			r = amdgpu_vm_sdma_alloc_job(p, count,
+> +						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
+>  			if (r)
+>  				return r;
+>  		}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> index 1c07b701d0e4..ceb94bbb03a4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+> @@ -217,7 +217,8 @@ static int uvd_v6_0_enc_get_create_msg(struct amdgpu_ring *ring, uint32_t handle
+>  	int i, r;
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job);
+> +				     AMDGPU_IB_POOL_DIRECT, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> @@ -281,7 +282,8 @@ static int uvd_v6_0_enc_get_destroy_msg(struct amdgpu_ring *ring,
+>  	int i, r;
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job);
+> +				     AMDGPU_IB_POOL_DIRECT, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> index 9d237b5937fb..1f8866f3f63c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+> @@ -225,7 +225,8 @@ static int uvd_v7_0_enc_get_create_msg(struct amdgpu_ring *ring, u32 handle,
+>  	int i, r;
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job);
+> +				     AMDGPU_IB_POOL_DIRECT, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> @@ -288,7 +289,8 @@ static int uvd_v7_0_enc_get_destroy_msg(struct amdgpu_ring *ring, u32 handle,
+>  	int i, r;
+>  
+>  	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, ib_size_dw * 4,
+> -				     AMDGPU_IB_POOL_DIRECT, &job);
+> +				     AMDGPU_IB_POOL_DIRECT, &job,
+> +				     AMDGPU_KERNEL_JOB_ID_VCN_RING_TEST);
+>  	if (r)
+>  		return r;
+>  
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index 3653c563ee9a..46c84fc60af1 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -67,7 +67,8 @@ svm_migrate_gart_map(struct amdgpu_ring *ring, u64 npages,
+>  				     AMDGPU_FENCE_OWNER_UNDEFINED,
+>  				     num_dw * 4 + num_bytes,
+>  				     AMDGPU_IB_POOL_DELAYED,
+> -				     &job);
+> +				     &job,
+> +				     AMDGPU_KERNEL_JOB_ID_KFD_GART_MAP);
+>  	if (r)
+>  		return r;
+>  
 
-Best Regards,
-
-Liu, Xiang
-
-________________________________
-From: Dan Carpenter <dan.carpenter@linaro.org>
-Sent: Friday, November 21, 2025 3:58 PM
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
-M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd/ras: Add CPER ring read for uniras
-
-Hello Xiang Liu,
-
-Commit 527e3d40339b ("drm/amd/ras: Add CPER ring read for uniras")
-from Oct 22, 2025 (linux-next), leads to the following Smatch static
-checker warning:
-
-        drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:523 amdgpu_ras_cper_debugf=
-s_read()
-        warn: userbuf overflow? is 'ring_header_size' <=3D 'size'
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-    499 static ssize_t amdgpu_ras_cper_debugfs_read(struct file *f, char __=
-user *buf,
-    500                                             size_t size, loff_t *of=
-fset)
-    501 {
-    502         const uint8_t ring_header_size =3D 12;
-    503         struct amdgpu_ring *ring =3D file_inode(f)->i_private;
-    504         struct ras_cmd_cper_snapshot_req *snapshot_req __free(kfree=
-) =3D
-    505                 kzalloc(sizeof(struct ras_cmd_cper_snapshot_req), G=
-FP_KERNEL);
-    506         struct ras_cmd_cper_snapshot_rsp *snapshot_rsp __free(kfree=
-) =3D
-    507                 kzalloc(sizeof(struct ras_cmd_cper_snapshot_rsp), G=
-FP_KERNEL);
-    508         struct ras_cmd_cper_record_req *record_req __free(kfree) =
-=3D
-    509                 kzalloc(sizeof(struct ras_cmd_cper_record_req), GFP=
-_KERNEL);
-    510         struct ras_cmd_cper_record_rsp *record_rsp __free(kfree) =
-=3D
-    511                 kzalloc(sizeof(struct ras_cmd_cper_record_rsp), GFP=
-_KERNEL);
-    512         uint8_t *ring_header __free(kfree) =3D
-    513                 kzalloc(ring_header_size, GFP_KERNEL);
-    514         uint32_t total_cper_num;
-    515         uint64_t start_cper_id;
-    516         int r;
-    517
-    518         if (!snapshot_req || !snapshot_rsp || !record_req || !recor=
-d_rsp ||
-    519             !ring_header)
-    520                 return -ENOMEM;
-    521
-    522         if (!(*offset)) {
---> 523                 if (copy_to_user(buf, ring_header, ring_header_size=
-))
-
-Technically this should be min(size, ring_header_size) but I haven't
-reviewed what other changes might be required here.
-
-    524                         return -EFAULT;
-    525                 buf +=3D ring_header_size;
-    526         }
-    527
-    528         r =3D amdgpu_ras_mgr_handle_ras_cmd(ring->adev,
-    529                                           RAS_CMD__GET_CPER_SNAPSHO=
-T,
-    530                                           snapshot_req, sizeof(stru=
-ct ras_cmd_cper_snapshot_req),
-    531                                           snapshot_rsp, sizeof(stru=
-ct ras_cmd_cper_snapshot_rsp));
-    532         if (r || !snapshot_rsp->total_cper_num)
-    533                 return r;
-    534
-    535         start_cper_id =3D snapshot_rsp->start_cper_id;
-    536         total_cper_num =3D snapshot_rsp->total_cper_num;
-    537
-    538         record_req->buf_ptr =3D (uint64_t)(uintptr_t)buf;
-    539         record_req->buf_size =3D size;
-    540         record_req->cper_start_id =3D start_cper_id + *offset;
-    541         record_req->cper_num =3D total_cper_num;
-    542         r =3D amdgpu_ras_mgr_handle_ras_cmd(ring->adev, RAS_CMD__GE=
-T_CPER_RECORD,
-    543                                           record_req, sizeof(struct=
- ras_cmd_cper_record_req),
-    544                                           record_rsp, sizeof(struct=
- ras_cmd_cper_record_rsp));
-    545         if (r)
-    546                 return r;
-    547
-    548         r =3D *offset ? record_rsp->real_data_size : record_rsp->re=
-al_data_size + ring_header_size;
-    549         (*offset) +=3D record_rsp->real_cper_num;
-    550
-    551         return r;
-    552 }
-
-regards,
-dan carpenter
-
---_000_CY5PR12MB63454C81432E0C3BEE31648BFAD5ACY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<br>
-</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);">
-Hello Dan Carpenter,</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;=
- color: rgb(0, 0, 0);" class=3D"elementToProof">
-Thanks for your reporting. SHANMUGAM, SRINIVASAN has sent the fix patch and=
- it works for me.</div>
-<p style=3D"direction: ltr; text-align: left; text-indent: 0px; background-=
-color: white; margin-top: 0px; margin-bottom: 0px;" class=3D"elementToProof=
-">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: black;">Best Regards,</span></p>
-<p style=3D"text-align: left; text-indent: 0px; background-color: white; ma=
-rgin-top: 0px; margin-bottom: 0px;" class=3D"elementToProof">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: rgb(36, 36, 36);">Liu, Xiang</span></p>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dan Carpenter &lt;dan=
-.carpenter@linaro.org&gt;<br>
-<b>Sent:</b> Friday, November 21, 2025 3:58 PM<br>
-<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
-<b>Subject:</b> [bug report] drm/amd/ras: Add CPER ring read for uniras</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Hello Xiang Liu,<br>
-<br>
-Commit 527e3d40339b (&quot;drm/amd/ras: Add CPER ring read for uniras&quot;=
-)<br>
-from Oct 22, 2025 (linux-next), leads to the following Smatch static<br>
-checker warning:<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgp=
-u_ring.c:523 amdgpu_ras_cper_debugfs_read()<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; warn: userbuf overflow? is 'ring=
-_header_size' &lt;=3D 'size'<br>
-<br>
-drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-&nbsp;&nbsp;&nbsp; 499 static ssize_t amdgpu_ras_cper_debugfs_read(struct f=
-ile *f, char __user *buf,<br>
-&nbsp;&nbsp;&nbsp; 500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t size, =
-loff_t *offset)<br>
-&nbsp;&nbsp;&nbsp; 501 {<br>
-&nbsp;&nbsp;&nbsp; 502&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cons=
-t uint8_t ring_header_size =3D 12;<br>
-&nbsp;&nbsp;&nbsp; 503&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stru=
-ct amdgpu_ring *ring =3D file_inode(f)-&gt;i_private;<br>
-&nbsp;&nbsp;&nbsp; 504&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stru=
-ct ras_cmd_cper_snapshot_req *snapshot_req __free(kfree) =3D<br>
-&nbsp;&nbsp;&nbsp; 505&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kzalloc(sizeof(struct ras_cmd_c=
-per_snapshot_req), GFP_KERNEL);<br>
-&nbsp;&nbsp;&nbsp; 506&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stru=
-ct ras_cmd_cper_snapshot_rsp *snapshot_rsp __free(kfree) =3D<br>
-&nbsp;&nbsp;&nbsp; 507&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kzalloc(sizeof(struct ras_cmd_c=
-per_snapshot_rsp), GFP_KERNEL);<br>
-&nbsp;&nbsp;&nbsp; 508&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stru=
-ct ras_cmd_cper_record_req *record_req __free(kfree) =3D<br>
-&nbsp;&nbsp;&nbsp; 509&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kzalloc(sizeof(struct ras_cmd_c=
-per_record_req), GFP_KERNEL);<br>
-&nbsp;&nbsp;&nbsp; 510&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stru=
-ct ras_cmd_cper_record_rsp *record_rsp __free(kfree) =3D<br>
-&nbsp;&nbsp;&nbsp; 511&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kzalloc(sizeof(struct ras_cmd_c=
-per_record_rsp), GFP_KERNEL);<br>
-&nbsp;&nbsp;&nbsp; 512&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-8_t *ring_header __free(kfree) =3D<br>
-&nbsp;&nbsp;&nbsp; 513&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kzalloc(ring_header_size, GFP_K=
-ERNEL);<br>
-&nbsp;&nbsp;&nbsp; 514&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t total_cper_num;<br>
-&nbsp;&nbsp;&nbsp; 515&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-64_t start_cper_id;<br>
-&nbsp;&nbsp;&nbsp; 516&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int =
-r;<br>
-&nbsp;&nbsp;&nbsp; 517 <br>
-&nbsp;&nbsp;&nbsp; 518&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-!snapshot_req || !snapshot_rsp || !record_req || !record_rsp ||<br>
-&nbsp;&nbsp;&nbsp; 519&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; !ring_header)<br>
-&nbsp;&nbsp;&nbsp; 520&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
-&nbsp;&nbsp;&nbsp; 521 <br>
-&nbsp;&nbsp;&nbsp; 522&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-!(*offset)) {<br>
---&gt; 523&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (copy_to_user(buf, ring_header, ring_hea=
-der_size))<br>
-<br>
-Technically this should be min(size, ring_header_size) but I haven't<br>
-reviewed what other changes might be required here.<br>
-<br>
-&nbsp;&nbsp;&nbsp; 524&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; return -EFAULT;<br>
-&nbsp;&nbsp;&nbsp; 525&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf +=3D ring_header_size;<br>
-&nbsp;&nbsp;&nbsp; 526&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br=
->
-&nbsp;&nbsp;&nbsp; 527 <br>
-&nbsp;&nbsp;&nbsp; 528&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-=3D amdgpu_ras_mgr_handle_ras_cmd(ring-&gt;adev,<br>
-&nbsp;&nbsp;&nbsp; 529&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RAS_CMD__GET_CPER_SNAPSHO=
-T,<br>
-&nbsp;&nbsp;&nbsp; 530&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snapshot_req, sizeof(stru=
-ct ras_cmd_cper_snapshot_req),<br>
-&nbsp;&nbsp;&nbsp; 531&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snapshot_rsp, sizeof(stru=
-ct ras_cmd_cper_snapshot_rsp));<br>
-&nbsp;&nbsp;&nbsp; 532&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-r || !snapshot_rsp-&gt;total_cper_num)<br>
-&nbsp;&nbsp;&nbsp; 533&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp; 534 <br>
-&nbsp;&nbsp;&nbsp; 535&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; star=
-t_cper_id =3D snapshot_rsp-&gt;start_cper_id;<br>
-&nbsp;&nbsp;&nbsp; 536&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tota=
-l_cper_num =3D snapshot_rsp-&gt;total_cper_num;<br>
-&nbsp;&nbsp;&nbsp; 537 <br>
-&nbsp;&nbsp;&nbsp; 538&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reco=
-rd_req-&gt;buf_ptr =3D (uint64_t)(uintptr_t)buf;<br>
-&nbsp;&nbsp;&nbsp; 539&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reco=
-rd_req-&gt;buf_size =3D size;<br>
-&nbsp;&nbsp;&nbsp; 540&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reco=
-rd_req-&gt;cper_start_id =3D start_cper_id + *offset;<br>
-&nbsp;&nbsp;&nbsp; 541&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reco=
-rd_req-&gt;cper_num =3D total_cper_num;<br>
-&nbsp;&nbsp;&nbsp; 542&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-=3D amdgpu_ras_mgr_handle_ras_cmd(ring-&gt;adev, RAS_CMD__GET_CPER_RECORD,<=
-br>
-&nbsp;&nbsp;&nbsp; 543&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; record_req, sizeof(struct=
- ras_cmd_cper_record_req),<br>
-&nbsp;&nbsp;&nbsp; 544&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; record_rsp, sizeof(struct=
- ras_cmd_cper_record_rsp));<br>
-&nbsp;&nbsp;&nbsp; 545&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-r)<br>
-&nbsp;&nbsp;&nbsp; 546&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp; 547 <br>
-&nbsp;&nbsp;&nbsp; 548&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
-=3D *offset ? record_rsp-&gt;real_data_size : record_rsp-&gt;real_data_size=
- + ring_header_size;<br>
-&nbsp;&nbsp;&nbsp; 549&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*of=
-fset) +=3D record_rsp-&gt;real_cper_num;<br>
-&nbsp;&nbsp;&nbsp; 550 <br>
-&nbsp;&nbsp;&nbsp; 551&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retu=
-rn r;<br>
-&nbsp;&nbsp;&nbsp; 552 }<br>
-<br>
-regards,<br>
-dan carpenter<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_CY5PR12MB63454C81432E0C3BEE31648BFAD5ACY5PR12MB6345namp_--
