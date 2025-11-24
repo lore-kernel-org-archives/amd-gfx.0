@@ -4,144 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D052CFD313
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 17:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2263CFD313
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 18:45:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F27D10E249;
-	Mon, 24 Nov 2025 17:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 389C610E0BA;
+	Mon, 24 Nov 2025 18:45:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XTvAy4oD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JNEFd7Cz";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C8D10E249
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 17:25:58 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011022.outbound.protection.outlook.com [40.107.208.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4DE210E0BA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 18:45:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vSXWne6f5kxEKc5IoJHRCoJrzaCbmejnbBSCauoxZYiGgRnMDVRazDvT2jgsvZK6lUDsqIz+OPE0bmUbxTzQj0B01CnAf4WlEJ246VeXEDjKqhYMyJKu0XMK65VBeNZnlrs44//WKEfYW2hqWz9dzAuVUxtzFeRDK5PbGHrrJ78J3p6TeFDzh2a2mjlvLUUoNzOE4VCof53J+4AIwIcw9LRx+Ae/a5XXJqUCpJnYZhAmZ5bcvvUv44xk1n7LH+4CmhXgbb1taaEiiGzcsBLJ0vHvndLx+4GRgbJeRX/z4jPFB7BX3U/zDWpZwBD+7YgKo4BNaAyQK0LhxRaW+ymEkw==
+ b=r5g9WOQXDthXjzFG7Wgh4RgXkWG9LBYwfuq3CrokPAqj6TPhOx7EsXZOUe+ZIFhbTqldp/u35mnn5k/2eX+UX1Oxr+zmmUZL6Tz7Mdc3BS8qts1lM6tDsI9py2MHXKXhD0RRvy2PNmmp0r3X/FMV23eHMz4zTJbHRTEi1BC/DL48S3/7qjvHk3vDeheon1VBunEFUCIzXJWIPIImWGuYWElZNTggLw3//FmX2pi9oROQsJm1UvW58riO161cRovcsyO095814K+gQLbIbTKTsdfi2fubJnmC+Y9/cha3ghd82fUva5GFMh9lF+VyrK3KN/p0vMtH/0E3X9kcdJngFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TpbU/uZNcFhfxitiGWI9LkNYmYQ0BrvTShNym4Hl+fc=;
- b=ybf4PgSg3REfxFqULdGLyZ6nhdCM/XdgeblfALbpmWfrGY4jPwLrxarzkphac3HbLse64zfOGmFUUG+t7lg7XGQ3/1NHRmqCx1qLk9kVxoAbEPuwsvgnqp3cNMT2Ro9BFEeykJBvo97ut0FkG+RKZpwpEI8GeU/rMgCrd6mGt0QeHkMJ7BwR9o5fzPEeCeldaGyB9blHAB2tMNTRE92EQrP9u37qx/UoqTtWoKb9InlGIoeIs7zrYRp/1iwI6zMrvy7HXoxeeVG5sc2pFALE8khmL77rG5cj2A4Vly8OYhkNn5CjeOAiKfwPpBVjA8T5tCzCwydA+MSHsFnAH1E4gA==
+ bh=Pt5wKK2abY/6CB7uFQsxDs1pp4nKcOQ4GbyR5LrgXNg=;
+ b=wfV5E0qlSOFgaocPA5fxvFKp3M734Sg7Zf+iN77+xeWT18UXnjqbIS05kxfLYdi1T8WaEfW5EyYRB0pMT2lO51A2cfn0dSl7I/LqhnP21dm79vFk1OQo5wHJ8AYi4h0fGf6y0l8hJkCiXixSCBnU+MRdoFdq+WFNnIiyatXaK80oUws1tIeM5d4/MbitiFjSs/RZEAG96m/ZOfSpeHKJlHwRymr4kL4LmL20Euritv589hFhM1cWJOHqEUI2R0GuGgs6Ly+I1tJcTG83nQe+Onx95CWBx7IX7r62yGSVSNdMSYoy7WxzA/psjGVGrsvGCTzI9Bmg6V4L6EvaBOvsWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TpbU/uZNcFhfxitiGWI9LkNYmYQ0BrvTShNym4Hl+fc=;
- b=XTvAy4oDpxdkFm90J+u0HjSVGXC18emnCQTI9gyLIqPmQcnOcjSiNvRAViWJuuoYknXZ5AioCSGy2dYQBBK8PMw5nU4w8+nSSz8bjd+FOlfZbFcor5tjLPAKeW3vjG6ueiHA1B1pgdpWPfOZB/smd84S1GmrwjWtjaVPudPxihw=
-Received: from DM6PR12MB4106.namprd12.prod.outlook.com (2603:10b6:5:221::7) by
- CY8PR12MB8363.namprd12.prod.outlook.com (2603:10b6:930:7a::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9343.17; Mon, 24 Nov 2025 17:25:55 +0000
-Received: from DM6PR12MB4106.namprd12.prod.outlook.com
- ([fe80::1702:d78d:f72f:b4bb]) by DM6PR12MB4106.namprd12.prod.outlook.com
- ([fe80::1702:d78d:f72f:b4bb%6]) with mapi id 15.20.9343.016; Mon, 24 Nov 2025
- 17:25:55 +0000
-From: "Cheung, Ethan" <Ethan.Cheung@amd.com>
-To: "Hung, Alex" <Alex.Hung@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/hubs: cast register values to u64
-Thread-Topic: [PATCH] drm/amdgpu/hubs: cast register values to u64
-Thread-Index: AQHcXWaSqS+c66h5iEmDCcrJOVjHs7UCE+aS
-Date: Mon, 24 Nov 2025 17:25:55 +0000
-Message-ID: <DM6PR12MB41065164A6783637DF49035797D0A@DM6PR12MB4106.namprd12.prod.outlook.com>
-References: <20251124170509.450426-1-alexander.deucher@amd.com>
- <c4f3454f-5509-45da-870e-c06442c03e74@amd.com>
-In-Reply-To: <c4f3454f-5509-45da-870e-c06442c03e74@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-11-24T17:25:54.718Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=Pt5wKK2abY/6CB7uFQsxDs1pp4nKcOQ4GbyR5LrgXNg=;
+ b=JNEFd7CzrQA0CPbxvwU17qUamE362rQ85N3qv1RFj9oLpnOSBDoZnDUvJouK7MeofSFRNA0VTNlNBdX3TzHZVpg6T+ZGDq+1UnxaK8uK870lUsvRiqnKhCJCOAY4KcPvRpP+86w6JxTyp2/bWKcquzO1zg5zAMH6F69aVWDB/OM=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB4106:EE_|CY8PR12MB8363:EE_
-x-ms-office365-filtering-correlation-id: ea0c6c13-e96d-4d4e-73ad-08de2b7e865e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?MzFLEoHE0iwX7ZJsKmPmfwKVsVTQrjjP1xu7Wzy6tjeaEapdTctHwPUbi0Y3?=
- =?us-ascii?Q?eSryTWpP8ELXM717bNcYbkyRzE2fBouZVFQkjt6MXOW8LoR4sXQll15i4QYs?=
- =?us-ascii?Q?WqjKL3SiYNX/9fP4o2Q5EvXXItdYaRo7Fw/oirqF8uJn9yF/XGfBHBC6NpAA?=
- =?us-ascii?Q?yZnFd/+/Uvppw2inWhPexLVf1m8lhwYllEe2xDn4Exh5OvkOzQmgS5qR+SPn?=
- =?us-ascii?Q?OCRHV9j9JTqATrJUp50sqI+3TOfGv+BUcUTvA5AdIU+S/0bghFryVHr48c82?=
- =?us-ascii?Q?HuMWeTf6YuiTqsI6I1JKMVS46cF8ZuAcdyjacJDZkPq9dpXy0qXpWx71DpAt?=
- =?us-ascii?Q?CXKbI44UB60jS2iKmYF202F6rqQe0hGiGB8rGoamFEq4SQHg0QqbL7uqLUO1?=
- =?us-ascii?Q?s/sjtl8FMVPIkTeCmK2e1pUMYxdab49/WEXRtN191uzaJucrnI9oWmiIEXAE?=
- =?us-ascii?Q?beGpEcJ+iQ7fIDnpxgJkUJEE4urvqVCY821wJiYLaJjRklZTgF8ZwQaN1syr?=
- =?us-ascii?Q?px20ynoeSe27wHFiGZpGq+gA29yvsb0Em89e4KjCkD2g8zLX/NM1B5n9ghVy?=
- =?us-ascii?Q?PwcEknQ+dqGYUkqxQfZEcHUU9YOMBxhY8JB4sb9HXRHY7CMdbmKGeC2k9xzX?=
- =?us-ascii?Q?1dRCcDvVwN+vl5/YDyIeiTNlvjwbCkB7NeBcmi//2IxTB291/xORXndxJjic?=
- =?us-ascii?Q?7HlEkJGSlMWGxY2k8LvdWXgLfMo82q3P8xvn1B8vVWR9+MWsBp+2FSiy5e8+?=
- =?us-ascii?Q?Eq/ir4dSnblLBCG5HWUZIBECYPXy2w2Qp6f6if/mKVUHW+DrUQ9+lbLt3t5o?=
- =?us-ascii?Q?zvll5obkx+S5bIri4DV4UcV7V3C/x3/iRKWX42LoxIwXIsstpIfJePPPwx0v?=
- =?us-ascii?Q?5cTSXT28SqFUS3fVwp+RbbcgezlCFG2vwzxMvRXeeUoiiYPOvxFb4vIbpJIV?=
- =?us-ascii?Q?l8kaaezOnyMIcoPio2xZW2KHnapIlfeYeU0bpztOoz9LpTKfNTxuSkO9amIs?=
- =?us-ascii?Q?tWbaviln/M2xefY4xQXDHdU4kINkQXM5Yr7PDMjH5zOSrDAgkhIldkMJhtLG?=
- =?us-ascii?Q?0mbEzIVGq1bCBzSBN28xp5LPsMSldjADCFnwxDw8H/6+6HdqPdc9f++zFr0J?=
- =?us-ascii?Q?ZOWjDckBloE7QNPKQostrZVfTRVT3xBRkFGxSiqW9mfqd2dnokTXeWiov9WN?=
- =?us-ascii?Q?g8DUsYIarw3JXd7j/vLAVEzaVPeANk4N/+g/LC4y8NxEv3nhhxvr+PFHMo4Z?=
- =?us-ascii?Q?b4NYGry0+SNymV38tGazWXNeu9IvZUfmtRNJ6g1Xj7G8J/cl5EGOSkpgXvov?=
- =?us-ascii?Q?PXWk5swZDRv2Hzcv1Ed+iDmekpwKA6vuPUg4eH/c5fLdj6KyWtXWawtZhJZB?=
- =?us-ascii?Q?7mwrE68vT5qXGPAmwxddG+z8qaqhi8YDItiI5lUKmSBB7ejDdbXZYeRi7IpC?=
- =?us-ascii?Q?eZ6bk+PCdctuXIFQynOqkzO71bQn++bXKKFU0PfuHGcJ3sAviCO9HiteGDzo?=
- =?us-ascii?Q?f92mRNjCTRFpDQOvDpv+X1vN9PvaN26/NGRT?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4106.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LGPjnFo9eRx8J4PffsqgxVRhf6MCCkBM91gva/ID7zRFwFgkV9+hfaBBeb4b?=
- =?us-ascii?Q?doXDkwwJF/pkbmsWEq/BpYRZ7bMtOHQYmxlZ+Z0I9QadrKBNKa22kuXADmVN?=
- =?us-ascii?Q?G2WPxxedzKbHMmsUnczOG1YC8XS9xY1fMnhjW9si5d11S2DI2gGWYnbX7or1?=
- =?us-ascii?Q?7+3FAcFGfcLhuxFzxNK73PVZ2FAZ00bChvXBlRzlTWhZbndP98jryeiHgRF9?=
- =?us-ascii?Q?8FExwZGm8wtoqdjwl0foYO4Hp8ZChJfFMo/yFUqFs1HBbRZPd2jYmY70DeXX?=
- =?us-ascii?Q?risqzU2AulepQCR9c4ibl0sOxNdBSr7bCxQ/ftvgcfAbEY67zom7Y/nTzn91?=
- =?us-ascii?Q?QlTL+leoW8Vhuebxx9Kn0OVWC4YN3m8xU8dO065qpJ/6l24+nJfCsldabrqy?=
- =?us-ascii?Q?TdjqC6St6MVTm1I+e5bxG2cf0W8MBgqnkOI4q5TnGKMj08oXHvJJqxxOCPPs?=
- =?us-ascii?Q?+Z3oaXAG7EJgCA52cjV9RgMItK3VI10JzV1LMgtKtWbmMZMhH5nLi6ipv826?=
- =?us-ascii?Q?firUR2j/1e2lCkXidEyaU9twhAY8i5jE1BLeJDC4JZEiJqrw7wCKTJ0Z4yJ2?=
- =?us-ascii?Q?g6Pxph1qKIQpiZT7+DKTee1og80IuzK2QungSVWfQO+0EDF1dfiKb2SMf765?=
- =?us-ascii?Q?9MAV7wvm9SKPUyFb64DznPoy5MzOM+PmE6DqQMDzmc3pMAu/AL7BJw4mxLw7?=
- =?us-ascii?Q?4yuqNeO5XwKQoF+p7c6EyTSRbNaHzRRFOhnNrREUKfqO20rJMnz6zKT6Kfhn?=
- =?us-ascii?Q?dKPiO7bY5WeFMLGuwrGtcO3fSbuupvj6WaOqeeP4ztMll8w8NLBcz8Hx954u?=
- =?us-ascii?Q?osJ6oZuvK7ndPZ05f/skOV2/TqBNwQHHhWnIZ1pRAChAS55EwB/ys5QhMK7N?=
- =?us-ascii?Q?mPPf6dq37uA9hRsGPcjcQ74XlseyPuoPf6rB6idBCsXBWDfLb8fHenF3WWrm?=
- =?us-ascii?Q?3YcgnDUd6zn9OaWy6omMyEJknm3YBsaEmtUCm9LorHHRXF1fDfv7JSzpstHU?=
- =?us-ascii?Q?ELfhypnz9pzqnYyQPnl98E+r/nah1cvPrkELPoZJ+AFe3mA71/fYTA+CkmgF?=
- =?us-ascii?Q?xErocfOvPYuvBllMu4BW0+FesIIgCtiozs52C3bnjWr8BavqYUQSAv7QGSxo?=
- =?us-ascii?Q?3OLuG8LqbgIoJaMjv4o8kYp9oAo+hyLsMkRkMSa4ZkSvR5iTA/LouVE/SYmL?=
- =?us-ascii?Q?tQnXRt3EemLfJaHpWm7EeI7rWj4LxcnaBkpvQ0fY3S/b8tWpLbpwW2pOJuAS?=
- =?us-ascii?Q?O+n1DB2qYowqiUJJRJDRtjVlh6mI1LyLCifUBUD3V6bi+/jUXP6unNgSrMWB?=
- =?us-ascii?Q?kGeMdngUmQ44qMMN5HQqXMlZYbkvgFkDjXyo3EJNTPpJ+Sl+uWshMiXl8U6O?=
- =?us-ascii?Q?C3ObnY+SEIGcbyMYDKWBhDt5ginscAH/jRHLSUfzugEd6/MtpbqLWglI0U/y?=
- =?us-ascii?Q?Q1jW27nUMLa+tgt/io2v/sDSdsX00+ulucmX+xzz2eMBYzOzfAsOOqJENdMj?=
- =?us-ascii?Q?Mghw9E9AFcmIXAvv30rCN6XoUiws4jaaqjEkQPJ9Bk/AGcq7+phwa9iIFpXi?=
- =?us-ascii?Q?hebEktvO38DcGF38F/A=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB41065164A6783637DF49035797D0ADM6PR12MB4106namp_"
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by SN7PR12MB7251.namprd12.prod.outlook.com (2603:10b6:806:2ab::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.10; Mon, 24 Nov
+ 2025 18:45:11 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da%5]) with mapi id 15.20.9343.011; Mon, 24 Nov 2025
+ 18:45:11 +0000
+Message-ID: <32ce2b72-aa16-4202-9f99-92e3cd4408bc@amd.com>
+Date: Mon, 24 Nov 2025 13:45:09 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/amdkfd: Use huge page size to check split svm
+ range alignment
+To: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20251120155043.2770609-1-xiaogang.chen@amd.com>
+ <PH7PR12MB65616F59BBE5CB4A4DCD34A5E3D0A@PH7PR12MB6561.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <PH7PR12MB65616F59BBE5CB4A4DCD34A5E3D0A@PH7PR12MB6561.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0332.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6b::18) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SN7PR12MB7251:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b27f3ab-c3f2-4cc1-4a21-08de2b89994b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cjVFWThSWjA0RlNNOEZyWjN0K3A4SDBsUlJXbVhyNGNpdmFueGp4enFpaDZQ?=
+ =?utf-8?B?VlhRR1ZqY08rMHNmQ1Q1cjlMcUlOQmtwQlB0Q0NkQTdwTU1zQ1JZTVNwMXRo?=
+ =?utf-8?B?c3R3c2w1TU01ZGNCZ3ZGMjJoZjAxTmxTWlZDSmMzaTdUdDNmaVNaZVYvNjZs?=
+ =?utf-8?B?OTV4cDdZNzRabndrckRFdUdmZ3VQMWZBZjJEcXl4SndlM3V3Wjhuc3dYemhl?=
+ =?utf-8?B?SFgyN2grYlRhZE9EQ0s3SFdJU0VJYmo5T3BPSVVoUWRWcGpQR0t0Z1NZVHlw?=
+ =?utf-8?B?cXBWZHEwVDZ5Z2lDNDZQSzJIWWlwOFhEUXVrb0dXOWhnUjhCQzRDUHduSUpq?=
+ =?utf-8?B?WFVIRlA2RVRlT2JjMjYrYTRtUXc4dkY3NXhGR3AwMWx5Sk90ZCtMUlIzZ0dy?=
+ =?utf-8?B?RFVZWWZTL1M3emE5Vlo5RkhiNHJZUW1hZnRiaTdGdUxtMnkraHU0b0FRdkZx?=
+ =?utf-8?B?cFRuV0lCQUVEUTdGUEZjcGZsNXVueWdxNFZBWjlTdUFCZThWbTh6REQyWWVt?=
+ =?utf-8?B?MmRmQ0RRektZU2JvbGtNVVhxbk1PVm45Nmp4Y2w3ZzUrUERHeWp3K0FpTm1B?=
+ =?utf-8?B?a3Z5V09lSjArRXRaTjFxWW5VakMxMUJ6ZS95dTlneGJsNUE0ZlVQOVVuMWlG?=
+ =?utf-8?B?TVhTMUJhaWNTYUg5YUxUUDBFUHhqaVRBVEd0Z2RJUEVOemtYYVNkRVhnWHd0?=
+ =?utf-8?B?UUNSTjBKK0E1cGF6OENGbVY1TlBkTlNCRGsxLzFsL0gzV0lTeUlVUEhVWmdu?=
+ =?utf-8?B?SGdWT2hyM0JObzFJVjZvQ1p3T1hnTHlxanhVbllFUlFWTVg0TXRQa0RWU3VZ?=
+ =?utf-8?B?RkZvb3hGMTdiNHNkL09meGJoQVFSdUFiR1Y1aVJuMHVlVGZhdTRiZDJRcTdh?=
+ =?utf-8?B?RzVxNE9DQXFCUXlaZnI3MGptSEJFbTIzUEdsRWJUVU1Bdzh0QXdwTWxMTXl5?=
+ =?utf-8?B?OVBxd3hwSXFRU1NPa3orT2tocERtdFJ0Q1Y5R2RxdzFmUkpVS1Z2Q1poWHFp?=
+ =?utf-8?B?elpxNWxqRURJdXFJSXMrQVdCaEJpeitnempmcitYWDJoZG4zamQ4b1hDYTFO?=
+ =?utf-8?B?blFZUEN4bmxEK05SRHd3M21oUzNkdHk3dVlKdGRxZU9yY09DdWNzQ0Z1WEpR?=
+ =?utf-8?B?TjU3bVJvZVdZejFtaGh4dUpKVnlmMmdwZWRqVUlUWGZqN0xaaGtKU3VqbFM4?=
+ =?utf-8?B?am1BZmM3OCtCb3kxbnZjeEJ5Nmoxb0c0Q0lyNUtVWDZmRGswK2Z5Vm1peWg5?=
+ =?utf-8?B?WFFKUDI2VlkxRkU2ODN4WW9CemJ5cjFUNVlhR2pCOTI3STRzUWRCYlh3dHdU?=
+ =?utf-8?B?WDZHWFIrNVRRUnV3MS94MHFEOVVPRTZYTVl5eVdNNWpHTWs2THRvREpZRkFJ?=
+ =?utf-8?B?UzVPUHZIWHplUWdLdWJQdEtTSkhSWndSVlRwZnJFeUEvTTk3WFdMTGN5Qnhl?=
+ =?utf-8?B?TEp2bDdMNTZ6ZmllTklScFFoUDJVeVd2cUVMN0pxSW5uL1RaWlpTWnRDSjJt?=
+ =?utf-8?B?VFNiTzNLU09MYi9LN3hzRk1ZTFJjQXZPREhWQWpHbkVCZ0xOT3BwcHV3TENo?=
+ =?utf-8?B?cVoybzRNQStza25rZjJlaEkvWUV3V0dnWm5QQ2I0N1hTd0p6ZFlZZXkwNnYz?=
+ =?utf-8?B?WjZtODBQeDRUeU5WTjJNVlBiK3FWQWxIdDdaWXk1NzFuSHpwcnNFTEFDL1pi?=
+ =?utf-8?B?bEprMW5GTW80WlM5MTJiS05CUDc5djEva3RUSi9hRGxHaWNOSlZNbUh0V0px?=
+ =?utf-8?B?cFJRSjYvN29pMk4wWkZ4RC9ZTy9uekZDVlZoWHk3aUxmN3YxTElmR0pVZ1Qz?=
+ =?utf-8?B?VlNwSUlSeEJtcXcyZGQ1NzN4anFrUmpwUGlTM0xMOXYwdkFWdEJpV1ZDT2ZP?=
+ =?utf-8?B?enhpRGtpV01VRTBoRmlvNk95Y0pQYUxsUGtQQllMaTN1Ym0zNHp4dTNjdEZF?=
+ =?utf-8?Q?9pcUCpKaNyBWoxy0ScDXJLkCxsD6LV0X?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlZzL1laK0l6SC91NVU0amw5eVRxTjA2UDdWczVWa0pFenZENUhjNmt1ZE5H?=
+ =?utf-8?B?amVxQ2VkczNmNVVYNFVSeUExZ09HM1hnYk9nN3BoSEx4QkpaVmxkUERoVnRX?=
+ =?utf-8?B?NG55U0xneStqVllxM3pxL2lIVjl4Ylp3Z3U2MEdkQWs2emlabW9xSHpld3pm?=
+ =?utf-8?B?b0dFR3FwaTRYUWNIYldSK1hsNm51VGJuT3RzL3ZaQlhGbkFCTkZiSEF0S3NP?=
+ =?utf-8?B?Yy96clZtNEZvYU8xWGl1SnFybzVCanp3eEluTmREQnJ1T3krcjhuc3UwQWwx?=
+ =?utf-8?B?M2hzSFU2aVJxRUhpdXpramxMY0txMGNHeFUrNjlUSE5lT29LYzhiR2tJOG0z?=
+ =?utf-8?B?MUY0OVFlWUZWR3I2cHNvRUszMkhzNlR5VmtaNW1oclZmVjZZaE5WcmZGeCtZ?=
+ =?utf-8?B?ZExKaUtQQ0R4ZnBsbDV6TENYejY3a01LbU1OUEh0ZmFabFN1K0xUVzBlYWZQ?=
+ =?utf-8?B?NStFanl3RGRLNDVsb0FiQUhEVHlCazdkQ3h0aWxvWUFNYi9iRnJvUXRtWjEz?=
+ =?utf-8?B?VjRZS3lGQWMwVk9sa3JyTC92OG5DZTNrcnRoeVk4YkJ5ZW16R3F0TkpXMnVD?=
+ =?utf-8?B?UW5KZnZ3RHBoWGl2VmQvc21yOW9mYlVHYkRNWVVOSWxLOFhkbkJ1V21QYzBQ?=
+ =?utf-8?B?WDc4a3dNL2FJQ3NWcGk3czlSVDJnSnZOa2lRTVRLNlROVXdDQWwwSHZyYStO?=
+ =?utf-8?B?Y0V3bEJzcUV2bGVidHRqbnJVY3BiTUxtcjFURHV3djF3d0JrZUIrMUJJeEZx?=
+ =?utf-8?B?WU04R3F0NWM1L1J5bHMrQTBMeFlXUjh6ekh5am1RQjNnRE9nd0RMZ0JxVHp0?=
+ =?utf-8?B?MEE2TFdGOGduNG5iZjNiMU9kbzFTeE52eXM0dGZQWnRvdC9rbFhnZGN4WVgx?=
+ =?utf-8?B?ZzJya3dEVkZBc0FTc2NUdWhzWmxNY2VmS0xqOVN3TU1xZzAxeVc0aTdiQVhB?=
+ =?utf-8?B?Ylp0QnpDSnFaTS81MnJXTjZVR3IvdnZFS2kybzlOcGdXWVR6dkk3c1Ryczdo?=
+ =?utf-8?B?WkRzbS9ZckxXYjM3VFExMmdxemlzR0pBTVJiNFZsdElmbjlWdDkxMlB2ZFQ4?=
+ =?utf-8?B?YXdTZzNHMkVlakE4dE5sVmFiM1BwUlhmMzhsTjVjMUJhbWt5TUUxOVZPYXpU?=
+ =?utf-8?B?NG1SY3NwSDhsVFFZY1lEUnVZQ3hiSXNVQ3drQW5pQ1lyMFNPZ3RhSDNqT21T?=
+ =?utf-8?B?eEtxUmhZaG1kTm9CS3Q4QWhvc0g0eFR0ZVlzeWsycUNaV2xsMkY5eStjcVBx?=
+ =?utf-8?B?VmVFS3N6b0t5Nk1vd1JLRXAvdmdrb0lHcGpKWERkVlFZcTBzUG5DNXhpckdQ?=
+ =?utf-8?B?aWFWVjN4eTRQOW5hQzNFNElMb3R6WTFDT0VkTFJmU1hWZ3EyOGpYaFZId01S?=
+ =?utf-8?B?R1kzejNTYXpoQkJYUXpLQ1lsRWxCRUliQmFLQlUxTnlrMFBwQWI1ODN1aHBj?=
+ =?utf-8?B?QkNjWlM5YlBEMnF4SEY2WXk3RkdkTVh2OC9iUlphMnc1eFRCQ0JGSktVZUgv?=
+ =?utf-8?B?eDAzVnBuZ2hxN2VNMllFeDFMQ20veHJvSEhzTE96b2ExSEpLMmkrWjBMWHZq?=
+ =?utf-8?B?aUM3MHIrclE5YVl5Y1NNQlo4aC9TRmh0RkdGQTAxckxZaUVKcmxIM3o0cHly?=
+ =?utf-8?B?dm5peGk4SWVrNzk1ZVhQajlZSXdlUFZhcy91cXJ6dVhoTUx0emJMY05NVGRo?=
+ =?utf-8?B?ZVR2MVBuTks3MlNDNFhoNCtodEd5cmdlY0xzQ01JMHZyaGZEUHcxYnFrdnM4?=
+ =?utf-8?B?cXZqSkkwZG5PSDd2NnRNTnFFZHRwK0pFWTBQb2hlTmRkVitibmtvZWRGaVln?=
+ =?utf-8?B?THVoRXk0UUZNYkY0TGMxK2NxZXBNTGp6YmRnbXo3U1NVSk9tbk9sbjluSW1y?=
+ =?utf-8?B?OGJ0VUNwakJPS2ZPajRWdk1qRDBnNjM4OWxEc1ppYWFBL1ZHZnIxeGpUSEp1?=
+ =?utf-8?B?VmFWODcxcDArUSsraTZwbWtZTGdTUVRiTlZkZXlHSVdKYVpkM0FSYjNtcy9u?=
+ =?utf-8?B?M2ZJbkFsK3J2ejBXU1p0YU1IdVUzRzZjVVNjdjJDMjhyWVgyV0UyY0Y0eGxh?=
+ =?utf-8?B?L3E2STNmQVpiMmhyRi9KWTBRS1BZUmdXdHErc3RVb2ZQaTJ3bk9xdUw3L09I?=
+ =?utf-8?Q?rrSA=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b27f3ab-c3f2-4cc1-4a21-08de2b89994b
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4106.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea0c6c13-e96d-4d4e-73ad-08de2b7e865e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2025 17:25:55.2836 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ofzjhXerML1qEVmVKK4EjP4bn1uVgdBzNbowOHCosLwKQ4cDwJzvYsqP9zwoMIUyXaEnUQj82IG7CcB5XzpFeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8363
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 18:45:11.7648 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2KsLx/rmh/x8ut2x2ZTZBFw3j+lYAEpnj9Ujvd4kNqm8JC7+Qtm6k75lSnsSFMjv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7251
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,195 +162,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB41065164A6783637DF49035797D0ADM6PR12MB4106namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Reviewed-by: Ethan Cheung <ethan.cheung@amd.com>
-________________________________
-From: Hung, Alex <Alex.Hung@amd.com>
-Sent: Monday, November 24, 2025 12:20 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedeskt=
-op.org <amd-gfx@lists.freedesktop.org>
-Cc: Cheung, Ethan <Ethan.Cheung@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/hubs: cast register values to u64
 
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-
-On 11/24/25 10:05, Alex Deucher wrote:
-> Cast the register value to u64 for the shift.
+On 2025-11-24 09:55, Chen, Xiaogang wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
 >
-> Fixes: da0020bf6deb ("drm/amdgpu: Add gc v12_1_0 ip headers v4")
-> Fixes: 3148d9bb913a ("drm/amdgpu: Add initial support for mmhub v4_2")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ping
+>
+> -----Original Message-----
+> From: Xiaogang.Chen <xiaogang.chen@amd.com>
+> Sent: Thursday, November 20, 2025 9:51 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Chen, Xiaogang <Xiaogang.Chen@amd.com>
+> Subject: [PATCH v4] drm/amdkfd: Use huge page size to check split svm range alignment
+>
+> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>
+> Fixes: 7ef6b2d4b7e5 (drm/amdkfd: remap unaligned svm ranges that have split)
+>
+> When split svm ranges that have been mapped using huge page should use huge page size(2MB) to check split range alignment, not prange->granularity that means migration granularity.
+>
+> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c | 6 +++---
->   2 files changed, 6 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 46 +++++++++++++++++++---------
+>   1 file changed, 32 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c b/drivers/gpu/drm/=
-amd/amdgpu/gfxhub_v12_1.c
-> index 4c59da7f2ccb1..ceb7eb562ef0a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-> @@ -45,9 +45,9 @@ static u64 gfxhub_v12_1_get_fb_location(struct amdgpu_d=
-evice *adev)
->        base &=3D GCMC_VM_FB_LOCATION_BASE_LO32__FB_BASE_LO32_MASK;
->        base <<=3D 24;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 521c14c7a789..7fe9d569d416 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -1144,30 +1144,48 @@ static int
+>   svm_range_split_tail(struct svm_range *prange, uint64_t new_last,
+>                       struct list_head *insert_list, struct list_head *remap_list)  {
+> +       unsigned long last_align_down = ALIGN_DOWN(prange->last, 512);
+> +       unsigned long start_align = ALIGN(prange->start, 512);
+> +       bool huge_page_mapping = last_align_down > start_align;
+>          struct svm_range *tail = NULL;
+> -       int r = svm_range_split(prange, prange->start, new_last, &tail);
+> +       int r;
 >
-> -     base |=3D ((GCMC_VM_FB_LOCATION_BASE_HI32__FB_BASE_HI1_MASK &
-> -               RREG32_SOC15(GC, GET_INST(GC, 0),
-> -                       regGCMC_VM_FB_LOCATION_BASE_HI32)) << 56);
-> +     base |=3D ((u64)(GCMC_VM_FB_LOCATION_BASE_HI32__FB_BASE_HI1_MASK &
-> +                    RREG32_SOC15(GC, GET_INST(GC, 0),
-> +                                 regGCMC_VM_FB_LOCATION_BASE_HI32)) << 5=
-6);
->        return base;
+> -       if (!r) {
+> -               list_add(&tail->list, insert_list);
+> -               if (!IS_ALIGNED(new_last + 1, 1UL << prange->granularity))
+> -                       list_add(&tail->update_list, remap_list);
+> -       }
+> -       return r;
+> +       r = svm_range_split(prange, prange->start, new_last, &tail);
+> +
+> +       if (r)
+> +               return r;
+> +
+> +       list_add(&tail->list, insert_list);
+> +
+> +       if (huge_page_mapping && tail->start > start_align &&
+> +           tail->start < last_align_down && (!IS_ALIGNED(tail->start, 512)))
+> +               list_add(&tail->update_list, remap_list);
+> +
+> +       return 0;
 >   }
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c b/drivers/gpu/drm/=
-amd/amdgpu/mmhub_v4_2_0.c
-> index 23f0042125008..24582b8d90ffd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-> @@ -81,9 +81,9 @@ static u64 mmhub_v4_2_0_get_fb_location(struct amdgpu_d=
-evice *adev)
->        base &=3D MMMC_VM_FB_LOCATION_BASE_LO32__FB_BASE_LO32_MASK;
->        base <<=3D 24;
+>   static int
+>   svm_range_split_head(struct svm_range *prange, uint64_t new_start,
+>                       struct list_head *insert_list, struct list_head *remap_list)  {
+> +       unsigned long last_align_down = ALIGN_DOWN(prange->last, 512);
+> +       unsigned long start_align = ALIGN(prange->start, 512);
+> +       bool huge_page_mapping = last_align_down > start_align;
+>          struct svm_range *head = NULL;
+> -       int r = svm_range_split(prange, new_start, prange->last, &head);
+> +       int r;
 >
-> -     base |=3D ((MMMC_VM_FB_LOCATION_BASE_HI32__FB_BASE_HI1_MASK &
-> -               RREG32_SOC15(MMHUB, GET_INST(MMHUB, 0),
-> -                            regMMMC_VM_FB_LOCATION_BASE_HI32)) << 56);
-> +     base |=3D ((u64)(MMMC_VM_FB_LOCATION_BASE_HI32__FB_BASE_HI1_MASK &
-> +                    RREG32_SOC15(MMHUB, GET_INST(MMHUB, 0),
-> +                                 regMMMC_VM_FB_LOCATION_BASE_HI32)) << 5=
-6);
->
->        return base;
+> -       if (!r) {
+> -               list_add(&head->list, insert_list);
+> -               if (!IS_ALIGNED(new_start, 1UL << prange->granularity))
+> -                       list_add(&head->update_list, remap_list);
+> -       }
+> -       return r;
+> +       r = svm_range_split(prange, new_start, prange->last, &head);
+> +
+> +       if (r)
+> +               return r;
+> +
+> +       list_add(&head->list, insert_list);
+> +
+> +       if (huge_page_mapping && head->last > start_align &&
+> +           head->last < last_align_down && (!IS_ALIGNED(head->last, 512)))
+replace all head->last with head->last + 1 in the if condition, or use 
+new_start instead.
+
+With this fixed, this patch is
+Reviewed-by: Philip Yang <Philip.Yang@amd.com>
+> +               list_add(&head->update_list, remap_list);
+> +
+> +       return 0;
 >   }
-
-
---_000_DM6PR12MB41065164A6783637DF49035797D0ADM6PR12MB4106namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<br>
-</div>
-<div data-darkreader-inline-color=3D"" style=3D"font-family: Aptos, Aptos_E=
-mbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0); --darkreader-inline-color: var(--darkreader-te=
-xt-000000, #e8e6e3);" class=3D"elementToProof">
-Reviewed-by: Ethan Cheung &lt;ethan.cheung@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Hung, Alex &lt;Alex.H=
-ung@amd.com&gt;<br>
-<b>Sent:</b> Monday, November 24, 2025 12:20 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; amd-gfx@li=
-sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Cheung, Ethan &lt;Ethan.Cheung@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/hubs: cast register values to u64</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-Reviewed-by: Alex Hung &lt;alex.hung@amd.com&gt;<br>
-<br>
-On 11/24/25 10:05, Alex Deucher wrote:<br>
-&gt; Cast the register value to u64 for the shift.<br>
-&gt; <br>
-&gt; Fixes: da0020bf6deb (&quot;drm/amdgpu: Add gc v12_1_0 ip headers v4&qu=
-ot;)<br>
-&gt; Fixes: 3148d9bb913a (&quot;drm/amdgpu: Add initial support for mmhub v=
-4_2&quot;)<br>
-&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 6 +++---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c | 6 +++---<br>
-&gt;&nbsp;&nbsp; 2 files changed, 6 insertions(+), 6 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c b/drivers/gpu/d=
-rm/amd/amdgpu/gfxhub_v12_1.c<br>
-&gt; index 4c59da7f2ccb1..ceb7eb562ef0a 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c<br>
-&gt; @@ -45,9 +45,9 @@ static u64 gfxhub_v12_1_get_fb_location(struct amdgp=
-u_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; base &amp;=3D GCMC_VM_FB_LOC=
-ATION_BASE_LO32__FB_BASE_LO32_MASK;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; base &lt;&lt;=3D 24;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; base |=3D ((GCMC_VM_FB_LOCATION_BASE_HI32__F=
-B_BASE_HI1_MASK &amp;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; RREG32_SOC15(GC, GET_INST(GC, 0),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regGCMC_VM_=
-FB_LOCATION_BASE_HI32)) &lt;&lt; 56);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; base |=3D ((u64)(GCMC_VM_FB_LOCATION_BASE_HI=
-32__FB_BASE_HI1_MASK &amp;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RREG32_SOC15(GC, GET_INST(GC,=
- 0),<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regGCMC_VM_FB_LOCATION_BAS=
-E_HI32)) &lt;&lt; 56);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return base;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c b/drivers/gpu/d=
-rm/amd/amdgpu/mmhub_v4_2_0.c<br>
-&gt; index 23f0042125008..24582b8d90ffd 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c<br>
-&gt; @@ -81,9 +81,9 @@ static u64 mmhub_v4_2_0_get_fb_location(struct amdgp=
-u_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; base &amp;=3D MMMC_VM_FB_LOC=
-ATION_BASE_LO32__FB_BASE_LO32_MASK;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; base &lt;&lt;=3D 24;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; base |=3D ((MMMC_VM_FB_LOCATION_BASE_HI32__F=
-B_BASE_HI1_MASK &amp;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; RREG32_SOC15(MMHUB, GET_INST(MMHUB, 0),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; regMMMC_VM_FB_LOCATION_BASE_HI32)) &lt;&lt; 56);<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; base |=3D ((u64)(MMMC_VM_FB_LOCATION_BASE_HI=
-32__FB_BASE_HI1_MASK &amp;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RREG32_SOC15(MMHUB, GET_INST(=
-MMHUB, 0),<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regMMMC_VM_FB_LOCATION_BAS=
-E_HI32)) &lt;&lt; 56);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return base;<br>
-&gt;&nbsp;&nbsp; }<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+>   static void
+> --
+> 2.34.1
+>
 
---_000_DM6PR12MB41065164A6783637DF49035797D0ADM6PR12MB4106namp_--
