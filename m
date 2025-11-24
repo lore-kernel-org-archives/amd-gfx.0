@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 949EDCFA466
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 15:20:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE342CFD313
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 15:22:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF6910E2EF;
-	Mon, 24 Nov 2025 15:20:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7197F10E2E7;
+	Mon, 24 Nov 2025 15:22:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qrHQKW+u";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="voVsi/ay";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010040.outbound.protection.outlook.com [52.101.56.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3989E10E2F0
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 15:20:40 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010046.outbound.protection.outlook.com [52.101.61.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E8010E2E7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 15:22:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Le1nkqJRJWnFCRmA8B2185yLcs0orBpjtN6SkzLOIUvUC1KWnv2+WaP5YbcaHqcfdPPcq9EuSbHhatCLF9qoR6/FY6tj+rfbcSP4oVGrNXa7FTGyWMLeJLWJ68YuBFInWcILCC6MFq3UhzZVKXzXftSoJ8lsfxWF/YxmIx4lHYSTeWvJ67haxAxRehqwCahHj7altalLgIqWFRSgG/w09K+9nDDB9VfoNS9A+dAKeCkSlOOdPiLit/Tdn+lbx8W6JkWHfr0lP39S2A90eHr5mqltsIbYasTUz8a0HlxvzJXHzoOj8NpXbZtbrSWKHJH32XirrZL4AEMiTcuHIX9qkQ==
+ b=LrzmDgyd/h5od4PsQWn8Z2CRno8cYBZkUSOC3erwiqzch2jAJhSijp+qDQP9LLql474Ejr4rFhB6DJSmRxktwaOvxEzKYWZ3q0XvO0N1ZKZntBZKKYzEmvFgW/xewqGS4DPJIixz+QxRdH0CyFMPWxQkfRlScQm1XJCarHlms7vpjBL6kIhEototYckChPS3sbHIi95L5mi5SpDKYcO45eZPz+iLAZ+kK9lV2HNnL0G4UyT2c20haSMryrBX68aqiOxXs9DIqVbfq5hQlb/ERfPChTApvXnc26jW2ufgILAk7Zp/ZH9zent2K+bgBRSr5tR4ojVXfWKoUbQnMKVWFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9I3onjO7MiEE+nppn3jUtLyO/meK8iRsJC82Hhf0+8k=;
- b=bHTOLhMyTRYZhwXvTxqwD2AMRzx3rgSxV+JWBrQxyTAhREjAmsxv3yOdJxYWZcqPbYEQ+giqUVDHhuk0JxLVaEcO/rF41TPapb5hllJpkIpfNv/flyP89WK34BsiytWxyuXgQKHR+BYXsZfIMl9kITFI0Z9oGodUo0u4gT4WPD7FYF8pC51P7WML1uZKc7vAkPoh9qEiaTqwHPUQem49f61NVlIxKpZM5odKa94ZgT0YzG/oViX1KMPQFb2BD11E0N0HDWRgE1v9qsSfbbj1fKVXi5XCYbi0GkXlBXON15aYWIjjbAoQUiEU+Q6h7pgMUrltmFzL8eSp6hZNSeIb3A==
+ bh=tS+2nZG5YfRmnxbFi2Zdu5D0gtEQw/aJH8uTnERKdrM=;
+ b=vnLeQ/W2BY/IVjEgtQK9KW3D6nIbqTH3Gz6OFEEB/snunhrkpiPkqPzx0M9b/Z9LWzB6AsCbbllV7qt/272DOVE2BxvHFmUCrsF6EHsmPtmNvZ0rpiLSEh5SpBgswq/B5BkMCWQulkJeJb8Y8anhhHFhmLSdyhal9xhtf//WvDbgX4zOt+DvzwwpJQ1AlWUqs8XIYarDm6E2FlH9xFzRjGjEtF1gdFJYfMWtt6CZ0UdSuOTEbNZgOnJZdjZpVIiG6QY3oegXL5Z6MnuH2R8KQ6LCmvK3kGGXwpNsAd0HlDos6o3/GPkfwU9nGgzFsr63QlPUgpyF8v5GyC34eAfTig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9I3onjO7MiEE+nppn3jUtLyO/meK8iRsJC82Hhf0+8k=;
- b=qrHQKW+uabfe5lHmW8tv02I+1mrvtFcd0btnne3Rpm2qDKyjf13HHe6W55bByme5z1Ocz79+9cMNNaNnRGQQ0efkK9+cr6irR5xXmimzhzCrTtUPyzaVihm2JWItcSg1xVAayCb4FpVFjmq/kL31I7SZylAojbDSOJiB8EM4+lE=
-Received: from BN9PR03CA0928.namprd03.prod.outlook.com (2603:10b6:408:107::33)
- by LV3PR12MB9233.namprd12.prod.outlook.com (2603:10b6:408:194::15)
+ bh=tS+2nZG5YfRmnxbFi2Zdu5D0gtEQw/aJH8uTnERKdrM=;
+ b=voVsi/ayioBT1SIib6azc11py2TeA7k8Z5r0yY59/Zcr/XC0HkH2qPXsOFldWNQUpFsb5pFiLG+JePrBmt5Rhzx4sXcpFw5jAqKHnukljVQDFlKORMSrpLiYs20Wg2R5E82W7vcKNCmlxyki9Mc9uol6MZgXn3qTDiDWD+EZ8TM=
+Received: from BL1P221CA0034.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:5b5::18)
+ by PH7PR12MB5902.namprd12.prod.outlook.com (2603:10b6:510:1d6::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Mon, 24 Nov
- 2025 15:20:37 +0000
-Received: from BL6PEPF0001AB78.namprd02.prod.outlook.com
- (2603:10b6:408:107:cafe::db) by BN9PR03CA0928.outlook.office365.com
- (2603:10b6:408:107::33) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 15:22:45 +0000
+Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
+ (2603:10b6:208:5b5:cafe::f8) by BL1P221CA0034.outlook.office365.com
+ (2603:10b6:208:5b5::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Mon,
- 24 Nov 2025 15:20:09 +0000
+ 24 Nov 2025 15:23:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB78.mail.protection.outlook.com (10.167.242.171) with Microsoft
+ BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.7 via Frontend Transport; Mon, 24 Nov 2025 15:20:36 +0000
+ 15.20.9366.7 via Frontend Transport; Mon, 24 Nov 2025 15:22:44 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 24 Nov
- 2025 09:20:36 -0600
+ 2025 09:22:35 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Set GC family for GC 12.1
-Date: Mon, 24 Nov 2025 10:20:18 -0500
-Message-ID: <20251124152018.428613-1-alexander.deucher@amd.com>
+CC: Jack Xiao <Jack.Xiao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Mukul Joshi <mukul.joshi@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu/mes_v12_1: initial support for mes_v12_1
+Date: Mon, 24 Nov 2025 10:22:23 -0500
+Message-ID: <20251124152224.428784-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,53 +71,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB78:EE_|LV3PR12MB9233:EE_
-X-MS-Office365-Filtering-Correlation-Id: da404cfb-6a14-4e56-6ffe-08de2b6d0516
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|PH7PR12MB5902:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84e5524f-d52f-418b-4f05-08de2b6d511f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8NzD0LtBct2r21i7gYtAIROrzYvNA7cEhoekib0Ur5u2No2/LAMocU5MQbE3?=
- =?us-ascii?Q?lKcu7CEE+2MIENS1zlIQ/gTjmg8kqYXxCa6vFc6NsybX5ky4Rnr6iLlrbiS9?=
- =?us-ascii?Q?Xt5rGXPibSgryY7FIBQEBg+F6nLVUx2Lslx4MSHQ0ScYt+4bxS5G7iXHgtDO?=
- =?us-ascii?Q?vh2iDABUGIapc6CfyRlr/3uWl6ncGZoP84PlD12h34ysD81nnhTxENQsQw5k?=
- =?us-ascii?Q?eVi3bYGAkZV9CqeoDHX124+HOzbNIcoRHvW4b1Fa4hZuTzJUbtjwHtQX/UbV?=
- =?us-ascii?Q?8YbiBgohyzOcNg6NNyPkaSpdDeWwTxvxAHuir0P9gtOgei05UwkzS4A8rKRb?=
- =?us-ascii?Q?87huO1gh9JUfmnDo8/UClumORWgtpXoawMEUPV9E2tIHZXxGm0goybatOu8H?=
- =?us-ascii?Q?wzReh6ciKICqGk5EFfIaHN9d0xDjsE3/p4485SBm2/mlMRkjCJmLDNZNmt4G?=
- =?us-ascii?Q?jzGJL7SJxjRURnNR2x7f+8PYwXwHZCmcX+VfTzv1UKCb2c7BSOXChiTBzlye?=
- =?us-ascii?Q?5/Gc1x55Fs2p8sdEVdngIGZUzYzp9zi+pg1tVgz7imFPTPw3YT4YZOgSOaCd?=
- =?us-ascii?Q?wrNCiVOd3r2DCXycODzW5fyhv6BJErG/Cb4wjq8EHh6dUxTNhyBMBAuoqfVu?=
- =?us-ascii?Q?0ROXzcprrlCdMLca8E2NayuZHfjJLnxgR0X82dwL0PSEe+Fyrb3NH65jm2pT?=
- =?us-ascii?Q?9pEqLox50ik72SY7OROJCAGiQSDrCjRDrapy+tkp2t8KSTntx6GKCEmBViZM?=
- =?us-ascii?Q?w4q2dINUkR7KGtSjyhuSujkz5Mdfqqq4kPP45farXOjKi8oSysi7nnU4agGA?=
- =?us-ascii?Q?d6cDYlcC3kOIollDLZEEsh+roTbLXrSv6+d+lZRW2MPZ4QuYDgeBMj+HMm61?=
- =?us-ascii?Q?pOOdG4Jy/402HJqWPCC8euwH4xT+dTNDl0OK3a/oqD0cWvW4+KutpR86gYK9?=
- =?us-ascii?Q?M5/eZuH6LPLHdyHbTZ8VQcwZgzGs6G8Rd+HMMH/QzB2jSIKlUcwOaGPihOw4?=
- =?us-ascii?Q?fqlESnhwF9miX+dTAuls/yW89UucB6iDnIo/eagXiYxFW2R1sKAqy0D58/YN?=
- =?us-ascii?Q?JouelbWDaXUaBWmpcE4wJwZXRj8S80udQkokewxo2DxaptMFByr2gcUavYkJ?=
- =?us-ascii?Q?kzfJ2w9Uo2jaGT5rCTOWsrZAYiKH/o63U/kjfA/Mzn+O2dSa5tKaNiF0HgDT?=
- =?us-ascii?Q?bEHZi5jf25ZXUjvRXrvrr4dDyopVj9P2etEkQ+OeAwlQBUOCBPc6IPSe8K70?=
- =?us-ascii?Q?Q8YsJ51ixss8iOmaRqYLQpBt+tQ3utE7XQ/A3SlqIpaxaZXUG6P0elZlzd+J?=
- =?us-ascii?Q?qezpvd3yxNLWFHx08OvHdtnxijR0Kq54B9H5TeP/r4OlravusJ7kenYxoHvu?=
- =?us-ascii?Q?P4mAr/PJX79UR+7lRX+X7KDeJwfT1Y2o0Cc8A6XMW0efOabzJxhg3NUeIg3W?=
- =?us-ascii?Q?fFxhAFDCPRALs1rFakZ7Z6n2fOITtCOf0x+jE0yZU6lz7zbgCVYehZvdkSo0?=
- =?us-ascii?Q?+dMGSGNVezJjSGAhcG6NRuc0TTkDBqsc+zbStfFvTlW1G2kftx5VYGAPmVfe?=
- =?us-ascii?Q?XnYIUolV70jga5fgwDE=3D?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Ym26RT73DlMrF/ouPwJPgLuJ4z/k0YIuqvbvwdERi4dibVq4hz9/DpVso+de?=
+ =?us-ascii?Q?WPC9PBXXIGoofq2dVc6RuAw4FNklOMxncuFB4og9bWqscAbJ8dcoPPCnM6ct?=
+ =?us-ascii?Q?6xgmvZmoahrJeyqgqlxIS8luc2Q8JFTDmWnxa5fQcf/8r+0hC6BQVcM94eEA?=
+ =?us-ascii?Q?iwij6zEz/eZXonPwZBN9SjSPsFRVuRmDoGLYdHHhSKHfIQ8quh6ojNioMt+A?=
+ =?us-ascii?Q?YX9nZBnXzEjxGwY+OKILUWmhuBuSoRHpQP4DAand+5c7ITThQEDOqs3g/45k?=
+ =?us-ascii?Q?QjMAOrJdaUgdOSa40kPBb7GHOWIXnYmnmrZEF/2zCEe2XN1TxBIwmqLNwNrU?=
+ =?us-ascii?Q?mSFEtGMdAd7C/i2n6sqO2Pw3pu224IaBXVXJssecKVEOHBbdEjzG27QEN8CH?=
+ =?us-ascii?Q?sJk831zSiE//Ona2wBQ1tlCdGBhFqDxH9xVuNS6Hcxzht1CyvxZyI6VbK8TG?=
+ =?us-ascii?Q?HNGGuLCd9IXKS48DNgM9RrcsXp/NLu+uHMXWAMqDuTqdFIZLKnhZNi9FUF6J?=
+ =?us-ascii?Q?ACjKmbMPlVfo+Cdjopo3RscPdHJClnRS1OH3VR/in4oWDYWDXN1ak6j5Jywa?=
+ =?us-ascii?Q?DGSskLOgxNuNViM6PSV+dimIBbnBq/S9KfFmc9/l66pHe3e/IqdzHFPm+hOk?=
+ =?us-ascii?Q?nuggEQnPRKorb6Ei+9Gm37UtUEgKj5AWi7paW7UANgd0/ka8yUPTei7FWDmt?=
+ =?us-ascii?Q?m5zLdx5znwfnJbldj8uPeXcFx9Gwd4bmeguQXvyzSCJVmrE+T9DUlhOIuOlr?=
+ =?us-ascii?Q?ZEEvsK16ta0xYsmGhUts0vcNMeA3udWQEimYns9joBzr6XDTP4eAlGDovHlh?=
+ =?us-ascii?Q?n70nZ8KxJ14l0awpyhoyYWP2HN57AnHuEiKTdUePQnA/V8vjTu0SzWLcsWMM?=
+ =?us-ascii?Q?D1KnPdCNSKLekdAyXMow7m6B9+AynNgT3izXYKNgPFyd5YGLtIKpPq9GmtXK?=
+ =?us-ascii?Q?VqfZzvxu9zsVTdJSwYVPbdFEfXDkeMzAJhBEOsmfXrwFA1mQ5wiZvmPaI5Ht?=
+ =?us-ascii?Q?VFpbxQcKG+gG4+M+zZ38soY49H7h78E86u/+fiewVwkaQRtrAuMwOI12Xq+F?=
+ =?us-ascii?Q?6qKzngNUS2J0C8Pdo89UxRQWtTRZ/U5ywnMiHxAAWVDzIsZ1dv5J/+Vz1Pdq?=
+ =?us-ascii?Q?qMgOrotDwF1WUOT9HtU+Nw8fD+KGIqKfeZXD/1Lmm7mvjAuKVAkzcljqsAX0?=
+ =?us-ascii?Q?KVF/QnQqkM1xwN67LqV2SCcEvAxE1IkZE19LYCkukEyovgtp3G/HYmdMsHqJ?=
+ =?us-ascii?Q?63StZzmvKBFYW6aSApJF0u3D8N7If9eSpiddXdcLhFHvzfP61jP1ABLozvz9?=
+ =?us-ascii?Q?1JNo2ep7c6JjHnAq4mX9yPW2zQSC3WTBWRR8Eqxx2a1ZtPMY6mCrS1PaR65S?=
+ =?us-ascii?Q?sv1kMstyp7XeeaYQvXtv2b2vCCSoXDonGa4+C+IM69nmQyR9/xIe3YHwXtcB?=
+ =?us-ascii?Q?EzpVSEfI71Lom+M4OaPad7Zzz2xb3Qrhdk3+EujXFJWMWrSy34T8N1FKKfxQ?=
+ =?us-ascii?Q?q+lSkI3+KlyTuXV6ol200VhwhN/47Zpnd4lRu4s/ys9HbplQeQJWYAUsAO//?=
+ =?us-ascii?Q?nmBtatDjJxnErsnCDao=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 15:20:36.9540 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da404cfb-6a14-4e56-6ffe-08de2b6d0516
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 15:22:44.5180 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84e5524f-d52f-418b-4f05-08de2b6d511f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB78.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB73.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9233
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5902
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,29 +132,1841 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+From: Jack Xiao <Jack.Xiao@amd.com>
 
-Set GC family for GC 12.1.0.
+Duplicated and rename mes ip version name to v12_1_0.
+Fix to access correct ring pipe by xcc_id.
+Fix to access correct instance registers by xcc_id.
+Fix to access correct index registers by grbm/xcc_id.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+v2: rebase (Alex)
+
+Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/Makefile    |    1 +
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 1760 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.h |   29 +
+ 3 files changed, 1790 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/mes_v12_1.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 92c959710355f..c43509f95b89d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2950,6 +2950,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
- 		break;
- 	case IP_VERSION(12, 0, 0):
- 	case IP_VERSION(12, 0, 1):
-+	case IP_VERSION(12, 1, 0):
- 		adev->family = AMDGPU_FAMILY_GC_12_0_0;
- 		break;
- 	default:
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 139ceafa164a4..367f2da5f5100 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -179,6 +179,7 @@ amdgpu-y += \
+ 	amdgpu_mes.o \
+ 	mes_v11_0.o \
+ 	mes_v12_0.o \
++	mes_v12_1.o
+ 
+ # add GFX userqueue support
+ amdgpu-y += mes_userqueue.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+new file mode 100644
+index 0000000000000..13269d1113730
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -0,0 +1,1760 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#include <linux/firmware.h>
++#include <linux/module.h>
++#include "amdgpu.h"
++#include "soc15_common.h"
++#include "soc_v1_0.h"
++#include "gc/gc_12_1_0_offset.h"
++#include "gc/gc_12_1_0_sh_mask.h"
++#include "gc/gc_11_0_0_default.h"
++#include "v12_structs.h"
++#include "mes_v12_api_def.h"
++
++MODULE_FIRMWARE("amdgpu/gc_12_1_0_mes.bin");
++MODULE_FIRMWARE("amdgpu/gc_12_1_0_mes1.bin");
++MODULE_FIRMWARE("amdgpu/gc_12_1_0_uni_mes.bin");
++
++static int mes_v12_1_hw_init(struct amdgpu_ip_block *ip_block);
++static int mes_v12_1_hw_fini(struct amdgpu_ip_block *ip_block);
++static int mes_v12_1_kiq_hw_init(struct amdgpu_device *adev, uint32_t xcc_id);
++static int mes_v12_1_kiq_hw_fini(struct amdgpu_device *adev, uint32_t xcc_id);
++
++#define MES_EOP_SIZE   2048
++
++#define regCP_HQD_IB_CONTROL_MES_12_1_DEFAULT 0x100000
++
++static void mes_v12_1_ring_set_wptr(struct amdgpu_ring *ring)
++{
++	struct amdgpu_device *adev = ring->adev;
++
++	if (ring->use_doorbell) {
++		atomic64_set((atomic64_t *)ring->wptr_cpu_addr,
++			     ring->wptr);
++		WDOORBELL64(ring->doorbell_index, ring->wptr);
++	} else {
++		BUG();
++	}
++}
++
++static u64 mes_v12_1_ring_get_rptr(struct amdgpu_ring *ring)
++{
++	return *ring->rptr_cpu_addr;
++}
++
++static u64 mes_v12_1_ring_get_wptr(struct amdgpu_ring *ring)
++{
++	u64 wptr;
++
++	if (ring->use_doorbell)
++		wptr = atomic64_read((atomic64_t *)ring->wptr_cpu_addr);
++	else
++		BUG();
++	return wptr;
++}
++
++static const struct amdgpu_ring_funcs mes_v12_1_ring_funcs = {
++	.type = AMDGPU_RING_TYPE_MES,
++	.align_mask = 1,
++	.nop = 0,
++	.support_64bit_ptrs = true,
++	.get_rptr = mes_v12_1_ring_get_rptr,
++	.get_wptr = mes_v12_1_ring_get_wptr,
++	.set_wptr = mes_v12_1_ring_set_wptr,
++	.insert_nop = amdgpu_ring_insert_nop,
++};
++
++static const char *mes_v12_1_opcodes[] = {
++	"SET_HW_RSRC",
++	"SET_SCHEDULING_CONFIG",
++	"ADD_QUEUE",
++	"REMOVE_QUEUE",
++	"PERFORM_YIELD",
++	"SET_GANG_PRIORITY_LEVEL",
++	"SUSPEND",
++	"RESUME",
++	"RESET",
++	"SET_LOG_BUFFER",
++	"CHANGE_GANG_PRORITY",
++	"QUERY_SCHEDULER_STATUS",
++	"unused",
++	"SET_DEBUG_VMID",
++	"MISC",
++	"UPDATE_ROOT_PAGE_TABLE",
++	"AMD_LOG",
++	"SET_SE_MODE",
++	"SET_GANG_SUBMIT",
++	"SET_HW_RSRC_1",
++};
++
++static const char *mes_v12_1_misc_opcodes[] = {
++	"WRITE_REG",
++	"INV_GART",
++	"QUERY_STATUS",
++	"READ_REG",
++	"WAIT_REG_MEM",
++	"SET_SHADER_DEBUGGER",
++	"NOTIFY_WORK_ON_UNMAPPED_QUEUE",
++	"NOTIFY_TO_UNMAP_PROCESSES",
++};
++
++static const char *mes_v12_1_get_op_string(union MESAPI__MISC *x_pkt)
++{
++	const char *op_str = NULL;
++
++	if (x_pkt->header.opcode < ARRAY_SIZE(mes_v12_1_opcodes))
++		op_str = mes_v12_1_opcodes[x_pkt->header.opcode];
++
++	return op_str;
++}
++
++static const char *mes_v12_1_get_misc_op_string(union MESAPI__MISC *x_pkt)
++{
++	const char *op_str = NULL;
++
++	if ((x_pkt->header.opcode == MES_SCH_API_MISC) &&
++	    (x_pkt->opcode < ARRAY_SIZE(mes_v12_1_misc_opcodes)))
++		op_str = mes_v12_1_misc_opcodes[x_pkt->opcode];
++
++	return op_str;
++}
++
++static int mes_v12_1_submit_pkt_and_poll_completion(struct amdgpu_mes *mes,
++					    int xcc_id, int pipe, void *pkt,
++					    int size, int api_status_off)
++{
++	union MESAPI__QUERY_MES_STATUS mes_status_pkt;
++	signed long timeout = 2100000; /* 2100 ms */
++	struct amdgpu_device *adev = mes->adev;
++	struct amdgpu_ring *ring = &mes->ring[MES_PIPE_INST(xcc_id, pipe)];
++	spinlock_t *ring_lock = &mes->ring_lock[MES_PIPE_INST(xcc_id, pipe)];
++	struct MES_API_STATUS *api_status;
++	union MESAPI__MISC *x_pkt = pkt;
++	const char *op_str, *misc_op_str;
++	unsigned long flags;
++	u64 status_gpu_addr;
++	u32 seq, status_offset;
++	u64 *status_ptr;
++	signed long r;
++	int ret;
++
++	if (x_pkt->header.opcode >= MES_SCH_API_MAX)
++		return -EINVAL;
++
++	if (amdgpu_emu_mode) {
++		timeout *= 1000;
++	} else if (amdgpu_sriov_vf(adev)) {
++		/* Worst case in sriov where all other 15 VF timeout, each VF needs about 600ms */
++		timeout = 15 * 600 * 1000;
++	}
++
++	ret = amdgpu_device_wb_get(adev, &status_offset);
++	if (ret)
++		return ret;
++
++	status_gpu_addr = adev->wb.gpu_addr + (status_offset * 4);
++	status_ptr = (u64 *)&adev->wb.wb[status_offset];
++	*status_ptr = 0;
++
++	spin_lock_irqsave(ring_lock, flags);
++	r = amdgpu_ring_alloc(ring, (size + sizeof(mes_status_pkt)) / 4);
++	if (r)
++		goto error_unlock_free;
++
++	seq = ++ring->fence_drv.sync_seq;
++	r = amdgpu_fence_wait_polling(ring,
++				      seq - ring->fence_drv.num_fences_mask,
++				      timeout);
++	if (r < 1)
++		goto error_undo;
++
++	api_status = (struct MES_API_STATUS *)((char *)pkt + api_status_off);
++	api_status->api_completion_fence_addr = status_gpu_addr;
++	api_status->api_completion_fence_value = 1;
++
++	amdgpu_ring_write_multiple(ring, pkt, size / 4);
++
++	memset(&mes_status_pkt, 0, sizeof(mes_status_pkt));
++	mes_status_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_status_pkt.header.opcode = MES_SCH_API_QUERY_SCHEDULER_STATUS;
++	mes_status_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++	mes_status_pkt.api_status.api_completion_fence_addr =
++		ring->fence_drv.gpu_addr;
++	mes_status_pkt.api_status.api_completion_fence_value = seq;
++
++	amdgpu_ring_write_multiple(ring, &mes_status_pkt,
++				   sizeof(mes_status_pkt) / 4);
++
++	amdgpu_ring_commit(ring);
++	spin_unlock_irqrestore(ring_lock, flags);
++
++	op_str = mes_v12_1_get_op_string(x_pkt);
++	misc_op_str = mes_v12_1_get_misc_op_string(x_pkt);
++
++	if (misc_op_str)
++		dev_dbg(adev->dev, "MES(%d, %d) msg=%s (%s) was emitted\n",
++			xcc_id, pipe, op_str, misc_op_str);
++	else if (op_str)
++		dev_dbg(adev->dev, "MES(%d, %d) msg=%s was emitted\n",
++			xcc_id, pipe, op_str);
++	else
++		dev_dbg(adev->dev, "MES(%d, %d) msg=%d was emitted\n",
++			xcc_id, pipe, x_pkt->header.opcode);
++
++	r = amdgpu_fence_wait_polling(ring, seq, timeout);
++	if (r < 1 || !*status_ptr) {
++		if (misc_op_str)
++			dev_err(adev->dev,
++				"MES(%d, %d) failed to respond to msg=%s (%s)\n",
++				xcc_id, pipe, op_str, misc_op_str);
++		else if (op_str)
++			dev_err(adev->dev,
++				"MES(%d, %d) failed to respond to msg=%s\n",
++				xcc_id, pipe, op_str);
++		else
++			dev_err(adev->dev,
++				"MES(%d, %d) failed to respond to msg=%d\n",
++				xcc_id, pipe, x_pkt->header.opcode);
++
++		while (halt_if_hws_hang)
++			schedule();
++
++		r = -ETIMEDOUT;
++		goto error_wb_free;
++	}
++
++	amdgpu_device_wb_free(adev, status_offset);
++	return 0;
++
++error_undo:
++	dev_err(adev->dev, "MES(%d, %d) ring buffer is full.\n", xcc_id, pipe);
++	amdgpu_ring_undo(ring);
++
++error_unlock_free:
++	spin_unlock_irqrestore(ring_lock, flags);
++
++error_wb_free:
++	amdgpu_device_wb_free(adev, status_offset);
++	return r;
++}
++
++static int convert_to_mes_queue_type(int queue_type)
++{
++	if (queue_type == AMDGPU_RING_TYPE_GFX)
++		return MES_QUEUE_TYPE_GFX;
++	else if (queue_type == AMDGPU_RING_TYPE_COMPUTE)
++		return MES_QUEUE_TYPE_COMPUTE;
++	else if (queue_type == AMDGPU_RING_TYPE_SDMA)
++		return MES_QUEUE_TYPE_SDMA;
++	else if (queue_type == AMDGPU_RING_TYPE_MES)
++		return MES_QUEUE_TYPE_SCHQ;
++	else
++		BUG();
++	return -1;
++}
++
++static int mes_v12_1_add_hw_queue(struct amdgpu_mes *mes,
++				  struct mes_add_queue_input *input)
++{
++	struct amdgpu_device *adev = mes->adev;
++	union MESAPI__ADD_QUEUE mes_add_queue_pkt;
++	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
++	uint32_t vm_cntx_cntl = hub->vm_cntx_cntl;
++
++	memset(&mes_add_queue_pkt, 0, sizeof(mes_add_queue_pkt));
++
++	mes_add_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_add_queue_pkt.header.opcode = MES_SCH_API_ADD_QUEUE;
++	mes_add_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	mes_add_queue_pkt.process_id = input->process_id;
++	mes_add_queue_pkt.page_table_base_addr = input->page_table_base_addr;
++	mes_add_queue_pkt.process_va_start = input->process_va_start;
++	mes_add_queue_pkt.process_va_end = input->process_va_end;
++	mes_add_queue_pkt.process_quantum = input->process_quantum;
++	mes_add_queue_pkt.process_context_addr = input->process_context_addr;
++	mes_add_queue_pkt.gang_quantum = input->gang_quantum;
++	mes_add_queue_pkt.gang_context_addr = input->gang_context_addr;
++	mes_add_queue_pkt.inprocess_gang_priority =
++		input->inprocess_gang_priority;
++	mes_add_queue_pkt.gang_global_priority_level =
++		input->gang_global_priority_level;
++	mes_add_queue_pkt.doorbell_offset = input->doorbell_offset;
++	mes_add_queue_pkt.mqd_addr = input->mqd_addr;
++
++	mes_add_queue_pkt.wptr_addr = input->wptr_mc_addr;
++
++	mes_add_queue_pkt.queue_type =
++		convert_to_mes_queue_type(input->queue_type);
++	mes_add_queue_pkt.paging = input->paging;
++	mes_add_queue_pkt.vm_context_cntl = vm_cntx_cntl;
++	mes_add_queue_pkt.gws_base = input->gws_base;
++	mes_add_queue_pkt.gws_size = input->gws_size;
++	mes_add_queue_pkt.trap_handler_addr = input->tba_addr;
++	mes_add_queue_pkt.tma_addr = input->tma_addr;
++	mes_add_queue_pkt.trap_en = input->trap_en;
++	mes_add_queue_pkt.skip_process_ctx_clear = input->skip_process_ctx_clear;
++	mes_add_queue_pkt.is_kfd_process = input->is_kfd_process;
++
++	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
++	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
++	mes_add_queue_pkt.gds_size = input->queue_size;
++
++	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
++	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
++	mes_add_queue_pkt.gds_size = input->queue_size;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes,
++			input->xcc_id, AMDGPU_MES_SCHED_PIPE,
++			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
++			offsetof(union MESAPI__ADD_QUEUE, api_status));
++}
++
++static int mes_v12_1_remove_hw_queue(struct amdgpu_mes *mes,
++				     struct mes_remove_queue_input *input)
++{
++	union MESAPI__REMOVE_QUEUE mes_remove_queue_pkt;
++
++	memset(&mes_remove_queue_pkt, 0, sizeof(mes_remove_queue_pkt));
++
++	mes_remove_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_remove_queue_pkt.header.opcode = MES_SCH_API_REMOVE_QUEUE;
++	mes_remove_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	mes_remove_queue_pkt.doorbell_offset = input->doorbell_offset;
++	mes_remove_queue_pkt.gang_context_addr = input->gang_context_addr;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes,
++			input->xcc_id, AMDGPU_MES_SCHED_PIPE,
++			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
++			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
++}
++
++static int mes_v12_1_reset_hw_queue(struct amdgpu_mes *mes,
++				    struct mes_reset_queue_input *input)
++{
++	union MESAPI__RESET mes_reset_queue_pkt;
++	int pipe;
++
++	memset(&mes_reset_queue_pkt, 0, sizeof(mes_reset_queue_pkt));
++
++	mes_reset_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_reset_queue_pkt.header.opcode = MES_SCH_API_RESET;
++	mes_reset_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	mes_reset_queue_pkt.doorbell_offset = input->doorbell_offset;
++	/* mes_reset_queue_pkt.gang_context_addr = input->gang_context_addr; */
++	/*mes_reset_queue_pkt.reset_queue_only = 1;*/
++
++	if (mes->adev->enable_uni_mes)
++		pipe = AMDGPU_MES_KIQ_PIPE;
++	else
++		pipe = AMDGPU_MES_SCHED_PIPE;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes,
++			input->xcc_id, pipe,
++			&mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt),
++			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
++}
++
++static int mes_v12_1_map_legacy_queue(struct amdgpu_mes *mes,
++				      struct mes_map_legacy_queue_input *input)
++{
++	union MESAPI__ADD_QUEUE mes_add_queue_pkt;
++	int pipe;
++
++	memset(&mes_add_queue_pkt, 0, sizeof(mes_add_queue_pkt));
++
++	mes_add_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_add_queue_pkt.header.opcode = MES_SCH_API_ADD_QUEUE;
++	mes_add_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	mes_add_queue_pkt.pipe_id = input->pipe_id;
++	mes_add_queue_pkt.queue_id = input->queue_id;
++	mes_add_queue_pkt.doorbell_offset = input->doorbell_offset;
++	mes_add_queue_pkt.mqd_addr = input->mqd_addr;
++	mes_add_queue_pkt.wptr_addr = input->wptr_addr;
++	mes_add_queue_pkt.queue_type =
++		convert_to_mes_queue_type(input->queue_type);
++	mes_add_queue_pkt.map_legacy_kq = 1;
++
++	if (mes->adev->enable_uni_mes)
++		pipe = AMDGPU_MES_KIQ_PIPE;
++	else
++		pipe = AMDGPU_MES_SCHED_PIPE;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes,
++			input->xcc_id, pipe,
++			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
++			offsetof(union MESAPI__ADD_QUEUE, api_status));
++}
++
++static int mes_v12_1_unmap_legacy_queue(struct amdgpu_mes *mes,
++			struct mes_unmap_legacy_queue_input *input)
++{
++	union MESAPI__REMOVE_QUEUE mes_remove_queue_pkt;
++	int pipe;
++
++	memset(&mes_remove_queue_pkt, 0, sizeof(mes_remove_queue_pkt));
++
++	mes_remove_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_remove_queue_pkt.header.opcode = MES_SCH_API_REMOVE_QUEUE;
++	mes_remove_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	mes_remove_queue_pkt.doorbell_offset = input->doorbell_offset;
++	mes_remove_queue_pkt.gang_context_addr = 0;
++
++	mes_remove_queue_pkt.pipe_id = input->pipe_id;
++	mes_remove_queue_pkt.queue_id = input->queue_id;
++
++	if (input->action == PREEMPT_QUEUES_NO_UNMAP) {
++		mes_remove_queue_pkt.preempt_legacy_gfx_queue = 1;
++		mes_remove_queue_pkt.tf_addr = input->trail_fence_addr;
++		mes_remove_queue_pkt.tf_data =
++			lower_32_bits(input->trail_fence_data);
++	} else {
++		mes_remove_queue_pkt.unmap_legacy_queue = 1;
++		mes_remove_queue_pkt.queue_type =
++			convert_to_mes_queue_type(input->queue_type);
++	}
++
++	if (mes->adev->enable_uni_mes)
++		pipe = AMDGPU_MES_KIQ_PIPE;
++	else
++		pipe = AMDGPU_MES_SCHED_PIPE;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes,
++			input->xcc_id, pipe,
++			&mes_remove_queue_pkt, sizeof(mes_remove_queue_pkt),
++			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
++}
++
++static int mes_v12_1_suspend_gang(struct amdgpu_mes *mes,
++				  struct mes_suspend_gang_input *input)
++{
++	return 0;
++}
++
++static int mes_v12_1_resume_gang(struct amdgpu_mes *mes,
++				 struct mes_resume_gang_input *input)
++{
++	return 0;
++}
++
++static int mes_v12_1_query_sched_status(struct amdgpu_mes *mes,
++					  int pipe, int xcc_id)
++{
++	union MESAPI__QUERY_MES_STATUS mes_status_pkt;
++
++	memset(&mes_status_pkt, 0, sizeof(mes_status_pkt));
++
++	mes_status_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_status_pkt.header.opcode = MES_SCH_API_QUERY_SCHEDULER_STATUS;
++	mes_status_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes, xcc_id, pipe,
++			&mes_status_pkt, sizeof(mes_status_pkt),
++			offsetof(union MESAPI__QUERY_MES_STATUS, api_status));
++}
++
++static int mes_v12_1_misc_op(struct amdgpu_mes *mes,
++			     struct mes_misc_op_input *input)
++{
++	union MESAPI__MISC misc_pkt;
++	int pipe;
++
++	if (mes->adev->enable_uni_mes)
++		pipe = AMDGPU_MES_KIQ_PIPE;
++	else
++		pipe = AMDGPU_MES_SCHED_PIPE;
++
++	memset(&misc_pkt, 0, sizeof(misc_pkt));
++
++	misc_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	misc_pkt.header.opcode = MES_SCH_API_MISC;
++	misc_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	switch (input->op) {
++	case MES_MISC_OP_READ_REG:
++		misc_pkt.opcode = MESAPI_MISC__READ_REG;
++		misc_pkt.read_reg.reg_offset = input->read_reg.reg_offset;
++		misc_pkt.read_reg.buffer_addr = input->read_reg.buffer_addr;
++		break;
++	case MES_MISC_OP_WRITE_REG:
++		misc_pkt.opcode = MESAPI_MISC__WRITE_REG;
++		misc_pkt.write_reg.reg_offset = input->write_reg.reg_offset;
++		misc_pkt.write_reg.reg_value = input->write_reg.reg_value;
++		break;
++	case MES_MISC_OP_WRM_REG_WAIT:
++		misc_pkt.opcode = MESAPI_MISC__WAIT_REG_MEM;
++		misc_pkt.wait_reg_mem.op = WRM_OPERATION__WAIT_REG_MEM;
++		misc_pkt.wait_reg_mem.reference = input->wrm_reg.ref;
++		misc_pkt.wait_reg_mem.mask = input->wrm_reg.mask;
++		misc_pkt.wait_reg_mem.reg_offset1 = input->wrm_reg.reg0;
++		misc_pkt.wait_reg_mem.reg_offset2 = 0;
++		break;
++	case MES_MISC_OP_WRM_REG_WR_WAIT:
++		misc_pkt.opcode = MESAPI_MISC__WAIT_REG_MEM;
++		misc_pkt.wait_reg_mem.op = WRM_OPERATION__WR_WAIT_WR_REG;
++		misc_pkt.wait_reg_mem.reference = input->wrm_reg.ref;
++		misc_pkt.wait_reg_mem.mask = input->wrm_reg.mask;
++		misc_pkt.wait_reg_mem.reg_offset1 = input->wrm_reg.reg0;
++		misc_pkt.wait_reg_mem.reg_offset2 = input->wrm_reg.reg1;
++		break;
++	case MES_MISC_OP_SET_SHADER_DEBUGGER:
++		pipe = AMDGPU_MES_SCHED_PIPE;
++		misc_pkt.opcode = MESAPI_MISC__SET_SHADER_DEBUGGER;
++		misc_pkt.set_shader_debugger.process_context_addr =
++				input->set_shader_debugger.process_context_addr;
++		misc_pkt.set_shader_debugger.flags.u32all =
++				input->set_shader_debugger.flags.u32all;
++		misc_pkt.set_shader_debugger.spi_gdbg_per_vmid_cntl =
++				input->set_shader_debugger.spi_gdbg_per_vmid_cntl;
++		memcpy(misc_pkt.set_shader_debugger.tcp_watch_cntl,
++				input->set_shader_debugger.tcp_watch_cntl,
++				sizeof(misc_pkt.set_shader_debugger.tcp_watch_cntl));
++		misc_pkt.set_shader_debugger.trap_en = input->set_shader_debugger.trap_en;
++		break;
++	case MES_MISC_OP_CHANGE_CONFIG:
++		misc_pkt.opcode = MESAPI_MISC__CHANGE_CONFIG;
++		misc_pkt.change_config.opcode =
++			MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_SINGLE_PROCESS;
++		misc_pkt.change_config.option.bits.limit_single_process =
++			input->change_config.option.limit_single_process;
++		break;
++	default:
++		DRM_ERROR("unsupported misc op (%d) \n", input->op);
++		return -EINVAL;
++	}
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes,
++			input->xcc_id, pipe,
++			&misc_pkt, sizeof(misc_pkt),
++			offsetof(union MESAPI__MISC, api_status));
++}
++
++static int mes_v12_1_set_hw_resources_1(struct amdgpu_mes *mes,
++					  int pipe, int xcc_id)
++{
++	union MESAPI_SET_HW_RESOURCES_1 mes_set_hw_res_1_pkt;
++
++	memset(&mes_set_hw_res_1_pkt, 0, sizeof(mes_set_hw_res_1_pkt));
++
++	mes_set_hw_res_1_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_set_hw_res_1_pkt.header.opcode = MES_SCH_API_SET_HW_RSRC_1;
++	mes_set_hw_res_1_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++	mes_set_hw_res_1_pkt.mes_kiq_unmap_timeout = 100;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes, xcc_id, pipe,
++			&mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pkt),
++			offsetof(union MESAPI_SET_HW_RESOURCES_1, api_status));
++}
++
++static void mes_v12_1_set_gfx_hqd_mask(union MESAPI_SET_HW_RESOURCES *pkt)
++{
++	/*
++	 * GFX V12 has only one GFX pipe, but 8 queues in it.
++	 * GFX pipe 0 queue 0 is being used by Kernel queue.
++	 * Set GFX pipe 0 queue 1-7 for MES scheduling
++	 * mask = 1111 1110b
++	 */
++	pkt->gfx_hqd_mask[0] = 0xFE;
++}
++
++static int mes_v12_1_set_hw_resources(struct amdgpu_mes *mes,
++					int pipe, int xcc_id)
++{
++	int i;
++	struct amdgpu_device *adev = mes->adev;
++	union MESAPI_SET_HW_RESOURCES mes_set_hw_res_pkt;
++
++	memset(&mes_set_hw_res_pkt, 0, sizeof(mes_set_hw_res_pkt));
++
++	mes_set_hw_res_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_set_hw_res_pkt.header.opcode = MES_SCH_API_SET_HW_RSRC;
++	mes_set_hw_res_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	if (pipe == AMDGPU_MES_SCHED_PIPE) {
++		mes_set_hw_res_pkt.vmid_mask_mmhub = mes->vmid_mask_mmhub;
++		mes_set_hw_res_pkt.vmid_mask_gfxhub = mes->vmid_mask_gfxhub;
++		mes_set_hw_res_pkt.gds_size = adev->gds.gds_size;
++		mes_set_hw_res_pkt.paging_vmid = 0;
++
++		for (i = 0; i < MAX_COMPUTE_PIPES; i++)
++			mes_set_hw_res_pkt.compute_hqd_mask[i] =
++				mes->compute_hqd_mask[i];
++
++		mes_v12_1_set_gfx_hqd_mask(&mes_set_hw_res_pkt);
++
++		for (i = 0; i < MAX_SDMA_PIPES; i++)
++			mes_set_hw_res_pkt.sdma_hqd_mask[i] =
++				mes->sdma_hqd_mask[i];
++
++		for (i = 0; i < AMD_PRIORITY_NUM_LEVELS; i++)
++			mes_set_hw_res_pkt.aggregated_doorbells[i] =
++				mes->aggregated_doorbells[i];
++	}
++
++	mes_set_hw_res_pkt.g_sch_ctx_gpu_mc_ptr =
++		mes->sch_ctx_gpu_addr[pipe];
++	mes_set_hw_res_pkt.query_status_fence_gpu_mc_ptr =
++		mes->query_status_fence_gpu_addr[pipe];
++
++	for (i = 0; i < 5; i++) {
++		mes_set_hw_res_pkt.gc_base[i] = adev->reg_offset[GC_HWIP][0][i];
++		mes_set_hw_res_pkt.mmhub_base[i] =
++				adev->reg_offset[MMHUB_HWIP][0][i];
++		mes_set_hw_res_pkt.osssys_base[i] =
++		adev->reg_offset[OSSSYS_HWIP][0][i];
++	}
++
++	mes_set_hw_res_pkt.disable_reset = 1;
++	mes_set_hw_res_pkt.disable_mes_log = 1;
++	mes_set_hw_res_pkt.use_different_vmid_compute = 1;
++	mes_set_hw_res_pkt.enable_reg_active_poll = 1;
++	mes_set_hw_res_pkt.enable_level_process_quantum_check = 1;
++
++	/*
++	 * Keep oversubscribe timer for sdma . When we have unmapped doorbell
++	 * handling support, other queue will not use the oversubscribe timer.
++	 * handling  mode - 0: disabled; 1: basic version; 2: basic+ version
++	 */
++	mes_set_hw_res_pkt.oversubscription_timer = 50;
++	mes_set_hw_res_pkt.unmapped_doorbell_handling = 1;
++
++	if (amdgpu_mes_log_enable) {
++		mes_set_hw_res_pkt.enable_mes_event_int_logging = 1;
++		mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =
++			mes->event_log_gpu_addr + pipe * AMDGPU_MES_LOG_BUFFER_SIZE;
++	}
++
++	if (adev->enforce_isolation[0] == AMDGPU_ENFORCE_ISOLATION_ENABLE)
++		mes_set_hw_res_pkt.limit_single_process = 1;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes, xcc_id, pipe,
++			&mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
++			offsetof(union MESAPI_SET_HW_RESOURCES, api_status));
++}
++
++static void mes_v12_1_init_aggregated_doorbell(struct amdgpu_mes *mes,
++						 int xcc_id)
++{
++	struct amdgpu_device *adev = mes->adev;
++	uint32_t data;
++
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL1);
++	data &= ~(CP_MES_DOORBELL_CONTROL1__DOORBELL_OFFSET_MASK |
++		  CP_MES_DOORBELL_CONTROL1__DOORBELL_EN_MASK |
++		  CP_MES_DOORBELL_CONTROL1__DOORBELL_HIT_MASK);
++	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_LOW] <<
++		CP_MES_DOORBELL_CONTROL1__DOORBELL_OFFSET__SHIFT;
++	data |= 1 << CP_MES_DOORBELL_CONTROL1__DOORBELL_EN__SHIFT;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL1, data);
++
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL2);
++	data &= ~(CP_MES_DOORBELL_CONTROL2__DOORBELL_OFFSET_MASK |
++		  CP_MES_DOORBELL_CONTROL2__DOORBELL_EN_MASK |
++		  CP_MES_DOORBELL_CONTROL2__DOORBELL_HIT_MASK);
++	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_NORMAL] <<
++		CP_MES_DOORBELL_CONTROL2__DOORBELL_OFFSET__SHIFT;
++	data |= 1 << CP_MES_DOORBELL_CONTROL2__DOORBELL_EN__SHIFT;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL2, data);
++
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL3);
++	data &= ~(CP_MES_DOORBELL_CONTROL3__DOORBELL_OFFSET_MASK |
++		  CP_MES_DOORBELL_CONTROL3__DOORBELL_EN_MASK |
++		  CP_MES_DOORBELL_CONTROL3__DOORBELL_HIT_MASK);
++	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_MEDIUM] <<
++		CP_MES_DOORBELL_CONTROL3__DOORBELL_OFFSET__SHIFT;
++	data |= 1 << CP_MES_DOORBELL_CONTROL3__DOORBELL_EN__SHIFT;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL3, data);
++
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL4);
++	data &= ~(CP_MES_DOORBELL_CONTROL4__DOORBELL_OFFSET_MASK |
++		  CP_MES_DOORBELL_CONTROL4__DOORBELL_EN_MASK |
++		  CP_MES_DOORBELL_CONTROL4__DOORBELL_HIT_MASK);
++	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_HIGH] <<
++		CP_MES_DOORBELL_CONTROL4__DOORBELL_OFFSET__SHIFT;
++	data |= 1 << CP_MES_DOORBELL_CONTROL4__DOORBELL_EN__SHIFT;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL4, data);
++
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL5);
++	data &= ~(CP_MES_DOORBELL_CONTROL5__DOORBELL_OFFSET_MASK |
++		  CP_MES_DOORBELL_CONTROL5__DOORBELL_EN_MASK |
++		  CP_MES_DOORBELL_CONTROL5__DOORBELL_HIT_MASK);
++	data |= mes->aggregated_doorbells[AMDGPU_MES_PRIORITY_LEVEL_REALTIME] <<
++		CP_MES_DOORBELL_CONTROL5__DOORBELL_OFFSET__SHIFT;
++	data |= 1 << CP_MES_DOORBELL_CONTROL5__DOORBELL_EN__SHIFT;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_DOORBELL_CONTROL5, data);
++
++	data = 1 << CP_HQD_GFX_CONTROL__DB_UPDATED_MSG_EN__SHIFT;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_GFX_CONTROL, data);
++}
++
++
++static void mes_v12_1_enable_unmapped_doorbell_handling(
++	struct amdgpu_mes *mes, bool enable, int xcc_id)
++{
++	struct amdgpu_device *adev = mes->adev;
++	uint32_t data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_UNMAPPED_DOORBELL);
++
++	/*
++	 * The default PROC_LSB settng is 0xc which means doorbell
++	 * addr[16:12] gives the doorbell page number. For kfd, each
++	 * process will use 2 pages of doorbell, we need to change the
++	 * setting to 0xd
++	 */
++	data &= ~CP_UNMAPPED_DOORBELL__PROC_LSB_MASK;
++	data |= 0xd <<  CP_UNMAPPED_DOORBELL__PROC_LSB__SHIFT;
++
++	data |= (enable ? 1 : 0) << CP_UNMAPPED_DOORBELL__ENABLE__SHIFT;
++
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_UNMAPPED_DOORBELL, data);
++}
++
++#if 0
++static int mes_v12_1_reset_legacy_queue(struct amdgpu_mes *mes,
++					struct mes_reset_legacy_queue_input *input)
++{
++	union MESAPI__RESET mes_reset_queue_pkt;
++	int pipe;
++
++	memset(&mes_reset_queue_pkt, 0, sizeof(mes_reset_queue_pkt));
++
++	mes_reset_queue_pkt.header.type = MES_API_TYPE_SCHEDULER;
++	mes_reset_queue_pkt.header.opcode = MES_SCH_API_RESET;
++	mes_reset_queue_pkt.header.dwsize = API_FRAME_SIZE_IN_DWORDS;
++
++	mes_reset_queue_pkt.queue_type =
++		convert_to_mes_queue_type(input->queue_type);
++
++	if (mes_reset_queue_pkt.queue_type == MES_QUEUE_TYPE_GFX) {
++		mes_reset_queue_pkt.reset_legacy_gfx = 1;
++		mes_reset_queue_pkt.pipe_id_lp = input->pipe_id;
++		mes_reset_queue_pkt.queue_id_lp = input->queue_id;
++		mes_reset_queue_pkt.mqd_mc_addr_lp = input->mqd_addr;
++		mes_reset_queue_pkt.doorbell_offset_lp = input->doorbell_offset;
++		mes_reset_queue_pkt.wptr_addr_lp = input->wptr_addr;
++		mes_reset_queue_pkt.vmid_id_lp = input->vmid;
++	} else {
++		mes_reset_queue_pkt.reset_queue_only = 1;
++		mes_reset_queue_pkt.doorbell_offset = input->doorbell_offset;
++	}
++
++	if (mes->adev->enable_uni_mes)
++		pipe = AMDGPU_MES_KIQ_PIPE;
++	else
++		pipe = AMDGPU_MES_SCHED_PIPE;
++
++	return mes_v12_1_submit_pkt_and_poll_completion(mes,
++			input->xcc_id, pipe,
++			&mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt),
++			offsetof(union MESAPI__RESET, api_status));
++}
++#endif
++
++static const struct amdgpu_mes_funcs mes_v12_1_funcs = {
++	.add_hw_queue = mes_v12_1_add_hw_queue,
++	.remove_hw_queue = mes_v12_1_remove_hw_queue,
++	.map_legacy_queue = mes_v12_1_map_legacy_queue,
++	.unmap_legacy_queue = mes_v12_1_unmap_legacy_queue,
++	.suspend_gang = mes_v12_1_suspend_gang,
++	.resume_gang = mes_v12_1_resume_gang,
++	.misc_op = mes_v12_1_misc_op,
++	.reset_hw_queue = mes_v12_1_reset_hw_queue,
++};
++
++static int mes_v12_1_allocate_ucode_buffer(struct amdgpu_device *adev,
++					     enum amdgpu_mes_pipe pipe,
++					     int xcc_id)
++{
++	int r, inst = MES_PIPE_INST(xcc_id, pipe);
++	const struct mes_firmware_header_v1_0 *mes_hdr;
++	const __le32 *fw_data;
++	unsigned fw_size;
++
++	mes_hdr = (const struct mes_firmware_header_v1_0 *)
++		adev->mes.fw[pipe]->data;
++
++	fw_data = (const __le32 *)(adev->mes.fw[pipe]->data +
++		   le32_to_cpu(mes_hdr->mes_ucode_offset_bytes));
++	fw_size = le32_to_cpu(mes_hdr->mes_ucode_size_bytes);
++
++	r = amdgpu_bo_create_reserved(adev, fw_size,
++				      PAGE_SIZE,
++				      AMDGPU_GEM_DOMAIN_VRAM,
++				      &adev->mes.ucode_fw_obj[inst],
++				      &adev->mes.ucode_fw_gpu_addr[inst],
++				      (void **)&adev->mes.ucode_fw_ptr[inst]);
++	if (r) {
++		dev_err(adev->dev, "(%d) failed to create mes fw bo\n", r);
++		return r;
++	}
++
++	memcpy(adev->mes.ucode_fw_ptr[inst], fw_data, fw_size);
++
++	amdgpu_bo_kunmap(adev->mes.ucode_fw_obj[inst]);
++	amdgpu_bo_unreserve(adev->mes.ucode_fw_obj[inst]);
++
++	return 0;
++}
++
++static int mes_v12_1_allocate_ucode_data_buffer(struct amdgpu_device *adev,
++						  enum amdgpu_mes_pipe pipe,
++						  int xcc_id)
++{
++	int r, inst = MES_PIPE_INST(xcc_id, pipe);
++	const struct mes_firmware_header_v1_0 *mes_hdr;
++	const __le32 *fw_data;
++	unsigned fw_size;
++
++	mes_hdr = (const struct mes_firmware_header_v1_0 *)
++		adev->mes.fw[pipe]->data;
++
++	fw_data = (const __le32 *)(adev->mes.fw[pipe]->data +
++		   le32_to_cpu(mes_hdr->mes_ucode_data_offset_bytes));
++	fw_size = le32_to_cpu(mes_hdr->mes_ucode_data_size_bytes);
++
++	r = amdgpu_bo_create_reserved(adev, fw_size,
++				      64 * 1024,
++				      AMDGPU_GEM_DOMAIN_VRAM,
++				      &adev->mes.data_fw_obj[inst],
++				      &adev->mes.data_fw_gpu_addr[inst],
++				      (void **)&adev->mes.data_fw_ptr[inst]);
++	if (r) {
++		dev_err(adev->dev, "(%d) failed to create mes data fw bo\n", r);
++		return r;
++	}
++
++	memcpy(adev->mes.data_fw_ptr[inst], fw_data, fw_size);
++
++	amdgpu_bo_kunmap(adev->mes.data_fw_obj[inst]);
++	amdgpu_bo_unreserve(adev->mes.data_fw_obj[inst]);
++
++	return 0;
++}
++
++static void mes_v12_1_free_ucode_buffers(struct amdgpu_device *adev,
++					   enum amdgpu_mes_pipe pipe,
++					   int xcc_id)
++{
++	int inst = MES_PIPE_INST(xcc_id, pipe);
++
++	amdgpu_bo_free_kernel(&adev->mes.data_fw_obj[inst],
++			      &adev->mes.data_fw_gpu_addr[inst],
++			      (void **)&adev->mes.data_fw_ptr[inst]);
++
++	amdgpu_bo_free_kernel(&adev->mes.ucode_fw_obj[inst],
++			      &adev->mes.ucode_fw_gpu_addr[inst],
++			      (void **)&adev->mes.ucode_fw_ptr[inst]);
++}
++
++static void mes_v12_1_enable(struct amdgpu_device *adev,
++			       bool enable, int xcc_id)
++{
++	uint64_t ucode_addr;
++	uint32_t pipe, data = 0;
++
++	if (enable) {
++		data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_CNTL);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET, 1);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_RESET, 1);
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_CNTL, data);
++
++		mutex_lock(&adev->srbm_mutex);
++		for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
++			soc_v1_0_grbm_select(adev, 3, pipe, 0, 0,
++					     GET_INST(GC, xcc_id));
++
++			ucode_addr = adev->mes.uc_start_addr[pipe] >> 2;
++			WREG32_SOC15(GC, GET_INST(GC, xcc_id),
++				     regCP_MES_PRGRM_CNTR_START,
++				     lower_32_bits(ucode_addr));
++			WREG32_SOC15(GC, GET_INST(GC, xcc_id),
++				     regCP_MES_PRGRM_CNTR_START_HI,
++				     upper_32_bits(ucode_addr));
++		}
++		soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
++		mutex_unlock(&adev->srbm_mutex);
++
++		/* unhalt MES and activate pipe0 */
++		data = REG_SET_FIELD(0, CP_MES_CNTL, MES_PIPE0_ACTIVE, 1);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_ACTIVE, 1);
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_CNTL, data);
++
++		if (amdgpu_emu_mode)
++			msleep(500);
++		else if (adev->enable_uni_mes)
++			udelay(500);
++		else
++			udelay(50);
++	} else {
++		data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_CNTL);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_ACTIVE, 0);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_ACTIVE, 0);
++		data = REG_SET_FIELD(data, CP_MES_CNTL,
++				     MES_INVALIDATE_ICACHE, 1);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET, 1);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_RESET, 1);
++		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_HALT, 1);
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_CNTL, data);
++	}
++}
++
++static void mes_v12_1_set_ucode_start_addr(struct amdgpu_device *adev,
++					     int xcc_id)
++{
++	uint64_t ucode_addr;
++	int pipe;
++
++	mes_v12_1_enable(adev, false, xcc_id);
++
++	mutex_lock(&adev->srbm_mutex);
++	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
++		/* me=3, queue=0 */
++		soc_v1_0_grbm_select(adev, 3, pipe, 0, 0, GET_INST(GC, xcc_id));
++
++		/* set ucode start address */
++		ucode_addr = adev->mes.uc_start_addr[pipe] >> 2;
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_PRGRM_CNTR_START,
++				lower_32_bits(ucode_addr));
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_PRGRM_CNTR_START_HI,
++				upper_32_bits(ucode_addr));
++
++		soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
++	}
++	mutex_unlock(&adev->srbm_mutex);
++}
++
++/* This function is for backdoor MES firmware */
++static int mes_v12_1_load_microcode(struct amdgpu_device *adev,
++				      enum amdgpu_mes_pipe pipe,
++				      bool prime_icache, int xcc_id)
++{
++	int r, inst = MES_PIPE_INST(xcc_id, pipe);
++	uint32_t data;
++
++	mes_v12_1_enable(adev, false, xcc_id);
++
++	if (!adev->mes.fw[pipe])
++		return -EINVAL;
++
++	r = mes_v12_1_allocate_ucode_buffer(adev, pipe, xcc_id);
++	if (r)
++		return r;
++
++	r = mes_v12_1_allocate_ucode_data_buffer(adev, pipe, xcc_id);
++	if (r) {
++		mes_v12_1_free_ucode_buffers(adev, pipe, xcc_id);
++		return r;
++	}
++
++	mutex_lock(&adev->srbm_mutex);
++	/* me=3, pipe=0, queue=0 */
++	soc_v1_0_grbm_select(adev, 3, pipe, 0, 0, GET_INST(GC, xcc_id));
++
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_IC_BASE_CNTL, 0);
++
++	/* set ucode fimrware address */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_IC_BASE_LO,
++		     lower_32_bits(adev->mes.ucode_fw_gpu_addr[inst]));
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_IC_BASE_HI,
++		     upper_32_bits(adev->mes.ucode_fw_gpu_addr[inst]));
++
++	/* set ucode instruction cache boundary to 2M-1 */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_MIBOUND_LO, 0x1FFFFF);
++
++	/* set ucode data firmware address */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_MDBASE_LO,
++		     lower_32_bits(adev->mes.data_fw_gpu_addr[inst]));
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_MDBASE_HI,
++		     upper_32_bits(adev->mes.data_fw_gpu_addr[inst]));
++
++	/* Set data cache boundary CP_MES_MDBOUND_LO */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_MDBOUND_LO, 0x7FFFF);
++
++	if (prime_icache) {
++		/* invalidate ICACHE */
++		data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_IC_OP_CNTL);
++		data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 0);
++		data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, INVALIDATE_CACHE, 1);
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_IC_OP_CNTL, data);
++
++		/* prime the ICACHE. */
++		data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_IC_OP_CNTL);
++		data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 1);
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_IC_OP_CNTL, data);
++	}
++
++	soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
++	mutex_unlock(&adev->srbm_mutex);
++
++	return 0;
++}
++
++static int mes_v12_1_allocate_eop_buf(struct amdgpu_device *adev,
++					enum amdgpu_mes_pipe pipe,
++					int xcc_id)
++{
++	int r, inst = MES_PIPE_INST(xcc_id, pipe);
++	u32 *eop;
++
++	r = amdgpu_bo_create_reserved(adev, MES_EOP_SIZE, PAGE_SIZE,
++			      AMDGPU_GEM_DOMAIN_GTT,
++			      &adev->mes.eop_gpu_obj[inst],
++			      &adev->mes.eop_gpu_addr[inst],
++			      (void **)&eop);
++	if (r) {
++		dev_warn(adev->dev, "(%d) create EOP bo failed\n", r);
++		return r;
++	}
++
++	memset(eop, 0,
++	       adev->mes.eop_gpu_obj[inst]->tbo.base.size);
++
++	amdgpu_bo_kunmap(adev->mes.eop_gpu_obj[inst]);
++	amdgpu_bo_unreserve(adev->mes.eop_gpu_obj[inst]);
++
++	return 0;
++}
++
++static int mes_v12_1_mqd_init(struct amdgpu_ring *ring)
++{
++	struct v12_1_mes_mqd *mqd = ring->mqd_ptr;
++	uint64_t hqd_gpu_addr, wb_gpu_addr, eop_base_addr;
++	uint32_t tmp;
++
++	mqd->header = 0xC0310800;
++	mqd->compute_pipelinestat_enable = 0x00000001;
++	mqd->compute_static_thread_mgmt_se0 = 0xffffffff;
++	mqd->compute_static_thread_mgmt_se1 = 0xffffffff;
++	mqd->compute_static_thread_mgmt_se2 = 0xffffffff;
++	mqd->compute_static_thread_mgmt_se3 = 0xffffffff;
++	mqd->compute_misc_reserved = 0x00000007;
++
++	eop_base_addr = ring->eop_gpu_addr >> 8;
++
++	/* set the EOP size, register value is 2^(EOP_SIZE+1) dwords */
++	tmp = regCP_HQD_EOP_CONTROL_DEFAULT;
++	tmp = REG_SET_FIELD(tmp, CP_HQD_EOP_CONTROL, EOP_SIZE,
++			(order_base_2(MES_EOP_SIZE / 4) - 1));
++
++	mqd->cp_hqd_eop_base_addr_lo = lower_32_bits(eop_base_addr);
++	mqd->cp_hqd_eop_base_addr_hi = upper_32_bits(eop_base_addr);
++	mqd->cp_hqd_eop_control = tmp;
++
++	/* disable the queue if it's active */
++	ring->wptr = 0;
++	mqd->cp_hqd_pq_rptr = 0;
++	mqd->cp_hqd_pq_wptr_lo = 0;
++	mqd->cp_hqd_pq_wptr_hi = 0;
++
++	/* set the pointer to the MQD */
++	mqd->cp_mqd_base_addr_lo = ring->mqd_gpu_addr & 0xfffffffc;
++	mqd->cp_mqd_base_addr_hi = upper_32_bits(ring->mqd_gpu_addr);
++
++	/* set MQD vmid to 0 */
++	tmp = regCP_MQD_CONTROL_DEFAULT;
++	tmp = REG_SET_FIELD(tmp, CP_MQD_CONTROL, VMID, 0);
++	mqd->cp_mqd_control = tmp;
++
++	/* set the pointer to the HQD, this is similar CP_RB0_BASE/_HI */
++	hqd_gpu_addr = ring->gpu_addr >> 8;
++	mqd->cp_hqd_pq_base_lo = lower_32_bits(hqd_gpu_addr);
++	mqd->cp_hqd_pq_base_hi = upper_32_bits(hqd_gpu_addr);
++
++	/* set the wb address whether it's enabled or not */
++	wb_gpu_addr = ring->rptr_gpu_addr;
++	mqd->cp_hqd_pq_rptr_report_addr_lo = wb_gpu_addr & 0xfffffffc;
++	mqd->cp_hqd_pq_rptr_report_addr_hi =
++		upper_32_bits(wb_gpu_addr) & 0xffff;
++
++	/* only used if CP_PQ_WPTR_POLL_CNTL.CP_PQ_WPTR_POLL_CNTL__EN_MASK=1 */
++	wb_gpu_addr = ring->wptr_gpu_addr;
++	mqd->cp_hqd_pq_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffff8;
++	mqd->cp_hqd_pq_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
++
++	/* set up the HQD, this is similar to CP_RB0_CNTL */
++	tmp = regCP_HQD_PQ_CONTROL_DEFAULT;
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, QUEUE_SIZE,
++			    (order_base_2(ring->ring_size / 4) - 1));
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, RPTR_BLOCK_SIZE,
++			    ((order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) - 1) << 8));
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 1);
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, TUNNEL_DISPATCH, 0);
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE, 1);
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, KMD_QUEUE, 1);
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, NO_UPDATE_RPTR, 1);
++	mqd->cp_hqd_pq_control = tmp;
++
++	/* enable doorbell */
++	tmp = 0;
++	if (ring->use_doorbell) {
++		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
++				    DOORBELL_OFFSET, ring->doorbell_index);
++		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
++				    DOORBELL_EN, 1);
++		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
++				    DOORBELL_SOURCE, 0);
++		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
++				    DOORBELL_HIT, 0);
++	} else {
++		tmp = REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
++				    DOORBELL_EN, 0);
++	}
++	mqd->cp_hqd_pq_doorbell_control = tmp;
++
++	mqd->cp_hqd_vmid = 0;
++	/* activate the queue */
++	mqd->cp_hqd_active = 1;
++
++	tmp = regCP_HQD_PERSISTENT_STATE_DEFAULT;
++	tmp = REG_SET_FIELD(tmp, CP_HQD_PERSISTENT_STATE,
++			    PRELOAD_SIZE, 0x63);
++	mqd->cp_hqd_persistent_state = tmp;
++
++	mqd->cp_hqd_ib_control = regCP_HQD_IB_CONTROL_MES_12_1_DEFAULT;
++	mqd->cp_hqd_iq_timer = regCP_HQD_IQ_TIMER_DEFAULT;
++	mqd->cp_hqd_quantum = regCP_HQD_QUANTUM_DEFAULT;
++
++	/*
++	 * Set CP_HQD_GFX_CONTROL.DB_UPDATED_MSG_EN[15] to enable unmapped
++	 * doorbell handling. This is a reserved CP internal register can
++	 * not be accesss by others
++	 */
++	//mqd->cp_hqd_gfx_control = BIT(15);
++
++	return 0;
++}
++
++static void mes_v12_1_queue_init_register(struct amdgpu_ring *ring,
++					    int xcc_id)
++{
++	struct v12_1_mes_mqd *mqd = ring->mqd_ptr;
++	struct amdgpu_device *adev = ring->adev;
++	uint32_t data = 0;
++
++	mutex_lock(&adev->srbm_mutex);
++	soc_v1_0_grbm_select(adev, 3, ring->pipe, 0, 0, GET_INST(GC, xcc_id));
++
++	/* set CP_HQD_VMID.VMID = 0. */
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_VMID);
++	data = REG_SET_FIELD(data, CP_HQD_VMID, VMID, 0);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_VMID, data);
++
++	/* set CP_HQD_PQ_DOORBELL_CONTROL.DOORBELL_EN=0 */
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CONTROL);
++	data = REG_SET_FIELD(data, CP_HQD_PQ_DOORBELL_CONTROL,
++			     DOORBELL_EN, 0);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CONTROL, data);
++
++	/* set CP_MQD_BASE_ADDR/HI with the MQD base address */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MQD_BASE_ADDR, mqd->cp_mqd_base_addr_lo);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MQD_BASE_ADDR_HI, mqd->cp_mqd_base_addr_hi);
++
++	/* set CP_MQD_CONTROL.VMID=0 */
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MQD_CONTROL);
++	data = REG_SET_FIELD(data, CP_MQD_CONTROL, VMID, 0);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MQD_CONTROL, 0);
++
++	/* set CP_HQD_PQ_BASE/HI with the ring buffer base address */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_BASE, mqd->cp_hqd_pq_base_lo);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_BASE_HI, mqd->cp_hqd_pq_base_hi);
++
++	/* set CP_HQD_PQ_RPTR_REPORT_ADDR/HI */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_RPTR_REPORT_ADDR,
++		     mqd->cp_hqd_pq_rptr_report_addr_lo);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_RPTR_REPORT_ADDR_HI,
++		     mqd->cp_hqd_pq_rptr_report_addr_hi);
++
++	/* set CP_HQD_PQ_CONTROL */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_CONTROL, mqd->cp_hqd_pq_control);
++
++	/* set CP_HQD_PQ_WPTR_POLL_ADDR/HI */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_WPTR_POLL_ADDR,
++		     mqd->cp_hqd_pq_wptr_poll_addr_lo);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_WPTR_POLL_ADDR_HI,
++		     mqd->cp_hqd_pq_wptr_poll_addr_hi);
++
++	/* set CP_HQD_PQ_DOORBELL_CONTROL */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CONTROL,
++		     mqd->cp_hqd_pq_doorbell_control);
++
++	/* set CP_HQD_PERSISTENT_STATE.PRELOAD_SIZE=0x53 */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PERSISTENT_STATE, mqd->cp_hqd_persistent_state);
++
++	/* set CP_HQD_ACTIVE.ACTIVE=1 */
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_ACTIVE, mqd->cp_hqd_active);
++
++	soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
++	mutex_unlock(&adev->srbm_mutex);
++}
++
++static int mes_v12_1_kiq_enable_queue(struct amdgpu_device *adev, int xcc_id)
++{
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
++	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[xcc_id].ring;
++	int r, inst = MES_PIPE_INST(xcc_id, AMDGPU_MES_SCHED_PIPE);
++
++	if (!kiq->pmf || !kiq->pmf->kiq_map_queues)
++		return -EINVAL;
++
++	r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size);
++	if (r) {
++		DRM_ERROR("Failed to lock KIQ (%d).\n", r);
++		return r;
++	}
++
++	kiq->pmf->kiq_map_queues(kiq_ring, &adev->mes.ring[inst]);
++
++	r = amdgpu_ring_test_ring(kiq_ring);
++	if (r) {
++		DRM_ERROR("kfq enable failed\n");
++		kiq_ring->sched.ready = false;
++	}
++	return r;
++}
++
++static int mes_v12_1_queue_init(struct amdgpu_device *adev,
++				  enum amdgpu_mes_pipe pipe,
++				  int xcc_id)
++{
++	struct amdgpu_ring *ring;
++	int r;
++
++	if (!adev->enable_uni_mes && pipe == AMDGPU_MES_KIQ_PIPE)
++		ring = &adev->gfx.kiq[xcc_id].ring;
++	else
++		ring = &adev->mes.ring[MES_PIPE_INST(xcc_id, pipe)];
++
++	if ((adev->enable_uni_mes || pipe == AMDGPU_MES_SCHED_PIPE) &&
++	    (amdgpu_in_reset(adev) || adev->in_suspend)) {
++		*(ring->wptr_cpu_addr) = 0;
++		*(ring->rptr_cpu_addr) = 0;
++		amdgpu_ring_clear_ring(ring);
++	}
++
++	r = mes_v12_1_mqd_init(ring);
++	if (r)
++		return r;
++
++	if (pipe == AMDGPU_MES_SCHED_PIPE) {
++		if (adev->enable_uni_mes)
++			r = amdgpu_mes_map_legacy_queue(adev, ring, xcc_id);
++		else
++			r = mes_v12_1_kiq_enable_queue(adev, xcc_id);
++		if (r)
++			return r;
++	} else {
++		mes_v12_1_queue_init_register(ring, xcc_id);
++	}
++
++	/* get MES scheduler/KIQ versions */
++	mutex_lock(&adev->srbm_mutex);
++	soc_v1_0_grbm_select(adev, 3, pipe, 0, 0, GET_INST(GC, xcc_id));
++
++	if (pipe == AMDGPU_MES_SCHED_PIPE)
++		adev->mes.sched_version = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_GP3_LO);
++	else if (pipe == AMDGPU_MES_KIQ_PIPE && adev->enable_mes_kiq)
++		adev->mes.kiq_version = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MES_GP3_LO);
++
++	soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
++	mutex_unlock(&adev->srbm_mutex);
++
++	return 0;
++}
++
++static int mes_v12_1_ring_init(struct amdgpu_device *adev,
++				 int xcc_id, int pipe)
++{
++	struct amdgpu_ring *ring;
++	int inst = MES_PIPE_INST(xcc_id, pipe);
++
++	ring = &adev->mes.ring[inst];
++
++	ring->funcs = &mes_v12_1_ring_funcs;
++
++	ring->me = 3;
++	ring->pipe = pipe;
++	ring->queue = 0;
++	ring->xcc_id = xcc_id;
++	ring->vm_hub = AMDGPU_GFXHUB(xcc_id);
++
++	ring->ring_obj = NULL;
++	ring->use_doorbell = true;
++	ring->eop_gpu_addr = adev->mes.eop_gpu_addr[inst];
++	ring->no_scheduler = true;
++	snprintf(ring->name, sizeof(ring->name), "mes_%hhu.%hhu.%hhu.%hhu",
++		 (unsigned char)xcc_id, (unsigned char)ring->me,
++		 (unsigned char)ring->pipe, (unsigned char)ring->queue);
++
++	if (pipe == AMDGPU_MES_SCHED_PIPE)
++		ring->doorbell_index =
++			(adev->doorbell_index.mes_ring0 +
++			 xcc_id * adev->doorbell_index.xcc_doorbell_range)
++			<< 1;
++	else
++		ring->doorbell_index =
++			(adev->doorbell_index.mes_ring1 +
++			 xcc_id * adev->doorbell_index.xcc_doorbell_range)
++			<< 1;
++
++	return amdgpu_ring_init(adev, ring, 1024, NULL, 0,
++				AMDGPU_RING_PRIO_DEFAULT, NULL);
++}
++
++static int mes_v12_1_kiq_ring_init(struct amdgpu_device *adev, int xcc_id)
++{
++	struct amdgpu_ring *ring;
++	int inst = MES_PIPE_INST(xcc_id, AMDGPU_MES_KIQ_PIPE);
++
++	spin_lock_init(&adev->gfx.kiq[xcc_id].ring_lock);
++
++	ring = &adev->gfx.kiq[xcc_id].ring;
++
++	ring->me = 3;
++	ring->pipe = 1;
++	ring->queue = 0;
++	ring->xcc_id = xcc_id;
++	ring->vm_hub = AMDGPU_GFXHUB(xcc_id);
++
++	ring->adev = NULL;
++	ring->ring_obj = NULL;
++	ring->use_doorbell = true;
++	ring->eop_gpu_addr = adev->mes.eop_gpu_addr[inst];
++	ring->no_scheduler = true;
++	ring->doorbell_index =
++		(adev->doorbell_index.mes_ring1 +
++		 xcc_id * adev->doorbell_index.xcc_doorbell_range)
++		<< 1;
++
++	snprintf(ring->name, sizeof(ring->name), "mes_kiq_%hhu.%hhu.%hhu.%hhu",
++		 (unsigned char)xcc_id, (unsigned char)ring->me,
++		 (unsigned char)ring->pipe, (unsigned char)ring->queue);
++
++	return amdgpu_ring_init(adev, ring, 1024, NULL, 0,
++				AMDGPU_RING_PRIO_DEFAULT, NULL);
++}
++
++static int mes_v12_1_mqd_sw_init(struct amdgpu_device *adev,
++				   enum amdgpu_mes_pipe pipe,
++				   int xcc_id)
++{
++	int r, mqd_size = sizeof(struct v12_1_mes_mqd);
++	struct amdgpu_ring *ring;
++	int inst = MES_PIPE_INST(xcc_id, pipe);
++
++	if (!adev->enable_uni_mes && pipe == AMDGPU_MES_KIQ_PIPE)
++		ring = &adev->gfx.kiq[xcc_id].ring;
++	else
++		ring = &adev->mes.ring[inst];
++
++	if (ring->mqd_obj)
++		return 0;
++
++	r = amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
++				    &ring->mqd_gpu_addr, &ring->mqd_ptr);
++	if (r) {
++		dev_warn(adev->dev, "failed to create ring mqd bo (%d)", r);
++		return r;
++	}
++
++	memset(ring->mqd_ptr, 0, mqd_size);
++
++	/* prepare MQD backup */
++	adev->mes.mqd_backup[inst] = kmalloc(mqd_size, GFP_KERNEL);
++	if (!adev->mes.mqd_backup[inst])
++		dev_warn(adev->dev,
++			 "no memory to create MQD backup for ring %s\n",
++			 ring->name);
++
++	return 0;
++}
++
++static int mes_v12_1_sw_init(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++	int pipe, r, xcc_id, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++
++	adev->mes.funcs = &mes_v12_1_funcs;
++	adev->mes.kiq_hw_init = &mes_v12_1_kiq_hw_init;
++	adev->mes.kiq_hw_fini = &mes_v12_1_kiq_hw_fini;
++	adev->mes.enable_legacy_queue_map = true;
++
++	adev->mes.event_log_size =
++		adev->enable_uni_mes ? (AMDGPU_MAX_MES_PIPES * AMDGPU_MES_LOG_BUFFER_SIZE * num_xcc) : AMDGPU_MES_LOG_BUFFER_SIZE;
++
++	r = amdgpu_mes_init(adev);
++	if (r)
++		return r;
++
++	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
++		for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
++			r = mes_v12_1_allocate_eop_buf(adev, pipe, xcc_id);
++			if (r)
++				return r;
++
++			r = mes_v12_1_mqd_sw_init(adev, pipe, xcc_id);
++			if (r)
++				return r;
++
++			if (!adev->enable_uni_mes && pipe ==
++			    AMDGPU_MES_KIQ_PIPE)
++				r = mes_v12_1_kiq_ring_init(adev, xcc_id);
++			else
++				r = mes_v12_1_ring_init(adev, xcc_id, pipe);
++			if (r)
++				return r;
++		}
++	}
++
++	return 0;
++}
++
++static int mes_v12_1_sw_fini(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++	int pipe, inst, xcc_id, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++
++	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES * num_xcc; pipe++) {
++		inst = MES_PIPE_INST(xcc_id, pipe);
++
++		kfree(adev->mes.mqd_backup[inst]);
++
++		amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj[inst],
++				      &adev->mes.eop_gpu_addr[inst],
++				      NULL);
++		amdgpu_ucode_release(&adev->mes.fw[pipe]);
++
++		if (adev->enable_uni_mes || pipe == AMDGPU_MES_SCHED_PIPE) {
++			amdgpu_bo_free_kernel(&adev->mes.ring[inst].mqd_obj,
++					      &adev->mes.ring[inst].mqd_gpu_addr,
++					      &adev->mes.ring[inst].mqd_ptr);
++			amdgpu_ring_fini(&adev->mes.ring[pipe]);
++		}
++	}
++
++	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
++		if (!adev->enable_uni_mes) {
++			amdgpu_bo_free_kernel(&adev->gfx.kiq[xcc_id].ring.mqd_obj,
++				      &adev->gfx.kiq[xcc_id].ring.mqd_gpu_addr,
++				      &adev->gfx.kiq[xcc_id].ring.mqd_ptr);
++			amdgpu_ring_fini(&adev->gfx.kiq[xcc_id].ring);
++		}
++
++		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
++			mes_v12_1_free_ucode_buffers(adev,
++				       AMDGPU_MES_KIQ_PIPE, xcc_id);
++			mes_v12_1_free_ucode_buffers(adev,
++				       AMDGPU_MES_SCHED_PIPE, xcc_id);
++		}
++	}
++
++	amdgpu_mes_fini(adev);
++	return 0;
++}
++
++static void mes_v12_1_kiq_dequeue_sched(struct amdgpu_device *adev,
++					  int xcc_id)
++{
++	uint32_t data;
++	int i;
++
++	mutex_lock(&adev->srbm_mutex);
++	soc_v1_0_grbm_select(adev, 3, AMDGPU_MES_SCHED_PIPE, 0, 0,
++			     GET_INST(GC, xcc_id));
++
++	/* disable the queue if it's active */
++	if (RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_ACTIVE) & 1) {
++		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_DEQUEUE_REQUEST, 1);
++		for (i = 0; i < adev->usec_timeout; i++) {
++			if (!(RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_ACTIVE) & 1))
++				break;
++			udelay(1);
++		}
++	}
++	data = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CONTROL);
++	data = REG_SET_FIELD(data, CP_HQD_PQ_DOORBELL_CONTROL,
++				DOORBELL_EN, 0);
++	data = REG_SET_FIELD(data, CP_HQD_PQ_DOORBELL_CONTROL,
++				DOORBELL_HIT, 1);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CONTROL, data);
++
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CONTROL, 0);
++
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_WPTR_LO, 0);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_WPTR_HI, 0);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_RPTR, 0);
++
++	soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, xcc_id));
++	mutex_unlock(&adev->srbm_mutex);
++
++	adev->mes.ring[MES_PIPE_INST(xcc_id, 0)].sched.ready = false;
++}
++
++static void mes_v12_1_kiq_setting(struct amdgpu_ring *ring, int xcc_id)
++{
++	uint32_t tmp;
++	struct amdgpu_device *adev = ring->adev;
++
++	/* tell RLC which is KIQ queue */
++	tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS);
++	tmp &= 0xffffff00;
++	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tmp);
++	tmp |= 0x80;
++	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tmp);
++}
++
++static int mes_v12_1_kiq_hw_init(struct amdgpu_device *adev, uint32_t xcc_id)
++{
++	int inst = MES_PIPE_INST(xcc_id, AMDGPU_MES_KIQ_PIPE);
++	int r = 0;
++	struct amdgpu_ip_block *ip_block;
++
++	if (adev->enable_uni_mes)
++		mes_v12_1_kiq_setting(&adev->mes.ring[inst], xcc_id);
++	else
++		mes_v12_1_kiq_setting(&adev->gfx.kiq[xcc_id].ring, xcc_id);
++
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
++
++		r = mes_v12_1_load_microcode(adev, AMDGPU_MES_SCHED_PIPE,
++					       false, xcc_id);
++		if (r) {
++			DRM_ERROR("failed to load MES fw, r=%d\n", r);
++			return r;
++		}
++
++		r = mes_v12_1_load_microcode(adev, AMDGPU_MES_KIQ_PIPE,
++					       true, xcc_id);
++		if (r) {
++			DRM_ERROR("failed to load MES kiq fw, r=%d\n", r);
++			return r;
++		}
++
++		mes_v12_1_set_ucode_start_addr(adev, xcc_id);
++
++	} else if (adev->firmware.load_type == AMDGPU_FW_LOAD_RLC_BACKDOOR_AUTO)
++		mes_v12_1_set_ucode_start_addr(adev, xcc_id);
++
++	mes_v12_1_enable(adev, true, xcc_id);
++
++	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_MES);
++	if (unlikely(!ip_block)) {
++		dev_err(adev->dev, "Failed to get MES handle\n");
++		return -EINVAL;
++	}
++
++	r = mes_v12_1_queue_init(adev, AMDGPU_MES_KIQ_PIPE, xcc_id);
++	if (r)
++		goto failure;
++
++	if (adev->enable_uni_mes) {
++		r = mes_v12_1_set_hw_resources(&adev->mes,
++						 AMDGPU_MES_KIQ_PIPE, xcc_id);
++		if (r)
++			goto failure;
++
++		mes_v12_1_set_hw_resources_1(&adev->mes,
++					       AMDGPU_MES_KIQ_PIPE, xcc_id);
++	}
++
++	if (adev->mes.enable_legacy_queue_map) {
++		r = mes_v12_1_hw_init(ip_block);
++		if (r)
++			goto failure;
++	}
++
++	return r;
++
++failure:
++	mes_v12_1_hw_fini(ip_block);
++	return r;
++}
++
++static int mes_v12_1_kiq_hw_fini(struct amdgpu_device *adev, uint32_t xcc_id)
++{
++	int inst = MES_PIPE_INST(xcc_id, AMDGPU_MES_SCHED_PIPE);
++
++	if (adev->mes.ring[inst].sched.ready) {
++		if (adev->enable_uni_mes)
++			amdgpu_mes_unmap_legacy_queue(adev,
++				      &adev->mes.ring[inst],
++				      RESET_QUEUES, 0, 0, xcc_id);
++		else
++			mes_v12_1_kiq_dequeue_sched(adev, xcc_id);
++
++		adev->mes.ring[inst].sched.ready = false;
++	}
++
++	mes_v12_1_enable(adev, false, xcc_id);
++
++	return 0;
++}
++
++static int mes_v12_1_xcc_hw_init(struct amdgpu_ip_block *ip_block, int xcc_id)
++{
++	int r;
++	struct amdgpu_device *adev = ip_block->adev;
++
++	if (adev->mes.ring[MES_PIPE_INST(xcc_id, 0)].sched.ready)
++		goto out;
++
++	if (!adev->enable_mes_kiq) {
++		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
++			r = mes_v12_1_load_microcode(adev,
++				       AMDGPU_MES_SCHED_PIPE, true, xcc_id);
++			if (r) {
++				DRM_ERROR("failed to MES fw, r=%d\n", r);
++				return r;
++			}
++
++			mes_v12_1_set_ucode_start_addr(adev, xcc_id);
++
++		} else if (adev->firmware.load_type ==
++			   AMDGPU_FW_LOAD_RLC_BACKDOOR_AUTO) {
++
++			mes_v12_1_set_ucode_start_addr(adev, xcc_id);
++		}
++
++		mes_v12_1_enable(adev, true, xcc_id);
++	}
++
++	/* Enable the MES to handle doorbell ring on unmapped queue */
++	mes_v12_1_enable_unmapped_doorbell_handling(&adev->mes, true, xcc_id);
++
++	r = mes_v12_1_queue_init(adev, AMDGPU_MES_SCHED_PIPE, xcc_id);
++	if (r)
++		goto failure;
++
++	r = mes_v12_1_set_hw_resources(&adev->mes,
++					 AMDGPU_MES_SCHED_PIPE, xcc_id);
++	if (r)
++		goto failure;
++
++	if (adev->enable_uni_mes)
++		mes_v12_1_set_hw_resources_1(&adev->mes,
++					       AMDGPU_MES_SCHED_PIPE, xcc_id);
++
++	mes_v12_1_init_aggregated_doorbell(&adev->mes, xcc_id);
++
++	r = mes_v12_1_query_sched_status(&adev->mes,
++					   AMDGPU_MES_SCHED_PIPE, xcc_id);
++	if (r) {
++		DRM_ERROR("MES is busy\n");
++		goto failure;
++	}
++
++out:
++	/*
++	 * Disable KIQ ring usage from the driver once MES is enabled.
++	 * MES uses KIQ ring exclusively so driver cannot access KIQ ring
++	 * with MES enabled.
++	 */
++	adev->gfx.kiq[xcc_id].ring.sched.ready = false;
++	adev->mes.ring[MES_PIPE_INST(xcc_id, 0)].sched.ready = true;
++
++	return 0;
++
++failure:
++	mes_v12_1_hw_fini(ip_block);
++	return r;
++}
++
++static int mes_v12_1_hw_init(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++	int r, xcc_id, num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++
++	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
++		r = mes_v12_1_xcc_hw_init(ip_block, xcc_id);
++		if (r)
++			return r;
++	}
++
++	return 0;
++}
++
++static int mes_v12_1_hw_fini(struct amdgpu_ip_block *ip_block)
++{
++	return 0;
++}
++
++static int mes_v12_1_suspend(struct amdgpu_ip_block *ip_block)
++{
++	int r;
++
++	r = amdgpu_mes_suspend(ip_block->adev);
++	if (r)
++		return r;
++
++	return mes_v12_1_hw_fini(ip_block);
++}
++
++static int mes_v12_1_resume(struct amdgpu_ip_block *ip_block)
++{
++	int r;
++
++	r = mes_v12_1_hw_init(ip_block);
++	if (r)
++		return r;
++
++	return amdgpu_mes_resume(ip_block->adev);
++}
++
++static int mes_v12_1_early_init(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++	int pipe, r;
++
++	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
++		r = amdgpu_mes_init_microcode(adev, pipe);
++		if (r)
++			return r;
++	}
++
++	return 0;
++}
++
++static const struct amd_ip_funcs mes_v12_1_ip_funcs = {
++	.name = "mes_v12_1",
++	.early_init = mes_v12_1_early_init,
++	.late_init = NULL,
++	.sw_init = mes_v12_1_sw_init,
++	.sw_fini = mes_v12_1_sw_fini,
++	.hw_init = mes_v12_1_hw_init,
++	.hw_fini = mes_v12_1_hw_fini,
++	.suspend = mes_v12_1_suspend,
++	.resume = mes_v12_1_resume,
++};
++
++const struct amdgpu_ip_block_version mes_v12_1_ip_block = {
++	.type = AMD_IP_BLOCK_TYPE_MES,
++	.major = 12,
++	.minor = 1,
++	.rev = 0,
++	.funcs = &mes_v12_1_ip_funcs,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.h b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.h
+new file mode 100644
+index 0000000000000..cfc048f652b07
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.h
+@@ -0,0 +1,29 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __MES_V12_1_H__
++#define __MES_V12_1_H__
++
++extern const struct amdgpu_ip_block_version mes_v12_1_ip_block;
++
++#endif
 -- 
 2.51.1
 
