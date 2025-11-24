@@ -4,129 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C15CFA466
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 08:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A4C1CFD313
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 13:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20B9B10E1EF;
-	Mon, 24 Nov 2025 08:58:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B088C10E2C6;
+	Mon, 24 Nov 2025 13:42:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HDCXuydy";
+	dkim=pass (2048-bit key; unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="P87gnIuA";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010052.outbound.protection.outlook.com [52.101.85.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F011B10E1EF
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 08:58:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pEQyRbNXw2os6Gq8tnwG8BnqBd7b+8xTG0WG2dsW2w1GOX9Z8xoYkQoUVc1HfQwEoIKxulbg2IlN3sS64doQe6z+Sie0YUlHXTDeBEmrVjj+PStX4ICNohPpJYDL2K1qJ64+LhGFVpGaFkm9lZ7JaP+71/Om/Ca+bTirc9D2gNSWUVWkgxcwebmZXiMpV+gnWVcrV1S9psgogPT47MjP9+zjeyS2talMuiVICrLuzSMdvflZ5beM1+8IZWXfro+XTGtMoIhat+UwdE8/Wy5SljlzCwAQFX4D8P7JeYRIQrt7WaFyGXDJI8ba8JR4Qi1yiBTsOLg8wkHGsVar8wTx/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ph4EBY5VIU3okIU07C6bNdU8wdTPVqi4cMK8xG9duSU=;
- b=Or0xATex2T9HrdqIdBvxLr/Nm74OsDEzG0J67ZmeLF3p1FveipZhrl9XRm7q+XFjX7jBQd8uk5M8dhgbd8f5ESGqTXyViGFlik7ME/woqAw31jj8FItoLVTheszfMzDpHHbh445MgvTALC1WeOstXxr9iEqAAG6CqcZWbg6vraL/HEv8iJ1oW0nHP2obZpngk+rF5I0uukd5YeKA/xckA1pLes/hMnmUczxrnnM9e4suHnMPNvqEXRvEEsusOB+UB6k0H88n/dWaFFBkZGKqwq2CeMv0amSBnxMI09eXEKksCx3yzRpZOYkDXrKlpkbY6LOGbrHAAiudKX6C8yvRMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ph4EBY5VIU3okIU07C6bNdU8wdTPVqi4cMK8xG9duSU=;
- b=HDCXuydyzgCjenMwkW7sV6wTT8bGD86mnFl7Qm1ISBo+U+Qeq2TkGfb8BVbZSS0L1jweD+Sl2MIbio9SnGJJavZIYM+0lw1UvsRfLBGX3ipchFpd3GtiJ8BmK1RoX2OIz+RIjZGKd9bEFI1iIh3XLJQSkTtwa2wtom7AcXSjtpY=
-Received: from BY3PR03CA0021.namprd03.prod.outlook.com (2603:10b6:a03:39a::26)
- by DM6PR12MB4187.namprd12.prod.outlook.com (2603:10b6:5:212::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Mon, 24 Nov
- 2025 08:58:51 +0000
-Received: from SJ1PEPF00002318.namprd03.prod.outlook.com
- (2603:10b6:a03:39a:cafe::19) by BY3PR03CA0021.outlook.office365.com
- (2603:10b6:a03:39a::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Mon,
- 24 Nov 2025 08:58:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002318.mail.protection.outlook.com (10.167.242.228) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.7 via Frontend Transport; Mon, 24 Nov 2025 08:58:50 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 24 Nov
- 2025 02:58:48 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Jesse.Zhang@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: Rename userq_mgr_xa to userq_xa
-Date: Mon, 24 Nov 2025 14:28:17 +0530
-Message-ID: <20251124085821.2759840-3-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251124085821.2759840-1-lijo.lazar@amd.com>
-References: <20251124085821.2759840-1-lijo.lazar@amd.com>
+X-Greylist: delayed 2815 seconds by postgrey-1.36 at gabe;
+ Mon, 24 Nov 2025 10:41:15 UTC
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDE410E203;
+ Mon, 24 Nov 2025 10:41:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+ from:content-type:reply-to; bh=B05uJapQfRMGohKkgF1xNVyERBHmagh8Bd3xg1q2NeI=; 
+ b=P87gnIuANW/TJp73uiT1mmsGlTWnBuH0H7vh23lNqSWq4OBDSGmsQEtkmAFMHotC7U4wL6z8BsM
+ xZhrA2DnJ6Byz1eNq9hCgsl0YlQqjChTspvActJHQABJusXSSyN3NViM7BAWMow9uYLi6/azgr/1S
+ bPNPkqeI4K++8lXngyxVPKygWdoefLDaHUV8R9vP4h+Voyby/LgDfyG/U2ZiZD9XFH7HpGmBTtoYh
+ gxxkqEEHWY1my7y2fTHFr9TydDJrVMgiVb3KBgJmEGPf57jfBn092eZeVh0rkWj5FfVDm/r5gwJdx
+ bl004005PGTqWH4a9OI+Nq6nG2BqQ4oMU7WA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
+ id 1vNTCh-005XNj-0w; Mon, 24 Nov 2025 17:49:52 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Mon, 24 Nov 2025 17:49:51 +0800
+Date: Mon, 24 Nov 2025 17:49:51 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: david.laight.linux@gmail.com
+Cc: linux-kernel@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Alexei Starovoitov <ast@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Andreas Dilger <adilger.kernel@dilger.ca>, Andrew Lunn <andrew@lunn.ch>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andrii Nakryiko <andrii@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Borislav Petkov <bp@alien8.de>,
+ Christian Brauner <brauner@kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Christoph Hellwig <hch@lst.de>, Daniel Borkmann <daniel@iogearbox.net>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Dave Jiang <dave.jiang@intel.com>, David Ahern <dsahern@kernel.org>,
+ David Hildenbrand <david@redhat.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ "David S. Miller" <davem@davemloft.net>,
+ Dennis Zhou <dennis@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Jakub Sitnicki <jakub@cloudflare.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Jens Axboe <axboe@kernel.dk>, Jiri Slaby <jirislaby@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, John Allen <john.allen@amd.com>,
+ Jonathan Cameron <jonathan.cameron@huawei.com>,
+ Juergen Gross <jgross@suse.com>, Kees Cook <kees@kernel.org>,
+ KP Singh <kpsingh@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Mika Westerberg <westeri@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Namhyung Kim <namhyung@kernel.org>,
+ Neal Cardwell <ncardwell@google.com>, nic_swsd@realtek.com,
+ OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
+ Olivia Mackall <olivia@selenic.com>, Paolo Abeni <pabeni@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Huewe <peterhuewe@gmx.de>,
+ Peter Zijlstra <peterz@infradead.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sean Christopherson <seanjc@google.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Tejun Heo <tj@kernel.org>,
+ Theodore Ts'o <tytso@mit.edu>, Thomas Gleixner <tglx@linutronix.de>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, x86@kernel.org,
+ Yury Norov <yury.norov@gmail.com>, amd-gfx@lists.freedesktop.org,
+ bpf@vger.kernel.org, cgroups@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, io-uring@vger.kernel.org,
+ kvm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-cxl@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-mm@kvack.org,
+ linux-nvme@lists.infradead.org, linux-pci@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, mptcp@lists.linux.dev,
+ netdev@vger.kernel.org, usb-storage@lists.one-eyed-alien.net
+Subject: Re: [PATCH 00/44] Change a lot of min_t() that might mask high bits
+Message-ID: <aSQqP6nlqGYOGqcJ@gondor.apana.org.au>
+References: <20251119224140.8616-1-david.laight.linux@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002318:EE_|DM6PR12MB4187:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4ebf02c-815a-4d6b-ff98-08de2b37affd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YlZyelZDb2dweXF6cW94WGpVVHN4MXFOSDFzWXYwd2pFdjZTVnRTMngvNDgz?=
- =?utf-8?B?UUFPcHgrenJvQWpEZXRCenBQSTVPazlBSDdMT0xUaUpWOEdtTGc4dytSaGs2?=
- =?utf-8?B?bGw5VEtJaUJWQWNMZW1kcytXNWd4S21IZFFmbEFhQ2lxNC9wc3hwVFFGSUFG?=
- =?utf-8?B?TCsyQ1FXZEVOeC9UZGxkbE5RN0RHUXJCNzA3TEJ0K3hIZEN6cHpNeHpmeTA3?=
- =?utf-8?B?SDdBUGlOTHh4OEdHcDlqTFdUVGIzYkREWGY5TE5WcVJaSk5NTlRnZXlTMGdJ?=
- =?utf-8?B?UEhCR3hROUwwMXl1Q2Q2ckwxZlpMQ3plOFJZVEdjVVdmT1ZNUzVwVGx2RVdQ?=
- =?utf-8?B?a1cxNzhIUGEwWGlqUXdTdHRGdk83WmozcEppNWM5ajVsU08wYmU5cVpBYXlx?=
- =?utf-8?B?Mm13RnZPS0hYK3NyU0pYZDZacGtNbjF4SjRoeUJWVmo2MHdHS1N3RzJWdkUy?=
- =?utf-8?B?K0NzSWhGWVcwMFZ2aEtheUdxOWRhZ0FBUGdEWjkvbVBtUmh5TmhIc0VWd3Z6?=
- =?utf-8?B?UkJPWkNsYkNpTnhTL1F6L29KRjNwTXA2MVI3UnhMSmZ0Sm9yQ1JoVzVHTklX?=
- =?utf-8?B?OGswWmNHU3dFOG85OGFJUjhBbmFVQm5NaGlPa01vYnNpYkZqbEVjRWc4alBW?=
- =?utf-8?B?RTdSUkd5UzhuUXJyOUZqczcvTDhaOGNteThNQnVXVVBhaWRFSTcwUlJqMGtX?=
- =?utf-8?B?Snpsd0tiNEo2OHVCU1V4c1VKRTA0QVlHdVJocFFqK0Y4RnVWbE5nT1ZNSDdz?=
- =?utf-8?B?OTRSUmw5QmZvVUd0K1RkMXdxL3V3L21JdDREc01yMjNhSGgzMUFRd050QjFE?=
- =?utf-8?B?UGJ3Yk10ckZsVERMK3Vyd2wxdEtMdlB0Y0Y4UTR3TzVhOS9YNkdFNjVXc0RD?=
- =?utf-8?B?cExNZzI4UTNLWW5kSlZIWU1TZlZmYy9Vck13cmpMUGUyNGZSUjMrdEczNWNQ?=
- =?utf-8?B?dEhqb0tzN2JKZk9xY00zODRZcTNpclNIbThrV2lFek1Zak11alhpM3FzZFJj?=
- =?utf-8?B?YUJXMkNnQkwrOGdsaEhpcEpNbjBaVnBTQnhkdVp1QW91M0pUeFVaSDZMeUxj?=
- =?utf-8?B?L1d6VzhRTy9yYzJoVEhpL2dXQVM0dFpabGJ0TnJNcDd1SWkwcm1ZREdmR1NZ?=
- =?utf-8?B?Z0xGV01teHpmS0N0OXNCem50OTdkMEw4eVRLZGFDQXU2elZQN3FXS1I3a0FF?=
- =?utf-8?B?emJEZWFnSEo0K05wWU85ZGZENCs3b3krU0VmVFNnM3FxZGZDMzdQYkdyZjBa?=
- =?utf-8?B?TXkrRVlyWmxEYzJvRUhKUGc4UnRQby93OWdvTCtFd3NsK25GeitZeHdYVXZP?=
- =?utf-8?B?WlJ0Lzc1TnVORUlBVWYyT0N4T1dsVW5lcW1pa1lxMUd2bXFsdXdwbXVjL2lV?=
- =?utf-8?B?Tmp1QW1xcUJVMTdDM1VQdS92L25uVzZFeU1xT2xMWG1kaVQzMFg4NVplYkZZ?=
- =?utf-8?B?dlNMREVXODNsRGNUam1rVHR4Rllndi9vYS9LMUNhTWVJUFVFV1B3RzlhSW5n?=
- =?utf-8?B?WFpLZGQwVXRYQUV5Nm90cG9OaTFhYzExQ3lmVjhPWnV0aDYzVnorMy96U1JY?=
- =?utf-8?B?WDlZa0l4cFQ2VDZSRG81Yy9FZDZhMnFJU0NkTFhuTnNlVzRQUkdYcGhJVmUz?=
- =?utf-8?B?STM0MlMraFdBZVIySkxZRmVSTjVwRmwrUTNHendKc1FpSTBqRnlFRER4QWxT?=
- =?utf-8?B?bmxaVU1yUEZUakx1M041eXgyd293dXVubHZUQnFqRWVvZE1GTWZRNFQrZmhj?=
- =?utf-8?B?VVJsUTRMQlBqcDJxZFBETFQwOEhSTGtBZW1mOFFITzRaUzBvbHdLaXlRN3dP?=
- =?utf-8?B?OUNKRnNOQUIxTUZ1UkRsekdkMytMWldjajduMkRUK3dESjBhN041ZGozKzlZ?=
- =?utf-8?B?bWJraFQzd0l1emZCUW4wS0lNeG9KdG9jMUhFdEF3VUQzdkVaSkplV3JwR1Ft?=
- =?utf-8?B?aitFZ045bUpQRktwdm9oYnNkK0t1enVQY0ZDYko2S3N6NTRSRVExdTRkMnRZ?=
- =?utf-8?B?dlN6ZHorbDNwL3JBTHUwcHdnRWgzL1pTU25XVnJUczc1WnZiL1BSVUZ5elNG?=
- =?utf-8?B?dGpaWWtwbU1teTl0b1NTOGtpU2QxeWcxaW1pQT09?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 08:58:50.7711 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4ebf02c-815a-4d6b-ff98-08de2b37affd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002318.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4187
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251119224140.8616-1-david.laight.linux@gmail.com>
+X-Mailman-Approved-At: Mon, 24 Nov 2025 13:42:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,149 +118,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rename since it is an xarray of userq pointers
+On Wed, Nov 19, 2025 at 10:40:56PM +0000, david.laight.linux@gmail.com wrote:
+> From: David Laight <david.laight.linux@gmail.com>
+> 
+> It in not uncommon for code to use min_t(uint, a, b) when one of a or b
+> is 64bit and can have a value that is larger than 2^32;
+> This is particularly prevelant with:
+> 	uint_var = min_t(uint, uint_var, uint64_expression);
+> 
+> Casts to u8 and u16 are very likely to discard significant bits.
+> 
+> These can be detected at compile time by changing min_t(), for example:
+> #define CHECK_SIZE(fn, type, val) \
+> 	BUILD_BUG_ON_MSG(sizeof (val) > sizeof (type) && \
+> 		!statically_true(((val) >> 8 * (sizeof (type) - 1)) < 256), \
+> 		fn "() significant bits of '" #val "' may be discarded")
+> 
+> #define min_t(type, x, y) ({ \
+> 	CHECK_SIZE("min_t", type, x); \
+> 	CHECK_SIZE("min_t", type, y); \
+> 	__cmp_once(min, type, x, y); })
+> 
+> (and similar changes to max_t() and clamp_t().)
+> 
+> This shows up some real bugs, some unlikely bugs and some false positives.
+> In most cases both arguments are unsigned type (just different ones)
+> and min_t() can just be replaced by min().
+> 
+> The patches are all independant and are most of the ones needed to
+> get the x86-64 kernel I build to compile.
+> I've not tried building an allyesconfig or allmodconfig kernel.
+> I've also not included the patch to minmax.h itself.
+> 
+> I've tried to put the patches that actually fix things first.
+> The last one is 0009.
+> 
+> I gave up on fixing sched/fair.c - it is too broken for a single patch!
+> The patch for net/ipv4/tcp.c is also absent because do_tcp_getsockopt()
+> needs multiple/larger changes to make it 'sane'.
+> 
+> I've had to trim the 124 maintainers/lists that get_maintainer.pl finds
+> from 124 to under 100 to be able to send the cover letter.
+> The individual patches only go to the addresses found for the associated files.
+> That reduces the number of emails to a less unsane number.
+> 
+> David Laight (44):
+>   x86/asm/bitops: Change the return type of variable__ffs() to unsigned
+>     int
+>   ext4: Fix saturation of 64bit inode times for old filesystems
+>   perf: Fix branch stack callchain limit
+>   io_uring/net: Change some dubious min_t()
+>   ipc/msg: Fix saturation of percpu counts in msgctl_info()
+>   bpf: Verifier, remove some unusual uses of min_t() and max_t()
+>   net/core/flow_dissector: Fix cap of __skb_flow_dissect() return value.
+>   net: ethtool: Use min3() instead of nested min_t(u16,...)
+>   ipv6: __ip6_append_data() don't abuse max_t() casts
+>   x86/crypto: ctr_crypt() use min() instead of min_t()
+>   arch/x96/kvm: use min() instead of min_t()
+>   block: use min() instead of min_t()
+>   drivers/acpi: use min() instead of min_t()
+>   drivers/char/hw_random: use min3() instead of nested min_t()
+>   drivers/char/tpm: use min() instead of min_t()
+>   drivers/crypto/ccp: use min() instead of min_t()
+>   drivers/cxl: use min() instead of min_t()
+>   drivers/gpio: use min() instead of min_t()
+>   drivers/gpu/drm/amd: use min() instead of min_t()
+>   drivers/i2c/busses: use min() instead of min_t()
+>   drivers/net/ethernet/realtek: use min() instead of min_t()
+>   drivers/nvme: use min() instead of min_t()
+>   arch/x86/mm: use min() instead of min_t()
+>   drivers/nvmem: use min() instead of min_t()
+>   drivers/pci: use min() instead of min_t()
+>   drivers/scsi: use min() instead of min_t()
+>   drivers/tty/vt: use umin() instead of min_t(u16, ...) for row/col
+>     limits
+>   drivers/usb/storage: use min() instead of min_t()
+>   drivers/xen: use min() instead of min_t()
+>   fs: use min() or umin() instead of min_t()
+>   block: bvec.h: use min() instead of min_t()
+>   nodemask: use min() instead of min_t()
+>   ipc: use min() instead of min_t()
+>   bpf: use min() instead of min_t()
+>   bpf_trace: use min() instead of min_t()
+>   lib/bucket_locks: use min() instead of min_t()
+>   lib/crypto/mpi: use min() instead of min_t()
+>   lib/dynamic_queue_limits: use max() instead of max_t()
+>   mm: use min() instead of min_t()
+>   net: Don't pass bitfields to max_t()
+>   net/core: Change loop conditions so min() can be used
+>   net: use min() instead of min_t()
+>   net/netlink: Use umin() to avoid min_t(int, ...) discarding high bits
+>   net/mptcp: Change some dubious min_t(int, ...) to min()
+> 
+>  arch/x86/crypto/aesni-intel_glue.c            |  3 +-
+>  arch/x86/include/asm/bitops.h                 | 18 +++++-------
+>  arch/x86/kvm/emulate.c                        |  3 +-
+>  arch/x86/kvm/lapic.c                          |  2 +-
+>  arch/x86/kvm/mmu/mmu.c                        |  2 +-
+>  arch/x86/mm/pat/set_memory.c                  | 12 ++++----
+>  block/blk-iocost.c                            |  6 ++--
+>  block/blk-settings.c                          |  2 +-
+>  block/partitions/efi.c                        |  3 +-
+>  drivers/acpi/property.c                       |  2 +-
+>  drivers/char/hw_random/core.c                 |  2 +-
+>  drivers/char/tpm/tpm1-cmd.c                   |  2 +-
+>  drivers/char/tpm/tpm_tis_core.c               |  4 +--
+>  drivers/crypto/ccp/ccp-dev.c                  |  2 +-
+>  drivers/cxl/core/mbox.c                       |  2 +-
+>  drivers/gpio/gpiolib-acpi-core.c              |  2 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  |  4 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+>  drivers/i2c/busses/i2c-designware-master.c    |  2 +-
+>  drivers/net/ethernet/realtek/r8169_main.c     |  3 +-
+>  drivers/nvme/host/pci.c                       |  3 +-
+>  drivers/nvme/host/zns.c                       |  3 +-
+>  drivers/nvmem/core.c                          |  2 +-
+>  drivers/pci/probe.c                           |  3 +-
+>  drivers/scsi/hosts.c                          |  2 +-
+>  drivers/tty/vt/selection.c                    |  9 +++---
+>  drivers/usb/storage/protocol.c                |  3 +-
+>  drivers/xen/grant-table.c                     |  2 +-
+>  fs/buffer.c                                   |  2 +-
+>  fs/exec.c                                     |  2 +-
+>  fs/ext4/ext4.h                                |  2 +-
+>  fs/ext4/mballoc.c                             |  3 +-
+>  fs/ext4/resize.c                              |  2 +-
+>  fs/ext4/super.c                               |  2 +-
+>  fs/fat/dir.c                                  |  4 +--
+>  fs/fat/file.c                                 |  3 +-
+>  fs/fuse/dev.c                                 |  2 +-
+>  fs/fuse/file.c                                |  8 ++---
+>  fs/splice.c                                   |  2 +-
+>  include/linux/bvec.h                          |  3 +-
+>  include/linux/nodemask.h                      |  9 +++---
+>  include/linux/perf_event.h                    |  2 +-
+>  include/net/tcp_ecn.h                         |  5 ++--
+>  io_uring/net.c                                |  6 ++--
+>  ipc/mqueue.c                                  |  4 +--
+>  ipc/msg.c                                     |  6 ++--
+>  kernel/bpf/core.c                             |  4 +--
+>  kernel/bpf/log.c                              |  2 +-
+>  kernel/bpf/verifier.c                         | 29 +++++++------------
+>  kernel/trace/bpf_trace.c                      |  2 +-
+>  lib/bucket_locks.c                            |  2 +-
+>  lib/crypto/mpi/mpicoder.c                     |  2 +-
+>  lib/dynamic_queue_limits.c                    |  2 +-
+>  mm/gup.c                                      |  4 +--
+>  mm/memblock.c                                 |  2 +-
+>  mm/memory.c                                   |  2 +-
+>  mm/percpu.c                                   |  2 +-
+>  mm/truncate.c                                 |  3 +-
+>  mm/vmscan.c                                   |  2 +-
+>  net/core/datagram.c                           |  6 ++--
+>  net/core/flow_dissector.c                     |  7 ++---
+>  net/core/net-sysfs.c                          |  3 +-
+>  net/core/skmsg.c                              |  4 +--
+>  net/ethtool/cmis_cdb.c                        |  7 ++---
+>  net/ipv4/fib_trie.c                           |  2 +-
+>  net/ipv4/tcp_input.c                          |  4 +--
+>  net/ipv4/tcp_output.c                         |  5 ++--
+>  net/ipv4/tcp_timer.c                          |  4 +--
+>  net/ipv6/addrconf.c                           |  8 ++---
+>  net/ipv6/ip6_output.c                         |  7 +++--
+>  net/ipv6/ndisc.c                              |  5 ++--
+>  net/mptcp/protocol.c                          |  8 ++---
+>  net/netlink/genetlink.c                       |  9 +++---
+>  net/packet/af_packet.c                        |  2 +-
+>  net/unix/af_unix.c                            |  4 +--
+>  76 files changed, 141 insertions(+), 176 deletions(-)
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 22 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  4 ++--
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  4 ++--
- 3 files changed, 15 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index f765c481aada..2f97f35e0af5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -398,7 +398,7 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue,
- 	uq_funcs->mqd_destroy(queue);
- 	amdgpu_userq_fence_driver_free(queue);
- 	/* Use interrupt-safe locking since IRQ handlers may access these XArrays */
--	xa_erase_irq(&uq_mgr->userq_mgr_xa, (unsigned long)queue_id);
-+	xa_erase_irq(&uq_mgr->userq_xa, (unsigned long)queue_id);
- 	xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
- 	queue->userq_mgr = NULL;
- 	list_del(&queue->userq_va_list);
-@@ -410,7 +410,7 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue,
- static struct amdgpu_usermode_queue *
- amdgpu_userq_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
- {
--	return xa_load(&uq_mgr->userq_mgr_xa, qid);
-+	return xa_load(&uq_mgr->userq_xa, qid);
- }
- 
- void
-@@ -769,7 +769,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		goto unlock;
- 	}
- 
--	r = xa_alloc(&uq_mgr->userq_mgr_xa, &qid, queue, XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
-+	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
-+		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
- 		amdgpu_userq_fence_driver_free(queue);
-@@ -792,7 +793,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		r = amdgpu_userq_map_helper(queue);
- 		if (r) {
- 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
--			xa_erase(&uq_mgr->userq_mgr_xa, qid);
-+			xa_erase(&uq_mgr->userq_xa, qid);
- 			amdgpu_userq_fence_driver_free(queue);
- 			uq_funcs->mqd_destroy(queue);
- 			kfree(queue);
-@@ -917,8 +918,7 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
- 	int ret = 0, r;
- 
- 	/* Resume all the queues for this process */
--	xa_for_each(&uq_mgr->userq_mgr_xa, queue_id, queue) {
--
-+	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
- 		if (!amdgpu_userq_buffer_vas_mapped(queue)) {
- 			drm_file_err(uq_mgr->file,
- 				     "trying restore queue without va mapping\n");
-@@ -1161,7 +1161,7 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
- 
- 	amdgpu_userq_detect_and_reset_queues(uq_mgr);
- 	/* Try to unmap all the queues in this process ctx */
--	xa_for_each(&uq_mgr->userq_mgr_xa, queue_id, queue) {
-+	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
- 		r = amdgpu_userq_preempt_helper(queue);
- 		if (r)
- 			ret = r;
-@@ -1196,7 +1196,7 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
- 	unsigned long queue_id;
- 	int ret;
- 
--	xa_for_each(&uq_mgr->userq_mgr_xa, queue_id, queue) {
-+	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
- 		struct dma_fence *f = queue->last_fence;
- 
- 		if (!f || dma_fence_is_signaled(f))
-@@ -1246,7 +1246,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
- 			  struct amdgpu_device *adev)
- {
- 	mutex_init(&userq_mgr->userq_mutex);
--	xa_init_flags(&userq_mgr->userq_mgr_xa, XA_FLAGS_ALLOC);
-+	xa_init_flags(&userq_mgr->userq_xa, XA_FLAGS_ALLOC);
- 	userq_mgr->adev = adev;
- 	userq_mgr->file = file_priv;
- 
-@@ -1263,13 +1263,13 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
- 
- 	mutex_lock(&userq_mgr->userq_mutex);
- 	amdgpu_userq_detect_and_reset_queues(userq_mgr);
--	xa_for_each(&userq_mgr->userq_mgr_xa, queue_id, queue) {
-+	xa_for_each(&userq_mgr->userq_xa, queue_id, queue) {
- 		amdgpu_userq_wait_for_last_fence(queue);
- 		amdgpu_userq_unmap_helper(queue);
- 		amdgpu_userq_cleanup(queue, queue_id);
- 	}
- 
--	xa_destroy(&userq_mgr->userq_mgr_xa);
-+	xa_destroy(&userq_mgr->userq_xa);
- 	mutex_unlock(&userq_mgr->userq_mutex);
- 	mutex_destroy(&userq_mgr->userq_mutex);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 7c6dfc0e27a8..1eaa94f8a291 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -91,11 +91,11 @@ struct amdgpu_userq_funcs {
- /* Usermode queues for gfx */
- struct amdgpu_userq_mgr {
- 	/**
--	 * @userq_mgr_xa: Per-process user queue map (queue ID → queue)
-+	 * @userq_xa: Per-process user queue map (queue ID → queue)
- 	 * Key: queue_id (unique ID within the process's userq manager)
- 	 * Value: struct amdgpu_usermode_queue
- 	 */
--	struct xarray			userq_mgr_xa;
-+	struct xarray			userq_xa;
- 	struct mutex			userq_mutex;
- 	struct amdgpu_device		*adev;
- 	struct delayed_work		resume_work;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index f44cb17b1e2f..25f178536469 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -542,7 +542,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	/* Retrieve the user queue */
--	queue = xa_load(&userq_mgr->userq_mgr_xa, args->queue_id);
-+	queue = xa_load(&userq_mgr->userq_xa, args->queue_id);
- 	if (!queue) {
- 		r = -ENOENT;
- 		goto put_gobj_write;
-@@ -904,7 +904,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
- 		 */
- 		num_fences = dma_fence_dedup_array(fences, num_fences);
- 
--		waitq = xa_load(&userq_mgr->userq_mgr_xa, wait_info->waitq_id);
-+		waitq = xa_load(&userq_mgr->userq_xa, wait_info->waitq_id);
- 		if (!waitq) {
- 			r = -EINVAL;
- 			goto free_fences;
+Patches 10,14,16,37 applied.  Thanks.
 -- 
-2.49.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
