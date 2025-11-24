@@ -4,84 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B67F5CFD313
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 14:59:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB4B8CFA466
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Nov 2025 15:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA5F10E2DC;
-	Mon, 24 Nov 2025 14:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8473110E2E2;
+	Mon, 24 Nov 2025 15:20:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hyt0kBq+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x89pIWIN";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E337B10E2DC
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 14:59:50 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-b9da0ae5763so496011a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 06:59:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1763996390; x=1764601190; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yILN+hUOuZ/YhN5s9xEQAr271PcE6CG+MDSygteu+PE=;
- b=Hyt0kBq+b4aZIBzyMA8XMIVUVm5yYzD5xMGaG104DNnEso/8lLkG0eyenhOvGS8QZm
- 4F/FcCQHna4i6BerMyFpL0gt/dpSteb55waVvz1hAEId6K2RXJhdUpCJQS8CkuveYVLL
- eEwrRUwCbWB5Fg4oPwWG1KAH1uIa7wxKeg6ey4VpKYKbz+X5X2ujf4Nhml7cJlbpJdey
- Fm5oM4FOhTw4cy1RcYwrNfkvBNpH29CTZ2wNikLS2RDJ2nG/c0/+OkjnF/2SlujzwYPu
- z3goc35Jwp74DyTEKsdFbIQvMge9gdy98/GTdBe9BDmxX2i2wIZ29SHcZoz4iL9PSWt2
- 6fEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763996390; x=1764601190;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=yILN+hUOuZ/YhN5s9xEQAr271PcE6CG+MDSygteu+PE=;
- b=FJ5rPbMn54Ci1v7uVGc2dl71jWNa+X8rGEPBidWfsSGJ5cTIFbqXnc1kj9JNs1iLwF
- JHCo/uheM+yKIu2eEl7LgU+gNu0k+uFcvbAMYsamtVB3OnVvDRCnt0XujiIzQBjgEaPW
- zW3UTC1HdnX7Nt3yZo40QFmQnG0Quqla7AZR8qKXWgroiJsqvYTZE+qlWNk8AVhAB/A/
- 4EzIJ4KI1ZMIhjrHzMhhy8Og+FiqjtS8besYas8fH06F5VK//d+633Xn3TAQBfyN4lH1
- aKciV77+dYxiyqTG+auVKtIYIBq376hLpVDiLWDRz1fPIPydHu3bYvu+GwdSLZHQgTFL
- V83Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVUY2bPOa/W5xOH9z13pf2Z11gDLijlA3uc8N7vK6vCpB1s2aoLbx500NxaUr+DwQBi8zUP6vzy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyR8obV7r6WKewBtXDrqYa//2CE51P4jX3TSbyF3JPJ7/I1jo99
- L/ooI/hVjuIy894XFxHAiTeSU2Il+I1m3bOHclEYQ7R+n0SSVUwBO3R+cCFAK/nNKOL/0cljnB/
- d5+3ZmrcU0RdQn5bkTR6z5aGhSiw7/3Y=
-X-Gm-Gg: ASbGncvD4+PPbf0rbJySkoTs4Ve8WWRav+hZiDlgVPhUrivZ5Bf4CtLOJgl8k5eMwmO
- mDMdiJOOnBnMouITTv+pYqNHWwxLpdQcnMuE/Ib9+0+aD3Vw+AS9T/qxDPTuE+qCwetGDHmSerY
- 2bSoRcso56UV+hfYG5TbdPi2BwB6ZqYs3GKyN3VfPkJ+7v6Tc6lE+KB2L10aBUR/fZejS/gF2m/
- rAMEqpeOPhxK3h/dAO7nREfi5EqHPZLT4lLSxhFZPvToGFzBqnV1uxK4XTlIcxPDmEBsJs=
-X-Google-Smtp-Source: AGHT+IGIHQw4VsRvSpc8Leukb/RYC+9r8ZBho1ADYJuOzAx69hnLFCibYKGzrvXvsxYlPm+F7zHfiQ1v0+LNiY/VwQU=
-X-Received: by 2002:a05:7300:e80a:b0:2a4:3593:5fc6 with SMTP id
- 5a478bee46e88-2a718b198bemr6675433eec.0.1763996390092; Mon, 24 Nov 2025
- 06:59:50 -0800 (PST)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012035.outbound.protection.outlook.com
+ [40.93.195.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5915389CAD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Nov 2025 15:19:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=usvFIRsKKaojG6iMrpqVRfWWLRr1RZuABwtt+ccg6aayXXheDclng+lIqUjKbY8UEZwzky3rTY1GPNWvdh9213HatZD/7RtBqNDUntRWcj9bJ4gFbz7TD2dAU5s9iNALaI8uDTp1QsufFQciL9e9yr58KpVbO32TR9CFElFtEzFUryJCSUOTb0XiGpZNzK/tUGuyWWztk253F3pyn7fdk0xwUwuTrDUZCvFr8NffE3/CrabiEQaKLMUAyrx75e912QXUA4mEKO1Oy0r9zzLRfnXXTOClhKfwc4k5xdSBLS33gJAGc4fMnwpG0Fx+I/4LUt5YZEh5LKdfMwpmA3k59g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2kIPy1bZU7ZPqYj6cfgZ9QYe8nLZMkSsQyHi1u3lYm4=;
+ b=tfe7KqxJTGAy3jJsF2vccRxWlW0Z46P4v40ytTDMjS7vejHwTfr0utTutY3o0+YWnfX3exhwo5maqKJaofOT6FK50atgrSl9SB8TYGNvd3HSNF5MsuuDhRvUUHdk3NvTl0ru91IOI9ToYnKdKMLKZJFAQBaSasm6P506tDEEg5/nye1g9uLYtGNCzF89oCpxCOw/cg7BqKle6iCyXhxb9NomwA22vKbtI2UCTrRrCcBfZG7ldxpawp2b6cDJo8qFisdBJ4uWBs3GQfwZD4hZQmWEXqrNoqztIwU2vKswmyGEJF2EnV2+b9sINAXqTG9/myjwxYRYQNKpK6zSJWojMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2kIPy1bZU7ZPqYj6cfgZ9QYe8nLZMkSsQyHi1u3lYm4=;
+ b=x89pIWINYEtdYmxaI8vODpuXEDB7CKZt7U7kTn7VpldM6imhjfNZkshkcMI4+t3s+2nlA+FCrBjuXr+z8j2VjwSk9C6ZrpzihU2HyZrddyGeAI/L/XW/vZYymdoX4VMKc+ZZ7AZBgzH+NpoaUhkmA/pcPO9QtWwUN+oi/00yVss=
+Received: from BL1PR13CA0368.namprd13.prod.outlook.com (2603:10b6:208:2c0::13)
+ by IA1PR12MB9531.namprd12.prod.outlook.com (2603:10b6:208:596::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Mon, 24 Nov
+ 2025 15:19:52 +0000
+Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::20) by BL1PR13CA0368.outlook.office365.com
+ (2603:10b6:208:2c0::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.9 via Frontend Transport; Mon,
+ 24 Nov 2025 15:19:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Mon, 24 Nov 2025 15:19:52 +0000
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 24 Nov
+ 2025 09:19:50 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Jack Xiao <Jack.Xiao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: add new compute/mes mqd structure
+Date: Mon, 24 Nov 2025 10:19:37 -0500
+Message-ID: <20251124151937.428495-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-References: <20251115000237.3561250-1-alex.hung@amd.com>
- <cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com>
- <d8360e9c-502d-4003-93ab-9afd8d716c49@bootlin.com>
- <cb13dd25-82b6-4d8d-a8f2-a9a31ef2e73d@amd.com>
-In-Reply-To: <cb13dd25-82b6-4d8d-a8f2-a9a31ef2e73d@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Nov 2025 09:59:37 -0500
-X-Gm-Features: AWmQ_bkN5i_yNdJPHWhDQDK3nasbZU_7AHTI_GVxklK70HsageJ1AaZ-q15UYNo
-Message-ID: <CADnq5_NLw=dkehP-TAQE9tbwyQgCiSrJS+r2YZw8j0tOMhOXaw@mail.gmail.com>
-Subject: Re: [PATCH V13 00/51][FINAL] Color Pipeline API w/ VKMS
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>, Alex Hung <alex.hung@amd.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- xaver.hugl@gmail.com, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- wayland-devel@lists.freedesktop.org, leo.liu@amd.com, 
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, mwen@igalia.com, 
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com, 
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, mcanal@igalia.com, nfraprado@collabora.com, 
- arthurgrillo@riseup.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|IA1PR12MB9531:EE_
+X-MS-Office365-Filtering-Correlation-Id: efa81c86-635b-4a07-25a9-08de2b6cea74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/is7DZbvQFRzszylD0wad2ARGtLri6gkHJRmycIFTPSY6/T9P6KB3SLtu/Pq?=
+ =?us-ascii?Q?skY3LMnU0XZPsxEuRxJ4KzZwvLSQ89VCXuGtyNYDoOnVV+TRKond6pSsvTHD?=
+ =?us-ascii?Q?gUZcIGs3MuCy8/FBVtu5gnb5bcs8Zqe+/oq6PTEEcpEwJZ7SBsZX/TxXLQc2?=
+ =?us-ascii?Q?3wH5sP2qT1jnQAKO6NQQJT+tXek4jVWsaFF+4CIoK4usiecoIyTCmF/7xxGz?=
+ =?us-ascii?Q?W5M0/KwzDmkoqQCHVU2bgGTeFAB0XiPXbmvr6bKVP5tuOUWRZiUyQUNGFNru?=
+ =?us-ascii?Q?qUUldgyDv+SDJw0BnVBDVvpt28gmfQYi9gnbLPnXqpyzDjUcaLbfEPS1MlZg?=
+ =?us-ascii?Q?xucJ5kbpzb7ZRIj7ywNV/tapGze/VpTLzUvhaRQ9ZZYBO4Ddr3aaPq9vxxLH?=
+ =?us-ascii?Q?W+fn7FQnJ9CO8F/1Eb6bcTzyEKI9h5fEXIACcyc6xsSxihvbeQNsuW/FbeSE?=
+ =?us-ascii?Q?xcfZN8xxHTzmkhPsbCZcOlzueaUfONc36G26bgCyw91KKdQNuPF0x2yyYeT8?=
+ =?us-ascii?Q?OqVYVST0ECvl7/JX63vAUrjkh/SsDU+i6iD2RmBQqKzMkkv3E0sqUy/v6KMN?=
+ =?us-ascii?Q?hl+GrSnnPR07u1sRRPmKYLyOzto3obNgI7SiUuM+mmcneUcQ+AJ92RhkQ5Cg?=
+ =?us-ascii?Q?ckK6DaEao44VUaeCQcUCnfvdexOgNEGpuhWgA43XNGMB9zteUwdbvh/6A6tG?=
+ =?us-ascii?Q?iFgGHZuFAwmiZ4jrm91mYMiaV1OHNrkhoM7NsXClnkjsbhbv1aMi2HqvRGL5?=
+ =?us-ascii?Q?NYdgnuCb/tcqx5qepdHLrgSe7tu/ii7DE4d9MAHhZC8hTYtXTdc0jECYn3+l?=
+ =?us-ascii?Q?yRBbUxxidSHgt9GeS9R71Lt3LJscx0Uy3CaamvdzZXAMOHwWcb6nGGbmXCub?=
+ =?us-ascii?Q?mVznbAuTqUb4WcFyXG4l/+YZIrg0atOT+HcBRksYP2OOlORClv8oIadrzL1c?=
+ =?us-ascii?Q?lT0iAq/RiWt+RR2lC8FCq+nkiZfrB/ozmpsE4sDm3sJgsTZFsez59FwjA2KE?=
+ =?us-ascii?Q?0+YwRdrnGK8Bem50IpA0WQzQ+3KkC2X8ZIt1qvGFS5I6NpU+pRqiln42qTlh?=
+ =?us-ascii?Q?kbmtrhW5m0Juh7vBd8ZMEGLck03e2jBg//SOK0B/yAYBZ4JNIe/I6a9rszg4?=
+ =?us-ascii?Q?QM5IIEZC1jOHgv3Fl1G0w1r7R2JwcHwpwBROH1i7ACYcFXG021Dez5Na18wR?=
+ =?us-ascii?Q?/2+zcFGnoP/p2a8KyAJJatoRMwXLbg5xKtz2bnikUU9PcbgzZ7kmMH0//VAM?=
+ =?us-ascii?Q?Cvr6UzyJuYiplfCyAtDRnnBvWpXShyolzvKIHsaWZyNl4zkOY4Uy0qDWEZMp?=
+ =?us-ascii?Q?lzUucWpAXJBbERXsc5ZKasABsV5l2etoVgBuRos3TRtsx6BmoMNQy4h4HWZt?=
+ =?us-ascii?Q?6EU3xkLyAHT0myx9hUEELoVfj2E7nkph3WMg/hTCh087937Kyij3UPDSNhiw?=
+ =?us-ascii?Q?ESFU4gJ+Hy9ZuolqAXmq3nX1rsQnyKCq0b8CfLX7g6Xsqa/uSK7Rg1syO89u?=
+ =?us-ascii?Q?6MRDglwAI/DW+7JBEGUFYlnU0XLUc+AK4NzVRuhQw3kuLQFoVt40ytum3akX?=
+ =?us-ascii?Q?6BXnpzgU8D9p/1+Gw3E=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 15:19:52.2548 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: efa81c86-635b-4a07-25a9-08de2b6cea74
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9531
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,495 +133,2082 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Nov 21, 2025 at 8:53=E2=80=AFAM Harry Wentland <harry.wentland@amd.=
-com> wrote:
->
->
->
-> On 2025-11-21 04:13, Louis Chauvet wrote:
-> >
-> >
-> > On 11/20/25 20:11, Harry Wentland wrote:
-> >>
-> >>
-> >> On 2025-11-14 19:01, Alex Hung wrote:
-> >>> Both kernel patches and IGT patches are reviewed and the API is stabl=
-e
-> >>> for a few revisions. Does anyone have concerns if kernel and IGT patc=
-hes
-> >>> are to be merged?
-> >>>
-> >>
-> >> Xaver, are the kwin patches ready to be merged?
-> >>
-> >> I'm planning to have a last look over the kernel and IGT series and me=
-rge
-> >> them to drm-misc-next next week if there are no objections. I believe
-> >> I still have committer rights to drm-misc and Alex should have IGT com=
-mitter
-> >> rights.
-> >
-> > Hi,
-> >
-> > I have commit rights on drm-misc if you don't have them anymore. I just=
- need confirmation that I can apply amd patches on drm-misc-next.
-> >
->
-> Thanks for the offer. I might take you up on it.
->
-> Alex D., any objections to taking the AMD patches through drm-misc-next?
+From: Jack Xiao <Jack.Xiao@amd.com>
 
-No objections from me.
+Add new compute_mqd and mes_mqd structure.
+V2: Rename to v12_1_compute_mqd and v12_1_mes_mqd..
 
-Alex
+Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/include/v12_structs.h | 2054 +++++++++++++++++++++
+ 1 file changed, 2054 insertions(+)
 
->
-> Harry
->
-> > Thanks for this work,
-> > Louis Chauvet
-> >
-> >> Harry
-> >>
-> >>> This is an RFC set for a color pipeline API, along with implementatio=
-ns
-> >>> in VKMS and amdgpu. It is tested with a set of IGT tests that can be
-> >>> found at [1]. The IGT tests run a pixel-by-pixel comparison with an
-> >>> allowable delta variation as the goal for these transformations is
-> >>> perceptual correctness, not complete pixel accuracy.
-> >>>
-> >>> v5 of this patchset fleshed out documentation for colorops and the
-> >>> various defines that are being introduced.
-> >>>
-> >>> v6 addresses a few comments from various reviewers.
-> >>>
-> >>> v7 simplifies 3D LUT and addresses more comments from various reviewe=
-rs.
-> >>>
-> >>> v8 fixes typo and errors and address comments from reviewers.
-> >>>
-> >>> v9 refactors cleanup functions, fixes typo and errors, and addresses
-> >>>     comments from reviewers.
-> >>>
-> >>> v10 add 32BIT RGB (drm_color_lut_32) to 1D & 3D LUTs, addresses comme=
-nts
-> >>>      from reviewers, and fixes typo and errors.
-> >>>
-> >>> v11 change names from *_lut_32_* to *_lut32_* and fix RGB 32bit
-> >>>      extractions.
-> >>>
-> >>> v12 add gamma 2.2 to 1D curve
-> >>>
-> >>> v13 add two vkms patches
-> >>>
-> >>> VKMS supports two named transfer function colorops and two matrix
-> >>> colorops.
-> >>>
-> >>> Amdgpu advertises the following pipeline for GPUs with DCN 3 or newer=
-:
-> >>>
-> >>> 1. 1D Curve EOTF
-> >>> 2. 3x4 CTM
-> >>> 3. Multiplier
-> >>> 4. 1D Curve Inverse EOTF
-> >>> 5. 1D LUT
-> >>> 6. 3D LUT
-> >>> 7. 1D Curve EOTF
-> >>> 8. 1D LUT
-> >>>
-> >>> The supported curves for the 1D Curve type are:
-> >>> - sRGB EOTF and its inverse
-> >>> - PQ EOTF, scaled to [0.0, 125.0] and its inverse
-> >>> - BT.2020/BT.709 OETF and its inverse
-> >>> - Gamma 2.2 and its inverse
-> >>>
-> >>> Note that the 1st and 5th colorops take the EOTF or Inverse
-> >>> OETF while the 3rd colorop takes the Inverse EOTF or OETF.
-> >>>
-> >>> The 3D LUT is a 17^3 tetrahedrally interpolated LUT but the mechanism
-> >>> exists for other drivers to describe their own 3D LUT capability.
-> >>>
-> >>> This mirrors the color pipeline used by gamescope and presented by
-> >>> Melissa Wen, with the exception of the DEGAM LUT, which is not curren=
-tly
-> >>> used. See [1]
-> >>> https://indico.freedesktop.org/event/4/contributions/186/attachments/=
-138/218/xdc2023-TheRainbowTreasureMap-MelissaWen.pdf
-> >>>
-> >>> At this point we're hoping to see gamescope, kwin and weston implemen=
-tations
-> >>> take shape. The existing pipeline should be enough to satisfy the
-> >>> gamescope use-cases on the drm_plane.
-> >>>
-> >>> In order to support YUV we'll need to add COLOR_ENCODING and COLOR_RA=
-NGE
-> >>> support to the color pipeline. I have sketched these out already but
-> >>> don't have it all hooked up yet. This should not hinder adoption of t=
-his
-> >>> API for gaming use-cases.
-> >>>
-> >>> We'll also want to advertise IN_FORMATS on a color pipeline as some
-> >>> color pipelines won't be able to work for all IN_FORMATS on a plane.
-> >>> Again, I have a sketch but no full implementation yet. This is not
-> >>> currently required by the AMD color pipeline and could be added after
-> >>> the merge of this set.
-> >>>
-> >>> VKMS patches could still be improved in a few ways, though the
-> >>> payoff might be limited and I would rather focus on other work
-> >>> at the moment. The most obvious thing to improve would be to
-> >>> eliminate the hard-coded LUTs for identity, and sRGB, and replace
-> >>> them with fixed-point math instead.
-> >>>
-> >>> There are plenty of things that I would like to see, but they could
-> >>> be added after the merge of this patchset:
-> >>>   - COLOR_ENCODING and COLOR_RANGE
-> >>>   - IN_FORMATS for a color pipeline
-> >>>   - Is it possible to support HW which can't bypass entire pipeline?
-> >>>   - Can we do a LOAD / COMMIT model for LUTs (and other properties)?
-> >>>   - read-only scaling colorop which defines scaling taps and position
-> >>>   - named matrices, for things like converting YUV to RGB
-> >>>   - Add custom LUT colorops to VKMS
-> >>>
-> >>> IGT tests can be found at [1] or on the igt-dev mailing list. There
-> >>> have been no updates since v5 and rebase on latest main is straight-
-> >>> forward.
-> >>>
-> >>> A kernel branch can be found at [2].
-> >>>
-> >>> [1] https://gitlab.freedesktop.org/alex.hung/igt-gpu-tools/-/tree/amd=
--color-pipeline-v12
-> >>> [2] https://gitlab.freedesktop.org/alex.hung/linux/-/tree/amd-color-p=
-ipeline-v13
-> >>>
-> >>> v13:
-> >>>   - Update vkms test Makefile (Louis Chauvet)
-> >>>   - Include two vkms patches (Louis Chauvet)
-> >>>   - Remove redundant ternary null check for drm_color_ctm_3x4 blob (C=
-overity Scan)
-> >>>
-> >>> v12:
-> >>>   - Reorder header files (Louis Chauvet)
-> >>>   - Add header file "vkms_drv.h" to vkms_composer.h to avoid compile
-> >>>     errors (kernel test robot)
-> >>>   - drm_colorop_cleanup is no longer static (N=C3=ADcolas Prado)
-> >>>   - Rework cleanup in vkms_initialize_color_pipeline (Louis Chauvet)
-> >>>   - Add drm_colorop_pipeline_destroy in vkms_destroy (Louis Chauvet)
-> >>>   - Remove outdated commit messages (Pekka)
-> >>>   - Initialize the variable 'blend_lut' to NULL (kernel test robot)
-> >>>   - Change lut_size to size (Sebastian Wick & Xaver Hugl)
-> >>>   - Update comments for bypass_property (Sebastian Wick)
-> >>>   - Update lut_size to size (Sebastian Wick & Xaver Hugl)
-> >>>   - Add gamma 2.2 (Sebastian Wick & Xaver Hugl & Pekka)
-> >>>
-> >>> v11:
-> >>>   - Refactor vkms_color_test_lerp() to parametized tests (Ma=C3=ADra =
-Canal)
-> >>>   - Sort include file alphabetically (Ma=C3=ADra Canal)
-> >>>   - Skip color_encoding/range_property in drm_mode_object_get_propert=
-ies
-> >>>     when plane_color_pipeline is present (Harry Wentland)
-> >>>   - destroy function takes drm_device *dev instead of drm_plane *plan=
-e
-> >>>     (N=C3=ADcolas Prado)
-> >>>   - Fix undefined errors by EXPORT_SYMBOL symbols (kernel test robot)
-> >>>   - Fix comments to "2nd op 3x4 matrix" (N=C3=ADcolas Prado)
-> >>>   - Update outdated "drm_rect_test_suite" to "drm_fixp_test_suite" (M=
-a=C3=ADra
-> >>>     Canal)
-> >>>   - Update outdated MODULE_LICENSE to Dual MIT/GPL (Ma=C3=ADra Canal)
-> >>>   - Create color pipeline on supported hardware only (Melissa Wen)
-> >>>   - Update names from *_lut_32_* to *_lut32_* (Simon Ser)
-> >>>   - Include help function drm_color_lut32_extract (Uma Shankar)
-> >>>   - Remove redundant is_legacy from __drm_lut_32_to_dc_gamma (kernel =
-bot)
-> >>>   - Fix RGB 32bit extraction from LUT (Xaver Hugl)
-> >>>   - Handle errors in __set_colorop_3dlut (N=C3=ADcolas Prado)
-> >>>   - Merged enable condition for drm_crtc_enable_color_mgmt (Melissa W=
-en)
-> >>>
-> >>> v10:
-> >>>   - remove duplicated "is useful" in comments (Melissa Wen)
-> >>>   - guard "dm_plane_init_colorops" function when !AMD_PRIVATE_COLOR (=
-Melissa Wen)
-> >>>   - Replace DRM_ERROR by drm_err
-> >>>   - Creaet color pipeline when >=3D DCN_VERSION_3_0 (Melissa Wen)
-> >>>   - Relocate amdgpu_dm_supported_*_tfs check (Melissa Wen)
-> >>>   - Support 32BIT RGB for 1D LUTs (Uma Shankar)
-> >>>   - Support 32BIT RGB for 3D LUTs (Harry Wentland)
-> >>>   - Fix typo mutliplier to multiplier in subject (Melissa Wen)
-> >>>   - 1D & 3D LUTs are no longer immutable ((Xaver Hugl)
-> >>>   - Fix 3D LUT kernel doc (Leandro Ribeiro)
-> >>>   - Check dpp.hw_3d_lut before creating shaper tf/lut and 3dlut color=
-ops (Melissa Wen)
-> >>>   - Disable CRTC degamma when color pipeline is enabled (Melissa Wen)
-> >>>
-> >>> v9:
-> >>>   - Update RFC documents for 3DLUT and fallback behaviours (Simon Ser=
-)
-> >>>   - Specify colorop function names by _plane_ (Chaitanya Kumar Borah)
-> >>>   - Remove redundant comments (Simon Ser)
-> >>>   - Fix typo in commit description (Shengyu Qu)
-> >>>   - Move destroy and cleanup functions earlier (Simon Ser)
-> >>>   - Move DRM_COLOROP_1D_CURVE_BT2020_* from middle to end (Simon Ser)
-> >>>   - Chagne "bool allow_bypass" to "uint32_t flags" for better extensi=
-bility (Simon Ser)
-> >>>   - Return a value in __set_dm_plane_colorop_3dlut
-> >>>
-> >>> v8:
-> >>>   - Change VKMS config names (Louis Chauvet)
-> >>>   - Remove deprecated function "drm_atomic_get_existing_colorop_state=
-" (Louis Chauvet)
-> >>>   - Remove null check in drm_colorop_set_next_property (Simon Ser)
-> >>>   - Remove MAX_COLOR_PIPELINES in drm (Simon Ser)
-> >>>   - Update kernel docs and documents for DRM_COLOROP_3D_LUT (Simon Se=
-r)
-> >>>   - Add comments for dmr_color_lut (Louis Chauvet)
-> >>>   - Fix typos and replace DRM_ERROR and DRM_WARN_ONCE by drm_err drm_=
-WARN_ONCE (Louis Chauvet)
-> >>>   - Fix incorrect conditions in __set_colorop_in_tf_1d_curve (Leo Li)
-> >>>   - Add DRM_MODE_PROP_ATOMIC to drm_property_create_range (Simon Ser)
-> >>>   - Change "1D Curve Custom LUT" to "1D LUT" (Simon Ser)
-> >>>   - Return error when __set_output_tf fails (Leo Li)
-> >>>   - Return -EINVAL when drm_color_ctm_3x4's size mismatches (Leo Li)
-> >>>   - Set initialized to 0 and return when drm_lut3d_size is 0 (Harry W=
-entland)
-> >>>   - Rework tf->type =3D TF_TYPE_BYPASS for shaper (Harry Wentland & L=
-eo Li)
-> >>>
-> >>> v7:
-> >>>   - Simplify 3D LUT by removing lut_3d_modes and update doc according=
-ly (Simon Ser)
-> >>>   - Add destroy / cleanup functions when color pipeline initializatio=
-n
-> >>>     fails (Louis Chauvet)
-> >>>   - Fix checkpatch errors and warning (spaces, long lines, {}, and et=
-c)
-> >>>   - Change lut's size from drm_colorop_state->size to drm_colorop->lu=
-t_size
-> >>>     and from size_property to lut_size_property
-> >>>   - Update some kernel updates and commit messagesa (Louis Chauvet)
-> >>>   - Squash "drm/colorop: Add atomic state print for drm_colorop" and
-> >>>     "drm/colorop: Add NEXT to colorop state print" (Simon Ser)
-> >>>   - Add missing MODULE_DESCRIPTION (Jeff Johnson)
-> >>>
-> >>> v6:
-> >>>   - Eliminate need to include test as .c file (Louis Chauvet)
-> >>>   - some doc updates
-> >>>   - cleanup if colorop alloc or init fails in VKMS and amdgpu (Louis =
-Chauvet)
-> >>>   - couple other small improvements in VKMS, such as rounding (Louis =
-Chauvet)
-> >>>   - take ref for DATA blob in duplicate_state func & fix refcount iss=
-ues (Xaver Hugl)
-> >>>
-> >>> v5:
-> >>>   - amdgpu 3D LUT
-> >>>   - Don't require BYPASS
-> >>>   - update RFC docs and add to TOC tree
-> >>>   - add drm_colorop and COLOR_PIPELINE kernel docs (non-RFC)
-> >>>   - add amdgpu color pipeline doc
-> >>>   - define SIZE property similar to drm_crtc's GAMMA_SIZE
-> >>>   - various minor fixes and cleanups
-> >>>
-> >>> v4:
-> >>>   - Add amdgpu color pipeline (WIP)
-> >>>   - Don't block setting of deprecated properties, instead pass client=
- cap
-> >>>     to atomic check so drivers can ignore these props
-> >>>   - Drop IOCTL definitions (Pekka)
-> >>>   - Use enum property for colorop TYPE (Pekka)
-> >>>   - A few cleanups to the docs (Pekka)
-> >>>   - Rework the TYPE enum to name relation to avoid code duplication (=
-Pekka)
-> >>>   - Add missing function declarations (Chaitanya Kumar Borah)
-> >>>   - Allow setting of NEXT property to NULL in _set_ function (Chaitan=
-ya Kumar Borah)
-> >>>   - Add helper for creation of pipeline drm_plane property (Pekka)
-> >>>   - Always create Bypass pipeline (Pekka)
-> >>>   - A bunch of changes to VKMS kunit tests (Pekka)
-> >>>   - Fix index in CTM doc (Pekka)
-> >>>
-> >>> v3:
-> >>>   - Abandon IOCTLs and discover colorops as clients iterate the pipel=
-ine
-> >>>   - Remove need for libdrm
-> >>>   - Add color_pipeline client cap and make mutually exclusive with
-> >>>     COLOR_RANGE and COLOR_ENCODING properties
-> >>>   - add CTM colorop to VKMS
-> >>>   - Use include way for kunit testing static functions (Arthur)
-> >>>   - Make TYPE a range property
-> >>>   - Move enum drm_colorop_type to uapi header
-> >>>   - and a bunch of smaller bits that are highlighted in the relevant =
-commit
-> >>>     description
-> >>>
-> >>> v2:
-> >>>   - Rebased on drm-misc-next
-> >>>   - Introduce a VKMS Kunit so we can test LUT functionality in vkms_c=
-omposer
-> >>>   - Incorporate feedback in color_pipeline.rst doc
-> >>>   - Add support for sRGB inverse EOTF
-> >>>   - Add 2nd enumerated TF colorop to VKMS
-> >>>   - Fix LUTs and some issues with applying LUTs in VKMS
-> >>>
-> >>> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-> >>> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
-> >>> Cc: Simon Ser <contact@emersion.fr>
-> >>> Cc: Harry Wentland <harry.wentland@amd.com>
-> >>> Cc: Melissa Wen <mwen@igalia.com>
-> >>> Cc: Jonas =C3=85dahl <jadahl@redhat.com>
-> >>> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> >>> Cc: Shashank Sharma <shashank.sharma@amd.com>
-> >>> Cc: Alexander Goins <agoins@nvidia.com>
-> >>> Cc: Joshua Ashton <joshua@froggi.es>
-> >>> Cc: Michel D=C3=A4nzer <mdaenzer@redhat.com>
-> >>> Cc: Aleix Pol <aleixpol@kde.org>
-> >>> Cc: Xaver Hugl <xaver.hugl@gmail.com>
-> >>> Cc: Victoria Brekenfeld <victoria@system76.com>
-> >>> Cc: Sima <daniel@ffwll.ch>
-> >>> Cc: Uma Shankar <uma.shankar@intel.com>
-> >>> Cc: Naseer Ahmed <quic_naseer@quicinc.com>
-> >>> Cc: Christopher Braga <quic_cbraga@quicinc.com>
-> >>> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>> Cc: Arthur Grillo <arthurgrillo@riseup.net>
-> >>> Cc: Hector Martin <marcan@marcan.st>
-> >>> Cc: Liviu Dudau <Liviu.Dudau@arm.com>
-> >>> Cc: Sasha McIntosh <sashamcintosh@google.com>
-> >>> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> >>>
-> >>> Alex Hung (18):
-> >>>    drm/colorop: Add destroy functions for color pipeline
-> >>>    drm/colorop: define a new macro for_each_new_colorop_in_state
-> >>>    drm/amd/display: Skip color pipeline initialization for cursor pla=
-ne
-> >>>    drm/amd/display: Add support for sRGB EOTF in DEGAM block
-> >>>    drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
-> >>>    drm/amd/display: Add support for sRGB EOTF in BLND block
-> >>>    drm/colorop: Add 1D Curve Custom LUT type
-> >>>    drm/amd/display: add shaper and blend colorops for 1D Curve Custom=
- LUT
-> >>>    drm/amd/display: add 3x4 matrix colorop
-> >>>    drm/colorop: Add multiplier type
-> >>>    drm/amd/display: add multiplier colorop
-> >>>    drm/amd/display: Swap matrix and multiplier
-> >>>    drm/colorop: Add 3D LUT support to color pipeline
-> >>>    drm/amd/display: add 3D LUT colorop
-> >>>    drm/amd/display: Ensure 3D LUT for color pipeline
-> >>>    drm/amd/display: Disable CRTC degamma when color pipeline is enabl=
-ed
-> >>>    drm/colorop: Add DRM_COLOROP_1D_CURVE_GAMMA22 to 1D Curve
-> >>>    drm/amd/display: Enable support for Gamma 2.2
-> >>>
-> >>> Chaitanya Kumar Borah (1):
-> >>>    drm: Add helper to extract lut from struct drm_color_lut32
-> >>>
-> >>> Harry Wentland (29):
-> >>>    drm: Add helper for conversion from signed-magnitude
-> >>>    drm/vkms: Add kunit tests for VKMS LUT handling
-> >>>    drm/doc/rfc: Describe why prescriptive color pipeline is needed
-> >>>    drm/colorop: Introduce new drm_colorop mode object
-> >>>    drm/colorop: Add TYPE property
-> >>>    drm/colorop: Add 1D Curve subtype
-> >>>    drm/colorop: Add BYPASS property
-> >>>    drm/colorop: Add NEXT property
-> >>>    drm/colorop: Add atomic state print for drm_colorop
-> >>>    drm/plane: Add COLOR PIPELINE property
-> >>>    drm/colorop: Introduce DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-> >>>    Documentation/gpu: document drm_colorop
-> >>>    drm/vkms: Add enumerated 1D curve colorop
-> >>>    drm/vkms: Add kunit tests for linear and sRGB LUTs
-> >>>    drm/colorop: Add 3x4 CTM type
-> >>>    drm/vkms: Use s32 for internal color pipeline precision
-> >>>    drm/vkms: add 3x4 matrix in color pipeline
-> >>>    drm/tests: Add a few tests around drm_fixed.h
-> >>>    drm/vkms: Add tests for CTM handling
-> >>>    drm/colorop: pass plane_color_pipeline client cap to atomic check
-> >>>    drm/amd/display: Ignore deprecated props when plane_color_pipeline=
- set
-> >>>    drm/amd/display: Add bypass COLOR PIPELINE
-> >>>    drm/colorop: Add PQ 125 EOTF and its inverse
-> >>>    drm/amd/display: Enable support for PQ 125 EOTF and Inverse
-> >>>    drm/colorop: add BT2020/BT709 OETF and Inverse OETF
-> >>>    drm/amd/display: Add support for BT.709 and BT.2020 TFs
-> >>>    drm/colorop: Define LUT_1D interpolation
-> >>>    drm/colorop: allow non-bypass colorops
-> >>>    drm/amd/display: Add AMD color pipeline doc
-> >>>
-> >>> Louis Chauvet (2):
-> >>>    drm/vkms: Pass plane_cfg to plane initialization
-> >>>    drm/vkms: Add config for default plane pipeline
-> >>>
-> >>> Uma Shankar (1):
-> >>>    drm: Add Enhanced LUT precision structure
-> >>>
-> >>>   Documentation/gpu/drm-kms.rst                 |  15 +
-> >>>   Documentation/gpu/rfc/color_pipeline.rst      | 378 ++++++++
-> >>>   Documentation/gpu/rfc/index.rst               |   3 +
-> >>>   drivers/gpu/drm/Makefile                      |   1 +
-> >>>   .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
-> >>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +
-> >>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 768 +++++++++++++++=
-+-
-> >>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 208 +++++
-> >>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  36 +
-> >>>   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  26 +-
-> >>>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  39 +
-> >>>   drivers/gpu/drm/drm_atomic.c                  | 170 +++-
-> >>>   drivers/gpu/drm/drm_atomic_helper.c           |  12 +
-> >>>   drivers/gpu/drm/drm_atomic_state_helper.c     |   5 +
-> >>>   drivers/gpu/drm/drm_atomic_uapi.c             | 159 ++++
-> >>>   drivers/gpu/drm/drm_color_mgmt.c              |  43 +
-> >>>   drivers/gpu/drm/drm_colorop.c                 | 600 +++++++++++++
-> >>>   drivers/gpu/drm/drm_connector.c               |   1 +
-> >>>   drivers/gpu/drm/drm_crtc_internal.h           |   1 +
-> >>>   drivers/gpu/drm/drm_ioctl.c                   |   7 +
-> >>>   drivers/gpu/drm/drm_mode_config.c             |   7 +
-> >>>   drivers/gpu/drm/drm_mode_object.c             |  18 +
-> >>>   drivers/gpu/drm/drm_plane.c                   |  59 ++
-> >>>   drivers/gpu/drm/tests/Makefile                |   3 +-
-> >>>   drivers/gpu/drm/tests/drm_fixp_test.c         |  71 ++
-> >>>   drivers/gpu/drm/vkms/Makefile                 |   4 +-
-> >>>   drivers/gpu/drm/vkms/tests/Makefile           |   3 +-
-> >>>   drivers/gpu/drm/vkms/tests/vkms_color_test.c  | 417 +++++++++
-> >>>   drivers/gpu/drm/vkms/tests/vkms_config_test.c |  47 +-
-> >>>   drivers/gpu/drm/vkms/vkms_colorop.c           | 120 +++
-> >>>   drivers/gpu/drm/vkms/vkms_composer.c          | 135 ++-
-> >>>   drivers/gpu/drm/vkms/vkms_composer.h          |  28 +
-> >>>   drivers/gpu/drm/vkms/vkms_config.c            |   7 +-
-> >>>   drivers/gpu/drm/vkms/vkms_config.h            |  28 +-
-> >>>   drivers/gpu/drm/vkms/vkms_drv.c               |   7 +-
-> >>>   drivers/gpu/drm/vkms/vkms_drv.h               |  12 +-
-> >>>   drivers/gpu/drm/vkms/vkms_luts.c              | 811 +++++++++++++++=
-+++
-> >>>   drivers/gpu/drm/vkms/vkms_luts.h              |  12 +
-> >>>   drivers/gpu/drm/vkms/vkms_output.c            |   6 +-
-> >>>   drivers/gpu/drm/vkms/vkms_plane.c             |   9 +-
-> >>>   include/drm/drm_atomic.h                      | 111 +++
-> >>>   include/drm/drm_atomic_uapi.h                 |   3 +
-> >>>   include/drm/drm_color_mgmt.h                  |  29 +
-> >>>   include/drm/drm_colorop.h                     | 462 ++++++++++
-> >>>   include/drm/drm_file.h                        |   7 +
-> >>>   include/drm/drm_fixed.h                       |  18 +
-> >>>   include/drm/drm_mode_config.h                 |  18 +
-> >>>   include/drm/drm_plane.h                       |  19 +
-> >>>   include/uapi/drm/amdgpu_drm.h                 |   9 -
-> >>>   include/uapi/drm/drm.h                        |  15 +
-> >>>   include/uapi/drm/drm_mode.h                   | 134 +++
-> >>>   51 files changed, 5014 insertions(+), 94 deletions(-)
-> >>>   create mode 100644 Documentation/gpu/rfc/color_pipeline.rst
-> >>>   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_=
-colorop.c
-> >>>   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_=
-colorop.h
-> >>>   create mode 100644 drivers/gpu/drm/drm_colorop.c
-> >>>   create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
-> >>>   create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> >>>   create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
-> >>>   create mode 100644 drivers/gpu/drm/vkms/vkms_composer.h
-> >>>   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
-> >>>   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
-> >>>   create mode 100644 include/drm/drm_colorop.h
-> >>>
-> >>
-> >
->
+diff --git a/drivers/gpu/drm/amd/include/v12_structs.h b/drivers/gpu/drm/amd/include/v12_structs.h
+index 03a35f8a65b08..28f4b01326811 100644
+--- a/drivers/gpu/drm/amd/include/v12_structs.h
++++ b/drivers/gpu/drm/amd/include/v12_structs.h
+@@ -1186,4 +1186,2058 @@ struct v12_compute_mqd {
+     uint32_t gws_63_val; // offset: 511  (0x1FF)
+ };
+ 
++struct v12_1_compute_mqd {
++    uint32_t header; // offset: 0  (0x0)
++    uint32_t compute_dispatch_initiator; // offset: 1  (0x1)
++    uint32_t compute_dim_x; // offset: 2  (0x2)
++    uint32_t compute_dim_y; // offset: 3  (0x3)
++    uint32_t compute_dim_z; // offset: 4  (0x4)
++    uint32_t compute_start_x; // offset: 5  (0x5)
++    uint32_t compute_start_y; // offset: 6  (0x6)
++    uint32_t compute_start_z; // offset: 7  (0x7)
++    uint32_t compute_num_thread_x; // offset: 8  (0x8)
++    uint32_t compute_num_thread_y; // offset: 9  (0x9)
++    uint32_t compute_num_thread_z; // offset: 10  (0xA)
++    uint32_t compute_pipelinestat_enable; // offset: 11  (0xB)
++    uint32_t compute_perfcount_enable; // offset: 12  (0xC)
++    uint32_t compute_pgm_lo; // offset: 13  (0xD)
++    uint32_t compute_pgm_hi; // offset: 14  (0xE)
++    uint32_t compute_dispatch_pkt_addr_lo; // offset: 15  (0xF)
++    uint32_t compute_dispatch_pkt_addr_hi; // offset: 16  (0x10)
++    uint32_t compute_dispatch_scratch_base_lo; // offset: 17  (0x11)
++    uint32_t compute_dispatch_scratch_base_hi; // offset: 18  (0x12)
++    uint32_t compute_pgm_rsrc1; // offset: 19  (0x13)
++    uint32_t compute_pgm_rsrc2; // offset: 20  (0x14)
++    uint32_t compute_vmid; // offset: 21  (0x15)
++    uint32_t compute_resource_limits; // offset: 22  (0x16)
++    uint32_t compute_tmpring_size; // offset: 23  (0x17)
++    uint32_t compute_restart_x; // offset: 24  (0x18)
++    uint32_t compute_restart_y; // offset: 25  (0x19)
++    uint32_t compute_restart_z; // offset: 26  (0x1A)
++    uint32_t compute_thread_trace_enable; // offset: 27  (0x1B)
++    uint32_t compute_misc_reserved; // offset: 28  (0x1C)
++    uint32_t compute_dispatch_id; // offset: 29  (0x1D)
++    uint32_t compute_threadgroup_id; // offset: 30  (0x1E)
++    uint32_t compute_req_ctrl; // offset: 31  (0x1F)
++    uint32_t compute_user_accum_0; // offset: 32  (0x20)
++    uint32_t compute_user_accum_1; // offset: 33  (0x21)
++    uint32_t compute_user_accum_2; // offset: 34  (0x22)
++    uint32_t compute_user_accum_3; // offset: 35  (0x23)
++    uint32_t compute_pgm_rsrc3; // offset: 36  (0x24)
++    uint32_t compute_ddid_index; // offset: 37  (0x25)
++    uint32_t compute_shader_chksum; // offset: 38  (0x26)
++    uint32_t compute_dispatch_interleave; // offset: 39  (0x27)
++    uint32_t compute_current_logical_xcc_id; // offset: 40  (0x28)
++    uint32_t compute_restart_cg_tg_id; // offset: 41  (0x29)
++    uint32_t compute_tg_chunk_size; // offset: 42  (0x2A)
++    uint32_t compute_restore_tg_chunk_size; // offset: 43  (0x2B)
++    uint32_t reserved_44; // offset: 44  (0x2C)
++    uint32_t reserved_45; // offset: 45  (0x2D)
++    uint32_t compute_prescaled_dim_x; // offset: 46  (0x2E)
++    uint32_t compute_prescaled_dim_y; // offset: 47  (0x2F)
++    uint32_t compute_prescaled_dim_z; // offset: 48  (0x30)
++    uint32_t compute_static_thread_mgmt_se0; // offset: 49  (0x31)
++    uint32_t compute_static_thread_mgmt_se1; // offset: 50  (0x32)
++    uint32_t compute_static_thread_mgmt_se2; // offset: 51  (0x33)
++    uint32_t compute_static_thread_mgmt_se3; // offset: 52  (0x34)
++    uint32_t compute_static_thread_mgmt_se4; // offset: 53  (0x35)
++    uint32_t compute_static_thread_mgmt_se5; // offset: 54  (0x36)
++    uint32_t compute_static_thread_mgmt_se6; // offset: 55  (0x37)
++    uint32_t compute_static_thread_mgmt_se7; // offset: 56  (0x38)
++    uint32_t compute_static_thread_mgmt_se8; // offset: 57  (0x39)
++    uint32_t reserved_58; // offset: 58  (0x3A)
++    uint32_t reserved_59; // offset: 59  (0x3B)
++    uint32_t reserved_60; // offset: 60  (0x3C)
++    uint32_t reserved_61; // offset: 61  (0x3D)
++    uint32_t reserved_62; // offset: 62  (0x3E)
++    uint32_t reserved_63; // offset: 63  (0x3F)
++    uint32_t tg_counter_id; // offset: 64  (0x40)
++    uint32_t compute_user_data_0; // offset: 65  (0x41)
++    uint32_t compute_user_data_1; // offset: 66  (0x42)
++    uint32_t compute_user_data_2; // offset: 67  (0x43)
++    uint32_t compute_user_data_3; // offset: 68  (0x44)
++    uint32_t compute_user_data_4; // offset: 69  (0x45)
++    uint32_t compute_user_data_5; // offset: 70  (0x46)
++    uint32_t compute_user_data_6; // offset: 71  (0x47)
++    uint32_t compute_user_data_7; // offset: 72  (0x48)
++    uint32_t compute_user_data_8; // offset: 73  (0x49)
++    uint32_t compute_user_data_9; // offset: 74  (0x4A)
++    uint32_t compute_user_data_10; // offset: 75  (0x4B)
++    uint32_t compute_user_data_11; // offset: 76  (0x4C)
++    uint32_t compute_user_data_12; // offset: 77  (0x4D)
++    uint32_t compute_user_data_13; // offset: 78  (0x4E)
++    uint32_t compute_user_data_14; // offset: 79  (0x4F)
++    uint32_t compute_user_data_15; // offset: 80  (0x50)
++    uint32_t compute_user_data_16; // offset: 81  (0x51)
++    uint32_t compute_user_data_17; // offset: 82  (0x52)
++    uint32_t compute_user_data_18; // offset: 83  (0x53)
++    uint32_t compute_user_data_19; // offset: 84  (0x54)
++    uint32_t compute_user_data_20; // offset: 85  (0x55)
++    uint32_t compute_user_data_21; // offset: 86  (0x56)
++    uint32_t compute_user_data_22; // offset: 87  (0x57)
++    uint32_t compute_user_data_23; // offset: 88  (0x58)
++    uint32_t compute_user_data_24; // offset: 89  (0x59)
++    uint32_t compute_user_data_25; // offset: 90  (0x5A)
++    uint32_t compute_user_data_26; // offset: 91  (0x5B)
++    uint32_t compute_user_data_27; // offset: 92  (0x5C)
++    uint32_t compute_user_data_28; // offset: 93  (0x5D)
++    uint32_t compute_user_data_29; // offset: 94  (0x5E)
++    uint32_t compute_user_data_30; // offset: 95  (0x5F)
++    uint32_t compute_user_data_31; // offset: 96  (0x60)
++    uint32_t cp_compute_csinvoc_count_lo; // offset: 97  (0x61)
++    uint32_t cp_compute_csinvoc_count_hi; // offset: 98  (0x62)
++    uint32_t reserved_99; // offset: 99  (0x63)
++    uint32_t reserved_100; // offset: 100  (0x64)
++    uint32_t reserved_101; // offset: 101  (0x65)
++    uint32_t reserved_102; // offset: 102  (0x66)
++    uint32_t reserved_103; // offset: 103  (0x67)
++    uint32_t reserved_104; // offset: 104  (0x68)
++    uint32_t reserved_105; // offset: 105  (0x69)
++    uint32_t reserved_106; // offset: 106  (0x6A)
++    uint32_t reserved_107; // offset: 107  (0x6B)
++    uint32_t reserved_108; // offset: 108  (0x6C)
++    uint32_t reserved_109; // offset: 109  (0x6D)
++    uint32_t compute_relaunch; // offset: 110  (0x6E)
++    uint32_t compute_wave_restore_addr_lo; // offset: 111  (0x6F)
++    uint32_t compute_wave_restore_addr_hi; // offset: 112  (0x70)
++    uint32_t compute_relaunch2; // offset: 113  (0x71)
++    uint32_t cp_pq_exe_status_lo; // offset: 114  (0x72)
++    uint32_t cp_pq_exe_status_hi; // offset: 115  (0x73)
++    uint32_t cp_packet_id_lo; // offset: 116  (0x74)
++    uint32_t cp_packet_id_hi; // offset: 117  (0x75)
++    uint32_t cp_packet_exe_status_lo; // offset: 118  (0x76)
++    uint32_t cp_packet_exe_status_hi; // offset: 119  (0x77)
++    uint32_t reserved_120; // offset: 120  (0x78)
++    uint32_t reserved_121; // offset: 121  (0x79)
++    uint32_t reserved_122; // offset: 122  (0x7A)
++    uint32_t reserved_123; // offset: 123  (0x7B)
++    uint32_t ctx_save_base_addr_lo; // offset: 124  (0x7C)
++    uint32_t ctx_save_base_addr_hi; // offset: 125  (0x7D)
++    uint32_t reserved_126; // offset: 126  (0x7E)
++    uint32_t reserved_127; // offset: 127  (0x7F)
++    uint32_t cp_mqd_base_addr_lo; // offset: 128  (0x80)
++    uint32_t cp_mqd_base_addr_hi; // offset: 129  (0x81)
++    uint32_t cp_hqd_active; // offset: 130  (0x82)
++    uint32_t cp_hqd_vmid; // offset: 131  (0x83)
++    uint32_t cp_hqd_persistent_state; // offset: 132  (0x84)
++    uint32_t cp_hqd_pipe_priority; // offset: 133  (0x85)
++    uint32_t cp_hqd_queue_priority; // offset: 134  (0x86)
++    uint32_t cp_hqd_quantum; // offset: 135  (0x87)
++    uint32_t cp_hqd_pq_base_lo; // offset: 136  (0x88)
++    uint32_t cp_hqd_pq_base_hi; // offset: 137  (0x89)
++    uint32_t cp_hqd_pq_rptr; // offset: 138  (0x8A)
++    uint32_t cp_hqd_pq_rptr_report_addr_lo; // offset: 139  (0x8B)
++    uint32_t cp_hqd_pq_rptr_report_addr_hi; // offset: 140  (0x8C)
++    uint32_t cp_hqd_pq_wptr_poll_addr_lo; // offset: 141  (0x8D)
++    uint32_t cp_hqd_pq_wptr_poll_addr_hi; // offset: 142  (0x8E)
++    uint32_t cp_hqd_pq_doorbell_control; // offset: 143  (0x8F)
++    uint32_t reserved_144; // offset: 144  (0x90)
++    uint32_t cp_hqd_pq_control; // offset: 145  (0x91)
++    uint32_t cp_hqd_ib_base_addr_lo; // offset: 146  (0x92)
++    uint32_t cp_hqd_ib_base_addr_hi; // offset: 147  (0x93)
++    uint32_t cp_hqd_ib_rptr; // offset: 148  (0x94)
++    uint32_t cp_hqd_ib_control; // offset: 149  (0x95)
++    uint32_t cp_hqd_iq_timer; // offset: 150  (0x96)
++    uint32_t cp_hqd_iq_rptr; // offset: 151  (0x97)
++    uint32_t cp_hqd_dequeue_request; // offset: 152  (0x98)
++    uint32_t cp_hqd_dma_offload; // offset: 153  (0x99)
++    uint32_t cp_hqd_sema_cmd; // offset: 154  (0x9A)
++    uint32_t cp_hqd_msg_type; // offset: 155  (0x9B)
++    uint32_t cp_hqd_atomic0_preop_lo; // offset: 156  (0x9C)
++    uint32_t cp_hqd_atomic0_preop_hi; // offset: 157  (0x9D)
++    uint32_t cp_hqd_atomic1_preop_lo; // offset: 158  (0x9E)
++    uint32_t cp_hqd_atomic1_preop_hi; // offset: 159  (0x9F)
++    uint32_t cp_hqd_hq_status0; // offset: 160  (0xA0)
++    uint32_t cp_hqd_hq_control0; // offset: 161  (0xA1)
++    uint32_t cp_mqd_control; // offset: 162  (0xA2)
++    uint32_t cp_hqd_hq_status1; // offset: 163  (0xA3)
++    uint32_t cp_hqd_hq_control1; // offset: 164  (0xA4)
++    uint32_t cp_hqd_eop_base_addr_lo; // offset: 165  (0xA5)
++    uint32_t cp_hqd_eop_base_addr_hi; // offset: 166  (0xA6)
++    uint32_t cp_hqd_eop_control; // offset: 167  (0xA7)
++    uint32_t cp_hqd_eop_rptr; // offset: 168  (0xA8)
++    uint32_t cp_hqd_eop_wptr; // offset: 169  (0xA9)
++    uint32_t cp_hqd_eop_done_events; // offset: 170  (0xAA)
++    uint32_t cp_hqd_ctx_save_base_addr_lo; // offset: 171  (0xAB)
++    uint32_t cp_hqd_ctx_save_base_addr_hi; // offset: 172  (0xAC)
++    uint32_t cp_hqd_ctx_save_control; // offset: 173  (0xAD)
++    uint32_t cp_hqd_cntl_stack_offset; // offset: 174  (0xAE)
++    uint32_t cp_hqd_cntl_stack_size; // offset: 175  (0xAF)
++    uint32_t cp_hqd_wg_state_offset; // offset: 176  (0xB0)
++    uint32_t cp_hqd_ctx_save_size; // offset: 177  (0xB1)
++    uint32_t reserved_178; // offset: 178  (0xB2)
++    uint32_t cp_hqd_error; // offset: 179  (0xB3)
++    uint32_t cp_hqd_eop_wptr_mem; // offset: 180  (0xB4)
++    uint32_t cp_hqd_aql_control; // offset: 181  (0xB5)
++    uint32_t cp_hqd_pq_wptr_lo; // offset: 182  (0xB6)
++    uint32_t cp_hqd_pq_wptr_hi; // offset: 183  (0xB7)
++    uint32_t cp_hqd_suspend_cntl_stack_offset; // offset: 184  (0xB8)
++    uint32_t cp_hqd_suspend_cntl_stack_dw_cnt; // offset: 185  (0xB9)
++    uint32_t cp_hqd_suspend_wg_state_offset; // offset: 186  (0xBA)
++    uint32_t cp_hqd_ddid_rptr; // offset: 187  (0xBB)
++    uint32_t cp_hqd_ddid_wptr; // offset: 188  (0xBC)
++    uint32_t cp_hqd_ddid_inflight_count; // offset: 189  (0xBD)
++    uint32_t cp_hqd_ddid_delta_rpt_count; // offset: 190  (0xBE)
++    uint32_t cp_hqd_dequeue_status; // offset: 191  (0xBF)
++    uint32_t cp_hqd_aql_control_1; // offset: 192  (0xC0)
++    uint32_t cp_hqd_aql_dispatch_id; // offset: 193  (0xC1)
++    uint32_t cp_hqd_aql_dispatch_id_hi; // offset: 194  (0xC2)
++    uint32_t cp_hqd_kd_base; // offset: 195  (0xC3)
++    uint32_t cp_hqd_kd_base_hi; // offset: 196  (0xC4)
++    uint32_t cp_hqd_kd_cntl; // offset: 197  (0xC5)
++    uint32_t reserved_198; // offset: 198  (0xC6)
++    uint32_t reserved_199; // offset: 199  (0xC7)
++    uint32_t reserved_200; // offset: 200  (0xC8)
++    uint32_t reserved_201; // offset: 201  (0xC9)
++    uint32_t reserved_202; // offset: 202  (0xCA)
++    uint32_t reserved_203; // offset: 203  (0xCB)
++    uint32_t reserved_204; // offset: 204  (0xCC)
++    uint32_t reserved_205; // offset: 205  (0xCD)
++    uint32_t reserved_206; // offset: 206  (0xCE)
++    uint32_t reserved_207; // offset: 207  (0xCF)
++    uint32_t reserved_208; // offset: 208  (0xD0)
++    uint32_t reserved_209; // offset: 209  (0xD1)
++    uint32_t reserved_210; // offset: 210  (0xD2)
++    uint32_t reserved_211; // offset: 211  (0xD3)
++    uint32_t reserved_212; // offset: 212  (0xD4)
++    uint32_t reserved_213; // offset: 213  (0xD5)
++    uint32_t reserved_214; // offset: 214  (0xD6)
++    uint32_t reserved_215; // offset: 215  (0xD7)
++    uint32_t reserved_216; // offset: 216  (0xD8)
++    uint32_t reserved_217; // offset: 217  (0xD9)
++    uint32_t reserved_218; // offset: 218  (0xDA)
++    uint32_t reserved_219; // offset: 219  (0xDB)
++    uint32_t reserved_220; // offset: 220  (0xDC)
++    uint32_t reserved_221; // offset: 221  (0xDD)
++    uint32_t reserved_222; // offset: 222  (0xDE)
++    uint32_t reserved_223; // offset: 223  (0xDF)
++    uint32_t reserved_224; // offset: 224  (0xE0)
++    uint32_t pm4_target_xcc_in_xcp; // offset: 225  (0xE1)
++    uint32_t cp_mqd_stride_size; // offset: 226  (0xE2)
++    uint32_t xcc_sync_counter; // offset: 227  (0xE3)
++    uint32_t set_resources_header; // offset: 228  (0xE4)
++    uint32_t set_resources_dw1; // offset: 229  (0xE5)
++    uint32_t set_resources_dw2; // offset: 230  (0xE6)
++    uint32_t set_resources_dw3; // offset: 231  (0xE7)
++    uint32_t set_resources_dw4; // offset: 232  (0xE8)
++    uint32_t set_resources_dw5; // offset: 233  (0xE9)
++    uint32_t set_resources_dw6; // offset: 234  (0xEA)
++    uint32_t set_resources_dw7; // offset: 235  (0xEB)
++    uint32_t reserved_236; // offset: 236  (0xEC)
++    uint32_t reserved_237; // offset: 237  (0xED)
++    uint32_t reserved_238; // offset: 238  (0xEE)
++    uint32_t reserved_239; // offset: 239  (0xEF)
++    uint32_t reserved_240; // offset: 240  (0xF0)
++    uint32_t reserved_241; // offset: 241  (0xF1)
++    uint32_t reserved_242; // offset: 242  (0xF2)
++    uint32_t reserved_243; // offset: 243  (0xF3)
++    uint32_t reserved_244; // offset: 244  (0xF4)
++    uint32_t reserved_245; // offset: 245  (0xF5)
++    uint32_t reserved_246; // offset: 246  (0xF6)
++    uint32_t reserved_247; // offset: 247  (0xF7)
++    uint32_t reserved_248; // offset: 248  (0xF8)
++    uint32_t reserved_249; // offset: 249  (0xF9)
++    uint32_t reserved_250; // offset: 250  (0xFA)
++    uint32_t reserved_251; // offset: 251  (0xFB)
++    uint32_t reserved_252; // offset: 252  (0xFC)
++    uint32_t reserved_253; // offset: 253  (0xFD)
++    uint32_t reserved_254; // offset: 254  (0xFE)
++    uint32_t reserved_255; // offset: 255  (0xFF)
++    uint32_t control_buf_addr_lo; // offset: 256  (0x100)
++    uint32_t control_buf_addr_hi; // offset: 257  (0x101)
++    uint32_t control_buf_wptr_lo; // offset: 258  (0x102)
++    uint32_t control_buf_wptr_hi; // offset: 259  (0x103)
++    uint32_t control_buf_dptr_lo; // offset: 260  (0x104)
++    uint32_t control_buf_dptr_hi; // offset: 261  (0x105)
++    uint32_t draw_ring_addr_lo; // offset: 262  (0x106)
++    uint32_t draw_ring_addr_hi; // offset: 263  (0x107)
++    uint32_t control_buf_num_entries; // offset: 264  (0x108)
++    uint32_t reserved_265; // offset: 265  (0x109)
++    uint32_t reserved_266; // offset: 266  (0x10A)
++    uint32_t reserved_267; // offset: 267  (0x10B)
++    uint32_t reserved_268; // offset: 268  (0x10C)
++    uint32_t reserved_269; // offset: 269  (0x10D)
++    uint32_t reserved_270; // offset: 270  (0x10E)
++    uint32_t reserved_271; // offset: 271  (0x10F)
++    uint32_t dfwx_flags; // offset: 272  (0x110)
++    uint32_t dfwx_slot; // offset: 273  (0x111)
++    uint32_t dfwx_client_data_addr_lo; // offset: 274  (0x112)
++    uint32_t dfwx_client_data_addr_hi; // offset: 275  (0x113)
++    uint32_t dfwx_queue_connect_addr_lo; // offset: 276  (0x114)
++    uint32_t dfwx_queue_connect_addr_hi; // offset: 277  (0x115)
++    uint32_t reserved_278; // offset: 278  (0x116)
++    uint32_t reserved_279; // offset: 279  (0x117)
++    uint32_t reserved_280; // offset: 280  (0x118)
++    uint32_t reserved_281; // offset: 281  (0x119)
++    uint32_t reserved_282; // offset: 282  (0x11A)
++    uint32_t reserved_283; // offset: 283  (0x11B)
++    uint32_t reserved_284; // offset: 284  (0x11C)
++    uint32_t reserved_285; // offset: 285  (0x11D)
++    uint32_t reserved_286; // offset: 286  (0x11E)
++    uint32_t reserved_287; // offset: 287  (0x11F)
++    uint32_t cp_mqd_query_time_lo; // offset: 288  (0x120)
++    uint32_t cp_mqd_query_time_hi; // offset: 289  (0x121)
++    uint32_t cp_mqd_connect_start_time_lo; // offset: 290  (0x122)
++    uint32_t cp_mqd_connect_start_time_hi; // offset: 291  (0x123)
++    uint32_t cp_mqd_connect_end_time_lo; // offset: 292  (0x124)
++    uint32_t cp_mqd_connect_end_time_hi; // offset: 293  (0x125)
++    uint32_t cp_mqd_connect_end_wf_count; // offset: 294  (0x126)
++    uint32_t cp_mqd_connect_end_pq_rptr; // offset: 295  (0x127)
++    uint32_t cp_mqd_connect_end_pq_wptr; // offset: 296  (0x128)
++    uint32_t cp_mqd_connect_end_ib_rptr; // offset: 297  (0x129)
++    uint32_t cp_mqd_readindex_lo; // offset: 298  (0x12A)
++    uint32_t cp_mqd_readindex_hi; // offset: 299  (0x12B)
++    uint32_t cp_mqd_save_start_time_lo; // offset: 300  (0x12C)
++    uint32_t cp_mqd_save_start_time_hi; // offset: 301  (0x12D)
++    uint32_t cp_mqd_save_end_time_lo; // offset: 302  (0x12E)
++    uint32_t cp_mqd_save_end_time_hi; // offset: 303  (0x12F)
++    uint32_t cp_mqd_restore_start_time_lo; // offset: 304  (0x130)
++    uint32_t cp_mqd_restore_start_time_hi; // offset: 305  (0x131)
++    uint32_t cp_mqd_restore_end_time_lo; // offset: 306  (0x132)
++    uint32_t cp_mqd_restore_end_time_hi; // offset: 307  (0x133)
++    uint32_t disable_queue; // offset: 308  (0x134)
++    uint32_t reserved_309; // offset: 309  (0x135)
++    uint32_t reserved_310; // offset: 310  (0x136)
++    uint32_t reserved_311; // offset: 311  (0x137)
++    uint32_t reserved_312; // offset: 312  (0x138)
++    uint32_t reserved_313; // offset: 313  (0x139)
++    uint32_t reserved_314; // offset: 314  (0x13A)
++    uint32_t reserved_315; // offset: 315  (0x13B)
++    uint32_t reserved_316; // offset: 316  (0x13C)
++    uint32_t reserved_317; // offset: 317  (0x13D)
++    uint32_t reserved_318; // offset: 318  (0x13E)
++    uint32_t reserved_319; // offset: 319  (0x13F)
++    uint32_t reserved_320; // offset: 320  (0x140)
++    uint32_t reserved_321; // offset: 321  (0x141)
++    uint32_t reserved_322; // offset: 322  (0x142)
++    uint32_t reserved_323; // offset: 323  (0x143)
++    uint32_t reserved_324; // offset: 324  (0x144)
++    uint32_t reserved_325; // offset: 325  (0x145)
++    uint32_t reserved_326; // offset: 326  (0x146)
++    uint32_t reserved_327; // offset: 327  (0x147)
++    uint32_t reserved_328; // offset: 328  (0x148)
++    uint32_t reserved_329; // offset: 329  (0x149)
++    uint32_t reserved_330; // offset: 330  (0x14A)
++    uint32_t reserved_331; // offset: 331  (0x14B)
++    uint32_t reserved_332; // offset: 332  (0x14C)
++    uint32_t reserved_333; // offset: 333  (0x14D)
++    uint32_t reserved_334; // offset: 334  (0x14E)
++    uint32_t reserved_335; // offset: 335  (0x14F)
++    uint32_t reserved_336; // offset: 336  (0x150)
++    uint32_t reserved_337; // offset: 337  (0x151)
++    uint32_t reserved_338; // offset: 338  (0x152)
++    uint32_t reserved_339; // offset: 339  (0x153)
++    uint32_t reserved_340; // offset: 340  (0x154)
++    uint32_t reserved_341; // offset: 341  (0x155)
++    uint32_t reserved_342; // offset: 342  (0x156)
++    uint32_t reserved_343; // offset: 343  (0x157)
++    uint32_t reserved_344; // offset: 344  (0x158)
++    uint32_t reserved_345; // offset: 345  (0x159)
++    uint32_t reserved_346; // offset: 346  (0x15A)
++    uint32_t reserved_347; // offset: 347  (0x15B)
++    uint32_t reserved_348; // offset: 348  (0x15C)
++    uint32_t reserved_349; // offset: 349  (0x15D)
++    uint32_t reserved_350; // offset: 350  (0x15E)
++    uint32_t reserved_351; // offset: 351  (0x15F)
++    uint32_t reserved_352; // offset: 352  (0x160)
++    uint32_t reserved_353; // offset: 353  (0x161)
++    uint32_t reserved_354; // offset: 354  (0x162)
++    uint32_t reserved_355; // offset: 355  (0x163)
++    uint32_t reserved_356; // offset: 356  (0x164)
++    uint32_t reserved_357; // offset: 357  (0x165)
++    uint32_t reserved_358; // offset: 358  (0x166)
++    uint32_t reserved_359; // offset: 359  (0x167)
++    uint32_t reserved_360; // offset: 360  (0x168)
++    uint32_t reserved_361; // offset: 361  (0x169)
++    uint32_t reserved_362; // offset: 362  (0x16A)
++    uint32_t reserved_363; // offset: 363  (0x16B)
++    uint32_t reserved_364; // offset: 364  (0x16C)
++    uint32_t reserved_365; // offset: 365  (0x16D)
++    uint32_t reserved_366; // offset: 366  (0x16E)
++    uint32_t reserved_367; // offset: 367  (0x16F)
++    uint32_t reserved_368; // offset: 368  (0x170)
++    uint32_t reserved_369; // offset: 369  (0x171)
++    uint32_t reserved_370; // offset: 370  (0x172)
++    uint32_t reserved_371; // offset: 371  (0x173)
++    uint32_t reserved_372; // offset: 372  (0x174)
++    uint32_t reserved_373; // offset: 373  (0x175)
++    uint32_t reserved_374; // offset: 374  (0x176)
++    uint32_t reserved_375; // offset: 375  (0x177)
++    uint32_t reserved_376; // offset: 376  (0x178)
++    uint32_t reserved_377; // offset: 377  (0x179)
++    uint32_t reserved_378; // offset: 378  (0x17A)
++    uint32_t reserved_379; // offset: 379  (0x17B)
++    uint32_t reserved_380; // offset: 380  (0x17C)
++    uint32_t reserved_381; // offset: 381  (0x17D)
++    uint32_t reserved_382; // offset: 382  (0x17E)
++    uint32_t reserved_383; // offset: 383  (0x17F)
++    uint32_t iqtimer_pkt_header; // offset: 384  (0x180)
++    uint32_t iqtimer_pkt_dw0; // offset: 385  (0x181)
++    uint32_t iqtimer_pkt_dw1; // offset: 386  (0x182)
++    uint32_t iqtimer_pkt_dw2; // offset: 387  (0x183)
++    uint32_t iqtimer_pkt_dw3; // offset: 388  (0x184)
++    uint32_t iqtimer_pkt_dw4; // offset: 389  (0x185)
++    uint32_t iqtimer_pkt_dw5; // offset: 390  (0x186)
++    uint32_t iqtimer_pkt_dw6; // offset: 391  (0x187)
++    uint32_t iqtimer_pkt_dw7; // offset: 392  (0x188)
++    uint32_t iqtimer_pkt_dw8; // offset: 393  (0x189)
++    uint32_t iqtimer_pkt_dw9; // offset: 394  (0x18A)
++    uint32_t iqtimer_pkt_dw10; // offset: 395  (0x18B)
++    uint32_t iqtimer_pkt_dw11; // offset: 396  (0x18C)
++    uint32_t iqtimer_pkt_dw12; // offset: 397  (0x18D)
++    uint32_t iqtimer_pkt_dw13; // offset: 398  (0x18E)
++    uint32_t iqtimer_pkt_dw14; // offset: 399  (0x18F)
++    uint32_t iqtimer_pkt_dw15; // offset: 400  (0x190)
++    uint32_t iqtimer_pkt_dw16; // offset: 401  (0x191)
++    uint32_t iqtimer_pkt_dw17; // offset: 402  (0x192)
++    uint32_t iqtimer_pkt_dw18; // offset: 403  (0x193)
++    uint32_t iqtimer_pkt_dw19; // offset: 404  (0x194)
++    uint32_t iqtimer_pkt_dw20; // offset: 405  (0x195)
++    uint32_t iqtimer_pkt_dw21; // offset: 406  (0x196)
++    uint32_t iqtimer_pkt_dw22; // offset: 407  (0x197)
++    uint32_t iqtimer_pkt_dw23; // offset: 408  (0x198)
++    uint32_t iqtimer_pkt_dw24; // offset: 409  (0x199)
++    uint32_t iqtimer_pkt_dw25; // offset: 410  (0x19A)
++    uint32_t iqtimer_pkt_dw26; // offset: 411  (0x19B)
++    uint32_t iqtimer_pkt_dw27; // offset: 412  (0x19C)
++    uint32_t iqtimer_pkt_dw28; // offset: 413  (0x19D)
++    uint32_t iqtimer_pkt_dw29; // offset: 414  (0x19E)
++    uint32_t iqtimer_pkt_dw30; // offset: 415  (0x19F)
++    uint32_t iqtimer_pkt_dw31; // offset: 416  (0x1A0)
++    uint32_t reserved_417; // offset: 417  (0x1A1)
++    uint32_t reserved_418; // offset: 418  (0x1A2)
++    uint32_t reserved_419; // offset: 419  (0x1A3)
++    uint32_t reserved_420; // offset: 420  (0x1A4)
++    uint32_t reserved_421; // offset: 421  (0x1A5)
++    uint32_t reserved_422; // offset: 422  (0x1A6)
++    uint32_t reserved_423; // offset: 423  (0x1A7)
++    uint32_t reserved_424; // offset: 424  (0x1A8)
++    uint32_t reserved_425; // offset: 425  (0x1A9)
++    uint32_t reserved_426; // offset: 426  (0x1AA)
++    uint32_t reserved_427; // offset: 427  (0x1AB)
++    uint32_t reserved_428; // offset: 428  (0x1AC)
++    uint32_t reserved_429; // offset: 429  (0x1AD)
++    uint32_t reserved_430; // offset: 430  (0x1AE)
++    uint32_t reserved_431; // offset: 431  (0x1AF)
++    uint32_t reserved_432; // offset: 432  (0x1B0)
++    uint32_t reserved_433; // offset: 433  (0x1B1)
++    uint32_t reserved_434; // offset: 434  (0x1B2)
++    uint32_t reserved_435; // offset: 435  (0x1B3)
++    uint32_t reserved_436; // offset: 436  (0x1B4)
++    uint32_t reserved_437; // offset: 437  (0x1B5)
++    uint32_t reserved_438; // offset: 438  (0x1B6)
++    uint32_t reserved_439; // offset: 439  (0x1B7)
++    uint32_t reserved_440; // offset: 440  (0x1B8)
++    uint32_t reserved_441; // offset: 441  (0x1B9)
++    uint32_t reserved_442; // offset: 442  (0x1BA)
++    uint32_t reserved_443; // offset: 443  (0x1BB)
++    uint32_t reserved_444; // offset: 444  (0x1BC)
++    uint32_t reserved_445; // offset: 445  (0x1BD)
++    uint32_t reserved_446; // offset: 446  (0x1BE)
++    uint32_t reserved_447; // offset: 447  (0x1BF)
++    uint32_t reserved_448; // offset: 448  (0x1C0)
++    uint32_t reserved_449; // offset: 449  (0x1C1)
++    uint32_t reserved_450; // offset: 450  (0x1C2)
++    uint32_t reserved_451; // offset: 451  (0x1C3)
++    uint32_t reserved_452; // offset: 452  (0x1C4)
++    uint32_t reserved_453; // offset: 453  (0x1C5)
++    uint32_t reserved_454; // offset: 454  (0x1C6)
++    uint32_t reserved_455; // offset: 455  (0x1C7)
++    uint32_t reserved_456; // offset: 456  (0x1C8)
++    uint32_t reserved_457; // offset: 457  (0x1C9)
++    uint32_t reserved_458; // offset: 458  (0x1CA)
++    uint32_t reserved_459; // offset: 459  (0x1CB)
++    uint32_t reserved_460; // offset: 460  (0x1CC)
++    uint32_t reserved_461; // offset: 461  (0x1CD)
++    uint32_t reserved_462; // offset: 462  (0x1CE)
++    uint32_t reserved_463; // offset: 463  (0x1CF)
++    uint32_t reserved_464; // offset: 464  (0x1D0)
++    uint32_t reserved_465; // offset: 465  (0x1D1)
++    uint32_t reserved_466; // offset: 466  (0x1D2)
++    uint32_t reserved_467; // offset: 467  (0x1D3)
++    uint32_t reserved_468; // offset: 468  (0x1D4)
++    uint32_t reserved_469; // offset: 469  (0x1D5)
++    uint32_t reserved_470; // offset: 470  (0x1D6)
++    uint32_t reserved_471; // offset: 471  (0x1D7)
++    uint32_t reserved_472; // offset: 472  (0x1D8)
++    uint32_t reserved_473; // offset: 473  (0x1D9)
++    uint32_t reserved_474; // offset: 474  (0x1DA)
++    uint32_t reserved_475; // offset: 475  (0x1DB)
++    uint32_t reserved_476; // offset: 476  (0x1DC)
++    uint32_t reserved_477; // offset: 477  (0x1DD)
++    uint32_t reserved_478; // offset: 478  (0x1DE)
++    uint32_t reserved_479; // offset: 479  (0x1DF)
++    uint32_t reserved_480; // offset: 480  (0x1E0)
++    uint32_t reserved_481; // offset: 481  (0x1E1)
++    uint32_t reserved_482; // offset: 482  (0x1E2)
++    uint32_t reserved_483; // offset: 483  (0x1E3)
++    uint32_t reserved_484; // offset: 484  (0x1E4)
++    uint32_t reserved_485; // offset: 485  (0x1E5)
++    uint32_t reserved_486; // offset: 486  (0x1E6)
++    uint32_t reserved_487; // offset: 487  (0x1E7)
++    uint32_t reserved_488; // offset: 488  (0x1E8)
++    uint32_t reserved_489; // offset: 489  (0x1E9)
++    uint32_t reserved_490; // offset: 490  (0x1EA)
++    uint32_t reserved_491; // offset: 491  (0x1EB)
++    uint32_t reserved_492; // offset: 492  (0x1EC)
++    uint32_t reserved_493; // offset: 493  (0x1ED)
++    uint32_t reserved_494; // offset: 494  (0x1EE)
++    uint32_t reserved_495; // offset: 495  (0x1EF)
++    uint32_t reserved_496; // offset: 496  (0x1F0)
++    uint32_t reserved_497; // offset: 497  (0x1F1)
++    uint32_t reserved_498; // offset: 498  (0x1F2)
++    uint32_t reserved_499; // offset: 499  (0x1F3)
++    uint32_t reserved_500; // offset: 500  (0x1F4)
++    uint32_t reserved_501; // offset: 501  (0x1F5)
++    uint32_t reserved_502; // offset: 502  (0x1F6)
++    uint32_t reserved_503; // offset: 503  (0x1F7)
++    uint32_t reserved_504; // offset: 504  (0x1F8)
++    uint32_t reserved_505; // offset: 505  (0x1F9)
++    uint32_t reserved_506; // offset: 506  (0x1FA)
++    uint32_t reserved_507; // offset: 507  (0x1FB)
++    uint32_t reserved_508; // offset: 508  (0x1FC)
++    uint32_t reserved_509; // offset: 509  (0x1FD)
++    uint32_t reserved_510; // offset: 510  (0x1FE)
++    uint32_t reserved_511; // offset: 511  (0x1FF)
++    uint32_t reserved_512; // offset: 512  (0x200)
++    uint32_t reserved_513; // offset: 513  (0x201)
++    uint32_t reserved_514; // offset: 514  (0x202)
++    uint32_t reserved_515; // offset: 515  (0x203)
++    uint32_t reserved_516; // offset: 516  (0x204)
++    uint32_t reserved_517; // offset: 517  (0x205)
++    uint32_t reserved_518; // offset: 518  (0x206)
++    uint32_t reserved_519; // offset: 519  (0x207)
++    uint32_t reserved_520; // offset: 520  (0x208)
++    uint32_t reserved_521; // offset: 521  (0x209)
++    uint32_t reserved_522; // offset: 522  (0x20A)
++    uint32_t reserved_523; // offset: 523  (0x20B)
++    uint32_t reserved_524; // offset: 524  (0x20C)
++    uint32_t reserved_525; // offset: 525  (0x20D)
++    uint32_t reserved_526; // offset: 526  (0x20E)
++    uint32_t reserved_527; // offset: 527  (0x20F)
++    uint32_t reserved_528; // offset: 528  (0x210)
++    uint32_t reserved_529; // offset: 529  (0x211)
++    uint32_t reserved_530; // offset: 530  (0x212)
++    uint32_t reserved_531; // offset: 531  (0x213)
++    uint32_t reserved_532; // offset: 532  (0x214)
++    uint32_t reserved_533; // offset: 533  (0x215)
++    uint32_t reserved_534; // offset: 534  (0x216)
++    uint32_t reserved_535; // offset: 535  (0x217)
++    uint32_t reserved_536; // offset: 536  (0x218)
++    uint32_t reserved_537; // offset: 537  (0x219)
++    uint32_t reserved_538; // offset: 538  (0x21A)
++    uint32_t reserved_539; // offset: 539  (0x21B)
++    uint32_t reserved_540; // offset: 540  (0x21C)
++    uint32_t reserved_541; // offset: 541  (0x21D)
++    uint32_t reserved_542; // offset: 542  (0x21E)
++    uint32_t reserved_543; // offset: 543  (0x21F)
++    uint32_t reserved_544; // offset: 544  (0x220)
++    uint32_t reserved_545; // offset: 545  (0x221)
++    uint32_t reserved_546; // offset: 546  (0x222)
++    uint32_t reserved_547; // offset: 547  (0x223)
++    uint32_t reserved_548; // offset: 548  (0x224)
++    uint32_t reserved_549; // offset: 549  (0x225)
++    uint32_t reserved_550; // offset: 550  (0x226)
++    uint32_t reserved_551; // offset: 551  (0x227)
++    uint32_t reserved_552; // offset: 552  (0x228)
++    uint32_t reserved_553; // offset: 553  (0x229)
++    uint32_t reserved_554; // offset: 554  (0x22A)
++    uint32_t reserved_555; // offset: 555  (0x22B)
++    uint32_t reserved_556; // offset: 556  (0x22C)
++    uint32_t reserved_557; // offset: 557  (0x22D)
++    uint32_t reserved_558; // offset: 558  (0x22E)
++    uint32_t reserved_559; // offset: 559  (0x22F)
++    uint32_t reserved_560; // offset: 560  (0x230)
++    uint32_t reserved_561; // offset: 561  (0x231)
++    uint32_t reserved_562; // offset: 562  (0x232)
++    uint32_t reserved_563; // offset: 563  (0x233)
++    uint32_t reserved_564; // offset: 564  (0x234)
++    uint32_t reserved_565; // offset: 565  (0x235)
++    uint32_t reserved_566; // offset: 566  (0x236)
++    uint32_t reserved_567; // offset: 567  (0x237)
++    uint32_t reserved_568; // offset: 568  (0x238)
++    uint32_t reserved_569; // offset: 569  (0x239)
++    uint32_t reserved_570; // offset: 570  (0x23A)
++    uint32_t reserved_571; // offset: 571  (0x23B)
++    uint32_t reserved_572; // offset: 572  (0x23C)
++    uint32_t reserved_573; // offset: 573  (0x23D)
++    uint32_t reserved_574; // offset: 574  (0x23E)
++    uint32_t reserved_575; // offset: 575  (0x23F)
++    uint32_t reserved_576; // offset: 576  (0x240)
++    uint32_t reserved_577; // offset: 577  (0x241)
++    uint32_t reserved_578; // offset: 578  (0x242)
++    uint32_t reserved_579; // offset: 579  (0x243)
++    uint32_t reserved_580; // offset: 580  (0x244)
++    uint32_t reserved_581; // offset: 581  (0x245)
++    uint32_t reserved_582; // offset: 582  (0x246)
++    uint32_t reserved_583; // offset: 583  (0x247)
++    uint32_t reserved_584; // offset: 584  (0x248)
++    uint32_t reserved_585; // offset: 585  (0x249)
++    uint32_t reserved_586; // offset: 586  (0x24A)
++    uint32_t reserved_587; // offset: 587  (0x24B)
++    uint32_t reserved_588; // offset: 588  (0x24C)
++    uint32_t reserved_589; // offset: 589  (0x24D)
++    uint32_t reserved_590; // offset: 590  (0x24E)
++    uint32_t reserved_591; // offset: 591  (0x24F)
++    uint32_t reserved_592; // offset: 592  (0x250)
++    uint32_t reserved_593; // offset: 593  (0x251)
++    uint32_t reserved_594; // offset: 594  (0x252)
++    uint32_t reserved_595; // offset: 595  (0x253)
++    uint32_t reserved_596; // offset: 596  (0x254)
++    uint32_t reserved_597; // offset: 597  (0x255)
++    uint32_t reserved_598; // offset: 598  (0x256)
++    uint32_t reserved_599; // offset: 599  (0x257)
++    uint32_t reserved_600; // offset: 600  (0x258)
++    uint32_t reserved_601; // offset: 601  (0x259)
++    uint32_t reserved_602; // offset: 602  (0x25A)
++    uint32_t reserved_603; // offset: 603  (0x25B)
++    uint32_t reserved_604; // offset: 604  (0x25C)
++    uint32_t reserved_605; // offset: 605  (0x25D)
++    uint32_t reserved_606; // offset: 606  (0x25E)
++    uint32_t reserved_607; // offset: 607  (0x25F)
++    uint32_t reserved_608; // offset: 608  (0x260)
++    uint32_t reserved_609; // offset: 609  (0x261)
++    uint32_t reserved_610; // offset: 610  (0x262)
++    uint32_t reserved_611; // offset: 611  (0x263)
++    uint32_t reserved_612; // offset: 612  (0x264)
++    uint32_t reserved_613; // offset: 613  (0x265)
++    uint32_t reserved_614; // offset: 614  (0x266)
++    uint32_t reserved_615; // offset: 615  (0x267)
++    uint32_t reserved_616; // offset: 616  (0x268)
++    uint32_t reserved_617; // offset: 617  (0x269)
++    uint32_t reserved_618; // offset: 618  (0x26A)
++    uint32_t reserved_619; // offset: 619  (0x26B)
++    uint32_t reserved_620; // offset: 620  (0x26C)
++    uint32_t reserved_621; // offset: 621  (0x26D)
++    uint32_t reserved_622; // offset: 622  (0x26E)
++    uint32_t reserved_623; // offset: 623  (0x26F)
++    uint32_t reserved_624; // offset: 624  (0x270)
++    uint32_t reserved_625; // offset: 625  (0x271)
++    uint32_t reserved_626; // offset: 626  (0x272)
++    uint32_t reserved_627; // offset: 627  (0x273)
++    uint32_t reserved_628; // offset: 628  (0x274)
++    uint32_t reserved_629; // offset: 629  (0x275)
++    uint32_t reserved_630; // offset: 630  (0x276)
++    uint32_t reserved_631; // offset: 631  (0x277)
++    uint32_t reserved_632; // offset: 632  (0x278)
++    uint32_t reserved_633; // offset: 633  (0x279)
++    uint32_t reserved_634; // offset: 634  (0x27A)
++    uint32_t reserved_635; // offset: 635  (0x27B)
++    uint32_t reserved_636; // offset: 636  (0x27C)
++    uint32_t reserved_637; // offset: 637  (0x27D)
++    uint32_t reserved_638; // offset: 638  (0x27E)
++    uint32_t reserved_639; // offset: 639  (0x27F)
++    uint32_t reserved_640; // offset: 640  (0x280)
++    uint32_t reserved_641; // offset: 641  (0x281)
++    uint32_t reserved_642; // offset: 642  (0x282)
++    uint32_t reserved_643; // offset: 643  (0x283)
++    uint32_t reserved_644; // offset: 644  (0x284)
++    uint32_t reserved_645; // offset: 645  (0x285)
++    uint32_t reserved_646; // offset: 646  (0x286)
++    uint32_t reserved_647; // offset: 647  (0x287)
++    uint32_t reserved_648; // offset: 648  (0x288)
++    uint32_t reserved_649; // offset: 649  (0x289)
++    uint32_t reserved_650; // offset: 650  (0x28A)
++    uint32_t reserved_651; // offset: 651  (0x28B)
++    uint32_t reserved_652; // offset: 652  (0x28C)
++    uint32_t reserved_653; // offset: 653  (0x28D)
++    uint32_t reserved_654; // offset: 654  (0x28E)
++    uint32_t reserved_655; // offset: 655  (0x28F)
++    uint32_t reserved_656; // offset: 656  (0x290)
++    uint32_t reserved_657; // offset: 657  (0x291)
++    uint32_t reserved_658; // offset: 658  (0x292)
++    uint32_t reserved_659; // offset: 659  (0x293)
++    uint32_t reserved_660; // offset: 660  (0x294)
++    uint32_t reserved_661; // offset: 661  (0x295)
++    uint32_t reserved_662; // offset: 662  (0x296)
++    uint32_t reserved_663; // offset: 663  (0x297)
++    uint32_t reserved_664; // offset: 664  (0x298)
++    uint32_t reserved_665; // offset: 665  (0x299)
++    uint32_t reserved_666; // offset: 666  (0x29A)
++    uint32_t reserved_667; // offset: 667  (0x29B)
++    uint32_t reserved_668; // offset: 668  (0x29C)
++    uint32_t reserved_669; // offset: 669  (0x29D)
++    uint32_t reserved_670; // offset: 670  (0x29E)
++    uint32_t reserved_671; // offset: 671  (0x29F)
++    uint32_t reserved_672; // offset: 672  (0x2A0)
++    uint32_t reserved_673; // offset: 673  (0x2A1)
++    uint32_t reserved_674; // offset: 674  (0x2A2)
++    uint32_t reserved_675; // offset: 675  (0x2A3)
++    uint32_t reserved_676; // offset: 676  (0x2A4)
++    uint32_t reserved_677; // offset: 677  (0x2A5)
++    uint32_t reserved_678; // offset: 678  (0x2A6)
++    uint32_t reserved_679; // offset: 679  (0x2A7)
++    uint32_t reserved_680; // offset: 680  (0x2A8)
++    uint32_t reserved_681; // offset: 681  (0x2A9)
++    uint32_t reserved_682; // offset: 682  (0x2AA)
++    uint32_t reserved_683; // offset: 683  (0x2AB)
++    uint32_t reserved_684; // offset: 684  (0x2AC)
++    uint32_t reserved_685; // offset: 685  (0x2AD)
++    uint32_t reserved_686; // offset: 686  (0x2AE)
++    uint32_t reserved_687; // offset: 687  (0x2AF)
++    uint32_t reserved_688; // offset: 688  (0x2B0)
++    uint32_t reserved_689; // offset: 689  (0x2B1)
++    uint32_t reserved_690; // offset: 690  (0x2B2)
++    uint32_t reserved_691; // offset: 691  (0x2B3)
++    uint32_t reserved_692; // offset: 692  (0x2B4)
++    uint32_t reserved_693; // offset: 693  (0x2B5)
++    uint32_t reserved_694; // offset: 694  (0x2B6)
++    uint32_t reserved_695; // offset: 695  (0x2B7)
++    uint32_t reserved_696; // offset: 696  (0x2B8)
++    uint32_t reserved_697; // offset: 697  (0x2B9)
++    uint32_t reserved_698; // offset: 698  (0x2BA)
++    uint32_t reserved_699; // offset: 699  (0x2BB)
++    uint32_t reserved_700; // offset: 700  (0x2BC)
++    uint32_t reserved_701; // offset: 701  (0x2BD)
++    uint32_t reserved_702; // offset: 702  (0x2BE)
++    uint32_t reserved_703; // offset: 703  (0x2BF)
++    uint32_t reserved_704; // offset: 704  (0x2C0)
++    uint32_t reserved_705; // offset: 705  (0x2C1)
++    uint32_t reserved_706; // offset: 706  (0x2C2)
++    uint32_t reserved_707; // offset: 707  (0x2C3)
++    uint32_t reserved_708; // offset: 708  (0x2C4)
++    uint32_t reserved_709; // offset: 709  (0x2C5)
++    uint32_t reserved_710; // offset: 710  (0x2C6)
++    uint32_t reserved_711; // offset: 711  (0x2C7)
++    uint32_t reserved_712; // offset: 712  (0x2C8)
++    uint32_t reserved_713; // offset: 713  (0x2C9)
++    uint32_t reserved_714; // offset: 714  (0x2CA)
++    uint32_t reserved_715; // offset: 715  (0x2CB)
++    uint32_t reserved_716; // offset: 716  (0x2CC)
++    uint32_t reserved_717; // offset: 717  (0x2CD)
++    uint32_t reserved_718; // offset: 718  (0x2CE)
++    uint32_t reserved_719; // offset: 719  (0x2CF)
++    uint32_t reserved_720; // offset: 720  (0x2D0)
++    uint32_t reserved_721; // offset: 721  (0x2D1)
++    uint32_t reserved_722; // offset: 722  (0x2D2)
++    uint32_t reserved_723; // offset: 723  (0x2D3)
++    uint32_t reserved_724; // offset: 724  (0x2D4)
++    uint32_t reserved_725; // offset: 725  (0x2D5)
++    uint32_t reserved_726; // offset: 726  (0x2D6)
++    uint32_t reserved_727; // offset: 727  (0x2D7)
++    uint32_t reserved_728; // offset: 728  (0x2D8)
++    uint32_t reserved_729; // offset: 729  (0x2D9)
++    uint32_t reserved_730; // offset: 730  (0x2DA)
++    uint32_t reserved_731; // offset: 731  (0x2DB)
++    uint32_t reserved_732; // offset: 732  (0x2DC)
++    uint32_t reserved_733; // offset: 733  (0x2DD)
++    uint32_t reserved_734; // offset: 734  (0x2DE)
++    uint32_t reserved_735; // offset: 735  (0x2DF)
++    uint32_t reserved_736; // offset: 736  (0x2E0)
++    uint32_t reserved_737; // offset: 737  (0x2E1)
++    uint32_t reserved_738; // offset: 738  (0x2E2)
++    uint32_t reserved_739; // offset: 739  (0x2E3)
++    uint32_t reserved_740; // offset: 740  (0x2E4)
++    uint32_t reserved_741; // offset: 741  (0x2E5)
++    uint32_t reserved_742; // offset: 742  (0x2E6)
++    uint32_t reserved_743; // offset: 743  (0x2E7)
++    uint32_t reserved_744; // offset: 744  (0x2E8)
++    uint32_t reserved_745; // offset: 745  (0x2E9)
++    uint32_t reserved_746; // offset: 746  (0x2EA)
++    uint32_t reserved_747; // offset: 747  (0x2EB)
++    uint32_t reserved_748; // offset: 748  (0x2EC)
++    uint32_t reserved_749; // offset: 749  (0x2ED)
++    uint32_t reserved_750; // offset: 750  (0x2EE)
++    uint32_t reserved_751; // offset: 751  (0x2EF)
++    uint32_t reserved_752; // offset: 752  (0x2F0)
++    uint32_t reserved_753; // offset: 753  (0x2F1)
++    uint32_t reserved_754; // offset: 754  (0x2F2)
++    uint32_t reserved_755; // offset: 755  (0x2F3)
++    uint32_t reserved_756; // offset: 756  (0x2F4)
++    uint32_t reserved_757; // offset: 757  (0x2F5)
++    uint32_t reserved_758; // offset: 758  (0x2F6)
++    uint32_t reserved_759; // offset: 759  (0x2F7)
++    uint32_t reserved_760; // offset: 760  (0x2F8)
++    uint32_t reserved_761; // offset: 761  (0x2F9)
++    uint32_t reserved_762; // offset: 762  (0x2FA)
++    uint32_t reserved_763; // offset: 763  (0x2FB)
++    uint32_t reserved_764; // offset: 764  (0x2FC)
++    uint32_t reserved_765; // offset: 765  (0x2FD)
++    uint32_t reserved_766; // offset: 766  (0x2FE)
++    uint32_t reserved_767; // offset: 767  (0x2FF)
++    uint32_t reserved_768; // offset: 768  (0x300)
++    uint32_t reserved_769; // offset: 769  (0x301)
++    uint32_t reserved_770; // offset: 770  (0x302)
++    uint32_t reserved_771; // offset: 771  (0x303)
++    uint32_t reserved_772; // offset: 772  (0x304)
++    uint32_t reserved_773; // offset: 773  (0x305)
++    uint32_t reserved_774; // offset: 774  (0x306)
++    uint32_t reserved_775; // offset: 775  (0x307)
++    uint32_t reserved_776; // offset: 776  (0x308)
++    uint32_t reserved_777; // offset: 777  (0x309)
++    uint32_t reserved_778; // offset: 778  (0x30A)
++    uint32_t reserved_779; // offset: 779  (0x30B)
++    uint32_t reserved_780; // offset: 780  (0x30C)
++    uint32_t reserved_781; // offset: 781  (0x30D)
++    uint32_t reserved_782; // offset: 782  (0x30E)
++    uint32_t reserved_783; // offset: 783  (0x30F)
++    uint32_t reserved_784; // offset: 784  (0x310)
++    uint32_t reserved_785; // offset: 785  (0x311)
++    uint32_t reserved_786; // offset: 786  (0x312)
++    uint32_t reserved_787; // offset: 787  (0x313)
++    uint32_t reserved_788; // offset: 788  (0x314)
++    uint32_t reserved_789; // offset: 789  (0x315)
++    uint32_t reserved_790; // offset: 790  (0x316)
++    uint32_t reserved_791; // offset: 791  (0x317)
++    uint32_t reserved_792; // offset: 792  (0x318)
++    uint32_t reserved_793; // offset: 793  (0x319)
++    uint32_t reserved_794; // offset: 794  (0x31A)
++    uint32_t reserved_795; // offset: 795  (0x31B)
++    uint32_t reserved_796; // offset: 796  (0x31C)
++    uint32_t reserved_797; // offset: 797  (0x31D)
++    uint32_t reserved_798; // offset: 798  (0x31E)
++    uint32_t reserved_799; // offset: 799  (0x31F)
++    uint32_t reserved_800; // offset: 800  (0x320)
++    uint32_t reserved_801; // offset: 801  (0x321)
++    uint32_t reserved_802; // offset: 802  (0x322)
++    uint32_t reserved_803; // offset: 803  (0x323)
++    uint32_t reserved_804; // offset: 804  (0x324)
++    uint32_t reserved_805; // offset: 805  (0x325)
++    uint32_t reserved_806; // offset: 806  (0x326)
++    uint32_t reserved_807; // offset: 807  (0x327)
++    uint32_t reserved_808; // offset: 808  (0x328)
++    uint32_t reserved_809; // offset: 809  (0x329)
++    uint32_t reserved_810; // offset: 810  (0x32A)
++    uint32_t reserved_811; // offset: 811  (0x32B)
++    uint32_t reserved_812; // offset: 812  (0x32C)
++    uint32_t reserved_813; // offset: 813  (0x32D)
++    uint32_t reserved_814; // offset: 814  (0x32E)
++    uint32_t reserved_815; // offset: 815  (0x32F)
++    uint32_t reserved_816; // offset: 816  (0x330)
++    uint32_t reserved_817; // offset: 817  (0x331)
++    uint32_t reserved_818; // offset: 818  (0x332)
++    uint32_t reserved_819; // offset: 819  (0x333)
++    uint32_t reserved_820; // offset: 820  (0x334)
++    uint32_t reserved_821; // offset: 821  (0x335)
++    uint32_t reserved_822; // offset: 822  (0x336)
++    uint32_t reserved_823; // offset: 823  (0x337)
++    uint32_t reserved_824; // offset: 824  (0x338)
++    uint32_t reserved_825; // offset: 825  (0x339)
++    uint32_t reserved_826; // offset: 826  (0x33A)
++    uint32_t reserved_827; // offset: 827  (0x33B)
++    uint32_t reserved_828; // offset: 828  (0x33C)
++    uint32_t reserved_829; // offset: 829  (0x33D)
++    uint32_t reserved_830; // offset: 830  (0x33E)
++    uint32_t reserved_831; // offset: 831  (0x33F)
++    uint32_t reserved_832; // offset: 832  (0x340)
++    uint32_t reserved_833; // offset: 833  (0x341)
++    uint32_t reserved_834; // offset: 834  (0x342)
++    uint32_t reserved_835; // offset: 835  (0x343)
++    uint32_t reserved_836; // offset: 836  (0x344)
++    uint32_t reserved_837; // offset: 837  (0x345)
++    uint32_t reserved_838; // offset: 838  (0x346)
++    uint32_t reserved_839; // offset: 839  (0x347)
++    uint32_t reserved_840; // offset: 840  (0x348)
++    uint32_t reserved_841; // offset: 841  (0x349)
++    uint32_t reserved_842; // offset: 842  (0x34A)
++    uint32_t reserved_843; // offset: 843  (0x34B)
++    uint32_t reserved_844; // offset: 844  (0x34C)
++    uint32_t reserved_845; // offset: 845  (0x34D)
++    uint32_t reserved_846; // offset: 846  (0x34E)
++    uint32_t reserved_847; // offset: 847  (0x34F)
++    uint32_t reserved_848; // offset: 848  (0x350)
++    uint32_t reserved_849; // offset: 849  (0x351)
++    uint32_t reserved_850; // offset: 850  (0x352)
++    uint32_t reserved_851; // offset: 851  (0x353)
++    uint32_t reserved_852; // offset: 852  (0x354)
++    uint32_t reserved_853; // offset: 853  (0x355)
++    uint32_t reserved_854; // offset: 854  (0x356)
++    uint32_t reserved_855; // offset: 855  (0x357)
++    uint32_t reserved_856; // offset: 856  (0x358)
++    uint32_t reserved_857; // offset: 857  (0x359)
++    uint32_t reserved_858; // offset: 858  (0x35A)
++    uint32_t reserved_859; // offset: 859  (0x35B)
++    uint32_t reserved_860; // offset: 860  (0x35C)
++    uint32_t reserved_861; // offset: 861  (0x35D)
++    uint32_t reserved_862; // offset: 862  (0x35E)
++    uint32_t reserved_863; // offset: 863  (0x35F)
++    uint32_t reserved_864; // offset: 864  (0x360)
++    uint32_t reserved_865; // offset: 865  (0x361)
++    uint32_t reserved_866; // offset: 866  (0x362)
++    uint32_t reserved_867; // offset: 867  (0x363)
++    uint32_t reserved_868; // offset: 868  (0x364)
++    uint32_t reserved_869; // offset: 869  (0x365)
++    uint32_t reserved_870; // offset: 870  (0x366)
++    uint32_t reserved_871; // offset: 871  (0x367)
++    uint32_t reserved_872; // offset: 872  (0x368)
++    uint32_t reserved_873; // offset: 873  (0x369)
++    uint32_t reserved_874; // offset: 874  (0x36A)
++    uint32_t reserved_875; // offset: 875  (0x36B)
++    uint32_t reserved_876; // offset: 876  (0x36C)
++    uint32_t reserved_877; // offset: 877  (0x36D)
++    uint32_t reserved_878; // offset: 878  (0x36E)
++    uint32_t reserved_879; // offset: 879  (0x36F)
++    uint32_t reserved_880; // offset: 880  (0x370)
++    uint32_t reserved_881; // offset: 881  (0x371)
++    uint32_t reserved_882; // offset: 882  (0x372)
++    uint32_t reserved_883; // offset: 883  (0x373)
++    uint32_t reserved_884; // offset: 884  (0x374)
++    uint32_t reserved_885; // offset: 885  (0x375)
++    uint32_t reserved_886; // offset: 886  (0x376)
++    uint32_t reserved_887; // offset: 887  (0x377)
++    uint32_t reserved_888; // offset: 888  (0x378)
++    uint32_t reserved_889; // offset: 889  (0x379)
++    uint32_t reserved_890; // offset: 890  (0x37A)
++    uint32_t reserved_891; // offset: 891  (0x37B)
++    uint32_t reserved_892; // offset: 892  (0x37C)
++    uint32_t reserved_893; // offset: 893  (0x37D)
++    uint32_t reserved_894; // offset: 894  (0x37E)
++    uint32_t reserved_895; // offset: 895  (0x37F)
++    uint32_t reserved_896; // offset: 896  (0x380)
++    uint32_t reserved_897; // offset: 897  (0x381)
++    uint32_t reserved_898; // offset: 898  (0x382)
++    uint32_t reserved_899; // offset: 899  (0x383)
++    uint32_t reserved_900; // offset: 900  (0x384)
++    uint32_t reserved_901; // offset: 901  (0x385)
++    uint32_t reserved_902; // offset: 902  (0x386)
++    uint32_t reserved_903; // offset: 903  (0x387)
++    uint32_t reserved_904; // offset: 904  (0x388)
++    uint32_t reserved_905; // offset: 905  (0x389)
++    uint32_t reserved_906; // offset: 906  (0x38A)
++    uint32_t reserved_907; // offset: 907  (0x38B)
++    uint32_t reserved_908; // offset: 908  (0x38C)
++    uint32_t reserved_909; // offset: 909  (0x38D)
++    uint32_t reserved_910; // offset: 910  (0x38E)
++    uint32_t reserved_911; // offset: 911  (0x38F)
++    uint32_t reserved_912; // offset: 912  (0x390)
++    uint32_t reserved_913; // offset: 913  (0x391)
++    uint32_t reserved_914; // offset: 914  (0x392)
++    uint32_t reserved_915; // offset: 915  (0x393)
++    uint32_t reserved_916; // offset: 916  (0x394)
++    uint32_t reserved_917; // offset: 917  (0x395)
++    uint32_t reserved_918; // offset: 918  (0x396)
++    uint32_t reserved_919; // offset: 919  (0x397)
++    uint32_t reserved_920; // offset: 920  (0x398)
++    uint32_t reserved_921; // offset: 921  (0x399)
++    uint32_t reserved_922; // offset: 922  (0x39A)
++    uint32_t reserved_923; // offset: 923  (0x39B)
++    uint32_t reserved_924; // offset: 924  (0x39C)
++    uint32_t reserved_925; // offset: 925  (0x39D)
++    uint32_t reserved_926; // offset: 926  (0x39E)
++    uint32_t reserved_927; // offset: 927  (0x39F)
++    uint32_t reserved_928; // offset: 928  (0x3A0)
++    uint32_t reserved_929; // offset: 929  (0x3A1)
++    uint32_t reserved_930; // offset: 930  (0x3A2)
++    uint32_t reserved_931; // offset: 931  (0x3A3)
++    uint32_t reserved_932; // offset: 932  (0x3A4)
++    uint32_t reserved_933; // offset: 933  (0x3A5)
++    uint32_t reserved_934; // offset: 934  (0x3A6)
++    uint32_t reserved_935; // offset: 935  (0x3A7)
++    uint32_t reserved_936; // offset: 936  (0x3A8)
++    uint32_t reserved_937; // offset: 937  (0x3A9)
++    uint32_t reserved_938; // offset: 938  (0x3AA)
++    uint32_t reserved_939; // offset: 939  (0x3AB)
++    uint32_t reserved_940; // offset: 940  (0x3AC)
++    uint32_t reserved_941; // offset: 941  (0x3AD)
++    uint32_t reserved_942; // offset: 942  (0x3AE)
++    uint32_t reserved_943; // offset: 943  (0x3AF)
++    uint32_t reserved_944; // offset: 944  (0x3B0)
++    uint32_t reserved_945; // offset: 945  (0x3B1)
++    uint32_t reserved_946; // offset: 946  (0x3B2)
++    uint32_t reserved_947; // offset: 947  (0x3B3)
++    uint32_t reserved_948; // offset: 948  (0x3B4)
++    uint32_t reserved_949; // offset: 949  (0x3B5)
++    uint32_t reserved_950; // offset: 950  (0x3B6)
++    uint32_t reserved_951; // offset: 951  (0x3B7)
++    uint32_t reserved_952; // offset: 952  (0x3B8)
++    uint32_t reserved_953; // offset: 953  (0x3B9)
++    uint32_t reserved_954; // offset: 954  (0x3BA)
++    uint32_t reserved_955; // offset: 955  (0x3BB)
++    uint32_t reserved_956; // offset: 956  (0x3BC)
++    uint32_t reserved_957; // offset: 957  (0x3BD)
++    uint32_t reserved_958; // offset: 958  (0x3BE)
++    uint32_t reserved_959; // offset: 959  (0x3BF)
++    uint32_t reserved_960; // offset: 960  (0x3C0)
++    uint32_t reserved_961; // offset: 961  (0x3C1)
++    uint32_t reserved_962; // offset: 962  (0x3C2)
++    uint32_t reserved_963; // offset: 963  (0x3C3)
++    uint32_t reserved_964; // offset: 964  (0x3C4)
++    uint32_t reserved_965; // offset: 965  (0x3C5)
++    uint32_t reserved_966; // offset: 966  (0x3C6)
++    uint32_t reserved_967; // offset: 967  (0x3C7)
++    uint32_t reserved_968; // offset: 968  (0x3C8)
++    uint32_t reserved_969; // offset: 969  (0x3C9)
++    uint32_t reserved_970; // offset: 970  (0x3CA)
++    uint32_t reserved_971; // offset: 971  (0x3CB)
++    uint32_t reserved_972; // offset: 972  (0x3CC)
++    uint32_t reserved_973; // offset: 973  (0x3CD)
++    uint32_t reserved_974; // offset: 974  (0x3CE)
++    uint32_t reserved_975; // offset: 975  (0x3CF)
++    uint32_t reserved_976; // offset: 976  (0x3D0)
++    uint32_t reserved_977; // offset: 977  (0x3D1)
++    uint32_t reserved_978; // offset: 978  (0x3D2)
++    uint32_t reserved_979; // offset: 979  (0x3D3)
++    uint32_t reserved_980; // offset: 980  (0x3D4)
++    uint32_t reserved_981; // offset: 981  (0x3D5)
++    uint32_t reserved_982; // offset: 982  (0x3D6)
++    uint32_t reserved_983; // offset: 983  (0x3D7)
++    uint32_t reserved_984; // offset: 984  (0x3D8)
++    uint32_t reserved_985; // offset: 985  (0x3D9)
++    uint32_t reserved_986; // offset: 986  (0x3DA)
++    uint32_t reserved_987; // offset: 987  (0x3DB)
++    uint32_t reserved_988; // offset: 988  (0x3DC)
++    uint32_t reserved_989; // offset: 989  (0x3DD)
++    uint32_t reserved_990; // offset: 990  (0x3DE)
++    uint32_t reserved_991; // offset: 991  (0x3DF)
++    uint32_t reserved_992; // offset: 992  (0x3E0)
++    uint32_t reserved_993; // offset: 993  (0x3E1)
++    uint32_t reserved_994; // offset: 994  (0x3E2)
++    uint32_t reserved_995; // offset: 995  (0x3E3)
++    uint32_t reserved_996; // offset: 996  (0x3E4)
++    uint32_t reserved_997; // offset: 997  (0x3E5)
++    uint32_t reserved_998; // offset: 998  (0x3E6)
++    uint32_t reserved_999; // offset: 999  (0x3E7)
++    uint32_t reserved_1000; // offset: 1000  (0x3E8)
++    uint32_t reserved_1001; // offset: 1001  (0x3E9)
++    uint32_t reserved_1002; // offset: 1002  (0x3EA)
++    uint32_t reserved_1003; // offset: 1003  (0x3EB)
++    uint32_t reserved_1004; // offset: 1004  (0x3EC)
++    uint32_t reserved_1005; // offset: 1005  (0x3ED)
++    uint32_t reserved_1006; // offset: 1006  (0x3EE)
++    uint32_t reserved_1007; // offset: 1007  (0x3EF)
++    uint32_t reserved_1008; // offset: 1008  (0x3F0)
++    uint32_t reserved_1009; // offset: 1009  (0x3F1)
++    uint32_t reserved_1010; // offset: 1010  (0x3F2)
++    uint32_t reserved_1011; // offset: 1011  (0x3F3)
++    uint32_t reserved_1012; // offset: 1012  (0x3F4)
++    uint32_t reserved_1013; // offset: 1013  (0x3F5)
++    uint32_t reserved_1014; // offset: 1014  (0x3F6)
++    uint32_t reserved_1015; // offset: 1015  (0x3F7)
++    uint32_t reserved_1016; // offset: 1016  (0x3F8)
++    uint32_t reserved_1017; // offset: 1017  (0x3F9)
++    uint32_t reserved_1018; // offset: 1018  (0x3FA)
++    uint32_t reserved_1019; // offset: 1019  (0x3FB)
++    uint32_t reserved_1020; // offset: 1020  (0x3FC)
++    uint32_t reserved_1021; // offset: 1021  (0x3FD)
++    uint32_t reserved_1022; // offset: 1022  (0x3FE)
++    uint32_t reserved_1023; // offset: 1023  (0x3FF)
++};
++
++struct v12_1_mes_mqd {
++    uint32_t header; // offset: 0  (0x0)
++    uint32_t compute_dispatch_initiator; // offset: 1  (0x1)
++    uint32_t compute_dim_x; // offset: 2  (0x2)
++    uint32_t compute_dim_y; // offset: 3  (0x3)
++    uint32_t compute_dim_z; // offset: 4  (0x4)
++    uint32_t compute_start_x; // offset: 5  (0x5)
++    uint32_t compute_start_y; // offset: 6  (0x6)
++    uint32_t compute_start_z; // offset: 7  (0x7)
++    uint32_t compute_num_thread_x; // offset: 8  (0x8)
++    uint32_t compute_num_thread_y; // offset: 9  (0x9)
++    uint32_t compute_num_thread_z; // offset: 10  (0xA)
++    uint32_t compute_pipelinestat_enable; // offset: 11  (0xB)
++    uint32_t compute_perfcount_enable; // offset: 12  (0xC)
++    uint32_t compute_pgm_lo; // offset: 13  (0xD)
++    uint32_t compute_pgm_hi; // offset: 14  (0xE)
++    uint32_t compute_dispatch_pkt_addr_lo; // offset: 15  (0xF)
++    uint32_t compute_dispatch_pkt_addr_hi; // offset: 16  (0x10)
++    uint32_t compute_dispatch_scratch_base_lo; // offset: 17  (0x11)
++    uint32_t compute_dispatch_scratch_base_hi; // offset: 18  (0x12)
++    uint32_t compute_pgm_rsrc1; // offset: 19  (0x13)
++    uint32_t compute_pgm_rsrc2; // offset: 20  (0x14)
++    uint32_t compute_vmid; // offset: 21  (0x15)
++    uint32_t compute_resource_limits; // offset: 22  (0x16)
++    uint32_t compute_tmpring_size; // offset: 23  (0x17)
++    uint32_t compute_restart_x; // offset: 24  (0x18)
++    uint32_t compute_restart_y; // offset: 25  (0x19)
++    uint32_t compute_restart_z; // offset: 26  (0x1A)
++    uint32_t compute_thread_trace_enable; // offset: 27  (0x1B)
++    uint32_t compute_misc_reserved; // offset: 28  (0x1C)
++    uint32_t compute_dispatch_id; // offset: 29  (0x1D)
++    uint32_t compute_threadgroup_id; // offset: 30  (0x1E)
++    uint32_t compute_req_ctrl; // offset: 31  (0x1F)
++    uint32_t compute_user_accum_0; // offset: 32  (0x20)
++    uint32_t compute_user_accum_1; // offset: 33  (0x21)
++    uint32_t compute_user_accum_2; // offset: 34  (0x22)
++    uint32_t compute_user_accum_3; // offset: 35  (0x23)
++    uint32_t compute_pgm_rsrc3; // offset: 36  (0x24)
++    uint32_t compute_ddid_index; // offset: 37  (0x25)
++    uint32_t compute_shader_chksum; // offset: 38  (0x26)
++    uint32_t compute_dispatch_interleave; // offset: 39  (0x27)
++    uint32_t compute_current_logical_xcc_id; // offset: 40  (0x28)
++    uint32_t compute_restart_cg_tg_id; // offset: 41  (0x29)
++    uint32_t compute_tg_chunk_size; // offset: 42  (0x2A)
++    uint32_t compute_restore_tg_chunk_size; // offset: 43  (0x2B)
++    uint32_t compute_start_total_lo; // offset: 44  (0x2C)
++    uint32_t compute_start_total_hi; // offset: 45  (0x2D)
++    uint32_t compute_prescaled_dim_x; // offset: 46  (0x2E)
++    uint32_t compute_prescaled_dim_y; // offset: 47  (0x2F)
++    uint32_t compute_prescaled_dim_z; // offset: 48  (0x30)
++    uint32_t compute_static_thread_mgmt_se0; // offset: 49  (0x31)
++    uint32_t compute_static_thread_mgmt_se1; // offset: 50  (0x32)
++    uint32_t compute_static_thread_mgmt_se2; // offset: 51  (0x33)
++    uint32_t compute_static_thread_mgmt_se3; // offset: 52  (0x34)
++    uint32_t compute_static_thread_mgmt_se4; // offset: 53  (0x35)
++    uint32_t compute_static_thread_mgmt_se5; // offset: 54  (0x36)
++    uint32_t compute_static_thread_mgmt_se6; // offset: 55  (0x37)
++    uint32_t compute_static_thread_mgmt_se7; // offset: 56  (0x38)
++    uint32_t compute_static_thread_mgmt_se8; // offset: 57  (0x39)
++    uint32_t reserved_58; // offset: 58  (0x3A)
++    uint32_t reserved_59; // offset: 59  (0x3B)
++    uint32_t reserved_60; // offset: 60  (0x3C)
++    uint32_t reserved_61; // offset: 61  (0x3D)
++    uint32_t reserved_62; // offset: 62  (0x3E)
++    uint32_t reserved_63; // offset: 63  (0x3F)
++    uint32_t reserved_64; // offset: 64  (0x40)
++    uint32_t compute_user_data_0; // offset: 65  (0x41)
++    uint32_t compute_user_data_1; // offset: 66  (0x42)
++    uint32_t compute_user_data_2; // offset: 67  (0x43)
++    uint32_t compute_user_data_3; // offset: 68  (0x44)
++    uint32_t compute_user_data_4; // offset: 69  (0x45)
++    uint32_t compute_user_data_5; // offset: 70  (0x46)
++    uint32_t compute_user_data_6; // offset: 71  (0x47)
++    uint32_t compute_user_data_7; // offset: 72  (0x48)
++    uint32_t compute_user_data_8; // offset: 73  (0x49)
++    uint32_t compute_user_data_9; // offset: 74  (0x4A)
++    uint32_t compute_user_data_10; // offset: 75  (0x4B)
++    uint32_t compute_user_data_11; // offset: 76  (0x4C)
++    uint32_t compute_user_data_12; // offset: 77  (0x4D)
++    uint32_t compute_user_data_13; // offset: 78  (0x4E)
++    uint32_t compute_user_data_14; // offset: 79  (0x4F)
++    uint32_t compute_user_data_15; // offset: 80  (0x50)
++    uint32_t compute_user_data_16; // offset: 81  (0x51)
++    uint32_t compute_user_data_17; // offset: 82  (0x52)
++    uint32_t compute_user_data_18; // offset: 83  (0x53)
++    uint32_t compute_user_data_19; // offset: 84  (0x54)
++    uint32_t compute_user_data_20; // offset: 85  (0x55)
++    uint32_t compute_user_data_21; // offset: 86  (0x56)
++    uint32_t compute_user_data_22; // offset: 87  (0x57)
++    uint32_t compute_user_data_23; // offset: 88  (0x58)
++    uint32_t compute_user_data_24; // offset: 89  (0x59)
++    uint32_t compute_user_data_25; // offset: 90  (0x5A)
++    uint32_t compute_user_data_26; // offset: 91  (0x5B)
++    uint32_t compute_user_data_27; // offset: 92  (0x5C)
++    uint32_t compute_user_data_28; // offset: 93  (0x5D)
++    uint32_t compute_user_data_29; // offset: 94  (0x5E)
++    uint32_t compute_user_data_30; // offset: 95  (0x5F)
++    uint32_t compute_user_data_31; // offset: 96  (0x60)
++    uint32_t reserved_97; // offset: 97  (0x61)
++    uint32_t reserved_98; // offset: 98  (0x62)
++    uint32_t reserved_99; // offset: 99  (0x63)
++    uint32_t reserved_100; // offset: 100  (0x64)
++    uint32_t reserved_101; // offset: 101  (0x65)
++    uint32_t reserved_102; // offset: 102  (0x66)
++    uint32_t reserved_103; // offset: 103  (0x67)
++    uint32_t reserved_104; // offset: 104  (0x68)
++    uint32_t reserved_105; // offset: 105  (0x69)
++    uint32_t reserved_106; // offset: 106  (0x6A)
++    uint32_t reserved_107; // offset: 107  (0x6B)
++    uint32_t reserved_108; // offset: 108  (0x6C)
++    uint32_t reserved_109; // offset: 109  (0x6D)
++    uint32_t compute_relaunch; // offset: 110  (0x6E)
++    uint32_t compute_wave_restore_addr_lo; // offset: 111  (0x6F)
++    uint32_t compute_wave_restore_addr_hi; // offset: 112  (0x70)
++    uint32_t compute_relaunch2; // offset: 113  (0x71)
++    uint32_t cp_pq_exe_status_lo; // offset: 114  (0x72)
++    uint32_t cp_pq_exe_status_hi; // offset: 115  (0x73)
++    uint32_t cp_packet_id_lo; // offset: 116  (0x74)
++    uint32_t cp_packet_id_hi; // offset: 117  (0x75)
++    uint32_t cp_packet_exe_status_lo; // offset: 118  (0x76)
++    uint32_t cp_packet_exe_status_hi; // offset: 119  (0x77)
++    uint32_t reserved_120; // offset: 120  (0x78)
++    uint32_t reserved_121; // offset: 121  (0x79)
++    uint32_t reserved_122; // offset: 122  (0x7A)
++    uint32_t reserved_123; // offset: 123  (0x7B)
++    uint32_t ctx_save_base_addr_lo; // offset: 124  (0x7C)
++    uint32_t ctx_save_base_addr_hi; // offset: 125  (0x7D)
++    uint32_t reserved_126; // offset: 126  (0x7E)
++    uint32_t reserved_127; // offset: 127  (0x7F)
++    uint32_t cp_mqd_base_addr_lo; // offset: 128  (0x80)
++    uint32_t cp_mqd_base_addr_hi; // offset: 129  (0x81)
++    uint32_t cp_hqd_active; // offset: 130  (0x82)
++    uint32_t cp_hqd_vmid; // offset: 131  (0x83)
++    uint32_t cp_hqd_persistent_state; // offset: 132  (0x84)
++    uint32_t cp_hqd_pipe_priority; // offset: 133  (0x85)
++    uint32_t cp_hqd_queue_priority; // offset: 134  (0x86)
++    uint32_t cp_hqd_quantum; // offset: 135  (0x87)
++    uint32_t cp_hqd_pq_base_lo; // offset: 136  (0x88)
++    uint32_t cp_hqd_pq_base_hi; // offset: 137  (0x89)
++    uint32_t cp_hqd_pq_rptr; // offset: 138  (0x8A)
++    uint32_t cp_hqd_pq_rptr_report_addr_lo; // offset: 139  (0x8B)
++    uint32_t cp_hqd_pq_rptr_report_addr_hi; // offset: 140  (0x8C)
++    uint32_t cp_hqd_pq_wptr_poll_addr_lo; // offset: 141  (0x8D)
++    uint32_t cp_hqd_pq_wptr_poll_addr_hi; // offset: 142  (0x8E)
++    uint32_t cp_hqd_pq_doorbell_control; // offset: 143  (0x8F)
++    uint32_t reserved_144; // offset: 144  (0x90)
++    uint32_t cp_hqd_pq_control; // offset: 145  (0x91)
++    uint32_t cp_hqd_ib_base_addr_lo; // offset: 146  (0x92)
++    uint32_t cp_hqd_ib_base_addr_hi; // offset: 147  (0x93)
++    uint32_t cp_hqd_ib_rptr; // offset: 148  (0x94)
++    uint32_t cp_hqd_ib_control; // offset: 149  (0x95)
++    uint32_t cp_hqd_iq_timer; // offset: 150  (0x96)
++    uint32_t cp_hqd_iq_rptr; // offset: 151  (0x97)
++    uint32_t cp_hqd_dequeue_request; // offset: 152  (0x98)
++    uint32_t cp_hqd_dma_offload; // offset: 153  (0x99)
++    uint32_t cp_hqd_sema_cmd; // offset: 154  (0x9A)
++    uint32_t cp_hqd_msg_type; // offset: 155  (0x9B)
++    uint32_t cp_hqd_atomic0_preop_lo; // offset: 156  (0x9C)
++    uint32_t cp_hqd_atomic0_preop_hi; // offset: 157  (0x9D)
++    uint32_t cp_hqd_atomic1_preop_lo; // offset: 158  (0x9E)
++    uint32_t cp_hqd_atomic1_preop_hi; // offset: 159  (0x9F)
++    uint32_t cp_hqd_hq_status0; // offset: 160  (0xA0)
++    uint32_t cp_hqd_hq_control0; // offset: 161  (0xA1)
++    uint32_t cp_mqd_control; // offset: 162  (0xA2)
++    uint32_t cp_hqd_hq_status1; // offset: 163  (0xA3)
++    uint32_t cp_hqd_hq_control1; // offset: 164  (0xA4)
++    uint32_t cp_hqd_eop_base_addr_lo; // offset: 165  (0xA5)
++    uint32_t cp_hqd_eop_base_addr_hi; // offset: 166  (0xA6)
++    uint32_t cp_hqd_eop_control; // offset: 167  (0xA7)
++    uint32_t cp_hqd_eop_rptr; // offset: 168  (0xA8)
++    uint32_t cp_hqd_eop_wptr; // offset: 169  (0xA9)
++    uint32_t cp_hqd_eop_done_events; // offset: 170  (0xAA)
++    uint32_t cp_hqd_ctx_save_base_addr_lo; // offset: 171  (0xAB)
++    uint32_t cp_hqd_ctx_save_base_addr_hi; // offset: 172  (0xAC)
++    uint32_t cp_hqd_ctx_save_control; // offset: 173  (0xAD)
++    uint32_t cp_hqd_cntl_stack_offset; // offset: 174  (0xAE)
++    uint32_t cp_hqd_cntl_stack_size; // offset: 175  (0xAF)
++    uint32_t cp_hqd_wg_state_offset; // offset: 176  (0xB0)
++    uint32_t cp_hqd_ctx_save_size; // offset: 177  (0xB1)
++    uint32_t reserved_178; // offset: 178  (0xB2)
++    uint32_t cp_hqd_error; // offset: 179  (0xB3)
++    uint32_t cp_hqd_eop_wptr_mem; // offset: 180  (0xB4)
++    uint32_t cp_hqd_aql_control; // offset: 181  (0xB5)
++    uint32_t cp_hqd_pq_wptr_lo; // offset: 182  (0xB6)
++    uint32_t cp_hqd_pq_wptr_hi; // offset: 183  (0xB7)
++    uint32_t cp_hqd_gfx_control; // offset: 184  (0xB8)
++    uint32_t cp_hqd_suspend_cntl_stack_dw_cnt; // offset: 185  (0xB9)
++    uint32_t cp_hqd_suspend_wg_state_offset; // offset: 186  (0xBA)
++    uint32_t cp_hqd_ddid_rptr; // offset: 187  (0xBB)
++    uint32_t cp_hqd_ddid_wptr; // offset: 188  (0xBC)
++    uint32_t cp_hqd_ddid_inflight_count; // offset: 189  (0xBD)
++    uint32_t cp_hqd_ddid_delta_rpt_count; // offset: 190  (0xBE)
++    uint32_t cp_hqd_dequeue_status; // offset: 191  (0xBF)
++    uint32_t cp_hqd_aql_control_1; // offset: 192  (0xC0)
++    uint32_t cp_hqd_aql_dispatch_id; // offset: 193  (0xC1)
++    uint32_t cp_hqd_aql_dispatch_id_hi; // offset: 194  (0xC2)
++    uint32_t cp_hqd_kd_base; // offset: 195  (0xC3)
++    uint32_t cp_hqd_kd_base_hi; // offset: 196  (0xC4)
++    uint32_t cp_hqd_kd_cntl; // offset: 197  (0xC5)
++    uint32_t reserved_198; // offset: 198  (0xC6)
++    uint32_t reserved_199; // offset: 199  (0xC7)
++    uint32_t reserved_200; // offset: 200  (0xC8)
++    uint32_t reserved_201; // offset: 201  (0xC9)
++    uint32_t reserved_202; // offset: 202  (0xCA)
++    uint32_t reserved_203; // offset: 203  (0xCB)
++    uint32_t reserved_204; // offset: 204  (0xCC)
++    uint32_t reserved_205; // offset: 205  (0xCD)
++    uint32_t reserved_206; // offset: 206  (0xCE)
++    uint32_t reserved_207; // offset: 207  (0xCF)
++    uint32_t reserved_208; // offset: 208  (0xD0)
++    uint32_t reserved_209; // offset: 209  (0xD1)
++    uint32_t reserved_210; // offset: 210  (0xD2)
++    uint32_t reserved_211; // offset: 211  (0xD3)
++    uint32_t reserved_212; // offset: 212  (0xD4)
++    uint32_t reserved_213; // offset: 213  (0xD5)
++    uint32_t reserved_214; // offset: 214  (0xD6)
++    uint32_t reserved_215; // offset: 215  (0xD7)
++    uint32_t reserved_216; // offset: 216  (0xD8)
++    uint32_t reserved_217; // offset: 217  (0xD9)
++    uint32_t reserved_218; // offset: 218  (0xDA)
++    uint32_t reserved_219; // offset: 219  (0xDB)
++    uint32_t reserved_220; // offset: 220  (0xDC)
++    uint32_t reserved_221; // offset: 221  (0xDD)
++    uint32_t reserved_222; // offset: 222  (0xDE)
++    uint32_t reserved_223; // offset: 223  (0xDF)
++    uint32_t reserved_224; // offset: 224  (0xE0)
++    uint32_t pm4_target_xcc_in_xcp; // offset: 225  (0xE1)
++    uint32_t cp_mqd_stride_size; // offset: 226  (0xE2)
++    uint32_t xcc_sync_counter; // offset: 227  (0xE3)
++    uint32_t set_resources_header; // offset: 228  (0xE4)
++    uint32_t set_resources_dw1; // offset: 229  (0xE5)
++    uint32_t set_resources_dw2; // offset: 230  (0xE6)
++    uint32_t set_resources_dw3; // offset: 231  (0xE7)
++    uint32_t set_resources_dw4; // offset: 232  (0xE8)
++    uint32_t set_resources_dw5; // offset: 233  (0xE9)
++    uint32_t set_resources_dw6; // offset: 234  (0xEA)
++    uint32_t set_resources_dw7; // offset: 235  (0xEB)
++    uint32_t reserved_236; // offset: 236  (0xEC)
++    uint32_t reserved_237; // offset: 237  (0xED)
++    uint32_t reserved_238; // offset: 238  (0xEE)
++    uint32_t reserved_239; // offset: 239  (0xEF)
++    uint32_t reserved_240; // offset: 240  (0xF0)
++    uint32_t reserved_241; // offset: 241  (0xF1)
++    uint32_t reserved_242; // offset: 242  (0xF2)
++    uint32_t reserved_243; // offset: 243  (0xF3)
++    uint32_t reserved_244; // offset: 244  (0xF4)
++    uint32_t reserved_245; // offset: 245  (0xF5)
++    uint32_t reserved_246; // offset: 246  (0xF6)
++    uint32_t reserved_247; // offset: 247  (0xF7)
++    uint32_t reserved_248; // offset: 248  (0xF8)
++    uint32_t reserved_249; // offset: 249  (0xF9)
++    uint32_t reserved_250; // offset: 250  (0xFA)
++    uint32_t reserved_251; // offset: 251  (0xFB)
++    uint32_t reserved_252; // offset: 252  (0xFC)
++    uint32_t reserved_253; // offset: 253  (0xFD)
++    uint32_t reserved_254; // offset: 254  (0xFE)
++    uint32_t reserved_255; // offset: 255  (0xFF)
++    uint32_t control_buf_addr_lo; // offset: 256  (0x100)
++    uint32_t control_buf_addr_hi; // offset: 257  (0x101)
++    uint32_t control_buf_wptr_lo; // offset: 258  (0x102)
++    uint32_t control_buf_wptr_hi; // offset: 259  (0x103)
++    uint32_t control_buf_dptr_lo; // offset: 260  (0x104)
++    uint32_t control_buf_dptr_hi; // offset: 261  (0x105)
++    uint32_t draw_ring_addr_lo; // offset: 262  (0x106)
++    uint32_t draw_ring_addr_hi; // offset: 263  (0x107)
++    uint32_t control_buf_num_entries; // offset: 264  (0x108)
++    uint32_t reserved_265; // offset: 265  (0x109)
++    uint32_t reserved_266; // offset: 266  (0x10A)
++    uint32_t reserved_267; // offset: 267  (0x10B)
++    uint32_t reserved_268; // offset: 268  (0x10C)
++    uint32_t reserved_269; // offset: 269  (0x10D)
++    uint32_t reserved_270; // offset: 270  (0x10E)
++    uint32_t reserved_271; // offset: 271  (0x10F)
++    uint32_t dfwx_flags; // offset: 272  (0x110)
++    uint32_t dfwx_slot; // offset: 273  (0x111)
++    uint32_t dfwx_client_data_addr_lo; // offset: 274  (0x112)
++    uint32_t dfwx_client_data_addr_hi; // offset: 275  (0x113)
++    uint32_t dfwx_queue_connect_addr_lo; // offset: 276  (0x114)
++    uint32_t dfwx_queue_connect_addr_hi; // offset: 277  (0x115)
++    uint32_t reserved_278; // offset: 278  (0x116)
++    uint32_t reserved_279; // offset: 279  (0x117)
++    uint32_t reserved_280; // offset: 280  (0x118)
++    uint32_t reserved_281; // offset: 281  (0x119)
++    uint32_t reserved_282; // offset: 282  (0x11A)
++    uint32_t reserved_283; // offset: 283  (0x11B)
++    uint32_t reserved_284; // offset: 284  (0x11C)
++    uint32_t reserved_285; // offset: 285  (0x11D)
++    uint32_t reserved_286; // offset: 286  (0x11E)
++    uint32_t reserved_287; // offset: 287  (0x11F)
++    uint32_t cp_mqd_query_time_lo; // offset: 288  (0x120)
++    uint32_t cp_mqd_query_time_hi; // offset: 289  (0x121)
++    uint32_t cp_mqd_connect_start_time_lo; // offset: 290  (0x122)
++    uint32_t cp_mqd_connect_start_time_hi; // offset: 291  (0x123)
++    uint32_t cp_mqd_connect_end_time_lo; // offset: 292  (0x124)
++    uint32_t cp_mqd_connect_end_time_hi; // offset: 293  (0x125)
++    uint32_t cp_mqd_connect_end_wf_count; // offset: 294  (0x126)
++    uint32_t cp_mqd_connect_end_pq_rptr; // offset: 295  (0x127)
++    uint32_t cp_mqd_connect_end_pq_wptr; // offset: 296  (0x128)
++    uint32_t cp_mqd_connect_end_ib_rptr; // offset: 297  (0x129)
++    uint32_t cp_mqd_readindex_lo; // offset: 298  (0x12A)
++    uint32_t cp_mqd_readindex_hi; // offset: 299  (0x12B)
++    uint32_t cp_mqd_save_start_time_lo; // offset: 300  (0x12C)
++    uint32_t cp_mqd_save_start_time_hi; // offset: 301  (0x12D)
++    uint32_t cp_mqd_save_end_time_lo; // offset: 302  (0x12E)
++    uint32_t cp_mqd_save_end_time_hi; // offset: 303  (0x12F)
++    uint32_t cp_mqd_restore_start_time_lo; // offset: 304  (0x130)
++    uint32_t cp_mqd_restore_start_time_hi; // offset: 305  (0x131)
++    uint32_t cp_mqd_restore_end_time_lo; // offset: 306  (0x132)
++    uint32_t cp_mqd_restore_end_time_hi; // offset: 307  (0x133)
++    uint32_t disable_queue; // offset: 308  (0x134)
++    uint32_t reserved_309; // offset: 309  (0x135)
++    uint32_t reserved_310; // offset: 310  (0x136)
++    uint32_t reserved_311; // offset: 311  (0x137)
++    uint32_t reserved_312; // offset: 312  (0x138)
++    uint32_t reserved_313; // offset: 313  (0x139)
++    uint32_t reserved_314; // offset: 314  (0x13A)
++    uint32_t reserved_315; // offset: 315  (0x13B)
++    uint32_t reserved_316; // offset: 316  (0x13C)
++    uint32_t reserved_317; // offset: 317  (0x13D)
++    uint32_t tg_counter_id; // offset: 318  (0x13E)
++    uint32_t cp_compute_csinvoc_count_lo; // offset: 319  (0x13F)
++    uint32_t cp_compute_csinvoc_count_hi; // offset: 320  (0x140)
++    uint32_t reserved_321; // offset: 321  (0x141)
++    uint32_t reserved_322; // offset: 322  (0x142)
++    uint32_t reserved_323; // offset: 323  (0x143)
++    uint32_t reserved_324; // offset: 324  (0x144)
++    uint32_t reserved_325; // offset: 325  (0x145)
++    uint32_t reserved_326; // offset: 326  (0x146)
++    uint32_t reserved_327; // offset: 327  (0x147)
++    uint32_t reserved_328; // offset: 328  (0x148)
++    uint32_t reserved_329; // offset: 329  (0x149)
++    uint32_t reserved_330; // offset: 330  (0x14A)
++    uint32_t reserved_331; // offset: 331  (0x14B)
++    uint32_t reserved_332; // offset: 332  (0x14C)
++    uint32_t reserved_333; // offset: 333  (0x14D)
++    uint32_t reserved_334; // offset: 334  (0x14E)
++    uint32_t reserved_335; // offset: 335  (0x14F)
++    uint32_t reserved_336; // offset: 336  (0x150)
++    uint32_t reserved_337; // offset: 337  (0x151)
++    uint32_t reserved_338; // offset: 338  (0x152)
++    uint32_t reserved_339; // offset: 339  (0x153)
++    uint32_t reserved_340; // offset: 340  (0x154)
++    uint32_t reserved_341; // offset: 341  (0x155)
++    uint32_t reserved_342; // offset: 342  (0x156)
++    uint32_t reserved_343; // offset: 343  (0x157)
++    uint32_t reserved_344; // offset: 344  (0x158)
++    uint32_t reserved_345; // offset: 345  (0x159)
++    uint32_t reserved_346; // offset: 346  (0x15A)
++    uint32_t reserved_347; // offset: 347  (0x15B)
++    uint32_t reserved_348; // offset: 348  (0x15C)
++    uint32_t reserved_349; // offset: 349  (0x15D)
++    uint32_t reserved_350; // offset: 350  (0x15E)
++    uint32_t reserved_351; // offset: 351  (0x15F)
++    uint32_t reserved_352; // offset: 352  (0x160)
++    uint32_t reserved_353; // offset: 353  (0x161)
++    uint32_t reserved_354; // offset: 354  (0x162)
++    uint32_t reserved_355; // offset: 355  (0x163)
++    uint32_t reserved_356; // offset: 356  (0x164)
++    uint32_t reserved_357; // offset: 357  (0x165)
++    uint32_t reserved_358; // offset: 358  (0x166)
++    uint32_t reserved_359; // offset: 359  (0x167)
++    uint32_t reserved_360; // offset: 360  (0x168)
++    uint32_t reserved_361; // offset: 361  (0x169)
++    uint32_t reserved_362; // offset: 362  (0x16A)
++    uint32_t reserved_363; // offset: 363  (0x16B)
++    uint32_t reserved_364; // offset: 364  (0x16C)
++    uint32_t reserved_365; // offset: 365  (0x16D)
++    uint32_t reserved_366; // offset: 366  (0x16E)
++    uint32_t reserved_367; // offset: 367  (0x16F)
++    uint32_t reserved_368; // offset: 368  (0x170)
++    uint32_t reserved_369; // offset: 369  (0x171)
++    uint32_t reserved_370; // offset: 370  (0x172)
++    uint32_t reserved_371; // offset: 371  (0x173)
++    uint32_t reserved_372; // offset: 372  (0x174)
++    uint32_t reserved_373; // offset: 373  (0x175)
++    uint32_t reserved_374; // offset: 374  (0x176)
++    uint32_t reserved_375; // offset: 375  (0x177)
++    uint32_t reserved_376; // offset: 376  (0x178)
++    uint32_t reserved_377; // offset: 377  (0x179)
++    uint32_t reserved_378; // offset: 378  (0x17A)
++    uint32_t reserved_379; // offset: 379  (0x17B)
++    uint32_t reserved_380; // offset: 380  (0x17C)
++    uint32_t reserved_381; // offset: 381  (0x17D)
++    uint32_t reserved_382; // offset: 382  (0x17E)
++    uint32_t reserved_383; // offset: 383  (0x17F)
++    uint32_t iqtimer_pkt_header; // offset: 384  (0x180)
++    uint32_t iqtimer_pkt_dw0; // offset: 385  (0x181)
++    uint32_t iqtimer_pkt_dw1; // offset: 386  (0x182)
++    uint32_t iqtimer_pkt_dw2; // offset: 387  (0x183)
++    uint32_t iqtimer_pkt_dw3; // offset: 388  (0x184)
++    uint32_t iqtimer_pkt_dw4; // offset: 389  (0x185)
++    uint32_t iqtimer_pkt_dw5; // offset: 390  (0x186)
++    uint32_t iqtimer_pkt_dw6; // offset: 391  (0x187)
++    uint32_t iqtimer_pkt_dw7; // offset: 392  (0x188)
++    uint32_t iqtimer_pkt_dw8; // offset: 393  (0x189)
++    uint32_t iqtimer_pkt_dw9; // offset: 394  (0x18A)
++    uint32_t iqtimer_pkt_dw10; // offset: 395  (0x18B)
++    uint32_t iqtimer_pkt_dw11; // offset: 396  (0x18C)
++    uint32_t iqtimer_pkt_dw12; // offset: 397  (0x18D)
++    uint32_t iqtimer_pkt_dw13; // offset: 398  (0x18E)
++    uint32_t iqtimer_pkt_dw14; // offset: 399  (0x18F)
++    uint32_t iqtimer_pkt_dw15; // offset: 400  (0x190)
++    uint32_t iqtimer_pkt_dw16; // offset: 401  (0x191)
++    uint32_t iqtimer_pkt_dw17; // offset: 402  (0x192)
++    uint32_t iqtimer_pkt_dw18; // offset: 403  (0x193)
++    uint32_t iqtimer_pkt_dw19; // offset: 404  (0x194)
++    uint32_t iqtimer_pkt_dw20; // offset: 405  (0x195)
++    uint32_t iqtimer_pkt_dw21; // offset: 406  (0x196)
++    uint32_t iqtimer_pkt_dw22; // offset: 407  (0x197)
++    uint32_t iqtimer_pkt_dw23; // offset: 408  (0x198)
++    uint32_t iqtimer_pkt_dw24; // offset: 409  (0x199)
++    uint32_t iqtimer_pkt_dw25; // offset: 410  (0x19A)
++    uint32_t iqtimer_pkt_dw26; // offset: 411  (0x19B)
++    uint32_t iqtimer_pkt_dw27; // offset: 412  (0x19C)
++    uint32_t iqtimer_pkt_dw28; // offset: 413  (0x19D)
++    uint32_t iqtimer_pkt_dw29; // offset: 414  (0x19E)
++    uint32_t iqtimer_pkt_dw30; // offset: 415  (0x19F)
++    uint32_t iqtimer_pkt_dw31; // offset: 416  (0x1A0)
++    uint32_t reserved_417; // offset: 417  (0x1A1)
++    uint32_t reserved_418; // offset: 418  (0x1A2)
++    uint32_t reserved_419; // offset: 419  (0x1A3)
++    uint32_t reserved_420; // offset: 420  (0x1A4)
++    uint32_t reserved_421; // offset: 421  (0x1A5)
++    uint32_t reserved_422; // offset: 422  (0x1A6)
++    uint32_t reserved_423; // offset: 423  (0x1A7)
++    uint32_t reserved_424; // offset: 424  (0x1A8)
++    uint32_t reserved_425; // offset: 425  (0x1A9)
++    uint32_t reserved_426; // offset: 426  (0x1AA)
++    uint32_t reserved_427; // offset: 427  (0x1AB)
++    uint32_t reserved_428; // offset: 428  (0x1AC)
++    uint32_t reserved_429; // offset: 429  (0x1AD)
++    uint32_t reserved_430; // offset: 430  (0x1AE)
++    uint32_t reserved_431; // offset: 431  (0x1AF)
++    uint32_t reserved_432; // offset: 432  (0x1B0)
++    uint32_t reserved_433; // offset: 433  (0x1B1)
++    uint32_t reserved_434; // offset: 434  (0x1B2)
++    uint32_t reserved_435; // offset: 435  (0x1B3)
++    uint32_t reserved_436; // offset: 436  (0x1B4)
++    uint32_t reserved_437; // offset: 437  (0x1B5)
++    uint32_t reserved_438; // offset: 438  (0x1B6)
++    uint32_t reserved_439; // offset: 439  (0x1B7)
++    uint32_t reserved_440; // offset: 440  (0x1B8)
++    uint32_t reserved_441; // offset: 441  (0x1B9)
++    uint32_t reserved_442; // offset: 442  (0x1BA)
++    uint32_t reserved_443; // offset: 443  (0x1BB)
++    uint32_t reserved_444; // offset: 444  (0x1BC)
++    uint32_t reserved_445; // offset: 445  (0x1BD)
++    uint32_t reserved_446; // offset: 446  (0x1BE)
++    uint32_t reserved_447; // offset: 447  (0x1BF)
++    uint32_t reserved_448; // offset: 448  (0x1C0)
++    uint32_t reserved_449; // offset: 449  (0x1C1)
++    uint32_t reserved_450; // offset: 450  (0x1C2)
++    uint32_t reserved_451; // offset: 451  (0x1C3)
++    uint32_t reserved_452; // offset: 452  (0x1C4)
++    uint32_t reserved_453; // offset: 453  (0x1C5)
++    uint32_t reserved_454; // offset: 454  (0x1C6)
++    uint32_t reserved_455; // offset: 455  (0x1C7)
++    uint32_t reserved_456; // offset: 456  (0x1C8)
++    uint32_t reserved_457; // offset: 457  (0x1C9)
++    uint32_t reserved_458; // offset: 458  (0x1CA)
++    uint32_t reserved_459; // offset: 459  (0x1CB)
++    uint32_t reserved_460; // offset: 460  (0x1CC)
++    uint32_t reserved_461; // offset: 461  (0x1CD)
++    uint32_t reserved_462; // offset: 462  (0x1CE)
++    uint32_t reserved_463; // offset: 463  (0x1CF)
++    uint32_t reserved_464; // offset: 464  (0x1D0)
++    uint32_t reserved_465; // offset: 465  (0x1D1)
++    uint32_t reserved_466; // offset: 466  (0x1D2)
++    uint32_t reserved_467; // offset: 467  (0x1D3)
++    uint32_t reserved_468; // offset: 468  (0x1D4)
++    uint32_t reserved_469; // offset: 469  (0x1D5)
++    uint32_t reserved_470; // offset: 470  (0x1D6)
++    uint32_t reserved_471; // offset: 471  (0x1D7)
++    uint32_t reserved_472; // offset: 472  (0x1D8)
++    uint32_t reserved_473; // offset: 473  (0x1D9)
++    uint32_t reserved_474; // offset: 474  (0x1DA)
++    uint32_t reserved_475; // offset: 475  (0x1DB)
++    uint32_t reserved_476; // offset: 476  (0x1DC)
++    uint32_t reserved_477; // offset: 477  (0x1DD)
++    uint32_t reserved_478; // offset: 478  (0x1DE)
++    uint32_t reserved_479; // offset: 479  (0x1DF)
++    uint32_t reserved_480; // offset: 480  (0x1E0)
++    uint32_t reserved_481; // offset: 481  (0x1E1)
++    uint32_t reserved_482; // offset: 482  (0x1E2)
++    uint32_t reserved_483; // offset: 483  (0x1E3)
++    uint32_t reserved_484; // offset: 484  (0x1E4)
++    uint32_t reserved_485; // offset: 485  (0x1E5)
++    uint32_t reserved_486; // offset: 486  (0x1E6)
++    uint32_t reserved_487; // offset: 487  (0x1E7)
++    uint32_t reserved_488; // offset: 488  (0x1E8)
++    uint32_t reserved_489; // offset: 489  (0x1E9)
++    uint32_t reserved_490; // offset: 490  (0x1EA)
++    uint32_t reserved_491; // offset: 491  (0x1EB)
++    uint32_t reserved_492; // offset: 492  (0x1EC)
++    uint32_t reserved_493; // offset: 493  (0x1ED)
++    uint32_t reserved_494; // offset: 494  (0x1EE)
++    uint32_t reserved_495; // offset: 495  (0x1EF)
++    uint32_t reserved_496; // offset: 496  (0x1F0)
++    uint32_t reserved_497; // offset: 497  (0x1F1)
++    uint32_t reserved_498; // offset: 498  (0x1F2)
++    uint32_t reserved_499; // offset: 499  (0x1F3)
++    uint32_t reserved_500; // offset: 500  (0x1F4)
++    uint32_t reserved_501; // offset: 501  (0x1F5)
++    uint32_t reserved_502; // offset: 502  (0x1F6)
++    uint32_t reserved_503; // offset: 503  (0x1F7)
++    uint32_t reserved_504; // offset: 504  (0x1F8)
++    uint32_t reserved_505; // offset: 505  (0x1F9)
++    uint32_t reserved_506; // offset: 506  (0x1FA)
++    uint32_t reserved_507; // offset: 507  (0x1FB)
++    uint32_t reserved_508; // offset: 508  (0x1FC)
++    uint32_t reserved_509; // offset: 509  (0x1FD)
++    uint32_t reserved_510; // offset: 510  (0x1FE)
++    uint32_t reserved_511; // offset: 511  (0x1FF)
++    uint32_t reserved_512; // offset: 512  (0x200)
++    uint32_t reserved_513; // offset: 513  (0x201)
++    uint32_t reserved_514; // offset: 514  (0x202)
++    uint32_t reserved_515; // offset: 515  (0x203)
++    uint32_t reserved_516; // offset: 516  (0x204)
++    uint32_t reserved_517; // offset: 517  (0x205)
++    uint32_t reserved_518; // offset: 518  (0x206)
++    uint32_t reserved_519; // offset: 519  (0x207)
++    uint32_t reserved_520; // offset: 520  (0x208)
++    uint32_t reserved_521; // offset: 521  (0x209)
++    uint32_t reserved_522; // offset: 522  (0x20A)
++    uint32_t reserved_523; // offset: 523  (0x20B)
++    uint32_t reserved_524; // offset: 524  (0x20C)
++    uint32_t reserved_525; // offset: 525  (0x20D)
++    uint32_t reserved_526; // offset: 526  (0x20E)
++    uint32_t reserved_527; // offset: 527  (0x20F)
++    uint32_t reserved_528; // offset: 528  (0x210)
++    uint32_t reserved_529; // offset: 529  (0x211)
++    uint32_t reserved_530; // offset: 530  (0x212)
++    uint32_t reserved_531; // offset: 531  (0x213)
++    uint32_t reserved_532; // offset: 532  (0x214)
++    uint32_t reserved_533; // offset: 533  (0x215)
++    uint32_t reserved_534; // offset: 534  (0x216)
++    uint32_t reserved_535; // offset: 535  (0x217)
++    uint32_t reserved_536; // offset: 536  (0x218)
++    uint32_t reserved_537; // offset: 537  (0x219)
++    uint32_t reserved_538; // offset: 538  (0x21A)
++    uint32_t reserved_539; // offset: 539  (0x21B)
++    uint32_t reserved_540; // offset: 540  (0x21C)
++    uint32_t reserved_541; // offset: 541  (0x21D)
++    uint32_t reserved_542; // offset: 542  (0x21E)
++    uint32_t reserved_543; // offset: 543  (0x21F)
++    uint32_t reserved_544; // offset: 544  (0x220)
++    uint32_t reserved_545; // offset: 545  (0x221)
++    uint32_t reserved_546; // offset: 546  (0x222)
++    uint32_t reserved_547; // offset: 547  (0x223)
++    uint32_t reserved_548; // offset: 548  (0x224)
++    uint32_t reserved_549; // offset: 549  (0x225)
++    uint32_t reserved_550; // offset: 550  (0x226)
++    uint32_t reserved_551; // offset: 551  (0x227)
++    uint32_t reserved_552; // offset: 552  (0x228)
++    uint32_t reserved_553; // offset: 553  (0x229)
++    uint32_t reserved_554; // offset: 554  (0x22A)
++    uint32_t reserved_555; // offset: 555  (0x22B)
++    uint32_t reserved_556; // offset: 556  (0x22C)
++    uint32_t reserved_557; // offset: 557  (0x22D)
++    uint32_t reserved_558; // offset: 558  (0x22E)
++    uint32_t reserved_559; // offset: 559  (0x22F)
++    uint32_t reserved_560; // offset: 560  (0x230)
++    uint32_t reserved_561; // offset: 561  (0x231)
++    uint32_t reserved_562; // offset: 562  (0x232)
++    uint32_t reserved_563; // offset: 563  (0x233)
++    uint32_t reserved_564; // offset: 564  (0x234)
++    uint32_t reserved_565; // offset: 565  (0x235)
++    uint32_t reserved_566; // offset: 566  (0x236)
++    uint32_t reserved_567; // offset: 567  (0x237)
++    uint32_t reserved_568; // offset: 568  (0x238)
++    uint32_t reserved_569; // offset: 569  (0x239)
++    uint32_t reserved_570; // offset: 570  (0x23A)
++    uint32_t reserved_571; // offset: 571  (0x23B)
++    uint32_t reserved_572; // offset: 572  (0x23C)
++    uint32_t reserved_573; // offset: 573  (0x23D)
++    uint32_t reserved_574; // offset: 574  (0x23E)
++    uint32_t reserved_575; // offset: 575  (0x23F)
++    uint32_t reserved_576; // offset: 576  (0x240)
++    uint32_t reserved_577; // offset: 577  (0x241)
++    uint32_t reserved_578; // offset: 578  (0x242)
++    uint32_t reserved_579; // offset: 579  (0x243)
++    uint32_t reserved_580; // offset: 580  (0x244)
++    uint32_t reserved_581; // offset: 581  (0x245)
++    uint32_t reserved_582; // offset: 582  (0x246)
++    uint32_t reserved_583; // offset: 583  (0x247)
++    uint32_t reserved_584; // offset: 584  (0x248)
++    uint32_t reserved_585; // offset: 585  (0x249)
++    uint32_t reserved_586; // offset: 586  (0x24A)
++    uint32_t reserved_587; // offset: 587  (0x24B)
++    uint32_t reserved_588; // offset: 588  (0x24C)
++    uint32_t reserved_589; // offset: 589  (0x24D)
++    uint32_t reserved_590; // offset: 590  (0x24E)
++    uint32_t reserved_591; // offset: 591  (0x24F)
++    uint32_t reserved_592; // offset: 592  (0x250)
++    uint32_t reserved_593; // offset: 593  (0x251)
++    uint32_t reserved_594; // offset: 594  (0x252)
++    uint32_t reserved_595; // offset: 595  (0x253)
++    uint32_t reserved_596; // offset: 596  (0x254)
++    uint32_t reserved_597; // offset: 597  (0x255)
++    uint32_t reserved_598; // offset: 598  (0x256)
++    uint32_t reserved_599; // offset: 599  (0x257)
++    uint32_t reserved_600; // offset: 600  (0x258)
++    uint32_t reserved_601; // offset: 601  (0x259)
++    uint32_t reserved_602; // offset: 602  (0x25A)
++    uint32_t reserved_603; // offset: 603  (0x25B)
++    uint32_t reserved_604; // offset: 604  (0x25C)
++    uint32_t reserved_605; // offset: 605  (0x25D)
++    uint32_t reserved_606; // offset: 606  (0x25E)
++    uint32_t reserved_607; // offset: 607  (0x25F)
++    uint32_t reserved_608; // offset: 608  (0x260)
++    uint32_t reserved_609; // offset: 609  (0x261)
++    uint32_t reserved_610; // offset: 610  (0x262)
++    uint32_t reserved_611; // offset: 611  (0x263)
++    uint32_t reserved_612; // offset: 612  (0x264)
++    uint32_t reserved_613; // offset: 613  (0x265)
++    uint32_t reserved_614; // offset: 614  (0x266)
++    uint32_t reserved_615; // offset: 615  (0x267)
++    uint32_t reserved_616; // offset: 616  (0x268)
++    uint32_t reserved_617; // offset: 617  (0x269)
++    uint32_t reserved_618; // offset: 618  (0x26A)
++    uint32_t reserved_619; // offset: 619  (0x26B)
++    uint32_t reserved_620; // offset: 620  (0x26C)
++    uint32_t reserved_621; // offset: 621  (0x26D)
++    uint32_t reserved_622; // offset: 622  (0x26E)
++    uint32_t reserved_623; // offset: 623  (0x26F)
++    uint32_t reserved_624; // offset: 624  (0x270)
++    uint32_t reserved_625; // offset: 625  (0x271)
++    uint32_t reserved_626; // offset: 626  (0x272)
++    uint32_t reserved_627; // offset: 627  (0x273)
++    uint32_t reserved_628; // offset: 628  (0x274)
++    uint32_t reserved_629; // offset: 629  (0x275)
++    uint32_t reserved_630; // offset: 630  (0x276)
++    uint32_t reserved_631; // offset: 631  (0x277)
++    uint32_t reserved_632; // offset: 632  (0x278)
++    uint32_t reserved_633; // offset: 633  (0x279)
++    uint32_t reserved_634; // offset: 634  (0x27A)
++    uint32_t reserved_635; // offset: 635  (0x27B)
++    uint32_t reserved_636; // offset: 636  (0x27C)
++    uint32_t reserved_637; // offset: 637  (0x27D)
++    uint32_t reserved_638; // offset: 638  (0x27E)
++    uint32_t reserved_639; // offset: 639  (0x27F)
++    uint32_t reserved_640; // offset: 640  (0x280)
++    uint32_t reserved_641; // offset: 641  (0x281)
++    uint32_t reserved_642; // offset: 642  (0x282)
++    uint32_t reserved_643; // offset: 643  (0x283)
++    uint32_t reserved_644; // offset: 644  (0x284)
++    uint32_t reserved_645; // offset: 645  (0x285)
++    uint32_t reserved_646; // offset: 646  (0x286)
++    uint32_t reserved_647; // offset: 647  (0x287)
++    uint32_t reserved_648; // offset: 648  (0x288)
++    uint32_t reserved_649; // offset: 649  (0x289)
++    uint32_t reserved_650; // offset: 650  (0x28A)
++    uint32_t reserved_651; // offset: 651  (0x28B)
++    uint32_t reserved_652; // offset: 652  (0x28C)
++    uint32_t reserved_653; // offset: 653  (0x28D)
++    uint32_t reserved_654; // offset: 654  (0x28E)
++    uint32_t reserved_655; // offset: 655  (0x28F)
++    uint32_t reserved_656; // offset: 656  (0x290)
++    uint32_t reserved_657; // offset: 657  (0x291)
++    uint32_t reserved_658; // offset: 658  (0x292)
++    uint32_t reserved_659; // offset: 659  (0x293)
++    uint32_t reserved_660; // offset: 660  (0x294)
++    uint32_t reserved_661; // offset: 661  (0x295)
++    uint32_t reserved_662; // offset: 662  (0x296)
++    uint32_t reserved_663; // offset: 663  (0x297)
++    uint32_t reserved_664; // offset: 664  (0x298)
++    uint32_t reserved_665; // offset: 665  (0x299)
++    uint32_t reserved_666; // offset: 666  (0x29A)
++    uint32_t reserved_667; // offset: 667  (0x29B)
++    uint32_t reserved_668; // offset: 668  (0x29C)
++    uint32_t reserved_669; // offset: 669  (0x29D)
++    uint32_t reserved_670; // offset: 670  (0x29E)
++    uint32_t reserved_671; // offset: 671  (0x29F)
++    uint32_t reserved_672; // offset: 672  (0x2A0)
++    uint32_t reserved_673; // offset: 673  (0x2A1)
++    uint32_t reserved_674; // offset: 674  (0x2A2)
++    uint32_t reserved_675; // offset: 675  (0x2A3)
++    uint32_t reserved_676; // offset: 676  (0x2A4)
++    uint32_t reserved_677; // offset: 677  (0x2A5)
++    uint32_t reserved_678; // offset: 678  (0x2A6)
++    uint32_t reserved_679; // offset: 679  (0x2A7)
++    uint32_t reserved_680; // offset: 680  (0x2A8)
++    uint32_t reserved_681; // offset: 681  (0x2A9)
++    uint32_t reserved_682; // offset: 682  (0x2AA)
++    uint32_t reserved_683; // offset: 683  (0x2AB)
++    uint32_t reserved_684; // offset: 684  (0x2AC)
++    uint32_t reserved_685; // offset: 685  (0x2AD)
++    uint32_t reserved_686; // offset: 686  (0x2AE)
++    uint32_t reserved_687; // offset: 687  (0x2AF)
++    uint32_t reserved_688; // offset: 688  (0x2B0)
++    uint32_t reserved_689; // offset: 689  (0x2B1)
++    uint32_t reserved_690; // offset: 690  (0x2B2)
++    uint32_t reserved_691; // offset: 691  (0x2B3)
++    uint32_t reserved_692; // offset: 692  (0x2B4)
++    uint32_t reserved_693; // offset: 693  (0x2B5)
++    uint32_t reserved_694; // offset: 694  (0x2B6)
++    uint32_t reserved_695; // offset: 695  (0x2B7)
++    uint32_t reserved_696; // offset: 696  (0x2B8)
++    uint32_t reserved_697; // offset: 697  (0x2B9)
++    uint32_t reserved_698; // offset: 698  (0x2BA)
++    uint32_t reserved_699; // offset: 699  (0x2BB)
++    uint32_t reserved_700; // offset: 700  (0x2BC)
++    uint32_t reserved_701; // offset: 701  (0x2BD)
++    uint32_t reserved_702; // offset: 702  (0x2BE)
++    uint32_t reserved_703; // offset: 703  (0x2BF)
++    uint32_t reserved_704; // offset: 704  (0x2C0)
++    uint32_t reserved_705; // offset: 705  (0x2C1)
++    uint32_t reserved_706; // offset: 706  (0x2C2)
++    uint32_t reserved_707; // offset: 707  (0x2C3)
++    uint32_t reserved_708; // offset: 708  (0x2C4)
++    uint32_t reserved_709; // offset: 709  (0x2C5)
++    uint32_t reserved_710; // offset: 710  (0x2C6)
++    uint32_t reserved_711; // offset: 711  (0x2C7)
++    uint32_t reserved_712; // offset: 712  (0x2C8)
++    uint32_t reserved_713; // offset: 713  (0x2C9)
++    uint32_t reserved_714; // offset: 714  (0x2CA)
++    uint32_t reserved_715; // offset: 715  (0x2CB)
++    uint32_t reserved_716; // offset: 716  (0x2CC)
++    uint32_t reserved_717; // offset: 717  (0x2CD)
++    uint32_t reserved_718; // offset: 718  (0x2CE)
++    uint32_t reserved_719; // offset: 719  (0x2CF)
++    uint32_t reserved_720; // offset: 720  (0x2D0)
++    uint32_t reserved_721; // offset: 721  (0x2D1)
++    uint32_t reserved_722; // offset: 722  (0x2D2)
++    uint32_t reserved_723; // offset: 723  (0x2D3)
++    uint32_t reserved_724; // offset: 724  (0x2D4)
++    uint32_t reserved_725; // offset: 725  (0x2D5)
++    uint32_t reserved_726; // offset: 726  (0x2D6)
++    uint32_t reserved_727; // offset: 727  (0x2D7)
++    uint32_t reserved_728; // offset: 728  (0x2D8)
++    uint32_t reserved_729; // offset: 729  (0x2D9)
++    uint32_t reserved_730; // offset: 730  (0x2DA)
++    uint32_t reserved_731; // offset: 731  (0x2DB)
++    uint32_t reserved_732; // offset: 732  (0x2DC)
++    uint32_t reserved_733; // offset: 733  (0x2DD)
++    uint32_t reserved_734; // offset: 734  (0x2DE)
++    uint32_t reserved_735; // offset: 735  (0x2DF)
++    uint32_t reserved_736; // offset: 736  (0x2E0)
++    uint32_t reserved_737; // offset: 737  (0x2E1)
++    uint32_t reserved_738; // offset: 738  (0x2E2)
++    uint32_t reserved_739; // offset: 739  (0x2E3)
++    uint32_t reserved_740; // offset: 740  (0x2E4)
++    uint32_t reserved_741; // offset: 741  (0x2E5)
++    uint32_t reserved_742; // offset: 742  (0x2E6)
++    uint32_t reserved_743; // offset: 743  (0x2E7)
++    uint32_t reserved_744; // offset: 744  (0x2E8)
++    uint32_t reserved_745; // offset: 745  (0x2E9)
++    uint32_t reserved_746; // offset: 746  (0x2EA)
++    uint32_t reserved_747; // offset: 747  (0x2EB)
++    uint32_t reserved_748; // offset: 748  (0x2EC)
++    uint32_t reserved_749; // offset: 749  (0x2ED)
++    uint32_t reserved_750; // offset: 750  (0x2EE)
++    uint32_t reserved_751; // offset: 751  (0x2EF)
++    uint32_t reserved_752; // offset: 752  (0x2F0)
++    uint32_t reserved_753; // offset: 753  (0x2F1)
++    uint32_t reserved_754; // offset: 754  (0x2F2)
++    uint32_t reserved_755; // offset: 755  (0x2F3)
++    uint32_t reserved_756; // offset: 756  (0x2F4)
++    uint32_t reserved_757; // offset: 757  (0x2F5)
++    uint32_t reserved_758; // offset: 758  (0x2F6)
++    uint32_t reserved_759; // offset: 759  (0x2F7)
++    uint32_t reserved_760; // offset: 760  (0x2F8)
++    uint32_t reserved_761; // offset: 761  (0x2F9)
++    uint32_t reserved_762; // offset: 762  (0x2FA)
++    uint32_t reserved_763; // offset: 763  (0x2FB)
++    uint32_t reserved_764; // offset: 764  (0x2FC)
++    uint32_t reserved_765; // offset: 765  (0x2FD)
++    uint32_t reserved_766; // offset: 766  (0x2FE)
++    uint32_t reserved_767; // offset: 767  (0x2FF)
++    uint32_t reserved_768; // offset: 768  (0x300)
++    uint32_t reserved_769; // offset: 769  (0x301)
++    uint32_t reserved_770; // offset: 770  (0x302)
++    uint32_t reserved_771; // offset: 771  (0x303)
++    uint32_t reserved_772; // offset: 772  (0x304)
++    uint32_t reserved_773; // offset: 773  (0x305)
++    uint32_t reserved_774; // offset: 774  (0x306)
++    uint32_t reserved_775; // offset: 775  (0x307)
++    uint32_t reserved_776; // offset: 776  (0x308)
++    uint32_t reserved_777; // offset: 777  (0x309)
++    uint32_t reserved_778; // offset: 778  (0x30A)
++    uint32_t reserved_779; // offset: 779  (0x30B)
++    uint32_t reserved_780; // offset: 780  (0x30C)
++    uint32_t reserved_781; // offset: 781  (0x30D)
++    uint32_t reserved_782; // offset: 782  (0x30E)
++    uint32_t reserved_783; // offset: 783  (0x30F)
++    uint32_t reserved_784; // offset: 784  (0x310)
++    uint32_t reserved_785; // offset: 785  (0x311)
++    uint32_t reserved_786; // offset: 786  (0x312)
++    uint32_t reserved_787; // offset: 787  (0x313)
++    uint32_t reserved_788; // offset: 788  (0x314)
++    uint32_t reserved_789; // offset: 789  (0x315)
++    uint32_t reserved_790; // offset: 790  (0x316)
++    uint32_t reserved_791; // offset: 791  (0x317)
++    uint32_t reserved_792; // offset: 792  (0x318)
++    uint32_t reserved_793; // offset: 793  (0x319)
++    uint32_t reserved_794; // offset: 794  (0x31A)
++    uint32_t reserved_795; // offset: 795  (0x31B)
++    uint32_t reserved_796; // offset: 796  (0x31C)
++    uint32_t reserved_797; // offset: 797  (0x31D)
++    uint32_t reserved_798; // offset: 798  (0x31E)
++    uint32_t reserved_799; // offset: 799  (0x31F)
++    uint32_t reserved_800; // offset: 800  (0x320)
++    uint32_t reserved_801; // offset: 801  (0x321)
++    uint32_t reserved_802; // offset: 802  (0x322)
++    uint32_t reserved_803; // offset: 803  (0x323)
++    uint32_t reserved_804; // offset: 804  (0x324)
++    uint32_t reserved_805; // offset: 805  (0x325)
++    uint32_t reserved_806; // offset: 806  (0x326)
++    uint32_t reserved_807; // offset: 807  (0x327)
++    uint32_t reserved_808; // offset: 808  (0x328)
++    uint32_t reserved_809; // offset: 809  (0x329)
++    uint32_t reserved_810; // offset: 810  (0x32A)
++    uint32_t reserved_811; // offset: 811  (0x32B)
++    uint32_t reserved_812; // offset: 812  (0x32C)
++    uint32_t reserved_813; // offset: 813  (0x32D)
++    uint32_t reserved_814; // offset: 814  (0x32E)
++    uint32_t reserved_815; // offset: 815  (0x32F)
++    uint32_t reserved_816; // offset: 816  (0x330)
++    uint32_t reserved_817; // offset: 817  (0x331)
++    uint32_t reserved_818; // offset: 818  (0x332)
++    uint32_t reserved_819; // offset: 819  (0x333)
++    uint32_t reserved_820; // offset: 820  (0x334)
++    uint32_t reserved_821; // offset: 821  (0x335)
++    uint32_t reserved_822; // offset: 822  (0x336)
++    uint32_t reserved_823; // offset: 823  (0x337)
++    uint32_t reserved_824; // offset: 824  (0x338)
++    uint32_t reserved_825; // offset: 825  (0x339)
++    uint32_t reserved_826; // offset: 826  (0x33A)
++    uint32_t reserved_827; // offset: 827  (0x33B)
++    uint32_t reserved_828; // offset: 828  (0x33C)
++    uint32_t reserved_829; // offset: 829  (0x33D)
++    uint32_t reserved_830; // offset: 830  (0x33E)
++    uint32_t reserved_831; // offset: 831  (0x33F)
++    uint32_t reserved_832; // offset: 832  (0x340)
++    uint32_t reserved_833; // offset: 833  (0x341)
++    uint32_t reserved_834; // offset: 834  (0x342)
++    uint32_t reserved_835; // offset: 835  (0x343)
++    uint32_t reserved_836; // offset: 836  (0x344)
++    uint32_t reserved_837; // offset: 837  (0x345)
++    uint32_t reserved_838; // offset: 838  (0x346)
++    uint32_t reserved_839; // offset: 839  (0x347)
++    uint32_t reserved_840; // offset: 840  (0x348)
++    uint32_t reserved_841; // offset: 841  (0x349)
++    uint32_t reserved_842; // offset: 842  (0x34A)
++    uint32_t reserved_843; // offset: 843  (0x34B)
++    uint32_t reserved_844; // offset: 844  (0x34C)
++    uint32_t reserved_845; // offset: 845  (0x34D)
++    uint32_t reserved_846; // offset: 846  (0x34E)
++    uint32_t reserved_847; // offset: 847  (0x34F)
++    uint32_t reserved_848; // offset: 848  (0x350)
++    uint32_t reserved_849; // offset: 849  (0x351)
++    uint32_t reserved_850; // offset: 850  (0x352)
++    uint32_t reserved_851; // offset: 851  (0x353)
++    uint32_t reserved_852; // offset: 852  (0x354)
++    uint32_t reserved_853; // offset: 853  (0x355)
++    uint32_t reserved_854; // offset: 854  (0x356)
++    uint32_t reserved_855; // offset: 855  (0x357)
++    uint32_t reserved_856; // offset: 856  (0x358)
++    uint32_t reserved_857; // offset: 857  (0x359)
++    uint32_t reserved_858; // offset: 858  (0x35A)
++    uint32_t reserved_859; // offset: 859  (0x35B)
++    uint32_t reserved_860; // offset: 860  (0x35C)
++    uint32_t reserved_861; // offset: 861  (0x35D)
++    uint32_t reserved_862; // offset: 862  (0x35E)
++    uint32_t reserved_863; // offset: 863  (0x35F)
++    uint32_t reserved_864; // offset: 864  (0x360)
++    uint32_t reserved_865; // offset: 865  (0x361)
++    uint32_t reserved_866; // offset: 866  (0x362)
++    uint32_t reserved_867; // offset: 867  (0x363)
++    uint32_t reserved_868; // offset: 868  (0x364)
++    uint32_t reserved_869; // offset: 869  (0x365)
++    uint32_t reserved_870; // offset: 870  (0x366)
++    uint32_t reserved_871; // offset: 871  (0x367)
++    uint32_t reserved_872; // offset: 872  (0x368)
++    uint32_t reserved_873; // offset: 873  (0x369)
++    uint32_t reserved_874; // offset: 874  (0x36A)
++    uint32_t reserved_875; // offset: 875  (0x36B)
++    uint32_t reserved_876; // offset: 876  (0x36C)
++    uint32_t reserved_877; // offset: 877  (0x36D)
++    uint32_t reserved_878; // offset: 878  (0x36E)
++    uint32_t reserved_879; // offset: 879  (0x36F)
++    uint32_t reserved_880; // offset: 880  (0x370)
++    uint32_t reserved_881; // offset: 881  (0x371)
++    uint32_t reserved_882; // offset: 882  (0x372)
++    uint32_t reserved_883; // offset: 883  (0x373)
++    uint32_t reserved_884; // offset: 884  (0x374)
++    uint32_t reserved_885; // offset: 885  (0x375)
++    uint32_t reserved_886; // offset: 886  (0x376)
++    uint32_t reserved_887; // offset: 887  (0x377)
++    uint32_t reserved_888; // offset: 888  (0x378)
++    uint32_t reserved_889; // offset: 889  (0x379)
++    uint32_t reserved_890; // offset: 890  (0x37A)
++    uint32_t reserved_891; // offset: 891  (0x37B)
++    uint32_t reserved_892; // offset: 892  (0x37C)
++    uint32_t reserved_893; // offset: 893  (0x37D)
++    uint32_t reserved_894; // offset: 894  (0x37E)
++    uint32_t reserved_895; // offset: 895  (0x37F)
++    uint32_t reserved_896; // offset: 896  (0x380)
++    uint32_t reserved_897; // offset: 897  (0x381)
++    uint32_t reserved_898; // offset: 898  (0x382)
++    uint32_t reserved_899; // offset: 899  (0x383)
++    uint32_t reserved_900; // offset: 900  (0x384)
++    uint32_t reserved_901; // offset: 901  (0x385)
++    uint32_t reserved_902; // offset: 902  (0x386)
++    uint32_t reserved_903; // offset: 903  (0x387)
++    uint32_t reserved_904; // offset: 904  (0x388)
++    uint32_t reserved_905; // offset: 905  (0x389)
++    uint32_t reserved_906; // offset: 906  (0x38A)
++    uint32_t reserved_907; // offset: 907  (0x38B)
++    uint32_t reserved_908; // offset: 908  (0x38C)
++    uint32_t reserved_909; // offset: 909  (0x38D)
++    uint32_t reserved_910; // offset: 910  (0x38E)
++    uint32_t reserved_911; // offset: 911  (0x38F)
++    uint32_t reserved_912; // offset: 912  (0x390)
++    uint32_t reserved_913; // offset: 913  (0x391)
++    uint32_t reserved_914; // offset: 914  (0x392)
++    uint32_t reserved_915; // offset: 915  (0x393)
++    uint32_t reserved_916; // offset: 916  (0x394)
++    uint32_t reserved_917; // offset: 917  (0x395)
++    uint32_t reserved_918; // offset: 918  (0x396)
++    uint32_t reserved_919; // offset: 919  (0x397)
++    uint32_t reserved_920; // offset: 920  (0x398)
++    uint32_t reserved_921; // offset: 921  (0x399)
++    uint32_t reserved_922; // offset: 922  (0x39A)
++    uint32_t reserved_923; // offset: 923  (0x39B)
++    uint32_t reserved_924; // offset: 924  (0x39C)
++    uint32_t reserved_925; // offset: 925  (0x39D)
++    uint32_t reserved_926; // offset: 926  (0x39E)
++    uint32_t reserved_927; // offset: 927  (0x39F)
++    uint32_t reserved_928; // offset: 928  (0x3A0)
++    uint32_t reserved_929; // offset: 929  (0x3A1)
++    uint32_t reserved_930; // offset: 930  (0x3A2)
++    uint32_t reserved_931; // offset: 931  (0x3A3)
++    uint32_t reserved_932; // offset: 932  (0x3A4)
++    uint32_t reserved_933; // offset: 933  (0x3A5)
++    uint32_t reserved_934; // offset: 934  (0x3A6)
++    uint32_t reserved_935; // offset: 935  (0x3A7)
++    uint32_t reserved_936; // offset: 936  (0x3A8)
++    uint32_t reserved_937; // offset: 937  (0x3A9)
++    uint32_t reserved_938; // offset: 938  (0x3AA)
++    uint32_t reserved_939; // offset: 939  (0x3AB)
++    uint32_t reserved_940; // offset: 940  (0x3AC)
++    uint32_t reserved_941; // offset: 941  (0x3AD)
++    uint32_t reserved_942; // offset: 942  (0x3AE)
++    uint32_t reserved_943; // offset: 943  (0x3AF)
++    uint32_t reserved_944; // offset: 944  (0x3B0)
++    uint32_t reserved_945; // offset: 945  (0x3B1)
++    uint32_t reserved_946; // offset: 946  (0x3B2)
++    uint32_t reserved_947; // offset: 947  (0x3B3)
++    uint32_t reserved_948; // offset: 948  (0x3B4)
++    uint32_t reserved_949; // offset: 949  (0x3B5)
++    uint32_t reserved_950; // offset: 950  (0x3B6)
++    uint32_t reserved_951; // offset: 951  (0x3B7)
++    uint32_t reserved_952; // offset: 952  (0x3B8)
++    uint32_t reserved_953; // offset: 953  (0x3B9)
++    uint32_t reserved_954; // offset: 954  (0x3BA)
++    uint32_t reserved_955; // offset: 955  (0x3BB)
++    uint32_t reserved_956; // offset: 956  (0x3BC)
++    uint32_t reserved_957; // offset: 957  (0x3BD)
++    uint32_t reserved_958; // offset: 958  (0x3BE)
++    uint32_t reserved_959; // offset: 959  (0x3BF)
++    uint32_t reserved_960; // offset: 960  (0x3C0)
++    uint32_t reserved_961; // offset: 961  (0x3C1)
++    uint32_t reserved_962; // offset: 962  (0x3C2)
++    uint32_t reserved_963; // offset: 963  (0x3C3)
++    uint32_t reserved_964; // offset: 964  (0x3C4)
++    uint32_t reserved_965; // offset: 965  (0x3C5)
++    uint32_t reserved_966; // offset: 966  (0x3C6)
++    uint32_t reserved_967; // offset: 967  (0x3C7)
++    uint32_t reserved_968; // offset: 968  (0x3C8)
++    uint32_t reserved_969; // offset: 969  (0x3C9)
++    uint32_t reserved_970; // offset: 970  (0x3CA)
++    uint32_t reserved_971; // offset: 971  (0x3CB)
++    uint32_t reserved_972; // offset: 972  (0x3CC)
++    uint32_t reserved_973; // offset: 973  (0x3CD)
++    uint32_t reserved_974; // offset: 974  (0x3CE)
++    uint32_t reserved_975; // offset: 975  (0x3CF)
++    uint32_t reserved_976; // offset: 976  (0x3D0)
++    uint32_t reserved_977; // offset: 977  (0x3D1)
++    uint32_t reserved_978; // offset: 978  (0x3D2)
++    uint32_t reserved_979; // offset: 979  (0x3D3)
++    uint32_t reserved_980; // offset: 980  (0x3D4)
++    uint32_t reserved_981; // offset: 981  (0x3D5)
++    uint32_t reserved_982; // offset: 982  (0x3D6)
++    uint32_t reserved_983; // offset: 983  (0x3D7)
++    uint32_t reserved_984; // offset: 984  (0x3D8)
++    uint32_t reserved_985; // offset: 985  (0x3D9)
++    uint32_t reserved_986; // offset: 986  (0x3DA)
++    uint32_t reserved_987; // offset: 987  (0x3DB)
++    uint32_t reserved_988; // offset: 988  (0x3DC)
++    uint32_t reserved_989; // offset: 989  (0x3DD)
++    uint32_t reserved_990; // offset: 990  (0x3DE)
++    uint32_t reserved_991; // offset: 991  (0x3DF)
++    uint32_t reserved_992; // offset: 992  (0x3E0)
++    uint32_t reserved_993; // offset: 993  (0x3E1)
++    uint32_t reserved_994; // offset: 994  (0x3E2)
++    uint32_t reserved_995; // offset: 995  (0x3E3)
++    uint32_t reserved_996; // offset: 996  (0x3E4)
++    uint32_t reserved_997; // offset: 997  (0x3E5)
++    uint32_t reserved_998; // offset: 998  (0x3E6)
++    uint32_t reserved_999; // offset: 999  (0x3E7)
++    uint32_t reserved_1000; // offset: 1000  (0x3E8)
++    uint32_t reserved_1001; // offset: 1001  (0x3E9)
++    uint32_t reserved_1002; // offset: 1002  (0x3EA)
++    uint32_t reserved_1003; // offset: 1003  (0x3EB)
++    uint32_t reserved_1004; // offset: 1004  (0x3EC)
++    uint32_t reserved_1005; // offset: 1005  (0x3ED)
++    uint32_t reserved_1006; // offset: 1006  (0x3EE)
++    uint32_t reserved_1007; // offset: 1007  (0x3EF)
++    uint32_t reserved_1008; // offset: 1008  (0x3F0)
++    uint32_t reserved_1009; // offset: 1009  (0x3F1)
++    uint32_t reserved_1010; // offset: 1010  (0x3F2)
++    uint32_t reserved_1011; // offset: 1011  (0x3F3)
++    uint32_t reserved_1012; // offset: 1012  (0x3F4)
++    uint32_t reserved_1013; // offset: 1013  (0x3F5)
++    uint32_t reserved_1014; // offset: 1014  (0x3F6)
++    uint32_t reserved_1015; // offset: 1015  (0x3F7)
++    uint32_t reserved_1016; // offset: 1016  (0x3F8)
++    uint32_t reserved_1017; // offset: 1017  (0x3F9)
++    uint32_t reserved_1018; // offset: 1018  (0x3FA)
++    uint32_t reserved_1019; // offset: 1019  (0x3FB)
++    uint32_t reserved_1020; // offset: 1020  (0x3FC)
++    uint32_t reserved_1021; // offset: 1021  (0x3FD)
++    uint32_t reserved_1022; // offset: 1022  (0x3FE)
++    uint32_t reserved_1023; // offset: 1023  (0x3FF)
++};
++	
+ #endif /* V11_STRUCTS_H_ */
+-- 
+2.51.1
+
