@@ -4,134 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91146D0E6EC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 14:24:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89D4BD0E6F1
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 14:39:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5BE410E3FF;
-	Tue, 25 Nov 2025 14:24:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2853210E2A4;
+	Tue, 25 Nov 2025 14:39:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="U/WHjsnH";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xJ9SruwN";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U/WHjsnH";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xJ9SruwN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="on4x6fWw";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 972D810E3FF
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 14:24:38 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3D6DA2276F;
- Tue, 25 Nov 2025 14:24:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1764080677; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jia8pVww9G5Os5zZTQnNTApemZw81+rV+px5cNZ5ZT8=;
- b=U/WHjsnH+afIORjtiy3MCuLJBsEZ7E+VhnWzvpb5SxERIWYBeKPttoKXfLFy/vZhNyQ8LC
- n1JEzZHyMH3lXPjhASx2QR/IY51j9xLtv0RZuKe3YZuecwxYdmZ24Cv4YOu0NlaLJJ72We
- NVSv6K/11Qsz83Uh/NIGnxHfry+cB9U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1764080677;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jia8pVww9G5Os5zZTQnNTApemZw81+rV+px5cNZ5ZT8=;
- b=xJ9SruwNBWzd+iCOGYcDt7SsUQQ0inj/JhP1y5iHoJcb0jZx55P5KXeCoZTrrSYkpDmg4d
- TPATDMcH18ht7iAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1764080677; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jia8pVww9G5Os5zZTQnNTApemZw81+rV+px5cNZ5ZT8=;
- b=U/WHjsnH+afIORjtiy3MCuLJBsEZ7E+VhnWzvpb5SxERIWYBeKPttoKXfLFy/vZhNyQ8LC
- n1JEzZHyMH3lXPjhASx2QR/IY51j9xLtv0RZuKe3YZuecwxYdmZ24Cv4YOu0NlaLJJ72We
- NVSv6K/11Qsz83Uh/NIGnxHfry+cB9U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1764080677;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jia8pVww9G5Os5zZTQnNTApemZw81+rV+px5cNZ5ZT8=;
- b=xJ9SruwNBWzd+iCOGYcDt7SsUQQ0inj/JhP1y5iHoJcb0jZx55P5KXeCoZTrrSYkpDmg4d
- TPATDMcH18ht7iAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B1BA03EA63;
- Tue, 25 Nov 2025 14:24:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id jUAtKiS8JWk2YAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 25 Nov 2025 14:24:36 +0000
-Message-ID: <975c648c-07d7-4809-9edd-784af9781dc8@suse.de>
-Date: Tue, 25 Nov 2025 15:24:36 +0100
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010064.outbound.protection.outlook.com [52.101.46.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9101010E2A4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 14:39:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U5Cd0gc6AxU126TYhclCaxCyvkaQBfkqLj7RO/HlKsVKpIttYvQs28VE+FHF15h8MZgN6h2yQAWWhIltzstBsZcty72jOZK/jJKH+j6TgdqjPdG2O5iCTFMQvXozHGmYyd9/2+fFhXe2N3udZ8ay/cDPJa3Dv8F0ARNF+wB/o3gBUNe26qL2R46avtJDbTPRnCKYLa2Fqy0XcJ1lq+ixC8TYW32bTqWde7/twkrvYdDUlvIvH75osnzRer3Hs4E4X2kRN3snShRpMrW068nUazdl1nScO/owmL0EHzPLY5YHSfOKHJmKSG4EwORkWQKmqvPpeB0Hz+60wzVE192jQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yDZGgvBGyXqHhLAHhefkcAlWe8OIkTFRIS2WvopgLJk=;
+ b=tnQGQc0XbC6YZRAfVlmgf4u8bASgSK8Kw3iaWeLyO875q48oKs/hy4rSmdyydhHDZ20NT0dETrBEg0jY9NhWDHx0B1Gt6LuhrKS31H1xhGN3ZfO3fXGETMvj00OLCiR3uWgOvzUjrtIW2Rn32+FEogOm0q0tEzTzXg4VWym/LkeSr4diltoCHQvk6G4jaMz4Po9k2p8HOyL2aP9/YcJLNIFlazQUznAJUczDv7b3c8QJoUtyyYjpZ3331QgzwJOEehjvb2vs6zRZalfIDPpAz5aQB7yD9RAnoFsEXJoTPG3QmPYlMSEqZvKpThNnTk2geipl6xxxH5C3KnpkJIreQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yDZGgvBGyXqHhLAHhefkcAlWe8OIkTFRIS2WvopgLJk=;
+ b=on4x6fWwnqVXjVq+Efhl+cUXLFThQF/e0CY1fYl7ZaHR0kYnlUqq41NyvQ0vB7JpaMvxz0Gu6ieiNGomcUSLtm/IJvIzknjfJMtc+WO9+tLKw8+N2JgQLzn6nggJkqhhc1wUeea2LfKmro9VE6MB03L5n/xpr/HWiGIudvJtJmw=
+Received: from CH2PR02CA0021.namprd02.prod.outlook.com (2603:10b6:610:4e::31)
+ by CH3PR12MB7620.namprd12.prod.outlook.com (2603:10b6:610:150::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.11; Tue, 25 Nov
+ 2025 14:39:19 +0000
+Received: from DS3PEPF000099D9.namprd04.prod.outlook.com
+ (2603:10b6:610:4e:cafe::c4) by CH2PR02CA0021.outlook.office365.com
+ (2603:10b6:610:4e::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.18 via Frontend Transport; Tue,
+ 25 Nov 2025 14:38:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099D9.mail.protection.outlook.com (10.167.17.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Tue, 25 Nov 2025 14:39:18 +0000
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 25 Nov
+ 2025 08:39:18 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, <Sunpeng.Li@amd.com>,
+ <ivan.lipski@amd.com>
+Subject: [PATCH] Revert "drm/amd/display: Move setup_stream_attribute"
+Date: Tue, 25 Nov 2025 09:39:00 -0500
+Message-ID: <20251125143900.2027472-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- simona@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com,
- lyude@redhat.com, dakr@kernel.org, deller@gmx.de, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, jason.wessel@windriver.com,
- danielt@kernel.org, dianders@chromium.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-References: <20251125130634.1080966-1-tzimmermann@suse.de>
- <11ac809d-0432-4c9f-8279-7df318c9a448@amd.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <11ac809d-0432-4c9f-8279-7df318c9a448@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[amd.com,ffwll.ch,gmail.com,redhat.com,kernel.org,gmx.de,linux.intel.com,windriver.com,chromium.org];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,gmail.com];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TAGGED_RCPT(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- suse.de:mid]
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D9:EE_|CH3PR12MB7620:EE_
+X-MS-Office365-Filtering-Correlation-Id: c49d0a26-d1d4-4469-a8cc-08de2c306a7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qt3P3RypSZG4RigB3LrlI5qzbVQ8EB4kUQtuXsvrJm18XXqQLlgw2+HCxEGH?=
+ =?us-ascii?Q?sipK1Nbh8C41Yb8wjhr0YLqA4kpgquZiEpviTmLGKcSYs+P79m3Pz4VuH6Cp?=
+ =?us-ascii?Q?Z8eceV7xuNtWAnlx099NkiACzyGsq93l0CRBYWXTCOri1u7iwHmknpu7W7rd?=
+ =?us-ascii?Q?xUEqA0udjZqMliHp//UFBLEXKcZH2GlvzGfhDwHFqyWdJIoq7ag310IWJhrn?=
+ =?us-ascii?Q?fm7fOiMyttknXaVAU2Vs+Qlwzqcpuh69o5aF/ANx4tKZXJr/8hfRYOL7nxQf?=
+ =?us-ascii?Q?sPSZz+UWKL/tHYIOFPeyu3Gh9QsvQuyR79ppAcL7+Xk3I29+SkM/oPR9VFy1?=
+ =?us-ascii?Q?gZUPCAnqqLvUaUY0Nm0STAXPXVSzHoy/VcsKkcRkLYi90Zzz+x3JdpShM7cg?=
+ =?us-ascii?Q?6gfRYpvuT/jF3dqFM7in773Ci/q+LyQ/pyllTgFajW6cjBuVlLSG4Qry1doo?=
+ =?us-ascii?Q?PLTK77uy3efhFtkXX093NPHQ+Z1IAMYlQjHsF5sUnJ28Iw+2LheSM9u4YE6m?=
+ =?us-ascii?Q?5E7Cwj+hRgaFpRonJl9VmakSRuHe28WjdQBgA6oy8s7gg/2VNyfDJlWvL7YA?=
+ =?us-ascii?Q?hLCfSC8WsUG+umlmQRqoRn8aleNT/otXK3pNRWLEhyQISwX0jRne7eMHi12A?=
+ =?us-ascii?Q?iccbQJDNXKjKDWxfPEASSQB1zjsj3e97YY6M46Hssq5Rjr4AL20Ezb214DZv?=
+ =?us-ascii?Q?Bhb27Yu1oRyJwMOtV+PPAwGYeE/wsTlrNw4RQC6FK2FjvV1h/mwZl0hJ0SUE?=
+ =?us-ascii?Q?JbCi1HPUn2QkTIcblxHakw+GCG71oUctor14zitDoNQ+4agPp4OlBG6Nfn93?=
+ =?us-ascii?Q?sLkcVxiWEkSoaCtuQGTY9BEzyj1cKdFY1xBANofNfB490EN+o3a/UFDTbAmq?=
+ =?us-ascii?Q?aBmO8KGw/lUuzUb2+hFZcSW84LDSflQpLkXogj+xlG+Ue7Txk64TFjPHU510?=
+ =?us-ascii?Q?F3Yd44+V2P1/oNO3dTrRd/i9tilnNYxbAp4rYAz5bnmNiAeU5lsPMS2GInyi?=
+ =?us-ascii?Q?/UGkm8xt/KpgidgArkzNPm/IgGTQ21VdB7C6Tfzb+HEJkdTxDi2HtyFeFAph?=
+ =?us-ascii?Q?TiVEHL6j0C2mn9SwsWr7ujFeoFU0foy4sBUlqOuhlbcqI/BBkTWlbrjgWNP6?=
+ =?us-ascii?Q?i42d/QJ8WU5O21hTK4u62tqjGrDwP04k1UlSCDvD7htuXK8zyUdrU+ayRMv7?=
+ =?us-ascii?Q?Mk66BAhXCre9BR7Ke1O3iAov/nBkNZn2egfshCwqLoWdNSCHAiEBxnkhC2hb?=
+ =?us-ascii?Q?tTAd+c9+suizTtEIXkn+GaGD6hFaXtRHq/BgpBnDQpRiAmYV0QwNxTokdxHQ?=
+ =?us-ascii?Q?f0HTGCAmAQwV+53E4tGhlF+SwP22AM67Lk2KNUNhrgkDzD8gYvCpfmmmef/u?=
+ =?us-ascii?Q?k1nwkG8r3qjct3J4b4KH2BKmuBbAofbviIY+dQnBn6tsrOQDy/B8ozNDnOgK?=
+ =?us-ascii?Q?Oh1anSOwtT8tvGhkO37EblzgSys/cGbOInmLVN2PZtZnBUfKPu/ZAGDwfuBU?=
+ =?us-ascii?Q?FYPInQzUSv0mCJrEY4fgmLwyaK4rBQDyO84Ud87wpqefdRp3Ez+6F+LyOlqE?=
+ =?us-ascii?Q?Aa0RdfehTFE2TB4itjw=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 14:39:18.9278 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c49d0a26-d1d4-4469-a8cc-08de2c306a7b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D9.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7620
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,84 +132,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+This reverts commit 2681bf4ae8d24df950138b8c9ea9c271cd62e414.
 
-Am 25.11.25 um 14:16 schrieb Christian König:
-> On 11/25/25 13:52, Thomas Zimmermann wrote:
->> Remove the rest of the kbd support from DRM. Driver support has been
->> broken for years without anyone complaining.
->>
->> Kdb cannot use regular DRM mode setting, so DRM drivers have to
->> implement an additional hook to make it work (in theory). As outlined
->> by Sima in commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for
->> atomic drivers") from 2017, kdb is not compatible with DRM atomic mode
->> setting. Non-atomic mode setting meanwhile has become rare.
->>
->> Only 3 DRM drivers implement the hooks for kdb support. Amdgpu and
->> nouveau use non-atomic mode setting on older devices. But both drivers
->> have switched to generic fbdev emulation, which isn't compatible with
->> kdb. Radeon still runs kdb, but it doesn't work in practice. See the
->> commits in this series for details
-> Amdgpu is heavily pushing on switching to atomic for older GPUs as well. Timur and our DC guys have made quite some progress on that recently.
+This results in a blank screen on the HDMI port on some systems.
+Revert for now so as not to regress 6.18, can be addressed
+in 6.19 once the issue is root caused.
 
- From what I've seen, I really like the work they are doing there.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4652
+Cc: Sunpeng.Li@amd.com
+Cc: ivan.lipski@amd.com
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  | 1 -
+ drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    | 2 --
+ drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  | 2 --
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c            | 3 +++
+ .../drm/amd/display/dc/virtual/virtual_stream_encoder.c    | 7 -------
+ 5 files changed, 3 insertions(+), 12 deletions(-)
 
->
-> Feel free to add Acked-by: Christian König <christian.koenig@amd.com> to the amdgpu and radeon changes.
-
-Thanks.
-
-Best regards
-Thomas
-
->
-> Regards,
-> Christian.
->
->> Therefore remove the remaining support for kdb from the DRM drivers
->> and from DRM fbdev emulation. Also remove the hooks from fbdev, as
->> there are no fbdev drivers with kdb support.
->>
->> If we ever want to address kdb support within DRM drivers, a place to
->> start would be the scanout buffers used by DRM's panic screen. These
->> use the current display mode. They can be written and flushed without
->> mode setting involved.
->>
->> Note: kdb over serial lines is not affected by this series and continues
->> to work as before.
->>
->> Thomas Zimmermann (5):
->>    drm/amdgpu: Do not implement mode_set_base_atomic callback
->>    drm/nouveau: Do not implement mode_set_base_atomic callback
->>    drm/radeon: Do not implement mode_set_base_atomic callback
->>    drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
->>    fbcon: Remove fb_debug_enter/_leave from struct fb_ops
->>
->>   Documentation/process/debugging/kgdb.rst    |  28 -----
->>   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  35 ++-----
->>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  35 ++-----
->>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  35 ++-----
->>   drivers/gpu/drm/drm_fb_helper.c             | 108 --------------------
->>   drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  24 +----
->>   drivers/gpu/drm/radeon/atombios_crtc.c      |  74 ++++----------
->>   drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  23 ++---
->>   drivers/gpu/drm/radeon/radeon_mode.h        |  10 +-
->>   drivers/video/fbdev/core/fbcon.c            |  24 -----
->>   drivers/video/fbdev/core/fbcon.h            |   1 -
->>   include/drm/drm_fb_helper.h                 |  21 ----
->>   include/drm/drm_modeset_helper_vtables.h    |  23 -----
->>   include/linux/fb.h                          |   4 -
->>   14 files changed, 63 insertions(+), 382 deletions(-)
->>
->>
->> base-commit: 0a21e96e0b6840d2a4e0b45a957679eeddeb4362
-
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 94e66d96c403a..98c6dfb167966 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -685,7 +685,6 @@ void dce110_enable_stream(struct pipe_ctx *pipe_ctx)
+ 	uint32_t early_control = 0;
+ 	struct timing_generator *tg = pipe_ctx->stream_res.tg;
+ 
+-	link_hwss->setup_stream_attribute(pipe_ctx);
+ 	link_hwss->setup_stream_encoder(pipe_ctx);
+ 
+ 	dc->hwss.update_info_frame(pipe_ctx);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index 1460d3fc7115a..c8ff8ae85a030 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -3063,8 +3063,6 @@ void dcn20_enable_stream(struct pipe_ctx *pipe_ctx)
+ 						      link_enc->transmitter - TRANSMITTER_UNIPHY_A);
+ 	}
+ 
+-	link_hwss->setup_stream_attribute(pipe_ctx);
+-
+ 	if (dc->res_pool->dccg->funcs->set_pixel_rate_div)
+ 		dc->res_pool->dccg->funcs->set_pixel_rate_div(
+ 			dc->res_pool->dccg,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index f02edc9371b0a..e75bf409a3d86 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -974,8 +974,6 @@ void dcn401_enable_stream(struct pipe_ctx *pipe_ctx)
+ 		}
+ 	}
+ 
+-	link_hwss->setup_stream_attribute(pipe_ctx);
+-
+ 	if (dc->res_pool->dccg->funcs->set_pixel_rate_div) {
+ 		dc->res_pool->dccg->funcs->set_pixel_rate_div(
+ 			dc->res_pool->dccg,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 475f71bb48ffe..6960eff5816dd 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -2467,6 +2467,7 @@ void link_set_dpms_on(
+ 	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	enum otg_out_mux_dest otg_out_dest = OUT_MUX_DIO;
+ 	struct vpg *vpg = pipe_ctx->stream_res.stream_enc->vpg;
++	const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
+ 	bool apply_edp_fast_boot_optimization =
+ 		pipe_ctx->stream->apply_edp_fast_boot_optimization;
+ 
+@@ -2511,6 +2512,8 @@ void link_set_dpms_on(
+ 		pipe_ctx->stream_res.tg->funcs->set_out_mux(pipe_ctx->stream_res.tg, otg_out_dest);
+ 	}
+ 
++	link_hwss->setup_stream_attribute(pipe_ctx);
++
+ 	pipe_ctx->stream->apply_edp_fast_boot_optimization = false;
+ 
+ 	// Enable VPG before building infoframe
+diff --git a/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c
+index 6ffc74fc9dcd8..ad088d70e1893 100644
+--- a/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/virtual/virtual_stream_encoder.c
+@@ -44,11 +44,6 @@ static void virtual_stream_encoder_dvi_set_stream_attribute(
+ 	struct dc_crtc_timing *crtc_timing,
+ 	bool is_dual_link) {}
+ 
+-static void virtual_stream_encoder_lvds_set_stream_attribute(
+-	struct stream_encoder *enc,
+-	struct dc_crtc_timing *crtc_timing)
+-{}
+-
+ static void virtual_stream_encoder_set_throttled_vcp_size(
+ 	struct stream_encoder *enc,
+ 	struct fixed31_32 avg_time_slots_per_mtp)
+@@ -120,8 +115,6 @@ static const struct stream_encoder_funcs virtual_str_enc_funcs = {
+ 		virtual_stream_encoder_hdmi_set_stream_attribute,
+ 	.dvi_set_stream_attribute =
+ 		virtual_stream_encoder_dvi_set_stream_attribute,
+-	.lvds_set_stream_attribute =
+-		virtual_stream_encoder_lvds_set_stream_attribute,
+ 	.set_throttled_vcp_size =
+ 		virtual_stream_encoder_set_throttled_vcp_size,
+ 	.update_hdmi_info_packets =
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.51.1
 
