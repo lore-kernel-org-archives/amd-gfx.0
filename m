@@ -4,120 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB4CBD0E6F9
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 15:10:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E499DD0E6EC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 15:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869AB10E431;
-	Tue, 25 Nov 2025 15:10:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89BD210E041;
+	Tue, 25 Nov 2025 15:33:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YFhPDYDx";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="GIG/U+pS";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012028.outbound.protection.outlook.com [40.107.209.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E05910E431
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 15:10:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hwXH3Xdc6rZSu+jN3PYeVWG4kaJeizl6TVWs+VYANioioVu3jE9WBfW9lHeJvVLDH6oMGvw8iaH+gjfTH2stbLKLgCQLX9YVouHgBhOluifI6PNW/mZHgwl40oVzhZci8Pwu0GZgY7mlTWciITlz08wRsg1bvpZGrdAezO1ZLCN3JOxq1JniUOGpQigFVvPRJGe7MXlhit/t+GPAh80LD5kdaUnolUCxtAO+ACW/2h8RAzO/j0Jqn2hj4li/xObtT4FGHH821dkbvEUIrZAdXojhbfqlAAB9097EborzLO3c3SKIy7dFr0gxCfWV6Ry8PLPFXJ7xjvTP0gPfZCO+sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tbXDCQ1u0MJ8BM9aI4LFLhmuzWTZy8/pJDQLWBcj+oI=;
- b=oz3mrE2j9vudY2YDllh+ECAeKhkbVcr+kxckhDrdMM3v4GeWqFTUOQtvhlk3vmBUbiU9iksQoQ944khaDHtMNJ4nyY+6ulhchornOQHRYpLUF+XtFwUYlFxthdlM2vELdR79ZnzhdxMsaMRK4KSL7/qxKoDYtPVDP3/GASZRVllDZ89JCImzuEJtnquPTaO96S6zRGE1w4hDL4MH/m6Fs5kjzmmOc4+WvQTF2qRc4TjCTrecAdZqggsQHxMmLcOKN8Ez6Z9r1fx/FhXfUABiL84rW+xclc1T8W/S/jJZbizmyuSbQU4coPNz+2L4RIcZpnHmhv59s6usOBGfuODS0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tbXDCQ1u0MJ8BM9aI4LFLhmuzWTZy8/pJDQLWBcj+oI=;
- b=YFhPDYDxpiRkT6DOI4/wqzPKx04Y51cIbUyCAKN2+SggM8Kk9rWwrsUdJUzFHQZtN0nEKE/amSMRWALnfnVIXvlFz7EaBIKKVDKCyMVC3XcvbhvdApXVs/i/HGDd9Ej/la90qegDJvGH+zgkOZPakEF3vxpM0lcIryk1OiD/A/g=
-Received: from BL1PR13CA0290.namprd13.prod.outlook.com (2603:10b6:208:2bc::25)
- by DS7PR12MB6287.namprd12.prod.outlook.com (2603:10b6:8:94::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Tue, 25 Nov
- 2025 15:10:24 +0000
-Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
- (2603:10b6:208:2bc:cafe::f) by BL1PR13CA0290.outlook.office365.com
- (2603:10b6:208:2bc::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.11 via Frontend Transport; Tue,
- 25 Nov 2025 15:10:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.7 via Frontend Transport; Tue, 25 Nov 2025 15:10:23 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 25 Nov
- 2025 09:10:22 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: add soc config init for GC v12_1
-Date: Tue, 25 Nov 2025 10:10:10 -0500
-Message-ID: <20251125151010.2046736-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.1
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5828510E43F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 15:33:34 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-b737502f77bso814636566b.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 07:33:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1764084812; x=1764689612;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wCZdld6CYrWFXkrUxJ5abCqUL/Pa1DX9edqJLOysax8=;
+ b=GIG/U+pS5LuzNDSOwCQjy4IJqYkRzbUVp58YhxFxQg7qF+Z1jZlw4YHw6b+zy7Gufr
+ BTL/XUb6BjpcSFHIqBoS+oF7ljEOOoH9JR0FV+oRe2ZNkv0umQqKIA+bJO/EizgI2Xfg
+ jxUF4gzmzAuFQS5HywLIBxHWQgccuL0kjSdDI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764084812; x=1764689612;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=wCZdld6CYrWFXkrUxJ5abCqUL/Pa1DX9edqJLOysax8=;
+ b=juacPouMXLQbyaXRAG9BnzAiXo01xEHspC1As4lN7+MIWdlH1LqX8OLOqXHdIu56ro
+ kEnowiMVR9ln+n4VJJ3CS8mSBsJiiwADTUcvbH60wdqz9B7H7bODWliYf0REjm1wzSlm
+ luSIsb0QLlXvTV7A6SQU4KS6cEbBVJ6y0RAvSg+HJ2z2CfzYq+5pDMn5WdetwXJajWXJ
+ sLJZFCNEy/WVh/b4z3bsIPrTKPCRoCf43dv0/Jq9wyVM3m/8dHOJqTTETGO2+aw4+Ysu
+ hBvFnTQujszxrW1BnGz2mbIt5AW6f5RHIlPfrzNSBcnGW7kPy+9cMBMoAtcnN2JckX2l
+ hgPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXpqgO9hwTBPF82VvSVl1VZLBTtT+Mv51AAtrERE10m/smkIy+hz3rhf4T/QDWWyKcfSzKRm75/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzHyLmLrFPg95C4gGqVEPUPKT7FHUPkvMrRf7CMppkNVjFrfBdd
+ xiwQmPsIxM3x3wzRJy/Sroc+9hFxQ8SiODBKzdimt21W2/cOkbsX78mh7epDkDldz0EXjchOaBg
+ mptkqeVhh
+X-Gm-Gg: ASbGncv7hDPumxIKdijpL8//9BrXMzQ+JPSM1fR8iECgJvWm5gzGaweWSbAgyHkS4y4
+ ZCC27GO4hxA3LM7f9nvVFtET3ibebDm9hCxq0p0nZoA6L1Op066Je5/qmXBCRfKnoZHYfE/vrhz
+ Cll8s7S3qaFuY8niZFOA6CnKD2UnzlxHY5ICuXAu9pfjoJbLCDujHOJothLUlL0oDjW1p0moNr6
+ diyI2xMs44SInyXKAITYxi4XBj0QM6tUM3tVkvQ9mDicI0RAFAMa/E7EGHVOkBwouHs6ok6B/OL
+ 5aYpV2AH0jGTaJ6oouCLqAnLdvqlwUb3lTgn878vNkn7Zcxdj4ppz/dh6QDD5rgJoCguSaq1LSs
+ X5Z2qtb35anZBgGjGzT/0ezCZ1zqCANmJLAhGGpC4SLOx5mYAShGNfIxdMMTnKTxKp5je3bTFKc
+ yHVdCktoUJ5cDWVliMrXMyraOGNbkp4bffmeAEHrvMDi14JwNpHsxcB81mUYPA
+X-Google-Smtp-Source: AGHT+IEqIgBDwpvTGJGpZ9SQ8k2rvTG8avd770F+l1RMXk5SWoYyNcMvN14nbeZ8IjgWC0xFvrBOmw==
+X-Received: by 2002:a17:907:97d1:b0:b70:b661:cfcb with SMTP id
+ a640c23a62f3a-b76c5514f3amr341886066b.31.1764084812423; 
+ Tue, 25 Nov 2025 07:33:32 -0800 (PST)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com.
+ [209.85.218.53]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b7654ff3bbesm1613513066b.51.2025.11.25.07.33.32
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Nov 2025 07:33:32 -0800 (PST)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-b737502f77bso814629166b.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 07:33:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUbbPCBSFi5XZi6O37cNYxQwml24qrKlBCTnJRreYmv7ydlZScIlwA/Ci700GhymiFHBiFO/k7V@lists.freedesktop.org
+X-Received: by 2002:a05:6000:381:b0:42b:3ad7:fdd3 with SMTP id
+ ffacd0b85a97d-42e0f21e953mr3395597f8f.18.1764084405547; Tue, 25 Nov 2025
+ 07:26:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|DS7PR12MB6287:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dbecaca-3b5a-4320-adb3-08de2c34c207
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pXZAvzXyfmAY9zKUGX3MU5ESK+cuIgT3FuQ/L4D14TNoYp/dbXsjn+Z+Ox7U?=
- =?us-ascii?Q?LuSk1ULkc8fLKO5MS0dChlKXCGMCApuQWGxk6ieSNW/tgXOxAUH2TjbNl5wW?=
- =?us-ascii?Q?w988tUV8aHSWu3TGUS9czifLPr5Zmcqh+2pc6aYdho+5Cn7rMiWlOeldxX0s?=
- =?us-ascii?Q?SJsU4gNsxAU6IvIwJ8YqSKLB1F7Uj7N4QAwQW1W9PioBAAPZ6hd8akA0vW4x?=
- =?us-ascii?Q?A1MaewPXzt2a5sqJ90J9tZpegFjbkzUCJoqpuC7Ksw8B4EoDxH7Vzrg6yZgB?=
- =?us-ascii?Q?86D1zmOLtLzNr8l61c2QwH9X+X61U61IzgJXTVim0q49YviOvJsI7tR3h3rI?=
- =?us-ascii?Q?cRWM4k0xf1RzwImpL+J2NLkQ2VAZYYYmobP9n+Uoa3EjOvu3HRbApY4cYBD4?=
- =?us-ascii?Q?QXmesYLfX9biRHM+i59uECgtwgkWJ9GOSlwlPqN+8cELlzktp4DVrmSY7NQN?=
- =?us-ascii?Q?WR2qR77SJ4yy1k8R4mV0i1+jijUz/dbhU2PgTKNqxEHiBwHZ5F+YmRjPq9hw?=
- =?us-ascii?Q?kZjgVrG13tZTwXBLMuHe4o1HCLP64XJ0BbXhbzxpJrbObz7Qo3SddS3nJMZJ?=
- =?us-ascii?Q?kfM5dxnM7J9CrUtZNfKLheuDbX2NZUurpzt3zOKrnauFWgo7kHWIGiQ4GMR9?=
- =?us-ascii?Q?VsBxfP1PZ17xUcBanWl7rviGIxtL8GoemsRT5gF3hu20k/j/vqT7oAed2Sov?=
- =?us-ascii?Q?gPNy9Zf1guGTrV/jrD0Cc1RPYA3uZuBP7uf+Z8895HLv4ClzpYvldj3qoN7j?=
- =?us-ascii?Q?1mUr0rTmN6SlUfq+fxdYw6itOIB3BLrwor/Z0kj7gu+HtTs/+9d5Z4r6GNO9?=
- =?us-ascii?Q?7mDP+vx5qGL5gv2PVAsf6EoRi3JggSisG/6L8Jl0fVYosYsKTYEZE2nHmnzK?=
- =?us-ascii?Q?Isa2fpVdu/j3zp7ukXgkblPHFDk2oif+VgyU31ZlGfldTZEuM9btqKbxYaqU?=
- =?us-ascii?Q?+78sU+4Fu313DiFP7kzkJM3tDA+5BJFsFYqasUuwsTWywS+v2HsPzpIWkOlA?=
- =?us-ascii?Q?XSS79LMK3bgl5LA+u4m7xZACaAEe3d+gCfdNeqScTZvexArjwbQoZegUTJmu?=
- =?us-ascii?Q?53+TowbM81+kxgxoTr/gePOr85zynsljOd000EjCS8Wef75tuy/2/YDpPn3z?=
- =?us-ascii?Q?iautonVLpzPwIiTFM6a9E1w3f+Rf5MTcuqs9jFDs83m2JkB4eiu7lQRxidFm?=
- =?us-ascii?Q?X5/XDdhee9+cWWzy8EZy52ukl47xFy7+dRf6vgHglIrHcaVNVxE81MgBca5v?=
- =?us-ascii?Q?cAbK3/pS9w9hZWzZChfunhK61DCPwnpz9jSXMdQc2okPmlHoo1pD9FlrQmHw?=
- =?us-ascii?Q?aXdu+YzwYHGwOU9q30alAz5HyVJWkxf1/43BgrtrCV15Yk3KxSfIas4VLSVU?=
- =?us-ascii?Q?7RcWSTBlv9R9oKcXsBBRKHEF/ZePyi+FKtYUYqI3q8dCZDITPX8XRElvE6uc?=
- =?us-ascii?Q?Bd+oGDUzsXBvKU4Qi9p+pVT8QA/sz32ed0JRDQtNc9TOH3Fm8nGOCQI+aBhe?=
- =?us-ascii?Q?g+tuAENEmAYKLp9FnNehrcQv6CFVD8tjZxgEkid1j8LmYYbSK1cv0nhBHCJV?=
- =?us-ascii?Q?y1aKOUoeI8bWcaL4y18=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 15:10:23.7966 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dbecaca-3b5a-4320-adb3-08de2c34c207
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A7.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6287
+References: <20251125130634.1080966-1-tzimmermann@suse.de>
+In-Reply-To: <20251125130634.1080966-1-tzimmermann@suse.de>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 25 Nov 2025 07:26:33 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=X_-t2AF5osp7Hamoe7WYE_2YWJZCaPaOj=9seSbnwwVA@mail.gmail.com>
+X-Gm-Features: AWmQ_bldhiBpRCqVYkj0GufunmE0LiqT8gw4vCTv4PiT8j1h28du9Cx4NWXFEj8
+Message-ID: <CAD=FV=X_-t2AF5osp7Hamoe7WYE_2YWJZCaPaOj=9seSbnwwVA@mail.gmail.com>
+Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: simona@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, lyude@redhat.com, dakr@kernel.org, deller@gmx.de, 
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
+ jason.wessel@windriver.com, danielt@kernel.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nir Lichtman <nir@lichtman.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,72 +105,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+Hi,
 
-Add function to initialize soc configuration information
-for GC 12.1.0 ASICs.
-Use it to map IPs and other SOC related information once IP
-configuration information is available through discovery.
+On Tue, Nov 25, 2025 at 5:06=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> Remove the rest of the kbd support from DRM. Driver support has been
+> broken for years without anyone complaining.
+>
+> Kdb cannot use regular DRM mode setting, so DRM drivers have to
+> implement an additional hook to make it work (in theory). As outlined
+> by Sima in commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for
+> atomic drivers") from 2017, kdb is not compatible with DRM atomic mode
+> setting. Non-atomic mode setting meanwhile has become rare.
+>
+> Only 3 DRM drivers implement the hooks for kdb support. Amdgpu and
+> nouveau use non-atomic mode setting on older devices. But both drivers
+> have switched to generic fbdev emulation, which isn't compatible with
+> kdb. Radeon still runs kdb, but it doesn't work in practice. See the
+> commits in this series for details
+>
+> Therefore remove the remaining support for kdb from the DRM drivers
+> and from DRM fbdev emulation. Also remove the hooks from fbdev, as
+> there are no fbdev drivers with kdb support.
+>
+> If we ever want to address kdb support within DRM drivers, a place to
+> start would be the scanout buffers used by DRM's panic screen. These
+> use the current display mode. They can be written and flushed without
+> mode setting involved.
+>
+> Note: kdb over serial lines is not affected by this series and continues
+> to work as before.
+>
+> Thomas Zimmermann (5):
+>   drm/amdgpu: Do not implement mode_set_base_atomic callback
+>   drm/nouveau: Do not implement mode_set_base_atomic callback
+>   drm/radeon: Do not implement mode_set_base_atomic callback
+>   drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
+>   fbcon: Remove fb_debug_enter/_leave from struct fb_ops
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  3 +++
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         | 10 ++++++++++
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.h         |  1 +
- 3 files changed, 14 insertions(+)
+Personally, I've never worked with kdb over anything other than
+serial, so this won't bother any of my normal workflows. That being
+said, at least as of a year ago someone on the lists was talking about
+using kdb with a keyboard and (presumably) a display. You can see a
+thread here:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index ffffc60c98db5..20d05a3e4516e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -2592,6 +2592,9 @@ static void amdgpu_discovery_init_soc_config(struct amdgpu_device *adev)
- 	case IP_VERSION(9, 5, 0):
- 		aqua_vanjaram_init_soc_config(adev);
- 		break;
-+	case IP_VERSION(12, 1, 0):
-+		soc_v1_0_init_soc_config(adev);
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-index 815f130f760c7..0ede5e22e905f 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-@@ -24,6 +24,7 @@
- #include "soc15.h"
- #include "soc15_common.h"
- #include "soc_v1_0.h"
-+#include "amdgpu_ip.h"
- 
- #include "gc/gc_12_1_0_offset.h"
- #include "gc/gc_12_1_0_sh_mask.h"
-@@ -334,3 +335,12 @@ const struct amdgpu_ip_block_version soc_v1_0_common_ip_block = {
- 	.rev = 0,
- 	.funcs = &soc_v1_0_common_ip_funcs,
- };
-+
-+int soc_v1_0_init_soc_config(struct amdgpu_device *adev)
-+{
-+	adev->sdma.num_inst_per_xcc = 2;
-+
-+	amdgpu_ip_map_init(adev);
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.h b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.h
-index d9de040c37291..23517c3a3d1bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.h
-@@ -29,5 +29,6 @@ void soc_v1_0_grbm_select(struct amdgpu_device *adev,
- 			  u32 me, u32 pipe,
- 			  u32 queue, u32 vmid,
- 			  int xcc_id);
-+int soc_v1_0_init_soc_config(struct amdgpu_device *adev);
- 
- #endif
--- 
-2.51.1
+http://lore.kernel.org/r/20241031192350.GA26688@lichtman.org
 
+Daniel may also have comments here?
+
+-Doug
