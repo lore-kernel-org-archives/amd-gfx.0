@@ -4,158 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC2A1D0E6E3
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 13:16:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10DA8D0E6EC
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 14:20:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3101210E3E9;
-	Tue, 25 Nov 2025 13:16:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94B7D10E2A0;
+	Tue, 25 Nov 2025 14:20:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V11aK2nZ";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="YqPAWWNk";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012004.outbound.protection.outlook.com
- [40.93.195.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E1CA10E3D8;
- Tue, 25 Nov 2025 13:16:49 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011019.outbound.protection.outlook.com [40.107.208.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91AF110E3C9;
+ Tue, 25 Nov 2025 12:37:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oIS0nvEhZtYwNs6B5WxSrxteokhm1w1sQ6ggpg667FPKlgG6zcriuEi9WBuKXFFOTREcboVVKfBstG/aFd2lnEO47mD234UnnSHtty17s5d3AHReI0Ev5xGg/6Lll9XQJK6ERnqGTbSGG5+Z54BqEjd5MEDYLAVfHfSlMtklb2y3omBJK8dvgqlpkt6fFsjwCaobCkDL54glXK/W5Tb68Hq4BqG1Pc3jPw1EejKQYHGV2fveM1Ent7NgDwn+7EnwL9FvRAUt/dEATYWwoIWD/j8yRiA/kp4d7APOD3pmYYXb72S3lbSu1dvxbf7tSGvHSZG6HowoMkg/Xy9nJe4KwQ==
+ b=w+grb2HChM5qeLBQvVjkT9TuMzLekpyQdWbtuFWd2Mlsh8TmrZpgOQjumQG80kE/Kicd/1w7E3r9EncSSgbooizaAMoIdSla3JOzFBGMR3nM9bsfOYAqO5wT41JOhUpn08YpMRBu6G9jQblMHL+8LqFzkjvfZuU1j5qBdtVFwbczvLHy1kFBW7c2F42FgbkcgqiBfurP8F3mA4MYR70tl4HBzxAICmYROirX1geoh99egzcY2LfRlkXGCRvHjHbUG8hYtp8tkOIDwIi8EnqAjefnPq9/w9DZJXQFLt/HBWYdipg8PXj14BijcO68oYWfj7nW6Z6jG1i+r4P5rP4VdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F13F4ODYDndu6yM8D/z4G63fIeoXZPSXz4U9ict+cj8=;
- b=J4LgAMV8Ih0E/HrHWvfreBOxzaQG7SK5BSbOp9mbWuOybNzxXmPokB+qO9EPu0T7s2RzO0RQy5WWjHZGM73Njpd/1Wye2G9LCkMb919NzAw8XwGtuUQZkCGk5ZJQTd5HeeebBl+Wu+HZis3sDOQaCrLZbc0LAxMEtmk/ELAQfr5yHQFziJR5ba0xnXjQ8uuTkBaZum48DwrtgN0L5hZFWixNp6h9bVNL/KIwegs6puOaysFSCdKcnkFmeIsNfULIwDXXDjBWaj/fMQEtqqU2VemBCVjap1kd5sgALHyGI7xIlaYkUusjcaP3pGELNzsGszX5nUuPVZVlc3IMt3iA8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=Xma9UvU8PoLFTBawQdwrJ+49n0jnmFMW1enKInh4CNo=;
+ b=SFfdg/VBKqv0TckuDTZHziOx2ok7HYTwOLM8BbOMtmqMToBq9unsBD1zhbceA33AL3AOqCJjiVLS3SQkLQ3/CP4H8Pl2lUyOT2IV3G/lRS3WF3P9xZvyQnzgRUNVBZ76lhDIffoFbVyhoYayTbgknVe4wFgHOIPqFtSu4dFpA9ZBHzzywDSnp+GNW6QVfVgtrR+juQvgJXXWkwsS3WxYCqp0CPPz7AeEqFISzA99Jl0pJSaxUiEbxctcDUTdMBxNvL/7nS68L7SDDWpgz+94pJvszsdf33ZwAdpkd8rzGuN5O4IdNmLFun/aEkMFClmFd+7PXRn74UM6fwdaaaCSrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=amd.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F13F4ODYDndu6yM8D/z4G63fIeoXZPSXz4U9ict+cj8=;
- b=V11aK2nZgEbERXYKtMeCQ6uSj29LkeqJaNMqOR4hZYbYKlA/Dpj5mEP4cSyYy9XC7c0+ipufStAOO7z79e/E+Jivq/gKOd8IIAfUbTkyq4E2WC3GPIvpATrXKLXu1fWzoHDXEwu7wsFnSQKsnUZpNkpMx9O3SaVdQ9Sql62SRL0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM3PR12MB9351.namprd12.prod.outlook.com (2603:10b6:8:1ac::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.11; Tue, 25 Nov
- 2025 13:16:44 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9366.009; Tue, 25 Nov 2025
- 13:16:43 +0000
-Message-ID: <11ac809d-0432-4c9f-8279-7df318c9a448@amd.com>
-Date: Tue, 25 Nov 2025 14:16:35 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
-To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
- airlied@gmail.com, alexander.deucher@amd.com, lyude@redhat.com,
- dakr@kernel.org, deller@gmx.de, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, jason.wessel@windriver.com,
- danielt@kernel.org, dianders@chromium.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-References: <20251125130634.1080966-1-tzimmermann@suse.de>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251125130634.1080966-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR07CA0018.namprd07.prod.outlook.com
- (2603:10b6:408:141::25) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ bh=Xma9UvU8PoLFTBawQdwrJ+49n0jnmFMW1enKInh4CNo=;
+ b=YqPAWWNksdTylcxSj8im0y8NVzgBRD7dVh4A2EmTX3VtC/L+iIi2K6n5YhsZP+8tXfgSyHKp4lxMY/y8r6P0HPYU1Q6aizDz1DNNFaMR6vxcVe5p3iD/SU3t+GaZDhacBgUaH3TxRQjD8daCFyYq2uAyXBItciCQIrT+bYM7/b0hyfnHRZBEc0S3SUS+dl5YwfhSfiUG0h2pVk82K1V7zvJnfRCoCkxQJxRclFrUopJET/CfaHM8j6wCTf1eZ32BoFQKParzlv/9L9ITEq7euD/QgF1JQYqDRf7o8t8nDuN6F4sINDfpxIICZLHqi5PQGBzmdEc5V51VuHHB2wnS7Q==
+Received: from BN9PR03CA0422.namprd03.prod.outlook.com (2603:10b6:408:113::7)
+ by LV3PR12MB9329.namprd12.prod.outlook.com (2603:10b6:408:21c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.15; Tue, 25 Nov
+ 2025 12:37:25 +0000
+Received: from BN1PEPF00006003.namprd05.prod.outlook.com
+ (2603:10b6:408:113:cafe::3f) by BN9PR03CA0422.outlook.office365.com
+ (2603:10b6:408:113::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Tue,
+ 25 Nov 2025 12:36:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN1PEPF00006003.mail.protection.outlook.com (10.167.243.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Tue, 25 Nov 2025 12:37:25 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 25 Nov
+ 2025 04:37:14 -0800
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 25 Nov
+ 2025 04:37:14 -0800
+Received: from inno-thin-client (10.127.8.10) by mail.nvidia.com (10.129.68.7)
+ with Microsoft SMTP Server id 15.2.2562.20 via Frontend Transport;
+ Tue, 25 Nov 2025 04:37:00 -0800
+Date: Tue, 25 Nov 2025 14:36:59 +0200
+From: Zhi Wang <zhiw@nvidia.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+CC: John Hubbard <jhubbard@nvidia.com>, Dave Airlie <airlied@gmail.com>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>, <linux-kernel@vger.kernel.org>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, "Simona
+ Vetter" <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, Alex Deucher
+ <alexander.deucher@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost
+ <matthew.brost@intel.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Thomas
+ =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>, Helge Deller
+ <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo
+ <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ "Alistair Popple" <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Edwin
+ Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH] gpu: Move DRM buddy allocator one level up
+Message-ID: <20251125143339.361cc3bb.zhiw@nvidia.com>
+In-Reply-To: <9f433dee-7ad9-4d0f-8ac1-e67deb409b70@amd.com>
+References: <20251124234432.1988476-1-joelagnelf@nvidia.com>
+ <f73e4536-ec89-4625-96d4-6fa42018e4e4@amd.com>
+ <CAPM=9twe3xcVBgrNCT+1_pGECPL-ry_aA2dxBwbKVeai4+S7AQ@mail.gmail.com>
+ <24d4f02b-8ecd-4512-a1f0-ba41684ede1d@amd.com>
+ <dfc50417-66ce-44ce-b607-917d678c5631@nvidia.com>
+ <9f433dee-7ad9-4d0f-8ac1-e67deb409b70@amd.com>
+Organization: NVIDIA
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM3PR12MB9351:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2efc1ef-0ae8-4cd5-0e8b-08de2c24e0e9
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|LV3PR12MB9329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 578f5653-2621-4fa1-b357-08de2c1f6379
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7416014|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SkpQdVIxeGoxcUZKMXdBZ1p2ZU1YN0Q3Q0J3MUovZk9hTkRUZHBiQmpvcnZW?=
- =?utf-8?B?bHhBWE1peWFEL2JVeTZsbXhham1JVG1NU3ltSHN2K0NVZDVNYS9wK3NpbnpZ?=
- =?utf-8?B?TExtaGlwdXRaQmcwYW5yMHFNNHh3N2huek85alpLb1pHVEdzMjQ3b0xwdG8r?=
- =?utf-8?B?Q2JQVERqVVdYSXdhWStjZ3BIblcyb25sRTU2QlNMb25EN3hSbmFqZTJFZE1D?=
- =?utf-8?B?UXdqNUErWFVmb1ZFVU1Vc1FSYjJSdXBXZkZqVEFGNXhOSHF0bGh1VnBkYm53?=
- =?utf-8?B?aHo1VDg5NjZzOUxkc0xYSVh3ZlpWL3V5akF5RnR2ZnViUVhqUFRiNWQ3R3l2?=
- =?utf-8?B?Nm12UWEyUXJIbmQxMld2T3RFVGcwZHp1RVlKc0xzME9ESUNnV0dKL3h4aGF3?=
- =?utf-8?B?ZWZad2w0aEJ1NmFmbDMxYUxFdFdCSlU4SlVFU3ZrcUpDS1NxY1dEZm1QOUNa?=
- =?utf-8?B?QjV4R0dhbmtJV0hCbnI0MXhBMXcwZWRPK3ZPUTgwUHgzdHFUcFBRTTMwcXJJ?=
- =?utf-8?B?RG54TXNQWXhWb1ErcERmMXN5eGtsVDV4SVRBUkkwU2FPV3lFYzFGK0Y1Tmk1?=
- =?utf-8?B?L085VmlYUTZYVGtwakVkRGZ4TjB4UG5oSWxvSGtyVDNGTS9kblByUDNzWnor?=
- =?utf-8?B?RWRLV3gxT05pMTBGVFU0eGQrZ3BqVGJwUGR5bEh5aGNIY0dnOWNDWlAxdmdQ?=
- =?utf-8?B?Vkg2b05tNWx1N2RqY2M2Y1Bja1I0QVJhRlZ6a2J5bWR6VnVkRUcyd0IvOWMw?=
- =?utf-8?B?K3FoN3hremlqSk0rdHYva2FRQ0xWd05TYkY5MXN5RUt2a2txUElRYWVPZ21r?=
- =?utf-8?B?eEg0Z2xjVWh2TFVMWlZtNlh3dkNGQTAxVUdPQUUwSmpWZ3QxVDZBL0dNampr?=
- =?utf-8?B?d3NMdS9qUGtRU1lRZFJTVk9CUTZIeG9XVHBZVnJNQ1g0YzRldzVmMTJQcVhv?=
- =?utf-8?B?ckdPS1ora3NZME9YTkZsZXNDSDQzcW8xdnVCeGNDZDlsRzAyY2taYWtMQ2xt?=
- =?utf-8?B?bFp4YUJabXFoUzdMVU9ldnpnWEZFcXVjRzFpNjhrK0Q5TEZPdTJrclJUZHBh?=
- =?utf-8?B?ZHJOa2FGRHFwT1VpUjFJb0NBTlNDSDFRMVRGUW5DT1d2L1Z2Z0c0SkxqNFli?=
- =?utf-8?B?RnFGSFltZXpYY3p6Y3ZUTnhydUFzU0ZZM25QZTFaanUySm9jdzAyMXNMUHVS?=
- =?utf-8?B?RGlWUnozN2NVV0s0MkJORzZmT1BrSHJaWEZiM3JjQ0V2aVdRTzBqTVZmemox?=
- =?utf-8?B?NHdIaU5yKzRRdWhKdDVuNTRsNzRZMFYyY1dVemNyYjU4Q3dUcUtudHl2aGJZ?=
- =?utf-8?B?UTJYSHRwZXd3Uk81ZGIvaXJYWVJtYkx4VDREaHQ3dGhUT1liWXhmMWxnUTB4?=
- =?utf-8?B?TzYvSTk2STIwV2F6UVVCbW9FcXV3MWl2V1JrcVlkeEdwWG56TzA4cUhJczdq?=
- =?utf-8?B?cUpocyt5d2xmdXhud1hVblZ6MGhiQm5ORlBqWW8zd094YStPWW9uUG9QQ3c1?=
- =?utf-8?B?SWxFWUJzTmx2dDF2b1BjSWh1bE41bHhIc0d1UnRBODBpMnk2OVNKektlU05h?=
- =?utf-8?B?Vjc5eVlOc1A5NS9ZTkZ0MlR3WWJFV1lvRHJISkhiSTB1WGpCRUpBd2UzSVUx?=
- =?utf-8?B?VTd5SGNsdEJTVDVDdFRTUkF6VytmWkN6dG50dlhRTXN0VVZFTnZwSWY0YXMv?=
- =?utf-8?B?Q2dtejZ5Z3k0QkVseTZWK2lDR0MxY2FSempSRW40RmNkL0RwdXBldUMvdE0y?=
- =?utf-8?B?MUFnY1Fucjh5dWRmaEhrVUFpM0tqank5SVJFNGJIeFVYblVydVhXOENoSitG?=
- =?utf-8?B?cXJxQVpyNDRKWlpBOXBWQmlNYVVXNFN0c2pxUUxjeTFXYmJXTlA1WVNJbzRl?=
- =?utf-8?B?VWVORCtIcDh6eWdjWmVFYU1BTmlZWVJzYWhhekYrQUNTVFNFSXppTDNFMlFk?=
- =?utf-8?B?dUlkbWd1R3FNZmJ5dGFvZ0NIWHc0VDVpYUhZa3UwaDJmUXpQMm5lMzJJTm81?=
- =?utf-8?Q?Q+rlBhs+QK0Sx5ScU21xSrmC22nKVM=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7416014)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2pJR1ZYQTFPWnRiei93OTJxVzRlYS9XaFZqdzgwMk1vZHlxSWlCSzVDYTBr?=
- =?utf-8?B?LzEwZVdVTnBVa3lmbzR0c1ZacFpJWmtSb1ZqelBjbk5OQVlJdWVoUnoyMnFi?=
- =?utf-8?B?WnBBTHY3VmF1c242blgwclJ3Uk1Ha0Y4YkRhZ0M3cCs4cUFTbWZUTjY1K1Fs?=
- =?utf-8?B?VStPRExubStoOW5JdGpyUWVyYmoxUm5QdkgvTU5WdXVwUDFDa0NXbnhOa1hh?=
- =?utf-8?B?YXZxUmdmeVM4a25NcUZCVWlKbGV1OXUvYmtVbkZQR0doeFBCZ1VDc3loRE9q?=
- =?utf-8?B?ZkxvdE5XT05QdXVxay9VS0lMcmpMRmpPYjdpU0hzSHdkMkdzRGVBcmhYaTBw?=
- =?utf-8?B?VlBJZmN0aWVTVnIxQ2NUZ0pwR3lHTUxPc0lMaWVWenBUQUhSRFB6OGM2WGpW?=
- =?utf-8?B?UWcxVG9hUi9ZRjgxdXdXRFBzK3R4RVMwaVFhT2dOQnYyeWNlK2dMU1VLQ3d4?=
- =?utf-8?B?T2Flc1ZtMERPYU9HRlBoemU5dWNEZlFNeFhYd0ExZHFaYWErc3Z2OEd1eFpq?=
- =?utf-8?B?RVpjVy9QL3lNQmVkUER4bWhPMHJTOCt1enZEazF1RzBaYStRU2ZzQkJ1Ukwz?=
- =?utf-8?B?NHBxU2l3SkttbW9CRUNLdUF5RWZRSGFiMyszMDRHVGVZNkgrbG5MNy9DRUJE?=
- =?utf-8?B?WWp6TUwraHNEUU00U2s2MDlsOFU2OUNiTHIxVHU2UGg5VzNzSnNjYnRlY2dM?=
- =?utf-8?B?QnJsVFZVMFoyUDVCZ3N4aW9WTEwraGh4L0UxWmxYRDZWSjFPcWF6VlpNQ2ti?=
- =?utf-8?B?VDhjejVheVZqeER4UWZ1NjVSbXI5bzI3Nkg2TXNLM3lxbkhXSXNXUnZTaWZW?=
- =?utf-8?B?eXBYejh4R256WWo4ZVJYQWpXNVdXWFFzSWN1aEhhdjVZV2YybU5pWUJEd1dH?=
- =?utf-8?B?SU02b3p6cE9JNGMrTXgrY0ZQNm5rQ3dteGVVaHhZSjVEQUFCZG9UbWpvTG55?=
- =?utf-8?B?U2RqMFlWaUg5M044UVNLUnp4eXhoVmM4VjlMbGtWb3pxajVyUnFVOXJqcUFw?=
- =?utf-8?B?TEUrblVOVUtXR0dmMmpYN2NsOUJLSFNBdkJRb3BuSXFHMjlBZ1FXQUZVY2ZS?=
- =?utf-8?B?NFN0eEZ5amN5VG1IUWFOUUtXQ3BLRXZRU2hOUkk2T0Q1am5HRUM5UzBRRmFt?=
- =?utf-8?B?L1FQcExoekx5UmRFVTRuR21GYXNFRTJsRlg2MjFUT0orVExrOHJ3YVVXUUgr?=
- =?utf-8?B?dmxqVUpTckVDdjdIYStHUENNb1pSa3kzMGU4Q0t4cUk5RU1JNEtnOXlmRksx?=
- =?utf-8?B?TXNFUUZBSUhGVE1QZWw5WE1OOGlWZ2NlS0Y3eGpQTHdxZ3ZvcXFNMDUvRDNr?=
- =?utf-8?B?TXBJV2VyRHVTZGtPQndKeU9tbWhYK3FLQUJzRmlYdmRQWEtDNThBNldocDAw?=
- =?utf-8?B?cktkSW81KzBadHJOK1Fua01sN0JuZFA2bTQ0WnVPSGtKQ3h5bGgrVy9BdEJj?=
- =?utf-8?B?Yk1rVjNUWGExZ0YwNW1JSDZpYUZUcjl2S29KWU5sdXYwSVZWRzF1YmV5K3RC?=
- =?utf-8?B?aTRRYTlReUJja3Z3ZnlDdnZRRTdZK2l1a1RyeVVFVkd5MmtYTjFmd2NiQ1Vh?=
- =?utf-8?B?UzlSVk5VWGVpLzdvM2x2d2VtWEJGWEl1YWlFSFpwTmxGcnR5R1J4ZUQ2Zkhz?=
- =?utf-8?B?TmZrMitwQjJvU3RuNklSWjZIY2VKVGhaVlZJYW5XWHJJOHpVT1JJbUQrcjdE?=
- =?utf-8?B?ODVGdmRESTl0WEU2cnVKdFg0TU5hcWk2aDgzemcxSnFKN21QaTFaeVo2UFRr?=
- =?utf-8?B?WEI5WnprRVZIdXNnSUlhNS9JclI5Y3FVWklpUldiQ2F2c0FMMDJJUzA3NEdv?=
- =?utf-8?B?VHVMWlhVMHU2V2hpL2tNbFJuRndIeVVYT1lnNjN2UFIzYjlPU2xtd2RpRkpi?=
- =?utf-8?B?OVg5QW5ISktnMDRjWDhPaERic0JKRXYyNEpLbXJxbkp6R25sVDIwUkNtRk96?=
- =?utf-8?B?dHhLemxldjJJMjJ4NVk4STBETDk3Ym1GWWJmOVJVRlJYbG93aU85T0VnNEsv?=
- =?utf-8?B?MWh5MHQ4V1UyV3h2U25qV0FWdWlna0d5bktVaEF0NE9ESHJFYVJ3ZXR3TFRZ?=
- =?utf-8?B?dE5hWUZPTDhKMWNZMi9VRGZneG8yK1F0RkpxbFdIaHhrRzVoVVBoS2RXQVFs?=
- =?utf-8?Q?bf6PDIQkTS+HNaLyGjQ7Z3q2t?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2efc1ef-0ae8-4cd5-0e8b-08de2c24e0e9
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 13:16:43.8702 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5Js3yq3beezYnIEcI9Z68cPI2ZPpU3UIMSh4I4/X6xnRKTG1x8IbQB8Z+n9PhXPv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9351
+ ARA:13230040|7416014|376014|82310400026|36860700013|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZExHbDVYajdCSFZ1aFIvSG9YaG5QWlN4V3dVWWVqaTlvL2lScHlBVTN2ZzEw?=
+ =?utf-8?B?d1V2d1YwQW5uSk1wNTdVK0NaQTF6YlpxRFRQVVRwZUdLYmVPSENGdlkwUitU?=
+ =?utf-8?B?WUU0cmpJZXYrYnVBRW5ObXM0TnNjQitsdXRRbU5GdUV1M29mQTgyQlNvZmg0?=
+ =?utf-8?B?V28vdFN6N3FlY0RQSzB4Wnl6cFFoaXRwU21xSFdmMjE4a1lLKzhJVCtTaEdN?=
+ =?utf-8?B?bVpDMzVYQkxuaDRKdFdHVXUvaFJ2aXIwMHdqNjV0aTBPUGpPMUQxQ3kvT044?=
+ =?utf-8?B?QXN3Slp4LzlTQW4xWHZHTUo4Zk12ZnAxcmN1RnNTT2RCd2FVLyt4dXBPTGdi?=
+ =?utf-8?B?UmJUZjV3S1ZXZmlkK0MxMG9vMXRhOEc0NEY1NFptZER5d2NrRUgwK04xUUo1?=
+ =?utf-8?B?cXR1U0JHYXNSbHMvRTA4bmtodEU1WnVKUXd6a0RXZ1N4QjVxMkFWWU5ITVUz?=
+ =?utf-8?B?OXF6cHczbTNLSE1KNXhQUEpyVXFnNi81Y2l2U21MUGxKOHJRWXdGSXk5VzVG?=
+ =?utf-8?B?a1JDajAzZG05VWU5c3dkVlU2aVV3RDQ2emlPcnV4WXU2Z1VpQkFMb3o5ZFpJ?=
+ =?utf-8?B?eFg0MzE4MU8xQVhVN3FIL3lBTDY1cGFrY2k0emlDblNpRExveVVmditIbk95?=
+ =?utf-8?B?VkZnQ3ZVUUpxUDFDMWZVd2xRZitMOWtPenhvbnZuZ0hzZ2xUcVBURG03ZDFr?=
+ =?utf-8?B?NTN5TWk3UUgrRVhhUFBTU3h2enhhTHU1WTB3L3oxMk04dUZ4QWZWYU4rSlNx?=
+ =?utf-8?B?UjRmeExVYUNHby9PNncvRGlGZUVhcDk5czNKRENGVVBYQXM1VGJtZVdqRkRL?=
+ =?utf-8?B?eEpEaVBjSWQ4RisrNXNPYU9wd1A1cWw1Z1YybUtVQytlMWFnWVlSbmRpb2ti?=
+ =?utf-8?B?QXI2c3BadEk5TytZdzM0NWp6MFpGaDJDa0dOMS9aMVpKb2xoZklYZ0hzYitU?=
+ =?utf-8?B?TEMzTncyeDBFR1BiMU5talVlYlBQNTZxb1c2LzFyT0FmYzFtZEFTbStyWGlD?=
+ =?utf-8?B?cExyaHJvWkFWTVVaOEZLTDViNkpvQnJzdHQ0eTNiak1zRTUrZEJ0VGptaFZp?=
+ =?utf-8?B?V1pDb3RXNjlDY2ZEekpKeHIzMEx1T0E3T3RxVzUvaWlwQS9zY1JHdjlJU2dX?=
+ =?utf-8?B?eEt4SGJQd3cxSWtQcHJ6Rk9kbVk0VldDTGRYOEsrZGtrbVgvZE94Y0xnNzZJ?=
+ =?utf-8?B?QjFybWV0R2NNTUVlNjlVZHN5Z0ozV29XbjdBYXVpZjJSbkpmRk1yQU92cG9m?=
+ =?utf-8?B?TmNrbFIzM25qS2s2VjlVb3JkcExoUGN2c1lYL09GRk81aW1ORjhpVWM1eHFa?=
+ =?utf-8?B?NmhGc2ZFNjRZc3dYclg0TXhEaWdrazVpVDlDbytrMmxDSmdpRVYwL1hOWmMw?=
+ =?utf-8?B?ZWFrRFJFMjdtbkdTaWFMSzZXUm5qcE1CcTRucit2ell1N0Z3a05seGNNMUMw?=
+ =?utf-8?B?b2VSazFFSTBFeW9WZVo3ZHJLNGlHWWpEUkpEamFZcXUxZ3Y5bU1PLzR2L2hm?=
+ =?utf-8?B?N0hlK0hoeDJnYTZPd2xpRGdXajBoM3ZWeGlKRHdza1djbEVLbXBVV1cvSmRP?=
+ =?utf-8?B?ZWZYVWpKSDdIQmU1cnBLUU5lQzludHBVVEQweEZ4Q3RtRDJTd1pra3dmOC92?=
+ =?utf-8?B?Sm1ibEFUeTJDR2tMN2VPZzFOeU9YQUM0RnI0NlA0YW13TmQ0bzEvVUtpdmwv?=
+ =?utf-8?B?NEhNZWNrcWNqY21RQ3hpRjEwZUowbktoYWhPRktyRW0vd2RzRkI3OUwrblBN?=
+ =?utf-8?B?cjg3ZUVhRXQyVU9oWERkdkVKT2ZGQmJIZGFiblJsWGEwTVRWVDJPaVI0ZDJa?=
+ =?utf-8?B?emcvQWxaOHBDcGVZTW41SURvMTVWUkJ0ZWh5NStaKys3WlBoS3MxSGZ5QTA0?=
+ =?utf-8?B?UzNuSWY1K2YrQXJGd3ZwSzgvTzVWaEZ1QmkwaGNlNk15UEZCaDNCM3dlOFZG?=
+ =?utf-8?B?d0RMMXFpVmx1OE5pODNSV3V1V1RzUnEwODJ0Y0VoQkttYm5Hc0l0YktmQ3hK?=
+ =?utf-8?B?OFpGaDJDR3BoVXZSYlhoU1MyQXlKU2pjSHNNR3FFRWJmTml6WWdZWFRwS2tG?=
+ =?utf-8?B?NGJVSUpXRnZqRE5FKzMrb3NOTkNiRHREamluUWFOaG5Hc1R4ZDQ1ZU5sRWxr?=
+ =?utf-8?Q?uhLoUdzPNl2T4TZwr5CTDz7xK?=
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(82310400026)(36860700013)(1800799024)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 12:37:25.6225 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 578f5653-2621-4fa1-b357-08de2c1f6379
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006003.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9329
+X-Mailman-Approved-At: Tue, 25 Nov 2025 14:20:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,65 +178,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/25/25 13:52, Thomas Zimmermann wrote:
-> Remove the rest of the kbd support from DRM. Driver support has been
-> broken for years without anyone complaining.
-> 
-> Kdb cannot use regular DRM mode setting, so DRM drivers have to
-> implement an additional hook to make it work (in theory). As outlined
-> by Sima in commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for
-> atomic drivers") from 2017, kdb is not compatible with DRM atomic mode
-> setting. Non-atomic mode setting meanwhile has become rare.
-> 
-> Only 3 DRM drivers implement the hooks for kdb support. Amdgpu and
-> nouveau use non-atomic mode setting on older devices. But both drivers
-> have switched to generic fbdev emulation, which isn't compatible with
-> kdb. Radeon still runs kdb, but it doesn't work in practice. See the
-> commits in this series for details
+On Tue, 25 Nov 2025 09:10:54 +0100
+Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
 
-Amdgpu is heavily pushing on switching to atomic for older GPUs as well. Timur and our DC guys have made quite some progress on that recently.
+> On 11/25/25 08:59, John Hubbard wrote:
+> > On 11/24/25 11:54 PM, Christian K=C3=B6nig wrote:
+> >> On 11/25/25 08:49, Dave Airlie wrote:
+> >>> On Tue, 25 Nov 2025 at 17:45, Christian K=C3=B6nig
+> >>> <christian.koenig@amd.com> wrote:
+> > ...
+> >> My question is why exactly is nova separated into nova-core and
+> >> nova-drm? That doesn't seem to be necessary in the first place.
+> >>
+> > The idea is that nova-core allows building up a separate software
+> > stack for VFIO, without pulling in any DRM-specific code that a
+> > hypervisor (for example) wouldn't need. That makes for a smaller,
+> > more security-auditable set of code for that case.
+>=20
+> Well that is the same argument used by some AMD team to maintain a
+> separate out of tree hypervisor for nearly a decade.
+>=20
 
-Feel free to add Acked-by: Christian König <christian.koenig@amd.com> to the amdgpu and radeon changes.
+I guess you mean the VFIO driver? [1]  In the code, it is bascially to
+support the migration, which is simiar as any other in-tree VFIO
+drivers. The questionable parts might be how to clean up those
+callbacks supporting migration and get them into mainline.
 
-Regards,
-Christian.
+Those callbacks stays in the PF driver, either talks to HW or firmware
+interface to control VF states, obtain the bitstream, which contains VF
+states and data.
 
-> 
-> Therefore remove the remaining support for kdb from the DRM drivers
-> and from DRM fbdev emulation. Also remove the hooks from fbdev, as
-> there are no fbdev drivers with kdb support.
-> 
-> If we ever want to address kdb support within DRM drivers, a place to
-> start would be the scanout buffers used by DRM's panic screen. These
-> use the current display mode. They can be written and flushed without
-> mode setting involved.
-> 
-> Note: kdb over serial lines is not affected by this series and continues
-> to work as before.
-> 
-> Thomas Zimmermann (5):
->   drm/amdgpu: Do not implement mode_set_base_atomic callback
->   drm/nouveau: Do not implement mode_set_base_atomic callback
->   drm/radeon: Do not implement mode_set_base_atomic callback
->   drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
->   fbcon: Remove fb_debug_enter/_leave from struct fb_ops
-> 
->  Documentation/process/debugging/kgdb.rst    |  28 -----
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  35 ++-----
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  35 ++-----
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  35 ++-----
->  drivers/gpu/drm/drm_fb_helper.c             | 108 --------------------
->  drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  24 +----
->  drivers/gpu/drm/radeon/atombios_crtc.c      |  74 ++++----------
->  drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  23 ++---
->  drivers/gpu/drm/radeon/radeon_mode.h        |  10 +-
->  drivers/video/fbdev/core/fbcon.c            |  24 -----
->  drivers/video/fbdev/core/fbcon.h            |   1 -
->  include/drm/drm_fb_helper.h                 |  21 ----
->  include/drm/drm_modeset_helper_vtables.h    |  23 -----
->  include/linux/fb.h                          |   4 -
->  14 files changed, 63 insertions(+), 382 deletions(-)
-> 
-> 
-> base-commit: 0a21e96e0b6840d2a4e0b45a957679eeddeb4362
+IMO, they should be quite self-contained and userspace shouldn't be
+invovled. Userspace (QEMU) only talks to VFIO.
+
+This is just my initial impression from briefly looking at the code. :)
+
+[1]
+https://github.com/amd/MxGPU-Virtualization/blob/staging/amd-vfio-pci/amd-v=
+fio.c
+
+> Additional to that the same argument has also been used to justify
+> the KFD node as alternative API to DRM for compute.
+>=20
+> Both cases have proven to be extremely bad ideas.
+>=20
+> Background is that except for all the legacy stuff the DRM API is
+> actually very well thought through and it is actually quite hard to
+> come up with something similarly well.
+>=20
+> Regards,
+> Christian.=20
+>=20
+> >=20
+> > thanks,
+>=20
+>=20
 
