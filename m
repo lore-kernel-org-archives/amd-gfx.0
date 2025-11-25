@@ -4,133 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1287D0E6F5
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 15:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D663BD0E6F5
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 16:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F77F10E40F;
-	Tue, 25 Nov 2025 15:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79CBD10E440;
+	Tue, 25 Nov 2025 16:22:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2xwnptxx";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rxcHTUOS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yRvSJNwe";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jxlKsqOZ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pWGSpGSf";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010001.outbound.protection.outlook.com [52.101.56.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7185910E40F
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 15:57:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LcjN4i3Bq2T5npPMM7VgasnPA8PNLMmBWPBFygrkOci993OE0GBhRb8zSUPwMfL+FIu1Jg+ebiOJv6JORTZBLl4uKQHXCUiyE7QfvYdVyRu4M0JrFjrxFlBbBCkcDuZg2Xik0q4Q+X15vDB4n3Wl+qVcaJxbxUnlYHjEymQaB3VXpY53VlIaH+NjSTonaWrad6oLmortwEipBRAD5EfrO++v1dcCSFeYSSyvWIDVWln2B/XZzHY/elXor2b1dk8Y3qxJ3MVuqbKF77vXQPH+xgnF7UQAqw/r3u5XUkfSJhiy0FX9DIYz/CNKIoR4fjTSWGk7DX0uoW5L1sh7ir12CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j5W8adVD+n+9YCsvXBKv5TJ6qQEU9lorIaKtqSS1+38=;
- b=FMBIj48qHyk9u5+w1iPzk7kSfSu1Rv0mfl4G1RT4E2v0W/yMbVry4eOPRYBDQ2Wsitd55nSnuReZ2RjuLbRR3bc+bX+9V05WY9s7HcM8HDoVz8jAvfoUiC4d8fk4bYAx0GlVgIRXrpd/CGIr9KJV0OIAq1IpLz3VPQvYH5WBI9QXLu16gvlETDHyEZRllpz2iu0MD4QTAbkeFd/z6TcZBYQGilQ1UHJ7rP+O2ZinULhysqlQ8Go2qSGcceHU6WaQkK4ZFxg51GmcysjF4O4zXi0uPwYMvcF/gXDviTxwC7A6Kpmc/agRtXoLeOoBYhLRg630OPtCF9tXv+D7fSaMEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j5W8adVD+n+9YCsvXBKv5TJ6qQEU9lorIaKtqSS1+38=;
- b=2xwnptxxYUCCmJ7oYtg6JnRGgNQCevpe43rVKqcKXVjOW1uE28CBrCIlwRddeR9eflEoMchEqTWswi8rJXk6L7E7NA53R6mbmqN2m9VyM60XXYes64bspBKbYXZIKjjYHDwTyAZqRWnxo8GUNh3EldsvamOIi6XpninLJmGFsko=
-Received: from BN1PR12CA0002.namprd12.prod.outlook.com (2603:10b6:408:e1::7)
- by SA3PR12MB8811.namprd12.prod.outlook.com (2603:10b6:806:312::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Tue, 25 Nov
- 2025 15:56:59 +0000
-Received: from BN3PEPF0000B06F.namprd21.prod.outlook.com
- (2603:10b6:408:e1:cafe::e1) by BN1PR12CA0002.outlook.office365.com
- (2603:10b6:408:e1::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.11 via Frontend Transport; Tue,
- 25 Nov 2025 15:56:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B06F.mail.protection.outlook.com (10.167.243.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.0 via Frontend Transport; Tue, 25 Nov 2025 15:56:58 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 25 Nov 2025 09:56:56 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v2] drm/amdgpu/sdma6: Update gfx11.0.3 SDMA FW version to
- include UMQ protected-fence fix
-Date: Tue, 25 Nov 2025 21:26:48 +0530
-Message-ID: <20251125155648.223100-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251125155331.222776-1-srinivasan.shanmugam@amd.com>
-References: <20251125155331.222776-1-srinivasan.shanmugam@amd.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C49E10E433
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 16:22:10 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CE0FC2279F;
+ Tue, 25 Nov 2025 16:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1764087728; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1qVWteth2CW4grxymKBfkcAQ2Y6lgyq+8fjlcjGvCdE=;
+ b=rxcHTUOSMi91yqyshLu0nXlrTbfin/DxFYxy68+9o5Lz//U3hZZcdjlKLHiUcks2sNFb5d
+ Nw+OBrAf2kdZEY8eaQrFByd0uhfsWG/FmvucIqTas+/tk5AXRhRPH5vvcJNRiCAVeu9sDs
+ JlbSW7nQ5++eYnulUKTb2Pilge3qSMY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1764087728;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1qVWteth2CW4grxymKBfkcAQ2Y6lgyq+8fjlcjGvCdE=;
+ b=yRvSJNwewWvQZN6EMbe+ZH57h9Ype/yn78RFRv+PNLYJCaiiGwSN/MWsLEvYlaOy7wnyVS
+ T9xIEZPg7AUb66CQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jxlKsqOZ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pWGSpGSf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1764087727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1qVWteth2CW4grxymKBfkcAQ2Y6lgyq+8fjlcjGvCdE=;
+ b=jxlKsqOZGQElJHBq1oPDmP5F6Jc54BuJNQY4M+S+XFJq6L493Mk0ifEe6vzy3vj9uOD1ch
+ wsFa7Y9EcZSUiTHev6F14FH0ph+/SrIXnp6rmwNQ7esC+lj+GftEOWXVg/kanV0b1RaN86
+ fPmOiadBoSqJP+lckHT6VBqAWLCafpE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1764087727;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1qVWteth2CW4grxymKBfkcAQ2Y6lgyq+8fjlcjGvCdE=;
+ b=pWGSpGSfBZkjXtE6lj76qjxTTU7v28kiwiq9wRoAZ3aAPRRV+Fhr40paxglFA656gZ53M4
+ 1DSAyAx8WxL2H+AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4CE7F3EA63;
+ Tue, 25 Nov 2025 16:22:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id hQZWEa/XJWm8VQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 25 Nov 2025 16:22:07 +0000
+Message-ID: <65622142-c3b0-4ef3-9a74-09420bc2220d@suse.de>
+Date: Tue, 25 Nov 2025 17:22:06 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
+To: Doug Anderson <dianders@chromium.org>
+Cc: simona@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, lyude@redhat.com, dakr@kernel.org, deller@gmx.de,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ jason.wessel@windriver.com, danielt@kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nir Lichtman <nir@lichtman.org>
+References: <20251125130634.1080966-1-tzimmermann@suse.de>
+ <CAD=FV=X_-t2AF5osp7Hamoe7WYE_2YWJZCaPaOj=9seSbnwwVA@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAD=FV=X_-t2AF5osp7Hamoe7WYE_2YWJZCaPaOj=9seSbnwwVA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06F:EE_|SA3PR12MB8811:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62ab4c1c-6fe2-4158-c59f-08de2c3b43de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dnJBSGlWdTZ3akd3TmFqRjdiTVk5OUh4bzZNTk0zSWNEMWY4SlVrY0VTb21o?=
- =?utf-8?B?ZWpLMEVjWFFVZTdFMzdVbTdCcVMzVGRzWHFxL1drdjQzaHJjU01ZblVYTDJU?=
- =?utf-8?B?cDY3Sk1GaWlkZkMwM3QveVR2bThjOERBOVFTOExCKy9ENEVJZ1BzdGFYRkdI?=
- =?utf-8?B?M2JIbDFYQlVaWU1lYXFHYXNsN2k2Y0c2K1BOV3ZjdnQ5QVZldFdmSzZETktr?=
- =?utf-8?B?Q040T3Z5NHhab09LU3N5OVNEd081VTkwUnBqNEZ2M3FiRWsyTjRtdU1DOXU3?=
- =?utf-8?B?VmdtaWQwSmVDaFhLS1pNMWtBNVdQTjRWUS8rdDR6c09wd3JJSkJCdHNBQVZS?=
- =?utf-8?B?ak5abmI1emI5bTl0bWY3cU1Lc1pSWTZjWHl3dzZ4Sjg3bGlCaVdrdThVR1pP?=
- =?utf-8?B?VkU0OU5iVE94VHR5Qnp5WVFTUkFVeWZZRWdKMEVkQjJQdC9neGk2ZWd6bzNk?=
- =?utf-8?B?RmgzWXg0QVlxdDZOeEdNbUJ0cG1ycGlnRHhzMDFTeTIwSGljREk5VFhPQTBi?=
- =?utf-8?B?YkVwWnVDTTNlLzJTdEMySUpVek4rcTQwSSswcENhTjZmazk1cEJYdlpwY05s?=
- =?utf-8?B?eHRneHNYTy9rc2JnNlRrLzlTNUNrQ1VBK3hwSFlyRmUwdHUraGsxVW5Bem0v?=
- =?utf-8?B?ZW5zdU10TTYwVzZBc1NEazJheFFTWCtWM0ZGeWhTQjVnMHlqa1d4eWsvYVgw?=
- =?utf-8?B?WXN6bTZxYld4cnpuZ01jdEFiQ1duUG13K0JyL0tBdENSTUM4SS9jcXNJaWlL?=
- =?utf-8?B?OXF1WVZjUmNCL2hMMGVrYXRBdjl5VWZuTVVYZmNxcFgrRmc0ZW45MjljNWM2?=
- =?utf-8?B?V0VHWVNYeis3M0JHQjgwYktPMEtIUEU1STF6TXM4Z2lDVlhsV3dQaDVoQ0l1?=
- =?utf-8?B?NkFLVzA0RDBFNmo2SFZZdXYzR3ZTM1I2Z3BDUEROQjlMek1iajV1aUF4Yi9s?=
- =?utf-8?B?RUZRalVONm9rVTB4T3dRM0lVQXo4Zi9wcUlMdFQwTkRIZUZkT1lGT2p2eHMz?=
- =?utf-8?B?bGpIZ0VYZzRDbDExU29UUTJLd2FNbTZVQnVZNFZjNXVkOG05b1pDNVJlUDEw?=
- =?utf-8?B?ejJ1bTMxS3cyUU4xZm5oSmRvWWg2aWJWRFJVQS9WUVhvRW1TV3EwTFJQbldz?=
- =?utf-8?B?NEh4SExxenFLYVJjRUU2VGV5cXc0cm0zQUNCZHhOdGJZN0ZLZ0NUcGtYS3cv?=
- =?utf-8?B?bm9WU0IwNWhNSDQ3UjNXWEJrZDdlcDdrbVNDV1JBb2lReG42dzBaaDlRTVkw?=
- =?utf-8?B?cUhVeG9XeENER0NlVTJZZ1JJcHVBWEdGTGNTOXVWL1NvNFpRci9YSUJMSmNH?=
- =?utf-8?B?eDM3U1MxUisxckJIU3JpTXhzN1ptdkQxUWd0SEtzT0pvUkNYVUJYQlBQSkwx?=
- =?utf-8?B?N2dCc2txUkhzbGl5eUxNRzlwa3E3R2lnaVJKamtLTHRGcHU5TDhyeEh1ZkJK?=
- =?utf-8?B?eEVLL0VIdndwQ1BPcmZqYXE1ckNTOWpxRXdQcFFYbHgxR0syeFJDNmluYVlL?=
- =?utf-8?B?NndLcDBuQ1dtZlBlV0QyQTdhazh6eGM1Y2lUOGpwVTVxUU9lcm1tcEFUZEtN?=
- =?utf-8?B?VXZKazI4K0dmWXJVZHRhR1pZc2hOVUk3V3c2WjI2b0JJV29ueEY0VzhlYkVy?=
- =?utf-8?B?R1VycldpSTFFejBnb3JYVHZ1TGJzR1J1OHRwUUpEbFVlKzZWZ0NaSTJsVnA2?=
- =?utf-8?B?K0ZzQ2lKcUhjTDdzbFpJOFQrUWZONGJFSFFKTkVQQmRQQXdndGFEV1BqSGFt?=
- =?utf-8?B?WTNwTkxFUXBLR3BQK1hwL3kvNWFrc0tuN3BvWkVuNXVPMG9pN3FRL0dmNmlD?=
- =?utf-8?B?enhldFNLcy9tUWU2VEx0TnNDV0xnRTZ3UDFPSlNiYm8xYUZTZUhUcGRDdlFy?=
- =?utf-8?B?SFN0bzJzb0xYSTg3N3I4WXBnbk51MUZXSGRHNW5vaENCY3l0NExUTlJWUlpZ?=
- =?utf-8?B?YStOK3NWTHZSUXBJSEJEbW0rbnk3TFh0RTdqK0xRQjROT1dhWUVvZHg3emtM?=
- =?utf-8?B?Um9xTlRudTRmTEVPbjh4b0dJd1JTVEVOYW5WelBmaUhoR3BZaTRzUkUxamEy?=
- =?utf-8?B?MHJWWHN4cUdYL3ExSHBwV2NrM09wN2gxT215d3dMY1ArcVE5aS83blI1S2Vh?=
- =?utf-8?Q?a7b8=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 15:56:58.6130 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62ab4c1c-6fe2-4158-c59f-08de2c3b43de
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06F.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8811
+X-Rspamd-Queue-Id: CE0FC2279F
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[ffwll.ch,gmail.com,amd.com,redhat.com,kernel.org,gmx.de,linux.intel.com,windriver.com,lists.freedesktop.org,vger.kernel.org,lichtman.org];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.de:email,suse.de:mid,suse.de:dkim];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,46 +154,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On GFX11.0.3, earlier SDMA firmware versions issue the
-PROTECTED_FENCE write from the user VMID (e.g. VMID 8) instead of
-VMID 0. This causes a GPU VM protection fault when SDMA tries to
-write the secure fence location, as seen in the UMQ SDMA test
-(cs-sdma-with-IP-DMA-UMQ)
+Hi
 
-Fixes the below GPU page fault:
-[  514.037189] amdgpu 0000:0b:00.0: amdgpu: [gfxhub] page fault (src_id:0 ring:40 vmid:8 pasid:32770)
-[  514.037199] amdgpu 0000:0b:00.0: amdgpu:  Process  pid 0 thread  pid 0
-[  514.037205] amdgpu 0000:0b:00.0: amdgpu:   in page starting at address 0x00007fff00409000 from client 10
-[  514.037212] amdgpu 0000:0b:00.0: amdgpu: GCVM_L2_PROTECTION_FAULT_STATUS:0x00841A51
-[  514.037217] amdgpu 0000:0b:00.0: amdgpu:      Faulty UTCL2 client ID: SDMA0 (0xd)
-[  514.037223] amdgpu 0000:0b:00.0: amdgpu:      MORE_FAULTS: 0x1
-[  514.037227] amdgpu 0000:0b:00.0: amdgpu:      WALKER_ERROR: 0x0
-[  514.037232] amdgpu 0000:0b:00.0: amdgpu:      PERMISSION_FAULTS: 0x5
-[  514.037236] amdgpu 0000:0b:00.0: amdgpu:      MAPPING_ERROR: 0x0
-[  514.037241] amdgpu 0000:0b:00.0: amdgpu:      RW: 0x1
+Am 25.11.25 um 16:26 schrieb Doug Anderson:
+> Hi,
+>
+> On Tue, Nov 25, 2025 at 5:06 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Remove the rest of the kbd support from DRM. Driver support has been
+>> broken for years without anyone complaining.
+>>
+>> Kdb cannot use regular DRM mode setting, so DRM drivers have to
+>> implement an additional hook to make it work (in theory). As outlined
+>> by Sima in commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for
+>> atomic drivers") from 2017, kdb is not compatible with DRM atomic mode
+>> setting. Non-atomic mode setting meanwhile has become rare.
+>>
+>> Only 3 DRM drivers implement the hooks for kdb support. Amdgpu and
+>> nouveau use non-atomic mode setting on older devices. But both drivers
+>> have switched to generic fbdev emulation, which isn't compatible with
+>> kdb. Radeon still runs kdb, but it doesn't work in practice. See the
+>> commits in this series for details
+>>
+>> Therefore remove the remaining support for kdb from the DRM drivers
+>> and from DRM fbdev emulation. Also remove the hooks from fbdev, as
+>> there are no fbdev drivers with kdb support.
+>>
+>> If we ever want to address kdb support within DRM drivers, a place to
+>> start would be the scanout buffers used by DRM's panic screen. These
+>> use the current display mode. They can be written and flushed without
+>> mode setting involved.
+>>
+>> Note: kdb over serial lines is not affected by this series and continues
+>> to work as before.
+>>
+>> Thomas Zimmermann (5):
+>>    drm/amdgpu: Do not implement mode_set_base_atomic callback
+>>    drm/nouveau: Do not implement mode_set_base_atomic callback
+>>    drm/radeon: Do not implement mode_set_base_atomic callback
+>>    drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
+>>    fbcon: Remove fb_debug_enter/_leave from struct fb_ops
+> Personally, I've never worked with kdb over anything other than
+> serial, so this won't bother any of my normal workflows. That being
+> said, at least as of a year ago someone on the lists was talking about
+> using kdb with a keyboard and (presumably) a display. You can see a
+> thread here:
+>
+> http://lore.kernel.org/r/20241031192350.GA26688@lichtman.org
 
-v2: Updated commit message
+I wonder which driver or kernel that person was using. None of the 
+current drivers would be working.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Best regards
+Thomas
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index e3f725bc2f29..4996d60751ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -1390,7 +1390,7 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			adev->userq_funcs[AMDGPU_HW_IP_DMA] = &userq_mes_funcs;
- 		break;
- 	case IP_VERSION(6, 0, 3):
--		if ((adev->sdma.instance[0].fw_version >= 27) && !adev->sdma.disable_uq)
-+		if (adev->sdma.instance[0].fw_version >= 29 && !adev->sdma.disable_uq)
- 			adev->userq_funcs[AMDGPU_HW_IP_DMA] = &userq_mes_funcs;
- 		break;
- 	case IP_VERSION(6, 1, 0):
+>
+> Daniel may also have comments here?
+>
+> -Doug
+>
+
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
