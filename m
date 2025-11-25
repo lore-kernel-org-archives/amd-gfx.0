@@ -4,161 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17979D0EE13
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 18:43:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 561E3D0EE25
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 20:17:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0DD810E43E;
-	Tue, 25 Nov 2025 18:43:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8E9710E462;
+	Tue, 25 Nov 2025 20:17:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BtckhKxV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kRwaym21";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011020.outbound.protection.outlook.com [52.101.52.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D877310E43E;
- Tue, 25 Nov 2025 18:43:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mN7KWVyivrAgz7I4twPu2YmbvTuv7yfBi4ASqbTloQoH60ODXtqbyxWpMXAyGNZcUbztLRzOj6QtFGwTlxhM8kYeI7gcbdCNvM2XjDQjU/Hb+vPYWuOEgGSSrJbZ8TLuJYXK5zjHq+3ouYwZOOFxKGe+C6UfUBDBHn5oAqV6ZVyIa5IrbvNKipP2cETXwW1CUsWgJAIvr+L7lPz8t4oI6VZN15jNvJNjgxtrmzIMoEC92Iis4VV4uvSr/h9lrmzVZcNK3uGHWpXiUDgVDgYGCjcUjBtd6KVjmX6rDpX7d7Bgsi3T0cV8PPV6oYYJhMavzc2jVlUlPTNngMKLUkY3+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n9VvhZHu96Ktjo+trAx0a/kILkbeGLgZug9vTogvrkE=;
- b=sy1k9cnLhpJFwIq+UAzwiLU/2a94OLq2jqausB4N8OOlcnjLrBF1AJ00ujghkkGI6GB/0WfTKCPwc6//xO2f0JTZe4Er+zxZmc8GavfkYmRgAujBHit+nDHwmTOMs0xjFYAQnTvpONxRhCnY1IbLun3blu3F6ne6tg6HZx6nOGcfGBIzcnbIm8Qbf88HfueDzN0fK8c0L0J9Ehqto5YyltISrNyZ3DIJe5TwLHqskGYl/iz8WEiqBG+RGTqseJawpAGbxatOJuKeUUsMIgczWetMcuh5v4Lfj3xmAgq8duxgfinZWeSHGNbgcSEUEuwlX0oP4qYqZ+BgmmzH2JMMHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n9VvhZHu96Ktjo+trAx0a/kILkbeGLgZug9vTogvrkE=;
- b=BtckhKxVhj9L8hQEMc9rmyJFE1ww/iZu7TSuaDihGpPWFFEPeTze9wr2Iap7pdjznxzviXTLX9ZmFtpWJgel2dGfIcPsTAsLHajJ/iH7Lod96sfjbmDq9ZExT3hgISU8yr8LvM4nOqfVK3U3VUzwwSgp4QjVLlVlXEsGvGYFOvE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BL1PR12MB5803.namprd12.prod.outlook.com (2603:10b6:208:393::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Tue, 25 Nov
- 2025 18:43:18 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::9e93:67dd:49ac:bc14]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::9e93:67dd:49ac:bc14%6]) with mapi id 15.20.9366.009; Tue, 25 Nov 2025
- 18:43:18 +0000
-Message-ID: <ecf54c45-4b45-4fb4-a102-46ce9e1de3a5@amd.com>
-Date: Tue, 25 Nov 2025 13:43:05 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V13 00/51][FINAL] Color Pipeline API w/ VKMS
-From: Harry Wentland <harry.wentland@amd.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>, Alex Hung <alex.hung@amd.com>, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- xaver.hugl@gmail.com, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: wayland-devel@lists.freedesktop.org, leo.liu@amd.com,
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com,
- contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com,
- sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com,
- joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com,
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com,
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com,
- chaitanya.kumar.borah@intel.com, mcanal@igalia.com, nfraprado@collabora.com,
- arthurgrillo@riseup.net
-References: <20251115000237.3561250-1-alex.hung@amd.com>
- <cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com>
- <d8360e9c-502d-4003-93ab-9afd8d716c49@bootlin.com>
- <cb13dd25-82b6-4d8d-a8f2-a9a31ef2e73d@amd.com>
-Content-Language: en-US
-In-Reply-To: <cb13dd25-82b6-4d8d-a8f2-a9a31ef2e73d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0012.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d4::16) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62E9110E461
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 20:17:38 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-8b2da83f721so23483185a.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 12:17:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764101857; x=1764706657; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=i5xbOi/JRw9fbDfoOPiueWSD+D+pBvn2T4pJf+V+WQY=;
+ b=kRwaym21FR0SDpPU70BAAqnxMrHy7RIHn6StgkrEhagptorXLlxzjFe3aWKPri9d+o
+ CHlEm60F5+j0I0nnalgxQtzmObrJLmOIa92M1ottCqgsFr7/5fUFDGiovAWyfloC0a5o
+ Ch3io8v9X1EX4sZDdxkzDEH3d43CXskX0e+DDoKw+iqgq5CZISY7M9GYoBPvzU7Gjh/U
+ wxq7TQIl9ta9fFtqEq/FRtxVaLriZ8ylAZcR6Sx3U+3kZfd09Hv7Np3riG8i6zMqWMBl
+ BLa5vUBz163EYHdlUl06JbHN91AL5byDfpDES+lX5To6LiJNcyLxiwAoZ1LY/DSL1kDE
+ j2eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764101857; x=1764706657;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=i5xbOi/JRw9fbDfoOPiueWSD+D+pBvn2T4pJf+V+WQY=;
+ b=PVuFrfbLjUwLLVoNxrLSH3mCkgnPO0lm0zCBi32AYLPTEAEcKOTeJSK2D4/gPEF6bg
+ sXJWJMyDq2G2+czsJuKPVioUg/YnkNCk5541AyJ1jtezbD5SYUjFYvrxaLyaeTRFjRCg
+ vsqHUs0H0pnVPI4b3qsnu9u7S7NFEnEZilYcVmRorl8mksbbq91G3SRfsZJryLDgJ6oY
+ 6xABG6qmMKdOlXuiOnWf78RpVMG1I+q04ACXUzZqlzDhaULptqSe/w4wIj1hnRwYdxZ6
+ mb8J78yvCup5s/pppPT7EOruc+8n3A4kuZ2GyTRnbF4Sd26vOx/HkRsr+C11f7pHH+rj
+ //dA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUkUROVo3foKctGMxDkkX20mjDuoD26uwLnNUfqXuwLlWSwk2pjMD9aufqnETRxmHF0w+ytHcoo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhkBUTtCQcCiMUT438SbAAqdAKpwxq0Uw46tCDwwWrNYMNIeeA
+ Q57NyNjyoniGv0tIOfr6J65cXN7uHJ0w5out5SWup0loYE3iFRvDfk+nr7JWbN7PGD7dkQWYCqI
+ 7phlHSQgT+v+EX9eWvETpyOT8FgxwBgI=
+X-Gm-Gg: ASbGnct307PZPxYvPbWjmw1yoPTaP2cgF22qZC9ifDmGzdrUcUKzQk19DwKp7G/mH1T
+ yTmWg39NGRU4uSpGaDqkcF/PWwEVvORhjA2r1IXSkMhQAsc4qJKHDZiU8mm01OQ6sTrQ4yITFs8
+ 5SLIjeBwLzUhFzhpvI0Y1d4yLwT9rTXogUNky+DrtrCJkWNr2WL7vRmiWvAvkvYsS7OytJkeLdZ
+ uCPuw9C3ux08FpyDLuB9rQTSCSpC8Za0W0FR3kEPV8mcuZSD8obXUAKRbSIT2t/MMyveJ7BzUZz
+ Cg7p
+X-Google-Smtp-Source: AGHT+IHkFdHWZaY4LOLQkKFmHBql2cXu9IqsP0TX4ELpOPpCajUvQgW7eqKX4cHfwlYxtJIqgi3EGKK4Y8sqki2XcH8=
+X-Received: by 2002:a05:620a:6910:b0:8b2:faa3:5639 with SMTP id
+ af79cd13be357-8b33bc68daamr2220226285a.11.1764101856982; Tue, 25 Nov 2025
+ 12:17:36 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BL1PR12MB5803:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7242a4c5-7d34-4b05-936a-08de2c527ff0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VjJ2aURTVFlRUUh3dWNQMnpGMW54VlZ2dkVWU083anBOVUpSOEhGWTE1UEFx?=
- =?utf-8?B?aHlvUE9YdmJNWE1hemhSYjA1M1p2Tk9Sem1tZXdwRi9NY01Gd1BWb1FxdkM3?=
- =?utf-8?B?dE5tMzNNRnlORlIycjhucTVQSVZFUjZpWmsrblNkU2IxVlB3UHkxMmhRZ3lF?=
- =?utf-8?B?MXMxOTQrbTVXeGR3N3NlNCtYS0l4NXh0Z3dQR0t5WndSa09vZnlmTlpUeXpj?=
- =?utf-8?B?M0xkNG9TaFY3cEpJcVVTV3ovbmd4UFNMSnZkMklpT3Job3o1VUNKRW5GRGNT?=
- =?utf-8?B?cm5EN3FxTzNaMGdsS2lLSFdqcEV0S1YxWEFsVFRqYTBmY3REcjZYZzE4bnIw?=
- =?utf-8?B?Mmo4eHRaR3BjZEUrMnNWR2JpcFJkaE9HenJBY2t2OXV2MVVIUjRyYTVjcytj?=
- =?utf-8?B?cUdSQ1ljZkhYVSsyaXJzRFlTSEd0bnE3SVZBcUhrcERsdHA2TDNhemF5a1Vk?=
- =?utf-8?B?bERrWmhJMlV0WjFCUEtQSXNFblUzTUhDTTBKUGE4YTNXRVNaMUs3cTFCYUl5?=
- =?utf-8?B?OURyWks5VldlOWhpdzhuakJzb1dlbGhUbXF4MndXR2dHNml3OEFpV2pVakZ2?=
- =?utf-8?B?TmxXZ2s2eFkvWllXZFdaZXpVbEpGQmdDS3NBTjk2N2ZiU29MT0hySFl2TlEv?=
- =?utf-8?B?dXJ0MFU4RmkvNTRiWHZPdEgxMzFyWFhBckVFZEpTT0laRXI5Y2YwQ3VKdW1q?=
- =?utf-8?B?YnQvWklxY2JvMnlJRVNTTDYxL2lrZUxWaDhRdS9NK3QxVVZJSERyQlJhZ0ND?=
- =?utf-8?B?QlhnNGQ5Qkl3VWwwRlQyOGN4MFowcFRXaWsrdUhZTjc3azRNZW1CZXI1TnVl?=
- =?utf-8?B?a0RLbEF0b3c0WDVlUTRVenVDOTdiMk04d3NYb0xFbDBFekVKQVUwclhXbkw2?=
- =?utf-8?B?MUpTT2pJYnFJMlVMWEtDdzJMaHFGTmlMbWNPai9sYTVGZ1ZMeVRyZUpRRFZX?=
- =?utf-8?B?MTk1WDFqNno3cjF0ZzdCeWpsdUtLWlo3b2dCL21lajh0WXEvL3ZmR29kcjJo?=
- =?utf-8?B?VWdEOFVlbWhkcTRDR2NVaVJwSEd4Y200blgvckY4dk5BWEcrMEhQdk84TXZ5?=
- =?utf-8?B?REsrOXgxT3NKMFRXYlkyZDZNSHBRSmt4d1Zhdkg1WEtvS2NzR25KMHdrbC90?=
- =?utf-8?B?OTdJbVdJd042bHB3SzBIcmk5T3Ntd3gvT1hPOWVsMUk2YVlnTWw2dnZuUFha?=
- =?utf-8?B?cEp2SnlOVEI1aWpScURXZFNMdVJaYkV3dUtrUjVUOEJiR2FQNlZoOFBvRGhN?=
- =?utf-8?B?WG0xL09nRnh6WlZUUlNmaWN2OVFWS3NCSy9mNXF1cVFYRElpaVYrdGNsZDBr?=
- =?utf-8?B?Vlkrby8yNHdsbFA1cnZCNnY5ZVdCZ3J1VkcyUmtZT1FNcW5mN080UEJYV1VT?=
- =?utf-8?B?c1R1L0pDYkxadHJEUmF1Y1liZU1MS3orR0NjeXl4K0M0aCtrRENYb2lIY3Fz?=
- =?utf-8?B?RERKd1RDS2x0RndQSHM5ai96dlpyVkZ0Sk5yK24vZmZlSXhickZNa2ZsZHc3?=
- =?utf-8?B?Q1lTOVhqbGhTZndaVlZrVWVJYVRuUDRmbWRzYTQ5RTlpOVJvYlI5QXlQT0Ft?=
- =?utf-8?B?bkVtR05IVlBDemZoMU5lZ0RvT0liSU1IQ2didHBZejVWSWgzVFc5YlROVWpF?=
- =?utf-8?B?cXFjYlJaNmFGSEZINXJPU3hRTzRJYXpCQmpEU3c3V3JwVkxaMGxORThOb1or?=
- =?utf-8?B?OWt6bmxQNzVpQUFTN0t6akFuVTVvMWtuWnkveVVhMjdsWndCbFJPMnBha2xF?=
- =?utf-8?B?OWdOc1ROZHlrN0dZSjhaVDZqUm1WSnFPeGx2YnBIcml2Qm04OG9wMkFVTG9t?=
- =?utf-8?B?R2hUbi9ibGJEUEFGbzdRQURaK29Kc29melVRd0x6aVpiWDJxZjVhK1F6cjNj?=
- =?utf-8?B?N2oyWktKWUtOVmI4NjQ5TWxjZTNCMUc4cURmN2pENk1sd2c9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YkVqUHc4MmtFdTBTZE9ndWZJV0tPeVRXclJYYi9Kd2JJems5d29YMWt0b2k2?=
- =?utf-8?B?M1ByaFNDbFVBZUVnQ3FFc1N6K0VIWHErNmRIbVBuWVRJWXRmYmZWaHFDR1d3?=
- =?utf-8?B?Ym5JNFBLR0JSWTNiSnpSQU5lWG1SRWJhVWhmOVl2WlkyajhqWXkxTk5aMU5x?=
- =?utf-8?B?V3JIWXdka2NDalNXYU9UbU4xOENsaXVLTitvaFc1dGFRL3hTNzlsdjhQWDRY?=
- =?utf-8?B?UGV3WDVNSkN4VmsxTjdWWGN2ekRpRDh1RGJvWHN3QlhGcTd6eGdSZm9Oamhw?=
- =?utf-8?B?R3dUM3VwZzJVMG1PVEoyNVhiYnNMNUJTU1ZIS1pKTTIxNDQ4MS91MnNtZ0NQ?=
- =?utf-8?B?Skt0SWZOMjdyS011bTV6MEI2QzFaVFN0TGJzMS9uYTd5cmZ0c01IUGJ2L211?=
- =?utf-8?B?Qnh3cXJGdnlhVXhLcSsyZG9vbmdlWE9Mc0hqRit0K05rUU90YWJJaEV0VjNL?=
- =?utf-8?B?ZkkxTTdlTHp2b3pPbUFueUltZEMxUFJTY092L1FNYWpMV1Z0THVjbExLTzVJ?=
- =?utf-8?B?c1krSmVPcnVqQS9ZOVdXL0RXVW1wQ1pGUnJuTlBuK3hUU3BDRGU2RFMrOEw1?=
- =?utf-8?B?ZStRMXBsSGpJWGNSQkxBcVd5Qm1YZTVQNmxXdWJuNDkxTHBjN1ovUU9IeFJY?=
- =?utf-8?B?Qk1EOExQY1lhTGlTSzZUaENpQ1M5THpmbE1uYklkUUVQbXFwYTcybU4wNVl0?=
- =?utf-8?B?UTNVaHJGa0JqVmI3RTN6VUN2WGUyOER1TmVUK1YzMHJXc0I5dUtjSkk1NnVB?=
- =?utf-8?B?eFhPbnZzMDZxaTFIU2xKVW94bXViKzVUajNWa3ZNY0VJSERvLzVadXI2ZnNu?=
- =?utf-8?B?TSt6WWJLZUV3b1Rja3Q2TW8yYWdCRDJ5ZGx1SWhQSlp1RTI0aGdmSGFOV2tq?=
- =?utf-8?B?WW5Qa0lueFRIcU5JOWp3ZDJVNzlDcjM2SDZua042Q3ZVQlFnNlVSckFWbXZN?=
- =?utf-8?B?QXhQUEpNOElNQkQxUm1jWE1CaG02d3lIVTBiNnQzMTdtL3BjNjd4YmFUSkZr?=
- =?utf-8?B?Um93amh2QngxUnVXZ2FiNXNKK1NwLytYK0creHN6L3Fqc0xDQmlYQVU3UFI2?=
- =?utf-8?B?aEVna1MyWmtDVlJDOGVLZ1I5VTRFTkRtMk5UMFV2NWM0ZzdTVDVXZjNwQTdK?=
- =?utf-8?B?RzgzRmlRVURIVVlvTG8yZjBSS2ZOakFzdHVUMUtNWFBNS2Rxd3RaK1JtdTZT?=
- =?utf-8?B?L2RnQVpTeFFNQTBabmhWZm1VZ0JvbWF5QmcybStBaWZoUEowUy9zNkxuM3JS?=
- =?utf-8?B?Vy8yaUpDRE1nc0Nwdnl3NzN0TlFjT3BrY29nemJKTXltbWU1eVU3Z091ekYr?=
- =?utf-8?B?RnhoNzVCZlB1S21Gd3FhaVlXVjBJUVZCU1hQNG56Q0s2Tng4ZldxMTlRUWs2?=
- =?utf-8?B?UE9yL0FaMGtSZTk3Z0RITXNLejN5M1Y2U0FSaGFrTEFNd3Q1dGZMK2hFVW9r?=
- =?utf-8?B?ekdJd1NtTDNrUlFDcXFUVHQ4YnB6VVo4aFFSU0FhMFF4ZWRyN1JGN05mZ2x5?=
- =?utf-8?B?Rk5UVGthSU00cWF6UkZEa1FXSmY5U0FaMTZhbGErdGoxeXovcHVvOHdzRzVI?=
- =?utf-8?B?ejBsZ0NNNzdrK2FCQnRGdnFFOWhZL2dvbWtCeVJNTUJUSzhSMGpkN2JUbWJq?=
- =?utf-8?B?MmhrRlRTY3UzTSs4ZU9lckppUFMxZXRmbkR4UnpyK2NuKzF4OW9Nb1NabGZ5?=
- =?utf-8?B?TTFZWk41REYyZGhnT1VPdUNSaFBQNUtEamhHV3hwSFdHdmxoQjVydXFlYnF3?=
- =?utf-8?B?eWRROUU1NDFNeXdKZHJoQkpVZmJJYWYrL3Zpamh2YVU4UkhwM25IWEM0ZnhK?=
- =?utf-8?B?c2R1NHpYV2VBaHJIQVFvNFNKcFBKSEYwR2FsQTViT2NVVDV5SGRicXpKQWlR?=
- =?utf-8?B?WVNQZkYzZ1VrNE5aY2JSdVlOS3g4Y0VWaW95T1V5dUUyd01UbVBDQ1JTNVhs?=
- =?utf-8?B?d09MdjZGMDFsY29mTHVsenUxbWdZZG1pajR1ekIxNU96VW9BUXQ0STlKblBD?=
- =?utf-8?B?TWRBajYyZVNTZnJYSUZSdElQdkVPUVEwQ2RFUmhraWsxNTdoemxKcFovelR5?=
- =?utf-8?B?K3crckNSaGZyU08xU0lDREpjT3ZIWVplblhvY09MOElHWjBYYkdKcmNMZ0tU?=
- =?utf-8?Q?LPAgZQgpyhDRupT91ChOM7Cs0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7242a4c5-7d34-4b05-936a-08de2c527ff0
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2025 18:43:18.0665 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N4eRLXpsu4iVS14YUw80QqDAIWL+RyVVybF7YWFGLab64cxjIRfZFFg1oyHn7B5ocjmfJlX/jXm4n30NlOI/6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5803
+References: <20251124234432.1988476-1-joelagnelf@nvidia.com>
+ <f73e4536-ec89-4625-96d4-6fa42018e4e4@amd.com>
+ <CAPM=9twe3xcVBgrNCT+1_pGECPL-ry_aA2dxBwbKVeai4+S7AQ@mail.gmail.com>
+ <24d4f02b-8ecd-4512-a1f0-ba41684ede1d@amd.com>
+ <dfc50417-66ce-44ce-b607-917d678c5631@nvidia.com>
+ <9f433dee-7ad9-4d0f-8ac1-e67deb409b70@amd.com>
+ <CAPM=9tyN_A3oEyQZCOWaLO1orO6oKX0ZukJHR7cFy12Go+7d=A@mail.gmail.com>
+ <cc0db376-6cff-45d7-b3a3-d13be664700f@amd.com>
+In-Reply-To: <cc0db376-6cff-45d7-b3a3-d13be664700f@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Wed, 26 Nov 2025 06:17:25 +1000
+X-Gm-Features: AWmQ_bl_uhqER-0YSILUF1BfRs5LdG2TEdIVo4_rhtDFefamEG9auPeZIzRmvoQ
+Message-ID: <CAPM=9tx5neQ=TbmK+2eAO=O-XW_67VhOGO-791kqyVDJEpTA+w@mail.gmail.com>
+Subject: Re: [PATCH] gpu: Move DRM buddy allocator one level up
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: John Hubbard <jhubbard@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>,
+ linux-kernel@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, 
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ nouveau@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, Zhi Wang <zhiw@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,446 +117,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 25 Nov 2025 at 19:15, Christian K=C3=B6nig <christian.koenig@amd.co=
+m> wrote:
+>
+> On 11/25/25 10:08, Dave Airlie wrote:
+> > On Tue, 25 Nov 2025 at 18:11, Christian K=C3=B6nig <christian.koenig@am=
+d.com> wrote:
+> >>
+> >> On 11/25/25 08:59, John Hubbard wrote:
+> >>> On 11/24/25 11:54 PM, Christian K=C3=B6nig wrote:
+> >>>> On 11/25/25 08:49, Dave Airlie wrote:
+> >>>>> On Tue, 25 Nov 2025 at 17:45, Christian K=C3=B6nig <christian.koeni=
+g@amd.com> wrote:
+> >>> ...
+> >>>> My question is why exactly is nova separated into nova-core and nova=
+-drm? That doesn't seem to be necessary in the first place.
+> >>>>
+> >>> The idea is that nova-core allows building up a separate software sta=
+ck for
+> >>> VFIO, without pulling in any DRM-specific code that a hypervisor (for=
+ example)
+> >>> wouldn't need. That makes for a smaller, more security-auditable set =
+of code
+> >>> for that case.
+> >>
+> >> Well that is the same argument used by some AMD team to maintain a sep=
+arate out of tree hypervisor for nearly a decade.
+> >>
+> >> Additional to that the same argument has also been used to justify the=
+ KFD node as alternative API to DRM for compute.
+> >>
+> >> Both cases have proven to be extremely bad ideas.
+> >>
+> >> Background is that except for all the legacy stuff the DRM API is actu=
+ally very well thought through and it is actually quite hard to come up wit=
+h something similarly well.
+> >>
+> >
+> > Well you just answered your own question, why is AMD maintaining GIM
+> > instead of solving this upstream with a split model? the nova-core/drm
+> > split would be perfect for GIM.
+>
+> No, it won't.
+>
+> We have the requirement to work with GEM objects and DMA-buf file descrip=
+tors in the hypervisor as well.
+>
+> And my suspicion is that you end up with the same requirements in nova as=
+ well in which case you end up interchanging handles with DRM as well.
+>
+> We have seen the same for KFD and it turned out to be an absolutely horri=
+ble interaction.
+>
+> > kfd was a terrible idea, and we don't intend to offer userspace
+> > multiple APIs with nova, nova-drm will be the primary userspace API
+> > provider. nova-core will not provide userspace API, it will provide an
+> > API to nova-drm and an API to the vgpu driver which will provide it's
+> > own userspace API without graphics or compute, just enough to setup
+> > VFs.
+>
+> Ok, then why do you need nova-core in the first place? E.g. where should =
+be the vgpu driver and what interface does it provide?
 
+The ask is for a driver for cloud providers to run on their
+hypervisors that does just enough to manage the VFs through VFIO
+without having a complete drm driver or any drm infrastructure loaded.
 
-On 2025-11-21 08:53, Harry Wentland wrote:
-> 
-> 
-> On 2025-11-21 04:13, Louis Chauvet wrote:
->>
->>
->> On 11/20/25 20:11, Harry Wentland wrote:
->>>
->>>
->>> On 2025-11-14 19:01, Alex Hung wrote:
->>>> Both kernel patches and IGT patches are reviewed and the API is stable
->>>> for a few revisions. Does anyone have concerns if kernel and IGT patches
->>>> are to be merged?
->>>>
->>>
->>> Xaver, are the kwin patches ready to be merged?
->>>
->>> I'm planning to have a last look over the kernel and IGT series and merge
->>> them to drm-misc-next next week if there are no objections. I believe
->>> I still have committer rights to drm-misc and Alex should have IGT committer
->>> rights.
->>
->> Hi,
->>
->> I have commit rights on drm-misc if you don't have them anymore. I just need confirmation that I can apply amd patches on drm-misc-next.
->>
-> 
-> Thanks for the offer. I might take you up on it.
-> 
-> Alex D., any objections to taking the AMD patches through drm-misc-next?
-> 
+The nice pictures are here
+https://lore.kernel.org/all/20250903221111.3866249-1-zhiw@nvidia.com/
 
-Louis, please go ahead and merge this whole series to drm-misc-next.
-Both Alex and I are happy to take the AMD patches through drm-misc-next.
+You will only be loading one of nova-drm or the vfio driver at least
+in supported systems, depending on the GPU configuration, whether we
+allow users to do things like that isn't well decided.
 
-Thanks for your help.
+So far I haven't heard anything about needing dma-buf interactions at
+that level, and maybe Zhi has more insight into the future there.
 
-Harry
-
-> Harry
-> 
->> Thanks for this work,
->> Louis Chauvet
->>
->>> Harry
->>>
->>>> This is an RFC set for a color pipeline API, along with implementations
->>>> in VKMS and amdgpu. It is tested with a set of IGT tests that can be
->>>> found at [1]. The IGT tests run a pixel-by-pixel comparison with an
->>>> allowable delta variation as the goal for these transformations is
->>>> perceptual correctness, not complete pixel accuracy.
->>>>
->>>> v5 of this patchset fleshed out documentation for colorops and the
->>>> various defines that are being introduced.
->>>>
->>>> v6 addresses a few comments from various reviewers.
->>>>
->>>> v7 simplifies 3D LUT and addresses more comments from various reviewers.
->>>>
->>>> v8 fixes typo and errors and address comments from reviewers.
->>>>
->>>> v9 refactors cleanup functions, fixes typo and errors, and addresses
->>>>     comments from reviewers.
->>>>
->>>> v10 add 32BIT RGB (drm_color_lut_32) to 1D & 3D LUTs, addresses comments
->>>>      from reviewers, and fixes typo and errors.
->>>>
->>>> v11 change names from *_lut_32_* to *_lut32_* and fix RGB 32bit
->>>>      extractions.
->>>>
->>>> v12 add gamma 2.2 to 1D curve
->>>>
->>>> v13 add two vkms patches
->>>>
->>>> VKMS supports two named transfer function colorops and two matrix
->>>> colorops.
->>>>
->>>> Amdgpu advertises the following pipeline for GPUs with DCN 3 or newer:
->>>>
->>>> 1. 1D Curve EOTF
->>>> 2. 3x4 CTM
->>>> 3. Multiplier
->>>> 4. 1D Curve Inverse EOTF
->>>> 5. 1D LUT
->>>> 6. 3D LUT
->>>> 7. 1D Curve EOTF
->>>> 8. 1D LUT
->>>>
->>>> The supported curves for the 1D Curve type are:
->>>> - sRGB EOTF and its inverse
->>>> - PQ EOTF, scaled to [0.0, 125.0] and its inverse
->>>> - BT.2020/BT.709 OETF and its inverse
->>>> - Gamma 2.2 and its inverse
->>>>
->>>> Note that the 1st and 5th colorops take the EOTF or Inverse
->>>> OETF while the 3rd colorop takes the Inverse EOTF or OETF.
->>>>
->>>> The 3D LUT is a 17^3 tetrahedrally interpolated LUT but the mechanism
->>>> exists for other drivers to describe their own 3D LUT capability.
->>>>
->>>> This mirrors the color pipeline used by gamescope and presented by
->>>> Melissa Wen, with the exception of the DEGAM LUT, which is not currently
->>>> used. See [1]
->>>> https://indico.freedesktop.org/event/4/contributions/186/attachments/138/218/xdc2023-TheRainbowTreasureMap-MelissaWen.pdf
->>>>
->>>> At this point we're hoping to see gamescope, kwin and weston implementations
->>>> take shape. The existing pipeline should be enough to satisfy the
->>>> gamescope use-cases on the drm_plane.
->>>>
->>>> In order to support YUV we'll need to add COLOR_ENCODING and COLOR_RANGE
->>>> support to the color pipeline. I have sketched these out already but
->>>> don't have it all hooked up yet. This should not hinder adoption of this
->>>> API for gaming use-cases.
->>>>
->>>> We'll also want to advertise IN_FORMATS on a color pipeline as some
->>>> color pipelines won't be able to work for all IN_FORMATS on a plane.
->>>> Again, I have a sketch but no full implementation yet. This is not
->>>> currently required by the AMD color pipeline and could be added after
->>>> the merge of this set.
->>>>
->>>> VKMS patches could still be improved in a few ways, though the
->>>> payoff might be limited and I would rather focus on other work
->>>> at the moment. The most obvious thing to improve would be to
->>>> eliminate the hard-coded LUTs for identity, and sRGB, and replace
->>>> them with fixed-point math instead.
->>>>
->>>> There are plenty of things that I would like to see, but they could
->>>> be added after the merge of this patchset:
->>>>   - COLOR_ENCODING and COLOR_RANGE
->>>>   - IN_FORMATS for a color pipeline
->>>>   - Is it possible to support HW which can't bypass entire pipeline?
->>>>   - Can we do a LOAD / COMMIT model for LUTs (and other properties)?
->>>>   - read-only scaling colorop which defines scaling taps and position
->>>>   - named matrices, for things like converting YUV to RGB
->>>>   - Add custom LUT colorops to VKMS
->>>>
->>>> IGT tests can be found at [1] or on the igt-dev mailing list. There
->>>> have been no updates since v5 and rebase on latest main is straight-
->>>> forward.
->>>>
->>>> A kernel branch can be found at [2].
->>>>
->>>> [1] https://gitlab.freedesktop.org/alex.hung/igt-gpu-tools/-/tree/amd-color-pipeline-v12
->>>> [2] https://gitlab.freedesktop.org/alex.hung/linux/-/tree/amd-color-pipeline-v13
->>>>
->>>> v13:
->>>>   - Update vkms test Makefile (Louis Chauvet)
->>>>   - Include two vkms patches (Louis Chauvet)
->>>>   - Remove redundant ternary null check for drm_color_ctm_3x4 blob (Coverity Scan)
->>>>
->>>> v12:
->>>>   - Reorder header files (Louis Chauvet)
->>>>   - Add header file "vkms_drv.h" to vkms_composer.h to avoid compile
->>>>     errors (kernel test robot)
->>>>   - drm_colorop_cleanup is no longer static (Nícolas Prado)
->>>>   - Rework cleanup in vkms_initialize_color_pipeline (Louis Chauvet)
->>>>   - Add drm_colorop_pipeline_destroy in vkms_destroy (Louis Chauvet)
->>>>   - Remove outdated commit messages (Pekka)
->>>>   - Initialize the variable 'blend_lut' to NULL (kernel test robot)
->>>>   - Change lut_size to size (Sebastian Wick & Xaver Hugl)
->>>>   - Update comments for bypass_property (Sebastian Wick)
->>>>   - Update lut_size to size (Sebastian Wick & Xaver Hugl)
->>>>   - Add gamma 2.2 (Sebastian Wick & Xaver Hugl & Pekka)
->>>>
->>>> v11:
->>>>   - Refactor vkms_color_test_lerp() to parametized tests (Maíra Canal)
->>>>   - Sort include file alphabetically (Maíra Canal)
->>>>   - Skip color_encoding/range_property in drm_mode_object_get_properties
->>>>     when plane_color_pipeline is present (Harry Wentland)
->>>>   - destroy function takes drm_device *dev instead of drm_plane *plane
->>>>     (Nícolas Prado)
->>>>   - Fix undefined errors by EXPORT_SYMBOL symbols (kernel test robot)
->>>>   - Fix comments to "2nd op 3x4 matrix" (Nícolas Prado)
->>>>   - Update outdated "drm_rect_test_suite" to "drm_fixp_test_suite" (Maíra
->>>>     Canal)
->>>>   - Update outdated MODULE_LICENSE to Dual MIT/GPL (Maíra Canal)
->>>>   - Create color pipeline on supported hardware only (Melissa Wen)
->>>>   - Update names from *_lut_32_* to *_lut32_* (Simon Ser)
->>>>   - Include help function drm_color_lut32_extract (Uma Shankar)
->>>>   - Remove redundant is_legacy from __drm_lut_32_to_dc_gamma (kernel bot)
->>>>   - Fix RGB 32bit extraction from LUT (Xaver Hugl)
->>>>   - Handle errors in __set_colorop_3dlut (Nícolas Prado)
->>>>   - Merged enable condition for drm_crtc_enable_color_mgmt (Melissa Wen)
->>>>
->>>> v10:
->>>>   - remove duplicated "is useful" in comments (Melissa Wen)
->>>>   - guard "dm_plane_init_colorops" function when !AMD_PRIVATE_COLOR (Melissa Wen)
->>>>   - Replace DRM_ERROR by drm_err
->>>>   - Creaet color pipeline when >= DCN_VERSION_3_0 (Melissa Wen)
->>>>   - Relocate amdgpu_dm_supported_*_tfs check (Melissa Wen)
->>>>   - Support 32BIT RGB for 1D LUTs (Uma Shankar)
->>>>   - Support 32BIT RGB for 3D LUTs (Harry Wentland)
->>>>   - Fix typo mutliplier to multiplier in subject (Melissa Wen)
->>>>   - 1D & 3D LUTs are no longer immutable ((Xaver Hugl)
->>>>   - Fix 3D LUT kernel doc (Leandro Ribeiro)
->>>>   - Check dpp.hw_3d_lut before creating shaper tf/lut and 3dlut colorops (Melissa Wen)
->>>>   - Disable CRTC degamma when color pipeline is enabled (Melissa Wen)
->>>>
->>>> v9:
->>>>   - Update RFC documents for 3DLUT and fallback behaviours (Simon Ser)
->>>>   - Specify colorop function names by _plane_ (Chaitanya Kumar Borah)
->>>>   - Remove redundant comments (Simon Ser)
->>>>   - Fix typo in commit description (Shengyu Qu)
->>>>   - Move destroy and cleanup functions earlier (Simon Ser)
->>>>   - Move DRM_COLOROP_1D_CURVE_BT2020_* from middle to end (Simon Ser)
->>>>   - Chagne "bool allow_bypass" to "uint32_t flags" for better extensibility (Simon Ser)
->>>>   - Return a value in __set_dm_plane_colorop_3dlut
->>>>
->>>> v8:
->>>>   - Change VKMS config names (Louis Chauvet)
->>>>   - Remove deprecated function "drm_atomic_get_existing_colorop_state" (Louis Chauvet)
->>>>   - Remove null check in drm_colorop_set_next_property (Simon Ser)
->>>>   - Remove MAX_COLOR_PIPELINES in drm (Simon Ser)
->>>>   - Update kernel docs and documents for DRM_COLOROP_3D_LUT (Simon Ser)
->>>>   - Add comments for dmr_color_lut (Louis Chauvet)
->>>>   - Fix typos and replace DRM_ERROR and DRM_WARN_ONCE by drm_err drm_WARN_ONCE (Louis Chauvet)
->>>>   - Fix incorrect conditions in __set_colorop_in_tf_1d_curve (Leo Li)
->>>>   - Add DRM_MODE_PROP_ATOMIC to drm_property_create_range (Simon Ser)
->>>>   - Change "1D Curve Custom LUT" to "1D LUT" (Simon Ser)
->>>>   - Return error when __set_output_tf fails (Leo Li)
->>>>   - Return -EINVAL when drm_color_ctm_3x4's size mismatches (Leo Li)
->>>>   - Set initialized to 0 and return when drm_lut3d_size is 0 (Harry Wentland)
->>>>   - Rework tf->type = TF_TYPE_BYPASS for shaper (Harry Wentland & Leo Li)
->>>>
->>>> v7:
->>>>   - Simplify 3D LUT by removing lut_3d_modes and update doc accordingly (Simon Ser)
->>>>   - Add destroy / cleanup functions when color pipeline initialization
->>>>     fails (Louis Chauvet)
->>>>   - Fix checkpatch errors and warning (spaces, long lines, {}, and etc)
->>>>   - Change lut's size from drm_colorop_state->size to drm_colorop->lut_size
->>>>     and from size_property to lut_size_property
->>>>   - Update some kernel updates and commit messagesa (Louis Chauvet)
->>>>   - Squash "drm/colorop: Add atomic state print for drm_colorop" and
->>>>     "drm/colorop: Add NEXT to colorop state print" (Simon Ser)
->>>>   - Add missing MODULE_DESCRIPTION (Jeff Johnson)
->>>>
->>>> v6:
->>>>   - Eliminate need to include test as .c file (Louis Chauvet)
->>>>   - some doc updates
->>>>   - cleanup if colorop alloc or init fails in VKMS and amdgpu (Louis Chauvet)
->>>>   - couple other small improvements in VKMS, such as rounding (Louis Chauvet)
->>>>   - take ref for DATA blob in duplicate_state func & fix refcount issues (Xaver Hugl)
->>>>
->>>> v5:
->>>>   - amdgpu 3D LUT
->>>>   - Don't require BYPASS
->>>>   - update RFC docs and add to TOC tree
->>>>   - add drm_colorop and COLOR_PIPELINE kernel docs (non-RFC)
->>>>   - add amdgpu color pipeline doc
->>>>   - define SIZE property similar to drm_crtc's GAMMA_SIZE
->>>>   - various minor fixes and cleanups
->>>>
->>>> v4:
->>>>   - Add amdgpu color pipeline (WIP)
->>>>   - Don't block setting of deprecated properties, instead pass client cap
->>>>     to atomic check so drivers can ignore these props
->>>>   - Drop IOCTL definitions (Pekka)
->>>>   - Use enum property for colorop TYPE (Pekka)
->>>>   - A few cleanups to the docs (Pekka)
->>>>   - Rework the TYPE enum to name relation to avoid code duplication (Pekka)
->>>>   - Add missing function declarations (Chaitanya Kumar Borah)
->>>>   - Allow setting of NEXT property to NULL in _set_ function (Chaitanya Kumar Borah)
->>>>   - Add helper for creation of pipeline drm_plane property (Pekka)
->>>>   - Always create Bypass pipeline (Pekka)
->>>>   - A bunch of changes to VKMS kunit tests (Pekka)
->>>>   - Fix index in CTM doc (Pekka)
->>>>
->>>> v3:
->>>>   - Abandon IOCTLs and discover colorops as clients iterate the pipeline
->>>>   - Remove need for libdrm
->>>>   - Add color_pipeline client cap and make mutually exclusive with
->>>>     COLOR_RANGE and COLOR_ENCODING properties
->>>>   - add CTM colorop to VKMS
->>>>   - Use include way for kunit testing static functions (Arthur)
->>>>   - Make TYPE a range property
->>>>   - Move enum drm_colorop_type to uapi header
->>>>   - and a bunch of smaller bits that are highlighted in the relevant commit
->>>>     description
->>>>
->>>> v2:
->>>>   - Rebased on drm-misc-next
->>>>   - Introduce a VKMS Kunit so we can test LUT functionality in vkms_composer
->>>>   - Incorporate feedback in color_pipeline.rst doc
->>>>   - Add support for sRGB inverse EOTF
->>>>   - Add 2nd enumerated TF colorop to VKMS
->>>>   - Fix LUTs and some issues with applying LUTs in VKMS
->>>>
->>>> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
->>>> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
->>>> Cc: Simon Ser <contact@emersion.fr>
->>>> Cc: Harry Wentland <harry.wentland@amd.com>
->>>> Cc: Melissa Wen <mwen@igalia.com>
->>>> Cc: Jonas Ådahl <jadahl@redhat.com>
->>>> Cc: Sebastian Wick <sebastian.wick@redhat.com>
->>>> Cc: Shashank Sharma <shashank.sharma@amd.com>
->>>> Cc: Alexander Goins <agoins@nvidia.com>
->>>> Cc: Joshua Ashton <joshua@froggi.es>
->>>> Cc: Michel Dänzer <mdaenzer@redhat.com>
->>>> Cc: Aleix Pol <aleixpol@kde.org>
->>>> Cc: Xaver Hugl <xaver.hugl@gmail.com>
->>>> Cc: Victoria Brekenfeld <victoria@system76.com>
->>>> Cc: Sima <daniel@ffwll.ch>
->>>> Cc: Uma Shankar <uma.shankar@intel.com>
->>>> Cc: Naseer Ahmed <quic_naseer@quicinc.com>
->>>> Cc: Christopher Braga <quic_cbraga@quicinc.com>
->>>> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> Cc: Arthur Grillo <arthurgrillo@riseup.net>
->>>> Cc: Hector Martin <marcan@marcan.st>
->>>> Cc: Liviu Dudau <Liviu.Dudau@arm.com>
->>>> Cc: Sasha McIntosh <sashamcintosh@google.com>
->>>> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->>>>
->>>> Alex Hung (18):
->>>>    drm/colorop: Add destroy functions for color pipeline
->>>>    drm/colorop: define a new macro for_each_new_colorop_in_state
->>>>    drm/amd/display: Skip color pipeline initialization for cursor plane
->>>>    drm/amd/display: Add support for sRGB EOTF in DEGAM block
->>>>    drm/amd/display: Add support for sRGB Inverse EOTF in SHAPER block
->>>>    drm/amd/display: Add support for sRGB EOTF in BLND block
->>>>    drm/colorop: Add 1D Curve Custom LUT type
->>>>    drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT
->>>>    drm/amd/display: add 3x4 matrix colorop
->>>>    drm/colorop: Add multiplier type
->>>>    drm/amd/display: add multiplier colorop
->>>>    drm/amd/display: Swap matrix and multiplier
->>>>    drm/colorop: Add 3D LUT support to color pipeline
->>>>    drm/amd/display: add 3D LUT colorop
->>>>    drm/amd/display: Ensure 3D LUT for color pipeline
->>>>    drm/amd/display: Disable CRTC degamma when color pipeline is enabled
->>>>    drm/colorop: Add DRM_COLOROP_1D_CURVE_GAMMA22 to 1D Curve
->>>>    drm/amd/display: Enable support for Gamma 2.2
->>>>
->>>> Chaitanya Kumar Borah (1):
->>>>    drm: Add helper to extract lut from struct drm_color_lut32
->>>>
->>>> Harry Wentland (29):
->>>>    drm: Add helper for conversion from signed-magnitude
->>>>    drm/vkms: Add kunit tests for VKMS LUT handling
->>>>    drm/doc/rfc: Describe why prescriptive color pipeline is needed
->>>>    drm/colorop: Introduce new drm_colorop mode object
->>>>    drm/colorop: Add TYPE property
->>>>    drm/colorop: Add 1D Curve subtype
->>>>    drm/colorop: Add BYPASS property
->>>>    drm/colorop: Add NEXT property
->>>>    drm/colorop: Add atomic state print for drm_colorop
->>>>    drm/plane: Add COLOR PIPELINE property
->>>>    drm/colorop: Introduce DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
->>>>    Documentation/gpu: document drm_colorop
->>>>    drm/vkms: Add enumerated 1D curve colorop
->>>>    drm/vkms: Add kunit tests for linear and sRGB LUTs
->>>>    drm/colorop: Add 3x4 CTM type
->>>>    drm/vkms: Use s32 for internal color pipeline precision
->>>>    drm/vkms: add 3x4 matrix in color pipeline
->>>>    drm/tests: Add a few tests around drm_fixed.h
->>>>    drm/vkms: Add tests for CTM handling
->>>>    drm/colorop: pass plane_color_pipeline client cap to atomic check
->>>>    drm/amd/display: Ignore deprecated props when plane_color_pipeline set
->>>>    drm/amd/display: Add bypass COLOR PIPELINE
->>>>    drm/colorop: Add PQ 125 EOTF and its inverse
->>>>    drm/amd/display: Enable support for PQ 125 EOTF and Inverse
->>>>    drm/colorop: add BT2020/BT709 OETF and Inverse OETF
->>>>    drm/amd/display: Add support for BT.709 and BT.2020 TFs
->>>>    drm/colorop: Define LUT_1D interpolation
->>>>    drm/colorop: allow non-bypass colorops
->>>>    drm/amd/display: Add AMD color pipeline doc
->>>>
->>>> Louis Chauvet (2):
->>>>    drm/vkms: Pass plane_cfg to plane initialization
->>>>    drm/vkms: Add config for default plane pipeline
->>>>
->>>> Uma Shankar (1):
->>>>    drm: Add Enhanced LUT precision structure
->>>>
->>>>   Documentation/gpu/drm-kms.rst                 |  15 +
->>>>   Documentation/gpu/rfc/color_pipeline.rst      | 378 ++++++++
->>>>   Documentation/gpu/rfc/index.rst               |   3 +
->>>>   drivers/gpu/drm/Makefile                      |   1 +
->>>>   .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   3 +-
->>>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   4 +
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 768 ++++++++++++++++-
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 208 +++++
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  36 +
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  26 +-
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  39 +
->>>>   drivers/gpu/drm/drm_atomic.c                  | 170 +++-
->>>>   drivers/gpu/drm/drm_atomic_helper.c           |  12 +
->>>>   drivers/gpu/drm/drm_atomic_state_helper.c     |   5 +
->>>>   drivers/gpu/drm/drm_atomic_uapi.c             | 159 ++++
->>>>   drivers/gpu/drm/drm_color_mgmt.c              |  43 +
->>>>   drivers/gpu/drm/drm_colorop.c                 | 600 +++++++++++++
->>>>   drivers/gpu/drm/drm_connector.c               |   1 +
->>>>   drivers/gpu/drm/drm_crtc_internal.h           |   1 +
->>>>   drivers/gpu/drm/drm_ioctl.c                   |   7 +
->>>>   drivers/gpu/drm/drm_mode_config.c             |   7 +
->>>>   drivers/gpu/drm/drm_mode_object.c             |  18 +
->>>>   drivers/gpu/drm/drm_plane.c                   |  59 ++
->>>>   drivers/gpu/drm/tests/Makefile                |   3 +-
->>>>   drivers/gpu/drm/tests/drm_fixp_test.c         |  71 ++
->>>>   drivers/gpu/drm/vkms/Makefile                 |   4 +-
->>>>   drivers/gpu/drm/vkms/tests/Makefile           |   3 +-
->>>>   drivers/gpu/drm/vkms/tests/vkms_color_test.c  | 417 +++++++++
->>>>   drivers/gpu/drm/vkms/tests/vkms_config_test.c |  47 +-
->>>>   drivers/gpu/drm/vkms/vkms_colorop.c           | 120 +++
->>>>   drivers/gpu/drm/vkms/vkms_composer.c          | 135 ++-
->>>>   drivers/gpu/drm/vkms/vkms_composer.h          |  28 +
->>>>   drivers/gpu/drm/vkms/vkms_config.c            |   7 +-
->>>>   drivers/gpu/drm/vkms/vkms_config.h            |  28 +-
->>>>   drivers/gpu/drm/vkms/vkms_drv.c               |   7 +-
->>>>   drivers/gpu/drm/vkms/vkms_drv.h               |  12 +-
->>>>   drivers/gpu/drm/vkms/vkms_luts.c              | 811 ++++++++++++++++++
->>>>   drivers/gpu/drm/vkms/vkms_luts.h              |  12 +
->>>>   drivers/gpu/drm/vkms/vkms_output.c            |   6 +-
->>>>   drivers/gpu/drm/vkms/vkms_plane.c             |   9 +-
->>>>   include/drm/drm_atomic.h                      | 111 +++
->>>>   include/drm/drm_atomic_uapi.h                 |   3 +
->>>>   include/drm/drm_color_mgmt.h                  |  29 +
->>>>   include/drm/drm_colorop.h                     | 462 ++++++++++
->>>>   include/drm/drm_file.h                        |   7 +
->>>>   include/drm/drm_fixed.h                       |  18 +
->>>>   include/drm/drm_mode_config.h                 |  18 +
->>>>   include/drm/drm_plane.h                       |  19 +
->>>>   include/uapi/drm/amdgpu_drm.h                 |   9 -
->>>>   include/uapi/drm/drm.h                        |  15 +
->>>>   include/uapi/drm/drm_mode.h                   | 134 +++
->>>>   51 files changed, 5014 insertions(+), 94 deletions(-)
->>>>   create mode 100644 Documentation/gpu/rfc/color_pipeline.rst
->>>>   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
->>>>   create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
->>>>   create mode 100644 drivers/gpu/drm/drm_colorop.c
->>>>   create mode 100644 drivers/gpu/drm/tests/drm_fixp_test.c
->>>>   create mode 100644 drivers/gpu/drm/vkms/tests/vkms_color_test.c
->>>>   create mode 100644 drivers/gpu/drm/vkms/vkms_colorop.c
->>>>   create mode 100644 drivers/gpu/drm/vkms/vkms_composer.h
->>>>   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.c
->>>>   create mode 100644 drivers/gpu/drm/vkms/vkms_luts.h
->>>>   create mode 100644 include/drm/drm_colorop.h
->>>>
->>>
->>
-> 
-
+Dave.
