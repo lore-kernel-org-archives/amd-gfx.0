@@ -4,67 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2ED9D0E6DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 13:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD5F6D0E6E3
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 13:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 288D510E3DC;
-	Tue, 25 Nov 2025 13:06:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCA910E3DA;
+	Tue, 25 Nov 2025 13:06:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DEmLhryJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CF8N5+gN";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0xC0HYNL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BAvExWgx";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="jAdjHSx8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yUSvzEys";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jAdjHSx8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yUSvzEys";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68E9210E3D8
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 13:06:42 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F04A10E3E0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 13:06:46 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E5AAC22801;
- Tue, 25 Nov 2025 13:06:40 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0D26222802;
+ Tue, 25 Nov 2025 13:06:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1764076001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sxdR3rVrh6wveW6JDQWCYI6rLyZ66pqvN39rkmuwDMc=;
- b=DEmLhryJkcavwhqHsOOps64DkM2US43sMEQ6DggXt56OtW1PmGNFxbEHitmBxUUo7CpB9e
- kcna+usc9dglz4sYLDY7zHNVRgR0//YL3k/jgIHGPhFgtLi/BdJ/acOt0YwxTprRHklxYR
- 5PS/PSW683sL6s7z0nw6lISW2b2yyy4=
+ t=1764076002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xo6OrbjBcCILD7HYBy/ieXFNo9FxPgLKVxPTqUByuuw=;
+ b=jAdjHSx8FJhRCyesmVxTlp9e0vNIf57P+zPekc9ykypTuM7ehAsjDddaWqVLB4hk9CM2CD
+ +gfI51GG7yddsagy/o50MrHhz/AlfUqcq7DNW23rAxdE32nJeEmYVEYyPph0QpOGzpIJcH
+ tLKq3344bKDdWjVHGhIsGpiWWd10nho=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1764076001;
+ s=susede2_ed25519; t=1764076002;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sxdR3rVrh6wveW6JDQWCYI6rLyZ66pqvN39rkmuwDMc=;
- b=CF8N5+gNraQ/EIvZnNAR3GZLJAL3cJMetQw7U6xFcDxGYK+7ZifCXrdDA7Du32dWdflvCH
- XKH0TbfjRdFWQxDQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xo6OrbjBcCILD7HYBy/ieXFNo9FxPgLKVxPTqUByuuw=;
+ b=yUSvzEysnq2n35o7/88DykRHj6/QfjR4pfEKh1uai6vdiRlvOVPd7FapDvf/ngvLlcKni3
+ vLHqAzr4tXevo8BQ==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0xC0HYNL;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BAvExWgx
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1764076000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sxdR3rVrh6wveW6JDQWCYI6rLyZ66pqvN39rkmuwDMc=;
- b=0xC0HYNLrlQBR5fNFxyIyT91xgOCfn6tMYtHAQEmD/BIKskV/2LzO3vY4qmjU8CSLCbJ1d
- g3heZQpg77of9mFpeEcs/BChCaeoF5BRIbPMVkDX7s8L9mxAZWc1j6BCsR1pxxGjr/lvLP
- o5ywDq0Vm6PjEucLNhO5i3Y4FL5BgwA=
+ t=1764076002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xo6OrbjBcCILD7HYBy/ieXFNo9FxPgLKVxPTqUByuuw=;
+ b=jAdjHSx8FJhRCyesmVxTlp9e0vNIf57P+zPekc9ykypTuM7ehAsjDddaWqVLB4hk9CM2CD
+ +gfI51GG7yddsagy/o50MrHhz/AlfUqcq7DNW23rAxdE32nJeEmYVEYyPph0QpOGzpIJcH
+ tLKq3344bKDdWjVHGhIsGpiWWd10nho=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1764076000;
+ s=susede2_ed25519; t=1764076002;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=sxdR3rVrh6wveW6JDQWCYI6rLyZ66pqvN39rkmuwDMc=;
- b=BAvExWgxlU8sWtmJQ8B3fft1o4R3+fIuG+sbSliN6uAoi8eZz6owx8ivdBqeJnUlqdgwql
- JVg1IDWu77DOHyCQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Xo6OrbjBcCILD7HYBy/ieXFNo9FxPgLKVxPTqUByuuw=;
+ b=yUSvzEysnq2n35o7/88DykRHj6/QfjR4pfEKh1uai6vdiRlvOVPd7FapDvf/ngvLlcKni3
+ vLHqAzr4tXevo8BQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6423D3EA63;
- Tue, 25 Nov 2025 13:06:40 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8174A3EA63;
+ Tue, 25 Nov 2025 13:06:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id IdsOF+CpJWkDFAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 25 Nov 2025 13:06:40 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yIcjHuGpJWkDFAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 25 Nov 2025 13:06:41 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, lyude@redhat.com, dakr@kernel.org, deller@gmx.de,
@@ -74,33 +80,29 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 0/5] drm: Remove remaining support for kdb
-Date: Tue, 25 Nov 2025 13:52:12 +0100
-Message-ID: <20251125130634.1080966-1-tzimmermann@suse.de>
+Subject: [PATCH 2/5] drm/nouveau: Do not implement mode_set_base_atomic
+ callback
+Date: Tue, 25 Nov 2025 13:52:14 +0100
+Message-ID: <20251125130634.1080966-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251125130634.1080966-1-tzimmermann@suse.de>
+References: <20251125130634.1080966-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: E5AAC22801
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
  R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
+ MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
  FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,amd.com,redhat.com,kernel.org,gmx.de,linux.intel.com,windriver.com,chromium.org];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[19]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,58 +117,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the rest of the kbd support from DRM. Driver support has been
-broken for years without anyone complaining.
+Remove the implementation of the CRTC helper mode_set_base_atomic
+from nouveau. It pretends to provide mode setting for kdb debugging,
+but has been broken for some time.
 
-Kdb cannot use regular DRM mode setting, so DRM drivers have to
-implement an additional hook to make it work (in theory). As outlined
-by Sima in commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for
-atomic drivers") from 2017, kdb is not compatible with DRM atomic mode
-setting. Non-atomic mode setting meanwhile has become rare.
+Kdb output has been supported only for non-atomic mode setting since
+commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for atomic drivers")
+from 2017.
 
-Only 3 DRM drivers implement the hooks for kdb support. Amdgpu and
-nouveau use non-atomic mode setting on older devices. But both drivers
-have switched to generic fbdev emulation, which isn't compatible with
-kdb. Radeon still runs kdb, but it doesn't work in practice. See the
-commits in this series for details
+While nouveau provides non-atomic mode setting for some devices, kdb
+assumes that the GEM buffer object is at a fixed location in video
+memory. This has not been the case since
+commit 4a16dd9d18a0 ("drm/nouveau/kms: switch to drm fbdev helpers")
+from 2022. Fbdev-ttm helpers use a shadow buffer with a movable GEM
+buffer object. Triggering kdb does therefore not update the display.
 
-Therefore remove the remaining support for kdb from the DRM drivers
-and from DRM fbdev emulation. Also remove the hooks from fbdev, as
-there are no fbdev drivers with kdb support.
+Hence remove the whole kdb support from nouveau.
 
-If we ever want to address kdb support within DRM drivers, a place to
-start would be the scanout buffers used by DRM's panic screen. These
-use the current display mode. They can be written and flushed without
-mode setting involved.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c | 24 ++++--------------------
+ 1 file changed, 4 insertions(+), 20 deletions(-)
 
-Note: kdb over serial lines is not affected by this series and continues
-to work as before.
-
-Thomas Zimmermann (5):
-  drm/amdgpu: Do not implement mode_set_base_atomic callback
-  drm/nouveau: Do not implement mode_set_base_atomic callback
-  drm/radeon: Do not implement mode_set_base_atomic callback
-  drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
-  fbcon: Remove fb_debug_enter/_leave from struct fb_ops
-
- Documentation/process/debugging/kgdb.rst    |  28 -----
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  35 ++-----
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  35 ++-----
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  35 ++-----
- drivers/gpu/drm/drm_fb_helper.c             | 108 --------------------
- drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  24 +----
- drivers/gpu/drm/radeon/atombios_crtc.c      |  74 ++++----------
- drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  23 ++---
- drivers/gpu/drm/radeon/radeon_mode.h        |  10 +-
- drivers/video/fbdev/core/fbcon.c            |  24 -----
- drivers/video/fbdev/core/fbcon.h            |   1 -
- include/drm/drm_fb_helper.h                 |  21 ----
- include/drm/drm_modeset_helper_vtables.h    |  23 -----
- include/linux/fb.h                          |   4 -
- 14 files changed, 63 insertions(+), 382 deletions(-)
-
-
-base-commit: 0a21e96e0b6840d2a4e0b45a957679eeddeb4362
+diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+index c063756eaea3..80493224eb6c 100644
+--- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
++++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
+@@ -837,7 +837,7 @@ nv_crtc_gamma_set(struct drm_crtc *crtc, u16 *r, u16 *g, u16 *b,
+ static int
+ nv04_crtc_do_mode_set_base(struct drm_crtc *crtc,
+ 			   struct drm_framebuffer *passed_fb,
+-			   int x, int y, bool atomic)
++			   int x, int y)
+ {
+ 	struct nouveau_crtc *nv_crtc = nouveau_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+@@ -850,19 +850,12 @@ nv04_crtc_do_mode_set_base(struct drm_crtc *crtc,
+ 	NV_DEBUG(drm, "index %d\n", nv_crtc->index);
+ 
+ 	/* no fb bound */
+-	if (!atomic && !crtc->primary->fb) {
++	if (!crtc->primary->fb) {
+ 		NV_DEBUG(drm, "No FB bound\n");
+ 		return 0;
+ 	}
+ 
+-	/* If atomic, we want to switch to the fb we were passed, so
+-	 * now we update pointers to do that.
+-	 */
+-	if (atomic) {
+-		drm_fb = passed_fb;
+-	} else {
+-		drm_fb = crtc->primary->fb;
+-	}
++	drm_fb = crtc->primary->fb;
+ 
+ 	nvbo = nouveau_gem_object(drm_fb->obj[0]);
+ 	nv_crtc->fb.offset = nvbo->offset;
+@@ -920,15 +913,7 @@ nv04_crtc_mode_set_base(struct drm_crtc *crtc, int x, int y,
+ 	int ret = nv_crtc_swap_fbs(crtc, old_fb);
+ 	if (ret)
+ 		return ret;
+-	return nv04_crtc_do_mode_set_base(crtc, old_fb, x, y, false);
+-}
+-
+-static int
+-nv04_crtc_mode_set_base_atomic(struct drm_crtc *crtc,
+-			       struct drm_framebuffer *fb,
+-			       int x, int y, enum mode_set_atomic state)
+-{
+-	return nv04_crtc_do_mode_set_base(crtc, fb, x, y, true);
++	return nv04_crtc_do_mode_set_base(crtc, old_fb, x, y);
+ }
+ 
+ static void nv04_cursor_upload(struct drm_device *dev, struct nouveau_bo *src,
+@@ -1274,7 +1259,6 @@ static const struct drm_crtc_helper_funcs nv04_crtc_helper_funcs = {
+ 	.commit = nv_crtc_commit,
+ 	.mode_set = nv_crtc_mode_set,
+ 	.mode_set_base = nv04_crtc_mode_set_base,
+-	.mode_set_base_atomic = nv04_crtc_mode_set_base_atomic,
+ 	.disable = nv_crtc_disable,
+ 	.get_scanout_position = nouveau_display_scanoutpos,
+ };
 -- 
 2.51.1
 
