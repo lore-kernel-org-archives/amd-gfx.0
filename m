@@ -4,73 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A846D10F4F
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:12:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8816D10F59
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1257B10E615;
-	Wed, 26 Nov 2025 14:12:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B885B10E633;
+	Wed, 26 Nov 2025 14:19:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jQ+BzOG1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GFDxoLcA";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1557A10E615
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 14:12:48 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-bceaaed0514so582672a12.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 06:12:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764166367; x=1764771167; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yLtXY9kyRcXxRiVIAelR1TGgoB5H1meQiLz13Qz0Fhg=;
- b=jQ+BzOG1NuB0UtRToqusA+869yaUoGn5Au+2W8aeNcWHph3Wz/5/6ozkIB9jxYx6zF
- g7OgxLA3pYxQyb6blc0+PSaL8rzr58Db4XQW321OKxU17zUwdkAdS2dU1c1FmdM6SyH/
- 80TFD0w0wNRDeXeyzk7+sDviyL6fDvQVgIiTNN0/EqYi0msUZ4FiDOIl+T7Brll6OvKH
- cpOJk10xK13B3mazB5iIR2mehlLsf+zgaizMpeeDzQuogngti/0OKKyhLcHknu5+frWj
- kyZZUeE+yx2Mr+iOczOon+KRyrF3Y3JsTi9Sg1qzUVVSkYF+9traAGeGIma691jz+tGK
- JLJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764166367; x=1764771167;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=yLtXY9kyRcXxRiVIAelR1TGgoB5H1meQiLz13Qz0Fhg=;
- b=SW3emtZC0NvwUFOejHlVrUkhyD2nmnyVhjQYJbDPH1HvZoIyXBOuDtoL0udV1KkTli
- usLE3pJiU393TPUQvjR0zP8Ev+Fz+0gUyd5FrCgigLixEB3HAuIl0jKWj2JCwhhKaEsR
- YfgKxOVdlkplzUhK8IF95TJRqifRBly5AcgISP6849vGen9oECNzaj+dRoT3Jxcdi+QW
- yr3l5g9585dQt8k1QgrAdZbBLSqCTRML6VRlIOuqFaRUjX7WnuZa6bPhlDTsEVdAysVq
- HjQacdYG9fJ6HBfMH9sPlPbwBgUd5ZHtvh3cepsscXXOterc2/3JPtrT2plXVgXQBqK4
- nGXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVL3xvRjTI0jDFu3dfy2raicgSh1fl9RG6AaSfXJjvrfW5bD5YL80CWDIbIvlZf1gpZjYopzraH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwlkkaZMVHH2Y+O+ly0N4NQYQYqw1NXsSqbU/lP2vu9IuoSQJY2
- g4jSsdz5bksh+RQJxoHQX1o15oZEvfHYZYkc5JvLJSKtpn4FJP1//1cHj6M2db32QohPXbpB+iF
- QlfhgmHI98XCl3D+Ds2nX+g9m1HAwh/Y=
-X-Gm-Gg: ASbGncuw4nhH2qjTr0OTc3gsRJ46LQteHu5QkSQnjkB7M6dzkuVFS1jvIZPMSyopp1E
- sYYzAS2ICx/4YUerj2Z4eezYzYbbus9rX7bIxVuhxAClKTRiBeU3n99iFqm5hY84fGDv2Fp9E7f
- 6WF4d5VXwj49W816F4m0NuVLAXB3hYtM6WVO25Q05JyHYqTeUv8L0DMkBzlZDy+DjnOgtOUTUwB
- 05Jaq8PEWJlJ+JKldD6QkWHwci/Mdth9w5SLp5Lkvx5W5l2k/2MBKsUBm0VHqZ4oMGukjc=
-X-Google-Smtp-Source: AGHT+IH+VgkLA18SLnYm8AMMRdsk5iX3vEVEKdgJyAQ3Slr1x+CtP63LGAJN/y1ohqaCJ5Ja+DVp8ff/rXJTl65axKU=
-X-Received: by 2002:a05:7022:ea46:10b0:11b:acd7:4e48 with SMTP id
- a92af1059eb24-11c9f2fcd10mr10191764c88.2.1764166367420; Wed, 26 Nov 2025
- 06:12:47 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C861E10E632;
+ Wed, 26 Nov 2025 14:19:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764166751; x=1795702751;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=j7PcOtoN96E/M6QjgMqFl9rqp/XCoIQCS07wrWuQSow=;
+ b=GFDxoLcA5tx/GZV6rFu/gXvWf5FST5MyydmskWI3AJOarH7Zh9QGxjws
+ PfA3ZCY6MqJrr3QhMdSb2oU7BVYvqL4qiN/IOheCTNIla5RyuLK7sLs3d
+ zqjk11EqPebAQGVVb/8SCY0laWUZxqFL3SyRYlYV2ljZDNk9NfRbej8fo
+ VC8+kjN7zKG1Dh0tn9ZoViyIrVXfyDHwFRZB6tk3KcMw6+Ry8dVqLz5dQ
+ ayy1Wc3fUltbAQd4yenFu+nVVYAMR8cS7BrJi5dXlh1msQRPeBIf+ugRY
+ 1alBrr/hov1hkxw0jtszzsbLRK+EaC2HEhhLFXActQj0NMR+1SiWvOX4G Q==;
+X-CSE-ConnectionGUID: sZUZXI5JQvSVhZQ1z6zs6A==
+X-CSE-MsgGUID: G5rwjzZJTDiiamkhh/j+FQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11624"; a="83597608"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="83597608"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:19:10 -0800
+X-CSE-ConnectionGUID: dabGSDQDRVuZ/CDhmtx9pg==
+X-CSE-MsgGUID: uzKZ8J/+RZKuiQIlEjQUxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="198060096"
+Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.1])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:19:05 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Yaroslav Bolyukin <iam@lach.pw>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Yaroslav
+ Bolyukin <iam@lach.pw>
+Subject: Re: [PATCH v6 4/7] drm/edid: parse DSC DPP passthru support flag
+ for mode VII timings
+In-Reply-To: <20251126065126.54016-5-iam@lach.pw>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251126065126.54016-1-iam@lach.pw>
+ <20251126065126.54016-5-iam@lach.pw>
+Date: Wed, 26 Nov 2025 16:19:02 +0200
+Message-ID: <6f88c0111ce7f2a74010ff43a77bdd03f669ffb6@intel.com>
 MIME-Version: 1.0
-References: <20251118220637.3594610-1-alexander.deucher@amd.com>
- <264534d7-86cc-4964-8225-07a32e2373cd@damsy.net>
- <CADnq5_PZr7Ce4weM1zc+CnwREM6A2=e57QBKBsbkm0s4theseg@mail.gmail.com>
-In-Reply-To: <CADnq5_PZr7Ce4weM1zc+CnwREM6A2=e57QBKBsbkm0s4theseg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Nov 2025 09:12:35 -0500
-X-Gm-Features: AWmQ_bkuCdV2d1Rh-vhSc4E9DIoVE526RQ35297X-w9k4x46Rvhci86Weou3ebY
-Message-ID: <CADnq5_N9rcs9F-V=BYWUaVDLnN7Lcqh7XOFjmfx0u6BuSruHMg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu/gmc11: add amdgpu_vm_handle_fault()
- handling
-To: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,91 +79,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series?
+On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
 
-On Wed, Nov 19, 2025 at 10:16=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
+The commit message goes here.
+
+> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+> ---
+>  drivers/gpu/drm/drm_displayid_internal.h |  2 ++
+>  drivers/gpu/drm/drm_edid.c               | 12 ++++++++----
+>  include/drm/drm_modes.h                  | 10 ++++++++++
+>  3 files changed, 20 insertions(+), 4 deletions(-)
 >
-> On Wed, Nov 19, 2025 at 3:14=E2=80=AFAM Pierre-Eric Pelloux-Prayer
-> <pierre-eric@damsy.net> wrote:
-> >
-> >
-> >
-> > Le 18/11/2025 =C3=A0 23:06, Alex Deucher a =C3=A9crit :
-> > > We need to call amdgpu_vm_handle_fault() on page fault
-> > > on all gfx9 and newer parts to properly update the
-> > > page tables, not just for recoverable page faults.
-> > >
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 27 +++++++++++++++++++++++=
-+++
-> > >   1 file changed, 27 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm=
-/amd/amdgpu/gmc_v11_0.c
-> > > index 7bc389d9f5c48..25cdcb850416c 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> > > @@ -103,12 +103,39 @@ static int gmc_v11_0_process_interrupt(struct a=
-mdgpu_device *adev,
-> > >       uint32_t vmhub_index =3D entry->client_id =3D=3D SOC21_IH_CLIEN=
-TID_VMC ?
-> > >                              AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0);
-> > >       struct amdgpu_vmhub *hub =3D &adev->vmhub[vmhub_index];
-> > > +     bool retry_fault =3D !!(entry->src_data[1] & 0x80);
-> > > +     bool write_fault =3D !!(entry->src_data[1] & 0x20);
-> > >       uint32_t status =3D 0;
-> > >       u64 addr;
-> > >
-> > >       addr =3D (u64)entry->src_data[0] << 12;
-> > >       addr |=3D ((u64)entry->src_data[1] & 0xf) << 44;
-> > >
-> > > +     if (retry_fault) {
-> > > +             /* Returning 1 here also prevents sending the IV to the=
- KFD */
-> > > +
-> > > +             /* Process it onyl if it's the first fault for this add=
-ress */
-> >
-> > typo: onyl -> only (same for patch 2/3)
->
-> Fixed locally.  thanks!
->
-> Alex
->
-> >
-> > Pierre-Eric
-> >
-> >
-> >
-> > > +             if (entry->ih !=3D &adev->irq.ih_soft &&
-> > > +                 amdgpu_gmc_filter_faults(adev, entry->ih, addr, ent=
-ry->pasid,
-> > > +                                          entry->timestamp))
-> > > +                     return 1;
-> > > +
-> > > +             /* Delegate it to a different ring if the hardware hasn=
-'t
-> > > +              * already done it.
-> > > +              */
-> > > +             if (entry->ih =3D=3D &adev->irq.ih) {
-> > > +                     amdgpu_irq_delegate(adev, entry, 8);
-> > > +                     return 1;
-> > > +             }
-> > > +
-> > > +             /* Try to handle the recoverable page faults by filling=
- page
-> > > +              * tables
-> > > +              */
-> > > +             if (amdgpu_vm_handle_fault(adev, entry->pasid, 0, 0, ad=
-dr,
-> > > +                                        entry->timestamp, write_faul=
-t))
-> > > +                     return 1;
-> > > +     }
-> > > +
-> > >       if (!amdgpu_sriov_vf(adev)) {
-> > >               /*
-> > >                * Issue a dummy read to wait for the status register t=
-o
+> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+> index 72f107ae832f..724174b429f2 100644
+> --- a/drivers/gpu/drm/drm_displayid_internal.h
+> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+> @@ -97,6 +97,7 @@ struct displayid_header {
+>  	u8 ext_count;
+>  } __packed;
+>  
+> +#define DISPLAYID_BLOCK_REV	GENMASK(2, 0)
+>  struct displayid_block {
+>  	u8 tag;
+>  	u8 rev;
+> @@ -125,6 +126,7 @@ struct displayid_detailed_timings_1 {
+>  	__le16 vsw;
+>  } __packed;
+>  
+> +#define DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT	BIT(3)
+>  struct displayid_detailed_timing_block {
+>  	struct displayid_block base;
+>  	struct displayid_detailed_timings_1 timings[];
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 348aa31aea1b..72a94b1713e2 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6792,8 +6792,8 @@ static void update_display_info(struct drm_connector *connector,
+>  }
+>  
+>  static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
+> -							    const struct displayid_detailed_timings_1 *timings,
+> -							    bool type_7)
+> +							    const struct displayid_block *block,
+> +							    const struct displayid_detailed_timings_1 *timings)
+>  {
+>  	struct drm_display_mode *mode;
+>  	unsigned int pixel_clock = (timings->pixel_clock[0] |
+> @@ -6809,11 +6809,16 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
+>  	unsigned int vsync_width = le16_to_cpu(timings->vsw) + 1;
+>  	bool hsync_positive = le16_to_cpu(timings->hsync) & (1 << 15);
+>  	bool vsync_positive = le16_to_cpu(timings->vsync) & (1 << 15);
+> +	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+>  
+>  	mode = drm_mode_create(dev);
+>  	if (!mode)
+>  		return NULL;
+>  
+> +	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, block->rev) >= 1)
+> +		mode->dsc_passthrough_timings_support =
+> +			!!(block->rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT);
+
+The !! and parentheses are superfluous.
+
+> +
+>  	/* resolution is kHz for type VII, and 10 kHz for type I */
+>  	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
+>  	mode->hdisplay = hactive;
+> @@ -6846,7 +6851,6 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+>  	int num_timings;
+>  	struct drm_display_mode *newmode;
+>  	int num_modes = 0;
+> -	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+>  	/* blocks must be multiple of 20 bytes length */
+>  	if (block->num_bytes % 20)
+>  		return 0;
+> @@ -6855,7 +6859,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+>  	for (i = 0; i < num_timings; i++) {
+>  		struct displayid_detailed_timings_1 *timings = &det->timings[i];
+>  
+> -		newmode = drm_mode_displayid_detailed(connector->dev, timings, type_7);
+> +		newmode = drm_mode_displayid_detailed(connector->dev, block, timings);
+>  		if (!newmode)
+>  			continue;
+>  
+> diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+> index b9bb92e4b029..312e5c03af9a 100644
+> --- a/include/drm/drm_modes.h
+> +++ b/include/drm/drm_modes.h
+> @@ -417,6 +417,16 @@ struct drm_display_mode {
+>  	 */
+>  	enum hdmi_picture_aspect picture_aspect_ratio;
+>  
+> +	/**
+> +	 * @dsc_passthrough_timing_support:
+> +	 *
+> +	 * Indicates whether this mode timing descriptor is supported
+> +	 * with specific target DSC bits per pixel only.
+> +	 *
+> +	 * VESA vendor-specific data block shall exist with the relevant
+> +	 * DSC bits per pixel declaration when this flag is set to true.
+> +	 */
+> +	bool dsc_passthrough_timings_support;
+>  };
+>  
+>  /**
+
+-- 
+Jani Nikula, Intel
