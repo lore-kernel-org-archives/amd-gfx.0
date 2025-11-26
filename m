@@ -4,66 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 841D3D10F4F
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 13:25:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730BCD10F4D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 13:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B72410E030;
-	Wed, 26 Nov 2025 13:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC9710E243;
+	Wed, 26 Nov 2025 13:28:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="f7JiM0Be";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tYJUr/Ch";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 279F210E030;
- Wed, 26 Nov 2025 13:25:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764163510;
- bh=H6BI2X3mzMvCYJOwFD15MG+bOvi+S6gKpcz/Xq+78H0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=f7JiM0BewEFZ7dwK7mR03OYqFOEXV4FzefG+C1DNlv8YP25qXbTjHBhQKCCpzrCW8
- kERCKjUNUZ3aEpy1Irs4abgg1mc8ou+fSbTa6MZBqqM20YPeXT72xxd7VI5SgjfuPH
- Mk/KDEPJmE6oQX3+82fVwgTFwPUOo9yfm4M28gf4LdiGRH4FCR/g2vR9ik+/32efmr
- PYqXQdEoNC1jXiPaEV4EXHEJWxGJwCOXamp828uSi9tUdwgF8vvH/iN98ELc2CiBjQ
- k9MhAfBm9ZHMmM86RxSkTByaDxHDnZyLEZdLdAY5ZEy229xxrHbyY18Vld73yzRj+M
- trYdpQTBqSMFQ==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A09FB17E110C;
- Wed, 26 Nov 2025 14:25:09 +0100 (CET)
-Date: Wed, 26 Nov 2025 14:25:04 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
- <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Marijn
- Suijten <marijn.suijten@somainline.org>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org,
- kernel@collabora.com
-Subject: Re: [PATCH v6 06/16] drm/panthor: Expose the selected coherency
- protocol to the UMD
-Message-ID: <20251126142504.5654962f@fedora>
-In-Reply-To: <20251126124455.3656651-7-boris.brezillon@collabora.com>
-References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
- <20251126124455.3656651-7-boris.brezillon@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 871E410E243
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 13:28:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vUYcMlw90Agabxp80p2k31g+aZ5CMOd1h7EMgWDYpt9H+FOTtzkRB+4lBn+jBwYCcmfyS1Uht92xyl8n6fdaX3W0pifs+WqjpMEq2z1NFVcjZI33POjwXD121HghLQSMx5kEHpGebD2NEpxQY1gvuVDhvis+9FlTwoQ33/wRHPlg9DIk+e+SPsonNfC9Y4ZfYlTJfwhXndGcJpnGjf/5AO2R2yoau3h9UlYSjvOFAr55JNg4/39WpstNkpQDXbinpFib4+INAb8Jg32f2Yl1Oa1/OUf2In2Qq0ZVTMDK5PFqL507P506HHm8i1XPIar+YndX6QX4WVT8VmLBcY4sOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pf3u4ffeV1SoL0675BPvsmuXW28RqB0u6dHPt9tN1NE=;
+ b=K0IE5lxrx76uR2FDnsLIz3YsXvM47gB/IezhMvHa3il7tVJYwChFmJ4940egAvp/jwz9ipJLetEK+SFwZBG1SBsVBA2IsWKga/yotm243eBkTKVJetNDJPWOZ+L1LY9MJDQ/Ih7QDRIDN2cdPOZqGvB5dBRls9J1P7ThwaAH1yFzBgbExXiVwFZbdrt5vHN5jIGnwCfwtYNy2c4Di4Li2+nR9PV8h02OkRFXmVX6Q81bxQUB+yl/YSzxRywez11Bn7DwEif0SOXOHsLzopxiT1QG+vkp1ZC9fP5CKyEI9z5h93cAXL1WFORTrWgBdxustWl5Qu4cDrdW7HUuOyhBXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pf3u4ffeV1SoL0675BPvsmuXW28RqB0u6dHPt9tN1NE=;
+ b=tYJUr/Ch9xZbpkPqzJICe2wYBVy0RXM6amDww4qN2P3MjhWfOy0D4EXjpRpl+hMr/qiTmLKn6hQhmkgmJJKTCdQTMWGXzr840eVsWq3qUKOjYOo9f8gI+v/NfJeLoNs6nm/tklzwAHKl0F3lnu3PS63DPcyjuY7RbZP4lOrhZFk=
+Received: from BY5PR13CA0021.namprd13.prod.outlook.com (2603:10b6:a03:180::34)
+ by DS0PR12MB8217.namprd12.prod.outlook.com (2603:10b6:8:f1::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.12; Wed, 26 Nov
+ 2025 13:28:42 +0000
+Received: from SJ1PEPF00002312.namprd03.prod.outlook.com
+ (2603:10b6:a03:180:cafe::85) by BY5PR13CA0021.outlook.office365.com
+ (2603:10b6:a03:180::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.3 via Frontend Transport; Wed,
+ 26 Nov 2025 13:28:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002312.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Wed, 26 Nov 2025 13:28:42 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 26 Nov
+ 2025 07:28:39 -0600
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Jesse.Zhang@amd.com>
+Subject: [PATCH 00/20] Remove print_clock_levels 
+Date: Wed, 26 Nov 2025 18:53:47 +0530
+Message-ID: <20251126132822.3266730-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002312:EE_|DS0PR12MB8217:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0362fe6-da36-46f7-d80c-08de2cefb793
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tWUVt8na6jvKuBixSEqsJYoVTTPv/6g3YpcXrjwl//VHGkfNMkzjoH+FuqaQ?=
+ =?us-ascii?Q?GTDXQgRrbPVOBrbc870+pPyrcOIIx6GWH7sdl0TweOPPcVgnn0ctmGlvHz1b?=
+ =?us-ascii?Q?VascYuNYHgOzLPvBpVR+t0N8jgRj2YdKGbNMbRTV5VPUMWYvDqTr79YgDHax?=
+ =?us-ascii?Q?i8ttwijyif7JbzrE8oaHdp06bDSLiFCXTHBUbaP01Gf3X+fx3mXKQ3vteUqY?=
+ =?us-ascii?Q?GbF49xCJc7ENl2fzpUhlkiJFxGfjh47YMv7yptwnWv9v6tH1w0/i6xRAf8fI?=
+ =?us-ascii?Q?Rmi6KEwotv+F5CFu9GWK1nyr3WCdzwb7qkBblQNI5MsjXcznHQMilhnl4vK4?=
+ =?us-ascii?Q?RNFhzqmZdQUV5wfJprk+gU7D/lIxeZA2yjbveMSi5jlQEhi5i+QNlgQEdk3P?=
+ =?us-ascii?Q?EPEltehgYM1Y7iyGsWq6uNr1+/J7hpWwF8DdwX4GXPqT10EICxpXZ7Q4Eg8L?=
+ =?us-ascii?Q?Dg+ng8XtGP7HpCDrlhjRFbGl5cz/WbwlT7/iFvvy1r6gjqzBNzQGQBHOSzH5?=
+ =?us-ascii?Q?5FPU6ykWxXEaAn+sIvOpVckIwLbbWSzRj/PG9Uref2ZKQwmqACDj0+6WxlGN?=
+ =?us-ascii?Q?nRvKNIiaPqoQJkXPNbH/2SauCIqfucMoBipuN5HFY2VHxI5M5DM2r6BUM0D7?=
+ =?us-ascii?Q?DO1/8xlk/dBs6TR25/yDO+PRCR42u6iouaArfQa5hAr5XSURvXjWjNTf2jzs?=
+ =?us-ascii?Q?ZnZ6sZJN6HBiARzqfYFeRCiPfsdQXxKFnIy9olYRdeauoe5k2gSvU0fUrn+X?=
+ =?us-ascii?Q?svAahForJco/vVNg9kfl7HHRqxMybS/0U9ogTC6vR/t7zNEvj9E/ylnz/Q4E?=
+ =?us-ascii?Q?SeBDo85kWTJoKMcjyDm0mw95xF9mpIFwiEmYzar0n2ReEA3JWp/p/bpPPzcZ?=
+ =?us-ascii?Q?sA1mNDGq6hM0ugve4xDLxO1SJxah2XPhbvL+xKM/riq9eZ4uqRfC/sYrszE7?=
+ =?us-ascii?Q?ShGqkqU3HddnVYuaYeupVIVQC1Dxfvhr8RGutTRGc2bduBytz/J8NeBXJkxP?=
+ =?us-ascii?Q?Rf5J2SpNNcX811DWBR1erLyWr93DsUhFZpkyO8x13hN0d4sQrMGH2ccdgC/a?=
+ =?us-ascii?Q?Lm4oSZ2KvzN6agiGg4qw5caNxbqVSwtD1Uk8PV5U7lC6g+8AIA1SVev6TaPz?=
+ =?us-ascii?Q?seYjZQQLzWPRnRgiwtdQRotL/Hw6+4MtaNcPDOWRPV0KW1EsYyupmwM0QlpV?=
+ =?us-ascii?Q?pJCnT6M8qfUGRU2zBYS6LDIQ9h7b2nhI9JXLljCGQ4thKlBtUQLTNSsoXcUR?=
+ =?us-ascii?Q?AMpi+Hj0R/co/MD0IlsBsi/BVvffXGyAzvHbd58UMAnu4VHndtAUmP0eFkzG?=
+ =?us-ascii?Q?Ztg8XqJ91ZCC84zipeHeGIGbqDv4sSuoryWsfphLUWaxD/2ew4VPV7+LYFuK?=
+ =?us-ascii?Q?H8lMme6SpZio1jcGiXsybiacXcP4ulcnlc8xq7UNbmjPBkav6TNI4+x6fO6c?=
+ =?us-ascii?Q?5wZF4N8B2y3DGy0TJbCEM14mRXN/E3CojHPzscO7ags4Ln030hLS5MWnEDe4?=
+ =?us-ascii?Q?pY3m72D56ko5+8I2E9EWt2Gpa8Pa6IpDbHyNDjiIY723akWurQzVULnVx/uI?=
+ =?us-ascii?Q?5iCrgIJfJliS+5nq0ik=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2025 13:28:42.0542 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0362fe6-da36-46f7-d80c-08de2cefb793
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002312.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,149 +131,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 26 Nov 2025 13:44:45 +0100
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+To print the clock dpm tables to sysfs, presently there are two interfaces which provide identical
+functionalities - emit_clock_levels and print_clock_levels. emit_clock_levels is more flexible since
+it provides the offset along with buffer which matches closely with sysfs_emit_at interface. It is
+not required to keep both, hence drop print_clock_levels. 
 
-> If we want to be able to skip CPU cache maintenance operations on
-> CPU-cached mappings, the UMD needs to know the kind of coherency
-> in place. Add a field to drm_panthor_gpu_info to do that. We can re-use
-> a padding field for that since this object is write-only from the
-> KMD perspective, and the UMD should just ignore it.
-> 
-> v2:
-> - New commit
-> 
-> v3:
-> - Make coherency protocol a real enum, not a bitmask
-> - Add BUILD_BUG_ON()s to make sure the values in panthor_regs.h and
->   those exposed through the uAPI match
-> 
-> v4:
-> - Add Steve's R-b
-> 
-> v5:
-> - No changes
-> 
-> v6:
-> - No changes
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c | 10 +++++-
->  drivers/gpu/drm/panthor/panthor_gpu.c    |  2 +-
->  include/uapi/drm/panthor_drm.h           | 39 ++++++++++++++++++++++--
->  3 files changed, 46 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index e133b1e0ad6d..a66fc66999c2 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -27,6 +27,12 @@
->  
->  static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
->  {
-> +	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
-> +	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
-> +	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
-> +
-> +	/* Start with no coherency, and update it if the device is flagged coherent. */
-> +	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
->  	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
->  
->  	if (!ptdev->coherent)
-> @@ -36,8 +42,10 @@ static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
->  	 * ACE protocol has never been supported for command stream frontend GPUs.
->  	 */
->  	if ((gpu_read(ptdev, GPU_COHERENCY_FEATURES) &
-> -		      GPU_COHERENCY_PROT_BIT(ACE_LITE)))
-> +		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
-> +		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
->  		return 0;
-> +	}
->  
->  	drm_err(&ptdev->base, "Coherency not supported by the device");
->  	return -ENOTSUPP;
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index cd38da5ad26c..b7c64be0b6e2 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -51,7 +51,7 @@ struct panthor_gpu {
->  static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
->  {
->  	gpu_write(ptdev, GPU_COHERENCY_PROTOCOL,
-> -		  ptdev->coherent ? GPU_COHERENCY_ACE_LITE : GPU_COHERENCY_NONE);
-> +		  ptdev->gpu_info.selected_coherency);
->  }
->  
->  static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index 467d365ed7ba..f0f637e0631d 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -245,6 +245,26 @@ enum drm_panthor_dev_query_type {
->  	DRM_PANTHOR_DEV_QUERY_GROUP_PRIORITIES_INFO,
->  };
->  
-> +/**
-> + * enum drm_panthor_gpu_coherency: Type of GPU coherency
-> + */
-> +enum drm_panthor_gpu_coherency {
-> +	/**
-> +	 * @DRM_PANTHOR_GPU_COHERENCY_ACE_LITE: ACE Lite coherency.
-> +	 */
-> +	DRM_PANTHOR_GPU_COHERENCY_ACE_LITE = 0,
-> +
-> +	/**
-> +	 * @DRM_PANTHOR_GPU_COHERENCY_ACE_LITE: ACE coherency.
+Lijo Lazar (20):
+  drm/amd/pm: Remove print_clk_levels from navi10
+  drm/amd/pm: Use emit_clk_levels in sienna_cichild
+  drm/amd/pm: Use emit_clk_levels in cyan skillfish
+  drm/amd/pm: Use emit_clk_levels in vangogh
+  drm/amd/pm: Use emit_clk_levels in renoir
+  drm/amd/pm: Use emit_clk_levels in SMUv13.0.0
+  drm/amd/pm: Use emit_clk_levels in SMUv13.0.4
+  drm/amd/pm: Use emit_clk_levels in SMUv13.0.5
+  drm/amd/pm: Use emit_clk_levels in SMUv13.0.6
+  drm/amd/pm: Use emit_clk_levels in SMUv13.0.7
+  drm/amd/pm: Use emit_clk_levels in yellow carp
+  drm/amd/pm: Use emit_clk_levels in SMUv14.0.0
+  drm/amd/pm: Use emit_clk_levels in SMUv14.0.2
+  drm/amd/pm: Use emit_clock_levels in SMUv7.0
+  drm/amd/pm: Use emit_clock_levels in SMUv8.0
+  drm/amd/pm: Use emit_clock_levels in SMUv10.0
+  drm/amd/pm: Use emit_clock_levels in vega10
+  drm/amd/pm: Use emit_clock_levels in vega12
+  drm/amd/pm: Use emit_clock_levels in vega20
+  drm/amd/pm: Deprecate print_clock_levels interface
 
-Forgot to fix:
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  19 --
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            |  16 +-
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  16 --
+ .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  |  65 +++---
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   |  87 +++++---
+ .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c   |  29 ++-
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c | 141 ------------
+ .../drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c |  52 +++--
+ .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 211 +++++++++++-------
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  28 ---
+ .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  17 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 193 ----------------
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  27 ++-
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  39 ++--
+ .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  52 ++---
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  21 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c  |  24 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c  |  25 +--
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  30 +--
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  21 +-
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  25 +--
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  |  24 +-
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  21 +-
+ 23 files changed, 443 insertions(+), 740 deletions(-)
 
-	 * @DRM_PANTHOR_GPU_COHERENCY_ACE: ACE coherency.
-
-> +	 */
-> +	DRM_PANTHOR_GPU_COHERENCY_ACE = 1,
-> +
-> +	/**
-> +	 * @DRM_PANTHOR_GPU_COHERENCY_NONE: No coherency.
-> +	 */
-> +	DRM_PANTHOR_GPU_COHERENCY_NONE = 31,
-> +};
-> +
->  /**
->   * struct drm_panthor_gpu_info - GPU information
->   *
-> @@ -301,7 +321,16 @@ struct drm_panthor_gpu_info {
->  	 */
->  	__u32 thread_max_barrier_size;
->  
-> -	/** @coherency_features: Coherency features. */
-> +	/**
-> +	 * @coherency_features: Coherency features.
-> +	 *
-> +	 * Combination of drm_panthor_gpu_coherency flags.
-> +	 *
-> +	 * Note that this is just what the coherency protocols supported by the
-> +	 * GPU, but the actual coherency in place depends on the SoC
-> +	 * integration and is reflected by
-> +	 * drm_panthor_gpu_info::selected_coherency.
-> +	 */
->  	__u32 coherency_features;
->  
->  	/** @texture_features: Texture features. */
-> @@ -310,8 +339,12 @@ struct drm_panthor_gpu_info {
->  	/** @as_present: Bitmask encoding the number of address-space exposed by the MMU. */
->  	__u32 as_present;
->  
-> -	/** @pad0: MBZ. */
-> -	__u32 pad0;
-> +	/**
-> +	 * @select_coherency: Coherency selected for this device.
-> +	 *
-> +	 * One of drm_panthor_gpu_coherency.
-> +	 */
-> +	__u32 selected_coherency;
->  
->  	/** @shader_present: Bitmask encoding the shader cores exposed by the GPU. */
->  	__u64 shader_present;
+-- 
+2.49.0
 
