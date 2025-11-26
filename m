@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15417D10F57
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:08:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41962D10F56
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:10:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A01A110E614;
-	Wed, 26 Nov 2025 14:08:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DADAA10E63C;
+	Wed, 26 Nov 2025 14:10:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HF4kTSjG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fSz0k17e";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5693410E614;
- Wed, 26 Nov 2025 14:08:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF3C210E63B;
+ Wed, 26 Nov 2025 14:10:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764166110; x=1795702110;
+ t=1764166250; x=1795702250;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=AmaT3Gb9NOlj1cOluwUUUjqyOU1ZdDgY/WGIcTaKdAQ=;
- b=HF4kTSjGCaDiaCQmUiAlb4Z/szon4D7ImXm/tFJC2KMMkO7CWV7uIj0o
- MwUwTcviTAc+kTfBrxUk1F0GCq9p1CuG5MWjaLsfcVWelSA3vHPht6qqj
- 4qZjBeuNoicfZ0T0mf98oVDwUD9ucLbLo5VIoRBV1FZssjG3pPwSap2xS
- 6r6SJFc+hYrYBr4sy/SX2BD7goVNJvEf6hfMgz0+Vkg6DSr/njqtyNjK3
- UcRNvnHr+OPqYNGLudXDk58581KH5zOq7yNFUktqW++e65gpwNLLbbyeu
- DpI/Q6//sN8FTmkwD0E+9tD47bLLOCbaj/nd1l/TJwmAO7S2ceuaapEyp Q==;
-X-CSE-ConnectionGUID: b0RHSUCST9632Ro38eW+0A==
-X-CSE-MsgGUID: VSAc7X+GTpapjEPQwQRAGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11624"; a="88850605"
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="88850605"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 06:08:29 -0800
-X-CSE-ConnectionGUID: mpe+xcdkTSaPTfAYWHmupg==
-X-CSE-MsgGUID: irjUSLqXTRqR24NpdsZHuA==
+ bh=Asm1GznwhdVlsrqK/wFWsxglofT/i1OMsFr8cBgK0EA=;
+ b=fSz0k17e2omuuziciUv2krr48V4eJpJq6TZYBPUuxeFGu481OLAhV9mV
+ Zr8er/iMRT0mXHKvCl0KGBKgAKVncYv1wFUX3fs7pp+RCAiGYayiKVJ8S
+ GqWHejg/BBPqtDF2KFMfeMGiF+NloJmR6RFtIAWEEB9g8v5eK3OsF3WMZ
+ EXX3uGD372TCGtvtW0p5myzubBQZ460kx/5/9f5BZu/61klE4NBp3E78f
+ 8S0FtAdNjSA3q8Nz8sK1HQNY/AFpGkoJLr43beENgeWU+exprbLFP7o0q
+ XJk+8WGrZQ2amZ2Tba5VS/JTVkuhBwpb5oPuj2TNJHlDBNKsOkmOQfi5C w==;
+X-CSE-ConnectionGUID: SLIO4fXkSwGoPFm1KEg/jw==
+X-CSE-MsgGUID: Ksjx1Ec4QIyPCd+XUtEPFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11624"; a="66161648"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="66161648"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:10:49 -0800
+X-CSE-ConnectionGUID: /trZjtZET7S4p6h7tjLDaQ==
+X-CSE-MsgGUID: yStiTBEASl+QDOxHp2Wp0A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="192967334"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="193379508"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.1])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 06:08:24 -0800
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:10:37 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Yaroslav Bolyukin <iam@lach.pw>, Ville =?utf-8?B?U3lyasOkbMOk?=
  <ville.syrjala@linux.intel.com>, Maarten Lankhorst
@@ -55,15 +55,14 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Yaroslav
  Bolyukin <iam@lach.pw>
-Subject: Re: [PATCH v6 2/7] drm/edid: prepare for VESA vendor-specific data
- block extension
-In-Reply-To: <68c55e772424f8e001898cdd1edcf4856820461e@intel.com>
+Subject: Re: [PATCH v6 3/7] drm/edid: MSO should only be used for non-eDP
+ displays
+In-Reply-To: <20251126065126.54016-4-iam@lach.pw>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20251126065126.54016-1-iam@lach.pw>
- <20251126065126.54016-3-iam@lach.pw>
- <68c55e772424f8e001898cdd1edcf4856820461e@intel.com>
-Date: Wed, 26 Nov 2025 16:08:20 +0200
-Message-ID: <b7191ab7c3030a8be0b149d28ae6fa032b64a4d8@intel.com>
+ <20251126065126.54016-4-iam@lach.pw>
+Date: Wed, 26 Nov 2025 16:10:34 +0200
+Message-ID: <5be6faede273533b88e592bd25776b639d2eeb9f@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,82 +79,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 26 Nov 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
->> Current VESA vendor-specific block parsing expects real block size to be
->> the same as the defined struct size, use real offsets in conditionals
->> instead to add struct fields in future commits.
->>
->> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
+> As per DisplayID v2.1a spec:
+> If Offset 06h[2:0] is programmed to 001b (External DisplayPort), this
+> field shall be cleared to 00b (Not supported).
 >
-> I think this is something we want to backport, since MSO would break
-> with bigger vendor-specific blocks, and that leads to black screens on
-> MSO displays.
+> Link: https://lore.kernel.org/lkml/3abc1087618c822e5676e67a3ec2e64e506dc5ec@intel.com/
+> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+> ---
+>  drivers/gpu/drm/drm_displayid_internal.h |  4 +++
+>  drivers/gpu/drm/drm_edid.c               | 36 +++++++++++++++---------
+>  2 files changed, 27 insertions(+), 13 deletions(-)
 >
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+> index 5b1b32f73516..72f107ae832f 100644
+> --- a/drivers/gpu/drm/drm_displayid_internal.h
+> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+> @@ -142,9 +142,13 @@ struct displayid_formula_timing_block {
+>  	struct displayid_formula_timings_9 timings[];
+>  } __packed;
+>  
+> +#define DISPLAYID_VESA_DP_TYPE		GENMASK(2, 0)
+>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+>  
+> +#define DISPLAYID_VESA_DP_TYPE_EDP	0
+> +#define DISPLAYID_VESA_DP_TYPE_DP	1
+> +
+>  struct displayid_vesa_vendor_specific_block {
+>  	struct displayid_block base;
+>  	u8 oui[3];
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index a52fd6de9327..348aa31aea1b 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6533,6 +6533,7 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+>  	struct displayid_vesa_vendor_specific_block *vesa =
+>  		(struct displayid_vesa_vendor_specific_block *)block;
+>  	struct drm_display_info *info = &connector->display_info;
+> +	int dp_type;
+>  
+>  	if (block->num_bytes < 3) {
+>  		drm_dbg_kms(connector->dev,
+> @@ -6551,20 +6552,29 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+>  		return;
+>  	}
+>  
+> -	switch (FIELD_GET(DISPLAYID_VESA_MSO_MODE, vesa->mso)) {
+> -	default:
+> -		drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] Reserved MSO mode value\n",
+> +	dp_type = FIELD_GET(DISPLAYID_VESA_DP_TYPE, vesa->data_structure_type);
+> +	if (dp_type > 1) {
+> +		drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] Reserved dp type value\n",
+>  			    connector->base.id, connector->name);
+> -		fallthrough;
+> -	case 0:
+> -		info->mso_stream_count = 0;
+> -		break;
+> -	case 1:
+> -		info->mso_stream_count = 2; /* 2 or 4 links */
+> -		break;
+> -	case 2:
+> -		info->mso_stream_count = 4; /* 4 links */
+> -		break;
+> +	}
+> +
+> +	/* MSO is not supported for eDP */
+> +	if (dp_type != DISPLAYID_VESA_DP_TYPE_EDP) {
 
-Oops, I'll take that back.
+MSO is *only* supported on eDP, not the other way round!
 
->
->> ---
->>  drivers/gpu/drm/drm_edid.c | 28 ++++++++++++----------------
->>  1 file changed, 12 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->> index 64f7a94dd9e4..a52fd6de9327 100644
->> --- a/drivers/gpu/drm/drm_edid.c
->> +++ b/drivers/gpu/drm/drm_edid.c
->> @@ -6544,7 +6544,7 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
->>  	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
->>  		return;
->>  
->> -	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
->> +	if (block->num_bytes < 5) {
->>  		drm_dbg_kms(connector->dev,
->>  			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
->>  			    connector->base.id, connector->name);
->> @@ -6567,24 +6567,20 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
->>  		break;
->>  	}
->>  
->> -	if (!info->mso_stream_count) {
->> -		info->mso_pixel_overlap = 0;
+BR,
+Jani.
 
-This is no longer cleared for !info->mso_stream_count.
-
-Perhaps the code could be reorganized to handle it better.
-
->> -		return;
->> -	}
->> -
->> -	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
->> -	if (info->mso_pixel_overlap > 8) {
->> +	if (info->mso_stream_count) {
->> +		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
->> +		if (info->mso_pixel_overlap > 8) {
->> +			drm_dbg_kms(connector->dev,
->> +				    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
->> +				    connector->base.id, connector->name,
->> +				    info->mso_pixel_overlap);
->> +			info->mso_pixel_overlap = 8;
->> +		}
->>  		drm_dbg_kms(connector->dev,
->> -			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
->> +			    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
->>  			    connector->base.id, connector->name,
->> -			    info->mso_pixel_overlap);
->> -		info->mso_pixel_overlap = 8;
->> +			    info->mso_stream_count, info->mso_pixel_overlap);
->>  	}
->> -
->> -	drm_dbg_kms(connector->dev,
->> -		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
->> -		    connector->base.id, connector->name,
->> -		    info->mso_stream_count, info->mso_pixel_overlap);
->>  }
->>  
->>  static void drm_update_vesa_specific_block(struct drm_connector *connector,
+> +		switch (FIELD_GET(DISPLAYID_VESA_MSO_MODE, vesa->mso)) {
+> +		default:
+> +			drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] Reserved MSO mode value\n",
+> +				    connector->base.id, connector->name);
+> +			fallthrough;
+> +		case 0:
+> +			info->mso_stream_count = 0;
+> +			break;
+> +		case 1:
+> +			info->mso_stream_count = 2; /* 2 or 4 links */
+> +			break;
+> +		case 2:
+> +			info->mso_stream_count = 4; /* 4 links */
+> +			break;
+> +		}
+>  	}
+>  
+>  	if (info->mso_stream_count) {
 
 -- 
 Jani Nikula, Intel
