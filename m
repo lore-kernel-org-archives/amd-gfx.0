@@ -4,54 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1038ED10F28
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 16:27:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8069D10F58
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 16:33:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 639A110E682;
-	Wed, 26 Nov 2025 16:27:57 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2D61010E684;
- Wed, 26 Nov 2025 16:27:55 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 50FCE168F;
- Wed, 26 Nov 2025 08:27:47 -0800 (PST)
-Received: from [10.1.30.35] (e122027.cambridge.arm.com [10.1.30.35])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 55B333F73B;
- Wed, 26 Nov 2025 08:27:49 -0800 (PST)
-Message-ID: <91454324-a414-4f43-8aca-6d24444b2275@arm.com>
-Date: Wed, 26 Nov 2025 16:27:47 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F2210E68A;
+	Wed, 26 Nov 2025 16:33:12 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ftDp0xfj";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1821D10E687;
+ Wed, 26 Nov 2025 16:33:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764174791; x=1795710791;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=fPLw3o4A59qUzWXln0R1Ake/TtcMFQ4a5cuRrKH9Ty0=;
+ b=ftDp0xfj2SizyZ9RDzu5lNgDHbkEnk1TqImGTiAxKkpQqN/x+/m9dpsZ
+ 9EnsDe/5BALKTB0gKGGa9DAynQeI1HJAl68ldxFJI6QKInug2UkF/uRMZ
+ BVkTWYAsT0/ky3HuBGehds+eJDIDcWgY0fYHkQI3Rnaziw14K51zsvonD
+ lwlYARLVwPCkYjLnjp39TdRM93ocsrYCWNFPU9Wh7D7mpuLT15ko/nW69
+ g+RwE5Ozq7lsww3kD/q4Tx+YeRsqQGFop2nLPXGBH7HMgaBVgauHdFsl8
+ CX2j52x2WglQv14VLAzp6JgCKF0rxfWIieH3ctOQmxhGRZ2Lakn6hjv6M g==;
+X-CSE-ConnectionGUID: SOhzEexeSmC+DtQ4E7hpIQ==
+X-CSE-MsgGUID: LpmFDj6vSKujEBl02bbJGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="66179250"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="66179250"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 08:33:10 -0800
+X-CSE-ConnectionGUID: S771fVf6QO+3Jz8/HY5CHg==
+X-CSE-MsgGUID: 1FtXyZ4dTQCmJfjfcXTCkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="192871076"
+Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.1])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 08:33:02 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Yaroslav <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>, Ville
+ =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v6 2/7] drm/edid: prepare for VESA vendor-specific data
+ block extension
+In-Reply-To: <8a940fa4-ac9a-44b6-9d4a-e5394b0d6bf7@0la.ch>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251126065126.54016-1-iam@lach.pw>
+ <20251126065126.54016-3-iam@lach.pw>
+ <68c55e772424f8e001898cdd1edcf4856820461e@intel.com>
+ <b7191ab7c3030a8be0b149d28ae6fa032b64a4d8@intel.com>
+ <ebd974b5-88f4-4fb3-a135-bad3bf7d9b4d@0la.ch>
+ <61a482c23a81dc29f1fb793064c7238a98cf0143@intel.com>
+ <8455fd94-d95c-4b15-8351-fc1971018e58@0la.ch>
+ <8a940fa4-ac9a-44b6-9d4a-e5394b0d6bf7@0la.ch>
+Date: Wed, 26 Nov 2025 18:32:59 +0200
+Message-ID: <e4caa2026e7cbe7e061175eb1e7a4668c8bcc27f@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 09/16] drm/panthor: Add flag to map GEM object
- Write-Back Cacheable
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Frank Binns <frank.binns@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Lo=C3=AFc_Molinari?=
- <loic.molinari@collabora.com>, kernel@collabora.com
-References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
- <20251126124455.3656651-10-boris.brezillon@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20251126124455.3656651-10-boris.brezillon@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,203 +84,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 26/11/2025 12:44, Boris Brezillon wrote:
-> From: Loïc Molinari <loic.molinari@collabora.com>
-> 
-> Will be used by the UMD to optimize CPU accesses to buffers
-> that are frequently read by the CPU, or on which the access
-> pattern makes non-cacheable mappings inefficient.
-> 
-> Mapping buffers CPU-cached implies taking care of the CPU
-> cache maintenance in the UMD, unless the GPU is IO coherent.
-> 
-> v2:
-> - Add more to the commit message
-> - Tweak the doc
-> - Make sure we sync the section of the BO pointing to the CS
->   syncobj before we read its seqno
-> 
-> v3:
-> - Fix formatting/spelling issues
-> 
-> v4:
-> - Add Steve's R-b
-> 
-> v5:
-> - Drop Steve's R-b (changes in the ioctl semantics requiring
->   new review)
-> 
-> v6:
-> - Fix the uAPI doc
-> - Fix inverted logic in some comment
-> 
-> Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
+> On 2025-11-26 16:06, Yaroslav wrote:
+>> 
+>> 
+>> On 2025-11-26 15:59, Jani Nikula wrote:
+>>> On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
+>>>> On 2025-11-26 15:08, Jani Nikula wrote:
+>>>>> On Wed, 26 Nov 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>>>>>> On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
+>>>>>>> Current VESA vendor-specific block parsing expects real block size 
+>>>>>>> to be
+>>>>>>> the same as the defined struct size, use real offsets in conditionals
+>>>>>>> instead to add struct fields in future commits.
+>>>>>>>
+>>>>>>> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+>>>>>>
+>>>>>> I think this is something we want to backport, since MSO would break
+>>>>>> with bigger vendor-specific blocks, and that leads to black screens on
+>>>>>> MSO displays.
+>>>>>>
+>>>>>> Cc: stable@vger.kernel.org
+>>>>>> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>>>>>
+>>>>> Oops, I'll take that back.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+Yeah, my bad, I'll take back me taking that back. Original Reviewed-by
+stands. Sorry for the noise.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c   |  7 ++++-
->  drivers/gpu/drm/panthor/panthor_gem.c   | 37 +++++++++++++++++++++++--
->  drivers/gpu/drm/panthor/panthor_sched.c | 18 ++++++++++--
->  include/uapi/drm/panthor_drm.h          |  9 ++++++
->  4 files changed, 66 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 5df874538e88..662be9649f92 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -902,7 +902,8 @@ static int panthor_ioctl_vm_destroy(struct drm_device *ddev, void *data,
->  	return panthor_vm_pool_destroy_vm(pfile->vms, args->id);
->  }
->  
-> -#define PANTHOR_BO_FLAGS		DRM_PANTHOR_BO_NO_MMAP
-> +#define PANTHOR_BO_FLAGS		(DRM_PANTHOR_BO_NO_MMAP | \
-> +					 DRM_PANTHOR_BO_WB_MMAP)
->  
->  static int panthor_ioctl_bo_create(struct drm_device *ddev, void *data,
->  				   struct drm_file *file)
-> @@ -921,6 +922,10 @@ static int panthor_ioctl_bo_create(struct drm_device *ddev, void *data,
->  		goto out_dev_exit;
->  	}
->  
-> +	if ((args->flags & DRM_PANTHOR_BO_NO_MMAP) &&
-> +	    (args->flags & DRM_PANTHOR_BO_WB_MMAP))
-> +		return -EINVAL;
-> +
->  	if (args->exclusive_vm_id) {
->  		vm = panthor_vm_pool_get_vm(pfile->vms, args->exclusive_vm_id);
->  		if (!vm) {
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 1a3c1afaf88d..21d7a4bb2af5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -59,6 +59,39 @@ static void panthor_gem_debugfs_set_usage_flags(struct panthor_gem_object *bo, u
->  static void panthor_gem_debugfs_bo_init(struct panthor_gem_object *bo) {}
->  #endif
->  
-> +static bool
-> +should_map_wc(struct panthor_gem_object *bo, struct panthor_vm *exclusive_vm)
-> +{
-> +	struct panthor_device *ptdev = container_of(bo->base.base.dev, struct panthor_device, base);
-> +
-> +	/* We can't do uncached mappings if the device is coherent,
-> +	 * because the zeroing done by the shmem layer at page allocation
-> +	 * time happens on a cached mapping which isn't CPU-flushed (at least
-> +	 * not on Arm64 where the flush is deferred to PTE setup time, and
-> +	 * only done conditionally based on the mapping permissions). We can't
-> +	 * rely on dma_map_sgtable()/dma_sync_sgtable_for_xxx() either to flush
-> +	 * those, because they are NOPed if dma_dev_coherent() returns true.
-> +	 *
-> +	 * FIXME: Note that this problem is going to pop up again when we
-> +	 * decide to support mapping buffers with the NO_MMAP flag as
-> +	 * non-shareable (AKA buffers accessed only by the GPU), because we
-> +	 * need the same CPU flush to happen after page allocation, otherwise
-> +	 * there's a risk of data leak or late corruption caused by a dirty
-> +	 * cacheline being evicted. At this point we'll need a way to force
-> +	 * CPU cache maintenance regardless of whether the device is coherent
-> +	 * or not.
-> +	 */
-> +	if (ptdev->coherent)
-> +		return false;
-> +
-> +	/* Cached mappings are explicitly requested, so no write-combine. */
-> +	if (bo->flags & DRM_PANTHOR_BO_WB_MMAP)
-> +		return false;
-> +
-> +	/* The default is write-combine. */
-> +	return true;
-> +}
-> +
->  static void panthor_gem_free_object(struct drm_gem_object *obj)
->  {
->  	struct panthor_gem_object *bo = to_panthor_bo(obj);
-> @@ -145,6 +178,7 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
->  	bo = to_panthor_bo(&obj->base);
->  	kbo->obj = &obj->base;
->  	bo->flags = bo_flags;
-> +	bo->base.map_wc = should_map_wc(bo, vm);
->  	bo->exclusive_vm_root_gem = panthor_vm_root_gem(vm);
->  	drm_gem_object_get(bo->exclusive_vm_root_gem);
->  	bo->base.base.resv = bo->exclusive_vm_root_gem->resv;
-> @@ -242,7 +276,6 @@ static const struct drm_gem_object_funcs panthor_gem_funcs = {
->   */
->  struct drm_gem_object *panthor_gem_create_object(struct drm_device *ddev, size_t size)
->  {
-> -	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
->  	struct panthor_gem_object *obj;
->  
->  	obj = kzalloc(sizeof(*obj), GFP_KERNEL);
-> @@ -250,7 +283,6 @@ struct drm_gem_object *panthor_gem_create_object(struct drm_device *ddev, size_t
->  		return ERR_PTR(-ENOMEM);
->  
->  	obj->base.base.funcs = &panthor_gem_funcs;
-> -	obj->base.map_wc = !ptdev->coherent;
->  	mutex_init(&obj->label.lock);
->  
->  	panthor_gem_debugfs_bo_init(obj);
-> @@ -285,6 +317,7 @@ panthor_gem_create_with_handle(struct drm_file *file,
->  
->  	bo = to_panthor_bo(&shmem->base);
->  	bo->flags = flags;
-> +	bo->base.map_wc = should_map_wc(bo, exclusive_vm);
->  
->  	if (exclusive_vm) {
->  		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index b834123a6560..45843fb4d5ca 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -872,8 +872,11 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
->  	struct iosys_map map;
->  	int ret;
->  
-> -	if (queue->syncwait.kmap)
-> -		return queue->syncwait.kmap + queue->syncwait.offset;
-> +	if (queue->syncwait.kmap) {
-> +		bo = container_of(queue->syncwait.obj,
-> +				  struct panthor_gem_object, base.base);
-> +		goto out_sync;
-> +	}
->  
->  	bo = panthor_vm_get_bo_for_va(group->vm,
->  				      queue->syncwait.gpu_va,
-> @@ -890,6 +893,17 @@ panthor_queue_get_syncwait_obj(struct panthor_group *group, struct panthor_queue
->  	if (drm_WARN_ON(&ptdev->base, !queue->syncwait.kmap))
->  		goto err_put_syncwait_obj;
->  
-> +out_sync:
-> +	/* Make sure the CPU caches are invalidated before the seqno is read.
-> +	 * drm_gem_shmem_sync() is a NOP if map_wc=true, so no need to check
-> +	 * it here.
-> +	 */
-> +	drm_gem_shmem_sync(&bo->base, queue->syncwait.offset,
-> +			   queue->syncwait.sync64 ?
-> +				   sizeof(struct panthor_syncobj_64b) :
-> +				   sizeof(struct panthor_syncobj_32b),
-> +			   DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE);
-> +
->  	return queue->syncwait.kmap + queue->syncwait.offset;
->  
->  err_put_syncwait_obj:
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index 7eec9f922183..20c6707e0f6e 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -681,6 +681,15 @@ struct drm_panthor_vm_get_state {
->  enum drm_panthor_bo_flags {
->  	/** @DRM_PANTHOR_BO_NO_MMAP: The buffer object will never be CPU-mapped in userspace. */
->  	DRM_PANTHOR_BO_NO_MMAP = (1 << 0),
-> +
-> +	/**
-> +	 * @DRM_PANTHOR_BO_WB_MMAP: Force "Write-Back Cacheable" CPU mapping.
-> +	 *
-> +	 * CPU map the buffer object in userspace by forcing the "Write-Back
-> +	 * Cacheable" cacheability attribute. The mapping otherwise uses the
-> +	 * "Non-Cacheable" attribute if the GPU is not IO coherent.
-> +	 */
-> +	DRM_PANTHOR_BO_WB_MMAP = (1 << 1),
->  };
->  
->  /**
+BR,
+Jani.
 
+
+-- 
+Jani Nikula, Intel
