@@ -4,52 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739A3D10F28
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 16:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA01D11186
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 16:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1780210E2BD;
-	Wed, 26 Nov 2025 16:47:18 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B5A8C10E2BD;
- Wed, 26 Nov 2025 16:47:17 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CA52D168F;
- Wed, 26 Nov 2025 08:47:09 -0800 (PST)
-Received: from [10.1.30.35] (e122027.cambridge.arm.com [10.1.30.35])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 131C93F73B;
- Wed, 26 Nov 2025 08:47:11 -0800 (PST)
-Message-ID: <3980ca36-787e-4ea3-96a2-9c5df2a48e95@arm.com>
-Date: Wed, 26 Nov 2025 16:47:09 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F3A710E694;
+	Wed, 26 Nov 2025 16:47:40 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RLKbKTYP";
+	dkim-atps=neutral
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012001.outbound.protection.outlook.com
+ [40.107.200.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8FD10E696
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 16:47:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gDneb7AaI8f5QQFAh3yOcsPIrRC4q5RRp+XAspjuvZvzdAjtghWp74p7IXQUPZXRW4i5fWeoXlDNK2a9BFFPAThZODZYVd4msyt1+2vrYsG8gFeook6GPG40dttPY8TV1ZU/ml5Mu/uS0M+OMlHxG5T0EO4YQMCA4euHQyY92Sno1ViEmHh2DSBRAQHg5BcuTH40LUNh0EST/iGYH9tD/qP0KDzioEUkcNnJEVgfa76tyh1f1TDYvKh6WAkpQVB2uK5R3zxJNlaDwx1qsR2IKr6ykE6AavzOXpuMsrpZFCM9cRfbjo/Wl4P8DXC+B7pzdFE7MSLh5KybrSh5coFEXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0IGApmeE3rpOw7Dx04c5OgtaUOokH6F4AOd2m+NQanU=;
+ b=kWv0e0h+7j0d9K6d5uDHn1T2Zd9G8PKxRU0WfFFOlNIlrtnxYguJ2nx8IRljfdYwDbkybQwCeAgLLmQxJmW9M/zQErqLwOfbkW7tTRiiUnilIR36O9R1sHiQzfSj4bsH+zpaVEHlp2X/z7CX1tD10H+rRRTDPZW+qOWonILPkvwixG2QuENhDlMGfDhtQNJC5NRFlwGC6UbNHgVpLTd9soYvZ1aSBFuLd4kCv9HAElvRPjX9cVJ8smgyGGq0H42UFLrjrnWUiLr79qpkw5ImXfgkdMvIxpHPfpoe4LaAlXBjagodkbmpL9W/JrEoVd4LZHA51Glv0WqqGZhXm/MIPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0IGApmeE3rpOw7Dx04c5OgtaUOokH6F4AOd2m+NQanU=;
+ b=RLKbKTYPKeFy7cjqDg9kuelBb09fNV8pjmNUUIXi/vBzlHFciC+8SAx79jvqkca7/+BSFfGjaFmYorvw5FjwD299BF/hICZtSDCTZ3PSOu+Qd9PeAgi31Lwa/nXCtNG15An6nr/AO7Az+EWgBKObWakRnfrEG5VHshRSYTsUqD4=
+Received: from SA0PR13CA0027.namprd13.prod.outlook.com (2603:10b6:806:130::32)
+ by DS7PR12MB6360.namprd12.prod.outlook.com (2603:10b6:8:93::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.11; Wed, 26 Nov
+ 2025 16:47:34 +0000
+Received: from SA2PEPF000015CB.namprd03.prod.outlook.com
+ (2603:10b6:806:130:cafe::ca) by SA0PR13CA0027.outlook.office365.com
+ (2603:10b6:806:130::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.3 via Frontend Transport; Wed,
+ 26 Nov 2025 16:47:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF000015CB.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9366.7 via Frontend Transport; Wed, 26 Nov 2025 16:47:34 +0000
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 26 Nov
+ 2025 10:47:33 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: fix cyan_skillfish2 gpu info fw handling
+Date: Wed, 26 Nov 2025 11:47:21 -0500
+Message-ID: <20251126164721.2520330-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 13/16] drm/panfrost: Add a PANFROST_SYNC_BO ioctl
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Frank Binns <frank.binns@imgtec.com>,
- Matt Coster <matt.coster@imgtec.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com
-References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
- <20251126124455.3656651-14-boris.brezillon@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20251126124455.3656651-14-boris.brezillon@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CB:EE_|DS7PR12MB6360:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39049800-9925-42cb-c964-08de2d0b7fc0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4D1mJG8o5GQPybKxFKm1EAUZKoEs1Tg9FVYqeS7upgupwIpGFK4+YGSpqTeZ?=
+ =?us-ascii?Q?YO/Nzsk09UWtrEIp9PrxAsOb1XjGeieHPLvCJyaYclk8d4g1kUycnbadB1d5?=
+ =?us-ascii?Q?MAlc3/CVso9OibR8/SjLrto1uhi/diEtRa0LGB8cvmKn/OHYyxVu8OOOlnms?=
+ =?us-ascii?Q?9U4QP1f/y5LU+wVoouNqYtEVLSLjIm1v4BG2UFXMBJTE7XjnFThrPb+6cDLe?=
+ =?us-ascii?Q?GMdbQh7A9lD6Xi010xhOWAHBl+QJN3kz7Ej9QmcrExDZtK2pqWUhEeql6/Ns?=
+ =?us-ascii?Q?iKuqGpT/HEeDMCiZPuXNFACeX45td4DoyRsvlqZxZAtR9Yx/r9gDQW+J8wNR?=
+ =?us-ascii?Q?fx9Lyev4xzISladLMbyHqWtnA+BjQK6FdqNSoDbuRNJ3xRngj50kjjrlblLB?=
+ =?us-ascii?Q?eT5F6sCa6BgrmKijouGvfa+u3C8XrvOTo1P2TpL5j+FSiHWHYjdEE3VxXkOQ?=
+ =?us-ascii?Q?MJlx+41WdwmBrC76ULZHyWg6CS/IDwVERgKwW4Ptz5vRcPpxwT9j8rhRoQZR?=
+ =?us-ascii?Q?kNS+aND0sdz1rgx6BXd9/ZmMRdmJgWRS5w3WgLnhMG1xNvxRfwaHuz+Q2oDn?=
+ =?us-ascii?Q?BjcowvLCI8XCXw4ZXlrtvvo+m5r+EfBb8mwGZf9XbmfHav/MhDGqTwYhgVVq?=
+ =?us-ascii?Q?yEFahMmZ9O1ndSNGXU7e35NuO+X2dD3bRH5SdK15rskDhazqSKLB9u1tbWm4?=
+ =?us-ascii?Q?lvAEAF8N/SZAe1uzWZvR3vChAJE7ZXB8wwMno0Yu31Rrk3vxpF9xA0Cjdom/?=
+ =?us-ascii?Q?PTYS0+uEe0cXlUkZ7HPmKHqkyxAiBbMrazHyq9QgSkHPCJu+zRcIOjJsfcWT?=
+ =?us-ascii?Q?aoM0DtqwjMoSWaq4zvUnwQaGlrXm+9aFEcwyvBaQ28kLKAy+kNtKEMiZpcjV?=
+ =?us-ascii?Q?YpWkHQk/3+O96wwqKDnjh9v9RlmpSYh2fO7SlREyxHCGCpJoXXIv6IF01H3A?=
+ =?us-ascii?Q?bF9PC1yEp8PbRw9n/EENpuALMPgwrY2UGXhiI0Qe36tbwD1YixbFDh1d6gBE?=
+ =?us-ascii?Q?1XKTjzTK/0QMbG72iVpTgFRAiKjcZvw2+IsCkmutq4Z55I6J0mhzXRI7G1Ce?=
+ =?us-ascii?Q?6AFc0pB3dgK27bIY8cXvLqo84x+N2GkRQjknKDfsUyo8WG2sEV1XGWLjXCdc?=
+ =?us-ascii?Q?baxEm0I9AC3+qPKWAKV9hF6Jk1N/GseW/tLRbCs5e6hPwcjLZDbbBLnkeIyF?=
+ =?us-ascii?Q?K+v485psjyBBYG/23p4yhRkqGkIVngvxF2E7OzSEhGouvzTB+FFMrBgJmA6W?=
+ =?us-ascii?Q?foPi0mzU7gN0WLGb+AhhqS+v0jDNbuLsR1ShFuCT18vZgqa//rHTnYKTZh5r?=
+ =?us-ascii?Q?c06zG+2x+bHDZGsw+r0H9oM9IbrzB3Xyth4VmgS9xA0LOFFEUbi3EsPU1TKc?=
+ =?us-ascii?Q?N9jt9+YejUxD4tgkl/baxnTsBYux7xuJuHf2TDnb2q1gxQNQxKy7RunO02wY?=
+ =?us-ascii?Q?clHywjvj4/TPFTMc+rpR/1/fLvMMJ2dsRL4ao6SxRqZ6PbdSd8nQSeJ49uJN?=
+ =?us-ascii?Q?ly6QwNVAxi7y8fKwQnV424sW4lj13LcI3Njo/+IesldaULYPnnJodXTARSb2?=
+ =?us-ascii?Q?AMLp3XvUrkDUop/fIzg=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2025 16:47:34.3819 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39049800-9925-42cb-c964-08de2d0b7fc0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,231 +132,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 26/11/2025 12:44, Boris Brezillon wrote:
-> From: Faith Ekstrand <faith.ekstrand@collabora.com>
-> 
-> This will be used by the UMD to synchronize CPU-cached mappings when
-> the UMD can't do it directly (no usermode cache maintenance instruction
-> on Arm32).
-> 
-> v2:
-> - Add more to the commit message
-> - Change the flags to better match the drm_gem_shmem_sync semantics
-> 
-> v3:
-> - Add Steve's R-b
-> 
-> v4:
-> - No changes
-> 
-> v5:
-> - Drop Steve's R-b (semantics changes requiring a new review)
-> 
-> v6:
-> - Bail out early in panfrost_ioctl_sync_bo() if op_count is zero
-> 
-> Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+If the board supports IP discovery, we don't need to
+parse the gpu info firmware.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4721
+Fixes: fa819e3a7c1e ("drm/amdgpu: add support for cyan skillfish gpu_info")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 51 +++++++++++++++++++++++++
->  drivers/gpu/drm/panfrost/panfrost_gem.c | 21 ++++++++++
->  drivers/gpu/drm/panfrost/panfrost_gem.h |  2 +
->  include/uapi/drm/panfrost_drm.h         | 45 ++++++++++++++++++++++
->  4 files changed, 119 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 54ac9d2ececf..85ae2eefca04 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -580,6 +580,56 @@ static int panfrost_ioctl_jm_ctx_destroy(struct drm_device *dev, void *data,
->  	return panfrost_jm_ctx_destroy(file, args->handle);
->  }
->  
-> +static int panfrost_ioctl_sync_bo(struct drm_device *ddev, void *data,
-> +				  struct drm_file *file)
-> +{
-> +	struct drm_panfrost_sync_bo *args = data;
-> +	struct drm_panfrost_bo_sync_op *ops;
-> +	struct drm_gem_object *obj;
-> +	int ret;
-> +	u32 i;
-> +
-> +	if (args->pad)
-> +		return -EINVAL;
-> +
-> +	if (!args->op_count)
-> +		return 0;
-> +
-> +	ops = kvmalloc_array(args->op_count, sizeof(*ops), GFP_KERNEL);
-> +	if (!ops) {
-> +		DRM_DEBUG("Failed to allocate incoming BO sync ops array\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	if (copy_from_user(ops, (void __user *)(uintptr_t)args->ops,
-> +			   args->op_count * sizeof(*ops))) {
-> +		DRM_DEBUG("Failed to copy in BO sync ops\n");
-> +		ret = -EFAULT;
-> +		goto err_ops;
-> +	}
-
-NIT: there's a helper vmemdup_array_user() which does this, but we do
-already have similar code in panfrost_copy_in_sync(), so it's fine by me
-whichever way.
-
-Thanks,
-Steve
-
-> +
-> +	for (i = 0; i < args->op_count; i++) {
-> +		obj = drm_gem_object_lookup(file, ops[i].handle);
-> +		if (!obj) {
-> +			ret = -ENOENT;
-> +			goto err_ops;
-> +		}
-> +
-> +		ret = panfrost_gem_sync(obj, ops[i].type,
-> +					ops[i].offset, ops[i].size);
-> +
-> +		drm_gem_object_put(obj);
-> +
-> +		if (ret)
-> +			goto err_ops;
-> +	}
-> +
-> +err_ops:
-> +	kvfree(ops);
-> +
-> +	return ret;
-> +}
-> +
->  int panfrost_unstable_ioctl_check(void)
->  {
->  	if (!unstable_ioctls)
-> @@ -649,6 +699,7 @@ static const struct drm_ioctl_desc panfrost_drm_driver_ioctls[] = {
->  	PANFROST_IOCTL(SET_LABEL_BO,	set_label_bo,	DRM_RENDER_ALLOW),
->  	PANFROST_IOCTL(JM_CTX_CREATE,	jm_ctx_create,	DRM_RENDER_ALLOW),
->  	PANFROST_IOCTL(JM_CTX_DESTROY,	jm_ctx_destroy,	DRM_RENDER_ALLOW),
-> +	PANFROST_IOCTL(SYNC_BO,		sync_bo,	DRM_RENDER_ALLOW),
->  };
->  
->  static void panfrost_gpu_show_fdinfo(struct panfrost_device *pfdev,
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> index 292f3ce6287f..ca884bf216d6 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> @@ -379,6 +379,27 @@ panfrost_gem_set_label(struct drm_gem_object *obj, const char *label)
->  	kfree_const(old_label);
->  }
->  
-> +int
-> +panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-> +		  u32 offset, u32 size)
-> +{
-> +	struct panfrost_gem_object *bo = to_panfrost_bo(obj);
-> +	enum drm_gem_shmem_sync_type shmem_sync_type;
-> +
-> +	switch (type) {
-> +	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH:
-> +		shmem_sync_type = DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH;
-> +		break;
-> +	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
-> +		shmem_sync_type = DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return drm_gem_shmem_sync(&bo->base, offset, size, shmem_sync_type);
-> +}
-> +
->  void
->  panfrost_gem_internal_set_label(struct drm_gem_object *obj, const char *label)
->  {
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> index 9ad35e2d99fc..30438ad335de 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-> @@ -150,6 +150,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev);
->  void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
->  
->  void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
-> +int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-> +		      u32 offset, u32 size);
->  void panfrost_gem_internal_set_label(struct drm_gem_object *obj, const char *label);
->  
->  #ifdef CONFIG_DEBUG_FS
-> diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_drm.h
-> index 0c59714ae42b..e194e087a0c8 100644
-> --- a/include/uapi/drm/panfrost_drm.h
-> +++ b/include/uapi/drm/panfrost_drm.h
-> @@ -24,6 +24,7 @@ extern "C" {
->  #define DRM_PANFROST_SET_LABEL_BO		0x09
->  #define DRM_PANFROST_JM_CTX_CREATE		0x0a
->  #define DRM_PANFROST_JM_CTX_DESTROY		0x0b
-> +#define DRM_PANFROST_SYNC_BO			0x0c
->  
->  #define DRM_IOCTL_PANFROST_SUBMIT		DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_SUBMIT, struct drm_panfrost_submit)
->  #define DRM_IOCTL_PANFROST_WAIT_BO		DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_WAIT_BO, struct drm_panfrost_wait_bo)
-> @@ -35,6 +36,7 @@ extern "C" {
->  #define DRM_IOCTL_PANFROST_SET_LABEL_BO		DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_SET_LABEL_BO, struct drm_panfrost_set_label_bo)
->  #define DRM_IOCTL_PANFROST_JM_CTX_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_JM_CTX_CREATE, struct drm_panfrost_jm_ctx_create)
->  #define DRM_IOCTL_PANFROST_JM_CTX_DESTROY	DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_JM_CTX_DESTROY, struct drm_panfrost_jm_ctx_destroy)
-> +#define DRM_IOCTL_PANFROST_SYNC_BO		DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_SYNC_BO, struct drm_panfrost_sync_bo)
->  
->  /*
->   * Unstable ioctl(s): only exposed when the unsafe unstable_ioctls module
-> @@ -308,6 +310,49 @@ struct drm_panfrost_set_label_bo {
->  	__u64 label;
->  };
->  
-> +/* Valid flags to pass to drm_panfrost_bo_sync_op */
-> +#define PANFROST_BO_SYNC_CPU_CACHE_FLUSH			0
-> +#define PANFROST_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE		1
-> +
-> +/**
-> + * struct drm_panthor_bo_flush_map_op - BO map sync op
-> + */
-> +struct drm_panfrost_bo_sync_op {
-> +	/** @handle: Handle of the buffer object to sync. */
-> +	__u32 handle;
-> +
-> +	/** @type: Type of sync operation. */
-> +	__u32 type;
-> +
-> +	/**
-> +	 * @offset: Offset into the BO at which the sync range starts.
-> +	 *
-> +	 * This will be rounded down to the nearest cache line as needed.
-> +	 */
-> +	__u32 offset;
-> +
-> +	/**
-> +	 * @size: Size of the range to sync
-> +	 *
-> +	 * @size + @offset will be rounded up to the nearest cache line as
-> +	 * needed.
-> +	 */
-> +	__u32 size;
-> +};
-> +
-> +/**
-> + * struct drm_panfrost_sync_bo - ioctl argument for syncing BO maps
-> + */
-> +struct drm_panfrost_sync_bo {
-> +	/** Array of struct drm_panfrost_bo_sync_op */
-> +	__u64 ops;
-> +
-> +	/** Number of BO sync ops */
-> +	__u32 op_count;
-> +
-> +	__u32 pad;
-> +};
-> +
->  /* Definitions for coredump decoding in user space */
->  #define PANFROSTDUMP_MAJOR 1
->  #define PANFROSTDUMP_MINOR 0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a99a2b911529f..0d729284c117c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2675,6 +2675,8 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ 		chip_name = "navi12";
+ 		break;
+ 	case CHIP_CYAN_SKILLFISH:
++		if (adev->discovery.bin)
++			return 0;
+ 		chip_name = "cyan_skillfish";
+ 		break;
+ 	}
+-- 
+2.51.1
 
