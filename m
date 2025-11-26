@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F696D10F58
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:47:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2022ED10F5F
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:52:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C342C10E649;
-	Wed, 26 Nov 2025 14:47:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B79C010E64D;
+	Wed, 26 Nov 2025 14:52:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T8VaW5H/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZlFr5g7p";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D5410E649;
- Wed, 26 Nov 2025 14:47:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22CC410E64C;
+ Wed, 26 Nov 2025 14:52:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764168464; x=1795704464;
+ t=1764168752; x=1795704752;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=XnIiipcU35AAy1EjsCEeubzLMfSPg89dVBgMlxNprj4=;
- b=T8VaW5H/pFYUOdVSe7lsJa2GoIolVns/LKjlBei1F1F8OsSybFAuJX9q
- PZgdfJBP3GNOMvKootVaSCq5H2FFkpPPjF30Q720SyKI99EpRX1zjJSui
- Ml/vMS+E1xXxGxj4JTII4RW278CaBXltpObfjrpI6aSas9BG7Lglo9tV7
- p6H8E+ntdv1MVLkisgsCM3q/+KoDUbaH4C6qo3bvWzDJMK2IAQWfwQCrR
- OSy78bdB79Nv+A0w7ZMdU3DLpKcgL4PXimw1Z7d2ridchqKVH/gLMtC2a
- djJdL/9NlXQ6TrmST0lJpylEJU0ouVDcPli5qTT3kkffNMBgpmy8Gi9aR A==;
-X-CSE-ConnectionGUID: UT5prK03SoKsJxqChiPAyw==
-X-CSE-MsgGUID: 9qNIgEsESNStY9Oh7BTbHQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="76892065"
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="76892065"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 06:47:43 -0800
-X-CSE-ConnectionGUID: XusfCZKORQam3kbzRNmv9Q==
-X-CSE-MsgGUID: ofXgK9yESTGwX/uKLM56lA==
+ bh=X45ZDWDBTw1wxXtkxfMlyBa4vvDgq0JXkYBWXwJNuFY=;
+ b=ZlFr5g7pTWGbzxPKI2TC2dR9m/ehnl3JFYqeO02uWhpPckJRXGXq7MDR
+ n+UlfGVl4DppxHup16goF87AX6T72UrSYpZ5gonLbJ5pau57+UqPt09hz
+ 7ZnxvtTvkseiWdbXbqDH5T+mbvOgZi6TVVPiXjOLelwYHThVR5Ff1TxWU
+ 8n7PgXhI5UUlhzAVx+0aa52A/3w57nsS4Gu1nnZtAj042qIE7KnY87oB3
+ s3v/WG95dlkQzND6B1Kx5yJRZ3Ct72jtIB9FkMwamY7pfMoWb2yEZbDyn
+ tcP+U3HHsi1dkDtNRZz4G01nB+qugwKUMvdyZ91md0socc2Yq5tJdILqH g==;
+X-CSE-ConnectionGUID: iMRePlDwTwy6r0M1mI/IvQ==
+X-CSE-MsgGUID: Xjzoe3B1QROS3QVpXz9gGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="68798471"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="68798471"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:52:32 -0800
+X-CSE-ConnectionGUID: mEkr9s6eTiqjyMLUyXKzoQ==
+X-CSE-MsgGUID: ESymxlEkQ0eJE/dZN3E3eg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="192091183"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="197286295"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.1])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 06:47:38 -0800
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:52:26 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Yaroslav <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>, Ville
  =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten Lankhorst
@@ -54,18 +54,16 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <christian.koenig@amd.com>,
  Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v6 2/7] drm/edid: prepare for VESA vendor-specific data
- block extension
-In-Reply-To: <2f847ef3-9fb9-46a1-b5bd-38d8498b7772@0la.ch>
+Subject: Re: [PATCH v6 4/7] drm/edid: parse DSC DPP passthru support flag
+ for mode VII timings
+In-Reply-To: <c32eb9e4-41fa-4d17-a214-d7f594f34d82@0la.ch>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20251126065126.54016-1-iam@lach.pw>
- <20251126065126.54016-3-iam@lach.pw>
- <68c55e772424f8e001898cdd1edcf4856820461e@intel.com>
- <41fbf5af-559a-4810-82c1-5c2e8a497e5b@0la.ch>
- <493bcd10bdfc8a3123323b77eead3dacadc08e3c@intel.com>
- <2f847ef3-9fb9-46a1-b5bd-38d8498b7772@0la.ch>
-Date: Wed, 26 Nov 2025 16:47:34 +0200
-Message-ID: <afb3d6b3788ad3f8ece48399be7e8e195a62b8b6@intel.com>
+ <20251126065126.54016-5-iam@lach.pw>
+ <6f88c0111ce7f2a74010ff43a77bdd03f669ffb6@intel.com>
+ <c32eb9e4-41fa-4d17-a214-d7f594f34d82@0la.ch>
+Date: Wed, 26 Nov 2025 16:52:23 +0200
+Message-ID: <17f7e5e7d45bab4324968e352231f739bbdf7366@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,29 +81,22 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
-> On 2025-11-26 15:29, Jani Nikula wrote:
->> On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
->> The failure mode is: Someone buys a new shiny laptop with eDP MSO, with
->> bigger vendor block, and won't get a picture on screen.
+> On 2025-11-26 15:19, Jani Nikula wrote:
+>> On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
+>>> +	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, block->rev) >= 1)
+>>> +		mode->dsc_passthrough_timings_support =
+>>> +			!!(block->rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT);
+>> 
+>> The !! and parentheses are superfluous.
+>> 
 >
-> I understand that, I'm only confused because this does seem to be as 
-> suitable for backport as this fixed DSC bpp thing is:
+> Most of the other instances of bitflag parsing logic in kernel seem to 
+> cast integers to booleans explicitly this way.
 >
-> Someone buys a VR headset with fixed DSC bpp (Bigscreen Beyond/Bigscreen 
-> Beyond 2/Vive Pro 2), and the system is unable to detect them.
->
-> Unless eDP MSO with vendor specific data block extended with unset fixed 
-> DSC bpp value is much more popular in the wild, that is. I have however 
-> failed to discover any devices which have this value present other than 
-> the three mentioned VR headsets.
+> I'm fine with simplifying that, I was only doing what everyone else does.
 
-The difference is between an existing and enabled feature working vs. a
-new feature working. eDP MSO is expected to work. Also, IIUC you can
-still use the VR headsets albeit with a lower resolution. For eDP MSO
-you simply get nothing, and even beginning to debug the issue is
-problematic, since that is quite possibly the only display on the
-device.
-
+I get that, but such habits originate from the days before std bool. !!
+normalizes ints to 0 and 1, but assigning to bool does the same for you.
 
 BR,
 Jani.
