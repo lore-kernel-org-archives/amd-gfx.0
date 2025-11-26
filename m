@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCCA9D1038C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F34F9D10397
 	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 08:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A97D10E53D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4598010E53F;
 	Wed, 26 Nov 2025 08:58:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="Ki0m+5Xt";
-	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="mg9k26IA";
+	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="mOIkQpnd";
+	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="XHLTXA3J";
 	dkim-atps=neutral
 Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F6DB10E0EF;
- Wed, 26 Nov 2025 06:59:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1421810E514;
+ Wed, 26 Nov 2025 06:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1764139911; bh=5Ao5gy0hMIHL+AsB3ZJORlb
- QMMgBYYxMmt3et4768b4=; b=Ki0m+5XtnzIbZ0sELp2tITGj+7NxiwJEPauqtxa4ISv9AUgskI
- mK/ijCqV/FK/pZ3DP6ivmrpgk0tJywR+K8oVZSQhYdCSJmMhE5RdNmbQnAvGHNS+akgWSJwTtT3
- v0mPXnAjoBHlIFCJljXFdxSw+5sm0g/FLpo6uAouGCoEWD2NwomswI+JOC1rE/ZBd5sWBgyIsH8
- qsVl6BFHlBmYBgrDDnGT6WHEidRQjvnbuwhcMg4Suuz/orm/JsCvyjuRbQJTFW5Fe1azfxwv9tN
- YeMIU/bwahnR+8R/+ybJ9CPaQysaZB0UtLmIgrD15N6XOuRqFJDnT20HACn3q2BKo4A==;
+ h=Message-ID:Date:Subject:To:From; t=1764139914; bh=iaxEEdgH2YAVL2ApCrS8e3i
+ bBCzX6SObbdVb4noOHbQ=; b=mOIkQpndX5Yx99dLSnVXh3hNhyRyM/r0WZUVWeEAxGXLpYOgnv
+ guzST+oRkrfsz1/jfk8SRLgx3djz7m2Oa7I9+XYyL1V43KTsG7m2qgM45IaJGi8i8iwX2p5qYge
+ 1xfOnTojc+LBqZ15mxKui9ht3eJ4NtR1MZMCkUHjLN/TraAOuC9tr/+1c8M0wx7pUaeBXXSx1oC
+ yOveni6TF6gfnosun8fYmHNHSvpS7cXjNdBQ08puVxaHV3CFruYvByr0/LR9dflbTE8iPXHCRn/
+ QC8J3PgyXhgK6nw2H2syjf9PYE49SvbhVfNpFnyd7pH07NhG8lBGVp5OtwUKLZhObeQ==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1764139911; bh=5Ao5gy0hMIHL+AsB3ZJORlb
- QMMgBYYxMmt3et4768b4=; b=mg9k26IA6ASuQUujRSIAV9Ue5+/c99mYHxlH9SgUpAAy1ZPGW4
- bVBElm9kLCSppoQLH2flH98YKY8WanhzOsDg==;
+ h=Message-ID:Date:Subject:To:From; t=1764139914; bh=iaxEEdgH2YAVL2ApCrS8e3i
+ bBCzX6SObbdVb4noOHbQ=; b=XHLTXA3JyZOZCArz6PYp+hulL5tLt7RMDAzOn3dgrAH0MFahl1
+ 6cKA16i2qFDk8WnJ4mOr81y4DN+Da26Z3YCQ==;
 From: Yaroslav Bolyukin <iam@lach.pw>
 To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -40,10 +40,9 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Yaroslav Bolyukin <iam@lach.pw>
-Subject: [PATCH v6 1/7] drm/edid: rename VESA block parsing functions to more
- generic name
-Date: Wed, 26 Nov 2025 07:51:20 +0100
-Message-ID: <20251126065126.54016-2-iam@lach.pw>
+Subject: [PATCH v6 6/7] drm/edid: parse DRM VESA dsc bpp target
+Date: Wed, 26 Nov 2025 07:51:25 +0100
+Message-ID: <20251126065126.54016-7-iam@lach.pw>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20251126065126.54016-1-iam@lach.pw>
 References: <20251126065126.54016-1-iam@lach.pw>
@@ -64,57 +63,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Those functions would also parse DSC Bits Per Pixel value in the future
-commits.
+As per DisplayID v2.1a spec "DSC pass-through timing support",
+VESA vendor-specific data block may contain target DSC bits per pixel
+fields, that should be always used for the VII modes that declare they
+only support working with this value (Pass-through Timing Support for
+Target DSC Bits per Pixel).
 
 Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
 ---
- drivers/gpu/drm/drm_edid.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_displayid_internal.h |  4 ++++
+ drivers/gpu/drm/drm_edid.c               | 16 ++++++++++++++++
+ include/drm/drm_connector.h              |  6 ++++++
+ 3 files changed, 26 insertions(+)
 
+diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+index 55f972d32847..8f1a2f33ca1a 100644
+--- a/drivers/gpu/drm/drm_displayid_internal.h
++++ b/drivers/gpu/drm/drm_displayid_internal.h
+@@ -148,6 +148,8 @@ struct displayid_formula_timing_block {
+ #define DISPLAYID_VESA_DP_TYPE		GENMASK(2, 0)
+ #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+ #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
++#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
++#define DISPLAYID_VESA_DSC_BPP_FRACT	GENMASK(3, 0)
+ 
+ #define DISPLAYID_VESA_DP_TYPE_EDP	0
+ #define DISPLAYID_VESA_DP_TYPE_DP	1
+@@ -157,6 +159,8 @@ struct displayid_vesa_vendor_specific_block {
+ 	u8 oui[3];
+ 	u8 data_structure_type;
+ 	u8 mso;
++	u8 dsc_bpp_int;
++	u8 dsc_bpp_fract;
+ } __packed;
+ 
+ /*
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 26bb7710a462..64f7a94dd9e4 100644
+index 7bdc99d5084a..b2502be2e807 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -6527,8 +6527,8 @@ static void drm_get_monitor_range(struct drm_connector *connector,
- 		    info->monitor_range.min_vfreq, info->monitor_range.max_vfreq);
- }
- 
--static void drm_parse_vesa_mso_data(struct drm_connector *connector,
--				    const struct displayid_block *block)
-+static void drm_parse_vesa_specific_block(struct drm_connector *connector,
-+					  const struct displayid_block *block)
- {
- 	struct displayid_vesa_vendor_specific_block *vesa =
- 		(struct displayid_vesa_vendor_specific_block *)block;
-@@ -6587,8 +6587,8 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
- 		    info->mso_stream_count, info->mso_pixel_overlap);
- }
- 
--static void drm_update_mso(struct drm_connector *connector,
--			   const struct drm_edid *drm_edid)
-+static void drm_update_vesa_specific_block(struct drm_connector *connector,
-+					   const struct drm_edid *drm_edid)
- {
- 	const struct displayid_block *block;
- 	struct displayid_iter iter;
-@@ -6596,7 +6596,7 @@ static void drm_update_mso(struct drm_connector *connector,
- 	displayid_iter_edid_begin(drm_edid, &iter);
- 	displayid_iter_for_each(block, &iter) {
- 		if (block->tag == DATA_BLOCK_2_VENDOR_SPECIFIC)
--			drm_parse_vesa_mso_data(connector, block);
-+			drm_parse_vesa_specific_block(connector, block);
+@@ -6591,6 +6591,21 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+ 			    connector->base.id, connector->name,
+ 			    info->mso_stream_count, info->mso_pixel_overlap);
  	}
- 	displayid_iter_end(&iter);
++
++	if (block->num_bytes < 7) {
++		/* DSC bpp is optional */
++		return;
++	}
++
++	info->dp_dsc_bpp_x16 = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) << 4 |
++			       FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
++
++	if (info->dp_dsc_bpp_x16 > 0) {
++		drm_dbg_kms(connector->dev,
++			    "[CONNECTOR:%d:%s] DSC bits per pixel x16 %u\n",
++			    connector->base.id, connector->name,
++			    info->dp_dsc_bpp_x16);
++	}
  }
-@@ -6756,7 +6756,7 @@ static void update_display_info(struct drm_connector *connector,
- 	if (edid->features & DRM_EDID_FEATURE_RGB_YCRCB422)
- 		info->color_formats |= DRM_COLOR_FORMAT_YCBCR422;
  
--	drm_update_mso(connector, drm_edid);
-+	drm_update_vesa_specific_block(connector, drm_edid);
+ static void drm_update_vesa_specific_block(struct drm_connector *connector,
+@@ -6639,6 +6654,7 @@ static void drm_reset_display_info(struct drm_connector *connector)
+ 	info->mso_stream_count = 0;
+ 	info->mso_pixel_overlap = 0;
+ 	info->max_dsc_bpp = 0;
++	info->dp_dsc_bpp_x16 = 0;
  
- out:
- 	if (drm_edid_has_internal_quirk(connector, EDID_QUIRK_NON_DESKTOP)) {
+ 	kfree(info->vics);
+ 	info->vics = NULL;
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 8f34f4b8183d..7decfc288aa3 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -837,6 +837,12 @@ struct drm_display_info {
+ 	 */
+ 	u32 max_dsc_bpp;
+ 
++	/**
++	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
++	 * DSC bits per pixel in 6.4 fixed point format. 0 means undefined.
++	 */
++	u16 dp_dsc_bpp_x16;
++
+ 	/**
+ 	 * @vics: Array of vics_len VICs. Internal to EDID parsing.
+ 	 */
 -- 
 2.51.2
