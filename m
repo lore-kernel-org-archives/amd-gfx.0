@@ -4,72 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C436ED10F57
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:46:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F696D10F58
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B5B10E63D;
-	Wed, 26 Nov 2025 14:46:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C342C10E649;
+	Wed, 26 Nov 2025 14:47:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iKsHOeHW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T8VaW5H/";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D1910E646
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 14:46:47 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-b983fbc731bso752553a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 06:46:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764168407; x=1764773207; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=a7VniV7sYFYJMoEO+5/aK+ynqkXfB2us8Nn3hVqkTdg=;
- b=iKsHOeHWEK8hTvUcXx0wmedhDR+0bMsku1E5ZnOnZLOOSLRpjCOpZmEQzyrBHVclXe
- PRxm7WLhP2eB2lH7dSZaQTjzpdt/p92HYsIm/OJfLfE3M+V8S1h5uEwXdG5g+ME389xA
- WLXVwsMYPo20BTYzuU/u5d2sf/vyqJBqQGgbAKLJ6aJqu9e0b8lrm+8gXq538kOo5wTL
- mEM5B3F0B6oI1S/K2Ni/m3YYkGpRmkWanJof684G4GYcr6rGYCrOEOkG411x3hCJi7xw
- Zf1l1Nu5uSP6FWjnwq9QHmAh+4yUd76dcZNbitM9m1vu8SRM7QTBAW+z8O3z+fAzGBCw
- GwyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764168407; x=1764773207;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=a7VniV7sYFYJMoEO+5/aK+ynqkXfB2us8Nn3hVqkTdg=;
- b=AukQ5YiXaNDDCGAkUSLIOk02LKa6dnTKhiJ4x0QxyrwwwCWs+9I1pOLP6RzikoSQng
- GBeq0JxWZeXrH09G0QPyQgzpCATS2lYCXHolobH9JDQaePKSqbj+LCqSbJJJrUIAjMwM
- kduQ6jMnmQhP7469HClWU1E31eu4AUwydpdaVtI88GOtRsAHHiOz15viooD6JcF+xIEf
- DDEMVe34UFVSDY/e8j2ipYny3hfEVxMBcXGclkzZLRWNdxewSyzPNSSJCwvdw+qrBH+/
- BVf4v5t2o8pbmwF7f8V+HeaPiBJ+Uic/+18ovVIVKZRgDk0UEDvuwvpiRZLYskXbJEEL
- ljFg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUB4aXf2vr+1nmTqAhgBiBEuVJoX3nVZVEs65W/WgUau78QPiZzsJ5+UsrNrhoE9J2foRPWFDS3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJ8tcpgWa1ZU2jJwt75ztRl1evc8hRyx30jHoNejdW5cpEL+rj
- kUs4S1mHS+pDMwdgNzwYWZ0HJ5CvYWL0AtVUCZii+B6RGaAHB7Qc1EnhZZnBlzVe5lhOI8BtTvJ
- bpK8BJNk8+fpm3hM8RytaeqAbBtfAjKcHmw==
-X-Gm-Gg: ASbGncsv/iJHsNQM/ZuhZxUhp6Z7at2PjjErVKSUHhocXYq5l3AUSwINOX6mPUe8L9O
- 5Wqv7AXlaFwt1HjCa7oZVaKnF2mJgUwmrLE5mFx8WAHVuPkqySeawtjwmSwuVy7kXPtpjtnDFAU
- naAKZmfk+nIpwhDhm/kEM3TeF5xgUMrHYRd0oie97YM3qA6G749vZgjHwiaDykvXsRvYKBuw0yn
- Bw2bJ8pzZLI8T1Ix6tzOvN1Q+lropv1R1YFSkJDegpzlipoHHhMRJX86Pbk8PysxF+eh0o=
-X-Google-Smtp-Source: AGHT+IGSBhLEGtalWFCmTTF/BxYIXpuRmJFJKsKcYCvU1fw8cP7A3hktZKnFfrBFLP1+F9oWHvqmIY/+hL7Jtk78jnk=
-X-Received: by 2002:a05:7022:3c09:b0:119:e56a:4fff with SMTP id
- a92af1059eb24-11c9d875313mr8006056c88.4.1764168407154; Wed, 26 Nov 2025
- 06:46:47 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79D5410E649;
+ Wed, 26 Nov 2025 14:47:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764168464; x=1795704464;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=XnIiipcU35AAy1EjsCEeubzLMfSPg89dVBgMlxNprj4=;
+ b=T8VaW5H/pFYUOdVSe7lsJa2GoIolVns/LKjlBei1F1F8OsSybFAuJX9q
+ PZgdfJBP3GNOMvKootVaSCq5H2FFkpPPjF30Q720SyKI99EpRX1zjJSui
+ Ml/vMS+E1xXxGxj4JTII4RW278CaBXltpObfjrpI6aSas9BG7Lglo9tV7
+ p6H8E+ntdv1MVLkisgsCM3q/+KoDUbaH4C6qo3bvWzDJMK2IAQWfwQCrR
+ OSy78bdB79Nv+A0w7ZMdU3DLpKcgL4PXimw1Z7d2ridchqKVH/gLMtC2a
+ djJdL/9NlXQ6TrmST0lJpylEJU0ouVDcPli5qTT3kkffNMBgpmy8Gi9aR A==;
+X-CSE-ConnectionGUID: UT5prK03SoKsJxqChiPAyw==
+X-CSE-MsgGUID: 9qNIgEsESNStY9Oh7BTbHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="76892065"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="76892065"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:47:43 -0800
+X-CSE-ConnectionGUID: XusfCZKORQam3kbzRNmv9Q==
+X-CSE-MsgGUID: ofXgK9yESTGwX/uKLM56lA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="192091183"
+Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.1])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:47:38 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Yaroslav <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>, Ville
+ =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v6 2/7] drm/edid: prepare for VESA vendor-specific data
+ block extension
+In-Reply-To: <2f847ef3-9fb9-46a1-b5bd-38d8498b7772@0la.ch>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251126065126.54016-1-iam@lach.pw>
+ <20251126065126.54016-3-iam@lach.pw>
+ <68c55e772424f8e001898cdd1edcf4856820461e@intel.com>
+ <41fbf5af-559a-4810-82c1-5c2e8a497e5b@0la.ch>
+ <493bcd10bdfc8a3123323b77eead3dacadc08e3c@intel.com>
+ <2f847ef3-9fb9-46a1-b5bd-38d8498b7772@0la.ch>
+Date: Wed, 26 Nov 2025 16:47:34 +0200
+Message-ID: <afb3d6b3788ad3f8ece48399be7e8e195a62b8b6@intel.com>
 MIME-Version: 1.0
-References: <20251126132952.150452-1-timur.kristof@gmail.com>
- <b4747792-6f2d-4875-88e7-5ed953f94fd7@amd.com>
-In-Reply-To: <b4747792-6f2d-4875-88e7-5ed953f94fd7@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Nov 2025 09:46:35 -0500
-X-Gm-Features: AWmQ_bk5tiulVNkBQph8q_ntfj0fG66bicWDdM7-kN86XpOe4M1OR0GsjcGz7QA
-Message-ID: <CADnq5_OQz+icin-nO7Zy9qMOB97sw-igm-2f8UPPgx5N7z8Y1g@mail.gmail.com>
-Subject: Re: [PATCH 00/10] drm/amdgpu: Improve page fault handling on GMC v6-8
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,68 +82,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 26, 2025 at 9:29=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
+> On 2025-11-26 15:29, Jani Nikula wrote:
+>> On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
+>> The failure mode is: Someone buys a new shiny laptop with eDP MSO, with
+>> bigger vendor block, and won't get a picture on screen.
 >
-> On 11/26/25 14:29, Timur Krist=C3=B3f wrote:
-> > Enable the soft IRQ handler ring on SI, CIK, VI and
-> > delegate the processing of all VM faults to the soft
-> > IRQ handler ring.
-> >
-> > Why?
-> >
-> > On old GPUs, it may be an issue that handling the interrupts from
-> > VM faults is too slow and the interrupt handler (IH) ring may
-> > overflow, which can cause an eventual hang. This is a concern
-> > especially on SI and CIK where there are some HW limitations
-> > regarding robustness features with some shader instructions,
-> > which in practice means that users can see thousands of VM faults
-> > during normal gaming use even when the game or the UMD don't do
-> > anything wrong.
-> >
-> > With this series, we spend much less time in the IRQ handler that
-> > interacts with the HW IH ring, which significantly reduces the
-> > chance of hangs.
-> >
-> > There are also a few misc improvements to the GMC v6 code.
+> I understand that, I'm only confused because this does seem to be as 
+> suitable for backport as this fixed DSC bpp thing is:
 >
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the enti=
-re series.
+> Someone buys a VR headset with fixed DSC bpp (Bigscreen Beyond/Bigscreen 
+> Beyond 2/Vive Pro 2), and the system is unable to detect them.
 >
-> @Alex do you want to pick that up for amd-staging-drm-next or should I?
+> Unless eDP MSO with vendor specific data block extended with unset fixed 
+> DSC bpp value is much more popular in the wild, that is. I have however 
+> failed to discover any devices which have this value present other than 
+> the three mentioned VR headsets.
 
-I'll be off the next few days so if you can pick it up, that would be great=
-.
+The difference is between an existing and enabled feature working vs. a
+new feature working. eDP MSO is expected to work. Also, IIUC you can
+still use the VR headsets albeit with a lower resolution. For eDP MSO
+you simply get nothing, and even beginning to debug the issue is
+problematic, since that is quite possibly the only display on the
+device.
 
-Thanks,
 
-Alex
+BR,
+Jani.
 
->
-> Regards,
-> Christian.
->
-> >
-> > Timur Krist=C3=B3f (10):
-> >   drm/amdgpu/si_ih: Enable soft IRQ handler ring
-> >   drm/amdgpu/cik_ih: Enable soft IRQ handler ring
-> >   drm/amdgpu/iceland_ih: Enable soft IRQ handler ring
-> >   drm/amdgpu/tonga_ih: Enable soft IRQ handler ring
-> >   drm/amdgpu/cz_ih: Enable soft IRQ handler ring
-> >   drm/amdgpu/gmc6: Don't print MC client as it's unknown
-> >   drm/amdgpu/gmc6: Cache VM fault info
-> >   drm/amdgpu/gmc6: Delegate VM faults to soft IRQ handler ring
-> >   drm/amdgpu/gmc7: Delegate VM faults to soft IRQ handler ring
-> >   drm/amdgpu/gmc8: Delegate VM faults to soft IRQ handler ring
-> >
-> >  drivers/gpu/drm/amd/amdgpu/cik_ih.c     | 12 ++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/cz_ih.c      | 10 ++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   | 20 ++++++++++++++------
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   |  6 ++++++
-> >  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  6 ++++++
-> >  drivers/gpu/drm/amd/amdgpu/iceland_ih.c | 10 ++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/si_ih.c      | 12 ++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/tonga_ih.c   | 10 ++++++++++
-> >  8 files changed, 80 insertions(+), 6 deletions(-)
-> >
->
+
+-- 
+Jani Nikula, Intel
