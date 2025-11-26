@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A899D10F38
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA182D10F39
 	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC4410E5C4;
-	Wed, 26 Nov 2025 12:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 634B610E5C1;
+	Wed, 26 Nov 2025 12:45:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LFNxncxB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dux7z7/j";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA1610E539;
- Wed, 26 Nov 2025 12:45:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 512E610E5BE;
+ Wed, 26 Nov 2025 12:45:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764161108;
- bh=/bcpxfFJyMk/A8Ikt79/1FBbR61xjBEbBox3s8voHyU=;
+ s=mail; t=1764161110;
+ bh=aneMf2D3Otznn6ngNhE3JynbkVneLvbZy+CEcM90iDs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LFNxncxBKM2K0XhWR5Vh7hlKV7CabXAgAaskO1C9gaOWKDuc6CFKkG0yLxx0exdd4
- QOnd/mJ84THz2CFlKqy5mBtXnhh3cqkEJFYRQpcRiUBGSoEjAaox+6YoprEvYSgNta
- oxydNiB+0Dd1Lce8rlzmthPJd5Vg4CZjLZG9esd/01ibSQLFaf7Wwz8NCMIIFj7tIz
- dU9nfL0cJF7+AS0mcdQftRfxSkYPMpBaBLDIxgW+XzNDliK+rAgA3RhqpAxyyAX0IZ
- 1NO2ndTOGikBToh2ellEAuair9L3zYRuDxIsBt2DFz6fSjdq0d2fiaFgC8owyyvBcz
- +PPz6TzL1lODg==
+ b=dux7z7/j5fBWbJaC8/IlBA9X64H3/iHJDjRoHF4bAC1DD6jmUmCfoARtpCWICwrUl
+ xeJkgXl54f0dHBHrD2KaNdbZrsY/18ilJ69CLAo6Tp7hoh5Pr/fzdtkCZMUY78bSLL
+ bGvnyn31GGtRGmNvbBz957k3DMaAktA6k04HNCtGF/V+mXwWeTl/Xz9krBxrPCZw7g
+ gUcvXXirPIqFMkGiH3kycQXUyb4FOU/aeZfC8WWM6OaLt5rzCvKgu2QrInJgH73OLZ
+ v0Jjo/cIyYG9Osaaj4/kbNckDk+T58XpGalsQiVW/nAxAP/2nFCcT1MO/ab5iqdJs3
+ 1B7QRiumtXd3Q==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F2E9617E110C;
- Wed, 26 Nov 2025 13:45:07 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 112AF17E13D5;
+ Wed, 26 Nov 2025 13:45:10 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -55,12 +55,11 @@ Cc: dri-devel@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com
-Subject: [PATCH v6 01/16] drm/prime: Simplify life of drivers needing custom
- dma_buf_ops
-Date: Wed, 26 Nov 2025 13:44:40 +0100
-Message-ID: <20251126124455.3656651-2-boris.brezillon@collabora.com>
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH v6 03/16] drm/shmem: Add a drm_gem_shmem_sync() helper
+Date: Wed, 26 Nov 2025 13:44:42 +0100
+Message-ID: <20251126124455.3656651-4-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251126124455.3656651-1-boris.brezillon@collabora.com>
 References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
@@ -80,79 +79,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_gem_is_prime_exported_dma_buf() checks the dma_buf->ops against
-drm_gem_prime_dmabuf_ops, which makes it impossible to use if the
-driver implements custom dma_buf_ops. Instead of duplicating a bunch
-of helpers to work around it, let's provide a way for drivers to
-expose their custom dma_buf_ops so the core prime helpers can rely on
-that instead of hardcoding &drm_gem_prime_dmabuf_ops.
+From: Faith Ekstrand <faith.ekstrand@collabora.com>
+
+This enables syncing mapped GEM objects between the CPU and GPU via calls
+to dma_sync_*().  It's a bit annoying as it requires walking the sg_table
+so it's best if every driver doesn't hand-roll it.
+
+v2:
+- s/drm_gem_shmem_sync_mmap/drm_gem_shmem_sync/
+- Change the prototype to match drm_gem_object_funcs::sync()
+- Add a wrapper for drm_gem_object_funcs::sync()
+
+v3:
+- No changes
+
+v4:
+- Add Steve's R-b
 
 v5:
-- New patch
+- Change the semantics of the drm_gem_shmem_sync() helper to better
+  reflect the UMD cache flush/flush+invalidate semantics (discussed
+  with Faith)
+- Drop R-bs
 
 v6:
-- Pass custom dma_buf_ops directly instead of through a getter
+- Collect R-b
 
+Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/gpu/drm/drm_prime.c | 10 ++++++++--
- include/drm/drm_drv.h       |  8 ++++++++
- 2 files changed, 16 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 93 ++++++++++++++++++++++++++
+ include/drm/drm_gem_shmem_helper.h     | 14 ++++
+ 2 files changed, 107 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 21809a82187b..86fd95f0c105 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -904,6 +904,12 @@ unsigned long drm_prime_get_contiguous_size(struct sg_table *sgt)
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index c91608d9d4d7..1f3ce3f70c08 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -690,6 +690,99 @@ int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct
  }
- EXPORT_SYMBOL(drm_prime_get_contiguous_size);
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_mmap);
  
-+static const struct dma_buf_ops *
-+drm_gem_prime_get_dma_buf_ops(struct drm_device *dev)
++/**
++ * drm_gem_shmem_sync - Sync CPU-mapped data
++ * @shmem: shmem GEM object
++ * @offset: Offset into the GEM object
++ * @size: Size of the area to sync
++ * @type: Type of synchronization
++ *
++ * Returns:
++ * 0 on success or a negative error code on failure.
++ */
++int drm_gem_shmem_sync(struct drm_gem_shmem_object *shmem, size_t offset,
++		       size_t size, enum drm_gem_shmem_sync_type type)
 +{
-+	return dev->driver->dma_buf_ops ?: &drm_gem_prime_dmabuf_ops;
++	const struct drm_device *dev = shmem->base.dev;
++	struct sg_table *sgt;
++	struct scatterlist *sgl;
++	unsigned int count;
++
++	/* Make sure the range is in bounds. */
++	if (offset + size < offset || offset + size > shmem->base.size)
++		return -EINVAL;
++
++	/* Disallow CPU-cache maintenance on imported buffers. */
++	if (drm_gem_is_imported(&shmem->base))
++		return -EINVAL;
++
++	switch (type) {
++	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH:
++	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	/* Don't bother if it's WC-mapped */
++	if (shmem->map_wc)
++		return 0;
++
++	/* Nothing to do if the size is zero. */
++	if (size == 0)
++		return 0;
++
++	sgt = drm_gem_shmem_get_pages_sgt(shmem);
++	if (IS_ERR(sgt))
++		return PTR_ERR(sgt);
++
++	for_each_sgtable_dma_sg(sgt, sgl, count) {
++		if (size == 0)
++			break;
++
++		dma_addr_t paddr = sg_dma_address(sgl);
++		size_t len = sg_dma_len(sgl);
++
++		if (len <= offset) {
++			offset -= len;
++			continue;
++		}
++
++		paddr += offset;
++		len -= offset;
++		len = min_t(size_t, len, size);
++		size -= len;
++		offset = 0;
++
++		/* It's unclear whether dma_sync_xxx() is the right API to do CPU
++		 * cache maintenance given an IOMMU can register their own
++		 * implementation doing more than just CPU cache flushes/invalidation,
++		 * and what we really care about here is CPU caches only, but that's
++		 * the best we have that is both arch-agnostic and does at least the
++		 * CPU cache maintenance on a <page,offset,size> tuple.
++		 *
++		 * Also, I wish we could do a single
++		 *
++		 *	dma_sync_single_for_device(BIDIR)
++		 *
++		 * and get a flush+invalidate, but that's not how it's implemented
++		 * in practice (at least on arm64), so we have to make it
++		 *
++		 *	dma_sync_single_for_device(TO_DEVICE)
++		 *	dma_sync_single_for_cpu(FROM_DEVICE)
++		 *
++		 * for the flush+invalidate case.
++		 */
++		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
++		if (type == DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
++			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
++	}
++
++	return 0;
 +}
++EXPORT_SYMBOL_GPL(drm_gem_shmem_sync);
 +
  /**
-  * drm_gem_prime_export - helper library implementation of the export callback
-  * @obj: GEM object to export
-@@ -920,7 +926,7 @@ struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
- 	struct dma_buf_export_info exp_info = {
- 		.exp_name = KBUILD_MODNAME, /* white lie for debug */
- 		.owner = dev->driver->fops->owner,
--		.ops = &drm_gem_prime_dmabuf_ops,
-+		.ops = drm_gem_prime_get_dma_buf_ops(dev),
- 		.size = obj->size,
- 		.flags = flags,
- 		.priv = obj,
-@@ -947,7 +953,7 @@ bool drm_gem_is_prime_exported_dma_buf(struct drm_device *dev,
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
+  * drm_gem_shmem_print_info() - Print &drm_gem_shmem_object info for debugfs
+  * @shmem: shmem GEM object
+diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
+index 075275d6b2fd..b0b6d0104a9a 100644
+--- a/include/drm/drm_gem_shmem_helper.h
++++ b/include/drm/drm_gem_shmem_helper.h
+@@ -124,6 +124,20 @@ void drm_gem_shmem_vunmap_locked(struct drm_gem_shmem_object *shmem,
+ 				 struct iosys_map *map);
+ int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct *vma);
  
--	return (dma_buf->ops == &drm_gem_prime_dmabuf_ops) && (obj->dev == dev);
-+	return dma_buf->ops == drm_gem_prime_get_dma_buf_ops(dev) && obj->dev == dev;
- }
- EXPORT_SYMBOL(drm_gem_is_prime_exported_dma_buf);
- 
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index 42fc085f986d..1c6dae60d523 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -431,6 +431,14 @@ struct drm_driver {
- 	 * some examples.
- 	 */
- 	const struct file_operations *fops;
++/**
++ * enum enum drm_gem_shmem_sync_type - Type of synchronization
++ */
++enum drm_gem_shmem_sync_type {
++	/** DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH: Flush CPU caches */
++	DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH = 0,
 +
-+	/**
-+	 * @dma_buf_ops:
-+	 *
-+	 * dma_buf_ops to use for buffers exported by this driver. When NULL,
-+	 * the drm_prime logic defaults to &drm_gem_prime_dmabuf_ops.
-+	 */
-+	const struct dma_buf_ops *dma_buf_ops;
- };
++	/** DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE: Flush and invalidate CPU caches */
++	DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
++};
++
++int drm_gem_shmem_sync(struct drm_gem_shmem_object *shmem, size_t offset,
++		       size_t size, enum drm_gem_shmem_sync_type type);
++
+ int drm_gem_shmem_pin_locked(struct drm_gem_shmem_object *shmem);
+ void drm_gem_shmem_unpin_locked(struct drm_gem_shmem_object *shmem);
  
- void *__devm_drm_dev_alloc(struct device *parent,
 -- 
 2.51.1
 
