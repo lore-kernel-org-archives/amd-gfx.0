@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1131D10F4D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 13:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ACCAD10F4D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 13:28:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A487E10E5F5;
-	Wed, 26 Nov 2025 13:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2935110E5F8;
+	Wed, 26 Nov 2025 13:28:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BfLwmO8M";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bDymV+J2";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011009.outbound.protection.outlook.com
- [40.93.194.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2E010E2B7
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 13:28:50 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010037.outbound.protection.outlook.com [52.101.61.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A62E10E5AB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 13:28:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F5pBWLj6mV0JOtHbFUXtHrjeqMM3kArR6VqFtKe3NiKzDBwVzZuXHIQtab/FkSePJMQPngaqn5tN/zLgakpVmOotsfgz6YArF+QZOfVOwwQDCdb/EznQxwV0JcHTn2eUL+YpjqI6fk1vNzaYEJ+xpOnPuVFLVW+y8+5SV1xDFBNJSo20QzVfcL+P7CQ22+bwdqoZr06QGBvGU3ei7OHJxhgO1TP5SjhY/jTFQQnHxPj7Tratf0LWzt2OHVgD03J0Xu8snR1dE4QUGE3t+rQzJgaCLFALwaJqMwDCsdNgv+FVFODWrNc7WQMfQA9fQxxgak9wJLtEXNPYKhgsRpAJHg==
+ b=F+bIu/omug6j2vRTQRHpUNxfFEdQu+Xb30NrbypwwaweuULvrBvE8xSPMXiT5V3AbJ/pq0Zc5jxCCKdGJO87j0rn3GrwkSJPe5V8xXnb12ut5E/OH4ndi224adp1dJUtsawpCtwwo2NX03sAX9qY2LnJ4q3ycfd1BlXu9IK7ZKmsgbKt02VL8fkt3InRkfflIbqFGTLBCDGL9v3yiBLp1nTZMrmLyrNn6fLMJ3b+dNVd/HntK0EhT3EXiMzX6LkC6QtfjTy3ZDd1iEx6cPwdHOiJO5mjB0bhpdxRok9NBb4fMF3YXojPCCLPkjj5FwZZ1QdX+GxjdvyWgvJXHYOdVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ah64jJ6o3DxHmDlX2yiRcT6gDhhWQOWEArhmkFAvkEs=;
- b=RnwAAawD0ZCNxnSndAr44n39X0zbgcRyUXB/Vubzh2hbBKqMLXwGcQAzc4FAtQL6TO/oKb6vBa6sL4Pc4ABWdUMEDrJ9+l0rud7sP98Vfvdp0ycNaVcHZ6DhnY+WYSG9HTPvv6Nr7ibDGBpnNMG46/aH+n15IS5t5BtJkizP5hrxLDjFKXT0lTAbi/O6WbfCy5dgRtyb8o/+kmWbF5kEBJvJzUKHdjYUjXurkolYU9PjWKoI9fIJCOT4w0kuNwXaPRcK8XFvEIGicW/1qqZeuF1QZSKaCDQ8yLuSJazdMHVJfxr9In679U5ivvg/pDueSCY75kHmxRN9GaOHc+DVrw==
+ bh=h6sd5P0w4e0ce8vmabXqQHqnP9y+Q6oawLT7i+PfCMY=;
+ b=ZV9y1Ng71zEnwWRlM1iIRt9MLqPNxA0CjQriIJdRRJKlvLhJ2WjChJYW6EwZnhqqnj0zj8QQwz/xxORG5u42qRXQyHejoP9iEl29E7mwycODAn2Ad4fFQkxtb77btOaONs5RQGHH2kcEf1jJuphdtQBF2HgAyEGbSmbfDs5SoE9pPehpJO2K2UNAA/WtHgCWXdgmRL27HgfIlVQFYY4MdUTsD9xm6Jvoq7JNi4zysmvlFoTQte8w5/su9NYX9/A2w6Vmw50FZbWNDQUxintzapFnIm2seh6Tn9H66AK1+oLXYSi0N5WdLnPKWNhzB8ew+uPH2nyT01k70iZfLGC6Qg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ah64jJ6o3DxHmDlX2yiRcT6gDhhWQOWEArhmkFAvkEs=;
- b=BfLwmO8MEF38abJjkphlw3ynjAeIHZuLmKdGFIxvfGrs/cqkiPwWN+0VYwbjfCCFFxSuYRMuMWMpiJaNyCvVk2QdPfWd/wlZUYo85czTZ+d4pqyg3OZo8rPDvcuOrzQdntrQnrVX33GT+ysJKagkVeCY5Kgb9er/nRWR+eWgXDw=
-Received: from SJ0PR03CA0233.namprd03.prod.outlook.com (2603:10b6:a03:39f::28)
- by MN2PR12MB4238.namprd12.prod.outlook.com (2603:10b6:208:199::11)
+ bh=h6sd5P0w4e0ce8vmabXqQHqnP9y+Q6oawLT7i+PfCMY=;
+ b=bDymV+J2hYYswZpiv2yT/H4m5rBhuluRNFBmhnjWH/5pkbblMwgXaqr4EccxFBoAZvPBNtb9QqakiaLDpWzBb2XsBKhvawspnuv8Az6en5lTs5E5xP6b8nUSIxo81dheZ5AQcvmh7Sf0caPn/TkDdkum2gHm9FqtnnNoXeNBX7Q=
+Received: from SJ0PR03CA0152.namprd03.prod.outlook.com (2603:10b6:a03:338::7)
+ by CY5PR12MB6154.namprd12.prod.outlook.com (2603:10b6:930:26::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.13; Wed, 26 Nov
- 2025 13:28:44 +0000
-Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
- (2603:10b6:a03:39f:cafe::e8) by SJ0PR03CA0233.outlook.office365.com
- (2603:10b6:a03:39f::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.18 via Frontend Transport; Wed,
- 26 Nov 2025 13:28:44 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.14; Wed, 26 Nov
+ 2025 13:28:48 +0000
+Received: from SJ1PEPF00002310.namprd03.prod.outlook.com
+ (2603:10b6:a03:338:cafe::bb) by SJ0PR03CA0152.outlook.office365.com
+ (2603:10b6:a03:338::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Wed,
+ 26 Nov 2025 13:28:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,19 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SJ1PEPF00002310.mail.protection.outlook.com (10.167.242.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.7 via Frontend Transport; Wed, 26 Nov 2025 13:28:43 +0000
+ 15.20.9366.7 via Frontend Transport; Wed, 26 Nov 2025 13:28:48 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 26 Nov
- 2025 07:28:41 -0600
+ 2025 07:28:46 -0600
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Jesse.Zhang@amd.com>
-Subject: [PATCH 01/20] drm/amd/pm: Remove print_clk_levels from navi10
-Date: Wed, 26 Nov 2025 18:53:48 +0530
-Message-ID: <20251126132822.3266730-2-lijo.lazar@amd.com>
+Subject: [PATCH 04/20] drm/amd/pm: Use emit_clk_levels in vangogh
+Date: Wed, 26 Nov 2025 18:53:51 +0530
+Message-ID: <20251126132822.3266730-5-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20251126132822.3266730-1-lijo.lazar@amd.com>
 References: <20251126132822.3266730-1-lijo.lazar@amd.com>
@@ -73,53 +72,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|MN2PR12MB4238:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2446ea17-439b-4d6b-491a-08de2cefb894
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002310:EE_|CY5PR12MB6154:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44c69cce-3d05-4089-805e-08de2cefbb68
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AyZgJbbECfcLknyoLrJJ/53AluWO7r2P/cIj6s1yAr5RMrzDUWG3o9bF+Fdk?=
- =?us-ascii?Q?krzqcnTbVBUtK1K1oVnVr636SCVON1J2keh4i1odB75Nr9oSHr+mkZHmtfv8?=
- =?us-ascii?Q?+o5uD1CodrWSpJtxhcgi7u8JK72r6+yQ5/nw/lf/YYQAzGGSinWrL5ykOlK7?=
- =?us-ascii?Q?z0RqtVRuC5r6UxPGZeaeZg38Wph25AvalgN7h6qRPkHnXAvAKnLj5FNV3sik?=
- =?us-ascii?Q?AAYkHN/04hpMjNq8eBUHAFqVvNLQ+SC2Uv4Mnl/xcNPb5+jBOiWqdknQEKC8?=
- =?us-ascii?Q?eEtwxraOomaD9llyyFSzU09yGtA8hMK2SZwf/bytPdqBWz7G3tgr0ZMr34Gx?=
- =?us-ascii?Q?MUTkDu4bHWymTKawTuvvNe4gWijhHmKOY+jBEdxmtT/Jfr2eWCkT5j0TBfcy?=
- =?us-ascii?Q?mjGp9Vp6a7+NP9klHRZNtH0Xdd83HSw6GYGqf83r6XuibhKYwuySwyPPHp7r?=
- =?us-ascii?Q?K/qbR/LK0pWZWISzs+sFe7OSq3hp0DhwTcn1BHWT4ioZIiIQ+vKayYEPdGvq?=
- =?us-ascii?Q?4DdDAuWBh8uYcEG1gNqpEWv70Rs1D6TwvKcYJ0koErLJWkucmjhmwdueAOzB?=
- =?us-ascii?Q?ZjJJ8Nloow2aoRjCuZTcRqQOOm43ElplxuKIqNOueGxhWlC5aLZthuaJhko2?=
- =?us-ascii?Q?ebTwegsCZ2QRQ8MgNUVtrUo8Q3/P7G1t53fL7l0Pa70Ds3ReJtvXm3MehsLW?=
- =?us-ascii?Q?d8+qXAC/y0PsqDg0eYCYM++MOinWzzOK8dCzhIwjlhd3jczaF1oJKSmYiGe8?=
- =?us-ascii?Q?+72kaZ4sEum6tSwBFkxo1kDB0nw+tQZkI3ilDWnVs+R5cD1jckyUMG7qKdHQ?=
- =?us-ascii?Q?gh6hvpj1ySIbYgFfzHnMhOrnMU8y3LdCgqW/iLAcG6MQ7iE+EwtXDOJ+LSw5?=
- =?us-ascii?Q?Fr67TlrJwmZVB4e3ic+Lg5NvzcwCZNbM59s5V3emlBSF4WeYmKSWiRRhPbWJ?=
- =?us-ascii?Q?cqqgdpl2lWIZNVewqjIEIHlMh6zxWaPUkS2GoQEJsM89SO3CpsVy4oBeJK5r?=
- =?us-ascii?Q?aWPfeiPpkiOL9gGd4gZ0xZaeQ/Susyw2en82MNU2HRrXy2TWXWfV3Tx5CYaC?=
- =?us-ascii?Q?cTJHPrItrsjgeNMTFNTVLBKPZMYnFBJSShTfq9vDTcyPyEswSOxCGIdRoFRy?=
- =?us-ascii?Q?reEhUGkCyV1O5h8SKfZiX6nIDy7H6msrHlVNfxwsnWOfP4NSsVFFMb03YCUd?=
- =?us-ascii?Q?joNIrztUXlP1MUGMDcmNtVCvGWxn3nmRGeKHIPDej/O/1RNWMeIZVMgap6DK?=
- =?us-ascii?Q?mwI1q6fSI4Sga0GhviPwR1Cml/Q4p1DhcnCQlvoeYDM3RH6ppt/WOA4wxsra?=
- =?us-ascii?Q?R1T4c99sOT71a/ikqRQ2oRjgP3Q7bnj8ya0jaFmXimb65vDv9kqWjERhJ4ev?=
- =?us-ascii?Q?m4fGVJwQn84UY+OlN3LV+f+R8RVlFd8oEU7R7eKZHHYy6BzyDOMAlkJ6+dpu?=
- =?us-ascii?Q?lD3Rz0jkp+gtHCzk/dfwKeG4ujDf16TwVIE2P+nhVrW21av0X2e16yHNnNLU?=
- =?us-ascii?Q?5NT02Tb+BmKk8lCUQR5y53a+/SkRfqZI+YN2O+Leww3+5jGE0VXEi7eosGbR?=
- =?us-ascii?Q?v3Zp/ZgnUcNGoTc+jeU=3D?=
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TlDXX21qYEtCKjhqwwTZgzk8fSONWkKNnq7BzroZo7au1gnFqikO6Wt7CZAH?=
+ =?us-ascii?Q?xZrA+egMPbeTP0WsHHHQMtvOKcbXi+ehg+MWOk7CPoFRw03pb+RnvJPKyOyh?=
+ =?us-ascii?Q?kbHAP+wn7KfVMlhbCWaZN6SaTdJ2EGKNLkAHZWNlKQM89x/ewwX/mYUxF1cO?=
+ =?us-ascii?Q?PIOwBszNUXRcMuXDRz4lQ+XPVC8BSqdACv8skUHMlcE28Jht5EAz0y1sXoXH?=
+ =?us-ascii?Q?L1KQIF95ZHyufCFwLT17IHagSzHRR7O7EFj2k37mAcfKh3xRh6AGFdpbctzo?=
+ =?us-ascii?Q?HR+GpS5n223G6Q47Wx5qKIIU7XSxsf6I12tuQPcAPgAEjF/raN3SBVKHSQmd?=
+ =?us-ascii?Q?SH33OVY1R9o/rhRjxM2O0boQ5IOqRDFenNRZOmQzJyTYvhyrD3cDpA5eqTsL?=
+ =?us-ascii?Q?OiqMcebMPWTeaU3isevs7+ZLob7/Ae04Pwstz7ho+Sv1oR3w2uuP+T4LAMBZ?=
+ =?us-ascii?Q?0qJp1WTfpf+2GWx0DsU7ZDkXTj0Mm9L09C87MYYa5T7x2iIwJrXoQPz52Syb?=
+ =?us-ascii?Q?D3qkPRoOdbqacqAPNdpM9yWCLefDeC3CZ0Z7rs3L0Td9u12ZYAdYFdJ3Bi/0?=
+ =?us-ascii?Q?XLuaDGNeQwQMJ+OYtB5Q8d7D7AHmrfcutKIqjEe7t/YAbHmTYopqyL+VW7aE?=
+ =?us-ascii?Q?yOpoEthN167g5PTQpD+po57fXrHCQRxrM7sDB7G1+CpWW44zkkaw0KyvmqMh?=
+ =?us-ascii?Q?HQi12zhZmpqueGQlVW5ISF9eTy9Ow4HEAnUZV+PI+L23vx/T9YP/3kA7o5qG?=
+ =?us-ascii?Q?d3lKYIQb0M+n2YYZJmD6biuXmuo8ak3nPo9wGfivtK4JdR7xieMJ8KCWEE/5?=
+ =?us-ascii?Q?cSis99F0NDKbjtT8kxm2qaoZtF8vRS6xZolQmdtBgnq9aLrwEAk8mJMfMA0b?=
+ =?us-ascii?Q?Vaf6WAyZSlFMXhmAvrKNMRzYRbO58XpLFe1Zmrm+4qH4PPW7tcZAxY/TKXXW?=
+ =?us-ascii?Q?GPBZGkccau/Oelytf8Rxtq55sFe0MFMYoSCD6su0s4E1JiPqpLNja4M0vil9?=
+ =?us-ascii?Q?gInPYyabOoFSsZqWbMCQhQJ/YoGEnLF4517XgI4ETOGzLLjpGcn9j8MSUWPw?=
+ =?us-ascii?Q?51AzWCAvkBn2a5fyPH0eiRFvAzuinevTKg7dQa27DgMvnUVLxbUeaBoDf61S?=
+ =?us-ascii?Q?RiIlhd06jMd1qp8bG4BCsgFGps2RKN1l6WLy3Eb2cxanWqxurPqxOU+V8SFk?=
+ =?us-ascii?Q?YllLcLJRYzDLm2x4W3ggIu6Pey94JdwuBEoTmHJ4UkYsJQEHY42RIM0Bnb9Y?=
+ =?us-ascii?Q?uKDt6EpWdmVsDFHwAXFVO/VofdBcBZhkJIz9mlNfnFMtFmQLfmNCxhXE8hYp?=
+ =?us-ascii?Q?WtPwYxFlc7irt+BLKG74+jMsf9N0X2vxnkp7mrgg0u9KxZZQSg2BaNnadItU?=
+ =?us-ascii?Q?XiIrI6nfFPVbXIKAXt4ea48s21MoXgxWOX8+F+GjeiXK/6EIvnBRLIlWqTRt?=
+ =?us-ascii?Q?GclqCKvpdm5yn+e9uKO4abBQd3/MwyHIiyemqXvSdg7yTIlVgjk3X+vla8g+?=
+ =?us-ascii?Q?KDNKlnlS3s4a4YrDxLqfTNSceEq0EJ+HwuMPQB7npOHLSAzbuu5KMUD90Tb4?=
+ =?us-ascii?Q?OryO8mfN7tF0eFNbf0k=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2025 13:28:43.7351 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2446ea17-439b-4d6b-491a-08de2cefb894
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2025 13:28:48.4811 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44c69cce-3d05-4089-805e-08de2cefbb68
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002310.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4238
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6154
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,224 +133,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Keep only emit_clk_levels as it covers print_clk_levels functionality
+Move to emit_clk_levels from print_clk_levels
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 193 ------------------
- 1 file changed, 193 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 39 ++++++++++---------
+ 1 file changed, 20 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 7c9f77124ab2..2ea33c41aadb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -1465,198 +1465,6 @@ static int navi10_emit_clk_levels(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 9626da2dba58..34b3f8680a2c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -559,13 +559,14 @@ static int vangogh_get_dpm_clk_limited(struct smu_context *smu, enum smu_clk_typ
  	return 0;
  }
  
--static int navi10_print_clk_levels(struct smu_context *smu,
+-static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
 -			enum smu_clk_type clk_type, char *buf)
--{
--	uint16_t *curve_settings;
--	int i, levels, size = 0, ret = 0, start_offset = 0;
--	uint32_t cur_value = 0, value = 0, count = 0;
--	uint32_t freq_values[3] = {0};
--	uint32_t mark_index = 0;
--	struct smu_table_context *table_context = &smu->smu_table;
--	uint32_t gen_speed, lane_width;
--	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
--	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
--	PPTable_t *pptable = (PPTable_t *)table_context->driver_pptable;
--	OverDriveTable_t *od_table =
--		(OverDriveTable_t *)table_context->overdrive_table;
--	struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
--	uint32_t min_value, max_value;
--
++static int vangogh_emit_legacy_clk_levels(struct smu_context *smu,
++					   enum smu_clk_type clk_type, char *buf,
++					   int *offset)
+ {
++	int i, idx, size = *offset, ret = 0, start_offset = *offset;
+ 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+ 	SmuMetrics_legacy_t metrics;
+ 	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
+-	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	bool cur_value_match_level = false;
+ 
+@@ -575,9 +576,6 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 	if (ret)
+ 		return ret;
+ 
 -	smu_cmn_get_sysfs_buf(&buf, &size);
 -	start_offset = size;
 -
--	switch (clk_type) {
--	case SMU_GFXCLK:
--	case SMU_SCLK:
--	case SMU_SOCCLK:
--	case SMU_MCLK:
--	case SMU_UCLK:
--	case SMU_FCLK:
--	case SMU_VCLK:
--	case SMU_DCLK:
--	case SMU_DCEFCLK:
--		ret = navi10_get_current_clk_freq_by_table(smu, clk_type, &cur_value);
--		if (ret)
--			return size - start_offset;
--
--		ret = smu_v11_0_get_dpm_level_count(smu, clk_type, &count);
--		if (ret)
--			return size - start_offset;
--
--		ret = navi10_is_support_fine_grained_dpm(smu, clk_type);
--		if (ret < 0)
--			return ret;
--
--		if (!ret) {
--			for (i = 0; i < count; i++) {
--				ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, i, &value);
--				if (ret)
--					return size - start_offset;
--
--				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, value,
--						cur_value == value ? "*" : "");
--			}
--		} else {
--			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
--			if (ret)
--				return size - start_offset;
--			ret = smu_v11_0_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
--			if (ret)
--				return size - start_offset;
--
--			freq_values[1] = cur_value;
--			mark_index = cur_value == freq_values[0] ? 0 :
--				     cur_value == freq_values[2] ? 2 : 1;
--
--			levels = 3;
--			if (mark_index != 1) {
--				levels = 2;
--				freq_values[1] = freq_values[2];
--			}
--
--			for (i = 0; i < levels; i++) {
--				size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i, freq_values[i],
--						i == mark_index ? "*" : "");
--			}
--		}
--		break;
--	case SMU_PCIE:
--		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
--		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
--		for (i = 0; i < NUM_LINK_LEVELS; i++)
--			size += sysfs_emit_at(buf, size, "%d: %s %s %dMhz %s\n", i,
--					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 0) ? "2.5GT/s," :
--					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 1) ? "5.0GT/s," :
--					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 2) ? "8.0GT/s," :
--					(dpm_context->dpm_tables.pcie_table.pcie_gen[i] == 3) ? "16.0GT/s," : "",
--					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 1) ? "x1" :
--					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 2) ? "x2" :
--					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 3) ? "x4" :
--					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 4) ? "x8" :
--					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 5) ? "x12" :
--					(dpm_context->dpm_tables.pcie_table.pcie_lane[i] == 6) ? "x16" : "",
--					pptable->LclkFreq[i],
--					(gen_speed == dpm_context->dpm_tables.pcie_table.pcie_gen[i]) &&
--					(lane_width == dpm_context->dpm_tables.pcie_table.pcie_lane[i]) ?
--					"*" : "");
--		break;
--	case SMU_OD_SCLK:
--		if (!smu->od_enabled || !od_table || !od_settings)
--			break;
--		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_LIMITS))
--			break;
--		size += sysfs_emit_at(buf, size, "OD_SCLK:\n");
--		size += sysfs_emit_at(buf, size, "0: %uMhz\n1: %uMhz\n",
--				      od_table->GfxclkFmin, od_table->GfxclkFmax);
--		break;
--	case SMU_OD_MCLK:
--		if (!smu->od_enabled || !od_table || !od_settings)
--			break;
--		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_UCLK_MAX))
--			break;
--		size += sysfs_emit_at(buf, size, "OD_MCLK:\n");
--		size += sysfs_emit_at(buf, size, "1: %uMHz\n", od_table->UclkFmax);
--		break;
--	case SMU_OD_VDDC_CURVE:
--		if (!smu->od_enabled || !od_table || !od_settings)
--			break;
--		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_CURVE))
--			break;
--		size += sysfs_emit_at(buf, size, "OD_VDDC_CURVE:\n");
--		for (i = 0; i < 3; i++) {
--			switch (i) {
--			case 0:
--				curve_settings = &od_table->GfxclkFreq1;
--				break;
--			case 1:
--				curve_settings = &od_table->GfxclkFreq2;
--				break;
--			case 2:
--				curve_settings = &od_table->GfxclkFreq3;
--				break;
--			}
--			size += sysfs_emit_at(buf, size, "%d: %uMHz %umV\n",
--					      i, curve_settings[0],
--					curve_settings[1] / NAVI10_VOLTAGE_SCALE);
--		}
--		break;
--	case SMU_OD_RANGE:
--		if (!smu->od_enabled || !od_table || !od_settings)
--			break;
--		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
--
--		if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_LIMITS)) {
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_GFXCLKFMIN,
--						    &min_value, NULL);
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_GFXCLKFMAX,
--						    NULL, &max_value);
--			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
--					min_value, max_value);
--		}
--
--		if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_UCLK_MAX)) {
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_UCLKFMAX,
--						    &min_value, &max_value);
--			size += sysfs_emit_at(buf, size, "MCLK: %7uMhz %10uMhz\n",
--					min_value, max_value);
--		}
--
--		if (navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_GFXCLK_CURVE)) {
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEFREQ_P1,
--						    &min_value, &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE_SCLK[0]: %7uMhz %10uMhz\n",
--					      min_value, max_value);
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEVOLTAGE_P1,
--						    &min_value, &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE_VOLT[0]: %7dmV %11dmV\n",
--					      min_value, max_value);
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEFREQ_P2,
--						    &min_value, &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE_SCLK[1]: %7uMhz %10uMhz\n",
--					      min_value, max_value);
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEVOLTAGE_P2,
--						    &min_value, &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE_VOLT[1]: %7dmV %11dmV\n",
--					      min_value, max_value);
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEFREQ_P3,
--						    &min_value, &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE_SCLK[2]: %7uMhz %10uMhz\n",
--					      min_value, max_value);
--			navi10_od_setting_get_range(od_settings, SMU_11_0_ODSETTING_VDDGFXCURVEVOLTAGE_P3,
--						    &min_value, &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE_VOLT[2]: %7dmV %11dmV\n",
--					      min_value, max_value);
--		}
--
--		break;
--	default:
--		break;
--	}
--
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+ 		if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL) {
+@@ -659,15 +657,18 @@ static int vangogh_print_legacy_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
 -	return size - start_offset;
--}
--
- static int navi10_force_clk_levels(struct smu_context *smu,
- 				   enum smu_clk_type clk_type, uint32_t mask)
++	*offset += size - start_offset;
++
++	return 0;
+ }
+ 
+-static int vangogh_print_clk_levels(struct smu_context *smu,
+-			enum smu_clk_type clk_type, char *buf)
++static int vangogh_emit_clk_levels(struct smu_context *smu,
++				    enum smu_clk_type clk_type, char *buf,
++				    int *offset)
  {
-@@ -3521,7 +3329,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.dpm_set_jpeg_enable = navi10_dpm_set_jpeg_enable,
- 	.i2c_init = navi10_i2c_control_init,
- 	.i2c_fini = navi10_i2c_control_fini,
--	.print_clk_levels = navi10_print_clk_levels,
- 	.emit_clk_levels = navi10_emit_clk_levels,
- 	.force_clk_levels = navi10_force_clk_levels,
- 	.populate_umd_state_clk = navi10_populate_umd_state_clk,
++	int i, idx, size = *offset, ret = 0, start_offset = *offset;
+ 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+ 	SmuMetrics_t metrics;
+-	int i, idx, size = 0, ret = 0, start_offset = 0;
+ 	uint32_t cur_value = 0, value = 0, count = 0;
+ 	bool cur_value_match_level = false;
+ 	uint32_t min, max;
+@@ -678,9 +679,6 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 	if (ret)
+ 		return ret;
+ 
+-	smu_cmn_get_sysfs_buf(&buf, &size);
+-	start_offset = size;
+-
+ 	switch (clk_type) {
+ 	case SMU_OD_SCLK:
+ 		size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
+@@ -781,18 +779,21 @@ static int vangogh_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
+-	return size - start_offset;
++	*offset += size - start_offset;
++
++	return 0;
+ }
+ 
+-static int vangogh_common_print_clk_levels(struct smu_context *smu,
+-			enum smu_clk_type clk_type, char *buf)
++static int vangogh_common_emit_clk_levels(struct smu_context *smu,
++					   enum smu_clk_type clk_type, char *buf,
++					   int *offset)
+ {
+ 	int ret = 0;
+ 
+ 	if (smu->smc_fw_if_version < 0x3)
+-		ret = vangogh_print_legacy_clk_levels(smu, clk_type, buf);
++		ret = vangogh_emit_legacy_clk_levels(smu, clk_type, buf, offset);
+ 	else
+-		ret = vangogh_print_clk_levels(smu, clk_type, buf);
++		ret = vangogh_emit_clk_levels(smu, clk_type, buf, offset);
+ 
+ 	return ret;
+ }
+@@ -2524,7 +2525,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
+ 	.interrupt_work = smu_v11_0_interrupt_work,
+ 	.get_gpu_metrics = vangogh_common_get_gpu_metrics,
+ 	.od_edit_dpm_table = vangogh_od_edit_dpm_table,
+-	.print_clk_levels = vangogh_common_print_clk_levels,
++	.emit_clk_levels = vangogh_common_emit_clk_levels,
+ 	.set_default_dpm_table = vangogh_set_default_dpm_tables,
+ 	.set_fine_grain_gfx_freq_parameters = vangogh_set_fine_grain_gfx_freq_parameters,
+ 	.notify_rlc_state = vangogh_notify_rlc_state,
 -- 
 2.49.0
 
