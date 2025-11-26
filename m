@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC225D111B7
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 23:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE26AD111B6
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 23:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93C9710E73A;
-	Wed, 26 Nov 2025 23:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD9710E733;
+	Wed, 26 Nov 2025 23:06:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3IIFJCfH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XjLejYgk";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010008.outbound.protection.outlook.com [52.101.85.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1AC410E72F
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 23:06:41 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012046.outbound.protection.outlook.com
+ [40.93.195.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA77310E733
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 23:06:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G4xzJCWC5ULWbUHZ1+d7eOOBfjXdGXKcVjnU/r88j9msqR0AV3aMSqBZOWjWjIbT1U4KPN8YDK21BntFKfcR21K/DKHqfz0V5Uv4WIzPOyVLFHK/eLzvezcYzpc/UHvYrNZIsHe9SRtOcsVnHudmuren+adiHPfKVQ1qUsAJpLkdi2li3tGws6RjkurNW/sQ2OBLv9M+YnOi4UsSE29I6PqmBccpG5c58pUIyYdqE4VlIDqbnj1eyS5Q6Lb4s8vvYvZtR9GwEOGo7zfPYOy8ymPdsUbYAgApVjkPpAti9bg1A1BbdjqFi3xH/mIUMO8g+HsoIplBVOg3H8MkB+cVgw==
+ b=sIQqBAn0ls4RyV7uRxA6/M6eeugE5rb7TGTc0ie/dxSaHujclgjByi8MmP6cMHgF4BwXfKbfk9z66DCdk02KIlfd8zL/BBams7nSy5oORo1vnr1R1CQ2PdqfEXqmdqYQISmjTToAnm+Js8GuyvfAw8lthUDRKW4ln3n5NMaKg4HgTAgpaDaILCyjZ24PY0GHmCagFp6zXVjsab6/pNyXDImzudERlSs1W4uzP7AdA2RC2FP1T4j7gziXo+RF73ChZhlq9B5h8FllLTRK418JAVfs077TFYCeGBDWPCT1eSUmNUne2mKWpFszz7wa5qTaH02QIAEewQNUtEjfTmLdUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zGua+OdzWTrbhrDMC5lDC9pxv1JZuIXsqauW5Xurf9w=;
- b=IMANckBGv26TpnNtfiKMx7KkW9zcGFeagoI4r1EvaUvrzbFn7kTZuT6FOjTyoEnPoN5ZNWj1cZN5++ZXqTdtGW1zg/vLE/dybSW2VIoUT7YWMQmYHRlW9JFgBdPltn1kCVeNl81n7lStHTFfBbQiwYNrOWEOQQl3KS3q+pfrzZFhNOMp7L+WrA5W6WVg5QMJYh8pqZmr1IU1WZPCc1T8NX82bWWMJTufu4AfRJ6JONsyc/6cMdvwTT1TrypW2mW05JRHmbYJpmQZhfRQ4c/8FtpIh6xtWuM+xL2/PF1qKp8FN0nmWb5vu+yJ8x39+2MQ7OVOH+j1zdRXywK6AMt1fw==
+ bh=ZPN+NBVZ1nT68EM+wQxWI1UYuKmyz8/m7AGcNKue59s=;
+ b=AkVuc37MZqB5oMonTrx/hxLE0xM2x9jC9oY7PpF/LsIaZsk0JhtcQxWr40wYV9Cca+h0RGnyIR9KmvAtuJeoh3VtKK7ViBemtFyNvT4Lst4y0no+Q6yLFZsln7pLu+pMyjYec8P7AFvggM1LMP47vf0+xjgOg86t1EUvVn1joEMHZfvvbsAIFg/qno8jzFYAwGZsokXgXoIc4j+8UNphMSYubFV4m0ZNUbhaXC2TD3idShb2a/XduTnCa2kpWCHKnCvtPBRS6vvkB3CugB/mCQEp1GMsdhMUCyLs3DAtlYE+8ybGXgzRICvw5iAPwhyr+nbOjRv5e5T1Mg0u+9GqkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zGua+OdzWTrbhrDMC5lDC9pxv1JZuIXsqauW5Xurf9w=;
- b=3IIFJCfHlksbTOSryOWYCKGRE0q4ek+6/hUZzIenqcEBHaWu9eL3iYP6orYY6FRUJ2ILZ1gQuatBj161f8O/czJhwNae36Uiub4LndFLipUSIStYVY7V1i5ES3jTfR6JSrulztm4OOWa+1vRmFsQeMLQQq+xdOzbStJGLPsJVkE=
-Received: from BL1P222CA0002.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::7)
- by IA1PR12MB9499.namprd12.prod.outlook.com (2603:10b6:208:595::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.12; Wed, 26 Nov
- 2025 23:06:39 +0000
-Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
- (2603:10b6:208:2c7:cafe::4a) by BL1P222CA0002.outlook.office365.com
- (2603:10b6:208:2c7::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.17 via Frontend Transport; Wed,
- 26 Nov 2025 23:06:38 +0000
+ bh=ZPN+NBVZ1nT68EM+wQxWI1UYuKmyz8/m7AGcNKue59s=;
+ b=XjLejYgkuubgDXD7WohsZP1CcKTwPaxwiLIEY4xSaECBA0iz+OTr3p47WQPteU37HOBkEeplQ68dj7FLKzs++WsmQz8EGrF+tMXB51eUMQxPz0hMl+/99mqVcma0MxrbKtpWqTlNRNAh1W/hjmta0gdCixBWcjXzvyEIrzx1afM=
+Received: from BL6PEPF00013E0C.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:22e:400:0:1001:0:e) by PH0PR12MB7838.namprd12.prod.outlook.com
+ (2603:10b6:510:287::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.11; Wed, 26 Nov
+ 2025 23:06:44 +0000
+Received: from BL6PEPF00020E60.namprd04.prod.outlook.com
+ (2a01:111:f403:f901::5) by BL6PEPF00013E0C.outlook.office365.com
+ (2603:1036:903:4::4) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9343.10 via Frontend Transport; Wed,
+ 26 Nov 2025 23:06:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ BL6PEPF00020E60.mail.protection.outlook.com (10.167.249.21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9366.7 via Frontend Transport; Wed, 26 Nov 2025 23:06:38 +0000
+ 15.20.9366.7 via Frontend Transport; Wed, 26 Nov 2025 23:06:43 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 26 Nov
- 2025 17:06:38 -0600
+ 2025 17:06:40 -0600
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 26 Nov 2025 15:06:37 -0800
+ Transport; Wed, 26 Nov 2025 15:06:39 -0800
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,12 +66,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Aric Cyr
- <aric.cyr@amd.com>
-Subject: [PATCH 07/14] drm/amd/display: add dc interface for query QoS
- information
-Date: Wed, 26 Nov 2025 18:06:07 -0500
-Message-ID: <20251126230614.13409-8-Roman.Li@amd.com>
+ <alex.hung@amd.com>, Jing Zhou <Jing.Zhou@amd.com>, Charlene Liu
+ <charlene.liu@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 10/14] drm/amd/display: Correct FIXED_VS Link Rate Toggle
+ Condition
+Date: Wed, 26 Nov 2025 18:06:10 -0500
+Message-ID: <20251126230614.13409-11-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251126230614.13409-1-Roman.Li@amd.com>
 References: <20251126230614.13409-1-Roman.Li@amd.com>
@@ -79,53 +80,53 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|IA1PR12MB9499:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c082ff2-e90f-4f59-9789-08de2d40748d
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E60:EE_|PH0PR12MB7838:EE_
+X-MS-Office365-Filtering-Correlation-Id: 933dbd47-5f44-47fc-4ae2-08de2d407788
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BULQ56jp1+f2jdmU9Fs94p8mb8Dk/Vr50/eLquTqzi/jy5vFNJKZe9aMisLy?=
- =?us-ascii?Q?Icil/fpquz7YOv0RJSCfIKTWIk3hkMWU9m4GX3BweRNvyghHucbTlxqO9yky?=
- =?us-ascii?Q?aZRH39UOX7BlDG0cWhd6tTEB82bUzotFCQSiT7ArLE8OzvCc43YVbXeQFehi?=
- =?us-ascii?Q?LUV4VYQ13cosShyjEp6iI9SvoNn93WeBUUTVR24e6+n7e/Wgvkz/DFRJvYE5?=
- =?us-ascii?Q?aPnXOFOhSZTV6tKmcGiGBEZTIp6i9WcN8sAcIQjsvXQBdOA56dU2S8UgbboU?=
- =?us-ascii?Q?elq9muy+7Zv8fRxRVCuwStpKubCyo+jBce56daGn1ZHYAXZ/jtmenZoAzcvT?=
- =?us-ascii?Q?yIaYwP8qacTV7pb9tlHpdaczYkF2zK3f9J255uujt+iZ6ifyH77KqhfnybIU?=
- =?us-ascii?Q?SLm7i1978gl0j5NBbvOGBxRZF8hqoBGUO0AiWeNM+ruTHy6yCvDjWAiEL+u+?=
- =?us-ascii?Q?+Gc0DaDt2+YAduFuK9BemiNrCcgQRBYh0vsrAGpx7Kmwq8c8hb8WbGpyVxKM?=
- =?us-ascii?Q?uG87WEgxqLBFD4oeqce4KGNkmNm01w5tBWjeeejcCVsZ2Ag744hrTlkB7Cst?=
- =?us-ascii?Q?GCUSsoWS3+qkY0aEtcJ4N5Lf9vh3bTl6YlUoRBJDwsv6yH6nrFPHoE3NjyB6?=
- =?us-ascii?Q?vQkcNDWBiZTJs6sAxiwvZaZdj9XHf8LYKQceyTgm8KniorvlolOj9EnoW0Kr?=
- =?us-ascii?Q?NY7RAjdBJLeq8JCM23JKyTf2tRnV4b6/5//YyzT+czWjtBxfLbXJvz33eFub?=
- =?us-ascii?Q?hxuuIxRARZ8ZKKxsqON9NFqxWJVvs/yo8R0qbfBPaGS01E0XnutKDM8zjbNi?=
- =?us-ascii?Q?KtIPt5YMc9fKYyZmiFeOVrUOFsfxg+gkvDOzWa9IQf+OIZQkUfQKHDYdNncG?=
- =?us-ascii?Q?cGj2b2Cq/nbCYMcQ6Vnk8DDAkyOOSjdG9pkHKD2EmDHg7LWYdAwG94M16VOl?=
- =?us-ascii?Q?GsvFDOE+/qQodoFqfipDQIEY10xQCH033FClSK+nFpI+2GkSqSJEcfHWJ0j0?=
- =?us-ascii?Q?ikA1RPso6w53Lx2qIs543rdxpRU970mQqr43smVBntw0yNZmUgg7KUZZbZDT?=
- =?us-ascii?Q?7bwnglmK+akZqzNkOuI+xNWM5id6es/AJKJHQRhRRXF+gdr53/yCfUFRgAGH?=
- =?us-ascii?Q?sPFvFwLcZ3GFDLLdU8fF/WSAJAzXvL9U41btFJuJO1lWePhZuOFCey3fityv?=
- =?us-ascii?Q?xrGHLIVhTRpa+GTnIU/eCyTAA9RJQCmXX6PKhLgiYZlG1E/+ePn66FJe+tTM?=
- =?us-ascii?Q?/UpC3RJ5k1IwlrRbLtobhr8VNgUiKar4OWh0IN6ECt68r4F7su4lE/hRf39K?=
- =?us-ascii?Q?wI+onsOfOa4seTVZrcHdDcuWRjREALqvGsl0nSqhz4klYHZCD9Dm8wHTgLQY?=
- =?us-ascii?Q?DF5F27qXctn4jC5R+fRkwrIqVkvro3seyOCppFh1ZffV0cEq4pz9vEzm4eum?=
- =?us-ascii?Q?TyzZkwlQAK/nR4WeqBIHE1jeOGqgq2VnxKEKF0iJOP6eNF1xKm3mc6Bh9ctg?=
- =?us-ascii?Q?wcfSr6Wu+jA5wbX4KsN40sllUUGac7wr7Lw1UZ6A4vMkIwdxcBAY8Vh351iw?=
- =?us-ascii?Q?Tks/eHHQpRl82S7VfgE=3D?=
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Mh6Itq6daljXhDsY9/RLEov+f4IaPfKx2ibWXVPmTnOHaEQM56YXDT1erPFo?=
+ =?us-ascii?Q?V2w7rb0LAFS30YLlGWhsOMQofGxdJU2JTWOKtYQ0qy/GasVSsXWcM3ESCK/b?=
+ =?us-ascii?Q?CEJoqoV8rx61sf22y9jNp+QPi0y9TnRH1BQZaFijPOhwwjz1yRhCpkTJM6XY?=
+ =?us-ascii?Q?dzhG4hs86hoPKroh1rEAeJiETd1dYGXCzgGJTHzPrKYVgy1PCT0jXKNNkVSH?=
+ =?us-ascii?Q?TqVpYhNeYqIlrFxzaVaUtQ81dbLtl6vd55/vRN9JhQ9fH4QFTIN0t7FRDI6I?=
+ =?us-ascii?Q?N3175ZRK8+FujUjuyFR8DtMrFTpnVljfNCvrvIr7a+zXM9BM00vZI0RfrP5k?=
+ =?us-ascii?Q?9sEhvXStBKbrJWnfGAggnvKNIvxCRieoc94whHxxGqwigM2wZizLbDlD/e8G?=
+ =?us-ascii?Q?+x/VRM3O+4JE88moKXvgzP7YBHsQ0OsrwSXca+UOa9+hkdL5NGdYwYHJLWII?=
+ =?us-ascii?Q?sWZvNAg8smAy3vb6begTWoQNkrWlm4jOib5BndgWT0eyMdHVn+PUVksbUKaw?=
+ =?us-ascii?Q?sF6NgdQ4Se9vpkn5zm/TqPavgfw8b6cujwFZQIZopSsCrhosEK9bUsjlUf4b?=
+ =?us-ascii?Q?roo7BulBngEoNIDZckXKn6OpGRN/DO9eGTM+PIH1I/ObjwX9xKcSG1fQIV9h?=
+ =?us-ascii?Q?DJfvBYhMBFxIveWZBZSZanUA85Rpgol81N6SUjLdUAcBD1iGgMUONBXKftZw?=
+ =?us-ascii?Q?4ZfG6EXnOv9Tmq2KLQmexnrIYREzw/bHrg6JMoM+Keq9Mz0sx3T6w1ooGU/S?=
+ =?us-ascii?Q?hViuUFBQq9F9g5S50PxJnA+96MwgNsu++HvsmTZvofwBkXfZqFv2s7UhFdvo?=
+ =?us-ascii?Q?6uMeH+jn8MLTc7Ehi+6ouik2C8NbIiM6tgfF+Ljw0nO6ZHGfzg8b7q5GEgBs?=
+ =?us-ascii?Q?BY6CYR0RAai6xmbCOvvjtdLqFkDRvpP00JC/NmNX+k8+mM6bhH32RLYR/9mR?=
+ =?us-ascii?Q?W+0J5ok7ywSrHD6XZb3fhN0PqCIZaQm+4Tp/lkNGTbNc08tNC1cF1+geKJpP?=
+ =?us-ascii?Q?D2f48NjUO0VhBg4WPZOTFtNdMorgvUzAcoP6wZvB3W2W8HwFd3gOZn6BCxy0?=
+ =?us-ascii?Q?H74Vgw9y8N4Gd8kUEF5FNe9OodH0iIG2TomyjTkwO+e7uy9q2ms7XEeWv1d/?=
+ =?us-ascii?Q?eYYT6gouQj/dfzUtqp9RcGMoywauFE99PcSD335A3fkdnANzPTIOx+fvOhgy?=
+ =?us-ascii?Q?iGDPMopGOKBlqJxdGfojbKeUlDtYDLvLEQUQkR5qEgxIKuQaiGNzePV/vjju?=
+ =?us-ascii?Q?93hwU9mdI+8A/hUhFs/e/ZN2OfvNeIg9dJBHcPQlmdaBoQ/HDA/Tm+sexZpz?=
+ =?us-ascii?Q?kRwWoKfyGtTpUBlafAUEeXSh5TqSkn/wzMS+j49TC+anDA2S0JUQ5mlrV8Gr?=
+ =?us-ascii?Q?olQUjV6HrW3W7oeetD53QlyxdHFagSk+tCEzNCNzMrMkjzMJbFqb1jAUDMQw?=
+ =?us-ascii?Q?ajbfUnULSqzVETBVjM2gy+aalC7UkJd6sPsj1nypmbGVya3O2A8prRPrazBv?=
+ =?us-ascii?Q?8ryOhZwHhCj1+GrJwY3iybwS+ZRxICKkkqXAA/y7NRYtWhGIVgKR/+I0bQ?=
+ =?us-ascii?Q?=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2025 23:06:38.9422 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c082ff2-e90f-4f59-9789-08de2d40748d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2025 23:06:43.9408 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 933dbd47-5f44-47fc-4ae2-08de2d407788
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E61.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E60.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9499
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7838
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,162 +141,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Jing Zhou <Jing.Zhou@amd.com>
 
-[why]
-Add support for retrieving Quality of Service (QoS) metrics from dc
-to enable performance analysis and bottleneck identification. This provides
-benchmark tools with real-time bandwidth and latency measurements from hardware
-performance counters, helping diagnose display system performance issues.
+[WHY&HOW]
+The condition is only perform toggle if FIXED_VS LTTPR reports
+no IEEE OUI.
+The literal "\x0,\x0,\x0" contains commas changes the
+bytes being compared to {0x00,0x2C,0X00}.
+The correct literal should be "\x00\x00\x00" without commas.
 
-[how]
-- Add dc_get_qos_info() function to DC layer for unified QoS data retrieval
-- Implement hardware sequencer interface with function pointers for QoS
-measurements
-- Integrate QoS metrics: peak/average bandwidth (Mbps) and max/average
-latency (ns)
-
-Reviewed-by: Aric Cyr <aric.cyr@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Jing Zhou <Jing.Zhou@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 24 ++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           | 36 ++++++++++++++++++
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 37 +++++++++++++++++++
- 3 files changed, 97 insertions(+)
+ .../dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 8be9cbd43e18..1e7c61b975e3 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -7091,3 +7091,27 @@ void dc_log_preos_dmcub_info(const struct dc *dc)
- {
- 	dc_dmub_srv_log_preos_dmcub_info(dc->ctx->dmub_srv);
- }
-+
-+bool dc_get_qos_info(struct dc *dc, struct dc_qos_info *info)
-+{
-+	const struct dc_clocks *clk = &dc->current_state->bw_ctx.bw.dcn.clk;
-+
-+	memset(info, 0, sizeof(*info));
-+
-+	// Check if all measurement functions are available
-+	if (!dc->hwss.measure_peak_bw_mbps ||
-+	    !dc->hwss.measure_avg_bw_mbps ||
-+	    !dc->hwss.measure_max_latency_ns ||
-+	    !dc->hwss.measure_avg_latency_ns) {
-+		return false;
-+	}
-+
-+	// Call measurement functions to get actual values
-+	info->actual_peak_bw_in_mbps = dc->hwss.measure_peak_bw_mbps(dc);
-+	info->actual_avg_bw_in_mbps = dc->hwss.measure_avg_bw_mbps(dc);
-+	info->actual_max_latency_in_ns = dc->hwss.measure_max_latency_ns(dc);
-+	info->actual_avg_latency_in_ns = dc->hwss.measure_avg_latency_ns(dc);
-+	info->dcn_bandwidth_ub_in_mbps = (uint32_t)(clk->fclk_khz / 1000 * 64);
-+
-+	return true;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 458883adfc28..827e0008c31d 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -951,6 +951,18 @@ struct dc_bounding_box_overrides {
- 	int min_dcfclk_mhz;
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
+index ce174ce5579c..6a7c4a59ff4c 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
+@@ -271,7 +271,7 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
+ 	rate = get_dpcd_link_rate(&lt_settings->link_settings);
  
-+struct dc_qos_info {
-+	uint32_t actual_peak_bw_in_mbps;
-+	uint32_t qos_bandwidth_lb_in_mbps;
-+	uint32_t actual_avg_bw_in_mbps;
-+	uint32_t calculated_avg_bw_in_mbps;
-+	uint32_t actual_max_latency_in_ns;
-+	uint32_t qos_max_latency_ub_in_ns;
-+	uint32_t actual_avg_latency_in_ns;
-+	uint32_t qos_avg_latency_ub_in_ns;
-+	uint32_t dcn_bandwidth_ub_in_mbps;
-+};
-+
- struct dc_state;
- struct resource_pool;
- struct dce_hwseq;
-@@ -3322,4 +3334,28 @@ struct dc_register_software_state {
-  */
- bool dc_capture_register_software_state(struct dc *dc, struct dc_register_software_state *state);
+ 	// Only perform toggle if FIXED_VS LTTPR reports no IEEE OUI
+-	if (memcmp("\x0,\x0,\x0", &link->dpcd_caps.lttpr_caps.lttpr_ieee_oui[0], 3) == 0) {
++	if (memcmp("\x00\x00\x00", &link->dpcd_caps.lttpr_caps.lttpr_ieee_oui[0], 3) == 0) {
+ 		/* Vendor specific: Toggle link rate */
+ 		toggle_rate = (rate == 0x6) ? 0xA : 0x6;
  
-+/**
-+ * dc_get_qos_info() - Retrieve Quality of Service (QoS) information from display core
-+ * @dc: DC context containing current display configuration
-+ * @info: Pointer to dc_qos_info structure to populate with QoS metrics
-+ *
-+ * This function retrieves QoS metrics from the display core that can be used by
-+ * benchmark tools to analyze display system performance. The function may take
-+ * several milliseconds to execute due to hardware measurement requirements.
-+ *
-+ * QoS information includes:
-+ * - Bandwidth bounds (lower limits in Mbps)
-+ * - Latency bounds (upper limits in nanoseconds)
-+ * - Hardware-measured bandwidth metrics (peak/average in Mbps)
-+ * - Hardware-measured latency metrics (maximum/average in nanoseconds)
-+ *
-+ * The function will populate the provided dc_qos_info structure with current
-+ * QoS measurements. If hardware measurement functions are not available for
-+ * the current DCN version, the function returns false with zero'd info structure.
-+ *
-+ * Return: true if QoS information was successfully retrieved, false if measurement
-+ *         functions are unavailable or hardware measurements cannot be performed
-+ */
-+bool dc_get_qos_info(struct dc *dc, struct dc_qos_info *info);
-+
- #endif /* DC_INTERFACE_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 8ed9eea40c56..490a6fccebff 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -1287,6 +1287,43 @@ struct hw_sequencer_funcs {
- 	void (*get_underflow_debug_data)(const struct dc *dc,
- 			struct timing_generator *tg,
- 			struct dc_underflow_debug_data *out_data);
-+
-+	/**
-+	 * measure_peak_bw_mbps - Measure actual peak bandwidth in Mbps
-+	 * @dc: DC structure
-+	 *
-+	 * Returns the measured peak bandwidth value in Mbps from hardware
-+	 * performance counters or registers.
-+	 */
-+	uint32_t (*measure_peak_bw_mbps)(struct dc *dc);
-+
-+	/**
-+	 * measure_avg_bw_mbps - Measure actual average bandwidth in Mbps
-+	 * @dc: DC structure
-+	 *
-+	 * Returns the measured average bandwidth value in Mbps from hardware
-+	 * performance counters or registers.
-+	 */
-+	uint32_t (*measure_avg_bw_mbps)(struct dc *dc);
-+
-+	/**
-+	 * measure_max_latency_ns - Measure actual maximum latency in nanoseconds
-+	 * @dc: DC structure
-+	 *
-+	 * Returns the measured maximum latency value in nanoseconds from hardware
-+	 * performance counters or registers.
-+	 */
-+	uint32_t (*measure_max_latency_ns)(struct dc *dc);
-+
-+	/**
-+	 * measure_avg_latency_ns - Measure actual average latency in nanoseconds
-+	 * @dc: DC structure
-+	 *
-+	 * Returns the measured average latency value in nanoseconds from hardware
-+	 * performance counters or registers.
-+	 */
-+	uint32_t (*measure_avg_latency_ns)(struct dc *dc);
-+
- };
- 
- void color_space_to_black_color(
 -- 
 2.34.1
 
