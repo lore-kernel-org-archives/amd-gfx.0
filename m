@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D01D10F21
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 08:58:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49EDD1038C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 08:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4824010E555;
-	Wed, 26 Nov 2025 08:58:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB6810E55F;
+	Wed, 26 Nov 2025 08:58:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="SMiVNYlV";
-	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="oK2LcBfG";
+	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="pPp79NPZ";
+	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="ar1sT3n4";
 	dkim-atps=neutral
-X-Greylist: delayed 452 seconds by postgrey-1.36 at gabe;
- Wed, 26 Nov 2025 06:59:27 UTC
 Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26AB610E0E1;
- Wed, 26 Nov 2025 06:59:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27F8B10E0EF;
+ Wed, 26 Nov 2025 06:59:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1764139912; bh=qXRzwbpBEelV+7gq1ImfvH+
- 6+TteQii+3ZvIXTpjkPE=; b=SMiVNYlVdMYtV0nXXRtPkyT+wiTITqsVI/3PMtg7ILihIVQIXW
- XtBFZQZxVnKsKtWCyqRPXW4ToD/UZDL9vpUYYOg1nETP5uRmHuSGkipigJBVvi+IigR9Q+457EU
- 3NWcefSO5+KgQW52ybHFtele5F+LoorN3k1yBAQeMc+Susa2NP7GrjX8dxLhsoMN8y/+M1R12uQ
- Xo5LKfTa0wQzKgzALie2H7WoPOnY1i//sm3wVBHEilsYFlcjzAbBsbR9lV0sXXFZNjFju7MxTuo
- xqBg+KqQEJjxACm8pYYKVGShJJeLGolsajCQtNf7uNR6lfbuOwgTI1pHAAoKFTYXfiA==;
+ h=Message-ID:Date:Subject:To:From; t=1764139911; bh=UZ017X1htm+rMcGR4tOux+d
+ jQ8/TyvYII9ENisiXiXY=; b=pPp79NPZutNKi+mXSY1VCS6cgNJqElFjXge5eggSpNoOH8Gerr
+ tgLSWeJotsdz5f60r+92oY3j5eK+08la0aGqb9PsYRFbFqxOlmNwmrfiabF0Keh+dpBqEr/UNER
+ Rs9ucdzSDZ8LHt3Lthb31+3+LZbfTV49LB5IxUiqQVtBYIptIYm+cc/tdKKiFxk3gwqYLxeqiJo
+ /YY00t3rUGaU+ZZBsikf3NTCHqegxQIaRWEpG72wtZdHfFh+RWghn1bUSQNpH+1zQlGBU8d6E9C
+ 0qq+CIzio3cDFF5lpjJ7Eg0FQDWSLq7EDwG38RlBKALh3i5MKe6cH+FssCG8RnHmHxg==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1764139912; bh=qXRzwbpBEelV+7gq1ImfvH+
- 6+TteQii+3ZvIXTpjkPE=; b=oK2LcBfGVOWeW0tVPFpbsAiiCkwaajze3NnYTvW5hGm3l36amg
- l3C2UemXaYjz5c/fWeV0HfGLZW0H/wHDUVCA==;
+ h=Message-ID:Date:Subject:To:From; t=1764139911; bh=UZ017X1htm+rMcGR4tOux+d
+ jQ8/TyvYII9ENisiXiXY=; b=ar1sT3n4NkP2FnsyFv8MAlOEozOTjnlEvlTAH2Ge0nwncAeHQ+
+ mRrlzQHU6nIoxee8/j5rdOdXqmSa//deudDw==;
 From: Yaroslav Bolyukin <iam@lach.pw>
 To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -42,10 +40,10 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Yaroslav Bolyukin <iam@lach.pw>
-Subject: [PATCH v6 4/7] drm/edid: parse DSC DPP passthru support flag for mode
- VII timings
-Date: Wed, 26 Nov 2025 07:51:23 +0100
-Message-ID: <20251126065126.54016-5-iam@lach.pw>
+Subject: [PATCH v6 2/7] drm/edid: prepare for VESA vendor-specific data block
+ extension
+Date: Wed, 26 Nov 2025 07:51:21 +0100
+Message-ID: <20251126065126.54016-3-iam@lach.pw>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20251126065126.54016-1-iam@lach.pw>
 References: <20251126065126.54016-1-iam@lach.pw>
@@ -66,102 +64,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Current VESA vendor-specific block parsing expects real block size to be
+the same as the defined struct size, use real offsets in conditionals
+instead to add struct fields in future commits.
+
 Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
 ---
- drivers/gpu/drm/drm_displayid_internal.h |  2 ++
- drivers/gpu/drm/drm_edid.c               | 12 ++++++++----
- include/drm/drm_modes.h                  | 10 ++++++++++
- 3 files changed, 20 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 28 ++++++++++++----------------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-index 72f107ae832f..724174b429f2 100644
---- a/drivers/gpu/drm/drm_displayid_internal.h
-+++ b/drivers/gpu/drm/drm_displayid_internal.h
-@@ -97,6 +97,7 @@ struct displayid_header {
- 	u8 ext_count;
- } __packed;
- 
-+#define DISPLAYID_BLOCK_REV	GENMASK(2, 0)
- struct displayid_block {
- 	u8 tag;
- 	u8 rev;
-@@ -125,6 +126,7 @@ struct displayid_detailed_timings_1 {
- 	__le16 vsw;
- } __packed;
- 
-+#define DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT	BIT(3)
- struct displayid_detailed_timing_block {
- 	struct displayid_block base;
- 	struct displayid_detailed_timings_1 timings[];
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 348aa31aea1b..72a94b1713e2 100644
+index 64f7a94dd9e4..a52fd6de9327 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -6792,8 +6792,8 @@ static void update_display_info(struct drm_connector *connector,
+@@ -6544,7 +6544,7 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+ 	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
+ 		return;
+ 
+-	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
++	if (block->num_bytes < 5) {
+ 		drm_dbg_kms(connector->dev,
+ 			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
+ 			    connector->base.id, connector->name);
+@@ -6567,24 +6567,20 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+ 		break;
+ 	}
+ 
+-	if (!info->mso_stream_count) {
+-		info->mso_pixel_overlap = 0;
+-		return;
+-	}
+-
+-	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+-	if (info->mso_pixel_overlap > 8) {
++	if (info->mso_stream_count) {
++		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
++		if (info->mso_pixel_overlap > 8) {
++			drm_dbg_kms(connector->dev,
++				    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
++				    connector->base.id, connector->name,
++				    info->mso_pixel_overlap);
++			info->mso_pixel_overlap = 8;
++		}
+ 		drm_dbg_kms(connector->dev,
+-			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
++			    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+ 			    connector->base.id, connector->name,
+-			    info->mso_pixel_overlap);
+-		info->mso_pixel_overlap = 8;
++			    info->mso_stream_count, info->mso_pixel_overlap);
+ 	}
+-
+-	drm_dbg_kms(connector->dev,
+-		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+-		    connector->base.id, connector->name,
+-		    info->mso_stream_count, info->mso_pixel_overlap);
  }
  
- static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
--							    const struct displayid_detailed_timings_1 *timings,
--							    bool type_7)
-+							    const struct displayid_block *block,
-+							    const struct displayid_detailed_timings_1 *timings)
- {
- 	struct drm_display_mode *mode;
- 	unsigned int pixel_clock = (timings->pixel_clock[0] |
-@@ -6809,11 +6809,16 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
- 	unsigned int vsync_width = le16_to_cpu(timings->vsw) + 1;
- 	bool hsync_positive = le16_to_cpu(timings->hsync) & (1 << 15);
- 	bool vsync_positive = le16_to_cpu(timings->vsync) & (1 << 15);
-+	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
- 
- 	mode = drm_mode_create(dev);
- 	if (!mode)
- 		return NULL;
- 
-+	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, block->rev) >= 1)
-+		mode->dsc_passthrough_timings_support =
-+			!!(block->rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT);
-+
- 	/* resolution is kHz for type VII, and 10 kHz for type I */
- 	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
- 	mode->hdisplay = hactive;
-@@ -6846,7 +6851,6 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
- 	int num_timings;
- 	struct drm_display_mode *newmode;
- 	int num_modes = 0;
--	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
- 	/* blocks must be multiple of 20 bytes length */
- 	if (block->num_bytes % 20)
- 		return 0;
-@@ -6855,7 +6859,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
- 	for (i = 0; i < num_timings; i++) {
- 		struct displayid_detailed_timings_1 *timings = &det->timings[i];
- 
--		newmode = drm_mode_displayid_detailed(connector->dev, timings, type_7);
-+		newmode = drm_mode_displayid_detailed(connector->dev, block, timings);
- 		if (!newmode)
- 			continue;
- 
-diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
-index b9bb92e4b029..312e5c03af9a 100644
---- a/include/drm/drm_modes.h
-+++ b/include/drm/drm_modes.h
-@@ -417,6 +417,16 @@ struct drm_display_mode {
- 	 */
- 	enum hdmi_picture_aspect picture_aspect_ratio;
- 
-+	/**
-+	 * @dsc_passthrough_timing_support:
-+	 *
-+	 * Indicates whether this mode timing descriptor is supported
-+	 * with specific target DSC bits per pixel only.
-+	 *
-+	 * VESA vendor-specific data block shall exist with the relevant
-+	 * DSC bits per pixel declaration when this flag is set to true.
-+	 */
-+	bool dsc_passthrough_timings_support;
- };
- 
- /**
+ static void drm_update_vesa_specific_block(struct drm_connector *connector,
 -- 
 2.51.2
