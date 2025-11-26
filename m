@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2022ED10F5F
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:52:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C14DD10F58
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:59:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B79C010E64D;
-	Wed, 26 Nov 2025 14:52:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 218FC10E655;
+	Wed, 26 Nov 2025 14:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZlFr5g7p";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="faKXWirS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22CC410E64C;
- Wed, 26 Nov 2025 14:52:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA90E10E655;
+ Wed, 26 Nov 2025 14:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764168752; x=1795704752;
+ t=1764169159; x=1795705159;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=X45ZDWDBTw1wxXtkxfMlyBa4vvDgq0JXkYBWXwJNuFY=;
- b=ZlFr5g7pTWGbzxPKI2TC2dR9m/ehnl3JFYqeO02uWhpPckJRXGXq7MDR
- n+UlfGVl4DppxHup16goF87AX6T72UrSYpZ5gonLbJ5pau57+UqPt09hz
- 7ZnxvtTvkseiWdbXbqDH5T+mbvOgZi6TVVPiXjOLelwYHThVR5Ff1TxWU
- 8n7PgXhI5UUlhzAVx+0aa52A/3w57nsS4Gu1nnZtAj042qIE7KnY87oB3
- s3v/WG95dlkQzND6B1Kx5yJRZ3Ct72jtIB9FkMwamY7pfMoWb2yEZbDyn
- tcP+U3HHsi1dkDtNRZz4G01nB+qugwKUMvdyZ91md0socc2Yq5tJdILqH g==;
-X-CSE-ConnectionGUID: iMRePlDwTwy6r0M1mI/IvQ==
-X-CSE-MsgGUID: Xjzoe3B1QROS3QVpXz9gGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="68798471"
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="68798471"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 06:52:32 -0800
-X-CSE-ConnectionGUID: mEkr9s6eTiqjyMLUyXKzoQ==
-X-CSE-MsgGUID: ESymxlEkQ0eJE/dZN3E3eg==
+ bh=EUsE7HanB/IF3owzNiV6pzvWBpJcSGGz5FAt6sVdwho=;
+ b=faKXWirSlQ8XfI2P2biCb2D93EPGi4xRD/jRHP3Lmqdpc/BZlElW4Zcm
+ UUC5t6127dU+nLxSsMpIqKVGxH4lSIxyOWRvyrF8g3xVWEH2WG23dWDpU
+ bqvWAxRK3jh7pm4YxyRfyxpoMep68YQMuVKdTZqDF0X65iIvM2R/4t5VX
+ pcn1BkTxYd8BB+ARRaOBXe4q+JtXaCCfUajqJtqUwHOKhxsKcXDysjAv1
+ g2mpGstBTHqf6RinoGbkvUHbJLETBIq12a69lpoFaHwF5GOH9nrk4c45D
+ 5jAEmNocPSbXoB6N888li3aRAhwxgMFrZavwx38MGWhMedMwKlVlgY7Wm Q==;
+X-CSE-ConnectionGUID: TOETHGlMQLq5ZMkb7BXH6A==
+X-CSE-MsgGUID: fZQCpnKeTp2IS8utOPgpvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="66283747"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="66283747"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:59:18 -0800
+X-CSE-ConnectionGUID: If63QEkzQTKFCSO7Wwhb3A==
+X-CSE-MsgGUID: bTOq7xCSRDyH6m2kiS3Pww==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="197286295"
+X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="197450191"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
  ([10.245.246.1])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 06:52:26 -0800
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2025 06:59:13 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Yaroslav <iam@0la.ch>, Yaroslav Bolyukin <iam@lach.pw>, Ville
  =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten Lankhorst
@@ -54,16 +54,17 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <christian.koenig@amd.com>,
  Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v6 4/7] drm/edid: parse DSC DPP passthru support flag
- for mode VII timings
-In-Reply-To: <c32eb9e4-41fa-4d17-a214-d7f594f34d82@0la.ch>
+Subject: Re: [PATCH v6 2/7] drm/edid: prepare for VESA vendor-specific data
+ block extension
+In-Reply-To: <ebd974b5-88f4-4fb3-a135-bad3bf7d9b4d@0la.ch>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20251126065126.54016-1-iam@lach.pw>
- <20251126065126.54016-5-iam@lach.pw>
- <6f88c0111ce7f2a74010ff43a77bdd03f669ffb6@intel.com>
- <c32eb9e4-41fa-4d17-a214-d7f594f34d82@0la.ch>
-Date: Wed, 26 Nov 2025 16:52:23 +0200
-Message-ID: <17f7e5e7d45bab4324968e352231f739bbdf7366@intel.com>
+ <20251126065126.54016-3-iam@lach.pw>
+ <68c55e772424f8e001898cdd1edcf4856820461e@intel.com>
+ <b7191ab7c3030a8be0b149d28ae6fa032b64a4d8@intel.com>
+ <ebd974b5-88f4-4fb3-a135-bad3bf7d9b4d@0la.ch>
+Date: Wed, 26 Nov 2025 16:59:09 +0200
+Message-ID: <61a482c23a81dc29f1fb793064c7238a98cf0143@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,26 +82,92 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
-> On 2025-11-26 15:19, Jani Nikula wrote:
->> On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
->>> +	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, block->rev) >= 1)
->>> +		mode->dsc_passthrough_timings_support =
->>> +			!!(block->rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT);
+> On 2025-11-26 15:08, Jani Nikula wrote:
+>> On Wed, 26 Nov 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>>> On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
+>>>> Current VESA vendor-specific block parsing expects real block size to be
+>>>> the same as the defined struct size, use real offsets in conditionals
+>>>> instead to add struct fields in future commits.
+>>>>
+>>>> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+>>>
+>>> I think this is something we want to backport, since MSO would break
+>>> with bigger vendor-specific blocks, and that leads to black screens on
+>>> MSO displays.
+>>>
+>>> Cc: stable@vger.kernel.org
+>>> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 >> 
->> The !! and parentheses are superfluous.
+>> Oops, I'll take that back.
+>> 
+>>>
+>>>> ---
+>>>>   drivers/gpu/drm/drm_edid.c | 28 ++++++++++++----------------
+>>>>   1 file changed, 12 insertions(+), 16 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>>>> index 64f7a94dd9e4..a52fd6de9327 100644
+>>>> --- a/drivers/gpu/drm/drm_edid.c
+>>>> +++ b/drivers/gpu/drm/drm_edid.c
+>>>> @@ -6544,7 +6544,7 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+>>>>   	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
+>>>>   		return;
+>>>>   
+>>>> -	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
+>>>> +	if (block->num_bytes < 5) {
+>>>>   		drm_dbg_kms(connector->dev,
+>>>>   			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
+>>>>   			    connector->base.id, connector->name);
+>>>> @@ -6567,24 +6567,20 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+>>>>   		break;
+>>>>   	}
+>>>>   
+>>>> -	if (!info->mso_stream_count) {
+>>>> -		info->mso_pixel_overlap = 0;
+>> 
+>> This is no longer cleared for !info->mso_stream_count.
+>> 
+>> Perhaps the code could be reorganized to handle it better.
+>
+> It defaults to zero due to drm_reset_display_info()
+
+Yes, and the code above the context initializes it from the vendor
+block.
+
+
+>
+>>>> -		return;
+>>>> -	}
+>>>> -
+>>>> -	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+>>>> -	if (info->mso_pixel_overlap > 8) {
+>>>> +	if (info->mso_stream_count) {
+>>>> +		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+>>>> +		if (info->mso_pixel_overlap > 8) {
+>>>> +			drm_dbg_kms(connector->dev,
+>>>> +				    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
+>>>> +				    connector->base.id, connector->name,
+>>>> +				    info->mso_pixel_overlap);
+>>>> +			info->mso_pixel_overlap = 8;
+>>>> +		}
+>>>>   		drm_dbg_kms(connector->dev,
+>>>> -			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
+>>>> +			    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+>>>>   			    connector->base.id, connector->name,
+>>>> -			    info->mso_pixel_overlap);
+>>>> -		info->mso_pixel_overlap = 8;
+>>>> +			    info->mso_stream_count, info->mso_pixel_overlap);
+>>>>   	}
+>>>> -
+>>>> -	drm_dbg_kms(connector->dev,
+>>>> -		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+>>>> -		    connector->base.id, connector->name,
+>>>> -		    info->mso_stream_count, info->mso_pixel_overlap);
+>>>>   }
+>>>>   
+>>>>   static void drm_update_vesa_specific_block(struct drm_connector *connector,
 >> 
 >
-> Most of the other instances of bitflag parsing logic in kernel seem to 
-> cast integers to booleans explicitly this way.
->
-> I'm fine with simplifying that, I was only doing what everyone else does.
-
-I get that, but such habits originate from the days before std bool. !!
-normalizes ints to 0 and 1, but assigning to bool does the same for you.
-
-BR,
-Jani.
-
 
 -- 
 Jani Nikula, Intel
