@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801FFD10F3B
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B50D10F38
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCC710E5D8;
-	Wed, 26 Nov 2025 12:45:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D1B10E5D3;
+	Wed, 26 Nov 2025 12:45:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Jj21sFkK";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="GEGiBZhl";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 914DE10E5D5;
- Wed, 26 Nov 2025 12:45:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680AD10E5C5;
+ Wed, 26 Nov 2025 12:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764161118;
- bh=wp8iDE1+bb8SA2a/ayihC98f5Z3kxziS2Oo74866urE=;
+ s=mail; t=1764161113;
+ bh=eX3YTGY4Im5A0K8cJNwFCHqDXZvjuHqWb+S/x2dceHQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Jj21sFkKzOSkCb5rbuZixJuyJ6LiyxWOuPZHyNDjxUoaIqpHYaLPeZF5eWsqkHdil
- sW9fKUfd7OOAyd//Jjw3NMCgINWImj35b4B+Y8zG8BQ6nEzQjh0Fq0hlnuwk44jl6A
- E/qLx7UpzLc95dh2VLDxU8+xw/69I8410FSDMl4psKsl8i4aUs8rWVu+ci9XyfUIhM
- zS1UoGWk4pa5paQSoimEtCLNXZA/KSh5qxsFea9yXm/DucDUfyxMqphqbW/Q8x67P8
- n8m+67k4qUvyVOw7EbTXHC4wDhOIUcjWait2BXJ4Ds88SjXwv7Kp2QW/fb6T/BOsuU
- 5YQdSKzU0KWUg==
+ b=GEGiBZhlvVT36OataYpyKc6Y5HUn0Y/b5BTLKOfB5thjvG6lLI85P8PrkNvAewOHV
+ T60leidTPQMpqPTKOVPwn0YFWjThDnHvkhxtQkvTvL8/kiK+h5e9mKUW4PsNZxVVg1
+ PjXVJoXV+8Ns8T86OzlBNtVGOwznh72N0A+nhtMOkhKgu2uU8odKV7o7IVJDi+L72y
+ JWKIz7QMUnnPXgiglPJyb87N5y44St89j9i6BktqBEQlh9aZdZCJ9tRXrRjg77sAQc
+ LPPdXsQJiG0S0+UYNv/kJLV8ZnN00IJ+LET0uw55svGV4JEAbva3GBpvHvT5TC+iEo
+ TnZlsSRJ0cBIQ==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5DBE417E110C;
- Wed, 26 Nov 2025 13:45:17 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 21BF817E13F2;
+ Wed, 26 Nov 2025 13:45:12 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -55,11 +55,12 @@ Cc: dri-devel@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH v6 10/16] drm/panthor: Bump the driver version to 1.6
-Date: Wed, 26 Nov 2025 13:44:49 +0100
-Message-ID: <20251126124455.3656651-11-boris.brezillon@collabora.com>
+ amd-gfx@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ Akash Goel <akash.goel@arm.com>
+Subject: [PATCH v6 05/16] drm/panthor: Fix panthor_gpu_coherency_set()
+Date: Wed, 26 Nov 2025 13:44:44 +0100
+Message-ID: <20251126124455.3656651-6-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251126124455.3656651-1-boris.brezillon@collabora.com>
 References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
@@ -79,19 +80,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Faith Ekstrand <faith.ekstrand@collabora.com>
-
-Bump the driver version to reflect the new cached-CPU mapping
-capability.
-
-v2:
-- Quickly describe what the new version exposes in the commit message
+GPU_COHERENCY_PROTOCOL takes one of GPU_COHERENCY_xx
+not BIT(GPU_COHERENCY_xx).
 
 v3:
-- Add Steve's R-b
+- New commit
 
 v4:
-- No changes
+- Add Steve's R-b
 
 v5:
 - No changes
@@ -99,37 +95,28 @@ v5:
 v6:
 - No changes
 
-Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+Cc: Akash Goel <akash.goel@arm.com>
+Fixes: dd7db8d911a1 ("drm/panthor: Explicitly set the coherency mode")
+Reported-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/gpu/drm/panthor/panthor_drv.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_gpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 662be9649f92..2f1743b5bda6 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1672,6 +1672,10 @@ static void panthor_debugfs_init(struct drm_minor *minor)
-  * - 1.3 - adds DRM_PANTHOR_GROUP_STATE_INNOCENT flag
-  * - 1.4 - adds DRM_IOCTL_PANTHOR_BO_SET_LABEL ioctl
-  * - 1.5 - adds DRM_PANTHOR_SET_USER_MMIO_OFFSET ioctl
-+ * - 1.6 - adds DRM_PANTHOR_BO_WB_MMAP flag
-+ *       - adds DRM_IOCTL_PANTHOR_BO_SYNC ioctl
-+ *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
-+ *       - adds drm_panthor_gpu_info::selected_coherency
-  */
- static const struct drm_driver panthor_drm_driver = {
- 	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-@@ -1685,7 +1689,7 @@ static const struct drm_driver panthor_drm_driver = {
- 	.name = "panthor",
- 	.desc = "Panthor DRM driver",
- 	.major = 1,
--	.minor = 5,
-+	.minor = 6,
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index 06b231b2460a..cd38da5ad26c 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -51,7 +51,7 @@ struct panthor_gpu {
+ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
+ {
+ 	gpu_write(ptdev, GPU_COHERENCY_PROTOCOL,
+-		ptdev->coherent ? GPU_COHERENCY_PROT_BIT(ACE_LITE) : GPU_COHERENCY_NONE);
++		  ptdev->coherent ? GPU_COHERENCY_ACE_LITE : GPU_COHERENCY_NONE);
+ }
  
- 	.gem_create_object = panthor_gem_create_object,
- 	.gem_prime_import_sg_table = drm_gem_shmem_prime_import_sg_table,
+ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
 -- 
 2.51.1
 
