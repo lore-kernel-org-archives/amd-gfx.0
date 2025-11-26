@@ -4,64 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E654D10F5E
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:30:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C4E8D10F5A
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 14:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 212A010E63F;
-	Wed, 26 Nov 2025 14:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4EDE10E650;
+	Wed, 26 Nov 2025 14:31:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=oscada.org header.i=@oscada.org header.b="ZvGyNiiF";
+	dkim=pass (2048-bit key; unprotected) header.d=riscstar-com.20230601.gappssmtp.com header.i=@riscstar-com.20230601.gappssmtp.com header.b="fX2GVEgg";
 	dkim-atps=neutral
-Received: from oscada.org (oscada.org [46.98.2.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE83010E57E
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 09:15:36 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by oscada.org (Postfix) with ESMTP id 6D0AA43D4;
- Wed, 26 Nov 2025 11:15:34 +0200 (EET)
-Received: from oscada.org ([127.0.0.1])
- by localhost (mail.oscada [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id lrc-HyRVdNl4; Wed, 26 Nov 2025 11:15:33 +0200 (EET)
-Received: from [192.168.1.2] (oscada [192.168.1.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by oscada.org (Postfix) with ESMTPSA id 4A89B7E6;
- Wed, 26 Nov 2025 11:15:33 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=oscada.org;
- s=default; t=1764148533;
- bh=c48bHYbN31e2y+g+MajksJw54APeT7Q9xRVvLOeuFVg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZvGyNiiF8L9QuO2/eVobHxZWaRGVkQciDDFg/7UDXAows0PBhW7MP4aUl+mfqOm7+
- Jz2Hse5XSBDQCLj+oiY6LLPt15C4yhr3zc65koX/lTrvEEzo9svgcCt2aSpaTp2JGo
- tfh/mFtoDFRGVQ5cX7p43R4T8ps8+XrF7cWDXOu5VR8ZHMN83RbU9njXTS3i6VsTGk
- Ck0uMwR7viHfNYsbvrtSXsO4vEdPbJ9200WS3VHo1wk3C27o5UA/4x6tCl4PAkOxCn
- ay0YDxuZKyHCTR7OyCEkKpjBOYtszIzc09mBz7DOW7zlKzn8kfQW8suPRMSEHExF/s
- 4lr92cajmziOg==
-Content-Type: multipart/mixed; boundary="------------HnZjBtZsKVaor2IYccyi8Gou"
-Message-ID: <3c673963-72f3-4054-be21-a5709154bf9d@oscada.org>
-Date: Wed, 26 Nov 2025 11:15:32 +0200
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1144710E637
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 14:20:27 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-42b2e9ac45aso4067956f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 06:20:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=riscstar-com.20230601.gappssmtp.com; s=20230601; t=1764166825; x=1764771625;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=K+mX3K4EZWXpumEvNCBx9+WunDYcwtTk4SgV9tqSlww=;
+ b=fX2GVEggeIWwyylfupsU7FBjTHVurzr+2/wLA4JYqFyPpSdW1ACtsnasbEzEGi/+jk
+ GV3cul1rsJwyoKSR8BbeMDO3kO1ZojVFkZguyRs0TvQRlvuXstL6CEWgPmDJiFLccD4k
+ 0ZEz63OjmIoeQ3osSloCV0wOVvYm1UheVQnx+cjwEmm9Hd//8Uchq6MLQ3w/3MhqzLRn
+ A8Eec3RLNi80SWAiMY0hhSxw9uT3sVu0NosVmJWV2RLKFtR7pEcgSuvmpiMJlvHTmgIi
+ g826fUMFIU6hTK8jSn8gLtiDO2++fSxMjw4J+yjimXdl93p8FN7Ex1Rrc0/FieleWm8d
+ nuWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764166825; x=1764771625;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=K+mX3K4EZWXpumEvNCBx9+WunDYcwtTk4SgV9tqSlww=;
+ b=QDRSCSf7WrLozUh4cD5vothXVu8zUsKCrmy7sb1+04sC7G3FspXiSebPQTVp5muvDn
+ +xUEqfPpvznynQCsfbZuFw6p94eRHI5qfreUFwCNHLyWiZETbhsXinSbavfwVCXuodNL
+ X9xaFuJHHZQ5DOCtahM3JDcd2FG2hsqXCpLVM/NQ451TILYt8vBL64252B0SqnMnZPnN
+ UlLLcCxctCelG9SFqq36A4mwvs4ZHK8FptwXAISlq7J4Np0K6Xo4HPNeGYmfmpGR1ymc
+ wjRCmiWlJXiuTzFsr5G8gHb+NqAnQfwAFOzdUx1E4XVdnvXq13pdNNntbD2h0B7Zgbft
+ gsgQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVCF9Gdl5mBntoRVji7wmfgFRVq7BOf/Rwz1wJfsmPVsgHDuT7rMSOiG3zzYlMzNTJ4fkMNAp8x@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzEoa9oxh1twS4RqANGEp9lvELky+KnP6PMK3ykXoK9LoL3D+Em
+ AhopEvEXrW59ma1VPn1M7t0dJCIy8K4TQ/3W+jL+IYSA7MVT7/CPtoQ/O9+7teO/8TA=
+X-Gm-Gg: ASbGncvW7bHP7uGx0YX/j+GSUAsZh2Jch4eg7K6e6QmaxwsfkHsd+Ft+njH1diA7H8V
+ JjwkHrhTScpg0h7oaAWBD5Dp8kvmLQwvKj6zxN1oYGdK4+AL3OmHfwirjHZynNCnv3g+rht8Zpg
+ IfLcBx0FUzr7ANd5kd8kITYuZzuJtDdc0xj8JwGQbpSIl9hjCwP3N7JmvDr6LAsBPEWsYbHRuh7
+ OabpIljZONH2JtFiKoZXI5p5IBT0LjN9dfavzBUAcO7XKkUiwzmmeXpjpYvqGilull42S4JyyVR
+ dZx/vaFsXz/I+8ucYHQGdvxMNZRTwYiMu9wetnrUQ4NLOIoUae9Xgc6XWd+5RpSrL9JRTuu7vwF
+ cb314F8EH0dMZxk9SDMF5u/QY81+Ww49G2LN8H9/81D+/pxsDWDpuVeTvU9FT71BQgC+NXCZPFf
+ 6h1UUmumrZCscT4fvZ+EdG8jrrLwgKi9xTtpDFDiv03q9dQsiyGJWnoTaWzZrS+ZN9Vrj79g==
+X-Google-Smtp-Source: AGHT+IHetDpaeSCLD158eeBfnLMa77d0GWcu9KkUU/dpWWOreiarVBFn16/gIezMUQj2z9CZm6a8yQ==
+X-Received: by 2002:a05:6000:40c9:b0:42b:3806:2bb7 with SMTP id
+ ffacd0b85a97d-42e0f1e35c2mr7360017f8f.6.1764166825367; 
+ Wed, 26 Nov 2025 06:20:25 -0800 (PST)
+Received: from aspen.lan
+ (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42cb7fba20esm40814603f8f.37.2025.11.26.06.20.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Nov 2025 06:20:24 -0800 (PST)
+Date: Wed, 26 Nov 2025 14:20:22 +0000
+From: Daniel Thompson <daniel@riscstar.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Daniel Thompson <danielt@kernel.org>,
+ Doug Anderson <dianders@chromium.org>, simona@ffwll.ch,
+ airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, lyude@redhat.com, dakr@kernel.org,
+ deller@gmx.de, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, jason.wessel@windriver.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nir Lichtman <nir@lichtman.org>
+Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
+Message-ID: <aScMprMh6Eh4JU5D@aspen.lan>
+References: <20251125130634.1080966-1-tzimmermann@suse.de>
+ <CAD=FV=X_-t2AF5osp7Hamoe7WYE_2YWJZCaPaOj=9seSbnwwVA@mail.gmail.com>
+ <aSbwWLTLe0bMhOKV@aspen.lan>
+ <054f60ca-b898-488f-81f4-14eed0a1360b@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Bug#1118349: dpm broken on Radeon HD 8570D
-To: Salvatore Bonaccorso <carnil@debian.org>, 1118349-done@bugs.debian.org
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <389a9e45-0f92-4810-a8ed-91640750d973@oscada.org>
- <jkkqfvey7b6evfq6ojj7nldwka6a2s5y32ehybyoi47nfn25ck@hqh7d2zrvlr3>
- <ef917b90-3ed3-4c57-8af8-12012e1dfc1e@oscada.org>
- <qgdse6s2nzjfdbiudf5xv54mtg3tz2jopyvzijfn4vcdoxxlkr@xm56p5qrjndb>
- <cd316805-65a9-4f78-96bc-4ced6226db1a@oscada.org>
- <pipwh3hfkzm24t3qxknkpj44d3esmr7g46ldjgreb2357qmzra@7fekfuwv6udi>
- <f3b685d2-bb09-481f-bb54-3ef75613ccb7@oscada.org>
- <ccc4sfbee6ehdbkos3gpjhwtqy5fb2snlsz44jpzor6owupcyc@ckj7po3biqpo>
- <176078292467.2932.7155687538828443067.reportbug@home.home>
- <37c7d07c-fb54-4e0b-a880-b1b13795b5af@oscada.org>
- <aSa1ECXKTkjM7_uv@eldamar.lan>
-Content-Language: en-US
-From: Roman Savochenko <roman@oscada.org>
-Organization: OpenSCADA Team
-In-Reply-To: <aSa1ECXKTkjM7_uv@eldamar.lan>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <054f60ca-b898-488f-81f4-14eed0a1360b@suse.de>
 X-Mailman-Approved-At: Wed, 26 Nov 2025 14:30:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,261 +104,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------HnZjBtZsKVaor2IYccyi8Gou
-Content-Type: multipart/alternative;
- boundary="------------vz9g5CEUdckOBEo3hSGHSvyI"
+On Wed, Nov 26, 2025 at 02:32:32PM +0100, Thomas Zimmermann wrote:
+> Hi
+>
+> Am 26.11.25 um 13:19 schrieb Daniel Thompson:
+> > On Tue, Nov 25, 2025 at 07:26:33AM -0800, Doug Anderson wrote:
+> > > On Tue, Nov 25, 2025 at 5:06 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > > > <snip>
+> > > > Therefore remove the remaining support for kdb from the DRM drivers
+> > > > and from DRM fbdev emulation. Also remove the hooks from fbdev, as
+> > > > there are no fbdev drivers with kdb support.
+> > > >
+> > > > If we ever want to address kdb support within DRM drivers, a place to
+> > > > start would be the scanout buffers used by DRM's panic screen. These
+> > > > use the current display mode. They can be written and flushed without
+> > > > mode setting involved.
+> > > >
+> > > > Note: kdb over serial lines is not affected by this series and continues
+> > > > to work as before.
+> > > >
+> > > > Thomas Zimmermann (5):
+> > > >    drm/amdgpu: Do not implement mode_set_base_atomic callback
+> > > >    drm/nouveau: Do not implement mode_set_base_atomic callback
+> > > >    drm/radeon: Do not implement mode_set_base_atomic callback
+> > > >    drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
+> > > >    fbcon: Remove fb_debug_enter/_leave from struct fb_ops
+> > > Personally, I've never worked with kdb over anything other than
+> > > serial, so this won't bother any of my normal workflows. That being
+> > > said, at least as of a year ago someone on the lists was talking about
+> > > using kdb with a keyboard and (presumably) a display. You can see a
+> > > thread here:
+> > >
+> > > http://lore.kernel.org/r/20241031192350.GA26688@lichtman.org
+> > >
+> > > Daniel may also have comments here?
+> > TL;DR - I'm pretty relaxed about these changes... but I'd like
+> >          to know how to test the changes.
+> >
+> > Like Doug I only really use kdb via serial but, since I'm maintain
+> > the thing I do occasionally test kdb works on the qemu console. I don't
+> > do it very often though because it's a manual test!
+> >
+> > I'd assume that will still work since it won't involve any of the
+> > drivers above. I'm afraid I can't double check that since patch 4
+> > doesn't apply cleanly in v6.18-rc7 (nor to linux-next... and neither
+> > does the base-commit appear in linux-next).
+>
+> To test its effects, ignore this series and simply clear the two calbacks at
+> [1]. This is where the debugger invokes fbcon. The series removes their
+> implementation in the final patch.
+>
+> [1] https://elixir.bootlin.com/linux/v6.17.9/source/drivers/video/fbdev/core/fbcon.c#L3202
 
---------------vz9g5CEUdckOBEo3hSGHSvyI
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Thanks. Explanation in original cover letter was great and there's
+certainly been no harm to QEMU.
 
-26.11.25 10:06, Salvatore Bonaccorso:
-> On Sat, Nov 22, 2025 at 07:40:33PM +0200, Roman Savochenko wrote:
->> Hi, Uwe Kleine-König
->>
->> 22.11.25 19:22, Uwe Kleine-König:
->>> On Fri, Nov 21, 2025 at 11:11:39AM +0200, Roman Savochenko wrote:
->>>> 21.11.25 10:35, Uwe Kleine-König:
->>>>> On Thu, Nov 20, 2025 at 06:45:48PM +0200, Roman Savochenko wrote:
->>>>>> 20.11.25 10:38, Uwe Kleine-König:
->>>>>>> On Wed, Nov 19, 2025 at 08:23:31PM +0200, Roman Savochenko wrote:
->>>>>>>> 19.11.25 19:05, Uwe Kleine-König:
->>>>>>>>> On Wed, Nov 12, 2025 at 06:19:07PM +0200, Roman Savochenko wrote:
->>>>>>>>>> 12.11.25 17:03, Christian König:
->>>>>>>>>>> On 11/12/25 15:28, Roman Savochenko wrote:
->>>>>>>>>>>> 12.11.25 13:14, Uwe Kleine-König:
->>>>>> OK, and what do you want from me?
->>>>> Quoting an earlier mail in that thread:
->>>>>
->>>>> 	Can you try which Debian kernel was the last one working fine
->>>>> 	respective the first being broken in this regard? You can find
->>>>> 	all kernels onhttps://snapshot.debian.org/. Please ask if it's
->>>>> 	unclear how to do that.
->>>> I have told that as the kernel in Debian 11.
->>> Is that the last working or the first broken?
->>>
->>> The last kernel in Debian 11 (i.e. buster) is 5.10.218-1. Or do you mean
->>> the last in buster-security which would be 5.10.244-1? Or do you mean
->>> the one that Debian 11.0 was released with, that would be 5.10.46-4 (I
->>> think)?
->>>
->>> The kernels before and after that are depending on what you meant above
->>> 5.10.216-1 or 5.10.237-1 or 5.10.46-3 and 5.10.221-1 or
->>> 5.13.9-1~exp1 or 5.10.46-5. Which one do you mean?
->>>
->>> The gist to take away here is: Don't specify kernel versions as "the one
->>> in Debian 11" or "kernel 5" but use the proper kernel (package) version.
->>> Everything else is too fuzzy for me to work with.
->> And what that about when I have said that precisely???
->>
->>> Kernel 5 what? E.g. which concrete version number? (output of uname -a).
->> user@debian:~$ cat /proc/version
->>
->> Linux version 5.10.0-32-amd64 (debian-kernel@lists.debian.org) (gcc-10
->> (Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2)
->> #1 SMP Debian 5.10.223-1 (2024-08-10)
->>
->>>>> Parts of the misunderstanding here might also be a language barrier. So
->>>>> maybe try to get some help in the kernel community that speaks your
->>>>> native tongue.
->>>> So, English isn't native one for you? :)
->>> Right, and I doubt it's yours either. Or you would be the first native
->>> English speaker in my career that I fail to understand when
->>> communicating about Linux topics. (The only other explanations for that
->>> I can come up with are a) you suffer from dyslexia; or b) you write
->>> glibberish on purpose to annoy.)
->>>
->>> PSA: This is my last mail to you for this bug until you come up with a
->>> statement like:
->>>
->>> 	I tested Debian kernel image package version a.b.c-d and its
->>> 	broken with the following symptoms: [....]. The kernel image
->>> 	that occurs in the list on
->>> 	https://snapshot.debian.org/package/linux/ directly after that
->>> 	(i.e. version e.f.g-h) doesn't show these symptoms.
->> As if I need your messages with your dyslexia... :)
-> I'm closing this bug along. If you can provide the above version
-> please respond to this message with the required information and a
-> control message to reopen the bugreport.
-Are you read the post in the middle or only the end with the trash from Uwe?
+Acked-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 
-Then read the part to which I have nothing to add!!!
 
-> Kernel 5 what? E.g. which concrete version number? (output of uname -a).
-
-user@debian:~$ cat /proc/version
-
-Linux version 5.10.0-32-amd64 (debian-kernel@lists.debian.org) (gcc-10
-(Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2)
-#1 SMP Debian 5.10.223-1 (2024-08-10)
-
---------------vz9g5CEUdckOBEo3hSGHSvyI
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">26.11.25 10:06, Salvatore Bonaccorso:<span
-      style="white-space: pre-wrap">
-</span></div>
-    <blockquote type="cite" cite="mid:aSa1ECXKTkjM7_uv@eldamar.lan">
-      <pre wrap="" class="moz-quote-pre">On Sat, Nov 22, 2025 at 07:40:33PM +0200, Roman Savochenko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Hi, Uwe Kleine-König
-
-22.11.25 19:22, Uwe Kleine-König:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On Fri, Nov 21, 2025 at 11:11:39AM +0200, Roman Savochenko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">21.11.25 10:35, Uwe Kleine-König:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On Thu, Nov 20, 2025 at 06:45:48PM +0200, Roman Savochenko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">20.11.25 10:38, Uwe Kleine-König:
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">On Wed, Nov 19, 2025 at 08:23:31PM +0200, Roman Savochenko wrote:
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">19.11.25 19:05, Uwe Kleine-König:
-</pre>
-                    <blockquote type="cite">
-                      <pre wrap="" class="moz-quote-pre">On Wed, Nov 12, 2025 at 06:19:07PM +0200, Roman Savochenko wrote:
-</pre>
-                      <blockquote type="cite">
-                        <pre wrap="" class="moz-quote-pre">12.11.25 17:03, Christian König:
-</pre>
-                        <blockquote type="cite">
-                          <pre wrap="" class="moz-quote-pre">On 11/12/25 15:28, Roman Savochenko wrote:
-</pre>
-                          <blockquote type="cite">
-                            <pre wrap="" class="moz-quote-pre">12.11.25 13:14, Uwe Kleine-König:
-</pre>
-                          </blockquote>
-                        </blockquote>
-                      </blockquote>
-                    </blockquote>
-                  </blockquote>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">OK, and what do you want from me?
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Quoting an earlier mail in that thread:
-
-	Can you try which Debian kernel was the last one working fine
-	respective the first being broken in this regard? You can find
-	all kernels onhttps://snapshot.debian.org/. Please ask if it's
-	unclear how to do that.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">I have told that as the kernel in Debian 11.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Is that the last working or the first broken?
-
-The last kernel in Debian 11 (i.e. buster) is 5.10.218-1. Or do you mean
-the last in buster-security which would be 5.10.244-1? Or do you mean
-the one that Debian 11.0 was released with, that would be 5.10.46-4 (I
-think)?
-
-The kernels before and after that are depending on what you meant above
-5.10.216-1 or 5.10.237-1 or 5.10.46-3 and 5.10.221-1 or
-5.13.9-1~exp1 or 5.10.46-5. Which one do you mean?
-
-The gist to take away here is: Don't specify kernel versions as "the one
-in Debian 11" or "kernel 5" but use the proper kernel (package) version.
-Everything else is too fuzzy for me to work with.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-And what that about when I have said that precisely???
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">Kernel 5 what? E.g. which concrete version number? (output of uname -a).
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">user@debian:~$ cat /proc/version
-
-Linux version 5.10.0-32-amd64 (<a class="moz-txt-link-abbreviated" href="mailto:debian-kernel@lists.debian.org">debian-kernel@lists.debian.org</a>) (gcc-10
-(Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2)
-#1 SMP Debian 5.10.223-1 (2024-08-10)
-
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">Parts of the misunderstanding here might also be a language barrier. So
-maybe try to get some help in the kernel community that speaks your
-native tongue.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">So, English isn't native one for you? :)
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Right, and I doubt it's yours either. Or you would be the first native
-English speaker in my career that I fail to understand when
-communicating about Linux topics. (The only other explanations for that
-I can come up with are a) you suffer from dyslexia; or b) you write
-glibberish on purpose to annoy.)
-
-PSA: This is my last mail to you for this bug until you come up with a
-statement like:
-
-	I tested Debian kernel image package version a.b.c-d and its
-	broken with the following symptoms: [....]. The kernel image
-	that occurs in the list on
-	<a class="moz-txt-link-freetext" href="https://snapshot.debian.org/package/linux/">https://snapshot.debian.org/package/linux/</a> directly after that
-	(i.e. version e.f.g-h) doesn't show these symptoms.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-As if I need your messages with your dyslexia... :)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">I'm closing this bug along. If you can provide the above version
-please respond to this message with the required information and a
-control message to reopen the bugreport.</pre>
-    </blockquote>
-    Are you read the post in the middle or only the end with the trash
-    from <span style="white-space: pre-wrap">Uwe</span>?<br>
-    <p>Then read the part to which I have nothing to add!!!</p>
-    <blockquote type="cite">
-      <pre wrap="" class="moz-quote-pre">Kernel 5 what? E.g. which concrete version number? (output of uname -a).
-</pre>
-    </blockquote>
-    <pre wrap="" class="moz-quote-pre">user@debian:~$ cat /proc/version
-
-Linux version 5.10.0-32-amd64 (<a class="moz-txt-link-abbreviated" href="mailto:debian-kernel@lists.debian.org">debian-kernel@lists.debian.org</a>) (gcc-10
-(Debian 10.2.1-6) 10.2.1 20210110, GNU ld (GNU Binutils for Debian) 2.35.2)
-#1 SMP Debian 5.10.223-1 (2024-08-10)
-</pre>
-  </body>
-</html>
-
---------------vz9g5CEUdckOBEo3hSGHSvyI--
-
---------------HnZjBtZsKVaor2IYccyi8Gou
-Content-Type: text/vcard; charset=UTF-8; name="roman.vcf"
-Content-Disposition: attachment; filename="roman.vcf"
-Content-Transfer-Encoding: base64
-
-QkVHSU46VkNBUkQNClZFUlNJT046NC4wDQpFTUFJTDtQUkVGPTE6cm9tYW5Ab3NjYWRhLm9y
-Zw0KRk46Um9tYW4gU2F2b2NoZW5rbw0KT1JHOk9wZW5TQ0FEQSBUZWFtOw0KVElUTEU6T3Bl
-blNDQURBIGF1dGhvciBhbmQgbWFpbiBkZXZlbG9wZXINCk46U2F2b2NoZW5rbztSb21hbjs7
-Ow0KQURSOjs7O0thbWphbnNrZTtTaWNoZXNsYXZza2E7NTE5Mzk7VWtyYWluZQ0KVEVMO1ZB
-TFVFPVRFWFQ6KzM4MDY3OTg1OTgxNQ0KVVJMO1RZUEU9d29yaztWQUxVRT1VUkw6aHR0cDov
-L29zY2FkYS5vcmcNClVJRDpiYzkyY2E2My03NWNhLTQ5OGItODAxYy01NGJlMmIzNDMyOGUN
-CkVORDpWQ0FSRA0K
-
---------------HnZjBtZsKVaor2IYccyi8Gou--
+Daniel.
