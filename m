@@ -4,105 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 561E3D0EE25
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 20:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2A29D0EE10
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 00:56:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E9710E462;
-	Tue, 25 Nov 2025 20:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A1B010E4D2;
+	Wed, 26 Nov 2025 00:56:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kRwaym21";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ftKO0q7x";
 	dkim-atps=neutral
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62E9110E461
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 20:17:38 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-8b2da83f721so23483185a.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 12:17:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764101857; x=1764706657; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=i5xbOi/JRw9fbDfoOPiueWSD+D+pBvn2T4pJf+V+WQY=;
- b=kRwaym21FR0SDpPU70BAAqnxMrHy7RIHn6StgkrEhagptorXLlxzjFe3aWKPri9d+o
- CHlEm60F5+j0I0nnalgxQtzmObrJLmOIa92M1ottCqgsFr7/5fUFDGiovAWyfloC0a5o
- Ch3io8v9X1EX4sZDdxkzDEH3d43CXskX0e+DDoKw+iqgq5CZISY7M9GYoBPvzU7Gjh/U
- wxq7TQIl9ta9fFtqEq/FRtxVaLriZ8ylAZcR6Sx3U+3kZfd09Hv7Np3riG8i6zMqWMBl
- BLa5vUBz163EYHdlUl06JbHN91AL5byDfpDES+lX5To6LiJNcyLxiwAoZ1LY/DSL1kDE
- j2eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764101857; x=1764706657;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=i5xbOi/JRw9fbDfoOPiueWSD+D+pBvn2T4pJf+V+WQY=;
- b=PVuFrfbLjUwLLVoNxrLSH3mCkgnPO0lm0zCBi32AYLPTEAEcKOTeJSK2D4/gPEF6bg
- sXJWJMyDq2G2+czsJuKPVioUg/YnkNCk5541AyJ1jtezbD5SYUjFYvrxaLyaeTRFjRCg
- vsqHUs0H0pnVPI4b3qsnu9u7S7NFEnEZilYcVmRorl8mksbbq91G3SRfsZJryLDgJ6oY
- 6xABG6qmMKdOlXuiOnWf78RpVMG1I+q04ACXUzZqlzDhaULptqSe/w4wIj1hnRwYdxZ6
- mb8J78yvCup5s/pppPT7EOruc+8n3A4kuZ2GyTRnbF4Sd26vOx/HkRsr+C11f7pHH+rj
- //dA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkUROVo3foKctGMxDkkX20mjDuoD26uwLnNUfqXuwLlWSwk2pjMD9aufqnETRxmHF0w+ytHcoo@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhkBUTtCQcCiMUT438SbAAqdAKpwxq0Uw46tCDwwWrNYMNIeeA
- Q57NyNjyoniGv0tIOfr6J65cXN7uHJ0w5out5SWup0loYE3iFRvDfk+nr7JWbN7PGD7dkQWYCqI
- 7phlHSQgT+v+EX9eWvETpyOT8FgxwBgI=
-X-Gm-Gg: ASbGnct307PZPxYvPbWjmw1yoPTaP2cgF22qZC9ifDmGzdrUcUKzQk19DwKp7G/mH1T
- yTmWg39NGRU4uSpGaDqkcF/PWwEVvORhjA2r1IXSkMhQAsc4qJKHDZiU8mm01OQ6sTrQ4yITFs8
- 5SLIjeBwLzUhFzhpvI0Y1d4yLwT9rTXogUNky+DrtrCJkWNr2WL7vRmiWvAvkvYsS7OytJkeLdZ
- uCPuw9C3ux08FpyDLuB9rQTSCSpC8Za0W0FR3kEPV8mcuZSD8obXUAKRbSIT2t/MMyveJ7BzUZz
- Cg7p
-X-Google-Smtp-Source: AGHT+IHkFdHWZaY4LOLQkKFmHBql2cXu9IqsP0TX4ELpOPpCajUvQgW7eqKX4cHfwlYxtJIqgi3EGKK4Y8sqki2XcH8=
-X-Received: by 2002:a05:620a:6910:b0:8b2:faa3:5639 with SMTP id
- af79cd13be357-8b33bc68daamr2220226285a.11.1764101856982; Tue, 25 Nov 2025
- 12:17:36 -0800 (PST)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2B9E10E4C1;
+ Wed, 26 Nov 2025 00:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=oTxD4oohwRUI1m2gOFUx59RXPNzB9R1BCnOmLa/5n6c=; b=ftKO0q7xOlHfdPpCoq9uWN8AvQ
+ QBjppuaEhqDieaVTB3xZueS4KzDJcubqvH1/DM5VTPTB2n9YvOdleMbOIHZr075nBFmvtZ/DsvHxh
+ nHLcv56SnE2GuOuSP2V4pFrZFTnsJwrmeCO6TbaVImTC1qgzjSabY2BkjDuWnAzq7ZmXOIYryOA0o
+ 4K5fpQTIipv6Ad+KHSepjmu/qQMxR25ZGVmey6jbBxuQrlRLH0pqHv5fjMtQZMKlH0KB9YVj+BV3Z
+ lPvOYq8rPpeGU1rzmrMVaPrBpIVCWhrPGH5SnhR6zeHcL5+sx4AgokYg2tX0pdFsbXwhlGU29KJZn
+ NtWnLwtA==;
+Received: from [186.208.73.94] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vO3pN-005Pk8-LS; Wed, 26 Nov 2025 01:56:14 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: [PATCH] drm/amd/display: use DCN10 CM helper for plane shaper func
+ translation in DCN32
+Date: Tue, 25 Nov 2025 21:45:21 -0300
+Message-ID: <20251126005608.37513-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <20251124234432.1988476-1-joelagnelf@nvidia.com>
- <f73e4536-ec89-4625-96d4-6fa42018e4e4@amd.com>
- <CAPM=9twe3xcVBgrNCT+1_pGECPL-ry_aA2dxBwbKVeai4+S7AQ@mail.gmail.com>
- <24d4f02b-8ecd-4512-a1f0-ba41684ede1d@amd.com>
- <dfc50417-66ce-44ce-b607-917d678c5631@nvidia.com>
- <9f433dee-7ad9-4d0f-8ac1-e67deb409b70@amd.com>
- <CAPM=9tyN_A3oEyQZCOWaLO1orO6oKX0ZukJHR7cFy12Go+7d=A@mail.gmail.com>
- <cc0db376-6cff-45d7-b3a3-d13be664700f@amd.com>
-In-Reply-To: <cc0db376-6cff-45d7-b3a3-d13be664700f@amd.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 26 Nov 2025 06:17:25 +1000
-X-Gm-Features: AWmQ_bl_uhqER-0YSILUF1BfRs5LdG2TEdIVo4_rhtDFefamEG9auPeZIzRmvoQ
-Message-ID: <CAPM=9tx5neQ=TbmK+2eAO=O-XW_67VhOGO-791kqyVDJEpTA+w@mail.gmail.com>
-Subject: Re: [PATCH] gpu: Move DRM buddy allocator one level up
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>,
- linux-kernel@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, 
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- nouveau@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, Zhi Wang <zhiw@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,80 +59,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 25 Nov 2025 at 19:15, Christian K=C3=B6nig <christian.koenig@amd.co=
-m> wrote:
->
-> On 11/25/25 10:08, Dave Airlie wrote:
-> > On Tue, 25 Nov 2025 at 18:11, Christian K=C3=B6nig <christian.koenig@am=
-d.com> wrote:
-> >>
-> >> On 11/25/25 08:59, John Hubbard wrote:
-> >>> On 11/24/25 11:54 PM, Christian K=C3=B6nig wrote:
-> >>>> On 11/25/25 08:49, Dave Airlie wrote:
-> >>>>> On Tue, 25 Nov 2025 at 17:45, Christian K=C3=B6nig <christian.koeni=
-g@amd.com> wrote:
-> >>> ...
-> >>>> My question is why exactly is nova separated into nova-core and nova=
--drm? That doesn't seem to be necessary in the first place.
-> >>>>
-> >>> The idea is that nova-core allows building up a separate software sta=
-ck for
-> >>> VFIO, without pulling in any DRM-specific code that a hypervisor (for=
- example)
-> >>> wouldn't need. That makes for a smaller, more security-auditable set =
-of code
-> >>> for that case.
-> >>
-> >> Well that is the same argument used by some AMD team to maintain a sep=
-arate out of tree hypervisor for nearly a decade.
-> >>
-> >> Additional to that the same argument has also been used to justify the=
- KFD node as alternative API to DRM for compute.
-> >>
-> >> Both cases have proven to be extremely bad ideas.
-> >>
-> >> Background is that except for all the legacy stuff the DRM API is actu=
-ally very well thought through and it is actually quite hard to come up wit=
-h something similarly well.
-> >>
-> >
-> > Well you just answered your own question, why is AMD maintaining GIM
-> > instead of solving this upstream with a split model? the nova-core/drm
-> > split would be perfect for GIM.
->
-> No, it won't.
->
-> We have the requirement to work with GEM objects and DMA-buf file descrip=
-tors in the hypervisor as well.
->
-> And my suspicion is that you end up with the same requirements in nova as=
- well in which case you end up interchanging handles with DRM as well.
->
-> We have seen the same for KFD and it turned out to be an absolutely horri=
-ble interaction.
->
-> > kfd was a terrible idea, and we don't intend to offer userspace
-> > multiple APIs with nova, nova-drm will be the primary userspace API
-> > provider. nova-core will not provide userspace API, it will provide an
-> > API to nova-drm and an API to the vgpu driver which will provide it's
-> > own userspace API without graphics or compute, just enough to setup
-> > VFs.
->
-> Ok, then why do you need nova-core in the first place? E.g. where should =
-be the vgpu driver and what interface does it provide?
+The usage of DCN30 CM helper creates some unexpected shimmer points on
+PQ shaper TF in the steamOS HDR color pipeline. Fix it by using the same
+DCN10 color mgmt helper of previous hw versions to translate plane
+shaper func to hw format in DCN32 hw family.
 
-The ask is for a driver for cloud providers to run on their
-hypervisors that does just enough to manage the VFs through VFIO
-without having a complete drm driver or any drm infrastructure loaded.
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
 
-The nice pictures are here
-https://lore.kernel.org/all/20250903221111.3866249-1-zhiw@nvidia.com/
+Hi,
 
-You will only be loading one of nova-drm or the vfio driver at least
-in supported systems, depending on the GPU configuration, whether we
-allow users to do things like that isn't well decided.
+Commit a953cd8cac6b ("drm/amd/display: Fix MPCC 1DLUT programming")
+mentions some visible artifacts when using DCN10 CM helper on DCN32
+shaper and blend LUTs. On the other hand, using DCN30 CM helper creates
+some shimmer points on steamOS HDR pipeline. We didn't noticed any
+visible artifacts so far, but I'd like to know more about what kind of
+artifacts were visible at the time this helper for shaper func was
+switched in the afore-mentioned commit for further investigation.
 
-So far I haven't heard anything about needing dma-buf interactions at
-that level, and maybe Zhi has more insight into the future there.
+Thanks in advance,
 
-Dave.
+Melissa
+
+
+ drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index bf19ba65d09a..a28560caa1c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -501,9 +501,9 @@ bool dcn32_set_mcm_luts(
+ 		lut_params = &plane_state->in_shaper_func.pwl;
+ 	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
+ 		// TODO: dpp_base replace
+-		ASSERT(false);
+-		cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
+-				&dpp_base->shaper_params, true);
++		cm_helper_translate_curve_to_hw_format(plane_state->ctx,
++						       &plane_state->in_shaper_func,
++						       &dpp_base->shaper_params, true);
+ 		lut_params = &dpp_base->shaper_params;
+ 	}
+ 
+-- 
+2.51.0
+
