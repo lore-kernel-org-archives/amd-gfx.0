@@ -4,81 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4718FD1037B
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 11:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD105D10F2E
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1395310E5C3;
-	Wed, 26 Nov 2025 11:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F5D710E097;
+	Wed, 26 Nov 2025 12:19:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="abG9m7Kt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EemWM17I";
 	dkim-atps=neutral
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
- [209.85.222.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEA0210E5C6
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 11:07:40 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id
- af79cd13be357-8b2f2c5ec36so756235985a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 03:07:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1764155260; x=1764760060;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ySJZVvPVAtkVNPz6NA10TcVQSbkBmCkSCgqEWvBqTZ0=;
- b=abG9m7Kt8F8NjgnXFzzkXLbnECsSf+ZnJ9V3v5vPcDszzatZqekJ0sNpbTsAgmID1v
- IJt2sJ1zpV/ZDoq+tR5cxA4NiFhhXbeHRxOctLaqkpaaolUOyo7gO+OPiZ/DKZvevF8j
- mP00SDVpfxDZMf0SSP4SWZGECG2sSrBP9oJYlPwnKVBfX9m9U1BlU8pemx9vHStjzOjQ
- 8hiWGYLIt330NUkbzdyVog+0rpzun2MhPK2p46ibN7fw0iiKCdzY0SsLw7+OsexjwHIg
- 7BbOuc/O/eiKBECO2qYfK7kmCza4xKj5r3adTGnH9SsnTyGKovLlqTFB8P6gBq7+q06V
- OsWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764155260; x=1764760060;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ySJZVvPVAtkVNPz6NA10TcVQSbkBmCkSCgqEWvBqTZ0=;
- b=IHLdgYwHLc6qU+E9K2xkmBFX4PSU2elpou1wQ+13a0dT1mAL2qJpX3UGwkzfSjyj+f
- U28mT37nTdBtPaTS7TAAdsfDWR52T4GXCr4T8hzpXy/9u3tY4rG0PYERK49s4NL1ccm/
- T7mSTsEIYjYCkAdqfFVERR6v0C319eyfabSMFGwGu0617GkPDWrVfTCBe4M8FX5+WWgS
- C5byxZq51r5R/lebhJKxSlzyS6faeTPUwmNRpzbk5fZ8RPtz/v9i3fq9+xfU0VG646z8
- 6bA1hPFtQD9JDlWIs+izHmPWY5ryFzULSmR4GO3PZi/GdTVcC6Otm6nZ4Fzvjeq+lVNv
- c2IA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUg8xAa4B9jjoOf4V0uV0E0jJQWrXHvihGO3VNmppNEfWsDRGlm7m8RWMV8C238SmuYd5bQBQau@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWpNBcpusGgEihPea2yn2QzguKUccIivCGkEud9CdkkNF0OI36
- a5LMBeE6XanebhapGJ5dg6hRcw6+eXLNxI3255+LgpCJvE6nPnM1WAnbfJA+vW3IlMcBIlm4OkX
- NCHVZeIhZ0rWyroeD2yXrzgtv/Qf25EaiucryGqRVHw==
-X-Gm-Gg: ASbGncsaIWHbMXAQhCmLQR8aaD7W5rwNz5sddhr8phgy0UKZKLhUdiw392Eg8+xTJ6d
- eHSvlkhe2W/owd5pnYAvKma7AgSQLlMARxeYN/acuuCd9lay/gdt54w/qZVkQSWwTMRdFpf+D9l
- E/kFBSZ6YhMhZ7A+Z7qFM1aNj4BpUmgQ3dq1K/iMbVQ+RMhFuXopWWq1v32k39sRbouIMywgIPD
- S8MiJPO6O+8SPazmg/DHw1bFss7HlSO5+/WuJsWQYAech+0QwbcOcBGpYMl+NzKudEf
-X-Google-Smtp-Source: AGHT+IFEMRhUJ5DgUF4M36O1+CotSLgmr1pmxYhcDMz2eQI19J/ZEulHKQDG2upEFzMe0pelGzx7DUfPzYgkEkrs7pQ=
-X-Received: by 2002:a05:620a:45ab:b0:8b2:f8c6:7ce6 with SMTP id
- af79cd13be357-8b33d5fcea1mr2587147985a.79.1764155259826; Wed, 26 Nov 2025
- 03:07:39 -0800 (PST)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFB8F10E04C;
+ Wed, 26 Nov 2025 12:19:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id CF713601A0;
+ Wed, 26 Nov 2025 12:19:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F0BC113D0;
+ Wed, 26 Nov 2025 12:19:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1764159582;
+ bh=DpblEZ7Jqa5nTEFa+LhpQdaCZW7NNgLiSMt10scqV8w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EemWM17IQYzadctzqnkw7jLA2naPmWJMyA7Z/AaTdAsGeRG7p1bEBsSor39UsnAOE
+ 6HVJ86FsOCdWMlAjfF7vekuwNX04BUsi/SJ2nGUAuYrJqSRRmd3Fh8fchchdEntrXD
+ dPUK/gvCUeLRAqgKvaeCpmFzHQ/xS5zpEuPebW/lAp65+GZ+n0yH5dhuaC7V5Vdq76
+ dyfl8wLXUSk5GSmghC9D9GVWc/2EoAqlmV3DALm+eLFJrHAUAu7wbgQX2SBZYAJpUy
+ RijLrk4UTzsGoIibjCGi03CuOb5iDZRBQlz3BdWO5+it5TX9aqwnqphJjXjnsRm3IR
+ IHM6YFw9BgkRw==
+Date: Wed, 26 Nov 2025 12:19:36 +0000
+From: Daniel Thompson <danielt@kernel.org>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
+ airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, lyude@redhat.com, dakr@kernel.org,
+ deller@gmx.de, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, jason.wessel@windriver.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nir Lichtman <nir@lichtman.org>
+Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
+Message-ID: <aSbwWLTLe0bMhOKV@aspen.lan>
+References: <20251125130634.1080966-1-tzimmermann@suse.de>
+ <CAD=FV=X_-t2AF5osp7Hamoe7WYE_2YWJZCaPaOj=9seSbnwwVA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20251115000237.3561250-1-alex.hung@amd.com>
- <cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com>
-In-Reply-To: <cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 26 Nov 2025 11:07:27 +0000
-X-Gm-Features: AWmQ_bk-XY4uko7oWn1VM70Ld-snMR_1TXIzQmZl4NZVeR2M8i3me13S5kT5F4I
-Message-ID: <CAPj87rPoadOOTk0LbVb_VKFOOkSq0xG-PU8fRsLaaqO1kKFuDg@mail.gmail.com>
-Subject: Re: [PATCH V13 00/51][FINAL] Color Pipeline API w/ VKMS
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, xaver.hugl@gmail.com, 
- wayland-devel@lists.freedesktop.org, leo.liu@amd.com, 
- ville.syrjala@linux.intel.com, pekka.paalanen@collabora.com, 
- contact@emersion.fr, mwen@igalia.com, jadahl@redhat.com, 
- sebastian.wick@redhat.com, shashank.sharma@amd.com, agoins@nvidia.com, 
- joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org, 
- victoria@system76.com, daniel@ffwll.ch, uma.shankar@intel.com, 
- quic_naseer@quicinc.com, quic_cbraga@quicinc.com, quic_abhinavk@quicinc.com, 
- marcan@marcan.st, Liviu.Dudau@arm.com, sashamcintosh@google.com, 
- chaitanya.kumar.borah@intel.com, louis.chauvet@bootlin.com, mcanal@igalia.com, 
- nfraprado@collabora.com, arthurgrillo@riseup.net
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=X_-t2AF5osp7Hamoe7WYE_2YWJZCaPaOj=9seSbnwwVA@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,23 +65,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Thu, 20 Nov 2025 at 20:13, Harry Wentland <harry.wentland@amd.com> wrote:
-> On 2025-11-14 19:01, Alex Hung wrote:
-> > Both kernel patches and IGT patches are reviewed and the API is stable
-> > for a few revisions. Does anyone have concerns if kernel and IGT patches
-> > are to be merged?
+On Tue, Nov 25, 2025 at 07:26:33AM -0800, Doug Anderson wrote:
+> On Tue, Nov 25, 2025 at 5:06 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > <snip>
+> > Therefore remove the remaining support for kdb from the DRM drivers
+> > and from DRM fbdev emulation. Also remove the hooks from fbdev, as
+> > there are no fbdev drivers with kdb support.
+> >
+> > If we ever want to address kdb support within DRM drivers, a place to
+> > start would be the scanout buffers used by DRM's panic screen. These
+> > use the current display mode. They can be written and flushed without
+> > mode setting involved.
+> >
+> > Note: kdb over serial lines is not affected by this series and continues
+> > to work as before.
+> >
+> > Thomas Zimmermann (5):
+> >   drm/amdgpu: Do not implement mode_set_base_atomic callback
+> >   drm/nouveau: Do not implement mode_set_base_atomic callback
+> >   drm/radeon: Do not implement mode_set_base_atomic callback
+> >   drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
+> >   fbcon: Remove fb_debug_enter/_leave from struct fb_ops
 >
-> Xaver, are the kwin patches ready to be merged?
+> Personally, I've never worked with kdb over anything other than
+> serial, so this won't bother any of my normal workflows. That being
+> said, at least as of a year ago someone on the lists was talking about
+> using kdb with a keyboard and (presumably) a display. You can see a
+> thread here:
+>
+> http://lore.kernel.org/r/20241031192350.GA26688@lichtman.org
+>
+> Daniel may also have comments here?
 
-The Weston patches are ready - they have been for some time now - and
-will be merged as soon as this series is.
+TL;DR - I'm pretty relaxed about these changes... but I'd like
+        to know how to test the changes.
 
-It would've been nice if we could have had an MTK implementation to go
-with AMD and VKMS, but that's still being worked on. I'd expect to see
-that and another implementation early next year though, plus whatever
-happens with Intel's.
+Like Doug I only really use kdb via serial but, since I'm maintain
+the thing I do occasionally test kdb works on the qemu console. I don't
+do it very often though because it's a manual test!
 
-Cheers,
-Daniel
+I'd assume that will still work since it won't involve any of the
+drivers above. I'm afraid I can't double check that since patch 4
+doesn't apply cleanly in v6.18-rc7 (nor to linux-next... and neither
+does the base-commit appear in linux-next).
+
+Anyhow, the only testing I do for kgdboc=kms,kdb is to boot an x86-64
+defconfig+kgdb+kdb kernel in qemu with something like the following
+command line, which FWIW does still work:
+
+    qemu-system-x86_64 -enable-kvm -m 1G -smp 2 \
+      -kernel arch/x86/boot/bzImage \
+      -monitor none -chardev stdio,id=mon,mux=on,signal=off \
+      -serial chardev:mon \
+      -initrd rootfs.cpio.gz \
+      -append " console=tty0 console=ttyS0,115200 kgdboc=kms,kbd,ttyS0 kgdbwait"
+
+The reason I'm fairly relaxed about changes here is that the kbd driver
+only works on PCs with legacy keyboard interfaces. If the kernel is
+talking to the keyboard using USB or I2C (which almost all PCs do) then
+kdb cannot be used anyway.
+
+So... it would be a "cool project"[1] to get kdb running on
+a special interrupt-free I2C mode and with the DRM panic code so you
+can do live analysis if your laptop/chomebook crashes. However it is
+simply not "real enough" to justify slowing down other developers.
+
+
+Daniel.
+
+
+[1] ... but not quite cool enough that I see myself spending time on it
+    though!
