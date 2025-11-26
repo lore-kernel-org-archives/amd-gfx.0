@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F287D10F34
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54B4D10F2D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4016110E54D;
-	Wed, 26 Nov 2025 12:45:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 404CC10E5BE;
+	Wed, 26 Nov 2025 12:45:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="n+WCDfPl";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mdRwdCgj";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 458E910E539;
- Wed, 26 Nov 2025 12:45:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 461C210E5BD;
+ Wed, 26 Nov 2025 12:45:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764161107;
- bh=grs1ax7qR/C6sfUCImiEhPSGMofWWl8art4/baMp+io=;
- h=From:To:Cc:Subject:Date:From;
- b=n+WCDfPljwqwYw3nwsNRNK+wXmyf2ZhrMyDflIXNNPEmxzC51MaybTZjnvBlRZfOz
- QfMZpTWqC2eMv6IpAeho58BmBwEWnh3lYK69LLWQZXivTU71OLVfSPIGxh2rqcAR2N
- k88ZIqyOtSw/Lu5/G7iVJauVo/jIncdbKqhb0qCG+/K9kAfj0NwogFWYrrpO3/Rhz1
- 9SJKlZfM8hjE3s8+c3u5PQZntubgzIwLiAqtatph3sVNCOhbyFUwbHqbceDZ/JXZhw
- SeZzoP+ReCCWipElCYyEghP4/1vBi60LTW4XSa4Ne1ifHwmqMKcWaGJ8xLq0HHVptN
- gM7brXU+sCBSA==
+ s=mail; t=1764161109;
+ bh=/2whq5t8+SX7LIo+m3o4R6hi5r8Ag9UhivEUf22nAyg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=mdRwdCgjV+pYid65Yo/w2TBQ8kaN7y/WBx1Z7cF8dgFTiDR5Pt/arjexSCsFIaeqC
+ WBnIC6iOL50pfaj91giFJphNTVIwg0xdZEG/GfFZylhWw9DcHwfh2PkX4l5vxkTPJl
+ x6JtLJfc4JhiTOs4DexIL2HNvU8KBcXNLANhc9D+jSdUCozv5L0ypZd6gBkfhE3Mhy
+ CkBPT8wJ8YWJnLMKAWlqO1tvDABtWymB1NVYBEGHVEjD8zL9ZvQFwePHyZPJLw4OUc
+ vTZM/p/+D9BBxTuuUZqu/q8q4TC9VTeTfNOCLH16P0i5f/rjqlLBycs/ZyI/fvTam8
+ 8KWixF4K/1STw==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E3F7117E10F6;
- Wed, 26 Nov 2025 13:45:06 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 086C717E129C;
+ Wed, 26 Nov 2025 13:45:09 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -57,13 +57,14 @@ Cc: dri-devel@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org,
  Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com
-Subject: [PATCH v6 00/16] drm/panfrost,
- panthor: Cached maps and explicit flushing
-Date: Wed, 26 Nov 2025 13:44:39 +0100
-Message-ID: <20251126124455.3656651-1-boris.brezillon@collabora.com>
+Subject: [PATCH v6 02/16] drm/shmem: Provide a generic {begin,
+ end}_cpu_access() implementation
+Date: Wed, 26 Nov 2025 13:44:41 +0100
+Message-ID: <20251126124455.3656651-3-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251126124455.3656651-1-boris.brezillon@collabora.com>
+References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,98 +80,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series implements cached maps and explicit flushing for both panfrost
-and panthor. To avoid code/bug duplication, the tricky guts of the cache
-flushing ioctl which walk the sg list are broken into a new common shmem
-helper which can be used by any driver.
+The default implementation simply takes care of invalidating/flushing
+caches around CPU accesses. It takes care of both the exporter and
+the importers, which forces us to overload the default
+::[un]map_dma_buf() implementation provided by drm_gem.c to store the
+sgt.
 
-The PanVK MR to use this lives here:
+v5:
+- New patch
 
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/36385
+v6:
+- Fix doc
 
-The questions about the DMA-API based CPU-cache-flush mechanism used
-in this patchset have been dropped. After briefly discussing it with
-Sima and Robin, it seems there's a consensus on the fact we should
-probably expose CPU cache maintenance without going through the DMA
-API (extending drm_cache? providing MM helpers for CPU cache
-flush/invalidation? It's not clear yet how, but this will be discussed
-in a separate thread). In the meantime, we can rely on dma_sync because
-that's good enough for our usecase.
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+---
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 114 +++++++++++++++++++++++++
+ include/drm/drm_gem_shmem_helper.h     |  10 +++
+ 2 files changed, 124 insertions(+)
 
-Changes in v2:
-- Expose the coherency so userspace can know when it should skip cache
-  maintenance
-- Hook things up at drm_gem_object_funcs level to dma-buf cpu_prep hooks
-  can be implemented generically
-- Revisit the semantics of the flags passed to gem_sync()
-- Add BO_QUERY_INFO ioctls to query BO flags on imported objects and
-  let the UMD know when cache maintenance is needed on those
-
-Changes in v3:
-- New patch to fix panthor_gpu_coherency_set()
-- No other major changes, check each patch changelog for more details
-
-Changes in v4:
-- Two trivial fixes, check each patch changelog for more details
-
-Changes in v5:
-- Add a way to overload dma_buf_ops while still relying on the drm_prime
-  boilerplate
-- Add default shmem implementation for
-  dma_buf_ops::{begin,end}_cpu_access()
-- Provide custom dma_buf_ops to deal with CPU cache flushes around CPU
-  accesses when the BO is CPU-cacheable
-- Go back to a version of drm_gem_shmem_sync() that only deals with
-  cache maintenance, and adjust the semantics to make it clear this is
-  the only thing it cares about
-- Adjust the BO_SYNC ioctls according to the new drm_gem_shmem_sync()
-  semantics
-
-Changes in v6:
-- No major changes, check the changelog in each patch for more details
-
-Boris Brezillon (10):
-  drm/prime: Simplify life of drivers needing custom dma_buf_ops
-  drm/shmem: Provide a generic {begin,end}_cpu_access() implementation
-  drm/panthor: Provide a custom dma_buf implementation
-  drm/panthor: Fix panthor_gpu_coherency_set()
-  drm/panthor: Expose the selected coherency protocol to the UMD
-  drm/panthor: Add a PANTHOR_BO_SYNC ioctl
-  drm/panthor: Add an ioctl to query BO flags
-  drm/panfrost: Provide a custom dma_buf implementation
-  drm/panfrost: Expose the selected coherency protocol to the UMD
-  drm/panfrost: Add an ioctl to query BO flags
-
-Faith Ekstrand (5):
-  drm/shmem: Add a drm_gem_shmem_sync() helper
-  drm/panthor: Bump the driver version to 1.6
-  drm/panfrost: Add a PANFROST_SYNC_BO ioctl
-  drm/panfrost: Add flag to map GEM object Write-Back Cacheable
-  drm/panfrost: Bump the driver version to 1.6
-
-Loïc Molinari (1):
-  drm/panthor: Add flag to map GEM object Write-Back Cacheable
-
- drivers/gpu/drm/drm_gem_shmem_helper.c     | 207 +++++++++++++++++++++
- drivers/gpu/drm/drm_prime.c                |  10 +-
- drivers/gpu/drm/panfrost/panfrost_device.h |   1 +
- drivers/gpu/drm/panfrost/panfrost_drv.c    | 101 +++++++++-
- drivers/gpu/drm/panfrost/panfrost_gem.c    |  67 +++++++
- drivers/gpu/drm/panfrost/panfrost_gem.h    |   9 +
- drivers/gpu/drm/panfrost/panfrost_gpu.c    |  26 ++-
- drivers/gpu/drm/panfrost/panfrost_regs.h   |  10 +-
- drivers/gpu/drm/panthor/panthor_device.c   |  10 +-
- drivers/gpu/drm/panthor/panthor_drv.c      |  79 +++++++-
- drivers/gpu/drm/panthor/panthor_gem.c      |  71 ++++++-
- drivers/gpu/drm/panthor/panthor_gem.h      |   4 +
- drivers/gpu/drm/panthor/panthor_gpu.c      |   2 +-
- drivers/gpu/drm/panthor/panthor_sched.c    |  18 +-
- include/drm/drm_drv.h                      |   8 +
- include/drm/drm_gem_shmem_helper.h         |  24 +++
- include/uapi/drm/panfrost_drm.h            |  76 +++++++-
- include/uapi/drm/panthor_drm.h             | 157 +++++++++++++++-
- 18 files changed, 857 insertions(+), 23 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index dc94a27710e5..c91608d9d4d7 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -893,6 +893,120 @@ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_import_no_map);
+ 
++/**
++ * drm_gem_shmem_prime_unmap_dma_buf - Default unmap_dma_buf() for exported buffers
++ * @attach: attachment
++ * @sgt: SG table to unmap
++ * @dir: type of access done by this attachment
++ *
++ * Default implementation for dma_buf_ops::map_dma_buf(). This is just a wrapper
++ * around drm_gem_map_dma_buf() that lets us set the dma_buf_attachment::priv
++ * to the sgt so that drm_gem_shmem_prime_{begin,end}_cpu_access() can sync
++ * around CPU accesses.
++ */
++struct sg_table *
++drm_gem_shmem_prime_map_dma_buf(struct dma_buf_attachment *attach,
++				enum dma_data_direction dir)
++{
++	struct sg_table *sgt = drm_gem_map_dma_buf(attach, dir);
++
++	if (!IS_ERR(sgt))
++		attach->priv = sgt;
++
++	return sgt;
++}
++EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_map_dma_buf);
++
++/**
++ * drm_gem_shmem_prime_unmap_dma_buf - Default unmap_dma_buf() for exported buffers
++ * @attach: attachment
++ * @sgt: SG table to unmap
++ * @dir: type of access done by this attachment
++ *
++ * Default implementation for dma_buf_ops::unmap_dma_buf(). This is just a wrapper
++ * around drm_gem_unmap_dma_buf() that lets us reset the dma_buf_attachment::priv
++ * field so that drm_gem_shmem_prime_{begin,end}_cpu_access() don't consider it
++ * as a mapped attachment to sync against.
++ */
++void drm_gem_shmem_prime_unmap_dma_buf(struct dma_buf_attachment *attach,
++				       struct sg_table *sgt,
++				       enum dma_data_direction dir)
++{
++	attach->priv = NULL;
++	drm_gem_unmap_dma_buf(attach, sgt, dir);
++}
++EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_unmap_dma_buf);
++
++/**
++ * drm_gem_shmem_prime_begin_cpu_access - Default begin_cpu_access() for exported buffers
++ * @dma_buf: The exported DMA buffer this acts on
++ * @dir: direction of the access
++ *
++ * Default implementation for dma_buf_ops::begin_cpu_access(). This only takes care of
++ * cache maintenance.
++ */
++int drm_gem_shmem_prime_begin_cpu_access(struct dma_buf *dma_buf,
++					 enum dma_data_direction dir)
++{
++	struct drm_gem_object *obj = dma_buf->priv;
++	struct drm_device *dev = obj->dev;
++	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
++	struct dma_buf_attachment *attach;
++
++	dma_resv_lock(obj->resv, NULL);
++	if (shmem->sgt)
++		dma_sync_sgtable_for_cpu(dev->dev, shmem->sgt, dir);
++
++	if (shmem->vaddr)
++		invalidate_kernel_vmap_range(shmem->vaddr, shmem->base.size);
++
++	list_for_each_entry(attach, &dma_buf->attachments, node) {
++		struct sg_table *sgt = attach->priv;
++
++		if (sgt)
++			dma_sync_sgtable_for_cpu(attach->dev, sgt, dir);
++	}
++	dma_resv_unlock(obj->resv);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_begin_cpu_access);
++
++/**
++ * drm_gem_shmem_prime_end_cpu_access - Default end_cpu_access() for exported buffers
++ * @dma_buf: The exported DMA buffer this acts on
++ * @dir: direction of the access
++ *
++ * Default implementation for dma_buf_ops::end_cpu_access(). This only takes care of
++ * cache maintenance.
++ */
++int drm_gem_shmem_prime_end_cpu_access(struct dma_buf *dma_buf,
++				       enum dma_data_direction dir)
++{
++	struct drm_gem_object *obj = dma_buf->priv;
++	struct drm_device *dev = obj->dev;
++	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
++	struct dma_buf_attachment *attach;
++
++	dma_resv_lock(obj->resv, NULL);
++	list_for_each_entry(attach, &dma_buf->attachments, node) {
++		struct sg_table *sgt = attach->priv;
++
++		if (sgt)
++			dma_sync_sgtable_for_device(attach->dev, sgt, dir);
++	}
++
++	if (shmem->vaddr)
++		flush_kernel_vmap_range(shmem->vaddr, shmem->base.size);
++
++	if (shmem->sgt)
++		dma_sync_sgtable_for_device(dev->dev, shmem->sgt, dir);
++
++	dma_resv_unlock(obj->resv);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(drm_gem_shmem_prime_end_cpu_access);
++
+ MODULE_DESCRIPTION("DRM SHMEM memory-management helpers");
+ MODULE_IMPORT_NS("DMA_BUF");
+ MODULE_LICENSE("GPL v2");
+diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
+index 589f7bfe7506..075275d6b2fd 100644
+--- a/include/drm/drm_gem_shmem_helper.h
++++ b/include/drm/drm_gem_shmem_helper.h
+@@ -291,6 +291,16 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 			      struct drm_mode_create_dumb *args);
+ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
+ 							 struct dma_buf *buf);
++struct sg_table *
++drm_gem_shmem_prime_map_dma_buf(struct dma_buf_attachment *attach,
++				enum dma_data_direction dir);
++void drm_gem_shmem_prime_unmap_dma_buf(struct dma_buf_attachment *attach,
++				       struct sg_table *sgt,
++				       enum dma_data_direction dir);
++int drm_gem_shmem_prime_begin_cpu_access(struct dma_buf *dma_buf,
++					 enum dma_data_direction dir);
++int drm_gem_shmem_prime_end_cpu_access(struct dma_buf *dma_buf,
++				       enum dma_data_direction dir);
+ 
+ /**
+  * DRM_GEM_SHMEM_DRIVER_OPS - Default shmem GEM operations
 -- 
 2.51.1
 
