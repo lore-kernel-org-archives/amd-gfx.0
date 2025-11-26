@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42B04D10F3B
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46CACD10F39
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC04C10E5D9;
-	Wed, 26 Nov 2025 12:45:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9DD10E5DF;
+	Wed, 26 Nov 2025 12:45:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="PjstipRp";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="afj6mqHf";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBD3B10E5C5;
- Wed, 26 Nov 2025 12:45:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA0DC10E5DF;
+ Wed, 26 Nov 2025 12:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764161124;
- bh=UaxkZV5kgTfwzk1PM/MozNxtsFw7vuzR9EmGNwc/No8=;
+ s=mail; t=1764161121;
+ bh=5Nng/SirWwbhdXlitilBe8UpYA9k3EexOyWXAgYZ4sg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PjstipRpX8OmWKqbr4Ha6TbFRWm5Qxw058wCOFo65KY/5fZgFmGWJqrIeYI4yjNAL
- kYo44/JyqIH8lRkdsRXFWUkZEp+l1hm4z9wazub3e9B5nB0nKy/LOlKftbj2gcYBf/
- 4sWGPompIeGkVwzuBaQxVWYoMjZz276mF+x1dzHlYzkTIy9rLosV6+pbv83s2R/5Dz
- TFiHuaYYev9WtggL4I+tDhMTbudkY+U/RW8QLYKk+Swoc9iNcBZJ2X35tBE53+I8wp
- f1DaQnwaO2vReLsh16QJ8NMGMcETPbg+If3Bi6063dNP7w+ZatLI0Ri4k5pFpEu6Ek
- qETuEKqbPlPiA==
+ b=afj6mqHfhjLueJlvGYDXC672Sxh+fpvAqd6RS6qYkEznrIRizxxWgb8AoGqZQd2RT
+ +udb9xiI51KfthHYwhDduz9TyhD/ViRcdrzTvq9ZCouV3quOdYhOVbkl/z/fdf4BMS
+ y1vxKuH4jhhm9fhR9O1fHnVE/kTTvgoMm+7I41j1G4EAz0Qr2F9XLldU7LlYPm01bN
+ oT6a602jOqdGCdh1ldY7xKvObzG0k0ZyzaJRssW35jtYQd7CDbl2hclnuonAFBaeVz
+ kotseHoI/4E49KyG2b2XaDMYDmjFhKex2YWC+bJaiSeoHO63R6QvmnjON4cX1MhsDS
+ ZlY7v1/8qKswA==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 90D9217E101A;
- Wed, 26 Nov 2025 13:45:23 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 76C8217E156D;
+ Wed, 26 Nov 2025 13:45:20 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -57,9 +57,9 @@ Cc: dri-devel@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org, kernel@collabora.com,
  Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH v6 16/16] drm/panfrost: Bump the driver version to 1.6
-Date: Wed, 26 Nov 2025 13:44:55 +0100
-Message-ID: <20251126124455.3656651-17-boris.brezillon@collabora.com>
+Subject: [PATCH v6 13/16] drm/panfrost: Add a PANFROST_SYNC_BO ioctl
+Date: Wed, 26 Nov 2025 13:44:52 +0100
+Message-ID: <20251126124455.3656651-14-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251126124455.3656651-1-boris.brezillon@collabora.com>
 References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
@@ -81,11 +81,13 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Faith Ekstrand <faith.ekstrand@collabora.com>
 
-Bump the driver version to reflect the new cached-CPU mapping
-capability.
+This will be used by the UMD to synchronize CPU-cached mappings when
+the UMD can't do it directly (no usermode cache maintenance instruction
+on Arm32).
 
 v2:
-- Quickly describe what the new version exposes in the commit message
+- Add more to the commit message
+- Change the flags to better match the drm_gem_shmem_sync semantics
 
 v3:
 - Add Steve's R-b
@@ -94,41 +96,204 @@ v4:
 - No changes
 
 v5:
-- No changes
+- Drop Steve's R-b (semantics changes requiring a new review)
 
 v6:
-- No changes
+- Bail out early in panfrost_ioctl_sync_bo() if op_count is zero
 
 Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_drv.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 51 +++++++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.c | 21 ++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.h |  2 +
+ include/uapi/drm/panfrost_drm.h         | 45 ++++++++++++++++++++++
+ 4 files changed, 119 insertions(+)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 70bdcf639f54..6cd87381aca7 100644
+index 54ac9d2ececf..85ae2eefca04 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -928,6 +928,9 @@ static void panfrost_debugfs_init(struct drm_minor *minor)
-  * - 1.4 - adds SET_LABEL_BO
-  * - 1.5 - adds JM_CTX_{CREATE,DESTROY} ioctls and extend SUBMIT to allow
-  *	   context creation with configurable priorities/affinity
-+ * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
-+ *	   PANFROST_IOCTL_QUERY_BO_INFO and
-+ *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
-  */
- static const struct drm_driver panfrost_drm_driver = {
- 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
-@@ -940,7 +943,7 @@ static const struct drm_driver panfrost_drm_driver = {
- 	.name			= "panfrost",
- 	.desc			= "panfrost DRM",
- 	.major			= 1,
--	.minor			= 5,
-+	.minor			= 6,
+@@ -580,6 +580,56 @@ static int panfrost_ioctl_jm_ctx_destroy(struct drm_device *dev, void *data,
+ 	return panfrost_jm_ctx_destroy(file, args->handle);
+ }
  
- 	.gem_create_object	= panfrost_gem_create_object,
- 	.gem_prime_import_sg_table = panfrost_gem_prime_import_sg_table,
++static int panfrost_ioctl_sync_bo(struct drm_device *ddev, void *data,
++				  struct drm_file *file)
++{
++	struct drm_panfrost_sync_bo *args = data;
++	struct drm_panfrost_bo_sync_op *ops;
++	struct drm_gem_object *obj;
++	int ret;
++	u32 i;
++
++	if (args->pad)
++		return -EINVAL;
++
++	if (!args->op_count)
++		return 0;
++
++	ops = kvmalloc_array(args->op_count, sizeof(*ops), GFP_KERNEL);
++	if (!ops) {
++		DRM_DEBUG("Failed to allocate incoming BO sync ops array\n");
++		return -ENOMEM;
++	}
++
++	if (copy_from_user(ops, (void __user *)(uintptr_t)args->ops,
++			   args->op_count * sizeof(*ops))) {
++		DRM_DEBUG("Failed to copy in BO sync ops\n");
++		ret = -EFAULT;
++		goto err_ops;
++	}
++
++	for (i = 0; i < args->op_count; i++) {
++		obj = drm_gem_object_lookup(file, ops[i].handle);
++		if (!obj) {
++			ret = -ENOENT;
++			goto err_ops;
++		}
++
++		ret = panfrost_gem_sync(obj, ops[i].type,
++					ops[i].offset, ops[i].size);
++
++		drm_gem_object_put(obj);
++
++		if (ret)
++			goto err_ops;
++	}
++
++err_ops:
++	kvfree(ops);
++
++	return ret;
++}
++
+ int panfrost_unstable_ioctl_check(void)
+ {
+ 	if (!unstable_ioctls)
+@@ -649,6 +699,7 @@ static const struct drm_ioctl_desc panfrost_drm_driver_ioctls[] = {
+ 	PANFROST_IOCTL(SET_LABEL_BO,	set_label_bo,	DRM_RENDER_ALLOW),
+ 	PANFROST_IOCTL(JM_CTX_CREATE,	jm_ctx_create,	DRM_RENDER_ALLOW),
+ 	PANFROST_IOCTL(JM_CTX_DESTROY,	jm_ctx_destroy,	DRM_RENDER_ALLOW),
++	PANFROST_IOCTL(SYNC_BO,		sync_bo,	DRM_RENDER_ALLOW),
+ };
+ 
+ static void panfrost_gpu_show_fdinfo(struct panfrost_device *pfdev,
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 292f3ce6287f..ca884bf216d6 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -379,6 +379,27 @@ panfrost_gem_set_label(struct drm_gem_object *obj, const char *label)
+ 	kfree_const(old_label);
+ }
+ 
++int
++panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
++		  u32 offset, u32 size)
++{
++	struct panfrost_gem_object *bo = to_panfrost_bo(obj);
++	enum drm_gem_shmem_sync_type shmem_sync_type;
++
++	switch (type) {
++	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH:
++		shmem_sync_type = DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH;
++		break;
++	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
++		shmem_sync_type = DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return drm_gem_shmem_sync(&bo->base, offset, size, shmem_sync_type);
++}
++
+ void
+ panfrost_gem_internal_set_label(struct drm_gem_object *obj, const char *label)
+ {
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+index 9ad35e2d99fc..30438ad335de 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+@@ -150,6 +150,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev);
+ void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+ 
+ void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
++int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
++		      u32 offset, u32 size);
+ void panfrost_gem_internal_set_label(struct drm_gem_object *obj, const char *label);
+ 
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_drm.h
+index 0c59714ae42b..e194e087a0c8 100644
+--- a/include/uapi/drm/panfrost_drm.h
++++ b/include/uapi/drm/panfrost_drm.h
+@@ -24,6 +24,7 @@ extern "C" {
+ #define DRM_PANFROST_SET_LABEL_BO		0x09
+ #define DRM_PANFROST_JM_CTX_CREATE		0x0a
+ #define DRM_PANFROST_JM_CTX_DESTROY		0x0b
++#define DRM_PANFROST_SYNC_BO			0x0c
+ 
+ #define DRM_IOCTL_PANFROST_SUBMIT		DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_SUBMIT, struct drm_panfrost_submit)
+ #define DRM_IOCTL_PANFROST_WAIT_BO		DRM_IOW(DRM_COMMAND_BASE + DRM_PANFROST_WAIT_BO, struct drm_panfrost_wait_bo)
+@@ -35,6 +36,7 @@ extern "C" {
+ #define DRM_IOCTL_PANFROST_SET_LABEL_BO		DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_SET_LABEL_BO, struct drm_panfrost_set_label_bo)
+ #define DRM_IOCTL_PANFROST_JM_CTX_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_JM_CTX_CREATE, struct drm_panfrost_jm_ctx_create)
+ #define DRM_IOCTL_PANFROST_JM_CTX_DESTROY	DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_JM_CTX_DESTROY, struct drm_panfrost_jm_ctx_destroy)
++#define DRM_IOCTL_PANFROST_SYNC_BO		DRM_IOWR(DRM_COMMAND_BASE + DRM_PANFROST_SYNC_BO, struct drm_panfrost_sync_bo)
+ 
+ /*
+  * Unstable ioctl(s): only exposed when the unsafe unstable_ioctls module
+@@ -308,6 +310,49 @@ struct drm_panfrost_set_label_bo {
+ 	__u64 label;
+ };
+ 
++/* Valid flags to pass to drm_panfrost_bo_sync_op */
++#define PANFROST_BO_SYNC_CPU_CACHE_FLUSH			0
++#define PANFROST_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE		1
++
++/**
++ * struct drm_panthor_bo_flush_map_op - BO map sync op
++ */
++struct drm_panfrost_bo_sync_op {
++	/** @handle: Handle of the buffer object to sync. */
++	__u32 handle;
++
++	/** @type: Type of sync operation. */
++	__u32 type;
++
++	/**
++	 * @offset: Offset into the BO at which the sync range starts.
++	 *
++	 * This will be rounded down to the nearest cache line as needed.
++	 */
++	__u32 offset;
++
++	/**
++	 * @size: Size of the range to sync
++	 *
++	 * @size + @offset will be rounded up to the nearest cache line as
++	 * needed.
++	 */
++	__u32 size;
++};
++
++/**
++ * struct drm_panfrost_sync_bo - ioctl argument for syncing BO maps
++ */
++struct drm_panfrost_sync_bo {
++	/** Array of struct drm_panfrost_bo_sync_op */
++	__u64 ops;
++
++	/** Number of BO sync ops */
++	__u32 op_count;
++
++	__u32 pad;
++};
++
+ /* Definitions for coredump decoding in user space */
+ #define PANFROSTDUMP_MAJOR 1
+ #define PANFROSTDUMP_MINOR 0
 -- 
 2.51.1
 
