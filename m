@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA182D10F39
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0991D10F39
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:45:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 634B610E5C1;
-	Wed, 26 Nov 2025 12:45:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6AB610E5D2;
+	Wed, 26 Nov 2025 12:45:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dux7z7/j";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QVyJum6f";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 512E610E5BE;
- Wed, 26 Nov 2025 12:45:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63DCB10E5CA;
+ Wed, 26 Nov 2025 12:45:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764161110;
- bh=aneMf2D3Otznn6ngNhE3JynbkVneLvbZy+CEcM90iDs=;
+ s=mail; t=1764161114;
+ bh=eJZN84O1fTpVNZ6WFMo5Yu7suZTCnNcWZxVUmD18uS8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dux7z7/j5fBWbJaC8/IlBA9X64H3/iHJDjRoHF4bAC1DD6jmUmCfoARtpCWICwrUl
- xeJkgXl54f0dHBHrD2KaNdbZrsY/18ilJ69CLAo6Tp7hoh5Pr/fzdtkCZMUY78bSLL
- bGvnyn31GGtRGmNvbBz957k3DMaAktA6k04HNCtGF/V+mXwWeTl/Xz9krBxrPCZw7g
- gUcvXXirPIqFMkGiH3kycQXUyb4FOU/aeZfC8WWM6OaLt5rzCvKgu2QrInJgH73OLZ
- v0Jjo/cIyYG9Osaaj4/kbNckDk+T58XpGalsQiVW/nAxAP/2nFCcT1MO/ab5iqdJs3
- 1B7QRiumtXd3Q==
+ b=QVyJum6fBdXfLAsSa0iVCsoM6UjFSJdVypUisLz53q35kn+j5da461WK+RMd5miU+
+ jcOO9sALp7srB6C36Jbfzaz//pgKP7WkSi4D09AsXtDi+QW2Tie0LedtK5cp7DaZ6B
+ Xs58EA/jdwk2Ivv91XnkLSAR5MpCjIothy0gZTcK4U6zpKLc62jIFsgOsIaIK49E/q
+ lMYk9FB/XEYw/i6k2lO5lNAHuW61Ka64bDX8zzN1Ot8HNEgT3tbd6cvGJ6C1TfoU4j
+ GpEDCAzxaFgyhkw4XtiwqkMz2bi1R6MTh6j/IYYv0cMyHSUez0nJ5QsscXuLPKDa8v
+ HKg2FtKIaDzUA==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 112AF17E13D5;
- Wed, 26 Nov 2025 13:45:10 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 327AB17E1400;
+ Wed, 26 Nov 2025 13:45:13 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -55,11 +55,12 @@ Cc: dri-devel@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH v6 03/16] drm/shmem: Add a drm_gem_shmem_sync() helper
-Date: Wed, 26 Nov 2025 13:44:42 +0100
-Message-ID: <20251126124455.3656651-4-boris.brezillon@collabora.com>
+ amd-gfx@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com
+Subject: [PATCH v6 06/16] drm/panthor: Expose the selected coherency protocol
+ to the UMD
+Date: Wed, 26 Nov 2025 13:44:45 +0100
+Message-ID: <20251126124455.3656651-7-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251126124455.3656651-1-boris.brezillon@collabora.com>
 References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
@@ -79,169 +80,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Faith Ekstrand <faith.ekstrand@collabora.com>
-
-This enables syncing mapped GEM objects between the CPU and GPU via calls
-to dma_sync_*().  It's a bit annoying as it requires walking the sg_table
-so it's best if every driver doesn't hand-roll it.
+If we want to be able to skip CPU cache maintenance operations on
+CPU-cached mappings, the UMD needs to know the kind of coherency
+in place. Add a field to drm_panthor_gpu_info to do that. We can re-use
+a padding field for that since this object is write-only from the
+KMD perspective, and the UMD should just ignore it.
 
 v2:
-- s/drm_gem_shmem_sync_mmap/drm_gem_shmem_sync/
-- Change the prototype to match drm_gem_object_funcs::sync()
-- Add a wrapper for drm_gem_object_funcs::sync()
+- New commit
 
 v3:
-- No changes
+- Make coherency protocol a real enum, not a bitmask
+- Add BUILD_BUG_ON()s to make sure the values in panthor_regs.h and
+  those exposed through the uAPI match
 
 v4:
 - Add Steve's R-b
 
 v5:
-- Change the semantics of the drm_gem_shmem_sync() helper to better
-  reflect the UMD cache flush/flush+invalidate semantics (discussed
-  with Faith)
-- Drop R-bs
+- No changes
 
 v6:
-- Collect R-b
+- No changes
 
-Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 93 ++++++++++++++++++++++++++
- include/drm/drm_gem_shmem_helper.h     | 14 ++++
- 2 files changed, 107 insertions(+)
+ drivers/gpu/drm/panthor/panthor_device.c | 10 +++++-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  2 +-
+ include/uapi/drm/panthor_drm.h           | 39 ++++++++++++++++++++++--
+ 3 files changed, 46 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index c91608d9d4d7..1f3ce3f70c08 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -690,6 +690,99 @@ int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index e133b1e0ad6d..a66fc66999c2 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -27,6 +27,12 @@
+ 
+ static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+ {
++	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
++	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
++	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
++
++	/* Start with no coherency, and update it if the device is flagged coherent. */
++	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
+ 	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
+ 
+ 	if (!ptdev->coherent)
+@@ -36,8 +42,10 @@ static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+ 	 * ACE protocol has never been supported for command stream frontend GPUs.
+ 	 */
+ 	if ((gpu_read(ptdev, GPU_COHERENCY_FEATURES) &
+-		      GPU_COHERENCY_PROT_BIT(ACE_LITE)))
++		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
++		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+ 		return 0;
++	}
+ 
+ 	drm_err(&ptdev->base, "Coherency not supported by the device");
+ 	return -ENOTSUPP;
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index cd38da5ad26c..b7c64be0b6e2 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -51,7 +51,7 @@ struct panthor_gpu {
+ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
+ {
+ 	gpu_write(ptdev, GPU_COHERENCY_PROTOCOL,
+-		  ptdev->coherent ? GPU_COHERENCY_ACE_LITE : GPU_COHERENCY_NONE);
++		  ptdev->gpu_info.selected_coherency);
  }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_mmap);
+ 
+ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+index 467d365ed7ba..f0f637e0631d 100644
+--- a/include/uapi/drm/panthor_drm.h
++++ b/include/uapi/drm/panthor_drm.h
+@@ -245,6 +245,26 @@ enum drm_panthor_dev_query_type {
+ 	DRM_PANTHOR_DEV_QUERY_GROUP_PRIORITIES_INFO,
+ };
  
 +/**
-+ * drm_gem_shmem_sync - Sync CPU-mapped data
-+ * @shmem: shmem GEM object
-+ * @offset: Offset into the GEM object
-+ * @size: Size of the area to sync
-+ * @type: Type of synchronization
-+ *
-+ * Returns:
-+ * 0 on success or a negative error code on failure.
++ * enum drm_panthor_gpu_coherency: Type of GPU coherency
 + */
-+int drm_gem_shmem_sync(struct drm_gem_shmem_object *shmem, size_t offset,
-+		       size_t size, enum drm_gem_shmem_sync_type type)
-+{
-+	const struct drm_device *dev = shmem->base.dev;
-+	struct sg_table *sgt;
-+	struct scatterlist *sgl;
-+	unsigned int count;
++enum drm_panthor_gpu_coherency {
++	/**
++	 * @DRM_PANTHOR_GPU_COHERENCY_ACE_LITE: ACE Lite coherency.
++	 */
++	DRM_PANTHOR_GPU_COHERENCY_ACE_LITE = 0,
 +
-+	/* Make sure the range is in bounds. */
-+	if (offset + size < offset || offset + size > shmem->base.size)
-+		return -EINVAL;
++	/**
++	 * @DRM_PANTHOR_GPU_COHERENCY_ACE_LITE: ACE coherency.
++	 */
++	DRM_PANTHOR_GPU_COHERENCY_ACE = 1,
 +
-+	/* Disallow CPU-cache maintenance on imported buffers. */
-+	if (drm_gem_is_imported(&shmem->base))
-+		return -EINVAL;
-+
-+	switch (type) {
-+	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH:
-+	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/* Don't bother if it's WC-mapped */
-+	if (shmem->map_wc)
-+		return 0;
-+
-+	/* Nothing to do if the size is zero. */
-+	if (size == 0)
-+		return 0;
-+
-+	sgt = drm_gem_shmem_get_pages_sgt(shmem);
-+	if (IS_ERR(sgt))
-+		return PTR_ERR(sgt);
-+
-+	for_each_sgtable_dma_sg(sgt, sgl, count) {
-+		if (size == 0)
-+			break;
-+
-+		dma_addr_t paddr = sg_dma_address(sgl);
-+		size_t len = sg_dma_len(sgl);
-+
-+		if (len <= offset) {
-+			offset -= len;
-+			continue;
-+		}
-+
-+		paddr += offset;
-+		len -= offset;
-+		len = min_t(size_t, len, size);
-+		size -= len;
-+		offset = 0;
-+
-+		/* It's unclear whether dma_sync_xxx() is the right API to do CPU
-+		 * cache maintenance given an IOMMU can register their own
-+		 * implementation doing more than just CPU cache flushes/invalidation,
-+		 * and what we really care about here is CPU caches only, but that's
-+		 * the best we have that is both arch-agnostic and does at least the
-+		 * CPU cache maintenance on a <page,offset,size> tuple.
-+		 *
-+		 * Also, I wish we could do a single
-+		 *
-+		 *	dma_sync_single_for_device(BIDIR)
-+		 *
-+		 * and get a flush+invalidate, but that's not how it's implemented
-+		 * in practice (at least on arm64), so we have to make it
-+		 *
-+		 *	dma_sync_single_for_device(TO_DEVICE)
-+		 *	dma_sync_single_for_cpu(FROM_DEVICE)
-+		 *
-+		 * for the flush+invalidate case.
-+		 */
-+		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
-+		if (type == DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
-+			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_sync);
-+
- /**
-  * drm_gem_shmem_print_info() - Print &drm_gem_shmem_object info for debugfs
-  * @shmem: shmem GEM object
-diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
-index 075275d6b2fd..b0b6d0104a9a 100644
---- a/include/drm/drm_gem_shmem_helper.h
-+++ b/include/drm/drm_gem_shmem_helper.h
-@@ -124,6 +124,20 @@ void drm_gem_shmem_vunmap_locked(struct drm_gem_shmem_object *shmem,
- 				 struct iosys_map *map);
- int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct *vma);
- 
-+/**
-+ * enum enum drm_gem_shmem_sync_type - Type of synchronization
-+ */
-+enum drm_gem_shmem_sync_type {
-+	/** DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH: Flush CPU caches */
-+	DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH = 0,
-+
-+	/** DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE: Flush and invalidate CPU caches */
-+	DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
++	/**
++	 * @DRM_PANTHOR_GPU_COHERENCY_NONE: No coherency.
++	 */
++	DRM_PANTHOR_GPU_COHERENCY_NONE = 31,
 +};
 +
-+int drm_gem_shmem_sync(struct drm_gem_shmem_object *shmem, size_t offset,
-+		       size_t size, enum drm_gem_shmem_sync_type type);
-+
- int drm_gem_shmem_pin_locked(struct drm_gem_shmem_object *shmem);
- void drm_gem_shmem_unpin_locked(struct drm_gem_shmem_object *shmem);
+ /**
+  * struct drm_panthor_gpu_info - GPU information
+  *
+@@ -301,7 +321,16 @@ struct drm_panthor_gpu_info {
+ 	 */
+ 	__u32 thread_max_barrier_size;
  
+-	/** @coherency_features: Coherency features. */
++	/**
++	 * @coherency_features: Coherency features.
++	 *
++	 * Combination of drm_panthor_gpu_coherency flags.
++	 *
++	 * Note that this is just what the coherency protocols supported by the
++	 * GPU, but the actual coherency in place depends on the SoC
++	 * integration and is reflected by
++	 * drm_panthor_gpu_info::selected_coherency.
++	 */
+ 	__u32 coherency_features;
+ 
+ 	/** @texture_features: Texture features. */
+@@ -310,8 +339,12 @@ struct drm_panthor_gpu_info {
+ 	/** @as_present: Bitmask encoding the number of address-space exposed by the MMU. */
+ 	__u32 as_present;
+ 
+-	/** @pad0: MBZ. */
+-	__u32 pad0;
++	/**
++	 * @select_coherency: Coherency selected for this device.
++	 *
++	 * One of drm_panthor_gpu_coherency.
++	 */
++	__u32 selected_coherency;
+ 
+ 	/** @shader_present: Bitmask encoding the shader cores exposed by the GPU. */
+ 	__u64 shader_present;
 -- 
 2.51.1
 
