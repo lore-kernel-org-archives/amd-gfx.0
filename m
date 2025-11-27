@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CFEED116F6
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D014D116F7
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42FA710E353;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C85410E672;
 	Fri, 28 Nov 2025 08:34:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ea2FEuya";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Cli4CK3X";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4D3F10E801;
- Thu, 27 Nov 2025 10:51:40 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD5F10E7D8;
+ Thu, 27 Nov 2025 10:17:44 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4dHCsj6FcWz9sdm;
- Thu, 27 Nov 2025 11:51:37 +0100 (CET)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4dHC6Y21rgz9sym;
+ Thu, 27 Nov 2025 11:17:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1764240697; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1764238661; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=a+/CnqgOsofBTV7/YbaZDyPU7rGK0NtsOQxJO8FEjuo=;
- b=ea2FEuya3D1m3jJ5FCsL5HytgwaL8Egv8xxGAMDUofMrbEVTQHtj0zaP4KtKp3TPlxokh/
- NWlsGGEBsgWHCkN/qDVxN8p3vXq7IgZuENjzWfugy/9R0rMaPv20rHEtwvR9lH5fLKPJI9
- CL1LPUeHWzQ4/hcXfPAe1FaW4r067FBY59CBT+ac9R4HkYyr6C3A6zzk3oUGm8bNMtkQMq
- Pa29ZJSK9jqbVLMDiErLUqyfqcYso+FVvqvxWW3/BHr4jSfd6PI46WLYOw8LW5zw9gnN90
- kLdqJqdCzcOh/9oIkSC6WNKU7sdf88bARaMpzy5L7gKTm9BXgtydDIiorLXjbQ==
-Message-ID: <b1a3e4482fbd42477fc80882baebbfd9d9512b41.camel@mailbox.org>
-Subject: Re: [PATCH 06/18] dma-buf: use inline lock for the dma-fence-array
+ bh=XUX6g1+cMLR5RovSUnlNsHoaQA7NAILRZDgCTdRlTBE=;
+ b=Cli4CK3XzkF3MQcBNHxChG42NdcyrblWVcZx+KBp5UTSaxfiLCV0/gR1crhhRYTKrlD90W
+ igk5BSxEZlVDlLf1Qmqaxpw8aEQh1cNuwigKudm9beTIGWIFA3APA9goVBHMz07vJKdsWD
+ uUDka9FEWImlr0Of/N0atYuaTby5fhCBA34vyvBqWvhEEMC8rQqHDz/lh7wVb6Qo1lAtid
+ mJ9KlRIMzC/KLES3N4Zv+4tfaXdxjZP1XCk8d5/4x4l0vJvT7ClXxBeJnaYezDW2e0dFPD
+ 6TO9xLKh8FrWq4xThWS4sZjAanqfo9+QlpMrvJPl5ONINxEhTfwV9dl0uQqBZA==
+Message-ID: <79eb3c713e810ec025eb3cd20583cb666ca7322d.camel@mailbox.org>
+Subject: Re: [PATCH 01/18] dma-buf: cleanup dma_fence_describe v3
 From: Philipp Stanner <phasta@mailbox.org>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
  alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
  matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
  sumit.semwal@linaro.org
-Date: Thu, 27 Nov 2025 11:51:34 +0100
-In-Reply-To: <20251113145332.16805-7-christian.koenig@amd.com>
+Date: Thu, 27 Nov 2025 11:17:38 +0100
+In-Reply-To: <20251113145332.16805-2-christian.koenig@amd.com>
 References: <20251113145332.16805-1-christian.koenig@amd.com>
- <20251113145332.16805-7-christian.koenig@amd.com>
+ <20251113145332.16805-2-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 46ef2ca0481663aa79c
-X-MBO-RS-META: 4id8eth43kbt5gbt8cjgi17cd1gwc7yg
+X-MBO-RS-ID: 84f1c3ac36b0a1da64e
+X-MBO-RS-META: 8pno8uwxaajz8buasnmowgm3zrpoii17
 X-Mailman-Approved-At: Fri, 28 Nov 2025 08:34:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,52 +69,59 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
-> Using the inline lock is now the recommended way for dma_fence implementa=
-tions.
+> The driver and timeline name are meaningless for signaled fences.
 >=20
-> So use this approach for the framework internal fences as well.
+> Drop them and also print the context number.
 >=20
-> Also saves about 4 bytes for the external spinlock.
+> v2: avoid the calls when the BO is already signaled.
+> v3: use same format as trace points for context and seqno.
 >=20
 > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Reviewed-by: Philipp Stanner <phasta@kernel.or>
-
 > ---
-> =C2=A0drivers/dma-buf/dma-fence-array.c | 5 ++---
-> =C2=A0include/linux/dma-fence-array.h=C2=A0=C2=A0 | 1 -
-> =C2=A02 files changed, 2 insertions(+), 4 deletions(-)
+
+I still think that more fleshed out commit messages are great :)
+
+
+> =C2=A0drivers/dma-buf/dma-fence.c | 20 +++++++++++---------
+> =C2=A01 file changed, 11 insertions(+), 9 deletions(-)
 >=20
-> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fenc=
-e-array.c
-> index 6657d4b30af9..c2119a8049fe 100644
-> --- a/drivers/dma-buf/dma-fence-array.c
-> +++ b/drivers/dma-buf/dma-fence-array.c
-> @@ -204,9 +204,8 @@ void dma_fence_array_init(struct dma_fence_array *arr=
-ay,
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index c5d1478b28dd..b4f5c8635276 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -997,19 +997,21 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
+> =C2=A0 */
+> =C2=A0void dma_fence_describe(struct dma_fence *fence, struct seq_file *s=
+eq)
+> =C2=A0{
+> -	const char __rcu *timeline;
+> -	const char __rcu *driver;
+> +	const char __rcu *timeline =3D "";
+> +	const char __rcu *driver =3D "";
+> +	const char *signaled =3D "";
 > =C2=A0
-> =C2=A0	array->num_fences =3D num_fences;
+> =C2=A0	rcu_read_lock();
 > =C2=A0
-> -	spin_lock_init(&array->lock);
-> -	dma_fence_init(&array->base, &dma_fence_array_ops, &array->lock,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 context, seqno);
-> +	dma_fence_init(&array->base, &dma_fence_array_ops, NULL, context,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 seqno);
-> =C2=A0	init_irq_work(&array->work, irq_dma_fence_array_work);
+> -	timeline =3D dma_fence_timeline_name(fence);
+> -	driver =3D dma_fence_driver_name(fence);
+> +	if (!dma_fence_is_signaled(fence)) {
+> +		timeline =3D dma_fence_timeline_name(fence);
+> +		driver =3D dma_fence_driver_name(fence);
+> +		signaled =3D "un";
+> +	}
 > =C2=A0
-> =C2=A0	atomic_set(&array->num_pending, signal_on_any ? 1 : num_fences);
-> diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-ar=
-ray.h
-> index 079b3dec0a16..370b3d2bba37 100644
-> --- a/include/linux/dma-fence-array.h
-> +++ b/include/linux/dma-fence-array.h
-> @@ -38,7 +38,6 @@ struct dma_fence_array_cb {
-> =C2=A0struct dma_fence_array {
-> =C2=A0	struct dma_fence base;
+> -	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
+> -		=C2=A0=C2=A0 rcu_dereference(driver),
+> -		=C2=A0=C2=A0 rcu_dereference(timeline),
+
+Why does usage  of rcu_dereference become unnecessary?=20
+
+> -		=C2=A0=C2=A0 fence->seqno,
+> -		=C2=A0=C2=A0 dma_fence_is_signaled(fence) ? "" : "un");
+> +	seq_printf(seq, "%llu:%llu %s %s %ssignalled\n",
+> +		=C2=A0=C2=A0 fence->context, fence->seqno, timeline, driver,
+> +		=C2=A0=C2=A0 signaled);
 > =C2=A0
-> -	spinlock_t lock;
-> =C2=A0	unsigned num_fences;
-> =C2=A0	atomic_t num_pending;
-> =C2=A0	struct dma_fence **fences;
+> =C2=A0	rcu_read_unlock();
+> =C2=A0}
 
