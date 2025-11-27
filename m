@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE800D11183
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Nov 2025 09:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D8DCFD2F6
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Nov 2025 09:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D1D10E7CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9944210E7E8;
 	Thu, 27 Nov 2025 09:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=0la.ch header.i=@0la.ch header.b="rXpHz/K3";
-	dkim=permerror (0-bit key) header.d=0la.ch header.i=@0la.ch header.b="2zoAr/Yz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bqbw90Sm";
 	dkim-atps=neutral
-Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE9410E659;
- Wed, 26 Nov 2025 15:26:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=0la.ch; c=relaxed/relaxed;
- h=To:From:Subject:Date:Message-ID; t=1764170790; bh=64ozxP/kjMeyOucPSYF6M+7
- k+Qu9IVuCXgtDB+3GKow=; b=rXpHz/K3ONO02PfTTS9NE1Oa6YIvGEflxaCwnpIX1vwVBfvVSO
- Tu/Ts4dvMBEw0z12AMmdeHfORGNUT0Hlhc7OjLMED6KASdRe/DuyOCMQWwkfwlbMP75nJSjcDgd
- 4Fa9fG7kWS1chUVuJ4kjdhq+DtrgAInlzX5bjZSbbvCjprDmlrlTQacxRM1nxIcvbQ+KL2NjwGE
- UPRLophNWF9gEKmcRjiv0z9FkZJqirB12UnjDtiOcbjGtkwRXEUsbDJ17BLTLl9nvp7z3Mawvo/
- xFfRp55yeD3nTy5mhdbiyx0D6h37zJQnr+Bey+TKpnECqnN0wTxzwjm+0WE82BBfwVQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=0la.ch; c=relaxed/relaxed; 
- h=To:From:Subject:Date:Message-ID; t=1764170790;
- bh=64ozxP/kjMeyOucPSYF6M+7
- k+Qu9IVuCXgtDB+3GKow=; b=2zoAr/Yzj/LiR4sPfA8P0HumrWrmQJwf83/YQBd3xVKtC4JYPH
- mQl2G3cfpqmsYoJbHW26agcWjcwcjTuoOTAA==;
-Message-ID: <8a940fa4-ac9a-44b6-9d4a-e5394b0d6bf7@0la.ch>
-Date: Wed, 26 Nov 2025 16:26:29 +0100
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
+ [74.125.224.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEDD10E778
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Nov 2025 07:43:21 +0000 (UTC)
+Received: by mail-yx1-f47.google.com with SMTP id
+ 956f58d0204a3-640f2c9ccbdso469539d50.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Nov 2025 23:43:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764229400; x=1764834200; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Udrm+c3cvRe0PZBI7WCq1bwJxvb52QeR4dMmkLo9SG4=;
+ b=bqbw90SmO1Xok0Wloly6XqqVlwWBrGPi2Jf0oPTqfSadaVi8yn9xVNcwPXM1FCZyiT
+ E+UYQb6q781fTRFGvt/5wcCLBu36HCAol9lQk2nPepq+O5eYrmzTOYxZ33GarEFeqx56
+ zm3bjZu4WAbvG1mhCGRLhE72I2yiGYfHYLAYTJftQgwVWAFXPNADipdyvVQkuG42VzRQ
+ qGCHv32uleHFGGHFhIqOa/CSZCBEL55Ji8Ox1acNtWJnJiVl4Mq/aQIPEqCGzkqEi554
+ yEF00kXDtvxJODnUDC7kUruYUsQHLRMG8RxUja2s7FBvQ8Yuf6Q8jLfvu024BRxBXSNN
+ c4Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764229400; x=1764834200;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Udrm+c3cvRe0PZBI7WCq1bwJxvb52QeR4dMmkLo9SG4=;
+ b=QaK5b+4DIsvHPshjPrJPYMPPFihPLY2n/wjMxwsJBPOOtBbI8bAePK6OFiegNucmii
+ tOhxT9IzGWs+oTBQQ9bXDWtNNvXPGRg9n0m1uw0agFpyZ0dhamVhoAzd3+MNlDeO++2h
+ lfwBXZhmXnw8MioBe+D/vtqGiheyjX8IEomfwWd2rICWe9yAWBGVR0brBQoF+EasSHPB
+ H+In1SGgPTBHFQzPw3Qwi2w9cSxBI2F/WPPWCTUEtePMO0YAaV2ukpHZZAkm8kypJpb0
+ AubEVaeUWwgpxS18NMPhzQ19ev9hNrMQnG95VW9y0rk+xwxRWYN5Uxf59kjIO7NVz1TP
+ 34aQ==
+X-Gm-Message-State: AOJu0YyUldEC0C4Qvru/wRZps6s14faX1gsL/05iheYtFMpuYOYXTd/T
+ 5/MIvgqg+88jdnl3p+3WRSJIpSW47VmWQZIFVOicpH5x4dwHGdaovu3ShW+x3/QASI4Wx1lCAu4
+ gb0pJG7IPnzfzKjVGQQ6emVaxHaV7GvLUl9/fHVg=
+X-Gm-Gg: ASbGncuLxZw7gD9mpG86UImqTh7pGyViMsW7Fe6HeegecPJk4kvJpXrv+z6GC5Z1vFs
+ 8QlKsXnwXHd0110Iwwc4jUEeq5yO+F59P3B95l2SP+FiA85yVzUWWkkqrgek4n7ptJNV2ihwW3M
+ qQAkL5UZaMebC3MkAhT4WUbS1vc59NUb6b8q3U9wiWrc4/87hETnLaK3L7JQYxROHcZBkDF0F31
+ rTqYrazXzdNCY0AkhFLTxbVfYhmHUvJ11nveNj+/yXXVs1POvgcfdKKTSGi3vWRWItSGZf/vAwV
+ 1a/AzzvRGTO0P3nnHTFbGZSzmqRd6Gc6M3F/rcU=
+X-Google-Smtp-Source: AGHT+IFLa6rAGG/CWLcv+3cb7N5jCCg5tWzzTbTJQgn1vCbGNH0WUq2eHiCfBmX9hp98XLIoG5KdGHNM+NEWUzYk12c=
+X-Received: by 2002:a53:a10e:0:b0:63f:9f5a:a555 with SMTP id
+ 956f58d0204a3-64329399ff8mr4792599d50.50.1764229399913; Wed, 26 Nov 2025
+ 23:43:19 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/7] drm/edid: prepare for VESA vendor-specific data
- block extension
-From: Yaroslav <iam@0la.ch>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Yaroslav Bolyukin
- <iam@lach.pw>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20251126065126.54016-1-iam@lach.pw>
- <20251126065126.54016-3-iam@lach.pw>
- <68c55e772424f8e001898cdd1edcf4856820461e@intel.com>
- <b7191ab7c3030a8be0b149d28ae6fa032b64a4d8@intel.com>
- <ebd974b5-88f4-4fb3-a135-bad3bf7d9b4d@0la.ch>
- <61a482c23a81dc29f1fb793064c7238a98cf0143@intel.com>
- <8455fd94-d95c-4b15-8351-fc1971018e58@0la.ch>
-Content-Language: en-US
-In-Reply-To: <8455fd94-d95c-4b15-8351-fc1971018e58@0la.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Yash Anand <yashanands112@gmail.com>
+Date: Thu, 27 Nov 2025 13:13:08 +0530
+X-Gm-Features: AWmQ_bmP3_UOvHbjw12I-F86Cyc3APqPqfCMSl29DIPC4S2svYlTfaNyOpuZOe4
+Message-ID: <CAKpMnw3=GYLxggX1cJMG99XbfxNg4vC5Qb+-VNzEhgFAxEoYRA@mail.gmail.com>
+Subject: [REGRESSION] Display signal loss (blink) on input at >100Hz since
+ v6.1 with AMD Graphics Card
+To: amd-gfx@lists.freedesktop.org
+Cc: regressions@lists.linux.dev
+Content-Type: multipart/alternative; boundary="000000000000af295306448eaabd"
 X-Mailman-Approved-At: Thu, 27 Nov 2025 09:25:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,146 +78,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--000000000000af295306448eaabd
+Content-Type: text/plain; charset="UTF-8"
 
+Hi, I'm Yash. I would like to report a regression I'm facing with my AMD
+graphics card (RX 6500XT) and its driver amdgpu. This is happening to me in
+ALL the kernel versions above 6.1, i.e, linux 6.1 is the last kernel tested
+by me in which I'm not facing this issue.
 
-On 2025-11-26 16:06, Yaroslav wrote:
-> 
-> 
-> On 2025-11-26 15:59, Jani Nikula wrote:
->> On Wed, 26 Nov 2025, Yaroslav <iam@0la.ch> wrote:
->>> On 2025-11-26 15:08, Jani Nikula wrote:
->>>> On Wed, 26 Nov 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->>>>> On Wed, 26 Nov 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
->>>>>> Current VESA vendor-specific block parsing expects real block size 
->>>>>> to be
->>>>>> the same as the defined struct size, use real offsets in conditionals
->>>>>> instead to add struct fields in future commits.
->>>>>>
->>>>>> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
->>>>>
->>>>> I think this is something we want to backport, since MSO would break
->>>>> with bigger vendor-specific blocks, and that leads to black screens on
->>>>> MSO displays.
->>>>>
->>>>> Cc: stable@vger.kernel.org
->>>>> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
->>>>
->>>> Oops, I'll take that back.
->>>>
->>>>>
->>>>>> ---
->>>>>>    drivers/gpu/drm/drm_edid.c | 28 ++++++++++++----------------
->>>>>>    1 file changed, 12 insertions(+), 16 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
->>>>>> index 64f7a94dd9e4..a52fd6de9327 100644
->>>>>> --- a/drivers/gpu/drm/drm_edid.c
->>>>>> +++ b/drivers/gpu/drm/drm_edid.c
->>>>>> @@ -6544,7 +6544,7 @@ static void 
->>>>>> drm_parse_vesa_specific_block(struct drm_connector *connector,
->>>>>>        if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != 
->>>>>> VESA_IEEE_OUI)
->>>>>>            return;
->>>>>> -    if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
->>>>>> +    if (block->num_bytes < 5) {
->>>>>>            drm_dbg_kms(connector->dev,
->>>>>>                    "[CONNECTOR:%d:%s] Unexpected VESA vendor block 
->>>>>> size\n",
->>>>>>                    connector->base.id, connector->name);
->>>>>> @@ -6567,24 +6567,20 @@ static void 
->>>>>> drm_parse_vesa_specific_block(struct drm_connector *connector,
->>>>>>            break;
->>>>>>        }
->>>>>> -    if (!info->mso_stream_count) {
->>>>>> -        info->mso_pixel_overlap = 0;
->>>>
->>>> This is no longer cleared for !info->mso_stream_count.
->>>>
->>>> Perhaps the code could be reorganized to handle it better.
->>>
->>> It defaults to zero due to drm_reset_display_info()
->>
->> Yes, and the code above the context initializes it from the vendor
->> block.
->>
-> 
-> It is wrapped in `if (info->mso_stream_count)` so we get
-> 
-> /* From drm_reset_display_info */
-> info->mso_pixel_overlap = 0;
-> 
-> /* This part was removed, as we don't want the early return here anymore 
-> due to extended structure length checks
-> if (!info->mso_stream_count) {
->    info->mso_pixel_overlap = 0;
->    return;
-> } */
-> 
-> 
-> /* This code is right below your comment */
-> if (info->mso_stream_count) {
->    info->mso_pixel_overlap = ...;
->    ...
-> }
-> 
-> /* I can reinsert the value reset explicitly here, if that's what you 
-> suggesting to do:
-> 
-> else {
->    info->mso_pixel_overlap = 0;
-> }*/
-> 
-> 
+The Issue:- Whenever the refresh rate is set above 100hz (the max refresh
+rate my monitor supports is 120hz), the screen *flickers*, or *blinks,* i.e,
+it turns off for around 2s and turns back on whenever I click on things
+like- new tab button in firefox, type things in the terminal, press the
+super key, change the theme from appearance, etc.
 
-For reference, repository state at the point after this patch:
+The system is responsive, but the display *flickers* or *blinks *while
+doing normal tasks in my system. This doesn't happen at 100hz, or lower,
+like 60hz etc.
 
-https://github.com/CertainLach/linux-1/blob/01b0097171ebe85ae124a7b535dce0b46a1dd8e2/drivers/gpu/drm/drm_edid.c#L6561-L6593
+System Specifications:
+GPU: Powercolor AMD Radeon RX 6500XT 8gb
+CPU: Intel i3-9100f
+Monitor: Acer EK240Y G0 23.8 Inch IPS Full HD. I am using it at 1080p at
+120hz. Connected through HDMI
+Distro: Manjaro with XFCE. Also tested with fedora, linux mint, and some
+more.
 
-Commit: 
-https://github.com/CertainLach/linux-1/commit/01b0097171ebe85ae124a7b535dce0b46a1dd8e2
+Last Working Kernel Version by my testing: Linux 6.1.153-1 LTS
+First Bad Kernel Version by my testing: Linux 6.6.107-1 LTS
+Also facing issues on the latest Linux 6.17.1-0
 
-(Note that the fix for DP/EDP mistake is already here, but nothing else 
-was changed in the github version of this patch)
+Please let me know if you need any specific logs and also the command to
+fetch it (I'm a beginner in terminal and its commands)
 
-> 
->>
->>>
->>>>>> -        return;
->>>>>> -    }
->>>>>> -
->>>>>> -    info->mso_pixel_overlap = 
->>>>>> FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
->>>>>> -    if (info->mso_pixel_overlap > 8) {
->>>>>> +    if (info->mso_stream_count) {
->>>>>> +        info->mso_pixel_overlap = 
->>>>>> FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
->>>>>> +        if (info->mso_pixel_overlap > 8) {
->>>>>> +            drm_dbg_kms(connector->dev,
->>>>>> +                    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap 
->>>>>> value %u\n",
->>>>>> +                    connector->base.id, connector->name,
->>>>>> +                    info->mso_pixel_overlap);
->>>>>> +            info->mso_pixel_overlap = 8;
->>>>>> +        }
->>>>>>            drm_dbg_kms(connector->dev,
->>>>>> -                "[CONNECTOR:%d:%s] Reserved MSO pixel overlap 
->>>>>> value %u\n",
->>>>>> +                "[CONNECTOR:%d:%s] MSO stream count %u, pixel 
->>>>>> overlap %u\n",
->>>>>>                    connector->base.id, connector->name,
->>>>>> -                info->mso_pixel_overlap);
->>>>>> -        info->mso_pixel_overlap = 8;
->>>>>> +                info->mso_stream_count, info->mso_pixel_overlap);
->>>>>>        }
->>>>>> -
->>>>>> -    drm_dbg_kms(connector->dev,
->>>>>> -            "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap 
->>>>>> %u\n",
->>>>>> -            connector->base.id, connector->name,
->>>>>> -            info->mso_stream_count, info->mso_pixel_overlap);
->>>>>>    }
->>>>>>    static void drm_update_vesa_specific_block(struct drm_connector 
->>>>>> *connector,
->>>>
->>>
->>
+Thanks,
+
+Yash.
+#regzbot ^introduced: v6.1..v6.6
+
+--000000000000af295306448eaabd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi, I&#39;m Yash. I would like to report a regression=
+ I&#39;m facing with my AMD graphics card (RX 6500XT) and its driver amdgpu=
+. This is happening to me in ALL the kernel versions above 6.1, i.e, linux =
+6.1 is the last kernel tested by me in which I&#39;m not facing this=C2=A0i=
+ssue.</div><div><br></div><div>The Issue:- Whenever the refresh rate is set=
+ above 100hz (the max refresh rate my monitor supports is 120hz), the scree=
+n <i>flickers</i>, or <i>blinks,</i>=C2=A0i.e, it turns off for around 2s a=
+nd turns back on whenever I click on things like- new tab button in firefox=
+, type things in the terminal, press the super key, change the theme from a=
+ppearance, etc.=C2=A0</div><div><br></div><div>The=C2=A0system is responsiv=
+e, but the display <i>flickers</i> or <i>blinks=C2=A0</i>while doing normal=
+ tasks in my system. This doesn&#39;t happen at 100hz, or lower, like 60hz =
+etc.</div><div><br></div><div>System Specifications:<br></div><div>GPU: Pow=
+ercolor AMD Radeon RX 6500XT 8gb</div><div>CPU: Intel i3-9100f</div><div>Mo=
+nitor: Acer EK240Y=C2=A0G0 23.8 Inch IPS Full HD. I am using it at 1080p at=
+ 120hz. Connected through=C2=A0HDMI</div><div>Distro: Manjaro with XFCE. Al=
+so tested with fedora, linux mint, and some more.</div><div><br></div><div>=
+Last Working Kernel=C2=A0Version=C2=A0by my testing: Linux 6.1.153-1 LTS</d=
+iv><div>First Bad Kernel Version by my testing: Linux 6.6.107-1 LTS<br></di=
+v><div>Also facing issues on the latest Linux 6.17.1-0<br><br></div><div><s=
+pan class=3D"gmail-router-outlet-wrapper gmail-ng-tns-c2785337336-0"><p cla=
+ss=3D"gmail-ng-star-inserted"><span><span class=3D"gmail-ng-star-inserted">=
+Please let me know if you need any specific logs and also the command to fe=
+tch it (I&#39;m a beginner in terminal and its commands)<br><br></span></sp=
+an></p><p class=3D"gmail-ng-star-inserted"><span><span class=3D"gmail-ng-st=
+ar-inserted">Thanks,=C2=A0<br></span></span></p><p class=3D"gmail-ng-star-i=
+nserted"><span><span class=3D"gmail-ng-star-inserted">Yash.<br></span></spa=
+n>#regzbot ^introduced: v6.1..v6.6</p></span><br></div></div>
+
+--000000000000af295306448eaabd--
