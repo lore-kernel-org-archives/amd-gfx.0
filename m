@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D014D116F7
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F5FDD116F5
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C85410E672;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A19DC10E719;
 	Fri, 28 Nov 2025 08:34:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Cli4CK3X";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="fSIwiwA6";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD5F10E7D8;
- Thu, 27 Nov 2025 10:17:44 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF7510E7ED;
+ Thu, 27 Nov 2025 10:29:39 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4dHC6Y21rgz9sym;
- Thu, 27 Nov 2025 11:17:41 +0100 (CET)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dHCNH4kq6z9ssn;
+ Thu, 27 Nov 2025 11:29:35 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1764238661; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1764239375; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=XUX6g1+cMLR5RovSUnlNsHoaQA7NAILRZDgCTdRlTBE=;
- b=Cli4CK3XzkF3MQcBNHxChG42NdcyrblWVcZx+KBp5UTSaxfiLCV0/gR1crhhRYTKrlD90W
- igk5BSxEZlVDlLf1Qmqaxpw8aEQh1cNuwigKudm9beTIGWIFA3APA9goVBHMz07vJKdsWD
- uUDka9FEWImlr0Of/N0atYuaTby5fhCBA34vyvBqWvhEEMC8rQqHDz/lh7wVb6Qo1lAtid
- mJ9KlRIMzC/KLES3N4Zv+4tfaXdxjZP1XCk8d5/4x4l0vJvT7ClXxBeJnaYezDW2e0dFPD
- 6TO9xLKh8FrWq4xThWS4sZjAanqfo9+QlpMrvJPl5ONINxEhTfwV9dl0uQqBZA==
-Message-ID: <79eb3c713e810ec025eb3cd20583cb666ca7322d.camel@mailbox.org>
-Subject: Re: [PATCH 01/18] dma-buf: cleanup dma_fence_describe v3
+ bh=CttLpGvt+BQI7FK1pMA6SKCpI/oMH9d0l5Icob0Xv4I=;
+ b=fSIwiwA6qpIYUorjY8LpQXqNrz6Urb6q/aFKVfNSMud+gZT7ABBG5H2IzwfDsbNLSdpPqC
+ feLZZUSyaf0sYn4mO1hnNbFz8/BBUsI8Ktz6JFVBGGCcs/HxceYSr4YJSuEWZUhF4LTY3Z
+ 9Sj6vD0EVIILmuO+H4TRPTrfZ4mOgyc9Ehgq9KAFNQlPLUzxSNKhF07qvKu5c/qk+nkLZX
+ 93VegSuldr//XgUG6JFfea0vw7teupZqey2RnELwQ/gEfQBqyKilSFViFGNmVdIJ+EUuTi
+ JU6vOjtAfryT8arQzBmy1nNlkIMqOc8o+1yxuZiRM8jx08BZWwCyWitqEhulyg==
+Message-ID: <7821929c041b973712968a4f90bd6e81e8051c81.camel@mailbox.org>
+Subject: Re: [PATCH 03/18] dma-buf: detach fence ops on signal v2
 From: Philipp Stanner <phasta@mailbox.org>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
  alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
  matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
  sumit.semwal@linaro.org
-Date: Thu, 27 Nov 2025 11:17:38 +0100
-In-Reply-To: <20251113145332.16805-2-christian.koenig@amd.com>
+Date: Thu, 27 Nov 2025 11:29:32 +0100
+In-Reply-To: <20251113145332.16805-4-christian.koenig@amd.com>
 References: <20251113145332.16805-1-christian.koenig@amd.com>
- <20251113145332.16805-2-christian.koenig@amd.com>
+ <20251113145332.16805-4-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 84f1c3ac36b0a1da64e
-X-MBO-RS-META: 8pno8uwxaajz8buasnmowgm3zrpoii17
+X-MBO-RS-ID: 4b0056efd151b94d99d
+X-MBO-RS-META: jz8qzc3tzot1mnufrpciosqww3ci6q6u
 X-Mailman-Approved-At: Fri, 28 Nov 2025 08:34:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,59 +68,103 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
-> The driver and timeline name are meaningless for signaled fences.
+> When neither a release nor a wait backend ops is specified it is possible
+> to let the dma_fence live on independently of the module who issued it.
 >=20
-> Drop them and also print the context number.
+> This makes it possible to unload drivers and only wait for all their
+> fences to signal.
 >=20
-> v2: avoid the calls when the BO is already signaled.
-> v3: use same format as trace points for context and seqno.
+> v2: fix typo in comment
 >=20
 > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+
+Reviewed-by: Philipp Stanner <phasta@kernel.org>
+
+
 > ---
-
-I still think that more fleshed out commit messages are great :)
-
-
-> =C2=A0drivers/dma-buf/dma-fence.c | 20 +++++++++++---------
-> =C2=A01 file changed, 11 insertions(+), 9 deletions(-)
+> =C2=A0drivers/dma-buf/dma-fence.c | 16 ++++++++++++----
+> =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A02 files changed, 14 insertions(+), 6 deletions(-)
 >=20
 > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index c5d1478b28dd..b4f5c8635276 100644
+> index ec21be9b089a..7074347f506d 100644
 > --- a/drivers/dma-buf/dma-fence.c
 > +++ b/drivers/dma-buf/dma-fence.c
-> @@ -997,19 +997,21 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
-> =C2=A0 */
-> =C2=A0void dma_fence_describe(struct dma_fence *fence, struct seq_file *s=
-eq)
-> =C2=A0{
-> -	const char __rcu *timeline;
-> -	const char __rcu *driver;
-> +	const char __rcu *timeline =3D "";
-> +	const char __rcu *driver =3D "";
-> +	const char *signaled =3D "";
+> @@ -374,6 +374,14 @@ int dma_fence_signal_timestamp_locked(struct dma_fen=
+ce *fence,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags)))
+> =C2=A0		return -EINVAL;
+> =C2=A0
+> +	/*
+> +	 * When neither a release nor a wait operation is specified set the ops
+> +	 * pointer to NULL to allow the fence structure to become independent
+> +	 * from who originally issued it.
+> +	 */
+> +	if (!fence->ops->release && !fence->ops->wait)
+> +		RCU_INIT_POINTER(fence->ops, NULL);
+> +
+> =C2=A0	/* Stash the cb_list before replacing it with the timestamp */
+> =C2=A0	list_replace(&fence->cb_list, &cb_list);
+> =C2=A0
+> @@ -513,7 +521,7 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool =
+intr, signed long timeout)
+> =C2=A0	rcu_read_lock();
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> =C2=A0	trace_dma_fence_wait_start(fence);
+> -	if (ops->wait) {
+> +	if (ops && ops->wait) {
+> =C2=A0		/*
+> =C2=A0		 * Implementing the wait ops is deprecated and not supported for
+> =C2=A0		 * issuer independent fences, so it is ok to use the ops outside
+> @@ -578,7 +586,7 @@ void dma_fence_release(struct kref *kref)
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> -	if (ops->release)
+> +	if (ops && ops->release)
+> =C2=A0		ops->release(fence);
+> =C2=A0	else
+> =C2=A0		dma_fence_free(fence);
+> @@ -614,7 +622,7 @@ static bool __dma_fence_enable_signaling(struct dma_f=
+ence *fence)
 > =C2=A0
 > =C2=A0	rcu_read_lock();
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> -	if (!was_set && ops->enable_signaling) {
+> +	if (!was_set && ops && ops->enable_signaling) {
+> =C2=A0		trace_dma_fence_enable_signal(fence);
 > =C2=A0
-> -	timeline =3D dma_fence_timeline_name(fence);
-> -	driver =3D dma_fence_driver_name(fence);
-> +	if (!dma_fence_is_signaled(fence)) {
-> +		timeline =3D dma_fence_timeline_name(fence);
-> +		driver =3D dma_fence_driver_name(fence);
-> +		signaled =3D "un";
-> +	}
+> =C2=A0		if (!ops->enable_signaling(fence)) {
+> @@ -1000,7 +1008,7 @@ void dma_fence_set_deadline(struct dma_fence *fence=
+, ktime_t deadline)
 > =C2=A0
-> -	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
-> -		=C2=A0=C2=A0 rcu_dereference(driver),
-> -		=C2=A0=C2=A0 rcu_dereference(timeline),
-
-Why does usage  of rcu_dereference become unnecessary?=20
-
-> -		=C2=A0=C2=A0 fence->seqno,
-> -		=C2=A0=C2=A0 dma_fence_is_signaled(fence) ? "" : "un");
-> +	seq_printf(seq, "%llu:%llu %s %s %ssignalled\n",
-> +		=C2=A0=C2=A0 fence->context, fence->seqno, timeline, driver,
-> +		=C2=A0=C2=A0 signaled);
-> =C2=A0
+> =C2=A0	rcu_read_lock();
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> -	if (ops->set_deadline && !dma_fence_is_signaled(fence))
+> +	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
+> =C2=A0		ops->set_deadline(fence, deadline);
 > =C2=A0	rcu_read_unlock();
 > =C2=A0}
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index 77f07735f556..eb57bcc8712f 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -436,7 +436,7 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+> =C2=A0
+> =C2=A0	rcu_read_lock();
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> -	if (ops->signaled && ops->signaled(fence)) {
+> +	if (ops && ops->signaled && ops->signaled(fence)) {
+> =C2=A0		rcu_read_unlock();
+> =C2=A0		dma_fence_signal_locked(fence);
+> =C2=A0		return true;
+> @@ -472,7 +472,7 @@ dma_fence_is_signaled(struct dma_fence *fence)
+> =C2=A0
+> =C2=A0	rcu_read_lock();
+> =C2=A0	ops =3D rcu_dereference(fence->ops);
+> -	if (ops->signaled && ops->signaled(fence)) {
+> +	if (ops && ops->signaled && ops->signaled(fence)) {
+> =C2=A0		rcu_read_unlock();
+> =C2=A0		dma_fence_signal(fence);
+> =C2=A0		return true;
 
