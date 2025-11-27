@@ -4,70 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B778D116EA
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:35:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9CBBCFD376
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:35:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2234B10E2F1;
-	Fri, 28 Nov 2025 08:35:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40AC010E820;
+	Fri, 28 Nov 2025 08:35:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="AE7unJJ9";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="DQJVIS7e";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B96E10E721;
- Thu, 27 Nov 2025 13:51:52 +0000 (UTC)
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA4F10E678;
+ Thu, 27 Nov 2025 11:17:27 +0000 (UTC)
 Received: from smtp2.mailbox.org (smtp2.mailbox.org
  [IPv6:2001:67c:2050:b231:465::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dHHsd1yj1z9tHd;
- Thu, 27 Nov 2025 14:51:49 +0100 (CET)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dHDRS2fwjz9t8m;
+ Thu, 27 Nov 2025 12:17:24 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1764251509; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ t=1764242244; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=aAh7JsuhDwTA6puzFjLHmry2BMuVgc6R6juTrQrgIDM=;
- b=AE7unJJ9EOQPnAi6TAazDIz1H8bRe3kpfr2AeFzAgESqZiwAEGdMEwcmGwd9lP9QIprYgh
- +PMh8zg92MzpeUgxSx28dQ927sQ6NE4O47T8ZF3lEEBHHwgmkPlI2p8kwblFme8QlvxLdI
- Iz8kanTYpfmMBM6qMw9no4nwu2B0knIA9nw2FbiExLcEylLQ5ehjP826FrDzY8tJWsfLyj
- LlDOWYm9sCS7rYd5IcfyPmlQjaVxaXhYJipYOYd1Zx97lZVEH+jb12tn+HBH2J7TWr1/n4
- fUYiUEHM8WA6v1LZOWZnMGPjFLvi/mg2i2OBErArYZulsdATYMJGDtjk8NFB1g==
-Message-ID: <63274dd281ac94f2680a4aa91f541de82435fda5.camel@mailbox.org>
-Subject: Re: [PATCH 3/6] drm/gpu/xe: Ignore dma_fenc_signal() return code
+ bh=kdLhtFqYrGAAE3G7PcwuS9PaciP06RnxEbDvvNTDD/Y=;
+ b=DQJVIS7ewZzM9YvbsjEUaBWPNvLb1ZMsuRtiTTLb/pTG6W3zasbrbLy4xc2cfgWoRW3Pd4
+ t1+ui2QrBJLaS+EPrJeJQfcQPuQkzTZSOPIoUqeeD7sEvd6nUKpKoZr32z5GV0Fqd0Aa0y
+ Bp4QUNfx5a4AJ7V/TZXB5g+TaQbrUeC3OgsEGJDIHS5hmQHFweg0D1d1E9afDy5Dm2Pz0K
+ OK49kcpVMpz7ASaQM34+HNh+kVWaUbO9uLO4Sfac4GKS1/jaIl2/DCn38pcm5QU9pjwuXn
+ aED50hAvcuU8ZFdGmzN//DNn0ZmGigIji6Oq1CX6cjFHFvcJ5mw2/W5tYiXBSA==
+Message-ID: <ce96cf250dfca4aea9ddfc00e45fc1b47caceedc.camel@mailbox.org>
+Subject: Re: [PATCH 18/18] drm/xe: Finish disconnect HW fences from module
 From: Philipp Stanner <phasta@mailbox.org>
-To: Andi Shyti <andi.shyti@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-Cc: Philipp Stanner <phasta@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Gustavo Padovan <gustavo@padovan.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Felix
- Kuehling <Felix.Kuehling@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org
-Date: Thu, 27 Nov 2025 14:51:39 +0100
-In-Reply-To: <q2kvwmnxomqlcx7zgvlvyhupduytfubcu5vghuf6ztrdaq55pb@gq4tg7qughun>
-References: <20251126131914.149445-2-phasta@kernel.org>
- <20251126131914.149445-5-phasta@kernel.org>
- <nrrk4kug6a42fztx7ryuz5bk6uy7roiszjhiivlvtrw3uvunps@wn44moyetzff>
- <aSeTsINKklqqJyIs@lstrano-desk.jf.intel.com>
- <q2kvwmnxomqlcx7zgvlvyhupduytfubcu5vghuf6ztrdaq55pb@gq4tg7qughun>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
+ matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ sumit.semwal@linaro.org
+Date: Thu, 27 Nov 2025 12:17:19 +0100
+In-Reply-To: <20251113145332.16805-19-christian.koenig@amd.com>
+References: <20251113145332.16805-1-christian.koenig@amd.com>
+ <20251113145332.16805-19-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 63157739c600c3e8b1c
-X-MBO-RS-META: 86chu8ma6etgk766suyxb85nfygh4osp
+X-MBO-RS-ID: bfbff4823f15586f625
+X-MBO-RS-META: u74iaqnp9jeowrxeu5hz8h5ni6i6syeu
 X-Mailman-Approved-At: Fri, 28 Nov 2025 08:34:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,46 +68,44 @@ Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-11-27 at 14:37 +0100, Andi Shyti wrote:
-> Hi Matt,
+On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
+> From: Matthew Brost <matthew.brost@intel.com>
 >=20
-> On Wed, Nov 26, 2025 at 03:56:32PM -0800, Matthew Brost wrote:
-> > On Wed, Nov 26, 2025 at 11:56:57PM +0100, Andi Shyti wrote:
-> > > > @@ -85,7 +85,6 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_ir=
-q *irq)
-> > > > @@ -93,9 +92,9 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_ir=
-q *irq)
-> > > > =C2=A0		spin_lock_irqsave(&irq->lock, flags);
-> > > > =C2=A0		list_for_each_entry_safe(fence, next, &irq->pending, irq_li=
-nk) {
-> > > > =C2=A0			list_del_init(&fence->irq_link);
-> > > > -			err =3D dma_fence_signal_locked(&fence->dma);
-> > >=20
-> > > why don't we do
-> > >=20
-> > > XE_WARN_ON(dma_fence_signal_locked(..))
-
-because it's impossible because the series is about removing the return
-codes from the dma_fence_signal_* functions.
-
-> > >=20
-> >=20
-> > IIRC the above statement can compile out. So the patch looks correct to=
- me.
+> Be safe when dereferencing fence->xe.
 >=20
-> you have defined XE_WARN_ON as WARN_ON that should always
-> evaluate the content and, depending on the configuration, it
-> prints the logs or not.
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+> =C2=A0drivers/gpu/drm/xe/xe_hw_fence.c | 13 +++++++------
+> =C2=A01 file changed, 7 insertions(+), 6 deletions(-)
 >=20
-> What I don't like from this patch is that we end up checking
-> twice for the DMA_FENCE_FLAG_SIGNALED_BIT bit.
+> diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_=
+fence.c
+> index f5fad4426729..8181dfc628e4 100644
+> --- a/drivers/gpu/drm/xe/xe_hw_fence.c
+> +++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+> @@ -159,9 +159,7 @@ static struct xe_hw_fence_irq *xe_hw_fence_irq(struct=
+ xe_hw_fence *fence)
+> =C2=A0
+> =C2=A0static const char *xe_hw_fence_get_driver_name(struct dma_fence *dm=
+a_fence)
+> =C2=A0{
+> -	struct xe_hw_fence *fence =3D to_xe_hw_fence(dma_fence);
+> -
+> -	return dev_name(fence->xe->drm.dev);
+> +	return "xe";
+> =C2=A0}
 
-Depends on what you mean by "we". The Xe code checks it only once, with
-dma_fence_test_signaled_flag(). The dma_fence backend checks it yet
-again, as it always does, to avoid signaling a signaled fence.
+May I ask what those name callbacks are used for in Xe?
+I had so far only seen those dma_fence callbacks being used in i915.
 
-That's not racy here, however, because the fence lock is already being
-held, as evidenced by the current usage of dma_fence_signal_locked().
+I'm asking because in Rust DmaFence I discovered that having those
+callbacks in the first place creates the life time problems Christian
+addresses in this series.
+
+I think we had begun brainstorming whether removing get_driver_name()
+and get_timeline_name() in dma_fence's backend_ops would be the cleaner
+thing to do, compared to the RCU guards.
 
 
 P.
+
