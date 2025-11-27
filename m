@@ -4,67 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8973CFD376
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CFEED116F6
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2609F10E2D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FA710E353;
 	Fri, 28 Nov 2025 08:34:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jLMIxK76";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ea2FEuya";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66BAE10E7F4;
- Thu, 27 Nov 2025 09:48:12 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4D3F10E801;
+ Thu, 27 Nov 2025 10:51:40 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dHBSS6Tfrz9tlN;
- Thu, 27 Nov 2025 10:48:08 +0100 (CET)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4dHCsj6FcWz9sdm;
+ Thu, 27 Nov 2025 11:51:37 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1764236888; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ t=1764240697; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZQYSvusihxhAEhdU9CYjb1IJ74ERkj/ScwDBukN3aU4=;
- b=jLMIxK760nk1jr6W+dythNSXScSQUSIn0bfNZKLsnQsoUsP4h3ywir/eSZ27UsyXpnUHGt
- HKR1ydCo5vb0KXtgiU6+xBvKyCoskn4oBuzTQs9zRcXr4JqHMSNdo9tohHXFRZPmyaLuPE
- fotHp0J55AqD+/ghCBzme2ktHRL56A/js86yI4JIJmo+MHuOaH5QumXvHmc8mWASePQ8Ys
- I9DkcZ+wxN5w0xPnu1wseU7+VBp/jfR6Z2ugni7+QL0aVcoKFRF9QYlIY8o9GfvPOCf5Gz
- dg4RXwx8zURlAGa2kAFYPgo3xhFLy361bSBJz6mMLjboBiGUb7+PvOGVjcDFdA==
-Message-ID: <d46f753e660694ab46c65409a5e43f050b7eb2d9.camel@mailbox.org>
-Subject: Re: [PATCH 2/6] amd/amdkfd: Ignore return code of dma_fence_signal()
+ bh=a+/CnqgOsofBTV7/YbaZDyPU7rGK0NtsOQxJO8FEjuo=;
+ b=ea2FEuya3D1m3jJ5FCsL5HytgwaL8Egv8xxGAMDUofMrbEVTQHtj0zaP4KtKp3TPlxokh/
+ NWlsGGEBsgWHCkN/qDVxN8p3vXq7IgZuENjzWfugy/9R0rMaPv20rHEtwvR9lH5fLKPJI9
+ CL1LPUeHWzQ4/hcXfPAe1FaW4r067FBY59CBT+ac9R4HkYyr6C3A6zzk3oUGm8bNMtkQMq
+ Pa29ZJSK9jqbVLMDiErLUqyfqcYso+FVvqvxWW3/BHr4jSfd6PI46WLYOw8LW5zw9gnN90
+ kLdqJqdCzcOh/9oIkSC6WNKU7sdf88bARaMpzy5L7gKTm9BXgtydDIiorLXjbQ==
+Message-ID: <b1a3e4482fbd42477fc80882baebbfd9d9512b41.camel@mailbox.org>
+Subject: Re: [PATCH 06/18] dma-buf: use inline lock for the dma-fence-array
 From: Philipp Stanner <phasta@mailbox.org>
-To: "Kuehling, Felix" <felix.kuehling@amd.com>, Philipp Stanner
- <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Gustavo
- Padovan <gustavo@padovan.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost
- <matthew.brost@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Date: Thu, 27 Nov 2025 10:48:00 +0100
-In-Reply-To: <cef83fed-5994-4c77-962c-9c7aac9f7306@amd.com>
-References: <20251126131914.149445-2-phasta@kernel.org>
- <20251126131914.149445-4-phasta@kernel.org>
- <cef83fed-5994-4c77-962c-9c7aac9f7306@amd.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
+ matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ sumit.semwal@linaro.org
+Date: Thu, 27 Nov 2025 11:51:34 +0100
+In-Reply-To: <20251113145332.16805-7-christian.koenig@amd.com>
+References: <20251113145332.16805-1-christian.koenig@amd.com>
+ <20251113145332.16805-7-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 0128008008b612f56f4
-X-MBO-RS-META: iynpcy9qgfczj4y13orf1zbr8bhxik1n
+X-MBO-RS-ID: 46ef2ca0481663aa79c
+X-MBO-RS-META: 4id8eth43kbt5gbt8cjgi17cd1gwc7yg
 X-Mailman-Approved-At: Fri, 28 Nov 2025 08:34:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,84 +68,53 @@ Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-11-26 at 16:24 -0500, Kuehling, Felix wrote:
+On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
+> Using the inline lock is now the recommended way for dma_fence implementa=
+tions.
 >=20
-> On 2025-11-26 08:19, Philipp Stanner wrote:
-> > The return code of dma_fence_signal() is not really useful as there is
-> > nothing reasonable to do if a fence was already signaled. That return
-> > code shall be removed from the kernel.
-> >=20
-> > Ignore dma_fence_signal()'s return code.
+> So use this approach for the framework internal fences as well.
 >=20
-> I think this is not correct. Looking at the comment in=20
-> evict_process_worker, we use the return value to decide a race=20
-> conditions where multiple threads are trying to signal the eviction=20
-> fence. Only one of them should schedule the restore work. And the other=
-=20
-> ones need to increment the reference count to keep evictions balanced.
-
-Thank you for pointing that out. Seems then amdkfd is the only user who
-actually relies on the feature. See below
-
+> Also saves about 4 bytes for the external spinlock.
 >=20
-> Regards,
-> =C2=A0=C2=A0 Felix
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Reviewed-by: Philipp Stanner <phasta@kernel.or>
+
+> ---
+> =C2=A0drivers/dma-buf/dma-fence-array.c | 5 ++---
+> =C2=A0include/linux/dma-fence-array.h=C2=A0=C2=A0 | 1 -
+> =C2=A02 files changed, 2 insertions(+), 4 deletions(-)
 >=20
->=20
-> >=20
-> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> > ---
-> > =C2=A0 drivers/gpu/drm/amd/amdkfd/kfd_process.c | 5 ++---
-> > =C2=A0 1 file changed, 2 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_process.c
-> > index ddfe30c13e9d..950fafa4b3c3 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > @@ -1986,7 +1986,6 @@ kfd_process_gpuid_from_node(struct kfd_process *p=
-, struct kfd_node *node,
-> > =C2=A0 static int signal_eviction_fence(struct kfd_process *p)
-> > =C2=A0 {
-> > =C2=A0=C2=A0	struct dma_fence *ef;
-> > -	int ret;
-> > =C2=A0=20
-> > =C2=A0=C2=A0	rcu_read_lock();
-> > =C2=A0=C2=A0	ef =3D dma_fence_get_rcu_safe(&p->ef);
-> > @@ -1994,10 +1993,10 @@ static int signal_eviction_fence(struct kfd_pro=
-cess *p)
-> > =C2=A0=C2=A0	if (!ef)
-> > =C2=A0=C2=A0		return -EINVAL;
-> > =C2=A0=20
-> > -	ret =3D dma_fence_signal(ef);
-> > +	dma_fence_signal(ef);
+> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fenc=
+e-array.c
+> index 6657d4b30af9..c2119a8049fe 100644
+> --- a/drivers/dma-buf/dma-fence-array.c
+> +++ b/drivers/dma-buf/dma-fence-array.c
+> @@ -204,9 +204,8 @@ void dma_fence_array_init(struct dma_fence_array *arr=
+ay,
+> =C2=A0
+> =C2=A0	array->num_fences =3D num_fences;
+> =C2=A0
+> -	spin_lock_init(&array->lock);
+> -	dma_fence_init(&array->base, &dma_fence_array_ops, &array->lock,
+> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 context, seqno);
+> +	dma_fence_init(&array->base, &dma_fence_array_ops, NULL, context,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 seqno);
+> =C2=A0	init_irq_work(&array->work, irq_dma_fence_array_work);
+> =C2=A0
+> =C2=A0	atomic_set(&array->num_pending, signal_on_any ? 1 : num_fences);
+> diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-ar=
+ray.h
+> index 079b3dec0a16..370b3d2bba37 100644
+> --- a/include/linux/dma-fence-array.h
+> +++ b/include/linux/dma-fence-array.h
+> @@ -38,7 +38,6 @@ struct dma_fence_array_cb {
+> =C2=A0struct dma_fence_array {
+> =C2=A0	struct dma_fence base;
+> =C2=A0
+> -	spinlock_t lock;
+> =C2=A0	unsigned num_fences;
+> =C2=A0	atomic_t num_pending;
+> =C2=A0	struct dma_fence **fences;
 
-The issue now is that dma_fence_signal()'s return code is actually non-
-racy, because check + bit-set are protected by lock.
-
-Christian's new spinlock series would add a lock function for fences:
-https://lore.kernel.org/dri-devel/20251113145332.16805-5-christian.koenig@a=
-md.com/
-
-
-So I suppose this should work:
-
-dma_fence_lock_irqsave(ef, flags);
-if (dma_fence_test_signaled_flag(ef)) {
-	dma_fence_unlock_irqrestore(ef, flags);
-	return true;
-}
-dma_fence_signal_locked(ef);
-dma_fence_unlock_irqrestore(ef, flags);
-
-return false;
-
-
-+ some cosmetic adjustments for the boolean of course.
-
-
-Would that fly and be reasonable? @Felix, Christian.
-
-
-P.
