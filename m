@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0A8ED116EA
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9BDD116F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:34:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0D0810E6E1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CECFA10E7FC;
 	Fri, 28 Nov 2025 08:34:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="nXbUqHPP";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="oMi9F5El";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE4F10E80E;
- Thu, 27 Nov 2025 10:52:51 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB8810E7DC;
+ Thu, 27 Nov 2025 11:03:04 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4dHCv36pwRz9tJ6;
- Thu, 27 Nov 2025 11:52:47 +0100 (CET)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4dHD6r3Bzxz9v5v;
+ Thu, 27 Nov 2025 12:03:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1764240768; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1764241380; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8XGSX2e1Nz7vHsv7TnxdnhGmJ4ZE340y6yc74kWi6z8=;
- b=nXbUqHPP38bMxJNJbhIGOZTxlci0IReElINJDz7DnGvdZdQpsIELCW/tD7KwkpJH+veZnI
- Ta+COzwyEcQ693AShnUccV1gTOlaKdPW/AIfmCQaog6PxAZFO6LDMqHUSqHdAVR7UJxjlU
- dgbne9SUaVL8xVMc22ytHJuwEh6HZJhyWxlsGxGFEGP651z5rSEpEdjsu7WOIcQwj3X9kh
- xfa5P9/l/29r9SpnxE2+D8j28rSSrPM1B2RYA5gdNwF3he6o5YL5M2QY6+gskaUKZ8Ey7W
- nssw+HowYYjBtzLSYQopbETqud4pyRKK6Q2kOf2OVjXqP1gRPNCaKle+z3W//A==
-Message-ID: <1f8dccacf01ac4722756a0345dba28afef320439.camel@mailbox.org>
-Subject: Re: [PATCH 07/18] dma-buf: use inline lock for the dma-fence-chain
+ bh=KkRMHtw9LQhelvy8nQcY+tYagsQhskeVABbtwsvV00Y=;
+ b=oMi9F5El+OpUch+Gi4hytlmOMl2bv1Je1wsVIt9uEiAVz6wAiyj7CiAfraLDlzz7gZ2VRR
+ PeKccneWRm9Uht4Ji7ZCgf3UADmDg0NaR5A2JKg+lUIgbm4O18NIkOrQYlyQ1S2PdEMAh9
+ SSepFM0lTu/xIIWp0k3ql6+VC098HcPiNfHmyp8gMMR+oGpVXfZgzalrC33vGgD6Sazmwk
+ sQA6qbJspaOvCr4hTzOKD0fPs4nnKILkMfyjLeEAUqSbe1jmf3n2dRFNw6AtgywDmSM0Ky
+ 5Tzg3wFb8pPlP1TR2GsKpxBaSjXBSUCNIv3g5OZqR4wuydcCbEk3zqUaavI0ww==
+Message-ID: <5acfa08453fa07329191fa9cca04be0f5cc5dfc5.camel@mailbox.org>
+Subject: Re: [PATCH 11/18] drm/amdgpu: independence for the
+ amdgpu_eviction_fence!
 From: Philipp Stanner <phasta@mailbox.org>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
  alexdeucher@gmail.com, simona.vetter@ffwll.ch, tursulin@ursulin.net, 
  matthew.brost@intel.com, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org
-Date: Thu, 27 Nov 2025 11:52:44 +0100
-In-Reply-To: <20251113145332.16805-8-christian.koenig@amd.com>
+ amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ sumit.semwal@linaro.org
+Date: Thu, 27 Nov 2025 12:02:52 +0100
+In-Reply-To: <20251113145332.16805-12-christian.koenig@amd.com>
 References: <20251113145332.16805-1-christian.koenig@amd.com>
- <20251113145332.16805-8-christian.koenig@amd.com>
+ <20251113145332.16805-12-christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 4705baeed2dfedf495a
-X-MBO-RS-META: 6f5nbxsyzy9g4ts31gftitg6cmrsbmyt
+X-MBO-RS-ID: 0f36c905572b1830480
+X-MBO-RS-META: g5y64tcnr7qjwojf6ntt51xizdx5ftzf
 X-Mailman-Approved-At: Fri, 28 Nov 2025 08:34:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,58 +70,51 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
-> Using the inline lock is now the recommended way for dma_fence implementa=
-tions.
->=20
-> So use this approach for the framework internal fences as well.
->=20
-> Also saves about 4 bytes for the external spinlock.
+> This should allow amdgpu_fences to outlive the amdgpu module.
+
+amdgpu_eviction_fences you mean.
+
+And I would drop the "should" from this and the previous patch. We're
+confident it works, aren't we? ^^'
+
+P.
+
 >=20
 > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Reviewed-by: Philipp Stanner <phasta@kernel.org>
-
 > ---
-> =C2=A0drivers/dma-buf/dma-fence-chain.c | 3 +--
-> =C2=A0include/linux/dma-fence-chain.h=C2=A0=C2=A0 | 1 -
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 3 +--
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h | 1 -
 > =C2=A02 files changed, 1 insertion(+), 3 deletions(-)
 >=20
-> diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fenc=
-e-chain.c
-> index a8a90acf4f34..a707792b6025 100644
-> --- a/drivers/dma-buf/dma-fence-chain.c
-> +++ b/drivers/dma-buf/dma-fence-chain.c
-> @@ -245,7 +245,6 @@ void dma_fence_chain_init(struct dma_fence_chain *cha=
-in,
-> =C2=A0	struct dma_fence_chain *prev_chain =3D to_dma_fence_chain(prev);
-> =C2=A0	uint64_t context;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> index 23d7d0b0d625..95ee22c43ceb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
+> @@ -167,9 +167,8 @@ amdgpu_eviction_fence_create(struct amdgpu_eviction_f=
+ence_mgr *evf_mgr)
 > =C2=A0
-> -	spin_lock_init(&chain->lock);
-> =C2=A0	rcu_assign_pointer(chain->prev, prev);
-> =C2=A0	chain->fence =3D fence;
-> =C2=A0	chain->prev_seqno =3D 0;
-> @@ -261,7 +260,7 @@ void dma_fence_chain_init(struct dma_fence_chain *cha=
-in,
-> =C2=A0			seqno =3D max(prev->seqno, seqno);
-> =C2=A0	}
+> =C2=A0	ev_fence->evf_mgr =3D evf_mgr;
+> =C2=A0	get_task_comm(ev_fence->timeline_name, current);
+> -	spin_lock_init(&ev_fence->lock);
+> =C2=A0	dma_fence_init64(&ev_fence->base, &amdgpu_eviction_fence_ops,
+> -			 &ev_fence->lock, evf_mgr->ev_fence_ctx,
+> +			 NULL, evf_mgr->ev_fence_ctx,
+> =C2=A0			 atomic_inc_return(&evf_mgr->ev_fence_seq));
+> =C2=A0	return ev_fence;
+> =C2=A0}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+> index fcd867b7147d..fb70efb54338 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.h
+> @@ -27,7 +27,6 @@
 > =C2=A0
-> -	dma_fence_init64(&chain->base, &dma_fence_chain_ops, &chain->lock,
-> +	dma_fence_init64(&chain->base, &dma_fence_chain_ops, NULL,
-> =C2=A0			 context, seqno);
-> =C2=A0
-> =C2=A0	/*
-> diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-ch=
-ain.h
-> index 68c3c1e41014..d39ce7a2e599 100644
-> --- a/include/linux/dma-fence-chain.h
-> +++ b/include/linux/dma-fence-chain.h
-> @@ -46,7 +46,6 @@ struct dma_fence_chain {
-> =C2=A0		 */
-> =C2=A0		struct irq_work work;
-> =C2=A0	};
-> -	spinlock_t lock;
+> =C2=A0struct amdgpu_eviction_fence {
+> =C2=A0	struct dma_fence base;
+> -	spinlock_t	 lock;
+> =C2=A0	char		 timeline_name[TASK_COMM_LEN];
+> =C2=A0	struct amdgpu_eviction_fence_mgr *evf_mgr;
 > =C2=A0};
-> =C2=A0
-> =C2=A0
 
