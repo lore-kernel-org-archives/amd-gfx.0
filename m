@@ -4,172 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DD65D11183
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Nov 2025 10:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98FDFD11183
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Nov 2025 10:34:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2AB10E80A;
-	Thu, 27 Nov 2025 10:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3693C10E81F;
+	Thu, 27 Nov 2025 10:34:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zY+izlJN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aDkLTVaD";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011065.outbound.protection.outlook.com [52.101.52.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 665E910E803;
- Thu, 27 Nov 2025 10:01:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M5HoDC83jtoE52iYCQj3StDzIA8Rca8X+yU4hHuWKrr9wDcBJOf+yslfKiift6k3ldt4MTxeRzgmXWaZi1mn7147JWSvENyQjBP5UTOuIAS6rV2vb5p+Z7rFqHdarcEBvZW0zV8FtgEn3nEIUF98HOUsNKNLMNLRE0cNuqry+3agPiT8zbyQDBokZE0wJISB9XGaBDgqVe5mzswAtqevjqwC+jwrsRnWYc0ViQEiQukZHM5CW3kidOm0eTtQJW6v83k4PcmWiITbQzz9THt8YNZ38dmFVEMFixfO6a+9OZcTZQLrM/q8yw5Zmavd5TGV5fFET89L1Hy0jRi/mWKkzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NQwjV1Re9ZtRXXHVYmkNR9bW/SM8RQB5qre/85stv2g=;
- b=VqcY392+tNoVmzjwYV5HA+yR3FNNFQEiPFSwv1nz8AHLmm4HpGlHAec5/AVgAnMhCj7UpWcDeFK+/wf+4z+PObHodIMvd/GnQQh/J2fw0g9QUW1ARPnTRqSxk/AC2XDxELuxPp37GU6vORIcVSGX329XsL7foAuw2g6+NhDGT46Yq/ZUdpCFaaBqgxYX1xJ+18H1ah7huTVqS+TAPnzqxIYuugqr4IhROXB2AlurmApKV5u6Ux2VJqcGl42k07HO63oRmEAkY/nb7zyKSlPuy/GxWalHD1cMGVrwzzrdrcT3r2Rw0HW1OiP3vetQxwwX1xwTyE79V7v2DaxxS/kkLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NQwjV1Re9ZtRXXHVYmkNR9bW/SM8RQB5qre/85stv2g=;
- b=zY+izlJN4idoai2/jtcHo4cHYtgfMkvKvnt1FmX3Kjq1o2m/wBvDF7ifOSBzHEuoU5gJ5M2xpxEvO4Pz0J4QVh1YnVaMvyApusE6BQfetA2mgt+i8bQpU1lezo2CSlNo+VXbj0C8df0KgzBuzgnuJedwW2YGtIt8zL/8B6DzPHA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB6746.namprd12.prod.outlook.com (2603:10b6:510:1c1::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.12; Thu, 27 Nov
- 2025 10:01:15 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9366.012; Thu, 27 Nov 2025
- 10:01:15 +0000
-Message-ID: <adfd840e-fcc8-4cdb-8fd8-d0e48ee32247@amd.com>
-Date: Thu, 27 Nov 2025 11:01:06 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
-To: phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-References: <20251126131914.149445-2-phasta@kernel.org>
- <20251126131914.149445-3-phasta@kernel.org>
- <aSctt3QFiEIB61Gr@lstrano-desk.jf.intel.com>
- <aScxGDYeNeN1WYja@lstrano-desk.jf.intel.com>
- <f1864f6d-8403-406d-81a0-00a71495cae8@amd.com>
- <35189892c0cb774155e2012d41371b4d3f8e7d0f.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <35189892c0cb774155e2012d41371b4d3f8e7d0f.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0690.namprd03.prod.outlook.com
- (2603:10b6:408:10e::35) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C70210E825;
+ Thu, 27 Nov 2025 10:34:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1764239645;
+ bh=DHUeJy6RiFmbP61vJmBG5ZpHikoItVr2PujZhZ6Oa6I=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=aDkLTVaDbqdNjUwZGLcqcMRUsKcCTPGobPXaBfK1wqJx7O7sFgYKUDkU3X0vL+o5D
+ CcE3UQzCAuESwDeodVwI7UIJpoTlSrYrBaL/6tKwWb/hy7xjbWZiR0SqK5q6Rlcj0U
+ HGqtXTn1dZtTNSikPKQyOKzhYAxGJnYrGP/Vg1UEzXSm+I8M59bXO/M1/1AOTA8GJK
+ T+6Y/HmgZzmNUJaZjCNc4QB3bZECacbhc77rxNMgY47VE1LffAJY04EQ+hQhg2V8KH
+ NEJMSK/GPnASKPFhBJt9IHo/8Wao/yghRIUNYksS0x78yJJB1DesuOulWbfBVhPNOx
+ 9uhVuyFyXVM6Q==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0368F17E0360;
+ Thu, 27 Nov 2025 11:34:04 +0100 (CET)
+Date: Thu, 27 Nov 2025 11:34:00 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Steven Price <steven.price@arm.com>, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, Thierry
+ Reding <thierry.reding@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Melissa Wen <mwen@igalia.com>, =?UTF-8?B?TWHDrXJh?= Canal
+ <mcanal@igalia.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Thomas
+ =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>, Frank Binns <frank.binns@imgtec.com>, Matt
+ Coster <matt.coster@imgtec.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v6 01/16] drm/prime: Simplify life of drivers needing
+ custom dma_buf_ops
+Message-ID: <20251127113400.0e522211@fedora>
+In-Reply-To: <daaf256e-8662-4f9a-b702-1a6656117448@suse.de>
+References: <20251126124455.3656651-1-boris.brezillon@collabora.com>
+ <20251126124455.3656651-2-boris.brezillon@collabora.com>
+ <2e789ff6-b79f-4577-bc69-f74dfed6acfa@suse.de>
+ <daaf256e-8662-4f9a-b702-1a6656117448@suse.de>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6746:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80971376-4574-4c63-b7a9-08de2d9be6dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|366016|376014|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MXZ3aU1hSk9vSy9BckRjay9yKy8vTytRQWJVc3Y4ZWlUcUtBRjZTTFhybWNJ?=
- =?utf-8?B?bE5OSUUyb1pUV0VuVURsR3dUTmNSTFZSZkFmWTJvYVBYZVR4dDhPYWhxY1JK?=
- =?utf-8?B?Ym5mazUwc281NzJRbWZzMnRYZlU3ZXVmdDA1Y1RJSGZGbTNiKzVRRTBRQmgr?=
- =?utf-8?B?cW5aeEpvQjVtVktDWFNUZkgrSnlaRnNOOERXZldnbVBmd3Z1RFc0dy9NTngz?=
- =?utf-8?B?ZU9UWjhRS216QWZXYWkyRkp5aXUxdzhGVkljdkVhNXRPUW1PN3NIMERTa3h6?=
- =?utf-8?B?ZzZ2cVNsRi9DT203clZGWWJodFppUDRQS3ZYOFdHR1Z6TTJvNVh6ckdZOWZP?=
- =?utf-8?B?QkZQU2VxNUIzc1FRUDFLbzNEMEpCaGIyb3NiVk4rUkc2d1dyTTZhVEp2c2Rz?=
- =?utf-8?B?Z0dhSzI3ZUJMSFdSRGFqSm4waEJ0aGxGZUNFMFZ5T2M3TDJPTnVvSEVtYnp5?=
- =?utf-8?B?bnB5VHhlN0xydVhzWHROVzFFUUJhemcwbE1ESEJEYndOZXNOUG1xSVpRK3Ex?=
- =?utf-8?B?MERnbkhGRjdaSWpITllJNHhrZW5ZQ1MwZWp3TDcvaUdwSEZ3bTFGaUtUeldL?=
- =?utf-8?B?a0J3NEJScFdkRFZwOVBNSHQvTGxlM3E1c0VRN1BrL25kQWJtblpqOFYrL3d3?=
- =?utf-8?B?S2VHNmx6ZGYwU3gzcXdjdmJFRFZNVW15dnVRVUJIaFpKaG9hbXc0OHZ4Zm55?=
- =?utf-8?B?dSswMXljTkRCS0NHMWZ1NkFnQXhRN1VTVjZwVWxtMXVESDA5b3dJbTN3TWxH?=
- =?utf-8?B?RTl2YzUxbnNKRmhvTzkyS3phRVRuNlhMU3FlTG5wUzVwRStsV1hNNHJHaFlP?=
- =?utf-8?B?TVFmY1lBcisyNy8zRmxMUHgxMlBsdnBkbFZzZXdyeEV2aXNlVGVvcnZmbVJN?=
- =?utf-8?B?dHRnMG41dHgyOXZqemZOaXU4Mmx2ZjJBOVREcHpmSHBSZjRIckFaQjYzcWh5?=
- =?utf-8?B?TE9DY24vTjdldVRpZlE4WGRjMVJnWjg4Z0ZMbWtlNEF2Uk1YR1BhcllaUTF6?=
- =?utf-8?B?OFU5ejdYSFFHWVRLTzhBM2w2WmZ6enNpams5elBOd2FqaFdmVGdqZEJrOHV1?=
- =?utf-8?B?ZDV4b3BnK0UrRHBtMHZsMDBqYkhZSUZ1ODZnK0N0SEp4WW1DamxQS0R6dVBW?=
- =?utf-8?B?azA4bGR5N0prTng4SktRb1NrN0krVkVjM0dsTlhNeFYydVZobjdWWXNIeWlm?=
- =?utf-8?B?a29tVm0rYlMvYVVDQkErYnZ2dGVuTHMvcVlYdkRicW5objVPYjlxMXhmWm9M?=
- =?utf-8?B?WE8zdkJ4ZHpwZmdkalJXK0R0Tk1vU0phVU9sZ0JzTnR0eDNtUHNJVTZkVHZ5?=
- =?utf-8?B?RnJYYU8xNmpHS3dIdUVvSzVwSHNERWJtY1VXbzFvbmMvSWJXMktEZE5DckJv?=
- =?utf-8?B?cWYya09WSDAvcitSa0Nvd3V5ZDNSQ3F0M0tYVjd6ZDJOZWgzaFdhNjEvUXBs?=
- =?utf-8?B?dGVxWjVIWGRLUkRuOW9MU0FJQU9ndXVOQUh4YUxoRzNYeHZQaGY4TStQMExm?=
- =?utf-8?B?Mk9uT2k0ZThNbU1ldXhVQzlWdWZ0NjRKZXVlaXQvUm5qczlqQXhMM2VHYUJz?=
- =?utf-8?B?TE81Z2lmZERJcjdqdTladkxVZ2FBZ3QzeUlLbERxekVYc1NxY1hrZFJtZ3di?=
- =?utf-8?B?b3crVFg2K2NYQmsrSnZvZ3huN0dIaWZ4SVVTN1FUTXVFaTFheTgycHp6bnQ2?=
- =?utf-8?B?SmhXK2E2cnJ1Zlh2THdqRnhybUphMmRTUHlhYU4rUHh3R0VtMWhwRENzTnRo?=
- =?utf-8?B?dFNEK0RyaEhUODNpUVdoZ0syRy9MN21oSDN5d2tkOGFRMHlzeWJmdVRqUXhM?=
- =?utf-8?B?MkNxeDFvRjcwdHE5WDRSNmFLOEpxem1JYXZrYjU2S1N1dDMxeGRYaVROcUgw?=
- =?utf-8?B?OEcxQ2VBaERSdGJ6Qmx3Q0o2MXE5eEdYbDNsV2lQUzdOQzgybTFqamlqNlhn?=
- =?utf-8?Q?WEhJ/GMRWgQ36vbQCaDEpDhO7naQdbYs?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(366016)(376014)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V3oySE9NV1U1RGJzUVEzUDlmRUlXMGoycXg0VEpXVldNeG1WaXlUQ25uekU2?=
- =?utf-8?B?ZEVvY2ZaR0R6TGFKK0s0REUxMzU5ekJYRTEvTEhURXVmZDc4TEpoUXpKODh1?=
- =?utf-8?B?dmE0OHU2Ky9qUzhTWHhvQmhnMVlHMTdVS004TFFlV1BnbnB3UlhKRDYzTFFB?=
- =?utf-8?B?aU5SZThxY05xdHZVeU9lMTE1N3pnK1cvTTkxVndsMkNldUdKRTl3RzlPVHhj?=
- =?utf-8?B?YnZSV0p3Rmo0eG1nU25kS2tBYjNxdUhVRGtXQjcrVEdZbGdQMjNuWnV4eHBB?=
- =?utf-8?B?ZFpEWmxJL2tIT21BZytYTHEvdi9VQzdZWk1rRTA3QmVIN0xNM0VPclJiVVJj?=
- =?utf-8?B?U1VTcXNpbDljQjRyYlBpUkdXeld2Wk9IZlc3aDM3WFpkbWhyK2k4MDJLS2tX?=
- =?utf-8?B?YnEvU2U4b3E0RDB0Q3VnWDRVLzZtdUlGQkJZVktPdjQ2WWhsL1FTcmI3bk0v?=
- =?utf-8?B?cWhlb1lWV3RQUUczQXZNWWRSK2QzelJaYis0ZGZ0YUZORWZ6VUo0OVdqVjF5?=
- =?utf-8?B?a1hPbHUyeng3c1pTS2JHcVVlMWJaNFhrVHg1UTVLa1p4MG9DcG5kNGlmTWdX?=
- =?utf-8?B?TlJlRm5PL0U0TkJSVTRTVnBzNnNPK2xPVTBHcE1VTzA0ekxrekFHblZPZlZs?=
- =?utf-8?B?RkFRayszOTZPSGNBbWNsRnJnNVF5QlNwOGp2cW55YnN5bjVuUW5JWTdBbDQ0?=
- =?utf-8?B?NkV1cXY0dnNQSlQrWXpDVDVmWDBxZ2s3M1h3OUppdGN1Tmx6TmlxWE5pNGhz?=
- =?utf-8?B?cXExT3BGa0JuWEM2Znl1dnlXL3R6bUF6U3JudlBMejlqTnBHd1lDcWNYZVVJ?=
- =?utf-8?B?Nk9GRUZXVEJpSlBzNDJLWWRMNXFEdmF5WVUreEF1K0liODF5dE5vd0l4elFW?=
- =?utf-8?B?c000MnZ4WWovbW1rS0FHQzdlS0pyRVRobDdKNGpkc0hhck9PZ2loQ3JTdlVK?=
- =?utf-8?B?UCtNRVdpa3lqYXpqV0ZPQTA5TVNzeUZuSHlJaG8zUzdCUWplRDRnYXJJNGc5?=
- =?utf-8?B?clNVNEdmVnpEc2JoWUJZMjArNUNxVHhNc0Z5WTFjY0drTHdIRnh1UmxaTUtm?=
- =?utf-8?B?ZC9obElwcmd3dGNpdGQwWk9IS3Q0UlNtYWt3aituckN2YUxaNXFuZE5EaThz?=
- =?utf-8?B?eVZ3c2hGWVVIZ3JoWWF5U0grTy9aeEZrcWtJWGhsdVhWaitMUXZDV2xQTjda?=
- =?utf-8?B?OXpUOHhGVEg0NWdIQU15bXJ0UUZYUkJrdzhteDJSNCtGSHRUYU9hV3RDM3c0?=
- =?utf-8?B?WSs4ZFlCQnhhRzJ6QmlRdkk0VElWTUVTb3kvRDVpb0NibnRuYVU5WXpWeVFa?=
- =?utf-8?B?bWp2RW5SM1d6VDZ3UWhqMGVwUDVyUWxJMG95bjlPVjhLWHcrOVdJTklwaFhD?=
- =?utf-8?B?aUZmaTlkSmQwZUlMSndtN2dLZi9CRzlPTlExdWd1cEpYOXZCMWRaSjAvS3hH?=
- =?utf-8?B?bncvK1k2RUM0ajJPYjk2UnN2RWlGb25aalpMYVBFQWtTT2liUkFuaTdvNEV0?=
- =?utf-8?B?KzRQL1Vidk1tcjl3V3dTOU5JZkZrQjZrNmpBUjZ6V2RHL3VFNWJZM3ZsMFV3?=
- =?utf-8?B?dnNneTFsVTRyeVlCV0RzVXdlL0hRMUtRN3ZsL3FuU3ZPZWNRTHp3N0xOM2hh?=
- =?utf-8?B?a09WR2kyNDN2OXl0Z1ZVb1ZTWWV0OEdqZGh3N3M0Q2JqR1E4L2Q3ditNLzVu?=
- =?utf-8?B?VnpQYjBRSFRQcXNBbE9aWHNMN1AvU1d2T3lNZDRaUWcrYkhHQzVha0YzZlhY?=
- =?utf-8?B?SnFINktsRGhwU2l3R212VlplR0M0dzd4T3VzNGdpVWtzTVBQTkIxVEo3TjAr?=
- =?utf-8?B?dVNCYVVlRUVlZSsxMTBBQ1dvWDlLTVpBYUxwd0toMXQ5Nzl3bU13UHhxOHpK?=
- =?utf-8?B?WnA0ODNubmNIeGRaVDB5QlFaNnc1Ukd2bEIvaldWTjBKUitteG9iMG94bllZ?=
- =?utf-8?B?ZEQvRVhiWWVKeW1SN1o2YzdzMW52ZWVOcmpVajViQUk2ZktwdThzUEJVVkdu?=
- =?utf-8?B?Nnh2TmduOGN3RnZlWjZudWR3QklnMi9HWlJ6eVI2WFhPOTI5ZzlKTnJPZ0hP?=
- =?utf-8?B?OVlxMzJMME9PS3V4QTUyb2RLUDRDeDdHb2kxYXQxM2cwUi9IRUZBNEliN1ZJ?=
- =?utf-8?Q?Od/ADU0UKhUkWugYgAfbXf6eR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80971376-4574-4c63-b7a9-08de2d9be6dd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2025 10:01:15.1241 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5V5FQIDUepCSEFIsu7CbRa2EcLIiFA3Q7FqVgSTnhk/4zwVw71E/9bxQfsD8eT08
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6746
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -184,62 +79,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/27/25 10:16, Philipp Stanner wrote:
-> On Thu, 2025-11-27 at 09:11 +0100, Christian König wrote:
->> On 11/26/25 17:55, Matthew Brost wrote:
->>> On Wed, Nov 26, 2025 at 08:41:27AM -0800, Matthew Brost wrote:
->>>> On Wed, Nov 26, 2025 at 02:19:10PM +0100, Philipp Stanner wrote:
->>>>> The dma_fence framework checks at many places whether the signaled flag
->>>>> of a fence is already set. The code can be simplified and made more
->>>>> readable by providing a helper function for that.
->>>>>
->>>>> Add dma_fence_test_signaled_flag(), which only checks whether a fence is
->>>>> signaled. Use it internally.
->>>>>
->>>>> Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>> Signed-off-by: Philipp Stanner <phasta@kernel.org>
->>>>
->>>> This is a nice cleanp:
->>>> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
->>>>
->>>>> ---
->>>>>  drivers/dma-buf/dma-fence.c | 19 +++++++++----------
->>>>>  include/linux/dma-fence.h   | 24 ++++++++++++++++++++++--
->>>>>  2 files changed, 31 insertions(+), 12 deletions(-)
->>>>>
->>>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->>>>> index 39e6f93dc310..25117a906846 100644
->>>>> --- a/drivers/dma-buf/dma-fence.c
->>>>> +++ b/drivers/dma-buf/dma-fence.c
->>>>> @@ -372,8 +372,7 @@ int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->>>>>  
->>>>>  	lockdep_assert_held(fence->lock);
->>>>>  
->>>>> -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
->>>>> -				      &fence->flags)))
->>>
->>> I need to read a little better, I think this change isn't quite right.
->>> The original code is test and set, the updated code is test only (i.e.,
->>> you are missing the set step). So maybe just leave this line as is.
->>
->> Oh, good point! I've totally missed that as well.
-> 
-> Oh dear; I also just saw it when opening the mail client ._.
-> 
->>
->> But that means that this patch set hasn't even been smoke tested.
-> 
-> I've built it and did some basic testing with my Nouveau system. Any
-> suggestions? Do you have a CI that one can trigger?
+On Thu, 27 Nov 2025 09:42:52 +0100
+Thomas Zimmermann <tzimmermann@suse.de> wrote:
 
-DMA-buf has CONFIG_DMABUF_SELFTESTS which should be able to catch things like that.
+> Hi
+>=20
+> Am 27.11.25 um 09:34 schrieb Thomas Zimmermann:
+> > Hi
+> >
+> > Am 26.11.25 um 13:44 schrieb Boris Brezillon: =20
+> >> drm_gem_is_prime_exported_dma_buf() checks the dma_buf->ops against
+> >> drm_gem_prime_dmabuf_ops, which makes it impossible to use if the
+> >> driver implements custom dma_buf_ops. Instead of duplicating a bunch
+> >> of helpers to work around it, let's provide a way for drivers to
+> >> expose their custom dma_buf_ops so the core prime helpers can rely on
+> >> that instead of hardcoding &drm_gem_prime_dmabuf_ops. =20
+> >
+> > This can't go in as-is. I've spent an awful amount of patches on=20
+> > removing buffer callbacks from struct drm_driver. Let's please not go=20
+> > back to that.
+> > =20
+> >>
+> >> v5:
+> >> - New patch
+> >>
+> >> v6:
+> >> - Pass custom dma_buf_ops directly instead of through a getter
+> >>
+> >> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> >> ---
+> >> =C2=A0 drivers/gpu/drm/drm_prime.c | 10 ++++++++--
+> >> =C2=A0 include/drm/drm_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 8 ++++++++
+> >> =C2=A0 2 files changed, 16 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> >> index 21809a82187b..86fd95f0c105 100644
+> >> --- a/drivers/gpu/drm/drm_prime.c
+> >> +++ b/drivers/gpu/drm/drm_prime.c
+> >> @@ -904,6 +904,12 @@ unsigned long=20
+> >> drm_prime_get_contiguous_size(struct sg_table *sgt)
+> >> =C2=A0 }
+> >> =C2=A0 EXPORT_SYMBOL(drm_prime_get_contiguous_size);
+> >> =C2=A0 +static const struct dma_buf_ops *
+> >> +drm_gem_prime_get_dma_buf_ops(struct drm_device *dev)
+> >> +{
+> >> +=C2=A0=C2=A0=C2=A0 return dev->driver->dma_buf_ops ?: &drm_gem_prime_=
+dmabuf_ops;
+> >> +}
+> >> +
+> >> =C2=A0 /**
+> >> =C2=A0=C2=A0 * drm_gem_prime_export - helper library implementation of=
+ the=20
+> >> export callback
+> >> =C2=A0=C2=A0 * @obj: GEM object to export
+> >> @@ -920,7 +926,7 @@ struct dma_buf *drm_gem_prime_export(struct=20
+> >> drm_gem_object *obj,
+> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_buf_export_info exp_info =3D=
+ {
+> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .exp_name =3D K=
+BUILD_MODNAME, /* white lie for debug */
+> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .owner =3D dev-=
+>driver->fops->owner,
+> >> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ops =3D &drm_gem_prime_dm=
+abuf_ops,
+> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ops =3D drm_gem_prime_get=
+_dma_buf_ops(dev), =20
+> >
+> > Rather provide a new function drm_gem_prime_export_with_ops() that=20
+> > takes an additional dma_ops instance. The current=20
+> > drm_gem_prime_export() would call it with &drm_gem_prime_dmabuf_ops.
+> >
+> > If this really does not work, you could add a pointer to dma_buf_ops=20
+> > to drm_gem_object_funcs and fetch that from drm_gem_prime_export(). We=
+=20
+> > already vm_ops there.
+> >
+> > Other drivers, such as amdgpu, would also benefit from such a change
+> > =20
+> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .size =3D obj->=
+size,
+> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .flags =3D flag=
+s,
+> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .priv =3D obj,
+> >> @@ -947,7 +953,7 @@ bool drm_gem_is_prime_exported_dma_buf(struct=20
+> >> drm_device *dev,
+> >> =C2=A0 {
+> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_gem_object *obj =3D dma_buf-=
+>priv;
+> >> =C2=A0 -=C2=A0=C2=A0=C2=A0 return (dma_buf->ops =3D=3D &drm_gem_prime_=
+dmabuf_ops) &&=20
+> >> (obj->dev =3D=3D dev);
+> >> +=C2=A0=C2=A0=C2=A0 return dma_buf->ops =3D=3D drm_gem_prime_get_dma_b=
+uf_ops(dev) &&=20
+> >> obj->dev =3D=3D dev; =20
+>=20
+> On a second thought, we probably cannot be sure that dma_buf->priv=20
+> really is a GEM object until we tested the ops field. :/=C2=A0 IIRC that'=
+s=20
+> why the ops test goes first and the test for obj->dev goes second. So=20
+> neither solution works.
 
-But even running Nouveau should have found this since basically no fence at would signal any more.
+Hm, What do you mean by neither solution works? The original proposal
+never dereferences obj until it's sure it's a drm_gem_object, that's
+what
 
-Regards,
-Christian.
+	dma_buf->ops =3D=3D drm_gem_prime_get_dma_buf_ops(dev)
 
-> 
-> Thx
-> P.
-
+is for.
