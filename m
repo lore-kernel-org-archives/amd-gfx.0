@@ -4,46 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 582AAD116F1
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 13:45:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E381CFD2F6
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 13:45:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB85A10E1F2;
-	Sat, 29 Nov 2025 13:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD2910E1F4;
+	Sat, 29 Nov 2025 13:45:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="krOyTkdc";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="XnhKIR7b";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59E7510E1BE;
- Sat, 29 Nov 2025 07:37:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=e3URbhgqZ4cX254o0Gl1m/BER6n+wvOlOZank3sJZDM=; b=krOyTkdcngpq50IwBb3BQ813Q+
- D5FzZvEg0+cULjknoZs8Y6y8TPa1o4kcHLmBfS9TQJU6RrYsMqkQ53R+LQ4FbSl5Q3z+us2flSfsY
- J/okZU1mFha8HjyIX5vbxjnoYkx1/tTfU6xGGUzTrpWWpendRAhqvqs3SRzKWVjDZe4mARx1FF+Ok
- tPJQBRSULYEQHI0EB4ratkTGKUhCSItpjvhyEnUFXPr+ssF3qgMbHa5MQ1KYmjI5YwqwlAugM4VcA
- tX/34/ftdWWsw65kJdPe5TDEK9xVKr2h4xBZur9J+VC6NZNUkZIwlTW2+fF4rl/PsPkWObJiHLSqM
- GUiRbTsQ==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1vPFWc-00000001Lt7-0Lpo; Sat, 29 Nov 2025 07:37:46 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Austin Zheng <austin.zheng@amd.com>,
- Jun Lei <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: correct kernel-doc in dml21_wrapper.h
-Date: Fri, 28 Nov 2025 23:37:39 -0800
-Message-ID: <20251129073740.1813659-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.52.0
+Received: from sender3-pp-f112.zoho.com (sender3-pp-f112.zoho.com
+ [136.143.184.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE4110E934;
+ Fri, 28 Nov 2025 21:07:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1764364026; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=TmLhb3FIvaaFPJvAaE+/6hag+voJDcXr1vu/D0XQNjWmqwxCfRIOrGdnknzMj++ZASqE5QZhkBiE3xdLXogsPm0sAQwmEz2yIoMGSS1dpKLZJ6AZD8TWZPm+88i//u0+zRTCGOMq12JQL+zHiurQUS39wN1o70XkT65PKHZZPk0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1764364026;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=neCvNPmKBMuP5SUVtUC32+B9nBFtTY9p42IPydBIi3E=; 
+ b=H6hE839vuyeJfYg9ZA0rywUlHwhR15RoBAu2HeYlUmNWmhTgnB9VD2x483/HZ/7bdtyufA1QW+t66iq68JqWSzPMll2h/8PfF82GxBzXB9cukVcc/S2fPEJJRvJSSaqIrCb/AtR1Wu3Y7bThuL6Amq/YQgOrK5i6U7/VFBG48hM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764364026; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=neCvNPmKBMuP5SUVtUC32+B9nBFtTY9p42IPydBIi3E=;
+ b=XnhKIR7b2OYj8p2aL4aQ4FO6S31k85iB7ms66vyewmJMoMoEG6Kl6wXcYsr13sBB
+ UKFzpgcWuzDw4UvjpxUefcmRg6yizX04a6kearKM43RYgZtSfz2cOI9fFhB+CZpSmS1
+ xZBnx5+urO03k8T8QEUCBYJtp3oFnbQPf6js3t1A=
+Received: by mx.zohomail.com with SMTPS id 1764364024210163.4162873778854;
+ Fri, 28 Nov 2025 13:07:04 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Fri, 28 Nov 2025 22:05:45 +0100
+Subject: [PATCH v5 09/17] drm/rockchip: Add YUV422 output mode constants
+ for VOP2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251128-color-format-v5-9-63e82f1db1e1@collabora.com>
+References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
+In-Reply-To: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Sat, 29 Nov 2025 13:45:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,64 +87,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix all kernel-doc warnings in dml21_wrapper.h:
-- add missing @dml_ctx entries (2 places)
-- fix function prototype typo for dml21_create()
-- change a blank kernel-doc line to " *"
+The Rockchip display controller has a general YUV422 output mode, and
+some SoC-specific connector-specific output modes for RK3576.
 
-Fixes these warnings:
-Warning: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h:30
- function parameter 'dml_ctx' not described in 'dml21_create'
-Warning: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h:30
- expecting prototype for dml2_create(). Prototype was for dml21_create()
- instead
-Warning: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h:55
- bad line:
-Warning: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h:61
- function parameter 'dml_ctx' not described in 'dml21_validate'
+Add them, based on the values in downstream and the TRM (dsp_out_mode in
+RK3576 TRM Part 2, register POST*_CTRL_POST_DSP_CTRL).
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
-Cc: Austin Zheng <austin.zheng@amd.com>
-Cc: Jun Lei <jun.lei@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
----
- drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
---- linux-next-20251128.orig/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h
-+++ linux-next-20251128/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.h
-@@ -17,9 +17,9 @@ struct dml2_context;
- enum dc_validate_mode;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
+index 2e86ad00979c..4705dc6b8bd7 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
+@@ -30,10 +30,14 @@
+ #define ROCKCHIP_OUT_MODE_P565		2
+ #define ROCKCHIP_OUT_MODE_BT656		5
+ #define ROCKCHIP_OUT_MODE_S888		8
++#define ROCKCHIP_OUT_MODE_YUV422	9
+ #define ROCKCHIP_OUT_MODE_S888_DUMMY	12
+ #define ROCKCHIP_OUT_MODE_YUV420	14
+ /* for use special outface */
+ #define ROCKCHIP_OUT_MODE_AAAA		15
++/* SoC specific output modes */
++#define ROCKCHIP_OUT_MODE_YUV422_RK3576_DP	12
++#define ROCKCHIP_OUT_MODE_YUV422_RK3576_HDMI	13
  
- /**
-- * dml2_create - Creates dml21_context.
-+ * dml21_create - Creates dml21_context.
-  * @in_dc: dc.
-- * @dml2: Created dml21 context.
-+ * @dml_ctx: Created dml21 context.
-  * @config: dml21 configuration options.
-  *
-  * Create of DML21 is done as part of dc_state creation.
-@@ -40,6 +40,7 @@ void dml21_reinit(const struct dc *in_dc
-  * dml21_validate - Determines if a display configuration is supported or not.
-  * @in_dc: dc.
-  * @context: dc_state to be validated.
-+ * @dml_ctx: dml21 context.
-  * @validate_mode: DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX
-  *           will not populate context.res_ctx.
-  *
-@@ -53,7 +54,7 @@ void dml21_reinit(const struct dc *in_dc
-  * -dml21_check_mode_support - for DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_STATE_INDEX option
-  * Calculates if dc_state can be supported for the input display
-  * config.
--
-+ *
-  * Context: Two threads may not invoke this function concurrently unless they reference
-  *          separate dc_states for validation.
-  * Return: True if mode is supported, false otherwise.
+ /* output flags */
+ #define ROCKCHIP_OUTPUT_DSI_DUAL	BIT(0)
+
+-- 
+2.52.0
+
