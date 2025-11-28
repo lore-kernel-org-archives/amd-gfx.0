@@ -4,56 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6772AD116FD
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 13:45:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C834ED116F9
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 13:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91E6B10E1E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979B210E1E8;
 	Sat, 29 Nov 2025 13:45:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="QnFkow+8";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NZbHEXjT";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C359810E7BD;
- Fri, 28 Nov 2025 10:11:08 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dHpwS3YDSz9sdZ;
- Fri, 28 Nov 2025 11:11:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1764324664; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=diyPQXL2Qw5FDt7Bp6VAknCUIYnOUGOR+UNKfDdY3pk=;
- b=QnFkow+8knOc6MGgdlNbHOPaNpn98fyeV4U6Thpb0+aAqIuPJvUphwsYP/DFqJmxkqvRJ8
- M0jWW37hrwAD9jwJfBx2lhRZckFTgJvUOkPAxbzXMAs/g+HH/8xH9rPQNGhs26l6oy+vWM
- tWHzgnJgguKlFRSsG9ckKkCZkOuspIBTmaPguADzN0ERYb62h51BnE4GXDXlnt9fHN1Ubj
- 8kOJL81mw6ZIKI8Ecvjwj9FzT5UcnGHzlglmjV5+O4LrSTHia68P6TVfDA8BwoIKDUMj7P
- AXFUyXKSBR07zpC9zpZEsMMzw+QaSwwgG2Nq+xhGvXb/k7RGlg+73SLNx5dolQ==
-Message-ID: <29754f848abcf7aebf7950862ef780362034fcf2.camel@mailbox.org>
-Subject: Re: [PATCH 13/18] drm/amdgpu: independence for the amdkfd_fence! v2
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, alexdeucher@gmail.com, simona.vetter@ffwll.ch, 
- tursulin@ursulin.net, matthew.brost@intel.com,
- dri-devel@lists.freedesktop.org,  amd-gfx@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org,  sumit.semwal@linaro.org
-Date: Fri, 28 Nov 2025 11:10:56 +0100
-In-Reply-To: <30c8a395-6870-4787-a954-6c9cbc68be62@amd.com>
-References: <20251113145332.16805-1-christian.koenig@amd.com>
- <20251113145332.16805-14-christian.koenig@amd.com>
- <3cf92ff5fa9c9c73c8464434b0e8e13e402091fd.camel@mailbox.org>
- <30c8a395-6870-4787-a954-6c9cbc68be62@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 015F510E93E;
+ Fri, 28 Nov 2025 21:08:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1764364082; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=W0wRcrmmJx5TV0wiGP3y8G0CADpZyebzywEeKT9Qu2O3RAYUWH1pWuLPjChwEi4FqF0fdhkIdumjn4IhFXO7B1SyHA/upBT2E1yiYWDo3T0SnywVbqr4xLu/PrI7t1vyzAk1chOPTXtHSqCfrKFb9WVb+1AMWh6q8TBa3ARur5M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1764364082;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=G/TwWJgbgaJ4CV8gTMN/jzKwmmdChg5+47UVxWfc6AU=; 
+ b=iPTCfclv0aGzId86DHKASv/9cZY8Eb9TOkuBUCESDywgdwD9+PQZ+q4OZq5iS1mQzlGY2eX1N24ej91pzq1hk6Wh2ckTCLf/TkiZMFpsgcp8/dSGpF53cNDGd8SD1wKyPJfp6FClh013tJd7rPDDFhJIo47UraIXJJ8COY0YFlM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764364082; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=G/TwWJgbgaJ4CV8gTMN/jzKwmmdChg5+47UVxWfc6AU=;
+ b=NZbHEXjT1kiPnE7l5lMpIarCRF3zWxpE+Se0Ul+zB3ze/1YVk4Sn/sEAcfvp5I8X
+ 13hWJXnwn3HrZ8cF5Ij7sHs5nmHNevurqboRp11sZRRAPCVuOpVRtKRYkT6g6SBWKxU
+ OLnL0RN3zmdbPs1NIXRzmGuU9GKr9OpHDdxHpMsE=
+Received: by mx.zohomail.com with SMTPS id 1764364081586438.6523800934766;
+ Fri, 28 Nov 2025 13:08:01 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Fri, 28 Nov 2025 22:05:53 +0100
+Subject: [PATCH v5 17/17] drm/tests: hdmi: Add tests for the color_format
+ property
 MIME-Version: 1.0
-X-MBO-RS-ID: 273c6748449d38d7929
-X-MBO-RS-META: pupishafmnrirwwugygfw5qb4p4a3kom
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251128-color-format-v5-17-63e82f1db1e1@collabora.com>
+References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
+In-Reply-To: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Sat, 29 Nov 2025 13:45:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,80 +84,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-11-28 at 11:06 +0100, Christian K=C3=B6nig wrote:
-> On 11/27/25 12:10, Philipp Stanner wrote:
-> > On Thu, 2025-11-13 at 15:51 +0100, Christian K=C3=B6nig wrote:
-> > > This should allow amdkfd_fences to outlive the amdgpu module.
-> > >=20
-> > > v2: implement Felix suggestion to lock the fence while signaling it.
-> > >=20
-> > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > ---
-> > >=20
-> > >=20
+Add some KUnit tests to check the color_format property is working as
+expected with the HDMI state helper.
 
-[=E2=80=A6]
+The added tests check that AUTO results in RGB, and the YCBCR modes
+result in the corresponding YUV modes. An additional test ensures that
+only DRM_COLOR_FORMAT_AUTO falls back to YUV420 with a YUV420-only mode,
+and RGB errors out instead, while explicitly asking for YUV420 still
+works.
 
-> > > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/d=
-rm/amd/amdkfd/kfd_process.c
-> > > index a085faac9fe1..8fac70b839ed 100644
-> > > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > > @@ -1173,7 +1173,7 @@ static void kfd_process_wq_release(struct work_=
-struct *work)
-> > > =C2=A0	synchronize_rcu();
-> > > =C2=A0	ef =3D rcu_access_pointer(p->ef);
-> > > =C2=A0	if (ef)
-> > > -		dma_fence_signal(ef);
-> > > +		amdkfd_fence_signal(ef);
-> > > =C2=A0
-> > > =C2=A0	kfd_process_remove_sysfs(p);
-> > > =C2=A0	kfd_debugfs_remove_process(p);
-> > > @@ -1990,7 +1990,6 @@ kfd_process_gpuid_from_node(struct kfd_process =
-*p, struct kfd_node *node,
-> > > =C2=A0static int signal_eviction_fence(struct kfd_process *p)
-> > > =C2=A0{
-> > > =C2=A0	struct dma_fence *ef;
-> > > -	int ret;
-> > > =C2=A0
-> > > =C2=A0	rcu_read_lock();
-> > > =C2=A0	ef =3D dma_fence_get_rcu_safe(&p->ef);
-> > > @@ -1998,10 +1997,10 @@ static int signal_eviction_fence(struct kfd_p=
-rocess *p)
-> > > =C2=A0	if (!ef)
-> > > =C2=A0		return -EINVAL;
-> > > =C2=A0
-> > > -	ret =3D dma_fence_signal(ef);
-> > > +	amdkfd_fence_signal(ef);
-> > > =C2=A0	dma_fence_put(ef);
-> > > =C2=A0
-> > > -	return ret;
-> > > +	return 0;
-> >=20
-> > Oh wait, that's the code I'm also touching in my return code series!
-> >=20
-> > https://lore.kernel.org/dri-devel/cef83fed-5994-4c77-962c-9c7aac9f7306@=
-amd.com/
-> >=20
-> >=20
-> > Does this series then solve the problem Felix pointed out in
-> > evict_process_worker()?
->=20
-> No it doesn't, I wasn't aware that the higher level code actually needs t=
-he status. After all Felix is the maintainer of this part.
->=20
-> This patch here needs to be rebased on top of yours and changed according=
-ly to still return the fence status correctly.
->=20
-> But thanks for pointing that out.
+This requires exporting hdmi_compute_config, so that it is accessible
+from the tests.
 
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |   3 +-
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 109 +++++++++++++++++++++
+ include/drm/display/drm_hdmi_state_helper.h        |   4 +
+ 3 files changed, 115 insertions(+), 1 deletion(-)
 
-Alright, so my (repaired, v2) status-code-removal series shall enter drm-mi=
-sc-next first, and then your series here. ACK?
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 1800e00b30c5..e86fb837ceaf 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -641,7 +641,7 @@ hdmi_compute_format_bpc(const struct drm_connector *connector,
+ 	return -EINVAL;
+ }
+ 
+-static int
++int
+ hdmi_compute_config(const struct drm_connector *connector,
+ 		    struct drm_connector_state *conn_state,
+ 		    const struct drm_display_mode *mode)
+@@ -680,6 +680,7 @@ hdmi_compute_config(const struct drm_connector *connector,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL(hdmi_compute_config);
+ 
+ static int hdmi_generate_avi_infoframe(const struct drm_connector *connector,
+ 				       struct drm_connector_state *conn_state)
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index 8bd412735000..e7050cd9cb12 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -55,6 +55,23 @@ static struct drm_display_mode *find_preferred_mode(struct drm_connector *connec
+ 	return preferred;
+ }
+ 
++static struct drm_display_mode *find_420_only_mode(struct drm_connector *connector)
++{
++	struct drm_device *drm = connector->dev;
++	struct drm_display_mode *mode;
++
++	mutex_lock(&drm->mode_config.mutex);
++	list_for_each_entry(mode, &connector->modes, head) {
++		if (drm_mode_is_420_only(&connector->display_info, mode)) {
++			mutex_unlock(&drm->mode_config.mutex);
++			return mode;
++		}
++	}
++	mutex_unlock(&drm->mode_config.mutex);
++
++	return NULL;
++}
++
+ static int set_connector_edid(struct kunit *test, struct drm_connector *connector,
+ 			      const void *edid, size_t edid_len)
+ {
+@@ -1999,6 +2016,95 @@ static void drm_test_check_disable_connector(struct kunit *test)
+ 	drm_modeset_acquire_fini(&ctx);
+ }
+ 
++struct color_format_test_param {
++	enum drm_color_format fmt;
++	enum hdmi_colorspace expected;
++	const char *desc;
++};
++
++/* Test that AUTO results in RGB, and explicit choices result in those */
++static void drm_test_check_hdmi_color_format(struct kunit *test)
++{
++	const struct color_format_test_param *param = test->param_value;
++	struct drm_atomic_helper_connector_hdmi_priv *priv;
++	struct drm_connector_state *conn_state;
++	struct drm_display_info *info;
++	struct drm_display_mode *preferred;
++	int ret;
++
++	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
++				BIT(HDMI_COLORSPACE_RGB) |
++				BIT(HDMI_COLORSPACE_YUV422) |
++				BIT(HDMI_COLORSPACE_YUV420) |
++				BIT(HDMI_COLORSPACE_YUV444),
++				12,
++				&dummy_connector_hdmi_funcs,
++				test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
++	KUNIT_ASSERT_NOT_NULL(test, priv);
++
++	conn_state = priv->connector.state;
++	info = &priv->connector.display_info;
++	conn_state->color_format = param->fmt;
++	KUNIT_ASSERT_TRUE(test, priv->connector.ycbcr_420_allowed);
++
++	preferred = find_preferred_mode(&priv->connector);
++	KUNIT_ASSERT_TRUE(test, drm_mode_is_420(info, preferred));
++
++	ret = hdmi_compute_config(&priv->connector, conn_state, preferred);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
++}
++
++static const struct color_format_test_param hdmi_color_format_params[] = {
++	{ DRM_COLOR_FORMAT_AUTO, HDMI_COLORSPACE_RGB, "AUTO -> RGB" },
++	{ DRM_COLOR_FORMAT_YCBCR422, HDMI_COLORSPACE_YUV422, "YCBCR422 -> YUV422" },
++	{ DRM_COLOR_FORMAT_YCBCR420, HDMI_COLORSPACE_YUV420, "YCBCR420 -> YUV420" },
++	{ DRM_COLOR_FORMAT_YCBCR444, HDMI_COLORSPACE_YUV444, "YCBCR444 -> YUV444" },
++	{ DRM_COLOR_FORMAT_RGB444, HDMI_COLORSPACE_RGB, "RGB -> RGB" },
++};
++
++KUNIT_ARRAY_PARAM_DESC(check_hdmi_color_format,
++		  hdmi_color_format_params, desc);
++
++
++/* Test that AUTO falls back to YUV420, and that RGB does not, but YUV420 works */
++static void drm_test_check_hdmi_color_format_420_only(struct kunit *test)
++{
++	struct drm_atomic_helper_connector_hdmi_priv *priv;
++	struct drm_connector_state *conn_state;
++	struct drm_display_mode *dank;
++	int ret;
++
++	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
++				BIT(HDMI_COLORSPACE_RGB) |
++				BIT(HDMI_COLORSPACE_YUV422) |
++				BIT(HDMI_COLORSPACE_YUV420) |
++				BIT(HDMI_COLORSPACE_YUV444),
++				12,
++				&dummy_connector_hdmi_funcs,
++				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
++	KUNIT_ASSERT_NOT_NULL(test, priv);
++
++	conn_state = priv->connector.state;
++
++	dank = find_420_only_mode(&priv->connector);
++	KUNIT_ASSERT_NOT_NULL(test, dank);
++
++	conn_state->color_format = DRM_COLOR_FORMAT_AUTO;
++	ret = hdmi_compute_config(&priv->connector, conn_state, dank);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, HDMI_COLORSPACE_YUV420);
++
++	conn_state->color_format = DRM_COLOR_FORMAT_RGB444;
++	ret = hdmi_compute_config(&priv->connector, conn_state, dank);
++	KUNIT_EXPECT_LT(test, ret, 0);
++
++	conn_state->color_format = DRM_COLOR_FORMAT_YCBCR420;
++	ret = hdmi_compute_config(&priv->connector, conn_state, dank);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, HDMI_COLORSPACE_YUV420);
++};
++
+ static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
+ 	KUNIT_CASE(drm_test_check_broadcast_rgb_auto_cea_mode),
+ 	KUNIT_CASE(drm_test_check_broadcast_rgb_auto_cea_mode_vic_1),
+@@ -2028,6 +2134,9 @@ static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
+ 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_8bpc),
+ 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_10bpc),
+ 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_12bpc),
++	KUNIT_CASE_PARAM(drm_test_check_hdmi_color_format,
++			 check_hdmi_color_format_gen_params),
++	KUNIT_CASE(drm_test_check_hdmi_color_format_420_only),
+ 	/*
+ 	 * TODO: We should have tests to check that a change in the
+ 	 * format triggers a CRTC mode change just like we do for the
+diff --git a/include/drm/display/drm_hdmi_state_helper.h b/include/drm/display/drm_hdmi_state_helper.h
+index 2349c0d0f00f..01ae31209820 100644
+--- a/include/drm/display/drm_hdmi_state_helper.h
++++ b/include/drm/display/drm_hdmi_state_helper.h
+@@ -30,4 +30,8 @@ enum drm_mode_status
+ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
+ 			      const struct drm_display_mode *mode);
+ 
++int hdmi_compute_config(const struct drm_connector *connector,
++			struct drm_connector_state *conn_state,
++			const struct drm_display_mode *mode);
++
+ #endif // DRM_HDMI_STATE_HELPER_H_
 
+-- 
+2.52.0
 
-P.
