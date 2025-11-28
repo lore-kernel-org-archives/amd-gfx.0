@@ -4,71 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D32DBD116EA
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 08:35:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FCD2CFD376
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 09:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79F6F10E825;
-	Fri, 28 Nov 2025 08:35:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2409510E04A;
+	Fri, 28 Nov 2025 09:49:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="raC6aTam";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aCO1Il0J";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9EA910E7C3;
- Thu, 27 Nov 2025 10:16:39 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dHC5J3Srfz9t5M;
- Thu, 27 Nov 2025 11:16:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1764238596; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/LwMaXtJBDLXQXsCQXnsteb1mtiqvJkilJ+dHEkj54k=;
- b=raC6aTamMxW3XjfgydWAdK4gvLHYOWYg89ZahO46b/L2hJ73UNWoB23IOUuy6deSE87H2x
- gLKD+aF4bvPXisVcAZwug5eUHK/cGm2GfGUsFGsk212L3JVrzXrc4tdNBxR30B+P7OwYKd
- 1HZU1boijNknhlg/InkP09RyDOiqqdhmza522BYaqiacCFTGGvUHVzmOiBcYEqtUilZoA9
- 6owl1co+7Wkf5nGrOCEuG8ZResFMNoaECA2zEkWgZngSNfOO5UMCUbLDhWDijZ8kwMsFCY
- qSNRytCNexkzAcgGNAuuIvkdIyXOrYvtLQoWA4CRnxVFQQEHBqdG3/17b1Gt3Q==
-Message-ID: <89c04c8b3ca0fadf73452ca20ffd61cb106d762a.camel@mailbox.org>
-Subject: Re: [PATCH 1/6] dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org,  amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Date: Thu, 27 Nov 2025 11:16:26 +0100
-In-Reply-To: <adfd840e-fcc8-4cdb-8fd8-d0e48ee32247@amd.com>
-References: <20251126131914.149445-2-phasta@kernel.org>
- <20251126131914.149445-3-phasta@kernel.org>
- <aSctt3QFiEIB61Gr@lstrano-desk.jf.intel.com>
- <aScxGDYeNeN1WYja@lstrano-desk.jf.intel.com>
- <f1864f6d-8403-406d-81a0-00a71495cae8@amd.com>
- <35189892c0cb774155e2012d41371b4d3f8e7d0f.camel@mailbox.org>
- <adfd840e-fcc8-4cdb-8fd8-d0e48ee32247@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3F510E04A;
+ Fri, 28 Nov 2025 09:49:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764323341; x=1795859341;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=ipY2BYyjF/FdjUJ0sYnsOtnwuR3Nds/Rs9/C2QJdddc=;
+ b=aCO1Il0JQWeuPuQPL74ORdKb+91jWqvIb2SPKSLr7kh32QH2mBiNg43B
+ 5N9NbI+Wz5LtdhWO5+VN4NzpaGSZMZeghSrDITQ3BZY46879i+XkT4huL
+ RSgbZ9+X+Lwx02dfCipolEsADNe1bIIL0cP1VjkG87QA6Ue/9Id6cCoTJ
+ k8o4RzspH+dHk6cm22IAHf1hnhbUGn4JKvrsEExoMt/ULRjkPt7VY986v
+ rGbNeJi4iAXeFzq5hhcqaVUHuFYNLgeB6ftX0YQZFCdhiQbll+Av3oQXs
+ 5ZUsnCx1wX9apuWLy7FXNMPK3QwY4SY+nykY8LsvMr57vtYxrITecXLy0 g==;
+X-CSE-ConnectionGUID: Fq44WTX6TWuPKH0SKrwUkQ==
+X-CSE-MsgGUID: u8UzAZUMSlmow1T69mlJQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11626"; a="70220802"
+X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="70220802"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2025 01:49:01 -0800
+X-CSE-ConnectionGUID: NjqTxRXjTTGNLWt/0QNhhw==
+X-CSE-MsgGUID: 3R2N7D0wQ4G7l80m/MnrSg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,232,1758610800"; d="scan'208";a="193643642"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.83])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2025 01:48:58 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, airlied@gmail.com, simona.vetter@ffwll.ch
+Cc: Alex Deucher <alexander.deucher@amd.com>, "Borah, Chaitanya Kumar"
+ <chaitanya.kumar.borah@intel.com>
+Subject: Re: [pull] amdgpu drm-fixes-6.18
+In-Reply-To: <20251126204925.3316684-1-alexander.deucher@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251126204925.3316684-1-alexander.deucher@amd.com>
+Date: Fri, 28 Nov 2025 11:48:55 +0200
+Message-ID: <5f6bfc9e529566dc408a95a8aa748ff703254879@intel.com>
 MIME-Version: 1.0
-X-MBO-RS-ID: bc88f92c2f8974133ff
-X-MBO-RS-META: yz6764qr1bhitjd3f1i7yofkkz7wzuth
-X-Mailman-Approved-At: Fri, 28 Nov 2025 08:34:45 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,77 +67,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-11-27 at 11:01 +0100, Christian K=C3=B6nig wrote:
-> On 11/27/25 10:16, Philipp Stanner wrote:
-> > On Thu, 2025-11-27 at 09:11 +0100, Christian K=C3=B6nig wrote:
-> > > On 11/26/25 17:55, Matthew Brost wrote:
-> > > > On Wed, Nov 26, 2025 at 08:41:27AM -0800, Matthew Brost wrote:
-> > > > > On Wed, Nov 26, 2025 at 02:19:10PM +0100, Philipp Stanner wrote:
-> > > > > > The dma_fence framework checks at many places whether the signa=
-led flag
-> > > > > > of a fence is already set. The code can be simplified and made =
-more
-> > > > > > readable by providing a helper function for that.
-> > > > > >=20
-> > > > > > Add dma_fence_test_signaled_flag(), which only checks whether a=
- fence is
-> > > > > > signaled. Use it internally.
-> > > > > >=20
-> > > > > > Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > > > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> > > > >=20
-> > > > > This is a nice cleanp:
-> > > > > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> > > > >=20
-> > > > > > ---
-> > > > > > =C2=A0drivers/dma-buf/dma-fence.c | 19 +++++++++----------
-> > > > > > =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 | 24 ++++++++++++++=
-++++++++--
-> > > > > > =C2=A02 files changed, 31 insertions(+), 12 deletions(-)
-> > > > > >=20
-> > > > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-=
-fence.c
-> > > > > > index 39e6f93dc310..25117a906846 100644
-> > > > > > --- a/drivers/dma-buf/dma-fence.c
-> > > > > > +++ b/drivers/dma-buf/dma-fence.c
-> > > > > > @@ -372,8 +372,7 @@ int dma_fence_signal_timestamp_locked(struc=
-t dma_fence *fence,
-> > > > > > =C2=A0
-> > > > > > =C2=A0	lockdep_assert_held(fence->lock);
-> > > > > > =C2=A0
-> > > > > > -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
-> > > > > > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags)))
-> > > >=20
-> > > > I need to read a little better, I think this change isn't quite rig=
-ht.
-> > > > The original code is test and set, the updated code is test only (i=
-.e.,
-> > > > you are missing the set step). So maybe just leave this line as is.
-> > >=20
-> > > Oh, good point! I've totally missed that as well.
-> >=20
-> > Oh dear; I also just saw it when opening the mail client ._.
-> >=20
-> > >=20
-> > > But that means that this patch set hasn't even been smoke tested.
-> >=20
-> > I've built it and did some basic testing with my Nouveau system. Any
-> > suggestions? Do you have a CI that one can trigger?
->=20
-> DMA-buf has CONFIG_DMABUF_SELFTESTS which should be able to catch things =
-like that.
->=20
-> But even running Nouveau should have found this since basically no fence =
-at would signal any more.
+On Wed, 26 Nov 2025, Alex Deucher <alexander.deucher@amd.com> wrote:
+> Hi Dave, Simona,
+>
+> Fixes for 6.18.
+>
+> The following changes since commit ac3fd01e4c1efce8f2c054cdeb2ddd2fc0fb15=
+0d:
+>
+>   Linux 6.18-rc7 (2025-11-23 14:53:16 -0800)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.18-=
+2025-11-26
+>
+> for you to fetch changes up to 7fa666ab07ba9e08f52f357cb8e1aad753e83ac6:
+>
+>   drm/amdgpu: fix cyan_skillfish2 gpu info fw handling (2025-11-26 12:34:=
+16 -0500)
+>
+> ----------------------------------------------------------------
+> amd-drm-fixes-6.18-2025-11-26:
+>
+> amdgpu:
+> - Unified MES fix
+> - HDMI fix
+> - Cursor fix
+> - Bightness fix
+> - EDID reading improvement
+> - UserQ fix
+> - Cyan Skillfish IP discovery fix
+>
+> ----------------------------------------------------------------
+> Alex Deucher (2):
+>       Revert "drm/amd/display: Move setup_stream_attribute"
+>       drm/amdgpu: fix cyan_skillfish2 gpu info fw handling
 
-They will signal and execute their callbacks, but all is_signaled()
-checks are then broken.
+This broke the drm-tip build:
 
-Thx for the feedback, I'll be more careful with changes like those and
-test more extensively.
+../drivers/gpu/drm/amd/amdgpu/amdgpu_device.c: In function =E2=80=98amdgpu_=
+device_parse_gpu_info_fw=E2=80=99:
+../drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:2668:31: error: =E2=80=98stru=
+ct amdgpu_mman=E2=80=99 has no member named =E2=80=98discovery_bin=E2=80=99
+ 2668 |                 if (adev->mman.discovery_bin)
+      |                               ^
 
-P.
+and it's going to need a fixup.
+
+BR,
+Jani.
+
+>
+> Alex Hung (1):
+>       drm/amd/display: Check NULL before accessing
+>
+> Mario Limonciello (AMD) (2):
+>       drm/amd/display: Don't change brightness for disabled connectors
+>       drm/amd/display: Increase EDID read retries
+>
+> Michael Chen (1):
+>       drm/amd/amdgpu: reserve vm invalidation engine for uni_mes
+>
+> Prike Liang (1):
+>       drm/amdgpu: attach tlb fence to the PTs update
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c                |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c                   |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c                    |  2 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         | 15 +++++++++=
+++++++
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  8 ++++----
+>  drivers/gpu/drm/amd/display/dc/core/dc_stream.c           | 11 ++++++++-=
+--
+>  drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c |  1 -
+>  drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  2 --
+>  drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  2 --
+>  drivers/gpu/drm/amd/display/dc/link/link_dpms.c           |  3 +++
+>  .../drm/amd/display/dc/virtual/virtual_stream_encoder.c   |  7 -------
+>  11 files changed, 36 insertions(+), 20 deletions(-)
+
+--=20
+Jani Nikula, Intel
