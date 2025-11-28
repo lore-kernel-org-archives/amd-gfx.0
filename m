@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10BFCD116FF
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 13:45:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C52CFD116FE
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 13:45:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50D3710E1EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5225910E1F0;
 	Sat, 29 Nov 2025 13:45:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TQINlAX2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="cbQh+aWa";
 	dkim-atps=neutral
 Received: from sender3-pp-f112.zoho.com (sender3-pp-f112.zoho.com
  [136.143.184.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5A6610E927;
- Fri, 28 Nov 2025 21:06:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1764363989; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6328910E922;
+ Fri, 28 Nov 2025 21:06:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1764363967; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=ltRYQZMSQbQahlUaMGFUv6TAc+K5P0gZ2o8ic5Wwd4cO2qMDohs//nR7rv8Lg6X+p1WJRqy09HMZUne62eXZLSqKWP4BEKf0ix/I8jtCL7XqslFXfvgphSNKDKgxu0cLJSk1Hy3pgh9p6Dj0XF+NQ8g7uR9wEIozGAedXkjCWyU=
+ b=RpS9rnGExoFB+0vB67u9j9ggnFuNCQx2UVVTWAT64kP6NnU2wyytctV77Gegjr7AysOLGaWAMntnDPINpM2ZrS5WdpmLqkKVsyqCSBluIyFY8rFVWelIeDErL/IwJpXfu7gmxUsiHUtiJcWniSDXhmg/vI/i6JgoTS9WSlmYPn8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1764363989;
+ s=zohoarc; t=1764363967;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LJlLpIcTWK8jvmdJwFTtROJr/bm5rTE4uW19f+6gRVU=; 
- b=fL/oErsp8z/5wTWlv1feoSa7Oc1WWgMvlmFR2HsTH5PIn0q4N39E64m1LI7ZRRbdVb5vTbkngN6s+oXlgOtamgB0V0GE7aLxMoqdQQQrlCCvdfn+8sZraXEYhDMlOezg/agWRPyecK5AQCjMHW4qE4h+oS75bhtQiKZu0C2Gtm0=
+ bh=BtaaxO1e7m0aR9ynlBXtH+b1A1iSo4+WilL52QbHmd4=; 
+ b=EpmlfIhTjW1ngPb9iNycGB2pksoIp2SUpKlgcDEbYokAT/IT2R4RafyZeBRToCk/BKCtLjTFucUiLIlR5SZcVsH5L9wke2wYC0izwNwYg73/rTzEzcscf4nJ2PFsWKCUnK3sHwnDcOniepMG0bxBh5HFUcWgPsGYYYrt6f7CwsU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764363989; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764363967; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=LJlLpIcTWK8jvmdJwFTtROJr/bm5rTE4uW19f+6gRVU=;
- b=TQINlAX2R4Yyg4qgu9eON73rsg6ZMNWwPTBvmRdCcjicVdHTqHjm84nYMm4NgqLG
- AIU1Xclcrvce2FlWRUJjKfRy3zIGOZxhZfi5RdEQknvEjPm+KgYAJDRIiI53TKNlR03
- X56tyCFezyGHSgGJYTgN/9bQQoZ7yPJdjrqzyZF0=
-Received: by mx.zohomail.com with SMTPS id 1764363987133732.0157606341392;
- Fri, 28 Nov 2025 13:06:27 -0800 (PST)
+ bh=BtaaxO1e7m0aR9ynlBXtH+b1A1iSo4+WilL52QbHmd4=;
+ b=cbQh+aWaE2CGXpsQpgljbzMGbHY2fCfT45wbyajQeheP0VZCk23o/PL3Pn+AW4ye
+ mzRPRpdNPfcmo5hlv+NqSw5ZFH2If1M7tCggLduD62OoFC6calPXkXo1qFME3Za8dxA
+ rh1lIJeezRu1EZc2w5qraI4pRfp8YEKgZVcP+EuM=
+Received: by mx.zohomail.com with SMTPS id 1764363964727749.3717042138871;
+ Fri, 28 Nov 2025 13:06:04 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 28 Nov 2025 22:05:40 +0100
-Subject: [PATCH v5 04/17] drm/bridge: Act on the DRM color format property
+Date: Fri, 28 Nov 2025 22:05:37 +0100
+Subject: [PATCH v5 01/17] drm/amd/display: Remove unnecessary
+ SIGNAL_TYPE_HDMI_TYPE_A check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251128-color-format-v5-4-63e82f1db1e1@collabora.com>
+Message-Id: <20251128-color-format-v5-1-63e82f1db1e1@collabora.com>
 References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
 In-Reply-To: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -69,7 +70,9 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>
 X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Sat, 29 Nov 2025 13:45:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,82 +89,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The new DRM color format property allows userspace to request a specific
-color format on a connector. In turn, this fills the connector state's
-color_format member to switch color formats.
+From: Werner Sembach <wse@tuxedocomputers.com>
 
-Make drm_bridges consider the color_format set in the connector state
-during the atomic bridge check. Specifically, reject any output bus
-formats that do not correspond to the requested color format.
+Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
+drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
+force_yuv420_output case.
 
+Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
+there is no reason to use RGB when the display
+reports drm_mode_is_420_only() even on a non HDMI connection.
+
+This patch also moves both checks in the same if-case. This  eliminates an
+extra else-if-case.
+
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Tested-by: Andri Yngvason <andri@yngvason.is>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 45 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 8f355df883d8..8aac9747f35e 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1052,6 +1052,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
- 	return ret;
- }
- 
-+static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format fmt)
-+{
-+	if (fmt == DRM_COLOR_FORMAT_AUTO)
-+		return true;
-+
-+	switch (bus_fmt) {
-+	case MEDIA_BUS_FMT_FIXED:
-+		return true;
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_RGB121212_1X36:
-+	case MEDIA_BUS_FMT_RGB161616_1X48:
-+		return fmt == DRM_COLOR_FORMAT_RGB444;
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+	case MEDIA_BUS_FMT_YUV12_1X36:
-+	case MEDIA_BUS_FMT_YUV16_1X48:
-+		return fmt == DRM_COLOR_FORMAT_YCBCR444;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_VYUY8_1X16:
-+	case MEDIA_BUS_FMT_YUYV8_1X16:
-+	case MEDIA_BUS_FMT_YVYU8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
-+	case MEDIA_BUS_FMT_YUYV10_1X20:
-+	case MEDIA_BUS_FMT_VYUY10_1X20:
-+	case MEDIA_BUS_FMT_YVYU10_1X20:
-+	case MEDIA_BUS_FMT_UYVY12_1X24:
-+	case MEDIA_BUS_FMT_VYUY12_1X24:
-+	case MEDIA_BUS_FMT_YUYV12_1X24:
-+	case MEDIA_BUS_FMT_YVYU12_1X24:
-+		return fmt == DRM_COLOR_FORMAT_YCBCR422;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-+	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-+		return fmt == DRM_COLOR_FORMAT_YCBCR420;
-+	default:
-+		return false;
-+	}
-+}
-+
- /*
-  * This function is called by &drm_atomic_bridge_chain_check() just before
-  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-@@ -1137,6 +1178,10 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 	}
- 
- 	for (i = 0; i < num_out_bus_fmts; i++) {
-+		if (!bus_format_is_color_fmt(out_bus_fmts[i], conn_state->color_format)) {
-+			ret = -ENOTSUPP;
-+			continue;
-+		}
- 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
- 					       conn_state, out_bus_fmts[i]);
- 		if (ret != -ENOTSUPP)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f02bcd108685..0b44bfe9e7e5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6668,12 +6668,8 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+ 	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in)
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if (drm_mode_is_420_also(info, mode_in)
+-			&& aconnector
+-			&& aconnector->force_yuv420_output)
++	if (drm_mode_is_420_only(info, mode_in) || (drm_mode_is_420_also(info, mode_in) &&
++	    aconnector && aconnector->force_yuv420_output))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+ 	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR422)
+ 			&& aconnector
 
 -- 
 2.52.0
