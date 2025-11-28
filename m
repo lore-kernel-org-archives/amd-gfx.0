@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42E69CFD2F6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DFE1D116FC
 	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 13:45:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA7C10E1EA;
-	Sat, 29 Nov 2025 13:45:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17B4C10E1EB;
+	Sat, 29 Nov 2025 13:45:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="X77oHtYE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="KDKeBn+2";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98A1110E935;
- Fri, 28 Nov 2025 21:07:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1764364034; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5C610E924;
+ Fri, 28 Nov 2025 21:06:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1764363981; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Nu0xqIRmGhmozM0z0zhx5llyzEbLNOHWkrCU4t7O7jg+XLm0ir8eFhFLpE/Xrc0JCe6nWyjlkUo+g1q6YyZLrRoFJMpi6lB9R1/0EVdQ+hsVtTkCTNol8EMHqTRECb9C0Gkio3TAwiudMVJ8RacSQ7Q2obgBzZX9PrPsr08f770=
+ b=KPDVuo9+EnGDLsuZweploJDFMSPxA3EwOZPw9aPHHhMz2DXUoWwiV7E4+0Iu/sGAn7NN1eYQDqoxdLuU/8cHLIKv0+/91JJqALSv8wTeWcUvbCWzKSKn1uyyUTX1dBoFx6mPE8NX2t6Z7KperR/W/6eMdu9mbtZ13QqW5iGa/2c=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1764364034;
+ s=zohoarc; t=1764363981;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=/MpT/AtBy9PLkAWryhr0CXHQiQHAmL0aMyFWeO6QNU4=; 
- b=Mz7wRJx1Ya75IwbmXOAxiJVDZ6bDBRnMQbd4CdqxTh+19t/uM6GUIaTRdgHbZ34k3yl8cV+SrTl+RlFIqUxzuyJZcQY1+ZprolZnz315v3wH5VVusY+SL/+v6NGh9e1FKIzj+eBL6eVd3GnXihzjmKb2OIlyBYHG3YPqgEUnfn8=
+ bh=IBxMWqX4+1NiMuBr6BGqM8VA6p9l+VBzuvI2JeWQJUk=; 
+ b=WX4+Q0p3B+Hc18XO9I7Zq5vEASk3TR/6sx4qIF/XSxXD38ioGMnk6rXUzQrVWiY7yhRgghHBEzt7bgMkvr2pKJ8hU9e9ouTecxHnKY41dseHzikuzWeSTfMSv3G0DI7VxHTCen7B4aIzcI/ZEM5NWr422qJHj9RcgNWHQC1MI6g=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764364034; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764363981; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=/MpT/AtBy9PLkAWryhr0CXHQiQHAmL0aMyFWeO6QNU4=;
- b=X77oHtYEdxbo6XR7v5PUBCxoRX0oCXG27QaFIUrn875nX2jmz5q+lq54zeMXSle0
- 7ugpMG3+9L1c1ZulRuqTo+/S3tGbBH16m9T0KewhiXt3/fJc0y80Ryq4ejf3HRUSnpU
- n+qPdQMsUpVe0zWw0hDMcficet2PdBoCxfb4ONBU=
-Received: by mx.zohomail.com with SMTPS id 176436403133274.97397831652074;
- Fri, 28 Nov 2025 13:07:11 -0800 (PST)
+ bh=IBxMWqX4+1NiMuBr6BGqM8VA6p9l+VBzuvI2JeWQJUk=;
+ b=KDKeBn+2oZerSX3QOpV37D79KcKpgD5NU/avAqmIfHn26P43sELtFMjA3PIbGItM
+ oIF7jte8lXsA25VmsfvHpV2uKlWgnD1atDLKO+YR51bkC9N1NHmIRUclkz08CqWLEft
+ 8DuabFfqAjcDNl6/1TXR7Sa1Yqtf1AFsv+/UCJJ8=
+Received: by mx.zohomail.com with SMTPS id 1764363979976684.7501352747894;
+ Fri, 28 Nov 2025 13:06:19 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 28 Nov 2025 22:05:46 +0100
-Subject: [PATCH v5 10/17] drm/rockchip: vop2: Fix YUV444 output
+Date: Fri, 28 Nov 2025 22:05:39 +0100
+Subject: [PATCH v5 03/17] drm: Add enum conversion from DRM_COLOR_FORMAT to
+ HDMI_COLORSPACE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251128-color-format-v5-10-63e82f1db1e1@collabora.com>
+Message-Id: <20251128-color-format-v5-3-63e82f1db1e1@collabora.com>
 References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
 In-Reply-To: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -69,7 +70,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
 X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Sat, 29 Nov 2025 13:45:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,96 +88,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-YUV444 (aka YCbCr444) output isn't working quite right on RK3588. The
-resulting image on the display, while identifying itself as YUV444, has
-some components swapped, even after adding the necessary DRM formats to
-the conversion functions.
+From: Marius Vlad <marius.vlad@collabora.com>
 
-Judging by downstream, this is because YUV444 also needs an rb swap
-performed in the AFBC case.
+While the two enums have similar values, they're not identical, and
+HDMI's enum is defined as per the HDMI standard.
 
-Add the DRM formats to the appropriate switch statements, and add a
-function for checking whether an rb swap needs to be performed in the
-AFBC case.
+Add a simple conversion function. Unexpected inputs aren't handled in
+any clever way, DRM_COLOR_FORMAT_AUTO and any other value that doesn't
+cleanly map to HDMI just gets returned as HDMI_COLORSPACE_RGB.
 
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ include/drm/drm_connector.h | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 498df0ce4680..f1252d1f06e9 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -176,6 +176,7 @@ static enum vop2_data_format vop2_convert_format(u32 format)
- 	case DRM_FORMAT_ARGB2101010:
- 	case DRM_FORMAT_XBGR2101010:
- 	case DRM_FORMAT_ABGR2101010:
-+	case DRM_FORMAT_VUY101010:
- 		return VOP2_FMT_XRGB101010;
- 	case DRM_FORMAT_XRGB8888:
- 	case DRM_FORMAT_ARGB8888:
-@@ -184,6 +185,7 @@ static enum vop2_data_format vop2_convert_format(u32 format)
- 		return VOP2_FMT_ARGB8888;
- 	case DRM_FORMAT_RGB888:
- 	case DRM_FORMAT_BGR888:
-+	case DRM_FORMAT_VUY888:
- 		return VOP2_FMT_RGB888;
- 	case DRM_FORMAT_RGB565:
- 	case DRM_FORMAT_BGR565:
-@@ -225,6 +227,7 @@ static enum vop2_afbc_format vop2_convert_afbc_format(u32 format)
- 	case DRM_FORMAT_ARGB2101010:
- 	case DRM_FORMAT_XBGR2101010:
- 	case DRM_FORMAT_ABGR2101010:
-+	case DRM_FORMAT_VUY101010:
- 		return VOP2_AFBC_FMT_ARGB2101010;
- 	case DRM_FORMAT_XRGB8888:
- 	case DRM_FORMAT_ARGB8888:
-@@ -233,6 +236,7 @@ static enum vop2_afbc_format vop2_convert_afbc_format(u32 format)
- 		return VOP2_AFBC_FMT_ARGB8888;
- 	case DRM_FORMAT_RGB888:
- 	case DRM_FORMAT_BGR888:
-+	case DRM_FORMAT_VUY888:
- 		return VOP2_AFBC_FMT_RGB888;
- 	case DRM_FORMAT_RGB565:
- 	case DRM_FORMAT_BGR565:
-@@ -270,6 +274,19 @@ static bool vop2_win_rb_swap(u32 format)
- 	}
- }
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 38968a557b82..cf556f0e5731 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2567,6 +2567,33 @@ int drm_connector_attach_color_format_property(struct drm_connector *connector);
  
-+static bool vop2_afbc_rb_swap(u32 format)
+ const char *drm_get_color_format_name(enum drm_color_format color_fmt);
+ 
++/**
++ * drm_color_format_to_hdmi_colorspace - convert DRM color format to HDMI
++ * @fmt: the &enum drm_color_format to convert
++ *
++ * Convert a given &enum drm_color_format to an equivalent
++ * &enum hdmi_colorspace. For non-representable values and
++ * %DRM_COLOR_FORMAT_AUTO, the value %HDMI_COLORSPACE_RGB is returned.
++ *
++ * Returns: the corresponding &enum hdmi_colorspace value
++ */
++static inline enum hdmi_colorspace __pure
++drm_color_format_to_hdmi_colorspace(enum drm_color_format fmt)
 +{
-+	switch (format) {
-+	case DRM_FORMAT_NV24:
-+	case DRM_FORMAT_NV30:
-+	case DRM_FORMAT_VUY888:
-+	case DRM_FORMAT_VUY101010:
-+		return true;
++	switch (fmt) {
 +	default:
-+		return false;
++	case DRM_COLOR_FORMAT_AUTO:
++	case DRM_COLOR_FORMAT_RGB444:
++		return HDMI_COLORSPACE_RGB;
++	case DRM_COLOR_FORMAT_YCBCR444:
++		return HDMI_COLORSPACE_YUV444;
++	case DRM_COLOR_FORMAT_YCBCR422:
++		return HDMI_COLORSPACE_YUV422;
++	case DRM_COLOR_FORMAT_YCBCR420:
++		return HDMI_COLORSPACE_YUV420;
 +	}
 +}
 +
- static bool vop2_afbc_uv_swap(u32 format)
- {
- 	switch (format) {
-@@ -1304,6 +1321,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 		 /* It's for head stride, each head size is 16 byte */
- 		stride = ALIGN(stride, block_w) / block_w * 16;
- 
-+		rb_swap = vop2_afbc_rb_swap(fb->format->format);
- 		uv_swap = vop2_afbc_uv_swap(fb->format->format);
- 		/*
- 		 * This is a workaround for crazy IC design, Cluster
-@@ -1321,6 +1339,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 			vop2_win_write(win, VOP2_WIN_AFBC_ENABLE, 1);
- 		vop2_win_write(win, VOP2_WIN_AFBC_FORMAT, afbc_format);
- 		vop2_win_write(win, VOP2_WIN_AFBC_UV_SWAP, uv_swap);
-+		vop2_win_write(win, VOP2_WIN_AFBC_RB_SWAP, rb_swap);
- 		/*
- 		 * On rk3566/8, this bit is auto gating enable,
- 		 * but this function is not work well so we need
+ /**
+  * drm_for_each_connector_iter - connector_list iterator macro
+  * @connector: &struct drm_connector pointer used as cursor
 
 -- 
 2.52.0
