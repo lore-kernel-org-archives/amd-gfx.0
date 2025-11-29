@@ -4,154 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C20ED116EA
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Nov 2025 21:37:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10E94CFD2F6
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Nov 2025 04:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B515010E94B;
-	Fri, 28 Nov 2025 21:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 961AF10E1B7;
+	Sat, 29 Nov 2025 04:28:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rbCJVwIp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HtpDyQt8";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012027.outbound.protection.outlook.com [52.101.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C01210E94B;
- Fri, 28 Nov 2025 21:37:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SIqXXV3OzdaPWidvKpQ8yhc+ps7LPoNVxXqeQse84ChamauxaFFTSRbs3FF/ejPZ4L9DJGRoxTgXgCugk95B84ODponUDLcBf7DEvJok3XlAqbN9UXLOhjSGk2E0sEqUFvMvtJQV/oyTlftiAglL8VB9JlhDWOma9dV3r1v+0Yrr+2gy4kuWl1sSBb1DFIVy8cNwFn3IQoRxU9Ip7ts2NLZosEMrUSphbYP5NKkv1deuXDzh1xCg/uKfQHCh124LOve4ZcFpGvj1AR7+3KgUnhK34lzZa8bQPwt3hvavUibQ/1UX82bP5d8onaPoIp9O60KuEAsIRZAVdhA1+0vA8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T8SLdcZTmEykIb8j46yUhJQTxVauQF4HUAI3HjXnkBI=;
- b=Q/AOylHj4tVPZbLwkUxg7WRfH6srM/82XfpVns1LrckdMjbU8qqFDl0nSdebg/91x8W6WT4ADu8oAPJD1M98lMNyNtxu0GbRThBJVm7XqNYGdPXHpkpfjIoid4x+fBWFAPpOOs25Dot/l++WQ8nVwtGF1TBrfkvKdYTiHhIJcwsrK8AFjLepmOhibE3FdYSfhSrzpROnR3h8FZULtNoksAZBv7kVg2P9dZgiI5CHGJvedTeXeJkc8IGYDkXIeoxyEQi8IUsMusrMsfyXYt1Xzs0EB8jr5ndo8AUWoB19Xq6w2tNjsLOKuVzXlauTcDBdnRK0b70f9kzRtSYwP3W+uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T8SLdcZTmEykIb8j46yUhJQTxVauQF4HUAI3HjXnkBI=;
- b=rbCJVwIpXHDsSFVsz937/1dcSOjpYKRGusjKU75PUhO5MZLpLNQ283gHcmTqBUehQZ/+bsQOafU7BTPuD4YIUdY/eftxspScsRCrOTk7SOznfn3m38ZCC/GWoleTzKwm2zguD/U13KpWrYdoaF++1bqQfQezBKws+1AAjjaOnWs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BN5PR12MB9485.namprd12.prod.outlook.com (2603:10b6:408:2a8::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.14; Fri, 28 Nov
- 2025 21:37:17 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::9e93:67dd:49ac:bc14]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::9e93:67dd:49ac:bc14%6]) with mapi id 15.20.9366.012; Fri, 28 Nov 2025
- 21:37:16 +0000
-Message-ID: <2ddb06d0-70e5-4a1f-850d-3753f9fb3d0a@amd.com>
-Date: Fri, 28 Nov 2025 16:36:58 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: use DCN10 CM helper for plane shaper
- func translation in DCN32
-To: Melissa Wen <mwen@igalia.com>, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20251126005608.37513-1-mwen@igalia.com>
- <2a918940-700d-4b24-90ae-4d9d4f9b457d@amd.com>
- <f832ec8c-cce1-45e0-975b-ed7000bed891@igalia.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <f832ec8c-cce1-45e0-975b-ed7000bed891@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0433.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10d::13) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 844DB10E1B7;
+ Sat, 29 Nov 2025 04:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764390531; x=1795926531;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=4BGqjsaA8iduZfG9kMiRC7A5y1i6zHXDhgQYC3LGgMo=;
+ b=HtpDyQt8bbhvxPK+RFwATR87ZQJUvT0vPmUtgdWamrXrcTdPg9JV++zR
+ M43KBea9eHagb/D41d2vqetbVyyGmb1dxuZEsRZaVAWH5dxmrIuqG4SUk
+ v2y969omliaPJe9Fljx/JQ6zes/WrUjasOS4qu9PNgTaWMxM2sWc8vwU2
+ blHJAG3wDDPl/tZO94waotydTlGEhh/5GPbWP5TFNaGvDhKi1chWaePzF
+ fUUYmph1Zj7Fiy14uXFNOpurL6Q0500ZzZA9YpkDtypPpQNP2uPkEFUFa
+ eqAlkttCPOeFFpiCrLhg7EaF7pxqTAF0UHwuO5ka2sj5OkAY3iOfrDzlD A==;
+X-CSE-ConnectionGUID: /Cya1AieQpqZPJNGd+Tq2g==
+X-CSE-MsgGUID: j/Oyszh7Qxmw0N/3cMnD/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11627"; a="77093281"
+X-IronPort-AV: E=Sophos;i="6.20,235,1758610800"; d="scan'208";a="77093281"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2025 20:28:50 -0800
+X-CSE-ConnectionGUID: LAqmGPVgTCKLNhMS11fvyQ==
+X-CSE-MsgGUID: PtADVf4hQNW8LeX+Ej83/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,235,1758610800"; d="scan'208";a="224539104"
+Received: from lkp-server01.sh.intel.com (HELO 4664bbef4914) ([10.239.97.150])
+ by fmviesa001.fm.intel.com with ESMTP; 28 Nov 2025 20:28:48 -0800
+Received: from kbuild by 4664bbef4914 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vPCZh-000000006xd-3WMO;
+ Sat, 29 Nov 2025 04:28:45 +0000
+Date: Sat, 29 Nov 2025 12:28:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Harry.Wentland@amd.com, Nicholas.Kazlauskas@amd.com,
+ simona@ffwll.ch, airlied@gmail.com, Leo Li <sunpeng.li@amd.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Implement prepare_vblank_enable
+ callback
+Message-ID: <202511291238.D3yaiZd1-lkp@intel.com>
+References: <20251127235800.831297-2-sunpeng.li@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BN5PR12MB9485:EE_
-X-MS-Office365-Filtering-Correlation-Id: cad37487-ee5c-48cf-025c-08de2ec64d2f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?S3puWHc3OVZTQlBYQVBqdUNsTTNtc3RWM0ZPN3p6aDNickthMy9teEV1Ukpo?=
- =?utf-8?B?elRJbUc1Yjl5bGE3ZmpqWUdYTnNuK2pYZjljZkVxcXVCb2VmNGFyd0xmdE1t?=
- =?utf-8?B?UWpvdGZKczZQOTQ0N0JuTXNSNDFDQWMySkpPOEMvenNaSFNaODMyakpJTHZD?=
- =?utf-8?B?d3MrekZTTThoZEhZcjd5MUYxRjMvQmxKaytZVk54NDVrV3FUVkl4UEMzSXgw?=
- =?utf-8?B?UCt1WjdYeGN2UHp2S2hoSWRmTnYvM2xIWHBpdGp5NW5UOWRka3FNQUVPY0RG?=
- =?utf-8?B?WkNtK3pPWnkybGlnVTUzbXdhMktaSVhnZjg1eXl5OGxUVC9Vb1BiOGpwTllZ?=
- =?utf-8?B?b05PRS81dnZhcUx2VWk0eFV5L2VmdktnYVhCOTF3SS8wMnlTWURkREkwYjZS?=
- =?utf-8?B?bExrRmtKbzlDeHhkcDdnT05QR09ocjNjUWdYaGhKRGZ4U2l0ek5uTzBvSWxP?=
- =?utf-8?B?QlpnWFdBUjZsNno4UFhWK0FGWWcrUGFpcTFtMDdFMjRMbFFkUzdlakRZNmxi?=
- =?utf-8?B?K3o2TXpNeHE2M0ZYeXVDdjJWblhBRGpBMXhHUC9lV1J2cHFBazJRWU4ybGRY?=
- =?utf-8?B?eVJNeGxnVURISmljeTV6S25yekZTbklDbUYydG9yTGkwTEg4MXZFQVFIUHBn?=
- =?utf-8?B?WnhmeXlMbHQxcVVKdHp6M2piWGxBbHNZWTlaZ0hiL2NvZ2s3K29wZWw4TlJt?=
- =?utf-8?B?V2JGZThBSm9oc0RFVXlLNUtyOWVJeUgwSFlKZXY1RFB1T0EvM3VvRG44enc0?=
- =?utf-8?B?dmRHMjRGRWU2WDVYYVJoelFQOXZPdDczcW11cXNYeEFnenppaXBqSXRqRTZz?=
- =?utf-8?B?K0Y1QWR5UWdrRytRcm9CTWV1ZzlkZjFZL2F5bDFVRVA1cTAwdGxRajhtd2lr?=
- =?utf-8?B?SWhvUFVxNnJtYWJodUFxbDl3TllUQmlQVDBwRW9DUkZxMjhoeHpNU1cyY2VM?=
- =?utf-8?B?WW5hMFdBUWQxa2R0UXU2elFvc05qUE8rMTVGWGhnNm9xZ2xKQW14RUUvWm9E?=
- =?utf-8?B?T012YndxQTV5amszeDEvUloyeTl2QnliakxMaER6NDgwbGxaRFdCaW4zQlFR?=
- =?utf-8?B?YUFyL1dWa0lPMzBzWE10UDdibG9sWDcwUGlKMEZrMG1jeVFTVjZ3ZWNLWEx3?=
- =?utf-8?B?OG95MEVXTnJCM24yRmJnNHJiUTEwYi9QaHM2R1pxQmtGNzcxWTlrUFMxUGJn?=
- =?utf-8?B?SE1FTllhWjFHekNQdzJBUFdPUldodmw4bEtaK1dVYTNuSDZtRXA4bHFFYlda?=
- =?utf-8?B?ZEVHVlQvNytMN3UwUURNQXltTlQ0cTRqZkhaSGcrMG9jVXQ0aC9FcTFsOUxB?=
- =?utf-8?B?eGQ5Nm9oZ0VmYStuL3d4UWlnRzBQRVJldHRTdTRUTE5uclVLVVNSZEtjcXlm?=
- =?utf-8?B?VFdTcVg0NUZ2Z0VTVW5rcGhGbU9SUVIvK1ZOYmc5aWIwaHdFTXQ0RXFZbzdS?=
- =?utf-8?B?U2JXYlU4ZW5NZkFPNUUyRDZBRS9jaTU3clRMUGI1M2swZEF6TXVTV21mYUNr?=
- =?utf-8?B?QmVCU3pzZkd2VW9Walk3Qy8ralFUVE1vRWx0NHQ1MFkzNFBScmk5R0FnbnFu?=
- =?utf-8?B?c3VTVm5lWkY3eU9iV29jNjJ2NEtrelR1Y1I3bW9YeXhZU1A4M3UzeE9VZHVW?=
- =?utf-8?B?a1BWTkhmQU9RTTV0UCtjRTArdUk4ckMxUEFJWXcxK093dzJYL2gwbGovOTZh?=
- =?utf-8?B?bnVucUVsZlE0ankvWDFRemlPWW05cjR5Rjlzd0QycE5BQXUwYTg1TmNKNzlk?=
- =?utf-8?B?Vzc0cXdqY0t5cTR2eWNZT1VoTTkvMFFKRTcvTkJxcEdwM3FsN3oxV0pqRmcy?=
- =?utf-8?B?TnBncHZRS3VpazlUTXBmaFZPOVg4b1B3STcrbFVSU1JyTmRBeHZLOGwwdGRE?=
- =?utf-8?B?U01Kdk1tZTBnOWpOUGw1NDlHZTB3ZUtCc2JPQytYYjJxS3p6SmtHUUNtZXRI?=
- =?utf-8?Q?SziFlAEDVZ40Vcga6s2f09zLrRqgvviA?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rzdhd2VjZ2kzcWJPVDBoLzEwdUJXSkllWVg2bWRHYmtrYm5VMWlqQ09oNFVD?=
- =?utf-8?B?MjhJTm5jU2swWHR1REdUSkliK3h6Nkw4OWVWTDhvdFcydStrSitnMDVZd0Fi?=
- =?utf-8?B?TXI1ejlRNWJ1QmFIbFN6WUVYVnNaRThSNU1kTDdWUklRcjYxVkp3U1hOdzZI?=
- =?utf-8?B?Y1BmTEhoV2Zxb0J2OGVTR0dkSkMwV3R6bEFUVVVNVWxudDMrdm1YSXhVVUV6?=
- =?utf-8?B?KzNUYTVSY1A4enNPNkFZeG5ya1ZGZVVNd0xLYnNncDNEcjRvSktPKy9FRXpl?=
- =?utf-8?B?b1MweVBKYUJTdElhTDR1UmhQZWhwQ0JXa054bkgrbXVpbWxwQkZaQXNLUm9x?=
- =?utf-8?B?aVdhdUVHc1UrS3g2N3B3S2FxdE1jZENJWXR1WVUxaWV5U2lJK3dVanRlTVVz?=
- =?utf-8?B?YTN4M25GV0VBeTNLZ3Z6ZVpKWlo3S092K3l6TkVPYkpiMlJhMHJVd3ZXeEth?=
- =?utf-8?B?UmhjTXlnTDExWFJmcEh1Vit5cGZHSzVwQ0JmT1hxWUdKZ25kWjZycmV1OS9s?=
- =?utf-8?B?K3NEZlAzL09oRElMLzRuTktpMXgrT0xXclREbjZTblVNc3NlTW9YVEpOb0VK?=
- =?utf-8?B?RW1qbGdFYklYb3kzNzJpR3RUVlBoQkVJNjMxNTVlYlVnTVZuT2NVdVl1Q2tm?=
- =?utf-8?B?YUNpVnduTUhnQVJZbnREQk9LckxENFd0eGwraFptRTg5dkdERzFaZ1Vlc1ZD?=
- =?utf-8?B?ZzZwd2xvSHNIWDZVQ3Q4TGNFMDdrZmI4ZFVDZ3UyR0tlRGNVb0I5aXRkZzk5?=
- =?utf-8?B?UmRPMTZTU0krbWtEUHNINTJjRnBlMTdFVmtNWlNuMVRwWTY3RFV0ZERrYXNG?=
- =?utf-8?B?d2FtdkU4Tm92UzBCbExIWWM3SUdyaGpiU1Rhd0ZhWUwyaFFYaGtwcUxJRXBX?=
- =?utf-8?B?YUVJbmxNK3ZEdFZKTEpaV216dlhEVTN2L01NckEzYXdnUkxjSHRiK2txWWtG?=
- =?utf-8?B?cytOam53bFZBUHdLS1NTbzVXK2g0T3ZEUkQxSC9nclg2VTVQNlZtUWw0YjJJ?=
- =?utf-8?B?R3c4cGYzaXhkWENCY0pndzIzOFZOdmNZL016RHVUY1ZuZjE0RE5LcFlMVklP?=
- =?utf-8?B?dkErcjBDb3NhcVpITGVjK3pvTnFWWEdORWF4NWp0T3ZFN0ZyMUx4YmlpZSty?=
- =?utf-8?B?QU5xVmdiL0VLQXVvWnBwYWdyZ0RjdmpWT0Y2R0pwblNPSklORGs4ZExkRnNj?=
- =?utf-8?B?c2FTbXJrOHZSS0hhZXFXUTV1dUhMOVdtZ2s1REoxaFlpaUxCM0JUNkFjWXdh?=
- =?utf-8?B?QS9sUjU3b0xBMUlMY1Bsc0U2K3Z0M1JqS0JHcmk4QmllbDdjWlloK0JnaXky?=
- =?utf-8?B?MUtnZGo2S3gydVgwYkprTE1HRWFYQW9Gd0J3SzZYeGdPb1p2cm1WdjlCNGt0?=
- =?utf-8?B?dlpaWGVFeFZkbmVkdWdBZFlvVGVvNTJ6YmtlT3dYSUFoY3M0bXBRMzJMVkti?=
- =?utf-8?B?Z3dPR0VIcG9pN2U5c1ZObU9MY1B3STNicHpPSHA5TjZUOU9VOHJxTHhjTW1U?=
- =?utf-8?B?YzNSYStCNUVKNEswWHIvNjhGQkZ4c0JZaUp0ZW5yQWxHUVYwcXVjOVBMc29R?=
- =?utf-8?B?UkJ6NHhKN2dDZldtWWR4WEQ5UEZJMW13SFBqWDM3NGR1MHlWVWhROWZsOHhH?=
- =?utf-8?B?aGM4Y1BFeVNWQ3BDME0zaHZOVUtsSHl3cTEwUEhLeGR0SzlsRU1YZjBacjlC?=
- =?utf-8?B?dVhQd1ZXdkRJRjB2T1pOaHVrdnFzd2Q5YzV2RmU5SE0rSlBJTHR3UXNUTHYx?=
- =?utf-8?B?WkdmMW1WWDFRTTFPUzhrRTFNbERoUGxwUVFmdkRRSFc1T01lczhOZDlPNFJv?=
- =?utf-8?B?WS8zMmpibkx4dEwvZDN4UVBpblNBd2IzbkdpTUlxQ3hIK3NpZHU2bGhMS1lL?=
- =?utf-8?B?R2tHWWNBZUEzQUFCTUZ3ZDdxOTJnSUxKY1YzMDVPL1VDSkhuZm9lK0dJOEpN?=
- =?utf-8?B?bUltTnk1SnloQjBMWXkyTFRrTWxmRzY5NmV3NkhOQnZRNm8yejZYR2drZXBy?=
- =?utf-8?B?Zk5qczBpNnhkVVJlSTN1Wk9hV3Zqak5wVUUyNjlNcEZHL2ZzbS9ub0hjaWJx?=
- =?utf-8?B?SmM2eENVenZWd1RVa0hCQ0xLcUsvZ0s2cS94cXdYZ040SmgxS09sRVpsQ3Jl?=
- =?utf-8?Q?sZLvYMT7TScEKa1FKyEoEYXTf?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cad37487-ee5c-48cf-025c-08de2ec64d2f
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2025 21:37:16.8098 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5073+2kN1vsZPlDn3cuPBxLzpcsSTmZF4vvD9+MlQTD56Mfi+g7Jw6GDDcyk/1HpoCpYtDzuofwTdr3go5sTSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9485
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251127235800.831297-2-sunpeng.li@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,147 +73,406 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on linus/master]
+[also build test ERROR on v6.18-rc7]
+[cannot apply to drm/drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip drm-exynos/exynos-drm-next next-20251128]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/sunpeng-li-amd-com/drm-amd-display-Implement-prepare_vblank_enable-callback/20251128-075952
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20251127235800.831297-2-sunpeng.li%40amd.com
+patch subject: [PATCH 2/2] drm/amd/display: Implement prepare_vblank_enable callback
+config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20251129/202511291238.D3yaiZd1-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251129/202511291238.D3yaiZd1-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202511291238.D3yaiZd1-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:48:
+   In file included from drivers/gpu/drm/amd/amdgpu/../amdgpu/amdgpu.h:91:
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.h:588:32: error: expected ';' at end of declaration list
+     588 |         bool prepare_vbl_disallow_idle
+         |                                       ^
+         |                                       ;
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2088:11: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2088 |         adev->dm.hpd_rx_offload_wq = hpd_rx_irq_create_workqueue(adev);
+         |         ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2089:16: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2089 |         if (!adev->dm.hpd_rx_offload_wq) {
+         |              ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2279:15: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2279 |         if (adev->dm.hpd_rx_offload_wq && adev->dm.dc) {
+         |             ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2281:17: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2281 |                         if (adev->dm.hpd_rx_offload_wq[i].wq) {
+         |                             ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2282:32: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2282 |                                 destroy_workqueue(adev->dm.hpd_rx_offload_wq[i].wq);
+         |                                                   ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2283:14: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2283 |                                 adev->dm.hpd_rx_offload_wq[i].wq = NULL;
+         |                                 ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2287:18: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2287 |                 kfree(adev->dm.hpd_rx_offload_wq);
+         |                       ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2288:12: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    2288 |                 adev->dm.hpd_rx_offload_wq = NULL;
+         |                 ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3112:10: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    3112 |         if (dm->hpd_rx_offload_wq) {
+         |             ~~  ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3114:24: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    3114 |                         flush_workqueue(dm->hpd_rx_offload_wq[i].wq);
+         |                                         ~~  ^
+   include/linux/workqueue.h:778:34: note: expanded from macro 'flush_workqueue'
+     778 |         struct workqueue_struct *_wq = (wq);                            \
+         |                                         ^~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4091:63: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    4091 |         struct hpd_rx_irq_offload_work_queue *offload_wq = &adev->dm.hpd_rx_offload_wq[idx];
+         |                                                             ~~~~~~~~ ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:5504:11: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    5504 |                 if (dm->hpd_rx_offload_wq)
+         |                     ~~  ^
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:5505:8: error: no member named 'hpd_rx_offload_wq' in 'struct amdgpu_display_manager'
+    5505 |                         dm->hpd_rx_offload_wq[aconnector->base.index].aconnector =
+         |                         ~~  ^
+   14 errors generated.
 
 
-On 2025-11-28 14:09, Melissa Wen wrote:
-> 
-> 
-> On 27/11/2025 17:39, Harry Wentland wrote:
->>
->> On 2025-11-25 19:45, Melissa Wen wrote:
->>> The usage of DCN30 CM helper creates some unexpected shimmer points on
->>> PQ shaper TF in the steamOS HDR color pipeline. Fix it by using the same
->>> DCN10 color mgmt helper of previous hw versions to translate plane
->>> shaper func to hw format in DCN32 hw family.
->>>
->>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>> ---
->>>
->>> Hi,
->>>
->>> Commit a953cd8cac6b ("drm/amd/display: Fix MPCC 1DLUT programming")
->>> mentions some visible artifacts when using DCN10 CM helper on DCN32
->>> shaper and blend LUTs. On the other hand, using DCN30 CM helper creates
->>> some shimmer points on steamOS HDR pipeline. We didn't noticed any
->>> visible artifacts so far, but I'd like to know more about what kind of
->>> artifacts were visible at the time this helper for shaper func was
->>> switched in the afore-mentioned commit for further investigation.
->>>
->> Thanks for the debug.
->>
->> Do you have more info on the unexpected shimmer points with SteamOS?
->> Ideally a video and a description on what to look for and why it's
->> wrong, or a comparison to a GFX-transformed example that shows the
->> correct visuals?
-> Hi Harry,
-> 
-> I took some pictures of clear unexpected scenes in HDR games.
-> 
-> 1. https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-split-fiction-game-black-loading-bkg.jpg
-> 
-> Just loading Split Fiction after having turning on HDR in this game options (Options > Graphics > HDR).
-> We expected a black background with the Loading <icon> in the bottom right, this background is full of bright spots.
-> Friend pass is enough to reproduce the issue without having the game.
-> 
-> 2. https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-menu.jpg
-> 
-> Colorful-bright points around the margin/corner of the God of War Ragnarok game menu.
-> 
-> 3. God of War Ragnarok game intro:
-> 
-> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-intro1.jpg
-> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-intro2.jpg
-> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-intro3.jpg
-> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-PS-logo.jpg
-> 
-> Same random shimmer distortions.
-> I think those images are good examples, but still pending screenshot/GFX examples for comparison.
-> I'll take it and reply here later.
-> 
+vim +2088 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
 
-Thanks, that would still be helpful, but even as-is these images
-quite highlight the issue. It's more severe than I expected.
+28d43d0895896f Leo Li               2024-08-27  1877  
+7578ecda14d521 Alex Deucher         2017-10-10  1878  static int amdgpu_dm_init(struct amdgpu_device *adev)
+4562236b3bc0a2 Harry Wentland       2017-09-12  1879  {
+4562236b3bc0a2 Harry Wentland       2017-09-12  1880  	struct dc_init_data init_data;
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  1881  	struct dc_callback_init init_params;
+743b9786b14ae0 Nicholas Kazlauskas  2019-10-24  1882  	int r;
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  1883  
+4a580877bdcb83 Luben Tuikov         2020-08-24  1884  	adev->dm.ddev = adev_to_drm(adev);
+4562236b3bc0a2 Harry Wentland       2017-09-12  1885  	adev->dm.adev = adev;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1886  
+4562236b3bc0a2 Harry Wentland       2017-09-12  1887  	/* Zero all the fields */
+4562236b3bc0a2 Harry Wentland       2017-09-12  1888  	memset(&init_data, 0, sizeof(init_data));
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  1889  	memset(&init_params, 0, sizeof(init_params));
+4562236b3bc0a2 Harry Wentland       2017-09-12  1890  
+ead08b95fa50f4 Stylon Wang          2022-11-10  1891  	mutex_init(&adev->dm.dpia_aux_lock);
+674e78acae0dfb Nicholas Kazlauskas  2018-12-05  1892  	mutex_init(&adev->dm.dc_lock);
+6ce8f316673f61 Nicholas Kazlauskas  2019-07-11  1893  	mutex_init(&adev->dm.audio_lock);
+674e78acae0dfb Nicholas Kazlauskas  2018-12-05  1894  
+4562236b3bc0a2 Harry Wentland       2017-09-12  1895  	if (amdgpu_dm_irq_init(adev)) {
+8ade4736075a83 Mario Limonciello    2025-05-02  1896  		drm_err(adev_to_drm(adev), "failed to initialize DM IRQ support.\n");
+4562236b3bc0a2 Harry Wentland       2017-09-12  1897  		goto error;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1898  	}
+4562236b3bc0a2 Harry Wentland       2017-09-12  1899  
+4562236b3bc0a2 Harry Wentland       2017-09-12  1900  	init_data.asic_id.chip_family = adev->family;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1901  
+2dc31ca1895c16 Aly-Tawfik           2020-02-25  1902  	init_data.asic_id.pci_revision_id = adev->pdev->revision;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1903  	init_data.asic_id.hw_internal_rev = adev->external_rev_id;
+dae66a04459271 Charlene Liu         2021-09-20  1904  	init_data.asic_id.chip_id = adev->pdev->device;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1905  
+770d13b19fdf36 Christian K�nig      2018-01-12  1906  	init_data.asic_id.vram_width = adev->gmc.vram_width;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1907  	/* TODO: initialize init_data.asic_id.vram_type here!!!! */
+4562236b3bc0a2 Harry Wentland       2017-09-12  1908  	init_data.asic_id.atombios_base_address =
+4562236b3bc0a2 Harry Wentland       2017-09-12  1909  		adev->mode_info.atom_context->bios;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1910  
+4562236b3bc0a2 Harry Wentland       2017-09-12  1911  	init_data.driver = adev;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1912  
+7920af262ad1ff Aurabindo Pillai     2024-05-16  1913  	/* cgs_device was created in dm_sw_init() */
+4562236b3bc0a2 Harry Wentland       2017-09-12  1914  	init_data.cgs_device = adev->dm.cgs_device;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1915  
+4562236b3bc0a2 Harry Wentland       2017-09-12  1916  	init_data.dce_environment = DCE_ENV_PRODUCTION_DRV;
+4562236b3bc0a2 Harry Wentland       2017-09-12  1917  
+4e8303cf2c4dd2 Lijo Lazar           2023-09-11  1918  	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+c08182f2483f94 Alex Deucher         2021-09-29  1919  	case IP_VERSION(2, 1, 0):
+91adec9e07097e Mario Limonciello    2021-11-02  1920  		switch (adev->dm.dmcub_fw_version) {
+91adec9e07097e Mario Limonciello    2021-11-02  1921  		case 0: /* development */
+91adec9e07097e Mario Limonciello    2021-11-02  1922  		case 0x1: /* linux-firmware.git hash 6d9f399 */
+91adec9e07097e Mario Limonciello    2021-11-02  1923  		case 0x01000000: /* linux-firmware.git hash 9a0b0f4 */
+91adec9e07097e Mario Limonciello    2021-11-02  1924  			init_data.flags.disable_dmcu = false;
+91adec9e07097e Mario Limonciello    2021-11-02  1925  			break;
+91adec9e07097e Mario Limonciello    2021-11-02  1926  		default:
+71c0fd9221a4f7 Roman Li             2020-10-08  1927  			init_data.flags.disable_dmcu = true;
+91adec9e07097e Mario Limonciello    2021-11-02  1928  		}
+60fb100b3d1676 Alex Deucher         2020-01-08  1929  		break;
+fd546bc5ad909f Alex Deucher         2022-02-21  1930  	case IP_VERSION(2, 0, 3):
+fd546bc5ad909f Alex Deucher         2022-02-21  1931  		init_data.flags.disable_dmcu = true;
+fd546bc5ad909f Alex Deucher         2022-02-21  1932  		break;
+fd546bc5ad909f Alex Deucher         2022-02-21  1933  	default:
+fd546bc5ad909f Alex Deucher         2022-02-21  1934  		break;
+fd546bc5ad909f Alex Deucher         2022-02-21  1935  	}
+fd546bc5ad909f Alex Deucher         2022-02-21  1936  
+098c13079c6fdd Yifan Zhang          2023-09-27  1937  	/* APU support S/G display by default except:
+098c13079c6fdd Yifan Zhang          2023-09-27  1938  	 * ASICs before Carrizo,
+098c13079c6fdd Yifan Zhang          2023-09-27  1939  	 * RAVEN1 (Users reported stability issue)
+098c13079c6fdd Yifan Zhang          2023-09-27  1940  	 */
+098c13079c6fdd Yifan Zhang          2023-09-27  1941  
+098c13079c6fdd Yifan Zhang          2023-09-27  1942  	if (adev->asic_type < CHIP_CARRIZO) {
+098c13079c6fdd Yifan Zhang          2023-09-27  1943  		init_data.flags.gpu_vm_support = false;
+098c13079c6fdd Yifan Zhang          2023-09-27  1944  	} else if (adev->asic_type == CHIP_RAVEN) {
+098c13079c6fdd Yifan Zhang          2023-09-27  1945  		if (adev->apu_flags & AMD_APU_IS_RAVEN)
+169ed4ece8373f Hamza Mahfooz        2023-09-08  1946  			init_data.flags.gpu_vm_support = false;
+098c13079c6fdd Yifan Zhang          2023-09-27  1947  		else
+098c13079c6fdd Yifan Zhang          2023-09-27  1948  			init_data.flags.gpu_vm_support = (amdgpu_sg_display != 0);
+098c13079c6fdd Yifan Zhang          2023-09-27  1949  	} else {
+66369db7fdd7d5 Alex Deucher         2024-10-04  1950  		if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(2, 0, 3))
+66369db7fdd7d5 Alex Deucher         2024-10-04  1951  			init_data.flags.gpu_vm_support = (amdgpu_sg_display == 1);
+66369db7fdd7d5 Alex Deucher         2024-10-04  1952  		else
+66369db7fdd7d5 Alex Deucher         2024-10-04  1953  			init_data.flags.gpu_vm_support =
+66369db7fdd7d5 Alex Deucher         2024-10-04  1954  				(amdgpu_sg_display != 0) && (adev->flags & AMD_IS_APU);
+098c13079c6fdd Yifan Zhang          2023-09-27  1955  	}
+6e227308a91db5 Harry Wentland       2017-10-30  1956  
+1efdd37cc015ed Hamza Mahfooz        2023-10-26  1957  	adev->mode_info.gpu_vm_support = init_data.flags.gpu_vm_support;
+a7f520bfd0551f Alex Deucher         2022-02-21  1958  
+04b94af4e348ac Alex Deucher         2018-11-06  1959  	if (amdgpu_dc_feature_mask & DC_FBC_MASK)
+04b94af4e348ac Alex Deucher         2018-11-06  1960  		init_data.flags.fbc_support = true;
+04b94af4e348ac Alex Deucher         2018-11-06  1961  
+d99f38aed1a03f Alex Deucher         2019-08-22  1962  	if (amdgpu_dc_feature_mask & DC_MULTI_MON_PP_MCLK_SWITCH_MASK)
+d99f38aed1a03f Alex Deucher         2019-08-22  1963  		init_data.flags.multi_mon_pp_mclk_switch = true;
+d99f38aed1a03f Alex Deucher         2019-08-22  1964  
+eaf56410ccb06f Leo Li               2019-10-21  1965  	if (amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK)
+eaf56410ccb06f Leo Li               2019-10-21  1966  		init_data.flags.disable_fractional_pwm = true;
+a51482458dafb8 Zhan Liu             2021-06-14  1967  
+a51482458dafb8 Zhan Liu             2021-06-14  1968  	if (amdgpu_dc_feature_mask & DC_EDP_NO_POWER_SEQUENCING)
+a51482458dafb8 Zhan Liu             2021-06-14  1969  		init_data.flags.edp_no_power_sequencing = true;
+eaf56410ccb06f Leo Li               2019-10-21  1970  
+123202744955e6 Aurabindo Pillai     2021-12-07  1971  	if (amdgpu_dc_feature_mask & DC_DISABLE_LTTPR_DP1_4A)
+123202744955e6 Aurabindo Pillai     2021-12-07  1972  		init_data.flags.allow_lttpr_non_transparent_mode.bits.DP1_4A = true;
+123202744955e6 Aurabindo Pillai     2021-12-07  1973  	if (amdgpu_dc_feature_mask & DC_DISABLE_LTTPR_DP2_0)
+123202744955e6 Aurabindo Pillai     2021-12-07  1974  		init_data.flags.allow_lttpr_non_transparent_mode.bits.DP2_0 = true;
+123202744955e6 Aurabindo Pillai     2021-12-07  1975  
+7aba117ac9e01d Jarif Aftab          2021-11-16  1976  	init_data.flags.seamless_boot_edp_requested = false;
+78ad75f8d77a1a Thomas Lim           2019-05-07  1977  
+bb0f84293e61f0 Mario Limonciello    2023-09-05  1978  	if (amdgpu_device_seamless_boot_supported(adev)) {
+7aba117ac9e01d Jarif Aftab          2021-11-16  1979  		init_data.flags.seamless_boot_edp_requested = true;
+1edf5ae1fdaffb Zhan Liu             2021-11-08  1980  		init_data.flags.allow_seamless_boot_optimization = true;
+f73767b2166eef Mario Limonciello    2025-01-20  1981  		drm_dbg(adev->dm.ddev, "Seamless boot requested\n");
+1edf5ae1fdaffb Zhan Liu             2021-11-08  1982  	}
+1edf5ae1fdaffb Zhan Liu             2021-11-08  1983  
+a820190204aef0 Leung, Martin        2022-05-13  1984  	init_data.flags.enable_mipi_converter_optimization = true;
+a820190204aef0 Leung, Martin        2022-05-13  1985  
+e5028e9fd3bc7c Harry Wentland       2022-02-01  1986  	init_data.dcn_reg_offsets = adev->reg_offset[DCE_HWIP][0];
+2a93292fb7860b Aurabindo Pillai     2022-04-04  1987  	init_data.nbio_reg_offsets = adev->reg_offset[NBIO_HWIP][0];
+8774029f76b980 Qingqing Zhuo        2023-08-02  1988  	init_data.clk_reg_offsets = adev->reg_offset[CLK_HWIP][0];
+e5028e9fd3bc7c Harry Wentland       2022-02-01  1989  
+c82eb25c5f005b Roman Li             2024-01-23  1990  	if (amdgpu_dc_debug_mask & DC_DISABLE_IPS)
+16927047b396d1 Roman Li             2023-12-19  1991  		init_data.flags.disable_ips = DMUB_IPS_DISABLE_ALL;
+a08d75927f99e5 Leo Li               2024-08-06  1992  	else if (amdgpu_dc_debug_mask & DC_DISABLE_IPS_DYNAMIC)
+a08d75927f99e5 Leo Li               2024-08-06  1993  		init_data.flags.disable_ips = DMUB_IPS_DISABLE_DYNAMIC;
+a08d75927f99e5 Leo Li               2024-08-06  1994  	else if (amdgpu_dc_debug_mask & DC_DISABLE_IPS2_DYNAMIC)
+a08d75927f99e5 Leo Li               2024-08-06  1995  		init_data.flags.disable_ips = DMUB_IPS_RCG_IN_ACTIVE_IPS2_IN_OFF;
+a08d75927f99e5 Leo Li               2024-08-06  1996  	else if (amdgpu_dc_debug_mask & DC_FORCE_IPS_ENABLE)
+9ba971b25316b7 Roman Li             2024-04-12  1997  		init_data.flags.disable_ips = DMUB_IPS_ENABLE;
+14813934b6290e Roman Li             2024-03-22  1998  	else
+28d43d0895896f Leo Li               2024-08-27  1999  		init_data.flags.disable_ips = dm_get_default_ips_mode(adev);
+16927047b396d1 Roman Li             2023-12-19  2000  
+14813934b6290e Roman Li             2024-03-22  2001  	init_data.flags.disable_ips_in_vpb = 0;
+ff8caade7429f2 Nicholas Kazlauskas  2023-12-07  2002  
+5949e7c4890c3c Fangzhi Zuo          2025-09-24  2003  	/* DCN35 and above supports dynamic DTBCLK switch */
+5949e7c4890c3c Fangzhi Zuo          2025-09-24  2004  	if (amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 5, 0))
+5949e7c4890c3c Fangzhi Zuo          2025-09-24  2005  		init_data.flags.allow_0_dtb_clk = true;
+5949e7c4890c3c Fangzhi Zuo          2025-09-24  2006  
+198891fd2902fb Harry Wentland       2023-12-01  2007  	/* Enable DWB for tested platforms only */
+ed342a2e78c4e4 Lijo Lazar           2023-12-01  2008  	if (amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 0, 0))
+198891fd2902fb Harry Wentland       2023-12-01  2009  		init_data.num_virtual_links = 1;
+198891fd2902fb Harry Wentland       2023-12-01  2010  
+de6485e3df2417 Mario Limonciello    2025-04-22  2011  	retrieve_dmi_info(&adev->dm);
+de6485e3df2417 Mario Limonciello    2025-04-22  2012  	if (adev->dm.edp0_on_dp1_quirk)
+de6485e3df2417 Mario Limonciello    2025-04-22  2013  		init_data.flags.support_edp0_on_dp1 = true;
+57b9f3384c64e3 Fangzhi Zuo          2022-07-06  2014  
+234e94555800d6 Aurabindo Pillai     2024-05-21  2015  	if (adev->dm.bb_from_dmub)
+234e94555800d6 Aurabindo Pillai     2024-05-21  2016  		init_data.bb_from_dmub = adev->dm.bb_from_dmub;
+234e94555800d6 Aurabindo Pillai     2024-05-21  2017  	else
+234e94555800d6 Aurabindo Pillai     2024-05-21  2018  		init_data.bb_from_dmub = NULL;
+234e94555800d6 Aurabindo Pillai     2024-05-21  2019  
+4562236b3bc0a2 Harry Wentland       2017-09-12  2020  	/* Display Core create. */
+4562236b3bc0a2 Harry Wentland       2017-09-12  2021  	adev->dm.dc = dc_create(&init_data);
+4562236b3bc0a2 Harry Wentland       2017-09-12  2022  
+423788c7a866cb Ernst Sj�strand      2017-11-07  2023  	if (adev->dm.dc) {
+50d6714b242e1c Aurabindo Pillai     2025-03-18  2024  		drm_info(adev_to_drm(adev), "Display Core v%s initialized on %s\n", DC_VER,
+bf7fda0b3736f9 Rodrigo Siqueira     2023-04-25  2025  			 dce_version_to_string(adev->dm.dc->ctx->dce_version));
+423788c7a866cb Ernst Sj�strand      2017-11-07  2026  	} else {
+50d6714b242e1c Aurabindo Pillai     2025-03-18  2027  		drm_info(adev_to_drm(adev), "Display Core failed to initialize with v%s!\n", DC_VER);
+423788c7a866cb Ernst Sj�strand      2017-11-07  2028  		goto error;
+423788c7a866cb Ernst Sj�strand      2017-11-07  2029  	}
+4562236b3bc0a2 Harry Wentland       2017-09-12  2030  
+8a791dabea1816 Harry Wentland       2020-05-01  2031  	if (amdgpu_dc_debug_mask & DC_DISABLE_PIPE_SPLIT) {
+8a791dabea1816 Harry Wentland       2020-05-01  2032  		adev->dm.dc->debug.force_single_disp_pipe_split = false;
+8a791dabea1816 Harry Wentland       2020-05-01  2033  		adev->dm.dc->debug.pipe_split_policy = MPC_SPLIT_AVOID;
+8a791dabea1816 Harry Wentland       2020-05-01  2034  	}
+8a791dabea1816 Harry Wentland       2020-05-01  2035  
+f99d8762501df5 Harry Wentland       2020-05-07  2036  	if (adev->asic_type != CHIP_CARRIZO && adev->asic_type != CHIP_STONEY)
+f99d8762501df5 Harry Wentland       2020-05-07  2037  		adev->dm.dc->debug.disable_stutter = amdgpu_pp_feature_mask & PP_STUTTER_MODE ? false : true;
+3ce51649cdf23a Alex Deucher         2021-10-20  2038  	if (dm_should_disable_stutter(adev->pdev))
+3ce51649cdf23a Alex Deucher         2021-10-20  2039  		adev->dm.dc->debug.disable_stutter = true;
+f99d8762501df5 Harry Wentland       2020-05-07  2040  
+8a791dabea1816 Harry Wentland       2020-05-01  2041  	if (amdgpu_dc_debug_mask & DC_DISABLE_STUTTER)
+8a791dabea1816 Harry Wentland       2020-05-01  2042  		adev->dm.dc->debug.disable_stutter = true;
+8a791dabea1816 Harry Wentland       2020-05-01  2043  
+c82eddf8127673 Srinivasan Shanmugam 2023-06-17  2044  	if (amdgpu_dc_debug_mask & DC_DISABLE_DSC)
+8a791dabea1816 Harry Wentland       2020-05-01  2045  		adev->dm.dc->debug.disable_dsc = true;
+8a791dabea1816 Harry Wentland       2020-05-01  2046  
+8a791dabea1816 Harry Wentland       2020-05-01  2047  	if (amdgpu_dc_debug_mask & DC_DISABLE_CLOCK_GATING)
+8a791dabea1816 Harry Wentland       2020-05-01  2048  		adev->dm.dc->debug.disable_clock_gate = true;
+8a791dabea1816 Harry Wentland       2020-05-01  2049  
+cfb979f7173636 Aurabindo Pillai     2022-06-28  2050  	if (amdgpu_dc_debug_mask & DC_FORCE_SUBVP_MCLK_SWITCH)
+cfb979f7173636 Aurabindo Pillai     2022-06-28  2051  		adev->dm.dc->debug.force_subvp_mclk_switch = true;
+cfb979f7173636 Aurabindo Pillai     2022-06-28  2052  
+040585df957d45 Aurabindo Pillai     2025-05-22  2053  	if (amdgpu_dc_debug_mask & DC_DISABLE_SUBVP_FAMS) {
+9d63fbf7515881 Aurabindo Pillai     2025-01-13  2054  		adev->dm.dc->debug.force_disable_subvp = true;
+040585df957d45 Aurabindo Pillai     2025-05-22  2055  		adev->dm.dc->debug.fams2_config.bits.enable = false;
+040585df957d45 Aurabindo Pillai     2025-05-22  2056  	}
+9d63fbf7515881 Aurabindo Pillai     2025-01-13  2057  
+00c391102abc13 Aurabindo Pillai     2024-03-20  2058  	if (amdgpu_dc_debug_mask & DC_ENABLE_DML2) {
+a568c4947ee127 Aurabindo Pillai     2023-12-10  2059  		adev->dm.dc->debug.using_dml2 = true;
+00c391102abc13 Aurabindo Pillai     2024-03-20  2060  		adev->dm.dc->debug.using_dml21 = true;
+00c391102abc13 Aurabindo Pillai     2024-03-20  2061  	}
+a568c4947ee127 Aurabindo Pillai     2023-12-10  2062  
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2063  	if (amdgpu_dc_debug_mask & DC_HDCP_LC_FORCE_FW_ENABLE)
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2064  		adev->dm.dc->debug.hdcp_lc_force_fw_enable = true;
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2065  
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2066  	if (amdgpu_dc_debug_mask & DC_HDCP_LC_ENABLE_SW_FALLBACK)
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2067  		adev->dm.dc->debug.hdcp_lc_enable_sw_fallback = true;
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2068  
+076873e5b360cc Wayne Lin            2025-05-20  2069  	if (amdgpu_dc_debug_mask & DC_SKIP_DETECTION_LT)
+076873e5b360cc Wayne Lin            2025-05-20  2070  		adev->dm.dc->debug.skip_detection_link_training = true;
+076873e5b360cc Wayne Lin            2025-05-20  2071  
+792a0cdde34d41 Leo Li               2022-07-06  2072  	adev->dm.dc->debug.visual_confirm = amdgpu_dc_visual_confirm;
+792a0cdde34d41 Leo Li               2022-07-06  2073  
+d1bc26cb5cd51f Fangzhi Zuo          2022-10-20  2074  	/* TODO: Remove after DP2 receiver gets proper support of Cable ID feature */
+d1bc26cb5cd51f Fangzhi Zuo          2022-10-20  2075  	adev->dm.dc->debug.ignore_cable_id = true;
+d1bc26cb5cd51f Fangzhi Zuo          2022-10-20  2076  
+e3834491b92a10 Fangzhi Zuo          2023-01-16  2077  	if (adev->dm.dc->caps.dp_hdmi21_pcon_support)
+50d6714b242e1c Aurabindo Pillai     2025-03-18  2078  		drm_info(adev_to_drm(adev), "DP-HDMI FRL PCON supported\n");
+e3834491b92a10 Fangzhi Zuo          2023-01-16  2079  
+743b9786b14ae0 Nicholas Kazlauskas  2019-10-24  2080  	r = dm_dmub_hw_init(adev);
+743b9786b14ae0 Nicholas Kazlauskas  2019-10-24  2081  	if (r) {
+880ab14a4acace Aurabindo Pillai     2025-03-11  2082  		drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+743b9786b14ae0 Nicholas Kazlauskas  2019-10-24  2083  		goto error;
+743b9786b14ae0 Nicholas Kazlauskas  2019-10-24  2084  	}
+743b9786b14ae0 Nicholas Kazlauskas  2019-10-24  2085  
+bb6785c1212988 Nicholas Kazlauskas  2020-01-10  2086  	dc_hardware_init(adev->dm.dc);
+bb6785c1212988 Nicholas Kazlauskas  2020-01-10  2087  
+0f774fce4499d3 Aurabindo Pillai     2025-03-11 @2088  	adev->dm.hpd_rx_offload_wq = hpd_rx_irq_create_workqueue(adev);
+8e794421bc9815 Wayne Lin            2021-07-23  2089  	if (!adev->dm.hpd_rx_offload_wq) {
+8ade4736075a83 Mario Limonciello    2025-05-02  2090  		drm_err(adev_to_drm(adev), "failed to create hpd rx offload workqueue.\n");
+8e794421bc9815 Wayne Lin            2021-07-23  2091  		goto error;
+8e794421bc9815 Wayne Lin            2021-07-23  2092  	}
+8e794421bc9815 Wayne Lin            2021-07-23  2093  
+3ca001aff08785 Aaron Liu            2021-08-23  2094  	if ((adev->flags & AMD_IS_APU) && (adev->asic_type >= CHIP_CARRIZO)) {
+e6cd859dc65f19 Alex Deucher         2020-10-27  2095  		struct dc_phy_addr_space_config pa_config;
+e6cd859dc65f19 Alex Deucher         2020-10-27  2096  
+c0fb85ae02b62b Yifan Zhang          2020-08-31  2097  		mmhub_read_system_context(adev, &pa_config);
+c0fb85ae02b62b Yifan Zhang          2020-08-31  2098  
+c0fb85ae02b62b Yifan Zhang          2020-08-31  2099  		// Call the DC init_memory func
+c0fb85ae02b62b Yifan Zhang          2020-08-31  2100  		dc_setup_system_context(adev->dm.dc, &pa_config);
+0b08c54bb7a370 Yifan Zhang          2020-10-20  2101  	}
+c0fb85ae02b62b Yifan Zhang          2020-08-31  2102  
+4562236b3bc0a2 Harry Wentland       2017-09-12  2103  	adev->dm.freesync_module = mod_freesync_create(adev->dm.dc);
+4562236b3bc0a2 Harry Wentland       2017-09-12  2104  	if (!adev->dm.freesync_module) {
+880ab14a4acace Aurabindo Pillai     2025-03-11  2105  		drm_err(adev_to_drm(adev),
+8ade4736075a83 Mario Limonciello    2025-05-02  2106  		"failed to initialize freesync_module.\n");
+4562236b3bc0a2 Harry Wentland       2017-09-12  2107  	} else
+102419cdadca42 Aurabindo Pillai     2025-05-06  2108  		drm_dbg_driver(adev_to_drm(adev), "amdgpu: freesync_module init done %p.\n",
+4562236b3bc0a2 Harry Wentland       2017-09-12  2109  				adev->dm.freesync_module);
+4562236b3bc0a2 Harry Wentland       2017-09-12  2110  
+e277adc5a06cfc Leo (Sunpeng  Li     2018-02-02  2111) 	amdgpu_dm_init_color_mod();
+e277adc5a06cfc Leo (Sunpeng  Li     2018-02-02  2112) 
+ea3b4242bc9ca1 Qingqing Zhuo        2021-02-09  2113  	if (adev->dm.dc->caps.max_links > 0) {
+09a5df6c444cf0 Nicholas Kazlauskas  2021-08-03  2114  		adev->dm.vblank_control_workqueue =
+09a5df6c444cf0 Nicholas Kazlauskas  2021-08-03  2115  			create_singlethread_workqueue("dm_vblank_control_workqueue");
+09a5df6c444cf0 Nicholas Kazlauskas  2021-08-03  2116  		if (!adev->dm.vblank_control_workqueue)
+8ade4736075a83 Mario Limonciello    2025-05-02  2117  			drm_err(adev_to_drm(adev), "failed to initialize vblank_workqueue.\n");
+ea3b4242bc9ca1 Qingqing Zhuo        2021-02-09  2118  	}
+ea3b4242bc9ca1 Qingqing Zhuo        2021-02-09  2119  
+181db30bcfed09 Leo Li               2024-09-11  2120  	if (adev->dm.dc->caps.ips_support &&
+181db30bcfed09 Leo Li               2024-09-11  2121  	    adev->dm.dc->config.disable_ips != DMUB_IPS_DISABLE_ALL)
+afca033f10d346 Roman Li             2024-04-03  2122  		adev->dm.idle_workqueue = idle_create_workqueue(adev);
+afca033f10d346 Roman Li             2024-04-03  2123  
+c08182f2483f94 Alex Deucher         2021-09-29  2124  	if (adev->dm.dc->caps.max_links > 0 && adev->family >= AMDGPU_FAMILY_RV) {
+e50dc17163d9a4 Bhawanpreet Lakha    2019-12-12  2125  		adev->dm.hdcp_workqueue = hdcp_create_workqueue(adev, &init_params.cp_psp, adev->dm.dc);
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  2126  
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  2127  		if (!adev->dm.hdcp_workqueue)
+8ade4736075a83 Mario Limonciello    2025-05-02  2128  			drm_err(adev_to_drm(adev), "failed to initialize hdcp_workqueue.\n");
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  2129  		else
+102419cdadca42 Aurabindo Pillai     2025-05-06  2130  			drm_dbg_driver(adev_to_drm(adev), "amdgpu: hdcp_workqueue init done %p.\n", adev->dm.hdcp_workqueue);
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  2131  
+52704fcaf74bc9 Bhawanpreet Lakha    2019-05-24  2132  		dc_init_callbacks(adev->dm.dc, &init_params);
+96a3b32e67236f Bhawanpreet Lakha    2019-06-24  2133  	}
+11d526f1972f48 Stylon Wang          2022-07-07  2134  	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
+81927e2808be5a Jude Shih            2021-04-20  2135  		init_completion(&adev->dm.dmub_aux_transfer_done);
+81927e2808be5a Jude Shih            2021-04-20  2136  		adev->dm.dmub_notify = kzalloc(sizeof(struct dmub_notification), GFP_KERNEL);
+81927e2808be5a Jude Shih            2021-04-20  2137  		if (!adev->dm.dmub_notify) {
+8ade4736075a83 Mario Limonciello    2025-05-02  2138  			drm_info(adev_to_drm(adev), "fail to allocate adev->dm.dmub_notify");
+81927e2808be5a Jude Shih            2021-04-20  2139  			goto error;
+81927e2808be5a Jude Shih            2021-04-20  2140  		}
+e27c41d5b0681c Jude Shih            2021-07-25  2141  
+e27c41d5b0681c Jude Shih            2021-07-25  2142  		adev->dm.delayed_hpd_wq = create_singlethread_workqueue("amdgpu_dm_hpd_wq");
+e27c41d5b0681c Jude Shih            2021-07-25  2143  		if (!adev->dm.delayed_hpd_wq) {
+8ade4736075a83 Mario Limonciello    2025-05-02  2144  			drm_err(adev_to_drm(adev), "failed to create hpd offload workqueue.\n");
+e27c41d5b0681c Jude Shih            2021-07-25  2145  			goto error;
+e27c41d5b0681c Jude Shih            2021-07-25  2146  		}
+e27c41d5b0681c Jude Shih            2021-07-25  2147  
+81927e2808be5a Jude Shih            2021-04-20  2148  		amdgpu_dm_outbox_init(adev);
+e27c41d5b0681c Jude Shih            2021-07-25  2149  		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_AUX_REPLY,
+e27c41d5b0681c Jude Shih            2021-07-25  2150  			dmub_aux_setconfig_callback, false)) {
+8ade4736075a83 Mario Limonciello    2025-05-02  2151  			drm_err(adev_to_drm(adev), "fail to register dmub aux callback");
+e27c41d5b0681c Jude Shih            2021-07-25  2152  			goto error;
+e27c41d5b0681c Jude Shih            2021-07-25  2153  		}
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2154  
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2155  		for (size_t i = 0; i < ARRAY_SIZE(adev->dm.fused_io); i++)
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2156  			init_completion(&adev->dm.fused_io[i].replied);
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2157  
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2158  		if (!register_dmub_notify_callback(adev, DMUB_NOTIFICATION_FUSED_IO,
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2159  			dmub_aux_fused_io_callback, false)) {
+8ade4736075a83 Mario Limonciello    2025-05-02  2160  			drm_err(adev_to_drm(adev), "fail to register dmub fused io callback");
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2161  			goto error;
+ce801e5d6c1bac Dominik Kaszewski    2025-03-27  2162  		}
+11d526f1972f48 Stylon Wang          2022-07-07  2163  		/* Enable outbox notification only after IRQ handlers are registered and DMUB is alive.
+22e1dc4b2fec17 Wayne Lin            2024-02-02  2164  		 * It is expected that DMUB will resend any pending notifications at this point. Note
+22e1dc4b2fec17 Wayne Lin            2024-02-02  2165  		 * that hpd and hpd_irq handler registration are deferred to register_hpd_handlers() to
+22e1dc4b2fec17 Wayne Lin            2024-02-02  2166  		 * align legacy interface initialization sequence. Connection status will be proactivly
+22e1dc4b2fec17 Wayne Lin            2024-02-02  2167  		 * detected once in the amdgpu_dm_initialize_drm_device.
+11d526f1972f48 Stylon Wang          2022-07-07  2168  		 */
+11d526f1972f48 Stylon Wang          2022-07-07  2169  		dc_enable_dmub_outbox(adev->dm.dc);
+11d526f1972f48 Stylon Wang          2022-07-07  2170  
+7ce34cbfab26c0 Stylon Wang          2023-06-30  2171  		/* DPIA trace goes to dmesg logs only if outbox is enabled */
+7ce34cbfab26c0 Stylon Wang          2023-06-30  2172  		if (amdgpu_dc_debug_mask & DC_ENABLE_DPIA_TRACE)
+7ce34cbfab26c0 Stylon Wang          2023-06-30  2173  			dc_dmub_srv_enable_dpia_trace(adev->dm.dc);
+7ce34cbfab26c0 Stylon Wang          2023-06-30  2174  	}
+7ce34cbfab26c0 Stylon Wang          2023-06-30  2175  
+1c43a48b44a544 Stylon Wang          2022-10-24  2176  	if (amdgpu_dm_initialize_drm_device(adev)) {
+880ab14a4acace Aurabindo Pillai     2025-03-11  2177  		drm_err(adev_to_drm(adev),
+8ade4736075a83 Mario Limonciello    2025-05-02  2178  		"failed to initialize sw for display support.\n");
+1c43a48b44a544 Stylon Wang          2022-10-24  2179  		goto error;
+1c43a48b44a544 Stylon Wang          2022-10-24  2180  	}
+1c43a48b44a544 Stylon Wang          2022-10-24  2181  
+f74367e492ba24 Alex Deucher         2020-07-10  2182  	/* create fake encoders for MST */
+f74367e492ba24 Alex Deucher         2020-07-10  2183  	dm_dp_create_fake_mst_encoders(adev);
+f74367e492ba24 Alex Deucher         2020-07-10  2184  
+4562236b3bc0a2 Harry Wentland       2017-09-12  2185  	/* TODO: Add_display_info? */
+4562236b3bc0a2 Harry Wentland       2017-09-12  2186  
+4562236b3bc0a2 Harry Wentland       2017-09-12  2187  	/* TODO use dynamic cursor width */
+4a580877bdcb83 Luben Tuikov         2020-08-24  2188  	adev_to_drm(adev)->mode_config.cursor_width = adev->dm.dc->caps.max_cursor_size;
+4a580877bdcb83 Luben Tuikov         2020-08-24  2189  	adev_to_drm(adev)->mode_config.cursor_height = adev->dm.dc->caps.max_cursor_size;
+4562236b3bc0a2 Harry Wentland       2017-09-12  2190  
+4a580877bdcb83 Luben Tuikov         2020-08-24  2191  	if (drm_vblank_init(adev_to_drm(adev), adev->dm.display_indexes_num)) {
+cc9428d5336aec Saleemkhan Jamadar   2025-03-21  2192  		drm_err(adev_to_drm(adev),
+3b14fe98939b01 Roman Li             2025-08-21  2193  		"failed to initialize vblank for display support.\n");
+4562236b3bc0a2 Harry Wentland       2017-09-12  2194  		goto error;
+4562236b3bc0a2 Harry Wentland       2017-09-12  2195  	}
+4562236b3bc0a2 Harry Wentland       2017-09-12  2196  
 
->>
->> Obviously we don't want to simply switch back to DCN10 helpers
->> without understand why, and potentially regressing other use-cases.
->> At least we should look at what the differences are between the
->> two versions of that function, and which part of the curve programming
->> causes the undesirable results.
->>
->> The original bug that was solved by that commit was a regression that
->> sent bright values in an HDR video to black or red, so basically
->> something really messed up bright PQ values. At least I suspect
->> it was a PQ HDR video. The ticket doesn't state that.
-> I see. Looks like now we have somehow the same problem but in reverse (?) like black values mapped into bright values (?)
-
-Yeah, if I understand your screenshots the issue seems to happen
-(mainly) with dark values?
-
->>
->> When looking at the diff between the two functions I notice that
->> the cm3_ version is missing the dc_fixpt_clamp_u0d10 for the
->> delta_<color>_reg assignments, toward the bottom of the function.
->> I remember I had to add that to the cm_ version since it caused
->> issues with SteamOS HDR. Can we try that on the cm3_ function?
-> Yes, I remember this issue.
-> 
-> I've already tried the same changes from this commit (https://gitlab.freedesktop.org/agd5f/linux/-/commit/27fc10d1095f) to cm3_helper, but it doesn't help... probably because the commit was addressing a different behaviors.
-> 
-> I also noticed on cm3_ they consider a different range of hw points, as in this comment:
-> "
->     // DCN3+ have 257 pts in lieu of no separate slope registers
->     // Prior HW had 256 base+slope pairs
-> "
-> 
-> Can it be related to this problem?
-> 
-
-Possibly. The point distribution is one potential culprit.
-
-How I would debug this is to look at the diff between the two
-functions and try each diff one at a time to see whether one
-(or two) small changes fixes this. Then look at what that change
-was and what it does. That can then give us a guide on how to
-properly fix it without affecting other use-cases.
-
-The other thing to understand is why we didn't see issues with
-the Color Pipeline API tests in IGT.
-
-Harry
-
-> Thanks,
-> 
-> Melissa
-> 
->>
->> Cheers,
->> Harry
->>
->>> Thanks in advance,
->>>
->>> Melissa
->>>
->>>
->>>   drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c | 6 +++---
->>>   1 file changed, 3 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>> index bf19ba65d09a..a28560caa1c0 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>> @@ -501,9 +501,9 @@ bool dcn32_set_mcm_luts(
->>>           lut_params = &plane_state->in_shaper_func.pwl;
->>>       else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
->>>           // TODO: dpp_base replace
->>> -        ASSERT(false);
->>> -        cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
->>> -                &dpp_base->shaper_params, true);
->>> +        cm_helper_translate_curve_to_hw_format(plane_state->ctx,
->>> +                               &plane_state->in_shaper_func,
->>> +                               &dpp_base->shaper_params, true);
->>>           lut_params = &dpp_base->shaper_params;
->>>       }
->>>   
-> 
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
