@@ -4,64 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B19A3D116E2
-	for <amd-gfx@archiver.kernel.org>; Sun, 30 Nov 2025 01:38:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CB57CFD2F6
+	for <amd-gfx@archiver.kernel.org>; Sun, 30 Nov 2025 01:46:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A55410E23B;
-	Sun, 30 Nov 2025 01:38:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC38610E23F;
+	Sun, 30 Nov 2025 01:46:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LXnpwTwD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PQdbTdvB";
 	dkim-atps=neutral
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
- [209.85.161.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 964C410E23B
- for <amd-gfx@lists.freedesktop.org>; Sun, 30 Nov 2025 01:38:29 +0000 (UTC)
-Received: by mail-oo1-f52.google.com with SMTP id
- 006d021491bc7-65745a436f7so1261586eaf.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Nov 2025 17:38:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764466708; x=1765071508; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=YaDWYZkZFegtwIfomfvor4hTBeb3IvYyfXCgFsMCmvo=;
- b=LXnpwTwDjgx77uJ9gZu6IeD2zBf5TCctDcSLlntTdwNNNDy0O1oZTkYNlMt74oRGKe
- 5rbNtk6C9cg84O2omeloeGua/eflm973SldUl2Fj6My2OXE48M7YdyECAXlusMhmdCEm
- 7eSdJ9CRUGjSdDrknPLHqLj5jbEe4x0r/4V/7vTnQMzZFDxIHwMd/cSm1Vi6D8bbMQcA
- w6h4bnEpenriYx/QobYzljB+VMqc1Dv3ETrR2bmLAOk82nppROHLp2IdPl0TZ8x/iveB
- 6YFYjkESLMgEsjziCz/pLcU97ylPEu3Nv5d9uaFokfncsp4fhXTELPHH5V+2lSMYnYko
- rF/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764466708; x=1765071508;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YaDWYZkZFegtwIfomfvor4hTBeb3IvYyfXCgFsMCmvo=;
- b=bz2q/mI2Wyq7GfTZZD/3cOxNA85wg3cJ66unHk9NjvawsBXwGL4D6NA15iWoF51sJ8
- v9KazY1bqXsmRKZKTF1PHbOUJBlsr9nvuccKbFJfC5s68XR/LZrCZ5aLNrBU2E0whsEy
- Ctdn4ZBItjJl0pavTEFQgo2H+0iNM/SOEJ+MmKBXW2/BeuARQeIEuvfqQr3fjmQODWn6
- WKP2uvOzETpM9xaKGHrC1z9GXrbXm58KO45IPCrgMm5wtdQ+8iIAApvQ7szAFHV2jYbd
- mtMewi0/3AVDWFkJqSJQ7zb5kcktbQjaO9sw70TTBIoihFbyNDQEzbZLqQM6f6vBS4Bi
- 66Bw==
-X-Gm-Message-State: AOJu0Ywat1Av+B45oO2J/RmqU7MbToEG5eIS5Di5UgNTBcytqGl3oT3I
- HNWC38HSr3AOtp8RPiJYmybagdr2NBX9JOZHMeI2hojE5umTXDyKkSKA9txiNMrxhfI8Q1pZ5LN
- PMTsj1ijSm1dK8EKWJPtAlS3VUOCezHY5pLjd
-X-Gm-Gg: ASbGnctFEOoBR+FYeG2FxCZ6jTlgu/oEbTe7c3hOMT4h6BbxySx1eH9r870WARDWVSQ
- 7wy7v+vAMf+VzQciSx4pTr2xKmITofoqQHs7nW3fgDUMA2HBIRx7SrYU8Ny8S75aeWDt9wYGUR8
- pVtUN2rgmuOhYjbCQ8H1rU2pFXX1uq2aqHx1UH1wNpDVl8b/Fzrp4rxzV8voCpZ4ODK336IyvzP
- bliq3TXui6daBAPdgwIWGOFBG9qBJKJr7iCfC4F0m8LpJ7lTUFukPC1oF17F8HGjXvanks6
-X-Google-Smtp-Source: AGHT+IE3t4o8+NKRA+BJhnooXfWHxtAf+Gtf377UnunCi6CoRM4mETRIG5t2jo2lwYXqPT5KIV2tKH8dWlWqEE/IiUw=
-X-Received: by 2002:a05:6820:81c9:b0:657:6fdd:9875 with SMTP id
- 006d021491bc7-65790b48f4emr12814330eaf.5.1764466708411; Sat, 29 Nov 2025
- 17:38:28 -0800 (PST)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6911A10E23F
+ for <amd-gfx@lists.freedesktop.org>; Sun, 30 Nov 2025 01:46:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 93E126000A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 30 Nov 2025 01:46:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D483FC4CEF7;
+ Sun, 30 Nov 2025 01:46:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1764467202;
+ bh=OqXlEtz2rn8wqWNvDF9whkiZxpiuh7vhQ56XscaI0bU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=PQdbTdvBWFT60cxRW2RvBOZ8zmLanqsMd3RIHqQwniDx1lzIKhwePj904rGMhxp1p
+ 9CZ9WJ+j6Qv7aP5efc3UMkn+m3+5XXczxEOnfbWHSnydrJi/6N4PctPu9v7Y8lHAda
+ 4X55O99OOxUzPKZYJ3bVfdIQKvKOyq4YGUhX7qRORZHQ6nHv5yxo+ofrgZ5ujVzheH
+ H3DQ+0/k7Pnwb+JprVLt2xG5c3H33cDDHnLRAGEkvujNP0jL3DcRa+jG2jowXxByf0
+ 0ZSS1hKlEJpFNCPw+0Rv+N5n4bbX11Db6sJJngM+eX2n0q7HVYCxSiFFDPU09gDb1h
+ qRclpWnngrchw==
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] Revert "drm/amd: Skip power ungate during suspend for VPE"
+Date: Sat, 29 Nov 2025 19:46:31 -0600
+Message-ID: <20251130014631.29755-1-superm1@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Sat, 29 Nov 2025 20:38:17 -0500
-X-Gm-Features: AWmQ_bkTmdumqnbTYe7uy_5Amv6r_0EY0uRgJZWVrtHPvsHIzzWuqV0CSSmIPCs
-Message-ID: <CAPEhTTGamEFapOA4pKgMQxDz9Go1k0QeGRkk5bR-X2jR+iBCcg@mail.gmail.com>
-Subject: SI - are power and voltage readings supported by the hardware
-To: Freedesktop - AMD-gfx <amd-gfx@lists.freedesktop.org>
-Cc: Alexander Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,16 +54,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Skipping power ungate exposed some scenarios that will fail
+like below:
 
-I was wondering if SI GPUs support reporting power and voltage values
-at the hardware level? I read somewhere that it was supported from
-GCN1.2 (Tonga and over), but I haven't found anything on prior
-generations. Going through the register names, I wasn't able to
-identify any who may correspond to power or voltage level.
+```
+amdgpu: Register(0) [regVPEC_QUEUE_RESET_REQ] failed to reach value 0x00000000 != 0x00000001n
+amdgpu 0000:c1:00.0: amdgpu: VPE queue reset failed
+...
+amdgpu: [drm] *ERROR* wait_for_completion_timeout timeout!
+```
 
-So I'm asking, just in case it is supported and I missed the
-information while searching for it.
+The underlying s2idle issue that prompted this commit is going to
+be fixed in BIOS.
+This reverts commit 31ab31433c9bd2f255c48dc6cb9a99845c58b1e4.
 
-Cheers,
-Alexandre Demers
+Fixes: 31ab31433c9bd ("drm/amd: Skip power ungate during suspend for VPE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 076bbc09f30ce..2819aceaab749 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3414,11 +3414,10 @@ int amdgpu_device_set_pg_state(struct amdgpu_device *adev,
+ 		    (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GFX ||
+ 		     adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SDMA))
+ 			continue;
+-		/* skip CG for VCE/UVD/VPE, it's handled specially */
++		/* skip CG for VCE/UVD, it's handled specially */
+ 		if (adev->ip_blocks[i].version->type != AMD_IP_BLOCK_TYPE_UVD &&
+ 		    adev->ip_blocks[i].version->type != AMD_IP_BLOCK_TYPE_VCE &&
+ 		    adev->ip_blocks[i].version->type != AMD_IP_BLOCK_TYPE_VCN &&
+-		    adev->ip_blocks[i].version->type != AMD_IP_BLOCK_TYPE_VPE &&
+ 		    adev->ip_blocks[i].version->type != AMD_IP_BLOCK_TYPE_JPEG &&
+ 		    adev->ip_blocks[i].version->funcs->set_powergating_state) {
+ 			/* enable powergating to save power */
+-- 
+2.43.0
+
