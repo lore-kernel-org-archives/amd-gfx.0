@@ -4,138 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C09AED116F1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 16:41:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4564D116F3
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 17:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54A0E10E148;
-	Mon,  1 Dec 2025 16:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 550A710E435;
+	Mon,  1 Dec 2025 17:39:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="AnfnCLhs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gK87lDIX";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="weLu5IwR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZcRQ8KPQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="47gZarzX";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6832310E148
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 16:41:25 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DAF4B336FF;
- Mon,  1 Dec 2025 16:41:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1764607284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
- b=AnfnCLhs6wM+/O3GKNDu4P/TD/vLQpqznkQqMP2gT9u4NKfGhgPZJBPEL7ZhStIV/dMQ6a
- Jbgiktj9YhbRcXTKlBjKbyQYip8Us6a2HzOL7QYDibyzKBMMRCv+YL+I2dXX1UoXC5b5fW
- 7ECmRKmY9VVGH8Gv1Z9FT00n0OWRTxY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1764607284;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
- b=gK87lDIXCYXfris5Aie/JnlTAkeMjnAtQUSUZlJZGHl/Ze9ZH6I9qX7HUbLMGHsRIpHqgb
- mU6ySmUXuYko1KDA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=weLu5IwR;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ZcRQ8KPQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1764607282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
- b=weLu5IwRgNOSHzGZ8XbnW3cqXyZt1xugaSaPVugM1GCtvXJtlStL894BCbR4LiSx3V6iEb
- YSSmTv+FnKNo9kAIqU5vX5CDxZsfBLvGlAU4F9p11pB71uVDkGANKveZXM+QrPIBiYzX10
- iQvCxOEdroj2NccrQbI6chLqsOK1P7o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1764607282;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
- b=ZcRQ8KPQwfjic6IbsKestp+VP/i2eQFNmB409nfhxbPZaGdNgSTRqhJzUls8iOJTmfM6X2
- Tyc5IHT6bLFQ5QAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61F803EA63;
- Mon,  1 Dec 2025 16:41:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xs95FjLFLWmYYwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 01 Dec 2025 16:41:22 +0000
-Message-ID: <0ffe6198-bd3d-44f7-82bc-225e6dfd69b2@suse.de>
-Date: Mon, 1 Dec 2025 17:41:21 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
-To: simona@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, lyude@redhat.com, dakr@kernel.org, deller@gmx.de,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- jason.wessel@windriver.com, danielt@kernel.org, dianders@chromium.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20251125130634.1080966-1-tzimmermann@suse.de>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.201.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38BB510E2BD
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 17:39:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LuJRbaB41X6HgRxJiP9aCNiAnXpWri4sisvFhd+U84tZF1fUhnXj7FcwMpswqy/L4PMpudiCGFa3vCPCjPWTzdaIPp3F0Iir+qFfmub2LzrHU/Jos3OjKVqmuxWbwLAm51um5T/IhEJUAWFPRiYXlkpmTMm8Npha9/DngX87zdiNmJ9rcvJpZEVTjWMa6sUuRPLxgOPJMpohTaes8ED8k2sdY8gGeN+xcG45QtTY7rwUaYijSpU6r2DmzxYm9M4MO2atdGSTfIGs6g/MFl1o7nsca3ozlEi0XkAdERpumjdxpX07Ckp8u1okUSsLuuSso1pfwEFgX3vIgJrwZs14lA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YDu8xItKEBQSaAN7DYrvho5ObwZCvIcTRUvyrB556NU=;
+ b=Qozr6hPz4jbu0rylLBzSYE1qBI3kIomWko2zz6OAOOezHgvjeuaGSN88o6+5xAIt0CGCh81g61tcmIlbcET1dKXSjAyrBqUSAJ2OO6+fzmz3g57D9moMMvBMMnVzwrqPcC9E0l+z8Myp/ZR1wS85eh74gGKZoQYgkGsfs56LCiEa0DaA5kSCUOsaxm5Gfn+vn58e2+zIWq14lY7gbk8z+ZAeTPRBbhG/NKZcqEIsO2HAVJt9kQoCYNtzajQPxQ7xJuFE/tgZhil5y35NlD+ONLc/Gyzd0fSZvkyeCYZ7O4QpO7hUzo+rZbKKIx9ri/uZxxh5BhOsGaJQddYkZXzvdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YDu8xItKEBQSaAN7DYrvho5ObwZCvIcTRUvyrB556NU=;
+ b=47gZarzXRhTKPWJCiSnMOiYT39rphGK+kVNcmjsbNJ2Na6tuI8F08vasVrCw4pnDfOHfm+rBGgw3IuMhxJ3rgRIirTfK3bs32yx42fh98thwHyHJw4309OuLdHhKIiNxzDJMqvZOXh2TTpOFekxpbLKhY1K+3KW0B+9V+NSw8tg=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by CH2PR12MB9459.namprd12.prod.outlook.com (2603:10b6:610:27d::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
+ 2025 17:38:15 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0%4]) with mapi id 15.20.9366.012; Mon, 1 Dec 2025
+ 17:38:15 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Yang, Philip" <Philip.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Yat Sin, David" <David.YatSin@amd.com>, "Yang,
+ Philip" <Philip.Yang@amd.com>
+Subject: RE: [PATCH v2 2/4] drm/amdkfd: Add domain parameter to alloc kernel BO
+Thread-Topic: [PATCH v2 2/4] drm/amdkfd: Add domain parameter to alloc kernel
+ BO
+Thread-Index: AQHcYs7bSXxj0P+fBk+0yiPkx+JAULUNDKIQ
+Date: Mon, 1 Dec 2025 17:38:15 +0000
+Message-ID: <BL1PR12MB58984080C0F17CDA486C8B8085DBA@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20251201142838.1516452-1-Philip.Yang@amd.com>
+ <20251201142838.1516452-3-Philip.Yang@amd.com>
+In-Reply-To: <20251201142838.1516452-3-Philip.Yang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20251125130634.1080966-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[18];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,amd.com,redhat.com,kernel.org,gmx.de,linux.intel.com,windriver.com,chromium.org];
- MID_RHS_MATCH_FROM(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- TO_DN_NONE(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: DAF4B336FF
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-12-01T17:37:54.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|CH2PR12MB9459:EE_
+x-ms-office365-filtering-correlation-id: fbe40053-6db0-43e9-42ac-08de31006875
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|7053199007|38070700021; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?Gepe7bRnLejU1I/6kmgDjAzLK0R2u4UEcofCYUkk8ILWiuloviwSAtbAlERn?=
+ =?us-ascii?Q?PeO11dCxZW0C1ecDdGNNwB5JehSJvf462ay0oQjXizFB03sKl48+yNWUGoz7?=
+ =?us-ascii?Q?ILNIBOgN+9PVIBjf31QXhRwrBLa1nlcu8W/1GkbRT8qOr9dm7EgTI+4WYRxx?=
+ =?us-ascii?Q?r/5MyrZJ9tUdyvmays4/dbQJu034G0SlnVJFCGN96iAtqHp045nf9BUZJIFQ?=
+ =?us-ascii?Q?wbAWBRbz5rFN0Hj/cWq2RyCmKMIkUaWNeCfC0hzMC7E21qHgycN+JM3O6+rD?=
+ =?us-ascii?Q?nDO7pnjzEq4pHobCiUecmChRT0C2PHES3kD+LCIAU1TSIM238uDG+j8WycXa?=
+ =?us-ascii?Q?zh0tt2Y/RLbCg4B5fs7HyP6em8HNzZcwSi2tKekOzMrwSfPBjkppCukovtIL?=
+ =?us-ascii?Q?qCDivgSbvg1OBv6kb5GWHKtPrU4gjTnu4FviJKmHaUJERtNFuYE7tzp0D0Cz?=
+ =?us-ascii?Q?XsLfliB3QRtjR0jJtUzJKLs0V98FeaQUYwonwrZ4nzVVs/fk2ng0xyifFJci?=
+ =?us-ascii?Q?YnbluLJRRHO7tMq4tZl9WFjhskfBHvg9aDikbp6Qk7rC334n+z68wJcyl4TL?=
+ =?us-ascii?Q?BwRnRDtebEfSA2w1N9KN/52+Ww8yttuPTYzm7BVtf0D0uJbZqCaY9NWyTYhC?=
+ =?us-ascii?Q?d9GF82drJBc/EVsiY7rocj8En0EB6UoHdoYRHEGkO6APNYUnCO79jAyra1yK?=
+ =?us-ascii?Q?VpkChrJ8WDCYcAj/J+xWDG+0F66xOoRFGssEX7rkbzGV25NoKV7ycy9LKIv4?=
+ =?us-ascii?Q?s10iMLw0hE/L4g0G//DcpErGKelmb4MQBAlJCuF+I2gXy3s4JULpZwK3Hkq7?=
+ =?us-ascii?Q?QD0G4pXXmp2P3BR/s6bWWpaRwg8fvkF490u2dlsJY5j7I7Jj5czeuMbfdX55?=
+ =?us-ascii?Q?8CTQBGlUP6hRcb+CxU0215DKrcshiA0HqPBKewvO+OwexsLLSMQNvlK/sT/9?=
+ =?us-ascii?Q?TwcGkjLAEb59frddeTrFXGnMwZ/qbPoNPzFrwbYSG3t5LWS05gBf44kJ+fas?=
+ =?us-ascii?Q?ia99OdJ6DIBLM5R1HZA5ajWIcO+75fbwiNKfyAr2hUfY5rWhHHxdDOZ37kzq?=
+ =?us-ascii?Q?m8HGH8b+4IqLo3ZDadSjIRcLS/0Y6zdo11YBIt6LqL7E/QO1Xy5Qp0CYhHnj?=
+ =?us-ascii?Q?MEbHRfUdYqjWg59jskSeyqg/+o+aEHXrRxpXwenSds5gimA5GdSckBomHcn+?=
+ =?us-ascii?Q?7UlO2YsaNaBfW6bBNzT/Yyvqu2nGB1H7PsiMh7kQGNJDteN2fRTfPrAXl45+?=
+ =?us-ascii?Q?Nq7kS4whyyyC3GGrgm6alwbYCu4XEVI5eILCR5cF5hhNUXc+jw+5WfqBMJIy?=
+ =?us-ascii?Q?6z6Jz+gBmKpm6QV1PIdaiJS5yNCbWoqdBrdFHKAFS2aJimbwUUt5qveSxhXy?=
+ =?us-ascii?Q?F6jdWtIDGC33/AfwZjYJKKRWziaZa+Y80Y3gKAzoXdx8SRhBoNiajkuVJOSP?=
+ =?us-ascii?Q?0W1EbEZjcRGBwH1ILIvH6q8jtXumFWGGFdM/HnvyluWpgCoAX8P/AGXSqZib?=
+ =?us-ascii?Q?IK7GvoEsLJ/0W9pVXSb3y18EX/Psc+soxO8o?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700021); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+SyRTGL4MPqes3pgD/5rj8SRJfoEjFQC4DG7ifZE1fw6ydX0mfbWCJjKDl8Y?=
+ =?us-ascii?Q?zZmBUxcWIljlENWEPa+v5Oh2bbBj76xNK5psrcT67vTUy6rFcAIcLOWiW25o?=
+ =?us-ascii?Q?PrN1G0ZlJnTGtPfpjpBVQ+bqqwVMytVbIq4iY/wQrUOp2pisoqneGRUNVIkZ?=
+ =?us-ascii?Q?57JxhmPWuaMRyfI2C8jILPYODnxUn3Qka4excMWTAwdiKDqBqi3YHxEKJ9BA?=
+ =?us-ascii?Q?wjJ8Aw6dq7fQmiixVmo/A/sUU8K0ipOoNgj6qp68CgZKDEs6Cf6mGDCDuuiU?=
+ =?us-ascii?Q?a+TGyMHQdfXF2QmvbR0FpWmSYe/d/+QqsdTlEN9dnPosoiy/Erc1rm/BS/ad?=
+ =?us-ascii?Q?cJEm20r0mRiZ1j7CWY3KFO2o6obCBKzqqtewxEhP8EaPOGAGhXnFV5f2t6hV?=
+ =?us-ascii?Q?cH4K+6XHmM7Cehhp/nrSU9P0h6Fyb1NLUx1eh45PAuw4KsOMY7SJCJgAtFQ2?=
+ =?us-ascii?Q?9L1EkTOvl3o9DqdZwfolSztNCVo///uFVCwckE7d0uGRcVHpVQnFeeAxTE98?=
+ =?us-ascii?Q?oCNWhOjGGj6M8htksnrkVewJ2HCVg/WSc/nnYvubTJcVRldzBy4t3sj64w2E?=
+ =?us-ascii?Q?fNzDGb332uE2OeCmpqehoi4Fl7MuswES44WYb0MJGanvPYgqSYzH21l/gfoD?=
+ =?us-ascii?Q?AeOVdkP/xN8EeRZvupugs06tACbgISCREpVCFCa2CnWSp6FEh4RVyypcZ4S9?=
+ =?us-ascii?Q?Hnx4ARSJhmLDVQWbTWbVVPUcuOx49+K+gGDeDrj9A8Fpo8SlQlp5ISv8GJbP?=
+ =?us-ascii?Q?guklz2PmbS06eD2Kxm8dsxNQ3NsMkXWS3q/N7MGwCW43OgMyqUOo3jtKZcWW?=
+ =?us-ascii?Q?Y6gONWcu7vb3pWm4sNd1kzIgbmRXJhXsQ+FZ4bdy56nTma7SqnWRqybBbuzr?=
+ =?us-ascii?Q?xzfLf9N4vfHPrb3dHj+8hXkVe1OHy3O6GPqWkQRU2dIBaiYk904LGLLc2SsK?=
+ =?us-ascii?Q?CNWd8l5fW5EsMlM02RgSWtJhslD+tBnSEQbYS9Vhm276tKWvwzOilARu+dn6?=
+ =?us-ascii?Q?FD88a+2xvMchqxYnQZ+hWTrb4bcutKin5B34OJRe13T8Sg0GbMqDvjSemQmi?=
+ =?us-ascii?Q?ngISS6+RrjlQACr2tOOYwtnaKwDkByT9i3mDAO4mGTaYAhxse4xnkLjCYVcj?=
+ =?us-ascii?Q?T/0SekwZJAxdfcPVoHfeiFmZl9IYno3JcEqHPhN82oa8/f99HMSAZwLg2QGd?=
+ =?us-ascii?Q?XKS+Wz/RnyfvguW+urxmAUDEj8ckdcMpKeWtQwSf3MM7rIxmZ92Va8yD4mu7?=
+ =?us-ascii?Q?D3cyi/cJPLsjg/sSZoXDlGBya9UahuuwdFPmhPmnAp4kP5AcE3/KAIn+IZEG?=
+ =?us-ascii?Q?PYBPpEU2QquzhcXsy+lETlqxjMBm7uegRGzvCMeSGIrORxJYWHRjHK40HJBm?=
+ =?us-ascii?Q?qw5Gpf/uNUVp1PSj6GAy4HLBcTuolhoYBJ0Cgl+vHOEb8g1RcM4nkZbmD/Kp?=
+ =?us-ascii?Q?8AA7zp/D6kS20D9m1FqGmFPB+BnbvYreond5J3ulIiEf7GywUMBQl/OEkAQC?=
+ =?us-ascii?Q?Rt9Mnv6qlzO36mD5fRTtIAB29l+rZZqqDzAxQnAQLi+tjOaM8WZS1s4lo/xA?=
+ =?us-ascii?Q?UvHtcw1bClDPGveGptU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbe40053-6db0-43e9-42ac-08de31006875
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2025 17:38:15.4427 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7CTlSBFGtOnZRGtrbcUJHv3GbaAXYPCaXOxTD+NiCsULrhP+wUBCvltg71dVU2UlKtO0moMjWCsDIfxrZPZ1AQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,71 +159,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series has been acked by Sima via IRC. Patches 4 and 5 have been r-b'ed.
+[Public]
 
-https://people.freedesktop.org/~cbrill/dri-log/?channel=dri-devel&highlight_names=&date=2025-12-01&show_html=true
+I know that it makes the change more complicated, but should we be renaming=
+ the function since we're no longer guaranteeing a GTT memory allocation in=
+ the alloc_gtt_mem function?
 
+ Kent
 
-Am 25.11.25 um 13:52 schrieb Thomas Zimmermann:
-> Remove the rest of the kbd support from DRM. Driver support has been
-> broken for years without anyone complaining.
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Philip=
+ Yang
+> Sent: Monday, December 1, 2025 9:29 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Yat Sin, David <David.YatSin@amd.com>; Yang,
+> Philip <Philip.Yang@amd.com>
+> Subject: [PATCH v2 2/4] drm/amdkfd: Add domain parameter to alloc kernel =
+BO
 >
-> Kdb cannot use regular DRM mode setting, so DRM drivers have to
-> implement an additional hook to make it work (in theory). As outlined
-> by Sima in commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for
-> atomic drivers") from 2017, kdb is not compatible with DRM atomic mode
-> setting. Non-atomic mode setting meanwhile has become rare.
+> To allocate kernel BO from VRAM domain for MQD in the following patch.
+> No functional change because kernel BO allocate are all from GTT domain s=
+o far.
 >
-> Only 3 DRM drivers implement the hooks for kdb support. Amdgpu and
-> nouveau use non-atomic mode setting on older devices. But both drivers
-> have switched to generic fbdev emulation, which isn't compatible with
-> kdb. Radeon still runs kdb, but it doesn't work in practice. See the
-> commits in this series for details
+> amdgpu_amdkfd_alloc_gtt_mem has many duplicate code as
+> function amdgpu_bo_create_kernel, with one extra flag MQD_GFX9
+> to bind MQD and control stack in GART with different mtype,
+> the duplicate code could be removed in future.
 >
-> Therefore remove the remaining support for kdb from the DRM drivers
-> and from DRM fbdev emulation. Also remove the hooks from fbdev, as
-> there are no fbdev drivers with kdb support.
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c             | 6 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h             | 2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_debug.c                 | 1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c                | 3 ++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c        | 1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 ++
+>  7 files changed, 11 insertions(+), 5 deletions(-)
 >
-> If we ever want to address kdb support within DRM drivers, a place to
-> start would be the scanout buffers used by DRM's panic screen. These
-> use the current display mode. They can be written and flushed without
-> mode setting involved.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index a2879d2b7c8e..9cd1660b8f60 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -317,7 +317,7 @@ void amdgpu_amdkfd_gpu_reset(struct amdgpu_device
+> *adev)
+>  }
 >
-> Note: kdb over serial lines is not affected by this series and continues
-> to work as before.
+>  int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
+> -                             void **mem_obj, uint64_t *gpu_addr,
+> +                             u32 domain, void **mem_obj, uint64_t *gpu_a=
+ddr,
+>                               void **cpu_ptr, bool cp_mqd_gfx9)
+>  {
+>       struct amdgpu_bo *bo =3D NULL;
+> @@ -328,7 +328,7 @@ int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device
+> *adev, size_t size,
+>       memset(&bp, 0, sizeof(bp));
+>       bp.size =3D size;
+>       bp.byte_align =3D PAGE_SIZE;
+> -     bp.domain =3D AMDGPU_GEM_DOMAIN_GTT;
+> +     bp.domain =3D domain;
+>       bp.flags =3D AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+>       bp.type =3D ttm_bo_type_kernel;
+>       bp.resv =3D NULL;
+> @@ -351,7 +351,7 @@ int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device
+> *adev, size_t size,
+>               goto allocate_mem_reserve_bo_failed;
+>       }
 >
-> Thomas Zimmermann (5):
->    drm/amdgpu: Do not implement mode_set_base_atomic callback
->    drm/nouveau: Do not implement mode_set_base_atomic callback
->    drm/radeon: Do not implement mode_set_base_atomic callback
->    drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
->    fbcon: Remove fb_debug_enter/_leave from struct fb_ops
+> -     r =3D amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
+> +     r =3D amdgpu_bo_pin(bo, domain);
+>       if (r) {
+>               dev_err(adev->dev, "(%d) failed to pin bo for amdkfd\n", r)=
+;
+>               goto allocate_mem_pin_bo_failed;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> index 335d733751cb..14b5ab6fa051 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> @@ -237,7 +237,7 @@ int amdgpu_amdkfd_bo_validate_and_fence(struct
+> amdgpu_bo *bo,
+>  #endif
+>  /* Shared API */
+>  int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
+> -                             void **mem_obj, uint64_t *gpu_addr,
+> +                             u32 domain, void **mem_obj, uint64_t *gpu_a=
+ddr,
+>                               void **cpu_ptr, bool mqd_gfx9);
+>  void amdgpu_amdkfd_free_gtt_mem(struct amdgpu_device *adev, void **mem_o=
+bj);
+>  int amdgpu_amdkfd_alloc_gws(struct amdgpu_device *adev, size_t size,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> index ba9a09b6589a..494a563e072e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> @@ -359,6 +359,7 @@ int kfd_dbg_set_mes_debug_mode(struct
+> kfd_process_device *pdd, bool sq_trap_en)
+>       if (!pdd->proc_ctx_cpu_ptr) {
+>               r =3D amdgpu_amdkfd_alloc_gtt_mem(adev,
+>                       AMDGPU_MES_PROC_CTX_SIZE,
+> +                     AMDGPU_GEM_DOMAIN_GTT,
+>                       &pdd->proc_ctx_bo,
+>                       &pdd->proc_ctx_gpu_addr,
+>                       &pdd->proc_ctx_cpu_ptr,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> index 9f183d27a0ef..b0cfad750919 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -787,7 +787,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+>       size +=3D 512 * 1024;
 >
->   Documentation/process/debugging/kgdb.rst    |  28 -----
->   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  35 ++-----
->   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  35 ++-----
->   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  35 ++-----
->   drivers/gpu/drm/drm_fb_helper.c             | 108 --------------------
->   drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  24 +----
->   drivers/gpu/drm/radeon/atombios_crtc.c      |  74 ++++----------
->   drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  23 ++---
->   drivers/gpu/drm/radeon/radeon_mode.h        |  10 +-
->   drivers/video/fbdev/core/fbcon.c            |  24 -----
->   drivers/video/fbdev/core/fbcon.h            |   1 -
->   include/drm/drm_fb_helper.h                 |  21 ----
->   include/drm/drm_modeset_helper_vtables.h    |  23 -----
->   include/linux/fb.h                          |   4 -
->   14 files changed, 63 insertions(+), 382 deletions(-)
+>       if (amdgpu_amdkfd_alloc_gtt_mem(
+> -                     kfd->adev, size, &kfd->gtt_mem,
+> +                     kfd->adev, size, AMDGPU_GEM_DOMAIN_GTT,
+> +                     &kfd->gtt_mem,
+>                       &kfd->gtt_start_gpu_addr, &kfd->gtt_start_cpu_ptr,
+>                       false)) {
+>               dev_err(kfd_device, "Could not allocate %d bytes\n", size);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 36ac35d64126..028fca1d2755 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -2906,6 +2906,7 @@ static int allocate_hiq_sdma_mqd(struct
+> device_queue_manager *dqm)
+>               NUM_XCC(dqm->dev->xcc_mask));
 >
+>       retval =3D amdgpu_amdkfd_alloc_gtt_mem(dev->adev, size,
+> +             AMDGPU_GEM_DOMAIN_GTT,
+>               &(mem_obj->gtt_mem), &(mem_obj->gpu_addr),
+>               (void *)&(mem_obj->cpu_ptr), false);
 >
-> base-commit: 0a21e96e0b6840d2a4e0b45a957679eeddeb4362
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index 2e9b6bcf2704..a489d43d5f64 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -139,6 +139,7 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_no=
+de
+> *node,
+>                       (ALIGN(q->ctl_stack_size, PAGE_SIZE) +
+>                       ALIGN(sizeof(struct v9_mqd), PAGE_SIZE)) *
+>                       NUM_XCC(node->xcc_mask),
+> +                     AMDGPU_GEM_DOMAIN_GTT,
+>                       &(mqd_mem_obj->gtt_mem),
+>                       &(mqd_mem_obj->gpu_addr),
+>                       (void *)&(mqd_mem_obj->cpu_ptr), true);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 5f8cda4733f9..e0c5ec7e2fe9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -266,6 +266,7 @@ static int init_user_queue(struct process_queue_manag=
+er
+> *pqm,
+>       if (dev->kfd->shared_resources.enable_mes) {
+>               retval =3D amdgpu_amdkfd_alloc_gtt_mem(dev->adev,
+>                                               AMDGPU_MES_GANG_CTX_SIZE,
+> +                                             AMDGPU_GEM_DOMAIN_GTT,
+>                                               &(*q)->gang_ctx_bo,
+>                                               &(*q)->gang_ctx_gpu_addr,
+>                                               &(*q)->gang_ctx_cpu_ptr,
+> @@ -369,6 +370,7 @@ int pqm_create_queue(struct process_queue_manager
+> *pqm,
+>       if (!pdd->proc_ctx_cpu_ptr && dev->kfd->shared_resources.enable_mes=
+) {
+>               retval =3D amdgpu_amdkfd_alloc_gtt_mem(dev->adev,
+>                                                    AMDGPU_MES_PROC_CTX_SI=
+ZE,
+> +                                                  AMDGPU_GEM_DOMAIN_GTT,
+>                                                    &pdd->proc_ctx_bo,
+>                                                    &pdd->proc_ctx_gpu_add=
+r,
+>                                                    &pdd->proc_ctx_cpu_ptr=
+,
+> --
+> 2.50.1
 
