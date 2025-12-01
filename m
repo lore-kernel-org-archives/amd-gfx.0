@@ -4,60 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3866DD116F5
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 10:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DB9CD116F1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 11:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B36A710E394;
-	Mon,  1 Dec 2025 10:51:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DCFA10E11B;
+	Mon,  1 Dec 2025 11:02:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DU6NroHJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HtuVKQgd";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0346610E392;
- Mon,  1 Dec 2025 10:51:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DFA1743CCD;
- Mon,  1 Dec 2025 10:51:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BE25C4CEF1;
- Mon,  1 Dec 2025 10:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764586273;
- bh=mj9yMjkJYnq6gG3lH605LhmJYpglfLnEKicH3/+ivuE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DU6NroHJll/euhP3rvFLbh4NSOf5U8rJJz3hOoQYb4qeBnETbcZs6C0qbiKr4Adyp
- PSB0UMovD7mRiU5pk9HmDmCMV7Co/inKdC1vzlOr+iqm17MXNje7ZOMn02KwBOKHzv
- 9AGvrL7EAa9MFaPQQdJRrexqOD2mHNK57M4ED+4FKHSW8y0mWIRcyRJI7ufzJuLqEE
- CUPuQFI5s3XOuXEg1JAItdeD85228dnhKp/Uj71pygEXhVcn2ouXqF7+BWqaJ6Am4s
- O9jtI3z3AHSjNDsNIwkBBtlukpKGqTcfM9leHHbTO/81aoLJgVP2rmnolE/PdLH/8a
- /U/GtbReIIYIA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v2 8/8] drm/xe: Use dma_fence_test_signaled_flag()
-Date: Mon,  1 Dec 2025 11:50:12 +0100
-Message-ID: <20251201105011.19386-10-phasta@kernel.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251201105011.19386-2-phasta@kernel.org>
-References: <20251201105011.19386-2-phasta@kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71A6B10E11B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 11:02:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1klX/Z54QKI3NMDGjICgajNYbRF65XwOlnzoBIKbVxU=; b=HtuVKQgd7Y8TecZSTpIK9dSdfE
+ R0nZx7HpyM0Qc2PQ+pu4UXqJHURpNrXwvm87X1tEBNA5fGHJhsSf7+jBNrrST7lBtTPAN9hYRt5JI
+ DI7zlqUYKjMxPKTwwUGsW+Y+5ZLXA0AQABChpn1uuJuAbixGjaRcaiHeoySEHnSVXNpYrTrKZQS/d
+ RBnBBYimPCWSBD8oT/wD+n2lGopxtmDKAmN9aI64QSDp6wdTXlKHnqJFeIne9vWXECpWDJCfDXyDC
+ aNMEvudEH7XM0WeDzpMVKXNtqcw1NrCW45Edtn6KJ6G17iOBMrCmDrpUUQBjHETyW7QazGmm3u5aC
+ KidQjrpQ==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1vQ1fZ-007Lke-CL; Mon, 01 Dec 2025 12:02:13 +0100
+Message-ID: <9cb701a5-76a4-46c4-ac72-8812decbc1c6@igalia.com>
+Date: Mon, 1 Dec 2025 11:02:12 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Allow direct CPU drawing of DRM panic on APUs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Rodrigo Siqueira <siqueira@igalia.com>
+References: <20251128150814.11612-1-tvrtko.ursulin@igalia.com>
+ <eef300e9-9368-43db-b148-f31453031f88@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <eef300e9-9368-43db-b148-f31453031f88@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,77 +62,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a new dma_fence helper which simplifies testing for a fence's
-signaled_flag. Use it in xe.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/xe/xe_exec_queue.c | 9 +++------
- drivers/gpu/drm/xe/xe_pt.c         | 3 +--
- drivers/gpu/drm/xe/xe_sched_job.c  | 2 +-
- 3 files changed, 5 insertions(+), 9 deletions(-)
+On 01/12/2025 08:27, Christian König wrote:
+> On 11/28/25 16:08, Tvrtko Ursulin wrote:
+>> There is no need to draw the panic screen via the slow MMIO access on
+>> APUs, since the frame buffer is guaranteed to be CPU accessible.
+> 
+> Well that is actually not correct. It is only guaranteed to be CPU accessible on 64bit kernels!
+> 
+> I suggest to use the appropriate test function to see if a BO is fully CPU accessible or not and just drop the check for the AMDGPU_GEM_CREATE_NO_CPU_ACCESS flag.
+> 
+> BTW: It is perfectly normal for the framebuffer to not be in VRAM on APUs! So the check below is broken as well.
 
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
-index cb5f204c08ed..06736f52fbaa 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue.c
-+++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-@@ -1037,8 +1037,7 @@ struct dma_fence *xe_exec_queue_last_fence_get(struct xe_exec_queue *q,
- 
- 	xe_exec_queue_last_fence_lockdep_assert(q, vm);
- 
--	if (q->last_fence &&
--	    test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fence->flags))
-+	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
- 		xe_exec_queue_last_fence_put(q, vm);
- 
- 	fence = q->last_fence ? q->last_fence : dma_fence_get_stub();
-@@ -1064,8 +1063,7 @@ struct dma_fence *xe_exec_queue_last_fence_get_for_resume(struct xe_exec_queue *
- 
- 	lockdep_assert_held_write(&q->hwe->hw_engine_group->mode_sem);
- 
--	if (q->last_fence &&
--	    test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fence->flags))
-+	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
- 		xe_exec_queue_last_fence_put_unlocked(q);
- 
- 	fence = q->last_fence ? q->last_fence : dma_fence_get_stub();
-@@ -1106,8 +1104,7 @@ int xe_exec_queue_last_fence_test_dep(struct xe_exec_queue *q, struct xe_vm *vm)
- 
- 	fence = xe_exec_queue_last_fence_get(q, vm);
- 	if (fence) {
--		err = test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) ?
--			0 : -ETIME;
-+		err = dma_fence_test_signaled_flag(fence) ? 0 : -ETIME;
- 		dma_fence_put(fence);
- 	}
- 
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index 07f96bda638a..1ca2dec18e51 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -1208,8 +1208,7 @@ static bool no_in_syncs(struct xe_sync_entry *syncs, u32 num_syncs)
- 	for (i = 0; i < num_syncs; i++) {
- 		struct dma_fence *fence = syncs[i].fence;
- 
--		if (fence && !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
--				       &fence->flags))
-+		if (fence && !dma_fence_test_signaled_flag(fence))
- 			return false;
- 	}
- 
-diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_sched_job.c
-index d21bf8f26964..1c9ba49a325b 100644
---- a/drivers/gpu/drm/xe/xe_sched_job.c
-+++ b/drivers/gpu/drm/xe/xe_sched_job.c
-@@ -188,7 +188,7 @@ static bool xe_fence_set_error(struct dma_fence *fence, int error)
- 	bool signaled;
- 
- 	spin_lock_irqsave(fence->lock, irq_flags);
--	signaled = test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-+	signaled = dma_fence_test_signaled_flag(fence);
- 	if (!signaled)
- 		dma_fence_set_error(fence, error);
- 	spin_unlock_irqrestore(fence->lock, irq_flags);
--- 
-2.49.0
+Hmm I also misread the tail end of this function. It wouldn't even work 
+if frame buffer was non-contiguous since it uses ttm_bo_kmap.
+
+Never mind then, archive to /dev/null please.
+
+Regards,
+
+Tvrtko
+
+>>
+>> Lets skip setting the .set_pixel method which allows the DRM panic core to
+>> just work and it renders much more quickly.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: "Christian König" <christian.koenig@amd.com>
+>> Cc: Melissa Wen <mwen@igalia.com>
+>> Cc: Rodrigo Siqueira <siqueira@igalia.com>
+>> ---
+>> FWIW this draws the panic faster, but.. the whole DRM panic setup only
+>> appears to work with non-tiled modes. There is something broken in the
+>> dcn10_reset_surface_dcc_and_tiling() code with "more advanced" modes
+>> where thing the turning off compression seems to trigger some weird
+>> display engine behaviour. (On the Steam Deck at least.)
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>> index b5d34797d606..7f75f1319d3f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>> @@ -1900,7 +1900,8 @@ int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
+>>   
+>>   	sb->pitch[0] = fb->pitches[0];
+>>   
+>> -	if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
+>> +	if (!(amdgpu_ttm_adev(abo->tbo.bdev)->flags & AMD_IS_APU) &&
+>> +	    (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
+>>   		if (abo->tbo.resource->mem_type != TTM_PL_VRAM) {
+>>   			drm_warn(plane->dev, "amdgpu panic, framebuffer not in VRAM\n");
+>>   			return -EINVAL;
+> 
 
