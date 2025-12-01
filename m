@@ -4,86 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85890D116E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 08:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1293D116E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 08:27:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 238FE10E2EC;
-	Mon,  1 Dec 2025 08:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4961410E2DC;
+	Mon,  1 Dec 2025 08:27:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QT5ULolB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RIlDe/RU";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B947D10E2CC
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 07:53:08 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-297dd95ffe4so33460225ad.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 30 Nov 2025 23:53:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764575588; x=1765180388; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=gaVAYubTTHnTVtytpaBYGZFzgOCnLstoEySaefvC3iw=;
- b=QT5ULolB2sRbWWyjKiYyvmorz4jQWhKfIT803yIbdGX7TVLagbPmvgfpDjKlgp3igS
- GDLSpkNcptJjRGuBhCC7xoMWqDSnx0h9M1cfpQh+uh7xrz6yNMZvnCez+R0ytuZvEuyo
- le79PoN/jqnkq/AZjIPgRSs3E1X49Re6rfkDTIfjynj0iTX636E8yTtyLIkm4fiOrT5q
- /BEPyGA+xSkeGPJqjkykNO8wV7oi2eN6C+Gc0g+2UgcrMMXBamvOEnuFfs50PHK9uh9V
- qI7WImo7gT42pG7TXtlsHgHt+ch2MVTitttG1PyRZMqZ7qpuEMOKwxNV6gZbAJvZdZlo
- /b8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764575588; x=1765180388;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gaVAYubTTHnTVtytpaBYGZFzgOCnLstoEySaefvC3iw=;
- b=Qt39Hy8S/VdIACvEbPRr2w5DMbK8ZJesHcKVoTkvCPRhVSdomyGtN8SO14oXzqQEjA
- 3Bd/KD1fcs69xH5fpWqsPPjzecCdM1L4eD9X9w3N1FWEQduP3RWp1GRbafq8W+zI95Yi
- 0MfoqY3HQWphGsZs/qKdvJvK7Mv68uwEvmp2MUyvI2gZPDf4p+f2b/AofYtaIv12H6I4
- 0imBeCaLJk+m5ArAaFc/Dfc3jJ0vCR3eiwUw0BRfVJtQeTNkSfm6NvAZuHBHsq8AZQx5
- kSqqE6Nch1DLAr6+5r8tzFB+05xN3ttghbAv4ck8KPx/cbFmdpm9/e5WWKaHHjVxvkBD
- mc7w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXRzCjYwizod4rqbimTznP4OHd2FtiQh2213pgx9NuAm7S9BzAC8ok9S+ANuvYnla4Qqotaad0h@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPmZwMcC5qoPei8FHVnF6CzW8uHFooAuJFMGSsukIS8EOOdHmU
- J39dxOogA2q9Yu6IsOMKG5C/cDoQUXHLS8Ctdwpopf5KsV3WmbNMySDr
-X-Gm-Gg: ASbGncvwfb6sSanZZHYkDgOPxzcy154a18fAKSqnv3JPrzXGZtmyRiqg024I/L0FyBp
- 0G7FIOwvViQ14RBGzXNAtFsZk0lxfUEyQYUPdI0KsYmjOl0ZSNBK5ZIQGlWV7bq/xK4t63uLZp+
- nXlTmKxsOkFf2kdsJh/UyQWqVWeZNOy9oJ2dpfXyqLO376EVI7zRk9z0nszR4tnb6CWm5LLgvVW
- qc9hnor/vropQHzp4qDYUCmtSH6mvrrvmD3YN1jINAzOhoFCrlE1svw7EWGU4DS7keHeI/yxsVM
- liTsdgIk+rw0sNVF4wdwIQ3u4NmEmKzKsm/P/+MkcWk0JpZyyckJfrZg1BnVFhzOtLjayIPQ5JQ
- 3lWmR2vYd84AlmI3jixctNQ8HMlnZa+VlB6Mau3vMzk4uyFa78t5r6jRPBAl7VXev7WftlU8ap5
- 27fPYkxjoucHWcNVqjsHbg
-X-Google-Smtp-Source: AGHT+IGlmCeUIpwU3Ydo+tzqNkpFv3NHVIjiD567+Cj+5rL592Tgy7C6Ht+ABzfU61uvmKPtq3k2Rw==
-X-Received: by 2002:a17:902:d583:b0:288:5d07:8a8f with SMTP id
- d9443c01a7336-29baafb7ec1mr273010985ad.24.1764575588133; 
- Sun, 30 Nov 2025 23:53:08 -0800 (PST)
-Received: from google.com ([2401:fa00:95:201:2a71:e28f:ae3c:b20c])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29bce44389bsm115488825ad.32.2025.11.30.23.53.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 30 Nov 2025 23:53:07 -0800 (PST)
-Date: Mon, 1 Dec 2025 15:53:03 +0800
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, "Tsao, Anson" <anson.tsao@amd.com>,
- "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-Subject: Re: [PATCH v3 4/5] drm/amdgpu: add UMA allocation interfaces to sysfs
-Message-ID: <aS1JX1VNNJFb9T60@google.com>
-References: <20251126-vram-carveout-tuning-for-upstream-v3-0-cf1729c4cb3c@amd.com>
- <20251126-vram-carveout-tuning-for-upstream-v3-4-cf1729c4cb3c@amd.com>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012063.outbound.protection.outlook.com
+ [40.93.195.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3943E10E2DC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 08:27:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pbt3eVhUOiaXXJgyUQ6ks+mW6xWemgal67H4lAIoJ/BWGL66HtUJqdaxh2F1pvrC6IS89p2C8Ceilf4HcIfMZZChwIo+/tLDVzttAik1JY+qXDSr9aBle22wLB1+/Q2zLema8Tt/uPCgyp3w/pw9L8vIL0R8bgcSUcCCwEeu1rp4r0smJAUKHAEKFh7WMzdHhHJXzAk/NtNfnOoCWg2OgziP6Kz7VGwy5Bl/GGzsjyRWjebF3pT8CjJ+Tq55nOq7/iohMRj1e/9xIil8jMf4T3j+X9I37IVC4QttNvp+M+gIr2q1w2+KVlEkvzosS9pq3dEeA4jbfNfvBMkkdVubKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bJS1N3SIVEtpKE2N8RfZ/dtBjlJo3KBMAKCWP+mp8BE=;
+ b=w+wljcTh9ezwKq1I5cdwgG9y5Ta0KnGWdROS3g9Y9julpqGbUSxXPm8KayRhad9jmFmL3/YRl07e2UkFjZ78Z83l3IYNJ6hntc4uzermBSAYF2fEX4XWbJooQHl4sYP8dkJeiynMdE2LyRC16odFsbtUBnZmddxEas090sghzyHnmvAsSFAk1bKE71TblKNmR4NPVrIFxjxbX2QIgh9+5aM113BRJrcPwkzHllrVKz3qM8rc94tn9MQskCzfbKVr35R7OJRsFHSAzax0AkoK8vkNiYQAWZQrCBZt+quDMieFDdMGZZ+wxcjX5uaQYvu2rvW2fk2JtR1O/JC7l7iV5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bJS1N3SIVEtpKE2N8RfZ/dtBjlJo3KBMAKCWP+mp8BE=;
+ b=RIlDe/RUyiDI2bt77vB+iZmQRpA1vJn1GtEwcZGPEPTyVQ3spCaBUO/5WEBAMpwvyT/JDWf5OJEWG0GDUCCC30E68iW5EKiKYNLDxNqH5oEUMBlyk5PZJR+tYM2EVkv0pRl6qxhbVYzSZaVUt9Nbb5tnO4iNuXJnd/NM8/2+H4A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CYYPR12MB8990.namprd12.prod.outlook.com (2603:10b6:930:ba::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
+ 2025 08:27:54 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9366.012; Mon, 1 Dec 2025
+ 08:27:54 +0000
+Message-ID: <eef300e9-9368-43db-b148-f31453031f88@amd.com>
+Date: Mon, 1 Dec 2025 09:27:50 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Allow direct CPU drawing of DRM panic on APUs
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Rodrigo Siqueira <siqueira@igalia.com>
+References: <20251128150814.11612-1-tvrtko.ursulin@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20251128150814.11612-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0322.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:eb::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251126-vram-carveout-tuning-for-upstream-v3-4-cf1729c4cb3c@amd.com>
-X-Mailman-Approved-At: Mon, 01 Dec 2025 08:20:38 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8990:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fe69ffe-e952-4a0b-051d-08de30b3861f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MmhPeFp3ZWIySEhWWlZKa1A0bG5DYzlVWmNEYkpWNVJhQTBsSG1WbWIydTcy?=
+ =?utf-8?B?ZjQ2T0p4SGY1SmlCalBXQmhqN1lxSVYwOXpNd3g4bktaNTFqMkZSai9tMUo2?=
+ =?utf-8?B?bFBlRU9kOUtuY2xlUTlOQ2RBYjhReVp6VHRlcHNVTHQxSExmMzZmT0p6TVoy?=
+ =?utf-8?B?QzJRcnNxcU1kSXBhc0pNcFJQbzN2Vm1icWI0STg5b25ZVEcwTXhyM0xRN2Za?=
+ =?utf-8?B?WEcxL3FKa25DT3k0R0M2eFZ5NHY1a1VQcExzYit4ZHY4eGFHWlQ1aVA3SGM1?=
+ =?utf-8?B?MGx4czgxWjNISCtDQ3pHdHQ5NVdQbVdjN0oyZWpXckE1c0kwenNTS25aNzhy?=
+ =?utf-8?B?eEE5aEtXN0JoUUtndy9XZjhDOUhiSnlXSzZpTW0yYWRGSGFPdmlOT2VlSDVD?=
+ =?utf-8?B?WFY3R21XV0VBYXFmN0NaT2NxclpzbWlIL3hUakxzVHN2QjB3UXBMdlEzMjBm?=
+ =?utf-8?B?eEJvY1hYS3VHTTZPcDFwUG5RQ0RRWHA4RXJ6TEczdHpydUJOeDJGV3NtNzM3?=
+ =?utf-8?B?WHZ1VDlqUlNUdzV3WGV1VzJPOUQ2ckVGd0dTQkF5Ni8wZnArOWFOdE9zZ0FG?=
+ =?utf-8?B?cERHMU5hYUc2VWFXNXFzTCtyZmx5ZlFlV1hWd2pKLzYzdU9YekcvUkwwbFBT?=
+ =?utf-8?B?QmM5SzA5Vys2TnVCUWk1b0JGUUhFcHNnUTBNZ3pwb1lreVRTVTNZREg5V0hu?=
+ =?utf-8?B?Q2xnME5wMU42Z1FzWDk3c24vZmhBUE5aTXJTMVRySXJNQTFHRlpkSDBKME02?=
+ =?utf-8?B?VFZRbUQ1MnBpWkMzQTliVEtIdjZ4SFRDYWZiUXRZUzh6WHhTcXg5dFFTMnR1?=
+ =?utf-8?B?MFR0QkFDTXY0TFhPQ1pVQmdSZXVLMldPeng0c25ZWHlSODRuS1YwSCszWnIw?=
+ =?utf-8?B?bTFuZUZkOHFTZ3NCVWcxZVJBVEkwUnA5MVNrMWVPcXR0RkxDWkFWNlE0T0lI?=
+ =?utf-8?B?T2JlWS9OdjBGR0FCbVZaVmZwV2drN0RkTjZkTTZFYTROV3VqS0xTbEkzbnRI?=
+ =?utf-8?B?M3FKd3RydFZkTjJQcjBsbVUzSlBTamlqYkwrcTIyNURXbFZIMmdtbkZjN0l4?=
+ =?utf-8?B?QjNyQjJIVjByc1dsSEJxclhCemZFWUEwR3hBdEJsTWdkV2lnbDJPS2VZSS9E?=
+ =?utf-8?B?SzllL1BCVjg2c2wwUERrWktRcmNUL09GRFYvZFR4REVGR3o1Y3phaVYwZHRn?=
+ =?utf-8?B?TmgzRCs2N3NVK2VPSTVFWVVBcEdDNzRjU1o1M2g1TkRiNGdoYVdnaUNDN0VZ?=
+ =?utf-8?B?WHN1U1pPTzJrVUgyNXk3VTZOc0YxK29zN0RTYkdJcmdGbWtpeEdFZ1UyNG14?=
+ =?utf-8?B?Sys4RGx5OW41Ni82amVDZVZzNkVibjd4bnoxUXJTOXhZckI5dG55S0dJVTdo?=
+ =?utf-8?B?cFRxcVZpZC9TdzVnYURLOUJSVzUvYW93T29KVCsyd3VMSUkySUExL3RGT2pU?=
+ =?utf-8?B?TllOQ2FUcVQxYThrNUlpOU5xbGJBcmR4b2dvMjhUaXF2emhjZVF5NmsvODdG?=
+ =?utf-8?B?bGlCK2ZkeGcwL0cwMEs3dk5EMEp6VjFvWU1uK3Y3RWhCYkNKcWo0SVpQZys2?=
+ =?utf-8?B?azduRjhNMUtOOFI2T2t6LzJ0QWtYQ1AwNHA1NGZ0dkYzaW5FNnFSa1BUWXov?=
+ =?utf-8?B?cmV5UXV2ZndNQ1JoNlVmQ3hzdnZyVUFwMUN6WXZtaWUrZ3JwYk80NmdYb0d2?=
+ =?utf-8?B?Wm1SNWZRYlM5Qk1JMmdUUXV6Z084ZE9vcmtGSE42R1cvaktpWGtON29ZUkxL?=
+ =?utf-8?B?Q0c3VkUwemNVZit5UFJUckRXWDZQYVVtOXZOZEt4SmQvbGF1bG93aFZ1NVF6?=
+ =?utf-8?B?SWhPcWdydDFpazZQMjB1endQQk5LdXU1VTZQWU5jSHJOZ3RIOE1QLzRUVDZp?=
+ =?utf-8?B?a1F5YW04M3UvdVVqenh5c3lZOFVkc0ZoZWdhSUEwemV5SEFXV0QrcUpDYkxh?=
+ =?utf-8?Q?Ysu2GE/WYdDpOuvB/Kee7GjhmG7r0qSJ?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VUIwdXRsbkR5WElCYldiRzJvdWpaSUY3eUw1ZWtTTE1qZnRDR0QwbGlIZWpH?=
+ =?utf-8?B?YnRkYXVCcFNFem03cTB6TDZVektxYTRJSjBkMHphdE82S3U3QVZ3aVcrK095?=
+ =?utf-8?B?Mm8xNmJ2cHNWRlJUdDlXRHBXQkEzaHp0TDJCbjQyeUpCKzAwQ0tYSDJyd2lh?=
+ =?utf-8?B?dkZvNmswcVFJSjQ5Zmt4aGxjVnI5Wnk0WGFud0ZwWlo5T2c1Z3lTeGpocStx?=
+ =?utf-8?B?OWRRQ1J0Q05rMHcvOVp0N1hCNnFwVFR6MURzd2pEZG5lam1CR0xYNW5RZUtp?=
+ =?utf-8?B?c0J3UldKVnlQU2g5TkNxenREcEtaYk5ySG9abHVWdDQzTEhaOUZCVFI0SUZq?=
+ =?utf-8?B?SFR6cEQ5VGU0Zk9sQ0RKU1BTTGxtcmN6bnJqTFN5UWk2ajhyMHRPcTNoeGUz?=
+ =?utf-8?B?QlRESHFKdnBmWit3bC84SWNrRVdHT01EZkZFemtPMEpqaDJ1Y1k2bUpyZmht?=
+ =?utf-8?B?RnJsOHBhRnpNU2E4OGtmcEs0TmkyemdYSU9XQ1AwbnVmRFlDdWFhWVJtWUhK?=
+ =?utf-8?B?RnlZMGNFdElmUkM4em84UzlGa3hYTmZnZXVpYmx0SnpZT1hMWjY1YjFXeDRG?=
+ =?utf-8?B?S2VJcUwvZWtPUHVPZGI2cjNZUlR5Vy9zckN2NS8zME9HcGh2U3RKeU1XWXh0?=
+ =?utf-8?B?RnpsbXhBb0xQUzhtb1ZhcnBQcnZBQlFPQTErdHlzeTRkdEV2bnRvNE5lc3lp?=
+ =?utf-8?B?S3NZOTJpazB1R2VaaHlhb3d4QlhxbllSVUtJT05NZXRnekFNeUJSU3oxNzFw?=
+ =?utf-8?B?enlrT0ZFdVlRRkg3TGxnZ1RyMmFneXdPYUo2azhpMVltUmNubytCR3pDWUxz?=
+ =?utf-8?B?ZVU5bjR2YzhiN21Bc2xBVjkwdnJhRkJGWXdoZkgrOVhlM0Z2Z0xhVmtGWEVi?=
+ =?utf-8?B?YjF3RzZFazBrQjkvQTVNYXQ2bHR2MjhuMVB2Wjg4Y2M3cUYrWGVoVkxreFcx?=
+ =?utf-8?B?Rld2Wlk1STFKd0ljQ2Fub3hhdkxtVFB2U3NhOFI0Nlpadi9INVhiM1VYSGRK?=
+ =?utf-8?B?VzdzQWhmM205ZEFZTEhQSHA3RWsrTjVNSndUK2YydktDS2MwRlFBeUJYSG54?=
+ =?utf-8?B?cmE4aHB4RmlYYXpYaVVNc2g0RWlOalhzanBmWmg5dDlCcEE3MjdaaEtDRkpC?=
+ =?utf-8?B?MmM4UDB3Yjk1Q1ZoUEpnc0hkSTV1SURsQ0JXRzhjdUdRaE8xTzRqRHdLQUZq?=
+ =?utf-8?B?SHlGNndHblJ6SEIyWDhCNEpIYXhTczlZUmpBS243OWZYZVhVRGtuTW1TYk5F?=
+ =?utf-8?B?U2VJa1Y4K2EveHZ4d2VsRm9MMVRnSUwyR3pDNTdOWW5iajR1eEI1ZkZmdSs0?=
+ =?utf-8?B?U0VzYXRZS244ak15NFNBZG80eFlvcmZseGhZZ3pPNVlzZjkwZ01BTy9hVDIr?=
+ =?utf-8?B?WjBzeERPcXpBcXFYZG85NUw1T1doQUxrcStsQWtLN25paEZYNkJZY2haSmd3?=
+ =?utf-8?B?RkdOZ2VtanZrNGNaZlEwcGRXNDNMRHRFSHltaE1GcVlDMmVsNHBqdVY3ZWph?=
+ =?utf-8?B?dGEvVkwrMXdub2dvdDNLRWxYRUpIZi9oY3RaRzNTUnVlTlV3L2hHcjkyQ29r?=
+ =?utf-8?B?eWlSZHY2MnNJcmV3QTFpOWFXTmk4SHp5ZjJKYWxJM3h5cVo5OTdBcTNmemw3?=
+ =?utf-8?B?WHhibEhLUVhZRDU0ejlCUnQ5SERoeGt6WTY3T1Q4WVozRWxnNnVKdlRQK2Nr?=
+ =?utf-8?B?OUZxQXhwNnZ1ZnhwbmVDbTM2aHVqdGRFaXNuYzZKNVR6cVptOUNSajV5UUJF?=
+ =?utf-8?B?Zm9sYzdubDgyUVhheEN1QTc5NlNLWC9RM2lCQmJRMEsxL3BzeFhXL0JaZ3Er?=
+ =?utf-8?B?Yk8wSkVkbktSRkNhN0FkN1dOQUNzU2NHWWFtSk54YWJCVkZZRXE4d3Y0T2oy?=
+ =?utf-8?B?d1RIaFhCY1Q1MXhyRzVEZHFVTC8rb2lDcFp5YzJhT3E4ODFrSkVZbGE5Wlhl?=
+ =?utf-8?B?ZFkrcWdkaUVLSDlTSWk5NHhIRVlOcHcyZ2ZuWW8yM25vclR3M2wzYzRyZGdZ?=
+ =?utf-8?B?TVRUaG1ROUNOOXhTaENRdEphNU1SazFNWDBuM2FMSHJSaGFwRlRSK1B2QzhQ?=
+ =?utf-8?B?aXE4VWdxa29mTTdrakkxRU5vNytTd0lNdjhheXRxQzF3c0ZLQS9Kd3ZmZWJD?=
+ =?utf-8?Q?BJPc5yxmwq5BfaOScVDQeMdBo?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fe69ffe-e952-4a0b-051d-08de30b3861f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 08:27:54.2436 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I6Gg3eZNaGtPQODsHXPgMQ8HbNfdKAgKTFAZqiy5iFYtkABH8gp7yPdRHDuBT6/B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8990
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,208 +162,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Leo and Mario,
+On 11/28/25 16:08, Tvrtko Ursulin wrote:
+> There is no need to draw the panic screen via the slow MMIO access on
+> APUs, since the frame buffer is guaranteed to be CPU accessible.
 
-On Wed, Nov 26, 2025 at 05:05:15PM +0800, Yo-Jung Leo Lin (AMD) wrote:
-> Add a uma/ directory containing two sysfs files as interfaces to
-> inspect or change UMA carveout size. These files are:
-> 
-> - uma/carveout_options: a read-only file listing all the available
->   UMA allocation options and their index.
-> 
-> - uma/carveout: a file that is both readable and writable. On read,
->   it shows the index of the current setting. Writing a valid index
->   into this file allows users to change the UMA carveout size to that
->   option on the next boot.
-> 
-> Co-developed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> Signed-off-by: Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 137 +++++++++++++++++++++++++++++++
->  1 file changed, 137 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index bce9027fa241..c3b7b8c91919 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -30,6 +30,7 @@
->  #include <linux/power_supply.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/suspend.h>
-> +#include <linux/device.h>
->  #include <acpi/video.h>
->  #include <acpi/actbl.h>
->  
-> @@ -1246,6 +1247,135 @@ int amdgpu_acpi_get_mem_info(struct amdgpu_device *adev, int xcc_id,
->  	return -ENOENT;
->  }
->  
-> +static ssize_t carveout_options_show(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     char *buf)
-> +{
-> +	struct amdgpu_uma_carveout_info *uma_info = &amdgpu_acpi_priv.atcs.uma_info;
-> +	uint32_t memory_carved;
-> +	ssize_t size = 0;
-> +
-> +	if (!uma_info || !uma_info->num_entries)
-> +		return -ENODEV;
-> +
-> +	for (int i = 0; i < uma_info->num_entries; i++) {
-> +		memory_carved = uma_info->entries[i].memory_carved_mb;
-> +		if (memory_carved >= SZ_1G/SZ_1M) {
-> +			size += sysfs_emit_at(buf, size, "%d: %s (%u GB)\n",
-> +					      i,
-> +					      uma_info->entries[i].name,
-> +					      memory_carved >> 10);
-> +		} else {
-> +			size += sysfs_emit_at(buf, size, "%d: %s (%u MB)\n",
-> +					      i,
-> +					      uma_info->entries[i].name,
-> +					      memory_carved);
-> +		}
-> +	}
-> +
-> +	return size;
-> +}
-> +static DEVICE_ATTR_RO(carveout_options);
-> +
-> +static ssize_t carveout_show(struct device *dev,
-> +			     struct device_attribute *attr,
-> +			     char *buf)
-> +{
-> +	return sysfs_emit(buf, "%u\n", amdgpu_acpi_priv.atcs.uma_info.uma_option_index);
-> +}
-> +
-> +static ssize_t carveout_store(struct device *dev,
-> +			      struct device_attribute *attr,
-> +			      const char *buf, size_t count)
-> +{
-> +	struct amdgpu_uma_carveout_info *uma_info = &amdgpu_acpi_priv.atcs.uma_info;
-> +	struct drm_device *ddev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(ddev);
-> +	struct amdgpu_uma_carveout_option *opt;
-> +	unsigned long val;
-> +	uint8_t flags;
-> +	int r;
-> +
-> +	r = kstrtoul(buf, 10, &val);
-> +	if (r)
-> +		return r;
-> +
-> +	if (val >= uma_info->num_entries)
-> +		return -EINVAL;
-> +
-> +	opt = &uma_info->entries[val];
-> +
-> +	if (!(opt->flags & AMDGPU_UMA_FLAG_AUTO) &&
-> +	    !(opt->flags & AMDGPU_UMA_FLAG_CUSTOM)) {
-> +		drm_err_once(ddev, "Option %ul not supported due to lack of Custom/Auto flag", r);
+Well that is actually not correct. It is only guaranteed to be CPU accessible on 64bit kernels!
 
-I'm not an expert in drm or gpu related stuff.
-But r is always 0 here. Also, its type is int, so it doesn't match the
-%ul format specifier.
+I suggest to use the appropriate test function to see if a BO is fully CPU accessible or not and just drop the check for the AMDGPU_GEM_CREATE_NO_CPU_ACCESS flag.
 
-I guess you mean val instead of r here?
+BTW: It is perfectly normal for the framebuffer to not be in VRAM on APUs! So the check below is broken as well.
 
 Regards,
-Kuan-Wei
+Christian.
 
-> +		return -EINVAL;
-> +	}
-> +
-> +	flags = opt->flags;
-> +	flags &= ~((flags & AMDGPU_UMA_FLAG_AUTO) >> 1);
-> +
-> +	guard(mutex)(&uma_info->update_lock);
-> +
-> +	r = amdgpu_acpi_set_uma_allocation_size(adev, val, flags);
-> +	if (r)
-> +		return r;
-> +
-> +	uma_info->uma_option_index = val;
-> +
-> +	return count;
-> +}
-> +static DEVICE_ATTR_RW(carveout);
-> +
-> +static struct attribute *amdgpu_uma_attrs[] = {
-> +	&dev_attr_carveout.attr,
-> +	&dev_attr_carveout_options.attr,
-> +	NULL
-> +};
-> +
-> +const struct attribute_group amdgpu_uma_attr_group = {
-> +	.name = "uma",
-> +	.attrs = amdgpu_uma_attrs
-> +};
-> +
-> +static int amdgpu_acpi_uma_option_init(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_atcs *atcs = &amdgpu_acpi_priv.atcs;
-> +	int rc;
-> +
-> +	if (!atcs->functions.set_uma_allocation_size)
-> +		return -ENODEV;
-> +
-> +	rc = amdgpu_atomfirmware_get_uma_carveout_info(adev, &atcs->uma_info);
-> +	if (rc) {
-> +		drm_dbg(adev_to_drm(adev),
-> +			"Failed to parse UMA carveout info from VBIOS: %d\n", rc);
-> +		goto out_info;
-> +	}
-> +
-> +	mutex_init(&atcs->uma_info.update_lock);
-> +
-> +	rc = devm_device_add_group(adev->dev, &amdgpu_uma_attr_group);
-> +	if (rc) {
-> +		drm_dbg(adev_to_drm(adev), "Failed to add UMA carveout sysfs interfaces %d\n", rc);
-> +		goto out_attr;
-> +	}
-> +
-> +	return 0;
-> +
-> +out_attr:
-> +	mutex_destroy(&atcs->uma_info.update_lock);
-> +out_info:
-> +	return rc;
-> +}
-> +
-> +static void amdgpu_acpi_uma_option_fini(void)
-> +{
-> +	struct amdgpu_uma_carveout_info *uma_info = &amdgpu_acpi_priv.atcs.uma_info;
-> +
-> +	mutex_destroy(&uma_info->update_lock);
-> +	uma_info->num_entries = 0;
-> +}
-> +
->  /**
->   * amdgpu_acpi_event - handle notify events
->   *
-> @@ -1290,6 +1420,12 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
->  int amdgpu_acpi_init(struct amdgpu_device *adev)
->  {
->  	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
-> +	int rc;
-> +
-> +	rc = amdgpu_acpi_uma_option_init(adev);
-> +
-> +	if (rc)
-> +		drm_dbg(adev_to_drm(adev), "Not creating uma carveout interfaces: %d", rc);
+> 
+> Lets skip setting the .set_pixel method which allows the DRM panic core to
+> just work and it renders much more quickly.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Rodrigo Siqueira <siqueira@igalia.com>
+> ---
+> FWIW this draws the panic faster, but.. the whole DRM panic setup only
+> appears to work with non-tiled modes. There is something broken in the 
+> dcn10_reset_surface_dcc_and_tiling() code with "more advanced" modes
+> where thing the turning off compression seems to trigger some weird
+> display engine behaviour. (On the Steam Deck at least.)
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index b5d34797d606..7f75f1319d3f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -1900,7 +1900,8 @@ int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
 >  
->  	if (atif->notifications.brightness_change) {
->  		if (adev->dc_enabled) {
-> @@ -1342,6 +1478,7 @@ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)
->  void amdgpu_acpi_fini(struct amdgpu_device *adev)
->  {
->  	unregister_acpi_notifier(&adev->acpi_nb);
-> +	amdgpu_acpi_uma_option_fini();
->  }
+>  	sb->pitch[0] = fb->pitches[0];
 >  
->  /**
-> 
-> -- 
-> 2.43.0
-> 
-> 
+> -	if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
+> +	if (!(amdgpu_ttm_adev(abo->tbo.bdev)->flags & AMD_IS_APU) &&
+> +	    (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
+>  		if (abo->tbo.resource->mem_type != TTM_PL_VRAM) {
+>  			drm_warn(plane->dev, "amdgpu panic, framebuffer not in VRAM\n");
+>  			return -EINVAL;
+
