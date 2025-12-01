@@ -4,66 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98ACCCFD376
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C97ED11700
 	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 08:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDAE310E5A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A6B10E5A4;
 	Tue,  2 Dec 2025 08:16:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Nb9qQDjt";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CLhzbIrD";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F5F10E543;
- Tue,  2 Dec 2025 07:17:31 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4dLBtJ2Cdcz9tQR;
- Tue,  2 Dec 2025 08:17:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1764659848; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=cvYlzThd7v1Kn3YwhmxsymsCQ2EmPWq7s2Dps/0YHys=;
- b=Nb9qQDjtSxtNnaI9B/lYBHnlMi9qdhjt49k01xfaRmMdo7g+Cpm9o/NVEaN/68NlTInQ9r
- baJzXM36vj1J/0Z0b+PDWLUqUZF5Nu3k45Uiw6uXNN0ggxIfp4KBVljPn0A7X9I99wypiG
- NvQTKn1EvFoO8i2FH+zx1kKSMUxQOOm8wJn1+n+EW7uHUIwvWu36yD2LTFQIHEwwRb1n6y
- uuOzVZmjCqG9hqAGL1qIaSRHzoUlEhX4xJp0qRfbPqJ4uEYYXlqJcpRqDPnz7k6mqkODdf
- wokX4Zs0jhWkMAIjUMvVXYIVqvfkZwIagWV5bVZy/FQTcIMLNDvtzW87A5gyAQ==
-Message-ID: <e2799662727a10b77b77ceb2fc2cdabe27537e3e.camel@mailbox.org>
-Subject: Re: [PATCH v2 4/8] drm/xe: Use dma_fence_check_and_signal_locked()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Date: Tue, 02 Dec 2025 08:17:17 +0100
-In-Reply-To: <aS3uycB40j2CptOf@lstrano-desk.jf.intel.com>
-References: <20251201105011.19386-2-phasta@kernel.org>
- <20251201105011.19386-6-phasta@kernel.org>
- <aS3uycB40j2CptOf@lstrano-desk.jf.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C812410E429;
+ Mon,  1 Dec 2025 16:11:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id EC1186016B;
+ Mon,  1 Dec 2025 16:11:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7491C4CEF1;
+ Mon,  1 Dec 2025 16:11:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1764605504;
+ bh=hP6L2O0FOWlifqFD5YvpPXkCFTX0ufmIW1euI1UobFE=;
+ h=Subject:To:Cc:From:Date:From;
+ b=CLhzbIrDgV/5rXVseNlhnHM3u6z8oGrim+xh2g7+i9uAsTmVloDxALHxNYw0ahbxn
+ MdTupXhUXdKKGoI/gmJnmm3yd1dpAYERzTINECCkr5+mOMfjpu7Mn7ym/Z95QsXf+3
+ FhQ1V5OvgJ7UiLEgzdBvNVXb26eDM/kT5j4BeK3g=
+Subject: Patch "drm, fbcon,
+ vga_switcheroo: Avoid race condition in fbcon setup" has been added
+ to the 6.17-stable tree
+To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ javierm@redhat.com, nouveau@lists.freedesktop.org, tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 01 Dec 2025 17:08:12 +0100
+Message-ID: <2025120112-squealing-profound-4cd0@gregkh>
 MIME-Version: 1.0
-X-MBO-RS-ID: 702b4ab20e6fde04118
-X-MBO-RS-META: ncm8u3cindi4bqsz41sdpt7zknz4tbdg
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Tue, 02 Dec 2025 08:16:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,82 +54,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-12-01 at 11:38 -0800, Matthew Brost wrote:
-> On Mon, Dec 01, 2025 at 11:50:08AM +0100, Philipp Stanner wrote:
-> > Xe is one of the few users utilizing the return code of
-> > dma_fence_signal() to check whether a fence had already been signaled b=
-y
-> > someone else.
-> >=20
-> > To clean up and simplify the dma_fence API, the few kernel users relyin=
-g
-> > on that behavior shall be ported to an alternative function.
-> >=20
-> > Replace dma_fence_signal_locked() with
-> > dma_fence_check_and_signal_locked().
-> >=20
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> > ---
-> > =C2=A0drivers/gpu/drm/xe/xe_hw_fence.c | 4 +---
-> > =C2=A01 file changed, 1 insertion(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_h=
-w_fence.c
-> > index b2a0c46dfcd4..f6057456e460 100644
-> > --- a/drivers/gpu/drm/xe/xe_hw_fence.c
-> > +++ b/drivers/gpu/drm/xe/xe_hw_fence.c
-> > @@ -85,7 +85,6 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *i=
-rq)
-> > =C2=A0{
-> > =C2=A0	struct xe_hw_fence *fence, *next;
-> > =C2=A0	unsigned long flags;
-> > -	int err;
-> > =C2=A0	bool tmp;
-> > =C2=A0
-> > =C2=A0	if (XE_WARN_ON(!list_empty(&irq->pending))) {
-> > @@ -93,9 +92,8 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *i=
-rq)
-> > =C2=A0		spin_lock_irqsave(&irq->lock, flags);
-> > =C2=A0		list_for_each_entry_safe(fence, next, &irq->pending, irq_link) =
-{
-> > =C2=A0			list_del_init(&fence->irq_link);
-> > -			err =3D dma_fence_signal_locked(&fence->dma);
-> > +			XE_WARN_ON(dma_fence_check_and_signal_locked(&fence->dma));
->=20
-> I think XE_WARN_ON can compile out in certain builds. Best to leave warn =
-on logic as is.
 
-OK, will adjust.
+This is a note to let you know that I've just added the patch titled
 
->=20
-> Also a little confused by this new helper... Doesn't
-> dma_fence_signal_locked already check if a fence is already signaled and
-> bail? Running out the door so I don't have time dig in here, but can you
-> explain?
+    drm, fbcon, vga_switcheroo: Avoid race condition in fbcon setup
 
-Yes, that is what dma_fence_signal_locked() *currently* does. The
-series, however, is about removing that check from the default
-interfaces because barely anyone uses dma_fence_signal() et.al.'s
-return code. To simplify the interfaces.
-The 2-3 users who need the code get this new function. See cover
-letter.
+to the 6.17-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-fbcon-vga_switcheroo-avoid-race-condition-in-fbcon-setup.patch
+and it can be found in the queue-6.17 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
 
-P.
+From eb76d0f5553575599561010f24c277cc5b31d003 Mon Sep 17 00:00:00 2001
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Date: Wed, 5 Nov 2025 17:14:49 +0100
+Subject: drm, fbcon, vga_switcheroo: Avoid race condition in fbcon setup
 
->=20
-> Matt
->=20
-> > =C2=A0			dma_fence_put(&fence->dma);
-> > -			XE_WARN_ON(err);
-> > =C2=A0		}
-> > =C2=A0		spin_unlock_irqrestore(&irq->lock, flags);
-> > =C2=A0		dma_fence_end_signalling(tmp);
-> > --=20
-> > 2.49.0
-> >=20
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
+commit eb76d0f5553575599561010f24c277cc5b31d003 upstream.
+
+Protect vga_switcheroo_client_fb_set() with console lock. Avoids OOB
+access in fbcon_remap_all(). Without holding the console lock the call
+races with switching outputs.
+
+VGA switcheroo calls fbcon_remap_all() when switching clients. The fbcon
+function uses struct fb_info.node, which is set by register_framebuffer().
+As the fb-helper code currently sets up VGA switcheroo before registering
+the framebuffer, the value of node is -1 and therefore not a legal value.
+For example, fbcon uses the value within set_con2fb_map() [1] as an index
+into an array.
+
+Moving vga_switcheroo_client_fb_set() after register_framebuffer() can
+result in VGA switching that does not switch fbcon correctly.
+
+Therefore move vga_switcheroo_client_fb_set() under fbcon_fb_registered(),
+which already holds the console lock. Fbdev calls fbcon_fb_registered()
+from within register_framebuffer(). Serializes the helper with VGA
+switcheroo's call to fbcon_remap_all().
+
+Although vga_switcheroo_client_fb_set() takes an instance of struct fb_info
+as parameter, it really only needs the contained fbcon state. Moving the
+call to fbcon initialization is therefore cleaner than before. Only amdgpu,
+i915, nouveau and radeon support vga_switcheroo. For all other drivers,
+this change does nothing.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Link: https://elixir.bootlin.com/linux/v6.17/source/drivers/video/fbdev/core/fbcon.c#L2942 # [1]
+Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v2.6.34+
+Link: https://patch.msgid.link/20251105161549.98836-1-tzimmermann@suse.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/drm_fb_helper.c  |   14 --------------
+ drivers/video/fbdev/core/fbcon.c |    9 +++++++++
+ 2 files changed, 9 insertions(+), 14 deletions(-)
+
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -31,9 +31,7 @@
+ 
+ #include <linux/console.h>
+ #include <linux/export.h>
+-#include <linux/pci.h>
+ #include <linux/sysrq.h>
+-#include <linux/vga_switcheroo.h>
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_drv.h>
+@@ -566,11 +564,6 @@ EXPORT_SYMBOL(drm_fb_helper_release_info
+  */
+ void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
+ {
+-	struct fb_info *info = fb_helper->info;
+-	struct device *dev = info->device;
+-
+-	if (dev_is_pci(dev))
+-		vga_switcheroo_client_fb_set(to_pci_dev(dev), NULL);
+ 	unregister_framebuffer(fb_helper->info);
+ }
+ EXPORT_SYMBOL(drm_fb_helper_unregister_info);
+@@ -1632,7 +1625,6 @@ static int drm_fb_helper_single_fb_probe
+ 	struct drm_client_dev *client = &fb_helper->client;
+ 	struct drm_device *dev = fb_helper->dev;
+ 	struct drm_fb_helper_surface_size sizes;
+-	struct fb_info *info;
+ 	int ret;
+ 
+ 	if (drm_WARN_ON(dev, !dev->driver->fbdev_probe))
+@@ -1653,12 +1645,6 @@ static int drm_fb_helper_single_fb_probe
+ 
+ 	strcpy(fb_helper->fb->comm, "[fbcon]");
+ 
+-	info = fb_helper->info;
+-
+-	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
+-	if (dev_is_pci(info->device))
+-		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
+-
+ 	return 0;
+ }
+ 
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -66,6 +66,7 @@
+ #include <linux/string.h>
+ #include <linux/kd.h>
+ #include <linux/panic.h>
++#include <linux/pci.h>
+ #include <linux/printk.h>
+ #include <linux/slab.h>
+ #include <linux/fb.h>
+@@ -78,6 +79,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/crc32.h> /* For counting font checksums */
+ #include <linux/uaccess.h>
++#include <linux/vga_switcheroo.h>
+ #include <asm/irq.h>
+ 
+ #include "fbcon.h"
+@@ -2906,6 +2908,9 @@ void fbcon_fb_unregistered(struct fb_inf
+ 
+ 	console_lock();
+ 
++	if (info->device && dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), NULL);
++
+ 	fbcon_registered_fb[info->node] = NULL;
+ 	fbcon_num_registered_fb--;
+ 
+@@ -3039,6 +3044,10 @@ static int do_fb_registered(struct fb_in
+ 		}
+ 	}
+ 
++	/* Set the fb info for vga_switcheroo clients. Does nothing otherwise. */
++	if (info->device && dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
++
+ 	return ret;
+ }
+ 
+
+
+Patches currently in stable-queue which might be from tzimmermann@suse.de are
+
+queue-6.17/drm-fbcon-vga_switcheroo-avoid-race-condition-in-fbcon-setup.patch
