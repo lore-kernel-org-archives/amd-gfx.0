@@ -4,73 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE38AD116FF
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 08:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25063CFD376
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 08:16:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0FA10E592;
-	Tue,  2 Dec 2025 08:16:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63FDB10E59D;
+	Tue,  2 Dec 2025 08:16:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=networkplumber-org.20230601.gappssmtp.com header.i=@networkplumber-org.20230601.gappssmtp.com header.b="TaDr7HVh";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="RJMoTVd0";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57E010E0CB
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 03:49:03 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-477632d9326so30958835e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Dec 2025 19:49:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=networkplumber-org.20230601.gappssmtp.com; s=20230601; t=1764647342;
- x=1765252142; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:subject:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=Q1Mip76oR/J7pQnuSTihzljgSX9wgGK+T6mAyrxM6Y8=;
- b=TaDr7HVhDMhHFA5/4KFITOc2YvRSMLTx8x+eIHEUGC7YZqQ7Y+3phEqWzo0Asvyroc
- VpHZ8+o81x6v2zEP4TCJkeIucGjy17oj/lC5gDReAV9+nHjG4wcLpeKbMxEr49jHmx+t
- 9s9UUOSZNaSkaigNXcFq5p19CWwkmTx/kn3xDlz8nd+Kat0IRMIfVGppiWL/SGykfT6h
- ZncR8C+8tUjTKe+YXB7ftv9DHT0wo/AzGj7LYhBGBYj6XoW4Y/XBmTM4YM5oj2lb1WOo
- IirX4VM5jN1ygr7woUMBGl0ZisVDrsXZjeO/UEyMW/60XgsgsoQRyDvGLIMYF97+bjop
- mFcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764647342; x=1765252142;
- h=content-transfer-encoding:mime-version:message-id:subject:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Q1Mip76oR/J7pQnuSTihzljgSX9wgGK+T6mAyrxM6Y8=;
- b=mwQAqASO7Zx6vVJLnPnDWCwPUmkps1NFPKtdP9PQQNYvXyeMPjtizsaBBx1veBoNV0
- tfJoc3qdHHnn+0i56K5lv2kDd1bVTlKthF2wACWO6mvhVtYmxEajl/J9ezlTkfUVoEb+
- 8Oz7JJZNEut7SGVy1QqNPu35/OINBW2/tcHOZ2kGfq+jsejsjFOqlzIJQpND5wXTe77g
- psaZotajBYanBdCPejMLWL0icXYIHCb1IDThCNDlYS7nvk/2m/5m/DUGJdd7GtBs21X0
- Uc9CPzdRPAphTW8VINuPYZM7n4sch6Yx/kiILUg92Dt8I+C8B6avr/LrnVb74oHlEekP
- pjpg==
-X-Gm-Message-State: AOJu0YzpVbiOV09Ew+IB8c84A9ZoVCl22BleomrC3eZeh0tniZ9uqZ1U
- p6SoGv9NAxLAp+rhn5idJW6yoLUgSJI2Czmx0Ljxm3RcCHA1zq/xPCCAyDLF/YmG4zGZBoJ2OeP
- EjSKL
-X-Gm-Gg: ASbGncutyONLhfIgBDGqavGEQbZcuzd0qvvFditBMhI/iU+W1lNaniM7ryL98okY6eH
- swXPqtzrqLVq5462me9KtP16BeW54/CfwuIVQ7GPlPwm82Mnw6DLaAmgu/IFi/QXkTXfYu0ku4F
- 9OdlpUK3XzBy/eI3J5H9il/spfL9U/j3U9IyDQ+WFEPYXOtgCFfGmNjSS1AGxr+124ckJaUof29
- 0wfpgsw9JP4+jzYTTapCp7dCm1PMhiHnZKhs86CcEeDR5yjWgoMl/yvZW6t1j6uqzHkYGDLsMoX
- IkhLoaLmX8aYaJJDrEPpWLJ+V7EszOKf0xL8sRiW+J34Jgjqv80fls/pFmS0tf9a9B0JcoQBnUn
- OuGqEriAGyPnjp3vlV3afOkozt3RK644R/KD1Wz3SZuWUqosMgmLvHQJBr+G+YFAVjAoGPC47LV
- JV5r4KSG5yAfHOPaQwjcRJyKMCTp/7jR6vN4lBwq8Ag6Uq+13o+OFl
-X-Google-Smtp-Source: AGHT+IFThOljGVlAloEsaZtpZrqllL7YU+hPnXBGvqqHa5UfsOpKU7fqJ7OaECBGVXHd6acc7rrtow==
-X-Received: by 2002:a5d:5848:0:b0:429:b8e2:1064 with SMTP id
- ffacd0b85a97d-42cc1d19df2mr45191899f8f.47.1764647341771; 
- Mon, 01 Dec 2025 19:49:01 -0800 (PST)
-Received: from phoenix.local (204-195-96-226.wavecable.com. [204.195.96.226])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1c5d614asm30279286f8f.12.2025.12.01.19.48.59
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Dec 2025 19:49:01 -0800 (PST)
-Date: Mon, 1 Dec 2025 19:48:52 -0800
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: amd-gfx@lists.freedesktop.org
-Subject: AMD GPU crash in firefox
-Message-ID: <20251201194852.5f65e5b8@phoenix.local>
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76CAD10E010;
+ Mon,  1 Dec 2025 15:34:43 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dKnyS2nxQz9t7d;
+ Mon,  1 Dec 2025 16:34:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1764603280; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jgphQImo2CsCBeaCQs8YEn7VRVszdQcY1N+6nFeVvP0=;
+ b=RJMoTVd0KT3Am/i7RHmcUdZ67k5CBi+kZl9EEsPD2iE2f9yWC00VfQQQO2/mLq4ICSbzFl
+ WAgy6uiwm5pAQ/ojek1ecv4MOkfHekA8bbcJEUryGB6pq2RPO4M1OsPyMEueel5O26+hmQ
+ 1/Llt1MOxBbvN1T+1THDoJ3uMwBzjAdVCGqsJRpQqWGidV9YTkEODLrJG3lF2NQaTChQFM
+ 8EQx/2yicrNHVndvn8SZOZt8pBkFq0PkJMIje+VIJbUQIwj/DVsVjuF0sPdR/z03JastDN
+ 27Bj6re/HOL2ghT0W3FwWx28bTsxjfM09+AT6/QUN2rkgn2aZ5cf+RJcK0oSug==
+Message-ID: <8eaab4c04fad84bde279ee2cd228fac4f84c5184.camel@mailbox.org>
+Subject: Re: [PATCH v2 2/8] dma-buf/dma-fence: Add dma_fence_check_and_signal()
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Matthew Brost
+ <matthew.brost@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Date: Mon, 01 Dec 2025 16:34:32 +0100
+In-Reply-To: <93a4f4e4-af7a-4c84-a7a2-5db785f2a5a8@amd.com>
+References: <20251201105011.19386-2-phasta@kernel.org>
+ <20251201105011.19386-4-phasta@kernel.org>
+ <80554ed2-4454-489b-873f-533d68c8d2ae@amd.com>
+ <2a9c83b4a428bb3cc993499c39d0da01f9563278.camel@mailbox.org>
+ <93a4f4e4-af7a-4c84-a7a2-5db785f2a5a8@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: b98572e8d9faed18a8e
+X-MBO-RS-META: 51juwjpfinahneyw9wwu3nc86zzu6ucz
 X-Mailman-Approved-At: Tue, 02 Dec 2025 08:16:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,122 +78,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I get random AMD GPU graphics crashes on my system.
-Usually it is when I am using Firefox on one display, but other one continues to work.
-Luckily it clears after auto-suspend, so reboot is not always needed.
+On Mon, 2025-12-01 at 16:20 +0100, Christian K=C3=B6nig wrote:
+> On 12/1/25 14:55, Philipp Stanner wrote:
+> > On Mon, 2025-12-01 at 14:23 +0100, Christian K=C3=B6nig wrote:
+> > > On 12/1/25 11:50, Philipp Stanner wrote:
+> > > > The overwhelming majority of users of dma_fence signaling functions
+> > > > don't care about whether the fence had already been signaled by som=
+eone
+> > > > else. Therefore, the return code shall be removed from those functi=
+ons.
+> > > >=20
+> > > > For the few users who rely on the check, a new, specialized functio=
+n
+> > > > shall be provided.
+> > > >=20
+> > > > Add dma_fence_check_and_signal(), which signals a fence if it had n=
+ot
+> > > > yet been signaled, and informs the user about that.
+> > > >=20
+> > > > Add a counter part, dma_fence_check_and_signal_locked(), which does=
+n't
+> > > > take the spinlock.
+> > > >=20
+> > > > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > > > ---
+> > > > =C2=A0drivers/dma-buf/dma-fence.c | 44 ++++++++++++++++++++++++++++=
++++++++++
+> > > > =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 |=C2=A0 2 ++
+> > > > =C2=A02 files changed, 46 insertions(+)
+> > > >=20
+> > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fenc=
+e.c
+> > > > index 96d72ffc0750..146de62887cf 100644
+> > > > --- a/drivers/dma-buf/dma-fence.c
+> > > > +++ b/drivers/dma-buf/dma-fence.c
+> > > > @@ -445,6 +445,50 @@ int dma_fence_signal_locked(struct dma_fence *=
+fence)
+> > > > =C2=A0}
+> > > > =C2=A0EXPORT_SYMBOL(dma_fence_signal_locked);
+> > > > =C2=A0
+> > > > +/**
+> > > > + * dma_fence_check_and_signal_locked - signal the fence if it's no=
+t yet signaled
+> > > > + * @fence: the fence to check and signal
+> > > > + *
+> > > > + * Checks whether a fence was signaled and signals it if it was no=
+t yet signaled.
+> > > > + *
+> > > > + * Unlike dma_fence_check_and_signal(), this function must be call=
+ed with
+> > > > + * &struct dma_fence.lock being held.
+> > > > + *
+> > > > + * Return: true if fence has been signaled already, false otherwis=
+e.
+> > > > + */
+> > > > +bool dma_fence_check_and_signal_locked(struct dma_fence *fence)
+> > >=20
+> > > I'm seriously considering to nuke all the unlocked variants of dma_fe=
+nce functions and just make it mandatory for callers to grab the lock manua=
+lly.
+> > >=20
+> >=20
+> > You mean "nuke the *locked* variants.
+>=20
+> Sorry, that wasn't specific enough.
+>=20
+> What I meant was making the locked variants the default instead of the un=
+locked ones.
 
-The system is Debian testing on Minisform Atonman G7 PT:
-$ uname -r
-6.17.8+deb14-amd64
-$ lspci | grep Radeon
-03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 33 [Radeon RX 7600/7600 XT/7600M XT/7600S/7700S / PRO W7600] (rev c7)
+Well, no :D
 
-# dmesg | grep amdgpu
-[    2.108329] [drm] amdgpu kernel modesetting enabled.
-[    2.108416] amdgpu: Virtual CRAT table created for CPU
-[    2.108426] amdgpu: Topology: Add CPU node
-[    2.108526] amdgpu 0000:03:00.0: enabling device (0006 -> 0007)
-[    2.108580] amdgpu 0000:03:00.0: amdgpu: initializing kernel modesetting (IP DISCOVERY 0x1002:0x7480 0x1F4C:0xB006 0xC7).
-[    2.108590] amdgpu 0000:03:00.0: amdgpu: register mmio base: 0xFC900000
-[    2.108592] amdgpu 0000:03:00.0: amdgpu: register mmio size: 1048576
-[    2.112195] amdgpu 0000:03:00.0: amdgpu: detected ip block number 0 <soc21_common>
-[    2.112196] amdgpu 0000:03:00.0: amdgpu: detected ip block number 1 <gmc_v11_0>
-[    2.112198] amdgpu 0000:03:00.0: amdgpu: detected ip block number 2 <ih_v6_0>
-[    2.112199] amdgpu 0000:03:00.0: amdgpu: detected ip block number 3 <psp>
-[    2.112200] amdgpu 0000:03:00.0: amdgpu: detected ip block number 4 <smu>
-[    2.112201] amdgpu 0000:03:00.0: amdgpu: detected ip block number 5 <dm>
-[    2.112202] amdgpu 0000:03:00.0: amdgpu: detected ip block number 6 <gfx_v11_0>
-[    2.112204] amdgpu 0000:03:00.0: amdgpu: detected ip block number 7 <sdma_v6_0>
-[    2.112205] amdgpu 0000:03:00.0: amdgpu: detected ip block number 8 <vcn_v4_0>
-[    2.112206] amdgpu 0000:03:00.0: amdgpu: detected ip block number 9 <jpeg_v4_0>
-[    2.112207] amdgpu 0000:03:00.0: amdgpu: detected ip block number 10 <mes_v11_0>
-[    2.112216] amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from VFCT
-[    2.112218] amdgpu: ATOM BIOS: 113-BRT138292-001
-[    2.112880] amdgpu 0000:03:00.0: amdgpu: CP RS64 enable
-[    2.113936] amdgpu 0000:03:00.0: vgaarb: deactivate vga console
-[    2.113937] amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ) feature not supported
-[    2.113990] amdgpu 0000:03:00.0: amdgpu: vm size is 262144 GB, 4 levels, block size is 9-bit, fragment size is 9-bit
-[    2.113995] amdgpu 0000:03:00.0: amdgpu: VRAM: 8176M 0x0000008000000000 - 0x00000081FEFFFFFF (8176M used)
-[    2.113997] amdgpu 0000:03:00.0: amdgpu: GART: 512M 0x00007FFF00000000 - 0x00007FFF1FFFFFFF
-[    2.114082] amdgpu 0000:03:00.0: amdgpu: amdgpu: 8176M of VRAM memory ready
-[    2.114084] amdgpu 0000:03:00.0: amdgpu: amdgpu: 32003M of GTT memory ready.
-[    2.114468] amdgpu 0000:03:00.0: amdgpu: [drm] Loading DMUB firmware via PSP: version=0x07002F00
-[    2.114607] amdgpu 0000:03:00.0: amdgpu: Found VCN firmware Version ENC: 1.24 DEC: 9 VEP: 0 Revision: 22
-[    2.171535] amdgpu 0000:03:00.0: amdgpu: reserve 0x1300000 from 0x81fc000000 for PSP TMR
-[    2.267750] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
-[    2.275339] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
-[    2.275340] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: optional securedisplay ta ucode is not available
-[    2.275368] amdgpu 0000:03:00.0: amdgpu: smu driver if version = 0x00000035, smu fw if version = 0x00000040, smu fw program = 0, smu fw version = 0x00525e00 (82.94.0)
-[    2.275370] amdgpu 0000:03:00.0: amdgpu: SMU driver if version not matched
-[    2.316195] amdgpu 0000:03:00.0: amdgpu: SMU is initialized successfully!
-[    2.316529] amdgpu 0000:03:00.0: amdgpu: [drm] Display Core v3.2.340 initialized on DCN 3.2.1
-[    2.316531] amdgpu 0000:03:00.0: amdgpu: [drm] DP-HDMI FRL PCON supported
-[    2.318380] amdgpu 0000:03:00.0: amdgpu: [drm] DMUB hardware initialized: version=0x07002F00
-[    2.374675] amdgpu 0000:03:00.0: amdgpu: [drm] PSR support 0, DC PSR ver -1, sink PSR ver 0 DPCD caps 0x0 su_y_granularity 0
-[    2.506774] amdgpu 0000:03:00.0: amdgpu: [drm] PSR support 0, DC PSR ver -1, sink PSR ver 0 DPCD caps 0x0 su_y_granularity 0
-[    2.675018] amdgpu 0000:03:00.0: amdgpu: [drm] PSR support 0, DC PSR ver -1, sink PSR ver 0 DPCD caps 0x0 su_y_granularity 0
-[    2.739109] amdgpu: HMM registered 8176MB device memory
-[    2.740314] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
-[    2.740323] kfd kfd: amdgpu: Total number of KFD nodes to be created: 1
-[    2.740361] amdgpu: Virtual CRAT table created for GPU
-[    2.740456] amdgpu: Topology: Add dGPU node [0x7480:0x1002]
-[    2.740457] kfd kfd: amdgpu: added device 1002:7480
-[    2.740468] amdgpu 0000:03:00.0: amdgpu: SE 2, SH per SE 2, CU per SH 8, active_cu_number 32
-[    2.740472] amdgpu 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
-[    2.740474] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
-[    2.740475] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
-[    2.740476] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
-[    2.740478] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
-[    2.740479] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
-[    2.740480] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
-[    2.740481] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
-[    2.740482] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
-[    2.740483] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
-[    2.740484] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM inv eng 13 on hub 0
-[    2.740486] amdgpu 0000:03:00.0: amdgpu: ring vcn_unified_0 uses VM inv eng 0 on hub 8
-[    2.740487] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 1 on hub 8
-[    2.740488] amdgpu 0000:03:00.0: amdgpu: ring mes_kiq_3.1.0 uses VM inv eng 14 on hub 0
-[    2.741815] amdgpu 0000:03:00.0: amdgpu: Using BOCO for runtime pm
-[    2.742103] [drm] Initialized amdgpu 3.64.0 for 0000:03:00.0 on minor 0
-[    2.747107] fbcon: amdgpudrmfb (fb0) is primary device
-[    2.945928] amdgpu 0000:03:00.0: [drm] fb0: amdgpudrmfb frame buffer device
-[    5.878002] snd_hda_intel 0000:03:00.1: bound 0000:03:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
+What you want to do is:
+- Delete / deprecate the *locked* variants
+- Force all users to take the fence lock manually, then use the (now
+all unlocked) dma fence functions.
 
-[ 7820.648000] amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:80:crtc-0] flip_done timed out
-[ 8817.492261] amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
-[ 8817.492272] amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:80:crtc-0] commit wait timed out
-[ 8827.732082] amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
-[ 8827.732094] amdgpu 0000:03:00.0: [drm] *ERROR* [PLANE:77:plane-6] commit wait timed out
+ACK?
 
-[15098.101360] amdgpu 0000:03:00.0: amdgpu: MODE1 reset
-[15098.101368] amdgpu 0000:03:00.0: amdgpu: GPU mode1 reset
-[15098.101534] amdgpu 0000:03:00.0: amdgpu: GPU smu mode1 reset
-[15100.933194] amdgpu 0000:03:00.0: amdgpu: PSP is resuming...
-[15100.989233] amdgpu 0000:03:00.0: amdgpu: reserve 0x1300000 from 0x81fc000000 for PSP TMR
-[15101.085342] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
-[15101.092952] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
-[15101.092953] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: optional securedisplay ta ucode is not available
-[15101.092955] amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
-[15101.092958] amdgpu 0000:03:00.0: amdgpu: smu driver if version = 0x00000035, smu fw if version = 0x00000040, smu fw program = 0, smu fw version = 0x00525e00 (82.94.0)
-[15101.092960] amdgpu 0000:03:00.0: amdgpu: SMU driver if version not matched
-[15101.135102] amdgpu 0000:03:00.0: amdgpu: SMU is resumed successfully!
-[15101.144351] amdgpu 0000:03:00.0: amdgpu: [drm] DMUB hardware initialized: version=0x07002F00
-[15101.471792] amdgpu 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
-[15101.471796] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
-[15101.471797] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
-[15101.471798] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
-[15101.471799] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
-[15101.471800] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
-[15101.471801] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
-[15101.471802] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
-[15101.471803] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
-[15101.471804] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
-[15101.471805] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM inv eng 13 on hub 0
-[15101.471806] amdgpu 0000:03:00.0: amdgpu: ring vcn_unified_0 uses VM inv eng 0 on hub 8
-[15101.471807] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 1 on hub 8
-[15101.471808] amdgpu 0000:03:00.0: amdgpu: ring mes_kiq_3.1.0 uses VM inv eng 14 on hub 0
-[16260.283220] amdgpu 0000:03:00.0: amdgpu: VM memory stats for proc RDD Process(12593) task firefox-es:cs0(5217) is non-zero when fini
-[16260.367845] amdgpu 0000:03:00.0: amdgpu: VM memory stats for proc firefox-esr(5175) task firefox-es:cs0(5055) is non-zero when fini
+>=20
+> >=20
+> > Why, though? Aren't they enough for most users?
+> > I suppose you have all those subtle races in mind..
+>=20
+> Yeah, exactly that.
+>=20
+> >=20
+> > > > +{
+> > > > +	bool ret;
+> > > > +
+> > > > +	ret =3D dma_fence_test_signaled_flag(fence);
+> > > > +	dma_fence_signal_locked(fence);
+> > > > +
+> > > > +	return ret;
+> > > > +}
+> > > > +EXPORT_SYMBOL(dma_fence_check_and_signal_locked);
+> > > > +
+> > > > +/**
+> > > > + * dma_fence_check_and_signal - signal the fence if it's not yet s=
+ignaled
+> > > > + * @fence: the fence to check and signal
+> > > > + *
+> > > > + * Checks whether a fence was signaled and signals it if it was no=
+t yet signaled.
+> > > > + * All this is done in a race-free manner.
+> > > > + *
+> > > > + * Return: true if fence has been signaled already, false otherwis=
+e.
+> > > > + */
+> > > > +bool dma_fence_check_and_signal(struct dma_fence *fence)
+> > >=20
+> > > So I think we should name this one here dma_fence_check_and_signal_un=
+locked() and drop the postfix from the locked variant.
+> >=20
+> > postfix?
+> >=20
+> > Well, now, IDK. Can't we, for this series, keep the _locked() variant
+> > so that it's congruent with all the other dma_fence code?
+>=20
+> Good point. That thought was not really related to this series here.
+
+OK, then let's progress with this here for now.
+
+
+P.
+
+>=20
+> >=20
+> > And then later if you want to force manual locking you can add that
+> > kernel-wide in a separate series, since it'll be a discussion-worthy,
+> > bigger chunk of work.
+> >=20
+> > That's cleaner, and my series here won't prevent that once merged.
+> >=20
+> > >=20
+> > > > +{
+> > > > +	unsigned long flags;
+> > > > +	bool ret;
+> > > > +
+> > > > +	spin_lock_irqsave(fence->lock, flags);
+> > > > +	ret =3D dma_fence_check_and_signal_locked(fence);
+> > > > +	spin_unlock_irqrestore(fence->lock, flags);
+> > >=20
+> > > Could this use guard(fence->lock, flags) ?
+> >=20
+> > guard? You mean a lockdep guard? Do you have a pointer to someplace in
+> > dma_fence who does what you mean / want?
+>=20
+> E.g. like guard(spinlock_irqsave)(&fence->lock);
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> >=20
+> > P.
+> >=20
+> > >=20
+> > > Regards,
+> > > Christian.
+> > >=20
+> > > > +
+> > > > +	return ret;
+> > > > +}
+> > > > +EXPORT_SYMBOL(dma_fence_check_and_signal);
+> > > > +
+> > > > =C2=A0/**
+> > > > =C2=A0 * dma_fence_signal - signal completion of a fence
+> > > > =C2=A0 * @fence: the fence to signal
+> > > > diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> > > > index 19972f5d176f..0504afe52c2a 100644
+> > > > --- a/include/linux/dma-fence.h
+> > > > +++ b/include/linux/dma-fence.h
+> > > > @@ -365,6 +365,8 @@ static inline void __dma_fence_might_wait(void)=
+ {}
+> > > > =C2=A0#endif
+> > > > =C2=A0
+> > > > =C2=A0int dma_fence_signal(struct dma_fence *fence);
+> > > > +bool dma_fence_check_and_signal(struct dma_fence *fence);
+> > > > +bool dma_fence_check_and_signal_locked(struct dma_fence *fence);
+> > > > =C2=A0int dma_fence_signal_locked(struct dma_fence *fence);
+> > > > =C2=A0int dma_fence_signal_timestamp(struct dma_fence *fence, ktime=
+_t timestamp);
+> > > > =C2=A0int dma_fence_signal_timestamp_locked(struct dma_fence *fence=
+,
+> > >=20
+> >=20
+>=20
+
