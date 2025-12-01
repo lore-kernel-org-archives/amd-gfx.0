@@ -4,170 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3016D116F3
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 16:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C09AED116F1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 16:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40A1D10E421;
-	Mon,  1 Dec 2025 16:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54A0E10E148;
+	Mon,  1 Dec 2025 16:41:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1pOx1JuB";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="AnfnCLhs";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gK87lDIX";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="weLu5IwR";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZcRQ8KPQ";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010010.outbound.protection.outlook.com [52.101.61.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D82610E409;
- Mon,  1 Dec 2025 16:08:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VQqBI4z9/Fqnm6Y0x2AOJ3lqbEPcPhDyG/VCxqPtvCQ/B+H+pjW+l1Z2zbAg309t6fmmFai0arGAgAYg6lT67/DR0DuzLBFDFmTlVQvK6PWJZRE2p44PqD0wrrwk2pS9M/ZCOAsygJaCe7C9wrPHeFWW1+Pe0zqxae+ddBDWF0piupcher3tLafYWE0/cWm2RmC78w3RWZyLwTRWixZ/UyZ+ckhH+EZ1a2e9JMrduw+7Pmvgm9vNZWDQTaBf9smtcrccmlqQTmQsdYLZH7fK26iqjwSNa0xcJ235uw/hu+YBwercSf1sIWxQZuhZEdAx9GdLXONMP5Qwj6BtwjsVGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DNQcfMPWK2u9QzNMBHGetnKo8pgbPYhwTKfEBnruC+A=;
- b=qLW3ovBtvrNzN1kptPe0ayotNs5ahCTJLZnyXzNxdbj0DEQxqhF2CRMo796nkhkfYGdxkXklAMn283u1Q7b5TW/KUuuAza62zfDY6h/4tYJJJypCMpX+dvgvA2ZlZrh+I8d4tDOrvJCCD1W9mILvqWeAbtnVF8Lafi0nlICW6xRCcW4N07v7dpXk4iLBhB5XVjMkL9z6qqYGOUkoIzYnoxIDBu/TJyLA2DK52uZ7KCx2IcqGboz0dZdmDvsW0kHZ7Fwj18YYl3l6N1u2emojszS0ohECUvbCZFJaDPB/YGuB9HgmXZPVcQJ1jrgfP6/pjEiQm+9mchTYXXe7XXm2Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DNQcfMPWK2u9QzNMBHGetnKo8pgbPYhwTKfEBnruC+A=;
- b=1pOx1JuBmhlxhcVpnx0TrEWX1gEV5cvw35RRPUCKHPfAaMAhpMch6Rq331oe+HKbcewXwf2b7ONU1Gc6tupCkPJe/8Nh608EMJgEie2LivDd5h/3yR1df5r56qCYrouhaV848tKJEaZG6ZFEPLkDZbKTEAdpnn9XTltO9u82iyo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB9491.namprd12.prod.outlook.com (2603:10b6:806:458::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
- 2025 16:08:18 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9366.012; Mon, 1 Dec 2025
- 16:08:18 +0000
-Message-ID: <07cd6a0c-9975-48ef-bb2e-5e53a042888e@amd.com>
-Date: Mon, 1 Dec 2025 17:08:10 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] dma-buf/dma-fence: Add dma_fence_check_and_signal()
-To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-References: <20251201105011.19386-2-phasta@kernel.org>
- <20251201105011.19386-4-phasta@kernel.org>
- <80554ed2-4454-489b-873f-533d68c8d2ae@amd.com>
- <2a9c83b4a428bb3cc993499c39d0da01f9563278.camel@mailbox.org>
- <93a4f4e4-af7a-4c84-a7a2-5db785f2a5a8@amd.com>
- <247185f833edd075cd4aac8c39ac8ae5b5aabe07.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <247185f833edd075cd4aac8c39ac8ae5b5aabe07.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0375.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f8::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6832310E148
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 16:41:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DAF4B336FF;
+ Mon,  1 Dec 2025 16:41:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1764607284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
+ b=AnfnCLhs6wM+/O3GKNDu4P/TD/vLQpqznkQqMP2gT9u4NKfGhgPZJBPEL7ZhStIV/dMQ6a
+ Jbgiktj9YhbRcXTKlBjKbyQYip8Us6a2HzOL7QYDibyzKBMMRCv+YL+I2dXX1UoXC5b5fW
+ 7ECmRKmY9VVGH8Gv1Z9FT00n0OWRTxY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1764607284;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
+ b=gK87lDIXCYXfris5Aie/JnlTAkeMjnAtQUSUZlJZGHl/Ze9ZH6I9qX7HUbLMGHsRIpHqgb
+ mU6ySmUXuYko1KDA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=weLu5IwR;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ZcRQ8KPQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1764607282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
+ b=weLu5IwRgNOSHzGZ8XbnW3cqXyZt1xugaSaPVugM1GCtvXJtlStL894BCbR4LiSx3V6iEb
+ YSSmTv+FnKNo9kAIqU5vX5CDxZsfBLvGlAU4F9p11pB71uVDkGANKveZXM+QrPIBiYzX10
+ iQvCxOEdroj2NccrQbI6chLqsOK1P7o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1764607282;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wDiBR4Q7ybuHyM6ZkzXOPvizNEbGxQNP9Ce0mkV1K6Q=;
+ b=ZcRQ8KPQwfjic6IbsKestp+VP/i2eQFNmB409nfhxbPZaGdNgSTRqhJzUls8iOJTmfM6X2
+ Tyc5IHT6bLFQ5QAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61F803EA63;
+ Mon,  1 Dec 2025 16:41:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id xs95FjLFLWmYYwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 01 Dec 2025 16:41:22 +0000
+Message-ID: <0ffe6198-bd3d-44f7-82bc-225e6dfd69b2@suse.de>
+Date: Mon, 1 Dec 2025 17:41:21 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB9491:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6f079be-d283-4258-3fd5-08de30f3d776
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UzNCaWZoOGdlaG1Oc2VOMk1KVU0zZG9idEZhSTk1SzlHRmltTjV1eEtxTDRB?=
- =?utf-8?B?eUo3MWVJaFlZcjN6SmpMNWNhZ1VKWjBNWHBIQzVNdldtTzFXaGdmUlk5RUg3?=
- =?utf-8?B?bmhIZGNKWWc4Y3B1akZMUHVUa1diRUJhYmhVdnY0Q0FFeGNibkFRcWZZNmpu?=
- =?utf-8?B?TmJBQm5OMVMxYXg5RXlCeHB5Zjc2REtLNjdrWW1KZlFnZEhFSXMvREdyMmdD?=
- =?utf-8?B?N0hoQzVzOVFoc1ZHZzk5U0RCTjRUcjBPTGZ5MFU3ZW9BMEcxR0N4Vnhsejls?=
- =?utf-8?B?WW9FZi9CRWxCZ203VUd6eWg3UHVId0hjOXdvaHlCamZSSFNhb3JENG1sZFpX?=
- =?utf-8?B?V3ZzRVU5OHY4WEpPckFiUzA4RTRNb2ZMQnF2a1NjVlJFNU4ySUwvMGoxVTVG?=
- =?utf-8?B?Q2h4THE3ZEFPclJ4cUpFM2t1c1lNRkdFelZrTU8wWGg3bTU0OVNtRk9kRHNR?=
- =?utf-8?B?amNYT2hBQ2wzZ0k1c1g4Sk1VVkk5VFUzZmNIYzI0cjRtK0RTd2ZScHZ1WTgz?=
- =?utf-8?B?MHFxcndyY1FqRDUwSHMzdUt6VTZaMy9YTmZqYmgvNURJTnlBekNOWUdzbHNp?=
- =?utf-8?B?YlFoUXYrdUFYekxVNGFOVWYzZnNkRXpXY044SW56MVB3emJSSmgwa0NxTTNp?=
- =?utf-8?B?cHlnYVpjaCs5ZitJZEhHZVdKLzJJTUZnUWY5L0RXN3c2TmRzVlpqSGVTZW1W?=
- =?utf-8?B?S0kyYnk5NWpCajY5VFBDc2QyV0doMkJSN3JXbTBlMkhkbExJUmdHdytiYnkr?=
- =?utf-8?B?Ri94VThNcjFtdXMyb2dSbG1MaUQrdCtib2pKbE5JczNpZ254OWoramEvUWg1?=
- =?utf-8?B?aTBDN21OMmdFMXFRQ05ndnBPNG5UZHh1UUNvQ2llQnpoUWd0QzcrQVZLT1JH?=
- =?utf-8?B?VmxsV253ZmRNWmdPTGVIdGYzS1lhV0pEZFkyMWNkMVMxN0kyTXRXWnkxbU5k?=
- =?utf-8?B?N2YvZVpRWVdxL20zRTNIaTdQUGtIU2JPRHJ3VDBZSEFQb29McVRIeExIK1Jz?=
- =?utf-8?B?ZWJheSt3YjR5M2ZFaitBUkwzelVBaEM4SlZnU2pQVU1aekdsT2Rtb2hZTTFa?=
- =?utf-8?B?b3Uxa2kydDVRNE4wSDBsVDV6emlYajQwQ2NQSkFzYWIybkF6MElVMWZjRWti?=
- =?utf-8?B?VFJmQklRMEg5QktBMFN6OXhxV3BHL0pJb3dpZVlOZFp3Ny9zNnlqQUxCbGp4?=
- =?utf-8?B?L0VhVnB5QW1PMDN2cXMrMFBFYStqOXoxMTMzbmxCSGhHR3NnRDRoRHJHODhR?=
- =?utf-8?B?c01rRi80b3NEWlVvaGNHWFJYcG1FbWQrRSs2Vm9iY09ZTlFOVHJkalcrb2pQ?=
- =?utf-8?B?eDF6Q1NKM2dsTUlESmdjUjluMGFVTlRsTEpxbkdMOU5uSEoyd2VyaEd1UDVD?=
- =?utf-8?B?SVVyMUViek52cDRkcytISms4VFh3M1ZRTW9rT0c1MFV6UjhFZGJNZlZ1Zlkz?=
- =?utf-8?B?M1pXQzdIL1BZZGcrbzJQak9NMHhRZml3WDhRd2pBRU5UaSt3a2xwbFhYbHNo?=
- =?utf-8?B?VU94V1gzd2dMbi84ZzVGQ29jT05Fd2ZqeU1oSEVUVmlDRU9ocWJuMDFPM0l2?=
- =?utf-8?B?WFd5Z3FleEJlUjVTSTJmbTdTU0ZHNzZGaW96QTZsMFRFNFRRSU9hbi9UZEky?=
- =?utf-8?B?Wjk0WWVHbGFDTDBjcFJjakVMUVVuQitkLzViQnZSZWUrckJKUDhPdkVZVkYz?=
- =?utf-8?B?RkpFbjlkWjFaY0JBOFl4dEExRVc4WFM5VGI1c0VvTkNVM05DYVpmdmVLTU9B?=
- =?utf-8?B?MHJwNFFhNGlBdVM0b1hqNmtyYnlpandJYk93d05LZy9UUmlJRFAxSHdFTEtB?=
- =?utf-8?B?RGpYdzI3VDM3T3VBc1hBY25LME9XWFZJYUN4M1JXLytBS3JnWjJnMEpoNzcx?=
- =?utf-8?B?VklQSTloWmkrcGk1ZUQ2Q3FBd25HQjh2Q0Fid1c4c1VRbUpXMFFxVG93NXNY?=
- =?utf-8?B?VllEaEIyN1dpS1YxRFo2cmtFaklhMG83MzFrOE9aUEg5Q1JDVEp5TFF5dmRC?=
- =?utf-8?Q?/afX3TNFWCspwBwDR5QvOwDRtCinXc=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0UrK1ArOWNWVEk2U3BUc205NXNJbW44Uno2aXVYWElOSU44a0wxc0FLRmYx?=
- =?utf-8?B?MlBhR0NoMi80cExKZkJ0VFM5ZDVaS213c1ZFd2JZWkJET2JYVDZwL1dsd1Ex?=
- =?utf-8?B?VHlYY1paT3kzT2JEL1VFd25wQVlXZEcva2dsckRUUS9JL3lMMHRKSEhyai9C?=
- =?utf-8?B?TUZYRksxMUI2aDhVdlByZ1pDS0RCQnMycUVlNUVvRXlBUFNvVStBU1FsN3Ix?=
- =?utf-8?B?UXplZkxwQWNLcVJLMTNyTUxsSktVMTRBR3RtTjJYc1pOZDNhNGRkenBPd0Z5?=
- =?utf-8?B?dUVLbWFNdWYxaHhuQzJpWm9JTkhCMk5qcDJaT2dlc3hFVHBzSUY5Q1g1REg2?=
- =?utf-8?B?eEVvZ0g5ZXhIb2hoMjhPU1FGVHI2d1NLeWZlMDA5UkwveUlqanFtNDU3bnRs?=
- =?utf-8?B?NW5aQzBOVEZzREtaOSs0R0tHYWMvL1BvS1A3UEZuNWtIS0ZiNlNONnh3RXpt?=
- =?utf-8?B?cHkvaFVCR254NGZBeWJzV2psWlpSWHZGdGJwOUpzQWNxWjc3ZE40TWpxREJC?=
- =?utf-8?B?RWR0eUQ2dEhMMVpKZE1FdHBwNHBvOWkwbHZKUC9SYVc2QjJLT2JHYzFDZWxU?=
- =?utf-8?B?RTBrcXh6VlAwZmR2Z1VLd0lLMlBSeEtvMGdQOUxtcTBDMGZTQVVUc215TEMy?=
- =?utf-8?B?Qyt4MnlhK20rS2w5Z1k4cXV5NUdDd2lUTTFSWG55MlBEV2Qyb25hY1RBLzNI?=
- =?utf-8?B?Zmt2bTkzM0FhdzM1REpjNENKRjFIU0FaSVNsZXU1RS9rYTdIVVAvSzY5WUov?=
- =?utf-8?B?Zkp3Rk5RckF0UXRsMndtaG15SWR4Qnh2NEI1Vk9ORXhwdDU2aFdPalRZZ1o2?=
- =?utf-8?B?SVFqVk5hL2ZRNnFvaGVPL1NuMUpvaHJDb1VlRWppYzlJWS9OZXJIQzVrV3RD?=
- =?utf-8?B?NWZhZjVYckg3cFFOckt2UDBKSUpxT3JjNEU4Q3Rnbk9RdnpDb2RKYldYSDN2?=
- =?utf-8?B?c290VWl4WVhXaC95eldiYmcrVmRqSVNjOTZTUXlzZHR0Z2FQa2FvMVJyWDcx?=
- =?utf-8?B?ZWlkbmF3RDJXL0lQQTdna0ZqcHloU0ZTNzVqdkZuSWJnKzNuZkdaMDVWWXd4?=
- =?utf-8?B?eklWUVVVaGZSdi9JeHZISFdtVEcrWDhkbHg5ek9kd2JYdmIxRFZHYmo0N3Ev?=
- =?utf-8?B?OWFzVnNXcmY3aEpJOHpxajJRaVNmZkoxdFZnSTN1U0dHNFJSOXFyVWc1R3Zo?=
- =?utf-8?B?ZWlhRTZqREpDTjQzWTExTTdiMTRTNjFHb09USjFHV1VjZXJpK2RkMXNLR0ZN?=
- =?utf-8?B?clBONHZZc0NSZ0NINkpUWk12Y1FncTh0bXlvWE1iUmM4MUJ1VnR2eHRRbDJJ?=
- =?utf-8?B?djRpS2hJZ3FxYVFVaFp5MXlvYXBpNDhuVDFSU003RzRUOEVZMUVYS1kzVml6?=
- =?utf-8?B?T0xPcTJqR2FOSmJFbFJDYk52VlNuWEMreU1RYWFXdnZYZ3FmNTZLdXN2TXdj?=
- =?utf-8?B?YVoyR2lSaFoycTlHb2J3cDYxSWQ5SFhzTFdkdm5pT3l6MlRnWE5sYkdpMmho?=
- =?utf-8?B?TDVOZnA4R1VocnpUUVczNVY5eDNDYUhFL20zSlR2VDY2ZE1xUnRzN1ZHeDZH?=
- =?utf-8?B?cTZ4SDBqNkdNdlkxanJ0TEg0VUZUMFJDK1pnUDVCTDVDY1dvQlZ4WkVmaFFW?=
- =?utf-8?B?Y3RYR0ROaFZIQ0d3dDJpMjN1OXFxUzk0V0JGSE41TnU0M3NRSllLWW1ZaEZL?=
- =?utf-8?B?d2dvZ1FFcFladXQzenpxVUE4a0JSM1VrWDZUNmFQODdjMDYrVDFFRW9ZVE10?=
- =?utf-8?B?RlA3QUZnV21FZVZRYU5ON2M5amJ2RUo0M01CY1YvT3dJQVQ0OUUycnlheERp?=
- =?utf-8?B?TnpuVUxlekd6WVJEakFSRUM5VHpnK0dhNUlDS05SOU5wQ00yUkFMdkU4ZW9S?=
- =?utf-8?B?NW9LN3k4a0ZZdklaazhSR0FlSUJKenZJNHpKUmp0K1phcFlaYW5veW83d0tu?=
- =?utf-8?B?dm9NN3BwMWVRVk1DWmloRHVFZjBMbVVxVGs3Zlc4VG4ydlZYQXNiVEFTaisr?=
- =?utf-8?B?V1JIT1YwQzllMkpXMEY1M3FVMWdpVW5qejRic1QvckE3QjdBUFI0QktQNzFQ?=
- =?utf-8?B?SEx5bmdmRUpSMU9TRGFIcXNzbXc4cnA1RFg3N3Ird2tZSkNndDRhQzcwMzVs?=
- =?utf-8?Q?gE0koRg7VG/XdHYt57DCzeRWf?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6f079be-d283-4258-3fd5-08de30f3d776
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 16:08:18.4720 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mgQRxBPN74kv78/o2oQVwgVU6jEND5G2Yo5VzZH5ef7OrDQnn2LB1DjYlyOHY+72
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9491
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] drm: Remove remaining support for kdb
+To: simona@ffwll.ch, airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, lyude@redhat.com, dakr@kernel.org, deller@gmx.de,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ jason.wessel@windriver.com, danielt@kernel.org, dianders@chromium.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20251125130634.1080966-1-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20251125130634.1080966-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[18];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,amd.com,redhat.com,kernel.org,gmx.de,linux.intel.com,windriver.com,chromium.org];
+ MID_RHS_MATCH_FROM(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ TO_DN_NONE(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: DAF4B336FF
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,62 +150,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/1/25 16:53, Philipp Stanner wrote:
-> On Mon, 2025-12-01 at 16:20 +0100, Christian König wrote:
->> On 12/1/25 14:55, Philipp Stanner wrote:
->>> On Mon, 2025-12-01 at 14:23 +0100, Christian König wrote:
->>>> On 12/1/25 11:50, Philipp Stanner wrote:
->>>>> The overwhelming majority of users of dma_fence signaling functions
->>>>> don't care about whether the fence had already been signaled by someone
->>>>>
->>>
-> 
-> […]
-> 
->>>>
->>>>> +{
->>>>> +	unsigned long flags;
->>>>> +	bool ret;
->>>>> +
->>>>> +	spin_lock_irqsave(fence->lock, flags);
->>>>> +	ret = dma_fence_check_and_signal_locked(fence);
->>>>> +	spin_unlock_irqrestore(fence->lock, flags);
->>>>
->>>> Could this use guard(fence->lock, flags) ?
->>>
->>> guard? You mean a lockdep guard? Do you have a pointer to someplace in
->>> dma_fence who does what you mean / want?
->>
->> E.g. like guard(spinlock_irqsave)(&fence->lock);
-> 
-> 
-> Hmm, but why?
-> It's obvious to all readers that I do spin_unlock_irqrestore() here.
-> It's very simple code, lock, 1 line, unlock. What would the guard
-> improve?
+Series has been acked by Sima via IRC. Patches 4 and 5 have been r-b'ed.
 
-Well you can save using the local variables.
+https://people.freedesktop.org/~cbrill/dri-log/?channel=dri-devel&highlight_names=&date=2025-12-01&show_html=true
 
-So this:
 
-	unsigned long flags;
-	bool ret;
+Am 25.11.25 um 13:52 schrieb Thomas Zimmermann:
+> Remove the rest of the kbd support from DRM. Driver support has been
+> broken for years without anyone complaining.
+>
+> Kdb cannot use regular DRM mode setting, so DRM drivers have to
+> implement an additional hook to make it work (in theory). As outlined
+> by Sima in commit 9c79e0b1d096 ("drm/fb-helper: Give up on kgdb for
+> atomic drivers") from 2017, kdb is not compatible with DRM atomic mode
+> setting. Non-atomic mode setting meanwhile has become rare.
+>
+> Only 3 DRM drivers implement the hooks for kdb support. Amdgpu and
+> nouveau use non-atomic mode setting on older devices. But both drivers
+> have switched to generic fbdev emulation, which isn't compatible with
+> kdb. Radeon still runs kdb, but it doesn't work in practice. See the
+> commits in this series for details
+>
+> Therefore remove the remaining support for kdb from the DRM drivers
+> and from DRM fbdev emulation. Also remove the hooks from fbdev, as
+> there are no fbdev drivers with kdb support.
+>
+> If we ever want to address kdb support within DRM drivers, a place to
+> start would be the scanout buffers used by DRM's panic screen. These
+> use the current display mode. They can be written and flushed without
+> mode setting involved.
+>
+> Note: kdb over serial lines is not affected by this series and continues
+> to work as before.
+>
+> Thomas Zimmermann (5):
+>    drm/amdgpu: Do not implement mode_set_base_atomic callback
+>    drm/nouveau: Do not implement mode_set_base_atomic callback
+>    drm/radeon: Do not implement mode_set_base_atomic callback
+>    drm/fbdev-helper: Remove drm_fb_helper_debug_enter/_leave()
+>    fbcon: Remove fb_debug_enter/_leave from struct fb_ops
+>
+>   Documentation/process/debugging/kgdb.rst    |  28 -----
+>   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  35 ++-----
+>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  35 ++-----
+>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  35 ++-----
+>   drivers/gpu/drm/drm_fb_helper.c             | 108 --------------------
+>   drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  24 +----
+>   drivers/gpu/drm/radeon/atombios_crtc.c      |  74 ++++----------
+>   drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  23 ++---
+>   drivers/gpu/drm/radeon/radeon_mode.h        |  10 +-
+>   drivers/video/fbdev/core/fbcon.c            |  24 -----
+>   drivers/video/fbdev/core/fbcon.h            |   1 -
+>   include/drm/drm_fb_helper.h                 |  21 ----
+>   include/drm/drm_modeset_helper_vtables.h    |  23 -----
+>   include/linux/fb.h                          |   4 -
+>   14 files changed, 63 insertions(+), 382 deletions(-)
+>
+>
+> base-commit: 0a21e96e0b6840d2a4e0b45a957679eeddeb4362
 
-	spin_lock_irqsave(fence->lock, flags);
-	ret = dma_fence_check_and_signal_locked(fence);
-	spin_unlock_irqrestore(fence->lock, flags);
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-	return ret;
-
-Becomes just:
-
-	guard(spinlock_irqsave)(&fence->lock);
-	return dma_fence_check_and_signal_locked(fence);
-
-Regards,
-Christian.
-
-> 
-> 
-> P.
 
