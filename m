@@ -4,85 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC04D111A8
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 08:20:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85890D116E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 08:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE8B10E2E9;
-	Mon,  1 Dec 2025 08:20:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 238FE10E2EC;
+	Mon,  1 Dec 2025 08:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KGBmiUQ7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QT5ULolB";
 	dkim-atps=neutral
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F6E410E173
- for <amd-gfx@lists.freedesktop.org>; Sun, 30 Nov 2025 13:48:10 +0000 (UTC)
-Received: by mail-io1-f50.google.com with SMTP id
- ca18e2360f4ac-949325df6c8so183343839f.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 30 Nov 2025 05:48:10 -0800 (PST)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B947D10E2CC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 07:53:08 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-297dd95ffe4so33460225ad.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 30 Nov 2025 23:53:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764510489; x=1765115289; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=eiQ3eFN12BMemKB9ngyDX/zYtCqwPFyCoway1CJnXQo=;
- b=KGBmiUQ7RThdWebxJtTti8LVZ6Xqg8KnV16X4ZVtql68qgwo/hAutGnOr9p433uaiV
- +v5Gn3cyR0Fp8t9Ro0YYKtETOI35pGj1nV16q0wnm/ICLNlve3qfqjIE4M9xCd6QJCCf
- IJ2eSBa5udTE/ymEhEuHtBdCvHRr6lWXeOe19HXRfRQ3O7dowtdkAplyUJqD1w2ep/pd
- 4MHCGFONpDgWBKkhHk0wRkRLx6/MsKoH0l4Un27BZGYkr5aeWPA+YY8uvquFWQhkshkL
- lHDS1KgF/f0jdgczcTvxgY3jV86Sz98z0O4ZQ1IdW2aV9LQG5rINPk4EUi7a6f3EK8FH
- OEGw==
+ d=gmail.com; s=20230601; t=1764575588; x=1765180388; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=gaVAYubTTHnTVtytpaBYGZFzgOCnLstoEySaefvC3iw=;
+ b=QT5ULolB2sRbWWyjKiYyvmorz4jQWhKfIT803yIbdGX7TVLagbPmvgfpDjKlgp3igS
+ GDLSpkNcptJjRGuBhCC7xoMWqDSnx0h9M1cfpQh+uh7xrz6yNMZvnCez+R0ytuZvEuyo
+ le79PoN/jqnkq/AZjIPgRSs3E1X49Re6rfkDTIfjynj0iTX636E8yTtyLIkm4fiOrT5q
+ /BEPyGA+xSkeGPJqjkykNO8wV7oi2eN6C+Gc0g+2UgcrMMXBamvOEnuFfs50PHK9uh9V
+ qI7WImo7gT42pG7TXtlsHgHt+ch2MVTitttG1PyRZMqZ7qpuEMOKwxNV6gZbAJvZdZlo
+ /b8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764510489; x=1765115289;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=eiQ3eFN12BMemKB9ngyDX/zYtCqwPFyCoway1CJnXQo=;
- b=qB5eF1dYjxNW5hhTJ8zfQXBFotHllEyLE3HubMsGaHYUS+1ovlmYEBT/9y68K0Im7L
- LiQdYG2az6mKEIPfkcLBVwc5hHR4Sil/2YjcyyjtulvHjToL/BmR6HkjPY4rAqNRTomx
- m+H+SucSpz7+xsVUuHawr6p0507MnSiuPREa1JFDX+iszE5rrtnTNxIviz5UwMKA2VUx
- G1e1G6GcrZust97fz1TP6pUMNUo8n5OwZ9HQbHE5laI67bpT4DKGbtr4z7KkLDWl3B7q
- LQqhtW+EHfIaDLBL+uI1u5SUjfJ+M0FV0jkOZBvkzMRQnU3JX0tqmaVGiUMuPJqGjNG2
- tC5g==
+ d=1e100.net; s=20230601; t=1764575588; x=1765180388;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gaVAYubTTHnTVtytpaBYGZFzgOCnLstoEySaefvC3iw=;
+ b=Qt39Hy8S/VdIACvEbPRr2w5DMbK8ZJesHcKVoTkvCPRhVSdomyGtN8SO14oXzqQEjA
+ 3Bd/KD1fcs69xH5fpWqsPPjzecCdM1L4eD9X9w3N1FWEQduP3RWp1GRbafq8W+zI95Yi
+ 0MfoqY3HQWphGsZs/qKdvJvK7Mv68uwEvmp2MUyvI2gZPDf4p+f2b/AofYtaIv12H6I4
+ 0imBeCaLJk+m5ArAaFc/Dfc3jJ0vCR3eiwUw0BRfVJtQeTNkSfm6NvAZuHBHsq8AZQx5
+ kSqqE6Nch1DLAr6+5r8tzFB+05xN3ttghbAv4ck8KPx/cbFmdpm9/e5WWKaHHjVxvkBD
+ mc7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUz8CZOr5ULIx7s8uzjf8ldV+HTzkDfBocPR3kvWrZNtUsAvIa+brp17r1JxjPlPwq0ycsmb94v@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxp9Uf4PUE+Ug9z53a61jUhSt7IwebcatGGMIC5YVKTECXkV7TS
- 1fbYw68Gr6zMlxSH19uu11ZFvSM30IrgWy+sU5tydnmDwLvtQ6XCEsPH
-X-Gm-Gg: ASbGncvpN6t/6qJESXDbnLaP8/hrRIyQP0e5XJd+AY6jO8HO/iFSYJ2dHE8GiREpTnv
- KFvxJNdL2s7+DX517kcYIiimNyHncxU5tylGslr24I8PcY0Ab67eqK9prh2bzHELmtDtaKiuldE
- J5KZ/vRZzk6o8RFbb7uuwDH2IQy3vOUTJvYCPi+GUurv4E7c2WokwXL5PHk0axkA8YDKUsKjN9l
- ClwTAphNVnfJdGrwetKxsB/hS8Bn213rmIQsqT1rj4aJYxduHcx4I0Zu+hy1TjfS6CHHAKYdXgj
- 3G9hIFPdUqeHdKQp7ZZ2I/gj9Mzl4KL6pPdoIh4eg4HJbJa3Toq2tQzc2TStrL3D2+xoTs7CsTg
- EptAM6Mhe8R+tPjIff/7TwT+dgwr8j6ejm3yN8AfI4ZyrO1Kzr5ft6PXCaq1ix94lMXvBN89jzi
- iOxt3pZH/wTjbQxrK2Kiroxmkd
-X-Google-Smtp-Source: AGHT+IHoHXUfTkF+vaS1pnIVRKSps09fJdophVLtTYQOKUkmnHvUYngKhUIxBBlieYeLEpnP+wV2vA==
-X-Received: by 2002:a05:6638:8805:b0:5b7:c969:85f3 with SMTP id
- 8926c6da1cb9f-5b967a01c06mr35061717173.4.1764510489137; 
- Sun, 30 Nov 2025 05:48:09 -0800 (PST)
-Received: from ?IPV6:2601:40a:8000:28d9::dbf? ([2601:40a:8000:28d9::dbf])
+ AJvYcCXRzCjYwizod4rqbimTznP4OHd2FtiQh2213pgx9NuAm7S9BzAC8ok9S+ANuvYnla4Qqotaad0h@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyPmZwMcC5qoPei8FHVnF6CzW8uHFooAuJFMGSsukIS8EOOdHmU
+ J39dxOogA2q9Yu6IsOMKG5C/cDoQUXHLS8Ctdwpopf5KsV3WmbNMySDr
+X-Gm-Gg: ASbGncvwfb6sSanZZHYkDgOPxzcy154a18fAKSqnv3JPrzXGZtmyRiqg024I/L0FyBp
+ 0G7FIOwvViQ14RBGzXNAtFsZk0lxfUEyQYUPdI0KsYmjOl0ZSNBK5ZIQGlWV7bq/xK4t63uLZp+
+ nXlTmKxsOkFf2kdsJh/UyQWqVWeZNOy9oJ2dpfXyqLO376EVI7zRk9z0nszR4tnb6CWm5LLgvVW
+ qc9hnor/vropQHzp4qDYUCmtSH6mvrrvmD3YN1jINAzOhoFCrlE1svw7EWGU4DS7keHeI/yxsVM
+ liTsdgIk+rw0sNVF4wdwIQ3u4NmEmKzKsm/P/+MkcWk0JpZyyckJfrZg1BnVFhzOtLjayIPQ5JQ
+ 3lWmR2vYd84AlmI3jixctNQ8HMlnZa+VlB6Mau3vMzk4uyFa78t5r6jRPBAl7VXev7WftlU8ap5
+ 27fPYkxjoucHWcNVqjsHbg
+X-Google-Smtp-Source: AGHT+IGlmCeUIpwU3Ydo+tzqNkpFv3NHVIjiD567+Cj+5rL592Tgy7C6Ht+ABzfU61uvmKPtq3k2Rw==
+X-Received: by 2002:a17:902:d583:b0:288:5d07:8a8f with SMTP id
+ d9443c01a7336-29baafb7ec1mr273010985ad.24.1764575588133; 
+ Sun, 30 Nov 2025 23:53:08 -0800 (PST)
+Received: from google.com ([2401:fa00:95:201:2a71:e28f:ae3c:b20c])
  by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-5b9bc767d6fsm4592649173.34.2025.11.30.05.48.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 30 Nov 2025 05:48:08 -0800 (PST)
-Message-ID: <7462992a-fdc1-44ff-9604-ca5a9feaef07@gmail.com>
-Date: Sun, 30 Nov 2025 08:48:07 -0500
+ d9443c01a7336-29bce44389bsm115488825ad.32.2025.11.30.23.53.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Nov 2025 23:53:07 -0800 (PST)
+Date: Mon, 1 Dec 2025 15:53:03 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, "Tsao, Anson" <anson.tsao@amd.com>,
+ "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
+Subject: Re: [PATCH v3 4/5] drm/amdgpu: add UMA allocation interfaces to sysfs
+Message-ID: <aS1JX1VNNJFb9T60@google.com>
+References: <20251126-vram-carveout-tuning-for-upstream-v3-0-cf1729c4cb3c@amd.com>
+ <20251126-vram-carveout-tuning-for-upstream-v3-4-cf1729c4cb3c@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: use static ids for ACP platform devs
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, boyuan.zhang@amd.com
-References: <20250325210517.2097188-1-bradynorander@gmail.com>
- <CADnq5_MNBUY=jWbnq-gZQ_4_M_sBJGAgMD0bj2cMdnkoU9G=HA@mail.gmail.com>
- <9ab05b38-6f77-4b0b-8a1b-8314e2873047@gmail.com>
- <CADnq5_No+w+tco9j35GBM3+CYBTo018eLwWec278d3VBJHPQxw@mail.gmail.com>
-Content-Language: en-US
-From: Brady Norander <bradynorander@gmail.com>
-In-Reply-To: <CADnq5_No+w+tco9j35GBM3+CYBTo018eLwWec278d3VBJHPQxw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251126-vram-carveout-tuning-for-upstream-v3-4-cf1729c4cb3c@amd.com>
 X-Mailman-Approved-At: Mon, 01 Dec 2025 08:20:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,24 +98,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/10/25 14:14, Alex Deucher wrote:
-> On Tue, Mar 25, 2025 at 7:11 PM Brady Norander <bradynorander@gmail.com> wrote:
->>
->> On 3/25/25 6:12 PM, Alex Deucher wrote:
->>>
->>> While you are at it, can you take a look at
->>> drivers/gpu/drm/amd/amdgpu/isp_v4_1_0.c and
->>> drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c as well?
->>>
->>> Alex
->>
->> I think it makes more sense to handle that in a separate patch as it is
->> an unrelated ip block.
-> 
-> Sure. Can you send a patch to fix those up as well if needed?
-> 
-> Alex
+Hi Leo and Mario,
 
-Sorry to nag again, but can we look into getting this patch merged? The 
-ASoC patch has already been merged and it would be nice to have audio 
-working on this platform.
+On Wed, Nov 26, 2025 at 05:05:15PM +0800, Yo-Jung Leo Lin (AMD) wrote:
+> Add a uma/ directory containing two sysfs files as interfaces to
+> inspect or change UMA carveout size. These files are:
+> 
+> - uma/carveout_options: a read-only file listing all the available
+>   UMA allocation options and their index.
+> 
+> - uma/carveout: a file that is both readable and writable. On read,
+>   it shows the index of the current setting. Writing a valid index
+>   into this file allows users to change the UMA carveout size to that
+>   option on the next boot.
+> 
+> Co-developed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Signed-off-by: Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 137 +++++++++++++++++++++++++++++++
+>  1 file changed, 137 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index bce9027fa241..c3b7b8c91919 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/power_supply.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/suspend.h>
+> +#include <linux/device.h>
+>  #include <acpi/video.h>
+>  #include <acpi/actbl.h>
+>  
+> @@ -1246,6 +1247,135 @@ int amdgpu_acpi_get_mem_info(struct amdgpu_device *adev, int xcc_id,
+>  	return -ENOENT;
+>  }
+>  
+> +static ssize_t carveout_options_show(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     char *buf)
+> +{
+> +	struct amdgpu_uma_carveout_info *uma_info = &amdgpu_acpi_priv.atcs.uma_info;
+> +	uint32_t memory_carved;
+> +	ssize_t size = 0;
+> +
+> +	if (!uma_info || !uma_info->num_entries)
+> +		return -ENODEV;
+> +
+> +	for (int i = 0; i < uma_info->num_entries; i++) {
+> +		memory_carved = uma_info->entries[i].memory_carved_mb;
+> +		if (memory_carved >= SZ_1G/SZ_1M) {
+> +			size += sysfs_emit_at(buf, size, "%d: %s (%u GB)\n",
+> +					      i,
+> +					      uma_info->entries[i].name,
+> +					      memory_carved >> 10);
+> +		} else {
+> +			size += sysfs_emit_at(buf, size, "%d: %s (%u MB)\n",
+> +					      i,
+> +					      uma_info->entries[i].name,
+> +					      memory_carved);
+> +		}
+> +	}
+> +
+> +	return size;
+> +}
+> +static DEVICE_ATTR_RO(carveout_options);
+> +
+> +static ssize_t carveout_show(struct device *dev,
+> +			     struct device_attribute *attr,
+> +			     char *buf)
+> +{
+> +	return sysfs_emit(buf, "%u\n", amdgpu_acpi_priv.atcs.uma_info.uma_option_index);
+> +}
+> +
+> +static ssize_t carveout_store(struct device *dev,
+> +			      struct device_attribute *attr,
+> +			      const char *buf, size_t count)
+> +{
+> +	struct amdgpu_uma_carveout_info *uma_info = &amdgpu_acpi_priv.atcs.uma_info;
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +	struct amdgpu_uma_carveout_option *opt;
+> +	unsigned long val;
+> +	uint8_t flags;
+> +	int r;
+> +
+> +	r = kstrtoul(buf, 10, &val);
+> +	if (r)
+> +		return r;
+> +
+> +	if (val >= uma_info->num_entries)
+> +		return -EINVAL;
+> +
+> +	opt = &uma_info->entries[val];
+> +
+> +	if (!(opt->flags & AMDGPU_UMA_FLAG_AUTO) &&
+> +	    !(opt->flags & AMDGPU_UMA_FLAG_CUSTOM)) {
+> +		drm_err_once(ddev, "Option %ul not supported due to lack of Custom/Auto flag", r);
+
+I'm not an expert in drm or gpu related stuff.
+But r is always 0 here. Also, its type is int, so it doesn't match the
+%ul format specifier.
+
+I guess you mean val instead of r here?
+
+Regards,
+Kuan-Wei
+
+> +		return -EINVAL;
+> +	}
+> +
+> +	flags = opt->flags;
+> +	flags &= ~((flags & AMDGPU_UMA_FLAG_AUTO) >> 1);
+> +
+> +	guard(mutex)(&uma_info->update_lock);
+> +
+> +	r = amdgpu_acpi_set_uma_allocation_size(adev, val, flags);
+> +	if (r)
+> +		return r;
+> +
+> +	uma_info->uma_option_index = val;
+> +
+> +	return count;
+> +}
+> +static DEVICE_ATTR_RW(carveout);
+> +
+> +static struct attribute *amdgpu_uma_attrs[] = {
+> +	&dev_attr_carveout.attr,
+> +	&dev_attr_carveout_options.attr,
+> +	NULL
+> +};
+> +
+> +const struct attribute_group amdgpu_uma_attr_group = {
+> +	.name = "uma",
+> +	.attrs = amdgpu_uma_attrs
+> +};
+> +
+> +static int amdgpu_acpi_uma_option_init(struct amdgpu_device *adev)
+> +{
+> +	struct amdgpu_atcs *atcs = &amdgpu_acpi_priv.atcs;
+> +	int rc;
+> +
+> +	if (!atcs->functions.set_uma_allocation_size)
+> +		return -ENODEV;
+> +
+> +	rc = amdgpu_atomfirmware_get_uma_carveout_info(adev, &atcs->uma_info);
+> +	if (rc) {
+> +		drm_dbg(adev_to_drm(adev),
+> +			"Failed to parse UMA carveout info from VBIOS: %d\n", rc);
+> +		goto out_info;
+> +	}
+> +
+> +	mutex_init(&atcs->uma_info.update_lock);
+> +
+> +	rc = devm_device_add_group(adev->dev, &amdgpu_uma_attr_group);
+> +	if (rc) {
+> +		drm_dbg(adev_to_drm(adev), "Failed to add UMA carveout sysfs interfaces %d\n", rc);
+> +		goto out_attr;
+> +	}
+> +
+> +	return 0;
+> +
+> +out_attr:
+> +	mutex_destroy(&atcs->uma_info.update_lock);
+> +out_info:
+> +	return rc;
+> +}
+> +
+> +static void amdgpu_acpi_uma_option_fini(void)
+> +{
+> +	struct amdgpu_uma_carveout_info *uma_info = &amdgpu_acpi_priv.atcs.uma_info;
+> +
+> +	mutex_destroy(&uma_info->update_lock);
+> +	uma_info->num_entries = 0;
+> +}
+> +
+>  /**
+>   * amdgpu_acpi_event - handle notify events
+>   *
+> @@ -1290,6 +1420,12 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
+>  int amdgpu_acpi_init(struct amdgpu_device *adev)
+>  {
+>  	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
+> +	int rc;
+> +
+> +	rc = amdgpu_acpi_uma_option_init(adev);
+> +
+> +	if (rc)
+> +		drm_dbg(adev_to_drm(adev), "Not creating uma carveout interfaces: %d", rc);
+>  
+>  	if (atif->notifications.brightness_change) {
+>  		if (adev->dc_enabled) {
+> @@ -1342,6 +1478,7 @@ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)
+>  void amdgpu_acpi_fini(struct amdgpu_device *adev)
+>  {
+>  	unregister_acpi_notifier(&adev->acpi_nb);
+> +	amdgpu_acpi_uma_option_fini();
+>  }
+>  
+>  /**
+> 
+> -- 
+> 2.43.0
+> 
+> 
