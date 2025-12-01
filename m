@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7C1D116F1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 10:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB2A3D111A8
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 10:14:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B402610E377;
-	Mon,  1 Dec 2025 10:14:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7069110E37A;
+	Mon,  1 Dec 2025 10:14:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bICq81Qt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v/5gctk3";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013055.outbound.protection.outlook.com
- [40.93.196.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC24F10E37C
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 10:14:46 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011015.outbound.protection.outlook.com [52.101.62.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9581610E36F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 10:14:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GGfx0bkM2gLjj8DWPq15MJ4hdhdI9wGgZhyw+CNa26SB3NHBhoNZtLGPNCRIzuw+pIhtVc58fPUVSTJPk4X/Vs5nFhLYfygwJYyMxBXbpqIy9vfkzNpVp/3gEJfbPd+fPdECSDVvmXgHxKGr697IKKI5NGpBMH/1yL5IOfYgstmO1UzrF9V4D2Hwbe9POgkkTMogM6DR6fgoCoZ8wVz9+QSsf+G5HL8T8pRjtGT5HpnjUx1HfOQQnPNg+o2/tRmcFJpowYOrajY1KL1Bf1qnrmZH8LQIFrAT7TIkwpkxZhfrOVzAdLooxU6LjTdDR/Uf4F0yIS0hb969pTWu5vWaBQ==
+ b=etA2/xTktE2kQgMCj1Nw9TgTfANMRf6g+VHh08IllxAiDNiAOCmYkhF8UtwLgsFJ3y2BivsXhwyVjgzk9f641mX5lUKgCcDgRlPxCH13McaPTVD0wpJoTp1oLOvS3oIDV1xeqACykbPL3U5PGZsU6O2Tiq6lGdvr8K7KhGeZOpehYqEUbE2Fo3AIo6OG8Uq8Ygp8WZEUSm6Wjl83MFkeUWfNvfWVDDvV/UsGq8cPW9Cyi0NQItea0i3almsDWeiw/214cytAuWyz0QgdaOOldLpTeUjMGgVGcRNZu13QdDaeu21NlTwAwjJghtNUtV8+lSw10N94M8Hh7FRrq2aaaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YiTgBiJUVdx9jFbJQtXlsa1gEOphxcvcfG/LqPF+U+Y=;
- b=a9+0BXXEBRg7g2+8JSFP4bmELHOnvYOiegFQ35mEIjFokYqOXLXqpR3txXmDYpvjfnOHHlhWOL0uTXCs5x4OJy8B4b2neGEo7tWZgKBS5eucl/1K9tdFoWEX4rV70nhZQV9dty4Ey1e44sbFh6uE82ssTL+McTh1HZFzYZZ8a29i/umfilkQY0wi3pws+gslFD+n+g/9HPIleGaKSgz1KD2MrOa/lUDvCVi8olQrkPUk5uQmM43EA3kFvcnreLmo+MOa18ObziZzyk9jNM52f+k6lBHQ3oO1HsA+y11OywY1Ag1Z4GjbCe9Wd354KdNLsucLGgtAs0aUMKk7kheW2Q==
+ bh=GBvmJAyViy+Rvgzp+Ug36W5w1w6VSRV+yDdj4CdpqCQ=;
+ b=SGov3mWD27YPAVJx/ROCRjxe7fM1glDUuYHUahc4MZuc4TCla5Xwt5DYF3xhEMCaFR0AzQAzfDtKzZTwzbcnxJFb6Jd/yGM/umuYzrmTGjJst8seF/Nz8rYoxX/9oKjMcGW6jqZMQXg/P8gQJeKGCXCsHIen8JII8G1Pau9c3znjurdbhJqZpc8/konI9DGRSGFZh7fiSwbmqMMcHenWscp8+J+mOClsg6COcE4mlrKgFwQJq+R3CIIyVk/lIrXtUUfgsATTPLw1wvsgKNfQXLFDT6lYT5rwTrO7GFnDQ/A0WK21Hf+T8og0xgSD4nuecSs2UW7BPHSXp2TRlSwpbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YiTgBiJUVdx9jFbJQtXlsa1gEOphxcvcfG/LqPF+U+Y=;
- b=bICq81QtTLx3+WZMuxMBWVbsR6HbiczdorEmpMFYhqs/ynD53xKDH1TnflNifY2iHuhb7UC8KsvIcHoy/XLSscOl6FCR50VgpL2S4w4MQwYR41cxMsPwUCJCbn67gOmCbBtwR46nlTQDl0ZlZbJWfzi/GszItiSMecnelTyihLc=
-Received: from CH0P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::35)
- by SJ2PR12MB8783.namprd12.prod.outlook.com (2603:10b6:a03:4d0::19) with
+ bh=GBvmJAyViy+Rvgzp+Ug36W5w1w6VSRV+yDdj4CdpqCQ=;
+ b=v/5gctk3jg4eljcP2vrJY8CQFIFEH71R7yw4KAyQGF8qBh+mAcYcOBynUxwHShP+ZUeRByfgt3EWM5Y3rf1jk/fmpBiXXM90DWoU0JhQtB5BhKajajpugNsT1pQFazhkSD7xWgtbgtlLxPokDVTo4QKYal73dalvDRE8TWLS4dU=
+Received: from CH0P220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::26)
+ by CY3PR12MB9554.namprd12.prod.outlook.com (2603:10b6:930:109::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
- 2025 10:14:41 +0000
+ 2025 10:14:43 +0000
 Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:610:ef:cafe::c6) by CH0P220CA0015.outlook.office365.com
- (2603:10b6:610:ef::35) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:ef:cafe::f) by CH0P220CA0019.outlook.office365.com
+ (2603:10b6:610:ef::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Mon,
- 1 Dec 2025 10:14:41 +0000
+ 1 Dec 2025 10:14:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,17 +50,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Mon, 1 Dec 2025 10:14:41 +0000
+ 15.20.9388.8 via Frontend Transport; Mon, 1 Dec 2025 10:14:42 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 1 Dec
- 2025 04:14:39 -0600
+ 2025 04:14:41 -0600
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Asad.Kamal@amd.com>
-Subject: [PATCH 16/17] drm/amd/pm: Use common helper for smuv13.0.7 dpm
-Date: Mon, 1 Dec 2025 15:33:29 +0530
-Message-ID: <20251201101331.101584-17-lijo.lazar@amd.com>
+Subject: [PATCH 17/17] drm/amd/pm: Use common helper for smuv14.0.2 dpm
+Date: Mon, 1 Dec 2025 15:33:30 +0530
+Message-ID: <20251201101331.101584-18-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20251201101331.101584-1-lijo.lazar@amd.com>
 References: <20251201101331.101584-1-lijo.lazar@amd.com>
@@ -73,53 +72,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|SJ2PR12MB8783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85666f4c-4257-4542-7daf-08de30c27119
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|CY3PR12MB9554:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b852c1a-8cd3-4e40-87e1-08de30c27228
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YEIxqHLx4+kurpT9xwplxB/7Rpqyw3rCeVmxdaBZK1H2iH3R7BBUIFEfl6VP?=
- =?us-ascii?Q?O1EI1RE+2VrbixOVwYJMciigr+MApm9KxtIRi3qUlND3eNtiTnmXTZq0LkBs?=
- =?us-ascii?Q?DxoPURabup477Ut6LiZ0FWYwc0tulxTGaeLbXSLoyf4X/bqVwGXaVYm7cIKg?=
- =?us-ascii?Q?3TJGKvmKggxdHO9WA+Dd44B7H0Kgo9oW0lq3nmUjZ66+NiYVF+Vuh2Dano7p?=
- =?us-ascii?Q?StDvMZHyRATCzWnWfJ+Qsdd5+CP6ylLuGTOqLR8997hlJsOol6tqgn1sXHWB?=
- =?us-ascii?Q?3hU7KEThok6gxR9xSsJaJiLmMfS89iI8oJUbn3KCKYv8OEF7y5eFVWnRusMN?=
- =?us-ascii?Q?F2gS4jexS0K+/e+0cZ2P4RtjpiUIjmELXi4IXBXxT2ZoGSIbUGWnP0tB6aP0?=
- =?us-ascii?Q?FYxV+0o3HYllpdY8L3Om38xRzt3B6sMgZqarMBlisheen0yygL0Rtx8Kk1Sd?=
- =?us-ascii?Q?9DPxo53IWB7iRG1pgkObFpxD+qbIy2IeYSSVCMv7d8FmNz6YFLBTSqcvFG+z?=
- =?us-ascii?Q?UYk7uISkleyDu58kniF2O3dg3ElRX4cbiGauyRqpWfzYjyaeULtFQ75hZYrW?=
- =?us-ascii?Q?3/+HTOpHekeZXLFoqc6wHYxlK5L4NNtVB7QxgQf7YnCxPTtB7OSQ8Wf2+w/S?=
- =?us-ascii?Q?p5CgEsNRI0J2NbaCefw2uyabKzwy7nvGEfMNgxSAfdO4Y00pV1ZhqbpsNLSB?=
- =?us-ascii?Q?M6HJtB5yk1R5s6TIHIqs7ciMo94A98SvnX39GBeOkgGiB6I4a0y4blYAFBxy?=
- =?us-ascii?Q?wI9HLTQrLm5SfMqXsq4HFLHpEQ5YVZV5CJHd/jZ2UEYKCmC7bGp4qh+Y4Asr?=
- =?us-ascii?Q?Rz2ug835OZgI8tciMch6VsTr/NDjTTYFf3pBM71uXiyavFEeGXqcGMLUun4M?=
- =?us-ascii?Q?OToIshCE9BZqCqtdHuKpnlfHo8FH0Kd7uaFwiSXNwKmWL66McE3MSZBq2ZjJ?=
- =?us-ascii?Q?R3LG0ddtOBjKlD4q2MQvKNDE6lz6TZj9bWYmGFCGFqQauzsuvpBS9lDc8Nl5?=
- =?us-ascii?Q?DcSz4gPXgAX/umVu9ZKKghQerZoeADqKXIJahok3EPdTdVQc90YiWhuC/S5w?=
- =?us-ascii?Q?DKDf4yml7ndn6Y16KliZfxhzySoAzhNgBQv+7lSwa87Vk9rWD2DMlPpt5SfO?=
- =?us-ascii?Q?A0baZ8qrGwoRwiDAtewPTKwvaJOWGi+LQlSh8Jrlz0+CKeERx+B5SWZqBkzC?=
- =?us-ascii?Q?XSYCC2OibyGQd4ir9xphXxq+xCu/qoQ1ZfD0AIIRABRiGEipgKRG1HNVsWIN?=
- =?us-ascii?Q?nkGVhp6t4SjjX6ou9rl2628X36WXpTS5LOQMTcYWiUV/NIJGPRaEbeF9CK2o?=
- =?us-ascii?Q?IxygIe6ARl5QJqtjuvUDeYxpEburqtJwltq3kerWOFguGsZ+cNVVOJYCQBNe?=
- =?us-ascii?Q?HMIhDSaORfxqD/HfiEE+WzBiQud+HzRYy1xfPN3gctMEj2nYWzzV1uTrfZcF?=
- =?us-ascii?Q?VrSPg2jYbwEUEoE3TKbxxvtMkZfZk8V3JrBuwA/aSshAdXjFJKH9mMnwBMu+?=
- =?us-ascii?Q?4yDZvfhy4QxMuuAlJY8tRRm36J9M7P0NZEQ4Z26UaEcbbt1IDqLYv/twir67?=
- =?us-ascii?Q?hFZCayXZIKYZQvHe3m8=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KjMKfp7hHjQVPJvPckbeE/sdF+gbWBXLxm/lxqbnFA65xWTPdDiVWVYQCvTq?=
+ =?us-ascii?Q?D47XVKeIEeFz6zVj86ZOI3lC0SI7+Jp6KUuOl3w+mOl+AEiJcmO5G/fPVejf?=
+ =?us-ascii?Q?uV2YfvIcAavLzE6P2/+jPdD4htV4alE67DnnBeQ8AN/ErSynO8+1E+Q7Pp8a?=
+ =?us-ascii?Q?o7rkSCKcU+/Fvv+FjEywxVgJrbxSR5hGCF6YWSMor+v/7v4AHO/XyqkmM3er?=
+ =?us-ascii?Q?QjJshtKghhLeIPDezvq6w3e1oWv7JcRbNUeMMqFW2zKqF+VLBpG9hdCcIwpF?=
+ =?us-ascii?Q?aoXTySGhBoybx0+7eVlGJpUkn608f1RGvKS3nvCb3TyQMQhWXeLtcXFIflxH?=
+ =?us-ascii?Q?e3Mz7mqsmlvyJOAe2WXt9sEOXzLiFd7wzTt9SlkLAKIF0cuRDP+CIhbogggr?=
+ =?us-ascii?Q?lGR8T4qwc0tdDNnWKyb3EDoKRKJhm6Fku0sin4+wkTi+IBOCYRQ56BjV9TkL?=
+ =?us-ascii?Q?bsO80DDpbV6A66TjwuPGBAu8qv88DF2PEqyK8L7xkF99GX0c6HzdcF7JTYk5?=
+ =?us-ascii?Q?WOKQidYIt9uL7OBRc0eDr0ZwLqmtF9eQBxKLhCFVSTl05fp9tMXkDYT+fSNf?=
+ =?us-ascii?Q?q8MJ0g9HBexijmKzY8YoAwUNiFmu1oUUID+QOf5+MDAsVe9ximiCu9d3wRKg?=
+ =?us-ascii?Q?aqzlYAjvwahcHi/glMN3HZVQch5br7cZy2N/nzLMAok/Ao/96ajy+ZswGnyB?=
+ =?us-ascii?Q?o/c/6STSIQp4tutW2KmxK8b3Cd29fQs3yW/5JkgOLaAiWNJMc/VEaCxSNquQ?=
+ =?us-ascii?Q?u0LszvUoS94kwm4xuZ+mGJZJCGB036FlaAeNTGbAkvPY1Ox5pnkw3n1326pY?=
+ =?us-ascii?Q?+FMgA8SAgbfmQmjZkpwfgHTCrtvngVa2EXXEM8i30MdFjC58OvO0H4lHGmEx?=
+ =?us-ascii?Q?quyrlp8V6E6ixDQMyuaF43pBcyV/wQeDkt/W6brXUdajCcYatyXp3hLmZ0if?=
+ =?us-ascii?Q?9cNHILchwTPZD9YGgSMZILgOngulqIz0Jsgur7f4D23ZxhYmJOyw9xWH3wfW?=
+ =?us-ascii?Q?lan6dofF0El5A8/Mv53qGePQnO5ejB7OzP46Z9KplFqY639sBvLgzfQKdtud?=
+ =?us-ascii?Q?hP0v6s+EX+XTPiO+M5/cNfmgnrQUdnVZmpVS53geKI/y785Ye1/H5BuqvGtJ?=
+ =?us-ascii?Q?GSzK+pKIMDmaVj98OA4sHvLmvMpfJ5TaPYZ/EgmzHVHf2/N/VavE0hPPuI9H?=
+ =?us-ascii?Q?njBUY1dvZKET//Cgm89foDcZNmLc+7VEJX7XBNZvRP5s1Y3a7aKMDhRqikoB?=
+ =?us-ascii?Q?FfjXmfAq3zM+ClYhZ++OVtpspR4bMI/qtvcg6SQhyzCaXmxiz1hTbxdainCG?=
+ =?us-ascii?Q?214sVUvlP2eSJCaou5iKigPryrAVKQcLvRjaXwRIXKP2GEnDMi+QWs8j46tm?=
+ =?us-ascii?Q?4bhq3TdZaSRq5aRYQCEeFx8oakAr94BqpcSKdWMOwMMxNnf6TeoYQF/rDlMu?=
+ =?us-ascii?Q?qFRUqTMCV3aT5Ebzij91rvWwxc87KmTQKS6ARvOVjUjp4hjDacMYJ5gAb+Nn?=
+ =?us-ascii?Q?zvWLZweaAioLDJqxSw8agKMixhBD2pj8P4vcmAOlT6A0cB3SIxK9ebS/hqQ7?=
+ =?us-ascii?Q?IoIBqYsKBpH4upkzSPg=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 10:14:41.1935 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85666f4c-4257-4542-7daf-08de30c27119
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 10:14:42.9701 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b852c1a-8cd3-4e40-87e1-08de30c27228
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8783
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9554
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,29 +133,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use helper function to print smuv13.0.7 dpm tables to sysfs.
+Use helper function to print smuv14.0.2 dpm tables to sysfs.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 98 +++----------------
- 1 file changed, 15 insertions(+), 83 deletions(-)
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 90 ++++---------------
+ 1 file changed, 15 insertions(+), 75 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index ff9ad5bdf138..1465e0c80175 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -1174,9 +1174,8 @@ static int smu_v13_0_7_emit_clk_levels(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index 596cdba0a8b4..af1bc7b4350b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -1045,7 +1045,7 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
+ 	struct smu_14_0_dpm_context *dpm_context = smu_dpm->dpm_context;
  	OverDriveTableExternal_t *od_table =
  		(OverDriveTableExternal_t *)smu->smu_table.overdrive_table;
- 	int i, curr_freq, size = *offset, start_offset = *offset;
 -	struct smu_dpm_table *single_dpm_table;
 +	struct smu_dpm_table *single_dpm_table = NULL;
  	struct smu_pcie_table *pcie_table;
--	uint32_t pcie_speed, pcie_width;
  	uint32_t gen_speed, lane_width;
- 	int32_t min_value, max_value;
- 	int ret = 0;
-@@ -1210,61 +1209,6 @@ static int smu_v13_0_7_emit_clk_levels(struct smu_context *smu,
+ 	int i, curr_freq, size = *offset, start_offset = *offset;
+@@ -1081,61 +1081,6 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
  	case SMU_DCEFCLK:
  		single_dpm_table = &(dpm_context->dpm_tables.dcef_table);
  		break;
@@ -174,7 +171,7 @@ index ff9ad5bdf138..1465e0c80175 100644
 -	case SMU_DCLK:
 -	case SMU_DCLK1:
 -	case SMU_DCEFCLK:
--		ret = smu_v13_0_7_get_current_clk_freq_by_table(smu, clk_type, &curr_freq);
+-		ret = smu_v14_0_2_get_current_clk_freq_by_table(smu, clk_type, &curr_freq);
 -		if (ret) {
 -			dev_err(smu->adev->dev, "Failed to get current clock freq!");
 -			return ret;
@@ -216,49 +213,42 @@ index ff9ad5bdf138..1465e0c80175 100644
 -		}
 -		break;
  	case SMU_PCIE:
- 		ret = smu_v13_0_7_get_smu_metrics_data(smu,
+ 		ret = smu_v14_0_2_get_smu_metrics_data(smu,
  						       METRICS_PCIE_RATE,
-@@ -1279,32 +1223,8 @@ static int smu_v13_0_7_emit_clk_levels(struct smu_context *smu,
+@@ -1150,25 +1095,8 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
  			return ret;
  
  		pcie_table = &(dpm_context->dpm_tables.pcie_table);
--		for (i = 0; i < pcie_table->lclk_levels; i++) {
--			pcie_speed = DECODE_GEN_SPEED(pcie_table->pcie_gen[i]);
--			pcie_width =
--				DECODE_LANE_WIDTH(pcie_table->pcie_lane[i]);
--			size += sysfs_emit_at(
--				buf, size, "%d: %s %s %dMhz %s\n", i,
--				(pcie_table->pcie_gen[i] == 0) ? "2.5GT/s," :
--				(pcie_table->pcie_gen[i] == 1) ? "5.0GT/s," :
--				(pcie_table->pcie_gen[i] == 2) ? "8.0GT/s," :
--				(pcie_table->pcie_gen[i] == 3) ? "16.0GT/s," :
--								 "",
--				(pcie_table->pcie_lane[i] == 1) ? "x1" :
--				(pcie_table->pcie_lane[i] == 2) ? "x2" :
--				(pcie_table->pcie_lane[i] == 3) ? "x4" :
--				(pcie_table->pcie_lane[i] == 4) ? "x8" :
--				(pcie_table->pcie_lane[i] == 5) ? "x12" :
--				(pcie_table->pcie_lane[i] == 6) ? "x16" :
--								  "",
--				pcie_table->lclk_freq[i],
--				(gen_speed == pcie_speed &&
--				 lane_width == pcie_width) ?
--					"*" :
--					"");
--		}
+-		for (i = 0; i < pcie_table->lclk_levels; i++)
+-			size += sysfs_emit_at(buf, size, "%d: %s %s %dMhz %s\n", i,
+-					(pcie_table->pcie_gen[i] == 0) ? "2.5GT/s," :
+-					(pcie_table->pcie_gen[i] == 1) ? "5.0GT/s," :
+-					(pcie_table->pcie_gen[i] == 2) ? "8.0GT/s," :
+-					(pcie_table->pcie_gen[i] == 3) ? "16.0GT/s," :
+-					(pcie_table->pcie_gen[i] == 4) ? "32.0GT/s," : "",
+-					(pcie_table->pcie_lane[i] == 1) ? "x1" :
+-					(pcie_table->pcie_lane[i] == 2) ? "x2" :
+-					(pcie_table->pcie_lane[i] == 3) ? "x4" :
+-					(pcie_table->pcie_lane[i] == 4) ? "x8" :
+-					(pcie_table->pcie_lane[i] == 5) ? "x12" :
+-					(pcie_table->pcie_lane[i] == 6) ? "x16" :
+-					(pcie_table->pcie_lane[i] == 7) ? "x32" : "",
+-					pcie_table->lclk_freq[i],
+-					(gen_speed == DECODE_GEN_SPEED(pcie_table->pcie_gen[i])) &&
+-					(lane_width == DECODE_LANE_WIDTH(pcie_table->pcie_lane[i])) ?
+-					"*" : "");
 -		break;
--
 +		return smu_cmn_print_pcie_levels(smu, pcie_table, gen_speed,
 +						 lane_width, buf, offset);
+ 
  	case SMU_OD_SCLK:
- 		if (!smu_v13_0_7_is_od_feature_supported(smu,
- 							 PP_OD_FEATURE_GFXCLK_BIT))
-@@ -1522,6 +1442,18 @@ static int smu_v13_0_7_emit_clk_levels(struct smu_context *smu,
+ 		if (!smu_v14_0_2_is_od_feature_supported(smu,
+@@ -1364,6 +1292,18 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
  		break;
  	}
  
 +	if (single_dpm_table) {
-+		ret = smu_v13_0_7_get_current_clk_freq_by_table(smu, clk_type,
++		ret = smu_v14_0_2_get_current_clk_freq_by_table(smu, clk_type,
 +								&curr_freq);
 +		if (ret) {
 +			dev_err(smu->adev->dev,
