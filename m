@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FEC8D116FF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 23:15:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B209D11700
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 23:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A06DC10E4CB;
-	Mon,  1 Dec 2025 23:15:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95F8C10E4CE;
+	Mon,  1 Dec 2025 23:15:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zMAzU1Gu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oVIqsLE4";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010015.outbound.protection.outlook.com [52.101.46.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6EDF10E4CA
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 23:15:36 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012050.outbound.protection.outlook.com [52.101.43.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95FC110E4CC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 23:15:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qxP3hjQo90LJn2FyEadzjZGpLKsx+utYX4Q84im7raxXbs4Krfn2M/MYl38ql8sUCPdlTRaA2CNxrAVJseTfX6zuerJC5z6zLchu57v9VkssKX/ZxFqO1xUQB5AHD3pEBSW7A+JqyZSsTn/ftsbiZ6kUXAtpPD55fyKB2sAq65x7GQIAP8wp7PjZc7IElzPVifrK5tHjYBv1ZUgcROQmRRnDHH/Ic5n3R6fQZougZBdht0rBY0qyyO4hNNEnhoaNTUjltceh/9V/yZ2V75eaodusBzd0a25TqGp8YeNyN9dTLfG4JWcsgMcOvkxoLyzLlhIiOJ2kcjGmGthxzinp1g==
+ b=Z/hvAgM8EDDWTTD+tF/BeUWLnYIqesuIunheOnyIp1EbB9ITknUZuuLmxWgqIzklTGrvN4hDTxy7mCb0c9bJDDBOsuU/b/mWmGvenKVUe2ejlc30XOTOE8WFmL7lIQGvIifj/Q4fjTMVdmJHCWI9oH4Wec6N0G72X2x/E/ru+sFlyOgWHoUkY4R+08InpLvGi7MDyFM4KZVlZI92KD5fDMROJBufeBc2iFC0rT1Dwyg408ugKB7NanofHDe0jj1n9XjuesIi+1Jj0YqnYpjFdpoir1jxp/Exgpk0OaVvDngxFOhTPLfUE/biidsNTfK0FZACmsQZ0hUVUurywoftsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CSPAl8Gq3pw2Wb3IiV7OjpdV8cxbZsrk2DXjb10BQgM=;
- b=UpyUdS5VaV0PXCW6dfXclWPQ/+A94/7z368jmM+y6QX9ZLvpHCTlW75AZwrYBnu6WCpGdMF2Z+RwKC0tc4miRHIo2drSvRXIdexSXJWpcbowehzFQaelhXnkEbX5u7dIAtLNpG6jQJjlBd71omCqeRoox9/eyWCFN0QbUxElz3NBVugOEJKHH40HkK0YwLzOC4s2nCoX00G5fEmjSYcC1ZpHDstUPwN8fJiSM0PJHVO1rDeXWYAwDtwWbuh6EHB6+VfZYZQnE5Sl1874/mC6nXMqrOQnXWi1n4B+zuy+lGKxKoOkJL6xD8G3CEdP7H4yOzImFVZekFEl9KQpWPjwPw==
+ bh=pX2tUdLUx+oY5nRrP0J8KQncL3jH/ziyO3yqfpeTkjo=;
+ b=Jf6E9xylNqLaLsX8KBB3xMgqv0meaFOKqQiLdEHhaRTkeI9aPSMv6CvBKhjjkRZYOiVG11Y8peJaxOjetnzQ8/iXhGZ5sRvXVDdXcApbA+cPkMEuNPbGroSKpO582UauHc4qUBsnVBDtErnI6TbuU4LGAl2/XfBQbJWr6h/m+tJ+hPJqEdNMpImVp8gcrg6MyHkrAl4mfJVzGnFWKmKQpgFaffvjaWm/LK+DxCBTqAXqSPfa9Em+CQbzYs+GEFqS27AjnKvVKSwT8k29pC7tGZlgmVOLAzfFJnPCQKlziVKaNG2fqgXsHfI7u0kDYUJpySYW3GPNbGtEpdJOh0myiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CSPAl8Gq3pw2Wb3IiV7OjpdV8cxbZsrk2DXjb10BQgM=;
- b=zMAzU1GuBr91XW1NuVvwYwcyEYvimkKhQbRysee6kdm6pRRDrBwMJNsIlbPBAKRxC9H7bHyMR2d7vtLhs2C34yshjnPYk2cu92D09Y7zGxxiV4KqBIp+VmmKTedmNjuvo/6Zwy0EaWeoI2OZc013HaS7U54JRcRLmE57uNwPUu8=
-Received: from SA9PR13CA0035.namprd13.prod.outlook.com (2603:10b6:806:22::10)
- by MW4PR12MB7013.namprd12.prod.outlook.com (2603:10b6:303:218::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
- 2025 23:15:34 +0000
-Received: from SN1PEPF000252A0.namprd05.prod.outlook.com
- (2603:10b6:806:22:cafe::9f) by SA9PR13CA0035.outlook.office365.com
- (2603:10b6:806:22::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.9 via Frontend Transport; Mon, 1
- Dec 2025 23:15:13 +0000
+ bh=pX2tUdLUx+oY5nRrP0J8KQncL3jH/ziyO3yqfpeTkjo=;
+ b=oVIqsLE4+guMxgmyCUtzZ+0U2GY1NlpMuZa1lwWoHcrCw1hCU+XX/4jgOT7V7yIPD2TUu2zKNj0zzWh0XR+9w0cPWSWaRDsukbCM70FJ/+W2A26Fsr07V4Bj1rR2pOV6uTwWY/dtTI4A/GEZKZH+1WAaB7yE4o8RPLqyfB+bIik=
+Received: from SA1P222CA0044.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2d0::9)
+ by MW4PR12MB5628.namprd12.prod.outlook.com (2603:10b6:303:185::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.12; Mon, 1 Dec
+ 2025 23:15:32 +0000
+Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
+ (2603:10b6:806:2d0:cafe::13) by SA1P222CA0044.outlook.office365.com
+ (2603:10b6:806:2d0::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Mon,
+ 1 Dec 2025 23:15:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,9 +48,9 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000252A0.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Mon, 1 Dec 2025 23:15:32 +0000
+ 15.20.9388.8 via Frontend Transport; Mon, 1 Dec 2025 23:15:31 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 1 Dec
@@ -59,9 +59,9 @@ From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: add imu support for gc 12_1
-Date: Mon, 1 Dec 2025 18:15:09 -0500
-Message-ID: <20251201231509.791954-10-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: fix mes code error for muti-xcc
+Date: Mon, 1 Dec 2025 18:15:08 -0500
+Message-ID: <20251201231509.791954-9-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251201231509.791954-1-alexander.deucher@amd.com>
 References: <20251201231509.791954-1-alexander.deucher@amd.com>
@@ -73,53 +73,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A0:EE_|MW4PR12MB7013:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c4bd8fb-f4ac-42e2-b217-08de312f86ef
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|MW4PR12MB5628:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1078c70b-4cb6-4cf3-9058-08de312f8646
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Neeb3X05D3T4CPvhauOM6WtIYzsIZl0ikECtiyTNCgY3JyTO8Dy4cd39YNVr?=
- =?us-ascii?Q?0b+PtkO+c8gUJF3JSz3grUrCf5AkzudjI8fPj4AiSNOTI/xPbaeIB2/1lmsj?=
- =?us-ascii?Q?HA5l1DEwLBEPGe6bcgSF7mV4UaM9Ghwi+jpOq4faIoz0tf7GO8BNboyyskV4?=
- =?us-ascii?Q?lKpNPjHUNUMtL+QvyHAuODJSakzOTGACIr7eKm4ngfh6TTpgZls7JMSaQp/n?=
- =?us-ascii?Q?9+47tyNcAdMnL2yWHUdK0ObxqlTolNh5Q43I6tLRdrBHCidQp3cO392ICfcP?=
- =?us-ascii?Q?3xK7u1u8qSx0jVVCLC0q8suqDXshwXSmxfKfnHBdlOovxLFXVMMMigEC3cfK?=
- =?us-ascii?Q?OHe1FkOcXgCJsHhBKDaaN9hDJvdTsbL7diIqiiWiLefbnbfs74W5Eg/WVJdZ?=
- =?us-ascii?Q?zTMnWsVDNQouJNaMgAJHjLA9dZrCz4iEFdXDbHTzHSH7cSl9lGEUQ/62R07m?=
- =?us-ascii?Q?rBtEy2GYg2505BjkorPyYs1uCldw9Rqf0NqkcDAFaRjILFzws6dJsVTg73BO?=
- =?us-ascii?Q?n2i+7le4Q3L1yi+qJ9qz6//0gV5tKXfFWF+d/pAN1YU3VMObQ8Qu+pyxwS0d?=
- =?us-ascii?Q?ipqT8onPk375OvFw/BM7TkYyQ6m/APe24V1m4BXYOyetCoYASnx2/x2SpEX+?=
- =?us-ascii?Q?k5IjyJCgRBFH/NJSeZAjj9pHoZ8sD7jnPD5/iilniKjNVDcM14qnp28431yz?=
- =?us-ascii?Q?zceGmQFy9jSysJ6MQqO9dhXbJVUmyqehAei7uMKuWhXh3ocXa9M505rDoDbB?=
- =?us-ascii?Q?rJQ5NwIGlXbKqmEcrv+3WzQRaR+3suU9cVq1o1hBXJr+gWjPgd8a5CK9sa0U?=
- =?us-ascii?Q?KgSYTx4usMKvLRBEpcCFeAOPco55ITuIr9Qn/+GcWv8/SwDXZVUnl0ee0g11?=
- =?us-ascii?Q?c2AD16hpT2rkarO94IrjYpm3ig5yDGVtcQ5RNAMkISmle1k3fBNxF+1ajFR6?=
- =?us-ascii?Q?9YMdxUi2b1jNY8M5Os/mkX8LMvQrGyMNGtayG/ShK6hnzC5wyT56tIBTv3Iy?=
- =?us-ascii?Q?bFY3mnZLqami8UsD2WhnysQUcln774X/j4LQwciqFabFliJw8yQ9z2teFKae?=
- =?us-ascii?Q?muE1uzthQRC3TysVwQU/6Pe22sr8l0cgsDN2AdfkymFKCN8v53y/gwq1yez1?=
- =?us-ascii?Q?IsySQmlWmCtRJ1EthzTESuv1Lq5fYqvE9Ij0DkMW5bcSPVfrC3+SOAUhG/G+?=
- =?us-ascii?Q?gubDpa1rmX7SxsGGy+3GNwahb79KiNMsmWuBzz5qodRAP/fhgUdB0H2SeIsT?=
- =?us-ascii?Q?LKqx/l9IktLu/m4Z/qxGGmdCMFF0ow8MZo1uHw2zmaIgNrcsw16s6PQ73wqQ?=
- =?us-ascii?Q?b56tdtiW00yJ+g/b/MV9HwzZJEncu18YchYL7UF7XcJnAhtedtqfHIVRN4wZ?=
- =?us-ascii?Q?GiHzyVQwOVqtPgV18RNuBz/nOW6GDV0ppQZqPmajpagPht7Og/sEC57ShPmG?=
- =?us-ascii?Q?jeG9sHi3Qo+r85e7EErEPdqLaDnnAjnFTwmEjssBiszffMnS8GlSAkKZC1K6?=
- =?us-ascii?Q?B2M9d0tHYDO6Qp/ABGkX5fU6PEX/jPrb5vfYpBbwpwIYoQqBgd+QiGLPyxeQ?=
- =?us-ascii?Q?hRA3tcUaKjsKpJueZeE=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?m2XvBB4LWMBKwtG8LIUBycldcNvOC/nET2OP4T/8UAhldF5DrA/ulRkhLyJD?=
+ =?us-ascii?Q?QwuUF8wKh3RWpW1oUDs3iflA4k+Tc2NQfbsyR2topI4U677UWYe3iV3kkaqE?=
+ =?us-ascii?Q?yKKqm1zvN2OuyuCp4QlkpeCg5uCKHAEDmoqHUXuusHQ8zTxFAd/TXTARn8X0?=
+ =?us-ascii?Q?8Co4bzFwJKoD5dbSVphodkDJsMtK0yu6+yHwkH6e6rgOdULU0R/nAMvS2RgO?=
+ =?us-ascii?Q?PtnbZ7W2wufJi2ky41g/MBGDMrNCSVg8EORcpZ/UGErXPmXc33LgqWhPZZYx?=
+ =?us-ascii?Q?GWXy9tzVcmA9E4zdgeXBHZUhNWu3HtKO0GmOT9qNW3yYkpO1AjRp9rZ68GOn?=
+ =?us-ascii?Q?tLzTtKJCsmCdYFvygQgWJb19v4nhZUoT/Lnw92v0od/WlYOCSzH10quhLB5y?=
+ =?us-ascii?Q?60v4enX46c4XYXUYSp1o/VQn9//ppwFLxY0GIcc1h3Zvz1PLjU4ZFR8fwu0c?=
+ =?us-ascii?Q?dis/NSlfvePWpsJ4iMq0232X6iPx5aSDvWR+jXm3fh4fCZC3Us0T/PLIDsqc?=
+ =?us-ascii?Q?mZdjd1izy+q4pl4T+fSPTm93MmfjXrgQHS6jHR1Kt+S7TCkf5ZuLzIBEWfZM?=
+ =?us-ascii?Q?K7iAd3n4v7DMjS5NYQJf5OulI5pSQuN+wuu/I06615UesbCxOmYYwysYkp+D?=
+ =?us-ascii?Q?17d9/ORJ/6M32zxAi21IMBnUfHVkqhpOsX2ho+W8QMqhFjnOj10IT9wiP7sV?=
+ =?us-ascii?Q?Wri4VqsJjQKZzkUD5kajRKr/bFYQZAqb28ztnVZSvg0i8hrBZtINgEXnV+/k?=
+ =?us-ascii?Q?k9ihBiW35fP3kQIxaF0gIyc3GwhYblWJ20QM+FRbt+CoywHga4i+SLDfR4yP?=
+ =?us-ascii?Q?PTgYlll7byTZbtBLb3guWpDbL5fwZkHhnGLZYR+IjNMAqPx1w6/Owb6M8t78?=
+ =?us-ascii?Q?1rkQCZUShw1XrCcJl+sJfQ7K3ZDJZvBfIGZdnMllKQCHcgnkQIfzvh5rYbm+?=
+ =?us-ascii?Q?hMH7wnTSxWIgoyHGphTiX4Bx+SIkftlI1ov2BJVmJ07NI2HupfG49uwVYKo6?=
+ =?us-ascii?Q?zYmAX4FQ0KuFgw6fIgFIuPgVZSOCTlk3fdzetg9ZmwBWdL87vIz4sitXOCf3?=
+ =?us-ascii?Q?Kat37pYd5ZdY3J7WNVtNvVNgrxXc9CCGkveWTlA3Fe6rohx+YaE81fwT/elq?=
+ =?us-ascii?Q?0BiEtCj7/wHyiBdnl0W148nXxjfPgVf2aeAmA9myJH/HKKwsmaz6iIXjA8iN?=
+ =?us-ascii?Q?ZWEKmqr9zvvIFjeslhXqt0j0SDhKEitQEUHya/DDRL75luMwQyFF0IS032wd?=
+ =?us-ascii?Q?Qc1+pjAZllMg7PBB7kiYNgYtQu8MuSeQsHwoC9WRhcLjScap7ZrUPzHpN5B6?=
+ =?us-ascii?Q?jj5Q9V3PysnHHJFuBlBbGLxwym6LzkBHM0WAzkwcxSGdHPby4XEyQsb9TW3Z?=
+ =?us-ascii?Q?WaumqD/IZFDOPMnAs/TY9DL4uEIikrDQlfQE/wl2bQ0d2hn6tDS7/Pa/DVUC?=
+ =?us-ascii?Q?wu2ZDMsE4crEho7db9iQNAjSf7346d22HpJYCyZQM7NExzifl+mDH/Et5MXp?=
+ =?us-ascii?Q?2EvrgwLmiz+FHQUh1ZxdUhuePAm0rDgV3LhcpdWjRpb3nZtmHMfx4CqhQHDn?=
+ =?us-ascii?Q?SAkwllZrydn9iyO5HzQ=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 23:15:32.9665 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c4bd8fb-f4ac-42e2-b217-08de312f86ef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 23:15:31.8504 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1078c70b-4cb6-4cf3-9058-08de312f8646
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7013
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5628
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,315 +136,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Add IMU support for gc version 12.1.0.
-Only support imu fw loading for imu 12.1.0.
+Fix some code error for muti-xcc on mes v12_1.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile    |   3 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c |  49 +++------
- drivers/gpu/drm/amd/amdgpu/imu_v12_1.c | 139 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/imu_v12_1.h |  30 ++++++
- 4 files changed, 186 insertions(+), 35 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/imu_v12_1.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/imu_v12_1.h
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index f65021678fc07..d0c506a445695 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -159,7 +159,8 @@ amdgpu-y += \
- 	imu_v11_0_3.o \
- 	gfx_v12_0.o \
- 	gfx_v12_1.o \
--	imu_v12_0.o
-+	imu_v12_0.o \
-+	imu_v12_1.o
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+index dcef628d604c5..128e29e6546bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -37,6 +37,7 @@ MODULE_FIRMWARE("amdgpu/gc_12_1_0_mes1.bin");
+ MODULE_FIRMWARE("amdgpu/gc_12_1_0_uni_mes.bin");
  
- # add async DMA block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index a4886313d57d5..a1f9befc0841d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -30,7 +30,7 @@
- #include "amdgpu_psp.h"
- #include "amdgpu_smu.h"
- #include "amdgpu_atomfirmware.h"
--#include "imu_v12_0.h"
-+#include "imu_v12_1.h"
- #include "soc_v1_0.h"
- #include "gfx_v12_1_pkt.h"
+ static int mes_v12_1_hw_init(struct amdgpu_ip_block *ip_block);
++static int mes_v12_1_xcc_hw_init(struct amdgpu_ip_block *ip_block, int xcc_id);
+ static int mes_v12_1_hw_fini(struct amdgpu_ip_block *ip_block);
+ static int mes_v12_1_kiq_hw_init(struct amdgpu_device *adev, uint32_t xcc_id);
+ static int mes_v12_1_kiq_hw_fini(struct amdgpu_device *adev, uint32_t xcc_id);
+@@ -684,7 +685,7 @@ static int mes_v12_1_set_hw_resources(struct amdgpu_mes *mes,
  
-@@ -1065,27 +1065,19 @@ static int gfx_v12_1_rlc_backdoor_autoload_enable(struct amdgpu_device *adev)
- 	WREG32_SOC15(GC, GET_INST(GC, 0),
- 		     regGFX_IMU_RLC_BOOTLOADER_SIZE, rlc_g_size);
- 
--	if (adev->gfx.imu.funcs && (amdgpu_dpm > 0)) {
-+	if (adev->gfx.imu.funcs) {
- 		/* RLC autoload sequence 3: load IMU fw */
- 		if (adev->gfx.imu.funcs->load_microcode)
- 			adev->gfx.imu.funcs->load_microcode(adev);
--		/* RLC autoload sequence 4 init IMU fw */
--		if (adev->gfx.imu.funcs->setup_imu)
--			adev->gfx.imu.funcs->setup_imu(adev);
--		if (adev->gfx.imu.funcs->start_imu)
--			adev->gfx.imu.funcs->start_imu(adev);
--
--		/* RLC autoload sequence 5 disable gpa mode */
--		gfx_v12_1_xcc_disable_gpa_mode(adev, 0);
--	} else {
--		/* unhalt rlc to start autoload without imu */
--		data = RREG32_SOC15(GC, GET_INST(GC, 0), regRLC_GPM_THREAD_ENABLE);
--		data = REG_SET_FIELD(data, RLC_GPM_THREAD_ENABLE, THREAD0_ENABLE, 1);
--		data = REG_SET_FIELD(data, RLC_GPM_THREAD_ENABLE, THREAD1_ENABLE, 1);
--		WREG32_SOC15(GC, GET_INST(GC, 0), regRLC_GPM_THREAD_ENABLE, data);
--		WREG32_SOC15(GC, GET_INST(GC, 0), regRLC_CNTL, RLC_CNTL__RLC_ENABLE_F32_MASK);
+ 	for (i = 0; i < 5; i++) {
+ 		mes_set_hw_res_pkt.gc_base[i] =
+-			adev->reg_offset[GC_HWIP][GET_INST(GC, xcc_id)][i];
++			adev->reg_offset[GC_HWIP][0][i];
+ 		mes_set_hw_res_pkt.mmhub_base[i] =
+ 				adev->reg_offset[MMHUB_HWIP][0][i];
+ 		mes_set_hw_res_pkt.osssys_base[i] =
+@@ -1684,7 +1685,7 @@ static int mes_v12_1_kiq_hw_init(struct amdgpu_device *adev, uint32_t xcc_id)
  	}
  
-+	/* unhalt rlc to start autoload */
-+	data = RREG32_SOC15(GC, GET_INST(GC, 0), regRLC_GPM_THREAD_ENABLE);
-+	data = REG_SET_FIELD(data, RLC_GPM_THREAD_ENABLE, THREAD0_ENABLE, 1);
-+	data = REG_SET_FIELD(data, RLC_GPM_THREAD_ENABLE, THREAD1_ENABLE, 1);
-+	WREG32_SOC15(GC, GET_INST(GC, 0), regRLC_GPM_THREAD_ENABLE, data);
-+	WREG32_SOC15(GC, GET_INST(GC, 0), regRLC_CNTL, RLC_CNTL__RLC_ENABLE_F32_MASK);
-+
- 	return 0;
- }
- 
-@@ -2526,11 +2518,6 @@ static int gfx_v12_1_hw_init(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 
- 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_RLC_BACKDOOR_AUTO) {
--		if (adev->gfx.imu.funcs && (amdgpu_dpm > 0)) {
--			/* RLC autoload sequence 1: Program rlc ram */
--			if (adev->gfx.imu.funcs->program_rlc_ram)
--				adev->gfx.imu.funcs->program_rlc_ram(adev);
--		}
- 		/* rlc autoload firmware */
- 		r = gfx_v12_1_rlc_backdoor_autoload_enable(adev);
+ 	if (adev->mes.enable_legacy_queue_map) {
+-		r = mes_v12_1_hw_init(ip_block);
++		r = mes_v12_1_xcc_hw_init(ip_block, xcc_id);
  		if (r)
-@@ -2539,16 +2526,12 @@ static int gfx_v12_1_hw_init(struct amdgpu_ip_block *ip_block)
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
- 			num_xcc = NUM_XCC(adev->gfx.xcc_mask);
- 
--			for (i = 0; i < num_xcc; i++) {
--				if (adev->gfx.imu.funcs && (amdgpu_dpm > 0)) {
--					if (adev->gfx.imu.funcs->load_microcode)
--						adev->gfx.imu.funcs->load_microcode(adev);
--					if (adev->gfx.imu.funcs->setup_imu)
--						adev->gfx.imu.funcs->setup_imu(adev);
--					if (adev->gfx.imu.funcs->start_imu)
--						adev->gfx.imu.funcs->start_imu(adev);
--				}
-+			if (adev->gfx.imu.funcs) {
-+				if (adev->gfx.imu.funcs->load_microcode)
-+					adev->gfx.imu.funcs->load_microcode(adev);
-+			}
- 
-+			for (i = 0; i < num_xcc; i++) {
- 				/* disable gpa mode in backdoor loading */
- 				gfx_v12_1_xcc_disable_gpa_mode(adev, i);
- 			}
-@@ -3730,14 +3713,12 @@ static void gfx_v12_1_set_irq_funcs(struct amdgpu_device *adev)
- 
- static void gfx_v12_1_set_imu_funcs(struct amdgpu_device *adev)
- {
--#if 0
- 	if (adev->flags & AMD_IS_APU)
- 		adev->gfx.imu.mode = MISSION_MODE;
- 	else
- 		adev->gfx.imu.mode = DEBUG_MODE;
- 
--	adev->gfx.imu.funcs = &gfx_v12_0_imu_funcs;
--#endif
-+	adev->gfx.imu.funcs = &gfx_v12_1_imu_funcs;
- }
- 
- static void gfx_v12_1_set_rlc_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v12_1.c b/drivers/gpu/drm/amd/amdgpu/imu_v12_1.c
-new file mode 100644
-index 0000000000000..28932604d986d
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/imu_v12_1.c
-@@ -0,0 +1,139 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include <linux/firmware.h>
-+#include "amdgpu.h"
-+#include "amdgpu_imu.h"
-+#include "amdgpu_dpm.h"
-+
-+#include "imu_v12_1.h"
-+
-+#include "gc/gc_12_1_0_offset.h"
-+#include "gc/gc_12_1_0_sh_mask.h"
-+#include "mmhub/mmhub_4_2_0_offset.h"
-+
-+MODULE_FIRMWARE("amdgpu/gc_12_1_0_imu.bin");
-+
-+#define TRANSFER_RAM_MASK	0x001c0000
-+
-+static int imu_v12_1_init_microcode(struct amdgpu_device *adev)
-+{
-+	char ucode_prefix[15];
-+	int err;
-+	const struct imu_firmware_header_v1_0 *imu_hdr;
-+	struct amdgpu_firmware_info *info = NULL;
-+
-+	DRM_DEBUG("\n");
-+
-+	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
-+	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, AMDGPU_UCODE_REQUIRED,
-+				   "amdgpu/%s_imu.bin", ucode_prefix);
-+	if (err)
-+		goto out;
-+
-+	imu_hdr = (const struct imu_firmware_header_v1_0 *)adev->gfx.imu_fw->data;
-+	adev->gfx.imu_fw_version = le32_to_cpu(imu_hdr->header.ucode_version);
-+
-+	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
-+		info = &adev->firmware.ucode[AMDGPU_UCODE_ID_IMU_I];
-+		info->ucode_id = AMDGPU_UCODE_ID_IMU_I;
-+		info->fw = adev->gfx.imu_fw;
-+		adev->firmware.fw_size +=
-+			ALIGN(le32_to_cpu(imu_hdr->imu_iram_ucode_size_bytes), PAGE_SIZE);
-+		info = &adev->firmware.ucode[AMDGPU_UCODE_ID_IMU_D];
-+		info->ucode_id = AMDGPU_UCODE_ID_IMU_D;
-+		info->fw = adev->gfx.imu_fw;
-+		adev->firmware.fw_size +=
-+			ALIGN(le32_to_cpu(imu_hdr->imu_dram_ucode_size_bytes), PAGE_SIZE);
-+	}
-+
-+out:
-+	if (err) {
-+		dev_err(adev->dev,
-+			"gfx12: Failed to load firmware \"%s_imu.bin\"\n",
-+			ucode_prefix);
-+		amdgpu_ucode_release(&adev->gfx.imu_fw);
-+	}
-+
-+	return err;
-+}
-+
-+static void imu_v12_1_xcc_load_microcode(struct amdgpu_device *adev,
-+					 int xcc_id)
-+{
-+	const struct imu_firmware_header_v1_0 *hdr;
-+	const __le32 *fw_data;
-+	unsigned i, fw_size;
-+
-+	hdr = (const struct imu_firmware_header_v1_0 *)adev->gfx.imu_fw->data;
-+	fw_data = (const __le32 *)(adev->gfx.imu_fw->data +
-+			le32_to_cpu(hdr->header.ucode_array_offset_bytes));
-+	fw_size = le32_to_cpu(hdr->imu_iram_ucode_size_bytes) / 4;
-+
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regGFX_IMU_I_RAM_ADDR, 0);
-+
-+	for (i = 0; i < fw_size; i++)
-+		WREG32_SOC15(GC, GET_INST(GC, xcc_id),
-+			     regGFX_IMU_I_RAM_DATA,
-+			     le32_to_cpup(fw_data++));
-+
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id),
-+		     regGFX_IMU_I_RAM_ADDR,
-+		     adev->gfx.imu_fw_version);
-+
-+	fw_data = (const __le32 *)(adev->gfx.imu_fw->data +
-+			le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
-+			le32_to_cpu(hdr->imu_iram_ucode_size_bytes));
-+	fw_size = le32_to_cpu(hdr->imu_dram_ucode_size_bytes) / 4;
-+
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regGFX_IMU_D_RAM_ADDR, 0);
-+
-+	for (i = 0; i < fw_size; i++)
-+		WREG32_SOC15(GC, GET_INST(GC, xcc_id),
-+			     regGFX_IMU_D_RAM_DATA,
-+			     le32_to_cpup(fw_data++));
-+
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id),
-+		     regGFX_IMU_D_RAM_ADDR,
-+		     adev->gfx.imu_fw_version);
-+}
-+
-+static int imu_v12_1_load_microcode(struct amdgpu_device *adev)
-+{
-+	int i, num_xcc;
-+
-+	if (!adev->gfx.imu_fw)
-+		return -EINVAL;
-+
-+	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-+	for (i = 0; i < num_xcc; i++) {
-+		imu_v12_1_xcc_load_microcode(adev, i);
-+	}
-+
-+	return 0;
-+}
-+
-+const struct amdgpu_imu_funcs gfx_v12_1_imu_funcs = {
-+	.init_microcode = imu_v12_1_init_microcode,
-+	.load_microcode = imu_v12_1_load_microcode,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v12_1.h b/drivers/gpu/drm/amd/amdgpu/imu_v12_1.h
-new file mode 100644
-index 0000000000000..4a7c12bf7b0fb
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/imu_v12_1.h
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __IMU_V12_1_H__
-+#define __IMU_V12_1_H__
-+
-+extern const struct amdgpu_imu_funcs gfx_v12_1_imu_funcs;
-+
-+#endif
-+
+ 			goto failure;
+ 	}
 -- 
 2.51.1
 
