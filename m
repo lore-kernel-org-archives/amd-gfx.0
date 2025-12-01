@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B67CFD116FC
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 10:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4B4D116F1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 10:14:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F8C10E364;
-	Mon,  1 Dec 2025 10:14:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFEC810E36B;
+	Mon,  1 Dec 2025 10:14:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4KkZ4j1x";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nSu+ZKBl";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011016.outbound.protection.outlook.com [40.107.208.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4725110E36F
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 10:14:32 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 620D510E359
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 10:14:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JBfJiEoxuyTjFeLgW/F5ReQzcpaX7zYYGyO3eoSDPExExEnhfdtrG93h3RqzwAd9wx7MJbXbBK1o9PK4KSCOVLE5r90qU6rnLHgaKeMXZlmhNkWaO/RtoCrUaBvoqvdywAAoJrUd15GRPfNO2sagD0AWVpCwh0yImmf7B707dy0G1WBpxBno/7DjQHf784FYWRI5DNJbtnhUGQwo0NzJ9ayqH3q7CbyRpAR7CWEVFhBF0gmQg1Pj9TP60hRIUyAQn69zfaTIawge/GtYk4GWBCm1YndPZrDJrTMUoQBvpyjBTJetCWDMTN4p0rYgZaYfpbjHiaiqyeGBH+F/7kF3yQ==
+ b=IOtltuAu+3PROMuZ+r3MF1FIST9JNdKGXW1B0JZd57hyEvX5Ll9BxshOpkGVqg51wjTpV+9jTTb0AwT20SYpJDbk8Vc3QT84kFMkzO/1fJejk6nxIpi85cbQg3A5SxDxx2nO3Zj4NzKz+QHhjIvrWll7XXVwHRAlP/Qol5iP9fgTALZ871osWNeKDo9Qx36dTxy7i8YGNI9Z5aNrE4kQEnFdsQkR8Fpru7fK9Pl2SDg0spt+E0/1Wn6W6uHd5o1hEr3x1+tQm8eHUfJbCuVydql/2Mm6Vdk8dNquS42vupwgJpN3TlpYFVYWCHzDIiKvHTHAbrOxmLTarSPWrohhqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5nuAdfHLZuuaAmPs5ZtBL5nvqZ08pgWEiHussv+I+RQ=;
- b=pMGouallF1vV8W0zZHe6zN1q9JeSpv5eyGi+ypnDYihol16psSMzZorEwHvF9IhS8aA7Wo/nPk7hYKlYwts7GhjO4yijwDpbKBtzhPjoPsJg0D1n/eC6UQ/J/6Sg+wY8QXjECQ9eZhb4ZhUDCNTcS7W0XypGQipkC6HjODl3/qYcn7vdkTNPLdGylqM3NfGEzuMzVAbte7zE79elzPzAf+ZA9xCHddzxEvxH61HxrGAZdOsv7nK9Dc6Kp6B3hgxXt2jEP/hqCoSs41v62bYjlsPfb5S+/yXSy4ujMGy9RPq4MDJWd6qLPiCgmN2wy21d91YLgwdbch6qrOdKswSiWA==
+ bh=WHnJu1vuC9+amfIjbjx+xGhCPpxLp4SkESMQWeQNTOo=;
+ b=scjmRQO0zbcFfbNWELiQnDnvqMopUVT7a7TQSgrKfmZXs2c9PmKhxFTUn4LDu3NMWQ4NaphQNGZ9FSUdKB4S5fXJOuxINQa1dOXRr0v/8B9W8uiTXTNAEAzAcu0veOzv2TncyS8qbwfylOo54+pJ00d90PMIYN0+c371TwTogAeJKsij1ms2m8jJm2QZnFXBgo3iK/nKObT2BmzjdUq8MDcYhEMYX0jNz/0MjdGP9Gjb7E5d/9OoFB1qkpcKO07bnB4J4x1znVBSU68UOhtni+2eLyGS+fr//tV5V/0mGiwliNdw9kkt3HplktRw8zWep2Ug4r3sn/V7oT4bgsWh3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5nuAdfHLZuuaAmPs5ZtBL5nvqZ08pgWEiHussv+I+RQ=;
- b=4KkZ4j1xRc8aRAkrqRz+fe67a+Pn/dcIjzV+cc7X2kDtwTC3ae9+K20rc3OxIl81r5uMPX8Jq0APQebh1efgWHsGXWBWJEpk4Dr0oBqMHtEmDUIYY9XVCvt/WJRQ3q0Py2qS1mNCdc4ZWAp9ap2UFru3auTW6gmoDUcPYenFjjQ=
-Received: from CH0P223CA0008.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::19)
- by BY5PR12MB4258.namprd12.prod.outlook.com (2603:10b6:a03:20d::10)
+ bh=WHnJu1vuC9+amfIjbjx+xGhCPpxLp4SkESMQWeQNTOo=;
+ b=nSu+ZKBlJOOO+zZG9tsCjvc8+Ap9NYSYiHvcskMLda+w3vJZKPkvYKb37Xr4NrLWLXmfjejg4+YB3a/1zTx9MJaHXtpFQ24MDroA9Q9Ur6z6tzqoBD76SbPBrbGW8+Z2v5A7MbNWq+xoThPD2O7wStgj9z9aPzWs4RzrEyhmLDg=
+Received: from CH0PR03CA0441.namprd03.prod.outlook.com (2603:10b6:610:10e::34)
+ by MW4PR12MB7029.namprd12.prod.outlook.com (2603:10b6:303:1eb::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Mon, 1 Dec
- 2025 10:14:27 +0000
-Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
- (2603:10b6:610:116:cafe::c) by CH0P223CA0008.outlook.office365.com
- (2603:10b6:610:116::19) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 10:14:31 +0000
+Received: from CH3PEPF0000000D.namprd04.prod.outlook.com
+ (2603:10b6:610:10e:cafe::1c) by CH0PR03CA0441.outlook.office365.com
+ (2603:10b6:610:10e::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Mon,
- 1 Dec 2025 10:14:22 +0000
+ 1 Dec 2025 10:13:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,19 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
+ CH3PEPF0000000D.mail.protection.outlook.com (10.167.244.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Mon, 1 Dec 2025 10:14:27 +0000
+ 15.20.9388.8 via Frontend Transport; Mon, 1 Dec 2025 10:14:30 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 1 Dec
- 2025 04:14:25 -0600
+ 2025 04:14:29 -0600
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Asad.Kamal@amd.com>
-Subject: [PATCH 08/17] drm/amd/pm: Use generic pcie dpm table for SMUv14
-Date: Mon, 1 Dec 2025 15:33:21 +0530
-Message-ID: <20251201101331.101584-9-lijo.lazar@amd.com>
+Subject: [PATCH 10/17] drm/amd/pm: Use common helper for arcturus dpm
+Date: Mon, 1 Dec 2025 15:33:23 +0530
+Message-ID: <20251201101331.101584-11-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20251201101331.101584-1-lijo.lazar@amd.com>
 References: <20251201101331.101584-1-lijo.lazar@amd.com>
@@ -72,53 +72,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|BY5PR12MB4258:EE_
-X-MS-Office365-Filtering-Correlation-Id: adb89e97-6ce7-4b13-f34e-08de30c268e8
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000D:EE_|MW4PR12MB7029:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80c94131-c44b-4318-b4c0-08de30c26af5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hI6VDvvY9O0dYT2xS8NRYcxl3lL2M0fMmko1qWwqGi/DmnKi9/9t+PGHzTuM?=
- =?us-ascii?Q?jGMeBlSH1sNQP2Qg0r6HtHYvi0Y+glVw3c5O+K7P2NOmBptgQ/fDyv0yzs86?=
- =?us-ascii?Q?teLe7O/0SDokdpSczRgl4nkocEVxutadKD7G+E8+j6FJL5xNxYKOSo9qww5X?=
- =?us-ascii?Q?yd5BXPSg6wvPZtFH5pnkSNGHMZWSiRIbf9UfwE2knQrRMa62m54RoY0zCfmv?=
- =?us-ascii?Q?p4J5AsIS++TWuPZQ4AfVIDRyHWRA8Q8buT178cRADssqZbFGPB0vrMdL/GJz?=
- =?us-ascii?Q?ncxtsHU41WBC33TAAdbVYM7XYvauRc2uZvSgG0HMi2m/cl/5fuVp/jhXpA4S?=
- =?us-ascii?Q?Ia/2l5ejgR7i4FXpdiYNMIviKbJ8LlKc3WNKvxbU02165ctiJ8GfW/qV3mIN?=
- =?us-ascii?Q?JjHbTqC7Z/U4NQtxm0mDh6JG3FzhNdAsbvhEAkNssKZvHSlxGntRcGoKRED1?=
- =?us-ascii?Q?oWwLRzfX0hbRDPK5ZLLgLNAZGvzuOXt4YLiCHbCG0j7BsTfsHCZ52Rs90J1L?=
- =?us-ascii?Q?X0zEd3FBHdb5GtUdz3ZWcti0exhShxdIdSs2Vp6pBg63cf0+dT8B8wHC7DgT?=
- =?us-ascii?Q?HVIoNYOH6NbotkWog+RFd3ag28/JnafxMmvtvBpcYXng+nxqDAJzMtK+c6pf?=
- =?us-ascii?Q?HkngrtjhmD36AjYc7fytptZfMYtA1Rw9TBNLWvpwT/+ALi05IBv2VymjSkjl?=
- =?us-ascii?Q?QPB+qE+YbS2AD9KnBcX4mJXxdhejCz+DYj8FsinANae3Xb7eenWY3SN1SADC?=
- =?us-ascii?Q?NEWsr6AA9iqbjX2ReelQKrk8MldqxC932/3Xxw8z/IMw7UFCoq5V5xSkFY77?=
- =?us-ascii?Q?o4TiNzgSID4k/4Iudb1Pk5EZK0cYNoT7tUGRzQEx9K0h6xJFhPU+3SqDAhTV?=
- =?us-ascii?Q?1y0yNDLI+w/gf4DFrVDZLM4YkXcK24u5LTNgSig3idRPclavJq6DWI7T1Npw?=
- =?us-ascii?Q?181Tiw84JeF8GiIwiasa1CQmOtUuk3BN9CohPCj0hnE2e1nk17asvl1gdgd7?=
- =?us-ascii?Q?9Sv0Qw9Xb5gwE0zMaXL1cNhAUrwfTDYtpNqjm7gglJvgeFyonn28pfllnXRU?=
- =?us-ascii?Q?MW8B3enAMCakFhPz+X+t0gikNTDTAtyVhINfaN3wglb/2iBTx1GTLon4lScn?=
- =?us-ascii?Q?sh0jIfj0AQy5D2SJhSedvkEEzlEaXijXTrMow3Jwn7V+j2cXlO3hdVFIBEbo?=
- =?us-ascii?Q?9nBf+olqO/vG6mx19OSRHUGBFzE+okW1zWWL8mhMmxltFPLheSzGvx7WAw4t?=
- =?us-ascii?Q?Uj3SQOY2o2pWydozKvCvSsy8MKBg6eoFeqth5OlBrzzw4ImUQS5EqJST84In?=
- =?us-ascii?Q?/+ttPaP+I40gmlh3leH0DaYWgXleVwxMQdf2xbnWvZo/QgRE2w7x2KajmPiU?=
- =?us-ascii?Q?qkFujQqqLFhVhVzmKJX+UEQ3tzD+NgoxcwjTAdnMrdLAr1nX9JL/uGImQdZd?=
- =?us-ascii?Q?kjm8XzAA3HjCJWgxX52sEUVdk3LpQfS3j33BV0bi390+PQYDI3o3DamFNwdI?=
- =?us-ascii?Q?B4YxbIBWKuPi+9sslHtnqzB0kYuPtpjcr3Vl9/ZIVXIeeubSvqVaQ1gKpMYf?=
- =?us-ascii?Q?sgOgi10FyKxGBTZ9bIQ=3D?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cGOd7nnYLTyYfHBWXJkjflHnQHUyNVDwDVH2UZaPPiJE0qYY4M4qqeSFy+UQ?=
+ =?us-ascii?Q?jzaUxCUH4FoZXolok1zjNnYKPeC49Z5C48k3QnG/NL3Q/4hrQbGGmwYzcHJ0?=
+ =?us-ascii?Q?dPA9fg7H/ZouJEck5L/fNqduqUvY7n6/U6v+Y9d/wRIqdZX3TGrbilr0kR28?=
+ =?us-ascii?Q?PdLqwIe7Cc0X4zpw2Kd3UQ/LsUATaNqga6T2LWl7689QpQJXpQMPFk2Se4MH?=
+ =?us-ascii?Q?IuwmnGjHN8LUpd4O7Fc5bebn1gFfAMKnuV0VJ/EwSfS3s3WEKFCkOsSYh4Xz?=
+ =?us-ascii?Q?leBjikElQ80QtGJdm7dtap1ehrevMiKY8Qs7WClcuiUy0E8gjseRNLixng3l?=
+ =?us-ascii?Q?HQmD8qytyr1NDNoQ+M+X1oKp1JniP+y55oNjKyj1jVfgU5fFppI38TvO1HW0?=
+ =?us-ascii?Q?2LQj095PJkSRP2T5Sj+Xq+MtCPJ44kVuXu35LmNyIGiL9bY/sX1HXxUoLv7e?=
+ =?us-ascii?Q?UA4UXwaKEeBWCX9Ik+ZMolba0nBJft3aMqSzVNyqW5xU2/36um7P1dW7SLkz?=
+ =?us-ascii?Q?RlSE0tr/GeFzJukoJHStGGs7dgT883zX/Qdgc+47Xn9ylg1pzyETpTZLgzhB?=
+ =?us-ascii?Q?5YifK21viSWAcmdBw27r8LdNEzslMCR8uIjPrGCX17cesoX/tbF5dyLzBFBF?=
+ =?us-ascii?Q?7f0ag48a9jS1Kz7euIwvj/k6VtvJ6ziu+jqC8Qmpml3QVJ2caSeQDsxXc6tk?=
+ =?us-ascii?Q?mI16uQjbAFuUIeNvxSA8ghpE4jYqV1VA9cR2BbvZn6ldOhAVdV7yPxcBbURC?=
+ =?us-ascii?Q?0Y1WjZfrooHL0bIdHPghI6kN7FG4Bkoyc29loj9MCwwKBarHKwxpWggkzbyg?=
+ =?us-ascii?Q?Iz2rIMS41TvLQQmwXsWlVj4cqk7GT/aq+0IzcwwSk7vnydBzFT9/Al8u49wJ?=
+ =?us-ascii?Q?YNYxtzp/xT81Rm4sA9LWNWPxmMRq1hrl5ZTk7D+x8/r519ctDevZB9VXq3Jm?=
+ =?us-ascii?Q?vus7ppklJUcwo2zA5jN2TSUWsAhe0wzrsTzvkVL26XChSX7AC21+UtbYTCZl?=
+ =?us-ascii?Q?MXZBtaP3KQbP9iZI0tQNrKf7UJXHB+e1MTD9YLq7S94PpWnPtFR9qanhcoL1?=
+ =?us-ascii?Q?MjVGOqbgs4z5sWXLBhWIQz3QDrS/MpZmS1kCkANgAwd4LbeGNO50GEUVEixX?=
+ =?us-ascii?Q?ZVg4cZII1oDIEgPJCwEEEI4f/pEX6LoiwMnUFmIn6EHBPdLOBPA9hyvFHpP5?=
+ =?us-ascii?Q?3VAszcKlZXD+xba/CqyCbN9BHMDdmqF8J0fUEk2Zt9mu+NPrwYh3i6URL5Ne?=
+ =?us-ascii?Q?9JgjbkS2DPgKCILK3ep1M7Y+y76yYirFA3A5c+NIA3PT50sWlCZtOrhJQETQ?=
+ =?us-ascii?Q?xMihsi49WiCCsMXARLhj4MEGvYizCNkpdbd7G44hQDk0uNKl+rar9nGZtega?=
+ =?us-ascii?Q?p/Sdj25S8uOLQVmyu1k/FWl3U+JC/+WWc13PPrbScH5c7/YY7cK4/rtk5Yh9?=
+ =?us-ascii?Q?3RAgiHcN2OcnnEnUNwlwVa+wywNRUUsrS6kFqXW5BuUQxfuCS6vMTQOPFpBc?=
+ =?us-ascii?Q?KcYJ8T75lgPksU58EjozLeSPoG5e8105w3WEfiyrZbjpY3zYZYVkq66DmBrn?=
+ =?us-ascii?Q?GTlO0wXAKrsN1Bl2DQk=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 10:14:27.4536 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: adb89e97-6ce7-4b13-f34e-08de30c268e8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2025 10:14:30.8935 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80c94131-c44b-4318-b4c0-08de30c26af5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000D.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4258
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7029
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,140 +133,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use smu_pcie_table for SMUv14 SOCs.
+Use the helper function to print DPM clock levels to sysfs.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h  |  9 +----
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 36 +++++++++----------
- 2 files changed, 19 insertions(+), 26 deletions(-)
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 133 +++++-------------
+ 1 file changed, 39 insertions(+), 94 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-index 5b6fa8fdce2d..4ecec85b8404 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h
-@@ -66,13 +66,6 @@ struct smu_14_0_max_sustainable_clocks {
- 	uint32_t soc_clock;
- };
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 67d217f27264..0667a3f9282a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -74,9 +74,6 @@
+ 	FEATURE_DPM_FCLK_MASK | \
+ 	FEATURE_DPM_XGMI_MASK)
  
--struct smu_14_0_pcie_table {
--	uint8_t  pcie_gen[MAX_PCIE_CONF];
--	uint8_t  pcie_lane[MAX_PCIE_CONF];
--	uint16_t clk_freq[MAX_PCIE_CONF];
--	uint32_t num_of_link_levels;
--};
+-/* possible frequency drift (1Mhz) */
+-#define EPSILON				1
 -
- struct smu_14_0_dpm_tables {
- 	struct smu_dpm_table        soc_table;
- 	struct smu_dpm_table        gfx_table;
-@@ -85,7 +78,7 @@ struct smu_14_0_dpm_tables {
- 	struct smu_dpm_table        display_table;
- 	struct smu_dpm_table        phy_table;
- 	struct smu_dpm_table        fclk_table;
--	struct smu_14_0_pcie_table       pcie_table;
-+	struct smu_pcie_table       pcie_table;
- };
+ #define smnPCIE_ESM_CTRL			0x111003D0
  
- struct smu_14_0_dpm_context {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index daa51364cb24..596cdba0a8b4 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -1046,7 +1046,7 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
- 	OverDriveTableExternal_t *od_table =
- 		(OverDriveTableExternal_t *)smu->smu_table.overdrive_table;
+ #define mmCG_FDO_CTRL0_ARCT			0x8B
+@@ -604,29 +601,6 @@ static int arcturus_populate_umd_state_clk(struct smu_context *smu)
+ 	return 0;
+ }
+ 
+-static void arcturus_get_clk_table(struct smu_context *smu,
+-				   struct pp_clock_levels_with_latency *clocks,
+-				   struct smu_dpm_table *dpm_table)
+-{
+-	uint32_t i;
+-
+-	clocks->num_levels = min_t(uint32_t,
+-				   dpm_table->count,
+-				   (uint32_t)PP_MAX_CLOCK_LEVELS);
+-
+-	for (i = 0; i < clocks->num_levels; i++) {
+-		clocks->data[i].clocks_in_khz =
+-			dpm_table->dpm_levels[i].value * 1000;
+-		clocks->data[i].latency_in_us = 0;
+-	}
+-}
+-
+-static int arcturus_freqs_in_same_level(int32_t frequency1,
+-					int32_t frequency2)
+-{
+-	return (abs(frequency1 - frequency2) <= EPSILON);
+-}
+-
+ static int arcturus_get_smu_metrics_data(struct smu_context *smu,
+ 					 MetricsMember_t member,
+ 					 uint32_t *value)
+@@ -793,15 +767,12 @@ static int arcturus_get_current_clk_freq_by_table(struct smu_context *smu,
+ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 				    enum smu_clk_type type, char *buf, int *offset)
+ {
+-	int ret = 0;
+-	struct pp_clock_levels_with_latency clocks;
++	struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
  	struct smu_dpm_table *single_dpm_table;
--	struct smu_14_0_pcie_table *pcie_table;
+-	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
+-	struct smu_11_0_dpm_context *dpm_context = NULL;
 +	struct smu_pcie_table *pcie_table;
  	uint32_t gen_speed, lane_width;
- 	int i, curr_freq, size = *offset, start_offset = *offset;
- 	int32_t min_value, max_value;
-@@ -1150,7 +1150,7 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
- 			return ret;
+-	uint32_t i, cur_value = 0;
+-	bool freq_match;
+-	unsigned int clock_mhz;
++	uint32_t cur_value = 0;
++	int ret = 0;
+ 	static const char attempt_string[] = "Attempt to get current";
  
- 		pcie_table = &(dpm_context->dpm_tables.pcie_table);
--		for (i = 0; i < pcie_table->num_of_link_levels; i++)
-+		for (i = 0; i < pcie_table->lclk_levels; i++)
- 			size += sysfs_emit_at(buf, size, "%d: %s %s %dMhz %s\n", i,
- 					(pcie_table->pcie_gen[i] == 0) ? "2.5GT/s," :
- 					(pcie_table->pcie_gen[i] == 1) ? "5.0GT/s," :
-@@ -1164,7 +1164,7 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
- 					(pcie_table->pcie_lane[i] == 5) ? "x12" :
- 					(pcie_table->pcie_lane[i] == 6) ? "x16" :
- 					(pcie_table->pcie_lane[i] == 7) ? "x32" : "",
--					pcie_table->clk_freq[i],
-+					pcie_table->lclk_freq[i],
- 					(gen_speed == DECODE_GEN_SPEED(pcie_table->pcie_gen[i])) &&
- 					(lane_width == DECODE_LANE_WIDTH(pcie_table->pcie_lane[i])) ?
- 					"*" : "");
-@@ -1454,9 +1454,9 @@ static int smu_v14_0_2_update_pcie_parameters(struct smu_context *smu,
- 					      uint8_t pcie_width_cap)
- {
- 	struct smu_14_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
--	struct smu_14_0_pcie_table *pcie_table =
-+	struct smu_pcie_table *pcie_table =
- 				&dpm_context->dpm_tables.pcie_table;
--	int num_of_levels;
-+	int lclk_levels;
- 	uint32_t smu_pcie_arg;
- 	uint32_t link_level;
- 	struct smu_table_context *table_context = &smu->smu_table;
-@@ -1465,34 +1465,34 @@ static int smu_v14_0_2_update_pcie_parameters(struct smu_context *smu,
- 	int ret = 0;
- 	int i;
- 
--	pcie_table->num_of_link_levels = 0;
-+	pcie_table->lclk_levels = 0;
- 	for (link_level = 0; link_level < NUM_LINK_LEVELS; link_level++) {
- 		if (!skutable->PcieGenSpeed[link_level] &&
- 		    !skutable->PcieLaneCount[link_level] &&
- 		    !skutable->LclkFreq[link_level])
- 			continue;
- 
--		pcie_table->pcie_gen[pcie_table->num_of_link_levels] =
-+		pcie_table->pcie_gen[pcie_table->lclk_levels] =
- 					skutable->PcieGenSpeed[link_level];
--		pcie_table->pcie_lane[pcie_table->num_of_link_levels] =
-+		pcie_table->pcie_lane[pcie_table->lclk_levels] =
- 					skutable->PcieLaneCount[link_level];
--		pcie_table->clk_freq[pcie_table->num_of_link_levels] =
-+		pcie_table->lclk_freq[pcie_table->lclk_levels] =
- 					skutable->LclkFreq[link_level];
--		pcie_table->num_of_link_levels++;
-+		pcie_table->lclk_levels++;
+ 	if (amdgpu_ras_intr_triggered()) {
+@@ -809,8 +780,6 @@ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 		return -EBUSY;
  	}
--	num_of_levels = pcie_table->num_of_link_levels;
--	if (!num_of_levels)
-+	lclk_levels = pcie_table->lclk_levels;
-+	if (!lclk_levels)
- 		return 0;
  
- 	if (!(smu->adev->pm.pp_feature & PP_PCIE_DPM_MASK)) {
--		if (pcie_table->pcie_gen[num_of_levels - 1] < pcie_gen_cap)
--			pcie_gen_cap = pcie_table->pcie_gen[num_of_levels - 1];
-+		if (pcie_table->pcie_gen[lclk_levels - 1] < pcie_gen_cap)
-+			pcie_gen_cap = pcie_table->pcie_gen[lclk_levels - 1];
- 
--		if (pcie_table->pcie_lane[num_of_levels - 1] < pcie_width_cap)
--			pcie_width_cap = pcie_table->pcie_lane[num_of_levels - 1];
-+		if (pcie_table->pcie_lane[lclk_levels - 1] < pcie_width_cap)
-+			pcie_width_cap = pcie_table->pcie_lane[lclk_levels - 1];
- 
- 		/* Force all levels to use the same settings */
--		for (i = 0; i < num_of_levels; i++) {
-+		for (i = 0; i < lclk_levels; i++) {
- 			pcie_table->pcie_gen[i] = pcie_gen_cap;
- 			pcie_table->pcie_lane[i] = pcie_width_cap;
- 			smu_pcie_arg = i << 16;
-@@ -1507,7 +1507,7 @@ static int smu_v14_0_2_update_pcie_parameters(struct smu_context *smu,
- 				break;
+-	dpm_context = smu_dpm->dpm_context;
+-
+ 	switch (type) {
+ 	case SMU_SCLK:
+ 		ret = arcturus_get_current_clk_freq_by_table(smu, SMU_GFXCLK, &cur_value);
+@@ -818,10 +787,11 @@ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 			dev_err(smu->adev->dev, "%s gfx clk Failed!", attempt_string);
+ 			return ret;
  		}
- 	} else {
--		for (i = 0; i < num_of_levels; i++) {
-+		for (i = 0; i < lclk_levels; i++) {
- 			if (pcie_table->pcie_gen[i] > pcie_gen_cap ||
- 				pcie_table->pcie_lane[i] > pcie_width_cap) {
- 				pcie_table->pcie_gen[i] = pcie_table->pcie_gen[i] > pcie_gen_cap ?
+-
+ 		single_dpm_table = &(dpm_context->dpm_tables.gfx_table);
+-		arcturus_get_clk_table(smu, &clocks, single_dpm_table);
+-
++		ret = smu_cmn_print_dpm_clk_levels(smu, single_dpm_table,
++						   cur_value, buf, offset);
++		if (ret < 0)
++			return ret;
+ 		break;
+ 
+ 	case SMU_MCLK:
+@@ -830,10 +800,11 @@ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 			dev_err(smu->adev->dev, "%s mclk Failed!", attempt_string);
+ 			return ret;
+ 		}
+-
+ 		single_dpm_table = &(dpm_context->dpm_tables.uclk_table);
+-		arcturus_get_clk_table(smu, &clocks, single_dpm_table);
+-
++		ret = smu_cmn_print_dpm_clk_levels(smu, single_dpm_table,
++						   cur_value, buf, offset);
++		if (ret < 0)
++			return ret;
+ 		break;
+ 
+ 	case SMU_SOCCLK:
+@@ -842,10 +813,11 @@ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 			dev_err(smu->adev->dev, "%s socclk Failed!", attempt_string);
+ 			return ret;
+ 		}
+-
+ 		single_dpm_table = &(dpm_context->dpm_tables.soc_table);
+-		arcturus_get_clk_table(smu, &clocks, single_dpm_table);
+-
++		ret = smu_cmn_print_dpm_clk_levels(smu, single_dpm_table,
++						   cur_value, buf, offset);
++		if (ret < 0)
++			return ret;
+ 		break;
+ 
+ 	case SMU_FCLK:
+@@ -854,10 +826,11 @@ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 			dev_err(smu->adev->dev, "%s fclk Failed!", attempt_string);
+ 			return ret;
+ 		}
+-
+ 		single_dpm_table = &(dpm_context->dpm_tables.fclk_table);
+-		arcturus_get_clk_table(smu, &clocks, single_dpm_table);
+-
++		ret = smu_cmn_print_dpm_clk_levels(smu, single_dpm_table,
++						   cur_value, buf, offset);
++		if (ret < 0)
++			return ret;
+ 		break;
+ 
+ 	case SMU_VCLK:
+@@ -866,10 +839,11 @@ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 			dev_err(smu->adev->dev, "%s vclk Failed!", attempt_string);
+ 			return ret;
+ 		}
+-
+ 		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
+-		arcturus_get_clk_table(smu, &clocks, single_dpm_table);
+-
++		ret = smu_cmn_print_dpm_clk_levels(smu, single_dpm_table,
++						   cur_value, buf, offset);
++		if (ret < 0)
++			return ret;
+ 		break;
+ 
+ 	case SMU_DCLK:
+@@ -878,56 +852,27 @@ static int arcturus_emit_clk_levels(struct smu_context *smu,
+ 			dev_err(smu->adev->dev, "%s dclk Failed!", attempt_string);
+ 			return ret;
+ 		}
+-
+ 		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
+-		arcturus_get_clk_table(smu, &clocks, single_dpm_table);
+-
++		ret = smu_cmn_print_dpm_clk_levels(smu, single_dpm_table,
++						   cur_value, buf, offset);
++		if (ret < 0)
++			return ret;
+ 		break;
+ 
+ 	case SMU_PCIE:
+ 		gen_speed = smu_v11_0_get_current_pcie_link_speed_level(smu);
+ 		lane_width = smu_v11_0_get_current_pcie_link_width_level(smu);
+-		break;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	switch (type) {
+-	case SMU_SCLK:
+-	case SMU_MCLK:
+-	case SMU_SOCCLK:
+-	case SMU_FCLK:
+-	case SMU_VCLK:
+-	case SMU_DCLK:
+-		/*
+-		 * For DPM disabled case, there will be only one clock level.
+-		 * And it's safe to assume that is always the current clock.
+-		 */
+-		for (i = 0; i < clocks.num_levels; i++) {
+-			clock_mhz = clocks.data[i].clocks_in_khz / 1000;
+-			freq_match = arcturus_freqs_in_same_level(clock_mhz, cur_value);
+-			freq_match |= (clocks.num_levels == 1);
+-
+-			*offset += sysfs_emit_at(buf, *offset, "%d: %uMhz %s\n",
+-				i, clock_mhz,
+-				freq_match ? "*" : "");
+-		}
+-		break;
+-
+-	case SMU_PCIE:
+-		*offset += sysfs_emit_at(buf, *offset, "0: %s %s %dMhz *\n",
+-				(gen_speed == 0) ? "2.5GT/s," :
+-				(gen_speed == 1) ? "5.0GT/s," :
+-				(gen_speed == 2) ? "8.0GT/s," :
+-				(gen_speed == 3) ? "16.0GT/s," : "",
+-				(lane_width == 1) ? "x1" :
+-				(lane_width == 2) ? "x2" :
+-				(lane_width == 3) ? "x4" :
+-				(lane_width == 4) ? "x8" :
+-				(lane_width == 5) ? "x12" :
+-				(lane_width == 6) ? "x16" : "",
+-				smu->smu_table.boot_values.lclk / 100);
++		pcie_table = &(dpm_context->dpm_tables.pcie_table);
++		/* Populate with current state - arcturus only has boot level lclk */
++		pcie_table->lclk_levels = 1;
++		pcie_table->pcie_gen[0] = gen_speed;
++		pcie_table->pcie_lane[0] = lane_width;
++		pcie_table->lclk_freq[0] =
++			smu->smu_table.boot_values.lclk / 100;
++		ret = smu_cmn_print_pcie_levels(smu, pcie_table, gen_speed,
++						lane_width, buf, offset);
++		if (ret < 0)
++			return ret;
+ 		break;
+ 
+ 	default:
 -- 
 2.49.0
 
