@@ -4,121 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C63CFD2F6
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 08:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE38AD116FF
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 08:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 382BB10E587;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0FA10E592;
 	Tue,  2 Dec 2025 08:16:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="h2G0EMP2";
+	dkim=pass (2048-bit key; unprotected) header.d=networkplumber-org.20230601.gappssmtp.com header.i=@networkplumber-org.20230601.gappssmtp.com header.b="TaDr7HVh";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7DD710E04B
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 14:01:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1764597672; x=1765202472; i=natalie.vock@gmx.de;
- bh=TE5UvJPsHO/mp9YU51R8AuxEgaopNphO0d0Qi6KcXR0=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
- MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=h2G0EMP2UmsjEDe/H9DAQ46ADJlsUkjjWRcdwXVq6CqOnbqJ44i3vEYUwhVfWeeD
- M2jb39STi0Ou62yfi2OElPKAm2nV6sU0HJXx0k6P7ZCHaynC8vZVV9AOXX4VrRzmU
- wXL902KoI7njR2qzJaoTE1X3G4bQCFj8ECXt6cIPHqt99iDDBmtUqQbQbc2GKEZb6
- sFs+oSlDnNaWqv3GPto//OX+/3B0s5tZHsOgaTo1rAJBaBMjRx2jYR5nUXjKPdCcj
- j1wG1Hysux39+HfgQpYX4gvNP1cAXo4YuQBtnVSB0XuPr6HE6j62eUzGw3rcsNkjL
- pTGgBNQ20c0GVX0lbw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from rizzler ([80.187.64.159]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1ML9yS-1viHpy26La-00KonC; Mon, 01
- Dec 2025 15:01:12 +0100
-From: Natalie Vock <natalie.vock@gmx.de>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/amdgpu: Forward VMID reservation errors
-Date: Mon,  1 Dec 2025 15:00:47 +0100
-Message-ID: <20251201140047.12403-1-natalie.vock@gmx.de>
-X-Mailer: git-send-email 2.51.2
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57E010E0CB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 03:49:03 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-477632d9326so30958835e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Dec 2025 19:49:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=networkplumber-org.20230601.gappssmtp.com; s=20230601; t=1764647342;
+ x=1765252142; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:subject:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q1Mip76oR/J7pQnuSTihzljgSX9wgGK+T6mAyrxM6Y8=;
+ b=TaDr7HVhDMhHFA5/4KFITOc2YvRSMLTx8x+eIHEUGC7YZqQ7Y+3phEqWzo0Asvyroc
+ VpHZ8+o81x6v2zEP4TCJkeIucGjy17oj/lC5gDReAV9+nHjG4wcLpeKbMxEr49jHmx+t
+ 9s9UUOSZNaSkaigNXcFq5p19CWwkmTx/kn3xDlz8nd+Kat0IRMIfVGppiWL/SGykfT6h
+ ZncR8C+8tUjTKe+YXB7ftv9DHT0wo/AzGj7LYhBGBYj6XoW4Y/XBmTM4YM5oj2lb1WOo
+ IirX4VM5jN1ygr7woUMBGl0ZisVDrsXZjeO/UEyMW/60XgsgsoQRyDvGLIMYF97+bjop
+ mFcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764647342; x=1765252142;
+ h=content-transfer-encoding:mime-version:message-id:subject:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Q1Mip76oR/J7pQnuSTihzljgSX9wgGK+T6mAyrxM6Y8=;
+ b=mwQAqASO7Zx6vVJLnPnDWCwPUmkps1NFPKtdP9PQQNYvXyeMPjtizsaBBx1veBoNV0
+ tfJoc3qdHHnn+0i56K5lv2kDd1bVTlKthF2wACWO6mvhVtYmxEajl/J9ezlTkfUVoEb+
+ 8Oz7JJZNEut7SGVy1QqNPu35/OINBW2/tcHOZ2kGfq+jsejsjFOqlzIJQpND5wXTe77g
+ psaZotajBYanBdCPejMLWL0icXYIHCb1IDThCNDlYS7nvk/2m/5m/DUGJdd7GtBs21X0
+ Uc9CPzdRPAphTW8VINuPYZM7n4sch6Yx/kiILUg92Dt8I+C8B6avr/LrnVb74oHlEekP
+ pjpg==
+X-Gm-Message-State: AOJu0YzpVbiOV09Ew+IB8c84A9ZoVCl22BleomrC3eZeh0tniZ9uqZ1U
+ p6SoGv9NAxLAp+rhn5idJW6yoLUgSJI2Czmx0Ljxm3RcCHA1zq/xPCCAyDLF/YmG4zGZBoJ2OeP
+ EjSKL
+X-Gm-Gg: ASbGncutyONLhfIgBDGqavGEQbZcuzd0qvvFditBMhI/iU+W1lNaniM7ryL98okY6eH
+ swXPqtzrqLVq5462me9KtP16BeW54/CfwuIVQ7GPlPwm82Mnw6DLaAmgu/IFi/QXkTXfYu0ku4F
+ 9OdlpUK3XzBy/eI3J5H9il/spfL9U/j3U9IyDQ+WFEPYXOtgCFfGmNjSS1AGxr+124ckJaUof29
+ 0wfpgsw9JP4+jzYTTapCp7dCm1PMhiHnZKhs86CcEeDR5yjWgoMl/yvZW6t1j6uqzHkYGDLsMoX
+ IkhLoaLmX8aYaJJDrEPpWLJ+V7EszOKf0xL8sRiW+J34Jgjqv80fls/pFmS0tf9a9B0JcoQBnUn
+ OuGqEriAGyPnjp3vlV3afOkozt3RK644R/KD1Wz3SZuWUqosMgmLvHQJBr+G+YFAVjAoGPC47LV
+ JV5r4KSG5yAfHOPaQwjcRJyKMCTp/7jR6vN4lBwq8Ag6Uq+13o+OFl
+X-Google-Smtp-Source: AGHT+IFThOljGVlAloEsaZtpZrqllL7YU+hPnXBGvqqHa5UfsOpKU7fqJ7OaECBGVXHd6acc7rrtow==
+X-Received: by 2002:a5d:5848:0:b0:429:b8e2:1064 with SMTP id
+ ffacd0b85a97d-42cc1d19df2mr45191899f8f.47.1764647341771; 
+ Mon, 01 Dec 2025 19:49:01 -0800 (PST)
+Received: from phoenix.local (204-195-96-226.wavecable.com. [204.195.96.226])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42e1c5d614asm30279286f8f.12.2025.12.01.19.48.59
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Dec 2025 19:49:01 -0800 (PST)
+Date: Mon, 1 Dec 2025 19:48:52 -0800
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: amd-gfx@lists.freedesktop.org
+Subject: AMD GPU crash in firefox
+Message-ID: <20251201194852.5f65e5b8@phoenix.local>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:pBl9JZsA5qOcKduo0N7FcKAX1/hWtfz1261lyaesCpQnf9+syvM
- q7nA/++5s+MmvkU+w/RSOCVkFcNz5rlquojyfqUFimUhtQekrpoWg1OQag7prqXibAM2NRL
- f6ibRGy+0dYctOsTAWt4KYa+ExEC7V7BscuVy60I24LHfdJXnxNiZ8GhjAG8pg+wjo9HeXP
- FdnIFqBPGmwIOfX3WxeWw==
-UI-OutboundReport: notjunk:1;M01:P0:daCik707fCk=;MwuhaUhql4EIZ8wxv1bLxPq37He
- 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
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 02 Dec 2025 08:16:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,34 +86,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Otherwise userspace may be fooled into believing it has a reserved VMID
-when in reality it doesn't, ultimately leading to GPU hangs when SPM is
-used.
+I get random AMD GPU graphics crashes on my system.
+Usually it is when I am using Firefox on one display, but other one continues to work.
+Luckily it clears after auto-suspend, so reboot is not always needed.
 
-Fixes: 80e709ee6ecc ("drm/amdgpu: add option params to enforce process iso=
-lation between graphics and compute")
-Cc: stable@vger.kernel.org
-Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-=2D--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+The system is Debian testing on Minisform Atonman G7 PT:
+$ uname -r
+6.17.8+deb14-amd64
+$ lspci | grep Radeon
+03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 33 [Radeon RX 7600/7600 XT/7600M XT/7600S/7700S / PRO W7600] (rev c7)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vm.c
-index 61820166efbf6..1479742556991 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2921,8 +2921,7 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *da=
-ta, struct drm_file *filp)
- 	switch (args->in.op) {
- 	case AMDGPU_VM_OP_RESERVE_VMID:
- 		/* We only have requirement to reserve vmid from gfxhub */
--		amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
--		break;
-+		return amdgpu_vmid_alloc_reserved(adev, vm, AMDGPU_GFXHUB(0));
- 	case AMDGPU_VM_OP_UNRESERVE_VMID:
- 		amdgpu_vmid_free_reserved(adev, vm, AMDGPU_GFXHUB(0));
- 		break;
-=2D-=20
-2.51.2
+# dmesg | grep amdgpu
+[    2.108329] [drm] amdgpu kernel modesetting enabled.
+[    2.108416] amdgpu: Virtual CRAT table created for CPU
+[    2.108426] amdgpu: Topology: Add CPU node
+[    2.108526] amdgpu 0000:03:00.0: enabling device (0006 -> 0007)
+[    2.108580] amdgpu 0000:03:00.0: amdgpu: initializing kernel modesetting (IP DISCOVERY 0x1002:0x7480 0x1F4C:0xB006 0xC7).
+[    2.108590] amdgpu 0000:03:00.0: amdgpu: register mmio base: 0xFC900000
+[    2.108592] amdgpu 0000:03:00.0: amdgpu: register mmio size: 1048576
+[    2.112195] amdgpu 0000:03:00.0: amdgpu: detected ip block number 0 <soc21_common>
+[    2.112196] amdgpu 0000:03:00.0: amdgpu: detected ip block number 1 <gmc_v11_0>
+[    2.112198] amdgpu 0000:03:00.0: amdgpu: detected ip block number 2 <ih_v6_0>
+[    2.112199] amdgpu 0000:03:00.0: amdgpu: detected ip block number 3 <psp>
+[    2.112200] amdgpu 0000:03:00.0: amdgpu: detected ip block number 4 <smu>
+[    2.112201] amdgpu 0000:03:00.0: amdgpu: detected ip block number 5 <dm>
+[    2.112202] amdgpu 0000:03:00.0: amdgpu: detected ip block number 6 <gfx_v11_0>
+[    2.112204] amdgpu 0000:03:00.0: amdgpu: detected ip block number 7 <sdma_v6_0>
+[    2.112205] amdgpu 0000:03:00.0: amdgpu: detected ip block number 8 <vcn_v4_0>
+[    2.112206] amdgpu 0000:03:00.0: amdgpu: detected ip block number 9 <jpeg_v4_0>
+[    2.112207] amdgpu 0000:03:00.0: amdgpu: detected ip block number 10 <mes_v11_0>
+[    2.112216] amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from VFCT
+[    2.112218] amdgpu: ATOM BIOS: 113-BRT138292-001
+[    2.112880] amdgpu 0000:03:00.0: amdgpu: CP RS64 enable
+[    2.113936] amdgpu 0000:03:00.0: vgaarb: deactivate vga console
+[    2.113937] amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ) feature not supported
+[    2.113990] amdgpu 0000:03:00.0: amdgpu: vm size is 262144 GB, 4 levels, block size is 9-bit, fragment size is 9-bit
+[    2.113995] amdgpu 0000:03:00.0: amdgpu: VRAM: 8176M 0x0000008000000000 - 0x00000081FEFFFFFF (8176M used)
+[    2.113997] amdgpu 0000:03:00.0: amdgpu: GART: 512M 0x00007FFF00000000 - 0x00007FFF1FFFFFFF
+[    2.114082] amdgpu 0000:03:00.0: amdgpu: amdgpu: 8176M of VRAM memory ready
+[    2.114084] amdgpu 0000:03:00.0: amdgpu: amdgpu: 32003M of GTT memory ready.
+[    2.114468] amdgpu 0000:03:00.0: amdgpu: [drm] Loading DMUB firmware via PSP: version=0x07002F00
+[    2.114607] amdgpu 0000:03:00.0: amdgpu: Found VCN firmware Version ENC: 1.24 DEC: 9 VEP: 0 Revision: 22
+[    2.171535] amdgpu 0000:03:00.0: amdgpu: reserve 0x1300000 from 0x81fc000000 for PSP TMR
+[    2.267750] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
+[    2.275339] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
+[    2.275340] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: optional securedisplay ta ucode is not available
+[    2.275368] amdgpu 0000:03:00.0: amdgpu: smu driver if version = 0x00000035, smu fw if version = 0x00000040, smu fw program = 0, smu fw version = 0x00525e00 (82.94.0)
+[    2.275370] amdgpu 0000:03:00.0: amdgpu: SMU driver if version not matched
+[    2.316195] amdgpu 0000:03:00.0: amdgpu: SMU is initialized successfully!
+[    2.316529] amdgpu 0000:03:00.0: amdgpu: [drm] Display Core v3.2.340 initialized on DCN 3.2.1
+[    2.316531] amdgpu 0000:03:00.0: amdgpu: [drm] DP-HDMI FRL PCON supported
+[    2.318380] amdgpu 0000:03:00.0: amdgpu: [drm] DMUB hardware initialized: version=0x07002F00
+[    2.374675] amdgpu 0000:03:00.0: amdgpu: [drm] PSR support 0, DC PSR ver -1, sink PSR ver 0 DPCD caps 0x0 su_y_granularity 0
+[    2.506774] amdgpu 0000:03:00.0: amdgpu: [drm] PSR support 0, DC PSR ver -1, sink PSR ver 0 DPCD caps 0x0 su_y_granularity 0
+[    2.675018] amdgpu 0000:03:00.0: amdgpu: [drm] PSR support 0, DC PSR ver -1, sink PSR ver 0 DPCD caps 0x0 su_y_granularity 0
+[    2.739109] amdgpu: HMM registered 8176MB device memory
+[    2.740314] kfd kfd: amdgpu: Allocated 3969056 bytes on gart
+[    2.740323] kfd kfd: amdgpu: Total number of KFD nodes to be created: 1
+[    2.740361] amdgpu: Virtual CRAT table created for GPU
+[    2.740456] amdgpu: Topology: Add dGPU node [0x7480:0x1002]
+[    2.740457] kfd kfd: amdgpu: added device 1002:7480
+[    2.740468] amdgpu 0000:03:00.0: amdgpu: SE 2, SH per SE 2, CU per SH 8, active_cu_number 32
+[    2.740472] amdgpu 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+[    2.740474] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+[    2.740475] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+[    2.740476] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
+[    2.740478] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
+[    2.740479] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
+[    2.740480] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
+[    2.740481] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
+[    2.740482] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
+[    2.740483] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
+[    2.740484] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM inv eng 13 on hub 0
+[    2.740486] amdgpu 0000:03:00.0: amdgpu: ring vcn_unified_0 uses VM inv eng 0 on hub 8
+[    2.740487] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 1 on hub 8
+[    2.740488] amdgpu 0000:03:00.0: amdgpu: ring mes_kiq_3.1.0 uses VM inv eng 14 on hub 0
+[    2.741815] amdgpu 0000:03:00.0: amdgpu: Using BOCO for runtime pm
+[    2.742103] [drm] Initialized amdgpu 3.64.0 for 0000:03:00.0 on minor 0
+[    2.747107] fbcon: amdgpudrmfb (fb0) is primary device
+[    2.945928] amdgpu 0000:03:00.0: [drm] fb0: amdgpudrmfb frame buffer device
+[    5.878002] snd_hda_intel 0000:03:00.1: bound 0000:03:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
 
+[ 7820.648000] amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:80:crtc-0] flip_done timed out
+[ 8817.492261] amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
+[ 8817.492272] amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:80:crtc-0] commit wait timed out
+[ 8827.732082] amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
+[ 8827.732094] amdgpu 0000:03:00.0: [drm] *ERROR* [PLANE:77:plane-6] commit wait timed out
+
+[15098.101360] amdgpu 0000:03:00.0: amdgpu: MODE1 reset
+[15098.101368] amdgpu 0000:03:00.0: amdgpu: GPU mode1 reset
+[15098.101534] amdgpu 0000:03:00.0: amdgpu: GPU smu mode1 reset
+[15100.933194] amdgpu 0000:03:00.0: amdgpu: PSP is resuming...
+[15100.989233] amdgpu 0000:03:00.0: amdgpu: reserve 0x1300000 from 0x81fc000000 for PSP TMR
+[15101.085342] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
+[15101.092952] amdgpu 0000:03:00.0: amdgpu: RAP: optional rap ta ucode is not available
+[15101.092953] amdgpu 0000:03:00.0: amdgpu: SECUREDISPLAY: optional securedisplay ta ucode is not available
+[15101.092955] amdgpu 0000:03:00.0: amdgpu: SMU is resuming...
+[15101.092958] amdgpu 0000:03:00.0: amdgpu: smu driver if version = 0x00000035, smu fw if version = 0x00000040, smu fw program = 0, smu fw version = 0x00525e00 (82.94.0)
+[15101.092960] amdgpu 0000:03:00.0: amdgpu: SMU driver if version not matched
+[15101.135102] amdgpu 0000:03:00.0: amdgpu: SMU is resumed successfully!
+[15101.144351] amdgpu 0000:03:00.0: amdgpu: [drm] DMUB hardware initialized: version=0x07002F00
+[15101.471792] amdgpu 0000:03:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+[15101.471796] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+[15101.471797] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+[15101.471798] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
+[15101.471799] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
+[15101.471800] amdgpu 0000:03:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
+[15101.471801] amdgpu 0000:03:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
+[15101.471802] amdgpu 0000:03:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
+[15101.471803] amdgpu 0000:03:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
+[15101.471804] amdgpu 0000:03:00.0: amdgpu: ring sdma0 uses VM inv eng 12 on hub 0
+[15101.471805] amdgpu 0000:03:00.0: amdgpu: ring sdma1 uses VM inv eng 13 on hub 0
+[15101.471806] amdgpu 0000:03:00.0: amdgpu: ring vcn_unified_0 uses VM inv eng 0 on hub 8
+[15101.471807] amdgpu 0000:03:00.0: amdgpu: ring jpeg_dec uses VM inv eng 1 on hub 8
+[15101.471808] amdgpu 0000:03:00.0: amdgpu: ring mes_kiq_3.1.0 uses VM inv eng 14 on hub 0
+[16260.283220] amdgpu 0000:03:00.0: amdgpu: VM memory stats for proc RDD Process(12593) task firefox-es:cs0(5217) is non-zero when fini
+[16260.367845] amdgpu 0000:03:00.0: amdgpu: VM memory stats for proc firefox-esr(5175) task firefox-es:cs0(5055) is non-zero when fini
