@@ -4,156 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC1ADD1170E
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 16:31:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4AC9D12669
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 19:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3F110E678;
-	Tue,  2 Dec 2025 16:31:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 642FA10E6A6;
+	Tue,  2 Dec 2025 19:23:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y7YXcHzm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MwAzT9pp";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010041.outbound.protection.outlook.com
- [52.101.193.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACA010E678
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 16:31:27 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010042.outbound.protection.outlook.com [52.101.85.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A69E10E0A9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 19:23:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b90OsiYJyvER4ketZC9Wxl2u4deH73RfVR5CjZ5nUmS5dRVCqpom6jq2FIr3ins6zoeAuk1UN0xWyQfAQ1/PiItzBcOQRyBIDX+SmsbZwRUPoXskjqECSowQuO415H4xUlJ+J7UMqpqgO2nyFjiR7L5svdsNHuM/fHIjfZi/iRKpopt5Ak/Rp0xMsWyMeFNONc23z0JZV2uEHFAZzGNXpAbewdIPdTGAVZ1uZ4sQLUs5/1ssQ6F5HFhM9YBFAtYdAd2viwwgr30fpkYwWZZ+zH8fen1R8gdhfseO0lIFJ1Li45Ns5SBda500Up0fVhIs4O8zCYtQqGcpGZnfaecgzw==
+ b=dKpL/bf8ZPkwR2NnVd3tiOCP5wTns3H0m5rplvbCKs7JX1uIZjJqKY1d0OlfnhubwAAufmXFzV3BN29y05sSvW/pLPVhC48nAp6HdHx/HNFlVoSM0rscYmz8ATsyl3Ag16L+pfAH54MYDU/4QB4w8sQkVAhcz/SnEUH8QvXqPxKqCrrTnLKYULPA1T3IIL/3C/S8+XI4t3LvjUW93uDmaTbGZYSR8BsdLjuEd1OvPV3mF7HS0/ECvTha2hHYAQEGOQ9abMiAZQ/w35ER3N267IkXrklLrcs3HYoRLQLtXIoTPGCoye4JGsq4sXu7FNbmDVczjS5hkEn3MQy1JjIVMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FSRzpfDF2yBRZiJ6Fh+L4MEL6XEPhOsFAZv63AGMRlE=;
- b=yY8vqeF4qS70CNHv2CIqR8rrD3eek/In2DdgZidgj+4lsR5tad2SDf+YaFN/m00j78E+YNApk7uE8NB5l+colsVbt2ZZXP5UrdlX4093ZVQ+Y78B/nbgRmjkzuF0wqvpPT9BCHJ2u0effTfn7w53aJJOrqHeGvGjfhIjeNX+C+41meawdYNOL7gKtvZGt7UhSemAwZlVJve84E/8prjZx0mw2O+jVXT00Ir/WNu3682g6mFHZUx7wONjfzk3O2Y3IlIvf2a+n92XECgB9TDkwUoBU0Ee2Mqm1O59BX1wYD3xfrg5wcTCWr5PNU0rtdjoh/hRmE7Dq37vaDRePx56VA==
+ bh=2jricoUiAZ5mA06mzS0S85oSHBY85tRbKzTWrddW/ls=;
+ b=x6kWu7lYxY1vrlNhDG+PyLQ9vmFK4UpIHw9meYATMSkvboEFVrV7HG7rjyMYGz65QwR62+4AWmdxYYhrKlNtBKLZJeD3BITqx6Zo69JYucrlIDUhijx3/KmP+C5i9o0z69WN8p0SI1zrMCiRnPqVZmGhYk8v0GsWfWr+dRp3a80GsNbjxxZxSeRWpoCm8j1xYL+fvk4BJnTemIUZV9dYGoQ0V0lJwy6WvLfbHOY4GW1KUDjjDZHcFM8PFcjQUzzneJZme/FnUOI6Gjj9sQZgXCInhuqLbgmTLtcXO+Q48F/0QwZUd7sDKa9AUCbOvxwwjerT6we2foFBSpAiCUEMBQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FSRzpfDF2yBRZiJ6Fh+L4MEL6XEPhOsFAZv63AGMRlE=;
- b=Y7YXcHzm5MYy0sgMUc4iq6BzEt8BvzCyoqFZCXltmVh/xAvOfXMdq9cQDDFZfJ9nHaW0GZvVcJk98GKGS8jPYi5X81cuxesU/SV6f8mwGLDWkgCY6lWD+GXp+RFkqBG0LxVBLWLWwwHM4Q5qdU6IrpO3rR6BF8UFoa6AGDXW0nE=
+ bh=2jricoUiAZ5mA06mzS0S85oSHBY85tRbKzTWrddW/ls=;
+ b=MwAzT9ppMZH+IwSAfqTXVvpK01NIxMu82gwGSH0JimFbOy7BlIGjijXPlIH0YCxv2S23Xl4galLh+qngVB/OB5UYEBK0v9mF/wIFWP2cQmk0cb7pQ/JIu6WG6qdH4QmBqwAazsH4BH84Xgf5OKqFg6zByytZzmo7P2ShIhQTaGs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DM4PR12MB6301.namprd12.prod.outlook.com (2603:10b6:8:a5::21) with
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by SA1PR12MB7343.namprd12.prod.outlook.com (2603:10b6:806:2b5::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Tue, 2 Dec
- 2025 16:31:20 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9366.012; Tue, 2 Dec 2025
- 16:31:20 +0000
-Message-ID: <7eba047f-b427-4191-94c0-eda17bbb99ed@amd.com>
-Date: Tue, 2 Dec 2025 09:31:18 -0700
+ 2025 19:22:55 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da%5]) with mapi id 15.20.9366.012; Tue, 2 Dec 2025
+ 19:22:55 +0000
+Message-ID: <cb1faf3c-f06c-45d1-bf33-da0aabc38228@amd.com>
+Date: Tue, 2 Dec 2025 14:22:53 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] drm/amd/display: Refactor dml_core_mode_support to
- reduce stack frame
-From: Alex Hung <alex.hung@amd.com>
-To: Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
- Ray Wu <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Austin Zheng <austin.zheng@amd.com>
-References: <20251202102437.3126523-1-chen-yu.chen@amd.com>
- <20251202102437.3126523-5-chen-yu.chen@amd.com>
- <38b6e3e5-fcee-48c4-bcac-5aee8feb289f@amd.com>
+Subject: Re: [PATCH v3] drm/amdkfd: FORWARD NULL
+To: Andrew Martin <andrew.martin@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20251118203419.2528796-1-andrew.martin@amd.com>
 Content-Language: en-US
-In-Reply-To: <38b6e3e5-fcee-48c4-bcac-5aee8feb289f@amd.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <20251118203419.2528796-1-andrew.martin@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MW4PR04CA0290.namprd04.prod.outlook.com
- (2603:10b6:303:89::25) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+X-ClientProxiedBy: YQBPR0101CA0107.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:5::10) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DM4PR12MB6301:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57e28c05-0863-4b1e-65fb-08de31c03970
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SA1PR12MB7343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6dddc7db-792e-4d94-17e1-08de31d831c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VDZRRUFVSFluQW9ObEtZT1pITlJycFlhS2xmY2UrVWNOeDA0cG9ScEsrbGdL?=
- =?utf-8?B?VnlQLzRRRFZZZUJwazBZT2VTWWsvQkNIc2ZjU3BqS2d3R09uVFVCT0NqQkRs?=
- =?utf-8?B?aG9WeFhaSTlDYXFUQm1MWHFjbGtFS1hKU1g1Vm9pay90QU0zY2lJOTNlT0lo?=
- =?utf-8?B?eFVDTEV4UGxiczNFcDJMMTFYRVJxUmxLS3JpaFp5RUtKdHRYc25yMFZEMUUy?=
- =?utf-8?B?VUNHYXdNK3BObllSUG9CYThMQXQ0SXZCQzNvNU1tcVduR3Y1OUVBV0lQd2lV?=
- =?utf-8?B?eVlkcXY2cHJRRjd4RFpJcFpyMG9BMzIva20zNnhzSzQ4ME9ycDlPNytyU2lI?=
- =?utf-8?B?SXBkcmp4RDIwajMzcVF4QjAwNWx6N09qUnc3bnI5dnFvUWczdGo3ZEJZRzRR?=
- =?utf-8?B?S283Z2tCb09Ccld1ZnFsZGZsV0dyV2VZY3BGcm5Pbjdnb1A5QUFNaEoxWlNW?=
- =?utf-8?B?NW5tYUhvRVhqOUlKdis5UnorUzI5K3dFY1d1cHNNb3I1Q3FGMTE3RS9DaGZC?=
- =?utf-8?B?UVdWeUtZKzZvUEMyRE9ldVRlNTFoSnU4d2F1N0FJbHk1b2dWTldoT3RZSzVo?=
- =?utf-8?B?bkRnZFlkVzU2RklIei9SZ0ZtUG9iV3lqVDNDOXdVVkxlRmkyMmFjY0YwWllt?=
- =?utf-8?B?K25wTjhZZ1R3ME5CdDFZb2c0OUc0cUZYMFZpOFJDbWlWM2pZUVlCZjkyVlhE?=
- =?utf-8?B?dzV3UTZZSXRTRnE5Z1IxMlJEZGNFMUVQNFBJWncxUUJQRW5jdGp2UnZQV1Jq?=
- =?utf-8?B?ejJKSkszSHJ3QzVYK21wRnd1cmVnQzJxcmcvYmdZRmtBc3JKZkY1QjNDcnZ6?=
- =?utf-8?B?Vmo2aklrTytEcFhQRlYweGJMcUFlRUFoZWQ3U3pSU2hyR3dUdlFWTTdsQmFm?=
- =?utf-8?B?UzhNV051Z1o3TS9GVGdmMER6UkZYYUFrR01sTHpLSmZTQzloTWpVc21oeldH?=
- =?utf-8?B?WDBXbWEzWjhSd01uUHNBc2pqWGp4Y2NkODlRYVZmUWdZSGR3ZXEwL2g4bVY4?=
- =?utf-8?B?anNvQStJenZ0QUhhRHZHSjU1TGZvcmF3RWNtNTRHMlgzOHNKNjA2UzFJVWpU?=
- =?utf-8?B?djd1cGdkdDMxeDZzb0w1SDA4UDZSWHVBZmRSZGFFU3ZmT0xUd0xkSjhYV25M?=
- =?utf-8?B?aUI4citoQnVwem5DblhMV2kydkdKcGlKZ084U1pVbTZKeFRIZGV4TmpucjhR?=
- =?utf-8?B?RllodGpHNVNHYXRmYnV1RVltV1l1UWVaTSsxdGFKUDVPbWtrcllVcm9BNitl?=
- =?utf-8?B?a1BoM2J4alNSSndVNlQrT1pHUlpFQjBBcXMxdTZ6T2xEQldnaVl5ajdiZllM?=
- =?utf-8?B?R1B5ZW5ZTE0vSWxYeVVzVkFzTFNsZ0FjQ3YzWnVDeUF0TkYrcjZoeGMvbWFj?=
- =?utf-8?B?TzBvYU9lcjF6WWduYzQ1SGVaOUw0cFI5MjVXSXlPQ29pVlBWUEJSdjJialFp?=
- =?utf-8?B?Y0c1MHpqcC85QjArcUtzcVVZY21lNVFJTFJRK2dJekpsZkNGVTBQU0h5RVFM?=
- =?utf-8?B?Y0xiUzZicjhxaG4weFpyV21xQzhNWGIvYVhlODNUVGttaHFUSUg2bDJucis3?=
- =?utf-8?B?cC9pNTZYVlRQQ29BYTNHRzB2Ym9mc21HZHNOeTJVZmFZVTJGU0RYYi9NbWd1?=
- =?utf-8?B?ZitNdW4rNmJNRlErMHUvKzJWbFVvSDR6aldBcVdZanE2ZVM4K2VKdGJhY3lJ?=
- =?utf-8?B?ZlY1S2JrS3RhQ0NyZ29GMWlpSWhReEFpNFoxdkxMR3RmQWlGbWYvMXFkUmlx?=
- =?utf-8?B?ekFlTTRoWFppaEUrYmVoU0RPeElYbXlDU25MU1M2US83bW81NFNWcVdoY0Uw?=
- =?utf-8?B?c1M2SDc1U1p4UW1acUF5bVVNckxXZVNGbFJTKzZtZjZXUUVhTnNoVS84Y2F1?=
- =?utf-8?B?clZqbkFmcGh1VHh1V1hTbUJOK3FkQUhhY0VBTW5DYkUvS2c9PQ==?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eVJqOVhpOXNBZ0NlU1VuOU5yeWxoUGIvcFpQNStVL3phSnY1WS8vK2UrK1Bh?=
+ =?utf-8?B?TjlQcStUR3ljb3Z0QUl5SmkrVTV1dFNLTXdvUHdlNmR4NmRUOHpBTGpaQXF2?=
+ =?utf-8?B?NFpzTEFCM3BRQTF1WGxjd1FKOUY4MGs5azJ6ZkJjUkZBNURqVkNjSXpRL0tH?=
+ =?utf-8?B?YW9lbVA3TE5aeHFSSkJHK1hZM3pOd2x1Y3NKZXlkMk45RGw5cUdObmZ5Rk80?=
+ =?utf-8?B?QWd0R2YxelZUMW1BK2NoYnkvUXR5ZDNFR1NjcHYrcUZ0Tjg2WVo0WkpoTnBk?=
+ =?utf-8?B?QU15T0hvL1ErREZqOUR1ZHo0Q3pQeUIxTUc5VlJqbVVjbSsxWWR4NEJBL1pQ?=
+ =?utf-8?B?cE9MM2JscC9rNTRDRHROcmVYZXdjUmxrclEvVWh3MXlpbUF4TGtQQ3hGSGJn?=
+ =?utf-8?B?RGZPMzFLdnNtUjFYVW5KbnFsRjRybEdUeEVVT0J3dEVVYlkwenZSUnRvTkxO?=
+ =?utf-8?B?Y2ZNMDdmVXdTQ1lIY0RlYml1UW5qYXBVSm0vWE1IaGtocVVuOG9JWlpBaWdo?=
+ =?utf-8?B?R2hLQXNjZ28xdVBtME5SdW5yK01PaldYR2NNdTJxcER0VVZWVENGaXpHbVNj?=
+ =?utf-8?B?WTZyUXlSOWZCcW1tYm43ZXlWV25xWC95RDJXOE5Gelphd2tkb0pXUEpEUG4x?=
+ =?utf-8?B?dmkxSHhJZHRLbC9VdkJtOERBWU9sMytZaXk5cW05amFsU3Z1djVHNUw2a0J0?=
+ =?utf-8?B?b25DS2hEWFpGSDQvVVo4SmpaNU9ISURER3BVQkZoOUxZM2pQczJEYWRpWkw3?=
+ =?utf-8?B?aEFWaW1qbW9zNmQ1Smd4Qmd2NDVSZTVHbk1QZnVSOFVWVHZHVXlmMkF4WUlx?=
+ =?utf-8?B?OW50TWRRMGdyZm8vVktmTHBaV2RZckc1bTlnbE50b0xYNEhMc1d0WEpZZ3dt?=
+ =?utf-8?B?SC9RemsxRmw0QWxRUFQxSjhaMTFUMEl5c05VSHZzT0g4K3NzaUNtK1ZMM2JH?=
+ =?utf-8?B?Rkc3ZnpFQTZTcVRHZ3M3SWNCRGgwdnBlK0tMVFJhblZDaVIrTlk2MHNWRGFk?=
+ =?utf-8?B?aXFhVFZFVEx6U2hPaFFqWXJiMC93aXlLb00yYXZzdGlHM0JaOEc3UFNEZkhv?=
+ =?utf-8?B?OEExWVo2Tmo4UEdJU2dBaHFXQVFSSVdHTjJNU2RPaGlyVjA2WXl6R2VLOGhn?=
+ =?utf-8?B?eVdDTnp1MVdoSWNsVGs4Q3piVURZSVVsSW0wM1c5MUduaEFpU2NFR0FGMkdz?=
+ =?utf-8?B?OVN2L0hJOEFmSzBvclFwdU12TUt0YmxyamdIL1RiQ0lrMUtpQ0llUThKZVJm?=
+ =?utf-8?B?N1JzY0R0bHNHQXZrakkxczRhUXBtRGVDSUJhK0lkcUVueFNGaGRrR2dqQWE5?=
+ =?utf-8?B?b09IMldvRDQ2K3gwenhGdHZlUDVPQ3AyZHAyTnJyTUI0dlo2YitkVVJqY1dT?=
+ =?utf-8?B?ampyQUdDQVRGVUdGeTBYOWtuSW5pYkdNMzJFYkQyS3Y2eUswbm9IN25kc3Bx?=
+ =?utf-8?B?aGtNaWgwSWd0ZVlNZjlSR0VaTWMvd0MvdGV0cS8xbUZEamNyS1VSaVFwbEpP?=
+ =?utf-8?B?YjVOSk9tbFY0a0ltQk1tK3BFekhzM014VThUS2dvVld3aEZpSWVENWttY1Zv?=
+ =?utf-8?B?TnBiZlJRb3FndTBSQjgyTURKM0Z5Mk03U3QyNlNnVkxRaUZjdUc1K3pjMjZy?=
+ =?utf-8?B?UXFZNjNYd0p0aEZLTEJweml3dTZjQmczNlYwR2tuRDVHenl3V2pUczMzeHRY?=
+ =?utf-8?B?cUExTmw4MVlIYTk0eEE4YktGQ2tCVmNjK3JqVVZ3TllHcFhzVVp0MWh2a0FS?=
+ =?utf-8?B?Nk85ME8xK3VaQ2ZhcnhYU05FV2U1V0FuSGJHb2M4RkFwRlB6V0ROZVNIdFJK?=
+ =?utf-8?B?QWV1WTBoUk9XeFVmUGN2UVpEeHh5QTlISmRzakh0UEtwcTdJRnpFT3BRRnpk?=
+ =?utf-8?B?VEJKZFJhM3pmbUxNU1laekZoWHFpRUJXSnVpU01NN0h5aFRNcFVlNXZFOUg1?=
+ =?utf-8?Q?yKADwIhSCciwokqEBXmFYus5tw7A5TYr?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?alJWc0dJYWZ0OFp6N0JLaEkzK3R6Z0hKWlF3N3BTd0VWcm14cytUVEhzMUFC?=
- =?utf-8?B?K0N6bDRQSkZaMmp5ODk0WVhEVjhZWkhzV0RwbUI1eko3OW5MK0l3Y20rcmtu?=
- =?utf-8?B?SDhOY1dzWEpLdDNoTDBPdXlDVEU4bUlMU0pCNjRBVkVhTHhEaFUya2VKcDlS?=
- =?utf-8?B?WEEwYSs0WFBEZll0Mk5wY05vMUJlNkovZzQ5S1hRRmMxaVlvb1lBUWpaeHBD?=
- =?utf-8?B?M2JJeDlQVjUyakZ6UkNScmZnZ2NlRUpZcUE5NHRmdkE3SEJCc0lFTUpaV05y?=
- =?utf-8?B?R3dFNmJVSjg5UDVYSmQxaFpHT0JoZi9kM1ltNlUxUHY2S1pDS0VoK3RkaEZt?=
- =?utf-8?B?SEp5RVE1T1F0ZGlCbmE5anU5TjdRK0NaRWhZQlBqb1ZlblhsY0xaRUROOW82?=
- =?utf-8?B?cXUvbmlZZUgwY3RUbmg0eEozTWRDdWwzZGc3WDFIbFdqTmdnRmxOSDljcFBn?=
- =?utf-8?B?dXc5WXZ1VVN6NHhkMkgwTmN3NFBFQi80di91RW4xV21Wa1dmSk1hK1lpZEFW?=
- =?utf-8?B?YmNFNjNDRXBWN3o5U0ZyK0Z6aWFSWGQ5SmJxenZTYW1ydXRQNWNQM3dSSVp0?=
- =?utf-8?B?OXFGcnkzeVJuNU96TTlMQUpZS282Rnc1M2c3SDBlUXdFUktCSGZJMDd6TWNX?=
- =?utf-8?B?bk5ORjJWdFJ4UHd2MDAwZ29aZDJmcFB0M29sOU4zTE44V3JUUUlwSlBMdGY5?=
- =?utf-8?B?dWYwdVRsMmtPQ2hDYUdpQXNmNzFWRTcranNKM3BSY0lzZVR1aGlONS9wcU5W?=
- =?utf-8?B?QTE2MnVYaDNIVTFzaTFvSkJHQ3daUCtNdWxmTjRReStXdEc2TDRjeTRORjFh?=
- =?utf-8?B?SllrMU9qUVUwUVorZUlxRWpiR0xkZGtPMXYrRDlxaGFmK0cxNFphMFVvdWVj?=
- =?utf-8?B?Vmp6cEtzSkRnUklKbklKTCttNG01bVZnT01qOVNUZ1diM1VsMzEvUFQ3VFpv?=
- =?utf-8?B?cmJsN1NqZUpMTGUrV0preFhRTlhCOTBCZlpjaFFTZXI3ME9wbWsybFA4V1pZ?=
- =?utf-8?B?bENpTGhWdHYvU1BEUzRLZDNybDdVMmtzaEhLZk0zNURScmp2cjI2VGE5Z2g3?=
- =?utf-8?B?K2xxUlRPc0xRQXAzMjk3cWJKK1RrVmxJQWwydWl3bzVNU2RoZ29QRWZ0YXZs?=
- =?utf-8?B?N1dCRXEyOXRzbzVZb2RmUHhKWSsxbHBuYVlWbTVxYkwzSndPMzNqUDZkeHAz?=
- =?utf-8?B?Q1BwNDM1MUtmNVFVeUpyamxtUWpleGRJSG9EM3cvN3YyL3VVZVVOdVNQWTJk?=
- =?utf-8?B?aHBxWE9aWS9VY1N1Q253elhGb3ROeFZjSDltVUl0dWlxVUcrK0RscHVGRDJ4?=
- =?utf-8?B?OXBiTWplZXd2UzV0OVJCcnU5clc4WlIyN0VKZjgrZ3ZXTG5RNzZBK1NJSHd4?=
- =?utf-8?B?ai96cE1tREtRWE1EN2tuTmxRUkhNcnN6M0cwM3VaRjV5UjVmOHVkdUdlcU0r?=
- =?utf-8?B?TGxDRjVLUjJ1VlNUYkJ5ZWJqR2QyUE9wMkUvVUJhdXFBUTdmR1Q1QUY4SGNR?=
- =?utf-8?B?OVpPeWVSU2VBanM0WWsxTElBSmFQSmQ0WEZUSG93eEVOZzhjR29tQ2dlZEpr?=
- =?utf-8?B?SjhpckxKN29OZ01yMmxiY2I2VGU4WEF3OU9oeE1MbXRoVHFiVDZON25VVnhM?=
- =?utf-8?B?cjQwOFo0SGtuVmtEZFB0eGMxR1dHc0Z0Si85dzNqZEptRDRpQ3U3UkMrYWFk?=
- =?utf-8?B?OHRKUElCL0lZMDN0WnFabVJYemZTOVViRWRVWEI2c2E1OXM4UEF4aGZpeVdt?=
- =?utf-8?B?ZVByL054NTRrcUlReXV5Mk1NMmsxNGFjUjZDMzl4ODc1cWE1bXFRS1JtdVZP?=
- =?utf-8?B?bXkwbDJtd2VoRGVuSDFlaUJtdzZZYzdjdHIzcE5renk0Y1AwK0RzK3oxdnZu?=
- =?utf-8?B?dWM1bFRWZ1dZRUxWaXFBWXlsZ3QxYkdRcFZ2VzFBQlhxTmJVZEIvWGt6cEVk?=
- =?utf-8?B?M3RQVW5zVXJsTGFTTjdjS2QyWi91TEdOSlo4eCsyRStSUWlBRUY5WlFvT1ha?=
- =?utf-8?B?d0ZlNGNaRzhLSjRKdzVDaUFJWkpPZE9SaE1DWnRlRGljM3FDUEhhVVNHU2lW?=
- =?utf-8?B?MS90SDk2NTFQbmx5aDRZTWZ2NmFlbXRYeXUxWS9nRTBZaE01SjVuTEJQYXdS?=
- =?utf-8?Q?dGBIhXEkMozplck4YlyMvL6y1?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RU9kN2lqeG1FdSsvNFBZK0R6WUxqREtrZURSdWhyOTNmZnRaUDJzYzM1Mngx?=
+ =?utf-8?B?eWZzZXRudmdMNmIxbjBBMFNGajY0Y21QQ3R0cjVWam9WVWVBQXY4U2x2S1R3?=
+ =?utf-8?B?RktQenhycEszTlFkM3UrUEhjbW9rVDBsSUlkQU0zRC9Bd1JUMGJIUUZrZ1Br?=
+ =?utf-8?B?bjFNeE9uV3h1WjZ0cmhSeFdrYmJrL3pmdkZYUXJWOHNHTTBFVysxN0FKVFFJ?=
+ =?utf-8?B?U0hEMFJkRVhITGUwQlFIRWxab3g4Z2ovQWQzNTY2QzVRM1lhVElOU1lsdHZI?=
+ =?utf-8?B?VGhsL2piSXcrZnZ0NTZYV1M0MWNEczd2R0RmQUZPZDdCckdNMlNRdUo4bE5L?=
+ =?utf-8?B?ZTlsTlpRZi9GUzVRNVB1cjl0THZHS0tDVFRZcTdhUFJnemVBd3o1aU9iekpp?=
+ =?utf-8?B?U0RTYmJXMnM3VnZxOGJKQTZrcDA3aEpaendxcHVRcEpqQVpGV1cvaGJRcXl5?=
+ =?utf-8?B?Zno5NVdob3VIOHk4VUlmUTRQVXBQNWx1N253TitFU20xWU1NVUUyVWR4SEFI?=
+ =?utf-8?B?aVRuQ25OQStwaDl3azlYVktNUEVVOHNjS3M3YTlHYnQzcVkwVjh6bDVGalJO?=
+ =?utf-8?B?WGF5VUNXb0FpWW02SmNGZXc4a1lTSjZKcE1jVlBVM09IK2UvMHBvZGRCNzRi?=
+ =?utf-8?B?MVdON21vTEwwZTNsNUhIbjY1eTB4WUtEaUc2QVIwYnlDL2czM05UV1BVQ2I2?=
+ =?utf-8?B?SWNHN1NOQWF2SlJ5eU5qR0Y1ZjNSYWV0OVJHdUR3YUVISU9yV1pKM2ZNd3Jn?=
+ =?utf-8?B?L2loZ1JiaTE3bjB1K3B0bW0wNXZoUlR2ejVuSFFJL3V5TkZMcFYvUU41WGU3?=
+ =?utf-8?B?NEZjZnZ4bWp0emlDSWhjYjgrNTIvbWI5dnBTSFQwRDBwNkloakI1NEt2WmxX?=
+ =?utf-8?B?V0kyRSs3c2VjNzdyZ3lSQ1FMbnlMV3l0cGxndldoaStVL0lyZjRkbnFhUzNo?=
+ =?utf-8?B?VkpHRW1aUGxVaGJLTFRHSyszVUhwWUgzOVF2Vks5Ulh6NEVZSWd4MEdwdWps?=
+ =?utf-8?B?UWl3Nkh2TWh6bk4rdVFuRzdldHo2VmZpTERBaVJKOUxHSWU1TE5SSHBNYVRB?=
+ =?utf-8?B?N3BxY2M1THpPcUFZdHBoVlZDL1Q1NXA2SGVQamUyTWcrNUcxMzJXRFROV0t6?=
+ =?utf-8?B?U3RlV3Vwb21hSnM4SmhzdnJIKzF0a0NYTHdKTkpTQlJHaUJPTUVUTU1OTnlP?=
+ =?utf-8?B?aDZmampMakY4a2tHejVqTWxJYkZmbTFnb0JELzZHNUppKzBwWFBWbzROZk43?=
+ =?utf-8?B?T2tyY0wvZ09WVGU3WHEwWE9adnFtT3FKMWRzbFFaVWlsRzE0NG5aQnBGK0NU?=
+ =?utf-8?B?TkRpQUhPTDc2UktMc0YvVFV6c0tReEw0YTM1b0xtTHZPOVlSMkpSM0FNb0JI?=
+ =?utf-8?B?MU9jU0ZCOFhRNlpBWXBxZjQ3ZXRtM1h4S3FKMm03SHJiM04rWWZsVjU5RFgr?=
+ =?utf-8?B?eDQ3TktJdlpiaThaRG9xUnpLSThKTXVxdC8zd1FYUm00M1VLTVlUcWNRYmZU?=
+ =?utf-8?B?TjFqKzlOcmRRVytpT2hFVUp5clJ4NGlPdWlxRldIWVlRTHhwbXRzZDQvcHgw?=
+ =?utf-8?B?Wm4zMmJTbGxlTHIzdkV4MUZyWUZaRXBTeEVZWVY1Q2xOcm9UMUVHQzJLWm5F?=
+ =?utf-8?B?Nk5MLzhhcklmck1wK3d6dzVNdFVLeXpWRWFITjA5ZHR5OGNGRkFSaDEwbUJR?=
+ =?utf-8?B?OXA5Tm9KN25RQjFzM2NNNVRGRVFOTmo3SjM5ZFdSaW00NUR6UXV2S2NPczJL?=
+ =?utf-8?B?WWtYRU1SZkxEQUs1cHBOakdHT2p1SGtVQ0YzQUZ2ZmRDWWQ0cnJ2V1NsZkpT?=
+ =?utf-8?B?YzMvUnBCUTZlRVF2S1Z2Vkh5R3RVTXA1QXJkekx1LzFTZVFibHdaZncyVjky?=
+ =?utf-8?B?eTJReXQvbStoSnE0Q1RWbGRGUlRkOGtwUmwyQTA0MjE4MHdkbVU5U2FMUkpK?=
+ =?utf-8?B?Y0U2VzRrT3RyL2dKQWZmeERVZzVROXdIYUcwRzBzSXczbVFPa3VxeE5SRjhi?=
+ =?utf-8?B?Z0R2by9nY1lKdU1lL3lza21UU3RLbVBhd2JsOEp0eWpvalJBYlpjbDNLWUM3?=
+ =?utf-8?B?eXV6MmJMWXVwZVNlVDhoN1E2MVNKbmRLU1ZieC8rNWo0eVpGRkIwZWcweTEx?=
+ =?utf-8?Q?KgGU=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57e28c05-0863-4b1e-65fb-08de31c03970
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6dddc7db-792e-4d94-17e1-08de31d831c6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2025 16:31:20.2256 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2025 19:22:55.2340 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HYmOfuzCV0E4280J6RhZKogVr/e1lgYUlAJsFlzLVRq1rvo4eGBgk56GEXJ0NCiyqND88bMW8zruHX58D4D9pQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6301
+X-MS-Exchange-CrossTenant-UserPrincipalName: q+5D5YOA82EuUDvoAHHPFz4b0FuMM8//SWPItYOgKfCvJ4RS5vgeZr/30+yphefW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7343
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,325 +161,100 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 12/2/25 09:29, Alex Hung wrote:
-> 
-> 
-> On 12/2/25 03:21, Chenyu Chen wrote:
->> From: Alex Hung <alex.hung@amd.com>
->>
->> [WHAT]
->> When compiling Linux kernel with clang, the following warning / error
->> messages pops up:
->>
->> drivers/gpu/drm/amd/amdgpu/../dal-dev/dc/dml2_0/ 
->> display_mode_core.c:6853:12:
->> error: stack frame size (2120) exceeds limit (2056) in
->> 'dml_core_mode_support' [-Werror,-Wframe-larger-than]
->>   6853 | dml_bool_t dml_core_mode_support(struct display_mode_lib_st
->> *mode_lib)
->>
->> [HOW]
->> Refactoring CalculateVMRowAndSwath_params assignments to a new function
->> helps reduce the stack frame size in dml_core_mode_support.
->>
-> Hi Chenyu,
-> 
-> A bug seems to be related. Can you add a buglink? Thanks.
-> 
-> Buglink: https://gitlab.freedesktop.org/drm/amd/-/issues/4733
+On 2025-11-18 15:34, Andrew Martin wrote:
+> This patch fixes issues when the code moves forward with a potential
+> NULL pointer, without checking.
+>
+> Signed-off-by: Andrew Martin <andrew.martin@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c            | 2 ++
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c           | 7 ++++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 3 ---
+>   4 files changed, 9 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+> index 1ef758ac5076..73c5749d4243 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+> @@ -105,7 +105,7 @@ static const char *amdkfd_fence_get_timeline_name(struct dma_fence *f)
+>   {
+>   	struct amdgpu_amdkfd_fence *fence = to_amdgpu_amdkfd_fence(f);
+>   
+> -	return fence->timeline_name;
+> +	return fence ? fence->timeline_name : NULL;
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index 4a7180b46b71..c086a9ed8c89 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -2357,6 +2357,8 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+>   	if (kdev->kfd->hive_id) {
+>   		for (nid = 0; nid < proximity_domain; ++nid) {
+>   			peer_dev = kfd_topology_device_by_proximity_domain_no_lock(nid);
+> +			if (!peer_dev)
+> +				continue;
+>   			if (!peer_dev->gpu)
+>   				continue;
+if (!peer_dev || !peer_dev->gpu)
+     continue;
+>   			if (peer_dev->gpu->kfd->hive_id != kdev->kfd->hive_id)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> index ba99e0f258ae..11af0c1cddcd 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> @@ -517,7 +517,10 @@ int kfd_dbg_trap_set_flags(struct kfd_process *target, uint32_t *flags)
+>   
+>   	for (i = 0; i < target->n_pdds; i++) {
+>   		struct kfd_topology_device *topo_dev =
+> -				kfd_topology_device_by_id(target->pdds[i]->dev->id);
+> +			kfd_topology_device_by_id(target->pdds[i]->dev->id);
+> +		if (!topo_dev)
+> +			return -EINVAL;
+> +
+move this after variable caps definition
+>   		uint32_t caps = topo_dev->node_props.capability;
+>   
+uin32_t caps;
 
-Correction, Add "Closes" instead of "Buglink"
+if (!topo_dev)
+     return -EINVAL;
 
-> 
->> Reviewed-by: Austin Zheng <austin.zheng@amd.com>
->> Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
->> Signed-off-by: Alex Hung <alex.hung@amd.com>
->> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
->> ---
->>   .../amd/display/dc/dml2_0/display_mode_core.c | 134 ++++++++++--------
->>   1 file changed, 71 insertions(+), 63 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c 
->> b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c
->> index c468f492b876..09303c282495 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c
->> @@ -6711,6 +6711,76 @@ static noinline_for_stack void 
->> dml_prefetch_check(struct display_mode_lib_st *mo
->>       } // for j
->>   }
->> +static noinline_for_stack void set_vm_row_and_swath_parameters(struct 
->> display_mode_lib_st *mode_lib)
->> +{
->> +    struct CalculateVMRowAndSwath_params_st 
->> *CalculateVMRowAndSwath_params = &mode_lib- 
->> >scratch.CalculateVMRowAndSwath_params;
->> +    struct dml_core_mode_support_locals_st *s = &mode_lib- 
->> >scratch.dml_core_mode_support_locals;
->> +
->> +    CalculateVMRowAndSwath_params->NumberOfActiveSurfaces = mode_lib- 
->> >ms.num_active_planes;
->> +    CalculateVMRowAndSwath_params->myPipe = s->SurfParameters;
->> +    CalculateVMRowAndSwath_params->SurfaceSizeInMALL = mode_lib- 
->> >ms.SurfaceSizeInMALL;
->> +    CalculateVMRowAndSwath_params->PTEBufferSizeInRequestsLuma = 
->> mode_lib->ms.ip.dpte_buffer_size_in_pte_reqs_luma;
->> +    CalculateVMRowAndSwath_params->PTEBufferSizeInRequestsChroma = 
->> mode_lib->ms.ip.dpte_buffer_size_in_pte_reqs_chroma;
->> +    CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib- 
->> >ms.ip.dcc_meta_buffer_size_bytes;
->> +    CalculateVMRowAndSwath_params->UseMALLForStaticScreen = mode_lib- 
->> >ms.cache_display_cfg.plane.UseMALLForStaticScreen;
->> +    CalculateVMRowAndSwath_params->UseMALLForPStateChange = mode_lib- 
->> >ms.cache_display_cfg.plane.UseMALLForPStateChange;
->> +    CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib- 
->> >ms.soc.mall_allocated_for_dcn_mbytes;
->> +    CalculateVMRowAndSwath_params->SwathWidthY = mode_lib- 
->> >ms.SwathWidthYThisState;
->> +    CalculateVMRowAndSwath_params->SwathWidthC = mode_lib- 
->> >ms.SwathWidthCThisState;
->> +    CalculateVMRowAndSwath_params->GPUVMEnable = mode_lib- 
->> >ms.cache_display_cfg.plane.GPUVMEnable;
->> +    CalculateVMRowAndSwath_params->HostVMEnable = mode_lib- 
->> >ms.cache_display_cfg.plane.HostVMEnable;
->> +    CalculateVMRowAndSwath_params->HostVMMaxNonCachedPageTableLevels 
->> = mode_lib->ms.cache_display_cfg.plane.HostVMMaxPageTableLevels;
->> +    CalculateVMRowAndSwath_params->GPUVMMaxPageTableLevels = 
->> mode_lib->ms.cache_display_cfg.plane.GPUVMMaxPageTableLevels;
->> +    CalculateVMRowAndSwath_params->GPUVMMinPageSizeKBytes = mode_lib- 
->> >ms.cache_display_cfg.plane.GPUVMMinPageSizeKBytes;
->> +    CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib- 
->> >ms.soc.hostvm_min_page_size_kbytes * 1024;
->> +    CalculateVMRowAndSwath_params->PTEBufferModeOverrideEn = 
->> mode_lib->ms.cache_display_cfg.plane.PTEBufferModeOverrideEn;
->> +    CalculateVMRowAndSwath_params->PTEBufferModeOverrideVal = 
->> mode_lib->ms.cache_display_cfg.plane.PTEBufferMode;
->> +    CalculateVMRowAndSwath_params->PTEBufferSizeNotExceeded = 
->> mode_lib->ms.PTEBufferSizeNotExceededPerState;
->> +    CalculateVMRowAndSwath_params->DCCMetaBufferSizeNotExceeded = 
->> mode_lib->ms.DCCMetaBufferSizeNotExceededPerState;
->> +    CalculateVMRowAndSwath_params->dpte_row_width_luma_ub = s- 
->> >dummy_integer_array[0];
->> +    CalculateVMRowAndSwath_params->dpte_row_width_chroma_ub = s- 
->> >dummy_integer_array[1];
->> +    CalculateVMRowAndSwath_params->dpte_row_height_luma = mode_lib- 
->> >ms.dpte_row_height;
->> +    CalculateVMRowAndSwath_params->dpte_row_height_chroma = mode_lib- 
->> >ms.dpte_row_height_chroma;
->> +    CalculateVMRowAndSwath_params->dpte_row_height_linear_luma = s- 
->> >dummy_integer_array[2]; // VBA_DELTA
->> +    CalculateVMRowAndSwath_params->dpte_row_height_linear_chroma = s- 
->> >dummy_integer_array[3]; // VBA_DELTA
->> +    CalculateVMRowAndSwath_params->meta_req_width = s- 
->> >dummy_integer_array[4];
->> +    CalculateVMRowAndSwath_params->meta_req_width_chroma = s- 
->> >dummy_integer_array[5];
->> +    CalculateVMRowAndSwath_params->meta_req_height = s- 
->> >dummy_integer_array[6];
->> +    CalculateVMRowAndSwath_params->meta_req_height_chroma = s- 
->> >dummy_integer_array[7];
->> +    CalculateVMRowAndSwath_params->meta_row_width = s- 
->> >dummy_integer_array[8];
->> +    CalculateVMRowAndSwath_params->meta_row_width_chroma = s- 
->> >dummy_integer_array[9];
->> +    CalculateVMRowAndSwath_params->meta_row_height = mode_lib- 
->> >ms.meta_row_height;
->> +    CalculateVMRowAndSwath_params->meta_row_height_chroma = mode_lib- 
->> >ms.meta_row_height_chroma;
->> +    CalculateVMRowAndSwath_params->vm_group_bytes = s- 
->> >dummy_integer_array[10];
->> +    CalculateVMRowAndSwath_params->dpte_group_bytes = mode_lib- 
->> >ms.dpte_group_bytes;
->> +    CalculateVMRowAndSwath_params->PixelPTEReqWidthY = s- 
->> >dummy_integer_array[11];
->> +    CalculateVMRowAndSwath_params->PixelPTEReqHeightY = s- 
->> >dummy_integer_array[12];
->> +    CalculateVMRowAndSwath_params->PTERequestSizeY = s- 
->> >dummy_integer_array[13];
->> +    CalculateVMRowAndSwath_params->PixelPTEReqWidthC = s- 
->> >dummy_integer_array[14];
->> +    CalculateVMRowAndSwath_params->PixelPTEReqHeightC = s- 
->> >dummy_integer_array[15];
->> +    CalculateVMRowAndSwath_params->PTERequestSizeC = s- 
->> >dummy_integer_array[16];
->> +    CalculateVMRowAndSwath_params->dpde0_bytes_per_frame_ub_l = s- 
->> >dummy_integer_array[17];
->> +    CalculateVMRowAndSwath_params->meta_pte_bytes_per_frame_ub_l = s- 
->> >dummy_integer_array[18];
->> +    CalculateVMRowAndSwath_params->dpde0_bytes_per_frame_ub_c = s- 
->> >dummy_integer_array[19];
->> +    CalculateVMRowAndSwath_params->meta_pte_bytes_per_frame_ub_c = s- 
->> >dummy_integer_array[20];
->> +    CalculateVMRowAndSwath_params->PrefetchSourceLinesY = mode_lib- 
->> >ms.PrefetchLinesYThisState;
->> +    CalculateVMRowAndSwath_params->PrefetchSourceLinesC = mode_lib- 
->> >ms.PrefetchLinesCThisState;
->> +    CalculateVMRowAndSwath_params->VInitPreFillY = mode_lib- 
->> >ms.PrefillY;
->> +    CalculateVMRowAndSwath_params->VInitPreFillC = mode_lib- 
->> >ms.PrefillC;
->> +    CalculateVMRowAndSwath_params->MaxNumSwathY = mode_lib- 
->> >ms.MaxNumSwY;
->> +    CalculateVMRowAndSwath_params->MaxNumSwathC = mode_lib- 
->> >ms.MaxNumSwC;
->> +    CalculateVMRowAndSwath_params->meta_row_bw = mode_lib- 
->> >ms.meta_row_bandwidth_this_state;
->> +    CalculateVMRowAndSwath_params->dpte_row_bw = mode_lib- 
->> >ms.dpte_row_bandwidth_this_state;
->> +    CalculateVMRowAndSwath_params->PixelPTEBytesPerRow = mode_lib- 
->> >ms.DPTEBytesPerRowThisState;
->> +    CalculateVMRowAndSwath_params->PDEAndMetaPTEBytesFrame = 
->> mode_lib->ms.PDEAndMetaPTEBytesPerFrameThisState;
->> +    CalculateVMRowAndSwath_params->MetaRowByte = mode_lib- 
->> >ms.MetaRowBytesThisState;
->> +    CalculateVMRowAndSwath_params->use_one_row_for_frame = mode_lib- 
->> >ms.use_one_row_for_frame_this_state;
->> +    CalculateVMRowAndSwath_params->use_one_row_for_frame_flip = 
->> mode_lib->ms.use_one_row_for_frame_flip_this_state;
->> +    CalculateVMRowAndSwath_params->UsesMALLForStaticScreen = s- 
->> >dummy_boolean_array[0];
->> +    CalculateVMRowAndSwath_params->PTE_BUFFER_MODE = s- 
->> >dummy_boolean_array[1];
->> +    CalculateVMRowAndSwath_params->BIGK_FRAGMENT_SIZE = s- 
->> >dummy_integer_array[21];
->> +}
->> +
->>   /// @brief The Mode Support function.
->>   dml_bool_t dml_core_mode_support(struct display_mode_lib_st *mode_lib)
->>   {
->> @@ -7683,69 +7753,7 @@ dml_bool_t dml_core_mode_support(struct 
->> display_mode_lib_st *mode_lib)
->>               s->SurfParameters[k].SwathHeightC = mode_lib- 
->> >ms.SwathHeightCThisState[k];
->>           }
->> -        CalculateVMRowAndSwath_params->NumberOfActiveSurfaces = 
->> mode_lib->ms.num_active_planes;
->> -        CalculateVMRowAndSwath_params->myPipe = s->SurfParameters;
->> -        CalculateVMRowAndSwath_params->SurfaceSizeInMALL = mode_lib- 
->> >ms.SurfaceSizeInMALL;
->> -        CalculateVMRowAndSwath_params->PTEBufferSizeInRequestsLuma = 
->> mode_lib->ms.ip.dpte_buffer_size_in_pte_reqs_luma;
->> -        CalculateVMRowAndSwath_params->PTEBufferSizeInRequestsChroma 
->> = mode_lib->ms.ip.dpte_buffer_size_in_pte_reqs_chroma;
->> -        CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = 
->> mode_lib->ms.ip.dcc_meta_buffer_size_bytes;
->> -        CalculateVMRowAndSwath_params->UseMALLForStaticScreen = 
->> mode_lib->ms.cache_display_cfg.plane.UseMALLForStaticScreen;
->> -        CalculateVMRowAndSwath_params->UseMALLForPStateChange = 
->> mode_lib->ms.cache_display_cfg.plane.UseMALLForPStateChange;
->> -        CalculateVMRowAndSwath_params->MALLAllocatedForDCN = 
->> mode_lib->ms.soc.mall_allocated_for_dcn_mbytes;
->> -        CalculateVMRowAndSwath_params->SwathWidthY = mode_lib- 
->> >ms.SwathWidthYThisState;
->> -        CalculateVMRowAndSwath_params->SwathWidthC = mode_lib- 
->> >ms.SwathWidthCThisState;
->> -        CalculateVMRowAndSwath_params->GPUVMEnable = mode_lib- 
->> >ms.cache_display_cfg.plane.GPUVMEnable;
->> -        CalculateVMRowAndSwath_params->HostVMEnable = mode_lib- 
->> >ms.cache_display_cfg.plane.HostVMEnable;
->> -        CalculateVMRowAndSwath_params- 
->> >HostVMMaxNonCachedPageTableLevels = mode_lib- 
->> >ms.cache_display_cfg.plane.HostVMMaxPageTableLevels;
->> -        CalculateVMRowAndSwath_params->GPUVMMaxPageTableLevels = 
->> mode_lib->ms.cache_display_cfg.plane.GPUVMMaxPageTableLevels;
->> -        CalculateVMRowAndSwath_params->GPUVMMinPageSizeKBytes = 
->> mode_lib->ms.cache_display_cfg.plane.GPUVMMinPageSizeKBytes;
->> -        CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib- 
->> >ms.soc.hostvm_min_page_size_kbytes * 1024;
->> -        CalculateVMRowAndSwath_params->PTEBufferModeOverrideEn = 
->> mode_lib->ms.cache_display_cfg.plane.PTEBufferModeOverrideEn;
->> -        CalculateVMRowAndSwath_params->PTEBufferModeOverrideVal = 
->> mode_lib->ms.cache_display_cfg.plane.PTEBufferMode;
->> -        CalculateVMRowAndSwath_params->PTEBufferSizeNotExceeded = 
->> mode_lib->ms.PTEBufferSizeNotExceededPerState;
->> -        CalculateVMRowAndSwath_params->DCCMetaBufferSizeNotExceeded = 
->> mode_lib->ms.DCCMetaBufferSizeNotExceededPerState;
->> -        CalculateVMRowAndSwath_params->dpte_row_width_luma_ub = s- 
->> >dummy_integer_array[0];
->> -        CalculateVMRowAndSwath_params->dpte_row_width_chroma_ub = s- 
->> >dummy_integer_array[1];
->> -        CalculateVMRowAndSwath_params->dpte_row_height_luma = 
->> mode_lib->ms.dpte_row_height;
->> -        CalculateVMRowAndSwath_params->dpte_row_height_chroma = 
->> mode_lib->ms.dpte_row_height_chroma;
->> -        CalculateVMRowAndSwath_params->dpte_row_height_linear_luma = 
->> s->dummy_integer_array[2]; // VBA_DELTA
->> -        CalculateVMRowAndSwath_params->dpte_row_height_linear_chroma 
->> = s->dummy_integer_array[3]; // VBA_DELTA
->> -        CalculateVMRowAndSwath_params->meta_req_width = s- 
->> >dummy_integer_array[4];
->> -        CalculateVMRowAndSwath_params->meta_req_width_chroma = s- 
->> >dummy_integer_array[5];
->> -        CalculateVMRowAndSwath_params->meta_req_height = s- 
->> >dummy_integer_array[6];
->> -        CalculateVMRowAndSwath_params->meta_req_height_chroma = s- 
->> >dummy_integer_array[7];
->> -        CalculateVMRowAndSwath_params->meta_row_width = s- 
->> >dummy_integer_array[8];
->> -        CalculateVMRowAndSwath_params->meta_row_width_chroma = s- 
->> >dummy_integer_array[9];
->> -        CalculateVMRowAndSwath_params->meta_row_height = mode_lib- 
->> >ms.meta_row_height;
->> -        CalculateVMRowAndSwath_params->meta_row_height_chroma = 
->> mode_lib->ms.meta_row_height_chroma;
->> -        CalculateVMRowAndSwath_params->vm_group_bytes = s- 
->> >dummy_integer_array[10];
->> -        CalculateVMRowAndSwath_params->dpte_group_bytes = mode_lib- 
->> >ms.dpte_group_bytes;
->> -        CalculateVMRowAndSwath_params->PixelPTEReqWidthY = s- 
->> >dummy_integer_array[11];
->> -        CalculateVMRowAndSwath_params->PixelPTEReqHeightY = s- 
->> >dummy_integer_array[12];
->> -        CalculateVMRowAndSwath_params->PTERequestSizeY = s- 
->> >dummy_integer_array[13];
->> -        CalculateVMRowAndSwath_params->PixelPTEReqWidthC = s- 
->> >dummy_integer_array[14];
->> -        CalculateVMRowAndSwath_params->PixelPTEReqHeightC = s- 
->> >dummy_integer_array[15];
->> -        CalculateVMRowAndSwath_params->PTERequestSizeC = s- 
->> >dummy_integer_array[16];
->> -        CalculateVMRowAndSwath_params->dpde0_bytes_per_frame_ub_l = 
->> s->dummy_integer_array[17];
->> -        CalculateVMRowAndSwath_params->meta_pte_bytes_per_frame_ub_l 
->> = s->dummy_integer_array[18];
->> -        CalculateVMRowAndSwath_params->dpde0_bytes_per_frame_ub_c = 
->> s->dummy_integer_array[19];
->> -        CalculateVMRowAndSwath_params->meta_pte_bytes_per_frame_ub_c 
->> = s->dummy_integer_array[20];
->> -        CalculateVMRowAndSwath_params->PrefetchSourceLinesY = 
->> mode_lib->ms.PrefetchLinesYThisState;
->> -        CalculateVMRowAndSwath_params->PrefetchSourceLinesC = 
->> mode_lib->ms.PrefetchLinesCThisState;
->> -        CalculateVMRowAndSwath_params->VInitPreFillY = mode_lib- 
->> >ms.PrefillY;
->> -        CalculateVMRowAndSwath_params->VInitPreFillC = mode_lib- 
->> >ms.PrefillC;
->> -        CalculateVMRowAndSwath_params->MaxNumSwathY = mode_lib- 
->> >ms.MaxNumSwY;
->> -        CalculateVMRowAndSwath_params->MaxNumSwathC = mode_lib- 
->> >ms.MaxNumSwC;
->> -        CalculateVMRowAndSwath_params->meta_row_bw = mode_lib- 
->> >ms.meta_row_bandwidth_this_state;
->> -        CalculateVMRowAndSwath_params->dpte_row_bw = mode_lib- 
->> >ms.dpte_row_bandwidth_this_state;
->> -        CalculateVMRowAndSwath_params->PixelPTEBytesPerRow = 
->> mode_lib->ms.DPTEBytesPerRowThisState;
->> -        CalculateVMRowAndSwath_params->PDEAndMetaPTEBytesFrame = 
->> mode_lib->ms.PDEAndMetaPTEBytesPerFrameThisState;
->> -        CalculateVMRowAndSwath_params->MetaRowByte = mode_lib- 
->> >ms.MetaRowBytesThisState;
->> -        CalculateVMRowAndSwath_params->use_one_row_for_frame = 
->> mode_lib->ms.use_one_row_for_frame_this_state;
->> -        CalculateVMRowAndSwath_params->use_one_row_for_frame_flip = 
->> mode_lib->ms.use_one_row_for_frame_flip_this_state;
->> -        CalculateVMRowAndSwath_params->UsesMALLForStaticScreen = s- 
->> >dummy_boolean_array[0];
->> -        CalculateVMRowAndSwath_params->PTE_BUFFER_MODE = s- 
->> >dummy_boolean_array[1];
->> -        CalculateVMRowAndSwath_params->BIGK_FRAGMENT_SIZE = s- 
->> >dummy_integer_array[21];
->> +        set_vm_row_and_swath_parameters(mode_lib);
->>           CalculateVMRowAndSwath(&mode_lib->scratch,
->>               CalculateVMRowAndSwath_params);
-> 
+caps = topo_dev->node_props.capability;
+>   		if (!(caps & HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED) &&
+> @@ -1071,6 +1074,8 @@ int kfd_dbg_trap_device_snapshot(struct kfd_process *target,
+>   	for (i = 0; i < tmp_num_devices; i++) {
+>   		struct kfd_process_device *pdd = target->pdds[i];
+>   		struct kfd_topology_device *topo_dev = kfd_topology_device_by_id(pdd->dev->id);
+add empty line after variable.
+> +		if (!topo_dev)
+> +			return -EINVAL;
+>   
+break out of the loop to mutex_unlock then return
+
+if (!topo_dev) {
+     r = -EINVAL;
+     break;
+}
+
+Regards,
+Philip
+>   		device_info.gpu_id = pdd->dev->id;
+>   		device_info.exception_status = pdd->exception_status;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index f5d173f1ca3b..888b1c24c2a6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1685,9 +1685,6 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
+>   	struct kfd_node *dev;
+>   	int ret;
+>   
+> -	if (!drm_file)
+> -		return -EINVAL;
+> -
+>   	if (pdd->drm_priv)
+>   		return -EBUSY;
+>   
 
