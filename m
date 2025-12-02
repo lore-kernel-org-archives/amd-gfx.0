@@ -4,47 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E747D116F3
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 08:52:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 671EAD12690
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 08:52:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C44210E749;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 511BA10E74E;
 	Wed,  3 Dec 2025 08:52:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zWo6/0J9";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b8pgJamX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC3410E667;
- Tue,  2 Dec 2025 15:52:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id EC45643ECA;
- Tue,  2 Dec 2025 15:52:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B39DC116B1;
- Tue,  2 Dec 2025 15:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1764690768;
- bh=a41Hc214ofss5go4vtnnf3ogCFKJwntca4v/HMvtCyM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=zWo6/0J9iS7xicf0oIqwu5Ban7CvuP/EVNgTHUTLUd9ksrLbR/7SXHfxJdkUkA0sc
- cswn8w8i/9Jd8m3K5ZSe9fjcOPe7O09I43iY87/HobDCLg+FMhysn+uAyHEhKX9flP
- qxkIiMoEOFt+7PLVKfhFrbV51L1cGiQ5DWUfOfic=
-Date: Tue, 2 Dec 2025 16:52:45 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 6.12.y] drm, fbcon, vga_switcheroo: Avoid race condition
- in fbcon setup
-Message-ID: <2025120235-quartet-shrubs-0862@gregkh>
-References: <2025120119-edgy-recycled-bcfe@gregkh>
- <20251201221055.1281985-1-sashal@kernel.org>
- <4dd8e529-4777-4cfc-a536-dbe0d0a90419@suse.de>
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD2BF10E6D5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 21:23:42 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-3438231df5fso6947310a91.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Dec 2025 13:23:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764710622; x=1765315422; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=agJt8ziZkxLcgZdO7xsho89pkW075Jay4JeY0MzA4Ho=;
+ b=b8pgJamXt3RvG18+Jwrfj7XzjCzlM79LBavFgmW1l5aLwm2Ol9tA+hN4AlDb2eZcTm
+ UDc1J+C9kAQXEGvqbW3K3AAsVlSrGEe0zB7Q2T1kgHwoauHmw3gZ2m5UjZJQLUxWBhKI
+ XjLMepeXo29sc8sFLxIIKVizt89ePPqGNVhamfg9GrZ0k/T+d3JjdOdS+eM5RhHAzYey
+ gDw5qjoxsI1ILCoJvwrJtQUTvymhtZKCRM3415tKWBpeb8iDJjh6Ozb1rQ0dJnbqy1aJ
+ FCBS6eh5+mkT6WZDvqujEGwjnuFGuROOn7nAlEPFAoAPcrbg9sQ8gJRQpy7aQXl4PUVB
+ HHnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764710622; x=1765315422;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=agJt8ziZkxLcgZdO7xsho89pkW075Jay4JeY0MzA4Ho=;
+ b=hrOzFL2Q7INqMd3SAOqsvJskjXopDLmBJvmHQB0nXL8/Rk26JJbA6WnhK4i2p/C3ze
+ dKAQKlOxb5Zv76PVXpFHOzt7TXCO9z3DzJVZZsQ25FTf0cv1wg/oiMFh37DmixbijK/o
+ Bi+u5hyyzAkwuUACDKDNVO5pfcKl673tsxo7bJzh8hKWspTvv0uGv1IAZcu9wX7rPxsz
+ czTms+WxgtcIIwZjitUN7WW7HkaKMm+3L4qMLktyS14knrKwKjh69383PCIvNbRF8MmC
+ ET9PVlzhwoMwzMs24Vj9UXdMgTJ117qM9QoTrGp4591C04ZLCr4lTyhgzvzwZQWucPeN
+ 8owA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW+7FLCryuF/iookytBot3Hi/YUqVQfHioFjVOgxzbTVbkfRxPSQ3q6Vi0/YfrbuDL2rPVlbXCz@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZBrnrY+lmyurXA7essIZWVvx3QpqtQXKX3P2IDu1zT3jZXKSo
+ 2x942txE27PjmmilKHxaS81tpk7GR7PtB0QvKltgL3yfIo/Rml9YL/XrVWq4zQ==
+X-Gm-Gg: ASbGncue2cKmn8+iqXjA+tIV+THFt1BVFyzUBBI5dTB8HnC6n2sdYtzbL7X04jpYW6O
+ OPU+2WaW9aWpXeZK72rxKX2/sspDnnM0Hs07vhmRm3wlU91mgvk1+vE80vaHK81GPDzESMubpCf
+ nqH7E18Wqbq59T5It0MN0izvPJYsP3CqvcneVHIV7DBuQTLCWkROGfc3alYLptjEewvDE197bGv
+ fLaDBI0btuplrFSdlcbbtoIVu3VsxXqPbHVApcLd+3h98bfffCGMCZtmxgmDjJGyIdZS5ZJ1pjl
+ xQEZbs6EbR1g/iFt7M86eB/5HWgm0n+4hCx+JJpECSS2cXuJ5lvA067hnXv8REso6rjijEkNykb
+ QXHA4qwPjRpCCct9jPGZgLJuV4+VBrSN15Qo4pto+AoiKR/JH9L6YT3bs0tKKWoZ+Ag/Rr9k8IL
+ 1WoMtVQSJQZKexkWqjmWZua2IgTgjp3xesbB2HMsHAhPdV9kebz1ZtUiaFX9s=
+X-Google-Smtp-Source: AGHT+IGg7yyz0qkW8DL9xXfPYIObrSt846ksQ+2QOA0VlRLzxAsbkrocwjvZBe2ZllE3KRu8M1Ejaw==
+X-Received: by 2002:a17:90b:270e:b0:343:e082:b327 with SMTP id
+ 98e67ed59e1d1-349128451damr59598a91.31.1764710622125; 
+ Tue, 02 Dec 2025 13:23:42 -0800 (PST)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
+ ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-34912896983sm7667a91.0.2025.12.02.13.23.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Dec 2025 13:23:41 -0800 (PST)
+Message-ID: <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
+Date: Tue, 2 Dec 2025 13:23:39 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4dd8e529-4777-4cfc-a536-dbe0d0a90419@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Linux 6.18 amdgpu build error
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>
+References: <74032153-813a-4a40-8363-cce264f4d5ea@linuxfoundation.org>
+ <1eb24816-530b-4470-8e58-ce7d8297996c@roeck-us.net>
+ <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 03 Dec 2025 08:52:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,19 +141,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 02, 2025 at 08:40:43AM +0100, Thomas Zimmermann wrote:
-> Hi,
+On 12/2/25 13:01, Shuah Khan wrote:
+> On 12/1/25 19:31, Guenter Roeck wrote:
+>> On Mon, Dec 01, 2025 at 03:17:49PM -0700, Shuah Khan wrote:
+>>> Hi Alex,
+>>>
+>>> I am seeing the following make error on Linux 6.18.
+>>> I started seeing build failures since rc7 and rc6
+>>> build was just fine on the same config file.
+>>>
+>>> LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu.o: error: objtool: elf_init_reloc: .rela.orc_unwind_ip: reloc 39935 already initialized!
+>>> make[6]: *** [scripts/Makefile.build:503: drivers/gpu/drm/amd/amdgpu/amdgpu.o] Error 255
+>>> make[6]: *** Deleting file 'drivers/gpu/drm/amd/amdgpu/amdgpu.o'
+>>> make[5]: *** [scripts/Makefile.build:556: drivers/gpu/drm/amd/amdgpu] Error 2
+>>> make[4]: *** [scripts/Makefile.build:556: drivers/gpu/drm] Error 2
+>>> make[3]: *** [scripts/Makefile.build:556: drivers/gpu] Error 2
+>>> make[2]: *** [scripts/Makefile.build:556: drivers] Error 2
+>>> make[1]: *** [/linux/linux_6.18/Makefile:2010: .] Error 2
+>>> make: *** [Makefile:248: __sub-make] Error 2
+>>>
+>>> I tried "make clean" and "make distclean" just in case, still see
+>>> the same error.
+>>>
+>>
+>> My test system does not report any problems. What is the configuration
+>> and compiler ?
+>>
 > 
-> thanks for backporting.
+> My one test system didn't report any problems. The other one did.
+> I am using gcc and the config is the same as the one used to build
+> 6.18-rc6 with no issues.
 > 
-> You also have to remove the calls to vga_switcheroo_client_fb_set() from
-> these files
+> I will keep digging to find what's wrong on my system.
 > 
-> https://elixir.bootlin.com/linux/v6.12/source/drivers/gpu/drm/i915/display/intel_fbdev.c
-> https://elixir.bootlin.com/linux/v6.12/source/drivers/gpu/drm/radeon/radeon_fbdev.c
+> gcc version 14.2.0 (Debian 14.2.0-19)
+> 
 
-Can you send a fixed up patch instead?
+Interesting. That reminds me ... I used to have that kind of machine specific
+problems when building with CONFIG_RANDSTRUCT enabled. I worked around it
+by using gcc builds with plugin support disabled. In my case, there was
+nothing wrong with the system, just that each system has a slightly different
+hardware configuration which somehow influenced structure randomization, even
+across "make clean/distclean".
 
-thanks,
+Guenter
 
-greg k-h
