@@ -4,75 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0FA8D116F6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B547ACFD2F6
 	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 15:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A1A10E0B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47DE310E0A7;
 	Tue,  2 Dec 2025 15:12:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PqunClgn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jQprfdXz";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4456D10E0A7
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 15:12:45 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-640a3317b89so8827046a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Dec 2025 07:12:45 -0800 (PST)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2CF10E0A7
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 15:12:44 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-64320b9bb4bso4832992a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Dec 2025 07:12:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764688364; x=1765293164; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=gMaJyn451V4gch7sed4+jMHNNjvzFY0bouzPGINGQyw=;
- b=PqunClgnFXQESOous4n/sdq4IraK8uCqlR8q2C2Kra1ObJbHMxzaR6eN1p2UNmX9DB
- ye0ph/BoeEXebBdJ6HCRiSUU0t2aeYsgrKM6AqUIT10kt5S9ZtmdSY0bqfH43lGyaJdt
- 1rhLorAks73JWU2gvOSKSNXifuAmoJ1QG10IsJ5/Quv6qU2nM6AOcDNiufpstzPk+z5H
- JqLSEHPAAqhM8iW9mxkFIjym0lSui569ilDQMybspp0cUiQfxwh1R5qfK4LjdvlIimmn
- vn0NLnZT1Gx5psDWSweo4+TuLkEjzUazS8ilcHVV9xHDoajqlhOYUe0qHAbwUPjiCvc/
- XAQw==
+ d=gmail.com; s=20230601; t=1764688363; x=1765293163; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uhuCwg3T40H7fa7U5wx5NUHJaZjtl0l9oIfSrAVuBlk=;
+ b=jQprfdXzg0xLBpOgHP0x1HJ3oZwAwJf2XJkJ2vV6yrKPIvR3kiOEVF3yooxKkVsi2u
+ 3UPM8rPbw6FbA/W0N3/r18OIV6EZkVmzTe0KnLz2eOtpcnA+74kIMJBgG6EnVxI+ArZs
+ 6mRWk6i07fHuFcynFnYKIvfb1398bpT2tiBYVFFjRTsKEy/VNZJ+LV8C0iWY7/CmqzpY
+ Q5TYhsDcECQDa+Egmg8jwGkVFR4hKuY2IB2Xzdpj9DmSyjYrncEKKSq3glXcn2alOk4t
+ RpRBJadjbYPBdP5iveJr4w9EpmrVl0Awj6Lro/GTU3Jl2oYDCQJxO6LYcfpKZx1aGbfC
+ SdCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764688364; x=1765293164;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=gMaJyn451V4gch7sed4+jMHNNjvzFY0bouzPGINGQyw=;
- b=RBXeLRjH1C32xxja4X5HQbiTWiJ8idsopwvqLY2Jt3FZ2c484MNcaZqveYoJcaeDcT
- iz5HM7/Bhf15OlqKZBZ2/qp551/t9TTUKmXm7gcnjlqG3U+mrlb58qB2y/kcA68BVgMc
- QKeG9wH4I8JGgKRHZfelnH2ioNjI2/X+FLB8x00qe4hZO9oLByOJR5vKhDTp4xjCBpCz
- KUTwhmtI4VeFTXa1Uq6DcZyqqkNqcrXMtW2dhuaTSup/22yBrfwSqvS2z/ef6EEDpHDS
- knxxB7U6gu8iMsJgP9NgX4yrCyEMo2DGoSuHCAdxeswzdNR60nvTZc60dSsArJbNiLKU
- qKbw==
+ d=1e100.net; s=20230601; t=1764688363; x=1765293163;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uhuCwg3T40H7fa7U5wx5NUHJaZjtl0l9oIfSrAVuBlk=;
+ b=A6R0N5K9d75rCnITfnberqAW4VFLKHKOxSKVqoW0l5d7i+V2D63J23sCvQn/RhX2lS
+ O/3YqcPo+mhBg2DadzWmUEvf+8uUzhx2bCzteLcNFPH6RTQkvc5xX5zojxmZGLm2BdTB
+ wGUulFvtYKeWi2JpxMTr1pHEbfqQA2mTIun7ykWdSEV9OnlNJOxwhYHu7JooZxSJcgnH
+ XLfqG6jPcM04Bh5a+5N5VVZSaIe6/7K23tP1UYgpYxQWL3Kw+5q8QRkRtbS/u9tuRlvd
+ RSGJvAEQGS1SxjEyFFvbnFLCMkscEZogioVZIgEmiZT6yxdnWz1zQr80h4oC0mJ+BJui
+ FD8w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWDdv26ubo/tWtuZHeryMrm3LIjr8lf0pN7YE8ZQozmcoZMBjuciqH5SoSIyx7GLwyOQkCt8HYt@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzi6orf8NALA5vVIFu7XGmjXMqwiX4cRegbkdCX59gevdr6Z7h5
- GCmmh+CS9RMnQI2HnDgpQ3GuV06GrWdejFFazXPxiYpuVj7AubAk8wAM
-X-Gm-Gg: ASbGncuQExplkUMiJ7udBvIz2RIo+TMaA6q2Fwk0i2A9c5EMcjcTHK4aMsrqvSFqHBI
- tiJ3uP6fXpAkAuiuNILO0ekluQYn8e+EzefCzaNfO7jQF0gyXjemSmQ3wUeoAqK0gAHP27tj914
- scf+FKUPbNrESSO0riIoFv5qubgZ6v3R3TthxeWlPsVkAlwARLFtxdrPhIzm6nRHWucn6Cbc1nG
- Ak6YFQM/b3Y4PHJ/Gt8UHwWn6JOgEaSxDyBQuSZgS8fsXmDUcUOJ0AN7xQOXQTHWORLBg55lACM
- LW5TfQ66MVt4BoxI/Cs2RzWE4h02oLWD6gSF3THzjSEUNmUVhX5rozYE8NFOHhcetjaBtKJTivP
- fmro4C2mjcR7aaom6sUk047p3gNI81N3p0mKsQO3EbXSKnhOs/5r8GRsbCXuyyKJ/e/njOaaDcz
- ioBFF/pnEORsvcPeDJ9m7W1lj7Steca8KPbkQ=
-X-Google-Smtp-Source: AGHT+IGsONeYtasocXe30FUeSMhguDtoCnThbOKeIRYdequ69DJYlRNnCT89ziTuXQmlk8dhUJlMlg==
-X-Received: by 2002:a05:6402:350f:b0:640:a356:e797 with SMTP id
- 4fb4d7f45d1cf-645eb2648b3mr30628056a12.13.1764688363613; 
- Tue, 02 Dec 2025 07:12:43 -0800 (PST)
+ AJvYcCXLecOw+wANX1o6ZFEqaPKGaTysknrlD3yquxu4Zbb57aiQA/YB90ska5q9bG/NHtPVbaha3NOi@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2SbNdE9m8MteE/cVkgC5+DVoh6x3MBmkpc0EZpRap+9RLtRsM
+ BcZ1iSKWL3lw5OSIav4lkx8a3Y4c8GF17B9855kdk0PD2EchD1QLG11F
+X-Gm-Gg: ASbGncu7futIQAH9SsnC0/B7mpnb05X6G4OYC+Gp+1dIiCSgDHSmALRAkuIYahbou0z
+ cwqAI1ZZu1KmFgHbTP7F5o0aOdhNTuMi0ajd+m+0U29BW4tOpE+HbjPQYhpI7k/T5CYQn5hkDoW
+ 9sqrdqb6ok0mZZEE82jZeR8KPZ0L7mMHCWa7IiyB9Qt8yVJJEHYbj7pmihU+Q7aexO9pmGsxVcc
+ LRgpkr9aWFUscEN+to41T31PvuMGzVyMgw1ETZn5C/eCW/FEUoDP3npC9mnx5C291lTUchUZMcl
+ s4TfNHRJKKMZqZXbj1X0fQxBwjb03jYsib5EfFcnfNylqyL0VIC9Hlec3hPLaZRctIM0eJddLIw
+ r4G0pDngpDhp8Js1xIn4/TxmPm7k7WI9d2f9iGs3HMMLr2ibOKxo/DFpOq7nn5xDDV41Xhk3hIc
+ Wl90UXa7Z8dEpYYDrZ+IKv1HAk
+X-Google-Smtp-Source: AGHT+IEIkhazD7MdAldLmsnFr2hWJuWOAeBwMxrIHnAjthFwkUpntZl1DJP1QVaFmIqFSPxqZmShrw==
+X-Received: by 2002:a05:6402:40ce:b0:640:ef03:82de with SMTP id
+ 4fb4d7f45d1cf-6478926bde8mr2805330a12.4.1764688362729; 
+ Tue, 02 Dec 2025 07:12:42 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:1566:ae00:9ed7:ba17:59d5:1db2])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-64751035c3bsm15520882a12.19.2025.12.02.07.12.42
+ 4fb4d7f45d1cf-64751035c3bsm15520882a12.19.2025.12.02.07.12.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Dec 2025 07:12:43 -0800 (PST)
+ Tue, 02 Dec 2025 07:12:42 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: alexdeucher@gmail.com, srinivasan.shanmugam@amd.com, Leo.Liu@amd.com,
  Ruijing.Dong@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 2/3] drm/amdgpu: add AMDGPU_GEM_OP_OPEN_GLOBAL
-Date: Tue,  2 Dec 2025 16:12:40 +0100
-Message-ID: <20251202151241.2212-2-christian.koenig@amd.com>
+Subject: [RFC PATCH 1/3] drm/amdgpu: rework MMIO_REMAP BO creation
+Date: Tue,  2 Dec 2025 16:12:39 +0100
+Message-ID: <20251202151241.2212-1-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251202151241.2212-1-christian.koenig@amd.com>
-References: <20251202151241.2212-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -90,110 +88,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of abusing the create IOCTL to open global BO add a new
-AMDGPU_GEM_OP_OPEN_GLOBAL functionality.
+First of all avoid using AMDGPU_GEM_DOMAIN_MMIO_REMAP in the TTM code.
 
-The new AMDGPU_GEM_OP_OPEN_GLOBAL functionality expects an enum which tells
-it which global BO to open and copies the information about the BO to
-userspace similar to the AMDGPU_GEM_OP_GET_GEM_CREATE_INFO operation.
-
-The advantage is that we don't start overloading the create IOCTL with
-tons of special cases and opening the global BOs doesn't requires knowing
-the exact size and parameters of it in userspace any more.
-
-Heavily WIP and only compile tested.
+Then while at it remove some confusing comments, cleanup the comments
+who make sense and rename the functions to be a bit more clear what they
+do.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 26 ++++++++++++++++++++-----
- include/uapi/drm/amdgpu_drm.h           |  5 ++++-
- 2 files changed, 25 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 66 ++++++++++++++-----------
+ 1 file changed, 38 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 9b81a6677f90..9e9b94dcb699 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -968,22 +968,34 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *filp)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index e553cf411191..3166469d437a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1892,42 +1892,41 @@ static void amdgpu_ttm_pools_fini(struct amdgpu_device *adev)
+ }
+ 
+ /**
+- * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton 4K MMIO_REMAP BO
++ * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton MMIO_REMAP BO
+  * @adev: amdgpu device
+  *
+- * Allocates a one-page (4K) GEM BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP when the
++ * Allocates a global BO with backing AMDGPU_PL_MMIO_REMAP when the
+  * hardware exposes a remap base (adev->rmmio_remap.bus_addr) and the host
+  * PAGE_SIZE is <= AMDGPU_GPU_PAGE_SIZE (4K). The BO is created as a regular
+  * GEM object (amdgpu_bo_create).
+  *
+- * The BO is created as a normal GEM object via amdgpu_bo_create(), then
+- * reserved and pinned at the TTM level (ttm_bo_pin()) so it can never be
+- * migrated or evicted. No CPU mapping is established here.
+- *
+  * Return:
+  *  * 0 on success or intentional skip (feature not present/unsupported)
+  *  * negative errno on allocation failure
+  */
+-static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
++static int amdgpu_ttm_alloc_mmio_remap_bo(struct amdgpu_device *adev)
  {
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
- 	struct drm_amdgpu_gem_op *args = data;
- 	struct drm_gem_object *gobj;
- 	struct amdgpu_vm_bo_base *base;
- 	struct amdgpu_bo *robj;
- 	struct drm_exec exec;
--	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct ttm_operation_ctx ctx = { false, false };
++	struct ttm_placement placement;
++	struct ttm_buffer_object *tbo;
++	struct ttm_place placements;
+ 	struct amdgpu_bo_param bp;
++	struct ttm_resource *tmp;
  	int r;
  
- 	if (args->padding)
- 		return -EINVAL;
+ 	/* Skip if HW doesn't expose remap, or if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE (4K). */
+ 	if (!adev->rmmio_remap.bus_addr || PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
+ 		return 0;
  
--	gobj = drm_gem_object_lookup(filp, args->handle);
--	if (!gobj)
--		return -ENOENT;
-+	if (args->op == AMDGPU_GEM_OP_OPEN_GLOBAL) {
-+		switch (args->handle) {
-+		case AMDGPU_GEM_GLOBAL_MMIO_REMAP:
-+			robj = drm_to_adev(dev)->rmmio_remap.bo;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+		gobj = &robj->tbo.base;
-+		drm_gem_object_get(gobj);
-+	} else {
-+		gobj = drm_gem_object_lookup(filp, args->handle);
-+		if (!gobj)
-+			return -ENOENT;
++	/* Allocate an empty BO without backing store */
+ 	memset(&bp, 0, sizeof(bp));
+-
+-	/* Create exactly one GEM BO in the MMIO_REMAP domain. */
+-	bp.type        = ttm_bo_type_device;          /* userspace-mappable GEM */
+-	bp.size        = AMDGPU_GPU_PAGE_SIZE;        /* 4K */
++	bp.type        = ttm_bo_type_device;
++	bp.size        = AMDGPU_GPU_PAGE_SIZE;
+ 	bp.byte_align  = AMDGPU_GPU_PAGE_SIZE;
+-	bp.domain      = AMDGPU_GEM_DOMAIN_MMIO_REMAP;
++	bp.domain      = 0;
+ 	bp.flags       = 0;
+ 	bp.resv        = NULL;
+ 	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+-
+ 	r = amdgpu_bo_create(adev, &bp, &adev->rmmio_remap.bo);
+ 	if (r)
+ 		return r;
+@@ -1936,37 +1935,48 @@ static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
+ 	if (r)
+ 		goto err_unref;
  
--	robj = gem_to_amdgpu_bo(gobj);
-+		robj = gem_to_amdgpu_bo(gobj);
-+	}
- 
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
- 			  DRM_EXEC_IGNORE_DUPLICATES, 0);
-@@ -1002,6 +1014,7 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	switch (args->op) {
-+	case AMDGPU_GEM_OP_OPEN_GLOBAL:
- 	case AMDGPU_GEM_OP_GET_GEM_CREATE_INFO: {
- 		struct drm_amdgpu_gem_create_in info;
- 		void __user *out = u64_to_user_ptr(args->value);
-@@ -1096,6 +1109,9 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		r = -EINVAL;
- 	}
- 
-+	if (!r && args->op == AMDGPU_GEM_OP_OPEN_GLOBAL)
-+		r = drm_gem_handle_create(filp, gobj, &args->handle);
++	tbo = &adev->rmmio_remap.bo->tbo;
 +
- 	drm_gem_object_put(gobj);
+ 	/*
+ 	 * MMIO_REMAP is a fixed I/O placement (AMDGPU_PL_MMIO_REMAP).
+-	 * Use TTM-level pin so the BO cannot be evicted/migrated,
+-	 * independent of GEM domains. This
+-	 * enforces the “fixed I/O window”
+ 	 */
+-	ttm_bo_pin(&adev->rmmio_remap.bo->tbo);
++	placement.num_placement = 1;
++	placement.placement = &placements;
++	placements.fpfn = 0;
++	placements.lpfn = 0;
++	placements.mem_type = AMDGPU_PL_MMIO_REMAP;
++	placements.flags = 0;
++	r = ttm_bo_mem_space(tbo, &placement, &tmp, &ctx);
++	if (unlikely(r))
++		goto err_unlock;
++
++	ttm_resource_free(tbo, &tbo->resource);
++	ttm_bo_assign_mem(tbo, tmp);
++	ttm_bo_pin(tbo);
+ 
+ 	amdgpu_bo_unreserve(adev->rmmio_remap.bo);
+ 	return 0;
+ 
++err_unlock:
++	amdgpu_bo_unreserve(adev->rmmio_remap.bo);
++
+ err_unref:
+-	if (adev->rmmio_remap.bo)
+-		amdgpu_bo_unref(&adev->rmmio_remap.bo);
++	amdgpu_bo_unref(&adev->rmmio_remap.bo);
+ 	adev->rmmio_remap.bo = NULL;
  	return r;
- out_exec:
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index c1336ed4ff75..6927c864a6d1 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -807,6 +807,9 @@ union drm_amdgpu_wait_fences {
- #define AMDGPU_GEM_OP_GET_GEM_CREATE_INFO	0
- #define AMDGPU_GEM_OP_SET_PLACEMENT		1
- #define AMDGPU_GEM_OP_GET_MAPPING_INFO		2
-+#define AMDGPU_GEM_OP_OPEN_GLOBAL		3
-+
-+#define AMDGPU_GEM_GLOBAL_MMIO_REMAP		0
+ }
  
- struct drm_amdgpu_gem_vm_entry {
- 	/* Start of mapping (in bytes) */
-@@ -824,7 +827,7 @@ struct drm_amdgpu_gem_vm_entry {
+ /**
+- * amdgpu_ttm_mmio_remap_bo_fini - Free the singleton MMIO_REMAP BO
++ * amdgpu_ttm_free_mmio_remap_bo - Free the singleton MMIO_REMAP BO
+  * @adev: amdgpu device
+  *
+  * Frees the kernel-owned MMIO_REMAP BO if it was allocated by
+  * amdgpu_ttm_mmio_remap_bo_init().
+  */
+-static void amdgpu_ttm_mmio_remap_bo_fini(struct amdgpu_device *adev)
++static void amdgpu_ttm_free_mmio_remap_bo(struct amdgpu_device *adev)
+ {
+-	struct amdgpu_bo *bo = adev->rmmio_remap.bo;
+-
+-	if (!bo)
+-		return;   /* <-- safest early exit */
++	if (!adev->rmmio_remap.bo)
++		return;
  
- /* Sets or returns a value associated with a buffer. */
- struct drm_amdgpu_gem_op {
--	/** GEM object handle */
-+	/** GEM object handle or AMDGPU_GEM_GLOBAL_* */
- 	__u32	handle;
- 	/** AMDGPU_GEM_OP_* */
- 	__u32	op;
+ 	if (!amdgpu_bo_reserve(adev->rmmio_remap.bo, true)) {
+ 		ttm_bo_unpin(&adev->rmmio_remap.bo->tbo);
+@@ -2152,8 +2162,8 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 		return r;
+ 	}
+ 
+-	/* Allocate the singleton MMIO_REMAP BO (4K) if supported */
+-	r = amdgpu_ttm_mmio_remap_bo_init(adev);
++	/* Allocate the singleton MMIO_REMAP BO if supported */
++	r = amdgpu_ttm_alloc_mmio_remap_bo(adev);
+ 	if (r)
+ 		return r;
+ 
+@@ -2220,7 +2230,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
+ 					&adev->mman.sdma_access_ptr);
+ 
+-	amdgpu_ttm_mmio_remap_bo_fini(adev);
++	amdgpu_ttm_free_mmio_remap_bo(adev);
+ 	amdgpu_ttm_fw_reserve_vram_fini(adev);
+ 	amdgpu_ttm_drv_reserve_vram_fini(adev);
+ 
 -- 
 2.43.0
 
