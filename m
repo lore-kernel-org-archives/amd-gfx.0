@@ -4,48 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D04F3D116F5
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:02:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A4CD11701
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:02:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE3FF10E659;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71E4A10E650;
 	Tue,  2 Dec 2025 14:02:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="oAXDX4df";
-	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="X+Vb5Fvs";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="rtiE3GB6";
 	dkim-atps=neutral
-Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 260F410E619;
- Tue,  2 Dec 2025 11:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1764673362; bh=c9P0I4SdhdLrq8DRLE4q09F
- cD52IEtL4SOm8pEvJYYE=; b=oAXDX4dfG/jNfIqtryn/g7n3LNd+K8UCLOBze0xNpeDH0eEhmq
- 9nw31c5hTH7AdDK3Y3qWBtnmBoxYiCojsynV4JBK7hLGfoJ+d5Uh4Z58DOX/1cfGMB5ukhk4IHj
- HwRnCnc3Y7PgaFATG+razsPWESg0qKjiosbf1a0tutUZy9zpMwv7DK3OSNFPqJ7ojWiaeWzRGe6
- 3//AZG0Uxwh4dlErvtQuIyZNYGN49zpdDT+ETow/thoVC5BII/3SHyH8ZOo0rr70VuucK3+6nYt
- hy+nqIs02yHaSagR3jFUFKqTRtlZNEMVZoZFwMH5SkI5fn/Gue3RZFOn+prfA1pLEqw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
- h=Message-ID:Date:Subject:To:From; t=1764673362; bh=c9P0I4SdhdLrq8DRLE4q09F
- cD52IEtL4SOm8pEvJYYE=; b=X+Vb5FvsqX+LZHZhPt1mUogBZQM014fFsPnBxnWW6xIn1upgXH
- jATrfGTDaoLD2kAIzM3kE3B6bmuVQp4dcSDA==;
-From: Yaroslav Bolyukin <iam@lach.pw>
-To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yaroslav Bolyukin <iam@lach.pw>
-Subject: [PATCH v7 0/7] VESA DisplayID fixed DSC BPP value support
-Date: Tue,  2 Dec 2025 12:02:11 +0100
-Message-ID: <20251202110218.9212-1-iam@lach.pw>
-X-Mailer: git-send-email 2.51.2
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D9C10E5B1;
+ Tue,  2 Dec 2025 08:29:23 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dLDTD0jlmz9t0n;
+ Tue,  2 Dec 2025 09:29:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1764664160; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=F3V+T3Om8mfxHZjoquX2SFCTJRc6COI8uBe9tXVns1o=;
+ b=rtiE3GB6OQymRRXq6bWEORf0EfuPDtxS3sekTtzO4T8XZ5MLvkGt1Ac63OSi8pz4kbswXr
+ yX/iz/4acIgH6RUpliPeKrVGPQnrMs4ZXxhU13MkAgCIPxHBH+/pm8Z/Cf3nSH4HQ8B/Bz
+ ayg2P2whnMkKeJLXUzff2SV/iVSLS8+8FonRXw6WpYcXZ4ISMy2FqDLagUV/ezUoERrhXv
+ zWyTuYkstLxtsa7rlL59fvFOO+uPnh2qr28MZUrbY+2Xl2t37pRdVa0fxXfdwI5/F/sg1r
+ 5Flw/byOkjwd8AVdjG0gHpG5fTsS2diT8CrO3d6uWKB+oAPFIHn+SRu5ItC5+w==
+Message-ID: <1aaaa2fe56fc7598b653a5e45fc26aa0b8703ad5.camel@mailbox.org>
+Subject: Re: [PATCH v2 8/8] drm/xe: Use dma_fence_test_signaled_flag()
+From: Philipp Stanner <phasta@mailbox.org>
+To: Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
+ <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
+ Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,  linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Date: Tue, 02 Dec 2025 09:29:09 +0100
+In-Reply-To: <aS3touSB1ZyR2hfM@lstrano-desk.jf.intel.com>
+References: <20251201105011.19386-2-phasta@kernel.org>
+ <20251201105011.19386-10-phasta@kernel.org>
+ <aS3touSB1ZyR2hfM@lstrano-desk.jf.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 76ac2ab24f1c8917547
+X-MBO-RS-META: 6eppcxqxqw1xf4rtz518s3ggqzj8e6aa
 X-Mailman-Approved-At: Tue, 02 Dec 2025 14:02:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,97 +77,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VESA DisplayID spec allows the device to force its DSC bits per pixel
-value.
+On Mon, 2025-12-01 at 11:33 -0800, Matthew Brost wrote:
+> On Mon, Dec 01, 2025 at 11:50:12AM +0100, Philipp Stanner wrote:
+> > There is a new dma_fence helper which simplifies testing for a fence's
+> > signaled_flag. Use it in xe.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+>=20
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-For example, the HTC Vive Pro 2 VR headset uses this value in
-high-resolution modes (3680x1836@90-120, 4896x2448@90-120), and when the
-kernel doesn't respect this parameter, garbage is displayed on the HMD
-instead.
+Doesn't apply on drm-misc-next. Suggestions about what to do about
+that?
 
-Me and other users have successfully tested the old (v3) version of this
-patch (which was applying DSC BPP value unconditionally, thus incorrect:
-https://lkml.org/lkml/2023/2/26/116) on Vive Pro 2 and
-Bigscreen Beyond VR headsets, and have been using it daily, it is known
-to work and doesn't seem to break anything else since 2022.
 
-Previously, I didn't have enough dedication to get it merged, I hope
-this time I will manage to get it to v6.19 :D
+P.
 
-Regarding driver support - I have looked at amdgpu and Nvidia's
-open-gpu-kernel-modules, and both seem to have some indication for this
-value; however, in Linux, it is unused in both.
 
-First patch implements parsing of DSC BPP values and display mode VII
-timings flag which mandates that the DSC BPP value should actually be
-used for this display mode.
+>=20
+> > ---
+> > =C2=A0drivers/gpu/drm/xe/xe_exec_queue.c | 9 +++------
+> > =C2=A0drivers/gpu/drm/xe/xe_pt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 3 +--
+> > =C2=A0drivers/gpu/drm/xe/xe_sched_job.c=C2=A0 | 2 +-
+> > =C2=A03 files changed, 5 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe=
+_exec_queue.c
+> > index cb5f204c08ed..06736f52fbaa 100644
+> > --- a/drivers/gpu/drm/xe/xe_exec_queue.c
+> > +++ b/drivers/gpu/drm/xe/xe_exec_queue.c
+> > @@ -1037,8 +1037,7 @@ struct dma_fence *xe_exec_queue_last_fence_get(st=
+ruct xe_exec_queue *q,
+> > =C2=A0
+> > =C2=A0	xe_exec_queue_last_fence_lockdep_assert(q, vm);
+> > =C2=A0
+> > -	if (q->last_fence &&
+> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
+ce->flags))
+> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
+> > =C2=A0		xe_exec_queue_last_fence_put(q, vm);
+> > =C2=A0
+> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
+> > @@ -1064,8 +1063,7 @@ struct dma_fence *xe_exec_queue_last_fence_get_fo=
+r_resume(struct xe_exec_queue *
+> > =C2=A0
+> > =C2=A0	lockdep_assert_held_write(&q->hwe->hw_engine_group->mode_sem);
+> > =C2=A0
+> > -	if (q->last_fence &&
+> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
+ce->flags))
+> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
+> > =C2=A0		xe_exec_queue_last_fence_put_unlocked(q);
+> > =C2=A0
+> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
+> > @@ -1106,8 +1104,7 @@ int xe_exec_queue_last_fence_test_dep(struct xe_e=
+xec_queue *q, struct xe_vm *vm)
+> > =C2=A0
+> > =C2=A0	fence =3D xe_exec_queue_last_fence_get(q, vm);
+> > =C2=A0	if (fence) {
+> > -		err =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) ?
+> > -			0 : -ETIME;
+> > +		err =3D dma_fence_test_signaled_flag(fence) ? 0 : -ETIME;
+> > =C2=A0		dma_fence_put(fence);
+> > =C2=A0	}
+> > =C2=A0
+> > diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> > index 07f96bda638a..1ca2dec18e51 100644
+> > --- a/drivers/gpu/drm/xe/xe_pt.c
+> > +++ b/drivers/gpu/drm/xe/xe_pt.c
+> > @@ -1208,8 +1208,7 @@ static bool no_in_syncs(struct xe_sync_entry *syn=
+cs, u32 num_syncs)
+> > =C2=A0	for (i =3D 0; i < num_syncs; i++) {
+> > =C2=A0		struct dma_fence *fence =3D syncs[i].fence;
+> > =C2=A0
+> > -		if (fence && !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags))
+> > +		if (fence && !dma_fence_test_signaled_flag(fence))
+> > =C2=A0			return false;
+> > =C2=A0	}
+> > =C2=A0
+> > diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_=
+sched_job.c
+> > index d21bf8f26964..1c9ba49a325b 100644
+> > --- a/drivers/gpu/drm/xe/xe_sched_job.c
+> > +++ b/drivers/gpu/drm/xe/xe_sched_job.c
+> > @@ -188,7 +188,7 @@ static bool xe_fence_set_error(struct dma_fence *fe=
+nce, int error)
+> > =C2=A0	bool signaled;
+> > =C2=A0
+> > =C2=A0	spin_lock_irqsave(fence->lock, irq_flags);
+> > -	signaled =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+> > +	signaled =3D dma_fence_test_signaled_flag(fence);
+> > =C2=A0	if (!signaled)
+> > =C2=A0		dma_fence_set_error(fence, error);
+> > =C2=A0	spin_unlock_irqrestore(fence->lock, irq_flags);
+> > --=20
+> > 2.49.0
+> >=20
 
-The second patch implements handling of this value for AMDGPU driver.
-
-The only thing that I don't like in the current implementation, is how
-the value of `dsc_passthrough_timings_support` flag is propagated from
-the connector display modes to the mode created in `DRM_IOCTL_MODE_SETCRTC`
-handler (which is used for VR display initialization in Monado and
-StreamVR), it feels like this flag should be initialized by the kernel
-itself, but as far as I can see there is no correct way to do this, as
-the timing constraints calculation belongs to the individual drivers.
-
-Another problem with how this flag is set, is that there is no hard
-connection between modes creaded in `SETCRTC` and the modes actually
-defined by connector, so the current implementation searches for the
-resolution and refresh rate that match exactly declared to obtain
-this flag value. This might not be correct, as device might not support
-the other mode at all, but the situation won't be any worse for the
-existing devices, as the currently they don't work at all, and there
-is no other known devices on the market to check their assumption in
-regard to this part of specs, and the spec does not describe how that
-should work.
-
-Both of those downsides are due to the fact my understanding of DRM
-subsystem is not that high. If another implementation would be proposed
-by AMDGPU maintainers - I will gladly implement it here.
-
-v6->v7:
- * Print DSC bpp value in fixed point format instead of x16
- * MSO should only be enabled for eDP, not the other way round.
-v5->v6:
- * amdgpu: only apply dsc bpp to modes that match exactly the declared
-   modes with this flag set.
-v4->v5:
- * The patch was split into multiple
- * Disabled MSO parsing for eDP displays
- * Disabled MSO logs if not used
- * Minor codestyle changes: lines moved around, naming, passing of
-   function arguments
-v3->v4:
- * This patch now parses timings support flag on type VII block, instead
-   of applying it unconditionally. Previously I didn't understand the
-   spec properly.
- * Now it also is not being applied for non-supported and/or non-VII
-   blocks in amdgpu driver.
-
-Regards,
-
-Lach
-
-Yaroslav Bolyukin (7):
-  drm/edid: rename VESA block parsing functions to more generic name
-  drm/edid: prepare for VESA vendor-specific data block extension
-  drm/edid: MSO should only be used for non-eDP displays
-  drm/edid: parse DSC DPP passthru support flag for mode VII timings
-  drm/edid: for consistency, use mask everywhere for block rev parsing
-  drm/edid: parse DRM VESA dsc bpp target
-  drm/amd: use fixed dsc bits-per-pixel from edid
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  16 +++
- drivers/gpu/drm/drm_displayid_internal.h      |  11 ++
- drivers/gpu/drm/drm_edid.c                    | 102 +++++++++++-------
- include/drm/drm_connector.h                   |   6 ++
- include/drm/drm_modes.h                       |  10 ++
- 5 files changed, 109 insertions(+), 36 deletions(-)
-
--- 
-2.51.2
