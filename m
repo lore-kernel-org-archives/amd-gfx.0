@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E59D116FE
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 11:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20F8BD116F6
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 11:44:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF5710E624;
-	Tue,  2 Dec 2025 11:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACBB210E625;
+	Tue,  2 Dec 2025 11:44:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fUzRj99n";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AmK+n7yR";
 	dkim-atps=neutral
 Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012004.outbound.protection.outlook.com
- [40.93.195.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A46C10E183
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 11:44:34 +0000 (UTC)
+ (mail-southcentralusazon11012039.outbound.protection.outlook.com
+ [40.93.195.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD4B10E625
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Dec 2025 11:44:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cAmOYidDozjadkN1iuS2rCAIUP3w8b/JQ4kIJ4/Pf/ewdWWekuvhZ7HTd6u4CdMR6aS2VOvtEiPkkjGTdFYE53CbPzFInRRfJ/dvVX4mdk6eyk5dVFb8vryhboFBJBMbd/kBXvQcZeiSpdGGYRye7xZokEXvMrvQuYyKURMskioPrFq2bDPacsrSIINh3HCpDkMMLKkH26lRtOGgOTfGz4kkVshW90Ajw3L/kffyuhgxRu76+KyZ+F1NTTuk57gRELNFURktdCBxaKEK9B/quID30ENcO9PP83bZU8fkOnkvmvmRLIXTizw+mQaLwF3lTDRWyGGkmo2b5gh/a7BVdw==
+ b=AlPyHWh2/q9zzhi2JSQdZvJK12uOJuNRYX948qXALpW/5FIgp9/z0XZ0DJlo9MyXZ4WiJCdbaZcv36GEMGcCyrsRZROHbIHlE2wjnTlwpNjnB6xXAA/LB2jylhyD8lYmdbNkSMDgVSsD5CyuBwOERoMJt034pkpYoi4Es+fqaDbKI8IQ8CLT151V78nmzyaGaR7Qweex5YQDPj76yHJ0oX2FBf9Ei+GdCC2zjjLgRpR/blmMqfWJtJlCO2lofB1ZNGyeC5T6qjmanANwhVfKHyRHfVOPrYRPvlyosXh/ESJH81slce3pIAYPRREk91WVjlL1bb75G0/pvQISsalc7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tsq8xACEkqv1DdU2F4+QQ6V6+FdrGXLRvOIoZdY7B2c=;
- b=bEMpBOAb3mPCc80CLae97+L2bwdDGSNnAOLWRyeKbuy9mw/5Oq32mz4ZvUxaainorGO28YgAtnAp5dVpHCJ7M0si5dBwoNKMJiSV+a2IxIPfoIjZfQ2rkhyVahAQ90FmzeaXJM091Ji2khkD9wOJw1JPjAGqDaXRwPTen8/z9ciCMYC94bPAXSckbzmaiM0QrKW3YdVwrBvbqInBk1R1mPpRdkdHTH7Kz3ehbv5eZ/Oqnquup5fk3U0U8nsmHdaynCqEBdHpl4RgMk0PEycnzeHTpzNsnjyMKeMYOQzFqKMKAHzO3ghWlzqgg0m30DmwF6O/aP6zXvT0bCrLWwOPYA==
+ bh=iFbYc0mbL7tbQQE6ELJC8QYCmF0B5yBGABCf8lXuqVg=;
+ b=oCJGd29/5mlIKUcEtcsYoL00mcROrA0xgXjkJkie6nreE0jG39KLNWVwXN9PFYVqIq9P4+EGl46/936FhUwDGDtWEp1iCEY9PYhhrWrL2SBVhpWldFu7OS//xOwxs1hAZ+9hjTpbND2eew9fCxA1YoxOyFOGv4TtjgC5sPNsorqrHc0tiuB63QjIZcS+C4VZASSOAk4ZvDnzfA4at22o2FHJ5GU0qjHgdPCMKtaUMqGLLkKZPQUQ1sQTy2MVJwufE9x0vp4B/V4Ti0XXVt0MojSO0lZPcOB8io0HMKdq4Aogc147RLyjFp3fhNaCFg2uS3ExtR1Q33IL8SWSurNptA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tsq8xACEkqv1DdU2F4+QQ6V6+FdrGXLRvOIoZdY7B2c=;
- b=fUzRj99nkOaAKfJA7i3cYzLruYoKicM2uVzIpTyylNeM9qPy3s0xIZUkiCIFI/D6C0+irHwHdfC4lNuXEsAt06QD653U4eTD0z51ggHztYLbzho56mTya/BIdcP1cu7rOa0YnBfVekfE+v3K+hTgbkiQ2If9G6mLEUWHitQMWmA=
-Received: from SJ0PR03CA0090.namprd03.prod.outlook.com (2603:10b6:a03:331::35)
- by SJ0PR12MB6928.namprd12.prod.outlook.com (2603:10b6:a03:47a::21)
+ bh=iFbYc0mbL7tbQQE6ELJC8QYCmF0B5yBGABCf8lXuqVg=;
+ b=AmK+n7yRE+5rRKQ830+fLtmftdm/RZa91udwKVkaLEFCsA89MAcPXz+IwnFyBMI+YxATQGZlJJ505z+udfMRCpsYgZFIGLFz5REbV4BIUAk3Vx6vjHB0b0SHvBrmr6TeHXm8wVJJ9uR90uqDvwncdrEySQo8f7oABOlzbXe4J+Y=
+Received: from BY3PR10CA0007.namprd10.prod.outlook.com (2603:10b6:a03:255::12)
+ by LV5PR12MB9756.namprd12.prod.outlook.com (2603:10b6:408:2fd::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Tue, 2 Dec
- 2025 11:44:27 +0000
-Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
- (2603:10b6:a03:331:cafe::dc) by SJ0PR03CA0090.outlook.office365.com
- (2603:10b6:a03:331::35) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 11:44:31 +0000
+Received: from SJ1PEPF000023D4.namprd21.prod.outlook.com
+ (2603:10b6:a03:255:cafe::57) by BY3PR10CA0007.outlook.office365.com
+ (2603:10b6:a03:255::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.9 via Frontend Transport; Tue, 2
- Dec 2025 11:44:24 +0000
+ Dec 2025 11:44:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,19 +49,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ SJ1PEPF000023D4.mail.protection.outlook.com (10.167.244.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.0 via Frontend Transport; Tue, 2 Dec 2025 11:44:26 +0000
+ 15.20.9412.0 via Frontend Transport; Tue, 2 Dec 2025 11:44:30 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 2 Dec
- 2025 05:44:24 -0600
+ 2025 05:44:28 -0600
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Asad.Kamal@amd.com>
-Subject: [PATCH 2/7] drm/amd/pm: Use driver table structure in smuv11
-Date: Tue, 2 Dec 2025 17:09:09 +0530
-Message-ID: <20251202114358.512048-3-lijo.lazar@amd.com>
+Subject: [PATCH 4/7] drm/amd/pm: Use driver table structure in smuv13
+Date: Tue, 2 Dec 2025 17:09:11 +0530
+Message-ID: <20251202114358.512048-5-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20251202114358.512048-1-lijo.lazar@amd.com>
 References: <20251202114358.512048-1-lijo.lazar@amd.com>
@@ -73,53 +73,53 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|SJ0PR12MB6928:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24b51fd9-dd8a-4689-3cb3-08de319825b9
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D4:EE_|LV5PR12MB9756:EE_
+X-MS-Office365-Filtering-Correlation-Id: 931a2858-d893-4560-17f4-08de319827e8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PNms/qvTh7WjDyFV9WAev9cHcriQHkRayeusFUD718/peqWJNsUxTglDhAXb?=
- =?us-ascii?Q?ZzBS1tJqsHWgCkEXp+zPUibF96/3eZ3Tg1SMVt4xNdXCBrqwlWLxiinfEqEh?=
- =?us-ascii?Q?ClnyLXxKkIEKkkBMxQqiLM7uvWmFDZAL+lztaYx4bWm8EAyMyAFYcB4GL/Ha?=
- =?us-ascii?Q?0ifD3l4inn4qIkybkuiZUT3rd2armOVk8d3rNR8eQeUce7wsujAGDssVR7eD?=
- =?us-ascii?Q?r9U9hrD3FYzCqF935S168yowSmInnPLMObccEh9rNEIkJTPwgBV1/CbCNqL7?=
- =?us-ascii?Q?nQ0G94gFTNsKIYB6dmQD/z8Hchcuez7G46oEv72oPcygDY5VENxTE0NCVGHf?=
- =?us-ascii?Q?LsBovQc/LWEptEH0znTgHgNu7nT19NQqh7v78IiQy9KATVonMhCUcmRn8OOc?=
- =?us-ascii?Q?D9u3W4DPStLpjMLx24+WJlRpNa14EYt6lp9C+jkGRW66eN+ucuMb7xaT8neL?=
- =?us-ascii?Q?sSfIwOrlzboJvyHt1TC+4JpOcLFrpv3SxZ+9jOSgZjNdrKU7PQFXaP+1wXhU?=
- =?us-ascii?Q?ZTMaraNyNc9Gw1aYq9cYrZlzinwXktLFji63htUbhKm3ComYXjLjQ+DAmu3X?=
- =?us-ascii?Q?KHDnIY1TEyJkFrG60aW/IoGHqkFG1+t5/uBUUujY228KILr/1ffuyCfz6jNy?=
- =?us-ascii?Q?mpWcw6RGr8FWbLONWqHmWRjpczLM/Z15ADhN7tZZTKyyu9R0Tci4XRej2SJ4?=
- =?us-ascii?Q?R10PcvBNbzaDwHTkdDDWYqGs1mKcHcirUayP68UJsVc4ItQdloYfDQv7y83d?=
- =?us-ascii?Q?dgdUsMEQ0sQIjIo9H5zj+MhXiOaJB523rJKRGNmAY+9Kw4dri8NvCGHMDDCd?=
- =?us-ascii?Q?HfDSuh6cySSgL8zLc7bsxofSQxdeG7e7GZMZ9bT29o6PcmMGNDIpEXx26yA4?=
- =?us-ascii?Q?FpLmFGn96dzVWXqDW0MDar8sM0H8mCyBzU1F4Mtx8r9AN9TqGL0JRIoZa1EU?=
- =?us-ascii?Q?12DTu+YaLfa+Op38OKMovuJ6oRrZ2W/WL4xn9f8xBiY6xrL7D8IRSAxrifOF?=
- =?us-ascii?Q?a89PIB5zMEGjwV8eglLpqR1f8olyIyIyGjdvm/YoeBzO4FQ8FybnMgzAxSVc?=
- =?us-ascii?Q?29PbghBkpxozv4JxHv+7T1kmHYDXqreFn6FsoSYcLnerxqD+Lxs3ii58C8Ho?=
- =?us-ascii?Q?nqS40S+7C+EJx5sacHd8wRmI6SrrLwHi17hAhUmV83bJ+csepQMszubeDS9X?=
- =?us-ascii?Q?GxsMXeuUFWhJGDA5Aoy+HYyuLL10OMEicq0szDuTiahXitnju3RXvaTKJXWY?=
- =?us-ascii?Q?Xb0CWckdstSmt56M7sBRbRBNGaNuYb8MnIqYAUi/SUsqBU4Ss0YltvE3PBbn?=
- =?us-ascii?Q?dyPE/Ec0SUeiUvcq3upFJz9SM6nPaJxvAUOv+RaCx3097GWHkMGAemyiJb01?=
- =?us-ascii?Q?+X/Rgp85+2do0MlbtdjEHcTKUQzqy0LIr76hnmr3ZhrO6APB5IDwXC7qBSyu?=
- =?us-ascii?Q?IAs3TMlwt77nz1cju1mCLhFttceqpYFdIKyg0uPn40r23Y6tktAijkRnvMCs?=
- =?us-ascii?Q?QCB/fDam7gYo1mommdES09KB2eYGC567TAtAvsaGm23cHrqQOt2NYBf1+ctM?=
- =?us-ascii?Q?Nf6iFaGmBdKnbDIW2sI=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6S3nZgHNrHhFcdkEzH34fPrHohVS465tNBWAmL6GzQaRU+bupEivjNyvkQO9?=
+ =?us-ascii?Q?kfSnAI9nJf9s0U8CQLgp1HDzoBuY+7v197Fw6x32uaLCoKoYRGdj45d/HGdo?=
+ =?us-ascii?Q?vnCwlbTSjRYVQ68GLcLPCGMk+hua2tcMOmWPH8KKY22CTuyo0x7coeiLZmMy?=
+ =?us-ascii?Q?t1o0ZWrU9Hnx+qoPdXcQbCVOcXYliGF1c6akoz45rl5EaBry03T2mgNZndBA?=
+ =?us-ascii?Q?UeSBnvTKYVF/VeR5nb2mA2+7iHwYPXNq0SJyTnZeNexiOJg4knL4V4opbkQZ?=
+ =?us-ascii?Q?E+FYzsnuyeKobgRNkZcrsOsCmOVglDbl2Tk75LVbPTEpSXl2DyZJDszQ4K75?=
+ =?us-ascii?Q?4Hdrz0h3N9SAcSw5yVWH1d6DBlarEU1NgIK59yhkg94/LyK3SBRROo+14k+s?=
+ =?us-ascii?Q?yct7UkQhmkFMWj8hK72dL9tP8lOeWSQk20hEqOyfQdyIsNeO4InjhSLhutWt?=
+ =?us-ascii?Q?l4WEG4UzX6Eu2LGLSMV/bp55Mh4z9N3mzh2cBgIbU8qHdrAKuflRhgia9Eto?=
+ =?us-ascii?Q?7IJFiBuhpyDuwFiRZOGB8P1UlQfx691QJl4oI0bNPmhqkR1bG1vBZ+urIk1m?=
+ =?us-ascii?Q?jhPH0/ifZep28HI8Tx/0IYKEHrZW6xyAlMAnvBHPpipLlEsXmmG8Skpm4AG5?=
+ =?us-ascii?Q?07U9IYUUWi4mDrmm8U5743W0LSWYUEtppkhiFd4/RiNkJCsaTBODhFAk1KRq?=
+ =?us-ascii?Q?86hwsrWqzikizc0Lfx7CfLZQga67rv7zoXBRzBbTkj/QwVMQaigfG2Iz8anX?=
+ =?us-ascii?Q?M+F5HeddQkxDmyHeoy3Q6Bt6hN9B6OPvK2RVSWJ+HOkUOL/uOtdHB6hTzQVJ?=
+ =?us-ascii?Q?YoMXmaTMpkByxieDYKBrLsuk6phKyQ/bNXpBQ+7oyTsB+hWze1o+m+njQ+3H?=
+ =?us-ascii?Q?YJgbDMDnaWAM/GPtTObiFGaKL1cQ+FtsBESlMZwFmrHayEHCwipOfSFJAZqO?=
+ =?us-ascii?Q?E/FpSqHvw3dlHdHowRHc2q7y/D7fPkYSf9fHsmo1HCrunRtTmGnGWds+2iwE?=
+ =?us-ascii?Q?NoRVTnurOyf0FDfxerT0LY8fPrLn/VIqhlO2JuI3RKnfe4L2AZwP7JZbZZqo?=
+ =?us-ascii?Q?THzECBrIeXAxwyzQIsmA9+qlRfsLWRox63ESQs6B0NheW10W57VKyWYsLZ//?=
+ =?us-ascii?Q?ZNK9mt3Z0cnC5r2FuUMxBHbJGa3Ik3iTzvOonKH/E8A9gNtDWiFyeo/oZFu/?=
+ =?us-ascii?Q?DIhd/ScUtVCEWDCZJv7hdbw3c7KIY2qbO+h7DwkoJSAult/V7lRY3Ust6jpz?=
+ =?us-ascii?Q?J+/y5700aW553kHEgbHrIFxyGiVS62hm+dy1Ty9kF/25+ykcSJe6ncSXa/fo?=
+ =?us-ascii?Q?FEBHzp2d8FPQ+4kUSS2+dCzQwqY3Ca4kS7JMu+L7ku1cHgNyaOmjWmM0I7hf?=
+ =?us-ascii?Q?8bGVmXXGHMlTnEFXOJbBP436mvde6FzSV8v/k3k0LL7vhME0sIUGIwEpYi5C?=
+ =?us-ascii?Q?FWTpHU1bN60r1K+/NRgyIetVvq7M/PJsuOjzHePT8fuuUC9Do5jgv5d+L5ie?=
+ =?us-ascii?Q?b2sGTnCUs/ThykH7BgABP2MgiS7/4SuZwTXea3vHL4f33xsEVe5j/wlnDiFg?=
+ =?us-ascii?Q?ddwSVzNL4c6BPzttgCU=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2025 11:44:26.9538 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24b51fd9-dd8a-4689-3cb3-08de319825b9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2025 11:44:30.6169 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 931a2858-d893-4560-17f4-08de319827e8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D7.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D4.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6928
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9756
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,38 +134,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use driver table structure for gpu metrics in smuv11. The default cache
+Use driver table structure for gpu metrics in smuv13. The default cache
 interval is set at 5ms.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 +
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 16 ++++---
- .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   | 15 ++++---
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 33 +++++++++-----
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 16 ++++---
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  3 +-
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 44 ++++++++++++-------
- 7 files changed, 83 insertions(+), 46 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 18 +++++++++------
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  3 +--
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 16 ++++++++-----
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c  | 17 ++++++++------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c  | 19 ++++++++-------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 23 ++++++++++---------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 16 ++++++++-----
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 19 ++++++++-------
+ 8 files changed, 76 insertions(+), 55 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 23ab75b705b6..e5c04da15b6f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -41,6 +41,8 @@
- #define SMU_CUSTOM_FAN_SPEED_RPM     (1 << 1)
- #define SMU_CUSTOM_FAN_SPEED_PWM     (1 << 2)
- 
-+#define SMU_GPU_METRICS_CACHE_INTERVAL 5
-+
- // Power Throttlers
- #define SMU_THROTTLER_PPT0_BIT			0
- #define SMU_THROTTLER_PPT1_BIT			1
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 4fff78da81ff..dca4b2836696 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -251,6 +251,7 @@ static int arcturus_tables_init(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 18d5d0704509..4dd257dc5298 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -228,6 +228,7 @@ static int aldebaran_tables_init(struct smu_context *smu)
  {
  	struct smu_table_context *smu_table = &smu->smu_table;
  	struct smu_table *tables = smu_table->tables;
@@ -173,7 +161,7 @@ index 4fff78da81ff..dca4b2836696 100644
  
  	SMU_TABLE_INIT(tables, SMU_TABLE_PPTABLE, sizeof(PPTable_t),
  		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-@@ -273,11 +274,12 @@ static int arcturus_tables_init(struct smu_context *smu)
+@@ -249,17 +250,18 @@ static int aldebaran_tables_init(struct smu_context *smu)
  		return -ENOMEM;
  	smu_table->metrics_time = 0;
  
@@ -181,140 +169,35 @@ index 4fff78da81ff..dca4b2836696 100644
 -	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
 -	if (!smu_table->gpu_metrics_table) {
 +	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
-+				    sizeof(struct gpu_metrics_v1_3),
-+				    SMU_GPU_METRICS_CACHE_INTERVAL);
++				     sizeof(struct gpu_metrics_v1_3),
++				     SMU_GPU_METRICS_CACHE_INTERVAL);
 +	if (ret) {
  		kfree(smu_table->metrics_table);
 -		return -ENOMEM;
 +		return ret;
  	}
  
- 	return 0;
-@@ -1874,9 +1876,9 @@ static uint16_t arcturus_get_current_pcie_link_speed(struct smu_context *smu)
- static ssize_t arcturus_get_gpu_metrics(struct smu_context *smu,
- 					void **table)
+ 	smu_table->ecc_table = kzalloc(tables[SMU_TABLE_ECCINFO].size, GFP_KERNEL);
+ 	if (!smu_table->ecc_table) {
+ 		kfree(smu_table->metrics_table);
+-		kfree(smu_table->gpu_metrics_table);
++		smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -1762,9 +1764,9 @@ static int aldebaran_get_current_pcie_link_speed(struct smu_context *smu)
+ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
+ 					 void **table)
  {
 -	struct smu_table_context *smu_table = &smu->smu_table;
  	struct gpu_metrics_v1_3 *gpu_metrics =
 -		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
 +		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_t metrics;
- 	int ret = 0;
- 
-@@ -1930,6 +1932,8 @@ static ssize_t arcturus_get_gpu_metrics(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v1_3);
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-index 55401e6b2b0b..276d7559a2d3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-@@ -88,6 +88,7 @@ static int cyan_skillfish_tables_init(struct smu_context *smu)
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct smu_table *tables = smu_table->tables;
-+	int ret;
- 
- 	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS,
- 				sizeof(SmuMetrics_t),
-@@ -98,9 +99,10 @@ static int cyan_skillfish_tables_init(struct smu_context *smu)
- 	if (!smu_table->metrics_table)
- 		goto err0_out;
- 
--	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
--	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
--	if (!smu_table->gpu_metrics_table)
-+	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
-+				    sizeof(struct gpu_metrics_v2_2),
-+				    SMU_GPU_METRICS_CACHE_INTERVAL);
-+	if (ret)
- 		goto err1_out;
- 
- 	smu_table->metrics_time = 0;
-@@ -108,7 +110,6 @@ static int cyan_skillfish_tables_init(struct smu_context *smu)
- 	return 0;
- 
- err1_out:
--	smu_table->gpu_metrics_table_size = 0;
- 	kfree(smu_table->metrics_table);
- err0_out:
- 	return -ENOMEM;
-@@ -384,9 +385,9 @@ static bool cyan_skillfish_is_dpm_running(struct smu_context *smu)
- static ssize_t cyan_skillfish_get_gpu_metrics(struct smu_context *smu,
- 						void **table)
- {
--	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v2_2 *gpu_metrics =
--		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v2_2 *)smu_driver_table_ptr(
 +			smu, SMU_DRIVER_TABLE_GPU_METRICS);
  	SmuMetrics_t metrics;
  	int i, ret = 0;
  
-@@ -433,6 +434,8 @@ static ssize_t cyan_skillfish_get_gpu_metrics(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v2_2);
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 7c9f77124ab2..4822e446468e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -495,8 +495,8 @@ static int navi10_tables_init(struct smu_context *smu)
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct smu_table *tables = smu_table->tables;
--	struct smu_table *dummy_read_1_table =
--			&smu_table->dummy_read_1_table;
-+	struct smu_table *dummy_read_1_table = &smu_table->dummy_read_1_table;
-+	int ret;
- 
- 	SMU_TABLE_INIT(tables, SMU_TABLE_PPTABLE, sizeof(PPTable_t),
- 		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-@@ -526,9 +526,10 @@ static int navi10_tables_init(struct smu_context *smu)
- 		goto err0_out;
- 	smu_table->metrics_time = 0;
- 
--	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
--	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
--	if (!smu_table->gpu_metrics_table)
-+	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
-+				    sizeof(struct gpu_metrics_v1_3),
-+				    SMU_GPU_METRICS_CACHE_INTERVAL);
-+	if (ret)
- 		goto err1_out;
- 
- 	smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
-@@ -545,7 +546,7 @@ static int navi10_tables_init(struct smu_context *smu)
- err3_out:
- 	kfree(smu_table->watermarks_table);
- err2_out:
--	kfree(smu_table->gpu_metrics_table);
-+	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
- err1_out:
- 	kfree(smu_table->metrics_table);
- err0_out:
-@@ -2964,7 +2965,8 @@ static ssize_t navi10_get_legacy_gpu_metrics(struct smu_context *smu,
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v1_3 *gpu_metrics =
--		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_legacy_t metrics;
- 	int ret = 0;
- 
-@@ -3026,6 +3028,8 @@ static ssize_t navi10_get_legacy_gpu_metrics(struct smu_context *smu,
+@@ -1836,6 +1838,8 @@ static ssize_t aldebaran_get_gpu_metrics(struct smu_context *smu,
  
  	*table = (void *)gpu_metrics;
  
@@ -323,278 +206,384 @@ index 7c9f77124ab2..4822e446468e 100644
  	return sizeof(struct gpu_metrics_v1_3);
  }
  
-@@ -3172,7 +3176,8 @@ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v1_3 *gpu_metrics =
--		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_t metrics;
- 	int ret = 0;
- 
-@@ -3236,6 +3241,8 @@ static ssize_t navi10_get_gpu_metrics(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v1_3);
- }
- 
-@@ -3244,7 +3251,8 @@ static ssize_t navi12_get_legacy_gpu_metrics(struct smu_context *smu,
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v1_3 *gpu_metrics =
--		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_NV12_legacy_t metrics;
- 	int ret = 0;
- 
-@@ -3311,6 +3319,8 @@ static ssize_t navi12_get_legacy_gpu_metrics(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v1_3);
- }
- 
-@@ -3319,7 +3329,8 @@ static ssize_t navi12_get_gpu_metrics(struct smu_context *smu,
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v1_3 *gpu_metrics =
--		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_NV12_t metrics;
- 	int ret = 0;
- 
-@@ -3388,6 +3399,8 @@ static ssize_t navi12_get_gpu_metrics(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v1_3);
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 774283ac7827..a0dc585877fe 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -533,6 +533,7 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
- 	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct smu_table *tables = smu_table->tables;
- 	int table_size;
-+	int ret;
- 
- 	table_size = get_table_size(smu);
- 	SMU_TABLE_INIT(tables, SMU_TABLE_PPTABLE, table_size,
-@@ -560,9 +561,10 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
- 		goto err0_out;
- 	smu_table->metrics_time = 0;
- 
--	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
--	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
--	if (!smu_table->gpu_metrics_table)
-+	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
-+				    sizeof(struct gpu_metrics_v1_3),
-+				    SMU_GPU_METRICS_CACHE_INTERVAL);
-+	if (ret)
- 		goto err1_out;
- 
- 	smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
-@@ -585,7 +587,7 @@ static int sienna_cichlid_tables_init(struct smu_context *smu)
- err3_out:
- 	kfree(smu_table->watermarks_table);
- err2_out:
--	kfree(smu_table->gpu_metrics_table);
-+	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
- err1_out:
- 	kfree(smu_table->metrics_table);
- err0_out:
-@@ -2674,9 +2676,9 @@ static void sienna_cichlid_i2c_control_fini(struct smu_context *smu)
- static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
- 					      void **table)
- {
--	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v1_3 *gpu_metrics =
--		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetricsExternal_t metrics_external;
- 	SmuMetrics_t *metrics =
- 		&(metrics_external.SmuMetrics);
-@@ -2825,6 +2827,8 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v1_3);
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index b0d6487171d7..32055e6c313f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -428,14 +428,13 @@ int smu_v11_0_fini_smc_tables(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index a89075e25717..dc81652fc684 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -507,14 +507,13 @@ int smu_v13_0_fini_smc_tables(struct smu_context *smu)
  	struct smu_table_context *smu_table = &smu->smu_table;
  	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
  
 -	kfree(smu_table->gpu_metrics_table);
 +	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 	kfree(smu_table->combo_pptable);
  	kfree(smu_table->user_overdrive_table);
  	kfree(smu_table->boot_overdrive_table);
  	kfree(smu_table->overdrive_table);
  	kfree(smu_table->max_sustainable_clocks);
  	kfree(smu_table->driver_pptable);
- 	kfree(smu_table->clocks_table);
 -	smu_table->gpu_metrics_table = NULL;
+ 	smu_table->combo_pptable = NULL;
  	smu_table->user_overdrive_table = NULL;
  	smu_table->boot_overdrive_table = NULL;
- 	smu_table->overdrive_table = NULL;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 9626da2dba58..f2b9f2e3c2df 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -225,6 +225,7 @@ static int vangogh_tables_init(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 677781060246..5d88ecbd31de 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -482,6 +482,7 @@ static int smu_v13_0_0_tables_init(struct smu_context *smu)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct smu_table *tables = smu_table->tables;
++	int ret;
+ 
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_PPTABLE, sizeof(PPTable_t),
+ 		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+@@ -511,9 +512,10 @@ static int smu_v13_0_0_tables_init(struct smu_context *smu)
+ 		goto err0_out;
+ 	smu_table->metrics_time = 0;
+ 
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
+-	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+-	if (!smu_table->gpu_metrics_table)
++	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
++				    sizeof(struct gpu_metrics_v1_3),
++				    SMU_GPU_METRICS_CACHE_INTERVAL);
++	if (ret)
+ 		goto err1_out;
+ 
+ 	smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
+@@ -529,7 +531,7 @@ static int smu_v13_0_0_tables_init(struct smu_context *smu)
+ err3_out:
+ 	kfree(smu_table->watermarks_table);
+ err2_out:
+-	kfree(smu_table->gpu_metrics_table);
++	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ err1_out:
+ 	kfree(smu_table->metrics_table);
+ err0_out:
+@@ -2105,9 +2107,9 @@ static int smu_v13_0_0_get_thermal_temperature_range(struct smu_context *smu,
+ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
+ 					   void **table)
+ {
+-	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct gpu_metrics_v1_3 *gpu_metrics =
+-		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
++		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
++			smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 	SmuMetricsExternal_t metrics_ext;
+ 	SmuMetrics_t *metrics = &metrics_ext.SmuMetrics;
+ 	int ret = 0;
+@@ -2181,6 +2183,8 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
+ 
+ 	*table = (void *)gpu_metrics;
+ 
++	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
++
+ 	return sizeof(struct gpu_metrics_v1_3);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+index 6908f9930f16..51d45a9bc2f6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+@@ -151,6 +151,7 @@ static int smu_v13_0_4_init_smc_tables(struct smu_context *smu)
  {
  	struct smu_table_context *smu_table = &smu->smu_table;
  	struct smu_table *tables = smu_table->tables;
 +	int ret;
  
  	SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
- 		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-@@ -242,11 +243,12 @@ static int vangogh_tables_init(struct smu_context *smu)
- 		goto err0_out;
- 	smu_table->metrics_time = 0;
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+@@ -172,9 +173,10 @@ static int smu_v13_0_4_init_smc_tables(struct smu_context *smu)
+ 	if (!smu_table->watermarks_table)
+ 		goto err2_out;
  
--	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
--	smu_table->gpu_metrics_table_size = max(smu_table->gpu_metrics_table_size, sizeof(struct gpu_metrics_v2_3));
--	smu_table->gpu_metrics_table_size = max(smu_table->gpu_metrics_table_size, sizeof(struct gpu_metrics_v2_4));
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_1);
 -	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
 -	if (!smu_table->gpu_metrics_table)
 +	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
-+				    max3(sizeof(struct gpu_metrics_v2_2),
-+					 sizeof(struct gpu_metrics_v2_3),
-+					 sizeof(struct gpu_metrics_v2_4)),
++				     sizeof(struct gpu_metrics_v2_1),
++				     SMU_GPU_METRICS_CACHE_INTERVAL);
++	if (ret)
+ 		goto err3_out;
+ 
+ 	return 0;
+@@ -202,8 +204,7 @@ static int smu_v13_0_4_fini_smc_tables(struct smu_context *smu)
+ 	kfree(smu_table->watermarks_table);
+ 	smu_table->watermarks_table = NULL;
+ 
+-	kfree(smu_table->gpu_metrics_table);
+-	smu_table->gpu_metrics_table = NULL;
++	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 
+ 	return 0;
+ }
+@@ -247,9 +248,9 @@ static int smu_v13_0_4_system_features_control(struct smu_context *smu, bool en)
+ static ssize_t smu_v13_0_4_get_gpu_metrics(struct smu_context *smu,
+ 					   void **table)
+ {
+-	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct gpu_metrics_v2_1 *gpu_metrics =
+-		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
++		(struct gpu_metrics_v2_1 *)smu_driver_table_ptr(
++			smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 	SmuMetrics_t metrics;
+ 	int ret = 0;
+ 
+@@ -294,6 +295,8 @@ static ssize_t smu_v13_0_4_get_gpu_metrics(struct smu_context *smu,
+ 
+ 	*table = (void *)gpu_metrics;
+ 
++	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
++
+ 	return sizeof(struct gpu_metrics_v2_1);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+index 4576bf008b22..2f6ed5fd3985 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+@@ -125,6 +125,7 @@ static int smu_v13_0_5_init_smc_tables(struct smu_context *smu)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct smu_table *tables = smu_table->tables;
++	int ret;
+ 
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+@@ -146,9 +147,10 @@ static int smu_v13_0_5_init_smc_tables(struct smu_context *smu)
+ 	if (!smu_table->watermarks_table)
+ 		goto err2_out;
+ 
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_1);
+-	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+-	if (!smu_table->gpu_metrics_table)
++	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
++				     sizeof(struct gpu_metrics_v2_1),
++				     SMU_GPU_METRICS_CACHE_INTERVAL);
++	if (ret)
+ 		goto err3_out;
+ 
+ 	return 0;
+@@ -176,8 +178,7 @@ static int smu_v13_0_5_fini_smc_tables(struct smu_context *smu)
+ 	kfree(smu_table->watermarks_table);
+ 	smu_table->watermarks_table = NULL;
+ 
+-	kfree(smu_table->gpu_metrics_table);
+-	smu_table->gpu_metrics_table = NULL;
++	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 
+ 	return 0;
+ }
+@@ -466,11 +467,11 @@ static int smu_v13_0_5_set_watermarks_table(struct smu_context *smu,
+ }
+ 
+ static ssize_t smu_v13_0_5_get_gpu_metrics(struct smu_context *smu,
+-						void **table)
++					   void **table)
+ {
+-	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct gpu_metrics_v2_1 *gpu_metrics =
+-		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
++		(struct gpu_metrics_v2_1 *)smu_driver_table_ptr(
++			smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 	SmuMetrics_t metrics;
+ 	int ret = 0;
+ 
+@@ -500,6 +501,8 @@ static ssize_t smu_v13_0_5_get_gpu_metrics(struct smu_context *smu,
+ 
+ 	*table = (void *)gpu_metrics;
+ 
++	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
++
+ 	return sizeof(struct gpu_metrics_v2_1);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index a3ceecbe5d68..f7d47dd2f3c9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -589,20 +589,22 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
+ 	if (!driver_pptable)
+ 		return -ENOMEM;
+ 
+-	ret = smu_table_cache_init(smu, SMU_TABLE_SMU_METRICS,
+-				   sizeof(struct smu_v13_0_6_gpu_metrics), 1);
++	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
++				    sizeof(struct smu_v13_0_6_gpu_metrics),
 +				    SMU_GPU_METRICS_CACHE_INTERVAL);
+ 	if (ret)
+ 		return ret;
+ 
+-	gpu_metrics = (struct smu_v13_0_6_gpu_metrics
+-			       *)(tables[SMU_TABLE_SMU_METRICS].cache.buffer);
++	gpu_metrics = (struct smu_v13_0_6_gpu_metrics *)smu_driver_table_ptr(
++		smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 
+ 	smu_v13_0_6_gpu_metrics_init(gpu_metrics, 1, 9);
+ 	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) ==
+ 	    IP_VERSION(13, 0, 12)) {
+ 		ret = smu_v13_0_12_tables_init(smu);
+ 		if (ret) {
+-			smu_table_cache_fini(smu, SMU_TABLE_SMU_METRICS);
++			smu_driver_table_fini(smu,
++					      SMU_DRIVER_TABLE_GPU_METRICS);
+ 			return ret;
+ 		}
+ 	}
+@@ -742,7 +744,6 @@ static int smu_v13_0_6_fini_smc_tables(struct smu_context *smu)
+ {
+ 	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 12))
+ 		smu_v13_0_12_tables_fini(smu);
+-	smu_table_cache_fini(smu, SMU_TABLE_SMU_METRICS);
+ 	return smu_v13_0_fini_smc_tables(smu);
+ }
+ 
+@@ -2852,8 +2853,6 @@ static ssize_t smu_v13_0_6_get_xcp_metrics(struct smu_context *smu, int xcp_id,
+ 
+ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table)
+ {
+-	struct smu_table_context *smu_table = &smu->smu_table;
+-	struct smu_table *tables = smu_table->tables;
+ 	struct smu_v13_0_6_gpu_metrics *gpu_metrics;
+ 	int version = smu_v13_0_6_get_metrics_version(smu);
+ 	MetricsTableV0_t *metrics_v0 __free(kfree) = NULL;
+@@ -2871,8 +2870,8 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 		return ret;
+ 
+ 	metrics_v2 = (MetricsTableV2_t *)metrics_v0;
+-	gpu_metrics = (struct smu_v13_0_6_gpu_metrics
+-			       *)(tables[SMU_TABLE_SMU_METRICS].cache.buffer);
++	gpu_metrics = (struct smu_v13_0_6_gpu_metrics *)smu_driver_table_ptr(
++		smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 
+ 	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 12) &&
+ 	    smu_v13_0_6_cap_supported(smu, SMU_CAP(STATIC_METRICS))) {
+@@ -3057,7 +3056,9 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 	gpu_metrics->firmware_timestamp = GET_METRIC_FIELD(Timestamp, version);
+ 
+ fill:
+-	*table = tables[SMU_TABLE_SMU_METRICS].cache.buffer;
++	*table = gpu_metrics;
++
++	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 
+ 	return sizeof(*gpu_metrics);
+ }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index a3fc35b9011e..ffed8c2bcfe5 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -497,6 +497,7 @@ static int smu_v13_0_7_tables_init(struct smu_context *smu)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct smu_table *tables = smu_table->tables;
++	int ret;
+ 
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_PPTABLE, sizeof(PPTable_t),
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+@@ -525,9 +526,10 @@ static int smu_v13_0_7_tables_init(struct smu_context *smu)
+ 		goto err0_out;
+ 	smu_table->metrics_time = 0;
+ 
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v1_3);
+-	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+-	if (!smu_table->gpu_metrics_table)
++	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
++				     sizeof(struct gpu_metrics_v1_3),
++				     SMU_GPU_METRICS_CACHE_INTERVAL);
 +	if (ret)
  		goto err1_out;
  
  	smu_table->watermarks_table = kzalloc(sizeof(Watermarks_t), GFP_KERNEL);
-@@ -262,7 +264,7 @@ static int vangogh_tables_init(struct smu_context *smu)
- err3_out:
- 	kfree(smu_table->watermarks_table);
+@@ -537,7 +539,7 @@ static int smu_v13_0_7_tables_init(struct smu_context *smu)
+ 	return 0;
+ 
  err2_out:
 -	kfree(smu_table->gpu_metrics_table);
 +	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
  err1_out:
  	kfree(smu_table->metrics_table);
  err0_out:
-@@ -1652,9 +1654,9 @@ static int vangogh_set_watermarks_table(struct smu_context *smu,
- static ssize_t vangogh_get_legacy_gpu_metrics_v2_3(struct smu_context *smu,
- 				      void **table)
+@@ -2091,9 +2093,9 @@ static int smu_v13_0_7_get_thermal_temperature_range(struct smu_context *smu,
+ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
+ 					   void **table)
  {
 -	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v2_3 *gpu_metrics =
--		(struct gpu_metrics_v2_3 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v2_3 *)smu_driver_table_ptr(
+ 	struct gpu_metrics_v1_3 *gpu_metrics =
+-		(struct gpu_metrics_v1_3 *)smu_table->gpu_metrics_table;
++		(struct gpu_metrics_v1_3 *)smu_driver_table_ptr(
 +			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_legacy_t metrics;
+ 	SmuMetricsExternal_t metrics_ext;
+ 	SmuMetrics_t *metrics = &metrics_ext.SmuMetrics;
  	int ret = 0;
- 
-@@ -1703,15 +1705,17 @@ static ssize_t vangogh_get_legacy_gpu_metrics_v2_3(struct smu_context *smu,
+@@ -2167,6 +2169,8 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
  
  	*table = (void *)gpu_metrics;
  
 +	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
 +
- 	return sizeof(struct gpu_metrics_v2_3);
+ 	return sizeof(struct gpu_metrics_v1_3);
  }
  
- static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
- 				      void **table)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+index 5d7e671fa3c3..7e43ca81e416 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+@@ -152,6 +152,7 @@ static int yellow_carp_init_smc_tables(struct smu_context *smu)
  {
--	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v2_2 *gpu_metrics =
--		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v2_2 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_legacy_t metrics;
- 	int ret = 0;
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+ 	struct smu_table *tables = smu_table->tables;
++	int ret;
  
-@@ -1760,15 +1764,17 @@ static ssize_t vangogh_get_legacy_gpu_metrics(struct smu_context *smu,
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+@@ -173,9 +174,10 @@ static int yellow_carp_init_smc_tables(struct smu_context *smu)
+ 	if (!smu_table->watermarks_table)
+ 		goto err2_out;
  
- 	*table = (void *)gpu_metrics;
+-	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_1);
+-	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+-	if (!smu_table->gpu_metrics_table)
++	ret = smu_driver_table_init(smu, SMU_DRIVER_TABLE_GPU_METRICS,
++				     sizeof(struct gpu_metrics_v2_1),
++				     SMU_GPU_METRICS_CACHE_INTERVAL);
++	if (ret)
+ 		goto err3_out;
  
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v2_2);
+ 	return 0;
+@@ -203,8 +205,7 @@ static int yellow_carp_fini_smc_tables(struct smu_context *smu)
+ 	kfree(smu_table->watermarks_table);
+ 	smu_table->watermarks_table = NULL;
+ 
+-	kfree(smu_table->gpu_metrics_table);
+-	smu_table->gpu_metrics_table = NULL;
++	smu_driver_table_fini(smu, SMU_DRIVER_TABLE_GPU_METRICS);
+ 
+ 	return 0;
+ }
+@@ -557,11 +558,11 @@ static int yellow_carp_set_watermarks_table(struct smu_context *smu,
  }
  
- static ssize_t vangogh_get_gpu_metrics_v2_3(struct smu_context *smu,
- 				      void **table)
+ static ssize_t yellow_carp_get_gpu_metrics(struct smu_context *smu,
+-						void **table)
++					    void **table)
  {
 -	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v2_3 *gpu_metrics =
--		(struct gpu_metrics_v2_3 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v2_3 *)smu_driver_table_ptr(
+ 	struct gpu_metrics_v2_1 *gpu_metrics =
+-		(struct gpu_metrics_v2_1 *)smu_table->gpu_metrics_table;
++		(struct gpu_metrics_v2_1 *)smu_driver_table_ptr(
 +			smu, SMU_DRIVER_TABLE_GPU_METRICS);
  	SmuMetrics_t metrics;
  	int ret = 0;
  
-@@ -1831,6 +1837,8 @@ static ssize_t vangogh_get_gpu_metrics_v2_3(struct smu_context *smu,
+@@ -606,6 +607,8 @@ static ssize_t yellow_carp_get_gpu_metrics(struct smu_context *smu,
  
  	*table = (void *)gpu_metrics;
  
 +	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
 +
- 	return sizeof(struct gpu_metrics_v2_3);
- }
- 
-@@ -1838,9 +1846,9 @@ static ssize_t vangogh_get_gpu_metrics_v2_4(struct smu_context *smu,
- 					    void **table)
- {
- 	SmuMetrics_t metrics;
--	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v2_4 *gpu_metrics =
--				(struct gpu_metrics_v2_4 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v2_4 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	int ret = 0;
- 
- 	ret = smu_cmn_get_metrics_table(smu, &metrics, true);
-@@ -1911,15 +1919,17 @@ static ssize_t vangogh_get_gpu_metrics_v2_4(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v2_4);
- }
- 
- static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
- 				      void **table)
- {
--	struct smu_table_context *smu_table = &smu->smu_table;
- 	struct gpu_metrics_v2_2 *gpu_metrics =
--		(struct gpu_metrics_v2_2 *)smu_table->gpu_metrics_table;
-+		(struct gpu_metrics_v2_2 *)smu_driver_table_ptr(
-+			smu, SMU_DRIVER_TABLE_GPU_METRICS);
- 	SmuMetrics_t metrics;
- 	int ret = 0;
- 
-@@ -1975,6 +1985,8 @@ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
- 
- 	*table = (void *)gpu_metrics;
- 
-+	smu_driver_table_update_cache_time(smu, SMU_DRIVER_TABLE_GPU_METRICS);
-+
- 	return sizeof(struct gpu_metrics_v2_2);
+ 	return sizeof(struct gpu_metrics_v2_1);
  }
  
 -- 
