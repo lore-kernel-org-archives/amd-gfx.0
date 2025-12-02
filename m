@@ -4,67 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A4CD11701
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E556CFD2F6
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71E4A10E650;
-	Tue,  2 Dec 2025 14:02:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E171410E65D;
+	Tue,  2 Dec 2025 14:02:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="rtiE3GB6";
+	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="Jtzb8PDC";
+	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="nq2BwLEZ";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51D9C10E5B1;
- Tue,  2 Dec 2025 08:29:23 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dLDTD0jlmz9t0n;
- Tue,  2 Dec 2025 09:29:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1764664160; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=F3V+T3Om8mfxHZjoquX2SFCTJRc6COI8uBe9tXVns1o=;
- b=rtiE3GB6OQymRRXq6bWEORf0EfuPDtxS3sekTtzO4T8XZ5MLvkGt1Ac63OSi8pz4kbswXr
- yX/iz/4acIgH6RUpliPeKrVGPQnrMs4ZXxhU13MkAgCIPxHBH+/pm8Z/Cf3nSH4HQ8B/Bz
- ayg2P2whnMkKeJLXUzff2SV/iVSLS8+8FonRXw6WpYcXZ4ISMy2FqDLagUV/ezUoERrhXv
- zWyTuYkstLxtsa7rlL59fvFOO+uPnh2qr28MZUrbY+2Xl2t37pRdVa0fxXfdwI5/F/sg1r
- 5Flw/byOkjwd8AVdjG0gHpG5fTsS2diT8CrO3d6uWKB+oAPFIHn+SRu5ItC5+w==
-Message-ID: <1aaaa2fe56fc7598b653a5e45fc26aa0b8703ad5.camel@mailbox.org>
-Subject: Re: [PATCH v2 8/8] drm/xe: Use dma_fence_test_signaled_flag()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Date: Tue, 02 Dec 2025 09:29:09 +0100
-In-Reply-To: <aS3touSB1ZyR2hfM@lstrano-desk.jf.intel.com>
-References: <20251201105011.19386-2-phasta@kernel.org>
- <20251201105011.19386-10-phasta@kernel.org>
- <aS3touSB1ZyR2hfM@lstrano-desk.jf.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13F7210E61F;
+ Tue,  2 Dec 2025 11:03:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
+ h=Message-ID:Date:Subject:To:From; t=1764673366; bh=xBHAbfvs3M52TAGHXMuwouD
+ KJD5Hy5FqWvdsrTLN97w=; b=Jtzb8PDC0ynnntHP+09CiTRQo9CSCRwQsh7kwyLXa4Z2pyZq8d
+ Qw9fQefyW7h8BECgmqW7yQ06YTpivbSQtE/4AoKDLGfM/X2byMjmQFheCgGTWLVZBer6jcAUJaa
+ WNv1ENjnym7Nu5byBxEzdYuCFt83n2P4nCmRx6UyvFVgO4KTi8mhrjwgYR/AFkB0w0qrVeMmnRQ
+ zFRmIap6ee3nhroYEwcVbg8c60Ge7x+hTWv+tI1fsNDt32iZeytOfe9ZHoQzAYxKv6ELxt93Kt8
+ v7RvCuzUYqb34LO0y7KqUnNEgR/BON4+mLwfCF9ZQbQ6s88yGfNRde5gIeUVOiC/sCQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
+ h=Message-ID:Date:Subject:To:From; t=1764673366; bh=xBHAbfvs3M52TAGHXMuwouD
+ KJD5Hy5FqWvdsrTLN97w=; b=nq2BwLEZ084XSO08oToSsDrurQD+KcGW6/iZvN3EFbcpIExhfQ
+ pEWSvwjIAIAOjjjOPpRupoPPfBdjrKrEfQAA==;
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yaroslav Bolyukin <iam@lach.pw>
+Subject: [PATCH v7 7/7] drm/amd: use fixed dsc bits-per-pixel from edid
+Date: Tue,  2 Dec 2025 12:02:18 +0100
+Message-ID: <20251202110218.9212-8-iam@lach.pw>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20251202110218.9212-1-iam@lach.pw>
+References: <20251202110218.9212-1-iam@lach.pw>
 MIME-Version: 1.0
-X-MBO-RS-ID: 76ac2ab24f1c8917547
-X-MBO-RS-META: 6eppcxqxqw1xf4rtz518s3ggqzj8e6aa
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 02 Dec 2025 14:02:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,105 +60,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-12-01 at 11:33 -0800, Matthew Brost wrote:
-> On Mon, Dec 01, 2025 at 11:50:12AM +0100, Philipp Stanner wrote:
-> > There is a new dma_fence helper which simplifies testing for a fence's
-> > signaled_flag. Use it in xe.
-> >=20
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
->=20
-> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+VESA vendor header from DisplayID spec may contain fixed bit per pixel
+rate, it should be used by drm driver for the modes that declare
+they are only supported with the declared fixed bits per pixel value.
 
-Doesn't apply on drm-misc-next. Suggestions about what to do about
-that?
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-
-P.
-
-
->=20
-> > ---
-> > =C2=A0drivers/gpu/drm/xe/xe_exec_queue.c | 9 +++------
-> > =C2=A0drivers/gpu/drm/xe/xe_pt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 3 +--
-> > =C2=A0drivers/gpu/drm/xe/xe_sched_job.c=C2=A0 | 2 +-
-> > =C2=A03 files changed, 5 insertions(+), 9 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe=
-_exec_queue.c
-> > index cb5f204c08ed..06736f52fbaa 100644
-> > --- a/drivers/gpu/drm/xe/xe_exec_queue.c
-> > +++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-> > @@ -1037,8 +1037,7 @@ struct dma_fence *xe_exec_queue_last_fence_get(st=
-ruct xe_exec_queue *q,
-> > =C2=A0
-> > =C2=A0	xe_exec_queue_last_fence_lockdep_assert(q, vm);
-> > =C2=A0
-> > -	if (q->last_fence &&
-> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
-ce->flags))
-> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
-> > =C2=A0		xe_exec_queue_last_fence_put(q, vm);
-> > =C2=A0
-> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
-> > @@ -1064,8 +1063,7 @@ struct dma_fence *xe_exec_queue_last_fence_get_fo=
-r_resume(struct xe_exec_queue *
-> > =C2=A0
-> > =C2=A0	lockdep_assert_held_write(&q->hwe->hw_engine_group->mode_sem);
-> > =C2=A0
-> > -	if (q->last_fence &&
-> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
-ce->flags))
-> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
-> > =C2=A0		xe_exec_queue_last_fence_put_unlocked(q);
-> > =C2=A0
-> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
-> > @@ -1106,8 +1104,7 @@ int xe_exec_queue_last_fence_test_dep(struct xe_e=
-xec_queue *q, struct xe_vm *vm)
-> > =C2=A0
-> > =C2=A0	fence =3D xe_exec_queue_last_fence_get(q, vm);
-> > =C2=A0	if (fence) {
-> > -		err =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) ?
-> > -			0 : -ETIME;
-> > +		err =3D dma_fence_test_signaled_flag(fence) ? 0 : -ETIME;
-> > =C2=A0		dma_fence_put(fence);
-> > =C2=A0	}
-> > =C2=A0
-> > diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-> > index 07f96bda638a..1ca2dec18e51 100644
-> > --- a/drivers/gpu/drm/xe/xe_pt.c
-> > +++ b/drivers/gpu/drm/xe/xe_pt.c
-> > @@ -1208,8 +1208,7 @@ static bool no_in_syncs(struct xe_sync_entry *syn=
-cs, u32 num_syncs)
-> > =C2=A0	for (i =3D 0; i < num_syncs; i++) {
-> > =C2=A0		struct dma_fence *fence =3D syncs[i].fence;
-> > =C2=A0
-> > -		if (fence && !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
-> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags))
-> > +		if (fence && !dma_fence_test_signaled_flag(fence))
-> > =C2=A0			return false;
-> > =C2=A0	}
-> > =C2=A0
-> > diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_=
-sched_job.c
-> > index d21bf8f26964..1c9ba49a325b 100644
-> > --- a/drivers/gpu/drm/xe/xe_sched_job.c
-> > +++ b/drivers/gpu/drm/xe/xe_sched_job.c
-> > @@ -188,7 +188,7 @@ static bool xe_fence_set_error(struct dma_fence *fe=
-nce, int error)
-> > =C2=A0	bool signaled;
-> > =C2=A0
-> > =C2=A0	spin_lock_irqsave(fence->lock, irq_flags);
-> > -	signaled =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-> > +	signaled =3D dma_fence_test_signaled_flag(fence);
-> > =C2=A0	if (!signaled)
-> > =C2=A0		dma_fence_set_error(fence, error);
-> > =C2=A0	spin_unlock_irqrestore(fence->lock, irq_flags);
-> > --=20
-> > 2.49.0
-> >=20
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e6728fd12eeb..32370279283f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6613,6 +6613,11 @@ static void fill_stream_properties_from_drm_display_mode(
+ 
+ 	stream->output_color_space = get_output_color_space(timing_out, connector_state);
+ 	stream->content_type = get_output_content_type(connector_state);
++
++	/* DisplayID Type VII pass-through timings. */
++	if (mode_in->dsc_passthrough_timings_support && info->dp_dsc_bpp_x16 != 0) {
++		stream->timing.dsc_fixed_bits_per_pixel_x16 = info->dp_dsc_bpp_x16;
++	}
+ }
+ 
+ static void fill_audio_info(struct audio_info *audio_info,
+@@ -7071,6 +7076,7 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	struct drm_display_mode mode;
+ 	struct drm_display_mode saved_mode;
+ 	struct drm_display_mode *freesync_mode = NULL;
++	struct drm_display_mode *dsc_passthru_mode = NULL;
+ 	bool native_mode_found = false;
+ 	bool recalculate_timing = false;
+ 	bool scale = dm_state->scaling != RMX_OFF;
+@@ -7162,6 +7168,16 @@ create_stream_for_sink(struct drm_connector *connector,
+ 		}
+ 	}
+ 
++	list_for_each_entry(dsc_passthru_mode, &connector->modes, head) {
++		if (dsc_passthru_mode->hdisplay == mode.hdisplay &&
++		    dsc_passthru_mode->vdisplay == mode.vdisplay &&
++		    drm_mode_vrefresh(dsc_passthru_mode) == mode_refresh) {
++			mode.dsc_passthrough_timings_support =
++				dsc_passthru_mode->dsc_passthrough_timings_support;
++			break;
++		}
++	}
++
+ 	if (recalculate_timing)
+ 		drm_mode_set_crtcinfo(&saved_mode, 0);
+ 
+-- 
+2.51.2
