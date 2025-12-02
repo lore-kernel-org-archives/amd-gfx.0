@@ -4,70 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 753CAD11700
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2AF8D11703
 	for <amd-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:02:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7DF10E65E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C36110E64F;
 	Tue,  2 Dec 2025 14:02:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="il/eUsMM";
+	dkim=pass (2048-bit key; secure) header.d=lach.pw header.i=@lach.pw header.b="p9eKqXCB";
+	dkim=permerror (0-bit key) header.d=lach.pw header.i=@lach.pw header.b="1xMvkWRb";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B73710E59E;
- Tue,  2 Dec 2025 09:19:32 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4dLFb41cf3z9spF;
- Tue,  2 Dec 2025 10:19:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1764667168; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q8Y1OU0Q+Bol5U/MPFfzGP28CcuUiYKdthv47THRxek=;
- b=il/eUsMMmTGh9GD/DnjHcdipYrZx4Bnp/W8SmT4Rhvtieu4WLMXE1QfRoapTjZMjPj7LRI
- o//dVBIiqL677W9dpkG9++H2ZzgSgq2h2nzdvIVmUoQFBcImTdC/IdaqyXM8Y3cdFeU3kN
- 4Syh4pa0m6+RY5Imt5wIsyTRyZLDWvTyVS3qgj2Mf0D8EaL2/oFyDiamW9Iqx4LLl7FWf9
- AyGH79vdedTAdp35ypPh/hoj03z/jMSl7PQ4unIaR8UDe18AdJk+ctcnCLzxTRpHe4FIaa
- BorrZ0RWQlO3JziTfJ7cbwRDMw4Ku8uCWL/+APW5Ut2KoA8e93mAwYi3N0KX/A==
-Message-ID: <d7956d8e8401f7dd9951d93752a74d2f8f660830.camel@mailbox.org>
-Subject: Re: [PATCH v2 2/8] dma-buf/dma-fence: Add dma_fence_check_and_signal()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Matthew Brost
- <matthew.brost@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Date: Tue, 02 Dec 2025 10:19:09 +0100
-In-Reply-To: <07cd6a0c-9975-48ef-bb2e-5e53a042888e@amd.com>
-References: <20251201105011.19386-2-phasta@kernel.org>
- <20251201105011.19386-4-phasta@kernel.org>
- <80554ed2-4454-489b-873f-533d68c8d2ae@amd.com>
- <2a9c83b4a428bb3cc993499c39d0da01f9563278.camel@mailbox.org>
- <93a4f4e4-af7a-4c84-a7a2-5db785f2a5a8@amd.com>
- <247185f833edd075cd4aac8c39ac8ae5b5aabe07.camel@mailbox.org>
- <07cd6a0c-9975-48ef-bb2e-5e53a042888e@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail.0la.ch (mail.0la.ch [78.47.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE94210E619;
+ Tue,  2 Dec 2025 11:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202502r; d=lach.pw; c=relaxed/relaxed;
+ h=Message-ID:Date:Subject:To:From; t=1764673365; bh=Gl9kuiz7jbxKaBYB2iofJTz
+ 80qNWbCqFnBqucqQQ3oc=; b=p9eKqXCBJc4TANG3Ay+sRDTt3j0rIlasGtCAPJAFkjnkr/4pYS
+ EFagbjxiWkhD9UzGiCHnUynw5AdaYweHA5nn119a5TGxFJNmJDHn5tZDOL4YIV9AoIM/dvRV6aY
+ iMNi002C6KZpVyWWxJnoFNCOThN4ILLqG8Tz4SA3JBcz2yg/HDhUaOs12YfP68oltIpb/khygoj
+ QccvZvDsPLxCE4quenBwuYMxqSXOIfAY9CWr2lu9/IAL45iGhVcIeb6qxABxf1pk+7zhpVWk61L
+ omqnsTvcjrKfxpP8zF0VOWXZOFcZ9toHan17Oqp9RCUryUHVN96wejv4SCJPWIlg+wQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202502e; d=lach.pw; c=relaxed/relaxed;
+ h=Message-ID:Date:Subject:To:From; t=1764673365; bh=Gl9kuiz7jbxKaBYB2iofJTz
+ 80qNWbCqFnBqucqQQ3oc=; b=1xMvkWRbxqaqQQld0IyIfuKxKgmHfuECJiowHvMbJjW7tizC7T
+ 1bA6a606A3AJGFKFHRhxpJVkavtrgV++clCg==;
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yaroslav Bolyukin <iam@lach.pw>
+Subject: [PATCH v7 4/7] drm/edid: parse DSC DPP passthru support flag for mode
+ VII timings
+Date: Tue,  2 Dec 2025 12:02:15 +0100
+Message-ID: <20251202110218.9212-5-iam@lach.pw>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20251202110218.9212-1-iam@lach.pw>
+References: <20251202110218.9212-1-iam@lach.pw>
 MIME-Version: 1.0
-X-MBO-RS-ID: 27d8c8638880777556e
-X-MBO-RS-META: 33hpokdgbkw758zqyymwdksfr37hc4fg
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 02 Dec 2025 14:02:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,74 +61,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-12-01 at 17:08 +0100, Christian K=C3=B6nig wrote:
-> On 12/1/25 16:53, Philipp Stanner wrote:
-> > On Mon, 2025-12-01 at 16:20 +0100, Christian K=C3=B6nig wrote:
-> > > On 12/1/25 14:55, Philipp Stanner wrote:
-> > > > On Mon, 2025-12-01 at 14:23 +0100, Christian K=C3=B6nig wrote:
-> > > > > On 12/1/25 11:50, Philipp Stanner wrote:
-> > > > > > The overwhelming majority of users of dma_fence signaling funct=
-ions
-> > > > > > don't care about whether the fence had already been signaled by=
- someone
-> > > > > >=20
-> > > >=20
-> >=20
-> > [=E2=80=A6]
-> >=20
-> > > > >=20
-> > > > > > +{
-> > > > > > +	unsigned long flags;
-> > > > > > +	bool ret;
-> > > > > > +
-> > > > > > +	spin_lock_irqsave(fence->lock, flags);
-> > > > > > +	ret =3D dma_fence_check_and_signal_locked(fence);
-> > > > > > +	spin_unlock_irqrestore(fence->lock, flags);
-> > > > >=20
-> > > > > Could this use guard(fence->lock, flags) ?
-> > > >=20
-> > > > guard? You mean a lockdep guard? Do you have a pointer to someplace=
- in
-> > > > dma_fence who does what you mean / want?
-> > >=20
-> > > E.g. like guard(spinlock_irqsave)(&fence->lock);
-> >=20
-> >=20
-> > Hmm, but why?
-> > It's obvious to all readers that I do spin_unlock_irqrestore() here.
-> > It's very simple code, lock, 1 line, unlock. What would the guard
-> > improve?
->=20
-> Well you can save using the local variables.
->=20
-> So this:
->=20
-> 	unsigned long flags;
-> 	bool ret;
->=20
-> 	spin_lock_irqsave(fence->lock, flags);
-> 	ret =3D dma_fence_check_and_signal_locked(fence);
-> 	spin_unlock_irqrestore(fence->lock, flags);
->=20
-> 	return ret;
->=20
-> Becomes just:
->=20
-> 	guard(spinlock_irqsave)(&fence->lock);
-> 	return dma_fence_check_and_signal_locked(fence);
+For timings v7 block revision >=1, revision field also contains a bit
+that indicates that the mode timings should only be used with fixed bits
+per pixel value specified in vesa vendor-specific block.
 
-Mhm, I guess I agree that __cleanup is a cool new feature that can be
-useful at many places. But in this case I think it's actually less
-readable and doesn't really give lots of advantages. And don't I have
-to use a DEFINE_GUARD or DEFINE_FREE in the first place?
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+---
+ drivers/gpu/drm/drm_displayid_internal.h |  2 ++
+ drivers/gpu/drm/drm_edid.c               | 12 ++++++++----
+ include/drm/drm_modes.h                  | 10 ++++++++++
+ 3 files changed, 20 insertions(+), 4 deletions(-)
 
-If it's your maintainer preference, I can look into that though..
-
-P.
-
-
-
+diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+index 72f107ae832f..724174b429f2 100644
+--- a/drivers/gpu/drm/drm_displayid_internal.h
++++ b/drivers/gpu/drm/drm_displayid_internal.h
+@@ -97,6 +97,7 @@ struct displayid_header {
+ 	u8 ext_count;
+ } __packed;
+ 
++#define DISPLAYID_BLOCK_REV	GENMASK(2, 0)
+ struct displayid_block {
+ 	u8 tag;
+ 	u8 rev;
+@@ -125,6 +126,7 @@ struct displayid_detailed_timings_1 {
+ 	__le16 vsw;
+ } __packed;
+ 
++#define DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT	BIT(3)
+ struct displayid_detailed_timing_block {
+ 	struct displayid_block base;
+ 	struct displayid_detailed_timings_1 timings[];
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 380a9dda275f..b28ff4bafb1d 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6794,8 +6794,8 @@ static void update_display_info(struct drm_connector *connector,
+ }
+ 
+ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
+-							    const struct displayid_detailed_timings_1 *timings,
+-							    bool type_7)
++							    const struct displayid_block *block,
++							    const struct displayid_detailed_timings_1 *timings)
+ {
+ 	struct drm_display_mode *mode;
+ 	unsigned int pixel_clock = (timings->pixel_clock[0] |
+@@ -6811,11 +6811,16 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
+ 	unsigned int vsync_width = le16_to_cpu(timings->vsw) + 1;
+ 	bool hsync_positive = le16_to_cpu(timings->hsync) & (1 << 15);
+ 	bool vsync_positive = le16_to_cpu(timings->vsync) & (1 << 15);
++	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+ 
+ 	mode = drm_mode_create(dev);
+ 	if (!mode)
+ 		return NULL;
+ 
++	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, block->rev) >= 1)
++		mode->dsc_passthrough_timings_support =
++			block->rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT;
++
+ 	/* resolution is kHz for type VII, and 10 kHz for type I */
+ 	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
+ 	mode->hdisplay = hactive;
+@@ -6848,7 +6853,6 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+ 	int num_timings;
+ 	struct drm_display_mode *newmode;
+ 	int num_modes = 0;
+-	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+ 	/* blocks must be multiple of 20 bytes length */
+ 	if (block->num_bytes % 20)
+ 		return 0;
+@@ -6857,7 +6861,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+ 	for (i = 0; i < num_timings; i++) {
+ 		struct displayid_detailed_timings_1 *timings = &det->timings[i];
+ 
+-		newmode = drm_mode_displayid_detailed(connector->dev, timings, type_7);
++		newmode = drm_mode_displayid_detailed(connector->dev, block, timings);
+ 		if (!newmode)
+ 			continue;
+ 
+diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+index b9bb92e4b029..312e5c03af9a 100644
+--- a/include/drm/drm_modes.h
++++ b/include/drm/drm_modes.h
+@@ -417,6 +417,16 @@ struct drm_display_mode {
+ 	 */
+ 	enum hdmi_picture_aspect picture_aspect_ratio;
+ 
++	/**
++	 * @dsc_passthrough_timing_support:
++	 *
++	 * Indicates whether this mode timing descriptor is supported
++	 * with specific target DSC bits per pixel only.
++	 *
++	 * VESA vendor-specific data block shall exist with the relevant
++	 * DSC bits per pixel declaration when this flag is set to true.
++	 */
++	bool dsc_passthrough_timings_support;
+ };
+ 
+ /**
+-- 
+2.51.2
