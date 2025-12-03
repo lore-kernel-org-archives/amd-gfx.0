@@ -4,82 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE60D20697
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 13:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ABA7D2069A
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 13:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE55110E97D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFAEA10E961;
 	Thu,  4 Dec 2025 13:40:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dBZzyRdt";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="HWvzvG/b";
 	dkim-atps=neutral
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A31610E821
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Dec 2025 22:16:26 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-3e89d226c3aso195066fac.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Dec 2025 14:16:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google; t=1764800185; x=1765404985;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/BQ+aq7QV9wwUu5JnIoDoUm9ffc2261+vDlHLPgQixY=;
- b=dBZzyRdtIZO4iccSV/sdMjsZuUzemP1ybtmiVKw5ffikM4sBbGLUWg3DSgdeTHXeQ5
- bF5Q7Wec9xNeCSOjO9n6z4Db3AMdv8px8BgESebJ1yUo43jtLdZcyIfriPR6rlF5gp85
- bPN3GEQ1LzwDf3sYu5yUG03kxlnmfmaiA+VAQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764800185; x=1765404985;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=/BQ+aq7QV9wwUu5JnIoDoUm9ffc2261+vDlHLPgQixY=;
- b=O6Kc6E4S6Ue4Fc9R3F3KNq0k8VACoKRFa67XyclkcUfoutOdls+i0AQLId08eLr3Gy
- Wes3uQbWq8bR/dgSAC6jpQSV2Dg9DfNksCfo0dXAbXU8Vm0lh+3YX+6x4BGIq1MWoSO3
- JLWuGhcVrNm0W7cW5qDESJG78xkVbIghzFQpfKXgH3+Yd2grj+g3rzFQ8TUb2kAPBePj
- 3OYM37HOf7xjI1OMfhHrD3vt2Tn8jVP910S+zkP+tBHXv329LAvJ/1MgnfbM2+dDX3dE
- 4dgjGX3yD2HadbH/LMCRew9TGoMqRO1wzYaHYZii5r/66i+EThj0Xrns2jtehlNuilq2
- Uxvg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWze2u3RX1wYluGvUO/RyKdWH0XMirfiFc0EyS2Ofzvp72Q5GxW0af7/gPiWt8rD6hpa6hpiB+B@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJdhMFQ8k9mOz31KunT358Zwn7ggSu3kUOD3omiUTldQacBz15
- e8UPZJHoa+tLfquQy1JxPX2ghEjZ761K0gEkrUr1En+UwNzKn4uOjBIzUtwZXIA8l6M=
-X-Gm-Gg: ASbGncsvA0QQn2QIwmvfLWmnsMDeCJy4Qb1mzAIlmCApHZ8iZUrzDauebWvah+iT3/r
- Kwu7LXaqvUKvfuPVv/EfIqJzQaFZdsiJPXdc/U1Y4OTou+SEFm6nJ90q5JB+ObGD/zd7zW7PR6f
- E8XeMmiSTnuv/S6nAif2HErUTDERVHLykELjTa7fAF0bjutTZPFquXJCIo3Qj0uqhBav42s7OHy
- c+imV+0luHJTxjvTBCsnfwhGTdxMaYtSmHmQhdXZTg7o/9NcKzk5eOsMnwZ9275pb+M/OSAx1sn
- pFyikcWOEr2jrB1sMqeNKoFx/hwUmEVLOFg+bQCPXhpZ2jEpG/HZS9wG2kdgwN3ZDpl5gMEZf2W
- EPYKTX4nrCc/GvH3itE0pQ2kMhyv1WyNP15ume2BwfjBjKSY7iDDe+yjh
-X-Google-Smtp-Source: AGHT+IGLm/MMHH27TVNlqYSIvX9zWGRL2Q08ixVb50qRPPkAoiUKIhGS/PeUtokINd7b7Xw8Q53j8g==
-X-Received: by 2002:a05:6870:d607:b0:3ec:5a09:3014 with SMTP id
- 586e51a60fabf-3f50634f9cemr438772fac.3.1764800185136; 
- Wed, 03 Dec 2025 14:16:25 -0800 (PST)
-Received: from [192.168.1.14] ([38.175.187.108])
- by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-3f50aa34d4fsm15449fac.5.2025.12.03.14.16.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Dec 2025 14:16:24 -0800 (PST)
-Message-ID: <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
-Date: Wed, 3 Dec 2025 15:16:24 -0700
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DF9F10E050;
+ Wed,  3 Dec 2025 15:18:21 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4dM1Vf2198z9sjZ;
+ Wed,  3 Dec 2025 16:18:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1764775098; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2aZUkHtkSK0oCrh4KpajSb66h7yNzcpGmeYAya58G6Y=;
+ b=HWvzvG/bIkZHelt1pMkEtQNl8S6CqFby2URUKUUB07VYVfokbK9e15c3hxNjrr2apm3gGU
+ YzAzMoDBLbpqjeJn90QGuW5OEM8jI+eXSoxAx0au7bP21OFfTtjYCnZEKJwkIbxeLYBzYR
+ 6MaxFz8QiEe42Y36Ebyj9spKVnNl76pzgSyFrCfM0XCOolUvjsPkrSCKh9oGnmMsvtZUiT
+ PDREL5YP68E4h0sr5phE6b8dzbAUDaBM+MrmvfsvSn47mOuJF17yaV9mdFydPwPMsK0dy3
+ 5PW54Z9r1eqMoINlPTuwQLazqXFxAlJH8p/UjnW8L0Hv0sf1nAnLJbljJUVaMA==
+Message-ID: <a4655788feddd883f70aa374e4315cfaee59a88c.camel@mailbox.org>
+Subject: Re: [PATCH v2 8/8] drm/xe: Use dma_fence_test_signaled_flag()
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
+ Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>, Felix Kuehling
+ <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,  Matthew Brost
+ <matthew.brost@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Date: Wed, 03 Dec 2025 16:18:06 +0100
+In-Reply-To: <e67b12d1-111f-484a-8374-4152d3b9f328@amd.com>
+References: <20251201105011.19386-2-phasta@kernel.org>
+ <20251201105011.19386-10-phasta@kernel.org>
+ <e67b12d1-111f-484a-8374-4152d3b9f328@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Linux 6.18 amdgpu build error
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>
-References: <74032153-813a-4a40-8363-cce264f4d5ea@linuxfoundation.org>
- <1eb24816-530b-4470-8e58-ce7d8297996c@roeck-us.net>
- <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
- <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 2d25109a1dd7c0ac011
+X-MBO-RS-META: u6d8mbjai1kb5wbkyqh941df6oh6is5g
 X-Mailman-Approved-At: Thu, 04 Dec 2025 13:40:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,70 +77,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/2/25 14:23, Guenter Roeck wrote:
-> On 12/2/25 13:01, Shuah Khan wrote:
->> On 12/1/25 19:31, Guenter Roeck wrote:
->>> On Mon, Dec 01, 2025 at 03:17:49PM -0700, Shuah Khan wrote:
->>>> Hi Alex,
->>>>
->>>> I am seeing the following make error on Linux 6.18.
->>>> I started seeing build failures since rc7 and rc6
->>>> build was just fine on the same config file.
->>>>
->>>> LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
->>>> drivers/gpu/drm/amd/amdgpu/amdgpu.o: error: objtool: elf_init_reloc: .rela.orc_unwind_ip: reloc 39935 already initialized!
->>>> make[6]: *** [scripts/Makefile.build:503: drivers/gpu/drm/amd/amdgpu/amdgpu.o] Error 255
->>>> make[6]: *** Deleting file 'drivers/gpu/drm/amd/amdgpu/amdgpu.o'
->>>> make[5]: *** [scripts/Makefile.build:556: drivers/gpu/drm/amd/amdgpu] Error 2
->>>> make[4]: *** [scripts/Makefile.build:556: drivers/gpu/drm] Error 2
->>>> make[3]: *** [scripts/Makefile.build:556: drivers/gpu] Error 2
->>>> make[2]: *** [scripts/Makefile.build:556: drivers] Error 2
->>>> make[1]: *** [/linux/linux_6.18/Makefile:2010: .] Error 2
->>>> make: *** [Makefile:248: __sub-make] Error 2
->>>>
->>>> I tried "make clean" and "make distclean" just in case, still see
->>>> the same error.
->>>>
->>>
->>> My test system does not report any problems. What is the configuration
->>> and compiler ?
->>>
->>
->> My one test system didn't report any problems. The other one did.
->> I am using gcc and the config is the same as the one used to build
->> 6.18-rc6 with no issues.
->>
->> I will keep digging to find what's wrong on my system.
->>
->> gcc version 14.2.0 (Debian 14.2.0-19)
->>
-> 
-> Interesting. That reminds me ... I used to have that kind of machine specific
-> problems when building with CONFIG_RANDSTRUCT enabled. I worked around it
-> by using gcc builds with plugin support disabled. In my case, there was
-> nothing wrong with the system, just that each system has a slightly different
-> hardware configuration which somehow influenced structure randomization, even
-> across "make clean/distclean".
-> 
+On Wed, 2025-12-03 at 14:15 +0100, Christian K=C3=B6nig wrote:
+> On 12/1/25 11:50, Philipp Stanner wrote:
+> > There is a new dma_fence helper which simplifies testing for a fence's
+> > signaled_flag. Use it in xe.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+>=20
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-CONFIG_RANDSTRUCT is disabled and so are the GCC_PLUGINS in my config.
-I am also seeing issues with cloning kernel.org repos on my system after
-a recent update:
+This series would then be completely reviewed, it seems. So one could
+push it. Question is just who and where, and what to do about the merge
+conflict with intel.
 
-remote: Enumerating objects: 11177736, done.
-remote: Counting objects: 100% (1231/1231), done.
-remote: Compressing objects: 100% (624/624), done.
-remote: Total 11177736 (delta 855), reused 781 (delta 606), pack-reused 11176505 (from 1)
-Receiving objects: 100% (11177736/11177736), 3.01 GiB | 7.10 MiB/s, done.
-Resolving deltas: 100% (9198323/9198323), done.
-fatal: did not receive expected object 0002003e951b5057c16de5a39140abcbf6e44e50
-fatal: fetch-pack: invalid index-pack output
+Matthew?
 
-Happy start to the end of the year :(
 
-thanks,
--- Shuah
+P.
+
+>=20
+> > ---
+> > =C2=A0drivers/gpu/drm/xe/xe_exec_queue.c | 9 +++------
+> > =C2=A0drivers/gpu/drm/xe/xe_pt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 3 +--
+> > =C2=A0drivers/gpu/drm/xe/xe_sched_job.c=C2=A0 | 2 +-
+> > =C2=A03 files changed, 5 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe=
+_exec_queue.c
+> > index cb5f204c08ed..06736f52fbaa 100644
+> > --- a/drivers/gpu/drm/xe/xe_exec_queue.c
+> > +++ b/drivers/gpu/drm/xe/xe_exec_queue.c
+> > @@ -1037,8 +1037,7 @@ struct dma_fence *xe_exec_queue_last_fence_get(st=
+ruct xe_exec_queue *q,
+> > =C2=A0
+> > =C2=A0	xe_exec_queue_last_fence_lockdep_assert(q, vm);
+> > =C2=A0
+> > -	if (q->last_fence &&
+> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
+ce->flags))
+> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
+> > =C2=A0		xe_exec_queue_last_fence_put(q, vm);
+> > =C2=A0
+> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
+> > @@ -1064,8 +1063,7 @@ struct dma_fence *xe_exec_queue_last_fence_get_fo=
+r_resume(struct xe_exec_queue *
+> > =C2=A0
+> > =C2=A0	lockdep_assert_held_write(&q->hwe->hw_engine_group->mode_sem);
+> > =C2=A0
+> > -	if (q->last_fence &&
+> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
+ce->flags))
+> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
+> > =C2=A0		xe_exec_queue_last_fence_put_unlocked(q);
+> > =C2=A0
+> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
+> > @@ -1106,8 +1104,7 @@ int xe_exec_queue_last_fence_test_dep(struct xe_e=
+xec_queue *q, struct xe_vm *vm)
+> > =C2=A0
+> > =C2=A0	fence =3D xe_exec_queue_last_fence_get(q, vm);
+> > =C2=A0	if (fence) {
+> > -		err =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) ?
+> > -			0 : -ETIME;
+> > +		err =3D dma_fence_test_signaled_flag(fence) ? 0 : -ETIME;
+> > =C2=A0		dma_fence_put(fence);
+> > =C2=A0	}
+> > =C2=A0
+> > diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> > index 07f96bda638a..1ca2dec18e51 100644
+> > --- a/drivers/gpu/drm/xe/xe_pt.c
+> > +++ b/drivers/gpu/drm/xe/xe_pt.c
+> > @@ -1208,8 +1208,7 @@ static bool no_in_syncs(struct xe_sync_entry *syn=
+cs, u32 num_syncs)
+> > =C2=A0	for (i =3D 0; i < num_syncs; i++) {
+> > =C2=A0		struct dma_fence *fence =3D syncs[i].fence;
+> > =C2=A0
+> > -		if (fence && !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags))
+> > +		if (fence && !dma_fence_test_signaled_flag(fence))
+> > =C2=A0			return false;
+> > =C2=A0	}
+> > =C2=A0
+> > diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_=
+sched_job.c
+> > index d21bf8f26964..1c9ba49a325b 100644
+> > --- a/drivers/gpu/drm/xe/xe_sched_job.c
+> > +++ b/drivers/gpu/drm/xe/xe_sched_job.c
+> > @@ -188,7 +188,7 @@ static bool xe_fence_set_error(struct dma_fence *fe=
+nce, int error)
+> > =C2=A0	bool signaled;
+> > =C2=A0
+> > =C2=A0	spin_lock_irqsave(fence->lock, irq_flags);
+> > -	signaled =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+> > +	signaled =3D dma_fence_test_signaled_flag(fence);
+> > =C2=A0	if (!signaled)
+> > =C2=A0		dma_fence_set_error(fence, error);
+> > =C2=A0	spin_unlock_irqrestore(fence->lock, irq_flags);
+>=20
 
