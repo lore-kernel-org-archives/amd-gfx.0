@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD577D12D5E
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 13:05:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB261D12D50
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 13:05:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44B6110E79C;
-	Wed,  3 Dec 2025 13:05:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61C5010E7B0;
+	Wed,  3 Dec 2025 13:05:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qDDlWc4l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R6DlgAo1";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011061.outbound.protection.outlook.com
- [40.93.194.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B0F210E79C
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Dec 2025 13:05:13 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010006.outbound.protection.outlook.com [52.101.85.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E65A10E7B0
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Dec 2025 13:05:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=skD6RF1GgOl8gNkb9hOF+qClf/wUoeHOkZXt7H3DXeJj+bWk4DWebKHetAnlI2yk0D+PdLx/g1C12kkA1wS5f2KbMeam2PcfOpzd7SA41YWAeUwSlZk0Et+rp4+Ib1VSMr1wtZhQKvkUsIGLYpxhLG/TMLnMGC1sKGOr7l0XHTmXP7ZBHns3rF2hS/mdWiLoY1mZoc7TcVOuegPaRmVDhotUsMEfhAiUvphRTYeutKLzY71pwKrVRfxENMfv1EhMHtoT44W5YniBtdxKvk1KMd8WM6osUIZ6fcB+85sdFrLmQtUpsGmLv63UdHh985LVLLmv+5ScQcUOKnUGyRQgdg==
+ b=i0U4FISk81jPJuTEhVbTdF403RqyYTHf959SyMUGawsbRh3NXTRscV+bWMakEFZaCE9iWOgJ/cC50JXda2s/EnjFuFBAP2XfgcltyF+bEREVUmKvvhMGGuNYORN2fOek4LiNfDzV/8BgPYD34PNBlSn3FuF/9egKHuLXjtYEJBwgEFNPThTBH2/trY+MfIWILOj43BH1Lr3DsmHQVsytHOqIbETTKPc2quIrJtUp27AG8S5upJPF4XXXJIxZqZc/vVY4SyykOSml8bfxoTDUo1hJNhlkUAgKw/ApG3mI8GxadPzvrl8CJZV5+ssBedp6lFLRs/b9RrzxkEm1TVGkvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QRdfbo2/jMhqJm4rDdCLmSEO1l83BfVxVTs0hzRa+TQ=;
- b=lyGhIp5AfSJBNVQuZjDjo5neTdkFnGTFw0a3tZnjprCeXt00dPoQwpvRpEMNLRgZ2TqQE3SiQpI7Zd6Lnge2V4KJ1YRuvCYkZ5WeCmnO2LLqFzdELiezy/Sge3FNAS5xrhyraXLbufd8fiCicijCaWlGwuEk8Mn7c19uKGX+5LtETlNU8T+wonkhrel5q7/R9annQv8SmTBKJnnABKXMt4lOZz8bcNpZw+mC6gShwm/i0RkgK122c1QUhGqwQ7i+cwbiItJv7pOYhaBGO3C8f300paHoqtCMTy6bRrUetFtQuuu1LrU8WTmiiA7X0Je0vsvZHBz2c45fPrJWfoHitQ==
+ bh=B1gUQKLKAL2igyY5fQH3wctEOMFmSF3VSyYFpTxiY44=;
+ b=O9XrQqGMahNZhmF/OB/nkNRhz1T8aXw1kCGuTlQcojWvhO+d9g+xHC1Axy64pwTYEy3RrPUu97/J5Zt4u8jsBu4ld0UcMDvVVpoYVUk6QCnWxQbULhWB8j0Q8ppcaUYZIJg2pVv59g/9dQi9dIXk+sZ1nD4eZp5rJ2FWT8saSrPsNRFEVC+6bzZxx3f1zAoiU156lp4AODx9UhAXy50L/FxtVASmzh+NW3ihCiA9q/ZC5fl1MUEqrfbJG0cBmOj9KzTJCEL7RfLOyGSNiQkw/uJe27s1BaM/tBWu8fh3+XnMfpYf+Wwo5hZdlMXEdCorVPIAg6Hms9gMwfQm6BXxcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QRdfbo2/jMhqJm4rDdCLmSEO1l83BfVxVTs0hzRa+TQ=;
- b=qDDlWc4lahAQuj5+JT9i89dJDFExLhRm6gxbzntdjzVcWQqll4489eVIrNcC0MT35gojPCfseKRMgEWWhi0tq/V89dCapz4FxC2UJgO/Fdnf3858s9m4J0iZak8HovPFgzwluXtS8Xjv/ckCgAAnQwZ/qM7MECzLThF9seDmwDs=
-Received: from BN9PR03CA0158.namprd03.prod.outlook.com (2603:10b6:408:f4::13)
- by CY5PR12MB6454.namprd12.prod.outlook.com (2603:10b6:930:36::22)
+ bh=B1gUQKLKAL2igyY5fQH3wctEOMFmSF3VSyYFpTxiY44=;
+ b=R6DlgAo1/RCCaOMIXRW7F+9gQH1yH+yXaSP/4zi6DM5kyisBQApTOKLW1cyu+QnNGAro0bTYi8K/KKgUzgVchUT+mfdLiHluKuo83UnwNqeD1wKbQjCQ+it0e1cRF1ud/UaLCx/gq5SdF8v4JUMT8d4ABDXczsRV6K0SqE29yV4=
+Received: from BN9PR03CA0159.namprd03.prod.outlook.com (2603:10b6:408:f4::14)
+ by SJ2PR12MB8782.namprd12.prod.outlook.com (2603:10b6:a03:4d0::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Wed, 3 Dec
- 2025 13:05:05 +0000
+ 2025 13:05:13 +0000
 Received: from BN2PEPF000055DA.namprd21.prod.outlook.com
- (2603:10b6:408:f4:cafe::69) by BN9PR03CA0158.outlook.office365.com
- (2603:10b6:408:f4::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.9 via Frontend Transport; Wed, 3
- Dec 2025 13:05:02 +0000
+ (2603:10b6:408:f4:cafe::d4) by BN9PR03CA0159.outlook.office365.com
+ (2603:10b6:408:f4::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Wed,
+ 3 Dec 2025 13:05:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,22 +50,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  BN2PEPF000055DA.mail.protection.outlook.com (10.167.245.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.0 via Frontend Transport; Wed, 3 Dec 2025 13:05:05 +0000
+ 15.20.9412.0 via Frontend Transport; Wed, 3 Dec 2025 13:05:12 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 3 Dec
- 2025 07:05:04 -0600
+ 2025 07:05:12 -0600
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 3 Dec
- 2025 05:05:03 -0800
+ 2025 05:05:10 -0800
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Christian.Koenig@amd.com>, <Jesse.Zhang@amd.com>
-Subject: [RFC PATCH v3 03/10] drm/amdgpu: Fill cwsr save area details
-Date: Wed, 3 Dec 2025 18:24:54 +0530
-Message-ID: <20251203130436.745633-4-lijo.lazar@amd.com>
+Subject: [RFC PATCH v3 07/10] drm/amdgpu: Add user save area params to mqd
+ input
+Date: Wed, 3 Dec 2025 18:24:58 +0530
+Message-ID: <20251203130436.745633-8-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20251203130436.745633-1-lijo.lazar@amd.com>
 References: <20251203130436.745633-1-lijo.lazar@amd.com>
@@ -78,53 +78,53 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DA:EE_|CY5PR12MB6454:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45f7b23d-efbd-4cc8-891b-08de326c93d9
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DA:EE_|SJ2PR12MB8782:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7bcb7901-2e88-45cb-1822-08de326c984f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NBqNjJHfwEzX48wuVicmfDE3uzYSDW0+i3Ve2Cqfb2E6PWSKF/xmP165USip?=
- =?us-ascii?Q?A0OJgtNHDQECuWV6dckCdueM7i0sRpX71f1JjRvxkZ6fwknvlXulM7qI2ve4?=
- =?us-ascii?Q?OFCCpPdwlxf/6LiKxaJ12h4suf8TBfgmsAXxAT2BEIo79TCRfKYSEZhzbze/?=
- =?us-ascii?Q?XfEkKogukXtaUqEj9Bdfm+z4J4kku88TDlWxFK7pk1Oa0/09ZjCHwr4oLdbK?=
- =?us-ascii?Q?0TpmEA2Lb+gLSe3RrfdrSbuXXLEmEpbR7xIoV0qgerhd+aus1q0Qsjn6l8vD?=
- =?us-ascii?Q?tC6jpl/WF3rxxWiT23/egftBBm3GAV9iQibQNw2VSAp+Tp7mpemKVC/yGnkN?=
- =?us-ascii?Q?K6Gy6gDGC/pfas093FCkAJjDLyE7ezQHyg01AKkVDXAVsAinfT2Wkhvlhv8A?=
- =?us-ascii?Q?EegToEtYFYSJoRPOmIYp83UWjOkP/AhI3wCe4/1246pa/FScLqa/E/X3LewR?=
- =?us-ascii?Q?8STfzVR7d7gOehvGCadzGJwy0Wf9/G6JE3u9A+Q8CRvStJPTRNyk+oOJ6Wrz?=
- =?us-ascii?Q?WJwa1AnMLrYUlufsWqhpAdksgfp9dr/jEI3M3CapE3xNAaQcqazVLXhaGEg/?=
- =?us-ascii?Q?4V4kAqqv3EOK0glO+h5v3U9k21hG41ITPREYd/Vh9TzSkPplnQE2CERX5X1X?=
- =?us-ascii?Q?YmuHmZqmWgKWnXCUsqWqR9dEyz1Rw3/ppP7s5du1v0bfMlwhvjzz59H/NqbQ?=
- =?us-ascii?Q?jUJymzrgUASHQfLhkmLsyQc8b1XiUBhAAoTjcVRDD6vx2mdTAEZLNxPNMl24?=
- =?us-ascii?Q?cxkCC6Vf3jMxWf1Lm2UB5ViiDaBzRqIjvCNpVtWsCGouuMnWrbP4Hvb1sD33?=
- =?us-ascii?Q?svlMBrwNSQEMXZ7ZxvsCx8v2jpt68dlCjR/XnQyKyXC2mMqedsiNOU+GYowF?=
- =?us-ascii?Q?0zaeBadWnM12Om7hdn4/bVJrwsYNMTVlEiHWUB0ftGQqfAXVO/2Iqshk3QPP?=
- =?us-ascii?Q?+jqwO7iSTu8Ph4ztRRt1QDfcntay0UTp0IJ4tUqYJe3NagRAEoGu6X+POhp1?=
- =?us-ascii?Q?h9nLZbdqhISALmPLIkUg3GsTZBht5vEeBrBHmRAg5iFMotBSu4OS2FYZvr3q?=
- =?us-ascii?Q?Kx+KYthIpuQdNfboyQGWuTv4FadAHj6Y5ZizHIZwIjTRyFHYnJUZB7zF7VqV?=
- =?us-ascii?Q?gcMdoX1/2xJLqKXJsjxfRvTnPDoT1iMXIEijuZLRNsMMP7MGMyMhUO9kfAho?=
- =?us-ascii?Q?l2LJQus1dUSygFsF6EQ3SZN+XbS0KL8RmQUDO7CeZ32wDlYK5Sh/WRr3WGtt?=
- =?us-ascii?Q?wAlWxMW5i6x4ffu6Cdwp0ent2M8WeEPj69R3LXUM1OSAj+R8OjoK+MQuvBaq?=
- =?us-ascii?Q?r4edgysXshV7JfUFQjhPSD6CfDIyEUBC6z8cCsXWZOL9d9evtzpQEd5vZjc+?=
- =?us-ascii?Q?gSufMIkq9QV2kjQvOSNTx6BoL+jOWxi1eLObO5XwK3kHlTbHlBwDI9FUsasg?=
- =?us-ascii?Q?myCPE7uwMyiYN8VGvk5MTApcZ257O3RRiC2t2b1FiSYdoJTMi9m1BXN9YxS7?=
- =?us-ascii?Q?w2PEMxIJKxoeR/6wL8/9F3yGrQ0xKsVVxISprCGrkwfXIibrFN9OUY7ppxgy?=
- =?us-ascii?Q?TfvReznulty8x6551ns=3D?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6r+oPA0m/9drlKqXFgv/9e7FuhXGmc96eoLCO8gjkgwC47LEynPPXip39Fsn?=
+ =?us-ascii?Q?ON9+bcCy8e55HE3g3Agic6/C6Y8pj2YGSng/rH61CyeKPcwstCnGqdETenPU?=
+ =?us-ascii?Q?Aoj/nuJT6gwsoM1na2OapslQZO42k4CrCCbb/1o+AtmG/kdvIn6vCZ9VrrHp?=
+ =?us-ascii?Q?OIuLmNtd/uc+re0jF2KKO56hANg8D3yeyzcX+IP/ekpPstFJv3N6a+TSJRPa?=
+ =?us-ascii?Q?NJ+gEg3/tWWWDOynMF9iAtq92/rQK3CJ6+VjFpAlvJc58tRvo1bO1n9Lj0Ya?=
+ =?us-ascii?Q?/wnDW6E936rkwDOicJRTftsp9IwHzc2h2Jz2mmBOua5aSyU6SBx3NIrPJ2eq?=
+ =?us-ascii?Q?1vb39GIKjqj8ckz171uGTJusdfMMlF3Fg1b3F2PvYAAVwLXsXAAL7fEp6D2r?=
+ =?us-ascii?Q?Zju0FWlGq4UuVMZQRIXUadESrfOz2BVWfmlzKS5NQEF0WihGShkuc3BXyVdj?=
+ =?us-ascii?Q?zkxtWrbTgHzlGKPm5n9dpZkMjEIPRBBvql65U/TMNMp6lUTt/0CrRq+uTX1u?=
+ =?us-ascii?Q?xwTvMGyZHjWoQ5fQUOVaSpLxWUQUY/3vVlAUbCh2DXvGV4YEwKUK3zShBSWu?=
+ =?us-ascii?Q?vAWZ2XfutXi8z8h4UruQePiMey/7a61RyPFFxvDfxeRKWYuH1AnJCSGTTGKQ?=
+ =?us-ascii?Q?1HZ/TRLe2MRpCnysVkgxd8CIgI7C2tv5wRTfX5Gvp9gdsIcED2SODZ60yOtb?=
+ =?us-ascii?Q?S+XqXm+xihExU0SwgVyhAkqB8LnTQlcQDjslymL8p5rpXVq6tzMQR3kQjIO7?=
+ =?us-ascii?Q?OBzcAb9GIbyNoGEYE16ImkWYPlH1U5UP1Lu5SwqdCIoHbSX0D8XcxLvfSYde?=
+ =?us-ascii?Q?Soz7c1sCHnkhqTowlcoA/UFftGpigfAyhZ+McIqEVjfsEcBwcwBeLLpJKxIw?=
+ =?us-ascii?Q?STXLqd/4DCQKkD2YLMMbH/isqQoLQtApiDoROv8jOb126rbzfdZ/Q+IPnOl8?=
+ =?us-ascii?Q?2qSnmAYdNNS3b7d9YOvSMss6pCFCIbuTUmoxICu/qoOWn+zPJXmEGwJeMOuy?=
+ =?us-ascii?Q?J1LpgEdBkqp/jGH0kVUbmRKOb/f2+/1GcZcS0Hd1xQPbd6PkkufmQIUkm3iR?=
+ =?us-ascii?Q?FxxYQF5je+vIw/qqCBX4FtZbwe4+jKGIKQazwtn6OJQvV7leE8DRT/NuIZTt?=
+ =?us-ascii?Q?9mUHp3ZW4bQaKMOdSEbngLXANzXSJ257AJHbBK1RU/RSu3CS8zwPaqCfKZbc?=
+ =?us-ascii?Q?WIvtM59I2ocEMA1RUbXL5ROMrNeLf/zTukf+wTxGpCfBpNbDrPCOXjQSVNac?=
+ =?us-ascii?Q?3K+UlHcG2IGkkE278TG1M0yEaW0cyNQw4JkchRwyvJp/7BSZNxcktZP9LqT0?=
+ =?us-ascii?Q?p9nfkiY4j3wtcW2VfzerrwnYwp4bzQL6+q3wJaSL7E11GTpQmuvXs1seRVyg?=
+ =?us-ascii?Q?YEPe61meZamUa5vNVlO3E/UHhdbKqxmJorz2utNCAe+aTuq8CMMDWEbshYyD?=
+ =?us-ascii?Q?T2fvbIAyRj0M9vtxN2uhJiAMURf3by+TSvb/dh+UfduvfTd8Ak+oksYRQMnV?=
+ =?us-ascii?Q?VavBgFRPr/Rqbesb1ESdmjywNCCufLt7C2NAnm6DkLD1ylstAqjw4abkYui2?=
+ =?us-ascii?Q?LXEf22bG1F2Ff+rlySY=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 13:05:05.1119 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45f7b23d-efbd-4cc8-891b-08de326c93d9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 13:05:12.5937 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bcb7901-2e88-45cb-1822-08de326c984f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DA.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6454
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,157 +139,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Calculate control stack and total save area size required.
+Add user save area parameters to mqd properties for queue creation.
+Validate the parameters before using for mqd initialization.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c | 103 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h |   4 +
- 2 files changed, 107 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 24 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  5 +++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c     | 14 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 16 +++++++++++++++
+ 5 files changed, 63 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-index c0fc5a383071..4252c31eac4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-@@ -32,6 +32,13 @@ extern int cwsr_enable;
- #define AMDGPU_CWSR_TMA_MAX_SIZE (AMDGPU_GPU_PAGE_SIZE)
- #define AMDGPU_CWSR_TMA_OFFSET (AMDGPU_CWSR_TBA_MAX_SIZE)
- 
-+#define SGPR_SIZE_PER_CU 0x4000
-+#define LDS_SIZE_PER_CU 0x10000
-+#define HWREG_SIZE_PER_CU 0x1000
-+#define DEBUGGER_BYTES_ALIGN 64
-+#define DEBUGGER_BYTES_PER_WAVE 32
-+#define SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER 40
-+
- enum amdgpu_cwsr_region {
- 	AMDGPU_CWSR_TBA,
- 	AMDGPU_CWSR_TMA,
-@@ -115,6 +122,100 @@ static void amdgpu_cwsr_init_isa_details(struct amdgpu_device *adev,
- 	}
- }
- 
-+static uint32_t amdgpu_cwsr_get_vgpr_size_per_cu(struct amdgpu_device *adev)
-+{
-+	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
-+	uint32_t vgpr_size;
-+
-+	switch (gc_ver) {
-+	case IP_VERSION(9, 4, 1): /* GFX_VERSION_ARCTURUS */
-+	case IP_VERSION(9, 4, 2): /* GFX_VERSION_ALDEBARAN */
-+	case IP_VERSION(9, 4, 3): /* GFX_VERSION_AQUA_VANJARAM */
-+	case IP_VERSION(9, 4, 4): /* GFX_VERSION_AQUA_VANJARAM */
-+	case IP_VERSION(9, 5, 0):
-+		vgpr_size = 0x80000;
-+		break;
-+	case IP_VERSION(11, 0, 0):
-+	case IP_VERSION(11, 0, 2):
-+	case IP_VERSION(11, 0, 3):
-+	case IP_VERSION(12, 0, 0):
-+	case IP_VERSION(12, 0, 1):
-+		vgpr_size = 0x60000;
-+		break;
-+	default:
-+		vgpr_size = 0x40000;
-+		break;
-+	}
-+
-+	return vgpr_size;
-+}
-+
-+static uint32_t amdgpu_cwsr_get_wg_ctxt_size_per_cu(struct amdgpu_device *adev)
-+{
-+	uint32_t lds_sz_per_cu;
-+
-+	lds_sz_per_cu =
-+		(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0)) ?
-+			(adev->gfx.cu_info.lds_size << 10) :
-+			LDS_SIZE_PER_CU;
-+
-+	return amdgpu_cwsr_get_vgpr_size_per_cu(adev) + SGPR_SIZE_PER_CU +
-+	       lds_sz_per_cu + HWREG_SIZE_PER_CU;
-+}
-+
-+static uint32_t amdgpu_cwsr_ctl_stack_bytes_per_wave(struct amdgpu_device *adev)
-+{
-+	uint32_t sz;
-+	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(10, 1, 0))
-+		sz = 12;
-+	else
-+		sz = 8;
-+	return sz;
-+}
-+
-+static void amdgpu_cwsr_init_save_area_info(struct amdgpu_device *adev,
-+					    struct amdgpu_cwsr_info *cwsr_info)
-+{
-+	struct amdgpu_gfx_config *gfx_info = &adev->gfx.config;
-+	uint32_t gc_ver = amdgpu_ip_version(adev, GC_HWIP, 0);
-+	uint32_t ctl_stack_size, wg_data_size, dbg_mem_size;
-+	uint32_t array_count;
-+	uint32_t wave_num;
-+	uint32_t cu_num;
-+
-+	if (gc_ver < IP_VERSION(9, 0, 1))
-+		return;
-+
-+	array_count = gfx_info->max_shader_engines * gfx_info->max_sh_per_se;
-+
-+	cu_num = adev->gfx.cu_info.number / NUM_XCC(adev->gfx.xcc_mask);
-+	wave_num = (gc_ver < IP_VERSION(10, 1, 0)) ? /* GFX_VERSION_NAVI10 */
-+			   min(cu_num * 40,
-+			       array_count / gfx_info->max_sh_per_se * 512) :
-+			   cu_num * 32;
-+
-+	wg_data_size = ALIGN(cu_num * amdgpu_cwsr_get_wg_ctxt_size_per_cu(adev),
-+			     PAGE_SIZE);
-+	ctl_stack_size =
-+		wave_num * amdgpu_cwsr_ctl_stack_bytes_per_wave(adev) + 8;
-+	ctl_stack_size =
-+		ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
-+		      PAGE_SIZE);
-+	dbg_mem_size =
-+		ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
-+	/*
-+	* HW design limits control stack size to 0x7000.
-+	* This is insufficient for theoretical PM4 cases
-+	* but sufficient for AQL, limited by SPI events.
-+	*/
-+	if (IP_VERSION_MAJ(gc_ver) == 10)
-+		ctl_stack_size = min(ctl_stack_size, 0x7000);
-+
-+	cwsr_info->xcc_ctl_stack_sz = ctl_stack_size;
-+	cwsr_info->xcc_cwsr_sz = ctl_stack_size + wg_data_size;
-+	cwsr_info->xcc_dbg_mem_sz = dbg_mem_size;
-+}
-+
- int amdgpu_cwsr_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_cwsr_info *cwsr_info __free(kfree) = NULL;
-@@ -139,6 +240,8 @@ int amdgpu_cwsr_init(struct amdgpu_device *adev)
- 		return r;
- 
- 	memcpy(ptr, cwsr_info->isa_buf, cwsr_info->isa_sz);
-+
-+	amdgpu_cwsr_init_save_area_info(adev, cwsr_info);
- 	adev->cwsr_info = no_free_ptr(cwsr_info);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-index 26ed9308f70b..3c80d057bbed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-@@ -50,6 +50,10 @@ struct amdgpu_cwsr_info {
- 	struct amdgpu_bo *isa_bo;
- 	const void *isa_buf;
- 	uint32_t isa_sz;
-+	/* cwsr size info per XCC*/
-+	uint32_t xcc_ctl_stack_sz;
-+	uint32_t xcc_dbg_mem_sz;
-+	uint32_t xcc_cwsr_sz;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index ec2919a9c636..1fb9539f8aca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -904,6 +904,10 @@ struct amdgpu_mqd_prop {
+ 	uint64_t fence_address;
+ 	bool tmz_queue;
+ 	bool kernel_queue;
++	/* cwsr params*/
++	uint64_t ctx_save_area_addr;
++	uint32_t ctx_save_area_size;
++	uint32_t ctl_stack_size;
  };
  
- int amdgpu_cwsr_init(struct amdgpu_device *adev);
+ struct amdgpu_mqd {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 2f97f35e0af5..49794b0989ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -33,6 +33,7 @@
+ #include "amdgpu_userq.h"
+ #include "amdgpu_hmm.h"
+ #include "amdgpu_userq_fence.h"
++#include "amdgpu_cwsr.h"
+ 
+ u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
+ {
+@@ -202,6 +203,29 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ 	return r;
+ }
+ 
++int amdgpu_userq_input_cwsr_params_validate(
++	struct amdgpu_usermode_queue *queue,
++	struct amdgpu_cwsr_params *cwsr_params)
++{
++	struct amdgpu_fpriv *fpriv = uq_mgr_to_fpriv(queue->userq_mgr);
++	struct amdgpu_device *adev = queue->userq_mgr->adev;
++	uint32_t cwsr_size;
++	int num_xcc;
++	int r;
++
++	num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
++	r = amdgpu_cwsr_validate_params(queue->userq_mgr->adev, cwsr_params,
++					num_xcc);
++	if (r)
++		return r;
++	cwsr_size = amdgpu_cwsr_size_needed(queue->userq_mgr->adev, num_xcc);
++	if (!cwsr_size)
++		return -EOPNOTSUPP;
++
++	return amdgpu_userq_input_va_validate(
++		adev, queue, cwsr_params->ctx_save_area_address, cwsr_size);
++}
++
+ static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
+ {
+ 	struct amdgpu_bo_va_mapping *mapping;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 1eaa94f8a291..0eeea9fad0fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -41,6 +41,7 @@ enum amdgpu_userq_state {
+ };
+ 
+ struct amdgpu_mqd_prop;
++struct amdgpu_cwsr_params;
+ 
+ struct amdgpu_userq_obj {
+ 	void		 *cpu_ptr;
+@@ -153,4 +154,8 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+ int amdgpu_userq_gem_va_unmap_validate(struct amdgpu_device *adev,
+ 				       struct amdgpu_bo_va_mapping *mapping,
+ 				       uint64_t saddr);
++int amdgpu_userq_input_cwsr_params_validate(
++	struct amdgpu_usermode_queue *queue,
++	struct amdgpu_cwsr_params *cwsr_params);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index f9cae6666697..ad39b33d292a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -3239,6 +3239,20 @@ static int gfx_v12_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
+ 	mqd->fence_address_lo = lower_32_bits(prop->fence_address);
+ 	mqd->fence_address_hi = upper_32_bits(prop->fence_address);
+ 
++	/* If non-zero, assume cwsr is enabled */
++	if (prop->ctx_save_area_addr) {
++		mqd->cp_hqd_persistent_state |=
++			(1 << CP_HQD_PERSISTENT_STATE__QSWITCH_MODE__SHIFT);
++		mqd->cp_hqd_ctx_save_base_addr_lo =
++			lower_32_bits(prop->ctx_save_area_addr);
++		mqd->cp_hqd_ctx_save_base_addr_hi =
++			upper_32_bits(prop->ctx_save_area_addr);
++		mqd->cp_hqd_ctx_save_size = prop->ctx_save_area_size;
++		mqd->cp_hqd_cntl_stack_size = prop->ctl_stack_size;
++		mqd->cp_hqd_cntl_stack_offset = prop->ctl_stack_size;
++		mqd->cp_hqd_wg_state_offset = prop->ctl_stack_size;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index 480f4806e951..0ac87618a86a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -293,6 +293,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 
+ 	if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
+ 		struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
++		struct amdgpu_cwsr_params cwsr_params;
+ 
+ 		if (mqd_user->mqd_size != sizeof(*compute_mqd)) {
+ 			DRM_ERROR("Invalid compute IP MQD size\n");
+@@ -318,6 +319,21 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 		userq_props->hqd_active = false;
+ 		userq_props->tmz_queue =
+ 			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
++
++		if (amdgpu_cwsr_is_enabled(adev)) {
++			cwsr_params.ctx_save_area_address =
++				userq_props->ctx_save_area_addr;
++			cwsr_params.cwsr_sz = userq_props->ctx_save_area_size;
++			cwsr_params.ctl_stack_sz = userq_props->ctl_stack_size;
++
++			r = amdgpu_userq_input_cwsr_params_validate(
++				queue, &cwsr_params);
++			if (r) {
++				kfree(compute_mqd);
++				goto free_mqd;
++			}
++		}
++
+ 		kfree(compute_mqd);
+ 	} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
+ 		struct drm_amdgpu_userq_mqd_gfx11 *mqd_gfx_v11;
 -- 
 2.49.0
 
