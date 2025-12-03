@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B9BD1266D
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 09:02:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2DCBD116F3
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 09:02:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 240D510E7AA;
-	Wed,  3 Dec 2025 09:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2491210E7AB;
+	Wed,  3 Dec 2025 09:02:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jfI8+Bv6";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="GZcDL0oB";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0943B10E79D;
- Wed,  3 Dec 2025 09:01:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3770910E7A5;
+ Wed,  3 Dec 2025 09:02:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764752515;
- bh=K8JiYP4pMbTUrS7U2P2WtofqYZEGIjD4CsBv0tT1nv0=;
+ s=mail; t=1764752519;
+ bh=NdnH3mK023sa2O8Lw8v+zcieuNkm4+U6sOYq9zm4WUs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jfI8+Bv6vwgvJ4T9faBmtLWem6paOq0g9iSynUbzv0kwi9VY1yneSDq/RzTp4N52H
- CGtXueUuKpwuMuFV29gm63I4V5rSmYM7eMvWncpHZjbQf7osn6Bb06TFSfLrViu5gH
- i+yzxiWgmI6HGO9nMC5gQOxjq+VvoTMnS2ErA7PClDZio2Y/g4F8hIntd/dPC+lYmw
- tBaw9YmiKr30WDlSvfBqKPZ/C/Tj2FeLKpJrjm+Yof1N7JP/xI/p2roEmX3zLrvfuu
- kgb88CDBmWvKpeXa93+je6XRXsWtCWxGXhC6iWo6hMiV/tPvNko/sAtdpx/Zgn64Hw
- HRFCVaAuJnWEg==
+ b=GZcDL0oBwTWb7kdwwUmLRLQLGeHP/Mc8xYfCI427RtVvmD1AEqRqMjrdF/c8sJ1Dy
+ l71J8nHa/L4+iyhTNKRsQu1L+XGG0iJoPy6QvGrheOEvlwkJaapN6TzZV8t1uG0Wa9
+ qNiDooxHQLjVPJIAirUtoo2JsuNZF4R2Ln3kSs3m5tNPtp8ZgFTG7pLIly3ofm8Fx+
+ 7TF9gG+eCQiwb32X2qBN6ewU8ajsc9Elw7mYdSgGkvdQD1KVtHeW6ly5K9MSqGsH4m
+ zHsLhw7M6tmfL8Wm9HPwh2QD0/ZIrsPkowg7VjNcgw3qpp29Drh7aciv94yvTs4ozl
+ 3QcKvYairJQmw==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D6E7717E10F6;
- Wed,  3 Dec 2025 10:01:54 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id EECD317E090D;
+ Wed,  3 Dec 2025 10:01:58 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -57,9 +57,9 @@ Cc: dri-devel@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org,
  Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com
-Subject: [PATCH v7 04/13] drm/panthor: Add a PANTHOR_BO_SYNC ioctl
-Date: Wed,  3 Dec 2025 10:01:32 +0100
-Message-ID: <20251203090141.227394-5-boris.brezillon@collabora.com>
+Subject: [PATCH v7 08/13] drm/panfrost: Provide a custom dma_buf implementation
+Date: Wed,  3 Dec 2025 10:01:36 +0100
+Message-ID: <20251203090141.227394-9-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251203090141.227394-1-boris.brezillon@collabora.com>
 References: <20251203090141.227394-1-boris.brezillon@collabora.com>
@@ -79,292 +79,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This will be used by the UMD to synchronize CPU-cached mappings when
-the UMD can't do it directly (no usermode cache maintenance instruction
-on Arm32).
-
-v2:
-- Change the flags so they better match the drm_gem_shmem_sync()
-  semantics
-
-v3:
-- Add Steve's R-b
-
-v4:
-- No changes
+Before we introduce cached CPU mappings, we want a dma_buf
+implementation satisfying synchronization requests around CPU
+accesses coming from a dma_buf exported by our driver. Let's
+provide our own implementation relying on the default
+gem_shmem_prime helpers designed for that purpose.
 
 v5:
-- Drop Steve's R-b (the semantics changes call for a new review)
+- New patch
 
 v6:
-- Drop ret initialization in panthor_ioctl_bo_sync()
-- Bail out early in panthor_ioctl_bo_sync() if ops.count is zero
-- Drop unused PANTHOR_BO_SYNC_OP_FLAGS definition
+- Collect R-b
 
 v7:
-- Hand-roll the sync logic (was previously provided by gem_shmem)
+- Hand-roll our own dma_buf boilerplate
 
-Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/gpu/drm/panthor/panthor_drv.c | 41 ++++++++++++-
- drivers/gpu/drm/panthor/panthor_gem.c | 85 +++++++++++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_gem.h |  2 +
- include/uapi/drm/panthor_drm.h        | 52 ++++++++++++++++
- 4 files changed, 179 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panfrost/panfrost_drv.c |   1 +
+ drivers/gpu/drm/panfrost/panfrost_gem.c | 123 ++++++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.h |   3 +
+ 3 files changed, 127 insertions(+)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index d12ac4cb0ac4..cab19621917f 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -177,7 +177,8 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
- 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
--		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs))
-+		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
-+		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 7d8c7c337606..cd6001a7faa2 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -852,6 +852,7 @@ static const struct drm_driver panfrost_drm_driver = {
+ 	.minor			= 5,
  
- /**
-  * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
-@@ -1396,6 +1397,43 @@ static int panthor_ioctl_set_user_mmio_offset(struct drm_device *ddev,
+ 	.gem_create_object	= panfrost_gem_create_object,
++	.gem_prime_import	= panfrost_gem_prime_import,
+ 	.gem_prime_import_sg_table = panfrost_gem_prime_import_sg_table,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init = panfrost_debugfs_init,
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 8041b65c6609..4afd1a7f77d5 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -259,6 +259,128 @@ static size_t panfrost_gem_rss(struct drm_gem_object *obj)
  	return 0;
  }
  
-+static int panthor_ioctl_bo_sync(struct drm_device *ddev, void *data,
-+				 struct drm_file *file)
++static struct sg_table *
++panfrost_gem_prime_map_dma_buf(struct dma_buf_attachment *attach,
++			       enum dma_data_direction dir)
 +{
-+	struct drm_panthor_bo_sync *args = data;
-+	struct drm_panthor_bo_sync_op *ops;
-+	struct drm_gem_object *obj;
-+	int ret;
++	struct sg_table *sgt = drm_gem_map_dma_buf(attach, dir);
 +
-+	if (!args->ops.count)
-+		return 0;
++	if (!IS_ERR(sgt))
++		attach->priv = sgt;
 +
-+	ret = PANTHOR_UOBJ_GET_ARRAY(ops, &args->ops);
-+	if (ret)
-+		return ret;
-+
-+	for (u32 i = 0; i < args->ops.count; i++) {
-+		obj = drm_gem_object_lookup(file, ops[i].handle);
-+		if (!obj) {
-+			ret = -ENOENT;
-+			goto err_ops;
-+		}
-+
-+		ret = panthor_gem_sync(obj, ops[i].type, ops[i].offset,
-+				       ops[i].size);
-+
-+		drm_gem_object_put(obj);
-+
-+		if (ret)
-+			goto err_ops;
-+	}
-+
-+err_ops:
-+	kvfree(ops);
-+
-+	return ret;
++	return sgt;
 +}
 +
- static int
- panthor_open(struct drm_device *ddev, struct drm_file *file)
- {
-@@ -1470,6 +1508,7 @@ static const struct drm_ioctl_desc panthor_drm_driver_ioctls[] = {
- 	PANTHOR_IOCTL(GROUP_SUBMIT, group_submit, DRM_RENDER_ALLOW),
- 	PANTHOR_IOCTL(BO_SET_LABEL, bo_set_label, DRM_RENDER_ALLOW),
- 	PANTHOR_IOCTL(SET_USER_MMIO_OFFSET, set_user_mmio_offset, DRM_RENDER_ALLOW),
-+	PANTHOR_IOCTL(BO_SYNC, bo_sync, DRM_RENDER_ALLOW),
- };
- 
- static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 173d42d65000..4be32fc1732b 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -447,6 +447,91 @@ panthor_gem_kernel_bo_set_label(struct panthor_kernel_bo *bo, const char *label)
- 	panthor_gem_bo_set_label(bo->obj, str);
- }
- 
-+int
-+panthor_gem_sync(struct drm_gem_object *obj, u32 type,
-+		 u64 offset, u64 size)
++static void
++panfrost_gem_prime_unmap_dma_buf(struct dma_buf_attachment *attach,
++				 struct sg_table *sgt,
++				 enum dma_data_direction dir)
 +{
-+	struct panthor_gem_object *bo = to_panthor_bo(obj);
-+	struct drm_gem_shmem_object *shmem = &bo->base;
-+	const struct drm_device *dev = shmem->base.dev;
-+	struct sg_table *sgt;
-+	struct scatterlist *sgl;
-+	unsigned int count;
++	attach->priv = NULL;
++	drm_gem_unmap_dma_buf(attach, sgt, dir);
++}
 +
-+	/* Make sure the range is in bounds. */
-+	if (offset + size < offset || offset + size > shmem->base.size)
-+		return -EINVAL;
++static int
++panfrost_gem_prime_begin_cpu_access(struct dma_buf *dma_buf,
++				    enum dma_data_direction dir)
++{
++	struct drm_gem_object *obj = dma_buf->priv;
++	struct drm_device *dev = obj->dev;
++	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
++	struct dma_buf_attachment *attach;
 +
-+	/* Disallow CPU-cache maintenance on imported buffers. */
-+	if (drm_gem_is_imported(&shmem->base))
-+		return -EINVAL;
++	dma_resv_lock(obj->resv, NULL);
++	if (shmem->sgt)
++		dma_sync_sgtable_for_cpu(dev->dev, shmem->sgt, dir);
 +
-+	switch (type) {
-+	case DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH:
-+	case DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
-+		break;
++	if (shmem->vaddr)
++		invalidate_kernel_vmap_range(shmem->vaddr, shmem->base.size);
 +
-+	default:
-+		return -EINVAL;
++	list_for_each_entry(attach, &dma_buf->attachments, node) {
++		struct sg_table *sgt = attach->priv;
++
++		if (sgt)
++			dma_sync_sgtable_for_cpu(attach->dev, sgt, dir);
 +	}
-+
-+	/* Don't bother if it's WC-mapped */
-+	if (shmem->map_wc)
-+		return 0;
-+
-+	/* Nothing to do if the size is zero. */
-+	if (size == 0)
-+		return 0;
-+
-+	sgt = drm_gem_shmem_get_pages_sgt(shmem);
-+	if (IS_ERR(sgt))
-+		return PTR_ERR(sgt);
-+
-+	for_each_sgtable_dma_sg(sgt, sgl, count) {
-+		if (size == 0)
-+			break;
-+
-+		dma_addr_t paddr = sg_dma_address(sgl);
-+		size_t len = sg_dma_len(sgl);
-+
-+		if (len <= offset) {
-+			offset -= len;
-+			continue;
-+		}
-+
-+		paddr += offset;
-+		len -= offset;
-+		len = min_t(size_t, len, size);
-+		size -= len;
-+		offset = 0;
-+
-+		/* It's unclear whether dma_sync_xxx() is the right API to do CPU
-+		 * cache maintenance given an IOMMU can register their own
-+		 * implementation doing more than just CPU cache flushes/invalidation,
-+		 * and what we really care about here is CPU caches only, but that's
-+		 * the best we have that is both arch-agnostic and does at least the
-+		 * CPU cache maintenance on a <page,offset,size> tuple.
-+		 *
-+		 * Also, I wish we could do a single
-+		 *
-+		 *      dma_sync_single_for_device(BIDIR)
-+		 *
-+		 * and get a flush+invalidate, but that's not how it's implemented
-+		 * in practice (at least on arm64), so we have to make it
-+		 *
-+		 *      dma_sync_single_for_device(TO_DEVICE)
-+		 *      dma_sync_single_for_cpu(FROM_DEVICE)
-+		 *
-+		 * for the flush+invalidate case.
-+		 */
-+		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
-+		if (type == DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
-+			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
-+	}
++	dma_resv_unlock(obj->resv);
 +
 +	return 0;
 +}
 +
- #ifdef CONFIG_DEBUG_FS
- struct gem_size_totals {
- 	size_t size;
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index 91d1880f8a5d..bbf9ae75c360 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -146,6 +146,8 @@ panthor_gem_create_with_handle(struct drm_file *file,
- 
- void panthor_gem_bo_set_label(struct drm_gem_object *obj, const char *label);
- void panthor_gem_kernel_bo_set_label(struct panthor_kernel_bo *bo, const char *label);
-+int panthor_gem_sync(struct drm_gem_object *obj,
-+		     u32 type, u64 offset, u64 size);
- 
- struct drm_gem_object *
- panthor_gem_prime_import(struct drm_device *dev,
-diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index 28cf9e878db6..9f810305db6e 100644
---- a/include/uapi/drm/panthor_drm.h
-+++ b/include/uapi/drm/panthor_drm.h
-@@ -144,6 +144,9 @@ enum drm_panthor_ioctl_id {
- 	 * pgoff_t size.
- 	 */
- 	DRM_PANTHOR_SET_USER_MMIO_OFFSET,
++static int
++panfrost_gem_prime_end_cpu_access(struct dma_buf *dma_buf,
++				  enum dma_data_direction dir)
++{
++	struct drm_gem_object *obj = dma_buf->priv;
++	struct drm_device *dev = obj->dev;
++	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
++	struct dma_buf_attachment *attach;
 +
-+	/** @DRM_PANTHOR_BO_SYNC: Sync BO data to/from the device */
-+	DRM_PANTHOR_BO_SYNC,
- };
- 
- /**
-@@ -1073,6 +1076,53 @@ struct drm_panthor_set_user_mmio_offset {
- 	__u64 offset;
- };
- 
-+/**
-+ * enum drm_panthor_bo_sync_op_type - BO sync type
-+ */
-+enum drm_panthor_bo_sync_op_type {
-+	/** @DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH: Flush CPU caches. */
-+	DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH = 0,
++	dma_resv_lock(obj->resv, NULL);
++	list_for_each_entry(attach, &dma_buf->attachments, node) {
++		struct sg_table *sgt = attach->priv;
 +
-+	/** @DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE: Flush and invalidate CPU caches. */
-+	DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE = 1,
++		if (sgt)
++			dma_sync_sgtable_for_device(attach->dev, sgt, dir);
++	}
++
++	if (shmem->vaddr)
++		flush_kernel_vmap_range(shmem->vaddr, shmem->base.size);
++
++	if (shmem->sgt)
++		dma_sync_sgtable_for_device(dev->dev, shmem->sgt, dir);
++
++	dma_resv_unlock(obj->resv);
++	return 0;
++}
++
++static const struct dma_buf_ops panfrost_dma_buf_ops = {
++	.attach = drm_gem_map_attach,
++	.detach = drm_gem_map_detach,
++	.map_dma_buf = panfrost_gem_prime_map_dma_buf,
++	.unmap_dma_buf = panfrost_gem_prime_unmap_dma_buf,
++	.release = drm_gem_dmabuf_release,
++	.mmap = drm_gem_dmabuf_mmap,
++	.vmap = drm_gem_dmabuf_vmap,
++	.vunmap = drm_gem_dmabuf_vunmap,
++	.begin_cpu_access = panfrost_gem_prime_begin_cpu_access,
++	.end_cpu_access = panfrost_gem_prime_end_cpu_access,
 +};
 +
-+/**
-+ * struct drm_panthor_bo_sync_op - BO map sync op
-+ */
-+struct drm_panthor_bo_sync_op {
-+	/** @handle: Handle of the buffer object to sync. */
-+	__u32 handle;
++static struct dma_buf *
++panfrost_gem_prime_export(struct drm_gem_object *obj, int flags)
++{
++	struct drm_device *dev = obj->dev;
++	struct dma_buf_export_info exp_info = {
++		.exp_name = KBUILD_MODNAME,
++		.owner = THIS_MODULE,
++		.ops = &panfrost_dma_buf_ops,
++		.size = obj->size,
++		.flags = flags,
++		.priv = obj,
++		.resv = obj->resv,
++	};
 +
-+	/** @type: Type of operation. */
-+	__u32 type;
++	return drm_gem_dmabuf_export(dev, &exp_info);
++}
 +
-+	/**
-+	 * @offset: Offset into the BO at which the sync range starts.
-+	 *
-+	 * This will be rounded down to the nearest cache line as needed.
-+	 */
-+	__u64 offset;
++struct drm_gem_object *
++panfrost_gem_prime_import(struct drm_device *dev,
++			  struct dma_buf *dma_buf)
++{
++	struct drm_gem_object *obj = dma_buf->priv;
 +
-+	/**
-+	 * @size: Size of the range to sync
-+	 *
-+	 * @size + @offset will be rounded up to the nearest cache line as
-+	 * needed.
-+	 */
-+	__u64 size;
-+};
++	if (dma_buf->ops == &panfrost_dma_buf_ops && obj->dev == dev) {
++		/* Importing dmabuf exported from our own gem increases
++		 * refcount on gem itself instead of f_count of dmabuf.
++		 */
++		drm_gem_object_get(obj);
++		return obj;
++	}
 +
-+/**
-+ * struct drm_panthor_bo_sync - BO map sync request
-+ */
-+struct drm_panthor_bo_sync {
-+	/**
-+	 * @ops: Array of struct drm_panthor_bo_sync_op sync operations.
-+	 */
-+	struct drm_panthor_obj_array ops;
-+};
++	return drm_gem_prime_import(dev, dma_buf);
++}
 +
- /**
-  * DRM_IOCTL_PANTHOR() - Build a Panthor IOCTL number
-  * @__access: Access type. Must be R, W or RW.
-@@ -1119,6 +1169,8 @@ enum {
- 		DRM_IOCTL_PANTHOR(WR, BO_SET_LABEL, bo_set_label),
- 	DRM_IOCTL_PANTHOR_SET_USER_MMIO_OFFSET =
- 		DRM_IOCTL_PANTHOR(WR, SET_USER_MMIO_OFFSET, set_user_mmio_offset),
-+	DRM_IOCTL_PANTHOR_BO_SYNC =
-+		DRM_IOCTL_PANTHOR(WR, BO_SYNC, bo_sync),
- };
+ static const struct drm_gem_object_funcs panfrost_gem_funcs = {
+ 	.free = panfrost_gem_free_object,
+ 	.open = panfrost_gem_open,
+@@ -267,6 +389,7 @@ static const struct drm_gem_object_funcs panfrost_gem_funcs = {
+ 	.pin = panfrost_gem_pin,
+ 	.unpin = drm_gem_shmem_object_unpin,
+ 	.get_sg_table = drm_gem_shmem_object_get_sg_table,
++	.export = panfrost_gem_prime_export,
+ 	.vmap = drm_gem_shmem_object_vmap,
+ 	.vunmap = drm_gem_shmem_object_vunmap,
+ 	.mmap = drm_gem_shmem_object_mmap,
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+index 8de3e76f2717..7fec20339354 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+@@ -130,6 +130,9 @@ struct drm_gem_object *
+ panfrost_gem_prime_import_sg_table(struct drm_device *dev,
+ 				   struct dma_buf_attachment *attach,
+ 				   struct sg_table *sgt);
++struct drm_gem_object *
++panfrost_gem_prime_import(struct drm_device *dev,
++			  struct dma_buf *dma_buf);
  
- #if defined(__cplusplus)
+ struct panfrost_gem_object *
+ panfrost_gem_create(struct drm_device *dev, size_t size, u32 flags);
 -- 
 2.51.1
 
