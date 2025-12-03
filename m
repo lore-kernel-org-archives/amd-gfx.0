@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36F9BD12696
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 09:02:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ED7CD12695
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 09:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28F8C10E7B7;
-	Wed,  3 Dec 2025 09:02:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37EA110E7BF;
+	Wed,  3 Dec 2025 09:02:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dPlkNycF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NXEVesc7";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 312D210E7AF;
- Wed,  3 Dec 2025 09:02:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6664010E7B1;
+ Wed,  3 Dec 2025 09:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764752520;
- bh=y3Tp/m5DywpDSGMUldPT9I7r0VoembmumwBcvTVinrQ=;
+ s=mail; t=1764752525;
+ bh=cSq5V84IfgW70V2taojsuA7wcDp4wnE57kEKY7SDv3E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dPlkNycFMLtNS6uw3+5063varpsAoqBVBOlM5PhHn+Xeg7Z8+L2L3/J2yWdr0/vXb
- 7pgYI4Hy96ZbT+trX/1gDoEV1bZsXdzflZH8dptF/mdW2lSNEHqQzGZOGVNzoeDfZS
- jAI4Ft06UadQM1tb8cE+Ov46oGFljM6d/0WlKYHBnfqjIzHXbyziNapLixbjHPAeXX
- iQwEv7z4VS+EFLnM115LIQ/sEaDD7N4AhZPOPCvXpUskEjoxLkCbwuRKjO4z8jYcxf
- vaur8sIAng+0fY2k9PIUTzu6noyutr8Ac5xSTRuHS3qm7dzUOO9eIMtFWFLZskL8z1
- WFLwWKLhscgKw==
+ b=NXEVesc7LoWyy1cshwnABTn1xowbCy+P5/ALucj1BOVA5rNs12QELwRYtpZv9UIBm
+ NB6IUstad3CD08aKaQby96Iw1NEMu/ARHtexy+q29T9H0H2eHeGsG2f/cGhVI2ryDD
+ i/TYPvPGgikYenEyyvWLKJZ+vqI54H5fX7xgrJrr+9fkVBB+qWUK4TYq3JUp3OMttg
+ BIyYadWFEVCVrobAcA5zkJcyRNKZ/fr5FofugDWMp1vVAvR8kO7tadJg7M0j+Tl054
+ O2FyxazZHF6K4o75JOh3Zwjq6S56ZQI0kHS3kbQdEuofzwKLCMiNaFv910S+SZBCBl
+ iuBQ5CoqJDUZw==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 01C1617E1418;
- Wed,  3 Dec 2025 10:01:59 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1EAE017E110C;
+ Wed,  3 Dec 2025 10:02:04 +0100 (CET)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Steven Price <steven.price@arm.com>
 Cc: dri-devel@lists.freedesktop.org,
@@ -55,12 +55,11 @@ Cc: dri-devel@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com
-Subject: [PATCH v7 09/13] drm/panfrost: Expose the selected coherency protocol
- to the UMD
-Date: Wed,  3 Dec 2025 10:01:37 +0100
-Message-ID: <20251203090141.227394-10-boris.brezillon@collabora.com>
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH v7 13/13] drm/panfrost: Bump the driver version to 1.6
+Date: Wed,  3 Dec 2025 10:01:41 +0100
+Message-ID: <20251203090141.227394-14-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251203090141.227394-1-boris.brezillon@collabora.com>
 References: <20251203090141.227394-1-boris.brezillon@collabora.com>
@@ -80,145 +79,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Will be needed if we want to skip CPU cache maintenance operations when
-the GPU can snoop CPU caches.
+From: Faith Ekstrand <faith.ekstrand@collabora.com>
+
+Bump the driver version to reflect the new cached-CPU mapping
+capability.
 
 v2:
-- New commit
+- Quickly describe what the new version exposes in the commit message
 
 v3:
-- Fix the coherency values (enum instead of bitmask)
+- Add Steve's R-b
 
 v4:
-- Fix init/test on coherency_features
+- No changes
 
 v5:
 - No changes
 
 v6:
-- Collect R-b
+- No changes
 
 v7:
 - No changes
 
+Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.h |  1 +
- drivers/gpu/drm/panfrost/panfrost_drv.c    |  1 +
- drivers/gpu/drm/panfrost/panfrost_gpu.c    | 26 +++++++++++++++++++---
- drivers/gpu/drm/panfrost/panfrost_regs.h   | 10 +++++++--
- include/uapi/drm/panfrost_drm.h            |  7 ++++++
- 5 files changed, 40 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
-index e61c4329fd07..0f3992412205 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-@@ -79,6 +79,7 @@ struct panfrost_features {
- 	u32 thread_max_workgroup_sz;
- 	u32 thread_max_barrier_sz;
- 	u32 coherency_features;
-+	u32 selected_coherency;
- 	u32 afbc_features;
- 	u32 texture_features[4];
- 	u32 js_features[16];
 diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index cd6001a7faa2..d650cd138dad 100644
+index 43a453ee9614..712497729732 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -95,6 +95,7 @@ static int panfrost_ioctl_get_param(struct drm_device *ddev, void *data, struct
- 		PANFROST_FEATURE_ARRAY(JS_FEATURES, js_features, 15);
- 		PANFROST_FEATURE(NR_CORE_GROUPS, nr_core_groups);
- 		PANFROST_FEATURE(THREAD_TLS_ALLOC, thread_tls_alloc);
-+		PANFROST_FEATURE(SELECTED_COHERENCY, selected_coherency);
+@@ -928,6 +928,9 @@ static void panfrost_debugfs_init(struct drm_minor *minor)
+  * - 1.4 - adds SET_LABEL_BO
+  * - 1.5 - adds JM_CTX_{CREATE,DESTROY} ioctls and extend SUBMIT to allow
+  *	   context creation with configurable priorities/affinity
++ * - 1.6 - adds PANFROST_BO_MAP_WB, PANFROST_IOCTL_SYNC_BO,
++ *	   PANFROST_IOCTL_QUERY_BO_INFO and
++ *	   DRM_PANFROST_PARAM_SELECTED_COHERENCY
+  */
+ static const struct drm_driver panfrost_drm_driver = {
+ 	.driver_features	= DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ,
+@@ -940,7 +943,7 @@ static const struct drm_driver panfrost_drm_driver = {
+ 	.name			= "panfrost",
+ 	.desc			= "panfrost DRM",
+ 	.major			= 1,
+-	.minor			= 5,
++	.minor			= 6,
  
- 	case DRM_PANFROST_PARAM_SYSTEM_TIMESTAMP:
- 		ret = panfrost_ioctl_query_timestamp(pfdev, &param->value);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-index 483d278eb154..7d555e63e21a 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-@@ -159,8 +159,8 @@ static void panfrost_gpu_init_quirks(struct panfrost_device *pfdev)
- 	    pfdev->features.revision >= 0x2000)
- 		quirks |= JM_MAX_JOB_THROTTLE_LIMIT << JM_JOB_THROTTLE_LIMIT_SHIFT;
- 	else if (panfrost_model_eq(pfdev, 0x6000) &&
--		 pfdev->features.coherency_features == COHERENCY_ACE)
--		quirks |= (COHERENCY_ACE_LITE | COHERENCY_ACE) <<
-+		 pfdev->features.coherency_features == BIT(COHERENCY_ACE))
-+		quirks |= (BIT(COHERENCY_ACE_LITE) | BIT(COHERENCY_ACE)) <<
- 			   JM_FORCE_COHERENCY_FEATURES_SHIFT;
- 
- 	if (panfrost_has_hw_feature(pfdev, HW_FEATURE_IDVS_GROUP_SIZE))
-@@ -263,7 +263,27 @@ static int panfrost_gpu_init_features(struct panfrost_device *pfdev)
- 	pfdev->features.max_threads = gpu_read(pfdev, GPU_THREAD_MAX_THREADS);
- 	pfdev->features.thread_max_workgroup_sz = gpu_read(pfdev, GPU_THREAD_MAX_WORKGROUP_SIZE);
- 	pfdev->features.thread_max_barrier_sz = gpu_read(pfdev, GPU_THREAD_MAX_BARRIER_SIZE);
--	pfdev->features.coherency_features = gpu_read(pfdev, GPU_COHERENCY_FEATURES);
-+
-+	if (panfrost_has_hw_feature(pfdev, HW_FEATURE_COHERENCY_REG))
-+		pfdev->features.coherency_features = gpu_read(pfdev, GPU_COHERENCY_FEATURES);
-+	else
-+		pfdev->features.coherency_features = BIT(COHERENCY_ACE_LITE);
-+
-+	BUILD_BUG_ON(COHERENCY_ACE_LITE != DRM_PANFROST_GPU_COHERENCY_ACE_LITE);
-+	BUILD_BUG_ON(COHERENCY_ACE != DRM_PANFROST_GPU_COHERENCY_ACE);
-+	BUILD_BUG_ON(COHERENCY_NONE != DRM_PANFROST_GPU_COHERENCY_NONE);
-+
-+	if (!pfdev->coherent) {
-+		pfdev->features.selected_coherency = COHERENCY_NONE;
-+	} else if (pfdev->features.coherency_features & BIT(COHERENCY_ACE)) {
-+		pfdev->features.selected_coherency = COHERENCY_ACE;
-+	} else if (pfdev->features.coherency_features & BIT(COHERENCY_ACE_LITE)) {
-+		pfdev->features.selected_coherency = COHERENCY_ACE_LITE;
-+	} else {
-+		drm_WARN(&pfdev->base, true, "No known coherency protocol supported");
-+		pfdev->features.selected_coherency = COHERENCY_NONE;
-+	}
-+
- 	pfdev->features.afbc_features = gpu_read(pfdev, GPU_AFBC_FEATURES);
- 	for (i = 0; i < 4; i++)
- 		pfdev->features.texture_features[i] = gpu_read(pfdev, GPU_TEXTURE_FEATURES(i));
-diff --git a/drivers/gpu/drm/panfrost/panfrost_regs.h b/drivers/gpu/drm/panfrost/panfrost_regs.h
-index 2b8f1617b836..ee15f6bf6e6f 100644
---- a/drivers/gpu/drm/panfrost/panfrost_regs.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_regs.h
-@@ -102,9 +102,15 @@
- #define GPU_L2_PRESENT_LO		0x120	/* (RO) Level 2 cache present bitmap, low word */
- #define GPU_L2_PRESENT_HI		0x124	/* (RO) Level 2 cache present bitmap, high word */
- 
-+/* GPU_COHERENCY_FEATURES is a bitmask of BIT(COHERENCY_xxx) values encoding the
-+ * set of supported coherency protocols. GPU_COHERENCY_ENABLE is passed a
-+ * COHERENCY_xxx value.
-+ */
- #define GPU_COHERENCY_FEATURES		0x300	/* (RO) Coherency features present */
--#define   COHERENCY_ACE_LITE		BIT(0)
--#define   COHERENCY_ACE			BIT(1)
-+#define GPU_COHERENCY_ENABLE		0x304	/* (RW) Coherency protocol selection */
-+#define   COHERENCY_ACE_LITE		0
-+#define   COHERENCY_ACE			1
-+#define   COHERENCY_NONE		31
- 
- #define GPU_STACK_PRESENT_LO		0xE00   /* (RO) Core stack present bitmap, low word */
- #define GPU_STACK_PRESENT_HI		0xE04   /* (RO) Core stack present bitmap, high word */
-diff --git a/include/uapi/drm/panfrost_drm.h b/include/uapi/drm/panfrost_drm.h
-index 1956431bb391..0c59714ae42b 100644
---- a/include/uapi/drm/panfrost_drm.h
-+++ b/include/uapi/drm/panfrost_drm.h
-@@ -228,6 +228,13 @@ enum drm_panfrost_param {
- 	DRM_PANFROST_PARAM_SYSTEM_TIMESTAMP,
- 	DRM_PANFROST_PARAM_SYSTEM_TIMESTAMP_FREQUENCY,
- 	DRM_PANFROST_PARAM_ALLOWED_JM_CTX_PRIORITIES,
-+	DRM_PANFROST_PARAM_SELECTED_COHERENCY,
-+};
-+
-+enum drm_panfrost_gpu_coherency {
-+	DRM_PANFROST_GPU_COHERENCY_ACE_LITE = 0,
-+	DRM_PANFROST_GPU_COHERENCY_ACE = 1,
-+	DRM_PANFROST_GPU_COHERENCY_NONE = 31,
- };
- 
- struct drm_panfrost_get_param {
+ 	.gem_create_object	= panfrost_gem_create_object,
+ 	.gem_prime_import	= panfrost_gem_prime_import,
 -- 
 2.51.1
 
