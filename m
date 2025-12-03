@@ -4,47 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36DACD12D69
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 14:09:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DC7CD12D71
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 14:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B30AD10E7ED;
-	Wed,  3 Dec 2025 14:09:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E98110E82C;
+	Wed,  3 Dec 2025 14:44:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FClpNQ9H";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3itz5PmN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82DC810E7BD;
- Wed,  3 Dec 2025 13:19:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3CE45438ED;
- Wed,  3 Dec 2025 13:19:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5461AC4CEFB;
- Wed,  3 Dec 2025 13:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1764767954;
- bh=S6gmzWnwTh6tOEneCcIVJqxgW0S11eCqJRiu7VZJt/w=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=FClpNQ9HTSREROUsvbX2+gBdwPChgw3Jl6w70/oJCfPuwPmZhDpN6kYSw+KKSANtj
- ZqWsdM68xpho2sZ4whc2kHXBD9q4bRvhcBDg/nb3vKY8ZZYwJsHpEivzuOjDVj9xPK
- e4y0z+iVYp9le5QIR+31S5uJlq9gWiZOUJs9d4Pk=
-Subject: Patch "drm, fbcon,
- vga_switcheroo: Avoid race condition in fbcon setup" has been added
- to the 6.12-stable tree
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- javierm@redhat.com, nouveau@lists.freedesktop.org, sashal@kernel.org,
- tzimmermann@suse.de
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 03 Dec 2025 14:19:11 +0100
-In-Reply-To: <20251202202312.2505097-1-sashal@kernel.org>
-Message-ID: <2025120310-trump-rancidity-eedb@gregkh>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012024.outbound.protection.outlook.com [52.101.48.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC5410E82C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Dec 2025 14:44:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LuC/8e4K7kdGYJsmwjQRt48FNhsOJ7ZYbmdSox4G7LLTO2mYIO8MGpe6NCirUOqWy+UgRD44/iKmYtG2sVipIr/eS5Df0NW+MZiw7eE6GBmBv+ZO2CP7Ey+UimYOOl1GoTV2tHh85KS2PuIXPOqtnqKaVR68rTjaJe7R0FivHtCIDfStcEb+j8iBxgzmxsD21MN2QRfpPdJ9uPVpYTckuMsJFtNr8BE+U/KqyIj18oRhEr8hZeT7/11ONM13EzxEidC+2WMKGF7Vaa43rJM/gcHtrA3uzbvsuNyhkL+XW1wf4xmUDppaQZSNWcZ19h/b1F63YbdDgUxTWZuXexeHyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kvi1RsaUQAmRt3H4/gtgi9+m1SDxOY1yMNP2asVWpMA=;
+ b=PL4aD6kTN6Ye0mJS5m6OYJeRA98cGYfrHZJYs5Vy6dDL8ZtQcLLHvI4dAqjKeKWux/REJat3Ztnx218JwhsoDkgmthgULS8zN305iRvMXTieWrX6ijI6+9pgn++ndCit1uM23osNFgy3hRRqHdlbYfUT1kwLBfKeTT0Q0Cnf1CLVfHlWTd629pGRB8R3VuoeHaC1lt4izkrrtr8Xc6XiQNVi5ojG65dGr1pJbWb6maceuuge9TY7rpVWqGU6NssCsJRm8Nr877EZV7QRLCfPiqdOJxMLM3Yj/wS8vthfRL2t40GkDJ96Ew3gGSgV86dh0/rKyt0PgkBdS80atHbVsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kvi1RsaUQAmRt3H4/gtgi9+m1SDxOY1yMNP2asVWpMA=;
+ b=3itz5PmNV6Mdf86O78EWByD/diu+0mJ7FDnW8QJ1g8PikyPPiy4aUPdJVyb6kHU48xSnxrziKOLbsWHm/p5YnVUJXconoXY/i9y1Un4MPdzs8Dt/TJhDXH2tqaxL3GqxA3fxVdR+coqB/les9qmfN/EtsWmHtctFcvsUef2bMPA=
+Received: from CH2PR20CA0011.namprd20.prod.outlook.com (2603:10b6:610:58::21)
+ by BL1PR12MB5994.namprd12.prod.outlook.com (2603:10b6:208:39a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Wed, 3 Dec
+ 2025 14:44:53 +0000
+Received: from DS3PEPF000099D4.namprd04.prod.outlook.com
+ (2603:10b6:610:58:cafe::f7) by CH2PR20CA0011.outlook.office365.com
+ (2603:10b6:610:58::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.9 via Frontend Transport; Wed, 3
+ Dec 2025 14:44:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099D4.mail.protection.outlook.com (10.167.17.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9388.8 via Frontend Transport; Wed, 3 Dec 2025 14:44:53 +0000
+Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 3 Dec 2025 08:44:51 -0600
+From: Andrew Martin <andrew.martin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Andrew Martin <andrew.martin@amd.com>
+Subject: [PATCH v5] drm/amdgpu: Ignored various return code
+Date: Wed, 3 Dec 2025 09:44:35 -0500
+Message-ID: <20251203144435.62300-1-andrew.martin@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
-X-Mailman-Approved-At: Wed, 03 Dec 2025 14:09:14 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D4:EE_|BL1PR12MB5994:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc68a19e-223e-472a-94e2-08de327a850a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pprZVs+qxr0rDy98uVBrEAQQ72auvv/dSwMQC7JzcOzIV5Q5CuMSln29wZj5?=
+ =?us-ascii?Q?2r2/WlPqylboSL9u4ibOWZsQUagQk1h5kT6HSn7bwfVN0teOxafbAu/ZyAcI?=
+ =?us-ascii?Q?tR5VZHVwsqQZdPOnHeGZTIagzVANHfBL+qCWh8GCRvAcDlGm4Mh4j0hbsQH9?=
+ =?us-ascii?Q?nN+pSxjUFy0XKZ443xk801CP5TLX6oXBeqbw5NiTDL1jIIC1Mu5ouJJXHMe5?=
+ =?us-ascii?Q?6/Y93wWVdANGVZv8LwqgRbi3TpTzMX8FCSgvJ+eDkhizKHmLiVlMyw8mLR7a?=
+ =?us-ascii?Q?dnYi8/X4/EVi7YTBqqgBobGIPYi/5tMw/nC5tP2/66rvVpJYTzvhmoNUJwI7?=
+ =?us-ascii?Q?mJx/sI5iNYcYTQpwaX2OV9QDEmAzsiCF+EVOp/GMHgiZrveTYMSQblr0DDcT?=
+ =?us-ascii?Q?tMHJXrhaPyYwUI04tB2sXTCyIT3nwT3SBI1HVTzXnXvrSYtSv6Fq0+L4+X6J?=
+ =?us-ascii?Q?qZziUlIG+P6hxLV6pSewbpRrJs0wQ2DHXUdvk3dg0mrBA+SUhVt8rQeiZ3NU?=
+ =?us-ascii?Q?+Q4gev4UlDvYu5LQblNHrq9/xWl3xmx4dow8hrO1Fd+Wf6Odntt3y5VN7rYI?=
+ =?us-ascii?Q?+bfwWk5Qgb3PFphALZwwZVNvSTETUJBkgB3CrMMt0EN6t0jhL0Z6h1AS01Q7?=
+ =?us-ascii?Q?gSpRzre4CNnUwaUbrnU7YHWn4dc+5Q8ls7K4dIiXrbKS+yAvQ89FES2JnmU3?=
+ =?us-ascii?Q?GWvS8IzLm3zSXdtu7bzF0HJ+fIYEU3cOAf7y3sZKhADg0IeRyiCcnWXHuV8W?=
+ =?us-ascii?Q?0uCalTH6hkrXIUsD9T/79etp9IA4vm0uWcjY4/O6iHd/6zUbSULXxz6kP+/5?=
+ =?us-ascii?Q?g+Q84UezxNautAPWEijkXhz5Hcu9aRBTEqwtNTi9M9meuH4EBMFrad+/aGqf?=
+ =?us-ascii?Q?06KB6M6HaxICknbroD2d4quEWO8iPvrpeywzwL0rVzvgUHSHzS+AnsVY/mAs?=
+ =?us-ascii?Q?IDNj16rUMQatLG58IjY5kVQ5wEZ6St9rDSXn3ZnOuU3OokqplObgwByzwg8Z?=
+ =?us-ascii?Q?3K1u7d5DrA0d5BQNOatplSVOLsVZ0FzA6PBuGkVUaakbZQ8IHRB8Nq6p5WSP?=
+ =?us-ascii?Q?2fh1Y6SlqlbTZIiWxuvDK4PLOHXhhqHAn95nknvvkYNnCXWmKDpSt6hCFN/O?=
+ =?us-ascii?Q?3RUWnbu9+5UXQ9F2HBBpTA6kBS0QCpztLOY9Imu3fbIqBcLQiO0AihyEM/b5?=
+ =?us-ascii?Q?yOMXEmoH0j+DmzktQc2IInWteMBxKdMreIuWKQaYJjiX4swVdSUIjkRmGmvK?=
+ =?us-ascii?Q?pPv+Qv6bep8+fBB92OVRwGXQfds6a7V27BHWTOQ3ec4678eum934buELQHjO?=
+ =?us-ascii?Q?YbBbdv5NQt3FMde1ILDJuvmBIg0geZiuP6D0o2xREINxjKf3MKjHEZ/oIfSE?=
+ =?us-ascii?Q?8D4BrIUivcRHSqqNDPQaSzoEsV2oc5cl3BDlhfl4mX56eagAscmZH2gNSsxQ?=
+ =?us-ascii?Q?aAqT0gSmiGR50EYp19EgT/cH9ahlo41FS5dXQ/gcmlg6RnJJkH1f0dvqUep8?=
+ =?us-ascii?Q?pgYnL0HuQPFmLaNzhjPKy6eIgWFfjvJSHmkbHrPqQi+c2TqQGe8kotMBgGQm?=
+ =?us-ascii?Q?n0Uh/PFzNf7Qpue53OU=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 14:44:53.1853 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc68a19e-223e-472a-94e2-08de327a850a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099D4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5994
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,260 +131,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The return code of a non void function should not be ignored. In cases
+where we do not care, the code needs to suppress it.
 
-This is a note to let you know that I've just added the patch titled
-
-    drm, fbcon, vga_switcheroo: Avoid race condition in fbcon setup
-
-to the 6.12-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-fbcon-vga_switcheroo-avoid-race-condition-in-fbcon-setup.patch
-and it can be found in the queue-6.12 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From stable+bounces-198144-greg=kroah.com@vger.kernel.org Tue Dec  2 21:23:22 2025
-From: Sasha Levin <sashal@kernel.org>
-Date: Tue,  2 Dec 2025 15:23:12 -0500
-Subject: drm, fbcon, vga_switcheroo: Avoid race condition in fbcon setup
-To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Javier Martinez Canillas <javierm@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-fbdev@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Message-ID: <20251202202312.2505097-1-sashal@kernel.org>
-
-From: Thomas Zimmermann <tzimmermann@suse.de>
-
-[ Upstream commit eb76d0f5553575599561010f24c277cc5b31d003 ]
-
-Protect vga_switcheroo_client_fb_set() with console lock. Avoids OOB
-access in fbcon_remap_all(). Without holding the console lock the call
-races with switching outputs.
-
-VGA switcheroo calls fbcon_remap_all() when switching clients. The fbcon
-function uses struct fb_info.node, which is set by register_framebuffer().
-As the fb-helper code currently sets up VGA switcheroo before registering
-the framebuffer, the value of node is -1 and therefore not a legal value.
-For example, fbcon uses the value within set_con2fb_map() [1] as an index
-into an array.
-
-Moving vga_switcheroo_client_fb_set() after register_framebuffer() can
-result in VGA switching that does not switch fbcon correctly.
-
-Therefore move vga_switcheroo_client_fb_set() under fbcon_fb_registered(),
-which already holds the console lock. Fbdev calls fbcon_fb_registered()
-from within register_framebuffer(). Serializes the helper with VGA
-switcheroo's call to fbcon_remap_all().
-
-Although vga_switcheroo_client_fb_set() takes an instance of struct fb_info
-as parameter, it really only needs the contained fbcon state. Moving the
-call to fbcon initialization is therefore cleaner than before. Only amdgpu,
-i915, nouveau and radeon support vga_switcheroo. For all other drivers,
-this change does nothing.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Link: https://elixir.bootlin.com/linux/v6.17/source/drivers/video/fbdev/core/fbcon.c#L2942 # [1]
-Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-Cc: linux-fbdev@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v2.6.34+
-Link: https://patch.msgid.link/20251105161549.98836-1-tzimmermann@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Andrew Martin <andrew.martin@amd.com>
 ---
- drivers/gpu/drm/drm_fb_helper.c            |    6 ------
- drivers/gpu/drm/i915/display/intel_fbdev.c |    6 ------
- drivers/gpu/drm/radeon/radeon_fbdev.c      |    5 -----
- drivers/video/fbdev/core/fbcon.c           |    9 +++++++++
- 4 files changed, 9 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 8 +++-----
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 8 ++++++--
+ 2 files changed, 9 insertions(+), 7 deletions(-)
 
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -30,9 +30,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/console.h>
--#include <linux/pci.h>
- #include <linux/sysrq.h>
--#include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
-@@ -1637,10 +1635,6 @@ static int drm_fb_helper_single_fb_probe
- 
- 	strcpy(fb_helper->fb->comm, "[fbcon]");
- 
--	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
--	if (dev_is_pci(dev->dev))
--		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
--
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index a2879d2b7c8e..02259886f93a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -312,8 +312,7 @@ int amdgpu_amdkfd_post_reset(struct amdgpu_device *adev)
+ void amdgpu_amdkfd_gpu_reset(struct amdgpu_device *adev)
+ {
+ 	if (amdgpu_device_should_recover_gpu(adev))
+-		amdgpu_reset_domain_schedule(adev->reset_domain,
+-					     &adev->kfd.reset_work);
++		(void)amdgpu_reset_domain_schedule(adev->reset_domain, &adev->kfd.reset_work);
  }
  
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -589,11 +589,8 @@ static int intel_fbdev_restore_mode(stru
- static void intel_fbdev_client_unregister(struct drm_client_dev *client)
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
--	struct drm_device *dev = fb_helper->dev;
--	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 
- 	if (fb_helper->info) {
--		vga_switcheroo_client_fb_set(pdev, NULL);
- 		drm_fb_helper_unregister_info(fb_helper);
- 	} else {
- 		drm_fb_helper_unprepare(fb_helper);
-@@ -620,7 +617,6 @@ static int intel_fbdev_client_hotplug(st
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
- 	struct drm_device *dev = client->dev;
--	struct pci_dev *pdev = to_pci_dev(dev->dev);
- 	int ret;
- 
- 	if (dev->fb_helper)
-@@ -634,8 +630,6 @@ static int intel_fbdev_client_hotplug(st
- 	if (ret)
- 		goto err_drm_fb_helper_fini;
- 
--	vga_switcheroo_client_fb_set(pdev, fb_helper->info);
--
- 	return 0;
- 
- err_drm_fb_helper_fini:
---- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-+++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-@@ -300,10 +300,8 @@ static void radeon_fbdev_client_unregist
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
- 	struct drm_device *dev = fb_helper->dev;
--	struct radeon_device *rdev = dev->dev_private;
- 
- 	if (fb_helper->info) {
--		vga_switcheroo_client_fb_set(rdev->pdev, NULL);
- 		drm_helper_force_disable_all(dev);
- 		drm_fb_helper_unregister_info(fb_helper);
- 	} else {
-@@ -325,7 +323,6 @@ static int radeon_fbdev_client_hotplug(s
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
- 	struct drm_device *dev = client->dev;
--	struct radeon_device *rdev = dev->dev_private;
- 	int ret;
- 
- 	if (dev->fb_helper)
-@@ -342,8 +339,6 @@ static int radeon_fbdev_client_hotplug(s
- 	if (ret)
- 		goto err_drm_fb_helper_fini;
- 
--	vga_switcheroo_client_fb_set(rdev->pdev, fb_helper->info);
--
- 	return 0;
- 
- err_drm_fb_helper_fini:
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -65,6 +65,7 @@
- #include <linux/string.h>
- #include <linux/kd.h>
- #include <linux/panic.h>
-+#include <linux/pci.h>
- #include <linux/printk.h>
- #include <linux/slab.h>
- #include <linux/fb.h>
-@@ -77,6 +78,7 @@
- #include <linux/interrupt.h>
- #include <linux/crc32.h> /* For counting font checksums */
- #include <linux/uaccess.h>
-+#include <linux/vga_switcheroo.h>
- #include <asm/irq.h>
- 
- #include "fbcon.h"
-@@ -2894,6 +2896,9 @@ void fbcon_fb_unregistered(struct fb_inf
- 
- 	console_lock();
- 
-+	if (info->device && dev_is_pci(info->device))
-+		vga_switcheroo_client_fb_set(to_pci_dev(info->device), NULL);
+ int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
+@@ -714,9 +713,8 @@ void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool idle)
+ 		if (gfx_block != NULL)
+ 			gfx_block->version->funcs->set_powergating_state((void *)gfx_block, state);
+ 	}
+-	amdgpu_dpm_switch_power_profile(adev,
+-					PP_SMC_POWER_PROFILE_COMPUTE,
+-					!idle);
++	(void)amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_COMPUTE, !idle);
 +
- 	fbcon_registered_fb[info->node] = NULL;
- 	fbcon_num_registered_fb--;
+ }
  
-@@ -3027,6 +3032,10 @@ static int do_fb_registered(struct fb_in
- 		}
+ bool amdgpu_amdkfd_is_kfd_vmid(struct amdgpu_device *adev, u32 vmid)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 041237861107..66ded3c07eef 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2796,8 +2796,12 @@ static int runtime_enable(struct kfd_process *p, uint64_t r_debug,
+ 		 * SET_SHADER_DEBUGGER clears any stale process context data
+ 		 * saved in MES.
+ 		 */
+-		if (pdd->dev->kfd->shared_resources.enable_mes)
+-			kfd_dbg_set_mes_debug_mode(pdd, !kfd_dbg_has_cwsr_workaround(pdd->dev));
++		if (pdd->dev->kfd->shared_resources.enable_mes) {
++			ret = kfd_dbg_set_mes_debug_mode(
++				pdd, !kfd_dbg_has_cwsr_workaround(pdd->dev));
++			if (ret)
++				return ret;
++		}
  	}
  
-+	/* Set the fb info for vga_switcheroo clients. Does nothing otherwise. */
-+	if (info->device && dev_is_pci(info->device))
-+		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
-+
- 	return ret;
- }
- 
+ 	p->runtime_info.runtime_state = DEBUG_RUNTIME_STATE_ENABLED;
+-- 
+2.43.0
 
-
-Patches currently in stable-queue which might be from sashal@kernel.org are
-
-queue-6.12/usb-typec-ucsi-psy-set-max-current-to-zero-when-disconnected.patch
-queue-6.12/net-fec-do-not-update-perout-if-it-is-enabled.patch
-queue-6.12/spi-nxp-fspi-propagate-fwnode-in-acpi-case-as-well.patch
-queue-6.12/spi-amlogic-spifc-a1-handle-devm_pm_runtime_enable-e.patch
-queue-6.12/can-gs_usb-gs_usb_receive_bulk_callback-check-actual.patch
-queue-6.12/drm-xe-fix-conversion-from-clock-ticks-to-millisecon.patch
-queue-6.12/mm-huge_memory-fix-null-pointer-deference-when-splitting-folio.patch
-queue-6.12/usb-gadget-udc-fix-use-after-free-in-usb_gadget_state_work.patch
-queue-6.12/spi-spi-nxp-fspi-remove-the-goto-in-probe.patch
-queue-6.12/net-atlantic-fix-fragment-overflow-handling-in-rx-pa.patch
-queue-6.12/bluetooth-btusb-mediatek-fix-kernel-crash-when-relea.patch
-queue-6.12/mailbox-mtk-cmdq-refine-dma-address-handling-for-the.patch
-queue-6.12/bluetooth-hci_core-fix-triggering-cmd_timer-for-hci_.patch
-queue-6.12/platform-x86-intel-punit_ipc-fix-memory-corruption.patch
-queue-6.12/veth-reduce-xdp-no_direct-return-section-to-fix-race.patch
-queue-6.12/net-sched-generalize-check-for-no-queue-qdisc-on-tx-.patch
-queue-6.12/iio-st_lsm6dsx-fixed-calibrated-timestamp-calculatio.patch
-queue-6.12/net-lan966x-fix-the-initialization-of-taprio.patch
-queue-6.12/net-phy-mxl-gpy-fix-bogus-error-on-usxgmii-and-integ.patch
-queue-6.12/can-rcar_canfd-fix-can-fd-mode-as-default.patch
-queue-6.12/net-dsa-sja1105-simplify-static-configuration-reload.patch
-queue-6.12/veth-apply-qdisc-backpressure-on-full-ptr_ring-to-re.patch
-queue-6.12/bluetooth-hci_sock-prevent-race-in-socket-write-iter.patch
-queue-6.12/net-fec-do-not-allow-enabling-pps-and-perout-simulta.patch
-queue-6.12/net-sxgbe-fix-potential-null-dereference-in-sxgbe_rx.patch
-queue-6.12/net-dsa-microchip-do-not-execute-ptp-driver-code-for-unsupported-switches.patch
-queue-6.12/spi-spi-mem-add-a-new-controller-capability.patch
-queue-6.12/net-dsa-sja1105-fix-sgmii-linking-at-10m-or-100m-but.patch
-queue-6.12/fs-namespace-fix-reference-leak-in-grab_requested_mn.patch
-queue-6.12/usb-gadget-renesas_usbf-handle-devm_pm_runtime_enabl.patch
-queue-6.12/veth-prevent-null-pointer-dereference-in-veth_xdp_rc.patch
-queue-6.12/drm-amdgpu-fix-cyan_skillfish2-gpu-info-fw-handling.patch
-queue-6.12/mailbox-pcc-refactor-error-handling-in-irq-handler-i.patch
-queue-6.12/net-fec-cancel-perout_timer-when-perout-is-disabled.patch
-queue-6.12/net-mlx5e-fix-validation-logic-in-rate-limiting.patch
-queue-6.12/eth-fbnic-fix-counter-roll-over-issue.patch
-queue-6.12/net-fec-do-not-register-pps-event-for-perout.patch
-queue-6.12/spi-spi-mem-allow-specifying-the-byte-order-in-octal.patch
-queue-6.12/net-wwan-mhi-keep-modem-name-match-with-foxconn-t99w.patch
-queue-6.12/can-kvaser_usb-leaf-fix-potential-infinite-loop-in-c.patch
-queue-6.12/mailbox-mailbox-test-fix-debugfs_create_dir-error-ch.patch
-queue-6.12/veth-more-robust-handing-of-race-to-avoid-txq-gettin.patch
-queue-6.12/usb-udc-add-trace-event-for-usb_gadget_set_state.patch
-queue-6.12/spi-spi-mem-extend-spi-mem-operations-with-a-per-ope.patch
-queue-6.12/net-dsa-microchip-free-previously-initialized-ports-on-init-failures.patch
-queue-6.12/drm-fbcon-vga_switcheroo-avoid-race-condition-in-fbcon-setup.patch
-queue-6.12/spi-bcm63xx-fix-premature-cs-deassertion-on-rx-only-.patch
-queue-6.12/spi-nxp-fspi-support-per-spi-mem-operation-frequency.patch
-queue-6.12/spi-spi-nxp-fspi-add-oct-dtr-mode-support.patch
-queue-6.12/net-dsa-microchip-fix-symetry-in-ksz_ptp_msg_irq_-setup-free.patch
-queue-6.12/spi-tegra114-remove-kconfig-dependency-on-tegra20_ap.patch
-queue-6.12/can-gs_usb-gs_usb_xmit_callback-fix-handling-of-fail.patch
-queue-6.12/team-move-team-device-type-change-at-the-end-of-team.patch
-queue-6.12/net-aquantia-add-missing-descriptor-cache-invalidati.patch
-queue-6.12/bluetooth-smp-fix-not-generating-mackey-and-ltk-when.patch
-queue-6.12/mailbox-pcc-don-t-zero-error-register.patch
-queue-6.12/can-gs_usb-gs_usb_receive_bulk_callback-check-actual.patch-29525
