@@ -4,79 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B740AD12D55
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 12:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8DCBD12D50
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 13:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 589B910E788;
-	Wed,  3 Dec 2025 12:19:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5563310E7A2;
+	Wed,  3 Dec 2025 13:00:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZNLWxb7u";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RdGLYjhr";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6802310E788
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Dec 2025 12:19:56 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4775ae5684fso31897825e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Dec 2025 04:19:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764764395; x=1765369195; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QlxVp9dqRcA2jpMhVYIan4EgPyzzqXl7hx+uY1LH8Rg=;
- b=ZNLWxb7ukOZQzzWxJwG2kkyN6vkfmdQFnOO3LA9L9U0XUBHwpOYB93+faeTluhN2PE
- VpwLYRb33iQEi5t+IOqKKGloHbK3PehDFnW+zrZOnyDI/uomPdY7Jv8M82ac2MXGEzXF
- zpdFs9NpBcUv4Z0uCWz+VeL9tLVfnp92YYK1N9p+5Qi01n9Yz08b9DuloNF+xTUgY1xU
- YRGHt5p7nxE24TEbmf0QwVM4fitzLJR8JuhkdGLnu2V0medz3YK2P3VIgNV47/QlL1cj
- Rc5VgzNhbSAlQKTIWZoOjElgVdYKPtt0kJoTew3c5OGtXsg9UJu/hR8N6tq8ABxSftmZ
- BfJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764764395; x=1765369195;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QlxVp9dqRcA2jpMhVYIan4EgPyzzqXl7hx+uY1LH8Rg=;
- b=IbtCes6KCkXYiMyuFBUjBPelFEPj9hfr5+JG7Rwrx3ruSnjgkEQQLisq/fAhlzMbE4
- 9RVP3HnJG5Rs6XYTQ52MJuS1zSUiyxRwS1clWszCQiUsX1W6p6o1DqbOlGlUNRc9fBII
- sovF+Pxg2McTyjYnvyJHrLx/0YBiGctf0Uv3WNso3n41Vcw9tseaCaN328rBJMAcZbec
- Twh/PcqNM13dbdxJiqaKEC98CnzN3/5jqTAkIqGgfT6q6kj+ozdNeyeW6K+hfptu3cqN
- qi4QjQaQ4jyLt3Cfz+TCOi4O2xEN4gLVCJmZKDpAfG4Ifz1048+sTpHre9dcZoCHAI7e
- 73jQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWJFqvnTbFNjsyf7t08RCE4FTDGhL41sqQWd2QoM85V2V8DR6GIYNlw5wYJfXHS49M/0p/IJP8J@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzeo9kWXlR6rg9URHAwCi/AZycFYO91+NuD/HWQn0uboXfk5fG+
- OnlP0lysEKMez3wgr2D9yYiWSD1VS5vOsMS5R4yYIgpKET3UCykg4dGm
-X-Gm-Gg: ASbGncv9oF8eF73BclmQcL5unZJd8OHFhPviKEL9HYPtFS9JAfZRqqfvngBpujKv1S/
- sq8zDDI1TjxdLWmGQNyj+nfNHJdmETrvcmjl/VDMTj7Bhqs9uZf57MTWcGjeYP1owfCE+MTC51h
- XE/wyKwu1e79oSH0TK9HU1QfS7uXbJ6g5o2T3srFDrheLfd7wmr4ab9eHFHw6hlCbcg6jsWEHN+
- nkQFv5PmKOdyh492+dse1tLU3d5VeK2cZ8wz67XwSX5oqXng3/0+tEm8pb71pFo9kMhTWkvNGDJ
- wvPJlzCxLBmeXwvvG0SEXX9y8QOywXN6s7q24DmSaFrOrxwAQswiYbAl8KBx/Re0xvrU1mV9eQV
- HScdL1Kd39rd4QqnQArHt7/kOji8a77wVwwMoeXq3kEq8/CI5INxFT8sG8fjfPX1+e89JQB8Ti0
- NWIDb+3pXeu9TMmb1gA2CgyUSqaQkMyMGYbJEKBcBzGWGgoT7o1lOoN0MJVsFEYV8fjP4OQMWkn
- Q8RWIpgSgrNYrVD3SjhEFnUMtp7JsGhyfy4d9yIZxXcJbwkR1vszPI=
-X-Google-Smtp-Source: AGHT+IH9zDPgsbAGP0c1bcn82pXCOPpLhlhVWoBWouhn7VEm5z2XpzNE5GQxJ+HMizGf1hssfyKWcQ==
-X-Received: by 2002:a05:600c:1d0d:b0:46e:37a7:48d1 with SMTP id
- 5b1f17b1804b1-4792af49480mr18689815e9.34.1764764394700; 
- Wed, 03 Dec 2025 04:19:54 -0800 (PST)
-Received: from ?IPv6:2001:4c4e:24e0:9500:1ded:b2c8:b651:4266?
- (20014C4E24E095001DEDB2C8B6514266.dsl.pool.telekom.hu.
- [2001:4c4e:24e0:9500:1ded:b2c8:b651:4266])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4792a7a31ecsm44017205e9.7.2025.12.03.04.19.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Dec 2025 04:19:54 -0800 (PST)
-Message-ID: <d8731e63e9a412f8b6100b140db8fda619bd79db.camel@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: don't attach the tlb fence for SI
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Date: Wed, 03 Dec 2025 13:19:53 +0100
-In-Reply-To: <20251202192932.2038495-1-alexander.deucher@amd.com>
-References: <20251202192932.2038495-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5304410E7A2;
+ Wed,  3 Dec 2025 13:00:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764766845; x=1796302845;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=7Ex22NmRb+ltROBqE8aUtTTEgBZGaV5+BxwwanDmzvg=;
+ b=RdGLYjhr0BoFZI6jVqZbwing/3MyoGZztZFPlZ9wDJFz7qj3XQfBlpe9
+ kymVB8ti0+ymPBy8gT/AW48U5+3sKNH2lT3PPR6BKNjshIdrL41zfodej
+ dAh6yyLo2s6sVWYtaPyRjmIHN4QBeguyNEs7FOYFuKvG7vwfrfLLelTa9
+ IPF7Snjx2BgBMybsBG/fENjAGeam9i54G51WL4VUQhsNEW+IY9ur8yuqS
+ i6gz1LRBQ/GTaOr989aIhM7z3St/xmyh2Rlue0Hfi5hdJk18ynBdun0w3
+ NQ6thwHWWusMDM/L6UxwaSApaQ6IYKU+o5qseLMXcmCiPKHU72QnWkRlK A==;
+X-CSE-ConnectionGUID: DAdQkWUQRVmPyLwO3IvgHQ==
+X-CSE-MsgGUID: 33Edowb+TcGmUCyKZRcPEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11631"; a="65757356"
+X-IronPort-AV: E=Sophos;i="6.20,245,1758610800"; d="scan'208";a="65757356"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2025 05:00:45 -0800
+X-CSE-ConnectionGUID: QDjLNDHURO6jWBx/UaY0MQ==
+X-CSE-MsgGUID: zi5wB0v7TjqPXACtOBJCBg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,245,1758610800"; d="scan'208";a="199627110"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.226])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2025 05:00:42 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, airlied@gmail.com, simona.vetter@ffwll.ch
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [pull] amdgpu, amdkfd drm-next-6.19
+In-Reply-To: <20251202220101.2039347-1-alexander.deucher@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251202220101.2039347-1-alexander.deucher@amd.com>
+Date: Wed, 03 Dec 2025 15:00:39 +0200
+Message-ID: <3a184e3f3c0623107caf400511905ba9d0851424@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,38 +69,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-12-02 at 14:29 -0500, Alex Deucher wrote:
-> SI hardware doesn't support pasids, user mode queues, or
-> KIQ/MES so there is no need for this.=C2=A0 Doing so results in
-> a segfault as these callbacks are non-existent for SI.
->=20
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4744
-> Fixes: f3854e04b708 ("drm/amdgpu: attach tlb fence to the PTs
-> update")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+On Tue, 02 Dec 2025, Alex Deucher <alexander.deucher@amd.com> wrote:
+> Hi Dave, Simona,
+>
+> Fixes for 6.19.
+>
+> The following changes since commit ee9b603ad43f9870eb75184f9fb0a84f8c3cc8=
+52:
+>
+>   drm/amdgpu: Add sriov vf check for VCN per queue reset support. (2025-1=
+1-19 17:34:16 -0500)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.19-2=
+025-12-02
+>
+> for you to fetch changes up to 3925683515e93844be204381d2d5a1df5de34f31:
+>
+>   Revert "drm/amd: Skip power ungate during suspend for VPE" (2025-12-02 =
+11:02:07 -0500)
+>
+> ----------------------------------------------------------------
+> amd-drm-next-6.19-2025-12-02:
 
-Thank you Alex!
+I presume this merge broke the drm-tip build:
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.o
+../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4026:13: err=
+or: redefinition of =E2=80=98are_sinks_equal=E2=80=99
+ 4026 | static bool are_sinks_equal(const struct dc_sink *sink1, const stru=
+ct dc_sink *sink2)
+      |             ^~~~~~~~~~~~~~~
+../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3935:13: not=
+e: previous definition of =E2=80=98are_sinks_equal=E2=80=99 with type =E2=
+=80=98bool(const struct dc_sink *, const struct dc_sink *)=E2=80=99 {aka =
+=E2=80=98_Bool(const struct dc_sink *, const struct dc_sink *)=E2=80=99}
+ 3935 | static bool are_sinks_equal(const struct dc_sink *sink1, const stru=
+ct dc_sink *sink2)
+      |             ^~~~~~~~~~~~~~~
+../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4058:13: err=
+or: redefinition of =E2=80=98hdmi_hpd_debounce_work=E2=80=99
+ 4058 | static void hdmi_hpd_debounce_work(struct work_struct *work)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3967:13: not=
+e: previous definition of =E2=80=98hdmi_hpd_debounce_work=E2=80=99 with typ=
+e =E2=80=98void(struct work_struct *)=E2=80=99
+ 3967 | static void hdmi_hpd_debounce_work(struct work_struct *work)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+../drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3967:13: err=
+or: =E2=80=98hdmi_hpd_debounce_work=E2=80=99 defined but not used [-Werror=
+=3Dunused-function]
+cc1: all warnings being treated as errors
 
-> ---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 +++-
-> =C2=A01 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 6a2ea200d90c8..0eccb31793ca7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1069,7 +1069,9 @@ amdgpu_vm_tlb_flush(struct
-> amdgpu_vm_update_params *params,
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	/* Prepare a TLB flush fence to be attached to PTs */
-> -	if (!params->unlocked) {
-> +	if (!params->unlocked &&
-> +	=C2=A0=C2=A0=C2=A0 /* SI doesn't support pasid or KIQ/MES */
-> +	=C2=A0=C2=A0=C2=A0 params->adev->family > AMDGPU_FAMILY_SI) {
-> =C2=A0		amdgpu_vm_tlb_fence_create(params->adev, vm, fence);
-> =C2=A0
-> =C2=A0		/* Makes sure no PD/PT is freed before the flush */
+
+BR,
+Jani.
+
+
+>
+> amdgpu:
+> - Unified MES fix
+> - SMU 11 unbalanced irq fix
+> - Fix for driver reloading on APUs
+> - pp_table sysfs fix
+> - Fix memory leak in fence handling
+> - HDMI fix
+> - DC cursor fixes
+> - eDP panel parsing fix
+> - Brightness fix
+> - DC analog fixes
+> - EDID retry fixes
+> - UserQ fixes
+> - RAS fixes
+> - IP discovery fix
+> - Add missing locking in amdgpu_ttm_access_memory_sdma()
+> - Smart Power OLED fix
+> - PRT and page fault fixes for GC 6-8
+> - VMID reservation fix
+> - ACP platform device fix
+> - Add missing vm fault handling for GC 11-12
+> - VPE fix
+>
+> amdkfd:
+> - Partitioning fix
+>
+> ----------------------------------------------------------------
+> Aditya Gollamudi (1):
+>       drm/amd/display: fix typo in display_mode_core_structs.h
+>
+> Alex Deucher (5):
+>       Revert "drm/amd/display: Move setup_stream_attribute"
+>       drm/amdgpu: fix cyan_skillfish2 gpu info fw handling
+>       drm/amdgpu/gmc11: add amdgpu_vm_handle_fault() handling
+>       drm/amdgpu/gmc12: add amdgpu_vm_handle_fault() handling
+>       drm/amdgpu: use common defines for HUB faults
+>
+> Alex Hung (1):
+>       drm/amd/display: Check NULL before accessing
+>
+> Brady Norander (1):
+>       drm/amdgpu: use static ids for ACP platform devs
+>
+> Dan Carpenter (1):
+>       drm/amd/display: Fix logical vs bitwise bug in get_embedded_panel_i=
+nfo_v2_1()
+>
+> Eric Huang (1):
+>       drm/amdkfd: assign AID to uuid in topology for SPX mode
+>
+> Ian Chen (1):
+>       drm/amd/display: fix Smart Power OLED not working after S4
+>
+> Ivan Lipski (2):
+>       drm/amd/display: Check ATOM_DEVICE_CRT2_SUPPORT in dc_load_detection
+>       drm/amd/display: Move RGB-type check for audio sync to DCE HW seque=
+nce
+>
+> Mario Limonciello (AMD) (3):
+>       drm/amd/display: Don't change brightness for disabled connectors
+>       drm/amd/display: Increase EDID read retries
+>       Revert "drm/amd: Skip power ungate during suspend for VPE"
+>
+> Michael Chen (1):
+>       drm/amd/amdgpu: reserve vm invalidation engine for uni_mes
+>
+> Natalie Vock (1):
+>       drm/amdgpu: Forward VMID reservation errors
+>
+> Nicholas Kazlauskas (1):
+>       drm/amd/display: Add cursor offload abort to the new HWSS path
+>
+> Pierre-Eric Pelloux-Prayer (3):
+>       drm/amdgpu: clear job on failure in amdgpu_job_alloc(_with_ib)
+>       drm/amdgpu: free job fences on failure in amdgpu_job_alloc_with_ib
+>       drm/amdgpu: add missing lock to amdgpu_ttm_access_memory_sdma
+>
+> Prike Liang (1):
+>       drm/amdgpu: attach tlb fence to the PTs update
+>
+> Rodrigo Siqueira (2):
+>       drm/amdgpu: Fix GFX hang on SteamDeck when amdgpu is reloaded
+>       Revert "drm/amd: fix gfx hang on renoir in IGT reload test"
+>
+> Srinivasan Shanmugam (3):
+>       drm/amd/display: Fix dereference-before-check for dc_link
+>       drm/amdgpu: Fix CPER ring debugfs read buffer overflow risk
+>       drm/amdgpu/sdma6: Update SDMA 6.0.3 FW version to include UMQ prote=
+cted-fence fix
+>
+> Timur Krist=C3=B3f (10):
+>       drm/amdgpu/si_ih: Enable soft IRQ handler ring
+>       drm/amdgpu/cik_ih: Enable soft IRQ handler ring
+>       drm/amdgpu/iceland_ih: Enable soft IRQ handler ring
+>       drm/amdgpu/tonga_ih: Enable soft IRQ handler ring
+>       drm/amdgpu/cz_ih: Enable soft IRQ handler ring
+>       drm/amdgpu/gmc6: Don't print MC client as it's unknown
+>       drm/amdgpu/gmc6: Cache VM fault info
+>       drm/amdgpu/gmc6: Delegate VM faults to soft IRQ handler ring
+>       drm/amdgpu/gmc7: Delegate VM faults to soft IRQ handler ring
+>       drm/amdgpu/gmc8: Delegate VM faults to soft IRQ handler ring
+>
+> Yang Wang (2):
+>       drm/amd/pm: fix amdgpu_irq enabled counter unbalanced on smu v11.0
+>       drm/amd/pm: adjust the visibility of pp_table sysfs node
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c            | 10 ++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 19 ++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h            |  5 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  4 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  5 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  5 ++--
+>  drivers/gpu/drm/amd/amdgpu/cik_ih.c                | 12 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/cz_ih.c                 | 10 ++++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |  6 +++--
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             | 29 ++++++++++++++++=
+++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c             | 29 ++++++++++++++++=
+++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c              | 20 ++++++++++-----
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c              |  6 +++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c              |  6 +++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  6 +++--
+>  drivers/gpu/drm/amd/amdgpu/iceland_ih.c            | 10 ++++++++
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/si_ih.c                 | 12 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/soc15.c                 |  4 ---
+>  drivers/gpu/drm/amd/amdgpu/tonga_ih.c              | 10 ++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |  4 ++-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 24 ++++++++++++++--=
+--
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  8 +++---
+>  drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  |  2 +-
+>  drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |  8 +++---
+>  drivers/gpu/drm/amd/display/dc/core/dc.c           |  6 +++++
+>  .../gpu/drm/amd/display/dc/core/dc_hw_sequencer.c  | 24 ++++++++++++++++=
+++
+>  drivers/gpu/drm/amd/display/dc/core/dc_stream.c    | 11 +++++---
+>  .../display/dc/dml2_0/display_mode_core_structs.h  |  2 +-
+>  .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |  4 ++-
+>  .../drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    |  2 --
+>  .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  |  4 +--
+>  drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h | 13 ++++++++++
+>  drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |  6 +++--
+>  .../display/dc/virtual/virtual_stream_encoder.c    |  7 ------
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c                | 12 ++++++---
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c                 | 11 +++++++-
+>  drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |  5 +++-
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  9 ++++---
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |  7 +++++-
+>  42 files changed, 320 insertions(+), 64 deletions(-)
+
+--=20
+Jani Nikula, Intel
