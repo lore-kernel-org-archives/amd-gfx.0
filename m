@@ -4,66 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED6FDD1F9D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 12:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DBC6D20694
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 13:40:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A87110E952;
-	Thu,  4 Dec 2025 12:12:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DFF310E1DD;
+	Thu,  4 Dec 2025 13:40:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mFHyZRom";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GLrtC2q+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7A310E94D;
- Thu,  4 Dec 2025 12:12:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764850342; x=1796386342;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=MuqajGwfhj3xCGfoQBWQRUMFLnPMA7ZJP0BEJMHlEgs=;
- b=mFHyZRoms4z+hhRJ9eRMa9rUhVrO9NX3annS981lmoRBBkfYAY4BMvVM
- aEYWi7wjscqUDiR/XT2QUpckeOLy4bovTAwfzmNGsQ8wq9UHbhINVYIQy
- OKUIfl/D2k0c4azT0tHsyBtveWnFDT9/kv3liv7qt/LsJF42O7sadgQed
- mJjvQ+IZq0b+Ibb0q5EWEcsVPmuZfa9kcKwU8zlxfSOB66woapxZRDHL6
- Zpg5SuluTkCJVjpYhifDpVIDZybCLJRcoaCLvjvaClVfPgitM5v+tYtgs
- VdVVvB7dXU31rMsScRnqLbppYAdzLCBwUliAKSkr2GkQny2z2yJLtPDm8 A==;
-X-CSE-ConnectionGUID: 7VXuqHfYS6m/WWbrzRTMEA==
-X-CSE-MsgGUID: IJxTcL6GTlywLGp2D29cxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11631"; a="77547485"
-X-IronPort-AV: E=Sophos;i="6.20,248,1758610800"; d="scan'208";a="77547485"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2025 04:12:22 -0800
-X-CSE-ConnectionGUID: mah35uXRTZuwN87oCwh9mw==
-X-CSE-MsgGUID: AvrZViaOTk+vFXc36Jwmsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,248,1758610800"; d="scan'208";a="200097039"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.11])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2025 04:12:16 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Yaroslav Bolyukin <iam@lach.pw>, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Yaroslav
- Bolyukin <iam@lach.pw>
-Subject: Re: [PATCH v7 6/7] drm/edid: parse DRM VESA dsc bpp target
-In-Reply-To: <20251202110218.9212-7-iam@lach.pw>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20251202110218.9212-1-iam@lach.pw>
- <20251202110218.9212-7-iam@lach.pw>
-Date: Thu, 04 Dec 2025 14:12:12 +0200
-Message-ID: <22d49b0cd8b52f485c51af530f49cd8771b2634c@intel.com>
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7779A10E81D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Dec 2025 23:58:48 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2953ad5517dso3437395ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 03 Dec 2025 15:58:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764806328; x=1765411128; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=GRvZmNocZChOaH+XMJgg9lf8vYT4BPfuN+xdAI+uCKk=;
+ b=GLrtC2q+V0Pfx22c3ZFaglPxuL/qjChCorLeXyUMmFMQk9pk7dc6i+yaoXNLqoxGGH
+ mC51v1ipvnycfx/fVPpYiNylLi6lYglqmkGAWL7wy/D8MABSWxZDYfbxwRdBpdUYsStN
+ Qq5HhmPjwaasUefP2qlwds7m+inmIF9m+3SQRjoUQBKBa9EoTorC9NqCOtDSUZWMgIGz
+ gJlHaId+P18UD/EoClYkIpmiPUMQgyoUic9RLJDoTulyyVGUF6b+OniB6YoFShoKg1P/
+ TsWy8zKFrm2cD0kC5H1Wq8omKhKH7hvqvKwUu9r7GGt0Q2Z+LShCp00WWLPhPPjAUyhc
+ HIvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764806328; x=1765411128;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=GRvZmNocZChOaH+XMJgg9lf8vYT4BPfuN+xdAI+uCKk=;
+ b=LCqgzG9heqs1bLD0ZcsOgiU4d20hA/LaQHLoHm0R7FRD5+6zL7E2Ax7N5fTK3y8/Kr
+ ue4P6Tu8C18fY6q2X6EeOxaMOaGt3V550Lbp8hZbbaqFcoSeWRvGug9uF6J3KvmokWtn
+ RfKpjr40PgX7HfYVdxj4IA9O7cui7KaaauJ7mAAj3ddx+C2DofKsFCbBFOWGq3ahRZO6
+ Ei2EeLhok5PryxTdUoC2i4BnYWNi9ha7395CnkHori3GgdpaxnWh135NY5mnDH4dnQcs
+ RUQQ7TNSdNsMuENreWrEkC+q1l8Qhc6MtddGcXKBiq7QziazAdr/4oX8aS28FxZlWb3D
+ Ibvg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUxRc4v3VXkldQpjFRz8DKvsT3IO4ltduXJtY2tZPSGzHCQRABAMYz6/tJYDXMkClnw3CDjkOUp@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwkK7CbiXjzxYn0lZAmHqMxkpAv2xQywVKM1I8Tmt28meb3XJCN
+ p70fwXKyfI9Kk/mOuiflet1ONGQbnUKiH2Yi5QfVdLGdbKdzFo6yB1a9
+X-Gm-Gg: ASbGncsmt+SHENRaKChzY//kdv+i1+g65E7PCIMnm2qDSb2UQjSeQ6wDuvRe/m0FOzg
+ HVdon7+UboX+b2P0IFLsK0zMdaN+ev3y/DlWeZPTtKmDHNAco2Y47PTbug6A6BWRfjPqPruj3hp
+ gDAjGZ7LOoIYGB8Bnrh4OTVKiw0sweNBxa1IrX3BavrgCb0xy2ExOUQ8D5e0vkMGBshs/daFOME
+ 5EAI1h1R2dawxglbSVoC1sPHF1FJIrqgTT4etQH7feMMf89w5cpN/Z7G2mYAlXwFV39BASCRcNr
+ Uk6HFNbYIHEzlZELkrg8yTz2mU+6S7P4fhZ7vjkiJGdlw8H807kO4iNArlCrItQJtCsgCpdr4Fp
+ Z4c4lBbo4ViKmWXjTQ9dBgsUotAEzlUCkOvrnVf2LyzXvoONwre6zH5Z301RXpCboObeFmUMamG
+ j0tzBTS4v6zcM=
+X-Google-Smtp-Source: AGHT+IGLmOh6OQdBHx4G5q4S6N/1ExJ2TdxuwD40xz88RA8jLaB2hG2Ymfw2hokNgJs/XVsvYbEIzg==
+X-Received: by 2002:a17:903:2ac6:b0:295:507c:4b80 with SMTP id
+ d9443c01a7336-29da1f20fb3mr11557625ad.61.1764806327742; 
+ Wed, 03 Dec 2025 15:58:47 -0800 (PST)
+Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-29dae99f223sm236425ad.62.2025.12.03.15.58.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Dec 2025 15:58:46 -0800 (PST)
+Received: by archie.me (Postfix, from userid 1000)
+ id 86DA441E8D3F; Thu, 04 Dec 2025 06:58:44 +0700 (WIB)
+Date: Thu, 4 Dec 2025 06:58:44 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Shuah Khan <skhan@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: Linux 6.18 amdgpu build error
+Message-ID: <aTDOtCpsnfHZIJLm@archie.me>
+References: <74032153-813a-4a40-8363-cce264f4d5ea@linuxfoundation.org>
+ <1eb24816-530b-4470-8e58-ce7d8297996c@roeck-us.net>
+ <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
+ <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
+ <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="erbTTBANn0MwVJLS"
+Content-Disposition: inline
+In-Reply-To: <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
+X-Mailman-Approved-At: Thu, 04 Dec 2025 13:40:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,109 +97,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 02 Dec 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
-> As per DisplayID v2.1a spec "DSC pass-through timing support",
-> VESA vendor-specific data block may contain target DSC bits per pixel
-> fields, that should be always used for the VII modes that declare they
-> only support working with this value (Pass-through Timing Support for
-> Target DSC Bits per Pixel).
->
-> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
->
-> fixup parse DRM vesa dsc bpp target
 
-Needs to be removed while applying, no need to resend for this.
+--erbTTBANn0MwVJLS
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+On Wed, Dec 03, 2025 at 03:16:24PM -0700, Shuah Khan wrote:
+> I am also seeing issues with cloning kernel.org repos on my system after
+> a recent update:
+>=20
+> remote: Enumerating objects: 11177736, done.
+> remote: Counting objects: 100% (1231/1231), done.
+> remote: Compressing objects: 100% (624/624), done.
+> remote: Total 11177736 (delta 855), reused 781 (delta 606), pack-reused 1=
+1176505 (from 1)
+> Receiving objects: 100% (11177736/11177736), 3.01 GiB | 7.10 MiB/s, done.
+> Resolving deltas: 100% (9198323/9198323), done.
+> fatal: did not receive expected object 0002003e951b5057c16de5a39140abcbf6=
+e44e50
+> fatal: fetch-pack: invalid index-pack output
 
+I have no problem on my system (running Arch Linux) when cloning sparse.git
+repo (also hosted on git.kernel.org) [1].
 
-> ---
->  drivers/gpu/drm/drm_displayid_internal.h |  4 ++++
->  drivers/gpu/drm/drm_edid.c               | 17 +++++++++++++++++
->  include/drm/drm_connector.h              |  6 ++++++
->  3 files changed, 27 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-> index 55f972d32847..8f1a2f33ca1a 100644
-> --- a/drivers/gpu/drm/drm_displayid_internal.h
-> +++ b/drivers/gpu/drm/drm_displayid_internal.h
-> @@ -148,6 +148,8 @@ struct displayid_formula_timing_block {
->  #define DISPLAYID_VESA_DP_TYPE		GENMASK(2, 0)
->  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
->  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
-> +#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
-> +#define DISPLAYID_VESA_DSC_BPP_FRACT	GENMASK(3, 0)
->  
->  #define DISPLAYID_VESA_DP_TYPE_EDP	0
->  #define DISPLAYID_VESA_DP_TYPE_DP	1
-> @@ -157,6 +159,8 @@ struct displayid_vesa_vendor_specific_block {
->  	u8 oui[3];
->  	u8 data_structure_type;
->  	u8 mso;
-> +	u8 dsc_bpp_int;
-> +	u8 dsc_bpp_fract;
->  } __packed;
->  
->  /*
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index be8715632b91..8273920f5ba4 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -45,6 +45,7 @@
->  #include <drm/drm_edid.h>
->  #include <drm/drm_eld.h>
->  #include <drm/drm_encoder.h>
-> +#include <drm/drm_fixed.h>
->  #include <drm/drm_print.h>
->  
->  #include "drm_crtc_internal.h"
-> @@ -6593,6 +6594,21 @@ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
->  	} else {
->  		info->mso_pixel_overlap = 0;
->  	}
-> +
-> +	if (block->num_bytes < 7) {
-> +		/* DSC bpp is optional */
-> +		return;
-> +	}
-> +
-> +	info->dp_dsc_bpp_x16 = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) << 4 |
-> +			       FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
-> +
-> +	if (info->dp_dsc_bpp_x16 > 0) {
-> +		drm_dbg_kms(connector->dev,
-> +			    "[CONNECTOR:%d:%s] DSC bits per pixel " FXP_Q4_FMT "\n",
-> +			    connector->base.id, connector->name,
-> +			    FXP_Q4_ARGS(info->dp_dsc_bpp_x16));
-> +	}
->  }
->  
->  static void drm_update_vesa_specific_block(struct drm_connector *connector,
-> @@ -6641,6 +6657,7 @@ static void drm_reset_display_info(struct drm_connector *connector)
->  	info->mso_stream_count = 0;
->  	info->mso_pixel_overlap = 0;
->  	info->max_dsc_bpp = 0;
-> +	info->dp_dsc_bpp_x16 = 0;
->  
->  	kfree(info->vics);
->  	info->vics = NULL;
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 8f34f4b8183d..7decfc288aa3 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -837,6 +837,12 @@ struct drm_display_info {
->  	 */
->  	u32 max_dsc_bpp;
->  
-> +	/**
-> +	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
-> +	 * DSC bits per pixel in 6.4 fixed point format. 0 means undefined.
-> +	 */
-> +	u16 dp_dsc_bpp_x16;
-> +
->  	/**
->  	 * @vics: Array of vics_len VICs. Internal to EDID parsing.
->  	 */
+Thanks.
 
--- 
-Jani Nikula, Intel
+[1]: https://git.kernel.org/pub/scm/devel/sparse/sparse.git/
+
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--erbTTBANn0MwVJLS
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCaTDOsAAKCRD2uYlJVVFO
+o6b+AQD5uSCz5nOd54BudHosSWoAiEPzzQFwHE2XFagnsG3HSgEA4HpLgkS7ZAM4
+HrYlOF4SRvIYztoJrs15CyANGFpAtQA=
+=IrVl
+-----END PGP SIGNATURE-----
+
+--erbTTBANn0MwVJLS--
