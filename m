@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC65D1D893
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 08:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 771FFD1D884
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 08:08:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCE6810E8E3;
-	Thu,  4 Dec 2025 08:06:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E097410E8DD;
+	Thu,  4 Dec 2025 08:08:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WPd0xQMv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L+ajhfz7";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEE7010E8DE
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Dec 2025 08:06:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8A510E8DD
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Dec 2025 08:08:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AA26D4412A;
- Thu,  4 Dec 2025 08:06:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A211C4CEFB;
- Thu,  4 Dec 2025 08:06:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 62FA34054A;
+ Thu,  4 Dec 2025 08:08:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E82C4CEFB;
+ Thu,  4 Dec 2025 08:08:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764835617;
- bh=3O5eqMysZEgEqXmwQ8j9BBLzZoTv9kr6ijnqQvUb66w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=WPd0xQMvF8iCtpGe9d0m0/9jDA3SXKkVv0rT7rwE40Dm3U5SvBX+kh55sLpR7+8ur
- tCo+aD2dg/Dv1ktY+Q+owYktVZojbm5XLb7MJOeX+wXJsq8t4eYdlnkPjfpmKFnnwI
- Me3Fa0Y1gESGgJwDfxNZdtCJrzE4aDoSrzExjHq2IXRN2pBCtRP9j0gjh5UIe+SzOc
- V+k853e2YTjZXQ5NnKAcluPputWFioQOGY6yqP2j1v+1GWgGk8FPNRvljnGAu3teEv
- nJmgj/OTmR25J4IJyV7JTA/qlQuEB9fPj+CTZJ1+aVa9O8bTNGuUn14v06qZJnmy0C
- QQJYonYW3JZGw==
-Message-ID: <80770cbc-0014-4bec-9e3a-1d3db1b98984@kernel.org>
-Date: Thu, 4 Dec 2025 09:06:54 +0100
+ s=k20201202; t=1764835733;
+ bh=ot+bj15RQwuY2+tmJQNLmE5SXRiaXqLN0hPxq+DPkt0=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=L+ajhfz7OKmbfJcVyi31iO88A7sFXYsX3Er+OM8ozilKD5ynn4RdbmCCQAQdWSRT8
+ 1WJLHjgYroYGaGG5kojH9wj94Mo3m6seM1WAbNIPS6h69H5ouQn2ltSAIPb34AHOT1
+ FBYzJ8Hl9FY+49rXrmjM5Szd2Ef7UptC7Du4EkiYnCUGmInZoD3Rrf9RMwYxKGLhx6
+ wpXEcT9vei7Xj30xM93iSOZuWijOVwAtSfR0irWDsv0zoenZwJLt4aDu7Z/Th0/WTK
+ IaiswfbRji7G/GOIGCwDbHegIWJjVwjNxBVdd7B3nkfAEZ5Tt7Shyrx9J5U14LhtxZ
+ f5kow1C8Ypzig==
+Message-ID: <44e3934e-cc85-4c65-a059-39f439d8c302@kernel.org>
+Date: Thu, 4 Dec 2025 09:08:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH v3 02/10] drm/amdgpu: Add cwsr functions
+From: Krzysztof Kozlowski <krzk@kernel.org>
 To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com,
  Christian.Koenig@amd.com, Jesse.Zhang@amd.com
@@ -42,7 +43,7 @@ References: <20251203130436.745633-1-lijo.lazar@amd.com>
  <20251203130436.745633-3-lijo.lazar@amd.com>
  <d5b202f2-c8cf-4b29-b183-e3cbf73f4225@kernel.org>
  <e15baf60-403f-46bb-8a70-f880f8b1d61f@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <80770cbc-0014-4bec-9e3a-1d3db1b98984@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -87,7 +88,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <e15baf60-403f-46bb-8a70-f880f8b1d61f@amd.com>
+In-Reply-To: <80770cbc-0014-4bec-9e3a-1d3db1b98984@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,43 +105,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 04/12/2025 09:03, Lazar, Lijo wrote:
-> 
-> 
-> On 12/4/2025 1:06 PM, Krzysztof Kozlowski wrote:
->> On 03/12/2025 13:54, Lijo Lazar wrote:
->>> +		BUILD_BUG_ON(sizeof(cwsr_trap_gfx11_hex) > PAGE_SIZE);
->>> +		cwsr_info->isa_buf = cwsr_trap_gfx11_hex;
->>> +		cwsr_info->isa_sz = sizeof(cwsr_trap_gfx11_hex);
->>> +	} else {
->>> +		BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_hex) >
->>> +			     AMDGPU_CWSR_TBA_MAX_SIZE);
->>> +		cwsr_info->isa_buf = cwsr_trap_gfx12_hex;
->>> +		cwsr_info->isa_sz = sizeof(cwsr_trap_gfx12_hex);
->>> +	}
->>> +}
->>> +
->>> +int amdgpu_cwsr_init(struct amdgpu_device *adev)
->>> +{
->>> +	struct amdgpu_cwsr_info *cwsr_info __free(kfree) = NULL;
+On 04/12/2025 09:06, Krzysztof Kozlowski wrote:
+> On 04/12/2025 09:03, Lazar, Lijo wrote:
 >>
 >>
->> This is an undesired syntax explicitly documented as one to avoid. You
->> need here proper assignment, not NULL. Please don't use cleanup.h if you
->> do not intend to follow it because it does not make the code simpler.
+>> On 12/4/2025 1:06 PM, Krzysztof Kozlowski wrote:
+>>> On 03/12/2025 13:54, Lijo Lazar wrote:
+>>>> +		BUILD_BUG_ON(sizeof(cwsr_trap_gfx11_hex) > PAGE_SIZE);
+>>>> +		cwsr_info->isa_buf = cwsr_trap_gfx11_hex;
+>>>> +		cwsr_info->isa_sz = sizeof(cwsr_trap_gfx11_hex);
+>>>> +	} else {
+>>>> +		BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_hex) >
+>>>> +			     AMDGPU_CWSR_TBA_MAX_SIZE);
+>>>> +		cwsr_info->isa_buf = cwsr_trap_gfx12_hex;
+>>>> +		cwsr_info->isa_sz = sizeof(cwsr_trap_gfx12_hex);
+>>>> +	}
+>>>> +}
+>>>> +
+>>>> +int amdgpu_cwsr_init(struct amdgpu_device *adev)
+>>>> +{
+>>>> +	struct amdgpu_cwsr_info *cwsr_info __free(kfree) = NULL;
+>>>
+>>>
+>>> This is an undesired syntax explicitly documented as one to avoid. You
+>>> need here proper assignment, not NULL. Please don't use cleanup.h if you
+>>> do not intend to follow it because it does not make the code simpler.
+>>>
+>>
+>> Could you explain more about the hazard here? There are no multiple 
+>> cleanup variables declared in this case.
 >>
 > 
-> Could you explain more about the hazard here? There are no multiple 
-> cleanup variables declared in this case.
->
+> I am not saying there is a hazard. I am saying that you do not follow
+> coding style and very explicit, documented rule. There are exceptions of
+> course, but they need reason and such is missing here. You made the code
+> worse here, more confusing with the fake assignment, fake constructor.
+> 
+> If you do not want to follow cleanup.h coding style, then simply do not
+> use cleanup.h. Cleanup.h is to make code simpler but worse.
 
-I am not saying there is a hazard. I am saying that you do not follow
-coding style and very explicit, documented rule. There are exceptions of
-course, but they need reason and such is missing here. You made the code
-worse here, more confusing with the fake assignment, fake constructor.
-
-If you do not want to follow cleanup.h coding style, then simply do not
-use cleanup.h. Cleanup.h is to make code simpler but worse.
+s/but worse/,not worse/
 
 Best regards,
 Krzysztof
