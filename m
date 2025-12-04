@@ -4,46 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB869D2E031
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 08:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7248CD2E03F
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 08:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB2B10EA64;
-	Fri,  5 Dec 2025 08:19:29 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D784810EA27;
- Fri,  5 Dec 2025 07:43:58 +0000 (UTC)
-X-UUID: 256de65ad1ae11f0a38c85956e01ac42-20251205
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.6, REQID:8cb02a88-180c-46a6-b516-e5810342069f, IP:0,
- UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
- elease,TS:0
-X-CID-META: VersionHash:a9d874c, CLOUDID:6c3e486b0e851e5d01d4d7b137f0f4db,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|123|850|898,TC:nil,Content:0|15|50,E
- DM:-3,IP:nil,URL:1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
- :0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 256de65ad1ae11f0a38c85956e01ac42-20251205
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 265998802; Fri, 05 Dec 2025 15:43:53 +0800
-From: yaolu@kylinos.cn
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
-Subject: [RESEND] drm/amd/display: fix audio playing speed up on POLARIS12
-Date: Fri,  5 Dec 2025 15:43:44 +0800
-Message-Id: <20251205074344.143063-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46BE610EA3E;
+	Fri,  5 Dec 2025 08:19:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WRiVercW";
+	dkim-atps=neutral
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C82210E9E9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Dec 2025 23:28:36 +0000 (UTC)
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-3e8f418e051so1150108fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Dec 2025 15:28:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google; t=1764890916; x=1765495716;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TY8vn4+rw5BlELkE55Y40GYmlU2AL+AMWiRVce63tcM=;
+ b=WRiVercWNDEgMa5PSRwb8OzaQjkwD+vMDuC8ORt/QVPiKJF56rxQUFqF6h/QvHvv9C
+ JRZeSpdu90YFzqCGcGefURk90kjN9mLU5EUuAo9MHu6XQUsaqr9WUijpaa7EMKGtXOLN
+ KFzlCJkSkMqnswLDltewxlMw9QQxcP0rC43pc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764890916; x=1765495716;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TY8vn4+rw5BlELkE55Y40GYmlU2AL+AMWiRVce63tcM=;
+ b=Pckcq9DVDYL7OKm2dC7CSm+PO2wpSeRIbIIRdQ4bSMPFqaCCe/Y/C/c3NuGtGiM1XQ
+ qmMDUD01+kdoDaAbGv8C1ouM7yZ+bOu1cipdUV+4I/wQX7xiyYQ4OOaRr73g2AN+KyWe
+ TJeHqO+CBynN4HCQRqOrZ1irUo4UVzaV+WnEKMGJZ9vmwHLq+ULpakGvSpb/4GFhMkoi
+ OKvZ5xW8OYIYg+CULF9xN1heHZa3+wn5CGaPcIWYDRRwLlVtt/gWWPbEdhEctZvHYVAT
+ V0ZafKknH9yJ8/1waTrRlMANs5aO1Hk25pLrLkwbLHXK5sJcMSUQ0rDVdo2qkJwP5JNk
+ hn/w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVPHjnghzhcYjencLf2pWOnCWwgEdorFgTj8JGBJQvAtH2E2rxStlWmEU67j+1X+xw/XBNX/yjB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzzBUkjDPFENCUk9GH5P3hiIcU2k4cjQWmaMX9WPqDE0+PjpJ7k
+ 3SqQFQA/dfZCM7jFPUFelBYVTfzmN5u3eHf2Zc5oTlRdgzSCxv55febWaRY7P2jbYbI=
+X-Gm-Gg: ASbGnctaq1eOV1ayIy4n0ToBCSpPDje1E3SjMtkhqbfya7tmEmG9AlKrLXuQLgtXHvd
+ J0fsI9YZVHRPligDCH1MRWlJJpU0ISpMKDHszZFK5oqybdT2twbkjotNQDYXV+BgTKorBhtRd1p
+ 8k9roi2bOgvXBfCekrkD5d9sBsyczHzylawfB4tT6nd7MCoLjz8m01132jwWwpVoAxmsuAzh+MS
+ 6ljDgEr0VhhoewYqXKcq7xK3eWsiD/ZMRRLuRir/h+BguaLmU2XEf1QOwzhftjGB/aiHCDewVKb
+ o8eGB0ZKt3WuIsS/bBETIC+1AflCoPPhdb1U2OB6rcUmFC+Pq2/vRQYJ3PK5QctUOfQO86RDhTS
+ 1oYLG8d8oUEOZiH+ga2Sm7kEugZTu9tmJgGtV+1p/3ZuobHD4bY/NNZ7iBZlaZcCkDlsIEtnGHs
+ bFmYqrMZzQAcfLjX+5e6Zds68=
+X-Google-Smtp-Source: AGHT+IHaMdSIvMY4kJabIh50Lp2Y7vLsnF75nwPDZ+uvTeHchqLesHf2HXJ3/okGx1/CR50Bnu4U5Q==
+X-Received: by 2002:a05:6871:2941:b0:3c8:d325:b7ac with SMTP id
+ 586e51a60fabf-3f1691860c6mr5140679fac.4.1764890915718; 
+ Thu, 04 Dec 2025 15:28:35 -0800 (PST)
+Received: from [192.168.1.14] ([38.175.187.108])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-3f50b5123f5sm2197586fac.13.2025.12.04.15.28.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Dec 2025 15:28:35 -0800 (PST)
+Message-ID: <60fe7660-f3fb-4c94-b21f-20ebc9e14f5d@linuxfoundation.org>
+Date: Thu, 4 Dec 2025 16:28:34 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Linux 6.18 amdgpu build error
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ akpm@linux-foundation.org, Alexander Deucher <Alexander.Deucher@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <74032153-813a-4a40-8363-cce264f4d5ea@linuxfoundation.org>
+ <1eb24816-530b-4470-8e58-ce7d8297996c@roeck-us.net>
+ <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
+ <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
+ <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
+ <1f31b86d-283c-4878-92d0-ab90aed0c58d@roeck-us.net>
+ <5af4522e-30ab-4eec-a861-c2760cdabd4f@linuxfoundation.org>
+ <2bc690ca-fa57-46fa-949b-28b5441cd364@kernel.org>
+ <b24fc85c-0e6d-42f9-a6b9-05136409098f@linuxfoundation.org>
+ <CAHk-=whd-k3GhNGvVmP7W2p1d0d4ctqJ8iCuG8DbyKzgNqCL+g@mail.gmail.com>
+ <3b6d6e50-91ac-435e-adad-a67d4198a5b5@kernel.org>
+ <3cd2240b-ec2c-45d0-b73b-b66c83e75b9f@linuxfoundation.org>
+ <CAHk-=wiEXy+7Gd3ONQ-v0e61e6qAmrtk+WE2dpW_61p83nMgXw@mail.gmail.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <CAHk-=wiEXy+7Gd3ONQ-v0e61e6qAmrtk+WE2dpW_61p83nMgXw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 05 Dec 2025 08:19:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,64 +108,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lu Yao <yaolu@kylinos.cn>
+On 12/4/25 16:23, Linus Torvalds wrote:
+> On Thu, 4 Dec 2025 at 15:20, Shuah Khan <skhan@linuxfoundation.org> wrote:
+>>
+>> I didn't see any problems on 6.18.
+> 
+> Ahh. So it might be just that buggy commit adfb6609c680 then, and the
+> fix already being in rc7 (and final).
+> 
 
-Playing audio/video will speed up when color space is NV12.
-For POLARIS12, audio request clock has to be same as
-'stream->timing.pix_clk_100hz', so double clock now for it
-has been halved in the 'get_pixel_clock_parameters' function.
+Yes - correct.
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c  | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
----
-Test environment:
-  Card: RX550  device id: 0X699F
-  Display mode: 4K@60 clock:59400
-
-A similar issue was reported in the community a long time ago,
-but it was not dealt with, link as follow:
-https://gitlab.freedesktop.org/drm/amd/-/issues/556
-
-Discovered through logs audio_output requested&calculated is half
-of stream->timing.pix_clk_100hz before, so I double it.
-I'm not sure if this patch modification has correctly solved the
-root cause and whether all DCE_VERSION_11_2 have problem or POLARIS12
-only, but it's working properly on my machine now.
----
-
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 24184b4eb352..a93313248db3 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1440,13 +1440,21 @@ void build_audio_output(
- 
- /*for HDMI, audio ACR is with deep color ratio factor*/
- 	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal) &&
--		audio_output->crtc_info.requested_pixel_clock_100Hz ==
--				(stream->timing.pix_clk_100hz)) {
--		if (pipe_ctx->stream_res.pix_clk_params.pixel_encoding == PIXEL_ENCODING_YCBCR420) {
-+		pipe_ctx->stream_res.pix_clk_params.pixel_encoding == PIXEL_ENCODING_YCBCR420) {
-+		struct hw_asic_id asic_id = stream->link->ctx->asic_id;
-+
-+		if (asic_id.chip_family == FAMILY_VI &&
-+		    ASIC_REV_IS_POLARIS12_V(asic_id.hw_internal_rev)) {
-+			audio_output->crtc_info.requested_pixel_clock_100Hz =
-+				audio_output->crtc_info.requested_pixel_clock_100Hz*2;
-+			audio_output->crtc_info.calculated_pixel_clock_100Hz =
-+				pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz*2;
-+		} else if (audio_output->crtc_info.requested_pixel_clock_100Hz ==
-+			   (stream->timing.pix_clk_100hz)) {
- 			audio_output->crtc_info.requested_pixel_clock_100Hz =
--					audio_output->crtc_info.requested_pixel_clock_100Hz/2;
-+				audio_output->crtc_info.requested_pixel_clock_100Hz/2;
- 			audio_output->crtc_info.calculated_pixel_clock_100Hz =
--					pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz/2;
-+				pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz/2;
- 
- 		}
- 	}
--- 
-2.25.1
+thanks,
+-- Shuah
 
