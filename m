@@ -4,123 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18515D1F9CB
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 12:10:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A94D5D1F9D2
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 12:11:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B107510E92E;
-	Thu,  4 Dec 2025 12:10:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 426D410E93F;
+	Thu,  4 Dec 2025 12:11:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vChCRhWR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GzAhR6wg";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010059.outbound.protection.outlook.com
- [40.93.198.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0A8110E92E
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Dec 2025 12:10:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gZzbakw4FNPuLhCGa+UlF+Qs1gcH16UjZUCrRzSugaNrh532JStF0gFfo0SjUqOhQa0de5l528IepvMnAGn/jwU1BEQC0TAhge4iMF3AuT5RGKZAdULq1We5mTCPnb9DMKQwk7ZZ0e4HwHmfdVjf1d5DW+qgHmSfQWaXdzllBpgngcVPOPn/53HklacQ9VC+/Acs4PB5cZHxKL5AaUMQCeNKcDofDymMVnACkTw0JKS1cXR/KMMUYV5c72Qr/2lH4RUwD2wpiNJnXpNokvYABsrw4x0qnyAwX0urwsijmkcRm1TMwbzAk/rb40HU/32f6Jz8WXf9P0IR8/YF5L2pcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=teAJkzYI2ATOP5YEtAomdd3+r7fgXIC9/cZ32J7rwK4=;
- b=AkSzBPv+WDZhj2BqwwT3WSijbIJTZgiaBzxisyfCeyi4j6G5y7LjajE4rTWKvlJbDWEVPg0UCkkarC1uCuh0/iz+SSvaBCwtmOjHxGTy6JXbDSNCdaGGNnL6USE1i9dJTbTcW3/7j7esUr96Jj/oYuOpGEGTUReVeC1tX7gK12zcOWS+JsBph84P25VmIdWZzv+8ct6D13SlgZhQOC6wAUHJ4ArXOMfIDgdAT6pp0wCKrf7yp+QFp4g1fKTDMuRjelixdfxY0JFUJRnvoYnbumJZbCN0fABXYVenhsdjH7svkhyTPSQ+Rgb/HxtGAR/uqWLrZvx7Qm9aFBvGT9Mp5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=teAJkzYI2ATOP5YEtAomdd3+r7fgXIC9/cZ32J7rwK4=;
- b=vChCRhWR4Na/gLzMDKB0BtDjfaLtZ9jQvlCOIM5F5xbLBzTt93mg7Ki5KylfUlFIdV1TEBmBb7lLbvAAMr7Jg3Vql5D0MjQrHfpcLCQ+VEpIcunZFJKjPWAkB00snJgns+85+0aW4NdGb6K8aoZqZtnkrbjFAr/BFInOkVgdnGY=
-Received: from CH0PR03CA0048.namprd03.prod.outlook.com (2603:10b6:610:b3::23)
- by CH8PR12MB9789.namprd12.prod.outlook.com (2603:10b6:610:260::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Thu, 4 Dec
- 2025 12:10:43 +0000
-Received: from CH1PEPF0000AD80.namprd04.prod.outlook.com
- (2603:10b6:610:b3:cafe::60) by CH0PR03CA0048.outlook.office365.com
- (2603:10b6:610:b3::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Thu,
- 4 Dec 2025 12:10:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD80.mail.protection.outlook.com (10.167.244.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Thu, 4 Dec 2025 12:10:43 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 4 Dec
- 2025 06:10:42 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 4 Dec
- 2025 06:10:41 -0600
-Received: from drvdevbldsrv2.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 4 Dec 2025 04:10:40 -0800
-From: mythilam <mythilam@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: mythilam <mythilam@amd.com>
-Subject: [PATCH v1] drm/amd/pm: restore SCLK settings after S0ix resume
-Date: Thu, 4 Dec 2025 17:40:35 +0530
-Message-ID: <20251204121035.504066-1-mythilam@amd.com>
-X-Mailer: git-send-email 2.17.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4505C10E93F;
+ Thu,  4 Dec 2025 12:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764850272; x=1796386272;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=TJAFFG/UpvZObzhCsPEHrWrwMC5HnC2pRmBFGK+Nyu0=;
+ b=GzAhR6wgD3bZdctRjsgvmxI3dqoCSDPoZMz8KQLHXEZHnjv/U4CZpbOQ
+ gPi3Ki1M9mvDKMHlcKuFyY6ZgihZri0nbyMr+7wcrlrT6jLb7gJ+B+V7L
+ K4b0GZPhsW5uguf1uZBafC8+CvJwfplzC0P9zOHQxrxAeeC0hEwvTBZbO
+ V5waxZANSfDpIEObsrAaErQyEtz0tq4s7Mduz+9T6z9kWiZKYtSpPKrIU
+ yYDsDk6K4R7gLRSCrwO/C4fEFK2X6HiybR+Uj/lKVRqJRUFwntI39yH23
+ KtQOT2eldQsM4Lb/tgodYaD56ufy7v0LY4rrhfoIzP43qkhE3qSi5uumQ g==;
+X-CSE-ConnectionGUID: yWQ+GCVBQ/C57wayNYEiRQ==
+X-CSE-MsgGUID: mp8CLdPlTVmVME3PhpLShw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11631"; a="66904544"
+X-IronPort-AV: E=Sophos;i="6.20,248,1758610800"; d="scan'208";a="66904544"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2025 04:11:12 -0800
+X-CSE-ConnectionGUID: zxomv8GLThSDDn9uXuqtYQ==
+X-CSE-MsgGUID: PXSzXa6wR4a8eu8+3Tatlw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,248,1758610800"; d="scan'208";a="194789507"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.11])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2025 04:11:06 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Yaroslav Bolyukin <iam@lach.pw>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Yaroslav
+ Bolyukin <iam@lach.pw>
+Subject: Re: [PATCH v7 4/7] drm/edid: parse DSC DPP passthru support flag
+ for mode VII timings
+In-Reply-To: <20251202110218.9212-5-iam@lach.pw>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251202110218.9212-1-iam@lach.pw>
+ <20251202110218.9212-5-iam@lach.pw>
+Date: Thu, 04 Dec 2025 14:11:02 +0200
+Message-ID: <b0b1567707c91806e3758bf0b678c2038dffb3c2@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD80:EE_|CH8PR12MB9789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53ea1942-6f4d-40f5-eb40-08de332e25e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vrOt4/HqAqv2U5tZHnYx1tPvWR3KzY7NKAtSAsdgV9oVPuHASFQH12AOBMEO?=
- =?us-ascii?Q?4QW4iPTpTzOl3/azVTqkIEHh/jngrmCMpikxk4nifmezUsjUh6o/GdGElwbQ?=
- =?us-ascii?Q?b3SxKm/SVftMx8cxslfZFuL2UW4YiA4yKRRchB2eElkdDWFD+k3wayGwDp4p?=
- =?us-ascii?Q?BD0cRNo51zSwAeZTL+cWQdxRCyx+2G8YA9ihj4SMr/+nsefDAiK7V3glTvhg?=
- =?us-ascii?Q?+jU/l4Nz/mCgrVhi/mf93AVmh/GCDNjx6MGxZ7UKVCMPXDZLtjUneMWVXLtM?=
- =?us-ascii?Q?CK6Pvolp/VHRrWalDOo+tI9b9QT6CL06K6B2Q2sG2v63ECiwFMLfsNoK1kdJ?=
- =?us-ascii?Q?D3d4RxEMXILoWqTxSGB37kcVCNIUadtqFBs6T7BuwbTw9OkuzcqIiWwyXuOs?=
- =?us-ascii?Q?RWCYwGj6Lk2bm3OqiWKuGDlG1vhttgmYBRBc7JD7KoCWp+nBkK30fQbuPDS8?=
- =?us-ascii?Q?aebWJQCJDfnQvq4aQmIjgmBIPbMonWR83oQuPY8OOUat9G1A2aPBl9M94yYd?=
- =?us-ascii?Q?ba8vhGe1CsILuN8EXwG0pNnuQpju8hNUhcrnnD3LGBRXAeKrmLrJmse6DGNM?=
- =?us-ascii?Q?IPfWYrUVmUN3MTT0lVhpgeo1D+l1myAALJIoj/j3UXV+Tz3mruRPCY3X+sBa?=
- =?us-ascii?Q?mOLye1s43uyottuGWgw4PVcOWaJCLktxBufRUKqrt6X34uEQyCxRhr7IZMZq?=
- =?us-ascii?Q?Yd0J0GW3Yzurca3qFFpa9eiqIJnSIAQX2FIfCDJXRU+IFkc9xQ3x0pElOve0?=
- =?us-ascii?Q?IxSUNS/aKPJjTXgfwaGJ9c9Cfwvq+5MdTdg2B4BbmJa8aQFs+Hc3P3ANcfUt?=
- =?us-ascii?Q?ojGe7FWqM/WbuUc2+heQRrK4TDDcX4KvdhD2IcXFSDEEKdslVu+Cr9cr5CoG?=
- =?us-ascii?Q?3Jgdehg6xuQL2eS5YJuufGGPW+j0DFAQgFdkz0k9xjFz62f1fQWTdgWKTxO+?=
- =?us-ascii?Q?W70PZG/nQ4B9BWl7o6hISJzQMqJ4Gkr7zKDheMiFdM83K84y9e8k0CcypDFe?=
- =?us-ascii?Q?y6/XHA1Tn4WmO7jYSuYFBXvtyxJAEXNLgE682Cax8+1SUlNvd2R+Tq3XpZ/6?=
- =?us-ascii?Q?h1L1d3HqZUa+Zvkc1ru9YVAgetg9QbdTpebNQOSNtFjurzqJUA3Ua2hLzm8l?=
- =?us-ascii?Q?jUQqQYza+3XMvu3C1Hlgh/sYqX3T0Dy+iCVHrpNlv2sw2ivYZJNQy3LNN6An?=
- =?us-ascii?Q?d1a7L5FCzneb9LMfNI21BLE8EQZEj3SURtYi4XZPwbFeIEkyxFCQmTm61p5i?=
- =?us-ascii?Q?NiHtX1c/tM5CBOc7KQsgrsp5Xfl8CmxCdwqpHD8icXETXFTkZ7EnEJoEpRXF?=
- =?us-ascii?Q?ARQo/awL8gJKuvfPC2LgDNdPGooMMxlVLBOiHzOu//oTaVvO2ftagcNuh6+B?=
- =?us-ascii?Q?SLIn/lSjEmgDVpKazUe1GmNw73biCCPIJYvA5RNGul8bdpk0md8zozJTW+qF?=
- =?us-ascii?Q?mgJ1Jg8gSQ4nX14MqDAqwLQLBvcktZQ8hg57q2i8c4yszVYDtUnzE4myV0Dy?=
- =?us-ascii?Q?rnNOofhCP/48WSrKDD+YsblJDmHi5dr9FA7cmEMEZyetJLbvG6zE409HzAHo?=
- =?us-ascii?Q?/b0rJHRgZ4tY4U8Lwi4=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2025 12:10:43.0257 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53ea1942-6f4d-40f5-eb40-08de332e25e9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD80.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9789
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,106 +79,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-User-configured SCLK(GPU core clock) frequency are not persisting
-across S0ix suspend/resume cycles on smu v14 hardware. The issue
-is because of the code updating the clock frequency during resume.
+On Tue, 02 Dec 2025, Yaroslav Bolyukin <iam@lach.pw> wrote:
+> For timings v7 block revision >=1, revision field also contains a bit
+> that indicates that the mode timings should only be used with fixed bits
+> per pixel value specified in vesa vendor-specific block.
+>
+> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
 
-This patch resolves the issue by:
-- Preserving user-configured values in driver and sets the clock
-  frequency during resume
-- Preserved settings are sent to the smu hardware
+On the EDID/DisplayID parts,
 
-Signed-off-by: mythilam <mythilam@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |  5 +++
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 37 ++++++++++++++++---
- 2 files changed, 37 insertions(+), 5 deletions(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-index f9b0938c57ea..f2a16dfee599 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -1939,6 +1939,11 @@ int smu_v14_0_od_edit_dpm_table(struct smu_context *smu,
- 			dev_err(smu->adev->dev, "Set soft max sclk failed!");
- 			return ret;
- 		}
-+		if (smu->gfx_actual_hard_min_freq != smu->gfx_default_hard_min_freq ||
-+		    smu->gfx_actual_soft_max_freq != smu->gfx_default_soft_max_freq)
-+			smu->user_dpm_profile.user_od = true;
-+		else
-+			smu->user_dpm_profile.user_od = false;
- 		break;
- 	default:
- 		return -ENOSYS;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-index fe00c84b1cc6..8d72a962aef7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-@@ -1513,9 +1513,10 @@ static int smu_v14_0_1_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
- 
- 	smu->gfx_default_hard_min_freq = clk_table->MinGfxClk;
- 	smu->gfx_default_soft_max_freq = clk_table->MaxGfxClk;
--	smu->gfx_actual_hard_min_freq = 0;
--	smu->gfx_actual_soft_max_freq = 0;
--
-+	if (smu->gfx_actual_hard_min_freq == 0)
-+		smu->gfx_actual_hard_min_freq = smu->gfx_default_hard_min_freq;
-+	if (smu->gfx_actual_soft_max_freq == 0)
-+		smu->gfx_actual_soft_max_freq = smu->gfx_default_soft_max_freq;
- 	return 0;
- }
- 
-@@ -1525,8 +1526,10 @@ static int smu_v14_0_0_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
- 
- 	smu->gfx_default_hard_min_freq = clk_table->MinGfxClk;
- 	smu->gfx_default_soft_max_freq = clk_table->MaxGfxClk;
--	smu->gfx_actual_hard_min_freq = 0;
--	smu->gfx_actual_soft_max_freq = 0;
-+	if (smu->gfx_actual_hard_min_freq == 0)
-+		smu->gfx_actual_hard_min_freq = smu->gfx_default_hard_min_freq;
-+	if (smu->gfx_actual_soft_max_freq == 0)
-+		smu->gfx_actual_soft_max_freq = smu->gfx_default_soft_max_freq;
- 
- 	return 0;
- }
-@@ -1664,6 +1667,29 @@ static int smu_v14_0_common_set_mall_enable(struct smu_context *smu)
- 	return ret;
- }
- 
-+static int smu_v14_0_0_restore_user_od_settings(struct smu_context *smu)
-+{
-+	int ret;
-+
-+	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinGfxClk,
-+					      smu->gfx_actual_hard_min_freq,
-+					      NULL);
-+	if (ret) {
-+		dev_err(smu->adev->dev, "Failed to restore hard min sclk on resume!\n");
-+		return ret;
-+	}
-+
-+	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxGfxClk,
-+					      smu->gfx_actual_soft_max_freq,
-+					      NULL);
-+	if (ret) {
-+		dev_err(smu->adev->dev, "Failed to restore soft max sclk on resume!\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct pptable_funcs smu_v14_0_0_ppt_funcs = {
- 	.check_fw_status = smu_v14_0_check_fw_status,
- 	.check_fw_version = smu_v14_0_check_fw_version,
-@@ -1687,6 +1713,7 @@ static const struct pptable_funcs smu_v14_0_0_ppt_funcs = {
- 	.mode2_reset = smu_v14_0_0_mode2_reset,
- 	.get_dpm_ultimate_freq = smu_v14_0_common_get_dpm_ultimate_freq,
- 	.set_soft_freq_limited_range = smu_v14_0_0_set_soft_freq_limited_range,
-+	.restore_user_od_settings = smu_v14_0_0_restore_user_od_settings,
- 	.od_edit_dpm_table = smu_v14_0_od_edit_dpm_table,
- 	.print_clk_levels = smu_v14_0_0_print_clk_levels,
- 	.force_clk_levels = smu_v14_0_0_force_clk_levels,
+but I'd like to get ack from e.g. Ville about the
+dsc_passthrough_timings_support member in struct drm_display_mode.
+
+> ---
+>  drivers/gpu/drm/drm_displayid_internal.h |  2 ++
+>  drivers/gpu/drm/drm_edid.c               | 12 ++++++++----
+>  include/drm/drm_modes.h                  | 10 ++++++++++
+>  3 files changed, 20 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+> index 72f107ae832f..724174b429f2 100644
+> --- a/drivers/gpu/drm/drm_displayid_internal.h
+> +++ b/drivers/gpu/drm/drm_displayid_internal.h
+> @@ -97,6 +97,7 @@ struct displayid_header {
+>  	u8 ext_count;
+>  } __packed;
+>  
+> +#define DISPLAYID_BLOCK_REV	GENMASK(2, 0)
+>  struct displayid_block {
+>  	u8 tag;
+>  	u8 rev;
+> @@ -125,6 +126,7 @@ struct displayid_detailed_timings_1 {
+>  	__le16 vsw;
+>  } __packed;
+>  
+> +#define DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT	BIT(3)
+>  struct displayid_detailed_timing_block {
+>  	struct displayid_block base;
+>  	struct displayid_detailed_timings_1 timings[];
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 380a9dda275f..b28ff4bafb1d 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6794,8 +6794,8 @@ static void update_display_info(struct drm_connector *connector,
+>  }
+>  
+>  static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
+> -							    const struct displayid_detailed_timings_1 *timings,
+> -							    bool type_7)
+> +							    const struct displayid_block *block,
+> +							    const struct displayid_detailed_timings_1 *timings)
+>  {
+>  	struct drm_display_mode *mode;
+>  	unsigned int pixel_clock = (timings->pixel_clock[0] |
+> @@ -6811,11 +6811,16 @@ static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *d
+>  	unsigned int vsync_width = le16_to_cpu(timings->vsw) + 1;
+>  	bool hsync_positive = le16_to_cpu(timings->hsync) & (1 << 15);
+>  	bool vsync_positive = le16_to_cpu(timings->vsync) & (1 << 15);
+> +	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+>  
+>  	mode = drm_mode_create(dev);
+>  	if (!mode)
+>  		return NULL;
+>  
+> +	if (type_7 && FIELD_GET(DISPLAYID_BLOCK_REV, block->rev) >= 1)
+> +		mode->dsc_passthrough_timings_support =
+> +			block->rev & DISPLAYID_BLOCK_PASSTHROUGH_TIMINGS_SUPPORT;
+> +
+>  	/* resolution is kHz for type VII, and 10 kHz for type I */
+>  	mode->clock = type_7 ? pixel_clock : pixel_clock * 10;
+>  	mode->hdisplay = hactive;
+> @@ -6848,7 +6853,6 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+>  	int num_timings;
+>  	struct drm_display_mode *newmode;
+>  	int num_modes = 0;
+> -	bool type_7 = block->tag == DATA_BLOCK_2_TYPE_7_DETAILED_TIMING;
+>  	/* blocks must be multiple of 20 bytes length */
+>  	if (block->num_bytes % 20)
+>  		return 0;
+> @@ -6857,7 +6861,7 @@ static int add_displayid_detailed_1_modes(struct drm_connector *connector,
+>  	for (i = 0; i < num_timings; i++) {
+>  		struct displayid_detailed_timings_1 *timings = &det->timings[i];
+>  
+> -		newmode = drm_mode_displayid_detailed(connector->dev, timings, type_7);
+> +		newmode = drm_mode_displayid_detailed(connector->dev, block, timings);
+>  		if (!newmode)
+>  			continue;
+>  
+> diff --git a/include/drm/drm_modes.h b/include/drm/drm_modes.h
+> index b9bb92e4b029..312e5c03af9a 100644
+> --- a/include/drm/drm_modes.h
+> +++ b/include/drm/drm_modes.h
+> @@ -417,6 +417,16 @@ struct drm_display_mode {
+>  	 */
+>  	enum hdmi_picture_aspect picture_aspect_ratio;
+>  
+> +	/**
+> +	 * @dsc_passthrough_timing_support:
+> +	 *
+> +	 * Indicates whether this mode timing descriptor is supported
+> +	 * with specific target DSC bits per pixel only.
+> +	 *
+> +	 * VESA vendor-specific data block shall exist with the relevant
+> +	 * DSC bits per pixel declaration when this flag is set to true.
+> +	 */
+> +	bool dsc_passthrough_timings_support;
+>  };
+>  
+>  /**
+
 -- 
-2.17.1
-
+Jani Nikula, Intel
