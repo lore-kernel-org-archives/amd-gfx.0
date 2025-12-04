@@ -4,95 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7248CD2E03F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A5DAD2E03E
 	for <amd-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 08:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46BE610EA3E;
-	Fri,  5 Dec 2025 08:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88FC310EA52;
+	Fri,  5 Dec 2025 08:19:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WRiVercW";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="B8+o1niV";
 	dkim-atps=neutral
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
- [209.85.160.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C82210E9E9
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Dec 2025 23:28:36 +0000 (UTC)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-3e8f418e051so1150108fac.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Dec 2025 15:28:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google; t=1764890916; x=1765495716;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TY8vn4+rw5BlELkE55Y40GYmlU2AL+AMWiRVce63tcM=;
- b=WRiVercWNDEgMa5PSRwb8OzaQjkwD+vMDuC8ORt/QVPiKJF56rxQUFqF6h/QvHvv9C
- JRZeSpdu90YFzqCGcGefURk90kjN9mLU5EUuAo9MHu6XQUsaqr9WUijpaa7EMKGtXOLN
- KFzlCJkSkMqnswLDltewxlMw9QQxcP0rC43pc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764890916; x=1765495716;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=TY8vn4+rw5BlELkE55Y40GYmlU2AL+AMWiRVce63tcM=;
- b=Pckcq9DVDYL7OKm2dC7CSm+PO2wpSeRIbIIRdQ4bSMPFqaCCe/Y/C/c3NuGtGiM1XQ
- qmMDUD01+kdoDaAbGv8C1ouM7yZ+bOu1cipdUV+4I/wQX7xiyYQ4OOaRr73g2AN+KyWe
- TJeHqO+CBynN4HCQRqOrZ1irUo4UVzaV+WnEKMGJZ9vmwHLq+ULpakGvSpb/4GFhMkoi
- OKvZ5xW8OYIYg+CULF9xN1heHZa3+wn5CGaPcIWYDRRwLlVtt/gWWPbEdhEctZvHYVAT
- V0ZafKknH9yJ8/1waTrRlMANs5aO1Hk25pLrLkwbLHXK5sJcMSUQ0rDVdo2qkJwP5JNk
- hn/w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVPHjnghzhcYjencLf2pWOnCWwgEdorFgTj8JGBJQvAtH2E2rxStlWmEU67j+1X+xw/XBNX/yjB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzzBUkjDPFENCUk9GH5P3hiIcU2k4cjQWmaMX9WPqDE0+PjpJ7k
- 3SqQFQA/dfZCM7jFPUFelBYVTfzmN5u3eHf2Zc5oTlRdgzSCxv55febWaRY7P2jbYbI=
-X-Gm-Gg: ASbGnctaq1eOV1ayIy4n0ToBCSpPDje1E3SjMtkhqbfya7tmEmG9AlKrLXuQLgtXHvd
- J0fsI9YZVHRPligDCH1MRWlJJpU0ISpMKDHszZFK5oqybdT2twbkjotNQDYXV+BgTKorBhtRd1p
- 8k9roi2bOgvXBfCekrkD5d9sBsyczHzylawfB4tT6nd7MCoLjz8m01132jwWwpVoAxmsuAzh+MS
- 6ljDgEr0VhhoewYqXKcq7xK3eWsiD/ZMRRLuRir/h+BguaLmU2XEf1QOwzhftjGB/aiHCDewVKb
- o8eGB0ZKt3WuIsS/bBETIC+1AflCoPPhdb1U2OB6rcUmFC+Pq2/vRQYJ3PK5QctUOfQO86RDhTS
- 1oYLG8d8oUEOZiH+ga2Sm7kEugZTu9tmJgGtV+1p/3ZuobHD4bY/NNZ7iBZlaZcCkDlsIEtnGHs
- bFmYqrMZzQAcfLjX+5e6Zds68=
-X-Google-Smtp-Source: AGHT+IHaMdSIvMY4kJabIh50Lp2Y7vLsnF75nwPDZ+uvTeHchqLesHf2HXJ3/okGx1/CR50Bnu4U5Q==
-X-Received: by 2002:a05:6871:2941:b0:3c8:d325:b7ac with SMTP id
- 586e51a60fabf-3f1691860c6mr5140679fac.4.1764890915718; 
- Thu, 04 Dec 2025 15:28:35 -0800 (PST)
-Received: from [192.168.1.14] ([38.175.187.108])
- by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-3f50b5123f5sm2197586fac.13.2025.12.04.15.28.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Dec 2025 15:28:35 -0800 (PST)
-Message-ID: <60fe7660-f3fb-4c94-b21f-20ebc9e14f5d@linuxfoundation.org>
-Date: Thu, 4 Dec 2025 16:28:34 -0700
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C206E10E029;
+ Thu,  4 Dec 2025 14:10:36 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4dMby10gV1z9tV8;
+ Thu,  4 Dec 2025 15:10:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1764857433; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ETFPcwGc/J2gqxbT5eNzy5JQ7vh5rybLlhQczEy0HVs=;
+ b=B8+o1niVzxQD7p2rFN3T9F93gW94B6fyBYvTVWNbzRp9/C8r5mhaT1J1aETTXwAwnh7tzE
+ zmpFQQ/DeaZ5t6zd9AmJk5Mhar5qihcJqpcqZk1qFLr6WImByk/iA39iQoyXLtBTxQT5TY
+ iYfiggT/0Zi9qF/iYFKoTBHGv18jC83gNUUXz79P5Vz6p8NY8DWX7Eb4NkBb26haaNgNRk
+ BKI8JM/cc0X/flp4oSoFnR0NAktiaBUZRQBUsXPf/CGQkcOObo0/v3DGftTe6PTX2l8eBV
+ RB6zemkjeNOAAi7TgMACkk42o2kDGraRnxK5hMUj9ORbOkPQ2sgbLJFadbZ21A==
+Message-ID: <53354e12b55d7c558b4418d876598641d862737f.camel@mailbox.org>
+Subject: Re: [PATCH 0/6] dma-fence: Remove return code of dma_fence_signal()
+ et al.
+From: Philipp Stanner <phasta@mailbox.org>
+To: Philipp Stanner <phasta@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>,  Gustavo Padovan <gustavo@padovan.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Felix
+ Kuehling <Felix.Kuehling@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Matthew Brost
+ <matthew.brost@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Date: Thu, 04 Dec 2025 15:10:11 +0100
+In-Reply-To: <20251201105011.19386-2-phasta@kernel.org>
+References: <20251201105011.19386-2-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Linux 6.18 amdgpu build error
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "David Hildenbrand (Red Hat)" <david@kernel.org>,
- akpm@linux-foundation.org, Alexander Deucher <Alexander.Deucher@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>,
- Guenter Roeck <linux@roeck-us.net>,
- Linux Memory Management List <linux-mm@kvack.org>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <74032153-813a-4a40-8363-cce264f4d5ea@linuxfoundation.org>
- <1eb24816-530b-4470-8e58-ce7d8297996c@roeck-us.net>
- <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
- <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
- <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
- <1f31b86d-283c-4878-92d0-ab90aed0c58d@roeck-us.net>
- <5af4522e-30ab-4eec-a861-c2760cdabd4f@linuxfoundation.org>
- <2bc690ca-fa57-46fa-949b-28b5441cd364@kernel.org>
- <b24fc85c-0e6d-42f9-a6b9-05136409098f@linuxfoundation.org>
- <CAHk-=whd-k3GhNGvVmP7W2p1d0d4ctqJ8iCuG8DbyKzgNqCL+g@mail.gmail.com>
- <3b6d6e50-91ac-435e-adad-a67d4198a5b5@kernel.org>
- <3cd2240b-ec2c-45d0-b73b-b66c83e75b9f@linuxfoundation.org>
- <CAHk-=wiEXy+7Gd3ONQ-v0e61e6qAmrtk+WE2dpW_61p83nMgXw@mail.gmail.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <CAHk-=wiEXy+7Gd3ONQ-v0e61e6qAmrtk+WE2dpW_61p83nMgXw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: b1b04ac58f4f528a2cf
+X-MBO-RS-META: xix6kpmj83m8hwiqzjwsu31pur87u4tw
 X-Mailman-Approved-At: Fri, 05 Dec 2025 08:19:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,20 +75,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/4/25 16:23, Linus Torvalds wrote:
-> On Thu, 4 Dec 2025 at 15:20, Shuah Khan <skhan@linuxfoundation.org> wrote:
->>
->> I didn't see any problems on 6.18.
-> 
-> Ahh. So it might be just that buggy commit adfb6609c680 then, and the
-> fix already being in rc7 (and final).
-> 
+On Mon, 2025-12-01 at 11:50 +0100, Philipp Stanner wrote:
+> Tested this with dma_buf selftests and drm_sched tests.
+>=20
+> Changes in v2:
+> =C2=A0 - Fix bug and don't turn the kernel into a smoking pile of ashes b=
+y
+> =C2=A0=C2=A0=C2=A0 not setting the signaled-bit=E2=80=A6
+> =C2=A0 - Add functions (dma_fence_check_and_signal()) preserving the old
+> =C2=A0=C2=A0=C2=A0 behavior of dma_fence_signal() & Co. (Felix)
+> =C2=A0 - Use those new functions in amdkfd, xe, ttm and st-dma-fence.
+> =C2=A0 - Be a bit less aggressive and keep the git-diff smaller.
+> =C2=A0 - Add a patch using the flag-helper in Xe. (Matthew)
+>=20
+> Barely anyone uses dma_fence_signal()'s (and similar functions') return
+> code. Checking it is pretty much useless anyways, because what are you
+> going to do if a fence was already signal it? Unsignal it and signal it
+> again? ;p
+>=20
+> Removing the return code simplifies the API and makes it easier for me
+> to sit on top with Rust DmaFence.
+>=20
+> Philipp Stanner (8):
+> =C2=A0 dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
+> =C2=A0 dma-buf/dma-fence: Add dma_fence_check_and_signal()
+> =C2=A0 amd/amdkfd: Use dma_fence_check_and_signal()
+> =C2=A0 drm/xe: Use dma_fence_check_and_signal_locked()
+> =C2=A0 dma-buf: Don't misuse dma_fence_signal()
+> =C2=A0 drm/ttm: Use dma_fence_check_and_signal()
+> =C2=A0 dma-buf/dma-fence: Remove return code of signaling-functions
 
-Yes - correct.
+Applied those 7 patches to drm-misc-next. Had to do a tiny rebase
+because 033559473dd3b55558b535aa37b8848c207b5cbb is not yet in drm-
+misc-next (dma-fence series was based on master at first, which
+contains that commit).
 
-thanks,
--- Shuah
+> =C2=A0 drm/xe: Use dma_fence_test_signaled_flag()
+
+Left for Matthow to pick up whenever he wishes.
+
+
+P.
+
+>=20
+> =C2=A0drivers/dma-buf/dma-fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 100=
+ +++++++++++-------
+> =C2=A0drivers/dma-buf/st-dma-fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +-
+> =C2=A0drivers/gpu/drm/amd/amdkfd/kfd_process.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 6 +-
+> =C2=A0.../gpu/drm/ttm/tests/ttm_bo_validate_test.c=C2=A0 |=C2=A0=C2=A0 2 =
++-
+> =C2=A0drivers/gpu/drm/xe/xe_exec_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 9 +-
+> =C2=A0drivers/gpu/drm/xe/xe_hw_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +-
+> =C2=A0drivers/gpu/drm/xe/xe_pt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/xe/xe_sched_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 35 ++++--
+> =C2=A09 files changed, 102 insertions(+), 63 deletions(-)
+>=20
 
