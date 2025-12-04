@@ -4,84 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DBC6D20694
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 13:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 092BED20692
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 13:40:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DFF310E1DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4D1C10E969;
 	Thu,  4 Dec 2025 13:40:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GLrtC2q+";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nTZE1eM/";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7779A10E81D
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Dec 2025 23:58:48 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2953ad5517dso3437395ad.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 03 Dec 2025 15:58:48 -0800 (PST)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A60910E1C2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Dec 2025 08:25:52 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-42e33956e76so329415f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Dec 2025 00:25:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764806328; x=1765411128; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=GRvZmNocZChOaH+XMJgg9lf8vYT4BPfuN+xdAI+uCKk=;
- b=GLrtC2q+V0Pfx22c3ZFaglPxuL/qjChCorLeXyUMmFMQk9pk7dc6i+yaoXNLqoxGGH
- mC51v1ipvnycfx/fVPpYiNylLi6lYglqmkGAWL7wy/D8MABSWxZDYfbxwRdBpdUYsStN
- Qq5HhmPjwaasUefP2qlwds7m+inmIF9m+3SQRjoUQBKBa9EoTorC9NqCOtDSUZWMgIGz
- gJlHaId+P18UD/EoClYkIpmiPUMQgyoUic9RLJDoTulyyVGUF6b+OniB6YoFShoKg1P/
- TsWy8zKFrm2cD0kC5H1Wq8omKhKH7hvqvKwUu9r7GGt0Q2Z+LShCp00WWLPhPPjAUyhc
- HIvA==
+ d=linaro.org; s=google; t=1764836751; x=1765441551; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=LQ4deDu2Meder/E3u1q2UwJGtT40AuQX8y3SfWXWIf4=;
+ b=nTZE1eM/r1p5PONpmdEzlHKBY11iYGVmxSj0tkuynyjEGD2k17FyIbUQkkufFuKXS3
+ 6Fet5eMiOD602oWmo/dS85W0n/tRINW5fJ5Oezl3MDGdKFeLzuQXt+PNigiS8OJK2MZL
+ Y2glCVRxlNM8CG9kdRXgioxERBwDZkx1mLHtyZvGRNZ/C2QrW+4b7X2O3sk3PGaZjcqY
+ KCL+LjJBiUP34RrrjuMYGEBM4rCxkQ4Tb5/xb/THpjA65c1flePS4+5946adQw2OYZC0
+ 8bYQ0pJB+fNCykxSSS6wN0ZVlO5wFYEhQl4dd5dHFCJcsPCUathOVP027GEoXzk4USKL
+ B5Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764806328; x=1765411128;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GRvZmNocZChOaH+XMJgg9lf8vYT4BPfuN+xdAI+uCKk=;
- b=LCqgzG9heqs1bLD0ZcsOgiU4d20hA/LaQHLoHm0R7FRD5+6zL7E2Ax7N5fTK3y8/Kr
- ue4P6Tu8C18fY6q2X6EeOxaMOaGt3V550Lbp8hZbbaqFcoSeWRvGug9uF6J3KvmokWtn
- RfKpjr40PgX7HfYVdxj4IA9O7cui7KaaauJ7mAAj3ddx+C2DofKsFCbBFOWGq3ahRZO6
- Ei2EeLhok5PryxTdUoC2i4BnYWNi9ha7395CnkHori3GgdpaxnWh135NY5mnDH4dnQcs
- RUQQ7TNSdNsMuENreWrEkC+q1l8Qhc6MtddGcXKBiq7QziazAdr/4oX8aS28FxZlWb3D
- Ibvg==
+ d=1e100.net; s=20230601; t=1764836751; x=1765441551;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LQ4deDu2Meder/E3u1q2UwJGtT40AuQX8y3SfWXWIf4=;
+ b=XitIQ5WOilqOIS+J3zNMMxIZMJgOBADRmHGKmcId8roJik8tIDo9ArPTzw47ot+NQB
+ SBirAlIn7unnCz533Zkj3aoeuvkb4Ep3kIqtHhXLKhqvIdC/JfFpuNGR7ShlGdIB4yFB
+ uTcLUc+f3XFtjPo0pF7vFC/HsPBimbGhT8F1PoEzLKiqMZuvLrTDeJ4/doDVdazRQV80
+ CFDdTwt/v6CUnkmjuO2KFNIqh/3UiWrxMYFyXLwUAI31LQa3yx7upkrlbJdolIMNNgft
+ dhEdB/giURlaL8z5KIjfMNck3pAs4gUt8u0CE1KAPCWa32vW7Tqyc+xRmWbdjT7UTQXU
+ vFjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUxRc4v3VXkldQpjFRz8DKvsT3IO4ltduXJtY2tZPSGzHCQRABAMYz6/tJYDXMkClnw3CDjkOUp@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwkK7CbiXjzxYn0lZAmHqMxkpAv2xQywVKM1I8Tmt28meb3XJCN
- p70fwXKyfI9Kk/mOuiflet1ONGQbnUKiH2Yi5QfVdLGdbKdzFo6yB1a9
-X-Gm-Gg: ASbGncsmt+SHENRaKChzY//kdv+i1+g65E7PCIMnm2qDSb2UQjSeQ6wDuvRe/m0FOzg
- HVdon7+UboX+b2P0IFLsK0zMdaN+ev3y/DlWeZPTtKmDHNAco2Y47PTbug6A6BWRfjPqPruj3hp
- gDAjGZ7LOoIYGB8Bnrh4OTVKiw0sweNBxa1IrX3BavrgCb0xy2ExOUQ8D5e0vkMGBshs/daFOME
- 5EAI1h1R2dawxglbSVoC1sPHF1FJIrqgTT4etQH7feMMf89w5cpN/Z7G2mYAlXwFV39BASCRcNr
- Uk6HFNbYIHEzlZELkrg8yTz2mU+6S7P4fhZ7vjkiJGdlw8H807kO4iNArlCrItQJtCsgCpdr4Fp
- Z4c4lBbo4ViKmWXjTQ9dBgsUotAEzlUCkOvrnVf2LyzXvoONwre6zH5Z301RXpCboObeFmUMamG
- j0tzBTS4v6zcM=
-X-Google-Smtp-Source: AGHT+IGLmOh6OQdBHx4G5q4S6N/1ExJ2TdxuwD40xz88RA8jLaB2hG2Ymfw2hokNgJs/XVsvYbEIzg==
-X-Received: by 2002:a17:903:2ac6:b0:295:507c:4b80 with SMTP id
- d9443c01a7336-29da1f20fb3mr11557625ad.61.1764806327742; 
- Wed, 03 Dec 2025 15:58:47 -0800 (PST)
-Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29dae99f223sm236425ad.62.2025.12.03.15.58.46
+ AJvYcCVinsxoVv8GbmJwSnJkgX0i58LFvu+RvkOStqrYRvrox601LpZIHrWfgVX4cFuQzN1G3pwSEgwM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDoi3DUY93jal9o67v0LWgJVw0tRHblJlNMIIAHoKHvDYismhR
+ 4mc7dw2fc229aUaZ302sKxBwGp6JOeZbfyyG5eCA5DxaTmahftRRsTJ9WB5CmdQhrJE=
+X-Gm-Gg: ASbGncsUj2AioVQglBc9zi7WmhdeU3nWd1y4Z726sHHEhL5aYqsXwy1i/04rqfeppvh
+ kjZf8XtlpZFcAA6fE9FU9MS/3P/v0lUYyUmRBq+vurmYSsD4nxsFQSAdMJZIhUE8myP36xJkwqQ
+ pvsKa+bPTbMRGeMWlP9HL/G3S4gEH7bVpnp67tIsgTeb3jFvCjg4l5UY1kd81JutvzaZoGItGh5
+ QpynHX5BG9Lk8lVxHjA8jjyRemD6m0nKqvW2PkaKlIeIYh0M6qTAdOtIBJGcni8HQ8z6Qg44xRo
+ af0OZ1JrCLQcf9wocySNLKS2e2Xvpd8mnjTx2G4f+69i9MUXZZIOwY0WvFQRw0pXkwmCPVzx3Zz
+ yMTvIQB3eZofqj6Z0noiTBZHF+p82Z+tb/vosWYhP5eQNmsLavHub3u0j+jRQOQ7HamnYBHKZEl
+ jkbDtTUylANMGFmES2
+X-Google-Smtp-Source: AGHT+IFqPjsWxMKuAwr/tYTZtrbROcoydreYmSrR+FokvUIODLoD32s0/Ejyc9FIKKndz+AO6vzyDQ==
+X-Received: by 2002:a05:6000:1889:b0:42b:41dc:1b5d with SMTP id
+ ffacd0b85a97d-42f73187286mr5177890f8f.25.1764836750665; 
+ Thu, 04 Dec 2025 00:25:50 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-42f7d2231dfsm1807493f8f.26.2025.12.04.00.25.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Dec 2025 15:58:46 -0800 (PST)
-Received: by archie.me (Postfix, from userid 1000)
- id 86DA441E8D3F; Thu, 04 Dec 2025 06:58:44 +0700 (WIB)
-Date: Thu, 4 Dec 2025 06:58:44 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Shuah Khan <skhan@linuxfoundation.org>, Guenter Roeck <linux@roeck-us.net>
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: Linux 6.18 amdgpu build error
-Message-ID: <aTDOtCpsnfHZIJLm@archie.me>
-References: <74032153-813a-4a40-8363-cce264f4d5ea@linuxfoundation.org>
- <1eb24816-530b-4470-8e58-ce7d8297996c@roeck-us.net>
- <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
- <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
- <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
+ Thu, 04 Dec 2025 00:25:49 -0800 (PST)
+Date: Thu, 4 Dec 2025 11:25:45 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: oe-kbuild@lists.linux.dev, sunpeng.li@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev, Harry.Wentland@amd.com,
+ Nicholas.Kazlauskas@amd.com, simona@ffwll.ch, airlied@gmail.com,
+ Leo Li <sunpeng.li@amd.com>
+Subject: Re: [PATCH v2 1/2] drm: Introduce drm_crtc_vblank_prepare()
+Message-ID: <202512041153.nYks4oYu-lkp@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="erbTTBANn0MwVJLS"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20251201231807.287414-1-sunpeng.li@amd.com>
 X-Mailman-Approved-At: Thu, 04 Dec 2025 13:40:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,46 +92,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
 
---erbTTBANn0MwVJLS
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+kernel test robot noticed the following build warnings:
 
-On Wed, Dec 03, 2025 at 03:16:24PM -0700, Shuah Khan wrote:
-> I am also seeing issues with cloning kernel.org repos on my system after
-> a recent update:
->=20
-> remote: Enumerating objects: 11177736, done.
-> remote: Counting objects: 100% (1231/1231), done.
-> remote: Compressing objects: 100% (624/624), done.
-> remote: Total 11177736 (delta 855), reused 781 (delta 606), pack-reused 1=
-1176505 (from 1)
-> Receiving objects: 100% (11177736/11177736), 3.01 GiB | 7.10 MiB/s, done.
-> Resolving deltas: 100% (9198323/9198323), done.
-> fatal: did not receive expected object 0002003e951b5057c16de5a39140abcbf6=
-e44e50
-> fatal: fetch-pack: invalid index-pack output
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I have no problem on my system (running Arch Linux) when cloning sparse.git
-repo (also hosted on git.kernel.org) [1].
+url:    https://github.com/intel-lab-lkp/linux/commits/sunpeng-li-amd-com/drm-amd-display-Implement-prepare_vblank_enable-callback/20251202-072501
+base:   https://gitlab.freedesktop.org/drm/i915/kernel.git for-linux-next-fixes
+patch link:    https://lore.kernel.org/r/20251201231807.287414-1-sunpeng.li%40amd.com
+patch subject: [PATCH v2 1/2] drm: Introduce drm_crtc_vblank_prepare()
+config: nios2-randconfig-r071-20251204 (https://download.01.org/0day-ci/archive/20251204/202512041153.nYks4oYu-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 8.5.0
 
-Thanks.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+| Closes: https://lore.kernel.org/r/202512041153.nYks4oYu-lkp@intel.com/
 
-[1]: https://git.kernel.org/pub/scm/devel/sparse/sparse.git/
+smatch warnings:
+drivers/gpu/drm/drm_vblank.c:1527 drm_crtc_vblank_on_config() warn: variable dereferenced before check 'crtc' (see line 1519)
 
---=20
-An old man doll... just what I always wanted! - Clara
+vim +/crtc +1527 drivers/gpu/drm/drm_vblank.c
 
---erbTTBANn0MwVJLS
-Content-Type: application/pgp-signature; name=signature.asc
+0d5040e406d2c44 Hamza Mahfooz 2024-07-25  1516  void drm_crtc_vblank_on_config(struct drm_crtc *crtc,
+0d5040e406d2c44 Hamza Mahfooz 2024-07-25  1517  			       const struct drm_vblank_crtc_config *config)
+3ed4351a83ca05d Simona Vetter 2017-05-31  1518  {
+3ed4351a83ca05d Simona Vetter 2017-05-31 @1519  	struct drm_device *dev = crtc->dev;
+3ed4351a83ca05d Simona Vetter 2017-05-31  1520  	unsigned int pipe = drm_crtc_index(crtc);
+                                                                                           ^^^^
+Unchecked dereference.  I'm pretty certain crtc can't be NULL.
 
------BEGIN PGP SIGNATURE-----
+d12e36494dc2bf2 Ville Syrjälä 2024-04-08  1521  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+38bd1e412d0aa4b Leo Li        2025-12-01  1522  	int ret;
+3ed4351a83ca05d Simona Vetter 2017-05-31  1523  
+5a4784f49b2dcff Sam Ravnborg  2020-05-23  1524  	if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+3ed4351a83ca05d Simona Vetter 2017-05-31  1525  		return;
+3ed4351a83ca05d Simona Vetter 2017-05-31  1526  
+38bd1e412d0aa4b Leo Li        2025-12-01 @1527  	if (crtc) {
+                                                        ^^^^^^^^^^^
+So this NULL check is too late, and can be removed.
 
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCaTDOsAAKCRD2uYlJVVFO
-o6b+AQD5uSCz5nOd54BudHosSWoAiEPzzQFwHE2XFagnsG3HSgEA4HpLgkS7ZAM4
-HrYlOF4SRvIYztoJrs15CyANGFpAtQA=
-=IrVl
------END PGP SIGNATURE-----
+38bd1e412d0aa4b Leo Li        2025-12-01  1528  		ret = drm_crtc_vblank_prepare(crtc);
+38bd1e412d0aa4b Leo Li        2025-12-01  1529  		drm_WARN_ON(dev, ret);
+38bd1e412d0aa4b Leo Li        2025-12-01  1530  		if (ret)
+38bd1e412d0aa4b Leo Li        2025-12-01  1531  			return;
+38bd1e412d0aa4b Leo Li        2025-12-01  1532  	}
+38bd1e412d0aa4b Leo Li        2025-12-01  1533  
+92cc68e35863c1c Lyude Paul    2020-07-20  1534  	spin_lock_irq(&dev->vbl_lock);
+02149a76d32bd8f Sam Ravnborg  2020-05-23  1535  	drm_dbg_vbl(dev, "crtc %d, vblank enabled %d, inmodeset %d\n",
+3ed4351a83ca05d Simona Vetter 2017-05-31  1536  		    pipe, vblank->enabled, vblank->inmodeset);
+3ed4351a83ca05d Simona Vetter 2017-05-31  1537  
+0d5040e406d2c44 Hamza Mahfooz 2024-07-25  1538  	vblank->config = *config;
+0d5040e406d2c44 Hamza Mahfooz 2024-07-25  1539  
+3ed4351a83ca05d Simona Vetter 2017-05-31  1540  	/* Drop our private "prevent drm_vblank_get" refcount */
+3ed4351a83ca05d Simona Vetter 2017-05-31  1541  	if (vblank->inmodeset) {
+3ed4351a83ca05d Simona Vetter 2017-05-31  1542  		atomic_dec(&vblank->refcount);
+3ed4351a83ca05d Simona Vetter 2017-05-31  1543  		vblank->inmodeset = 0;
+3ed4351a83ca05d Simona Vetter 2017-05-31  1544  	}
+3ed4351a83ca05d Simona Vetter 2017-05-31  1545  
+3ed4351a83ca05d Simona Vetter 2017-05-31  1546  	drm_reset_vblank_timestamp(dev, pipe);
+3ed4351a83ca05d Simona Vetter 2017-05-31  1547  
+3ed4351a83ca05d Simona Vetter 2017-05-31  1548  	/*
+3ed4351a83ca05d Simona Vetter 2017-05-31  1549  	 * re-enable interrupts if there are users left, or the
+3ed4351a83ca05d Simona Vetter 2017-05-31  1550  	 * user wishes vblank interrupts to be enabled all the time.
+3ed4351a83ca05d Simona Vetter 2017-05-31  1551  	 */
+0d5040e406d2c44 Hamza Mahfooz 2024-07-25  1552  	if (atomic_read(&vblank->refcount) != 0 || !vblank->config.offdelay_ms)
+5a4784f49b2dcff Sam Ravnborg  2020-05-23  1553  		drm_WARN_ON(dev, drm_vblank_enable(dev, pipe));
+92cc68e35863c1c Lyude Paul    2020-07-20  1554  	spin_unlock_irq(&dev->vbl_lock);
+3ed4351a83ca05d Simona Vetter 2017-05-31  1555  }
 
---erbTTBANn0MwVJLS--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
