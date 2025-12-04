@@ -4,182 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D6BAD1BDE0
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Dec 2025 21:13:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D63ED1D86F
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 06:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E814D10E820;
-	Wed,  3 Dec 2025 21:13:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC0D10E1B8;
+	Thu,  4 Dec 2025 06:05:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RBkmIRaM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ANW0GNEj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C196410E820;
- Wed,  3 Dec 2025 21:13:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764796426; x=1796332426;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=8ChyjmL7mW9AVC4zBeCg2xdrY0960XIx28vlHnY2TeQ=;
- b=RBkmIRaMMZo3+54mfec+KlujLuEvoAYPtutcH0DcL+JtW412KE3nZOMN
- roSasc3hbdCO1FpG8mvjDqCG7iwwBsSiRn6TJOK4GRBfC9pQPszTLUB2k
- xE1C3n2p1CsNAAQzGi9MImla7uOVR5kjpHCNx4hQR14B0mrjCZvGSzcGI
- XpotFPLa2TiOw9EMZGm+r6WTgkmmNxzOAV3O/BQmKdE+C0QzZyufIcB1V
- 3UHe5WF/52s//822tXfLCAPwMLfqz5n1w/mryUszAqK6ttzPypkikcbGw
- I8P/FmQiR1eaIXIccB+HW9fIS266cIsBFsg5F58njYVQ+YKVfvfm2fPSP Q==;
-X-CSE-ConnectionGUID: nLDz6BDKQSSdhP/vFDMt9A==
-X-CSE-MsgGUID: N6fsTGRyTqySpOUqeRsMbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11631"; a="78273681"
-X-IronPort-AV: E=Sophos;i="6.20,247,1758610800"; d="scan'208";a="78273681"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2025 13:13:46 -0800
-X-CSE-ConnectionGUID: yH97SYFARjOeVOwi3l82dA==
-X-CSE-MsgGUID: rGCYHRzRQWahnO0oTN02Lg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,247,1758610800"; d="scan'208";a="193871958"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2025 13:13:45 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 3 Dec 2025 13:13:44 -0800
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29 via Frontend Transport; Wed, 3 Dec 2025 13:13:44 -0800
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.71) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 3 Dec 2025 13:13:44 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yfMZEYJtH5NMCa/MIFwuU2I8aeaOxp8Gr9LYCYNNpzGyERHWdX7dOhBGc9Tt3Z+6i/pBh/tZK74FBXKt/CROxLRgpbGmiMQkYkgf+HvP0QtkQwhf0EvzmOJIZ/vGqJrkr75OEVPEjmzfjryiA9dWEkM9LcL8725knM+ImkZZ+NhbASm/LZHW+OuKmRPmJPl4KujGBB8BWvOI1hCpbICzYjKYh1BNPp7GpvijmJE2mkyIJROjAcMlbV8yx4XYQoW4NMYZ9+kH8k+tosxB5ZFC+1IlU+5txwAwg3PIbXGwOJhAi4Wd9LttZR5xOMaZnjEW2+cdbDsaDv/XnpQepL7rUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dByNS3fkjDeDSjWCpsFuJ0aT2ZfiKPIS0W0jtDTpDV0=;
- b=M/q99Hr4bhnMJLV8mgp7OhS6V7c9ZijuMB5BF11N13wMFgkrITIMbj/sX55Fx5x8IhYGIJ7YT3hfEnte23LQj5yjNl2gTbolTHoKmAhoK8MLuZSCo7JmAkJICRxJMJDwBmpgIW/VfSuXjg5c7gFN5E3xAGZwmD9jdbsjdltc+nZ/yqyx6WH+Bst1XD+WEX0sLY86a/KegktW2bSJWX7VJ3kY9bx6HMRcPEOQsSjn1rb/d9J/zgCj3ZY07cEyDLx9IwY5hdntGRHf0hysWsWXijnaGpkZZMDVTJFpRKydTMpDOg3kJ2lbTH7VIC/bkdenmm7naqXtWF3Wa2NN4hfJqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
- by IA4PR11MB9323.namprd11.prod.outlook.com (2603:10b6:208:565::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.10; Wed, 3 Dec
- 2025 21:13:42 +0000
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::76d2:8036:2c6b:7563]) by CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::76d2:8036:2c6b:7563%6]) with mapi id 15.20.9388.003; Wed, 3 Dec 2025
- 21:13:42 +0000
-Date: Wed, 3 Dec 2025 16:13:35 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: Andi Shyti <andi.shyti@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, Matthew Auld
- <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v2 4/8] drm/xe: Use dma_fence_check_and_signal_locked()
-Message-ID: <aTCn_1VHOOkvhxpS@intel.com>
-References: <20251201105011.19386-2-phasta@kernel.org>
- <20251201105011.19386-6-phasta@kernel.org>
- <aS3uycB40j2CptOf@lstrano-desk.jf.intel.com>
- <fdb7dhdrquapw4cb7oa23rpzl6dkzbnotc3otxntruf3a5hvca@szamkxwcjvfc>
- <aS9UWDA4jABUWB+W@lstrano-desk.jf.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <aS9UWDA4jABUWB+W@lstrano-desk.jf.intel.com>
-X-ClientProxiedBy: SJ0PR13CA0150.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::35) To CYYPR11MB8430.namprd11.prod.outlook.com
- (2603:10b6:930:c6::19)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70DEE10E098;
+ Thu,  4 Dec 2025 06:05:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0DCB943BAB;
+ Thu,  4 Dec 2025 06:05:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704ADC113D0;
+ Thu,  4 Dec 2025 06:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1764828324;
+ bh=TpXXIkYEPpVTVHVJr+O1twTDJSV3XXf6h+Qq9iQ/lmg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ANW0GNEj11i4a6Ie3r7pRyD9O8Kys0m6A3l/sQiqrrmCNOznPZ3dh08TUw73jvkhp
+ 6b6hV+XCH4MWmqBUZqIyPGOq6HoD60Jab3Kqax2T/Wbv8noF3HvnWcsfxamhoK463G
+ u6RYYtLDYRCxQ9AY5bYmNyvrMmcQfpDcaW6XdPVE7crtRaSpXKhSF9bc2AfTkFH/gu
+ g5S8Eq5tZSIUFdiXpQwExdBdU+V9LY4euH3A2U6jEucTnl0g5sDS7LFtnx0l5wVc1v
+ 7iKZr/Kj2iK3fMgv5nnEF2pd3hsRFrCiYi+wRTTbwShVpEccXYopxg5d8mRPMy1ViW
+ yJjlMIat7swpw==
+Message-ID: <2bc690ca-fa57-46fa-949b-28b5441cd364@kernel.org>
+Date: Thu, 4 Dec 2025 07:05:19 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|IA4PR11MB9323:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe724440-c03e-462f-d2b9-08de32b0d66f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?M6LlnGoUgdDkGNngR6R3lUCBprN2+eU3S5DEGT+hvOgk1FDEjE4RwuvS3tJp?=
- =?us-ascii?Q?NYyS78A0sICPWRAUNw71AzN66nR7iI0IH4JsBm2MG64vMwmaER7ZGQjYSoWF?=
- =?us-ascii?Q?VEEWyX2ibm2NAo4oUYIyb41Zvj8jMAA6ajk004OLuX0/lsHuTWCI8pZfr7v6?=
- =?us-ascii?Q?jZcUkivwCEtZ+Tn+oTxs5sgVsy5zDqji5XSFf8SoTkt+JOIhTivHweZMaYi9?=
- =?us-ascii?Q?17MepSWheIPR97qm4ekXdkrrFGAHeLJR3MkibplyzLY0PIqTeIBkwJQ8h1I1?=
- =?us-ascii?Q?jzgBDDEdMGSFaXIHt4aLLE1jJY6brjeo5IhP2kLhrMpKm4vzfVLxndYCrYC8?=
- =?us-ascii?Q?bJFVwGy9OroIhTR6l4viuceknXKZ9BSkUDgY/G+i5j5HcxhSl7MiNTvxfp46?=
- =?us-ascii?Q?aKEtJ90M/uQpcX97PWx1/jz7jonbHymQIj7Bi8MkGTg1TYnmNyAtd8oe6jSO?=
- =?us-ascii?Q?Med6ggSDgh63hRnoE/2QZxk+7LE75IHm8EICjgXksXZFTrdcY9ScKB+u4XwE?=
- =?us-ascii?Q?CL8aYtcWf8/IxYbPvF8UtbHu3rwK5mke6JIYZh0PdhJ/Arvr3MwfGAlK82js?=
- =?us-ascii?Q?VX73vzFlXZ/nZpmIK5WVarhYew7VuDcKwpfwHsrTKZ7+l+jKJcZu8KfoUMlu?=
- =?us-ascii?Q?7OIeqslljJ0zqo0YVvfyAUdCnwIywAV5gd5zBLXeERj3UmaICE0VKHOJSo41?=
- =?us-ascii?Q?0htDM/ENVEnDoUwHbLKi9meNVZcre9C+2EOlZ0stbS+4G2ZzDaGyEcYPg783?=
- =?us-ascii?Q?nKW6UCJDfEik8GP8vYt0PTyjTaalzdlWQ8YaPMeGQam6IbpQsEyon1mljNn7?=
- =?us-ascii?Q?52a6OMO+2gREtkYj3Nc8BqwxTxeaeF60GamSk9glu2JxJ6oN8LmlGBwNjHPZ?=
- =?us-ascii?Q?DKmj/NSbvFFsepBQxpxL/JmWxJNYnuvwEX1i346KJUqizSXCrej+k2gpjkn2?=
- =?us-ascii?Q?59ztzh4zTJusG2UHk6fDruAgEmV0RGeiNSy/e22VP/CXmgtEXnWLaK73i2fP?=
- =?us-ascii?Q?IaJYrRB1y5AiYkTf9D2WaQ2se9+RXXV6DoqoiUbj3AonuWyPYmhMylg043Qe?=
- =?us-ascii?Q?RRut9vKMAUid9DfGUGmqqE3mDxrTI/ut5nk84781s0/qsWqIOaIhsF81j87r?=
- =?us-ascii?Q?CQBHFm7Lqcr1+u/LBTzBKyG5Y9KWQDEU5NvPleOsaPpGgaAsRZ6haWKnxwqh?=
- =?us-ascii?Q?68HRSPOtjz+RKr9LWzPaXJsayMP7cMYRshvXj9L6lRb21l2l8ZPhkUxEjPOR?=
- =?us-ascii?Q?ZjFBRT5qBjiIJ3IUDzckfdFLYUCsFF35r2mdu1qL/YHKEvn/yfMA7Z9WjUO5?=
- =?us-ascii?Q?zMuAGDqQqf0r8VwEX3MGjOlvXlg42Dm8QIESwCP70P89t4kS2Q2RIWt5AnnH?=
- =?us-ascii?Q?8APMRvJ3GZ589P1MsqOcTLoWDBhuY/6fxKvYEnILT1s7WFz+hcwa074WdIyo?=
- =?us-ascii?Q?JSswSpkLXKsTF5BxdMocLRFkJJbhcLIr?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lof/zh4MBYPKgbwBhTbkABrZ02kQCzQzsEjwohHBrTD0k0EYMhMBuR90Gdbx?=
- =?us-ascii?Q?8+v9OgTw6MjcF/ud7fQf7aSIMf78JU2shIjPXVAYxJR+SApBZGbSnHnSL5eJ?=
- =?us-ascii?Q?b5UsxJ3F1ag6ip4Vf3dMSjvyxSNUmuMaQUeRhQT0Q6TMvFU7HcXFUYAO+xfT?=
- =?us-ascii?Q?HDdZy3fQxTj+u0/PR2zyVUCNsygxRgflfNP3HAmqHAqM0bP+0GHaRTXwZE2P?=
- =?us-ascii?Q?WyBka5g5Fv7SKcRT0VLHDSxtK08a12ZMyPLlPRaXFUWC7cnRnHOh2RzkaZRX?=
- =?us-ascii?Q?gtZ73XgcNUsA3xJ/7ACETaz+hIAJvQmsjsQbUdWpJQxUjzHsGlLt/+PGaSAj?=
- =?us-ascii?Q?h2tGVfsmiChE6wnV79ZPWSR7DN7HjBlltkx9WbaWHv2RslqVZOj8wVsdM3yl?=
- =?us-ascii?Q?8AU0GuOMMWFBaeD/UAV0IjSpkRSQ9bpb0onpoRpi9w92EmFitvfRW71oPpuK?=
- =?us-ascii?Q?KkneTRIMmnNxhfBdCAOPjUfTy9HFVziaqvuzxlQNvTbze47PtXrHIziQfRNs?=
- =?us-ascii?Q?FTQ2D7oCf0i7kyHRHDwOYabrLwsIDesET8GTrq/Rlbb3bXmhSsVcbDYlCmB4?=
- =?us-ascii?Q?NtPV0JMyqRf25M0L0k6E5mKzRp0xPtC7Ft7TD7tyghNtia+9xMuYGgHgJPlD?=
- =?us-ascii?Q?ZetElNITa5Zlra0ElNcu+dM3wEp1A9k66+5oJ4+diN7B9K62gtlHOtOwxqV1?=
- =?us-ascii?Q?gNE2b9dF0VEVapf4FmjXdct9NCDIWmzYZOdrXua3JJMGqUiSKDCuhfR4R4bC?=
- =?us-ascii?Q?ejNVThV7PEqmxPa8U9OTiK6FIUr3Ojp5qKYB/sQd0j1hF6THA7ICXJX6/g0h?=
- =?us-ascii?Q?AC/OUY8FoKhW5bROX8+Dea5SMwUXAIzcWrWobVdLEyZlLyo5UhFTBltoqYf4?=
- =?us-ascii?Q?K2vuS8jkU905kKQ4iVWl18j3XhzVBS6sFMUMEzQAU7dUshh801EGAvlhbpiA?=
- =?us-ascii?Q?1tV2avzzPRVlFWj/1DGB89jI0kSjaok6Gp2gjkX/SCEdPHD5VqWBCPCZrhrS?=
- =?us-ascii?Q?VoJZFYdbUiIZpw4sslIjc4qFYeQIKBl9yKxFTF53LYAhWGrsEKM/IZlTto09?=
- =?us-ascii?Q?Z/lRHIvLiS3xXF4dRO0qJwyOYXy5P3J8/+yzPNCY56M0omvkNxuDQqL82VQO?=
- =?us-ascii?Q?ZuHxL26fIXPgCmliCxSZ9cR0/GdysuCW+i8lXZxWH/iT5nBTKg75LgpUk5G6?=
- =?us-ascii?Q?bbs0UwRsycNUivSywMM/5DuoMhmOBKoI+LimwU7/3ooTjctLEFoqaGdrRXQB?=
- =?us-ascii?Q?xD15IW91QkeQGF2wdXOpuBg1rWc7rCeVDMA40OoDwFmboZ+sohR06eZ6m/nJ?=
- =?us-ascii?Q?GiXTn4X4R7oj4nKitj4ZtBMiCAEqIxJjof0/MegQXjyQK00QDEH5EoHsQwvF?=
- =?us-ascii?Q?IoofDMEqNoSeLRIuyzjKyTnuJBpeKRpEP/k/r/90zEM5iTLJe4VrdFnNPiZn?=
- =?us-ascii?Q?XitsS5SSyoTlSIb7kjvGkLH8/NW2R7JaaPJtfSRxUlSdTGCBJkqAtgthVO7I?=
- =?us-ascii?Q?inp6qssMAtMmDFFIa2hPTn8UVc4RM8CMVMQ+gK5DeFUNse8CuiV2VLztvV/j?=
- =?us-ascii?Q?8cQHNuYbuvBGdd8nM1FfTPopw73PrM30gXtIPGx0ZSw3FyODiHw7Fh74te1e?=
- =?us-ascii?Q?bw=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe724440-c03e-462f-d2b9-08de32b0d66f
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 21:13:42.8311 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dk9xBBBRljgI5PYuHG/qBKBq5GkYHunm/PDyFxjlPeP+4iZdns61288zrykIZKZW9Vz7gI0Q19yXgLjT0IZJSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9323
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: Linux 6.18 amdgpu build error
+To: Shuah Khan <skhan@linuxfoundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, akpm@linux-foundation.org
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Linux Memory Management List <linux-mm@kvack.org>
+References: <74032153-813a-4a40-8363-cce264f4d5ea@linuxfoundation.org>
+ <1eb24816-530b-4470-8e58-ce7d8297996c@roeck-us.net>
+ <0425d7b4-76e4-4057-83a5-a7b17a051c54@linuxfoundation.org>
+ <ec77d11a-7613-4b75-8c9e-f2bba1595f0f@roeck-us.net>
+ <9d520a1d-0b8d-4d30-b29f-230fc0f92b8a@linuxfoundation.org>
+ <1f31b86d-283c-4878-92d0-ab90aed0c58d@roeck-us.net>
+ <5af4522e-30ab-4eec-a861-c2760cdabd4f@linuxfoundation.org>
+From: "David Hildenbrand (Red Hat)" <david@kernel.org>
+Content-Language: en-US
+In-Reply-To: <5af4522e-30ab-4eec-a861-c2760cdabd4f@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -194,40 +68,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 02, 2025 at 01:04:24PM -0800, Matthew Brost wrote:
-> On Tue, Dec 02, 2025 at 09:47:39PM +0100, Andi Shyti wrote:
-> > Hi Matt,
-> > 
-> > > > @@ -93,9 +92,8 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
-> > > >  		spin_lock_irqsave(&irq->lock, flags);
-> > > >  		list_for_each_entry_safe(fence, next, &irq->pending, irq_link) {
-> > > >  			list_del_init(&fence->irq_link);
-> > > > -			err = dma_fence_signal_locked(&fence->dma);
-> > > > +			XE_WARN_ON(dma_fence_check_and_signal_locked(&fence->dma));
-> > > 
-> > > I think XE_WARN_ON can compile out in certain builds. Best to leave warn on logic as is.
-> > 
-> > I don't think XE_WARN_ON compiles out. It should always evaluate
-> > the content, then, depending on the build, it prints debug logs.
+On 12/4/25 03:34, Shuah Khan wrote:
+> On 12/3/25 18:06, Guenter Roeck wrote:
+>> On 12/3/25 14:16, Shuah Khan wrote:
 > 
-> Ah, ok. I thought XE_WARN_ON was tied to a Kconfig to compile out or
-> WARN_ON (this is what XE_WARN_ON resolves) compiled out in some kernel
-> builds. Upon more looking, I guess neither of these is the case.
+>>>
+>>> CONFIG_RANDSTRUCT is disabled and so are the GCC_PLUGINS in my config.
+>>
+>> I guess that would have been too easy...
+>>
+>>> I am also seeing issues with cloning kernel.org repos on my system after
+>>> a recent update:
+>>>
+>>> remote: Enumerating objects: 11177736, done.
+>>> remote: Counting objects: 100% (1231/1231), done.
+>>> remote: Compressing objects: 100% (624/624), done.
+>>> remote: Total 11177736 (delta 855), reused 781 (delta 606), pack-reused 11176505 (from 1)
+>>> Receiving objects: 100% (11177736/11177736), 3.01 GiB | 7.10 MiB/s, done.
+>>> Resolving deltas: 100% (9198323/9198323), done.
+>>> fatal: did not receive expected object 0002003e951b5057c16de5a39140abcbf6e44e50
+>>> fatal: fetch-pack: invalid index-pack output
+>>>
+>>
 > 
-> So I guess this patch is actually:
-> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> Linus, Andrew, and David,
+> 
+> Finally figured this out. I narrowed it to  to be the HAVE_GIGANTIC_FOLIOS
+> support that went into Linux 6.18-rc6 in this commit:
+> 
+>   From 39231e8d6ba7f794b566fd91ebd88c0834a23b98 Mon Sep 17 00:00:00 2001
+> From: "David Hildenbrand (Red Hat)" <david@kernel.org>
+> Date: Fri, 14 Nov 2025 22:49:20 +0100
+> Subject: [PATCH] mm: fix MAX_FOLIO_ORDER on powerpc configs with hugetlb
+> 
 
-and
+Unsuspected and confusing :(
 
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Let me take a look at reply on the revert.
 
-if needed to merge through any other tree...
+-- 
+Cheers
 
-> 
-> Sorry for the noise. Side note, we should probably just XE_WARN_ON too
-> since this is just WARN_ON.
-> 
-> Matt
-> 
-> > 
-> > Andi
+David
