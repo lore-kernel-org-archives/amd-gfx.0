@@ -4,152 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95F6D2168E
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 15:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78EAD216A4
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Dec 2025 15:42:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5366310E8A8;
-	Thu,  4 Dec 2025 15:10:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w66Eoowj";
-	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013058.outbound.protection.outlook.com
- [40.93.196.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA7A10E1FF
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Dec 2025 15:10:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AYd/FmuX1WUzigoGhe7LXU1ouKvLpe5gAEifaI9DWBDnPNYhEuAkkcie3LzfNOEMOxZMj4/pb+QKHy0iFmch9WgqQdX638SgtMQdZR/aQFqXo9X35HBwQbx68ztJr+gaNbw0H6K7JMk3e9mNIl8euu77neKJ16Utf/qvzm14PX6kI8H8QUpv2k74lO3H79GSn+ZpKak4Adox31mZXf4wHRVR6A1awFCvzORM3L51DZRIPEWFkStqS/YgKBj39B3aqVBnitsH0OaHo/0ekVD1yyW4Q2XwkgZCL+E7yvJw1FyUmV6nbsDThnEbeurJQgtdHrS5cipEYZQp4sKfyxhZ5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C6ypSYwmDIYP2sPXEuSPwgJAST7MhnqFdHnB1ZIBAgU=;
- b=EAxVeODL1ST9x/9J0wtPki4owrew5UfuFbldRAjR7rn2nzIGDrCwA5JQnJEfnGtKeIi6KdJvKKq3VK6Ypbt3xU+92C93qc1ycu01+M2igPijm3GACzpdUDzFq5qfdpsuLkn3GazsUHtfTVvuPJlSCqLRhb2GPjtSKtFQMmUUKsvCa+OPPK0IIokfT+0QRSJsh+UrBVIgsTgnirTbOVtfJ+kneXUSAig+dJf46nyjvuvDQPESiNYrJybEwUBJAadl+j8rdWLO15/HSwXKYUCJQXfh7USQOm/Hz3nWEAsgGAS4LhxG0LtRBkztZVcdgsF31Eh4xpxJH36tuvoACh66lA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C6ypSYwmDIYP2sPXEuSPwgJAST7MhnqFdHnB1ZIBAgU=;
- b=w66EoowjjKRNgoz3BqmrrFLh/HCsQBDD96ZRYOunI48LUm8C5IP5KIlyV1Cdl6rkRheKnTiO6Eb/5ix2azg6ybAYfJB5D/NRBzob2mI6jlcko1fjVRjIRibo7uKPaIejM3H97JZNh/Xh3rYCa8UgUAx3JT94ka9QvXI35y80w5w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Thu, 4 Dec
- 2025 15:10:52 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da%5]) with mapi id 15.20.9388.003; Thu, 4 Dec 2025
- 15:10:52 +0000
-Message-ID: <148415b0-ce15-4d20-b375-8a30e4ce2396@amd.com>
-Date: Thu, 4 Dec 2025 10:10:50 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/amdkfd: Bind gfx9 MQD in GART with mtype RW
-To: "Kuehling, Felix" <felix.kuehling@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, david.yatsin@amd.com
-References: <20251201142838.1516452-1-Philip.Yang@amd.com>
- <20251201142838.1516452-2-Philip.Yang@amd.com>
- <026f82e1-be99-4a16-bf3f-dd6950c15cc7@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <026f82e1-be99-4a16-bf3f-dd6950c15cc7@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0129.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:1::29) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25CBC10E829;
+	Thu,  4 Dec 2025 15:42:39 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 07AF610E829;
+ Thu,  4 Dec 2025 15:42:38 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0EF3D339;
+ Thu,  4 Dec 2025 07:42:30 -0800 (PST)
+Received: from [10.1.38.32] (e122027.cambridge.arm.com [10.1.38.32])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E11AE3F59E;
+ Thu,  4 Dec 2025 07:42:31 -0800 (PST)
+Message-ID: <38811d77-53b3-405d-8424-438ccfcc7fc1@arm.com>
+Date: Thu, 4 Dec 2025 15:42:29 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CH2PR12MB4198:EE_
-X-MS-Office365-Filtering-Correlation-Id: b372dcdf-c458-4a98-000d-08de334750b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TjNJSUxuL0pGYWxqa2NoUWgxeXU2MDR3Ylh2cFR0VDRhbTl2ZkFlenl2Mlda?=
- =?utf-8?B?ZTM4OXpGUGc3bXhRb3g3SElWZWtYVTZDTE9CMnY4ZkJFYnBOK3JReEF5UjJL?=
- =?utf-8?B?dnF0T0ZrN1lFdmp2TU4yR1hQYndDWngyK0R4dTNWREU2SzlQTkpKZWNMOXMw?=
- =?utf-8?B?NS82eHpwRnZ1bkgvLzllT3RFZnhiWDIrckpVRGh3ck1tdUhWU0dhN3RhZTRV?=
- =?utf-8?B?N3RZK2xNbzMzYWF6Tjg0UFUvZmFseHdtTDlsU3JUSVJXWGxuZ1RlelJvNXk5?=
- =?utf-8?B?bGIrd25aQnJhYkk4WkdiRUVWbmdNK2JUSmtyM1NuTmhiSk9raHpvNW5ReENN?=
- =?utf-8?B?c1MrRWxlNVluTWhFalVDZ0FYelpJK0huUHRBL2NyaDhwamZrbGhIYXFIWlgz?=
- =?utf-8?B?M3U3TEFVRGVBS3JXSHcxM2xtTTYzWlRpbGhLSU95czRsMkx6UzJpYkxUeXp5?=
- =?utf-8?B?NEJxcW16OEplTkM5ZlBEdlZFay9xS0RDREZvVEkxcU1sQU1HaU93Um9TK2Nh?=
- =?utf-8?B?UWNoR2JjQ2dtUFVBSlJVcGwveVp5bkNtQVNWVzZRY2kzNzVDYzI5emZHa3hT?=
- =?utf-8?B?SDhwN1JNbVNJd0RHcnJydzNQTzJTU1ZyQVMxcTRRUVVqLzJ2T3BkOUlocnd3?=
- =?utf-8?B?cGt4eTVRbTVSQ3JDSkFadmwvRm1JdnJyY1BPSk5LT2xld0Nvdkd4UUJ1ZkRk?=
- =?utf-8?B?SWtHaWxFOXNERGNwdmpPWG4vNG11MnNQNXpMalBud2U0dkxUSVVSMUpIWVVX?=
- =?utf-8?B?NURHRHU4eFBnb0ZwS3hGQlRRb3NmRGU3NzdZNkdIM3JZY2ZNcjR0TmdrK2x5?=
- =?utf-8?B?bUJQdnlxY1FOOG1NeWp4OThyYlV5ZWdCaExPd3Fad1ZKaUZUazNMc1htVEhE?=
- =?utf-8?B?bGZVQ0VyNnJ3aVExMFJLQUdlUlVlZTJaTVk4MVJCakR0OGo0Q0lKbDNHaEV2?=
- =?utf-8?B?NmRJVWc0WHJJdW12dWtvSS9pRCt6N3pJVGRGdzdNdWRkR3BiSE8rVmY4WkUy?=
- =?utf-8?B?WDhBN2hMTy8vYjhQUWxNaWpnUU5vOVF4dHJWcXJkWjRnZytUZ2VnOHFlV1Ey?=
- =?utf-8?B?T1BIczIwMXdOYTJkUmYzTEhKT2wxT0RkTzV4Y0RPdzBNVkJKNkdNc1E3OXlH?=
- =?utf-8?B?T1dhbjh5eGljeUttK2pwU3JCZTVVWit1dml6ZHJQK2pIVStOUGRzRXZUYlVC?=
- =?utf-8?B?NzZOVEU4ektpS21DREV5bUtVN2JHeU5YRjd2dERtbmpUbmFYaVZiTEtIYm1G?=
- =?utf-8?B?RkczZWpKY3JtcDVpK29tMFIxaThuUmpNdHB1MWY0ODMzNmlSbU1UMjhXajY4?=
- =?utf-8?B?ajlSdkpMeXUwSUFsaFZLcWdnbFdTRzI0dHVNQzVTeEd1alB0OEpDMGdhTzBY?=
- =?utf-8?B?dndrL3hoNDV1bmp3R2RCeVBxOXVoK0QrYzFpTTkrdVJCYVJJU2UwL0lpUG9I?=
- =?utf-8?B?TjM4Ny9PbUlOQW5CY2ZsR1hkQzZOcHFtOE5JUGVFZ0tHQS9BdXdscVFFOXJi?=
- =?utf-8?B?a1oyNnhVM0g0RFJjeGliTVNQQ0xROGM0OWQ3V09zNnkwaDRRbjJ6TWxid2xt?=
- =?utf-8?B?ZE8vSXhpRzRHaFZ4QW5heVRRSkVoQy9rdHViQVpOWXJEUXR1bjlLeWNaRlhv?=
- =?utf-8?B?RDlhK2RNbGdmd0NuTitVNGl4dHd5R3RmMzZsNVE0cUtlUjV3M0JJWkhvaWxz?=
- =?utf-8?B?MThYSWZqUXljZHZzYkx5ZzFhY2dLNjN2eGJRWnphclRoNE01S25mRytXTWFP?=
- =?utf-8?B?Q25hUEk1YXd6OGV2MFVlMC9Ib0hULy9rSHk4cWJiRlFiYlh1ZDJTcVBKV0h3?=
- =?utf-8?B?WDNWOTVCejdUbjBTTkNOc2RxY2tnbnZOeVJML3M4ZHEvbGVtZFFyM2Z2bStU?=
- =?utf-8?B?ekNuYiszK1FKUC9qNFV2N2puS1JhRVM4ODc5RC96RkpuRnVFa05wekNnaG1r?=
- =?utf-8?Q?+9h76aSbT7J9EMG6qCb3v8ocL6bCvFsu?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek1FMW0rYTBHOTNWUjFFZWJnSG1NTnlLOEdWNmlyN2ZQbTY5MHpZUlVuck9v?=
- =?utf-8?B?eXltaXJyYkxYenJwK3FpeCsza0pvMng4bHBmYWIrd1dyeWlqL3NzSGxlRW83?=
- =?utf-8?B?L1RBNDFHRnRWeUtDWWJ2Zk5ZL1dibW9YWE41QTQvVEVTdkNuMHVaR2hLcEt4?=
- =?utf-8?B?U0JncTZqVUwvNk9RQTFyYTV0ejdmblBWc3E1Mjk1ckR3WURPaTdUa2VsS3kz?=
- =?utf-8?B?aC9pOHhOQzM4L2JUYldxUG1QTEp0YUZuM0R1SDF4QUZUQmNOTTlMaEo5SXVS?=
- =?utf-8?B?RkhkaU13K3VveEd3OS9TUVJIZkx6VE56S1pDM1NVcjluVFAwSlF1RERHaGhB?=
- =?utf-8?B?N3drNG1ndWE0QlVCMlYwUzFOaTdmaCtHcmlXTTVWcnkrNWgyaTdML29MSDQ1?=
- =?utf-8?B?dlEreEs2Vkh2WndQbkdQMkdDd2ZQQ2YvM29PQXJOamNNKzhnWk55YVI0WG9M?=
- =?utf-8?B?Y3ZPb2IwTWRJZ29aVXFJMHBBNGRFbzBaVG1XUmpFMWt3N3AzeEg0aFhUOE5J?=
- =?utf-8?B?dFN2Qkc1Tm9EeXFjYllaWEhUd3NYUnFDK3R6MVpad3Bpa2Y4eEN6ZGl4Q2RG?=
- =?utf-8?B?TEVYcTRLQWFUZTRGS0pSdklUWGxlNnpuZHRRUWhnRlMxUjlQRFNBamMxNnRU?=
- =?utf-8?B?SjE1QVFLdUhKVkYrcWIxWWlZWFREQjE1V3hzOTF2ZitWQXJ3MTdNV1pWbDhM?=
- =?utf-8?B?RlMreTZxT0xzUlEyMkFKRG9XMG04VEpFL2w0RVRXamxTWjZmemJlZ2JWQklW?=
- =?utf-8?B?ZXA4eDBtLzQraUVOdUJXdzNQVkNERzFhMzkrZzhGS05xQkpUU3hudFZrOUVy?=
- =?utf-8?B?UlB4MXNyd1pGY0dLTEd1TnlKQzVzQTRSQjNGc3d3UVhDNUYvMm9UUnliUHB3?=
- =?utf-8?B?alFkZ3JablpweVZOU3pHcy9SMURWMlA4cDMxbW03cEZ2dUp4bkNWU2RpZ2o3?=
- =?utf-8?B?MnRhd0xSV1BmNGV5cjB2VmtLUGZQNkd4VWhNZXBBbE96WVZQYm9zQ0dBUVZX?=
- =?utf-8?B?OFNKMWtCaHF5bkM2bzZvaEk0TFVwZDQ3RS9UMUVkR0ZVVURvNWZSLzVqMUlq?=
- =?utf-8?B?cEFOWitDT25rUmFkQUNNcEorKzdnSlBZendhRHlOTk5JZXlWR2FuSk1Gb3lw?=
- =?utf-8?B?SXFua2UvMWE5UmNVejlHTGR6MS9hTU5BVXErVG83YXlwbUdrK29ybm1OT3M1?=
- =?utf-8?B?WUVRSlNVcm1FT3NiZUI1UDRtSXhPaFdiNjRoRXVyM004KzE2c3VtUFBFTkZl?=
- =?utf-8?B?aUZxakRCODNSVTdmSHBZUWVZOWNrU1ZncTA0TjNXckh1dFExcUNsOUxsbmpO?=
- =?utf-8?B?VTMvT3JMK290c1pMZjFVU3NkYVVJdmZKcWNiaUNMbCtWSlFnSjh1LzloU3I0?=
- =?utf-8?B?RmQyTnZRMzlyTlRJV1g3Q0ZoTTNkZXY3OFlINTVKS0NaZVVZbDZvSXgrZzZC?=
- =?utf-8?B?SjZUL0pOMjZzVjgzUkJnNXFVcFZtSXFHTVJCeFZrNlJ0WEtyYnJTUE1JQ3Z3?=
- =?utf-8?B?YldoOHJRdlc2MkRybkxLWmdLdlRzMFkzVUxBSXhLVzdyOFVuamlqbU56ZFFC?=
- =?utf-8?B?V0FvdVlWMis1eUhBUDNkTFV4ZEt0c2ZzcHRzL21OSWhQRmk1VUR6WWxBbVl0?=
- =?utf-8?B?VFR4MFgzNUNodTlXa3J4Nm5yTHU0Z1dYN095SkR5RndQV3ZpQVRsYjdJa1k3?=
- =?utf-8?B?dnJRNEwwaFF4c2hJL2VrL0tvQjllRkdnVUhWQlZDOWhqLzlXVUd6T3FmeUEz?=
- =?utf-8?B?YVQ3MHBzOWYvU3owdWFkdUs0djluaVM0Zlgwa3RBQWJ0L0pONmtQTVE2QVl0?=
- =?utf-8?B?MTBGK1YwMWRESEtxVjVrd0c1TmVsZTVBa1BHbEUwOFUrQTNFbFZYYWlBSHV2?=
- =?utf-8?B?RVk2UnBZZG1QbEx5OWlNRnI4dUJOZFVkZzF5OGkvdEJ6am5Cb3h6emxQc1My?=
- =?utf-8?B?cmJGSlB3RlNqM3Jta3h2ZXVBeFJYeDlPN1Uwa3YvdUdJR2xYY0Myelhtenl3?=
- =?utf-8?B?ZTJGUDhXeUVoaEF4YnpSc1BEUlZBMEVWVkZtdDlQWjdHLzFLNUdsSFV2ZGRw?=
- =?utf-8?B?WFA0SmovOHlRMWozL2U1bFhXczVTNkk1QnBVeFJFQnFBRm9ZZEk0RXIwbllj?=
- =?utf-8?Q?1FBP3Mp4XQWK7JpjWKiAIG8Zf?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b372dcdf-c458-4a98-000d-08de334750b8
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2025 15:10:52.4733 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4D9lj405N8QH9l6hL2rnVgXF8k3/2MnsTsIH99iDBcDRd/CjnrkLoAi2hmPJgyiM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4198
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 04/13] drm/panthor: Add a PANTHOR_BO_SYNC ioctl
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Frank Binns <frank.binns@imgtec.com>,
+ Matt Coster <matt.coster@imgtec.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com
+References: <20251203090141.227394-1-boris.brezillon@collabora.com>
+ <20251203090141.227394-5-boris.brezillon@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20251203090141.227394-5-boris.brezillon@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,59 +64,294 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 03/12/2025 09:01, Boris Brezillon wrote:
+> This will be used by the UMD to synchronize CPU-cached mappings when
+> the UMD can't do it directly (no usermode cache maintenance instruction
+> on Arm32).
+> 
+> v2:
+> - Change the flags so they better match the drm_gem_shmem_sync()
+>   semantics
+> 
+> v3:
+> - Add Steve's R-b
+> 
+> v4:
+> - No changes
+> 
+> v5:
+> - Drop Steve's R-b (the semantics changes call for a new review)
+> 
+> v6:
+> - Drop ret initialization in panthor_ioctl_bo_sync()
+> - Bail out early in panthor_ioctl_bo_sync() if ops.count is zero
+> - Drop unused PANTHOR_BO_SYNC_OP_FLAGS definition
+> 
+> v7:
+> - Hand-roll the sync logic (was previously provided by gem_shmem)
+> 
+> Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-On 2025-12-03 12:40, Kuehling, Felix wrote:
-> On 2025-12-01 09:28, Philip Yang wrote:
->> For gfx9, bind MQD in GART with mtype RW to enable caching, to
->> reduce queue switch latency.
->>
->> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  | 1 +
->>   2 files changed, 3 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index e553cf411191..5f58cff2c28b 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -841,6 +841,8 @@ static void amdgpu_ttm_gart_bind_gfx9_mqd(struct 
->> amdgpu_device *adev,
->>       int i;
->>       uint64_t ctrl_flags = AMDGPU_PTE_MTYPE_VG10(flags, 
->> AMDGPU_MTYPE_NC);
->>   +    flags = AMDGPU_PTE_MTYPE_VG10(flags, AMDGPU_MTYPE_RW);
->> +
->>       pages_per_xcc = total_pages;
->>       do_div(pages_per_xcc, num_xcc);
->>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> index 139642eacdd0..4dd15767a722 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> @@ -101,6 +101,7 @@ struct amdgpu_bo_vm;
->>         AMDGPU_PTE_MTYPE_VG10_SHIFT(mtype))
->>     #define AMDGPU_MTYPE_NC 0
->> +#define AMDGPU_MTYPE_RW 1
->
-> This is probably not the right place to define this. MTYPE_RW is not 
-> universally available on all our GPUs. Not even on all GFX9 GPUs. This 
-> MTYPE definition needs to be in an ASIC-specific header file, and 
-> probably already exists somewhere.
->
-> Also, we can't use MTYPE_RW on GPUs that don't support it. I believe 
-> it was added in MI300.
-Thanks, this is available for gfxv >= 9.4.1, will drop this patch and 
-setup mtype before calling amdgpu_ttm_gart_bind.
-
-Philip
->
-> Regards,
->   Felix
->
->
->>   #define AMDGPU_MTYPE_CC 2
->>     #define AMDGPU_PTE_DEFAULT_ATC  (AMDGPU_PTE_SYSTEM      \
+> ---
+>  drivers/gpu/drm/panthor/panthor_drv.c | 41 ++++++++++++-
+>  drivers/gpu/drm/panthor/panthor_gem.c | 85 +++++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_gem.h |  2 +
+>  include/uapi/drm/panthor_drm.h        | 52 ++++++++++++++++
+>  4 files changed, 179 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index d12ac4cb0ac4..cab19621917f 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -177,7 +177,8 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
+> -		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs))
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
+>  
+>  /**
+>   * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
+> @@ -1396,6 +1397,43 @@ static int panthor_ioctl_set_user_mmio_offset(struct drm_device *ddev,
+>  	return 0;
+>  }
+>  
+> +static int panthor_ioctl_bo_sync(struct drm_device *ddev, void *data,
+> +				 struct drm_file *file)
+> +{
+> +	struct drm_panthor_bo_sync *args = data;
+> +	struct drm_panthor_bo_sync_op *ops;
+> +	struct drm_gem_object *obj;
+> +	int ret;
+> +
+> +	if (!args->ops.count)
+> +		return 0;
+> +
+> +	ret = PANTHOR_UOBJ_GET_ARRAY(ops, &args->ops);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (u32 i = 0; i < args->ops.count; i++) {
+> +		obj = drm_gem_object_lookup(file, ops[i].handle);
+> +		if (!obj) {
+> +			ret = -ENOENT;
+> +			goto err_ops;
+> +		}
+> +
+> +		ret = panthor_gem_sync(obj, ops[i].type, ops[i].offset,
+> +				       ops[i].size);
+> +
+> +		drm_gem_object_put(obj);
+> +
+> +		if (ret)
+> +			goto err_ops;
+> +	}
+> +
+> +err_ops:
+> +	kvfree(ops);
+> +
+> +	return ret;
+> +}
+> +
+>  static int
+>  panthor_open(struct drm_device *ddev, struct drm_file *file)
+>  {
+> @@ -1470,6 +1508,7 @@ static const struct drm_ioctl_desc panthor_drm_driver_ioctls[] = {
+>  	PANTHOR_IOCTL(GROUP_SUBMIT, group_submit, DRM_RENDER_ALLOW),
+>  	PANTHOR_IOCTL(BO_SET_LABEL, bo_set_label, DRM_RENDER_ALLOW),
+>  	PANTHOR_IOCTL(SET_USER_MMIO_OFFSET, set_user_mmio_offset, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(BO_SYNC, bo_sync, DRM_RENDER_ALLOW),
+>  };
+>  
+>  static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index 173d42d65000..4be32fc1732b 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -447,6 +447,91 @@ panthor_gem_kernel_bo_set_label(struct panthor_kernel_bo *bo, const char *label)
+>  	panthor_gem_bo_set_label(bo->obj, str);
+>  }
+>  
+> +int
+> +panthor_gem_sync(struct drm_gem_object *obj, u32 type,
+> +		 u64 offset, u64 size)
+> +{
+> +	struct panthor_gem_object *bo = to_panthor_bo(obj);
+> +	struct drm_gem_shmem_object *shmem = &bo->base;
+> +	const struct drm_device *dev = shmem->base.dev;
+> +	struct sg_table *sgt;
+> +	struct scatterlist *sgl;
+> +	unsigned int count;
+> +
+> +	/* Make sure the range is in bounds. */
+> +	if (offset + size < offset || offset + size > shmem->base.size)
+> +		return -EINVAL;
+> +
+> +	/* Disallow CPU-cache maintenance on imported buffers. */
+> +	if (drm_gem_is_imported(&shmem->base))
+> +		return -EINVAL;
+> +
+> +	switch (type) {
+> +	case DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH:
+> +	case DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Don't bother if it's WC-mapped */
+> +	if (shmem->map_wc)
+> +		return 0;
+> +
+> +	/* Nothing to do if the size is zero. */
+> +	if (size == 0)
+> +		return 0;
+> +
+> +	sgt = drm_gem_shmem_get_pages_sgt(shmem);
+> +	if (IS_ERR(sgt))
+> +		return PTR_ERR(sgt);
+> +
+> +	for_each_sgtable_dma_sg(sgt, sgl, count) {
+> +		if (size == 0)
+> +			break;
+> +
+> +		dma_addr_t paddr = sg_dma_address(sgl);
+> +		size_t len = sg_dma_len(sgl);
+> +
+> +		if (len <= offset) {
+> +			offset -= len;
+> +			continue;
+> +		}
+> +
+> +		paddr += offset;
+> +		len -= offset;
+> +		len = min_t(size_t, len, size);
+> +		size -= len;
+> +		offset = 0;
+> +
+> +		/* It's unclear whether dma_sync_xxx() is the right API to do CPU
+> +		 * cache maintenance given an IOMMU can register their own
+> +		 * implementation doing more than just CPU cache flushes/invalidation,
+> +		 * and what we really care about here is CPU caches only, but that's
+> +		 * the best we have that is both arch-agnostic and does at least the
+> +		 * CPU cache maintenance on a <page,offset,size> tuple.
+> +		 *
+> +		 * Also, I wish we could do a single
+> +		 *
+> +		 *      dma_sync_single_for_device(BIDIR)
+> +		 *
+> +		 * and get a flush+invalidate, but that's not how it's implemented
+> +		 * in practice (at least on arm64), so we have to make it
+> +		 *
+> +		 *      dma_sync_single_for_device(TO_DEVICE)
+> +		 *      dma_sync_single_for_cpu(FROM_DEVICE)
+> +		 *
+> +		 * for the flush+invalidate case.
+> +		 */
+> +		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
+> +		if (type == DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
+> +			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  #ifdef CONFIG_DEBUG_FS
+>  struct gem_size_totals {
+>  	size_t size;
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
+> index 91d1880f8a5d..bbf9ae75c360 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
+> @@ -146,6 +146,8 @@ panthor_gem_create_with_handle(struct drm_file *file,
+>  
+>  void panthor_gem_bo_set_label(struct drm_gem_object *obj, const char *label);
+>  void panthor_gem_kernel_bo_set_label(struct panthor_kernel_bo *bo, const char *label);
+> +int panthor_gem_sync(struct drm_gem_object *obj,
+> +		     u32 type, u64 offset, u64 size);
+>  
+>  struct drm_gem_object *
+>  panthor_gem_prime_import(struct drm_device *dev,
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index 28cf9e878db6..9f810305db6e 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -144,6 +144,9 @@ enum drm_panthor_ioctl_id {
+>  	 * pgoff_t size.
+>  	 */
+>  	DRM_PANTHOR_SET_USER_MMIO_OFFSET,
+> +
+> +	/** @DRM_PANTHOR_BO_SYNC: Sync BO data to/from the device */
+> +	DRM_PANTHOR_BO_SYNC,
+>  };
+>  
+>  /**
+> @@ -1073,6 +1076,53 @@ struct drm_panthor_set_user_mmio_offset {
+>  	__u64 offset;
+>  };
+>  
+> +/**
+> + * enum drm_panthor_bo_sync_op_type - BO sync type
+> + */
+> +enum drm_panthor_bo_sync_op_type {
+> +	/** @DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH: Flush CPU caches. */
+> +	DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH = 0,
+> +
+> +	/** @DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE: Flush and invalidate CPU caches. */
+> +	DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE = 1,
+> +};
+> +
+> +/**
+> + * struct drm_panthor_bo_sync_op - BO map sync op
+> + */
+> +struct drm_panthor_bo_sync_op {
+> +	/** @handle: Handle of the buffer object to sync. */
+> +	__u32 handle;
+> +
+> +	/** @type: Type of operation. */
+> +	__u32 type;
+> +
+> +	/**
+> +	 * @offset: Offset into the BO at which the sync range starts.
+> +	 *
+> +	 * This will be rounded down to the nearest cache line as needed.
+> +	 */
+> +	__u64 offset;
+> +
+> +	/**
+> +	 * @size: Size of the range to sync
+> +	 *
+> +	 * @size + @offset will be rounded up to the nearest cache line as
+> +	 * needed.
+> +	 */
+> +	__u64 size;
+> +};
+> +
+> +/**
+> + * struct drm_panthor_bo_sync - BO map sync request
+> + */
+> +struct drm_panthor_bo_sync {
+> +	/**
+> +	 * @ops: Array of struct drm_panthor_bo_sync_op sync operations.
+> +	 */
+> +	struct drm_panthor_obj_array ops;
+> +};
+> +
+>  /**
+>   * DRM_IOCTL_PANTHOR() - Build a Panthor IOCTL number
+>   * @__access: Access type. Must be R, W or RW.
+> @@ -1119,6 +1169,8 @@ enum {
+>  		DRM_IOCTL_PANTHOR(WR, BO_SET_LABEL, bo_set_label),
+>  	DRM_IOCTL_PANTHOR_SET_USER_MMIO_OFFSET =
+>  		DRM_IOCTL_PANTHOR(WR, SET_USER_MMIO_OFFSET, set_user_mmio_offset),
+> +	DRM_IOCTL_PANTHOR_BO_SYNC =
+> +		DRM_IOCTL_PANTHOR(WR, BO_SYNC, bo_sync),
+>  };
+>  
+>  #if defined(__cplusplus)
 
