@@ -4,154 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6493BD216B3
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 10:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC87D2F7D5
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 10:20:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BAB910EAA2;
-	Fri,  5 Dec 2025 10:18:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C076E10EAA6;
+	Fri,  5 Dec 2025 10:20:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sKvhuIJn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IwSKpEMM";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012069.outbound.protection.outlook.com [52.101.48.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A45C510EA9A;
- Fri,  5 Dec 2025 10:18:29 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013060.outbound.protection.outlook.com
+ [40.93.201.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1A910EAA5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Dec 2025 10:20:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jdxNEdjK4bawJokqvPQcdlKCmXyl8QQtsT3Z0mdAy6wLwT9qmb4mljLlBVg0SpZL40kmIjrmiTKmpRwxpujrBC7PGibwhgXt9fOEDTluIB5zxitYZA5K23cEryNPgUrxP2mCGP7XHy3ckzpHjna8rSLzXaFRllFYnRa3w7/d0ppax3r797OBgF7epTkFFiAvkLE3U/CpDRgN5FzmF0UXOml/fMiKDss3HJsODabNwVN3zHwUUe8ap1zPxDe0IcqS2/r+kHNPGnyZYskdI4IaNR5xIChHCQa7K0/9SoypmHgLAEwjJcDzM2Rt4Yuk2ey00Iin2AQdH6J6sAPvDQM4Jw==
+ b=Cku93iqBtCOVwJ2WxwLEGg01zjYQkO5JtkOItSzChT90owe5GwOg1MhENlvXSpFG+YAWKHtecpWeoeEVTQ1dAZX1zvEYbrwSyleAUIV650AiZVqBVba9fs6ggQ+xrBWM3O0NXSl3lfcmGFoaG6KHO2qStOBcoFFK9uqc1tgYDAwFk7GM2/4MxYdG9I0QBKWrp6+/mYt9DJb7dSKb+LXvA8WiYgJsWAAhqGAD2fjp0BuBl7JlWjYgazfV6ZAL9zJz2LzgNeLO58tlQY4EZ62HSC02+txuxye/Yk3uc1XjdnrI9xEya4S7r4/2+y95pDMVYJtlnW3dgIHlteFDywDgBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kc4kUkSrrPjT3IA6Ei4DDYuhW+XFdlEGJfVYnyRQIog=;
- b=bCF6STp76vr3hfoNkWXAS0kBmpL1u/oXsXPu/QdIeheMHg8EvatXSstdGpQaiYoVvQ8SRzcHarMdAU7oGZ0KuXjBgQemYvHW41/pDFBPmQKlCNLy3Oiz8iTVmHViOqRCazZ3BZ5ggjfH2az30VhQ3Syx0IxTwUhKFc189M6kgaQ29KpNaKNSLh6E4aTNL65ZJyag3TJMTLGS5k3qiBbcg1avc22Z27XThO9hJJu8JLtrlz4q/Lo0QbNVABHLoPwh6jH2WDHR18AOphmVKydbvy1ozynsGmjpD3qdXiKLPtZnVNXwJGOd57vDX6cIvFg02TiPULUV1d2RbZu7PwZgxg==
+ bh=hClI4nmAL21HibZuhpBRyROOjOpfL62GGxyxRD91Px0=;
+ b=S1DQsDYztMFn9VJJj0rLfvZ66svTp1PxqIMvx8nI5woXKZGTXCF/TiwYSHxVd9HPq/lnyCqb4IVTde9bVYE/t16cDpcWoRu3+8uJdQllIUg5fKvnQywvl/4ns8+3qeiP4RPn3Jg3IqfZZGpAHtkeFnG/vWtQ+B/EgdyE5964Mqqrs76Y7msVMtgzsbqIfqYBtK+GDQhcuXpBNZrcSIx78Nz/WytIEvPMDwa2Mcsvee/3vdmbCaLGMBfunJOywx3cw9VbkODEBw1JZxN952Gfw490tXEN4x5/9TmX6cbkvAXtoHtJt/pAJyI1P3KAqynjWGncIW7tv2dU61XDHe6Tzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kc4kUkSrrPjT3IA6Ei4DDYuhW+XFdlEGJfVYnyRQIog=;
- b=sKvhuIJnoPOvw+ck+lnWCVHRdxbsNACeLeeQEyZl2KeGfmp/105+rW67dZdlpXa/mVR0cTQp+MTwSlSFVrB+gvqNd4WnfcEItgsNe5ckDaas0cXq8JAw1CwRuA6GJd/vOtKAd6QkQ5/MUpRT2LchlGpeN1lV9M2pIdE73kIALnc=
+ bh=hClI4nmAL21HibZuhpBRyROOjOpfL62GGxyxRD91Px0=;
+ b=IwSKpEMM7RBueoJE9Eav7JiReiTARS0K1UpQYoN7Wy5SoQ8sStOuKQHisS2BwfqFQ9FbP12lWdzxVP85LvAA+q1PGCeFyl9r7LqrZTkIxNqn1eifsj1k/sGW2AxOlFAXc6fT5lYOz5HkWNlmZwyggEOFTT1Hcz6/uFfqIgtvYUA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH8PR12MB9840.namprd12.prod.outlook.com (2603:10b6:610:271::18)
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
+ by SN7PR12MB8434.namprd12.prod.outlook.com (2603:10b6:806:2e6::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.12; Fri, 5 Dec
- 2025 10:18:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9388.003; Fri, 5 Dec 2025
- 10:18:27 +0000
-Message-ID: <49de5988-ea47-4d36-ba25-8773b9e364e2@amd.com>
-Date: Fri, 5 Dec 2025 11:18:21 +0100
+ 2025 10:20:54 +0000
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819%7]) with mapi id 15.20.9388.003; Fri, 5 Dec 2025
+ 10:20:54 +0000
+Message-ID: <8f562315-824e-43eb-a4d5-614f077e39ba@amd.com>
+Date: Fri, 5 Dec 2025 15:50:49 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
-To: phasta@kernel.org, vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, dakr@kernel.org,
- Matthew Brost <matthew.brost@intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Lucas Stach <l.stach@pengutronix.de>
-References: <20251128182235.47912-1-vitaly.prosyak@amd.com>
- <cdecd1e2-de0d-466f-b98b-927b2f364f79@amd.com>
- <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
+Subject: Re: [PATCH] drm/amdgpu: fix mes packet params issue when flush hdp.
+To: chong li <chongli2@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: emily.deng@amd.com
+References: <20251205083521.1337481-1-chongli2@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0325.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20251205083521.1337481-1-chongli2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN4PR01CA0054.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:274::12) To SJ0PR12MB7082.namprd12.prod.outlook.com
+ (2603:10b6:a03:4ae::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH8PR12MB9840:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9010fe15-0ccf-469f-bd5d-08de33e7a10e
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|SN7PR12MB8434:EE_
+X-MS-Office365-Filtering-Correlation-Id: be283235-c185-4d4f-cdee-08de33e7f917
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SGdNR0VacXdFWXd3TFNLbVU2RjRCRXJQaFYvcDJjUC9rK1lPZ2JYZ3doNFY5?=
- =?utf-8?B?OHNBM2NVWXpScEN0SmxidjZVRlVOcGJ4bHl3TGQyOWNxSkttSHJRWUpoelo5?=
- =?utf-8?B?YlB0UkRzVUJMcmZQSU05ZktUamwvWDRNZFNxamhhWnVla3R1d1h6eFdnTHkw?=
- =?utf-8?B?d3MzaUViVEZWTHFtZ2FXOUw2dm1QWW9PL2FadDNJQzIySEZQZDEvdC9oN2Ni?=
- =?utf-8?B?MTB5eStRZW5Bd0RTd2EvclRhTERCVEd1QXJnQy9SaW5pUlowbFRaU3Y3QVli?=
- =?utf-8?B?THRDZTRLMHJJbCtnRVhKVVQyMElkdVM0NGtjc216Y3pNOGQ3ODFaYTVCZTdO?=
- =?utf-8?B?YWJYUEV0RXAzQXM1OXE1ekliOUVKdEMzYTVUK3JGTWFVazRzSkFhMHNKRlhM?=
- =?utf-8?B?Z0MvNDRRSUVGb2pYUDV0dEpHMUwyQmh5SWI0bTZUY2o3K2dXRjc0YkVOYTlm?=
- =?utf-8?B?TExhanhONjJINjZWSTdaaVFnRmRGL2x3dndVbEF5Y0dhT2RoaitZL09CNGVJ?=
- =?utf-8?B?ME9OempYNDhkREhLLzRiM3p5Q1NqUHZLcHVwZlhIUlZjdTRWR2JvSjZxU2tj?=
- =?utf-8?B?RzlVc2R3Z1VHc21Lb0Yxb2c5d2xpeXdNRDh5SDRQdGhySENkRDZkaVpqZjZY?=
- =?utf-8?B?MmJvT2RUY01adHhKeWZIODZxTG1oeExzTE5aSk5XbndGMHBMeGQxdHZGR21z?=
- =?utf-8?B?VWZSV3lYeC9rQkxXOUhlQlRudDlMSWpSMkVXTWFEd3FuSUhaTUh6b0hQbXdF?=
- =?utf-8?B?VkdKUGVmdDBjVnZEUm41R1JybmhZTlBXeTNiMjgvRFk5Y3ZGa0QwU1cvV05D?=
- =?utf-8?B?QXVqS1NUUk5Nd1NQU2o1N3EyaWVOdXhoSUxSMndYZDFJR2VZTjd5MEU4Z3hG?=
- =?utf-8?B?YmJFOXhLamp4cGNENmJMY05rYjB0WFRROTR1TGJpQTN3blRvaTE5eEVwR2lH?=
- =?utf-8?B?K0N1TFo1Sjd5TUQ1K2dZaGNLSDMxRlI2ZGQ5ZmhSUHNOZEIzUnlldEJlR1lp?=
- =?utf-8?B?eVgwdzBpQmRzVkpWb1pGTlZ2L3VlWjVQNFhrSmNCMXhmdGVSNjBHZURWUllB?=
- =?utf-8?B?WGRYQnZ1V3dHSUV2RHdGMGg5UkNnVVU3Z1ZZWVM5UFBxQmtoTi94b0gxbWow?=
- =?utf-8?B?TnVOY1R4M0NtMkJIRXhJRUp5N1plS1lSQmRpNzVVUnZtampXQVhlZUkraG9Y?=
- =?utf-8?B?MjZpdTdQTnZ4N0hOSTN2cVlHMUxkMm1zWlp4RGZXbkcyWUJodUdySU50NVlN?=
- =?utf-8?B?aU9CMFY3d0xmNksvUk5xUmdReExJUFJoYUJHWDNpSVRKRWM0R3YvS0xDaGg5?=
- =?utf-8?B?SWI1WHZJTjJNcWk3N0x5c2hJWGV5b09IekhUWE5yZ2s0OHJwam9abGJUSzA0?=
- =?utf-8?B?ZXpaU1VKUkVIVkRrV2xPOFN2MkxjNGJkUElkbEFldlFJc2l5NVY2OUdBM2F4?=
- =?utf-8?B?NVRDMlh2WHZaNExGVmxXNDE5UURYR2NYUFZOWVhKcFBWOGxkelZWOE51di93?=
- =?utf-8?B?ditDdXJPNkx2SzZ0OHBZNUVKNHFqVUJTRzhscHFaOGRVSG92RVpCc1h1RktM?=
- =?utf-8?B?YmtWakJGcWpLcllOSTlQM0p1Qys2cUZtTCsxaFhsZUgrcWx4TnlZZXdFOFd4?=
- =?utf-8?B?UXEvYnhiYnRVTzkrMEg4UGZlY0V2V2lVaTdZaFFsOU10ZjJ2UFVqQnBwSjJB?=
- =?utf-8?B?RE9SZW5hUy9Pb2pxRW5LS3J4VUhzWGFUREFpNFpnV2xDUjhCWm1FWVFaaHNo?=
- =?utf-8?B?QkRjbWRNNFN5eDBONXFod1RZQmxYRVJ0dHZScjdPdTd6Z3A1aVlnNXFmU1VL?=
- =?utf-8?B?NTVqNk0yRFRqT0FySGpjVGdHNnZXK1hrN21JaVkyZzU0ZVpKOWdKS3BWZE53?=
- =?utf-8?B?YytndzNzbExza1paMFFleTQ0NTE3bVRmTS80bW9VVEpBc0lwc213MDVjZmhW?=
- =?utf-8?Q?hstdzAl1luubqAd5l4btRUZ+lreqslN2?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aHAyVVZMSUJvbTVzQlRJU1BWcUhYSWIxT3NUb3VWQ1QzRWhJT3VVM01IdVBa?=
+ =?utf-8?B?Y3hSQUZ6QWR0NWp4M2E4VnFDOFN1RXliSmZ0YUFDY3I4M0M4WndjV1BYVWhY?=
+ =?utf-8?B?NGU3ZXJEUGZVYUFhN25PUFNHNStVS0FJVmw1bzZ2ekpSZ1luZjJ0M2FmNHRP?=
+ =?utf-8?B?R3Ztcm9ZeEVHNnZxSFJlSHU3Smk0dEhpSXZiUTdhNnhCcnptS3lUVVNJTUUy?=
+ =?utf-8?B?TWlVUG1nUnBraExGc1IwOGM1UDIrTjhnelQrSGxtSVlHZm40S3lNRkxhMTl0?=
+ =?utf-8?B?dWhpM0hPU20vaE8vMVVtUzBZZ29QcEdMTjcrR1J6eVFXekVVWkhQMmllSUFT?=
+ =?utf-8?B?a0RsRGdtV0RjWXhRRkxFTmRPWWlXelVpU1N2eDdRODZPR0gyaHRuL2xjMlFH?=
+ =?utf-8?B?d3BJMVduNHByTEdhdUNLd0V6L0U2c1ptVm5pODg3N1g1V2l0ZnhQVlRHTWxT?=
+ =?utf-8?B?dmhmc2hYc1ViZFNlQUYwZ2N1Rk14M0xPVUw3L2txUWpoT0w5VERyM09xV1gr?=
+ =?utf-8?B?YUhKM1hUeTJ1VTlDVDhPeEIxM1QwWnlxbGtESW5XL0pGVEtaZXRJd3p6Q3JV?=
+ =?utf-8?B?SVJoa3AvMUhrVVdDMjMxSEFDTlM1ZHdaRkRkMFhLRmkvVnBySk5uY0xjRjhl?=
+ =?utf-8?B?K1gvRUU0SWpRYU96dUtiRGx3d3o2Y2lXSnhKdFM0T0t2VmNXd2YwWi9mYzQ3?=
+ =?utf-8?B?UUh2MlRPcFN4T1hTajRxdW9EVmVDN282Q0JMU1VZdWxJNFNtYmNFelFZVjhD?=
+ =?utf-8?B?VUdnejhPUjdZRTlCeU1KZE5MRU9KeUIxSHpBSWFkeTlHZ1lWQUwwclY4Tkk4?=
+ =?utf-8?B?eWROT2JVUFc0bzZqWUV2TFQza1Y4NmNkNjRGT3I0RHVvOEs5bTAvSVNjWVNR?=
+ =?utf-8?B?dkVjcU9ZUFN0UkdoWVZhb1k1RGFaeGpqcHJaZ2ZIUU54M2lXZUpVNThwRTd0?=
+ =?utf-8?B?bmsrc2g3Z3J5Skh3S2pQUTR5b2QzaFBsa3lHS0lHTzRSR01ZSHlvdWs3cTA2?=
+ =?utf-8?B?WGxINnF5QkJXd21XS2I1S1ZMdVVOc1ZLcWFKZzFUekg3LzRjMFRFeWVyNEts?=
+ =?utf-8?B?ejRiWWE1RkxlWjlWdFNoWHpRc21nOFBoK0ZDZGlEQVR0Y2tVR2hKdjBnZ3p0?=
+ =?utf-8?B?MEd3MEFTRHRrbFhvalNDWGpEZlB0RXpOL2FOSmc2cXZweTR2a21hQ2lZcWZL?=
+ =?utf-8?B?NVBueTdwUmZWT0Vha25pYzh2MElrLzhmdzI0RDVnbk10Y2d3Wm1XaUtZanBt?=
+ =?utf-8?B?cVkwRlhJdFhtTVF3Tzd6cUwwaUVxSzNpNXFZYSsrdTdzR3EzNDBFSWVkbEtX?=
+ =?utf-8?B?WnM3UG54ZDBVMCtGNEFBTTdWcW4yUS9aaVdydzEzc0E1QUdJbkIrbXljQTFm?=
+ =?utf-8?B?MlU4VmlqbVpZbURvdCtWTktGZ1p5T210NE84UlJJR3BFekx3cllNdjRLdkxa?=
+ =?utf-8?B?dUpkYkltTVQ5aW5jdyt3cUpaaXY1KzNHTUREY3lXcS9jNTFxcUdPK1RySUJR?=
+ =?utf-8?B?cGpOeXB3emJ6Nzkyc0VKMEdNNWJlVkoxKyt0T21SeW5UdTQwL1ZrSnlYRk1N?=
+ =?utf-8?B?ekpTaEhFN2FOQlAxVEZ1aVZodzBibjNjMExsTktTKzkvSTlWL1ExS0luQjdi?=
+ =?utf-8?B?SGFUVlB0UXY0Qml4NzJieVRDV0lPZW9YNjZzR3NKdEZ6MXl1T1VMSEExTW4r?=
+ =?utf-8?B?bjV6SjR2cXp5Q0NrU0M1V1ZTSFl3MDB0b3E5Q1lRTlM5QTdsaTV2QldlRnhM?=
+ =?utf-8?B?MklXOVA4ZjAvOEtKR1h5RFVQc1ZYOGVqVjZvRUJzWER5dm51NkQ1eU9Xd2di?=
+ =?utf-8?B?Lzh0NFIwR0VjbVVmL3VDVzkvRy92blVVQldwcE5VZzh5UXJFNjVyVjFKUTVH?=
+ =?utf-8?B?bnYzcDc1Q1hxakZ5WWEyYm9oTVljLzlISmxyNWNaN2RKSVJucW1Xa2YvOTE5?=
+ =?utf-8?Q?Xz5UI7BoO8scK/drCfHj+5dbuFWqJoCI?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWMzbHZoQnJhb2ttWUpiZGVUcWJaODB1dEtVUWpsbkNpclA2bFI1RGpmYm8w?=
- =?utf-8?B?TFJ5aGJ4eThwMzhTNHdOSy9DR0FvWUp6OEpDYzNlRk5wU0JqSC8xRFNPRnky?=
- =?utf-8?B?VVlqTUphNVBHYTJlV3BLTmV3emk3bFJIUThhNEJSZEp5MUpKQ1doRHNiZnph?=
- =?utf-8?B?MEJyd0pXV2ZnRHk2eTFvRUxvSnZZeHZCQTZaanptNHRKd2lkYjFyQ0xOQUdy?=
- =?utf-8?B?UzVFSUhhN2hFR2Z6ZHd0cmhFalN4TVJpTVRoSDk0WFBSN1Ira0FIblhRK1E2?=
- =?utf-8?B?NnZFSnI5TUxESVdGNkxyTWlSY2lTV0szakNhbHZpT1RidEN5MHhrOGhHaHBq?=
- =?utf-8?B?aEo2WTZSNEpEVXlJMzJicCtvSW9GY21YTGEvTmIvd2FxWnliVTFVRUc2NVJm?=
- =?utf-8?B?a3JhWWlwL2hoZE9LN1pLWWdYSHA5UXdqbUFVcS8rMmdKdlJaSzFxRFBicHV5?=
- =?utf-8?B?SElQQXZmd3J5ejFtSHcwQ2JMdUNiWmV2d1ZVZkdnN3d3WmNNY2UrTkRKQTJK?=
- =?utf-8?B?U0JRSjIrNXpOU01WVWJJKzJmMUlmUHp6dGpTV2RtMmQ1UTZ0b3h6T1dQQmVK?=
- =?utf-8?B?ODMyNW1VV0FtZkFQSEhyM1pkV3JUeTNZbUZMUDY5QkRZbFNPVU9jYWNjamlz?=
- =?utf-8?B?b3JUZ0FBb1MrNTJMTE1jSWlXMGhkSGRIaW4zb0wrZjlTSHpuTmVJOTAzMHgy?=
- =?utf-8?B?M0lJR2RLRFV1RjNWbzY4M3QrMjc0bXFmL1NFQVpnSTFEYTRJNzFRZVBJeGdY?=
- =?utf-8?B?RllxRFkxL0JDK1Y5Z3VtMzBDWVU0UDVNcG4yamgxL25MRW03K3BiZTk5TVhn?=
- =?utf-8?B?T2VRdEdMNEgvbG9oSWxJeDVqdmIwSmd5Ti8vZjBYY29IS3ZJU1R3djFEcnNj?=
- =?utf-8?B?eCtwWTdMSmszTXJwT25hdWhjOWpybTI5VUxOZVZEaGZJWmtLd0o0NHk4ellk?=
- =?utf-8?B?V3JzWkxZa3VtV1owTTlGdkJVWlFreXJTcFBmTWFkZ1pnNi9VOHJ2QmRLTlhI?=
- =?utf-8?B?d0JGUFdlaHhHOUNwSDZsUi9KNVlwU3hjaVR5R1ZVMVBuNEpnTW93K29ZQ0NJ?=
- =?utf-8?B?NWVldEtWNU44azAzWUFnSHpYSUxXdGQrd2s5ZHVXcHJWR3FjckJuM29iNFBG?=
- =?utf-8?B?aFZiaEZ1bHlkQzVMc3QySFpzSFVLcHpOaFlNamJpWWhQYS8yREJrMFNtTzNU?=
- =?utf-8?B?K0lRT3VSN1gzUjRMdGNxUUJHWVFtVDVsRjF1RW9GN0JJaS9PY3JYNHR5eEtQ?=
- =?utf-8?B?UGZNeXQ1RklZbVNBNU5CZHl1VUVGYjZpVWkzdHpIQlRreFZhQ2VrNVNPbEUr?=
- =?utf-8?B?UHhNcjdjbXowREhmSnEvcjdrQWNmM0IzWG9mcCtjU2FlaUpwZmRrYnVwMEFw?=
- =?utf-8?B?NkpHaXlXelJGSmluekZzNlllREhuR1dWZEQ1SWc2S3BUWDF6aHFkZ0lxYmxE?=
- =?utf-8?B?eHZ0ZDRuWmRyQ0pkazdISFM1U09lK2RHbFFSY1dmODI3NkFZUHc2dTdrdmlQ?=
- =?utf-8?B?OE1ldmVxOE5jdE1Ha3hiaG1sSWtCdnBnTFRQUnFQNk4rQVRacldUdXJnUnpN?=
- =?utf-8?B?L1VWaEErakt3NkNjakhVczJiNlVNdVR5eFozbCtKbEFMR0JmUzJKOU5OVlRO?=
- =?utf-8?B?WldXSlFMWjRNc2t0dHVlOFY0UE9sZkY4azMyYmF3SVgrKzVGUkpORXViQ3hS?=
- =?utf-8?B?dUhkZlJlNVg3cGZWRkFIY01FOXhLcklQcXlqK09JcWZ1NVMrazhQcldJWHBr?=
- =?utf-8?B?UnBPMFd2REVaQWtTY2NRYkZ0T3ZlMHRZR0w1V2VqY25tVHFZR1VQNkhkQ0pS?=
- =?utf-8?B?eHFLTTlxTkFzQlAxWms4MUZUaTdKZ3puSHh2YVhBUnNUYTFuYUhuMStRNkE5?=
- =?utf-8?B?c1RuV1Z4dHZtQ1NQZ1hmQTdhcVJoL0E2bWk4RVBTcTZyZFpCTjdzZ0U0Y3ZR?=
- =?utf-8?B?cEhnMXRHVVhRTWtKVVJpaWU4MW16aGx5WnhsSU5ETWZJc29yNVFFM2c0N3VI?=
- =?utf-8?B?Rm1Scy80YkZkckZIdUdOT1NnNHZFNTJETGJRRnBLT1dKZk80QXdGaHVHSW4x?=
- =?utf-8?B?Z2ZRWUtpczdEenpzd0lIblh0YTNWeXRhSzRMaWtPc3QrK1Q0bURHelBES0J5?=
- =?utf-8?Q?zHAyvQWlmUx42eAEtVmYrf4P0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXNjUG9rM0JBOXJPOHhTNTVYQTYzWEN6eGJzWVdKK1RqM0NxUldraklyYWpw?=
+ =?utf-8?B?MkorR25lU3ZCQjZnZFZTVVNyT3IxeTVhVU8wMlpaNXFTY0FObis0L2s3Y1Iz?=
+ =?utf-8?B?WXltNFA0RWo5QzhwN1lzNWxURWFXcllnZmxKK2NsdDdBTWpRREh4cCs0NzBn?=
+ =?utf-8?B?Uks3aGRzTUROejR6dE1hYXNOdEl5MCtlVm1Gc1Z6UytIVnpGSzVJN1FSMlFu?=
+ =?utf-8?B?L1BKVEZJQWd2bEZtcDR4NlBLVVJpd3JSTkZlNWtzWE9Dd2s1ajB0MFMrWXdV?=
+ =?utf-8?B?T2UzODNQUnpuT3Jad2tPNjJDRW5MQnRtelowTVc2N2tmUWRWemlNa2tENVVW?=
+ =?utf-8?B?R2VFNjVGTllEcmlEMThwNVVHMXVFcnVKaThXTENtcGlReHRXenVabmJsSUJ4?=
+ =?utf-8?B?Q3ZFdmkxa2RUclRVRUo3OVdBTXlRZDRoQTdlSEFLUW9OaDBDOXEwZk0wWWgx?=
+ =?utf-8?B?ZHZNY1dmcERvZGFDMjZqdm4zc3JuK1VjTmxBZzVWV3hvbTkvdEJqTThHSWtp?=
+ =?utf-8?B?Nmt5dXVZYjB0SVR2ckJqNFgvdzh3cWhiVUhYNWQwTVU5L2dPRWd1UzZ3bzVY?=
+ =?utf-8?B?NWJEcjJYSUs2VDMwaFpKVzRkc1djeEdBZzEwR3lEUGJEQlhKc2hCazRkZVNT?=
+ =?utf-8?B?RkozcGU0Q21kZTZ4d1psalFEZFpyQkIzb2VRT1o5TVdaM013SWxVUEhDVFRt?=
+ =?utf-8?B?U2JjK1doZnlmZ3VISmczemthME1qd1U3TktWYnZPcDV0NHNBNEhWUG9qRkht?=
+ =?utf-8?B?NkFRckVMa01TSEJ1STcwd3dpRTRhZjhodCtxdjM5b0hzbkt2N3JWVkFkQmt5?=
+ =?utf-8?B?Y0dOc2szTTQxVmEweDh6M1Q5VS9nVTNIR2xhbk5aMi90aFE1Yjg5NWF4UGdK?=
+ =?utf-8?B?V2U0Tkc1anMxVTNOekFHOE1vWk05U052cU00b2UyVlkxRHhHeFlQd1R0S1Zo?=
+ =?utf-8?B?N296RlVaMC9ieEdjeHU3YnRLTXNzUUdNeUdxYkxJWFdyM1ZlS2xTeXE1ZlMw?=
+ =?utf-8?B?aGlUUGozV0E2R0RkZlpjOGMwWElWVm41UTBXV3Q4U0E4a2d6dFpLczFDcUJ4?=
+ =?utf-8?B?b3U2UGp5NkNwRldEdXJnTi9xYkIyMlltNTRULytPUkJGd1Q4eGxaMWRZdmlG?=
+ =?utf-8?B?VVVwRUpLQm1RMW9uYi94bEhGVlZMMXRJYmN0UnhHeFZOYWZ3UEE5MGw5V2FK?=
+ =?utf-8?B?K2MrRE5NY2FDSVhhSGs0WWFtbVdyQkgyTDhobWlRWHRUWldndHBJeURqZWl4?=
+ =?utf-8?B?aDd5Znhsek5FdFFYWGhQczI0TnNlWGF4by8rTzlxZVZIRDlOdWd2c0FsRzAx?=
+ =?utf-8?B?bXVwUWlaZ2xWQm4zVkowcmxUL1F1UFVSdzd6UjArczRPd2UrNDArWDdsZ2Uv?=
+ =?utf-8?B?Vmp6NlVyaDR5OWNZR0RxVXJ3eHpwMSthSzBmNFJlVDRyUHlPYWpEcU83TG9y?=
+ =?utf-8?B?amZsQkgzWk9YUXdoR3A0K0JFKzNSb21WY2dNMG5XeEZKRGdQREpseFJuM0xt?=
+ =?utf-8?B?TUFsb2lIZW5VQytua2JuUFdrdmI1elJKR1RQRCsyMVRHVTVnTFRSc05BV3Zu?=
+ =?utf-8?B?dXNYazBRTVJpc3dOWkREYWl0Nkc3SHA5cjE0OWhicGhxdURSMS9SNTlkMlB4?=
+ =?utf-8?B?M3Zha0pRcVEzcjJKckdPWTU1RHVhNDd1dVZOaHNLdHdmYWpSTHJzYVp3YW4r?=
+ =?utf-8?B?enVKbUFJYVI1b3NkOXVuQ0IwZUhSVzRvWHBlYzFjOUZsM292ZE9WV3k4eXIz?=
+ =?utf-8?B?b0VwSHgxYlRxNTZXNk1OM3BFdHFoa0tTTTIwcXZwdEZDcGJmWXV6NkZ6ZUVX?=
+ =?utf-8?B?bk1mdC9nS1kvQjQ0eVpyRW1BdmE2d2lobFlFY2liL3VUOEVUMnRZV3ZtQ1lO?=
+ =?utf-8?B?bEtkZElLMFhCcU51TWtEYXdKWUgwSEpHcWVWWFRmTDJLUERjWnhjazRkNm44?=
+ =?utf-8?B?QndNSWVKc1U0ZjEwOFFmRmR5bVZnUzNmNjB5K1NXVTRIVGM0alNnbU00Q21Y?=
+ =?utf-8?B?UEZSc1dNQitJVWtpY3M5QmxpSFZMQlhQaDgzOWtoNFBtRkVVY3JWdzFmSHZj?=
+ =?utf-8?B?WU12QTZIY1RDakkxQzlPbEFNNEI2QmJ0VHhIcVYzRk5QdTNaaGFnMEhac0VX?=
+ =?utf-8?Q?NXKo84VG9TRi4vLN6QWlFhooY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9010fe15-0ccf-469f-bd5d-08de33e7a10e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be283235-c185-4d4f-cdee-08de33e7f917
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 10:18:26.7670 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 10:20:54.6201 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 55SoUhrpM4o3zBBOXOaT6nOorRzLN8Cg6kRLcMcN6RucMXB3jtbEiTnPM3nb2Bhg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9840
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1yW3jIottR1SxlQmk16uX6RGddA3MHatbhEagUNg2WtKo9oUWm8L1Afm9jR0kkwV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8434
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,162 +161,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/1/25 10:04, Philipp Stanner wrote:
-> +Cc Matthew, Danilo, who are also drm/sched maintainers
-> 
-> The get_maintainer script provides you with a list of maintainers.
-> 
-> On Mon, 2025-12-01 at 09:38 +0100, Christian König wrote:
->> On 11/28/25 19:22, vitaly.prosyak@amd.com wrote:
->>> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
->>>
->>> Currently drm_sched runs run_job and free_job on the per-scheduler
->>> ordered submit workqueue, while timeouts (drm_sched_job_timedout())
->>> run on sched->timeout_wq (e.g. amdgpu reset_domain->wq).
->>>
->>> For drivers like amdgpu the reset path entered from timeout_wq may
->>> still access the guilty job while free_job, running on submit_wq,
->>> frees it. This allows a use-after-free when recovery continues to
->>> touch job fields after drm_sched_free_job_work() has called
->>> ops->free_job().
->>>
->>> Queue work_free_job on sched->timeout_wq instead of submit_wq, both
->>> from __drm_sched_run_free_queue() and drm_sched_wqueue_start(), so		
->>> timeout/reset and free_job are always serialized on the same
->>> workqueue.
->>>
->>> Behavior changes:
->>>
->>> - work_run_job stays on sched->submit_wq (ordered).
->>> - work_free_job moves to sched->timeout_wq (timeout/reset queue).
->>> - Submission and freeing may now run in parallel on different
->>>   workqueues, but all shared state is already protected by
->>>   job_list_lock and atomics.
->>>
->>> Pros:
->>> - Eliminates reset vs free_job race (no freeing while reset still
->>>   uses the job).
-> 
-> It eliminates such a race *in amdgpu*. Other drivers might not have
-> that problem. I think Intel/Xe is refcounting jobs? Matthew?
-> 
->>> - Matches the logical model: timeout selects guilty job and recovery,
->>>   including freeing, is handled on one queue.
->>>
->>> Cons / considerations:
->>> - For users that don’t provide timeout_wq, free_job moves from the
->>>   per-sched ordered queue to system_wq, which slightly changes
->>>   scheduling behaviour but keeps correctness.
->>
->> We should probably avoid that and use a single ordered wq for submit, timeout, free when the driver doesn't provide one.
-> 
-> AFAICS this fix doesn't fix anything for certain at all, because you
-> just don't know what kind of workqueue the other drivers have passed
-> for timeout_wq.
-> 
->>
->> We should potentially also add a warning/error when the driver supplied wq isn't ordered.
->>
->> Apart from that the change looks sane to me and avoid all the hacky workarounds around job lifetime.
-> 
-> I'm not convinced that this is the right path forward.
-> 
-> The fundamental issue here is the gross design problem within drm/sched
-> that drivers *create* jobs, but the scheduler *frees* them at an
-> unpredictable point in time.
 
-Yeah, can't agree more!
 
-> This entire fix idea seems to circle around the concept of relying yet
-> again on the scheduler's internal behavior (i.e., when it schedules the
-> call to free_job()).
+On 12/5/2025 2:05 PM, chong li wrote:
+> both gfx ring and mes use cp0 to flush hdp, cause conflict.
 > 
-> I think we discussed that at XDC, but how I see it if drivers have
-> strange job life time requirements where a job shall outlive
-> drm_sched's free_job() call, they must solve that with a proper
-> synchronization mechanism.
-
-Well that is not correct as far as I can see.
-
-The problem here is rather that the scheduler gives the job as parameter to the timedout_job() callback, but doesn't guarantee that ->free_job() callback isn't called while timedout_job() runs.
-
-This should be prevented by removing the job in question from the pending list (see drm_sched_job_timedout), but for some reason that doesn't seem to work correctly.
-
-> The first question would be: what does amdgpu need the job for after
-> free_job() ran? What do you even need a job for still after there was a
-> timeout?
-
-No, we just need the job structure alive as long as the timedout_job() callback is running.
-
-> And if you really still need its contents, can't you memcpy() the job
-> or something?
+> use function get_ref_and_mask to assign the cp entry.
+> reassign mes to use cp8 instead.
 > 
-> Assuming that it really needs it and that that cannot easily be solved,
-> I suppose the obvious answer for differing memory life times is
-> refcounting. So amdgpu could just let drm_sched drop its reference in
-> free_job(), and from then onward it's amdgpu's problem.
+> Signed-off-by: chong li <chongli2@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  | 15 +++++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 40 +++++++++++++++++++-----
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 40 +++++++++++++++++++-----
+>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c    |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  3 +-
+>   8 files changed, 87 insertions(+), 22 deletions(-)
 > 
-> I hope Matthew can educate us on how Xe does it.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 895b841b9626..73305f07ddd9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -556,11 +556,22 @@ int amdgpu_mes_reg_write_reg_wait(struct amdgpu_device *adev,
+>   
+>   int amdgpu_mes_hdp_flush(struct amdgpu_device *adev)
+>   {
+> -	uint32_t hdp_flush_req_offset, hdp_flush_done_offset, ref_and_mask;
+> +	uint32_t hdp_flush_req_offset, hdp_flush_done_offset;
+> +	struct amdgpu_ring *gfx_ring, *mes_ring;
+> +	uint32_t ref_and_mask = 0, reg_mem_engine = 0;
+> +
+> +	gfx_ring = &adev->gfx.gfx_ring[0];
+> +	mes_ring = &adev->mes.ring[0];
+> +
+> +	if (!gfx_ring->funcs->get_ref_and_mask) {
+> +		dev_err(adev->dev, "amdgpu_mes_hdp_flush not support \n");
+> +		return -EINVAL;
+> +	}
+>   
 
-We discussed this on XDC and it was Matthew who brought up that this can be solved by running timeout and free worker on the same single threaded wq.
+Does this really require a function? Why not keep hdp_flush_mask in 
+amdgpu_mes struct and initialize within mes_v*_sw_init()?
 
-> 
-> AFAIK Nouveau doesn't have that problem, because on timeout we just
-> terminate the channel.
-> 
-> Would also be interesting to hear whether other driver folks have the
-> problem of free_job() being racy.
+Thanks,
+Lijo
 
-I think that this is still a general problem with the drm scheduler and not driver specific at all.
-
-Regards,
-Christian.
-
-> 
-> +Cc Boris, Lucas.
-> 
-> 
-> P.
-> 
-> 
->>
->> But removing those workarounds is should probably be a second step.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Cc: Philipp Stanner <phasta@mailbox.org>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Suggested-by: Mathew from Intel during XDC
->>> Suggested-by: Christian König <christian.koenig@amd.com>
->>> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
->>> ---
->>>  drivers/gpu/drm/scheduler/sched_main.c | 4 ++--
->>>  1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->>> index 81ad40d9582b..1243200d475e 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>> @@ -355,7 +355,7 @@ static void drm_sched_run_job_queue(struct drm_gpu_scheduler *sched)
->>>  static void __drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
->>>  {
->>>  	if (!READ_ONCE(sched->pause_submit))
->>> -		queue_work(sched->submit_wq, &sched->work_free_job);
->>> +		queue_work(sched->timeout_wq, &sched->work_free_job);
->>>  }
->>>  
->>>  /**
->>> @@ -1493,6 +1493,6 @@ void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched)
->>>  {
->>>  	WRITE_ONCE(sched->pause_submit, false);
->>>  	queue_work(sched->submit_wq, &sched->work_run_job);
->>> -	queue_work(sched->submit_wq, &sched->work_free_job);
->>> +	queue_work(sched->timeout_wq, &sched->work_free_job);
->>>  }
->>>  EXPORT_SYMBOL(drm_sched_wqueue_start);
->>
-> 
+>   	hdp_flush_req_offset = adev->nbio.funcs->get_hdp_flush_req_offset(adev);
+>   	hdp_flush_done_offset = adev->nbio.funcs->get_hdp_flush_done_offset(adev);
+> -	ref_and_mask = adev->nbio.hdp_flush_reg->ref_and_mask_cp0;
+> +
+> +	gfx_ring->funcs->get_ref_and_mask(mes_ring, &ref_and_mask, &reg_mem_engine);
+>   
+>   	return amdgpu_mes_reg_write_reg_wait(adev, hdp_flush_req_offset, hdp_flush_done_offset,
+>   					     ref_and_mask, ref_and_mask, 0);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index a1fb0fadb6ea..adca4396658e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -250,6 +250,8 @@ struct amdgpu_ring_funcs {
+>   	void (*emit_vm_flush)(struct amdgpu_ring *ring, unsigned vmid,
+>   			      uint64_t pd_addr);
+>   	void (*emit_hdp_flush)(struct amdgpu_ring *ring);
+> +	void (*get_ref_and_mask)(struct amdgpu_ring *ring,
+> +				uint32_t *ref_and_mask, uint32_t *reg_mem_engine);
+>   	void (*emit_gds_switch)(struct amdgpu_ring *ring, uint32_t vmid,
+>   				uint32_t gds_base, uint32_t gds_size,
+>   				uint32_t gws_base, uint32_t gws_size,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index aaed24f7e716..aafd34ddcfcc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -8616,7 +8616,8 @@ static void gfx_v10_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+>   	u32 ref_and_mask, reg_mem_engine;
+>   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
+>   
+> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
+> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
+>   		switch (ring->me) {
+>   		case 1:
+>   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index f4d4dd5dd07b..0ada69d0cc68 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -5829,29 +5829,50 @@ static void gfx_v11_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
+>   	}
+>   }
+>   
+> -static void gfx_v11_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+> +/**
+> + * gfx_v11_0_ring_get_ref_and_mask - get the reference and mask for HDP flush
+> + *
+> + * @ring: amdgpu_ring structure holding ring information
+> + * @ref_and_mask: pointer to store the reference and mask
+> + * @reg_mem_engine: pointer to store the register memory engine
+> + *
+> + * Calculates the reference and mask for HDP flush based on the ring type and me.
+> + */
+> +static void gfx_v11_0_ring_get_ref_and_mask(struct amdgpu_ring *ring,
+> +					uint32_t *ref_and_mask, uint32_t *reg_mem_engine)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+> -	u32 ref_and_mask, reg_mem_engine;
+>   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
+>   
+> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
+> +	    ring->funcs->type == AMDGPU_RING_TYPE_MES ||
+> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
+>   		switch (ring->me) {
+>   		case 1:
+> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
+> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
+>   			break;
+>   		case 2:
+> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
+> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
+> +			break;
+> +		case 3:
+> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
+>   			break;
+>   		default:
+>   			return;
+>   		}
+> -		reg_mem_engine = 0;
+> +		*reg_mem_engine = 0;
+>   	} else {
+> -		ref_and_mask = nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
+> -		reg_mem_engine = 1; /* pfp */
+> +		*ref_and_mask = nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
+> +		*reg_mem_engine = 1; /* pfp */
+>   	}
+> +}
+> +
+> +static void gfx_v11_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	u32 ref_and_mask, reg_mem_engine;
+>   
+> +	ring->funcs->get_ref_and_mask(ring, &ref_and_mask, &reg_mem_engine);
+>   	gfx_v11_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
+>   			       adev->nbio.funcs->get_hdp_flush_req_offset(adev),
+>   			       adev->nbio.funcs->get_hdp_flush_done_offset(adev),
+> @@ -7235,6 +7256,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
+>   	.emit_vm_flush = gfx_v11_0_ring_emit_vm_flush,
+>   	.emit_gds_switch = gfx_v11_0_ring_emit_gds_switch,
+>   	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
+> +	.get_ref_and_mask = gfx_v11_0_ring_get_ref_and_mask,
+>   	.test_ring = gfx_v11_0_ring_test_ring,
+>   	.test_ib = gfx_v11_0_ring_test_ib,
+>   	.insert_nop = gfx_v11_ring_insert_nop,
+> @@ -7281,6 +7303,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_compute = {
+>   	.emit_vm_flush = gfx_v11_0_ring_emit_vm_flush,
+>   	.emit_gds_switch = gfx_v11_0_ring_emit_gds_switch,
+>   	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
+> +	.get_ref_and_mask = gfx_v11_0_ring_get_ref_and_mask,
+>   	.test_ring = gfx_v11_0_ring_test_ring,
+>   	.test_ib = gfx_v11_0_ring_test_ib,
+>   	.insert_nop = gfx_v11_ring_insert_nop,
+> @@ -7323,6 +7346,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_kiq = {
+>   	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
+>   	.emit_reg_write_reg_wait = gfx_v11_0_ring_emit_reg_write_reg_wait,
+>   	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
+> +	.get_ref_and_mask = gfx_v11_0_ring_get_ref_and_mask,
+>   };
+>   
+>   static void gfx_v11_0_set_ring_funcs(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index f9cae6666697..0bdb4f292dea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -4385,29 +4385,50 @@ static void gfx_v12_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
+>   	}
+>   }
+>   
+> -static void gfx_v12_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+> +/**
+> + * gfx_v12_0_ring_get_ref_and_mask - get the reference and mask for HDP flush
+> + *
+> + * @ring: amdgpu_ring structure holding ring information
+> + * @ref_and_mask: pointer to store the reference and mask
+> + * @reg_mem_engine: pointer to store the register memory engine
+> + *
+> + * Calculates the reference and mask for HDP flush based on the ring type and me.
+> + */
+> +static void gfx_v12_0_ring_get_ref_and_mask(struct amdgpu_ring *ring,
+> +					uint32_t *ref_and_mask, uint32_t *reg_mem_engine)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+> -	u32 ref_and_mask, reg_mem_engine;
+>   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
+>   
+> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
+> +	    ring->funcs->type == AMDGPU_RING_TYPE_MES ||
+> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
+>   		switch (ring->me) {
+>   		case 1:
+> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
+> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
+>   			break;
+>   		case 2:
+> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
+> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
+> +			break;
+> +		case 3:
+> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
+>   			break;
+>   		default:
+>   			return;
+>   		}
+> -		reg_mem_engine = 0;
+> +		*reg_mem_engine = 0;
+>   	} else {
+> -		ref_and_mask = nbio_hf_reg->ref_and_mask_cp0;
+> -		reg_mem_engine = 1; /* pfp */
+> +		*ref_and_mask = nbio_hf_reg->ref_and_mask_cp0;
+> +		*reg_mem_engine = 1; /* pfp */
+>   	}
+> +}
+> +
+> +static void gfx_v12_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+> +{
+> +	struct amdgpu_device *adev = ring->adev;
+> +	u32 ref_and_mask, reg_mem_engine;
+>   
+> +	ring->funcs->get_ref_and_mask(ring, &ref_and_mask, &reg_mem_engine);
+>   	gfx_v12_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
+>   			       adev->nbio.funcs->get_hdp_flush_req_offset(adev),
+>   			       adev->nbio.funcs->get_hdp_flush_done_offset(adev),
+> @@ -5515,6 +5536,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_gfx = {
+>   	.emit_pipeline_sync = gfx_v12_0_ring_emit_pipeline_sync,
+>   	.emit_vm_flush = gfx_v12_0_ring_emit_vm_flush,
+>   	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
+> +	.get_ref_and_mask = gfx_v12_0_ring_get_ref_and_mask,
+>   	.test_ring = gfx_v12_0_ring_test_ring,
+>   	.test_ib = gfx_v12_0_ring_test_ib,
+>   	.insert_nop = gfx_v12_ring_insert_nop,
+> @@ -5557,6 +5579,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_compute = {
+>   	.emit_pipeline_sync = gfx_v12_0_ring_emit_pipeline_sync,
+>   	.emit_vm_flush = gfx_v12_0_ring_emit_vm_flush,
+>   	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
+> +	.get_ref_and_mask = gfx_v12_0_ring_get_ref_and_mask,
+>   	.test_ring = gfx_v12_0_ring_test_ring,
+>   	.test_ib = gfx_v12_0_ring_test_ib,
+>   	.insert_nop = gfx_v12_ring_insert_nop,
+> @@ -5599,6 +5622,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_kiq = {
+>   	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
+>   	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
+>   	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
+> +	.get_ref_and_mask = gfx_v12_0_ring_get_ref_and_mask,
+>   };
+>   
+>   static void gfx_v12_0_set_ring_funcs(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 66a4e4998106..176658846b81 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -2070,7 +2070,8 @@ static void gfx_v7_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+>   	u32 ref_and_mask;
+>   	int usepfp = ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ? 0 : 1;
+>   
+> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
+> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
+>   		switch (ring->me) {
+>   		case 1:
+>   			ref_and_mask = GPU_HDP_FLUSH_DONE__CP2_MASK << ring->pipe;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index e6187be27385..bc1d0870cb2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -5382,7 +5382,8 @@ static void gfx_v9_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+>   	u32 ref_and_mask, reg_mem_engine;
+>   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
+>   
+> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
+> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
+>   		switch (ring->me) {
+>   		case 1:
+>   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> index 89253df5ffc8..418b8daa7097 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -2820,7 +2820,8 @@ static void gfx_v9_4_3_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+>   	u32 ref_and_mask, reg_mem_engine;
+>   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
+>   
+> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
+> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
+>   		switch (ring->me) {
+>   		case 1:
+>   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
 
