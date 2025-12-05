@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E0BD339BC
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Dec 2025 16:30:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78CBED3B7E1
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Dec 2025 23:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1B610E2B5;
-	Sat,  6 Dec 2025 16:30:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A2910E309;
+	Sat,  6 Dec 2025 23:00:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eXzADbit";
+	dkim=pass (2048-bit key; unprotected) header.d=nullable.se header.i=nat@nullable.se header.b="SlFJMW2P";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3EA910E2B5
- for <amd-gfx@lists.freedesktop.org>; Sat,  6 Dec 2025 16:30:42 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-6571763793bso1688415eaf.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 06 Dec 2025 08:30:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765038641; x=1765643441; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pkMbwFh0DMrMdIeAxee0GgkLevKr8HKcraJI9LxfhJY=;
- b=eXzADbitcQmBuStWgtIWAxhCYWk5Eg3Bb4c0Hoy0Wjee/zNtp4ifCDbOJkHyeFQ9CU
- Zgelcro8xX6mv4q5PMAkjhlbVimgIRt4aTAmbhs4h8GOsSG2IWVojCITUKCe7SJR0KIC
- RD2yQkQQIiI0Qiw7sGiR6tb/M3uTG5EThgFdAPtP3YRG/fA7P+xXvI+A4QBpmsI0eSZT
- bP/WiATLH4296aERImr37aJJMh31y/URGrYUjpLMoZPG9lwmEDMGhMmN15uX7w+Ssgpa
- 4ps6qCI+qywItfEYyTDEJ5ZYWFpWFsQMJAnKYmx5yjP2193uogqCgp88KmNxU2SeZ/qw
- 1mLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765038641; x=1765643441;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=pkMbwFh0DMrMdIeAxee0GgkLevKr8HKcraJI9LxfhJY=;
- b=FYQNimfziBUjUtdJByIeIgxE7tS2wrfGGgPlF40rlG2+MzYKwEMGrfuHxwc0kQTdFy
- tdLocU0YI0C6e8XH9XDMMPtnKf0281jRg/JET5q4fkjmdJnH4zbWZj8e29vi2/+XjKRq
- 7Rs+0eZLG567uZQx/3TZNwCn3WjHDBX2b47QEtOqQOp0P9dadPQuprATNy9jYwo9b3SC
- SnGIE1nn5MqC1Z+4O9qiEfZYRpGAkdiEvAkvWkDXlUnGv8G4aKIcMWUsAIDwbbaciz1i
- 6BNcsPk1SRSVj21kixp/6upPA14iuUujMRm/4HyKGI6o7UQyBu6OEr1jpIMlPml9p2NM
- fqxQ==
-X-Gm-Message-State: AOJu0YybxeW7A3rljsdkK3FkjwzuZFrwqLKRkPk+n4yP1tsMmnobayuC
- iS4UdllpwL/CkTkW1w8RZl5KxOJuGPVkoeuTRK8whSIt4HkAMXbuySeRN15L+ILmDXON4PkQYK9
- 1F4koUNaCXHsMoH0YqVXv+yGgzy3VDFk=
-X-Gm-Gg: ASbGncsDuDMnpF30XsC2Vi9O7xhpNmuEtRKuQHfdCDSdkuVgIYkIv+fwAjiW4w79ch7
- FzcYrXRSfa+KjTeqYllG9ftZx3Cu0oWf0CDdjIYIqqOopHYW1Dd7lM7BYbc5vWh8MkBLp/iWlM/
- xZezHaskbd4USMqDPZjD8Q5gnfhjPKGsp1jS5XG4+C6upqXxUY2JJC+Co07lSVH3f4dYzriyO1I
- Lfz7Zvy3591Zlwk1alG7O/PHK+sHTLDHbsEAp4/kG7hjbnUDGYCuVx8LdyQ729wA692hCsF
-X-Google-Smtp-Source: AGHT+IFPza1S3VNx9dRKv0O3eq2MX4VOf9uhEPIWo3z41oPcmW4APvkiEwfCyN4ShRUJHZpWJtZu5VgT7oVcZAH2TzQ=
-X-Received: by 2002:a05:6820:138b:b0:659:9a49:8f1f with SMTP id
- 006d021491bc7-6599a94ba84mr1132899eaf.48.1765038640626; Sat, 06 Dec 2025
- 08:30:40 -0800 (PST)
+X-Greylist: delayed 2706 seconds by postgrey-1.36 at gabe;
+ Fri, 05 Dec 2025 18:25:51 UTC
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE9DF10EB95
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Dec 2025 18:25:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1764956441; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=nhR9dTOPnSX2BEous16Y8SjYqMHBdxmFRl0RlRStWKv0JNEd4yR4lOQORLOnKROPiQ+dBjQEXZrSk8uqoN+KTOrUG39FZ00E2W/Qqg2zX92DbidTrPamoBzwWChb+1AXe5XyCLEOauVDHL5tXomsTIVU0Gz/KqATUcvZD2rkPa4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1764956441;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mkIHMraBDWEJXM7kEFq2rAKphDmExXZtgJrg5N1Xj1g=; 
+ b=JCEyfqFf0m9afbbB3ZifpmcRH7VxfFZoDbFZlqVyzQHHk/V9YkciljHH107mbwZ40I3ePrFLIMt4HeyxGaxEVJRaDb91aVH/wlJpwUABt3X4wgB0q612oUbqqIC4kaGAStq45OCgX2I9vf5AVag+Jr9Nodtrw7UQfdbzMWdCjfI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=nullable.se;
+ spf=pass  smtp.mailfrom=nat@nullable.se;
+ dmarc=pass header.from=<nat@nullable.se>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1764956441; 
+ s=zoho; d=nullable.se; i=nat@nullable.se;
+ h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=mkIHMraBDWEJXM7kEFq2rAKphDmExXZtgJrg5N1Xj1g=;
+ b=SlFJMW2Pws34FNUhR1sSDz2JbxpK1jKl0tXz6eZogU26bXhut0NQGXA92PXqmyO3
+ IMORP9JUjEehsqvOyELaV+YoMwweAqXWJDu4UiWH/mkarJ2w/L/RyNMSR1cnE0xijbN
+ AhwSAYCSrvq3gv2YFcK7ASoPxk5zotcpgwd/9B39StiWy1gafjPRKszmNPsk5ztG391
+ YHQhJo0qRrhTRlm8lLUG5+jPY2XIwZs883l9hhISy2CSQqeiTaDmHRYUPewuCsr4Lu4
+ L2K1UaZyGcPtfccRu82w/jhJr0EHxVI8jhnZot+Tw9EyOVTfygd69T1SjuvA6Wy/PBD
+ ApilD4sltw==
+Received: by mx.zohomail.com with SMTPS id 1764956437500506.3092789076437;
+ Fri, 5 Dec 2025 09:40:37 -0800 (PST)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-3437af8444cso2063629a91.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Dec 2025 09:40:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUXBC2jS09HmlLrV38zI0zKShK79Su0YxxW4rTUJP5mj0dKsf2RINeuLJ3hIMaBlcGCeFcMIT+s@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6d/pwcwDjZb20s0chtMhkZxROU9caIN9hVAqov8s67QlKos6i
+ zXVC3IWbUUE2cOJAtC/X4sfdb2dqJzM7E5scICeNQ5nVPL1uR7HvZVfp/ePy7RLYa47jw596gWw
+ FrxBumO3TuAPOyN8k0R9jGhVOyxans4E=
+X-Google-Smtp-Source: AGHT+IEngTUUVfDb+YLvZVmdgMSvFDMV5pfxvvFF8cPWTE8meK5MFuG7XKwY3fpqzmzNFNEpvLSGf19bAmNweHLIH/I=
+X-Received: by 2002:a17:90b:53c4:b0:340:d1a1:af8e with SMTP id
+ 98e67ed59e1d1-3491270ef84mr11330206a91.37.1764956436840; Fri, 05 Dec 2025
+ 09:40:36 -0800 (PST)
 MIME-Version: 1.0
-References: <CAPEhTTGamEFapOA4pKgMQxDz9Go1k0QeGRkk5bR-X2jR+iBCcg@mail.gmail.com>
- <CADnq5_Mh7M=019sJ274GLtMyKDH5MSMfR=k6pVTS1z2DV1tQCw@mail.gmail.com>
-In-Reply-To: <CADnq5_Mh7M=019sJ274GLtMyKDH5MSMfR=k6pVTS1z2DV1tQCw@mail.gmail.com>
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Sat, 6 Dec 2025 11:30:28 -0500
-X-Gm-Features: AQt7F2pHgZCQoZJ8y3b5gP9VfoAJo3Of_D6vyU5VRSdvQ5HsY0aer_miUeRCwNA
-Message-ID: <CAPEhTTGJb85fP4iJXAWVkg+vai2xDi-76RFhbmuG0Gc-XT+dKg@mail.gmail.com>
-Subject: Re: SI - are power and voltage readings supported by the hardware
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Freedesktop - AMD-gfx <amd-gfx@lists.freedesktop.org>, 
- Alexander Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <GVZP280MB0725CCBA01C7021B957C708097A7A@GVZP280MB0725.SWEP280.PROD.OUTLOOK.COM>
+ <0e54d5d4-602b-43df-8107-159c4b6e02c5@amd.com>
+ <GV3P280MB0724F50FE60963B5D5A73C7F97A7A@GV3P280MB0724.SWEP280.PROD.OUTLOOK.COM>
+In-Reply-To: <GV3P280MB0724F50FE60963B5D5A73C7F97A7A@GV3P280MB0724.SWEP280.PROD.OUTLOOK.COM>
+From: =?UTF-8?Q?Natalie_Klestrup_R=C3=B6ijezon?= <nat@nullable.se>
+Date: Fri, 5 Dec 2025 18:40:25 +0100
+X-Gmail-Original-Message-ID: <CAFR8Y_hAbhPP6ikgnSp7cahVs3poTMiVmoEYQ+UK5n-3TfS-BQ@mail.gmail.com>
+X-Gm-Features: AWmQ_bmbY1U59gvqIVcKuxOlFCoB3p13KYRSAPHsqS-ioKI9Mv2tE6JGH3RK8XQ
+Message-ID: <CAFR8Y_hAbhPP6ikgnSp7cahVs3poTMiVmoEYQ+UK5n-3TfS-BQ@mail.gmail.com>
+Subject: Re: Fw: linux-stable 6.17.10 (and 6.18.0) regression - broken
+ DisplayPort MST/daisy chaining
+To: alex.hung@amd.com
+Cc: natalie.roijezon@appva.com, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-ZohoMailClient: External
+X-Mailman-Approved-At: Sat, 06 Dec 2025 23:00:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,40 +86,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-OK, I was hoping for a similar SMU7 implementation never completed.
+Thanks! Filed a bug for it now:
+https://gitlab.freedesktop.org/drm/amd/-/issues/4756
 
-I see both VDDC and VDDCI (for Evergreen+) values available. When
-looking at amdgpu_pm_info, VDDC would be reported as VDDGFX I suppose
-(and inX_label under /sys/class/drm/cardX/device/hwmon/hwmonY/), isn't
-it?
 
-What would VDDCI correspond to? I mean, how should it be displayed
-(maybe it has its specific inX_label)?
-
-Cheers,
-Alexandre
-
-On Mon, Dec 1, 2025 at 10:26=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
+On Fri, 5 Dec 2025 at 18:00, Natalie Klestrup R=C3=B6ijezon
+<natalie.roijezon@appva.com> wrote:
 >
-> On Sat, Nov 29, 2025 at 8:44=E2=80=AFPM Alexandre Demers
-> <alexandre.f.demers@gmail.com> wrote:
-> >
-> > Hi,
-> >
-> > I was wondering if SI GPUs support reporting power and voltage values
-> > at the hardware level? I read somewhere that it was supported from
-> > GCN1.2 (Tonga and over), but I haven't found anything on prior
-> > generations. Going through the register names, I wasn't able to
-> > identify any who may correspond to power or voltage level.
-> >
-> > So I'm asking, just in case it is supported and I missed the
-> > information while searching for it.
 >
-> Correct.  There is no interface to query the power.  For voltages you
-> can look at mmTARGET_AND_CURRENT_PROFILE_INDEX to find out the current
-> DPM level and then convert that into struct si_ps to look up the
-> voltages, similar to what is done for sclk and mclk.  See
-> si_dpm_read_sensor().
+> ________________________________
+> From: Alex Hung <alex.hung@amd.com>
+> Sent: Friday, December 5, 2025 17:45
+> To: Natalie Klestrup R=C3=B6ijezon <natalie.roijezon@appva.com>; amd-gfx@=
+lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> Subject: Re: linux-stable 6.17.10 (and 6.18.0) regression - broken Displa=
+yPort MST/daisy chaining
 >
-> Alex
+> Hi,
+>
+> Can you file a bug to https://gitlab.freedesktop.org/drm/amd/-/issues/
+> so it's easier to track this issue later? Thanks.
+>
+> I will forward this to patch author at the same time.
+>
+>
+> On 12/5/25 07:26, Natalie Klestrup R=C3=B6ijezon wrote:
+> > Hey,
+> >
+> > After upgrading to Linux 6.18.0 I noticed that my daisy-chained display
+> > setup (Lenovo ThinkPad P16s Gen 4 AMD feeding 3x Dell U2424HE monitors
+> > over USB-C for the first, and then daisy-chained MST between them for
+> > the rest, running at 1080p@120Hz) would no longer work:
+> > displays 2 and 3 in the chain would just show "no DP signal" errors
+> > instead.
+> >
+> > The same problem also happens on 6.17.10, but 6.17.9 is fine.
+> >
+> > I bisected it down to
+> > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit=
+/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c?h=3Dv6.17.10&i=
+d=3D18030e84cbda014787369b6d4cde8404fa2d08fc
+> > and have confirmed that it 6.17.10 with
+> > 18030e84cbda014787369b6d4cde8404fa2d08fc reverted runs fine again,
+> > and is able to feed all three monitors.
+> >
+> > Now, obviously the patch exists for a /reason/, but at the moment it
+> > appears to just be trading one miscalculation for another.. would it ma=
+ke
+> > sense to revert it for now?
+> >
+> > Happy to (try to) assist in troubleshooting, but I'm also woefully
+> > underinformed about what the numbers are supposed to be instead.
+> >
+> > Thanks,
+> > Natalie Klestrup R=C3=B6ijezon
+>
