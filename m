@@ -4,149 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC87D2F7D5
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 10:20:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F9AD2F7D1
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 10:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C076E10EAA6;
-	Fri,  5 Dec 2025 10:20:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A404B10EAA9;
+	Fri,  5 Dec 2025 10:34:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IwSKpEMM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gUt0+zT+";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013060.outbound.protection.outlook.com
- [40.93.201.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1A910EAA5
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Dec 2025 10:20:57 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010052.outbound.protection.outlook.com [52.101.61.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28AC110E98C;
+ Fri,  5 Dec 2025 10:34:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cku93iqBtCOVwJ2WxwLEGg01zjYQkO5JtkOItSzChT90owe5GwOg1MhENlvXSpFG+YAWKHtecpWeoeEVTQ1dAZX1zvEYbrwSyleAUIV650AiZVqBVba9fs6ggQ+xrBWM3O0NXSl3lfcmGFoaG6KHO2qStOBcoFFK9uqc1tgYDAwFk7GM2/4MxYdG9I0QBKWrp6+/mYt9DJb7dSKb+LXvA8WiYgJsWAAhqGAD2fjp0BuBl7JlWjYgazfV6ZAL9zJz2LzgNeLO58tlQY4EZ62HSC02+txuxye/Yk3uc1XjdnrI9xEya4S7r4/2+y95pDMVYJtlnW3dgIHlteFDywDgBw==
+ b=Vo3Vs19WL9pfR/pE1wLjNmNbkpG5E/dT5ZA9FKrrti21qclt5skrMIeNjcs3tugls0H+Ty/vOLPG0TcBnvOcL7FPTfqaimo7WlJtKm4TpA0nvZWHlsGonTXEsuXLCgLXjhBo9PkTcQGqWdLdB99QCjOuwiJFZ5c9dzUy6YbbbNPx5U/Ebbzkk0F3ANdy393eSTFNYCyRSZnUWRDarvvxlcpFoQUWOM2EVIZnGK6EKwAak/orHOzHuCfIShebcjOWRlZ5VOCJAOlN5HBzUvv4Q+HfNLCxD6zvwhcuZqibe963IXOnbWsNrG7CeFW3suc6epQDKNXJdI3qjthMeosqig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hClI4nmAL21HibZuhpBRyROOjOpfL62GGxyxRD91Px0=;
- b=S1DQsDYztMFn9VJJj0rLfvZ66svTp1PxqIMvx8nI5woXKZGTXCF/TiwYSHxVd9HPq/lnyCqb4IVTde9bVYE/t16cDpcWoRu3+8uJdQllIUg5fKvnQywvl/4ns8+3qeiP4RPn3Jg3IqfZZGpAHtkeFnG/vWtQ+B/EgdyE5964Mqqrs76Y7msVMtgzsbqIfqYBtK+GDQhcuXpBNZrcSIx78Nz/WytIEvPMDwa2Mcsvee/3vdmbCaLGMBfunJOywx3cw9VbkODEBw1JZxN952Gfw490tXEN4x5/9TmX6cbkvAXtoHtJt/pAJyI1P3KAqynjWGncIW7tv2dU61XDHe6Tzw==
+ bh=uyKXGnYqGdM6KR5kUThApYmU753r5jtnJvipTTe9KAg=;
+ b=dtB9Nl5G29xHnXwieMexew5wWubepWcJLnmoHW75PvZi7Ub9EAfphbLKS4/1okP08APAczkMi12pjgT+xYv4mqDAkkqVXrb4DK7JGIq2VkG270lwBUCocL651nZ+NkO7yeC7nh4TgWd7U2LiJ8GGdEyX3bw/7plJcJEmob9u7GSYhgt+A/FaddE1WDvS/qjc4U9jVn10oF3OzNCcqbMb363Q2cvMBIY7p4+n194CnQr8HUMEzP8fXd90YKak4OIKOBV+jEkaHYIEPBe0Mk5TInWgl08vzLnGvdVwkeVXdC//U8B7hQmywUgVyBB42I3j+wVsee5eQRobpOPTwq/1EA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hClI4nmAL21HibZuhpBRyROOjOpfL62GGxyxRD91Px0=;
- b=IwSKpEMM7RBueoJE9Eav7JiReiTARS0K1UpQYoN7Wy5SoQ8sStOuKQHisS2BwfqFQ9FbP12lWdzxVP85LvAA+q1PGCeFyl9r7LqrZTkIxNqn1eifsj1k/sGW2AxOlFAXc6fT5lYOz5HkWNlmZwyggEOFTT1Hcz6/uFfqIgtvYUA=
+ bh=uyKXGnYqGdM6KR5kUThApYmU753r5jtnJvipTTe9KAg=;
+ b=gUt0+zT+/KO9wWoqPOI3Zlrc+xsHhdRf53YfcRrHPtnkPOOVHNw3aOpyQFOrC2orzK0GByPRCl6V2Dm4gixoVSObSRusP6yZ7tY1rORlrQID6X7f4lZ4yCJgYoJk+mdlUyBxIDKkrzdKB8TV0szLeRbdikUvOv+Xvcvibv/vx18=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
- by SN7PR12MB8434.namprd12.prod.outlook.com (2603:10b6:806:2e6::6)
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by CY5PR12MB6058.namprd12.prod.outlook.com (2603:10b6:930:2d::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.12; Fri, 5 Dec
- 2025 10:20:54 +0000
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819%7]) with mapi id 15.20.9388.003; Fri, 5 Dec 2025
- 10:20:54 +0000
-Message-ID: <8f562315-824e-43eb-a4d5-614f077e39ba@amd.com>
-Date: Fri, 5 Dec 2025 15:50:49 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Fri, 5 Dec
+ 2025 10:34:12 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d%4]) with mapi id 15.20.9388.011; Fri, 5 Dec 2025
+ 10:34:12 +0000
+Message-ID: <3ed39b79-ade6-437b-bfd2-9bd8a3779732@amd.com>
+Date: Fri, 5 Dec 2025 16:04:02 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix mes packet params issue when flush hdp.
-To: chong li <chongli2@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: emily.deng@amd.com
-References: <20251205083521.1337481-1-chongli2@amd.com>
+Subject: Re: [PATCH v5 4/5] drm/amdgpu: add UMA allocation interfaces to sysfs
+To: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ "Tsao, Anson" <anson.tsao@amd.com>,
+ "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
+References: <20251205-vram-carveout-tuning-for-upstream-v5-0-1e87cf3b57be@amd.com>
+ <20251205-vram-carveout-tuning-for-upstream-v5-4-1e87cf3b57be@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20251205083521.1337481-1-chongli2@amd.com>
+In-Reply-To: <20251205-vram-carveout-tuning-for-upstream-v5-4-1e87cf3b57be@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0054.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:274::12) To SJ0PR12MB7082.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0136.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::21) To SJ0PR12MB7082.namprd12.prod.outlook.com
  (2603:10b6:a03:4ae::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|SN7PR12MB8434:EE_
-X-MS-Office365-Filtering-Correlation-Id: be283235-c185-4d4f-cdee-08de33e7f917
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CY5PR12MB6058:EE_
+X-MS-Office365-Filtering-Correlation-Id: 236a2c52-5fde-401c-ba88-08de33e9d3ba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aHAyVVZMSUJvbTVzQlRJU1BWcUhYSWIxT3NUb3VWQ1QzRWhJT3VVM01IdVBa?=
- =?utf-8?B?Y3hSQUZ6QWR0NWp4M2E4VnFDOFN1RXliSmZ0YUFDY3I4M0M4WndjV1BYVWhY?=
- =?utf-8?B?NGU3ZXJEUGZVYUFhN25PUFNHNStVS0FJVmw1bzZ2ekpSZ1luZjJ0M2FmNHRP?=
- =?utf-8?B?R3Ztcm9ZeEVHNnZxSFJlSHU3Smk0dEhpSXZiUTdhNnhCcnptS3lUVVNJTUUy?=
- =?utf-8?B?TWlVUG1nUnBraExGc1IwOGM1UDIrTjhnelQrSGxtSVlHZm40S3lNRkxhMTl0?=
- =?utf-8?B?dWhpM0hPU20vaE8vMVVtUzBZZ29QcEdMTjcrR1J6eVFXekVVWkhQMmllSUFT?=
- =?utf-8?B?a0RsRGdtV0RjWXhRRkxFTmRPWWlXelVpU1N2eDdRODZPR0gyaHRuL2xjMlFH?=
- =?utf-8?B?d3BJMVduNHByTEdhdUNLd0V6L0U2c1ptVm5pODg3N1g1V2l0ZnhQVlRHTWxT?=
- =?utf-8?B?dmhmc2hYc1ViZFNlQUYwZ2N1Rk14M0xPVUw3L2txUWpoT0w5VERyM09xV1gr?=
- =?utf-8?B?YUhKM1hUeTJ1VTlDVDhPeEIxM1QwWnlxbGtESW5XL0pGVEtaZXRJd3p6Q3JV?=
- =?utf-8?B?SVJoa3AvMUhrVVdDMjMxSEFDTlM1ZHdaRkRkMFhLRmkvVnBySk5uY0xjRjhl?=
- =?utf-8?B?K1gvRUU0SWpRYU96dUtiRGx3d3o2Y2lXSnhKdFM0T0t2VmNXd2YwWi9mYzQ3?=
- =?utf-8?B?UUh2MlRPcFN4T1hTajRxdW9EVmVDN282Q0JMU1VZdWxJNFNtYmNFelFZVjhD?=
- =?utf-8?B?VUdnejhPUjdZRTlCeU1KZE5MRU9KeUIxSHpBSWFkeTlHZ1lWQUwwclY4Tkk4?=
- =?utf-8?B?eWROT2JVUFc0bzZqWUV2TFQza1Y4NmNkNjRGT3I0RHVvOEs5bTAvSVNjWVNR?=
- =?utf-8?B?dkVjcU9ZUFN0UkdoWVZhb1k1RGFaeGpqcHJaZ2ZIUU54M2lXZUpVNThwRTd0?=
- =?utf-8?B?bmsrc2g3Z3J5Skh3S2pQUTR5b2QzaFBsa3lHS0lHTzRSR01ZSHlvdWs3cTA2?=
- =?utf-8?B?WGxINnF5QkJXd21XS2I1S1ZMdVVOc1ZLcWFKZzFUekg3LzRjMFRFeWVyNEts?=
- =?utf-8?B?ejRiWWE1RkxlWjlWdFNoWHpRc21nOFBoK0ZDZGlEQVR0Y2tVR2hKdjBnZ3p0?=
- =?utf-8?B?MEd3MEFTRHRrbFhvalNDWGpEZlB0RXpOL2FOSmc2cXZweTR2a21hQ2lZcWZL?=
- =?utf-8?B?NVBueTdwUmZWT0Vha25pYzh2MElrLzhmdzI0RDVnbk10Y2d3Wm1XaUtZanBt?=
- =?utf-8?B?cVkwRlhJdFhtTVF3Tzd6cUwwaUVxSzNpNXFZYSsrdTdzR3EzNDBFSWVkbEtX?=
- =?utf-8?B?WnM3UG54ZDBVMCtGNEFBTTdWcW4yUS9aaVdydzEzc0E1QUdJbkIrbXljQTFm?=
- =?utf-8?B?MlU4VmlqbVpZbURvdCtWTktGZ1p5T210NE84UlJJR3BFekx3cllNdjRLdkxa?=
- =?utf-8?B?dUpkYkltTVQ5aW5jdyt3cUpaaXY1KzNHTUREY3lXcS9jNTFxcUdPK1RySUJR?=
- =?utf-8?B?cGpOeXB3emJ6Nzkyc0VKMEdNNWJlVkoxKyt0T21SeW5UdTQwL1ZrSnlYRk1N?=
- =?utf-8?B?ekpTaEhFN2FOQlAxVEZ1aVZodzBibjNjMExsTktTKzkvSTlWL1ExS0luQjdi?=
- =?utf-8?B?SGFUVlB0UXY0Qml4NzJieVRDV0lPZW9YNjZzR3NKdEZ6MXl1T1VMSEExTW4r?=
- =?utf-8?B?bjV6SjR2cXp5Q0NrU0M1V1ZTSFl3MDB0b3E5Q1lRTlM5QTdsaTV2QldlRnhM?=
- =?utf-8?B?MklXOVA4ZjAvOEtKR1h5RFVQc1ZYOGVqVjZvRUJzWER5dm51NkQ1eU9Xd2di?=
- =?utf-8?B?Lzh0NFIwR0VjbVVmL3VDVzkvRy92blVVQldwcE5VZzh5UXJFNjVyVjFKUTVH?=
- =?utf-8?B?bnYzcDc1Q1hxakZ5WWEyYm9oTVljLzlISmxyNWNaN2RKSVJucW1Xa2YvOTE5?=
- =?utf-8?Q?Xz5UI7BoO8scK/drCfHj+5dbuFWqJoCI?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q3NrSlozR3p6Yk9lWnJ3cXhjRFdqVTR5SndzVGtjRHp1S0NHSVlrd1RKRTMx?=
+ =?utf-8?B?ZStuaG0zbjVFZVV6MTFnQUVOWG9reTIwWnlCa2pxWWcrTzgzK2l1YnZBYnAz?=
+ =?utf-8?B?eTBZQi9ZTVRrKzFKWE5KZmN5bzFrNHBZUGczZ3RxeE9BOUgrS3g4OHdvU0o0?=
+ =?utf-8?B?c1o5YloydDBxQ2lUMjlJNUszaDhpVWozbU92YTJXS1BpeHJISHJKVWNma1po?=
+ =?utf-8?B?ZzN0MGw1T3VIdnRtc042ZGcrcTZPczhGQXRSRTNiS1V6VnRLa3g1ZklvaVA0?=
+ =?utf-8?B?VlpJRThMb0tSYzNsaDdmUGhRVTFUSDltQ2xnVkFIK3I1QXVUdzF3cjNIVTlD?=
+ =?utf-8?B?TzFPQ3VTa05Da1R3cGRXOFM2REdpWk45V0NoQlplWDFsdVZZcG4yb25MMDRo?=
+ =?utf-8?B?SHRRT1p4MktrNDN1bDl2TmRQZHR1a1o2d2NkaW9ZTEpnZU55d1c0bnRkUWlH?=
+ =?utf-8?B?OG1ENlhKejVGU0lsVlMwOFUxK21tNzdWdjdQSW1HQytOeU1kUFRVaTJzRUp3?=
+ =?utf-8?B?WDU1Y0VBWnRZUmc5eTVybU9LeHRYaHQ1WVZUOUd1MzlLaDRhQm84UDdscGc3?=
+ =?utf-8?B?bDEvUk9waC9SbG95WVZmUUxVWkxOR084L2FKNlliN1JhOGNEb2E5azlia2Nj?=
+ =?utf-8?B?RGhncnVobGhsS1RkdG8yZ0F4T1Y1OXpSZXpueGJLOWtPci9pUCtZbDBaU3ZT?=
+ =?utf-8?B?QzRZcTlwTS83Zk5PcHRYMHhnRW92TTBkS0IzaTNUQ0VlUUZpV0pUM1BKVEN6?=
+ =?utf-8?B?TVoyblRCV3doMDZCNzNNTk85K3ROWkhtbHRWRmFBaUNuVFVJTE5GRTlQN0lW?=
+ =?utf-8?B?WjdTS3FOZ1AwS280VitaVk11NVpBR2dkVUFxb0NlK1UrTTZZbW5Bak5vdnBS?=
+ =?utf-8?B?dUZ1SG02dmlhcllnM3lyeUUvNlZ4blZ1dktGUVJOOVNwVFRZOU9RTnQ3a2JN?=
+ =?utf-8?B?cEl4UnR3bUhXZ3l3dU11N3pnK0hJa1VsSVZnU3krN0plSUNMV0JmbmRYTGgv?=
+ =?utf-8?B?VXhzSjdVR3BhdGR1blV0bTJQTUx4MDNuWWVQT3k0NjZ3UStOODU0M1Z5NDJ1?=
+ =?utf-8?B?Zm9tMjY5SVZML253R3FJN0dSNHp4dXVNZEM4eEtNYS9nWFh0QTFyM1laU0dj?=
+ =?utf-8?B?UWVLUGdqYVVORXg5RGd5b0VrbWJkM0V5WWM0YzJybWt3eDhWMUpPTXZwTG9w?=
+ =?utf-8?B?SWZlRHlrSFhrNFJ6WFRmMk12clUzL3BaSERHdHBiVytzL2pFQUhsaC9RZG9y?=
+ =?utf-8?B?UVRROXNxanRwQk9YYXZHbVZ0ckI2QTdPdUtUa242NTNhblpNa1lnVXBBSHlV?=
+ =?utf-8?B?TnFXcGNjYWpxMERVM1A0bTdWcTBJdHlUT1ZxZTNZbFh2STFuNHBsSnM3dUN4?=
+ =?utf-8?B?aGtBZmUyRnNoTWtGbHR5dG03Z3RNVHR5and3ZWlNV002QThLaWdUUEFIRDJa?=
+ =?utf-8?B?R2ZyV2FrdFpOeExxam1nZEtxcmwxb1FUQjZsN0h1UDc4QW9kZ29rNVVpUFc1?=
+ =?utf-8?B?dWVBNXhrZHlnalJRaVlWN0htVitmTVdiVUZKRFRFU1ZZb3gzZkNrQ3J0QzBL?=
+ =?utf-8?B?RU0zWm11UmdzTGJMbEZZUW1SMTJiWXVoeFR3bXhRa0JCcFovbncrbFdzWnlS?=
+ =?utf-8?B?UWI0VS83R3JFdjVsWWlSalNicEFkVWRtdkoxVUoyZ1RRTENBTGZXUGcycHU2?=
+ =?utf-8?B?RXl4UnVESm8rZFQ4T0U4OUxCWkxjWHRhOVhJVXA0SW1IWFppYWxpWDh1RmlB?=
+ =?utf-8?B?UHhrMVJNWXFEczNVQ2hqb083M2hoS1l2ZXdOWHBKR0trNXF5RU0ybERBTFpr?=
+ =?utf-8?B?aVQvT3BnNEFuTHBqTEJObHZoaklONjhEQXRSWmUyUEIrNllSNUl4VXlsZGQx?=
+ =?utf-8?B?allkZTdBQlFhK1pnbUhTYWw5Z1lKR0lyaUx1enlrSDQ2TGhVT0dkNURkSHpB?=
+ =?utf-8?Q?Qf05VH0CyK5alwcBycdmugwk4glkDo1h?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXNjUG9rM0JBOXJPOHhTNTVYQTYzWEN6eGJzWVdKK1RqM0NxUldraklyYWpw?=
- =?utf-8?B?MkorR25lU3ZCQjZnZFZTVVNyT3IxeTVhVU8wMlpaNXFTY0FObis0L2s3Y1Iz?=
- =?utf-8?B?WXltNFA0RWo5QzhwN1lzNWxURWFXcllnZmxKK2NsdDdBTWpRREh4cCs0NzBn?=
- =?utf-8?B?Uks3aGRzTUROejR6dE1hYXNOdEl5MCtlVm1Gc1Z6UytIVnpGSzVJN1FSMlFu?=
- =?utf-8?B?L1BKVEZJQWd2bEZtcDR4NlBLVVJpd3JSTkZlNWtzWE9Dd2s1ajB0MFMrWXdV?=
- =?utf-8?B?T2UzODNQUnpuT3Jad2tPNjJDRW5MQnRtelowTVc2N2tmUWRWemlNa2tENVVW?=
- =?utf-8?B?R2VFNjVGTllEcmlEMThwNVVHMXVFcnVKaThXTENtcGlReHRXenVabmJsSUJ4?=
- =?utf-8?B?Q3ZFdmkxa2RUclRVRUo3OVdBTXlRZDRoQTdlSEFLUW9OaDBDOXEwZk0wWWgx?=
- =?utf-8?B?ZHZNY1dmcERvZGFDMjZqdm4zc3JuK1VjTmxBZzVWV3hvbTkvdEJqTThHSWtp?=
- =?utf-8?B?Nmt5dXVZYjB0SVR2ckJqNFgvdzh3cWhiVUhYNWQwTVU5L2dPRWd1UzZ3bzVY?=
- =?utf-8?B?NWJEcjJYSUs2VDMwaFpKVzRkc1djeEdBZzEwR3lEUGJEQlhKc2hCazRkZVNT?=
- =?utf-8?B?RkozcGU0Q21kZTZ4d1psalFEZFpyQkIzb2VRT1o5TVdaM013SWxVUEhDVFRt?=
- =?utf-8?B?U2JjK1doZnlmZ3VISmczemthME1qd1U3TktWYnZPcDV0NHNBNEhWUG9qRkht?=
- =?utf-8?B?NkFRckVMa01TSEJ1STcwd3dpRTRhZjhodCtxdjM5b0hzbkt2N3JWVkFkQmt5?=
- =?utf-8?B?Y0dOc2szTTQxVmEweDh6M1Q5VS9nVTNIR2xhbk5aMi90aFE1Yjg5NWF4UGdK?=
- =?utf-8?B?V2U0Tkc1anMxVTNOekFHOE1vWk05U052cU00b2UyVlkxRHhHeFlQd1R0S1Zo?=
- =?utf-8?B?N296RlVaMC9ieEdjeHU3YnRLTXNzUUdNeUdxYkxJWFdyM1ZlS2xTeXE1ZlMw?=
- =?utf-8?B?aGlUUGozV0E2R0RkZlpjOGMwWElWVm41UTBXV3Q4U0E4a2d6dFpLczFDcUJ4?=
- =?utf-8?B?b3U2UGp5NkNwRldEdXJnTi9xYkIyMlltNTRULytPUkJGd1Q4eGxaMWRZdmlG?=
- =?utf-8?B?VVVwRUpLQm1RMW9uYi94bEhGVlZMMXRJYmN0UnhHeFZOYWZ3UEE5MGw5V2FK?=
- =?utf-8?B?K2MrRE5NY2FDSVhhSGs0WWFtbVdyQkgyTDhobWlRWHRUWldndHBJeURqZWl4?=
- =?utf-8?B?aDd5Znhsek5FdFFYWGhQczI0TnNlWGF4by8rTzlxZVZIRDlOdWd2c0FsRzAx?=
- =?utf-8?B?bXVwUWlaZ2xWQm4zVkowcmxUL1F1UFVSdzd6UjArczRPd2UrNDArWDdsZ2Uv?=
- =?utf-8?B?Vmp6NlVyaDR5OWNZR0RxVXJ3eHpwMSthSzBmNFJlVDRyUHlPYWpEcU83TG9y?=
- =?utf-8?B?amZsQkgzWk9YUXdoR3A0K0JFKzNSb21WY2dNMG5XeEZKRGdQREpseFJuM0xt?=
- =?utf-8?B?TUFsb2lIZW5VQytua2JuUFdrdmI1elJKR1RQRCsyMVRHVTVnTFRSc05BV3Zu?=
- =?utf-8?B?dXNYazBRTVJpc3dOWkREYWl0Nkc3SHA5cjE0OWhicGhxdURSMS9SNTlkMlB4?=
- =?utf-8?B?M3Zha0pRcVEzcjJKckdPWTU1RHVhNDd1dVZOaHNLdHdmYWpSTHJzYVp3YW4r?=
- =?utf-8?B?enVKbUFJYVI1b3NkOXVuQ0IwZUhSVzRvWHBlYzFjOUZsM292ZE9WV3k4eXIz?=
- =?utf-8?B?b0VwSHgxYlRxNTZXNk1OM3BFdHFoa0tTTTIwcXZwdEZDcGJmWXV6NkZ6ZUVX?=
- =?utf-8?B?bk1mdC9nS1kvQjQ0eVpyRW1BdmE2d2lobFlFY2liL3VUOEVUMnRZV3ZtQ1lO?=
- =?utf-8?B?bEtkZElLMFhCcU51TWtEYXdKWUgwSEpHcWVWWFRmTDJLUERjWnhjazRkNm44?=
- =?utf-8?B?QndNSWVKc1U0ZjEwOFFmRmR5bVZnUzNmNjB5K1NXVTRIVGM0alNnbU00Q21Y?=
- =?utf-8?B?UEZSc1dNQitJVWtpY3M5QmxpSFZMQlhQaDgzOWtoNFBtRkVVY3JWdzFmSHZj?=
- =?utf-8?B?WU12QTZIY1RDakkxQzlPbEFNNEI2QmJ0VHhIcVYzRk5QdTNaaGFnMEhac0VX?=
- =?utf-8?Q?NXKo84VG9TRi4vLN6QWlFhooY?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OC9wTGRYZXdtV2M3bzB0c0VVR2NrczB3UEk1N01QRGJNK1NzRUJrOFQ3YWJl?=
+ =?utf-8?B?TnpEWTFpcmtldFlzT3I0bGlTWDM4aVRoWk1PbzlUOVN2L2gyaFVxU0wzODZP?=
+ =?utf-8?B?a2hObUd5eEZwdkFWK01GL2pUK3VTWjBVRG9HbVJkR2d2ZHczOU55ajNkeERS?=
+ =?utf-8?B?Z2tIckdmS2xoSFhFN002VVdrMzBoMm1jcmVkN1QrN1FHTUg1bEZJU0RCZjBU?=
+ =?utf-8?B?eHkycFloN3ZaOFNqUy9tdDFVODVjaFQyckptdXlTYmNTYzFiQkNqQlN1cW15?=
+ =?utf-8?B?UVNQODh4ZEIxZFIxYkpGSVc3MnFIU3VaRFY3MHE1VzFMRXZ3RGhDOXlMMjQ0?=
+ =?utf-8?B?U3hvcEtCZWRORzFmWHJkUDBrdGxLMzE5MHZ1eG1xNWwvTForZ0Q5R1lwWEZu?=
+ =?utf-8?B?Lyt2aTdoR29rVEFaYmhKKyt5elR3L21GL0dkdXltNDN5ZWtqNHcwVHprQ3ZV?=
+ =?utf-8?B?ZTh4aTc0SnplMHVQdHBVLy9CZ3UzeGdjMUNGcnlGSW9GVFl4a0dZUmRnaEE4?=
+ =?utf-8?B?ZUg4dmc0R3FFc2dpUTZyK0VITVNFdUlpVEpRZmpKN0JITDhQbDMzYTY4SFpm?=
+ =?utf-8?B?VUwvN1JDNDhVeGNuSGlmTzVHT2pxMngvYWk0djdEVkZrSHlnZ05IL0xqdDNH?=
+ =?utf-8?B?TVM1Y3NER1NpaXkrd1Y1RkJ2OVJzWVhmdFlGMTNwN2UwK3VvT083Rk5Payty?=
+ =?utf-8?B?bTRWcllYLzA5UDhkcGxkMXlYT3ltbFNHUVFGN0MyYktILzNyS1MzRDIyS0lu?=
+ =?utf-8?B?Q1pMSzdCOGVPRjVwSy9sRGNLOStOQ0JLUHBKb3NCTEZCNTJieVVlc09JVjh2?=
+ =?utf-8?B?UXVGd0NubGpYaStINXYrVVg5eHVXSEdCcGdtRmd2VHRmOWQ2d0FOTGpUSDZG?=
+ =?utf-8?B?dzBrRnlMdm51S3NoQWhzQldsNERsSlJIOEFIYVM4bnFvbXJ5bk9SaEptZ1dC?=
+ =?utf-8?B?eXExQW9YQmZZU3U2V0pCdzVkMzAzMnNzSi85L0w3Uk02TG44VkdRVUhhSSty?=
+ =?utf-8?B?OEZsdDFGWm5qUnRuYU5ldVcyT2ZxZ3BGM0Z3TFZvc05laTdaRnlQQlBpSXpq?=
+ =?utf-8?B?NytUNHMzQTk4NjdMajVkNmlmeG1QZTlhRDhkaWd5bzR3Tllyalk5NU93NWJK?=
+ =?utf-8?B?cmpST095MnRrU09IbjNrbDlWcGtvSVhzNnp4b2JpYVZmVWdqdTF0OHkwMWwy?=
+ =?utf-8?B?Tk9qY0tIaS9RZmZ5cmNLZS9FbmZOZlNZSkV6bVFxWEFqWlk3bGwrdFdXNTRT?=
+ =?utf-8?B?dlJ2eE45UExWcUoyRXh5SUtodkNmeWJHcU80L05KY3ExZWpnMHROWUdNQWlZ?=
+ =?utf-8?B?M1k0U2k0N0FWYzlScGRCZzhNbXpqQnJxVnI5MW5pN1FRNkhHOU5FdGordHQv?=
+ =?utf-8?B?bGFnUjdHWmVPanhlTmVnWUxybVd0MlVNd2JIbWIxZ2g3bk5HeWtqaVBlKzk2?=
+ =?utf-8?B?U3ZFNVZ1d0Q1YVhLZ2wyK0J5Z1c0MStLS3lCbHRBaFJrWTlWM1pCNEFaV00z?=
+ =?utf-8?B?MlJtTE5INDd4THVJU0NjRExQdFNldU9icWllUGVTdFVhdFBhL2kwaTZ6ZmVm?=
+ =?utf-8?B?ZXVybjM2dzBxbEJ5UmJjbnhiVlpTbU9kSEJkdUI3QzhLdU9VdmVtc3B3TE9Q?=
+ =?utf-8?B?a1hIMWVSRjhRdnJKMFMvdXgzUkhveXM1SEl4c01hSEFlSUthYVlzM1JGdTVI?=
+ =?utf-8?B?VFlzZ2dRQUllRUNLeEh2Y0xUVHZqL21TMWEwaXdoaEFWckU4UEQ5YmFSNXRz?=
+ =?utf-8?B?ZlpuMDg3UDhmSmtQeVNVdW9TRUZsMnhMK2xjejc2VnlpcXN2WjJTMmFDRytp?=
+ =?utf-8?B?WW5Tazk1c3VTSG9HeVJPMFAzTmdNRVJXc1dsNUR0Zk1DSGNTSjR4NmtBajFk?=
+ =?utf-8?B?bis4R0dZSzVsNi9iMllkeGY5bEpVNDE0MFNZMWlaSFBHVE9lTFl3dWNKTFJW?=
+ =?utf-8?B?ZVhMQlN1ZTlTcnJlNUx3RXNuTmV0RjBYSktIeFNQMnlXL1B4ZytHTjNRKzlq?=
+ =?utf-8?B?a1N5UDIzZkZBWi9yQ2pZL3k4cnF3Uy9qWkJWRzBtVWxpN2hzRDlCdzV0RE53?=
+ =?utf-8?B?TVJjajhCb284NWt1QnJZZ1JSMkJsQmlvYTA2MFo4emkxbXp4dVFiclVSMTNi?=
+ =?utf-8?Q?3SZAtu2jvxb/nUaTG3Bzo6trE?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be283235-c185-4d4f-cdee-08de33e7f917
+X-MS-Exchange-CrossTenant-Network-Message-Id: 236a2c52-5fde-401c-ba88-08de33e9d3ba
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 10:20:54.6201 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 10:34:12.2182 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1yW3jIottR1SxlQmk16uX6RGddA3MHatbhEagUNg2WtKo9oUWm8L1Afm9jR0kkwV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8434
+X-MS-Exchange-CrossTenant-UserPrincipalName: UshbQD+FJ2+8874md3WmPi1dfyFGL96365uqiomexyHMOuRHHaU4cwibxZ9Wo0NM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6058
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,301 +172,230 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 12/5/2025 2:05 PM, chong li wrote:
-> both gfx ring and mes use cp0 to flush hdp, cause conflict.
+On 12/5/2025 12:20 PM, Yo-Jung Leo Lin (AMD) wrote:
+> Add a uma/ directory containing two sysfs files as interfaces to
+> inspect or change UMA carveout size. These files are:
 > 
-> use function get_ref_and_mask to assign the cp entry.
-> reassign mes to use cp8 instead.
+> - uma/carveout_options: a read-only file listing all the available
+>    UMA allocation options and their index.
 > 
-> Signed-off-by: chong li <chongli2@amd.com>
+> - uma/carveout: a file that is both readable and writable. On read,
+>    it shows the index of the current setting. Writing a valid index
+>    into this file allows users to change the UMA carveout size to that
+>    option on the next boot.
+> 
+> Co-developed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  | 15 +++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 ++
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  3 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 40 +++++++++++++++++++-----
->   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   | 40 +++++++++++++++++++-----
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c    |  3 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  3 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  3 +-
->   8 files changed, 87 insertions(+), 22 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   4 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c   |   7 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 138 +++++++++++++++++++++++++++++
+>   3 files changed, 149 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 895b841b9626..73305f07ddd9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -556,11 +556,22 @@ int amdgpu_mes_reg_write_reg_wait(struct amdgpu_device *adev,
->   
->   int amdgpu_mes_hdp_flush(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 6bf626a51dfc..177376ff5811 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1846,4 +1846,8 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+>   			   uint64_t uid);
+>   uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+>   			       enum amdgpu_uid_type type, uint8_t inst);
+> +
+> +int amdgpu_acpi_uma_option_init(struct amdgpu_device *adev);
+> +void amdgpu_acpi_uma_option_fini(struct amdgpu_device *adev);
+> +
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index bdafcde51107..b2779fc2f712 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -1288,6 +1288,12 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
+>   int amdgpu_acpi_init(struct amdgpu_device *adev)
 >   {
-> -	uint32_t hdp_flush_req_offset, hdp_flush_done_offset, ref_and_mask;
-> +	uint32_t hdp_flush_req_offset, hdp_flush_done_offset;
-> +	struct amdgpu_ring *gfx_ring, *mes_ring;
-> +	uint32_t ref_and_mask = 0, reg_mem_engine = 0;
+>   	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
+> +	int rc;
 > +
-> +	gfx_ring = &adev->gfx.gfx_ring[0];
-> +	mes_ring = &adev->mes.ring[0];
+> +	rc = amdgpu_acpi_uma_option_init(adev);
 > +
-> +	if (!gfx_ring->funcs->get_ref_and_mask) {
-> +		dev_err(adev->dev, "amdgpu_mes_hdp_flush not support \n");
+> +	if (rc)
+> +		drm_dbg(adev_to_drm(adev), "Not creating uma carveout interfaces: %d", rc);
+>   
+>   	if (atif->notifications.brightness_change) {
+>   		if (adev->dc_enabled) {
+> @@ -1340,6 +1346,7 @@ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)
+>   void amdgpu_acpi_fini(struct amdgpu_device *adev)
+>   {
+>   	unregister_acpi_notifier(&adev->acpi_nb);
+> +	amdgpu_acpi_uma_option_fini(adev);
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index a7594ae44b20..979298d9c213 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -36,6 +36,7 @@
+>   #include <linux/pci.h>
+>   #include <linux/pci-p2pdma.h>
+>   #include <linux/apple-gmux.h>
+> +#include <linux/nospec.h>
+>   
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_client_event.h>
+> @@ -7835,3 +7836,140 @@ u64 amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+>   
+>   	return uid_info->uid[type][inst];
+>   }
+> +
+> +static ssize_t carveout_options_show(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     char *buf)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +	struct amdgpu_uma_carveout_info *uma_info = &adev->uma_info;
+> +	uint32_t memory_carved;
+> +	ssize_t size = 0;
+> +
+> +	if (!uma_info || !uma_info->num_entries)
+> +		return -ENODEV;
+> +
+> +	for (int i = 0; i < uma_info->num_entries; i++) {
+> +		memory_carved = uma_info->entries[i].memory_carved_mb;
+> +		if (memory_carved >= SZ_1G/SZ_1M) {
+> +			size += sysfs_emit_at(buf, size, "%d: %s (%u GB)\n",
+> +					      i,
+> +					      uma_info->entries[i].name,
+> +					      memory_carved >> 10);
+> +		} else {
+> +			size += sysfs_emit_at(buf, size, "%d: %s (%u MB)\n",
+> +					      i,
+> +					      uma_info->entries[i].name,
+> +					      memory_carved);
+> +		}
+> +	}
+> +
+> +	return size;
+> +}
+> +static DEVICE_ATTR_RO(carveout_options);
+> +
+> +static ssize_t carveout_show(struct device *dev,
+> +			     struct device_attribute *attr,
+> +			     char *buf)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +
+> +	return sysfs_emit(buf, "%u\n", adev->uma_info.uma_option_index);
+> +}
+> +
+> +static ssize_t carveout_store(struct device *dev,
+> +			      struct device_attribute *attr,
+> +			      const char *buf, size_t count)
+> +{
+> +	struct drm_device *ddev = dev_get_drvdata(dev);
+> +	struct amdgpu_device *adev = drm_to_adev(ddev);
+> +	struct amdgpu_uma_carveout_info *uma_info = &adev->uma_info;
+> +	struct amdgpu_uma_carveout_option *opt;
+> +	unsigned long val;
+> +	uint8_t flags;
+> +	int r;
+> +
+> +	r = kstrtoul(buf, 10, &val);
+> +	if (r)
+> +		return r;
+> +
+> +	if (val >= uma_info->num_entries)
+> +		return -EINVAL;
+> +
+> +	val = array_index_nospec(val, uma_info->num_entries);
+> +	opt = &uma_info->entries[val];
+> +
+> +	if (!(opt->flags & AMDGPU_UMA_FLAG_AUTO) &&
+> +	    !(opt->flags & AMDGPU_UMA_FLAG_CUSTOM)) {
+> +		drm_err_once(ddev, "Option %lu not supported due to lack of Custom/Auto flag", val);
 > +		return -EINVAL;
 > +	}
->   
+> +
+> +	flags = opt->flags;
+> +	flags &= ~((flags & AMDGPU_UMA_FLAG_AUTO) >> 1);
+> +
+> +	guard(mutex)(&uma_info->update_lock);
+> +
+> +	r = amdgpu_acpi_set_uma_allocation_size(adev, val, flags);
+> +	if (r)
+> +		return r;
+> +
+> +	uma_info->uma_option_index = val;
+> +
+> +	return count;
+> +}
+> +static DEVICE_ATTR_RW(carveout);
+> +
+> +static struct attribute *amdgpu_uma_attrs[] = {
+> +	&dev_attr_carveout.attr,
+> +	&dev_attr_carveout_options.attr,
+> +	NULL
+> +};
+> +
+> +const struct attribute_group amdgpu_uma_attr_group = {
+> +	.name = "uma",
+> +	.attrs = amdgpu_uma_attrs
+> +};
+> +
+> +int amdgpu_acpi_uma_option_init(struct amdgpu_device *adev)
+> +{
 
-Does this really require a function? Why not keep hdp_flush_mask in 
-amdgpu_mes struct and initialize within mes_v*_sw_init()?
+To clarify on the comment about moving this to amdgpu_device -
+
+UMA option is a device specific option which could be set through acpi. 
+Options are retrieved through atom tables.
+
+So the function names remain amdgpu_device_uma_option_init/fini() and 
+init/fini are called within amdgpu_device.c
 
 Thanks,
 Lijo
 
->   	hdp_flush_req_offset = adev->nbio.funcs->get_hdp_flush_req_offset(adev);
->   	hdp_flush_done_offset = adev->nbio.funcs->get_hdp_flush_done_offset(adev);
-> -	ref_and_mask = adev->nbio.hdp_flush_reg->ref_and_mask_cp0;
+> +	int rc;
 > +
-> +	gfx_ring->funcs->get_ref_and_mask(mes_ring, &ref_and_mask, &reg_mem_engine);
->   
->   	return amdgpu_mes_reg_write_reg_wait(adev, hdp_flush_req_offset, hdp_flush_done_offset,
->   					     ref_and_mask, ref_and_mask, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index a1fb0fadb6ea..adca4396658e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -250,6 +250,8 @@ struct amdgpu_ring_funcs {
->   	void (*emit_vm_flush)(struct amdgpu_ring *ring, unsigned vmid,
->   			      uint64_t pd_addr);
->   	void (*emit_hdp_flush)(struct amdgpu_ring *ring);
-> +	void (*get_ref_and_mask)(struct amdgpu_ring *ring,
-> +				uint32_t *ref_and_mask, uint32_t *reg_mem_engine);
->   	void (*emit_gds_switch)(struct amdgpu_ring *ring, uint32_t vmid,
->   				uint32_t gds_base, uint32_t gds_size,
->   				uint32_t gws_base, uint32_t gws_size,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index aaed24f7e716..aafd34ddcfcc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -8616,7 +8616,8 @@ static void gfx_v10_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
-> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index f4d4dd5dd07b..0ada69d0cc68 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -5829,29 +5829,50 @@ static void gfx_v11_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
->   	}
->   }
->   
-> -static void gfx_v11_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
-> +/**
-> + * gfx_v11_0_ring_get_ref_and_mask - get the reference and mask for HDP flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring type and me.
-> + */
-> +static void gfx_v11_0_ring_get_ref_and_mask(struct amdgpu_ring *ring,
-> +					uint32_t *ref_and_mask, uint32_t *reg_mem_engine)
->   {
->   	struct amdgpu_device *adev = ring->adev;
-> -	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +	    ring->funcs->type == AMDGPU_RING_TYPE_MES ||
-> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
->   		switch (ring->me) {
->   		case 1:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
->   			break;
->   		case 2:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> +			break;
-> +		case 3:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
->   			break;
->   		default:
->   			return;
->   		}
-> -		reg_mem_engine = 0;
-> +		*reg_mem_engine = 0;
->   	} else {
-> -		ref_and_mask = nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
-> -		reg_mem_engine = 1; /* pfp */
-> +		*ref_and_mask = nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
-> +		*reg_mem_engine = 1; /* pfp */
->   	}
+> +	if (!amdgpu_acpi_is_set_uma_allocation_size_supported())
+> +		return -ENODEV;
+> +
+> +	rc = amdgpu_atomfirmware_get_uma_carveout_info(adev, &adev->uma_info);
+> +	if (rc) {
+> +		drm_dbg(adev_to_drm(adev),
+> +			"Failed to parse UMA carveout info from VBIOS: %d\n", rc);
+> +		goto out_info;
+> +	}
+> +
+> +	mutex_init(&adev->uma_info.update_lock);
+> +
+> +	rc = devm_device_add_group(adev->dev, &amdgpu_uma_attr_group);
+> +	if (rc) {
+> +		drm_dbg(adev_to_drm(adev), "Failed to add UMA carveout sysfs interfaces %d\n", rc);
+> +		goto out_attr;
+> +	}
+> +
+> +	return 0;
+> +
+> +out_attr:
+> +	mutex_destroy(&adev->uma_info.update_lock);
+> +out_info:
+> +	return rc;
 > +}
 > +
-> +static void gfx_v11_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+> +void amdgpu_acpi_uma_option_fini(struct amdgpu_device *adev)
 > +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +	u32 ref_and_mask, reg_mem_engine;
->   
-> +	ring->funcs->get_ref_and_mask(ring, &ref_and_mask, &reg_mem_engine);
->   	gfx_v11_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->   			       adev->nbio.funcs->get_hdp_flush_req_offset(adev),
->   			       adev->nbio.funcs->get_hdp_flush_done_offset(adev),
-> @@ -7235,6 +7256,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
->   	.emit_vm_flush = gfx_v11_0_ring_emit_vm_flush,
->   	.emit_gds_switch = gfx_v11_0_ring_emit_gds_switch,
->   	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
-> +	.get_ref_and_mask = gfx_v11_0_ring_get_ref_and_mask,
->   	.test_ring = gfx_v11_0_ring_test_ring,
->   	.test_ib = gfx_v11_0_ring_test_ib,
->   	.insert_nop = gfx_v11_ring_insert_nop,
-> @@ -7281,6 +7303,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_compute = {
->   	.emit_vm_flush = gfx_v11_0_ring_emit_vm_flush,
->   	.emit_gds_switch = gfx_v11_0_ring_emit_gds_switch,
->   	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
-> +	.get_ref_and_mask = gfx_v11_0_ring_get_ref_and_mask,
->   	.test_ring = gfx_v11_0_ring_test_ring,
->   	.test_ib = gfx_v11_0_ring_test_ib,
->   	.insert_nop = gfx_v11_ring_insert_nop,
-> @@ -7323,6 +7346,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_kiq = {
->   	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
->   	.emit_reg_write_reg_wait = gfx_v11_0_ring_emit_reg_write_reg_wait,
->   	.emit_hdp_flush = gfx_v11_0_ring_emit_hdp_flush,
-> +	.get_ref_and_mask = gfx_v11_0_ring_get_ref_and_mask,
->   };
->   
->   static void gfx_v11_0_set_ring_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index f9cae6666697..0bdb4f292dea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -4385,29 +4385,50 @@ static void gfx_v12_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
->   	}
->   }
->   
-> -static void gfx_v12_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
-> +/**
-> + * gfx_v12_0_ring_get_ref_and_mask - get the reference and mask for HDP flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring type and me.
-> + */
-> +static void gfx_v12_0_ring_get_ref_and_mask(struct amdgpu_ring *ring,
-> +					uint32_t *ref_and_mask, uint32_t *reg_mem_engine)
->   {
->   	struct amdgpu_device *adev = ring->adev;
-> -	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +	    ring->funcs->type == AMDGPU_RING_TYPE_MES ||
-> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
->   		switch (ring->me) {
->   		case 1:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
->   			break;
->   		case 2:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> +			break;
-> +		case 3:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
->   			break;
->   		default:
->   			return;
->   		}
-> -		reg_mem_engine = 0;
-> +		*reg_mem_engine = 0;
->   	} else {
-> -		ref_and_mask = nbio_hf_reg->ref_and_mask_cp0;
-> -		reg_mem_engine = 1; /* pfp */
-> +		*ref_and_mask = nbio_hf_reg->ref_and_mask_cp0;
-> +		*reg_mem_engine = 1; /* pfp */
->   	}
-> +}
+> +	struct amdgpu_uma_carveout_info *uma_info = &adev->uma_info;
 > +
-> +static void gfx_v12_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +	u32 ref_and_mask, reg_mem_engine;
->   
-> +	ring->funcs->get_ref_and_mask(ring, &ref_and_mask, &reg_mem_engine);
->   	gfx_v12_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->   			       adev->nbio.funcs->get_hdp_flush_req_offset(adev),
->   			       adev->nbio.funcs->get_hdp_flush_done_offset(adev),
-> @@ -5515,6 +5536,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_gfx = {
->   	.emit_pipeline_sync = gfx_v12_0_ring_emit_pipeline_sync,
->   	.emit_vm_flush = gfx_v12_0_ring_emit_vm_flush,
->   	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
-> +	.get_ref_and_mask = gfx_v12_0_ring_get_ref_and_mask,
->   	.test_ring = gfx_v12_0_ring_test_ring,
->   	.test_ib = gfx_v12_0_ring_test_ib,
->   	.insert_nop = gfx_v12_ring_insert_nop,
-> @@ -5557,6 +5579,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_compute = {
->   	.emit_pipeline_sync = gfx_v12_0_ring_emit_pipeline_sync,
->   	.emit_vm_flush = gfx_v12_0_ring_emit_vm_flush,
->   	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
-> +	.get_ref_and_mask = gfx_v12_0_ring_get_ref_and_mask,
->   	.test_ring = gfx_v12_0_ring_test_ring,
->   	.test_ib = gfx_v12_0_ring_test_ib,
->   	.insert_nop = gfx_v12_ring_insert_nop,
-> @@ -5599,6 +5622,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_kiq = {
->   	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
->   	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
->   	.emit_hdp_flush = gfx_v12_0_ring_emit_hdp_flush,
-> +	.get_ref_and_mask = gfx_v12_0_ring_get_ref_and_mask,
->   };
->   
->   static void gfx_v12_0_set_ring_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 66a4e4998106..176658846b81 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -2070,7 +2070,8 @@ static void gfx_v7_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask;
->   	int usepfp = ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ? 0 : 1;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = GPU_HDP_FLUSH_DONE__CP2_MASK << ring->pipe;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index e6187be27385..bc1d0870cb2d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -5382,7 +5382,8 @@ static void gfx_v9_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
-> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 89253df5ffc8..418b8daa7097 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -2820,7 +2820,8 @@ static void gfx_v9_4_3_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
-> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
+> +	if (!amdgpu_acpi_is_set_uma_allocation_size_supported())
+> +		return;
+> +
+> +	mutex_destroy(&uma_info->update_lock);
+> +	uma_info->num_entries = 0;
+> +}
+> 
 
