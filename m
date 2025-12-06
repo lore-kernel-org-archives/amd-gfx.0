@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E1A3D3ABE4
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Dec 2025 02:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CCA4D3ABDA
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Dec 2025 02:31:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92B6710EBDA;
-	Sat,  6 Dec 2025 02:31:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9743D10EBDB;
+	Sat,  6 Dec 2025 02:31:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lG77GiUg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CR/K4LfV";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59F7B10EB2A
- for <amd-gfx@lists.freedesktop.org>; Sat,  6 Dec 2025 02:31:12 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-42b47f662a0so1947896f8f.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Dec 2025 18:31:12 -0800 (PST)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0ECA10EBDB
+ for <amd-gfx@lists.freedesktop.org>; Sat,  6 Dec 2025 02:31:13 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4779cc419b2so30843465e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Dec 2025 18:31:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764988271; x=1765593071; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1764988272; x=1765593072; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Yzxch6Pg/EctJtTc5i17wQYzE8K7IXDVorO0u5PHgsc=;
- b=lG77GiUgBZGvF3PHg9LX9zkR/65FlHkJdBzZvahst0d7sWE+d+6+A/+yGxthQX5ZgF
- POgrrGYwa/GsElnDnhRL79PWjJ8J7Io9aJDA7BFFHwaYqK8D6UPG1khwWf7u8dQUXMGj
- 3GmzyCnJpxN+ag+6QLYjPJjV21HpmQhhIhU93vyikeRNxST1maDQrCR0gO8an/bQoMyC
- PBMsofXAV+zdy1ssaBgXJ+63RpB/ddDDDnltnbRc6KeO45gtwu/iy16n+TwaJWPPunIl
- 6hw9/8Qm2LswCHe+KpuPgrOEJN74QAmgKrLiMfDWN8awwIgQxtKcV4L0xVwc+nXz9QJ3
- +CtA==
+ bh=FsecgqOvf2x4EB1xpNhLjZs3KXtrjbrmpgphI99E5lg=;
+ b=CR/K4LfVRo4kWDMPziinUaRfsZDJmHmUqp1IvpQ5hWbe5vtqdWsTdQkXS/yFjIbHmJ
+ /Mzc0O2RoJV+Lpp0+ueCSG3wSwIBpyu9fIenpXYXHmgTYlVp20LtwzIexCz6zdn/6oxC
+ jTPWk2WdQ7Ku2WjojhZIl12zYsGL9XytfnHaFlA9Md/ToV6gstMb9c7CuvDdB8Z5BdUh
+ xxKU1wFLijLSUI8Jx4cuofc+/VCbmLUqngaqDH3iGuU0pmNBzX0fcrVv8gV7bcXQvzIO
+ zaA1WFKvB1ZnwRJhTXal63w58geKsqC5prhODRBWBF6l405+sJKkMhTZ5TG/5wJj8DTV
+ Rl+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764988271; x=1765593071;
+ d=1e100.net; s=20230601; t=1764988272; x=1765593072;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Yzxch6Pg/EctJtTc5i17wQYzE8K7IXDVorO0u5PHgsc=;
- b=kCiyix8kPzpM51bzVAJOl01/h82xdFVfiXg3CQ22Kpn0OI4aUWTKtWJ8pPYmuRl1QF
- 0XA2b2azpATsu0FwdpSyC5c/yLVSgRRKvRJsms423GTmTwJo7oAPltiMhfQlnQmkCEJd
- fE+S0lQQg4LjkO8HwRLtcteguwWo1E1dSruI8wcaUbL4j+eqlTD3JDrAzBI2WIKJi8O7
- PNVDQsvMv5aWUFmVShLQn0wlD3eU8a+kaOLFxhFmuJrJjMy6TbYjYVGLRp2MF050Fkm4
- JLlrRZ9ZwQC2H4q6k6GSwqcBOKmO1p9FXYWLsxSuViobGDDAVkfAImQ2lSdqH+NceRqJ
- 8vGg==
-X-Gm-Message-State: AOJu0YwW+QAGHe8dKKsR+YVPGaKAbC8Ix6vQaPhEgD7m/BEPgW3jZ72g
- jLx+IvtILaAB6TdLtzJ2HxJjSfEkN1Xdp75mGyeylkP1DPxCrkVZfGcFPzmG9Q==
-X-Gm-Gg: ASbGncv6BKTdnfQs8fL9OSZwjgio3utL4MJSRl+Ni6EVqekJXTXiGbAv02yoGcKdYiP
- QFzmnKl1GCYe0lu02nUvXXA/K3gXb1o648Umwm08/DkWUI80LZ3JZR1589Cd0m8Dcbn3+EsFXQ6
- K1YobBuqHhljaFCVXf9L8JJgkUfZ1a4DGkR3a5IIRLjRcXQ3vi2JAnzajb0YRKVVed7B64JmoQO
- epG1kV+DNHbw88mTNOF9sKJAdd0vlN8z7fhmGIfu4TECs6vsu1Q1RNMiPJeCY1Gng5deX4Llo1p
- S2nIzvxJgYrFdJD4Dw7epX7z4vEUYGNoqUiSyZyVxbd4kEayWrajClkuxKHUuuuvUrrJWiHS9Jp
- BVzjqLzOfnYXXPC2rNGD5kspv0XecGRW4Am2NSR/FIFVzTf/One6BSpRZGDL/GGRaJZzy6ME3Uy
- pDIUxWoj3yGoZo5YUIUaEzU89MmlYcNO5+0Sv2bALWpr86ucEpZ0fqq9ufa4z0EQxr82fddsY8u
- DTnelVkJNZgd9+Qbgw=
-X-Google-Smtp-Source: AGHT+IEU+3Aij1PNwqlootpwkCFDRQz3nH7KDb5TatLTons/CId7AM962WvAZu3lGcx5LDXVgkFKrw==
-X-Received: by 2002:a05:6000:2404:b0:42f:8816:ee6c with SMTP id
- ffacd0b85a97d-42f89ef90c7mr1362212f8f.30.1764988270702; 
- Fri, 05 Dec 2025 18:31:10 -0800 (PST)
+ bh=FsecgqOvf2x4EB1xpNhLjZs3KXtrjbrmpgphI99E5lg=;
+ b=XGS4c/67u1C49D/j8Xk2Bgfe/3qt+/9xKR6nZrGAKiPLaudYEvYt706KyBPRwxxTNV
+ davuCa59toNrr7PuXU8nJoUtE0OE91uXO2YPYB+YJAe8DhyCd9r0NhFJQv2DgqWaa9rG
+ klHQgu0HFwtIKVSVmh2VsIQ1HVvRN1ny5wyK+8qYUco10g4eH/uRZ/7ADEqkblqLX48a
+ ezBkWHGGxO+QXaY+kci4WewAhLlQXzovN33Lh6mCVCM0fZMjwWOBVvw+XqoRCrGKNn2Q
+ J/AemYk03/PrKi7BbVnj2EAnt7OZRVVCnZXbP3tkABuSO2ovzQNeYkYPOUu3Jv17I0iA
+ Gd0g==
+X-Gm-Message-State: AOJu0YwNyXQ4pCnU9CyQNRDWWcEWGM6j8GQYMyoilfvIbYRK2F+iBXvT
+ ZgBnuSn2fGWwIQRA51b6jg3idxJ/m9kPvl5dTOTxAS1wkclL4NaL4/2sNIYf8w==
+X-Gm-Gg: ASbGncuGvqqjNx0R+TU6NdnhsP2ox+m3fWvUS4dleExJP8pwVfwABPV+VT/t08HEXzK
+ JJ7BdaO4g38yAdc2XfYW/HHr9GvZAJuWXlgVU20a2HAXmfNn7DZL5Dgmjbrs9sbNZoL83pYwEmY
+ FLvnlVcESMOiU0zDJLzw5ZvjosrZ6lWSqgvtu3+gJJwseDgeZAGbbca8yd2UWhoGk3P5/ycvhJx
+ Ok4JsjCPQwYhUu9MUGr0nMsx5qoc9nuypRF7SV2fvcCDYszaD1jKWYmsCY5gQ4bBWBw1YFj/3jb
+ zR0hBbCr6wP5a6SOLzvVAOkR4ruR1uhApRY6wwxuRXGMhptRHxZZGFCyAVkdxa5055TXRnY1Mn0
+ 1WtHcNnAElAgE0oO8z6zpdaaOlBrivaM9T8GboR5K+VfjmuMSylRMQKptpuoIeERy0Jmp0Iuca4
+ psAmu7qiXsNw+dKpmnjYuKeVuXdhW2A/AXrpv3WKqsjWSrwEK94B29bAACZRcso5YuwmPFU8bHg
+ zbFw/Vz60cx33BHo/A=
+X-Google-Smtp-Source: AGHT+IGJUC0/OhYhehWkD0JW48wPPye0JyT3xNRxHwoy7chfS3hBcmptByZ6DZZsXaJ5EeOy/bX6/w==
+X-Received: by 2002:a05:6000:40cb:b0:42f:760a:764e with SMTP id
+ ffacd0b85a97d-42f89f61c0cmr1204721f8f.32.1764988272223; 
+ Fri, 05 Dec 2025 18:31:12 -0800 (PST)
 Received: from Timur-Hyperion.home
  (20014C4E24E095001DEDB2C8B6514266.dsl.pool.telekom.hu.
  [2001:4c4e:24e0:9500:1ded:b2c8:b651:4266])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbff320sm12133689f8f.18.2025.12.05.18.31.09
+ ffacd0b85a97d-42f7cbff320sm12133689f8f.18.2025.12.05.18.31.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Dec 2025 18:31:09 -0800 (PST)
+ Fri, 05 Dec 2025 18:31:11 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
  Harry Wentland <Harry.Wentland@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
  alexander.deucher@amd.com, siqueira@igalia.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 1/5] drm/amd/display: Pass proper DAC encoder ID to VBIOS
-Date: Sat,  6 Dec 2025 03:31:02 +0100
-Message-ID: <20251206023106.8875-2-timur.kristof@gmail.com>
+Subject: [PATCH 2/5] drm/amd/display: Correct color depth for SelectCRTC_Source
+Date: Sat,  6 Dec 2025 03:31:03 +0100
+Message-ID: <20251206023106.8875-3-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251206023106.8875-1-timur.kristof@gmail.com>
 References: <20251206023106.8875-1-timur.kristof@gmail.com>
@@ -92,120 +92,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Similarly to the analog_engine field, add a new	analog_id field
-which contains the encoder ID of the analog encoder that
-corresponds to the link encoder.
+Pass the correct enum values as expected by the VBIOS.
+Previously the actual bit depth integer value was passed,
+which was a mistake.
 
-Previously, the default encoder ID of the link encoder was used,
-which meant that we passed the wrong ID in case of DVI-I.
-
-Fixes: 7d63519cd9ca ("drm/amd/display: Add concept of analog encoders (v2)")
+Fixes: 523aabc65da0 ("drm/amd/display: Add SelectCRTC_Source to BIOS parser")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |  2 ++
- drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h   |  2 ++
- drivers/gpu/drm/amd/display/dc/link/link_factory.c     | 10 +++++-----
- .../amd/display/dc/resource/dce110/dce110_resource.c   |  2 ++
- 4 files changed, 11 insertions(+), 5 deletions(-)
+ .../drm/amd/display/dc/bios/command_table.c   | 25 ++++++++++++++++-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 28 +------------------
+ .../amd/display/include/bios_parser_types.h   |  2 +-
+ 3 files changed, 26 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-index 87dbb8d7ed27..5c1a10f77733 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-@@ -850,6 +850,7 @@ void dce110_link_encoder_construct(
- 	enc110->base.funcs = &dce110_lnk_enc_funcs;
- 	enc110->base.ctx = init_data->ctx;
- 	enc110->base.id = init_data->encoder;
-+	enc110->base.analog_id = init_data->analog_encoder;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table.c b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+index 22457f417e65..d56c0d3763dd 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table.c
+@@ -1797,7 +1797,30 @@ static enum bp_result select_crtc_source_v3(
+ 		&params.ucEncodeMode))
+ 		return BP_RESULT_BADINPUT;
  
- 	enc110->base.hpd_source = init_data->hpd_source;
- 	enc110->base.connector = init_data->connector;
-@@ -1793,6 +1794,7 @@ void dce60_link_encoder_construct(
- 	enc110->base.funcs = &dce60_lnk_enc_funcs;
- 	enc110->base.ctx = init_data->ctx;
- 	enc110->base.id = init_data->encoder;
-+	enc110->base.analog_id = init_data->analog_encoder;
+-	params.ucDstBpc = bp_params->bit_depth;
++	switch (bp_params->color_depth) {
++	case COLOR_DEPTH_UNDEFINED:
++		params.ucDstBpc = PANEL_BPC_UNDEFINE;
++		break;
++	case COLOR_DEPTH_666:
++		params.ucDstBpc = PANEL_6BIT_PER_COLOR;
++		break;
++	default:
++	case COLOR_DEPTH_888:
++		params.ucDstBpc = PANEL_8BIT_PER_COLOR;
++		break;
++	case COLOR_DEPTH_101010:
++		params.ucDstBpc = PANEL_10BIT_PER_COLOR;
++		break;
++	case COLOR_DEPTH_121212:
++		params.ucDstBpc = PANEL_12BIT_PER_COLOR;
++		break;
++	case COLOR_DEPTH_141414:
++		dm_error("14-bit color not supported by SelectCRTC_Source v3\n");
++		break;
++	case COLOR_DEPTH_161616:
++		params.ucDstBpc = PANEL_16BIT_PER_COLOR;
++		break;
++	}
  
- 	enc110->base.hpd_source = init_data->hpd_source;
- 	enc110->base.connector = init_data->connector;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-index df512920a9fa..e638325e35ec 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/link_encoder.h
-@@ -47,6 +47,7 @@ struct encoder_init_data {
- 	enum hpd_source_id hpd_source;
- 	/* TODO: in DAL2, here was pointer to EventManagerInterface */
- 	struct graphics_object_id encoder;
-+	struct graphics_object_id analog_encoder;
- 	enum engine_id analog_engine;
- 	struct dc_context *ctx;
- 	enum transmitter transmitter;
-@@ -81,6 +82,7 @@ struct link_encoder {
- 	int32_t aux_channel_offset;
- 	struct dc_context *ctx;
- 	struct graphics_object_id id;
-+	struct graphics_object_id analog_id;
- 	struct graphics_object_id connector;
- 	uint32_t output_signals;
- 	enum engine_id preferred_engine;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-index a6e2b0821969..23a302d7fbc8 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-@@ -451,20 +451,19 @@ static enum channel_id get_ddc_line(struct dc_link *link)
- 	return channel;
- }
+ 	if (EXEC_BIOS_CMD_TABLE(SelectCRTC_Source, params))
+ 		result = BP_RESULT_OK;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 94e66d96c403..6f6eacf62b5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1611,38 +1611,12 @@ dce110_select_crtc_source(struct pipe_ctx *pipe_ctx)
+ 	struct dc_bios *bios = link->ctx->dc_bios;
+ 	struct bp_crtc_source_select crtc_source_select = {0};
+ 	enum engine_id engine_id = link->link_enc->preferred_engine;
+-	uint8_t bit_depth;
  
--static enum engine_id find_analog_engine(struct dc_link *link)
-+static enum engine_id find_analog_engine(struct dc_link *link, struct graphics_object_id *enc)
- {
- 	struct dc_bios *bp = link->ctx->dc_bios;
--	struct graphics_object_id encoder = {0};
- 	enum bp_result bp_result = BP_RESULT_OK;
- 	int i;
+ 	if (dc_is_rgb_signal(pipe_ctx->stream->signal))
+ 		engine_id = link->link_enc->analog_engine;
  
- 	for (i = 0; i < 3; i++) {
--		bp_result = bp->funcs->get_src_obj(bp, link->link_id, i, &encoder);
-+		bp_result = bp->funcs->get_src_obj(bp, link->link_id, i, enc);
+-	switch (pipe_ctx->stream->timing.display_color_depth) {
+-	case COLOR_DEPTH_UNDEFINED:
+-		bit_depth = 0;
+-		break;
+-	case COLOR_DEPTH_666:
+-		bit_depth = 6;
+-		break;
+-	default:
+-	case COLOR_DEPTH_888:
+-		bit_depth = 8;
+-		break;
+-	case COLOR_DEPTH_101010:
+-		bit_depth = 10;
+-		break;
+-	case COLOR_DEPTH_121212:
+-		bit_depth = 12;
+-		break;
+-	case COLOR_DEPTH_141414:
+-		bit_depth = 14;
+-		break;
+-	case COLOR_DEPTH_161616:
+-		bit_depth = 16;
+-		break;
+-	}
+-
+ 	crtc_source_select.controller_id = CONTROLLER_ID_D0 + pipe_ctx->stream_res.tg->inst;
+-	crtc_source_select.bit_depth = bit_depth;
++	crtc_source_select.color_depth = pipe_ctx->stream->timing.display_color_depth;
+ 	crtc_source_select.engine_id = engine_id;
+ 	crtc_source_select.sink_signal = pipe_ctx->stream->signal;
  
- 		if (bp_result != BP_RESULT_OK)
- 			return ENGINE_ID_UNKNOWN;
+diff --git a/drivers/gpu/drm/amd/display/include/bios_parser_types.h b/drivers/gpu/drm/amd/display/include/bios_parser_types.h
+index 973b6bdbac63..f40dc612ec73 100644
+--- a/drivers/gpu/drm/amd/display/include/bios_parser_types.h
++++ b/drivers/gpu/drm/amd/display/include/bios_parser_types.h
+@@ -136,7 +136,7 @@ struct bp_crtc_source_select {
+ 	enum engine_id engine_id;
+ 	enum controller_id controller_id;
+ 	enum signal_type sink_signal;
+-	uint8_t bit_depth;
++	enum dc_color_depth color_depth;
+ };
  
--		switch (encoder.id) {
-+		switch (enc->id) {
- 		case ENCODER_ID_INTERNAL_DAC1:
- 		case ENCODER_ID_INTERNAL_KLDSCP_DAC1:
- 			return ENGINE_ID_DACA;
-@@ -474,6 +473,7 @@ static enum engine_id find_analog_engine(struct dc_link *link)
- 		}
- 	}
- 
-+	memset(enc, 0, sizeof(*enc));
- 	return ENGINE_ID_UNKNOWN;
- }
- 
-@@ -527,7 +527,7 @@ static bool construct_phy(struct dc_link *link,
- 	 */
- 	bp_funcs->get_src_obj(bios, link->link_id, 0, &enc_init_data.encoder);
- 	enc_init_data.transmitter = translate_encoder_to_transmitter(enc_init_data.encoder);
--	enc_init_data.analog_engine = find_analog_engine(link);
-+	enc_init_data.analog_engine = find_analog_engine(link, &enc_init_data.analog_encoder);
- 
- 	link->ep_type = DISPLAY_ENDPOINT_PHY;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c
-index cd54382c0af3..7c09825cd9bd 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce110/dce110_resource.c
-@@ -895,6 +895,8 @@ static void get_pixel_clock_parameters(
- 	 */
- 	pixel_clk_params->requested_pix_clk_100hz = stream->timing.pix_clk_100hz;
- 	pixel_clk_params->encoder_object_id = stream->link->link_enc->id;
-+	if (dc_is_rgb_signal(pipe_ctx->stream->signal))
-+		pixel_clk_params->encoder_object_id = stream->link->link_enc->analog_id;
- 	pixel_clk_params->signal_type = pipe_ctx->stream->signal;
- 	pixel_clk_params->controller_id = pipe_ctx->stream_res.tg->inst + 1;
- 	/* TODO: un-hardcode*/
+ struct bp_transmitter_control {
 -- 
 2.52.0
 
