@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEECFD3ABE4
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 Dec 2025 02:31:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EEBD3ABDA
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 Dec 2025 02:31:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 248E610EBE0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B10A710EBE1;
 	Sat,  6 Dec 2025 02:31:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FNXlNiWD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kdXQQ868";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE1910EBDF
- for <amd-gfx@lists.freedesktop.org>; Sat,  6 Dec 2025 02:31:17 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-42e2e40582eso1560558f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 05 Dec 2025 18:31:17 -0800 (PST)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD5510EBDF
+ for <amd-gfx@lists.freedesktop.org>; Sat,  6 Dec 2025 02:31:19 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-42e2ddb8a13so1325711f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 Dec 2025 18:31:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764988276; x=1765593076; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1764988277; x=1765593077; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YqLTIlXdywNXAKzSGHXdyDUNjhXETH+lDYWOOzlWqB8=;
- b=FNXlNiWDBZCLRealew6Ze0HnfrAuxuuTMyAtFBMDhEqhofxWWGY85i8KkanLAH/oXW
- uRTBPcC9BEGhL3J8igxsq/FK7RwHGE8MQRfKWGZ54qPVGWu5SFEkFvWABBK+vHh6oddT
- vqc30aKgcHr3LG23r5HSOCPRaCQmeztu8yd5+Hg6q8u+39U7kAH6NhH6QBeFVkINNZ0W
- OsM19JwLe5MPCnomYw4tDeZa9XHm3Yutd7x4FPEUN6eK0R+IILuwX0QGazXyFEoK3g7A
- nHATJF+YVHDz78znY9Y7ntaivCzr3jLf18bQHRDc12Vb7z9CPzo2IPfQToITpaA3gI2K
- snbw==
+ bh=NfyyFQqc2imYEGtyR7LjwI7bPCVKjdwCE8HZLulSLTg=;
+ b=kdXQQ868qNLQtCjMzjFipyUJIRcZmBss2JwFO1bqXfUsk/Cd4bCmZUL50+IfMgKiyV
+ 8Fs/7dNAl2lMG0YYsyiYJk09tuN9tjnUP6ECjttHyw7lmqjE3u8j7zadQ2QkRKaq1DMf
+ 89pVf+M0FCjOYugqexGmKnRh/KJyP6IiI74Se0MX/Vr8//HDN9IwiYVWx085orG4EBzd
+ ZCmz43rTH3NvtlVNUZb2R26yfM509aiFo5lqPAVAHLJbfobVEoRUi6pjmN0N3YeCNsEe
+ JgMFpZ0l2iKNnnto1rBOrHMOyDcyHja9AzhBfS3hNwVQG53FcsoeovqNwiIc8SuaFpu0
+ 4oIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764988276; x=1765593076;
+ d=1e100.net; s=20230601; t=1764988277; x=1765593077;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=YqLTIlXdywNXAKzSGHXdyDUNjhXETH+lDYWOOzlWqB8=;
- b=fq+qDqu1nVsL0uqDSviQQ2ir2gVtpD8bvl6d3vuVe8a+RxyjfiV032aS1+tz67NcmA
- Di9rHgxGCYATcLmy+oEls+FMnKhQYRSiidtZ+FruDDwbyl2JC8fWooStocRP8uhP3POS
- hC25HrsP4YwTr1wX32o+k35k44wBHuC0SPnHbSfo7pZqbjXcX3lvV0cvt1hajddBlkMZ
- vXqz7b+TUHu4Y8lwHE+l2sCdR8js98l//7eZ/WWbNsLmDInhItCaPBt/krPb68jdkDUu
- U3ACWPcFnkrca2NAOxD+te2IiHTt3qcR63KEbzJr8+JwQ/hlaL5eOwBFkKX0OJigvlZq
- O+1g==
-X-Gm-Message-State: AOJu0Yww4EWGqSc/N7dxs5+ThV5FeT9JKcsQMyoJ8NnBPegSF3JG9SRh
- g+jXhaIUtyzzl/T+GResuPeW+ap6dGXLQ4pOa2l+PR+7IVmHTPNfy8bAnq05wQ==
-X-Gm-Gg: ASbGncsYdMh+0KuwGcfbdofhsD8Rjy6P8aVw8odMkd0avw0saX8AWPRuBDKGVfou6DA
- iRjTciCmaYsP8eFRqINtc9c4p7Xh410WjWBGD0e4YvpAkxUth9J9i7PkMXe0R3qOHMXIoV+I89v
- pdBQb+RfHJiVNdd75qdKHAUjZ/tVocEGEWmt7cnsdKNHSnW5RZRqM0YjX4YPcjW+VxXzP5TvqGD
- ghfrbmunc0sloTtfL2exjg2rCIn5jdalUXjMNey830g5NZu+6Ma8lksYxKnHEAjD1dzXXFz46Dn
- XL44g3yWrE5VGp8hm6d911zg32AKv3EX5nm+eIFamSv9fJZflF9YGaBQ6oSivmDoKe2AfWAdGiE
- B0zC4AL9RiqcuX+Ba0gnVxbM1Mc6VvWGZQlRL5Kf0AwJWAfzFm2MgrUSDvzLdHU9mdU87AKVXgp
- yebtw/7LZm1e75x3UYh8lNuEasBQCpkjtU/MH+sGyI7YZ42wLKet7F7fT1hWR+khwxjbPa9SgXW
- mtZt9SuZyJ4HcHoMSM=
-X-Google-Smtp-Source: AGHT+IExs//kxcLsa1Qd1z1Yt5PFf0ArYz7D8PyZq6COA+XeFpM/gpWKGcgvPPJtbbDgdvLeiH2PDA==
-X-Received: by 2002:a05:6000:2502:b0:42b:3220:93e8 with SMTP id
- ffacd0b85a97d-42f89f58c88mr1073736f8f.57.1764988275930; 
- Fri, 05 Dec 2025 18:31:15 -0800 (PST)
+ bh=NfyyFQqc2imYEGtyR7LjwI7bPCVKjdwCE8HZLulSLTg=;
+ b=ohJNbMgmbpgOvJekRtlzeWMY8jZO/VtVetY6LLUI2x4D5NcHbFOUNKf578CftnC/ku
+ Nm+NubgABUeRdP4tvYZ19OukWqPBxZL0HcCtHpn3VdFxaE4ac1ZaJdSV9aB0Dm1T8oz3
+ 6H2ZEyKZfIfKNLLJZmFNF+WVbgSkYu5Ibkk02zo5Wze3miTb77pTqkeSzyk5GoSBEVPp
+ /ZBZNihqw8r5KG7slaSUtnP5zNaEp1BwnLTC4hwsEu2kGCCkxj+jQfHurU/IP1dAs5Hf
+ oJ/+zWLK+TgEIccyUe+dbyfI8pWd74+FBDDuVm7FoLkeXmgwioxdv/x/UQqfsiN44qhE
+ S7ww==
+X-Gm-Message-State: AOJu0YzCZ0zdpnZeWkGZeO1T5F86ODyQVB81Tqay+g3Vsgw2iNIEl/jQ
+ swsvpX196zPPQA/k5BZpdMRB+Nd58UqAT/OC20XhxpdEyoTEUZT7PA21qR1Ltg==
+X-Gm-Gg: ASbGncuEo0Yc/IB7rOPDluSaF+Kpvr6tj8pil8sWoruQ2rgJMGe5bHoJTl+pT/AghdI
+ c+0A/aDX2Vftg7P1rz+kwUvBOPtgqDtFfFFOVW/V6FAr18JkKaafxyWILyLze0w2H0Bq84Xjmq4
+ DuAEt1idvzd7ObQesCp+EL3qrCyo3RlraJCAs4f2/VNdQiPpT4npKoRyW+eDhRpZypHC3n6yz6O
+ d52SjP8G5LeB20unMy6SeNkaDHA5QpjbVZZni1iY5IWwlBleFQ8IUPngykXxD3OVW3AbuOT/3yI
+ vaLXOiznb996OCPGjSqRAxYWhyHJNG1sXUUeLBfqcU1BaY3matDhoPI4485CVwEEg2B3r3mdW+g
+ T9lpNDmIYbyChZ7ZRBp2Fiq+/qwWWnh7tV2pFstgwOwSrYx9UyyJRZNWskE977WPmhtLysWQu44
+ GNzm5ml+1MwbaUDIZErS1siN8mFdMYlCihYB8RvZGIpOMBDden+3+wZQhnOffbU9/9m02u7yvcR
+ s4rdWVKGZ3ZW4qR4nc=
+X-Google-Smtp-Source: AGHT+IGoAt9rn5utTNNkEx+njJlt/dctWGfKMNrudyrpcLQ1VG7nEEkPXzNjZseVJybBDuRwFg7r+w==
+X-Received: by 2002:a5d:64c5:0:b0:429:c450:8fad with SMTP id
+ ffacd0b85a97d-42f89f57394mr1239257f8f.53.1764988277491; 
+ Fri, 05 Dec 2025 18:31:17 -0800 (PST)
 Received: from Timur-Hyperion.home
  (20014C4E24E095001DEDB2C8B6514266.dsl.pool.telekom.hu.
  [2001:4c4e:24e0:9500:1ded:b2c8:b651:4266])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7cbff320sm12133689f8f.18.2025.12.05.18.31.14
+ ffacd0b85a97d-42f7cbff320sm12133689f8f.18.2025.12.05.18.31.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Dec 2025 18:31:14 -0800 (PST)
+ Fri, 05 Dec 2025 18:31:17 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>,
  Harry Wentland <Harry.Wentland@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
  alexander.deucher@amd.com, siqueira@igalia.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 4/5] drm/amd/display: Setup DAC encoder before using it
-Date: Sat,  6 Dec 2025 03:31:05 +0100
-Message-ID: <20251206023106.8875-5-timur.kristof@gmail.com>
+Subject: [PATCH 5/5] drm/amd/display: Don't repeat DAC load detection
+Date: Sat,  6 Dec 2025 03:31:06 +0100
+Message-ID: <20251206023106.8875-6-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251206023106.8875-1-timur.kristof@gmail.com>
 References: <20251206023106.8875-1-timur.kristof@gmail.com>
@@ -92,99 +92,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just like for other signal types, call the encoder control
-command in the VBIOS to setup the DAC encoder.
-The DAC doesn't work well without this on some GPUs,
-for example the Radeon HD 7790 needs this.
+The analog link detection code path had already performed the
+DAC load detection by the time the EDID read is attempted.
+So there is no need to repeat the DAC load detection,
+we can know that no display is connected if no EDID is read.
 
-Fixes: 7d63519cd9ca ("drm/amd/display: Add concept of analog encoders (v2)")
+Fixes: ee9fe14a64a2 ("drm/amd/display: Use DAC load detection on analog connectors (v2)")
+Suggested-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../amd/display/dc/dce/dce_stream_encoder.c   | 25 ++++++++++++++++++-
- .../amd/display/dc/inc/hw/stream_encoder.h    |  4 +++
- .../amd/display/dc/link/hwss/link_hwss_dio.c  |  4 +++
- 3 files changed, 32 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/link/link_detection.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-index 574618d5d4a4..1fbf6263c235 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-@@ -693,6 +693,24 @@ static void dce110_stream_encoder_lvds_set_stream_attribute(
- 	ASSERT(crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB);
- }
- 
-+static void dce110_stream_encoder_analog_set_stream_attribute(
-+	struct stream_encoder *enc,
-+	struct dc_crtc_timing *crtc_timing)
-+{
-+	struct dce110_stream_encoder *enc110 = DCE110STRENC_FROM_STRENC(enc);
-+	struct bp_encoder_control cntl = {0};
-+
-+	cntl.action = ENCODER_CONTROL_SETUP;
-+	cntl.engine_id = enc110->base.id;
-+	cntl.pixel_clock = crtc_timing->pix_clk_100hz / 10;
-+
-+	if (enc110->base.bp->funcs->encoder_control(
-+			enc110->base.bp, &cntl) != BP_RESULT_OK)
-+		return;
-+
-+	ASSERT(crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB);
-+}
-+
- static void dce110_stream_encoder_set_throttled_vcp_size(
- 	struct stream_encoder *enc,
- 	struct fixed31_32 avg_time_slots_per_mtp)
-@@ -1521,6 +1539,8 @@ static const struct stream_encoder_funcs dce110_str_enc_funcs = {
- 		dce110_stream_encoder_dvi_set_stream_attribute,
- 	.lvds_set_stream_attribute =
- 		dce110_stream_encoder_lvds_set_stream_attribute,
-+	.analog_set_stream_attribute =
-+		dce110_stream_encoder_analog_set_stream_attribute,
- 	.set_throttled_vcp_size =
- 		dce110_stream_encoder_set_throttled_vcp_size,
- 	.update_hdmi_info_packets =
-@@ -1568,7 +1588,10 @@ void dce110_stream_encoder_construct(
- 	enc110->se_mask = se_mask;
- }
- 
--static const struct stream_encoder_funcs dce110_an_str_enc_funcs = {};
-+static const struct stream_encoder_funcs dce110_an_str_enc_funcs = {
-+	.analog_set_stream_attribute =
-+		dce110_stream_encoder_analog_set_stream_attribute,
-+};
- 
- void dce110_analog_stream_encoder_construct(
- 	struct dce110_stream_encoder *enc110,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-index 27f950ae45ee..9658b06f32f7 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-@@ -153,6 +153,10 @@ struct stream_encoder_funcs {
- 		struct stream_encoder *enc,
- 		struct dc_crtc_timing *crtc_timing);
- 
-+	void (*analog_set_stream_attribute)(
-+		struct stream_encoder *enc,
-+		struct dc_crtc_timing *crtc_timing);
-+
- 	void (*set_throttled_vcp_size)(
- 		struct stream_encoder *enc,
- 		struct fixed31_32 avg_time_slots_per_mtp);
-diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-index befa67b2b2ae..90ff4fdd79b7 100644
---- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-@@ -148,6 +148,10 @@ void setup_dio_stream_attribute(struct pipe_ctx *pipe_ctx)
- 		stream_encoder->funcs->lvds_set_stream_attribute(
- 				stream_encoder,
- 				&stream->timing);
-+	else if (dc_is_rgb_signal(stream->signal))
-+		stream_encoder->funcs->analog_set_stream_attribute(
-+				stream_encoder,
-+				&stream->timing);
- 
- 	if (dc_is_dp_signal(stream->signal))
- 		link->dc->link_srv->dp_trace_source_sequence(link,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index 6d31f4967f1a..5c769f51f1ea 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1169,11 +1169,10 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 			 * - cheap DVI-A cable or adapter that doesn't connect DDC
+ 			 */
+ 			if (dc_connector_supports_analog(link->link_id.id)) {
+-				/* If we didn't do DAC load detection yet, do it now
+-				 * to verify there really is a display connected.
++				/* If we didn't already detect a display using
++				 * DAC load detection, we know it isn't connected.
+ 				 */
+-				if (link->type != dc_connection_dac_load &&
+-					!link_detect_dac_load_detect(link)) {
++				if (link->type != dc_connection_dac_load) {
+ 					if (prev_sink)
+ 						dc_sink_release(prev_sink);
+ 					link_disconnect_sink(link);
 -- 
 2.52.0
 
