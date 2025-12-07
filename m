@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 271ABD3B7DD
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 08:21:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04C6ED3ABEF
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 08:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6B6610E0C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB93B10E0C5;
 	Mon,  8 Dec 2025 08:21:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LdPwh+QM";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fHn+z2eP";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C1810E357
- for <amd-gfx@lists.freedesktop.org>; Sun,  7 Dec 2025 12:40:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 309BA10E355
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Dec 2025 12:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765111223;
+ s=mimecast20190719; t=1765111099;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to; bh=/HKvmdPqRZHJ9/v9r83b5lWZWkfSL/6IdXrUhiE9JhQ=;
- b=LdPwh+QMaPsYpAqmcCcILi+8a5qhe/M8WwqZ++Oe5FgVQa/S6kW/AA3b7O1Dd2d6Z98QcM
- nySi8wWTrhZnFDlLBoSPG2hXOXZKVZ51NMbvrUmbwlom1Qj7y+fCQxW8ld6if4hb+7qPfQ
- +MbIvxGGFVCz9gMobvqkvFxEUfYa6Ck=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=+SUXnBMjMPDW9AevCrJiO1mJpoSaewy40KTaeWq5vxk=;
+ b=fHn+z2ePVVHDf3QhrLfqw95rsIw4HxmkubMCQ4wk17Dcxp1mYSSy0o0oAjndKpDAf8XMpO
+ KfpMr/Sr3V9JD2hv5rfxvsMKun8kGTFQL4jCxf82xzXsFcNqRxzg5jLepxann/EjXJE28q
+ AhWKCUYVrdUFfOdMujddS001jpEMcuE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-628-lKGezg7JN4ahQWbzy3fjVQ-1; Sun,
- 07 Dec 2025 07:40:18 -0500
-X-MC-Unique: lKGezg7JN4ahQWbzy3fjVQ-1
-X-Mimecast-MFC-AGG-ID: lKGezg7JN4ahQWbzy3fjVQ_1765111214
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-328-vrxS2WXmOGKs8vXhE9as-g-1; Sun,
+ 07 Dec 2025 07:38:15 -0500
+X-MC-Unique: vrxS2WXmOGKs8vXhE9as-g-1
+X-Mimecast-MFC-AGG-ID: vrxS2WXmOGKs8vXhE9as-g_1765111092
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 98FA018002EC; Sun,  7 Dec 2025 12:40:14 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9956D1956088; Sun,  7 Dec 2025 12:38:11 +0000 (UTC)
 Received: from fedora (unknown [10.44.32.50])
- by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
- id 852F6180044F; Sun,  7 Dec 2025 12:40:04 +0000 (UTC)
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
+ id 2C14F1800357; Sun,  7 Dec 2025 12:38:00 +0000 (UTC)
 Received: by fedora (nbSMTP-1.00) for uid 1000
- oleg@redhat.com; Sun,  7 Dec 2025 13:40:16 +0100 (CET)
-Date: Sun, 7 Dec 2025 13:40:05 +0100
+ oleg@redhat.com; Sun,  7 Dec 2025 13:38:13 +0100 (CET)
+Date: Sun, 7 Dec 2025 13:38:01 +0100
 From: Oleg Nesterov <oleg@redhat.com>
 To: Todd Kjos <tkjos@android.com>, Martijn Coenen <maco@android.com>,
  Joel Fernandes <joelagnelf@nvidia.com>,
@@ -67,13 +67,12 @@ To: Todd Kjos <tkjos@android.com>, Martijn Coenen <maco@android.com>,
 Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
  netdev@vger.kernel.org
-Subject: [PATCH 6/7] RDMA/umem: don't abuse current->group_leader
-Message-ID: <aTV1pbftBkH8n4kh@redhat.com>
+Subject: [PATCH 0/7] don't abuse task_struct.group_leader
+Message-ID: <aTV1KYdcDGvjXHos@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aTV1KYdcDGvjXHos@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 X-Mailman-Approved-At: Mon, 08 Dec 2025 08:21:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,37 +88,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cleanup and preparation to simplify the next changes.
+Hello.
 
-Use current->tgid instead of current->group_leader->pid.
+Untested but hopefully trivial, please review.
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+The patches do not depend on each other, this series just removes
+the usage of ->group_leader when it is "obviously unnecessary".
+
+I am going to move ->group_leader from task_struct to signal_struct
+or at least add the new task_group_leader() helper. So I will send
+more tree-wide changes on top of this series.
+
+If this series passes the review, can it be routed via mm tree?
+
+Oleg.
 ---
- drivers/infiniband/core/umem_odp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/core/umem_odp.c b/drivers/infiniband/core/umem_odp.c
-index 572a91a62a7b..32267258a19c 100644
---- a/drivers/infiniband/core/umem_odp.c
-+++ b/drivers/infiniband/core/umem_odp.c
-@@ -149,7 +149,7 @@ struct ib_umem_odp *ib_umem_odp_alloc_implicit(struct ib_device *device,
- 	umem->owning_mm = current->mm;
- 	umem_odp->page_shift = PAGE_SHIFT;
- 
--	umem_odp->tgid = get_task_pid(current->group_leader, PIDTYPE_PID);
-+	umem_odp->tgid = get_task_pid(current, PIDTYPE_TGID);
- 	ib_init_umem_implicit_odp(umem_odp);
- 	return umem_odp;
- }
-@@ -258,7 +258,7 @@ struct ib_umem_odp *ib_umem_odp_get(struct ib_device *device,
- 		umem_odp->page_shift = HPAGE_SHIFT;
- #endif
- 
--	umem_odp->tgid = get_task_pid(current->group_leader, PIDTYPE_PID);
-+	umem_odp->tgid = get_task_pid(current, PIDTYPE_TGID);
- 	ret = ib_init_umem_odp(umem_odp, ops);
- 	if (ret)
- 		goto err_put_pid;
--- 
-2.52.0
+ drivers/android/binder.c                         |  9 ++++-----
+ drivers/android/binder_alloc.c                   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           |  5 +----
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 10 ----------
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c            |  2 +-
+ drivers/infiniband/core/umem_odp.c               |  4 ++--
+ net/core/netclassid_cgroup.c                     |  2 +-
+ 9 files changed, 12 insertions(+), 26 deletions(-)
 
