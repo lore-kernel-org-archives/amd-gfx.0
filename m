@@ -4,76 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE431D3ABEF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46306D3B7E8
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 08:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E90FD10E3C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53D4610E3C1;
 	Mon,  8 Dec 2025 08:21:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dKkoz22W";
+	dkim=pass (2048-bit key; unprotected) header.d=antheas.dev header.i=@antheas.dev header.b="Qil8YnZ4";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D23910E356
- for <amd-gfx@lists.freedesktop.org>; Sun,  7 Dec 2025 12:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1765111208;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to; bh=qm2SST2ROvbrb0g6IbjuLKtf6ZL8lExfalWyhBUzXok=;
- b=dKkoz22WC5aEvuYek6pHMN7vnMIHILLnD5Q52kat1gJso3UiH9kauu7egyYDUTbP6jHD1V
- il8o9C8UrChDQYvkPeFvAELALnP+ReSTlsxLL/SNJfy7BWpUU61mX3D6ukqqMFkCB3ohy1
- zy7RALSV1cS0321ZXTpmx7zs9ZeF0CY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-265-PbT8magNPuOajFBJKgpfeA-1; Sun,
- 07 Dec 2025 07:40:06 -0500
-X-MC-Unique: PbT8magNPuOajFBJKgpfeA-1
-X-Mimecast-MFC-AGG-ID: PbT8magNPuOajFBJKgpfeA_1765111202
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+X-Greylist: delayed 532 seconds by postgrey-1.36 at gabe;
+ Sun, 07 Dec 2025 22:14:26 UTC
+Received: from relay15.grserver.gr (relay15.grserver.gr [46.62.234.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E6210E021
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Dec 2025 22:14:26 +0000 (UTC)
+Received: from relay15 (localhost [127.0.0.1])
+ by relay15.grserver.gr (Proxmox) with ESMTP id EA36743E1C
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Dec 2025 22:05:31 +0000 (UTC)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8D9241956095; Sun,  7 Dec 2025 12:40:02 +0000 (UTC)
-Received: from fedora (unknown [10.44.32.50])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
- id 8A21F3011A86; Sun,  7 Dec 2025 12:39:52 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
- oleg@redhat.com; Sun,  7 Dec 2025 13:40:04 +0100 (CET)
-Date: Sun, 7 Dec 2025 13:39:53 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Todd Kjos <tkjos@android.com>, Martijn Coenen <maco@android.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>,
- Suren Baghdasaryan <surenb@google.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Liviu Dudau <liviu.dudau@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- netdev@vger.kernel.org
-Subject: [PATCH 5/7] drm/pan*: don't abuse current->group_leader
-Message-ID: <aTV1maDfDvqgu1oT@redhat.com>
+ by relay15.grserver.gr (Proxmox) with ESMTPS id 72A5C43D7A
+ for <amd-gfx@lists.freedesktop.org>; Sun,  7 Dec 2025 22:05:31 +0000 (UTC)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by linux3247.grserver.gr (Postfix) with ESMTPSA id D1BCB200E86
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 00:05:30 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+ s=default; t=1765145131;
+ bh=wzkfHtx9sNZurtampKv05WSyL3P8rvoGP0JV8hZn+24=;
+ h=Received:From:Subject:To;
+ b=Qil8YnZ4eKn66dG6Pa41YO6py/G5O5tm47kdFi4OBHCkIs33SGVqwYRwEzEQVJtA4
+ cXjUkGY8M3imU88kccVWNeirDI1Y4KxxobQPgVlXZgywv7n7w3E0VgYuuWBSjQUlF6
+ lFoYR4TXFJJFYWVGPBK3qpRx0+DWkelAeS3nuqUJ2yG/RcW9Hy3p1FTTvcMiaeVwU9
+ +3UHBiA8s3CmAw5bITeZAAlKWL6fd+5uEcRTZm4QGYB1uJtAmr51mq8SteK/OSWVJF
+ g0OnVP4pRptEEpKwoq6fFrfpCFhETj6ECb/3Xiy39oBYjL+7j1/7nSQXtc8EBR9o8f
+ ECJKRT3SFZ9wA==
+Authentication-Results: linux3247.grserver.gr;
+ spf=pass (sender IP is 209.85.208.175) smtp.mailfrom=lkml@antheas.dev
+ smtp.helo=mail-lj1-f175.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-37b999d0c81so28656261fa.2
+ for <amd-gfx@lists.freedesktop.org>;
+ Sun, 07 Dec 2025 14:05:30 -0800 (PST)
+X-Gm-Message-State: AOJu0YwLiWWjhHupf6isJuhu8RrnQ1IqFhsuFZdOYz3i/JUXt9USVRni
+ 5jnLOFJ98l8XcHabk/3/ukGyu+TAYy2FWd4Y+TW5dXTKYV6F9MfUDR5tkpY5fG/45Xb/zWbSn9A
+ dNxtrCzro/vs2J7u/63EOlHHn5xx6Zt8=
+X-Google-Smtp-Source: AGHT+IFZf/zLYwm1ReJIdr+OnHEOtwqlrHiuQufM6fZWbevAR+wwX3zMT6r0IoiHf1LeznvSm94TicsbcZacBWPRODk=
+X-Received: by 2002:a2e:a989:0:b0:37b:a664:acea with SMTP id
+ 38308e7fff4ca-37ed1fd609emr14408931fa.12.1765145130461; Sun, 07 Dec 2025
+ 14:05:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aTV1KYdcDGvjXHos@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+References: <20251207194910.122711-1-superm1@kernel.org>
+In-Reply-To: <20251207194910.122711-1-superm1@kernel.org>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Sun, 7 Dec 2025 23:05:19 +0100
+X-Gmail-Original-Message-ID: <CAGwozwFXvHJY_WOZXjBWhoFTt1rcsLX=1n5p49=S2HyF+EvdHQ@mail.gmail.com>
+X-Gm-Features: AQt7F2prqmdiyDuwF93GCWCOy_84nSlYcNSrBj0IiuWBnTf5ISAkm8URERcCYgQ
+Message-ID: <CAGwozwFXvHJY_WOZXjBWhoFTt1rcsLX=1n5p49=S2HyF+EvdHQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/1] Runtime suspend for APUs
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: <176514513101.2017317.1142650437417502740@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.3 at linux3247.grserver.gr
+X-Virus-Status: Clean
 X-Mailman-Approved-At: Mon, 08 Dec 2025 08:21:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,42 +86,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cleanup and preparation to simplify the next changes.
+On Sun, 7 Dec 2025 at 20:49, Mario Limonciello (AMD) <superm1@kernel.org> wrote:
+>
+> Set up APUs to follow similar policies as dGPUs in that they can
+> potentially runtime suspend.  If an APU is runtime suspended then
+> prepare it for the matching system state (s0ix or s3) so that steps
+> can be skipped when runtime suspended.
+>
+> The thought with this series is that if the compositor has turned
+> off displays and no other work is running an APU's GPU can enter
+> runtime PM. If the system later enters system suspend the GPU steps
+> can be skipped because the GPU is already in the runtime PM state
+> to match the intended system state.
 
-Use current->tgid instead of current->group_leader->pid.
+The compositor or a game probably has assets on the GPU. If they are
+frozen, would the amdgpu driver be able to suspend?
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- drivers/gpu/drm/panfrost/panfrost_gem.c | 2 +-
- drivers/gpu/drm/panthor/panthor_gem.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 8041b65c6609..1ff1f2c8b726 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -17,7 +17,7 @@
- static void panfrost_gem_debugfs_bo_add(struct panfrost_device *pfdev,
- 					struct panfrost_gem_object *bo)
- {
--	bo->debugfs.creator.tgid = current->group_leader->pid;
-+	bo->debugfs.creator.tgid = current->tgid;
- 	get_task_comm(bo->debugfs.creator.process_name, current->group_leader);
- 
- 	mutex_lock(&pfdev->debugfs.gems_lock);
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index fbde78db270a..29cc57efc4b9 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -27,7 +27,7 @@ static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo)
- 	struct panthor_device *ptdev = container_of(bo->base.base.dev,
- 						    struct panthor_device, base);
- 
--	bo->debugfs.creator.tgid = current->group_leader->pid;
-+	bo->debugfs.creator.tgid = current->tgid;
- 	get_task_comm(bo->debugfs.creator.process_name, current->group_leader);
- 
- 	mutex_lock(&ptdev->gems.lock);
--- 
-2.52.0
+> It's important to note that default runtime PM policy will prevent
+> entering runtime PM when displays are connected. This can be changed
+> by setting amdgpu.runpm=-2.
+>
+> This series isn't yet tested, I just share it for feedback on
+> the approach. If anyone wants to test it as well, please feel free.
+>
+> Cc: Antheas Kapenekakis <lkml@antheas.dev>
+>
+> Mario Limonciello (AMD) (1):
+>   drm/amd: Expand runtime suspend to APUs
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 17 +++++++++++++++--
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
+>  3 files changed, 22 insertions(+), 2 deletions(-)
+>
+> --
+> 2.43.0
+>
+>
 
