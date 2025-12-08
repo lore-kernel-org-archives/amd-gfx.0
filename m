@@ -4,122 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08A2BD3B7EA
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 17:20:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC9ED3B7E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 18:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B48410E179;
-	Mon,  8 Dec 2025 17:20:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC31310E17F;
+	Mon,  8 Dec 2025 18:03:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zUGasBJQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="id3my1dX";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011067.outbound.protection.outlook.com [40.107.208.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF52A10E179
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 17:20:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cXCPkmzNuwmn6eVkAqqHosNRR0xdAQ2E4VCpJVunsaqAfi54TFtzHvMM5FWho2ZN1z+OAPM58AUeD5RcUd8qIXHubJjNPFB9o89A4SnAWmwlkZvy2e0GaL9bSpUbLRQZWxbtcD3wlT3n4iO8J5xXhU2uMDliVHPwTnncO/DztF5NY2L1nyEH/8xYsZmPIr5F3tl7cYgXOWLjspYMa00VLjsdncPLkFvFZ8z1/1/QdPiv+Ep96oZkj8oeXT2gFrFHHzS7nu6pFcQekVldaI9SsRwJYmxL8IOGjFTSz8LKyu+lu7Qqp+1ZbnpbOxuX8K/7Wj8AJwgxF0Ap9Odv64FZlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y/NbJEedlSteU8qS05ZUHQn5xIbmc5V0tDEey+xdsqY=;
- b=LGachnIWWxCGx6zNpuMueM2c7bG9HwLZsnrXOHeY8MlxRrzEcIEart/EE3T7Uh+MLpa6yvjkCvOEDVeqnGULCjfaDy6WIo319dhhGU+iu5i1O5LlVrkDONpbtvju/WZHObdlPBi6U1K8fogRZDujaIacYkXXDd4Yfz9jrHtgRHT+s3wIVD8JqvRHTp5wq5KW0ioUdnCLpO7GTF6lhP21gS6TuWdEVvgCDZkzLbQ2nZO2JNMmJT12xS6dsCuDhg2kfmYH9d54IRcIU0t0jnxBm2No65JJTvwGCfv1FvimqSNNznB8trjBV2Ipt1Key9OSUTi0eXUR1ukfRPG8+DniMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y/NbJEedlSteU8qS05ZUHQn5xIbmc5V0tDEey+xdsqY=;
- b=zUGasBJQXIFpF+lToAYHTV0TbeedgZO8lx1uIcHo2oUheIBLnqOSn5x0miR3lZ5mEXV7qcMja/Znmo/Lp9FQw5gjXxV4ykZzwv/aPZKc/1mmkskwaYGCi4wE1UyLe/rSNp/2ZBjHf0arWYMUqfWfQCB6CrX3v73ifHzr0cnoSxM=
-Received: from SJ0PR03CA0144.namprd03.prod.outlook.com (2603:10b6:a03:33c::29)
- by DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.10; Mon, 8 Dec
- 2025 17:17:52 +0000
-Received: from CO1PEPF000075F2.namprd03.prod.outlook.com
- (2603:10b6:a03:33c:cafe::6) by SJ0PR03CA0144.outlook.office365.com
- (2603:10b6:a03:33c::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Mon,
- 8 Dec 2025 17:17:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075F2.mail.protection.outlook.com (10.167.249.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Mon, 8 Dec 2025 17:17:52 +0000
-Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 8 Dec
- 2025 11:17:46 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Hawking Zhang <Hawking.Zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Init compute partition mode for gfx v12_1
-Date: Mon, 8 Dec 2025 12:17:11 -0500
-Message-ID: <20251208171720.153355-11-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251208171720.153355-1-alexander.deucher@amd.com>
-References: <20251208171720.153355-1-alexander.deucher@amd.com>
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D441110E17F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 18:03:49 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-7b90db89b09so531607b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Dec 2025 10:03:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1765217029; x=1765821829; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3vOCAH4lOk+838/HzcNleg2yED3cGd87nnFwiWGkZi8=;
+ b=id3my1dXcCGz9zb+bB6XPGrcjChX/yT8M1jO71XSywl6/HZctPUjkjTtJMfYbJPtfD
+ 7esO4Z9P00TEDOmFzTnLzRpceB/U9HIzmlViOnsnFWGqGse89zzy0ZtjPfeJMrrD8Qya
+ G1ggUhL4LLh6dDQpN8vs2r77eX+lWLKtqOhl3n1FTmEEEOIaECL15veECJp4AbdGu/sA
+ 6ICwG1D2KwUgSNJU2UGiY4lJziTNpDMjFgmVEPpb8wq5EBzTnr5lBhPXTQQDhNt5TTNL
+ C/553ptvIg6hDyaelI+ApEDtWyhot47b3HTx74V+EJAkVpyDK0MW12P52dPtX1ub2t0s
+ zJTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765217029; x=1765821829;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=3vOCAH4lOk+838/HzcNleg2yED3cGd87nnFwiWGkZi8=;
+ b=qwjnkMqGAwgKXS5SWPPlq+JIBvSR6TG8iMx4lk0/oHUfNTHzomk5weH8P7x9lqCsg/
+ YFz0/8QmA9WjkCYoUI5wNoegHatDHGRWCr8v7Qd1+MaJIPOCBWRVGUzPXvRDUNPG/bhg
+ KkuanqqRLFtZ/kkcvZWs9g+itUnzaqUAeD9CPlZEIJfA6+Gm2LpEq3Zwjxt+zuHvGzwf
+ m2EUc8F6Cb2SGuHIOUstMyXR1JnMcAY3jyKh5le6b3iWC5y0KMHPVLsKvwfTAwr2qmDD
+ wvWZD7Q1Dh16/49qBFlLUs9qF/l07wRsRoB8PqM5z8VKjmZEqUoOOQ4x014vBYEuf+yP
+ Fvow==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXZvfPZ4KonAclXhMJ2L6SLKWn1iDcdFAcaJJObiWY0Iv8rAMJCw9MM9ugsCzzg8f5rBKIbtK8D@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWxEd+ncugbDzvQLSwa3ziFoS81rlrO6rVMki9OE+CH6vIZLjk
+ os1fNI3SOAsDcwwOElorp5UQrXA35mOyqkaUstOiWBEwjHxdMS8k3e3yXVEqb9JDrdParSlbM33
+ ESD1YOvkU0ogqrJmLMyCGp9mKmXROaYQ=
+X-Gm-Gg: ASbGncu06RnvIVAXjItCpnYvLrN9gQxa/22SgFpvxDLwCp8OP8EjD1hfRvNI9CtKE0u
+ qODmfEtUfGHagyDeKjSbHfLrI57e/huPJv+zTgdhk23iDskdPA5JdOrslU0PYotSahS2BowTCcF
+ LnPNnfU6EPwv4S9sYCS63W2TP0aWqXLVzwAaIq/mrN8zgayTd+3gozRPqgd9Yso444/1VLkdTSu
+ UqGjlymdSVEE0bSyr1n98rKPZczDFzfNaDxP2uB3pztYlB5L9Q69IJiieh6H18ETTGnTCM=
+X-Google-Smtp-Source: AGHT+IEGbeiaSC984Pl2Pf0gDXkXkb7v0x2d1CNdHwaqyWLamKbg21jLDlqtEvB5/2m+nau36+elf7O8geMD2ya6zHo=
+X-Received: by 2002:a05:7022:670e:b0:119:e56b:46ba with SMTP id
+ a92af1059eb24-11e032cc75amr3168906c88.4.1765217029050; Mon, 08 Dec 2025
+ 10:03:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F2:EE_|DS7PR12MB5768:EE_
-X-MS-Office365-Filtering-Correlation-Id: d12442cd-df2e-4370-39ac-08de367db826
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?I8MxbGT2+2rzqEU+C2CU4FTFe1X8BqddLwE8iYTCg8I2LLe/nEki9iJMDngr?=
- =?us-ascii?Q?Xfj25SAofdJmJpQL/DYOM7qjeCUX79dODKYARZlcajzS2qgmuiEYh7tvYJ1A?=
- =?us-ascii?Q?Av9mNNcsArPYFgbVEHIar8YjPbAtIWQ5ylldcFzr0/SSOU0YEokg4iYYCwZc?=
- =?us-ascii?Q?p5u+SLqLHx+hICLIMpx/AVdjdAmki41vXr6yUQeMgntHeJKn8NVoyiDQWeVX?=
- =?us-ascii?Q?zDJfGXaacc9/KVGj8hGOiNWXqyzS2cm4gfAv6+xqYDpmpNEoiLsuuCpBYvPM?=
- =?us-ascii?Q?HRunmasTK/vf7Ru5I2ixb5D4HwQY9tCe4BWlf2EjBmF3aZj94qEiVO/BvgRm?=
- =?us-ascii?Q?9NEs3+SZLjaPR0uU10vOTQm9tPm8yJmza/wFrnyR/qAkzIFu5slGHbSH4bpL?=
- =?us-ascii?Q?7ghdO9pGnaQRw+H+pZB4iqIZ7y3CsQegzK8gQFz9T7KA4AosY9XZYFUFCJCN?=
- =?us-ascii?Q?OKpHKyCFOB9zROnX50haPJgqOirmGNZgNHkfK7RHkRS8shzhMm4QGada5e8B?=
- =?us-ascii?Q?cC+2BwDx1YYdM8krdp2+3+aySAXz88+XG2Wg2f9+J4e5d7yRLTcuu56GEk/c?=
- =?us-ascii?Q?nyFTmuqp+iEucyoDeG6jLAbFYETufaiFjGephVmyndcXR4nLo6bmv8HJsZz9?=
- =?us-ascii?Q?YY5gzuUZmBapv51vRe8jsixa7j/fgvmfyUqdkG/tQahgulPvcXSRmESeLX5P?=
- =?us-ascii?Q?lglc/EmIn+1+srFdWmyoFiuSMOnhIySQyTt5H+TqJOXEsIxwRrbGPI8j26DC?=
- =?us-ascii?Q?kG/YpQeTCBY+q7LGXddW3HrX/SHYCFP0syftCVSZJwFtyDmvmi4ZRvhsir1q?=
- =?us-ascii?Q?hBu/HAdyQCGP+KEPeiPHNbmbXOGs8eY0j9+EhRThSglAZCf8edDJJYhsO1mn?=
- =?us-ascii?Q?nMZN2/q+FaPJHVBuu3hwKUgw1gRdBROzsXUqbv28XjxZLpqRRLxDTGBzDRYN?=
- =?us-ascii?Q?f8nZaXtlVJFIH2WnjA3KFUgh0BWebSZI89fhq5fD87oER9opMuJJ1HKIzHZ8?=
- =?us-ascii?Q?KM4x1Nw3IJ/WseuOqVcT0LTXzLTEwiLFMtuRu3UO2/UB/REpJE5flOCzIBiq?=
- =?us-ascii?Q?w8uj2OTVd0NHkuTaV7so/mJDnDvR4WN5Dr8Munf6e7KfJ2gUER+Hhbm12Sz0?=
- =?us-ascii?Q?6Oz1b/WrM0wGt+FUoPtcorYDp6nbJdRdMQLM4jvNeXwPCAMES9g5YYhmMSH9?=
- =?us-ascii?Q?qmOLM9dpTEWzy4+6PgHy7hNRWpVJcmhSv9e7I3JLXFvRLzS/g5I0JGtWfm4m?=
- =?us-ascii?Q?cfHmVzZl1PIn2G5VYqrDrtZ9FOLxg6lahUiP886XXPRiq9hJKuYBeWjVcdFL?=
- =?us-ascii?Q?q4SoTvhBmQ8LbKM2gX75e841CHKn58GfNNBq7o2j38wH1uxK7Zptcvm6FHed?=
- =?us-ascii?Q?qaFHoXmjfkFfnbvSb4UhR7aa7Fb7HWhxO+KNhMZRadQtEH2YlSa1n2wtF4x1?=
- =?us-ascii?Q?/yQgBw2D710imiMnGJoDvXKbog0NjgfnFhDv9JDuczRNLoZRtxDvpz3A0tCc?=
- =?us-ascii?Q?JAHMhGDSU8K1aoVmfZMspIxmJzgnGEwj6x4nKQlJG+vUVSd7y3LvrnMHwCAP?=
- =?us-ascii?Q?BynhV6il6Yv5L8McGoc=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 17:17:52.0164 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d12442cd-df2e-4370-39ac-08de367db826
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F2.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5768
+References: <20251205121442.408502-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20251205121442.408502-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Dec 2025 13:03:36 -0500
+X-Gm-Features: AQt7F2rxswjaErxRnQAK5fIxjC6TLERXya0z0c1-M3GoDw0Yzsa_LQGTd6lfFvs
+Message-ID: <CADnq5_O4YHbOQHvS6T63AsAYybsQwjCpnBpUUNORph=6tKU9oA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Reduce stack usage in MES v11 helpers
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,67 +83,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+On Fri, Dec 5, 2025 at 7:24=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> mes_v11_0_set_hw_resources(), mes_v11_0_set_hw_resources_1() and
+> mes_v11_0_query_sched_status() were using large MESAPI packet unions on
+> the stack.
+>
+> When these helpers are inlined into mes_v11_0_hw_init(), the stack frame
+> grows and can hit the
+>
+> stack frame size (1144) exceeds limit (1024) in 'mes_v11_0_hw_init'
+> [-Wframe-larger-than]
+>
+> Change these helpers to allocate the packet with kmalloc(GFP_KERNEL)
+> instead of placing it on the stack. The code now fills the packet, calls
+> mes_v11_0_submit_pkt_and_poll_completion(), and then frees the packet
+> with kfree() on all paths.
+>
+> This reduces stack usage in mes_v11_0_hw_init(), and keeps the behaviour
+> the same.
 
-Init compute partition mode for gfx v12_1
+Allocating memory for every MES submission adds a lot of overhead and
+puts memory allocation in potentially atomic paths.   Also, why is
+this just showing up now?  This code has existed for ~5 years and
+never been a problem.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 34 +++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 6 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index d761150410083..5e9ab3a5184e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -2447,17 +2447,39 @@ static int gfx_v12_1_xcc_cp_resume(struct amdgpu_device *adev,
- 
- static int gfx_v12_1_cp_resume(struct amdgpu_device *adev)
- {
--	int i, r, num_xcc;
-+	int num_xcc, num_xcp, num_xcc_per_xcp;
-+	int r = 0;
- 
- 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-+	if (amdgpu_sriov_vf(adev)) {
-+		enum amdgpu_gfx_partition mode;
- 
--	for (i = 0; i < num_xcc; i++) {
--		r = gfx_v12_1_xcc_cp_resume(adev, i);
--		if (r)
--			return r;
-+		mode = amdgpu_xcp_query_partition_mode(adev->xcp_mgr,
-+						       AMDGPU_XCP_FL_NONE);
-+		if (mode == AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE)
-+			return -EINVAL;
-+		if (adev->gfx.imu.funcs &&
-+		    adev->gfx.imu.funcs->get_xccs_per_xcp) {
-+			num_xcc_per_xcp = adev->gfx.imu.funcs->get_xccs_per_xcp(adev);
-+			adev->gfx.num_xcc_per_xcp = num_xcc_per_xcp;
-+			num_xcp = num_xcc / num_xcc_per_xcp;
-+		} else {
-+			return -EINVAL;
-+		}
-+		r = amdgpu_xcp_init(adev->xcp_mgr, num_xcp, mode);
-+
-+	} else {
-+		if (amdgpu_xcp_query_partition_mode(adev->xcp_mgr,
-+						    AMDGPU_XCP_FL_NONE) ==
-+		    AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE)
-+			r = amdgpu_xcp_switch_partition_mode(adev->xcp_mgr,
-+							     amdgpu_user_partt_mode);
- 	}
- 
--	return 0;
-+	if (r)
-+		return r;
-+
-+	return gfx_v12_1_xcc_cp_resume(adev, adev->gfx.xcc_mask);
- }
- 
- static int gfx_v12_1_gfxhub_enable(struct amdgpu_device *adev)
--- 
-2.51.1
-
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 129 ++++++++++++++-----------
+>  1 file changed, 74 insertions(+), 55 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v11_0.c
+> index 5159f4a9787c..5533098530de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -582,17 +582,25 @@ static int mes_v11_0_resume_gang(struct amdgpu_mes =
+*mes,
+>
+>  static int mes_v11_0_query_sched_status(struct amdgpu_mes *mes)
+>  {
+> -       union MESAPI__QUERY_MES_STATUS mes_status_pkt;
+> +       union MESAPI__QUERY_MES_STATUS *pkt;
+> +       int r;
+>
+> -       memset(&mes_status_pkt, 0, sizeof(mes_status_pkt));
+> +       pkt =3D kmalloc(sizeof(*pkt), GFP_KERNEL);
+> +       if (!pkt)
+> +               return -ENOMEM;
+>
+> -       mes_status_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
+> -       mes_status_pkt.header.opcode =3D MES_SCH_API_QUERY_SCHEDULER_STAT=
+US;
+> -       mes_status_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +       memset(pkt, 0, sizeof(*pkt));
+>
+> -       return mes_v11_0_submit_pkt_and_poll_completion(mes,
+> -                       &mes_status_pkt, sizeof(mes_status_pkt),
+> +       pkt->header.type =3D MES_API_TYPE_SCHEDULER;
+> +       pkt->header.opcode =3D MES_SCH_API_QUERY_SCHEDULER_STATUS;
+> +       pkt->header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +       r =3D mes_v11_0_submit_pkt_and_poll_completion(mes,
+> +                                                    pkt, sizeof(*pkt),
+>                         offsetof(union MESAPI__QUERY_MES_STATUS, api_stat=
+us));
+> +
+> +       kfree(pkt);
+> +       return r;
+>  }
+>
+>  static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
+> @@ -671,93 +679,104 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *me=
+s,
+>
+>  static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
+>  {
+> -       int i;
+> +       int i, r;
+>         struct amdgpu_device *adev =3D mes->adev;
+> -       union MESAPI_SET_HW_RESOURCES mes_set_hw_res_pkt;
+> +       union MESAPI_SET_HW_RESOURCES *pkt;
+>
+> -       memset(&mes_set_hw_res_pkt, 0, sizeof(mes_set_hw_res_pkt));
+> +       pkt =3D kmalloc(sizeof(*pkt), GFP_KERNEL);
+> +       if (!pkt)
+> +               return -ENOMEM;
+>
+> -       mes_set_hw_res_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
+> -       mes_set_hw_res_pkt.header.opcode =3D MES_SCH_API_SET_HW_RSRC;
+> -       mes_set_hw_res_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +       memset(pkt, 0, sizeof(*pkt));
+>
+> -       mes_set_hw_res_pkt.vmid_mask_mmhub =3D mes->vmid_mask_mmhub;
+> -       mes_set_hw_res_pkt.vmid_mask_gfxhub =3D mes->vmid_mask_gfxhub;
+> -       mes_set_hw_res_pkt.gds_size =3D adev->gds.gds_size;
+> -       mes_set_hw_res_pkt.paging_vmid =3D 0;
+> -       mes_set_hw_res_pkt.g_sch_ctx_gpu_mc_ptr =3D mes->sch_ctx_gpu_addr=
+[0];
+> -       mes_set_hw_res_pkt.query_status_fence_gpu_mc_ptr =3D
+> +       pkt->header.type =3D MES_API_TYPE_SCHEDULER;
+> +       pkt->header.opcode =3D MES_SCH_API_SET_HW_RSRC;
+> +       pkt->header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +
+> +       pkt->vmid_mask_mmhub =3D mes->vmid_mask_mmhub;
+> +       pkt->vmid_mask_gfxhub =3D mes->vmid_mask_gfxhub;
+> +       pkt->gds_size =3D adev->gds.gds_size;
+> +       pkt->paging_vmid =3D 0;
+> +       pkt->g_sch_ctx_gpu_mc_ptr =3D mes->sch_ctx_gpu_addr[0];
+> +       pkt->query_status_fence_gpu_mc_ptr =3D
+>                 mes->query_status_fence_gpu_addr[0];
+>
+>         for (i =3D 0; i < MAX_COMPUTE_PIPES; i++)
+> -               mes_set_hw_res_pkt.compute_hqd_mask[i] =3D
+> -                       mes->compute_hqd_mask[i];
+> +               pkt->compute_hqd_mask[i] =3D mes->compute_hqd_mask[i];
+>
+>         for (i =3D 0; i < MAX_GFX_PIPES; i++)
+> -               mes_set_hw_res_pkt.gfx_hqd_mask[i] =3D
+> -                       mes->gfx_hqd_mask[i];
+> +               pkt->gfx_hqd_mask[i] =3D mes->gfx_hqd_mask[i];
+>
+>         for (i =3D 0; i < MAX_SDMA_PIPES; i++)
+> -               mes_set_hw_res_pkt.sdma_hqd_mask[i] =3D mes->sdma_hqd_mas=
+k[i];
+> +               pkt->sdma_hqd_mask[i] =3D mes->sdma_hqd_mask[i];
+>
+>         for (i =3D 0; i < AMD_PRIORITY_NUM_LEVELS; i++)
+> -               mes_set_hw_res_pkt.aggregated_doorbells[i] =3D
+> -                       mes->aggregated_doorbells[i];
+> +               pkt->aggregated_doorbells[i] =3D mes->aggregated_doorbell=
+s[i];
+>
+>         for (i =3D 0; i < 5; i++) {
+> -               mes_set_hw_res_pkt.gc_base[i] =3D adev->reg_offset[GC_HWI=
+P][0][i];
+> -               mes_set_hw_res_pkt.mmhub_base[i] =3D
+> -                               adev->reg_offset[MMHUB_HWIP][0][i];
+> -               mes_set_hw_res_pkt.osssys_base[i] =3D
+> -               adev->reg_offset[OSSSYS_HWIP][0][i];
+> +               pkt->gc_base[i] =3D adev->reg_offset[GC_HWIP][0][i];
+> +               pkt->mmhub_base[i] =3D adev->reg_offset[MMHUB_HWIP][0][i]=
+;
+> +               pkt->osssys_base[i] =3D adev->reg_offset[OSSSYS_HWIP][0][=
+i];
+>         }
+>
+> -       mes_set_hw_res_pkt.disable_reset =3D 1;
+> -       mes_set_hw_res_pkt.disable_mes_log =3D 1;
+> -       mes_set_hw_res_pkt.use_different_vmid_compute =3D 1;
+> -       mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
+> -       mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
+> -       mes_set_hw_res_pkt.oversubscription_timer =3D 50;
+> +       pkt->disable_reset =3D 1;
+> +       pkt->disable_mes_log =3D 1;
+> +       pkt->use_different_vmid_compute =3D 1;
+> +       pkt->enable_reg_active_poll =3D 1;
+> +       pkt->enable_level_process_quantum_check =3D 1;
+> +       pkt->oversubscription_timer =3D 50;
+> +
+>         if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D=
+ 0x7f)
+> -               mes_set_hw_res_pkt.enable_lr_compute_wa =3D 1;
+> +               pkt->enable_lr_compute_wa =3D 1;
+>         else
+>                 dev_info_once(mes->adev->dev,
+>                               "MES FW version must be >=3D 0x7f to enable=
+ LR compute workaround.\n");
+>
+>         if (amdgpu_mes_log_enable) {
+> -               mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
+> -               mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D
+> -                                       mes->event_log_gpu_addr;
+> +               pkt->enable_mes_event_int_logging =3D 1;
+> +               pkt->event_intr_history_gpu_mc_ptr =3D mes->event_log_gpu=
+_addr;
+>         }
+>
+>         if (adev->enforce_isolation[0] =3D=3D AMDGPU_ENFORCE_ISOLATION_EN=
+ABLE)
+> -               mes_set_hw_res_pkt.limit_single_process =3D 1;
+> +               pkt->limit_single_process =3D 1;
+>
+> -       return mes_v11_0_submit_pkt_and_poll_completion(mes,
+> -                       &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
+> +       r =3D mes_v11_0_submit_pkt_and_poll_completion(mes,
+> +                                                    pkt, sizeof(*pkt),
+>                         offsetof(union MESAPI_SET_HW_RESOURCES, api_statu=
+s));
+> +
+> +       kfree(pkt);
+> +       return r;
+>  }
+>
+>  static int mes_v11_0_set_hw_resources_1(struct amdgpu_mes *mes)
+>  {
+> -       union MESAPI_SET_HW_RESOURCES_1 mes_set_hw_res_pkt;
+> -       memset(&mes_set_hw_res_pkt, 0, sizeof(mes_set_hw_res_pkt));
+> +       union MESAPI_SET_HW_RESOURCES_1 *pkt;
+> +       int r;
+>
+> -       mes_set_hw_res_pkt.header.type =3D MES_API_TYPE_SCHEDULER;
+> -       mes_set_hw_res_pkt.header.opcode =3D MES_SCH_API_SET_HW_RSRC_1;
+> -       mes_set_hw_res_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> -       mes_set_hw_res_pkt.enable_mes_info_ctx =3D 1;
+> +       pkt =3D kmalloc(sizeof(*pkt), GFP_KERNEL);
+> +       if (!pkt)
+> +               return -ENOMEM;
+> +
+> +       memset(pkt, 0, sizeof(*pkt));
+> +
+> +       pkt->header.type =3D MES_API_TYPE_SCHEDULER;
+> +       pkt->header.opcode =3D MES_SCH_API_SET_HW_RSRC_1;
+> +       pkt->header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
+> +       pkt->enable_mes_info_ctx =3D 1;
+>
+> -       mes_set_hw_res_pkt.cleaner_shader_fence_mc_addr =3D mes->resource=
+_1_gpu_addr[0];
+> +       pkt->cleaner_shader_fence_mc_addr =3D mes->resource_1_gpu_addr[0]=
+;
+>         if (amdgpu_sriov_is_mes_info_enable(mes->adev)) {
+> -               mes_set_hw_res_pkt.mes_info_ctx_mc_addr =3D
+> +               pkt->mes_info_ctx_mc_addr =3D
+>                         mes->resource_1_gpu_addr[0] + AMDGPU_GPU_PAGE_SIZ=
+E;
+> -               mes_set_hw_res_pkt.mes_info_ctx_size =3D MES11_HW_RESOURC=
+E_1_SIZE;
+> +               pkt->mes_info_ctx_size =3D MES11_HW_RESOURCE_1_SIZE;
+>         }
+>
+> -       return mes_v11_0_submit_pkt_and_poll_completion(mes,
+> -                       &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
+> +       r =3D mes_v11_0_submit_pkt_and_poll_completion(mes,
+> +                                                    pkt, sizeof(*pkt),
+>                         offsetof(union MESAPI_SET_HW_RESOURCES_1, api_sta=
+tus));
+> +
+> +       kfree(pkt);
+> +       return r;
+>  }
+>
+>  static int mes_v11_0_reset_hw_queue(struct amdgpu_mes *mes,
+> --
+> 2.34.1
+>
