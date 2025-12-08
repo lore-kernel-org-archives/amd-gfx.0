@@ -4,74 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7C46D3B7F2
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 15:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E365DD3B7EA
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 15:46:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A2E410E47A;
-	Mon,  8 Dec 2025 15:46:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC2610E486;
+	Mon,  8 Dec 2025 15:46:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EDmzOFXe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4AZJbI3W";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3438E10E47A
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 15:46:33 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-bd2decde440so324155a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Dec 2025 07:46:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765208793; x=1765813593; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6I1MeXAlIsXqwaYnJhmPjgkj9y1gc7C1hN/3WNClYfE=;
- b=EDmzOFXewYynyW4UPQs1rcAbRJm6f3jre8VCsBr3/RYny9wFK6mLQCUajNxnqKZa7a
- 2qdMxkTbwTFVkGkpmIQ+/RQGIT++rYqRTXFD069S/FVcNXiwt7poWytWXroRi86Ado5z
- OEpHbmKVjVoonjPafqGBoGMJEWpBGFztasHk/Ul17lVzeaLL8c4ZeNDcBlwLPDcRiqM/
- igZdBOhG02XqxStKeoVVycUwfVQmlabAG275jOLQ068MNHExmUdV+RKYMUzkDAKNaHLy
- NlmSEntTxaLKuA7K+YovzFoo31T5t6tEtganTiSfhzgjxfFYSlNsfv21OfgFn6FQHy+f
- HEmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765208793; x=1765813593;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6I1MeXAlIsXqwaYnJhmPjgkj9y1gc7C1hN/3WNClYfE=;
- b=ZEIIlSwmxMEzR/OhRVoCLwf/2BhKm2JbJe5uWXUUahlh9PuOk0WXclUDXHrRyJhzpW
- H2vDguJu0nPBLd9kYNUPh88q9gbzCQ5+T7K4sCSNvuNuXO1TGdStIywpKq7Cij8s9bu3
- w5YkFRnSwaJx9EWKAqTtTk9DdSzTay2PCvtxaNZ/5n44eBj0BumAQoKkfN3p1lLtfmoF
- QccriJwIiYcpskcSG5a2XtyYheWyd4bWIxxJZy98t+Uwj19F2w9+wBCov67cviV+Ot4t
- 3UgwuA0DloOsRt6p5TpFFLsC9sVtxkhmAn9hESYv3AgSlbAMChdujSnhdAcr/aT9CWJI
- DB+w==
-X-Gm-Message-State: AOJu0YyFUkqlqjtannn8xxhQU+0QUaogZFFDIBcJCpv9zonJr6Z1khNA
- qHwypq5+altoXTAMzkvN6jj3Tq2LfdH7zViqRBcTVEki8C4ZZGMDVC84DmfNx8C7BLNiybMwPwP
- Hun3eGw2/4d0oSUdBRVeDNzLt1PAIdP4=
-X-Gm-Gg: ASbGncvEaTxQ/8fze1ahemh/rMSDcOKIKD92lK26Z1ygMZb/x54oKBgAPHQsKgiE/FH
- ax6HCrvS0vADJOHfUbAfaeVOzCt3SBVJ7eXXXLiF3UGo8aF9Vy0x291ijY2U9glRylnWzlioggJ
- qdqxrkUN3fn44lvd+Ho9YUg53cNrbe3BFFuCooVt1ZSva6mARVvNGJfhJrM0FjaN2qsXw5+QbNg
- zKrA1n2H04H591iVEci70YRxQyhuoWWoJ+WnP3SAAT7y0/fyWZ/G7Ba//vouQiP9eiygxw=
-X-Google-Smtp-Source: AGHT+IEm3WyC9F+T8nNv31AUL5NPthgcPQRylycgztfxdx4YRXWGzL/HUMXAYxTKSJS/8AvQtxwug2fmI0b7xSyeCmg=
-X-Received: by 2002:a05:7022:b90:b0:11b:862d:8031 with SMTP id
- a92af1059eb24-11e031047c8mr3616087c88.0.1765208792589; Mon, 08 Dec 2025
- 07:46:32 -0800 (PST)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A720010E47B;
+ Mon,  8 Dec 2025 15:46:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vksMq3U0eiGRn3Z+nRF71vGg4gHRh+dBTfbw6zMkt5U6YsMxlXzDWio+x7l5CU9vzHnybK7qtGyhPMqpBaRuyaOoDvB1SpDBbh7DfOTIJ9tyxpIuXCWYXsPGBqor/xBb4TvPxzHReGVDWqijEuQ32WGgfxWp4VbeJJhwYzUR2Q0fNOQko2fIYXRDGUGAdWa0low44iDyfz4LiiAh0RSJ+Gwdc4vSh1APzkZ+h9d00oOQ7iuZaOuNruyZ2ijNW5vFhO4E3R4j1qWu2fHv7h1VCorQPwMU748Wsl7px6XnK4Gf3ZPTYv+7ecdUM/b5Xs1S0ozvbG4N2KNiXK4OCBHSdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J2FL9tlXyaIM3IdoA92ZVyunR/jv5QfzkFhzqUmSSjc=;
+ b=sPMvmIbVXuPz4oEyuHQ3SVqkB78XPvwotN8BjK47RdruqKzVLecRo/1uzbyV3N9jF2eIHkHp9Q2lbRA7pCuUpTGmyNTcfY9ulwmwi6xaV6hofEJY74vUQWd4w/pMXqecqgDs2dLyMHulDBAeO+CWKsasijS2NO2Sx1C4sYHNn9w3V1cjWo+rFgm51HiHmPgDIJuObO2SOfopWPr0ktoMPKpWoNkGDGzRbHAzST7+muXf/13bZftg11lwZNASw++PqdLfeIO/xa6YEr5cdQg07uRj9Y48GUWr1Ypwg6wPQnrDYD5d8RlgKljaxSvijF0gxYji498iwg0ehM5+FtX2Mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J2FL9tlXyaIM3IdoA92ZVyunR/jv5QfzkFhzqUmSSjc=;
+ b=4AZJbI3WoexgkhKjvu3qqohawnF7aEmrL12zicWyXctRxbEWTzvc1o4m7RT9ZXFw/YCKliNyYCzuU73Yl5vkbpOMKo9zMLaJnLGF1mZ83MHOGaI7Buq5/I1EGn0veCwg0SUPyUtLmHfRJVdlvWmviuffUzDSUXLhR45leqcawTE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by DM4PR12MB7695.namprd12.prod.outlook.com (2603:10b6:8:101::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
+ 2025 15:46:43 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%4]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
+ 15:46:43 +0000
+Message-ID: <f86f5a74-ec10-4e98-8fc9-1aa00ffc64ae@amd.com>
+Date: Mon, 8 Dec 2025 10:46:21 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/amd/display: Implement prepare_vblank_enable
+ callback
+To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Nicholas.Kazlauskas@amd.com, simona@ffwll.ch, airlied@gmail.com
+References: <20251201231807.287414-1-sunpeng.li@amd.com>
+ <20251201231807.287414-2-sunpeng.li@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20251201231807.287414-2-sunpeng.li@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0055.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:1::32) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
 MIME-Version: 1.0
-References: <20251206023106.8875-1-timur.kristof@gmail.com>
- <20251206023106.8875-5-timur.kristof@gmail.com>
- <dd54ad10dfacf8211231c3981b1bb6730d772708.camel@gmail.com>
- <CADnq5_NjSQvc2UQFBP4Xy8S4t=xxPhRHgKD5HGd3Dy2xs=nbMQ@mail.gmail.com>
- <367cb1e91844f9c219509cf7c7c1880a77660018.camel@gmail.com>
-In-Reply-To: <367cb1e91844f9c219509cf7c7c1880a77660018.camel@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Dec 2025 10:46:20 -0500
-X-Gm-Features: AQt7F2oF0O8v3JE_7v1lmthMRBe7nBth0yfBlwevhelV7rrlRsBMkw2Iau2D9_4
-Message-ID: <CADnq5_Oxio4sBY++6VhUMp2J3DeZmgxL4K6r+b-v0Hu7dVaN9A@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/amd/display: Setup DAC encoder before using it
-To: timur.kristof@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>, 
- Harry Wentland <Harry.Wentland@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- alexander.deucher@amd.com, siqueira@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|DM4PR12MB7695:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb46a8e1-791c-49e1-4fc9-08de3670fc8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L0tkVE9CbDFyaC82dStTa0plRGdSQ2oxU29FMVJXdjVFdWorcmhTTWtjQkNr?=
+ =?utf-8?B?UWxjL3A3d0lZQUJoejhnaCsxVHR6cEJJbzNCTzF1NmFHVjVDSDVsWjYyc2RX?=
+ =?utf-8?B?Z3BKeGhCQUJXOTZQZG42RDZGK29kSjJwR0F3aEx5dEIzWEcyK1JRZENXY2xh?=
+ =?utf-8?B?VjVXeG9Tc3l2SDRFSk41N1lqK3k5MFM2Q1JuZk4xZkc4VVZNM1VJWWpUM1dP?=
+ =?utf-8?B?YnpTMTE3N0lKeDBRamZ4emdJejVNOWpaRUtsc1hCeEs4WUI3MGY4dnoydHBO?=
+ =?utf-8?B?eG41bHUySVlseTg2NzZ6UFF0Z1VqZ1FidE90MjRTcW9IejVtUjNGdlk1ZkVU?=
+ =?utf-8?B?RzlJRldlYkdoeUZkUi9QZjduZXV4M1R2SnNEV0RxT0xNSzdWSVVOQ095T05G?=
+ =?utf-8?B?cWNzY1FpbUY3dFhXdnFlWFM4bzV5M1d2dXNSdWxzekVtK1E2dit3UEdLR2pi?=
+ =?utf-8?B?RVlnZmZSVHhDbG55c1FYRkRxRFk4NEpXZ2tCUGRPSFdEZ3VDMjRRQ2kzZGhR?=
+ =?utf-8?B?Z1k4VFQzb2ZhbXkvQ0FNSG90eHh1cUJwSlkrYm54MWVXUlQ1bUtyczVzdXNI?=
+ =?utf-8?B?aEdLVWJKQW5mcjM1MERUb1RyVDVhamtnUCs1SVp5Mlo0dXZWekJJMDVhbStJ?=
+ =?utf-8?B?YmRrRjlmazBmYVlLNXFhdmM0elNVeHpKaXpjQnZZN25WMDZNYWtRVGlXTENR?=
+ =?utf-8?B?R3FyTHE4b2pkSmtaSHV6Wnl0MFZJdFFLc3IwWitGNHBvWEtTWDVaSHJtK3JL?=
+ =?utf-8?B?S1A5ME9MaUQ3UzhHeTgvdGFWNlh2VEwvTFBhdHE3U0xxVFBTdjlVd0dhaXVh?=
+ =?utf-8?B?aUlNNHV5T1JJN1pucEREUVdnNnZGcENyVkNPS0JHTlhEVU1zbVNoS3NiM2pl?=
+ =?utf-8?B?ZkU2eVN3LzdpdkxoTzRhTURPY0VkN2tqV09SRS9FNmpMYzNwR3I1NlZuSHhG?=
+ =?utf-8?B?NXRGL2t2SUZ5dzlMZW5uSFJQaWVCckI0VVJTZ2N6WHVxS3MxdnUvSjgramli?=
+ =?utf-8?B?d05TaGs1Y2djdXFhMHpKT0ZEancwNHpXRDdRektGNHhHOWxLcGg2dDhQOUli?=
+ =?utf-8?B?dGRjUFpmbXBmeElOcE81QmY1OGp0QXYzYXJGS2plcG1qQXBGWWVsVm1heVJ1?=
+ =?utf-8?B?aGRlcFBKTit4Q1dncW0wVG9YY1l0aUdqQ21VL3gvZWo2UlZmRTNqWEhtSjMx?=
+ =?utf-8?B?Q1FYUkNOWUxDcGFTcUkydGlsSGgzNkV3OWhCa3FyRDBCSjNxYjRUSGtob2J3?=
+ =?utf-8?B?MWZSZi9TQ2FjcTJHdi90RTFZSUsyTWMycTVyU2E2TFpjVEQwRDlrQWFrSEg1?=
+ =?utf-8?B?alNVVW1FZmNtUys3a3YzdFJSNEFtOFpGVTVsN1VGSjVjMG5pVUhSZEpwdFls?=
+ =?utf-8?B?R3FuYlEvS081dGlNWGViNDVOcnYwNVFMZEJ1OWpQaEJNSkt6K3ZmOHU1YUZK?=
+ =?utf-8?B?cDR4bElrSUttRWhRWmxUNWVXSnZGZmJWSzlBN0xFQWIzSndhNTNsRk4vMWlM?=
+ =?utf-8?B?S0c3WERwSER5NEFZRnNjREllOU5jbS9sdmYvSHZBQVVxNE9FanZLbWNSdG5t?=
+ =?utf-8?B?U0NFQVpaVElmdXVrMXExNTFCMFhacmh1OEQ3NnlhbnBYY25YNDcwRUxQMEZG?=
+ =?utf-8?B?Ly91dUVnU1RRaHJ1TVE4UkxWMmJjRE5hQkNzUXkvMlNVRnhRbFN4Z042OC91?=
+ =?utf-8?B?bHJZVncrN05VeUxTWDBsdDVrbDAwcGxsdzhFTGFtQ1hoazJuTUk0bTBTOUFM?=
+ =?utf-8?B?VkNRR2tRdFAvdnIrNVNLbGpWSHRsMHFYb0ZiYVZ1WkNEcDE4VFJnMklGTWls?=
+ =?utf-8?B?YnkrNy9QandVVFNwWkJGUzF1ZmxVYUF6SmV1YWJOV285NmR1NUZEK1BNTWpz?=
+ =?utf-8?B?dm5jSmdKYWhLdThsYXRIdWNsQjJ1RDFRaWw3RUJ1WkFackd6ejA1Ukt5RmFZ?=
+ =?utf-8?Q?aUZVPUZcsWYmn0APEo5qjcxjEJFCPqjh?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aU5TLzF2UVovRDByMzJBYnh5Y2s3YTJnamJONjdCWklHWWxnL2g3UVl6WEdD?=
+ =?utf-8?B?RCtGSDBaaHRpOVVtKzNEQXlwemR0MWFtdUJsTmJyTGU3RzNidUpVQTdRRlpt?=
+ =?utf-8?B?Y1VCbFNTWVFFU0wydFh3VVp4TjNZQnB4M2lQM1d0RHJxVXNmVWVQUXVEMU10?=
+ =?utf-8?B?NE1tMmRMWStPNVd1NzE0L1BJMXpzZmdBK29ld3UvUGpPTnJxbWJFQVZtcG1Z?=
+ =?utf-8?B?QkJ3QmxzbmdOWldldCtWN0tudFRobG52STZYeklDbGtVVnJwUlgzWUhVcm50?=
+ =?utf-8?B?M1JjNENOZzM2c2djV3d2NGhxUERFYkF2cDZxRzZVU2FPUEVYY2FTK2FxVGdE?=
+ =?utf-8?B?VVdJOEdNb0F6clZhZkFsUENvajh0aU9GSDE2QjhMWmRRZzl4a1owQ1NMdFFE?=
+ =?utf-8?B?WElmV0FJamZhVmppNGJ2M1pCaUxNbVY0NFQ5cGxUR3QvejRlWkhyR2ZLZnVD?=
+ =?utf-8?B?dXVkcEVYTk1PKzFVUVlxMldhUTNzUURXcjEvU3pZTEtkRlJWR0pMOGFSWTZS?=
+ =?utf-8?B?bGZwWi8wL052bUFSWjYxN3lpVFM1MjNXakx2MXRzQzM0akRUWkM2eVQzbUc2?=
+ =?utf-8?B?UGU1STdOQXRJdjd1YlVhMzVnTDM1TWpWZVorK3BKOXZSclNGUzhCNy9CQWZq?=
+ =?utf-8?B?VlI5YTFiVm9YNGtqOTg2aFpWMVVTaHJER2R1Uy81RU8weDFLUzcxZmpLSm8x?=
+ =?utf-8?B?czJhTDBVcjNteW9LcXNJa2xWdTRreDBqY2JwVjc0U1JwWjQwbm1xZjFYRlBw?=
+ =?utf-8?B?WFpZVW9FSExNdFJyR2t2cG5aTDNTdzlxVmV4aWJHVHBXSGxQWnN1THhRTzdw?=
+ =?utf-8?B?cjVaS1JxRnB4U2hIZ1liSEp6VFRFK0JlTXY3cGVoRlp1eU1HSWRQL0dWNFh1?=
+ =?utf-8?B?dWZSRnp6MUtRNEJCdnhBZVFBRHBMK3dvM0pSVmkwbUpBd1pyVCthYUNyOWFP?=
+ =?utf-8?B?Kzh2M01SVFduNUlMQ2dKNG5GUUo2RFVSQmUxWVI2d3lnekhBQzR1bWs3UHZj?=
+ =?utf-8?B?WWduSVFnQjV3M0F5RnF1RmZlcHl4TTlNcUhXNmNqTko0YkZmSmdqZGk4WnZR?=
+ =?utf-8?B?aFRjUnJLOFJrTnFnZytGOThSdVJhRElCUU1tZVlOK1NtZ0Njc01GS255ZUJa?=
+ =?utf-8?B?L2ZiODJybFZvMk1EcUtkZDVBS0pVVnVZbWZoOEdCbFVrWlBYMklSWDJma2hp?=
+ =?utf-8?B?czJHaldmcFpwcE5GYzJkQmlTY1dEaW9VUjE5YU9ZMXBQS0cxdFBwOHMrNUNV?=
+ =?utf-8?B?RklDRVgyNEFqSTZJVlVqSlY0RzF3R2ZLSnlqZzJ0dUYzSEFQQzN1M1JoOEhv?=
+ =?utf-8?B?L2sreFltZnNkVGVkSEdzb1o1VHE4aDNieTdOZVdXR09CWDJ3NnBLa0xNZlA1?=
+ =?utf-8?B?THlxT0wxVTA1bGMxUUNyOUI0ZzlnYzJhb2F2eUVhclg2LzhRb2d3NnlJdGhY?=
+ =?utf-8?B?UFpuTW9qWW9SQjVNc3pKaW5jV0pDcFJ3dUtnQnFzTkMzZmRlUEhidGJXWVEv?=
+ =?utf-8?B?QWkwcmRFVEVFV2ZlR0Y0blQ4aHh5TlJtNkk3MDhBaFJjZjU0WEwxSHhtZFo4?=
+ =?utf-8?B?S3lHZy9GTW9NT2Vxam9keEtaalIra284QmVMVFVXZlVKRm1BaXJoVkxnUTdN?=
+ =?utf-8?B?VFhMUnFWQ3RVRTBXYlZsTGtKQUVOZkNuODlFekh6cVZ6RWR2RFZOaHJhRHR3?=
+ =?utf-8?B?SDJSWXJKQmVJU3ROM0JHZ2VlaWRVSmRYa0orSEFZZWZlNWxhTm81aGgvUVZj?=
+ =?utf-8?B?bWZ2TVc5MzJaNkJEL2FJb1V6aU1pQUVVTVdBUGRHa2VqbnVMRW1OTHpFbGVl?=
+ =?utf-8?B?NjBud2N4NElVNFJ5RTVSVnNaUiszZTYwbmtCUWlicm5zNWpxNWo2T0pDbFM3?=
+ =?utf-8?B?Y1l5TlJvZml2M0x3cnMvTkNvVEJxbGRFODl6a1JWUWJ6cjlTZ1NJL2Rnb3lr?=
+ =?utf-8?B?em8vV0tteHZ2SU1XSGo5c2ZONXJEZEJ3UzBTM1l5UmRTY2VQL25ZckovQWth?=
+ =?utf-8?B?ejhtcnRSTzJ4RTJuUkRSSHN4c3JrNVhMaXRXMzNSL1NuQWJSL1FMVVNSM2xF?=
+ =?utf-8?B?MVBRdWNYZWtkTVU4aTk3c3NhYjZta0Y5aXhFK2F5UzRiemZrOStMbjhmcjJZ?=
+ =?utf-8?Q?kdGd9LdSilQe0xYzjX4YvClBk?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb46a8e1-791c-49e1-4fc9-08de3670fc8c
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 15:46:43.5480 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TH0sNfR5ed96rYGTcfZle6B0B8MUyViCQK3SLmu2k2gnGzRCDFVI8qjfT9Ssp5rJ3X1tFGH+cs19h4GCTEWlew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7695
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,152 +163,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 8, 2025 at 10:32=E2=80=AFAM <timur.kristof@gmail.com> wrote:
->
-> On Mon, 2025-12-08 at 10:27 -0500, Alex Deucher wrote:
-> > On Mon, Dec 8, 2025 at 10:21=E2=80=AFAM <timur.kristof@gmail.com> wrote=
-:
-> > >
-> > > On Sat, 2025-12-06 at 03:31 +0100, Timur Krist=C3=B3f wrote:
-> > > > Just like for other signal types, call the encoder control
-> > > > command in the VBIOS to setup the DAC encoder.
-> > > > The DAC doesn't work well without this on some GPUs,
-> > > > for example the Radeon HD 7790 needs this.
-> > > >
-> > > > Fixes: 7d63519cd9ca ("drm/amd/display: Add concept of analog
-> > > > encoders
-> > > > (v2)")
-> > > > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > > > ---
-> > > >  .../amd/display/dc/dce/dce_stream_encoder.c   | 25
-> > > > ++++++++++++++++++-
-> > > >  .../amd/display/dc/inc/hw/stream_encoder.h    |  4 +++
-> > > >  .../amd/display/dc/link/hwss/link_hwss_dio.c  |  4 +++
-> > > >  3 files changed, 32 insertions(+), 1 deletion(-)
-> > > >
-> > > > diff --git
-> > > > a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > > > b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > > > index 574618d5d4a4..1fbf6263c235 100644
-> > > > --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > > > +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > > > @@ -693,6 +693,24 @@ static void
-> > > > dce110_stream_encoder_lvds_set_stream_attribute(
-> > > >       ASSERT(crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB)=
-;
-> > > >  }
-> > > >
-> > > > +static void dce110_stream_encoder_analog_set_stream_attribute(
-> > > > +     struct stream_encoder *enc,
-> > > > +     struct dc_crtc_timing *crtc_timing)
-> > > > +{
-> > > > +     struct dce110_stream_encoder *enc110 =3D
-> > > > DCE110STRENC_FROM_STRENC(enc);
-> > > > +     struct bp_encoder_control cntl =3D {0};
-> > > > +
-> > > > +     cntl.action =3D ENCODER_CONTROL_SETUP;
-> > > > +     cntl.engine_id =3D enc110->base.id;
-> > >
-> > > Found a mistake here.
-> > > This should use the analog_id added in the previous patch.
-> >
-> > The series looks good to me.  Do you want to resend with this fixed?
-> > I'll apply it.
-> >
-> > Thanks,
-> >
-> > Alex
->
-> Thanks Alex.
-> I will send a second version with this fixed.
-
-Feel free to add my RB for the series.
-
->
-> Also I would like to wait for Mauro to test it. The series fixes the
-> "black screen" issue on my HD 7790, but Mauro told me that it doesn't
-> fix it for him.
-
-Thanks for the update.  Sounds like it's still a valid bug fix even if
-additional fixes may be needed for Mauro's system.
-
-Alex
 
 
->
-> >
-> > >
-> > > > +     cntl.pixel_clock =3D crtc_timing->pix_clk_100hz / 10;
-> > > > +
-> > > > +     if (enc110->base.bp->funcs->encoder_control(
-> > > > +                     enc110->base.bp, &cntl) !=3D BP_RESULT_OK)
-> > > > +             return;
-> > > > +
-> > > > +     ASSERT(crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB)=
-;
-> > > > +}
-> > > > +
-> > > >  static void dce110_stream_encoder_set_throttled_vcp_size(
-> > > >       struct stream_encoder *enc,
-> > > >       struct fixed31_32 avg_time_slots_per_mtp)
-> > > > @@ -1521,6 +1539,8 @@ static const struct stream_encoder_funcs
-> > > > dce110_str_enc_funcs =3D {
-> > > >               dce110_stream_encoder_dvi_set_stream_attribute,
-> > > >       .lvds_set_stream_attribute =3D
-> > > >               dce110_stream_encoder_lvds_set_stream_attribute,
-> > > > +     .analog_set_stream_attribute =3D
-> > > > +             dce110_stream_encoder_analog_set_stream_attribute,
-> > > >       .set_throttled_vcp_size =3D
-> > > >               dce110_stream_encoder_set_throttled_vcp_size,
-> > > >       .update_hdmi_info_packets =3D
-> > > > @@ -1568,7 +1588,10 @@ void dce110_stream_encoder_construct(
-> > > >       enc110->se_mask =3D se_mask;
-> > > >  }
-> > > >
-> > > > -static const struct stream_encoder_funcs dce110_an_str_enc_funcs
-> > > > =3D
-> > > > {};
-> > > > +static const struct stream_encoder_funcs dce110_an_str_enc_funcs
-> > > > =3D {
-> > > > +     .analog_set_stream_attribute =3D
-> > > > +             dce110_stream_encoder_analog_set_stream_attribute,
-> > > > +};
-> > > >
-> > > >  void dce110_analog_stream_encoder_construct(
-> > > >       struct dce110_stream_encoder *enc110,
-> > > > diff --git
-> > > > a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > > > b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > > > index 27f950ae45ee..9658b06f32f7 100644
-> > > > --- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > > > +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > > > @@ -153,6 +153,10 @@ struct stream_encoder_funcs {
-> > > >               struct stream_encoder *enc,
-> > > >               struct dc_crtc_timing *crtc_timing);
-> > > >
-> > > > +     void (*analog_set_stream_attribute)(
-> > > > +             struct stream_encoder *enc,
-> > > > +             struct dc_crtc_timing *crtc_timing);
-> > > > +
-> > > >       void (*set_throttled_vcp_size)(
-> > > >               struct stream_encoder *enc,
-> > > >               struct fixed31_32 avg_time_slots_per_mtp);
-> > > > diff --git
-> > > > a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > > > b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > > > index befa67b2b2ae..90ff4fdd79b7 100644
-> > > > --- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > > > +++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > > > @@ -148,6 +148,10 @@ void setup_dio_stream_attribute(struct
-> > > > pipe_ctx
-> > > > *pipe_ctx)
-> > > >               stream_encoder->funcs->lvds_set_stream_attribute(
-> > > >                               stream_encoder,
-> > > >                               &stream->timing);
-> > > > +     else if (dc_is_rgb_signal(stream->signal))
-> > > > +             stream_encoder->funcs->analog_set_stream_attribute(
-> > > > +                             stream_encoder,
-> > > > +                             &stream->timing);
-> > > >
-> > > >       if (dc_is_dp_signal(stream->signal))
-> > > >               link->dc->link_srv->dp_trace_source_sequence(link,
+On 2025-12-01 18:18, sunpeng.li@amd.com wrote:
+> From: Leo Li <sunpeng.li@amd.com>
+> 
+> [Why]
+> 
+> APU DCN generations since DCN3.5 have the capability to power down
+> almost all of the DCN hw block during idle periods. This is referred to
+> as  IPS -- idle power states. In combination with a panel remote-buffer
+> feature (like PSR or Panel Replay), IPS can save additional power.
+> 
+> Once DCN is in an IPS, no register access can occur. This includes
+> control registers for vblank interrupts; IPS must first be exited.
+> 
+> Transitioning in or out of IPS requires synchronization with the rest of
+> DC, as it powers up or down DCN, and may communicate with other MCUs on
+> the SOC to do so. This is done via the dc_lock mutex.
+> 
+> While calling enable_vblank, the DRM vblank core holds spinlocks that
+> prevent blocking operations. Yet acquiring the dc_lock mutex is
+> blocking. Thus, IPS can not be exited piror to programming vblank
+> interrupt registers from within enable_vblank. At least not in a
+> race-free way.
+> 
+> Prior to this change, amdgpu_dm was exiting IPS(*) without holding the
+> dc_lock, opening the door for races:
+> https://gitlab.freedesktop.org/drm/amd/-/issues/5233
+> 
+> (*) From touching the interrupt registers. All register reads today have
+> an implicit IPS exit, see dm_read_reg_func()
+> 
+> To solve this, the prepare_vblank_enable callback can be implemented to
+> exit IPS, as it is called from process context.
+> 
+> [How]
+> 
+> Implement the prepare_vblank_enable callback for amdgpu_dm. In it,
+> the dc_lock mutex is acquired, and IPS is exited.
+> 
+> v2: Add missing semicolon, add docstring for prepare_vbl_disallow_idle
+> 
+> Signed-off-by: Leo Li <sunpeng.li@amd.com>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 ++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 +++++
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  4 +++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 36 +++++++++++++++++--
+>  4 files changed, 49 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 0346052f2e574..842a93e2d6ce0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -9682,6 +9682,7 @@ static void amdgpu_dm_handle_vrr_transition(struct dm_crtc_state *old_state,
+>  		 * We also need vupdate irq for the actual core vblank handling
+>  		 * at end of vblank.
+>  		 */
+> +		WARN_ON(drm_crtc_vblank_prepare(new_state->base.crtc) != 0);
+>  		WARN_ON(amdgpu_dm_crtc_set_vupdate_irq(new_state->base.crtc, true) != 0);
+>  		WARN_ON(drm_crtc_vblank_get(new_state->base.crtc) != 0);
+>  		drm_dbg_driver(new_state->base.crtc->dev, "%s: crtc=%u VRR off->on: Get vblank ref\n",
+> @@ -10108,6 +10109,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>  		 */
+>  		if (acrtc_attach->base.state->event &&
+>  		    acrtc_state->active_planes > 0) {
+> +			drm_crtc_vblank_prepare(pcrtc);
+>  			drm_crtc_vblank_get(pcrtc);
+>  
+>  			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+> @@ -10124,6 +10126,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>  					&acrtc_state->stream->vrr_infopacket;
+>  		}
+>  	} else if (cursor_update && acrtc_state->active_planes > 0) {
+> +		drm_crtc_vblank_prepare(pcrtc);
+>  		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+>  		if (acrtc_attach->base.state->event) {
+>  			drm_crtc_vblank_get(pcrtc);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 7065b20aa2e6b..a99612fb3467a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -587,6 +587,15 @@ struct amdgpu_display_manager {
+>  	 */
+>  	uint32_t active_vblank_irq_count;
+>  
+> +	/**
+> +	 * @prepare_vbl_disallow_idle:
+> +	 *
+> +	 * Set to true when idle has been disallowed. Set to false when vblank
+> +	 * interrupts have been enabled. i.e. idle re-allow on vblank disable is
+> +	 * blocked if this is true.
+> +	 */
+> +	bool prepare_vbl_disallow_idle;
+> +
+>  #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+>  	/**
+>  	 * @secure_display_ctx:
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+> index e20aa74380665..7839b56859391 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+> @@ -656,6 +656,10 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+>  	 */
+>  	enabled = amdgpu_dm_is_valid_crc_source(cur_crc_src);
+>  	if (!enabled && enable) {
+> +		ret = drm_crtc_vblank_prepare(crtc);
+> +		if (ret)
+> +			goto cleanup;
+> +
+>  		ret = drm_crtc_vblank_get(crtc);
+>  		if (ret)
+>  			goto cleanup;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index 38f9ea313dcbb..dd693419111db 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> @@ -258,8 +258,8 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+>  	else if (dm->active_vblank_irq_count)
+>  		dm->active_vblank_irq_count--;
+>  
+> -	if (dm->active_vblank_irq_count > 0)
+> -		dc_allow_idle_optimizations(dm->dc, false);
+> +	/* prepare_vblank_enable must disallow idle first */
+> +	ASSERT(dm->dc->idle_optimizations_allowed == false);
+>  
+>  	/*
+>  	 * Control PSR based on vblank requirements from OS
+> @@ -277,7 +277,13 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+>  			vblank_work->acrtc->dm_irq_params.allow_sr_entry);
+>  	}
+>  
+> -	if (dm->active_vblank_irq_count == 0) {
+> +	/*
+> +	 * If this worker runs disable between prepare_vblank and enable_vblank,
+> +	 * we need to block idle re-allow. Leave it to the next vblank disable
+> +	 * to re-allow idle.
+> +	 */
+> +	if (dm->active_vblank_irq_count == 0 &&
+> +	    !READ_ONCE(dm->prepare_vbl_disallow_idle)) {
+>  		dc_post_update_surfaces_to_stream(dm->dc);
+>  
+>  		r = amdgpu_dpm_pause_power_profile(adev, true);
+> @@ -308,6 +314,8 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
+>  	int irq_type;
+>  	int rc = 0;
+>  
+> +	ASSERT(dm->dc->idle_optimizations_allowed == false);
+> +
+>  	if (enable && !acrtc->base.enabled) {
+>  		drm_dbg_vbl(crtc->dev,
+>  				"Reject vblank enable on unconfigured CRTC %d (enabled=%d)\n",
+> @@ -399,6 +407,9 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
+>  	}
+>  #endif
+>  
+> +	/* Ensure compiler emits the write before worker is queued */
+> +	WRITE_ONCE(dm->prepare_vbl_disallow_idle, false);
+> +
+>  	if (amdgpu_in_reset(adev))
+>  		return 0;
+>  
+> @@ -423,6 +434,24 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
+>  	return 0;
+>  }
+>  
+> +static int amdgpu_prepare_enable_vblank(struct drm_crtc *crtc)
+> +{
+> +	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+> +	struct amdgpu_display_manager *dm = &adev->dm;
+> +
+> +	guard(mutex)(&adev->dm.dc_lock);
+> +
+> +	if (dm->dc->idle_optimizations_allowed) {
+> +		/* Prevent the disable worker from re-allowing idle until
+> +		 * interrupts are enabled. Ensure compiler emits the write
+> +		 * before disallowing idle. */
+> +		WRITE_ONCE(dm->prepare_vbl_disallow_idle, true);
+> +		dc_allow_idle_optimizations(dm->dc, false);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  int amdgpu_dm_crtc_enable_vblank(struct drm_crtc *crtc)
+>  {
+>  	return amdgpu_dm_crtc_set_vblank(crtc, true);
+> @@ -590,6 +619,7 @@ static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
+>  	.verify_crc_source = amdgpu_dm_crtc_verify_crc_source,
+>  	.get_crc_sources = amdgpu_dm_crtc_get_crc_sources,
+>  	.get_vblank_counter = amdgpu_get_vblank_counter_kms,
+> +	.prepare_enable_vblank = amdgpu_prepare_enable_vblank,
+>  	.enable_vblank = amdgpu_dm_crtc_enable_vblank,
+>  	.disable_vblank = amdgpu_dm_crtc_disable_vblank,
+>  	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
+
