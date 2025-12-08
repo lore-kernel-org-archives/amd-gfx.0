@@ -4,59 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C757D3B7E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 13:51:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BED3D3B7E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 13:55:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C136410E158;
-	Mon,  8 Dec 2025 13:51:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A342C10E467;
+	Mon,  8 Dec 2025 13:55:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="PtijsJpK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g6KLBh2D";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE77B10E2D5;
- Mon,  8 Dec 2025 10:35:40 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dPz093KKGz9snt;
- Mon,  8 Dec 2025 11:35:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1765190137; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aqnvxhxBiEdB7VxuGtLQBL8eYjZgKLbWm3XMKfQgcQI=;
- b=PtijsJpKi4oOt3Ctz4YbuKPnDsip71SbK7XW3JGCgLYRFtklOADW+BZ4Gf0xwU9WN0A0HO
- QZ58IZVbF1NwfHqGYvZcNH6rSmPHI4ZcMhvF3gHBg02g3F6s7iSrpLWTaNmu7e1TIcPkzs
- n6i15814ayS91PabkyWWGWthtvt4IzHkuJLSLS+nE+nz906X7R7CINKRfdm3z/SaWekzhS
- wb0CiYb+R8C6ZcvuEGKAk0lOT1W+fLmI/1F6TETMBSCS0ynaAaYhYa4VrK9JqDytjkU7FL
- 0i5/wuTEMiTJ1TYKpg8WXRTrsc+dq20HxBdjJpzfsvbTOyiqkoTOB8R33BFkXw==
-Message-ID: <21699026216379f294d6597ed6febd187229ffb9.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
-From: Philipp Stanner <phasta@mailbox.org>
-To: Matthew Brost <matthew.brost@intel.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>
-Cc: phasta@kernel.org, vitaly.prosyak@amd.com,
- amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org, Alex
- Deucher <alexander.deucher@amd.com>,  dakr@kernel.org, Boris Brezillon
- <boris.brezillon@collabora.com>, Lucas Stach <l.stach@pengutronix.de>
-Date: Mon, 08 Dec 2025 11:35:33 +0100
-In-Reply-To: <aTMW0UCGQuE+MXLk@lstrano-desk.jf.intel.com>
-References: <20251128182235.47912-1-vitaly.prosyak@amd.com>
- <cdecd1e2-de0d-466f-b98b-927b2f364f79@amd.com>
- <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
- <49de5988-ea47-4d36-ba25-8773b9e364e2@amd.com>
- <aTMW0UCGQuE+MXLk@lstrano-desk.jf.intel.com>
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A1B710E455
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 13:55:57 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-bc0d28903c9so333571a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Dec 2025 05:55:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1765202156; x=1765806956; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=54vNoojfzIXzTKGsgeLwyJPfWRI2E/YXZe/JWv8ns9U=;
+ b=g6KLBh2DaMO/yYh5q4lwNPofeNOxLb49jrDok8v8+45l9W3yaGRvti5DAqtUo2Eh+T
+ 3MIBHN4QchomDfQ2j5digQ8MqWSw+Yh2JWQz8tLcsnwWmKAliLDLL3XuE6pbKgN2BvxK
+ SgVIoZXMQbiPwNxHUWqqBzhJo0xFDRjlGrr+8KUCe/MvAjCGmddTnRC8yqrhNckOzM+o
+ CjmQCUFTfu7OCZNsrSQfoi2Gwv5Y5RvTWDgpqphSuZ/g30dbklCXpe6b2r0apgLgXMQz
+ UZRxfqrVgTV+Xfuv0/UBJC1UdDzI3vY4GfVJ0RIjhdvEwrbXhjnmI1w8WKayoHM+lWj8
+ RCWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765202156; x=1765806956;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=54vNoojfzIXzTKGsgeLwyJPfWRI2E/YXZe/JWv8ns9U=;
+ b=AfxjlGNOk4gY2gXrvfa7dnSWfgW8wGSsLGRP86cfkAzxJSzupKESq1sbGH1hoK91La
+ 1OBY2+SyCBqPMzwLunhhv1wvLb2tnuiC9VmZVOuKtqwYlC192bFsTmwbbGEBuRUBbxKA
+ zsSKkJuePQfCeMC5K9D7FPeJCAdB+W052+K+pbWo4MHJ5KH5sa000GXZ0KeZPGVKpUGu
+ TgH/vejuF0PD7NYnKdcsMHvV+2BvwhOl88nIq1Usi16EoUFiawJr0G1Rf6QasaUfTKUh
+ 58zNElD/zWXmA71TIdkLjLy3UXiRvmeM7EhfuCzAFDnplkKMZkgFqgs6ftHMRvu2RGvT
+ i5fQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX5+JBE0jkvZSuDUs1YA3fykNMzqsVEIo3EK1glvnbvJv0hnqgKdRA0KkfoKS6YBsy/tpWOymeA@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxETMYcEeU8tmpBQcbyhTTn0BiKRu77fWi6DC0J9zyGbZjcNcLV
+ orVkD4bdRiorsl7DiLdMah+0dNdIJeT5SuOh+HXgiDYDxksON+6QWLKsE2c3vVzdQaTtePxPEbL
+ /1+cqccUvVWy5zNRmQ5xGRf8QtrYzogeOSA==
+X-Gm-Gg: ASbGncsG3yPgpzfFI6odm5eSBIe5hRssEh0vx/v273C6X2QGGmFplccnXBkXuM9p1Fn
+ 6a35g6kDQJP61YsX0XRKYZ/dGoTvHJNKLNrOM7ylE9G6M+OAf9V00AywMgUge9BklGMq9pIisL4
+ EloEhbRuH+jXc28i+jIQmYtHu6OWujuj7/ITeVRUZXq8oTG7jqAHSob7vNi2pjJTv9WPCXVNihm
+ SWXo2NORCIEPg9ko9zHZXRGpMaSIcrKvDp3lR67DxOqtk/cIWmpB9Qaa6WoNE6IcgF/xLA=
+X-Google-Smtp-Source: AGHT+IEt7xkjDby86sLbsqtLlQeb49knq2VG0f47c9PcagQvTRWeTfTMZDyrLxSfY5OSIiLjiCaiLC11MNgwyAgFeDQ=
+X-Received: by 2002:a05:7022:6729:b0:11b:acd7:4e48 with SMTP id
+ a92af1059eb24-11e03160816mr3971131c88.2.1765202156376; Mon, 08 Dec 2025
+ 05:55:56 -0800 (PST)
+MIME-Version: 1.0
+References: <20251207194910.122711-1-superm1@kernel.org>
+ <CAGwozwFXvHJY_WOZXjBWhoFTt1rcsLX=1n5p49=S2HyF+EvdHQ@mail.gmail.com>
+In-Reply-To: <CAGwozwFXvHJY_WOZXjBWhoFTt1rcsLX=1n5p49=S2HyF+EvdHQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 8 Dec 2025 08:55:44 -0500
+X-Gm-Features: AQt7F2rWht2ScZk3-NWLDHLC3DNY_SAsbCZKt5xSjEOUvYqEdru1gRIq0Bf-B28
+Message-ID: <CADnq5_NUyZYo2arS+eHhRro9HupxcpRZ8mD1RMEHjr7kU5JWXw@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/1] Runtime suspend for APUs
+To: Antheas Kapenekakis <lkml@antheas.dev>
+Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-ID: 01bf69bb3799f80c15c
-X-MBO-RS-META: kcdubjqmmaqtnkgix8o7t6mh7eswxrh5
-X-Mailman-Approved-At: Mon, 08 Dec 2025 13:51:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,297 +81,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-12-05 at 09:30 -0800, Matthew Brost wrote:
-> On Fri, Dec 05, 2025 at 11:18:21AM +0100, Christian K=C3=B6nig wrote:
-> > On 12/1/25 10:04, Philipp Stanner wrote:
-> > >=20
+On Mon, Dec 8, 2025 at 3:39=E2=80=AFAM Antheas Kapenekakis <lkml@antheas.de=
+v> wrote:
+>
+> On Sun, 7 Dec 2025 at 20:49, Mario Limonciello (AMD) <superm1@kernel.org>=
+ wrote:
+> >
+> > Set up APUs to follow similar policies as dGPUs in that they can
+> > potentially runtime suspend.  If an APU is runtime suspended then
+> > prepare it for the matching system state (s0ix or s3) so that steps
+> > can be skipped when runtime suspended.
+> >
+> > The thought with this series is that if the compositor has turned
+> > off displays and no other work is running an APU's GPU can enter
+> > runtime PM. If the system later enters system suspend the GPU steps
+> > can be skipped because the GPU is already in the runtime PM state
+> > to match the intended system state.
+>
+> The compositor or a game probably has assets on the GPU. If they are
+> frozen, would the amdgpu driver be able to suspend?
 
-[=E2=80=A6]
+Yes.  APUs don't have dedicated VRAM so all assets are in system
+memory.  For dGPUs, the assets need to be migrated to system memory if
+the low power state results in VRAM getting powered down.  That said,
+the assets will be swapped back into VRAM on resume as needed.
 
-> > > It eliminates such a race *in amdgpu*. Other drivers might not have
-> > > that problem. I think Intel/Xe is refcounting jobs? Matthew?
-> > >=20
->=20
-> We schedule device resets on the same work queue as the job timeout
-> queue, as well as operations like VF migrations, since conceptually they
-> are quite similar to device resets. In both cases, we have the
-> capability to stop all schedulers on the device and prevent any future
-> schedules from being created while these processes are ongoing.
->=20
-> Putting it all together: when either of these device-wide operations is
-> running, we know that no job timeouts will occur and no scheduler
-> operations (e.g., run_job, free_job, etc.) will race. I suggest that all
-> other drivers requiring device-wide operations follow this approach, as
-> it seems to work quite well. In other words, even if free_job is moved
-> to the timeout work queue, I=E2=80=99m fairly certain you would still sch=
-edule
-> device-wide operations on the timeout work queue and still stop all
-> schedulers before any device operation touches scheduler or queue state.
+Alex
 
-Thx for the explanation.
-
-As far as I'm aware, everyone concerned already follows the (by now
-officially documented) approach of stopping drm_sched on reset.
-
-We have never really documented very well when and why one should share
-the timeout_wq, though.
-
-Someone who thinks he understands that really well should document that
-in drm_sched_init_args.
-
->=20
-> Therefore, I don=E2=80=99t believe Xe actually has a problem here.
->=20
-> > > > > - Matches the logical model: timeout selects guilty job and recov=
-ery,
-> > > > > =C2=A0 including freeing, is handled on one queue.
-> > > > >=20
-> > > > > Cons / considerations:
-> > > > > - For users that don=E2=80=99t provide timeout_wq, free_job moves=
- from the
-> > > > > =C2=A0 per-sched ordered queue to system_wq, which slightly chang=
-es
->=20
-> s/system_wq/system_percpu_wq
->=20
-> Ok, the system_percpu_wq doesn't actually for timeout_wq as that work
-> queue is reclaim unsafe. We probably should just remove that fallback in
-> the scheduler.
-
-Which one, exactly?
-
->=20
-> > > > > =C2=A0 scheduling behaviour but keeps correctness.
-> > > >=20
-> > > > We should probably avoid that and use a single ordered wq for submi=
-t, timeout, free when the driver doesn't provide one.
->=20
-> Ah, yes agree. I typed the same thing above before reading this.
-
-Why do we even provide a submit_wq?
-
-The timeout_wq I still understand somewhat, since it can help ordering
-racing timeouts. But submit?
-
-
->=20
-
-[=E2=80=A6]
-
-> > >=20
-> > > I'm not convinced that this is the right path forward.
-> > >=20
-> > > The fundamental issue here is the gross design problem within drm/sch=
-ed
-> > > that drivers *create* jobs, but the scheduler *frees* them at an
-> > > unpredictable point in time.
-> >=20
-> > Yeah, can't agree more!
-> >=20
->=20
-> The scheduler doesn=E2=80=99t free jobs; it simply drops a reference coun=
-t.
-
-In our discussions, it is astonishing me at times with what naturalness
-you make that statement.
-
-Who has ever defined, who has ever documented that this is how the
-scheduler is supposed to be used?
-
-Let's look at the docu:
-
- /** * @free_job: Called once the job's finished fence has been signaled * =
-and it's time to clean it up. */ void (*free_job)(struct drm_sched_job *sch=
-ed_job);
-
-"it's time to clean it up"
-
-
-> free_job should be renamed, in my opinion, to reflect this. Once that
-> misnomer is fixed, the design actually makes sense.
->=20
-
-How do you know that this is the design idea? Since when do you know?
-Why was it never documented? It's kind of important.
-
->  The scheduler holds
-> a reference to the job until its fence signals and until it is removed
-> from internal tracking.
->=20
-
-Let's look at tho documentation for drm_sched_job:
-
- * @entity: the entity to which this job belongs.
- * @cb: the callback for the parent fence in s_fence.
- *
- * A job is created by the driver using drm_sched_job_init(), and
- * should call drm_sched_entity_push_job() once it wants the scheduler
- * to schedule the job.
- */
-
-Do you see any clue anywhere at all that jobs are supposed to be
-refcounted? Where is the scheduler's reference (refcount++) taken? That
-could maybe even be taken race-free by drm_sched (likely in
-drm_sched_entity_push_job()), but I strongly suspect that what you're
-hinting at is that the driver (i.e., Xe) takes and frees the refcount
-for drm_sched.
-
-
->  Transferring ownership via reference counting is
-> actually quite common and well understood. The scheduler takes ownership
-> of a ref when the job is pushed to the scheduler.
-
-s/takes/should take
-
-Don't get me wrong, I *think* that your design suggestion to refcount
-jobs is probably (considering the circumstances we got ourselves into)
-correct. I think I would support porting drm_sched to refcounting jobs.
-
-But your way to formulate it as an absolute truth is plainly wrong. It
-is not the design reality, many drivers don't just drop a refcount in
-free_job; and it's not documented.
-
-Moreover, I think if refcounting jobs were a reality free_job() could
-just be deleted very easily, since the scheduler could drop its
-refcount whenever it pleases, without calling back into the driver.
-
->=20
-> > > This entire fix idea seems to circle around the concept of relying ye=
-t
-> > > again on the scheduler's internal behavior (i.e., when it schedules t=
-he
-> > > call to free_job()).
-> > >=20
-> > > I think we discussed that at XDC, but how I see it if drivers have
-> > > strange job life time requirements where a job shall outlive
-> > > drm_sched's free_job() call, they must solve that with a proper
-> > > synchronization mechanism.
-> >=20
-> > Well that is not correct as far as I can see.
-> >=20
-> > The problem here is rather that the scheduler gives the job as paramete=
-r to the timedout_job() callback, but doesn't guarantee that ->free_job() c=
-allback isn't called while timedout_job() runs.
-> >=20
-> > This should be prevented by removing the job in question from the pendi=
-ng list (see drm_sched_job_timedout), but for some reason that doesn't seem=
- to work correctly.
-> >=20
->=20
-> Are you sure this is happening? It doesn=E2=80=99t seem possible, nor hav=
-e I
-> observed it.
-
-It's impossible, isn't it?
-
-static void drm_sched_job_timedout(struct work_struct *work) { struct drm_g=
-pu_scheduler *sched; struct drm_sched_job *job; enum drm_gpu_sched_stat sta=
-tus =3D DRM_GPU_SCHED_STAT_RESET; sched =3D container_of(work, struct drm_g=
-pu_scheduler, work_tdr.work); /* Protects against concurrent deletion in dr=
-m_sched_get_finished_job */ spin_lock(&sched->job_list_lock); job =3D list_=
-first_entry_or_null(&sched->pending_list, struct drm_sched_job, list); if (=
-job) { /* * Remove the bad job so it cannot be freed by a concurrent * &str=
-uct drm_sched_backend_ops.free_job. It will be * reinserted after the sched=
-uler's work items have been * cancelled, at which point it's safe. */ list_=
-del_init(&job->list); spin_unlock(&sched->job_list_lock); status =3D job->s=
-ched->ops->timedout_job(job);
-
-
-   1. scheduler takes list lock
-   2. removes job from list
-   3. unlocks
-   4. calls timedout_job callback
-
-
-How can free_job_work, through drm_sched_get_finished_job(), get and
-free the same job?
-
-The pending_list is probably the one place where we actually lock
-consistently and sanely.
-
-I think this needs to be debugged more intensively, Christian.
-
-
->=20
-> What actually looks like a problem is that in drm_sched_job_timedout,
-> free_job can be called. Look at [2]=E2=80=94if you=E2=80=99re using free_=
-guilty (Xe
-> isn=E2=80=99t, but [2] was Xe trying to do the same thing), this is actua=
-lly
-> unsafe. The free_guilty code should likely be removed as that definitely
-> can explode under the right conditions.
-
-I'm right now not even sure why free_guilty exists, but I don't see how
-it's illegal for drm_sched to call free_job in drm_sched_job_timedout?
-
-free_job can be called at any point in time, drivers must expect that.
-No lock is being held, and timedout_job already ran. So what's the
-problem?
-
-For drivers with additional refcounting it would be even less of a
-problem.
-
->=20
-> [2] git format-patch -1 ea2f6a77d0c40
->=20
-> > > The first question would be: what does amdgpu need the job for after
-> > > free_job() ran? What do you even need a job for still after there was=
- a
-> > > timeout?
-> >=20
-> > No, we just need the job structure alive as long as the timedout_job() =
-callback is running.
-> >=20
->=20
-> Yes, I agree.
-
-As far as I can see that's how it's already implemented? No one can
-free that job while timedout_job() is running in
-drm_sched_job_timedout().
-
->=20
-> > > And if you really still need its contents, can't you memcpy() the job
-> > > or something?
-> > >=20
-> > > Assuming that it really needs it and that that cannot easily be solve=
-d,
-> > > I suppose the obvious answer for differing memory life times is
-> > > refcounting. So amdgpu could just let drm_sched drop its reference in
-> > > free_job(), and from then onward it's amdgpu's problem.
-> > >=20
-> > > I hope Matthew can educate us on how Xe does it.
-> >=20
-> > We discussed this on XDC and it was Matthew who brought up that this ca=
-n be solved by running timeout and free worker on the same single threaded =
-wq.
-> >=20
->=20
-> No, see my explainations above. This is not my suggestion.
->=20
-> > >=20
-> > > AFAIK Nouveau doesn't have that problem, because on timeout we just
-> > > terminate the channel.
-> > >=20
-> > > Would also be interesting to hear whether other driver folks have the
-> > > problem of free_job() being racy.
-> >=20
-> > I think that this is still a general problem with the drm scheduler and=
- not driver specific at all.
-> >=20
->=20
-> Maybe the free_guilty is likely a scheduler problem but I'm not seeing
-> an issue aside from that.
-
-I also can't see the bug. I fail to see how drm_sched can free a job
-that's currently in use in timedout_job(). If that can happen,
-Christian, Vitaly, please point us to where and how. Only then can we
-decide on how to fix it properly.
-
-
-P.
-
-
+>
+> > It's important to note that default runtime PM policy will prevent
+> > entering runtime PM when displays are connected. This can be changed
+> > by setting amdgpu.runpm=3D-2.
+> >
+> > This series isn't yet tested, I just share it for feedback on
+> > the approach. If anyone wants to test it as well, please feel free.
+> >
+> > Cc: Antheas Kapenekakis <lkml@antheas.dev>
+> >
+> > Mario Limonciello (AMD) (1):
+> >   drm/amd: Expand runtime suspend to APUs
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 17 +++++++++++++++--
+> >  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
+> >  3 files changed, 22 insertions(+), 2 deletions(-)
+> >
+> > --
+> > 2.43.0
+> >
+> >
+>
