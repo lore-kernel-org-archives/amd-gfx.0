@@ -4,70 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49867D3B7F3
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 15:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 536F4D3B7F3
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 15:30:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D23B10E0DB;
-	Mon,  8 Dec 2025 15:27:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D249210E462;
+	Mon,  8 Dec 2025 15:30:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K4mu33Dn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XtLJLm+i";
 	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E955210E0DB
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 15:27:39 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-7ae1c96ece1so332028b3a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Dec 2025 07:27:39 -0800 (PST)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72D1C10E462
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 15:30:47 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-295351ad2f5so9173085ad.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Dec 2025 07:30:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765207659; x=1765812459; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765207847; x=1765812647; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WYQAz4ndgm8whQCLK9FnRUIHaBbe0MW0Bdy+VYBAOcE=;
- b=K4mu33DnEfXuAS+1CCavXDqtn0s6Yqkqdp7khVrGMACbqB0MjkYdxdY2ytEuFPJ9rk
- 1q71koe0ocMFuPScWz9oSO7RDh0h2/4vo0OiYWj0giIsSLQ8g2u01VgDEQnb4vrMiY1H
- JWWGsBVCpcHmxDCk0K8LgfiAGlNHUYs5gs1xqdQWw1n4lUrXaHLoXDxeG7xRPv6Xl9ap
- LW5EzrBqza4kGCT7QN5dGrfgpu+EyhGF/O1ngqdhGVghTnx/EzptV33vLYuAlobuCAUy
- ubzyHSTcE/Bobv77F5l3tH8m7bXcaF07pyYXDdIjpfBLHDQ0Un0k2kBLnQKOxV5Ecbgx
- W70A==
+ bh=nXSfokaMdRzeD3CmctFW59fBi2/hwICOIdomtQqlViA=;
+ b=XtLJLm+itmKGTu8ZGYdv966NbALGogMgLfsACBJBr/CZrebMFZSs+xZog3wxwfMBjV
+ FEJtzSGa11qmlNBuPQ0biGAmCJ7VtolApCK91gMwzUqFWsrb/csXsRDFykDdiLRs1jjM
+ 2rrST4hewdJwXwLGhJ1UWQGkWe3HH9jH+iKNn+DjnfhFFA7qpoagQEUmd26Y07KzepOO
+ 9uhbAakLgqfjAsWh1M6h9sT/+O1JNuZCxYFqELRnx3mNdsLMJaUxgl5ovKQdtWGPKXQW
+ s82IERQn2GPo4QeS0Nr53PcvlhobL3D/F6T0kMpL2lJvuzysGSNEMu3i7ERqXT5v6kuB
+ WibA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765207659; x=1765812459;
+ d=1e100.net; s=20230601; t=1765207847; x=1765812647;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=WYQAz4ndgm8whQCLK9FnRUIHaBbe0MW0Bdy+VYBAOcE=;
- b=CUUbd9CzOLQC8H9jF95tFFaStckGr1dozFvHZsYaWN8sB1bfE47cAZdxHUZORE6Y1v
- dd9XyCHnHhRvrfcK9S0OZONQGBUiUSiw9kpmkLBqy33HptigOcVs+GG0yTeKisy+BI3I
- OJv1f4SmFLkBgJ+tMQyOFnT3PnEI6MDsqQiSFHeSMqIILg9G6gYVClhIil0PwjVUraOA
- VWAoN7DxJuA2NLiFP2KZQZH+9sQABriaKjrioLTHimxbrgUB8T8bEy0ugs7EHUvgrMf6
- 37AfmcSEnIo18J3PY8d2qm6pdC5XTW/3sIoaMBQ+VenS5u3gcCyxlXmRt1bqnUxxlEJY
- /sMQ==
-X-Gm-Message-State: AOJu0Yxyzx2SLZCnQ1LKfauYyhwhACSPp2lvzenZ6jpJaqOI3gacRXJ6
- Or+d5ETZ8BQnF+BSs9GIEipua4rvdncNvhJVX2DZRgRloxSjkZf4U01izTYlFPudliLS/xoDPth
- sIF+6Q3OfLxKQ9RiWsPe/8V2jyZRIJ7w=
-X-Gm-Gg: ASbGnctOccYcTHWWEZUqbixutrSYsIpt8KUjqr6FBhdSgXYjrpeHweh5SkacoJxavmj
- HYKyRAgqQUn0m6BTwfysOu5o6cy6CedSH9jnlJKPeq6QufUKErzEgdGKLFxBKDhe0iVTQAXTHIk
- kJk+w+Y4FC9mGVIlX+jYdfp4hikID+BtaXeIQGPfVH1iG368vEN8v/GzOLNPZiT80lC/YsVZ0q/
- 1mK30scAgu5/hwB+cm5kM81gZAXR+3z4COXsnzXE1cqZY6N4+9Gynx861fyp9l/BCnD6N8=
-X-Google-Smtp-Source: AGHT+IFHwXFyVHC7KhD0C9AZKtniOlKt40/Q8YW/QotecVWzx+0A7F8L0449++ltZinXjvoKcF8Hj1xVOCpnRUfA+Uc=
-X-Received: by 2002:a05:7022:e16:b0:11e:3e9:3e98 with SMTP id
- a92af1059eb24-11e03e9450bmr3064367c88.7.1765207659257; Mon, 08 Dec 2025
- 07:27:39 -0800 (PST)
+ bh=nXSfokaMdRzeD3CmctFW59fBi2/hwICOIdomtQqlViA=;
+ b=mveU5Jxn105mgsIJGtHDPitkZbKkt5C9/prhmCgpPskpOS31mREZyqjUAlER6qrLOG
+ Yuf4oSEg3V8OD7nBvFVGLWs2mJka0SbepD65dZiGSqSeudfnHmOkqaq+qugX86R9eR8q
+ GJBTHrkA86XwlmbQuKqJAkX0B5PCS5B2CWBIFiljG+Ma4U3xgZ1SdfN6GC1leLXYEzRg
+ V9MPxEm/yUPVa9bc/BSV5Emtw8k9CtSjYF7bh1nY1pRD6EJXbo4zsnb/kcR6bArlsKB5
+ WJixX6zpYwAyt35GLyPIB2XOf4j86SYl5P105zoBhDklRzsyT0UwbsDVXFv2GwrGwpRx
+ Er1w==
+X-Gm-Message-State: AOJu0YyWg1kjsAWkG+HAF+h4WFno12O6PualqSj+ZI7EUWc3sk5TUx/y
+ otYXUXGW9FRfIkS7e+EvjCGkplZkUqkTMYWT8k4aKfLhWJach3ak62fZkzI7WpUnYRrEDaXWZDJ
+ wB5gMaT7E+k9nwBiYJIuiKh8moSW23u9NHJCB
+X-Gm-Gg: ASbGncvdKx8LKmNFcThZwYEm1tAG2GOfz0OaKDRq3p1N5yFR3pqPNnU12EvtPMlJm0M
+ BzRZyML/z56qc/E5DzlGMEhLyKEm05ATtEnXGwFhPIrzXMbOTn4zEBgITwalGgWy+IVh+jqLnVF
+ xtXMMSvbxSr5IsCaCNqO/lotNceraW689PzyOcNLkVc8zLwSflLElyMiYRQ+oROsCeZbcJRtf50
+ hV1WwkjxhaSuInIrdzzYkfQVvj0X/h/wloQC5Ww2gZ+xApd6CUfQdi7QYtOcIOTOpWFTw0=
+X-Google-Smtp-Source: AGHT+IFLlVtEXHAoLG6W/wc2zPIXqTLbUB6MnJjfXQOs6qfiQrbYYPw8kTjw+tr5e7qow/7Py1ndOvMs2H/wuyXorOw=
+X-Received: by 2002:a05:701b:2405:b0:11e:3e9:3ea4 with SMTP id
+ a92af1059eb24-11e03e944dfmr2060000c88.6.1765207846764; Mon, 08 Dec 2025
+ 07:30:46 -0800 (PST)
 MIME-Version: 1.0
-References: <20251206023106.8875-1-timur.kristof@gmail.com>
- <20251206023106.8875-5-timur.kristof@gmail.com>
- <dd54ad10dfacf8211231c3981b1bb6730d772708.camel@gmail.com>
-In-Reply-To: <dd54ad10dfacf8211231c3981b1bb6730d772708.camel@gmail.com>
+References: <aa6e3fd2f20baf83d5bf56f880bf01e975829cd2.camel@northeastern.edu>
+In-Reply-To: <aa6e3fd2f20baf83d5bf56f880bf01e975829cd2.camel@northeastern.edu>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Dec 2025 10:27:27 -0500
-X-Gm-Features: AQt7F2qAZrtmbGfLyxDzrkQvyEbr60arjHR17moO-m-T2a3djcdFVSMaecV-kv0
-Message-ID: <CADnq5_NjSQvc2UQFBP4Xy8S4t=xxPhRHgKD5HGd3Dy2xs=nbMQ@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/amd/display: Setup DAC encoder before using it
-To: timur.kristof@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>, 
- Harry Wentland <Harry.Wentland@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- alexander.deucher@amd.com, siqueira@igalia.com
+Date: Mon, 8 Dec 2025 10:30:35 -0500
+X-Gm-Features: AQt7F2odrttwaWajJiR3uOYtuOsXiUouHYre73940KYxJpDMgcC_juVOwbd2vb0
+Message-ID: <CADnq5_Mw6qYxYp_Vdo8R9hCtagxuDetgQFjNT_Y798g1vN7A1Q@mail.gmail.com>
+Subject: Re: [bug 6.18] Failures and Resets on GFX1037
+To: Mack Wang <wang.yunche@northeastern.edu>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,121 +80,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 8, 2025 at 10:21=E2=80=AFAM <timur.kristof@gmail.com> wrote:
+On Mon, Dec 8, 2025 at 8:59=E2=80=AFAM Mack Wang <wang.yunche@northeastern.=
+edu> wrote:
 >
-> On Sat, 2025-12-06 at 03:31 +0100, Timur Krist=C3=B3f wrote:
-> > Just like for other signal types, call the encoder control
-> > command in the VBIOS to setup the DAC encoder.
-> > The DAC doesn't work well without this on some GPUs,
-> > for example the Radeon HD 7790 needs this.
-> >
-> > Fixes: 7d63519cd9ca ("drm/amd/display: Add concept of analog encoders
-> > (v2)")
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> >  .../amd/display/dc/dce/dce_stream_encoder.c   | 25
-> > ++++++++++++++++++-
-> >  .../amd/display/dc/inc/hw/stream_encoder.h    |  4 +++
-> >  .../amd/display/dc/link/hwss/link_hwss_dio.c  |  4 +++
-> >  3 files changed, 32 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > index 574618d5d4a4..1fbf6263c235 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_stream_encoder.c
-> > @@ -693,6 +693,24 @@ static void
-> > dce110_stream_encoder_lvds_set_stream_attribute(
-> >       ASSERT(crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB);
-> >  }
-> >
-> > +static void dce110_stream_encoder_analog_set_stream_attribute(
-> > +     struct stream_encoder *enc,
-> > +     struct dc_crtc_timing *crtc_timing)
-> > +{
-> > +     struct dce110_stream_encoder *enc110 =3D
-> > DCE110STRENC_FROM_STRENC(enc);
-> > +     struct bp_encoder_control cntl =3D {0};
-> > +
-> > +     cntl.action =3D ENCODER_CONTROL_SETUP;
-> > +     cntl.engine_id =3D enc110->base.id;
+> Hi,
 >
-> Found a mistake here.
-> This should use the analog_id added in the previous patch.
+> Starting from kernel version 6.18 I'm experiencing frequent failures and
+> resets of the GPU, rendering the computer nearly unusable. The screen wou=
+ld
+> flicker, and eventually blackout (most of the cases) or recover (fewer ca=
+ses).
+> Even if I switch to another GPU and have Radeon GPU only for rendering, i=
+t can
+> fail and eventually kill the app that is running on it. The problem isn't
+> present in 6.17.
+>
+> My dmesg logs show something like this (a successful reset):
+>
+> [  585.109939] amdgpu 0000:06:00.0: amdgpu: Dumping IP State
+> [  585.111758] amdgpu 0000:06:00.0: amdgpu: Dumping IP State Completed
+> [  585.111839] amdgpu 0000:06:00.0: amdgpu: [drm] AMDGPU device coredump =
+file
+> has been created
+> [  585.111841] amdgpu 0000:06:00.0: amdgpu: [drm] Check your
+> /sys/class/drm/card2/device/devcoredump/data
+> [  585.111844] amdgpu 0000:06:00.0: amdgpu: ring gfx_0.1.0 timeout, signa=
+led
+> seq=3D31692, emitted seq=3D31694
+> [  585.111847] amdgpu 0000:06:00.0: amdgpu:  Process kwin_wayland pid 114
+> thread kwin_wayla:cs0 pid 514
+> [  585.111849] amdgpu 0000:06:00.0: amdgpu: Starting gfx_0.1.0 ring reset
+> [  585.269485] amdgpu 0000:06:00.0: amdgpu: Ring gfx_0.1.0 reset failed
+> [  585.269490] amdgpu 0000:06:00.0: amdgpu: GPU reset begin!. Source:  1
+> [  585.331433] amdgpu 0000:06:00.0: amdgpu: MODE2 reset
+> [  585.338731] amdgpu 0000:06:00.0: amdgpu: GPU reset succeeded, trying t=
+o
+> resume
+> [  585.339090] [drm] PCIE GART of 1024M enabled (table at 0x000000F41FC00=
+000).
+> [  585.339113] amdgpu 0000:06:00.0: amdgpu: PSP is resuming...
+> [  585.361053] amdgpu 0000:06:00.0: amdgpu: reserve 0xa00000 from 0xf41e0=
+00000
+> for PSP TMR
+> [  585.593433] amdgpu 0000:06:00.0: amdgpu: RAS: optional ras ta ucode is=
+ not
+> available
+> [  585.602279] amdgpu 0000:06:00.0: amdgpu: RAP: optional rap ta ucode is=
+ not
+> available
+> [  585.602281] amdgpu 0000:06:00.0: amdgpu: SECUREDISPLAY: optional
+> securedisplay ta ucode is not available
+> [  585.602282] amdgpu 0000:06:00.0: amdgpu: SMU is resuming...
+> [  585.602569] amdgpu 0000:06:00.0: amdgpu: SMU is resumed successfully!
+> [  585.602750] amdgpu 0000:06:00.0: amdgpu: kiq ring mec 2 pipe 1 q 0
+> [  585.607508] amdgpu 0000:06:00.0: amdgpu: [drm] DMUB hardware initializ=
+ed:
+> version=3D0x05002C00
+> [  585.880737] amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 uses VM inv en=
+g 0
+> on hub 0
+> [  585.880742] amdgpu 0000:06:00.0: amdgpu: ring gfx_0.1.0 uses VM inv en=
+g 1
+> on hub 0
+> [  585.880743] amdgpu 0000:06:00.0: amdgpu: ring comp_1.0.0 uses VM inv e=
+ng 4
+> on hub 0
+> [  585.880744] amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.0 uses VM inv e=
+ng 5
+> on hub 0
+> [  585.880745] amdgpu 0000:06:00.0: amdgpu: ring comp_1.2.0 uses VM inv e=
+ng 6
+> on hub 0
+> [  585.880746] amdgpu 0000:06:00.0: amdgpu: ring comp_1.3.0 uses VM inv e=
+ng 7
+> on hub 0
+> [  585.880747] amdgpu 0000:06:00.0: amdgpu: ring comp_1.0.1 uses VM inv e=
+ng 8
+> on hub 0
+> [  585.880748] amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.1 uses VM inv e=
+ng 9
+> on hub 0
+> [  585.880749] amdgpu 0000:06:00.0: amdgpu: ring comp_1.2.1 uses VM inv e=
+ng 10
+> on hub 0
+> [  585.880751] amdgpu 0000:06:00.0: amdgpu: ring comp_1.3.1 uses VM inv e=
+ng 11
+> on hub 0
+> [  585.880752] amdgpu 0000:06:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv =
+eng
+> 12 on hub 0
+> [  585.880753] amdgpu 0000:06:00.0: amdgpu: ring sdma0 uses VM inv eng 13=
+ on
+> hub 0
+> [  585.880754] amdgpu 0000:06:00.0: amdgpu: ring vcn_dec_0 uses VM inv en=
+g 0
+> on hub 8
+> [  585.880755] amdgpu 0000:06:00.0: amdgpu: ring vcn_enc_0.0 uses VM inv =
+eng 1
+> on hub 8
+> [  585.880756] amdgpu 0000:06:00.0: amdgpu: ring vcn_enc_0.1 uses VM inv =
+eng 4
+> on hub 8
+> [  585.880757] amdgpu 0000:06:00.0: amdgpu: ring jpeg_dec uses VM inv eng=
+ 5 on
+> hub 8
+> [  585.884345] amdgpu 0000:06:00.0: amdgpu: GPU reset(1) succeeded!
+> [  585.884371] amdgpu 0000:06:00.0: [drm] device wedged, but recovered th=
+rough
+> reset
+> [  585.897300] amdgpu 0000:06:00.0: amdgpu: [drm] *ERROR* Failed to initi=
+alize
+> parser -125!
+>
+> I'm on an ASUS laptop with Ryzen 7940HX/Radeon 610M. I'm using a distribu=
+tion
+> kernel, but the maintainers are slow to respond, so forgive me for sendin=
+g
+> messages here. I use a custom kernel command line amdgpu.dcdebugmask=3D0x=
+10 to
+> work around kernel lockup problems, which is a separate problem that's be=
+en
+> around since ~6.12.
+>
+> I've collected more dmesg logs other than what's shown above, as well as
+> device coredumps from /sys/class/drm/card/device/devcoredump/data. I'm al=
+so
+> happy to help with bisecting the problem if it's not too large. Let me kn=
+ow
+> how I could help.
 
-The series looks good to me.  Do you want to resend with this fixed?
-I'll apply it.
+Please file a ticket here:
+https://gitlab.freedesktop.org/drm/amd/-/issues
+and if you could bisect, that would be really helpful.
 
-Thanks,
+Thanks!
 
 Alex
-
->
-> > +     cntl.pixel_clock =3D crtc_timing->pix_clk_100hz / 10;
-> > +
-> > +     if (enc110->base.bp->funcs->encoder_control(
-> > +                     enc110->base.bp, &cntl) !=3D BP_RESULT_OK)
-> > +             return;
-> > +
-> > +     ASSERT(crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB);
-> > +}
-> > +
-> >  static void dce110_stream_encoder_set_throttled_vcp_size(
-> >       struct stream_encoder *enc,
-> >       struct fixed31_32 avg_time_slots_per_mtp)
-> > @@ -1521,6 +1539,8 @@ static const struct stream_encoder_funcs
-> > dce110_str_enc_funcs =3D {
-> >               dce110_stream_encoder_dvi_set_stream_attribute,
-> >       .lvds_set_stream_attribute =3D
-> >               dce110_stream_encoder_lvds_set_stream_attribute,
-> > +     .analog_set_stream_attribute =3D
-> > +             dce110_stream_encoder_analog_set_stream_attribute,
-> >       .set_throttled_vcp_size =3D
-> >               dce110_stream_encoder_set_throttled_vcp_size,
-> >       .update_hdmi_info_packets =3D
-> > @@ -1568,7 +1588,10 @@ void dce110_stream_encoder_construct(
-> >       enc110->se_mask =3D se_mask;
-> >  }
-> >
-> > -static const struct stream_encoder_funcs dce110_an_str_enc_funcs =3D
-> > {};
-> > +static const struct stream_encoder_funcs dce110_an_str_enc_funcs =3D {
-> > +     .analog_set_stream_attribute =3D
-> > +             dce110_stream_encoder_analog_set_stream_attribute,
-> > +};
-> >
-> >  void dce110_analog_stream_encoder_construct(
-> >       struct dce110_stream_encoder *enc110,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > index 27f950ae45ee..9658b06f32f7 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
-> > @@ -153,6 +153,10 @@ struct stream_encoder_funcs {
-> >               struct stream_encoder *enc,
-> >               struct dc_crtc_timing *crtc_timing);
-> >
-> > +     void (*analog_set_stream_attribute)(
-> > +             struct stream_encoder *enc,
-> > +             struct dc_crtc_timing *crtc_timing);
-> > +
-> >       void (*set_throttled_vcp_size)(
-> >               struct stream_encoder *enc,
-> >               struct fixed31_32 avg_time_slots_per_mtp);
-> > diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > index befa67b2b2ae..90ff4fdd79b7 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
-> > @@ -148,6 +148,10 @@ void setup_dio_stream_attribute(struct pipe_ctx
-> > *pipe_ctx)
-> >               stream_encoder->funcs->lvds_set_stream_attribute(
-> >                               stream_encoder,
-> >                               &stream->timing);
-> > +     else if (dc_is_rgb_signal(stream->signal))
-> > +             stream_encoder->funcs->analog_set_stream_attribute(
-> > +                             stream_encoder,
-> > +                             &stream->timing);
-> >
-> >       if (dc_is_dp_signal(stream->signal))
-> >               link->dc->link_srv->dp_trace_source_sequence(link,
