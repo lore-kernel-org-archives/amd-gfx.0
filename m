@@ -4,149 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58E37D3B7DE
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 11:56:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45294D3B7E1
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 13:33:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF11C10E136;
-	Mon,  8 Dec 2025 11:56:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5D2610E120;
+	Mon,  8 Dec 2025 13:33:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PBVHdiUt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ufar4ldZ";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012051.outbound.protection.outlook.com
- [40.107.200.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3E9F10E136
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 11:56:15 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013065.outbound.protection.outlook.com
+ [40.107.201.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3215A10E120
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 13:33:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u+7tVtc4wOF+RY2RmpAues+o/ihlSdEH5IjJ929WeNlG6vdhrU8YixhmpNqw8jJabX/hyFzxBKTsp2VUJjhEqmbqqFXAhVnOFS607HI3IM82sWVBnmJhqVDt62q3VQqzeZ8IXED54BrmgcFttS2olC2fB5J0Lv9J3GhrTCiwl5gnOCuUjs5CPN+bRIMHo4vA2GrsCNWM919ORZDCppHUaM3SWch2fhZVv8qAuA3o/hqupRBuY0mMCETASq7HFsiEnhrvTLlli+JMIeFpV1HQaoWua0T5f0Fl96WaKvyNjVGK2jSbIRtGkyGwl8ttz8g+TkDN5qi31TtJrs0qcxZhhQ==
+ b=b71WaTQgsaO/sK+4NVQY1Yp9tpWvEMW1nAPP09IGij6kwPFQTM2aOzt1GQpuPr80g/NsPZsh/CFRCm1hB+FVG2Bk1ExFhHej8TJDVXH+Qs2ov1YfOlN1jXtzgJi8hPvr/+61sbGSOm7IaZoHV9cwVcPVsQ/ZQg+HVyiPE5IUO7U2RQogZ5OHDNeHb8+3NCICVxAXBxyv/gKukL//U2in4+Po91wHEF9+KXyUtJl6vpm+Dbr3M059Y+aW/AJnVhinJX4pXYPdDeFZvUHgXITbYaiKcsJWY2cu1ZPlhqA6e8Jwyo4Juw8FhZx0BrzkNehv086GWkvKfsEPqGgMFwgyyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S0M2/JR+wvrq8+s4U48bGjyzlbkQZnYe5qaCvC8OIUI=;
- b=iINc7lffj+CJv7XulObDx2Kcj2kGh5VeIi9kioUykPqbvJ3tRJ3bS/NuHy/l5jAa11i/t2HudrWwCI8TF0LseFyOHm7NKm5f931qGANx4uuoH0qu7VyDMVoiEtMfGB/uqsQ1m8T3ZHuaduKPk8GN5pGmpVq0rrvvdxdiAtoObgMLqSS2WSNTQIqUlEeLWpRMaJZV39RHx8It+oUapTFC2gguHH+ZTb10v+FzNw2d4UtZ4lJ3QDvLfH+UEnLHtK3u8JSLyw75g42eEWfI1Axct22kkPDYfLUVzDPfiaSdE1Zv9z3h0y33G2ARGSiLLsE4qYerLfBMZsOaqtoPeEs4iA==
+ bh=fjHOY6H/QLEPIZyTOOJRMacb3PCe8BUxw57Te7+6khY=;
+ b=tFrXFdcsEHYFWlcgY5tkA9N+Py2TI8v5M45vbQ1pdathyCG3j8ooRvOegiSsZw0AeK6bDU2GuhNkMibqiugqCeivjrLOpwVLkU+Ep54vaQg/gSEWmRxABFlcZ/OZ5Rz+DK7qWmf4+KOY8t5/ZDbAT9dNYjuG4m3xSXzsSvfKirCcot59DACTh4lcjY/7g6Kali+KoDrn1vvh3DPbi6KTtqQ9hQq3sT2n2QfXV7dhGEPObDgiyD1aivEdCyeuABBCMpTr4HoHsvrwLW1+iLeLwQ4NIPir9sNJidVEI+EdBtjeUmq0uguqc9cxI4D0wJdJTB/ZEtpfPZvSkgZv9Ucm/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S0M2/JR+wvrq8+s4U48bGjyzlbkQZnYe5qaCvC8OIUI=;
- b=PBVHdiUtEEDpXrlsc+/BLwKNVaDbarDs2vDB12fr80qVrLjxZmgybT83jzJpwOlU3R+PPBYBuI1Q0YeADaXQS+L6QUp+d0LYldmg7wZ6X+Ufy5slQFErYiLk5ovOX5GLmaAEZqhFOriLu+Znz2mO/3God3QUcJdoWQI24EpjkYY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by IA0PR12MB8864.namprd12.prod.outlook.com (2603:10b6:208:485::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.13; Mon, 8 Dec
- 2025 11:56:08 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::d759:a62b:f8ba:461d]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::d759:a62b:f8ba:461d%4]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
- 11:56:08 +0000
-Message-ID: <a17f7e36-2e06-4b0e-95f2-d2ca76bd45c1@amd.com>
-Date: Mon, 8 Dec 2025 17:26:03 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: fix mes packet params issue when flush hdp.
-To: chong li <chongli2@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: emily.deng@amd.com
-References: <20251208111655.1396987-1-chongli2@amd.com>
+ bh=fjHOY6H/QLEPIZyTOOJRMacb3PCe8BUxw57Te7+6khY=;
+ b=Ufar4ldZnaJoZXRF2D6/s1x8n+uoA0jmD6DF7sY9UqU9OJegiAL7q6dGQNAJhJI488boPJreCoUj8G+yvjvYGuBibRGKUzEo3mypt8s8+kjfYtqSc6SvCoxaqTDkRT5MXYghw0rrcKZY9gufEqga03Ys3ShrY/eVgo+BR+0909o=
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by CYYPR12MB8924.namprd12.prod.outlook.com (2603:10b6:930:bd::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
+ 2025 13:33:14 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2%6]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
+ 13:33:14 +0000
+From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Reduce stack usage in
+ amdgpu_userq_wait_ioctl()
+Thread-Topic: [PATCH] drm/amdgpu: Reduce stack usage in
+ amdgpu_userq_wait_ioctl()
+Thread-Index: AQHcZeC1ZAqdfoFcC0qf2f2BeTJcMbUTAnqAgASyOOA=
+Date: Mon, 8 Dec 2025 13:33:14 +0000
+Message-ID: <IA0PR12MB8208664A9332F0AB67C5A1CD90A2A@IA0PR12MB8208.namprd12.prod.outlook.com>
+References: <20251205121414.408466-1-srinivasan.shanmugam@amd.com>
+ <245cd9a1-6a67-4970-a71f-ffc37563ac20@amd.com>
+In-Reply-To: <245cd9a1-6a67-4970-a71f-ffc37563ac20@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20251208111655.1396987-1-chongli2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0205.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e9::12) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-08T12:43:17.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|CYYPR12MB8924:EE_
+x-ms-office365-filtering-correlation-id: bb3b237f-c68d-4f89-6261-08de365e569e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|7053199007|38070700021; 
+x-microsoft-antispam-message-info: =?utf-8?B?dDJxZ0l5MnZQNzdVM1A0QWRaWFRYS3BhUFdvb3BENmYvT1hld1g2d2ZKbFZC?=
+ =?utf-8?B?Z1oxT3BNMHhPcjYzRXAvNFNJYnRrUmtDbHB1eDI5VmtQMVRqQUNCaGxtUDJL?=
+ =?utf-8?B?azJpVGZWb1d3dkVTZGNWT3RiMXoxbm9UQnNOeEFibEZ2M1Jwb2hobFJzelZY?=
+ =?utf-8?B?WUNpd0czSnR1WlZVK3V0RzlhR3I4azMxbTl4bk1oSUo5Y1dPNVBEbENESjkr?=
+ =?utf-8?B?L0ZRU3lsUWtsdURQU0trMWZ5VzRnVnhxZWFsK2o4MEtTT05GcEtleXovVGg0?=
+ =?utf-8?B?bFcyZ1hVSVpNTEpIRklqdFNRaTNQVXZXWmF3WTZFUHVCUlRlRExzc3pkT2J1?=
+ =?utf-8?B?VFp3WndwSXZpQ2ZUcTlWUk52TlM0Y0I3VHhjd3dwdWF0TWhyNmRtSXcwNVRn?=
+ =?utf-8?B?N3dGWUgzWjVlK24razM0VDh3N09pR01EQTJndm1Ka3NyRXRyMDBuRTB2b0dL?=
+ =?utf-8?B?U21GbVhIc1lqQksrQmlidWpUSGozMUVPWkw1NUsxcjgxSzdNNlBhK3R0Mm03?=
+ =?utf-8?B?QTVCWUd6bi9RSW9aT2IzZTdnRDB0T3ZVMHY3YUtpWmpicDgxbTUyNlJHZlFB?=
+ =?utf-8?B?YjV1ZjR4REd3aTV1Um9MMnY4cStzUWpnaGRJbVBwSFBSeUR6RVp5ZDJCaUxY?=
+ =?utf-8?B?RzB1RjIyMzhnRUhza0hqZXdVbWgzdVY2bnI5WFdRN3ZPd3pWMUNEUjdxTGVw?=
+ =?utf-8?B?bHNVQ0NhSldsaDd6YzdQOTkrbUhhRi85WW1iNEp4MTJRTlcvdmdUYnB0NjJB?=
+ =?utf-8?B?bkdRU2RGa09aa09WbHRIUW1rSFE1MXNVcFNEUmUvSFBFVFNUcXljcmRzdS9p?=
+ =?utf-8?B?TkZqSVZHditYNVpiNmtUR3p5RTBHUkhYOUVncVp0MHJmZUFBZnpZcDBzSlNB?=
+ =?utf-8?B?Sm5qQUFNK2tkZjBsTnJUMUlDTytXbGpSR1Rsdkp4VjRiQWJVbWdLdVJtMW1w?=
+ =?utf-8?B?aXRTc2R0OFpqTUpFKzNZaTRkVEJXYXE5b0FmbWlsMTBBeTRKT01IN1luRzUw?=
+ =?utf-8?B?aE92NW5CQW5rYU94eHp3Ymw3cmdvdE9GVTZVemFxaU5rTDZrOVhoUHp0K2F3?=
+ =?utf-8?B?V1FwQ0ZWOUhOY3RIazZkdU5XN1czam5LU0JYMG02Ri84cXNsZmlaTlZJeXM3?=
+ =?utf-8?B?b3dnTkFJeUFjdGh4T0didmhEQnNQd3JVd0VsdU9QSmJEaVB1LzRLNk9vdDZm?=
+ =?utf-8?B?YXhaMFRjSUMxdytPTStuU2JWekxySGxYQzdFOVd4ZTA4Nm9DNGYzVUNBY0RN?=
+ =?utf-8?B?M2M3aTZZTTNtR0RLZlNvN2M5eXlqUnlGM2Y1NWJJaFFHREdoSnhmN3Bra293?=
+ =?utf-8?B?N1hNZ2lRT3pSR01qcWxXeUd6REg5Ulo1WTRBYzEvNmZGcXU3MGJybmhkNXN1?=
+ =?utf-8?B?SDFuR2wySG1UblpIcDNZV0E0Qmlpd2VxcVNwdnFHZFBvR3BLVVU1ZmQzdHBk?=
+ =?utf-8?B?MHRKNzJGOFFGWGhLaitnK0U0T1N4dzFWMTkxeWMrdm84bUZLTTJkTVJpU2NQ?=
+ =?utf-8?B?SzBNck9VQW9Lc2xwRlppUitPQUdmMjRXTktBS3BGTGNoNW9YQnFNNmovRDh4?=
+ =?utf-8?B?Q0lIWXJkcmFXREYzSUk0OGEybnFnS0F1QlEvTnU0clpaalNPK1BTcWdrY1hi?=
+ =?utf-8?B?NXRNbnhJTjlURGk5eVY4elBrRnRHbTZOSFRGNHB5M0tFcDBaYndpUjRTMnd5?=
+ =?utf-8?B?bnNEYVU5eEJiL0RHOHNSa1NQTm91eWJ0TC9DN1R2QWZLUWhaaEJ4WWJpYTJ2?=
+ =?utf-8?B?YU9IUUIyY2RWR2RkcFlYdlFscXJhV2loYmg4VmhMdWFSajdyMnZSQ2Z0Nndl?=
+ =?utf-8?B?NmR2d1lCRGwyV1UvZng2NFc1QllMeTBiYkRPb2tmTHpJSGN0WXZKT0poTTQ4?=
+ =?utf-8?B?cXQvdzZwK3VUV3lCWSsxcnB6WmdGU2QyOFB1TmNDb1BML2NHRWlhdWdIeFdV?=
+ =?utf-8?B?Lzg2S1NzK05OcTNXQWhPS3dUVWI2REwxeUxZSnorc0JvOVNac1pZS0w4Y25h?=
+ =?utf-8?B?bVZ6UUxabG9mQXNMY0hEamVUUHJIZzlFcVhmK25TeVptcmJNY2R0NXNiaXVm?=
+ =?utf-8?Q?G3db1p?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700021); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MG1lWXJhNjYxUnVUcTZtSUtBc2d6Yng5dXNKZnM4WkxZeHl4OCs3R0o3RHN0?=
+ =?utf-8?B?ZlNkQ1hkYkc4ZVdiZk9LZ2FIZTNEbFNtS1ltdjdNZTl1R1h4K1BLNzVjRkFz?=
+ =?utf-8?B?azNlV0pjc0NJS1ZOQ0t1Rk0rcTEzYzdxaG0yZXdPWkJPNE5Ucm5ZM0NBUStR?=
+ =?utf-8?B?SWl3TzdhRk44cDZDLzQvYWE5NE5neTVGUVlHQld3UlRUNzBXZGJ2TUQrcWhr?=
+ =?utf-8?B?Q1hXNG5CcTg2aEMzTDVIcHB4WEEzUzM5YVo0bWZucHNPZ2wwSEZpNFFManZI?=
+ =?utf-8?B?ZWJhSkxqZlpwRExzcUV3a3Qwc25SdElQZzBHVzU2bUJvS25SeUFlOG4waXZr?=
+ =?utf-8?B?WG56aHBoMTJ2WldacWRPUUVQVXRxWU1sNCt5Q3E3ZnpaNUxwSTNKMHBPL0Fy?=
+ =?utf-8?B?K1hIcDhPT3ZFNDg4eitNYU5kbW1JQ0MzT2tJZmZXTVNqZzZZcWNjS3YvU0Nl?=
+ =?utf-8?B?emZtNnZEWFNUKzR5Nk5hN3FTUHM5clpYU21tVjRmVVZmMnhZL1VyVTdmb1Nu?=
+ =?utf-8?B?aVlvZlpyUDlndWVJTEkwZ1QrejUvcWV3TUk5azNIQ2JEMmI2SUNUdUg0a0Nr?=
+ =?utf-8?B?OW1Qb0VCMEdyUkx3MzhxVEMrYzhsd01Ma3h1blpyQWl3SncyaExtci9wdk5Z?=
+ =?utf-8?B?aDkwdXFCdk43cCtWeE0vbzMyVnN1YjAvK1YzVWF0MkhoMXhLNWl2MDRxak1C?=
+ =?utf-8?B?RU1iLy9sRHdsS01GTEhkYnU1ZDFnM0FndDBKa1RPN25wdFh3QnJoMkdGRTc4?=
+ =?utf-8?B?N2cwbVh0dW8rVm91NEpJMi9sbFRSU1psamwwNy82VjU4NU1VMHBodFQ3a1g0?=
+ =?utf-8?B?Y1JUbDdFKzY2UGM0eTZOMklhZnQweklzcWxVWDJ1Rm9RVmFMV29LaE51QVFn?=
+ =?utf-8?B?QmlMMUtNL1ZwOGZ1RFU0dFlSVXAybS8rT0VzL0dsbGtLc1o0UXRZZUNzc2dI?=
+ =?utf-8?B?bHRYZ0JYMmtWWW5yNzBCNEowNEpDZ0wweDZ6cmJGa3Zqb0RTUEUxemlNUjJu?=
+ =?utf-8?B?d2N5UjVaWGtSbVNCN20vZFNSa0s0MmZLajJxem12M1c2RDBNVUhEMWdQcE14?=
+ =?utf-8?B?SmNJMFpHdi9Oa2Jabzc3WHVtTG9vamwydnp2RW9iOUptYVNCRjdKaFpZMnpF?=
+ =?utf-8?B?WnlyYXJLKzhlVDk2VlBleUZ3YTFseTNzRTBVOHg1MEg4QmZucnpqcHhtVXg0?=
+ =?utf-8?B?YVlJUUtSZFY2RUZadTV6aSs0b2tlM0drZ3RORk1XYTJDU2p3ODQyblNXWS8z?=
+ =?utf-8?B?bU4wNWo2Zmtka2JNY1hHZmxQY3VwRUQ4R25aVXB3QjY0Y1JPKzA3cmZxQ0Nl?=
+ =?utf-8?B?bWszdmErNFdwU3B0L2FJcWxJMUN4WUMvRThlNHI3cktFRmpEMjc5TzVKazFO?=
+ =?utf-8?B?UlhyeFdHeE1GQW1SSmV3N0tPTjEyQW5hY3BpWjFsNGpnNnlSM1hZOVlrazgy?=
+ =?utf-8?B?QkdnSnhRQTlpaTZUQUNHTEtkQWhZd0x0cWhYNGo3Y2MzT1NNSnNMTEpHZFR5?=
+ =?utf-8?B?QzFUNWNlVjFWb2U0ZmlKM1dGSm9BWlNtejR1dmNlNlhUaWdUT25Gc25IYWV4?=
+ =?utf-8?B?KzdndU1FT1lLaWcyaXRENnlsRHBOSkpQZkdPbXZDdGRyQkV4aXJmYnpEU3VY?=
+ =?utf-8?B?QVQrdys4RXA4N1dHOUhZc0JJa2NPVXRNSXRjZmR3dk9mNU40UWlzOTMrZWtJ?=
+ =?utf-8?B?R21XWHR1SFJSMnRVV0RPdHQ1NWhHa3FCcDVpU1R0Q0tWN3pPdEhJQTNBcmZj?=
+ =?utf-8?B?NkhTMGxLbThQeUpCSnFkZlg5Ty93WmZldDNlRjF4ZXQvMEhIOVg2L0dXYWlo?=
+ =?utf-8?B?UTNYRTVGUjYweDNVNlprZVdzQ0krTUEvVXNIVWtVYTVSZlhxYUE2Zzl5bjVF?=
+ =?utf-8?B?djFrYmpIUnpONzU3eWMvem1QNmgwU09tMkIxczEzWnZVcUxBZjVwbHNLU1ZU?=
+ =?utf-8?B?cUFCcnhON0YwRGI3RUxnY0Nzb0VMOUlDQUxnNzJyZW9Nd1AxQ2pZMlhzckh3?=
+ =?utf-8?B?aHh0b0RXSHpkZXdYQ043azNHOG1maUxzMXVlYWtkaDNJdXhUSStHNnJZaUJB?=
+ =?utf-8?B?YXAzTGFVQ3Q2NTNMenR1TjhzZ3IxaDhhcVNWZG1OdEdzeUZwV2lyeDNhVjVI?=
+ =?utf-8?Q?uoJg=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA0PR12MB8864:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4c3b7f8-e70c-45c8-d89b-08de3650c5c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bG5uK1BESkluN1FhenBsbVRtdlh2amNvWGpZNDJxS0I4Nm85RWF1SzFFYk9l?=
- =?utf-8?B?aGxFdG90azN1VEhKdzFWNEEyV2M4SlZsY0pMM0tMSUZMMDloK3lRTXAzazlD?=
- =?utf-8?B?dEE5emJBMTNsSlN3RzJRUFM0TURncWFYWTBreXZ4RWswOWQ4SU1oSE5nT0pj?=
- =?utf-8?B?T2U0aXpBc3NCUG9VSzRjL0lXM3lrUkx1alNkejNSZXhhVDRRbmRZcjd3K2FT?=
- =?utf-8?B?Z2wwN3kzaXFQNWdwcHlxZTVsSS8xS2s2bnRCandiM0lhMUJ1WHVtaVlLeVAv?=
- =?utf-8?B?b3A5dGJkWjJHSkkxYW84ODhZMkx6a1VscWpVVzVVMmgzN2JyZ0Rsck9OYWlG?=
- =?utf-8?B?MWpjWjlhRDhHRjEwczJseWVCMUhJdktpblQ3QlVoNlZDcHlDWTRxTWo5NG1G?=
- =?utf-8?B?WmxRdUNuelV5TkRiZ3hxdVRiSk9xRXdFNGw1M0NRMTZPV3lUblFrNXZIOTVy?=
- =?utf-8?B?NU12bGFoSDBDTFMxUUtEN1ZWc1VVZm15cVVaR2ovUkg0ZW5nUWZEYzNmMmZo?=
- =?utf-8?B?THQ3VkZWU00ybnZLR0lPS3RVWjJQdk1YTTBFUWgycVVVUHNSejFobktTVm9V?=
- =?utf-8?B?bEtjL3Q1aGIvSWtmM2Naa3BYakdtY0Ryd01YWS9nUXBNUGhRbzZ3TnNISC82?=
- =?utf-8?B?TlZEbXZybnpONmtUZnJCelFTUjJYZzNqRHA2djZyL2w1MlVzclpYV3psU2VG?=
- =?utf-8?B?ZTYrMDR4VWRZMklhREovYnVHTnJvUXkyM3labXlLMTJzNDdYZzV6dVB1RTBu?=
- =?utf-8?B?N0w5SVdpR2lTY2NWRGNIR3BrZTl5MXBSdkVsSDVGMHlGZ21zL3Z3YkpCL2ZN?=
- =?utf-8?B?cWNwbDMxWWgra1ZVdS96aGRsajJ5b3g0eVFTcCtNeE90ajlweU5NaG5nQzYr?=
- =?utf-8?B?NUNPMnIySklMNEtJTVZXcHVYOUplOG5zZmg4c2pPZDBlMWV6Q3RIRXRrQk83?=
- =?utf-8?B?NjRWeTZBa0g2NFBPekRxdEpnWkQ5WE9ad0NCc0tlZ3lFbWVlY041c1BadGdj?=
- =?utf-8?B?U3JndWhOMzJEMURpSUJUYzlvZDBhV1hJOWo2dmJKV3B3OFJzR001SHJGWDlr?=
- =?utf-8?B?RDhFUVpXa1pkM3BjRllrdHFsRkd6VGg5NUZFWkFESFczcFpzaGdlbWJpOWdP?=
- =?utf-8?B?b3lMTkhFdjJHQW44WVJZalIvSDNCYXRsamhEYktZUUQ5RXVpd3NzRVd1U0xv?=
- =?utf-8?B?Ulk3VjhFK3UwVnorQmszS284UmpPellpNlFsQm13cnVWOFRhTlMxUmR1WWhF?=
- =?utf-8?B?SUhUZ3ZORzVTUFI1eVVuL3hzQjF6VXY3cCtSZkszV2J3L2xrYzNFSkordTdI?=
- =?utf-8?B?bndITytlOHB6QWRXZnQyV0tKU0o3UmV4QnhpWXR5QzVNc1NYVkVtTXh6blVy?=
- =?utf-8?B?U0FvVkhxLzZ3MC9YRG9KRnlvS1VLOVJkVHJCalo3TXJKVFBsTXhoaVRuWFA4?=
- =?utf-8?B?ZjhWVHdRUmFBMnFPaGZwNkJLbEhWekhwT1RpZ3VSQjkrU3dxbVhhYm5tRHRR?=
- =?utf-8?B?UmtWeThXaUlJWGpNc2VsSDV0dEF1ZWZyTmhLclZIYytkSVJJcHNDWExoOXZY?=
- =?utf-8?B?elFyZmtkdTlYYlB6bWZwQmdmbDRvcUtEUlpOcytJYkc3T2VjQmhWYWZLQnpN?=
- =?utf-8?B?em5OMWgyRDMxdDNhSUxkSlRDZFpHZUh5MHUrR3NzV0lFcHl0ckZONUs4Nlgv?=
- =?utf-8?B?b2Y2MGMyRHZQUHl0ZmFYQitENlVtVlZLTFZlOTAyV1RZWlpvMlJsbDM4N0xi?=
- =?utf-8?B?WGJCMDhoazRFcnFEYmh2NEl0WThzWE9SdlMwSDFqT0JUb2ZZYzkxa09UMlBP?=
- =?utf-8?B?UStodnl1TTd6ZC9wUk9DeThqQkVzcW8yVzZLb3NuREkwMTRVM1pHOGZoczMv?=
- =?utf-8?B?dGQzSEthYzJWdWZXTmFDcmowUElPTGxyK1ErTlN0OE1hTnlzMTI4ZnFkTC9j?=
- =?utf-8?Q?+Otprb+Dc330nk7eLOCImIqAw2+Uy9P3?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkVydW9UK1VSa3lmQnZnLzdLUmtrSFY1eHgyMjZKODBUTWJIay9Td0hlUUU5?=
- =?utf-8?B?YjBDRDkrK09lY0xrOGtvMkxtbVdzRTZwcHVJSXNiVXRlNWtFS3A1anMyWjdY?=
- =?utf-8?B?Nm1LcEFLSGJlZWtqQVNud0F5cm1FOHRxaGt0K2ZvcGlNNE9JaW1oNjg0cTNY?=
- =?utf-8?B?bWM4dm5pQ1R6SEpTcTJwZmswdHdJTCsyUk5HMisrcWpKYWtpbW1tWXhDYlBP?=
- =?utf-8?B?Q1hDa0pMNnNROGV4SGkzdjRKaE4zSDJPbWxML0JsUmZyZWlNMldHWi9QOUUx?=
- =?utf-8?B?a2h0N3hkTGkyd3pYYm1MSHVMTEhMUkNzWS9Fd09Xdjdqc1hiNlZjZnVVaVda?=
- =?utf-8?B?bk42QlpaMVpFZlNDbWRtWlhpTCtQMkt1bTREemRrZkh5VSsyUXFPVUkyd2Mx?=
- =?utf-8?B?dUY5NVFNKzJxTzFyczlzNHdhZU15cVIrS2hmTENld2lpaVg5RVduc1lzd05y?=
- =?utf-8?B?eXNwcGVxYVVQRWExRjBQZHJFRUFBV3JVWldJUzRTSThaSmwrdDE0MXdFalEz?=
- =?utf-8?B?MWlOZW8vcTd2UDUxSHdNUzE0bnBkVE9wM01rN0lLRExrbm1iSVFqRnhwS1JY?=
- =?utf-8?B?cktxYWZneFFTM284QWlpN0lMNDljNUREMGMrTHJwdlVQZjlUVDBRbk1YbnVv?=
- =?utf-8?B?cWFFV1hya3lnRDQ3QlEwaGtiL1Z6eGFrV0s1Umx3ZFdHaFFJT3Vmam5LMFNl?=
- =?utf-8?B?ajhiTGhSU042OFMyeWw5OTVvSlVadTYxS0RESCtIc1BQYVlxU21yZEh2VE82?=
- =?utf-8?B?dktMcGRVdUppK0NEaWk5K1N1RnZVSGZWZnBXZmdpbENBVkdKZFJDaXZPVzQ3?=
- =?utf-8?B?S3gvb0NlYWpiMUc5Vm1tK0RCcHdRbGlFR2kyZk00ZUY2TU9BajdBVEpsVFha?=
- =?utf-8?B?MzhnajJNMUUxb2tvRHZQZXU1L050TTdwQ3ZMUUhmRzVnWHhLZEk3U0NOSlEw?=
- =?utf-8?B?cERsaS81Q3BOVEhUUlE1NW9wYm1kYkhzNkdFcWkydXloWjlraWJFeVliRzZs?=
- =?utf-8?B?dVlpMHB4YzVhV3dweEl6WGRtUjlXSXBDeWFLWlVBUFdFUjJ6SkFkSk1tZVVN?=
- =?utf-8?B?RzY2cVVaU0lCSXcyYW1GQ1Iza2pnMENydzRuNCszY1RpVTlFSTkzUnQrNFg0?=
- =?utf-8?B?OXppNFcxbzZvb0dNdjZROVd3ek1qUmZYREZjMjYzeENIcEpwd1o1eG1hMThn?=
- =?utf-8?B?V3R5eW9ESW5kUHNjOUtXNitFK3diREdZdjFBT2U3TDBuQ29QTW5Dc0xreTBi?=
- =?utf-8?B?NmJOc0FGWEhDV2V0QmhGOWFqWUovV0pIL211THFtTW5YU01JcklHUnZxZDFW?=
- =?utf-8?B?OWdob1phVGpBeFRIRllRd1ZBeDA0RzVneXZpUXU4UlZUUmZYSXhPdnFLWGpC?=
- =?utf-8?B?YkdhWlAwcDJCL1NPeFI1NUdwTlg2VmlhVFkzbGl0OHBKdWE5eXBXNjNsaEZm?=
- =?utf-8?B?di8yUWtSelIzZ0dpQ2Vwa2d5L1o0b3BrdnVkeE5kWjl1WWhvZ0g2ZndmNjB1?=
- =?utf-8?B?d29oaEU4R05OMUpLZVdBeDVEMitYR0tkbWFvcThVWDVMN0hSeTFQRlZlWEZ5?=
- =?utf-8?B?Q0U3dENkY3FsWi9QUTF2TTF1MS9FVEpXL0NIOWswUHlVWGIwZHg3c2NzSldo?=
- =?utf-8?B?UVhjZ3R0dDYxQUlMUGhHZjlrSGlhMXJlY05mK1NwMHVaOEFDaU1lV3AvQkV2?=
- =?utf-8?B?cHA0d2toM2VYd1ZhVlFlK2FLd29nOW5xaXJuWlBJai9kUGlYV2dOUkxxSVpQ?=
- =?utf-8?B?OFdKNHFGdGd1aGZyaUR6RzFLNW1VcklCZzNhN0JOVUE4THMwc3RTREhya2kw?=
- =?utf-8?B?UWlOTVNkcWVtK2tlN0xIR1d4Y3pDTGpJcHBFRzY1N2ZPYk5vMm05cEVrbWRs?=
- =?utf-8?B?OXo4VFV3ZXkzSElOL2Y0R3pGVkttSXUrQ0VMVzBvQ01qNVlFS1ZZN1doRkEx?=
- =?utf-8?B?bTZTUWZBQVErcVA4VGFvZ2tidUNIVjdJVVNqWjVrRTI0MklTTHZKbldVdXdh?=
- =?utf-8?B?alZyU3ZtMno0TVhIS0FSVGUyemxZTWVlRGJ1VTA2aDl1RFJEakUxWlNSWEx1?=
- =?utf-8?B?NWpSR21BY1gwQ29seVUreUhJMmQyazlWYnRERFdoZHNVejlyUm0rMVUveUJ1?=
- =?utf-8?Q?zlT0NBWYO7W25z1nRWLWU0QHx?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4c3b7f8-e70c-45c8-d89b-08de3650c5c7
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 11:56:08.0339 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0nS3mcLdQ2UHowZtz1sI/K6vSSkQp2c+w/AzDggxtW7j377G5JVG/A8Up8yxDKUo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8864
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb3b237f-c68d-4f89-6261-08de365e569e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2025 13:33:14.1074 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VKjGEtG3/Mw8DEXrAojLatLyEnr+eTTZyvvE1cWhQwjS4kQ3xHWjBqX/LRHp2WjKKZgHenfSIOUHcmnrdQW37g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8924
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,300 +177,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 12/8/2025 4:46 PM, chong li wrote:
-> v2:
-> place "get_ref_and_mask" in amdgpu_gfx_funcs instead of amdgpu_ring,
-> since this function only assigns the cp entry.
-> 
-> v1:
-> both gfx ring and mes ring use cp0 to flush hdp, cause conflict.
-> 
-> use function get_ref_and_mask to assign the cp entry.
-> reassign mes to use cp8 instead.
-> 
-> Signed-off-by: chong li <chongli2@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 13 +++++-
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  |  3 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 58 +++++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 58 +++++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   |  3 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  3 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c |  3 +-
->   8 files changed, 101 insertions(+), 42 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index efd61a1ccc66..090714127cba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -356,6 +356,8 @@ struct amdgpu_gfx_funcs {
->   				     int num_xccs_per_xcp);
->   	int (*ih_node_to_logical_xcc)(struct amdgpu_device *adev, int ih_node);
->   	int (*get_xccs_per_xcp)(struct amdgpu_device *adev);
-> +	void (*get_ref_and_mask)(struct amdgpu_ring *ring,
-> +				uint32_t *ref_and_mask, uint32_t *reg_mem_engine);
->   };
->   
->   struct sq_work {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 895b841b9626..5c7724f203d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -556,11 +556,20 @@ int amdgpu_mes_reg_write_reg_wait(struct amdgpu_device *adev,
->   
->   int amdgpu_mes_hdp_flush(struct amdgpu_device *adev)
->   {
-> -	uint32_t hdp_flush_req_offset, hdp_flush_done_offset, ref_and_mask;
-> +	uint32_t hdp_flush_req_offset, hdp_flush_done_offset;
-> +	struct amdgpu_ring *mes_ring;
-> +	uint32_t ref_and_mask = 0, reg_mem_engine = 0;
->   
-> +	if (!adev->gfx.funcs->get_ref_and_mask) {
-> +		dev_err(adev->dev, "amdgpu_mes_hdp_flush not support\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	mes_ring = &adev->mes.ring[0];
->   	hdp_flush_req_offset = adev->nbio.funcs->get_hdp_flush_req_offset(adev);
->   	hdp_flush_done_offset = adev->nbio.funcs->get_hdp_flush_done_offset(adev);
-> -	ref_and_mask = adev->nbio.hdp_flush_reg->ref_and_mask_cp0;
-> +
-> +	adev->gfx.funcs->get_ref_and_mask(mes_ring, &ref_and_mask, &reg_mem_engine);
->   
->   	return amdgpu_mes_reg_write_reg_wait(adev, hdp_flush_req_offset, hdp_flush_done_offset,
->   					     ref_and_mask, ref_and_mask, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index aaed24f7e716..aafd34ddcfcc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -8616,7 +8616,8 @@ static void gfx_v10_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
-> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index f4d4dd5dd07b..c3d8e7588740 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1072,6 +1072,44 @@ static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
->   	}
->   }
->   
-> +/**
-> + * gfx_v11_0_get_ref_and_mask - get the reference and mask for HDP flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring type and me.
-> + */
-> +static void gfx_v11_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +					uint32_t *ref_and_mask, uint32_t *reg_mem_engine)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
-> +
-> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +	    ring->funcs->type == AMDGPU_RING_TYPE_MES ||
-> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
-> +		switch (ring->me) {
-> +		case 1:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> +			break;
-> +		case 2:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> +			break;
-> +		case 3:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
-> +			break;
-> +		default:
-> +			return;
-> +		}
-> +		*reg_mem_engine = 0;
-> +	} else {
-> +		*ref_and_mask = nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
-> +		*reg_mem_engine = 1; /* pfp */
-> +	}
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
->   	.get_gpu_clock_counter = &gfx_v11_0_get_gpu_clock_counter,
->   	.select_se_sh = &gfx_v11_0_select_se_sh,
-> @@ -1081,6 +1119,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
->   	.select_me_pipe_q = &gfx_v11_0_select_me_pipe_q,
->   	.update_perfmon_mgcg = &gfx_v11_0_update_perf_clk,
->   	.get_gfx_shadow_info = &gfx_v11_0_get_gfx_shadow_info,
-> +	.get_ref_and_mask = &gfx_v11_0_get_ref_and_mask,
->   };
->   
->   static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
-> @@ -5833,25 +5872,8 @@ static void gfx_v11_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   {
->   	struct amdgpu_device *adev = ring->adev;
->   	u32 ref_and_mask, reg_mem_engine;
-> -	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
-> -
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> -		switch (ring->me) {
-> -		case 1:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> -			break;
-> -		case 2:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> -			break;
-> -		default:
-> -			return;
-> -		}
-> -		reg_mem_engine = 0;
-> -	} else {
-> -		ref_and_mask = nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
-> -		reg_mem_engine = 1; /* pfp */
-> -	}
->   
-> +	adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask, &reg_mem_engine);
->   	gfx_v11_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->   			       adev->nbio.funcs->get_hdp_flush_req_offset(adev),
->   			       adev->nbio.funcs->get_hdp_flush_done_offset(adev),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index f9cae6666697..b805ed4f88aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -929,6 +929,44 @@ static int gfx_v12_0_get_gfx_shadow_info(struct amdgpu_device *adev,
->   	return -EINVAL;
->   }
->   
-> +/**
-> + * gfx_v12_0_get_ref_and_mask - get the reference and mask for HDP flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring type and me.
-> + */
-> +static void gfx_v12_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +					uint32_t *ref_and_mask, uint32_t *reg_mem_engine)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
-> +
-> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +	    ring->funcs->type == AMDGPU_RING_TYPE_MES ||
-> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
-> +		switch (ring->me) {
-> +		case 1:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> +			break;
-> +		case 2:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> +			break;
-> +		case 3:
-> +			*ref_and_mask = nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
-> +			break;
-> +		default:
-> +			return;
-> +		}
-> +		*reg_mem_engine = 0;
-> +	} else {
-> +		*ref_and_mask = nbio_hf_reg->ref_and_mask_cp0;
-> +		*reg_mem_engine = 1; /* pfp */
-> +	}
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
->   	.get_gpu_clock_counter = &gfx_v12_0_get_gpu_clock_counter,
->   	.select_se_sh = &gfx_v12_0_select_se_sh,
-> @@ -938,6 +976,7 @@ static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs = {
->   	.select_me_pipe_q = &gfx_v12_0_select_me_pipe_q,
->   	.update_perfmon_mgcg = &gfx_v12_0_update_perf_clk,
->   	.get_gfx_shadow_info = &gfx_v12_0_get_gfx_shadow_info,
-> +	.get_ref_and_mask = &gfx_v12_0_get_ref_and_mask,
->   };
->   
->   static int gfx_v12_0_gpu_early_init(struct amdgpu_device *adev)
-> @@ -4389,25 +4428,8 @@ static void gfx_v12_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   {
->   	struct amdgpu_device *adev = ring->adev;
->   	u32 ref_and_mask, reg_mem_engine;
-> -	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
-> -
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> -		switch (ring->me) {
-> -		case 1:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> -			break;
-> -		case 2:
-> -			ref_and_mask = nbio_hf_reg->ref_and_mask_cp6 << ring->pipe;
-> -			break;
-> -		default:
-> -			return;
-> -		}
-> -		reg_mem_engine = 0;
-> -	} else {
-> -		ref_and_mask = nbio_hf_reg->ref_and_mask_cp0;
-> -		reg_mem_engine = 1; /* pfp */
-> -	}
->   
-> +	adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask, &reg_mem_engine);
->   	gfx_v12_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->   			       adev->nbio.funcs->get_hdp_flush_req_offset(adev),
->   			       adev->nbio.funcs->get_hdp_flush_done_offset(adev),
-
-Though it's about mes, could you also convert the below ones also to 
-make it uniform?
-
-Thanks,
-Lijo
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 66a4e4998106..176658846b81 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -2070,7 +2070,8 @@ static void gfx_v7_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask;
->   	int usepfp = ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ? 0 : 1;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE ||
-> +		ring->funcs->type == AMDGPU_RING_TYPE_KIQ) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = GPU_HDP_FLUSH_DONE__CP2_MASK << ring->pipe;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index e6187be27385..bc1d0870cb2d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -5382,7 +5382,8 @@ static void gfx_v9_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
-> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 89253df5ffc8..418b8daa7097 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -2820,7 +2820,8 @@ static void gfx_v9_4_3_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   	u32 ref_and_mask, reg_mem_engine;
->   	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
->   
-> -	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
-> +	if ((ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) ||
-> +	    (ring->funcs->type == AMDGPU_RING_TYPE_KIQ)) {
->   		switch (ring->me) {
->   		case 1:
->   			ref_and_mask = nbio_hf_reg->ref_and_mask_cp2 << ring->pipe;
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2VuaWcsIENocmlzdGlh
+biA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBGcmlkYXksIERlY2VtYmVyIDUs
+IDIwMjUgNjozMCBQTQ0KPiBUbzogU0hBTk1VR0FNLCBTUklOSVZBU0FOIDxTUklOSVZBU0FOLlNI
+QU5NVUdBTUBhbWQuY29tPjsNCj4gRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hl
+ckBhbWQuY29tPg0KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVj
+dDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogUmVkdWNlIHN0YWNrIHVzYWdlIGluDQo+IGFtZGdw
+dV91c2VycV93YWl0X2lvY3RsKCkNCj4NCj4gT24gMTIvNS8yNSAxMzoxNCwgU3Jpbml2YXNhbiBT
+aGFubXVnYW0gd3JvdGU6DQo+ID4gQ2hlY2tlZCBhbGwgdGhlIGxvY2FsIHZhcmlhYmxlcyBpbiB0
+aGUgZnVuY3Rpb24uIE1vc3Qgb2YgdGhlbSBhcmUNCj4gPiBzbWFsbCBudW1iZXJzIG9yIHBvaW50
+ZXJzIGFuZCB1c2UgdmVyeSBsaXR0bGUgc3RhY2sgc3BhY2UuIFRoZSBvbmx5DQo+ID4gbGFyZ2Ug
+aXRlbSBzdG9yZWQgb24gdGhlIHN0YWNrIGlzIHN0cnVjdCBkcm1fZXhlYywgYW5kIHRoaXMgaXMg
+d2hhdA0KPiA+IHB1c2hlcyB0aGUgc3RhY2sgc2l6ZSBvdmVyIHRoZSBsaW1pdC4NCj4gPg0KPiA+
+IFRvIGZpeCB0aGlzLCBzdHJ1Y3QgZHJtX2V4ZWMgaXMgbm93IGFsbG9jYXRlZCB3aXRoIGttYWxs
+b2MoKSBpbnN0ZWFkDQo+ID4gb2YgYmVpbmcgcGxhY2VkIG9uIHRoZSBzdGFjay4gQWxsIGNhbGwg
+c2l0ZXMgd2VyZSB1cGRhdGVkIHRvIHVzZSBhDQo+ID4gcG9pbnRlciwgYW5kIGFsbCBjbGVhbnVw
+IHBhdGhzIG5vdyBjYWxsIGRybV9leGVjX2ZpbmkoKSBhbmQga2ZyZWUoKSB0bw0KPiA+IHJlbGVh
+c2UgdGhlIG1lbW9yeSBzYWZlbHkuDQo+ID4NCj4gPiBUaGlzIHJlZHVjZXMgc3RhY2sgdXNhZ2Us
+IGZpeGVzIHRoZSBiZWxvdzoNCj4gPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dXNlcnFfZmVuY2UuYzo2NDI6NTogd2FybmluZzogc3RhY2sNCj4gPiBmcmFtZSBzaXplICgxMTc2
+KSBleGNlZWRzIGxpbWl0ICgxMDI0KSBpbiAnYW1kZ3B1X3VzZXJxX3dhaXRfaW9jdGwnDQo+ID4g
+Wy1XZnJhbWUtbGFyZ2VyLXRoYW5dDQo+DQo+IE1obSwgSSdtIHJlYWxseSB3b25kZXJpbmcgaG93
+IHRoYXQgaGFwcGVucz8gVGhlIGRybV9leGVjIG9iamVjdCBpcyBpbnRlbnRpb25hbGx5DQo+IHNv
+IHNtYWxsIHRoYXQgaXQgY2FuIGJlIGFsbG9jYXRlZCBvbiB0aGUgc3RhY2suDQo+DQo+IFdoYXQn
+cyBnb2luZyBvbiBoZXJlPw0KDQpIaSBDaHJpc3RpYW4sDQoNCkl0IGxvb2tzIGxpa2UgaXQgb25s
+eSBncm93cyB0aGF0IGxhcmdlIHdpdGggc2FuaXRpemVycyBlbmFibGVkIOKAlCBLQVNBTi9VQlNB
+TiBpbmZsYXRlIHRoZSBmcmFtZSwgbm90IGRybV9leGVjIGl0c2VsZi4NCg0KVGhhbmtzIQ0KU3Jp
+bmkNCg==
