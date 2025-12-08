@@ -4,153 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADD99D3B7E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 15:54:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FBD4D3B7E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Dec 2025 16:53:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDC210E487;
-	Mon,  8 Dec 2025 15:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBC6910E44B;
+	Mon,  8 Dec 2025 16:53:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="278ftu8Z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DKsk9nIR";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011002.outbound.protection.outlook.com
- [40.93.194.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFC0810E487
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 15:54:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g82frKzEu7Zn4r4HzyoYjpXmO8YqSoFdLFE2NQ7nauxIaKGZOH6kDeG21aq+JpNJjKNxdy9gs9Yy+4gw7wXoKdC1jTo49C/fEkGJmsL3NNwKKlK66fNTcOa1SoBT48vm2uVg2g1Q37soqaRC/YTYimgrZCA3upgjjDDQuKccfmOxpKDnkxnQQHnUHFbvacbQlzeEkTunEJ8sPPTNwz5JCweahTia67a72ASr/ulNsbOrwj2jnESG3h1NSCtwxyeemEp/RKSgF4mPmGFWVc9Ln370mKEI8HQ6zrWyGj9M/rSk6lMYaY4OofIP2aMY3U8szSPW7z/mEiApZ+xKRHDB1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mScXXFd7cJJ2V1YBGBRSzcMY0fEqIO916T758Qfoi0Y=;
- b=OvY4C2MkKEV/0CT7LpFxZQRLVb+1klovTZ4UA3xjSYGXCvejAOLONtTVSRY51oMr9NMNplpAQcWeeNdkdb9cFZ8pnjeviGJWNQcgSSmNyei4bVpbnkID72FsrdlNr/p3jBVZvlK2MIlTXExT44LXqdFwSxjjzVDa7jgWNbZKxQLmB7h7fDVXolHtiWsce1SkNHbaf4MQSilYqD9Qf9nDBfjc4Dyx+0fnWICE8KoNDwE10eN9CdWk5EiUkonbuDJmt0fqpPmYLFbVBiXwbtJZX5V2ZQ07beLKa8ZqUB6xvBXB6CJ9BsdmlVgy7LCocYOiTKuowm6Aq/OX3UrmPYw4kA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mScXXFd7cJJ2V1YBGBRSzcMY0fEqIO916T758Qfoi0Y=;
- b=278ftu8ZdU2MK0IehVWNCZRwWmvHTb7MuDEswYZBMoub6i/slkLUMxJxboE+es+/rYc/tHt6fbciO4HYYQCKSwmxvx5XmbAtXdXKceQBp799TPq6XKQ/uR4FiD2uDb0Y3qGmtOqzf9JnDg0xmtl4uz1WcEhdfSWiinDCo4R6tAM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN2PR12MB4112.namprd12.prod.outlook.com (2603:10b6:208:19a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Mon, 8 Dec
- 2025 15:54:50 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9388.013; Mon, 8 Dec 2025
- 15:54:50 +0000
-Message-ID: <4a23d4fe-6ca5-4f91-b4fb-f3191fef3f0f@amd.com>
-Date: Mon, 8 Dec 2025 16:54:45 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] drm/amdkfd: Map VRAM MQD on GART
-To: Philip Yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, david.yatsin@amd.com
-References: <20251205214922.1095629-1-Philip.Yang@amd.com>
- <20251205214922.1095629-6-Philip.Yang@amd.com>
- <a90486e3-e27d-4f05-a129-82068f4c9093@amd.com>
- <b1f259ef-3aeb-4158-84f5-d2811eb8c529@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <b1f259ef-3aeb-4158-84f5-d2811eb8c529@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0517.namprd03.prod.outlook.com
- (2603:10b6:408:131::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+ [209.85.210.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAFA10E49C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Dec 2025 16:53:50 +0000 (UTC)
+Received: by mail-ot1-f46.google.com with SMTP id
+ 46e09a7af769-7c7bfba3996so3214945a34.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 08 Dec 2025 08:53:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1765212829; x=1765817629; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=mBTzZ2LgSmTwWelxYZX3doj0/X3nAh6Xpe6Ll4Z7Si8=;
+ b=DKsk9nIRBucVY0xnMAnHpPvaMLY59DwIx+kAL6HNuppcioHq7ji+GuY4mIQjEsTAu6
+ ykmpLg3Zj9Ul+euNz4kLrncZ15GWt3LlfDCcc4xKuJtPTngeSFmtTV6CxGgrLC2Nvj6m
+ i+AuEvKJqTbAz7cLmkXqd/CDuubGFYJI9a2YAWSExIQi7wH2yjvhN3FwDWWyoIXtLQP+
+ yhCgsx4YJ58a4dVEf7ZSx+st/lBMBouwajd2PGJX84e4VuAO/Uawq7CI3wuOZUSuqgt9
+ rdyFLWMG8Ru4u4I1RCX3Pr8KS4kLSh4B7IJ4lZ0ZwUYPZcChI3o6d/hVpynVD+Nv8hLi
+ gJUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765212829; x=1765817629;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mBTzZ2LgSmTwWelxYZX3doj0/X3nAh6Xpe6Ll4Z7Si8=;
+ b=RGFA6RCSdeKqYxXl8N79bzuCZpESQQybRoooHtytrlU8223RzT86lP/U1h6fr8BPg9
+ NME+PYKSu2ymXy8ZPB0AzjR+3cDghC8PCyXAb4Dif7SL2iG7lyGAzQvqj0AvEtGZDgDN
+ Z17rWNGnSApXHt6dDjhZSYS+398RsvBpNbG+egvt318+KpP5DAxBC3Y5TZhd6LDOzNaa
+ CfUXi8fjFZvOzH4OnWqm+2ReDKfpdYhorKWYUmnEeykuemdmAjrEnUpc350ACRVLcrcu
+ EX8VlGOkUBJHGaLX76VfBgDBO+v9I56DMNdfaNGtsyuCGFyH6ubLrITMn9M4nO2yFwOQ
+ icrg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV2CZdK1BT/qRYj/7poNaI8ndhlu5kJ3+EUH/jkeOyiZxsYQnwWoaWb6r/r/vxmH4IoclsLFhJf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyz1q/vZUxiuLO2NVQbXSFFgPCO2HY/iTzJ8qHVK4vpFtBIS85X
+ Lq7d7/l9f8gRWJxtueoTciyk1KiK5O96nxO8W/cezzif20NZwhg6eYBdjVx8qzekw2wcZ/+wkAe
+ QQAMhOergDAUxLttnjOFBQ/XQ71sEQ4k=
+X-Gm-Gg: ASbGncvErNO/VMEZa7dDKP0NH1Pi3Bd43hFQtgCcDxnuTCp+eWiWvzncLWFxVkcEJ2N
+ PYcVYgW8zGUIUfRQAyjTyrhy3Nt6GeoNSeWos4gmrlQNxh7/2YTYaEV0Pjqg+c4YSU1ALN0zZhz
+ 3Yh2PumHiE2+kuM6n23QUTDSdR0csPadHFp/CTAm/dA/KbCU0G6k9LR1EsDLUBM+xeV+ASPpuER
+ tR3/8An/70eRM6eYZMtSYVaU+u0Bbh4VBV6un9zUQOfSM3rlcYc8aGQwkuGgjnpJF+DILGVKg==
+X-Google-Smtp-Source: AGHT+IGS9FhIr9x8iRPQky+VewDvsIkMMHMbU3r+R1/qtJQcvcevQMFhW1dHru/yTwzKP5RS5Jfc9McvifxxlQeEMs4=
+X-Received: by 2002:a05:6830:349f:b0:7c6:ce49:d8a9 with SMTP id
+ 46e09a7af769-7c9707c8dddmr6529205a34.23.1765212829223; Mon, 08 Dec 2025
+ 08:53:49 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4112:EE_
-X-MS-Office365-Filtering-Correlation-Id: a13b23ae-cc15-41f0-191a-08de36721ed1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cUNkTTF3blA4L1FHek9tSjR3UlZzRGYzWldhVU40NmRxMW1oL3B2YXpMRHRC?=
- =?utf-8?B?RDFrY28zZExkWnJOY3dyZENVTXVoOHphQzBuVDUyRVBrb0dEWm1ObVFITXdB?=
- =?utf-8?B?RFdWVTJwQTNVelJDQXdvZTFqUmJ0RUtOeVliSHlZMk0wNk9tM0JUV2p2SWty?=
- =?utf-8?B?Zm1HaElleGZyekREME42MVRNQjd1V3BvV0pRRHN5dnRBVS8wNGRYdTlsR1RP?=
- =?utf-8?B?dnpCWmhRdDVFMGs1TGFuTCtIaVlzeW1ZYXdBQnV6dXBsSlVwUERCN0JvcUlz?=
- =?utf-8?B?TVZKaG9xQzNKSFFQbWRoTjFqKzk0UnUvSXg5S3A1dlEyb0EyTE1yN0dtZDkw?=
- =?utf-8?B?azErTXZzRzllOXNOby9FY2RJUSt1S0pvb09RdTFmR2JHOXV0U3FwUERmWk1r?=
- =?utf-8?B?a2N5Qk5TZ0I3S0FIcUdOdTdDQVhOMWVDQytNNngzNHRtTy9qdXhGZ0QrN3Jl?=
- =?utf-8?B?RVVxbW9IUTdxWWJUVWtBOGJoK0diMVU4UjZWWHFPTFhsNXVaZUNrbThRMStv?=
- =?utf-8?B?alhVR2hjVDBzVnFnMXZWYkg5Ti9IdXhLYzFDQVQxb1dBaEI0a2JtdENTK1ZX?=
- =?utf-8?B?TjNxckttbzJsWlZteFJHWVRVQlpFLzVEbVBPL200SjZubVVLczU5djlxVURB?=
- =?utf-8?B?K0pRN1B6SHU2T0RESCtnaklqN0lzUGRzWFh0RndTOGhoNk9IM0E2d0s5QkFT?=
- =?utf-8?B?VENhYWNCVjhERkJRTW1iNHNGTk51SmtKRGtKNC9DK3M2eGZ1cHNDMXhBN2Qz?=
- =?utf-8?B?aUtzWVNXV3N2Z1QxT0dHcjh3c04xZ29DVE55RVMrd05tdjQxaEZJbW1uaGYr?=
- =?utf-8?B?SFZuaHoyME5zMW45cnBDR29xZHF5K09jSk9oYkZSRWxXNDdxMXI3d1J5SkVa?=
- =?utf-8?B?WWV3ZkUvMDQvUWxSeGNjdlo3MCsweUYzd1BSQTN1L21jZ0JkZ0MrOURaeXNY?=
- =?utf-8?B?cXF5dE1mSkhPci9JTW1ybkl3THNNaUtqSEQ0SW1QYS9Uclc1QUZaQzJTVDYw?=
- =?utf-8?B?cjdzUXBuckVEeUh5cTdjNlgzS291MVlUU2RQcXMxcXFtSjN0djBsalNibTlQ?=
- =?utf-8?B?S252Tmp2WU8xRWxVeHp1NVlUb0pNZnR1SUthaVdXYVdEQzlOMFZ1dkV2WkJR?=
- =?utf-8?B?cUdQN21Gd3hJZ0diMUJncUdJL0xYZVZYd29GdDRkZTFpZjFnSis1MWJLcHhi?=
- =?utf-8?B?YzFINkkwMk9yemF4SFJCSW9oUWNhN3Y1WW9sSmlzYjFzU25XMnNLbFltc1Fy?=
- =?utf-8?B?RXRHZ1R3REVPUTdJWWNhd2kxY0g0NDZvR1VjM05oeHhkQVRJRkNzL0puN1Vq?=
- =?utf-8?B?UThhV1czQUUzaXVpallIVEh0WGVWSXd5ZHZKdkNXTVFBT2JNTTc2YTU3TFdW?=
- =?utf-8?B?WTFaMFgzTHhYcHY4KzJVOU9NUlJpY1N1R3hqNlNyU3pTY21FS1RSc0daWkdP?=
- =?utf-8?B?V1NVSjNERTJHbEhNSUllUzlmMVY2bXI3L2QwQmV1bXVwWkkzVktLVjhqU1dU?=
- =?utf-8?B?RmQwMEFRMUNidDk0WTVqLzZlbVhuOGp1ZGw4ZjBJaTVHRm1vYjJOdUI5ZDE2?=
- =?utf-8?B?S0hNQU1OMExndUpJeXowblRDZ2N5Q1QwbXdaWHhOR0phVXBudk9FSXJJMHYv?=
- =?utf-8?B?ZmVBalJVNTMvb3JuK3pqVU42OHVyMnJBRXJOVWZKb1h0b0RIMFJrZ1NCZXRo?=
- =?utf-8?B?amtrMEdjdVlXYUZFZUE5aWllOUI4OVZCVk1DaDVTWXVsSFhTNGtOQWF4dlRG?=
- =?utf-8?B?dGZVUWI1Q2FmdDgyTWp5bllFREFMUVBDVFBxRHNUU2YwYTdSSXY3SkRhSGla?=
- =?utf-8?B?bFFhajYwQnM1c3dyQUxXcFJhdWhaR1VTancwVkcyV1pKd0x3Unp4SnRLUExL?=
- =?utf-8?B?bFBwV3Z1TDV2cFNWMStwWTlpV3QwSlpwYnl4enVKSXEvY09RblYrT3MxT1JM?=
- =?utf-8?Q?t1q5ZvIuvtmIv38yTP73eSSgPJgpEyp+?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDBIaFdJTDdScUQyaC9MeXFhUzJaR1lVMHl6Tit2Tkc3a2JxZFhhZXRJMUlM?=
- =?utf-8?B?dEU5N3E5ZE54a0tGQU1QNGFBWHhuQ0JLRUFWZUtSWHJTT1UxOXlHOEI3WXAx?=
- =?utf-8?B?VjE0a3ptWnRCR05PYUFna1BZZTRiTm1tTjFYOFJrZTJCMTlQemdZZ2NmWXRs?=
- =?utf-8?B?ZEYyRGphOXhOdUpDbHFxejRUdGtxWlJmdFkzRGswd2hwNm9YOWF0dFRnUW5G?=
- =?utf-8?B?MUZxUGhHbjhxbUxmbFZDYTQ2QmdLNkpUUC95UHg1WmVSSXNiaElGV2grQmxR?=
- =?utf-8?B?YUU0dXF5UTJwOXVOd1NpRG5ZOXNIRlVkdHZ3TWVBUUlXR2gyZldoMXhBcnFr?=
- =?utf-8?B?M1JDejducTc3YnZ6QjEvWEVWQTRiK3ZkaVpFekpBUTE2WUZXWFNybnBiTzN5?=
- =?utf-8?B?SkwwTXNvcE5XZ2FKWm1BS0ZGRncwQk1Cc0M1YkVDd0VYU3hLdi9pMEhpYW5w?=
- =?utf-8?B?U2dzMUxMRzhNWVZPd21CRmluUjNPRUVWd1hEV2E1U3pMYXVVY09sUG11b29j?=
- =?utf-8?B?RHVHRHM1M0JybHRqek9aTHFvMVBpMXlZdHZsbXhmZDB4L0Q2R1R6UVoydmV6?=
- =?utf-8?B?SWlHa29Bb1N5Ris1R2E2anA5T3YrSGl3bU9Fd1A4NG1RekRlRnVWNCtLejM5?=
- =?utf-8?B?ejNwaW9ORkptRjRKU0trRUptWnBibFd6OUxpbWt6K1NXbUtXRzE0ME40ZGhi?=
- =?utf-8?B?UC91eG9qUU9yTHBnbGt6VVJha2dydFFkS1RzeU41Um9oRFZGbFRKN3RrbUVu?=
- =?utf-8?B?L2U1MWprQVdLOENva1ByRjFGVFNab1lhdWZHMm1lMmZRMFVBSFBNV1RiYXJU?=
- =?utf-8?B?MmxlSkNqMzZpNG9mRjdnK0pNY1FORGtyelZPT0xZTSs2bWNDR3NFVmZ1MU02?=
- =?utf-8?B?TXJrQXlNY0tWeGhRZ3F4TGs0d2FKdWdORmFvWStMdnluSndHL3RJaHpGdmg1?=
- =?utf-8?B?Z0RZeTYwMVBoWHNBaERtN3VXaGhDNDQxM28zU3dvdng5dkRTUmpVTWxwejB1?=
- =?utf-8?B?dHZ2bzFpWlhyM2dUcFdYYlFKVXI3NjBFZFRpUTEwZzRkTkZQMU5KVkJraHV2?=
- =?utf-8?B?L3RjMFlIMHZZTmpMUGc2cXUzanJMRHk3MkM1ZDNMbFpwMXM4Mysvb2JTc0NB?=
- =?utf-8?B?citmRDQvcEpJTmhNbTBtNXN5V2thU0dhTVNjc3VHWHUxMXgrRlkxUUgxZXlV?=
- =?utf-8?B?TDBqTDhGMmRHTFdFUytaWVJRem5mRmV6dzhRVDJzbGQ2ekdxT2hzcHQ1bUJB?=
- =?utf-8?B?WHhIekp4MzFsMmw4enFoVnZnUVZtL2R1UUNpZXhwSTMrem9sVG5RVzRrMyt1?=
- =?utf-8?B?RnJzZk4xUVR4RGxUNERzSHBRZklYWHorNkdPRVk1NnVNZlBYVEFHS2RSellQ?=
- =?utf-8?B?YXdTbmtSVG91S0dVeVpsVXQxOWNablRXOUE3REhNR2Y2aW9NL2dESmJ6Vmpp?=
- =?utf-8?B?MmxMRURHZitnZDhCTmp3R2g2YnN6UUxvOHQ2WnA0MlAyd3A5cFg2YUdXVmRj?=
- =?utf-8?B?dFUvL3RzempGSUxNVjRWQk1mcEM4U0ZHQjd0dFplWjcvcFhIWjZ0T2s0Qy8w?=
- =?utf-8?B?L25UY2JLUmpjMEpZTWpBR003MUJWYWk5WVA0bWJ3bDZHZkdPODY1UmxjR0F6?=
- =?utf-8?B?bGVVbHdGd1p2UmpGclBSRmJwUHF4RUVvaFBVRTFWS05SeFdvODVPbWF5dC94?=
- =?utf-8?B?RFVLVG8rNmNUNlgwV1R4NVBOYmQxQlVDTEMrNCthaCtyZndOVXM0VHVaWUhB?=
- =?utf-8?B?RzBiZWdPRnduczZ0SjVXYVJ2aE9aUFZGT3JoNmI1QnJ4NEMvZzdqZlZTWEJq?=
- =?utf-8?B?N2JJTm1MOTFEVU9tbVV4V3g5M0kxQVVwbGtTUGZzdGhLNGh3Z2tMeTVrWVB6?=
- =?utf-8?B?cVhVakEyNEUzaWZPbGZpLzA4N2RHVDJTZkRwTnVkVm1HTURxNWc3TE84dHhM?=
- =?utf-8?B?ZFA1akhhR1NnaUZVQjdqdEcrdk1LSWJIK05WejVjcjg3YWUrODJ4aWJ6ZGdR?=
- =?utf-8?B?WmplenF1R2U1a0g2SzBLZDZpRzNZMTArckZRTlhOSmt2VXkxWGxQN25vSE1r?=
- =?utf-8?B?cjJjSFJQajRiNVpzY1psRFo0dEdCMWFqZmx0eFp0YXFIc2lOaytPb0tPeW9K?=
- =?utf-8?Q?ffuSZRnWkTRqMqHZKgDyUULMa?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a13b23ae-cc15-41f0-191a-08de36721ed1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2025 15:54:50.5694 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lnHYF5QblcPLC9VvhDhWC82z+WrpDd0PlOXzI0joKD7MG+ScBXdU5IMNa3WQYgN5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4112
+References: <CABXGCsOcjjD1f5vCxbv-CCCMZPearMnY6GE-WPc_N=_k1TtfXQ@mail.gmail.com>
+ <CABXGCsOfOuWqzV=3wZXSUJRmJpWQf6f3qQ=93=DqtN2ZjhyhGg@mail.gmail.com>
+ <CH0PR12MB5284525FDCC5F2261D7FA6BF8BA2A@CH0PR12MB5284.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB5284525FDCC5F2261D7FA6BF8BA2A@CH0PR12MB5284.namprd12.prod.outlook.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Mon, 8 Dec 2025 21:53:36 +0500
+X-Gm-Features: AQt7F2pt2qHuGIfRiljAX0XHMXyiiWr7Ykk4tV9K9EiHMHaJ4csGsGxXe2fM8cU
+Message-ID: <CABXGCsPcKwL9MJe32QtTDARpMsJ9pxHxo0nSGTu9KkXmMQ_H+Q@mail.gmail.com>
+Subject: Re: [REGRESSION] Black screen on HDMI power-cycle after commit
+ 3471b9a31ce3 (7900XTX + LG C3)
+To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
+Cc: "Vojvodic, Relja (Reggie)" <Relja.Vojvodic@amd.com>, "Liu,
+ Wenjing" <Wenjing.Liu@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: multipart/mixed; boundary="000000000000a3a436064573a352"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,226 +87,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/8/25 16:52, Philip Yang wrote:
-> On 2025-12-08 03:40, Christian König wrote:
->> On 12/5/25 22:49, Philip Yang wrote:
->>> MQD BO on VRAM access via FB aperture is mtype UC uncaching, map
->>> to GART as mtype RW caching, to reduce queue switch latency.
->>>
->>> Add helper amdgpu_ttm_alloc/free_gart_entries.
->>> Add helper amdgpu_ttm_gart_bind_gfx9_mqd_vram to bind VRAM pages
->>> to GART mapping.
->>>
->>> Add GART drm mm_node to kfd mem obj to free the GART entries after
->>> MQD is freed.
->>>
->>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 103 ++++++++++++++++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |   8 ++
->>>   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |   1 +
->>>   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |   9 ++
->>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   1 +
->>>   5 files changed, 122 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> index 4f8bc7f35cdc..fc6f4daa9b87 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>> @@ -880,6 +880,42 @@ static void amdgpu_ttm_gart_bind_gfx9_mqd(struct amdgpu_device *adev,
->>>       }
->>>   }
->>>   +static void amdgpu_ttm_gart_bind_gfx9_mqd_vram(struct amdgpu_device *adev,
->>> +                struct ttm_buffer_object *tbo,
->>> +                struct drm_mm_node *mm_node,
->>> +                uint64_t flags)
->>> +{
->>> +    uint64_t total_pages;
->>> +    int num_xcc = max(1U, adev->gfx.num_xcc_per_xcp);
->>> +    uint64_t page_idx, pages_per_xcc;
->>> +    uint64_t ctrl_flags = flags;
->>> +    int i;
->>> +
->>> +    total_pages = tbo->resource->size >> PAGE_SHIFT;
->>> +
->>> +    amdgpu_gmc_get_vm_pte(adev, NULL, NULL, AMDGPU_VM_MTYPE_NC, &ctrl_flags);
->>> +
->>> +    if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(9, 4, 3))
->>> +        amdgpu_gmc_get_vm_pte(adev, NULL, NULL, AMDGPU_VM_MTYPE_RW, &flags);
->>> +
->>> +    pages_per_xcc = total_pages;
->>> +    do_div(pages_per_xcc, num_xcc);
->>> +
->>> +    for (i = 0, page_idx = 0; i < num_xcc; i++, page_idx += pages_per_xcc) {
->>> +        u64 pa = (tbo->resource->start + page_idx) << PAGE_SHIFT;
->>> +        u64 start_page = mm_node->start + page_idx;
->> Don't use resource->start and ḿm_node->start directly. Use the resource iterators for that.
-> VRAM resource allocated with AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS in previous patch, is in one block, GART entries allocated from drm_mm_insert_node_in_range is always in one block. The MQD size is 32 pages for MI300 and 6 pages for VG10, use contiguous allocation is fine unless the VRAM is fragmented too much, or I can remove the AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS flag in this patch, and then use resource iterators to update GART mapping.
+--000000000000a3a436064573a352
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-It doesn't matter if the block is contigious or not, the point is you should not touch resource->start nor mm_node->start directly.
+On Mon, Dec 8, 2025 at 8:46=E2=80=AFPM Pillai, Aurabindo
+<Aurabindo.Pillai@amd.com> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Hi Mikhail,
+>
+> The log you uploaded is a little too long, and has quite a few errors, wh=
+ich makes it hard to pinpoint the errors that are of interest to us. Could =
+you please drm.debug=3D0x116 to kernel cmdline, run "sudo dmesg -C" to clea=
+r all the logs, then perform the hotplug, and capture the dmesg log?
+>
+> Looking at the regression patch, there are two new hunks that change the =
+early return logic, which is causing the regression. Could you check if you=
+ need both the hunks removed for fixing the issue, or only one of those hun=
+ks ?
 
-That is a deprecated field from TTM and internals of the VRAM manager backend, both should not be touched here.
+Hi Aurabindo,
 
-Regards,
-Christian.
+Regarding your question about the hunks: I have so far only tested a
+full revert of commit 3471b9a31ce3, which fixes the issue.
 
->>
->>> +
->>> +        pa += adev->vm_manager.vram_base_offset;
->>> +        amdgpu_gart_map_vram_range(adev, pa, start_page, 1,
->>> +                       flags, NULL);
->>> +
->>> +        amdgpu_gart_map_vram_range(adev, pa + PAGE_SIZE,
->>> +                       start_page + 1,
->>> +                       pages_per_xcc - 1,
->>> +                       ctrl_flags, NULL);
->>> +    }
->>> +}
->>> +s
->>>   static void amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
->>>                    struct ttm_buffer_object *tbo,
->>>                    uint64_t flags)
->>> @@ -1017,6 +1053,73 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
->>>       return 0;
->>>   }
->>>   +int amdgpu_ttm_alloc_gart_entries(struct amdgpu_device *adev,
->>> +                  struct drm_mm_node *mm_node,
->>> +                  u64 num_pages)
->>> +{
->>> +    struct ttm_resource_manager *man;
->>> +    struct amdgpu_gtt_mgr *mgr;
->>> +    int r;
->>> +
->>> +    man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
->>> +    mgr = container_of(man, struct amdgpu_gtt_mgr, manager);
->>> +
->>> +    spin_lock(&mgr->lock);
->>> +    r = drm_mm_insert_node_in_range(&mgr->mm, mm_node, num_pages,
->>> +                    0, 0, 0,
->>> +                    adev->gmc.gart_size >> PAGE_SHIFT,
->>> +                    DRM_MM_INSERT_BEST);
->> That belongs into amdgpu_gtt_mgr.c and clearly not here!
-> Yes, I will move the helper function to amdgpu_gtt_mgr.c
-> 
-> Regards,
-> Philip
->>
->> Regards,
->> Christian.
->>
->>> +    spin_unlock(&mgr->lock);
->>> +    return r;
->>> +}
->>> +
->>> +void amdgpu_ttm_free_gart_entries(struct amdgpu_device *adev,
->>> +                  struct drm_mm_node *mm_node)
->>> +{
->>> +    struct ttm_resource_manager *man;
->>> +    struct amdgpu_gtt_mgr *mgr;
->>> +
->>> +    man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
->>> +    mgr = container_of(man, struct amdgpu_gtt_mgr, manager);
->>> +
->>> +    spin_lock(&mgr->lock);
->>> +    if (drm_mm_node_allocated(mm_node))
->>> +        drm_mm_remove_node(mm_node);
->>> +    spin_unlock(&mgr->lock);
->>> +}
->>> +
->>> +/*
->>> + * amdgpu_ttm_alloc_gart_vram_bo - Bind VRAM pages to GART mapping
->>> + *
->>> + * call amdgpu_ttm_alloc_gart_entries to alloc GART dynamically
->>> + */
->>> +int amdgpu_ttm_alloc_gart_vram_bo(struct amdgpu_bo *abo,
->>> +                  struct drm_mm_node *mm_node,
->>> +                  u64 *gpu_addr)
->>> +{
->>> +    struct ttm_buffer_object *bo = &abo->tbo;
->>> +    struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
->>> +    uint64_t flags;
->>> +    int r;
->>> +
->>> +    /* Only for valid VRAM bo resource */
->>> +    if (bo->resource->start == AMDGPU_BO_INVALID_OFFSET)
->>> +        return 0;
->>> +
->>> +    r = amdgpu_ttm_alloc_gart_entries(adev, mm_node,
->>> +                      amdgpu_bo_ngpu_pages(abo));
->>> +    if (r)
->>> +        return r;
->>> +
->>> +    /* compute PTE flags for this buffer object */
->>> +    flags = amdgpu_ttm_tt_pte_flags(adev, NULL, bo->resource);
->>> +    amdgpu_ttm_gart_bind_gfx9_mqd_vram(adev, bo, mm_node, flags);
->>> +    amdgpu_gart_invalidate_tlb(adev);
->>> +
->>> +    *gpu_addr = mm_node->start << PAGE_SHIFT;
->>> +    return 0;
->>> +}
->>> +
->>>   /*
->>>    * amdgpu_ttm_recover_gart - Rebind GTT pages
->>>    *
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>> index 72488124aa59..cb6123358843 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>> @@ -185,6 +185,14 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>>                  u64 k_job_id);
->>>     int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
->>> +int amdgpu_ttm_alloc_gart_vram_bo(struct amdgpu_bo *abo,
->>> +                  struct drm_mm_node *mm_node,
->>> +                  u64 *gpu_addr);
->>> +int amdgpu_ttm_alloc_gart_entries(struct amdgpu_device *adev,
->>> +                  struct drm_mm_node *mm_node,
->>> +                  u64 num_pages);
->>> +void amdgpu_ttm_free_gart_entries(struct amdgpu_device *adev,
->>> +                  struct drm_mm_node *mm_node);
->>>   void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
->>>   uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
->>>   diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
->>> index f78b249e1a41..00e1e5b30a3a 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
->>> @@ -225,6 +225,7 @@ void kfd_free_mqd_cp(struct mqd_manager *mm, void *mqd,
->>>             struct kfd_mem_obj *mqd_mem_obj)
->>>   {
->>>       if (mqd_mem_obj->mem) {
->>> +        amdgpu_ttm_free_gart_entries(mm->dev->adev, &mqd_mem_obj->mm_node);
->>>           amdgpu_amdkfd_free_kernel_mem(mm->dev->adev, &mqd_mem_obj->mem);
->>>           kfree(mqd_mem_obj);
->>>       } else {
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
->>> index 14123e1a9716..5828220056bd 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
->>> @@ -148,6 +148,15 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_node *node,
->>>               kfree(mqd_mem_obj);
->>>               return NULL;
->>>           }
->>> +
->>> +        retval = amdgpu_ttm_alloc_gart_vram_bo(mqd_mem_obj->mem,
->>> +                               &mqd_mem_obj->mm_node,
->>> +                               &(mqd_mem_obj->gpu_addr));
->>> +        if (retval) {
->>> +            amdgpu_amdkfd_free_kernel_mem(node->adev, &(mqd_mem_obj->mem));
->>> +            kfree(mqd_mem_obj);
->>> +            return NULL;
->>> +        }
->>>       } else {
->>>           retval = kfd_gtt_sa_allocate(node, sizeof(struct v9_mqd),
->>>                   &mqd_mem_obj);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> index 29419b3249cf..fdde907836fb 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> @@ -252,6 +252,7 @@ struct kfd_mem_obj {
->>>       uint64_t gpu_addr;
->>>       uint32_t *cpu_ptr;
->>>       void *mem;
->>> +    struct drm_mm_node mm_node;
->>>   };
->>>     struct kfd_vmid_info {
-> 
+I will perform additional tests to verify if reverting only one of the
+hunks (either in read_scdc_caps or write_scdc_data) is sufficient to
+resolve the regression, and I will get back to you with the results.
 
+The attached dmesg.zip contains the log captured with drm.debug=3D0x116
+as requested.
+
+--=20
+Best Regards,
+Mike Gavrilov.
+
+--000000000000a3a436064573a352
+Content-Type: application/zip; name="dmesg.zip"
+Content-Disposition: attachment; filename="dmesg.zip"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mixe2ub10>
+X-Attachment-Id: f_mixe2ub10
+
+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
+AQBPAAAAwTMAAAAA
+--000000000000a3a436064573a352--
