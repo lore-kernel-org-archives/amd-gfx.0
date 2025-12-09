@@ -4,57 +4,172 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F4D4D3B7EA
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 15:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 345C2D1CDC6
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 15:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F1110E1E2;
-	Tue,  9 Dec 2025 15:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD6310E1F1;
+	Tue,  9 Dec 2025 15:33:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OadQ/xej";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pDA7rtZb";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E81E310E1E2;
- Tue,  9 Dec 2025 15:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=EeU2xVgBcH2WAL9+dy+knKriha/HSyZYa9BX8Csd2g8=; b=OadQ/xejDpWc8YzI3duHsXLQLj
- YmJjH6yBVfn74F0dpN74ORosEynzWNe7IocAkl+1z2BH5KBpL+1CxRUGF7sR/Tb3Swd0WtiOy7CPf
- cNqiIcvB9tyA/uEBmJx5a0lkrmYGBRq6kc6LsOVNrXUPdTVoSnGY8vOG+Zr5NNEeOswAqOMANnsxF
- fOrLylqCjf4z5bmpeP4ccDowLjm5WyUD2nD/MK75pBs9e72wsAMsyNIeqI4gXfRknWzNYibO/dIoC
- VYVPi/ikjns6wwSZq5Fxa76EE4QFupCxxydc85j4YfreCHbI2a076BAtVYDP7pXlGsgW/T7ciJbOB
- R6iQK0kA==;
-Received: from [186.208.73.250] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vSzcI-00AZFp-AG; Tue, 09 Dec 2025 16:27:06 +0100
-Message-ID: <e0eeac27-3bad-4004-be5d-2c55e495d908@igalia.com>
-Date: Tue, 9 Dec 2025 12:27:02 -0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: use DCN10 CM helper for plane shaper
- func translation in DCN32
-To: Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
- siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, Simon Ser <contact@emersion.fr>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-References: <20251126005608.37513-1-mwen@igalia.com>
- <2a918940-700d-4b24-90ae-4d9d4f9b457d@amd.com>
- <f832ec8c-cce1-45e0-975b-ed7000bed891@igalia.com>
- <2ddb06d0-70e5-4a1f-850d-3753f9fb3d0a@amd.com>
- <7ad74d3d-5a63-462b-8243-f8f26441b04b@igalia.com>
- <b0288d0f-fcd9-4ae6-817f-5a927b9164e5@igalia.com>
- <4f02daf8-1bd2-4105-b270-0aed496501cb@amd.com>
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011034.outbound.protection.outlook.com [52.101.62.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F00F710E1F1
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 15:33:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QbSm5fhCarT0drx2/yjYOAYYn3dtOLr9lz+ucRhWqYRRqqm8hSNXlfxKOa+FW8WimQl+GNWPxrbbDk9+Gy+HmhY7sz68g0vqFHzp4YSspccvU3Ac18Xvtw8/VAobUDOc/4pSlZBKfUtsPjtaPalTNDkTuO/07Sm+VR8Ofwqb0gwJLus0fMQC/CHHIOQ/S9FVqViHwZz08kzsFuMf3ruXBv3DwA1bGPI83n+GJ7a2FdzfFJmp5qeAxELeu+153JFLQrsLAWlHot2aR2MgdWCpWZ92ta9DKx5I8/ogokOfnABLJqORQmECOEa90OCyYTD3oNrn/jG0n5/ojP4yHZ7T4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Grw2nhqEYIl7Np0l7eVRfTm8CaGM9W0kYUw4Mm6tqC4=;
+ b=XQr6SWk4lRpbbiVFtXISffopC7qHl7CPHkFRu2bo8SqJUSxzd0VD8amcAJxljMhPbb10rHL5ouY+v+fPkpxdKrulFpJREoG4MJS2zCsq7WW0mnX21B6ceAve5/NyOw4kQSAK+EkOHYAopwd30muuFLWzs/CVKnx/d3WPLKkxcrrpyenIt34uJJXhgdSBqljiX96JfOetIDOkUvS4zMmcSb25TzEzIdLiv+9e9OG6TaREPAqj3mKquOB7vq48vubHumC28QdflYB6mK4voR6PPfJQB+AsB7SOR+3SmPiuEgebTe/VMsLKeS2IbDM93TQvmJLIMPk+oIzcuSgHZhLLNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Grw2nhqEYIl7Np0l7eVRfTm8CaGM9W0kYUw4Mm6tqC4=;
+ b=pDA7rtZb5f4um3IxYFh7CoaIIHZSsKHFu/0hXDdiqprDJPLCXusOcj0Xk/8bbfAa18xmNc3cu24xh/fNs5vIqIJs0CniUlhhIh/DTwhIqV6f3ys7uXSKWjiwhIt0fSywHuWTdGZGEoLvHNbyrlCe5tYuTiFTDsIQ62aic+ix6oQ=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by DM6PR12MB4153.namprd12.prod.outlook.com (2603:10b6:5:212::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Tue, 9 Dec
+ 2025 15:33:29 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c1d5:bb14:abc3:7fd1]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c1d5:bb14:abc3:7fd1%4]) with mapi id 15.20.9388.012; Tue, 9 Dec 2025
+ 15:33:29 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+CC: amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux List Kernel Mailing
+ <linux-kernel@vger.kernel.org>, "Vojvodic, Relja (Reggie)"
+ <Relja.Vojvodic@amd.com>, "Liu, Wenjing" <Wenjing.Liu@amd.com>
+Subject: Re: [REGRESSION] Black screen on HDMI power-cycle after commit
+ 3471b9a31ce3 (7900XTX + LG C3)
+Thread-Topic: [REGRESSION] Black screen on HDMI power-cycle after commit
+ 3471b9a31ce3 (7900XTX + LG C3)
+Thread-Index: AQHcaBZEYNhCdAa/mUCcCXanEz3F3bUX4bnWgAARHSCAAAg9AIAAP1iAgAAr54CAAQrFvA==
+Date: Tue, 9 Dec 2025 15:33:28 +0000
+Message-ID: <CH0PR12MB52845994A8B59FD6187DCA268BA3A@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <CABXGCsOcjjD1f5vCxbv-CCCMZPearMnY6GE-WPc_N=_k1TtfXQ@mail.gmail.com>
+ <CABXGCsOfOuWqzV=3wZXSUJRmJpWQf6f3qQ=93=DqtN2ZjhyhGg@mail.gmail.com>
+ <CH0PR12MB5284525FDCC5F2261D7FA6BF8BA2A@CH0PR12MB5284.namprd12.prod.outlook.com>
+ <CH0PR12MB5284880C09ACD7DFB6670ECC8BA2A@CH0PR12MB5284.namprd12.prod.outlook.com>
+ <CABXGCsMH-4mC9n-ZySb=QtCLkM0eSX1sKaDTzXT8cG9mFS0rRQ@mail.gmail.com>
+ <303ed7b8-fbd3-400d-86ef-ac93c0c5c291@amd.com>
+ <CABXGCsNZcGXPe_nmRE3fUUMGfnGB_Bc1+R+=JMrymd0LN8Z9xg@mail.gmail.com>
+In-Reply-To: <CABXGCsNZcGXPe_nmRE3fUUMGfnGB_Bc1+R+=JMrymd0LN8Z9xg@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <4f02daf8-1bd2-4105-b270-0aed496501cb@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Mentions: Alexander.Deucher@amd.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-09T15:33:28.934Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|DM6PR12MB4153:EE_
+x-ms-office365-filtering-correlation-id: 758c5fe2-1810-4f98-3e83-08de37384d5d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|8096899003|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?utf-8?B?Y0pjMVZQZHpBVVFkZEhJOXVrRXlyR0dveUtaemdZbXBHVHRGSitOMDFOQ3R5?=
+ =?utf-8?B?M1cxSzJlSFI1WG5ZRnZudUc1KzkvQlVMTXV3ZmFxTVoxUFhoRG9JdHM4R3RM?=
+ =?utf-8?B?WHVwT3FESm9KTlo1QUFuYTFUM3kzNGdIN2kyUmZDc2g3Vk9wS3dhY1J0UE1s?=
+ =?utf-8?B?QzJSM2MycUVMV3pCam5ENXlvZXB1SGdLdXJCekZrdXIrQnhIN2NaekpVUlhW?=
+ =?utf-8?B?a1B0SDF2dWM5QUVBckQ1eHJCOUJ0Wnp0ZTZsdG5KWHFuL0M4QkZFcDh0NnRO?=
+ =?utf-8?B?UlZidlIxVTlMUm13U3l4dndkalEzOXFBWXREUTVyK1NjcEZiS2owZzNhU2VF?=
+ =?utf-8?B?bVNQVXFIVEhTQ1JaOU9neHFHS24yVFZ1eHp5MlViTUYySnBkY0xvYjdyK25s?=
+ =?utf-8?B?UTN3ajQzT3ozNlRNb3lBN3JtLzB2MExHQ2dhczdSVEpjNlBSc3dOMWpiWi96?=
+ =?utf-8?B?SHpiWXk4eGhoVEdtSkVjSW1kNFJ3L3FWMFNBZ0k3TWFMWTdJNlJKZXJ6NXJD?=
+ =?utf-8?B?TzBIVEtLcmpvTUo4T3AvZSttWlpTU0ZKakVsWDVKVzVwdUFHRGNwUytqc1Bu?=
+ =?utf-8?B?b2hXdXhtUlAyL21STWpLRnJWam9vUWl0WkVZQWU1Tk5OQXBtTGlreXYzdWs1?=
+ =?utf-8?B?OGlRWjNQdS9NKzhRR1JBK0gzL2swbEpURFhZLzJFNkZtRldpZExQRThQSFFv?=
+ =?utf-8?B?TFlSOXJJbm9NaXIxaWtHZ0Vlc2Rud2w5akpYWXBTVmFLbjVJQzZoVzczMVFp?=
+ =?utf-8?B?WG5KcHR4U0lxMlF3WGlhYUZXOU1BN3FVREhJeTNwbnBnNElmNkk3N3hGUExw?=
+ =?utf-8?B?Z2hKNldQRVloaTFGMmJYMjI5bDVtOXdWU3AyNFJPOTZsNU9pRnN4Y005bStO?=
+ =?utf-8?B?Q3Qvc1hhM3JEU2prRzhQRnd2RllsNVNDc3RXYlJvT2Y5enVRWFAzaXZYWGZl?=
+ =?utf-8?B?Qm5pOFRsNENnNDJNQWdIZ0FUV0EzcTZJT2wwcEpjUmZzc3pnazdjQzNobTA5?=
+ =?utf-8?B?K3JnZno5R2pLTVp4dlUzNHhWdk5SSlh1TzdrV3NSaGpqMEdDWk9ZOUZ0QVFB?=
+ =?utf-8?B?M0x4ejRMRVpzRmNGdDVwUmRjM3F2cmloTXpqRG1FbHA5MzFsajlrN2l3OThD?=
+ =?utf-8?B?a3VwcVp4aFE1bktEQnk4VUhwMWppN204b0RNb2VLNHB0OGZ1bDBQa1ZoK0t2?=
+ =?utf-8?B?bHBBU2UxUzRhd3dBNnZMVC9Ha3IvZFZ3cHdtYWtmeUhObWVZMlJ5d0VPKzNo?=
+ =?utf-8?B?OCtWWlBIeDl3czZIMTNicmN0Y1FWZ05mSytBcGpZVCtKbk8wT3RGZ3FUOHZK?=
+ =?utf-8?B?U2RNbXJTOGgrRXRYMjNwdjZCQ1Q3N0dNa2hsYU9CVkVNRjJmc0RYelorSGFH?=
+ =?utf-8?B?UkJkbEZsa1FBWUhFSEI0RU5CaGE4dSt5R3BRQ09pMzRFdzNIQ3lIZmp3Mm8x?=
+ =?utf-8?B?UEowcC9nd1JudUxOMmtxTTM0dEtGY05nNnZUNXFMcGxObm9ERWtmbmp0dlV0?=
+ =?utf-8?B?VksxTmxaeWYrVGIwQUU2dE1ZV3NUSE9QWGZtSGN0NEp4czRiN2Q4ZmFZZzd0?=
+ =?utf-8?B?bXpER0xaZXpzTEtLQjdUcnFNUXhJWGsvVExYRDhIMnl3aTFZazRCSE1ZMlJC?=
+ =?utf-8?B?VENUMW9YYjBuYTl2VFlKZnBFVmxzdmhIWXdubS9PLzQwNGdEMjQ0TjlkSUU5?=
+ =?utf-8?B?WDNSbGJPNXNPZ0lBbW9nRW1VK3R5eEJobzRGdisxdVhKMHNidHBDYXJOcFo1?=
+ =?utf-8?B?UWZBaGttTzhpRDR3eld3QWNOa3RialcyNmhONnlrcFYxY0hmc2tUbjNzaUds?=
+ =?utf-8?B?c0luZmtleVNSRDNyUm1zaFNIc2JTK2lna1hXc2c2U1p1M2piemw4c0RzUitt?=
+ =?utf-8?B?MDNjcFhXVXZUcFpHSkVkdGRhOXZBM1E0SHJ5OHVFYTFrdU9LTCt6SjRwbUdS?=
+ =?utf-8?B?UTd3ZUsxWEtSYmcwSUYycGM4SEJPYlUrVzAydFZrM1VrWEhlUWVGSmIzSGtr?=
+ =?utf-8?B?MTMzZDlxUnBXQWd5d2lRSXJYeUpwZW96QmhCLzN1a2d1WGxVQUVQQ0xPT1By?=
+ =?utf-8?Q?GeqN4s?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(38070700021)(7053199007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bE5PS1laWkUvaWdZSU00aVIxMGxtNllNc2lUdUdwUlc3NFlWMC94RHJXdlJi?=
+ =?utf-8?B?VWhjQ1YxOE5QTktVaWM5M0E0NGpQeDBHZ3RBbkFxbXdaWDRoc1M3aDEwSFZl?=
+ =?utf-8?B?OTFac3RDWnBiaUNnMmhQdCtUUy9FVmR0Z3JZbXBpM0lDaUFNTzRReFBvSm5U?=
+ =?utf-8?B?QVh4ZzRMaUlpaURaM0RjS3d1NXpLdGdtZjZGRE9DTUllYXdGUjREMkczZzJQ?=
+ =?utf-8?B?R2gxSmtVYXpoWmtaUXZXNVRYK213c1Zmazk0WVppaDlKdnh3d2NJc21mVXkr?=
+ =?utf-8?B?UEVBS0MrdzYrN0l1bnJDeStUbXloU21KTDNPZ21QTXN4Q2Rhdmh0ejFrSkkv?=
+ =?utf-8?B?YkJ6OWlHa2FUbUFiVlp1V3ZYN2tic1VqV25VRFY3UUJXbktFK1NwMG5aZTNP?=
+ =?utf-8?B?MmJDVWtNQzJ2QitDVzFhTEI4cVBnQnRYcXNnT1NVU3U0ZzZzVldvUTV6clhy?=
+ =?utf-8?B?VGRVcnp3NTRJZFAvdWg1Umk3N09IenBEOEd5TWRPMkVOMkdkWjI4aVZQSDhk?=
+ =?utf-8?B?WEp5TWFGcG8xRmJFVmZUMmRROUNsQUhHeURIaGw0QysyU1lKdzJHM3RCUUsw?=
+ =?utf-8?B?ZWJWTDJ3WmNpT2krTk0xUnd2MUhQUDlGdGxNeFlyU2x6MzdwWVZIWDNQaEhY?=
+ =?utf-8?B?OGZpZ3RORW90MHAxYWptUU5BempDeGFWMTlXcTE1MUxwMUxwU0lFTDVtcWlE?=
+ =?utf-8?B?TTI0Ylp3WEVNeVlwU2hBSlB1bWQrUEI2eCtNZjVTOHU3Yjh5NGdPN2o5RHJV?=
+ =?utf-8?B?U2QvcjRxazJENjNFT1hWcTVmRFJBYXBRdzJ2Z3h3ZFdKZ1BLRVNrLzJOY1ZP?=
+ =?utf-8?B?Z3YvdTIxamFxdkxTUEpGUUtwS0I2VXpiNkthbE1BM20wSSszNzNmNmxycWg1?=
+ =?utf-8?B?NnZKeEszeFdRdGJiMTg4Z2JWVmhkV0p6amFEYlpaUFJIL0JkaW5NUldma0U0?=
+ =?utf-8?B?dG9NdE9WY0pIL1lNMklGNVJkdWxUR3AycUlNRlIwTExiTGNKRmp5MC8yTDB2?=
+ =?utf-8?B?M3NZb3JFSWRBOUdVcTRtZE1ERURkTEpON3FBRzNEQUx0ZnZyTC80UVpkTFB1?=
+ =?utf-8?B?SHJ6dkl6VndrMGFCUkdhQWhQZVVIQnVLbTd6T3NId0xKWllYaWQrNDY5KzRX?=
+ =?utf-8?B?Nlp4UHdQdkhyblAyMUxmQ0oxeHI1eW5OYThncGV5b090VjNBRFRocXBBdzRQ?=
+ =?utf-8?B?WFUxMnZNSDYrMVVQVUNnU3lSblMvLzM4bE5mNW5laG83aFFsR1pXRnlmbGpn?=
+ =?utf-8?B?VXlONEVFOXJYaE03VWx6ZnE3WDJJd3pseVpPR1gwT3lSZEs0L1h5bGx5UGlP?=
+ =?utf-8?B?blM1eXFrdlJ5WlM1UndJc25kVEFTTEM0YnJiNE9FVUVqOHNPYTg0Wk5tRW5D?=
+ =?utf-8?B?QnJZNFB0SUE1TENJdzZhM09lZjNUTTR1ZmtoUjFyTGgzeUMwcGhrekxxWU4v?=
+ =?utf-8?B?cFU4d0FFUHgybDliUjh5ZExEZXo0NFQ2ZWo3dWN1ZGczMlhOOHFreDZEZ3Vy?=
+ =?utf-8?B?bEdJaEhPVmpvdnBBSGwrZ0VoOXhLYmV1NTQ0c3ZjQkhadk9pVnpuTWFpem5v?=
+ =?utf-8?B?aUhFSlRwNFloOVNPK3RYZzBDT1Q2Wjh5U1FtSk1XbkMwN0xlSFRhRFhvOEYr?=
+ =?utf-8?B?L3JmVkd2WVQzQmNIcFViYUdxSW1Bc1RhM3NpNFhLcWdnRGNhODB0am4zdTBz?=
+ =?utf-8?B?UEN2dmFVQU1PZFJtalY3azlaWjR0U2dHczJnNlU0V0lZRk5MVitUdW9RMVl3?=
+ =?utf-8?B?OHN6bEYwaUZoalViS0xPdHlCdU8xQ1ZqMitWejR5b2QvT01zRlAydDVlazUz?=
+ =?utf-8?B?bzFxZk5UYk9CRVRCMGVDMnc4WlJDbUNyQ3ZKZFN5eHRyTitDTHdYOTdwYm9G?=
+ =?utf-8?B?cnIrSTNoOURZUEFwZ3BpRXVQRisveFl2anlGZnNWdzVmRjdUYTNiMGVBamNI?=
+ =?utf-8?B?VEgyVkh3Y3ZZc1RJa3dTSWRGcHh0MUNacFBHT3RSdG10QVZ2T1VobFpHQ2tv?=
+ =?utf-8?B?QmdXNExWYk5yenhRSXMzTGdHNVBnVXhBd0xsWmQ3cFRFb1B4dU1BbHdMVTYy?=
+ =?utf-8?B?RVd1bXp1TUpyTkphUVpnKzF1K1BFMTRuMC8zMmpIVDhmZk9kaDNBTktHWVdM?=
+ =?utf-8?Q?LXJs=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB52845994A8B59FD6187DCA268BA3ACH0PR12MB5284namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 758c5fe2-1810-4f98-3e83-08de37384d5d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2025 15:33:28.8725 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TFaje0grypnP8sEtom4mnaIJvKNWMpteqrwniLJrhAt9S6/GhkACBRu60hQnNbvOO99Vvqy5xJ80UP77UVsXrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4153
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,175 +184,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_CH0PR12MB52845994A8B59FD6187DCA268BA3ACH0PR12MB5284namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KSSBzZWUgc29tZSBlcnJvcnMgdW5yZWxhdGVkIHRvIGRpc3BsYXksIGxpa2U6DQoNClsgIDM2
+MS40MjMwODVdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IGFtZGdwdTogcmluZ19idWZmZXJfc3RhcnQg
+PSAwMDAwMDAwMGJkYWQ0YTg2OyByaW5nX2J1ZmZlcl9lbmQgPSAwMDAwMDAwMDAwNTlkNGQ5OyB3
+cml0ZV9mcmFtZSA9IDAwMDAwMDAwOTY1ZTY3YzkNClsgIDM2MS40MjMwOTldIGFtZGdwdSAwMDAw
+OjAzOjAwLjA6IGFtZGdwdTogd3JpdGVfZnJhbWUgaXMgcG9pbnRpbmcgdG8gYWRkcmVzcyBvdXQg
+b2YgYm91bmRzDQpbICAzNjEuNDIzMTg4XSBhbWRncHUgMDAwMDowMzowMC4wOiBhbWRncHU6IHJp
+bmdfYnVmZmVyX3N0YXJ0ID0gMDAwMDAwMDBiZGFkNGE4NjsgcmluZ19idWZmZXJfZW5kID0gMDAw
+MDAwMDAwMDU5ZDRkOTsgd3JpdGVfZnJhbWUgPSAwMDAwMDAwMDk2NWU2N2M5DQpbICAzNjEuNDIz
+MTkwXSBhbWRncHUgMDAwMDowMzowMC4wOiBhbWRncHU6IHdyaXRlX2ZyYW1lIGlzIHBvaW50aW5n
+IHRvIGFkZHJlc3Mgb3V0IG9mIGJvdW5kcw0KDQphbmQNCg0KWyAgMzYxLjUxOTgwMV0gYW1kZ3B1
+IDAwMDA6MDM6MDAuMDogYW1kZ3B1OiBkZXZpY2UgbG9zdCBmcm9tIGJ1cyENClsgIDM2MS41MTk4
+MTRdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IGFtZGdwdTogU01VOiByZXNwb25zZToweEZGRkZGRkZG
+IGZvciBpbmRleDozNiBwYXJhbToweDAwMDAwMDAxIG1lc3NhZ2U6U2V0V29ya2xvYWRNYXNrPw0K
+WyAgMzYxLjUxOTgxOF0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogYW1kZ3B1OiBGYWlsZWQgdG8gc2V0
+IHdvcmtsb2FkIG1hc2sgMHgwMDAwMDAwMQ0KWyAgMzYxLjUxOTgyNl0gYW1kZ3B1IDAwMDA6MDM6
+MDAuMDogYW1kZ3B1OiAoLTEyMSkgZmFpbGVkIHRvIGRpc2FibGUgZnVsbHNjcmVlbiAzRCBwb3dl
+ciBwcm9maWxlIG1vZGUNCg0KRG8geW91IGhhdmUgdGhlc2UgZXJyb3JzIHdpdGggdGhlIHBhdGNo
+IHJldmVydGVkPw0KDQpTaW5jZSB0aGUgZm9sbG93IHVwIHBhdGNoIGRpZCBub3Qgd29yaywgcGxl
+YXNlIHRyeSBwYXJ0aWFsbHkgcmV2ZXJ0aW5nIHRoZSBjdWxwcml0IHBhdGNoICh0aGUgdHdvIGh1
+bmtzKSB0byBoZWxwIHVzIHBpbnBvaW50IHdoaWNoIG9uZSBmaXhlcyB0aGUgaXNzdWUgZm9yIHlv
+dT8NCg0KLS0NCg0KUmVnYXJkcywNCkpheQ0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18NCkZyb206IE1pa2hhaWwgR2F2cmlsb3YgPG1pa2hhaWwudi5nYXZyaWxvdkBnbWFpbC5jb20+
+DQpTZW50OiBNb25kYXksIERlY2VtYmVyIDgsIDIwMjUgNjozNCBQTQ0KVG86IFBpbGxhaSwgQXVy
+YWJpbmRvIDxBdXJhYmluZG8uUGlsbGFpQGFtZC5jb20+DQpDYzogYW1kLWdmeCBsaXN0IDxhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47IExpbnV4IExpc3QgS2VybmVsIE1haWxpbmcgPGxp
+bnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+OyBWb2p2b2RpYywgUmVsamEgKFJlZ2dpZSkgPFJl
+bGphLlZvanZvZGljQGFtZC5jb20+OyBMaXUsIFdlbmppbmcgPFdlbmppbmcuTGl1QGFtZC5jb20+
+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQpTdWJqZWN0
+OiBSZTogW1JFR1JFU1NJT05dIEJsYWNrIHNjcmVlbiBvbiBIRE1JIHBvd2VyLWN5Y2xlIGFmdGVy
+IGNvbW1pdCAzNDcxYjlhMzFjZTMgKDc5MDBYVFggKyBMRyBDMykNCg0KT24gVHVlLCBEZWMgOSwg
+MjAyNSBhdCAxOjU34oCvQU0gQXVyYWJpbmRvIFBpbGxhaQ0KPGF1cmFiaW5kby5waWxsYWlAYW1k
+LmNvbT4gd3JvdGU6DQo+DQo+IEl0IGlzIGF2YWlsYWJsZSBvbiBhbWQtc3RhZ2luZy1kcm0tbmV4
+dC4gSSdtIGFsc28gYXR0YWNoaW5nIGhlcmUuIExldCBtZQ0KPiBrbm93IGlmIHRoaXMgaGVscHMu
+DQoNCkhpIEF1cmFiaW5kbywNCg0KSSBhcHBsaWVkIHRoZSBwYXRjaCB5b3UgcHJvdmlkZWQgKCJk
+cm0vYW1kL2Rpc3BsYXk6IEltcHJvdmUgSERNSSBpbmZvDQpyZXRyaWV2YWwiKSwgYnV0IHVuZm9y
+dHVuYXRlbHksIGl0IGRvZXMgbm90IHJlc29sdmUgdGhlIGlzc3VlLg0KDQpUaGUgYmVoYXZpb3Ig
+cmVtYWlucyBleGFjdGx5IHRoZSBzYW1lOiB0aGUgSERNSSBzaWduYWwgaXMgc3RpbGwgbG9zdA0K
+YWZ0ZXIgcG93ZXItY3ljbGluZyB0aGUgVFYuDQoNCkkgaGF2ZSBhdHRhY2hlZCBhIG5ldyBkbWVz
+ZyBsb2cgKGNhcHR1cmVkIHdpdGggZHJtLmRlYnVnPTB4MTE2KSB3aXRoDQp5b3VyIHBhdGNoIGFw
+cGxpZWQuIEhvcGVmdWxseSwgaXQgc2hvd3Mgd2h5IHRoZSBmaXggZGlkbid0IHdvcmsuDQoNCi0t
+DQpCZXN0IFJlZ2FyZHMsDQpNaWtlIEdhdnJpbG92Lg0K
 
-On 09/12/2025 12:18, Harry Wentland wrote:
->
-> On 2025-12-08 19:13, Melissa Wen wrote:
->>
->> On 08/12/2025 20:59, Melissa Wen wrote:
->>>
->>> On 28/11/2025 18:36, Harry Wentland wrote:
->>>> On 2025-11-28 14:09, Melissa Wen wrote:
->>>>> On 27/11/2025 17:39, Harry Wentland wrote:
->>>>>> On 2025-11-25 19:45, Melissa Wen wrote:
->>>>>>> The usage of DCN30 CM helper creates some unexpected shimmer points on
->>>>>>> PQ shaper TF in the steamOS HDR color pipeline. Fix it by using the same
->>>>>>> DCN10 color mgmt helper of previous hw versions to translate plane
->>>>>>> shaper func to hw format in DCN32 hw family.
->>>>>>>
->>>>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>>>>>> ---
->>>>>>>
->>>>>>> Hi,
->>>>>>>
->>>>>>> Commit a953cd8cac6b ("drm/amd/display: Fix MPCC 1DLUT programming")
->>>>>>> mentions some visible artifacts when using DCN10 CM helper on DCN32
->>>>>>> shaper and blend LUTs. On the other hand, using DCN30 CM helper creates
->>>>>>> some shimmer points on steamOS HDR pipeline. We didn't noticed any
->>>>>>> visible artifacts so far, but I'd like to know more about what kind of
->>>>>>> artifacts were visible at the time this helper for shaper func was
->>>>>>> switched in the afore-mentioned commit for further investigation.
->>>>>>>
->>>>>> Thanks for the debug.
->>>>>>
->>>>>> Do you have more info on the unexpected shimmer points with SteamOS?
->>>>>> Ideally a video and a description on what to look for and why it's
->>>>>> wrong, or a comparison to a GFX-transformed example that shows the
->>>>>> correct visuals?
->>>>> Hi Harry,
->>>>>
->>>>> I took some pictures of clear unexpected scenes in HDR games.
->>>>>
->>>>> 1. https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-split-fiction-game-black-loading-bkg.jpg
->>>>>
->>>>> Just loading Split Fiction after having turning on HDR in this game options (Options > Graphics > HDR).
->>>>> We expected a black background with the Loading <icon> in the bottom right, this background is full of bright spots.
->>>>> Friend pass is enough to reproduce the issue without having the game.
->>>>>
->>>>> 2. https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-menu.jpg
->>>>>
->>>>> Colorful-bright points around the margin/corner of the God of War Ragnarok game menu.
->>>>>
->>>>> 3. God of War Ragnarok game intro:
->>>>>
->>>>> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-intro1.jpg
->>>>> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-intro2.jpg
->>>>> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-intro3.jpg
->>>>> - https://people.igalia.com/mwen/hdr-dcn321-pics/HDR-DCN321-god-of-war-ragnarok-PS-logo.jpg
->>>>>
->>>>> Same random shimmer distortions.
->>>>> I think those images are good examples, but still pending screenshot/GFX examples for comparison.
->>>>> I'll take it and reply here later.
->>>>>
->>>> Thanks, that would still be helpful, but even as-is these images
->>>> quite highlight the issue. It's more severe than I expected.
->>>>
->>>>>> Obviously we don't want to simply switch back to DCN10 helpers
->>>>>> without understand why, and potentially regressing other use-cases.
->>>>>> At least we should look at what the differences are between the
->>>>>> two versions of that function, and which part of the curve programming
->>>>>> causes the undesirable results.
->>>>>>
->>>>>> The original bug that was solved by that commit was a regression that
->>>>>> sent bright values in an HDR video to black or red, so basically
->>>>>> something really messed up bright PQ values. At least I suspect
->>>>>> it was a PQ HDR video. The ticket doesn't state that.
->>>>> I see. Looks like now we have somehow the same problem but in reverse (?) like black values mapped into bright values (?)
->>>> Yeah, if I understand your screenshots the issue seems to happen
->>>> (mainly) with dark values?
->>>>
->>>>>> When looking at the diff between the two functions I notice that
->>>>>> the cm3_ version is missing the dc_fixpt_clamp_u0d10 for the
->>>>>> delta_<color>_reg assignments, toward the bottom of the function.
->>>>>> I remember I had to add that to the cm_ version since it caused
->>>>>> issues with SteamOS HDR. Can we try that on the cm3_ function?
->>>>> Yes, I remember this issue.
->>>>>
->>>>> I've already tried the same changes from this commit (https://gitlab.freedesktop.org/agd5f/linux/-/commit/27fc10d1095f) to cm3_helper, but it doesn't help... probably because the commit was addressing a different behaviors.
->>>>>
->>>>> I also noticed on cm3_ they consider a different range of hw points, as in this comment:
->>>>> "
->>>>>       // DCN3+ have 257 pts in lieu of no separate slope registers
->>>>>       // Prior HW had 256 base+slope pairs
->>>>> "
->>>>>
->>>>> Can it be related to this problem?
->>>>>
->>>> Possibly. The point distribution is one potential culprit.
->>>>
->>>> How I would debug this is to look at the diff between the two
->>>> functions and try each diff one at a time to see whether one
->>>> (or two) small changes fixes this. Then look at what that change
->>>> was and what it does. That can then give us a guide on how to
->>>> properly fix it without affecting other use-cases.
->>> Hi Harry,
->>>
->>> Sorry for the delay. I got swamped with another debugging.
->>>
->>> I identified to different problems on plane shaper LUT when using the cm3 helper: those dark values wrong mapping and banding on some light values.
->>                    ^^^ two
->>> I followed your suggestion and found the necessary changes to address both issues, I just sent two RFC patches , so we can discuss it better there.
->>>
->>> https://lore.kernel.org/amd-gfx/20251208234741.293037-1-mwen@igalia.com/
->>>
->>> I still see a gradient banding on the game menu of Ori, but it's present with the DCN10 CM helper too.
->>>
->>> Thanks for taking a look at these problems.
->>>
-> Thanks, I'll have a look.
->
-> This is with the AMD_PRIVATE_COLOR stuff, right?
-Yes
-> Do you know if anyone's working on migrating gamescope to the now-merged color pipeline API?
-AFAIK, nobody is currently working on this migration.
+--_000_CH0PR12MB52845994A8B59FD6187DCA268BA3ACH0PR12MB5284namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I started migrating gamescope, but I got stuck in the libliftoff 
-changes, because of my lack of background.
-I don't think I'll be able to resume it in the short term :/
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
+ImRpc3BsYXk6bm9uZTsiPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9zdHls
+ZT4NCjwvaGVhZD4NCjxib2R5IGRpcj0ibHRyIj4NCjxkaXYgY2xhc3M9ImVsZW1lbnRUb1Byb29m
+IiBzdHlsZT0idGV4dC1hbGlnbjogbGVmdDsgbWFyZ2luLWxlZnQ6IDVwdDsgZm9udC1mYW1pbHk6
+IENhbGlicmk7IGZvbnQtc2l6ZTogMTBwdDsgY29sb3I6IHJnYigwLCAwLCAyNTUpOyI+DQpbQU1E
+IE9mZmljaWFsIFVzZSBPbmx5IC0gQU1EIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XTwvZGl2
+Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFw
+dG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1z
+aXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9ImVsZW1lbnRUb1Byb29mIj4N
+Cjxicj4NCjwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJl
+ZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1z
+ZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9ImVsZW1l
+bnRUb1Byb29mIj4NCkkgc2VlIHNvbWUgZXJyb3JzIHVucmVsYXRlZCB0byBkaXNwbGF5LCBsaWtl
+OjwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZv
+bnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsg
+Zm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9ImVsZW1lbnRUb1By
+b29mIj4NCjxicj4NCjwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRv
+c19FbWJlZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwg
+c2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9
+ImVsZW1lbnRUb1Byb29mIj4NClsgJm5ic3A7MzYxLjQyMzA4NV0gYW1kZ3B1IDAwMDA6MDM6MDAu
+MDogYW1kZ3B1OiByaW5nX2J1ZmZlcl9zdGFydCA9IDAwMDAwMDAwYmRhZDRhODY7IHJpbmdfYnVm
+ZmVyX2VuZCA9IDAwMDAwMDAwMDA1OWQ0ZDk7IHdyaXRlX2ZyYW1lID0gMDAwMDAwMDA5NjVlNjdj
+OTwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZv
+bnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsg
+Zm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9ImVsZW1lbnRUb1By
+b29mIj4NClsgJm5ic3A7MzYxLjQyMzA5OV0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogYW1kZ3B1OiB3
+cml0ZV9mcmFtZSBpcyBwb2ludGluZyB0byBhZGRyZXNzIG91dCBvZiBib3VuZHM8L2Rpdj4NCjxk
+aXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19N
+U0ZvbnRTZXJ2aWNlLCBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTog
+MTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiIGNsYXNzPSJlbGVtZW50VG9Qcm9vZiI+DQpbICZu
+YnNwOzM2MS40MjMxODhdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IGFtZGdwdTogcmluZ19idWZmZXJf
+c3RhcnQgPSAwMDAwMDAwMGJkYWQ0YTg2OyByaW5nX2J1ZmZlcl9lbmQgPSAwMDAwMDAwMDAwNTlk
+NGQ5OyB3cml0ZV9mcmFtZSA9IDAwMDAwMDAwOTY1ZTY3Yzk8L2Rpdj4NCjxkaXYgc3R5bGU9ImZv
+bnQtZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0ZvbnRTZXJ2aWNl
+LCBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6
+IHJnYigwLCAwLCAwKTsiIGNsYXNzPSJlbGVtZW50VG9Qcm9vZiI+DQpbICZuYnNwOzM2MS40MjMx
+OTBdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IGFtZGdwdTogd3JpdGVfZnJhbWUgaXMgcG9pbnRpbmcg
+dG8gYWRkcmVzcyBvdXQgb2YgYm91bmRzPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTog
+QXB0b3MsIEFwdG9zX0VtYmVkZGVkRm9udCwgQXB0b3NfTVNGb250U2VydmljZSwgQ2FsaWJyaSwg
+SGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwg
+MCk7IiBjbGFzcz0iZWxlbWVudFRvUHJvb2YiPg0KPGJyPg0KPC9kaXY+DQo8ZGl2IHN0eWxlPSJm
+b250LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVkZGVkRm9udCwgQXB0b3NfTVNGb250U2Vydmlj
+ZSwgQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9y
+OiByZ2IoMCwgMCwgMCk7IiBjbGFzcz0iZWxlbWVudFRvUHJvb2YiPg0KYW5kJm5ic3A7PC9kaXY+
+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVkZGVkRm9udCwgQXB0
+b3NfTVNGb250U2VydmljZSwgQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNp
+emU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IiBjbGFzcz0iZWxlbWVudFRvUHJvb2YiPg0K
+PGJyPg0KPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVk
+ZGVkRm9udCwgQXB0b3NfTVNGb250U2VydmljZSwgQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNl
+cmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IiBjbGFzcz0iZWxlbWVu
+dFRvUHJvb2YiPg0KWyAmbmJzcDszNjEuNTE5ODAxXSBhbWRncHUgMDAwMDowMzowMC4wOiBhbWRn
+cHU6IGRldmljZSBsb3N0IGZyb20gYnVzITwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6
+IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmks
+IEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAs
+IDApOyIgY2xhc3M9ImVsZW1lbnRUb1Byb29mIj4NClsgJm5ic3A7MzYxLjUxOTgxNF0gYW1kZ3B1
+IDAwMDA6MDM6MDAuMDogYW1kZ3B1OiBTTVU6IHJlc3BvbnNlOjB4RkZGRkZGRkYgZm9yIGluZGV4
+OjM2IHBhcmFtOjB4MDAwMDAwMDEgbWVzc2FnZTpTZXRXb3JrbG9hZE1hc2s/PC9kaXY+DQo8ZGl2
+IHN0eWxlPSJmb250LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVkZGVkRm9udCwgQXB0b3NfTVNG
+b250U2VydmljZSwgQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEy
+cHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IiBjbGFzcz0iZWxlbWVudFRvUHJvb2YiPg0KWyAmbmJz
+cDszNjEuNTE5ODE4XSBhbWRncHUgMDAwMDowMzowMC4wOiBhbWRncHU6IEZhaWxlZCB0byBzZXQg
+d29ya2xvYWQgbWFzayAweDAwMDAwMDAxPC9kaXY+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTog
+QXB0b3MsIEFwdG9zX0VtYmVkZGVkRm9udCwgQXB0b3NfTVNGb250U2VydmljZSwgQ2FsaWJyaSwg
+SGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwg
+MCk7IiBjbGFzcz0iZWxlbWVudFRvUHJvb2YiPg0KWyAmbmJzcDszNjEuNTE5ODI2XSBhbWRncHUg
+MDAwMDowMzowMC4wOiBhbWRncHU6ICgtMTIxKSBmYWlsZWQgdG8gZGlzYWJsZSBmdWxsc2NyZWVu
+IDNEIHBvd2VyIHByb2ZpbGUgbW9kZTwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFw
+dG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhl
+bHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDAp
+OyIgY2xhc3M9ImVsZW1lbnRUb1Byb29mIj4NCjxicj4NCjwvZGl2Pg0KPGRpdiBzdHlsZT0iZm9u
+dC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2Us
+IENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjog
+cmdiKDAsIDAsIDApOyIgY2xhc3M9ImVsZW1lbnRUb1Byb29mIj4NCkRvIHlvdSBoYXZlIHRoZXNl
+IGVycm9ycyB3aXRoIHRoZSBwYXRjaCByZXZlcnRlZD88L2Rpdj4NCjxkaXYgc3R5bGU9ImZvbnQt
+ZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0ZvbnRTZXJ2aWNlLCBD
+YWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJn
+YigwLCAwLCAwKTsiIGNsYXNzPSJlbGVtZW50VG9Qcm9vZiI+DQo8YnI+DQo8L2Rpdj4NCjxkaXYg
+c3R5bGU9ImZvbnQtZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0Zv
+bnRTZXJ2aWNlLCBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJw
+dDsgY29sb3I6IHJnYigwLCAwLCAwKTsiIGNsYXNzPSJlbGVtZW50VG9Qcm9vZiI+DQpTaW5jZSB0
+aGUgZm9sbG93IHVwIHBhdGNoIGRpZCBub3Qgd29yaywgcGxlYXNlIHRyeSBwYXJ0aWFsbHkgcmV2
+ZXJ0aW5nIHRoZSBjdWxwcml0IHBhdGNoICh0aGUgdHdvIGh1bmtzKSB0byBoZWxwIHVzIHBpbnBv
+aW50IHdoaWNoIG9uZSBmaXhlcyB0aGUgaXNzdWUgZm9yIHlvdT88L2Rpdj4NCjxkaXYgaWQ9IlNp
+Z25hdHVyZSI+DQo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVkZGVk
+Rm9udCwgQXB0b3NfTVNGb250U2VydmljZSwgQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlm
+OyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCjxicj4NCjwvZGl2Pg0K
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMt
+c2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KLS08L2Rpdj4N
+CjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBDYWxpYnJpLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5z
+LXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCjxicj4NCjwv
+ZGl2Pg0KPGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2Es
+IHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KUmVn
+YXJkcyw8L2Rpdj4NCjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBDYWxpYnJpLCBBcmlhbCwgSGVs
+dmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7
+Ij4NCkpheTxicj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGlkPSJhcHBlbmRvbnNlbmQiPjwvZGl2
+Pg0KPGhyIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazt3aWR0aDo5OCUiIHRhYmluZGV4PSIt
+MSI+DQo8ZGl2IGlkPSJkaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgZmFjZT0iQ2FsaWJy
+aSwgc2Fucy1zZXJpZiIgc3R5bGU9ImZvbnQtc2l6ZToxMXB0IiBjb2xvcj0iIzAwMDAwMCI+PGI+
+RnJvbTo8L2I+IE1pa2hhaWwgR2F2cmlsb3YgJmx0O21pa2hhaWwudi5nYXZyaWxvdkBnbWFpbC5j
+b20mZ3Q7PGJyPg0KPGI+U2VudDo8L2I+IE1vbmRheSwgRGVjZW1iZXIgOCwgMjAyNSA2OjM0IFBN
+PGJyPg0KPGI+VG86PC9iPiBQaWxsYWksIEF1cmFiaW5kbyAmbHQ7QXVyYWJpbmRvLlBpbGxhaUBh
+bWQuY29tJmd0Ozxicj4NCjxiPkNjOjwvYj4gYW1kLWdmeCBsaXN0ICZsdDthbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZyZndDs7IExpbnV4IExpc3QgS2VybmVsIE1haWxpbmcgJmx0O2xpbnV4
+LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcmZ3Q7OyBWb2p2b2RpYywgUmVsamEgKFJlZ2dpZSkgJmx0
+O1JlbGphLlZvanZvZGljQGFtZC5jb20mZ3Q7OyBMaXUsIFdlbmppbmcgJmx0O1dlbmppbmcuTGl1
+QGFtZC5jb20mZ3Q7OyBEZXVjaGVyLCBBbGV4YW5kZXIgJmx0O0FsZXhhbmRlci5EZXVjaGVyQGFt
+ZC5jb20mZ3Q7PGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBbUkVHUkVTU0lPTl0gQmxhY2sgc2Ny
+ZWVuIG9uIEhETUkgcG93ZXItY3ljbGUgYWZ0ZXIgY29tbWl0IDM0NzFiOWEzMWNlMyAoNzkwMFhU
+WCArIExHIEMzKTwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9
+IkJvZHlGcmFnbWVudCI+PGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0
+OyI+DQo8ZGl2IGNsYXNzPSJQbGFpblRleHQiPk9uIFR1ZSwgRGVjIDksIDIwMjUgYXQgMTo1N+KA
+r0FNIEF1cmFiaW5kbyBQaWxsYWk8YnI+DQombHQ7YXVyYWJpbmRvLnBpbGxhaUBhbWQuY29tJmd0
+OyB3cm90ZTo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBJdCBpcyBhdmFpbGFibGUgb24gYW1kLXN0YWdp
+bmctZHJtLW5leHQuIEknbSBhbHNvIGF0dGFjaGluZyBoZXJlLiBMZXQgbWU8YnI+DQomZ3Q7IGtu
+b3cgaWYgdGhpcyBoZWxwcy48YnI+DQo8YnI+DQpIaSBBdXJhYmluZG8sPGJyPg0KPGJyPg0KSSBh
+cHBsaWVkIHRoZSBwYXRjaCB5b3UgcHJvdmlkZWQgKCZxdW90O2RybS9hbWQvZGlzcGxheTogSW1w
+cm92ZSBIRE1JIGluZm88YnI+DQpyZXRyaWV2YWwmcXVvdDspLCBidXQgdW5mb3J0dW5hdGVseSwg
+aXQgZG9lcyBub3QgcmVzb2x2ZSB0aGUgaXNzdWUuPGJyPg0KPGJyPg0KVGhlIGJlaGF2aW9yIHJl
+bWFpbnMgZXhhY3RseSB0aGUgc2FtZTogdGhlIEhETUkgc2lnbmFsIGlzIHN0aWxsIGxvc3Q8YnI+
+DQphZnRlciBwb3dlci1jeWNsaW5nIHRoZSBUVi48YnI+DQo8YnI+DQpJIGhhdmUgYXR0YWNoZWQg
+YSBuZXcgZG1lc2cgbG9nIChjYXB0dXJlZCB3aXRoIGRybS5kZWJ1Zz0weDExNikgd2l0aDxicj4N
+CnlvdXIgcGF0Y2ggYXBwbGllZC4gSG9wZWZ1bGx5LCBpdCBzaG93cyB3aHkgdGhlIGZpeCBkaWRu
+J3Qgd29yay48YnI+DQo8YnI+DQotLSA8YnI+DQpCZXN0IFJlZ2FyZHMsPGJyPg0KTWlrZSBHYXZy
+aWxvdi48YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+
+DQo=
 
-Not sure if someone is working on this topic for libliftoff.
-
-Simon (/cc) , do you know?
-
->
-> Harry
->
->>> Melissa
->>>> The other thing to understand is why we didn't see issues with
->>>> the Color Pipeline API tests in IGT.
->>>>
->>>> Harry
->>>>
->>>>> Thanks,
->>>>>
->>>>> Melissa
->>>>>
->>>>>> Cheers,
->>>>>> Harry
->>>>>>
->>>>>>> Thanks in advance,
->>>>>>>
->>>>>>> Melissa
->>>>>>>
->>>>>>>
->>>>>>>     drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c | 6 +++---
->>>>>>>     1 file changed, 3 insertions(+), 3 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>>>>>> index bf19ba65d09a..a28560caa1c0 100644
->>>>>>> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>>>>>> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>>>>>> @@ -501,9 +501,9 @@ bool dcn32_set_mcm_luts(
->>>>>>>             lut_params = &plane_state->in_shaper_func.pwl;
->>>>>>>         else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
->>>>>>>             // TODO: dpp_base replace
->>>>>>> -        ASSERT(false);
->>>>>>> - cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
->>>>>>> -                &dpp_base->shaper_params, true);
->>>>>>> + cm_helper_translate_curve_to_hw_format(plane_state->ctx,
->>>>>>> + &plane_state->in_shaper_func,
->>>>>>> + &dpp_base->shaper_params, true);
->>>>>>>             lut_params = &dpp_base->shaper_params;
->>>>>>>         }
-
+--_000_CH0PR12MB52845994A8B59FD6187DCA268BA3ACH0PR12MB5284namp_--
