@@ -4,68 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84FFAD3B7EA
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 14:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC876D1CDC6
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 14:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28F8810E616;
-	Tue,  9 Dec 2025 14:27:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6266610E611;
+	Tue,  9 Dec 2025 14:31:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SRtov+Un";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VCqHUnCP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E73E10E616;
- Tue,  9 Dec 2025 14:27:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7476843A63;
- Tue,  9 Dec 2025 14:27:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0555C4CEF5;
- Tue,  9 Dec 2025 14:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765290451;
- bh=+lPRgnywG6DZojNgtg/w1EUgAWRizPCecjzEhDomM3s=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SRtov+UnCMmffLoCrIS4i3rDRT4jcz+QLcw3NrHCLRnXPGNf1byxWeiSl2eogVxma
- r+raXHakZJMJsgoqW9kr6R9waCWB6qY/4XMqZcOj4R6RjgNeuWG+f2Lm9aEZlBfUCw
- KLHcoeYAyfv8VBvC9vYuxQvaoIWXIALfwKGFIp9wbP+aZFbbiHk/6IPUm6K/i5QmoX
- kKf3umBTwAhvT4a0ULSXFhXNQgEkVkbKlGKh2mWA+megTCQe8ul02RMn63lBaCpYrr
- He+mCx0tE1uAYY/8j8ydJaUSmAqRiF+FASTPOsNDzACALIBR0q/Gpm7h9RqDKk1dFh
- ZKfL+LRCT6e9A==
-Date: Tue, 9 Dec 2025 15:27:28 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v5 04/17] drm/bridge: Act on the DRM color format property
-Message-ID: <20251209-smart-oarfish-of-wind-0c1c8b@houat>
-References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
- <20251128-color-format-v5-4-63e82f1db1e1@collabora.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D37410E611;
+ Tue,  9 Dec 2025 14:31:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=598Lv6I+cwM2e/3R1Dlkr2qljrp7ii/wSnDlNmMxxh8=; b=VCqHUnCP384aBUtzRXML3Cy8N4
+ FUaUSAbYkq6FkvLROjWlWZlwnJl+oOFFJwSzHSH2whoJBXwaqIu+EvUcm71W1znfX2ye6EIbg4tqW
+ P6WIqoH/spyWJFEx203cpASwLF6K7tWUhexqTgfJtKz5Xl/WJnYJyHo7tC7mIvePj7+GOmQeu+DCf
+ eWjYyghBA5+Ze5r4dbo7CaUmnIW4tN2pfSmog0mIY0s6QMu2mlGCZ1vqmTBC6s0ffrE1uqH6+IJSf
+ 31/YeuBPCE1No15yxWw20Qo/I8PWdMnf80w+qLwXUAaQO1M2k5EW/EV8Ds5LEMLdmn5GslyiFJApN
+ PZaUtwZg==;
+Received: from [186.208.73.250] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1vSykO-00AXoT-Ib; Tue, 09 Dec 2025 15:31:24 +0100
+Message-ID: <ae3d39ec-e220-435e-9cc9-e316591cf0f1@igalia.com>
+Date: Tue, 9 Dec 2025 11:31:19 -0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="6swa32l4wvcewsqj"
-Content-Disposition: inline
-In-Reply-To: <20251128-color-format-v5-4-63e82f1db1e1@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/2] Fixes on CM3 helper for plane shaper LUT
+To: Matthew Schwartz <matthew.schwartz@linux.dev>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20251208234741.293037-1-mwen@igalia.com>
+ <6fbc0496-9a96-4f72-a8d8-66b7885bdaf6@linux.dev>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <6fbc0496-9a96-4f72-a8d8-66b7885bdaf6@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,112 +64,101 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---6swa32l4wvcewsqj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 04/17] drm/bridge: Act on the DRM color format property
-MIME-Version: 1.0
 
-Hi,
+On 08/12/2025 22:34, Matthew Schwartz wrote:
+>
+>> On Dec 8, 2025, at 3:48 PM, Melissa Wen <mwen@igalia.com> wrote:
+>>
+>> ﻿There are some unexpected banding and shimmer effects when using
+>> steamOS/gamescope color pipeline for HDR on DCN32 or newer families.
+>> Those problems are not present in Steam Deck (DCN301). It happens on
+>> DCN32 because plane shaper LUT uses DCN30 CM3 helper to translate curves
+>> instead of DCN10 CM helper. This series identifies the necessary changes
+>> on CM3 helper to reduce differences on color transformation made by
+>> those two helpers.
+>>
+>> Patch 1 aims to solve the shimmer/colorful points that looks like a
+>> wrong map of black values on red/green/blue colors. Patch 2 extends the
+>> delta clamping fix made in commit 27fc10d1095f ("drm/amd/display: Fix
+>> the delta clamping for shaper LUT") to solve some banding effects.
+>>
+>> Banding is not fully solved by any helper and needs further
+>> investigation.
+>>
+>> One easy way to check the current and expected behavior is moving the
+>> cursor (doing composition) to get the expected result from GFX. When the
+>> cursor disappears, those color transformations are back to be done by
+>> the display hw.
+> Hi Melissa,
+>
+> Could you share how you’re testing the gamescope color pipeline with HDR on DCN32, i.e display and connection type? Are any extra gamescope or kernel patches required?
+>
+> At least on my own DCN32 setup (AMD 7900XTX) + my primary monitor (an LG 45gx950a-b) via DisplayPort or my DCN35 setup + integrated HDR OLED screen (Legion Go 2), gamescope always composites when HDR is enabled. I applied your patches on top of kernel 6.18, and my kernel is built with CONFIG_DRM_AMD_COLOR_STEAMDECK=y (the downstream name of AMD_PRIVATE_COLOR for SteamOS), so that shouldn't be an issue. I tried everything from 1280x720p -> 5120x2160p, and it does not work on any resolution.
+Hi Matt,
 
-On Fri, Nov 28, 2025 at 10:05:40PM +0100, Nicolas Frattaroli wrote:
-> The new DRM color format property allows userspace to request a specific
-> color format on a connector. In turn, this fills the connector state's
-> color_format member to switch color formats.
->=20
-> Make drm_bridges consider the color_format set in the connector state
-> during the atomic bridge check. Specifically, reject any output bus
-> formats that do not correspond to the requested color format.
->=20
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/drm_bridge.c | 45 ++++++++++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 45 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 8f355df883d8..8aac9747f35e 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -1052,6 +1052,47 @@ static int select_bus_fmt_recursive(struct drm_bri=
-dge *first_bridge,
->  	return ret;
->  }
-> =20
-> +static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_f=
-ormat fmt)
-> +{
-> +	if (fmt =3D=3D DRM_COLOR_FORMAT_AUTO)
-> +		return true;
-> +
-> +	switch (bus_fmt) {
-> +	case MEDIA_BUS_FMT_FIXED:
-> +		return true;
-> +	case MEDIA_BUS_FMT_RGB888_1X24:
-> +	case MEDIA_BUS_FMT_RGB101010_1X30:
-> +	case MEDIA_BUS_FMT_RGB121212_1X36:
-> +	case MEDIA_BUS_FMT_RGB161616_1X48:
-> +		return fmt =3D=3D DRM_COLOR_FORMAT_RGB444;
-> +	case MEDIA_BUS_FMT_YUV8_1X24:
-> +	case MEDIA_BUS_FMT_YUV10_1X30:
-> +	case MEDIA_BUS_FMT_YUV12_1X36:
-> +	case MEDIA_BUS_FMT_YUV16_1X48:
-> +		return fmt =3D=3D DRM_COLOR_FORMAT_YCBCR444;
-> +	case MEDIA_BUS_FMT_UYVY8_1X16:
-> +	case MEDIA_BUS_FMT_VYUY8_1X16:
-> +	case MEDIA_BUS_FMT_YUYV8_1X16:
-> +	case MEDIA_BUS_FMT_YVYU8_1X16:
-> +	case MEDIA_BUS_FMT_UYVY10_1X20:
-> +	case MEDIA_BUS_FMT_YUYV10_1X20:
-> +	case MEDIA_BUS_FMT_VYUY10_1X20:
-> +	case MEDIA_BUS_FMT_YVYU10_1X20:
-> +	case MEDIA_BUS_FMT_UYVY12_1X24:
-> +	case MEDIA_BUS_FMT_VYUY12_1X24:
-> +	case MEDIA_BUS_FMT_YUYV12_1X24:
-> +	case MEDIA_BUS_FMT_YVYU12_1X24:
-> +		return fmt =3D=3D DRM_COLOR_FORMAT_YCBCR422;
-> +	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-> +	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-> +	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-> +	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-> +		return fmt =3D=3D DRM_COLOR_FORMAT_YCBCR420;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
->  /*
->   * This function is called by &drm_atomic_bridge_chain_check() just befo=
-re
->   * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-> @@ -1137,6 +1178,10 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm=
-_bridge *bridge,
->  	}
-> =20
->  	for (i =3D 0; i < num_out_bus_fmts; i++) {
-> +		if (!bus_format_is_color_fmt(out_bus_fmts[i], conn_state->color_format=
-)) {
-> +			ret =3D -ENOTSUPP;
-> +			continue;
-> +		}
+You need to hack the DPP color caps to enabled SHAPER/3D and BLEND LUTs 
+as below:
 
-Sorry, I'm struggling a bit to understand how this would work if a bridge b=
-oth supports the bus
-format selection and HDMI state helpers? Can you expand on it?
+diff --git 
+i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c 
+w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index b276fec3e479..96b4f3239fb1 100644
+--- i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -2256,8 +2256,8 @@ static bool dcn32_resource_construct(
+         dc->caps.color.dpp.gamma_corr = 1;
+         dc->caps.color.dpp.dgam_rom_for_yuv = 0;
 
-Maxime
+-       dc->caps.color.dpp.hw_3d_lut = 0;
+-       dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
++       dc->caps.color.dpp.hw_3d_lut = 1;
++       dc->caps.color.dpp.ogam_ram = 1;  // no OGAM in DPP since DCN1
+         // no OGAM ROM on DCN2 and later ASICs
+         dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
+         dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
 
---6swa32l4wvcewsqj
-Content-Type: application/pgp-signature; name="signature.asc"
+In short, you need to change `caps.color.dpp.hw_3d_lut` and 
+`caps.color.dpp.ogam_ram` to 1 in the dcnX_resource.c file to say there 
+is a "plane" color caps.
+The thing is that, in DCN32+, these color caps are not part of DPP 
+anymore, they are MPC capabilities in MCM that can be moved before or 
+after blending.
+But the current kernel implementation checks DPP color caps to expose 
+plane color proprerties.
+Checking MPC and where the MCM is positioned would be more complex, but 
+not impossible. Something to improve in the future yes.
 
------BEGIN PGP SIGNATURE-----
+You need to confirm that your `drm_info` shows all AMD plane color 
+properties, but gamescope basically checks CTM and BLEND_TF as you can 
+see here:
+https://github.com/ValveSoftware/gamescope/blob/master/src/Backends/DRMBackend.cpp#L3347
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaTgx0AAKCRAnX84Zoj2+
-dn+pAXoCEBIzb4PrpgMd2asQag4DZBJm2omA/DY2ArLCM7xiNnTD+fG+t5BxdhGx
-GQRfoUIBfAgis2VsEMDW4zY+ZyEGiWuYG8gnFhPFvpM4lZ57Re+WJ6smQKDAUbwk
-gtuqKr0cjA==
-=HGyp
------END PGP SIGNATURE-----
+Let me know if it works for you.
 
---6swa32l4wvcewsqj--
+BR,
+
+Melissa
+
+>
+> Thanks,
+> Matt
+>
+>> Lemme know your thoughts!
+>>
+>> Melissa
+>>
+>> Melissa Wen (2):
+>>   drm/amd/display: fix wrong color value mapping on DCN32 shaper LUT
+>>   drm/amd/display: extend delta clamping logic to CM3 LUT helper
+>>
+>> .../amd/display/dc/dcn30/dcn30_cm_common.c    | 32 +++++++++++++++----
+>> .../display/dc/dwb/dcn30/dcn30_cm_common.h    |  2 +-
+>> .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  9 +++---
+>> .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 17 ++++++----
+>> .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 16 ++++++----
+>> 5 files changed, 50 insertions(+), 26 deletions(-)
+>>
+>> --
+>> 2.51.0
+>>
+
