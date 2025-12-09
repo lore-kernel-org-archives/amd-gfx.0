@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A51FD3B7EA
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 08:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED55D3B7EA
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 08:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3ED310E4D9;
-	Tue,  9 Dec 2025 08:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5132710E4DC;
+	Tue,  9 Dec 2025 08:58:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uhi8OmDP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="feOpPSF3";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011034.outbound.protection.outlook.com [40.107.208.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B656310E4D9
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 08:58:28 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012052.outbound.protection.outlook.com
+ [40.93.195.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C12410E4DE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 08:58:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HMZxgFN5aCKtaQYzHsCMGRNri0x4TssCRRiWOK5Gp5bGu9LoUha0iqc+zwx1NO26tjKEzpNJr3PoyGtZkgso/e6I8XMjUhBPaUe5G6LmS6l3+fFRHha+iyXuuu5xszZquuaZzzTmOIXTYG4rnoEWPG8RcClBUZJcgaIzH/V5uJ85bGOyMjD7Xwpu6Y3rAx9rnvKrI6RcR0dFV7eXlmNtpbKvIQNSATis+hzusZ8uZvCihQX2m5MZRR9AmPphRXUEmlJ8DfJ1joDA9G6O2yyuLUNHng3+dp9RBLqlQKF3DNCMNrmFwcFRDfQWOKsyD+t0p9tYYM1Cyoe0cN/lxhKStg==
+ b=jJ2dcKMehEVre0kXWOodjva+2XpG2PDTYOh4LPgFIE9h317TbcB8gH7vgYARKwnMf2LfhsNPGmVefnU1A9aSVxOrDz9AP9RMIvorXmCkBpn01F1eAjOgzYLAeA7klmvoRkzCsO8+9UNPKrjfWKnbxP981VCwMCXbuEq2tRGpGWbKfWXvLV+BvQoFo1gL6EnaMsNuBTK0nyZt5tHBYlsNaBVlobA+A3qVxALjCl7g+6Lc/g7V4Xz/oKRUkoQh7d9vjN2Kguw1ls279zrblPcnX9mGG9DLxgw6JZrX5f2MjksHciJXjUXXibweHjesmpxyKehZnH+THjKjajqSdnEr2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yz8wJLTpcW/KrFOCDC0CrNxyhQjwwdtlXfrvlz7SVxM=;
- b=cgxEPlIS3HCvOQkT1BlVA3EsyhojKDo8g2Ud/lcmgzS6nICHPse+C3HqijM3xQyvWkzAZGgkPkM9+5m55qj8Lzvpml+xQI2NVZDpScbcxUG27vXhJr/I3/cVu0tJXvKU0a4eYwEe/+qouRxmFZ95d+8nAftJdOuNsSyFmwCUdSn5VXV7mxi7irUjAtE5XsBs3pqUKRCLsrv2qOWezq4t2fK+zzHsFPJR4qP+TNMv7S/3JLnDq9WPWzatZTtcEy8DUw/2GxOuBVj/OfTffv9SFruldwr6juN9wk9SUEthmQ+Q5uvm86hKb1udaZ0Z2mp2NBICLIXiKfUzvPyOHIPHXQ==
+ bh=5LRXeIfd+QkCvdAi3NRw11sXrWq2J4yrHqHmrCDyGto=;
+ b=uC2jasYTxrbgYh7d3ghX/xSloqCd0wUzSm39A93ZKVGsHAzz4oEEhuneQGjLpEHWxjy65+Vqc+wVPVEVaB9GKlrIoD3XWp1fMk5yb+RPg9ybturYE72eHLZ+Nq1SWxSc0Z62rmUZrs/nBX3gUG/miaOxvixPwzmZnEzxp1srnfYvhggLNSj1vgq97a7yt6Datc1EeznpYo2DT1f3d0HGRMDqEJbYJJZPIZGnu2KaPgAxEI5rqrtcNhP31YswqFPGqS9OEErdrt3vO2AXnB4apG/RgVhSip0zzUZRH1qqfwSVIIH7hLkMIxY0ZeUHRabO/IxzRGHPTPyEA528WYxcbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yz8wJLTpcW/KrFOCDC0CrNxyhQjwwdtlXfrvlz7SVxM=;
- b=uhi8OmDP1a/5FIPFumPMFm43v0Pu4EwSyULUFjGsnMOeeOb0dvBCzB3uIuxaaIsPtaT5gMybP0fZUKoy6xsk1OOZq+c2OD5lqoglTlurHYCOyvCyUvZdQhQsByO0nKu8l/Re9WI2BaH3f6groCWvo/N3iLeFM4QZKk4Dtq+BG4s=
-Received: from BY3PR04CA0021.namprd04.prod.outlook.com (2603:10b6:a03:217::26)
- by DS2PR12MB9751.namprd12.prod.outlook.com (2603:10b6:8:2ad::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=5LRXeIfd+QkCvdAi3NRw11sXrWq2J4yrHqHmrCDyGto=;
+ b=feOpPSF3MrSbpKuZ92ln5a7tfoSB0p2dPR+13GYPJxlChi451GVNObE7IUrAwldiJDe5VMWzFdc2J/wi47c3WqsnsIO0hU7LqtAOYSHrJ1f4U0qWTBSo5c29GMYQw1pUTq8vVc4+o1MeDNOs+DTR0NOOVJ0D6jicaQT06zEw/jg=
+Received: from BYAPR02CA0035.namprd02.prod.outlook.com (2603:10b6:a02:ee::48)
+ by MN6PR12MB8567.namprd12.prod.outlook.com (2603:10b6:208:478::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
- 2025 08:58:25 +0000
-Received: from SJ1PEPF00001CE3.namprd05.prod.outlook.com
- (2603:10b6:a03:217:cafe::3) by BY3PR04CA0021.outlook.office365.com
- (2603:10b6:a03:217::26) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 08:58:29 +0000
+Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
+ (2603:10b6:a02:ee:cafe::ea) by BYAPR02CA0035.outlook.office365.com
+ (2603:10b6:a02:ee::48) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Tue,
- 9 Dec 2025 08:58:25 +0000
+ 9 Dec 2025 08:58:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CE3.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.4 via Frontend Transport; Tue, 9 Dec 2025 08:58:24 +0000
+ 15.20.9412.4 via Frontend Transport; Tue, 9 Dec 2025 08:58:28 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 9 Dec
- 2025 02:58:24 -0600
+ 2025 02:58:27 -0600
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 9 Dec 2025 00:58:20 -0800
+ Transport; Tue, 9 Dec 2025 00:58:24 -0800
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,12 +66,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, Leo Chen
- <leo.chen@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 11/15] drm/amd/display: DPP low mem pwr related adjustment
- -Part I
-Date: Tue, 9 Dec 2025 16:55:14 +0800
-Message-ID: <20251209085702.293682-12-chen-yu.chen@amd.com>
+ <alex.hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 12/15] drm/amd/display: Revert "Fix pbn to kbps Conversion"
+Date: Tue, 9 Dec 2025 16:55:15 +0800
+Message-ID: <20251209085702.293682-13-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251209085702.293682-1-chen-yu.chen@amd.com>
 References: <20251209085702.293682-1-chen-yu.chen@amd.com>
@@ -79,53 +78,53 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE3:EE_|DS2PR12MB9751:EE_
-X-MS-Office365-Filtering-Correlation-Id: d13350d4-eca7-4b35-3a84-08de37011cbf
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|MN6PR12MB8567:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21173326-d3fb-4be8-2129-08de37011eb9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?v+6ipHkIiFwZDED2zoRyEojDhbMzSfCfzl3EJr3DbMlvzg3gsBZ3xUM338zy?=
- =?us-ascii?Q?YXE7kLhoLkIrnxXYVKNaQ+X7Gp/LzyVF3+y/HktLTPsEqxr/JdrF6qx4k5Gz?=
- =?us-ascii?Q?8NWrpBrx3KKRNPD/FROAdqMZ/riCBP3V8edxXqFrrRXx70NAF1CVm5AqVPGw?=
- =?us-ascii?Q?ABsOfppfiOqMLyUGCGqDCXc34oL0m+FA/uCgn2HtSK7k29+wHpqRuIU7jXDc?=
- =?us-ascii?Q?jIp8E0RI/M3/ub8eKisNWcHRNFVTNKgQe7jgObYkxrdvV2DcYONjZL1yWM9c?=
- =?us-ascii?Q?yLoWGPhZ159YWVEYW6AGQb6h2ced7lYk439uwp3MlzGd2Q5kTR+ptT5aq1rV?=
- =?us-ascii?Q?iL2CpdE98Hos1GQJnZVJTTXqEvCVH86QtBbXjAbFb7iGP2Ti6okwkvRSqJ9x?=
- =?us-ascii?Q?JWQqwr0lvOA+ea/3QSI/EYT5w4fSBapaNYWdGTDwu6iYq5UQy/gddaabF72S?=
- =?us-ascii?Q?zh4GYq10ORLybM5vSGt4JjncQwAC2Ophutl5t7j+arOXOebG/ir7D6ODBhz2?=
- =?us-ascii?Q?Kz4reJuksJmaLjBKDntliJRzHuwgJYQxR6IuHWkeLhBm7o1wmc8xvHnVlfFj?=
- =?us-ascii?Q?XdsiFeimcllCw60Rqc8E0TnkttQ3D7HpZOh68GDcq2tgnS2WKbcQwBfo6UvY?=
- =?us-ascii?Q?HToXJILBDsd4Axxf7+GOYDLFlc5DGezGV+9gGNNdjrW9//bgdqdMM7nAVHGX?=
- =?us-ascii?Q?vDUOuLKn46Rl5W+k4qDThjgf/c4TOEamIiL0NcG2MCrEkr9UB+Iecvj3iYta?=
- =?us-ascii?Q?Y0Vj46Y5SAfRhRQGYvIpRkaqAlSklmI6KWT6ZMpny2RcMo2tcGkdYXP9TldG?=
- =?us-ascii?Q?SGnNgs/I1LuHMWeq6otMhlLEAWm0iKvBA3Z3wtpG49FI7Q5BMIgsdwmyS6ct?=
- =?us-ascii?Q?KEUt54/G3eZDVjCNZq3wkpeGVAC+J0qLLiZZsBHJIaBg+B7l59pB8gGtrTCY?=
- =?us-ascii?Q?gHgCAsSdC54O/CPs1kXBfFRK3OtgdUA0sqcRUtkKaLVA0qqr34OVakRqzdCI?=
- =?us-ascii?Q?SP0TV3ccucCgB5QwuFE7ZIVz7gWwMYTlzwe0F60BhmhgxX4rJw2EaW90dmmV?=
- =?us-ascii?Q?tm6tlXVe6hES5ImZHuFiHbGQDt2Ru/FsNe39JsEqmdFIHEls5J724rz+8WQK?=
- =?us-ascii?Q?95W6O1A1HNFTufX47lsKsvu4jCVOiLNnAjLnrtqpAtPasoAhD3p1hBnz47Ww?=
- =?us-ascii?Q?SVo9fSKqnbcbWmZ39Uwezjpg/glGaEZE1xey0PI/uesU4XiZAGAfbKtRDRJU?=
- =?us-ascii?Q?7+3rTSt9KshyQBWroVKeCMDMn1gaIB6t9QsL/RahBB4ZhK3QWYzSIvSfsKkW?=
- =?us-ascii?Q?6Qsv1X3kI3yG/35vE5PBDUm4m0wcU7L7pwdFIiw19dfpgl8ffp5lMDd4Vvjz?=
- =?us-ascii?Q?wc4MC1/N8DVlfwdBTRUYePWWQkhC6rF5gxVzPmwo4r4wOhXUXoi3NGbhtphE?=
- =?us-ascii?Q?BeAtAOMPMBmB19ZdsmZ4OjSDZpcvJvmkuFP6pQMkIdfRfETWXlYm5kMpwuAo?=
- =?us-ascii?Q?Xck1vjT8WSToo1R+gBtCwvSQsV9lApJfVNrLKCVXgw+02PNwfcaPivbogYBt?=
- =?us-ascii?Q?RYkPyfbMdUvI6SFRuiQ=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?u3SSD+B5MtUsFb62xYSwUKq8o5zI8yE0skvXtDWDIEGJCOcBNUSaGMg88BuQ?=
+ =?us-ascii?Q?/Ycf9M3XoxAtW9C8nsH+CJlWJ4Sw1eFB7m383uAP0H4+8tG5xz13U1ubx+g1?=
+ =?us-ascii?Q?2sPTn2ctLzyoyL1JTsLjjeIjGbHjDdWCff8AuIi6CnGDZDTVRLvFoxFP1uOn?=
+ =?us-ascii?Q?W2p+hEUtc51ri9Cgf83pgwrBPOxwS4LmxwllYaK4ROpY2ucTdLz0sgVbDeph?=
+ =?us-ascii?Q?/Vq4iAbYMDhr/GtS2Fp1ztxEETB448vGoegK1G4CklgWvRy4Mn/ZNCjEyvdb?=
+ =?us-ascii?Q?9pxTfuiyJbzvI/+n07O8aaZ2np7h3QC0HtOJPJGdQOMj/PcF8ayEJpku6cE1?=
+ =?us-ascii?Q?ShQNIZCPeM1catMyPJxKlO2MyuKPQqI30OtIVfFhwB+y8LDVtXD9r2wFtSgE?=
+ =?us-ascii?Q?IK7E2Fj8+PyuW/PfU4A0dpQcMYJilkGj0C5BPtDnD+JjN+rdCSxuAeBi5Qg1?=
+ =?us-ascii?Q?Js6IjiET8Y1eATxvc1Q+K4Fg8RjTB4lGG/46iyeYYBtMFhL8jlydc+22X3FE?=
+ =?us-ascii?Q?aitHOHmMCrMjgMNdWbWpr7B1Re6BV04pg+Jrh3a4WLhn0y244ng+2+u6/C0U?=
+ =?us-ascii?Q?EY79IvIimV6OkPyFybGiCKxAPAYBmeSNMBRMDKwpKzDEjpXUnGthw6LiacXi?=
+ =?us-ascii?Q?F6sRbO+t2i2tPxGbrji7BCM46H649v6yWF7JUzFF0YsZBCvi36gCYgdRLEyr?=
+ =?us-ascii?Q?vmpmK75gbM1/ANM/PXtl/qDS/YHlJ2RjRpnlKmvqhkoTRMmCsY1IHg5jYu0D?=
+ =?us-ascii?Q?891W1op3Mn6aE7bEtAGVSl4ckCxPi7rg29iMJM6j/F4rqLuEb01BZAens/HA?=
+ =?us-ascii?Q?DJuBdCiEHKrZzpWMiMQDJ3cs++4nJx9atJ5qM7bjlNqyYPfuW/0zBMYFWb2J?=
+ =?us-ascii?Q?JFiyTgUcex/TU/DUgpaCzayRTn4iwX9nWsXFewuzcmSFkVxEqLD+X4ssmYyP?=
+ =?us-ascii?Q?wqCsZdrouuOVaDnkpMD6eBZGXdlv4O6oP4tFLfzafrkVWftv8SjMf+cibjsn?=
+ =?us-ascii?Q?aK8N+fi4T1X43LNUUVLKek6tWzJuwOVvmY3Zh1x2BrdfZvUN+XZOdMR/HIEh?=
+ =?us-ascii?Q?qEQkx9+jHLNXlYLBmQHUexOr19+NxRuhLUQEyQqvmRRjcAqv5nyE3tzZEDEf?=
+ =?us-ascii?Q?RVyh9YS5jbzwG+OQzyT+5fHmsM6tSk3JQPSHCpAQzpmorzGjk3866R24HGV1?=
+ =?us-ascii?Q?KJ34O1wyTTx1YIeN4d906wZhw8ddaAj0iakOVKhdO/OTXXyrZguia888VQVW?=
+ =?us-ascii?Q?FBnYOinMIQC4ecScEOEoxoiaYe5TIOA9t2qYvZgvjkcir5VqM95j9nn+CCSv?=
+ =?us-ascii?Q?hEi/PCyAu4/b16SBxVUHjQ1maukhMTk0nd9Hd0anHB4/OObLbCW0Qfm5BruV?=
+ =?us-ascii?Q?xG4JvXjPSFzxlarsxYPkf071dQmSSYm3zNPjRATPWNwRj6vGGlPhIUqWsdkS?=
+ =?us-ascii?Q?kz05xLNciOITxUSwxy5p0AA5osk8yzDm3ugk2zxuFdVgJD3oZQ1IRy3Hzm5E?=
+ =?us-ascii?Q?CmuRyJIh6wEU9hQ4cPtwwyPotRhmROkYin69XGJdb3QQ93zn9NiAAq2qxc1C?=
+ =?us-ascii?Q?sCRdY8gv6ugngL0stII=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024)(13003099007);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 08:58:24.8640 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d13350d4-eca7-4b35-3a84-08de37011cbf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 08:58:28.1794 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21173326-d3fb-4be8-2129-08de37011eb9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9751
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8567
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,218 +139,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[why]
-Default low pwr mem state get chagned.
-SW needs to wake mem up first
-also need to put back to LS again after use: will do in Part II.
+This reverts commit d96c6e251830 ("drm/amd/display: Fix pbn to kbps Conversion")
 
-Reviewed-by: Leo Chen <leo.chen@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Because it causes a daisy-chained DP/MST displays issue.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4756
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp.h  |   1 +
- .../amd/display/dc/dpp/dcn401/dcn401_dpp.h    |   9 ++
- .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   | 102 +++++++++---------
- .../dc/resource/dcn401/dcn401_resource.h      |   1 +
- 4 files changed, 60 insertions(+), 53 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 59 +++++++++++--------
+ 1 file changed, 36 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.h b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.h
-index b12f34345a58..890d04b1ddaf 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.h
-@@ -545,6 +545,7 @@
- 	type SCL_COEF_RAM_SELECT_CURRENT; \
- 	type LUT_MEM_PWR_FORCE; \
- 	type LUT_MEM_PWR_STATE; \
-+	type LUT_MEM_PWR_DIS; \
- 	type CM_GAMUT_REMAP_MODE; \
- 	type CM_GAMUT_REMAP_C11; \
- 	type CM_GAMUT_REMAP_C12; \
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
-index 5f6b431ec398..58b9f1cd0825 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
-@@ -41,6 +41,7 @@
- 	TF_SF(CM0_CM_BIAS_Y_G_CB_B, CM_BIAS_CB_B, mask_sh),\
- 	TF_SF(CM0_CM_MEM_PWR_CTRL, GAMCOR_MEM_PWR_DIS, mask_sh),\
- 	TF_SF(CM0_CM_MEM_PWR_CTRL, GAMCOR_MEM_PWR_FORCE, mask_sh),\
-+	TF_SF(CM0_CM_MEM_PWR_CTRL, GAMCOR_MEM_PWR_DIS, mask_sh),\
- 	TF_SF(CNVC_CFG0_PRE_DEGAM, PRE_DEGAM_MODE, mask_sh),\
- 	TF_SF(CNVC_CFG0_PRE_DEGAM, PRE_DEGAM_SELECT, mask_sh),\
- 	TF_SF(CM0_CM_GAMCOR_CONTROL, CM_GAMCOR_MODE, mask_sh),\
-@@ -208,6 +209,7 @@
- 	TF_SF(CM_CUR0_CURSOR0_CONTROL, CUR0_ROM_EN, mask_sh),\
- 	TF_SF(DSCL0_OBUF_MEM_PWR_CTRL, OBUF_MEM_PWR_FORCE, mask_sh),\
- 	TF_SF(DSCL0_DSCL_MEM_PWR_CTRL, LUT_MEM_PWR_FORCE, mask_sh),\
-+	TF_SF(DSCL0_DSCL_MEM_PWR_CTRL, LUT_MEM_PWR_DIS, mask_sh),\
- 	TF_SF(DSCL0_DSCL_MEM_PWR_STATUS, LUT_MEM_PWR_STATE, mask_sh),\
- 	TF_SF(DSCL0_DSCL_SC_MODE, SCL_SC_MATRIX_MODE, mask_sh),\
- 	TF_SF(DSCL0_DSCL_SC_MODE, SCL_SC_LTONL_EN, mask_sh),\
-@@ -336,6 +338,9 @@
- 	TF_SF(DSCL0_DSCL_SC_MATRIX_C2C3, SCL_SC_MATRIX_C2, mask_sh),\
- 	TF_SF(DSCL0_DSCL_SC_MATRIX_C2C3, SCL_SC_MATRIX_C3, mask_sh),\
- 	TF_SF(DSCL0_ISHARP_DELTA_CTRL, ISHARP_DELTA_LUT_HOST_SELECT, mask_sh),\
-+	TF_SF(DSCL0_ISHARP_DELTA_LUT_MEM_PWR_CTRL, ISHARP_DELTA_LUT_MEM_PWR_DIS, mask_sh),\
-+	TF_SF(DSCL0_ISHARP_DELTA_LUT_MEM_PWR_CTRL, ISHARP_DELTA_LUT_MEM_PWR_FORCE, mask_sh),\
-+	TF_SF(DSCL0_ISHARP_DELTA_LUT_MEM_PWR_CTRL, ISHARP_DELTA_LUT_MEM_PWR_STATE, mask_sh),\
- 	TF_SF(DSCL0_ISHARP_DELTA_DATA, ISHARP_DELTA_DATA, mask_sh),\
- 	TF_SF(DSCL0_ISHARP_DELTA_INDEX, ISHARP_DELTA_INDEX, mask_sh),\
- 	TF_SF(DSCL0_ISHARP_MODE, ISHARP_EN, mask_sh),\
-@@ -558,6 +563,9 @@
- 	type ISHARP_DELTA_LUT_SELECT;	\
- 	type ISHARP_DELTA_LUT_SELECT_CURRENT;	\
- 	type ISHARP_DELTA_LUT_HOST_SELECT;	\
-+	type ISHARP_DELTA_LUT_MEM_PWR_DIS;	\
-+	type ISHARP_DELTA_LUT_MEM_PWR_FORCE;\
-+	type ISHARP_DELTA_LUT_MEM_PWR_STATE;\
- 	type ISHARP_DELTA_DATA;	\
- 	type ISHARP_DELTA_INDEX; \
- 	type ISHARP_NLDELTA_SCLIP_EN_P;	\
-@@ -629,6 +637,7 @@
- 	uint32_t DSCL_SC_MATRIX_C0C1; \
- 	uint32_t DSCL_SC_MATRIX_C2C3; \
- 	uint32_t ISHARP_MODE; \
-+	uint32_t ISHARP_DELTA_LUT_MEM_PWR_CTRL; \
- 	uint32_t ISHARP_NOISEDET_THRESHOLD; \
- 	uint32_t ISHARP_NOISE_GAIN_PWL; \
- 	uint32_t ISHARP_LBA_PWL_SEG0; \
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-index 6df3419f825f..a62c4733ed3b 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-@@ -966,62 +966,57 @@ static void dpp401_dscl_program_isharp(struct dpp *dpp_base,
- 		ISHARP_FMT_NORM, scl_data->dscl_prog_data.isharp_fmt.norm);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index dbd1da4d85d3..5e92eaa67aa3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -884,28 +884,26 @@ struct dsc_mst_fairness_params {
+ };
  
- 	/* Skip remaining register programming if ISHARP is disabled */
--	if (!scl_data->dscl_prog_data.isharp_en) {
--		PERF_TRACE();
--		return;
+ #if defined(CONFIG_DRM_AMD_DC_FP)
+-static uint64_t kbps_to_pbn(int kbps, bool is_peak_pbn)
++static uint16_t get_fec_overhead_multiplier(struct dc_link *dc_link)
+ {
+-	uint64_t effective_kbps = (uint64_t)kbps;
++	u8 link_coding_cap;
++	uint16_t fec_overhead_multiplier_x1000 = PBN_FEC_OVERHEAD_MULTIPLIER_8B_10B;
+ 
+-	if (is_peak_pbn) {	// add 0.6% (1006/1000) overhead into effective kbps
+-		effective_kbps *= 1006;
+-		effective_kbps = div_u64(effective_kbps, 1000);
 -	}
--
--	/* ISHARP_NOISEDET_THRESHOLD */
--	REG_SET_2(ISHARP_NOISEDET_THRESHOLD, 0,
--		ISHARP_NOISEDET_UTHRE, scl_data->dscl_prog_data.isharp_noise_det.uthreshold,
--		ISHARP_NOISEDET_DTHRE, scl_data->dscl_prog_data.isharp_noise_det.dthreshold);
--
--	/* ISHARP_NOISE_GAIN_PWL */
--	REG_SET_3(ISHARP_NOISE_GAIN_PWL, 0,
--		ISHARP_NOISEDET_PWL_START_IN, scl_data->dscl_prog_data.isharp_noise_det.pwl_start_in,
--		ISHARP_NOISEDET_PWL_END_IN, scl_data->dscl_prog_data.isharp_noise_det.pwl_end_in,
--		ISHARP_NOISEDET_PWL_SLOPE, scl_data->dscl_prog_data.isharp_noise_det.pwl_slope);
--
--	/* ISHARP_LBA: IN_SEG, BASE_SEG, SLOPE_SEG */
--	REG_SET_3(ISHARP_LBA_PWL_SEG0, 0,
--		ISHARP_LBA_PWL_IN_SEG0, scl_data->dscl_prog_data.isharp_lba.in_seg[0],
--		ISHARP_LBA_PWL_BASE_SEG0, scl_data->dscl_prog_data.isharp_lba.base_seg[0],
--		ISHARP_LBA_PWL_SLOPE_SEG0, scl_data->dscl_prog_data.isharp_lba.slope_seg[0]);
--	REG_SET_3(ISHARP_LBA_PWL_SEG1, 0,
--		ISHARP_LBA_PWL_IN_SEG1, scl_data->dscl_prog_data.isharp_lba.in_seg[1],
--		ISHARP_LBA_PWL_BASE_SEG1, scl_data->dscl_prog_data.isharp_lba.base_seg[1],
--		ISHARP_LBA_PWL_SLOPE_SEG1, scl_data->dscl_prog_data.isharp_lba.slope_seg[1]);
--	REG_SET_3(ISHARP_LBA_PWL_SEG2, 0,
--		ISHARP_LBA_PWL_IN_SEG2, scl_data->dscl_prog_data.isharp_lba.in_seg[2],
--		ISHARP_LBA_PWL_BASE_SEG2, scl_data->dscl_prog_data.isharp_lba.base_seg[2],
--		ISHARP_LBA_PWL_SLOPE_SEG2, scl_data->dscl_prog_data.isharp_lba.slope_seg[2]);
--	REG_SET_3(ISHARP_LBA_PWL_SEG3, 0,
--		ISHARP_LBA_PWL_IN_SEG3, scl_data->dscl_prog_data.isharp_lba.in_seg[3],
--		ISHARP_LBA_PWL_BASE_SEG3, scl_data->dscl_prog_data.isharp_lba.base_seg[3],
--		ISHARP_LBA_PWL_SLOPE_SEG3, scl_data->dscl_prog_data.isharp_lba.slope_seg[3]);
--	REG_SET_3(ISHARP_LBA_PWL_SEG4, 0,
--		ISHARP_LBA_PWL_IN_SEG4, scl_data->dscl_prog_data.isharp_lba.in_seg[4],
--		ISHARP_LBA_PWL_BASE_SEG4, scl_data->dscl_prog_data.isharp_lba.base_seg[4],
--		ISHARP_LBA_PWL_SLOPE_SEG4, scl_data->dscl_prog_data.isharp_lba.slope_seg[4]);
--	REG_SET_2(ISHARP_LBA_PWL_SEG5, 0,
--		ISHARP_LBA_PWL_IN_SEG5, scl_data->dscl_prog_data.isharp_lba.in_seg[5],
--		ISHARP_LBA_PWL_BASE_SEG5, scl_data->dscl_prog_data.isharp_lba.base_seg[5]);
--
--	/* ISHARP_DELTA_LUT */
--	if (!program_isharp_1dlut)
--		dpp401_dscl_set_isharp_filter(dpp, scl_data->dscl_prog_data.isharp_delta);
-+	if (scl_data->dscl_prog_data.isharp_en) {
-+		/* ISHARP_NOISEDET_THRESHOLD */
-+		REG_SET_2(ISHARP_NOISEDET_THRESHOLD, 0,
-+			ISHARP_NOISEDET_UTHRE, scl_data->dscl_prog_data.isharp_noise_det.uthreshold,
-+			ISHARP_NOISEDET_DTHRE, scl_data->dscl_prog_data.isharp_noise_det.dthreshold);
-+
-+		/* ISHARP_NOISE_GAIN_PWL */
-+		REG_SET_3(ISHARP_NOISE_GAIN_PWL, 0,
-+			ISHARP_NOISEDET_PWL_START_IN, scl_data->dscl_prog_data.isharp_noise_det.pwl_start_in,
-+			ISHARP_NOISEDET_PWL_END_IN, scl_data->dscl_prog_data.isharp_noise_det.pwl_end_in,
-+			ISHARP_NOISEDET_PWL_SLOPE, scl_data->dscl_prog_data.isharp_noise_det.pwl_slope);
-+
-+		/* ISHARP_LBA: IN_SEG, BASE_SEG, SLOPE_SEG */
-+		REG_SET_3(ISHARP_LBA_PWL_SEG0, 0,
-+			ISHARP_LBA_PWL_IN_SEG0, scl_data->dscl_prog_data.isharp_lba.in_seg[0],
-+			ISHARP_LBA_PWL_BASE_SEG0, scl_data->dscl_prog_data.isharp_lba.base_seg[0],
-+			ISHARP_LBA_PWL_SLOPE_SEG0, scl_data->dscl_prog_data.isharp_lba.slope_seg[0]);
-+		REG_SET_3(ISHARP_LBA_PWL_SEG1, 0,
-+			ISHARP_LBA_PWL_IN_SEG1, scl_data->dscl_prog_data.isharp_lba.in_seg[1],
-+			ISHARP_LBA_PWL_BASE_SEG1, scl_data->dscl_prog_data.isharp_lba.base_seg[1],
-+			ISHARP_LBA_PWL_SLOPE_SEG1, scl_data->dscl_prog_data.isharp_lba.slope_seg[1]);
-+		REG_SET_3(ISHARP_LBA_PWL_SEG2, 0,
-+			ISHARP_LBA_PWL_IN_SEG2, scl_data->dscl_prog_data.isharp_lba.in_seg[2],
-+			ISHARP_LBA_PWL_BASE_SEG2, scl_data->dscl_prog_data.isharp_lba.base_seg[2],
-+			ISHARP_LBA_PWL_SLOPE_SEG2, scl_data->dscl_prog_data.isharp_lba.slope_seg[2]);
-+		REG_SET_3(ISHARP_LBA_PWL_SEG3, 0,
-+			ISHARP_LBA_PWL_IN_SEG3, scl_data->dscl_prog_data.isharp_lba.in_seg[3],
-+			ISHARP_LBA_PWL_BASE_SEG3, scl_data->dscl_prog_data.isharp_lba.base_seg[3],
-+			ISHARP_LBA_PWL_SLOPE_SEG3, scl_data->dscl_prog_data.isharp_lba.slope_seg[3]);
-+		REG_SET_3(ISHARP_LBA_PWL_SEG4, 0,
-+			ISHARP_LBA_PWL_IN_SEG4, scl_data->dscl_prog_data.isharp_lba.in_seg[4],
-+			ISHARP_LBA_PWL_BASE_SEG4, scl_data->dscl_prog_data.isharp_lba.base_seg[4],
-+			ISHARP_LBA_PWL_SLOPE_SEG4, scl_data->dscl_prog_data.isharp_lba.slope_seg[4]);
-+		REG_SET_2(ISHARP_LBA_PWL_SEG5, 0,
-+			ISHARP_LBA_PWL_IN_SEG5, scl_data->dscl_prog_data.isharp_lba.in_seg[5],
-+			ISHARP_LBA_PWL_BASE_SEG5, scl_data->dscl_prog_data.isharp_lba.base_seg[5]);
++	link_coding_cap = dc_link_dp_mst_decide_link_encoding_format(dc_link);
++	if (link_coding_cap == DP_128b_132b_ENCODING)
++		fec_overhead_multiplier_x1000 = PBN_FEC_OVERHEAD_MULTIPLIER_128B_132B;
  
--	/* ISHARP_NLDELTA_SOFT_CLIP */
--	REG_SET_6(ISHARP_NLDELTA_SOFT_CLIP, 0,
--		ISHARP_NLDELTA_SCLIP_EN_P, scl_data->dscl_prog_data.isharp_nldelta_sclip.enable_p,
--		ISHARP_NLDELTA_SCLIP_PIVOT_P, scl_data->dscl_prog_data.isharp_nldelta_sclip.pivot_p,
--		ISHARP_NLDELTA_SCLIP_SLOPE_P, scl_data->dscl_prog_data.isharp_nldelta_sclip.slope_p,
--		ISHARP_NLDELTA_SCLIP_EN_N, scl_data->dscl_prog_data.isharp_nldelta_sclip.enable_n,
--		ISHARP_NLDELTA_SCLIP_PIVOT_N, scl_data->dscl_prog_data.isharp_nldelta_sclip.pivot_n,
--		ISHARP_NLDELTA_SCLIP_SLOPE_N, scl_data->dscl_prog_data.isharp_nldelta_sclip.slope_n);
-+		/* ISHARP_DELTA_LUT */
-+		if (!program_isharp_1dlut)
-+			dpp401_dscl_set_isharp_filter(dpp, scl_data->dscl_prog_data.isharp_delta);
-+
-+		/* ISHARP_NLDELTA_SOFT_CLIP */
-+		REG_SET_6(ISHARP_NLDELTA_SOFT_CLIP, 0,
-+			ISHARP_NLDELTA_SCLIP_EN_P, scl_data->dscl_prog_data.isharp_nldelta_sclip.enable_p,
-+			ISHARP_NLDELTA_SCLIP_PIVOT_P, scl_data->dscl_prog_data.isharp_nldelta_sclip.pivot_p,
-+			ISHARP_NLDELTA_SCLIP_SLOPE_P, scl_data->dscl_prog_data.isharp_nldelta_sclip.slope_p,
-+			ISHARP_NLDELTA_SCLIP_EN_N, scl_data->dscl_prog_data.isharp_nldelta_sclip.enable_n,
-+			ISHARP_NLDELTA_SCLIP_PIVOT_N, scl_data->dscl_prog_data.isharp_nldelta_sclip.pivot_n,
-+			ISHARP_NLDELTA_SCLIP_SLOPE_N, scl_data->dscl_prog_data.isharp_nldelta_sclip.slope_n);
+-	return (uint64_t) DIV64_U64_ROUND_UP(effective_kbps * 64, (54 * 8 * 1000));
++	return fec_overhead_multiplier_x1000;
+ }
  
- 	/* Blur and Scale Coefficients - SCL_COEF_RAM_TAP_SELECT */
--	if (scl_data->dscl_prog_data.isharp_en) {
- 		if (scl_data->dscl_prog_data.filter_blur_scale_v) {
- 			dpp401_dscl_set_scaler_filter(
- 				dpp, scl_data->taps.v_taps,
-@@ -1037,6 +1032,7 @@ static void dpp401_dscl_program_isharp(struct dpp *dpp_base,
- 			*bs_coeffs_updated = true;
- 		}
- 	}
+-static uint32_t pbn_to_kbps(unsigned int pbn, bool with_margin)
++static int kbps_to_peak_pbn(int kbps, uint16_t fec_overhead_multiplier_x1000)
+ {
+-	uint64_t pbn_effective = (uint64_t)pbn;
+-
+-	if (with_margin)	// deduct 0.6% (994/1000) overhead from effective pbn
+-		pbn_effective *= (1000000 / PEAK_FACTOR_X1000);
+-	else
+-		pbn_effective *= 1000;
++	u64 peak_kbps = kbps;
+ 
+-	return DIV_U64_ROUND_UP(pbn_effective * 8 * 54, 64);
++	peak_kbps *= 1006;
++	peak_kbps *= fec_overhead_multiplier_x1000;
++	peak_kbps = div_u64(peak_kbps, 1000 * 1000);
++	return (int) DIV64_U64_ROUND_UP(peak_kbps * 64, (54 * 8 * 1000));
+ }
+ 
+ static void set_dsc_configs_from_fairness_vars(struct dsc_mst_fairness_params *params,
+@@ -976,7 +974,7 @@ static int bpp_x16_from_pbn(struct dsc_mst_fairness_params param, int pbn)
+ 	dc_dsc_get_default_config_option(param.sink->ctx->dc, &dsc_options);
+ 	dsc_options.max_target_bpp_limit_override_x16 = drm_connector->display_info.max_dsc_bpp * 16;
+ 
+-	kbps = pbn_to_kbps(pbn, false);
++	kbps = div_u64((u64)pbn * 994 * 8 * 54, 64);
+ 	dc_dsc_compute_config(
+ 			param.sink->ctx->dc->res_pool->dscs[0],
+ 			&param.sink->dsc_caps.dsc_dec_caps,
+@@ -1005,11 +1003,12 @@ static int increase_dsc_bpp(struct drm_atomic_state *state,
+ 	int link_timeslots_used;
+ 	int fair_pbn_alloc;
+ 	int ret = 0;
++	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
+ 
+ 	for (i = 0; i < count; i++) {
+ 		if (vars[i + k].dsc_enabled) {
+ 			initial_slack[i] =
+-			kbps_to_pbn(params[i].bw_range.max_kbps, false) - vars[i + k].pbn;
++			kbps_to_peak_pbn(params[i].bw_range.max_kbps, fec_overhead_multiplier_x1000) - vars[i + k].pbn;
+ 			bpp_increased[i] = false;
+ 			remaining_to_increase += 1;
+ 		} else {
+@@ -1105,6 +1104,7 @@ static int try_disable_dsc(struct drm_atomic_state *state,
+ 	int next_index;
+ 	int remaining_to_try = 0;
+ 	int ret;
++	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
+ 	int var_pbn;
+ 
+ 	for (i = 0; i < count; i++) {
+@@ -1137,7 +1137,7 @@ static int try_disable_dsc(struct drm_atomic_state *state,
+ 
+ 		DRM_DEBUG_DRIVER("MST_DSC index #%d, try no compression\n", next_index);
+ 		var_pbn = vars[next_index].pbn;
+-		vars[next_index].pbn = kbps_to_pbn(params[next_index].bw_range.stream_kbps, true);
++		vars[next_index].pbn = kbps_to_peak_pbn(params[next_index].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
+ 		ret = drm_dp_atomic_find_time_slots(state,
+ 						    params[next_index].port->mgr,
+ 						    params[next_index].port,
+@@ -1197,6 +1197,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 	int count = 0;
+ 	int i, k, ret;
+ 	bool debugfs_overwrite = false;
++	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
+ 	struct drm_connector_state *new_conn_state;
+ 
+ 	memset(params, 0, sizeof(params));
+@@ -1277,7 +1278,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 	DRM_DEBUG_DRIVER("MST_DSC Try no compression\n");
+ 	for (i = 0; i < count; i++) {
+ 		vars[i + k].aconnector = params[i].aconnector;
+-		vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.stream_kbps, false);
++		vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
+ 		vars[i + k].dsc_enabled = false;
+ 		vars[i + k].bpp_x16 = 0;
+ 		ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr, params[i].port,
+@@ -1299,7 +1300,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 	DRM_DEBUG_DRIVER("MST_DSC Try max compression\n");
+ 	for (i = 0; i < count; i++) {
+ 		if (params[i].compression_possible && params[i].clock_force_enable != DSC_CLK_FORCE_DISABLE) {
+-			vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.min_kbps, false);
++			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.min_kbps, fec_overhead_multiplier_x1000);
+ 			vars[i + k].dsc_enabled = true;
+ 			vars[i + k].bpp_x16 = params[i].bw_range.min_target_bpp_x16;
+ 			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
+@@ -1307,7 +1308,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 			if (ret < 0)
+ 				return ret;
+ 		} else {
+-			vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.stream_kbps, false);
++			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
+ 			vars[i + k].dsc_enabled = false;
+ 			vars[i + k].bpp_x16 = 0;
+ 			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
+@@ -1762,6 +1763,18 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+ 	return ret;
+ }
+ 
++static uint32_t kbps_from_pbn(unsigned int pbn)
++{
++	uint64_t kbps = (uint64_t)pbn;
 +
- 	PERF_TRACE();
- } // dpp401_dscl_program_isharp
- /**
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-index e1fa2e80a15a..406246a9867e 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-@@ -394,6 +394,7 @@ void dcn401_prepare_mcache_programming(struct dc *dc, struct dc_state *context);
- 	SRI_ARR(DSCL_SC_MATRIX_C0C1, DSCL, id),                                  \
- 	SRI_ARR(DSCL_SC_MATRIX_C2C3, DSCL, id),                                  \
- 	SRI_ARR(ISHARP_MODE, DSCL, id),                                          \
-+	SRI_ARR(ISHARP_DELTA_LUT_MEM_PWR_CTRL, DSCL, id),                                          \
- 	SRI_ARR(ISHARP_NOISEDET_THRESHOLD, DSCL, id),                            \
- 	SRI_ARR(ISHARP_NOISE_GAIN_PWL, DSCL, id),                                \
- 	SRI_ARR(ISHARP_LBA_PWL_SEG0, DSCL, id),                                  \
++	kbps *= (1000000 / PEAK_FACTOR_X1000);
++	kbps *= 8;
++	kbps *= 54;
++	kbps /= 64;
++
++	return (uint32_t)kbps;
++}
++
+ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
+ 					  struct dc_dsc_bw_range *bw_range)
+ {
+@@ -1860,7 +1873,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 			dc_link_get_highest_encoding_format(stream->link));
+ 	cur_link_settings = stream->link->verified_link_cap;
+ 	root_link_bw_in_kbps = dc_link_bandwidth_kbps(aconnector->dc_link, &cur_link_settings);
+-	virtual_channel_bw_in_kbps = pbn_to_kbps(aconnector->mst_output_port->full_pbn, true);
++	virtual_channel_bw_in_kbps = kbps_from_pbn(aconnector->mst_output_port->full_pbn);
+ 
+ 	/* pick the end to end bw bottleneck */
+ 	end_to_end_bw_in_kbps = min(root_link_bw_in_kbps, virtual_channel_bw_in_kbps);
+@@ -1913,7 +1926,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 				immediate_upstream_port = aconnector->mst_output_port->parent->port_parent;
+ 
+ 			if (immediate_upstream_port) {
+-				virtual_channel_bw_in_kbps = pbn_to_kbps(immediate_upstream_port->full_pbn, true);
++				virtual_channel_bw_in_kbps = kbps_from_pbn(immediate_upstream_port->full_pbn);
+ 				virtual_channel_bw_in_kbps = min(root_link_bw_in_kbps, virtual_channel_bw_in_kbps);
+ 			} else {
+ 				/* For topology LCT 1 case - only one mstb*/
 -- 
 2.43.0
 
