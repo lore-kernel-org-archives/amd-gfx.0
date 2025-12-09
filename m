@@ -4,164 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF430D1CDC6
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 14:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F162D1CDC6
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 14:20:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C44410E5D2;
-	Tue,  9 Dec 2025 14:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A5110E5D5;
+	Tue,  9 Dec 2025 14:20:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Yz85dod6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XpyI7Snt";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012034.outbound.protection.outlook.com
- [40.107.200.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9741110E5D2;
- Tue,  9 Dec 2025 14:19:57 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012049.outbound.protection.outlook.com [52.101.48.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF65010E5D5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 14:20:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RZVUSxwlo+6RGRM2QMiDg7IqW4dLAmyQWmdfrd+ML+94ixwrEZ7k8+PVt9CUxKE42XRLUyUF6xp1PM/aNh+0bPG1elU5WHnnOxfxo+ssVzjerezlIYlO/b9Pjs2QyI4cuuCI1bH1vAORSw1dTjjoE0urrRXXHStvI8b7ltMM+ZuifNtmlXiQR/iaA8mz/cn7mZahhTufMoCPuM8kxCvuHprluimB2ocbM0KcRNu6Xo+onkUL3xUWXuevvG/Ot5Xy9ADNgSjq3wfR4YpVr/dqwOlSHaAFLwstEKpYdVOnT5aPxolTxMEteJ4Wx8CZz1RMIdzI2Ipk2OPfc+ijwPBSlw==
+ b=jlf2F5izAOQh3RW2lM0b4sPpPOW7M/2akbXb96fUe4YLPaprNAQEIfYQb4E5y0D1cmEh1zufFDLaxAlZChJP2OqHizPvOda4Ux5uauotDxOkw9zlwFdf12Xq2tUMU5umKHbXx6bFuKwxyAHAc2VFW8arDM95JVzRduI4103PgVPxgO9XjjQhokll7VXxinGM/njbBdiGjPWFAhNmYuxZRIh/BAA2XbIA9ue+55EVPoHwpAMKMWt2Iboj0afShqYAu34Xt53R3aHn0hJa1zsh5qJK8bf0Y7ADvZGX3qFPkoxWiC50w85myLbd6IJ9Qb2ocJyGQ1V31G8FAz1AbeB/Pw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4fegHovuEpRXjvtCX7jXeKBVshkotwpfP8Vs4oaVcyw=;
- b=s2DVQzQduOYdLBlxCbRmigHDXnqpYwarGTxidDNevMmfAkdXHjZ4whl5uPUEVWO9DzXqRD6J7tu1fSce1lb9BBcKbcG4oVcGuShqHomx8HiOemtOvgobWRzRs56Jzz/vLUN+pZzxnj4jga80RHFPXZ97q1DneGYZEcw7fb3mYK/i00YlU1QVQe9fY7HI3Qz2Nl2opfSoz0W4SnAEEYPCWD/cJuOB7bYhvZLCmF8uayv+DaKfpOlolcPkft+S0KmZxWPJ6MVMnP/hHE8/wqnB8TYH1+iNhSKvI6ILLxTuPGKo0W0kz5EVCgI+cXkHU7EvRd6RRl+M+LE2zl+l79CXIw==
+ bh=0AlNlqV5hcLbrof9O3VRG1HYpSpuxPmOMAveNe3iMf8=;
+ b=WbdXQttbpjgp6h059c2oenPjx/uZNoKFnFUAwMs/ZwR4X3LJGiJ0k+G9+AFiugzx99ruCwRHBqSQ6FCTON+FurKNZB+9wyB5q3kZcQ98GeaHrtXiCvLzWn7tq6AWEXL77w3MZ6j8PUzp8LweuspXsCwUX8RDpQVBMBAd+IJp5v8sYb4jln4xw1rPxmm4g7YJ+4by9Inr3KQzOLxmPG7vXuzlaVOFFAi6l+71AXG8/cJ6SwA8XSIOEAHd6/PF/mxkkZrmR00Lou64les2WbBYLpnLxEUwuJs47Ahkmx4W8TLYwzjBKeKSzQdxShNTlFWn44xcac6uOAE2iPZeTUV0XQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4fegHovuEpRXjvtCX7jXeKBVshkotwpfP8Vs4oaVcyw=;
- b=Yz85dod67Q4FaEzAH2nHrAy/YD+tBiJNClJaPjR6CX+05Bx3gAhL/jPL5+wZwiiJctFBIGL6CfL0A+HiuFqZs/jF9lHhPiJg3ONmts7WzGgFPFi2f/e2CKQWIojw5U9a3yKqVyTgfpqKzb2xlz71DWyDTmNBCAQg9j+lMhvZU38=
+ bh=0AlNlqV5hcLbrof9O3VRG1HYpSpuxPmOMAveNe3iMf8=;
+ b=XpyI7SntaooIcoke2a0AVRjkH0z4+CjMA5DVcs3xEk0Jalbr7llqEzn6QGETxnw4sxicrhMXMWZGCOjjrN5W50f/1rUQO1S0Dx2Z7VShzf9QFFMHU5HOb2PFBsB5ojqjFQo7PuiPmksjv2T8BHxbqdspfcNVXvvk1BXKSaNTVYU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB6017.namprd12.prod.outlook.com (2603:10b6:208:3d7::8)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by LV3PR12MB9186.namprd12.prod.outlook.com (2603:10b6:408:197::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
- 2025 14:19:53 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9412.005; Tue, 9 Dec 2025
- 14:19:52 +0000
-Message-ID: <d846a1dd-a705-410a-a043-ffae43bada57@amd.com>
-Date: Tue, 9 Dec 2025 15:19:40 +0100
+ 2025 14:20:52 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da%5]) with mapi id 15.20.9412.005; Tue, 9 Dec 2025
+ 14:20:52 +0000
+Message-ID: <7d624117-f657-4467-8fc2-f7fcca3676f3@amd.com>
+Date: Tue, 9 Dec 2025 09:20:49 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
-To: phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
-Cc: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- dakr@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>,
- Lucas Stach <l.stach@pengutronix.de>
-References: <20251128182235.47912-1-vitaly.prosyak@amd.com>
- <cdecd1e2-de0d-466f-b98b-927b2f364f79@amd.com>
- <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
- <49de5988-ea47-4d36-ba25-8773b9e364e2@amd.com>
- <aTMW0UCGQuE+MXLk@lstrano-desk.jf.intel.com>
- <21699026216379f294d6597ed6febd187229ffb9.camel@mailbox.org>
- <aTcf4o0huubgUPIQ@lstrano-desk.jf.intel.com>
- <aTcguvAQCZ07xD/C@lstrano-desk.jf.intel.com>
- <212ecf88-b175-44cc-af3f-7371340ed480@amd.com>
- <aTdFgVM5s/H5tc4G@lstrano-desk.jf.intel.com>
- <b0781c7fd90c51394ec60faa71222fc3af06bb0c.camel@mailbox.org>
- <e99a2e97-3058-4501-ad22-457ede493a59@amd.com>
- <3e780e52dc0a7f1267e814c895e9d5e840a8c913.camel@mailbox.org>
+Subject: Re: [PATCH v4 5/6] drm/amdkfd: Map VRAM MQD on GART
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, david.yatsin@amd.com,
+ pierre-eric.pelloux-prayer@amd.com
+References: <20251209012538.3882774-1-Philip.Yang@amd.com>
+ <20251209012538.3882774-6-Philip.Yang@amd.com>
+ <9e4ae737-55c8-4fa8-9425-0c88fd0e4726@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <3e780e52dc0a7f1267e814c895e9d5e840a8c913.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <9e4ae737-55c8-4fa8-9425-0c88fd0e4726@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0039.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: YQBPR0101CA0196.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::8) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86fd0336-8d11-4ed2-8623-08de372e051e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|LV3PR12MB9186:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d290a17-5382-43fa-46ed-08de372e2895
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bTV0NTBHVzMrdnF1R3JTVUNnek5tbFl2N2NLU2o5YmlnWGJrQVFVVC8vVVRv?=
- =?utf-8?B?MitPUEo3cTNzU2hkS0lkV3NqdXRMR2R2cHVydUFjQjMvUUFpaVJxaUhJb25K?=
- =?utf-8?B?TzFZWk9LQ3c5WmV1VE5TdDE5NlhhR3ZjMHA5c1RaaTB4bUJldFFaV0lBS0J6?=
- =?utf-8?B?VXVEQmRVUnJiTkNHclE3ZzhPU3pIL280K1FVcmlOVWI0OFp5UlM0MDgwRXI4?=
- =?utf-8?B?TVlwckNLdXN1YlFYZUVrQlgrSzRCc05WVC9kbmpHcm5ReS94dmRlNlozSGJu?=
- =?utf-8?B?WG5vb05WSFV3QktpK1BHWVJMRkExVUJTUWQvaUlVcUlxQWxaZFJNT092NU93?=
- =?utf-8?B?ai9VaTh5YXBQbCtnbVJrQzdDdkFTQzFBb3VOQmlpMDhoRS9iWGlnbW1rendS?=
- =?utf-8?B?YURoL0JEdm1mMitYaFJyN0dmUWUycTNBVkxLSjdJZUtZRzV6eDk2bHYxcFhM?=
- =?utf-8?B?bVg1OFRyQU45d3dzWXg3c0ZnNWgvcW4vMVV6VWVNSVMwQitOL2JCNkloeC9K?=
- =?utf-8?B?ZEEzYlE4Y2lWVlh6NkwrVmVQSmRPaTJwQTdBdzk2QVBEQkVKSUtsbXZCM1ls?=
- =?utf-8?B?WEdiVnlob2M0SmE4L3hRV1ZtT0hYcjhNL0drcWNySlM5TEJlWTBjRWR2dlpE?=
- =?utf-8?B?QnMvOE90QlZ5d3ZyY3huN2VmR2xLZEhGVFNlOFAzSWtQTm5QUFFkdzJaakFx?=
- =?utf-8?B?SHM4M3FoZm4xTGVxK1pCSE1ONHRidGdOakY1TC9pYktWVnI1LytHYlE3eGlR?=
- =?utf-8?B?SlA4S1dPclBkLzVrQTlHeG8yaUJaNTJzakNoNjdqQ3o2WUduSllLSlRsMWwr?=
- =?utf-8?B?NmZvTy9Ya0kxSFRCUFFuTjJ1L0h2NklYMG5yYllYZldjMTd6WFljc3ByelQw?=
- =?utf-8?B?Y09YUWUzT2lEYWplb3hOOXgzaDJ3VndFNDRrclMwdnlxb1lTZ2RONVVjZ3JJ?=
- =?utf-8?B?MHc5aG5XTmhOd2ZKaU4xR3QvY0I5K2Z0THRkOVRKY1pTWUtSenpMcXV1Q3dV?=
- =?utf-8?B?RDJvd09sV05Zb1llNFVhbDRaa1owYWw0WmZ5MW5YdzFlTktSaERKTkxBVGRH?=
- =?utf-8?B?YXV0V0xoZm9rT1RHeUNXUkJkSUhadU84T1BsUU8vcC9EQmI4V2YwUmVucTA4?=
- =?utf-8?B?cm5ST2Q0cmovajBpc1R0V2Vjc3pLMUFoNjBiclZjK1k3NFJ4ZWI3WVNFV21o?=
- =?utf-8?B?ek1CKzBmekFTTzF4WmlwRjFlWmJlaGpYSGZXZVAzb2duY1pybTlYQ0ZMMy9T?=
- =?utf-8?B?cjVFcUtXbjhNbHlUeklmc2ROZllhNDF3QmRTUllVRUwrSzJER3VadlVuUEdz?=
- =?utf-8?B?UWhXZUtITHVCZGFobEJ4dFZqNHVhNGpHbTFsNjdIVlNCNFlIcU14ZTJnS0RN?=
- =?utf-8?B?dHQxcVhQSjh0dkpzdVZ2bkIwQWpiQytyQzFJaWo5eStUMlBHaGZLVzJ4Y2Qr?=
- =?utf-8?B?WmwvN0lmdWZpcE5EVkdGdU41ZmJGdmNFa2p0U1BlbTUwQjBWTU1ZSmM5YVBp?=
- =?utf-8?B?REpkeDZ0Ry9BRWhKWFE3Mkd6OTB4N3NRVHV1R1dDU0VKNmx6L011TFdsYm04?=
- =?utf-8?B?ZERiTlNCdWpGM2hoQ0RIZVdidFdXcTFnei9wREp4VkdiZnBleEdpLzFQVE12?=
- =?utf-8?B?eVBGQndna3ZCS2RaaGhuRXdmYy9ZQ0xjMUw1YUVENTR3Q284WXU4S0dDclVK?=
- =?utf-8?B?T09qL1ptdWRmVDdRVVBnRE9EdlRVNlJ2eWYwMTAxK3Z3bE5DSUp4eVBhbVlz?=
- =?utf-8?B?TWgyZzdrRkZzY2JQUmdoUVllRFpUM3BqOXMvZndhc1lRejZvQVlOZGRBM0I5?=
- =?utf-8?B?U0lTZzVQL0Y5LzNJNXdXL3UreTFNSkNQeldSRG5KYkVxdW5icmI4TmExUEx1?=
- =?utf-8?B?d095N0VMMklTZDdmbzVqQUdWUkxRa3ZuVHB5cUZ3dWwxTVFoVTlGZlhUMS85?=
- =?utf-8?Q?D+fKOg87Ec8wueKkZ5RYuKkQk4TXkQ9D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cTBzN1pTYmdva0pJaDRoenhHVldrTjhISnNwRXkyQjVBUVN1d1ErL25BMTgx?=
+ =?utf-8?B?L2kyY1BEVkJDbEQ5YVpIY1NkNitBeDdMd3JPWElubmIwUEZOWXRnUlg5TUkx?=
+ =?utf-8?B?SHZPdENPVXd4MVBhc3RZcEFtSUJHdWl2Wkx5eE12RGZZMCs2NGJEb2Q3YlJw?=
+ =?utf-8?B?TkV1VWo3SkU5MTd0WTNVcTBqdUpnRTBIRjJsWUhyNko1dkNXbUF6TkRqZW1K?=
+ =?utf-8?B?Tk8ySS8yaUlMc0dLelNDUWNGZldWOStPYWd1c1FSendEcHVKUWd2UVN6TnFX?=
+ =?utf-8?B?MEZsOXdua2tWbjliRjhNNDFIeFU2bGhyNHBOT1c5N0RadVJ5YVN1Mzd3WFpD?=
+ =?utf-8?B?ME5OZzE4QngxcnFwcjBVMHZmZXlHUnFLREg4SGMrOThWdnBJSWVXeWh2dG9S?=
+ =?utf-8?B?ZndHaEUwZHJWK09uMS9ZN3l5MzN1V0U0SUw5MTVrS0VUSERVd25VRGpwQUZ2?=
+ =?utf-8?B?Q055d0tqTzduYXNubllObWc1aFFVZkpvVzc4R1BzS1RUUm9KYVN6Y3dzMVFT?=
+ =?utf-8?B?eEE3L3hIVFBuSUYwakV3bWVBRXo0NjNhT3JGbHZFbk9rQ2NMemlXblZiVDhz?=
+ =?utf-8?B?QkhaM2RoVHhzRGs4Nzh2YzdmMEFrbHhneFA1dG8zOW5ja2xaR3JjeXZkbTN1?=
+ =?utf-8?B?K08rOUFnRUZWekg0SnBlek12S1hkUDVtVC8xRUphV0VzNlVjVWNZaTh2YnhF?=
+ =?utf-8?B?aTlFNnoxcTcrY3U5ZGtpb1BDTHBTdjNWOXBtMUZXMGo4d2Q2MFNON29mbWwy?=
+ =?utf-8?B?SXJmcHRGRnhGYmRMc1dGS1JYOWszQnhHRjhEK2xYMFg5TWdqaFBuUENvYVJ0?=
+ =?utf-8?B?OTB1WjBNclI1dkVWUVUzSFJ4T1RQcDZHZnRnMXBzRWhSVVRsb29hV3kxUjFk?=
+ =?utf-8?B?ZmFBN0pnU2dxSmxESzJrSGJmV2FtTEozTWtrUTJOUWNVL2hvRDhlbUJwdFdh?=
+ =?utf-8?B?OFJHYVArb0FJUGJuQ0lET2lxaTdGaWNkQ0JOM2NzVnJXbSs4VkJzYzZBOHhX?=
+ =?utf-8?B?bmxyWE5FSTFDbHhIMUtyQnMrbm94TEJlUmFIUlNpZ0xKTEMwVURSajdqNEQ5?=
+ =?utf-8?B?RnRzYlVOME5QSlNFenFTV2NYYkdkc3N6NGlsRXc3cHFKNHVIOGVaa1lEcE9a?=
+ =?utf-8?B?Qmo1VE5lUGM5Tm9WVDd2eC9HSlNOcytrMkxLU1NFV2xmL09jb3M2aTMzNkZy?=
+ =?utf-8?B?Mm16YkJqcHlTeVZEbGVsZFZZQ3JuMkVXUUd5OGFpSHdMZkNmN0NWdkZwTTIv?=
+ =?utf-8?B?VnhHeGtZUjJGMytJbXlzUm5IWE9uM2xNUlpjUmRSTTBOWmEyT2NWcmlkTThJ?=
+ =?utf-8?B?UDJUUFFydFE3V2V3N3ZhdCtieldQSjFPMHVtS3crV3JkclNKUDUzczVXSXBB?=
+ =?utf-8?B?Ymh6VnhDbmJCdU0yb3E5b0NJR1hYWjR1VnNhOFhaUXZId2JlYi82MXRIaW1q?=
+ =?utf-8?B?amlsN0ZsZThtU2V1Z3h1N0dXb0NTZHRBK0wxeWYvN3FKSkhaa2F1emg2QUxX?=
+ =?utf-8?B?clZjZHhnU3M0cXQ2L1JqNzJoSlpqV3llZ3hIczhBRkRKb0xkcWdrRlZaZ1VP?=
+ =?utf-8?B?QS8vZjg2RkY0NCtOSDhjdVFLWWp0NWh5QmplOE1rakZQbHN2OS9tbnMzeGt6?=
+ =?utf-8?B?N25YRUZXUGtUVlNybDVackZIYWtYYmdnZXdBTEJBWEJsSFdMVmQ4ZURIY2U5?=
+ =?utf-8?B?dW14NVRjQ2xrUVJISHJCR3ZvUHNNeW9OZFRmaXB1ZVJVMnVENk05akRWcWNN?=
+ =?utf-8?B?bUNXWDFiei9yQ0M1OEU2V2NWbUlzb0lMTzA4cnUyaERjZ2RrRGFiMThIeDBz?=
+ =?utf-8?B?VmJYZ2JUVWFId0dtc3lOUkg5L3d4d2JGOVVuWEFFK09YZDFQUTd1d2RXVTkx?=
+ =?utf-8?B?dEdyZGV6UEk2ckE0Syt3V3Rqbk1yUkMyenpsOWxlQVJTRFZ5SFdmc3RaYW9E?=
+ =?utf-8?Q?UdDgABxtrGkPZfHNmWmerDYI1ZvbIyva?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bm1MaDd1UzF1SENhRWtEQWdMY0hUQ3REY0tQdmg5ZlF1elBhYTBnaC9IendB?=
- =?utf-8?B?OXVqc2JJYVJ1VXl6dk5TL2gwRUlMSlZKazFkbzRFY2tvN1lzczI0bkxNMENt?=
- =?utf-8?B?Nk82MmpWSDJiM01GeXJFUFpQd2hCbmVwTWQ1emtpL3NUNUhoVkYydWhMRUxr?=
- =?utf-8?B?TDhtL2xzenNlb3lFRVpnVGxrM1dYL3Zpa0pBQVpuOTJvZHpQN25rOE1VMHdi?=
- =?utf-8?B?dVljR3V6eCtiUTJ3NUV1TTcxWVpJVTlubVJnWllqWXFBcDVEWnlHTkJoc1dU?=
- =?utf-8?B?WXlLbVpGNndhcW1aQ0tVTFUrUEYrNitxVlo5RXVaWWw0YStmTFl4Z2NBV1lW?=
- =?utf-8?B?SE02ZjE3Rk5jSU5ZbWJ3aUxubW9RbUV4QytPaGRvbDVCUjBxcGUyQTdKeGw3?=
- =?utf-8?B?UERyekxCM1lPbVFxK21jaW5EcHhxKzFvZXIzbkFTTm01NEZrdmZ4RVdTakhY?=
- =?utf-8?B?azRnOHFaZWJMOGdHdFU3TjlhZ1VEais1bGlvdU56OEE0T1dqKys1ZldmMEZW?=
- =?utf-8?B?TWZweDFaN0xvRHA1emlhcDFGMlBVWlVjMjlBVUdoUjh1QUw5RTc4bXJONldo?=
- =?utf-8?B?VmhUeU5GcldlN3RPU1BJN2FMQ1djbFk4WEs4M3NUZTc4NUk0S2tYODlkT1lU?=
- =?utf-8?B?QnZ4T3dnblRqU3ByZ0poWDN0OFg4MjZNMmpIRFpoZWZWWG9mL0sxeTJ0Mld0?=
- =?utf-8?B?cFVzditIVlAwVEk5M1JaZzhoa3lkcmt4QU04R0tENVVONStndGh4YlFlNVU2?=
- =?utf-8?B?bXV0Q1hjS3ZuaDY3MkRPcEV3UVl6UUVWa05jYXVGWG5BZ2wxUFVMaXdxSUtk?=
- =?utf-8?B?d1NvTjR2M1EvS1VCV1U5TXFrcDNTWFB6TXBrb2RMWEErZVlYSDNqNDBQOUw0?=
- =?utf-8?B?REdyTEFtbFd6aWhxRi9NcnZJcENsU2VEdlorNlMvOGZIYlQvK29Mak9sVzhi?=
- =?utf-8?B?bFJaUTlFRzU2UHRKZ1Rha004QjdCS05wUDk5UHE3Vk9zbUVOdTFlbTdxTVBP?=
- =?utf-8?B?aWhYU2FRRkxvS0lSVHRkYUJSeHgyb05adzJDazczT0VGRE02bjFwSjN0VnZy?=
- =?utf-8?B?ZkJQVXY4YUlsbktubHdHNzMwT0txWDR1SUQyakt4alVCT2g3MDZWMVF2TjFa?=
- =?utf-8?B?WEJIL3FleWoxVlBWbHVSbE9lbnkxc3NKOG8xejdlL2ltenNOT1IvVTdzMUVB?=
- =?utf-8?B?eFFKVnE4UWtPWDkrSGFEclNwRlJma0s5V2hrZ1VQREdYNkJLWVYrdGxGUWJ4?=
- =?utf-8?B?MmVONG0yVDNDMjNpWDIyUWc1aUNKeWxJQ2RxWUdWVW5xdEF0V1pCb2VYVTJJ?=
- =?utf-8?B?SU50MEt3RGU3WW0yaHVJZkt4eWp1c0duVml0VmNtN0pVdnc3NTVQNXE3Rko3?=
- =?utf-8?B?UVB3Y1BRV3VTK2txUTFqL3FFa2R2Tm92ZzVWb0l3VmdYaTFkemx4cWZ2Tk9q?=
- =?utf-8?B?eUZaY3NiL29FRExjRjhSWkp2eDRJanMwRVRFUGpGOWp0cnd4RXlKaFQxekNQ?=
- =?utf-8?B?YkJlaldleUsyNU0zR1BCR09YY0FsV2JWMFhrS2JWZ0xMclozYkthUVBTRFc0?=
- =?utf-8?B?QS9CdUttU3RpNVlSQ2dpcXhzYlBpNDJLalNFeUpHK3lvalZOTitkRXpGVVh4?=
- =?utf-8?B?MXdFY2lSaXU1UERmaFhFTUt1VlJ5aXkxdUYxWlBIQWY1ZnpRMzdBZmZrdDVw?=
- =?utf-8?B?WHZpYzFYb21JL0w4dytUZWViSXp6MmpwVVRrNFlYeVRnbXhWR0tNT0ZKTzJt?=
- =?utf-8?B?U2xlMTVqTGdWckY4OW4wZUdmMWJnVFVOTEtrOFlBcUlwSXMrcXJpcHJYdnZZ?=
- =?utf-8?B?K2NQby9aYjdJd3UxRW0wN09BT1NSeEQ3UFZIendJcTJUKzY3TXZ0bmxXT0Z5?=
- =?utf-8?B?QkN4OG92Zzc5VjlzbnI2QVA1ZDd3L2pmZU5ubzE5akh2eHNLUkFQSGhDYmlC?=
- =?utf-8?B?L1NPR1ZSclJTNFJ0MlFwaWZBcUFJL0RDOEZXU1Z4ZFFDb3Mydk9HTHdRMjkz?=
- =?utf-8?B?STNvZ3dJb0RhR0d5SjZrYjF2dFlLNGJkR0tTcUxsdExwbFQyeWVodll2SXRF?=
- =?utf-8?B?R1F0dCthQlFocHFwN3hJQ3hYVXYvQmV1c29qdDBEZjF2NlN5dzdHMkhsNUVF?=
- =?utf-8?Q?vb84=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a25ZMUZkVk8vVy9hOFNUOWtyTEdZeFJvZGhiNGtoY0lqVlNhV0h4NXh1RWsx?=
+ =?utf-8?B?TytlMk5TdTlZNlpreWNZY1FBbzRoa0t0ZjhidnNxUWcwMmJBRjdZbjlWc2w1?=
+ =?utf-8?B?L21tZjM3M0NoUi9ETTVTMzBBZEVxNlJURmxNUS9IMldOaU9sV0o3MWp2YkpH?=
+ =?utf-8?B?ZjJwOGRIUHJhaEQ0bmZWSjBFYVhad0NBNzRhaWROVm1VNFZhRlZuS0FPcHlB?=
+ =?utf-8?B?TFlES3QyajBrVHc5KzdFOU1lUVEzcU1mbERVRVEzb2RTZ3VvYVd4RFUxMlY4?=
+ =?utf-8?B?NHdLdGc3Mmp3S1gvbTk2RndseVJqcG5GblRDUXcwT1dYemMvOFlTUUU1dXhj?=
+ =?utf-8?B?WmpVczRmcjlYMlpmUDliNEZFZkxXRHdDSkdBMEpVaW94V1Nhcitnc1VjemVT?=
+ =?utf-8?B?Z3RGZVhDSU9ZVklVblp5UEQ2YjFvQWtlMGgzZHlkM0Z4ZUU4UGpqeXFDQWx4?=
+ =?utf-8?B?RFBvSS9Oak16cjVBWU5FTGJjMDkvcGw4UjBjZndHRnc3dFZ1T01LRHpsVXdG?=
+ =?utf-8?B?ZFFsbnZhQ3E1UVpjclNOOWVLL1hEMnJrUUFrY0RUY2s0NVJJV3A2UUJrcWM1?=
+ =?utf-8?B?ZWJWK0J5eFVNRkxIYWxLNzczU0pIUFJiSDE3dFJYWnFibXUxSzRFSy9IY1Rh?=
+ =?utf-8?B?QTV6Sk05ZkdpalJaMXR5N1Qra2ZlTzJGUmFVQ2tpNlc1NXE5VDh1ekhqZUpU?=
+ =?utf-8?B?azVFWXBUZVRoWXJvL3JDZXVIMHBDTnlYSnZ2WTRlSWNmdlM3UFkxYS9BRCtt?=
+ =?utf-8?B?UEVFeUl5QUVqUVNtaUR1S01lQ1JLbng5VStNamZRd0JRTlBFeThFM3g3VzJE?=
+ =?utf-8?B?aEk4aGxQUEVEMmhTOFZFb3Era1E4UkhNSlpuNWNxVDk0ZXdRazV4Sys4SkhV?=
+ =?utf-8?B?VWdRQUo5a1hqd1ZGaVlodURJWE1lam9VditkYk5ydUV5NTdrS1d3Y2tPUmdI?=
+ =?utf-8?B?OU1nTStVU2d4YUNhZ2ozWXJHVlczNEMvdFloZlE0d2VqZGFUUnR5VExhQnZp?=
+ =?utf-8?B?Zk5qQTJBN1dWM1NmU25OT2tpMXFUcy9yOUpZTys1UXZ3K2lORFNKdnZoQTVM?=
+ =?utf-8?B?LytBazNMQXFubkpwRHllUHhFdkRVaHAxZHJvRVA1L3czMzdNcUdwS2VTLzlM?=
+ =?utf-8?B?bmswYTJFWWg2YVJia0Jod0tpZXozdExDWGhLSzlnaU1oTmYyZnE3UXdVdEdo?=
+ =?utf-8?B?V2cvNEE3dUpuRUhuZXd6MzFZQXQ3cGV2SnY5bldhY0ZmdCthTkFRQSsrMmt5?=
+ =?utf-8?B?a0o2ekRtZVljZGhhclF5Zi9NR3ZDOVZaM2pwd3JxaHhqd0FJRkxKMGdDemdP?=
+ =?utf-8?B?cEJscHl6Y2Qrend3MG1RbUFETnYxUHA5bU11d01sNHllZEpQc1htTFdmUE9x?=
+ =?utf-8?B?UHNjZzlvbklLTUdtVVZwTHBlRVBrOHR6eXRaaHdsYUpWa2JrclBuSnNSWkdR?=
+ =?utf-8?B?T095LzR6NGhRUDcwaDlqNjBZSlpEa2huK2FZbm96T1dqTnYvT3c3L0xmeHd4?=
+ =?utf-8?B?Y29wbkZXaFppNit4Z1NjVUdtQ1pQRHl5eUVuUHNGRlpXaWhuU2UzTmF1K0pn?=
+ =?utf-8?B?UnMya0VCQ0d3RlpXdmxlRmNkTE9GMTdyTVNnc2RZeThiYVBOdnYySE9zUWhv?=
+ =?utf-8?B?eWRKVm5jTGJ3SkFTaldKTzQ2b0VHWFNJTDl0cXBscG80ejl5WVhONktzS01C?=
+ =?utf-8?B?YUg1MkhDVG00dENlcUE2YVIxYTRxd01MR05MYUZJcWl6ZDRpSHdqVXNYTHBp?=
+ =?utf-8?B?T0hXalQrbHRwQ055UGRwdXo0MUhZeEQxTW9aN213czFvMmtwZ3lwTGptRXJH?=
+ =?utf-8?B?M1c5bjJRWDRFOGczV2U2Uk1oVGZCZ2lISXlNam1TWlRoUlVqTFdvOERwc0ls?=
+ =?utf-8?B?aG8xK2s5QlZTanRsQmU1Q25sMVp1OG9TQnhSUnZBSkRndkRPb1hSRkgraUFD?=
+ =?utf-8?B?SUJjbHd0K3lYSS9TVU5wcFhYZ1pmV1dPekVnYm9KMlZVUGJxakZ5MDV2TCtr?=
+ =?utf-8?B?U3FoT2pLckNFV2lJR2pNejd0L1lwRzE1YmkvSTJ5b1ozREdwVEcxYS82MVVE?=
+ =?utf-8?B?UEZubm9pVGw3eFBoSCtrZS9PY09kT29IbjZEWW5adjR3aFcwcmRKVGFmWGk0?=
+ =?utf-8?Q?XZfE=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86fd0336-8d11-4ed2-8623-08de372e051e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d290a17-5382-43fa-46ed-08de372e2895
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 14:19:52.8254 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 14:20:52.3905 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IdCrulvGVgnHY4aimjAEOklG2GOuvaflIC1KX46Eja5UOpkwkHaOQHntKTXZuz8Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6017
+X-MS-Exchange-CrossTenant-UserPrincipalName: va7Q87yqnuEkISFE+frTgNcVaV6V3ZnvfVLvbgNqhwTuISREhMqGJemhwcVAHtaQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9186
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,181 +164,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/9/25 14:51, Philipp Stanner wrote:
-...
->>>>>>>> How can free_job_work, through drm_sched_get_finished_job(), get and
->>>>>>>> free the same job?
->>>>>>>>
->>>>>>>
->>>>>>> It can't.
->>>>>
->>>>> But exactly that happens somehow. Don't ask me how, I have no idea.
->>>
->>> *Philipp refuses to elaborate and asks Christian*
->>>
->>> How are you so sure about that's what's happening? Anyways, assuming it
->>> is true:
+
+
+On 2025-12-09 04:38, Christian König wrote:
+>
+> On 12/9/25 02:25, Philip Yang wrote:
+>> MQD BO on VRAM access via FB aperture is mtype UC uncaching, map
+>> to GART as mtype RW caching, to reduce queue switch latency.
 >>
->> [  489.134585] ==================================================================
->> [  489.141949] BUG: KASAN: slab-use-after-free in amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->> [  489.151339] Read of size 4 at addr ffff88a0d5f4214c by task kworker/u128:0/12
->> [  489.158686] 
->> [  489.160277] CPU: 11 UID: 0 PID: 12 Comm: kworker/u128:0 Tainted: G            E       6.16.0-1289896.3.zuul.0ec208edc00d48a9bae1719675cb777f #1 PREEMPT(voluntary) 
->> [  489.160285] Tainted: [E]=UNSIGNED_MODULE
->> [  489.160288] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T, BIOS V1.03.B10 04/01/2019
->> [  489.160292] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
->> [  489.160306] Call Trace:
->> [  489.160308]  <TASK>
->> [  489.160311]  dump_stack_lvl+0x64/0x80
->> [  489.160321]  print_report+0xce/0x630
->> [  489.160328]  ? _raw_spin_lock_irqsave+0x86/0xd0
->> [  489.160333]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
->> [  489.160337]  ? amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->> [  489.161044]  kasan_report+0xb8/0xf0
->> [  489.161049]  ? amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->> [  489.161756]  amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->> [  489.162464]  ? __pfx_amdgpu_device_gpu_recover+0x10/0x10 [amdgpu]
->> [  489.163170]  ? amdgpu_coredump+0x1fd/0x4c0 [amdgpu]
->> [  489.163904]  amdgpu_job_timedout+0x642/0x1400 [amdgpu]
->> [  489.164698]  ? __pfx__raw_spin_lock+0x10/0x10
->> [  489.164703]  ? __pfx_amdgpu_job_timedout+0x10/0x10 [amdgpu]
->> [  489.165496]  ? _raw_spin_lock+0x75/0xc0
->> [  489.165499]  ? __pfx__raw_spin_lock+0x10/0x10
->> [  489.165503]  drm_sched_job_timedout+0x1b0/0x4b0 [gpu_sched]
-> 
-> That doesn't show that it's free_job() who freed the memory.
-
-[  489.405936] Freed by task 2501:
-[  489.409175]  kasan_save_stack+0x20/0x40
-[  489.413122]  kasan_save_track+0x14/0x30
-[  489.417064]  kasan_save_free_info+0x3b/0x60
-[  489.421355]  __kasan_slab_free+0x37/0x50
-[  489.425384]  kfree+0x1fe/0x3f0
-[  489.428547]  drm_sched_free_job_work+0x50e/0x930 [gpu_sched]
-[  489.434326]  process_one_work+0x679/0xff0
- 
-> @Vitaly: Can you reproduce the bug? If yes, adding debug prints
-> printing the jobs' addresses when allocated and when freed in
-> free_job() could be a solution.
-
-We can reproduce this pretty reliable in our CI now.
-
-> I repeat, we need more info :)
-> 
+>> Add helper amdgpu_gtt_mgr_alloc/free_entries.
+>> Add helper amdgpu_ttm_gart_bind_gfx9_mqd_vram to bind VRAM pages
+>> to GART entries.
 >>
->>>
->>>>>
->>>>> My educated guess is that the job somehow ends up on the pending list again.
->>>
->>> then the obvious question would be: does amdgpu touch the pending_list
->>> itself, or does it only ever modify it through proper scheduler APIs?
+>> Add GART mm_node to kfd mem obj to free the GART entries after
+>> MQD mem obj is freed.
 >>
->> My educated guess is that drm_sched_stop() inserted the job back into the pending list, but I still have no idea how it is possible that free_job is running after the scheduler is stopped.
+>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c   | 37 ++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 71 +++++++++++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       | 10 +++
+>>   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  1 +
+>>   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  9 +++
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
+>>   6 files changed, 129 insertions(+)
 >>
-> 
-> And my uneducated guess is that it's happening in amdgpu. It seems a
-> sched_job lives inside an amdgpu_job. Can the latter be freed at other
-> places than free_job()?
-
-Nope, except for error handling during creation and initialization.
-
-> timedout_job() and free_job() cannot race against each other regarding
-> jobs. It's locked.
-> 
-> But maybe investigate Matthew's suggestion and look into the guilty
-> mechanism, too.
-
-That looks just like a leftover from earlier attempts to fix the same problem.
-
-I mean look at the git history of how often that problem came up...
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>> index 895c1e4c6747..c83e1cf1f02d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+>> @@ -321,3 +321,40 @@ void amdgpu_gtt_mgr_fini(struct amdgpu_device *adev)
+>>   	ttm_resource_manager_cleanup(man);
+>>   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_TT, NULL);
+>>   }
+>> +
+>> +int amdgpu_gtt_mgr_alloc_entries(struct amdgpu_device *adev,
+>> +				 struct drm_mm_node *mm_node,
+>> +				 u64 num_pages, u64 alignment,
+>> +				 unsigned long color, u64 range_start,
+>> +				 u64 range_end, enum drm_mm_insert_mode mode)
+>> +{
+>> +	struct ttm_resource_manager *man;
+>> +	struct amdgpu_gtt_mgr *mgr;
+>> +	int r;
+>> +
+>> +	man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
+>> +	mgr = container_of(man, struct amdgpu_gtt_mgr, manager);
+>> +
+>> +	spin_lock(&mgr->lock);
+>> +	r = drm_mm_insert_node_in_range(&mgr->mm, mm_node, num_pages,
+>> +					alignment, color, range_start,
+>> +					adev->gmc.gart_size >> PAGE_SHIFT,
+>> +					mode);
+>> +	spin_unlock(&mgr->lock);
+>> +	return r;
+>> +}
+>> +
+>> +void amdgpu_gtt_mgr_free_entries(struct amdgpu_device *adev,
+>> +				 struct drm_mm_node *mm_node)
+>> +{
+>> +	struct ttm_resource_manager *man;
+>> +	struct amdgpu_gtt_mgr *mgr;
+>> +
+>> +	man = ttm_manager_type(&adev->mman.bdev, TTM_PL_TT);
+>> +	mgr = container_of(man, struct amdgpu_gtt_mgr, manager);
+>> +
+>> +	spin_lock(&mgr->lock);
+>> +	if (drm_mm_node_allocated(mm_node))
+>> +		drm_mm_remove_node(mm_node);
+>> +	spin_unlock(&mgr->lock);
+>> +}
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index 4f8bc7f35cdc..43009d3809b5 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -880,6 +880,42 @@ static void amdgpu_ttm_gart_bind_gfx9_mqd(struct amdgpu_device *adev,
+>>   	}
+>>   }
+>>   
+>> +static void amdgpu_ttm_gart_bind_gfx9_mqd_vram(struct amdgpu_device *adev,
+>> +				struct ttm_buffer_object *tbo,
+>> +				struct drm_mm_node *mm_node,
+>> +				uint64_t flags)
+>> +{
+>> +	uint64_t total_pages;
+>> +	int num_xcc = max(1U, adev->gfx.num_xcc_per_xcp);
+>> +	uint64_t page_idx, pages_per_xcc;
+>> +	uint64_t ctrl_flags = flags;
+>> +	int i;
+>> +
+>> +	total_pages = tbo->resource->size >> PAGE_SHIFT;
+>> +
+>> +	amdgpu_gmc_get_vm_pte(adev, NULL, NULL, AMDGPU_VM_MTYPE_NC, &ctrl_flags);
+>> +
+>> +	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(9, 4, 3))
+>> +		amdgpu_gmc_get_vm_pte(adev, NULL, NULL, AMDGPU_VM_MTYPE_RW, &flags);
+>> +
+>> +	pages_per_xcc = total_pages;
+>> +	do_div(pages_per_xcc, num_xcc);
+>> +
+>> +	for (i = 0, page_idx = 0; i < num_xcc; i++, page_idx += pages_per_xcc) {
+>> +		u64 pa = (tbo->resource->start + page_idx) << PAGE_SHIFT;
+>> +		u64 start_page = mm_node->start + page_idx;
+>
+> Again, don't use tbo->resource->start nor mm_node->start.
+This is fixed in the next new patch, it is easier to review separately, 
+will squash 2 patches into one patch after review.
 
 Regards,
-Christian.
-
->>>>>>> At line 1269, the run_job work item is interrupted. Timed-out jobs run,
->>>>>>> call free_job, which performs the final put. Then the run_job work item
->>>>>>> resumes—and boom, UAF. Using the same reasoning, I think moving free_job
->>>>>>> to the timed-out work queue could also cause issues.
->>>>>>>
->>>>>>> If run_job work item took a reference to the job before adding it to the
->>>>>>> pending list and dropped it after it was done touching it in this
->>>>>>> function, then yes, that would be safe. This is an argument for moving
->>>>>>> reference counting into the base DRM scheduler class, it would make
->>>>>>
->>>>>> typo: s/DRM scheduler class/DRM job class
->>>>>
->>>>> That strongly sounds like re-inventing the scheduler fence.
->>>>>
->>>>
->>>> Perhaps.
->>>>
->>>>> What if we completely drop the job object? Or merge it into the scheduler fence?
->>>>>
->>>>> The fence has reference counting, proper state transitions and a well defined lifetime.
->>>>>
->>>>> We would just need ->schedule and ->finished functions instead of ->run_job and ->free_job. Those callbacks would then still be called by the scheduler in work item context instead of the irq context of the dma_fence callbacks.
->>>>
->>>> Yes, definitely no IRQ contexts.
->>>>
->>>>>
->>>>> The job can then be a void* in the scheduler fence where drivers can put anything they want and also drivers control the lifetime of that. E.g. they can free it during ->schedule as well as during ->finished.
->>>>>
->>>>
->>>> I think this is a reasonable idea, but it would require major surgery
->>>> across the subsystem plus the 11 upstream drivers I’m counting that use
->>>> DRM scheduler. This would be a huge coordinated effort.
->>>>
->>>> So I see three options:
->>>>
->>>> 1. Rename free_job to put_job and document usage. Rip out free_guilty.
->>>>    Likely the easiest and least invasive.
->>>
->>> I think I can live with that. It's work-effort wise the best we can do
->>> right now. However, that does need proper documentation.
->>
->> I think that is the worst of all options.
->>
->> It basically says to the driver that the job lifetime problems created by the scheduler is the driver problem and need to be worked around there.
->>
-> 
-> My POV still mostly is that (with the current design) the driver must
-> not use jobs after free_job() was invoked. And when that happens is
-> unpredictable.
-> 
-> To be unfair, we already have strange refcount expectations already.
-> But I sort of agree that there is no objectively good solution in
-> sight.
-> 
->>>
->>> Let me respin to my documentation series and upstream that soonish,
->>> than we can build on top of that.
-> 
->>>
->>>
->>> P.
->>>
->>>>
->>>> 2. Move reference counting to the base DRM scheduler job object, provide a
->>>>    vfunc for the final job put, and document usage. Medium invasive.
->>
->> I strongly think that reference counting the job object just because the scheduler needs it is a bad idea.
->>
->> With that we are just moving the hot potato from one side of our mouth to the other without really solving the issue.
->>
->> If a driver like XE needs that for some reason than that is perfectly fine.
-> 
-> Nouveau doesn't need it either.
-> 
->>
->>>> 3. Move job (driver) side tracking to the scheduler fence and let it
->>>>    control the lifetime. Very invasive.
->>
->> Thinking about it more that is actually not so much of a problem.
->>
->> Let me try to code something together by the end of next week or so.
-> 
-> The hero Gotham needs :)
-> 
-> 
-> P.
+Philip
+>
+> @Pierre-Eric: can you take a look as well? Philip is basically allocating GART space here as well.
+>
+> Regards,
+> Christian.
+>
+>> +
+>> +		pa += adev->vm_manager.vram_base_offset;
+>> +		amdgpu_gart_map_vram_range(adev, pa, start_page, 1,
+>> +					   flags, NULL);
+>> +
+>> +		amdgpu_gart_map_vram_range(adev, pa + PAGE_SIZE,
+>> +					   start_page + 1,
+>> +					   pages_per_xcc - 1,
+>> +					   ctrl_flags, NULL);
+>> +	}
+>> +}
+>> +
+>>   static void amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
+>>   				 struct ttm_buffer_object *tbo,
+>>   				 uint64_t flags)
+>> @@ -1017,6 +1053,41 @@ int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo)
+>>   	return 0;
+>>   }
+>>   
+>> +/*
+>> + * amdgpu_ttm_alloc_gart_vram_bo - Bind VRAM pages to GART mapping
+>> + *
+>> + * call amdgpu_ttm_alloc_gart_entries to alloc GART dynamically
+>> + */
+>> +int amdgpu_ttm_alloc_gart_vram_bo(struct amdgpu_bo *abo,
+>> +				  struct drm_mm_node *mm_node,
+>> +				  u64 *gpu_addr)
+>> +{
+>> +	struct ttm_buffer_object *bo = &abo->tbo;
+>> +	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+>> +	uint64_t flags;
+>> +	int r;
+>> +
+>> +	/* Only for valid VRAM bo resource */
+>> +	if (bo->resource->start == AMDGPU_BO_INVALID_OFFSET)
+>> +		return 0;
+>> +
+>> +	r = amdgpu_gtt_mgr_alloc_entries(adev, mm_node,
+>> +					 amdgpu_bo_ngpu_pages(abo),
+>> +					 0, 0, 0,
+>> +					 adev->gmc.gart_size >> PAGE_SHIFT,
+>> +					 0);
+>> +	if (r)
+>> +		return r;
+>> +
+>> +	/* compute PTE flags for this buffer object */
+>> +	flags = amdgpu_ttm_tt_pte_flags(adev, NULL, bo->resource);
+>> +	amdgpu_ttm_gart_bind_gfx9_mqd_vram(adev, bo, mm_node, flags);
+>> +	amdgpu_gart_invalidate_tlb(adev);
+>> +
+>> +	*gpu_addr = mm_node->start << PAGE_SHIFT;
+>> +	return 0;
+>> +}
+>> +
+>>   /*
+>>    * amdgpu_ttm_recover_gart - Rebind GTT pages
+>>    *
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> index 72488124aa59..eff536f12cb4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> @@ -140,6 +140,13 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev);
+>>   
+>>   bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource *mem);
+>>   void amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr);
+>> +int amdgpu_gtt_mgr_alloc_entries(struct amdgpu_device *adev,
+>> +				 struct drm_mm_node *mm_node,
+>> +				 u64 num_pages, u64 alignment,
+>> +				 unsigned long color, u64 range_start,
+>> +				 u64 range_end, enum drm_mm_insert_mode mode);
+>> +void amdgpu_gtt_mgr_free_entries(struct amdgpu_device *adev,
+>> +				 struct drm_mm_node *mm_node);
+>>   
+>>   uint64_t amdgpu_preempt_mgr_usage(struct ttm_resource_manager *man);
+>>   
+>> @@ -185,6 +192,9 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>>   		       u64 k_job_id);
+>>   
+>>   int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
+>> +int amdgpu_ttm_alloc_gart_vram_bo(struct amdgpu_bo *abo,
+>> +				  struct drm_mm_node *mm_node,
+>> +				  u64 *gpu_addr);
+>>   void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
+>>   uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
+>>   
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+>> index f78b249e1a41..0bf9c35112fc 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+>> @@ -225,6 +225,7 @@ void kfd_free_mqd_cp(struct mqd_manager *mm, void *mqd,
+>>   	      struct kfd_mem_obj *mqd_mem_obj)
+>>   {
+>>   	if (mqd_mem_obj->mem) {
+>> +		amdgpu_gtt_mgr_free_entries(mm->dev->adev, &mqd_mem_obj->mm_node);
+>>   		amdgpu_amdkfd_free_kernel_mem(mm->dev->adev, &mqd_mem_obj->mem);
+>>   		kfree(mqd_mem_obj);
+>>   	} else {
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>> index 14123e1a9716..5828220056bd 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>> @@ -148,6 +148,15 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_node *node,
+>>   			kfree(mqd_mem_obj);
+>>   			return NULL;
+>>   		}
+>> +
+>> +		retval = amdgpu_ttm_alloc_gart_vram_bo(mqd_mem_obj->mem,
+>> +						       &mqd_mem_obj->mm_node,
+>> +						       &(mqd_mem_obj->gpu_addr));
+>> +		if (retval) {
+>> +			amdgpu_amdkfd_free_kernel_mem(node->adev, &(mqd_mem_obj->mem));
+>> +			kfree(mqd_mem_obj);
+>> +			return NULL;
+>> +		}
+>>   	} else {
+>>   		retval = kfd_gtt_sa_allocate(node, sizeof(struct v9_mqd),
+>>   				&mqd_mem_obj);
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index 29419b3249cf..fdde907836fb 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -252,6 +252,7 @@ struct kfd_mem_obj {
+>>   	uint64_t gpu_addr;
+>>   	uint32_t *cpu_ptr;
+>>   	void *mem;
+>> +	struct drm_mm_node mm_node;
+>>   };
+>>   
+>>   struct kfd_vmid_info {
 
