@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED55D3B7EA
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 08:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF7E9D3B7EA
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 08:58:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5132710E4DC;
-	Tue,  9 Dec 2025 08:58:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB3B10E4DE;
+	Tue,  9 Dec 2025 08:58:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="feOpPSF3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IynbnPfQ";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012052.outbound.protection.outlook.com
- [40.93.195.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C12410E4DE
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 08:58:33 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012007.outbound.protection.outlook.com [52.101.48.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3EB10E4DE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 08:58:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jJ2dcKMehEVre0kXWOodjva+2XpG2PDTYOh4LPgFIE9h317TbcB8gH7vgYARKwnMf2LfhsNPGmVefnU1A9aSVxOrDz9AP9RMIvorXmCkBpn01F1eAjOgzYLAeA7klmvoRkzCsO8+9UNPKrjfWKnbxP981VCwMCXbuEq2tRGpGWbKfWXvLV+BvQoFo1gL6EnaMsNuBTK0nyZt5tHBYlsNaBVlobA+A3qVxALjCl7g+6Lc/g7V4Xz/oKRUkoQh7d9vjN2Kguw1ls279zrblPcnX9mGG9DLxgw6JZrX5f2MjksHciJXjUXXibweHjesmpxyKehZnH+THjKjajqSdnEr2Q==
+ b=iHRNM8+sT92pu1meOFl6gAjJGnYN42l6XbOuCh+vJAoM+hrqWc0K5ZckKHwzivgb8nLg+NbOX6rskJz9m2V4UiC3kStqxdS594md2k4fG7eZfFmbXYqPjYS1Ss+0oo+NcZ8+4XaU3IW3h5vdxvk6F2lGa+aDzARJKAnDDcF7CeWhCUBhBNjkQIOAI3KpTwMVqQyznQKLcPQEWYhrsbGtHLqsvIjVAj0SxrM7sXeCkpoIPK1gd8YisHn5aaX0uCjDsWwkS9EP5vzrEBasdtWG/7CGc5VAPhVW+9LW4AK+NJdbhxc9eHiDqF0GGIKpwAFtBAiPtdsLUssT1ECM8N1LqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5LRXeIfd+QkCvdAi3NRw11sXrWq2J4yrHqHmrCDyGto=;
- b=uC2jasYTxrbgYh7d3ghX/xSloqCd0wUzSm39A93ZKVGsHAzz4oEEhuneQGjLpEHWxjy65+Vqc+wVPVEVaB9GKlrIoD3XWp1fMk5yb+RPg9ybturYE72eHLZ+Nq1SWxSc0Z62rmUZrs/nBX3gUG/miaOxvixPwzmZnEzxp1srnfYvhggLNSj1vgq97a7yt6Datc1EeznpYo2DT1f3d0HGRMDqEJbYJJZPIZGnu2KaPgAxEI5rqrtcNhP31YswqFPGqS9OEErdrt3vO2AXnB4apG/RgVhSip0zzUZRH1qqfwSVIIH7hLkMIxY0ZeUHRabO/IxzRGHPTPyEA528WYxcbg==
+ bh=vdVoFD5+jj5JGTQsk6qxjFo16jq/o99sgKpTdcAvHgA=;
+ b=Fz0t+KeKAe8hWxcCqO7iG8P+ahA2NvsvE2qzwusnwOL6R6i0TlsClgUl8sUorCIpLsl5gEfxk4EvjxZVF4BGgb53a1Fw7G3PKhjZnEePIXZtwef3WM3nlGfBSCrYTr8Ou6GVL+Q8h4I2jptFYY23yFKrKZWa+9n20C10L5iUdZOpehp906rROo7YOZOhTZadAHV1INJ5i1uHna/ByE2Bzl2uYli+ci0GFw/0622O8IIlCRZ2EfSuXaSRJQaWKmbbhXI0uS6GPJ+iLZ0OdMWtknt6iC10zaQyRVpItnKUooSucsJ/bf9IuKn2Pmrupgef1Eu6vsYQNfppGfGbCybCsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5LRXeIfd+QkCvdAi3NRw11sXrWq2J4yrHqHmrCDyGto=;
- b=feOpPSF3MrSbpKuZ92ln5a7tfoSB0p2dPR+13GYPJxlChi451GVNObE7IUrAwldiJDe5VMWzFdc2J/wi47c3WqsnsIO0hU7LqtAOYSHrJ1f4U0qWTBSo5c29GMYQw1pUTq8vVc4+o1MeDNOs+DTR0NOOVJ0D6jicaQT06zEw/jg=
-Received: from BYAPR02CA0035.namprd02.prod.outlook.com (2603:10b6:a02:ee::48)
- by MN6PR12MB8567.namprd12.prod.outlook.com (2603:10b6:208:478::12)
+ bh=vdVoFD5+jj5JGTQsk6qxjFo16jq/o99sgKpTdcAvHgA=;
+ b=IynbnPfQtwwK1cD4Tl3COCvMqEum4PyNCgfe1EhdH4kSZG51i0kjI1+pIk41HSvsoPGcrnkR/YmgUiC5NMTPKWYo0tgV52gVkA68asRQiVKK4mT5YPKmWsjcN1YMn2Z1BT+ex7mrXqGFhDPeOcP7CKPlHUSjHGHJubXTpQcEXrI=
+Received: from SJ0PR13CA0037.namprd13.prod.outlook.com (2603:10b6:a03:2c2::12)
+ by SA1PR12MB7152.namprd12.prod.outlook.com (2603:10b6:806:2b2::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
- 2025 08:58:29 +0000
-Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
- (2603:10b6:a02:ee:cafe::ea) by BYAPR02CA0035.outlook.office365.com
- (2603:10b6:a02:ee::48) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Tue,
- 9 Dec 2025 08:58:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.16; Tue, 9 Dec
+ 2025 08:58:33 +0000
+Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c2:cafe::f4) by SJ0PR13CA0037.outlook.office365.com
+ (2603:10b6:a03:2c2::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.4 via Frontend Transport; Tue, 9
+ Dec 2025 08:58:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,16 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
+ SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.4 via Frontend Transport; Tue, 9 Dec 2025 08:58:28 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ 15.20.9412.4 via Frontend Transport; Tue, 9 Dec 2025 08:58:32 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 9 Dec
- 2025 02:58:27 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 9 Dec
+ 2025 02:58:31 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 9 Dec
+ 2025 02:58:31 -0600
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 9 Dec 2025 00:58:24 -0800
+ Transport; Tue, 9 Dec 2025 00:58:27 -0800
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,65 +69,69 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 12/15] drm/amd/display: Revert "Fix pbn to kbps Conversion"
-Date: Tue, 9 Dec 2025 16:55:15 +0800
-Message-ID: <20251209085702.293682-13-chen-yu.chen@amd.com>
+ <alex.hung@amd.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>, "Nicholas
+ Kazlauskas" <nicholas.kazlauskas@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 13/15] drm/amd/display: Split update_planes_and_stream_v3 into
+ parts (V2)
+Date: Tue, 9 Dec 2025 16:55:16 +0800
+Message-ID: <20251209085702.293682-14-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251209085702.293682-1-chen-yu.chen@amd.com>
 References: <20251209085702.293682-1-chen-yu.chen@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: chen-yu.chen@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|MN6PR12MB8567:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21173326-d3fb-4be8-2129-08de37011eb9
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|SA1PR12MB7152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fad5159-56f7-4c66-98ea-08de37012157
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?u3SSD+B5MtUsFb62xYSwUKq8o5zI8yE0skvXtDWDIEGJCOcBNUSaGMg88BuQ?=
- =?us-ascii?Q?/Ycf9M3XoxAtW9C8nsH+CJlWJ4Sw1eFB7m383uAP0H4+8tG5xz13U1ubx+g1?=
- =?us-ascii?Q?2sPTn2ctLzyoyL1JTsLjjeIjGbHjDdWCff8AuIi6CnGDZDTVRLvFoxFP1uOn?=
- =?us-ascii?Q?W2p+hEUtc51ri9Cgf83pgwrBPOxwS4LmxwllYaK4ROpY2ucTdLz0sgVbDeph?=
- =?us-ascii?Q?/Vq4iAbYMDhr/GtS2Fp1ztxEETB448vGoegK1G4CklgWvRy4Mn/ZNCjEyvdb?=
- =?us-ascii?Q?9pxTfuiyJbzvI/+n07O8aaZ2np7h3QC0HtOJPJGdQOMj/PcF8ayEJpku6cE1?=
- =?us-ascii?Q?ShQNIZCPeM1catMyPJxKlO2MyuKPQqI30OtIVfFhwB+y8LDVtXD9r2wFtSgE?=
- =?us-ascii?Q?IK7E2Fj8+PyuW/PfU4A0dpQcMYJilkGj0C5BPtDnD+JjN+rdCSxuAeBi5Qg1?=
- =?us-ascii?Q?Js6IjiET8Y1eATxvc1Q+K4Fg8RjTB4lGG/46iyeYYBtMFhL8jlydc+22X3FE?=
- =?us-ascii?Q?aitHOHmMCrMjgMNdWbWpr7B1Re6BV04pg+Jrh3a4WLhn0y244ng+2+u6/C0U?=
- =?us-ascii?Q?EY79IvIimV6OkPyFybGiCKxAPAYBmeSNMBRMDKwpKzDEjpXUnGthw6LiacXi?=
- =?us-ascii?Q?F6sRbO+t2i2tPxGbrji7BCM46H649v6yWF7JUzFF0YsZBCvi36gCYgdRLEyr?=
- =?us-ascii?Q?vmpmK75gbM1/ANM/PXtl/qDS/YHlJ2RjRpnlKmvqhkoTRMmCsY1IHg5jYu0D?=
- =?us-ascii?Q?891W1op3Mn6aE7bEtAGVSl4ckCxPi7rg29iMJM6j/F4rqLuEb01BZAens/HA?=
- =?us-ascii?Q?DJuBdCiEHKrZzpWMiMQDJ3cs++4nJx9atJ5qM7bjlNqyYPfuW/0zBMYFWb2J?=
- =?us-ascii?Q?JFiyTgUcex/TU/DUgpaCzayRTn4iwX9nWsXFewuzcmSFkVxEqLD+X4ssmYyP?=
- =?us-ascii?Q?wqCsZdrouuOVaDnkpMD6eBZGXdlv4O6oP4tFLfzafrkVWftv8SjMf+cibjsn?=
- =?us-ascii?Q?aK8N+fi4T1X43LNUUVLKek6tWzJuwOVvmY3Zh1x2BrdfZvUN+XZOdMR/HIEh?=
- =?us-ascii?Q?qEQkx9+jHLNXlYLBmQHUexOr19+NxRuhLUQEyQqvmRRjcAqv5nyE3tzZEDEf?=
- =?us-ascii?Q?RVyh9YS5jbzwG+OQzyT+5fHmsM6tSk3JQPSHCpAQzpmorzGjk3866R24HGV1?=
- =?us-ascii?Q?KJ34O1wyTTx1YIeN4d906wZhw8ddaAj0iakOVKhdO/OTXXyrZguia888VQVW?=
- =?us-ascii?Q?FBnYOinMIQC4ecScEOEoxoiaYe5TIOA9t2qYvZgvjkcir5VqM95j9nn+CCSv?=
- =?us-ascii?Q?hEi/PCyAu4/b16SBxVUHjQ1maukhMTk0nd9Hd0anHB4/OObLbCW0Qfm5BruV?=
- =?us-ascii?Q?xG4JvXjPSFzxlarsxYPkf071dQmSSYm3zNPjRATPWNwRj6vGGlPhIUqWsdkS?=
- =?us-ascii?Q?kz05xLNciOITxUSwxy5p0AA5osk8yzDm3ugk2zxuFdVgJD3oZQ1IRy3Hzm5E?=
- =?us-ascii?Q?CmuRyJIh6wEU9hQ4cPtwwyPotRhmROkYin69XGJdb3QQ93zn9NiAAq2qxc1C?=
- =?us-ascii?Q?sCRdY8gv6ugngL0stII=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?SD2bwgcHJIfGUzdqG0/5/lwJ7XgJNAEtXZxqR2prOXOqKOVVT6ZveG6JI19N?=
+ =?us-ascii?Q?5HIPZxRkTJ+5xdaQBW16/AbP6UsFV7cbQb+idSX8ciMdC7djRs3El4LbTQv9?=
+ =?us-ascii?Q?1iXVfCHwVcNusuGQ1MWAJ7Ntycdu6CiLpwD5fu2Pvrght61QLhuMjW+0H2eB?=
+ =?us-ascii?Q?6b3QMPpRp15W7qvTr6m/5mWis3Kf/i/YvGKRNvfoC52ozLsMgc1taTg2YzE9?=
+ =?us-ascii?Q?FltKY9ufXZ35+uebgtmSdWFmLP6d9WbLqH/4QVz2SzIejT6c4KyVceStyIYw?=
+ =?us-ascii?Q?GLK8XOgS2yc5lx73oBoMReRiY7o3GhL6qjRwmOgLdv3vrAO193VfpMLa01Pl?=
+ =?us-ascii?Q?HJgm0Fvu7paCJESiG2z6rg95bCcwze8IHFz2nVp5acoQs6SM616Nx3JfzgYr?=
+ =?us-ascii?Q?0YIoLQJWpeQSthyIxiO7zCJKajdp/Lz1B17rd46JVl85aaY0RDeixpBNKPlb?=
+ =?us-ascii?Q?8RcfmKe8QktHSlH13UuMK1J5yh8/sZJjmF1R2BtQDmq8en7m5+mJ5veJ/GNq?=
+ =?us-ascii?Q?yERdoklv3hlQg8Lh+Wxu3clKVSMqo7rDkwAONeyS8jCNSnzKnnj47YFgTodl?=
+ =?us-ascii?Q?XByt/lh1v6g37lDEiSt2Ar8mEdPIGj2fem2it1ZkVQ3NIDkZf50uOjNSv8VQ?=
+ =?us-ascii?Q?RiEnbIfWouwcGBjlcGRnUzNcx7zDH9saF+FoO1NwXQOM5xUpA0hoThquV8o+?=
+ =?us-ascii?Q?8oi+fbTKAdMFVuXdAE7++onxS2vlEh59XhEjMXQ7OcN2NrnG5CM9wbZbTvrJ?=
+ =?us-ascii?Q?Wea1E+JARN79uKYSDoVYmkW5BTYpeoN1wnUFgIVKbtVeiX5dIK7dPG8HDPK/?=
+ =?us-ascii?Q?0PZl+BGKDIf2od/69J2/Jg7ONYyzT2RIMteYIilXhVFxM+QzSYnNXwhLdo6C?=
+ =?us-ascii?Q?G9BukfRlCbHocn/R4QkqXmOpXihGAiSBBi54DEGBj4tqOBxIJ/AJxc6SV/ge?=
+ =?us-ascii?Q?EW5mCad/rdoh0H3FH6OV8m51vIaxU0UCM8RN+wB0tMn9d+qr0AKnRxiJIacQ?=
+ =?us-ascii?Q?hzoCDu4Lc8EYpFSyqlzOfrzNhOH0yxbExNO6+pVb2RCog70637O1vjvVFy5K?=
+ =?us-ascii?Q?sO2qaDmbACyiskjKkp6MVTChXvlDHEwr7HzgNbGf+zqzwxbB6TdFbvJIPf5Q?=
+ =?us-ascii?Q?EjeLfmUWS+ck0+gF4XT7gWnfQxlSoYWBD6I24s4OHr/sTxgXGxX7mN5Zo1Al?=
+ =?us-ascii?Q?OEhfsqMrMrBhM1QG5t0PUFE5/j06pxYtK0SsPiIv8TOrU6SVq+1U5Yk0d5kO?=
+ =?us-ascii?Q?1q71UcyF7KKqJsf1jZ7LeYL7SR/njv8QZRfLz7wbW2QqxSe9pAZroSNDB0nD?=
+ =?us-ascii?Q?TDj+bEiFfLukC3qyAfCAUpFgS11eEHw5PdLpQ9cCERHWGBNNd9UxardVb7y2?=
+ =?us-ascii?Q?NCyt+kimDPexSa9Mq/szTvL/7e5U0dDArZrs/GPC9v6wAFiSBNaSOLzFsNtl?=
+ =?us-ascii?Q?Cw+iWSLbA0RIblouz/C9hvG2JXgtMdLy0lDb616xtiYxH7jnJXdPZqZrb8bu?=
+ =?us-ascii?Q?msOpCSzbNCGl6WCMakjE/+V5FB4MV9tL2NkI9uZnYSvnvZzCTq13YgXEPHKS?=
+ =?us-ascii?Q?Rf+iVw1CbRSMo8dshLQ=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024)(13003099007);
- DIR:OUT; SFP:1101; 
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 08:58:28.1794 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21173326-d3fb-4be8-2129-08de37011eb9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 08:58:32.5734 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fad5159-56f7-4c66-98ea-08de37012157
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDD.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8567
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7152
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,178 +146,533 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Dominik Kaszewski <dominik.kaszewski@amd.com>
 
-This reverts commit d96c6e251830 ("drm/amd/display: Fix pbn to kbps Conversion")
+[Why]
+Currently all of the preparation and execution of plane update is done
+under a DC lock, blocking other code from accessing DC for longer than
+strictly necessary.
 
-Because it causes a daisy-chained DP/MST displays issue.
+[How]
+Break the v3 update flow into 3 parts:
+    * prepare - locked, calculate update flow and modify DC state
+    * execute - unlocked, program hardware
+    * cleanup - locked, finalize DC state and free temp resources
+Legacy v2 flow too compilicated to break down for now, link new API
+with old by executing everything in slightly misnamed prepare stage.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4756
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+V2:
+Keep the new code structure, but point all users back at the old code,
+until fully tested.
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 59 +++++++++++--------
- 1 file changed, 36 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 351 +++++++++++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |  31 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  31 +-
+ 3 files changed, 403 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index dbd1da4d85d3..5e92eaa67aa3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -884,28 +884,26 @@ struct dsc_mst_fairness_params {
- };
- 
- #if defined(CONFIG_DRM_AMD_DC_FP)
--static uint64_t kbps_to_pbn(int kbps, bool is_peak_pbn)
-+static uint16_t get_fec_overhead_multiplier(struct dc_link *dc_link)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index e0db791953a5..1be5c1c15798 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3849,7 +3849,7 @@ static bool dc_dmub_should_send_dirty_rect_cmd(struct dc *dc, struct dc_stream_s
+ void dc_dmub_update_dirty_rect(struct dc *dc,
+ 			       int surface_count,
+ 			       struct dc_stream_state *stream,
+-			       struct dc_surface_update *srf_updates,
++			       const struct dc_surface_update *srf_updates,
+ 			       struct dc_state *context)
  {
--	uint64_t effective_kbps = (uint64_t)kbps;
-+	u8 link_coding_cap;
-+	uint16_t fec_overhead_multiplier_x1000 = PBN_FEC_OVERHEAD_MULTIPLIER_8B_10B;
- 
--	if (is_peak_pbn) {	// add 0.6% (1006/1000) overhead into effective kbps
--		effective_kbps *= 1006;
--		effective_kbps = div_u64(effective_kbps, 1000);
--	}
-+	link_coding_cap = dc_link_dp_mst_decide_link_encoding_format(dc_link);
-+	if (link_coding_cap == DP_128b_132b_ENCODING)
-+		fec_overhead_multiplier_x1000 = PBN_FEC_OVERHEAD_MULTIPLIER_128B_132B;
- 
--	return (uint64_t) DIV64_U64_ROUND_UP(effective_kbps * 64, (54 * 8 * 1000));
-+	return fec_overhead_multiplier_x1000;
+ 	union dmub_rb_cmd cmd;
+@@ -4154,7 +4154,7 @@ static void commit_planes_for_stream_fast(struct dc *dc,
  }
  
--static uint32_t pbn_to_kbps(unsigned int pbn, bool with_margin)
-+static int kbps_to_peak_pbn(int kbps, uint16_t fec_overhead_multiplier_x1000)
- {
--	uint64_t pbn_effective = (uint64_t)pbn;
--
--	if (with_margin)	// deduct 0.6% (994/1000) overhead from effective pbn
--		pbn_effective *= (1000000 / PEAK_FACTOR_X1000);
--	else
--		pbn_effective *= 1000;
-+	u64 peak_kbps = kbps;
+ static void commit_planes_for_stream(struct dc *dc,
+-		struct dc_surface_update *srf_updates,
++		const struct dc_surface_update *srf_updates,
+ 		int surface_count,
+ 		struct dc_stream_state *stream,
+ 		struct dc_stream_update *stream_update,
+@@ -7175,3 +7175,350 @@ bool dc_get_qos_info(struct dc *dc, struct dc_qos_info *info)
  
--	return DIV_U64_ROUND_UP(pbn_effective * 8 * 54, 64);
-+	peak_kbps *= 1006;
-+	peak_kbps *= fec_overhead_multiplier_x1000;
-+	peak_kbps = div_u64(peak_kbps, 1000 * 1000);
-+	return (int) DIV64_U64_ROUND_UP(peak_kbps * 64, (54 * 8 * 1000));
+ 	return true;
  }
- 
- static void set_dsc_configs_from_fairness_vars(struct dsc_mst_fairness_params *params,
-@@ -976,7 +974,7 @@ static int bpp_x16_from_pbn(struct dsc_mst_fairness_params param, int pbn)
- 	dc_dsc_get_default_config_option(param.sink->ctx->dc, &dsc_options);
- 	dsc_options.max_target_bpp_limit_override_x16 = drm_connector->display_info.max_dsc_bpp * 16;
- 
--	kbps = pbn_to_kbps(pbn, false);
-+	kbps = div_u64((u64)pbn * 994 * 8 * 54, 64);
- 	dc_dsc_compute_config(
- 			param.sink->ctx->dc->res_pool->dscs[0],
- 			&param.sink->dsc_caps.dsc_dec_caps,
-@@ -1005,11 +1003,12 @@ static int increase_dsc_bpp(struct drm_atomic_state *state,
- 	int link_timeslots_used;
- 	int fair_pbn_alloc;
- 	int ret = 0;
-+	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
- 
- 	for (i = 0; i < count; i++) {
- 		if (vars[i + k].dsc_enabled) {
- 			initial_slack[i] =
--			kbps_to_pbn(params[i].bw_range.max_kbps, false) - vars[i + k].pbn;
-+			kbps_to_peak_pbn(params[i].bw_range.max_kbps, fec_overhead_multiplier_x1000) - vars[i + k].pbn;
- 			bpp_increased[i] = false;
- 			remaining_to_increase += 1;
- 		} else {
-@@ -1105,6 +1104,7 @@ static int try_disable_dsc(struct drm_atomic_state *state,
- 	int next_index;
- 	int remaining_to_try = 0;
- 	int ret;
-+	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
- 	int var_pbn;
- 
- 	for (i = 0; i < count; i++) {
-@@ -1137,7 +1137,7 @@ static int try_disable_dsc(struct drm_atomic_state *state,
- 
- 		DRM_DEBUG_DRIVER("MST_DSC index #%d, try no compression\n", next_index);
- 		var_pbn = vars[next_index].pbn;
--		vars[next_index].pbn = kbps_to_pbn(params[next_index].bw_range.stream_kbps, true);
-+		vars[next_index].pbn = kbps_to_peak_pbn(params[next_index].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
- 		ret = drm_dp_atomic_find_time_slots(state,
- 						    params[next_index].port->mgr,
- 						    params[next_index].port,
-@@ -1197,6 +1197,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
- 	int count = 0;
- 	int i, k, ret;
- 	bool debugfs_overwrite = false;
-+	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
- 	struct drm_connector_state *new_conn_state;
- 
- 	memset(params, 0, sizeof(params));
-@@ -1277,7 +1278,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
- 	DRM_DEBUG_DRIVER("MST_DSC Try no compression\n");
- 	for (i = 0; i < count; i++) {
- 		vars[i + k].aconnector = params[i].aconnector;
--		vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.stream_kbps, false);
-+		vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
- 		vars[i + k].dsc_enabled = false;
- 		vars[i + k].bpp_x16 = 0;
- 		ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr, params[i].port,
-@@ -1299,7 +1300,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
- 	DRM_DEBUG_DRIVER("MST_DSC Try max compression\n");
- 	for (i = 0; i < count; i++) {
- 		if (params[i].compression_possible && params[i].clock_force_enable != DSC_CLK_FORCE_DISABLE) {
--			vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.min_kbps, false);
-+			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.min_kbps, fec_overhead_multiplier_x1000);
- 			vars[i + k].dsc_enabled = true;
- 			vars[i + k].bpp_x16 = params[i].bw_range.min_target_bpp_x16;
- 			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
-@@ -1307,7 +1308,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
- 			if (ret < 0)
- 				return ret;
- 		} else {
--			vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.stream_kbps, false);
-+			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
- 			vars[i + k].dsc_enabled = false;
- 			vars[i + k].bpp_x16 = 0;
- 			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
-@@ -1762,6 +1763,18 @@ int pre_validate_dsc(struct drm_atomic_state *state,
- 	return ret;
- }
- 
-+static uint32_t kbps_from_pbn(unsigned int pbn)
++
++enum update_v3_flow {
++	UPDATE_V3_FLOW_INVALID,
++	UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST,
++	UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL,
++	UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS,
++	UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_NEW,
++	UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_CURRENT,
++};
++
++struct dc_update_scratch_space {
++	struct dc *dc;
++	struct dc_surface_update *surface_updates;
++	int surface_count;
++	struct dc_stream_state *stream;
++	struct dc_stream_update *stream_update;
++	bool update_v3;
++	bool do_clear_update_flags;
++	enum surface_update_type update_type;
++	struct dc_state *new_context;
++	enum update_v3_flow flow;
++	struct dc_state *backup_context;
++	struct dc_state *intermediate_context;
++	struct pipe_split_policy_backup intermediate_policy;
++	struct dc_surface_update intermediate_updates[MAX_SURFACES];
++	int intermediate_count;
++};
++
++size_t dc_update_scratch_space_size(void)
 +{
-+	uint64_t kbps = (uint64_t)pbn;
-+
-+	kbps *= (1000000 / PEAK_FACTOR_X1000);
-+	kbps *= 8;
-+	kbps *= 54;
-+	kbps /= 64;
-+
-+	return (uint32_t)kbps;
++	return sizeof(struct dc_update_scratch_space);
 +}
 +
- static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
- 					  struct dc_dsc_bw_range *bw_range)
++static bool update_planes_and_stream_prepare_v2(
++		struct dc_update_scratch_space *scratch
++)
++{
++	// v2 is too tangled to break into stages, so just execute everything under lock
++	dc_exit_ips_for_hw_access(scratch->dc);
++	return update_planes_and_stream_v2(
++		scratch->dc,
++		scratch->surface_updates,
++		scratch->surface_count,
++		scratch->stream,
++		scratch->stream_update
++	);
++}
++
++static void update_planes_and_stream_execute_v2(
++		const struct dc_update_scratch_space *scratch
++)
++{
++	// Nothing to do, see `update_planes_and_stream_prepare_v2`
++	(void) scratch;
++}
++
++static bool update_planes_and_stream_cleanup_v2(
++		const struct dc_update_scratch_space *scratch
++)
++{
++	if (scratch->do_clear_update_flags)
++		clear_update_flags(scratch->surface_updates, scratch->surface_count, scratch->stream);
++
++	return false;
++}
++
++static void update_planes_and_stream_cleanup_v3_intermediate(
++		struct dc_update_scratch_space *scratch,
++		bool backup
++);
++
++static bool update_planes_and_stream_prepare_v3_intermediate_seamless(
++		struct dc_update_scratch_space *scratch
++)
++{
++	return is_pipe_topology_transition_seamless_with_intermediate_step(
++			scratch->dc,
++			scratch->dc->current_state,
++			scratch->intermediate_context,
++			scratch->new_context
++	);
++}
++
++static bool update_planes_and_stream_prepare_v3(
++		struct dc_update_scratch_space *scratch
++)
++{
++	dc_exit_ips_for_hw_access(scratch->dc);
++
++	if (!update_planes_and_stream_state(
++			scratch->dc,
++			scratch->surface_updates,
++			scratch->surface_count,
++			scratch->stream,
++			scratch->stream_update,
++			&scratch->update_type,
++			&scratch->new_context
++	)) {
++		return false;
++	}
++
++	if (scratch->new_context == scratch->dc->current_state) {
++		ASSERT(scratch->update_type < UPDATE_TYPE_FULL);
++
++		// TODO: Do we need this to be alive in execute?
++		struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
++
++		populate_fast_updates(
++				fast_update,
++				scratch->surface_updates,
++				scratch->surface_count,
++				scratch->stream_update
++		);
++		const bool fast = fast_update_only(
++				scratch->dc,
++				fast_update,
++				scratch->surface_updates,
++				scratch->surface_count,
++				scratch->stream_update,
++				scratch->stream
++		)
++		// TODO: Can this be used to skip `populate_fast_updates`?
++				&& !scratch->dc->check_config.enable_legacy_fast_update;
++		scratch->flow = fast
++				? UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST
++				: UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL;
++		return true;
++	}
++
++	ASSERT(scratch->update_type >= UPDATE_TYPE_FULL);
++
++	const bool seamless = scratch->dc->hwss.is_pipe_topology_transition_seamless(
++			scratch->dc,
++			scratch->dc->current_state,
++			scratch->new_context
++	);
++	if (seamless) {
++		scratch->flow = UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS;
++		return true;
++	}
++
++	scratch->intermediate_context = create_minimal_transition_state(
++		scratch->dc,
++		scratch->new_context,
++		&scratch->intermediate_policy
++	);
++	if (scratch->intermediate_context) {
++		if (update_planes_and_stream_prepare_v3_intermediate_seamless(scratch)) {
++			scratch->flow = UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_NEW;
++			return true;
++		}
++
++		update_planes_and_stream_cleanup_v3_intermediate(scratch, false);
++	}
++
++	restore_planes_and_stream_state(&scratch->dc->scratch.current_state, scratch->stream);
++	scratch->backup_context = scratch->dc->current_state;
++	dc_state_retain(scratch->backup_context);
++	scratch->intermediate_context = create_minimal_transition_state(
++			scratch->dc,
++			scratch->backup_context,
++			&scratch->intermediate_policy
++	);
++	if (scratch->intermediate_context) {
++		if (update_planes_and_stream_prepare_v3_intermediate_seamless(scratch)) {
++			scratch->flow = UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_CURRENT;
++			scratch->intermediate_count = initialize_empty_surface_updates(
++					scratch->stream, scratch->intermediate_updates
++			);
++			return true;
++		}
++
++		update_planes_and_stream_cleanup_v3_intermediate(scratch, true);
++	}
++
++	scratch->flow = UPDATE_V3_FLOW_INVALID;
++	dc_state_release(scratch->backup_context);
++	restore_planes_and_stream_state(&scratch->dc->scratch.new_state, scratch->stream);
++	return false;
++}
++
++static void update_planes_and_stream_execute_v3_commit(
++		const struct dc_update_scratch_space *scratch,
++		bool intermediate_update,
++		bool intermediate_context
++)
++{
++	commit_planes_for_stream(
++			scratch->dc,
++			intermediate_update ? scratch->intermediate_updates : scratch->surface_updates,
++			intermediate_update ? scratch->intermediate_count : scratch->surface_count,
++			scratch->stream,
++			intermediate_context ? NULL : scratch->stream_update,
++			intermediate_context ? UPDATE_TYPE_FULL : scratch->update_type,
++			// `dc->current_state` only used in `NO_NEW_CONTEXT`, where it is equal to `new_context`
++			intermediate_context ? scratch->intermediate_context : scratch->new_context
++	);
++}
++
++static void update_planes_and_stream_execute_v3(
++		const struct dc_update_scratch_space *scratch
++)
++{
++	switch (scratch->flow) {
++	case UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST:
++		commit_planes_for_stream_fast(
++				scratch->dc,
++				scratch->surface_updates,
++				scratch->surface_count,
++				scratch->stream,
++				scratch->stream_update,
++				scratch->update_type,
++				scratch->new_context
++		);
++		break;
++
++	case UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL:
++	case UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS:
++		update_planes_and_stream_execute_v3_commit(scratch, false, false);
++		break;
++
++	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_NEW:
++		update_planes_and_stream_execute_v3_commit(scratch, false, true);
++		update_planes_and_stream_execute_v3_commit(scratch, false, false);
++		break;
++
++	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_CURRENT:
++		update_planes_and_stream_execute_v3_commit(scratch, true, true);
++		update_planes_and_stream_execute_v3_commit(scratch, false, false);
++		break;
++
++	case UPDATE_V3_FLOW_INVALID:
++	default:
++		ASSERT(false);
++	}
++}
++
++static void update_planes_and_stream_cleanup_v3_new_context(
++		struct dc_update_scratch_space *scratch
++)
++{
++	swap_and_release_current_context(scratch->dc, scratch->new_context, scratch->stream);
++}
++
++static void update_planes_and_stream_cleanup_v3_intermediate(
++		struct dc_update_scratch_space *scratch,
++		bool backup
++)
++{
++	release_minimal_transition_state(
++			scratch->dc,
++			scratch->intermediate_context,
++			backup ? scratch->backup_context : scratch->new_context,
++			&scratch->intermediate_policy
++	);
++}
++
++static bool update_planes_and_stream_cleanup_v3(
++		struct dc_update_scratch_space *scratch
++)
++{
++	switch (scratch->flow) {
++	case UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST:
++	case UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL:
++		// No cleanup required
++		break;
++
++	case UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS:
++		update_planes_and_stream_cleanup_v3_new_context(scratch);
++		break;
++
++	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_NEW:
++		update_planes_and_stream_cleanup_v3_intermediate(scratch, false);
++		update_planes_and_stream_cleanup_v3_new_context(scratch);
++		break;
++
++	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_CURRENT:
++		swap_and_release_current_context(scratch->dc, scratch->intermediate_context, scratch->stream);
++		dc_state_retain(scratch->dc->current_state);
++		update_planes_and_stream_cleanup_v3_intermediate(scratch, true);
++		dc_state_release(scratch->backup_context);
++		restore_planes_and_stream_state(&scratch->dc->scratch.new_state, scratch->stream);
++		update_planes_and_stream_cleanup_v3_new_context(scratch);
++		break;
++
++	case UPDATE_V3_FLOW_INVALID:
++	default:
++		ASSERT(false);
++	}
++
++	if (scratch->do_clear_update_flags)
++		clear_update_flags(scratch->surface_updates, scratch->surface_count, scratch->stream);
++
++	return false;
++}
++
++struct dc_update_scratch_space *dc_update_planes_and_stream_init(
++		struct dc *dc,
++		struct dc_surface_update *surface_updates,
++		int surface_count,
++		struct dc_stream_state *stream,
++		struct dc_stream_update *stream_update
++)
++{
++	const enum dce_version version = dc->ctx->dce_version;
++	struct dc_update_scratch_space *scratch = stream->update_scratch;
++
++	*scratch = (struct dc_update_scratch_space){
++		.dc = dc,
++		.surface_updates = surface_updates,
++		.surface_count = surface_count,
++		.stream = stream,
++		.stream_update = stream_update,
++		.update_v3 = version >= DCN_VERSION_4_01 || version == DCN_VERSION_3_2 || version == DCN_VERSION_3_21,
++		.do_clear_update_flags = version >= DCN_VERSION_3_2 || version == DCN_VERSION_3_01,
++	};
++
++	return scratch;
++}
++
++bool dc_update_planes_and_stream_prepare(
++		struct dc_update_scratch_space *scratch
++)
++{
++	return scratch->update_v3
++			? update_planes_and_stream_prepare_v3(scratch)
++			: update_planes_and_stream_prepare_v2(scratch);
++}
++
++void dc_update_planes_and_stream_execute(
++		const struct dc_update_scratch_space *scratch
++)
++{
++	scratch->update_v3
++			? update_planes_and_stream_execute_v3(scratch)
++			: update_planes_and_stream_execute_v2(scratch);
++}
++
++bool dc_update_planes_and_stream_cleanup(
++		struct dc_update_scratch_space *scratch
++)
++{
++	return scratch->update_v3
++			? update_planes_and_stream_cleanup_v3(scratch)
++			: update_planes_and_stream_cleanup_v2(scratch);
++}
++
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 129cd5f84983..9349cccc8438 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -151,6 +151,7 @@ static void dc_stream_free(struct kref *kref)
+ 	struct dc_stream_state *stream = container_of(kref, struct dc_stream_state, refcount);
+ 
+ 	dc_stream_destruct(stream);
++	kfree(stream->update_scratch);
+ 	kfree(stream);
+ }
+ 
+@@ -164,26 +165,32 @@ void dc_stream_release(struct dc_stream_state *stream)
+ struct dc_stream_state *dc_create_stream_for_sink(
+ 		struct dc_sink *sink)
  {
-@@ -1860,7 +1873,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
- 			dc_link_get_highest_encoding_format(stream->link));
- 	cur_link_settings = stream->link->verified_link_cap;
- 	root_link_bw_in_kbps = dc_link_bandwidth_kbps(aconnector->dc_link, &cur_link_settings);
--	virtual_channel_bw_in_kbps = pbn_to_kbps(aconnector->mst_output_port->full_pbn, true);
-+	virtual_channel_bw_in_kbps = kbps_from_pbn(aconnector->mst_output_port->full_pbn);
+-	struct dc_stream_state *stream;
++	struct dc_stream_state *stream = NULL;
  
- 	/* pick the end to end bw bottleneck */
- 	end_to_end_bw_in_kbps = min(root_link_bw_in_kbps, virtual_channel_bw_in_kbps);
-@@ -1913,7 +1926,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
- 				immediate_upstream_port = aconnector->mst_output_port->parent->port_parent;
+ 	if (sink == NULL)
+-		return NULL;
++		goto fail;
  
- 			if (immediate_upstream_port) {
--				virtual_channel_bw_in_kbps = pbn_to_kbps(immediate_upstream_port->full_pbn, true);
-+				virtual_channel_bw_in_kbps = kbps_from_pbn(immediate_upstream_port->full_pbn);
- 				virtual_channel_bw_in_kbps = min(root_link_bw_in_kbps, virtual_channel_bw_in_kbps);
- 			} else {
- 				/* For topology LCT 1 case - only one mstb*/
+ 	stream = kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
+ 	if (stream == NULL)
+-		goto alloc_fail;
++		goto fail;
++
++	stream->update_scratch = kzalloc((int32_t) dc_update_scratch_space_size(), GFP_KERNEL);
++	if (stream->update_scratch == NULL)
++		goto fail;
+ 
+ 	if (dc_stream_construct(stream, sink) == false)
+-		goto construct_fail;
++		goto fail;
+ 
+ 	kref_init(&stream->refcount);
+ 
+ 	return stream;
+ 
+-construct_fail:
+-	kfree(stream);
++fail:
++	if (stream) {
++		kfree(stream->update_scratch);
++		kfree(stream);
++	}
+ 
+-alloc_fail:
+ 	return NULL;
+ }
+ 
+@@ -195,6 +202,16 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
+ 	if (!new_stream)
+ 		return NULL;
+ 
++	// Scratch is not meant to be reused across copies, as might have self-referential pointers
++	new_stream->update_scratch = kzalloc(
++			(int32_t) dc_update_scratch_space_size(),
++			GFP_KERNEL
++	);
++	if (!new_stream->update_scratch) {
++		kfree(new_stream);
++		return NULL;
++	}
++
+ 	if (new_stream->sink)
+ 		dc_sink_retain(new_stream->sink);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 321cfe92d799..719b98d8e8ca 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -315,6 +315,8 @@ struct dc_stream_state {
+ 	struct luminance_data lumin_data;
+ 	bool scaler_sharpener_update;
+ 	bool sharpening_required;
++
++	struct dc_update_scratch_space *update_scratch;
+ };
+ 
+ #define ABM_LEVEL_IMMEDIATE_DISABLE 255
+@@ -390,6 +392,33 @@ bool dc_update_planes_and_stream(struct dc *dc,
+ 		struct dc_stream_state *dc_stream,
+ 		struct dc_stream_update *stream_update);
+ 
++struct dc_update_scratch_space;
++
++size_t dc_update_scratch_space_size(void);
++
++struct dc_update_scratch_space *dc_update_planes_and_stream_init(
++		struct dc *dc,
++		struct dc_surface_update *surface_updates,
++		int surface_count,
++		struct dc_stream_state *dc_stream,
++		struct dc_stream_update *stream_update
++);
++
++// Locked, false is failed
++bool dc_update_planes_and_stream_prepare(
++		struct dc_update_scratch_space *scratch
++);
++
++// Unlocked
++void dc_update_planes_and_stream_execute(
++		const struct dc_update_scratch_space *scratch
++);
++
++// Locked, true if call again
++bool dc_update_planes_and_stream_cleanup(
++		struct dc_update_scratch_space *scratch
++);
++
+ /*
+  * Set up surface attributes and associate to a stream
+  * The surfaces parameter is an absolute set of all surface active for the stream.
+@@ -597,7 +626,7 @@ struct pipe_ctx *dc_stream_get_pipe_ctx(struct dc_stream_state *stream);
+ void dc_dmub_update_dirty_rect(struct dc *dc,
+ 			       int surface_count,
+ 			       struct dc_stream_state *stream,
+-			       struct dc_surface_update *srf_updates,
++			       const struct dc_surface_update *srf_updates,
+ 			       struct dc_state *context);
+ 
+ bool dc_stream_is_cursor_limit_pending(struct dc *dc, struct dc_stream_state *stream);
 -- 
 2.43.0
 
