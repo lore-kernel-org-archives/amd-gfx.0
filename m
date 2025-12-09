@@ -4,67 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B44D3B7ED
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 14:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DAFD1CDC6
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 14:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCC510E5DD;
-	Tue,  9 Dec 2025 14:05:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 753A010E5F1;
+	Tue,  9 Dec 2025 14:05:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=student.kit.edu header.i=@student.kit.edu header.b="VsIph0oO";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Z6pdtVMU";
 	dkim-atps=neutral
-X-Greylist: delayed 611 seconds by postgrey-1.36 at gabe;
- Tue, 09 Dec 2025 09:41:14 UTC
-Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu
- [129.13.231.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0E2810E4EA
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 09:41:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=student.kit.edu; s=kit1; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:Sender:
- Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=iot4ccC+hzTGU8Ap253zWRpLlrrPLtDE7lgcvi0BvFc=; b=VsIph0oOLyxARjZAeJXWTO2Qle
- Z16rt9x1iqx9VtsAaUJPzD24uj7aDL9UTXg2Fu42G+ANU/JC8xmmv+c5CWyZ30EZCcZCWpE8ahjlu
- cj/lqniHOGJe9TKCOKRXsmdQtkqdbn4n5rkBNvz13su1j+Wu2JfUT2x5Naf2PiNN0k62jAhDJ8nIh
- ioXhpoMNH+3qhEzbjwAC8Ofc3lsCK0KI1YVRjfcAoPZmCNOKMb9rCvbpl7U6M9lWDad82cXj7Uucs
- c+YPJdJQkRhqqhNgXB6dgFfTbj79ldnhshbQrwdSnfL6P22mbGH+8WePT5tSL7caNrX/exB6+cqBm
- VBjmJXFQ==;
-Received: from kit-msx-44.kit.edu ([2a00:1398:9:f612::144])
- by scc-mailout-kit-02.scc.kit.edu with esmtps
- (TLS1.2:ECDHE_SECP384R1__RSA_SHA256__AES_256_GCM:256)
- (envelope-from <peter.bohner@student.kit.edu>)
- id 1vSu3h-00000001oZZ-1EP4; Tue, 09 Dec 2025 10:31:01 +0100
-Received: from [IPV6:2001:7c7:20e8:134:5275:14f3:3282:3c3]
- (2001:7c7:20e8:134:5275:14f3:3282:3c3) by smtp.kit.edu
- (2a00:1398:9:f612::106) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 9 Dec
- 2025 10:30:59 +0100
-Message-ID: <b1b8fc3b-6e80-403b-a1a0-726cc935fd2e@student.kit.edu>
-Date: Tue, 9 Dec 2025 10:30:46 +0100
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF9B10E4FF;
+ Tue,  9 Dec 2025 11:00:46 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4dQbVZ18P2z9tVB;
+ Tue,  9 Dec 2025 12:00:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1765278038; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fG0g1/8AmWmQf3CJIcuo8ZNP+b+s6JIc2CnfuDxmqBI=;
+ b=Z6pdtVMUAco+EO5ZF7GDghFO9enwWSYev/fIiMI1i1rAFbF5bdi9hT0F41tPmXWSaMi+bq
+ bq31OD4kPB9G3I6hEIZx8ZReH9JOBhIdylGtCyvmo9P133ERhWp/ssB0uZV1hBwC9/v7Gs
+ YkASkqiWiphyjLJPczfQ5xYCniv6RwZH+oaW3u1QANM38B6j2SQajmcNCQeCX9Yq9aajLI
+ nbN+puQagy+maF7cHsJ+0gnGLWZdtxG2DhJ0kjSxWmRFg2OuoqouO5wpU9p79nXDYpcNou
+ JIQJeTSX6ULSje3oWXAtC2ecCv3sqa0mOK9aQKAsRBI0quY8YYKKCquWsiSRAw==
+Message-ID: <b0781c7fd90c51394ec60faa71222fc3af06bb0c.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
+From: Philipp Stanner <phasta@mailbox.org>
+To: Matthew Brost <matthew.brost@intel.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>
+Cc: phasta@kernel.org, vitaly.prosyak@amd.com,
+ amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org, Alex
+ Deucher <alexander.deucher@amd.com>,  dakr@kernel.org, Boris Brezillon
+ <boris.brezillon@collabora.com>, Lucas Stach <l.stach@pengutronix.de>
+Date: Tue, 09 Dec 2025 12:00:27 +0100
+In-Reply-To: <aTdFgVM5s/H5tc4G@lstrano-desk.jf.intel.com>
+References: <20251128182235.47912-1-vitaly.prosyak@amd.com>
+ <cdecd1e2-de0d-466f-b98b-927b2f364f79@amd.com>
+ <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
+ <49de5988-ea47-4d36-ba25-8773b9e364e2@amd.com>
+ <aTMW0UCGQuE+MXLk@lstrano-desk.jf.intel.com>
+ <21699026216379f294d6597ed6febd187229ffb9.camel@mailbox.org>
+ <aTcf4o0huubgUPIQ@lstrano-desk.jf.intel.com>
+ <aTcguvAQCZ07xD/C@lstrano-desk.jf.intel.com>
+ <212ecf88-b175-44cc-af3f-7371340ed480@amd.com>
+ <aTdFgVM5s/H5tc4G@lstrano-desk.jf.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [6.12.61 lts] [amdgpu]: regression: broken multi-monitor USB4
- dock on Ryzen 7840U
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- <amd-gfx@lists.freedesktop.org>, <stable@vger.kernel.org>,
- <regressions@lists.linux.dev>, <bugs@lists.linux.dev>
-References: <9444c2d3-2aaf-4982-9f75-23dc814c3885@student.kit.edu>
- <ea735f1a-04c3-42dc-9e4c-4dc26659834f@oracle.com>
-Content-Language: en-US, de-DE
-From: =?UTF-8?Q?P=C3=A9ter_Bohner?= <peter.bohner@student.kit.edu>
-Autocrypt: addr=peter.bohner@student.kit.edu; keydata=
- xjMEZlcqPBYJKwYBBAHaRw8BAQdAujEt8nGiqXlRzKWzklo/PFVaTiUdA6z4ptXk8gUpZZPN
- LFDDqXRlciBCb2huZXIgPHBldGVyLmJvaG5lckBzdHVkZW50LmtpdC5lZHU+wokEExYIADEW
- IQR4QiuKMuzoE9FfVrf+973rw/xgRwUCZlcqPAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEP73
- vevD/GBH4k4A/jn/XvRQH5Od/m9FpAc3xIwzOjOjFRogJqjNN8h7WGIpAP90BCUs7idkZS/U
- 9ASZrK6ubOZV+pEHq9C0mSoVTjwkDc44BGZXKjwSCisGAQQBl1UBBQEBB0AyMulJt5lkL/5E
- hrwAaZiEOSigauCQR7o58Pnzh5hwGAMBCAfCeAQYFggAIBYhBHhCK4oy7OgT0V9Wt/73vevD
- /GBHBQJmVyo8AhsMAAoJEP73vevD/GBHRjYA/0Z40p2r7jZGqQeJB5Exh3sBjLNnuuMw5DXr
- KxFIdY8/AQDj6Xn+3dAOMHJfo17HT8zHn61PvclzVJZCriEmBcSsDQ==
-In-Reply-To: <ea735f1a-04c3-42dc-9e4c-4dc26659834f@oracle.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 575cbda8f4277ff7c01
+X-MBO-RS-META: or5ntg4cyp68t8ppmqd341pdj3dnj6oy
 X-Mailman-Approved-At: Tue, 09 Dec 2025 14:05:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,203 +72,336 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Harshit,
+On Mon, 2025-12-08 at 13:39 -0800, Matthew Brost wrote:
+> On Mon, Dec 08, 2025 at 08:43:03PM +0100, Christian K=C3=B6nig wrote:
+> > On 12/8/25 20:02, Matthew Brost wrote:
+> > > On Mon, Dec 08, 2025 at 10:58:42AM -0800, Matthew Brost wrote:
+> > > > On Mon, Dec 08, 2025 at 11:35:33AM +0100, Philipp Stanner wrote:
+> > > > > On Fri, 2025-12-05 at 09:30 -0800, Matthew Brost wrote:
+> > > > > > On Fri, Dec 05, 2025 at 11:18:21AM +0100, Christian K=C3=B6nig =
+wrote:
+> > > > > > > On 12/1/25 10:04, Philipp Stanner wrote:
+> > ....
+> > > > > > > > This entire fix idea seems to circle around the concept of =
+relying yet
+> > > > > > > > again on the scheduler's internal behavior (i.e., when it s=
+chedules the
+> > > > > > > > call to free_job()).
+> > > > > > > >=20
+> > > > > > > > I think we discussed that at XDC, but how I see it if drive=
+rs have
+> > > > > > > > strange job life time requirements where a job shall outliv=
+e
+> > > > > > > > drm_sched's free_job() call, they must solve that with a pr=
+oper
+> > > > > > > > synchronization mechanism.
+> > > > > > >=20
+> > > > > > > Well that is not correct as far as I can see.
+> > > > > > >=20
+> > > > > > > The problem here is rather that the scheduler gives the job a=
+s parameter to the timedout_job() callback, but doesn't guarantee that ->fr=
+ee_job() callback isn't called while timedout_job() runs.
+> > > > > > >=20
+> > > > > > > This should be prevented by removing the job in question from=
+ the pending list (see drm_sched_job_timedout), but for some reason that do=
+esn't seem to work correctly.
+> > > > > > >=20
+> > > > > >=20
+> > > > > > Are you sure this is happening? It doesn=E2=80=99t seem possibl=
+e, nor have I
+> > > > > > observed it.
+> > > > >=20
+> > > > > It's impossible, isn't it?
+> > > > >=20
+> > > > > static void drm_sched_job_timedout(struct work_struct *work) { st=
+ruct drm_gpu_scheduler *sched; struct drm_sched_job *job; enum drm_gpu_sche=
+d_stat status =3D DRM_GPU_SCHED_STAT_RESET; sched =3D container_of(work, st=
+ruct drm_gpu_scheduler, work_tdr.work); /* Protects against concurrent dele=
+tion in drm_sched_get_finished_job */ spin_lock(&sched->job_list_lock); job=
+ =3D list_first_entry_or_null(&sched->pending_list, struct drm_sched_job, l=
+ist); if (job) { /* * Remove the bad job so it cannot be freed by a concurr=
+ent * &struct drm_sched_backend_ops.free_job. It will be * reinserted after=
+ the scheduler's work items have been * cancelled, at which point it's safe=
+. */ list_del_init(&job->list); spin_unlock(&sched->job_list_lock); status =
+=3D job->sched->ops->timedout_job(job);
+> > > > >=20
+> > > > >=20
+> > > > > =C2=A0=C2=A0 1. scheduler takes list lock
+> > > > > =C2=A0=C2=A0 2. removes job from list
+> > > > > =C2=A0=C2=A0 3. unlocks
+> > > > > =C2=A0=C2=A0 4. calls timedout_job callback
+> > > > >=20
+> > > > >=20
+> > > > > How can free_job_work, through drm_sched_get_finished_job(), get =
+and
+> > > > > free the same job?
+> > > > >=20
+> > > >=20
+> > > > It can't.
+> >=20
+> > But exactly that happens somehow. Don't ask me how, I have no idea.
 
-sorry for the late reply (and replying privately at first),
-I had to wait for the release.
+*Philipp refuses to elaborate and asks Christian*
 
-Unexpectedly, this is NOT fixed, persisting in 6.12.61, same trace.
+How are you so sure about that's what's happening? Anyways, assuming it
+is true:
 
-regards,
-~Peter
+> >=20
+> > My educated guess is that the job somehow ends up on the pending list a=
+gain.
 
-On 05/12/2025 19:10, Harshit Mogalapalli wrote:
-> Hi,
->
-> On 05/12/25 20:52, Péter Bohner wrote:
->> upgrading from 6.12.59 to 6.12.60 broke my USB4 (Dynabook Thunderbolt 
->> 4 Dock)'s video output with my Framework 13 (AMD Ryzen 7840U / Radeom 
->> 780M igpu) .
->> With two monitors plugged in, only one of them works, the other 
->> (always the one on the 'video 2' output) remains blank (but receives 
->> signal).
->>
->> relevant dmesg [note: tainted by ZFS]
->> (full output at: https://gist.github.com/x- 
->> zvf/128d45d028230438b8777c40759fa997):
->>
->
-> Just a note:
->
-> This looks related to whats fixed in 6.12.61:
->
-> https://lore.kernel.org/stable/20251203152345.111596485@linuxfoundation.org/ 
->
->
-> Try with 6.12.61 maybe ?
->
-> Thanks,
-> Harshit
->
->>
->> [drm:amdgpu_dm_process_dmub_aux_transfer_sync [amdgpu]] *ERROR* 
->> wait_for_completion_timeout timeout!
->> ------------[ cut here ]------------
->> WARNING: CPU: 15 PID: 3064 at 
->> drivers/gpu/drm/amd/amdgpu/../display/dc/ 
->> link/hwss/link_hwss_dpia.c:49 
->> update_dpia_stream_allocation_table+0xf2/0x100 [amdgpu]
->> Modules linked in: hid_logitech_hidpp hid_logitech_dj snd_seq_midi 
->> snd_seq_midi_event uvcvideo videobuf2_vmalloc uvc videobuf2_memops 
->> snd_usb_audio videobuf2_v4l2 videobuf2_common snd_usbmidi_lib snd_ump 
->> videodev snd_rawmidi mc cdc_ether usbnet mii uas usb_storage ccm 
->> snd_seq_dummy rfcomm snd_hrtimer snd_seq snd_seq_device tun 
->> ip6t_REJECT nf_reject_ipv6 ipt_REJECT nf_reject_ipv4 xt_multiport 
->> xt_cgroup xt_mark xt_owner xt_tcpudp ip6table_raw iptable_raw 
->> ip6table_mangle iptable_mangle ip6table_nat iptable_nat nf_nat 
->> nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c crc32c_generic 
->> ip6table_filter ip6_tables iptable_filter uhid cmac algif_hash 
->> algif_skcipher af_alg bnep vfat fat amd_atl intel_rapl_msr 
->> intel_rapl_common snd_sof_amd_acp70 snd_sof_amd_acp63 
->> snd_soc_acpi_amd_match snd_sof_amd_vangogh snd_sof_amd_rembrandt 
->> snd_sof_amd_renoir snd_sof_amd_acp snd_sof_pci snd_sof_xtensa_dsp 
->> snd_sof mt7921e snd_sof_utils mt7921_common snd_pci_ps mt792x_lib 
->> snd_hda_codec_realtek snd_amd_sdw_acpi soundwire_amd kvm_amd
->>   mt76_connac_lib snd_hda_codec_generic soundwire_generic_allocation 
->> snd_hda_scodec_component snd_hda_codec_hdmi mousedev mt76 
->> soundwire_bus snd_hda_intel kvm snd_soc_core snd_intel_dspcfg 
->> irqbypass snd_intel_sdw_acpi mac80211 snd_compress ac97_bus 
->> crct10dif_pclmul hid_sensor_als snd_pcm_dmaengine snd_hda_codec 
->> crc32_pclmul hid_sensor_trigger crc32c_intel snd_rpl_pci_acp6x 
->> industrialio_triggered_buffer snd_acp_pci polyval_clmulni kfifo_buf 
->> snd_hda_core snd_acp_legacy_common polyval_generic libarc4 
->> hid_sensor_iio_common industrialio ghash_clmulni_intel leds_cros_ec 
->> cros_ec_sysfs cros_ec_hwmon cros_kbd_led_backlight 
->> cros_charge_control led_class_multicolor gpio_cros_ec cros_ec_chardev 
->> cros_ec_debugfs sha512_ssse3 snd_hwdep snd_pci_acp6x hid_multitouch 
->> joydev spd5118 hid_sensor_hub cros_ec_dev sha256_ssse3 snd_pcm btusb 
->> cfg80211 sha1_ssse3 btrtl aesni_intel snd_pci_acp5x btintel snd_timer 
->> snd_rn_pci_acp3x sp5100_tco gf128mul ucsi_acpi crypto_simd btbcm 
->> snd_acp_config snd amd_pmf typec_ucsi cryptd snd_soc_acpi
->>   i2c_piix4 btmtk bluetooth rapl wmi_bmof pcspkr typec k10temp 
->> thunderbolt amdtee soundcore ccp snd_pci_acp3x i2c_smbus rfkill roles 
->> cros_ec_lpcs i2c_hid_acpi amd_sfh cros_ec platform_profile i2c_hid 
->> tee amd_pmc mac_hid i2c_dev crypto_user dm_mod loop nfnetlink 
->> bpf_preload ip_tables x_tables hid_generic usbhid amdgpu zfs(POE) 
->> crc16 amdxcp spl(OE) i2c_algo_bit drm_ttm_helper ttm serio_raw 
->> drm_exec atkbd gpu_sched libps2 vivaldi_fmap drm_suballoc_helper nvme 
->> drm_buddy i8042 drm_display_helper nvme_core video serio cec 
->> nvme_auth wmi
->> CPU: 15 UID: 1000 PID: 3064 Comm: kwin_wayland Tainted: P  OE 
->> 6.12.60-1- lts #1 9b11292f14ae477e878a6bb6a5b5efc27ccf021d
->> Tainted: [P]=PROPRIETARY_MODULE, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
->> Hardware name: Framework Laptop 13 (AMD Ryzen 7040Series)/FRANMDCP07, 
->> BIOS 03.16 07/25/2025
->> RIP: 0010:update_dpia_stream_allocation_table+0xf2/0x100 [amdgpu]
->> Code: d0 0f 1f 00 48 8b 44 24 08 65 48 2b 04 25 28 00 00 00 75 1a 48 
->> 83 c4 10 5b 5d 41 5c 41 5d e9 10 ec e3 d9 31 db e9 6f ff ff ff <0f> 
->> 0b eb 8a e8 05 09 c3 d9 0f 1f 44 00 00 90 90 90 90 90 90 90 90
->> RSP: 0018:ffffd26fe3473248 EFLAGS: 00010282
->> RAX: 00000000ffffffff RBX: 0000000000000025 RCX: 0000000000001140
->> RDX: 00000000ffffffff RSI: ffffd26fe34731f0 RDI: ffff8bb78c7bb608
->> RBP: ffff8bb7982c3b88 R08: 00000000ffffffff R09: 0000000000001100
->> R10: ffffd27000ef9900 R11: ffff8bb78c7bb400 R12: ffff8bb7982ed600
->> R13: ffff8bb7982c3800 R14: ffff8bb984e402a8 R15: ffff8bb7982c38c8
->> FS:  000073883c086b80(0000) GS:ffff8bc51e180000(0000) 
->> knlGS:0000000000000000
->> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> CR2: 00002020005ba004 CR3: 000000014396e000 CR4: 0000000000f50ef0
->> PKRU: 55555554
->> Call Trace:
->>   <TASK>
->>   ? link_set_dpms_on+0x7a5/0xc70 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   link_set_dpms_on+0x806/0xc70 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   dce110_apply_single_controller_ctx_to_hw+0x300/0x480 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   dce110_apply_ctx_to_hw+0x24c/0x2e0 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   ? dcn10_setup_stereo+0x160/0x170 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   dc_commit_state_no_check+0x63d/0xeb0 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   dc_commit_streams+0x296/0x490 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? schedule_timeout+0x133/0x170
->>   amdgpu_dm_atomic_commit_tail+0x6a1/0x3a10 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? psi_task_switch+0x113/0x2a0
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? schedule+0x27/0xf0
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? schedule_timeout+0x133/0x170
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? dma_fence_default_wait+0x8b/0x230
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? wait_for_completion_timeout+0x12e/0x180
->>   commit_tail+0xae/0x140
->>   drm_atomic_helper_commit+0x13c/0x180
->>   drm_atomic_commit+0xa6/0xe0
->>   ? __pfx___drm_printfn_info+0x10/0x10
->>   drm_mode_atomic_ioctl+0xa60/0xcd0
->>   ? sock_poll+0x51/0x110
->>   ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
->>   drm_ioctl_kernel+0xad/0x100
->>   drm_ioctl+0x286/0x500
->>   ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
->>   amdgpu_drm_ioctl+0x4a/0x80 [amdgpu 
->> d75f7e51e39957084964278ab74da83065554c01]
->>   __x64_sys_ioctl+0x91/0xd0
->>   do_syscall_64+0x7b/0x190
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? __x64_sys_ppoll+0xf8/0x180
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? syscall_exit_to_user_mode+0x37/0x1c0
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? do_syscall_64+0x87/0x190
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? do_syscall_64+0x87/0x190
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? do_syscall_64+0x87/0x190
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? do_syscall_64+0x87/0x190
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? do_syscall_64+0x87/0x190
->>   ? srso_alias_return_thunk+0x5/0xfbef5
->>   ? irqentry_exit_to_user_mode+0x2c/0x1b0
->>   entry_SYSCALL_64_after_hwframe+0x76/0x7e
->> RIP: 0033:0x738842d9b70d
->> Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 
->> 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> 
->> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
->> RSP: 002b:00007ffe3c7ed230 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
->> RAX: ffffffffffffffda RBX: 0000634abd49c210 RCX: 0000738842d9b70d
->> RDX: 00007ffe3c7ed320 RSI: 00000000c03864bc RDI: 0000000000000013
->> RBP: 00007ffe3c7ed280 R08: 0000634abc4049bc R09: 0000634abce43e80
->> R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe3c7ed320
->> R13: 00000000c03864bc R14: 0000000000000013 R15: 0000634abc404840
->>   </TASK>
->> ---[ end trace 0000000000000000 ]---
->>
->>
->> regards,
->> ~ Peter
->>
->>
->>
->>
->
--- 
-Mit freundlichen Grüßen
+then the obvious question would be: does amdgpu touch the pending_list
+itself, or does it only ever modify it through proper scheduler APIs?
 
-Péter Bohner
+> >=20
+> > > >=20
+> > > > > The pending_list is probably the one place where we actually lock
+> > > > > consistently and sanely.
+> > > > >=20
+> > > > > I think this needs to be debugged more intensively, Christian.
+> > > > >=20
+> > > > >=20
+> > > > > >=20
+> > > > > > What actually looks like a problem is that in drm_sched_job_tim=
+edout,
+> > > > > > free_job can be called. Look at [2]=E2=80=94if you=E2=80=99re u=
+sing free_guilty (Xe
+> > > > > > isn=E2=80=99t, but [2] was Xe trying to do the same thing), thi=
+s is actually
+> > > > > > unsafe. The free_guilty code should likely be removed as that d=
+efinitely
+> > > > > > can explode under the right conditions.
+> > > > >=20
+> > > > > I'm right now not even sure why free_guilty exists, but I don't s=
+ee how
+> > > >=20
+> > > > I'm sure why free_guilty exists either. If the fence is signaled in
+> > > > timedout job free_job will get scheduled on another work_item.
+> > > >=20
+> > > > > it's illegal for drm_sched to call free_job in drm_sched_job_time=
+dout?
+> > > > >=20
+> > > > > free_job can be called at any point in time, drivers must expect =
+that.
+> > > > > No lock is being held, and timedout_job already ran. So what's th=
+e
+> > > > > problem?
+> > > > >=20
+> > > > > For drivers with additional refcounting it would be even less of =
+a
+> > > > > problem.
+> > > > >=20
+> > > >=20
+> > > > No, the scheduler can still reference the job.
+> > > >=20
+> > > > 1265=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fence =3D sche=
+d->ops->run_job(sched_job);
+> > > > 1266=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 complete_all(&=
+entity->entity_idle);
+> > > > 1267=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_fenc=
+e_scheduled(s_fence, fence);
+> > > > 1268
+> > > > 1269=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!IS_ERR_OR=
+_NULL(fence)) {
+> > > > 1270=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 r =3D dma_fence_add_callback(fence, &sche=
+d_job->cb,
+> > > > 1271=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_job_done_cb);
+> > > > 1272=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (r =3D=3D -ENOENT)
+> > > > 1273=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 drm_sched_job_done(sched_job, fence->error);
+> > > > 1274=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else if (r)
+> > > > 1275=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n", r);
+> > > > 1276
+> > > > 1277=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_fence_put(fence);
+> > > > 1278=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else {
+> > > > 1279=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_job_done(sched_job, IS_ERR(fenc=
+e) ?
+> > > > 1280=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PT=
+R_ERR(fence) : 0);
+> > > > 1281=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > 1282
+> > > > 1283=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wake_up(&sched=
+->job_scheduled);
+> > > > 1284=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_sched_run_=
+job_queue(sched);
+> > > >=20
+> > > > At line 1269, the run_job work item is interrupted. Timed-out jobs =
+run,
+> > > > call free_job, which performs the final put. Then the run_job work =
+item
+> > > > resumes=E2=80=94and boom, UAF. Using the same reasoning, I think mo=
+ving free_job
+> > > > to the timed-out work queue could also cause issues.
+> > > >=20
+> > > > If run_job work item took a reference to the job before adding it t=
+o the
+> > > > pending list and dropped it after it was done touching it in this
+> > > > function, then yes, that would be safe. This is an argument for mov=
+ing
+> > > > reference counting into the base DRM scheduler class, it would make
+> > >=20
+> > > typo: s/DRM scheduler class/DRM job class
+> >=20
+> > That strongly sounds like re-inventing the scheduler fence.
+> >=20
+>=20
+> Perhaps.
+>=20
+> > What if we completely drop the job object? Or merge it into the schedul=
+er fence?
+> >=20
+> > The fence has reference counting, proper state transitions and a well d=
+efined lifetime.
+> >=20
+> > We would just need ->schedule and ->finished functions instead of ->run=
+_job and ->free_job. Those callbacks would then still be called by the sche=
+duler in work item context instead of the irq context of the dma_fence call=
+backs.
+>=20
+> Yes, definitely no IRQ contexts.
+>=20
+> >=20
+> > The job can then be a void* in the scheduler fence where drivers can pu=
+t anything they want and also drivers control the lifetime of that. E.g. th=
+ey can free it during ->schedule as well as during ->finished.
+> >=20
+>=20
+> I think this is a reasonable idea, but it would require major surgery
+> across the subsystem plus the 11 upstream drivers I=E2=80=99m counting th=
+at use
+> DRM scheduler. This would be a huge coordinated effort.
+>=20
+> So I see three options:
+>=20
+> 1. Rename free_job to put_job and document usage. Rip out free_guilty.
+> =C2=A0=C2=A0 Likely the easiest and least invasive.
+
+I think I can live with that. It's work-effort wise the best we can do
+right now. However, that does need proper documentation.
+
+Let me respin to my documentation series and upstream that soonish,
+than we can build on top of that.
+
+
+P.
+
+>=20
+> 2. Move reference counting to the base DRM scheduler job object, provide =
+a
+> =C2=A0=C2=A0 vfunc for the final job put, and document usage. Medium inva=
+sive.
+>=20
+> 3. Move job (driver) side tracking to the scheduler fence and let it
+> =C2=A0=C2=A0 control the lifetime. Very invasive.
+>=20
+> I=E2=80=99ll support any option, but my personal bandwidth to dive into
+> something like #3 just isn=E2=80=99t there (of course, I can help review
+> scheduler changes and fix up Xe, etc.).
+>=20
+> Matt
+>=20
+> > Christian.
+> >=20
+> > >=20
+> > > Matt
+> > >=20
+> > > > ownership clear rather than relying on ordered work queues to keep
+> > > > everything safe.
+> > > >=20
+> > > > > >=20
+> > > > > > [2] git format-patch -1 ea2f6a77d0c40
+> > > > > >=20
+> > > > > > > > The first question would be: what does amdgpu need the job =
+for after
+> > > > > > > > free_job() ran? What do you even need a job for still after=
+ there was a
+> > > > > > > > timeout?
+> > > > > > >=20
+> > > > > > > No, we just need the job structure alive as long as the timed=
+out_job() callback is running.
+> > > > > > >=20
+> > > > > >=20
+> > > > > > Yes, I agree.
+> > > > >=20
+> > > > > As far as I can see that's how it's already implemented? No one c=
+an
+> > > > > free that job while timedout_job() is running in
+> > > > > drm_sched_job_timedout().
+> > > > >=20
+> > > >=20
+> > > > See above, free guility is still problematic.
+> > > > =C2=A0
+> > > > > >=20
+> > > > > > > > And if you really still need its contents, can't you memcpy=
+() the job
+> > > > > > > > or something?
+> > > > > > > >=20
+> > > > > > > > Assuming that it really needs it and that that cannot easil=
+y be solved,
+> > > > > > > > I suppose the obvious answer for differing memory life time=
+s is
+> > > > > > > > refcounting. So amdgpu could just let drm_sched drop its re=
+ference in
+> > > > > > > > free_job(), and from then onward it's amdgpu's problem.
+> > > > > > > >=20
+> > > > > > > > I hope Matthew can educate us on how Xe does it.
+> > > > > > >=20
+> > > > > > > We discussed this on XDC and it was Matthew who brought up th=
+at this can be solved by running timeout and free worker on the same single=
+ threaded wq.
+> > > > > > >=20
+> > > > > >=20
+> > > > > > No, see my explainations above. This is not my suggestion.
+> > > > > >=20
+> > > > > > > >=20
+> > > > > > > > AFAIK Nouveau doesn't have that problem, because on timeout=
+ we just
+> > > > > > > > terminate the channel.
+> > > > > > > >=20
+> > > > > > > > Would also be interesting to hear whether other driver folk=
+s have the
+> > > > > > > > problem of free_job() being racy.
+> > > > > > >=20
+> > > > > > > I think that this is still a general problem with the drm sch=
+eduler and not driver specific at all.
+> > > > > > >=20
+> > > > > >=20
+> > > > > > Maybe the free_guilty is likely a scheduler problem but I'm not=
+ seeing
+> > > > > > an issue aside from that.
+> > > > >=20
+> > > > > I also can't see the bug. I fail to see how drm_sched can free a =
+job
+> > > > > that's currently in use in timedout_job(). If that can happen,
+> > > > > Christian, Vitaly, please point us to where and how. Only then ca=
+n we
+> > > > > decide on how to fix it properly.
+> > > > >=20
+> > > >=20
+> > > > Again see above.
+> > > >=20
+> > > > Matt
+> > > >=20
+> > > > >=20
+> > > > > P.
+> > > > >=20
+> > > > >=20
+> >=20
 
