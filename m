@@ -4,165 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C618FD3B7F8
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 16:27:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48DFDD3B98A
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 17:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 012BD10E608;
-	Tue,  9 Dec 2025 16:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C167010E205;
+	Tue,  9 Dec 2025 17:18:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oQXALrDA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DSB+ovJM";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011009.outbound.protection.outlook.com [52.101.62.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4623D10E608;
- Tue,  9 Dec 2025 16:27:34 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010044.outbound.protection.outlook.com [52.101.85.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9219110E205
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 17:18:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qJvbNA4YuuFMdivCp6rvzRBsi62fUBQYjQNhRdklhEHg5dcaNhQvztqYs4Vz6PWPkQqah8W1/Uu2oB+PcY2lAMEjIYLp9Vm46ufkMQJVxq+6LR9/TlDanEbuti5A+pn6OwcdllErxIpQ+6Wwpw3scOuRAOSV+bzSOs2U4aOcnDFPUYoNPw5COHMWs6hubcAwNfHLp1cehDNY9CiSW2cUBolh90lJV25sRyYLkhATN/vYokMe4zVNCHscoQ0R9uYgryHc0y9LoDeO9GML0H2fax3JPRM2TwlSuVQJj97tpHTVGZbAG5oQtcN8uHOW7xJuL02imGvIq0G4yCPJtBsDEA==
+ b=Vs18QraY+bsZPwNDJazkmj9CdoY3CCR3Gdcynm0zepTwrb3BhFpXLBoRcuLOKWDJTR+LycXVFZ+V7mTtwSh4jvYOlj2/glSxa7unN1GwX4CPi7cPqU0sSF1CH7LA13C7w7jdYrYVjqbLERLraMBeFusP4OgKXEvnkDkYMN6nKFGnGaOrom7ggTXMhMzVDWOqOwuyQ2f6lh0HK5xm9FI1C8CcnfttuXdRaRObKxm6zQDUfnrL483dv9XTFQA35dLoZEMunrP3uhLFErm6VI/vBq8xtHQ1C3BImje+5u5BPR+fYXqHF5aYFOHBYgUGsdpOtyE/KILtqEhlciGEh9rH/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LH3ywLf+dIQcLnHVXDVhs5ha7DEU3pw+C0hc5Q7kT4M=;
- b=A4PxLMXVkLCESqzV0Qt3X8q4CnqF2ICXeYxgpjN4Xle6Q7PMcSiL8+AaHp85A4VOo6Q/+JoKVMdF+GD4Hx6k7pA/h6loMjiQ3cgTQSr3ylBnoU8do9UYaIzIg2a17pBo4nOEJE/NfjV4f6X4kILwt9wqvsHZ4g/BygN2vD/cIxrbOTNBcJO+xvCqCgOdBoRqEEWXco63Lt++BXtA6bPy+u2vSMePmrCoQeIjVlwNvwol9lhwaVZBWDrr3fqCSWQUvx6Lp8ULxNj5s0Hq9Vpl/864Kfy3fhHhh8N/PHYhX86NAD1fwKmZK8bdPN5gKusB2ZyOgpqH2esrWB9ZldPCUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Fx/mVnqImnAHTwDx3p+gETW/3rAZs7ztUvNccVLdBNw=;
+ b=VZxnne59ShBoXpEJkjHprActZnlzPfBRtzgyBYcxdJ/oQzk18TGjGPY8XcDlG5KRfS6SRHWIVVAKz+ZhnxwTlfjpzJnSu2L8RB0+e3Tvja99MnsSQriS4KONLzGur6M85uCPn4bvqzcxoaNXQ/caXNoEN5e0fQlHMnzI9Xr67iqys5EQqFH7RqARq1GG2GzvxHESLUCygTuKUsI8ksFDYlINJM6WIn5+gn8SiVOxSe4dOZK8bMx0RCDRiUDv7IFEBnNcCjaiISOEJby6PKF3efLWJkyer/21ffWBv2ps56gTsCXadJ60gGWtyWQOOoDLcaGZl2O7+MuAfLW9AdJu8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LH3ywLf+dIQcLnHVXDVhs5ha7DEU3pw+C0hc5Q7kT4M=;
- b=oQXALrDANwJpQlJTIoWnhDmFPxa0oKAo3f62XWwSeU90HzvQ3MoIL1g4aU3ttPPHZE847YBywQ240t8ksXmoea1p6Y6+0USPcD54Bwu/mu6ZzV2+w4E6Qo0gLfLHXaZfOTkMvvVQp8JFug8IDy11amNl6mGA2p3TvCLc3z9WNLo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB7764.namprd12.prod.outlook.com (2603:10b6:610:14e::15)
+ bh=Fx/mVnqImnAHTwDx3p+gETW/3rAZs7ztUvNccVLdBNw=;
+ b=DSB+ovJMTrBoYXuGNNEOVT/mXoxPL/cK5Kck+nMyko9gVAiUI9VCUoRaKzDSadirdj5SFBQc8azCE6d8OvJcdHlzfWoVEJ8LH8BisiDlAIwAVnOnmzJ7wz0p2q4TV6KZ+XKNn4I2iLsUfELFeYRTWwvbUip8WhMXpqXXl56c8qg=
+Received: from MW4PR04CA0055.namprd04.prod.outlook.com (2603:10b6:303:6a::30)
+ by PH0PR12MB7814.namprd12.prod.outlook.com (2603:10b6:510:288::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Tue, 9 Dec
- 2025 16:27:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9412.005; Tue, 9 Dec 2025
- 16:27:31 +0000
-Message-ID: <6c46e3b3-c324-487e-8c14-4742c323c8ff@amd.com>
-Date: Tue, 9 Dec 2025 17:27:25 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
-To: phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
-Cc: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- dakr@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>,
- Lucas Stach <l.stach@pengutronix.de>
-References: <20251128182235.47912-1-vitaly.prosyak@amd.com>
- <cdecd1e2-de0d-466f-b98b-927b2f364f79@amd.com>
- <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
- <49de5988-ea47-4d36-ba25-8773b9e364e2@amd.com>
- <aTMW0UCGQuE+MXLk@lstrano-desk.jf.intel.com>
- <21699026216379f294d6597ed6febd187229ffb9.camel@mailbox.org>
- <aTcf4o0huubgUPIQ@lstrano-desk.jf.intel.com>
- <aTcguvAQCZ07xD/C@lstrano-desk.jf.intel.com>
- <212ecf88-b175-44cc-af3f-7371340ed480@amd.com>
- <aTdFgVM5s/H5tc4G@lstrano-desk.jf.intel.com>
- <b0781c7fd90c51394ec60faa71222fc3af06bb0c.camel@mailbox.org>
- <e99a2e97-3058-4501-ad22-457ede493a59@amd.com>
- <3e780e52dc0a7f1267e814c895e9d5e840a8c913.camel@mailbox.org>
- <d846a1dd-a705-410a-a043-ffae43bada57@amd.com>
- <fb93bfa5f32025ce187153d0eeb47c43ec8cec7b.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <fb93bfa5f32025ce187153d0eeb47c43ec8cec7b.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0011.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.6; Tue, 9 Dec
+ 2025 17:18:26 +0000
+Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
+ (2603:10b6:303:6a:cafe::a5) by MW4PR04CA0055.outlook.office365.com
+ (2603:10b6:303:6a::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Tue,
+ 9 Dec 2025 17:18:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9388.8 via Frontend Transport; Tue, 9 Dec 2025 17:18:25 +0000
+Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 9 Dec 2025 11:18:25 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>, Jerry Zuo
+ <jerry.zuo@amd.com>, <stable@vger.kernel.org>, <nat@nullable.se>
+Subject: [PATCH] Revert "drm/amd/display: Fix pbn to kbps Conversion"
+Date: Tue, 9 Dec 2025 11:18:10 -0600
+Message-ID: <20251209171810.2514240-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7764:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e43b717-bcaf-40a9-692a-08de373fd9ae
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|PH0PR12MB7814:EE_
+X-MS-Office365-Filtering-Correlation-Id: aacb39b9-e5ff-481d-0566-08de3746f69e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RzlSN05CVFJOOUVkbDJlZnUxa1NqdnowR0NSNkZOOWNMMjRuYkpGeEpoSE4y?=
- =?utf-8?B?eDVNYjQreUpPVzliWHg4c0REY1J2Y3RKQjN6S29OQldkbkkxRUV5ZERFMmY0?=
- =?utf-8?B?clRPdFdpSXVlejRMWnBBa3BpQlNsS2YwTUZicE4vZTI1bWVlS2U0V29CYXhp?=
- =?utf-8?B?Zlc5bjhxT3FpTmV5VEFuQ2hvOW1NVDg1b3lEM3ZEaUVqNEVwSlk0cWd5NUlF?=
- =?utf-8?B?eiswRnJ6MGFaVG1YUTBLNGFRQjdCSHZyZUh3UjVMU2tSUnFTZEZxbktxekRr?=
- =?utf-8?B?bnA0OG9oZWNlTzIrcXQya3cxNEhVc2cwRTBxdnZvTzFyQ0JuTENqdmM2dUNV?=
- =?utf-8?B?bDVPTnBUOE10Q2J0cHZyNUYrK3FBS2lTemdkMzFKZ25nOHprMkVPeXl6L0tK?=
- =?utf-8?B?WEg2K1F1SXpKRmx0aXh4cnlRTmszeGFhbUR2RmUrSHN2OUx1dkNaSkozVFd5?=
- =?utf-8?B?MjZyeUNhVW9tV3ViN0IzYmlFcW5URVU3a2Q2Ym1TdlA0dzRJOEtNWWI4OUhx?=
- =?utf-8?B?OXZETVVsZGVqVFd2MVljdERDM0FlRXBXSmVGSDVmVXd3Nkt0R2VHTEtRQWxj?=
- =?utf-8?B?eVJXWGJ2dVU4ZWdxbGVVcUZsQ0ZKSWtMKzdnSUNHbjZQd0dXM01iTHBNK2ND?=
- =?utf-8?B?MjJnRnZNQm8yeCtveW51UkFwRi9SQW9ydTdvWEUraitTc29Fci9TVTVobVAz?=
- =?utf-8?B?MXB0R1lESGJyMUxEdHFzNVR2QzVUWlRSUTRZWHc5R0lGMFZjdmVJR29BK2M0?=
- =?utf-8?B?Mnd5K0tCcURvQVprS0ZIZW9wQkpaNk10T1B6SWRXcUJiSWlSb1UwS2QraDlk?=
- =?utf-8?B?alhOZm9taGZIYjR4UTh2UFZzeTFFY3VJRlBNNlNRU3graGxubGpJQzNNSWgv?=
- =?utf-8?B?SHhtUHB0OHVEKzUzVGZHTlhZZnlXbHRKQmMweXZKNXlJTjQ4TzVNMzZUS2lZ?=
- =?utf-8?B?dng0YzJmcnZ2S091NXY4Vk1tK0hrSXBhcjFJd0VSblZOT1Ryd0hvNkFZS2dN?=
- =?utf-8?B?eHhwcENqM2w1VUZkR0w1S1EvNVRoeHRSZnQwYlJvQXVib2tpUk5TbHFkblQ1?=
- =?utf-8?B?WkxZdXRlT2xnc3M5N2hBQ1ArUGNRZHNwRFpONGovUmdmSEgvUlNhOCtacDZ2?=
- =?utf-8?B?ZEIzQXVleVFpaWY0dG8zZ2MzNkRxMmhiVUNlOUJSTlRySExEZUFQTzU5VEZv?=
- =?utf-8?B?bmhaQUdhbkFmUjVrWEt0QXQ2S09KdHowUFJPcTRuUTlUeGtuRUp5NTQxYXh0?=
- =?utf-8?B?Y3ROVlAvSDVpekV2QW9ia01DVTFKelNSaVY1dWtPRUYyWDVOYUdiekJSWVNS?=
- =?utf-8?B?a0RSTU5taTJhazlYcVZKR2QzOGNiR2hxWGVsU2pHUkFhVkhZODVGeWNSdmZy?=
- =?utf-8?B?cGRid3B5RDdLaDdrbGJCeHVxZEFRZ3g3TE5nWStPbXVvUTZmVGdvd0o1SFYx?=
- =?utf-8?B?N3BydDliU25weHVBWDVBeUJVY3VFTXVlWUs1Tm9LblRmMy91RnJwVlRTRHkz?=
- =?utf-8?B?d1ZVZmdsNGNXVlVGZW81dnVoZHk2VXc3QnRVaGFMdGFjNGY2Z2FzaE5uNU9a?=
- =?utf-8?B?aTZldjFuZHp1NjZ3MzVLcFdUVWNCSS9vRzNxZ3ZXTmEvU014R3lQMUMzaEUr?=
- =?utf-8?B?czdZSDdVWStNYUd0UGYrSHU3SG4ySHM5RHhpN05Ec0ZrMkNydWtFc3YxRTBL?=
- =?utf-8?B?TEpxeXlvVGhTaTFUWGE0ZWlhSllSSXdLVzdaK09yUmJGelQvL1ZvdG1uSWZY?=
- =?utf-8?B?YjVKV0dmMmRrTzZDaU9FLzU5WjIzTUpVMVhRVXpkd3plZHNyN3RKakkwSzRU?=
- =?utf-8?B?cEFuQ2Z1azhNYUFCMlI0QXloSnpZVjU4L1BnaFc4RE00Nms0S2xSeitxZjdj?=
- =?utf-8?B?ODVpdDhNeEs3ZW9WYWkyaktlaVQ3b2F0MTBselBOSVVKWGdEaU0xbUlXc2p0?=
- =?utf-8?Q?d393wm1k7Snqr+7837q0HW9sVZvD+KKJ?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGk4L25VUElFaUpRQTFTd2hPZU5TaUNCRFdNVGIzTXhuU3EvSG9LVzBOK1FH?=
- =?utf-8?B?OEhkWnRLTzN1QVZOaWJVeWVsb3FPZ21zc2xac2JHWTZsY0dieGhybDVxb2c3?=
- =?utf-8?B?c00wZkxsS3Z3YnUzdGk1WHZoV3dTd1RPWFYxa3J3ZDJvb283d1B5Q05rKzI4?=
- =?utf-8?B?RnVFSENIZmJmaXdrK0c0VS9kdmRiNnZEK3dYTjdUZDBxTWh5M3BwdWxyZ1Av?=
- =?utf-8?B?U29RZ0FJS2ZmdjdqUGxhNlpwd3RyZXdUckNHWWRsRW5Bazd5SSswZ1ppKzI1?=
- =?utf-8?B?ak5keEZPcTRuMkFESEt2dkNwU0lIQzFUdngyN3hpQU5PSFloUi9JQ25VTGZa?=
- =?utf-8?B?allzcmJ3NmhORkVBZXNBaFViTmlTazV4M0NUQ0o0a05Qc3c1VTAwcnh5U1Fy?=
- =?utf-8?B?WWtIVG95aTQ5NkR3c0xJUmsxRG1saFkreDFCTm9rSzFSV3V3NE56Z2ZNTU1w?=
- =?utf-8?B?NHN5OEpBRkJvQmE1R0hrUzNmMmY3dk5uVjZaQ00zNDNsUkh6cEU0MmRZdnBt?=
- =?utf-8?B?WG1vamI4bVRucWFQMXpsRlZvbGJXUkdqTDQ4L053UURnWnA5bkJla1RFaXpO?=
- =?utf-8?B?dy9BM09lVC95c1hORVcwYitVL3hrMGFQaFI4bEMvb2tmNy9DdTBXUkxhOGNE?=
- =?utf-8?B?eFlNb1dQbWdvdDRRUzlRdDZhQ2hwWTN6SGhtenZxcG5DV0IyV25ybXJDKy9a?=
- =?utf-8?B?NUdXNEhBUnB6ZnZHTjZRdUc2ZVg4MituaExSdk83bmxvUmVrQmxxNGdOQVRo?=
- =?utf-8?B?UUI0U0hPUmdjNThlU25NWDdQTkVab0ZaQ3drams4RWxFMkM5cDJXZTNDdTNL?=
- =?utf-8?B?VFgvQnlZS21kNzRzbjJLczV1WW55NkVGcjNQZ2pPL0x6SWI5eVplK3k1NGpX?=
- =?utf-8?B?b0RaY2c5OE00NW02dldPblp3Q2QxV216cjJORS8yQ2hkSG8wTHp4Si8zWGZq?=
- =?utf-8?B?WWFWTkcvb0FuQTc1Yi9LRzFrSVRuZlBaV0xna3BhU2ZnQStVaDNJbnloSzBB?=
- =?utf-8?B?NmRuVkgzc01JUm4zUlZKWFE1VkREL25MOWw1emltdGNGc2VVNVoyMTI1YTA5?=
- =?utf-8?B?RVRkYmg3ZnkzUjhOb2Q5ZzJiUzVxZ1krVFF5dzZvTWlTbGMweE1sTm5rZDFB?=
- =?utf-8?B?WGQzNkFQTlVTWE10WUVzS3ppQkpKUjk3cnd4bUs0UlZHTDhRbDdzME1wVE1F?=
- =?utf-8?B?cEh6MW96aWI2NGZoU0pFTzluWXJyQUJYT2g5ampMK0ptdHlrM3hyYjdGNjdJ?=
- =?utf-8?B?VnFtWk81UGQ5cEJzNVAreDRPeFlJcWlvZWZnZTJpNVpzb1hiL1FwTytWa05q?=
- =?utf-8?B?U05xMTQzYWo2ZGVJK1Y3aUZ5MnNRYUM0MUppMVcvdGk0OHNxVWwvVFYzbUdL?=
- =?utf-8?B?blpRb0FZd05wMmhDekdPNlpySXdiajdGZzJZQXZxZGxoRHBLVFFnRi9Gd1BX?=
- =?utf-8?B?ZitpM2g4VnpGRFEzV3dFNkMwdTRLQ3Vma0pkODdBb0NtT1dnZ2tQcTBQU1pa?=
- =?utf-8?B?ekRZbk13NWJkeWdaVmZQaWkzVDBzc3Bzdm5nU3lrV3cvUHBnU0VkMGFSclpw?=
- =?utf-8?B?NjFNU2NoeGFnekpVUXh5QWg2cE9Rb3VxRGZWcjJZdUxoODQzR2tBYjIydmla?=
- =?utf-8?B?cTA3YU92M0NzVXFIdmJFVzI1dUVXUER6RFJaRUZGSk1ad0grZ0c4NmNWdmpY?=
- =?utf-8?B?OWx2SVpmTFNSWTVHMHZkSThtQVR6S3JMNFVzQnNXZ2NDYllXclBpQmYzWFB5?=
- =?utf-8?B?ckdXL0h3WXAxbyt5WE1YcnQvbHgvZUR3WFBHMWdRWHNEbzY3RktLaGhFb3Vu?=
- =?utf-8?B?dytQZ0g2cDliRGxPVnNVZ3NucmhpZkdLdE9MdXBVbzNJNnEwdlg0WjBTamRW?=
- =?utf-8?B?ZU1CN2s0TnpPQm5tcnpJaTVIVjBjR3NSdkhzeUpaeEZISkMvbHRtajE1Q2hj?=
- =?utf-8?B?eTRUblFRSlZic3ZxSUtCOTRLU2ZoL1o4KzRUbVk3LzhTSVQ0eloyVE5vZCs0?=
- =?utf-8?B?RVVoNHR4cHdGY3Jkb2VLYjFqbHlQMXg0MUVvbzg5SEJndFM1QnV0MVdOOGhy?=
- =?utf-8?B?QWdOb2xvejNEbWVIWWJLMm83OTZIVVg0QlB0T01aOWRzTnBPRWtEaUMwVm04?=
- =?utf-8?Q?DNfsCao/n8Leh0Zjd7ElV3ERx?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|82310400026|1800799024|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?maytGvJ+7AkuHcAJWDy5KkwkZ8weiL8RKAsKe5KG7F/r301F/KgLPSAXYTGO?=
+ =?us-ascii?Q?5WfX43OiCgRGawsfSBIZIJ0AyNhAcYlv7ce/VCYO883jle+IXizI/P7+Xxsa?=
+ =?us-ascii?Q?MDfQ7oc07zUVPcY6aQe3GSA8DPzNQdHeuqeulFLrKbluaWHMcTch0Q8V/gtH?=
+ =?us-ascii?Q?9E+dwToeGQKSfcL37q/Lm8pQvOgu0g8U8b39PjLrSJwvCxN/pW/XUikCgoiY?=
+ =?us-ascii?Q?z2L9kC6/MV3o0YgdUMoF4YoU145KyxFCSBR/S6e+DP+vgD0vdB2kBuKIWGg7?=
+ =?us-ascii?Q?KWQfs8QtQ1CXgdHlOb007edZfgVo0VqDV555DgYe8xPxUhsmgKNbYJwChuuz?=
+ =?us-ascii?Q?Ns/+FRGVfxHrSnSxvd5mDa+JeDXL3clY1MB0edyxo7VoL50JGtuJPWNh3Wog?=
+ =?us-ascii?Q?xfVxEMgs/gZZHZMRIiLFB5x/siyrnTB7nP5boajVDfKWrlyKySA1VFaVq2Sq?=
+ =?us-ascii?Q?PChgKAZH4VWDF8OvrCG+pIUox4IhPTBdJhTu9X6kRTWAfsYEIwQZGpg6xhMm?=
+ =?us-ascii?Q?IgOjSi2vPug5SbghZzQVVjouBWB52NBLjZPKIVIV3QqETlZGBefmcUypjpT5?=
+ =?us-ascii?Q?uuBSiw8D7o5MBtO4qPjGNX08wl7IJDXsVY/XFSRuT4osht+pHh3URxv69cta?=
+ =?us-ascii?Q?X9NLZVcISzjG2ESyT6gp2FogXZDWbnRVkIOqloBUKP6WCDsV1XybcUw8yJdx?=
+ =?us-ascii?Q?astf8hCp6JkQuknWHv2ecOlUION54fFCaT5moqqe08SJGU6QbHzRGm2zeeuO?=
+ =?us-ascii?Q?ivQIKnNca4HI8xa+pVpfN1wH6F/2rbklLhA9fP4zPstNTbuDFtqDRypVsiqu?=
+ =?us-ascii?Q?Dr/Xo1/tjnYb8RWrU38HKfuBV9RQV4qB/sAXUm9X69OpggJtWl6LvcQCHqvr?=
+ =?us-ascii?Q?54+Z1WSD1pq94/UinpcRltZet13KNiJcI2rO8vfN7amYSCjnWfXyxw2DXC67?=
+ =?us-ascii?Q?XHmZe7cifSCIFTkiZSTsWaN5k0aKL750tEG4yK+qCXermfzIP+mC78/2DXIY?=
+ =?us-ascii?Q?LrhPRghsK+Sl8Qv4oxEQmLYN3qhKbAauMj/xr1CHV95yDdONtWe8mnSS0vPW?=
+ =?us-ascii?Q?9xP6AQMl+nSB4rTpNPQ9SIxnK0Pq98+/PiRhbO9B3iJ7ydIDpd24H20uVGsu?=
+ =?us-ascii?Q?KI6JYBTzqKbw33KY1bqn1TKaRlr00bV9Rloj5pOJ8I4Ph8z9NMVWn3sU2gl/?=
+ =?us-ascii?Q?3baIHwWwnkoufjnIe6rHXta0Qxnago45eGJgoNm2JUfxIyAhiwGbpFZQafaC?=
+ =?us-ascii?Q?tpoMu3cI33Sg8cKu4g7u8voRsvioppWB8aEtKDC8JJKBklv/l03iT+qcHaPn?=
+ =?us-ascii?Q?w/OmKqHuGFo3fAIFfAlQ7Psqw+VO9weN4f8HdODg1QQZa5YcForF4tr248ZH?=
+ =?us-ascii?Q?3uLQw6mDT5xHcPK8CAGq2Izhzamr15zvL3TD0xTEv624rf3oL9n68uiDdP2N?=
+ =?us-ascii?Q?4g+YuGPVA43ZjhHOdtFebz7MPyFXBgR3cb8phKcATFkmBRs2rgsmPuZDJQqG?=
+ =?us-ascii?Q?E8mElyTdSW4MtN0oimiDzDHiY53kztTQ4bkmy/ucydsYGP/p2ZQX3VhZvGE4?=
+ =?us-ascii?Q?vb6xXELUZy0RGt7o/1E=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(13003099007);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e43b717-bcaf-40a9-692a-08de373fd9ae
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 16:27:31.0504 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 17:18:25.6648 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aacb39b9-e5ff-481d-0566-08de3746f69e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dbJ7ZEdU278xi7Xuu4oLRM55YTlPkxO0QBRztu8BsIdh5cfxFjxp505QRMphM+gd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7764
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7814
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,127 +132,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/9/25 15:28, Philipp Stanner wrote:
-> On Tue, 2025-12-09 at 15:19 +0100, Christian König wrote:
->> On 12/9/25 14:51, Philipp Stanner wrote:
->> ...
->>>>>>>>>> How can free_job_work, through drm_sched_get_finished_job(), get and
->>>>>>>>>> free the same job?
->>>>>>>>>>
->>>>>>>>>
->>>>>>>>> It can't.
->>>>>>>
->>>>>>> But exactly that happens somehow. Don't ask me how, I have no idea.
->>>>>
->>>>> *Philipp refuses to elaborate and asks Christian*
->>>>>
->>>>> How are you so sure about that's what's happening? Anyways, assuming it
->>>>> is true:
->>>>
->>>> [  489.134585] ==================================================================
->>>> [  489.141949] BUG: KASAN: slab-use-after-free in amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->>>> [  489.151339] Read of size 4 at addr ffff88a0d5f4214c by task kworker/u128:0/12
->>>> [  489.158686] 
->>>> [  489.160277] CPU: 11 UID: 0 PID: 12 Comm: kworker/u128:0 Tainted: G            E       6.16.0-1289896.3.zuul.0ec208edc00d48a9bae1719675cb777f #1 PREEMPT(voluntary) 
->>>> [  489.160285] Tainted: [E]=UNSIGNED_MODULE
->>>> [  489.160288] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T, BIOS V1.03.B10 04/01/2019
->>>> [  489.160292] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
->>>> [  489.160306] Call Trace:
->>>> [  489.160308]  <TASK>
->>>> [  489.160311]  dump_stack_lvl+0x64/0x80
->>>> [  489.160321]  print_report+0xce/0x630
->>>> [  489.160328]  ? _raw_spin_lock_irqsave+0x86/0xd0
->>>> [  489.160333]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
->>>> [  489.160337]  ? amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->>>> [  489.161044]  kasan_report+0xb8/0xf0
->>>> [  489.161049]  ? amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->>>> [  489.161756]  amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
->>>> [  489.162464]  ? __pfx_amdgpu_device_gpu_recover+0x10/0x10 [amdgpu]
->>>> [  489.163170]  ? amdgpu_coredump+0x1fd/0x4c0 [amdgpu]
->>>> [  489.163904]  amdgpu_job_timedout+0x642/0x1400 [amdgpu]
->>>> [  489.164698]  ? __pfx__raw_spin_lock+0x10/0x10
->>>> [  489.164703]  ? __pfx_amdgpu_job_timedout+0x10/0x10 [amdgpu]
->>>> [  489.165496]  ? _raw_spin_lock+0x75/0xc0
->>>> [  489.165499]  ? __pfx__raw_spin_lock+0x10/0x10
->>>> [  489.165503]  drm_sched_job_timedout+0x1b0/0x4b0 [gpu_sched]
->>>
->>> That doesn't show that it's free_job() who freed the memory.
->>
->> [  489.405936] Freed by task 2501:
->> [  489.409175]  kasan_save_stack+0x20/0x40
->> [  489.413122]  kasan_save_track+0x14/0x30
->> [  489.417064]  kasan_save_free_info+0x3b/0x60
->> [  489.421355]  __kasan_slab_free+0x37/0x50
->> [  489.425384]  kfree+0x1fe/0x3f0
->> [  489.428547]  drm_sched_free_job_work+0x50e/0x930 [gpu_sched]
->> [  489.434326]  process_one_work+0x679/0xff0
-> 
-> The time stamp shows that this free here took place after the UAF
-> occurred :D
+Deeply daisy chained DP/MST displays are no longer able to light
+up. This reverts commit 1788ef30725da53face7e311cdf62ad65fababcd.
 
-No, that is just the way KASAN prints it.
+Cc: Jerry Zuo <jerry.zuo@amd.com>
+Cc: stable@vger.kernel.org # 6.17+
+Reported-by: nat@nullable.se
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4756
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 59 +++++++++++--------
+ 1 file changed, 36 insertions(+), 23 deletions(-)
 
-E.g. KASAN detects that something is wrong, starts printing the current backtrace and then the backtrace of when the memory was freed.
-
->>  
->>> @Vitaly: Can you reproduce the bug? If yes, adding debug prints
->>> printing the jobs' addresses when allocated and when freed in
->>> free_job() could be a solution.
->>
->> We can reproduce this pretty reliable in our CI now.
->>
->>> I repeat, we need more info :)
->>>
->>>>
->>>>>
->>>>>>>
->>>>>>> My educated guess is that the job somehow ends up on the pending list again.
->>>>>
->>>>> then the obvious question would be: does amdgpu touch the pending_list
->>>>> itself, or does it only ever modify it through proper scheduler APIs?
->>>>
->>>> My educated guess is that drm_sched_stop() inserted the job back into the pending list, but I still have no idea how it is possible that free_job is running after the scheduler is stopped.
->>>>
->>>
->>> And my uneducated guess is that it's happening in amdgpu. It seems a
->>> sched_job lives inside an amdgpu_job. Can the latter be freed at other
->>> places than free_job()?
->>
->> Nope, except for error handling during creation and initialization.
->>
->>> timedout_job() and free_job() cannot race against each other regarding
->>> jobs. It's locked.
->>>
->>> But maybe investigate Matthew's suggestion and look into the guilty
->>> mechanism, too.
->>
->> That looks just like a leftover from earlier attempts to fix the same problem.
->>
->> I mean look at the git history of how often that problem came up...
-> 
-> If that's the case, then we don't want to yet add another solution to a
-> problem we don't fully understand and which, apparently, only occurs in
-> amdgpu today.
-> 
-> What we need is an analysis of what's happening. Only then can we
-> decide what to do.
-> 
-> Just switching the workqueues without such good justification receives
-> a NACK from me; also because of the unforseeable consequences –
-> free_job() is invoked extremely frequently, timedout_job() very rarely.
-> Drivers will not expect that their timeout_wq will be flooded with so
-> many work items. That could very certainly change behavior, cause
-> performance regressions and so on.
-
-Yeah, I was fearing that this could be problematic.
-
-Regards,
-Christian.
-
-> 
-> 
-> P.
-> 
-> 
-> 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index dbd1da4d85d3..5e92eaa67aa3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -884,28 +884,26 @@ struct dsc_mst_fairness_params {
+ };
+ 
+ #if defined(CONFIG_DRM_AMD_DC_FP)
+-static uint64_t kbps_to_pbn(int kbps, bool is_peak_pbn)
++static uint16_t get_fec_overhead_multiplier(struct dc_link *dc_link)
+ {
+-	uint64_t effective_kbps = (uint64_t)kbps;
++	u8 link_coding_cap;
++	uint16_t fec_overhead_multiplier_x1000 = PBN_FEC_OVERHEAD_MULTIPLIER_8B_10B;
+ 
+-	if (is_peak_pbn) {	// add 0.6% (1006/1000) overhead into effective kbps
+-		effective_kbps *= 1006;
+-		effective_kbps = div_u64(effective_kbps, 1000);
+-	}
++	link_coding_cap = dc_link_dp_mst_decide_link_encoding_format(dc_link);
++	if (link_coding_cap == DP_128b_132b_ENCODING)
++		fec_overhead_multiplier_x1000 = PBN_FEC_OVERHEAD_MULTIPLIER_128B_132B;
+ 
+-	return (uint64_t) DIV64_U64_ROUND_UP(effective_kbps * 64, (54 * 8 * 1000));
++	return fec_overhead_multiplier_x1000;
+ }
+ 
+-static uint32_t pbn_to_kbps(unsigned int pbn, bool with_margin)
++static int kbps_to_peak_pbn(int kbps, uint16_t fec_overhead_multiplier_x1000)
+ {
+-	uint64_t pbn_effective = (uint64_t)pbn;
+-
+-	if (with_margin)	// deduct 0.6% (994/1000) overhead from effective pbn
+-		pbn_effective *= (1000000 / PEAK_FACTOR_X1000);
+-	else
+-		pbn_effective *= 1000;
++	u64 peak_kbps = kbps;
+ 
+-	return DIV_U64_ROUND_UP(pbn_effective * 8 * 54, 64);
++	peak_kbps *= 1006;
++	peak_kbps *= fec_overhead_multiplier_x1000;
++	peak_kbps = div_u64(peak_kbps, 1000 * 1000);
++	return (int) DIV64_U64_ROUND_UP(peak_kbps * 64, (54 * 8 * 1000));
+ }
+ 
+ static void set_dsc_configs_from_fairness_vars(struct dsc_mst_fairness_params *params,
+@@ -976,7 +974,7 @@ static int bpp_x16_from_pbn(struct dsc_mst_fairness_params param, int pbn)
+ 	dc_dsc_get_default_config_option(param.sink->ctx->dc, &dsc_options);
+ 	dsc_options.max_target_bpp_limit_override_x16 = drm_connector->display_info.max_dsc_bpp * 16;
+ 
+-	kbps = pbn_to_kbps(pbn, false);
++	kbps = div_u64((u64)pbn * 994 * 8 * 54, 64);
+ 	dc_dsc_compute_config(
+ 			param.sink->ctx->dc->res_pool->dscs[0],
+ 			&param.sink->dsc_caps.dsc_dec_caps,
+@@ -1005,11 +1003,12 @@ static int increase_dsc_bpp(struct drm_atomic_state *state,
+ 	int link_timeslots_used;
+ 	int fair_pbn_alloc;
+ 	int ret = 0;
++	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
+ 
+ 	for (i = 0; i < count; i++) {
+ 		if (vars[i + k].dsc_enabled) {
+ 			initial_slack[i] =
+-			kbps_to_pbn(params[i].bw_range.max_kbps, false) - vars[i + k].pbn;
++			kbps_to_peak_pbn(params[i].bw_range.max_kbps, fec_overhead_multiplier_x1000) - vars[i + k].pbn;
+ 			bpp_increased[i] = false;
+ 			remaining_to_increase += 1;
+ 		} else {
+@@ -1105,6 +1104,7 @@ static int try_disable_dsc(struct drm_atomic_state *state,
+ 	int next_index;
+ 	int remaining_to_try = 0;
+ 	int ret;
++	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
+ 	int var_pbn;
+ 
+ 	for (i = 0; i < count; i++) {
+@@ -1137,7 +1137,7 @@ static int try_disable_dsc(struct drm_atomic_state *state,
+ 
+ 		DRM_DEBUG_DRIVER("MST_DSC index #%d, try no compression\n", next_index);
+ 		var_pbn = vars[next_index].pbn;
+-		vars[next_index].pbn = kbps_to_pbn(params[next_index].bw_range.stream_kbps, true);
++		vars[next_index].pbn = kbps_to_peak_pbn(params[next_index].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
+ 		ret = drm_dp_atomic_find_time_slots(state,
+ 						    params[next_index].port->mgr,
+ 						    params[next_index].port,
+@@ -1197,6 +1197,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 	int count = 0;
+ 	int i, k, ret;
+ 	bool debugfs_overwrite = false;
++	uint16_t fec_overhead_multiplier_x1000 = get_fec_overhead_multiplier(dc_link);
+ 	struct drm_connector_state *new_conn_state;
+ 
+ 	memset(params, 0, sizeof(params));
+@@ -1277,7 +1278,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 	DRM_DEBUG_DRIVER("MST_DSC Try no compression\n");
+ 	for (i = 0; i < count; i++) {
+ 		vars[i + k].aconnector = params[i].aconnector;
+-		vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.stream_kbps, false);
++		vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
+ 		vars[i + k].dsc_enabled = false;
+ 		vars[i + k].bpp_x16 = 0;
+ 		ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr, params[i].port,
+@@ -1299,7 +1300,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 	DRM_DEBUG_DRIVER("MST_DSC Try max compression\n");
+ 	for (i = 0; i < count; i++) {
+ 		if (params[i].compression_possible && params[i].clock_force_enable != DSC_CLK_FORCE_DISABLE) {
+-			vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.min_kbps, false);
++			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.min_kbps, fec_overhead_multiplier_x1000);
+ 			vars[i + k].dsc_enabled = true;
+ 			vars[i + k].bpp_x16 = params[i].bw_range.min_target_bpp_x16;
+ 			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
+@@ -1307,7 +1308,7 @@ static int compute_mst_dsc_configs_for_link(struct drm_atomic_state *state,
+ 			if (ret < 0)
+ 				return ret;
+ 		} else {
+-			vars[i + k].pbn = kbps_to_pbn(params[i].bw_range.stream_kbps, false);
++			vars[i + k].pbn = kbps_to_peak_pbn(params[i].bw_range.stream_kbps, fec_overhead_multiplier_x1000);
+ 			vars[i + k].dsc_enabled = false;
+ 			vars[i + k].bpp_x16 = 0;
+ 			ret = drm_dp_atomic_find_time_slots(state, params[i].port->mgr,
+@@ -1762,6 +1763,18 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+ 	return ret;
+ }
+ 
++static uint32_t kbps_from_pbn(unsigned int pbn)
++{
++	uint64_t kbps = (uint64_t)pbn;
++
++	kbps *= (1000000 / PEAK_FACTOR_X1000);
++	kbps *= 8;
++	kbps *= 54;
++	kbps /= 64;
++
++	return (uint32_t)kbps;
++}
++
+ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
+ 					  struct dc_dsc_bw_range *bw_range)
+ {
+@@ -1860,7 +1873,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 			dc_link_get_highest_encoding_format(stream->link));
+ 	cur_link_settings = stream->link->verified_link_cap;
+ 	root_link_bw_in_kbps = dc_link_bandwidth_kbps(aconnector->dc_link, &cur_link_settings);
+-	virtual_channel_bw_in_kbps = pbn_to_kbps(aconnector->mst_output_port->full_pbn, true);
++	virtual_channel_bw_in_kbps = kbps_from_pbn(aconnector->mst_output_port->full_pbn);
+ 
+ 	/* pick the end to end bw bottleneck */
+ 	end_to_end_bw_in_kbps = min(root_link_bw_in_kbps, virtual_channel_bw_in_kbps);
+@@ -1913,7 +1926,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 				immediate_upstream_port = aconnector->mst_output_port->parent->port_parent;
+ 
+ 			if (immediate_upstream_port) {
+-				virtual_channel_bw_in_kbps = pbn_to_kbps(immediate_upstream_port->full_pbn, true);
++				virtual_channel_bw_in_kbps = kbps_from_pbn(immediate_upstream_port->full_pbn);
+ 				virtual_channel_bw_in_kbps = min(root_link_bw_in_kbps, virtual_channel_bw_in_kbps);
+ 			} else {
+ 				/* For topology LCT 1 case - only one mstb*/
+-- 
+2.51.2
 
