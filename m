@@ -4,146 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFD4AD3B7F8
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 15:53:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97559D3B980
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 16:23:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 571E510E1FC;
-	Tue,  9 Dec 2025 15:53:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E627010E522;
+	Tue,  9 Dec 2025 16:23:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xI9KF52b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MpkowNCu";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012026.outbound.protection.outlook.com
- [40.93.195.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F042B10E1FC
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 15:53:24 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013034.outbound.protection.outlook.com
+ [40.93.196.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F283110E522
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 16:23:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A4Te5z2yNGixXAIuRq2mJ7UYnCPD5f6H7nY0H4aPTrUHPjAjPKY3RXTns1Fkfd3qg9rrpLbwNxSwk1yOmmu8OX9jnJ1IkGO4VEPHkJdznCfdveEsrYdjiBuOkxNJSmoUPltTvUaoeag71/kO/dOjOQrize/g5Gf7i/2Jjp04EtZcLjO4PtBlXiS1kzXGMaIRAWv6K9Jq3EollBxN0QEhOiHHN2tiZhkN7BFN68/WVUYpHgrsCwVoMWVZ8ap136ClFz85NtkA4ZpUHJp36cokSSQMBDtrydmiZ/feO5Yfunk4ITRGPPyQMUYC8w7tx7yv1+1XHP3PACT9ZIwv8uFiYA==
+ b=spZHjvtQD1PCQAnd5O2VDur1dhJZtZzXceWb3DeJTyMaAF8uaWU4Ok4TC+JuHz3495zlttO3fKg3XrVgSvNeLpNfrGXsvXmE60+71JKO+edBqiQ6tBvV3nsLfJco7xdyXROBdUm85BJ5RSNHDYh+9UjUbeHcauVgoDiUmw3WOv3KHXq+IuuKX8qqsu8eNphN1Mng8GyqH/wD4yIMc6wNasZgCgv1MrNu96k2tBypbZKjcV3bhog9CNvvRaCAL5OklDfPs/UCh8WLHjfol4LBFDLiXwh2nW7dTaD5Vu62cKV09Rb6HcSuyzT9K7Ec9cDBDOWhnCB1LsMJA8mOlOofvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EeH4G/O1LvmEQtah47lcOVwYadoqfWfJNcjUlSTu7pQ=;
- b=sV5aM0qHJmlZ+x/wTC3J4JE/gUprahN+dr+H6l9z3+M+brVjZhXfeMLeI4w9KYVgZ4IR4wi3GlEwXzHsRpEjZWPIZpukULTdyz9rkJpYuDKWiI6K1AnjbRDmV9LhFr4NthcGIAlxaq98DZn9UpA0sNJ39HfnnSO36fEhWgtbFWpND1lPQ/A8rHHtBOnvbGrk+xY5ghmko1Cl75a5UvOfGIsxa6T52YK0+U1CKP3JyGyfnUdx1NzIFWwxFbyaKdr9Qc3oWe6wG3sU9x0HAx7Nu0FWDtkAnHanZ1SV6h23ger2VWOWHGLZ1o+Okid4ph0jd8I8UjJQG0bBzRw+ZNhFVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=CVGB4GcyWhCaIzg6YoFCZMI1OjwlSG8ePaOx4lymOLQ=;
+ b=diY4WBW6j7v9gSEnBbu4TSK4ibAqJ440TbS/zKQrgs+kD5emoU1HuOi72NPqUFEjZCUqG0MXKyJ073yigMCgcKv569amdQ2grq4PMpeyLuFyDyut+1wxru0D3MUDI0r4mRs8GnsVSXk7tX4bI4T7OQoR5v6fa/sjpnLpQKYfEV217UIRsxlb0ISVG+HYrL6OpABpc1I9+OS3TKeXwJi5rKrxW2ygxRc1JfFUrAobGzoljLbsv5buuJ1/IGj28OS9gZfEgE359nyq+2i6BGCqbDKEbUDw9rp7QlbCMTKe0Y7v5kzXBw6KiFqsVSJLBFa1HNliffL8fqCSIGagNifxyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EeH4G/O1LvmEQtah47lcOVwYadoqfWfJNcjUlSTu7pQ=;
- b=xI9KF52bk+pE2haVsK8TGFch7MKkUpIKqJIsiLrps3NA+A1LxJjDEi5w05/CiGrpevqZYkhSSA+wVdvUlTib/oELF5RApTVFqiYTxDgYrxoNvaYhW9zxl6Iw9/aDgYn0E3rqyCAY5b95xpjJsMG7SD/2jXj4aBbOQyq6Fj0vrFw=
-Received: from IA0PR12MB7675.namprd12.prod.outlook.com (2603:10b6:208:433::9)
- by BN7PPF915F74166.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6d9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Tue, 9 Dec
- 2025 15:53:19 +0000
-Received: from IA0PR12MB7675.namprd12.prod.outlook.com
- ([fe80::b2f4:4979:b048:3060]) by IA0PR12MB7675.namprd12.prod.outlook.com
- ([fe80::b2f4:4979:b048:3060%2]) with mapi id 15.20.9388.013; Tue, 9 Dec 2025
- 15:53:19 +0000
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-To: "Yang, Philip" <Philip.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Subject: Re: [PATCH] drm/amdkfd: Handle GPU reset and drain retry fault race
-Thread-Topic: [PATCH] drm/amdkfd: Handle GPU reset and drain retry fault race
-Thread-Index: AQHcaSG115kiYGI7mEq5VKDeOMlW77UZdYkX
-Date: Tue, 9 Dec 2025 15:53:18 +0000
-Message-ID: <IA0PR12MB7675E00D1763E5E4C21D74A88CA3A@IA0PR12MB7675.namprd12.prod.outlook.com>
-References: <20251209153706.195420-1-Philip.Yang@amd.com>
-In-Reply-To: <20251209153706.195420-1-Philip.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-09T15:53:19.113Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR12MB7675:EE_|BN7PPF915F74166:EE_
-x-ms-office365-filtering-correlation-id: d6dbab10-aa31-4d67-fef2-08de373b12b3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|38070700021|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?XMRMRwp7/01YP23hkBvAVpgV40XETU78xgZJeIHmfNgpnB5mNSP9IlHtfR?=
- =?iso-8859-1?Q?J8+VPpXmlKOZxjx+Nu1URdoF9bMjzVIDRKpD/6UsHfbfQmRqCgoergGQTb?=
- =?iso-8859-1?Q?PN5JoHXPSzrl+LoccnQQ9Ri1dYnkWdUXxskXpWQOZ89C0j5wTXrEuetvey?=
- =?iso-8859-1?Q?22eCuzFpU9aryLMKyQ8zZnPq/uMWSGACiLe2tr8Iz+F87YZr5qIm0szZuz?=
- =?iso-8859-1?Q?lmQEMxfdFLky5BZdDF/Pa4S2Hpc/qZkIw63RQo/N78Rvvc9YuI/R41KS67?=
- =?iso-8859-1?Q?PZk2f1HFMsFu747nsEMMpWbioHBqntNaj/NU87yPeDL1ZRE0mUpAWYL6c7?=
- =?iso-8859-1?Q?WU/XuQ/bBMELKF6a0vaqJScrK8bVPNmVmojnnYbm14LoyL6Fhsx9Q82djD?=
- =?iso-8859-1?Q?89cBN9UbtoonWLH9TB5PBh9GCj6Bo1CtXWrusVtz5mssx8Q2AMCMBc3Adg?=
- =?iso-8859-1?Q?1rzyqD7XHF6tOcDbn+NbGmnk6QjSEq6QfNs4Nl+D+yRdG4q6x6/TYHOKJV?=
- =?iso-8859-1?Q?uGAAzzFUTfmUXsPGL4gI8U3/WDk9GJrd3Z1BhEZM2pZy9ip7rU8B1izEos?=
- =?iso-8859-1?Q?rnNLyHMghZTEJBPaeCnkJ7qDXwivOZnX1WXplJmxOUge7p5BCeKaSQ18g/?=
- =?iso-8859-1?Q?N8mNFZcq9O68kX6fR5gfcBUOdn0khdr/89V0CUby5Qj8uLRLdbhoSW6URB?=
- =?iso-8859-1?Q?SZm7yFBGmivfDUI/L2twXbo082jT2MGo2if3ItR6tDqvhHpVETc183TI9P?=
- =?iso-8859-1?Q?IW1C++Z+Fn2Mf/JXNQZ589t3NDvXBffP3DkyX7KW/cStVWk2bsPer0EG+Z?=
- =?iso-8859-1?Q?nnqhQ6WMIm9w+djpPykpM3u1jqD0CRuhy/Lwrfa97jgooJt1vAOJv4HxH8?=
- =?iso-8859-1?Q?Go+7Y3gO5sbaM5SI6jnIw625+DYB+9IFU0sWP+yoNxKYHZeETNrVULet8g?=
- =?iso-8859-1?Q?0za0rfexHPCLNhfHCUWLTem5aUOcTPD7OnA7Z+jm01jebImDzK8WYqKD8m?=
- =?iso-8859-1?Q?dE0jW1WZkZMXHmZGj6QhcdrN2a61dPnLGEDXG/OyA6Oa31gA3CAw7VacE+?=
- =?iso-8859-1?Q?ERQEbwLIgN5sQ/bEv/JCGxDG7hwfEheS9O1g1hGAAIAwBdOdk7oN9Nlvd/?=
- =?iso-8859-1?Q?j9TZ9AUO7SvyvpjverYle12i+rMaJ5sPrdiH4sxIRuREHKnEYzOulSI45P?=
- =?iso-8859-1?Q?FFwCeSP4Q58iPotcGwtr1vRvKU2SqNpugbTklYlLANtdmv2uEx6slA8TkT?=
- =?iso-8859-1?Q?I9LOeIocDabglKMBxKydxWLVA4DYAPOOrAN9cFr99Ci+1g3JanOyW/U5Qd?=
- =?iso-8859-1?Q?2SrkO1PC8IGEmJW0X5tKHyG1gN4DIciXFUGWE1UEmemICB0WNkx6bG2++T?=
- =?iso-8859-1?Q?JYgt3A0gtohfsadQP2xH35I6FSurSigLBLJbLLaeanj9uhapZQuL/I6Ci1?=
- =?iso-8859-1?Q?hZzQ1TeOA2jSciOabwoBfTrJwTpGlELeohzfwymiMPDELpdW/iAIwQScJR?=
- =?iso-8859-1?Q?gL0cHS0sjxYKZMUweKD2xk30jS510hioSJRGvFfuxD4w5fqrVpnKYRh+gD?=
- =?iso-8859-1?Q?KShSiJ+SAXg6M3oAXWI71Dbu3Bnh?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB7675.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?uTAQ6dwF5aE9cvCSrJaxkCYZtJEkuNs8kYtuvqhYtdfzcEZ05PbYeWvfBU?=
- =?iso-8859-1?Q?KsZY3sGz8mEH11apI5rSSHQ+6+pIz3wJMOOB6J0X6LtQ35KqFoXBs1CHah?=
- =?iso-8859-1?Q?eYi8tT5+bNoQDbaHDNkd/smyii35JbsT9wIulWkJHDxwHJjgPnsxr2QebI?=
- =?iso-8859-1?Q?6FoTg78uECH96LM/rkOV6hppyMlULnvGMxZZ+ymws5xe4OGHoT6hH+HPN0?=
- =?iso-8859-1?Q?Vok6Tpp8FiVC5wM+SuSnfdNdhGsro/3sjYy5nMbkV+C7E03ky36DQIxKZf?=
- =?iso-8859-1?Q?iyKNhSQ8s3PkNMolzKyTThkUkDsUWkG8m3zAsWxObnyT4od3MdPjCAtStn?=
- =?iso-8859-1?Q?aHtUYQl1mXefmA0M8veHdUf2fhE1iKHYDqrDRfN5ycdpy+t/cnx0iXuDGM?=
- =?iso-8859-1?Q?dYQO59/ugDhBZl63VoyAmQm5f/xvnHnTfhvxXD5OECeO3AGWCxJEsdEX2/?=
- =?iso-8859-1?Q?xsij7/INZvPmsFAsAo8I8/kO7bYhOcVNI8OzjdMUf3ID/CwxjcFn7qJ52o?=
- =?iso-8859-1?Q?iDrWXGS9Yn/pg/Dk4ejlSm7Ge/H0+ymU6Noz4FpfSq+uXTT8D8rAc2OoDa?=
- =?iso-8859-1?Q?eqDujc5eAluOYyXMPCMZ9JO7egt9dvO2MVEVz7Ta7nOtM++Ob6kRH7owbA?=
- =?iso-8859-1?Q?tdOdudZywA4OHwHfGR2WPhH2rTynwCeEFnTQxZzjxHa3a1hpY0s7KYg91K?=
- =?iso-8859-1?Q?JQs1UkYrJsNEgUv8/rhAsSkzVXSTR/HpsHXfK6L1L/Bg247nc2e/Q8o/tZ?=
- =?iso-8859-1?Q?88TB/DNBaWR7ZYxf2uYbVtCaMYX5A6IihmOXAjHqob2SYJjgUkZhz2UkxX?=
- =?iso-8859-1?Q?jquEuDSIzae208Ug+BP+bqFPPNQAHLkiilljenwKksvLmBTVegVkrQ+5zW?=
- =?iso-8859-1?Q?MQVoxgiFUrqnbjydc5KC654kigf+aAYxp/ZN/DP2GuTFRNXuPBPn08ibAr?=
- =?iso-8859-1?Q?mLVAMdjE08+OOTptrE6tUm/ptOhVZEbJZn2hTn4MFfMTzUVM6/u4MRyd85?=
- =?iso-8859-1?Q?3R+e0sFgRL759is2BDNDuMdVZ51qq3ZDOeJ6Ea3FBahruAM/SG+O5hwh0O?=
- =?iso-8859-1?Q?cC4d813r40mYMzpAZjZ16x19MII9jBMSbK+la6mIV/abfan4kNKwpwDV/T?=
- =?iso-8859-1?Q?i+wXEZ+24yAhvLf1VG4NtsZQ4IwuIokd/mS+6sdw+cF7Hop9LrW01qTmKg?=
- =?iso-8859-1?Q?628AIbu4r61oiIsftpzaWdQXPc3dKjxAyz5eDIFA1EecpFh9ucASVfIv6H?=
- =?iso-8859-1?Q?vqfoPvIPUYI3LqH+HClhTb9nlzU81IxkXbFdJL94NK8wwCqRJz+OXyhsU2?=
- =?iso-8859-1?Q?jTZJ76WQmlgypp4IBsSSLXIN0IQsZ5MIk09tJWHzB/fXW4DG0yf2BxbeA7?=
- =?iso-8859-1?Q?eXhH5Vtjfo9NamJAwAqo/s7bXbtL6xhac//8qdW1/um1YAa7fmU0Xvl2fP?=
- =?iso-8859-1?Q?6a3XZwSL5DO+1QKbHzjZsLAMx9jzc/gAkuMrEkyZbUpeITn0cG8OivUeZP?=
- =?iso-8859-1?Q?OxPAgQsaGZ/D60AdwifukZsZZ++w89h5k2KdS8eKwTcbXQSJGQK2TxcFAl?=
- =?iso-8859-1?Q?eu8pxRkUWcoiC5dtG2cC/Gvku2HgLGRnAvFfwnkLk8xZ5C298ZGSMSnCBM?=
- =?iso-8859-1?Q?kk6tBOpbvqdk4=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_IA0PR12MB7675E00D1763E5E4C21D74A88CA3AIA0PR12MB7675namp_"
+ bh=CVGB4GcyWhCaIzg6YoFCZMI1OjwlSG8ePaOx4lymOLQ=;
+ b=MpkowNCuXd6WhIG78t2V5IXBitfc3vxWbwzd1DJFcS1gdJ5ySr+HhPQBAcNUNxZpdSXvW+tDDqmP3wLvfyE9klh/8qdg8Qmw0JRNa5RbT6euY0i1CKMVYssW3gMZ7ozdkoS+31/C5MGuis6t9ybABl4bd5MLUgQX3wGyF7xIwzQ=
+Received: from PH7P220CA0150.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::13)
+ by SJ5PPF183341E5B.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::98c) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.11; Tue, 9 Dec
+ 2025 16:23:02 +0000
+Received: from CO1PEPF000044FC.namprd21.prod.outlook.com
+ (2603:10b6:510:327:cafe::64) by PH7P220CA0150.outlook.office365.com
+ (2603:10b6:510:327::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.7 via Frontend Transport; Tue, 9
+ Dec 2025 16:23:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF000044FC.mail.protection.outlook.com (10.167.241.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9434.0 via Frontend Transport; Tue, 9 Dec 2025 16:23:01 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 9 Dec
+ 2025 10:23:00 -0600
+Received: from drvdevbldsrv2.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 9 Dec 2025 08:22:59 -0800
+From: mythilam <mythilam@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: mythilam <mythilam@amd.com>
+Subject: [PATCH v2] drm/amd/pm: restore SCLK settings after S0ix resume
+Date: Tue, 9 Dec 2025 21:52:59 +0530
+Message-ID: <20251209162259.1604207-1-mythilam@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FC:EE_|SJ5PPF183341E5B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 447baf3d-84d5-418b-3dd2-08de373f3972
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?quy1vDOQ5GPsty3MYcejo0k1GcqkWV6sRYfzxErtcn//bE2fjQvt1bPMbkYX?=
+ =?us-ascii?Q?ho3bNHzbk4J7hm+UZrIRUbqnQ7GFLOcvMXiYnYUpWjzh+2d4qt6qyZ/HF581?=
+ =?us-ascii?Q?EWd9xapnEtzb/P9nfSRFYl33kMRBO1QZq/0R2haClOkSZ/cLZTEzgl55ddBv?=
+ =?us-ascii?Q?97sGekPT8FUnsdS3IKWlUsnxc1oVa4ve0R21L3MtSHB7v1/IOPbg973J9E0W?=
+ =?us-ascii?Q?61Kb6bjFH7Lnv+4pIJdCTL0rnTk5NRY9TAQTbHfGqGq9PMHn0Q9xrT5TAgDA?=
+ =?us-ascii?Q?Xfm11fh79c+Tmf/SLE7osZZcd8A1+t+yMjJlK9wKeAxlSb1HnrjJhjxGkt51?=
+ =?us-ascii?Q?ZG0QObsYuvWZfmqVU0GgI0R/e60RIJmUZQcXQgsqFeiRpEhpjf3FYDyngN5E?=
+ =?us-ascii?Q?LeY3p9Rx0ZDGBaFpLHDm2V5P0F4QWSD5RTUsKPaEsjcfumyFBbIY7JeENIeA?=
+ =?us-ascii?Q?EfQBf/nBUXNIbG5PwI3CC1H+UTp8I5w1VhFOLooJKmAeqR1FnrL0an0mxaL7?=
+ =?us-ascii?Q?UScL4SCgo+/7hAmhQ29J4R1UQTOafqhiz9MFRRLy3ckQ3LZ6Nqwds/dxeH1Q?=
+ =?us-ascii?Q?gxbnMqpEGjWPIZY0R8Bxzjgwx/+Bhv1suybP1x0cldZyEgcPayNdN/EuPMHn?=
+ =?us-ascii?Q?I8vmh7qjP1WJKAZpsS3aZMIZ/ttsbalCo4UjkFAIAafhdziIW3S/9LwP16v3?=
+ =?us-ascii?Q?qi4B1I99ZZ4pC8w1lOiTHm3zGhUVi/TdMV5yZlbbJVFXjpFEC2Ec5mpBfcoK?=
+ =?us-ascii?Q?TlH2t00i1hKi98kmlMPcKIMdA+KVl9zLew9S5Ci+DaEdyyRbBuv52Kvocgeb?=
+ =?us-ascii?Q?I4DFfCc1bvvcGY/drHDrfRDMUjIoQQr4AD4ZwFFrFDCYXqLbLB8BEAvFffCB?=
+ =?us-ascii?Q?tEunljnP4Sa/Lf0K30H0TJtYBov1yY/kn6ubBxSoElW5d0JtjJx+jkqqsY1a?=
+ =?us-ascii?Q?k2dj/Hz3Jkz9h+hVxD13iyHfA3JMN0A+OPrm55aNOIooxT2oEJg8ZDM6SYwo?=
+ =?us-ascii?Q?NukvkBxtrlOwTcFNdQPMvEJobQ+d5YMg2wKBqnD8sWgEAnR9/LHK1vAXLzRc?=
+ =?us-ascii?Q?5Xw0QTrJpzLq03XpNAAyc32BBBcWhIbdLpvdnw/0LDsNAlAWMvwbr9oEGOaY?=
+ =?us-ascii?Q?5vIpGy9BkVLVf2NXvYQYLNvtGs4gqKUEL2XKnZ/jjzFxj2ShxUh0TQnW4mmk?=
+ =?us-ascii?Q?iK+XGUSqqJxXweuJjwmWn4yJDUNDSGuYW03l68DL1ugiEXWTyDjxR0FiN2kb?=
+ =?us-ascii?Q?0k3t29W0SLdsKvT14Z0El9yQzvNivAaRYZtPCTVe2I5xfoiF3YYNQSUe6Ieo?=
+ =?us-ascii?Q?C7AdbQm7mb80E793+c5MKfrI8oDyHVuIVkNU1KkQh1WKD13UoMBLdExieC1a?=
+ =?us-ascii?Q?pr9SV2yxsaXntxVAHxLl7s9NGjnY4SSt921en4bdFIZj7HZbgIb0AJ37J0Ne?=
+ =?us-ascii?Q?4+sh0wT9IOm3o1d/bEXwJmLZ5R8kweYCJrS9XUUF8nWIcdy1xoQrdkrEOY8g?=
+ =?us-ascii?Q?bfgjxHU44njPIkn1FIvwpbJKByNBmkMIXp3arxVBXMUP0ebb5s01/TMheejE?=
+ =?us-ascii?Q?I7FNx8BLUUiRzJFvrbk=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB7675.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6dbab10-aa31-4d67-fef2-08de373b12b3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2025 15:53:18.9183 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7WBNWeMxKc8h1Pjl+JAvLqUZEDzC1zEGLhWqkMUbavxLbAu91iN15/dA1XDRo7GaWj9Ar57IGMls+kF5eORJvA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF915F74166
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 16:23:01.8777 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 447baf3d-84d5-418b-3dd2-08de373f3972
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044FC.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF183341E5B
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,225 +131,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_IA0PR12MB7675E00D1763E5E4C21D74A88CA3AIA0PR12MB7675namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+User-configured SCLK (GPU core clock) frequencies were not persisting
+across S0ix suspend/resume cycles on smu v14 hardware.
+The issue occurred because of the code resetting clock frequency
+to zero during resume.
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+This patch addresses the problem by:
+- Preserving user-configured values in driver and sets the
+  clock frequency across resume
+- Preserved settings are sent to the hardware during resume
 
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Signed-off-by: mythilam <mythilam@amd.com>
 
-
-
-________________________________
-From: Yang, Philip <Philip.Yang@amd.com>
-Sent: Tuesday, December 9, 2025 10:37 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Lazar, Lijo <=
-Lijo.Lazar@amd.com>; Yang, Philip <Philip.Yang@amd.com>
-Subject: [PATCH] drm/amdkfd: Handle GPU reset and drain retry fault race
-
-Only check and drain IH1 ring if CAM is not enabled.
-
-If GPU is under reset, don't access IH to drain retry fault.
-
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |  5 +++
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 37 ++++++++++++++++---
+ 2 files changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
-kfd/kfd_svm.c
-index 377dd75f026b..89c5163b867d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -33,6 +33,7 @@
- #include "amdgpu_hmm.h"
- #include "amdgpu.h"
- #include "amdgpu_xgmi.h"
-+#include "amdgpu_reset.h"
- #include "kfd_priv.h"
- #include "kfd_svm.h"
- #include "kfd_migrate.h"
-@@ -2367,6 +2368,9 @@ static void svm_range_drain_retry_fault(struct svm_ra=
-nge_list *svms)
-
-                 pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
-
-+               if (!down_read_trylock(&pdd->dev->adev->reset_domain->sem))
-+                       continue;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+index f9b0938c57ea..f2a16dfee599 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+@@ -1939,6 +1939,11 @@ int smu_v14_0_od_edit_dpm_table(struct smu_context *smu,
+ 			dev_err(smu->adev->dev, "Set soft max sclk failed!");
+ 			return ret;
+ 		}
++		if (smu->gfx_actual_hard_min_freq != smu->gfx_default_hard_min_freq ||
++		    smu->gfx_actual_soft_max_freq != smu->gfx_default_soft_max_freq)
++			smu->user_dpm_profile.user_od = true;
++		else
++			smu->user_dpm_profile.user_od = false;
+ 		break;
+ 	default:
+ 		return -ENOSYS;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+index b1bd946d8e30..97414bc39764 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+@@ -1514,9 +1514,10 @@ static int smu_v14_0_1_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
+ 
+ 	smu->gfx_default_hard_min_freq = clk_table->MinGfxClk;
+ 	smu->gfx_default_soft_max_freq = clk_table->MaxGfxClk;
+-	smu->gfx_actual_hard_min_freq = 0;
+-	smu->gfx_actual_soft_max_freq = 0;
+-
++	if (smu->gfx_actual_hard_min_freq == 0)
++		smu->gfx_actual_hard_min_freq = smu->gfx_default_hard_min_freq;
++	if (smu->gfx_actual_soft_max_freq == 0)
++		smu->gfx_actual_soft_max_freq = smu->gfx_default_soft_max_freq;
+ 	return 0;
+ }
+ 
+@@ -1526,8 +1527,10 @@ static int smu_v14_0_0_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
+ 
+ 	smu->gfx_default_hard_min_freq = clk_table->MinGfxClk;
+ 	smu->gfx_default_soft_max_freq = clk_table->MaxGfxClk;
+-	smu->gfx_actual_hard_min_freq = 0;
+-	smu->gfx_actual_soft_max_freq = 0;
++	if (smu->gfx_actual_hard_min_freq == 0)
++		smu->gfx_actual_hard_min_freq = smu->gfx_default_hard_min_freq;
++	if (smu->gfx_actual_soft_max_freq == 0)
++		smu->gfx_actual_soft_max_freq = smu->gfx_default_soft_max_freq;
+ 
+ 	return 0;
+ }
+@@ -1665,6 +1668,29 @@ static int smu_v14_0_common_set_mall_enable(struct smu_context *smu)
+ 	return ret;
+ }
+ 
++static int smu_v14_0_0_restore_user_od_settings(struct smu_context *smu)
++{
++	int ret;
 +
-                 amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
-                                 pdd->dev->adev->irq.retry_cam_enabled ?
-                                 &pdd->dev->adev->irq.ih :
-@@ -2376,6 +2380,7 @@ static void svm_range_drain_retry_fault(struct svm_ra=
-nge_list *svms)
-                         amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->=
-adev,
-                                 &pdd->dev->adev->irq.ih_soft);
++	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinGfxClk,
++					      smu->gfx_actual_hard_min_freq,
++					      NULL);
++	if (ret) {
++		dev_err(smu->adev->dev, "Failed to restore hard min sclk!\n");
++		return ret;
++	}
++
++	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxGfxClk,
++					      smu->gfx_actual_soft_max_freq,
++					      NULL);
++	if (ret) {
++		dev_err(smu->adev->dev, "Failed to restore soft max sclk!\n");
++		return ret;
++	}
++
++	return 0;
++}
++
+ static const struct pptable_funcs smu_v14_0_0_ppt_funcs = {
+ 	.check_fw_status = smu_v14_0_check_fw_status,
+ 	.check_fw_version = smu_v14_0_check_fw_version,
+@@ -1688,6 +1714,7 @@ static const struct pptable_funcs smu_v14_0_0_ppt_funcs = {
+ 	.mode2_reset = smu_v14_0_0_mode2_reset,
+ 	.get_dpm_ultimate_freq = smu_v14_0_common_get_dpm_ultimate_freq,
+ 	.set_soft_freq_limited_range = smu_v14_0_0_set_soft_freq_limited_range,
++	.restore_user_od_settings = smu_v14_0_0_restore_user_od_settings,
+ 	.od_edit_dpm_table = smu_v14_0_od_edit_dpm_table,
+ 	.print_clk_levels = smu_v14_0_0_print_clk_levels,
+ 	.force_clk_levels = smu_v14_0_0_force_clk_levels,
+-- 
+2.17.1
 
-+               up_read(&pdd->dev->adev->reset_domain->sem);
-
-                 pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, s=
-vms);
-         }
-@@ -2559,7 +2564,7 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct=
- svm_range *prange,
-                 adev =3D pdd->dev->adev;
-
-                 /* Check and drain ih1 ring if cam not available */
--               if (adev->irq.ih1.ring_size) {
-+               if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size=
-) {
-                         ih =3D &adev->irq.ih1;
-                         checkpoint_wptr =3D amdgpu_ih_get_wptr(adev, ih);
-                         if (ih->rptr !=3D checkpoint_wptr) {
---
-2.50.1
-
-
---_000_IA0PR12MB7675E00D1763E5E4C21D74A88CA3AIA0PR12MB7675namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Reviewed-by: Harish Kasiviswanathan &lt;Harish.Kasiviswanathan@amd.com&gt;<=
-/div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<div><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<hr style=3D"display: inline-block; width: 98%;">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<b>From:</b>&nbsp;Yang, Philip &lt;Philip.Yang@amd.com&gt;<br>
-<b>Sent:</b>&nbsp;Tuesday, December 9, 2025 10:37 AM<br>
-<b>To:</b>&nbsp;amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop=
-.org&gt;<br>
-<b>Cc:</b>&nbsp;Kasiviswanathan, Harish &lt;Harish.Kasiviswanathan@amd.com&=
-gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Yang, Philip &lt;Philip.Yang@a=
-md.com&gt;<br>
-<b>Subject:</b>&nbsp;[PATCH] drm/amdkfd: Handle GPU reset and drain retry f=
-ault race </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-size: 11pt;">Only check and drain IH1 ring if CAM is not=
- enabled.<br>
-<br>
-If GPU is under reset, don't access IH to drain retry fault.<br>
-<br>
-Signed-off-by: Philip Yang &lt;Philip.Yang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-<br>
-&nbsp;1 file changed, 6 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
-kfd/kfd_svm.c<br>
-index 377dd75f026b..89c5163b867d 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<br>
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<br>
-@@ -33,6 +33,7 @@<br>
-&nbsp;#include &quot;amdgpu_hmm.h&quot;<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
-&nbsp;#include &quot;amdgpu_xgmi.h&quot;<br>
-+#include &quot;amdgpu_reset.h&quot;<br>
-&nbsp;#include &quot;kfd_priv.h&quot;<br>
-&nbsp;#include &quot;kfd_svm.h&quot;<br>
-&nbsp;#include &quot;kfd_migrate.h&quot;<br>
-@@ -2367,6 +2368,9 @@ static void svm_range_drain_retry_fault(struct svm_ra=
-nge_list *svms)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;drain retry fault gpu %d svms %p\n&quo=
-t;, i, svms);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!down_read_trylock(&amp;pdd-&gt;dev-&gt;adev-&gt;reset_domai=
-n-&gt;sem))<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_ih_wait_on_checkpoint_process_ts(pdd-&gt;dev-&=
-gt;adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;dev-&gt;adev-&gt;irq.ret=
-ry_cam_enabled ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;pdd-&gt;dev-&gt;adev-&gt;ir=
-q.ih :<br>
-@@ -2376,6 +2380,7 @@ static void svm_range_drain_retry_fault(struct svm_ra=
-nge_list *svms)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
-u_ih_wait_on_checkpoint_process_ts(pdd-&gt;dev-&gt;adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;pdd-&gt;dev-&gt;adev-&gt;ir=
-q.ih_soft);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; up_read(&amp;pdd-&gt;dev-&gt;adev-&gt;reset_domain-&gt;sem);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;drain retry fault gpu %d svms 0x%p don=
-e\n&quot;, i, svms);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -2559,7 +2564,7 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct=
- svm_range *prange,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev =3D pdd-&gt;dev-&gt;adev;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* Check and drain ih1 ring if cam not available */<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;irq.ih1.ring_size) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!adev-&gt;irq.retry_cam_enabled &amp;&amp; adev-&gt;irq.ih1.=
-ring_size) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih =
-=3D &amp;adev-&gt;irq.ih1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; check=
-point_wptr =3D amdgpu_ih_get_wptr(adev, ih);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i=
-h-&gt;rptr !=3D checkpoint_wptr) {<br>
---<br>
-2.50.1<br>
-<br>
-</div>
-</body>
-</html>
-
---_000_IA0PR12MB7675E00D1763E5E4C21D74A88CA3AIA0PR12MB7675namp_--
