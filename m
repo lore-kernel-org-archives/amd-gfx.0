@@ -4,72 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDFDD3B9A9
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 09:16:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BE31D2CE17
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 09:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA1D10E263;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62EDA10E16D;
 	Wed, 10 Dec 2025 09:16:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cXRzkvk2";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ItqgDRTB";
 	dkim-atps=neutral
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E3E510E5FC
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 23:11:14 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-64312565c8dso1049620a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Dec 2025 15:11:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765321873; x=1765926673; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=5bvlkQgBf0Klbd4bST8v6SvgBS5PIAV+ovqu2FOMRl4=;
- b=cXRzkvk2U4VnuGzFnQSbZga66sJdvLA9cmHihG3k44Fjt5ZpDG9Cm1a2hv3UD1KBmF
- xlkUZ+Ds9r7jlftZE4z3ZFDBoous3FTt032OhPfOFv2R8tQ9eM5ZXIbC3flx4aTGP9Td
- GJV7ttGCK1BVtjZk71Skx/jdL54L9mC19AGAsYyef+udJ3672nqwQE/+zy9bdH6dLd3e
- Q7l0q8Nja3W6kIBNtK5IB6mlM1+h3occ3Ucf2/qjO8dAp5ZSTX+zGsInwyEP+7Ixzwkq
- 4pUpZBq59MhArHYMvwI8mnvccCA+RDkPh3P6n7Nmd8zoTEQ1tMz+mJiDqh0ham2X5AR9
- M8gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765321873; x=1765926673;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5bvlkQgBf0Klbd4bST8v6SvgBS5PIAV+ovqu2FOMRl4=;
- b=UJHV9Y/HsAVvs1wRh25MlxWytHWKz+ysTrEkt+Kc/YB/t2SzVcr3H7K/kKzmFhBtL8
- HbZCODKUTLCWNI711zNQ0nnNn6oDfCU9nGSzcj8KyJEeuiA24rtGH/Mpnh5S44aSs1qz
- m2yX8BABJXYLSSb2kSKYbqsGNsHVIHUjgKEZ8IGiprVYar2s3zro6FLyQOn8hcjRJiio
- xqkrEg7lPgNN95y1fWMTeb4O+PdKY6jaWUY6gGY5F2M1647bjjugw6NQQnWz9lPeENp+
- tu/9BSXCQzgucuL5A6xoSnbH4R4p05FqJX+Qnc171iB1dLLZKlNS6OoTINUcEukR8VQ+
- uLXg==
-X-Gm-Message-State: AOJu0YwJQWzEvyJHqQAajuCeCDk6irkG0GFPJFygYitNY2amFTHwlm7e
- de7WIUscDxFLT/syX41GyIBPwT9f1VBTdK9VeAS4FmwrPsyjuVEpHe/9XVJOPA==
-X-Gm-Gg: AY/fxX7NQ1mAaZUMGeB9WM005W0A3N7Mo89lwrKCMfZMMNNJtu5+SOzI2lLrPkHkKf9
- NJRuHzkFKMYBO83zgltMEM7KjIpRYjB7ZA/vYvoQd0mte5b/No9D17ZEMcX34TOejX626eNWmqq
- radkZaXZa6gr0/dKtEsnyIrmGxCe3PN9cNcb/O9wGgsc0ocC4XMCQ0HW7EN8SzeZjRoNFQvCEqL
- +8ltP6vfImy75KD28hKGrRLaZF917wfSJw6OmQhlkOZwLkwiNAMeXUE8B/tNYzJoZwCVrNgglTF
- vEswRmctGG0/kWPXZVg9X2W7UQm1yZSlcTdW8FjWqsryvGnBkWSnAt5lcCPXHxvjWbYe2aNKzUb
- mgKhlDKoHl3LKTjsFFdeU4pdq944HEmKCIDs66UbPkehha/9y6YhZGLASNlNUbd+0p3meezBEDF
- fm3Zos9X2LerpCyjggSeFKsxc7SDZVI5Bg0fBshrgvz+8vlYi6jkyJeDOTSEd5tr+P
-X-Google-Smtp-Source: AGHT+IF4MMpo6aoluEsvGMB3B++HZt9igudP6UkJlZi+dSp0HGnBWBvh8O3QbX3yG2bRSRZg/ek+OQ==
-X-Received: by 2002:a05:6402:5215:b0:640:abd5:864f with SMTP id
- 4fb4d7f45d1cf-6496d1d67eemr312417a12.4.1765321872782; 
- Tue, 09 Dec 2025 15:11:12 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-647b368dc2asm14498496a12.20.2025.12.09.15.11.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Dec 2025 15:11:12 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] amdgpu: Add CH7218 PCON to the VRR whitelist
-Date: Wed, 10 Dec 2025 00:11:07 +0100
-Message-ID: <20251209231107.1968472-1-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4BBC10E62C;
+ Tue,  9 Dec 2025 14:28:57 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dQh6t4MXXz9tfC;
+ Tue,  9 Dec 2025 15:28:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1765290534; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kH+Y9KeknWI8JyVBlC0VzCDXKp47PFORc9ZJs04hGUM=;
+ b=ItqgDRTBLdpQvGmuY3+kLXZnjLHuvuY78GzWFaNJ8IE0gYHSLK50WZ0NVormLZYbMroPqo
+ faAJcaYBK9bfTyv+OUJrruhPs0+aSAbpvEfjIxxpyIkHK0771vEie0ADkHIJw3K64xA2Ab
+ ndcWWl1OXPfgWYh/TqUf5UiWEYPPlwfLpuGI0XYOsvqOXo0M/91bqfI3KvfSAdLqXPjafu
+ J8wJfzt0M7nxECeouqVbLRHJPBh6sOqsgDZdd5JETQ/Q3fAAfJj1ZU42xsCxfCGMxelDtQ
+ /qwGvYHgPLDNc2DT00w7syi7hfcwEr0ASb6XdvKitrGBDoAYWWBOdYnCjOgXCQ==
+Message-ID: <fb93bfa5f32025ce187153d0eeb47c43ec8cec7b.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
+Cc: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ dakr@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>, Lucas
+ Stach <l.stach@pengutronix.de>
+Date: Tue, 09 Dec 2025 15:28:49 +0100
+In-Reply-To: <d846a1dd-a705-410a-a043-ffae43bada57@amd.com>
+References: <20251128182235.47912-1-vitaly.prosyak@amd.com>
+ <cdecd1e2-de0d-466f-b98b-927b2f364f79@amd.com>
+ <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
+ <49de5988-ea47-4d36-ba25-8773b9e364e2@amd.com>
+ <aTMW0UCGQuE+MXLk@lstrano-desk.jf.intel.com>
+ <21699026216379f294d6597ed6febd187229ffb9.camel@mailbox.org>
+ <aTcf4o0huubgUPIQ@lstrano-desk.jf.intel.com>
+ <aTcguvAQCZ07xD/C@lstrano-desk.jf.intel.com>
+ <212ecf88-b175-44cc-af3f-7371340ed480@amd.com>
+ <aTdFgVM5s/H5tc4G@lstrano-desk.jf.intel.com>
+ <b0781c7fd90c51394ec60faa71222fc3af06bb0c.camel@mailbox.org>
+ <e99a2e97-3058-4501-ad22-457ede493a59@amd.com>
+ <3e780e52dc0a7f1267e814c895e9d5e840a8c913.camel@mailbox.org>
+ <d846a1dd-a705-410a-a043-ffae43bada57@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 4e2b34a21ee5ee42a46
+X-MBO-RS-META: 59x7133399ppjrfs4igxfy93x4hgts4a
 X-Mailman-Approved-At: Wed, 10 Dec 2025 09:16:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,45 +76,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tomasz Pakuła <forest10pl@gmail.com>
+On Tue, 2025-12-09 at 15:19 +0100, Christian K=C3=B6nig wrote:
+> On 12/9/25 14:51, Philipp Stanner wrote:
+> ...
+> > > > > > > > > How can free_job_work, through drm_sched_get_finished_job=
+(), get and
+> > > > > > > > > free the same job?
+> > > > > > > > >=20
+> > > > > > > >=20
+> > > > > > > > It can't.
+> > > > > >=20
+> > > > > > But exactly that happens somehow. Don't ask me how, I have no i=
+dea.
+> > > >=20
+> > > > *Philipp refuses to elaborate and asks Christian*
+> > > >=20
+> > > > How are you so sure about that's what's happening? Anyways, assumin=
+g it
+> > > > is true:
+> > >=20
+> > > [=C2=A0 489.134585] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > [=C2=A0 489.141949] BUG: KASAN: slab-use-after-free in amdgpu_device_=
+gpu_recover+0x968/0x990 [amdgpu]
+> > > [=C2=A0 489.151339] Read of size 4 at addr ffff88a0d5f4214c by task k=
+worker/u128:0/12
+> > > [=C2=A0 489.158686]=20
+> > > [=C2=A0 489.160277] CPU: 11 UID: 0 PID: 12 Comm: kworker/u128:0 Taint=
+ed: G=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 E=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 6.16.0-1289896.3.zuul.0ec208edc00d48a9=
+bae1719675cb777f #1 PREEMPT(voluntary)=20
+> > > [=C2=A0 489.160285] Tainted: [E]=3DUNSIGNED_MODULE
+> > > [=C2=A0 489.160288] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T=
+, BIOS V1.03.B10 04/01/2019
+> > > [=C2=A0 489.160292] Workqueue: amdgpu-reset-dev drm_sched_job_timedou=
+t [gpu_sched]
+> > > [=C2=A0 489.160306] Call Trace:
+> > > [=C2=A0 489.160308]=C2=A0 <TASK>
+> > > [=C2=A0 489.160311]=C2=A0 dump_stack_lvl+0x64/0x80
+> > > [=C2=A0 489.160321]=C2=A0 print_report+0xce/0x630
+> > > [=C2=A0 489.160328]=C2=A0 ? _raw_spin_lock_irqsave+0x86/0xd0
+> > > [=C2=A0 489.160333]=C2=A0 ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+> > > [=C2=A0 489.160337]=C2=A0 ? amdgpu_device_gpu_recover+0x968/0x990 [am=
+dgpu]
+> > > [=C2=A0 489.161044]=C2=A0 kasan_report+0xb8/0xf0
+> > > [=C2=A0 489.161049]=C2=A0 ? amdgpu_device_gpu_recover+0x968/0x990 [am=
+dgpu]
+> > > [=C2=A0 489.161756]=C2=A0 amdgpu_device_gpu_recover+0x968/0x990 [amdg=
+pu]
+> > > [=C2=A0 489.162464]=C2=A0 ? __pfx_amdgpu_device_gpu_recover+0x10/0x10=
+ [amdgpu]
+> > > [=C2=A0 489.163170]=C2=A0 ? amdgpu_coredump+0x1fd/0x4c0 [amdgpu]
+> > > [=C2=A0 489.163904]=C2=A0 amdgpu_job_timedout+0x642/0x1400 [amdgpu]
+> > > [=C2=A0 489.164698]=C2=A0 ? __pfx__raw_spin_lock+0x10/0x10
+> > > [=C2=A0 489.164703]=C2=A0 ? __pfx_amdgpu_job_timedout+0x10/0x10 [amdg=
+pu]
+> > > [=C2=A0 489.165496]=C2=A0 ? _raw_spin_lock+0x75/0xc0
+> > > [=C2=A0 489.165499]=C2=A0 ? __pfx__raw_spin_lock+0x10/0x10
+> > > [=C2=A0 489.165503]=C2=A0 drm_sched_job_timedout+0x1b0/0x4b0 [gpu_sch=
+ed]
+> >=20
+> > That doesn't show that it's free_job() who freed the memory.
+>=20
+> [=C2=A0 489.405936] Freed by task 2501:
+> [=C2=A0 489.409175]=C2=A0 kasan_save_stack+0x20/0x40
+> [=C2=A0 489.413122]=C2=A0 kasan_save_track+0x14/0x30
+> [=C2=A0 489.417064]=C2=A0 kasan_save_free_info+0x3b/0x60
+> [=C2=A0 489.421355]=C2=A0 __kasan_slab_free+0x37/0x50
+> [=C2=A0 489.425384]=C2=A0 kfree+0x1fe/0x3f0
+> [=C2=A0 489.428547]=C2=A0 drm_sched_free_job_work+0x50e/0x930 [gpu_sched]
+> [=C2=A0 489.434326]=C2=A0 process_one_work+0x679/0xff0
 
-Chrontel CH7218 found in Ugreen DP -> HDMI 2.1 adapter (model 85564)
-works perfectly with VRR after testing. VRR and FreeSync compatibility
-is explicitly advertised as a feature so it's addition is a formality.
+The time stamp shows that this free here took place after the UAF
+occurred :D
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
- drivers/gpu/drm/amd/display/include/ddc_service_types.h   | 1 +
- 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index d0f770dd0a95..f01f30a245ad 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1374,6 +1374,7 @@ static bool dm_is_freesync_pcon_whitelist(const uint32_t branch_dev_id)
- 	case DP_BRANCH_DEVICE_ID_0060AD:
- 	case DP_BRANCH_DEVICE_ID_00E04C:
- 	case DP_BRANCH_DEVICE_ID_90CC24:
-+	case DP_BRANCH_DEVICE_ID_2B02F0:
- 		ret_val = true;
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/display/include/ddc_service_types.h b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
-index 1c603b12957f..e838f7c1269c 100644
---- a/drivers/gpu/drm/amd/display/include/ddc_service_types.h
-+++ b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
-@@ -36,6 +36,7 @@
- #define DP_BRANCH_DEVICE_ID_006037 0x006037
- #define DP_BRANCH_DEVICE_ID_001CF8 0x001CF8
- #define DP_BRANCH_DEVICE_ID_0060AD 0x0060AD
-+#define DP_BRANCH_DEVICE_ID_2B02F0 0x2B02F0 /* Chrontel CH7218 */
- #define DP_BRANCH_HW_REV_10 0x10
- #define DP_BRANCH_HW_REV_20 0x20
- 
--- 
-2.52.0
+> =C2=A0
+> > @Vitaly: Can you reproduce the bug? If yes, adding debug prints
+> > printing the jobs' addresses when allocated and when freed in
+> > free_job() could be a solution.
+>=20
+> We can reproduce this pretty reliable in our CI now.
+>=20
+> > I repeat, we need more info :)
+> >=20
+> > >=20
+> > > >=20
+> > > > > >=20
+> > > > > > My educated guess is that the job somehow ends up on the pendin=
+g list again.
+> > > >=20
+> > > > then the obvious question would be: does amdgpu touch the pending_l=
+ist
+> > > > itself, or does it only ever modify it through proper scheduler API=
+s?
+> > >=20
+> > > My educated guess is that drm_sched_stop() inserted the job back into=
+ the pending list, but I still have no idea how it is possible that free_jo=
+b is running after the scheduler is stopped.
+> > >=20
+> >=20
+> > And my uneducated guess is that it's happening in amdgpu. It seems a
+> > sched_job lives inside an amdgpu_job. Can the latter be freed at other
+> > places than free_job()?
+>=20
+> Nope, except for error handling during creation and initialization.
+>=20
+> > timedout_job() and free_job() cannot race against each other regarding
+> > jobs. It's locked.
+> >=20
+> > But maybe investigate Matthew's suggestion and look into the guilty
+> > mechanism, too.
+>=20
+> That looks just like a leftover from earlier attempts to fix the same pro=
+blem.
+>=20
+> I mean look at the git history of how often that problem came up...
+
+If that's the case, then we don't want to yet add another solution to a
+problem we don't fully understand and which, apparently, only occurs in
+amdgpu today.
+
+What we need is an analysis of what's happening. Only then can we
+decide what to do.
+
+Just switching the workqueues without such good justification receives
+a NACK from me; also because of the unforseeable consequences =E2=80=93
+free_job() is invoked extremely frequently, timedout_job() very rarely.
+Drivers will not expect that their timeout_wq will be flooded with so
+many work items. That could very certainly change behavior, cause
+performance regressions and so on.
+
+
+P.
+
+
 
