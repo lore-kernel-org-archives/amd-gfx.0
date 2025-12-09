@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8367DD3B7EA
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 08:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39551D1CDC6
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Dec 2025 08:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 149E210E4D0;
-	Tue,  9 Dec 2025 08:58:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD92510E4D3;
+	Tue,  9 Dec 2025 08:58:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F4Z6iMfl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xk/bDiCz";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012056.outbound.protection.outlook.com [52.101.43.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81F1610E4D0
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 08:58:08 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013037.outbound.protection.outlook.com
+ [40.93.201.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88FA610E4D3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 08:58:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=el/KVM8WAEwhJs+aQKbbimIddsa0vt5geK3Oyw4ej79m8Jhz1yhe0WvOP855LO1GJXVBhOUMmRE1pr4HasSFj7rJMTqqxElxmnG7Wlaqox4WwN9oZei3gQSYAnFQp2NF5DNXdUFFHxzxv2ZIKKwrVB89LshO9A+L4Tgr3wN2WjAwTpbiLBgz3UCsnIazU+UjueGg02BlcoINupYqVeIAuwvblZ+v20fDWA69/VbpnR4yxNqdTFlECfclihP7FXuTLkW3IvtjgBOjEQiHu3QTKAgbBGvvl+jgmT8sZmDzFEVf9WLgwxkNvK8jo3vxSHyuhGL4X4oZdiAG+MlDKWJezQ==
+ b=JLzO6GBEFMOE/DT/8s0R+wnm9hd6hoe7olHoYu7RT09jVDmUDK1P1tyrDN3lKxckj/CnuOPgpq7yRohVZnF3W/lZrYgRVUwEnL1JTMiPH8BoW+Ygw8EbgnjIhf5EFQUa/mSj3qf8EMisi3P/3PEqHFjGrJ+3JPhaP3v6XeCSPveCnNIkm56N0zRUvOb3QbmKNokR7p/wlxnl8ANojMOfGRj2hYDhyr7arzXwM6TUJFW1E+H34Tt2RBdWiDQi9ceX9HIOkC/rq2mmPi3pvrjngc2B6B8X6SAAmimiKHGGNwcO3iEwUs6bgx3cdEJYxQnUBG7CwopF5oeCgICbLH0bjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fMocYMJX5tRUnC7fXqPUvec4Lh4gpXsvutYJrb0eJdU=;
- b=s3zrT98NQyKAo9BARBqye4+ew0/3owCZLayK2Def58B5+Lf/JRZaDYxLBqGIzhhjONZ83X+yv8V55LEVhCFk8voo518vOl6IhgcO8QJC5jUPSAuk9p82Ifiew1eNtTkZA3rLGcqTZQapMT8HGJ2HdTUaZZQIOW2KgH9dYQsOxufBdaAmM2603W3y6n0eHbn12fdgXSO5fKJRVdggqzHmlVQHdcLcGvxOupaZioDxEFH/TfToqsRQqcBO2BQdlhFkT2z+yr66SrCq3irBvHcI7+Ccfqk0bOIF2YZd7fmCGDojcyUrQpnXuaCL8nOyRyzpgQeG9ITLR2wT0RhMV0Q1ig==
+ bh=CjXa2i7djHMOCtwyGNmfcWEitBWn5xi56dE0bSDSy58=;
+ b=kuDFAx88iCj0JV0tlPZ6VlUjJUKBbTujOfJU4iNoy5Xj3TdC66V/evE3EecoRxX/G+tgnGDnlRsG/Hv7y17Gt9GR9DV4MBcMbw5J1/B+/XNapByXYREeksP5J90aL/GdrWYjm+FV8DCTJi2IOoF+UT8gxUMSXRv+nJfyH/vCfAOLSLtreV8/c7b2UvWT/sm3MUnqDmUG3qt7+0KObdLABGwMaRBXMFQGilecgYy5aqQYQaLuChWVA2JzAsX4IU7rf4YIdWYlVnZlizpnMR3Q9rd3Y7sD9rdWnExBY9/IBaZbhdHWFoOGjhLovnuPy69sM46QntbFCJoFrCP4X9C/eA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMocYMJX5tRUnC7fXqPUvec4Lh4gpXsvutYJrb0eJdU=;
- b=F4Z6iMflo+hM9R6fZ+AxKb1rDLs3Fl+Scqoy+j9MCZc6LSoy+mn0evp4OokUvMFvfK2drykrDvWaEE8QC40eNeLg+YxC1VNXj9McrPuOgredFRPx267vGBmIZjWQtfutH+crGNI2/5Wn2U4PiIAO+N2y3lwobOBc1GHKY6xgjmU=
-Received: from SN6PR08CA0033.namprd08.prod.outlook.com (2603:10b6:805:66::46)
- by DS0PR12MB6485.namprd12.prod.outlook.com (2603:10b6:8:c6::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.13; Tue, 9 Dec 2025 08:58:05 +0000
-Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
- (2603:10b6:805:66:cafe::38) by SN6PR08CA0033.outlook.office365.com
- (2603:10b6:805:66::46) with Microsoft SMTP Server (version=TLS1_3,
+ bh=CjXa2i7djHMOCtwyGNmfcWEitBWn5xi56dE0bSDSy58=;
+ b=xk/bDiCz5T+MexYmbkpI7y+8bA/hVuEPyq/WwzG9KiYB6+ZcoIWA1QPduJP8K0NShzt3sc/x1iZqSbMmz7ckQy8tArDqrzJVTb3EH9HPVn3mg+czhjxxOnkKdp+A0J0X56O+KHowgy2N8z0UVUt31B9R1fpEor8ML08l1K6dNi4=
+Received: from SJ0PR03CA0082.namprd03.prod.outlook.com (2603:10b6:a03:331::27)
+ by DM4PR12MB8452.namprd12.prod.outlook.com (2603:10b6:8:184::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Tue, 9 Dec
+ 2025 08:58:09 +0000
+Received: from SJ1PEPF00001CE2.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::ff) by SJ0PR03CA0082.outlook.office365.com
+ (2603:10b6:a03:331::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Tue,
- 9 Dec 2025 08:58:05 +0000
+ 9 Dec 2025 08:57:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE2.mail.protection.outlook.com (10.167.242.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9412.4 via Frontend Transport; Tue, 9 Dec 2025 08:58:04 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9412.4 via Frontend Transport; Tue, 9 Dec 2025 08:58:09 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 9 Dec
- 2025 02:58:03 -0600
+ 2025 02:58:07 -0600
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 9 Dec 2025 00:57:55 -0800
+ Transport; Tue, 9 Dec 2025 00:58:04 -0800
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,13 +66,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, hewitt <LinCheng.Ku@amd.com>, PeiChen Huang
- <peichen.huang@amd.com>, LinCheng Ku <lincheng.ku@amd.com>, Chenyu Chen
+ <alex.hung@amd.com>, weiguali <wei-guang.li@amd.com>, Robin Chen
+ <robin.chen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Chenyu Chen
  <chen-yu.chen@amd.com>
-Subject: [PATCH 07/15] drm/amd/display: Add USB-C DP Alt Mode lane limitation
- in DCN32
-Date: Tue, 9 Dec 2025 16:55:10 +0800
-Message-ID: <20251209085702.293682-8-chen-yu.chen@amd.com>
+Subject: [PATCH 08/15] drm/amd/display: Support DRR granularity
+Date: Tue, 9 Dec 2025 16:55:11 +0800
+Message-ID: <20251209085702.293682-9-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251209085702.293682-1-chen-yu.chen@amd.com>
 References: <20251209085702.293682-1-chen-yu.chen@amd.com>
@@ -80,53 +80,53 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|DS0PR12MB6485:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3afc06e-8410-4a80-af04-08de37011082
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE2:EE_|DM4PR12MB8452:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d06596e-f00f-4eb4-9600-08de3701135b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?A6C2AuP4DJRQebblRoQ90BNs0n7oJredSwmoHohmz15UrAxL9KqRCzqYsKU0?=
- =?us-ascii?Q?XJ0CeXvnwJZfb1hv5PXo9bGZ9w3JRnF9CCBPFBvNQeGQVSe5+MaN42Mxb/no?=
- =?us-ascii?Q?NVzpBi6chBg9fXJSb2t1SsWzwGalxUFHq7oN8Cvnoj2dqvlKshs6pCF1wvJM?=
- =?us-ascii?Q?hj7WoDEkhyNdG9kF+t7GuIkcVAimbJu8Ro/sJJGevxElDNc9EkfSwtrwZfKQ?=
- =?us-ascii?Q?LFh86Hd/ryftQ5zhfHndIS+QfR72p8hXxqZmqDGpyGKEBwcQxQbT8703AKLl?=
- =?us-ascii?Q?QpunIfSVaAo5vIRMQ0ZdD5bSuiUb77WP+Z1mgmXgdAirM/9hCsBw902XQ/Nw?=
- =?us-ascii?Q?YRiolRVYlDU5Bxw6D+59kHY/u0Kk46QW8CspZGfZZeGpQYa8CohNWhjCwXgR?=
- =?us-ascii?Q?uZP+xH/5WCwI1+fylh6xVrFrWMF9xUBapCvZ7Esz/CB5XPtn9ErH6DGj5fGL?=
- =?us-ascii?Q?NXzjlgCoBCoLK3m9sR6n8dtsnu4ildbE6Y9ZYdQnqcJL5d3EBQ/nrEcuAsUx?=
- =?us-ascii?Q?2BLNvArEmRptlGTHuMPzspMsPpy00eGAS1+ERDRDltqPtVV9VWpcPRPMmpbX?=
- =?us-ascii?Q?isJFu3kh20VWiMhatkYJZqACU4tmKKnYn0gW3XzgQXlXoaOtb1xnxnk1aGRg?=
- =?us-ascii?Q?CaXbu7RXRXMJZiv7t65iLuQd68F9roAIXWBySRYKqmI6BmrzuSWc2Jrxc0CL?=
- =?us-ascii?Q?Ry3q+qvbBbhG7A38uA87R9GqJAcsYxKCDEs4aguVTrTfwCwUx/lDVpfLb/Hd?=
- =?us-ascii?Q?TLk6aDgEJ8ixi5ILFNHiH13EBaqJUqKbExVkmyRxx1pdaNo4VSeOvGB/dNmS?=
- =?us-ascii?Q?tMdqG0u3mTo9Vr8VLrmTQZbuMeJYAc5YtLfXXfMggjwSaX2KG2KBZqnuZkPj?=
- =?us-ascii?Q?yf+qTeRR1Y2Cl/tHS6jUFnXXPhLjhbZj0vsrBIyqwKMkx6kEg+cAQhG47eK4?=
- =?us-ascii?Q?RfNkq33NaeJzDPJEDHnV93mtqxELA18q83ejPqpr4A0EdB/d7brhIsHDqJW7?=
- =?us-ascii?Q?P0Com8dbs+4cuxHoX0C02SBbz39Vo14CtaDN+4+pDyusyccCf/lGZ9TQ4fHF?=
- =?us-ascii?Q?W2DbOaJNiyG5DSkmUS0G3UJYLNHYoel28++4ZPWm2crY+6zRATGTDs2hRoss?=
- =?us-ascii?Q?+ksTsAdx5lgDr4Xt4jZo11Tz0KoXUKSykU1fLK9XHWJe2G5l0ieo4Cpb5Vkp?=
- =?us-ascii?Q?I1SfQ4pgWjffJzSrV7OzL/ujRKbiegHk/TbM37HrmS1+9uF0JiQ30uRKA1x6?=
- =?us-ascii?Q?6djcHatvzlQTGguwyW8OGF+KAzQolmWIK+0zjYM5to1WoFALQYkQmrn+MNFp?=
- =?us-ascii?Q?NdnNRRtnhdpFX+/eB+3w8Ht6ubcODt+aHL17YkHnN5zrJpJvPvtM2sMu664D?=
- =?us-ascii?Q?n3p3THF89W+wuTwrL4ZXWhKdGFC+9fc7y+OTthPdUuV3XREYkokwBtP3iL8H?=
- =?us-ascii?Q?W6MOdgtuf9iyb5XXwNBavc9VF7YrE9F2maxNyz4jT6qBnhiemVSrZ+PdBHzm?=
- =?us-ascii?Q?MlCqndxS9iIuZasFmF8ov/JcNtRNMI9m0N020Qqp5t77z1M4PBL9DAAjyX6f?=
- =?us-ascii?Q?mYrLSg1DE6O6oO/BuQw=3D?=
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?N7tZPPtWlY7Rv5cTRDxoWJe0bvy4jApHQqu482Em5nunOyXjTP1s9D0CuPfE?=
+ =?us-ascii?Q?+pI/xOO5DTmBhtuGmGKzArzuzVDbHx9feeZUq0D4oC96u3H6pogTnLiJ8uyL?=
+ =?us-ascii?Q?YQIGCW09oDMRgd9UVqZNPBUy1gK/xlgbnAJa19jyJ6bNC07CHJL9kGPVsmlo?=
+ =?us-ascii?Q?66q69akDqpxOJ8pXP6DngyrXEm0t8Xf2i+PEPNoKyXFdys3JwS9fughFFaRg?=
+ =?us-ascii?Q?9knfIHqbnViQyrr6jFFpG9YbIyBm7D1iBCLwPcr6JW08ddp9ugGT/BBUnkWB?=
+ =?us-ascii?Q?SaULobyUu8JFVBHX99N3E4ePxrmgdqXyuQPLihlCc56iggQHoCFhdPZrTLPB?=
+ =?us-ascii?Q?NvaQejt3UcqOK8z7gzLUle/9lhbQi2cvu2uT+au4BOojfEhG6UrNMl/NlmA+?=
+ =?us-ascii?Q?bLkTlch/f3uylV8Z2849kVwx3xwfW1V9kZqAlvtsLCzKfzeoZbHOi9YQPiWs?=
+ =?us-ascii?Q?b/TokreEuzzoT0z2F3LQAKsy7ggJE5j6iGwYl6pakHqvFfaUTrSAcY/Wa4wU?=
+ =?us-ascii?Q?jz7pDDJHmZkvuXGtU8tfyyiNqxGX4RJ2xBVYNwwzwXkJMerygnTxDa5hLsCS?=
+ =?us-ascii?Q?8xoNCeHbHsDyYJosnTrYoM++MGmEsnZL7fMgn+fV6Zqkc4wQmDTDyg3WD2+R?=
+ =?us-ascii?Q?5XvnP2suHkUuDHfpWCaYszCqJarGAz53w/7JWLOhrxEzxBP2eqYrLYDjiyW5?=
+ =?us-ascii?Q?DzAelXXwEvPBaQb9srgj+8n2A+BEk9+dkrVAgOslca6urkuk46RIN8K7NAk6?=
+ =?us-ascii?Q?EGOYWVMWJ5XZxRJjBdA94LJUgJ1mSQF1J6JVybK4Q5BmJK9a+F0mBi6RMBdH?=
+ =?us-ascii?Q?+RqiPX8eDVXEmDw2UvwJz5qvXn2LOl4zWqMX+iQ3xOAcgAUCIgcibNPCyBSp?=
+ =?us-ascii?Q?cYP5CFvylaEIjlNojIzgFVtux+xRdlx7FqYXB4/JLYtoWG3AzZrntiE0S5QX?=
+ =?us-ascii?Q?SV07JwPdnmdc3ENRFtrGgSdna7lQjU7K89qn2+Otcd2UztgMH6j8olRK+ivK?=
+ =?us-ascii?Q?cBYT7mS9zf3xHFbZJPIGgGhNK5yReb/66CPfkH5gk6LRceZDNYKBOKwRPi2Q?=
+ =?us-ascii?Q?2lp67qGpGf3e+0KTXeL9FpWBaXowbQ8+Tm0tf8ebCmh76ROhstpqgldQ61Yb?=
+ =?us-ascii?Q?ru7htsEWKyOXHQc6aTE+8uzGKwNNSKkalBQEVKFqFJmBjN6VxifedIGCxJOA?=
+ =?us-ascii?Q?/WHTDzsYoYr9qGWid2plA0TF5fzY6Q8JrsiIC/46O052Rxn69ERre9kMZsAZ?=
+ =?us-ascii?Q?aiIbyDpugWgs5UYw1uY2rsSW4F6pr+jN3IMgYEl8PkWTSWV+Ijb955vmIow1?=
+ =?us-ascii?Q?tXDx03yJ6ylAXTY13eWYWQR6PVSV8nlbKOzUX67hOj7D+srqQI0oI9kuEF3N?=
+ =?us-ascii?Q?jsmCMSZDfzuaIPbrLGL37Mq9NOscgzTQBQQx9E/lspjzH4ishigOFY6+UtpL?=
+ =?us-ascii?Q?+zN4c29JIOqohFpC+k6Q5i5HlloWNx9lKzdXEs4A4xg33tyIw9s1zPipJSon?=
+ =?us-ascii?Q?tYbU+ArIM6FaUF994nn6uRJFah/eOC9MA4g67Ghjt4XTuaMZqyzbPnjpn/CM?=
+ =?us-ascii?Q?vcbdwC1I8btyPyDDh0A=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 08:58:04.4073 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3afc06e-8410-4a80-af04-08de37011082
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2025 08:58:09.1119 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d06596e-f00f-4eb4-9600-08de3701135b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F67.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6485
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8452
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,52 +141,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: hewitt <LinCheng.Ku@amd.com>
+From: weiguali <wei-guang.li@amd.com>
 
-[Why]
-USB-C DisplayPort Alt Mode with concurrent USB data needs lane count
-limitation to prevent incorrect 4-lane DP configuration when only 2 lanes
-are available due to hardware lane sharing between DP and USB3.
+[Why&How]
+Support DRR granularity for coasting Vtotal calculation
 
-[How]
-Query DMUB for Alt Mode status (is_dp_alt_disable, is_usb, is_dp4) in
-dcn32_link_encoder_get_max_link_cap() and cap DP to 2 lanes when USB is
-active on USB-C port. Added inline documentation explaining the USB-C
-lane sharing constraint.
-
-Reviewed-by: PeiChen Huang <peichen.huang@amd.com>
-Signed-off-by: LinCheng Ku <lincheng.ku@amd.com>
+Reviewed-by: Robin Chen <robin.chen@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Weiguang Li <wei-guang.li@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- .../display/dc/dio/dcn32/dcn32_dio_link_encoder.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h               | 1 +
+ .../drm/amd/display/dc/link/protocols/link_dp_capability.c | 7 +++++++
+ drivers/gpu/drm/amd/display/include/dpcd_defs.h            | 1 +
+ 3 files changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
-index 44a4e3c4efb9..65d28cb07b04 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn32/dcn32_dio_link_encoder.c
-@@ -188,9 +188,18 @@ void dcn32_link_encoder_get_max_link_cap(struct link_encoder *enc,
- 	if (!query_dp_alt_from_dmub(enc, &cmd))
- 		return;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index 79e1696def63..273610d85438 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -1296,6 +1296,7 @@ struct dpcd_caps {
+ 	/* Indicates the number of SST links supported by MSO (Multi-Stream Output) */
+ 	uint8_t mso_cap_sst_links_supported;
+ 	uint8_t dp_edp_general_cap_2;
++	uint16_t drr_granularity;
+ };
  
--	if (cmd.query_dp_alt.data.is_usb &&
--			cmd.query_dp_alt.data.is_dp4 == 0)
--		link_settings->lane_count = MIN(LANE_COUNT_TWO, link_settings->lane_count);
+ union dpcd_sink_ext_caps {
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index 3884851e2a9e..54c417928b61 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -2219,6 +2219,13 @@ void detect_edp_sink_caps(struct dc_link *link)
+ 				(uint8_t *)&link->dpcd_caps.edp_oled_emission_rate,
+ 				sizeof(link->dpcd_caps.edp_oled_emission_rate));
+ 
 +	/*
-+	 * USB-C DisplayPort Alt Mode lane count limitation logic:
-+	 * When USB and DP share the same USB-C connector, hardware must allocate
-+	 * some lanes for USB data, limiting DP to maximum 2 lanes instead of 4.
-+	 * This ensures USB functionality remains available while DP is active.
++	 * Read DRR granularity
 +	 */
-+	if (cmd.query_dp_alt.data.is_dp_alt_disable == 0 &&
-+		cmd.query_dp_alt.data.is_usb &&
-+		cmd.query_dp_alt.data.is_dp4 == 0) {
-+		link_settings->lane_count =
-+			MIN(LANE_COUNT_TWO, link_settings->lane_count);
-+	}
- }
- 
- 
++	core_link_read_dpcd(link, DP_SINK_DRR_GRANULARITY,
++			(uint8_t *)&link->dpcd_caps.drr_granularity,
++			sizeof(link->dpcd_caps.drr_granularity));
++
+ 	/*
+ 	 * Read Multi-SST (Single Stream Transport) capability
+ 	 * for eDP version 1.4 or higher.
+diff --git a/drivers/gpu/drm/amd/display/include/dpcd_defs.h b/drivers/gpu/drm/amd/display/include/dpcd_defs.h
+index 07b937b92efc..8445c540f042 100644
+--- a/drivers/gpu/drm/amd/display/include/dpcd_defs.h
++++ b/drivers/gpu/drm/amd/display/include/dpcd_defs.h
+@@ -188,6 +188,7 @@ enum dpcd_psr_sink_states {
+ #define DP_SOURCE_BACKLIGHT_CURRENT_PEAK        0x326
+ #define DP_SOURCE_BACKLIGHT_CONTROL             0x32E
+ #define DP_SOURCE_BACKLIGHT_ENABLE              0x32F
++#define DP_SINK_DRR_GRANULARITY                 0x33B
+ #define DP_SOURCE_MINIMUM_HBLANK_SUPPORTED      0x340
+ #define DP_SINK_PR_REPLAY_STATUS                0x378
+ #define DP_SINK_PR_PIXEL_DEVIATION_PER_LINE     0x379
 -- 
 2.43.0
 
