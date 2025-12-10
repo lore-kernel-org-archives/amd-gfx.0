@@ -4,194 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9869DD3C92B
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 17:08:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8350FD3C928
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 17:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 119C210E786;
-	Wed, 10 Dec 2025 17:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 209AE10E785;
+	Wed, 10 Dec 2025 17:22:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XeJDRZHD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZhnAYIZW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7306110E781;
- Wed, 10 Dec 2025 17:08:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1765386525; x=1796922525;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=sG6km7MgWKOBaF3rnH1M6uqstcqgAVYGJm9cA1uFACE=;
- b=XeJDRZHDKVDbzd3yOTQ4z+zZLtTia9hgCpVkNfcqMcI0cPLycok4k7EQ
- SGwARhj77J5CwCw+HUpLV5x7KB1O7arywZX6Ahh9WbSzWXOerCHu+K2ju
- EQ5yYRCVfXIAkIkXYHl5lCoiqog7TE0Zab3lHNKY2AhzXzADCKeWFYVPR
- K0TON5VoahvDVscXWXf0IsgTSSIRZSINoCARYol4a+ruo3g2iigickkCy
- 3g0mUeDkFfLwu1H5XHjzGI3xT42ouYTqn6HTwXsyPMD1i25hq4xQSVptJ
- fOE8Y+Q57/Dg7+gxO1Gj3eEAwPgDDU05hec89IAJAdJ8XL3clEK3GShKZ w==;
-X-CSE-ConnectionGUID: Wre1tV76RMKrfjZD5iuX0A==
-X-CSE-MsgGUID: +YlFfvcpQ7uOqd80UzI3ww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11638"; a="78474430"
-X-IronPort-AV: E=Sophos;i="6.20,264,1758610800"; d="scan'208";a="78474430"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2025 09:08:45 -0800
-X-CSE-ConnectionGUID: DS6BiSXZSf2ZngKBu+q0og==
-X-CSE-MsgGUID: a+AVf7YFQ5K6bG6rkcTvuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,264,1758610800"; d="scan'208";a="227612164"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2025 09:08:44 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 10 Dec 2025 09:08:43 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29 via Frontend Transport; Wed, 10 Dec 2025 09:08:43 -0800
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.1) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 10 Dec 2025 09:08:43 -0800
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012036.outbound.protection.outlook.com [40.107.209.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A25F10E785
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 17:22:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rtQ4/EVKLjKASD0CWkojrl+WkmLmSevEMZmHIem6HUm+XFFSpylQ4y4SUammPkuf7Cf6JSlq0CFFNvXSlblSBHOG6qHSUT7rE3Ig62gLfFvLk8SF+thy70ZHzqOHpX+ryOx2/gVCGQOonh1+cx6Cok8XCM/zeSegdPHmjCQl7GR1xe/2UsJb+SQqNWu7AZp6nct2e76ZlsjtnxCFfqj37MaABbnx/RUky1rLwSpJpbmM3INk7pxNZRi/9H8hkiR5Hz/9ms4dw0kdnJUesLTSZoFjW3GMKmYK0zLZGPN1rYM606C9VR7XeN/ZZmwCdnYU0k3UuOKDa2kO88twKdxrZQ==
+ b=hYuquHxHFSvGkVl/xVPf7FxsybnvVdz9/TdgQRxj25eep5O3/D3/Dks6FgpNbr/GRlT9VcMUklct2cJPmJZ0Fb5LbOGtHo2z25goCO0elYPWE9NGWCh2kOp1LT+HHnZWVstJ6iEvo2irUs3KNufwflPyzMQifCtaGNPSPH+dPTcbL5ZnrsCUGUuB97I/y0y+aC+aobu0QJ2O53AblX9t0orkMRDgKx6mKsuv2SQQVRpig1NZ9F11thSfqzR4K/0bNPd3NAu6SciUWC+uKVh4db1KK8TLbY2Irw7dq/xuSRi5O6KGB7nnaFriJy3HoSdx9jdjyqlMln8tCZqzHWeYtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d0DXuSZz7J3hDj8alCfa8UGhoRpJjXHp6M2uGEP/WTo=;
- b=WjCaeCJw7UFvhbX39dAykZOVJw2QUnBAnrZmeiZ7j/Z2laq3jlP/Zz+ulgVjgypxPf7VCiLl38+X/irKZnMCk7eEeDd6KUmt5OjxO8fJpv5veJjwT2EuTpXWSHts6hp/vh5UtmIjvir6t984NRtnAcT4tlSXOMjgz11caC42/dDV/vmWpamgJU91vmCYiRtGf6nSAM2cIagh1rrTSRAjaKxKUq4Ug850gZhw6R76b0/k6HZGf8YfOjILcJ1DIjm9X1VlNt0WandlTnZE/TpSgeV0XL+ahrWAPRIULp7RGmm509RjevP2WoEFGw0EUEz6pCOCCVIJjOJb6tkkMLzW5g==
+ bh=g5Yhnq1CrgWRNWDycK2/PKGzpBLrJkh/AlhvZex5VHY=;
+ b=uAR6HK3F/qDBQc3CAOUL6ryffnt2ekXF/cq1XILFovD4/fpDgIG8uD2yHGO06CNPL98HSsu4Ouiub4+Yr3zN7iAhWtigVGk4zHUhMIRrQ9OcLnf92wWBNDJ+hE9W1jBIS20OdreEAaf5X+fJ+DRuYabd93ZAqCoSqnW4Yp4N/YuS6SrYF54POPTCqd4FNQn4OWMc21IARHPGpKOKA5aJMJ63ywo9xOjBol8oahEyrYTtAbVh11tsz4USmh7zFsALMnARS8NBgUgF2UKeVtEgooQQpbranVtnBgiYCgXNRz32aB6RriDZ+mJE+rh95H/Hvyq14WMVi/DZEXl0EtWpng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by MW6PR11MB8410.namprd11.prod.outlook.com (2603:10b6:303:249::17)
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=g5Yhnq1CrgWRNWDycK2/PKGzpBLrJkh/AlhvZex5VHY=;
+ b=ZhnAYIZWPQBJODurJvhB66U5kNBvQWsC2QcSCln4VhchzWOsqm29DAejxHV2sUb8MZ9zJtNkYr6ieFqVczqWp6Za3Zsm/O2jXzazUnE5iZFIibZ7YnJ4gki8gz4wU4m23jafwyLOUn9dtg9um3RMKUBvjO3LJ1pHgQBCD26hubU=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by PH7PR12MB5686.namprd12.prod.outlook.com (2603:10b6:510:13d::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Wed, 10 Dec
- 2025 17:08:41 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::9e94:e21f:e11a:332%7]) with mapi id 15.20.9412.005; Wed, 10 Dec 2025
- 17:08:41 +0000
-Date: Wed, 10 Dec 2025 09:08:38 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: <phasta@kernel.org>
-CC: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- <vitaly.prosyak@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>,
- <dakr@kernel.org>, Boris Brezillon <boris.brezillon@collabora.com>, "Lucas
- Stach" <l.stach@pengutronix.de>
-Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
-Message-ID: <aTmpFgeDsyq0a9vK@lstrano-desk.jf.intel.com>
-References: <212ecf88-b175-44cc-af3f-7371340ed480@amd.com>
- <aTdFgVM5s/H5tc4G@lstrano-desk.jf.intel.com>
- <b0781c7fd90c51394ec60faa71222fc3af06bb0c.camel@mailbox.org>
- <e99a2e97-3058-4501-ad22-457ede493a59@amd.com>
- <3e780e52dc0a7f1267e814c895e9d5e840a8c913.camel@mailbox.org>
- <d846a1dd-a705-410a-a043-ffae43bada57@amd.com>
- <aTjTucrVHe8TR/gN@lstrano-desk.jf.intel.com>
- <0508680962030eb0f858890a3183a545126614c9.camel@mailbox.org>
- <8ceb06b4-5f56-471d-91f6-a6ea6733e9a8@amd.com>
- <b0e9af12b924e09c0006f0a3068aca3e4ea6fc30.camel@mailbox.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b0e9af12b924e09c0006f0a3068aca3e4ea6fc30.camel@mailbox.org>
-X-ClientProxiedBy: MW4P221CA0030.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:303:8b::35) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ 2025 17:22:31 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c1d5:bb14:abc3:7fd1]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::c1d5:bb14:abc3:7fd1%4]) with mapi id 15.20.9388.012; Wed, 10 Dec 2025
+ 17:22:31 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Hung, Alex"
+ <Alex.Hung@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
+ Robin" <robin.chen@amd.com>, "Chang, Jack" <jack.chang@amd.com>, "Huang,
+ Leon" <Leon.Huang1@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Chung, ChiaHsuan (Tom)"
+ <ChiaHsuan.Chung@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Fix 64-bit state pointer passed as
+ 32-bit GPINT response buffer
+Thread-Topic: [PATCH] drm/amd/display: Fix 64-bit state pointer passed as
+ 32-bit GPINT response buffer
+Thread-Index: AQHcaaG1IJZ1sVmQwUmscbA9f/Vm/rUbH5OP
+Date: Wed, 10 Dec 2025 17:22:31 +0000
+Message-ID: <CH0PR12MB52844E92F105DD3815F34C7E8BA0A@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20251210065319.540578-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20251210065319.540578-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-10T17:22:30.870Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|PH7PR12MB5686:EE_
+x-ms-office365-filtering-correlation-id: 08747504-64cc-420c-7b45-08de3810b379
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|8096899003|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?nzSy0blr04FBcz9DNFcB9n2Ymp1ZRLWtR/QL6zeJl6MHBDJ7IzzifOXTjdHt?=
+ =?us-ascii?Q?tNGoviDkCl/BfjESic9CNeilkwc9m0xlmh1BVmRwW7+JnackFYYRnJIliu1z?=
+ =?us-ascii?Q?G/wEPv9tq9GEylPJjePm3tzllCMVswACvj8tEiN0zL8M5xmwWcTXojJ8o7z2?=
+ =?us-ascii?Q?ARVUjbNQXzrz9E1SCwOBb6w/XNsKdMhnrQQof3i6JDfSBZhEUFtHp0zwskl8?=
+ =?us-ascii?Q?MglWfJfkfzB0EdBMmmMAjoprj70CYeN9XdJ38FI7d2OIK0l0SWFVT4X3s5y6?=
+ =?us-ascii?Q?oCvDEs95uzLCmd8/Uyttjnqtt+tM/6AQD93wg2+NPkD8g55lyDtPP5Y+Kh3s?=
+ =?us-ascii?Q?0Ik1N2+fZfqt048d6EjB6h9dG0Ge26Sx2viQ/kp/LodgHBoYeisSpRL3/PPR?=
+ =?us-ascii?Q?JoNkWN8/L3oN0R0o/DP/btGJ0PZv7FCwMrnYJDYxUaivyk67ILbnrxgm8N5K?=
+ =?us-ascii?Q?0mltBAnvBNtNxQw2OrfPVtSuSntYx/h1VkHN0QTQHrpFnjKzMpl1om2qJsg7?=
+ =?us-ascii?Q?0GhoJMoCUsY+tscIc4Yeqd8IIgeqvm6RcixfqhC05MK3j2f6TeynvErSRnW5?=
+ =?us-ascii?Q?qTj/fzz7PgrVvWp90BT0R4dcmGgqR4dXA3Qdj4iWNvUHUIz4s0lp7G2Z1pqE?=
+ =?us-ascii?Q?Z8MmVkvQtUYmVDaLbLFJj1N/0KROkpAUS8GM9rkzZ4Mtcpg2vYH6gKZQonfT?=
+ =?us-ascii?Q?vLT6nopxJAh/9UOta1s2uDJcu6g2lFVteIB4EwiztNn+p7BDMqMX/JRMbnxr?=
+ =?us-ascii?Q?1OIyNvc0YlmHahrJXCOCot7ReX7KsTUPiE7OlCFvGxDVdTKFKKgedSo9aw21?=
+ =?us-ascii?Q?X4qCGalLtkqZ0wEilLfgvsPbMjWrO3/RdQ4eW6lj3qSUNXFEUPoUwXTyBIpu?=
+ =?us-ascii?Q?748nnKZ4thBGu2dk+nQg+sS6YLAzQsgRyMtcnP0hQtfG7/shHZTGDytyfaJq?=
+ =?us-ascii?Q?pF7qAqewirQyfmpMdLVqK+DeuR5LvrsqZWFCIdz/rjltTqo8a4AoHGXFiiiI?=
+ =?us-ascii?Q?1QU8xuKubmrsV0Jnjjh+bDYgqKot3UsgKB5VB6SDftumNvsW4FEPPgGmIsWG?=
+ =?us-ascii?Q?UsaucAug8MvRfVoZ0emTrNPZ6sEcHpT+wswh8nr1bItJKj9xUM9XyuURTHHc?=
+ =?us-ascii?Q?BPfdngpQu5uIsUFajIohTiKXraXGPMMzfWmGzgLTb+Re6izZKTuJU9FllRmB?=
+ =?us-ascii?Q?OK/mCLua1/aiG4D/x1nC+Ef2TU1bFhK384rMkY/kBW1uK42nHp9FWsiXpcYQ?=
+ =?us-ascii?Q?Y5oTqXBa+hVPs/M/vFx9KpMcgpYtFXnAe/o+dBwqjub8G0Klc5sx+fz7Y62F?=
+ =?us-ascii?Q?Lty7uprawk5DMbw473aIAvtfVQRi65BTe8PH6iDHeGZvOf9j8PLimRhkYPgq?=
+ =?us-ascii?Q?9ws8yi4sF9TbnQDlJ1lgsoADdLxcXuhdPC3FV7xbvbV+LWoiJnwaCIOjY1u8?=
+ =?us-ascii?Q?YGk7kcox0OtrNBwVxpxmsJAThnPxJsZJvC2dMMUqsvCArCfcnTg6/RzrDlKv?=
+ =?us-ascii?Q?8G00WVxO230TRXXEaVi5D7Ac2CzCEwE6Ka0d?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(8096899003)(7053199007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?luNHzPCFqEWoqOrp4ZWAV45aydTa0J38Sy1bbYxVBtnEkAEwS+7EmKsmP5so?=
+ =?us-ascii?Q?RYdaynImhCX71McpszAtNT8ygdsQxGa9xv0bYxzRguK1ZOZoI+p3EfHC2gfn?=
+ =?us-ascii?Q?huOSPue3uQ/q1wMFCB6VcrexUV1EemWCFLdmz2zP7w2wBj6FLSgxJQ2UBckt?=
+ =?us-ascii?Q?4gis4EBZH9ScwfIo7H4L36YFEDWooZkWg2J9j4Ocsp3tDgsMPLlGhcNFRgVk?=
+ =?us-ascii?Q?hTsJ4iIj2h3TxsN9gkqqRzu2IR0h0UGqPxIYHBHQzPF8Ss890O6/NMs80bLM?=
+ =?us-ascii?Q?q5FYmJTBk/T9H9dxMB6B9eMmLeudaxrYYB4M0qoTUydnGTzp22Nx0foRwZev?=
+ =?us-ascii?Q?nW1gC27BehlIbPEEg+oekdGKnbh/4KfGXY3etHWznrqdvCKm+4FR1gScv+pB?=
+ =?us-ascii?Q?wg+rxInNJa11MZyQymB40+NYQiMgjPiBF++W0I/ssfdXyOXQzR4a7kpN7aVy?=
+ =?us-ascii?Q?0DqXzH1LoGgS4RYcWMwCtIqAMBejExr0jSfKzZNecz30MIz9yr/5MC+qtbou?=
+ =?us-ascii?Q?F5JW56tAUdtwuWRFPOsoKQcxfyClSqs0gwLcjVCKsOBlhTSSENK3d7Xv0EKf?=
+ =?us-ascii?Q?LlxebI6RRIEK4HGMm/R5NFeTy/6qCTqvRnTdgXWggstl5q1m+vik+Z6n+fV6?=
+ =?us-ascii?Q?h1ekQVbau6nV05eSiKpjJ1/HwE9vdV53iGSu6NCEHMjEU45DpA7o5LBgmtnH?=
+ =?us-ascii?Q?cwy7Sc9mooxkyBtN1om3qsN9uiBmhglU+1k7+AQUbVhmbfVw5Wyuv4444oEt?=
+ =?us-ascii?Q?ndesv2JZZkN0bPD9zfJiWNViSDo6XmZnQ6U9KHzpFzWLz2QisXajIGe999S+?=
+ =?us-ascii?Q?5KeCV7AKa2VwMP1zwCCaYuWlF7BXa7g6jRJC/NhbvOrp0qwDBWEqqNskqL/e?=
+ =?us-ascii?Q?oNzlsGjeTGAVEafLqQCQPaJIYAtBGwynXM05POhsJUTTQD9CBjcCZNif3SVF?=
+ =?us-ascii?Q?/dU93WWb52mUUMouprHiUFQHu7GN2sJ7RQn6QbSbaFfhEGIV7j9R5VIUAgbC?=
+ =?us-ascii?Q?pxUgebtBYvLsbuEO7PCtSeiePvpmaYdtAIh1d9S2z3f7/4Y8leVEDlmncOk6?=
+ =?us-ascii?Q?24eno4LrsQfFsXoqVSqCLlrLMJjzw4mHPPVZDl7UGhKT3wJ0LflyORDOYF+b?=
+ =?us-ascii?Q?Bz9wHrX6GABauiQKaN1/j/Z0WZYl/nqnj+2G8mERg0tPx6R6aGM6ZwN45yrZ?=
+ =?us-ascii?Q?CZyJ4xDJ8ZaFWTALjdcpHhqF0ztCeNt25JMEfLm8xgE1s1s48wejO2819b2M?=
+ =?us-ascii?Q?6d7eDQR5WVuawgrhEgO+r4RFQallTf6Iw90/pnZZHfvbSFXWVlr2BJsD60aH?=
+ =?us-ascii?Q?GDAbYhmbIh3PL7t7/tSh9E+xvgjo3+/52uRWNm0VdSIAVgfVxGNXaJsLz2TS?=
+ =?us-ascii?Q?7lZBIbUOriLZM5bTf9TF4U+CVTzIs53ImmPnJHP/AkdiGxIhJpFMrct1zqUK?=
+ =?us-ascii?Q?dlzBFaEO2nue153a9L36jH+B4RBnTjenMEhhYxPX8zTlpPTaDnW76Gwq01q7?=
+ =?us-ascii?Q?GAI7rWVvTal3Kn8vHrnDtjdLeQrhT8MwjNFXxXlEVDlq0ZzItodG24XVUM3+?=
+ =?us-ascii?Q?a7+764IBeYJV0Ibn+V0=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|MW6PR11MB8410:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb5a2792-7818-4594-4fa5-08de380ec4b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0dyUWo4TU44OTNwZWtMNTRxdWNrS2JpYVQ2UC9qK3pnWlRhTDR1OHdsdkdR?=
- =?utf-8?B?MnEyb0lGOGprdkZsWkpLZUhUTWp2YkwvMXQ3UCt2WW50VldZK0cweHpKQlJu?=
- =?utf-8?B?U05sb2UzN1JucC9uRk5aUlRhSXMzb01Bd2ZPMlo4WEl2aXQ1cElwcGEyZDRH?=
- =?utf-8?B?R3lraEZHTXJZdmtlQ1BiQVFRVjZnckpqclRoOTE3QzI2K05NdmRidmFGWjla?=
- =?utf-8?B?MEJlcW80MEd1dnhyUXpuMHdiRElOOENQWE1yanRPR0NNMTh2clJlZklQZ3Ir?=
- =?utf-8?B?T1BpSEhZdjdRWGtkN1RhNXdGYW1LcnVrOHE4OGNvaXBJM0hBR0FvSGdxSnli?=
- =?utf-8?B?TnFpRnZtKytuVVZiWGpSdEs4S2RXb3o0QjhCWWw3dzF2SmpvRnVhZVYzbnl5?=
- =?utf-8?B?V0E2UjhsTW9YNjlnbGYxSTJOS0xuZHM0UEQ5RXl0a1paZm5LY2MrVlh1VkFL?=
- =?utf-8?B?ZU9ibllYZXNTd3VvMUl5UVFzbTY5TFRCc3J6N3M5S0ozRkpxSjh1SVVsRVd2?=
- =?utf-8?B?Z3Rnd2FoQU1LU0haVHNQcnVFSHR5cUFsTkNTNjBpbExZdWFrTzVzeDFHM2x4?=
- =?utf-8?B?bFdRckl4QVFTK0xUSXA3dmhlZXQ2OVVUUE5wRzF4dHQ1aVgxalNuNVhJNXlo?=
- =?utf-8?B?Vk5EaHlaaXBpQ2pvV2RCdFBpZzBWeVJENU5sdTlUNEV2V0cxakdVenZsTWlZ?=
- =?utf-8?B?MjdSV05NaVRsVTA4cHVCbTR0RkxNTURNcUx6bnd3aTd4Y2VUcm14ejM4WEdF?=
- =?utf-8?B?ZXZHQml4MzcwS0NtcmROODF6RjcxRXB3V3ZDRXg1NnlvQ2lLSm1ncTBQZFAv?=
- =?utf-8?B?MmJvK0tnQlludWZXbEVWWXd4eWNLS0NvSDFDN09wNEhKNGtrdExOeWtsMmdn?=
- =?utf-8?B?dEdMU0lpa04xczN4YjVMOGVmRDFGN1ZlamQ0cXhjQndzUkJuYS9XR0dGWk5E?=
- =?utf-8?B?b0Q2Y3htRTNlNkRuZE5WV2pVbUFPNFI0YTJmdlRseUVVQVIxazZBbXBua2h4?=
- =?utf-8?B?WU9TNnlVL2xzeFNQOWR2U0piUHR2ay9vSGsrd3lqTVI4QXBSK3R6UTFBbjVH?=
- =?utf-8?B?NFNsYTVZbUx1NzVQdkt5ZnBMeXNJNlFHUWNobTgvNnFHNDdoai9IQWc3VTJJ?=
- =?utf-8?B?VHVLMkl5SWhNM1J5L2dienFGdzRjQkpnRk5tc1B5eVJrOWdaVFVwWXRSUWVq?=
- =?utf-8?B?Y2c4cldHTHBRUlB3SVdvbmFEbWRlYzBlMmd5M0JaZ00vNnBUTHhFbkRQekhl?=
- =?utf-8?B?d1Bndk8wcDBvZXM2dGNrUDM1cmVzTkpvdjBzK1ZCcW8zaHJZampsdmZDbE5U?=
- =?utf-8?B?bWY5OERsMExnQUtsMUMzR215ejhuMUkxMmxJbWc3bDdFT0FxVDZDV2dsRTRl?=
- =?utf-8?B?TzB2QjJuSHoxM0JkQ0NSTjh4YkNaRWQyRVUrNnB3WHh6bEw1bGdwb3pLb1VE?=
- =?utf-8?B?OEZsQUR5aXJuaEczRnhJdU9NN2VpNXBaRkdtZTFYc3RHcTRlcEw2QTRYODNq?=
- =?utf-8?B?cFBLRjFrWXBrTnZMQi9VUDBmekJFZnNZckZEb2w5RWhCSFNFSy83K2dSSXhy?=
- =?utf-8?B?dzdpbzhVZnRYU1ZwNTFVbndqZUNGV3pRSFRLb3pKZ1BWbGp5UzB0VFIzU0JW?=
- =?utf-8?B?aExFS2RYazNiNnpCb05OVHE2VUhQL3V2b2tqcFpra2pUVzRHQVlXOEQ1YnRW?=
- =?utf-8?B?d3I5ZjRwcUl4bGNsZnViYittbFBqL3ZDdE1OMHp3SGxyYjcvaTlTVS9UYUFG?=
- =?utf-8?B?dmZHNVBnaDh0K2thTGVKVDhRbkVkbmtwbmpTY3k0ZTJTeGpsYlZBcjNVbGRT?=
- =?utf-8?B?QWdkZHU3ZUVhUXBRMU8yQ0orQWdUMHZuWGZhazU5d2RZRFJsUmJJdE0wWTUw?=
- =?utf-8?B?b3ZoMEpNWFluSVozTitMZEpQeWRDTk96eWFSUk5oeDRMNk04ZG5vcDF2NjFs?=
- =?utf-8?Q?ySeS5X8UklDhS31yMqHCxQfcfLU0Ouas?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZTdFWUJYT3lyWlRQZGI0VlE4NW9PSUxEVW9NdnVXMEh0ekFhNDltcnRtZWFY?=
- =?utf-8?B?aUVxNkFEQXdGWXBtR29PQmZHZ3BvN1FQMStweXZVSE9YMCtYQndxVjQrYUUw?=
- =?utf-8?B?cDBDK2plT0dvOFZIY2dwaEcvUWhPVFMyL3pNNGtNay8yaTJBVG1MM3gwNHVi?=
- =?utf-8?B?djNDSjY0U3I3Qjd2QS85N3d5aTVjVVNJYnh4M25lVHFmblpGOHVVL2VTN0ZU?=
- =?utf-8?B?SzRNSGJzRHN4VEFNWk1YaXhQMlJSQU5NSHljSGpIanh0SG9hK2NnRHdqcm1k?=
- =?utf-8?B?RDBlcVNSZnk4NjZYR2J4aFVjSndzWkNkd3RsSEF4ZkpuM1lUOGVaQTdmY2Nr?=
- =?utf-8?B?OXNZU1NKM09MeGZQN251RStNWnlpOXZsU1p3OUtGNkdNTkNvVUxzMGUzL3lh?=
- =?utf-8?B?aEFCdDRieWlnNnltWDR3VzdDcHQwVFFwem9HSUhxaVNzOWFsaE5KdEUyT0h1?=
- =?utf-8?B?OWk1MmxVMzMxcS9nRzFRQllRVFFYL1hDZ1RBTXFQUlpVeU5QQUF0TWhCNjZx?=
- =?utf-8?B?WDJHT0NmODhONmJ6Uisyc3FEUHU0RTUwbUhCUG9kTS8zNEgyT20wMmZLTy9l?=
- =?utf-8?B?TlhMQmtKWHIvd3BIUTRqb20xK2ZpWk96eitjbDhuVmRBY0tnNFEzNnRqRXk5?=
- =?utf-8?B?c1hqR1JCajhCa1QwUHdUUXkyMDFXazVnc1BTWlVPYUlISkZXbHBUVGNGTFlM?=
- =?utf-8?B?U2hHNjRmbjJVVW5zQThlYkVZZ2ZFUGFmUW03czlaZ1h1MVRjbzFnRERVYnJo?=
- =?utf-8?B?ZnR3MFRLSXZkSVNmTXVyL1ZvR2ZscGprZTlpRnkzNlIyWmJXMS96RTdUTEw3?=
- =?utf-8?B?MmZiREQvRlBrRUdEM2ZqbmpFaEkzVUw2cFI2aTZsWkMrM1ZFMzFIbHk5cHhX?=
- =?utf-8?B?YzZBZWRjWWN6anNrbGJBQnhhMlRrVUZLbzdtU3R5SVZCNWEyL2svdGNBQUZX?=
- =?utf-8?B?SXkwRVlMcGN0bGVEZkUzeGZSWFhFTG5UT29BUTFWWmVmRlRqUXk2T00xWkU5?=
- =?utf-8?B?eVZFTXlRWTJWWEhTUHd5MnVZbzVFZzE5eEtXaHNyM0FEMWR1UEpwSkkvb2JM?=
- =?utf-8?B?MkZCeUxmNWV1V3lPQmYzNFZLYk9QRXJDSWtjeGIrY214dk9xM2UvcDRaRno1?=
- =?utf-8?B?aWhXaFNKdEZDNHh0Skxtd3lEUGhnYVZqVmJGaTZRTnpONU5tUXFabDM1dHNl?=
- =?utf-8?B?L2YwTVFjUGgvRmFwbVE0QmFEbzI2SXNCYU1Sd0kvSE53RVFDNisrMC9aL0JZ?=
- =?utf-8?B?RHgwQ3pzTVczbVlpQ0pucTNCa2pjNStnTlJOeTllVTFEVlVBeEdHOXo5NjJh?=
- =?utf-8?B?N0h5QWp6YU9xQUdWVDg3MXlKVFpvUEtLbURUVjNaZGFqOGNMV2hlclNjcGpY?=
- =?utf-8?B?UG5YalluUVRXaDJ0aWsrbHUxSUNrcGU1N2ZjVTVDbXk2V1JOTFJSbXZQVk52?=
- =?utf-8?B?RUZ2MURpN1YrY1RaTlBOK0FQRlRQVk9mOHNoMXVhNnBiTkhEcWpsTlJBNkhy?=
- =?utf-8?B?aDBZTk5PNlAvOXNucGxYMnp6WGJzY3ZoS1hRRGhjSUJ4YjZpUlBDTU84YmJv?=
- =?utf-8?B?a0VqaWlPd2d4S1J0cllabDdxbWNtYWJvbXFoeHBVdTNqMzZNblhEWE1lWmlo?=
- =?utf-8?B?OGRncUw4Zks3NGhsYnpLcnRPL1JuakFSUHQxdWsxbVQ5Y2hKMWNWZVl6MTBo?=
- =?utf-8?B?YzRiR2xDUTRKN2dGZ1BxNDVFekVNY0VkS1kzKy9DLzVJYURyMGlXeEovVHBr?=
- =?utf-8?B?V0RIUGhkeTFNZXNUVmlYYXZkcE53a0wydHBSbDgzeWJCTWpVbHUxRFVFMXlB?=
- =?utf-8?B?WG5tc04vdjBYS3FiWjZObTMyWVgyRklrMjBvVGxoQXlFSjV4YXIwZnk1Qk9T?=
- =?utf-8?B?QkcwNlFMMXRpcGtSbTFRRk82TmtyLzBSYWFhUnVrOTUvaS9PYXpZQ1UvTWp4?=
- =?utf-8?B?ODRwbTFtUXhlK25kcUo0K0kveENkUXUrUHVOSkZuT05qb1M1Q2xkdFFlS0RG?=
- =?utf-8?B?NjlDODJ5RldXWW45MnFsT3daRVBJS1oyVlB1ZDU0Wk13bUxEdU1kd09uUmZY?=
- =?utf-8?B?MkZtQ3ZRc1FlUlVmblJJdWR5ZlFtQ3F6aXh3NFVoOHppWUorb3paNFp4anVa?=
- =?utf-8?B?VjhIdzFCTnZHTmZ3bTU3R1lMbGlyNFFpZ0FIR2c3cENiQ1BsRS9TYXVyVSt6?=
- =?utf-8?B?UlE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb5a2792-7818-4594-4fa5-08de380ec4b8
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 17:08:41.5936 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 59m7fqP5GCIymXgzTrUn7l6MFJd9rD/GFi4hG5TgcONC2s/XiWWkcjqoTGr7aCRb5XYROuGvQv1J0dPn/ld59g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR11MB8410
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08747504-64cc-420c-7b45-08de3810b379
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2025 17:22:31.4876 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8Q3Z7AWwnfoQczSc2Vge7LRO2qkeHmVZan2FLY1N9llT6lFclsldJW6tvPb9uAZIGZrqPdj7nNs7/hBpKBkYKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5686
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -206,339 +161,328 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 10, 2025 at 02:06:15PM +0100, Philipp Stanner wrote:
-> On Wed, 2025-12-10 at 13:47 +0100, Christian König wrote:
-> > On 12/10/25 10:58, Philipp Stanner wrote:
-> > > On Tue, 2025-12-09 at 17:58 -0800, Matthew Brost wrote:
-> > > > On Tue, Dec 09, 2025 at 03:19:40PM +0100, Christian König wrote:
-> > ..
-> > > > > > > My educated guess is that drm_sched_stop() inserted the job back into the pending list, but I still have no idea how it is possible that free_job is running after the scheduler is stopped.
-> > > > 
-> > > > I believe I found your problem, referencing amdgpu/amdgpu_device.c here.
-> > > > 
-> > > > 6718                 if (job)
-> > > > 6719                         ti = amdgpu_vm_get_task_info_pasid(adev, job->pasid);
-> > 
-> > WTF! There it is! Thanks a lot for pointing that out!
+--_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-No problem.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-> 
-> scripts/decode_stacktrace.sh should be able to find the exact location
-> of a UAF. Requires manual debugging with the kernel build tree at
-> hands, though. So that's difficult in CIs.
-> 
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-I wasn't aware of this. Usually I do below after rebuilding kernel with
-debug symbols.
+--
 
-gdb <offending_file.o>
-list *(<last stack trace line>)
+Regards,
+Jay
+________________________________
+From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+Sent: Wednesday, December 10, 2025 1:53 AM
+To: Hung, Alex <Alex.Hung@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd=
+.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
+M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Chen, Robin <robin.chen@amd.c=
+om>; Chang, Jack <jack.chang@amd.com>; Huang, Leon <Leon.Huang1@amd.com>; L=
+i, Roman <Roman.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Chun=
+g, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>
+Subject: [PATCH] drm/amd/display: Fix 64-bit state pointer passed as 32-bit=
+ GPINT response buffer
 
-Here I just saw 'last stack trace line' was at the very end of
-amdgpu_device_gpu_recover and happend to spot this.
+edp_pr_get_state() incorrectly casts a uint64_t * to uint32_t * when
+calling dc_wake_and_execute_gpint(). The GPINT path writes only 32 bits,
+leaving the upper 32 bits of the u64 output uninitialized. Replace the
+cast with a u32 temporary and copy the result into the u64 pointer.
 
-> > 
-> > > > 
-> > > > Which is after:
-> > > > 
-> > > > 6695 skip_hw_reset:
-> > > > 6696         r = amdgpu_device_sched_resume(&device_list, reset_context, job_signaled);
-> > > > 6697         if (r)
-> > > > 6698                 goto reset_unlock;
-> > > > 
-> > > > The job is likely added back into this free list here:
-> > > > 
-> > > > 6676         amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
-> > > > 6677                                       hive, need_emergency_restart);
-> > > > 
-> > > > So free_job runs and 'job->pasid' explodes.
-> > 
-> > I've read over that code like a hundred times and didn't realized that the job is accessed after the scheduler resumes.
-> > 
-> > > > 
-> > > > Save off the pasid on the stack at top of this function and I suspect
-> > > > your UAF goes away. This won't untangle this hair ball of code but I
-> > > > believe this at least prevent explosions.
-> > > > 
-> > > > But let’s dig in further—amdgpu_device_halt_activities calls
-> > > > drm_sched_stop (Xe just calls drm_sched_wqueue_stop for reference). This
-> > > > function stops the work items, then adds the offending job back to the
-> > > > pending list, iterates over each job, removes the CB, leaving the job in
-> > > > the pending list. If the CB can be removed, it removes the job from
-> > > > pending, maybe calls free_job if it’s not a guilty job, and if it is a
-> > > > guilty job, defers the free_job to the timed-out job so it doesn’t
-> > > > disappear. Like WTF?
-> > > > 
-> > > > Oh, it gets better—amdgpu_device_sched_resume calls drm_sched_start,
-> > > > which iterates over the pending list and reinserts the same CB that
-> > > > drm_sched_stop removed, then starts the scheduler. So the guilty job had
-> > > > its CB successfully removed, and now it can immediately disappear—also
-> > > > like WTF?
-> > > > 
-> > > > Free_guilty is clearly a hack around the job not being reference
-> > > > counted, and it doesn’t even work in some cases. Putting that
-> > > > aside, I think calling free_job shouldn’t really ever happen in TDR.
-> > > > Imagine if drm_sched_job_timedout just took a reference to the job like
-> > > > normal kernel code—free_guilty could be dropped, and immediately this
-> > > > all becomes safe. Likewise, if the run_job work item had a reference to
-> > > > the job, which it takes before adding to the pending list and drops
-> > > > after it’s done touching it in this function, then run_job and free_job
-> > > > work items could safely execute in parallel rather than relying on an
-> > > > ordered workqueue to keep that part of the code safe.
-> > > 
-> > > I can tell you how I design it in our Rust jobqueue:
-> > > Drivers create jobs, and in submit_job() the pass ownership over the
-> > > job to the jobqueue – IOW after pushing a job, a driver can't access it
-> > > anymore. In the run_job() callback, the jobqueue either passes the job
-> > > back by value (ownership) or borrows the job to the driver so that it
-> > > can be copied (this is done so that the JQ can hypothetically do
-> > > resubmits).
-> > > 
-> > > This way there is no need for refcounting (in Rust / jobqueue).
-> > > 
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_cont=
+rol.c
+    1448 bool edp_pr_get_state(const struct dc_link *link, uint64_t *state)
+                                                           ^^^^^^^^^^^^^^^
+    1449 {
 
-See below. If you need to resubmit for any reason, where will the
-information for resubmission be stored? Likewise, if you want to drop
-additional references on fence signaling, how are you going to retrieve
-that?
+    ...
 
-> > > Maybe the core of the problem is not so much the lack of refcounting,
-> > > but the lack of ownership rules. Why even would the driver need the job
-> > > still after it got pushed? It should be fire-and-forget.
-> > 
-> > Yeah, that sounds sane to me as well and is exactly how it was initially designed in the drm_scheduler as well.
-> > 
-> > The job is basically just the information the driver needs for the submission which it gives to the scheduler on push, and the scheduler gives back to the driver on pop.
-> > 
-> > The full execution time is represented by the scheduler fence and not the job. And the scheduler fence is reference counted exactly because of the reasons Mathew brought up here.
-> 
-> Would be interesting to hear where Xe would still need the job. If only
-> the backend_ops give a driver access to a job again after it got
-> pushed, then it should be safe.
-> 
+    1457         do {
+    1458                 // Send gpint command and wait for ack
+--> 1459                 if (!dc_wake_and_execute_gpint(dc->ctx, DMUB_GPINT=
+__GET_REPLAY_STATE, panel_inst,
+    1460                                                (uint32_t *)state, =
+DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)) {
+                                                        ^^^^^^^^^^^^^^^^^
 
-Xe needs a subset of the job after submission to handle tasks like
-resubmission after a device reset. It’s questionable whether we need
-this, as it shouldn’t happen in practice—only individual queues should
-fail with a working KMD and hardware. It likely doesn’t work anyway if
-queues have interdependencies. This is really an opportunistic approach.
+The dc_wake_and_execute_gpint() function doesn't take a u64, it takes a
+u32.  It tries to initialize the state to zero at the start but that's
+not going to work because of the type mismatch.  It suggests that
+callers are allowed to pass uninitialized data to edp_pr_get_state() but
+at present there are no callers so this is only a bug in the code but
+doesn't affect runtime.
 
-However, we absolutely need this for VF migration resubmission. Again,
-this requires only a very small subset of driver job information. I
-believe it’s just the starting point in the ring, batch address(es), and
-a pointer to the driver-side queue object.
+    1461                         // Return invalid state when GPINT times o=
+ut
+    1462                         *state =3D PR_STATE_INVALID;
+    1463                 }
 
-We also build a reference-counting model around jobs, where the final
-put releases other objects and runtime power management references. This
-assumes that the job’s final put means the scheduler fence is signaled.
-Again, this is really just a small subset of information we need here.
+Fixes: f2429468b582 ("drm/amd/display: Refactor panel replay set dmub cmd f=
+low")
+Reported by: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Robin Chen <robin.chen@amd.com>
+Cc: Jack Chang <jack.chang@amd.com>
+Cc: Leon Huang <Leon.Huang1@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ .../amd/display/dc/link/protocols/link_edp_panel_control.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-So if we add hooks to store the subset of information Xe needs for
-everything above in the scheduler fence and a non-IRQ, pausable callback
-(i.e., won’t execute when the scheduler is stopped, like free_job), this
-could be made to work. We really don’t need about 90% of the information
-in the job and certainly nothing in the base object.
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_c=
+ontrol.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_con=
+trol.c
+index 0b05ee9f6ea1..cf06b9b62e1d 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
+c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
+c
+@@ -1450,6 +1450,7 @@ bool edp_pr_get_state(const struct dc_link *link, uin=
+t64_t *state)
+         const struct dc  *dc =3D link->ctx->dc;
+         unsigned int panel_inst =3D 0;
+         uint32_t retry_count =3D 0;
++       uint32_t replay_state =3D 0;
 
-This would be major surgery, though. I suspect most drivers have a
-subset of information in the job that needs to stick around until it
-signals, so this means surgery across 11 drivers.
+         if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
+                 return false;
+@@ -1457,10 +1458,12 @@ bool edp_pr_get_state(const struct dc_link *link, u=
+int64_t *state)
+         do {
+                 // Send gpint command and wait for ack
+                 if (!dc_wake_and_execute_gpint(dc->ctx, DMUB_GPINT__GET_RE=
+PLAY_STATE, panel_inst,
+-                                              (uint32_t *)state, DM_DMUB_W=
+AIT_TYPE_WAIT_WITH_REPLY)) {
++                                              &replay_state, DM_DMUB_WAIT_=
+TYPE_WAIT_WITH_REPLY)) {
+                         // Return invalid state when GPINT times out
+-                       *state =3D PR_STATE_INVALID;
++                       replay_state =3D PR_STATE_INVALID;
+                 }
++               /* Copy 32-bit result into 64-bit output */
++               *state =3D replay_state;
+         } while (++retry_count <=3D 1000 && *state =3D=3D PR_STATE_INVALID=
+);
 
-> > 
-> > I'm absolutely not against reference counting, what I'm pushing back is abusing the job object as something it was never designed for while we already have an object which implements exactly the needed functionality.
+         // Assert if max retry hit
+--
+2.34.1
 
-Well, oops. Having free_job called after the fence is signaled is how I
-arrived at the implementation in Xe. I agree that if we can move driver
-info into the scheduler fence, this could work for likely everyone.
 
-> > > > > > And my uneducated guess is that it's happening in amdgpu. It seems a
-> > > > > > sched_job lives inside an amdgpu_job. Can the latter be freed at other
-> > > > > > places than free_job()?
-> > > > > 
-> > > > > > > 
-> > > 
-> > > […]
-> > > 
-> > > > > > > It basically says to the driver that the job lifetime problems created by the scheduler is the driver problem and need to be worked around there.
-> > > > > > > 
-> > > > > > 
-> > > > > > My POV still mostly is that (with the current design) the driver must
-> > > > > > not use jobs after free_job() was invoked. And when that happens is
-> > > > > > unpredictable.
-> > > > > > 
-> > > > 
-> > > > This is somewhat of an absurd statement from my point of view. I have a
-> > > > valid job pointer, then I call another function (see above for an
-> > > > example of how drm_sched_start/stop is unsafe) and it disappears behind
-> > > > my back.
-> > > > 
-> > > 
-> > > The statement is absurd because reality (the code) is absurd. We all
-> > > are basically Alice in Wonderland, running as fast as we can just to
-> > > remain on the same spot ^_^
-> > > 
-> > > What I am stating is not that this is *good*, but this is what it
-> > > currently is like. Whether we like it or not.
-> > > 
-> > > The misunderstanding you and I might have is that for me jobs having to
-> > > be refcounted is not a reality until it's reflected in code,
-> > > documentation and, ideally, drivers.
-> > > 
+--_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I agree this part is badly misdesigned. In the timedout job callback,
-you’re handed a job, and if you perform certain actions, it can just
-disappear— even all the way back to the caller of timedout_job. That’s
-not great. Then we have this free_guilty mechanism to avoid it
-disappearing, but sometimes it still does, which is horrible.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"text-align: left; margin-left: 5pt; =
+font-family: Calibri; font-size: 10pt; color: rgb(0, 0, 255);">
+[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
+<div id=3D"Signature">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+--</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Jay<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHANMUGAM, SRINIVASAN=
+ &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, December 10, 2025 1:53 AM<br>
+<b>To:</b> Hung, Alex &lt;Alex.Hung@amd.com&gt;; Pillai, Aurabindo &lt;Aura=
+bindo.Pillai@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Chen, Robi=
+n &lt;robin.chen@amd.com&gt;; Chang, Jack &lt;jack.chang@amd.com&gt;; Huang=
+, Leon &lt;Leon.Huang1@amd.com&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;;
+ Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Chung, ChiaHsuan (Tom) &lt=
+;ChiaHsuan.Chung@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Fix 64-bit state pointer passed as=
+ 32-bit GPINT response buffer</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">edp_pr_get_state() incorrectly casts a uint64_t * =
+to uint32_t * when<br>
+calling dc_wake_and_execute_gpint(). The GPINT path writes only 32 bits,<br=
+>
+leaving the upper 32 bits of the u64 output uninitialized. Replace the<br>
+cast with a u32 temporary and copy the result into the u64 pointer.<br>
+<br>
+Fixes the below:<br>
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_cont=
+rol.c<br>
+&nbsp;&nbsp;&nbsp; 1448 bool edp_pr_get_state(const struct dc_link *link, u=
+int64_t *state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^^^^^^^^^^^^^<br>
+&nbsp;&nbsp;&nbsp; 1449 {<br>
+<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+<br>
+&nbsp;&nbsp;&nbsp; 1457&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do =
+{<br>
+&nbsp;&nbsp;&nbsp; 1458&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Send gpint command and wait=
+ for ack<br>
+--&gt; 1459&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dc_wake_and_execute_gpint(dc-&gt;ctx,=
+ DMUB_GPINT__GET_REPLAY_STATE, panel_inst,<br>
+&nbsp;&nbsp;&nbsp; 1460&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; (uint32_t *)state, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^^^^^^^^^^^^^^^<br>
+<br>
+The dc_wake_and_execute_gpint() function doesn't take a u64, it takes a<br>
+u32.&nbsp; It tries to initialize the state to zero at the start but that's=
+<br>
+not going to work because of the type mismatch.&nbsp; It suggests that<br>
+callers are allowed to pass uninitialized data to edp_pr_get_state() but<br=
+>
+at present there are no callers so this is only a bug in the code but<br>
+doesn't affect runtime.<br>
+<br>
+&nbsp;&nbsp;&nbsp; 1461&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; // Return invalid state when GPINT times out<br>
+&nbsp;&nbsp;&nbsp; 1462&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; *state =3D PR_STATE_INVALID;<br>
+&nbsp;&nbsp;&nbsp; 1463&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+Fixes: f2429468b582 (&quot;drm/amd/display: Refactor panel replay set dmub =
+cmd flow&quot;)<br>
+Reported by: Dan Carpenter &lt;dan.carpenter@linaro.org&gt;<br>
+Cc: Robin Chen &lt;robin.chen@amd.com&gt;<br>
+Cc: Jack Chang &lt;jack.chang@amd.com&gt;<br>
+Cc: Leon Huang &lt;Leon.Huang1@amd.com&gt;<br>
+Cc: Alex Hung &lt;alex.hung@amd.com&gt;<br>
+Cc: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
+Cc: Roman Li &lt;roman.li@amd.com&gt;<br>
+Cc: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+Cc: Tom Chung &lt;chiahsuan.chung@amd.com&gt;<br>
+Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
+>
+---<br>
+&nbsp;.../amd/display/dc/link/protocols/link_edp_panel_control.c | 7 +++++-=
+-<br>
+&nbsp;1 file changed, 5 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_c=
+ontrol.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_con=
+trol.c<br>
+index 0b05ee9f6ea1..cf06b9b62e1d 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
+c<br>
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
+c<br>
+@@ -1450,6 +1450,7 @@ bool edp_pr_get_state(const struct dc_link *link, uin=
+t64_t *state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct dc&nbsp; *dc =
+=3D link-&gt;ctx-&gt;dc;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int panel_inst =
+=3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retry_count =3D 0=
+;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t replay_state =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dc_get_edp_link_panel=
+_inst(dc, link, &amp;panel_inst))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+@@ -1457,10 +1458,12 @@ bool edp_pr_get_state(const struct dc_link *link, u=
+int64_t *state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; // Send gpint command and wait for ack<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!dc_wake_and_execute_gpint(dc-&gt;ctx, DMUB_GPINT=
+__GET_REPLAY_STATE, panel_inst,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (uint32_t *)state, DM_DMUB_W=
+AIT_TYPE_WAIT_WITH_REPLY)) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;replay_state, DM_DMUB_W=
+AIT_TYPE_WAIT_WITH_REPLY)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Re=
+turn invalid state when GPINT times out<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *state =3D PR_ST=
+ATE_INVALID;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; replay_state =3D=
+ PR_STATE_INVALID;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* Copy 32-bit result into 64-bit output */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; *state =3D replay_state;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (++retry_count &lt=
+;=3D 1000 &amp;&amp; *state =3D=3D PR_STATE_INVALID);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Assert if max retry hit=
+<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
 
-> > > >  The safe way to handle this is to take a local reference before
-> > > > doing anything that could make it disappear. That is much more
-> > > > reasonable than saying, “we have five things you can do in the
-> > > > scheduler, and if you do any of them it isn’t safe to touch the job
-> > > > afterward.”
-> > > 
-> > > Yeah, but that's drm_sched being drm_scheddy. Before I documented it
-> > > there were also these implicit refcounting rules in run_job(), where
-> > > the driver needs to take the reference for the scheduler for it to be
-> > > non-racy.
-> > > 
-
-Yes, agreed. This is my fault for not being more responsible in fixing
-issues rather than just backing away from these really scary parts of
-the code (e.g., drm_sched_stop, drm_sched_start,
-drm_sched_resubmit_jobs, etc.) and doing something sane in Xe by using
-only a subset of the scheduler.
-
-> > > It also wasn't documented for a long time that drm_sched (through
-> > > spsc_queue) will explode if you don't use entities with a single
-> > > producer thread.
-> > 
-> > That is actually documented, but not on the scheduler but rather the dma_fence.
-> > 
-
-spsc - "Single producer, Single consumer". So it is in the name.
-
-> > And that you can only have a single producer is a requirement inherited from the dma_fence and not scheduler specific at all.
-> 
-> What does dma_fence have to do with it? It's about the spsc_queue being
-> racy like mad. You can access and modify dma_fence's in parallel
-> however you want – they are refcounted and locked.
-> 
-> 
-> P.
-> 
-> > 
-> > > drm_sched got here because of gross design mistakes, lots of hacks for
-> > > few drivers, and, particularly, a strange aversion¹ against writing
-> > > documentation. If Xe came, back in the day, to the conclusion that job
-> > > lifetimes are fundamentally broken and that the objectively correct way
-> > > to solve this is refcounting, then why wasn't that pushed into
-> > > drm_sched back then?
-> > > 
-> > > > 
-> > > > > > To be unfair, we already have strange refcount expectations already.
-> > > > > > But I sort of agree that there is no objectively good solution in
-> > > > > > sight.
-> > > > > > 
-> > > > > > > > 
-> > > > > > > > Let me respin to my documentation series and upstream that soonish,
-> > > > > > > > than we can build on top of that.
-> > > > > > 
-> > > > > > > > 
-> > > > > > > > 
-> > > > > > > > P.
-> > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > 2. Move reference counting to the base DRM scheduler job object, provide a
-> > > > > > > > >    vfunc for the final job put, and document usage. Medium invasive.
-> > > > > > > 
-> > > > > > > I strongly think that reference counting the job object just because the scheduler needs it is a bad idea.
-> > > > > > > 
-> > > > > > > With that we are just moving the hot potato from one side of our mouth to the other without really solving the issue.
-> > > > > > > 
-> > > > 
-> > > > See above—I can’t say I agree with this assessment. I think the lack of
-> > > > reference counting is exactly the problem. I don’t really understand the
-> > > > pushback on a very well-understood concept (reference counting) in
-> > > > Linux. I would sign up to fix the entire subsystem if we go this route.
-> > > > 
-> > > > > > > If a driver like XE needs that for some reason than that is perfectly fine.
-> > > > > > 
-> > > > > > Nouveau doesn't need it either.
-> > > > > > 
-> > > > > > > 
-> > > > > > > > > 3. Move job (driver) side tracking to the scheduler fence and let it
-> > > > > > > > >    control the lifetime. Very invasive.
-> > > > > > > 
-> > > > > > > Thinking about it more that is actually not so much of a problem.
-> > > > > > > 
-> > > > > > > Let me try to code something together by the end of next week or so.
-> > > > > > 
-> > > > > > The hero Gotham needs :)
-> > > > > > 
-> > > > 
-> > > > Are you sure about this one? I think unless the problems around
-> > > > drm_sched_start/stop and free_guilty are fixed, my feeling is this
-> > > > entire thing is still badly broken for anyone who wants to use those.
-> > > > 
-> > > > To sum up this whole email: I strongly disagree with option #3, but if
-> > > > that is the consensus, I will, of course, support the effort.
-> > > 
-> > > 
-> > > I would like to discuss those topics with Danilo, too, who returns from
-> > > LPC soonish. Also to get some more insights into Nouveau and our use-
-> > > cases.
-> > > 
-> > > My suggestion is that we pick the conversation up again soonish.
-> > > Christmas is around the corner, and I suppose we can't fix this all up
-> > > in 2025 anyways, so we might want to give it a fresh re-spin in '26.
-> > 
-> > Since we finally found the root cause I'm all in postponing that till next year.
-> > 
-
-Ok, glad we found the root cause. I’m not as opposed to option #3 as
-stated—this was a bit of angry typing—but if we go in that direction, we
-really need clear rules, for example:
-
-- A job cannot be referenced driver-side after the initial
-  drm_sched_entity_push_job call, aside from a single run_job callback.
-  Maybe run_job is actually replaced by a scheduler fence input?
-- Drivers can attach information to the scheduler fence and control its
-  lifetime.
-- Drivers can iterate over pending scheduler fences when the scheduler
-  is stopped.
-- Drivers receive a pausable callback in a non-IRQ context when the
-  scheduler fence signals.
-
-etc...
-
-Again, this is a pretty major change. I personally wouldn’t feel
-comfortable hacking 11 drivers—10 of which aren’t mine—to do something
-like this. Refcounting the job would be less invasive and would make the
-existing hairball of code safe.
-
-Matt
-
-> > Christian.
-> > 
-> > > 
-> > > 
-> > > Greetings,
-> > > P.
-> > > 
-> > > 
-> > > 
-> > > [¹] The strangest aversion in drm_sched, however, is the one against
-> > > locking. Locks were only taken when *absolutely* necessary. It's as if
-> > > the entire code was designed by some gamers who want to show their
-> > > youtube subscribers that they can get 1fps more by changing RAM timings
-> > > in the bios.
-> > > drm_sched might be the component in the kernel using the most
-> > > synchronization mechanisms: Spinlocks, RCU, atomic integers, atomic
-> > > instructions, refcounting, READ_ONCE(), just accessing locklessly… even
-> > > Paul McKenney would get wide eyes here. The only thing we're still
-> > > missing is seqlocks and rw_locks, but maybe we can add those /s
-> > > 
-> > > That's likely sth we can't get repaired at all anymore.
-> > 
-> 
+--_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_--
