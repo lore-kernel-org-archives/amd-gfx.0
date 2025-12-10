@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC50D3C525
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 03:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B331FD3C525
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 03:04:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4520810E23D;
-	Wed, 10 Dec 2025 03:02:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51DEE10E64D;
+	Wed, 10 Dec 2025 03:04:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RuzYEiJP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D4nM8UvO";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012048.outbound.protection.outlook.com
- [40.107.200.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C352610E23D
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 03:02:50 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013012.outbound.protection.outlook.com
+ [40.93.201.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C868510E64D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 03:04:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c+Bn3OsTYITi0M2fFT41Cj5jG4tBNwPOpuZu9PhkzmRhMcutNz5UIbSyDxYVlc7v+14XahUpECsDnYGtaLjngBxToQhpeTldcIYb+gZy+Dtgcw4VMCG4d+ClB27jvUNps3fYXYj0MSZyPZhZsObOFNnln7wthKMwzRrZk+RYsLAaMmCwFES0VTARshiXZnWS6Ism5iYun/5yGyZIg05FeLw337D3nNuYYrvfL5lo6Xd/GkO9hRVtT+ape4VqIMv3OJY4AqYam3VjmG5Et21GMygFqQeVyNAEVcqtSsEuzS3rueaDeQStt+mPlwNRaqkhb9I+ksPGgroNVXDom+s61Q==
+ b=eKsCZAkHiMQI3m1+/LU5hxznlngKJTWWq/YrNfBXKWYX6ohdmAu3rIvEpitYfnjziRURWX6Udw8uAuogHzxOMST1j/ioVhL0ftTrMf+GS6Dy96crOYNgyHeG+gMhVO6gRtIcOPzQbj5ahVN2bJoD6c2ftD6PXyq1NNfgyk0O86GtzJttS4z/3sQtwI4mByVLHU9wYtPmlt6UN3yRutJOWeHHXwt9SLzXanBE45JFyVHXsTc3lp0O5100aeN4fDPfxqpRWl/8wmpW96vHOpeiWpHgLRXtRztCfZGPifOULD3LBFjc2t822jWqfxoj2msmaEFqpuMK3MCfuYGUNYUpIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O/xFi4LihZm7ucbUwOSQx6q+NK9HW9Rf2T4j0WOqEVQ=;
- b=iRrY2Zm2/19j6Enasoa9SKrjGkkcMXrfT9VCfscolMT9QXyVrQH8WBYEiIub1AcaZklLoEE/RoNETFTWQAepwFjymHJJUYAkqdeC2sMkjvY45/nfKvsrK+j03G4pSG7SA7LnHlNEAOO3rvEpNQFpRdocvnO93QexgTDHafEebG24qIg+L6MV0scMOEWeIG6wueEv7FHjWpvdB1gdh3E1lbWFVMvNyUEQxaFQuj4na88W/MN4yRKKd+h6Ktg+QREAsKBkRbuCNjK3Zl5r3zertQsQBB9+b4X0a+rfnF89vVbL3UtWq1bcMc2SP1M8WmwB+4/MXT8tl24/gxGXFxFRvg==
+ bh=BfUHlNVeEMs+gW+fM+CFRJqtmHExWZIdD81k5nmaTYQ=;
+ b=Xep6qQ68KArT9E9z+6El63qObIU7Z8LW8pyp2fs6fKKdwY4AyNZnkcPq2MdE9651AFOatIbGBxgTxIFIJP+sizBJRoiGgrdctl6EvEXXjA4+MqO7KUD2MJlGmOaJ5l65j+0R0GmPkfWcww34XBfRkMij3wvw2d4lLuNEyuKtz5ia6azhiItj0aa0EYw6xaUJItnWqeWD0eX536tjWXnxVBd1VTmKD+sKL1sQgrtpOWAYtgp4pH5gUf6CFwA3MltUKVnjkVS2poITTtvEzZknYX7Ucg1b9kQ/my6j7JQmiFlu+MOh65AujG6b+Nt9qTFY9CfM71Yxs5tljzgWzMLcKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O/xFi4LihZm7ucbUwOSQx6q+NK9HW9Rf2T4j0WOqEVQ=;
- b=RuzYEiJP0zIwB5C9nnT/E0pSrqSFfJkpvrq7qBHDLzOk+GI/OkuSS9q2GGWXl5maVAiZ5tkPkujoeGkOQcysGo+Xg2UgwEGkPXCFT+mLXHTSUdCAKlY/Guio1CPdp8R7JEpXNZeBmir5r5Eci6t17YyPiH5ykgYD98C+9ji7YZU=
-Received: from MN0PR12MB5761.namprd12.prod.outlook.com (2603:10b6:208:374::6)
- by SN7PR12MB7786.namprd12.prod.outlook.com (2603:10b6:806:349::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.14; Wed, 10 Dec
- 2025 03:02:47 +0000
-Received: from MN0PR12MB5761.namprd12.prod.outlook.com
- ([fe80::4886:4704:de81:5d2f]) by MN0PR12MB5761.namprd12.prod.outlook.com
- ([fe80::4886:4704:de81:5d2f%4]) with mapi id 15.20.9388.012; Wed, 10 Dec 2025
- 03:02:47 +0000
-From: "Li, Chong(Alan)" <Chong.Li@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deng, Emily" <Emily.Deng@amd.com>
-Subject: RE: [PATCH v3] drm/amdgpu: fix mes packet params issue when flush hdp.
-Thread-Topic: [PATCH v3] drm/amdgpu: fix mes packet params issue when flush
- hdp.
-Thread-Index: AQHcaN7bzetMJJFhZE6KzPVZ090qkLUZFC2AgAAXumA=
-Date: Wed, 10 Dec 2025 03:02:47 +0000
-Message-ID: <MN0PR12MB5761696F1F3009C6F4EB2F969BA0A@MN0PR12MB5761.namprd12.prod.outlook.com>
-References: <20251209073831.1426657-1-chongli2@amd.com>
- <4e4a99a9-5fff-42c1-ae5a-b2f925df2633@amd.com>
-In-Reply-To: <4e4a99a9-5fff-42c1-ae5a-b2f925df2633@amd.com>
-Accept-Language: en-US, zh-CN
+ bh=BfUHlNVeEMs+gW+fM+CFRJqtmHExWZIdD81k5nmaTYQ=;
+ b=D4nM8UvOIH8Y+qgnm93SBT9jbQjG6fRTyt92cOY8ydC1XFIidok+MLWy904RUArcnw537MVUhAX+3FUcO2UuH8Anw/AuHiNy6nP4BaQFAVcssEvN6upp983wvFsU8hqrIWJ7UkTAURNoZd37hCwuy3uZpsEe8UsnAD8+ZPHD1t0=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by LV2PR12MB5848.namprd12.prod.outlook.com (2603:10b6:408:173::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Wed, 10 Dec
+ 2025 03:04:23 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::d4b5:6a30:96d5:e3ed]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::d4b5:6a30:96d5:e3ed%5]) with mapi id 15.20.9412.005; Wed, 10 Dec 2025
+ 03:04:19 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Wait for eviction fence before scheduling
+ resume work
+Thread-Topic: [PATCH] drm/amdgpu: Wait for eviction fence before scheduling
+ resume work
+Thread-Index: AQHcaO2W845K0EhyQkOGrmuD/SK25bUZDkqAgAEibtA=
+Date: Wed, 10 Dec 2025 03:04:19 +0000
+Message-ID: <DM4PR12MB51521EBE33AC44DA2EC192A0E3A0A@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20251209092409.1257671-1-Jesse.Zhang@amd.com>
+ <c1aa6e1e-88a8-4b09-aa8a-f239f1306b9d@amd.com>
+In-Reply-To: <c1aa6e1e-88a8-4b09-aa8a-f239f1306b9d@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-09T11:27:37.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-10T03:01:32.0000000Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution
  Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
@@ -67,83 +68,101 @@ msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB5761:EE_|SN7PR12MB7786:EE_
-x-ms-office365-filtering-correlation-id: 233b3bad-90e9-4197-5b1d-08de379898d6
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|LV2PR12MB5848:EE_
+x-ms-office365-filtering-correlation-id: 250b0d6f-39f0-41b0-45c4-08de3798cfab
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|376014|366016|1800799024|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?7sGQTf/cCMXDqSVvA/CGzs8T3uHe++l2Z7roIykvnFZfhBBgxFGyxHRM/Aiw?=
- =?us-ascii?Q?n388wtRIC98HqfEUu5vRIlPI4ZaibC3s5Z1HtJC9VGJF/H8iE6w+Zyp+mssb?=
- =?us-ascii?Q?CJ8Tepw/jdLKaaYmoEECIMbNkImypBbQue7OIDK5H7vrQCEkWl8yeAmrd6RO?=
- =?us-ascii?Q?QwnV86gTESYX4LMLqggyd0RBLePRKidN1lCrJbbJvHUq//LwuQ7LiyYhuPPN?=
- =?us-ascii?Q?lUXanAZP0RiH8gNG/IjORU5QY8ot2bKlzW9mB81feQeGVZI/pT6IiE0SJtrH?=
- =?us-ascii?Q?hwC8B1nD5gQrUTdqs76JcwWS655rSj8vJ8L5FB7J8wcQnhnUomMMT1RLNxh2?=
- =?us-ascii?Q?EXOQebEKfByfVh0XTO7EWhmZ/E0IksYXGdMQ3LFlOYRC3GeGuHZUN807m4KE?=
- =?us-ascii?Q?7SM3fRj0egP60J1nU1J/ZMn7H4/rMthLPgb32AQ2TEwzZ7QMphhuCjDrX7MW?=
- =?us-ascii?Q?6RzDShPGZv52iHXoYShgYTwiDjy9JYSmFekIbmfgJfMpkGFsWTxvG0AKpou5?=
- =?us-ascii?Q?AVFJJpAhVOLJ3HtwO+hJMSDJgasyzULeY4NXFx0vuYf0i15XptEX8Rd5R5J+?=
- =?us-ascii?Q?UHodFZJxkEX5EvWqNJYmJJTF5rBFAuzAkJ4vhxXSqOtGeARsYhNC6LAgq8U4?=
- =?us-ascii?Q?QH3Ncs+o0LlChPfvV2Lp3dfMaYWR2H0OBJ3W0h7Ev3VdbXBFihiIyp1lt/yt?=
- =?us-ascii?Q?kaM7FQ0tT4m8/tk6Nis86lrJ4OBngubxgvHbONE1JTf4Vsal1Q8iEixiZpsI?=
- =?us-ascii?Q?rmhJli951Jc+uAzZmUXi6BGnGN3SgcFfDTERHfVw/DHut8hZW2Y6DcB/mUGs?=
- =?us-ascii?Q?K++NbBHU014MBZaYnAqMeXHuh/oYdxLnUaXYewYdF296z+4M/Kw3fNrXOGxh?=
- =?us-ascii?Q?4LxHkhFo6UOEuwyARigzXUk7NXXL7tvUmycty6JuHZbMbvubzo+LtyUw9GfQ?=
- =?us-ascii?Q?1zCwpPuvt4NKJSVBZ3DC/w0fY7htQfoWCkJTsoZ0YBL6cz0RTYQ4CO+cYaDA?=
- =?us-ascii?Q?DnG1Q/tAzxP+BBlXZQ+0VxfNCzJH70rVOy6QEoJIgXkgJqzPq83kKEz8vCTQ?=
- =?us-ascii?Q?U4z9wqpacrNvV5/iM4KO04eAHxttPq2UpqLq5jSFs4fiwX9vHmGtqp6ZL0Jp?=
- =?us-ascii?Q?15x74CblgFkROB8r6tIm4IJAzNYhNnpDiFF3pvAdv0h7tuNF4SRiEGXgHbg4?=
- =?us-ascii?Q?ON/U/V5gCAhzCb+ENFLo/Vm4jHlPpX3pf3077/pZaTyGAilq7Cn8+kYLEU/e?=
- =?us-ascii?Q?8JsyqqVE2WhjTR7XBOWUsRsGi8RZ9iJ+yyhnyh+v7gVYJ3qArf7jW4I0IBVU?=
- =?us-ascii?Q?brZy3wsbYXKQWO7OyP4C9Zd5IALFUKSLwwsqtbPmepI4I2qVvzewPB6miZfj?=
- =?us-ascii?Q?n5CDEGUk2iviMA4FnXEkVQ97/p39LUfSJ1fcdOu9tUJ1n0JoGgoDoA5xpODs?=
- =?us-ascii?Q?8pcG6GaCf7+jysDgXk5lmycG9jHMHcyxrH9zD1gBTUXjDRnZvYRuOxhYgqqg?=
- =?us-ascii?Q?zf2FCcMci3+vFrju5gm2yfqV34dLG0Hw1Tdm?=
+x-microsoft-antispam-message-info: =?utf-8?B?ZHdKMjNHNG1UTEgwaEdmM0k1MmFFT0F3amQ3NHZ4cTNWWkNoQzN3ZVhoQTA0?=
+ =?utf-8?B?ZmZ0K3hPbmZqWVZaY3NpNnZ6VGpyV0VqSTlrWG1mdVRBV1NEaC9pOEczRDVW?=
+ =?utf-8?B?eFV3Slgrc2ptcHFkNTlzY3RWTXZhazN0S3prYzdMY3BUdzFVVTcxSzZKN1FI?=
+ =?utf-8?B?SHhkSGFyQnMxcjdkM28zNzlIMWU5WTY2MVhZWjRncmZuaTBtWWdYRU1MVWd2?=
+ =?utf-8?B?MkVYTzB0bDdQT1pmN3VCUmhpLzZHcDZHellBcmJ1NUh3eEtSWnpmY1hNU044?=
+ =?utf-8?B?MTlhRTNiZnBieksrdkdVdGgvVDI5TXgzV1ZKZTVTTmN0Mk1ScDVYNlcvRGNi?=
+ =?utf-8?B?bHdCSzFQVGx0YzA3ZzVTNncwVDlQWjZqNSthOXA4dkxCblJhMm9QZmVmY1Jl?=
+ =?utf-8?B?dHI5cWR3N2pQc1JmNWpybjVvUitMNkJqeWRYL1VINUNEVUVDR0J3aVFYK3Uw?=
+ =?utf-8?B?TkFHTmdHR1hvdXJxQmd1U0NNbVpGNGlRcVRzV2VUa0dDa240UitENHVNQ1Z0?=
+ =?utf-8?B?MWZBZThxcDROYUZweUxralV4TTQ1d05XaWJwMHdzc2RZS1pHcHE4U01VMjBh?=
+ =?utf-8?B?NzJZQmRsbjl4UkduZzdjTGdHUXZrSWE5bzhacHZScnJ6WFVsZlI1eTNkcHNV?=
+ =?utf-8?B?eUg2QkhYTmN1N2w4aWRQTUdRMC9QQkZwcVhOQTh3WWMwcmdJRnlMNXBrUEgw?=
+ =?utf-8?B?dy9IZnI0ZGZheUJVcUsxSnVEMVVPUzROeDdTcjN5LzFLTEtuYm93YnUyTzda?=
+ =?utf-8?B?Qm1CMFBaM2NKV3p1TUFpMmtOSHpyZStCOVg0MzJ2ZU1WYi9aZ3ZncFNYSEZP?=
+ =?utf-8?B?RlNPUDhUeEk0YjJRaDZWaW0zL0F5SDdWNmJuMkV5Q2llanBBY0p0RWlCT2NZ?=
+ =?utf-8?B?cnIyTW9TUE5qUzNDVFVKbW0zRHBmYkxiRjJNU2w0TURLaHFlcnB1Zldnb2J1?=
+ =?utf-8?B?R24xY0pHd0ovVklkWXlpZnBiVFQvYTNTVGp5WEpGUFI3R2IwVU9EQktmM3k0?=
+ =?utf-8?B?WFlPcWY1bExVaFN0SFYyWGkzdVJMaW5oc0ZTWkRLalpXNXhnaWRqeU0zbFF2?=
+ =?utf-8?B?WVg2d0pGV0puZTlJV1JTWUZTQUgySGpMLytWYmFOeUZCenFmMlRRYWZKaCs1?=
+ =?utf-8?B?RE5YZUFJYUZPNjR4cG9yRmd2VDlyZWpZUldVblA4Uy8vVlNkM3lCVXBySTRj?=
+ =?utf-8?B?NWlxRTdFUVJRZGFvSzFUYmRZSjRXZTBsOE1FalF3MHNNQ2hPRy9MMEVzSmQz?=
+ =?utf-8?B?QXVuZ29BL3UvMHlrRzFGM3dENUtFbzN1aUJZSnA1QlFYQUNqU0FqM3gzL1BC?=
+ =?utf-8?B?ZDhPcU5BRlVJYzlpMkJ5eHNIeVRQb1IxckRwb2kvdEsxc3RWUjQ5RjQ2KzVY?=
+ =?utf-8?B?RE40NmIyaU8rV0doV3d5V01FUko3MUxqeFViQlpuUk0zR2pzTWdOWkVMSlYy?=
+ =?utf-8?B?WElvVDREL2ZIR2RxRlZnTVZyOExpem5wVWJ5cnhmVEZWSUM5MzB1aUdQMG40?=
+ =?utf-8?B?Y2ZSWnBzVUpvZnhvZHRnVWtuQXl0cWFyVTZJK2NFUHorTzRVdm5NTS8xK0lx?=
+ =?utf-8?B?Sjh6VzIyRG01KzlCSUp2NHZNT21EODQ5bmRaRkN2NTdQWE54MlFWdGxGbGZY?=
+ =?utf-8?B?amM1UXNqbE41Z0c3WVJRR3BuWWRueWV3a21Na3lLWHVnZkVIcnhOcWl6L2dI?=
+ =?utf-8?B?L1U3OUNDZ3BTdHF0akRMUlFkNGpELytxSlEzcFJvUURyWlluUWkvZjZQUVdD?=
+ =?utf-8?B?RGhadE1nOXJRYkZ4a2I3ODZJZk9JRzNTRElBdDNtUXlzWDV2L2dOT05pblc2?=
+ =?utf-8?B?anZQaTQ1MDQ1U1N3MWRScmwyeWZ1RXNLVnhyaUd2Y2dmbmUybk5MbWlaZ240?=
+ =?utf-8?B?NXpLU1h3S3p4azZPK0VtSzFLc3V4SEMvTFhtMm5ydjA2ZlQ3TXQ4YWhlTkcx?=
+ =?utf-8?B?cDF0bzJ0MzgrQTRKR0c0Vnl4UEtpNzI4RnU1OWxGYmZEYlQvZkhYV1RzVE5o?=
+ =?utf-8?B?SUVzRk5SdEJVUG5tZUVtODNqaVZVR1pwTC9jWlV6VFJ6MkpQcHRDWkxGNm1T?=
+ =?utf-8?Q?eJuzaa?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB5761.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?piZajzcVxwCQGjErcCFcabzRnP4XbtOfdaWY6tWNjNrnOYeoR4khGJBAcTc7?=
- =?us-ascii?Q?5RBV089q20IHJa85xqwnWAuX5LIPeeEXtV01N37fa9l3TIqcLy69cS5v4JgQ?=
- =?us-ascii?Q?I3sCuTINXyf07qds3ObT+BCuBDYhkI69+65177/1FqeyEjMcqMSWnKs+YlJe?=
- =?us-ascii?Q?YrkBhX0A7fz6jl5t0JeIvyuNqYUID6qDrkvCwGWS1A3/o1bBYSEFT9CJxFza?=
- =?us-ascii?Q?acsNyP2bzhJYzWdidyym27uY8xXBGPRCQnc/t93WkZvqdV4YqQIgkGqE97N8?=
- =?us-ascii?Q?SVhNcT30FWo79gHHd9072WQtOcpI1NfF5hpTILk5bnZdauLdUErY8u8/Tzn0?=
- =?us-ascii?Q?DgLTF+9IqsoVhVLnTUs1ZSf6jNDBqvPiV512bsF/Gk70gexV0w5n79OcN2AT?=
- =?us-ascii?Q?8lNRy9Dk25+iZRBqb0DPv37Hpip0JVwzFpYc2aCBJRZn2miIXoE4QUr8kX9K?=
- =?us-ascii?Q?i0TargRhsJ1W95T/ftnvoJEG6NZlvqfUaG45gyjEAPBj6vZqFZmWkU35f6PH?=
- =?us-ascii?Q?y6bg7VhnF+3E3/RKkTxZT8lxiuF8BtN4X6xCdRVcwGAkeKIe8orw+ol4L1+A?=
- =?us-ascii?Q?ilAFk/oXDE9XQ628yvSpCdMAsXCbbDFoW4PwOQYdF5ea8bSyqXx6N369dFuc?=
- =?us-ascii?Q?K01AuPD/u+XGZOTYiCEPhnIsaAFWtqFkR0KRVW4DBU8ztH351ZDW7SbL/95D?=
- =?us-ascii?Q?uGQiD42z5ybnlgp9ocKGDW6sTwOkPd0JahiEScN0buc98YMiVm4r7u5Opbcv?=
- =?us-ascii?Q?q1wdQMKtY3UtC4wbe4EzLjVQ/DUOC5+JBLs500aWNZiiYKdz/2dInzydEyBs?=
- =?us-ascii?Q?e65TsQN/lpPfQT+53ZDt9YklpKj8/muOxHZAQqI6Y8HrmtsIp7GEdK2iG+2b?=
- =?us-ascii?Q?fkSGxemJYAV69zmbMLtqdNiyNg2zc8Hj8l/5506z00ksO3bI9/YDnR7ooEt1?=
- =?us-ascii?Q?psjHBa5k4P3aBNxbfKNYKkdSdfedHW1lU8bYSsCNxl4tg3Vq0h9EVKpL2jTO?=
- =?us-ascii?Q?BD1u/InfAcG7p16dXJTvsPgmgqSTTJ1AXTkznN7/3IFYwDLSQLTTaBdWlTU2?=
- =?us-ascii?Q?q+aWH0UUvttqAE0sa0mD0Pn08jZHnvgpVMJXozLsE4dePpu/2DAzu3NNQdmy?=
- =?us-ascii?Q?TZTDE+wfO/4yrULYURCKDi9kf+sWHJY7GtPN/upbYm9oKC+X/aFm3K2jxnmq?=
- =?us-ascii?Q?7aVq2XzvxlTkMI6/4LR/0oUb7KRLIMFQXPRkDodw544UJShCRVDnRsHNKUAm?=
- =?us-ascii?Q?eROHay7D/eXH+6SBmgnVpcJRdU5mQGQDifvrq/wgizmc2nDrHiGpG9eeSxPi?=
- =?us-ascii?Q?QfU36gFObvV1fgz4y5yYM2yecsPHy4nZQCOCW9/y0IeJvHx9l5C97+DCjNyp?=
- =?us-ascii?Q?klqffD5JCAfVFOWaQpHu7Owi5BwTA2E7JQjQeYX7cw2BAkCizZtfxow1du/z?=
- =?us-ascii?Q?nhE6ZfJOjj/L92hOVC0Y/UjX2ce3iuuc4aLTTURkKyDCSMdzVO/E4lwiHVjS?=
- =?us-ascii?Q?2CN44xqoNZ7BOW56IaFtT+qWia6yesHLzcJeI0I7OWvhw+Dzqft2YZfAsU5G?=
- =?us-ascii?Q?l3BFtY8cKsYtXQg/Zeo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WkJoRlc3RndIODl0Si9NWFFsUVoyaEJpTUFQTGZFRERZTnNqQ3luOEtLZ1c0?=
+ =?utf-8?B?UnYyNUFqcisyejhTSUdQUFBXc2E3V1JYK3A4dFhqQkdUczYrM2twTERkS3VN?=
+ =?utf-8?B?SVd6OUZEV0NpWmVNamFJRXFDTU1pdXhCVVNTcFU4dTRIRm5maUIwYnIxNUVD?=
+ =?utf-8?B?YjUxcHExS1hHM0ozcUJrc2JtQllZV2RzYWVuczNMUXd6SjQ2alpoai8wc2pw?=
+ =?utf-8?B?ZkZDMGh3eE5HVjVBckIyRVFGaDRPVEdPenBQdkV2aFhVTnpGcTJXLzNHTitx?=
+ =?utf-8?B?U1NVL1ZZQTZtVDFDOVFuV0tOY3B4VklFRWVsOTRhcTlUZ3BvNFVJcHl5dk8w?=
+ =?utf-8?B?ZjZjMU9TRGtSeGdsWFBnb1hGVkJmTExxLzFwcUN0S3p2cTFjWFhGNkw2Tzlw?=
+ =?utf-8?B?dnNaUndQQllGNlFUbkF6R25kRmdsNTllSlNxSEdlNjRXb3ZpL1daUFNxcjQ0?=
+ =?utf-8?B?QkZQYjM3SkNZK1hsVnRMMnhVTi9pMzZ1YW5sS0NkZGZYaERnVVJvYitEMVgy?=
+ =?utf-8?B?QW9aNkkyeHg2WUVFZjVrVG5QUTFGUkVnakpFbE81dnFlRVdyRXBSa2srSzQ5?=
+ =?utf-8?B?Ri9XZ25pZWlsWEh4R3ZseFpCQ3VhdG1kZ0hHb0h3djgrOFJPckl4YnNlS2Jq?=
+ =?utf-8?B?TVRZNjVvRzdKa1NmTEVsczhQVnJkVHh1aW8yVE4xaDFDaWs0QVRETWQwZzhT?=
+ =?utf-8?B?VnVZNFplOHNhUzZuWERBWmtMZS9TWFBKc3pSZWpXR3gyenB3RUVCa1ZBeDRx?=
+ =?utf-8?B?VkRyVU5nU1NrUUNZL2RDaktTdjBxS1BDczhEUVBRSjJpNzhmYTlRZklUeWhY?=
+ =?utf-8?B?RUtEQ244L0FDY2Q0VWErNFlIV0tpNlp3ME5TcHdXcFpDSk5BcmhEOXZwNHph?=
+ =?utf-8?B?cUxDekRzZnBRQ00zbXp3dDdLWFV0OWtQUGZ1MFFYMzBMMjJwNlB3YXZyRnFN?=
+ =?utf-8?B?YmtGZUcrRmZMUmg1SnpVY1Q5b0lwWmxoWFcxQ3Yrbm05ZEZyeURvazJJSERH?=
+ =?utf-8?B?YS9HSmRySkRZMmg2SW9Eb3F6bzB1MTdnY0NnZUg2aUdPWUQrbGRUM3RjbG1P?=
+ =?utf-8?B?QjdMMStkeS9oYTk1akt3bldEeG5sOVVMWWFhOEx2a0FiQm9VRVloQ2ZpaUM4?=
+ =?utf-8?B?Skl4MmlkY0p5cWRMVFZ5aFhlYmhkMHpVR05RMUU3aUhxOVNxL1VwWlVoV3Jp?=
+ =?utf-8?B?ZG4wZ2RBQXpCT1dLcnFnSGNBQS9yaytUK0F4cGhPUHQzL0VDeFJwN0x5elFp?=
+ =?utf-8?B?VEhVRXltdE1XaGJxcklLcHB5M1VQaFR4Q0FWYk9VZzJJaTE5SW1MUVBSYTB5?=
+ =?utf-8?B?MDI3N0JpVEl5Zk1hNXUwVjcxTENOQk1UMFpRNkV3cXliT3RFVTU1Z3RyMGJS?=
+ =?utf-8?B?cUlmWFR4cXVVcEdsenl6cUt3b3FMbU1URG1NQ0J4WmJHYlBXemF4RW1Qbjha?=
+ =?utf-8?B?SWkxVzFCenZlNVFsNWJ2aG9kZ1ZOMWxWNEpwUWRXOTVMRU1kMUxiZUNmekdy?=
+ =?utf-8?B?ZU9FVGF6aFBqSDJjdHJVeHJmVUtEVDF6cHZMZG5ibUVRNGhHQVlWWjVXZlVZ?=
+ =?utf-8?B?bVdobXh4NHFJMGZZYlJET2I2SjRWWWNkcmtoeUs1RTc5c1kvQ2VJMUpmQ3NN?=
+ =?utf-8?B?Y2ppQkZmd0VkdVo3YkZ1TllvNHRYdngrb3hnazZlN09tcG9FNGlrSEZscFVz?=
+ =?utf-8?B?SHJZS3NqVWlNS2YzK1grV0trbG1rd0pOYy90QnRxeENmRnpuekx6Ni9uZFJZ?=
+ =?utf-8?B?NUswcFgwcnFyQUdsT0tFTGk5VmxZb3pGczVYU0pkS2JnTzRvNTV2MCtCVzJV?=
+ =?utf-8?B?dzk1YkpVMkMwaXFjUGZ5UkU5RVNDYUZTWXNHQ2lCZDRFZTM3RUtHV1RlQWJ1?=
+ =?utf-8?B?TWpIZnBod0NDcm00NHh3bTFET3FCSVN1VlZ2VUtPbWx2bURQQm5wVkZmRnVK?=
+ =?utf-8?B?MVpqTG9ZNkNVU2RWMDl5WmZMT0toTUhoWVlvRnNoblJEMUFWaktJWmhEREdy?=
+ =?utf-8?B?aEdwM3ZMeHoxWFl2RUJCa2FCK0trSFovUkZVYXIwOHBhUUFacURzald0T050?=
+ =?utf-8?B?ZnhpdFFvdzRIaHluZkpKdjdTMHQ2ODhTRWxzWUtjZEVGeDVDbXUxNWRZak9i?=
+ =?utf-8?Q?mXJk=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5761.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 233b3bad-90e9-4197-5b1d-08de379898d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2025 03:02:47.1885 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 250b0d6f-39f0-41b0-45c4-08de3798cfab
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2025 03:04:19.1319 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KqfQJt6PjOsr9ehtAuz/SkcVOdTfnKnDWltbvN4EVqSXEzBodMeclwyVHd7zQ8bLlB+yQTZYfRmoR4kPPjazgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7786
+X-MS-Exchange-CrossTenant-userprincipalname: X/Zjr1yS6VET/vBi+Y2I+0KNldHaBY4F2lEOudaBTmR7KLuKEECI3Dg9T/f31rbQUXMYDSxUCoVfX3RQ5MCsmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,859 +177,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Hi, Lijo.
----------------------------------------------------------------------------=
---------------------
-It appears like gfx v9/9.4.3/10/11/12 all can be kept in some amdgpu_gfx_ge=
-t_ref_mask generic helper, then it's not required to repeat the logic.
-
-if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-        ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-        switch (ring->me) {
-        case 1:
-                *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << ring->pi=
-pe;
-                break;
-        case 2:
-                *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << ring->pi=
-pe;
-                break;
-        default:
-                return;
-        }
-        *reg_mem_engine =3D 0;
-        return;
-}
-
-if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_MES) {
-        *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
-        *reg_mem_engine =3D 0;
-} else {
-        *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
-        *reg_mem_engine =3D 1; /* pfp */
-}
----------------------------------------------------------------------------=
----
-
-In gfx10, the ring->me of kiq is 2, this code can pass.
-But in gfx11 and gfx12, the ring->me of kiq is 3, so this code logic does n=
-ot work.
-
-As the value of ring->me has changed with gfx version,
-the code logic is not repeat, I suggest keep the origin way to assign ref_a=
-nd_mask.
-
-
-I accept your suggestion of add params check, alignment mismatch and delete=
- the unused variable "usepfp".
-
-
-Thanks,
-Lijo
-
-
-
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, December 9, 2025 6:03 PM
-To: Li, Chong(Alan) <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Deng, Emily <Emily.Deng@amd.com>
-Subject: Re: [PATCH v3] drm/amdgpu: fix mes packet params issue when flush =
-hdp.
-
-
-
-On 12/9/2025 1:08 PM, chong li wrote:
-> v3:
-> Unify the get_ref_and_mask function in amdgpu_gfx_funcs, to support
-> both GFX11 and earlier generations
->
-> v2:
-> place "get_ref_and_mask" in amdgpu_gfx_funcs instead of amdgpu_ring,
-> since this function only assigns the cp entry.
->
-> v1:
-> both gfx ring and mes ring use cp0 to flush hdp, cause conflict.
->
-> use function get_ref_and_mask to assign the cp entry.
-> reassign mes to use cp8 instead.
->
-> Signed-off-by: chong li <chongli2@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 13 +++++-
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 54 +++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 58 +++++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 58 +++++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 55 +++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 55 +++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 54 +++++++++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 54 +++++++++++++++--------
->   9 files changed, 275 insertions(+), 128 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index efd61a1ccc66..090714127cba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -356,6 +356,8 @@ struct amdgpu_gfx_funcs {
->                                    int num_xccs_per_xcp);
->       int (*ih_node_to_logical_xcc)(struct amdgpu_device *adev, int ih_no=
-de);
->       int (*get_xccs_per_xcp)(struct amdgpu_device *adev);
-> +     void (*get_ref_and_mask)(struct amdgpu_ring *ring,
-> +                             uint32_t *ref_and_mask, uint32_t *reg_mem_e=
-ngine);
->   };
->
->   struct sq_work {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 895b841b9626..5c7724f203d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -556,11 +556,20 @@ int amdgpu_mes_reg_write_reg_wait(struct
-> amdgpu_device *adev,
->
->   int amdgpu_mes_hdp_flush(struct amdgpu_device *adev)
->   {
-> -     uint32_t hdp_flush_req_offset, hdp_flush_done_offset, ref_and_mask;
-> +     uint32_t hdp_flush_req_offset, hdp_flush_done_offset;
-> +     struct amdgpu_ring *mes_ring;
-> +     uint32_t ref_and_mask =3D 0, reg_mem_engine =3D 0;
->
-> +     if (!adev->gfx.funcs->get_ref_and_mask) {
-> +             dev_err(adev->dev, "amdgpu_mes_hdp_flush not support\n");
-> +             return -EINVAL;
-> +     }
-> +
-> +     mes_ring =3D &adev->mes.ring[0];
->       hdp_flush_req_offset =3D adev->nbio.funcs->get_hdp_flush_req_offset=
-(adev);
->       hdp_flush_done_offset =3D adev->nbio.funcs->get_hdp_flush_done_offs=
-et(adev);
-> -     ref_and_mask =3D adev->nbio.hdp_flush_reg->ref_and_mask_cp0;
-> +
-> +     adev->gfx.funcs->get_ref_and_mask(mes_ring, &ref_and_mask,
-> +&reg_mem_engine);
->
->       return amdgpu_mes_reg_write_reg_wait(adev, hdp_flush_req_offset, hd=
-p_flush_done_offset,
->                                            ref_and_mask, ref_and_mask, 0)=
-; diff --git
-> a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index aaed24f7e716..ed79ceafc57b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -4566,6 +4566,40 @@ static void gfx_v10_0_update_perfmon_mgcg(struct a=
-mdgpu_device *adev,
->               WREG32_SOC15(GC, 0, mmRLC_PERFMON_CLK_CNTL, data);
->   }
->
-> +/**
-> + * gfx_v10_0_get_ref_and_mask - get the reference and mask for HDP
-> +flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring typ=
-e and me.
-> + */
-> +static void gfx_v10_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +                                     uint32_t *ref_and_mask, uint32_t *r=
-eg_mem_engine) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D
-> +adev->nbio.hdp_flush_reg;
-> +
-
-Need to do NULL check of params (this and others).
-
-> +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-> +             ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-> +             switch (ring->me) {
-> +             case 1:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << =
-ring->pipe;
-> +                     break;
-> +             case 2:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << =
-ring->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             *reg_mem_engine =3D 0;
-> +     } else {
-> +             *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pi=
-pe;
-> +             *reg_mem_engine =3D 1; /* pfp */
-> +     }
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v10_0_gfx_funcs =3D {
->       .get_gpu_clock_counter =3D &gfx_v10_0_get_gpu_clock_counter,
->       .select_se_sh =3D &gfx_v10_0_select_se_sh, @@ -4575,6 +4609,7 @@
-> static const struct amdgpu_gfx_funcs gfx_v10_0_gfx_funcs =3D {
->       .select_me_pipe_q =3D &gfx_v10_0_select_me_pipe_q,
->       .init_spm_golden =3D &gfx_v10_0_init_spm_golden_registers,
->       .update_perfmon_mgcg =3D &gfx_v10_0_update_perfmon_mgcg,
-> +     .get_ref_and_mask =3D &gfx_v10_0_get_ref_and_mask,
->   };
->
->   static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev) @@
-> -8614,25 +8649,8 @@ static void gfx_v10_0_ring_emit_hdp_flush(struct amdg=
-pu_ring *ring)
->   {
->       struct amdgpu_device *adev =3D ring->adev;
->       u32 ref_and_mask, reg_mem_engine;
-> -     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D adev->nbio.hdp_flu=
-sh_reg;
-> -
-> -     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) {
-> -             switch (ring->me) {
-> -             case 1:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << r=
-ing->pipe;
-> -                     break;
-> -             case 2:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << r=
-ing->pipe;
-> -                     break;
-> -             default:
-> -                     return;
-> -             }
-> -             reg_mem_engine =3D 0;
-> -     } else {
-> -             ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pip=
-e;
-> -             reg_mem_engine =3D 1; /* pfp */
-> -     }
->
-> +     adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask,
-> +&reg_mem_engine);
->       gfx_v10_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->                              adev->nbio.funcs->get_hdp_flush_req_offset(a=
-dev),
->                              adev->nbio.funcs->get_hdp_flush_done_offset(=
-adev),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index f4d4dd5dd07b..c3d8e7588740 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1072,6 +1072,44 @@ static int gfx_v11_0_get_gfx_shadow_info(struct am=
-dgpu_device *adev,
->       }
->   }
->
-> +/**
-> + * gfx_v11_0_get_ref_and_mask - get the reference and mask for HDP
-> +flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring typ=
-e and me.
-> + */
-> +static void gfx_v11_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +                                     uint32_t *ref_and_mask, uint32_t *r=
-eg_mem_engine) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D
-> +adev->nbio.hdp_flush_reg;
-> +
-> +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-> +         ring->funcs->type =3D=3D AMDGPU_RING_TYPE_MES ||
-> +             ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-> +             switch (ring->me) {
-> +             case 1:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << =
-ring->pipe;
-> +                     break;
-> +             case 2:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << =
-ring->pipe;
-> +                     break;
-> +             case 3:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp8 << =
-ring->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             *reg_mem_engine =3D 0;
-> +     } else {
-> +             *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pi=
-pe;
-> +             *reg_mem_engine =3D 1; /* pfp */
-> +     }
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs =3D {
->       .get_gpu_clock_counter =3D &gfx_v11_0_get_gpu_clock_counter,
->       .select_se_sh =3D &gfx_v11_0_select_se_sh, @@ -1081,6 +1119,7 @@
-> static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs =3D {
->       .select_me_pipe_q =3D &gfx_v11_0_select_me_pipe_q,
->       .update_perfmon_mgcg =3D &gfx_v11_0_update_perf_clk,
->       .get_gfx_shadow_info =3D &gfx_v11_0_get_gfx_shadow_info,
-> +     .get_ref_and_mask =3D &gfx_v11_0_get_ref_and_mask,
->   };
->
->   static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev) @@
-> -5833,25 +5872,8 @@ static void gfx_v11_0_ring_emit_hdp_flush(struct amdg=
-pu_ring *ring)
->   {
->       struct amdgpu_device *adev =3D ring->adev;
->       u32 ref_and_mask, reg_mem_engine;
-> -     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D adev->nbio.hdp_flu=
-sh_reg;
-> -
-> -     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) {
-> -             switch (ring->me) {
-> -             case 1:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << r=
-ing->pipe;
-> -                     break;
-> -             case 2:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << r=
-ing->pipe;
-> -                     break;
-> -             default:
-> -                     return;
-> -             }
-> -             reg_mem_engine =3D 0;
-> -     } else {
-> -             ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pip=
-e;
-> -             reg_mem_engine =3D 1; /* pfp */
-> -     }
->
-> +     adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask,
-> +&reg_mem_engine);
->       gfx_v11_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->                              adev->nbio.funcs->get_hdp_flush_req_offset(a=
-dev),
->                              adev->nbio.funcs->get_hdp_flush_done_offset(=
-adev),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index f9cae6666697..b805ed4f88aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -929,6 +929,44 @@ static int gfx_v12_0_get_gfx_shadow_info(struct amdg=
-pu_device *adev,
->       return -EINVAL;
->   }
->
-> +/**
-> + * gfx_v12_0_get_ref_and_mask - get the reference and mask for HDP
-> +flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring typ=
-e and me.
-> + */
-> +static void gfx_v12_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +                                     uint32_t *ref_and_mask, uint32_t *r=
-eg_mem_engine) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D
-> +adev->nbio.hdp_flush_reg;
-> +
-> +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-> +         ring->funcs->type =3D=3D AMDGPU_RING_TYPE_MES ||
-> +             ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-> +             switch (ring->me) {
-> +             case 1:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << =
-ring->pipe;
-> +                     break;
-> +             case 2:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << =
-ring->pipe;
-> +                     break;
-> +             case 3:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp8 << =
-ring->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             *reg_mem_engine =3D 0;
-> +     } else {
-> +             *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0;
-> +             *reg_mem_engine =3D 1; /* pfp */
-> +     }
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs =3D {
->       .get_gpu_clock_counter =3D &gfx_v12_0_get_gpu_clock_counter,
->       .select_se_sh =3D &gfx_v12_0_select_se_sh, @@ -938,6 +976,7 @@ stat=
-ic
-> const struct amdgpu_gfx_funcs gfx_v12_0_gfx_funcs =3D {
->       .select_me_pipe_q =3D &gfx_v12_0_select_me_pipe_q,
->       .update_perfmon_mgcg =3D &gfx_v12_0_update_perf_clk,
->       .get_gfx_shadow_info =3D &gfx_v12_0_get_gfx_shadow_info,
-> +     .get_ref_and_mask =3D &gfx_v12_0_get_ref_and_mask,
->   };
->
->   static int gfx_v12_0_gpu_early_init(struct amdgpu_device *adev) @@
-> -4389,25 +4428,8 @@ static void gfx_v12_0_ring_emit_hdp_flush(struct amdg=
-pu_ring *ring)
->   {
->       struct amdgpu_device *adev =3D ring->adev;
->       u32 ref_and_mask, reg_mem_engine;
-> -     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D adev->nbio.hdp_flu=
-sh_reg;
-> -
-> -     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) {
-> -             switch (ring->me) {
-> -             case 1:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << r=
-ing->pipe;
-> -                     break;
-> -             case 2:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << r=
-ing->pipe;
-> -                     break;
-> -             default:
-> -                     return;
-> -             }
-> -             reg_mem_engine =3D 0;
-> -     } else {
-> -             ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0;
-> -             reg_mem_engine =3D 1; /* pfp */
-> -     }
->
-> +     adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask,
-> +&reg_mem_engine);
->       gfx_v12_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->                              adev->nbio.funcs->get_hdp_flush_req_offset(a=
-dev),
->                              adev->nbio.funcs->get_hdp_flush_done_offset(=
-adev),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 66a4e4998106..b3ea45e3c60f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -2068,23 +2068,10 @@ static int gfx_v7_0_ring_test_ring(struct amdgpu_=
-ring *ring)
->   static void gfx_v7_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   {
->       u32 ref_and_mask;
-> -     int usepfp =3D ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ? =
-0 : 1;
-> -
-> -     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) {
-> -             switch (ring->me) {
-> -             case 1:
-> -                     ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP2_MASK << ri=
-ng->pipe;
-> -                     break;
-> -             case 2:
-> -                     ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP6_MASK << ri=
-ng->pipe;
-> -                     break;
-> -             default:
-> -                     return;
-> -             }
-> -     } else {
-> -             ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP0_MASK;
-> -     }
-> +     int usepfp;
-> +     struct amdgpu_device *adev =3D ring->adev;
->
-> +     adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask, &usepfp);
->       amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
->       amdgpu_ring_write(ring, (WAIT_REG_MEM_OPERATION(1) | /* write, wait=
-, write */
->                                WAIT_REG_MEM_FUNCTION(3) |  /* =3D=3D */ @=
-@ -4075,12 +4062,46 @@
-> static void gfx_v7_0_select_me_pipe_q(struct amdgpu_device *adev,
->       cik_srbm_select(adev, me, pipe, q, vm);
->   }
->
-> +/**
-> + * gfx_v7_0_get_ref_and_mask - get the reference and mask for HDP
-> +flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring typ=
-e and me.
-> + */
-> +static void gfx_v7_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +                                     uint32_t *ref_and_mask, uint32_t *r=
-eg_mem_engine) {
-> +     int usepfp =3D ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ? =
-0 : 1;
-
-This doesn't look used inside this function.
-
-> +
-> +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-> +             ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-> +             switch (ring->me) {
-> +             case 1:
-> +                     *ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP2_MASK << r=
-ing->pipe;
-> +                     break;
-> +             case 2:
-> +                     *ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP6_MASK << r=
-ing->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             *reg_mem_engine =3D 0;
-> +     } else {
-> +             *ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP0_MASK;
-> +             *reg_mem_engine =3D 1;
-> +     }
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v7_0_gfx_funcs =3D {
->       .get_gpu_clock_counter =3D &gfx_v7_0_get_gpu_clock_counter,
->       .select_se_sh =3D &gfx_v7_0_select_se_sh,
->       .read_wave_data =3D &gfx_v7_0_read_wave_data,
->       .read_wave_sgprs =3D &gfx_v7_0_read_wave_sgprs,
-> -     .select_me_pipe_q =3D &gfx_v7_0_select_me_pipe_q
-> +     .select_me_pipe_q =3D &gfx_v7_0_select_me_pipe_q,
-> +     .get_ref_and_mask =3D &gfx_v7_0_get_ref_and_mask,
->   };
->
->   static const struct amdgpu_rlc_funcs gfx_v7_0_rlc_funcs =3D { diff
-> --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index 5d6e8e0601cb..cc5acfcdf360 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -5211,13 +5211,46 @@ static void gfx_v8_0_read_wave_sgprs(struct amdgp=
-u_device *adev, uint32_t xcc_id
->               start + SQIND_WAVE_SGPRS_OFFSET, size, dst);
->   }
->
-> +/**
-> + * gfx_v8_0_get_ref_and_mask - get the reference and mask for HDP
-> +flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring typ=
-e and me.
-> + */
-> +static void gfx_v8_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +                                     uint32_t *ref_and_mask, uint32_t *r=
-eg_mem_engine) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +
-> +     if ((ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) ||
-> +         (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ)) {
-> +             switch (ring->me) {
-> +             case 1:
-> +                     *ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP2_MASK << r=
-ing->pipe;
-> +                     break;
-> +             case 2:
-> +                     *ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP6_MASK << r=
-ing->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             *reg_mem_engine =3D 0;
-> +     } else {
-> +             *ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP0_MASK;
-> +             *reg_mem_engine =3D WAIT_REG_MEM_ENGINE(1); /* pfp */
-> +     }
-> +}
->
->   static const struct amdgpu_gfx_funcs gfx_v8_0_gfx_funcs =3D {
->       .get_gpu_clock_counter =3D &gfx_v8_0_get_gpu_clock_counter,
->       .select_se_sh =3D &gfx_v8_0_select_se_sh,
->       .read_wave_data =3D &gfx_v8_0_read_wave_data,
->       .read_wave_sgprs =3D &gfx_v8_0_read_wave_sgprs,
-> -     .select_me_pipe_q =3D &gfx_v8_0_select_me_pipe_q
-> +     .select_me_pipe_q =3D &gfx_v8_0_select_me_pipe_q,
-> +     .get_ref_and_mask =3D &gfx_v8_0_get_ref_and_mask,
->   };
->
->   static int gfx_v8_0_early_init(struct amdgpu_ip_block *ip_block) @@
-> -6000,25 +6033,9 @@ static void gfx_v8_0_ring_set_wptr_gfx(struct amdgpu_=
-ring *ring)
->   static void gfx_v8_0_ring_emit_hdp_flush(struct amdgpu_ring *ring)
->   {
->       u32 ref_and_mask, reg_mem_engine;
-> +     struct amdgpu_device *adev =3D ring->adev;
->
-> -     if ((ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) ||
-> -         (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ)) {
-> -             switch (ring->me) {
-> -             case 1:
-> -                     ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP2_MASK << ri=
-ng->pipe;
-> -                     break;
-> -             case 2:
-> -                     ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP6_MASK << ri=
-ng->pipe;
-> -                     break;
-> -             default:
-> -                     return;
-> -             }
-> -             reg_mem_engine =3D 0;
-> -     } else {
-> -             ref_and_mask =3D GPU_HDP_FLUSH_DONE__CP0_MASK;
-> -             reg_mem_engine =3D WAIT_REG_MEM_ENGINE(1); /* pfp */
-> -     }
-> -
-> +     adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask,
-> +&reg_mem_engine);
->       amdgpu_ring_write(ring, PACKET3(PACKET3_WAIT_REG_MEM, 5));
->       amdgpu_ring_write(ring, (WAIT_REG_MEM_OPERATION(1) | /* write, wait=
-, write */
->                                WAIT_REG_MEM_FUNCTION(3) |  /* =3D=3D */ d=
-iff --git
-> a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index e6187be27385..f2ebacc73eb2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -1997,6 +1997,40 @@ static void gfx_v9_0_select_me_pipe_q(struct amdgp=
-u_device *adev,
->       soc15_grbm_select(adev, me, pipe, q, vm, 0);
->   }
->
-> +/**
-> + * gfx_v9_0_get_ref_and_mask - get the reference and mask for HDP
-> +flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring typ=
-e and me.
-> + */
-> +static void gfx_v9_0_get_ref_and_mask(struct amdgpu_ring *ring,
-> +                                     uint32_t *ref_and_mask, uint32_t *r=
-eg_mem_engine) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D
-> +adev->nbio.hdp_flush_reg;
-> +
-> +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-> +             ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-> +             switch (ring->me) {
-> +             case 1:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << =
-ring->pipe;
-> +                     break;
-> +             case 2:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << =
-ring->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             *reg_mem_engine =3D 0;
-> +     } else {
-> +             *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pi=
-pe;
-> +             *reg_mem_engine =3D 1; /* pfp */
-> +     }
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v9_0_gfx_funcs =3D {
->           .get_gpu_clock_counter =3D &gfx_v9_0_get_gpu_clock_counter,
->           .select_se_sh =3D &gfx_v9_0_select_se_sh, @@ -2004,6 +2038,7
-> @@ static const struct amdgpu_gfx_funcs gfx_v9_0_gfx_funcs =3D {
->           .read_wave_sgprs =3D &gfx_v9_0_read_wave_sgprs,
->           .read_wave_vgprs =3D &gfx_v9_0_read_wave_vgprs,
->           .select_me_pipe_q =3D &gfx_v9_0_select_me_pipe_q,
-> +             .get_ref_and_mask =3D &gfx_v9_0_get_ref_and_mask,
-
-Alignment mismatch?
-
->   };
->
->   const struct amdgpu_ras_block_hw_ops  gfx_v9_0_ras_ops =3D { @@
-> -5380,25 +5415,8 @@ static void gfx_v9_0_ring_emit_hdp_flush(struct amdgp=
-u_ring *ring)
->   {
->       struct amdgpu_device *adev =3D ring->adev;
->       u32 ref_and_mask, reg_mem_engine;
-> -     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D adev->nbio.hdp_flu=
-sh_reg;
-> -
-> -     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) {
-> -             switch (ring->me) {
-> -             case 1:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << r=
-ing->pipe;
-> -                     break;
-> -             case 2:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << r=
-ing->pipe;
-> -                     break;
-> -             default:
-> -                     return;
-> -             }
-> -             reg_mem_engine =3D 0;
-> -     } else {
-> -             ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0;
-> -             reg_mem_engine =3D 1; /* pfp */
-> -     }
->
-> +     adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask,
-> +&reg_mem_engine);
->       gfx_v9_0_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->                             adev->nbio.funcs->get_hdp_flush_req_offset(ad=
-ev),
->                             adev->nbio.funcs->get_hdp_flush_done_offset(a=
-dev),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 89253df5ffc8..b4ba76110c34 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -838,6 +838,40 @@ static int gfx_v9_4_3_ih_to_xcc_inst(struct amdgpu_d=
-evice *adev, int ih_node)
->       return xcc - 1;
->   }
->
-> +/**
-> + * gfx_v9_4_3_get_ref_and_mask - get the reference and mask for HDP
-> +flush
-> + *
-> + * @ring: amdgpu_ring structure holding ring information
-> + * @ref_and_mask: pointer to store the reference and mask
-> + * @reg_mem_engine: pointer to store the register memory engine
-> + *
-> + * Calculates the reference and mask for HDP flush based on the ring typ=
-e and me.
-> + */
-> +static void gfx_v9_4_3_get_ref_and_mask(struct amdgpu_ring *ring,
-> +                                     uint32_t *ref_and_mask, uint32_t *r=
-eg_mem_engine) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D
-> +adev->nbio.hdp_flush_reg;
-> +
-> +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-> +             ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-> +             switch (ring->me) {
-> +             case 1:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << =
-ring->pipe;
-> +                     break;
-> +             case 2:
-> +                     *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << =
-ring->pipe;
-> +                     break;
-> +             default:
-> +                     return;
-> +             }
-> +             *reg_mem_engine =3D 0;
-> +     } else {
-> +             *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pi=
-pe;
-> +             *reg_mem_engine =3D 1; /* pfp */
-> +     }
-> +}
-> +
->   static const struct amdgpu_gfx_funcs gfx_v9_4_3_gfx_funcs =3D {
->       .get_gpu_clock_counter =3D &gfx_v9_4_3_get_gpu_clock_counter,
->       .select_se_sh =3D &gfx_v9_4_3_xcc_select_se_sh, @@ -848,6 +882,7 @@
-> static const struct amdgpu_gfx_funcs gfx_v9_4_3_gfx_funcs =3D {
->       .switch_partition_mode =3D &gfx_v9_4_3_switch_compute_partition,
->       .ih_node_to_logical_xcc =3D &gfx_v9_4_3_ih_to_xcc_inst,
->       .get_xccs_per_xcp =3D &gfx_v9_4_3_get_xccs_per_xcp,
-> +     .get_ref_and_mask =3D &gfx_v9_4_3_get_ref_and_mask,
->   };
->
->   static int gfx_v9_4_3_aca_bank_parser(struct aca_handle *handle, @@
-> -2818,25 +2853,8 @@ static void gfx_v9_4_3_ring_emit_hdp_flush(struct amd=
-gpu_ring *ring)
->   {
->       struct amdgpu_device *adev =3D ring->adev;
->       u32 ref_and_mask, reg_mem_engine;
-> -     const struct nbio_hdp_flush_reg *nbio_hf_reg =3D adev->nbio.hdp_flu=
-sh_reg;
-> -
-> -     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE) {
-> -             switch (ring->me) {
-> -             case 1:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << r=
-ing->pipe;
-> -                     break;
-> -             case 2:
-> -                     ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << r=
-ing->pipe;
-> -                     break;
-> -             default:
-> -                     return;
-> -             }
-> -             reg_mem_engine =3D 0;
-> -     } else {
-> -             ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0;
-> -             reg_mem_engine =3D 1; /* pfp */
-> -     }
->
-
-It appears like gfx v9/9.4.3/10/11/12 all can be kept in some amdgpu_gfx_ge=
-t_ref_mask generic helper, then it's not required to repeat the logic.
-
-if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE ||
-        ring->funcs->type =3D=3D AMDGPU_RING_TYPE_KIQ) {
-        switch (ring->me) {
-        case 1:
-                *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp2 << ring->pi=
-pe;
-                break;
-        case 2:
-                *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp6 << ring->pi=
-pe;
-                break;
-        default:
-                return;
-        }
-        *reg_mem_engine =3D 0;
-        return;
-}
-
-if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_MES) {
-        *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp8 << ring->pipe;
-        *reg_mem_engine =3D 0;
-} else {
-        *ref_and_mask =3D nbio_hf_reg->ref_and_mask_cp0 << ring->pipe;
-        *reg_mem_engine =3D 1; /* pfp */
-}
-
-
-Thanks,
-Lijo
-
-> +     adev->gfx.funcs->get_ref_and_mask(ring, &ref_and_mask,
-> +&reg_mem_engine);
->       gfx_v9_4_3_wait_reg_mem(ring, reg_mem_engine, 0, 1,
->                             adev->nbio.funcs->get_hdp_flush_req_offset(ad=
-ev),
->                             adev->nbio.funcs->get_hdp_flush_done_offset(a=
-dev),
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb2VuaWcsIENocmlzdGlh
+biA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBEZWNlbWJlciA5
+LCAyMDI1IDU6NDIgUE0NCj4gVG86IFpoYW5nLCBKZXNzZShKaWUpIDxKZXNzZS5aaGFuZ0BhbWQu
+Y29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERldWNoZXIsIEFsZXhh
+bmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSF0g
+ZHJtL2FtZGdwdTogV2FpdCBmb3IgZXZpY3Rpb24gZmVuY2UgYmVmb3JlIHNjaGVkdWxpbmcNCj4g
+cmVzdW1lIHdvcmsNCj4NCj4gT24gMTIvOS8yNSAxMDoyMywgSmVzc2UuWmhhbmcgd3JvdGU6DQo+
+ID4gSW4gdGhlIGFtZGdwdV91c2VycV9ldmljdCBmdW5jdGlvbiwgYWZ0ZXIgc2lnbmFsaW5nIHRo
+ZSBldmljdGlvbg0KPiA+IGZlbmNlLCB3ZSBuZWVkIHRvIGVuc3VyZSBpdCdzIHByb2Nlc3NlZCBi
+ZWZvcmUgc2NoZWR1bGluZyB0aGUgcmVzdW1lDQo+ID4gd29yay4gVGhpcyBwcmV2ZW50cyBwb3Rl
+bnRpYWwgcmFjZSBjb25kaXRpb25zIHdoZXJlIHRoZSByZXN1bWUgd29yaw0KPiA+IG1pZ2h0IHN0
+YXJ0IGJlZm9yZSB0aGUgZXZpY3Rpb24gZmVuY2UgaGFzIGJlZW4gZnVsbHkgaGFuZGxlZCwgbGVh
+ZGluZw0KPiA+IHRvIGluY29uc2lzdGVudCBzdGF0ZSBpbiB1c2VyIHF1ZXVlcy4NCj4NCj4gV2Vs
+bCBzaWduYWxpbmcgdGhlIGZlbmNlIG1lYW5zIGl0IGlzIGZ1bGx5IHByb2Nlc3NlZC4gU28gdGhp
+cyBjaGFuZ2UgaGVyZSBpcyBqdXN0DQo+IGJsdW50bHkgbm9uc2Vuc2UuDQo+DQo+IFdoYXQgZXhh
+Y3RseSBpcyBoYXBwZW5pbmc/DQpbWmhhbmcsIEplc3NlKEppZSldIEhpIENocmlzdGlhbiwNCg0K
+TGV0IG1lIGNsYXJpZnkgdGhlIGlzc3VlIHdlJ3JlIG9ic2VydmluZyB3aXRoIHRoZSBTRE1BIHVz
+ZXIgcXVldWVzIHVuZGVyIHN0cmVzcy4NCg0KKipUaGUgUHJvYmxlbToqKg0KRHVyaW5nIHN0cmVz
+cyB0ZXN0aW5nIG9mIFNETUEgdXNlciBxdWV1ZXMsIHdlIGludGVybWl0dGVudGx5IHNlZSBzdGFs
+ZSBkb29yYmVsbCB2YWx1ZXMgcGVyc2lzdGluZyBhZnRlciB0aGUgQ1BVIHdyaXRlcyB0byBgY3B1
+X3dwdHJgLg0KU3BlY2lmaWNhbGx5LCBhZnRlciB1cGRhdGluZyBgY3B1X3dwdHJgICh3aGljaCBz
+aG91bGQgdXBkYXRlIHRoZSBkb29yYmVsbCksIHRoZSBkb29yYmVsbCByZWdpc3RlciBzb21ldGlt
+ZXMgcmV0YWlucyBpdHMgcHJldmlvdXMgdmFsdWUsDQpjYXVzaW5nIGluY29uc2lzdGVudCBxdWV1
+ZSBiZWhhdmlvci4gVGhpcyBoYXBwZW5zIHJhbmRvbWx5IHVuZGVyIGhlYXZ5IGxvYWQgYnV0IGlz
+IHJlcHJvZHVjaWJsZSBpbiBzdHJlc3Mgc2NlbmFyaW9zLg0KDQoNCioqUm9vdCBDYXVzZSBBbmFs
+eXNpczoqKg0KQWZ0ZXIgc2lnbmFsaW5nIHRoZSBldmljdGlvbiBmZW5jZSwgdGhlIHJlc3VtZSB3
+b3JrIGlzIHNjaGVkdWxlZCBpbW1lZGlhdGVseSB3aXRob3V0IGVuc3VyaW5nIHRoYXQgYWxsIGlu
+dGVybmFsIGRyaXZlciBzdGF0ZSB1cGRhdGVzDQoocXVldWUgc3RhdGUgdHJhbnNpdGlvbnMsIE1F
+UyBzdGF0ZSBjbGVhbnVwLCBldGMuKSBhcmUgZnVsbHkgdmlzaWJsZSBhbmQgY29uc2lzdGVudC4N
+Cg0KDQpIb3cgYWJvdXQgY2hhbmdpbmcgaXQgdGhpcyB3YXk/DQotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnEuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3VzZXJxLmMNCkBAIC0xMTMwLDggKzExMzAsMjcgQEAgc3RhdGljIHZvaWQg
+YW1kZ3B1X3VzZXJxX3Jlc3RvcmVfd29ya2VyKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykNCiB7
+DQogICAgICAgIC8qIFNjaGVkdWxlIGEgcmVzdW1lIHdvcmsgKi8NCi0gICAgICAgc2NoZWR1bGVf
+ZGVsYXllZF93b3JrKCZ1cV9tZ3ItPnJlc3VtZV93b3JrLCAwKTsNCisgICAgICAgc2NoZWR1bGVf
+ZGVsYXllZF93b3JrKCZ1cV9tZ3ItPnJlc3VtZV93b3JrLCB1c2Vjc190b19qaWZmaWVzKDEwMDAp
+KTsNCg0KVGhhbmtzDQpKZXNzZQ0KDQo+DQo+IFJlZ2FyZHMsDQo+IENocmlzdGlhbi4NCj4NCj4g
+Pg0KPiA+IFNpZ25lZC1vZmYtYnk6IEplc3NlIFpoYW5nIDxKZXNzZS5aaGFuZ0BhbWQuY29tPg0K
+PiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnEuYyB8
+IDQgKysrKw0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspDQo+ID4NCj4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VzZXJxLmMNCj4g
+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2VycS5jDQo+ID4gaW5kZXgg
+MmY5N2YzNWUwYWY1Li5lZDc0NGIyZWRjNjEgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VzZXJxLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdXNlcnEuYw0KPiA+IEBAIC0xMjM4LDYgKzEyMzgsMTAgQEAgYW1k
+Z3B1X3VzZXJxX2V2aWN0KHN0cnVjdCBhbWRncHVfdXNlcnFfbWdyDQo+ICp1cV9tZ3IsDQo+ID4g
+ICAgICAgICAgICAgcmV0dXJuOw0KPiA+ICAgICB9DQo+ID4NCj4gPiArICAgICAgIC8qIFdhaXQg
+Zm9yIGV2aWN0aW9uIGZlbmNlIHRvIGJlIHByb2Nlc3NlZCBiZWZvcmUgc2NoZWR1bGUgYSByZXN1
+bWUgd29yayAqLw0KPiA+ICsgICBpZiAoZG1hX2ZlbmNlX3dhaXRfdGltZW91dCgmZXZfZmVuY2Ut
+PmJhc2UsIGZhbHNlLCBtc2Vjc190b19qaWZmaWVzKDEwMCkpDQo+IDw9IDApIHsNCj4gPiArICAg
+ICAgICAgICBkZXZfd2FybihhZGV2LT5kZXYsICJFdmljdGlvbiBmZW5jZSB3YWl0IHRpbWVkIG91
+dFxuIik7DQo+ID4gKyAgIH0NCj4gPiAgICAgLyogU2NoZWR1bGUgYSByZXN1bWUgd29yayAqLw0K
+PiA+ICAgICBzY2hlZHVsZV9kZWxheWVkX3dvcmsoJnVxX21nci0+cmVzdW1lX3dvcmssIDApOyAg
+fQ0KDQo=
