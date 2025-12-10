@@ -4,52 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4082D3B9A9
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 09:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 800B8D3B9A9
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 09:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76F6810E253;
-	Wed, 10 Dec 2025 09:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2398110E697;
+	Wed, 10 Dec 2025 09:28:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="wJkg57Dd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ko6lfUit";
 	dkim-atps=neutral
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com
- [91.218.175.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D8D010E117
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Dec 2025 18:19:50 +0000 (UTC)
-Message-ID: <b59c1c9a-caac-43d8-9c6b-c13140624325@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1765304378;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dl2pIJEIz0h4CFIhSAtkK3IYlIEmGTX6gjsVRD7rw90=;
- b=wJkg57Ddu8AAWPVQpMeOuDZ+G8NEdiCBGeP68JJW9AGsBoy1/j37CBQMj9XEy3xRe/CGhm
- 4SnW7I/st9OQ6iHdY3iL+firHw/bd2gkVuIsbuBogy9rxtHJlCm2O5kSLuJSA4VmRPkxNv
- 8TViNW1jjixf3Rm2r/aOCAZJ0YrYlx0=
-Date: Tue, 9 Dec 2025 10:19:33 -0800
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011056.outbound.protection.outlook.com [40.107.208.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21B1310E697
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 09:28:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vZ4I5V2gj1UtjcT0VZCif6e+u2xcpOSZBb0/YWxjigtHv3gUOQ8Uqk6+YpUXI/ZTm0CEYvuI7b7aI9erjezHVVfMRhxB3nsx1lEI1bnmkLjq41OmqajCEd2LQ6nfEk/66j+QRy53tK6On8YFRT6JPXHeTZHytYX7S44hS7LxWKf8j0T+C/A0YA0LM5b1fq3IJ5RS4cY1DGCOFfJgcZ5tFC4k+1IE4NE35t102qt285LETYJe3uTIw2MaUV2uKVxW2etLP0d3DpkZu+QbZklI6aavh+M4/44ahAy7Rx2sui4Lrb9PbwwpeB+bM/01yD0uG/1v2FJZhvbqFHASsUl7OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8tr+5W0pnxz+wsdxkStqvF1Gzw1tII8psFwv6dDBQ7s=;
+ b=lNSWGTVrOu65rYlVoXmLOLqsPTGPCIDXTWglCPXNIwmJcR4i9CrmzrC8Hrf7jZSkU232F7ZWGNAVryFv6wunZvEh39sUhZciMzVM9mMQ2SsMP7uBX5BsVY4XeFS9P8tYA0uOsQq66M+igYRVm4Vtp5kCIUHR6Zf0PRhn9QejkxngwpVJi9OjY+sHjmJcbDx6En98QHBVPBECrQzn+prduLskE3x4/7GqR+dlb7CJA5YBO2vVpXBftDwOnOpbP52tTMH7apfaOGFtw4U7oo5oIU8iFh+I/WGKLKAmTS7kynuXGeyIl8qcXrD1PHefFn6hTmMwBz5aPXvhsf05Dxndzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8tr+5W0pnxz+wsdxkStqvF1Gzw1tII8psFwv6dDBQ7s=;
+ b=ko6lfUitvwdsBnMK2eqzrdzVllxU/x+kbYP+ymhWysOT9ThOtTqfd++E8wvp+5H0CZYBVRWD+DCDG0AAKCX/IWfr7q0HzagFfw1E4l7hs73934MyW8F2j6RpvGMHiNN+HvgDHTh7TnQyiRef/+hYFymYs37VA9gskuDErzlyZLY=
+Received: from BN1PR12CA0028.namprd12.prod.outlook.com (2603:10b6:408:e1::33)
+ by DM6PR12MB4449.namprd12.prod.outlook.com (2603:10b6:5:2a5::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.9; Wed, 10 Dec
+ 2025 09:28:02 +0000
+Received: from BN2PEPF000044A9.namprd04.prod.outlook.com
+ (2603:10b6:408:e1:cafe::1f) by BN1PR12CA0028.outlook.office365.com
+ (2603:10b6:408:e1::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.6 via Frontend Transport; Wed,
+ 10 Dec 2025 09:27:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A9.mail.protection.outlook.com (10.167.243.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Wed, 10 Dec 2025 09:28:01 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Dec
+ 2025 03:27:59 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Dec
+ 2025 01:27:59 -0800
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Wed, 10 Dec 2025 01:27:58 -0800
+From: Jesse.Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse.Zhang <Jesse.Zhang@amd.com>, Prike Liang <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu: Add sync function for specific reservation usage
+ and update VM sync
+Date: Wed, 10 Dec 2025 17:20:59 +0800
+Message-ID: <20251210092752.1416361-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Subject: Re: [RFC PATCH 0/2] Fixes on CM3 helper for plane shaper LUT
-To: Melissa Wen <mwen@igalia.com>, Harry Wentland <harry.wentland@amd.com>
-Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com,
- kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20251208234741.293037-1-mwen@igalia.com>
- <6fbc0496-9a96-4f72-a8d8-66b7885bdaf6@linux.dev>
- <ae3d39ec-e220-435e-9cc9-e316591cf0f1@igalia.com>
- <bb175945-665b-4cbc-b021-45e19e0f0e84@igalia.com>
- <c78c6b61-a28c-43b7-8c88-ddce497a465d@amd.com>
- <ca288c08-c39f-42e8-9be4-bfa16d77765e@igalia.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-In-Reply-To: <ca288c08-c39f-42e8-9be4-bfa16d77765e@igalia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Wed, 10 Dec 2025 09:16:53 +0000
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A9:EE_|DM6PR12MB4449:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cbe5de7-2b09-4b3a-de19-08de37ce69f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PdnhJ281Kv7KId6S20vB7tCb+HNtsaOfka3LA8HnIcac3g9r1diVgAtmZA1W?=
+ =?us-ascii?Q?mFTW98QRH/wzWyqHzrRRFSFIv7JLD8RwO95GKATISY4zLX8s6uqESlXB+bVw?=
+ =?us-ascii?Q?SdXTCvIXPGFgHslUVvmQs3RO3MLxhPOcdEyLRPDXs/VqUx07myMfQZwmbu/j?=
+ =?us-ascii?Q?g54wyQxF0QXqtd4DXDzhP8IC/AgQRH5Q+45SFG694tZ7semS0lEerxvjWdpf?=
+ =?us-ascii?Q?x+/xqakjK40QX4WQT/tQDxLOA2PI7tg+vhcW7dVZPKYqU1ByQcbsTgVBQER6?=
+ =?us-ascii?Q?3sENknpvhYD9iUL/r+6xzwToJwdDHixyLG7gwWeVYhw6AZj0Z9KCoYAZyG9c?=
+ =?us-ascii?Q?HDpVmsW396MAN4EFt/tXvXwkd8663UWoso8fBxMRURw624bdnnP4mNaWHp6v?=
+ =?us-ascii?Q?HO2HJnwHdwmmVHylzrwqtVtekA7/yJFqRDfD4qnhlwCkozUiG6zpQpte+ICo?=
+ =?us-ascii?Q?ex6IDgcpvCv1bINsNI7/rJcLiLF8Y9ycx3HVjCUVJ2MQSYiDAI7id22eILHr?=
+ =?us-ascii?Q?sNjnouIkFUSuhHAiKvwHBvKCJyNHl3TfZr+XqJ4o8u9prz/EA3rmoon8/i5F?=
+ =?us-ascii?Q?Dc5HkZKi8c/ZPdAaxEIeluTmSjUEFBieCRRU6xbIhGGQjki0lam8YU9c8+Yh?=
+ =?us-ascii?Q?z+7d9vufZhwbBV9n2Ltd5T1j1AtLEOQQ0R+iLFpn0gJsI9YcRQS1ZJ9zO243?=
+ =?us-ascii?Q?QTfPSPXhty2nNwYoQ3RCCbufwPSfPJHzoEgoR39svWNQjHcK4Hcd9NlldZF+?=
+ =?us-ascii?Q?dlZe2a78q/SXDzI9evaqsN1QOeShUVoB2zOswI7eqPhoX1MbyrqLYRlTUIH5?=
+ =?us-ascii?Q?khf5NFkQ2/cJDCAAqoNzBQKlV3/83cJ+GwAWDOS/DdlRpTZ44z37qPWgMe9v?=
+ =?us-ascii?Q?OBv9nFDa40lBqx/eLiEkk8Lebx+4W8quWHYF73dbQS0oeu+OhoAc3zJMHhLc?=
+ =?us-ascii?Q?2omjgFgJA6iqpFQuwNm1TodSrkwuVqdmy+M5TwPBdx/MIV12YJ6EfRvAWWlE?=
+ =?us-ascii?Q?aJ3FJOGSWIN0ia5dJyTl05LCBeyBZUmqjEQZV3batnYD9Sx48pKzGJvDALQZ?=
+ =?us-ascii?Q?bFu5Y0teeTHa4uslDdtrpvTfPGc3nbbHL4qqHQDD8cfGoUFZeo7ZfphvkDUg?=
+ =?us-ascii?Q?x7DiKOfUdBx12cxD1+nSJnxl9QJnDdPsz7iCmQ737GFWoj57IKJRsEafFqTd?=
+ =?us-ascii?Q?r4z06e1/jByLqJkH358r1P3ue1SrO3up4K/gZZQDp9LOE1KUWG0k5WbI8leZ?=
+ =?us-ascii?Q?K1IMFXVlcDzGvcaIkEEzdWztHssu+cWug8X/+iWhvEWXb6v6SAAAHdZxIJ5i?=
+ =?us-ascii?Q?Z2BXMcgBEis2JfJJvSXiFcWg1lX+Xa7NwmLEjl8yIWdxfpcS+igpIYeiYvcJ?=
+ =?us-ascii?Q?wFUGbme1rXgwcqFh/pMYkloT8X7rE7r1TC2mUxhnmuWTsSbHqlISixYSu0ux?=
+ =?us-ascii?Q?yhewaKxzZMb0TDue02QbzGHQE6bn8Fk/urFPGo+dT18My2eB0HTWKVeT/kwx?=
+ =?us-ascii?Q?8nUYowtVbXKbX+/KuEjM66a58NUcdiaIfOxPQnE0h0JfA6ECOwsuapURglE1?=
+ =?us-ascii?Q?MBZOADsa4FMMXXAg+fE=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 09:28:01.3006 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cbe5de7-2b09-4b3a-de19-08de37ce69f1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A9.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4449
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,115 +137,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/9/25 7:18 AM, Melissa Wen wrote:
-> 
-> 
-> On 09/12/2025 12:12, Harry Wentland wrote:
->>
->> On 2025-12-09 09:44, Melissa Wen wrote:
->>>
->>> On 09/12/2025 11:31, Melissa Wen wrote:
->>>>
->>>> On 08/12/2025 22:34, Matthew Schwartz wrote:
->>>>>> On Dec 8, 2025, at 3:48 PM, Melissa Wen <mwen@igalia.com> wrote:
->>>>>>
->>>>>> ﻿There are some unexpected banding and shimmer effects when using
->>>>>> steamOS/gamescope color pipeline for HDR on DCN32 or newer families.
->>>>>> Those problems are not present in Steam Deck (DCN301). It happens on
->>>>>> DCN32 because plane shaper LUT uses DCN30 CM3 helper to translate curves
->>>>>> instead of DCN10 CM helper. This series identifies the necessary changes
->>>>>> on CM3 helper to reduce differences on color transformation made by
->>>>>> those two helpers.
->>>>>>
->>>>>> Patch 1 aims to solve the shimmer/colorful points that looks like a
->>>>>> wrong map of black values on red/green/blue colors. Patch 2 extends the
->>>>>> delta clamping fix made in commit 27fc10d1095f ("drm/amd/display: Fix
->>>>>> the delta clamping for shaper LUT") to solve some banding effects.
->>>>>>
->>>>>> Banding is not fully solved by any helper and needs further
->>>>>> investigation.
->>>>>>
->>>>>> One easy way to check the current and expected behavior is moving the
->>>>>> cursor (doing composition) to get the expected result from GFX. When the
->>>>>> cursor disappears, those color transformations are back to be done by
->>>>>> the display hw.
->>>>> Hi Melissa,
->>>>>
->>>>> Could you share how you’re testing the gamescope color pipeline with HDR on DCN32, i.e display and connection type? Are any extra gamescope or kernel patches required?
->>>>>
->>>>> At least on my own DCN32 setup (AMD 7900XTX) + my primary monitor (an LG 45gx950a-b) via DisplayPort or my DCN35 setup + integrated HDR OLED screen (Legion Go 2), gamescope always composites when HDR is enabled. I applied your patches on top of kernel 6.18, and my kernel is built with CONFIG_DRM_AMD_COLOR_STEAMDECK=y (the downstream name of AMD_PRIVATE_COLOR for SteamOS), so that shouldn't be an issue. I tried everything from 1280x720p -> 5120x2160p, and it does not work on any resolution.
->>>> Hi Matt,
->>>>
->>>> You need to hack the DPP color caps to enabled SHAPER/3D and BLEND LUTs as below:
->>>>
->>>> diff --git i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->>>> index b276fec3e479..96b4f3239fb1 100644
->>>> --- i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->>>> +++ w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->>>> @@ -2256,8 +2256,8 @@ static bool dcn32_resource_construct(
->>>>          dc->caps.color.dpp.gamma_corr = 1;
->>>>          dc->caps.color.dpp.dgam_rom_for_yuv = 0;
->>>>
->>>> -       dc->caps.color.dpp.hw_3d_lut = 0;
->>>> -       dc->caps.color.dpp.ogam_ram = 0;  // no OGAM in DPP since DCN1
->>>> +       dc->caps.color.dpp.hw_3d_lut = 1;
->>>> +       dc->caps.color.dpp.ogam_ram = 1;  // no OGAM in DPP since DCN1
->>>>          // no OGAM ROM on DCN2 and later ASICs
->>>>          dc->caps.color.dpp.ogam_rom_caps.srgb = 0;
->>>>          dc->caps.color.dpp.ogam_rom_caps.bt2020 = 0;
->>>>
->>>> In short, you need to change `caps.color.dpp.hw_3d_lut` and `caps.color.dpp.ogam_ram` to 1 in the dcnX_resource.c file to say there is a "plane" color caps.
->>>> The thing is that, in DCN32+, these color caps are not part of DPP anymore, they are MPC capabilities in MCM that can be moved before or after blending.
->>>> But the current kernel implementation checks DPP color caps to expose plane color proprerties.
->>>> Checking MPC and where the MCM is positioned would be more complex, but not impossible. Something to improve in the future yes.
->>> Just found this: dpp_color_caps.hw_3d_lut || dm->dc->caps.color.mpc.preblend (https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c#L1636)
->>>
->>> Should be enough for new kernel versions. So you might need only the blend LUT hack.
->>>
->>>> You need to confirm that your `drm_info` shows all AMD plane color properties, but gamescope basically checks CTM and BLEND_TF as you can see here:
->>>> https://github.com/ValveSoftware/gamescope/blob/master/src/Backends/DRMBackend.cpp#L3347
->>>>
->> Are you testing this with AMD_PRIVATE_COLOR, or with the newly merged color pipeline API? If it's the former, then the kernel needs to be built with an explicit -DAMD_PRIVATE_COLOR for this to work.
-> 
-> I'm testing with cflags, but AFAIU Matthew is using a downstream kernel version where there is an extra commit that enables AMD_PRIVATE_COLOR via config option ("CONFIG_DRM_AMD_COLOR_STEAMDECK=y").
-> Depends on this kernel version, the hack for 3D LUT and BLEND LUT are both necessary.
+This patch introduces a new function `amdgpu_sync_resv_usage` that allows
+syncing fences of a specific usage from a reservation object, replacing
+the hardcoded DMA_RESV_USAGE_READ in the original `amdgpu_sync_resv`.
 
-Thanks, I had such a change locally to add back AMD_PLANE_BLEND_TF but I was seeing some color banding in Ori and the Will of the Wisps menu around the sun in the upper left corner which gave me pause. I see you mentioned something similar in one of the threads [1] though, so we're all on the same page now.
+The original `amdgpu_sync_resv` is modified to call the new function with
+DMA_RESV_USAGE_READ to maintain backward compatibility.
 
-I'm not sure if you've also tried this, but gamescopectl drm_debug_disable_output_tf 1 seems to work around the color banding in that case. From what I could tell, this bypasses the hardware LUTs while HDR scanout continues working in gamescope. We lose blending on the MangoHud overlay by disabling that though. I was thinking maybe it's due to the MCM block only doing preblend unlike DPP blending, but I could definitely be on the wrong track here...
+In `amdgpu_vm_bo_update`, we update the sync call to use
+`amdgpu_sync_resv_usage` with DMA_RESV_USAGE_BOOKKEEP.
+This ensures we properly sync with bookkeeping fences (e.g., related to
+memory eviction, migration) when updating VM mappings.
 
-[1]: https://lore.kernel.org/amd-gfx/7ad74d3d-5a63-462b-8243-f8f26441b04b@igalia.com/
+Suggested-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 49 ++++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 10 ++++-
+ 3 files changed, 44 insertions(+), 18 deletions(-)
 
-> 
->>
->> Harry
->>
->>>> Let me know if it works for you.
->>>>
->>>> BR,
->>>>
->>>> Melissa
->>>>
->>>>> Thanks,
->>>>> Matt
->>>>>
->>>>>> Lemme know your thoughts!
->>>>>>
->>>>>> Melissa
->>>>>>
->>>>>> Melissa Wen (2):
->>>>>>    drm/amd/display: fix wrong color value mapping on DCN32 shaper LUT
->>>>>>    drm/amd/display: extend delta clamping logic to CM3 LUT helper
->>>>>>
->>>>>> .../amd/display/dc/dcn30/dcn30_cm_common.c    | 32 +++++++++++++++----
->>>>>> .../display/dc/dwb/dcn30/dcn30_cm_common.h    |  2 +-
->>>>>> .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  9 +++---
->>>>>> .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 17 ++++++----
->>>>>> .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 16 ++++++----
->>>>>> 5 files changed, 50 insertions(+), 26 deletions(-)
->>>>>>
->>>>>> -- 
->>>>>> 2.51.0
->>>>>>
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+index d6ae9974c952..9665eed65b5d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
+@@ -229,31 +229,30 @@ static bool amdgpu_sync_test_fence(struct amdgpu_device *adev,
+ }
+ 
+ /**
+- * amdgpu_sync_resv - sync to a reservation object
+- *
+- * @adev: amdgpu device
+- * @sync: sync object to add fences from reservation object to
+- * @resv: reservation object with embedded fence
+- * @mode: how owner affects which fences we sync to
+- * @owner: owner of the planned job submission
+- *
+- * Sync to the fence
++ * amdgpu_sync_resv_usage - Sync fences of a specific usage from a reservation object
++ * @adev: AMDGPU device
++ * @sync: Sync object
++ * @resv: Reservation object
++ * @mode: Sync mode (affects which fences are selected)
++ * @owner: Owner identifier
++ * @usage: Target fence usage (e.g., DMA_RESV_USAGE_BOOKKEEP)
++ *
++ * Collects fences of the specified usage from the reservation and adds them to the sync object
+  */
+-int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
+-		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
+-		     void *owner)
++int amdgpu_sync_resv_usage(struct amdgpu_device *adev, struct amdgpu_sync *sync,
++			   struct dma_resv *resv, enum amdgpu_sync_mode mode,
++			   void *owner, uint64_t usage)
+ {
+ 	struct dma_resv_iter cursor;
+ 	struct dma_fence *f;
+ 	int r;
+ 
+-	if (resv == NULL)
++	if (!resv)
+ 		return -EINVAL;
+-	/* Implicitly sync only to KERNEL, WRITE and READ */
+-	dma_resv_for_each_fence(&cursor, resv, DMA_RESV_USAGE_READ, f) {
++
++	dma_resv_for_each_fence(&cursor, resv, usage, f) {
+ 		dma_fence_chain_for_each(f, f) {
+ 			struct dma_fence *tmp = dma_fence_chain_contained(f);
+-
+ 			if (amdgpu_sync_test_fence(adev, mode, owner, tmp)) {
+ 				r = amdgpu_sync_fence(sync, f, GFP_KERNEL);
+ 				dma_fence_put(f);
+@@ -266,6 +265,24 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
+ 	return 0;
+ }
+ 
++/**
++ * amdgpu_sync_resv - sync to a reservation object
++ *
++ * @adev: amdgpu device
++ * @sync: sync object to add fences from reservation object to
++ * @resv: reservation object with embedded fence
++ * @mode: how owner affects which fences we sync to
++ * @owner: owner of the planned job submission
++ *
++ * Sync to the fence
++ */
++int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
++		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
++		     void *owner)
++{
++	 return amdgpu_sync_resv_usage(adev, sync, resv, mode, owner, DMA_RESV_USAGE_READ);
++}
++
+ /**
+  * amdgpu_sync_kfd - sync to KFD fences
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
+index 51eb4382c91e..1f875b1e9d2c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
+@@ -52,6 +52,9 @@ int amdgpu_sync_fence(struct amdgpu_sync *sync, struct dma_fence *f,
+ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
+ 		     struct dma_resv *resv, enum amdgpu_sync_mode mode,
+ 		     void *owner);
++int amdgpu_sync_resv_usage(struct amdgpu_device *adev, struct amdgpu_sync *sync,
++                          struct dma_resv *resv, enum amdgpu_sync_mode mode,
++                          void *owner, uint64_t usage);
+ int amdgpu_sync_kfd(struct amdgpu_sync *sync, struct dma_resv *resv);
+ struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
+ 				     struct amdgpu_ring *ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 0eccb31793ca..f470b7e5489a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1313,8 +1313,14 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 			pages_addr = bo->tbo.ttm->dma_address;
+ 
+ 		/* Implicitly sync to moving fences before mapping anything */
+-		r = amdgpu_sync_resv(adev, &sync, bo->tbo.base.resv,
+-				     AMDGPU_SYNC_EXPLICIT, vm);
++		if (vm->update_funcs == &amdgpu_vm_sdma_funcs)
++			r = amdgpu_sync_resv_usage(adev, &sync, bo->tbo.base.resv,
++					AMDGPU_SYNC_EXPLICIT, vm,
++					DMA_RESV_USAGE_BOOKKEEP);
++		else
++			r = amdgpu_sync_resv_usage(adev, &sync, bo->tbo.base.resv,
++					AMDGPU_SYNC_EXPLICIT, vm,
++					DMA_RESV_USAGE_READ);
+ 		if (r)
+ 			goto error_free;
+ 	}
+-- 
+2.49.0
 
