@@ -4,147 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41618D3C92B
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 17:05:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBBDED3B9BE
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 17:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D66DA10E772;
-	Wed, 10 Dec 2025 17:05:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E8A410E780;
+	Wed, 10 Dec 2025 17:06:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wZhTspwH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uP7oDOLa";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013027.outbound.protection.outlook.com
- [40.93.196.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 960EF10E772
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 17:05:10 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010001.outbound.protection.outlook.com [52.101.85.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 255BA10E780
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 17:06:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s8oYHY1QGCp/i41M51vUKOqPecd+Hw4XBiqhfXANFVau7HslzefTiy0ETddCRnF6jYbIQzuernT95knZwiKI+/PTsAJ7UvPob/Nwhd96A+DanfxyFhmeOABP5yn/Py8pcKs6Yio6IxWDatgSOw6cUZ8lKOMUmVh24RY8Md4ofomD1WyUFBHNyu3qz/rlnzYZKP+pwFWGIFnsgoMeI/GoQ5maVGEAC72I3gfpHP2FHQhlG//em549YZa/mGbnaNEe8RWa7iYvCfrM3as/ESOicIFi2iaXw59AmpeuahWOL1yE03Ifa8QQHBP2Kyalzqb94VqjShnqJ1/vzeahy2ej7Q==
+ b=imNh4CY9jmAUbFWsN9CyA824qF9ZbM/cRl1yvroCGZpkZ8k1C/m0Kd3k1zIioHcnCKEV1VUhZ0/BZIiPB2ZAD6U194nJ+4IYBiWttk3aGlTYt9nEEP38cYLhdcVQaRm4mbCcDnuQXHc+ckAjHJSofcHM7Rh3uRlMkOTlZGD1NwQd6uS8TGkWVnsB/BpK/P51pOrAakvBV9XkxDA1ad1clKcWF9RP5FQOFz3HWQdKGzwH7GQTB+IklQ+gwbtF48MzPc50/zv4zUtQNlt3dkexIMiLLod72Ip2OmT68gm2XAedrK/3ROsjNHJIBrIbNgBskds4YzNYiPaOEm6v/01AeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cKMigh2q6ZPU/qxayQRhWr/002X6uymza5PM5DNndIo=;
- b=vPkIy9eqBkV8JGLOcGPKBw8905qum18w43nctUV34wa+3ufN3Hr4tgyCHeyjgR+Vs2jbGozi8ltsA8QWHgM4CzXCE+j4BdxAcuJGTRIKYOO0o50BRlCyNKccefkuNjEe6yh8GhlK6ncGsMq8oDtW0SYV6fNDkRE/hL7CKiLx7UO3i17KgFHZDcSZV7WGMYThXkFfvEHiOOTPvr0brwjxLflED0U6TsUojF+G69KkvlQqxV8uoRlrUw6WlffrLgRxLd3rgRmF4ajHw5lWxzmPEVPyU1EbcrH9jGCJg0uM50W556f87+3Y/rYY9RYFQOj+ZwSPbrNYuMihAzwGL6t9yw==
+ bh=8BRZ+l8tFkGpaDvznQWU5p5wy/kDLo/Sw3+A4Sj/o1Y=;
+ b=gwHJ2y9nQwbE8APMYVziXZH9Wc+LiJR0aXsUfKfnl/hFgzD61Czv6fdwvGSTaUHSQJfY1wPvn6E5XJmNgkJFqKhox9qQMLseU2Q3moRnmbPh6H/LS0KcW4xkf88tl02QWXA7xG1ya+kmLr3WugIgrhCuekH19hToDnpwb+bGGAuGttdEmaLyVT1yQHO3Of2Mrrwmfrv44dPlPjlCS+9N9lAX9hrP13nngR1ui0XiRIh8NWrT1aWKIqh68hO55sT/Txj+C4YXN4TEN6kEbVZS7oOWxVj7jAV32Mk4gCsK2Xbs6gFyfVfU6hA/wwX+tqg5tpql24Kar0JeedubjjqG3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cKMigh2q6ZPU/qxayQRhWr/002X6uymza5PM5DNndIo=;
- b=wZhTspwHkTUhr1YoGPObhpqwUdI5YlYKohEEMXFl1LFHSExbQRcPpcb6+0fqeJ+GNeMIVkb2Jw0ZcepV/IdZWTXKC0h8DKCqz++n50ODhOR3Wq6FPM14h/0/zh5jnhW9KCEIXRHmHtztFQC1ouDhwvMAxmGDd//dHlJ4DK5hEqw=
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
- by LV3PR12MB9412.namprd12.prod.outlook.com (2603:10b6:408:211::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.9; Wed, 10 Dec
- 2025 17:04:58 +0000
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819%7]) with mapi id 15.20.9412.005; Wed, 10 Dec 2025
- 17:04:58 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "SHANMUGAM, SRINIVASAN"
- <SRINIVASAN.SHANMUGAM@amd.com>, "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, Matthew Brost
- <matthew.brost@intel.com>
-Subject: Re: [PATCH] drm/amdgpu: fix a job->pasid access race in gpu recovery
-Thread-Topic: [PATCH] drm/amdgpu: fix a job->pasid access race in gpu recovery
-Thread-Index: AQHcafK4f9w6UF19iEyhJ1azIqFXdbUbGc6u
-Date: Wed, 10 Dec 2025 17:04:58 +0000
-Message-ID: <SJ0PR12MB708204C40ADC23BA42E4545097A0A@SJ0PR12MB7082.namprd12.prod.outlook.com>
-References: <20251210163254.45210-1-alexander.deucher@amd.com>
-In-Reply-To: <20251210163254.45210-1-alexander.deucher@amd.com>
+ bh=8BRZ+l8tFkGpaDvznQWU5p5wy/kDLo/Sw3+A4Sj/o1Y=;
+ b=uP7oDOLa+c3zlALTeDX2RT682w7jd4a2nlPadqo1Xc0BS6oiXcwAr/jVZQPfhzQ022CUd5g76iEhNyI5lJlWIprpSVSwbLWeGgeOZ85T0QF4/riphij3ofBoNq6qAYIMNPf4aHXYHJn9D2fS7x9WV3SFj8hhU2k/oKXz3/4F4Rw=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by DS2PR12MB9661.namprd12.prod.outlook.com (2603:10b6:8:27b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Wed, 10 Dec
+ 2025 17:06:03 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0%4]) with mapi id 15.20.9412.005; Wed, 10 Dec 2025
+ 17:06:03 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] amdkfd: Only ignore -ENOENT for KFD init failuires
+Thread-Topic: [PATCH 1/2] amdkfd: Only ignore -ENOENT for KFD init failuires
+Thread-Index: AQHcZ4Jh9fAcAp3c7EuxIndDN98pL7UbH0og
+Date: Wed, 10 Dec 2025 17:06:03 +0000
+Message-ID: <BL1PR12MB5898D40CCAFD948D8C17B69D85A0A@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20251207140402.121338-1-superm1@kernel.org>
+ <20251207140402.121338-2-superm1@kernel.org>
+In-Reply-To: <20251207140402.121338-2-superm1@kernel.org>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-12-10T17:03:15.5358389Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-x-ms-reactions: allow
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-10T17:05:16.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB7082:EE_|LV3PR12MB9412:EE_
-x-ms-office365-filtering-correlation-id: 58c5d988-5e43-41fd-f5f9-08de380e3f9f
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|DS2PR12MB9661:EE_
+x-ms-office365-filtering-correlation-id: 3a773a48-324c-4e07-d3f1-08de380e66b3
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|8096899003|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?6oaedty2YqwNz2o7NRFpwJW85ddKB1vQK/cez5orsNZsKdrXZTo92R2wkQpS?=
- =?us-ascii?Q?2qNz2rBMJaXsG7S/08quGtszpGdJA8Iu0jbG8BZ/usRQlIHFx43m7Lb5LXhS?=
- =?us-ascii?Q?tmXM4xZ8s1vfkXplgoSfpl6akj5LuBrljwdi61TG/aMgxXygTloh0IX68PLt?=
- =?us-ascii?Q?NJ8aI6Eu7s6gmjbEyYd5JAzBtfQEfUwYU0mqDe5Px6uf/HDRYj+4OACZgLKz?=
- =?us-ascii?Q?UW5Q9bFP01QdRHH6mh+E+U5P/nKRrXJ861WwABkidSv+e6sinO6Bcx8CwsUO?=
- =?us-ascii?Q?LqFp595FBJx1Hl/jYEzPnLp9A5ZfxE7T4O4bL/6Yk8VmoTKdOzICYTufThBp?=
- =?us-ascii?Q?cbhNeU6l2YzTJhgUre7/hkCdZgy1KAO4Q45LO2y62fBWb4uhqBw76W7d8a3+?=
- =?us-ascii?Q?bshfIV4PihCq+37sL14CUmDaJONInTOfz1jR0XziQO92jLIw5jkpLhV3t+ng?=
- =?us-ascii?Q?N5f4JuyEkT7e1FHrFRsq7JW5zmFO74+fIPRKB81UnQ1ApNwfFwiJwz3t/Mpi?=
- =?us-ascii?Q?2JtMlQlPInvP40qGf4RUgSeOCVKxkSH4jeFydu1Vi3WL63fmyf4x8Ez7EcqA?=
- =?us-ascii?Q?I9UKFOMaGFtQgP6ttu7zr7g8pegfR5OvtuQSwYhG9rMCk2I+hjYtpFY2a93t?=
- =?us-ascii?Q?wUbX5vCdUKLS7oHhqmtE/yssxtWuLLNrFZKxzTQG4U6z/opKg7TboLDnWI15?=
- =?us-ascii?Q?NKVWnCEK5kdrM3MDTgRI2KJoTeDtkZJfAYYFnKYV1N4fZMeCAwW3DRsQoR5x?=
- =?us-ascii?Q?IZxptgmICshgJucS9e+Sgx1fb1rdAYGof2eonCD5mE1i/6Wc2mCirpnSyBpV?=
- =?us-ascii?Q?3ZnjU83Y6qSV8aegeQqkpY/WWn8eAp3Z/443uT0aGmjf2KtLi+327i3F4AOF?=
- =?us-ascii?Q?bBnKly5GyjkD4qvBay//xONGgvFs1gKSDXIzrp+cbIIulOtg6qTRTfdqSWDE?=
- =?us-ascii?Q?syie/9VuI9ofjUz2swYBpuxji/Dw1DRAC0qrgA9PK9EdQIJ6PHj9hSV0ZPME?=
- =?us-ascii?Q?1fhTPzGrDXkqifKwkG5RkBI/DeA5NTLSm8yAQ57T9+eR+0wQdGoXpihkdW1F?=
- =?us-ascii?Q?M7s7LNfBDIfZVCe/7cFJjofDHCd7SLXut4xlzXk4NVAZiyxSliSdya6wwkq1?=
- =?us-ascii?Q?YKfaSYMkvtSNVlPeV7oCgRYvfd382u0Zr+U1PhyN7T9JG17ZWcNc1/U5rapS?=
- =?us-ascii?Q?elEQQdIUQRa4LflKzOJqa1QihWsq9j1JJzA9j2BZ/DrtktAJmWYqK9E8GVjK?=
- =?us-ascii?Q?3Wh51QfMNqLN7ZQcmUjHFs0OkR6rS3Wd5nvmJnODg9s6GhNN7te5WtQTArjq?=
- =?us-ascii?Q?CdkU/y7MDIn9XKQt9IuUmtOzZTSAp7x1rlFz8OQ1YidV8/I5WpUxO7f13Zxo?=
- =?us-ascii?Q?R9E1NAes08rEo5sO/uOtwrwCLTzznk6JHHTZhsPtRfzwGnFBfuQAjpRtGUFp?=
- =?us-ascii?Q?jqJGPR/Ozucwv6B2xdiGzKhGeQbGNtqTMjQcPDyyDLJ7NswqjMS6743vygfM?=
- =?us-ascii?Q?fZuGSfKp5EJPWaPauekMg0TWHDkJZu5wiF7Q?=
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700021;
+x-microsoft-antispam-message-info: =?us-ascii?Q?LyyIWzCwlkKdqEdegt71ODTwUZBcOACu/OZ6XLh5eo4VcyB/OshgOJ6OUqiX?=
+ =?us-ascii?Q?/TcGIyxNr/1Vq+ilDrC3MD53z5OAp9kokp0JEp4kO6FlkwJtcPqPEK7/F+lS?=
+ =?us-ascii?Q?ekxMktXKxFwkKslZA0r8BIvtIyNjtavECOyEBJ83NMExpvj5AEh5E0xsrjyS?=
+ =?us-ascii?Q?dFKYQxc0yjlZKNNL5jDvrNqQa0ucRlALIWPzm7XrtHoYudirQyel5cPBcHqS?=
+ =?us-ascii?Q?Eo3qaxeXtNVonYk2zPEh3j1uBpyLVA5UubFlxOAXsfbtT2V1XF/gUYbHjfFh?=
+ =?us-ascii?Q?joJWHGtM5k3l1NTa+mQgOwyICxfoMIB9RPcOrH26vj9oFk1FWqQMRLZ4Pm7r?=
+ =?us-ascii?Q?qjkFc/lS2jJMl58jBJQHfjoOKXoc3e1rCkvLNtTc2gUcN8t0d+Anuaa5igVJ?=
+ =?us-ascii?Q?bfGiT1l7Afq2IJWh2FV9BquYUfzrOQ+qG3UWl9r349x8PsTWNLdGUlFE7f4G?=
+ =?us-ascii?Q?UgRE3ZPPPj+iO5SuHPYrhXYhE61Rq42AWtL2fpmkMehyJBIoqa3zEqyCG+hG?=
+ =?us-ascii?Q?HGxsNSKPt3OFeqdwyZgFxTVm265CRAeYbG7yQFk1j1P+QvkVZaLkQLcvK3w1?=
+ =?us-ascii?Q?/fwqV6fTh8txI8c7/3FDxMc86WGy7/BCVNrATUteN2cSgLgvkTgrwdbKBLfK?=
+ =?us-ascii?Q?3IMlVDQJa9pFiu5vs0aLZXXkRBXG4fxSW9SzXNdeGD47oBZ3+FNQm99UiT3g?=
+ =?us-ascii?Q?EWPDBb7BT80BrB1+5QJpB5hLNy0fYYYWn5AZC+2Fbhy4F7rD7je+XzC+D8GQ?=
+ =?us-ascii?Q?mjGqmPy2ke3RPXW7ThUMoTCmJp5xUmC+GhzWMSAZz5p05XIJX1hHcdYIPxU4?=
+ =?us-ascii?Q?J27WJVupgvBtF2StY//jBO5DzUPW7ua+IRCM5Wifc4x1I5wqK49NF2j6NCbl?=
+ =?us-ascii?Q?MemZWOHUBDVlDucu9v1gv+gjDmuhP4EL/i9LaYRKqFawV4QVhrpcKSUwD0y6?=
+ =?us-ascii?Q?yZzBICdmYktlfiuo6h96O2IPKUcKZvFoiiXLtAX5BzgvxagV4cpBJ1KLhp6I?=
+ =?us-ascii?Q?wryogCRx+3c5TBFT/fz4QFiqWV0kRYBNMZ1vHtWplnO1UrhaTByk+pqOvOxV?=
+ =?us-ascii?Q?jvc+p1IxlnxVOx94ZRu8To28GY4llAiHlrekr6LSOfdO69XjmTR13xpnK/u6?=
+ =?us-ascii?Q?edelVoVvYo4N68A2OcKDGH2+Kt9lqGb26kUKkToWN/pBTsltgC7VKWxSLK8G?=
+ =?us-ascii?Q?rZIPpx/bx/L//rfJIBBRhnQtH5Y69klGbYRVNBEEHMB1Q8KNT1yyFmTQANf2?=
+ =?us-ascii?Q?Mw3hzblksIcrKhmacjQxPCBEmO+l4g6JDILf7IfYu3qr0kFub/zq3KY8E8UQ?=
+ =?us-ascii?Q?Dcbm98SEvfZUaho2NpvfNMRVxIN5mMxijp+rie2gUqPMafPSl7fT0dQ1JxBk?=
+ =?us-ascii?Q?CXO8gly3bvWidS07guXb7ZNdYG/RGgFRyuaF2OQ7qGKYYys371AlUHlypdta?=
+ =?us-ascii?Q?eNJPFRnf1MIqtmIRWzMxxScqx2QW13lmbFFXIfItAcV8SRhWLw67eD0UCYdS?=
+ =?us-ascii?Q?+KfPsgsnIIJSlrLnFFbENWjRCQplCwqX/UoG?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(38070700021)(7053199007);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jwAXZqeT7U9lahiUUWV5/bw+Mro+n5d1yviwmWL4FVBvTSi3+IXqJ1Q4YQLA?=
- =?us-ascii?Q?on8crXsLYs68H1/dG9gSd2benUZZ6NgPsyKotYUDqXUh6DVArJJ9ZQr6hZ69?=
- =?us-ascii?Q?qjGdYDRyNIvjPfssC1wvZj5gh/tQrb3UL4tTz7FvIVJoWUTHhft/EO1vx7M2?=
- =?us-ascii?Q?5m24+yAuFwAcCghmDKQ24nI9AdWIhblr9WOUkISDwD5CX57uOaNslMArPj3S?=
- =?us-ascii?Q?ot87nohBDug9Y4+1LMyFR2oT5gshp9O734P812cV3DRypmiS6dF7/1Nj+Gxd?=
- =?us-ascii?Q?0jWNGbrHMtclHTW0IWg7RtYuGZW22Xz8/+lCAtNJ0JxNUy7xeaNLYTYuHraT?=
- =?us-ascii?Q?cpJ/JO06bLV4wXLVWJLv7r2QF8/5LWCrSy7LdN0NgP9xGu6urDRxrxoA2gsM?=
- =?us-ascii?Q?l3wTZp2Lur2zZo/au0hXK4Gtj9AgLyg+Nyt6WJwehlr9Mc4dh0jIrCn1MfeH?=
- =?us-ascii?Q?ObYDwqUshd9H2ZsK7yAZWN7X7q9jWpcq+JF+w93zZ963fIV9SBnfBR4HUVMp?=
- =?us-ascii?Q?8Agv5pFirTSit5AFfXlcKPxuBcjRNI78ArYIjgcnoxxJzQqtrL0pD526imiQ?=
- =?us-ascii?Q?8q5mf0x2gNRPy7a8WX/07VtvNwx4MQr1O+GIbQPblR3BDS0hOkvIp10i7yle?=
- =?us-ascii?Q?PWsJbRv0FEPyJ4gzBiBgmxiHdwGs95TZV4McnkgdDDgeQYBOKxewC/U9F6Bz?=
- =?us-ascii?Q?3QE/qnvax553Q1sjj8knHUEG1xNY/l4OBNO97BaMM1hlgpstPI8d/2rTkQMs?=
- =?us-ascii?Q?6goG7GYcDwLuaVsXkQZ0Hu9iOgtiR/XfMjzSqNfZn6Q+yPNy7cOdRdyd53kT?=
- =?us-ascii?Q?KId5rENGg2ei0580ESOXxc5/Wxed8CXutr/I6AcGq/dYJsM3OUND/Z9Tmt4L?=
- =?us-ascii?Q?AvYjanfWV02LVWDlk4R317hfBvFJ+3KJOh8NstPWgDk27DLqBKOUrsB5Gluk?=
- =?us-ascii?Q?wNHsdDF3+E/eAiMT4LpwIhi3hmDPnWhXQEBQ7GgAGWgGO8fsmJD6T/i0ApiM?=
- =?us-ascii?Q?ewwGkmdP7MM+YtdZwPtJmDfCJSg+lchlnc4OY2+RNWIsPeeDk0TwiSfZos5F?=
- =?us-ascii?Q?9leSATItSllzM0RJ0hjYcBWudsC81yuC8DAx4KBoQKJJXPhe+nMRsVSFOBge?=
- =?us-ascii?Q?RCPHr6eaL2nY6D+Y836IVyFS+74oqdwtABsmsXi2gKNcxFyUexZ5v0G+AY/D?=
- =?us-ascii?Q?CigPiwHYqPr8lSYEYYeFCd4SpSZbJ+H3GbPuWCoX3VT1W6Ao8IQ3LOQYDbpG?=
- =?us-ascii?Q?oPRPggoB4KANKY9R6IHhifFprvcv9xFwurlNJfWXuMA/UJkLgYnX9X6R/lO0?=
- =?us-ascii?Q?F/q5tJw9Nl2Wy/2p1pBlPZHAAHNjyyv/i2OHpFVijFjwohgClX297TrpmXpi?=
- =?us-ascii?Q?faJwVT2H0ukAplwgECSLQ0KJWpZLq20t0L0gmZRTjSY8SIMykn4SfuldAwfo?=
- =?us-ascii?Q?tJgUbCySZDJDQvD9hZeOiICvMRSdPquR9vxIZWbthmqocWJv+hPFLI0I51Km?=
- =?us-ascii?Q?uebUfJVhcYPOKzJHM6lCENbRGefWPeAkGjJ7WSsAEk7Icn9JArsq4bKgNibt?=
- =?us-ascii?Q?EVV08hb9Xd6/YC4qHVEMstre7/MUtkAQk0xA2Fpd?=
-Content-Type: multipart/alternative;
- boundary="_000_SJ0PR12MB708204C40ADC23BA42E4545097A0ASJ0PR12MB7082namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?drmfTqMKWbPJ0Z3FA1TBQyCAMm4nIFFN87LdSb6KhmG2BVad0pla8L9bYTG9?=
+ =?us-ascii?Q?xIJbzTy9bafhmDo69VpnGrMUql4DFeA0sX2DpOKK9xQGXp+WR7kAWK2TUIhJ?=
+ =?us-ascii?Q?EMCgVpCNAdd2XrUk/bT3QXt5myD4ZK6uym4cvfAkWvNrq5Wd2icznjVEFgv0?=
+ =?us-ascii?Q?YIgFge5sCb2Tfr4Tb4Cf80Ljm50wtl3uRGAiuwL6wuNkjMsCve6JzM1YKKw0?=
+ =?us-ascii?Q?VuGVP+eBbPPuU/2K8CJXap7PFV9OcPeHKkVa3kx4qpr+C2RHr9jkdShtWjqC?=
+ =?us-ascii?Q?8QCJ2j+v70Ru8pXfbKItKRunnf8Szb/UdLZXJI0/VzfJCqJNyX4K6SBt/0CV?=
+ =?us-ascii?Q?mpzWfViEz4nC05JKT5PUOWfhq4oXxTVwSV7/xSNmLKkIHnhXh7UoHgGtFGHH?=
+ =?us-ascii?Q?i88+rdFyxgIoK6lCENkJm/wGkEuUvxjm03e0ccreY+bxNRAlGmy7umaxoHX2?=
+ =?us-ascii?Q?YXwku7k40A5vs4Vv948GtfylwqYC66YHpFqrPNzIGKm8zI+CwmhwCvb3n5Hp?=
+ =?us-ascii?Q?fwqmr48dZgkZFC7hXX0mz7ygKC8FsrXexAXoIkHlxCni+pzGJ6mewO1jk+gc?=
+ =?us-ascii?Q?nua2H0TnPrvfdhnsTxwvQKW7nalO5dtuHSgwAn0TXDkF8XHvVCyQcmnNdfrB?=
+ =?us-ascii?Q?Y4wGqEH1p1A8xjflPXavEe9YNJWVDKeOJfP7fbfkWqSQAwoeVMZQx1098aNA?=
+ =?us-ascii?Q?/d+O3SV604iZ74jIMO6qg7uzBWcbUHlp+RQ+REoPfHFrXh+uDLj1hwOcfz69?=
+ =?us-ascii?Q?L3VQ2nL86sY7P11oBIyzG5MBak1H8Br6DlsoahhdsQuOJ5O335KGjKj+DvAC?=
+ =?us-ascii?Q?7Sz7HYFQWnETfjotU7l2iY65RdtxJEq0a7I8wkwXHhDp9Ac0jgCNzdjzuW04?=
+ =?us-ascii?Q?XAjxjUrNZsUWyDPD0h9USAfoP+l9cF+1h6KGLzheDAEPWL1TJMP8xUeXze5x?=
+ =?us-ascii?Q?NbVnx/oYi/nU0O5twgR7Z3wpH9DeyTR94RKQ9FGUEmpmRGCr4BjrtU+3g7UQ?=
+ =?us-ascii?Q?VNfIZmzCWur1g91ewyb/78VLa2nWDkb9dmN7ufLRBmOKP+f3tWhymg9p99cE?=
+ =?us-ascii?Q?uZ5kIjUb8G34qM3D5oAZw5ln+cz9ck7xaXHrNEho0wmyS0R5pzCSlzO1zFoI?=
+ =?us-ascii?Q?I4Tn5Lsnk1Zs7/guxLGPDYLV9YTdI9Dg37nts3aMZVkoX5VFeZCeZNNpzZl9?=
+ =?us-ascii?Q?Okw/rxf2Lhij4RhmmyQuIVM72w23HsSvpmIlK1zw4FyUBFOURxujMgqNX/Ll?=
+ =?us-ascii?Q?JyhmmjGRi+boTlHZN+djmmSy+IkADUezWAunJ1L2tA7ONG0Jtt3XVSB4MT59?=
+ =?us-ascii?Q?zKnnsQKKR1OODfHBL8P0VW7MPboDQTJXBdWlTUYIz3lkjiFAEy7uPF/mElBg?=
+ =?us-ascii?Q?BShyOpzkJSjUkPiwyW4m1L9Af+VHXzmzlBHgerFP6zvP2HL/pbq9JY4bddS9?=
+ =?us-ascii?Q?hLAsBI2533rcGpwVvAbA7utI4j+AGQ2/HahfdQjvwqSqMX+hnbv2xQ2Y7VCR?=
+ =?us-ascii?Q?00+RCpNaeuMDQgRBur+JQDN3CFyOy6UoldChXNKX56HTE2KPa1uHDP2RWmBG?=
+ =?us-ascii?Q?rU1Z9n5b/x3UIeWXZaE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58c5d988-5e43-41fd-f5f9-08de380e3f9f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2025 17:04:58.1077 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a773a48-324c-4e07-d3f1-08de380e66b3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2025 17:06:03.6325 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DGMWCWOl8AWnLbxBoH2DQXrKMytM8pK2Zhgfj/B+8NkXoh2l9BNYRj13BeKZlj0u
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9412
+X-MS-Exchange-CrossTenant-userprincipalname: hatYh8KAM/yKJSCHIf8p4WKIAo7owYnYSvtfeRFIT+fBwp0h5A+ZCQ6ulxrKdQEQaDgyu9hSG+HmcLiQWznORg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9661
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,222 +153,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SJ0PR12MB708204C40ADC23BA42E4545097A0ASJ0PR12MB7082namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-[Public]
-
-Instead of keeping a stale job pointer check at the end, may be use if (pas=
-id !=3D -1).
-
-Thanks,
-Lijo
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
-cher <alexander.deucher@amd.com>
-Sent: Wednesday, December 10, 2025 10:02:54 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM, SRINIVASAN <=
-SRINIVASAN.SHANMUGAM@amd.com>; Prosyak, Vitaly <Vitaly.Prosyak@amd.com>; Ko=
-enig, Christian <Christian.Koenig@amd.com>; Matthew Brost <matthew.brost@in=
-tel.com>
-Subject: [PATCH] drm/amdgpu: fix a job->pasid access race in gpu recovery
-
-Avoid a possible UAF in GPU recovery due to a race between
-the sched timeout callback and the tdr work queue.
-
-The gpu recovery function calls drm_sched_stop() and
-later drm_sched_start().  drm_sched_start() restarts
-the tdr queue which will eventually free the job.  If
-the tdr queue frees the job before time out callback
-completes, the job will be freed and we'll get a UAF
-when accessing the pasid.  Cache it early to avoid the
-UAF.
-
-Cc: SRINIVASAN.SHANMUGAM@amd.com
-Cc: vitaly.prosyak@amd.com
-Cc: christian.koenig@amd.com
-Suggested-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 8a851d7548c00..1adfa23db0981 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6634,6 +6634,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *a=
-dev,
-         struct amdgpu_hive_info *hive =3D NULL;
-         int r =3D 0;
-         bool need_emergency_restart =3D false;
-+       /* save the pasid here as the job may be freed before the end of th=
-e reset */
-+       unsigned int pasid =3D job ? job->pasid : 0;
-
-         /*
-          * If it reaches here because of hang/timeout and a RAS error is
-@@ -6734,8 +6736,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *=
-adev,
-         if (!r) {
-                 struct amdgpu_task_info *ti =3D NULL;
-
-+               /*
-+                * The job may already be freed at this point via the sched=
- tdr workqueue so
-+                * use the cached pasid.
-+                */
-                 if (job)
--                       ti =3D amdgpu_vm_get_task_info_pasid(adev, job->pas=
-id);
-+                       ti =3D amdgpu_vm_get_task_info_pasid(adev, pasid);
-
-                 drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY=
-_NONE,
-                                      ti ? &ti->task : NULL);
---
-2.52.0
+Reviewed-by: Kent Russell <kent.russell@amd.com>
 
 
---_000_SJ0PR12MB708204C40ADC23BA42E4545097A0ASJ0PR12MB7082namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario
+> Limonciello (AMD)
+> Sent: Sunday, December 7, 2025 9:04 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Mario Limonciello (AMD) <superm1@kernel.org>
+> Subject: [PATCH 1/2] amdkfd: Only ignore -ENOENT for KFD init failuires
 >
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
-3, 33, 33);">
-Instead of keeping a stale job pointer check at the end, may be use if (pas=
-id !=3D -1).</div>
-<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
-es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
-, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-<br>
-</div>
-</div>
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt;" id=3D"ms-outlook-mobile-=
-signature" dir=3D"auto">
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-Thanks,</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-Lijo</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexander.de=
-ucher@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, December 10, 2025 10:02:54 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; SHANMUGAM,=
- SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Prosyak, Vitaly &lt;Vital=
-y.Prosyak@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; =
-Matthew Brost &lt;matthew.brost@intel.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: fix a job-&gt;pasid access race in gpu =
-recovery</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Avoid a possible UAF in GPU recovery due to a race=
- between<br>
-the sched timeout callback and the tdr work queue.<br>
-<br>
-The gpu recovery function calls drm_sched_stop() and<br>
-later drm_sched_start().&nbsp; drm_sched_start() restarts<br>
-the tdr queue which will eventually free the job.&nbsp; If<br>
-the tdr queue frees the job before time out callback<br>
-completes, the job will be freed and we'll get a UAF<br>
-when accessing the pasid.&nbsp; Cache it early to avoid the<br>
-UAF.<br>
-<br>
-Cc: SRINIVASAN.SHANMUGAM@amd.com<br>
-Cc: vitaly.prosyak@amd.com<br>
-Cc: christian.koenig@amd.com<br>
-Suggested-by: Matthew Brost &lt;matthew.brost@intel.com&gt;<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++++-<br>
-&nbsp;1 file changed, 7 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 8a851d7548c00..1adfa23db0981 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -6634,6 +6634,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *a=
-dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_hive_info *h=
-ive =3D NULL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool need_emergency_restar=
-t =3D false;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* save the pasid here as the job may=
- be freed before the end of the reset */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int pasid =3D job ? job-&gt;=
-pasid : 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * If it reaches here=
- because of hang/timeout and a RAS error is<br>
-@@ -6734,8 +6736,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *=
-adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct amdgpu_task_info *ti =3D NULL;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /*<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * The job may already be freed at this point via the sched=
- tdr workqueue so<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * use the cached pasid.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (job)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ti =3D amdgpu_vm=
-_get_task_info_pasid(adev, job-&gt;pasid);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ti =3D amdgpu_vm=
-_get_task_info_pasid(adev, pasid);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_REC=
-OVERY_NONE,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ti=
- ? &amp;ti-&gt;task : NULL);<br>
--- <br>
-2.52.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> When compiled without CONFIG_HSA_AMD KFD will return -ENOENT.
+> As other errors will cause KFD functionality issues this is the
+> only error code that should be ignored at init.
+>
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 16adeba4d7e68..e804461e5f272 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -3169,8 +3169,10 @@ static int __init amdgpu_init(void)
+>       amdgpu_register_atpx_handler();
+>       amdgpu_acpi_detect();
+>
+> -     /* Ignore KFD init failures. Normal when CONFIG_HSA_AMD is not set.=
+ */
+> -     amdgpu_amdkfd_init();
+> +     /* Ignore KFD init failures when CONFIG_HSA_AMD is not set. */
+> +     r =3D amdgpu_amdkfd_init();
+> +     if (r && r !=3D -ENOENT)
+> +             goto error_fence;
+>
+>       if (amdgpu_pp_feature_mask & PP_OVERDRIVE_MASK) {
+>               add_taint(TAINT_CPU_OUT_OF_SPEC, LOCKDEP_STILL_OK);
+> --
+> 2.43.0
 
---_000_SJ0PR12MB708204C40ADC23BA42E4545097A0ASJ0PR12MB7082namp_--
