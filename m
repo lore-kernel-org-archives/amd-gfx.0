@@ -4,66 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BE31D2CE17
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72AD5D3B9BE
 	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 09:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62EDA10E16D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86D2210E259;
 	Wed, 10 Dec 2025 09:16:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ItqgDRTB";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="fHewf6gF";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4BBC10E62C;
- Tue,  9 Dec 2025 14:28:57 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dQh6t4MXXz9tfC;
- Tue,  9 Dec 2025 15:28:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1765290534; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kH+Y9KeknWI8JyVBlC0VzCDXKp47PFORc9ZJs04hGUM=;
- b=ItqgDRTBLdpQvGmuY3+kLXZnjLHuvuY78GzWFaNJ8IE0gYHSLK50WZ0NVormLZYbMroPqo
- faAJcaYBK9bfTyv+OUJrruhPs0+aSAbpvEfjIxxpyIkHK0771vEie0ADkHIJw3K64xA2Ab
- ndcWWl1OXPfgWYh/TqUf5UiWEYPPlwfLpuGI0XYOsvqOXo0M/91bqfI3KvfSAdLqXPjafu
- J8wJfzt0M7nxECeouqVbLRHJPBh6sOqsgDZdd5JETQ/Q3fAAfJj1ZU42xsCxfCGMxelDtQ
- /qwGvYHgPLDNc2DT00w7syi7hfcwEr0ASb6XdvKitrGBDoAYWWBOdYnCjOgXCQ==
-Message-ID: <fb93bfa5f32025ce187153d0eeb47c43ec8cec7b.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: run free_job work on timeout workqueue
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
-Cc: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- dakr@kernel.org, Boris Brezillon <boris.brezillon@collabora.com>, Lucas
- Stach <l.stach@pengutronix.de>
-Date: Tue, 09 Dec 2025 15:28:49 +0100
-In-Reply-To: <d846a1dd-a705-410a-a043-ffae43bada57@amd.com>
-References: <20251128182235.47912-1-vitaly.prosyak@amd.com>
- <cdecd1e2-de0d-466f-b98b-927b2f364f79@amd.com>
- <c56ecd19d7ddc1f1ed4e7e9e13388c647de855b1.camel@mailbox.org>
- <49de5988-ea47-4d36-ba25-8773b9e364e2@amd.com>
- <aTMW0UCGQuE+MXLk@lstrano-desk.jf.intel.com>
- <21699026216379f294d6597ed6febd187229ffb9.camel@mailbox.org>
- <aTcf4o0huubgUPIQ@lstrano-desk.jf.intel.com>
- <aTcguvAQCZ07xD/C@lstrano-desk.jf.intel.com>
- <212ecf88-b175-44cc-af3f-7371340ed480@amd.com>
- <aTdFgVM5s/H5tc4G@lstrano-desk.jf.intel.com>
- <b0781c7fd90c51394ec60faa71222fc3af06bb0c.camel@mailbox.org>
- <e99a2e97-3058-4501-ad22-457ede493a59@amd.com>
- <3e780e52dc0a7f1267e814c895e9d5e840a8c913.camel@mailbox.org>
- <d846a1dd-a705-410a-a043-ffae43bada57@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E5DB10E0CD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 06:07:33 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-477bf34f5f5so50573615e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Dec 2025 22:07:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1765346852; x=1765951652; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Ri822VzjYDr3Ifnp3sqU9vlVsIVum/589CYMOiJyV5c=;
+ b=fHewf6gFdXhYNqvCKLBNkwEMT5Xsbp36Strlpeq4Tppx7H4HHT/vpLIgExFsl4YltO
+ 03pvv2T0hXmMeMYcKUwTsPupxTY/rUmP83x6hO5FLNcurXr2MSRoFMAudwvL8nnpXmKV
+ m42Cdj772+XS30ScqR59GveajJrAYUFKSRFdYE02tO3f4bQ9eQu5N6Imm88upgCnVKXE
+ vEVHWrwBdkEnQCISyzDmkylkUjsvxFMaxhh8RylVbcwj3ko6+UcLe7tFN9FAzkcLue3j
+ QkzXHYi3UxPmwuSxex7GlGs4ZOtN7WphVxdxASKKuT7t1ErLduJIi+gpErTh3fMaHfSo
+ gp2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765346852; x=1765951652;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ri822VzjYDr3Ifnp3sqU9vlVsIVum/589CYMOiJyV5c=;
+ b=XJRZoUDdNBotF6hDSvuRHK2GJ8eeApTZs8t+kdUOcZGj+Hv64x5EeSS4P58eBinoIT
+ uIgt7AzMUsUnpsQ4QAPh3wK2c4pbd1+yfkGjT+I3YIrpKMCXpiD5SYhGhwemOxnfQh3q
+ p830dpk0rQGTtUIZRGfm56s0TGwW6o0Z7ZBHL/9LQgyEeER1mbUKa8MviuuREdpNJAVr
+ avP7crUtOsHrUfwC9iJvXtVoGSCWm9FPKebfl/1maB+++nQL37I0UeTrLHq4Ykdf3qeb
+ xwacUC9RvGDc4i+SoBnDfFRR3DJCGcRok44++I4KRwRrWlqfQvk4gV09Sb3ypVWupD0u
+ 1tmA==
+X-Gm-Message-State: AOJu0YyK+kUg0G7O0BDJfbvt0lwLYES9Z7DhSKDbtfkTIpuFXuUBGCUw
+ FO2+lY6pt5ZC1QFe5Mi1Rhpu8XwJ56j+xZK8RVkzb5HsrOs08HEtHQDAxyvUmlKhWzM=
+X-Gm-Gg: ASbGncu8pA2XrMG35GAe3nkhUjVHi4aKskWXfwRNRGqRinN0TE/m22xAvAxgGKFPX8V
+ smFfLMVeX34irVZegxLwoMc/IBpXByKF5okr7OGWF35OzGkHO37Avv3U8XQgGcD2YmhesjV9YZB
+ k0njdUr3EJSmjc4x6N2IU2EJHJxHH5tfz1notnlWk+q/q7RIZ9mLOIaxK/bdaOcXxY2Q3HnCXrG
+ hvlHgoBvz8QXP7+8/0uuG8OItQK1ysPfvtO+UzjIgcVioLeUVKfpjL8gSxaLbzVgfuF93YOizg6
+ hmPziLo6mGB2hZeYvSq6+n4UstvDA2dQiOvwDLLcRz3voThOUni3YwmheWALxiJYpSc9UQmxtDX
+ 0MT0MRzoR/sgAY/xVXcr9hniK0BWs5WdBPgKyVeSrnZD1zx1nhJzbu9vTHGvNj+ouTlQZBQuiAd
+ 0OMOUbSC/Tu2hjX6wn
+X-Google-Smtp-Source: AGHT+IHVw/InySkeINSyoo9sjUmtR3HGssKhDJwtEACzPt1UMAMcr4AlVl1k+OkodnROET79ZS/8hQ==
+X-Received: by 2002:a05:600c:1913:b0:479:3a87:208f with SMTP id
+ 5b1f17b1804b1-47a837a00dbmr9347425e9.36.1765346851428; 
+ Tue, 09 Dec 2025 22:07:31 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a82d26f5asm25553365e9.5.2025.12.09.22.07.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Dec 2025 22:07:30 -0800 (PST)
+Date: Wed, 10 Dec 2025 09:07:27 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Jack Chang <jack.chang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd/display: Refactor panel replay set dmub cmd flow
+Message-ID: <aTkOH9pNfVCtNIR8@stanley.mountain>
 MIME-Version: 1.0
-X-MBO-RS-ID: 4e2b34a21ee5ee42a46
-X-MBO-RS-META: 59x7133399ppjrfs4igxfy93x4hgts4a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Wed, 10 Dec 2025 09:16:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,144 +81,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2025-12-09 at 15:19 +0100, Christian K=C3=B6nig wrote:
-> On 12/9/25 14:51, Philipp Stanner wrote:
-> ...
-> > > > > > > > > How can free_job_work, through drm_sched_get_finished_job=
-(), get and
-> > > > > > > > > free the same job?
-> > > > > > > > >=20
-> > > > > > > >=20
-> > > > > > > > It can't.
-> > > > > >=20
-> > > > > > But exactly that happens somehow. Don't ask me how, I have no i=
-dea.
-> > > >=20
-> > > > *Philipp refuses to elaborate and asks Christian*
-> > > >=20
-> > > > How are you so sure about that's what's happening? Anyways, assumin=
-g it
-> > > > is true:
-> > >=20
-> > > [=C2=A0 489.134585] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > [=C2=A0 489.141949] BUG: KASAN: slab-use-after-free in amdgpu_device_=
-gpu_recover+0x968/0x990 [amdgpu]
-> > > [=C2=A0 489.151339] Read of size 4 at addr ffff88a0d5f4214c by task k=
-worker/u128:0/12
-> > > [=C2=A0 489.158686]=20
-> > > [=C2=A0 489.160277] CPU: 11 UID: 0 PID: 12 Comm: kworker/u128:0 Taint=
-ed: G=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 E=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 6.16.0-1289896.3.zuul.0ec208edc00d48a9=
-bae1719675cb777f #1 PREEMPT(voluntary)=20
-> > > [=C2=A0 489.160285] Tainted: [E]=3DUNSIGNED_MODULE
-> > > [=C2=A0 489.160288] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T=
-, BIOS V1.03.B10 04/01/2019
-> > > [=C2=A0 489.160292] Workqueue: amdgpu-reset-dev drm_sched_job_timedou=
-t [gpu_sched]
-> > > [=C2=A0 489.160306] Call Trace:
-> > > [=C2=A0 489.160308]=C2=A0 <TASK>
-> > > [=C2=A0 489.160311]=C2=A0 dump_stack_lvl+0x64/0x80
-> > > [=C2=A0 489.160321]=C2=A0 print_report+0xce/0x630
-> > > [=C2=A0 489.160328]=C2=A0 ? _raw_spin_lock_irqsave+0x86/0xd0
-> > > [=C2=A0 489.160333]=C2=A0 ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-> > > [=C2=A0 489.160337]=C2=A0 ? amdgpu_device_gpu_recover+0x968/0x990 [am=
-dgpu]
-> > > [=C2=A0 489.161044]=C2=A0 kasan_report+0xb8/0xf0
-> > > [=C2=A0 489.161049]=C2=A0 ? amdgpu_device_gpu_recover+0x968/0x990 [am=
-dgpu]
-> > > [=C2=A0 489.161756]=C2=A0 amdgpu_device_gpu_recover+0x968/0x990 [amdg=
-pu]
-> > > [=C2=A0 489.162464]=C2=A0 ? __pfx_amdgpu_device_gpu_recover+0x10/0x10=
- [amdgpu]
-> > > [=C2=A0 489.163170]=C2=A0 ? amdgpu_coredump+0x1fd/0x4c0 [amdgpu]
-> > > [=C2=A0 489.163904]=C2=A0 amdgpu_job_timedout+0x642/0x1400 [amdgpu]
-> > > [=C2=A0 489.164698]=C2=A0 ? __pfx__raw_spin_lock+0x10/0x10
-> > > [=C2=A0 489.164703]=C2=A0 ? __pfx_amdgpu_job_timedout+0x10/0x10 [amdg=
-pu]
-> > > [=C2=A0 489.165496]=C2=A0 ? _raw_spin_lock+0x75/0xc0
-> > > [=C2=A0 489.165499]=C2=A0 ? __pfx__raw_spin_lock+0x10/0x10
-> > > [=C2=A0 489.165503]=C2=A0 drm_sched_job_timedout+0x1b0/0x4b0 [gpu_sch=
-ed]
-> >=20
-> > That doesn't show that it's free_job() who freed the memory.
->=20
-> [=C2=A0 489.405936] Freed by task 2501:
-> [=C2=A0 489.409175]=C2=A0 kasan_save_stack+0x20/0x40
-> [=C2=A0 489.413122]=C2=A0 kasan_save_track+0x14/0x30
-> [=C2=A0 489.417064]=C2=A0 kasan_save_free_info+0x3b/0x60
-> [=C2=A0 489.421355]=C2=A0 __kasan_slab_free+0x37/0x50
-> [=C2=A0 489.425384]=C2=A0 kfree+0x1fe/0x3f0
-> [=C2=A0 489.428547]=C2=A0 drm_sched_free_job_work+0x50e/0x930 [gpu_sched]
-> [=C2=A0 489.434326]=C2=A0 process_one_work+0x679/0xff0
+Hello Jack Chang,
 
-The time stamp shows that this free here took place after the UAF
-occurred :D
+Commit 74ce00932e7e ("drm/amd/display: Refactor panel replay set dmub
+cmd flow") from Sep 3, 2025 (linux-next), leads to the following
+Smatch static checker warning:
 
+	drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c:1459 edp_pr_get_state()
+	warn: passing casted pointer 'state' to 'dc_wake_and_execute_gpint()' 64 vs 32.
 
-> =C2=A0
-> > @Vitaly: Can you reproduce the bug? If yes, adding debug prints
-> > printing the jobs' addresses when allocated and when freed in
-> > free_job() could be a solution.
->=20
-> We can reproduce this pretty reliable in our CI now.
->=20
-> > I repeat, we need more info :)
-> >=20
-> > >=20
-> > > >=20
-> > > > > >=20
-> > > > > > My educated guess is that the job somehow ends up on the pendin=
-g list again.
-> > > >=20
-> > > > then the obvious question would be: does amdgpu touch the pending_l=
-ist
-> > > > itself, or does it only ever modify it through proper scheduler API=
-s?
-> > >=20
-> > > My educated guess is that drm_sched_stop() inserted the job back into=
- the pending list, but I still have no idea how it is possible that free_jo=
-b is running after the scheduler is stopped.
-> > >=20
-> >=20
-> > And my uneducated guess is that it's happening in amdgpu. It seems a
-> > sched_job lives inside an amdgpu_job. Can the latter be freed at other
-> > places than free_job()?
->=20
-> Nope, except for error handling during creation and initialization.
->=20
-> > timedout_job() and free_job() cannot race against each other regarding
-> > jobs. It's locked.
-> >=20
-> > But maybe investigate Matthew's suggestion and look into the guilty
-> > mechanism, too.
->=20
-> That looks just like a leftover from earlier attempts to fix the same pro=
-blem.
->=20
-> I mean look at the git history of how often that problem came up...
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c
+    1448 bool edp_pr_get_state(const struct dc_link *link, uint64_t *state)
+                                                           ^^^^^^^^^^^^^^^
 
-If that's the case, then we don't want to yet add another solution to a
-problem we don't fully understand and which, apparently, only occurs in
-amdgpu today.
+    1449 {
+    1450         const struct dc  *dc = link->ctx->dc;
+    1451         unsigned int panel_inst = 0;
+    1452         uint32_t retry_count = 0;
+    1453 
+    1454         if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
+    1455                 return false;
+    1456 
+    1457         do {
+    1458                 // Send gpint command and wait for ack
+--> 1459                 if (!dc_wake_and_execute_gpint(dc->ctx, DMUB_GPINT__GET_REPLAY_STATE, panel_inst,
+    1460                                                (uint32_t *)state, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)) {
+                                                        ^^^^^^^^^^^^^^^^^
 
-What we need is an analysis of what's happening. Only then can we
-decide what to do.
+The dc_wake_and_execute_gpint() function doesn't take a u64, it takes
+a u32.  It tries to initialize the state to zero at the start but
+that's not going to work because of the type mismatch.  It suggests
+that callers are allowed to pass uninitialized data to
+edp_pr_get_state() but at present there are no callers so this is
+only a bug in the code but doesn't affect runtime.
 
-Just switching the workqueues without such good justification receives
-a NACK from me; also because of the unforseeable consequences =E2=80=93
-free_job() is invoked extremely frequently, timedout_job() very rarely.
-Drivers will not expect that their timeout_wq will be flooded with so
-many work items. That could very certainly change behavior, cause
-performance regressions and so on.
+    1461                         // Return invalid state when GPINT times out
+    1462                         *state = PR_STATE_INVALID;
+    1463                 }
+    1464         } while (++retry_count <= 1000 && *state == PR_STATE_INVALID);
+    1465 
+    1466         // Assert if max retry hit
+    1467         if (retry_count >= 1000 && *state == PR_STATE_INVALID) {
+    1468                 ASSERT(0);
+    1469                 /* To-do: Add retry fail log */
+    1470         }
+    1471 
+    1472         return true;
+    1473 }
 
-
-P.
-
-
-
+regards,
+dan carpenter
