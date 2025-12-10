@@ -4,144 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C10A8D3B9BA
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 01:40:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09A96D3B9B7
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 01:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4FFB10E63E;
-	Wed, 10 Dec 2025 01:40:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F50510E234;
+	Wed, 10 Dec 2025 01:52:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GP9bPtPj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zjVWUiqr";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013042.outbound.protection.outlook.com
- [40.93.201.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3FA10E63E
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 01:40:55 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011050.outbound.protection.outlook.com [40.107.208.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5479010E234
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 01:52:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=spMNV0ma25rwWpjHxx5gCmLII8DkHK1J0TUe4nmzxFsNlK6sigTZMqdzufADhDTBzS1ceqY1M9MjKJTMxyllD4WuMxjzuPlf4mTvRVja9p1F1WooFdG3txdsUvdj/TiPeJRS+9QXEn7D0Z+r6oDliYAv6dcSVNjQ49aQXaR/ZfCUNOTF6c0FVlHjHmXGtK8qiSAZS7/IuBRnOAD8yeE99JvJ0c1vqNhl/3/1JmEkHnmEsimTHlxmnp5Jha9WN664ZUBeCCvm30gqx4ffB9UgTJ2WtQLLr86c6Z3nli3LsUNzJGbGNJC0PT1H+rtuoMZfjaWXKC6MIr3THB8/vMdtnA==
+ b=o6Thf1GgwsXrk7Zr+6JVG4bN1FmMwybS3zHJiTxlYh359y8apd6AX2GSmY+sphPOp2fNX/tBfSnroouA96BYn8vb4iCUkZVn7G4E8CFthNFg2uAsKAVodibMACideII6KE2RGYzsNbTDCQK1LDqENnx5Lc71z7oLh/T95DDoAJPDXDkS4CAc02uWFwadkTmGWmi2FJv9r8d+/2v03aRIdPBAo3OVWoIZC3zrajxMrw2IgSs9YdNbui5h0RAKNuw088w3HNqCab+AIK6mz0cAuV+yG/B7nJ2vqNEql7T21lLioztvMqq+gDaLwCvM1NtAhmWigcK+o8JUvcyJ+hltoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ialKaNIZS9D8GsjAaWFfk93vGI028iaypGfd7UcL5l8=;
- b=eTDML3tHvQSgv4INrjlBZrgRuhlWKmbQmKcPlqLdkroa3Wl/utWQuaaBnnfqIC5sg2o2aOJT7/J+wPR1AafUpmpHOj/UAWlygopMrBu/nq2waVyamzNpQQbtIRJifFzOdHSotbHtXMlYfsFaXC2+yXyccE8wTYIgEQBot+C3ANUaF8jFm+IrBlTZAjTAQfuKwQIElgOzPmX5fuSHBL3x3YAnV6PEVAaN+OTK/4klrAcZUhgSu8vEfH6utjOFrkeqrjzSQg0u5WAqpZTOgJz46wAnzJBngAo3SLUGPq5guF6hhZL7MBDMKHtMOgyepW+/RqNn0PWhiYlMxPU4bHCXIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=IXWrHVTcad7Hg6igR8NNMkVDsFXi+LsbsOLAwB0zwfQ=;
+ b=FYcVkj1g+zGh2MWMWK7vO2cAcFTuWM4UsXdnq5C9Zpe781BpU5inbw//GFSddZk73x8wMp29zlkR4W9y8W/p4MNJfM9cz5fBOJefkxulyVQebAE/37Ir6ksV6PldtQ9hnYmhAHlolX6qE8Q2EwLXjNlmwe+2wsupNhXCzpWtLOU+w8h9dEl2Qo9n3dySnsDWZ9muZLG6+o/6uy4guMsESwbzsIhKECz0N/g95RNM6ZTXmT95EcOESBtnaC03J+Nbm5Up9JkxINGs3XFS+8v3wbazuASweFXMppguEPG53xUIRN15C/ouqhMiVnT7/N+FSzeyOI5mYPDfWK3j7j7HbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ialKaNIZS9D8GsjAaWFfk93vGI028iaypGfd7UcL5l8=;
- b=GP9bPtPj9xrdGdBRdlAj/8ZM/FdvTYDz8xh7jjMWZSEMLSfXgOWPWrNwDDkaXNs1GJt/Avb8c8HWuuzzUw/2RvDhWMSGYwjwSnERdvxho3iQhD/LGJlAE99/JDB6JIsX8nx/BmYH5JOnpjkSXnvguTK0xhLP1JiAi7x887h0GCg=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by DS4PR12MB9796.namprd12.prod.outlook.com (2603:10b6:8:2a2::21) with
+ bh=IXWrHVTcad7Hg6igR8NNMkVDsFXi+LsbsOLAwB0zwfQ=;
+ b=zjVWUiqrVJ6HtcNRoD7K6mDUJUKsdZR7o6M30nGI5PL3Ky7OVP54HAQZ++nDcVZDXZoNdc64cqwJSMml1gaqWxhTh+V7K+5+lmXNg1b3mImnwEpZKkVOlSOWDIk5iVuQL0OWDe5BRQzFquC59qTPz78y8j1KlrTUlI8e7tdVZBU=
+Received: from BN9PR03CA0121.namprd03.prod.outlook.com (2603:10b6:408:fe::6)
+ by DM6PR12MB4172.namprd12.prod.outlook.com (2603:10b6:5:212::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.8; Wed, 10 Dec
- 2025 01:40:53 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::7547:2c7b:d652:8d04]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::7547:2c7b:d652:8d04%5]) with mapi id 15.20.9412.005; Wed, 10 Dec 2025
- 01:40:52 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "M, Mythila" <Mythila.M@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "M, Mythila" <Mythila.M@amd.com>
-Subject: RE: [PATCH v2] drm/amd/pm: restore SCLK settings after S0ix resume
-Thread-Topic: [PATCH v2] drm/amd/pm: restore SCLK settings after S0ix resume
-Thread-Index: AQHcaSggfpdmVBB1wUCIOoFVnczrrbUaGaMA
-Date: Wed, 10 Dec 2025 01:40:51 +0000
-Message-ID: <PH7PR12MB59970B79E35633E554E16B2782A0A@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20251209162259.1604207-1-mythilam@amd.com>
-In-Reply-To: <20251209162259.1604207-1-mythilam@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-10T01:40:33.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|DS4PR12MB9796:EE_
-x-ms-office365-filtering-correlation-id: 41df45de-29a1-4659-1ac8-08de378d272f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?KzHUKQwiHHPmKXyLwiW74DwTG8SPaZzUliiSHq76sK+cZ4gPuHKvvZhMZWu3?=
- =?us-ascii?Q?dbrOJbAE/5qSg1KjgStuSmvduKkK6ZWw2iBD6dtL6Z153RBMT35AU6DWV+1J?=
- =?us-ascii?Q?CFRiUfya4thjEheEot3arXMOotl2AeTPXeVz+xL2H6ffrTwavZOk3pkRq9mw?=
- =?us-ascii?Q?ChedVwWX8lPUkZzEWljrTJMjOztjLal9RVXH5LswF43olT2Hg3e1fHBOHKny?=
- =?us-ascii?Q?YZnwz/PD9POexRFNZwIKzhOdDZIM5kzc/LwKLnV0+kbAh7t8dJImBrjpJdC+?=
- =?us-ascii?Q?PgwTXNPCRPyfVFcdZzc4ejdjmFA/UsNGvHxoOoXTNObBI5zg2LH8maDWQW6+?=
- =?us-ascii?Q?xQOsPtKeTC6RwR0Cc1+a2LaeEDuMuWqsIEuKXLtPaKdqjoW/5gyjJMkowAws?=
- =?us-ascii?Q?w18J36kK+6eLx7qK/QfYb4e9zAXQtYKU8XVDUtUvksUtSDsqufAmCw2/1FEB?=
- =?us-ascii?Q?UhCypAEPBy+S5AFaNkliTs0CStEStu+15BzmDE4uQnwq/y6XWxzabTBKvpFV?=
- =?us-ascii?Q?zdyTbzSvXKXTCX+efcKtUO0F37Rq6nl57nEfUwsU6LBaRmKvZ8wxKYCtESnN?=
- =?us-ascii?Q?xnbQkKqkWTvZVy6DL9SwXeQxYnuORnklD1u7dgi38MPTkfWAeIFXPGTpn8dk?=
- =?us-ascii?Q?4xhjG5TTp39Ao05sWDb54vE7yLonIeplFkSPca0qUohxOQSS6Uvkp6iRk8Lp?=
- =?us-ascii?Q?DufdD5xa3m1/4DQ5/uisKBD9xXgVKRXl+PZ03qgtnS/cUMPUh1xJiywzFq/s?=
- =?us-ascii?Q?4IO8IjMpVpVh5YFhZ8jCF7fLuSAVlKGoFfUaIHZst/KWaEsrjRYbjsXSe5qe?=
- =?us-ascii?Q?2Wv5oshTOS1oQRUD8NUbYKWjS0p0ylSndd6rbDzb8cZFp4rUkFxOhhsPQh7+?=
- =?us-ascii?Q?gzJ7Il2rT2Z+laYKOXFy+J+qUda5qiNqCvWDz6Ba0iLvKroG0a9nQVLgMPIx?=
- =?us-ascii?Q?OiiXdX7euAVbwbt18UcgaQOLONucdQ0oNahAEKViNceGRhG5CZoozuXVtS/z?=
- =?us-ascii?Q?ntqAczCObI9qdNqH2W/tkpA9nEHeay5h3pCcVDKNBF4ltAmbBjvMUyH5OWgr?=
- =?us-ascii?Q?eNboGngradh10heArSB6yzi7Ep+f0sJ3ax7P8luM+Qz3332PnUnmsMfQ7Bb8?=
- =?us-ascii?Q?FtJjJn29qoJcyJW/sACCccJuO9acl15r+6AXCgKdg0In+r/+iRLwhMJTVvg4?=
- =?us-ascii?Q?S8ebXv5FWvRxTdl8zG+XRYaTFxCUGQcOcQdkHgnLcaH95i18dedACrF9MbLj?=
- =?us-ascii?Q?lk+mf/0E9Xo4CPeb1ZlT7XtC3mBCqwaYLyniDpkfjfdQGXH4wYLmr5XYrwWt?=
- =?us-ascii?Q?5VpvnBQXp2Prp77Dp4eijmC9gu0UIrZARVh7VaNb9Ax6VLAmmRZv7mU4BYAu?=
- =?us-ascii?Q?kQ/z0ShZ42brodIKcxv4XO1cNOolej4r11RerpTM4neIWChoSnhm+C8NYkoE?=
- =?us-ascii?Q?U7daJpFIbzQSNFF68X1PIH8czm20vn9+9AqfXSc4WnvmvdsPY33VrkP9Kw55?=
- =?us-ascii?Q?s6ylbwbGPSneA2xazJ9E3XydCEBNHa0Jxmbn?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BUyGAmIpOfVQRrrMecOM0+BGpWvMnlwitlNhmV6SUBo3ZI12BHrWsQ2KAdtS?=
- =?us-ascii?Q?kz6XCuk73oLYTW3jDCKgSeaHr/KJ4+3DtPCj27/7OzSsq1eR9iRma6pwWl8i?=
- =?us-ascii?Q?n98KwVkTYIxi5kCNK3PJZNTI6qA7i9LZTJBhx5uLKs3V5CNYamzmfSN54qYk?=
- =?us-ascii?Q?8z3yY6dwKLLRCZWMyXOhJl+H9SAzdKWqwCiDcpyOBOe0icWvC7KPoPcj5CZL?=
- =?us-ascii?Q?FlbXvWFpQybpkKjTLR7nw6vdFKH9grYD7OJ7dprgY3Y9fwjzSAKpyxZJ3DLF?=
- =?us-ascii?Q?fc4++RsoXfcDK/meRRcHV7qkFX2caz5rsKB7D301GhkOvS+lHLSKs1qLCKGK?=
- =?us-ascii?Q?41sMC246TkGVt+tdzGhb+1VG+8eBqJwBYVtm6gvZfStPkxf4eef8KqfaF984?=
- =?us-ascii?Q?rTR0++zDo19wrjdQvmEeAaLrm0VJe1hjViU69XjjC9OWEd/Xcvt4wy/YZz5u?=
- =?us-ascii?Q?/zTFVGle501qQ4Zs6vgT3BJObzw3oX4u/PlwqOn1rtPaeKVPzXXWzXG5Ohw7?=
- =?us-ascii?Q?ZsehcG8TmMbP2ZpcoQ0WwvP1wELLPKKoWQuM6iut5l+WFOVJhh9r2uekHBGB?=
- =?us-ascii?Q?eexBVKoYFCbsNCgFf78dt96VLf15Z0gK4cuDBhjiQThbYdohARLH6sIjyG+m?=
- =?us-ascii?Q?ulxp+YC8UVN3ae3mterykgo62mkd4RMdD/PbkN923cxTKowqufh1onYRgN0E?=
- =?us-ascii?Q?sYy+xYb/GWOiFqXm15+LytE04wZL0mPlRLMmC11BkZ0aYBmR7dGdDydqQRu2?=
- =?us-ascii?Q?2I/lQMJE6oemb2sjS9nXG4JnWH+uUWNDCNYrW3c4jWfuQ7jC93Ex35IDIMO0?=
- =?us-ascii?Q?6hQym9pQY3sutKeh0sdwIQYjHVjUXKJ5/r3ZABrV5O76+Bk7fFrLTKOIRWEq?=
- =?us-ascii?Q?Z0lrkoFYLkfbw9Uvm51Rd5YtmdAgg2V8xAbo6y4mt2Uqeg36h5R1qimqOCRp?=
- =?us-ascii?Q?PJEj9MSjlVLqi4N+JJe2JLOQzUyZYEk5gHToM3jDyqltOXLSS11tvRgQR+rm?=
- =?us-ascii?Q?V7AUt7ffwN6RHRLmcqPc9x+HNkT29qO/v432Ls1TeO/1YKbNuZIB8/MmMj2d?=
- =?us-ascii?Q?nvouNwoqANL0zRhpB6f0/Kr3arOoB+RXARcMuS4wKIyKhX1AnTgd8HuMNZNW?=
- =?us-ascii?Q?Ja/3l8yuR8enBqpCS1MKSuxO3CTjgS7Cawz79C1VLtZCxVpVkzxfVYBOCgl6?=
- =?us-ascii?Q?MiMvIFC3WfxmY04C2F89SgmgUIKqujS7s/VV3vqEJhGkL7ISxFzuwGNHuSqM?=
- =?us-ascii?Q?Thi4zz37RsumR5BCybavgMkf1RaZ+QLxL78Iruvmme4RlbX8jQbk6AZnX44s?=
- =?us-ascii?Q?XB25muzKk+qZUZyyDQhscr6nQHDdKw6nIshrBELiNfkWJ5eqJhFHT3s5w5QB?=
- =?us-ascii?Q?CCNqeFjbDkAk402FEYWf6/yl/chkel+LYFjeYsmjkCoCEdl/SYKMdu9xtQxJ?=
- =?us-ascii?Q?Vs1QPFZYG6nISTvvstGhhGW+jgN6KCCwC4HWUz1ZVI0KWxdK+NSumRhKIJug?=
- =?us-ascii?Q?w7OPFRoucdzWPAlexWaXA3FRs4SfB3d2+Bb/jBolduG5yPOFvgKMODPPzxPM?=
- =?us-ascii?Q?5kGxDzGr8hKuI3NDkUc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Wed, 10 Dec
+ 2025 01:51:59 +0000
+Received: from BN1PEPF00004688.namprd05.prod.outlook.com
+ (2603:10b6:408:fe:cafe::b4) by BN9PR03CA0121.outlook.office365.com
+ (2603:10b6:408:fe::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.14 via Frontend Transport; Wed,
+ 10 Dec 2025 01:51:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Wed, 10 Dec 2025 01:51:58 +0000
+Received: from STXH3-MAPLE-10.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 9 Dec
+ 2025 19:51:58 -0600
+From: Pratap Nirujogi <pratap.nirujogi@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <mlimonci@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>
+CC: <benjamin.chan@amd.com>, <bin.du@amd.com>, <gjorgji.rosikopulos@amd.com>, 
+ <king.li@amd.com>, <dantony@amd.com>, <phil.jawich@amd.com>,
+ Pratap Nirujogi
+ <pratap.nirujogi@amd.com>, Gjorgji Rosikopulos <grosikop@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Fix SMU warning during isp suspend-resume
+Date: Tue, 9 Dec 2025 20:50:26 -0500
+Message-ID: <20251210015140.568540-1-pratap.nirujogi@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|DM6PR12MB4172:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73b457c2-58bf-4b61-a916-08de378eb4a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+vjX7WMDDtbusgGkq3YoZP+xrj8QFEyHajnWoAMY4s2BVZRYJhbMapX2o9l9?=
+ =?us-ascii?Q?IsoiBtBVTptmsNDr3Z8qotES6ybLp+tVOYmz9Wm327cQy919geVCO2MOM7PX?=
+ =?us-ascii?Q?t/5buNtbSMz/RMP3lqoqUhhX8khcL2aXV0agPJ4+B4n3mzo1PGgs6jvOZ2mo?=
+ =?us-ascii?Q?yXhzSFiJzDNjWoRgN76HdvVdsIWEQ4dDKbKT+JGBENU04stTYAQcpBfRQMPM?=
+ =?us-ascii?Q?UuhtVazZf3lsGnJCR/ySaNPKSVsiZAIU9b1HBNI4RemDCfU4mAZK3LKHRanL?=
+ =?us-ascii?Q?K0cSGbOFx/vUStp7k/uSTsy2peml2vvYjGVcdoQPzTwZmf1gLPXIkUKvSSMX?=
+ =?us-ascii?Q?mOB2UtND+Z78A8GWoMzWZm4gFFiiHlB4qSvuzwc0ychtWBBAAaEkQg/Ngi5o?=
+ =?us-ascii?Q?BdLvcf84pvByYmYD1JMIySWL7HEnD5B+owWjJrrr501eDhCgUUDtkuD+loNH?=
+ =?us-ascii?Q?4/Uiksw3t2vujoAt5k83UXfoinzj2sTDQXwB9Wbu9X9LA6xnJxL3Ae/ASVph?=
+ =?us-ascii?Q?ctT9I6w7F3NjHiaLEamdBjPtMMpYKhu7gTKgWYszUemLnFVmGolI6B4r28rE?=
+ =?us-ascii?Q?TQrqkCWrFvyeo8IZDFobYjmdmZBs3glGwVR0jyE8a0OXDqbgOBj7jiQr7/VR?=
+ =?us-ascii?Q?QEJw4q0OFLQyP01QqcQg39SknAuSKocR3ZT56qapAxAYtXtpZFy9VNwQLi76?=
+ =?us-ascii?Q?b6dQGD4Pnlyqp/CTEbyPNDW3gsUrvmmE40W8H1BwGUiJLRdgS6R+RKTuflKF?=
+ =?us-ascii?Q?BYjl2j80gXH/yScgryS5gBEBySgvZh7OeNE7e0EPrfKFQbyd57RdUAT5hO8h?=
+ =?us-ascii?Q?a7RIMkoJQzjGeLc3/IrbRYDMX92aEDEHZIiPmJc+XFAyo/2V1L3KS+Grg/kT?=
+ =?us-ascii?Q?yAMl8sajpCDEYYIcsoCUxHFxd9gJiRO2Kp0w5/sIBVSbR7AAkskmI4SQjtl+?=
+ =?us-ascii?Q?Lx6gl9ZYsWa+K/X4+3ZhBmk+9nLgYX6vTsYQh4XQs4P0LARiG8REV58I8aHq?=
+ =?us-ascii?Q?TrLGvlHXCTZmJdQloCKc1BQlPLIHFLCUZnNoVNrfTP7GMzPHWWOHn+o8vGyQ?=
+ =?us-ascii?Q?CjKYIajzLhi5DGFFs6dEeem438g4nK5exQGNbb4kWPwlaGnVX+TcR+M9Ujrc?=
+ =?us-ascii?Q?unyBZ9wJvuEEimNW4+ju+4YXbIdWkLChgjqbGz64A+L9IlGHMG4AJYMrlf+g?=
+ =?us-ascii?Q?GXLERB0GDn+YS4M0DDQO4Nbk7WzOV6UkkdXW0oo+RwAnmBOJSLPYb8GqJOhf?=
+ =?us-ascii?Q?20sLiQlhnW25nrDJOe946BWcFKthh0bsMWwRyd57sU3RpsqkA0hpsnG5xxK5?=
+ =?us-ascii?Q?H7OQdgWkM/vEd3zNRteQd23ivpqbuJvV6kwpmMLZCQP9Ms8xGHRtyXbyg36o?=
+ =?us-ascii?Q?sSU9PSN5jp+pxENvvUPJEYM3y4H5toop/KP9nvueUQa6uUfD32nuWrninmPG?=
+ =?us-ascii?Q?CODGmggk+a+I4Iew5URQdVwsTjgTLDP5CgXRsSoshMmzluuG5Ykk0TUypwk/?=
+ =?us-ascii?Q?G4J8lfqGn3sbYnOHmVS7+cx2fwC2PfvlR7i5iIGLCLQLz13ycrxE/dem5XTd?=
+ =?us-ascii?Q?lD1EIuVyEdhzWVXoGnA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41df45de-29a1-4659-1ac8-08de378d272f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2025 01:40:52.0149 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XwyUlDVBVJ9k8GIPatISwM82nFDQHeytHwrVIENFQDTXchck6VQpBNCzJS6eZKjw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9796
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 01:51:58.8673 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73b457c2-58bf-4b61-a916-08de378eb4a9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004688.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4172
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,142 +135,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+ISP mfd child devices are using genpd and the system suspend-resume
+operations between genpd and amdgpu parent device which uses only
+runtime suspend-resume are not in sync.
 
- Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Linux power manager during suspend-resume resuming the genpd devices
+earlier than the amdgpu parent device. This is resulting in the below
+warning as SMU is in suspended state when genpd attempts to resume ISP.
 
-Best Regards,
-Kevin
+WARNING: CPU: 13 PID: 5435 at drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:398 smu_dpm_set_power_gate+0x36f/0x380 [amdgpu]
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of mythilam
-Sent: Wednesday, December 10, 2025 12:23 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: M, Mythila <Mythila.M@amd.com>
-Subject: [PATCH v2] drm/amd/pm: restore SCLK settings after S0ix resume
+To fix this warning isp suspend-resume is handled as part of amdgpu
+parent device suspend-resume instead of genpd sequence. Each ISP MFD
+child device is marked as dev_pm_syscore_device to skip genpd
+suspend-resume and use pm_runtime_force api's to suspend-resume
+the devices when callbacks from amdgpu are received.
 
-User-configured SCLK (GPU core clock) frequencies were not persisting acros=
-s S0ix suspend/resume cycles on smu v14 hardware.
-The issue occurred because of the code resetting clock frequency to zero du=
-ring resume.
-
-This patch addresses the problem by:
-- Preserving user-configured values in driver and sets the
-  clock frequency across resume
-- Preserved settings are sent to the hardware during resume
-
-Signed-off-by: mythilam <mythilam@amd.com>
-
+Signed-off-by: Gjorgji Rosikopulos <grosikop@amd.com>
+Signed-off-by: Bin Du <bin.du@amd.com>
+Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |  5 +++
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  | 37 ++++++++++++++++---
- 2 files changed, 37 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 24 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h |  2 +
+ drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c | 59 +++++++++++++++++++++++++
+ 3 files changed, 85 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu14/smu_v14_0.c
-index f9b0938c57ea..f2a16dfee599 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -1939,6 +1939,11 @@ int smu_v14_0_od_edit_dpm_table(struct smu_context *=
-smu,
-                        dev_err(smu->adev->dev, "Set soft max sclk failed!"=
-);
-                        return ret;
-                }
-+               if (smu->gfx_actual_hard_min_freq !=3D smu->gfx_default_har=
-d_min_freq ||
-+                   smu->gfx_actual_soft_max_freq !=3D smu->gfx_default_sof=
-t_max_freq)
-+                       smu->user_dpm_profile.user_od =3D true;
-+               else
-+                       smu->user_dpm_profile.user_od =3D false;
-                break;
-        default:
-                return -ENOSYS;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-index b1bd946d8e30..97414bc39764 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-@@ -1514,9 +1514,10 @@ static int smu_v14_0_1_set_fine_grain_gfx_freq_param=
-eters(struct smu_context *sm
-
-        smu->gfx_default_hard_min_freq =3D clk_table->MinGfxClk;
-        smu->gfx_default_soft_max_freq =3D clk_table->MaxGfxClk;
--       smu->gfx_actual_hard_min_freq =3D 0;
--       smu->gfx_actual_soft_max_freq =3D 0;
--
-+       if (smu->gfx_actual_hard_min_freq =3D=3D 0)
-+               smu->gfx_actual_hard_min_freq =3D smu->gfx_default_hard_min=
-_freq;
-+       if (smu->gfx_actual_soft_max_freq =3D=3D 0)
-+               smu->gfx_actual_soft_max_freq =3D smu->gfx_default_soft_max=
-_freq;
-        return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+index 37270c4dab8d..532f83d783d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+@@ -318,12 +318,36 @@ void isp_kernel_buffer_free(void **buf_obj, u64 *gpu_addr, void **cpu_addr)
  }
-
-@@ -1526,8 +1527,10 @@ static int smu_v14_0_0_set_fine_grain_gfx_freq_param=
-eters(struct smu_context *sm
-
-        smu->gfx_default_hard_min_freq =3D clk_table->MinGfxClk;
-        smu->gfx_default_soft_max_freq =3D clk_table->MaxGfxClk;
--       smu->gfx_actual_hard_min_freq =3D 0;
--       smu->gfx_actual_soft_max_freq =3D 0;
-+       if (smu->gfx_actual_hard_min_freq =3D=3D 0)
-+               smu->gfx_actual_hard_min_freq =3D smu->gfx_default_hard_min=
-_freq;
-+       if (smu->gfx_actual_soft_max_freq =3D=3D 0)
-+               smu->gfx_actual_soft_max_freq =3D smu->gfx_default_soft_max=
-_freq;
-
-        return 0;
- }
-@@ -1665,6 +1668,29 @@ static int smu_v14_0_common_set_mall_enable(struct s=
-mu_context *smu)
-        return ret;
- }
-
-+static int smu_v14_0_0_restore_user_od_settings(struct smu_context
-+*smu) {
-+       int ret;
+ EXPORT_SYMBOL(isp_kernel_buffer_free);
+ 
++static int isp_resume(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++	struct amdgpu_isp *isp = &adev->isp;
 +
-+       ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetHardMinGfxC=
-lk,
-+                                             smu->gfx_actual_hard_min_freq=
-,
-+                                             NULL);
-+       if (ret) {
-+               dev_err(smu->adev->dev, "Failed to restore hard min sclk!\n=
-");
-+               return ret;
-+       }
++	if (isp->funcs->hw_resume)
++		return isp->funcs->hw_resume(isp);
 +
-+       ret =3D smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxGfxC=
-lk,
-+                                             smu->gfx_actual_soft_max_freq=
-,
-+                                             NULL);
-+       if (ret) {
-+               dev_err(smu->adev->dev, "Failed to restore soft max sclk!\n=
-");
-+               return ret;
-+       }
-+
-+       return 0;
++	return -ENODEV;
 +}
 +
- static const struct pptable_funcs smu_v14_0_0_ppt_funcs =3D {
-        .check_fw_status =3D smu_v14_0_check_fw_status,
-        .check_fw_version =3D smu_v14_0_check_fw_version, @@ -1688,6 +1714,=
-7 @@ static const struct pptable_funcs smu_v14_0_0_ppt_funcs =3D {
-        .mode2_reset =3D smu_v14_0_0_mode2_reset,
-        .get_dpm_ultimate_freq =3D smu_v14_0_common_get_dpm_ultimate_freq,
-        .set_soft_freq_limited_range =3D smu_v14_0_0_set_soft_freq_limited_=
-range,
-+       .restore_user_od_settings =3D smu_v14_0_0_restore_user_od_settings,
-        .od_edit_dpm_table =3D smu_v14_0_od_edit_dpm_table,
-        .print_clk_levels =3D smu_v14_0_0_print_clk_levels,
-        .force_clk_levels =3D smu_v14_0_0_force_clk_levels,
---
-2.17.1
++static int isp_suspend(struct amdgpu_ip_block *ip_block)
++{
++	struct amdgpu_device *adev = ip_block->adev;
++	struct amdgpu_isp *isp = &adev->isp;
++
++	if (isp->funcs->hw_suspend)
++		return isp->funcs->hw_suspend(isp);
++
++	return -ENODEV;
++}
++
+ static const struct amd_ip_funcs isp_ip_funcs = {
+ 	.name = "isp_ip",
+ 	.early_init = isp_early_init,
+ 	.hw_init = isp_hw_init,
+ 	.hw_fini = isp_hw_fini,
+ 	.is_idle = isp_is_idle,
++	.suspend = isp_suspend,
++	.resume = isp_resume,
+ 	.set_clockgating_state = isp_set_clockgating_state,
+ 	.set_powergating_state = isp_set_powergating_state,
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
+index d6f4ffa4c97c..9a5d2b1dff9e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
+@@ -38,6 +38,8 @@ struct amdgpu_isp;
+ struct isp_funcs {
+ 	int (*hw_init)(struct amdgpu_isp *isp);
+ 	int (*hw_fini)(struct amdgpu_isp *isp);
++	int (*hw_suspend)(struct amdgpu_isp *isp);
++	int (*hw_resume)(struct amdgpu_isp *isp);
+ };
+ 
+ struct amdgpu_isp {
+diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+index 4258d3e0b706..560c398e14fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+@@ -26,6 +26,7 @@
+  */
+ 
+ #include <linux/gpio/machine.h>
++#include <linux/pm_runtime.h>
+ #include "amdgpu.h"
+ #include "isp_v4_1_1.h"
+ 
+@@ -145,6 +146,9 @@ static int isp_genpd_add_device(struct device *dev, void *data)
+ 		return -ENODEV;
+ 	}
+ 
++	/* The devcies will be managed by the pm ops from the parent */
++	dev_pm_syscore_device(dev, true);
++
+ exit:
+ 	/* Continue to add */
+ 	return 0;
+@@ -177,12 +181,65 @@ static int isp_genpd_remove_device(struct device *dev, void *data)
+ 		drm_err(&adev->ddev, "Failed to remove dev from genpd %d\n", ret);
+ 		return -ENODEV;
+ 	}
++	dev_pm_syscore_device(dev, false);
+ 
+ exit:
+ 	/* Continue to remove */
+ 	return 0;
+ }
+ 
++static int isp_suspend_device(struct device *dev, void *data)
++{
++	struct platform_device *pdev = container_of(dev, struct platform_device, dev);
++
++	if (!dev->type || !dev->type->name)
++		return 0;
++	if (strncmp(dev->type->name, "mfd_device", 10))
++		return 0;
++	if (!strncmp(pdev->mfd_cell->name, "amdisp-pinctrl", 14))
++		return 0;
++
++	return pm_runtime_force_suspend(dev);
++}
++
++static int isp_resume_device(struct device *dev, void *data)
++{
++	struct platform_device *pdev = container_of(dev, struct platform_device, dev);
++
++	if (!dev->type || !dev->type->name)
++		return 0;
++	if (strncmp(dev->type->name, "mfd_device", 10))
++		return 0;
++	if (!strncmp(pdev->mfd_cell->name, "amdisp-pinctrl", 14))
++		return 0;
++
++	return pm_runtime_force_resume(dev);
++}
++
++static int isp_v4_1_1_hw_suspend(struct amdgpu_isp *isp)
++{
++	int r;
++
++	r = device_for_each_child(isp->parent, NULL,
++				  isp_suspend_device);
++	if (r)
++		dev_err(isp->parent, "failed to suspend hw devices (%d)\n", r);
++
++	return 0;
++}
++
++static int isp_v4_1_1_hw_resume(struct amdgpu_isp *isp)
++{
++	int r;
++
++	r = device_for_each_child(isp->parent, NULL,
++				  isp_resume_device);
++	if (r)
++		dev_err(isp->parent, "failed to resume hw device (%d)\n", r);
++
++	return 0;
++}
++
+ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
+ {
+ 	const struct software_node *amd_camera_node, *isp4_node;
+@@ -369,6 +426,8 @@ static int isp_v4_1_1_hw_fini(struct amdgpu_isp *isp)
+ static const struct isp_funcs isp_v4_1_1_funcs = {
+ 	.hw_init = isp_v4_1_1_hw_init,
+ 	.hw_fini = isp_v4_1_1_hw_fini,
++	.hw_suspend = isp_v4_1_1_hw_suspend,
++	.hw_resume = isp_v4_1_1_hw_resume,
+ };
+ 
+ void isp_v4_1_1_set_isp_funcs(struct amdgpu_isp *isp)
+-- 
+2.43.0
 
