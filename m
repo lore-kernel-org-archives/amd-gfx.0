@@ -4,39 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39F07D3E77A
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 20:15:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 710B8D3E77B
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 20:15:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BFAF10E29D;
-	Wed, 10 Dec 2025 20:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 165CA10E0B7;
+	Wed, 10 Dec 2025 20:15:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mXqMC8yJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zz5NlAAU";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31FDF10E7A3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF1D110E27D
  for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 20:15:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 354D660123
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 20:15:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0F1C4CEF1;
- Wed, 10 Dec 2025 20:15:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 97254442D0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 20:15:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32462C116B1;
+ Wed, 10 Dec 2025 20:15:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765397722;
- bh=XWKi7DkepQUBDVXJAWVVJapH3p2l/Q9jpZ+R0TmkUEc=;
- h=From:To:Cc:Subject:Date:From;
- b=mXqMC8yJi2mx8qV3XVuv3ier+yEszZfy5Jd5SHCPJkyQM2U14Q4NSDFCQf+MFtNJR
- obGx2YuvvgaxB//y8pTgDu6HJPHy3tkLGDOTDA1e2Sze5B0nxkt2zlgziBUvfsuVfy
- gJr/yaPglKLXCmOiAunHwbeDjMjmLMhbR9SyYLCUyZS7Y3EkPhPrBlEnbx6eq1ijNa
- npwjGnubWVnFbZ6yn2Ux0mmmtbpES+0xIvjAPXRgB51gT7a+lxX95zCpT996TtH5RW
- SPbzik3gAFVdJO0tqDOI2iOVrnzP7Hi73gsDhMYEAHGa5NHFUSiz6BKXkzvhVsH532
- JSTI2sr3kTPmQ==
+ s=k20201202; t=1765397724;
+ bh=g8IA/yAtAmEQj8bbAWR09o1l3GSTs+Xt9uRalseGKhg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Zz5NlAAUX6xwOPNJ9O9aDwERUEisG6TEJfp/U/7z5HjBzs6FSDvKxS3rz9DiTwwCs
+ G0a4USsA5bBptDG8DJngHBL/gmjmGbM/CExUqXVlXb3Q82QxIi0ahxJs9NS2TexuvH
+ SAZ5hZ3kVeDWLul5svDOajLY/MiSTtJXoOGCzar7K36Lz1Xo6FDJAiFLK3acmb//9Y
+ CDA5q0qpvXYF+Z7mZrjaL3A3E7a5nIp8ERDbFuhVGLX9kgksVQdPMMOZoZz4qZTo80
+ pR5ut4uJD8tjuXldRCrwKVa5Z/YqqLSn6Czbmm8nz3bxIXp3Y4VTiExbh+Q1hFNpcJ
+ HSS6dqtTum7gQ==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
 Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v2 0/3] Make device links between KFD and GPU device
-Date: Wed, 10 Dec 2025 14:15:07 -0600
-Message-ID: <20251210201510.3000-1-superm1@kernel.org>
+Subject: [PATCH v2 3/3] amdkfd: Add device links between kfd device and amdgpu
+ device
+Date: Wed, 10 Dec 2025 14:15:10 -0600
+Message-ID: <20251210201510.3000-4-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251210201510.3000-1-superm1@kernel.org>
+References: <20251210201510.3000-1-superm1@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -53,31 +56,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Discovering which KFD device is associated with a GPU is relatively
-awkward right now in userspace.
+Mapping out a KFD device to a GPU can be done manually by looking at the
+domain and location properties.  To make it easier to discover which
+KFD device goes with what GPU add bidirectional links.
 
-This series creates sysfs links between the devices to simplify it
-for userspace.
-
-v2:
- * Add tag
- * Fix case that systems > 1 GPU wouldn't show links due to rebuilding
-   topology.
-
-Mario Limonciello (AMD) (3):
-  amdkfd: Only ignore -ENOENT for KFD init failuires
-  amdkfd: Don't rebuild node tree when calling
-    kfd_topology_update_sysfs()
-  amdkfd: Add device links between kfd device and amdgpu device
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  8 ++++
+Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  8 +++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  6 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     | 42 +++++++++++++++++--
- .../gpu/drm/amd/include/kgd_kfd_interface.h   |  2 +
- 6 files changed, 57 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     | 36 +++++++++++++++++++
+ .../gpu/drm/amd/include/kgd_kfd_interface.h   |  2 ++
+ 5 files changed, 51 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index a2879d2b7c8ec..5d6cf3adfa7b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -910,3 +910,11 @@ int amdgpu_amdkfd_config_sq_perfmon(struct amdgpu_device *adev, uint32_t xcp_id,
+ 
+ 	return r;
+ }
++
++int amdgpu_amdkfd_create_sysfs_links(struct amdgpu_device *adev)
++{
++	if (!adev->kfd.init_complete || !adev->kfd.dev)
++		return 0;
++
++	return kgd2kfd_create_sysfs_links(adev->kfd.dev);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index da4575676335f..fd92b227a674b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -272,6 +272,7 @@ int amdgpu_amdkfd_stop_sched(struct amdgpu_device *adev, uint32_t node_id);
+ int amdgpu_amdkfd_config_sq_perfmon(struct amdgpu_device *adev, uint32_t xcp_id,
+ 	bool core_override_enable, bool reg_override_enable, bool perfmon_override_enable);
+ bool amdgpu_amdkfd_compute_active(struct amdgpu_device *adev, uint32_t node_id);
++int amdgpu_amdkfd_create_sysfs_links(struct amdgpu_device *adev);
+ 
+ 
+ /* Read user wptr from a specified user address space with page fault
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7a0213a07023d..44c9320d72a56 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4947,6 +4947,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	 */
+ 	r = amdgpu_device_sys_interface_init(adev);
+ 
++	r = amdgpu_amdkfd_create_sysfs_links(adev);
++	if (r)
++		dev_err(adev->dev, "Failed to create KFD sysfs link: %d\n", r);
++
+ 	if (IS_ENABLED(CONFIG_PERF_EVENTS))
+ 		r = amdgpu_pmu_init(adev);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index b65f29294e2d6..796fd411a7dcc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -79,6 +79,37 @@ struct kfd_topology_device *kfd_topology_device_by_proximity_domain(
+ 	return device;
+ }
+ 
++int kgd2kfd_create_sysfs_links(struct kfd_dev *kfd)
++{
++	struct kfd_topology_device *top_dev;
++	int ret = -ENODEV;
++
++	if (!kfd)
++		return -EINVAL;
++
++	down_read(&topology_lock);
++
++	list_for_each_entry(top_dev, &topology_device_list, list) {
++		struct kobject *amdgpu_kobj;
++
++		if (!top_dev->gpu || top_dev->gpu->kfd != kfd || !top_dev->kobj_node)
++			continue;
++
++		amdgpu_kobj = &top_dev->gpu->adev->dev->kobj;
++		ret = sysfs_create_link(top_dev->kobj_node, amdgpu_kobj, "device");
++		if (ret)
++			break;
++
++		ret = sysfs_create_link(amdgpu_kobj, top_dev->kobj_node, "kfd");
++		if (ret)
++			sysfs_remove_link(top_dev->kobj_node, "device");
++		break;
++	}
++
++	up_read(&topology_lock);
++	return ret;
++}
++
+ struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id)
+ {
+ 	struct kfd_topology_device *top_dev = NULL;
+@@ -571,6 +602,11 @@ static void kfd_remove_sysfs_node_entry(struct kfd_topology_device *dev)
+ 	struct kfd_mem_properties *mem;
+ 	struct kfd_perf_properties *perf;
+ 
++	if (dev->gpu) {
++		sysfs_remove_link(dev->kobj_node, "device");
++		sysfs_remove_link(&dev->gpu->adev->dev->kobj, "kfd");
++	}
++
+ 	if (dev->kobj_iolink) {
+ 		list_for_each_entry(iolink, &dev->io_link_props, list)
+ 			if (iolink->kobj) {
+diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+index 9aba8596faa7e..f6db1dc634399 100644
+--- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+@@ -335,4 +335,6 @@ struct kfd2kgd_calls {
+ 					  int engine, int queue);
+ };
+ 
++int kgd2kfd_create_sysfs_links(struct kfd_dev *kfd);
++
+ #endif	/* KGD_KFD_INTERFACE_H_INCLUDED */
 -- 
 2.43.0
 
