@@ -4,149 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8350FD3C928
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 17:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B2F3D3C933
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Dec 2025 17:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 209AE10E785;
-	Wed, 10 Dec 2025 17:22:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDBB10E788;
+	Wed, 10 Dec 2025 17:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZhnAYIZW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AbqLx2h9";
 	dkim-atps=neutral
 Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012036.outbound.protection.outlook.com [40.107.209.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A25F10E785
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 17:22:36 +0000 (UTC)
+ (mail-westus3azon11012055.outbound.protection.outlook.com [40.107.209.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E09010E788;
+ Wed, 10 Dec 2025 17:27:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hYuquHxHFSvGkVl/xVPf7FxsybnvVdz9/TdgQRxj25eep5O3/D3/Dks6FgpNbr/GRlT9VcMUklct2cJPmJZ0Fb5LbOGtHo2z25goCO0elYPWE9NGWCh2kOp1LT+HHnZWVstJ6iEvo2irUs3KNufwflPyzMQifCtaGNPSPH+dPTcbL5ZnrsCUGUuB97I/y0y+aC+aobu0QJ2O53AblX9t0orkMRDgKx6mKsuv2SQQVRpig1NZ9F11thSfqzR4K/0bNPd3NAu6SciUWC+uKVh4db1KK8TLbY2Irw7dq/xuSRi5O6KGB7nnaFriJy3HoSdx9jdjyqlMln8tCZqzHWeYtA==
+ b=LFuruQYz6t1gLBKa2GeRKp95ABkhAPlivEKKzYoCENla15cxlqJL6lnZYzUvpjydRWE/jQ8+rHvp+fHyZCeuSi5cwY0zxNOK8PuVzwuiTdEdHP9QjP2JgsCpDu11lYxFGBzRb0SGa52qDNv7FxsZ4oTnUtYRQejq0fcWWc6gosRUhMTyCmz3naeEDi+bKnDzaWGG1BEWgVl+ATwVs9/eq9GxQHY6F0e1dpdU7B3OOcz5djf65zzfEULWi3TfP+dOFIO4OQzhnzq96FikaJa0kgwNtQcqa+oTagnr/42nZw93X3KKz3Y/IOlOqICIbgFLUz30O+UyAsXlIiEj8uANJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g5Yhnq1CrgWRNWDycK2/PKGzpBLrJkh/AlhvZex5VHY=;
- b=uAR6HK3F/qDBQc3CAOUL6ryffnt2ekXF/cq1XILFovD4/fpDgIG8uD2yHGO06CNPL98HSsu4Ouiub4+Yr3zN7iAhWtigVGk4zHUhMIRrQ9OcLnf92wWBNDJ+hE9W1jBIS20OdreEAaf5X+fJ+DRuYabd93ZAqCoSqnW4Yp4N/YuS6SrYF54POPTCqd4FNQn4OWMc21IARHPGpKOKA5aJMJ63ywo9xOjBol8oahEyrYTtAbVh11tsz4USmh7zFsALMnARS8NBgUgF2UKeVtEgooQQpbranVtnBgiYCgXNRz32aB6RriDZ+mJE+rh95H/Hvyq14WMVi/DZEXl0EtWpng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=D+ZOc9D8vzdw8pG9zYC4qQP6V2+Fxa7tB8wDMGSayDE=;
+ b=Jsx5zvdaE7ko751J9/487uPmuAQ/+Y1oyYB0bP8uQRBDWsprjPy2OnZXnuHYPpv812QQOKmcgCwGZn3Jw5JOCYQmJuRet/bW2QtGfVZBV3Hd4FvaqutlgPhQJ5WW6HozN3wla0ZNwi7gbdn+lEJtS8eIEfp3bPf1Z6Juj43ht+e4XZeOSDRr1QaabKef/G1WLDcNkzT29TfJGj0FQnKO1YZvtKN/Pc2sI/aUxeZ/FMAGpR3QFNUEIKhBr0QAYejYr0Vd1EJC9zNuKSiuPaNLQKyVljmuGJe9YnTKhrQyQoPaEv87s9xYmziozsMqsN7QTtNkixQG84aSuFwsJmy2hA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g5Yhnq1CrgWRNWDycK2/PKGzpBLrJkh/AlhvZex5VHY=;
- b=ZhnAYIZWPQBJODurJvhB66U5kNBvQWsC2QcSCln4VhchzWOsqm29DAejxHV2sUb8MZ9zJtNkYr6ieFqVczqWp6Za3Zsm/O2jXzazUnE5iZFIibZ7YnJ4gki8gz4wU4m23jafwyLOUn9dtg9um3RMKUBvjO3LJ1pHgQBCD26hubU=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by PH7PR12MB5686.namprd12.prod.outlook.com (2603:10b6:510:13d::13)
+ bh=D+ZOc9D8vzdw8pG9zYC4qQP6V2+Fxa7tB8wDMGSayDE=;
+ b=AbqLx2h9Fk34/+3YUFH64HQk5gyK8TtqNr9pqILIuvdA4UgZzUB4W0Ym0jliLU5E/yrDgZvaPwoWmFw5Kcy6tc+JdfIgL7fXHoaynjkxFWIQ8wWN5QOcRoDIfv6eezeSt3O3XNteWjBlEzrtuTVhElGHv7Lwx35aUO+xppW5O5Y=
+Received: from BY3PR04CA0029.namprd04.prod.outlook.com (2603:10b6:a03:217::34)
+ by MW4PR12MB5644.namprd12.prod.outlook.com (2603:10b6:303:189::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Wed, 10 Dec
- 2025 17:22:31 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::c1d5:bb14:abc3:7fd1]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::c1d5:bb14:abc3:7fd1%4]) with mapi id 15.20.9388.012; Wed, 10 Dec 2025
- 17:22:31 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Hung, Alex"
- <Alex.Hung@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
- Robin" <robin.chen@amd.com>, "Chang, Jack" <jack.chang@amd.com>, "Huang,
- Leon" <Leon.Huang1@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Chung, ChiaHsuan (Tom)"
- <ChiaHsuan.Chung@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Fix 64-bit state pointer passed as
- 32-bit GPINT response buffer
-Thread-Topic: [PATCH] drm/amd/display: Fix 64-bit state pointer passed as
- 32-bit GPINT response buffer
-Thread-Index: AQHcaaG1IJZ1sVmQwUmscbA9f/Vm/rUbH5OP
-Date: Wed, 10 Dec 2025 17:22:31 +0000
-Message-ID: <CH0PR12MB52844E92F105DD3815F34C7E8BA0A@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20251210065319.540578-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20251210065319.540578-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-10T17:22:30.870Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|PH7PR12MB5686:EE_
-x-ms-office365-filtering-correlation-id: 08747504-64cc-420c-7b45-08de3810b379
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|38070700021|8096899003|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?nzSy0blr04FBcz9DNFcB9n2Ymp1ZRLWtR/QL6zeJl6MHBDJ7IzzifOXTjdHt?=
- =?us-ascii?Q?tNGoviDkCl/BfjESic9CNeilkwc9m0xlmh1BVmRwW7+JnackFYYRnJIliu1z?=
- =?us-ascii?Q?G/wEPv9tq9GEylPJjePm3tzllCMVswACvj8tEiN0zL8M5xmwWcTXojJ8o7z2?=
- =?us-ascii?Q?ARVUjbNQXzrz9E1SCwOBb6w/XNsKdMhnrQQof3i6JDfSBZhEUFtHp0zwskl8?=
- =?us-ascii?Q?MglWfJfkfzB0EdBMmmMAjoprj70CYeN9XdJ38FI7d2OIK0l0SWFVT4X3s5y6?=
- =?us-ascii?Q?oCvDEs95uzLCmd8/Uyttjnqtt+tM/6AQD93wg2+NPkD8g55lyDtPP5Y+Kh3s?=
- =?us-ascii?Q?0Ik1N2+fZfqt048d6EjB6h9dG0Ge26Sx2viQ/kp/LodgHBoYeisSpRL3/PPR?=
- =?us-ascii?Q?JoNkWN8/L3oN0R0o/DP/btGJ0PZv7FCwMrnYJDYxUaivyk67ILbnrxgm8N5K?=
- =?us-ascii?Q?0mltBAnvBNtNxQw2OrfPVtSuSntYx/h1VkHN0QTQHrpFnjKzMpl1om2qJsg7?=
- =?us-ascii?Q?0GhoJMoCUsY+tscIc4Yeqd8IIgeqvm6RcixfqhC05MK3j2f6TeynvErSRnW5?=
- =?us-ascii?Q?qTj/fzz7PgrVvWp90BT0R4dcmGgqR4dXA3Qdj4iWNvUHUIz4s0lp7G2Z1pqE?=
- =?us-ascii?Q?Z8MmVkvQtUYmVDaLbLFJj1N/0KROkpAUS8GM9rkzZ4Mtcpg2vYH6gKZQonfT?=
- =?us-ascii?Q?vLT6nopxJAh/9UOta1s2uDJcu6g2lFVteIB4EwiztNn+p7BDMqMX/JRMbnxr?=
- =?us-ascii?Q?1OIyNvc0YlmHahrJXCOCot7ReX7KsTUPiE7OlCFvGxDVdTKFKKgedSo9aw21?=
- =?us-ascii?Q?X4qCGalLtkqZ0wEilLfgvsPbMjWrO3/RdQ4eW6lj3qSUNXFEUPoUwXTyBIpu?=
- =?us-ascii?Q?748nnKZ4thBGu2dk+nQg+sS6YLAzQsgRyMtcnP0hQtfG7/shHZTGDytyfaJq?=
- =?us-ascii?Q?pF7qAqewirQyfmpMdLVqK+DeuR5LvrsqZWFCIdz/rjltTqo8a4AoHGXFiiiI?=
- =?us-ascii?Q?1QU8xuKubmrsV0Jnjjh+bDYgqKot3UsgKB5VB6SDftumNvsW4FEPPgGmIsWG?=
- =?us-ascii?Q?UsaucAug8MvRfVoZ0emTrNPZ6sEcHpT+wswh8nr1bItJKj9xUM9XyuURTHHc?=
- =?us-ascii?Q?BPfdngpQu5uIsUFajIohTiKXraXGPMMzfWmGzgLTb+Re6izZKTuJU9FllRmB?=
- =?us-ascii?Q?OK/mCLua1/aiG4D/x1nC+Ef2TU1bFhK384rMkY/kBW1uK42nHp9FWsiXpcYQ?=
- =?us-ascii?Q?Y5oTqXBa+hVPs/M/vFx9KpMcgpYtFXnAe/o+dBwqjub8G0Klc5sx+fz7Y62F?=
- =?us-ascii?Q?Lty7uprawk5DMbw473aIAvtfVQRi65BTe8PH6iDHeGZvOf9j8PLimRhkYPgq?=
- =?us-ascii?Q?9ws8yi4sF9TbnQDlJ1lgsoADdLxcXuhdPC3FV7xbvbV+LWoiJnwaCIOjY1u8?=
- =?us-ascii?Q?YGk7kcox0OtrNBwVxpxmsJAThnPxJsZJvC2dMMUqsvCArCfcnTg6/RzrDlKv?=
- =?us-ascii?Q?8G00WVxO230TRXXEaVi5D7Ac2CzCEwE6Ka0d?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(8096899003)(7053199007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?luNHzPCFqEWoqOrp4ZWAV45aydTa0J38Sy1bbYxVBtnEkAEwS+7EmKsmP5so?=
- =?us-ascii?Q?RYdaynImhCX71McpszAtNT8ygdsQxGa9xv0bYxzRguK1ZOZoI+p3EfHC2gfn?=
- =?us-ascii?Q?huOSPue3uQ/q1wMFCB6VcrexUV1EemWCFLdmz2zP7w2wBj6FLSgxJQ2UBckt?=
- =?us-ascii?Q?4gis4EBZH9ScwfIo7H4L36YFEDWooZkWg2J9j4Ocsp3tDgsMPLlGhcNFRgVk?=
- =?us-ascii?Q?hTsJ4iIj2h3TxsN9gkqqRzu2IR0h0UGqPxIYHBHQzPF8Ss890O6/NMs80bLM?=
- =?us-ascii?Q?q5FYmJTBk/T9H9dxMB6B9eMmLeudaxrYYB4M0qoTUydnGTzp22Nx0foRwZev?=
- =?us-ascii?Q?nW1gC27BehlIbPEEg+oekdGKnbh/4KfGXY3etHWznrqdvCKm+4FR1gScv+pB?=
- =?us-ascii?Q?wg+rxInNJa11MZyQymB40+NYQiMgjPiBF++W0I/ssfdXyOXQzR4a7kpN7aVy?=
- =?us-ascii?Q?0DqXzH1LoGgS4RYcWMwCtIqAMBejExr0jSfKzZNecz30MIz9yr/5MC+qtbou?=
- =?us-ascii?Q?F5JW56tAUdtwuWRFPOsoKQcxfyClSqs0gwLcjVCKsOBlhTSSENK3d7Xv0EKf?=
- =?us-ascii?Q?LlxebI6RRIEK4HGMm/R5NFeTy/6qCTqvRnTdgXWggstl5q1m+vik+Z6n+fV6?=
- =?us-ascii?Q?h1ekQVbau6nV05eSiKpjJ1/HwE9vdV53iGSu6NCEHMjEU45DpA7o5LBgmtnH?=
- =?us-ascii?Q?cwy7Sc9mooxkyBtN1om3qsN9uiBmhglU+1k7+AQUbVhmbfVw5Wyuv4444oEt?=
- =?us-ascii?Q?ndesv2JZZkN0bPD9zfJiWNViSDo6XmZnQ6U9KHzpFzWLz2QisXajIGe999S+?=
- =?us-ascii?Q?5KeCV7AKa2VwMP1zwCCaYuWlF7BXa7g6jRJC/NhbvOrp0qwDBWEqqNskqL/e?=
- =?us-ascii?Q?oNzlsGjeTGAVEafLqQCQPaJIYAtBGwynXM05POhsJUTTQD9CBjcCZNif3SVF?=
- =?us-ascii?Q?/dU93WWb52mUUMouprHiUFQHu7GN2sJ7RQn6QbSbaFfhEGIV7j9R5VIUAgbC?=
- =?us-ascii?Q?pxUgebtBYvLsbuEO7PCtSeiePvpmaYdtAIh1d9S2z3f7/4Y8leVEDlmncOk6?=
- =?us-ascii?Q?24eno4LrsQfFsXoqVSqCLlrLMJjzw4mHPPVZDl7UGhKT3wJ0LflyORDOYF+b?=
- =?us-ascii?Q?Bz9wHrX6GABauiQKaN1/j/Z0WZYl/nqnj+2G8mERg0tPx6R6aGM6ZwN45yrZ?=
- =?us-ascii?Q?CZyJ4xDJ8ZaFWTALjdcpHhqF0ztCeNt25JMEfLm8xgE1s1s48wejO2819b2M?=
- =?us-ascii?Q?6d7eDQR5WVuawgrhEgO+r4RFQallTf6Iw90/pnZZHfvbSFXWVlr2BJsD60aH?=
- =?us-ascii?Q?GDAbYhmbIh3PL7t7/tSh9E+xvgjo3+/52uRWNm0VdSIAVgfVxGNXaJsLz2TS?=
- =?us-ascii?Q?7lZBIbUOriLZM5bTf9TF4U+CVTzIs53ImmPnJHP/AkdiGxIhJpFMrct1zqUK?=
- =?us-ascii?Q?dlzBFaEO2nue153a9L36jH+B4RBnTjenMEhhYxPX8zTlpPTaDnW76Gwq01q7?=
- =?us-ascii?Q?GAI7rWVvTal3Kn8vHrnDtjdLeQrhT8MwjNFXxXlEVDlq0ZzItodG24XVUM3+?=
- =?us-ascii?Q?a7+764IBeYJV0Ibn+V0=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.6; Wed, 10 Dec
+ 2025 17:26:53 +0000
+Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
+ (2603:10b6:a03:217:cafe::f5) by BY3PR04CA0029.outlook.office365.com
+ (2603:10b6:a03:217::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.7 via Frontend Transport; Wed,
+ 10 Dec 2025 17:26:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Wed, 10 Dec 2025 17:26:52 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Dec
+ 2025 11:26:51 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 10 Dec
+ 2025 09:26:51 -0800
+Received: from [10.254.93.35] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 10 Dec 2025 09:26:50 -0800
+Message-ID: <cc9f5e66-8410-452d-b0ad-185cf1d345fd@amd.com>
+Date: Wed, 10 Dec 2025 12:26:44 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm: Introduce drm_crtc_vblank_prepare()
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <Nicholas.Kazlauskas@amd.com>,
+ <simona@ffwll.ch>, <airlied@gmail.com>, <ville.syrjala@linux.intel.com>
+References: <20251201231807.287414-1-sunpeng.li@amd.com>
+ <d2b8706e41648fcd271d00f2be54545c9090442f@intel.com>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <d2b8706e41648fcd271d00f2be54545c9090442f@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|MW4PR12MB5644:EE_
+X-MS-Office365-Filtering-Correlation-Id: 037f7890-9c75-44ce-5162-08de38114f2c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|42112799006|376014|82310400026|13003099007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?elp3MmtkZFptWjhFUGF4UzF5ZDRJaDQ3UEpvT1RZTlVRY3JFaEo1cTVsTDRL?=
+ =?utf-8?B?NTdFUDRELzRwblV0S05UeEVnYVJSWk4xV0svY25XNjhtMG1xZHR6NHZWOGxa?=
+ =?utf-8?B?eXZlbFFaVDd5czRZVWlMRDd5TWJCcHJoZHQ1Q3FvdjB5Tks0RHpmSDZoVVQw?=
+ =?utf-8?B?OVY1Z0VEck1IditSeWxVdERDZXBWNS85cjVoYytHNll1a2QrMkJVaXV5Y3Z1?=
+ =?utf-8?B?di9Bd1djV2NzYTh5TXZybmF3MlNaWktEVXlDV2pnaEVVUHh5NjRBeDFvUnVI?=
+ =?utf-8?B?cDdCQ2t4amNhcUVteUdJTFYweEdzelNwMklRNVJYdGswdmFnNExUM0Z0bzF4?=
+ =?utf-8?B?YVlqb2wya1BpOFFHMUdBc3paa3E4bnhDU0dPRjdSUGRPWFV3Qy9JUWErZUxm?=
+ =?utf-8?B?VWdZdUIxMU9USUMyVlk1a2RacmZSVFc5eTJPV0FDbHVNK1E1QndzZ21rbllC?=
+ =?utf-8?B?T3NSR1laTW5YSEJoZWw1TjR0ZHNNYjZzSjFIWitweFUxYkhnVncxdjdtN2xx?=
+ =?utf-8?B?MjhuUXo2RjNYdDQxMEhWeHVXYjlTWUxuNWZ4OEYrZHNvcHYreWZPcmc0N1Nv?=
+ =?utf-8?B?bHZCWTNXTisyVGlMblRyRGhRcHJOU1NtdDRQNDdNRGxmcHY4VVdEZitBUWlX?=
+ =?utf-8?B?UEJHRWs2TzVhSGpGMFVNcklOcVFOcDVURzhaWmEyVTIzOUZoMG5RK3VDcnFr?=
+ =?utf-8?B?RjgzTTNBc0hMRkwzcTdjOCt6cmU1OTNJNkNoaXVIQ05SdFZyMTREWHlaSURB?=
+ =?utf-8?B?VGtvbHJvdkhicVY5c1c5VDJUeE50WDM1Y1VYK1ZCd1NDTnI5ZllxUkNGSFpt?=
+ =?utf-8?B?UDZWVjFpK2gwcnBJT1ZNYTNsaU9Fa3BQWmZhOFVJUDZyeGl1bWFpRWM4VjB5?=
+ =?utf-8?B?cnY5dEovSURaejR5YklEd1plak1kNlFra3hTLzA3UnBUWDV6OUd1VS9qUTM2?=
+ =?utf-8?B?RUdOMDc3NkltNmE3T3pzQU0zdlZpT2huQitqUS85bFlzejI2L0FabFZBd2dJ?=
+ =?utf-8?B?bDU5T3R5UWw2N0RFWi9yMGJLVzIrU1V6eFEvZGRGc3ZkbmZKL1pBREthZ1pG?=
+ =?utf-8?B?RnZSOWNoNmFJVnA3WU1reURTa1Z4QWVlbUs2SWJua0lORHlKdjlSaVRQbXFW?=
+ =?utf-8?B?azFBYTc0TkJsbHY2dnZuNUcvVTNTeitmOVI4MlZLMDRjZnl4Mk1OeWVvUy83?=
+ =?utf-8?B?MlhOMWFXdWhFa0xFRU8rUHgwU1NXcHNIbkI0QUVIQkxZZlRTN3luZ0tvcFBS?=
+ =?utf-8?B?K3diT0NpZGEySDIxQ3dyYUg2Y1RmT3Nza1pvWXVCYXJzUmJDS0NoWUp1eXV3?=
+ =?utf-8?B?SmsvN21XaHErVGhscENqb0ZXN0VpYWltY0pjZ3BnaFoybUs5TWIrQTJ6SENS?=
+ =?utf-8?B?Vzc0cHQrclRLMmRwSlh3dnd6d1VaV2xjQzJvcVhieGtVdEVXNW4rN0cxbjcw?=
+ =?utf-8?B?Sm5tbzl1aFhhQkQ0VEtLVVZKZXFpVHo3YjZrU1FIME1USGQ0T29rZmE1Yytp?=
+ =?utf-8?B?ckg1SU1lMFRtanVVR3FFcHZOVG1GeUdNTmgxSUdyM0tialNKUG5WMjVPVVhC?=
+ =?utf-8?B?S3F1UDJWdmJIWXhwcHZwWUFXbllsTjI4bEJ3THdZc2Vpa093S2tVN3NBQ3JV?=
+ =?utf-8?B?clc0V1gwTyt2cHVzMDI0WGVkT2J5L2l4L0pZZWJucHhEdG8xNno3aHpDcWxm?=
+ =?utf-8?B?RjI2SFpiczFkaWdQOU9zMmZzQzFpVFdwY1dxYUNmWTAvYlJ3TGs1UDVFQjJN?=
+ =?utf-8?B?ZVZWd2ZLRVIyVXVVdnFDSGd0Si9yMWxSV3A5MUtkanRwa2FyRCthV01RQXhl?=
+ =?utf-8?B?ZmpkN3JhQVgyVytreStoQ0lURFpKK1djVk9YNk9KVEtQRmVDYzdqSFNMdXp0?=
+ =?utf-8?B?dkN5VTNvdDhQS0pWNGR6akwyZWlLNTBWTldMakNDVVdMUmxENXJUMEpmcFJB?=
+ =?utf-8?B?MkRjRUUrdVB5TXE4ZnZ3QnoyZXBYMndRQ1dZbWF4cXNWOTBxY1AvS0JVNnV1?=
+ =?utf-8?B?WXQySndWWWdKM1ZwVVBoOVhxcm94UjBnanlKSDc3QnlJSXdEbzJ5SkkwMEtW?=
+ =?utf-8?B?MmxzcXFQdVNwRzJWQXdRbTc1ZllOVmFmM2FKVGpReU5LZk43NktaeERDUFNR?=
+ =?utf-8?Q?HN5s=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(42112799006)(376014)(82310400026)(13003099007);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08747504-64cc-420c-7b45-08de3810b379
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2025 17:22:31.4876 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8Q3Z7AWwnfoQczSc2Vge7LRO2qkeHmVZan2FLY1N9llT6lFclsldJW6tvPb9uAZIGZrqPdj7nNs7/hBpKBkYKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5686
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 17:26:52.5766 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 037f7890-9c75-44ce-5162-08de38114f2c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5644
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,328 +150,341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-
---
-
-Regards,
-Jay
-________________________________
-From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Sent: Wednesday, December 10, 2025 1:53 AM
-To: Hung, Alex <Alex.Hung@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd=
-.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
-M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Chen, Robin <robin.chen@amd.c=
-om>; Chang, Jack <jack.chang@amd.com>; Huang, Leon <Leon.Huang1@amd.com>; L=
-i, Roman <Roman.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Chun=
-g, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>
-Subject: [PATCH] drm/amd/display: Fix 64-bit state pointer passed as 32-bit=
- GPINT response buffer
-
-edp_pr_get_state() incorrectly casts a uint64_t * to uint32_t * when
-calling dc_wake_and_execute_gpint(). The GPINT path writes only 32 bits,
-leaving the upper 32 bits of the u64 output uninitialized. Replace the
-cast with a u32 temporary and copy the result into the u64 pointer.
-
-Fixes the below:
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_cont=
-rol.c
-    1448 bool edp_pr_get_state(const struct dc_link *link, uint64_t *state)
-                                                           ^^^^^^^^^^^^^^^
-    1449 {
-
-    ...
-
-    1457         do {
-    1458                 // Send gpint command and wait for ack
---> 1459                 if (!dc_wake_and_execute_gpint(dc->ctx, DMUB_GPINT=
-__GET_REPLAY_STATE, panel_inst,
-    1460                                                (uint32_t *)state, =
-DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)) {
-                                                        ^^^^^^^^^^^^^^^^^
-
-The dc_wake_and_execute_gpint() function doesn't take a u64, it takes a
-u32.  It tries to initialize the state to zero at the start but that's
-not going to work because of the type mismatch.  It suggests that
-callers are allowed to pass uninitialized data to edp_pr_get_state() but
-at present there are no callers so this is only a bug in the code but
-doesn't affect runtime.
-
-    1461                         // Return invalid state when GPINT times o=
-ut
-    1462                         *state =3D PR_STATE_INVALID;
-    1463                 }
-
-Fixes: f2429468b582 ("drm/amd/display: Refactor panel replay set dmub cmd f=
-low")
-Reported by: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Robin Chen <robin.chen@amd.com>
-Cc: Jack Chang <jack.chang@amd.com>
-Cc: Leon Huang <Leon.Huang1@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Roman Li <roman.li@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- .../amd/display/dc/link/protocols/link_edp_panel_control.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_c=
-ontrol.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_con=
-trol.c
-index 0b05ee9f6ea1..cf06b9b62e1d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
-c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
-c
-@@ -1450,6 +1450,7 @@ bool edp_pr_get_state(const struct dc_link *link, uin=
-t64_t *state)
-         const struct dc  *dc =3D link->ctx->dc;
-         unsigned int panel_inst =3D 0;
-         uint32_t retry_count =3D 0;
-+       uint32_t replay_state =3D 0;
-
-         if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
-                 return false;
-@@ -1457,10 +1458,12 @@ bool edp_pr_get_state(const struct dc_link *link, u=
-int64_t *state)
-         do {
-                 // Send gpint command and wait for ack
-                 if (!dc_wake_and_execute_gpint(dc->ctx, DMUB_GPINT__GET_RE=
-PLAY_STATE, panel_inst,
--                                              (uint32_t *)state, DM_DMUB_W=
-AIT_TYPE_WAIT_WITH_REPLY)) {
-+                                              &replay_state, DM_DMUB_WAIT_=
-TYPE_WAIT_WITH_REPLY)) {
-                         // Return invalid state when GPINT times out
--                       *state =3D PR_STATE_INVALID;
-+                       replay_state =3D PR_STATE_INVALID;
-                 }
-+               /* Copy 32-bit result into 64-bit output */
-+               *state =3D replay_state;
-         } while (++retry_count <=3D 1000 && *state =3D=3D PR_STATE_INVALID=
-);
-
-         // Assert if max retry hit
---
-2.34.1
 
 
---_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 2025-12-09 05:05, Jani Nikula wrote:
+> On Mon, 01 Dec 2025, <sunpeng.li@amd.com> wrote:
+>> From: Leo Li <sunpeng.li@amd.com>
+>>
+>> Some drivers need to perform blocking operations prior to enabling
+>> vblank interrupts. A display hardware spin-up from a low-power state
+>> that requires synchronization with the rest of the driver via a mutex,
+>> for example.
+>>
+>> To support this, introduce a new drm_crtc_vblank_prepare() helper that
+>> calls back into the driver -- if implemented -- for the driver to do
+>> such preparation work.
+>>
+>> In DRM core, call this helper before drm_vblank_get(). Drivers can
+>> choose to call this if they implement the callback in the future.
+> 
+> Have you considered hiding all of this inside drm_vblank.c? Call prepare
+> in drm_crtc_vblank_get() and a couple of other places? And actually
+> don't call it on !drm_dev_has_vblank(dev)?
+> 
+> There's just so much littering all over the place with the prepare, and
+> it seems brittle. Especially when you expect not only the drm core but
+> also the relevant drivers to call drm_crtc_vblank_prepare() when needed.
+> 
+> There does seem to be a few places in amdgpu that wrap the
+> drm_crtc_vblank_get() inside dev->event_lock, but is there really any
+> need to do so? Do the get first, and grab the event_lock after?
+> 
+> Some random comments inline.
+> 
+> Cc: Ville
+> 
+> 
+> BR,
+> Jani.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+Hi Jani,
+Thanks for the feedback. I'll reply to the above in the other thread with
+Ville, but addressing the in-lines below.
+- Leo
+> 
+> 
+>>
+>> Signed-off-by: Leo Li <sunpeng.li@amd.com>
+>> ---
+>>  drivers/gpu/drm/drm_atomic_helper.c |  8 ++++
+>>  drivers/gpu/drm/drm_fb_helper.c     |  4 ++
+>>  drivers/gpu/drm/drm_plane.c         |  4 ++
+>>  drivers/gpu/drm/drm_vblank.c        | 69 +++++++++++++++++++++++++++++
+>>  drivers/gpu/drm/drm_vblank_work.c   |  8 ++++
+>>  include/drm/drm_crtc.h              | 27 +++++++++++
+>>  include/drm/drm_vblank.h            |  1 +
+>>  7 files changed, 121 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+>> index ef56b474acf59..e52dd41f83117 100644
+>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>> @@ -1264,6 +1264,10 @@ crtc_disable(struct drm_device *dev, struct drm_atomic_state *state)
+>>  		if (!drm_dev_has_vblank(dev))
+>>  			continue;
+>>  
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		if (ret)
+>> +			continue;
+>> +
+>>  		ret = drm_crtc_vblank_get(crtc);
+>>  		/*
+>>  		 * Self-refresh is not a true "disable"; ensure vblank remains
+>> @@ -1815,6 +1819,10 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+>>  		if (!new_crtc_state->active)
+>>  			continue;
+>>  
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		if (ret != 0)
+>> +			continue;
+>> +
+>>  		ret = drm_crtc_vblank_get(crtc);
+>>  		if (ret != 0)
+>>  			continue;
+>> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+>> index 11a5b60cb9ce4..7400942fd7d1d 100644
+>> --- a/drivers/gpu/drm/drm_fb_helper.c
+>> +++ b/drivers/gpu/drm/drm_fb_helper.c
+>> @@ -1103,6 +1103,10 @@ int drm_fb_helper_ioctl(struct fb_info *info, unsigned int cmd,
+>>  		 * enabled, otherwise just don't do anythintg,
+>>  		 * not even report an error.
+>>  		 */
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		if (ret)
+>> +			break;
+>> +
+>>  		ret = drm_crtc_vblank_get(crtc);
+>>  		if (!ret) {
+>>  			drm_crtc_wait_one_vblank(crtc);
+>> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+>> index 38f82391bfda5..f2e40eaa385e6 100644
+>> --- a/drivers/gpu/drm/drm_plane.c
+>> +++ b/drivers/gpu/drm/drm_plane.c
+>> @@ -1421,6 +1421,10 @@ int drm_mode_page_flip_ioctl(struct drm_device *dev,
+>>  		u32 current_vblank;
+>>  		int r;
+>>  
+>> +		r = drm_crtc_vblank_prepare(crtc);
+>> +		if (r)
+>> +			return r;
+>> +
+>>  		r = drm_crtc_vblank_get(crtc);
+>>  		if (r)
+>>  			return r;
+>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+>> index 46f59883183d9..4dac3228c021f 100644
+>> --- a/drivers/gpu/drm/drm_vblank.c
+>> +++ b/drivers/gpu/drm/drm_vblank.c
+>> @@ -1194,6 +1194,30 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+>>  	return ret;
+>>  }
+>>  
+>> +/**
+>> + * drm_crtc_vblank_prepare - prepare to enable vblank interrupts
+>> + *
+>> + * @crtc: which CRTC to prepare
+>> + *
+>> + * Some drivers may need to run blocking operations to prepare for enabling
+>> + * vblank interrupts. This function calls the prepare_enable_vblank callback, if
+>> + * available, to allow drivers to do that.
+>> + *
+>> + * The spin-up may call blocking functions, such as mutex_lock(). Therefore,
+>> + * this must be called from process context, where sleeping is allowed.
+>> + *
+>> + * Also see &drm_crtc_funcs.prepare_enable_vblank.
+>> + *
+>> + * Returns: Zero on success or a negative error code on failure.
+>> + */
+>> +int drm_crtc_vblank_prepare(struct drm_crtc *crtc)
+>> +{
+>> +	if (crtc->funcs->prepare_enable_vblank)
+>> +		return crtc->funcs->prepare_enable_vblank(crtc);
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_crtc_vblank_prepare);
+>> +
+>>  int drm_vblank_get(struct drm_device *dev, unsigned int pipe)
+>>  {
+>>  	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
+>> @@ -1288,12 +1312,22 @@ EXPORT_SYMBOL(drm_crtc_vblank_put);
+>>  void drm_wait_one_vblank(struct drm_device *dev, unsigned int pipe)
+>>  {
+>>  	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
+>> +	struct drm_crtc *crtc = drm_crtc_from_index(dev, pipe);
+> 
+> Initialization...
+> 
+>>  	int ret;
+>>  	u64 last;
+>>  
+>>  	if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>>  		return;
+>>  
+>> +	crtc = drm_crtc_from_index(dev, pipe);
+> 
+> ...and another initialization.
+> 
+> But really, this function needs to die, and you'll have the crtc without
+> looking it up [1]. I'd really love to land that first to not make that
+> *and* this series harder for absolutely no reason.
+> 
+> [1] https://lore.kernel.org/r/2a17538a24f1d12c3c82d9cde03363195b64d0cf.1764933891.git.jani.nikula@intel.com
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div class=3D"elementToProof" style=3D"text-align: left; margin-left: 5pt; =
-font-family: Calibri; font-size: 10pt; color: rgb(0, 0, 255);">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
-<div id=3D"Signature">
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
---</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jay<br>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHANMUGAM, SRINIVASAN=
- &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, December 10, 2025 1:53 AM<br>
-<b>To:</b> Hung, Alex &lt;Alex.Hung@amd.com&gt;; Pillai, Aurabindo &lt;Aura=
-bindo.Pillai@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Chen, Robi=
-n &lt;robin.chen@amd.com&gt;; Chang, Jack &lt;jack.chang@amd.com&gt;; Huang=
-, Leon &lt;Leon.Huang1@amd.com&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;;
- Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Chung, ChiaHsuan (Tom) &lt=
-;ChiaHsuan.Chung@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Fix 64-bit state pointer passed as=
- 32-bit GPINT response buffer</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">edp_pr_get_state() incorrectly casts a uint64_t * =
-to uint32_t * when<br>
-calling dc_wake_and_execute_gpint(). The GPINT path writes only 32 bits,<br=
->
-leaving the upper 32 bits of the u64 output uninitialized. Replace the<br>
-cast with a u32 temporary and copy the result into the u64 pointer.<br>
-<br>
-Fixes the below:<br>
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_cont=
-rol.c<br>
-&nbsp;&nbsp;&nbsp; 1448 bool edp_pr_get_state(const struct dc_link *link, u=
-int64_t *state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^^^^^^^^^^^^^<br>
-&nbsp;&nbsp;&nbsp; 1449 {<br>
-<br>
-&nbsp;&nbsp;&nbsp; ...<br>
-<br>
-&nbsp;&nbsp;&nbsp; 1457&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do =
-{<br>
-&nbsp;&nbsp;&nbsp; 1458&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Send gpint command and wait=
- for ack<br>
---&gt; 1459&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dc_wake_and_execute_gpint(dc-&gt;ctx,=
- DMUB_GPINT__GET_REPLAY_STATE, panel_inst,<br>
-&nbsp;&nbsp;&nbsp; 1460&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; (uint32_t *)state, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^^^^^^^^^^^^^^^<br>
-<br>
-The dc_wake_and_execute_gpint() function doesn't take a u64, it takes a<br>
-u32.&nbsp; It tries to initialize the state to zero at the start but that's=
-<br>
-not going to work because of the type mismatch.&nbsp; It suggests that<br>
-callers are allowed to pass uninitialized data to edp_pr_get_state() but<br=
->
-at present there are no callers so this is only a bug in the code but<br>
-doesn't affect runtime.<br>
-<br>
-&nbsp;&nbsp;&nbsp; 1461&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; // Return invalid state when GPINT times out<br>
-&nbsp;&nbsp;&nbsp; 1462&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; *state =3D PR_STATE_INVALID;<br>
-&nbsp;&nbsp;&nbsp; 1463&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-<br>
-Fixes: f2429468b582 (&quot;drm/amd/display: Refactor panel replay set dmub =
-cmd flow&quot;)<br>
-Reported by: Dan Carpenter &lt;dan.carpenter@linaro.org&gt;<br>
-Cc: Robin Chen &lt;robin.chen@amd.com&gt;<br>
-Cc: Jack Chang &lt;jack.chang@amd.com&gt;<br>
-Cc: Leon Huang &lt;Leon.Huang1@amd.com&gt;<br>
-Cc: Alex Hung &lt;alex.hung@amd.com&gt;<br>
-Cc: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
-Cc: Roman Li &lt;roman.li@amd.com&gt;<br>
-Cc: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
-Cc: Tom Chung &lt;chiahsuan.chung@amd.com&gt;<br>
-Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
->
----<br>
-&nbsp;.../amd/display/dc/link/protocols/link_edp_panel_control.c | 7 +++++-=
--<br>
-&nbsp;1 file changed, 5 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_c=
-ontrol.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_con=
-trol.c<br>
-index 0b05ee9f6ea1..cf06b9b62e1d 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
-c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.=
-c<br>
-@@ -1450,6 +1450,7 @@ bool edp_pr_get_state(const struct dc_link *link, uin=
-t64_t *state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct dc&nbsp; *dc =
-=3D link-&gt;ctx-&gt;dc;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int panel_inst =
-=3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t retry_count =3D 0=
-;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t replay_state =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dc_get_edp_link_panel=
-_inst(dc, link, &amp;panel_inst))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-@@ -1457,10 +1458,12 @@ bool edp_pr_get_state(const struct dc_link *link, u=
-int64_t *state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; // Send gpint command and wait for ack<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (!dc_wake_and_execute_gpint(dc-&gt;ctx, DMUB_GPINT=
-__GET_REPLAY_STATE, panel_inst,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (uint32_t *)state, DM_DMUB_W=
-AIT_TYPE_WAIT_WITH_REPLY)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;replay_state, DM_DMUB_W=
-AIT_TYPE_WAIT_WITH_REPLY)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Re=
-turn invalid state when GPINT times out<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *state =3D PR_ST=
-ATE_INVALID;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; replay_state =3D=
- PR_STATE_INVALID;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* Copy 32-bit result into 64-bit output */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; *state =3D replay_state;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while (++retry_count &lt=
-;=3D 1000 &amp;&amp; *state =3D=3D PR_STATE_INVALID);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Assert if max retry hit=
-<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
 
---_000_CH0PR12MB52844E92F105DD3815F34C7E8BA0ACH0PR12MB5284namp_--
+The series looks sensible. I can definitely rebase on them. 
+>> +	if (crtc) {
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		if (drm_WARN(dev, ret,
+>> +			     "prepare vblank failed on crtc %i, ret=%i\n",
+>> +			     pipe, ret))
+> 
+> Do we really need the warning backtraces or debug logs for every call?
+> There's one driver that needs the call, and it always returns 0. And
+> there's like a hundred lines of debug logging in this patch.
+> 
+> If you insist, please at least use the [CRTC:%d:%s] style logging, and
+> make it all somehow consistent.
+> 
+
+I'm OK with dropping these. It may be better for drivers to print warnings
+themselves since preparation work is vendor specific.
+>> +			return;
+>> +	}
+>> +
+>>  	ret = drm_vblank_get(dev, pipe);
+>>  	if (drm_WARN(dev, ret, "vblank not available on crtc %i, ret=%i\n",
+>>  		     pipe, ret))
+>> @@ -1485,10 +1519,18 @@ void drm_crtc_vblank_on_config(struct drm_crtc *crtc,
+>>  	struct drm_device *dev = crtc->dev;
+>>  	unsigned int pipe = drm_crtc_index(crtc);
+>>  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>> +	int ret;
+>>  
+>>  	if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>>  		return;
+>>  
+>> +	if (crtc) {
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		drm_WARN_ON(dev, ret);
+>> +		if (ret)
+>> +			return;
+>> +	}
+>> +
+>>  	spin_lock_irq(&dev->vbl_lock);
+>>  	drm_dbg_vbl(dev, "crtc %d, vblank enabled %d, inmodeset %d\n",
+>>  		    pipe, vblank->enabled, vblank->inmodeset);
+>> @@ -1796,6 +1838,17 @@ int drm_wait_vblank_ioctl(struct drm_device *dev, void *data,
+>>  		return 0;
+>>  	}
+>>  
+>> +	crtc = drm_crtc_from_index(dev, vblank->pipe);
+>> +	if (crtc) {
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		if (ret) {
+>> +			drm_dbg_core(dev,
+>> +				     "prepare vblank failed on crtc %i, ret=%i\n",
+>> +				     pipe, ret);
+>> +			return ret;
+>> +		}
+>> +	}
+>> +
+>>  	ret = drm_vblank_get(dev, pipe);
+>>  	if (ret) {
+>>  		drm_dbg_core(dev,
+>> @@ -2031,6 +2084,14 @@ int drm_crtc_get_sequence_ioctl(struct drm_device *dev, void *data,
+>>  		READ_ONCE(vblank->enabled);
+>>  
+>>  	if (!vblank_enabled) {
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		if (ret) {
+>> +			drm_dbg_core(dev,
+>> +				     "prepare vblank failed on crtc %i, ret=%i\n",
+>> +				     pipe, ret);
+>> +			return ret;
+>> +		}
+>> +
+>>  		ret = drm_crtc_vblank_get(crtc);
+>>  		if (ret) {
+>>  			drm_dbg_core(dev,
+>> @@ -2098,6 +2159,14 @@ int drm_crtc_queue_sequence_ioctl(struct drm_device *dev, void *data,
+>>  	if (e == NULL)
+>>  		return -ENOMEM;
+>>  
+>> +	ret = drm_crtc_vblank_prepare(crtc);
+>> +	if (ret) {
+>> +		drm_dbg_core(dev,
+>> +			     "prepare vblank failed on crtc %i, ret=%i\n",
+>> +			     pipe, ret);
+>> +		return ret;
+>> +	}
+>> +
+>>  	ret = drm_crtc_vblank_get(crtc);
+>>  	if (ret) {
+>>  		drm_dbg_core(dev,
+>> diff --git a/drivers/gpu/drm/drm_vblank_work.c b/drivers/gpu/drm/drm_vblank_work.c
+>> index e4e1873f0e1e1..582ee7fd94adf 100644
+>> --- a/drivers/gpu/drm/drm_vblank_work.c
+>> +++ b/drivers/gpu/drm/drm_vblank_work.c
+>> @@ -113,11 +113,19 @@ int drm_vblank_work_schedule(struct drm_vblank_work *work,
+>>  {
+>>  	struct drm_vblank_crtc *vblank = work->vblank;
+>>  	struct drm_device *dev = vblank->dev;
+>> +	struct drm_crtc *crtc;
+>>  	u64 cur_vbl;
+>>  	unsigned long irqflags;
+>>  	bool passed, inmodeset, rescheduling = false, wake = false;
+>>  	int ret = 0;
+>>  
+>> +	crtc = drm_crtc_from_index(dev, vblank->pipe);
+>> +	if (crtc) {
+>> +		ret = drm_crtc_vblank_prepare(crtc);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>>  	spin_lock_irqsave(&dev->event_lock, irqflags);
+>>  	if (work->cancelling)
+>>  		goto out;
+>> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+>> index caa56e039da2a..456cf9ba0143a 100644
+>> --- a/include/drm/drm_crtc.h
+>> +++ b/include/drm/drm_crtc.h
+>> @@ -860,6 +860,33 @@ struct drm_crtc_funcs {
+>>  	 */
+>>  	u32 (*get_vblank_counter)(struct drm_crtc *crtc);
+>>  
+>> +	/**
+>> +	 * @prepare_enable_vblank:
+>> +	 *
+>> +	 * An optional callback for preparing to enable vblank interrupts. It
+>> +	 * allows drivers to perform blocking operations, and thus is called
+>> +	 * without any vblank spinlocks. Consequently, this callback is not
+>> +	 * synchronized with the rest of drm_vblank management; drivers are
+>> +	 * responsible for ensuring it won't race with drm_vblank and it's other
+>> +	 * driver callbacks.
+>> +	 *
+>> +	 * For example, drivers may use this to spin-up hardware from a low
+>> +	 * power state -- which may require blocking operations -- such that
+>> +	 * hardware registers are available to read/write. However, the driver
+>> +	 * must be careful as to when to reenter low-power state, such that it
+>> +	 * won't race with enable_vblank.
+>> +	 *
+>> +	 * It is called unconditionally, regardless of whether vblank interrupts
+>> +	 * are already enabled or not.
+>> +	 *
+>> +	 * This callback is optional. If not set, no preparation is performed.
+>> +	 *
+>> +	 * Returns:
+>> +	 *
+>> +	 * Zero on success, negative errno on failure.
+>> +	 */
+>> +	int (*prepare_enable_vblank)(struct drm_crtc *crtc);
+>> +
+>>  	/**
+>>  	 * @enable_vblank:
+>>  	 *
+>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+>> index 151ab1e85b1b7..5abc367aa4376 100644
+>> --- a/include/drm/drm_vblank.h
+>> +++ b/include/drm/drm_vblank.h
+>> @@ -272,6 +272,7 @@ void drm_vblank_set_event(struct drm_pending_vblank_event *e,
+>>  			  ktime_t *now);
+>>  bool drm_handle_vblank(struct drm_device *dev, unsigned int pipe);
+>>  bool drm_crtc_handle_vblank(struct drm_crtc *crtc);
+>> +int drm_crtc_vblank_prepare(struct drm_crtc *crtc);
+>>  int drm_crtc_vblank_get(struct drm_crtc *crtc);
+>>  void drm_crtc_vblank_put(struct drm_crtc *crtc);
+>>  void drm_wait_one_vblank(struct drm_device *dev, unsigned int pipe);
+> 
+
