@@ -4,149 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93600D3E79C
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 08:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D39CCD41C09
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 09:47:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 230F210E798;
-	Thu, 11 Dec 2025 08:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1427310E2AF;
+	Thu, 11 Dec 2025 09:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yWvd5rl2";
+	dkim=pass (2048-bit key; unprotected) header.d=gwmail.gwu.edu header.i=@gwmail.gwu.edu header.b="SkmAv2ib";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010031.outbound.protection.outlook.com
- [40.93.198.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61E9210E798
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 08:19:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=whK32E4AkdgG6Ny8bXaKJMc7A1Ek8UZx/a4PvU+YS6HILkIaFuFtlhSQJxYz0+0EshTdNCvp9At/q9S7kHPI7RukZvbgnWsVfUgAsoUq3ZC9mM3p+Ar5ypQRvymbMdrTMAa4SrdBxgveg7JUt83q2KwV6s0iUKSPUk13qCZc0Z5LAErzmZd3NgIIztbCPVswyTNQVnpVIemWbZrfq4LV3w4HN+EKmyUta9llhZB4wOxqh2twRlO0iHasTBoRcCrSzsLq0BFOYp4AO1Ngb5GHrj8jvGddSICLUNyvi2q7iM9tNLwFnydG5H/M4WTQcYhE1Knz/DZSXqfd2ykiWG98Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TN/RGd8ewS1+c1+24xVB9gYl9ouCoBeEz8ZR66MYRqE=;
- b=fJFR7CLrO6ABkYtxcxIZoqJaMg6d+R/xNvSgIDgT8GXhMUez630vjKHXNiN9Kloknv2qATkHN5s3Z0qX/Bp0DN8ztXHjElYOxBH1J/W09PXGM4MF2cF0bABorqZAOaqXxUAztdNlMmPvqakBl1AFyrN9LttvcrFLVAFJSfirPe0j/6OzZMx5R07mQ3rKICJY+IbJ7QNAKdiZiz889onacKN0BPj+J0zUK8xjS/Jvnjww74ZdmMiFFEEOFPVUU/GkgLcL/QP5m4fZHb2d//mp+nJYUv2PnmbxiTKbIkiplhz1EEf5vdZiquUo4jFguJ3MLZAzyuyjj6XZb/IYow8AUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TN/RGd8ewS1+c1+24xVB9gYl9ouCoBeEz8ZR66MYRqE=;
- b=yWvd5rl2QvWjlSDdw/QCzsmPVKiWLGZvAZYB7I2Oa/MchcqoZqe/m5lweV7WpuluLRWpPzzNQfR5m28ScRmSc3OWick619f7sTzqkRE4fERZxfr/02VLg99CIWMf0vIRWxUq+o3VIy7lRPU/35Bs4lAfug5S039bSkfMTJmqFB4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by CH3PR12MB9341.namprd12.prod.outlook.com (2603:10b6:610:1cd::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Thu, 11 Dec
- 2025 08:19:37 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::d759:a62b:f8ba:461d]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::d759:a62b:f8ba:461d%4]) with mapi id 15.20.9412.005; Thu, 11 Dec 2025
- 08:19:37 +0000
-Message-ID: <e0a8b4b7-1d42-4652-a82c-7ef663c4584f@amd.com>
-Date: Thu, 11 Dec 2025 13:49:32 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: add PP_PCIE_DPM_MASK support for navi10
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: hawking.zhang@amd.com, alexander.deucher@amd.com
-References: <20251211051657.652580-1-kevinyang.wang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20251211051657.652580-1-kevinyang.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0076.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26d::7) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH3PR12MB9341:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3db106a6-d6de-41de-1f4e-08de388e05ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RFJXZGZ6cVdMU3JCTXY0eTBWZWVmU2dhckxNS2JGY0IrTUJUbnRxTVBXelgv?=
- =?utf-8?B?SUFWdEY1N3RLd3kvblBIUm1GOHFjQ1JXNEl3V3FRMGZhd1kwUXBHdHE4cndR?=
- =?utf-8?B?NkFod2JUOGlkbWdMaWIvek1jclNCT2pubVppVjJUcTgxV3kzdWc1OXhDNlBl?=
- =?utf-8?B?UHRqWld6V2JSU2VyU2dwQmR6OUVudWh1bkdVZWdqamlFTUdScGl5R3JkUjlY?=
- =?utf-8?B?Y3RyYTVqZHJmdVR6RmV4VnhoS2VaTUI5NTFYRG9ObXZENVdoOTE2TTRibldH?=
- =?utf-8?B?VzYreHRvdzRQRFRDTlY2MmFIMGlzUHJCcENndWtZV0lhTVVsYnBlTjFnR1V3?=
- =?utf-8?B?NXc4QlBLQ21kcEdicE5HL0NqTUpwYTJrSDZNdmJkb2dLV2x5b0RkVXFLOXo3?=
- =?utf-8?B?d3FkNDVJdXI3Q2RxL2l5RStmNGJrZ2pXZUpYbm5SSzY5aUtwNjBsaXFJVGJa?=
- =?utf-8?B?eFpaUkoxMnZUYUJmNU12TTFJQk9rMnp0VmkwSit2OGwrdHI5bk9JWlZQaHlF?=
- =?utf-8?B?by9idHVIM0hLbHIyTVhvMFhscVlGSFUwM2s2LzAreVhGZko5WXBkVG0xZGQ4?=
- =?utf-8?B?RzRLRWUyTkVlcFFCMDBJYnRLTzc3UXVvUExUcXY0Wi9rVnV3T2RvZ3dFbmR2?=
- =?utf-8?B?RU9XZ2lYOGVZcjNlTTNtSFNIQkN5TjFNWjh0b1F4WHhaUEQ4aHRYc1NIeldG?=
- =?utf-8?B?TU9kUlJ0a1EyWnhFMUZTZFFxcDJoMEF1VDd5L256a015bExBUXJuVnpGR1RZ?=
- =?utf-8?B?Tlpua0Q5Ujd1Vm8vNlhBWlpqb2pLVmNJbXMvRmMzMzg4bFE3bkpnZFlxdit1?=
- =?utf-8?B?SE1LTEJBemI5U2JsRkRBblVNQU9BZ01rSGJkdEJ3dXBiTVdibFJic3NOTy9C?=
- =?utf-8?B?a0pqV05PeXBVL2wrdENtcU9xNFlzb2lTNHBzSWVqUXFEY1dmM2wwMGpTYVJr?=
- =?utf-8?B?SHVTR1pSMXhUUGxPYUpMV2FnK2RmQ1JhQ1l6a3pLOTMyUU5jTDlkN0dJUXdp?=
- =?utf-8?B?V0NMcDhrN1FYbWR0YmVIMjE5dTFjWDZTSVRqakdLaTdIWmJXWnpBNm42bTVy?=
- =?utf-8?B?QWVpOFExV01majVpQWpWVUlwdVhTQkRFMTJLVVpIcXdzWGF3ZlNmU2dXd05p?=
- =?utf-8?B?RVFuRGE0bFEzQk5RanEzMkJML0FCdjY1QzA1L1FoR1BoWTI3S2FKQWNaQzFI?=
- =?utf-8?B?eEdHZHcyeDZ1dmpqeGhMajEzbmQ2WWNKOTdlSXlHRG1LYTZreVFydU9yZ3lW?=
- =?utf-8?B?T2p6MDZZbitCMDNER3krS2VVNnNXTWNnZDlaUDNQUHBpbG45RUJVaDJnRU84?=
- =?utf-8?B?ZEJNR29GS3VZOVBzRTRrL3dJV1B5RzhkaGdTTUp0aGNUSnlIVTFDMlc4dUt0?=
- =?utf-8?B?c2c1SkhxaVR4RVlnek5uNjRuNXVlMjhOOHBJTFIzcGR5UmNaWmJiZzA4SHJ3?=
- =?utf-8?B?czVrbytTcHFEd0RhZU1xNjBpS0lTamR0MUd3RnRSRFpEYWJRcWQ4Y0o1TXFZ?=
- =?utf-8?B?ZjUxWWdPZU1hUWl6ejE3bk1NM3ViU25BUG5PSEZEVDhZa0RaUXZqeFJobTVr?=
- =?utf-8?B?bWVFUU5hbDdRNi91Qm00RmVHOEJRL21mTG02SHcxVWNreGloaVdzRHhDTGU5?=
- =?utf-8?B?TXlXeUgxblZ5L3E2dXJoRGxvNGx4YVhqN3RhbDBqRXV6NWxIMVMxSUxPbzgz?=
- =?utf-8?B?NXIzOXRFYUpsVmgzekd6RlNuUXJmU2QxbUJPZ2FwOGJUWDJJN2wzZENaL3Bo?=
- =?utf-8?B?bFdseHFMbGNFYmk0VzF2bFhoN1hPRjFQZnE5WjhMRUY1N3lTbndIVkFVL2Vs?=
- =?utf-8?B?TFBkRTlQQWNQOGNCWFY5WDNxRHpWSmR3SzlWL2lNSDlSSGFWaUwxWSthanJK?=
- =?utf-8?B?OFgvb3VvSjhRc2ExVDg5eXRJM3Y5OVpYQjZ4TTNiNWJyVjMwZFRYWmpRaUdn?=
- =?utf-8?Q?qlaIembVAY2A66P0MYK4KOmyClXqXkMU?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a01qMEpvY2JnRkt0dGNrNGkyTG9aTDU4RklST05qRjc3dzN1azlxZzNydmpG?=
- =?utf-8?B?VXZqWFNZUk9nSGU5MWVYenNSdXVGMytKb0tBR1pLdmFxeGFTLy82aVNaS0M1?=
- =?utf-8?B?YWcycm9yL1NxbitPNThWVEV5Z0JDTDRCV2pPcnBqMUF0VTRQS2RkZzBBNFlV?=
- =?utf-8?B?WUpkUWtQcStGSFVObWVCak1iMXJoTnJrMFVCdmE4WEk1MFMvSi9YcklzaDlH?=
- =?utf-8?B?b1pCQXJia3RjamlxVlRQM3JPRnFJREk1MlA5ZWxLU29tWmNOcmYyc3FhVzF2?=
- =?utf-8?B?UVJ5ZzFLZVdxUTZBWnhqcjRPbmtNRzFSWVRwZ2gwRGVsZ05RQ1loYWxyTlZu?=
- =?utf-8?B?RWR3clJ5Z2FOdFFQRWYvUENBTUZ3ajhuU3RQNVFhQ2lOVGtacGdtNGpEZjVl?=
- =?utf-8?B?dDFVeVd6SGw2L1JlT0U5c0NCZWRaZTBGM1VHZExjNUZrcHZqbVhXVzhqaVRy?=
- =?utf-8?B?RVlLTkRjMkJ2cjIyUUQ2N2FDRHI3KzBDdkVyWkhzVTYzTFgrMm1lTDlVQXUw?=
- =?utf-8?B?VTlvZCsvdUd2bHJIbHd3RlFOUTFSdVc3OCtoUXpxSHE2cS84Skh0QXdvM2RB?=
- =?utf-8?B?UEIrUS8xMjlPUjEwRjA2WG5URW5aWXVBdEE3S0FEZ0ZTV3BCdE1wbU9ndlBS?=
- =?utf-8?B?cVAyRGlmRVRQSEV0c09oODNUd3kyL0VVdXVKVndjbXJNL0RWdDQzZkIwOEJI?=
- =?utf-8?B?Y05YZTdsMyt0ZDJ5ZktleWRxUGlVWURDYjFzd0Y1YTlOVnY5WEZRNzFwUm1B?=
- =?utf-8?B?Sk5EVXB4RDNzaUVLWGRoRkZQNm85QkZLNkxrdVVZOEdNR3RqdU5yNmVhVjNL?=
- =?utf-8?B?SHp2REFNTWp3SVBKZUtBVjNSaG0yOGQwWHU2TG8yR21rZ3phL0Rjbzl1U3Zw?=
- =?utf-8?B?TEowUjBDUEt2OXB2bW56Z2kyUkl1UlZaTzlSOTlZdEY3cVZoY1RMUVZ0Z0ZF?=
- =?utf-8?B?UWZmYkFWNnJuandickNWQ3ZocldNZ0g0STZaZDIvOGdLUGdadnYxVlNibWIy?=
- =?utf-8?B?M1EvekVpMDN4QndPRnZveHcySmZFZk0xTUFxS2llaUxOTGdjbStKeDVRd05Y?=
- =?utf-8?B?MnB0MkVMZktQRnRRd01abjA2c2dYdVQ1R01mVGkxVTY0ZG1NeUR6clNsQTNu?=
- =?utf-8?B?aVl5dkJFZGk3UkdROEZobU43WEpUbktOOXdpOG9FTlQ3S21ZYThiQUMwaGZw?=
- =?utf-8?B?cHhycVE2R0haUzdPM3VES043SjRlN01zOU0yWjhlTzRVd2g3bTZndEF0a0FI?=
- =?utf-8?B?NTh5UU1ocTdHNEU2c09mMzRDUk1HMVQrR3AraklHWW1SSExwSU1QbkVwSHJl?=
- =?utf-8?B?L1Z6UVBlTFlmMGpuSC85S1VZVUVKZ0VNbFZiZGNPT3E2VFVWeWNUTFF3alBN?=
- =?utf-8?B?SHRvaUF5RGY0ODY2YUhSS29RQnNKQnVkei91THpTbjlzdVljTVF6N3Y4QUlS?=
- =?utf-8?B?UTQ0OVBLRm5Eakh3V0c3QUFuTXBSbC80eVNzalk2TWlWZEMrRk9nUnZ3OXYw?=
- =?utf-8?B?QVRuZFJDY1poWmg5TnM4ME83Mnd1OTB2WFJBSHU2WmZwOWs5RVMwRFprZi92?=
- =?utf-8?B?amhMcW5xYVRkMm1lUzZzQ0RmMHNnenA2ZjM2NnZybGRWNXN6b1B5Njc5VW56?=
- =?utf-8?B?T0tWL3llUjdmZDRQY0s1TFI1bS8yMzlzNGtPUVFxYXBZY2VzY083Y25oMnN4?=
- =?utf-8?B?Q3JPSG9yWEd4TEtpaSt0T0tCNE4zMkNvTFhxcDJkdWNzckhoY2VFZVBZUkgv?=
- =?utf-8?B?ZExHUE90ZXZJRlNWa09tdWxvcEJDSkFMRldsZkRYYzVwMll1bVZ6Ni9Hd0xJ?=
- =?utf-8?B?c1VRYjhUSUJUbHJTOGVodnNVdm1MWTZrdmoxWllGcmdjMnZOTlZlMEwySjRz?=
- =?utf-8?B?VHpnYndDNUVpeCszY3d6WFArR2xYRS9MWXl6djQyN201Rm45NWV6YUE2MVZJ?=
- =?utf-8?B?MncyR2xNWkNyME1EOWVLMVhUSFRiVzYzTVVSSS9sUDhScjQxMUxhS3A1TnZi?=
- =?utf-8?B?c2s0MVE3U2JVQWtvazBkL01pUE1tck1tSGJEbEZRSDhlTmJLOHlRaGZuN2NW?=
- =?utf-8?B?dzNRTmRUUHhaRytPVGd0OVVFY09CMjkxWTlmU25WS2xuYm01U2ljK3E2bHpN?=
- =?utf-8?Q?/KeVwllr42ilhRNlTh9kJGPux?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3db106a6-d6de-41de-1f4e-08de388e05ec
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2025 08:19:37.2496 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xxf7ee8l2rfGShx1Oaovde019LBu8vYTEYFog8H07unisWZDvrPjwjmE+Hh7JI0i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9341
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A87410E049
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 20:56:57 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-c03ea3b9603so32157a12.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 12:56:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gwmail.gwu.edu; s=google; t=1765400217; x=1766005017;
+ darn=lists.freedesktop.org; 
+ h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+ :from:content-transfer-encoding:from:to:cc:subject:date:message-id
+ :reply-to; bh=nczMQniPGwZmFp+MrN87DUwPKOB7JsUrj5G04YRvd1c=;
+ b=SkmAv2ibh6JdtOL/I4cW6ZESEFRfGfzB4rIgJymKm24x0gW4Z0TEhg4oRTTJPiR023
+ Z8Yj0mhUJT+CVe9m0RhmEzNfnTSj58xS5vEJnmpLG7Q7Zw+j9k8w2U/Uv704joMg1STB
+ gozJZJsYFzeK6hy4y+3VpmbzvV8e1X6UU2sh3YMjw/1RVATBhhYeP+z0ydlrGe9ITccE
+ KEJPbLZBi8TZ7HY3r2xk6TSi62Rw0PuEya57uJWrwZC0DQ7D5NDclrfiyDfHnrFDu+aD
+ //gEV9h5KYvcCd5ihi98rd4Cv6E1fGOJ7g6XzIOmbB8nOqwJ6ziNGUO6LLMm0PnexiNP
+ yAWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765400217; x=1766005017;
+ h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+ :from:content-transfer-encoding:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=nczMQniPGwZmFp+MrN87DUwPKOB7JsUrj5G04YRvd1c=;
+ b=daq89lX4xO/HsXey/f7cwu/Fr+cj1sd/2WDfBJ8Tjl8VDFp6dJNYbII/Um1hCV41Wg
+ xEY29agINsdKaoPSx0r6EeDSCan+kdF232eQxfmWVPV6AKPgsobVWTyFUbKHj9VpmalD
+ 8kN1kDyG+LwT1t0fUng+yXFpoqByaf+MSdh5+kvqxBK/8L23UHr4vsS4T0MgKKLmI1sE
+ ptvluCkK2Fzhu0LndSfWyUcH9i4skk1sWglCr+m50LjB3XJLJe27IgY/EfEikWb0lUs8
+ LTsmTQwBSyIim3N615ATObssNDjKDspCN2oYrf+gtPnYClyAbe9expvV5zLwANAQPQe8
+ n9fw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXMZ/3O89duOu/d3AeWemNZZLVsxpkJoh/gsJuUB8/11Hq14GVcuVoegkXH13ZbGl6XZngED1Fg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyiSKlshVGFLYVVN8LJNVCGRyCRTZ2ZTUNa+EKubDpNDv7HOvt4
+ ruPiXvjHrqHBrMPMQ33iSXJWH+MABIUhm/EpwvvhtGAYeJtYyl7c+i1eBhivKfne4A==
+X-Gm-Gg: ASbGnctWL9zjBmFuCcfuPFB8vONk5JYf8s7JFu/c8I82n2C2l5MYjXZOJRK1wtlhVgT
+ gsZjiSVvcmfgPcCh1xIt4hJGJZEvTg7iGW8X9uWyb8L/AWuFNq6KbuOJ+BwGeXlVojCEJ/Yv4v+
+ w11l8yCnMZ2lSyo/clUoPBx/LG02/PvzEK0mlIzWIdvrsjRTTc4ZHBFVLGL78jmH4pyIlblu0QN
+ LcGL/s52gH3CUX8y6ycMrCfJUHmb/slQlzyjS85NPftfKV7Cz8pkGvcuR8I2YQHXgpQ0PcCRp+E
+ n2hyaPvgPe4gkxnVLQuLJfSAixysuOUP9F/5y3ugnN4BNEZUaqUziwmI7YH0g1wu0dYyE0+rXev
+ 75RSwXA102i+oaDMy2BYtxDKQ269jei0xU7Sah7+186n3u4ATug+eNvZLSw5m+IEzGQ4kIAC2/O
+ oswm5ujBnahrCqs0W22mevqcZEdjd3EseBnv4tBPG8pm4=
+X-Google-Smtp-Source: AGHT+IFxPbHYThMKokZQyjYMK0pffRhooiRg2gryy4KX/0jcDqMN5t1g41FTsJTxv5VJ0gwETJEbVw==
+X-Received: by 2002:a05:7022:60e:b0:11e:3e9:3e98 with SMTP id
+ a92af1059eb24-11f296edc1fmr1585718c88.7.1765400216364; 
+ Wed, 10 Dec 2025 12:56:56 -0800 (PST)
+Received: from smtpclient.apple ([172.115.17.107])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-11f2e2ff624sm1474002c88.12.2025.12.10.12.56.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Dec 2025 12:56:55 -0800 (PST)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [RFC PATCH 0/2] Fixes on CM3 helper for plane shaper LUT
+Date: Wed, 10 Dec 2025 12:56:44 -0800
+Message-Id: <99B1C134-C5FF-4D47-80EF-1E282DF6FD9F@gwmail.gwu.edu>
+References: <314e9649-90b4-47b9-afce-7ed27bad219b@igalia.com>
+Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Harry Wentland <harry.wentland@amd.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, kernel-dev@igalia.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <314e9649-90b4-47b9-afce-7ed27bad219b@igalia.com>
+To: Melissa Wen <mwen@igalia.com>
+X-Mailer: iPhone Mail (23C54)
+X-Mailman-Approved-At: Thu, 11 Dec 2025 09:47:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,120 +96,186 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 12/11/2025 10:46 AM, Yang Wang wrote:
-> add PP_PCIE_DPM_MASK support for navi10.
-> 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->   .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 66 +++++++++++++------
->   1 file changed, 45 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 0c26fe6fb949..fab19174343f 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -2192,39 +2192,63 @@ static int navi10_update_pcie_parameters(struct smu_context *smu,
->   					 uint8_t pcie_width_cap)
->   {
->   	struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
-> +	struct smu_pcie_table *pcie_table =
-> +				&dpm_context->dpm_tables.pcie_table;
->   	PPTable_t *pptable = smu->smu_table.driver_pptable;
->   	uint32_t smu_pcie_arg;
-> -	int ret = 0;
-> -	int i;
-> +	int i, lclk_levels = NUM_LINK_LEVELS, ret = 0;
->   
->   	/* lclk dpm table setup */
->   	for (i = 0; i < NUM_LINK_LEVELS; i++) {
-> -		dpm_context->dpm_tables.pcie_table.pcie_gen[i] = pptable->PcieGenSpeed[i];
-> -		dpm_context->dpm_tables.pcie_table.pcie_lane[i] = pptable->PcieLaneCount[i];
-> -		dpm_context->dpm_tables.pcie_table.lclk_freq[i] =
-> -			pptable->LclkFreq[i];
-> +	       pcie_table->pcie_gen[i] = pptable->PcieGenSpeed[i];
-> +	       pcie_table->pcie_lane[i] = pptable->PcieLaneCount[i];
-> +	       pcie_table->lclk_freq[i] = pptable->LclkFreq[i];
+> On Dec 10, 2025, at 12:48=E2=80=AFPM, Melissa Wen <mwen@igalia.com> wrote:=
 
-Can this be simplified if *_cap is taken care while assigning it here?
+>=20
+> =EF=BB=BF
+>=20
+>> On 09/12/2025 15:19, Matthew Schwartz wrote:
+>>> On 12/9/25 7:18 AM, Melissa Wen wrote:
+>>>=20
+>>> On 09/12/2025 12:12, Harry Wentland wrote:
+>>>> On 2025-12-09 09:44, Melissa Wen wrote:
+>>>>> On 09/12/2025 11:31, Melissa Wen wrote:
+>>>>>> On 08/12/2025 22:34, Matthew Schwartz wrote:
+>>>>>>>> On Dec 8, 2025, at 3:48=E2=80=AFPM, Melissa Wen <mwen@igalia.com> w=
+rote:
+>>>>>>>>=20
+>>>>>>>> =EF=BB=BFThere are some unexpected banding and shimmer effects when=
+ using
+>>>>>>>> steamOS/gamescope color pipeline for HDR on DCN32 or newer families=
+.
+>>>>>>>> Those problems are not present in Steam Deck (DCN301). It happens o=
+n
+>>>>>>>> DCN32 because plane shaper LUT uses DCN30 CM3 helper to translate c=
+urves
+>>>>>>>> instead of DCN10 CM helper. This series identifies the necessary ch=
+anges
+>>>>>>>> on CM3 helper to reduce differences on color transformation made by=
 
-	pcie_table->pcie_gen[i] = min(pptable->PcieGenSpeed[i], pci_gen_cap);
-	pcie_table->pcie_lane[i] = min(pptable->PcieLaneCount[i], pcie_width_cap);
+>>>>>>>> those two helpers.
+>>>>>>>>=20
+>>>>>>>> Patch 1 aims to solve the shimmer/colorful points that looks like a=
 
-For DPM enabled case, now the table will reflect the proper values and 
-further check is not required.
+>>>>>>>> wrong map of black values on red/green/blue colors. Patch 2 extends=
+ the
+>>>>>>>> delta clamping fix made in commit 27fc10d1095f ("drm/amd/display: Fi=
+x
+>>>>>>>> the delta clamping for shaper LUT") to solve some banding effects.
+>>>>>>>>=20
+>>>>>>>> Banding is not fully solved by any helper and needs further
+>>>>>>>> investigation.
+>>>>>>>>=20
+>>>>>>>> One easy way to check the current and expected behavior is moving t=
+he
+>>>>>>>> cursor (doing composition) to get the expected result from GFX. Whe=
+n the
+>>>>>>>> cursor disappears, those color transformations are back to be done b=
+y
+>>>>>>>> the display hw.
+>>>>>>> Hi Melissa,
+>>>>>>>=20
+>>>>>>> Could you share how you=E2=80=99re testing the gamescope color pipel=
+ine with HDR on DCN32, i.e display and connection type? Are any extra gamesc=
+ope or kernel patches required?
+>>>>>>>=20
+>>>>>>> At least on my own DCN32 setup (AMD 7900XTX) + my primary monitor (a=
+n LG 45gx950a-b) via DisplayPort or my DCN35 setup + integrated HDR OLED scr=
+een (Legion Go 2), gamescope always composites when HDR is enabled. I applie=
+d your patches on top of kernel 6.18, and my kernel is built with CONFIG_DRM=
+_AMD_COLOR_STEAMDECK=3Dy (the downstream name of AMD_PRIVATE_COLOR for Steam=
+OS), so that shouldn't be an issue. I tried everything from 1280x720p -> 512=
+0x2160p, and it does not work on any resolution.
+>>>>>> Hi Matt,
+>>>>>>=20
+>>>>>> You need to hack the DPP color caps to enabled SHAPER/3D and BLEND LU=
+Ts as below:
+>>>>>>=20
+>>>>>> diff --git i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_reso=
+urce.c w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+>>>>>> index b276fec3e479..96b4f3239fb1 100644
+>>>>>> --- i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+>>>>>> +++ w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+>>>>>> @@ -2256,8 +2256,8 @@ static bool dcn32_resource_construct(
+>>>>>>          dc->caps.color.dpp.gamma_corr =3D 1;
+>>>>>>          dc->caps.color.dpp.dgam_rom_for_yuv =3D 0;
+>>>>>>=20
+>>>>>> -       dc->caps.color.dpp.hw_3d_lut =3D 0;
+>>>>>> -       dc->caps.color.dpp.ogam_ram =3D 0;  // no OGAM in DPP since D=
+CN1
+>>>>>> +       dc->caps.color.dpp.hw_3d_lut =3D 1;
+>>>>>> +       dc->caps.color.dpp.ogam_ram =3D 1;  // no OGAM in DPP since D=
+CN1
+>>>>>>          // no OGAM ROM on DCN2 and later ASICs
+>>>>>>          dc->caps.color.dpp.ogam_rom_caps.srgb =3D 0;
+>>>>>>          dc->caps.color.dpp.ogam_rom_caps.bt2020 =3D 0;
+>>>>>>=20
+>>>>>> In short, you need to change `caps.color.dpp.hw_3d_lut` and `caps.col=
+or.dpp.ogam_ram` to 1 in the dcnX_resource.c file to say there is a "plane" c=
+olor caps.
+>>>>>> The thing is that, in DCN32+, these color caps are not part of DPP an=
+ymore, they are MPC capabilities in MCM that can be moved before or after bl=
+ending.
+>>>>>> But the current kernel implementation checks DPP color caps to expose=
+ plane color proprerties.
+>>>>>> Checking MPC and where the MCM is positioned would be more complex, b=
+ut not impossible. Something to improve in the future yes.
+>>>>> Just found this: dpp_color_caps.hw_3d_lut || dm->dc->caps.color.mpc.pr=
+eblend (https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-ne=
+xt/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c#L1636)
+>>>>>=20
+>>>>> Should be enough for new kernel versions. So you might need only the b=
+lend LUT hack.
+>>>>>=20
+>>>>>> You need to confirm that your `drm_info` shows all AMD plane color pr=
+operties, but gamescope basically checks CTM and BLEND_TF as you can see her=
+e:
+>>>>>> https://github.com/ValveSoftware/gamescope/blob/master/src/Backends/D=
+RMBackend.cpp#L3347
+>>>>>>=20
+>>>> Are you testing this with AMD_PRIVATE_COLOR, or with the newly merged c=
+olor pipeline API? If it's the former, then the kernel needs to be built wit=
+h an explicit -DAMD_PRIVATE_COLOR for this to work.
+>>> I'm testing with cflags, but AFAIU Matthew is using a downstream kernel v=
+ersion where there is an extra commit that enables AMD_PRIVATE_COLOR via con=
+fig option ("CONFIG_DRM_AMD_COLOR_STEAMDECK=3Dy").
+>>> Depends on this kernel version, the hack for 3D LUT and BLEND LUT are bo=
+th necessary.
+>> Thanks, I had such a change locally to add back AMD_PLANE_BLEND_TF but I w=
+as seeing some color banding in Ori and the Will of the Wisps menu around th=
+e sun in the upper left corner which gave me pause. I see you mentioned some=
+thing similar in one of the threads [1] though, so we're all on the same pag=
+e now.
+>>=20
+>> I'm not sure if you've also tried this, but gamescopectl drm_debug_disabl=
+e_output_tf 1 seems to work around the color banding in that case. =46rom wh=
+at I could tell, this bypasses the hardware LUTs while HDR scanout continues=
+ working in gamescope. We lose blending on the MangoHud overlay by disabling=
+ that though. I was thinking maybe it's due to the MCM block only doing preb=
+lend unlike DPP blending, but I could definitely be on the wrong track here.=
+..
+> I didn't try it, but you gave an idea to bypass each transfer_func one by o=
+ne to identify in which block the issue comes from.
+> Just to let you know that I also see the same banding on Ori with Steam De=
+ck OLED if plugged in an external monitor with HDR. Steam Deck hw doesn't ha=
+ve the MCM structure.
 
-For disabled case, all levels may be assigned as
+Interesting, was not aware of banding present in that scenario with OLED Dec=
+k as well so that=E2=80=99s definitely good to know.
 
-	pcie_table->pcie_gen[i] = pcie_table->pcie_gen[lclk_levels - 1];
+>=20
+> I'll try to narrow down this issue a bit more.
+> Still, the patches in this series address shaper LUT issues that are prese=
+nt in DCN32 but not in DCN301.
 
-once pcie_table->pcie_gen[lclk_levels - 1] = 
-min(pptable->PcieGenSpeed[lclk_levels - 1], pci_gen_cap) is done.
+Yep, all clear now given the above info. I=E2=80=99ll give it some testing a=
+s well. Thanks!
 
-Thanks,
-Lijo
-
->   	}
-> -	dpm_context->dpm_tables.pcie_table.lclk_levels = NUM_LINK_LEVELS;
-> +	pcie_table->lclk_levels = NUM_LINK_LEVELS;
->   
-> -	for (i = 0; i < NUM_LINK_LEVELS; i++) {
-> -		if (pptable->PcieGenSpeed[i] > pcie_gen_cap ||
-> -			pptable->PcieLaneCount[i] > pcie_width_cap) {
-> -			dpm_context->dpm_tables.pcie_table.pcie_gen[i] =
-> -									pptable->PcieGenSpeed[i] > pcie_gen_cap ?
-> -									pcie_gen_cap : pptable->PcieGenSpeed[i];
-> -			dpm_context->dpm_tables.pcie_table.pcie_lane[i] =
-> -									pptable->PcieLaneCount[i] > pcie_width_cap ?
-> -									pcie_width_cap : pptable->PcieLaneCount[i];
-> +	if (!(smu->adev->pm.pp_feature & PP_PCIE_DPM_MASK))  {
-> +		if (pcie_table->pcie_gen[lclk_levels - 1] < pcie_gen_cap)
-> +			pcie_gen_cap = pcie_table->pcie_gen[lclk_levels - 1];
-> +
-> +		if (pcie_table->pcie_lane[lclk_levels - 1] < pcie_width_cap)
-> +			pcie_width_cap = pcie_table->pcie_lane[lclk_levels - 1];
-> +
-> +		/* Force all levels to use the same settings */
-> +		for (i = 0; i < lclk_levels; i++) {
-> +			pcie_table->pcie_gen[i] = pcie_gen_cap;
-> +			pcie_table->pcie_lane[i] = pcie_width_cap;
->   			smu_pcie_arg = i << 16;
-> -			smu_pcie_arg |= dpm_context->dpm_tables.pcie_table.pcie_gen[i] << 8;
-> -			smu_pcie_arg |= dpm_context->dpm_tables.pcie_table.pcie_lane[i];
-> +			smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
-> +			smu_pcie_arg |= pcie_table->pcie_lane[i];
-> +
->   			ret = smu_cmn_send_smc_msg_with_param(smu,
-> -							SMU_MSG_OverridePcieParameters,
-> -							smu_pcie_arg,
-> -							NULL);
-> +						      SMU_MSG_OverridePcieParameters,
-> +						      smu_pcie_arg,
-> +						      NULL);
->   			if (ret)
->   				break;
->   		}
-> +	} else {
-> +		for (i = 0; i < lclk_levels; i++) {
-> +			if (pptable->PcieGenSpeed[i] > pcie_gen_cap ||
-> +			    pptable->PcieLaneCount[i] > pcie_width_cap) {
-> +				pcie_table->pcie_gen[i] =
-> +					pptable->PcieGenSpeed[i] > pcie_gen_cap ?
-> +					pcie_gen_cap : pptable->PcieGenSpeed[i];
-> +				pcie_table->pcie_lane[i] =
-> +					pptable->PcieLaneCount[i] > pcie_width_cap ?
-> +					pcie_width_cap : pptable->PcieLaneCount[i];
-> +				smu_pcie_arg = i << 16;
-> +				smu_pcie_arg |= pcie_table->pcie_gen[i] << 8;
-> +				smu_pcie_arg |= pcie_table->pcie_lane[i];
-> +				ret = smu_cmn_send_smc_msg_with_param(smu,
-> +								      SMU_MSG_OverridePcieParameters,
-> +								      smu_pcie_arg,
-> +								      NULL);
-> +				if (ret)
-> +					break;
-> +			}
-> +		}
->   	}
->   
->   	return ret;
-
+>=20
+> Melissa
+>>=20
+>> [1]: https://lore.kernel.org/amd-gfx/7ad74d3d-5a63-462b-8243-f8f26441b04b=
+@igalia.com/
+>>=20
+>>>> Harry
+>>>>=20
+>>>>>> Let me know if it works for you.
+>>>>>>=20
+>>>>>> BR,
+>>>>>>=20
+>>>>>> Melissa
+>>>>>>=20
+>>>>>>> Thanks,
+>>>>>>> Matt
+>>>>>>>=20
+>>>>>>>> Lemme know your thoughts!
+>>>>>>>>=20
+>>>>>>>> Melissa
+>>>>>>>>=20
+>>>>>>>> Melissa Wen (2):
+>>>>>>>>    drm/amd/display: fix wrong color value mapping on DCN32 shaper L=
+UT
+>>>>>>>>    drm/amd/display: extend delta clamping logic to CM3 LUT helper
+>>>>>>>>=20
+>>>>>>>> .../amd/display/dc/dcn30/dcn30_cm_common.c    | 32 +++++++++++++++-=
+---
+>>>>>>>> .../display/dc/dwb/dcn30/dcn30_cm_common.h    |  2 +-
+>>>>>>>> .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  9 +++---
+>>>>>>>> .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 17 ++++++----
+>>>>>>>> .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 16 ++++++----
+>>>>>>>> 5 files changed, 50 insertions(+), 26 deletions(-)
+>>>>>>>>=20
+>>>>>>>> --
+>>>>>>>> 2.51.0
+>>>>>>>>=20
+>=20
