@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CD11D41D5A
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 15:27:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA603D41D5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 15:36:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA5E10E7FF;
-	Thu, 11 Dec 2025 15:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67F0A10E27B;
+	Thu, 11 Dec 2025 15:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T1q/1U96";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JT0/Bdhd";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E697D10E7FF
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 15:27:29 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-297e2736308so296665ad.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 07:27:29 -0800 (PST)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7097F10E27B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 15:36:13 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-29efc031eddso372725ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 07:36:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765466849; x=1766071649; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765467373; x=1766072173; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8mPh7zmTOGUVPTMLFSZ6vEbMW9/l1AN7XzzjIqCmpjk=;
- b=T1q/1U96OnD+la32wItW6CocpzGfOAux2iENXnSrCAwr5T70S3rqJKu/sHDizvsVCe
- SIYYb0D6ncPumVDM7jGBEJoZZQ0oeDlGosyJYzQkfC3xjobMOIqDUiFw18WkChHdtx4M
- ogxRpjRtWR6Vd/zC6qwHavRGIlFOExLbLrPdlQBtoh4G5Kz/y4lKwg997YZSMwekDW2X
- 2f7H9n2lz0rVhxefeRU73OVn8Zj4qtj1YUDi3r63SG7tMD5w81PiA8JtcYWtfIo/VT9N
- Jb4raVaL59WHktU7zqy6nAGpSHdWlTtCiNnA2g9l3P/lEUvMqZIHSLHqqZEWydJ5+uRZ
- hBOQ==
+ bh=L9ZEFaAxN6V0ayFrgZE7LCz3zp/KQ+gbTOmPZ81mNH4=;
+ b=JT0/Bdhd3LaTod4olrfp/m56UX82HZ1Nt4YcWzh/GOTI+gUjqKP/rlenifvH4Q6vvf
+ pGebfAvpETR5ahsurVQ35BvsXrEZWHf61yWIocRoKzTzzSgTxLoGq513yYiI2Ad5F//v
+ +o3i+V8zIGv0v0QVvqFj7xcR/Bc0rWQJ1I/qI8Cn9CVDMPejUrQk90CgHBxOLMAicLLF
+ 4k7pEwaSlm9lIwVVQWvwdPet7UH7Ri60EHLkKrUlkr2nhX0YG4Ci1alOBvBFVFwI+pB1
+ K5qi6yngbV31UMowqe31VnfF2k6rfmo23j3IzLoLTyCWczFMIOYfyDI6ipvmYGBv7io9
+ 0c8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765466849; x=1766071649;
+ d=1e100.net; s=20230601; t=1765467373; x=1766072173;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=8mPh7zmTOGUVPTMLFSZ6vEbMW9/l1AN7XzzjIqCmpjk=;
- b=tSK/sPC+ViZxWFx9ovnYrkHAmD9+pTr22SoX8TAysP9plYKZ8dvmR8rTWQsA7bx2o0
- pWIuUQadNbyQbmgSeCrgZXyoraJe1qWfrSRao64QYgHThw4RPBOP+TLEUIe4DugV8BFB
- gSX9pzIyKNPoNsPk3PZ0reyUzT3enAVnnlvXcJ61pCXr0r4G2GNLfgu+tsOV5vOx9nBP
- Jo50NIxJCEvLx1Z2wtaTbjaR2y+NDTFZ09UXuAtnn8WI3PtUVChhS9eJS4L21mjW+sTU
- Kz1PEtJ17A5XrIZhxfGMZVSFHMNh1MxAIm5OL7cmaAy+KwzQjdiymnvvmXbdi5vvmCZo
- WzrA==
-X-Gm-Message-State: AOJu0Yzk0GpuTUOlSpNzglaCDslga4TJeDKWlOB3nzZAz/mrr05/MA6v
- VyfzZx1bcQda5DUmSpKUeiGge0DvFmIx3xhbUTZzZNSnbbGoRvHYp7KslCo/gfOkos/vpZD23TL
- sIKvksAGPDiggy1zonO5Jbcws2Wndz2o=
-X-Gm-Gg: AY/fxX7CXZF1BFK4rU2ElCyLBYORXuHL3UD1cKWQ3X64BR10YSdjq7gEaApf/3lhupl
- iSrEe8i6XwmnPjK5IQBSXD3RXPJQxsUxphDuk4Vl5D8waZtsN/gMffkRy70crw66VyMAXKC0rvP
- RWcGQ6Mv/C7jOGR9Q4ybAXtWV0h7AcVXXRP/rIvsrVh57HGNoVIcnt6kVZn1I3oq++vNs+5xkPH
- 7QQpy+i/KGv7Gr8tBNAly2ln+XMidIpJxxSNVhfQxp6zqE0HmeKS/bfkUv5PdlP7RskHVY=
-X-Google-Smtp-Source: AGHT+IEOP0zsIRnWGFmwSTfsSPSIMM+uzpry2kLosUoORWx0AcIgGHgLj4uhT/fyqxwWJ4bXM/+5knaOQiOaIdrX49E=
-X-Received: by 2002:a05:7022:4384:b0:11d:faef:21c2 with SMTP id
- a92af1059eb24-11f2966a6fcmr3198406c88.2.1765466849189; Thu, 11 Dec 2025
- 07:27:29 -0800 (PST)
+ bh=L9ZEFaAxN6V0ayFrgZE7LCz3zp/KQ+gbTOmPZ81mNH4=;
+ b=lOWEsEhyWgdF8atQo+m1SOn10xLh2SpFG8lK2nBCVWLGgRAMGqDArrN+afSxBSm+mo
+ h46ljo51LPYcZCeMRFPmx/o677JhNLVwjlE2G+jIe0VI4SSI0wbCtf03oxkussUAOSlk
+ 7cpyPcQnGVwYuIA6UeHGbSZvkk9jlyjsUL1fKkCu6XBGCehAJtHrU1ZMXdJ6ntDgdmmE
+ Lj/vgg4wOrOsSiNBV0K957Urr4/lQ1Q1NTs+6wsGHNKqjAQ4yFdGpafBsudq9Qcxj1oq
+ uRlbbz1t6D1k5F5x+CcXXEsBdxI/4Rm4UPEp2c50z6cwczHoy+i9IZGpNweeZpt5E5oT
+ M2tg==
+X-Gm-Message-State: AOJu0YyeCGvw5nxlZ6I539PfAxsH+gxQb76BvO3W/U3Sof9yJD1ZvX7K
+ HM3TqiwuKpGZiQVCsDiNQeq6mGrxLchbWkTZsrTBxsYv68eu/I6p+zqiohyqnv6XjkIiTy30MvY
+ +xX+LUGFMSGWQsrmZY3Z+BUkz6Mc3QSk=
+X-Gm-Gg: AY/fxX6JR9PIlSqx4pIfAgCVMZUt3o+IKPOLW0/tbxMoJPWSJJnEpbEeTQ4ldB3QTVT
+ hb+DgQ522TO5UNQNuqimiQA8sMX23Vvfmb4mVIlFp9G0y20SXBLKAutEuZ0auBm6sht1vwVGpCe
+ rPk8wmrkjsreTDALXc3iLWlHJSCIPH4H6Wbb/3bmMacd9Mg/+JGSAwYosWJRs6DPx1vFZu8c61m
+ h1iwXS0j8jn5wLeEDIni4yL/cqCla7NfK0vK9gHbbs+hT8sRUC1VZCMf/MllVh3E7LsTkg=
+X-Google-Smtp-Source: AGHT+IGH0aJ0CUaxrF0+Pz7smpHms69Tj+xoPaUT27/rY0vFm1YfOKAjImRojpot8kbAN9HqYG1dTfb8ugtw9nH0O6k=
+X-Received: by 2002:a05:7022:40b:b0:11e:3e9:3e89 with SMTP id
+ a92af1059eb24-11f2e832b69mr1417544c88.7.1765467372709; Thu, 11 Dec 2025
+ 07:36:12 -0800 (PST)
 MIME-Version: 1.0
-References: <20251211051635.652412-1-kevinyang.wang@amd.com>
- <CADnq5_Owz_0ywh5Q_AxWwRn9zeeuOgBeFuyE9GqF1-8DvkA96w@mail.gmail.com>
-In-Reply-To: <CADnq5_Owz_0ywh5Q_AxWwRn9zeeuOgBeFuyE9GqF1-8DvkA96w@mail.gmail.com>
+References: <20251211152137.2954347-1-mario.limonciello@amd.com>
+In-Reply-To: <20251211152137.2954347-1-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 11 Dec 2025 10:27:17 -0500
-X-Gm-Features: AQt7F2rSHn-YqD0__Ql-Eqa2KMj4oixAMgWdGGJN_J_iQOcFgZy1gMfS3Hdwttc
-Message-ID: <CADnq5_MLib=LpFkHUWEFH5CuHQr0OCJHRbxnsemg5JeD-hLoPQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: fix wrong pcie parameter on navi10
-To: Yang Wang <kevinyang.wang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, hawking.zhang@amd.com, 
- alexander.deucher@amd.com, Kenneth Feng <kenneth.feng@amd.com>
+Date: Thu, 11 Dec 2025 10:36:01 -0500
+X-Gm-Features: AQt7F2orRoAtFDhHFp7KFuiwO8QLurk6W4BAZ7v5_GAmYqrheneMNXUed4VVJPI
+Message-ID: <CADnq5_MmEkZivM640qnobm3fOPc-AhpMAGyypcPX6Gc0ihGwng@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Resume the device in thaw() callback when
+ console suspend is disabled
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, 
+ "Mario Limonciello (AMD)" <superm1@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,57 +82,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 11, 2025 at 9:01=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
+On Thu, Dec 11, 2025 at 10:29=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> On Thu, Dec 11, 2025 at 12:24=E2=80=AFAM Yang Wang <kevinyang.wang@amd.co=
-m> wrote:
-> >
-> > fix wrong pcie dpm parameter on navi10
-> >
-> > Fixes: 1a18607c07bb ("drm/amd/pm: override pcie dpm parameters only if =
-it is necessary")
+> From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 >
-> Assuming this fixes the gitlab ticket:
+> If console suspend has been disabled using `no_console_suspend` also
+> wake up during thaw() so that some messages can be seen for debugging.
 >
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4671
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4191
+> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-per the reporter, this does not fix the issue.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 7333e19291cf..5de79e0df26a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -33,6 +33,7 @@
+>  #include <drm/drm_vblank.h>
 >
-> >
-> > Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> > Co-developed-by: Kenneth Feng <kenneth.feng@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/=
-gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > index 882830770b79..0c26fe6fb949 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> > @@ -2216,8 +2216,8 @@ static int navi10_update_pcie_parameters(struct s=
-mu_context *smu,
-> >                                                                        =
- pptable->PcieLaneCount[i] > pcie_width_cap ?
-> >                                                                        =
- pcie_width_cap : pptable->PcieLaneCount[i];
-> >                         smu_pcie_arg =3D i << 16;
-> > -                       smu_pcie_arg |=3D pcie_gen_cap << 8;
-> > -                       smu_pcie_arg |=3D pcie_width_cap;
-> > +                       smu_pcie_arg |=3D dpm_context->dpm_tables.pcie_=
-table.pcie_gen[i] << 8;
-> > +                       smu_pcie_arg |=3D dpm_context->dpm_tables.pcie_=
-table.pcie_lane[i];
-> >                         ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> >                                                         SMU_MSG_Overrid=
-ePcieParameters,
-> >                                                         smu_pcie_arg,
-> > --
-> > 2.34.1
-> >
+>  #include <linux/cc_platform.h>
+> +#include <linux/console.h>
+>  #include <linux/dynamic_debug.h>
+>  #include <linux/module.h>
+>  #include <linux/mmu_notifier.h>
+> @@ -2685,7 +2686,9 @@ static int amdgpu_pmops_thaw(struct device *dev)
+>         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
+>
+>         /* do not resume device if it's normal hibernation */
+> -       if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_susp=
+end())
+> +       if (console_suspend_enabled &&
+> +           !pm_hibernate_is_recovering() &&
+> +           !pm_hibernation_mode_is_suspend())
+>                 return 0;
+>
+>         return amdgpu_device_resume(drm_dev, true);
+> --
+> 2.51.2
+>
