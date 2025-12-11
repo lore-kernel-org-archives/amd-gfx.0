@@ -4,81 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D39CCD41C09
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 09:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28874D41C12
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 09:47:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1427310E2AF;
-	Thu, 11 Dec 2025 09:47:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73BA410E7BE;
+	Thu, 11 Dec 2025 09:47:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gwmail.gwu.edu header.i=@gwmail.gwu.edu header.b="SkmAv2ib";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ih8cHupn";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A87410E049
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 20:56:57 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c03ea3b9603so32157a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Dec 2025 12:56:57 -0800 (PST)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC07610E7B8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 08:59:33 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-47789cd2083so3712525e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 00:59:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gwmail.gwu.edu; s=google; t=1765400217; x=1766005017;
- darn=lists.freedesktop.org; 
- h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
- :from:content-transfer-encoding:from:to:cc:subject:date:message-id
- :reply-to; bh=nczMQniPGwZmFp+MrN87DUwPKOB7JsUrj5G04YRvd1c=;
- b=SkmAv2ibh6JdtOL/I4cW6ZESEFRfGfzB4rIgJymKm24x0gW4Z0TEhg4oRTTJPiR023
- Z8Yj0mhUJT+CVe9m0RhmEzNfnTSj58xS5vEJnmpLG7Q7Zw+j9k8w2U/Uv704joMg1STB
- gozJZJsYFzeK6hy4y+3VpmbzvV8e1X6UU2sh3YMjw/1RVATBhhYeP+z0ydlrGe9ITccE
- KEJPbLZBi8TZ7HY3r2xk6TSi62Rw0PuEya57uJWrwZC0DQ7D5NDclrfiyDfHnrFDu+aD
- //gEV9h5KYvcCd5ihi98rd4Cv6E1fGOJ7g6XzIOmbB8nOqwJ6ziNGUO6LLMm0PnexiNP
- yAWw==
+ d=gmail.com; s=20230601; t=1765443572; x=1766048372; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=d7Dcmeo17/ho3pwIJKnx+P3oKTwjiCKC8M+QuOO4Bzs=;
+ b=ih8cHupn/Lci18bE92Oae1ZW9nhHdgCuXoDfE0ZRw8mQpMjZWzs30Sp/NgP9H11t3S
+ soGcvfIv1oDFyeS1yG4H5YpBedq/ixvnV5IxwVumBa5l8JUpenapNVkKN5XTPKo94eWS
+ 8DrWgt3Blk6yvalEROgo4/VpUvQ1ELMXrdLMhFj8Co2v+ORVSApdzX7ihmJOZxd10rE9
+ otYTHv//dcsvobGdRtCb0iy4G0FsA4VK9CJdTOBirwuFIYPq1FLbykcIbwgPqOuSaFmu
+ LPVlRFpE3Ccao2bhKU9434Iaxn1hwxwVSsmlFxHcIe3kwl/kgL2vgj9srARz/rYYj8w7
+ mqBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765400217; x=1766005017;
- h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
- :from:content-transfer-encoding:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=nczMQniPGwZmFp+MrN87DUwPKOB7JsUrj5G04YRvd1c=;
- b=daq89lX4xO/HsXey/f7cwu/Fr+cj1sd/2WDfBJ8Tjl8VDFp6dJNYbII/Um1hCV41Wg
- xEY29agINsdKaoPSx0r6EeDSCan+kdF232eQxfmWVPV6AKPgsobVWTyFUbKHj9VpmalD
- 8kN1kDyG+LwT1t0fUng+yXFpoqByaf+MSdh5+kvqxBK/8L23UHr4vsS4T0MgKKLmI1sE
- ptvluCkK2Fzhu0LndSfWyUcH9i4skk1sWglCr+m50LjB3XJLJe27IgY/EfEikWb0lUs8
- LTsmTQwBSyIim3N615ATObssNDjKDspCN2oYrf+gtPnYClyAbe9expvV5zLwANAQPQe8
- n9fw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXMZ/3O89duOu/d3AeWemNZZLVsxpkJoh/gsJuUB8/11Hq14GVcuVoegkXH13ZbGl6XZngED1Fg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyiSKlshVGFLYVVN8LJNVCGRyCRTZ2ZTUNa+EKubDpNDv7HOvt4
- ruPiXvjHrqHBrMPMQ33iSXJWH+MABIUhm/EpwvvhtGAYeJtYyl7c+i1eBhivKfne4A==
-X-Gm-Gg: ASbGnctWL9zjBmFuCcfuPFB8vONk5JYf8s7JFu/c8I82n2C2l5MYjXZOJRK1wtlhVgT
- gsZjiSVvcmfgPcCh1xIt4hJGJZEvTg7iGW8X9uWyb8L/AWuFNq6KbuOJ+BwGeXlVojCEJ/Yv4v+
- w11l8yCnMZ2lSyo/clUoPBx/LG02/PvzEK0mlIzWIdvrsjRTTc4ZHBFVLGL78jmH4pyIlblu0QN
- LcGL/s52gH3CUX8y6ycMrCfJUHmb/slQlzyjS85NPftfKV7Cz8pkGvcuR8I2YQHXgpQ0PcCRp+E
- n2hyaPvgPe4gkxnVLQuLJfSAixysuOUP9F/5y3ugnN4BNEZUaqUziwmI7YH0g1wu0dYyE0+rXev
- 75RSwXA102i+oaDMy2BYtxDKQ269jei0xU7Sah7+186n3u4ATug+eNvZLSw5m+IEzGQ4kIAC2/O
- oswm5ujBnahrCqs0W22mevqcZEdjd3EseBnv4tBPG8pm4=
-X-Google-Smtp-Source: AGHT+IFxPbHYThMKokZQyjYMK0pffRhooiRg2gryy4KX/0jcDqMN5t1g41FTsJTxv5VJ0gwETJEbVw==
-X-Received: by 2002:a05:7022:60e:b0:11e:3e9:3e98 with SMTP id
- a92af1059eb24-11f296edc1fmr1585718c88.7.1765400216364; 
- Wed, 10 Dec 2025 12:56:56 -0800 (PST)
-Received: from smtpclient.apple ([172.115.17.107])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-11f2e2ff624sm1474002c88.12.2025.12.10.12.56.55
+ d=1e100.net; s=20230601; t=1765443572; x=1766048372;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=d7Dcmeo17/ho3pwIJKnx+P3oKTwjiCKC8M+QuOO4Bzs=;
+ b=jODxXtYbuYfJXr6ngxI5Z2yGblg9tcH9lKJFFmhX4Hzju16jXnEBGRFJrhNsXFlXkV
+ Ivfp2YuMg3GEnxZI8o24RLWAdcKIFownX7b3n4GpzSfSd6sFyNQSXd7ela0Eg/p0ia6e
+ xVIsTNf91yO1fdUo+Ri8iC3D+gnl42nsx2JkxG4ZDlOAtEwdwj6hB61+acKHJ1dX7s4q
+ IJDtuzFla7hFc+pCQATeRKJxqkFIBPdRUCh6d955Rsxs/MjiKAcSCfNhE6bhAFXbeS55
+ pd4Ihn++SuFlONvEsHl1b55ykzXUjpWOth9sALNjSrXHeqROqkH7i96ZdSjPblfW1yXc
+ TAvg==
+X-Gm-Message-State: AOJu0Yw2PsvtVSd0HpjuSxMcn4/iaiv3fOxDau4LtpS6wMyOp1MXTOCR
+ DQlZK9MQ4aUSb2VSk6s8QGScmNaP3yny3Y1yQPnUGjX+0ga3hKnraQP3
+X-Gm-Gg: AY/fxX5VCg+dOBnQedPKaJaeuNd5zqYwMtwosElxJ4g4D8k6Wncd7lWd4hxv8GVMk0V
+ zYtEcN9aD5T2SpXFiBqLfRTdxQe8EsvwertrbBhr2Y1a8DkNc8lTMMp3mU+MTrLbyANzVcrAi9f
+ 0g9d7vQDM86olKpe0w1xMXWb3/a98Iq467gEbhTSs9jE17qAlGuX5BaansSfwnXZqToepvAAbvE
+ HfB6JpHfbmxpLj9eH9sWdBR5+oyoOxxSz88pHNd0Idyw1vtSHlhth+gLPstg0mr89hWwdjeKPCw
+ sH5VdfInWOMJVtqsE8c7kSQwGC4htzhZqal7BzXO1mbWUzB8MX8VXejOQdxcH8boueZXv7rCjHr
+ WrI3WZQeG2imXBlv2t53wxBklY1ozFx7t3NtLWlkIyjG9gTwR1Cjmrz0nRXTx9SyZe9oqGtMolH
+ zt/3zqTQ==
+X-Google-Smtp-Source: AGHT+IFfevukgFnWT3LKBWertJrehx/v0qPaRwBDg4O1Pd1KYzneq0UfgHhekRMu8pvpp3JFeKvIGQ==
+X-Received: by 2002:a05:600c:354a:b0:477:97c7:9be7 with SMTP id
+ 5b1f17b1804b1-47a837fcbb4mr55532325e9.1.1765443572110; 
+ Thu, 11 Dec 2025 00:59:32 -0800 (PST)
+Received: from pc.. ([105.163.2.215]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a89ed6c64sm8683195e9.12.2025.12.11.00.59.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Dec 2025 12:56:55 -0800 (PST)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Matthew Schwartz <mattschwartz@gwmail.gwu.edu>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [RFC PATCH 0/2] Fixes on CM3 helper for plane shaper LUT
-Date: Wed, 10 Dec 2025 12:56:44 -0800
-Message-Id: <99B1C134-C5FF-4D47-80EF-1E282DF6FD9F@gwmail.gwu.edu>
-References: <314e9649-90b4-47b9-afce-7ed27bad219b@igalia.com>
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
- Harry Wentland <harry.wentland@amd.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, kernel-dev@igalia.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <314e9649-90b4-47b9-afce-7ed27bad219b@igalia.com>
-To: Melissa Wen <mwen@igalia.com>
-X-Mailer: iPhone Mail (23C54)
+ Thu, 11 Dec 2025 00:59:31 -0800 (PST)
+From: Erick Karanja <karanja99erick@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Erick Karanja <karanja99erick@gmail.com>
+Subject: [PATCH] drm/radeon : Use devm_i2c_add_adapter instead of
+ i2c_add_adapter
+Date: Thu, 11 Dec 2025 11:59:23 +0300
+Message-ID: <20251211085923.737742-1-karanja99erick@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 11 Dec 2025 09:47:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,188 +86,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Replace i2c_add_adapter() with devm_i2c_add_adapter() and remove all
+associated cleanup, as devm_i2c_add_adapter() handles adapter teardown
+automatically.
 
-
-> On Dec 10, 2025, at 12:48=E2=80=AFPM, Melissa Wen <mwen@igalia.com> wrote:=
-
->=20
-> =EF=BB=BF
->=20
->> On 09/12/2025 15:19, Matthew Schwartz wrote:
->>> On 12/9/25 7:18 AM, Melissa Wen wrote:
->>>=20
->>> On 09/12/2025 12:12, Harry Wentland wrote:
->>>> On 2025-12-09 09:44, Melissa Wen wrote:
->>>>> On 09/12/2025 11:31, Melissa Wen wrote:
->>>>>> On 08/12/2025 22:34, Matthew Schwartz wrote:
->>>>>>>> On Dec 8, 2025, at 3:48=E2=80=AFPM, Melissa Wen <mwen@igalia.com> w=
-rote:
->>>>>>>>=20
->>>>>>>> =EF=BB=BFThere are some unexpected banding and shimmer effects when=
- using
->>>>>>>> steamOS/gamescope color pipeline for HDR on DCN32 or newer families=
-.
->>>>>>>> Those problems are not present in Steam Deck (DCN301). It happens o=
-n
->>>>>>>> DCN32 because plane shaper LUT uses DCN30 CM3 helper to translate c=
-urves
->>>>>>>> instead of DCN10 CM helper. This series identifies the necessary ch=
-anges
->>>>>>>> on CM3 helper to reduce differences on color transformation made by=
-
->>>>>>>> those two helpers.
->>>>>>>>=20
->>>>>>>> Patch 1 aims to solve the shimmer/colorful points that looks like a=
-
->>>>>>>> wrong map of black values on red/green/blue colors. Patch 2 extends=
- the
->>>>>>>> delta clamping fix made in commit 27fc10d1095f ("drm/amd/display: Fi=
-x
->>>>>>>> the delta clamping for shaper LUT") to solve some banding effects.
->>>>>>>>=20
->>>>>>>> Banding is not fully solved by any helper and needs further
->>>>>>>> investigation.
->>>>>>>>=20
->>>>>>>> One easy way to check the current and expected behavior is moving t=
-he
->>>>>>>> cursor (doing composition) to get the expected result from GFX. Whe=
-n the
->>>>>>>> cursor disappears, those color transformations are back to be done b=
-y
->>>>>>>> the display hw.
->>>>>>> Hi Melissa,
->>>>>>>=20
->>>>>>> Could you share how you=E2=80=99re testing the gamescope color pipel=
-ine with HDR on DCN32, i.e display and connection type? Are any extra gamesc=
-ope or kernel patches required?
->>>>>>>=20
->>>>>>> At least on my own DCN32 setup (AMD 7900XTX) + my primary monitor (a=
-n LG 45gx950a-b) via DisplayPort or my DCN35 setup + integrated HDR OLED scr=
-een (Legion Go 2), gamescope always composites when HDR is enabled. I applie=
-d your patches on top of kernel 6.18, and my kernel is built with CONFIG_DRM=
-_AMD_COLOR_STEAMDECK=3Dy (the downstream name of AMD_PRIVATE_COLOR for Steam=
-OS), so that shouldn't be an issue. I tried everything from 1280x720p -> 512=
-0x2160p, and it does not work on any resolution.
->>>>>> Hi Matt,
->>>>>>=20
->>>>>> You need to hack the DPP color caps to enabled SHAPER/3D and BLEND LU=
-Ts as below:
->>>>>>=20
->>>>>> diff --git i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_reso=
-urce.c w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->>>>>> index b276fec3e479..96b4f3239fb1 100644
->>>>>> --- i/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->>>>>> +++ w/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
->>>>>> @@ -2256,8 +2256,8 @@ static bool dcn32_resource_construct(
->>>>>>          dc->caps.color.dpp.gamma_corr =3D 1;
->>>>>>          dc->caps.color.dpp.dgam_rom_for_yuv =3D 0;
->>>>>>=20
->>>>>> -       dc->caps.color.dpp.hw_3d_lut =3D 0;
->>>>>> -       dc->caps.color.dpp.ogam_ram =3D 0;  // no OGAM in DPP since D=
-CN1
->>>>>> +       dc->caps.color.dpp.hw_3d_lut =3D 1;
->>>>>> +       dc->caps.color.dpp.ogam_ram =3D 1;  // no OGAM in DPP since D=
-CN1
->>>>>>          // no OGAM ROM on DCN2 and later ASICs
->>>>>>          dc->caps.color.dpp.ogam_rom_caps.srgb =3D 0;
->>>>>>          dc->caps.color.dpp.ogam_rom_caps.bt2020 =3D 0;
->>>>>>=20
->>>>>> In short, you need to change `caps.color.dpp.hw_3d_lut` and `caps.col=
-or.dpp.ogam_ram` to 1 in the dcnX_resource.c file to say there is a "plane" c=
-olor caps.
->>>>>> The thing is that, in DCN32+, these color caps are not part of DPP an=
-ymore, they are MPC capabilities in MCM that can be moved before or after bl=
-ending.
->>>>>> But the current kernel implementation checks DPP color caps to expose=
- plane color proprerties.
->>>>>> Checking MPC and where the MCM is positioned would be more complex, b=
-ut not impossible. Something to improve in the future yes.
->>>>> Just found this: dpp_color_caps.hw_3d_lut || dm->dc->caps.color.mpc.pr=
-eblend (https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-ne=
-xt/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c#L1636)
->>>>>=20
->>>>> Should be enough for new kernel versions. So you might need only the b=
-lend LUT hack.
->>>>>=20
->>>>>> You need to confirm that your `drm_info` shows all AMD plane color pr=
-operties, but gamescope basically checks CTM and BLEND_TF as you can see her=
-e:
->>>>>> https://github.com/ValveSoftware/gamescope/blob/master/src/Backends/D=
-RMBackend.cpp#L3347
->>>>>>=20
->>>> Are you testing this with AMD_PRIVATE_COLOR, or with the newly merged c=
-olor pipeline API? If it's the former, then the kernel needs to be built wit=
-h an explicit -DAMD_PRIVATE_COLOR for this to work.
->>> I'm testing with cflags, but AFAIU Matthew is using a downstream kernel v=
-ersion where there is an extra commit that enables AMD_PRIVATE_COLOR via con=
-fig option ("CONFIG_DRM_AMD_COLOR_STEAMDECK=3Dy").
->>> Depends on this kernel version, the hack for 3D LUT and BLEND LUT are bo=
-th necessary.
->> Thanks, I had such a change locally to add back AMD_PLANE_BLEND_TF but I w=
-as seeing some color banding in Ori and the Will of the Wisps menu around th=
-e sun in the upper left corner which gave me pause. I see you mentioned some=
-thing similar in one of the threads [1] though, so we're all on the same pag=
-e now.
->>=20
->> I'm not sure if you've also tried this, but gamescopectl drm_debug_disabl=
-e_output_tf 1 seems to work around the color banding in that case. =46rom wh=
-at I could tell, this bypasses the hardware LUTs while HDR scanout continues=
- working in gamescope. We lose blending on the MangoHud overlay by disabling=
- that though. I was thinking maybe it's due to the MCM block only doing preb=
-lend unlike DPP blending, but I could definitely be on the wrong track here.=
-..
-> I didn't try it, but you gave an idea to bypass each transfer_func one by o=
-ne to identify in which block the issue comes from.
-> Just to let you know that I also see the same banding on Ori with Steam De=
-ck OLED if plugged in an external monitor with HDR. Steam Deck hw doesn't ha=
-ve the MCM structure.
-
-Interesting, was not aware of banding present in that scenario with OLED Dec=
-k as well so that=E2=80=99s definitely good to know.
-
->=20
-> I'll try to narrow down this issue a bit more.
-> Still, the patches in this series address shaper LUT issues that are prese=
-nt in DCN32 but not in DCN301.
-
-Yep, all clear now given the above info. I=E2=80=99ll give it some testing a=
-s well. Thanks!
-
->=20
-> Melissa
->>=20
->> [1]: https://lore.kernel.org/amd-gfx/7ad74d3d-5a63-462b-8243-f8f26441b04b=
-@igalia.com/
->>=20
->>>> Harry
->>>>=20
->>>>>> Let me know if it works for you.
->>>>>>=20
->>>>>> BR,
->>>>>>=20
->>>>>> Melissa
->>>>>>=20
->>>>>>> Thanks,
->>>>>>> Matt
->>>>>>>=20
->>>>>>>> Lemme know your thoughts!
->>>>>>>>=20
->>>>>>>> Melissa
->>>>>>>>=20
->>>>>>>> Melissa Wen (2):
->>>>>>>>    drm/amd/display: fix wrong color value mapping on DCN32 shaper L=
-UT
->>>>>>>>    drm/amd/display: extend delta clamping logic to CM3 LUT helper
->>>>>>>>=20
->>>>>>>> .../amd/display/dc/dcn30/dcn30_cm_common.c    | 32 +++++++++++++++-=
+Signed-off-by: Erick Karanja <karanja99erick@gmail.com>
 ---
->>>>>>>> .../display/dc/dwb/dcn30/dcn30_cm_common.h    |  2 +-
->>>>>>>> .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  9 +++---
->>>>>>>> .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 17 ++++++----
->>>>>>>> .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 16 ++++++----
->>>>>>>> 5 files changed, 50 insertions(+), 26 deletions(-)
->>>>>>>>=20
->>>>>>>> --
->>>>>>>> 2.51.0
->>>>>>>>=20
->=20
+ drivers/gpu/drm/radeon/radeon_i2c.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_i2c.c b/drivers/gpu/drm/radeon/radeon_i2c.c
+index 1f16619ed06e..f3ba4187092c 100644
+--- a/drivers/gpu/drm/radeon/radeon_i2c.c
++++ b/drivers/gpu/drm/radeon/radeon_i2c.c
+@@ -931,7 +931,7 @@ struct radeon_i2c_chan *radeon_i2c_create(struct drm_device *dev,
+ 		snprintf(i2c->adapter.name, sizeof(i2c->adapter.name),
+ 			 "Radeon i2c hw bus %s", name);
+ 		i2c->adapter.algo = &radeon_i2c_algo;
+-		ret = i2c_add_adapter(&i2c->adapter);
++		ret = devm_i2c_add_adapter(dev->dev, &i2c->adapter);
+ 		if (ret)
+ 			goto out_free;
+ 	} else if (rec->hw_capable &&
+@@ -972,15 +972,6 @@ struct radeon_i2c_chan *radeon_i2c_create(struct drm_device *dev,
+ 
+ }
+ 
+-void radeon_i2c_destroy(struct radeon_i2c_chan *i2c)
+-{
+-	if (!i2c)
+-		return;
+-	WARN_ON(i2c->has_aux);
+-	i2c_del_adapter(&i2c->adapter);
+-	kfree(i2c);
+-}
+-
+ /* Add the default buses */
+ void radeon_i2c_init(struct radeon_device *rdev)
+ {
+@@ -999,10 +990,8 @@ void radeon_i2c_fini(struct radeon_device *rdev)
+ 	int i;
+ 
+ 	for (i = 0; i < RADEON_MAX_I2C_BUS; i++) {
+-		if (rdev->i2c_bus[i]) {
+-			radeon_i2c_destroy(rdev->i2c_bus[i]);
++		if (rdev->i2c_bus[i])
+ 			rdev->i2c_bus[i] = NULL;
+-		}
+ 	}
+ }
+ 
+-- 
+2.43.0
+
