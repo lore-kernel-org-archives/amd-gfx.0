@@ -4,102 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D02D44145
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69863D4414D
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE40410E588;
-	Fri, 12 Dec 2025 08:29:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEC3610E590;
+	Fri, 12 Dec 2025 08:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="UgeNKoX2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JAfYpqV/";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1559D10E04B
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 06:40:42 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BBHqdfC002757;
- Fri, 12 Dec 2025 06:40:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=/KvlNfMoY6mf6F7iM
- c/9M9qd+8CJsefM1yDTjX2Ajxs=; b=UgeNKoX2YzntPDeaeu2xNfJKoZf0b3UHr
- ZC8oTK2Z7ubqpOJHDyPUaPf0cljv2Kw2sFae0eGHeMRZxInxJfJ3vVmU2ocOkZgz
- GImbPDGa3YvO7R3AcYISi9y8leXuR3SCu7SZStOfGBc5FsChSzLGBluoJjNBpP0b
- o4x7NvSSW8aoVhknVRFGzDvByb+zpji+IP0p66RKmOS5KeBkd1rpfr3HGB0aKNRo
- IRs2VUxWMqt+S4NC1tntnNtWbgpDAYSmRBLqqPBK00uu9bAJW2Vm6fqLLJZsLYp6
- /5nZ45hV7snkRLH9dArZL2X9XISwASDqMUDWBpOPfpgwXc6/lxgig==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvvu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:40 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BC6edaC030494;
- Fri, 12 Dec 2025 06:40:39 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvvr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:39 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC2BwxC012907;
- Fri, 12 Dec 2025 06:40:38 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4aw0akafm5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:38 +0000
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5BC6eYoL31785334
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 12 Dec 2025 06:40:34 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2080C2004D;
- Fri, 12 Dec 2025 06:40:34 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0A63720040;
- Fri, 12 Dec 2025 06:40:32 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
- [9.109.215.183])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Fri, 12 Dec 2025 06:40:31 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
-Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RFC PATCH v1 2/8] amdkfd/kfd_svm: Fix SVM map/unmap address
- conversion for non-4k page sizes
-Date: Fri, 12 Dec 2025 12:10:09 +0530
-Message-ID: <901c6820624fa444f2c6fadf77e9a24f3f93bf42.1765519875.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1765519875.git.donettom@linux.ibm.com>
-References: <cover.1765519875.git.donettom@linux.ibm.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5216110E0ED;
+ Thu, 11 Dec 2025 19:42:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1765482132; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ciN6hhmmewtgEN0ZKJ63T2zfwfD+1mtmEX2RNDfEuj6+44NErDR963oAInB4MfFQjTUAoPCFP2KfvPKQ6sWfOzGe88gJEhMzYhlHy5aFG/jc6htQs0JZLA8bOVZO6du5s1+6ymS5OdB6BahiaWTKKWLXMdJHHVvQLX72sz5Db0E=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1765482132;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=c+k0Zb9KAErrPfpLNWK7UIA2mEBiGzS9CegcNA5fUbk=; 
+ b=NQLYx6bZtsCLPVB0LgjvedBDeJFYTouh/lah/ttc24PJEN11qGrqhjsTdoOy8T5gj8Tgj+mDB4O/DbYFY6cYn7eVlqfqvxJZOSQPNPJ9vYoTA5BXoLo0/jwzezER80fiSpB3cGPCw5jUp7uXJzpN/iQuKlv67zdFdhzDYD8pHT4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1765482132; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=c+k0Zb9KAErrPfpLNWK7UIA2mEBiGzS9CegcNA5fUbk=;
+ b=JAfYpqV/M7/bXt2gwPMrFJUxfV5AvQXKF81nxShtB5i5utfNMjDEIvGlWxiwwg/z
+ w64xNKE9sddDilcZpfrKHOG/7gHtPqXJOgk6sVLqwpkAby7M0EhiGNdgUcBn2yPrGXc
+ DGZ/hBZ+FvSAfsnkeoBLsk73sHMUwgEEhspruKzA=
+Received: by mx.zohomail.com with SMTPS id 1765482130230834.2305088660225;
+ Thu, 11 Dec 2025 11:42:10 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v5 05/17] drm/display: hdmi-state-helper: Act on color
+ format DRM property
+Date: Thu, 11 Dec 2025 20:42:00 +0100
+Message-ID: <3084118.iZASKD2KPV@workhorse>
+In-Reply-To: <20251209-uptight-radical-chupacabra-ac3d6d@houat>
+References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
+ <20251128-color-format-v5-5-63e82f1db1e1@collabora.com>
+ <20251209-uptight-radical-chupacabra-ac3d6d@houat>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: gpzTo6StwJk5fEgGBJBGizgpJ2YSzObh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA2MDAyMCBTYWx0ZWRfX+O/L9CVGo3lC
- vm3to3fbTGxbicEGSHkzQZLSbI7sIwEzxPlFlhiO7+L6aNnhBJdKPNlBknYkcLQYisOPOZyF2/2
- VJtYfEAQLK6N6XZv0RlFYxBDcrM5t25H7Yq8vF0J/ZlCUQ7g6rYrT4L4T/xp9Z2wxS9TafFGT3V
- NG4mWr324tt/22sGe6mb4rg42HrM7ZRGGOOkCYfIWKNr737y5TgNZZyjZxRz5bvtz4IDe4kSmIF
- JHl8seGfYLU6thRSF5pvgg+kE2ruYVTSVF6n46e5Bz8UZxsKXRzRXL071Nt1tyzPbjT/CGlcRBu
- jwFxXBeCbfzFRMwi+xHn50xQ3vkJXJwfA/lNKxK5/nD9can8/M9BKIVkdBxYsYnRPOBvJTaN2Et
- 7Q46o68/nInvkGi4FpJFMcUgM4gW1Q==
-X-Proofpoint-GUID: 8dtYosrg0qlOgQ8CQGDslE1M_-SmvIG4
-X-Authority-Analysis: v=2.4 cv=FpwIPmrq c=1 sm=1 tr=0 ts=693bb8e8 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8
- a=7_Q2Oju5quXlzP8DWyYA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-12_01,2025-12-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 phishscore=0 clxscore=1011 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512060020
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Fri, 12 Dec 2025 08:29:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,94 +88,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SVM range size is tracked using the system page size. The range start and
-end are aligned to system page-sized PFNs, so the total SVM range size
-equals the total number of pages in the SVM range multiplied by the system
-page size.
+On Tuesday, 9 December 2025 15:16:58 Central European Standard Time Maxime Ripard wrote:
+> On Fri, Nov 28, 2025 at 10:05:41PM +0100, Nicolas Frattaroli wrote:
+> > With the introduction of the "color format" DRM property, which allows
+> > userspace to request a specific color format, the HDMI state helper
+> > should implement this.
+> > 
+> > Implement it by checking whether the property is set and set to
+> > something other than auto. If so, pass the requested color format, and
+> > otherwise set RGB.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 12 +++++++++++-
+> >  1 file changed, 11 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > index a561f124be99..5da956bdd68c 100644
+> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > @@ -649,11 +649,21 @@ hdmi_compute_config(const struct drm_connector *connector,
+> >  	unsigned int max_bpc = clamp_t(unsigned int,
+> >  				       conn_state->max_bpc,
+> >  				       8, connector->max_bpc);
+> > +	enum hdmi_colorspace hdmi_colorspace =
+> > +		drm_color_format_to_hdmi_colorspace(conn_state->color_format);
+> >  	int ret;
+> >  
+> >  	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
+> > -				      HDMI_COLORSPACE_RGB);
+> > +				      hdmi_colorspace);
+> >  	if (ret) {
+> > +		/* If a color format was explicitly requested, don't fall back */
+> > +		if (conn_state->color_format) {
+> > +			drm_dbg_kms(connector->dev,
+> > +				    "Explicitly set color format '%s' doesn't work.\n",
+> > +				    drm_get_color_format_name(conn_state->color_format));
+> > +			return ret;
+> > +		}
+> > +
+> 
+> I think the following would be more readable:
+> 
+> 
+> if (conn_state->color_format && conn_state->color_format != DRM_COLOR_FORMAT_AUTO) {
+>     enum hdmi_colorspace hdmi_colorspace =
+>         drm_color_format_to_hdmi_colorspace(conn_state->color_format);
+> 
+>     return hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc, hdmi_colorspace)
+> }
+> 
+> ret = ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
+>                                     HDMI_COLORSPACE_RGB);
+> 
+> ...
 
-The SVM range map/unmap functions pass these system page-sized PFN numbers
-to amdgpu_vm_update_range(), which expects PFNs based on the GPU page size
-(4K). On non-4K page systems, this mismatch causes only part of the SVM
-range to be mapped in the GPU page table, while the rest remains unmapped.
-If the GPU accesses an unmapped address within the same range, it results
-in a GPU page fault.
+I think I get what you mean: if conn_state->color_format is set, return
+directly, instead of bailing out in the fallback path. I can do that.
 
-To fix this, the required conversion has been added in both
-svm_range_map_to_gpu() and svm_range_unmap_from_gpu(), ensuring that all
-pages in the SVM range are correctly mapped on non-4K systems.
+However, `conn_state->color_format && conn_state->color_format != DRM_COLOR_FORMAT_AUTO`
+is redundant now as of v5 since DRM_COLOR_FORMAT_AUTO is 0 (and
+I use its falsy nature in many other places, and don't intend to
+stop doing that).
 
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 30 ++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
+> 
+> Maxime
+> 
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 74a1d3e1d52b..a2636f2d6c71 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1314,11 +1314,16 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 			 struct dma_fence **fence)
- {
- 	uint64_t init_pte_value = 0;
-+	uint64_t gpu_start, gpu_end;
- 
--	pr_debug("[0x%llx 0x%llx]\n", start, last);
-+	// Convert CPU page range to GPU page range
-+	gpu_start = start * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+	gpu_end = (last + 1) * AMDGPU_GPU_PAGES_IN_CPU_PAGE - 1;
- 
--	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, start,
--				      last, init_pte_value, 0, 0, NULL, NULL,
-+	pr_debug("%s: CPU[0x%llx 0x%llx] -> GPU[0x%llx 0x%llx]\n", __func__,
-+		 start, last, gpu_start, gpu_end);
-+	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, gpu_start,
-+				      gpu_end, init_pte_value, 0, 0, NULL, NULL,
- 				      fence);
- }
- 
-@@ -1398,9 +1403,13 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
- 		 last_start, last_start + npages - 1, readonly);
- 
- 	for (i = offset; i < offset + npages; i++) {
-+		uint64_t gpu_start;
-+		uint64_t gpu_end;
-+
- 		last_domain = dma_addr[i] & SVM_RANGE_VRAM_DOMAIN;
- 		dma_addr[i] &= ~SVM_RANGE_VRAM_DOMAIN;
- 
-+
- 		/* Collect all pages in the same address range and memory domain
- 		 * that can be mapped with a single call to update mapping.
- 		 */
-@@ -1415,17 +1424,22 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
- 		if (readonly)
- 			pte_flags &= ~AMDGPU_PTE_WRITEABLE;
- 
--		pr_debug("svms 0x%p map [0x%lx 0x%llx] vram %d PTE 0x%llx\n",
--			 prange->svms, last_start, prange->start + i,
--			 (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
--			 pte_flags);
- 
- 		/* For dGPU mode, we use same vm_manager to allocate VRAM for
- 		 * different memory partition based on fpfn/lpfn, we should use
- 		 * same vm_manager.vram_base_offset regardless memory partition.
- 		 */
-+		gpu_start = last_start * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-+		gpu_end = (prange->start + i + 1) * AMDGPU_GPU_PAGES_IN_CPU_PAGE - 1;
-+
-+		pr_debug("svms 0x%p map CPU[0x%lx 0x%llx] GPU[0x%llx 0x%llx] vram %d PTE 0x%llx\n",
-+			 prange->svms, last_start, prange->start + i,
-+			 gpu_start, gpu_end,
-+			 (last_domain == SVM_RANGE_VRAM_DOMAIN) ? 1 : 0,
-+			 pte_flags);
-+
- 		r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, true,
--					   NULL, last_start, prange->start + i,
-+					   NULL, gpu_start, gpu_end,
- 					   pte_flags,
- 					   (last_start - prange->start) << PAGE_SHIFT,
- 					   bo_adev ? bo_adev->vm_manager.vram_base_offset : 0,
--- 
-2.52.0
+
+
 
