@@ -4,102 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9ABD44149
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E418BD4414C
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40ADE10E58A;
-	Fri, 12 Dec 2025 08:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 990FE10E58D;
+	Fri, 12 Dec 2025 08:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="sMdUoaj3";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Prj+fKjG";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8958610E04B
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 06:40:34 +0000 (UTC)
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC163Hr000648;
- Fri, 12 Dec 2025 06:40:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=c2SKhvuckDjV+LWPP
- 8R7EQZTSpUr5bSbsrfoHXhJsfk=; b=sMdUoaj3rC32HaQSWKo3wnP+MVFHrmERI
- WXQhhOYTTod9WVKTo2Rma7Dq4aakgX6dukcYSESlHHW2kB7Q9NprAlJn63kizW0E
- G6JDSm74QuDLKyGiuOiUP/09d1x/uIXolJtXrnkaP/vyYjYKcPwWr6QAopolVj1U
- xAlR43qbJHwrgOy0VNMwcQ80FADdj9PlAxCS51TWGw6HD3s8I1BXZdxxhCgQk/oW
- SqnDomZ6q1kYGPddL2xtnHUQSWlISjiIfIwoDeNsiGO0HkjoQzKns6pJh75VI/q6
- lQDG8+IRlxGSPQwmQWoySsc1zkAZ0R2TtAz4ytdAsB2XRodnsIYIg==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4av9ww38eu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:32 +0000 (GMT)
-Received: from m0356516.ppops.net (m0356516.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BC6Wh2S019898;
- Fri, 12 Dec 2025 06:40:32 GMT
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4av9ww38er-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:32 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC2Z1cr002044;
- Fri, 12 Dec 2025 06:40:31 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4aw11jtc5f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:31 +0000
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5BC6eRiW24445404
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 12 Dec 2025 06:40:27 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3A6EB20043;
- Fri, 12 Dec 2025 06:40:27 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2DF1E20040;
- Fri, 12 Dec 2025 06:40:25 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
- [9.109.215.183])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Fri, 12 Dec 2025 06:40:24 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
-Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RFC PATCH v1 1/8] drm/amdkfd: Relax size checking during queue
- buffer get
-Date: Fri, 12 Dec 2025 12:10:08 +0530
-Message-ID: <afa131799094e31bc6180aaa310cbca38185635e.1765519875.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1765519875.git.donettom@linux.ibm.com>
-References: <cover.1765519875.git.donettom@linux.ibm.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB8210E77D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 14:02:08 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4dRvR05w06z9tW6;
+ Thu, 11 Dec 2025 15:02:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1765461724; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mMNAhk17c1vHLwvUPvC3V3RCwRRg0tjNYVIFyXPsuiI=;
+ b=Prj+fKjGAGJI2s8AgOFk52c5OFQX2LuE4iN8XF6316fhtyaKZnHhisxpP9vKrQSk8Uh1PA
+ 8xEKhzSkNzzNE9/h/yJTPgEOfRXnKpbHIV3U/4KmwUX5ueYie8CToSju2kuOcmqBDS/Qaj
+ UhYn3wQh0O8UowUW/A1v6MoHYpMGt69GeCXsPVAkLfc1sc7zy6qBps5a4MHnVcJpIzs09Y
+ rGoGF9Jmisuo8iB3gbUFvwUalDc8SYnS25EQtX7YjQP5hRI3H4afSLktjKtk/90k/dpCKs
+ GUG1izu10yJKDkVb6kGktf5QJHI3buBR1wnrmYQWPZx1DTFlGi04zIAk3Zr52w==
+Message-ID: <97536119a9dd1fd3b3b77081a00851eaf7636c36.camel@mailbox.org>
+Subject: Re: [PATCH] drm/amdgpu: cache the pasid in amdgpu_device_gpu_recover
+From: Philipp Stanner <phasta@mailbox.org>
+To: Alex Deucher <alexdeucher@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <ckoenig.leichtzumerken@gmail.com>
+Cc: phasta@kernel.org, alexander.deucher@amd.com,
+ SRINIVASAN.SHANMUGAM@amd.com,  vitaly.prosyak@amd.com,
+ amd-gfx@lists.freedesktop.org, Hans-Kristian Arntzen
+ <post@arntzen-software.no>
+Date: Thu, 11 Dec 2025 15:02:01 +0100
+In-Reply-To: <CADnq5_OBM=E5XPXxFHyR6e4OVWrsa3qrAnqffCrkN9A9mh8eeg@mail.gmail.com>
+References: <20251210125740.9551-1-christian.koenig@amd.com>
+ <3c90635b46f1a867365fba026edbc28a33ad9d9d.camel@mailbox.org>
+ <5f55a311-8924-44cd-af55-c0ccc4d20218@gmail.com>
+ <CADnq5_OBM=E5XPXxFHyR6e4OVWrsa3qrAnqffCrkN9A9mh8eeg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 0gDLnv7b09r5Y8DpCQm_nH0ddEiW4r_K
-X-Proofpoint-ORIG-GUID: OE6UGDxlulOeI4r7xQBy1F6O-BdCTSpS
-X-Authority-Analysis: v=2.4 cv=AdS83nXG c=1 sm=1 tr=0 ts=693bb8e0 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=VnNF1IyMAAAA:8
- a=Yldw2r_RfE3TVAH3efQA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA2MDAwMCBTYWx0ZWRfXyKTdkVQPfFGd
- s+K1gS/wC9i5F9aq9YYalBOsu+jdVRBl1lPATcWtXgL3UCXqIrQF2qzuSlvuB9yf4FAo6D3Es1e
- PsmJ42pa71xA578olaijscfv7MkizJMQ501u6zm3MW485Ujk1b4mmZOC8js32FN6B9oy1TzKNT0
- 0E+OH3zFz8aj2iTrQ9UtLL81KoWSLAEeInDQM7Tuf2RmbMieZBunWlCpipOqmTdYscnQBZJCnWT
- d/wfRz+GPooMFTdGGiRtTJJmhrgPzI15rEXdbeHEbahOJGS+LS3Ryr1vyKuiOHruBR25VxG9UX/
- 9E95dIBn1XsKrjl9s1IYG8CulE8gw8IGVUCSwLyCiYyDmHtZeLGgPdwWO5uJamPVci27nmBhLw+
- m8llrVJPRBp3eZipCqpJmqVKzxD9GQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-12_01,2025-12-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1011 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512060000
+X-MBO-RS-META: j1sxdahwb6ijyskgw8xxa3s4bwhkfian
+X-MBO-RS-ID: c41aad498ddab777f9e
 X-Mailman-Approved-At: Fri, 12 Dec 2025 08:29:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,54 +67,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-HW-supported EOP buffer sizes are 4K and 32K. On systems that do not
-use 4K pages, the minimum buffer object (BO) allocation size is
-PAGE_SIZE (for example, 64K). During queue buffer acquisition, the driver
-currently checks the allocated BO size against the supported EOP buffer
-size. Since the allocated BO is larger than the expected size, this check
-fails, preventing queue creation.
+On Thu, 2025-12-11 at 08:46 -0500, Alex Deucher wrote:
+> On Thu, Dec 11, 2025 at 7:44=E2=80=AFAM Christian K=C3=B6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+> >=20
+> > On 12/10/25 14:00, Philipp Stanner wrote:
+> > > On Wed, 2025-12-10 at 13:57 +0100, Christian K=C3=B6nig wrote:
+> > > > The job might already be freed up here. So cache the pasid for late=
+r
+> > > > use.
+> > > >=20
+> > > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > Suggested-by: Philipp Stanner <phasta@mailbox.org>
+> > >=20
+> > > No! :D
+> > >=20
+> > > You read the wrong quote.
+> > > Matthew found your issue (in the middle of my time zone's night, whil=
+e
+> > > I was peacefully asleep).
+> >=20
+> > Oh, good point. Sorry the credits go to Matthew of course.
+> >=20
+> > >=20
+> > > > Fixes: a72002cb181f ("drm/amdgpu: Make use of drm_wedge_task_info")
+> > >=20
+> > > I think there was a gitlab ticket about that a month ago? Could be
+> > > added to Closes:
+> >=20
+> > Yeah, I remember that as well but I can't find it of hand.
+> >=20
+> > Does anybody have the right link at hand?
+>=20
+> I looked for it yesterday, but couldn't find it.
 
-Relax the strict size validation and allow PAGE_SIZE-sized BOs to be used.
-Only the required 4K region of the buffer will be used as the EOP buffer
-and avoids queue creation failures on non-4K page systems.
+I think the original reporter was Hans-Kristian (+Cc).
 
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+The link I had seen floating around was
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index f1e7583650c4..dc857450fa16 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -199,6 +199,7 @@ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_
- 	struct amdgpu_bo_va_mapping *mapping;
- 	u64 user_addr;
- 	u64 size;
-+	u64 bo_size;
- 
- 	user_addr = (u64)addr >> AMDGPU_GPU_PAGE_SHIFT;
- 	size = expected_size >> AMDGPU_GPU_PAGE_SHIFT;
-@@ -207,11 +208,12 @@ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_
- 	if (!mapping)
- 		goto out_err;
- 
--	if (user_addr != mapping->start ||
--	    (size != 0 && user_addr + size - 1 != mapping->last)) {
--		pr_debug("expected size 0x%llx not equal to mapping addr 0x%llx size 0x%llx\n",
-+	bo_size = mapping->last - mapping->start + 1;
-+
-+	if (user_addr != mapping->start || (size != 0 && bo_size < size)) {
-+		pr_debug("expected size 0x%llx grater than mapping addr 0x%llx size 0x%llx\n",
- 			expected_size, mapping->start << AMDGPU_GPU_PAGE_SHIFT,
--			(mapping->last - mapping->start + 1) << AMDGPU_GPU_PAGE_SHIFT);
-+			bo_size <<  AMDGPU_GPU_PAGE_SHIFT);
- 		goto out_err;
- 	}
- 
--- 
-2.52.0
+https://github.com/HansKristian-Work/vkd3d-proton/pull/2670
+
+
+P.
+
+>=20
+> Alex
+>=20
+> >=20
+> > Thanks,
+> > Christian.
+> >=20
+> > >=20
+> > >=20
+> > > P.
+> > >=20
+> > > > ---
+> > > > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++--
+> > > > =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_device.c
+> > > > index 654f4844b7ad..84bb89498e12 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > @@ -6506,8 +6506,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_d=
+evice *adev,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 struct list_head device_list;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 bool job_signaled =3D false;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_hive_info *hive =3D NULL;
+> > > > -=C2=A0=C2=A0=C2=A0 int r =3D 0;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 bool need_emergency_restart =3D false;
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned int pasid =3D job->pasid;
+> > > > +=C2=A0=C2=A0=C2=A0 int r =3D 0;
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * If it reaches here because of hang=
+/timeout and a RAS error is
+> > > > @@ -6605,7 +6606,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_d=
+evice *adev,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 struct amdgpu_task_info *ti =3D NULL;
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 if (job)
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ti =3D amdgpu_vm_get_task_=
+info_pasid(adev, job->pasid);
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ti =3D amdgpu_vm_get_task_=
+info_pasid(adev, pasid);
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ti ? &ti->task : =
+NULL);
+> > >=20
+> >=20
 
