@@ -4,70 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA603D41D5B
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 15:36:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5B2DD41D68
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 17:37:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67F0A10E27B;
-	Thu, 11 Dec 2025 15:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8513810E2DD;
+	Thu, 11 Dec 2025 17:37:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JT0/Bdhd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ljmYOIaV";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7097F10E27B
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 15:36:13 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-29efc031eddso372725ad.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 07:36:13 -0800 (PST)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 776A810E840
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 17:37:31 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-297e239baecso2210585ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 09:37:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765467373; x=1766072173; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=L9ZEFaAxN6V0ayFrgZE7LCz3zp/KQ+gbTOmPZ81mNH4=;
- b=JT0/Bdhd3LaTod4olrfp/m56UX82HZ1Nt4YcWzh/GOTI+gUjqKP/rlenifvH4Q6vvf
- pGebfAvpETR5ahsurVQ35BvsXrEZWHf61yWIocRoKzTzzSgTxLoGq513yYiI2Ad5F//v
- +o3i+V8zIGv0v0QVvqFj7xcR/Bc0rWQJ1I/qI8Cn9CVDMPejUrQk90CgHBxOLMAicLLF
- 4k7pEwaSlm9lIwVVQWvwdPet7UH7Ri60EHLkKrUlkr2nhX0YG4Ci1alOBvBFVFwI+pB1
- K5qi6yngbV31UMowqe31VnfF2k6rfmo23j3IzLoLTyCWczFMIOYfyDI6ipvmYGBv7io9
- 0c8A==
+ d=gmail.com; s=20230601; t=1765474651; x=1766079451; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Z0hbmDRbXFZrAQDUtqIbY5FJkgcRQcF0dFfjL7QqhFc=;
+ b=ljmYOIaV/6xiQQuAL56JW8EMAoQpJKRvx4AliXabsMLScBePJivU13fsy9cBl3j8Mg
+ klzpRxknHHg3zlj+RV2O1IYT1y6MIIhNvXNr4qNZIYZVyScLwhUXLiJw18Gr9q4Otofs
+ SioXB+uGwhjRUk6r7RI20SHR2SuEzQrSMaJKBldHlh8dbBe5UhTlb6mvhZnhLMKQQyn1
+ PQTjn41WkLmL0Xv2nM5+fIItfNKqrUq0qzU5Lxk/2aT5e3lYTt/kB9a7T6Xm6bVUdokp
+ F3r+/2c95O/JjlpMkLtHVZu1VCIpttLwhN/PPjUuMOqA0S7jcBZJHk/1CPxA8SnEuq2+
+ DiaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765467373; x=1766072173;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=L9ZEFaAxN6V0ayFrgZE7LCz3zp/KQ+gbTOmPZ81mNH4=;
- b=lOWEsEhyWgdF8atQo+m1SOn10xLh2SpFG8lK2nBCVWLGgRAMGqDArrN+afSxBSm+mo
- h46ljo51LPYcZCeMRFPmx/o677JhNLVwjlE2G+jIe0VI4SSI0wbCtf03oxkussUAOSlk
- 7cpyPcQnGVwYuIA6UeHGbSZvkk9jlyjsUL1fKkCu6XBGCehAJtHrU1ZMXdJ6ntDgdmmE
- Lj/vgg4wOrOsSiNBV0K957Urr4/lQ1Q1NTs+6wsGHNKqjAQ4yFdGpafBsudq9Qcxj1oq
- uRlbbz1t6D1k5F5x+CcXXEsBdxI/4Rm4UPEp2c50z6cwczHoy+i9IZGpNweeZpt5E5oT
- M2tg==
-X-Gm-Message-State: AOJu0YyeCGvw5nxlZ6I539PfAxsH+gxQb76BvO3W/U3Sof9yJD1ZvX7K
- HM3TqiwuKpGZiQVCsDiNQeq6mGrxLchbWkTZsrTBxsYv68eu/I6p+zqiohyqnv6XjkIiTy30MvY
- +xX+LUGFMSGWQsrmZY3Z+BUkz6Mc3QSk=
-X-Gm-Gg: AY/fxX6JR9PIlSqx4pIfAgCVMZUt3o+IKPOLW0/tbxMoJPWSJJnEpbEeTQ4ldB3QTVT
- hb+DgQ522TO5UNQNuqimiQA8sMX23Vvfmb4mVIlFp9G0y20SXBLKAutEuZ0auBm6sht1vwVGpCe
- rPk8wmrkjsreTDALXc3iLWlHJSCIPH4H6Wbb/3bmMacd9Mg/+JGSAwYosWJRs6DPx1vFZu8c61m
- h1iwXS0j8jn5wLeEDIni4yL/cqCla7NfK0vK9gHbbs+hT8sRUC1VZCMf/MllVh3E7LsTkg=
-X-Google-Smtp-Source: AGHT+IGH0aJ0CUaxrF0+Pz7smpHms69Tj+xoPaUT27/rY0vFm1YfOKAjImRojpot8kbAN9HqYG1dTfb8ugtw9nH0O6k=
-X-Received: by 2002:a05:7022:40b:b0:11e:3e9:3e89 with SMTP id
- a92af1059eb24-11f2e832b69mr1417544c88.7.1765467372709; Thu, 11 Dec 2025
- 07:36:12 -0800 (PST)
+ d=1e100.net; s=20230601; t=1765474651; x=1766079451;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Z0hbmDRbXFZrAQDUtqIbY5FJkgcRQcF0dFfjL7QqhFc=;
+ b=ONUPpSa7XSVRwk0E2bnYBdiNEMoYc4E3d9DFZ2LBh50kH0jCwzaJNKideugwQ2A2Cn
+ K6tma7rQI1eQ8lowTwGP+qlokeOcJLSERt3xIjo+sFu1vmfZ79HGtwLLdsgmAd6CZ5Ze
+ 20uf8o4DDN3DRs8H7SXOUscSDU5pHKlfjV88F3ucr4blQpCNMhNPxn5M7l20Rr1HgPoD
+ 6D59YcE5TdYamy/PLSXPZCwLdK7GgoKlDohmTaRldgN5WGoBwEUaXZMVhTBrBgGn4aFJ
+ zyonNOBIUo2WxvZGz6F5GjAjN/Nwn165Kg9VHlucL1J27cgpfdPWVFvuPOIM2S1ktIh8
+ G6zg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUx66f9RlPKC6IHApeaKG3s2Y+YbaUPyuKsxHr2POlQpXBY+r7AZ+QvxYccx/df0ZqFh/lDc4pE@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzU8cEcmhXseL4H4UHCzLIZquP3Vcs3qN6qED1LhXsTPTZZK+WL
+ arlUfa+GJhMp4s+mzRRucjbxELDZwlBz0YEq4cULIOi45nsXg0rK6fTL
+X-Gm-Gg: AY/fxX7rnDAxhKzmY671W0V6BGPyp+4Lhm7Jq01bf8ixvOIDTzYB3TT4N/LubPskbw4
+ bqook+EYsDQYSQpvbbrZ7dilXncmeu4mEs6BgNer0Wc8LJ7fksXQ0ao6jqGJz/oxVnoPek7Lt4k
+ aP1D9EVHRE6GinQCekTJa6sb3XpcjoY1faCr+bPsiqhXtz8WzS2gA4BzrZWS1+nO88utr3g4wMZ
+ NWR2QUNwVx455sR/QMdkUqidtgH/ds8Z37RMKSqrgFrLOUXRJkm/NpFJbBd7CVa9EdQoQtA/iQD
+ qrxijhtkFGfVBk88kR5TSMLwEgpupPMk6nCkQ0uxNouPrrzJQ4DnjwImiaL3Svz+IM4pJv7LwGv
+ Esfwy1jK+IPlgLAU14NNFNzqkKPtYL9Jb+uyVXk0tFT10AV8q2XrP7GAwminEF5DZ6LM3xw4WBw
+ l2dfNXltYAQC1AfjRAOicfQw==
+X-Google-Smtp-Source: AGHT+IG6Tz+OKiDUjkDG6KDZ0q6P2DnSGh1Y7L3vFX1ti9wXd9YPJyy6TMUtQ8BmxQmqXyApc/nt+Q==
+X-Received: by 2002:a17:902:ebcb:b0:298:45e5:54a4 with SMTP id
+ d9443c01a7336-29eeee9eea0mr27122375ad.1.1765474650876; 
+ Thu, 11 Dec 2025 09:37:30 -0800 (PST)
+Received: from sallu.. ([2402:e280:2130:b5:2300:5a6a:931b:624f])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-29eea0169easm30817565ad.50.2025.12.11.09.37.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Dec 2025 09:37:30 -0800 (PST)
+From: Saleemkhan Jamadar <saleemkhan083@gmail.com>
+To: Christian.Koenig@amd.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, saleemkhan083@gmail.com
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH v3] drm/amdgpu: do not use amdgpu_bo_gpu_offset_no_check
+ individually
+Date: Thu, 11 Dec 2025 23:06:53 +0530
+Message-ID: <20251211173723.82165-1-saleemkhan083@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20251211152137.2954347-1-mario.limonciello@amd.com>
-In-Reply-To: <20251211152137.2954347-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 11 Dec 2025 10:36:01 -0500
-X-Gm-Features: AQt7F2orRoAtFDhHFp7KFuiwO8QLurk6W4BAZ7v5_GAmYqrheneMNXUed4VVJPI
-Message-ID: <CADnq5_MmEkZivM640qnobm3fOPc-AhpMAGyypcPX6Gc0ihGwng@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Resume the device in thaw() callback when
- console suspend is disabled
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,48 +88,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 11, 2025 at 10:29=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> From: "Mario Limonciello (AMD)" <superm1@kernel.org>
->
-> If console suspend has been disabled using `no_console_suspend` also
-> wake up during thaw() so that some messages can be seen for debugging.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4191
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+This should not be used indiviually, use amdgpu_bo_gpu_offset
+with bo reserved.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+v3 - unpin bo in queue destroy (Christian)
+v2 - pin bo so that offset returned won't change after unlock (Christian)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 7333e19291cf..5de79e0df26a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -33,6 +33,7 @@
->  #include <drm/drm_vblank.h>
->
->  #include <linux/cc_platform.h>
-> +#include <linux/console.h>
->  #include <linux/dynamic_debug.h>
->  #include <linux/module.h>
->  #include <linux/mmu_notifier.h>
-> @@ -2685,7 +2686,9 @@ static int amdgpu_pmops_thaw(struct device *dev)
->         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
->
->         /* do not resume device if it's normal hibernation */
-> -       if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_susp=
-end())
-> +       if (console_suspend_enabled &&
-> +           !pm_hibernate_is_recovering() &&
-> +           !pm_hibernation_mode_is_suspend())
->                 return 0;
->
->         return amdgpu_device_resume(drm_dev, true);
-> --
-> 2.51.2
->
+Signed-off-by: Saleemkhan Jamadar <saleemkhan083@gmail.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |  8 +++++++
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c    | 22 ++++++++++++++++++-
+ 3 files changed, 30 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+index 3040437d99c2..bc7858567321 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+@@ -129,7 +129,7 @@ uint32_t amdgpu_doorbell_index_on_bar(struct amdgpu_device *adev,
+ {
+ 	int db_bo_offset;
+ 
+-	db_bo_offset = amdgpu_bo_gpu_offset_no_check(db_bo);
++	db_bo_offset = amdgpu_bo_gpu_offset(db_bo);
+ 
+ 	/* doorbell index is 32 bit but doorbell's size can be 32 bit
+ 	 * or 64 bit, so *db_size(in byte)/4 for alignment.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index bff39dcb4068..f8e66f6e8c09 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -586,6 +586,14 @@ amdgpu_userq_destroy(struct drm_file *filp, int queue_id)
+ 		amdgpu_bo_unreserve(queue->db_obj.obj);
+ 	}
+ 	amdgpu_bo_unref(&queue->db_obj.obj);
++
++	r = amdgpu_bo_reserve(queue->wptr_obj.obj, true);
++	if (!r) {
++		amdgpu_bo_unpin(queue->wptr_obj.obj);
++		amdgpu_bo_unreserve(queue->wptr_obj.obj);
++	}
++	amdgpu_bo_unref(&queue->wptr_obj.obj);
++
+ 	atomic_dec(&uq_mgr->userq_count[queue->queue_type]);
+ #if defined(CONFIG_DEBUG_FS)
+ 	debugfs_remove_recursive(queue->debugfs_queue);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index 8b0aeb89025a..f2309d72bbe6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -94,8 +94,28 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
+ 		return ret;
+ 	}
+ 
+-	queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset_no_check(wptr_obj->obj);
++	ret = amdgpu_bo_reserve(wptr_obj->obj, true);
++	if (ret) {
++		DRM_ERROR("Failed to reserve wptr bo\n");
++		return ret;
++	}
++
++	/* TODO use eviction fence instead of pinning. */
++	ret = amdgpu_bo_pin(wptr_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
++	if (ret) {
++		drm_file_err(uq_mgr->file, "[Usermode queues] Failed to pin wptr bo\n");
++		goto unresv_bo;
++	}
++
++	queue->wptr_obj.gpu_addr = amdgpu_bo_gpu_offset(wptr_obj->obj);
++	amdgpu_bo_unreserve(wptr_obj->obj);
++
+ 	return 0;
++
++unresv_bo:
++	amdgpu_bo_unreserve(wptr_obj->obj);
++	return ret;
++
+ }
+ 
+ static int convert_to_mes_priority(int priority)
+-- 
+2.43.0
+
