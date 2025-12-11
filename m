@@ -4,78 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35AF5D41C06
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 14:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA6FD41D57
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 15:22:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA8A410E2AC;
-	Thu, 11 Dec 2025 14:34:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51F9110E097;
+	Thu, 11 Dec 2025 15:22:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GHrZws3g";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="klNL7esc";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4148710E2AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 14:34:10 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-7b7cdcdd8afso13414b3a.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 06:34:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765463650; x=1766068450; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=btmLPf8yWccDo9iGica5P43eXD2kP2r8mqMP3kcew2E=;
- b=GHrZws3g/5iW1i8aYeAdZU1Bdm1Gx4R3nyflX0DE6T/Q8my+xIHBoIHmtgEWQXCPh3
- 9dEq4l29UxGGwe0yXarxJjauSoCV3lL8cYjjua4KIKEnA01SUXS96P2WkHDvLwaa5BRX
- 9xwHofZSZacgKO4YcB1jYN4Kkulzz5guSdqI99a+fg/04TbqdZF6D+V2iuqmqqbnowVM
- VqOdviS3SYWFqc7eSuHYLz1IeVyPGFY22Wd8pjmV7Np202CPMtDVZwDb7sOp49A2EgLX
- uN5rmhqJrbgorQ4whrB9dBVaXdF6YmHd2WXo3Eo+W02pRln9T9FB6KA3YvjZIKDfQRJI
- HeZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765463650; x=1766068450;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=btmLPf8yWccDo9iGica5P43eXD2kP2r8mqMP3kcew2E=;
- b=Al0FCrAUdrQmqhxlRjoIdclljPEd3WaAtWczOVSdmQDmlfN4+XcGm3VmfFlAIBj8x0
- CXKamDVAd6qxixKWBbVh+2V8R4YUnZ2kzBNRbbbck+lh7o8k0b9Kw/dzp8rUHfCdwFn8
- NQnbORSMzGjGu3vTCfqBddTXoVlaXUbaTB4KuugbaaJD4JWcnUfXMoqWxmeRgIufXvW1
- /aHpxQK2ucD7/xqcmrinr+UMl+1DuywI2QWNxBKck7f9Eh1pvSB7+EhFtcBlSISzMJMm
- Nh/BPScCb2HyY8kyoAtXO5LQpI/Wy0UmYjbNPUjOlOkxfdNDkLN9SPs+vNLgIcQrMbcK
- EXjQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUeY+yhkyFD6I2JbFSM4X2eHAYn7juqTo5IA0xfOTEgesJxFaNMFUdyoTkluuQQI99P3OtPbjRJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQBB5Pv+Xnk+JflcQS/tAL9Ezqg38j6GPIjK34PvSj3Trx3tQd
- kcVdmmBOPwLhU+X4q6NTODB5th69iCktEvWONBnf8JeNcoJ6ESJIwQ+LFKSFriiTcC+WXUs0K9Y
- 7FOZyIFeqPn7bm4aX5mVa3x50ZEdqOk0=
-X-Gm-Gg: AY/fxX69Ooyktkdz2NMxoMsLujoteIlWBLzck5HRpT6IRoH2bKiwMIMIthYGRtIJnQb
- WiTMoZOoKIR7z4UXVemv/GHOeZy/+yqvRxonVFjmKOesH28DdCuiUH6j7KfV50SlAYKgu5254d+
- mnkZemWot7iybDTwQNTWeGaq6Cl3sfRRDFmWb4/bGYMvfqjhl1fDYndECvZbNt0Dq3nFTMGRdOZ
- ch1vc0/mFPvO2ITaXLBW5V/XkggremDt0SIe5a9g9lk5/uc0bQMP6lMry2sMUrvmn6WaZ53swDs
- 3Hp1Sg==
-X-Google-Smtp-Source: AGHT+IGymtT7LusKNG5N22JJLsYb4PH74S17vPlU2+angqRtkQTuvigG9VBp7kvlmiEsSZgVSVkibrRFWyoagwaGhtI=
-X-Received: by 2002:a05:7022:6187:b0:119:e55a:95a3 with SMTP id
- a92af1059eb24-11f2e82aa2dmr1070766c88.5.1765463649479; Thu, 11 Dec 2025
- 06:34:09 -0800 (PST)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010049.outbound.protection.outlook.com [52.101.61.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C3DB10E097
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 15:22:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OdCDadFmAKfExS46meMIjoqd3tfOhzjhhrS3YNW6sWmFPvJMHIsJRWjNh5No3WK7/HjUWHZfSwJEgOA2WbByR2LDN2JEJ3etK5gdI3Q6Bau4kbMk6ROefHbcUOVZ8i9hHk6FEfHlGwiKlwH2nwq+QSHPEI+m+biMmNy2z+0zPrVjL5ifm/tu61NK4Jx5IEuTisH6UO0vTvj9HWQ69oBeuLnb8OV9M5DruG+fn9DeCDPeht1o62sblY9qaR8YqzTgME1s0IgdxZItFLbkGmXuGkEEztawEZGfYBzhaCk6gJxG25UvoO5BsTbsNyA46j/JNoGbO5M3BSuQpYvbK1QYTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l/Snj7YElgbIzHFqQ8MGJCDOLSsjKBStHOM07EacqPY=;
+ b=ermZJuk9f6Ez0i8B6cWmlw3N21WOi1C5iPCojV9U5l4guAGuASULyyYalMEvZ8sK1LBy7snP3s+asxM1bOW9Ml/YzJRdfYMpM1V5oUZ1FbfisLVt+RFZbeHyeP76hF7tYFpjBVl9OQuv/IospGz1GWUy6quvbBIyLWrFoXw70lqgdNbqApbm4TUivllNYQR9wxJD/7ofTtoFusHzTzUWD1sLMOqIt6V8ybFog+FYAQFSNTg1kIv1e/yt/RWldFoE0L09LAxU6VXLXlGd6TUQn7aFM9cCKQeV6O7+h6uf5uE+01f9nPji7eWGR0tMCxJ9o5Qn1lDgmgDek9KmCIJZuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l/Snj7YElgbIzHFqQ8MGJCDOLSsjKBStHOM07EacqPY=;
+ b=klNL7escaaH1V+FKmDXxrYgNdFvNWVK2IwAL15/Oy+zNw1sZ8LXqVQ50WT7jtT6zzKXEb0MT9sPk+WrRXipJwtVO4G75fndHIiCB+xhjurMCsiqNUZVfpYj7nHA8PeqeQKs89BKtCUkkDUymEkVSTdQDvlZdiDOt0uvjFAHo9Wk=
+Received: from SJ0PR13CA0128.namprd13.prod.outlook.com (2603:10b6:a03:2c6::13)
+ by SA5PPF530AE3851.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8c9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.8; Thu, 11 Dec
+ 2025 15:22:14 +0000
+Received: from CO1PEPF000075EF.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::47) by SJ0PR13CA0128.outlook.office365.com
+ (2603:10b6:a03:2c6::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.8 via Frontend Transport; Thu,
+ 11 Dec 2025 15:21:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000075EF.mail.protection.outlook.com (10.167.249.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9388.8 via Frontend Transport; Thu, 11 Dec 2025 15:22:11 +0000
+Received: from dogwood-dvt-marlim.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 11 Dec 2025 09:22:05 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Subject: [PATCH] drm/amd: Resume the device in thaw() callback when console
+ suspend is disabled
+Date: Thu, 11 Dec 2025 09:21:37 -0600
+Message-ID: <20251211152137.2954347-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-References: <20251210015140.568540-1-pratap.nirujogi@amd.com>
- <db479aed-d96d-414c-88f2-a699accf24f8@amd.com>
- <2aa0eb5d-6097-43eb-bb18-4fc7d793256c@amd.com>
-In-Reply-To: <2aa0eb5d-6097-43eb-bb18-4fc7d793256c@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 11 Dec 2025 09:33:57 -0500
-X-Gm-Features: AQt7F2oRb7eY649VRkg2NYBu3O0wb3dmXNsApWpyKd2-bz3x4odgnlw_nmi2GhE
-Message-ID: <CADnq5_M36+bQ_kbfhGLFD3uHxWqAHZcPY93Vkzq=0B=EBm7JLw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix SMU warning during isp suspend-resume
-To: "Nirujogi, Pratap" <pnirujog@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Pratap Nirujogi <pratap.nirujogi@amd.com>, 
- amd-gfx@lists.freedesktop.org, mlimonci@amd.com, alexander.deucher@amd.com, 
- christian.koenig@amd.com, benjamin.chan@amd.com, bin.du@amd.com, 
- gjorgji.rosikopulos@amd.com, king.li@amd.com, dantony@amd.com, 
- phil.jawich@amd.com, Gjorgji Rosikopulos <grosikop@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EF:EE_|SA5PPF530AE3851:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d47a365-9fae-4932-f2a5-08de38c90e99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lTpn0/wUtfgtOs0gqQAtWED0tSmwHVZmcV0GHn3xso9Bl/acX601cUqMrYF6?=
+ =?us-ascii?Q?QvaNBCWhJC7mI8Pqatr6uKQu6rz6LGV3pRwWZWjpTUbJEXxrhWrvbIjH4i1y?=
+ =?us-ascii?Q?zXgmKgtgfhD1zegHn7yILwfqPttAgVroDIZ26tn3POCM5LwO1LSeV/5uPxMK?=
+ =?us-ascii?Q?jJVtDxgvSEAl+SUfSYoiReGGmyqboqkDE7dLbcC3ixFvnCv8VOjKj0XDCoT8?=
+ =?us-ascii?Q?wL+krbYgUPCYf/STzDFHLG4eSklZCtuWQapSnGY7lPXGoUDy2+SJGbGWEjZp?=
+ =?us-ascii?Q?ed9aag/V+f0WFrMLWWFZQ/5h3u4862/01vwobJ9Cf/YnZYxwcUjgoUNZe0Hy?=
+ =?us-ascii?Q?REkMcYH2RcZwxfPoIKbQ1Ca8azGQuo4+Zcqt50bxnzGwZ/XE0m7IM5kpKcLn?=
+ =?us-ascii?Q?7emytnhBUZ9vmPqhmT/3GhH1yjsQZqUYj2eX3vQAqhpZPhc7IdvooHPUgXY5?=
+ =?us-ascii?Q?msHBNr3u2AWS3GRTNL+Jgpla4r0Mqz3HV/nZAdn24ZLgMB3HJWcmIMPDHPU0?=
+ =?us-ascii?Q?VrMdD1a1yGwjGA0YVMZqFz2LCtHOKpQ8qDb6D81ZgF/cZ07pRwsGy00RzG19?=
+ =?us-ascii?Q?PBmiZMikyDIgJk+hN5dZOF4q3LSTBWw9t4GC/JTLk/ycAUtXp7dStIUXWUgS?=
+ =?us-ascii?Q?BYiYIeY46oRNGDhhbL0kySLU8exgrmiE/TIDgV1Avik1sytZsefKX55CeWGU?=
+ =?us-ascii?Q?ZZqwwKH8VEbNUACzy4DA6iGRpKNO8T6c0b3zRRUExvijdY+4xx3n9D9otuc0?=
+ =?us-ascii?Q?1XGVOsFsKyT/3RNBod2WpyLr+j+RzbMPLIVLbGFF3zRNX70aGPu1umXwLv8i?=
+ =?us-ascii?Q?MD4DRjgb+op4xubcd+bctkkilSGdlpyULt+i5irOHu4mWwfXYEYEh3NZLZDl?=
+ =?us-ascii?Q?3/0Eov0gLZwaE02uw0fkO3mG/J+/JEsnBb66Hy997X7maLIGYc3noY00j4DD?=
+ =?us-ascii?Q?O09sapeA3+cp6pNeUlan31NMLpAsuU/4Oco0ge2Kh2201mPszy0hzVJns6Ff?=
+ =?us-ascii?Q?dcktz4jYj2bAZwTwPvurElKLX2TG+m7lz1DFX0Nz1YMoftGPFqF/TudjEHhb?=
+ =?us-ascii?Q?lxByxZjNeh2whspSNMXM+2povZJptBzFOVqmiepfDCbFLwJKElYEuU5aBe7N?=
+ =?us-ascii?Q?ogOe10d3CLq5iRg01CGhFuJOQXjxHvKdt1YMsZ8B/Wlj/EsOBjYugIkhWUPE?=
+ =?us-ascii?Q?IUILupASV5s0b8v1pxkxNgAUbmw5gzD0eCls++2YH/hoDKJ7nQEw0iSh49AK?=
+ =?us-ascii?Q?OlrQlvBnKrCq6DhCfgyoGL/Ojuiq1Ix2E2uOOBTa+sWErQz5Wb8S+thalLyw?=
+ =?us-ascii?Q?kA7rgSy21P6ww1uHprnOnGi5kveYpjGydkY2yzLsbFd7YIusfHSMXHw2/9Qd?=
+ =?us-ascii?Q?PebdFXKXMF2lYn1ACDOpAc4TovMjjwwmGua7qV7EYbZtv34DLWtCp4/5e/SI?=
+ =?us-ascii?Q?dOUO2KDm2eXzuki0zLX2est98Ow8zMzgUQdQCgmE/x+gtsxNN++ZjsVL6OvF?=
+ =?us-ascii?Q?uP1n3/EQazbtGCGqGyaZWIQ09nzGBoulBBpc2kOr8wosIttuQVy3BbfGw07y?=
+ =?us-ascii?Q?A4FHP3pdeujEhYvhWlg=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2025 15:22:11.6416 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d47a365-9fae-4932-f2a5-08de38c90e99
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075EF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF530AE3851
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,269 +132,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 10, 2025 at 6:24=E2=80=AFPM Nirujogi, Pratap <pnirujog@amd.com>=
- wrote:
->
-> Hi Mario,
->
-> On 12/9/2025 10:28 PM, Mario Limonciello wrote:
-> >
-> >
-> > On 12/9/2025 7:50 PM, Pratap Nirujogi wrote:
-> >> ISP mfd child devices are using genpd and the system suspend-resume
-> >> operations between genpd and amdgpu parent device which uses only
-> >> runtime suspend-resume are not in sync.
-> >>
-> >> Linux power manager during suspend-resume resuming the genpd devices
-> >> earlier than the amdgpu parent device. This is resulting in the below
-> >> warning as SMU is in suspended state when genpd attempts to resume ISP=
-.
-> >>
-> >> WARNING: CPU: 13 PID: 5435 at
-> >> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:398
-> >> smu_dpm_set_power_gate+0x36f/0x380 [amdgpu]
-> >>
-> >> To fix this warning isp suspend-resume is handled as part of amdgpu
-> >> parent device suspend-resume instead of genpd sequence. Each ISP MFD
-> >> child device is marked as dev_pm_syscore_device to skip genpd
-> >> suspend-resume and use pm_runtime_force api's to suspend-resume
-> >> the devices when callbacks from amdgpu are received.
-> >>
-> >> Signed-off-by: Gjorgji Rosikopulos <grosikop@amd.com>
-> >> Signed-off-by: Bin Du <bin.du@amd.com>
-> >> Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
-> >
-> > Who is the patch author?  If you guys worked together, there should be
-> > Co-developed-by tags to represent it.
-> >
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 24 ++++++++++
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h |  2 +
-> >>   drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c | 59 +++++++++++++++++++++++=
-++
-> >>   3 files changed, 85 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> >> index 37270c4dab8d..532f83d783d1 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> >> @@ -318,12 +318,36 @@ void isp_kernel_buffer_free(void **buf_obj, u64
-> >> *gpu_addr, void **cpu_addr)
-> >>   }
-> >>   EXPORT_SYMBOL(isp_kernel_buffer_free);
-> >>   +static int isp_resume(struct amdgpu_ip_block *ip_block)
-> >> +{
-> >> +    struct amdgpu_device *adev =3D ip_block->adev;
-> >> +    struct amdgpu_isp *isp =3D &adev->isp;
-> >> +
-> >> +    if (isp->funcs->hw_resume)
-> >> +        return isp->funcs->hw_resume(isp);
-> >> +
-> >> +    return -ENODEV;
-> >> +}
-> >> +
-> >> +static int isp_suspend(struct amdgpu_ip_block *ip_block)
-> >> +{
-> >> +    struct amdgpu_device *adev =3D ip_block->adev;
-> >> +    struct amdgpu_isp *isp =3D &adev->isp;
-> >> +
-> >> +    if (isp->funcs->hw_suspend)
-> >> +        return isp->funcs->hw_suspend(isp);
-> >> +
-> >> +    return -ENODEV;
-> >> +}
-> >> +
-> >>   static const struct amd_ip_funcs isp_ip_funcs =3D {
-> >>       .name =3D "isp_ip",
-> >>       .early_init =3D isp_early_init,
-> >>       .hw_init =3D isp_hw_init,
-> >>       .hw_fini =3D isp_hw_fini,
-> >>       .is_idle =3D isp_is_idle,
-> >> +    .suspend =3D isp_suspend,
-> >> +    .resume =3D isp_resume,
-> >>       .set_clockgating_state =3D isp_set_clockgating_state,
-> >>       .set_powergating_state =3D isp_set_powergating_state,
-> >>   };
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
-> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
-> >> index d6f4ffa4c97c..9a5d2b1dff9e 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
-> >> @@ -38,6 +38,8 @@ struct amdgpu_isp;
-> >>   struct isp_funcs {
-> >>       int (*hw_init)(struct amdgpu_isp *isp);
-> >>       int (*hw_fini)(struct amdgpu_isp *isp);
-> >> +    int (*hw_suspend)(struct amdgpu_isp *isp);
-> >> +    int (*hw_resume)(struct amdgpu_isp *isp);
-> >>   };
-> >>     struct amdgpu_isp {
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> >> b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> >> index 4258d3e0b706..560c398e14fc 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
-> >> @@ -26,6 +26,7 @@
-> >>    */
-> >>     #include <linux/gpio/machine.h>
-> >> +#include <linux/pm_runtime.h>
-> >>   #include "amdgpu.h"
-> >>   #include "isp_v4_1_1.h"
-> >>   @@ -145,6 +146,9 @@ static int isp_genpd_add_device(struct device
-> >> *dev, void *data)
-> >>           return -ENODEV;
-> >>       }
-> >>   +    /* The devcies will be managed by the pm ops from the parent */
-> >
-> > devices
-> >
-> >> +    dev_pm_syscore_device(dev, true);
-> >> +
-> >>   exit:
-> >>       /* Continue to add */
-> >>       return 0;
-> >> @@ -177,12 +181,65 @@ static int isp_genpd_remove_device(struct
-> >> device *dev, void *data)
-> >>           drm_err(&adev->ddev, "Failed to remove dev from genpd
-> >> %d\n", ret);
-> >>           return -ENODEV;
-> >>       }
-> >> +    dev_pm_syscore_device(dev, false);
-> >>     exit:
-> >>       /* Continue to remove */
-> >>       return 0;
-> >>   }
-> >>   +static int isp_suspend_device(struct device *dev, void *data)
-> >> +{
-> >> +    struct platform_device *pdev =3D container_of(dev, struct
-> >> platform_device, dev);
-> >> +
-> >> +    if (!dev->type || !dev->type->name)
-> >> +        return 0;
-> >> +    if (strncmp(dev->type->name, "mfd_device", 10))
-> >> +        return 0;
-> >> +    if (!strncmp(pdev->mfd_cell->name, "amdisp-pinctrl", 14))
-> >> +        return 0;
-> >
-> > Could we store the mfd_cell pointer instead and just compare the
-> > pointers?
->
-> I don't think I can do a pointer comparision to identify the correct
-> mfd_cell, string comparision seems like required in this case.
->
-> Its because when isp mfd child devices are created using
-> mfd_add_hotplug_devices(), it is not returning the pdev or mfd_cell handl=
-es
-> to store in the amdgpu_isp and later use in suspend/resume to compare
-> with incoming pdev->mfd_cell to detect the correct the device.
->
-> The mfd-core is doing a kmemdup of mfd_cells data passed to
-> mfd_add_hotplug_devices() to create the platform device.
->
-> https://github.com/torvalds/linux/blob/master/drivers/mfd/mfd-core.c#L163
->
-> I'm considering to add this function to check for valid isp mfd child
-> devices that are allowed to do suspend-resume, this can minimize the
-> checks, but still cannot eliminate the string comparsion, please let us
-> know your thoughts.
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 
-Can you do something like what was done in the acp code?  See:
+If console suspend has been disabled using `no_console_suspend` also
+wake up during thaw() so that some messages can be seen for debugging.
 
-commit 4fce6b64ec8bcd0694f221906952d2880ed8ae31
-Author: Brady Norander <bradynorander@gmail.com>
-Date:   Tue Mar 25 17:05:17 2025 -0400
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4191
+Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-    drm/amdgpu: use static ids for ACP platform devs
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 7333e19291cf..5de79e0df26a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -33,6 +33,7 @@
+ #include <drm/drm_vblank.h>
+ 
+ #include <linux/cc_platform.h>
++#include <linux/console.h>
+ #include <linux/dynamic_debug.h>
+ #include <linux/module.h>
+ #include <linux/mmu_notifier.h>
+@@ -2685,7 +2686,9 @@ static int amdgpu_pmops_thaw(struct device *dev)
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+ 
+ 	/* do not resume device if it's normal hibernation */
+-	if (!pm_hibernate_is_recovering() && !pm_hibernation_mode_is_suspend())
++	if (console_suspend_enabled &&
++	    !pm_hibernate_is_recovering() &&
++	    !pm_hibernation_mode_is_suspend())
+ 		return 0;
+ 
+ 	return amdgpu_device_resume(drm_dev, true);
+-- 
+2.51.2
 
-    mfd_add_hotplug_devices() assigns child platform devices with
-    PLATFORM_DEVID_AUTO, but the ACP machine drivers expect the platform
-    device names to never change. Use mfd_add_devices() instead and give
-    each cell a unique id.
-
-    Signed-off-by: Brady Norander <bradynorander@gmail.com>
-    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Alex
-
->
-> static bool is_valid_mfd_device(struct platform_device *pdev)
-> {
->      const struct mfd_cell *mc =3D mfd_get_cell(pdev);
->      if (!mc)
->          return false;
->      if (!strncmp(mc->name, "amdisp-pinctrl", 14))
->          return false;
->      return true;
-> }
->
-> Thanks,
->
-> Pratap
->
-> >
-> >> +
-> >> +    return pm_runtime_force_suspend(dev);
-> >> +}
-> >> +
-> >> +static int isp_resume_device(struct device *dev, void *data)
-> >> +{
-> >> +    struct platform_device *pdev =3D container_of(dev, struct
-> >> platform_device, dev);
-> >> +
-> >> +    if (!dev->type || !dev->type->name)
-> >> +        return 0;
-> >> +    if (strncmp(dev->type->name, "mfd_device", 10))
-> >> +        return 0;
-> >> +    if (!strncmp(pdev->mfd_cell->name, "amdisp-pinctrl", 14))
-> >> +        return 0;
-> >
-> > same comment as above
-> >
-> >> +
-> >> +    return pm_runtime_force_resume(dev);
-> >> +}
-> >> +
-> >> +static int isp_v4_1_1_hw_suspend(struct amdgpu_isp *isp)
-> >> +{
-> >> +    int r;
-> >> +
-> >> +    r =3D device_for_each_child(isp->parent, NULL,
-> >> +                  isp_suspend_device);
-> >> +    if (r)
-> >> +        dev_err(isp->parent, "failed to suspend hw devices (%d)\n", r=
-);
-> >> +
-> >> +    return 0;
-> >
-> > Shouldn't you return r?
-> >
-> >> +}
-> >> +
-> >> +static int isp_v4_1_1_hw_resume(struct amdgpu_isp *isp)
-> >> +{
-> >> +    int r;
-> >> +
-> >> +    r =3D device_for_each_child(isp->parent, NULL,
-> >> +                  isp_resume_device);
-> >> +    if (r)
-> >> +        dev_err(isp->parent, "failed to resume hw device (%d)\n", r);
-> >> +
-> >> +    return 0;
-> >
-> > Shouldn't you return r?
-> >
-> >> +}
-> >> +
-> >>   static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
-> >>   {
-> >>       const struct software_node *amd_camera_node, *isp4_node;
-> >> @@ -369,6 +426,8 @@ static int isp_v4_1_1_hw_fini(struct amdgpu_isp
-> >> *isp)
-> >>   static const struct isp_funcs isp_v4_1_1_funcs =3D {
-> >>       .hw_init =3D isp_v4_1_1_hw_init,
-> >>       .hw_fini =3D isp_v4_1_1_hw_fini,
-> >> +    .hw_suspend =3D isp_v4_1_1_hw_suspend,
-> >> +    .hw_resume =3D isp_v4_1_1_hw_resume,
-> >>   };
-> >>     void isp_v4_1_1_set_isp_funcs(struct amdgpu_isp *isp)
-> >
