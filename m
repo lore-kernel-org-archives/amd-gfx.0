@@ -4,102 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E77D44145
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20838D4414B
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1C6C10E580;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7FC910E582;
 	Fri, 12 Dec 2025 08:29:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="RKcuFZYu";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="U5toQvtR";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C8D10E04B
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 06:40:47 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC3w03q022889;
- Fri, 12 Dec 2025 06:40:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=Wjp0XC0M5S++DFByi
- M7FGae9j5gFR3KSIble3nX3WNQ=; b=RKcuFZYuuT/dZMEOIEmR3Ep1q+Ec5HAyl
- /JYNOOhR/cL0QKirjInBWCdXtIwwHlRHwtJyGe2zrY5wJClaKpRJuu5kHrFce+MW
- wPoXj3MJqjSr6VUXZoVvSXWxNnfM54z/qzkMkB2zhC9CFKF/n5t7mWsdi3NOK2rp
- KW453JmaSvJG241A3b5e4YL47fHWGaHFYAoLZEZx52IaMHHXhfp6poIHO64Hyumh
- 35f1WF5F0p5WWs5bmWELgJWyWojg4KhylSlvBKvgE43K1K38vUP8pGp8hU++i+3T
- g1uNx2UY6RkQ5uEBPADqXQmEUy8f0gUyOfI/dyR6oAayzr7MTM0Cg==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvwb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:45 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BC6ei6c030810;
- Fri, 12 Dec 2025 06:40:44 GMT
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvw6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:44 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC3AUdu002031;
- Fri, 12 Dec 2025 06:40:43 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4aw11jtc6d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:43 +0000
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5BC6ee0a44302716
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 12 Dec 2025 06:40:40 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 23E7020043;
- Fri, 12 Dec 2025 06:40:40 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6091120040;
- Fri, 12 Dec 2025 06:40:38 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
- [9.109.215.183])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Fri, 12 Dec 2025 06:40:38 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
-Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RFC PATCH v1 4/8] amdgpu/amdgpu_ttm: Fix
- AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K page size
-Date: Fri, 12 Dec 2025 12:10:11 +0530
-Message-ID: <465b106ddc1ff0d661f0f3db0eb9a9d092097825.1765519875.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1765519875.git.donettom@linux.ibm.com>
-References: <cover.1765519875.git.donettom@linux.ibm.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD3B10E625;
+ Thu, 11 Dec 2025 19:59:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1765483166; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PapCYrGOA0DdMdEGqYe8wSbVIMgmWtTx9Ajd3S+/lPqhJQ/Tpj8uBEwf+hBtuyHSFC/706YpOtQ6gsr8LHXYsIb1Yb9TlGNzvX4TItjetl7m/Y14QiE77f5CcqVB9hnnQbYK/SqjO4gxHLNKl3eEoMSr40w2cXD7hIERrS5pKRU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1765483166;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=1Dh7aECitOB9k9I8NTgAp9Wi9RahEZHruitjqRy2ayc=; 
+ b=BKn84KfImSg64WEv/gHkaFqxl2XbwOYSVlJj6kC7tLzf4FfvHc0KAXPiaQWvFG22irZUtesPQHpS6atOwKkKwVimS5tFUrVDABB1JJJbs94pGfkSJSItfFaDs0VRCQ0URWX9aHNinF7QbpqAkZRhIpdt6xDuiFjgD2itpWr4Q6Y=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1765483166; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=1Dh7aECitOB9k9I8NTgAp9Wi9RahEZHruitjqRy2ayc=;
+ b=U5toQvtRKHWzGyOiOOT0n9f8hMBVqtET17wX+Ha5qp60DmHE0JxiLQ+B05LilYa5
+ /cVsZJEEwURhPFX+3AF4ZuqBtma4nmBCO9IHA1HSsKx6CBuEcNlNXlJvkB7GL0rHiRI
+ G4GFL8yY4SMgQHfu9hAz/6+OC2BxiK+5FRPy94O4=
+Received: by mx.zohomail.com with SMTPS id 1765483163864458.18267084626757;
+ Thu, 11 Dec 2025 11:59:23 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v5 06/17] drm/display: hdmi-state-helper: Try subsampling
+ in mode_valid
+Date: Thu, 11 Dec 2025 20:59:14 +0100
+Message-ID: <9409315.NyiUUSuA9g@workhorse>
+In-Reply-To: <20251209-dramatic-caiman-of-luck-db9d0f@houat>
+References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
+ <20251128-color-format-v5-6-63e82f1db1e1@collabora.com>
+ <20251209-dramatic-caiman-of-luck-db9d0f@houat>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: GghY70p18NVaHLESx8-g9sRwEaYwvogP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA2MDAyMCBTYWx0ZWRfX/IxDbyYZyjqd
- zI00CT2YKN3gOHxtTinOOMul+KmcFVnDz1iZVvZlgfRJCneWqN6YhinW3YCPrvDa+3gIoFABzcs
- SwF7M+JhYP95CBdT4wLxcsAO5KHtTz0FiGgqMLKmswdaVJLpmkx6mjmQRvtLmdmP+zZbieSyqxp
- y1OnbZnnT6cYUwFrL2SVrPYzcljATdjnCNM4M9q0r4Me93hNzPJEjN7w09kh6EZtmWgS1z2PQhx
- tzIJUFgmSetZ8dw3bAVIO0FZfAVZnJ+dRCZs7dv31H42MK9IVD2bVA66OZPcsk5bowkPawr6+gH
- M77ijRPaJfOhAdRMR/lcXM2lCUy/sCYYuxycZ60BvGn76m6Kz0PiSpdRClSQVbjlwedByyrE3Cg
- J7GiGOsmfPn+wCf1l5axlUhrRbG0dQ==
-X-Proofpoint-GUID: cGSvbyiBXInBrDx3HV62BXZfxNkGLLt8
-X-Authority-Analysis: v=2.4 cv=FpwIPmrq c=1 sm=1 tr=0 ts=693bb8ed cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8
- a=FF0XGVAgeIgctPtqneMA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-12_01,2025-12-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512060020
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Fri, 12 Dec 2025 08:29:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,33 +88,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The SDMA engine has a hardware limitation of 4 MB maximum transfer
-size per operation. AMDGPU_GTT_MAX_TRANSFER_SIZE was hardcoded to
-512 pages, which worked correctly on systems with 4K pages but fails
-on systems with larger page sizes.
+On Tuesday, 9 December 2025 15:18:25 Central European Standard Time Maxime Ripard wrote:
+> On Fri, Nov 28, 2025 at 10:05:42PM +0100, Nicolas Frattaroli wrote:
+> > drm_hdmi_connector_mode_valid assumes modes are only valid if they work
+> > with RGB. The reality is more complex however: YCbCr 4:2:0
+> > chroma-subsampled modes only require half the pixel clock that the same
+> > mode would require in RGB.
+> > 
+> > This leads to drm_hdmi_connector_mode_valid rejecting perfectly valid
+> > 420-only modes.
+> > 
+> > Fix this by checking whether the mode is 420-only first. If so, then
+> > proceed by checking it with HDMI_COLORSPACE_YUV420 so long as the
+> > connector has legalized 420, otherwise error out. If the mode is not
+> > 420-only, check with RGB as was previously always the case.
+> > 
+> > Fixes: 47368ab437fd ("drm/display: hdmi: add generic mode_valid helper")
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 12 +++++++++++-
+> >  1 file changed, 11 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > index 5da956bdd68c..1800e00b30c5 100644
+> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > @@ -892,8 +892,18 @@ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
+> >  			      const struct drm_display_mode *mode)
+> >  {
+> >  	unsigned long long clock;
+> > +	enum hdmi_colorspace fmt;
+> > +
+> > +	if (drm_mode_is_420_only(&connector->display_info, mode)) {
+> > +		if (connector->ycbcr_420_allowed)
+> > +			fmt = HDMI_COLORSPACE_YUV420;
+> > +		else
+> > +			return MODE_NO_420;
+> > +	} else {
+> > +		fmt = HDMI_COLORSPACE_RGB;
+> > +	}
+> >  
+> > -	clock = drm_hdmi_compute_mode_clock(mode, 8, HDMI_COLORSPACE_RGB);
+> > +	clock = drm_hdmi_compute_mode_clock(mode, 8, fmt);
+> 
+> I agree on principle, but we need to have a test for this.
 
-This patch divides the max transfer size / AMDGPU_GPU_PAGES_IN_CPU_PAGE
-to match with non-4K page size systems.
+I'd like to change `drm_mode_is_420_only` to `drm_mode_is_420` in
+the next revision, and modify the control flow to work correctly
+in this case, because rejecting 420-also modes on the basis that
+we can't do them in RGB isn't correct either.
 
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+But my concern with adding yet more tests is that I found this bug
+in a function unrelated to the series while adding tests you asked
+for, because the tests relied on this function to not be broken as
+part of the test setup. Yes, I was not be able to get any 4:2:0
+modes on the test connector in the kunit tests because
+drm_hdmi_connector_mode_valid helpfully discarded all of them.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 0be2728aa872..9d038feb25b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -37,7 +37,7 @@
- #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
- #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
- 
--#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
-+#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(512 / AMDGPU_GPU_PAGES_IN_CPU_PAGE)
- #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
- 
- extern const struct attribute_group amdgpu_vram_mgr_attr_group;
--- 
-2.52.0
+So now I am wondering whether adding yet more tests will uncover
+more bugs in functions unrelated to implementing the "color format"
+property, that were only called because the new test required them
+to set up some test fixture. And then I have to add another fix and
+another test to this series, rinse and repeat.
+
+Can we just agree that I am not going to expand the scope of this
+series any further? If you want me to send a follow-up series that
+adds tests to some of the hdmi state helper functions, then I can
+do that, but I don't want to do it as a precondition for the 17
+other patches in this series to get merged.
+
+> 
+> Maxime
+> 
+
+
+
 
