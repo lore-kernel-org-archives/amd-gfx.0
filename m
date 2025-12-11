@@ -4,155 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 145D0D3E78B
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 04:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 766D5D3E791
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Dec 2025 04:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2DCE10E06F;
-	Thu, 11 Dec 2025 04:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00A7C10E07E;
+	Thu, 11 Dec 2025 04:44:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E2Bl5U2l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R9oHvCra";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010047.outbound.protection.outlook.com
- [52.101.193.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4E710E06F
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 04:01:15 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E0CA10E07E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Dec 2025 04:44:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jaA16Ql2E9i/N3e/zGtOQ0NEwl5CcEZM8M2uwuTsOwEQldSlQt4f04N4E+sfaYTKAaZ03XBl8GXuaNOksjAOoCeJnHXL83wtXPUKoAzWVHGam/H4EJ3onCsgZDLPOTH0K/wiA7c5bB3kYhaFMxFk6WD8yjwOZFGs4nlJbzTv54ZKMyHk1sGZOBmgv0KFmLp1F1nc4ZQf1ZPWmSXVNk6Gj+HsfW+tmWsNKQQ3wR30aWQNVbSsKug1uKdB13BmPGlNCXaflpKwAV2FNsvnd+SNaJLsaiKDppTqTBmP6K9CEs/W5Ec3lf9MFCneLrstv7JHzDA8+BDSshoGzYlRK9OqWw==
+ b=jabBJDp5YSeyLScmtU2fpnURxdqlwr+fMfGXKSIr/VgcLI1esg1adWcWhXRTLux8DD5ftXcPqukkoS08xg1n6kjvEq5rPLFrrOwb8RHWV4WjezTcjosVXhH90f8il/cC7PeInms7hr16Q45UL7sEVhjv9GFNXmHI+mJZHUZxyaXOiRLFiAc/bEV09Or4pOHhuYS7SmfJW104KFJf2HjHW+Jhd3QZvpuCxMZRvFGSCBNCmCqoEk+Vl7hduhX3gzsgaVaeE/zyonqYoqB7+XijtwdfbU541jkzuXhhGIYHtj/KqmzQh4Qc0ZnDrt9lfw8zE0YXZgfgl78r30chbuIoeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qtfxEWkWkZprgEO3p1ow/IKbju5A+mCDrwFi9OPeJFs=;
- b=yoAyMao19aSX4ncOWv6SykKZXJ50wr15bCvItwHLzcJImwFnNggmbpf0zsYisuBKHuCoV1Hbzdb3XXt/Sl5TzVJF9IteBu2xznhXA1ILFR1uQw9vFmHo69CThiFggGyyCC+gcSdm7Doo+j643AOexqYNekCaX8ClWhIm11yVLjDZ7TMu2mU68TB448nT2SIyu1rMctYzb4THA1h8VtvexLkkJ6LTEWX0CNgz6Vshqm0as4jsc4GH2wJ2F2VfpXT8cdNpugj6NmVxL7iDtkT7DpFL/aBxQRjC1YuuwtI5SueofXvYzrmwdc28o/0XM1NSJaGyCP9x1cBZl99M3SZB1w==
+ bh=Zi8xE+wedul/ALLwLGxshyYA9x9F8yu9vok2hXeesBU=;
+ b=Lt1QbkZ76d1jESqLucn5TjrJmizej8RrdWATRYe8EF2zBcGygTq/DaperMSmo1l/c4CcpuCKCc0Wxik//C9YI/UpBofp11+8aWjwaF67TKYipQ77dXd0Ftt8BxEAZtXNZg05hn+j7eAv4NCS2zm6A8MB1qKNMxqXevcPGyaJiGkIYf7GmWmzz5nkYwKeZ51p3D7gXs24bMX0hgIEINJqF7fmPCsZOFrlKQDY7HTlVOkk0SiTbHGBSAl0AUHSXcIpMU78x/YBHqg2b6aqYBvBKadddRGcEAKmV7jzCpD/2BeG6bMeIb7KLBvlIxTWAbdK4dJJWv/tnb1ttESJbeQ8PA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qtfxEWkWkZprgEO3p1ow/IKbju5A+mCDrwFi9OPeJFs=;
- b=E2Bl5U2l2a6oBdRgIVVT9HXJzaBrAaTYCevAEi3U0/2FxlfxE+sTF1McstwCzUWRI8QFFXhzbieOGW72xDAk6IE1K77/wOtmT2n1y4uFN4AK1Nl299qDRWyb8+1G2tCQpdirKNzhXtrgLplTy+/tsVfNPgK0SSEqhEgfW33xCaw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS7PR12MB9501.namprd12.prod.outlook.com (2603:10b6:8:250::17)
- by PH8PR12MB6794.namprd12.prod.outlook.com (2603:10b6:510:1c5::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Zi8xE+wedul/ALLwLGxshyYA9x9F8yu9vok2hXeesBU=;
+ b=R9oHvCray58uL33Y0GK6iBOcn5sEVmfLyPkvM+wUrIs7iSQ7STxLjp4OVEph3EwwkaGDOQ0IXb4icOW+90Jo6TCpvbgB0L4LuK668glSeDdyEmphYxEZ5zDfkhd6kzCfDzAgbjIbxZtsi/IE9kMbNm7Poq2pDYJUulnXi/ZIIOE=
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com (2603:10b6:208:409::17)
+ by BL1PR12MB5851.namprd12.prod.outlook.com (2603:10b6:208:396::13)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.8; Thu, 11 Dec
- 2025 04:01:13 +0000
-Received: from DS7PR12MB9501.namprd12.prod.outlook.com
- ([fe80::29f2:4b41:f65f:248d]) by DS7PR12MB9501.namprd12.prod.outlook.com
- ([fe80::29f2:4b41:f65f:248d%3]) with mapi id 15.20.9412.005; Thu, 11 Dec 2025
- 04:01:12 +0000
-Message-ID: <772c2e4c-86b6-4200-9cbf-696e4652a6c0@amd.com>
-Date: Wed, 10 Dec 2025 23:01:09 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix SMU warning during isp suspend-resume
-Content-Language: en-GB
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Pratap Nirujogi <pratap.nirujogi@amd.com>, amd-gfx@lists.freedesktop.org,
- mlimonci@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: benjamin.chan@amd.com, bin.du@amd.com, gjorgji.rosikopulos@amd.com,
- king.li@amd.com, dantony@amd.com, phil.jawich@amd.com,
- Gjorgji Rosikopulos <grosikop@amd.com>
-References: <20251210015140.568540-1-pratap.nirujogi@amd.com>
- <db479aed-d96d-414c-88f2-a699accf24f8@amd.com>
- <2aa0eb5d-6097-43eb-bb18-4fc7d793256c@amd.com>
- <03db9561-f7e4-4157-95b3-7d32bdafe15f@amd.com>
-From: "Nirujogi, Pratap" <pnirujog@amd.com>
-In-Reply-To: <03db9561-f7e4-4157-95b3-7d32bdafe15f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0345.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6b::19) To DS7PR12MB9501.namprd12.prod.outlook.com
- (2603:10b6:8:250::17)
+ 2025 04:44:08 +0000
+Received: from IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2]) by IA0PR12MB8208.namprd12.prod.outlook.com
+ ([fe80::14af:1677:d840:8d2%6]) with mapi id 15.20.9412.005; Thu, 11 Dec 2025
+ 04:44:08 +0000
+From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>
+Subject: RE: [PATCH V2] drm/amdgpu: fix a job->pasid access race in gpu
+ recovery
+Thread-Topic: [PATCH V2] drm/amdgpu: fix a job->pasid access race in gpu
+ recovery
+Thread-Index: AQHcahLwBcrNXy3GTUKiX+wfLCBOm7Ub3RFw
+Date: Thu, 11 Dec 2025 04:44:08 +0000
+Message-ID: <IA0PR12MB820853BB88B551F345463EB890A1A@IA0PR12MB8208.namprd12.prod.outlook.com>
+References: <20251210202347.63243-1-alexander.deucher@amd.com>
+In-Reply-To: <20251210202347.63243-1-alexander.deucher@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-12-11T04:43:08.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR12MB8208:EE_|BL1PR12MB5851:EE_
+x-ms-office365-filtering-correlation-id: df07456b-2a10-4998-045d-08de386febec
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7053199007|38070700021; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?6u9HqrZhxs2xZZG/6vsnlIjNTdgnMmNaKLyjVjxMh1BCnXyGMiCTtKGKprse?=
+ =?us-ascii?Q?3z0wjc6Vanx1SdOeccBeK6hormD12cja0j0HDhfh7ix0lz5mNYjXCa9wmnVv?=
+ =?us-ascii?Q?3J/fLmvcP9rzZyiKpq/FurFCiuqkZKkOkc5ZTQXF1GKOwoOFnF7HyCKQ+mNg?=
+ =?us-ascii?Q?i++LHyMQn5fEcyxyNVkXhQ6wZJUDJZ86SC0ncIhCJoK2PJqKQflEOUiSPdLs?=
+ =?us-ascii?Q?7DaSKT3GvI3I1WrESaZu3Bdoyy371mz7W2BX5FHY92lyjcGI8NH7R+KSOaV8?=
+ =?us-ascii?Q?h+wWhn2qAV67RuEAabjOuyILkqUtphTRAq0fAdRHxhXZexacQi556IVrAkWV?=
+ =?us-ascii?Q?nO0SyQIMZDpLJxTPtieiQ5CVigjw3xQ38xXCAhG4sV0iw20ritsi4nzB7yTm?=
+ =?us-ascii?Q?2y/K54OTiwsMQXsAizEjdwqs6gZdpw8QsWT/uxaQiOCcrRKthP6PZGKxku7c?=
+ =?us-ascii?Q?cs1D+i7519j8W9snyycwv3hwRU+fk0R3wl0Xsz2hzb0vtkGwpNlRbAmXD5Aw?=
+ =?us-ascii?Q?tIQ0u0EuUTcOwsaFGSDEcyWyFbdj85865at1VXw6XXGCz0rhAm/4MQ/Ei/p0?=
+ =?us-ascii?Q?w/FtBGbbVzBcTY/bvudwU7HOS1r8SARe0HnwgCFah4ELoWvpWk3ACenXjHFV?=
+ =?us-ascii?Q?wScDtBE8NIsvAYd0gFTiyLgaV/meeAXNcNa9dO0A2AcTUkLwxJy7/eq0Fy/K?=
+ =?us-ascii?Q?Vlo52oArJPTzt0Qzb5bI7ADHRo0uQaQfp8sUfIgJgk0zr++dy9h0QvgtIq+y?=
+ =?us-ascii?Q?q46E/h281TkKrj/RD4zaEpYEVogIKg6pCxSdu4SDNRoffGZIVcxNwi1T0K2B?=
+ =?us-ascii?Q?0QA8XM+wHZMZQEWNN/OGG5SVcfLUDhSukwoLo+kDmNj3GC3cA/7qIxMmSvZO?=
+ =?us-ascii?Q?ZkH86K1W2rGSDVfy28eTbXfhEXe47wGgWyvgaBYdg6tZr/L5LhRzEzJl/qiI?=
+ =?us-ascii?Q?CuwVAIF/KBYMf1OGEyf04y6AOH4x8fWVbEWDQv8uV8k9V/22AmQSykYq/mVN?=
+ =?us-ascii?Q?dahmo8zVW1BY5OCGek2AU8zxtNFsn3E2b007xg+zv/cbE5ij1XMS7/9bYnGz?=
+ =?us-ascii?Q?kWq1CkzGfZ4q+rmYMWAGju1HIqrW6Dbp5PgcCHGXk9zlQ780COaTR9hyCR9Z?=
+ =?us-ascii?Q?jsZy44hZXBVMhAiia+TX/QqmxvteyJYCCyEDJNFgjNLb3VvYiSM5XFAbv1wk?=
+ =?us-ascii?Q?Xpg2HOvb/E3SAj6V+OrYG8CsczRQms0CYFbIO/FhBng9stcgdJmxgc9W53NP?=
+ =?us-ascii?Q?x4dY4ua74cJU8/BunPhaBBpnP8yOXVDDnuMgMysi2nUVegzc+4MOdhxkq7Wi?=
+ =?us-ascii?Q?vSulfSGEAhj5WqYAd4or16ZXhKoG0PPhvidtartZYGjl0Hjp53AVRpwGdeQk?=
+ =?us-ascii?Q?/5zbX/agCm2tTCqiW5lvhyU4gFJAOcQNpkkObS0O6Eobo4hm0j0n4+axPJvY?=
+ =?us-ascii?Q?5WgtBqEuqwi1jBv138KkoJZrqaNl6jYuK+lSXcNPm5DWsRxheH95jp0PdYed?=
+ =?us-ascii?Q?TQ10xlRvYiEKLkJCTJfExg5J6v3j9j2YCON+?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8208.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(38070700021); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1R/PVhz73oTDSSqMObvMm/kIkpOLYCIzLY5iqyn9x1aQ6tnz0+QYzgyKmeg3?=
+ =?us-ascii?Q?rWJFr7UmduyAq+Mw3BlaPtZQ5MBOTBj6DjDvtDOxYKTIUo/AIiElAyl/Q1XP?=
+ =?us-ascii?Q?vGh2W8n2rHDBmD5aj8HAteHv4TYmsGFBvn1XTnQq6PkoGv1SX4B+jd0sXO7y?=
+ =?us-ascii?Q?lttZln2JazZ4yL2yvCUHk6FeEoXIPnI68Wwmgk/e7Lqv0nbGU8xHPA8uiCAA?=
+ =?us-ascii?Q?MmmPNw0ryBllSM1vk7oC4oFOG6mfn9P0m3gQjy8XcABVV+QYe4h/Ful1B4gh?=
+ =?us-ascii?Q?n0rzPxcfQHG0C6+00BQKARploacFM3Yjfmn3hquL0J3ymLAAZ9oh8lce5daZ?=
+ =?us-ascii?Q?Rm4IlSB14JiBT0p0eIVwlfvgulj0TAGcE4X156v/jJgJ9LYHJep9EMjkiP1X?=
+ =?us-ascii?Q?djT/ZJh1j4pFbMwfkULHzqsF6cusz0JLCXImT2/XoTz6HveXq7sIHvMU9x4o?=
+ =?us-ascii?Q?lnXGVKdoK5LDEs2s0UPeGsxk+Hgmn4DTiCknRXw4lyNWm9KLcAadndaB0k+2?=
+ =?us-ascii?Q?HYX/ceDUuiCB+uxRhz29piF/fdZNMYhxsrLtAvGse6qdXVlsFDH/0PwLMn5V?=
+ =?us-ascii?Q?xHD31rDAJArTe6J2wLX6VTGtbSYF/md8yB8hwV0KXBi3Gd2l16/QhbWIM19h?=
+ =?us-ascii?Q?jsuHVO25KjOuDhE/DYkXM5y7LKlOtMEVkgL9uwZMAsXp9+uz6ESS/fbKAYW5?=
+ =?us-ascii?Q?Xi3oX+7TvsDICaAFjasXIUYEi5A00BaIdu8B63ZMgyUI4Wuf5CPyJ/wmunyk?=
+ =?us-ascii?Q?KNdLOuXHUoD1EI8dRRrZ8THkiVZCt7ncMfdPqW1WoJsn+VGYI43amPKPuBv5?=
+ =?us-ascii?Q?rrPUvyv5NSC/q8rfsg2BOs/Ly5YRHxp1uSnj8v7IgWLT6ZWC3cvdU4e9W1l0?=
+ =?us-ascii?Q?XxhAopAcsCuI4BHJ9DjIdDz5nhb3WeedKR24Fm2bMFzvpUCNEg7hrFGu+cQX?=
+ =?us-ascii?Q?UwZmdV0vaYiLwE5/gebXFRowfSil6jEmiu9gIe1/YVQPjVg6frEw30cCUNef?=
+ =?us-ascii?Q?v+PHQu89wSk+RmylRuTgNa45okKtzlVl7i/EzWQ7GMPYcdLbjuaYoyhsx2Ir?=
+ =?us-ascii?Q?WWcp/dsj5mbj5/7PPmqibguBLWR9waPIxX7VMFViCZ/NmId/1KLCaFINl2Jv?=
+ =?us-ascii?Q?ABje2NTJ8+OKqHu/NMQL7l1+6fRR9xIwk/f2bO6/5JtOHl9CKcy51cPHsls0?=
+ =?us-ascii?Q?BdjVA8WpbbSYIfO0kyOQDR6R0nvsizfm+2MEeSaYTMMELFreJOS7zrymzT48?=
+ =?us-ascii?Q?+CGL6dWNgn21aAlmR8FzPpGBcyLXwGK0cpkqI07fJFU1+W3uJhaChTCEmiHW?=
+ =?us-ascii?Q?yMi9yxnCHm/abeefbfrRctR3YGdzmzn+youBuF2UcO6vT6ZUf/OEtWeDhCBr?=
+ =?us-ascii?Q?4aQ4elDXNYiUZ6RdmeeXjdchmV6TWcYqNd7rBAiAVoJAwJoANYu5qcJjq9St?=
+ =?us-ascii?Q?vSknQtR3h8aZ17vVygYvQ4yhhml7lm90JYj5CDMnbu4WK6OHINz8s6xX0XWs?=
+ =?us-ascii?Q?NW+SBo+d4c5pQaWtDDgaWaIa0w0R1BJeTW5eGlncQHCYwMAeyUr0lrVo2JQn?=
+ =?us-ascii?Q?US4nw/Fvxmbp2bLdvvg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9501:EE_|PH8PR12MB6794:EE_
-X-MS-Office365-Filtering-Correlation-Id: db97602e-ff1c-4089-ab3c-08de3869ec96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TitjQVpqcXNBaG94MnZoSzB4NjFaWDY4aWNSOEY1Z1FmY0I4cExQV1JDemNL?=
- =?utf-8?B?bm1nYWZnNWVoZHoxQVYzaG9xWFd5aGZzRVZIcUxjRlNqRFowMCs5ZjNBelpt?=
- =?utf-8?B?U1hRMWdWejVYNmZ6SiswYXJ1eTlPRHphOVB3TjM2Zjc2bEovemRVcU1pdXhB?=
- =?utf-8?B?TkxFS2hVS2hyeXo5M1dJME9BU2FzTDNDRW1qSEV2bkxXVGw5M3R6UVRVdHBE?=
- =?utf-8?B?dWpieFVLOWJSNVZWNURvc25hYXlkRlh2VTdKUk1Lc1Q0LzZiRExVSWdGTzR0?=
- =?utf-8?B?Q3JqQm4wTFdRdTB1VVVkNlNabUc3MnBwaEx2b0pqRUZnZUVrR2VzNmQ2cU5D?=
- =?utf-8?B?R0pJcWxGUzlFdmJpUUpvUEFJK05oOGpLS3JQTEkxNmJnWWFXLzVEcldPUSty?=
- =?utf-8?B?aGN2Z1NrNTBoTXRQVXpyRDkweXRpRGJqaE1oamxKcDd5bnNMU0xlWDNlVi9h?=
- =?utf-8?B?VUlhVnJJa0syT1pFK2VGSWhxaU1HeWZzNy9JbTIrVTlrMk1RdldCeFM3WHk3?=
- =?utf-8?B?UWlsL29abjFMYWxZL3ZiYUVrUlpkVjkwdjBvd3JNQ0FRYVdTUmV2Y3Rnb2FF?=
- =?utf-8?B?OGZSYWJYcG9ocWpiUVAvcHpXWWZrT2o0SlFUZDczeWJzS2FCWlE4Vk9TQ0ZO?=
- =?utf-8?B?TnYzWnhRYmxHZ1A1UG1wN2Z0TklUUENWSVYza3FPQjhieHVjTlhNeVJJVWhu?=
- =?utf-8?B?d1JIMDJwVHRuMHBqdnM1V1NzZ1NKazExeWRmNTNNSWtIa0hhT3h0VHR0ZGha?=
- =?utf-8?B?UXlRZ1hYVHF2TmlqQWNlTmV3MjRteTJSV0lINStmUks1OEdCdnVGWGQ0NkZV?=
- =?utf-8?B?Q3BoMDhvY3VHSUNyZ3ZDMjRwTG1KV29NVWcxMFRVTlN4VEJQdjAvcldxYWxN?=
- =?utf-8?B?dGQrbUxIWHQzeVk0cjh4R05jSEZuVFM4NTZKd21mRzVDTHhHcWRlOVNZNUFi?=
- =?utf-8?B?dFVTWUpuRytiS040Z2tycWVwOFdsQXZJblQ5VHZUWCtmRUVUWVM0cUdwUStM?=
- =?utf-8?B?a0FMSklEakZoQmZSZHk1OHZFYXNqUytRTDRzcVo1cURwV09SVWx2Y3kzNjdq?=
- =?utf-8?B?MXdKOVVKWFNJcGpEcEVscGlZRUNKTS8zc0dCcEdSOWtkbk5TUmVxT3lCcHVO?=
- =?utf-8?B?R2lGeGwrb1Z1SEYvK3Z3RUhIclc1aUZHRFAzbytjeEQvSHVoanQ0Y2lLb0kx?=
- =?utf-8?B?Vm5hU2d5aFZFbHZpdGZ1N2ZXbUFvTnUwL3FxT3BqWjhtblhCbnRZNjVxdVVq?=
- =?utf-8?B?S21GZWljT3NETWxKVlp1dGpjQXViZlMrTFFkR2o2SFhzQ2wvMDRZUGpEMzJ6?=
- =?utf-8?B?cGpsbk9KaGdaNFZuelRPUTJkV2hMNEt1ajdIdmZ3b25IVVQrWHpUYXozYzFI?=
- =?utf-8?B?QXNadm5ZUmd0d3FuV0xSSjdlcU9RQ1lxWnc0b3l1eTNNa3l1Nk4xVmZYbGpw?=
- =?utf-8?B?R1hjTmhZbldTL3FpSEw1Ry9WQ1Q1VldTMzJoc2ZKRWtKandpL2R6TGhBQzlH?=
- =?utf-8?B?cE5KMk5BWjd0bThOSFl6akZyRzJYOXhKSW5pbjQ2L1c4MjlTemR6VHN0Nlpv?=
- =?utf-8?B?THBjKzdQOWYwMjNXck1LMHB6K1A0WGZLa1cvVVp5OEFsU1pSRkJ2NlpBSm5M?=
- =?utf-8?B?TytZMm9yd2EwcndzNWhnUXVRcWlOWmxkRWNuc2xTZEp0N2EyZVdBa2VkcmQz?=
- =?utf-8?B?OGhQV3ExSjB3SWFpS2Zud2xKSHUwMlZxOHlxUHVUYmZ5VHc5aldtZTRxZTJs?=
- =?utf-8?B?bTRnRFdHditMWmo1Ky82VUZKRkM1SWJmVTFkdGFmUzVucGJCVkdQVkJKWlFP?=
- =?utf-8?B?cTdPV3pxb0NsWjRVbmQ2VC9nTWN5S2lRcDFXQ2VyYzlMbHFiQllPNHpocnNp?=
- =?utf-8?B?SUNjWExHY1A1aE9IS3dYN2pGSk9BWjNNOHNBcitBWUVkZ0E9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB9501.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2lldEdlNldDMEpTanhwNmF4WUNSd3k5aXhQaFUyanM4azVNSzBCcm5LS1Fz?=
- =?utf-8?B?Qm4wb3dxcFRJT2txR3hzZXBvTzJ2K1E3MFQxaS92UHlnUXZwKzRJZ0hIbmFi?=
- =?utf-8?B?NitvUE5jQ1NQOVgxbEdKVnVITGowSU1QUzVNTGsxRkRxcXFXQ29BekoxZ0Jj?=
- =?utf-8?B?MHdUOXBQOGFkWjJUUDkxTGlJTDNhTXJyRi93WWhGTW0zeHdWUEloK2RWRFNV?=
- =?utf-8?B?bHZkNWxYUE9hemIvSGhYaE1KMlI2ODlMblNBWFVHWWRaTkFGTnNyMllDZmtm?=
- =?utf-8?B?TUFHaWVZejd2eGtheXlyUU5mMWRBOVU3Nzg5VkNlOW9qNFpka2RsNGsyTmFQ?=
- =?utf-8?B?L0xwVkk3UEo4YlpMd0ttMUNibkxCWHFBMlc4a2E4eERWVXprbTZJNFdsSkR3?=
- =?utf-8?B?NVBHcmpQa2M0dFg4NmlFQnRKejNrQWx1bzlwMWJaOVZXVmRydGtkbW1VTGVY?=
- =?utf-8?B?SUpzR2dGY0IzRDVEazBtL3ZaMjBGZjQ1VmdCN2QySGhjNnorR3kzZGRqN1Vl?=
- =?utf-8?B?VUhvV2t2M0x0ekdyMGhIVVNlZTN5dTcrWFMxRmdlOFRDTE9WdE9Qem9nZHls?=
- =?utf-8?B?T2tSTDZlY0wxbjg0YTl3aGFrVmh4N013VXRWU3dTbEQxZzQrYlBJYTVUNTF1?=
- =?utf-8?B?WHpvckZSYzFFaitjZXRUbG1rRU8wSnkyWUYyWkJOQXlPaWdtY3JSMW13ZXJu?=
- =?utf-8?B?YU13eDhqYnV5dERGOUdQY1lVS0hVUklvZEpocGxsTFVHcTlpSTFJaHBDV2Rx?=
- =?utf-8?B?a25RM1l2WFNQTjM2RjcrSWpodG1LY2tvTnNucDJIejZqd3ZpblFOR3JvVGQ3?=
- =?utf-8?B?U2ljcW5FZFE1WHNRTHVHM0dkUXFFYjlOQkgzRkNsOW9ITHNaU3poQlltb2ph?=
- =?utf-8?B?K0tSM1M0MldUSm96YVp5cWlBRFVTQkpwM1E0U3h3aG0vNll6VmlNSjlBOTVk?=
- =?utf-8?B?b2k3VlVuQlFUUStVWUlwZzMrWUtjRVNwdGMrZjBHNk95cnFaT0RwWTJXMVFK?=
- =?utf-8?B?Mm1yMldpTy90elhmOE80cTBTZ3FqSDN4Tk5MR0FXNXNjb01sMWErMmlGSHhR?=
- =?utf-8?B?eUdCU29VSXBkZUxzMDZoVE9tT3dLTGdNVnQ2bUUrWUs2bHJwc1J6UE8wQmF5?=
- =?utf-8?B?M041dW9UYWZXbVhyWlpaMElQTkprZGZwdHBUdkFNVWpIckhiSDVuVmJDeVBh?=
- =?utf-8?B?bHBnY0JUSkJveFJjd3VSOE5mM1M1YXBKaHpQSDdkRW9WUy9SZ1NLZ1R1UlNG?=
- =?utf-8?B?MVgramNkQ3V4MVBvUVV2QlBGV0ZaN1Ayb0EyZ2piZEdIdXpmUU5zL2o4enpn?=
- =?utf-8?B?WnFmSkhPNXp5enI5ZVliMTZzcnQ5S0pPVUMzYUhKUTFVcEhJamxCdmc5MFNp?=
- =?utf-8?B?c2ViQjZCRW1kRmNQRGxKYjRLVTNIYXRnL2FMRTJlalo5ekt3aFJUbDFLZTJv?=
- =?utf-8?B?UzA4WkExZlN6ZGJBaDIxeHJwbmh2aEVZT20vZWh2OTNpWjZYNEdjdm44ZHNR?=
- =?utf-8?B?SWliQUk0cmYwZ2FaTGV5cTVabFhaSkR1M0FwR1JxM0lDeUx3R3NCaG03V3Nr?=
- =?utf-8?B?QkVUSytOYXJ2R1B4bDFjVmhwNitpZkdYY3Q5MTlEZjNyNnQ0NTR3SlRyMU9z?=
- =?utf-8?B?aWNKcXJIeXprSVhKWVB6OExFbGU2eFJQQ2VzQWNyRjJtRUFxTzVtbEZGZ0F6?=
- =?utf-8?B?TGI5NHNJdkFtTVlLZ3RJT1ZDOUZBTUNCdnd4UVgycDNucjJmM2d4V3cyMjB4?=
- =?utf-8?B?eitjK3NlaHNaeGJRL0krUnM5OUJjc1FaZ1crdmpZYVVTYUI3eDM1aGk2emMw?=
- =?utf-8?B?c1lZcmZHOTNqa3Rlc0xPZ2Z5ZWJRL2Y3UDN6MHl6Tjk2N1dNV1dTSGFoTjlK?=
- =?utf-8?B?ejlnNWp1QVF0MHNYMVNmUzRpMUkxK0VyZTFWK1BLVFdLb0FWQllBWDRwQjJ0?=
- =?utf-8?B?eDllUTErR0ZBb3NDYVlCL2JVbHlhdndubi9Rbk0zOVlhOHhTNHN6ZjlmNHg1?=
- =?utf-8?B?WkF4Q0hyUzVydlNFclQ5akNST0FOZVFYd0UzM015RnAvWFV0dmh5bUU1b2lV?=
- =?utf-8?B?V3RoODZvRFF2bkdiUm1pZzZkZjdSVVU3MnNIVmRNZW9mQnFicGkzbDZrQXdz?=
- =?utf-8?Q?aeBZ/7GxywLi5eTDbU2XuiPed?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db97602e-ff1c-4089-ab3c-08de3869ec96
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9501.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2025 04:01:12.6834 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0ZsI0K5B68GH0BXD/DOZHI0fUBzbwCe0VQSPGOaMLicuk2qo4KYaGasnMXV28dFOGPNkFXDTmuLLWdG5hPpf4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6794
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8208.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: df07456b-2a10-4998-045d-08de386febec
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Dec 2025 04:44:08.3517 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /VoYsMDmIRDLclad8WQWOtsOpTO0w7O4BUYo6c7x4Yi0k1cGmtEWzPg79tOtMd9dmvamaimmGLNZ3SffWT1ErA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5851
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,285 +157,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[Public]
 
-On 12/10/2025 9:19 PM, Mario Limonciello wrote:
+> -----Original Message-----
+> From: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Sent: Thursday, December 11, 2025 1:54 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; SHANMUGAM,
+> SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Prosyak, Vitaly
+> <Vitaly.Prosyak@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>;
+> Matthew Brost <matthew.brost@intel.com>
+> Subject: [PATCH V2] drm/amdgpu: fix a job->pasid access race in gpu recov=
+ery
 >
+> Avoid a possible UAF in GPU recovery due to a race between the sched time=
+out
+> callback and the tdr work queue.
 >
-> On 12/10/2025 5:13 PM, Nirujogi, Pratap wrote:
->> Hi Mario,
->>
->> On 12/9/2025 10:28 PM, Mario Limonciello wrote:
->>>
->>>
->>> On 12/9/2025 7:50 PM, Pratap Nirujogi wrote:
->>>> ISP mfd child devices are using genpd and the system suspend-resume
->>>> operations between genpd and amdgpu parent device which uses only
->>>> runtime suspend-resume are not in sync.
->>>>
->>>> Linux power manager during suspend-resume resuming the genpd devices
->>>> earlier than the amdgpu parent device. This is resulting in the below
->>>> warning as SMU is in suspended state when genpd attempts to resume 
->>>> ISP.
->>>>
->>>> WARNING: CPU: 13 PID: 5435 at 
->>>> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/ amdgpu_smu.c:398 
->>>> smu_dpm_set_power_gate+0x36f/0x380 [amdgpu]
->>>>
->>>> To fix this warning isp suspend-resume is handled as part of amdgpu
->>>> parent device suspend-resume instead of genpd sequence. Each ISP MFD
->>>> child device is marked as dev_pm_syscore_device to skip genpd
->>>> suspend-resume and use pm_runtime_force api's to suspend-resume
->>>> the devices when callbacks from amdgpu are received.
->>>>
->>>> Signed-off-by: Gjorgji Rosikopulos <grosikop@amd.com>
->>>> Signed-off-by: Bin Du <bin.du@amd.com>
->>>> Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
->>>
->>> Who is the patch author?  If you guys worked together, there should 
->>> be Co-developed-by tags to represent it.
->>>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 24 ++++++++++
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h |  2 +
->>>>   drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c | 59 
->>>> +++++++++++++++++++++++++
->>>>   3 files changed, 85 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/ 
->>>> drm/amd/amdgpu/amdgpu_isp.c
->>>> index 37270c4dab8d..532f83d783d1 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
->>>> @@ -318,12 +318,36 @@ void isp_kernel_buffer_free(void **buf_obj, 
->>>> u64 *gpu_addr, void **cpu_addr)
->>>>   }
->>>>   EXPORT_SYMBOL(isp_kernel_buffer_free);
->>>>   +static int isp_resume(struct amdgpu_ip_block *ip_block)
->>>> +{
->>>> +    struct amdgpu_device *adev = ip_block->adev;
->>>> +    struct amdgpu_isp *isp = &adev->isp;
->>>> +
->>>> +    if (isp->funcs->hw_resume)
->>>> +        return isp->funcs->hw_resume(isp);
->>>> +
->>>> +    return -ENODEV;
->>>> +}
->>>> +
->>>> +static int isp_suspend(struct amdgpu_ip_block *ip_block)
->>>> +{
->>>> +    struct amdgpu_device *adev = ip_block->adev;
->>>> +    struct amdgpu_isp *isp = &adev->isp;
->>>> +
->>>> +    if (isp->funcs->hw_suspend)
->>>> +        return isp->funcs->hw_suspend(isp);
->>>> +
->>>> +    return -ENODEV;
->>>> +}
->>>> +
->>>>   static const struct amd_ip_funcs isp_ip_funcs = {
->>>>       .name = "isp_ip",
->>>>       .early_init = isp_early_init,
->>>>       .hw_init = isp_hw_init,
->>>>       .hw_fini = isp_hw_fini,
->>>>       .is_idle = isp_is_idle,
->>>> +    .suspend = isp_suspend,
->>>> +    .resume = isp_resume,
->>>>       .set_clockgating_state = isp_set_clockgating_state,
->>>>       .set_powergating_state = isp_set_powergating_state,
->>>>   };
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h b/drivers/gpu/ 
->>>> drm/amd/amdgpu/amdgpu_isp.h
->>>> index d6f4ffa4c97c..9a5d2b1dff9e 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.h
->>>> @@ -38,6 +38,8 @@ struct amdgpu_isp;
->>>>   struct isp_funcs {
->>>>       int (*hw_init)(struct amdgpu_isp *isp);
->>>>       int (*hw_fini)(struct amdgpu_isp *isp);
->>>> +    int (*hw_suspend)(struct amdgpu_isp *isp);
->>>> +    int (*hw_resume)(struct amdgpu_isp *isp);
->>>>   };
->>>>     struct amdgpu_isp {
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/ 
->>>> drm/amd/amdgpu/isp_v4_1_1.c
->>>> index 4258d3e0b706..560c398e14fc 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
->>>> @@ -26,6 +26,7 @@
->>>>    */
->>>>     #include <linux/gpio/machine.h>
->>>> +#include <linux/pm_runtime.h>
->>>>   #include "amdgpu.h"
->>>>   #include "isp_v4_1_1.h"
->>>>   @@ -145,6 +146,9 @@ static int isp_genpd_add_device(struct device 
->>>> *dev, void *data)
->>>>           return -ENODEV;
->>>>       }
->>>>   +    /* The devcies will be managed by the pm ops from the parent */
->>>
->>> devices
->>>
->>>> +    dev_pm_syscore_device(dev, true);
->>>> +
->>>>   exit:
->>>>       /* Continue to add */
->>>>       return 0;
->>>> @@ -177,12 +181,65 @@ static int isp_genpd_remove_device(struct 
->>>> device *dev, void *data)
->>>>           drm_err(&adev->ddev, "Failed to remove dev from genpd 
->>>> %d\n", ret);
->>>>           return -ENODEV;
->>>>       }
->>>> +    dev_pm_syscore_device(dev, false);
->>>>     exit:
->>>>       /* Continue to remove */
->>>>       return 0;
->>>>   }
->>>>   +static int isp_suspend_device(struct device *dev, void *data)
->>>> +{
->>>> +    struct platform_device *pdev = container_of(dev, struct 
->>>> platform_device, dev);
->>>> +
->>>> +    if (!dev->type || !dev->type->name)
->>>> +        return 0;
->>>> +    if (strncmp(dev->type->name, "mfd_device", 10))
->>>> +        return 0;
->>>> +    if (!strncmp(pdev->mfd_cell->name, "amdisp-pinctrl", 14))
->>>> +        return 0;
->>>
->>> Could we store the mfd_cell pointer instead and just compare the 
->>> pointers?
->>
->> I don't think I can do a pointer comparision to identify the correct 
->> mfd_cell, string comparision seems like required in this case.
->>
->> Its because when isp mfd child devices are created using 
->> mfd_add_hotplug_devices(), it is not returning the pdev or mfd_cell 
->> handles
->> to store in the amdgpu_isp and later use in suspend/resume to compare 
->> with incoming pdev->mfd_cell to detect the correct the device.
->>
->> The mfd-core is doing a kmemdup of mfd_cells data passed to 
->> mfd_add_hotplug_devices() to create the platform device.
->>
->> https://github.com/torvalds/linux/blob/master/drivers/mfd/mfd-core.c#L163 
->>
->>
->> I'm considering to add this function to check for valid isp mfd child 
->> devices that are allowed to do suspend-resume, this can minimize the 
->> checks, but still cannot eliminate the string comparsion, please let 
->> us know your thoughts.
+> The gpu recovery function calls drm_sched_stop() and later drm_sched_star=
+t().
+> drm_sched_start() restarts the tdr queue which will eventually free the j=
+ob.  If the tdr
+> queue frees the job before time out callback completes, the job will be f=
+reed and
+> we'll get a UAF when accessing the pasid.  Cache it early to avoid the UA=
+F.
 >
-> Well actually is a check needed at all?
+> Fixes: a72002cb181f ("drm/amdgpu: Make use of drm_wedge_task_info")
+> Cc: SRINIVASAN.SHANMUGAM@amd.com
+> Cc: vitaly.prosyak@amd.com
+> Cc: christian.koenig@amd.com
+> Suggested-by: Matthew Brost <matthew.brost@intel.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
 >
-> isp_v4_1_1_hw_suspend() calls device_for_each_child(isp->parent) which 
-> is a platform device. Are there other children below that platform 
-> device?
->
-> The platform device was made explicitly for this purpose wasn't it?  
-> So maybe drop the check overall?
+> v2: Check the pasid rather than job (Lijo)
+>     Add fixes tag (Christian)
 
-yes, there are more children than the 3 isp mfd devices. Below is the list:
+Hi Alex,
 
-child-1: mfd_device (amd_isp_capture)
-child-2: mfd_device (amd_isp_i2c_designware)
-child-3: mfd_device (amdisp-pinctrl)
-child-4: drm_minor
-child-5: drm_minor
+if possible, could you pls add this signature to the commit message for ref=
+erences:
 
-Without the check, suspend-resume will be called for every child of amdgpu.
+[  493.058141] BUG: KASAN: slab-use-after-free in amdgpu_device_gpu_recover=
++0x968/0x990 [amdgpu]
+[  493.067530] Read of size 4 at addr ffff88b0ce3f794c by task kworker/u128=
+:1/323
+[  493.074892]
+[  493.076485] CPU: 9 UID: 0 PID: 323 Comm: kworker/u128:1 Tainted: G      =
+      E       6.16.0-1289896.2.zuul.bf4f11df81c1410bbe901c4373305a31 #1 PRE=
+EMPT(voluntary)
+[  493.076493] Tainted: [E]=3DUNSIGNED_MODULE
+[  493.076495] Hardware name: TYAN B8021G88V2HR-2T/S8021GM2NR-2T, BIOS V1.0=
+3.B10 04/01/2019
+[  493.076500] Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sche=
+d]
+[  493.076512] Call Trace:
+[  493.076515]  <TASK>
+[  493.076518]  dump_stack_lvl+0x64/0x80
+[  493.076529]  print_report+0xce/0x630
+[  493.076536]  ? _raw_spin_lock_irqsave+0x86/0xd0
+[  493.076541]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[  493.076545]  ? amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
+[  493.077253]  kasan_report+0xb8/0xf0
+[  493.077258]  ? amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
+[  493.077965]  amdgpu_device_gpu_recover+0x968/0x990 [amdgpu]
+[  493.078672]  ? __pfx_amdgpu_device_gpu_recover+0x10/0x10 [amdgpu]
+[  493.079378]  ? amdgpu_coredump+0x1fd/0x4c0 [amdgpu]
+[  493.080111]  amdgpu_job_timedout+0x642/0x1400 [amdgpu]
+[  493.080903]  ? pick_task_fair+0x24e/0x330
+[  493.080910]  ? __pfx_amdgpu_job_timedout+0x10/0x10 [amdgpu]
+[  493.081702]  ? _raw_spin_lock+0x75/0xc0
+[  493.081708]  ? __pfx__raw_spin_lock+0x10/0x10
+[  493.081712]  drm_sched_job_timedout+0x1b0/0x4b0 [gpu_sched]
+[  493.081721]  ? __pfx__raw_spin_lock_irq+0x10/0x10
+[  493.081725]  process_one_work+0x679/0xff0
+[  493.081732]  worker_thread+0x6ce/0xfd0
+[  493.081736]  ? __pfx_worker_thread+0x10/0x10
+[  493.081739]  kthread+0x376/0x730
+[  493.081744]  ? __pfx_kthread+0x10/0x10
+[  493.081748]  ? __pfx__raw_spin_lock_irq+0x10/0x10
+[  493.081751]  ? __pfx_kthread+0x10/0x10
+[  493.081755]  ret_from_fork+0x247/0x330
+[  493.081761]  ? __pfx_kthread+0x10/0x10
+[  493.081764]  ret_from_fork_asm+0x1a/0x30
+[  493.081771]  </TASK>
+[  493.081773]
 
-We intend to call suspend-resume only for child-1 and 2 as these are the 
-only devices registered with genpd to control ISP power.
+This fix matches what we saw in the KASAN report. The issue happens
+because gpu_recover() reads job->pasid after the scheduler restarts.
+At that point, the TDR worker may already have freed the job, which
+leads to the use-after-free.
 
-I did a quick test removing the checks, device failed to wake up from 
-resume, I can recheck and update if it is safe to remove the checks.
+By saving the PASID at the start of gpu_recover() and using that saved
+value later, we avoid touching the job after it may have been freed.
+All other job accesses happen before the scheduler restart, so they are
+still safe.
 
-Thanks,
+So even if the job gets freed halfway through GPU reset,
+we still have its PASID safely stored.
 
-Pratap
+This completely avoids reading the freed job.
+
+From my side this looks correct and robust for this UAF
+
+Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
 >
->>
->> static bool is_valid_mfd_device(struct platform_device *pdev)
->> {
->>      const struct mfd_cell *mc = mfd_get_cell(pdev);
->>      if (!mc)
->>          return false;
->>      if (!strncmp(mc->name, "amdisp-pinctrl", 14))
->>          return false;
->>      return true;
->> }
->>
->> Thanks,
->>
->> Pratap
->>
->>>
->>>> +
->>>> +    return pm_runtime_force_suspend(dev);
->>>> +}
->>>> +
->>>> +static int isp_resume_device(struct device *dev, void *data)
->>>> +{
->>>> +    struct platform_device *pdev = container_of(dev, struct 
->>>> platform_device, dev);
->>>> +
->>>> +    if (!dev->type || !dev->type->name)
->>>> +        return 0;
->>>> +    if (strncmp(dev->type->name, "mfd_device", 10))
->>>> +        return 0;
->>>> +    if (!strncmp(pdev->mfd_cell->name, "amdisp-pinctrl", 14))
->>>> +        return 0;
->>>
->>> same comment as above
->>>
->>>> +
->>>> +    return pm_runtime_force_resume(dev);
->>>> +}
->>>> +
->>>> +static int isp_v4_1_1_hw_suspend(struct amdgpu_isp *isp)
->>>> +{
->>>> +    int r;
->>>> +
->>>> +    r = device_for_each_child(isp->parent, NULL,
->>>> +                  isp_suspend_device);
->>>> +    if (r)
->>>> +        dev_err(isp->parent, "failed to suspend hw devices 
->>>> (%d)\n", r);
->>>> +
->>>> +    return 0;
->>>
->>> Shouldn't you return r?
->>>
->>>> +}
->>>> +
->>>> +static int isp_v4_1_1_hw_resume(struct amdgpu_isp *isp)
->>>> +{
->>>> +    int r;
->>>> +
->>>> +    r = device_for_each_child(isp->parent, NULL,
->>>> +                  isp_resume_device);
->>>> +    if (r)
->>>> +        dev_err(isp->parent, "failed to resume hw device (%d)\n", r);
->>>> +
->>>> +    return 0;
->>>
->>> Shouldn't you return r?
->>>
->>>> +}
->>>> +
->>>>   static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
->>>>   {
->>>>       const struct software_node *amd_camera_node, *isp4_node;
->>>> @@ -369,6 +426,8 @@ static int isp_v4_1_1_hw_fini(struct amdgpu_isp 
->>>> *isp)
->>>>   static const struct isp_funcs isp_v4_1_1_funcs = {
->>>>       .hw_init = isp_v4_1_1_hw_init,
->>>>       .hw_fini = isp_v4_1_1_hw_fini,
->>>> +    .hw_suspend = isp_v4_1_1_hw_suspend,
->>>> +    .hw_resume = isp_v4_1_1_hw_resume,
->>>>   };
->>>>     void isp_v4_1_1_set_isp_funcs(struct amdgpu_isp *isp)
->>>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 8a851d7548c00..c6b1dd95c401d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6634,6 +6634,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device
+> *adev,
+>       struct amdgpu_hive_info *hive =3D NULL;
+>       int r =3D 0;
+>       bool need_emergency_restart =3D false;
+> +     /* save the pasid here as the job may be freed before the end of th=
+e reset */
+> +     int pasid =3D job ? job->pasid : -EINVAL;
+>
+>       /*
+>        * If it reaches here because of hang/timeout and a RAS error is @@=
+ -
+> 6734,8 +6736,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device
+> *adev,
+>       if (!r) {
+>               struct amdgpu_task_info *ti =3D NULL;
+>
+> -             if (job)
+> -                     ti =3D amdgpu_vm_get_task_info_pasid(adev, job->pas=
+id);
+> +             /*
+> +              * The job may already be freed at this point via the sched=
+ tdr
+> workqueue so
+> +              * use the cached pasid.
+> +              */
+> +             if (pasid >=3D 0)
+> +                     ti =3D amdgpu_vm_get_task_info_pasid(adev, pasid);
+>
+>               drm_dev_wedged_event(adev_to_drm(adev),
+> DRM_WEDGE_RECOVERY_NONE,
+>                                    ti ? &ti->task : NULL);
+> --
+> 2.52.0
+
