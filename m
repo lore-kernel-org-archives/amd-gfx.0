@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20838D4414B
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A5AFD4414A
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7FC910E582;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C154310E584;
 	Fri, 12 Dec 2025 08:29:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="U5toQvtR";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="feWQ4ol9";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD3B10E625;
- Thu, 11 Dec 2025 19:59:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1765483166; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C505E10E880;
+ Thu, 11 Dec 2025 19:34:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1765481674; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=PapCYrGOA0DdMdEGqYe8wSbVIMgmWtTx9Ajd3S+/lPqhJQ/Tpj8uBEwf+hBtuyHSFC/706YpOtQ6gsr8LHXYsIb1Yb9TlGNzvX4TItjetl7m/Y14QiE77f5CcqVB9hnnQbYK/SqjO4gxHLNKl3eEoMSr40w2cXD7hIERrS5pKRU=
+ b=MwjgXBnXqK18XXkGa3a6e9Qdh9TIDi+xNGa5kXnDzxcdfF+vG0I9dZbWWYKf5kRC+CB+zmQ/1r/w7uPfbJfUYmlXFctj/T1Qm28DNJYVEHwf0/ImdfWTCu8RH+8fh1OuLfdX5MIQzhNsHI72NXO3CXZ//ljv/vpA19CC6Hyr/pk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1765483166;
+ s=zohoarc; t=1765481674;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=1Dh7aECitOB9k9I8NTgAp9Wi9RahEZHruitjqRy2ayc=; 
- b=BKn84KfImSg64WEv/gHkaFqxl2XbwOYSVlJj6kC7tLzf4FfvHc0KAXPiaQWvFG22irZUtesPQHpS6atOwKkKwVimS5tFUrVDABB1JJJbs94pGfkSJSItfFaDs0VRCQ0URWX9aHNinF7QbpqAkZRhIpdt6xDuiFjgD2itpWr4Q6Y=
+ bh=7XRUtI+QxU6iyAK2usjohbrvCxCey3JhTGZn46qI+IU=; 
+ b=fNLz+4NE1pGzZpls9AtDmDAeUypjb2E7JL/KkXv3hribew1ZY1J9dXpqM9j5dPc2c540c/soMSvZOvdanO8/cRwgp5JV4U2tQyCQ+3R5V4ORuMJ0r07OrDGUS6eNUsI8bmGq7cXFsQjchFKJr7Y7cVvQO0RiDHdTDnFF2lUKwLw=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1765483166; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1765481674; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=1Dh7aECitOB9k9I8NTgAp9Wi9RahEZHruitjqRy2ayc=;
- b=U5toQvtRKHWzGyOiOOT0n9f8hMBVqtET17wX+Ha5qp60DmHE0JxiLQ+B05LilYa5
- /cVsZJEEwURhPFX+3AF4ZuqBtma4nmBCO9IHA1HSsKx6CBuEcNlNXlJvkB7GL0rHiRI
- G4GFL8yY4SMgQHfu9hAz/6+OC2BxiK+5FRPy94O4=
-Received: by mx.zohomail.com with SMTPS id 1765483163864458.18267084626757;
- Thu, 11 Dec 2025 11:59:23 -0800 (PST)
+ bh=7XRUtI+QxU6iyAK2usjohbrvCxCey3JhTGZn46qI+IU=;
+ b=feWQ4ol9hxW3laEbiMw/pR1N+JzuXT4ETgf4NLL9Qdn6UWhnCa5sJSOZlrfvt7/n
+ roctf8qN0xpkwAgPG+AuWn+E9N+EDla/lx41XL6Q75cN0hL1NnztURG61wRuU8NMpjr
+ XqAff6P4Rk6arMJHY8d5HBXMWdQXv6sW2dhLLNJ8=
+Received: by mx.zohomail.com with SMTPS id 1765481672796637.9713383571778;
+ Thu, 11 Dec 2025 11:34:32 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,14 +62,13 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v5 06/17] drm/display: hdmi-state-helper: Try subsampling
- in mode_valid
-Date: Thu, 11 Dec 2025 20:59:14 +0100
-Message-ID: <9409315.NyiUUSuA9g@workhorse>
-In-Reply-To: <20251209-dramatic-caiman-of-luck-db9d0f@houat>
+Subject: Re: [PATCH v5 04/17] drm/bridge: Act on the DRM color format property
+Date: Thu, 11 Dec 2025 20:34:22 +0100
+Message-ID: <3772903.e9J7NaK4W3@workhorse>
+In-Reply-To: <20251209-smart-oarfish-of-wind-0c1c8b@houat>
 References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
- <20251128-color-format-v5-6-63e82f1db1e1@collabora.com>
- <20251209-dramatic-caiman-of-luck-db9d0f@houat>
+ <20251128-color-format-v5-4-63e82f1db1e1@collabora.com>
+ <20251209-smart-oarfish-of-wind-0c1c8b@houat>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
@@ -88,74 +87,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 9 December 2025 15:18:25 Central European Standard Time Maxime Ripard wrote:
-> On Fri, Nov 28, 2025 at 10:05:42PM +0100, Nicolas Frattaroli wrote:
-> > drm_hdmi_connector_mode_valid assumes modes are only valid if they work
-> > with RGB. The reality is more complex however: YCbCr 4:2:0
-> > chroma-subsampled modes only require half the pixel clock that the same
-> > mode would require in RGB.
+On Tuesday, 9 December 2025 15:27:28 Central European Standard Time Maxime Ripard wrote:
+> Hi,
+> 
+> On Fri, Nov 28, 2025 at 10:05:40PM +0100, Nicolas Frattaroli wrote:
+> > The new DRM color format property allows userspace to request a specific
+> > color format on a connector. In turn, this fills the connector state's
+> > color_format member to switch color formats.
 > > 
-> > This leads to drm_hdmi_connector_mode_valid rejecting perfectly valid
-> > 420-only modes.
+> > Make drm_bridges consider the color_format set in the connector state
+> > during the atomic bridge check. Specifically, reject any output bus
+> > formats that do not correspond to the requested color format.
 > > 
-> > Fix this by checking whether the mode is 420-only first. If so, then
-> > proceed by checking it with HDMI_COLORSPACE_YUV420 so long as the
-> > connector has legalized 420, otherwise error out. If the mode is not
-> > 420-only, check with RGB as was previously always the case.
-> > 
-> > Fixes: 47368ab437fd ("drm/display: hdmi: add generic mode_valid helper")
 > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > > ---
-> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 12 +++++++++++-
-> >  1 file changed, 11 insertions(+), 1 deletion(-)
+> >  drivers/gpu/drm/drm_bridge.c | 45 ++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 45 insertions(+)
 > > 
-> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> > index 5da956bdd68c..1800e00b30c5 100644
-> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> > @@ -892,8 +892,18 @@ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
-> >  			      const struct drm_display_mode *mode)
-> >  {
-> >  	unsigned long long clock;
-> > +	enum hdmi_colorspace fmt;
-> > +
-> > +	if (drm_mode_is_420_only(&connector->display_info, mode)) {
-> > +		if (connector->ycbcr_420_allowed)
-> > +			fmt = HDMI_COLORSPACE_YUV420;
-> > +		else
-> > +			return MODE_NO_420;
-> > +	} else {
-> > +		fmt = HDMI_COLORSPACE_RGB;
-> > +	}
+> > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> > index 8f355df883d8..8aac9747f35e 100644
+> > --- a/drivers/gpu/drm/drm_bridge.c
+> > +++ b/drivers/gpu/drm/drm_bridge.c
+> > @@ -1052,6 +1052,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
+> >  	return ret;
+> >  }
 > >  
-> > -	clock = drm_hdmi_compute_mode_clock(mode, 8, HDMI_COLORSPACE_RGB);
-> > +	clock = drm_hdmi_compute_mode_clock(mode, 8, fmt);
+> > +static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format fmt)
+> > +{
+> > +	if (fmt == DRM_COLOR_FORMAT_AUTO)
+> > +		return true;
+> > +
+> > +	switch (bus_fmt) {
+> > +	case MEDIA_BUS_FMT_FIXED:
+> > +		return true;
+> > +	case MEDIA_BUS_FMT_RGB888_1X24:
+> > +	case MEDIA_BUS_FMT_RGB101010_1X30:
+> > +	case MEDIA_BUS_FMT_RGB121212_1X36:
+> > +	case MEDIA_BUS_FMT_RGB161616_1X48:
+> > +		return fmt == DRM_COLOR_FORMAT_RGB444;
+> > +	case MEDIA_BUS_FMT_YUV8_1X24:
+> > +	case MEDIA_BUS_FMT_YUV10_1X30:
+> > +	case MEDIA_BUS_FMT_YUV12_1X36:
+> > +	case MEDIA_BUS_FMT_YUV16_1X48:
+> > +		return fmt == DRM_COLOR_FORMAT_YCBCR444;
+> > +	case MEDIA_BUS_FMT_UYVY8_1X16:
+> > +	case MEDIA_BUS_FMT_VYUY8_1X16:
+> > +	case MEDIA_BUS_FMT_YUYV8_1X16:
+> > +	case MEDIA_BUS_FMT_YVYU8_1X16:
+> > +	case MEDIA_BUS_FMT_UYVY10_1X20:
+> > +	case MEDIA_BUS_FMT_YUYV10_1X20:
+> > +	case MEDIA_BUS_FMT_VYUY10_1X20:
+> > +	case MEDIA_BUS_FMT_YVYU10_1X20:
+> > +	case MEDIA_BUS_FMT_UYVY12_1X24:
+> > +	case MEDIA_BUS_FMT_VYUY12_1X24:
+> > +	case MEDIA_BUS_FMT_YUYV12_1X24:
+> > +	case MEDIA_BUS_FMT_YVYU12_1X24:
+> > +		return fmt == DRM_COLOR_FORMAT_YCBCR422;
+> > +	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+> > +	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
+> > +	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
+> > +	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
+> > +		return fmt == DRM_COLOR_FORMAT_YCBCR420;
+> > +	default:
+> > +		return false;
+> > +	}
+> > +}
+> > +
+> >  /*
+> >   * This function is called by &drm_atomic_bridge_chain_check() just before
+> >   * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
+> > @@ -1137,6 +1178,10 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+> >  	}
+> >  
+> >  	for (i = 0; i < num_out_bus_fmts; i++) {
+> > +		if (!bus_format_is_color_fmt(out_bus_fmts[i], conn_state->color_format)) {
+> > +			ret = -ENOTSUPP;
+> > +			continue;
+> > +		}
 > 
-> I agree on principle, but we need to have a test for this.
+> Sorry, I'm struggling a bit to understand how this would work if a bridge both supports the bus
+> format selection and HDMI state helpers? Can you expand on it?
 
-I'd like to change `drm_mode_is_420_only` to `drm_mode_is_420` in
-the next revision, and modify the control flow to work correctly
-in this case, because rejecting 420-also modes on the basis that
-we can't do them in RGB isn't correct either.
+I have very little idea of whether this makes conceptual sense. The
+hope is that by working backwards from the last bridge and only
+accepting either fixed formats or something that corresponds to
+the target color format, we don't claim that a setup can do a
+colour format if the whole bridge chain isn't able to do it.
 
-But my concern with adding yet more tests is that I found this bug
-in a function unrelated to the series while adding tests you asked
-for, because the tests relied on this function to not be broken as
-part of the test setup. Yes, I was not be able to get any 4:2:0
-modes on the test connector in the kunit tests because
-drm_hdmi_connector_mode_valid helpfully discarded all of them.
+Of course, format conversions along the bridge chain where one
+input format can be converted to a set of output formats by some
+bridge will throw a massive wrench into this. And this is all
+assuming that the bus format is in any way related to the color
+format that will be sent out on the wire.
 
-So now I am wondering whether adding yet more tests will uncover
-more bugs in functions unrelated to implementing the "color format"
-property, that were only called because the new test required them
-to set up some test fixture. And then I have to add another fix and
-another test to this series, rinse and repeat.
+In practice, I don't have any hardware where whatever counts as
+a "bridge" is an actually more involved setup than just the TX
+controller. I tried looking into getting a board with one of the
+supported DSI-to-HDMI bridge chips so I can at least test how it
+would work in such a scenario, and I got one, but I'd need to make
+my own flat flex PCB to adapt it to the pinout of my SBC's DSI
+port.
 
-Can we just agree that I am not going to expand the scope of this
-series any further? If you want me to send a follow-up series that
-adds tests to some of the hdmi state helper functions, then I can
-do that, but I don't want to do it as a precondition for the 17
-other patches in this series to get merged.
+So yeah I don't know how it's supposed to work, I just know this
+works for the case I'm working with, and any more complex case
+is literally unobtanium hardware which I'm not going to bother
+blowing days on maybe making a cable for when I'm already touching
+three different GPU drivers here and the intel-gfx-ci is screaming
+into my inbox about vague failures in unrelated codepaths in its
+native language, Klingon.
+
+Which is all to say: is there a virtual drm bridge driver that
+exists, where I can set what formats it supports on the input
+and on the output, so that I can actually get a feel for how this
+is conceptually supposed to work without needing special hardware?
+
+Better yet: do you have a specific setup in mind where you know
+this approach does not work?
 
 > 
 > Maxime
