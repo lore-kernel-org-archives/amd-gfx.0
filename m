@@ -4,103 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42D79D44144
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:30:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC32D44144
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:31:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1F8710E592;
-	Fri, 12 Dec 2025 08:30:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907DB10E57F;
+	Fri, 12 Dec 2025 08:31:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="svIwRERQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XU4VT6FP";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 640ED10E04B
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 06:40:45 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC20Fsd023207;
- Fri, 12 Dec 2025 06:40:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=jNJMzAhjq9TzMsFve
- tpoYzEhnfI9cY7U8D8bxHweKng=; b=svIwRERQeou6/LDyzfVkAJpSaW/Bp+H3Y
- SBk0XhEMXOZQNjMCFdYJ1h0Y7DF3L9NKzwaa0imdsvZs1HHbjBWh9yIYRfugyjRe
- JGg9R/trpr0vqE3paQQzsbH3m0VjH1nooxA6T+45p84s+UeFqG7xod1IeQgb1pfZ
- 18E8vV0xxVEm0o+NDJRHHvlA7gYqzNc2YVDktQmV2Jm4sUk6GCPG3Vlu6NOvLsBn
- 2+XojndKnJZ1Jzx+yl6GHB2v+UwxiDs29bC2TXz99dm836ra9basIB2dSgBEtGWl
- Q2UqukFCZ2eCqW4KI0KcukYgPLaygnrv3nmvNJS68LVRhayca3XWA==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvw5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:43 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BC6eBwj029914;
- Fri, 12 Dec 2025 06:40:42 GMT
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvw1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:42 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC2HWaP008412;
- Fri, 12 Dec 2025 06:40:41 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4avytnahud-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 06:40:41 +0000
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5BC6ebwh13435158
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 12 Dec 2025 06:40:37 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5407620040;
- Fri, 12 Dec 2025 06:40:37 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4E06B20043;
- Fri, 12 Dec 2025 06:40:35 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
- [9.109.215.183])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Fri, 12 Dec 2025 06:40:35 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
-Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RFC PATCH v1 3/8] amdkfd/kfd_migrate: Fix GART PTE for non-4K
- pagesize in svm_migrate_gart_map()
-Date: Fri, 12 Dec 2025 12:10:10 +0530
-Message-ID: <12e16278a663e957019ce83b86b11f55d451d90b.1765519875.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1765519875.git.donettom@linux.ibm.com>
-References: <cover.1765519875.git.donettom@linux.ibm.com>
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010056.outbound.protection.outlook.com [52.101.85.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B26C510E57F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 08:31:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TzNSE1fJdH+idG3Uyb/aNJmGFNZM3Ec2yUftfv9w5P6L51kvUX6C9heCsKJinuXUyFqE56DRGjtQ7+2QoN3LNI+j/V9iPQ9hrF1qF0nnQH1BZnhVLl6oSHsjPtOHexqeB+Gske4+JR6/Ty4gjyNDJ0o8RI3QS4sFMaf0tD+znNzbic1y10wVdClmn9AoVTdDVrfHIsxQ8rlb8rqt60vVUR2UqwcGHeZMPfk4CGlqRl/9kgHWhC93edEyH6bfCxlNiTcaZ9NY1PbJrTjg2xdK22KdDbPpAfk+lbGRehds16H/TPp8sNJzoWBoX22ycrsf5Zo4KneRp/wbGpfGeOCzVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ovg/3O5DlPY8ftmCNdeWbmUTdQQqQ8T3T57H5M+XvxM=;
+ b=Qw8gVzOH5kU/Y55xLHu4KnJToMLzltG4yKQM0fnstyiyl7GM25je2a/nirSeksB/GwGKbXCKzclCF/QV35Uu0LziaKSvA1YdnNDA2YwU6pwzJr3iXAY+W6WG8XLc+moZIRCffDFmmZJWlp6FZPdSCk6Qb2CAmjbqrfSqFNQURPcga7G/8qw7+IG1G0ek6B4NSdFmSb7phzmAhjPLGhbKVWWlvKmT6JYvlk2zVxFEL+fBYzbQ9TEhG4BHd6l5V4+75WiEKeWR9ux3MAcjLcTim96jE0TQh2rwauq3z1r3ELJtNERZi378WDAaYnlRXJVsPydxbmic3PZOcEd9w41Zmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ovg/3O5DlPY8ftmCNdeWbmUTdQQqQ8T3T57H5M+XvxM=;
+ b=XU4VT6FPdZ5+EkMtkpe9KNzO1S3ob06e/BdLrGM5QnJJLzMyewKNQgG2YH/MgH/uQTzpeWpg/+DfapOBKETb/V7JPz2lWi11DVIrQSNHMxpRLXFnL8+vBBotfw9aFOjrXGXw7IqcWjgTN655X/aEt9khaFkVTJeJ/btgVx0xCtQ=
+Received: from BYAPR05CA0056.namprd05.prod.outlook.com (2603:10b6:a03:74::33)
+ by BL1PR12MB5900.namprd12.prod.outlook.com (2603:10b6:208:398::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.10; Fri, 12 Dec
+ 2025 08:31:09 +0000
+Received: from SJ5PEPF00000205.namprd05.prod.outlook.com
+ (2603:10b6:a03:74:cafe::d7) by BYAPR05CA0056.outlook.office365.com
+ (2603:10b6:a03:74::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.8 via Frontend Transport; Fri,
+ 12 Dec 2025 08:31:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF00000205.mail.protection.outlook.com (10.167.244.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Fri, 12 Dec 2025 08:31:08 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 12 Dec
+ 2025 02:31:06 -0600
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Asad.Kamal@amd.com>
+Subject: [PATCH] drm/amd/pm: Return right size for gpuboard metrics
+Date: Fri, 12 Dec 2025 14:00:45 +0530
+Message-ID: <20251212083045.2463099-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: z2krR9tfdnhnb2o5L2LPG_GL4kEbl_Lo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA2MDAyMCBTYWx0ZWRfX4+d6FL1op+5k
- lMpA9wfwMMZCp9KvgSEODM7u5iTTKP7/NHZ2wxRUzzHZlyQ5psSfVHA38nS6aXfTePHLr2nCWQ7
- 6rCZVoEEbJ94Z/d10QYW6bC8AHSdG7wMJkUJtc4Ooxv5HEpNGfeS0PuEc9fEtUYghDItrhwIEbd
- x9jQ5TT7fDPT6bHqX5p8pa5PVjwSvYsJ1ylyYwxF5k3PqacPVBauYnAzQ7rNHYoG9ixX0k74DUE
- Vp5bKx3wTFP6RoaiyMmxSoEBJjkRu9z/rwgsCBMKi1U3AbCuvi3G6Nbxd1FIAa4wkBv3g4vhOOd
- nwws2Gy76sqT46IvOQ3qw1PvWq/EhGkdnpiglP6S0oC5Y11W/OFeWcVKook4RZB6QYNCqJFMKAi
- nCpaEZz5DFO19abjth1hw9pVn4KdMw==
-X-Proofpoint-GUID: uAZ4nmpRAD_JQd97QuihERZCYZSDzOnN
-X-Authority-Analysis: v=2.4 cv=FpwIPmrq c=1 sm=1 tr=0 ts=693bb8eb cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8
- a=VO154oAPRzwd1e8s0VMA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-12_01,2025-12-11_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512060020
-X-Mailman-Approved-At: Fri, 12 Dec 2025 08:29:54 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000205:EE_|BL1PR12MB5900:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5cb8ee9-3a8e-408e-c3c4-08de3958cc99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?p20EFeHd5aN/3HS6CkVh0ECAGK3LaYHF4TgDH1jQ4pxp1PWfGRQ3wvygZ6Wu?=
+ =?us-ascii?Q?4wpW6++Cu3y5/wp7xBf6qd31TDtJ1VHpfD/fVJ8ye2CPG3FALidkNG8JybQ5?=
+ =?us-ascii?Q?a/sCfvTobwm6pR2uTeoB4kUvJRJ/1CtOBZUFsKuPL4bVsREls39c4oND0qG3?=
+ =?us-ascii?Q?Fw/A+8Jo+KEZGffPEU+bjLjm5KhhDVwQX2QBnS4luOG5Q6qiJ56GsRGLUXXg?=
+ =?us-ascii?Q?I1hU0vTO9dAUUmfoaXvMGg1WP+Q7Ph0hu1pubUApAerTp8v8lkOqGaBsiQG4?=
+ =?us-ascii?Q?vJvLd8ZV+ZwPPLv9UaVsB0xW42ul2HRVFRekQ1/3MfvlQebkMFXXd4E4LMmS?=
+ =?us-ascii?Q?EGrBpObO8UDm0AaeVNE39V+6KDPoVJ9YH44J79qt9jxHDRpBGj6OhUME13Vb?=
+ =?us-ascii?Q?eWfo2h73DzNT2fzRdmum72n9xnMuIPfk+/PSDmhECDACHCeT81Gd1wUwdW9A?=
+ =?us-ascii?Q?jWhy8gV+DGagh/RZPV+zpbexOq2EUfARDIncso7foC5wb+438S9/f2n1BKR6?=
+ =?us-ascii?Q?TMpCvzHQm5KW/Xi/eFaRxIWh5lLm+RBdmY4LWU2G0l9RvT/l2BwwCHPVqdQc?=
+ =?us-ascii?Q?0Yuq/AcRb3Iwu8K45kaUwMuUelz/qealLfSEE9qEHjqcDlt6ghnoBWbAcD6H?=
+ =?us-ascii?Q?hnCHol6L9/cdzpwmATDYdgo3DlL0Nqu7SUAT4UOOPtItjOqkuhv9fyFGRVHI?=
+ =?us-ascii?Q?Qi4fvlvKIBfKRrgazMNlJMvJAVoTIyi44rg7Cp2Pe7nwUsNkFiQcVjd5GylN?=
+ =?us-ascii?Q?3kX1g8hUGp0Eu8Gt9CGE06EBQEzaQhFcNDLgIjYWbcn5KszcdTyp1wn6H+b2?=
+ =?us-ascii?Q?uUJpQPzGyksUIwUFT3XyIxluOfdSAUSk6RBQUtBbuGElpd9pRvC0BMXe+Mbb?=
+ =?us-ascii?Q?KyeY7X5OoaJECUAPiKGnI0zxUTP+kvDJN/SRPpJQFaMSFAK+vB/qAPQ4kh4o?=
+ =?us-ascii?Q?mD5K06dJ47Q0Pq2SEB0/fz5leA/Qa5Jy2etkU9rSYcj9U6kvwnX2LFXJHblH?=
+ =?us-ascii?Q?9BXiah5pzCBXcgg2E5KiH8aCaAXRTWr2gCxHotBwOZMDjMFQxWfNaqXkKZu9?=
+ =?us-ascii?Q?/SGWvi39jmWY4yBNAGML5G8TWnnk8UG5C24V9bJwsE1LPtmPPzmEO5obxK/n?=
+ =?us-ascii?Q?LEWSJTyx22CspuFyc5KtAWCOIKVPGaRJS9ziDVoGp22uemTg3wRVLR2lUfbd?=
+ =?us-ascii?Q?83KRaU2rNda//PABImqnGWm8lSiClxyaXTCl4gGD+etkI3aNw+YThcgPH2Q7?=
+ =?us-ascii?Q?Tmu4BVWPxLqGqtYf3+uhct/Djyc40bnDrAEzVQeApSs5ptMgUruyWb9FV1Qc?=
+ =?us-ascii?Q?KXJG3HvYMNnRGYPHY2NItg4xsoyK+Fu/EKppOuUSFXye3Yc5ZWfGhsStclzL?=
+ =?us-ascii?Q?i7dHQEBnFwX24NWK52hx7CqrPNYOtkEsBuyBAeWwE5z7ZCzI2iV+t5B9Rvp7?=
+ =?us-ascii?Q?tQLu84wcYoWgYbPp0NBDcZ/vPWa7RRdq8bzPhrn1bA4lJKkQRaKssb+uMRVY?=
+ =?us-ascii?Q?Kl9rS5YsQTO4NAZBLe6BHDYbits9iuSLPYgJgfbvym88sE00HCv33jkZ8ZqL?=
+ =?us-ascii?Q?szvbYvaVVWmYY8Z9mcI=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2025 08:31:08.4319 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5cb8ee9-3a8e-408e-c3c4-08de3958cc99
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000205.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5900
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,35 +131,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In svm_migrate_gart_map(), while migrating GART mapping, the number of
-bytes copied for the GART table only accounts for CPU pages. On non-4K
-systems, each CPU page can contain multiple GPU pages, and the GART
-requires one 8-byte PTE per GPU page. As a result, an incorrect size was
-passed to the DMA, causing only a partial update of the GART table.
+Change to switch style checks and return the correct size for gpu board
+metrics.
 
-Fix this function to work correctly on non-4K page-size systems by
-accounting for the number of GPU pages per CPU page when calculating the
-number of bytes to be copied.
-
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 45 +++++++++----------
+ 1 file changed, 22 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 59a5a3fea65d..ea8377071c39 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -62,7 +62,7 @@ svm_migrate_gart_map(struct amdgpu_ring *ring, u64 npages,
- 	*gart_addr = adev->gmc.gart_start;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index 91a17db7912b..44d5f134a87a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -693,30 +693,21 @@ static ssize_t smu_v13_0_12_get_temp_metrics(struct smu_context *smu,
+ 	u32 idx, sensors;
+ 	ssize_t size;
  
- 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
--	num_bytes = npages * 8;
-+	num_bytes = npages * 8 * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+-	if (type == SMU_TEMP_METRIC_BASEBOARD) {
+-		/* Initialize base board temperature metrics */
+-		table_id = SMU_DRIVER_TABLE_BASEBOARD_TEMP_METRICS;
+-		baseboard_temp_metrics =
+-			(struct amdgpu_baseboard_temp_metrics_v1_0 *)
+-				smu_driver_table_ptr(smu, table_id);
+-		size = sizeof(*baseboard_temp_metrics);
+-	} else {
+-		table_id = SMU_DRIVER_TABLE_GPUBOARD_TEMP_METRICS;
+-		gpuboard_temp_metrics =
+-			(struct amdgpu_gpuboard_temp_metrics_v1_0 *)
+-				smu_driver_table_ptr(smu, table_id);
+-		size = sizeof(*baseboard_temp_metrics);
+-	}
+-
+ 	ret = smu_v13_0_12_get_system_metrics_table(smu);
+ 	if (ret)
+ 		return ret;
  
- 	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.high_pr,
- 				     AMDGPU_FENCE_OWNER_UNDEFINED,
+ 	sys_table = &tables[SMU_TABLE_PMFW_SYSTEM_METRICS];
+ 	metrics = (SystemMetricsTable_t *)sys_table->cache.buffer;
+-	smu_driver_table_update_cache_time(smu, table_id);
+ 
+-	if (type == SMU_TEMP_METRIC_GPUBOARD) {
++	switch (type) {
++	case SMU_TEMP_METRIC_GPUBOARD:
++		table_id = SMU_DRIVER_TABLE_GPUBOARD_TEMP_METRICS;
++		gpuboard_temp_metrics =
++			(struct amdgpu_gpuboard_temp_metrics_v1_0 *)
++				smu_driver_table_ptr(smu, table_id);
++		size = sizeof(*gpuboard_temp_metrics);
++
+ 		gpuboard_temp_metrics->accumulation_counter = metrics->AccumulationCounter;
+ 		gpuboard_temp_metrics->label_version = metrics->LabelVersion;
+ 		gpuboard_temp_metrics->node_id = metrics->NodeIdentifier;
+@@ -743,7 +734,15 @@ static ssize_t smu_v13_0_12_get_temp_metrics(struct smu_context *smu,
+ 				idx++;
+ 			}
+ 		}
+-	} else if (type == SMU_TEMP_METRIC_BASEBOARD) {
++		memcpy(table, gpuboard_temp_metrics, size);
++		break;
++	case SMU_TEMP_METRIC_BASEBOARD:
++		table_id = SMU_DRIVER_TABLE_BASEBOARD_TEMP_METRICS;
++		baseboard_temp_metrics =
++			(struct amdgpu_baseboard_temp_metrics_v1_0 *)
++				smu_driver_table_ptr(smu, table_id);
++		size = sizeof(*baseboard_temp_metrics);
++
+ 		baseboard_temp_metrics->accumulation_counter = metrics->AccumulationCounter;
+ 		baseboard_temp_metrics->label_version = metrics->LabelVersion;
+ 		baseboard_temp_metrics->node_id = metrics->NodeIdentifier;
+@@ -758,12 +757,12 @@ static ssize_t smu_v13_0_12_get_temp_metrics(struct smu_context *smu,
+ 				idx++;
+ 			}
+ 		}
+-	}
+-
+-	if (type == SMU_TEMP_METRIC_BASEBOARD)
+ 		memcpy(table, baseboard_temp_metrics, size);
+-	else
+-		memcpy(table, gpuboard_temp_metrics, size);
++		break;
++	default:
++		return -EINVAL;
++	}
++	smu_driver_table_update_cache_time(smu, table_id);
+ 
+ 	return size;
+ }
 -- 
-2.52.0
+2.49.0
 
