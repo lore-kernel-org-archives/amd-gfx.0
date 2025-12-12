@@ -4,153 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E7E3D4337E
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA904D44148
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 08:29:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 821F810E575;
-	Fri, 12 Dec 2025 08:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A164910E270;
+	Fri, 12 Dec 2025 08:29:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="asmmag3N";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="eSZWPPkS";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010061.outbound.protection.outlook.com [52.101.61.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A70D10E566;
- Fri, 12 Dec 2025 08:00:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sPa+nGShgYjpbBzwdg5geFMVkxdBNc6CpksZ2qpJ0jgeLgQ+2CEvmaswi0xKikaJKDAcFRpsSOq6YVTPlTj4bdnrQfWXfQaHY/dPpRt2KQ/uTWulnqXfIIxTGlSHtDKPHur3bVyhIuf9TvSWZvAo2jeUwJypVlALi9e8EWxp6E1bADZPJ1XZOJzauzO/4G1ScDUCZjbVR+vRc8M+wAnp9VMw+4fN+oC39XX71PGlzoR6f9D3MdSPbUCTmRwXm9nZKoTxhsI28eFrdPI3DUq9jWL+rsG5MjCGEQXVRH/40GwpVAof5Obwjb6MVyiMS6v4bgvBoGxfyGuYIAwxEOrB8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r5OPfoUj+YiSS+3TPGyEd8tQHaVeiHIwC0unXKKD6W4=;
- b=g/cOKuwqRnIwfn2gCjbmTe9OzLEiaD3LBnDtaYD/BSC5RB4aY2O8fANmSNA8M/2mr1fzdD/OHu8EEaNk3E4qiJlCgLH1Ed2x47tY9P31Erqi54ZJMAVacUUssWLkMbnw25Eg7+nFxNReGIbkgkok/yk3h7ckAlRF6i5HgRdokw+o/HCN6hnn/TWisdfmzc42X1goUjRnyAu0CmMTCH7gZ90YvK1i9TfAbkP8V4Fr7fCHc9obzghgFQg3D3TpidaKt5AaEbWEaY9BKdjHwZ0wJYYG+SbUn+2YVy7p2v+mVWgIDwu7RjYkKzUqdeva1oogR9gVChq04wjjcVGIkjsyUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r5OPfoUj+YiSS+3TPGyEd8tQHaVeiHIwC0unXKKD6W4=;
- b=asmmag3NFmRgZSShwGOxI8wnwNtR8YrM7jZhWPVJzlEPQLphimea1Bym/BJHe7wzAF6AZVsFjqcr/72CaDkgj0+zIs1mRvOt2QKwf9mFG4qhGVH0nbSbO7Q0WI6VwSFXMj08T4VICgz08Od44IdQDRD5RjoPMStM0yZW0FXI3ZI=
-Received: from MN2PR16CA0052.namprd16.prod.outlook.com (2603:10b6:208:234::21)
- by BY5PR12MB4100.namprd12.prod.outlook.com (2603:10b6:a03:200::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.11; Fri, 12 Dec
- 2025 07:59:54 +0000
-Received: from BL02EPF00021F69.namprd02.prod.outlook.com
- (2603:10b6:208:234:cafe::2a) by MN2PR16CA0052.outlook.office365.com
- (2603:10b6:208:234::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.9 via Frontend Transport; Fri,
- 12 Dec 2025 07:59:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Fri, 12 Dec 2025 07:59:53 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 12 Dec
- 2025 01:59:48 -0600
-From: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>
-Date: Fri, 12 Dec 2025 15:59:17 +0800
-Subject: [PATCH v6 5/5] Documentation/amdgpu: Add UMA carveout details
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDB610E08C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 06:40:59 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BBNn9Im019332;
+ Fri, 12 Dec 2025 06:40:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=IClozS
+ yyuKdH5UxnV26uLpDOW81e+shOmNEmwMo/cpg=; b=eSZWPPkS4++PVaJ03yzqjV
+ Y/xJ18D4ifR790efH6yCvqevurbZJ/gSevgIYMP6xPhdmgObzBJAr1lM2QMegzLt
+ ZfzrereeqKzFVZGeMqtMASSRPfwEvFaM93rmCBDBt6Py8zW9uTu3nzuecJu37xyl
+ eIxrX8axiJ9EwSvERf9E10NIMzP5s2HoqdKaHlZn3m8CUkKG1xZX7aiS6j8gTUxI
+ HrBUW/8aEU0tKlnQcaAvO2NCv/yuR/Zd+CUmTWzv20JQ0+GEIf6KehYa15CBUhWT
+ AucLGDxph0C/e4eCzMAVSkT9EDuSPVnCLOqYOoMLRW+pSQPPtaFCpzLDb76wuHCQ
+ ==
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvww-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Dec 2025 06:40:57 +0000 (GMT)
+Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BC6a7l7022388;
+ Fri, 12 Dec 2025 06:40:56 GMT
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc7cbvwu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Dec 2025 06:40:56 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC5KS97028126;
+ Fri, 12 Dec 2025 06:40:55 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4avy6yane3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Dec 2025 06:40:55 +0000
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
+ [10.20.54.100])
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5BC6ep5F27132632
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 12 Dec 2025 06:40:51 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 62E7820043;
+ Fri, 12 Dec 2025 06:40:51 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 87DBB20040;
+ Fri, 12 Dec 2025 06:40:49 +0000 (GMT)
+Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
+ [9.109.215.183])
+ by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Fri, 12 Dec 2025 06:40:49 +0000 (GMT)
+From: Donet Tom <donettom@linux.ibm.com>
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>, donettom@linux.ibm.com
+Subject: [RFC PATCH v1 8/8] amdgpu: Fix MQD and control stack alignment for
+ non-4K CPU page size systems
+Date: Fri, 12 Dec 2025 12:10:15 +0530
+Message-ID: <99f81bd30011e743ca96f471b5af78bcfd2bbc45.1765519875.git.donettom@linux.ibm.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1765519875.git.donettom@linux.ibm.com>
+References: <cover.1765519875.git.donettom@linux.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20251212-vram-carveout-tuning-for-upstream-v6-5-50c02fd180c9@amd.com>
-References: <20251212-vram-carveout-tuning-for-upstream-v6-0-50c02fd180c9@amd.com>
-In-Reply-To: <20251212-vram-carveout-tuning-for-upstream-v6-0-50c02fd180c9@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>, "Tsao, Anson"
- <anson.tsao@amd.com>, "Mario Limonciello (AMD) (kernel.org)"
- <superm1@kernel.org>, "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3210; i=Leo.Lin@amd.com;
- h=from:subject:message-id; bh=yQdDEMkJoZqecXdgHB1NDSmL8tHRPTgujFwa3VxSL38=;
- b=owEBbQKS/ZANAwAKAV8XsZZKKe6GAcsmYgBpO8ti9q4CTN0kX0vNrCLbiYaNlg97Myn22Y7WH
- wLCSCFu9HGJAjMEAAEKAB0WIQQzqV4kW+yguuqHrw5fF7GWSinuhgUCaTvLYgAKCRBfF7GWSinu
- hnB+D/96EyrG1hep6lgbYRPFtXJZmVjsjyqXJ39L2IAdr3/2SZ8Vsx5+EuobSEShAIQZCfOtFQD
- igwKu2Mpz2j8//CcZjRooRbraEu+B35/fThA+lXrLBi/wiN2LkY96eDqHw+utrSvxg3CsKdjHTQ
- It6yFCECyTVHCt+F4ymcFgIaqKbcer5QmD0+H2ihRC/Wl8Z+Og1V4tm7pf6r/6V+raM6eo3lvna
- pi2+Z1fxFlMzpNCBFYg7HuxzlPFu8uH3FbRzZhd6vkl/t+1RRvU3qD6NV00JZqMvM2va52UUMbg
- 7XPQDPBGCYw4lw2X6l4Xiu6GCXwm39l1QRr6KkX7GTu3WMveWQyoiaToHGQoQlbhXtB0R9z6Vh4
- AhcUHSOIqikOQwZfw8am4VPOpP4DLdL9edndEwiAIqGNQ1PyECyD30b5HU8unqlYW2wnve9TJio
- yTF9FHKG390s6DtAvX8yKPNw9Xv3vzP9UuyVuFYgdl9jeON0ifMQuFs2R3ByBVNPfrYbCCbgL6o
- 7wXrYdiuMFf3dmtF2oZu0qx9ZD04k5zEmzwSHafTdX586+p3DPVjkpyGjddO6vqPWUw8u/qtVqZ
- FPfYzqk0L56dhkempVywSdusNx8005EhNT6kuDfmGmWPhdEms8MgpikJh0Mz+8/V02Ixds1IXvj
- +5BCaopBvcwOgUg==
-X-Developer-Key: i=Leo.Lin@amd.com; a=openpgp;
- fpr=33A95E245BECA0BAEA87AF0E5F17B1964A29EE86
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|BY5PR12MB4100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 723e1b6c-22ab-4f01-3e2c-08de39546f07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|7416014|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UW82Vmt4eUZUM3FUWXN0d3dzZklDbWVGWVpmRFByekxMZ1R5bG90Rm53bjF5?=
- =?utf-8?B?b25WNTkzczZWWS82M0FRYXFyOUhwbWRmQTVVQUZyeXZVQzlvRldMQWExQlQx?=
- =?utf-8?B?VTZySDZZRU1TZ3ZtazFQdVNEeDlacVZkRndzKzg4RzdFV2wxUHBpNmxzTzhr?=
- =?utf-8?B?SUdhVmd2dllRc2tVU0N3WWpGTVlYa2NIQmRyTHpISW9vN2NKeUMvUklSeW85?=
- =?utf-8?B?ZHQ5MUFETzZ5VEtDZ3did3dKYnpjWG9HL1dGelBGci83RHArb0cxOVd2dnhN?=
- =?utf-8?B?dE9vRXl0SVlhZHlHU0NYVTVJZGdBZ203bVQ0TWQ5NnV6Y0c5TFFYR2hISmxw?=
- =?utf-8?B?TmNkOEdWU3ArWFhvZGloYTFjdGlkVU4rNkZkNEE5Q00zZVA4dkFmNDYwL0JO?=
- =?utf-8?B?a1RoU3ZGc1hmVG5XMG5SbXJUVHk3WkRsRVYwMkI2ai9KT1dKd0ZlYUJNT0NF?=
- =?utf-8?B?d09Nek5SUG1GOXZXSG9wQnZ3U3NwczgrS2ZhSUl1cFBlTGhNcDl1bldobkd3?=
- =?utf-8?B?aFl1MFBHVEZRdjRhVU5FNkthQnJ6dHhLNHpoYllQRnpOQTJyVENmVmJVaU9n?=
- =?utf-8?B?alVDQlRiMXZleDRZRFk0ODBTWHBDdDc5K1dNKzM0dmh4aU1TODFHYTRuekdB?=
- =?utf-8?B?OEg2TTZaS3dFa1Bza2I5bE9kOTMvcE5sUWxKU0pPZis1TXRXcnFYaDVnZUpT?=
- =?utf-8?B?aXppVjZkZlhDc1M2SGRpc1ZHVk95aFBrTWNtR3ptWEpvUUhheEJhVU1vYXlj?=
- =?utf-8?B?VkZ5bk1qRUw4b2F4M1VLeWY0MVNqa0dlWS9xa0lOWVEwa3YxY24yUCt2WGVm?=
- =?utf-8?B?V1dESDlGN3QzQUErd2pFTTRmZHhaV1JaTnNyVDVNek1NZHQydW8yYk5VdXky?=
- =?utf-8?B?U3IrVGlYMnRpZHdlbjNpN3NONTY5TGNrRlJZVERLaGRNVm9lcFpORUtvQTQ1?=
- =?utf-8?B?blpWa1A2Vk1uQ2pCWjV4NkNXZ1lWRWZqLzVYZTFDVm9zZVpMWm5PUHp0cHdT?=
- =?utf-8?B?RUt5MVpqVU5zZ1kxcnNKd3BxYnBXMSt6L09zaWVNOEZNZGtOK1h4TDhidjhw?=
- =?utf-8?B?eVBXeW1EZm9tL21MSGQ1Z2p1UlVtMWE2RlByZFlZSTJmeFlIVSt4OTBCaU5j?=
- =?utf-8?B?U2hGd2hwWktPN01EWEJLQ1IwYWFRc2dwTjBvNEtubkE3dXBmUVlhS21SblVL?=
- =?utf-8?B?NVhpcjhxRk9mVjl5a3hjL0VJM2dZVDM3SEI4alJuMlN6Z0NHTG1ya1hkS2t5?=
- =?utf-8?B?UWwwbEFGdFd5Z296OFFRVzAxcHNpOXBuNXdwYUJuOWJ3NGFvWDZId0o1T21X?=
- =?utf-8?B?ZUZPY0NVNHRxVWtQL1FFSVFwR2x0ZUQzdGV1MHhOa2JDUGlOV1BMYzc5TWtz?=
- =?utf-8?B?aFR1ZkxVQ05zanNhV250NjJCRllkaWM2U0FHSFZTY01vUWNnK1VPREFIbjhi?=
- =?utf-8?B?YWZTa20vbzBRaUxWSVFHekZrNkpoTWRkWTZ3cVhRVEdPWVBvWmlMZ09sYkZ6?=
- =?utf-8?B?ZWFWNHpPOTdKcnhtaFNpZ3pETzZwc3ZoOUYvWGJaR3JXN21FRm5Denpmdk95?=
- =?utf-8?B?b2d2VXlFbEF3ZDFTNmsyMHJQL3pnSFAzenByam1lbm14WWU1N2dKTUJ5K2Fk?=
- =?utf-8?B?M3hhdGVxWGFhTGJDSFNuZS9weUhZNmRwUXBzSzU0KzhjRzJaL20rTjd3MFBm?=
- =?utf-8?B?ek9xakVsTURTcHFKUi9HR2IwTDZEcXpxYm5ML21tNi9JN0RCVy9xWTA1TUlo?=
- =?utf-8?B?Ry83ZEtTL2I3TU4wcGJPZ2x3VzZDVi81aDVTakkvekIyalRYN243UDdGRTFD?=
- =?utf-8?B?LzZVTW5FRlE1TVlkUGlYRDhCcTBEOFgzWjdlekhpNlJ3N1BQV2ZzdTN1Tlgz?=
- =?utf-8?B?TlQ3NVc1a1QrR1pyMm5rbjB0Q0w4Y2kray90eFdQVytiZU1PNzZDVVEwUDJI?=
- =?utf-8?B?dGVNRW5RaVN0VlMzZ2ZxQ3ppMDFYbGhtanVjNFBLVWhZT3l6bVBUUzl1M0xO?=
- =?utf-8?B?cERJaWVrZnpKNG1wTy9nNTNyRjg1eUhVQXkvcVBpTkczMEZjeFFVT0EzV1Ry?=
- =?utf-8?B?L291d1NzQk9LV09GSERyTHpZSWdpcjRkL3puMXhuSXhqNkpaMUFMZjI5Yk50?=
- =?utf-8?Q?BDD4=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(7416014)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2025 07:59:53.5542 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 723e1b6c-22ab-4f01-3e2c-08de39546f07
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F69.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4100
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: pG2SBbfHo0dCbLsKX0A9ZgsPS0aHVWjk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA2MDAyMCBTYWx0ZWRfX9yhDBtvoR3Gv
+ v6jo/yOEgo2T/3d+aXXFBajQtwUzKl0BbaKzNTkh/91C5qxlPhCeQW+NgOOkHSm0nF6Zx5gV4zc
+ xb3rgM4xoYy//KYda82jyO6dg/dv3Larv8iWldlhMtYbcD8VK0z0Ua9SQwFORFn85irDxkX04vS
+ 8kRFpu2CujjLgAU1jHWLqnFRMvAHupq8dbdJyG+ZpP0PEX7l870ahLypnAm9Vxo2LfKw1z2xouY
+ NPSAstmd56JI9fmziayzCTBvf/6fbPipolGUcxfClftDXvUdb2xFNAqABbYnIr0OKyXMYVYGIXK
+ pqQrgsqr2WrCNy3ypZEKHRTiB+RBohffh2bKGgnFOShQeVJboqXv5zIFdiXSFwWYko/V4HqFsM7
+ xfkJkGbSd9wrjVCRtuT0jUDGBNlUlw==
+X-Proofpoint-GUID: mgeBgTs0XPHqNWwgh9ZlPQcbLZkQuNmz
+X-Authority-Analysis: v=2.4 cv=FpwIPmrq c=1 sm=1 tr=0 ts=693bb8f9 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=P-IC7800AAAA:8 a=VnNF1IyMAAAA:8 a=EcPYo12vaGZsXEfV-mwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-12_01,2025-12-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512060020
+X-Mailman-Approved-At: Fri, 12 Dec 2025 08:29:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,99 +118,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add documentation for the uma/carveout_options and uma/carveout
-attributes in sysfs
+For gfxV9, due to a hardware bug ("based on the comments in the code
+here [1]"), the control stack of a user-mode compute queue must be
+allocated immediately after the page boundary of its regular MQD buffer.
+To handle this, we allocate an enlarged MQD buffer where the first page
+is used as the MQD and the remaining pages store the control stack.
+Although these regions share the same BO, they require different memory
+types: the MQD must be UC (uncached), while the control stack must be
+NC (non-coherent), matching the behavior when the control stack is
+allocated in user space.
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
+This logic works correctly on systems where the CPU page size matches
+the GPU page size (4K). However, the current implementation aligns both
+the MQD and the control stack to the CPU PAGE_SIZE. On systems with a
+larger CPU page size, the entire first CPU page is marked UC—even though
+that page may contain multiple GPU pages. The GPU treats the second 4K
+GPU page inside that CPU page as part of the control stack, but it is
+incorrectly mapped as UC. This misalignment leads to queue preemption
+and eviction failures.
+
+This patch fixes the issue by aligning both the MQD and control stack
+sizes to the GPU page size (4K). The first 4K page is correctly marked
+as UC for the MQD, and the remaining GPU pages are marked NC for the
+control stack. This ensures proper memory type assignment on systems
+with larger CPU page sizes and prevents incorrect behavior in queue
+preemption and eviction.
+
+[1]: https://elixir.bootlin.com/linux/v6.18/source/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c#L118
+
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- Documentation/gpu/amdgpu/driver-misc.rst   | 26 ++++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29 +++++++++++++++++++++++++++++
- 2 files changed, 55 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 29 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 16 ++--------
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 15 +++++-----
+ 4 files changed, 41 insertions(+), 21 deletions(-)
 
-diff --git a/Documentation/gpu/amdgpu/driver-misc.rst b/Documentation/gpu/amdgpu/driver-misc.rst
-index 25b0c857816e..e1a964c3add2 100644
---- a/Documentation/gpu/amdgpu/driver-misc.rst
-+++ b/Documentation/gpu/amdgpu/driver-misc.rst
-@@ -128,3 +128,29 @@ smartshift_bias
- 
- .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-    :doc: smartshift_bias
-+
-+UMA Carveout
-+============
-+
-+Some versions of Atom ROM expose available options for the VRAM carveout sizes,
-+and allow changes to the carveout size via the ATCS function code 0xA on supported
-+BIOS implementations.
-+
-+For those platforms, users can use the following files under uma/ to set the
-+carveout size, in a way similar to what Windows users can do in the "Tuning"
-+tab in AMD Adrenalin.
-+
-+Note that for BIOS implementations that don't support this, these files will not
-+be created at all.
-+
-+uma/carveout_options
-+--------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+   :doc: uma/carveout_options
-+
-+uma/carveout
-+--------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+   :doc: uma/carveout
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e78e6982312c..0271487e790c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -418,6 +418,24 @@ static const struct attribute_group amdgpu_board_attrs_group = {
- 	.is_visible = amdgpu_board_attrs_is_visible
- };
- 
-+/**
-+ * DOC: uma/carveout_options
-+ *
-+ * This is a read-only file that lists all available UMA allocation
-+ * options and their corresponding indices. Example output::
-+ *
-+ *     $ cat uma/carveout_options
-+ *     0: Minimum (512 MB)
-+ *     1:  (1 GB)
-+ *     2:  (2 GB)
-+ *     3:  (4 GB)
-+ *     4:  (6 GB)
-+ *     5:  (8 GB)
-+ *     6:  (12 GB)
-+ *     7: Medium (16 GB)
-+ *     8:  (24 GB)
-+ *     9: High (32 GB)
-+ */
- static ssize_t carveout_options_show(struct device *dev,
- 				     struct device_attribute *attr,
- 				     char *buf)
-@@ -450,6 +468,17 @@ static ssize_t carveout_options_show(struct device *dev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index b2033f8352f5..0e1c017d10dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -368,6 +368,35 @@ void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+ 	}
+ 	drm_dev_exit(idx);
  }
- static DEVICE_ATTR_RO(carveout_options);
++void amdgpu_gart_map_gfx9_mqd(struct amdgpu_device *adev, uint64_t offset,
++		    int pages, dma_addr_t *dma_addr, uint64_t flags)
++{
++	uint64_t page_base;
++	unsigned int i, j, t;
++	int idx;
++	uint64_t ctrl_flags = AMDGPU_PTE_MTYPE_VG10(flags, AMDGPU_MTYPE_NC);
++	void *dst;
++
++	if (!adev->gart.ptr)
++		return;
++
++	if (!drm_dev_enter(adev_to_drm(adev), &idx))
++		return;
++
++	t = offset / AMDGPU_GPU_PAGE_SIZE;
++	dst = adev->gart.ptr;
++	for (i = 0; i < pages; i++) {
++		page_base = dma_addr[i];
++		for (j = 0; j < AMDGPU_GPU_PAGES_IN_CPU_PAGE; j++, t++) {
++			if ((i == 0) && (j == 0))
++				amdgpu_gmc_set_pte_pde(adev, dst, t, page_base, flags);
++			else
++				amdgpu_gmc_set_pte_pde(adev, dst, t, page_base, ctrl_flags);
++			page_base += AMDGPU_GPU_PAGE_SIZE;
++		}
++	}
++	drm_dev_exit(idx);
++}
  
-+/**
-+ * DOC: uma/carveout
-+ *
-+ * This file is both readable and writable. When read, it shows the
-+ * index of the current setting. Writing a valid index to this file
-+ * allows users to change the UMA carveout size to the selected option
-+ * on the next boot.
-+ *
-+ * The available options and their corresponding indices can be read
-+ * from the uma/carveout_options file.
-+ */
- static ssize_t carveout_show(struct device *dev,
- 			     struct device_attribute *attr,
- 			     char *buf)
-
+ /**
+  * amdgpu_gart_bind - bind pages into the gart page table
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+index 7cc980bf4725..1beef780936d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h
+@@ -62,6 +62,8 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+ void amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
+ 		     int pages, dma_addr_t *dma_addr, uint64_t flags,
+ 		     void *dst);
++void amdgpu_gart_map_gfx9_mqd(struct amdgpu_device *adev, uint64_t offset,
++		     int pages, dma_addr_t *dma_addr, uint64_t flags);
+ void amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+ 		      int pages, dma_addr_t *dma_addr, uint64_t flags);
+ void amdgpu_gart_invalidate_tlb(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 9d568c16beb1..c2e0d2518345 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -882,25 +882,15 @@ static void amdgpu_ttm_gart_bind_gfx9_mqd(struct amdgpu_device *adev,
+ 	int num_xcc = max(1U, adev->gfx.num_xcc_per_xcp);
+ 	uint64_t page_idx, pages_per_xcc;
+ 	int i;
+-	uint64_t ctrl_flags = AMDGPU_PTE_MTYPE_VG10(flags, AMDGPU_MTYPE_NC);
+ 
+ 	pages_per_xcc = total_pages;
+ 	do_div(pages_per_xcc, num_xcc);
+ 
+ 	for (i = 0, page_idx = 0; i < num_xcc; i++, page_idx += pages_per_xcc) {
+-		/* MQD page: use default flags */
+-		amdgpu_gart_bind(adev,
++		amdgpu_gart_map_gfx9_mqd(adev,
+ 				gtt->offset + (page_idx << PAGE_SHIFT),
+-				1, &gtt->ttm.dma_address[page_idx], flags);
+-		/*
+-		 * Ctrl pages - modify the memory type to NC (ctrl_flags) from
+-		 * the second page of the BO onward.
+-		 */
+-		amdgpu_gart_bind(adev,
+-				gtt->offset + ((page_idx + 1) << PAGE_SHIFT),
+-				pages_per_xcc - 1,
+-				&gtt->ttm.dma_address[page_idx + 1],
+-				ctrl_flags);
++				pages_per_xcc, &gtt->ttm.dma_address[page_idx],
++				flags);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index f2dee320fada..e45e39cd65fe 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -43,8 +43,8 @@ static uint64_t mqd_stride_v9(struct mqd_manager *mm,
+ {
+ 	if (mm->dev->kfd->cwsr_enabled &&
+ 	    q->type == KFD_QUEUE_TYPE_COMPUTE)
+-		return ALIGN(q->ctl_stack_size, PAGE_SIZE) +
+-			ALIGN(sizeof(struct v9_mqd), PAGE_SIZE);
++		return ALIGN(ALIGN(q->ctl_stack_size, AMDGPU_GPU_PAGE_SIZE) +
++			ALIGN(sizeof(struct v9_mqd), AMDGPU_GPU_PAGE_SIZE), PAGE_SIZE);
+ 
+ 	return mm->mqd_size;
+ }
+@@ -136,13 +136,12 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_node *node,
+ 		if (!mqd_mem_obj)
+ 			return NULL;
+ 		retval = amdgpu_amdkfd_alloc_gtt_mem(node->adev,
+-			(ALIGN(q->ctl_stack_size, PAGE_SIZE) +
+-			ALIGN(sizeof(struct v9_mqd), PAGE_SIZE)) *
++			(ALIGN(ALIGN(q->ctl_stack_size, AMDGPU_GPU_PAGE_SIZE) +
++			ALIGN(sizeof(struct v9_mqd), AMDGPU_GPU_PAGE_SIZE), PAGE_SIZE)) *
+ 			NUM_XCC(node->xcc_mask),
+ 			&(mqd_mem_obj->gtt_mem),
+ 			&(mqd_mem_obj->gpu_addr),
+ 			(void *)&(mqd_mem_obj->cpu_ptr), true);
+-
+ 		if (retval) {
+ 			kfree(mqd_mem_obj);
+ 			return NULL;
+@@ -343,7 +342,7 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	struct kfd_context_save_area_header header;
+ 
+ 	/* Control stack is located one page after MQD. */
+-	void *mqd_ctl_stack = (void *)((uintptr_t)mqd + PAGE_SIZE);
++	void *mqd_ctl_stack = (void *)((uintptr_t)mqd + AMDGPU_GPU_PAGE_SIZE);
+ 
+ 	m = get_mqd(mqd);
+ 
+@@ -380,7 +379,7 @@ static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, voi
+ {
+ 	struct v9_mqd *m;
+ 	/* Control stack is located one page after MQD. */
+-	void *ctl_stack = (void *)((uintptr_t)mqd + PAGE_SIZE);
++	void *ctl_stack = (void *)((uintptr_t)mqd + AMDGPU_GPU_PAGE_SIZE);
+ 
+ 	m = get_mqd(mqd);
+ 
+@@ -426,7 +425,7 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
+ 		*gart_addr = addr;
+ 
+ 	/* Control stack is located one page after MQD. */
+-	ctl_stack = (void *)((uintptr_t)*mqd + PAGE_SIZE);
++	ctl_stack = (void *)((uintptr_t)*mqd + AMDGPU_GPU_PAGE_SIZE);
+ 	memcpy(ctl_stack, ctl_stack_src, ctl_stack_size);
+ 
+ 	m->cp_hqd_pq_doorbell_control =
 -- 
-2.43.0
+2.52.0
 
