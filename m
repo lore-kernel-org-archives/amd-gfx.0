@@ -4,60 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 091A7D4922D
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 13:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 090A4D4922B
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 13:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A06810E35E;
-	Fri, 12 Dec 2025 13:57:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89E6E10E6A7;
+	Fri, 12 Dec 2025 13:57:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="eh5Gx1sr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zj/QDQHi";
 	dkim-atps=neutral
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2AB10E72A
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 13:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:From:
- Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
- References; bh=nDbmUHc2dj5euBkEod+E3WGAYdQOIp/oaUdJcJPX9SI=; t=1765545570;
- x=1765977570; b=eh5Gx1sr/1eTqJysYPLx1qG5mUNw2lvH2eA5sidyBWr491ZHbCkxl8Ij35zpv
- knBlLG7xpI/Ge4BEy5xYA5FuWdgoBWAo/btxQOBvSSWFaKxPD/FizXgdqZ23qmCz0juLKhACc8g2N
- NdeHo0F9nX9SxdCPgxem/lQPDdmCVBYk/ejnP6D55GGdZ3tx9FvL5i6AGYM4uraCf5lsL89O3o86u
- ALX6356gUZIbxysWMQyLRAbFp2+yQj4FUwyiOVdH9yp656UvybKaQBO5yIC+BolVaHn7oV+AiHpbs
- 7pCuamY7ZVRJsqdEA4j67SlqfhB9Xa5lLlf59azagB76HeLRLQ==;
-Received: from [2a02:8108:8984:1d00:a0cf:1912:4be:477f]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128)
- id 1vU33O-00HLxA-2q; Fri, 12 Dec 2025 14:19:27 +0100
-Message-ID: <ee6e0b89-c3d0-4579-9c26-a9a980775e55@leemhuis.info>
-Date: Fri, 12 Dec 2025 14:19:26 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [6.12.61 lts] [amdgpu]: regression: broken multi-monitor USB4
- dock on Ryzen 7840U
-To: =?UTF-8?Q?P=C3=A9ter_Bohner?= <peter.bohner@student.kit.edu>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- amd-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- regressions@lists.linux.dev, bugs@lists.linux.dev, Jerry.Zuo@amd.com,
- aurabindo.pillai@amd.com, ivan.lipski@amd.com, daniel.wheeler@amd.com,
- alexander.deucher@amd.com, gregkh@linuxfoundation.org,
- Mario Limonciello <mario.limonciello@amd.com>
-References: <9444c2d3-2aaf-4982-9f75-23dc814c3885@student.kit.edu>
- <ea735f1a-04c3-42dc-9e4c-4dc26659834f@oracle.com>
- <b1b8fc3b-6e80-403b-a1a0-726cc935fd2e@student.kit.edu>
- <bfb82a48-ebe3-4dc0-97e2-7cbf9d1e84ed@oracle.com>
- <7817ae7c-72d3-470d-b043-51bcfbee31b1@student.kit.edu>
- <d5664e24-71a1-4d46-96ad-979b15f97df9@student.kit.edu>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <d5664e24-71a1-4d46-96ad-979b15f97df9@student.kit.edu>
-Content-Type: text/plain; charset=UTF-8
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 440B310E5B9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 11:09:35 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-29806bd47b5so6853445ad.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 03:09:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1765537775; x=1766142575; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=LWThh888wTHNeMNoovpZ6siNOEBzMB4V7mHEK6cNEW4=;
+ b=Zj/QDQHiYpplwVYdT8WTgozucU1fmQHMwo/S4NoWSPfqGxfbbDga7u9VhHYbCHhEjy
+ yba8MM6MgXZqKnVIZLxI+sPHIriFt+L+h3aiNrzHZBjKjkRS8w8MnS0tY4JuVUeJiG1s
+ B+MW3HLZKB4vSWxorc7AJC5J4Yl/fd1Bqliggi+ngLqZgNPob5HOld8NIyDdMS4OqFAC
+ CXe/eN/gIPlrAgLUEzrLxBT9jMl48GwO9WYou3+ezuOmpwQCGYA5UH7memnlhaFaverU
+ 5+FB2DvzU2WA4f2c7OZdIpYN+OJmjvpDDwqjji7c+ZRnzpd2d4K7flPOalkW4Yu6dyjo
+ XRmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765537775; x=1766142575;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=LWThh888wTHNeMNoovpZ6siNOEBzMB4V7mHEK6cNEW4=;
+ b=uEEt/gzf7V9+B+n7RKhJuXwxpH8C2TluXhmCSNTu4risuec4uvhxtBLv7UDfgSi9rv
+ aDPES77q7XV/J3IcQ3tloV7xjaDQQbPLAknnfMiW6IxJbdsFQPs8LU1o8K8mZGjNQweT
+ G5ke8df+kcxqkV+hMUNOCuNv4K1dS5OSA5VMdMWfhKOF20gjO302O38hlOQJPh5gffVM
+ fecaqy28NDOqFzA9XBInPHmNAbjsFESYekWTTNjE9ZYlDWE+UkkOPTBx0JNyJ6SQqWYi
+ BvPgVc17wFvcm84/AMG0dIjtKnFL2xTIkdsqQPlAXYvRTIREth7x3SIOmVgwNsZKANKW
+ hOxA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUOSqAZ+ewbnqaop1FQLXk7+aiC6fOL8LWm2WBiHf0OVbkqsBf5szCwshHJzIiYHLCcq04mR19q@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxFk3vUveWe+MN69gjQ3d10oQLAPO7w3CRvc0/IQd6HOdnzFe6
+ lzJxMuskIN3ol8elBKSaYzv1ApFlcxvQqyJ1b1Gw9BBkE9nGI4fbe+Po
+X-Gm-Gg: AY/fxX67UDWFJJTGmAWnrKexcfZ4SlDW5EmW//0c7/l0Kl34CObOQe4cwGzcndCcxBw
+ kw5YsGThOf5r+gww8hyBXar+iPwR+lMaQeSj5RgPDpyoGFlnOV9+oY2Ai5e9MxQZm/frYcUCz/d
+ 6bodCopRZAGrG5avt7x7uublAAvhkrgNyBfhFUWR4FnyC7sxGN1ZC4Q8qYvD2pxu6GuiC6NzQd5
+ Ns60CSvLdpJtX95umVIKbY89aDQO/bFGIcpn3KVDS+WU+T0mZcLUm4q72ICztQX9RhGMCbNY8Lk
+ N1J964l67oi1Hv9uEf0i5+VlUG25jkUjp0c5AEIpuJ3+9f5akTTSulpeSpw0iG9Bb9rcyNZUnxp
+ BSN43kijY5SoyZPLRbJNbxonEBfcYXOp+O6iYDWoa4srCMJDYLmSPleSxqnJ0i6BkWXfhPJQ40W
+ qM6XL/
+X-Google-Smtp-Source: AGHT+IE6WMGqndcjj3cbpvTW+Hq0Oefiq4svZKWB9oH8HmRYrT1O5p1ld5inTEw4xdE14N8QMC2A+A==
+X-Received: by 2002:a17:903:2f50:b0:298:60d5:d272 with SMTP id
+ d9443c01a7336-29f23e08409mr23599305ad.17.1765537774564; 
+ Fri, 12 Dec 2025 03:09:34 -0800 (PST)
+Received: from dw-tp ([171.76.86.230]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7f4c5093d5csm4946588b3a.49.2025.12.12.03.09.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Dec 2025 03:09:33 -0800 (PST)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Donet Tom
+ <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org, Felix Kuehling
+ <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Kent.Russell@amd.com, Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
+Subject: Re: [RFC PATCH v1 0/8] amdgpu/amdkfd: Add support for non-4K page
+ size systems
+In-Reply-To: <fbc164ab-964f-464d-b94a-80131016b5b8@amd.com>
+Date: Fri, 12 Dec 2025 16:15:23 +0530
+Message-ID: <871pl0567w.ritesh.list@gmail.com>
+References: <cover.1765519875.git.donettom@linux.ibm.com>
+ <fbc164ab-964f-464d-b94a-80131016b5b8@amd.com>
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1765545570;
- 69919f45; 
-X-HE-SMSGID: 1vU33O-00HLxA-2q
 X-Mailman-Approved-At: Fri, 12 Dec 2025 13:57:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,19 +92,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/9/25 16:50, Péter Bohner wrote:
-> note: reverting ded77c1209169bd40996caf5c5dfe1a228a587ab fixes the issue
-> on the latest 6.12.y (6.12.61) tag.
+Christian König <christian.koenig@amd.com> writes:
 
-That is 1788ef30725da5 ("drm/amd/display: Fix pbn to kbps Conversion")
-[v6.18-rc7, v6.17.10, v6.12.60 (ded77c1209169b)] – and Mario (now among
-the recipients) submitted a patch to revert in in mainline:
+> On 12/12/25 07:40, Donet Tom wrote:
+>> This patch series addresses few issues which we encountered while running rocr
+>> debug agent and rccl unit tests with AMD GPU on Power10 (ppc64le), using 64k
+>> system pagesize.
+>> 
+>> Note that we don't observe any of these issues while booting with 4k system
+>> pagesize on Power. So with the 64K system pagesize what we observed so far is,
+>> at few of the places, the conversion between gpu pfn to cpu pfn (or vice versa)
+>> may not be done correctly (due to different page size of AMD GPU (4K)
+>> v/s cpu pagesize (64K)) which causes issues like gpu page faults or gpu hang
+>> while running these tests.
+>> 
+>> Changes so far in this series:
+>> =============================
+>> 1. For now, during kfd queue creation, this patch lifts the restriction on EOP
+>>    buffer size to be same buffer object mapping size.
+>> 
+>> 2. Fix SVM range map/unmap operations to convert CPU page numbers to GPU page
+>>    numbers before calling amdgpu_vm_update_range(), which expects 4K GPU pages.
+>>    Without this the rocr-debug-agent tests and rccl unit  tests were failing.
+>> 
+>> 3. Fix GART PTE allocation in migration code to account for multiple GPU pages
+>>    per CPU page. The current code only allocates PTEs based on number of CPU
+>>    pages, but GART may need one PTE per 4K GPU page.
+>> 
+>> 4. Adjust AMDGPU_GTT_MAX_TRANSFER_SIZE to respect the SDMA engine's 4MB hardware
+>>    limit regardless of CPU page size. The hardcoded 512 pages worked on 4K
+>>    systems but seems to be exceeding the limit with 64K system page size.
+>> 
+>> 5. In the current driver, MMIO remap is supported only when the system page
+>>    size is 4K. Error messages have been added to indicate that MMIO remap
+>>    is not supported on systems with a non-4K page size.
+>> 
+>> 6. Fix amdgpu page fault handler (for xnack) to pass the corresponding system
+>>    pfn (instead of gpu pfn) for restoring SVM range mapping.
+>> 
+>> 7. Align ctl_stack_size and wg_data_size to GPU page size.
+>> 
+>> 8. On systems where the CPU page size is larger than the GPU’s 4K page size,
+>>    the MQD and control stack are aligned to the CPU PAGE_SIZE, causing
+>>    multiple GPU pages to inherit the UC attribute incorrectly. This results
+>>    in the control-stack area being mis-mapped and leads to queue preemption
+>>    and eviction failures. Aligning both regions to the GPU page size
+>>    ensures the MQD is mapped UC and the control stack NC, restoring correct
+>>    behavior.
+>> 
+>> 9. Apart from these 8 changes, we also needed this change [1]. Without this change
+>>    kernel simply crashes when running rocminfo command itself.
+>>    [1]: https://github.com/greenforce-project/chromeos-kernel-mirror/commit/2b33fad96c3129a2a53a42b9d90fb3b906145b98
+>> 
+>> Setup details:
+>> ============
+>> System details: Power10 LPAR using 64K pagesize.
+>> AMD GPU:
+>>   Name:                    gfx90a
+>>   Marketing Name:          AMD Instinct MI210
+>> 
+>> Queries:
+>> =======
+>> 1. We currently ran rocr-debug agent tests [1]  and rccl unit tests [2] to test
+>>    these changes. Is there anything else that you would suggest us to run to
+>>    shake out any other page size related issues w.r.t the kernel driver?
+>
+> The ROCm team needs to answer that.
+>
 
-[PATCH] Revert "drm/amd/display: Fix pbn to kbps Conversion"
-https://lore.kernel.org/all/20251209171810.2514240-1-mario.limonciello@amd.com/
+Is there any separate mailing list or list of people whom we can cc
+then?
 
-But it has "Cc: stable@vger.kernel.org # 6.17+", so that revert won't
-make it to 6.12.y; I wonder if that is just an accident or if there is
-some good reason for that.
+>> 2. Patch 1/8: We have a querry regarding eop buffer size Is this eop ring buffer
+>>    size HW dependent? Should it be made PAGE_SIZE?
+>
+> Yes and no.
+>
 
-Ciao, Thorsten
+If you could more elaborate on this please? I am assuming you would
+anyway respond with more context / details on Patch-1 itself. If yes,
+that would be great!
+
+>> 
+>> 3. Patch 5/8: also have a query w.r.t the error paths when system page size > 4K.
+>>    Do we need to lift this restriction and add MMIO remap support for systems with
+>>    non-4K page sizes?
+>
+> The problem is the HW can't do this.
+>
+
+We aren't that familiar with the HW / SW stack here. Wanted to understand
+what functionality will be unsupported due to this HW limitation then?
+
+>> 
+>> [1] ROCr debug agent tests: https://github.com/ROCm/rocr_debug_agent
+>> [2] RCCL tests: https://github.com/ROCm/rccl/tree/develop/test
+>> 
+>> 
+>> Please note that the changes in this series are on a best effort basis from our
+>> end. Therefore, requesting the amd-gfx community (who have deeper knowledge of the
+>> HW & SW stack) to kindly help with the review and provide feedback / comments on
+>> these patches. The idea here is, to also have non-4K pagesize (e.g. 64K) well
+>> supported with amd gpu kernel driver.
+>
+> Well this is generally nice to have, but there are unfortunately some HW limitations which makes ROCm pretty much unusable on non 4k page size systems.
+
+That's a bummer :( 
+- Do we have some HW documentation around what are these limitations around non-4K pagesize? Any links to such please?
+- Are there any latest AMD GPU versions which maybe lifts such restrictions?
+
+> What we can do is to support graphics and MM, but that should already work out of the box.
+>
+
+- Maybe we should also document, what will work and what won't work due to these HW limitations.
+
+
+> What we can do is to support graphics and MM, but that should already work out of the box.
+
+So these patches helped us resolve most of the issues like SDMA hangs
+and GPU kernel page faults which we saw with rocr and rccl tests with
+64K pagesize. Meaning, we didn't see this working out of box perhaps
+due to 64K pagesize.
+
+AFAIU, some of these patches may require re-work based on reviews, but
+at least with these changes, we were able to see all the tests passing.
+
+> I need to talk with Alex and the ROCm team about it if workarounds can be implemented for those issues.
+>
+
+Thanks a lot! That would be super helpful!
+
+
+> Regards,
+> Christian.
+>
+
+Thanks again for the quick response on the patch series.
+
+-ritesh
