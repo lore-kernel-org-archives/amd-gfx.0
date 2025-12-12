@@ -4,61 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC867D5B155
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Dec 2025 10:58:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 934E0D5B169
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 Dec 2025 20:37:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D7410E3D4;
-	Sat, 13 Dec 2025 10:58:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECC0310E070;
+	Sat, 13 Dec 2025 20:37:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P9OJE7nN";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="WEURroe4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 513E110E3D4;
- Sat, 13 Dec 2025 10:58:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 32F4344265;
- Sat, 13 Dec 2025 10:58:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 281E2C4CEFB;
- Sat, 13 Dec 2025 10:58:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765623515;
- bh=nDu2L4kTOY9IYvqrJ2s+SxSpZYg/Q8pM8WE6/jWuIRg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=P9OJE7nNfGN04a8qccHoJT6FIBKQjcPND/MdS4x54QKkiaKOhtbMF9wzw589R5KAW
- YE0+YO7DCsU1/M5k822xRRJt76PoGsqHx9jmjZRjfvzL1SXizc/po/DoYIvdGsNyHm
- C1er3sPSfWO8uK/evxcq4K5ipd6tzByhWCiO7cWakZcwx0srpcZCJYd7sxZRWVEmoZ
- mZ7Kh8i4ForuKOvfvyT+V8be8PPFzZvjeZoyl5eTNbwYKggwNVnTahmE7CfN6R6aNV
- +U41zj9kSMy15mb/o8cRspBD9XexVqJGhBAwdmx24oA9cl0IYhAa4DejyFaBf0wxT0
- ZFghRFqCFBRFA==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Sat, 13 Dec 2025 19:58:11 +0900
-Subject: [PATCH 2/2] drm/amd/display: Reduce number of arguments of dcn30's
- CalculateWatermarksAndDRAMSpeedChangeSupport()
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D494510E248;
+ Fri, 12 Dec 2025 14:45:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1765550718; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=mLYsCPIEoEc8Cr72RwqmUED2y0IXBvLk3iq9bbiio6n2klgz6hEBIjz3kpqd7wHuZ1YcxGGeQqUFqba6E2wOQcQ0M8Rgk4paK7ECbcW9QBMJ4ywUee3U/WxHzRfjNuGcJ79pi5vf6nZKpSzvCn6BsHTi2aBvt3oAH3vjdPB/cy4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1765550718;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=yLCbjxHd3JePZY9d0bk2dJVpott5rtOluFwDLG0JMHY=; 
+ b=Pw0qhXc+MK5uCnO8utL49AHHfFeDH/mN7oFHwYjWNA8NY/s7/oDtaJdZhYdFEm65T3KtvOf2afds8WXu2hEEGVBeFfzk8XYskr5oPbgxuX54KM0JJp9Y3Z/21IbOO8AVLW0SvFZv8Ye0ad2TOM5S4kI5IZ0drHpvh8MDFJUnyvo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1765550718; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=yLCbjxHd3JePZY9d0bk2dJVpott5rtOluFwDLG0JMHY=;
+ b=WEURroe4KzFmp3qtxUJtYQ2//qLd5ebc0POtVGlpLyhvI+2Ddi4KiJCUnFY8q9Me
+ Ge2SGeJTmZkER1OsM1YUb2VMBkAN4a829RqFOmBWG/WYSSOu97vwoWQ7oURVV1Yqg2Q
+ ousABi9E/4SBqBnjXpfnbZSmw3bsoWCXUFHXAw4Q=
+Received: by mx.zohomail.com with SMTPS id 17655507158241002.007523871685;
+ Fri, 12 Dec 2025 06:45:15 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v5 04/17] drm/bridge: Act on the DRM color format property
+Date: Fri, 12 Dec 2025 15:45:05 +0100
+Message-ID: <2747638.atdPhlSkOF@workhorse>
+In-Reply-To: <20251212-hidden-armored-mule-66dd32@penduick>
+References: <20251128-color-format-v5-0-63e82f1db1e1@collabora.com>
+ <3772903.e9J7NaK4W3@workhorse> <20251212-hidden-armored-mule-66dd32@penduick>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251213-dml-dcn30-avoid-clang-frame-larger-than-v1-2-dd3d74b76a17@kernel.org>
-References: <20251213-dml-dcn30-avoid-clang-frame-larger-than-v1-0-dd3d74b76a17@kernel.org>
-In-Reply-To: <20251213-dml-dcn30-avoid-clang-frame-larger-than-v1-0-dd3d74b76a17@kernel.org>
-To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- llvm@lists.linux.dev, patches@lists.linux.dev, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=22720; i=nathan@kernel.org;
- h=from:subject:message-id; bh=nDu2L4kTOY9IYvqrJ2s+SxSpZYg/Q8pM8WE6/jWuIRg=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDJm2bhcOuBxUn1l6cuU+Fa2lQSoLjjne1Vvg83Lm65uib
- o901mpf7ChlYRDjYpAVU2Spfqx63NBwzlnGG6cmwcxhZQIZwsDFKQATaX3DyNBgKi02+YNVP4vP
- 5iWqAqqrxeeJ3xYvrc1oY3p3V/1Ifj/D/xzrm4Wf991Uaj2bdDZuv3GRvmkOS6HczAs/RVbz7Jt
- mzwwA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+X-Mailman-Approved-At: Sat, 13 Dec 2025 20:37:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,490 +86,254 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CalculateWatermarksAndDRAMSpeedChangeSupport() has a large number of
-parameters, which must be passed on the stack. Most of the parameters
-between the two callsites are the same, so they can be accessed through
-the existing mode_lib pointer, instead of being passed as explicit
-arguments. Doing this reduces the stack size of
-dml30_ModeSupportAndSystemConfigurationFull() from 1912 bytes to 1840
-bytes building for x86_64 with clang-22, helping stay under the 2048
-byte limit for display_mode_vba_30.c.
+On Friday, 12 December 2025 10:50:26 Central European Standard Time Maxime Ripard wrote:
+> On Thu, Dec 11, 2025 at 08:34:22PM +0100, Nicolas Frattaroli wrote:
+> > On Tuesday, 9 December 2025 15:27:28 Central European Standard Time Maxime Ripard wrote:
+> > > On Fri, Nov 28, 2025 at 10:05:40PM +0100, Nicolas Frattaroli wrote:
+> > > > The new DRM color format property allows userspace to request a specific
+> > > > color format on a connector. In turn, this fills the connector state's
+> > > > color_format member to switch color formats.
+> > > > 
+> > > > Make drm_bridges consider the color_format set in the connector state
+> > > > during the atomic bridge check. Specifically, reject any output bus
+> > > > formats that do not correspond to the requested color format.
+> > > > 
+> > > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > > > ---
+> > > >  drivers/gpu/drm/drm_bridge.c | 45 ++++++++++++++++++++++++++++++++++++++++++++
+> > > >  1 file changed, 45 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> > > > index 8f355df883d8..8aac9747f35e 100644
+> > > > --- a/drivers/gpu/drm/drm_bridge.c
+> > > > +++ b/drivers/gpu/drm/drm_bridge.c
+> > > > @@ -1052,6 +1052,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
+> > > >  	return ret;
+> > > >  }
+> > > >  
+> > > > +static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format fmt)
+> > > > +{
+> > > > +	if (fmt == DRM_COLOR_FORMAT_AUTO)
+> > > > +		return true;
+> > > > +
+> > > > +	switch (bus_fmt) {
+> > > > +	case MEDIA_BUS_FMT_FIXED:
+> > > > +		return true;
+> > > > +	case MEDIA_BUS_FMT_RGB888_1X24:
+> > > > +	case MEDIA_BUS_FMT_RGB101010_1X30:
+> > > > +	case MEDIA_BUS_FMT_RGB121212_1X36:
+> > > > +	case MEDIA_BUS_FMT_RGB161616_1X48:
+> > > > +		return fmt == DRM_COLOR_FORMAT_RGB444;
+> > > > +	case MEDIA_BUS_FMT_YUV8_1X24:
+> > > > +	case MEDIA_BUS_FMT_YUV10_1X30:
+> > > > +	case MEDIA_BUS_FMT_YUV12_1X36:
+> > > > +	case MEDIA_BUS_FMT_YUV16_1X48:
+> > > > +		return fmt == DRM_COLOR_FORMAT_YCBCR444;
+> > > > +	case MEDIA_BUS_FMT_UYVY8_1X16:
+> > > > +	case MEDIA_BUS_FMT_VYUY8_1X16:
+> > > > +	case MEDIA_BUS_FMT_YUYV8_1X16:
+> > > > +	case MEDIA_BUS_FMT_YVYU8_1X16:
+> > > > +	case MEDIA_BUS_FMT_UYVY10_1X20:
+> > > > +	case MEDIA_BUS_FMT_YUYV10_1X20:
+> > > > +	case MEDIA_BUS_FMT_VYUY10_1X20:
+> > > > +	case MEDIA_BUS_FMT_YVYU10_1X20:
+> > > > +	case MEDIA_BUS_FMT_UYVY12_1X24:
+> > > > +	case MEDIA_BUS_FMT_VYUY12_1X24:
+> > > > +	case MEDIA_BUS_FMT_YUYV12_1X24:
+> > > > +	case MEDIA_BUS_FMT_YVYU12_1X24:
+> > > > +		return fmt == DRM_COLOR_FORMAT_YCBCR422;
+> > > > +	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+> > > > +	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
+> > > > +	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
+> > > > +	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
+> > > > +		return fmt == DRM_COLOR_FORMAT_YCBCR420;
+> > > > +	default:
+> > > > +		return false;
+> > > > +	}
+> > > > +}
+> > > > +
+> > > >  /*
+> > > >   * This function is called by &drm_atomic_bridge_chain_check() just before
+> > > >   * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
+> > > > @@ -1137,6 +1178,10 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+> > > >  	}
+> > > >  
+> > > >  	for (i = 0; i < num_out_bus_fmts; i++) {
+> > > > +		if (!bus_format_is_color_fmt(out_bus_fmts[i], conn_state->color_format)) {
+> > > > +			ret = -ENOTSUPP;
+> > > > +			continue;
+> > > > +		}
+> > > 
+> > > Sorry, I'm struggling a bit to understand how this would work if a bridge both supports the bus
+> > > format selection and HDMI state helpers? Can you expand on it?
+> > 
+> > I have very little idea of whether this makes conceptual sense.
+> 
+> .. I wasn't asking you if it makes sense, I was asking you to explain
+> how you wanted it to work.
+> 
+> > The hope is that by working backwards from the last bridge and only
+> > accepting either fixed formats or something that corresponds to the
+> > target color format, we don't claim that a setup can do a colour
+> > format if the whole bridge chain isn't able to do it.
+> > 
+> > Of course, format conversions along the bridge chain where one
+> > input format can be converted to a set of output formats by some
+> > bridge will throw a massive wrench into this. And this is all
+> > assuming that the bus format is in any way related to the color
+> > format that will be sent out on the wire.
+> 
+> I'm not really concerned about this. As we move more and more bridges to
+> the state helpers, we can always fix it, but it needs at the very least
+> to document how you envision the whole thing to work, and ideally have
+> bunch of tests to make sure it still does.
 
-Additionally, now that there is a pointer to mode_lib->vba available,
-use 'v' consistently throughout the entire function.
+Where should I document the intended behavior? A code comment here is
+probably not visible to people implementing new bridge drivers, so I
+imagine there's a place in the docs?
 
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- .../amd/display/dc/dml/dcn30/display_mode_vba_30.c | 287 +++++----------------
- 1 file changed, 66 insertions(+), 221 deletions(-)
+On the drm-kms docs page, I see:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 2d19bb8de59c..1df3412be346 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -265,62 +265,23 @@ static void CalculateDynamicMetadataParameters(
- static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 		struct display_mode_lib *mode_lib,
- 		unsigned int PrefetchMode,
--		unsigned int NumberOfActivePlanes,
--		unsigned int MaxLineBufferLines,
--		unsigned int LineBufferSize,
--		unsigned int DPPOutputBufferPixels,
--		unsigned int DETBufferSizeInKByte,
--		unsigned int WritebackInterfaceBufferSize,
- 		double DCFCLK,
- 		double ReturnBW,
--		bool GPUVMEnable,
--		unsigned int dpte_group_bytes[],
--		unsigned int MetaChunkSize,
- 		double UrgentLatency,
- 		double ExtraLatency,
--		double WritebackLatency,
--		double WritebackChunkSize,
- 		double SOCCLK,
--		double DRAMClockChangeLatency,
--		double SRExitTime,
--		double SREnterPlusExitTime,
- 		double DCFCLKDeepSleep,
- 		unsigned int DPPPerPlane[],
--		bool DCCEnable[],
- 		double DPPCLK[],
- 		unsigned int DETBufferSizeY[],
- 		unsigned int DETBufferSizeC[],
- 		unsigned int SwathHeightY[],
- 		unsigned int SwathHeightC[],
--		unsigned int LBBitPerPixel[],
- 		double SwathWidthY[],
- 		double SwathWidthC[],
--		double HRatio[],
--		double HRatioChroma[],
--		unsigned int vtaps[],
--		unsigned int VTAPsChroma[],
--		double VRatio[],
--		double VRatioChroma[],
--		unsigned int HTotal[],
--		double PixelClock[],
--		unsigned int BlendingAndTiming[],
- 		double BytePerPixelDETY[],
- 		double BytePerPixelDETC[],
--		double DSTXAfterScaler[],
--		double DSTYAfterScaler[],
--		bool WritebackEnable[],
--		enum source_format_class WritebackPixelFormat[],
--		double WritebackDestinationWidth[],
--		double WritebackDestinationHeight[],
--		double WritebackSourceHeight[],
--		enum clock_change_support *DRAMClockChangeSupport,
--		double *UrgentWatermark,
--		double *WritebackUrgentWatermark,
--		double *DRAMClockChangeWatermark,
--		double *WritebackDRAMClockChangeWatermark,
--		double *StutterExitWatermark,
--		double *StutterEnterPlusExitWatermark,
--		double *MinActiveDRAMClockChangeLatencySupported);
-+		enum clock_change_support *DRAMClockChangeSupport);
- static void CalculateDCFCLKDeepSleep(
- 		struct display_mode_lib *mode_lib,
- 		unsigned int NumberOfActivePlanes,
-@@ -2646,62 +2607,23 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 		CalculateWatermarksAndDRAMSpeedChangeSupport(
- 			mode_lib,
- 			PrefetchMode,
--			v->NumberOfActivePlanes,
--			v->MaxLineBufferLines,
--			v->LineBufferSize,
--			v->DPPOutputBufferPixels,
--			v->DETBufferSizeInKByte[0],
--			v->WritebackInterfaceBufferSize,
- 			v->DCFCLK,
- 			v->ReturnBW,
--			v->GPUVMEnable,
--			v->dpte_group_bytes,
--			v->MetaChunkSize,
- 			v->UrgentLatency,
- 			v->UrgentExtraLatency,
--			v->WritebackLatency,
--			v->WritebackChunkSize,
- 			v->SOCCLK,
--			v->FinalDRAMClockChangeLatency,
--			v->SRExitTime,
--			v->SREnterPlusExitTime,
- 			v->DCFCLKDeepSleep,
- 			v->DPPPerPlane,
--			v->DCCEnable,
- 			v->DPPCLK,
- 			v->DETBufferSizeY,
- 			v->DETBufferSizeC,
- 			v->SwathHeightY,
- 			v->SwathHeightC,
--			v->LBBitPerPixel,
- 			v->SwathWidthY,
- 			v->SwathWidthC,
--			v->HRatio,
--			v->HRatioChroma,
--			v->vtaps,
--			v->VTAPsChroma,
--			v->VRatio,
--			v->VRatioChroma,
--			v->HTotal,
--			v->PixelClock,
--			v->BlendingAndTiming,
- 			v->BytePerPixelDETY,
- 			v->BytePerPixelDETC,
--			v->DSTXAfterScaler,
--			v->DSTYAfterScaler,
--			v->WritebackEnable,
--			v->WritebackPixelFormat,
--			v->WritebackDestinationWidth,
--			v->WritebackDestinationHeight,
--			v->WritebackSourceHeight,
--			&DRAMClockChangeSupport,
--			&v->UrgentWatermark,
--			&v->WritebackUrgentWatermark,
--			&v->DRAMClockChangeWatermark,
--			&v->WritebackDRAMClockChangeWatermark,
--			&v->StutterExitWatermark,
--			&v->StutterEnterPlusExitWatermark,
--			&v->MinActiveDRAMClockChangeLatencySupported);
-+			&DRAMClockChangeSupport);
- 
- 		for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 			if (v->WritebackEnable[k] == true) {
-@@ -4895,62 +4817,23 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			CalculateWatermarksAndDRAMSpeedChangeSupport(
- 					mode_lib,
- 					v->PrefetchModePerState[i][j],
--					v->NumberOfActivePlanes,
--					v->MaxLineBufferLines,
--					v->LineBufferSize,
--					v->DPPOutputBufferPixels,
--					v->DETBufferSizeInKByte[0],
--					v->WritebackInterfaceBufferSize,
- 					v->DCFCLKState[i][j],
- 					v->ReturnBWPerState[i][j],
--					v->GPUVMEnable,
--					v->dpte_group_bytes,
--					v->MetaChunkSize,
- 					v->UrgLatency[i],
- 					v->ExtraLatency,
--					v->WritebackLatency,
--					v->WritebackChunkSize,
- 					v->SOCCLKPerState[i],
--					v->FinalDRAMClockChangeLatency,
--					v->SRExitTime,
--					v->SREnterPlusExitTime,
- 					v->ProjectedDCFCLKDeepSleep[i][j],
- 					v->NoOfDPPThisState,
--					v->DCCEnable,
- 					v->RequiredDPPCLKThisState,
- 					v->DETBufferSizeYThisState,
- 					v->DETBufferSizeCThisState,
- 					v->SwathHeightYThisState,
- 					v->SwathHeightCThisState,
--					v->LBBitPerPixel,
- 					v->SwathWidthYThisState,
- 					v->SwathWidthCThisState,
--					v->HRatio,
--					v->HRatioChroma,
--					v->vtaps,
--					v->VTAPsChroma,
--					v->VRatio,
--					v->VRatioChroma,
--					v->HTotal,
--					v->PixelClock,
--					v->BlendingAndTiming,
- 					v->BytePerPixelInDETY,
- 					v->BytePerPixelInDETC,
--					v->DSTXAfterScaler,
--					v->DSTYAfterScaler,
--					v->WritebackEnable,
--					v->WritebackPixelFormat,
--					v->WritebackDestinationWidth,
--					v->WritebackDestinationHeight,
--					v->WritebackSourceHeight,
--					&v->DRAMClockChangeSupport[i][j],
--					&v->UrgentWatermark,
--					&v->WritebackUrgentWatermark,
--					&v->DRAMClockChangeWatermark,
--					&v->WritebackDRAMClockChangeWatermark,
--					&v->StutterExitWatermark,
--					&v->StutterEnterPlusExitWatermark,
--					&v->MinActiveDRAMClockChangeLatencySupported);
-+					&v->DRAMClockChangeSupport[i][j]);
- 		}
- 	}
- 
-@@ -5067,63 +4950,25 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 		struct display_mode_lib *mode_lib,
- 		unsigned int PrefetchMode,
--		unsigned int NumberOfActivePlanes,
--		unsigned int MaxLineBufferLines,
--		unsigned int LineBufferSize,
--		unsigned int DPPOutputBufferPixels,
--		unsigned int DETBufferSizeInKByte,
--		unsigned int WritebackInterfaceBufferSize,
- 		double DCFCLK,
- 		double ReturnBW,
--		bool GPUVMEnable,
--		unsigned int dpte_group_bytes[],
--		unsigned int MetaChunkSize,
- 		double UrgentLatency,
- 		double ExtraLatency,
--		double WritebackLatency,
--		double WritebackChunkSize,
- 		double SOCCLK,
--		double DRAMClockChangeLatency,
--		double SRExitTime,
--		double SREnterPlusExitTime,
- 		double DCFCLKDeepSleep,
- 		unsigned int DPPPerPlane[],
--		bool DCCEnable[],
- 		double DPPCLK[],
- 		unsigned int DETBufferSizeY[],
- 		unsigned int DETBufferSizeC[],
- 		unsigned int SwathHeightY[],
- 		unsigned int SwathHeightC[],
--		unsigned int LBBitPerPixel[],
- 		double SwathWidthY[],
- 		double SwathWidthC[],
--		double HRatio[],
--		double HRatioChroma[],
--		unsigned int vtaps[],
--		unsigned int VTAPsChroma[],
--		double VRatio[],
--		double VRatioChroma[],
--		unsigned int HTotal[],
--		double PixelClock[],
--		unsigned int BlendingAndTiming[],
- 		double BytePerPixelDETY[],
- 		double BytePerPixelDETC[],
--		double DSTXAfterScaler[],
--		double DSTYAfterScaler[],
--		bool WritebackEnable[],
--		enum source_format_class WritebackPixelFormat[],
--		double WritebackDestinationWidth[],
--		double WritebackDestinationHeight[],
--		double WritebackSourceHeight[],
--		enum clock_change_support *DRAMClockChangeSupport,
--		double *UrgentWatermark,
--		double *WritebackUrgentWatermark,
--		double *DRAMClockChangeWatermark,
--		double *WritebackDRAMClockChangeWatermark,
--		double *StutterExitWatermark,
--		double *StutterEnterPlusExitWatermark,
--		double *MinActiveDRAMClockChangeLatencySupported)
-+		enum clock_change_support *DRAMClockChangeSupport)
- {
-+	struct vba_vars_st *v = &mode_lib->vba;
- 	double EffectiveLBLatencyHidingY = 0;
- 	double EffectiveLBLatencyHidingC = 0;
- 	double LinesInDETY[DC__NUM_DPP__MAX] = { 0 };
-@@ -5142,101 +4987,101 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 	double WritebackDRAMClockChangeLatencyHiding = 0;
- 	unsigned int k, j;
- 
--	mode_lib->vba.TotalActiveDPP = 0;
--	mode_lib->vba.TotalDCCActiveDPP = 0;
--	for (k = 0; k < NumberOfActivePlanes; ++k) {
--		mode_lib->vba.TotalActiveDPP = mode_lib->vba.TotalActiveDPP + DPPPerPlane[k];
--		if (DCCEnable[k] == true) {
--			mode_lib->vba.TotalDCCActiveDPP = mode_lib->vba.TotalDCCActiveDPP + DPPPerPlane[k];
-+	v->TotalActiveDPP = 0;
-+	v->TotalDCCActiveDPP = 0;
-+	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-+		v->TotalActiveDPP = v->TotalActiveDPP + DPPPerPlane[k];
-+		if (v->DCCEnable[k] == true) {
-+			v->TotalDCCActiveDPP = v->TotalDCCActiveDPP + DPPPerPlane[k];
- 		}
- 	}
- 
--	*UrgentWatermark = UrgentLatency + ExtraLatency;
-+	v->UrgentWatermark = UrgentLatency + ExtraLatency;
- 
--	*DRAMClockChangeWatermark = DRAMClockChangeLatency + *UrgentWatermark;
-+	v->DRAMClockChangeWatermark = v->FinalDRAMClockChangeLatency + v->UrgentWatermark;
- 
--	mode_lib->vba.TotalActiveWriteback = 0;
--	for (k = 0; k < NumberOfActivePlanes; ++k) {
--		if (WritebackEnable[k] == true) {
--			mode_lib->vba.TotalActiveWriteback = mode_lib->vba.TotalActiveWriteback + 1;
-+	v->TotalActiveWriteback = 0;
-+	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-+		if (v->WritebackEnable[k] == true) {
-+			v->TotalActiveWriteback = v->TotalActiveWriteback + 1;
- 		}
- 	}
- 
--	if (mode_lib->vba.TotalActiveWriteback <= 1) {
--		*WritebackUrgentWatermark = WritebackLatency;
-+	if (v->TotalActiveWriteback <= 1) {
-+		v->WritebackUrgentWatermark = v->WritebackLatency;
- 	} else {
--		*WritebackUrgentWatermark = WritebackLatency + WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
-+		v->WritebackUrgentWatermark = v->WritebackLatency + v->WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
- 	}
- 
--	if (mode_lib->vba.TotalActiveWriteback <= 1) {
--		*WritebackDRAMClockChangeWatermark = DRAMClockChangeLatency + WritebackLatency;
-+	if (v->TotalActiveWriteback <= 1) {
-+		v->WritebackDRAMClockChangeWatermark = v->FinalDRAMClockChangeLatency + v->WritebackLatency;
- 	} else {
--		*WritebackDRAMClockChangeWatermark = DRAMClockChangeLatency + WritebackLatency + WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
-+		v->WritebackDRAMClockChangeWatermark = v->FinalDRAMClockChangeLatency + v->WritebackLatency + v->WritebackChunkSize * 1024.0 / 32.0 / SOCCLK;
- 	}
- 
--	for (k = 0; k < NumberOfActivePlanes; ++k) {
-+	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 
--		mode_lib->vba.LBLatencyHidingSourceLinesY = dml_min((double) MaxLineBufferLines, dml_floor(LineBufferSize / LBBitPerPixel[k] / (SwathWidthY[k] / dml_max(HRatio[k], 1.0)), 1)) - (vtaps[k] - 1);
-+		v->LBLatencyHidingSourceLinesY = dml_min((double) v->MaxLineBufferLines, dml_floor(v->LineBufferSize / v->LBBitPerPixel[k] / (SwathWidthY[k] / dml_max(v->HRatio[k], 1.0)), 1)) - (v->vtaps[k] - 1);
- 
--		mode_lib->vba.LBLatencyHidingSourceLinesC = dml_min((double) MaxLineBufferLines, dml_floor(LineBufferSize / LBBitPerPixel[k] / (SwathWidthC[k] / dml_max(HRatioChroma[k], 1.0)), 1)) - (VTAPsChroma[k] - 1);
-+		v->LBLatencyHidingSourceLinesC = dml_min((double) v->MaxLineBufferLines, dml_floor(v->LineBufferSize / v->LBBitPerPixel[k] / (SwathWidthC[k] / dml_max(v->HRatioChroma[k], 1.0)), 1)) - (v->VTAPsChroma[k] - 1);
- 
--		EffectiveLBLatencyHidingY = mode_lib->vba.LBLatencyHidingSourceLinesY / VRatio[k] * (HTotal[k] / PixelClock[k]);
-+		EffectiveLBLatencyHidingY = v->LBLatencyHidingSourceLinesY / v->VRatio[k] * (v->HTotal[k] / v->PixelClock[k]);
- 
--		EffectiveLBLatencyHidingC = mode_lib->vba.LBLatencyHidingSourceLinesC / VRatioChroma[k] * (HTotal[k] / PixelClock[k]);
-+		EffectiveLBLatencyHidingC = v->LBLatencyHidingSourceLinesC / v->VRatioChroma[k] * (v->HTotal[k] / v->PixelClock[k]);
- 
- 		LinesInDETY[k] = (double) DETBufferSizeY[k] / BytePerPixelDETY[k] / SwathWidthY[k];
- 		LinesInDETYRoundedDownToSwath[k] = dml_floor(LinesInDETY[k], SwathHeightY[k]);
--		FullDETBufferingTimeY[k] = LinesInDETYRoundedDownToSwath[k] * (HTotal[k] / PixelClock[k]) / VRatio[k];
-+		FullDETBufferingTimeY[k] = LinesInDETYRoundedDownToSwath[k] * (v->HTotal[k] / v->PixelClock[k]) / v->VRatio[k];
- 		if (BytePerPixelDETC[k] > 0) {
--			LinesInDETC = mode_lib->vba.DETBufferSizeC[k] / BytePerPixelDETC[k] / SwathWidthC[k];
-+			LinesInDETC = v->DETBufferSizeC[k] / BytePerPixelDETC[k] / SwathWidthC[k];
- 			LinesInDETCRoundedDownToSwath = dml_floor(LinesInDETC, SwathHeightC[k]);
--			FullDETBufferingTimeC = LinesInDETCRoundedDownToSwath * (HTotal[k] / PixelClock[k]) / VRatioChroma[k];
-+			FullDETBufferingTimeC = LinesInDETCRoundedDownToSwath * (v->HTotal[k] / v->PixelClock[k]) / v->VRatioChroma[k];
- 		} else {
- 			LinesInDETC = 0;
- 			FullDETBufferingTimeC = 999999;
- 		}
- 
--		ActiveDRAMClockChangeLatencyMarginY = EffectiveLBLatencyHidingY + FullDETBufferingTimeY[k] - *UrgentWatermark - (HTotal[k] / PixelClock[k]) * (DSTXAfterScaler[k] / HTotal[k] + DSTYAfterScaler[k]) - *DRAMClockChangeWatermark;
-+		ActiveDRAMClockChangeLatencyMarginY = EffectiveLBLatencyHidingY + FullDETBufferingTimeY[k] - v->UrgentWatermark - (v->HTotal[k] / v->PixelClock[k]) * (v->DSTXAfterScaler[k] / v->HTotal[k] + v->DSTYAfterScaler[k]) - v->DRAMClockChangeWatermark;
- 
--		if (NumberOfActivePlanes > 1) {
--			ActiveDRAMClockChangeLatencyMarginY = ActiveDRAMClockChangeLatencyMarginY - (1 - 1.0 / NumberOfActivePlanes) * SwathHeightY[k] * HTotal[k] / PixelClock[k] / VRatio[k];
-+		if (v->NumberOfActivePlanes > 1) {
-+			ActiveDRAMClockChangeLatencyMarginY = ActiveDRAMClockChangeLatencyMarginY - (1 - 1.0 / v->NumberOfActivePlanes) * SwathHeightY[k] * v->HTotal[k] / v->PixelClock[k] / v->VRatio[k];
- 		}
- 
- 		if (BytePerPixelDETC[k] > 0) {
--			ActiveDRAMClockChangeLatencyMarginC = EffectiveLBLatencyHidingC + FullDETBufferingTimeC - *UrgentWatermark - (HTotal[k] / PixelClock[k]) * (DSTXAfterScaler[k] / HTotal[k] + DSTYAfterScaler[k]) - *DRAMClockChangeWatermark;
-+			ActiveDRAMClockChangeLatencyMarginC = EffectiveLBLatencyHidingC + FullDETBufferingTimeC - v->UrgentWatermark - (v->HTotal[k] / v->PixelClock[k]) * (v->DSTXAfterScaler[k] / v->HTotal[k] + v->DSTYAfterScaler[k]) - v->DRAMClockChangeWatermark;
- 
--			if (NumberOfActivePlanes > 1) {
--				ActiveDRAMClockChangeLatencyMarginC = ActiveDRAMClockChangeLatencyMarginC - (1 - 1.0 / NumberOfActivePlanes) * SwathHeightC[k] * HTotal[k] / PixelClock[k] / VRatioChroma[k];
-+			if (v->NumberOfActivePlanes > 1) {
-+				ActiveDRAMClockChangeLatencyMarginC = ActiveDRAMClockChangeLatencyMarginC - (1 - 1.0 / v->NumberOfActivePlanes) * SwathHeightC[k] * v->HTotal[k] / v->PixelClock[k] / v->VRatioChroma[k];
- 			}
--			mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k] = dml_min(ActiveDRAMClockChangeLatencyMarginY, ActiveDRAMClockChangeLatencyMarginC);
-+			v->ActiveDRAMClockChangeLatencyMargin[k] = dml_min(ActiveDRAMClockChangeLatencyMarginY, ActiveDRAMClockChangeLatencyMarginC);
- 		} else {
--			mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k] = ActiveDRAMClockChangeLatencyMarginY;
-+			v->ActiveDRAMClockChangeLatencyMargin[k] = ActiveDRAMClockChangeLatencyMarginY;
- 		}
- 
--		if (WritebackEnable[k] == true) {
-+		if (v->WritebackEnable[k] == true) {
- 
--			WritebackDRAMClockChangeLatencyHiding = WritebackInterfaceBufferSize * 1024 / (WritebackDestinationWidth[k] * WritebackDestinationHeight[k] / (WritebackSourceHeight[k] * HTotal[k] / PixelClock[k]) * 4);
--			if (WritebackPixelFormat[k] == dm_444_64) {
-+			WritebackDRAMClockChangeLatencyHiding = v->WritebackInterfaceBufferSize * 1024 / (v->WritebackDestinationWidth[k] * v->WritebackDestinationHeight[k] / (v->WritebackSourceHeight[k] * v->HTotal[k] / v->PixelClock[k]) * 4);
-+			if (v->WritebackPixelFormat[k] == dm_444_64) {
- 				WritebackDRAMClockChangeLatencyHiding = WritebackDRAMClockChangeLatencyHiding / 2;
- 			}
--			if (mode_lib->vba.WritebackConfiguration == dm_whole_buffer_for_single_stream_interleave) {
-+			if (v->WritebackConfiguration == dm_whole_buffer_for_single_stream_interleave) {
- 				WritebackDRAMClockChangeLatencyHiding = WritebackDRAMClockChangeLatencyHiding * 2;
- 			}
--			WritebackDRAMClockChangeLatencyMargin = WritebackDRAMClockChangeLatencyHiding - mode_lib->vba.WritebackDRAMClockChangeWatermark;
--			mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k] = dml_min(mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k], WritebackDRAMClockChangeLatencyMargin);
-+			WritebackDRAMClockChangeLatencyMargin = WritebackDRAMClockChangeLatencyHiding - v->WritebackDRAMClockChangeWatermark;
-+			v->ActiveDRAMClockChangeLatencyMargin[k] = dml_min(v->ActiveDRAMClockChangeLatencyMargin[k], WritebackDRAMClockChangeLatencyMargin);
- 		}
- 	}
- 
--	mode_lib->vba.MinActiveDRAMClockChangeMargin = 999999;
-+	v->MinActiveDRAMClockChangeMargin = 999999;
- 	PlaneWithMinActiveDRAMClockChangeMargin = 0;
--	for (k = 0; k < NumberOfActivePlanes; ++k) {
--		if (mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k] < mode_lib->vba.MinActiveDRAMClockChangeMargin) {
--			mode_lib->vba.MinActiveDRAMClockChangeMargin = mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k];
--			if (BlendingAndTiming[k] == k) {
-+	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-+		if (v->ActiveDRAMClockChangeLatencyMargin[k] < v->MinActiveDRAMClockChangeMargin) {
-+			v->MinActiveDRAMClockChangeMargin = v->ActiveDRAMClockChangeLatencyMargin[k];
-+			if (v->BlendingAndTiming[k] == k) {
- 				PlaneWithMinActiveDRAMClockChangeMargin = k;
- 			} else {
--				for (j = 0; j < NumberOfActivePlanes; ++j) {
--					if (BlendingAndTiming[k] == j) {
-+				for (j = 0; j < v->NumberOfActivePlanes; ++j) {
-+					if (v->BlendingAndTiming[k] == j) {
- 						PlaneWithMinActiveDRAMClockChangeMargin = j;
- 					}
- 				}
-@@ -5244,40 +5089,40 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 		}
- 	}
- 
--	*MinActiveDRAMClockChangeLatencySupported = mode_lib->vba.MinActiveDRAMClockChangeMargin + DRAMClockChangeLatency;
-+	v->MinActiveDRAMClockChangeLatencySupported = v->MinActiveDRAMClockChangeMargin + v->FinalDRAMClockChangeLatency;
- 
- 	SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank = 999999;
--	for (k = 0; k < NumberOfActivePlanes; ++k) {
--		if (!((k == PlaneWithMinActiveDRAMClockChangeMargin) && (BlendingAndTiming[k] == k)) && !(BlendingAndTiming[k] == PlaneWithMinActiveDRAMClockChangeMargin) && mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k] < SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank) {
--			SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank = mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k];
-+	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-+		if (!((k == PlaneWithMinActiveDRAMClockChangeMargin) && (v->BlendingAndTiming[k] == k)) && !(v->BlendingAndTiming[k] == PlaneWithMinActiveDRAMClockChangeMargin) && v->ActiveDRAMClockChangeLatencyMargin[k] < SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank) {
-+			SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank = v->ActiveDRAMClockChangeLatencyMargin[k];
- 		}
- 	}
- 
--	mode_lib->vba.TotalNumberOfActiveOTG = 0;
--	for (k = 0; k < NumberOfActivePlanes; ++k) {
--		if (BlendingAndTiming[k] == k) {
--			mode_lib->vba.TotalNumberOfActiveOTG = mode_lib->vba.TotalNumberOfActiveOTG + 1;
-+	v->TotalNumberOfActiveOTG = 0;
-+	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-+		if (v->BlendingAndTiming[k] == k) {
-+			v->TotalNumberOfActiveOTG = v->TotalNumberOfActiveOTG + 1;
- 		}
- 	}
- 
--	if (mode_lib->vba.MinActiveDRAMClockChangeMargin > 0) {
-+	if (v->MinActiveDRAMClockChangeMargin > 0) {
- 		*DRAMClockChangeSupport = dm_dram_clock_change_vactive;
--	} else if (((mode_lib->vba.SynchronizedVBlank == true || mode_lib->vba.TotalNumberOfActiveOTG == 1 || SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank > 0) && PrefetchMode == 0)) {
-+	} else if (((v->SynchronizedVBlank == true || v->TotalNumberOfActiveOTG == 1 || SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank > 0) && PrefetchMode == 0)) {
- 		*DRAMClockChangeSupport = dm_dram_clock_change_vblank;
- 	} else {
- 		*DRAMClockChangeSupport = dm_dram_clock_change_unsupported;
- 	}
- 
- 	FullDETBufferingTimeYStutterCriticalPlane = FullDETBufferingTimeY[0];
--	for (k = 0; k < NumberOfActivePlanes; ++k) {
-+	for (k = 0; k < v->NumberOfActivePlanes; ++k) {
- 		if (FullDETBufferingTimeY[k] <= FullDETBufferingTimeYStutterCriticalPlane) {
- 			FullDETBufferingTimeYStutterCriticalPlane = FullDETBufferingTimeY[k];
--			TimeToFinishSwathTransferStutterCriticalPlane = (SwathHeightY[k] - (LinesInDETY[k] - LinesInDETYRoundedDownToSwath[k])) * (HTotal[k] / PixelClock[k]) / VRatio[k];
-+			TimeToFinishSwathTransferStutterCriticalPlane = (SwathHeightY[k] - (LinesInDETY[k] - LinesInDETYRoundedDownToSwath[k])) * (v->HTotal[k] / v->PixelClock[k]) / v->VRatio[k];
- 		}
- 	}
- 
--	*StutterExitWatermark = SRExitTime +  ExtraLatency + 10 / DCFCLKDeepSleep;
--	*StutterEnterPlusExitWatermark = dml_max(SREnterPlusExitTime + ExtraLatency + 10 / DCFCLKDeepSleep, TimeToFinishSwathTransferStutterCriticalPlane);
-+	v->StutterExitWatermark = v->SRExitTime +  ExtraLatency + 10 / DCFCLKDeepSleep;
-+	v->StutterEnterPlusExitWatermark = dml_max(v->SREnterPlusExitTime + ExtraLatency + 10 / DCFCLKDeepSleep, TimeToFinishSwathTransferStutterCriticalPlane);
- 
- }
- 
+  Note that currently the bridge chaining and interactions with
+  connectors and panels are still in-flux and not really fully
+  sorted out yet.
 
--- 
-2.52.0
+Which means maybe adding a sub-heading for DRM bridge there might
+make sense.
+
+For a complete solution, it should probably do a graph traversal
+starting from the last bridge's output format, and then looking
+to reach the first bridge output format in the chain in any way
+possible over a DAG where edges connect from input formats of
+the next bridge to the output formats of the previous bridge,
+and the output format of each bridge connects to whichever
+of its input formats can convert to this output format.
+
+Here's a diagram of what I mean:
+
+    .-----------------------------------.
+    |       SoC Video Processor         |
+    |-----------------------------------|
+    | out rgb | out yuv444 | out yuv420 |
+    '---------|------------|------------'
+        ^
+        |
+    .---------|------.
+    | in  rgb |      |
+    |---------| MIPI |
+    |    ^    | DSI  |
+    |    |    | TX   |
+    |---------|      |
+    | out rgb |      |
+    '---------|------'
+        ^
+        |
+        '----------.
+                    |
+    .----------|---------|-----------|----------------------------.
+    |          | in  rgb | in yuv444 |               |            |
+    |----------|---------|-----------|---------------|   BOB'S    |
+    |              ^   ^    ^  ^                     |  BARGAIN   |
+    |              |   |    |  '--------------.      |  MIPI DSI  |
+    |    .---------'   |    '----.            |      |  TO HDMI   |
+    |    |          .--'         |            |      |  BRIDGE    |
+    |---------|------------|------------|------------|            |
+    | out rgb | out yuv444 | out yuv422 | out yuv420 |            |
+    '---------|------------|------------|------------|------------'
+        ^           ^            ^
+        |           |            |
+    .---------|------------|------------.
+    | in  rgb | in  yuv444 | in  yuv422 |
+    |-----------------------------------|
+    |          HDMI CONNECTOR           |
+    '-----------------------------------'
+
+In this case, the MIPI DSI to HDMI bridge isn't very good so it can
+only convert YUV444 to YUV422 and YUV420, despite being able to
+convert RGB to YUV444 as well. The important bit is that there is
+a path back from "out yuv444" on the "HDMI CONNECTOR" all the way
+to the "SoC Video Processor", even though the processor's only going
+to be outputting RGB. So setting color_format to yuv444 should be
+possible in this case.
+
+My current code doesn't handle this case. It only works if bridges
+that convert can convert to any of their output formats regardless
+of the input format. Additionally, I don't think I'd have a good
+time if the SoC's video output processor sets the bus format to
+"fixed", because if everyone along the chain says they can do
+fixed formats then the output is going to claim it can do anything,
+which isn't the case.
+
+> 
+> > In practice, I don't have any hardware where whatever counts as
+> > a "bridge" is an actually more involved setup than just the TX
+> > controller. I tried looking into getting a board with one of the
+> > supported DSI-to-HDMI bridge chips so I can at least test how it
+> > would work in such a scenario, and I got one, but I'd need to make
+> > my own flat flex PCB to adapt it to the pinout of my SBC's DSI
+> > port.
+> > 
+> > So yeah I don't know how it's supposed to work, I just know this
+> > works for the case I'm working with, and any more complex case
+> > is literally unobtanium hardware which I'm not going to bother
+> > blowing days on maybe making a cable for when I'm already touching
+> > three different GPU drivers here and the intel-gfx-ci is screaming
+> > into my inbox about vague failures in unrelated codepaths in its
+> > native language, Klingon.
+> 
+> That's uncalled for.
+> 
+> > Which is all to say: is there a virtual drm bridge driver that
+> > exists, where I can set what formats it supports on the input
+> > and on the output, so that I can actually get a feel for how this
+> > is conceptually supposed to work without needing special hardware?
+> 
+> If your question is "do we have a way to replicate and test an arbitrary
+> setup to check how it behaves?", then yes, we do, it's what we're doing
+> in kunit. But you don't seem too fond of those.
+
+Okay, I will look into virtual bridge tests in kunit.
+
+> 
+> > Better yet: do you have a specific setup in mind where you know
+> > this approach does not work?
+> 
+> Look. I was asking a genuine question. If you want to get all defensive
+> about it, go ahead. But sending a series implementing something with a
+> lot of history, complex interactions, etc. and then expecting it to be a
+> breeze that will get merged in a few revisions is not going to work.
+> 
+> Pushing back when asked to follow our documented rules, or being
+> dismissive when asked design questions is not going to help you push
+> this forward. If anything, and because it's complex, the more tests you
+> add the better because we A) know it works in a specific set of cases,
+> and B) know it will still work going forward.
+> 
+> I'm sure you know what you're doing, but so do we.
+
+I worked under the assumption that the general vagueness of the
+questions were part of some elaborate dt-bindings-esque hazing
+ritual, and not that I was literally the first person to try and
+specify how drm bridge bus format selection should work. I apologise
+for my tone in light of that.
+
+I'm not convinced unit tests that test whether a single pre-defined
+mode is valid, as the existing mode_valid one does, have any value
+though. I'll comply however and add another with a yuv420-only mode,
+and another with a yuv420-also mode. My criticism is that in a
+scenario like this where "working" vs "broken" is highly dependent
+on the result based on the input data, the coverage of taken code
+branches is mostly irrelevant, and the real information comes from
+comprehensive testing of a wide set of inputs with attention paid
+to edge cases, verifying that they match the expected outputs.
+
+Kind regards,
+Nicolas Frattaroli
+
+> 
+> Maxime
+> 
+
+
+
 
