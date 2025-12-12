@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E54C2D4921D
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 12:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A5ED4921F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 12:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7691210E2BC;
-	Fri, 12 Dec 2025 12:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA6710E00A;
+	Fri, 12 Dec 2025 12:29:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="Z0JB+jbN";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="jttoxoo2";
 	dkim-atps=neutral
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F2718825B
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 12:14:34 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC3RW1M014495;
- Fri, 12 Dec 2025 12:14:33 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6E2510E00A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Dec 2025 12:29:26 +0000 (UTC)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BC1Fqkj001279;
+ Fri, 12 Dec 2025 12:29:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=lRBRYe
- OUKjrkhRM3c47jKQPxXyt/A/Os+0siGsJeM7o=; b=Z0JB+jbNPWpqALzY6wSWPi
- b04xLMyAENqXPQ53vR1m03O4laR8pA5wykvkGQONSmlZGcimVXAf+ilirGVMGgu4
- SSF/xTFdd9ScSz6mlOQxZOxatK+by60kMqX8HEoZe8tVnYBg9Wu1yDHbisQs/e78
- fAEigXfTcqs1Fa/7ww0AWnnKmEsaWu0+uDQRPEQWgz2HUVA7h4BMUrdi7OsQDirV
- sjPAb70b3gfiZvIT/P4BzxFOEK9fmPCgqsyzdVJYLZ5u3BslVGWu0co1+IF8BX5C
- gnZKRPopqW8nV66YAe/vXD7NB5fTh3M740CyI2tLHURGnQvZp75MuY1KDuP5mYAw
+ :message-id:mime-version:references:subject:to; s=pp1; bh=IhERqv
+ 7OoeEQX5baFlu68eZHWh7pj7sidiYb1j4qIGg=; b=jttoxoo2qBnAMi5hn2SDk1
+ v9wiu6MK48QJAzaMrmxIK/4M/Gev7IdtVHHSBGx/ocK8hHuf2N5xPOFCddeQYkHO
+ Bt6WvMwuRdE3aXhC/+s7jL5Da34lktRYTvWNIol5ZE4elp1ORcVwoKti50jJG+rk
+ BF5oNaQ9VrWL3jhh3iANefOhbbEhzve62wMnO5UvH7qWsBjWEhBU9luc/4cI/H25
+ n+KIpFXDlqW7zAzb3bDrLiMi+wmv1i66y71WSYep7KN/+5hOh/RmESeyirAA/dnu
+ cqr3eo5cf2JS4aMJmV4latotqJE5Y0rdo0ydFT4PaCoXW1GnLQPOt/aorjIxJJIA
  ==
 Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc53vb2t-1
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4av9ww4k4n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 12:14:33 +0000 (GMT)
-Received: from m0360072.ppops.net (m0360072.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BCCEWFO031527;
- Fri, 12 Dec 2025 12:14:32 GMT
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4avc53vb2p-1
+ Fri, 12 Dec 2025 12:29:25 +0000 (GMT)
+Received: from m0356516.ppops.net (m0356516.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BCCG4MC021041;
+ Fri, 12 Dec 2025 12:29:24 GMT
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4av9ww4k4h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 12:14:32 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BCBTAad026807;
- Fri, 12 Dec 2025 12:14:31 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4aw1h1kfk5-1
+ Fri, 12 Dec 2025 12:29:24 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BCAjN8n008472;
+ Fri, 12 Dec 2025 12:29:23 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4avytnbty0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Dec 2025 12:14:31 +0000
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com
- [10.241.53.100])
- by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5BCCEUST29491744
+ Fri, 12 Dec 2025 12:29:23 +0000
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com
+ [10.241.53.101])
+ by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5BCCTMYE33882848
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 12 Dec 2025 12:14:30 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D02CB58059;
- Fri, 12 Dec 2025 12:14:30 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 513555805D;
- Fri, 12 Dec 2025 12:14:28 +0000 (GMT)
+ Fri, 12 Dec 2025 12:29:22 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7B75F5805C;
+ Fri, 12 Dec 2025 12:29:22 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AAD175805A;
+ Fri, 12 Dec 2025 12:29:19 +0000 (GMT)
 Received: from [9.109.215.183] (unknown [9.109.215.183])
- by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
- Fri, 12 Dec 2025 12:14:27 +0000 (GMT)
-Message-ID: <39652916-6c9e-497d-801e-23e38f93dee3@linux.ibm.com>
-Date: Fri, 12 Dec 2025 17:44:26 +0530
+ by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+ Fri, 12 Dec 2025 12:29:19 +0000 (GMT)
+Message-ID: <55448dbc-8bd5-4641-b16e-0d16d73ef054@linux.ibm.com>
+Date: Fri, 12 Dec 2025 17:59:18 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 4/8] amdgpu/amdgpu_ttm: Fix
- AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K page size
+Subject: Re: [RFC PATCH v1 7/8] amdgpu: Align ctl_stack_size and wg_data_size
+ to GPU page size instead of CPU page size
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
@@ -76,36 +76,35 @@ Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
  Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
 References: <cover.1765519875.git.donettom@linux.ibm.com>
- <465b106ddc1ff0d661f0f3db0eb9a9d092097825.1765519875.git.donettom@linux.ibm.com>
- <277c65ad-a3c3-4d99-a0f4-a6ca99e61ab4@amd.com>
+ <f7f8f41d58ab2967cd8d077b4937aaa04d58a066.1765519875.git.donettom@linux.ibm.com>
+ <2a213294-bf56-4ead-9e1f-cc8c3d4003a0@amd.com>
 Content-Language: en-US
 From: Donet Tom <donettom@linux.ibm.com>
-In-Reply-To: <277c65ad-a3c3-4d99-a0f4-a6ca99e61ab4@amd.com>
+In-Reply-To: <2a213294-bf56-4ead-9e1f-cc8c3d4003a0@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA2MDAyMCBTYWx0ZWRfXzvvUnlXajI72
- CHWrntMTLfxnGU3rPiKiqyHKpS/RblKjCLzzEj+VacuEPnyWXXaljxpPO6wDUc3MWY6tYAS9s5z
- myfApQ+64E/6q7NWsRHPwHOrg3CXYRhrcmX5kP4AYOiS/apmrlCHsbZxkOyFa4GdRLHfMR5qgkI
- zvegFc+91+1VtMNnRH7fPcYlXlMBMcnDzgpuLPhkSQ4iYyy4cRNh8hhTI2C2fjSLcrQsj1ZfMjX
- BKCAjSZFvFDBfiaNOhPoQQpwXrVX3IqWrzaWznyq8j4CGm+Pr5BZHGi930+MPTNcJIYa7/wcPgS
- bWF5ImLU4ZiD8EOJvDFzCfNRCP6Ytu8Q0LkAuaM9Sns7ufdMiBpoO7LE6QpfKmAebz9cP/W6/wr
- QjMwI5FVGaklHwuCVn+rjvI3QD7rHg==
-X-Authority-Analysis: v=2.4 cv=S/DUAYsP c=1 sm=1 tr=0 ts=693c0729 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-GUID: 2fwxmkgyqbBPheW8LyC3tbM3s__Tv2j1
+X-Proofpoint-ORIG-GUID: xrfSvsy42ZwHgBZ1tnuOqzItzw3HRVWb
+X-Authority-Analysis: v=2.4 cv=AdS83nXG c=1 sm=1 tr=0 ts=693c0aa5 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
  a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8 a=NFEJ4HaQLmvlPOxn2psA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: Ifv-5tHlYZ189XbNro6faVt0Rsde4MX1
-X-Proofpoint-GUID: SBnwb5pgHNIoyWvOGtuy9FcAREFWLepp
+ a=VnNF1IyMAAAA:8 a=4G8YUOFLx5gCFBDtBM8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA2MDAwMCBTYWx0ZWRfXzn0DC9pufx/3
+ qIAYInL2L5SYXx71mrGGZLkPK0ScxFJ9fPYaikIt8SyEcormHb2YLDVm4vlNNMQf2tHorg200wZ
+ 7KkaKddYiUh7d3dPXOPQqOBpGtJLefIpfnDrGcs78qcXwni+mGwCB7pY2hi1M5csB/3b/N7aLPt
+ jlWGrV45niwU4fHFNeRVDbkfBrky6FBPNEwIWTJA7qcRdmmzEYe8Ay7n7wACMLSY3EqHmyVDQbT
+ Ie74xv752NFXpQjEeqYNlAYAygsrhL073qN9lgjmh8V1vA/P3g30kUH0W3o6ko59s8vdAhXZSab
+ jgAVIEwwx1GRw7+EdXliTD2flK/YjbNU4qm8tVgdyqihwBTGkvSuUP7kHuhxLTwsYEK7rGbVS59
+ R/0XOiAJHr18eo7BftHBGnGdZxWLSQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-12_03,2025-12-11_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512060020
+ reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512060000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,45 +120,46 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 12/12/25 2:23 PM, Christian König wrote:
+On 12/12/25 2:34 PM, Christian König wrote:
 > On 12/12/25 07:40, Donet Tom wrote:
->> The SDMA engine has a hardware limitation of 4 MB maximum transfer
->> size per operation.
-> That is not correct. This is only true on ancient HW.
->
-> What problems are you seeing here?
->
->> AMDGPU_GTT_MAX_TRANSFER_SIZE was hardcoded to
->> 512 pages, which worked correctly on systems with 4K pages but fails
->> on systems with larger page sizes.
+>> The ctl_stack_size and wg_data_size values are used to compute the total
+>> context save/restore buffer size and the control stack size. These buffers
+>> are programmed into the GPU and are used to store the queue state during
+>> context save and restore.
 >>
->> This patch divides the max transfer size / AMDGPU_GPU_PAGES_IN_CPU_PAGE
->> to match with non-4K page size systems.
-> That is actually a bad idea. The value was meant to match the PMD size.
+>> Currently, both ctl_stack_size and wg_data_size are aligned to the CPU
+>> PAGE_SIZE. On systems with a non-4K CPU page size, this causes unnecessary
+>> memory waste because the GPU internally calculates and uses buffer sizes
+>> aligned to a fixed 4K GPU page size.
+>>
+>> Since the control stack and context save/restore buffers are consumed by
+>> the GPU, their sizes should be aligned to the GPU page size (4K), not the
+>> CPU page size. This patch updates the alignment of ctl_stack_size and
+>> wg_data_size to prevent over-allocation on systems with larger CPU page
+>> sizes.
+> As far as I know the problem is that the debugger needs to consume that stuff on the CPU side as well.
+>
+> I need to double check that, but I think the alignment is correct as it is.
 
 
-Hi Christian
+Thanks Christian
 
-Thank you for the reply.
+We were observing the following errors during RCCL unit tests when 
+running on more than two GPUs, which eventually led to a GPU hang:
 
-In svm_migrate_copy_memory_gart(), the number of bytes to copy passed to 
-amdgpu_copy_buffer() is based on the PMD size. On systems with a 4K page 
-size, the PMD size is calculated correctly because 
-AMDGPU_GTT_MAX_TRANSFER_SIZE is 512, and 512 × 4K = 2MB.
+[  598.576821] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for 
+queue with doorbell_id: 80030008
+[  606.696820] amdgpu 0048:0f:00.0: amdgpu: amdgpu: Failed to evict 
+process queues
+[  606.696826] amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source:  4
+[  610.696852] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for 
+queue with doorbell_id: 80030008
+[  610.696869] amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+[  610.696942] amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
 
-On systems with a 64K page size, however, the calculation becomes 512 × 
-64K = 32MB. As a result, amdgpu_copy_buffer() ends up copying data in 
-4MB chunks instead of PMD-sized chunks. To ensure consistent behavior 
-across both 64K and 4K page-size systems, we adjusted the transfer size 
-so that the maximum transfer remains 2MB, matching the PMD size.
 
-The issue we observed was that the rocr-debug-agent test triggered SDMA 
-hangs. This happened because an incorrect size was being passed when 
-copying the GART mapping in svm_migrate_gart_map(). That problem was 
-addressed in patch 3/8. While root-causing that issue, we also 
-identified this inconsistency between 4K and 64K systems, So we felt 
-that this change was needed to align the behavior with 4K system page sizes.
-
+After applying the alignment change and the change in patch 8/8, we are 
+not seeing this issue.
 
 
 >
@@ -167,21 +167,34 @@ that this change was needed to align the behavior with 4K system page sizes.
 > Christian.
 >
 >> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
->> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>   drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
+>>   1 file changed, 4 insertions(+), 3 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> index 0be2728aa872..9d038feb25b0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> @@ -37,7 +37,7 @@
->>   #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
->>   #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+>> index dc857450fa16..00ab941c3e86 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+>> @@ -445,10 +445,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
+>>   		    min(cu_num * 40, props->array_count / props->simd_arrays_per_engine * 512)
+>>   		    : cu_num * 32;
 >>   
->> -#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
->> +#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(512 / AMDGPU_GPU_PAGES_IN_CPU_PAGE)
->>   #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+>> -	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
+>> +	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
+>> +				AMDGPU_GPU_PAGE_SIZE);
+>>   	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
+>>   	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
+>> -			       PAGE_SIZE);
+>> +			       AMDGPU_GPU_PAGE_SIZE);
 >>   
->>   extern const struct attribute_group amdgpu_vram_mgr_attr_group;
+>>   	if ((gfxv / 10000 * 10000) == 100000) {
+>>   		/* HW design limits control stack size to 0x7000.
+>> @@ -460,7 +461,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
+>>   
+>>   	props->ctl_stack_size = ctl_stack_size;
+>>   	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
+>> -	props->cwsr_size = ctl_stack_size + wg_data_size;
+>> +	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
+>>   
+>>   	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
+>>   		props->eop_buffer_size = 0x8000;
