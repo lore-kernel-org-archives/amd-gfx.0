@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40964D5C0D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3A5BD5C0D1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 251AC10E756;
-	Tue, 16 Dec 2025 08:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E558010E754;
+	Tue, 16 Dec 2025 08:07:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H9qfFZSD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZA8o+pLd";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B15D10E449
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:16 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-34c9edf63a7so660104a91.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:16 -0800 (PST)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9824A10E452
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:48:44 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-34c718c5481so922331a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:48:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765798756; x=1766403556; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765799324; x=1766404124; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9thXFyBI9wECeAoZwvjVxFD8Ol9j6G4X/I1qZGpsX1M=;
- b=H9qfFZSDUDsNEnTYjTVwV4CE22h3iJRx5R7fjcM28CcNz18oiUt/0GuG4WfKKGlwoH
- 4NKy7F7Blw25hSLbFGJkY84oPkPDtuaTjXFoM1SiuUipa5aLACeoCpqxcn5igcrKbP/G
- Bd+UNQ6JC92f5DyNmFn1KS/fhc2B7g1u526isFDE04X9XkE4Os3NrWTu+ZFzsrE2OPgc
- /t5iZWeOp6JoOEQoJ8fjnNI6oHxLdK+0e38Zlxrw0mG/Od+P5Id3AaC2/kAjCOjoUwHq
- gselUjuLfMV0B+LPuphuAKwpj3YnbQGTrCE2wn8aqbDDpFZhEmWv7ZTrd6YIxWmn3Eu8
- c5uQ==
+ bh=8E8ZSVvZ3A1H5XIeWol9WzN+P6GbKkkMDrw9AgBsXoI=;
+ b=ZA8o+pLdenaY7b1WQq8JeHbcSBD2udxgkbCcGsx+xl6o0CMn365cqTnsvK2W5fgoGb
+ a/34UOrjJCjyofL7kbqDxxmpeDUZPuaeNUHVAmn1uj2hOCsLv2If3lIhIcOfAGt1vp5A
+ IyMqD6KRgbrFsZx7ENdu3v7/WVOQIo7vFU8HaOXYqfBC+hJep5sfaYZdfxKuuIJ+DC7D
+ +Zo0V55sWSV0idAlvA06hBeciksDd3JefU2ib0SCxiLqvqarUtNHDhvgAbt5TDfOxJJ6
+ INzko3req9SY29R5+kPIKI18lNEQcdexXVJem8gzTZ28w0aEDMjvvk/Jp+44JkQLNZ8l
+ wdPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765798756; x=1766403556;
+ d=1e100.net; s=20230601; t=1765799324; x=1766404124;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=9thXFyBI9wECeAoZwvjVxFD8Ol9j6G4X/I1qZGpsX1M=;
- b=L56ptsyrhFsLW7zKBGO3aA/A0VpjgFokBcjdAHsTaWRrVieZWSNJV/GVx9Rnffkwai
- hwBeIakjvEG9Q5gMTjMII82EPjDFSaYufbauVVxdUsC+vYEZprbSKnODuTcwjjsz9QzZ
- 95kH66bQCVm9U+xgZFDKQwD/mjz2CSaDYnylmlrfY3VHSz//3/hqto4nRt5hEkIhzoEZ
- O4AbGFYW9WnoO9fOEl1UXhfLgz3WcFFtnvUXQ/tcl63pE84nrN/dWSnkbP+dglwm7HHE
- 1ylx1yQORlI8I6B8umOyMF9IHGC4NO9YHdv3PbvHuQn9++Z5yZ3Mzap/Z1ICMDW2qqp+
- oq4A==
+ bh=8E8ZSVvZ3A1H5XIeWol9WzN+P6GbKkkMDrw9AgBsXoI=;
+ b=DJPd/QnmTzV1fbXZPf02zyMINHtOC/qpLOv1zVft+dzRJkdWqU7PbXjU1M5RIDqS9C
+ 6kxJvzgUQGPLvBqIhSTY/JeGeKkmDdEYy8oiPbPCM0pBmrmBBfL8m4ITFcigmVwjmYLK
+ vYrp9UcD9/906G6jiRrNofJ41IqqU/BtK+JNdgKcu/X/KO15pRlJgNnusJLLgcqfObv+
+ kFx9iS401LbgrWCpqOOqO6pFlklEZTkTZvmccA+rppvyRDxUbvcJfLBTXb2XRDfvRG8H
+ nGYGD++VKBd+VXXsNH04wF3fIAXad7NFxUscmc3pSakXX8KCfRIFbynA5OdI4fGXo73c
+ gSNA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAM4IW0btS/7sHda8rkdt14LKL8KP5wns25bkxyAFfpZ/016e/CNb/VbB/JoQU/QWWuIN9lkzB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJTBiOBhZYCnYbiRZimdJwCT40S4y8A/RnRaf0SbhN5gc36MA2
- q8vLs9uF1YxHoEbb8FjBEhIEyo7dq+eI5S14vcBt7cszQFkkElpfzVXN
-X-Gm-Gg: AY/fxX65hgp0vNbGdjULfBI77eXNJKo5+00h+/lf9KfZLtl2mNanOeKy3Eh1+TqB5p6
- ZnK7AvY0gyGSVUY2oZSiTGiBDV4DxEuo9prhkyRwVl9Z/8JojBPKYqeg8qrrr4c1Ry4i5dVRgea
- ccLzt3wDdwo3tE/g3JibTsZgNnf2LN+gxI8EZnstLXkS4NpnolelULH5Qe+jec07QtAD8SZBrdB
- J7c81mj6cHXekBNOGeRUobyVaO+7IpnDnMT03mCTeYEipcLgnTxP3aPnwVFuDMPgRuUvmxjNwY6
- IZlYBJfGXwWDAhveqUSFvjYvms+fDAssX5C2xFRFTDBnwDkEQASuNuN0nhwQV/e584SmRW0UrDL
- Mk+ubObCVnyG1qk32hErLFZugUOKvd7YILfq+2DqQJ6iDZvQ/JCyjN7P8MnFon7Moo4gXI1dpOm
- WlxqpdoU5W6Z4=
-X-Google-Smtp-Source: AGHT+IE3LQMlInYBtZW6kVYJLJE4CFzfJfm+/f5olU3OmDWyxxykzQlHP1rsXKl8Sxl863J3gFT+2A==
-X-Received: by 2002:a17:90b:4b47:b0:33b:8ac4:1ac4 with SMTP id
- 98e67ed59e1d1-34abd78051dmr11974090a91.35.1765798755860; 
- Mon, 15 Dec 2025 03:39:15 -0800 (PST)
+ AJvYcCWXxsZKQMwJaLYtEI+UiwaAPcvKOXYGIf8dERHWn1JCpnngD/vAY6JmA1DClh5f2e9rB5fo3B2C@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzcb/Ziorm5FNrSd4vrP17929LDv7MJtoRn7t1n+dvJE+9YHKAk
+ w7eejLUxbdWdTBLKjTuDSYbnO1iChF/ILMIsDT7hfI1ZVwKjRGBHqNMF
+X-Gm-Gg: AY/fxX4TJvLe9ZB/p+zhyqQ+l4joqbG/kCrtSnMgsb7KdpvTJf8Zj6wkTshPmcEebY3
+ naZxg2Y6tuAokRxw1asqBGTxLRX/ii0ehGPVjNJuRZ+KtzSxMK3/gFUyLokmW8kLa739SmUMG6y
+ ZJpHjz0nz6l1xu95+rYHiiWVsRVynKYi/8KRYbjMfC3JBtTXuxpARELCPAXfsHNltvYCLeaYI9/
+ gj+veoMj7e42KTl2rab7QwMCEs65jmFS5MAlDMAHt5gMQMDEJSm12EHD9OmUSQA2zThIvj8Tdr2
+ klMZOT61D9nqszvYmu7rs71+lsj7BrosgLkqcgbCQxbgv3I+4FBXx00Qlu+6Up7+jKSZ1YkGMBV
+ PJlAdWWfAz0g+CiBIOXeAHSl9C4EmkmzJzbEnHdXXbfgN1TaHbfparwtwcwsdH2nYRzOQ6al0wu
+ wUudAEafV3YbRU5IbljS59Eg==
+X-Google-Smtp-Source: AGHT+IFGPLXocnh0bsYmKlmGLz0U7nywcuz+b0WgS325GJYSuSdFNXAMsV5RYXPrF9APc0Uu9mi/Dg==
+X-Received: by 2002:a17:90b:2692:b0:340:54a1:d6fe with SMTP id
+ 98e67ed59e1d1-34abd6e705bmr9983263a91.15.1765799324036; 
+ Mon, 15 Dec 2025 03:48:44 -0800 (PST)
 Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-34abe294892sm8918293a91.10.2025.12.15.03.39.11
+ 41be03b00d2f7-c0c2c48bf7asm12763568a12.32.2025.12.15.03.48.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 03:39:12 -0800 (PST)
+ Mon, 15 Dec 2025 03:48:42 -0800 (PST)
 Received: by archie.me (Postfix, from userid 1000)
- id 9EFFF444B395; Mon, 15 Dec 2025 18:39:06 +0700 (WIB)
+ id 711C5447330D; Mon, 15 Dec 2025 18:39:07 +0700 (WIB)
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
@@ -127,20 +127,20 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Charles Han <hanchunchao@inspur.com>, Jilin Yuan <yuanjilin@cdjrlc.com>,
  Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
  George Anthony Vernon <contact@gvernon.com>
-Subject: [PATCH 06/14] virtio: Describe @map and @vmap members in
- virtio_device struct
-Date: Mon, 15 Dec 2025 18:38:54 +0700
-Message-ID: <20251215113903.46555-7-bagasdotme@gmail.com>
+Subject: [PATCH 14/14] net: bridge: Describe @tunnel_hash member in
+ net_bridge_vlan_group struct
+Date: Mon, 15 Dec 2025 18:39:02 +0700
+Message-ID: <20251215113903.46555-15-bagasdotme@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251215113903.46555-1-bagasdotme@gmail.com>
 References: <20251215113903.46555-1-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1385; i=bagasdotme@gmail.com;
- h=from:subject; bh=bVwk3E00Ao0/BsL4XlONNDCfpFF0qzpzGvJu4GqJ/kY=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4N3qByLSAtcbrWEYbHxfzPeVTVyK4Naco81fnbf9
- sGw4M+ujlIWBjEuBlkxRZZJiXxNp3cZiVxoX+sIM4eVCWQIAxenAEwk4Ckjw37unJpIS7sDggaL
- LUJm/L7quGjlN51XE6JFNZoPynqvOsvIsMhqy5y4fbtebC8768S8lM/yytfC9QdFWExtD//Srpa
- 6yQYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=895; i=bagasdotme@gmail.com;
+ h=from:subject; bh=Q9RPGjCwe41o18D04IVKznpQEFsNHpWb2BdI9cEOKh8=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n0POW63OZ/vV5HO1nI0n8+fcu08SpWN+KD02YL721
+ ObASlnjjlIWBjEuBlkxRZZJiXxNp3cZiVxoX+sIM4eVCWQIAxenAExESpiR4Y+mRyzDrR2tsxn8
+ /5W9nMso8ZF7PQPXv0v9ETpvN1g+X8rw39Gt4w5/EGPqsSVHKrba3jn4a/bV+2uL/9ts2fkotu6
+ 9MRMA
 X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
  fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
@@ -159,37 +159,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sphinx reports kernel-doc warnings:
+Sphinx reports kernel-doc warning:
 
-WARNING: ./include/linux/virtio.h:181 struct member 'map' not described in 'virtio_device'
-WARNING: ./include/linux/virtio.h:181 struct member 'vmap' not described in 'virtio_device'
+WARNING: ./net/bridge/br_private.h:267 struct member 'tunnel_hash' not described in 'net_bridge_vlan_group'
 
-Describe these members.
+Fix it by describing @tunnel_hash member.
 
-Fixes: bee8c7c24b7373 ("virtio: introduce map ops in virtio core")
+Fixes: efa5356b0d9753 ("bridge: per vlan dst_metadata netlink support")
 Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 ---
- include/linux/virtio.h | 2 ++
- 1 file changed, 2 insertions(+)
+ net/bridge/br_private.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/virtio.h b/include/linux/virtio.h
-index 132a474e59140a..68ead8fda9c921 100644
---- a/include/linux/virtio.h
-+++ b/include/linux/virtio.h
-@@ -150,11 +150,13 @@ struct virtio_admin_cmd {
-  * @id: the device type identification (used to match it with a driver).
-  * @config: the configuration ops for this device.
-  * @vringh_config: configuration ops for host vrings.
-+ * @map: configuration ops for device's mapping buffer
-  * @vqs: the list of virtqueues for this device.
-  * @features: the 64 lower features supported by both driver and device.
-  * @features_array: the full features space supported by both driver and
-  *		    device.
-  * @priv: private pointer for the driver's use.
-+ * @vmap: device virtual map
-  * @debugfs_dir: debugfs directory entry.
-  * @debugfs_filter_features: features to be filtered set by debugfs.
-  */
+diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
+index 7280c4e9305f36..bf441ac1c4d38a 100644
+--- a/net/bridge/br_private.h
++++ b/net/bridge/br_private.h
+@@ -247,6 +247,7 @@ struct net_bridge_vlan {
+  * struct net_bridge_vlan_group
+  *
+  * @vlan_hash: VLAN entry rhashtable
++ * @tunnel_hash: tunnel rhashtable
+  * @vlan_list: sorted VLAN entry list
+  * @num_vlans: number of total VLAN entries
+  * @pvid: PVID VLAN id
 -- 
 An old man doll... just what I always wanted! - Clara
 
