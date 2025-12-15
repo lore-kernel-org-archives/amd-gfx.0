@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A956D5C0D0
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB310D5C0D6
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C278C10E079;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED88910E727;
 	Tue, 16 Dec 2025 08:07:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M7ui1V+K";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mIlg6dAh";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7785410E433
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:10 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-34c213f7690so1777812a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:10 -0800 (PST)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB2110E452
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:48:45 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-34b75fba315so2739086a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:48:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765798750; x=1766403550; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=rTcY4k7PJNNctnILuEp0lcvqj1X2scOTc/Z894ZNYfE=;
- b=M7ui1V+KnFYkCty0HqvgJjWXri7Fd9oWctq9tEzWkUb3SeyjcXQEZg9sV5lPbVESag
- /NloN8Va6SLYSc7b4q+hwQKCjkXs6pjdx8jyTzNAuNQgWJlY4IHJNoNch4ep1rPbmEFc
- W0cNvKfNVqXwNck26b9hQskfJy++E+JiDtG9Bp6zUES96hCubU00OBJ/LnkoKIdA4odg
- NKxXRIK/BIJtH+mtKz5cpUe+qf9tjs9o8i1ZB3pmTZPdeanM0g9mWlrymtAWTFwUbL1I
- g9Non7Y8+AUNi2vaxfhuLSGaiLgRcjCYw9lHFuLOBOcOnqwwEvvbjMfFjuC1/tEZGeQq
- XW7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765798750; x=1766403550;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1765799325; x=1766404125; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rTcY4k7PJNNctnILuEp0lcvqj1X2scOTc/Z894ZNYfE=;
- b=t2u0eimveB7eFqw5hQClBhidvSvfvSTmFQfrmDC3Kf7RM6ONeJJdO60jC9dsZ6lPFD
- LXsX1Q1ivlV0GQTtpyaDn0kYc6pbKo4hlILf8FKqWAO5D3eVwsy4oMOEYV2Wn3aqHqCz
- vf5tB2+Re20dA45y4acZtTEdF0W9jaigJO3DoB3x3W1PJO49c2zwlGwVOWfNh6fnyV+I
- OpxfxEkm/shpJ9XE707Oqg+BF33cMtNNCz9RW396wadD70AkbGZR6inEu1QU9kI9fP5b
- OCs3RyxsoRK3oRISj76uZIuKV0J5vZuC98GeqFEmMyMO7r88iUgWDYNWqmuvKS93k+HI
- bkXQ==
+ bh=HPi/WFWmImBnVQgsxNvJvJyvieXM1xBFzKoWis67Gg4=;
+ b=mIlg6dAhLRVJSGCsVnpS9D+nxrxFyREjEa1dTq0MI8sLxZmvzHhb2wzE58QF8ZOYGP
+ E+xudVA7w6Z/TwRu3CfzALPDzIWAEpcZyeZPT24b/29smmE+1+BSt2c5oLPGZ/lm1c3W
+ wUez/PVF0xxwrQG4qZDfL3W1FXCHCFnaMvePLK84g4Qpj9q7L8K/VXIFxD5ul2ZkmQgt
+ I/rgDHRjzinJBPvq3CmKFUnqn8gSvOVR0QE8fSc5udxq7NibyeBgHHvaHK+hHSKzLfxy
+ rPe8MtziXTV12Np8bZ8gL9YYJD+04+iyP3p9+U3gas9nojMIyBeMPJxgKdWHvGALw04l
+ Tm1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765799325; x=1766404125;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=HPi/WFWmImBnVQgsxNvJvJyvieXM1xBFzKoWis67Gg4=;
+ b=NIav2FdZHPtE1H1SrnHUNX+1eQI7KRX8O30n8GOT0p+zLeJSwOECuORdP7qHdkGyWG
+ +KTsknvzq89+j8tydVb5QA0pkZBq3zcUM529594PeDvRpufdlxQOPIkexZqn4uyuCqAO
+ 9RIVC0pufyOEfijWJqSg456dVFFb5wYSKM34KrgQT6lRsBi2j+LUPIsthfFkw43ySX03
+ BMMnF3CQ9f2WKXsv6Q2Xl9sdO/NaON5Z9u+4igL4qVf3nD7lsfR1cAJ61kmkFM2OIs2u
+ +5K2fCQhvlQ25AtlZu3BhpNnR/3lAPCXyofR8RAl4gsIM1FNTmDVMWbabAN8OykKRL7v
+ b2hA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXs29ya7Y9KfdqOnqgH1+ujXjZGf4iY7vbj3uvkAnf9RKX5ArBGOaR2mLk5NLPV3/xkmMY48puy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2YSuu+MT+CLRs724plEMRntqsrU0SV14OrNEVziuBNoDFTZ0k
- P+gUCAdVPdr1j4+ND3bK9Gqf4aGS692rEpEIhv6rGgW8wzYtOjOy8RL/
-X-Gm-Gg: AY/fxX7Jwq7RnFX7/XK7L3KiInSLJuWLOm7/y+ttVEvYuFsPGQ0LvcHyKEGEe+TLyqp
- WKm6S+6xuHQ3IzNswrWK7u1Z/WsCIsDdEzAqDQDr4EP+Rh6An09Er8m7O81WgEMSafFQ/qNcFhR
- x4pFWrZ2GwVzD3H2quBWKUeV0IY2vkGpCn+bU1emjcVpG/FDcCrz/7RNBb+8GuVprQvmEI5Fon/
- u1P1lz0F6XO9Yqi0zWFhTpYnztH6eUPFfL4yQ2fXXogmzX67mNs34ecUiU+YLXoE34FQGsyCazw
- nGLLcYN50fDkEO7CfmTx7uwX5io0tL7+OAnywt6Y/gI4+X1q6GCEpEOOM7K4Z507HH6g1tzBhmK
- 9ast5QyX7YTK7ssU6u+y+v5Swd+hwfwfEOeul4SzJ2JfmCsV62D/eZcG8nngrWnqRTTGkas+oIF
- p1jW8BcLbjpAYj9vjrZ7k3wQ==
-X-Google-Smtp-Source: AGHT+IH7Y0ZP0SVYlRqXrzHx+fOVv/+/V5Bjimjq/e2I+okG90jQDlqbjW8VY0Em0JiciGGZ262G7g==
-X-Received: by 2002:a17:902:c402:b0:295:c2e7:7199 with SMTP id
- d9443c01a7336-29f23c7b8b9mr114062105ad.29.1765798749863; 
- Mon, 15 Dec 2025 03:39:09 -0800 (PST)
+ AJvYcCUFudGoGMVySgA/+1TQsBSHGHhcMxot9t28nTmUcvIZBe5gkeecwQ7A/ss4YRjWWnEzeXWMiXK9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1DZo+bl2yWDQ/rGbZBv+AKWOhHx5o4qEpnb+uXBmdMrtZZNPv
+ M8dcKwEVUQu+gD3kjoKRqmnBPbU+IjbpN1idUVsZNP4L2i8xvuTz+r12
+X-Gm-Gg: AY/fxX76hqE7P8eGU3uFKvaWI5ihdzX3bfltKa/J7N9z+/B0m3hlo9vUewxGw8Pk3+z
+ vx2nEZcEbs+J+1hi8hkZN1Wf+T05F6PZcLMlw2umIrDM6DdttwY0KkxM47hPTTwCDphBJy0GMh9
+ EtlIRnPBgOswHP7BzOq4siId06I+b5K3uJazZ027oVxSJYPY7VHlBDnpLk2s++D5R7IEKsDQ6FF
+ wY0KlLOOHBeJYbwAUiBNYrZF0fIaFUA8z+AaPZnpy+wPbYhraqJQGqpfa3HjqfuAU0BDEPTTmlA
+ /B6ME1dUvXxknIWwT7tRe2SxWMUYNTykfcyEwJ+EqAcFGB5B3ryJzG46zvI4BC7SM37WGr88bf3
+ kyr3Txgk0+9ZqmERXjNRBDNKdtaFxVeSgfpiEApGDeqdEogDdZreaBCJ89FaRDQKXK3qnPNM6hE
+ TA0vAHF3Y+NZliyCQJygtqCw==
+X-Google-Smtp-Source: AGHT+IHySr1buuGxwyvRmyNwB1yX2aGVZnCno4j9FG3NSChYg8gy/QOhSf79+qyZQv+BzWWdtgvcAQ==
+X-Received: by 2002:a17:90b:388a:b0:340:be40:fe0c with SMTP id
+ 98e67ed59e1d1-34abe4a6b3amr9032481a91.36.1765799324639; 
+ Mon, 15 Dec 2025 03:48:44 -0800 (PST)
 Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29ee9b3850csm133386495ad.17.2025.12.15.03.39.07
+ 98e67ed59e1d1-34abe3ba59bsm9003471a91.7.2025.12.15.03.48.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 03:39:08 -0800 (PST)
+ Mon, 15 Dec 2025 03:48:42 -0800 (PST)
 Received: by archie.me (Postfix, from userid 1000)
- id AC75C444B38F; Mon, 15 Dec 2025 18:39:05 +0700 (WIB)
+ id 60C6F447330B; Mon, 15 Dec 2025 18:39:07 +0700 (WIB)
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
@@ -126,17 +127,20 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Charles Han <hanchunchao@inspur.com>, Jilin Yuan <yuanjilin@cdjrlc.com>,
  Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
  George Anthony Vernon <contact@gvernon.com>
-Subject: [PATCH 00/14] Assorted kernel-doc fixes
-Date: Mon, 15 Dec 2025 18:38:48 +0700
-Message-ID: <20251215113903.46555-1-bagasdotme@gmail.com>
+Subject: [PATCH 13/14] drm/gpusvm: Fix drm_gpusvm_pages_valid_unlocked()
+ kernel-doc comment
+Date: Mon, 15 Dec 2025 18:39:01 +0700
+Message-ID: <20251215113903.46555-14-bagasdotme@gmail.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251215113903.46555-1-bagasdotme@gmail.com>
+References: <20251215113903.46555-1-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2064; i=bagasdotme@gmail.com;
- h=from:subject; bh=zPsruu4atyDYOaQCsKIEqnFkDKfYqb53HHp2txNqt3A=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4MMm/867RRu9s/LeXucS+TRacFsjy3x8goRK//G7
- Jyfu8O1o5SFQYyLQVZMkWVSIl/T6V1GIhfa1zrCzGFlAhnCwMUpABOJ+cjwP9rl0j2O1i3mgnEF
- j0tV/6z5nLTvdKmsJY/NvB286XtLTzEy7D+8+dTHe63Sb6bPXnHWT1NH5vPMzba75Xe45yw3OaR
- ZzAUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1611; i=bagasdotme@gmail.com;
+ h=from:subject; bh=j4BXJJMKUhATWUahdKX0lx9i399WYlQDn9Ep3/iweMY=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n0OumS5gNW5/3GqYe0vV4BnvxdVlFyqnrRPWP9PpP
+ u3FMcecjlIWBjEuBlkxRZZJiXxNp3cZiVxoX+sIM4eVCWQIAxenAEykPJ/hF9Pft9/+BqzKa/W8
+ rdg9vSMz5a6N4PnTByKYzgTJnWZ/P5Hhn+aKvLS4vrtB9w7NNb77cZZgzZ2+T776O+w93L/xls2
+ 5xAgA
 X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
  fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
@@ -155,51 +159,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Commit 6364afd532bcab ("drm/gpusvm: refactor core API to use pages struct")
+renames drm_gpusvm_range_pages_valid_unlocked() to
+drm_gpusvm_pages_valid_unlocked(), but its kernel-doc comment gets
+stale, hence kernel-doc complains:
 
-Here are assorted kernel-doc fixes for 6.19 cycle. As the name
-implies, for the merging strategy, the patches can be taken by
-respective maintainers to appropriate fixes branches (targetting
-6.19 of course) (e.g. for mm it will be mm-hotfixes).
+WARNING: ./drivers/gpu/drm/drm_gpusvm.c:1229 function parameter 'svm_pages' not described in 'drm_gpusvm_pages_valid_unlocked'
+WARNING: ./drivers/gpu/drm/drm_gpusvm.c:1229 expecting prototype for drm_gpusvm_range_pages_valid_unlocked(). Prototype was for drm_gpusvm_pages_valid_unlocked() instead
 
-Enjoy!
+Fix them up.
 
-Bagas Sanjaya (14):
-  genalloc: Describe @start_addr parameter in genpool_algo_t
-  mm: Describe @flags parameter in memalloc_flags_save()
-  textsearch: Describe @list member in ts_ops search
-  mm: vmalloc: Fix up vrealloc_node_align() kernel-doc macro name
-  mm, kfence: Describe @slab parameter in __kfence_obj_info()
-  virtio: Describe @map and @vmap members in virtio_device struct
-  fs: Describe @isnew parameter in ilookup5_nowait()
-  VFS: fix __start_dirop() kernel-doc warnings
-  drm/amd/display: Don't use kernel-doc comment in
-    dc_register_software_state struct
-  drm/amdgpu: Describe @AMD_IP_BLOCK_TYPE_RAS in amd_ip_block_type enum
-  drm/gem/shmem: Describe @shmem and @size parameters
-  drm/scheduler: Describe @result in drm_sched_job_done()
-  drm/gpusvm: Fix drm_gpusvm_pages_valid_unlocked() kernel-doc comment
-  net: bridge: Describe @tunnel_hash member in net_bridge_vlan_group
-    struct
+Fixes: 6364afd532bcab ("drm/gpusvm: refactor core API to use pages struct")
+Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
+---
+ drivers/gpu/drm/drm_gpusvm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/amd/display/dc/dc.h      | 2 +-
- drivers/gpu/drm/amd/include/amd_shared.h | 1 +
- drivers/gpu/drm/drm_gem_shmem_helper.c   | 3 ++-
- drivers/gpu/drm/drm_gpusvm.c             | 4 ++--
- drivers/gpu/drm/scheduler/sched_main.c   | 1 +
- fs/inode.c                               | 1 +
- fs/namei.c                               | 3 ++-
- include/linux/genalloc.h                 | 1 +
- include/linux/kfence.h                   | 1 +
- include/linux/sched/mm.h                 | 1 +
- include/linux/textsearch.h               | 1 +
- include/linux/virtio.h                   | 2 ++
- mm/vmalloc.c                             | 2 +-
- net/bridge/br_private.h                  | 1 +
- 14 files changed, 18 insertions(+), 6 deletions(-)
-
-
-base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 73e550c8ff8c98..fcfbe8c062bf6d 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1216,9 +1216,9 @@ bool drm_gpusvm_range_pages_valid(struct drm_gpusvm *gpusvm,
+ EXPORT_SYMBOL_GPL(drm_gpusvm_range_pages_valid);
+ 
+ /**
+- * drm_gpusvm_range_pages_valid_unlocked() - GPU SVM range pages valid unlocked
++ * drm_gpusvm_pages_valid_unlocked() - GPU SVM range pages valid unlocked
+  * @gpusvm: Pointer to the GPU SVM structure
+- * @range: Pointer to the GPU SVM range structure
++ * @svm_pages: Pointer to the GPU SVM pages
+  *
+  * This function determines if a GPU SVM range pages are valid. Expected be
+  * called without holding gpusvm->notifier_lock.
 -- 
 An old man doll... just what I always wanted! - Clara
 
