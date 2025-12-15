@@ -4,146 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C30E4D5C0D9
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9007AD5C0D1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40B1A10E737;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A71B810E732;
 	Tue, 16 Dec 2025 08:07:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TRSr8CTb";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="pwB5aJIj";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="uhL6Wzq1";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wbudG5tR";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="/lEzb7cY";
 	dkim-atps=neutral
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D5F610E443
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:14 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-7b80fed1505so3224709b3a.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765798754; x=1766403554; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yYIA++CxPIcYPKgHl3oGianXtJJpe/hDcX33067gP64=;
- b=TRSr8CTbzmMaAS7OqK3ZMz+7svguwHXYpz4B3tZM5HloG9Z8/vqUFPmjEneGTzoXHA
- pDjM4Tt9B1qehs8BSCAuoIE5ex7OgPNaUIrMk0h76d28AoOLyR1nhR8klG663VxomPu/
- +kpu0HGNWM5QIDueZpmC2+1eNxMXqcYwvYMlGTp1wO7Vtu6Y9wlcXC5Crb1u2MLjvLy3
- R28CSrLhAmqdfF5Ew43E/t2gkivQAGPQebwMVUlenSUmRVdm/ggvyEy8fnzzjuj3KJgc
- 5/R6KRQCIfqtmM1A2yia2CIL4B3W++/zP9kE2NFnOohmUuuVpVx8ltO9Uf3InAI36+Mf
- 8LDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765798754; x=1766403554;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=yYIA++CxPIcYPKgHl3oGianXtJJpe/hDcX33067gP64=;
- b=aWJtSep/+ION+Wm+d/mkki9QYo5ZpVP5GNcMZZDnwrpvRBdFnNsKmR86oXyql15Fec
- FPIJ1+JMAwKCPJzFyhgg/LbkxVw7UQDX6D1X2OyGAq3/Hn5iT1pVMkMYUR3KO7ZizBoT
- hiSwJY/USmhLT8ZlrNepgBSR4zc2PPZs8HSFUxFkMoYHr/n8lTh1ON7KTT1jIebbG2Cd
- YAL5BT//BMLSvIY1rsYPlcTdsem/xSgt9Vw2muIdmJIBNUMAFgxr74A1qAIdDrKNeOQe
- tBA4HantS0j4telUqjde1siBp1Hd8iVf129XllORA1eAJ9R6sAhP81FQW6Eb3lYfHvm1
- KyfA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUY6u6b5n0FUKJKkAkB+cypVO/+hMDaIaGXztN1dfSfhYqcXV9cAfcKa1ETsc63uSFXGoRswLfx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzB0kOxNC91kF/CHzmbxuEoml+3FYvQHxO7mkALJu1BQPpCMm1/
- ddN3tLumxeJUphzgoCE8tMA3GCDvxZmAA00JkdKsembcaBkzRozy4HN6
-X-Gm-Gg: AY/fxX59wZdkkJeam9sEjmUj9m4Sp8XJOXB7VyZ3JXBDNpOiHndjyO61G02QVA7g9o8
- iB6sCj8lu53F72LWCoA+XpH4aI0bugXN9xiWmEJpKU50Etq4e5vF78OVFTUDrQ3hRxkOB2HgENW
- y22jVpY3rGpmnuFCOcU7xmugqmops95OPDXORVKFdsImFNlazsXZ82EcwGoBv9TN1sYa9YuXKWT
- yIer2pYgoONALJcB7ByYXHQykhwCZgd5cpZi6eYq4h9QUl+cACbWO50nodw9k7KKjcrfdI5ShZL
- 0vRXVY9ynEMrDTBGLpi1Qpore29E4kE/WqGHhRJX6OWee+fkxEgIoiiMR2cYlU6dTuB0uPMKGx8
- eJ6EO167mLx21k2bL8qU/4PSfnVMheYyM5uVp832nGg2CSUc8+LMo4yo8Jnr8i5l3Tngdzoholf
- 1laqadj1lQT2Y=
-X-Google-Smtp-Source: AGHT+IHZqxApH7RH4SvWeJJw7f7kzbBWfG87+pyKENlTOJ0etjJH+97jX9IVf9ZouLQDPcaXmCZT+w==
-X-Received: by 2002:a05:6a20:3d8b:b0:35e:11ff:45b4 with SMTP id
- adf61e73a8af0-369adfb3407mr9418258637.21.1765798753761; 
- Mon, 15 Dec 2025 03:39:13 -0800 (PST)
-Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c0c26eb0f6bsm12221315a12.14.2025.12.15.03.39.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 03:39:12 -0800 (PST)
-Received: by archie.me (Postfix, from userid 1000)
- id 70D25444B393; Mon, 15 Dec 2025 18:39:05 +0700 (WIB)
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74B6710E498
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 12:57:56 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C790F5BDC1;
+ Mon, 15 Dec 2025 12:57:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765803475; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+MMpU8iu26hMrIy/s70C2uUD4P60923K9CkgBqEJuQM=;
+ b=pwB5aJIjn8phLTPx90dciLVvvsfvcKP4gkJ66yBeotWcB8KfB5XiqvoFO7jy2uTkyC7Yb0
+ JZLMWnyBnFSISomtilFsdBk9B36BOYrswpfuNRST6oxzuo68CfSRARwKaa2cXsYIM2sUeE
+ 4lDFqwFwDELbInSqS57Nt+ZBmoPWBs0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765803475;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+MMpU8iu26hMrIy/s70C2uUD4P60923K9CkgBqEJuQM=;
+ b=uhL6Wzq1R+PNBj6rfCcqGNMgxtVxaRnHoZyyToVvx4kGFick0Y9bgj6VQ/quRzQ0+xnmCi
+ 0lYA7snQbCFB6cBg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=wbudG5tR;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="/lEzb7cY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765803474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+MMpU8iu26hMrIy/s70C2uUD4P60923K9CkgBqEJuQM=;
+ b=wbudG5tRrT5mSpJlFzatkqSwIBsOCTdfoHnUgi2Sq9omNJkKuKsXswef7UpkpzalsaCUOA
+ Dll6hqGranEacsANrMAceL1D8/syjts30TI7weAKtY3ETHR/fxxKgSWzqbzQyiEzCS6Ldm
+ vwP4EuI/mR5KXUTIq6jvDZNHMvAhH44=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765803474;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+MMpU8iu26hMrIy/s70C2uUD4P60923K9CkgBqEJuQM=;
+ b=/lEzb7cYQcLGYieeI0FGHc2j6U844YUTFaZ0ICjqymlBjCArBNNka7sLpYwDMBbyBbL1c4
+ SAALQB2mHJPlRmCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B77483EA65;
+ Mon, 15 Dec 2025 12:57:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3lEkLNIFQGkhTQAAD6G6ig
+ (envelope-from <jack@suse.cz>); Mon, 15 Dec 2025 12:57:54 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 6303FA0951; Mon, 15 Dec 2025 13:57:39 +0100 (CET)
+Date: Mon, 15 Dec 2025 13:57:39 +0100
+From: Jan Kara <jack@suse.cz>
+To: Bagas Sanjaya <bagasdotme@gmail.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
  Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>, 
  Linux Filesystems Development <linux-fsdevel@vger.kernel.org>,
- Linux Media <linux-media@vger.kernel.org>, linaro-mm-sig@lists.linaro.org,
- kasan-dev@googlegroups.com,
+ Linux Media <linux-media@vger.kernel.org>, 
+ linaro-mm-sig@lists.linaro.org, kasan-dev@googlegroups.com, 
  Linux Virtualization <virtualization@lists.linux.dev>,
- Linux Memory Management List <linux-mm@kvack.org>,
+ Linux Memory Management List <linux-mm@kvack.org>, 
  Linux Network Bridge <bridge@lists.linux.dev>,
- Linux Networking <netdev@vger.kernel.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Linux Networking <netdev@vger.kernel.org>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Uladzislau Rezki <urezki@gmail.com>,
- Nikolay Aleksandrov <razor@blackwall.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
+ Dmitry Vyukov <dvyukov@google.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
  Taimur Hassan <Syed.Hassan@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Dillon Varone <Dillon.Varone@amd.com>, George Shen <george.shen@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, Cruise Hung <Cruise.Hung@amd.com>,
+ Alex Hung <alex.hung@amd.com>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, 
+ George Shen <george.shen@amd.com>, Aric Cyr <aric.cyr@amd.com>,
+ Cruise Hung <Cruise.Hung@amd.com>, 
  Mario Limonciello <mario.limonciello@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, 
  Dominik Kaszewski <dominik.kaszewski@amd.com>,
- Bagas Sanjaya <bagasdotme@gmail.com>, David Hildenbrand <david@kernel.org>,
+ David Hildenbrand <david@kernel.org>, 
  Peter Zijlstra <peterz@infradead.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
  Max Kellermann <max.kellermann@ionos.com>,
- "Nysal Jan K.A." <nysal@linux.ibm.com>,
+ "Nysal Jan K.A." <nysal@linux.ibm.com>, 
  Ryan Roberts <ryan.roberts@arm.com>,
- Alexey Skidanov <alexey.skidanov@intel.com>,
- Vlastimil Babka <vbabka@suse.cz>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Vitaly Wool <vitaly.wool@konsulko.se>, Harry Yoo <harry.yoo@oracle.com>,
+ Alexey Skidanov <alexey.skidanov@intel.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Kent Overstreet <kent.overstreet@linux.dev>, 
+ Vitaly Wool <vitaly.wool@konsulko.se>, Harry Yoo <harry.yoo@oracle.com>, 
  Mateusz Guzik <mjguzik@gmail.com>, NeilBrown <neil@brown.name>,
- Amir Goldstein <amir73il@gmail.com>, Jeff Layton <jlayton@kernel.org>,
- Ivan Lipski <ivan.lipski@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Lyude Paul <lyude@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Roopa Prabhu <roopa@cumulusnetworks.com>, Mao Zhu <zhumao001@208suo.com>,
- Shaomin Deng <dengshaomin@cdjrlc.com>,
- Charles Han <hanchunchao@inspur.com>, Jilin Yuan <yuanjilin@cdjrlc.com>,
- Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
+ Amir Goldstein <amir73il@gmail.com>, 
+ Jeff Layton <jlayton@kernel.org>, Ivan Lipski <ivan.lipski@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, 
+ YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+ Lyude Paul <lyude@redhat.com>, Daniel Almeida <daniel.almeida@collabora.com>, 
+ Luben Tuikov <luben.tuikov@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Roopa Prabhu <roopa@cumulusnetworks.com>, Mao Zhu <zhumao001@208suo.com>, 
+ Shaomin Deng <dengshaomin@cdjrlc.com>, Charles Han <hanchunchao@inspur.com>, 
+ Jilin Yuan <yuanjilin@cdjrlc.com>, Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
  George Anthony Vernon <contact@gvernon.com>
-Subject: [PATCH 04/14] mm: vmalloc: Fix up vrealloc_node_align() kernel-doc
- macro name
-Date: Mon, 15 Dec 2025 18:38:52 +0700
-Message-ID: <20251215113903.46555-5-bagasdotme@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20251215113903.46555-1-bagasdotme@gmail.com>
+Subject: Re: [PATCH 07/14] fs: Describe @isnew parameter in ilookup5_nowait()
+Message-ID: <qxbixswc7daxb3y7o7ebmy34dpa3uv6i5vc2fnj2p6f3sckulk@vcbuzldig7al>
 References: <20251215113903.46555-1-bagasdotme@gmail.com>
+ <20251215113903.46555-8-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1025; i=bagasdotme@gmail.com;
- h=from:subject; bh=sT1prVB7LRNvf/W4XodTbc9bjm2B3700BxVWkrXUues=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4OyyibMaS/TcJdL00op76xZei7L2Pv7hFORU9uuV
- vT80n3YUcrCIMbFICumyDIpka/p9C4jkQvtax1h5rAygQxh4OIUgInIP2BkeHzeo3teoLm8pE9N
- cXOPl0J5QO7s9Yesjvev3nrjTaKBPiND/5K7Lkx+c2t1WS5sWq6V/2tGhSPf8dA5nnLdX2fcuhb
- OBwA=
-X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
- fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251215113903.46555-8-bagasdotme@gmail.com>
+X-Spamd-Result: default: False [-4.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_RHS_NOT_FQDN(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[gmail.com]; ARC_NA(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_LAST(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,lists.linaro.org,googlegroups.com,lists.linux.dev,kvack.org,amd.com,igalia.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,suse.de,intel.com,zeniv.linux.org.uk,suse.cz,linaro.org,google.com,redhat.com,linux.alibaba.com,linux-foundation.org,blackwall.org,nvidia.com,davemloft.net,infradead.org,oracle.com,ionos.com,linux.ibm.com,arm.com,linux.dev,konsulko.se,brown.name,collabora.com,cumulusnetworks.com,208suo.com,cdjrlc.com,inspur.com,gvernon.com];
+ RCPT_COUNT_GT_50(0.00)[86]; TO_MATCH_ENVRCPT_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLp36nysqjba7qgmtychm5q4em)];
+ MISSING_XM_UA(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.com:email, suse.cz:dkim]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C790F5BDC1
 X-Mailman-Approved-At: Tue, 16 Dec 2025 08:07:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -159,31 +178,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Sphinx reports kernel-doc warning:
+On Mon 15-12-25 18:38:55, Bagas Sanjaya wrote:
+> Sphinx reports kernel-doc warning:
+> 
+> WARNING: ./fs/inode.c:1607 function parameter 'isnew' not described in 'ilookup5_nowait'
+> 
+> Describe the parameter.
+> 
+> Fixes: a27628f4363435 ("fs: rework I_NEW handling to operate without fences")
+> Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 
-WARNING: ./mm/vmalloc.c:4284 expecting prototype for vrealloc_node_align_noprof(). Prototype was for vrealloc_node_align() instead
+...
 
-Fix the macro name in vrealloc_node_align_noprof() kernel-doc comment.
+> @@ -1593,6 +1593,7 @@ EXPORT_SYMBOL(igrab);
+>   * @hashval:	hash value (usually inode number) to search for
+>   * @test:	callback used for comparisons between inodes
+>   * @data:	opaque data pointer to pass to @test
+> + * @isnew:	whether the inode is new or not
 
-Fixes: 4c5d3365882dbb ("mm/vmalloc: allow to set node and align in vrealloc")
-Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
----
- mm/vmalloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm sorry but this is true but misleading at the same time. I'd write there
+something like:
 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index ecbac900c35f9c..2c3db9fefeb7ab 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -4248,7 +4248,7 @@ void *vzalloc_node_noprof(unsigned long size, int node)
- EXPORT_SYMBOL(vzalloc_node_noprof);
- 
- /**
-- * vrealloc_node_align_noprof - reallocate virtually contiguous memory; contents
-+ * vrealloc_node_align - reallocate virtually contiguous memory; contents
-  * remain unchanged
-  * @p: object to reallocate memory for
-  * @size: the size to reallocate
+ * @isnew:    return argument telling whether I_NEW was set when the inode
+              was found in hash (the caller needs to wait for I_NEW to clear).
+
+
+								Honza
 -- 
-An old man doll... just what I always wanted! - Clara
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
