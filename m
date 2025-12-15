@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2729D5C0D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C697D5C0D0
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93DFD10E729;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C42FE10E72A;
 	Tue, 16 Dec 2025 08:07:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hvo80IuC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mRQnHtWE";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AC4510E450
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:48:42 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2a0d52768ccso12880395ad.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:48:42 -0800 (PST)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6610E10E43E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:13 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-7f0db5700b2so2938248b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765799322; x=1766404122; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765798753; x=1766403553; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6HauKBmXABfepG7VVzo5pWgXSZcUBePm/ZvLfsSGC9U=;
- b=Hvo80IuCefFqNj8AvI2N2VCTtVBP0VsXi4Imom8FWzx0QGfWTMvcvlYW097jyFnV+4
- 3abwktGvRaO86umuU/EkCaYbQsIAwnT/gckZw8/SGJ1YjMJ2bwLXtLzcZIgDsMr6HowV
- ZwXFRYzi3KN06jyapTpO89Jsxv8ReOKa0ybhhearHRcBlFfru2PXXtW8+GQE55ToPPBK
- L9nfU0/5/aQ4ie7Acq1a6KB6QCoB2vSoYzURia6xJhUzboHNEERcLCgXvfJQwrXZf2cU
- tFNyu7uHYl+OKJEtKt1D+WdQH7ceduyseNhU1niettpXcJ68m1pX7mjWcyNyywO4kgLo
- HYYA==
+ bh=lORwJoeOdmqWvp6Gaq9g1tKkad6KEP5mAC3mejLEu6E=;
+ b=mRQnHtWERWa09Zwm1It4HGCsXveHvodDRId+B9eeF7rw/PNaYCPkFldgH2s3F/NMOM
+ rbMHNtR3DLbvPCwcn2V+eifN1G6YXt/g2RYOvDr2/P3djZ1CbhmRfOcEpWOKknzlJ+iI
+ sf3CFst8ImmAN3R1n/YIkAxG/fquTe5B7E5JJyVLuZk8F7435Qpgr1LVHWYfRYOZHFj2
+ t7MTgK+vF0hbamXWLAVJu583slJUGSRCActZ1jYnxYYt2+Ize4IWt7/dxtAOACHqnuG4
+ piiWZqIbhErrw8yvRJBx4PSU3jse9Z+sfUfXoSNkgDijZdkIxjaBhc6WOK6Lfyuki59S
+ gYNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765799322; x=1766404122;
+ d=1e100.net; s=20230601; t=1765798753; x=1766403553;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6HauKBmXABfepG7VVzo5pWgXSZcUBePm/ZvLfsSGC9U=;
- b=sxNNXRyQzbVnQlIIJ9Hf7crGg9vFwamL3FlD1xmzNwAvE+fw2fo1sSuXuVKzd9srGf
- pGD2uHVBnlOF/tmFN3F9xtpz05ndI2tqn4QG+8+nLtmTRBpMzRD7OKMvyDXweSV5s1AV
- b3a2s61KZBD6SkFcpirMbkM462nY2A1GlUpcjh4tnPFpe9M6VFiy+9N8GeSRuz5gNhQB
- FZZEsiZ/h/0zxN6rZXlsHy+GBb+TmW7jA6C6wCMdXk54mdgNuWoZY/68ryjh6VoDx0l9
- +NPV1E5X7kFqHczhlz27PpiNQFl6B3yeOw3t3d9oc51ZCZz8ND1SzKsUAWt9bExFAnbU
- 3skA==
+ bh=lORwJoeOdmqWvp6Gaq9g1tKkad6KEP5mAC3mejLEu6E=;
+ b=gOQQAcNqoS5dpJI/Ve/GVYV1Fav03gH/nK3HjFPF5ks3ooq1Mc+ecYmw3La27DTs/L
+ JyzddwVL3gENn8jBjQzAI5s4IZofvhhuVqQSYBhw5COCVQF/IXAooW5f6D4/yFOOOLPY
+ MOzJMGCslicMfKQNXvy8PhxQ6Crb8zOEO4SSS5kBKb42pRD7bibylivT/YOC5cyN9CdK
+ mJqoql4HEO0zVVvVWSJwxu31EphZbaJGA2nu3h/lGxqIxvDgUo9bb/um9GAZ6gzaSCz6
+ D59JtvP560L80NOnRLmR0A+bxqUpciGFOSPaFdtiEG/KLngB4+VATWEzUMoQxpFa90ix
+ Iwyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX/WClzOGZr42QpFni4EAS6kNSOd5Zf8b1BGwdckioZxZ33F222xIzBhSiJcCiPc/1oaHmudTSO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNy51GRMNkwnDkk5GAGcTqw1DoK2dXWNzIB6b4ocjPUy2THLLV
- xiYnnXfOvVr+DahoxmDC2/8WGImJD+Gh9QLli87FXL32JizZREwNpix3
-X-Gm-Gg: AY/fxX5KSY7v2VkHXYs7NFtyukm9tGgoRwUBV7DKdGbt1TaZnA1UuqjxDE41nZ8BdpM
- SZusgoo33+jUeGymX+EI1GhT8kEJ/Cc1axdaKqc4sKTwALy2BQLRWXJ/gNV6jg/TP+MDG9OM+Fj
- w67XOfPR4VHVCWO3V+sMUXecTwpaWQK2IJ0K6f11w4fWf3EQYz/h9eSi2NRvkVPEDL4Z0TAkL+2
- OW+9vJWSyYjLm4xguChLImD6DdyaqvHqlGhCYgoGHc1xfK2frte6G4cFghcSRUReMRZ6YYk2agu
- 0dBYJa4dw9ySi/MeQhnFgVxI6anAvgbIgqoV+TT81Ub5tO/0EVkHiyzHAU+M0buAqNdckSXGDxe
- CizZmYAqeIny4JAS9Vb5KReXlxt4p3X5Z67q3n5dDwRqkx+aLMfXrhN1XTLLPENSv0ifvFHHOtN
- k/QlrSxOtS8XM=
-X-Google-Smtp-Source: AGHT+IHfPz2x7Vw5nYSquN5rdr59IqpuimzSW/oHADfYTkii49T/33BfFck+CRU3WD2YFqFgGY1MBw==
-X-Received: by 2002:a17:902:ccc8:b0:2a0:823f:4da6 with SMTP id
- d9443c01a7336-2a0823f4e6bmr66287715ad.50.1765799322057; 
- Mon, 15 Dec 2025 03:48:42 -0800 (PST)
+ AJvYcCU3L6QvQOF40OnLdbmr7MB5xMJ/aELrhAKYbyR4Egf4mYT0s+6UHuNyzfan7pid8kpJdcZVBJOz@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx10wejqhyT3QA8Q6Mm2CRCPrb7bcgZ4b1bHWv84Ty5sNl6kXyU
+ 3EgpJ6wHhg0syKDd1soWGprVMRsWOYpXlbke8UHoEvjzGGX5WdkbzUth
+X-Gm-Gg: AY/fxX6XzM+Y512hy9BmrMzRQva4+nVTrb2rQ2N7GiOSjVtV/iTYrVQ67MAro061WfP
+ ojdi1p5zzqXA71/HgUeZ4uMxtp+Qe9Pi7yahLGkWqm8daa5/1IeGveVrYIQc4kzR6xDcSwu0W0S
+ J5hy06bkYL6REk4/i/rxT59fJ087nF1UDt2lQn0C+aZjfB9B3Iwd63J1OcVHnecpHtwMmPpj66R
+ Vmn8Yjx5VmdrqIMuv/99F/qNBV/tvstujBIRI/oE/itCL3cXQ22PjOjsnyLQEPTQK8Ce9tu3QTx
+ PejaNfHA4lrLp0aCIYgDAekxH+qiN+roFREUewuXTXn5GsoHQVWdg8YF66R+wMU18bEWn8eBmRY
+ HfgW6FE/1sLG95J5dK2tOIky/irQAtfWB90uCe3swsDZPFI2q11NHZmnPMS2zQLDHT3PBv5snew
+ pQYNcGUmV72e8=
+X-Google-Smtp-Source: AGHT+IH43ZxDlO+sXZpKsRY9ws0CLb4ZSMlMGi8iin8W4Uc9EL2/AE6hhR6bEKC++ztievLapVcsEA==
+X-Received: by 2002:a05:6a20:6a28:b0:364:387:8f4e with SMTP id
+ adf61e73a8af0-369ae490337mr10620715637.34.1765798752795; 
+ Mon, 15 Dec 2025 03:39:12 -0800 (PST)
 Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29f271bc8a0sm97458185ad.92.2025.12.15.03.48.41
+ 41be03b00d2f7-c0c2ae4e3casm12755809a12.21.2025.12.15.03.39.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 03:48:41 -0800 (PST)
+ Mon, 15 Dec 2025 03:39:12 -0800 (PST)
 Received: by archie.me (Postfix, from userid 1000)
- id 1E64B44588D7; Mon, 15 Dec 2025 18:39:06 +0700 (WIB)
+ id 811FA444B394; Mon, 15 Dec 2025 18:39:06 +0700 (WIB)
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
@@ -127,20 +127,20 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Charles Han <hanchunchao@inspur.com>, Jilin Yuan <yuanjilin@cdjrlc.com>,
  Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
  George Anthony Vernon <contact@gvernon.com>
-Subject: [PATCH 10/14] drm/amdgpu: Describe @AMD_IP_BLOCK_TYPE_RAS in
- amd_ip_block_type enum
-Date: Mon, 15 Dec 2025 18:38:58 +0700
-Message-ID: <20251215113903.46555-11-bagasdotme@gmail.com>
+Subject: [PATCH 05/14] mm,
+ kfence: Describe @slab parameter in __kfence_obj_info()
+Date: Mon, 15 Dec 2025 18:38:53 +0700
+Message-ID: <20251215113903.46555-6-bagasdotme@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251215113903.46555-1-bagasdotme@gmail.com>
 References: <20251215113903.46555-1-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1065; i=bagasdotme@gmail.com;
- h=from:subject; bh=UEs/C9BYSnit6YUYNsXI/TPVZ8wlbVWtOoMfZCt2Czk=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4P/rZd71fJeeea2Y6ze7l+/BUWfvZxbPVvJ7FLhc
- b8Ca2nfjlIWBjEuBlkxRZZJiXxNp3cZiVxoX+sIM4eVCWQIAxenAEzkQCXDH065v1Nu7J+SJNXm
- fKBEpbzzpEZrbklCWe8WSUFLrulTkhn+J33s75ffwvJ3fu98iUql0+pnUqJKXmg5a8ursxTsZFv
- IBQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=849; i=bagasdotme@gmail.com;
+ h=from:subject; bh=mcnZ1soLgF/JTT1YuxC/XOQhVy9SZYDoshinxHejwDU=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4P0Tdf6vI2dt8iwUrrPLU6ToytxCmtRXso3wY/50
+ fGG9Ws6SlkYxLgYZMUUWSYl8jWd3mUkcqF9rSPMHFYmkCEMXJwCMBHZKwz/nVbIB4ee2zunpOHQ
+ vBz35Ga7xwYL3V6/ES+tt/jmsMTsOCPDXNsiGd24sMjVrB9Z5rD2NZvPm8/+bp/rS8/i2IdH8rc
+ yAgA=
 X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
  fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
@@ -161,28 +161,28 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Sphinx reports kernel-doc warning:
 
-WARNING: ./drivers/gpu/drm/amd/include/amd_shared.h:113 Enum value 'AMD_IP_BLOCK_TYPE_RAS' not described in enum 'amd_ip_block_type'
+WARNING: ./include/linux/kfence.h:220 function parameter 'slab' not described in '__kfence_obj_info'
 
-Describe the value to fix it.
+Fix it by describing @slab parameter.
 
-Fixes: 7169e706c82d7b ("drm/amdgpu: Add ras module ip block to amdgpu discovery")
+Fixes: 2dfe63e61cc31e ("mm, kfence: support kmem_dump_obj() for KFENCE objects")
 Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 ---
- drivers/gpu/drm/amd/include/amd_shared.h | 1 +
+ include/linux/kfence.h | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 17945094a13834..d8ed3799649172 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -89,6 +89,7 @@ enum amd_apu_flags {
- * @AMD_IP_BLOCK_TYPE_VPE: Video Processing Engine
- * @AMD_IP_BLOCK_TYPE_UMSCH_MM: User Mode Scheduler for Multimedia
- * @AMD_IP_BLOCK_TYPE_ISP: Image Signal Processor
-+* @AMD_IP_BLOCK_TYPE_RAS: RAS
- * @AMD_IP_BLOCK_TYPE_NUM: Total number of IP block types
- */
- enum amd_ip_block_type {
+diff --git a/include/linux/kfence.h b/include/linux/kfence.h
+index 0ad1ddbb8b996a..e5822f6e7f2794 100644
+--- a/include/linux/kfence.h
++++ b/include/linux/kfence.h
+@@ -211,6 +211,7 @@ struct kmem_obj_info;
+  * __kfence_obj_info() - fill kmem_obj_info struct
+  * @kpp: kmem_obj_info to be filled
+  * @object: the object
++ * @slab: the slab
+  *
+  * Return:
+  * * false - not a KFENCE object
 -- 
 An old man doll... just what I always wanted! - Clara
 
