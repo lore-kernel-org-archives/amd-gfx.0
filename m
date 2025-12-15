@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB9ADD5B85B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC1BD5B865
 	for <amd-gfx@archiver.kernel.org>; Mon, 15 Dec 2025 18:16:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5745B10E4D8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64A7110E4DA;
 	Mon, 15 Dec 2025 18:16:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iazAbpL5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d6dbPiXK";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013015.outbound.protection.outlook.com
- [40.93.196.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07DDD10E4BF
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 18:16:35 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010056.outbound.protection.outlook.com [52.101.85.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71F5F10E4C7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 18:16:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FtBj3sfsFYopHNKQniwqfaiFRTLDzsa6PU387rWT00/I7hZOGUaA++w5pzTFkncFuisr8hQL5UoCa0mXKS/PdnaU7aSZTRlP47iNoxr/K4BX7HcySh4eLbXspQoZRixz1KxrqCDnPTRmNYARLhT1RRXb0+AddPHT9hLMAqY5gFWBSV6GTw1Bjo5HamSyxb2tDqumFOLP5cjEqZ0eEPGXH0d4u3WL7a4sT8QbcQaRgMhs7l2ypvQXHMXPfAJXAyu7MVaqzqzVY6iCYVBaZZrCo00IuIpFSI9bLN51zzyKwwcwP9u0zQLWhnvxyhEMcjuteW6MHtvRNV5fkoDMTfmvoA==
+ b=dfiEyxPEn/r1H8Vjp6WFjrLRTcAMRVCmWHm2SoOJ2L21cs6jAChe8H5VE2YhMnlTwjk1sjnWXi2QBhjWOlpqyIzMBTxj9tq6u39MNqAuJNRHiVShE8pyXvyu7/K0PpCFwQayjYRwYhH/bn9zb8zKTQrwY9IKBBTcX47n75MdE//fpVLsUtiPJIF0LOp9pwJ5zrd3U/69Lt3eqTPf+OkWf3NPykDH5HKpPRxdkDTmfmkxsOmr9uoCD9mEAoVc5ZHIeBQx1ywJUWFyTZwEe1Hvj9JT8T8RjcaLIBDivMh2e2BSoeaz6kOieEoCpDR6ovqVWxARgMnxTGApW7Atq5a7Rw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G5jvs6AF4103himvNG15JpS6eGmuIWtGqypsOqhq8jw=;
- b=M6wIobUOkyiIMJyksBcn4ZjxOJzPSebRSte2cBKBBevm9vuh3RHin3+166jEv5PvVya+ShZQut7hYQX6Y5EGi5cfM7njAXbJkaFFdWqNKXeV0vriwyTwdqSRE67WPLetVCoF+TfODhci0mqM22pjH6CMMtJrMI9wWUx9bgFEUa5SvSo0CzmPvDJ6b3ABV4q/lUqFPb8O26SWMZvDhBCAWldpPMY1QPm0bzzz9sPCSBEtZFuZK5oRKruRQ9ECraTLMUHtp6Se7Nvmobe6b0DgeFk8BfyyTxNETCNCIwW8hu71FFvBLjkJYGyBtAewZhwdoJ9MIAiAsOPvZKEwgL+0xQ==
+ bh=EJ6ZIYxiSGk1l7VZ4eG7JH1GIoRpyyTnZZHYNIAoQwM=;
+ b=C3MPfBrT1UegbHgEePCh2rHsn9Ulvus2fRqeRjhDZo20lRuv1EPuhtK+7d2dxUetWcCJZYFat83F8HIsOPu6orvCGE4JGyrwBqWUP1LWaGy5v3ZzchdlX/tD75fAEilExF0GQTZ62Cv2RZF8Bk0KtEr/c5dIGOWMfMb9zCUhHFqhggARnmOOaPP6qQDu0Wxs7Eav6gzSyAf9qN1Dx0OkvUsfOhwq7x9xaghxyPrWHSIqDo20so0t4TDOQE68f7A+UiZ098L6z0bxHzRYfj/8EVwGGTsMZV4OdZHyLvAvmmOhzjmKDnqA15kRpNXNVA1i3gYch74y69CnxpS6AnnYXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G5jvs6AF4103himvNG15JpS6eGmuIWtGqypsOqhq8jw=;
- b=iazAbpL5bjMscRaRMI3S1sh7I9sG1GQyKOKz2juX9e9fg/yvpzouCs2eD6KeEbMf5uQ8iGQh3VVJk8BvuaXoOrHxOrHFhteWVzUIGfUZcral4ud4OkmTtxG+36f97akXA0CMbNvhE0lxkk6lAkxy/JsW031/fDgHOfcafMF1mKE=
-Received: from BL1PR13CA0225.namprd13.prod.outlook.com (2603:10b6:208:2bf::20)
- by MW4PR12MB7468.namprd12.prod.outlook.com (2603:10b6:303:212::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Mon, 15 Dec
- 2025 18:16:24 +0000
+ bh=EJ6ZIYxiSGk1l7VZ4eG7JH1GIoRpyyTnZZHYNIAoQwM=;
+ b=d6dbPiXKOYpDn9eL8NX6U3I4SIQ4snHzuaND81sI1P+FgflIt7vujSCUot03QuXeHpdt11JXsM7IB+K0t+KgPTRtMtBMIgBuA8h+sORusJabcESPetTJFsPNR58xoiV42kLZw1CPiqtfpXdEeiSAbmaGRbBAAqeIS58nC5P0Ey0=
+Received: from BL1PR13CA0240.namprd13.prod.outlook.com (2603:10b6:208:2bf::35)
+ by CH1PPFC908D89D1.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::623) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.12; Mon, 15 Dec
+ 2025 18:16:27 +0000
 Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
- (2603:10b6:208:2bf:cafe::c1) by BL1PR13CA0225.outlook.office365.com
- (2603:10b6:208:2bf::20) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:2bf:cafe::49) by BL1PR13CA0240.outlook.office365.com
+ (2603:10b6:208:2bf::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.6 via Frontend Transport; Mon,
- 15 Dec 2025 18:16:24 +0000
+ 15 Dec 2025 18:16:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9434.6 via Frontend Transport; Mon, 15 Dec 2025 18:16:24 +0000
+ 15.20.9434.6 via Frontend Transport; Mon, 15 Dec 2025 18:16:27 +0000
 Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 15 Dec
- 2025 12:16:23 -0600
+ 2025 12:16:24 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Likun Gao <Likun.Gao@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: adjust xcc_cp_resume function for gfx_v12_1
-Date: Mon, 15 Dec 2025 13:15:54 -0500
-Message-ID: <20251215181607.29132-7-alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: adjust xcc_id program logic for sdma v7_1
+Date: Mon, 15 Dec 2025 13:15:56 -0500
+Message-ID: <20251215181607.29132-9-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251215181607.29132-1-alexander.deucher@amd.com>
 References: <20251215181607.29132-1-alexander.deucher@amd.com>
@@ -74,53 +73,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|MW4PR12MB7468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7816a5bb-099a-4436-2446-08de3c060e81
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|CH1PPFC908D89D1:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94bc2b1a-e08e-4703-7073-08de3c061019
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Zo0fCEzL/D7rT39wmbytDuOxHwXQlTYbnbs7Rtea1cdUQTKncMVtrLENLYHY?=
- =?us-ascii?Q?LSdQqeGanaSRocoOguDV4wVCVd6UCoW2zQP1gos5Dzkf1AXtDIfwkR9jo7OY?=
- =?us-ascii?Q?Wp0ORXTVipNviUL/s6ewFhMa8O/ZIOoF4LXqNDz91KAAHPr9K61AjE6Q4zdr?=
- =?us-ascii?Q?5U9TdD7stn0rKqFYluGaNYnBvHbHG/McW/dp2gIJkWH5hgZBMvluqJNBlXic?=
- =?us-ascii?Q?F75SD2fHHtAOtTmfTT7RZcapWO1H5Th7YzgBdMy4NQlUe8QO9VxAK6pKjxI5?=
- =?us-ascii?Q?tJtLcbb4PRDyRuku9Qxe2MGhxz2sW73EiVdmtG0QVWzX+8vUmKcGa/YRb7BJ?=
- =?us-ascii?Q?ltoJxPYTRslsQ157FeqwxzXeticYL3OtwQWQOo8agv83C+U3+tM9rjYXHfX/?=
- =?us-ascii?Q?nQ86ZSZ1MNrDhZPiqB6f6bpoMtrzzublmw6RBGT/WHYGXFoYJx8onIESYHkP?=
- =?us-ascii?Q?d/f3vUACmHBmOL8MigfUB+X2lQ7FyLVFvdtGfbbNwP3TjDaawPuEPpXke6XA?=
- =?us-ascii?Q?HY/JgMYwXlqdvws0nV280h9SKFb0t/Ppf1E4077Ys7MTkybMgOofq0E94Len?=
- =?us-ascii?Q?N3qq/vHyswBitvLkwxV1MJ2OUYheERQol4bSJZ7CQ0gK48dRo2ASIbDwHfru?=
- =?us-ascii?Q?3vfBItGWCxv7BSH3Ilke/q6N9MAISPB3mfwi1RvDZi7D8BsCH+MFnwIua2HH?=
- =?us-ascii?Q?iSoTGNnAcYSWy/qG1ETJ2ozwq5TMAOLD95qvPE9BdM9Hm7e+5x/DJSclw4NE?=
- =?us-ascii?Q?jAVrz8eyZeErG8slzwatQLE75KOqCzhGhqEaSkNLkySaqChUWZk9+nRjlqwH?=
- =?us-ascii?Q?itm+L0Psp98JlXO4kZ6foMZSuYPV+RCoYEgOOqqCbSYkZJaBsG02C9wFTckG?=
- =?us-ascii?Q?6AABocnYkvPDyfszZXoGU9CQPOta1dhUs8hEfML3FGc1T77i7Zy3/AHyUk1F?=
- =?us-ascii?Q?m52nwMj4flEgG3+wiKtDGhTl5SQHv4O+hSObXJrGuT7yRc1YlWWQEG0yGieR?=
- =?us-ascii?Q?s2nX2VJhG6sZdbJyu7UGAC0jJYgP35e/SeplndevNZY2CmZWK480jWbKQ0xA?=
- =?us-ascii?Q?bZsXPcdZUpOjkFZIUqlYpAgiXyAbPEzpfmZ4LREys3d17zEroPytsWoxU/6c?=
- =?us-ascii?Q?2x51rAgWKFXks2Sdwp4ickFCQgqwN2cCFDhrK+YbDSEGA8yFb4Q4xtn5iMe1?=
- =?us-ascii?Q?H3RkAD3160EPd78lZaJHPhf8VQpLVXh6y43RclEqkr5cZBmUQ+yOXLuu3VY9?=
- =?us-ascii?Q?7UCxFEF2lrqalIVwLRlf4HJZH7yG8QtAVwfrgLKu2kC6KonS/rxGzmlpuvG+?=
- =?us-ascii?Q?ydTiiMvKBDpyt7VvPQb7UEYaGF/c4mxHNc6pGViHAwAjNEdqD9bDO+ESRNIq?=
- =?us-ascii?Q?XcSCOwiKLoK7ZTvgmfHjVEIBRgKO/BSTgnxsdP+ot19Y0ARclIdklLxqD7zM?=
- =?us-ascii?Q?lwTJbIG21UhHMkSNRxc4latR6Yg5Tgodh1b0g7c6K3U5jerqdjHLV8m0Xzly?=
- =?us-ascii?Q?FK9J6lkJNQxHeeyxMAaj1wusu4IzGQJDb1O4FIDiIkIOxN/v43eeAHEXmq67?=
- =?us-ascii?Q?08u5YctjjdEth/ZJw/A=3D?=
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LTHz7qc7O4ZxyaK09OsN6b7KiNPU/ufMrKfsf7bJLlOf2+ZQAJ9qehzpbX9F?=
+ =?us-ascii?Q?fmI7tfr+KsyIUTEwpef7K+s3kni3Gpku0gTofo/GtAfINs8bifCOzu3DSBI9?=
+ =?us-ascii?Q?u6kc8qp+xKPuJ07xzBJ0ynLZN9onepLFS4NCXSGFnh+h0aaslpsjFFAN1rZO?=
+ =?us-ascii?Q?OnTnB+dShPUoh8P1WVDKcpGPDkt8/D5nMy5HRrruhN2hGsYATenINXSzcHcL?=
+ =?us-ascii?Q?VOaAasFGxY7jBxSnw04RQHQ8rEVRajzlXscNloxo9ssVYUuWLET0/k3yTVZt?=
+ =?us-ascii?Q?Vt+NmZEGG+1wo6Z3UGr/601LOkf2k29m0RHJVssAHpChR1nPDnyUsqlsHCaY?=
+ =?us-ascii?Q?zM3NCzyVPgcxum3f1dyce7QELRhzapn+HpH1u0FeOpTVZobJXG6w3JRLmVIL?=
+ =?us-ascii?Q?dhVY+p1PXBW90uatAqvCO5/+9XgJeV2QjSDdHGshnMSn/xUHID1FtRl64rFw?=
+ =?us-ascii?Q?4LfIE3DMYocEv5wqMZ1vgjVHOG2Xa55E0VVHIqpWMfvrMCXCbzPYOriGlRff?=
+ =?us-ascii?Q?peSOFxm77SGxJidk3GZYqLBMoolXANGacbAMGAxjMyDBf8hsgjNqg/pcdflL?=
+ =?us-ascii?Q?sUzdhb6rOqBlf+F8IRPJuWY2VBaIlYCRzs8+XkFkCGaJ/uXEdXUP+a223aAa?=
+ =?us-ascii?Q?G/EQs392l63AgOn975Haq+tXbFdMZAOvD1uUnlAZN/teRJdALlZaLMwPBsmB?=
+ =?us-ascii?Q?nGq8EHtBUFa/x9ipi7z/qcrTPB/NJRyIrz9WQRK62EGen8KzhKFT9s/fyCiR?=
+ =?us-ascii?Q?vRlbq1y1zqgheK6S5HK6QGE7NoQngfrgtpCbQ/YFzMxlyr3YwsTuJhbIH6OA?=
+ =?us-ascii?Q?FmBY3KsAbTNkHRZjFso2fsHmK+MJVDquL4D9vIosRloHa3Ick4V7Z3b6Fr/+?=
+ =?us-ascii?Q?1WP20AeQt9db20xHUz+Bkastb3J6ftXmP43XMhctxR1FDMtl9TxpUARCyNYG?=
+ =?us-ascii?Q?iOUa6qsjOioK1q0ILrkn0T6zhLdOgAi2nkywO+aWnO/kv8vnUgYMfjx9nj0F?=
+ =?us-ascii?Q?+algizi+v3rrYafKNIBlE5NzsroCwVr/Vc3jkekvDq7URFXkc71uQ/rWAgjL?=
+ =?us-ascii?Q?GqDU9u00Z9djDm/OO+mUC6kc7IIJln6y15ICZGjn1vrAg5Sa/7uoiikk0LLO?=
+ =?us-ascii?Q?E3U183Qr3MqP7MBWVWdZSAZpANtwmg7b3IprilTz5izhLjr9gMUeYJlufFnL?=
+ =?us-ascii?Q?sh0b9hiSD+hguYIZkIiBFjScLXRDCYGhm8DJ2UIxzQ531GgA49gfDOYb/M+c?=
+ =?us-ascii?Q?SK2yKnGyKbaAtrg6ntIDfO29o5WZTsHUWiKITIfClmmiKYFZqXlMEhHQb19u?=
+ =?us-ascii?Q?KtK2Ju6+pCMFTLwjphRTBGL0ZSMyKJxzDBcGXHb106Foiz3vDjo9iR/UI/SR?=
+ =?us-ascii?Q?pxZ/NX4EqgEKnIGLkqGfdqHDgIqShYyrM8mdaD2dltsePIcLK5QRJNv6x2DU?=
+ =?us-ascii?Q?nSKFczZ3NPHA2KQM04DZ1vdG6n1g/4BYObEcmuvUojHGIC0f+w3i7QgyXwjo?=
+ =?us-ascii?Q?w49LSHC1Og4LLIodpcvpkjaNUzyqkhBQIzqEUI4sH0/ZursGBOi54oLXHyvV?=
+ =?us-ascii?Q?DZO3mhoYCSjd6kcqc94=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2025 18:16:24.3552 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7816a5bb-099a-4436-2446-08de3c060e81
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2025 18:16:27.0307 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94bc2b1a-e08e-4703-7073-08de3c061019
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB74.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7468
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFC908D89D1
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,338 +136,91 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Adjust gfx_v12_1_xcc_cp_resume function to program
-cp resume per xcc_id (logic xcc number) to fix for
-xcp_resume.
-V2: Allocate compute microcode bo when sw init
+Adjust program logic for sdam v7_1, only use physical xcc_id
+when program register to support compute partition.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 244 ++++++++++++++-----------
- 1 file changed, 135 insertions(+), 109 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index c2b9311831646..c43f9a9fe662a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -89,6 +89,7 @@ static void gfx_v12_1_update_perf_clk(struct amdgpu_device *adev,
- 				      bool enable);
- static void gfx_v12_1_xcc_update_perf_clk(struct amdgpu_device *adev,
- 					 bool enable, int xcc_id);
-+static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+index fe0e84b45cf4b..6ffe05cc1d1eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+@@ -369,7 +369,7 @@ static void sdma_v7_1_inst_gfx_stop(struct amdgpu_device *adev,
+ 	u32 rb_cntl, ib_cntl;
+ 	int i;
  
- static void gfx_v12_1_kiq_set_resources(struct amdgpu_ring *kiq_ring,
- 					uint64_t queue_mask)
-@@ -1245,6 +1246,10 @@ static int gfx_v12_1_sw_init(struct amdgpu_ip_block *ip_block)
- 		r = gfx_v12_1_rlc_autoload_buffer_init(adev);
+-	for (i = 0; i < NUM_XCC(inst_mask); i++) {
++	for_each_inst(i, inst_mask) {
+ 		rb_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL));
+ 		rb_cntl = REG_SET_FIELD(rb_cntl, SDMA0_SDMA_QUEUE0_RB_CNTL, RB_ENABLE, 0);
+ 		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_QUEUE0_RB_CNTL), rb_cntl);
+@@ -436,7 +436,7 @@ static void sdma_v7_1_inst_enable(struct amdgpu_device *adev,
+ 	if (amdgpu_sriov_vf(adev))
+ 		return;
+ 
+-	for (i = 0; i < NUM_XCC(inst_mask); i++) {
++	for_each_inst(i, inst_mask) {
+ 		mcu_cntl = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL));
+ 		mcu_cntl = REG_SET_FIELD(mcu_cntl, SDMA0_SDMA_MCU_CNTL, HALT, enable ? 0 : 1);
+ 		WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_MCU_CNTL), mcu_cntl);
+@@ -617,7 +617,7 @@ static int sdma_v7_1_inst_gfx_resume(struct amdgpu_device *adev,
+ {
+ 	int i, r;
+ 
+-	for (i = 0; i < NUM_XCC(inst_mask); i++) {
++	for_each_inst(i, inst_mask) {
+ 		r = sdma_v7_1_gfx_resume_instance(adev, i, false);
  		if (r)
  			return r;
-+	} else if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
-+		r = gfx_v12_1_init_cp_compute_microcode_bo(adev);
-+		if (r)
-+			return r;
- 	}
- 
- 	r = gfx_v12_1_gpu_early_init(adev);
-@@ -1919,15 +1924,13 @@ static void gfx_v12_1_xcc_cp_compute_enable(struct amdgpu_device *adev,
- 	udelay(50);
- }
- 
--static int gfx_v12_1_xcc_cp_compute_load_microcode_rs64(struct amdgpu_device *adev,
--							uint16_t xcc_mask)
-+static int gfx_v12_1_init_cp_compute_microcode_bo(struct amdgpu_device *adev)
+@@ -647,7 +647,7 @@ static void sdma_v7_1_inst_free_ucode_buffer(struct amdgpu_device *adev,
  {
- 	const struct gfx_firmware_header_v2_0 *mec_hdr;
- 	const __le32 *fw_ucode, *fw_data;
--	u32 tmp, fw_ucode_size, fw_data_size;
--	u32 i, usec_timeout = 50000; /* Wait for 50 ms */
-+	u32 fw_ucode_size, fw_data_size;
- 	u32 *fw_ucode_ptr, *fw_data_ptr;
--	int r, xcc_id;
-+	int i, r, xcc_id;
+ 	int i;
  
- 	if (!adev->gfx.mec_fw)
- 		return -EINVAL;
-@@ -1943,120 +1946,140 @@ static int gfx_v12_1_xcc_cp_compute_load_microcode_rs64(struct amdgpu_device *ad
- 				le32_to_cpu(mec_hdr->data_offset_bytes));
- 	fw_data_size = le32_to_cpu(mec_hdr->data_size_bytes);
+-	for (i = 0; i < NUM_XCC(inst_mask); i++) {
++	for_each_inst(i, inst_mask) {
+ 		amdgpu_bo_free_kernel(&adev->sdma.instance[i].sdma_fw_obj,
+ 				      &adev->sdma.instance[i].sdma_fw_gpu_addr,
+ 				      (void **)&adev->sdma.instance[i].sdma_fw_ptr);
+@@ -686,7 +686,7 @@ static int sdma_v7_1_inst_load_microcode(struct amdgpu_device *adev,
+ 			le32_to_cpu(hdr->ucode_offset_bytes));
+ 	fw_size = le32_to_cpu(hdr->ucode_size_bytes);
  
--	r = amdgpu_bo_create_reserved(adev, fw_ucode_size,
--				      64 * 1024, AMDGPU_GEM_DOMAIN_VRAM,
--				      &adev->gfx.mec.mec_fw_obj,
--				      &adev->gfx.mec.mec_fw_gpu_addr,
--				      (void **)&fw_ucode_ptr);
--	if (r) {
--		dev_err(adev->dev, "(%d) failed to create mec fw ucode bo\n", r);
--		gfx_v12_1_mec_fini(adev);
--		return r;
--	}
-+	if (adev->gfx.mec.mec_fw_obj == NULL) {
-+		r = amdgpu_bo_create_reserved(adev, fw_ucode_size,
-+					      64 * 1024, AMDGPU_GEM_DOMAIN_VRAM,
-+					      &adev->gfx.mec.mec_fw_obj,
-+					      &adev->gfx.mec.mec_fw_gpu_addr,
-+					      (void **)&fw_ucode_ptr);
-+		if (r) {
-+			dev_err(adev->dev, "(%d) failed to create mec fw ucode bo\n", r);
-+			gfx_v12_1_mec_fini(adev);
-+			return r;
-+		}
+-	for (i = 0; i < NUM_XCC(inst_mask); i++) {
++	for_each_inst(i, inst_mask) {
+ 		r = amdgpu_bo_create_reserved(adev, fw_size,
+ 					      PAGE_SIZE,
+ 					      AMDGPU_GEM_DOMAIN_VRAM,
+@@ -744,10 +744,10 @@ static int sdma_v7_1_soft_reset(struct amdgpu_ip_block *ip_block)
+ 	u32 tmp;
+ 	int i;
  
--	r = amdgpu_bo_create_reserved(adev,
--				      ALIGN(fw_data_size, 64 * 1024) *
--				      adev->gfx.mec.num_pipe_per_mec * NUM_XCC(xcc_mask),
--				      64 * 1024, AMDGPU_GEM_DOMAIN_VRAM,
--				      &adev->gfx.mec.mec_fw_data_obj,
--				      &adev->gfx.mec.mec_fw_data_gpu_addr,
--				      (void **)&fw_data_ptr);
--	if (r) {
--		dev_err(adev->dev, "(%d) failed to create mec fw ucode bo\n", r);
--		gfx_v12_1_mec_fini(adev);
--		return r;
-+		memcpy(fw_ucode_ptr, fw_ucode, fw_ucode_size);
-+
-+		amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_obj);
-+		amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_obj);
- 	}
+-	inst_mask = adev->sdma.sdma_mask;
++	inst_mask = GENMASK(NUM_XCC(adev->sdma.sdma_mask) - 1, 0);
+ 	sdma_v7_1_inst_gfx_stop(adev, inst_mask);
  
--	memcpy(fw_ucode_ptr, fw_ucode, fw_ucode_size);
--	for (xcc_id = 0; xcc_id < NUM_XCC(xcc_mask); xcc_id++) {
--		for (i = 0; i < adev->gfx.mec.num_pipe_per_mec; i++) {
--			u32 offset = (xcc_id * adev->gfx.mec.num_pipe_per_mec + i) *
--				     ALIGN(fw_data_size, 64 * 1024) / 4;
--			memcpy(fw_data_ptr + offset, fw_data, fw_data_size);
-+	if (adev->gfx.mec.mec_fw_data_obj == NULL) {
-+		r = amdgpu_bo_create_reserved(adev,
-+					      ALIGN(fw_data_size, 64 * 1024) *
-+					      adev->gfx.mec.num_pipe_per_mec * NUM_XCC(adev->gfx.xcc_mask),
-+					      64 * 1024, AMDGPU_GEM_DOMAIN_VRAM,
-+					      &adev->gfx.mec.mec_fw_data_obj,
-+					      &adev->gfx.mec.mec_fw_data_gpu_addr,
-+					      (void **)&fw_data_ptr);
-+		if (r) {
-+			dev_err(adev->dev, "(%d) failed to create mec fw data bo\n", r);
-+			gfx_v12_1_mec_fini(adev);
-+			return r;
-+		}
-+
-+		for (xcc_id = 0; xcc_id < NUM_XCC(adev->gfx.xcc_mask); xcc_id++) {
-+			for (i = 0; i < adev->gfx.mec.num_pipe_per_mec; i++) {
-+				u32 offset = (xcc_id * adev->gfx.mec.num_pipe_per_mec + i) *
-+					     ALIGN(fw_data_size, 64 * 1024) / 4;
-+				memcpy(fw_data_ptr + offset, fw_data, fw_data_size);
-+			}
- 		}
-+
-+		amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_data_obj);
-+		amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_data_obj);
- 	}
- 
--	amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_obj);
--	amdgpu_bo_kunmap(adev->gfx.mec.mec_fw_data_obj);
--	amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_obj);
--	amdgpu_bo_unreserve(adev->gfx.mec.mec_fw_data_obj);
-+	return 0;
-+}
-+
-+static int gfx_v12_1_xcc_cp_compute_load_microcode_rs64(struct amdgpu_device *adev,
-+							int xcc_id)
-+{
-+	const struct gfx_firmware_header_v2_0 *mec_hdr;
-+	u32 fw_data_size;
-+	u32 tmp, i, usec_timeout = 50000; /* Wait for 50 ms */
-+
-+	if (!adev->gfx.mec_fw)
-+		return -EINVAL;
- 
--	for (xcc_id = 0; xcc_id < NUM_XCC(xcc_mask); xcc_id++) {
--		gfx_v12_1_xcc_cp_compute_enable(adev, false, xcc_id);
-+	mec_hdr = (const struct gfx_firmware_header_v2_0 *)adev->gfx.mec_fw->data;
-+	fw_data_size = le32_to_cpu(mec_hdr->data_size_bytes);
- 
--		tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_CNTL);
--		tmp = REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, VMID, 0);
--		tmp = REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, EXE_DISABLE, 0);
--		tmp = REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, CACHE_POLICY, 0);
--		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_CNTL, tmp);
-+	gfx_v12_1_xcc_cp_compute_enable(adev, false, xcc_id);
- 
--		tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_BASE_CNTL);
--		tmp = REG_SET_FIELD(tmp, CP_MEC_DC_BASE_CNTL, VMID, 0);
--		tmp = REG_SET_FIELD(tmp, CP_MEC_DC_BASE_CNTL, CACHE_POLICY, 0);
--		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_BASE_CNTL, tmp);
-+	tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_CNTL);
-+	tmp = REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, VMID, 0);
-+	tmp = REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, EXE_DISABLE, 0);
-+	tmp = REG_SET_FIELD(tmp, CP_CPC_IC_BASE_CNTL, CACHE_POLICY, 0);
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_CNTL, tmp);
- 
--		mutex_lock(&adev->srbm_mutex);
--		for (i = 0; i < adev->gfx.mec.num_pipe_per_mec; i++) {
--			soc_v1_0_grbm_select(adev, 1, i, 0, 0, GET_INST(GC, xcc_id));
--
--			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_MDBASE_LO,
--					lower_32_bits(adev->gfx.mec.mec_fw_data_gpu_addr +
--									(xcc_id * adev->gfx.mec.num_pipe_per_mec + i) *
--									ALIGN(fw_data_size, 64 * 1024)));
--			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_MDBASE_HI,
--					upper_32_bits(adev->gfx.mec.mec_fw_data_gpu_addr +
--									(xcc_id * adev->gfx.mec.num_pipe_per_mec + i) *
--									ALIGN(fw_data_size, 64 * 1024)));
--
--			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_LO,
--					lower_32_bits(adev->gfx.mec.mec_fw_gpu_addr));
--			WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_HI,
--					upper_32_bits(adev->gfx.mec.mec_fw_gpu_addr));
--		}
--		mutex_unlock(&adev->srbm_mutex);
--		soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, 0));
-+	tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_BASE_CNTL);
-+	tmp = REG_SET_FIELD(tmp, CP_MEC_DC_BASE_CNTL, VMID, 0);
-+	tmp = REG_SET_FIELD(tmp, CP_MEC_DC_BASE_CNTL, CACHE_POLICY, 0);
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_BASE_CNTL, tmp);
- 
--		/* Trigger an invalidation of the L1 instruction caches */
-+	mutex_lock(&adev->srbm_mutex);
-+	for (i = 0; i < adev->gfx.mec.num_pipe_per_mec; i++) {
-+		soc_v1_0_grbm_select(adev, 1, i, 0, 0, GET_INST(GC, xcc_id));
-+
-+		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_MDBASE_LO,
-+			     lower_32_bits(adev->gfx.mec.mec_fw_data_gpu_addr +
-+					   (xcc_id * adev->gfx.mec.num_pipe_per_mec + i) *
-+					   ALIGN(fw_data_size, 64 * 1024)));
-+		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_MDBASE_HI,
-+			     upper_32_bits(adev->gfx.mec.mec_fw_data_gpu_addr +
-+					   (xcc_id * adev->gfx.mec.num_pipe_per_mec + i) *
-+					   ALIGN(fw_data_size, 64 * 1024)));
-+
-+		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_LO,
-+				lower_32_bits(adev->gfx.mec.mec_fw_gpu_addr));
-+		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_BASE_HI,
-+				upper_32_bits(adev->gfx.mec.mec_fw_gpu_addr));
-+	}
-+	mutex_unlock(&adev->srbm_mutex);
-+	soc_v1_0_grbm_select(adev, 0, 0, 0, 0, GET_INST(GC, 0));
-+
-+	/* Trigger an invalidation of the L1 instruction caches */
-+	tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_OP_CNTL);
-+	tmp = REG_SET_FIELD(tmp, CP_MEC_DC_OP_CNTL, INVALIDATE_DCACHE, 1);
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_OP_CNTL, tmp);
-+
-+	/* Wait for invalidation complete */
-+	for (i = 0; i < usec_timeout; i++) {
- 		tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_OP_CNTL);
--		tmp = REG_SET_FIELD(tmp, CP_MEC_DC_OP_CNTL, INVALIDATE_DCACHE, 1);
--		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_OP_CNTL, tmp);
--
--		/* Wait for invalidation complete */
--		for (i = 0; i < usec_timeout; i++) {
--			tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_MEC_DC_OP_CNTL);
--			if (1 == REG_GET_FIELD(tmp, CP_MEC_DC_OP_CNTL,
--						INVALIDATE_DCACHE_COMPLETE))
--				break;
--			udelay(1);
--		}
-+		if (1 == REG_GET_FIELD(tmp, CP_MEC_DC_OP_CNTL,
-+				       INVALIDATE_DCACHE_COMPLETE))
-+			break;
-+		udelay(1);
-+	}
- 
--		if (i >= usec_timeout) {
--			dev_err(adev->dev, "failed to invalidate instruction cache\n");
--			return -EINVAL;
--		}
-+	if (i >= usec_timeout) {
-+		dev_err(adev->dev, "failed to invalidate data cache\n");
-+		return -EINVAL;
-+	}
- 
--		/* Trigger an invalidation of the L1 instruction caches */
--		tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_OP_CNTL);
--		tmp = REG_SET_FIELD(tmp, CP_CPC_IC_OP_CNTL, INVALIDATE_CACHE, 1);
--		WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_OP_CNTL, tmp);
--
--		/* Wait for invalidation complete */
--		for (i = 0; i < usec_timeout; i++) {
--			tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_OP_CNTL);
--			if (1 == REG_GET_FIELD(tmp, CP_CPC_IC_OP_CNTL,
--						INVALIDATE_CACHE_COMPLETE))
--				break;
--			udelay(1);
--		}
-+	/* Trigger an invalidation of the L1 instruction caches */
-+	tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_OP_CNTL);
-+	tmp = REG_SET_FIELD(tmp, CP_CPC_IC_OP_CNTL, INVALIDATE_CACHE, 1);
-+	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_OP_CNTL, tmp);
- 
--		if (i >= usec_timeout) {
--			dev_err(adev->dev, "failed to invalidate instruction cache\n");
--			return -EINVAL;
--		}
-+	/* Wait for invalidation complete */
-+	for (i = 0; i < usec_timeout; i++) {
-+		tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regCP_CPC_IC_OP_CNTL);
-+		if (1 == REG_GET_FIELD(tmp, CP_CPC_IC_OP_CNTL,
-+				       INVALIDATE_CACHE_COMPLETE))
-+			break;
-+		udelay(1);
-+	}
- 
--		gfx_v12_1_xcc_set_mec_ucode_start_addr(adev, xcc_id);
-+	if (i >= usec_timeout) {
-+		dev_err(adev->dev, "failed to invalidate instruction cache\n");
-+		return -EINVAL;
- 	}
- 
-+	gfx_v12_1_xcc_set_mec_ucode_start_addr(adev, xcc_id);
-+
- 	return 0;
- }
- 
-@@ -2460,14 +2483,14 @@ static int gfx_v12_1_xcc_cp_resume(struct amdgpu_device *adev, uint16_t xcc_mask
- 	int r, i, xcc_id;
- 	struct amdgpu_ring *ring;
- 
--	if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
--		/* legacy firmware loading */
--		r = gfx_v12_1_xcc_cp_compute_load_microcode_rs64(adev, xcc_mask);
--		if (r)
--			return r;
--	}
-+	for_each_inst(xcc_id, xcc_mask) {
-+		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
-+			/* legacy firmware loading */
-+			r = gfx_v12_1_xcc_cp_compute_load_microcode_rs64(adev, xcc_id);
-+			if (r)
-+				return r;
-+		}
- 
--	for (xcc_id = 0; xcc_id < NUM_XCC(xcc_mask); xcc_id++) {
- 		if (!(adev->flags & AMD_IS_APU))
- 			gfx_v12_1_xcc_enable_gui_idle_interrupt(adev, false, xcc_id);
- 
-@@ -2500,6 +2523,7 @@ static int gfx_v12_1_xcc_cp_resume(struct amdgpu_device *adev, uint16_t xcc_mask
- static int gfx_v12_1_cp_resume(struct amdgpu_device *adev)
+-	for (i = 0; i < NUM_XCC(inst_mask); i++) {
++	for_each_inst(i, inst_mask) {
+ 		//tmp = RREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_FREEZE));
+ 		//tmp |= SDMA0_SDMA_FREEZE__FREEZE_MASK;
+ 		//WREG32_SOC15_IP(GC, sdma_v7_1_get_reg_offset(adev, i, regSDMA0_SDMA_FREEZE), tmp);
+@@ -1357,8 +1357,11 @@ static int sdma_v7_1_sw_fini(struct amdgpu_ip_block *ip_block)
+ static int sdma_v7_1_hw_init(struct amdgpu_ip_block *ip_block)
  {
- 	int num_xcc, num_xcp, num_xcc_per_xcp;
-+	uint16_t xcc_mask;
- 	int r = 0;
+ 	struct amdgpu_device *adev = ip_block->adev;
++	uint32_t inst_mask;
  
- 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-@@ -2531,7 +2555,9 @@ static int gfx_v12_1_cp_resume(struct amdgpu_device *adev)
- 	if (r)
- 		return r;
- 
--	return gfx_v12_1_xcc_cp_resume(adev, adev->gfx.xcc_mask);
-+	xcc_mask = GENMASK(NUM_XCC(adev->gfx.xcc_mask) - 1, 0);
+-	return sdma_v7_1_inst_start(adev, adev->sdma.sdma_mask);
++	inst_mask = GENMASK(adev->sdma.num_instances - 1, 0);
 +
-+	return gfx_v12_1_xcc_cp_resume(adev, xcc_mask);
++	return sdma_v7_1_inst_start(adev, inst_mask);
  }
  
- static int gfx_v12_1_gfxhub_enable(struct amdgpu_device *adev)
+ static int sdma_v7_1_hw_fini(struct amdgpu_ip_block *ip_block)
 -- 
 2.52.0
 
