@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ADBAD5B170
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Dec 2025 01:12:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F3C5D59D99
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Dec 2025 01:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 012E310E0AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07EF110E0BC;
 	Mon, 15 Dec 2025 01:12:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L9ulV/qR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BmTtTSWh";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07A4A10E0AD
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 01:12:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E5CF10E0AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 01:12:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E231640A9A
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 01:12:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 761E1C4CEF1;
- Mon, 15 Dec 2025 01:12:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1F238442D0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 01:12:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2B5C19421;
+ Mon, 15 Dec 2025 01:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765761156;
- bh=vEihxNlQ54wrIKHTp1xKuZ3XWOFSXuCA9scK3rPnuXU=;
+ s=k20201202; t=1765761155;
+ bh=rVa6QeDtSO3pA7cxvekxMAOq2/MRD8x+/eIteJGyDI0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=L9ulV/qRMs0OXWiKgRdz/C38ybn8uDPPQMIhLiv0uySxScS6srVF9wtVkE8oY+aI/
- /0VwgD+M4ZyB2jwT1CeQAZIgH6YNrGzHYypOSYVx06DjWyqsNxwuths4S8QP/yIn5w
- KsFid/rmnvoLNClJiFdrTrIy09UlbHKDjKizXp4QwBQjlasJmJ4KmXs3gMnQ2UWaeZ
- Xx+clB8mX1cEcs5JdYwqs2V+h25q6bLvwoClTuYGVVKpkty7SmmyqU6aDMTD4wGFN3
- HBv9LbF46QdPFUgTl6Gczv4WHaBEhKf6C2gzrHyynRRPTrWVOVg70RW/wa/SjpCGcn
- zGsNAvwAu2ZxA==
+ b=BmTtTSWhZMJQpKib8I8QnMXkLE7uK7HqBFdMSuNbHWf+DAM/56kEbtzSPCC8PiXoV
+ QE33TpxsJ5ghR3UhndToNprO74dMD/4hqE3SlSsGMrok4f7KQyc1Wzwy7bPjKzh5LZ
+ EeYRfMnpONLrnx8tFyYOfML7q960S1z+X7UaoWvjPJy4KW7PgeIwuAvmTgDzwVfKLP
+ TEh1eCVvLRhPUBmsGrEqOTR78RxHwL+6hCpmt0XK1+R2LAwmdXL+2Yi+PwUyMvFuUD
+ DlMjuvkG69JT7cNFHE/vzy9Z6ZBIpjlemLkt5dCPx3BPalK6IgJo6Co7J3CjpF1YqF
+ nJtbPZWWYUrRA==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
 Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH 7/9] drm/amd: Convert amdgpu_display from DRM_* to drm_ macros
-Date: Sun, 14 Dec 2025 19:12:25 -0600
-Message-ID: <20251215011227.161597-8-superm1@kernel.org>
+Subject: [PATCH 4/9] drm/amd: Pass `adev` to amdgpu_gfx_parse_disable_cu()
+Date: Sun, 14 Dec 2025 19:12:22 -0600
+Message-ID: <20251215011227.161597-5-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251215011227.161597-1-superm1@kernel.org>
 References: <20251215011227.161597-1-superm1@kernel.org>
@@ -55,102 +55,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_* macros show the device they were called with which is helpful
-in multi-GPU systems.
+In order for messages to be attribute to the correct device
+amdgpu_gfx_parse_disable_cu() needs to know what device is being
+operated on.  Pass the argument in.
 
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 40 ++++++++++-----------
- 1 file changed, 20 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 2 +-
+ 10 files changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index f8b35c487b6c6..ee26e848f02d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -417,15 +417,15 @@ void amdgpu_display_print_display_setup(struct drm_device *dev)
- 	int i = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index ab2bbf1f90e0c..b321783f2bccc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -100,6 +100,7 @@ bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev,
+ /**
+  * amdgpu_gfx_parse_disable_cu - Parse the disable_cu module parameter
+  *
++ * @adev: amdgpu device pointer
+  * @mask: array in which the per-shader array disable masks will be stored
+  * @max_se: number of SEs
+  * @max_sh: number of SHs
+@@ -107,7 +108,8 @@ bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev,
+  * The bitmask of CUs to be disabled in the shader array determined by se and
+  * sh is stored in mask[se * max_sh + sh].
+  */
+-void amdgpu_gfx_parse_disable_cu(unsigned int *mask, unsigned int max_se, unsigned int max_sh)
++void amdgpu_gfx_parse_disable_cu(struct amdgpu_device *adev, unsigned int *mask,
++				 unsigned int max_se, unsigned int max_sh)
+ {
+ 	unsigned int se, sh, cu;
+ 	const char *p;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 281e03ad32556..585cc8e81bb28 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -569,8 +569,8 @@ static inline u32 amdgpu_gfx_create_bitmask(u32 bit_width)
+ 	return (u32)((1ULL << bit_width) - 1);
+ }
  
- 	drm_connector_list_iter_begin(dev, &iter);
--	DRM_INFO("AMDGPU Display Connectors\n");
-+	drm_info(dev, "AMDGPU Display Connectors\n");
- 	drm_for_each_connector_iter(connector, &iter) {
- 		amdgpu_connector = to_amdgpu_connector(connector);
--		DRM_INFO("Connector %d:\n", i);
--		DRM_INFO("  %s\n", connector->name);
-+		drm_info(dev, "Connector %d:\n", i);
-+		drm_info(dev, "  %s\n", connector->name);
- 		if (amdgpu_connector->hpd.hpd != AMDGPU_HPD_NONE)
--			DRM_INFO("  %s\n", hpd_names[amdgpu_connector->hpd.hpd]);
-+			drm_info(dev, "  %s\n", hpd_names[amdgpu_connector->hpd.hpd]);
- 		if (amdgpu_connector->ddc_bus) {
--			DRM_INFO("  DDC: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
-+			drm_info(dev, "  DDC: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
- 				 amdgpu_connector->ddc_bus->rec.mask_clk_reg,
- 				 amdgpu_connector->ddc_bus->rec.mask_data_reg,
- 				 amdgpu_connector->ddc_bus->rec.a_clk_reg,
-@@ -435,11 +435,11 @@ void amdgpu_display_print_display_setup(struct drm_device *dev)
- 				 amdgpu_connector->ddc_bus->rec.y_clk_reg,
- 				 amdgpu_connector->ddc_bus->rec.y_data_reg);
- 			if (amdgpu_connector->router.ddc_valid)
--				DRM_INFO("  DDC Router 0x%x/0x%x\n",
-+				drm_info(dev, "  DDC Router 0x%x/0x%x\n",
- 					 amdgpu_connector->router.ddc_mux_control_pin,
- 					 amdgpu_connector->router.ddc_mux_state);
- 			if (amdgpu_connector->router.cd_valid)
--				DRM_INFO("  Clock/Data Router 0x%x/0x%x\n",
-+				drm_info(dev, "  Clock/Data Router 0x%x/0x%x\n",
- 					 amdgpu_connector->router.cd_mux_control_pin,
- 					 amdgpu_connector->router.cd_mux_state);
- 		} else {
-@@ -449,35 +449,35 @@ void amdgpu_display_print_display_setup(struct drm_device *dev)
- 			    connector->connector_type == DRM_MODE_CONNECTOR_DVIA ||
- 			    connector->connector_type == DRM_MODE_CONNECTOR_HDMIA ||
- 			    connector->connector_type == DRM_MODE_CONNECTOR_HDMIB)
--				DRM_INFO("  DDC: no ddc bus - possible BIOS bug - please report to xorg-driver-ati@lists.x.org\n");
-+				drm_info(dev, "  DDC: no ddc bus - possible BIOS bug - please report to xorg-driver-ati@lists.x.org\n");
- 		}
--		DRM_INFO("  Encoders:\n");
-+		drm_info(dev, "  Encoders:\n");
- 		list_for_each_entry(encoder, &dev->mode_config.encoder_list, head) {
- 			amdgpu_encoder = to_amdgpu_encoder(encoder);
- 			devices = amdgpu_encoder->devices & amdgpu_connector->devices;
- 			if (devices) {
- 				if (devices & ATOM_DEVICE_CRT1_SUPPORT)
--					DRM_INFO("    CRT1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    CRT1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_CRT2_SUPPORT)
--					DRM_INFO("    CRT2: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    CRT2: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_LCD1_SUPPORT)
--					DRM_INFO("    LCD1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    LCD1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_DFP1_SUPPORT)
--					DRM_INFO("    DFP1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    DFP1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_DFP2_SUPPORT)
--					DRM_INFO("    DFP2: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    DFP2: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_DFP3_SUPPORT)
--					DRM_INFO("    DFP3: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    DFP3: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_DFP4_SUPPORT)
--					DRM_INFO("    DFP4: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    DFP4: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_DFP5_SUPPORT)
--					DRM_INFO("    DFP5: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    DFP5: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_DFP6_SUPPORT)
--					DRM_INFO("    DFP6: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    DFP6: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_TV1_SUPPORT)
--					DRM_INFO("    TV1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    TV1: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 				if (devices & ATOM_DEVICE_CV_SUPPORT)
--					DRM_INFO("    CV: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
-+					drm_info(dev, "    CV: %s\n", encoder_names[amdgpu_encoder->encoder_id]);
- 			}
- 		}
- 		i++;
+-void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,
+-				 unsigned max_sh);
++void amdgpu_gfx_parse_disable_cu(struct amdgpu_device *adev, unsigned int *mask,
++				 unsigned int max_se, unsigned int max_sh);
+ 
+ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev, int xcc_id);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 31c2d33f02d5f..1081354a18929 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -10114,7 +10114,7 @@ static int gfx_v10_0_get_cu_info(struct amdgpu_device *adev,
+ 	if (!adev || !cu_info)
+ 		return -EINVAL;
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks, 4, 2);
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks, 4, 2);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 79a6977d56b0e..5ab6122916c81 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -7472,7 +7472,7 @@ static int gfx_v11_0_get_cu_info(struct amdgpu_device *adev,
+ 	if (!adev || !cu_info)
+ 		return -EINVAL;
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks, 8, 2);
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks, 8, 2);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index b4dd954363ee1..c2e1db200712a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -5728,7 +5728,7 @@ static int gfx_v12_0_get_cu_info(struct amdgpu_device *adev,
+ 	if (!adev || !cu_info)
+ 		return -EINVAL;
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks, 8, 2);
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks, 8, 2);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 80565392313f1..63e6924a1f223 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -3555,7 +3555,7 @@ static void gfx_v6_0_get_cu_info(struct amdgpu_device *adev)
+ 
+ 	memset(cu_info, 0, sizeof(*cu_info));
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks, 4, 2);
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks, 4, 2);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index 9c0bcf836b2ee..2fa3a37a26542 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -5063,7 +5063,7 @@ static void gfx_v7_0_get_cu_info(struct amdgpu_device *adev)
+ 
+ 	memset(cu_info, 0, sizeof(*cu_info));
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks, 4, 2);
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks, 4, 2);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 5c1f8230be8ce..4e285ed5afaca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -7084,7 +7084,7 @@ static void gfx_v8_0_get_cu_info(struct amdgpu_device *adev)
+ 	else
+ 		ao_cu_num = adev->gfx.config.max_cu_per_sh;
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks, 4, 2);
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks, 4, 2);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index bb1465a98c7ca..4eadcf58804a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -7762,7 +7762,7 @@ static int gfx_v9_0_get_cu_info(struct amdgpu_device *adev,
+ 		adev->gfx.config.max_sh_per_se > 16)
+ 		return -EINVAL;
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks,
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks,
+ 				    adev->gfx.config.max_shader_engines,
+ 				    adev->gfx.config.max_sh_per_se);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 4e4d88d6357f9..14fc9a3b93343 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -4903,7 +4903,7 @@ static int gfx_v9_4_3_get_cu_info(struct amdgpu_device *adev,
+ 		adev->gfx.config.max_sh_per_se > 16)
+ 		return -EINVAL;
+ 
+-	amdgpu_gfx_parse_disable_cu(disable_masks,
++	amdgpu_gfx_parse_disable_cu(adev, disable_masks,
+ 				    adev->gfx.config.max_shader_engines,
+ 				    adev->gfx.config.max_sh_per_se);
+ 
 -- 
 2.43.0
 
