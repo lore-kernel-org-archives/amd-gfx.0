@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3A5BD5C0D1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C642BD5C0D0
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:08:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E558010E754;
-	Tue, 16 Dec 2025 08:07:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58E8610E749;
+	Tue, 16 Dec 2025 08:08:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZA8o+pLd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MnLW/707";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9824A10E452
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:48:44 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-34c718c5481so922331a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:48:44 -0800 (PST)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 600F310E450
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:48:40 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2a081c163b0so20802445ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:48:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765799324; x=1766404124; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765799320; x=1766404120; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8E8ZSVvZ3A1H5XIeWol9WzN+P6GbKkkMDrw9AgBsXoI=;
- b=ZA8o+pLdenaY7b1WQq8JeHbcSBD2udxgkbCcGsx+xl6o0CMn365cqTnsvK2W5fgoGb
- a/34UOrjJCjyofL7kbqDxxmpeDUZPuaeNUHVAmn1uj2hOCsLv2If3lIhIcOfAGt1vp5A
- IyMqD6KRgbrFsZx7ENdu3v7/WVOQIo7vFU8HaOXYqfBC+hJep5sfaYZdfxKuuIJ+DC7D
- +Zo0V55sWSV0idAlvA06hBeciksDd3JefU2ib0SCxiLqvqarUtNHDhvgAbt5TDfOxJJ6
- INzko3req9SY29R5+kPIKI18lNEQcdexXVJem8gzTZ28w0aEDMjvvk/Jp+44JkQLNZ8l
- wdPw==
+ bh=JUAs+7T6aM5YvKJFQXSXqoVkTtSxZtzq470O+YaXF94=;
+ b=MnLW/707+pZfq8yGM7E6UIgOsYea4pt5eUxEHm2c52T475VZJToDn2qM23PXLn8aHV
+ MOdVkdeJkrBu+RBX43SOo9bcRqZ0P/4C8E8VwnQWZ/h7OPc7O/a3p8QcGrPCmNDNGTgu
+ slaRUSV6569uXe2Vn5s8qIo7kpTKt5i/54rY+lZBzDgjNGEhiyNSLFNHSiR2S45wuu8Z
+ ulw/94eCUoZuk/7NhM4RDywbahuwlXMfesujEB6RfZiraibDKzCVOUX8RDv5nWNbqXAB
+ EX2t54vwrqzT312veBzW5RgxO6+4ByVifyPNCj/whUvMhqJKeYdLM0bFryKphUjNRZae
+ XbBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765799324; x=1766404124;
+ d=1e100.net; s=20230601; t=1765799320; x=1766404120;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=8E8ZSVvZ3A1H5XIeWol9WzN+P6GbKkkMDrw9AgBsXoI=;
- b=DJPd/QnmTzV1fbXZPf02zyMINHtOC/qpLOv1zVft+dzRJkdWqU7PbXjU1M5RIDqS9C
- 6kxJvzgUQGPLvBqIhSTY/JeGeKkmDdEYy8oiPbPCM0pBmrmBBfL8m4ITFcigmVwjmYLK
- vYrp9UcD9/906G6jiRrNofJ41IqqU/BtK+JNdgKcu/X/KO15pRlJgNnusJLLgcqfObv+
- kFx9iS401LbgrWCpqOOqO6pFlklEZTkTZvmccA+rppvyRDxUbvcJfLBTXb2XRDfvRG8H
- nGYGD++VKBd+VXXsNH04wF3fIAXad7NFxUscmc3pSakXX8KCfRIFbynA5OdI4fGXo73c
- gSNA==
+ bh=JUAs+7T6aM5YvKJFQXSXqoVkTtSxZtzq470O+YaXF94=;
+ b=bKZQLYevlf2vH6QrF6UghbrD6xZHAXQmtWH5DTyg0jGpoGZFWgUriVHDs6f7/wL/a8
+ DawiqjPGR0PUmrwhO3KmMvEmvhH5jFKutIKOcrfJ8IrBfFjwRBXa9J0pylbRgAXNFlHt
+ d80oOwsFH4Jtmu4BGphDW658zT/1iSdwuGS2xCGDpAVLxNTI5iFkc5ORaQYnpSyhSdNI
+ arrk2NO6BdNQGFaUfcy7k3Cke6wWDBa8qyKfmd8ryLr9f2Vo4ZGEn3V2LtNomvXQ/R+J
+ VjtlMlLHPUkPKJRRmiel4f3C40v/ulb4+MW82MEgAl0auitX1MfhpS5Wp3dhdUEhraDE
+ kCTQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWXxsZKQMwJaLYtEI+UiwaAPcvKOXYGIf8dERHWn1JCpnngD/vAY6JmA1DClh5f2e9rB5fo3B2C@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzcb/Ziorm5FNrSd4vrP17929LDv7MJtoRn7t1n+dvJE+9YHKAk
- w7eejLUxbdWdTBLKjTuDSYbnO1iChF/ILMIsDT7hfI1ZVwKjRGBHqNMF
-X-Gm-Gg: AY/fxX4TJvLe9ZB/p+zhyqQ+l4joqbG/kCrtSnMgsb7KdpvTJf8Zj6wkTshPmcEebY3
- naZxg2Y6tuAokRxw1asqBGTxLRX/ii0ehGPVjNJuRZ+KtzSxMK3/gFUyLokmW8kLa739SmUMG6y
- ZJpHjz0nz6l1xu95+rYHiiWVsRVynKYi/8KRYbjMfC3JBtTXuxpARELCPAXfsHNltvYCLeaYI9/
- gj+veoMj7e42KTl2rab7QwMCEs65jmFS5MAlDMAHt5gMQMDEJSm12EHD9OmUSQA2zThIvj8Tdr2
- klMZOT61D9nqszvYmu7rs71+lsj7BrosgLkqcgbCQxbgv3I+4FBXx00Qlu+6Up7+jKSZ1YkGMBV
- PJlAdWWfAz0g+CiBIOXeAHSl9C4EmkmzJzbEnHdXXbfgN1TaHbfparwtwcwsdH2nYRzOQ6al0wu
- wUudAEafV3YbRU5IbljS59Eg==
-X-Google-Smtp-Source: AGHT+IFGPLXocnh0bsYmKlmGLz0U7nywcuz+b0WgS325GJYSuSdFNXAMsV5RYXPrF9APc0Uu9mi/Dg==
-X-Received: by 2002:a17:90b:2692:b0:340:54a1:d6fe with SMTP id
- 98e67ed59e1d1-34abd6e705bmr9983263a91.15.1765799324036; 
- Mon, 15 Dec 2025 03:48:44 -0800 (PST)
+ AJvYcCWiALbP0DHsLG0fTx1qtkHP/4JXJopLxjtB119HbmQ825l1B/HKOlcZisaEMydjKypQtDehL8fB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw63QBe9jPtY7JnOeMyxY1vUUYp4MxtU3hRV0pH2Ua8ApyEFDZm
+ tB8W8OM6cvm3olREUThnbCeXD/YAPMktSvEXJPX0r/ORAvgmYw+in0UW
+X-Gm-Gg: AY/fxX6T/q0X+DkKxEt9SdDv0bjVj3QN+FUqWnz/ZK9WOwPDaYcapuHa8GN3Odg1Nis
+ SZY7F4O76ib9Hpku+Q9p8N9G9C+tOoMwKEcPNj5iuk4aMMdGHLV64dZ9pvehi6EdqGGJOzT7W1T
+ ywKS4Fp/pfAFJHQo/Zb+ctlmDcy7SgqyN99JX3csu1hJ9x/ALjxu3cd0oG6Mfyk3Xtf8mjI9joC
+ HabIeTuyOgomEN30EJXbNM4aQ7j6VeO2ChK233jkr5/9ZWSSJdtc9Ze23O83DCrICgpjuWkcDF9
+ YSqXaJj91y4D+qjMcALI/pb8aeklwH9QIM07sZotmxN0rthqw5Sx+5OLtVmh3ZroTgLG7gtZd0d
+ jlwZJabzq31qe3OcuUHSGX+HKnjknfLnxbV2QJq20iRVM9FKEgmP0WLgOAASpXKyjqOZ4AX8fER
+ jdUyH5E3Sxti8=
+X-Google-Smtp-Source: AGHT+IEA4ldqjntSU1IZe10aX19mQKLjoCVDqCMnCNeqo44SOanRLtLHyqhQX8MxC8RVHbAWKM2xrg==
+X-Received: by 2002:a17:903:1a2e:b0:2a0:b02b:2105 with SMTP id
+ d9443c01a7336-2a0b02b228amr63659225ad.56.1765799319837; 
+ Mon, 15 Dec 2025 03:48:39 -0800 (PST)
 Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c0c2c48bf7asm12763568a12.32.2025.12.15.03.48.41
+ d9443c01a7336-2a0867ebe9dsm77190525ad.40.2025.12.15.03.48.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 03:48:42 -0800 (PST)
+ Mon, 15 Dec 2025 03:48:39 -0800 (PST)
 Received: by archie.me (Postfix, from userid 1000)
- id 711C5447330D; Mon, 15 Dec 2025 18:39:07 +0700 (WIB)
+ id 46E2D447330A; Mon, 15 Dec 2025 18:39:06 +0700 (WIB)
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
@@ -127,20 +127,19 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Charles Han <hanchunchao@inspur.com>, Jilin Yuan <yuanjilin@cdjrlc.com>,
  Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
  George Anthony Vernon <contact@gvernon.com>
-Subject: [PATCH 14/14] net: bridge: Describe @tunnel_hash member in
- net_bridge_vlan_group struct
-Date: Mon, 15 Dec 2025 18:39:02 +0700
-Message-ID: <20251215113903.46555-15-bagasdotme@gmail.com>
+Subject: [PATCH 12/14] drm/scheduler: Describe @result in drm_sched_job_done()
+Date: Mon, 15 Dec 2025 18:39:00 +0700
+Message-ID: <20251215113903.46555-13-bagasdotme@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251215113903.46555-1-bagasdotme@gmail.com>
 References: <20251215113903.46555-1-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=895; i=bagasdotme@gmail.com;
- h=from:subject; bh=Q9RPGjCwe41o18D04IVKznpQEFsNHpWb2BdI9cEOKh8=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n0POW63OZ/vV5HO1nI0n8+fcu08SpWN+KD02YL721
- ObASlnjjlIWBjEuBlkxRZZJiXxNp3cZiVxoX+sIM4eVCWQIAxenAExESpiR4Y+mRyzDrR2tsxn8
- /5W9nMso8ZF7PQPXv0v9ETpvN1g+X8rw39Gt4w5/EGPqsSVHKrba3jn4a/bV+2uL/9ts2fkotu6
- 9MRMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=982; i=bagasdotme@gmail.com;
+ h=from:subject; bh=kdwYayfiPuGdbX+6/rKZkI1jkonQkDY24KG3T7ZKuZA=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4Pfzvv2aMJ6/2fiW3RmVPTpTFSM/fBW4Nu0ikdP3
+ J/+EMyq6ShlYRDjYpAVU2SZlMjXdHqXkciF9rWOMHNYmUCGMHBxCsBENP8y/FN2WnBW9dYhDc+y
+ QzUe+4R7v/wRO/L/c0NDkJC4klf71CqG3yyrLnq/ur5px+nadXME75rW9sxVOp7eMOmL58xwZZ6
+ TlnwA
 X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
  fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
@@ -161,28 +160,28 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Sphinx reports kernel-doc warning:
 
-WARNING: ./net/bridge/br_private.h:267 struct member 'tunnel_hash' not described in 'net_bridge_vlan_group'
+WARNING: ./drivers/gpu/drm/scheduler/sched_main.c:367 function parameter 'result' not described in 'drm_sched_job_done'
 
-Fix it by describing @tunnel_hash member.
+Describe @result parameter to fix it.
 
-Fixes: efa5356b0d9753 ("bridge: per vlan dst_metadata netlink support")
+Fixes: 539f9ee4b52a8b ("drm/scheduler: properly forward fence errors")
 Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 ---
- net/bridge/br_private.h | 1 +
+ drivers/gpu/drm/scheduler/sched_main.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
-index 7280c4e9305f36..bf441ac1c4d38a 100644
---- a/net/bridge/br_private.h
-+++ b/net/bridge/br_private.h
-@@ -247,6 +247,7 @@ struct net_bridge_vlan {
-  * struct net_bridge_vlan_group
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 1d4f1b822e7b76..4f844087fd48eb 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -361,6 +361,7 @@ static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+ /**
+  * drm_sched_job_done - complete a job
+  * @s_job: pointer to the job which is done
++ * @result: job result
   *
-  * @vlan_hash: VLAN entry rhashtable
-+ * @tunnel_hash: tunnel rhashtable
-  * @vlan_list: sorted VLAN entry list
-  * @num_vlans: number of total VLAN entries
-  * @pvid: PVID VLAN id
+  * Finish the job's fence and resubmit the work items.
+  */
 -- 
 An old man doll... just what I always wanted! - Clara
 
