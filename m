@@ -4,122 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B1D6D41D74
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Dec 2025 09:57:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B36D59D99
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Dec 2025 10:11:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A30110E259;
-	Mon, 15 Dec 2025 09:57:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97F8010E3D8;
+	Mon, 15 Dec 2025 10:11:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iqW7y9r0";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="i0Fc38UJ";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013009.outbound.protection.outlook.com
- [40.93.201.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2319710E259
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 09:57:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Iy6Q+x1mYlnJLsDDvF6IQT+/p277HcVEtHZojRkvtnik6iuO34Ax5BO6QD445ekgZGKIbxZXUwbmOzznMYuZq9Dk3QOKeQOUKc5X/+JMCsnOafRPik6RBMcYNMUyfbsWQoBYd6vUwIj0AlB/2ZFqAdgVERm0qeRjyB1MUVgSE4HnE+IrenxRZXzAbT3pPhJ/GBkX2Eizu0yH6kfoLKwm69kKnLy4trwUUitTNH3kqaCnw/sAYksQJvoyDhir7kNpzY+c/EWvGPmjQh/MqMXF3q7Cxgkq+ZKmH2dla1CPtNFGIRZoewX8yCPieTnCDlI4Q5kd4SKCwYThVveMEG2GFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LVvgsRUwwpsVCqm5IxVD0cZ5zySmPFNOQV2Rd9YAdr4=;
- b=NvfJghd9kTM5EGMwNq24+mt80SIopwmKOqX9cIsulfAX0sBoVO3djDzDgs+MEDXeG+Nl/u7v+lsZmEommK9Yzenb5pZKiiXoBmZWPjBOofOflGoX3saZTDnRUMhOBIv8gYCgFGol8b6EtiL6XsOXpIgcWZupEvCi9S1zfRZrwMzkP5aOQBWrS8kjz8res7VcipINe7DvgHMzzCjZWHI6EUoBViE/Oub7NuKn57cej/mNXmayg5MavgMUMcT4n9B4Cu5iMakNc0rspdK6G6VgYpXFVEHBJryk3gixDhA892nTxUuu1dOCvYFsjSp+n4+uFxgHUMlPWT1W+Y/0wBvOUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LVvgsRUwwpsVCqm5IxVD0cZ5zySmPFNOQV2Rd9YAdr4=;
- b=iqW7y9r02Yi68mattkaSVcCE2pwGHE6wx0+mphu/7bq5DW2R00YlGcd/e8xy7Q8MvzeyJ0h0c2g9OHcNiijrMyL0/c8cs7/4eeLpS8tYBizmkxm58CDqJ/zFSRHjx6pScmdOvplIkUmbKQhCrK6rEAboZHUGqRbUqRLjVb196j4=
-Received: from BN9PR03CA0110.namprd03.prod.outlook.com (2603:10b6:408:fd::25)
- by PH0PR12MB7864.namprd12.prod.outlook.com (2603:10b6:510:26c::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Mon, 15 Dec
- 2025 09:57:48 +0000
-Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:fd:cafe::5c) by BN9PR03CA0110.outlook.office365.com
- (2603:10b6:408:fd::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.13 via Frontend Transport; Mon,
- 15 Dec 2025 09:57:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9434.6 via Frontend Transport; Mon, 15 Dec 2025 09:57:48 +0000
-Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 15 Dec
- 2025 03:57:46 -0600
-From: Yang Wang <kevinyang.wang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] drm/amd/pm: force send pcie parmater on navi1x
-Date: Mon, 15 Dec 2025 17:57:35 +0800
-Message-ID: <20251215095735.977069-2-kevinyang.wang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251215095735.977069-1-kevinyang.wang@amd.com>
-References: <20251215095735.977069-1-kevinyang.wang@amd.com>
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27FA110E3D8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 10:11:54 +0000 (UTC)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BEKPP6O008696;
+ Mon, 15 Dec 2025 10:11:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=6eexRg
+ br0IZm999taNpzQKZKJKk/dMXeD9rBpau1y9Y=; b=i0Fc38UJwxcv4Vl+vs9//y
+ S0i5bIwIsZXKUWDKKTQ9bHGuEZDDDpfUkG7WPV5BcEacnmJgLYE4411fDJFlURkK
+ pxGQ2VeCG8hyOZxCrPDa0VbQ6oVQoEhdQNdu6lkfdKJGb/bh2ZlkzZUuJcJcV7xg
+ 53Im19AbzxtqOZ5XIgE2GUyXPs593X/HbxXgQLAbeE0lJT+uNv+sSxol1C/i2IFI
+ sc1rs4HbPLG68wcypEFjOJE/euL/2iHkS2PDQcGDfpWTSGTcVUjo5/KnRBg9sCsR
+ xepEG32llFrPqRHtTEFE9/dAcC724/OxLStr4i7pNvkLc/AOHgRVhngqowrLi+Kg
+ ==
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0xjkrqvf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Dec 2025 10:11:50 +0000 (GMT)
+Received: from m0353725.ppops.net (m0353725.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BFA7pwn016231;
+ Mon, 15 Dec 2025 10:11:50 GMT
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0xjkrqvd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Dec 2025 10:11:50 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BF7YunN012783;
+ Mon, 15 Dec 2025 10:11:49 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4b1juxww4g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Dec 2025 10:11:49 +0000
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
+ [10.39.53.233])
+ by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5BFABmNG25821932
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 15 Dec 2025 10:11:48 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 19C7858054;
+ Mon, 15 Dec 2025 10:11:48 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D8F185803F;
+ Mon, 15 Dec 2025 10:11:44 +0000 (GMT)
+Received: from [9.109.215.183] (unknown [9.109.215.183])
+ by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Mon, 15 Dec 2025 10:11:44 +0000 (GMT)
+Message-ID: <444bfeba-deae-4f7b-84d7-29048256b69d@linux.ibm.com>
+Date: Mon, 15 Dec 2025 15:41:43 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 0/8] amdgpu/amdkfd: Add support for non-4K page
+ size systems
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Kent.Russell@amd.com,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
+References: <cover.1765519875.git.donettom@linux.ibm.com>
+ <fbc164ab-964f-464d-b94a-80131016b5b8@amd.com>
+ <871pl0567w.ritesh.list@gmail.com>
+ <1f10b67a-ffdc-4962-af52-758247569e09@amd.com>
+ <CADnq5_NbDzqucujDyW009+55mLXZz2PiyaSd9PKXXeXv4pYn0Q@mail.gmail.com>
+ <996ef75a-71b3-4ba7-a255-40516c5e9acd@amd.com>
+Content-Language: en-US
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <996ef75a-71b3-4ba7-a255-40516c5e9acd@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|PH0PR12MB7864:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3d36b6a-031c-41e7-f220-08de3bc06717
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ygUzkM+I+cDuWuhNPTQZ+BaTb+cqRfcfNz/xcrsOr6XSN+1W4OGSg7M6/88S?=
- =?us-ascii?Q?bzw0C326XTHnDRt54dX3B+LIuDo58sw4ckyDuUazar7YXC6O0gj0+/x9wub7?=
- =?us-ascii?Q?JM2G8w8RQBAyRr4cgUbkROJFOCulubW9NYJI+KbePLfeo9/4p0BYxbyT0vs9?=
- =?us-ascii?Q?Yy9HTjMnxq84mdsps/0d5hjMp1sgrfysApPJDdx+6BITUa+6AOUt5AQggdwS?=
- =?us-ascii?Q?rAKET+tEIT6Zig3lD8bsWZlY49VknfDfVPCx0EHEGJY92li42q2SsvbkqonY?=
- =?us-ascii?Q?vhvJ/UNLL0EueVyegfph6bF+ez4HzVJHScIc6hp+uNsK2JS/UDZXP8hV4Pqj?=
- =?us-ascii?Q?mFAF+109V1NFEHWlQLFCpXM72EaBw14YyOXMWvtOVvUUCbs80usTW4LO++gV?=
- =?us-ascii?Q?ZFQD3hrRjABUPu4j7wS/MQSBSKM9txQLAyXFe02A1GjOi0p0YoN+9Yx6atRK?=
- =?us-ascii?Q?w6kHu/YUUi6/TS8FdiTs3Tp4fFon3tHgu15L3evFVQOD2rjR00BGOHhKoI0y?=
- =?us-ascii?Q?NYVZUPWqIpBPez8zP6ZMfd1ec9VDzK4vkMDW1rjrRe0DOME6O/0L3VX9OmNZ?=
- =?us-ascii?Q?HeH7pv1dHLl+7gR/43MH7vvmElrr6yLvNWJ9RvRCKWYO9hIa2ZTEj6DXLrPC?=
- =?us-ascii?Q?nhmcrDSon4Cxkqz6+XcKzV6IF1Mcofatpl0+YxI1yF3zRIwKQ6jrISU9QGiP?=
- =?us-ascii?Q?W5qLYuwmvajkQ62bFD2wWlCTKHxYi4vrU9/soH9X1uD19ZJ5sllpsMNIL8Wk?=
- =?us-ascii?Q?YCOIaWDC+vNpb9/4t9X1LlH3p250nDmGiys6cnn0XUZlzWpKMURiUNYLtmAc?=
- =?us-ascii?Q?NMlHcyXlX2tv19drR5znW5wuNnpOBbQ2+CJPGX/ouu5OFLFY8X5+zqTe/epV?=
- =?us-ascii?Q?QpQdAcvU9rM9UnScpl0cJ5h8NjTXvHu9ajqvhDepgG4hqjM6ixr3kEPyjBNr?=
- =?us-ascii?Q?DKnliW2TO5Hm9rAg0cUqpvqnaY6edsFiyZ0OD51Ory/PjdpXoiNb4yhC1h0k?=
- =?us-ascii?Q?avkyh8VTeN9zjJYe0PlW89yikzCC7MrljOmLwYRZUOFI8kwp/ijkFzkojrzT?=
- =?us-ascii?Q?KNQm5BDPPhAXTghHQsuB2tS3+2odaF/wCreDqB50FM1nWOhLpr0qeH1mfFlV?=
- =?us-ascii?Q?/wUiKooi+Rv8wRDkeu4TQnxbAibqdzE+nfuesQlfyUJZ1YarpoFXmryM/QfY?=
- =?us-ascii?Q?muLd8sph9zRPbotKUsJX6zhzgMWJcgKUJA6xrM9ETFE4heSenknvxnzIGt7A?=
- =?us-ascii?Q?/6sl6zqgAC6nShc4HyozSL1ZB85LfYau7fGJeIACdRfYSAzB0Lf27qrI61zs?=
- =?us-ascii?Q?MmFqh5ZIGtW/UQcKAh66MVnyJ75MPzEGkaS0EFHCHVSO8XM2X9KrD9znraxP?=
- =?us-ascii?Q?rALgDbYo4EjthqfMm5lcpHMy06S91jGqKtMWpZI9wI/tap5/ug/GXW8wu/ia?=
- =?us-ascii?Q?KsvManFlWStxwK2gtBFLsKX3QotLRDiO+4xAoZP2VBRzPp8NsqNwn2RLQL7T?=
- =?us-ascii?Q?ayBI4GyIOKWLDZuGTzzG8NIYmSSds03FgBHi3QfsRBxr9qmCVBkQQ6JUKERp?=
- =?us-ascii?Q?xbHPsqGKoY7adW0i08o=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2025 09:57:48.2148 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3d36b6a-031c-41e7-f220-08de3bc06717
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7864
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: S6YMfKpSfrJmyU6LFYxQcswkl-wKn7D7
+X-Authority-Analysis: v=2.4 cv=CLgnnBrD c=1 sm=1 tr=0 ts=693fdee6 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=NEAV23lmAAAA:8 a=zd2uoN0lAAAA:8 a=xG_aP-PUQn1seHLX9yUA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=zY0JdQc1-4EAyPf5TuXT:22
+X-Proofpoint-GUID: U6Wl3n87wPcsLp-3hmgSU_v2eVlbQsK_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjEzMDAwOSBTYWx0ZWRfX4doUp6M+L+u6
+ NKJsCwWPeVdFuSqeLDn9i1KuhKVDB4ZxemicY8Fywt70Zc/OyAZBJqcGD9TVvy1lOrCGfFYGnKj
+ OXM4Wk79tEQ6hxnRSF0Q9Zigb+O0Kn7cj8kG9JqxByaEH23mAaxq10sjNaDKja9zBbti/dk0Hdh
+ pqoReuhYEeCR+OoryUA4dYEPHgm5wAYB236HGWMmHGT8K5MTQTl/wTf3rlbrnsfllXXRGfX7RCM
+ qxqEm5RVc67REpEZgYsMc4VpSILwnxUB16x1LTRhsJO2WaHb4EB72GXasqpzEcbk+1hh6/xu4Un
+ bPYQ6qiSwf3ewlUf4Hlll4L4mYtrVCxoR7Z6dwYd3qHCEVJKpLdroNR5+MjyNQaKUozscTnPzkr
+ JYuJJg1EY5jPy6ReDIVLsTBfJPTpFA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-15_01,2025-12-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 priorityscore=1501 bulkscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512130009
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,44 +124,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-the PMFW didn't initialize the PCIe DPM parameters
-and requires the KMD to actively provide these parameters.
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+On 12/15/25 3:17 PM, Christian König wrote:
+> On 12/12/25 18:24, Alex Deucher wrote:
+>> On Fri, Dec 12, 2025 at 8:19 AM Christian König
+>> <christian.koenig@amd.com> wrote:
+>>> On 12/12/25 11:45, Ritesh Harjani (IBM) wrote:
+>>>> Christian König <christian.koenig@amd.com> writes:
+>>>>>> Setup details:
+>>>>>> ============
+>>>>>> System details: Power10 LPAR using 64K pagesize.
+>>>>>> AMD GPU:
+>>>>>>    Name:                    gfx90a
+>>>>>>    Marketing Name:          AMD Instinct MI210
+>>>>>>
+>>>>>> Queries:
+>>>>>> =======
+>>>>>> 1. We currently ran rocr-debug agent tests [1]  and rccl unit tests [2] to test
+>>>>>>     these changes. Is there anything else that you would suggest us to run to
+>>>>>>     shake out any other page size related issues w.r.t the kernel driver?
+>>>>> The ROCm team needs to answer that.
+>>>>>
+>>>> Is there any separate mailing list or list of people whom we can cc
+>>>> then?
+>>> With Felix on CC you already got the right person, but he's on vacation and will not be back before the end of the year.
+>>>
+>>> I can check on Monday if some people are still around which could answer a couple of questions, but in general don't expect a quick response.
+>>>
+>>>>>> 2. Patch 1/8: We have a querry regarding eop buffer size Is this eop ring buffer
+>>>>>>     size HW dependent? Should it be made PAGE_SIZE?
+>>>>> Yes and no.
+>>>>>
+>>>> If you could more elaborate on this please? I am assuming you would
+>>>> anyway respond with more context / details on Patch-1 itself. If yes,
+>>>> that would be great!
+>>> Well, in general the EOP (End of Pipe) buffer contains in a ring buffer of all the events and actions the CP should execute when shaders and cache flushes finish.
+>>>
+>>> The size depends on the HW generation and configuration of the GPU etc..., but don't ask me for details how that is calculated.
+>>>
+>>> The point is that the size is completely unrelated to the CPU, so using PAGE_SIZE is clearly incorrect.
+>>>
+>>>>>> 3. Patch 5/8: also have a query w.r.t the error paths when system page size > 4K.
+>>>>>>     Do we need to lift this restriction and add MMIO remap support for systems with
+>>>>>>     non-4K page sizes?
+>>>>> The problem is the HW can't do this.
+>>>>>
+>>>> We aren't that familiar with the HW / SW stack here. Wanted to understand
+>>>> what functionality will be unsupported due to this HW limitation then?
+>>> The problem is that the CPU must map some of the registers/resources of the GPU into the address space of the application and you run into security issues when you map more than 4k at a time.
+>> Right.  There are some 4K pages with the MMIO register BAR which are
+>> empty and registers can be remapped into them.  In this case we remap
+>> the HDP flush registers into one of those register pages.  This allows
+>> applications to flush the HDP write FIFO from either the CPU or
+>> another device.  This is needed to flush data written by the CPU or
+>> another device to the VRAM BAR out to VRAM (i.e., so the GPU can see
+>> it).  This is flushed internally as part of the shader dispatch
+>> packets,
+> As far as I know this is only done for graphics shader submissions to the classic CS interface, but not for compute dispatches through ROCm queues.
+>
+> That's the reason why ROCm needs the remapped MMIO register BAR.
+>
+>> but there are certain cases where an application may want
+>> more control.  This is probably not a showstopper for most ROCm apps.
+> Well the problem is that you absolutely need the HDP flush/invalidation for 100% correctness. It does work most of the time without it, but you then risk data corruption.
+>
+> Apart from making the flush/invalidate an IOCTL I think we could also just use a global dummy page in VRAM.
+>
+> If you make two 32bit writes which are apart from each other and then a read back a 32bit value from VRAM that should invalidate the HDP as well. It's less efficient than the MMIO BAR remap but still much better than going though an IOCTL.
+>
+> The only tricky part is that you need to get the HW barriers with the doorbell write right.....
+>
+>> That said, the region is only 4K so if you allow applications to map a
+>> larger region they would get access to GPU register pages which they
+>> shouldn't have access to.
+> But don't we also have problems with the doorbell? E.g. the global aggregated one needs to be 4k as well, or is it ok to over allocate there?
+>
+> Thinking more about it there is also a major problem with page tables. Those are 4k by default on modern systems as well and while over allocating them to 64k is possible that not only wastes some VRAM but can also result in OOM situations because we can't allocate the necessary page tables to switch from 2MiB to 4k pages in some cases.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 0c26fe6fb949..96dbb7a9d9fb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -2215,16 +2215,16 @@ static int navi10_update_pcie_parameters(struct smu_context *smu,
- 			dpm_context->dpm_tables.pcie_table.pcie_lane[i] =
- 									pptable->PcieLaneCount[i] > pcie_width_cap ?
- 									pcie_width_cap : pptable->PcieLaneCount[i];
--			smu_pcie_arg = i << 16;
--			smu_pcie_arg |= dpm_context->dpm_tables.pcie_table.pcie_gen[i] << 8;
--			smu_pcie_arg |= dpm_context->dpm_tables.pcie_table.pcie_lane[i];
--			ret = smu_cmn_send_smc_msg_with_param(smu,
--							SMU_MSG_OverridePcieParameters,
--							smu_pcie_arg,
--							NULL);
--			if (ret)
--				break;
- 		}
-+		smu_pcie_arg = i << 16;
-+		smu_pcie_arg |= dpm_context->dpm_tables.pcie_table.pcie_gen[i] << 8;
-+		smu_pcie_arg |= dpm_context->dpm_tables.pcie_table.pcie_lane[i];
-+		ret = smu_cmn_send_smc_msg_with_param(smu,
-+						      SMU_MSG_OverridePcieParameters,
-+						      smu_pcie_arg,
-+						      NULL);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	return ret;
--- 
-2.34.1
 
+Sorry, Cristian — I may be misunderstanding this point, so I would 
+appreciate some clarification.
+
+If the CPU page size is 64K and the GPU page size is 4K, then from the 
+GPU side the page table entries are created and mapped at 4K 
+granularity, while on the CPU side the pages remain 64K. To map a single 
+CPU page to the GPU, we therefore need to create multiple GPU page table 
+entries for that CPU page.
+
+We found that this was not being handled correctly in the SVM path and 
+addressed it with the change in patch 2/8.
+
+Given this, if the memory is allocated and mapped in GPU page-size (4K) 
+granularity on the GPU side, could you please clarify how memory waste 
+occurs in this scenario?
+
+Thank you for your time and guidance.
+
+
+>
+> Christian.
+>
+>> Alex
+>>
+>>>>>> [1] ROCr debug agent tests: https://github.com/ROCm/rocr_debug_agent
+>>>>>> [2] RCCL tests: https://github.com/ROCm/rccl/tree/develop/test
+>>>>>>
+>>>>>>
+>>>>>> Please note that the changes in this series are on a best effort basis from our
+>>>>>> end. Therefore, requesting the amd-gfx community (who have deeper knowledge of the
+>>>>>> HW & SW stack) to kindly help with the review and provide feedback / comments on
+>>>>>> these patches. The idea here is, to also have non-4K pagesize (e.g. 64K) well
+>>>>>> supported with amd gpu kernel driver.
+>>>>> Well this is generally nice to have, but there are unfortunately some HW limitations which makes ROCm pretty much unusable on non 4k page size systems.
+>>>> That's a bummer :(
+>>>> - Do we have some HW documentation around what are these limitations around non-4K pagesize? Any links to such please?
+>>> You already mentioned MMIO remap which obviously has that problem, but if I'm not completely mistaken the PCIe doorbell BAR and some global seq counter resources will also cause problems here.
+>>>
+>>> This can all be worked around by delegating those MMIO accesses into the kernel, but that means tons of extra IOCTL overhead.
+>>>
+>>> Especially the cache flushes which are necessary to avoid corruption are really bad for performance in such an approach.
+>>>
+>>>> - Are there any latest AMD GPU versions which maybe lifts such restrictions?
+>>> Not that I know off any.
+>>>
+>>>>> What we can do is to support graphics and MM, but that should already work out of the box.
+>>>>>
+>>>> - Maybe we should also document, what will work and what won't work due to these HW limitations.
+>>> Well pretty much everything, I need to double check how ROCm does HDP flushing/invalidating when the MMIO remap isn't available.
+>>>
+>>> Could be that there is already a fallback path and that's the reason why this approach actually works at all.
+>>>
+>>>>> What we can do is to support graphics and MM, but that should already work out of the box.>
+>>>> So these patches helped us resolve most of the issues like SDMA hangs
+>>>> and GPU kernel page faults which we saw with rocr and rccl tests with
+>>>> 64K pagesize. Meaning, we didn't see this working out of box perhaps
+>>>> due to 64K pagesize.
+>>> Yeah, but this is all for ROCm and not the graphics side.
+>>>
+>>> To be honest I'm not sure how ROCm even works when you have 64k pages at the moment. I would expect much more issue lurking in the kernel driver.
+>>>
+>>>> AFAIU, some of these patches may require re-work based on reviews, but
+>>>> at least with these changes, we were able to see all the tests passing.
+>>>>
+>>>>> I need to talk with Alex and the ROCm team about it if workarounds can be implemented for those issues.
+>>>>>
+>>>> Thanks a lot! That would be super helpful!
+>>>>
+>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>> Thanks again for the quick response on the patch series.
+>>> You are welcome, but since it's so near to the end of the year not all people are available any more.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> -ritesh
