@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78957D5C0D0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84BD2D5C0CD
 	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01C7910E0B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06C7210E733;
 	Tue, 16 Dec 2025 08:07:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ic2VjzIW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LqNbMNcQ";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8047A10E448
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:19 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-7b9215e55e6so2341273b3a.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:19 -0800 (PST)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5CC510E443
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:12 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-34c5f0222b0so1005465a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765798759; x=1766403559; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765798752; x=1766403552; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XhdWc9MI61x0CV5VCAtcSDjXy8TDKlNky9k0yGxBSF0=;
- b=ic2VjzIW/FTBXOIH1lJT6tIDxcEEQDRXGaxWso2juF/FjidQ/ILhx421ptxAiMQgUR
- e84bY12Bj+yNZ7P1muIkMXfx1ZbaxXfFTVaVF4bFrLCzCAAGPIUnHzDuYzY+I3W0eu3v
- alvlHuRso0r5UlOcvh2NaSz0aak7Mv09LsME+7927yuQxWhV5XSCYkBGc8KlRtzx4PbX
- wjoUni74uH7+gAhjb13XzhntMNxiG+FJ0MoAuEACUNHmuUmJzYUQFpfPfRlu51tpBxOo
- 4vq4B4AL5ElUUsP7UIlysBKRDcFXaT2BHLeOpdwmN+7lEUc+FTzD0yFPBjacd+5pKCU3
- Qhlw==
+ bh=TWXueLrhDneeDmCGizpSHzMSgAg8yMgxTmeT/qXEn+I=;
+ b=LqNbMNcQKsragaPgBw/EoMHq3lSEpzmBnTfUvr2A2jaOowLlKgKAZ3Dwj/KXHWcbYt
+ kK8Uh6md1AlSihptP7ky1maUEqyqFpScA03IHnoyh3LVjMaMERaKWJw8Pwxow6OdTlN8
+ dw3+CTpRGdHMKHJYCVCT++M17dlPWXm45MWWn9tNvwJsROHOMJBJCKMFuWs6VCZrD/y8
+ 7ErMt4gifwO/iEHes1gSXzXSmSYSAmkLW1rMKLSCeh7Rm9UYT7lZtaIQDyjkdYW0ou93
+ fXHPbVpwbNfHZhTe4HEXJd719pq2LHLECR209IV8nXRA3HsnaUg8kaOYn40prWquKWGU
+ zlfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765798759; x=1766403559;
+ d=1e100.net; s=20230601; t=1765798752; x=1766403552;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=XhdWc9MI61x0CV5VCAtcSDjXy8TDKlNky9k0yGxBSF0=;
- b=qO9FtH5clVPJHrPoGA/4WSihaFq6xMaOE3haSV4c1+Ai3nkQXb4C2LzX95HtYtcXX9
- C3SSjZ/y0uFr7b292TFSjWofeA7oOPKffJzvcwcCFq1Rv6vDuyKdSNcDdEUAaNRQMFpf
- UJobBnTnnalipdJCmkbALI0BrlC0gXxFvAQUdf9eNWoix4dMeLTpybZQjVywppqUw3xm
- 1FJiANIyC4UEpB68Pf+Hb9UQHAzOcKMVN/4ywXRdpqaZrW/RoKEnGZrFwL6QUpfA85fP
- fyZZZfmskMvf+kYNOZlA23qb/6xk50zNDbTFir373TZmJxRfCJVoIANwel2m0R9T87jP
- 7Y2w==
+ bh=TWXueLrhDneeDmCGizpSHzMSgAg8yMgxTmeT/qXEn+I=;
+ b=vZT8NMcm9aN5/bQpaG+qTAc8VePFPTwjwrtTvpy8JPx2aCfMkbgXCF7ScXtslhqmaf
+ x/u+mzYGEtbYu3xIFxXgfNmpLIFwojttu8T3qc3uwXBefhGsg7NztoimYRnFdsOvojT0
+ sM/0wxkrb4hhNWwrlk5ZhxqQGrxQXeGTCgod8ySPF67ZHvIMUmHKN73vbyh9uZ/9wCz8
+ 64dNqgSvcF1/zx/h4dHvI+67urmpopqZxlzM4Cz2CGi91cmY47H2g1I8H965i/FrGuSw
+ maXb0wNmb+oxqtPpFjff4zoHpBxK9z7XeVBLzGx4FXX+pxKDjTWhuEQr023axRcdfGop
+ qt5g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW44IDi87Ch5XxH9LwYjo7FSY/vIwKb0KXT0yN51OvH73D5nTtxSIwfCy13j1ahGXa/C683X6vo@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZduK29sAfh4jIJgfX8Z+H02Jup53HiBqzKWxTs/LnCl3im/1E
- 2oEKP6kMJyJ8syXB86N6P3NuWBPlGyAAAGH/CrmBDzexytteVusAgqYg
-X-Gm-Gg: AY/fxX4K4LdCza9ktFRzweTlMXEcvr/lT7HK4Aaa//qjb0oSTWXdXNTVDuFnnQ4TDlX
- kDAfhuCQX2vAUMPdBOg5FHYEHCmss3DT/PF51VZa1SImaPXRALXGNao0fNWDIb2RRfRuPxoAyf8
- dDqpT+fMqXb/Aj/cXaI+s49ER1rX7iqiJjhAIGbnSHJ9ssLkhNNOjX528ud/UKZ06LXWGTZAlpv
- VkCAIRi4fTA3wiel4Y9JbnIjSK6m3EZ9kyfY2vLJAizmTjZO7NJrWwSPxRq2X7uQuCXB2BJKcML
- b67/ZHm/5VvRJ53cp3golY86Vq3ROocrYSouJp7ZgllOFGyb/uTy1kvB/9czXhzPzZLxImQwRpb
- 0RNl4taYaEnZSKQvP+Mm/TkirtF4RbzMiz2aTVbHcTPm5XgokrAf0SPO4InLWFk8RciKXkmBky4
- bfTBQ4pGu4KH8=
-X-Google-Smtp-Source: AGHT+IEml9qI+VrrnmRfetIj/W3ZZs/y3fpGJeeY3YNSfL1Lp+Ud1G2wHo5sReKCb7zM9fF8T1soPQ==
-X-Received: by 2002:a05:6a00:4211:b0:7e8:4587:e8c8 with SMTP id
- d2e1a72fcca58-7f669c8ea65mr9926386b3a.59.1765798758916; 
- Mon, 15 Dec 2025 03:39:18 -0800 (PST)
+ AJvYcCVI4X09UaSW+628SHMXXKQebvXdeLqf0jjuZYKb2ZvRiVFDeZ/enNySeUSzlwvtFh3XbOddrCZH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjxHsjQjDYGm+riI3Xp1nS3JSkycNBuup8DCA029+cB4MOmzK1
+ ke1wYyPTgi822cpoDclaZ7PvUW6kgR9H4m2ig/Vya/oYwy9Js+Yv4+62
+X-Gm-Gg: AY/fxX5zwJ6J//gSmi6Hqik/d/h4SRt7b0RjaYvMLrNRPW7jiiaZarohHN3l+2Ycm5d
+ qwAynSFtydnIVyFeifSAdYgXtebh8bLBACATMC4+JqeHFkQEDc1WQ+Vw0mj7lJmtCqEl868OLKI
+ PjJ8KZOHxIEN1fXQuwCKRTJ4qQVa/Hfaj4JagZWdwyduE3vTVRQrpnId5aq9J41srhxT+0H7WVP
+ VZkYIikmTKeiNpZwakT4oJNKDvKbOlX9m1U/l31QYH5l1JPQ1yoIA7hGXu6LpaD6hrYiStIUANX
+ KKNgpskVTYUhgAJW5o3voDEs3cBbkyLbzbk7eu/B4IBRcdtQVULn3XRIlgSvQr6paniZIjSLBIK
+ RyP8Idy0GqTrxrk5BC4V7b5scuooi/m9vyryJD/0ObU7t+vw7fZOcQzrsawRKUXgNwNeqhaARhb
+ FrpXi0fJk8sww=
+X-Google-Smtp-Source: AGHT+IHBwyvn37cMWft6XaLu78i521F3TitB1ZgZCjrLkgz/dWJXwkRq1mT1+qz6m/LgaTgF4rxTDQ==
+X-Received: by 2002:a17:903:3d10:b0:2a0:a4b7:44af with SMTP id
+ d9443c01a7336-2a0a4b74893mr49683665ad.26.1765798752075; 
+ Mon, 15 Dec 2025 03:39:12 -0800 (PST)
 Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7f4c566c7cfsm12487742b3a.67.2025.12.15.03.39.13
+ d9443c01a7336-29ee9d36ddcsm132733715ad.32.2025.12.15.03.39.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Dec 2025 03:39:18 -0800 (PST)
+ Mon, 15 Dec 2025 03:39:11 -0800 (PST)
 Received: by archie.me (Postfix, from userid 1000)
- id BCD48444B396; Mon, 15 Dec 2025 18:39:06 +0700 (WIB)
+ id 504F3444B392; Mon, 15 Dec 2025 18:39:05 +0700 (WIB)
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
@@ -126,20 +126,20 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Shaomin Deng <dengshaomin@cdjrlc.com>,
  Charles Han <hanchunchao@inspur.com>, Jilin Yuan <yuanjilin@cdjrlc.com>,
  Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
- George Anthony Vernon <contact@gvernon.com>
-Subject: [PATCH 07/14] fs: Describe @isnew parameter in ilookup5_nowait()
-Date: Mon, 15 Dec 2025 18:38:55 +0700
-Message-ID: <20251215113903.46555-8-bagasdotme@gmail.com>
+ George Anthony Vernon <contact@gvernon.com>, Thomas Graf <tgraf@suug.ch>
+Subject: [PATCH 03/14] textsearch: Describe @list member in ts_ops search
+Date: Mon, 15 Dec 2025 18:38:51 +0700
+Message-ID: <20251215113903.46555-4-bagasdotme@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251215113903.46555-1-bagasdotme@gmail.com>
 References: <20251215113903.46555-1-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=946; i=bagasdotme@gmail.com;
- h=from:subject; bh=ZF9oIk+6VfTU18bKiromuOjnT5V3QoMoKRjEOTmh6aM=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4NPZboGqi8J0lGIEPx09J91+O5zYvcmVc9uCnNeq
- KyqY9/YUcrCIMbFICumyDIpka/p9C4jkQvtax1h5rAygQxh4OIUgIloczEyXFE5FS25V7U4nF3s
- wsyajN23tv7S0jlgc8jW4LrtPJ7fvYwMd203HZvEp7U3/4W850Q53mn2BsnZf49w2jwWklnFefM
- GBwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=896; i=bagasdotme@gmail.com;
+ h=from:subject; bh=1tOY86lhWOCbSHsqmK/tuDEilXGPwKXl/15tM3wSixs=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4Mqzx7cbGl2s1Xb5iYDm7bLkws+2881173X3pa/f
+ UbeT2+PjlIWBjEuBlkxRZZJiXxNp3cZiVxoX+sIM4eVCWQIAxenAEzk0hqGfzoRZw50iXbWS+pV
+ RRyxzVGfNT/eQV3w9+MclUw9PumMlYwMO5cdc7i131P/rrG85octa1tun66WP3rW6W/Ropnr7E6
+ G8AIA
 X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
  fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
@@ -160,28 +160,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Sphinx reports kernel-doc warning:
 
-WARNING: ./fs/inode.c:1607 function parameter 'isnew' not described in 'ilookup5_nowait'
+WARNING: ./include/linux/textsearch.h:49 struct member 'list' not described in 'ts_ops'
 
-Describe the parameter.
+Describe @list member to fix it.
 
-Fixes: a27628f4363435 ("fs: rework I_NEW handling to operate without fences")
+Cc: Thomas Graf <tgraf@suug.ch>
+Cc: "David S. Miller" <davem@davemloft.net>
+Fixes: 2de4ff7bd658c9 ("[LIB]: Textsearch infrastructure.")
 Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 ---
- fs/inode.c | 1 +
+ include/linux/textsearch.h | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 521383223d8a45..2f4beda7bb8841 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -1593,6 +1593,7 @@ EXPORT_SYMBOL(igrab);
-  * @hashval:	hash value (usually inode number) to search for
-  * @test:	callback used for comparisons between inodes
-  * @data:	opaque data pointer to pass to @test
-+ * @isnew:	whether the inode is new or not
-  *
-  * Search for the inode specified by @hashval and @data in the inode cache.
-  * If the inode is in the cache, the inode is returned with an incremented
+diff --git a/include/linux/textsearch.h b/include/linux/textsearch.h
+index 6673e4d4ac2e1b..4933777404d618 100644
+--- a/include/linux/textsearch.h
++++ b/include/linux/textsearch.h
+@@ -35,6 +35,7 @@ struct ts_state
+  * @get_pattern: return head of pattern
+  * @get_pattern_len: return length of pattern
+  * @owner: module reference to algorithm
++ * @list: list to search
+  */
+ struct ts_ops
+ {
 -- 
 An old man doll... just what I always wanted! - Clara
 
