@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C697D5C0D0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C30E4D5C0D9
 	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:07:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C42FE10E72A;
-	Tue, 16 Dec 2025 08:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40B1A10E737;
+	Tue, 16 Dec 2025 08:07:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mRQnHtWE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TRSr8CTb";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6610E10E43E
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:13 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-7f0db5700b2so2938248b3a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:13 -0800 (PST)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D5F610E443
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 11:39:14 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-7b80fed1505so3224709b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Dec 2025 03:39:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765798753; x=1766403553; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765798754; x=1766403554; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lORwJoeOdmqWvp6Gaq9g1tKkad6KEP5mAC3mejLEu6E=;
- b=mRQnHtWERWa09Zwm1It4HGCsXveHvodDRId+B9eeF7rw/PNaYCPkFldgH2s3F/NMOM
- rbMHNtR3DLbvPCwcn2V+eifN1G6YXt/g2RYOvDr2/P3djZ1CbhmRfOcEpWOKknzlJ+iI
- sf3CFst8ImmAN3R1n/YIkAxG/fquTe5B7E5JJyVLuZk8F7435Qpgr1LVHWYfRYOZHFj2
- t7MTgK+vF0hbamXWLAVJu583slJUGSRCActZ1jYnxYYt2+Ize4IWt7/dxtAOACHqnuG4
- piiWZqIbhErrw8yvRJBx4PSU3jse9Z+sfUfXoSNkgDijZdkIxjaBhc6WOK6Lfyuki59S
- gYNA==
+ bh=yYIA++CxPIcYPKgHl3oGianXtJJpe/hDcX33067gP64=;
+ b=TRSr8CTbzmMaAS7OqK3ZMz+7svguwHXYpz4B3tZM5HloG9Z8/vqUFPmjEneGTzoXHA
+ pDjM4Tt9B1qehs8BSCAuoIE5ex7OgPNaUIrMk0h76d28AoOLyR1nhR8klG663VxomPu/
+ +kpu0HGNWM5QIDueZpmC2+1eNxMXqcYwvYMlGTp1wO7Vtu6Y9wlcXC5Crb1u2MLjvLy3
+ R28CSrLhAmqdfF5Ew43E/t2gkivQAGPQebwMVUlenSUmRVdm/ggvyEy8fnzzjuj3KJgc
+ 5/R6KRQCIfqtmM1A2yia2CIL4B3W++/zP9kE2NFnOohmUuuVpVx8ltO9Uf3InAI36+Mf
+ 8LDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765798753; x=1766403553;
+ d=1e100.net; s=20230601; t=1765798754; x=1766403554;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=lORwJoeOdmqWvp6Gaq9g1tKkad6KEP5mAC3mejLEu6E=;
- b=gOQQAcNqoS5dpJI/Ve/GVYV1Fav03gH/nK3HjFPF5ks3ooq1Mc+ecYmw3La27DTs/L
- JyzddwVL3gENn8jBjQzAI5s4IZofvhhuVqQSYBhw5COCVQF/IXAooW5f6D4/yFOOOLPY
- MOzJMGCslicMfKQNXvy8PhxQ6Crb8zOEO4SSS5kBKb42pRD7bibylivT/YOC5cyN9CdK
- mJqoql4HEO0zVVvVWSJwxu31EphZbaJGA2nu3h/lGxqIxvDgUo9bb/um9GAZ6gzaSCz6
- D59JtvP560L80NOnRLmR0A+bxqUpciGFOSPaFdtiEG/KLngB4+VATWEzUMoQxpFa90ix
- Iwyw==
+ bh=yYIA++CxPIcYPKgHl3oGianXtJJpe/hDcX33067gP64=;
+ b=aWJtSep/+ION+Wm+d/mkki9QYo5ZpVP5GNcMZZDnwrpvRBdFnNsKmR86oXyql15Fec
+ FPIJ1+JMAwKCPJzFyhgg/LbkxVw7UQDX6D1X2OyGAq3/Hn5iT1pVMkMYUR3KO7ZizBoT
+ hiSwJY/USmhLT8ZlrNepgBSR4zc2PPZs8HSFUxFkMoYHr/n8lTh1ON7KTT1jIebbG2Cd
+ YAL5BT//BMLSvIY1rsYPlcTdsem/xSgt9Vw2muIdmJIBNUMAFgxr74A1qAIdDrKNeOQe
+ tBA4HantS0j4telUqjde1siBp1Hd8iVf129XllORA1eAJ9R6sAhP81FQW6Eb3lYfHvm1
+ KyfA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU3L6QvQOF40OnLdbmr7MB5xMJ/aELrhAKYbyR4Egf4mYT0s+6UHuNyzfan7pid8kpJdcZVBJOz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx10wejqhyT3QA8Q6Mm2CRCPrb7bcgZ4b1bHWv84Ty5sNl6kXyU
- 3EgpJ6wHhg0syKDd1soWGprVMRsWOYpXlbke8UHoEvjzGGX5WdkbzUth
-X-Gm-Gg: AY/fxX6XzM+Y512hy9BmrMzRQva4+nVTrb2rQ2N7GiOSjVtV/iTYrVQ67MAro061WfP
- ojdi1p5zzqXA71/HgUeZ4uMxtp+Qe9Pi7yahLGkWqm8daa5/1IeGveVrYIQc4kzR6xDcSwu0W0S
- J5hy06bkYL6REk4/i/rxT59fJ087nF1UDt2lQn0C+aZjfB9B3Iwd63J1OcVHnecpHtwMmPpj66R
- Vmn8Yjx5VmdrqIMuv/99F/qNBV/tvstujBIRI/oE/itCL3cXQ22PjOjsnyLQEPTQK8Ce9tu3QTx
- PejaNfHA4lrLp0aCIYgDAekxH+qiN+roFREUewuXTXn5GsoHQVWdg8YF66R+wMU18bEWn8eBmRY
- HfgW6FE/1sLG95J5dK2tOIky/irQAtfWB90uCe3swsDZPFI2q11NHZmnPMS2zQLDHT3PBv5snew
- pQYNcGUmV72e8=
-X-Google-Smtp-Source: AGHT+IH43ZxDlO+sXZpKsRY9ws0CLb4ZSMlMGi8iin8W4Uc9EL2/AE6hhR6bEKC++ztievLapVcsEA==
-X-Received: by 2002:a05:6a20:6a28:b0:364:387:8f4e with SMTP id
- adf61e73a8af0-369ae490337mr10620715637.34.1765798752795; 
- Mon, 15 Dec 2025 03:39:12 -0800 (PST)
+ AJvYcCUY6u6b5n0FUKJKkAkB+cypVO/+hMDaIaGXztN1dfSfhYqcXV9cAfcKa1ETsc63uSFXGoRswLfx@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzB0kOxNC91kF/CHzmbxuEoml+3FYvQHxO7mkALJu1BQPpCMm1/
+ ddN3tLumxeJUphzgoCE8tMA3GCDvxZmAA00JkdKsembcaBkzRozy4HN6
+X-Gm-Gg: AY/fxX59wZdkkJeam9sEjmUj9m4Sp8XJOXB7VyZ3JXBDNpOiHndjyO61G02QVA7g9o8
+ iB6sCj8lu53F72LWCoA+XpH4aI0bugXN9xiWmEJpKU50Etq4e5vF78OVFTUDrQ3hRxkOB2HgENW
+ y22jVpY3rGpmnuFCOcU7xmugqmops95OPDXORVKFdsImFNlazsXZ82EcwGoBv9TN1sYa9YuXKWT
+ yIer2pYgoONALJcB7ByYXHQykhwCZgd5cpZi6eYq4h9QUl+cACbWO50nodw9k7KKjcrfdI5ShZL
+ 0vRXVY9ynEMrDTBGLpi1Qpore29E4kE/WqGHhRJX6OWee+fkxEgIoiiMR2cYlU6dTuB0uPMKGx8
+ eJ6EO167mLx21k2bL8qU/4PSfnVMheYyM5uVp832nGg2CSUc8+LMo4yo8Jnr8i5l3Tngdzoholf
+ 1laqadj1lQT2Y=
+X-Google-Smtp-Source: AGHT+IHZqxApH7RH4SvWeJJw7f7kzbBWfG87+pyKENlTOJ0etjJH+97jX9IVf9ZouLQDPcaXmCZT+w==
+X-Received: by 2002:a05:6a20:3d8b:b0:35e:11ff:45b4 with SMTP id
+ adf61e73a8af0-369adfb3407mr9418258637.21.1765798753761; 
+ Mon, 15 Dec 2025 03:39:13 -0800 (PST)
 Received: from archie.me ([210.87.74.117]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c0c2ae4e3casm12755809a12.21.2025.12.15.03.39.11
+ 41be03b00d2f7-c0c26eb0f6bsm12221315a12.14.2025.12.15.03.39.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 15 Dec 2025 03:39:12 -0800 (PST)
 Received: by archie.me (Postfix, from userid 1000)
- id 811FA444B394; Mon, 15 Dec 2025 18:39:06 +0700 (WIB)
+ id 70D25444B393; Mon, 15 Dec 2025 18:39:05 +0700 (WIB)
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
@@ -127,20 +127,20 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Charles Han <hanchunchao@inspur.com>, Jilin Yuan <yuanjilin@cdjrlc.com>,
  Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
  George Anthony Vernon <contact@gvernon.com>
-Subject: [PATCH 05/14] mm,
- kfence: Describe @slab parameter in __kfence_obj_info()
-Date: Mon, 15 Dec 2025 18:38:53 +0700
-Message-ID: <20251215113903.46555-6-bagasdotme@gmail.com>
+Subject: [PATCH 04/14] mm: vmalloc: Fix up vrealloc_node_align() kernel-doc
+ macro name
+Date: Mon, 15 Dec 2025 18:38:52 +0700
+Message-ID: <20251215113903.46555-5-bagasdotme@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251215113903.46555-1-bagasdotme@gmail.com>
 References: <20251215113903.46555-1-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=849; i=bagasdotme@gmail.com;
- h=from:subject; bh=mcnZ1soLgF/JTT1YuxC/XOQhVy9SZYDoshinxHejwDU=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4P0Tdf6vI2dt8iwUrrPLU6ToytxCmtRXso3wY/50
- fGG9Ws6SlkYxLgYZMUUWSYl8jWd3mUkcqF9rSPMHFYmkCEMXJwCMBHZKwz/nVbIB4ee2zunpOHQ
- vBz35Ga7xwYL3V6/ES+tt/jmsMTsOCPDXNsiGd24sMjVrB9Z5rD2NZvPm8/+bp/rS8/i2IdH8rc
- yAgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1025; i=bagasdotme@gmail.com;
+ h=from:subject; bh=sT1prVB7LRNvf/W4XodTbc9bjm2B3700BxVWkrXUues=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDJn2n4OyyibMaS/TcJdL00op76xZei7L2Pv7hFORU9uuV
+ vT80n3YUcrCIMbFICumyDIpka/p9C4jkQvtax1h5rAygQxh4OIUgInIP2BkeHzeo3teoLm8pE9N
+ cXOPl0J5QO7s9Yesjvev3nrjTaKBPiND/5K7Lkx+c2t1WS5sWq6V/2tGhSPf8dA5nnLdX2fcuhb
+ OBwA=
 X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
  fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
@@ -161,28 +161,29 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Sphinx reports kernel-doc warning:
 
-WARNING: ./include/linux/kfence.h:220 function parameter 'slab' not described in '__kfence_obj_info'
+WARNING: ./mm/vmalloc.c:4284 expecting prototype for vrealloc_node_align_noprof(). Prototype was for vrealloc_node_align() instead
 
-Fix it by describing @slab parameter.
+Fix the macro name in vrealloc_node_align_noprof() kernel-doc comment.
 
-Fixes: 2dfe63e61cc31e ("mm, kfence: support kmem_dump_obj() for KFENCE objects")
+Fixes: 4c5d3365882dbb ("mm/vmalloc: allow to set node and align in vrealloc")
 Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 ---
- include/linux/kfence.h | 1 +
- 1 file changed, 1 insertion(+)
+ mm/vmalloc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/kfence.h b/include/linux/kfence.h
-index 0ad1ddbb8b996a..e5822f6e7f2794 100644
---- a/include/linux/kfence.h
-+++ b/include/linux/kfence.h
-@@ -211,6 +211,7 @@ struct kmem_obj_info;
-  * __kfence_obj_info() - fill kmem_obj_info struct
-  * @kpp: kmem_obj_info to be filled
-  * @object: the object
-+ * @slab: the slab
-  *
-  * Return:
-  * * false - not a KFENCE object
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index ecbac900c35f9c..2c3db9fefeb7ab 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -4248,7 +4248,7 @@ void *vzalloc_node_noprof(unsigned long size, int node)
+ EXPORT_SYMBOL(vzalloc_node_noprof);
+ 
+ /**
+- * vrealloc_node_align_noprof - reallocate virtually contiguous memory; contents
++ * vrealloc_node_align - reallocate virtually contiguous memory; contents
+  * remain unchanged
+  * @p: object to reallocate memory for
+  * @size: the size to reallocate
 -- 
 An old man doll... just what I always wanted! - Clara
 
