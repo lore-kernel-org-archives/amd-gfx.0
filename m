@@ -4,158 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC613D5CC9D
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 09:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1742DD5CCA5
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 09:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7027D10E787;
-	Tue, 16 Dec 2025 09:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B002E10E2A6;
+	Tue, 16 Dec 2025 09:57:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5NS+1V75";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vhmaoLlB";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010030.outbound.protection.outlook.com [52.101.85.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38FDE10E753;
- Tue, 16 Dec 2025 09:43:39 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C2D10E2A6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 09:57:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aVVLAPI5QZADduJW8N8fbmzPfsV9YSM89XpT/myz2q1vXcBD3BFu040NgJUq1Wr+PwXBn5hCIIQmIQA60rikLqvkz7eToj8/c6AxdfKEtKmZy7wphnN41wRroYoOknbp06O6E62V6dyiAmTzfq4df3xcghaLrelq6fCFNZeaBhrE4FI2rybb4N6sipkhe4bPTgfaX/Lh4HfJnE5vVop5OQ4RObRu00vreecEbGAQd+Pbx7OoB9Z2h1eMfWpIW/nWTY6hr7lk8305UG9yPHau06oNVrIhzmS+oigsUb+rL7I0+Me0p4+Lj5tw6rYDowc2kF0/GaQM/S0sRZwMi8E/3g==
+ b=IBMy1sbXwewIUUle060vBdj9LwImFJp6QyQY1Z5HTMnB4yHmPIJ3mc5orij6BqhcSDg8jKHM5vphDpANmlRja/7ULbdlvEqNIIA4v0hipQWQ/0mN0efFs1nyCdhqs1m7CEZCT8HBo/zW37JcwSonPec+SRNMBz1vLagDyErchwsQHCvLvelt13JCvV+Ucpy4tb/3AOkDUEDGJC5saLMYIiUmaFOHFB1Tr+kSWRTMZwcorLbXb3dLGA/rEBFYzlMfY6ANsDS9fxMGlHdc0dg+sggPyWgfClv8XjM8+FH1PJLkRWS0hEUQ4DDtMVS34Dtu7DQNB+9DJy17MgFIrH6x+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=de6VYCDKblq46nJjiRvypEAJkLKpNjJokKGCI2pvzDY=;
- b=Yv3d/f8hDmUqqbtG8HnH150uYSIsPIYWsZBYAQmMkIvd4Zt/1HDyMIvF43km4bck1/ctgvZzVwDsvlcyFW6tFDMwbAmhWivUdO1KB1lkAK/sn/o9HBk1dSpWMXlf1XVK3TQlKrmVpLNN+7JVlVVMJvlksopoiN7opmQk9S28OoiT+x7kBIoSjpKHc89ypjvoPcrWy79KyeaDB9xQgNB58l865D4TdzHh3vLYK3dDKBc7Da4oIA3UmIAzc21IMGC9TY7OP4AIftba68TJf+TXR2aiFk6iTkuSk3wzx+PtC/RvQlnxbv7ZCETIOfSsZf59mb6GWMfTsoium0qvLrylaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=BX2LgP9nBBTMuVUNvL/S4hlBUf3RpH0ibem6ynPP5Uw=;
+ b=fAmpVPMsvswgEzMAovJukKpQtEJniju+qxxEawpn7US/YP6LYcnEcwA4TDDeJwb2TxD6E1Uh4xlaaMALN7eyJ6mIA+IHS8KGcALmBQn0j26917RRjKdpcq5itT/5uzqcQQQPYboSDVW8/LaHsX0MmueC6qNy3LpEvsJzRAqf8e9VEjVbPeMcrUBSrEekUrmZw2pm0FrOzVF2Y9NLDrMWWA8sWdOpDpup4VdfrlVTnmoLzV9zug/KvmyJN/9qNDy53jWQSPjOuf52bbJGsRAOKlUBuowAKdOpbxcAmROQXBS59kG69Kz9k5VeI6ujy+Sin0AeX1/5DtJJLUqzMSla9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=de6VYCDKblq46nJjiRvypEAJkLKpNjJokKGCI2pvzDY=;
- b=5NS+1V75H4U2S9uqfeaLGsYAb46gh/mIr49Z9U5f03MlxDBRD0hEiLbwGpqCqZEwsierkmdbO3CDWKc/faopVCdsb2LuAzdzJdMpztf+/BGeOjuDqqykdb2CE/qirS5hoix2Q0iDIUqNgjKYTY9Hx3Q5C+SAK7FX12hwGs6ERuI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by IA0PPF7D094C5BF.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.6; Tue, 16 Dec
- 2025 09:43:36 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::d759:a62b:f8ba:461d]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::d759:a62b:f8ba:461d%4]) with mapi id 15.20.9412.011; Tue, 16 Dec 2025
- 09:43:36 +0000
-Message-ID: <1d54ce3b-fbdb-4d1a-bd07-576a6ed85ea5@amd.com>
-Date: Tue, 16 Dec 2025 15:13:27 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/5] drm/amdgpu: add UMA allocation interfaces to sysfs
-To: "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- "Tsao, Anson" <anson.tsao@amd.com>,
- "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-References: <20251212-vram-carveout-tuning-for-upstream-v6-0-50c02fd180c9@amd.com>
- <20251212-vram-carveout-tuning-for-upstream-v6-4-50c02fd180c9@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20251212-vram-carveout-tuning-for-upstream-v6-4-50c02fd180c9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0010.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:174::12) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+ bh=BX2LgP9nBBTMuVUNvL/S4hlBUf3RpH0ibem6ynPP5Uw=;
+ b=vhmaoLlB3I4/mHupUmwF0fk+xQ8l4Dl545K7avjxEuS4Q5uFusYfWWdG/94s6+qiWREXiCUnkQ/b/5IA1RrRGzPplfKIVnm9B8ihiwx9bg3br1WqW7+JWi+opUt7V/xlBcAZbvBCGd3yr2Wzl6PbCbFbN6RF8LCRIyuWTJRhDVA=
+Received: from SA1PR02CA0002.namprd02.prod.outlook.com (2603:10b6:806:2cf::6)
+ by DM4PR12MB7768.namprd12.prod.outlook.com (2603:10b6:8:102::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Tue, 16 Dec
+ 2025 09:57:30 +0000
+Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
+ (2603:10b6:806:2cf:cafe::c7) by SA1PR02CA0002.outlook.office365.com
+ (2603:10b6:806:2cf::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.13 via Frontend Transport; Tue,
+ 16 Dec 2025 09:57:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9434.6 via Frontend Transport; Tue, 16 Dec 2025 09:57:30 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Dec
+ 2025 03:57:30 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Dec
+ 2025 03:57:29 -0600
+Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 16 Dec 2025 01:57:26 -0800
+From: Chenyu Chen <chen-yu.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 00/16] DC Patches Dec 22 2025
+Date: Tue, 16 Dec 2025 17:56:00 +0800
+Message-ID: <20251216095723.39018-1-chen-yu.chen@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA0PPF7D094C5BF:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50b42c63-99c0-429d-b92e-08de3c879548
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|DM4PR12MB7768:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09927ada-9213-4c1e-1c1a-08de3c8986ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eEV6d3BNNnVkOTdmY0xkVGJjazJFMVdBUmpJTmV1WE96WEh4TDFqeFNiakpK?=
- =?utf-8?B?V09zU0FPR2xGcHZYeUxVdExNZUc4MTRtd0hkWHpqcGNpTlNsekR0MTJtVlJ1?=
- =?utf-8?B?aC92MCsrZ09yVGZkSkMrWksxNk12UG5JVHBkMnpURlVlOERqdmFocXRvZU1Q?=
- =?utf-8?B?YXVPc1RFaWtEMWRHK2dFTmhuRTFuZzBqU2J4RTRCbm1OQ3dITWFKdGdkWHdT?=
- =?utf-8?B?Qi8rSkZWcGRnK281eFZDUUtsZ1kydG8xNDdGU3hUa3lia1lOT3ZWOEttbFVa?=
- =?utf-8?B?QklDaWdqeThEUGdQbGRrditjOHhRWFhqd3l0VTJGN04xWm00WXdxSDB3dTNI?=
- =?utf-8?B?MW1relhmUTNKM3M4alJjUmRvZXgxbUNVV25McmdzdlMxdTRiUVF3Z283VVN5?=
- =?utf-8?B?QlhWTTkwQUhTMmUxcXpJSWk3eFdieGh4MjBYblVQdlMyT3kvWGJpWE1uZEhi?=
- =?utf-8?B?eDRybngwaWhhTS95RmllcjNOZzRBTTdPQ0owV1p1TU9ENlJHcWJNSkljdXBk?=
- =?utf-8?B?T3ZUVXNtcjBwdWpFU25jWU5USEtvMDJFcG5FY1ZuQS9kQkEyTUhZYkZrRlRF?=
- =?utf-8?B?UzVLWHFCNURmdnZZbXhpaThsR3YyeE1uTUFaTit2M0xrWlFqMmgvN2NQcmo5?=
- =?utf-8?B?aE04K01QOTE0M3BUUHZjYkdMaGM5Y0FBTjRrZ0hnaFAvNDJXeWc1dHlwMEFK?=
- =?utf-8?B?aUE1bjdxSWYvRFlQQ0xlSGZpYi9DRHpmWjl0cnhQM1g0K1M4NnZ1dTBJRTA2?=
- =?utf-8?B?ajRMa0YwTFZxazN6enNVUDM0RmtkbjNsT0F1SnZxU1d6OG9mTFR5c2cvcG05?=
- =?utf-8?B?K0FnbFA3dGlwbllsV1VxbWFudXZ5dEM4QlFzbDdwb1BPaXhtbVlBWE9mQW1B?=
- =?utf-8?B?bzRNaWkyWGEyak84UVVCN0UxMjJUUFNwWW96MUh2VEpSeWUrSENFbVg2SjlF?=
- =?utf-8?B?Z2hkOVorUmd4ejFQMUFYODFUbU1jSmJWTXU0MWxKekNmRVgwYjkwa1NCNFpm?=
- =?utf-8?B?cENOTmQrbHlheXZSRjYxbENFMVZpLzBQV2V6QnN2eDhYMUI0VXRtbkx0NG1r?=
- =?utf-8?B?SlcvMkI1dnRYYmFwM3hzbGFqV2hsbXZ0VkV4R1ZPM2RmeGdhYnRUUGQ1TGFJ?=
- =?utf-8?B?Rk9kL1R6QXNjM3VXZ0lJMDFnbmxPT0VyOGxwaGkyak00WVBBcG9FZytTU00y?=
- =?utf-8?B?UXplakpHanBoZWRQNncrb0I4UnM4VVRUTC9OejJhby95SEI4d0VTL085c3dL?=
- =?utf-8?B?M0p0c1RJMWtseHRNRWlZY1dnYmpJenp2K084QTJTMjlVWDVzaVhNZDVkNlBy?=
- =?utf-8?B?QjNHSVViN3RPWlZ0VmdSNm9CZUs0c3lHc21sS3ZXSHZNeXpmamp3UUpBRHdn?=
- =?utf-8?B?NS9sWXpLYWZvenUzNUg1aGxvWUpFQ01kb0xkd3grVzVqSFl2RFJrV1NtK01t?=
- =?utf-8?B?MUhiMytpNXNYM2MzU0FWS2paRUsyY1Z0dmNFaGpCT1g2QW1BSEU4cHR3NC9n?=
- =?utf-8?B?cEY2OGxUYWM1L1VCTVZhNVpuQXRNRmpERm0xQVJkN0lBS1M4MzdZa0dTUmtF?=
- =?utf-8?B?RTQvZ09NVnJhdHpjZFl2dGx3YUJhby9OZFhKa1VJZDNycUxqcWJza25kU3dU?=
- =?utf-8?B?WTVGa2ppVlhMNnpXdzkrbTYrMjlzcmt0KzBocTQwN3R1TDA0a0pObkcyb0Jt?=
- =?utf-8?B?bnlZRlpsMXRXUVVJTzYvUXJ0U0dIeHc0dWxrWGFnRjdkcDNBdC9pVUhsQkpJ?=
- =?utf-8?B?QnBXa0ErTDFIV0pRY0FKUUJ1VXBMWXZLeGp3bXhSL09XK2xKSGJzS1JqYjM5?=
- =?utf-8?B?OHhtZy9TWDk4N0NENFVMbFNlMTdJOG16WFB2MExFNC8wbXNFeHZGM1NyUHdZ?=
- =?utf-8?B?TXAxMjdDYy9QSE1qMXY4UGhwOFhoSGtWUi9ORThRZ3FHYWRYdDZ0dGlPQkky?=
- =?utf-8?Q?vMoPR91atMU2FppcKDcPM1gCWm5KGnUy?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmN2N3d6VG5DUDIwMVlEZldmQjNxS1V6M2pjbmY2SnpuaGhzYWoxdTBWdmw5?=
- =?utf-8?B?MVJoajB3UVBlZ2dzdWF0SXpHdnVlR0FoV2pHSU10M3ppUWE3TWxtSWptTUdS?=
- =?utf-8?B?MHEzYjdxbHljVGN0cG14RlhpMFZVc2t3QWJrMFR6MXVOWFVDN3I0N0hZbTBV?=
- =?utf-8?B?V2dhNnZYcTQ0RXd0SHJnRkJRb1R4VjZrOEFCZytSaDJpZ3J6cHJkNUhCc291?=
- =?utf-8?B?N2d5UmI5QUs2VGd1ekFBV3M5TjYzWTdUOVB3aDdvTDhRdzJPM0ZJenhuMU5F?=
- =?utf-8?B?NGJpQ0hkUkhRK2p1dkduTEFwK1lMeExOeUwzUk4xaFdxekZ3N2hiaVVUa3N4?=
- =?utf-8?B?Y0JsclhWK3pSejB4bjRFYitvVzZhQ0VVM0pGS1pWOVdpaGpDMUtJVGphbSsz?=
- =?utf-8?B?VEJRR2lxc2hHNEpOWTNxM2tXdDNyeCt1WnRNRHk1ak0yeVJsUjNwK2VhbUNE?=
- =?utf-8?B?MCtQQzRjM3NMYUE3MzFvYkJyTURjQWo3R0hITERSZ0RaUjEwQkgzejN2VmtB?=
- =?utf-8?B?czBYNk9mTEZjcFRmRlZpdDJUSE16eEovMGprNHNoWS9Ha0VYVFZBUGlLZitB?=
- =?utf-8?B?dUt5TUZ1N3JWenNMRFJWclVrUFRnWnVncUVvdjhoa0lBTHd5ZU00RXVYa3dx?=
- =?utf-8?B?RU0vQ3h0RzN5UWwvU1EvV1M3WWVaUXR4NXB0RUg4Nkd3cDhCQjh4UFJVd1Yy?=
- =?utf-8?B?THdDZGkxRUprMUxVQnI3cXdlZmhPck0weWVzbm9UVWNLK2E4cmhyamJ2blRW?=
- =?utf-8?B?K3VXRWlpbkVEV0Y2UUEwVlMxdmJZOFhNZlQzeW04Y0Z6TXFZZmZCVXlUL0Fv?=
- =?utf-8?B?V3d1VlNsbUdCM1cvTCtJNXFud25iQmJua3Bwd0g1aUtMeVpnbmZ1dXNscGpl?=
- =?utf-8?B?TkdINmNNbUVmcFpUTWRBNE9LUzFHbTlEMmt2blQvYVc4ZVY2WFpFdG9HL21Y?=
- =?utf-8?B?L01MYkdLbkNNajVDM3Y5MVZRWE0xdWI0MlVqVmtoWnNZdWFFUks4aEF0RU1l?=
- =?utf-8?B?NHhsQzkxTjd1T2EwWWhoOFRCU0hjWGpETnNFNEZhWVJNVXZFd2JPanFkSWU2?=
- =?utf-8?B?M2FMMHRzVDczTFR3TUorT1RlWDJic3hQUURBQXpHZDdMY0pjeW12UUN4Ym5V?=
- =?utf-8?B?R1RNcEUwSy9ObjI5dk5UV29wYlVjTnFNbzlWS04zOWp5QXpoWnFkZ2Q5RG1n?=
- =?utf-8?B?dmlKb3Z3VUZRWnd1RnhhbDNXZUJ1dEQ5NDYyaUZKTE1VSDR3SU9CUEFVcTNB?=
- =?utf-8?B?SStJWVlBejFqMHZOZnNyczRSTlhGNElkbnNPOTlYK1h0WUc4ZHNSeWR4N0Mr?=
- =?utf-8?B?SDVzeGhxa0JWVVhrR1BFOHM1clB5TVdJbytmTmJsb2xwV2NTV3JLYmszcjFF?=
- =?utf-8?B?Ykh2NVF4MyticDlhSk9uVzExU2hBUTUvdytBcGkvdWk4SmNOTms0czRsK3Vp?=
- =?utf-8?B?NC9UTkNtVTB4cy9QcVhnbDlNcU9wZlhVRzdSQXpRUWdDWnNJVDBMYmJlWDNa?=
- =?utf-8?B?QWoyVGxNL09CYy9UNHpOSzRlOG1oRHR0bWFBa3Y3bHhVUnJNUmtnVmxvV1U1?=
- =?utf-8?B?Z3VlZGJjMzkxY2NrTU12TDBCNnFmMW9RZkFFK2FyZktTNXZUS0RId21tQ2gw?=
- =?utf-8?B?RGJjRWZkaGM3RU5qYzVjaE5FYmVWR1NUZUJnTmNaSm9kT1hPbXZ2OGVvYXow?=
- =?utf-8?B?VnRxdWlabnpPVzBmYnNUQUNqMTdSVWtiUlNybTgybXMwVmtMWWxvc2o1VS85?=
- =?utf-8?B?UWNJbklkOER1RzhkeEMxUUg5NkE0d3FrYUNDZFdjRTRTRWZvLzhPT2xRZGFX?=
- =?utf-8?B?TUdBMjZVdnF3V3U4T3QrbmFzNXVOUVpWeFpVUjdKM0h0RncyQ2drTE5OSGNL?=
- =?utf-8?B?MDYyYW1hdGFPV2FkbjYzV0dRZzQ4K0RXclI0U3l2OFowRzVRQmFTeS9JNmlW?=
- =?utf-8?B?Ky9STUZIWWNiWE1GeGo5S0dKNStpTTdVNEtSVzdNd0lZdkJIWGZiaDFobjUx?=
- =?utf-8?B?UkUweEhWYUMrTkdwUFVZeXh5YkxVdnQxSTZucy9TZWhubnF1MFNhWTlBcEtX?=
- =?utf-8?B?b2w3dUlMazhUQlRhRkF4Z3BHK3ZFSzRuYWtadmlCT25EZVYzVVRPZXZ5NUxj?=
- =?utf-8?Q?6GUeTeI64mkixApOny0rUKMn/?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?77aGtuM9HfKODPEmVSrAqBd/sh5EEBwzzm4g95eHG0cgIYkpMGHylvJ9z9Zh?=
+ =?us-ascii?Q?2Q2T4ICqpDv0H4axkRwe2SHHXPlcEE8IlA4cb1CbLu/6HRTgr7L5IolSujHK?=
+ =?us-ascii?Q?HzdKTP9E15rddpr2QYPYJsIUMy09PdjTMC/uIKDtJUohz0P194A4L3hu4APA?=
+ =?us-ascii?Q?FwjKR6jRs+XBGdxrKilIiUDoqmkg6En8kCzxF3dxxKcft9RWsiPjIeh5RL81?=
+ =?us-ascii?Q?gTrd5NynbnvLYPMofljCBdnOMj1hXuh+y6M/MOhQc03X/hA/W5PJZ5tYC6vL?=
+ =?us-ascii?Q?Cvimci1ViUcO4Y0vw7h5HpFN3whRN+KN8XDArGFQSLLI0fmyVG8pPwaRiWff?=
+ =?us-ascii?Q?WCiz1ekxu4GB+ivMarJ1icx9isQ6FFI8Jb8FHHOyCp+qd+P6jHaBZiyqcXdJ?=
+ =?us-ascii?Q?tHYt1a8yobKBQfKpulmHXNYM5gMmyRB/lxfw0Zp6oNg7LEas91EDRuknmU6w?=
+ =?us-ascii?Q?Qxro0EBFWNNR7vQRWJCiO3U7O+AJxXBu2e6DpVZU6abuupquKfmVoY/Z35di?=
+ =?us-ascii?Q?zVAtvvVd+dKh6HT2+bVBoP7ry3P0SsHW3OYBHbhKac9lXHGq/ft+i0SCHx6+?=
+ =?us-ascii?Q?VgH4pwtSrJTt9DNcI3srMzUrNL3SzyGX4Bewl7wBSpSMeah7TGc4cDgPaCa9?=
+ =?us-ascii?Q?YaFsqApXBL7rXmqVFZKW1rBDTfG+VRDxCm2CSvvHHI7/DsURK9dWoUHRN7ab?=
+ =?us-ascii?Q?naZb1ERCKHuatAZrPdgOmuihAFWHARtiqZEXAU1Zf2/nhNtNQ7el7JYzFKzA?=
+ =?us-ascii?Q?tk/9ww8uD75CpH3qQZqDEt2sQ9FPSCwJ4uGPy+4kWwnwIjwOmO/NYDYs/Vgi?=
+ =?us-ascii?Q?25BWXx/2UTgmUJ530elLnJJsaVmuUQH2aN+1ikb+uqUoqgpHUpXtWM5dJOvP?=
+ =?us-ascii?Q?V1pKf5Pw8Zr8sUSPiVemOZKOygr8GmcVGuCfatK/OmeBEU2Lh/qS2wZvY8on?=
+ =?us-ascii?Q?44i/pcKneDgj2VOQgM0lJauSY6fo6mKtKWxvGSqyKDP7Ho5TWX214waQVc2n?=
+ =?us-ascii?Q?yPNsIxYx5e7ds24ktB4MFsgQIaobAx+e+FNeLirQgzPla+wNY0xKqPVbISHA?=
+ =?us-ascii?Q?WlEb7Ov2fIOHHxSddvOEicr6Ws/qxEu22nsx51CSjqPh3zVBErQAS/g3nm6t?=
+ =?us-ascii?Q?YwGflDIo/Vpwr3wH2pK9OS+mQiNVkGO8jpGkZ4XxNEujzGQ52vDkk2oljfSP?=
+ =?us-ascii?Q?TbnULiLUeLCzixRUxij6SCiHyn4Ldqegw2C36JbRJ01fXditjeBPrXYidlQU?=
+ =?us-ascii?Q?IXazi9NLwecTX2Uqo9/p47W61JBCAmhOPjCdQpHRpWG6wx8C3YDrpKM+awLJ?=
+ =?us-ascii?Q?yQDyzLWzlta5B8/mAyzaPVBw/aYybItvtlc3IOv9qjl9UXikJBBsOX1RsFTQ?=
+ =?us-ascii?Q?YgvJYSBzoihc2keqyir2N3WXtY7TLmUgj9r+fxdvZjK20MFgjwY9yanRFCLk?=
+ =?us-ascii?Q?vi8czWycsWNCSocWfTGTSteo+wcKGCxkAcaoifKtQXBMQLcWWl23jKumpFqI?=
+ =?us-ascii?Q?5kN7nYBpodjgdryWnmjhcEvVDfVJLSsr3rAKrhUZHqb/IT23clcMsgp/rYcI?=
+ =?us-ascii?Q?ofsPT8eZS95iPDfOxhs=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50b42c63-99c0-429d-b92e-08de3c879548
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2025 09:43:35.9554 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2025 09:57:30.4274 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09927ada-9213-4c1e-1c1a-08de3c8986ea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6/yYp375Ua5wmbEnHXANCNWVXCdlpD7Q0/Y7WWU8qaFJrBXFPAxbACWRBes0FrBg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF7D094C5BF
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7768
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,212 +140,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
+ - Add frame skip feature support flag.
+ - Add sink EDID data null check.
+ - Update function name to link_detect_connection_type_analog.
+ - Fix mismatched unlock for DMUB HW lock in HWSS fast path.
+ - Fix P010, NV12, YUY2 scale down by four times failure.
+ - Fix and reenable UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL.
+ - Consolidate dmub fb info to a single struct.
+ - Add new fields to fams2 config.
+ - Update timing source enums.
+ - Add signal type check for dcn401 get_phyd32clk_src.
+ - Fix dsc eDP issue.
+ - Remove unnecessary divider update flag.
+ - Update dc_connection_dac_load to dc_connection_analog_load.
+ - Check NULL before calling dac_load_detection.
+ - Replace log macro for analog display detection.
 
-On 12-Dec-25 1:29 PM, Yo-Jung Leo Lin (AMD) wrote:
-> Add a uma/ directory containing two sysfs files as interfaces to
-> inspect or change UMA carveout size. These files are:
-> 
-> - uma/carveout_options: a read-only file listing all the available
->    UMA allocation options and their index.
-> 
-> - uma/carveout: a file that is both readable and writable. On read,
->    it shows the index of the current setting. Writing a valid index
->    into this file allows users to change the UMA carveout size to that
->    option on the next boot.
-> 
-> Co-developed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Yo-Jung Leo Lin (AMD) <Leo.Lin@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 143 +++++++++++++++++++++++++++++
->   1 file changed, 143 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 903c4706040d..e78e6982312c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -36,6 +36,7 @@
->   #include <linux/pci.h>
->   #include <linux/pci-p2pdma.h>
->   #include <linux/apple-gmux.h>
-> +#include <linux/nospec.h>
->   
->   #include <drm/drm_atomic_helper.h>
->   #include <drm/drm_client_event.h>
-> @@ -417,6 +418,146 @@ static const struct attribute_group amdgpu_board_attrs_group = {
->   	.is_visible = amdgpu_board_attrs_is_visible
->   };
->   
-> +static ssize_t carveout_options_show(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     char *buf)
-> +{
-> +	struct drm_device *ddev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(ddev);
-> +	struct amdgpu_uma_carveout_info *uma_info = &adev->uma_info;
-> +	uint32_t memory_carved;
-> +	ssize_t size = 0;
-> +
-> +	if (!uma_info || !uma_info->num_entries)
-> +		return -ENODEV;
-> +
-> +	for (int i = 0; i < uma_info->num_entries; i++) {
-> +		memory_carved = uma_info->entries[i].memory_carved_mb;
-> +		if (memory_carved >= SZ_1G/SZ_1M) {
-> +			size += sysfs_emit_at(buf, size, "%d: %s (%u GB)\n",
-> +					      i,
-> +					      uma_info->entries[i].name,
-> +					      memory_carved >> 10);
-> +		} else {
-> +			size += sysfs_emit_at(buf, size, "%d: %s (%u MB)\n",
-> +					      i,
-> +					      uma_info->entries[i].name,
-> +					      memory_carved);
-> +		}
-> +	}
-> +
-> +	return size;
-> +}
-> +static DEVICE_ATTR_RO(carveout_options);
-> +
-> +static ssize_t carveout_show(struct device *dev,
-> +			     struct device_attribute *attr,
-> +			     char *buf)
-> +{
-> +	struct drm_device *ddev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(ddev);
-> +
-> +	return sysfs_emit(buf, "%u\n", adev->uma_info.uma_option_index);
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
-It would be better to show the size along with the index.
+Alex Hung (4):
+  drm/amd/display: Update function name to
+    link_detect_connection_type_analog
+  drm/amd/display: Update dc_connection_dac_load to
+    dc_connection_analog_load
+  drm/amd/display: Check NULL before calling dac_load_detection
+  drm/amd/display: Replace log macro for analog display detection
 
-Regardless, series is -
+Charlene Liu (1):
+  drm/amd/display: Fix dsc eDP issue
 
-	Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+ChunTao Tso (1):
+  drm/amd/display: Add frame skip feature support flag
 
-Thanks,
-Lijo
+Clay King (1):
+  drm/amd/display: Update timing source enums
 
-> +}
-> +
-> +static ssize_t carveout_store(struct device *dev,
-> +			      struct device_attribute *attr,
-> +			      const char *buf, size_t count)
-> +{
-> +	struct drm_device *ddev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(ddev);
-> +	struct amdgpu_uma_carveout_info *uma_info = &adev->uma_info;
-> +	struct amdgpu_uma_carveout_option *opt;
-> +	unsigned long val;
-> +	uint8_t flags;
-> +	int r;
-> +
-> +	r = kstrtoul(buf, 10, &val);
-> +	if (r)
-> +		return r;
-> +
-> +	if (val >= uma_info->num_entries)
-> +		return -EINVAL;
-> +
-> +	val = array_index_nospec(val, uma_info->num_entries);
-> +	opt = &uma_info->entries[val];
-> +
-> +	if (!(opt->flags & AMDGPU_UMA_FLAG_AUTO) &&
-> +	    !(opt->flags & AMDGPU_UMA_FLAG_CUSTOM)) {
-> +		drm_err_once(ddev, "Option %lu not supported due to lack of Custom/Auto flag", val);
-> +		return -EINVAL;
-> +	}
-> +
-> +	flags = opt->flags;
-> +	flags &= ~((flags & AMDGPU_UMA_FLAG_AUTO) >> 1);
-> +
-> +	guard(mutex)(&uma_info->update_lock);
-> +
-> +	r = amdgpu_acpi_set_uma_allocation_size(adev, val, flags);
-> +	if (r)
-> +		return r;
-> +
-> +	uma_info->uma_option_index = val;
-> +
-> +	return count;
-> +}
-> +static DEVICE_ATTR_RW(carveout);
-> +
-> +static struct attribute *amdgpu_uma_attrs[] = {
-> +	&dev_attr_carveout.attr,
-> +	&dev_attr_carveout_options.attr,
-> +	NULL
-> +};
-> +
-> +const struct attribute_group amdgpu_uma_attr_group = {
-> +	.name = "uma",
-> +	.attrs = amdgpu_uma_attrs
-> +};
-> +
-> +static void amdgpu_uma_sysfs_init(struct amdgpu_device *adev)
-> +{
-> +	int rc;
-> +
-> +	if (!(adev->flags & AMD_IS_APU))
-> +		return;
-> +
-> +	if (!amdgpu_acpi_is_set_uma_allocation_size_supported())
-> +		return;
-> +
-> +	rc = amdgpu_atomfirmware_get_uma_carveout_info(adev, &adev->uma_info);
-> +	if (rc) {
-> +		drm_dbg(adev_to_drm(adev),
-> +			"Failed to parse UMA carveout info from VBIOS: %d\n", rc);
-> +		goto out_info;
-> +	}
-> +
-> +	mutex_init(&adev->uma_info.update_lock);
-> +
-> +	rc = devm_device_add_group(adev->dev, &amdgpu_uma_attr_group);
-> +	if (rc) {
-> +		drm_dbg(adev_to_drm(adev), "Failed to add UMA carveout sysfs interfaces %d\n", rc);
-> +		goto out_attr;
-> +	}
-> +
-> +	return;
-> +
-> +out_attr:
-> +	mutex_destroy(&adev->uma_info.update_lock);
-> +out_info:
-> +	return;
-> +}
-> +
-> +static void amdgpu_uma_sysfs_fini(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_uma_carveout_info *uma_info = &adev->uma_info;
-> +
-> +	if (!amdgpu_acpi_is_set_uma_allocation_size_supported())
-> +		return;
-> +
-> +	mutex_destroy(&uma_info->update_lock);
-> +	uma_info->num_entries = 0;
-> +}
-> +
->   static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);
->   
->   /**
-> @@ -4492,6 +4633,7 @@ static int amdgpu_device_sys_interface_init(struct amdgpu_device *adev)
->   	amdgpu_fru_sysfs_init(adev);
->   	amdgpu_reg_state_sysfs_init(adev);
->   	amdgpu_xcp_sysfs_init(adev);
-> +	amdgpu_uma_sysfs_init(adev);
->   
->   	return r;
->   }
-> @@ -4507,6 +4649,7 @@ static void amdgpu_device_sys_interface_fini(struct amdgpu_device *adev)
->   
->   	amdgpu_reg_state_sysfs_fini(adev);
->   	amdgpu_xcp_sysfs_fini(adev);
-> +	amdgpu_uma_sysfs_fini(adev);
->   }
->   
->   /**
-> 
+Cruise Hung (1):
+  drm/amd/display: Remove unnecessary divider update flag
+
+Dillon Varone (2):
+  drm/amd/display: Consolidate dmub fb info to a single struct
+  drm/amd/display: Add new fields to fams2 config
+
+Dmytro Laktyushkin (1):
+  drm/amd/display: Add signal type check for dcn401 get_phyd32clk_src
+
+Dominik Kaszewski (1):
+  drm/amd/display: Fix and reenable UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL
+
+Kaier Hsueg (1):
+  drm/amd/display: Fix P010, NV12, YUY2 scale down by four times failure
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Fix mismatched unlock for DMUB HW lock in HWSS fast
+    path
+
+Richard Chiang (1):
+  drm/amd/display: sink EDID data null check
+
+Taimur Hassan (1):
+  drm/amd/display: Promote DC to 3.2.364
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 80 +++++++++----------
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 10 ++-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  5 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 12 ++-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  6 +-
+ .../display/dc/link/accessories/link_dp_cts.c |  6 +-
+ .../drm/amd/display/dc/link/link_detection.c  | 27 ++++---
+ drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c  |  3 +-
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 16 +++-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c |  6 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn30.c |  6 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c |  6 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c |  6 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn35.c |  6 +-
+ .../drm/amd/display/dmub/src/dmub_dcn401.c    |  6 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  7 +-
+ .../amd/display/modules/power/power_helpers.c |  3 +
+ 19 files changed, 121 insertions(+), 98 deletions(-)
+
+-- 
+2.43.0
 
