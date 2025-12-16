@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8245DD609AF
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 15:29:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC0B8D609AF
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 15:31:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D30D10E23F;
-	Tue, 16 Dec 2025 15:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 604D810E6CB;
+	Tue, 16 Dec 2025 15:31:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DT+aJcxU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BxpBT/t/";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1101A10E23F
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 15:29:16 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2a0abca9769so5688965ad.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 07:29:15 -0800 (PST)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A4D10E96F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 15:31:45 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-bd2decde440so222662a12.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 07:31:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765898955; x=1766503755; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765899105; x=1766503905; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zr3Gof58u9YJPfboarrtkfLOPQXqGnwnePKk7JXxizs=;
- b=DT+aJcxUBydhGXb5Pn9nb/lyNYvo6v/XuPiKSGPc9b72IarutgUfWLyJMM6aaTozIC
- kQCByEpUxIPIycTXxgtPO1DjU/tbmw0JlsoPHS4EPLfTjkDIiDW69GKcKrNCxzdKnacy
- FaEeoa4csNYdmth9VwRF/OvtLNl53Bk/twgM3KLHMxTFrK8yqL9UvDPozlVWrroC+8oD
- Vo9GMomRNRe/ylSogMsk1WWjyn+jBfWXdvihw+I6FozBqd43quAGCHtn9ELaSHZtlT38
- A51pAHRs1nbr4Ic13yIgV420eh+vPGvaBSWJqG8nBuCgM2OC64zO1+e5ZSxRD3JR5+cF
- gkTA==
+ bh=svUIaOG21t8pBd8rzyD543GDtySRa+E41ytkXqBTkY0=;
+ b=BxpBT/t/qdQYSJpwpBTVGe2sZH9VHTmz5Pjq5TOmUq3fP5J5dMgJ8LgMR5btLit6Ig
+ H6lLaVoFnisdbyRfcICafdhprbJtWuuiVvQXqHE0ZgCOnfrcsqd05j4kS16AbARjQdJe
+ +ha6KcTWudAalCXZazNORMksxuYPE37HT5hV6+I2QRyK8AouUIQX6tjeoTwNA2oci0yQ
+ YYmZfKnZEHCkszH+EjPJaZSiZIgOdl7kWUV40j7PIDpBQuD767m9uUbHNUcAGtdShPCr
+ 9qO/VgFUmaBVKzP8R3RONvYXqMVuytoFg6Id/ciN3duAJKWjhIMz6mpNZbhz+mvUmRTj
+ +xUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765898955; x=1766503755;
+ d=1e100.net; s=20230601; t=1765899105; x=1766503905;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=zr3Gof58u9YJPfboarrtkfLOPQXqGnwnePKk7JXxizs=;
- b=mbpg7CoZZqro21ZaItrOZmcoWw7t9gjcM6q90IRr/D+J/e6/6oziPhMdnWHmUT4ibq
- zZZfRwT86UCUxticORau/tQu3/mQEwX1g3PNiGLimSE1C25RKNfTJgWAwXS3eoP6xLXw
- noH9aCKnSio+C1dDPHxua7R5UaJowKVcy14PmI86DAmhhKANYTyTmg0hqMHw4igPfhTv
- T1CQPoZrMy/fz939pZHlNe8qmTNmeRM/Ddo3xR6B+g2/trWZodMK4Sa+amCRIUCoEDfE
- hlTRyOOg+iZ4jj2R3NLO0C6m17K4tqpgtGPPi6nOLVRzIye+jgj8aBHhqm/JcTENj3Sm
- ubXA==
+ bh=svUIaOG21t8pBd8rzyD543GDtySRa+E41ytkXqBTkY0=;
+ b=pTPnScFAC5ctc/V5XqmZsY1o9qC6APm4IgP+hD/t/S7/1jgx+p0K2jMqgHhNQ75zJ5
+ HsIT+6AtdYKG5Qh5pXqWfx31HL4qa8ERTJJvE/nwOW2g4SksEhZVaNzsXqsPoY93h8wj
+ z/h2Mk8YNmZAlU5jDBjJ9z/FRPPL6kbZaYwDuaYGOGDSanERQTnItXcvoeR6Q8DKB41H
+ tW4au7JqPFgGskwBnKkyjGbYKCKv6XWsft4vCYOpKlXHl8zUPq48SHXrpai7F0FnrieW
+ yJgSJTOA7ezv2aGpLhlfT3JyVVzuGe+kn/aiKEy8868H+iLed2P40ZEDHdl1gUH80Jv8
+ U6Jg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXxvwCXuBxIpErbDmDCUFGkEYH1Mdk5zbJwnhj73M3jfL/8Tad3BNzzeUQl4ElCtl8vbyffRytY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxX4e0Cj93KI2z06q8xvRpX5A+4OI9oxMeD+t91MDRSAr3Sa8rX
- WyVcLb1eoSy2x+6Q4ZKl/zXQlp3ndpjQ2FI+SfP/IFev5CJ7d7XaIU4EGO2nfzvlMXF3EKkt+3t
- cAZaa/o5eRJA/xuxuShazdmgD8f1T5j4=
-X-Gm-Gg: AY/fxX4nr637rNPi0kgsXz7Ca5SU27KFWhsVscA0XvU2QHRXNLOQkunmKlsTLT5cnd+
- CeVeOpULP/f0paZzjpakdSGSGVMpghAqjZphaSMs1kNz1pQWgOb8CpbenBKlL0tcidcEg804a15
- ayjSg6K4c8uLReS7fgvJNWm+otXrHc48REzncY6k19bwHDXg6loVMwM5g4O5EewydPFZQ4zir9R
- l0g8sjWY5MFMZpMpatADgylmTyLYlZuKlJ9309rquQk1IQ86jzuNbEJ0U9fQrBdvoUc6tty
-X-Google-Smtp-Source: AGHT+IG9kcUP8Pi9U9VCe9+jqy+e35rih9Qd+GyQTJbDh/dChPu3EK/0GXGO9bipWaTXTvNU+Tefi0oHy/HN/K4UjYE=
-X-Received: by 2002:a05:7301:2e32:b0:2ab:ca55:89bd with SMTP id
- 5a478bee46e88-2ac30218330mr3818312eec.4.1765898955375; Tue, 16 Dec 2025
- 07:29:15 -0800 (PST)
+ AJvYcCXJLFYeqBbcD4TukprjN9PVGPHcIDsmXlWqb/gRmpfY7Y8DYpf0C4r/OfFppS/2GsLDMS62HRnq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRoRReF/diIm17HLNJ+8Cb7qhBElK7Y4+4tUCplogDRj6yhXh+
+ TSgekUGteOWMWzwXk3lcGWIyNErP6R9ttGFBI4Om9x6g/NbQyy85z0/HrI6Pv7KJ8iKAQNp00AK
+ Y1bCd0QwFqcuVshAKzAjnVo349hqcrhtDbEON
+X-Gm-Gg: AY/fxX6mnom6z0p+btonGt8a4Zf4ap0WTFOpN9hmP5AfyhG8bizF0C0KdhWLwtU+Sn1
+ h7LudRECXjCPJT415dORYszrouZRPiWdpr0dTZ/aN8lOZyrKhGIdquq1A8VuJe2+c9rGNjQSQsc
+ K5Lxub97xlFYCob5mUXXC2GQdkwaTj1bWPlg2YU4v3sBUhC7ju5i92O5KPuW7+ZPdKQmeBsK8LJ
+ GxjIU3cLFW+JZPHYColt94w7QZlo0DoakQwaX0BNMKmDttpejjF9q4RkUSmzePtxC+5WisHIffP
+ VVDyLAA=
+X-Google-Smtp-Source: AGHT+IH8mTIHhr4wUuLgIVmA9tJRsYUZz+0HDP02iGV+xt5Xpe5m3m/9I/9gCYBMxlAAAJZl3KvNVhPW3jYkL9EuyVc=
+X-Received: by 2002:a05:7022:fa2:b0:11b:862d:8031 with SMTP id
+ a92af1059eb24-11f34874285mr6166112c88.0.1765899104995; Tue, 16 Dec 2025
+ 07:31:44 -0800 (PST)
 MIME-Version: 1.0
-References: <20251215115150.3581277-1-colin.i.king@gmail.com>
-In-Reply-To: <20251215115150.3581277-1-colin.i.king@gmail.com>
+References: <20251216064224.537759-1-mukeshogare871@gmail.com>
+ <e5e0547b-4ba7-4862-a0f1-a63ad5e5425f@amd.com>
+In-Reply-To: <e5e0547b-4ba7-4862-a0f1-a63ad5e5425f@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Dec 2025 10:29:02 -0500
-X-Gm-Features: AQt7F2pxZJSCVbxZ9Qp5L5e3UwMyuAGBb-cNval3Rs_27mmLOu4PrjQHbXJDINc
-Message-ID: <CADnq5_NRO5KqMq33yK4Bc04yC2wAPbhb0FvL+9D5T4PFDW6i_Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: Fix a couple of spelling mistakes
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+Date: Tue, 16 Dec 2025 10:31:33 -0500
+X-Gm-Features: AQt7F2qO-jOd3It1Yb7zsX58vhlKcPMz-wyw8zgLrD3pjm3g-iTFJkreLmQeG4k
+Message-ID: <CADnq5_N7kZeHaDXSdHsutgo8n8DjtWCWT1=KitEOycXCBWtyZQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Convert logging in radeon_display.c to drm_*
+ helpers
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Mukesh Ogare <mukeshogare871@gmail.com>, alexander.deucher@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,51 +89,269 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Mon, Dec 15, 2025 at 12:51=E2=80=AFPM Colin Ian King <colin.i.king@gmail=
-.com> wrote:
+On Tue, Dec 16, 2025 at 3:37=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> There are a couple of spelling mistakes, one in a pr_warn message
-> and one in a seq_printf message. Fix these.
+> On 12/16/25 07:42, Mukesh Ogare wrote:
+> > Replace DRM_ERROR() and DRM_INFO() calls in
+> > drivers/gpu/drm/radeon/radeon_display.c with the corresponding
+> > drm_err() and drm_info() helpers.
+> >
+> > The drm_*() logging functions take a struct drm_device * argument,
+> > allowing the DRM core to prefix log messages with the correct device
+> > name and instance. This is required to correctly distinguish log
+> > messages on systems with multiple GPUs.
+> >
+> > This change aligns radeon with the DRM TODO item:
+> > "Convert logging to drm_* functions with drm_device parameter".
+> >
+> > Signed-off-by: Mukesh Ogare <mukeshogare871@gmail.com>
 >
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c               | 2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> Of hand looks reasonable to me, but I don't have the time to check everyt=
+hing for typos. So only:
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index 2f66ebb5b029..adffa44fff2c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -830,7 +830,7 @@ int kfd_create_process_sysfs(struct kfd_process *proc=
-ess)
->         int ret;
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 >
->         if (process->kobj) {
-> -               pr_warn("kobject already exsists for the kfd_process\n");
-> +               pr_warn("kobject already exists for the kfd_process\n");
->                 return -EINVAL;
->         }
+> Alex will probably pick this up when he has time.
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
-vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index 5f8cda4733f9..d7d37f01f51c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -1115,7 +1115,7 @@ int pqm_debugfs_mqds(struct seq_file *m, void *data=
-)
->                                 break;
->                         default:
->                                 seq_printf(m,
-> -                               "  Qeueu node with bad user queue type %d=
- on device %x\n",
-> +                               "  Queue node with bad user queue type %d=
- on device %x\n",
->                                            q->properties.type, q->device-=
->id);
->                                 continue;
->                         }
-> --
-> 2.51.0
+> Thanks,
+> Christian.
+>
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/=
+radeon/radeon_display.c
+> > index 35fb99bcd9a7..bc28117e01b4 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_display.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> > @@ -41,6 +41,7 @@
+> >  #include <drm/drm_probe_helper.h>
+> >  #include <drm/drm_vblank.h>
+> >  #include <drm/radeon_drm.h>
+> > +#include <drm/drm_print.h>
+> >
+> >  #include "atom.h"
+> >  #include "radeon.h"
+> > @@ -273,7 +274,7 @@ static void radeon_unpin_work_func(struct work_stru=
+ct *__work)
+> >               radeon_bo_unpin(work->old_rbo);
+> >               radeon_bo_unreserve(work->old_rbo);
+> >       } else
+> > -             DRM_ERROR("failed to reserve buffer after flip\n");
+> > +             drm_err(&work->rdev->ddev, "failed to reserve buffer afte=
+r flip\n");
+> >
+> >       drm_gem_object_put(&work->old_rbo->tbo.base);
+> >       kfree(work);
+> > @@ -434,7 +435,7 @@ static void radeon_flip_work_func(struct work_struc=
+t *__work)
+> >                       r =3D dma_fence_wait(work->fence, false);
+> >
+> >               if (r)
+> > -                     DRM_ERROR("failed to wait on page flip fence (%d)=
+!\n", r);
+> > +                     drm_err(dev, "failed to wait on page flip fence (=
+%d)!\n", r);
+> >
+> >               /* We continue with the page flip even if we failed to wa=
+it on
+> >                * the fence, otherwise the DRM core and userspace will b=
+e
+> > @@ -521,7 +522,7 @@ static int radeon_crtc_page_flip_target(struct drm_=
+crtc *crtc,
+> >
+> >       r =3D radeon_bo_reserve(new_rbo, false);
+> >       if (unlikely(r !=3D 0)) {
+> > -             DRM_ERROR("failed to reserve new rbo buffer before flip\n=
+");
+> > +             drm_err(dev, "failed to reserve new rbo buffer before fli=
+p\n");
+> >               goto cleanup;
+> >       }
+> >       /* Only 27 bit offset for legacy CRTC */
+> > @@ -530,14 +531,14 @@ static int radeon_crtc_page_flip_target(struct dr=
+m_crtc *crtc,
+> >       if (unlikely(r !=3D 0)) {
+> >               radeon_bo_unreserve(new_rbo);
+> >               r =3D -EINVAL;
+> > -             DRM_ERROR("failed to pin new rbo buffer before flip\n");
+> > +             drm_err(dev, "failed to pin new rbo buffer before flip\n"=
+);
+> >               goto cleanup;
+> >       }
+> >       r =3D dma_resv_get_singleton(new_rbo->tbo.base.resv, DMA_RESV_USA=
+GE_WRITE,
+> >                                  &work->fence);
+> >       if (r) {
+> >               radeon_bo_unreserve(new_rbo);
+> > -             DRM_ERROR("failed to get new rbo buffer fences\n");
+> > +             drm_err(dev, "failed to get new rbo buffer fences\n");
+> >               goto cleanup;
+> >       }
+> >       radeon_bo_get_tiling_flags(new_rbo, &tiling_flags, NULL);
+> > @@ -604,7 +605,7 @@ static int radeon_crtc_page_flip_target(struct drm_=
+crtc *crtc,
+> >
+> >  pflip_cleanup:
+> >       if (unlikely(radeon_bo_reserve(new_rbo, false) !=3D 0)) {
+> > -             DRM_ERROR("failed to reserve new rbo in error path\n");
+> > +             drm_err(dev, "failed to reserve new rbo in error path\n")=
+;
+> >               goto cleanup;
+> >       }
+> >       radeon_bo_unpin(new_rbo);
+> > @@ -772,15 +773,15 @@ static void radeon_print_display_setup(struct drm=
+_device *dev)
+> >       uint32_t devices;
+> >       int i =3D 0;
+> >
+> > -     DRM_INFO("Radeon Display Connectors\n");
+> > +     drm_info(dev, "Radeon Display Connectors\n");
+> >       list_for_each_entry(connector, &dev->mode_config.connector_list, =
+head) {
+> >               radeon_connector =3D to_radeon_connector(connector);
+> > -             DRM_INFO("Connector %d:\n", i);
+> > -             DRM_INFO("  %s\n", connector->name);
+> > +             drm_info(dev, "Connector %d:\n", i);
+> > +             drm_info(dev, "  %s\n", connector->name);
+> >               if (radeon_connector->hpd.hpd !=3D RADEON_HPD_NONE)
+> > -                     DRM_INFO("  %s\n", hpd_names[radeon_connector->hp=
+d.hpd]);
+> > +                     drm_info(dev, "  %s\n", hpd_names[radeon_connecto=
+r->hpd.hpd]);
+> >               if (radeon_connector->ddc_bus) {
+> > -                     DRM_INFO("  DDC: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x=
+%x 0x%x\n",
+> > +                     drm_info(dev, "  DDC: 0x%x 0x%x 0x%x 0x%x 0x%x 0x=
+%x 0x%x 0x%x\n",
+> >                                radeon_connector->ddc_bus->rec.mask_clk_=
+reg,
+> >                                radeon_connector->ddc_bus->rec.mask_data=
+_reg,
+> >                                radeon_connector->ddc_bus->rec.a_clk_reg=
+,
+> > @@ -790,11 +791,11 @@ static void radeon_print_display_setup(struct drm=
+_device *dev)
+> >                                radeon_connector->ddc_bus->rec.y_clk_reg=
+,
+> >                                radeon_connector->ddc_bus->rec.y_data_re=
+g);
+> >                       if (radeon_connector->router.ddc_valid)
+> > -                             DRM_INFO("  DDC Router 0x%x/0x%x\n",
+> > +                             drm_info(dev, "  DDC Router 0x%x/0x%x\n",
+> >                                        radeon_connector->router.ddc_mux=
+_control_pin,
+> >                                        radeon_connector->router.ddc_mux=
+_state);
+> >                       if (radeon_connector->router.cd_valid)
+> > -                             DRM_INFO("  Clock/Data Router 0x%x/0x%x\n=
+",
+> > +                             drm_info(dev, "  Clock/Data Router 0x%x/0=
+x%x\n",
+> >                                        radeon_connector->router.cd_mux_=
+control_pin,
+> >                                        radeon_connector->router.cd_mux_=
+state);
+> >               } else {
+> > @@ -804,35 +805,46 @@ static void radeon_print_display_setup(struct drm=
+_device *dev)
+> >                           connector->connector_type =3D=3D DRM_MODE_CON=
+NECTOR_DVIA ||
+> >                           connector->connector_type =3D=3D DRM_MODE_CON=
+NECTOR_HDMIA ||
+> >                           connector->connector_type =3D=3D DRM_MODE_CON=
+NECTOR_HDMIB)
+> > -                             DRM_INFO("  DDC: no ddc bus - possible BI=
+OS bug - please report to xorg-driver-ati@lists.x.org\n");
+> > +                             drm_info(dev, "  DDC: no ddc bus - possib=
+le BIOS bug - please report to xorg-driver-ati@lists.x.org\n");
+> >               }
+> > -             DRM_INFO("  Encoders:\n");
+> > +             drm_info(dev, "  Encoders:\n");
+> >               list_for_each_entry(encoder, &dev->mode_config.encoder_li=
+st, head) {
+> >                       radeon_encoder =3D to_radeon_encoder(encoder);
+> >                       devices =3D radeon_encoder->devices & radeon_conn=
+ector->devices;
+> >                       if (devices) {
+> >                               if (devices & ATOM_DEVICE_CRT1_SUPPORT)
+> > -                                     DRM_INFO("    CRT1: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    CRT1: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_CRT2_SUPPORT)
+> > -                                     DRM_INFO("    CRT2: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    CRT2: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_LCD1_SUPPORT)
+> > -                                     DRM_INFO("    LCD1: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    LCD1: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_DFP1_SUPPORT)
+> > -                                     DRM_INFO("    DFP1: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    DFP1: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_DFP2_SUPPORT)
+> > -                                     DRM_INFO("    DFP2: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    DFP2: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_DFP3_SUPPORT)
+> > -                                     DRM_INFO("    DFP3: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    DFP3: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_DFP4_SUPPORT)
+> > -                                     DRM_INFO("    DFP4: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    DFP4: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_DFP5_SUPPORT)
+> > -                                     DRM_INFO("    DFP5: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    DFP5: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_DFP6_SUPPORT)
+> > -                                     DRM_INFO("    DFP6: %s\n", encode=
+r_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    DFP6: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_TV1_SUPPORT)
+> > -                                     DRM_INFO("    TV1: %s\n", encoder=
+_names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    TV1: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                               if (devices & ATOM_DEVICE_CV_SUPPORT)
+> > -                                     DRM_INFO("    CV: %s\n", encoder_=
+names[radeon_encoder->encoder_id]);
+> > +                                     drm_info(dev, "    CV: %s\n",
+> > +                                             encoder_names[radeon_enco=
+der->encoder_id]);
+> >                       }
+> >               }
+> >               i++;
+> > @@ -1747,7 +1759,7 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_cr=
+tc *crtc,
+> >                                * (ie all encoder can work with the same
+> >                                *  scaling).
+> >                                */
+> > -                             DRM_ERROR("Scaling not consistent across =
+encoder.\n");
+> > +                             drm_err(dev, "Scaling not consistent acro=
+ss encoder.\n");
+> >                               return false;
+> >                       }
+> >               }
 >
