@@ -4,68 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D6FBD609AD
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 15:27:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8245DD609AF
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 15:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3227210E0F6;
-	Tue, 16 Dec 2025 15:27:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D30D10E23F;
+	Tue, 16 Dec 2025 15:29:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KH95Whet";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DT+aJcxU";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81DD210E0F6
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 15:27:47 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-7f6282195a9so404373b3a.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 07:27:47 -0800 (PST)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1101A10E23F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 15:29:16 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2a0abca9769so5688965ad.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 07:29:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765898867; x=1766503667; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1765898955; x=1766503755; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8hMipUfGS7jBGmTv6YDgrbzjA4iGEIpEiKn9cuVa04M=;
- b=KH95WhetbxTZ+BluRy+dvkWpDLzrFru/XFy2hE6YQH+jO86ZGDEqjzZECzy0TOjGAL
- 53PXnq0I69y0SWF/c6iL3rsovwdEdcb/U99Pc7jTuFzoX9ePObjzxALxr4AUhGbq3Lye
- eCnlXlpvVaNPdh9SwpbtA0HI/iLn+80Z/V6E+7Z7pc2dEHMhT1X00h44ebKczXJpD66P
- j7L3Uas+aJjcs63Nsorr2B1z9Cs5+Tt09kDMeKuoiJlOWIVhZUjmk5WJ2DnF1QbuwAYr
- cflGP+AF9hpwca7ulP8og9iGar6uh82hAk2/0OtbOe1vHoLp9bvYO24CVRvObP70pX6Y
- 4PbA==
+ bh=zr3Gof58u9YJPfboarrtkfLOPQXqGnwnePKk7JXxizs=;
+ b=DT+aJcxUBydhGXb5Pn9nb/lyNYvo6v/XuPiKSGPc9b72IarutgUfWLyJMM6aaTozIC
+ kQCByEpUxIPIycTXxgtPO1DjU/tbmw0JlsoPHS4EPLfTjkDIiDW69GKcKrNCxzdKnacy
+ FaEeoa4csNYdmth9VwRF/OvtLNl53Bk/twgM3KLHMxTFrK8yqL9UvDPozlVWrroC+8oD
+ Vo9GMomRNRe/ylSogMsk1WWjyn+jBfWXdvihw+I6FozBqd43quAGCHtn9ELaSHZtlT38
+ A51pAHRs1nbr4Ic13yIgV420eh+vPGvaBSWJqG8nBuCgM2OC64zO1+e5ZSxRD3JR5+cF
+ gkTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765898867; x=1766503667;
+ d=1e100.net; s=20230601; t=1765898955; x=1766503755;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=8hMipUfGS7jBGmTv6YDgrbzjA4iGEIpEiKn9cuVa04M=;
- b=Y0GR1C1gwl0NBa30BRD85b0Hk1m2bRRdcRccDKnATVu6q0RAHsT2W1XGJjQN9ltUwJ
- ob4rMOvlsgQI7cd9JeuMiEXOF2jgMnygNLC9hrCA2yKONHaM+90qCep0OeA9RClINrHR
- fsEIl2jq95IK9N6E5MPgHptPXhumWvKauWfYz1iNHR0+0VcFMqrDliqIOUxKj90cLIHU
- dgKef0YrXPFB8szXoFJLLNgx8pLPhV4+a3BC4RWHlm4P6n0QLjBdIM10rW5wfnH4BvGi
- bGN2f/B8eItdYgd9MtiwX+iLm4dFkIMMMvZHFiNpujMqA23D0CleBC74ymWmQWZt5Jya
- kSyg==
-X-Gm-Message-State: AOJu0YwohyQ/zMQkBxFIXiokUvQ5ZXBuMtULi2ryoQorO6F3iZJ0Gi6k
- iyNEvDYI87OYZ5bgK5b8NIW6GxfF1TImT+ko/RuOm7dfcHQ8qk7/CceeGaRsNU3noEdjfZxdWDI
- bh+d8jCZz8mkxIeefK8lbYWumn1culNOuOWXy
-X-Gm-Gg: AY/fxX5qXZgosnDOAZ5pt5bZ1WJ5GKer1SA1Y3x+gvNV3Cm7uGOm9D+skyHhe4UhkQr
- 6W+bjecsTs2pP1+Z9btTgXqoBwJelDsubaCbf1OTWPOm/gwHqWpWVplmbJYhMtP0+/oAg3nixoH
- 3+GIYc5mt6mzRXqgi2iW9hMnXs4XvADxb14zIge6jNwoeogJHIT4b1fcorj6965ZoKfIQSBEFKO
- 2KifVfLuUeqr+7Mcz7whPV3O0LK8TH7ur8kKGe43vXBsOECjrt0CvUH6rWInvacd9ef6Kr7
-X-Google-Smtp-Source: AGHT+IFwwFJxngznHz4h3VTYN/hf1HpnQHXXtcNNWwpu9sMxOie2IKXTZ6yoIcvqRz4TvuO9SVHxY20RBTlcFFW85fc=
-X-Received: by 2002:a05:7022:f106:b0:11e:3e9:3e9c with SMTP id
- a92af1059eb24-11f34c39ad8mr4006843c88.7.1765898866709; Tue, 16 Dec 2025
- 07:27:46 -0800 (PST)
+ bh=zr3Gof58u9YJPfboarrtkfLOPQXqGnwnePKk7JXxizs=;
+ b=mbpg7CoZZqro21ZaItrOZmcoWw7t9gjcM6q90IRr/D+J/e6/6oziPhMdnWHmUT4ibq
+ zZZfRwT86UCUxticORau/tQu3/mQEwX1g3PNiGLimSE1C25RKNfTJgWAwXS3eoP6xLXw
+ noH9aCKnSio+C1dDPHxua7R5UaJowKVcy14PmI86DAmhhKANYTyTmg0hqMHw4igPfhTv
+ T1CQPoZrMy/fz939pZHlNe8qmTNmeRM/Ddo3xR6B+g2/trWZodMK4Sa+amCRIUCoEDfE
+ hlTRyOOg+iZ4jj2R3NLO0C6m17K4tqpgtGPPi6nOLVRzIye+jgj8aBHhqm/JcTENj3Sm
+ ubXA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXxvwCXuBxIpErbDmDCUFGkEYH1Mdk5zbJwnhj73M3jfL/8Tad3BNzzeUQl4ElCtl8vbyffRytY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxX4e0Cj93KI2z06q8xvRpX5A+4OI9oxMeD+t91MDRSAr3Sa8rX
+ WyVcLb1eoSy2x+6Q4ZKl/zXQlp3ndpjQ2FI+SfP/IFev5CJ7d7XaIU4EGO2nfzvlMXF3EKkt+3t
+ cAZaa/o5eRJA/xuxuShazdmgD8f1T5j4=
+X-Gm-Gg: AY/fxX4nr637rNPi0kgsXz7Ca5SU27KFWhsVscA0XvU2QHRXNLOQkunmKlsTLT5cnd+
+ CeVeOpULP/f0paZzjpakdSGSGVMpghAqjZphaSMs1kNz1pQWgOb8CpbenBKlL0tcidcEg804a15
+ ayjSg6K4c8uLReS7fgvJNWm+otXrHc48REzncY6k19bwHDXg6loVMwM5g4O5EewydPFZQ4zir9R
+ l0g8sjWY5MFMZpMpatADgylmTyLYlZuKlJ9309rquQk1IQ86jzuNbEJ0U9fQrBdvoUc6tty
+X-Google-Smtp-Source: AGHT+IG9kcUP8Pi9U9VCe9+jqy+e35rih9Qd+GyQTJbDh/dChPu3EK/0GXGO9bipWaTXTvNU+Tefi0oHy/HN/K4UjYE=
+X-Received: by 2002:a05:7301:2e32:b0:2ab:ca55:89bd with SMTP id
+ 5a478bee46e88-2ac30218330mr3818312eec.4.1765898955375; Tue, 16 Dec 2025
+ 07:29:15 -0800 (PST)
 MIME-Version: 1.0
-References: <20251206023106.8875-1-timur.kristof@gmail.com>
-In-Reply-To: <20251206023106.8875-1-timur.kristof@gmail.com>
+References: <20251215115150.3581277-1-colin.i.king@gmail.com>
+In-Reply-To: <20251215115150.3581277-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Dec 2025 10:27:34 -0500
-X-Gm-Features: AQt7F2oeOUEw9f5NNkwm_2JKcelRiqmLTawng1F9YNchRQMIcmQqIN4YZ-Bf3Lw
-Message-ID: <CADnq5_PhBodb6o9LHi6e5Y8yQUaJyTa_EvMyWFpmmfrpZrUkuA@mail.gmail.com>
-Subject: Re: [PATCH 0/5] drm/amd/display: DC analog connector fixes
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Hung <alex.hung@amd.com>, 
- Harry Wentland <Harry.Wentland@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- alexander.deucher@amd.com, siqueira@igalia.com
+Date: Tue, 16 Dec 2025 10:29:02 -0500
+X-Gm-Features: AQt7F2pxZJSCVbxZ9Qp5L5e3UwMyuAGBb-cNval3Rs_27mmLOu4PrjQHbXJDINc
+Message-ID: <CADnq5_NRO5KqMq33yK4Bc04yC2wAPbhb0FvL+9D5T4PFDW6i_Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix a couple of spelling mistakes
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,41 +88,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 5, 2025 at 9:49=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@gm=
-ail.com> wrote:
->
-> Fix a few issues with the initial DC analog connector
-> implementation that I've noticed since. I highly recommend
-> to backport this series to kernel versions that include
-> the DC analog series.
+Applied.  Thanks!
 
-Did you have an update for this series, or are they ready to be applied?
-
-Alex
-
+On Mon, Dec 15, 2025 at 12:51=E2=80=AFPM Colin Ian King <colin.i.king@gmail=
+.com> wrote:
 >
-> Timur Krist=C3=B3f (5):
->   drm/amd/display: Pass proper DAC encoder ID to VBIOS
->   drm/amd/display: Correct color depth for SelectCRTC_Source
->   drm/amd/display: Add missing encoder setup to DACnEncoderControl
->   drm/amd/display: Setup DAC encoder before using it
->   drm/amd/display: Don't repeat DAC load detection
+> There are a couple of spelling mistakes, one in a pr_warn message
+> and one in a seq_printf message. Fix these.
 >
->  .../gpu/drm/amd/display/dc/bios/bios_parser.c |  4 +-
->  .../drm/amd/display/dc/bios/command_table.c   | 44 +++++++++++++++----
->  .../drm/amd/display/dc/bios/command_table.h   |  4 +-
->  .../drm/amd/display/dc/dce/dce_link_encoder.c |  2 +
->  .../amd/display/dc/dce/dce_stream_encoder.c   | 25 ++++++++++-
->  .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 28 +-----------
->  .../drm/amd/display/dc/inc/hw/link_encoder.h  |  2 +
->  .../amd/display/dc/inc/hw/stream_encoder.h    |  4 ++
->  .../amd/display/dc/link/hwss/link_hwss_dio.c  |  4 ++
->  .../drm/amd/display/dc/link/link_detection.c  |  7 ++-
->  .../drm/amd/display/dc/link/link_factory.c    | 10 ++---
->  .../dc/resource/dce110/dce110_resource.c      |  2 +
->  .../amd/display/include/bios_parser_types.h   |  2 +-
->  13 files changed, 87 insertions(+), 51 deletions(-)
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c               | 2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 2f66ebb5b029..adffa44fff2c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -830,7 +830,7 @@ int kfd_create_process_sysfs(struct kfd_process *proc=
+ess)
+>         int ret;
+>
+>         if (process->kobj) {
+> -               pr_warn("kobject already exsists for the kfd_process\n");
+> +               pr_warn("kobject already exists for the kfd_process\n");
+>                 return -EINVAL;
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
+vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 5f8cda4733f9..d7d37f01f51c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -1115,7 +1115,7 @@ int pqm_debugfs_mqds(struct seq_file *m, void *data=
+)
+>                                 break;
+>                         default:
+>                                 seq_printf(m,
+> -                               "  Qeueu node with bad user queue type %d=
+ on device %x\n",
+> +                               "  Queue node with bad user queue type %d=
+ on device %x\n",
+>                                            q->properties.type, q->device-=
+>id);
+>                                 continue;
+>                         }
 > --
-> 2.52.0
+> 2.51.0
 >
