@@ -4,76 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6CE2D5E156
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 13:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AAAED5E156
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 13:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FC0310E2D9;
-	Tue, 16 Dec 2025 13:47:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDDC10E2D0;
+	Tue, 16 Dec 2025 13:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GLsBtLGo";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="cHDkr1f/";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37B5610E1D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 10:33:16 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-34c708702dfso2356501a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 02:33:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765881196; x=1766485996; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=RSo7iwKPFQwIzSj+zOboygLjO0H2teY9xGDI0Xqf4yE=;
- b=GLsBtLGoeqXsIKSNikNS12nUZQvLwzdKTdjqAi3d3gFgCkgraPy+Od5eMNzqrOSCGb
- Qq5mSQ0OjU1+fLvlkMl7ObgK35C32GacmqxEjmOz7alf4+QbZm/vTxDrSDaofR4cybvR
- 68OlSvxiQPxOicVKcVRL9OJ7kYDCaJhZvN1g3DC0/bFK2Ut7StDDbRZ4Or1wpVfd9oW1
- IHOShKTQv6HR+j8AOmnCnl8pnixhuOjNIki8K9f6NjX2ElUWicaRcyWZ9TMdG7vnT5BR
- VS9he/XdNIbxe2fFGf8nhpLMhmoLKIgu/lK3Cqdnw54qrfrtmxng2bc/hLw92h+wbzG4
- IyEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765881196; x=1766485996;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RSo7iwKPFQwIzSj+zOboygLjO0H2teY9xGDI0Xqf4yE=;
- b=iWaEVcpyAcWRVIDPlTn2CGFo+c+Kwbl2ZIBfylBTi4q1QZqP5DEywb8nfzJincoxwz
- iGO2sQwybvFM7Rp5pzOBUwNN7lCJInVK57J5vc3ebS8ngTr5y/qLbEw5EhS8ENthrAnP
- Tjki/ld3cWt5dbFabteGDEdzB+attpnnYScPG4hg+3YEzfAc64fWgstroE54suJYQ/wO
- Lnslm81BFfYU3A+NMTCeJU1IT5hiHaKt931rmNgMNJyBklaCugY+g6rlGXtzbgmaNXaK
- cCWVMSDBnNi+7iK500lczGi1n4iFIQ6l1l5OaJvcU6PN91Wygx971tnBRvf/YisprJ35
- DbXQ==
-X-Gm-Message-State: AOJu0Yy/erNLHeAA+kdgOVJEWQoNP/P7v77mzyT0DS2cj4J1GLL3z07m
- Zqow49e7qvQrYr0p9jp2XPs0un1tPJ/CaIi1rVQyUcN2hflHRRyzpOX4
-X-Gm-Gg: AY/fxX7vGRTPBtKhv1u/aNy4hfqkqHfST1zyUsQwySA6xcMwW3WsewWnGWwIDc1vObN
- ETpwNsyKPbGnFhcZhjwD7hdZWRxenG5/ZtqERqLH3Cy+CPyMDHS9oMu2s+a2sjLp+ZlfyegHfK3
- jZSPL6h26iOa0dOi5w66WX5CcVNLON2NR/LFv79S2KkKlkBLbmFOjneuy+PGsm/W25ifkCJnE+s
- SCJiEXfEKfP4PhGpXuoCz5kmEdCkgwfpLNd5xBis3WeO7jxYX8B4zb+y/bq8PPzy6JUoWE/2buC
- NxxmyUypMIveMHFaIM0BJA0MerBb7FHODQ+7W0pyHiXtExiFAvIHQdOgzmqBPD9OLiuEPEoQOWM
- xE67v8kFsM7Owp2syaeVT62QsTxULf3+oykHtD+zSFoG5m6OgtxoS8dqXji5dQvL9otuakiw/YN
- yziGTLF3J0I3gnCwda7kZYd0KrnUxG
-X-Google-Smtp-Source: AGHT+IE+dTlOQV5lST64ofLot790YXp7Fm1NZQhKwRWSADHdxtuVl7d3i2YEmzG1S8Hg7oAdVwzL2g==
-X-Received: by 2002:a17:90a:fc45:b0:34a:47d0:9a82 with SMTP id
- 98e67ed59e1d1-34abd75bd40mr14384414a91.23.1765881195450; 
- Tue, 16 Dec 2025 02:33:15 -0800 (PST)
-Received: from rahul-mintos.ban-spse ([165.204.156.251])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-34cd40c0ad5sm557412a91.1.2025.12.16.02.33.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Dec 2025 02:33:14 -0800 (PST)
-From: Abhishek Rajput <abhiraj21put@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, abhiraj21put@gmail.com
-Subject: [PATCH] drm/radeon: Convert legacy DRM logging in evergreen.c to
- drm_* helpers
-Date: Tue, 16 Dec 2025 16:02:38 +0530
-Message-ID: <20251216103238.625468-1-abhiraj21put@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC74910E2D0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 13:55:08 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BG1JEEV019693;
+ Tue, 16 Dec 2025 13:55:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=KKZ+RJ
+ 0Q0sNcvzXKMu8Osx4RXIus9qrP8TqxO/DSF4E=; b=cHDkr1f/SSnyQ+Pdxi6dnR
+ 3SHTd9gAkzk4fTIh9+U4zsH2l2y0Sm6xFELO7/voIfqCWgtFP3RTORDfrNpjDexs
+ +Eqh8pQXq+hkgt0apUAmQuoFYOiL0oOk04rYXiIkfw6G1L/we0k9A44WJPLdYS0N
+ Zpt8ZvzfVpMpC8IvWpSek8eCoeVAdVQhiE/Tg1gpcWXFvo+P877XLrd03FS+CeZC
+ yifTsD19nQvlpkTdeRwMT3f2NQvlkMaShtJWZItPvlasI1aS8v1ehm1iVKXxjIQn
+ xzD+MXjgAqM+LrtFnsawUmQbh8kYv7kOS8/JyapiY9KRKR8ADTrVO2t1Svqxc2lw
+ ==
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0yt1enk7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Dec 2025 13:55:05 +0000 (GMT)
+Received: from m0360072.ppops.net (m0360072.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BGDe0fa012715;
+ Tue, 16 Dec 2025 13:55:04 GMT
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0yt1enk4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Dec 2025 13:55:04 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BGAbJPg003028;
+ Tue, 16 Dec 2025 13:55:04 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4b1kykm7rs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Dec 2025 13:55:04 +0000
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
+ [10.39.53.233])
+ by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5BGDt2re33358342
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 16 Dec 2025 13:55:03 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B063C5803F;
+ Tue, 16 Dec 2025 13:55:02 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9B5E458056;
+ Tue, 16 Dec 2025 13:54:59 +0000 (GMT)
+Received: from [9.124.210.169] (unknown [9.124.210.169])
+ by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Tue, 16 Dec 2025 13:54:59 +0000 (GMT)
+Message-ID: <bed34fa1-5971-416a-a3d4-7824d0387e02@linux.ibm.com>
+Date: Tue, 16 Dec 2025 19:24:58 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 0/8] amdgpu/amdkfd: Add support for non-4K page
+ size systems
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Kent.Russell@amd.com,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
+References: <cover.1765519875.git.donettom@linux.ibm.com>
+ <fbc164ab-964f-464d-b94a-80131016b5b8@amd.com>
+ <871pl0567w.ritesh.list@gmail.com>
+ <1f10b67a-ffdc-4962-af52-758247569e09@amd.com>
+ <CADnq5_NbDzqucujDyW009+55mLXZz2PiyaSd9PKXXeXv4pYn0Q@mail.gmail.com>
+ <996ef75a-71b3-4ba7-a255-40516c5e9acd@amd.com>
+ <CADnq5_PvMm0hqqFTmDONEoYnUiHSCTZWUVkcf_PoFP3jDXuCKA@mail.gmail.com>
+Content-Language: en-US
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <CADnq5_PvMm0hqqFTmDONEoYnUiHSCTZWUVkcf_PoFP3jDXuCKA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 16 Dec 2025 13:47:12 +0000
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: 9n5TWpEFywq71mdBf3__3rhbi1RinGhj
+X-Proofpoint-ORIG-GUID: 6wkH2ASOrAL0das5UcfTG3zNNZhs82r3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjEzMDAyMyBTYWx0ZWRfX5/56jdyHoXMw
+ qRgz9MSlJ2aUm9/2wQ3Zakhj2TQTRU9mxLftD1RDIZa30urjhBWOEt7R5lCBoJpsxHgK+MOkMvW
+ h3xJrKozdNuvqAove8DO3CgRf80J0btfT7DjmK2HS18SwkbY4S9i3Yl3+0QVIRVUoXoCWhI5gLo
+ TgL7D7cWdLAq7Tp36+Z7IkFbnWF8mD4iYlpwnlfYYMutyP3EmdEbuLKQ4eYb/jouVfne5mM6Yw+
+ DNGeaeZv3njUKx3GlDJDEGy3w0JbHJARdYsW4AJ3KWLNWID6Sh4CKq/HXGL1ES1XVWBWBlPW//R
+ eC8y4G344TWcVRUjI2FgP0zP6bSWCYCGUy7YVXT0m+gijYzonswNP4OZIBA/c8IzR56cGQHpUlu
+ dEWDP6RvEQael0CrwJ7jqegHKdcHRg==
+X-Authority-Analysis: v=2.4 cv=L/MQguT8 c=1 sm=1 tr=0 ts=694164b9 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=NEAV23lmAAAA:8 a=zd2uoN0lAAAA:8 a=PliKiKpVoH0uRaRyEN0A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-16_02,2025-12-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512130023
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,490 +125,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace DRM_DEBUG(), DRM_ERROR(), and DRM_INFO() calls with the
-corresponding drm_dbg(), drm_err(), and drm_info() helpers in the
-radeon driver.
 
-The drm_*() logging helpers take a struct drm_device * argument,
-allowing the DRM core to prefix log messages with the correct device
-name and instance. This is required to correctly distinguish log
-messages on systems with multiple GPUs.
+On 12/15/25 7:39 PM, Alex Deucher wrote:
+> On Mon, Dec 15, 2025 at 4:47 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>> On 12/12/25 18:24, Alex Deucher wrote:
+>>> On Fri, Dec 12, 2025 at 8:19 AM Christian König
+>>> <christian.koenig@amd.com> wrote:
+>>>> On 12/12/25 11:45, Ritesh Harjani (IBM) wrote:
+>>>>> Christian König <christian.koenig@amd.com> writes:
+>>>>>>> Setup details:
+>>>>>>> ============
+>>>>>>> System details: Power10 LPAR using 64K pagesize.
+>>>>>>> AMD GPU:
+>>>>>>>    Name:                    gfx90a
+>>>>>>>    Marketing Name:          AMD Instinct MI210
+>>>>>>>
+>>>>>>> Queries:
+>>>>>>> =======
+>>>>>>> 1. We currently ran rocr-debug agent tests [1]  and rccl unit tests [2] to test
+>>>>>>>     these changes. Is there anything else that you would suggest us to run to
+>>>>>>>     shake out any other page size related issues w.r.t the kernel driver?
+>>>>>> The ROCm team needs to answer that.
+>>>>>>
+>>>>> Is there any separate mailing list or list of people whom we can cc
+>>>>> then?
+>>>> With Felix on CC you already got the right person, but he's on vacation and will not be back before the end of the year.
+>>>>
+>>>> I can check on Monday if some people are still around which could answer a couple of questions, but in general don't expect a quick response.
+>>>>
+>>>>>>> 2. Patch 1/8: We have a querry regarding eop buffer size Is this eop ring buffer
+>>>>>>>     size HW dependent? Should it be made PAGE_SIZE?
+>>>>>> Yes and no.
+>>>>>>
+>>>>> If you could more elaborate on this please? I am assuming you would
+>>>>> anyway respond with more context / details on Patch-1 itself. If yes,
+>>>>> that would be great!
+>>>> Well, in general the EOP (End of Pipe) buffer contains in a ring buffer of all the events and actions the CP should execute when shaders and cache flushes finish.
+>>>>
+>>>> The size depends on the HW generation and configuration of the GPU etc..., but don't ask me for details how that is calculated.
+>>>>
+>>>> The point is that the size is completely unrelated to the CPU, so using PAGE_SIZE is clearly incorrect.
+>>>>
+>>>>>>> 3. Patch 5/8: also have a query w.r.t the error paths when system page size > 4K.
+>>>>>>>     Do we need to lift this restriction and add MMIO remap support for systems with
+>>>>>>>     non-4K page sizes?
+>>>>>> The problem is the HW can't do this.
+>>>>>>
+>>>>> We aren't that familiar with the HW / SW stack here. Wanted to understand
+>>>>> what functionality will be unsupported due to this HW limitation then?
+>>>> The problem is that the CPU must map some of the registers/resources of the GPU into the address space of the application and you run into security issues when you map more than 4k at a time.
+>>> Right.  There are some 4K pages with the MMIO register BAR which are
+>>> empty and registers can be remapped into them.  In this case we remap
+>>> the HDP flush registers into one of those register pages.  This allows
+>>> applications to flush the HDP write FIFO from either the CPU or
+>>> another device.  This is needed to flush data written by the CPU or
+>>> another device to the VRAM BAR out to VRAM (i.e., so the GPU can see
+>>> it).  This is flushed internally as part of the shader dispatch
+>>> packets,
+>> As far as I know this is only done for graphics shader submissions to the classic CS interface, but not for compute dispatches through ROCm queues.
+> There is an explicit PM4 packet to flush the HDP cache for userqs and
+> for AQL the flush is handled via one of the flags in the dispatch
+> packet.  The MMIO remap is needed for more fine grained use cases
+> where you might have the CPU or another device operating in a gang
+> like scenario with the GPU.
 
-This change aligns radeon with the DRM TODO item:
-"Convert logging to drm_* functions with drm_device parameter".
 
-Signed-off-by: Abhishek Rajput <abhiraj21put@gmail.com>
+Thank you, Alex.
 
-diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-index bc4ab71613a5..3cbc6eedbf66 100644
---- a/drivers/gpu/drm/radeon/evergreen.c
-+++ b/drivers/gpu/drm/radeon/evergreen.c
-@@ -1630,6 +1630,7 @@ void evergreen_pm_misc(struct radeon_device *rdev)
- 	int req_cm_idx = rdev->pm.requested_clock_mode_index;
- 	struct radeon_power_state *ps = &rdev->pm.power_state[req_ps_idx];
- 	struct radeon_voltage *voltage = &ps->clock_info[req_cm_idx].voltage;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	if (voltage->type == VOLTAGE_SW) {
- 		/* 0xff0x are flags rather then an actual voltage */
-@@ -1638,7 +1639,7 @@ void evergreen_pm_misc(struct radeon_device *rdev)
- 		if (voltage->voltage && (voltage->voltage != rdev->pm.current_vddc)) {
- 			radeon_atom_set_voltage(rdev, voltage->voltage, SET_VOLTAGE_TYPE_ASIC_VDDC);
- 			rdev->pm.current_vddc = voltage->voltage;
--			DRM_DEBUG("Setting: vddc: %d\n", voltage->voltage);
-+			drm_dbg(ddev, "Setting: vddc: %d\n", voltage->voltage);
- 		}
- 
- 		/* starting with BTC, there is one state that is used for both
-@@ -1659,7 +1660,7 @@ void evergreen_pm_misc(struct radeon_device *rdev)
- 		if (voltage->vddci && (voltage->vddci != rdev->pm.current_vddci)) {
- 			radeon_atom_set_voltage(rdev, voltage->vddci, SET_VOLTAGE_TYPE_ASIC_VDDCI);
- 			rdev->pm.current_vddci = voltage->vddci;
--			DRM_DEBUG("Setting: vddci: %d\n", voltage->vddci);
-+			drm_dbg(ddev, "Setting: vddci: %d\n", voltage->vddci);
- 		}
- 	}
- }
-@@ -2168,6 +2169,7 @@ static void evergreen_program_watermarks(struct radeon_device *rdev,
- 	u32 pipe_offset = radeon_crtc->crtc_id * 16;
- 	u32 tmp, arb_control3;
- 	fixed20_12 a, b, c;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	if (radeon_crtc->base.enabled && num_heads && mode) {
- 		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
-@@ -2244,14 +2246,14 @@ static void evergreen_program_watermarks(struct radeon_device *rdev,
- 		    !evergreen_average_bandwidth_vs_available_bandwidth(&wm_high) ||
- 		    !evergreen_check_latency_hiding(&wm_high) ||
- 		    (rdev->disp_priority == 2)) {
--			DRM_DEBUG_KMS("force priority a to high\n");
-+			drm_dbg_kms(ddev, "force priority a to high\n");
- 			priority_a_cnt |= PRIORITY_ALWAYS_ON;
- 		}
- 		if (!evergreen_average_bandwidth_vs_dram_bandwidth_for_display(&wm_low) ||
- 		    !evergreen_average_bandwidth_vs_available_bandwidth(&wm_low) ||
- 		    !evergreen_check_latency_hiding(&wm_low) ||
- 		    (rdev->disp_priority == 2)) {
--			DRM_DEBUG_KMS("force priority b to high\n");
-+			drm_dbg_kms(ddev, "force priority b to high\n");
- 			priority_b_cnt |= PRIORITY_ALWAYS_ON;
- 		}
- 
-@@ -2401,6 +2403,7 @@ static int evergreen_pcie_gart_enable(struct radeon_device *rdev)
- {
- 	u32 tmp;
- 	int r;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	if (rdev->gart.robj == NULL) {
- 		dev_err(rdev->dev, "No VRAM object for PCIE GART.\n");
-@@ -2448,7 +2451,7 @@ static int evergreen_pcie_gart_enable(struct radeon_device *rdev)
- 	WREG32(VM_CONTEXT1_CNTL, 0);
- 
- 	evergreen_pcie_gart_tlb_flush(rdev);
--	DRM_INFO("PCIE GART of %uM enabled (table at 0x%016llX).\n",
-+	drm_info(ddev, "PCIE GART of %uM enabled (table at 0x%016llX).\n",
- 		 (unsigned)(rdev->mc.gtt_size >> 20),
- 		 (unsigned long long)rdev->gart.table_addr);
- 	rdev->gart.ready = true;
-@@ -2626,16 +2629,17 @@ static void evergreen_blank_dp_output(struct radeon_device *rdev,
- 	unsigned stream_ctrl;
- 	unsigned fifo_ctrl;
- 	unsigned counter = 0;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	if (dig_fe >= ARRAY_SIZE(evergreen_dp_offsets)) {
--		DRM_ERROR("invalid dig_fe %d\n", dig_fe);
-+		drm_err(ddev, "invalid dig_fe %d\n", dig_fe);
- 		return;
- 	}
- 
- 	stream_ctrl = RREG32(EVERGREEN_DP_VID_STREAM_CNTL +
- 			     evergreen_dp_offsets[dig_fe]);
- 	if (!(stream_ctrl & EVERGREEN_DP_VID_STREAM_CNTL_ENABLE)) {
--		DRM_ERROR("dig %d , should be enable\n", dig_fe);
-+		drm_err(ddev, "dig %d , should be enable\n", dig_fe);
- 		return;
- 	}
- 
-@@ -2652,7 +2656,7 @@ static void evergreen_blank_dp_output(struct radeon_device *rdev,
- 				     evergreen_dp_offsets[dig_fe]);
- 	}
- 	if (counter >= 32)
--		DRM_ERROR("counter exceeds %d\n", counter);
-+		drm_err(ddev, "counter exceeds %d\n", counter);
- 
- 	fifo_ctrl = RREG32(EVERGREEN_DP_STEER_FIFO + evergreen_dp_offsets[dig_fe]);
- 	fifo_ctrl |= EVERGREEN_DP_STEER_FIFO_RESET;
-@@ -2998,10 +3002,11 @@ static int evergreen_cp_start(struct radeon_device *rdev)
- 	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
- 	int r, i;
- 	uint32_t cp_me;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	r = radeon_ring_lock(rdev, ring, 7);
- 	if (r) {
--		DRM_ERROR("radeon: cp failed to lock ring (%d).\n", r);
-+		drm_err(ddev, "radeon: cp failed to lock ring (%d).\n", r);
- 		return r;
- 	}
- 	radeon_ring_write(ring, PACKET3(PACKET3_ME_INITIALIZE, 5));
-@@ -3018,7 +3023,7 @@ static int evergreen_cp_start(struct radeon_device *rdev)
- 
- 	r = radeon_ring_lock(rdev, ring, evergreen_default_size + 19);
- 	if (r) {
--		DRM_ERROR("radeon: cp failed to lock ring (%d).\n", r);
-+		drm_err(ddev, "radeon: cp failed to lock ring (%d).\n", r);
- 		return r;
- 	}
- 
-@@ -3826,6 +3831,7 @@ u32 evergreen_gpu_check_soft_reset(struct radeon_device *rdev)
- {
- 	u32 reset_mask = 0;
- 	u32 tmp;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	/* GRBM_STATUS */
- 	tmp = RREG32(GRBM_STATUS);
-@@ -3884,7 +3890,7 @@ u32 evergreen_gpu_check_soft_reset(struct radeon_device *rdev)
- 
- 	/* Skip MC reset as it's mostly likely not hung, just busy */
- 	if (reset_mask & RADEON_RESET_MC) {
--		DRM_DEBUG("MC busy: 0x%08X, clearing.\n", reset_mask);
-+		drm_dbg(ddev, "MC busy: 0x%08X, clearing.\n", reset_mask);
- 		reset_mask &= ~RADEON_RESET_MC;
- 	}
- 
-@@ -4495,6 +4501,7 @@ int evergreen_irq_set(struct radeon_device *rdev)
- 	u32 grbm_int_cntl = 0;
- 	u32 dma_cntl, dma_cntl1 = 0;
- 	u32 thermal_int = 0;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	if (!rdev->irq.installed) {
- 		WARN(1, "Can't enable IRQ/MSI because no handler is installed\n");
-@@ -4520,40 +4527,40 @@ int evergreen_irq_set(struct radeon_device *rdev)
- 	if (rdev->family >= CHIP_CAYMAN) {
- 		/* enable CP interrupts on all rings */
- 		if (atomic_read(&rdev->irq.ring_int[RADEON_RING_TYPE_GFX_INDEX])) {
--			DRM_DEBUG("evergreen_irq_set: sw int gfx\n");
-+			drm_dbg(ddev, "%s : sw int gfx\n", __func__);
- 			cp_int_cntl |= TIME_STAMP_INT_ENABLE;
- 		}
- 		if (atomic_read(&rdev->irq.ring_int[CAYMAN_RING_TYPE_CP1_INDEX])) {
--			DRM_DEBUG("evergreen_irq_set: sw int cp1\n");
-+			drm_dbg(ddev, "%s : sw int cp1\n", __func__);
- 			cp_int_cntl1 |= TIME_STAMP_INT_ENABLE;
- 		}
- 		if (atomic_read(&rdev->irq.ring_int[CAYMAN_RING_TYPE_CP2_INDEX])) {
--			DRM_DEBUG("evergreen_irq_set: sw int cp2\n");
-+			drm_dbg(ddev, "%s : sw int cp2\n", __func__);
- 			cp_int_cntl2 |= TIME_STAMP_INT_ENABLE;
- 		}
- 	} else {
- 		if (atomic_read(&rdev->irq.ring_int[RADEON_RING_TYPE_GFX_INDEX])) {
--			DRM_DEBUG("evergreen_irq_set: sw int gfx\n");
-+			drm_dbg(ddev, "%s : sw int gfx\n", __func__);
- 			cp_int_cntl |= RB_INT_ENABLE;
- 			cp_int_cntl |= TIME_STAMP_INT_ENABLE;
- 		}
- 	}
- 
- 	if (atomic_read(&rdev->irq.ring_int[R600_RING_TYPE_DMA_INDEX])) {
--		DRM_DEBUG("r600_irq_set: sw int dma\n");
-+		drm_dbg(ddev, "r600_irq_set: sw int dma\n");
- 		dma_cntl |= TRAP_ENABLE;
- 	}
- 
- 	if (rdev->family >= CHIP_CAYMAN) {
- 		dma_cntl1 = RREG32(CAYMAN_DMA1_CNTL) & ~TRAP_ENABLE;
- 		if (atomic_read(&rdev->irq.ring_int[CAYMAN_RING_TYPE_DMA1_INDEX])) {
--			DRM_DEBUG("r600_irq_set: sw int dma1\n");
-+			drm_dbg(ddev, "r600_irq_set: sw int dma1\n");
- 			dma_cntl1 |= TRAP_ENABLE;
- 		}
- 	}
- 
- 	if (rdev->irq.dpm_thermal) {
--		DRM_DEBUG("dpm thermal\n");
-+		drm_dbg(ddev, "dpm thermal\n");
- 		thermal_int |= THERM_INT_MASK_HIGH | THERM_INT_MASK_LOW;
- 	}
- 
-@@ -4713,6 +4720,7 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 	bool queue_thermal = false;
- 	u32 status, addr;
- 	const char *event_name;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	if (!rdev->ih.enabled || rdev->shutdown)
- 		return IRQ_NONE;
-@@ -4725,7 +4733,7 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 		return IRQ_NONE;
- 
- 	rptr = rdev->ih.rptr;
--	DRM_DEBUG("evergreen_irq_process start: rptr %d, wptr %d\n", rptr, wptr);
-+	drm_dbg(ddev, "%s start: rptr %d, wptr %d\n", __func__, rptr, wptr);
- 
- 	/* Order reading of wptr vs. reading of IH ring data */
- 	rmb();
-@@ -4766,18 +4774,18 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 				mask = LB_D1_VLINE_INTERRUPT;
- 				event_name = "vline";
- 			} else {
--				DRM_DEBUG("Unhandled interrupt: %d %d\n",
-+				drm_dbg(ddev, "Unhandled interrupt: %d %d\n",
- 					  src_id, src_data);
- 				break;
- 			}
- 
- 			if (!(disp_int[crtc_idx] & mask)) {
--				DRM_DEBUG("IH: D%d %s - IH event w/o asserted irq bit?\n",
-+				drm_dbg(ddev, "IH: D%d %s - IH event w/o asserted irq bit?\n",
- 					  crtc_idx + 1, event_name);
- 			}
- 
- 			disp_int[crtc_idx] &= ~mask;
--			DRM_DEBUG("IH: D%d %s\n", crtc_idx + 1, event_name);
-+			drm_dbg(ddev, "IH: D%d %s\n", crtc_idx + 1, event_name);
- 
- 			break;
- 		case 8: /* D1 page flip */
-@@ -4786,7 +4794,7 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 		case 14: /* D4 page flip */
- 		case 16: /* D5 page flip */
- 		case 18: /* D6 page flip */
--			DRM_DEBUG("IH: D%d flip\n", ((src_id - 8) >> 1) + 1);
-+			drm_dbg(ddev, "IH: D%d flip\n", ((src_id - 8) >> 1) + 1);
- 			if (radeon_use_pflipirq > 0)
- 				radeon_crtc_handle_flip(rdev, (src_id - 8) >> 1);
- 			break;
-@@ -4804,39 +4812,39 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 				event_name = "HPD_RX";
- 
- 			} else {
--				DRM_DEBUG("Unhandled interrupt: %d %d\n",
-+				drm_dbg(ddev, "Unhandled interrupt: %d %d\n",
- 					  src_id, src_data);
- 				break;
- 			}
- 
- 			if (!(disp_int[hpd_idx] & mask))
--				DRM_DEBUG("IH: IH event w/o asserted irq bit?\n");
-+				drm_dbg(ddev, "IH: IH event w/o asserted irq bit?\n");
- 
- 			disp_int[hpd_idx] &= ~mask;
--			DRM_DEBUG("IH: %s%d\n", event_name, hpd_idx + 1);
-+			drm_dbg(ddev, "IH: %s%d\n", event_name, hpd_idx + 1);
- 
- 			break;
- 		case 44: /* hdmi */
- 			afmt_idx = src_data;
- 			if (afmt_idx > 5) {
--				DRM_ERROR("Unhandled interrupt: %d %d\n",
-+				drm_err(ddev, "Unhandled interrupt: %d %d\n",
- 					  src_id, src_data);
- 				break;
- 			}
- 
- 			if (!(afmt_status[afmt_idx] & AFMT_AZ_FORMAT_WTRIG))
--				DRM_DEBUG("IH: IH event w/o asserted irq bit?\n");
-+				drm_dbg(ddev, "IH: IH event w/o asserted irq bit?\n");
- 
- 			afmt_status[afmt_idx] &= ~AFMT_AZ_FORMAT_WTRIG;
- 			queue_hdmi = true;
--			DRM_DEBUG("IH: HDMI%d\n", afmt_idx + 1);
-+			drm_dbg(ddev, "IH: HDMI%d\n", afmt_idx + 1);
- 			break;
- 		case 96:
--			DRM_ERROR("SRBM_READ_ERROR: 0x%x\n", RREG32(SRBM_READ_ERROR));
-+			drm_err(ddev, "SRBM_READ_ERROR: 0x%x\n", RREG32(SRBM_READ_ERROR));
- 			WREG32(SRBM_INT_ACK, 0x1);
- 			break;
- 		case 124: /* UVD */
--			DRM_DEBUG("IH: UVD int: 0x%08x\n", src_data);
-+			drm_dbg(ddev, "IH: UVD int: 0x%08x\n", src_data);
- 			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
- 			break;
- 		case 146:
-@@ -4857,11 +4865,11 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 		case 176: /* CP_INT in ring buffer */
- 		case 177: /* CP_INT in IB1 */
- 		case 178: /* CP_INT in IB2 */
--			DRM_DEBUG("IH: CP int: 0x%08x\n", src_data);
-+			drm_dbg(ddev, "IH: CP int: 0x%08x\n", src_data);
- 			radeon_fence_process(rdev, RADEON_RING_TYPE_GFX_INDEX);
- 			break;
- 		case 181: /* CP EOP event */
--			DRM_DEBUG("IH: CP EOP\n");
-+			drm_dbg(ddev, "IH: CP EOP\n");
- 			if (rdev->family >= CHIP_CAYMAN) {
- 				switch (src_data) {
- 				case 0:
-@@ -4878,30 +4886,30 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 				radeon_fence_process(rdev, RADEON_RING_TYPE_GFX_INDEX);
- 			break;
- 		case 224: /* DMA trap event */
--			DRM_DEBUG("IH: DMA trap\n");
-+			drm_dbg(ddev, "IH: DMA trap\n");
- 			radeon_fence_process(rdev, R600_RING_TYPE_DMA_INDEX);
- 			break;
- 		case 230: /* thermal low to high */
--			DRM_DEBUG("IH: thermal low to high\n");
-+			drm_dbg(ddev, "IH: thermal low to high\n");
- 			rdev->pm.dpm.thermal.high_to_low = false;
- 			queue_thermal = true;
- 			break;
- 		case 231: /* thermal high to low */
--			DRM_DEBUG("IH: thermal high to low\n");
-+			drm_dbg(ddev, "IH: thermal high to low\n");
- 			rdev->pm.dpm.thermal.high_to_low = true;
- 			queue_thermal = true;
- 			break;
- 		case 233: /* GUI IDLE */
--			DRM_DEBUG("IH: GUI idle\n");
-+			drm_dbg(ddev, "IH: GUI idle\n");
- 			break;
- 		case 244: /* DMA trap event */
- 			if (rdev->family >= CHIP_CAYMAN) {
--				DRM_DEBUG("IH: DMA1 trap\n");
-+				drm_dbg(ddev, "IH: DMA1 trap\n");
- 				radeon_fence_process(rdev, CAYMAN_RING_TYPE_DMA1_INDEX);
- 			}
- 			break;
- 		default:
--			DRM_DEBUG("Unhandled interrupt: %d %d\n", src_id, src_data);
-+			drm_dbg(ddev, "Unhandled interrupt: %d %d\n", src_id, src_data);
- 			break;
- 		}
- 
-@@ -5000,6 +5008,7 @@ static int evergreen_startup(struct radeon_device *rdev)
- {
- 	struct radeon_ring *ring;
- 	int r;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	/* enable pcie gen2 link */
- 	evergreen_pcie_gen2_enable(rdev);
-@@ -5016,7 +5025,7 @@ static int evergreen_startup(struct radeon_device *rdev)
- 	if (ASIC_IS_DCE5(rdev) && !rdev->pm.dpm_enabled) {
- 		r = ni_mc_load_microcode(rdev);
- 		if (r) {
--			DRM_ERROR("Failed to load MC firmware!\n");
-+			drm_err(ddev, "Failed to load MC firmware!\n");
- 			return r;
- 		}
- 	}
-@@ -5038,7 +5047,7 @@ static int evergreen_startup(struct radeon_device *rdev)
- 		rdev->rlc.cs_data = evergreen_cs_data;
- 		r = sumo_rlc_init(rdev);
- 		if (r) {
--			DRM_ERROR("Failed to init rlc BOs!\n");
-+			drm_err(ddev, "Failed to init rlc BOs!\n");
- 			return r;
- 		}
- 	}
-@@ -5071,7 +5080,7 @@ static int evergreen_startup(struct radeon_device *rdev)
- 
- 	r = r600_irq_init(rdev);
- 	if (r) {
--		DRM_ERROR("radeon: IH init failed (%d).\n", r);
-+		drm_err(ddev, "radeon: IH init failed (%d).\n", r);
- 		radeon_irq_kms_fini(rdev);
- 		return r;
- 	}
-@@ -5109,7 +5118,7 @@ static int evergreen_startup(struct radeon_device *rdev)
- 
- 	r = radeon_audio_init(rdev);
- 	if (r) {
--		DRM_ERROR("radeon: audio init failed\n");
-+		drm_err(ddev, "radeon: audio init failed\n");
- 		return r;
- 	}
- 
-@@ -5119,6 +5128,7 @@ static int evergreen_startup(struct radeon_device *rdev)
- int evergreen_resume(struct radeon_device *rdev)
- {
- 	int r;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	/* reset the asic, the gfx blocks are often in a bad state
- 	 * after the driver is unloaded or after a resume
-@@ -5141,7 +5151,7 @@ int evergreen_resume(struct radeon_device *rdev)
- 	rdev->accel_working = true;
- 	r = evergreen_startup(rdev);
- 	if (r) {
--		DRM_ERROR("evergreen startup failed on resume\n");
-+		drm_err(ddev, "evergreen startup failed on resume\n");
- 		rdev->accel_working = false;
- 		return r;
- 	}
-@@ -5176,6 +5186,7 @@ int evergreen_suspend(struct radeon_device *rdev)
- int evergreen_init(struct radeon_device *rdev)
- {
- 	int r;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	/* Read BIOS */
- 	if (!radeon_get_bios(rdev)) {
-@@ -5201,7 +5212,7 @@ int evergreen_init(struct radeon_device *rdev)
- 			dev_err(rdev->dev, "Card not posted and no BIOS - ignoring\n");
- 			return -EINVAL;
- 		}
--		DRM_INFO("GPU not posted. posting now...\n");
-+		drm_info(ddev, "GPU not posted. posting now...\n");
- 		atom_asic_init(rdev->mode_info.atom_context);
- 	}
- 	/* init golden registers */
-@@ -5233,7 +5244,7 @@ int evergreen_init(struct radeon_device *rdev)
- 		if (!rdev->me_fw || !rdev->pfp_fw || !rdev->rlc_fw || !rdev->mc_fw) {
- 			r = ni_init_microcode(rdev);
- 			if (r) {
--				DRM_ERROR("Failed to load firmware!\n");
-+				drm_err(ddev, "Failed to load firmware!\n");
- 				return r;
- 			}
- 		}
-@@ -5241,7 +5252,7 @@ int evergreen_init(struct radeon_device *rdev)
- 		if (!rdev->me_fw || !rdev->pfp_fw || !rdev->rlc_fw) {
- 			r = r600_init_microcode(rdev);
- 			if (r) {
--				DRM_ERROR("Failed to load firmware!\n");
-+				drm_err(ddev, "Failed to load firmware!\n");
- 				return r;
- 			}
- 		}
-@@ -5287,7 +5298,7 @@ int evergreen_init(struct radeon_device *rdev)
- 	 */
- 	if (ASIC_IS_DCE5(rdev)) {
- 		if (!rdev->mc_fw && !(rdev->flags & RADEON_IS_IGP)) {
--			DRM_ERROR("radeon: MC ucode required for NI+.\n");
-+			drm_err(ddev, "radeon: MC ucode required for NI+.\n");
- 			return -EINVAL;
- 		}
- 	}
-@@ -5323,6 +5334,7 @@ void evergreen_fini(struct radeon_device *rdev)
- void evergreen_pcie_gen2_enable(struct radeon_device *rdev)
- {
- 	u32 link_width_cntl, speed_cntl;
-+	struct drm_device *ddev = rdev_to_drm(rdev);
- 
- 	if (radeon_pcie_gen2 == 0)
- 		return;
-@@ -5343,11 +5355,11 @@ void evergreen_pcie_gen2_enable(struct radeon_device *rdev)
- 
- 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
- 	if (speed_cntl & LC_CURRENT_DATA_RATE) {
--		DRM_INFO("PCIE gen 2 link speeds already enabled\n");
-+		drm_info(ddev, "PCIE gen 2 link speeds already enabled\n");
- 		return;
- 	}
- 
--	DRM_INFO("enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0\n");
-+	drm_info(ddev, "enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0\n");
- 
- 	if ((speed_cntl & LC_OTHER_SIDE_EVER_SENT_GEN2) ||
- 	    (speed_cntl & LC_OTHER_SIDE_SUPPORTS_GEN2)) {
--- 
-2.43.0
+We were encountering an issue while running the RCCL unit tests. With 2 
+GPUs, all tests passed successfully; however, when running with more 
+than 2 GPUs, the tests began to fail at random points with the following 
+errors:
 
+[  598.576821] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for 
+queue with doorbell_id: 80030008
+[  606.696820] amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+[  606.696826] amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
+[  610.696852] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for 
+queue with doorbell_id: 80030008
+[  610.696869] amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+[  610.696942] amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
+
+
+After applying patches 7/8 and 8/8, we are no longer seeing this issue.
+
+One question I have is: we only started observing this problem when the 
+number of GPUs increased. Could this be related to MMIO remapping not 
+being available?
+
+
+> Alex
+>
+>> That's the reason why ROCm needs the remapped MMIO register BAR.
+>>
+>>> but there are certain cases where an application may want
+>>> more control.  This is probably not a showstopper for most ROCm apps.
+>> Well the problem is that you absolutely need the HDP flush/invalidation for 100% correctness. It does work most of the time without it, but you then risk data corruption.
+>>
+>> Apart from making the flush/invalidate an IOCTL I think we could also just use a global dummy page in VRAM.
+>>
+>> If you make two 32bit writes which are apart from each other and then a read back a 32bit value from VRAM that should invalidate the HDP as well. It's less efficient than the MMIO BAR remap but still much better than going though an IOCTL.
+>>
+>> The only tricky part is that you need to get the HW barriers with the doorbell write right.....
+>>
+>>> That said, the region is only 4K so if you allow applications to map a
+>>> larger region they would get access to GPU register pages which they
+>>> shouldn't have access to.
+>> But don't we also have problems with the doorbell? E.g. the global aggregated one needs to be 4k as well, or is it ok to over allocate there?
+>>
+>> Thinking more about it there is also a major problem with page tables. Those are 4k by default on modern systems as well and while over allocating them to 64k is possible that not only wastes some VRAM but can also result in OOM situations because we can't allocate the necessary page tables to switch from 2MiB to 4k pages in some cases.
+>>
+>> Christian.
+>>
+>>> Alex
+>>>
+>>>>>>> [1] ROCr debug agent tests: https://github.com/ROCm/rocr_debug_agent
+>>>>>>> [2] RCCL tests: https://github.com/ROCm/rccl/tree/develop/test
+>>>>>>>
+>>>>>>>
+>>>>>>> Please note that the changes in this series are on a best effort basis from our
+>>>>>>> end. Therefore, requesting the amd-gfx community (who have deeper knowledge of the
+>>>>>>> HW & SW stack) to kindly help with the review and provide feedback / comments on
+>>>>>>> these patches. The idea here is, to also have non-4K pagesize (e.g. 64K) well
+>>>>>>> supported with amd gpu kernel driver.
+>>>>>> Well this is generally nice to have, but there are unfortunately some HW limitations which makes ROCm pretty much unusable on non 4k page size systems.
+>>>>> That's a bummer :(
+>>>>> - Do we have some HW documentation around what are these limitations around non-4K pagesize? Any links to such please?
+>>>> You already mentioned MMIO remap which obviously has that problem, but if I'm not completely mistaken the PCIe doorbell BAR and some global seq counter resources will also cause problems here.
+>>>>
+>>>> This can all be worked around by delegating those MMIO accesses into the kernel, but that means tons of extra IOCTL overhead.
+>>>>
+>>>> Especially the cache flushes which are necessary to avoid corruption are really bad for performance in such an approach.
+>>>>
+>>>>> - Are there any latest AMD GPU versions which maybe lifts such restrictions?
+>>>> Not that I know off any.
+>>>>
+>>>>>> What we can do is to support graphics and MM, but that should already work out of the box.
+>>>>>>
+>>>>> - Maybe we should also document, what will work and what won't work due to these HW limitations.
+>>>> Well pretty much everything, I need to double check how ROCm does HDP flushing/invalidating when the MMIO remap isn't available.
+>>>>
+>>>> Could be that there is already a fallback path and that's the reason why this approach actually works at all.
+>>>>
+>>>>>> What we can do is to support graphics and MM, but that should already work out of the box.>
+>>>>> So these patches helped us resolve most of the issues like SDMA hangs
+>>>>> and GPU kernel page faults which we saw with rocr and rccl tests with
+>>>>> 64K pagesize. Meaning, we didn't see this working out of box perhaps
+>>>>> due to 64K pagesize.
+>>>> Yeah, but this is all for ROCm and not the graphics side.
+>>>>
+>>>> To be honest I'm not sure how ROCm even works when you have 64k pages at the moment. I would expect much more issue lurking in the kernel driver.
+>>>>
+>>>>> AFAIU, some of these patches may require re-work based on reviews, but
+>>>>> at least with these changes, we were able to see all the tests passing.
+>>>>>
+>>>>>> I need to talk with Alex and the ROCm team about it if workarounds can be implemented for those issues.
+>>>>>>
+>>>>> Thanks a lot! That would be super helpful!
+>>>>>
+>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>> Thanks again for the quick response on the patch series.
+>>>> You are welcome, but since it's so near to the end of the year not all people are available any more.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> -ritesh
