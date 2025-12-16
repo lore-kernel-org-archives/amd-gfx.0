@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 122FAD5CCAC
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 09:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76069D5CCA5
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 09:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC46110E58C;
-	Tue, 16 Dec 2025 09:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10FB210E5E0;
+	Tue, 16 Dec 2025 09:58:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="40KlFMXZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FmltTSQG";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011041.outbound.protection.outlook.com [40.107.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 039AF10E58C
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013039.outbound.protection.outlook.com
+ [40.93.201.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFEE710E58C
  for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 09:58:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CXDnGmyuj9+6eaPfJEd8/3mJHgtL+E4z13vp+vPB72FoySMV4HBggm2TnBVpcxOfirYmr5Jxv/LMSlFKDtZMKYAZd2/4flilPv3uUSeJlVy4PMC/NoFt9/QdVOkGhuDcjfXANcr4BHS5YmoYEeMAEWH83lUIsx3kJBjXGxsyj4l8+Hwgrd87OGBqEIMkRO4IzCagaJbddBYhW3psrA4b4fvcv1IqcisexdxyyYUaNPDo0eClztmw07Pfp/AFlct0CPHpN/I/5CKiVhYED6WvsqYM0qnZgyGmAS2Xgv2Y2L//X2yuWO3Ez/aGy4a4LJMun0uiFTAgMtFY1VR9TX9+aA==
+ b=SglRJcnE/mRyl1yfIqJ5vDvz0A4jY6G9YomKtlMB9LQxF1NhB0NfL+avcm09Z1le2js6ULzqLbfseMe7knyHTum+KqqLgn5VJ4AlxjmIQ93GPeNqNMHifXOIK7TfJdoyKJT2zJOp2vKRrduQxiOT7To98O72ycW+Z/aBy+MiFSs1g4cgd0j/ggPCNM+rahtBRtcjJ0BXE4PNGvk1uTz/ZIasMkGF/7PPAUGzGbN/EbzQ6CQaau4hBrwjPUjPD8/QDIfy5b+SguUVVoS/9HtN91LvM7v8eddUTZ6qqPDS46t4EXtTxDFiYaZKpt/leaHyMrwI+rjBnkTooQgqjSJ8tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MUTR8wdsM1PQyLlYVWlGhanQP7nRFe+zXrv2zO2iGio=;
- b=Yqrv8mwtU6FA8ycx/j1c8Yo60l4rePx2AgxmG7kCZricXwjcsSkFq1dvXY9Fm646FHdnnDM+/igfth8UNFFLaS3zOwr1TqQIS81D8LFtQ4CTVWPM17uExCMr9An7f1Yn8L0JqhZnrRntNEpB6reVaxB0OJU1kEo7rJqGQQwtMpGU55ED4Rfm2nVGW1Ox+ZNiXmsqbM1GS0T2byBGU+exnG2OZ+octIGSLOaQH/AzljmwG81eYhESZwbQrF6gzfTKecYVuiTJpnswtX+XKyCcvUf++76Vgr1s2p2MM7qoR3eVUmE91QfNDHL/ojhUupWGNvcZRUytmc3NEFToEeCI2w==
+ bh=4MlTd8S0t/iUanPDYRAUi8PnFgzagpPZhZiAUsMndsE=;
+ b=gwDGn3ITgC43f/iXjBMS4dMkrLH47ZltjHaiE2/Tawgz9h6+Bmq0cLZZPNp7txnl9AnTxHq9K2rJK5Zbq04Xcfj7969XqCvercDy/4lkHUOHUkFLpMnjvImIeHq+JGVhbgv0JVZPOnezv5gYrYys8wq33U5p7ZKKOPj6gP70E0qv3fOtpPFk5LLHNI2tKvwLEc9YC07Xw5N/W3fjDAVKF3RD2m2HqNV3FPIy8oe6silEKAakWomvHQjoClZ4ZuBy3oiomOi0k/ULRjfA85SvsSYRjuHgNLWg2yNBB7qSe1kfeVpOI2miFI2zWAqIJ+gEDUeL6K/vMZU9mgk9aYvUWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MUTR8wdsM1PQyLlYVWlGhanQP7nRFe+zXrv2zO2iGio=;
- b=40KlFMXZhu3pv1m3+7Vt4GvuhIf9lHJCSxmzttpVz9HT6gKax6UjkFt5IK90yXrsoKH/BENuW2+y9rJVgCPhZ8/adgjxZ2NX7ewcTerR8Lq3aI+svtfY4qhIcx6pZjFO4XVjoqqLpKn5399X2H7huku/cEzCLra0M6VM8NI7GRQ=
-Received: from DM6PR02CA0088.namprd02.prod.outlook.com (2603:10b6:5:1f4::29)
- by IA0PR12MB8714.namprd12.prod.outlook.com (2603:10b6:208:488::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=4MlTd8S0t/iUanPDYRAUi8PnFgzagpPZhZiAUsMndsE=;
+ b=FmltTSQGPlj19tsnVHQbpExFSq0KVqZGO9tp1Q2lejdb+euhLqZfyz6kMqaZnx7zeJEtIFuHDgOjtuh4UYvSnBEl0TRB0Al+kB7/QOkiF/8OLFYYGgUXP0dhKEzl2ymujnMxhBLs4h5E4xMcCv0/FQflkLiUqF1DN06Zh7hulRE=
+Received: from SA1PR05CA0004.namprd05.prod.outlook.com (2603:10b6:806:2d2::29)
+ by CH3PR12MB9121.namprd12.prod.outlook.com (2603:10b6:610:1a1::8)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Tue, 16 Dec
- 2025 09:57:58 +0000
-Received: from CH3PEPF00000013.namprd21.prod.outlook.com
- (2603:10b6:5:1f4:cafe::3f) by DM6PR02CA0088.outlook.office365.com
- (2603:10b6:5:1f4::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.13 via Frontend Transport; Tue,
+ 2025 09:57:57 +0000
+Received: from SN1PEPF00026367.namprd02.prod.outlook.com
+ (2603:10b6:806:2d2:cafe::bb) by SA1PR05CA0004.outlook.office365.com
+ (2603:10b6:806:2d2::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.6 via Frontend Transport; Tue,
  16 Dec 2025 09:57:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9456.0 via Frontend Transport; Tue, 16 Dec 2025 09:57:57 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9434.6 via Frontend Transport; Tue, 16 Dec 2025 09:57:56 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Dec
- 2025 03:57:51 -0600
+ 2025 03:57:55 -0600
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 16 Dec
- 2025 03:57:51 -0600
+ 2025 03:57:55 -0600
 Received: from chenyu-station.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 16 Dec 2025 01:57:48 -0800
+ Transport; Tue, 16 Dec 2025 01:57:52 -0800
 From: Chenyu Chen <chen-yu.chen@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,12 +70,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>, "Nicholas
+ <alex.hung@amd.com>, Dillon Varone <Dillon.Varone@amd.com>, "Nicholas
  Kazlauskas" <nicholas.kazlauskas@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 06/16] drm/amd/display: Fix and reenable
- UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL
-Date: Tue, 16 Dec 2025 17:56:06 +0800
-Message-ID: <20251216095723.39018-7-chen-yu.chen@amd.com>
+Subject: [PATCH 07/16] drm/amd/display: Consolidate dmub fb info to a single
+ struct
+Date: Tue, 16 Dec 2025 17:56:07 +0800
+Message-ID: <20251216095723.39018-8-chen-yu.chen@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251216095723.39018-1-chen-yu.chen@amd.com>
 References: <20251216095723.39018-1-chen-yu.chen@amd.com>
@@ -83,53 +84,53 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|IA0PR12MB8714:EE_
-X-MS-Office365-Filtering-Correlation-Id: 505ff3fd-bd4d-4464-1e65-08de3c899747
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|CH3PR12MB9121:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0cdadf78-de93-445c-40d4-08de3c8996a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hXjysdQvSMy2X87enRd+SxKD2dTFFFv28ckEhb7VNy1cU06Zz1S5Olt3TKK2?=
- =?us-ascii?Q?pG0EQOD/mmAQoTtsN9j6UiLwwDCKc2QSds75q622QpnvFAiFZIHyfB2mYGKt?=
- =?us-ascii?Q?X+aKKscc82UKRDQMnkEzTZ8xD3498Ct7TtKcsgpvxBc4YBD/RbVO/9ffYKMB?=
- =?us-ascii?Q?hlfcLhcs72PwwtpnywdZBK/VPpRXdAAk6wWD9XguQLC1ZtL5NH9bwDoiDR1S?=
- =?us-ascii?Q?M4+4PlcDVd/Z5vUteM3+D3s6I5/dF5A6GlrIzayhz2OPkppEAxE4PEBf/Jr1?=
- =?us-ascii?Q?E+ZZfi/+1kmuTx9M+VHNbRfABNF6COfdzICw6zaUaA4Aos86SBw2ry5ILnUi?=
- =?us-ascii?Q?NZbSetn/wRm66hE8DoSjJLQh7s98AErE5H399HyfnAC32as0uMwuhiG7MMGn?=
- =?us-ascii?Q?T86M71rJhcpXz/XOfixlELp7Uckjh66x7ZwwWGnXUnVlsYIbgmKFyaCL/yM3?=
- =?us-ascii?Q?hqgajGithc+9vhG66VxK7qFasw3RvS+l0h7N7Gov1CK63iq7XCj9K3GMCcY4?=
- =?us-ascii?Q?vFDdkKOj61tXmVK80YR3Q/bfQsvIYI5ChMP8Q4+b68wcaq8ZVuEQQs8O7jLs?=
- =?us-ascii?Q?Rn8yhbaYLhtjHdNgQGiU+SrQteq8OBCHqzZSYwNGqk6/eWCWCNw9khMkeFlU?=
- =?us-ascii?Q?/VkyYsXPno0kxq9FwR1hPgYsIFGlIgt4xXWqcQeADxbEZyvUUXwrR8ofj1Je?=
- =?us-ascii?Q?4X9CvamPgw0aM88kkKHI/ngxnpgiZSaBbN92hXKSff91k9mNy9JEwxeYl8/e?=
- =?us-ascii?Q?rATdOuA02jC1WHOqSGUedsOw4bmEPcUxzDhsoNn6uX8LWNHWVmg6i62J9Olw?=
- =?us-ascii?Q?QQ5IVBIG9FuXmEwKVfSZG4YIXblMWBuoc5GR4ecTaPVjNTbOVwxuFSD1duY2?=
- =?us-ascii?Q?Pf+xV0SFBQMLFgZjcDk9uf0rQAF2awHVnMSKyAi1ddM/OJVKuy5rOoK1kU2a?=
- =?us-ascii?Q?24FHJs4d1jhOqwAhNIo3qYFxJuXsikEPyO7WPTjRvPHx3edff77Aw3hjjeSC?=
- =?us-ascii?Q?8oJbDtuWHx8/lkL7fXxeWqdNaZd/zHtRk9I2zKLklxI7wtfvj9S0hq5iK1WT?=
- =?us-ascii?Q?nBQYl5UQZ/J7ncCM8AXPE+3lhlq8E27wRXO+bkCgQ4sKsLpMZuyy+Y3d7R92?=
- =?us-ascii?Q?TCsNRQKLYpHno+Vwc4iaZDTLiQ0WtbncxhXl8vTYz71YR0+PB5gU38kzP6pT?=
- =?us-ascii?Q?EvQoH5isYXtE+nosY77Yb28qG6aS+OIm6WY+uosM6qSHr31FtZjeV0pqCnBK?=
- =?us-ascii?Q?eIPDBIikbND45OWYeEtQl/zhfR4809GB3N5nxoxSMBt6+4WdSLTKMlqEK1b8?=
- =?us-ascii?Q?11gZp8ZYm2Zhi4pCt29CmM9kZ2MXW9qpQ1Dt7YcesTb0WD8K5QKFR0f7hkFA?=
- =?us-ascii?Q?/DdV4mmLuCW4Tdry9wKdq/ieezvmV/+gBKXJed0F2pPeCDgE2aPlWtKes7qG?=
- =?us-ascii?Q?1HymGq0pbVFmxK7s2hZDXOmsO72ifqOMd+BB0qjddnMYcf94RGzhbvRjVTCP?=
- =?us-ascii?Q?lW0AWPivW8nb/N5mSGZLj6LulkJkvFDob4oEZqYIaSe63EcajAsE18NJrHIQ?=
- =?us-ascii?Q?IUsxqUtCko/b4SjF2RM=3D?=
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?FDPev1fn3I1ZnDI+rZW+SXu0D2K1CVkUQSYuaMM9On9dLvwmqkvmmg8Lognu?=
+ =?us-ascii?Q?fwiykGTt0yMw+vkM9GHbxRzagk21LJv6JzHhD1FiVmhvHfn/MoAJZ4ivSniQ?=
+ =?us-ascii?Q?4vmVqgPS90/hy2H90r+8BspoEpKK73xprdgKmIxm4sBGQehoQmRaPg810JFQ?=
+ =?us-ascii?Q?NfNU3BSj1s3HJoYUFsqMARtSopvKl/kYjwB2GZunzVO29B/qjbJXDd+ATsuj?=
+ =?us-ascii?Q?JOaH2jeuEmcxT8JjwcVJp7YY0Hcwzluz162FVs9VrxNJYuwnYydnwmI92sce?=
+ =?us-ascii?Q?qkUd5yobz51KJrYOK4ZU1utmgote+HyaBsM+FKzeHp9VvgemW6lGPn28Hhek?=
+ =?us-ascii?Q?Piu01TRSqc7o2uwtgETuhkApZmjplk7UTEP1bMv2BjAGFRV81XSWrRdISZIt?=
+ =?us-ascii?Q?IJIlRdUVPP7g2W/bfWSIii2b1GG8kn2DJ+XgKuOW/31/EvvqaRUFoVpWdnTb?=
+ =?us-ascii?Q?S82bIpiqrb3iqhY048I1quRbgWiHTWsUEOwnB5s3NSuzjuAXq9KcfqyfF5xC?=
+ =?us-ascii?Q?u2vd5jnt2+MuZ2N5Nh+NkVtka9mbGGDaLKjDPtRPnA1+FIEzwdFTkP7sz0Pu?=
+ =?us-ascii?Q?Ae9BeFKSZYE5kpcYZp2BxcPAeWiUfk4vVJgq8IWpbejWKwNhGVs1bu88Bu50?=
+ =?us-ascii?Q?hghZU78bcGFwcTfwXkF3Hat4Erp93vSfnU1FW8phsx5W9dhP6MlNcUbbI5xq?=
+ =?us-ascii?Q?MxAbgrumiHrRSsaOQXkDZ8395p80xkgxky/V6oX7dFwHgOGEkgmaDbCjAHyj?=
+ =?us-ascii?Q?PziP7X/AvIgup27ondqaWfrGOsMiG2n20BJSc0Z+rvOOkb/yAf/2bi7hlkIi?=
+ =?us-ascii?Q?08RMfU4G1MmiaAdkgL3eRrhPCU0DZbRY4OfnrJ6BmJXkOrGPApF90oL8+nv9?=
+ =?us-ascii?Q?XRc+VB3/045jDUv8PuLd8GY7uZ7R0FpaVmet5WHsrUbhSOWNT3N4Xle8Y/1L?=
+ =?us-ascii?Q?LxNeFGDQ/8Khl0ztvrevhUkkXimbPF/O1vpYOex5y9ltW2SVu0HvtSspqeu9?=
+ =?us-ascii?Q?dqFvHSvnPDHKjAWmUvpErqMrT65K5glpV+rk3kqtD8KgTZWeFjLdAL0HXVxc?=
+ =?us-ascii?Q?6G+OGPup9dh2dyPuS8rJJqj0lyKqyZVxUwPTQi7YrL3FGamg4s+Z7L+ocBR9?=
+ =?us-ascii?Q?B3FCRdCBjDtyldHWv1QkPibwNk2jUTL/PrH0bMVMmM1gZsqkzDI++1u8YDst?=
+ =?us-ascii?Q?odwGVTC6H65UKNr6QYUBTM0NRJhLW5/LYDGp9iLGAf8h0ATNwksw8FupS812?=
+ =?us-ascii?Q?STQjH0xvmh+dMnpNA1rRau+Yjh4WXzxpl1aAZncVDewkrDMKrIqZOSOnlR+t?=
+ =?us-ascii?Q?vbviksF06uHBRZ6A3ftjHPnzyTG7gGEjEpVJgPI5I5bIJbRnRxZ7goORxXfG?=
+ =?us-ascii?Q?+sBCgDQ4HVWJwadwRNtcX3xPIV99v7hz485Lfa50mlLWlQ21Foy3mtGH/3z/?=
+ =?us-ascii?Q?K4sgmxu/uCl9F3qLT1YmmwYRLiaQADkdSpdSF01YX07BTvueDwMuIK0WMVCT?=
+ =?us-ascii?Q?1KOeexdTIHjVSW72vzx0s8+eYkDYmn4oG3jYlcRsH1toPoLF/DDCXLDP6zhH?=
+ =?us-ascii?Q?8mIYy5WG5tzscJfVGBo=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2025 09:57:57.9079 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 505ff3fd-bd4d-4464-1e65-08de3c899747
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2025 09:57:56.8547 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cdadf78-de93-445c-40d4-08de3c8996a7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000013.namprd21.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026367.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8714
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,202 +145,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dominik Kaszewski <dominik.kaszewski@amd.com>
+From: Dillon Varone <Dillon.Varone@amd.com>
 
-[Why]
-Reenable new split implementation, previously partially reverted due
-to issues with ODM on high-bandwidth displays 4k144Hz, resulting
-in a corrupted gray screen.
-
-Minimal flows require two separate commits, with extra intermediate
-commit to enable seamless transitions, each followed by a swap. Since
-new design requires commit to be run in execute and swap in cleanup
-stage, an attempt was made to reorder them from CSCS (Commit-Swap-Commit-Swap)
-to CCSS (Commit-Commit-Swap-Swap). Not only is this not viable, but
-was implemented incorrectly as CCS, one swap missing.
-
-[How]
-* Change UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_NEW/CURRENT to execute
-and cleanup one commit, then run UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS,
-which closely matches old implementation where minimal flows fall back
-to seamless.
-* Fix uninitialized variable error.
+[WHY&HOW]
+Consolidate dmub fb info into a single structure to simplify translation
+between components.
 
 Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Dominik Kaszewski <dominik.kaszewski@amd.com>
+Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
 Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 80 ++++++++++++------------
- 1 file changed, 39 insertions(+), 41 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  4 ++--
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h      | 16 ++++++++++++----
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c    |  6 +++---
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn30.c    |  6 +++---
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c    |  6 +++---
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c    |  6 +++---
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn35.c    |  6 +++---
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn401.c   |  6 +++---
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c  |  3 +--
+ 9 files changed, 33 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 1be5c1c15798..57f6a4c8afff 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -784,7 +784,7 @@ bool dc_stream_get_crc(struct dc *dc, struct dc_stream_state *stream, uint8_t id
- 		       uint32_t *r_cr, uint32_t *g_y, uint32_t *b_cb)
- {
- 	int i;
--	struct pipe_ctx *pipe;
-+	struct pipe_ctx *pipe = NULL;
- 	struct timing_generator *tg;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0346052f2e57..d66854e7f18f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1336,8 +1336,8 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
  
- 	dc_exit_ips_for_hw_access(dc);
-@@ -5437,35 +5437,23 @@ bool dc_update_planes_and_stream(struct dc *dc,
- 		struct dc_stream_state *stream,
- 		struct dc_stream_update *stream_update)
- {
--	bool ret = false;
-+	struct dc_update_scratch_space *scratch = dc_update_planes_and_stream_init(
-+			dc,
-+			srf_updates,
-+			surface_count,
-+			stream,
-+			stream_update
-+	);
-+	bool more = true;
+ 	/* Initialize hardware. */
+ 	memset(&hw_params, 0, sizeof(hw_params));
+-	hw_params.fb_base = adev->gmc.fb_start;
+-	hw_params.fb_offset = adev->vm_manager.vram_base_offset;
++	hw_params.soc_fb_info.fb_base = adev->gmc.fb_start;
++	hw_params.soc_fb_info.fb_offset = adev->vm_manager.vram_base_offset;
  
--	dc_exit_ips_for_hw_access(dc);
--	/*
--	 * update planes and stream version 3 separates FULL and FAST updates
--	 * to their own sequences. It aims to clean up frequent checks for
--	 * update type resulting unnecessary branching in logic flow. It also
--	 * adds a new commit minimal transition sequence, which detects the need
--	 * for minimal transition based on the actual comparison of current and
--	 * new states instead of "predicting" it based on per feature software
--	 * policy.i.e could_mpcc_tree_change_for_active_pipes. The new commit
--	 * minimal transition sequence is made universal to any power saving
--	 * features that would use extra free pipes such as Dynamic ODM/MPC
--	 * Combine, MPO or SubVp. Therefore there is no longer a need to
--	 * specially handle compatibility problems with transitions among those
--	 * features as they are now transparent to the new sequence.
--	 */
--	if (dc->ctx->dce_version >= DCN_VERSION_4_01 || dc->ctx->dce_version == DCN_VERSION_3_2 ||
--			dc->ctx->dce_version == DCN_VERSION_3_21)
--		ret = update_planes_and_stream_v3(dc, srf_updates,
--				surface_count, stream, stream_update);
--	else
--		ret = update_planes_and_stream_v2(dc, srf_updates,
--			surface_count, stream, stream_update);
--	if (ret && (dc->ctx->dce_version >= DCN_VERSION_3_2 ||
--		dc->ctx->dce_version == DCN_VERSION_3_01))
--		clear_update_flags(srf_updates, surface_count, stream);
-+	while (more) {
-+		if (!dc_update_planes_and_stream_prepare(scratch))
-+			return false;
+ 	/* backdoor load firmware and trigger dmub running */
+ 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index 12c1f9f7115a..3b6bba017040 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -307,6 +307,16 @@ struct dmub_srv_fb_info {
+ 	struct dmub_fb fb[DMUB_WINDOW_TOTAL];
+ };
  
--	return ret;
-+		dc_update_planes_and_stream_execute(scratch);
-+		more = dc_update_planes_and_stream_cleanup(scratch);
-+	}
-+	return true;
- }
- 
- void dc_commit_updates_for_stream(struct dc *dc,
-@@ -7241,7 +7229,7 @@ static bool update_planes_and_stream_cleanup_v2(
- 	return false;
- }
- 
--static void update_planes_and_stream_cleanup_v3_intermediate(
-+static void update_planes_and_stream_cleanup_v3_release_minimal(
- 		struct dc_update_scratch_space *scratch,
- 		bool backup
- );
-@@ -7262,6 +7250,10 @@ static bool update_planes_and_stream_prepare_v3(
- 		struct dc_update_scratch_space *scratch
- )
- {
-+	if (scratch->flow == UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS) {
-+		return true;
-+	}
-+	ASSERT(scratch->flow == UPDATE_V3_FLOW_INVALID);
- 	dc_exit_ips_for_hw_access(scratch->dc);
- 
- 	if (!update_planes_and_stream_state(
-@@ -7327,11 +7319,11 @@ static bool update_planes_and_stream_prepare_v3(
- 			return true;
- 		}
- 
--		update_planes_and_stream_cleanup_v3_intermediate(scratch, false);
-+		update_planes_and_stream_cleanup_v3_release_minimal(scratch, false);
- 	}
- 
--	restore_planes_and_stream_state(&scratch->dc->scratch.current_state, scratch->stream);
- 	scratch->backup_context = scratch->dc->current_state;
-+	restore_planes_and_stream_state(&scratch->dc->scratch.current_state, scratch->stream);
- 	dc_state_retain(scratch->backup_context);
- 	scratch->intermediate_context = create_minimal_transition_state(
- 			scratch->dc,
-@@ -7347,7 +7339,7 @@ static bool update_planes_and_stream_prepare_v3(
- 			return true;
- 		}
- 
--		update_planes_and_stream_cleanup_v3_intermediate(scratch, true);
-+		update_planes_and_stream_cleanup_v3_release_minimal(scratch, true);
- 	}
- 
- 	scratch->flow = UPDATE_V3_FLOW_INVALID;
-@@ -7398,12 +7390,10 @@ static void update_planes_and_stream_execute_v3(
- 
- 	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_NEW:
- 		update_planes_and_stream_execute_v3_commit(scratch, false, true);
--		update_planes_and_stream_execute_v3_commit(scratch, false, false);
- 		break;
- 
- 	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_CURRENT:
- 		update_planes_and_stream_execute_v3_commit(scratch, true, true);
--		update_planes_and_stream_execute_v3_commit(scratch, false, false);
- 		break;
- 
- 	case UPDATE_V3_FLOW_INVALID:
-@@ -7419,7 +7409,7 @@ static void update_planes_and_stream_cleanup_v3_new_context(
- 	swap_and_release_current_context(scratch->dc, scratch->new_context, scratch->stream);
- }
- 
--static void update_planes_and_stream_cleanup_v3_intermediate(
-+static void update_planes_and_stream_cleanup_v3_release_minimal(
- 		struct dc_update_scratch_space *scratch,
- 		bool backup
- )
-@@ -7432,6 +7422,16 @@ static void update_planes_and_stream_cleanup_v3_intermediate(
- 	);
- }
- 
-+static void update_planes_and_stream_cleanup_v3_intermediate(
-+		struct dc_update_scratch_space *scratch,
-+		bool backup
-+)
-+{
-+	swap_and_release_current_context(scratch->dc, scratch->intermediate_context, scratch->stream);
-+	dc_state_retain(scratch->dc->current_state);
-+	update_planes_and_stream_cleanup_v3_release_minimal(scratch, backup);
-+}
++/**
++ * struct dmub_soc_fb_info - relevant addresses from the frame buffer
++ * @fb_base: base of the framebuffer aperture
++ * @fb_offset: offset of the framebuffer aperture
++ */
++struct dmub_soc_fb_info {
++	uint64_t fb_base;
++	uint64_t fb_offset;
++};
 +
- static bool update_planes_and_stream_cleanup_v3(
- 		struct dc_update_scratch_space *scratch
- )
-@@ -7448,17 +7448,15 @@ static bool update_planes_and_stream_cleanup_v3(
+ /*
+  * struct dmub_srv_hw_params - params for dmub hardware initialization
+  * @fb: framebuffer info for each region
+@@ -317,8 +327,7 @@ struct dmub_srv_fb_info {
+  */
+ struct dmub_srv_hw_params {
+ 	struct dmub_fb *fb[DMUB_WINDOW_TOTAL];
+-	uint64_t fb_base;
+-	uint64_t fb_offset;
++	struct dmub_soc_fb_info soc_fb_info;
+ 	uint32_t psp_version;
+ 	bool load_inst_const;
+ 	bool skip_panel_power_sequence;
+@@ -610,8 +619,7 @@ struct dmub_srv {
+ 	bool hw_init;
+ 	bool dpia_supported;
  
- 	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_NEW:
- 		update_planes_and_stream_cleanup_v3_intermediate(scratch, false);
--		update_planes_and_stream_cleanup_v3_new_context(scratch);
--		break;
-+		scratch->flow = UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS;
-+		return true;
+-	uint64_t fb_base;
+-	uint64_t fb_offset;
++	struct dmub_soc_fb_info soc_fb_info;
+ 	uint32_t psp_version;
  
- 	case UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL_CURRENT:
--		swap_and_release_current_context(scratch->dc, scratch->intermediate_context, scratch->stream);
--		dc_state_retain(scratch->dc->current_state);
- 		update_planes_and_stream_cleanup_v3_intermediate(scratch, true);
- 		dc_state_release(scratch->backup_context);
- 		restore_planes_and_stream_state(&scratch->dc->scratch.new_state, scratch->stream);
--		update_planes_and_stream_cleanup_v3_new_context(scratch);
--		break;
-+		scratch->flow = UPDATE_V3_FLOW_NEW_CONTEXT_SEAMLESS;
-+		return true;
+ 	/* Feature capabilities reported by fw */
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
+index 73888c1bea93..54df2147e4dc 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
+@@ -63,9 +63,9 @@ static void dmub_dcn20_get_fb_base_offset(struct dmub_srv *dmub,
+ {
+ 	uint32_t tmp;
  
- 	case UPDATE_V3_FLOW_INVALID:
- 	default:
+-	if (dmub->fb_base || dmub->fb_offset) {
+-		*fb_base = dmub->fb_base;
+-		*fb_offset = dmub->fb_offset;
++	if (dmub->soc_fb_info.fb_base || dmub->soc_fb_info.fb_offset) {
++		*fb_base = dmub->soc_fb_info.fb_base;
++		*fb_offset = dmub->soc_fb_info.fb_offset;
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
+index a4abe951c838..84a6eb3f677d 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
+@@ -63,9 +63,9 @@ static void dmub_dcn30_get_fb_base_offset(struct dmub_srv *dmub,
+ {
+ 	uint32_t tmp;
+ 
+-	if (dmub->fb_base || dmub->fb_offset) {
+-		*fb_base = dmub->fb_base;
+-		*fb_offset = dmub->fb_offset;
++	if (dmub->soc_fb_info.fb_base || dmub->soc_fb_info.fb_offset) {
++		*fb_base = dmub->soc_fb_info.fb_base;
++		*fb_offset = dmub->soc_fb_info.fb_offset;
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+index cd04d7c756c3..a0cefc03b21d 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+@@ -59,9 +59,9 @@ static void dmub_dcn31_get_fb_base_offset(struct dmub_srv *dmub,
+ {
+ 	uint32_t tmp;
+ 
+-	if (dmub->fb_base || dmub->fb_offset) {
+-		*fb_base = dmub->fb_base;
+-		*fb_offset = dmub->fb_offset;
++	if (dmub->soc_fb_info.fb_base || dmub->soc_fb_info.fb_offset) {
++		*fb_base = dmub->soc_fb_info.fb_base;
++		*fb_offset = dmub->soc_fb_info.fb_offset;
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
+index 7e9856289910..2f99a2772599 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
+@@ -65,9 +65,9 @@ static void dmub_dcn32_get_fb_base_offset(struct dmub_srv *dmub,
+ {
+ 	uint32_t tmp;
+ 
+-	if (dmub->fb_base || dmub->fb_offset) {
+-		*fb_base = dmub->fb_base;
+-		*fb_offset = dmub->fb_offset;
++	if (dmub->soc_fb_info.fb_base || dmub->soc_fb_info.fb_offset) {
++		*fb_base = dmub->soc_fb_info.fb_base;
++		*fb_offset = dmub->soc_fb_info.fb_offset;
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
+index e13557ed97be..6a2d35756c8c 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
+@@ -63,9 +63,9 @@ static void dmub_dcn35_get_fb_base_offset(struct dmub_srv *dmub,
+ 	uint32_t tmp;
+ 
+ 	/*
+-	if (dmub->fb_base || dmub->fb_offset) {
+-		*fb_base = dmub->fb_base;
+-		*fb_offset = dmub->fb_offset;
++	if (dmub->soc_fb_info.fb_base || dmub->soc_fb_info.fb_offset) {
++		*fb_base = dmub->soc_fb_info.fb_base;
++		*fb_offset = dmub->soc_fb_info.fb_offset;
+ 		return;
+ 	}
+ 	*/
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c
+index 95542299e3b3..16ed07f0e96d 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn401.c
+@@ -39,9 +39,9 @@ static void dmub_dcn401_get_fb_base_offset(struct dmub_srv *dmub,
+ {
+ 	uint32_t tmp;
+ 
+-	if (dmub->fb_base || dmub->fb_offset) {
+-		*fb_base = dmub->fb_base;
+-		*fb_offset = dmub->fb_offset;
++	if (dmub->soc_fb_info.fb_base || dmub->soc_fb_info.fb_offset) {
++		*fb_base = dmub->soc_fb_info.fb_base;
++		*fb_offset = dmub->soc_fb_info.fb_offset;
+ 		return;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index be893531ae7d..019eb005bba8 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -709,8 +709,7 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
+ 		}
+ 	}
+ 
+-	dmub->fb_base = params->fb_base;
+-	dmub->fb_offset = params->fb_offset;
++	memcpy(&dmub->soc_fb_info, &params->soc_fb_info, sizeof(params->soc_fb_info));
+ 	dmub->psp_version = params->psp_version;
+ 
+ 	if (dmub->hw_funcs.reset)
 -- 
 2.43.0
 
