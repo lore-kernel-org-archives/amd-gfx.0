@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21709D64093
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 09:03:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 825BAD64095
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 09:05:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DEC710E58A;
-	Wed, 17 Dec 2025 09:03:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFB610E592;
+	Wed, 17 Dec 2025 09:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="tZ6QGRob";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="kNoosXG7";
 	dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE74910E585
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 09:03:35 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BH178re014417;
- Wed, 17 Dec 2025 09:03:33 GMT
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE6AE10E71D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 09:05:01 +0000 (UTC)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BH7iv3a012679;
+ Wed, 17 Dec 2025 09:05:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=OyLrUq
- CNH9ViqXpnJZJu1xYEOhC9U/Qc3yjD/pWxOT8=; b=tZ6QGRobYIduUmWcPWoJTq
- nKN/ZdGUi+8RzUGOU2zgfWEJ7LpQCjdw1C8qIfZvpQasVzsYhz86dLR2dbh0gCBu
- M2Ya/grK8gLgB3umsRhya5LbeljvWqFUh4BsDE1RY+IsOaCd5kP/3J8TpthbnO2s
- wwwclOzYe4f/lNGDpkZ4KqZOWQ3NcfjZUm5nBPZbCSFKHYfQGlELBrAsfWiEOJwy
- b7570cX8Z/LzFohrN9nPiubah+Cy0vlVyZUPeDXlgFZRwE3droaGgBJAvbXREC43
- 0edpNvmg0Pr63r4sYLQEPJ4jSEaeYZD9C43ukLwU8Z3f61JnjnOt4maBn3Lrh3fg
+ :message-id:mime-version:references:subject:to; s=pp1; bh=RxF7zF
+ L2/8p4bPpKESwlr5dbV2DJmsbLTJtpTaB0zt4=; b=kNoosXG7Gg/WiWnkd79wDq
+ tNs1XXJt31yH/vYNwNtw1u7D/KygXY9jj9gwoJY0tsS3G8Br+ScFmElGiZIhcmv1
+ GkHquTqR89tbOdQ0HWhEVm0sP4xdGAJoz58WGfg9mWwDwbTx6C/JMdUcsKmTy+4r
+ z+XXoDgH14OcmFfviVHg/Z0B9iUN5Bd3FWrbejF2xEdN9TZ8mRZwmfK9n4QJj7jZ
+ isnFASyueTq8JYBnWxs9wDP+GgT9XdIgGzPFMm1eFVCNCPrqAeBdZpaSWj4DbiWN
+ snrbDzS2UP0gg0PgKN4/jc3WOpvJ6aXC4rcH4Z9fFY+PkBw2+Vc82wJ/+5Yhb8Pw
  ==
 Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0yn8m2sv-1
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0ytvbyvy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Dec 2025 09:03:33 +0000 (GMT)
-Received: from m0360083.ppops.net (m0360083.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BH93WeM020554;
- Wed, 17 Dec 2025 09:03:32 GMT
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0yn8m2sr-1
+ Wed, 17 Dec 2025 09:05:00 +0000 (GMT)
+Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BH90l6g022000;
+ Wed, 17 Dec 2025 09:04:59 GMT
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0ytvbyvr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Dec 2025 09:03:32 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BH7TL56014318;
- Wed, 17 Dec 2025 09:03:31 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4b1mpk11y7-1
+ Wed, 17 Dec 2025 09:04:59 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BH6Kx6k012800;
+ Wed, 17 Dec 2025 09:04:58 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4b1juy9gkr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Dec 2025 09:03:31 +0000
+ Wed, 17 Dec 2025 09:04:58 +0000
 Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com
  [10.241.53.103])
- by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5BH93UFn32571958
+ by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 5BH94vfG52888062
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 17 Dec 2025 09:03:30 GMT
+ Wed, 17 Dec 2025 09:04:57 GMT
 Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9136C58052;
- Wed, 17 Dec 2025 09:03:30 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 1212058066;
+ Wed, 17 Dec 2025 09:04:57 +0000 (GMT)
 Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 07CE558056;
- Wed, 17 Dec 2025 09:03:27 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id D451058065;
+ Wed, 17 Dec 2025 09:04:53 +0000 (GMT)
 Received: from [9.39.19.148] (unknown [9.39.19.148])
  by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
- Wed, 17 Dec 2025 09:03:26 +0000 (GMT)
-Message-ID: <1f2a0b14-9cff-40cd-bdbc-71fae06c34b1@linux.ibm.com>
-Date: Wed, 17 Dec 2025 14:33:24 +0530
+ Wed, 17 Dec 2025 09:04:53 +0000 (GMT)
+Message-ID: <d677a973-e17a-4057-a4b1-af16925243be@linux.ibm.com>
+Date: Wed, 17 Dec 2025 14:34:52 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH v1 0/8] amdgpu/amdkfd: Add support for non-4K page
  size systems
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
  amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Kent.Russell@amd.com,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
@@ -82,38 +82,37 @@ References: <cover.1765519875.git.donettom@linux.ibm.com>
  <1f10b67a-ffdc-4962-af52-758247569e09@amd.com>
  <CADnq5_NbDzqucujDyW009+55mLXZz2PiyaSd9PKXXeXv4pYn0Q@mail.gmail.com>
  <996ef75a-71b3-4ba7-a255-40516c5e9acd@amd.com>
- <CADnq5_PvMm0hqqFTmDONEoYnUiHSCTZWUVkcf_PoFP3jDXuCKA@mail.gmail.com>
- <bed34fa1-5971-416a-a3d4-7824d0387e02@linux.ibm.com>
- <CADnq5_Owfg0fG5mUo7NDZUNeB+QNas2EL+sK=42_deVSxiGfQQ@mail.gmail.com>
+ <444bfeba-deae-4f7b-84d7-29048256b69d@linux.ibm.com>
+ <50dee2c9-bcfc-462b-bf46-f110a082e2d3@amd.com>
+ <45654396-6b21-4599-aeb9-0fed68135675@linux.ibm.com>
+ <a25b3fc8-4a13-49c6-8011-9830a53cf3c9@amd.com>
 Content-Language: en-US
 From: Donet Tom <donettom@linux.ibm.com>
-In-Reply-To: <CADnq5_Owfg0fG5mUo7NDZUNeB+QNas2EL+sK=42_deVSxiGfQQ@mail.gmail.com>
+In-Reply-To: <a25b3fc8-4a13-49c6-8011-9830a53cf3c9@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjEzMDAxOCBTYWx0ZWRfXwPtCcWNjii/R
- IH/yffZ5Xn6U9eHxY+ON/Xqj0GMhzdRDZEBQPrBi9XcnHC2ZP4LE1+wnPtmIYwWaUs1JRR/Kv5I
- 8HmwD7g/iQxRHD6XTfuLXd3HGfAeE0vWRcYdoC6vzE8Ox+zVATB4RMSSU9F3e0FsG+Zf/500EXb
- C8/2yA9Ij7hwhdUKZEU8b9fmtUORp7b3cNtMPXsO14apoAeBBoAVWAnJS9nYnaRMrcwYPEqgLRO
- noBh5UoIJz0JE01F1b6pNhcr5KIx1ZAJHI7cPaMiOEboh5989s2hCcbDBGD4AX2sPdIX9cFfyh9
- T0kr7NVLhMkslHnJZc2FNlA4+O3KPOU7JRgGnkWH03qm+kIL6pat0VEKefnuvaA6PykAVMiK3XH
- jS1wfzipdp8K0eMw299jwnuMXOtXRw==
-X-Proofpoint-GUID: s14wJW2t5-lhHeTA3NYPi3waILgdKkGd
-X-Proofpoint-ORIG-GUID: xgzymJCMQWXMUBunGp1kzGVSpcTftlfr
-X-Authority-Analysis: v=2.4 cv=LbYxKzfi c=1 sm=1 tr=0 ts=694271e5 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjEzMDAyMyBTYWx0ZWRfX83Kvt4cAy+Tm
+ EMJQxcz4FqVn1podSIwCRGIoe3VCIB1wgngEf/1Lu1CAhFMgCrKOswKabB6voeAGLVO4JExma6J
+ ABeKW3W8b4Ak4YXArstu23bHuRlqQRIG2x9Oajj+hTSOxyA1adcuhGZUgroTRXwBtXhSduPZWlc
+ /dxgLM+dH/hydlzabX0dP1hikBAO+qXlpkWCrl/TPfL0pPfdBj7Vn4dgBeGdmMETnLgpPuQ3NPC
+ 1Tk++PniA4Kyibd/DxgVTVGtEnM5v2P1Y/uKd6paNTqtGGGU7sre9jw+bNnvSUEzLKS4G8uwo6w
+ muYdoAXbp8/dWO3jzdsSm14WVERfC8nVYSbOWz60M6asSLL5p6jPwJnN7sNTE/Q6VULQiALtjsW
+ 7QWpqee4LMJA7OwhD+LtUfAwLUIoiw==
+X-Proofpoint-ORIG-GUID: r1JY2RETZIg0r-rvL7r48Ui4CkHnmCaz
+X-Authority-Analysis: v=2.4 cv=QtRTHFyd c=1 sm=1 tr=0 ts=6942723c cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
  a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=NEAV23lmAAAA:8 a=VnNF1IyMAAAA:8 a=zd2uoN0lAAAA:8 a=fSlJ9ulIoR0CtGt3cwQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=y_DjlmFtwXc1XXJwBUgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: h2S7nz45SGRJMFQiPnbARF64dVkpxo00
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-17_01,2025-12-16_05,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 phishscore=0 clxscore=1015 suspectscore=0
- adultscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2510240000
- definitions=main-2512130018
+ phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512130023
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,196 +128,72 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 12/16/25 7:32 PM, Alex Deucher wrote:
-> On Tue, Dec 16, 2025 at 8:55 AM Donet Tom <donettom@linux.ibm.com> wrote:
->>
->> On 12/15/25 7:39 PM, Alex Deucher wrote:
->>> On Mon, Dec 15, 2025 at 4:47 AM Christian König
->>> <christian.koenig@amd.com> wrote:
->>>> On 12/12/25 18:24, Alex Deucher wrote:
->>>>> On Fri, Dec 12, 2025 at 8:19 AM Christian König
->>>>> <christian.koenig@amd.com> wrote:
->>>>>> On 12/12/25 11:45, Ritesh Harjani (IBM) wrote:
->>>>>>> Christian König <christian.koenig@amd.com> writes:
->>>>>>>>> Setup details:
->>>>>>>>> ============
->>>>>>>>> System details: Power10 LPAR using 64K pagesize.
->>>>>>>>> AMD GPU:
->>>>>>>>>     Name:                    gfx90a
->>>>>>>>>     Marketing Name:          AMD Instinct MI210
->>>>>>>>>
->>>>>>>>> Queries:
->>>>>>>>> =======
->>>>>>>>> 1. We currently ran rocr-debug agent tests [1]  and rccl unit tests [2] to test
->>>>>>>>>      these changes. Is there anything else that you would suggest us to run to
->>>>>>>>>      shake out any other page size related issues w.r.t the kernel driver?
->>>>>>>> The ROCm team needs to answer that.
->>>>>>>>
->>>>>>> Is there any separate mailing list or list of people whom we can cc
->>>>>>> then?
->>>>>> With Felix on CC you already got the right person, but he's on vacation and will not be back before the end of the year.
->>>>>>
->>>>>> I can check on Monday if some people are still around which could answer a couple of questions, but in general don't expect a quick response.
->>>>>>
->>>>>>>>> 2. Patch 1/8: We have a querry regarding eop buffer size Is this eop ring buffer
->>>>>>>>>      size HW dependent? Should it be made PAGE_SIZE?
->>>>>>>> Yes and no.
->>>>>>>>
->>>>>>> If you could more elaborate on this please? I am assuming you would
->>>>>>> anyway respond with more context / details on Patch-1 itself. If yes,
->>>>>>> that would be great!
->>>>>> Well, in general the EOP (End of Pipe) buffer contains in a ring buffer of all the events and actions the CP should execute when shaders and cache flushes finish.
->>>>>>
->>>>>> The size depends on the HW generation and configuration of the GPU etc..., but don't ask me for details how that is calculated.
->>>>>>
->>>>>> The point is that the size is completely unrelated to the CPU, so using PAGE_SIZE is clearly incorrect.
->>>>>>
->>>>>>>>> 3. Patch 5/8: also have a query w.r.t the error paths when system page size > 4K.
->>>>>>>>>      Do we need to lift this restriction and add MMIO remap support for systems with
->>>>>>>>>      non-4K page sizes?
->>>>>>>> The problem is the HW can't do this.
->>>>>>>>
->>>>>>> We aren't that familiar with the HW / SW stack here. Wanted to understand
->>>>>>> what functionality will be unsupported due to this HW limitation then?
->>>>>> The problem is that the CPU must map some of the registers/resources of the GPU into the address space of the application and you run into security issues when you map more than 4k at a time.
->>>>> Right.  There are some 4K pages with the MMIO register BAR which are
->>>>> empty and registers can be remapped into them.  In this case we remap
->>>>> the HDP flush registers into one of those register pages.  This allows
->>>>> applications to flush the HDP write FIFO from either the CPU or
->>>>> another device.  This is needed to flush data written by the CPU or
->>>>> another device to the VRAM BAR out to VRAM (i.e., so the GPU can see
->>>>> it).  This is flushed internally as part of the shader dispatch
->>>>> packets,
->>>> As far as I know this is only done for graphics shader submissions to the classic CS interface, but not for compute dispatches through ROCm queues.
->>> There is an explicit PM4 packet to flush the HDP cache for userqs and
->>> for AQL the flush is handled via one of the flags in the dispatch
->>> packet.  The MMIO remap is needed for more fine grained use cases
->>> where you might have the CPU or another device operating in a gang
->>> like scenario with the GPU.
->>
->> Thank you, Alex.
->>
->> We were encountering an issue while running the RCCL unit tests. With 2
->> GPUs, all tests passed successfully; however, when running with more
->> than 2 GPUs, the tests began to fail at random points with the following
->> errors:
->>
->> [  598.576821] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for
->> queue with doorbell_id: 80030008
->> [  606.696820] amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
->> [  606.696826] amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
->> [  610.696852] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for
->> queue with doorbell_id: 80030008
->> [  610.696869] amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
->> [  610.696942] amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
->>
->>
->> After applying patches 7/8 and 8/8, we are no longer seeing this issue.
->>
->> One question I have is: we only started observing this problem when the
->> number of GPUs increased. Could this be related to MMIO remapping not
->> being available?
-> It could be.  E.g., if the CPU or a GPU writes data to VRAM on another
-> GPU, you will need to flush the HDP to make sure that data hits VRAM
-> before the GPU attached to the VRAM can see it.
-
-
-Thanks Alex
-
-I am now suspecting that the queue preemption issue may be related to 
-the unavailability of MMIO remapping. I am not very familiar with this area.
-
-Could you please point me to the relevant code path where the PM4 packet 
-is issued to flush the HDP cache?
-
-I am consistently able to reproduce this issue on my system when using 
-more than three GPUs if patches 7/8 and 8/8 are not applied. In your 
-opinion, is there anything that can be done to speed up the HDP flush or 
-to avoid this situation altogether?
-
-
-
->
-> Alex
->
->>
->>> Alex
+On 12/16/25 9:36 PM, Christian König wrote:
+> On 12/16/25 11:08, Donet Tom wrote:
+>>> The GPU page tables are 4k in size no matter what the CPU page size is and there is some special handling so that we can allocate them even under memory pressure. Background is that you sometimes need to split up higher order pages (1G, 2M) into lower order pages (2M, 4k) to be able to swap things to system memory for example and for that you need some an extra layer of page tables.
 >>>
->>>> That's the reason why ROCm needs the remapped MMIO register BAR.
->>>>
->>>>> but there are certain cases where an application may want
->>>>> more control.  This is probably not a showstopper for most ROCm apps.
->>>> Well the problem is that you absolutely need the HDP flush/invalidation for 100% correctness. It does work most of the time without it, but you then risk data corruption.
->>>>
->>>> Apart from making the flush/invalidate an IOCTL I think we could also just use a global dummy page in VRAM.
->>>>
->>>> If you make two 32bit writes which are apart from each other and then a read back a 32bit value from VRAM that should invalidate the HDP as well. It's less efficient than the MMIO BAR remap but still much better than going though an IOCTL.
->>>>
->>>> The only tricky part is that you need to get the HW barriers with the doorbell write right.....
->>>>
->>>>> That said, the region is only 4K so if you allow applications to map a
->>>>> larger region they would get access to GPU register pages which they
->>>>> shouldn't have access to.
->>>> But don't we also have problems with the doorbell? E.g. the global aggregated one needs to be 4k as well, or is it ok to over allocate there?
->>>>
->>>> Thinking more about it there is also a major problem with page tables. Those are 4k by default on modern systems as well and while over allocating them to 64k is possible that not only wastes some VRAM but can also result in OOM situations because we can't allocate the necessary page tables to switch from 2MiB to 4k pages in some cases.
->>>>
->>>> Christian.
->>>>
->>>>> Alex
->>>>>
->>>>>>>>> [1] ROCr debug agent tests: https://github.com/ROCm/rocr_debug_agent
->>>>>>>>> [2] RCCL tests: https://github.com/ROCm/rccl/tree/develop/test
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> Please note that the changes in this series are on a best effort basis from our
->>>>>>>>> end. Therefore, requesting the amd-gfx community (who have deeper knowledge of the
->>>>>>>>> HW & SW stack) to kindly help with the review and provide feedback / comments on
->>>>>>>>> these patches. The idea here is, to also have non-4K pagesize (e.g. 64K) well
->>>>>>>>> supported with amd gpu kernel driver.
->>>>>>>> Well this is generally nice to have, but there are unfortunately some HW limitations which makes ROCm pretty much unusable on non 4k page size systems.
->>>>>>> That's a bummer :(
->>>>>>> - Do we have some HW documentation around what are these limitations around non-4K pagesize? Any links to such please?
->>>>>> You already mentioned MMIO remap which obviously has that problem, but if I'm not completely mistaken the PCIe doorbell BAR and some global seq counter resources will also cause problems here.
->>>>>>
->>>>>> This can all be worked around by delegating those MMIO accesses into the kernel, but that means tons of extra IOCTL overhead.
->>>>>>
->>>>>> Especially the cache flushes which are necessary to avoid corruption are really bad for performance in such an approach.
->>>>>>
->>>>>>> - Are there any latest AMD GPU versions which maybe lifts such restrictions?
->>>>>> Not that I know off any.
->>>>>>
->>>>>>>> What we can do is to support graphics and MM, but that should already work out of the box.
->>>>>>>>
->>>>>>> - Maybe we should also document, what will work and what won't work due to these HW limitations.
->>>>>> Well pretty much everything, I need to double check how ROCm does HDP flushing/invalidating when the MMIO remap isn't available.
->>>>>>
->>>>>> Could be that there is already a fallback path and that's the reason why this approach actually works at all.
->>>>>>
->>>>>>>> What we can do is to support graphics and MM, but that should already work out of the box.>
->>>>>>> So these patches helped us resolve most of the issues like SDMA hangs
->>>>>>> and GPU kernel page faults which we saw with rocr and rccl tests with
->>>>>>> 64K pagesize. Meaning, we didn't see this working out of box perhaps
->>>>>>> due to 64K pagesize.
->>>>>> Yeah, but this is all for ROCm and not the graphics side.
->>>>>>
->>>>>> To be honest I'm not sure how ROCm even works when you have 64k pages at the moment. I would expect much more issue lurking in the kernel driver.
->>>>>>
->>>>>>> AFAIU, some of these patches may require re-work based on reviews, but
->>>>>>> at least with these changes, we were able to see all the tests passing.
->>>>>>>
->>>>>>>> I need to talk with Alex and the ROCm team about it if workarounds can be implemented for those issues.
->>>>>>>>
->>>>>>> Thanks a lot! That would be super helpful!
->>>>>>>
->>>>>>>
->>>>>>>> Regards,
->>>>>>>> Christian.
->>>>>>>>
->>>>>>> Thanks again for the quick response on the patch series.
->>>>>> You are welcome, but since it's so near to the end of the year not all people are available any more.
->>>>>>
->>>>>> Regards,
->>>>>> Christian.
->>>>>>
->>>>>>> -ritesh
+>>> The problem is now that those 4k pages are rounded up to your CPU page size, resulting in both wasting quite some memory as well as messing up the special handling to not run into OOM situations when swapping things to system memory....
+>>>
+>>> What we could potentially do is to switch to 64k pages on the GPU as well (the HW is flexible enough to be re-configurable), but that is tons of changes and probably not easily testable.
+>>
+>> If possible, could you share the steps to change the hardware page size? I can try testing it on our system.
+> Just typing that down from the front of my head, so don't nail me for 100% correctness.
+>
+> Modern HW, e.g. gfx9/Vega and newer including all MI* products, has a maximum of 48bits of address space.
+>
+> Those 48bits are divided on multiple page directories (PD) and a leave page table (PT).
+>
+> IIRC vm_block_size module parameter controls the size of the PDs. If you set that to 13 instead of the default 9 you should already get 64k PDs instead of 4k PDs. But take that with a grain of salt I think we haven't tested that parameter in the last 10 years or so.
+>
+> Then each page directory entry on level 0 (PDE0) has a field called block fragment size (see AMDGPU_PDE_BFS for MI products). This controls to how much memory each page table entry (PTE) finally points to.
+>
+> So putting it all together you should be able to have a configuration with two levels PDs, each covering 13 bits of address space and 64k in size, plus a PT covering 18bits of address space and 2M in size where each PTE points to a 64k block.
+>
+> Here are the relevant bits from function amdgpu_vm_adjust_size():
+> ...
+>          tmp = roundup_pow_of_two(adev->vm_manager.max_pfn);
+>          if (amdgpu_vm_block_size != -1)
+>                  tmp >>= amdgpu_vm_block_size - 9;
+>          tmp = DIV_ROUND_UP(fls64(tmp) - 1, 9) - 1;
+>          adev->vm_manager.num_level = min_t(unsigned int, max_level, tmp);
+>          switch (adev->vm_manager.num_level) {
+>          case 3:
+>                  adev->vm_manager.root_level = AMDGPU_VM_PDB2;
+>                  break;
+>          case 2:
+>                  adev->vm_manager.root_level = AMDGPU_VM_PDB1;
+>                  break;
+>          case 1:
+>                  adev->vm_manager.root_level = AMDGPU_VM_PDB0;
+>                  break;
+>          default:
+>                  dev_err(adev->dev, "VMPT only supports 2~4+1 levels\n");
+>          }
+>          /* block size depends on vm size and hw setup*/
+>          if (amdgpu_vm_block_size != -1)
+>                  adev->vm_manager.block_size =
+>                          min((unsigned)amdgpu_vm_block_size, max_bits
+>                              - AMDGPU_GPU_PAGE_SHIFT
+>                              - 9 * adev->vm_manager.num_level);
+>          else if (adev->vm_manager.num_level > 1)
+>                  adev->vm_manager.block_size = 9;
+>          else
+>                  adev->vm_manager.block_size = amdgpu_vm_get_block_size(tmp);
+>
+>          if (amdgpu_vm_fragment_size == -1)
+>                  adev->vm_manager.fragment_size = fragment_size_default;
+>          else
+>                  adev->vm_manager.fragment_size = amdgpu_vm_fragment_size;
+
+
+Thanks Christian
+
+I will try it.
+
+
+> ...
+>
+> But again, that is probably tons of work since the AMDGPU_PAGE_SIZE macro needs to change as well and I'm not sure if the FW doesn't internally assume that we have 4k pages somewhere.
+>
+> Regards,
+> Christian.
