@@ -4,103 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB830D637DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 00:10:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4171BD637DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 00:26:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1D510E8C2;
-	Wed, 17 Dec 2025 00:10:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C283D10E99D;
+	Wed, 17 Dec 2025 00:26:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZirnAmXZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Mj6OJNng";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B00BB10E8BE;
- Wed, 17 Dec 2025 00:10:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2A7AC60137;
- Wed, 17 Dec 2025 00:10:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25A3C4CEF1;
- Wed, 17 Dec 2025 00:09:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765930213;
- bh=IYStEoceGdUEi75BLoyEocdK6CZd2MmP8jcIyjKww1A=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZirnAmXZntKqQ0k4HUVwGi1YqYVeSoRhusTvAg73iV3t9VVhPLhTsXP1tLDbaSb3X
- apvbKAHL3nFZTB2DUvWUBOX+UygqSJYs36Bd1f/rfWT+X9JMBmkS+Z4Wsm60tfypPv
- GS7Tpivbn3/VRYA1dgSeETWVHA1rgJBpOT1XBDXFvwhAlgRHtrUpCfUpnd2vhbxQ9J
- GuBCrHKguP92bD8aEvceF0rTOXp/QF/r7HHua7AwcZZXwfttaEectmb6IpwvlGO7ty
- at+2FhZS6ng5dxpbwMuR7D3MansmP2/DRx7Hi/COKlO2DR5FQE+MxflxWjz660r+Gi
- JlpZXjBBbQaqw==
-Message-ID: <56acbfc1-51d7-4245-91ea-45bd9e4b2e29@kernel.org>
-Date: Wed, 17 Dec 2025 01:09:53 +0100
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF1910E99D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 00:26:35 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id
+ 46e09a7af769-7c6d1ebb0c4so4066915a34.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 16:26:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1765931193; x=1766535993; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=a1gwXonSvkJ/WHc6pf4yPdhmchAmeTVlihT5ATXgBe8=;
+ b=Mj6OJNngjFDC/nE2dbTxdYCLO+i1s2q8yOrirVLN4ai1uUUP67BPcjUDLY/dAvhmFv
+ BmQGi6sjFfeULiZy1yH818VFbpSsOKQiJJH5depgW7yaVQTnm5bUt2y8QFxJf7z1Un2e
+ c7agDzN9whxknJQzbJ6hvTa25qEzuV5NQoG/ZRKU0gMULtKBpjaYlQ3SnmTladAZ+a4a
+ VKzZfOzwpOqjYNRImEoOx1QHZ5n6yY6eEhFNCfPoDm1rk7uQv6ZkAuXUadOWIA8lw3Me
+ 53Lq57qCEJ+VB7JBGm5h+IrXBgpj3fS+VUV99aWLzi+mijSBqqvSaiGR0IRUCy/obsin
+ 75gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765931193; x=1766535993;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=a1gwXonSvkJ/WHc6pf4yPdhmchAmeTVlihT5ATXgBe8=;
+ b=DW/+x6uuqSS1c1w9Jp0zEnzmFbp3fXTW+8U7XLcULwjWfirjMrJ+AHjzubpG9MYDxx
+ kwE0dPmc6/qmLKImhu5F36qKeoKsIEG7PHXZ+nyU2B5yHLzJYtW2yRfPgfly87urpgJH
+ vQ5rRhGbev7Mx4ovinhMZ/EbafQUPZfWe8ZwBYTo/J4Q+5o1njK2NUZDwGDQaJtdr4SO
+ itbe9Gj6NyWEXyQsNpU9ymhXkpiXWQk80nzguIsCvXaifY/Z2/NVKsK7vvhUNJtWVTNW
+ BFuosE7D2KVcKP01nOHYWFztkRu9T6rmfueHakCY3WHUCJIv6LEUnUtCgVmDp21SYm8B
+ 6Dlw==
+X-Gm-Message-State: AOJu0Yyj1paQ0JVYk72UWRa4Zv2qFwUBJaWvXY4kHL8YfIJKLqX4vdEu
+ tuY0BgCfTGpnOasAS81f/939Nto5xbVqwGcSN8Fi1W5ajzzgDYtCcsFt
+X-Gm-Gg: AY/fxX5iann7fnep9lCu7HVfTUeL0bAr+s9e3+4n9wtoKWJQy+wkazNjhcQ09rPayxo
+ SCSde8Rf8QFBAqlf8U/15ToIL5rhmM3gnZIl/ojPuRTNU9+Uh+M88XjkevKktAnpkYQSXhg2kXE
+ +VGoyztFvMaKBV6tAvxRPSuiaNno9fyaROj5fQtAEx1UpzOk1+lxYlczRBi7wkxcT8g8qJYZ823
+ uZtVnbHsEfVFGOFtcONGvFrkVYcT5/WSEfnlsS3PSlnrdmNNnd5zK48lMNR+aIn7fWHC2dOj2Oy
+ 3Ggr7Dtq7+OtgrRWx4xxIHNZECjAi9LNKc0mhiRp9LgicfdGqpc/38yqNoF/52DFW05COsj4P5F
+ x/sWklWdIV3CuVKsr87AHInDDKQn7XlMagOBuWLCiw776AKVOatJCYWed0cRDrQd8fdgiFPwQKU
+ 0JtKaT5slsHp8H8d19x5Xc8msIXYE=
+X-Google-Smtp-Source: AGHT+IGEVjk2vwFwm/wKw+4wbYp0IdxsKvJSw87sq7XSjWk2qdvTsm8xyo9hp9mNoEvLmh+QUPVWgA==
+X-Received: by 2002:a05:6830:2701:b0:7c7:6348:5946 with SMTP id
+ 46e09a7af769-7cae82d5406mr9187039a34.5.1765931193147; 
+ Tue, 16 Dec 2025 16:26:33 -0800 (PST)
+Received: from timur-max.localnet ([189.171.135.243])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7cadb2fcc39sm12414980a34.19.2025.12.16.16.26.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Dec 2025 16:26:32 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <Harry.Wentland@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, alexander.deucher@amd.com,
+ siqueira@igalia.com
+Subject: Re: [PATCH 0/5] drm/amd/display: DC analog connector fixes
+Date: Tue, 16 Dec 2025 18:26:31 -0600
+Message-ID: <5017406.vXUDI8C0e8@timur-max>
+In-Reply-To: <96ac728e-1d58-46e8-a4a4-b722023f6a45@amd.com>
+References: <20251206023106.8875-1-timur.kristof@gmail.com>
+ <2595415.XAFRqVoOGU@timur-max> <96ac728e-1d58-46e8-a4a4-b722023f6a45@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/14] mm, kfence: Describe @slab parameter in
- __kfence_obj_info()
-To: Bagas Sanjaya <bagasdotme@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Linux Filesystems Development <linux-fsdevel@vger.kernel.org>,
- Linux Media <linux-media@vger.kernel.org>, linaro-mm-sig@lists.linaro.org,
- kasan-dev@googlegroups.com,
- Linux Virtualization <virtualization@lists.linux.dev>,
- Linux Memory Management List <linux-mm@kvack.org>,
- Linux Network Bridge <bridge@lists.linux.dev>,
- Linux Networking <netdev@vger.kernel.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- Philipp Stanner <phasta@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Jan Kara <jack@suse.cz>, Sumit Semwal <sumit.semwal@linaro.org>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Uladzislau Rezki <urezki@gmail.com>,
- Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Taimur Hassan <Syed.Hassan@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Hung <alex.hung@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Dillon Varone <Dillon.Varone@amd.com>, George Shen <george.shen@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, Cruise Hung <Cruise.Hung@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>,
- Dominik Kaszewski <dominik.kaszewski@amd.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Max Kellermann <max.kellermann@ionos.com>,
- "Nysal Jan K.A." <nysal@linux.ibm.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Alexey Skidanov <alexey.skidanov@intel.com>, Vlastimil Babka
- <vbabka@suse.cz>, Kent Overstreet <kent.overstreet@linux.dev>,
- Vitaly Wool <vitaly.wool@konsulko.se>, Harry Yoo <harry.yoo@oracle.com>,
- Mateusz Guzik <mjguzik@gmail.com>, NeilBrown <neil@brown.name>,
- Amir Goldstein <amir73il@gmail.com>, Jeff Layton <jlayton@kernel.org>,
- Ivan Lipski <ivan.lipski@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Lyude Paul <lyude@redhat.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Roopa Prabhu <roopa@cumulusnetworks.com>, Mao Zhu <zhumao001@208suo.com>,
- Shaomin Deng <dengshaomin@cdjrlc.com>, Charles Han <hanchunchao@inspur.com>,
- Jilin Yuan <yuanjilin@cdjrlc.com>,
- Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
- George Anthony Vernon <contact@gvernon.com>
-References: <20251215113903.46555-1-bagasdotme@gmail.com>
- <20251215113903.46555-6-bagasdotme@gmail.com>
-From: "David Hildenbrand (Red Hat)" <david@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20251215113903.46555-6-bagasdotme@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,35 +89,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/15/25 12:38, Bagas Sanjaya wrote:
-> Sphinx reports kernel-doc warning:
+> >> 
+> >> Did you have an update for this series, or are they ready to be applied?
+> >> 
+> >> Alex
+> > 
+> > Hi,
+> > 
+> > I re-reviewed my patches in this series again and I realized that my
+> > comment was mistaken (I confused link encoder with stream encoder). So
+> > the patches should be good as-is.
+> > 
+> > However, in the meantime Mauro got back to me this weekend, and told me
+> > that he determined that the patch "Setup DAC encoder before using it" not
+> > only doesn't fix it, but regresses the analog connector on his HD 7790
+> > further. Before this patch, he got a black screen on boot, but the DAC
+> > started working after suspend/resume. After this patch, it no longer
+> > works for him even after suspend/resume.
+> > 
+> > What do you think is the way to proceed?
+> > 
+> > A) Merge all patches but that one. I'll submit a corrected patch once we
+> > figure out the HD 7790.
+> > B) Merge the whole series as-is and I can submit a fix once we figured out
+> > what is going on with the HD 7790.
 > 
-> WARNING: ./include/linux/kfence.h:220 function parameter 'slab' not described in '__kfence_obj_info'
+> Plan A sounds better. Let's not merge a patch with a known issue. I will
+> also share test results by the end of the week.
 > 
-> Fix it by describing @slab parameter.
-> 
-> Fixes: 2dfe63e61cc31e ("mm, kfence: support kmem_dump_obj() for KFENCE objects")
-> Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
-> ---
->   include/linux/kfence.h | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/include/linux/kfence.h b/include/linux/kfence.h
-> index 0ad1ddbb8b996a..e5822f6e7f2794 100644
-> --- a/include/linux/kfence.h
-> +++ b/include/linux/kfence.h
-> @@ -211,6 +211,7 @@ struct kmem_obj_info;
->    * __kfence_obj_info() - fill kmem_obj_info struct
->    * @kpp: kmem_obj_info to be filled
->    * @object: the object
-> + * @slab: the slab
->    *
->    * Return:
->    * * false - not a KFENCE object
 
-Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
+Hi Alex,
 
--- 
-Cheers
+Thank you, that sounds like a good plan to me.
 
-David
+Timur
+
+
+
