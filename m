@@ -4,115 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 825BAD64095
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 09:05:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A6EED6409D
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 09:22:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFB610E592;
-	Wed, 17 Dec 2025 09:05:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1876210E037;
+	Wed, 17 Dec 2025 09:22:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="kNoosXG7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eb16hEWB";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE6AE10E71D
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 09:05:01 +0000 (UTC)
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5BH7iv3a012679;
- Wed, 17 Dec 2025 09:05:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=RxF7zF
- L2/8p4bPpKESwlr5dbV2DJmsbLTJtpTaB0zt4=; b=kNoosXG7Gg/WiWnkd79wDq
- tNs1XXJt31yH/vYNwNtw1u7D/KygXY9jj9gwoJY0tsS3G8Br+ScFmElGiZIhcmv1
- GkHquTqR89tbOdQ0HWhEVm0sP4xdGAJoz58WGfg9mWwDwbTx6C/JMdUcsKmTy+4r
- z+XXoDgH14OcmFfviVHg/Z0B9iUN5Bd3FWrbejF2xEdN9TZ8mRZwmfK9n4QJj7jZ
- isnFASyueTq8JYBnWxs9wDP+GgT9XdIgGzPFMm1eFVCNCPrqAeBdZpaSWj4DbiWN
- snrbDzS2UP0gg0PgKN4/jc3WOpvJ6aXC4rcH4Z9fFY+PkBw2+Vc82wJ/+5Yhb8Pw
- ==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0ytvbyvy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Dec 2025 09:05:00 +0000 (GMT)
-Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 5BH90l6g022000;
- Wed, 17 Dec 2025 09:04:59 GMT
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4b0ytvbyvr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Dec 2025 09:04:59 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 5BH6Kx6k012800;
- Wed, 17 Dec 2025 09:04:58 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4b1juy9gkr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Dec 2025 09:04:58 +0000
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com
- [10.241.53.103])
- by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 5BH94vfG52888062
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 17 Dec 2025 09:04:57 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1212058066;
- Wed, 17 Dec 2025 09:04:57 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D451058065;
- Wed, 17 Dec 2025 09:04:53 +0000 (GMT)
-Received: from [9.39.19.148] (unknown [9.39.19.148])
- by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
- Wed, 17 Dec 2025 09:04:53 +0000 (GMT)
-Message-ID: <d677a973-e17a-4057-a4b1-af16925243be@linux.ibm.com>
-Date: Wed, 17 Dec 2025 14:34:52 +0530
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012039.outbound.protection.outlook.com [52.101.43.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 963A410E037
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 09:22:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ivn0oUZ8GkmwqA3hgLYhO8vKS9ufUOcxGoXeDfyUs0PLg3vyeJ8t+3s3ejGEX6DFZmGfMYT9df94p5PI2PutcUGfqXnPDgQYC/kJxuWpFknzA5S3TFjVNsya8Yzk3qQC5cwBJppxIxhYHiwi2XbBoopOWZZntWf91Vj3pYLrAeJ2NrKN6JahElm/t9te7QcVU4hMeoG859EjxSZo4NYas6b09iR8LgzDRdW0IUCmAEKQdd5XKRWXH7ZX08Orlr4+LMe/v4dBg72t0qizK8OYsqOulwBKF4TMX8GlkPEj6uTlIagItFpx7MXZR55PpRmet0737VIEFtxxXGR3bbmWgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Hw9IfuI9gTHPPE1FLQFVTgrRgDeWFEqGHmQwHYDpKwY=;
+ b=UqBwr/RcukCe1Q5SnwgMR5TwBGRnJIKPa0P1pYe83TmnfHrBihV0+vuyQZ5cuTg8m+pnMOVnsRXPaNhq8ZYMJtlUAGDnJLLaL7U9pCn2N1FcW4FW0cqyysEsKEGJKd/QlM9C0mI77x5M3ADR9XoQnpPzOSbXn+GWltudk8Uv/Jdhccv99zPE271yq/UwJRg3K1eFzX/0hzQJQehXS7KKuBJDNcTpo+LjiTl24lN5ZJ5rCID2kFvPBFs2VgPc3t4fxglSxmNMsrZIPxr+AM7z9w/zBtaTXdNfNnxiLAgf21l6+nOUizW921NP9Ou1unLIeJtJdZqZWxVkbiKrLDbwQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hw9IfuI9gTHPPE1FLQFVTgrRgDeWFEqGHmQwHYDpKwY=;
+ b=eb16hEWBKpp9HnGGsBbINw+mbxy2YWasZavUA2DFlpaebcP7JimgBgcYX/Q6ZHp8PWYKykdAr/KMrlou1hUnCQdLj20/2hs86OPPr6Rby6WYRw9Kmz03T8Ttubv9OvHU4X5xEdha1IWde1OqfnNWfNWPkT3oAy162p5ExUmbOc0=
+Received: from SJ0PR05CA0110.namprd05.prod.outlook.com (2603:10b6:a03:334::25)
+ by BN3PR12MB9596.namprd12.prod.outlook.com (2603:10b6:408:2cb::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.6; Wed, 17 Dec
+ 2025 09:22:28 +0000
+Received: from SJ1PEPF0000231F.namprd03.prod.outlook.com
+ (2603:10b6:a03:334:cafe::8b) by SJ0PR05CA0110.outlook.office365.com
+ (2603:10b6:a03:334::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.6 via Frontend Transport; Wed,
+ 17 Dec 2025 09:22:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF0000231F.mail.protection.outlook.com (10.167.242.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9434.6 via Frontend Transport; Wed, 17 Dec 2025 09:22:27 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 17 Dec 2025 03:22:25 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH v2 0/3] drm/amdgpu: Make MMIO_REMAP fully internal and Switch
+ to OPEN_GLOBAL
+Date: Wed, 17 Dec 2025 14:51:57 +0530
+Message-ID: <20251217092200.703080-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 0/8] amdgpu/amdkfd: Add support for non-4K page
- size systems
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Kent.Russell@amd.com,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
-References: <cover.1765519875.git.donettom@linux.ibm.com>
- <fbc164ab-964f-464d-b94a-80131016b5b8@amd.com>
- <871pl0567w.ritesh.list@gmail.com>
- <1f10b67a-ffdc-4962-af52-758247569e09@amd.com>
- <CADnq5_NbDzqucujDyW009+55mLXZz2PiyaSd9PKXXeXv4pYn0Q@mail.gmail.com>
- <996ef75a-71b3-4ba7-a255-40516c5e9acd@amd.com>
- <444bfeba-deae-4f7b-84d7-29048256b69d@linux.ibm.com>
- <50dee2c9-bcfc-462b-bf46-f110a082e2d3@amd.com>
- <45654396-6b21-4599-aeb9-0fed68135675@linux.ibm.com>
- <a25b3fc8-4a13-49c6-8011-9830a53cf3c9@amd.com>
-Content-Language: en-US
-From: Donet Tom <donettom@linux.ibm.com>
-In-Reply-To: <a25b3fc8-4a13-49c6-8011-9830a53cf3c9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjEzMDAyMyBTYWx0ZWRfX83Kvt4cAy+Tm
- EMJQxcz4FqVn1podSIwCRGIoe3VCIB1wgngEf/1Lu1CAhFMgCrKOswKabB6voeAGLVO4JExma6J
- ABeKW3W8b4Ak4YXArstu23bHuRlqQRIG2x9Oajj+hTSOxyA1adcuhGZUgroTRXwBtXhSduPZWlc
- /dxgLM+dH/hydlzabX0dP1hikBAO+qXlpkWCrl/TPfL0pPfdBj7Vn4dgBeGdmMETnLgpPuQ3NPC
- 1Tk++PniA4Kyibd/DxgVTVGtEnM5v2P1Y/uKd6paNTqtGGGU7sre9jw+bNnvSUEzLKS4G8uwo6w
- muYdoAXbp8/dWO3jzdsSm14WVERfC8nVYSbOWz60M6asSLL5p6jPwJnN7sNTE/Q6VULQiALtjsW
- 7QWpqee4LMJA7OwhD+LtUfAwLUIoiw==
-X-Proofpoint-ORIG-GUID: r1JY2RETZIg0r-rvL7r48Ui4CkHnmCaz
-X-Authority-Analysis: v=2.4 cv=QtRTHFyd c=1 sm=1 tr=0 ts=6942723c cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=y_DjlmFtwXc1XXJwBUgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: h2S7nz45SGRJMFQiPnbARF64dVkpxo00
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-17_01,2025-12-16_05,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2510240000 definitions=main-2512130023
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231F:EE_|BN3PR12MB9596:EE_
+X-MS-Office365-Filtering-Correlation-Id: 066d1c81-2b10-433c-4576-08de3d4dcc19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WDYweGx2L09EdjlvVDhHT29tVjBtd0NESkNNMzZ0ZGxuSXZkZWVZZjBoVG1a?=
+ =?utf-8?B?YWE2TkZJUHd4eWdmcXZiZzEzTW5kZkFKemFIekdFNjNSdmZldlVPeUhvTnAv?=
+ =?utf-8?B?eW9QajA4NGVtVkxpZmEzc1BTSEJFNlZjbTBxSGU3M1ppTThSWlhoVGdkNEc4?=
+ =?utf-8?B?bm93VXdobzIyYitRSU9xWFdvMVRXRHA5cVQ3M3lJdW1MankxYktjNUg3Qjk4?=
+ =?utf-8?B?MlI5cll6aGNkcmVyd1B2N3dwc2VKemF2eFBsWkY4RkIreUxCV3NKNTJPSlEr?=
+ =?utf-8?B?OUJKOHJJTmtGRHEzbEhiZGpBV3pGdnNXcDlrWmJHeHduZ3RIcjk1S3phNUhN?=
+ =?utf-8?B?SDl1Y0tnak5MUVVnSWFFbnAyRFlyZ1g5U29FQy9xVFJkNWxNbU1paVF0UWtu?=
+ =?utf-8?B?TXlhSlZsNEdEaVNGRWVDU2NsMlNkOWNYRjd3aTlNdVpHdmdNZWR3ZTdVb0pz?=
+ =?utf-8?B?b2dzdXJqMmxaek9kb3BkRXE0RnQrbUtPRGgyY1hsVWhYN2JJcTVvN0Vwc29t?=
+ =?utf-8?B?c3JPemswUlVEeXIxTVQrblJrU25RVFgwcVYxT2tDQTVINU5DTmhCWHVNdVZL?=
+ =?utf-8?B?QzBjaEJ3ZDBYVmwyMnFlS0U3c0V3eHc1UlF3dTlkUW9PZGlsYSt1Ti91WFpp?=
+ =?utf-8?B?cW04ZGRjYTV6Z2l1QmpaRm5RU2FiMmFGYW5LS1ArcmZDKzZZTVpWN1Bsenov?=
+ =?utf-8?B?TUFnYjRQVzlaTmxncTZSank1Q29NWm5KMmVuSG0vd2sxM0NpVXcySXVYWkll?=
+ =?utf-8?B?cnRIWi9HTGpkRXk2eGZLeHRBWC9UNGNqdVVueUxuaFlnRmZmRG5INHpaUjlv?=
+ =?utf-8?B?NW1QNEJCcjFKZnNBOWNWY3NYUSttTFpDMlVHMTA2MVplclF2Ynk3ZGNwWWxi?=
+ =?utf-8?B?N0Z5RFBCT21OaHdhcFNxM2E3NHZlWjFvVTE2UzE5UWNGM3J4SzcvOEZLVzNZ?=
+ =?utf-8?B?T05HeldTWVZxMmQ0SnlsOU8rSmR0U2VRaDF2TmFSenBmbVE5S3RjVUMzMUdz?=
+ =?utf-8?B?bTZPYklvSmxKUDlGQ0dJQlJJT1JhVTRWcjc2R3l6QlJJL01uS2pVbHRmTkVK?=
+ =?utf-8?B?bG8vSms4ZEFUeitFNjF4VER2bWIrcTJ6OTRDWk9iSHdBNjBpQzZPcjg4aWdX?=
+ =?utf-8?B?NWNSZ29JcGs2VzlXS2cwV2JCS2E4ZjdZVnZycnlrZFBkbEYxbzEvZ1FIcHdK?=
+ =?utf-8?B?bFc1b0NoNFRYQnVqSDVQTzVwNU9PNTcrRE5uQmN4ekVUMklDR1ZPT3ZIQ2Ru?=
+ =?utf-8?B?RHpPRU1Cc2Q1a2twcXFVQ09wWXVQV09xMmZwRWNLb0UzK0FnTlowNkFzTTB1?=
+ =?utf-8?B?dVZHSXNMV2YrZUl2RnZBWTh3ZUJuRlM4R0VsL3FJWGp0YjRkZzU4cTBUcmF3?=
+ =?utf-8?B?QndZcngrTGhBZHV2d09IZU9ZeWJteW81MUlRUGZVNHZZVmpNUWp6U05tVFRk?=
+ =?utf-8?B?U1NLejdkZVRjY3hMd1Myak9uUGhOd0xqRXlNVHM3TkFRamV3RFRkdmVQazEz?=
+ =?utf-8?B?U21jMUFqN2FxdTlIQkdIdUhrSjVScklUMlZZZ0tJc1ltcmlBbkczVE43M1M4?=
+ =?utf-8?B?YzFHcFlhZCtSVlRZa0xUZFdXamE4QjFGVVFFR0V2OGp4YmJWWW1Jc1QxcmFn?=
+ =?utf-8?B?UVNmVTd3N0N0R1FLdnkxZ0Fsb2ZrcHpwT0w4RnI2aDk3Ym1qWGRPY0lsenN2?=
+ =?utf-8?B?VnhadVZvUmxtekppd1BSUWV6L1MzUVd0TmJTVnV2MGhNY0dpanZuU01zUWov?=
+ =?utf-8?B?R1duOWhqT2pRTXJITE16MjBUZ3AyS2JEOWIwQXpoajY2RWJiR2QxbmFxTkRh?=
+ =?utf-8?B?WW1GSkFLK0tRQzQwYkpRT3dxL1NPQ21KRWRqYmxoQmhzZVZGek1zMGZUalVp?=
+ =?utf-8?B?VVUxdithUElXV1lDK0kxNEcyTnhSbTA2RGdzSHZIb2pjUW9rdmZxRWFiVlRk?=
+ =?utf-8?B?T2dKODdHVVhNM2owQnd1K1FhdlBBWk5Zc0wwdkFlblBCTzNwaWt1eVRDSVBJ?=
+ =?utf-8?B?Z1BUVHp0MDNlSDRjbVB2bFhUd21oSy9SenNKbzJjNElNR1VVKzVHSHdoOWI4?=
+ =?utf-8?B?ck5ZdjdHM0V1WTdIVlYwUGZMaHhUaFBrbnQxVkFBazdoQTB4cytlTW9GUjRi?=
+ =?utf-8?Q?ef0c=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2025 09:22:27.7841 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 066d1c81-2b10-433c-4576-08de3d4dcc19
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9596
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,73 +143,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Avoid overloading the GEM_CREATE ioctl with special cases. Instead,
+userspace access to global objects (including the MMIO_REMAP BO) is
+routed through a dedicated AMDGPU_GEM_OP_OPEN_GLOBAL path.
 
-On 12/16/25 9:36 PM, Christian König wrote:
-> On 12/16/25 11:08, Donet Tom wrote:
->>> The GPU page tables are 4k in size no matter what the CPU page size is and there is some special handling so that we can allocate them even under memory pressure. Background is that you sometimes need to split up higher order pages (1G, 2M) into lower order pages (2M, 4k) to be able to swap things to system memory for example and for that you need some an extra layer of page tables.
->>>
->>> The problem is now that those 4k pages are rounded up to your CPU page size, resulting in both wasting quite some memory as well as messing up the special handling to not run into OOM situations when swapping things to system memory....
->>>
->>> What we could potentially do is to switch to 64k pages on the GPU as well (the HW is flexible enough to be re-configurable), but that is tons of changes and probably not easily testable.
->>
->> If possible, could you share the steps to change the hardware page size? I can try testing it on our system.
-> Just typing that down from the front of my head, so don't nail me for 100% correctness.
->
-> Modern HW, e.g. gfx9/Vega and newer including all MI* products, has a maximum of 48bits of address space.
->
-> Those 48bits are divided on multiple page directories (PD) and a leave page table (PT).
->
-> IIRC vm_block_size module parameter controls the size of the PDs. If you set that to 13 instead of the default 9 you should already get 64k PDs instead of 4k PDs. But take that with a grain of salt I think we haven't tested that parameter in the last 10 years or so.
->
-> Then each page directory entry on level 0 (PDE0) has a field called block fragment size (see AMDGPU_PDE_BFS for MI products). This controls to how much memory each page table entry (PTE) finally points to.
->
-> So putting it all together you should be able to have a configuration with two levels PDs, each covering 13 bits of address space and 64k in size, plus a PT covering 18bits of address space and 2M in size where each PTE points to a 64k block.
->
-> Here are the relevant bits from function amdgpu_vm_adjust_size():
-> ...
->          tmp = roundup_pow_of_two(adev->vm_manager.max_pfn);
->          if (amdgpu_vm_block_size != -1)
->                  tmp >>= amdgpu_vm_block_size - 9;
->          tmp = DIV_ROUND_UP(fls64(tmp) - 1, 9) - 1;
->          adev->vm_manager.num_level = min_t(unsigned int, max_level, tmp);
->          switch (adev->vm_manager.num_level) {
->          case 3:
->                  adev->vm_manager.root_level = AMDGPU_VM_PDB2;
->                  break;
->          case 2:
->                  adev->vm_manager.root_level = AMDGPU_VM_PDB1;
->                  break;
->          case 1:
->                  adev->vm_manager.root_level = AMDGPU_VM_PDB0;
->                  break;
->          default:
->                  dev_err(adev->dev, "VMPT only supports 2~4+1 levels\n");
->          }
->          /* block size depends on vm size and hw setup*/
->          if (amdgpu_vm_block_size != -1)
->                  adev->vm_manager.block_size =
->                          min((unsigned)amdgpu_vm_block_size, max_bits
->                              - AMDGPU_GPU_PAGE_SHIFT
->                              - 9 * adev->vm_manager.num_level);
->          else if (adev->vm_manager.num_level > 1)
->                  adev->vm_manager.block_size = 9;
->          else
->                  adev->vm_manager.block_size = amdgpu_vm_get_block_size(tmp);
->
->          if (amdgpu_vm_fragment_size == -1)
->                  adev->vm_manager.fragment_size = fragment_size_default;
->          else
->                  adev->vm_manager.fragment_size = amdgpu_vm_fragment_size;
+Overview:
+drm/amdgpu: Rework MMIO_REMAP BO creation Allocate a global MMIO_REMAP
+BO without relying on a GEM domain bit and pin it explicitly in the
+AMDGPU_PL_MMIO_REMAP placement.
 
+drm/amdgpu: Add AMDGPU_GEM_OP_OPEN_GLOBAL Introduce a dedicated GEM_OP
+to open global BOs from userspace, avoiding special-case behavior in
+GEM_CREATE and removing the need for userspace to know internal BO
+parameters.
 
-Thanks Christian
+drm/amdgpu: Drop MMIO_REMAP domain bit and keep it internal Remove the
+unused UAPI domain bit and adjust accounting so MMIO_REMAP remains
+visible in fdinfo/mem-stats via its TTM placement.
 
-I will try it.
+Christian König (3):
+  drm/amdgpu: Rework MMIO_REMAP BO creation
+  drm/amdgpu: Add AMDGPU_GEM_OP_OPEN_GLOBAL
+  drm/amdgpu: Drop MMIO_REMAP domain bit and keep it internal
 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 47 ++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 21 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 77 ++++++++++++++--------
+ include/uapi/drm/amdgpu_drm.h              | 17 +++--
+ 5 files changed, 108 insertions(+), 56 deletions(-)
 
-> ...
->
-> But again, that is probably tons of work since the AMDGPU_PAGE_SIZE macro needs to change as well and I'm not sure if the FW doesn't internally assume that we have 4k pages somewhere.
->
-> Regards,
-> Christian.
+-- 
+2.34.1
+
