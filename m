@@ -4,152 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 968A2D65C49
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 14:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B355D65C49
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 14:23:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A14410E790;
-	Wed, 17 Dec 2025 14:19:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26CED10E791;
+	Wed, 17 Dec 2025 14:23:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0gqd00g7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QiYQmkei";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011014.outbound.protection.outlook.com [52.101.62.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7C710EC6C
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 14:19:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rBC7xflNqEDw6+yPXgxDlt9Nz5xDVwXspWHvxmvbchDPzBszLBFtLKmkSS1o0LS/EUXR498ZsfUA1fc5ncm80CLlfAIZ4jLW1P0HcqgQfDb7xbnIxuGNcszq455tbraMCrn4hgHbYzd5k50p/ks9ZGlqxWGer2DS2lwq8MLEZtsIxZsmznbOMNc//sQFH6RbinhmvOBejRS/RnYESDTI1cJlHwOd7z5oyXj702GS/Cx7xqv1bKkLhX60jyf2ya2EJNfDekM+y0JkLogrtWuaZQ2dpNM6GIdOgKh+5tteUrjJHy0J7zsz/I2PyMVUfxL77cxaNtJvmdwlyKxSAEWS7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zr5vdjqvEZQiJnnbxoAbh6uwk0LobxzsztOEtIK6G08=;
- b=LC1DJC1DdN7BCbWjOZNoEl3AZ+NxOxmcrHOgJ0Ktc7Y4lmTpIRjGRSZgW2Ro0hDMpVlimHKgEXwq6NDltONAR1P8CNcjM32h4/xFh4h+A/hwVuBSMqoC6ESJQjPFrmPkzm1gbWjiARyd4i3te0vdxTaWvadUjs+gHpPIPn3HQVbRsJyIRxUuaM9yD931c0i0lHt2t1ERmHrfC+we8XaG+Y5X70TnV0TuhIwOD77ySyfdA/HxE+cdP7SGBmUquQXXiJyynBE1maWAw0eRr6lTPbDl5CseStD2/9VZ5VNNh0YTGGLJVAKEo/7G0mbq3xMxP6PZXMVIHOu1vgqrIiRBLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zr5vdjqvEZQiJnnbxoAbh6uwk0LobxzsztOEtIK6G08=;
- b=0gqd00g7t/QyQgqMUMbRN0BOUZSl9bucGWB+8YE2BDxwkbpFNGxQVKUbBivnvI+vpDfm6g5qIrUARFeTxPUgx3qCK344yk4MhBRNmv9AnsL5w22YFHcKhfVQv8nR4EQRPCHuKyR6J87gzidayTawESQEuLjTwKHySWsLeVb8drk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by BN7PPF2E18BD747.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6ca) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.7; Wed, 17 Dec
- 2025 14:19:46 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da%5]) with mapi id 15.20.9434.001; Wed, 17 Dec 2025
- 14:19:45 +0000
-Message-ID: <3c5a0186-8863-45be-80a5-30143783361a@amd.com>
-Date: Wed, 17 Dec 2025 09:19:42 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/6] drm/amdkfd: Move gfx9 MQD to VRAM domain
-To: "Chen, Xiaogang" <xiaogang.chen@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com, david.yatsin@amd.com,
- pierre-eric.pelloux-prayer@amd.com, kent.russell@amd.com
-References: <20251215165630.1172383-1-Philip.Yang@amd.com>
- <20251215165630.1172383-5-Philip.Yang@amd.com>
- <b513f97d-6d40-4ba3-acad-c882cc0bc483@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <b513f97d-6d40-4ba3-acad-c882cc0bc483@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0043.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:1::20) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D993F10E791
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 14:23:29 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2a097cc08d5so8727675ad.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 06:23:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1765981409; x=1766586209; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=A8t8Pm6WFYqM5+c3GWJBqyYFUXJCxzdJT2XLj6xNreo=;
+ b=QiYQmkeibVv+AVE/7L7rx7EhI4BmfhtaRztbNE0OokhtCZ2FOH7rYA5ugdTsKTmE/O
+ 0z9+ndWjDigpfGOdICyhfp3nzOcPdBnAixlDQZ5k+d8hDekHVSJgS/Hsgxz85VLCNJVB
+ bP2jOEcOweN2xn9HkQRNQn7oNjp9hSfyQIII5fzPGUXWu0+DrA5kEVqlZd/mdMF8bF3i
+ JR3hQ/4oD42p7wMT4LjrASUT+RZ7VXjGWBdtG8I2bfoZxlVnPUc0tyLQxsT5woXgN5gX
+ ry7ljGeiMgf67bTqBtsnLOHfs3EDjQrD3AzI9rLOC+AkDzPXPH+a+s8Ize6XUXZSfmel
+ Ia8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765981409; x=1766586209;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=A8t8Pm6WFYqM5+c3GWJBqyYFUXJCxzdJT2XLj6xNreo=;
+ b=sUbj5hi38qfEgbeiMON2KewfedzO3/0D4r4SUHMgYTFvknlgJVd8tMnNy04075Jhvn
+ LBe0MHqF+6qkgNCA6xS3Lm9fg7pxQ7YkHNQXqOPo1gQk7PmM2dQdyzNWPgm2ukvRTGEA
+ 5YqYzAEeOt/KFfOXQmDDXbCeMUMhVerpG0r/640yL6eTeeRwXE6PqngMd/O8Ml03W6Jm
+ 6QzkGZiOWuetA0kHy56e+fPo+818wG9h3WtlG9Q+O4hcKU9R1P9GnQp4IB4EmAJNugdN
+ IeXcsRiZ8PmjHxKhjEvB4w/5p32GFsickdGa7UFolL3o3bByIMunVVUdjv9wfox0NwDh
+ Pc/g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX8xs3shGyMfOrFqnecSIS4jibpy4QtWTd9a/FsAIqzwRh35UmlAOvMBYvqOP/cCRb2qc83ZtDf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcvlNkFrvdkMJsWZEaBJpJek2eL0MG6j4kIt2I7UTwySr3gDlD
+ /+9Fa3tLwUYigboEJL4qTzlIo42pe1WP+6990AuoPmGOKZRgAKejjwjO/exb8S1Hx2MYN+gYiq8
+ YxNQt+ztgv9xiEqwPT/OLBpOSAP1oQS4=
+X-Gm-Gg: AY/fxX4jmUmKlyZRCR2CCv7OvPvdY97rDQNsfctRnzA7/9YbN02plv3MzZNoZiWVpHt
+ zR8FGXbsXr9fCAX+t0/lEU9SFILsvDw7zn4irKNxwRlSlQBDTw0/ygTBKacYA40dL8DzWe4u3M7
+ 8ytENlysGyrWMV2FLABIbGdZF0jQgM/xOKaXt+zDY6IqC+LBOO4tOaOX1O4kRYEDr/vK8KZwSOp
+ xNABwlihLVXoxO+txjOvZz0yXC6Q8jUTL/iXipQldLrGmhZTVI1digOqWi9PPJqn4WbEJTq
+X-Google-Smtp-Source: AGHT+IFahX3iJzh6IvbddIs01MopI8Euo8WJZB4+x9uGu9n6w4CUULojvbDMSG8RFLK7NAYYbjr1Smx6O9naFQy1Dik=
+X-Received: by 2002:a05:7022:989:b0:119:e56b:c3f3 with SMTP id
+ a92af1059eb24-11f34c47c98mr6884157c88.3.1765981409160; Wed, 17 Dec 2025
+ 06:23:29 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|BN7PPF2E18BD747:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba212ce2-1d61-4171-8ca9-08de3d775428
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Uk5adXQ3OU5yYXZLbG94b0pzdXZqVUVuSXJZVDJyMTlGUHRnNSt6NHJzalB1?=
- =?utf-8?B?UFd3dzhjOWpselBzU0Z2alh1akI2MmZUa2hVQXRuZHRHZDYvWGljaW5nY3Bx?=
- =?utf-8?B?TmN3c1Bmb01WRVpHQWgwUzlJNnNPa0kydUFwVS81ZFZNWTZxU3YrV1FCRDdK?=
- =?utf-8?B?MUwyaEJrWkd0QWdrSXpWM2RlR2VGV2gwWXpTdE1pNG1oVGtpR2FqS0JoQ3RL?=
- =?utf-8?B?TFpZOTZaRXlxNjA2SWgxTDVnSG9rcVQvVEMrRTIrbkJRQ05VeHQydnFnUVZW?=
- =?utf-8?B?OEtLb0NCWmRmU0R4ZEhKbmd0OW5BOGxoNG5SRzdBQitxRno1US9ZSHBYL3NG?=
- =?utf-8?B?eDlzVlFkZ3E1MWl1bm42bWdPU1l6WFMrVXZrUzVyQWcxUXJpWVAvVHd0YjlO?=
- =?utf-8?B?ZTcrbXg1U3JhU2lFb0lMajJmdm12NmcxdFFNdlVESGp6SU0yeEc1U1k2MGls?=
- =?utf-8?B?R05ONGdaMDY0T3U5SUFUSG9RTVFLSytRcnJ5a3k1aENjOFZuUnEzM0pOdGtw?=
- =?utf-8?B?M3Q1ZzZPZzdKaENEMjNIZjRjYXdDUDYwM3B6YXVCRTJtTGpvcEhuZGt1TVNS?=
- =?utf-8?B?bkNUdkVSUjdvT2FTbDBRMDJYb3ZYMHZOOWFvLy9Ka2JKdVQ1QnF5UlR4NHVY?=
- =?utf-8?B?QmRCVUdSN2RkQXU1T1Nub00yUWpBRllaNGJhUkdxTjlTcXVWaG1BQzhIQk5R?=
- =?utf-8?B?dVV6b2p6RDRSQkNqMWQ2bnZoeURjMVVvYTVHMFBMZTdPOWpPRlMxUFVkYk03?=
- =?utf-8?B?emRjSnRHNjlvLzhzTjFDckU4SFRjb01ZVmI3WTlyeG1wdG14Z2dPTGFnQU5H?=
- =?utf-8?B?eGl2c2UrRTlIQXhHU1o3Mnh3Vm13VWlzVnJnZEhQT2FDLzhMV3VpV1V4MFor?=
- =?utf-8?B?M3lHUFEzb3dKMU9Uc0xmWnlRSC9KdFJLOHRHM3Y4UTg1UklUOGduMHJtUjEx?=
- =?utf-8?B?YXZlaUFnU3Jobk14UE4xNzhSSlJhVmJvK0ZwZjkxVUlsNkJUSit2ekdTVG1J?=
- =?utf-8?B?VjBxcVdXRWlPUGtiVWN6Ky9UeVNOK3NkandkNFV4T2pzcXBEOWhiVFVUYmQy?=
- =?utf-8?B?V3NEK1NPNytadDlEWjV0ZEErbUdiTlhYMU5lTzFPRXZSWVUwenNuNWlsQnl0?=
- =?utf-8?B?WVc0WFFHY0NJQnhPc25EcTJLY0JLMDV0MUtOdFFuYjVpdWRJNkF5M3cxRTlw?=
- =?utf-8?B?Y3FJc3JnZ0EyN1hNUGs2Q1plaFQ1bDRXLzJRSXZRUG1TZmN1d2Z5bUVTamla?=
- =?utf-8?B?bitNVjZnVDN4NExhVW9mZkFRS01uS3lOTmFnRUhSNVFGbW9SRkxxMVJ3bTRT?=
- =?utf-8?B?SC9QbHhvY29tZ0J2allMTm5IMlY2c3JLRUUrZDJCRmdoeXZDWFR6KzhZYXBa?=
- =?utf-8?B?Wng2ZzRwS2VENXEycm9nNmpQSjBES1JuRG5hWTZqbHJUT05tM3BtSkNxS2Z2?=
- =?utf-8?B?VG9EemlCWTh1VlJScWRqN05Jb2xicEFsaGh4aWZzS1Vva3RQc2JEMFNvYU9X?=
- =?utf-8?B?dkJjdHFmVXR1bm5jbzZkeHhZejNKZS95SWlUWWRiNnFiaUg3b1doTlJhNVNx?=
- =?utf-8?B?RVFoaGg4SnE1NUI2M09xand2UktyZXBPdjlhSmpaRksremlLK2dqdFUvd2RE?=
- =?utf-8?B?clBGeGNFZU82MjQ2WXRPQ3RDTEVCTGlXWmY1MGRxd3VNdE50d1NLaGJuNGEz?=
- =?utf-8?B?cEZQcUtjS1JXWTJQQ29DTlZxVkZMYXFyMGFQd3NPbXlqMUNPcHROb3Y4NXUr?=
- =?utf-8?B?NWtHTU5ZWEVPQUphRUZhL0dRNnN3VHFWcWZ5dm1RLzRTbnZQSVRSTFMxcWly?=
- =?utf-8?B?TnZoM3h3RnNoaTY5T2pFV0tvZFZGN0RmSnhNYmdzenVDMWxsOFdyYThqUzk2?=
- =?utf-8?B?MlErREhsSDZ4RU1hdk1aSlBXTHBYRU9JSUZoUUlFM2w4SmcvNWUyV0ZRNmJX?=
- =?utf-8?Q?k8jcQNPuSCY/EmxrXJ2PJE9RqUcyZ4sP?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RjVEckpmY3VON1R1dGhsdkVKZVpqanZjUG5wYW1lNlp4TjdhZzRSSngwc3N3?=
- =?utf-8?B?Ui9Ta2VLQllCUlJIdy9zMFJFeDR5ZThVd2dxVmpRcUt3NzZ1aXJrV0lBM3Qx?=
- =?utf-8?B?c1l3TDk2VXFDM3NDOW44UWs2L09iKzZzOFQwUGVhOTljZ1JCV2tiZDFUamkw?=
- =?utf-8?B?bVhhQVVPUDBCSXdCOU45Ym4walN4dEdpSWllNEtJSjlUYld1aVd5ck9JNGdF?=
- =?utf-8?B?ZjJJY0hSWDZSekhVU0lnRHZRVE41bUl6UkcxRXhoY0ZYaG1PbUxFUGF2MlVG?=
- =?utf-8?B?UXp2Sk9ZYVN0RGdMOGFSM3hodHZmMUJoY3JGRVpPM1dnWlUvZVpiWXNHT2l5?=
- =?utf-8?B?QVpPS1c5ckQrdWcza0xkT0Z5bC9ocTd6aEJlRjFSZ3ArM2JabW5xRExndnN0?=
- =?utf-8?B?V1ZwTTNsQjdlcUxjU0JNM1dvUVlzcnpUNGlGME01eFRHUTBkVnFqSzc1US9k?=
- =?utf-8?B?RUczL2dTUU1pREZ4YUNtQndMNVVpakhFMWtlNUpxS2hodS94Q2tIdkFCYjJp?=
- =?utf-8?B?bnpMbUdra0pwTU05NGtNOERJMGpRajlsS1YvN2tMdmdwMjgrMWtBQ2liLzZy?=
- =?utf-8?B?dFFGaTByUUxhRmJvN2ovSHRqK05iRlJTY2Z0TzNMcktaTnNuUThqWGRjRnFF?=
- =?utf-8?B?dUM1MktES3dMN0tlc3F0cTRMbThCa1V5dGxteUdONW1wVFRpWGUyMjBuVDNu?=
- =?utf-8?B?cVFSN0dJRnkyY2M4YlVzNFJMakJOYUgyTTRoOHhDaEpLOXA4ZzFDQWVDc0Jx?=
- =?utf-8?B?TExkWGxGcmdLV3QvNzNtZGVZRlVFT1NxTW5GRUZoVzQ0M0FwMFYyOFhneTVZ?=
- =?utf-8?B?bUhYZXRueVJ0Z0RyeVl1bUJNZCtZQnVHdjdTMk40WlBJQjRwcUI0ZG5rUytR?=
- =?utf-8?B?WXNmYkNKUC9QOXV6Mys0QlZpUnNaYzlUTlpUc2lZRlpwU2c5NEZyMlFiemp0?=
- =?utf-8?B?bVJqb1B4c2Q2Z3NNSS94ZU1XcXVnS2tieVRVM2hiU0dkdXd3czUwM1gvWm1u?=
- =?utf-8?B?MUdIa0lxRE05V0tIaEtqMUltTVB6amU3dWh6eGhjUzcycHJxRUFNajdHNDdR?=
- =?utf-8?B?OW5ZUGpxQUNJemZDU3NZTldVSENlNHBCRWZGUFFBNjErZmh3SytYRVJNUXh4?=
- =?utf-8?B?MlFVVjFyNnY5Z0o2R1IzQ2xOTmx0MzhNSmRvRnZ3M2YvZ1czK0dwdFhORzgw?=
- =?utf-8?B?MlAxYk5TNW0yTUdHcXhxdGlWb1hmSWlDekNNQkxkcDBOWkNXNUdnSHBzL0FC?=
- =?utf-8?B?VXlTS25GSWFIOUhuUi9GYVJ4WXZyV3gra1dVRmF2REcyT0dibDY3VFh1K25M?=
- =?utf-8?B?dGMxSU1UZjFqMFZBYys5RytBKzA4ZUQyQk1JZEg4VWJybytnZmNwR20rNlhT?=
- =?utf-8?B?MG1hb1VhR1Y4YXdVd3p0SUFxakt2c3RKaXdlT1FNcEx3YVF3dUp1RjJOTFBW?=
- =?utf-8?B?OWRxdWViSW5GelM0cFdXYldza2VXV0h0M0ZnakJEeXNJdnNKYnBvNGF6QWw2?=
- =?utf-8?B?SE81TDFRZ1QxWXNtNG5RSnNtSVQvWmloN0drTmE2LzNnd0d0UlZSdHR6MkJN?=
- =?utf-8?B?SVp4akhSQWxIZDhUZ1VnMlRxYVUxd1hCc3JXYWVWTlV2dHZCdk8yN2NRL3NP?=
- =?utf-8?B?RjY3ZXdTNU4rQmx4S1RNN1RRMmRxV0pETXk2d3B2THVzTjJiZVpPVmxEcjVG?=
- =?utf-8?B?UXpvMFpnK2FsZHI4ZUh0VzU1Rm84SmMrZ0FpUWR3NG9USlRIQXRhMmZLbGZ3?=
- =?utf-8?B?SzJTeXZOSWwxRVdIWlQwUm5tWm9FUnpveHpmczFLVTlPeUI5RStFYkVBWHNU?=
- =?utf-8?B?aTdnV2k3T1ExR21FalFmUjlwUG9jVmVENytJenNoRStBQUxaS3dLbHdlekox?=
- =?utf-8?B?WUZ0djNkNmloa0h2MDV1OHhZV0J5SnhaQWlUNjM4b3hVOUpNNC9YRVExeE1R?=
- =?utf-8?B?VFJ5SXZaWTZYSTNld1o0WEJOU0d2aHhrRk53c0hiOFgrdHkvQjcwNnAwNzlE?=
- =?utf-8?B?ZlV3OTZJSkFGR0NaSGFxMmhPM0tsendYc1FKdjZBNjZyYk9lZjBVTTFCK3Bu?=
- =?utf-8?B?VlZBVkxsWkVIUjN5ekRhRHZHU1R5VzY4bjhTZkNGNUtDWks5TTF0ek40NVcx?=
- =?utf-8?Q?1VyU=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba212ce2-1d61-4171-8ca9-08de3d775428
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2025 14:19:45.8360 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WWv+yqRUBZSKJDf6AtSrkJWlNUIti7dBuwm9tgD34iJSzCQL1ecf0/R4mf7Mx7rV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF2E18BD747
+References: <cover.1765519875.git.donettom@linux.ibm.com>
+ <fbc164ab-964f-464d-b94a-80131016b5b8@amd.com>
+ <871pl0567w.ritesh.list@gmail.com>
+ <1f10b67a-ffdc-4962-af52-758247569e09@amd.com>
+ <CADnq5_NbDzqucujDyW009+55mLXZz2PiyaSd9PKXXeXv4pYn0Q@mail.gmail.com>
+ <996ef75a-71b3-4ba7-a255-40516c5e9acd@amd.com>
+ <CADnq5_PvMm0hqqFTmDONEoYnUiHSCTZWUVkcf_PoFP3jDXuCKA@mail.gmail.com>
+ <bed34fa1-5971-416a-a3d4-7824d0387e02@linux.ibm.com>
+ <CADnq5_Owfg0fG5mUo7NDZUNeB+QNas2EL+sK=42_deVSxiGfQQ@mail.gmail.com>
+ <1f2a0b14-9cff-40cd-bdbc-71fae06c34b1@linux.ibm.com>
+In-Reply-To: <1f2a0b14-9cff-40cd-bdbc-71fae06c34b1@linux.ibm.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 Dec 2025 09:23:17 -0500
+X-Gm-Features: AQt7F2qOjvt_U7qhc33p-KpgZ6S5_3tM3ifdD-iqmJSEwn0L1RGDn-vUQjI7eK8
+Message-ID: <CADnq5_OiCrFn=hPbxfBu5_Oj0pk-fQ1tN6ju2QhbLTY5BCAwEg@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 0/8] amdgpu/amdkfd: Add support for non-4K page
+ size systems
+To: Donet Tom <donettom@linux.ibm.com>, David Yat Sin <david.yatsin@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Kent.Russell@amd.com, 
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,65 +97,291 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Dec 17, 2025 at 4:03=E2=80=AFAM Donet Tom <donettom@linux.ibm.com> =
+wrote:
+>
+>
+> On 12/16/25 7:32 PM, Alex Deucher wrote:
+> > On Tue, Dec 16, 2025 at 8:55=E2=80=AFAM Donet Tom <donettom@linux.ibm.c=
+om> wrote:
+> >>
+> >> On 12/15/25 7:39 PM, Alex Deucher wrote:
+> >>> On Mon, Dec 15, 2025 at 4:47=E2=80=AFAM Christian K=C3=B6nig
+> >>> <christian.koenig@amd.com> wrote:
+> >>>> On 12/12/25 18:24, Alex Deucher wrote:
+> >>>>> On Fri, Dec 12, 2025 at 8:19=E2=80=AFAM Christian K=C3=B6nig
+> >>>>> <christian.koenig@amd.com> wrote:
+> >>>>>> On 12/12/25 11:45, Ritesh Harjani (IBM) wrote:
+> >>>>>>> Christian K=C3=B6nig <christian.koenig@amd.com> writes:
+> >>>>>>>>> Setup details:
+> >>>>>>>>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>>>>>>>> System details: Power10 LPAR using 64K pagesize.
+> >>>>>>>>> AMD GPU:
+> >>>>>>>>>     Name:                    gfx90a
+> >>>>>>>>>     Marketing Name:          AMD Instinct MI210
+> >>>>>>>>>
+> >>>>>>>>> Queries:
+> >>>>>>>>> =3D=3D=3D=3D=3D=3D=3D
+> >>>>>>>>> 1. We currently ran rocr-debug agent tests [1]  and rccl unit t=
+ests [2] to test
+> >>>>>>>>>      these changes. Is there anything else that you would sugge=
+st us to run to
+> >>>>>>>>>      shake out any other page size related issues w.r.t the ker=
+nel driver?
+> >>>>>>>> The ROCm team needs to answer that.
+> >>>>>>>>
+> >>>>>>> Is there any separate mailing list or list of people whom we can =
+cc
+> >>>>>>> then?
+> >>>>>> With Felix on CC you already got the right person, but he's on vac=
+ation and will not be back before the end of the year.
+> >>>>>>
+> >>>>>> I can check on Monday if some people are still around which could =
+answer a couple of questions, but in general don't expect a quick response.
+> >>>>>>
+> >>>>>>>>> 2. Patch 1/8: We have a querry regarding eop buffer size Is thi=
+s eop ring buffer
+> >>>>>>>>>      size HW dependent? Should it be made PAGE_SIZE?
+> >>>>>>>> Yes and no.
+> >>>>>>>>
+> >>>>>>> If you could more elaborate on this please? I am assuming you wou=
+ld
+> >>>>>>> anyway respond with more context / details on Patch-1 itself. If =
+yes,
+> >>>>>>> that would be great!
+> >>>>>> Well, in general the EOP (End of Pipe) buffer contains in a ring b=
+uffer of all the events and actions the CP should execute when shaders and =
+cache flushes finish.
+> >>>>>>
+> >>>>>> The size depends on the HW generation and configuration of the GPU=
+ etc..., but don't ask me for details how that is calculated.
+> >>>>>>
+> >>>>>> The point is that the size is completely unrelated to the CPU, so =
+using PAGE_SIZE is clearly incorrect.
+> >>>>>>
+> >>>>>>>>> 3. Patch 5/8: also have a query w.r.t the error paths when syst=
+em page size > 4K.
+> >>>>>>>>>      Do we need to lift this restriction and add MMIO remap sup=
+port for systems with
+> >>>>>>>>>      non-4K page sizes?
+> >>>>>>>> The problem is the HW can't do this.
+> >>>>>>>>
+> >>>>>>> We aren't that familiar with the HW / SW stack here. Wanted to un=
+derstand
+> >>>>>>> what functionality will be unsupported due to this HW limitation =
+then?
+> >>>>>> The problem is that the CPU must map some of the registers/resourc=
+es of the GPU into the address space of the application and you run into se=
+curity issues when you map more than 4k at a time.
+> >>>>> Right.  There are some 4K pages with the MMIO register BAR which ar=
+e
+> >>>>> empty and registers can be remapped into them.  In this case we rem=
+ap
+> >>>>> the HDP flush registers into one of those register pages.  This all=
+ows
+> >>>>> applications to flush the HDP write FIFO from either the CPU or
+> >>>>> another device.  This is needed to flush data written by the CPU or
+> >>>>> another device to the VRAM BAR out to VRAM (i.e., so the GPU can se=
+e
+> >>>>> it).  This is flushed internally as part of the shader dispatch
+> >>>>> packets,
+> >>>> As far as I know this is only done for graphics shader submissions t=
+o the classic CS interface, but not for compute dispatches through ROCm que=
+ues.
+> >>> There is an explicit PM4 packet to flush the HDP cache for userqs and
+> >>> for AQL the flush is handled via one of the flags in the dispatch
+> >>> packet.  The MMIO remap is needed for more fine grained use cases
+> >>> where you might have the CPU or another device operating in a gang
+> >>> like scenario with the GPU.
+> >>
+> >> Thank you, Alex.
+> >>
+> >> We were encountering an issue while running the RCCL unit tests. With =
+2
+> >> GPUs, all tests passed successfully; however, when running with more
+> >> than 2 GPUs, the tests began to fail at random points with the followi=
+ng
+> >> errors:
+> >>
+> >> [  598.576821] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed fo=
+r
+> >> queue with doorbell_id: 80030008
+> >> [  606.696820] amdgpu 0048:0f:00.0: amdgpu: Failed to evict process qu=
+eues
+> >> [  606.696826] amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: =
+4
+> >> [  610.696852] amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed fo=
+r
+> >> queue with doorbell_id: 80030008
+> >> [  610.696869] amdgpu 0048:0f:00.0: amdgpu: Failed to evict process qu=
+eues
+> >> [  610.696942] amdgpu 0048:0f:00.0: amdgpu: Failed to restore process =
+queues
+> >>
+> >>
+> >> After applying patches 7/8 and 8/8, we are no longer seeing this issue=
+.
+> >>
+> >> One question I have is: we only started observing this problem when th=
+e
+> >> number of GPUs increased. Could this be related to MMIO remapping not
+> >> being available?
+> > It could be.  E.g., if the CPU or a GPU writes data to VRAM on another
+> > GPU, you will need to flush the HDP to make sure that data hits VRAM
+> > before the GPU attached to the VRAM can see it.
+>
+>
+> Thanks Alex
+>
+> I am now suspecting that the queue preemption issue may be related to
+> the unavailability of MMIO remapping. I am not very familiar with this ar=
+ea.
+>
+> Could you please point me to the relevant code path where the PM4 packet
+> is issued to flush the HDP cache?
 
++ David who is more familiar with the ROCm runtime.
 
-On 2025-12-16 17:27, Chen, Xiaogang wrote:
->
->
-> Can this patch be stand alone ? I think it needs be combined with patch 6.
->
-This patch alloc MQD on VRAM, without GART mapping, FW will access MQD 
-via fb aperture address, with mtype UC. This works fine then patch 6 add 
-GART mapping with mtype RW to improve performance.
+PM4 has a packet called HDP_FLUSH which flushes the HDP.  For AQL,
+it's handled by one of the flags I think.  Most things in ROCm use
+AQL.
 
-> On 12/15/2025 10:56 AM, Philip Yang wrote:
->> To reduce queue switch latency further, move MQD to VRAM domain,
->> CP access MQD and control stack via FB aperture, this requires
->> contiguous pages.
->>
->> Signed-off-by: Philip Yang<Philip.Yang@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c      | 3 ++-
->>   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 2 +-
->>   2 files changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->> index 090d17911bc4..113c058cf7b5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->> @@ -329,7 +329,8 @@ int amdgpu_amdkfd_alloc_kernel_mem(struct amdgpu_device *adev, size_t size,
->>   	bp.size = size;
->>   	bp.byte_align = PAGE_SIZE;
->>   	bp.domain = domain;
->> -	bp.flags = AMDGPU_GEM_CREATE_CPU_GTT_USWC;
->> +	bp.flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
->> +		   AMDGPU_GEM_CREATE_CPU_GTT_USWC;
->
-> Should bp.flags setting depend on domain type: when domain is 
-> AMDGPU_GEM_DOMAIN_VRAM then bp.flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS?
->
-AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS only used by VRAM buddy allocator, we 
-combine GTT and VRAM allocation flags in other places too, use domain to 
-decide the mm. Regards, Philip
->
-> Regards
->
-> Xiaogang
->
->>   	bp.type = ttm_bo_type_kernel;
->>   	bp.resv = NULL;
->>   	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
->> index d234db138182..14123e1a9716 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
->> @@ -139,7 +139,7 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_node *node,
->>   			(ALIGN(q->ctl_stack_size, PAGE_SIZE) +
->>   			ALIGN(sizeof(struct v9_mqd), PAGE_SIZE)) *
->>   			NUM_XCC(node->xcc_mask),
->> -			AMDGPU_GEM_DOMAIN_GTT,
->> +			AMDGPU_GEM_DOMAIN_VRAM,
->>   			&(mqd_mem_obj->mem),
->>   			&(mqd_mem_obj->gpu_addr),
->>   			(void *)&(mqd_mem_obj->cpu_ptr), true);
+@David Yat Sin Can you point to how HDP flushes are handled in the ROCm run=
+time?
 
+Alex
+
+>
+> I am consistently able to reproduce this issue on my system when using
+> more than three GPUs if patches 7/8 and 8/8 are not applied. In your
+> opinion, is there anything that can be done to speed up the HDP flush or
+> to avoid this situation altogether?
+>
+>
+>
+> >
+> > Alex
+> >
+> >>
+> >>> Alex
+> >>>
+> >>>> That's the reason why ROCm needs the remapped MMIO register BAR.
+> >>>>
+> >>>>> but there are certain cases where an application may want
+> >>>>> more control.  This is probably not a showstopper for most ROCm app=
+s.
+> >>>> Well the problem is that you absolutely need the HDP flush/invalidat=
+ion for 100% correctness. It does work most of the time without it, but you=
+ then risk data corruption.
+> >>>>
+> >>>> Apart from making the flush/invalidate an IOCTL I think we could als=
+o just use a global dummy page in VRAM.
+> >>>>
+> >>>> If you make two 32bit writes which are apart from each other and the=
+n a read back a 32bit value from VRAM that should invalidate the HDP as wel=
+l. It's less efficient than the MMIO BAR remap but still much better than g=
+oing though an IOCTL.
+> >>>>
+> >>>> The only tricky part is that you need to get the HW barriers with th=
+e doorbell write right.....
+> >>>>
+> >>>>> That said, the region is only 4K so if you allow applications to ma=
+p a
+> >>>>> larger region they would get access to GPU register pages which the=
+y
+> >>>>> shouldn't have access to.
+> >>>> But don't we also have problems with the doorbell? E.g. the global a=
+ggregated one needs to be 4k as well, or is it ok to over allocate there?
+> >>>>
+> >>>> Thinking more about it there is also a major problem with page table=
+s. Those are 4k by default on modern systems as well and while over allocat=
+ing them to 64k is possible that not only wastes some VRAM but can also res=
+ult in OOM situations because we can't allocate the necessary page tables t=
+o switch from 2MiB to 4k pages in some cases.
+> >>>>
+> >>>> Christian.
+> >>>>
+> >>>>> Alex
+> >>>>>
+> >>>>>>>>> [1] ROCr debug agent tests: https://github.com/ROCm/rocr_debug_=
+agent
+> >>>>>>>>> [2] RCCL tests: https://github.com/ROCm/rccl/tree/develop/test
+> >>>>>>>>>
+> >>>>>>>>>
+> >>>>>>>>> Please note that the changes in this series are on a best effor=
+t basis from our
+> >>>>>>>>> end. Therefore, requesting the amd-gfx community (who have deep=
+er knowledge of the
+> >>>>>>>>> HW & SW stack) to kindly help with the review and provide feedb=
+ack / comments on
+> >>>>>>>>> these patches. The idea here is, to also have non-4K pagesize (=
+e.g. 64K) well
+> >>>>>>>>> supported with amd gpu kernel driver.
+> >>>>>>>> Well this is generally nice to have, but there are unfortunately=
+ some HW limitations which makes ROCm pretty much unusable on non 4k page s=
+ize systems.
+> >>>>>>> That's a bummer :(
+> >>>>>>> - Do we have some HW documentation around what are these limitati=
+ons around non-4K pagesize? Any links to such please?
+> >>>>>> You already mentioned MMIO remap which obviously has that problem,=
+ but if I'm not completely mistaken the PCIe doorbell BAR and some global s=
+eq counter resources will also cause problems here.
+> >>>>>>
+> >>>>>> This can all be worked around by delegating those MMIO accesses in=
+to the kernel, but that means tons of extra IOCTL overhead.
+> >>>>>>
+> >>>>>> Especially the cache flushes which are necessary to avoid corrupti=
+on are really bad for performance in such an approach.
+> >>>>>>
+> >>>>>>> - Are there any latest AMD GPU versions which maybe lifts such re=
+strictions?
+> >>>>>> Not that I know off any.
+> >>>>>>
+> >>>>>>>> What we can do is to support graphics and MM, but that should al=
+ready work out of the box.
+> >>>>>>>>
+> >>>>>>> - Maybe we should also document, what will work and what won't wo=
+rk due to these HW limitations.
+> >>>>>> Well pretty much everything, I need to double check how ROCm does =
+HDP flushing/invalidating when the MMIO remap isn't available.
+> >>>>>>
+> >>>>>> Could be that there is already a fallback path and that's the reas=
+on why this approach actually works at all.
+> >>>>>>
+> >>>>>>>> What we can do is to support graphics and MM, but that should al=
+ready work out of the box.>
+> >>>>>>> So these patches helped us resolve most of the issues like SDMA h=
+angs
+> >>>>>>> and GPU kernel page faults which we saw with rocr and rccl tests =
+with
+> >>>>>>> 64K pagesize. Meaning, we didn't see this working out of box perh=
+aps
+> >>>>>>> due to 64K pagesize.
+> >>>>>> Yeah, but this is all for ROCm and not the graphics side.
+> >>>>>>
+> >>>>>> To be honest I'm not sure how ROCm even works when you have 64k pa=
+ges at the moment. I would expect much more issue lurking in the kernel dri=
+ver.
+> >>>>>>
+> >>>>>>> AFAIU, some of these patches may require re-work based on reviews=
+, but
+> >>>>>>> at least with these changes, we were able to see all the tests pa=
+ssing.
+> >>>>>>>
+> >>>>>>>> I need to talk with Alex and the ROCm team about it if workaroun=
+ds can be implemented for those issues.
+> >>>>>>>>
+> >>>>>>> Thanks a lot! That would be super helpful!
+> >>>>>>>
+> >>>>>>>
+> >>>>>>>> Regards,
+> >>>>>>>> Christian.
+> >>>>>>>>
+> >>>>>>> Thanks again for the quick response on the patch series.
+> >>>>>> You are welcome, but since it's so near to the end of the year not=
+ all people are available any more.
+> >>>>>>
+> >>>>>> Regards,
+> >>>>>> Christian.
+> >>>>>>
+> >>>>>>> -ritesh
