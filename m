@@ -4,65 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 589DED64096
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 08:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48AC4D64099
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 08:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB97610E57F;
-	Wed, 17 Dec 2025 08:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD64A10E58D;
+	Wed, 17 Dec 2025 08:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nfraprado@collabora.com header.b="V92jnDUT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Kkv2rKxj";
 	dkim-atps=neutral
-Received: from sender4-op-o10.zoho.com (sender4-op-o10.zoho.com
- [136.143.188.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A70E10E855;
- Tue, 16 Dec 2025 18:34:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1765909161; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=R8NVnrJynJ8nWlkbtAVc73HPnCoHjkzkxSfjSv+NpPH1CUxyTDOTf8V2wedK+2CxztEEDjidCiEGJ3uk3Jds9UcWcil8spdGg4qmbHZnU8DxDRPxrkX2wrQZYWe5Bbikt6bM1GHTTKBHFcKx4t93FEG/w3Kmiv6/uimfwdEH7vo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1765909161;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ldQzGmAubC7NVX9bPfauxfMcjfkUz5993xydoMvzQvo=; 
- b=TpjorSZO8RPxihgc7ExYQFHbj9ns6cTsUAKo7riwl2YO++sFZmwYH28uBhE/YVgkLwDp/r3I24TW+1ucmsZdR9AIZpxyg2CZixtyb9tDIz3FFgfroAnA/8SYBZYihUpBNdJs1qMhkdc0LSYcojBBLtni1CdhhiBnbk8YyhgGUI8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nfraprado@collabora.com;
- dmarc=pass header.from=<nfraprado@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1765909160; 
- s=zohomail; d=collabora.com; i=nfraprado@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
- bh=ldQzGmAubC7NVX9bPfauxfMcjfkUz5993xydoMvzQvo=;
- b=V92jnDUTjx1DQ3QtnduHkh7xpRz0lEyhkeYST1bSnaX50TFxlkGiOm3SQlR89dqJ
- maz7DiFRv9nAtk7bbBZZPn4nDqbW2US+DvZGzzMCTYbr1Or5tR79eVE/rdXkcYcdSTz
- wdgLf32kpVB8CEiy51nzhKclb3rwx3lO0DS2uccg=
-Received: by mx.zohomail.com with SMTPS id 1765909159591146.60618131307228;
- Tue, 16 Dec 2025 10:19:19 -0800 (PST)
-Message-ID: <492878007a02ffa87d0cff301571ffd100bc9c94.camel@collabora.com>
-Subject: Re: [PATCH V13 06/51] drm/colorop: Add 1D Curve subtype
-From: =?ISO-8859-1?Q?N=EDcolas?= "F. R. A. Prado" <nfraprado@collabora.com>
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: ariel.dalessandro@collabora.com, wayland-devel@lists.freedesktop.org, 
- harry.wentland@amd.com, leo.liu@amd.com, ville.syrjala@linux.intel.com, 
- pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com, 
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com, 
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch, 
- uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com, 
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com, 
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com, 
- louis.chauvet@bootlin.com, mcanal@igalia.com, arthurgrillo@riseup.net,
- Daniel Stone <daniels@collabora.com>
-Date: Tue, 16 Dec 2025 15:19:05 -0300
-In-Reply-To: <20251115000237.3561250-7-alex.hung@amd.com>
-References: <20251115000237.3561250-1-alex.hung@amd.com>
- <20251115000237.3561250-7-alex.hung@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-7 
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1869510E0D9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 07:16:30 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-477619f8ae5so41592415e9.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 Dec 2025 23:16:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1765955788; x=1766560588; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QBNEh/Q+8Cj7bGKHt6/CHAXFo4JFMP4SwRCCUU30DSc=;
+ b=Kkv2rKxjdbbKa7Mdta1PuNfq2RX442TvTHXO3P4t9WBY8AV77bYNOiwON8lREAlarf
+ nz0CnMk5Mm3/vPXIPdZcSP1kkPauBTcJCzZZz/yw5EpBq/Fv6rxNlwegqCW0RN+uSGbu
+ JGQUul9B4cPxzkjNSlsqTHWmwf8qrewWvbi89yQS6GqCh/UIfZnwf5xv5lRP1bYk4+Y2
+ SOobmrC0o4wdzdtpscDqKGgoblsof9EXV6ec2lmFzX13/c+6g5Vene+rXNuGkcNFMWs7
+ EXBs/+OvBNQJyR0fwFu3L7nnfoghmzIGD83AldUqYEtbhR+aaoYPwhMpNODNFL+QBtLl
+ 8T4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765955788; x=1766560588;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QBNEh/Q+8Cj7bGKHt6/CHAXFo4JFMP4SwRCCUU30DSc=;
+ b=Nzo90R6ZpVThG5NrlWSanzDjo6Nn7LUC+8scDLjUl0S7ep+F2uahWLVaaZSqYuqEsl
+ IQ0rfDZMm36yZVF9LDKqM4fBC5Irv2KiyfFMl/9tl5X9svTEBydQoYmPKXIUBEshxrNV
+ 6e5mZmdOmdqmYlRbgU4xt7tvkM2PVtQ6bVv3V6E8I8eGaX7F0Hd0LWsUW52bb1AMvH7S
+ AhSBTqOr1PPkU20F+N+6bmv5JLG8wavPZZ5vEdpKSy2jAz57u1UnxH0abFerEpSPKp/c
+ QOOvRdYzOnGEyk5rV53kB77Tvt91l5zeytTNXKVfcPKPzD8jWO2IrDyg93ZIbBYgkXmF
+ t2oA==
+X-Gm-Message-State: AOJu0Yyg/8cElP8CqNh4eDbTVujCFDFkV0qaITdjF0no3r1v/anTDVjE
+ GBdumydb8Xb7TZ7m1qXXpO15+ZHudn3HWn7bYOCnrSui6CmXGV6153anrDzJSIKPvh4=
+X-Gm-Gg: AY/fxX5S3Dtapzw2Ffx/Lf01GMTHOKsCm7y6Qp083AaRWuGY4FIOwWEoZYwc6FdzJl+
+ Hj9wkZWalUv+V4GQPDcj5cxj3k0RcLbd3hOwCYoXDwTuO60dWY0D8bUwO3vu/Ld+GidaBawK0bE
+ aLOAJEp8LD+4d16UT2fb7vpr8exVNkQODdAJZV/suHYYmdhU1DTvFa7wx9e5YQOxCds/EBSmuId
+ DCdvx9kI5ZplKxS/pvv/WMW8CITd2AsmRPo3+3O0xUoSloU84pShtAohBGnpV/nNmwtQUWICjNc
+ GrHH4DUKuCZDAnhZDQYOuE/ZJxNur29Xem4yjZDf75zOPq4BWGgo4J2H6PYgh5KWRcFM7qrr7zO
+ PQqkW5SYeVW8I+AlXOvHYNSpf+t9EpCz45YTD4V5g79jHoyQDBw2saoZdGX3BQ51ZZsqPqMBYnv
+ Pe0hVSNxtXDLh/qBScK/o56e7zlX0=
+X-Google-Smtp-Source: AGHT+IEZXOoyoTaVFDuk8cTdOrTrttImCdvdvzvjV5QegyEIg3VY2k6xryOuxEGl8EipS43Ex0dkgQ==
+X-Received: by 2002:a05:600c:1c81:b0:477:a02d:397a with SMTP id
+ 5b1f17b1804b1-47a8f89c91cmr161034025e9.2.1765955788499; 
+ Tue, 16 Dec 2025 23:16:28 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47bd995cc3fsm23659395e9.16.2025.12.16.23.16.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Dec 2025 23:16:28 -0800 (PST)
+Date: Wed, 17 Dec 2025 10:16:24 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amdkfd: Fix eviction fence handling
+Message-ID: <aUJYyFnyeGgC2iYi@stanley.mountain>
 MIME-Version: 1.0
-X-ZohoMailClient: External
-X-ZohoMail-Owner: <492878007a02ffa87d0cff301571ffd100bc9c94.camel@collabora.com>+zmo_0_nfraprado@collabora.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Wed, 17 Dec 2025 08:54:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,82 +84,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2025-11-14 at 17:01 -0700, Alex Hung wrote:
-> From: Harry Wentland <harry.wentland@amd.com>
->=20
-> Add a new drm_colorop with DRM_COLOROP_1D_CURVE with two subtypes:
-> DRM_COLOROP_1D_CURVE_SRGB_EOTF and
-> DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF.
->=20
-> Reviewed-by: Simon Ser <contact@emersion.fr>
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Co-developed-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
-> Reviewed-by: Sebastian Wick <sebastian.wick@redhat.com>
-> ---
-[..]
-> diff --git a/drivers/gpu/drm/drm_colorop.c
-> b/drivers/gpu/drm/drm_colorop.c
-> index 1459a28c7e7b..6fbc3c284d33 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-[..]
-> +static int drm_plane_colorop_init(struct drm_device *dev, struct
-> drm_colorop *colorop,
-> +			=C2=A0=C2=A0=C2=A0 struct drm_plane *plane, enum
-> drm_colorop_type type)
-> +{
-> +	struct drm_mode_config *config =3D &dev->mode_config;
-> +	struct drm_property *prop;
-> +	int ret =3D 0;
-> +
-> +	ret =3D drm_mode_object_add(dev, &colorop->base,
-> DRM_MODE_OBJECT_COLOROP);
-> +	if (ret)
-> +		return ret;
-> +
-> +	colorop->base.properties =3D &colorop->properties;
-> +	colorop->dev =3D dev;
-> +	colorop->type =3D type;
-> +	colorop->plane =3D plane;
-> +
-> +	list_add_tail(&colorop->head, &config->colorop_list);
-> +	colorop->index =3D config->num_colorop++;
+Hello Felix Kuehling,
 
-Hi Alex,
+Commit 7e38ccb5276f ("drm/amdkfd: Fix eviction fence handling") from
+Apr 17, 2024 (linux-next), leads to the following Smatch static
+checker warning:
 
-I know this series has already been merged, but I was looking through
-the code together with Ariel and we noticed that while this init
-function adds the colorop to the list in the drm_mode_config, it
-doesn't remove it in the error paths below, and I believe it should.
+	drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:2099 signal_eviction_fence()
+	warn: '(-22)' is not bool
 
-Does that make sense?
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c
+    2090 static bool signal_eviction_fence(struct kfd_process *p)
+                ^^^^
 
-Thanks,
-Nicolas
+    2091 {
+    2092         struct dma_fence *ef;
+    2093         bool ret;
+    2094 
+    2095         rcu_read_lock();
+    2096         ef = dma_fence_get_rcu_safe(&p->ef);
+    2097         rcu_read_unlock();
+    2098         if (!ef)
+--> 2099                 return -EINVAL;
 
-> +
-> +	/* add properties */
-> +
-> +	/* type */
-> +	prop =3D drm_property_create_enum(dev,
-> +					DRM_MODE_PROP_IMMUTABLE,
-> +					"TYPE",
-> drm_colorop_type_enum_list,
-> +					ARRAY_SIZE(drm_colorop_type_
-> enum_list));
-> +
-> +	if (!prop)
-> +		return -ENOMEM;
-> +
-> +	colorop->type_property =3D prop;
-> +
-> +	drm_object_attach_property(&colorop->base,
-> +				=C2=A0=C2=A0 colorop->type_property,
-> +				=C2=A0=C2=A0 colorop->type);
-> +
-> +	return ret;
-> +}
+This should be either true or false.  Probably true because presumably
+it has been tested?
+
+    2100 
+    2101         ret = dma_fence_check_and_signal(ef);
+    2102         dma_fence_put(ef);
+    2103 
+    2104         return ret;
+    2105 }
+
+regards,
+dan carpenter
