@@ -4,150 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1232BD66B9A
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 19:21:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BA2CD66B9A
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 19:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA31710E90E;
-	Wed, 17 Dec 2025 19:21:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1F0B10E2C9;
+	Wed, 17 Dec 2025 19:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yyqnvNz0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QQx+p6+V";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010036.outbound.protection.outlook.com
- [40.93.198.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A21010E2C9
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 19:21:29 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012008.outbound.protection.outlook.com [40.107.209.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 030F110E911
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 19:23:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ENqvgOSYsyjITQkjnyYV9opvo3XDa7v+duYEMIm0PUz/aWpS7bxM6xVkZOyFlu0c55p9OErSyB7KPLZ/luHs2Zk8hOkET3xLaIKw0uETuCgVLZz6HCCgjR0s+wsYKgsfEdsQIwJvLFRIJRQRBd4dwZ6uKi3I77XMnogKZmlKPke+eB0cLzcNNnq8cJT7SU0j+cm7ePHb4vbyr0fdoN5dMy7sf0kZ2fX5FPRgyojT3RwIJrI1D45n9GjbdYdKKK8yKXMmBh0/i37Fgng3Wt5s1oYb1nSqaz1EYTZSLmhAOtQsPyGf0qIFGc+hXaPQgKyfHjjkpW9QoZ09Ya5FJsgzRA==
+ b=QStMiJz2cMnuMNnTlc34aFjN5CRGgU7FOjlIhXhloEixjaF+L8oNwLwB0U+qN65ytn0zy3whXHfqa1C8zdf1heiinx4bSZ2DSZ67ZInswmoS58a+a0qKoNFMfbj/FSyWLDO7GUR1IrCsYpCuRIJ8mKtBUqHQcsCqmDm17QlspwIPf0urZ/Pb+iUP/zsWC1Nyaa3PtkNpajHSTZCyhmtWfVpQ4/a1TTwAmNRQiN/jvqvlOamg6N23Ek97OSdH67lpnVUh8kgk2iU1Eeg8fJbDG9jFvlgcFQbp/bJpaEnKAWX/KP4dT3yLV1vt35aUjkIu+EX2fnP+OJntmoSZZnPOHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pr0HqS9pZZHtUqU+T53wWW217Td6GI7mI67CvBXq/Gc=;
- b=l+StcugDjpA57WCMTyHuW25/ChlYWf6RgU1UarsbjWLfbK6LzoBu5nj4Jb6v/wY97tpr+vjTUHZKsWlMOCRkdeaIIKhhJIIN4J30x7JdcMEkZItdhQvjTebLoEAX+jIZbMi+sUKZ0S7wkMjoQJn3/5d/7cyIoRxVN5fjyuM2G/+qik2nJPHi0q2a/ujDelFkazZ52VvZLn8R92+dAH4bS4gghoszerBH2vL/W4p4UdkbKaCeUJWDAKcydb5J57S0fVyBwKHQA7DdAHyy/hL9EOD8D+Qr3SqkRszaXUJkOeQ6Eyrmf1UpRzkB/+2hmf29AqMfujoChVSYgVddoGP/OQ==
+ bh=7F2aaaPWpKV41xTV8qAy/Sj+skOqxzqL9UAeN6YtuME=;
+ b=NGK5EGFxc5XCJUE+orOojp94OujKGDoXhQh+fszZc52Kyv7cZy3lLyos8a99kxJ6R7ka4PeaotDlBnUVs+tnRThAJGVXpsFRNysYTKhJNHxaZ95QXrp/7xqyJmNYzJhCvgipafO2et3+drcBiXW7PBbCKpfLg4QPArC/VPo+Yu0Y44uXh+trUHAjy9qyzDsPDV10PjkTIzPu+fYpTmXoySAyeq8kX0nJl/lR+/D7YgfmQC1K6hINnZOaU/eCLRWi37uuOzjNmSONn0EJb+xrceMk0bRROIAfLTPmZ9OmgEyw+NCkYLebHsXLntcBYCLUxNKLWPL4tJzihF3Yw74qcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pr0HqS9pZZHtUqU+T53wWW217Td6GI7mI67CvBXq/Gc=;
- b=yyqnvNz0AtGOCBMF3/5SRzkmV8krAuL1poedD2G2yEy4aqenESK09dwlJOkQF13BoAUvygyC4YZmkEjMlE1cjj4oMv3jZnoWQQ/hSLG1kciv/QR5JDnyfvcCZ6MlznaO1iBjP3C3a2LUY71LiuGwsp9ZdhXjs/sc4I3XHEkaUuw=
+ bh=7F2aaaPWpKV41xTV8qAy/Sj+skOqxzqL9UAeN6YtuME=;
+ b=QQx+p6+VX8DRJkPUE4cgrCDNlIhAZeeoEucueiDcvAPD6LLeiHauTYBayrCmEWK7F+LF6JGn3VtQbZWA0nz5ol5KpYfBePyy0esFVbFJKit9WFYFzpOuAhvlLF2ffJDu9axyZ5BNOIk8pw86V/ImXPHy/MTmVAVHTZn5OqjvVZ8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by BN5PR12MB9512.namprd12.prod.outlook.com (2603:10b6:408:2ab::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DS0PR12MB8320.namprd12.prod.outlook.com (2603:10b6:8:f8::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.6; Wed, 17 Dec
- 2025 19:21:20 +0000
+ 2025 19:23:37 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca%7]) with mapi id 15.20.9434.001; Wed, 17 Dec 2025
- 19:21:20 +0000
-Message-ID: <4c6a9a94-8bc5-49b2-ba03-0f81266b3797@amd.com>
-Date: Wed, 17 Dec 2025 13:20:59 -0600
+ 19:23:37 +0000
+Message-ID: <7ef7c1d6-44f9-4819-8c32-887affc0cbec@amd.com>
+Date: Wed, 17 Dec 2025 13:23:31 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/amdgpu/jpeg: Add jpeg 5.3.0 support
+Subject: Re: [PATCH 3/4] drm/amdgpu/discovery: add vcn and jpeg ip block
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
 References: <20251217153521.2018841-1-alexander.deucher@amd.com>
- <20251217153521.2018841-2-alexander.deucher@amd.com>
+ <20251217153521.2018841-3-alexander.deucher@amd.com>
 Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20251217153521.2018841-2-alexander.deucher@amd.com>
+In-Reply-To: <20251217153521.2018841-3-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7PR05CA0100.namprd05.prod.outlook.com
- (2603:10b6:8:56::23) To MN0PR12MB6101.namprd12.prod.outlook.com
+X-ClientProxiedBy: DS7PR05CA0087.namprd05.prod.outlook.com (2603:10b6:8:56::9)
+ To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|BN5PR12MB9512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 892a689d-ed33-4160-f905-08de3da1751e
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DS0PR12MB8320:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb8cb7cb-ca58-497c-8c9e-08de3da1c6ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bUpHeGtIMUpuSG03TklteXVxUlVQSGZHNW9TVjhtUXVhYTlqbDNPN0diakVC?=
- =?utf-8?B?bFd5VDdsemZYN1F2TUFWMjRDckJFbFNIeWhUZnQxYStXZ2h0cE1UcTZYL0xG?=
- =?utf-8?B?ZmZSNy9HOEl2M0xLYnJuY21URWRjaWVseXRYWnNGU1Z4cDJGdldRVEQvbFEy?=
- =?utf-8?B?bks4V21pQVptMTZqOHZjOVhrWjlLNVJMRmlHTEhOTmhxWG1DK2tPc3AzalVv?=
- =?utf-8?B?dDFDTnQ0TFFtRU1aS21HL1FKWllMdFY3MXFWUjFqRmFZNjEzemk5eWdUejE3?=
- =?utf-8?B?Ky9ncnR4MTVYWHpLZEN4NzNVS3NDdWZ4WEVVZFgwYUhkQ1FGb2VlTWFwTVVD?=
- =?utf-8?B?eUQrV21BSGFlNlU5SzhlODJ5eG83ZXpBUC9ZdjBiQ1hpZmdzanZCM0RhVHBl?=
- =?utf-8?B?YldUYWEvcGlmMEpsdmlzblI4QlZZekhHZEhjaHVKeUxYR2kwUmpFMkdEaWMx?=
- =?utf-8?B?MmJ5cFNPSXNjUm5pWnBQZXVBRHNnTzFFSnc3TUVUMzZRWEFNS2pNdUVhOHJx?=
- =?utf-8?B?RU1uNnFNV3JYcjRtTUF2R2I5UE1Vd0lNY3J2eGt3cnVkTlRvZk91V3VPWEJl?=
- =?utf-8?B?UzJVeTZqd3R0bmpMaDhNbG9QN1VFYXl2VUhXaERwM2VGZ2lKaWFZMEkwa1kw?=
- =?utf-8?B?WE1xMUhsWHpiSW9KVDk0eExDUW9odVRBQVBhY3B1K2I0QU5WWUtWTStqWDVv?=
- =?utf-8?B?UThva2h4Y2dvU2pJeTI2RWRVd1UxbzZUcWpiRVhTVmQ3czk4Zk42ZCt0K3pJ?=
- =?utf-8?B?UDROeUZydTV0eEY2dm9oNFVxalZKcVplQ3FMbnBsODR5RHlmbFZIcVZnVFpl?=
- =?utf-8?B?WDBOdnVsUklmdnVxTHFsSTFsNFNPY0lkY2dqSnVXY3BWR2N2NmpaeUtCd2JD?=
- =?utf-8?B?VG56cU45U1BZcmsyZWJrV245WDBrZEJFdnoxb09rcE9obWpURjl6aWxxdE1x?=
- =?utf-8?B?WWJ0cGpzd296QlNEczVkWFlMdjJWbVMwV3ZhNFBGbG8zQTE5VUcvVDJtcWxT?=
- =?utf-8?B?enI4eW1rOXpLMFBZZUh0OVZzZkt4RWVURysrTGhUeFdzRDIwbVZUSHlCT3RH?=
- =?utf-8?B?cTVRUjFpRWdCZzFZSWZPRFJyRUJ5ait3WjJMUnJ2WWYwMVVJVktRWDV5RUly?=
- =?utf-8?B?cU9CWStOYzlINVBFa2Q3RWxUSExsVjd5V3FETk90aGtKeWhna3pFS1Z2ekN2?=
- =?utf-8?B?aXFVTCttWUl2aHBNbGpMRFV6QmpEL2JKNmQ4NjRwYTdadFBTbzVKOFllNEl2?=
- =?utf-8?B?UWJ3VkN3UUNScHdIZUlZSEU0SzNEZURKUGpuZTNKMzRoZ3d2aGNBZzJZZXUv?=
- =?utf-8?B?aEpWODZSU3h1RUZTQUJJMW8wd3VCMHhzbFFheG1mUk11NXRoaGFOSlVSYVBh?=
- =?utf-8?B?S281YkNyRVIxTS9GampYbkxpeHNsMEMrNGE5cEl6S0JOVVFKdVVoQU9DMUh1?=
- =?utf-8?B?T1pJZ055aWRlMC9RajlxQWpEOU95Mmp6LzRMWlNyWWl0dzFoYjl0VWw2M0dm?=
- =?utf-8?B?RzB6TEZtSTdYQ0h1QkJMZWdLTGE4dFRMdUs3Rkg2ZjgyNlB4YVU3bVpBSlAx?=
- =?utf-8?B?RUhzZVpZMHdNZEFZRDVzUU9NYWViQ0VLVGFVeTd3OWl1bTJySCtwRkUrUXY2?=
- =?utf-8?B?a08rN3JlY1QxbmczdzFkbk50VHJtSW5oOW9zWmFZakJGMmhjbFNlY1htL0lO?=
- =?utf-8?B?MVRsZHhQTk1DV3RkU3BzQUVHbUxyK3Q0aXJsOTR3YlRZREl5UEdMQ2JBM1pF?=
- =?utf-8?B?dHJQdW15QTJwYmE4Y1ltc0t4RE9ta01YbVRxMWJqeTNBVW0rc0w0WWtIUC8w?=
- =?utf-8?B?V0ZMUi96TDJJbWw4dlRBSnVKUGN4NFBoQ25Bd3UxZ1UrVWxFM2dCeWxxY2xr?=
- =?utf-8?B?RlovSnYxV1pNQ1NiOWRQUm45ZnFvN1BsOHJWV3R4YU1namlxUFZVY21Jem41?=
- =?utf-8?Q?3TRIxpYQcs6Od/MXy+7vf44FrQcMdDfm?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?d1VLTFUxTGh4OUVXUGVKUHVyMURNcWlneDV6Rk1tR2dxaXc0L2I0bGcyaWl3?=
+ =?utf-8?B?MXRld1FxNlRMK09mRmhzZjZBd3JFbTVTbmlKN1JaYUEvVmRsUUI1N1RCdGUx?=
+ =?utf-8?B?eEFtSE0vaHhCSTBNNFpkNGVmSTBsaU92SXVPYm5zT05KdFlFYUlySGJuQnMx?=
+ =?utf-8?B?b2U0NmNKeHhteDh6cS9DYUZZa09tU3RGOUxrUlQ5b0FYSGpxdStkUXlXTU5z?=
+ =?utf-8?B?Q2tUZWJDQmFZWmVLclNPWkNycklrdlI1UkcreGs2MGhnM1BobnF2ZExwWmNi?=
+ =?utf-8?B?anpWMXhldmJQMU9pRzQ1aDROakpkL3lkZDJ0RGp3dWJkbmVOUjJHdnJOMG45?=
+ =?utf-8?B?WkRYQWVqcnlDa0VaZDJiWUxORXZ2YzJveWorN2lWSS8rMGVXRUtmZVJqMkxu?=
+ =?utf-8?B?a3VMdXRzZEEybTQ3RWFRQVBzbnJzOVFqdTNBamYwU2VFZnkzdVYzY1F1YVZx?=
+ =?utf-8?B?M2tSKzdhcDJZUUFLeUkwYzdKRTUyc3R1VlNYc0VMdzZyTnBCVnRCZndSeEhr?=
+ =?utf-8?B?aEhDUVZPNzBqSTVGQ3cvU2hZVEM1YS9vcmRtejVDQmRiWllXZVVnTCtqVDNW?=
+ =?utf-8?B?bTZramhtcE5KVTE5bTVibTVKRUREQlI2NitCTlFBNFc4R2YzNHU2RklMNElV?=
+ =?utf-8?B?K3Z3dGp5a3VPTTUrc2dJYnFGQzdZZWJQY2J2VDY2cjdUMlVVTHh0UC9NdDlU?=
+ =?utf-8?B?NC9CQjBqcWxSdVlkRGtmaG9QSFZWQW5uWjVoQXVEYU15UGltWkVRcDhGdloy?=
+ =?utf-8?B?ZlIzalBXSjM2Vk9sdHRsMWhGWVIxZU9pYnVPbDB2T2pSd1FTdGdQclNEMWcz?=
+ =?utf-8?B?Z2FTbFF6cW5TN014MnZBSjFuclJTaUxoMmZzTGNaSzVjZUkvU1dKaWxwRStS?=
+ =?utf-8?B?ZytnSTVDUmFTbXdNWkZQVy9IYWV6Y3VBSy9uc0RTdkhWL2ovOTd2WGptZXlM?=
+ =?utf-8?B?Mk5PLzJiZUcreEk4MVhBUkR0NkI3QVBES3N2dlFmUmlDUnhHaUsxc3dsbU1N?=
+ =?utf-8?B?eFhrd0NmY2t1UkZxeWRIVHgyajJyaUNYUTc2ZFZwTGc5cnlvQXF4VkV5aHBV?=
+ =?utf-8?B?aDc3cXN3WEdwWGt4QjNBdnljSTFBUHVBckVVMWxHWm1WeTBBbHFJeWdObUwx?=
+ =?utf-8?B?RWsrZy8zWGNIVlBES3RldnFnTWU2SXRFVlhZSHR5M09jc0FMOWZqZGFGbjlO?=
+ =?utf-8?B?Ym9sOU1qWHoyV3RvSXJtOGJmT0U2dnFvVmtXQXRaT2lidGNzckt2RkZzNXFG?=
+ =?utf-8?B?bWNZYjJRL2ZBZTNWKzVvbTlQcEhqQk1CbG1Wa3lIUE12T1JqejZveW1DUmhq?=
+ =?utf-8?B?TFB1Rk1yRC9pRHlWTXNySVVBdVBhanpRWTVMYUxycHNnOGJpdThqTXNPYWhV?=
+ =?utf-8?B?WjVMcHJSUVBKTk8xcE9wTGhLSG5jYk8wZDVLTWI3TTZ4dmdOd1VSMW1GOEVy?=
+ =?utf-8?B?bGdpMVg3Y2pPSExYeEtOMDVEZCt4UXNNZmtBUk9qdzN3eUtsREtXK0Fzc3Q0?=
+ =?utf-8?B?Z28zQ3JjUWdIbkVQbFhYMGZTR0NZemdlcWxtRXFMSzJjMGpmSktUVUZZcHFE?=
+ =?utf-8?B?NHFQbDlZbk9xcHh2eWl5YkRTckFUMVZKNzhCNEhsUUlVSXdpNUpQTTdQVzJV?=
+ =?utf-8?B?cVJCYVlQaDR2Z05lQnd2dkhFbkduK1ZmVnJZTFFoYzlSQ1pGYXl2ZzJxYlRJ?=
+ =?utf-8?B?aEs5a3VqRHlqS2h5Q0cyTEtwbXFXUldCYlM3TlhlRXkzVjJWeEdPSU42RTNr?=
+ =?utf-8?B?bUxqalp2UTk2cTliNU1VeXJCdWYrT1BvRU8ydWtWYXppc3hlWElucWE4WU51?=
+ =?utf-8?B?cmlKTkZMNTZQUXZOTG84QmRaSUlTeVFTUTJMbm16dkxKeFJTZlc3am9YKzdz?=
+ =?utf-8?B?Q0ZKSGpybWdGUkxhR1VSYlB5aWx6b010bDlrbFlkT2hGUitVemRLd3h4KzYz?=
+ =?utf-8?Q?hcJWaiOz/dl+6Uzrdj0lvMwVrwoM4ZAy?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVczQWdoclNqeTRFVkZ1dUpwUldSd1Y4RzBBMlBUUGNmUmNIcUthUzRDZ21L?=
- =?utf-8?B?bVYza0YvVGplWlhZVkhIbWJzK1NzTzJ3TlVoTlcwSndyMXl5VzZDQnZSY2xP?=
- =?utf-8?B?L2lxbENFUUZ6T0Vhd3ZJaTVPam5TcDM2UC82NzFFN29LcE1lODJvTkZya1BS?=
- =?utf-8?B?WXVIRDBHM29MMXVSZ1FXVW9obmtsekdmeGtXK2x2N2dzaWJzanRJZkthQ0RF?=
- =?utf-8?B?b2cwQUJjc0pzK3kzcm1zRWN3QXlLNDd1Q0tmV2lFdXhZaFU3Nis0a1ZoQ08y?=
- =?utf-8?B?UnFmV0t4UysxUmF0OUdFc0w2Z1FEa0o4MmUyK3BYZTZ6RlYwMlNhLzFvbTY2?=
- =?utf-8?B?MzViMkRaTHNVZVFlaHlyL1AyOVhMb0RjQzR3VmFXVkhMSUNycWFKNTQ4RE9u?=
- =?utf-8?B?VWdkdGQ4Z290bUxLajh3T2N1QnNDMU5WUDE1N3pVQllFWVRrUGZ5RFNRR0Ew?=
- =?utf-8?B?SkNGandoVDRUNEtBM1kwcXI0OGZ3eWlOUWY2clRLcnFBeldFYkxVWStzcnF5?=
- =?utf-8?B?M1lRS243N3VCckhQY3VGUU1PRU5IelArbk84U096MUdnc1hKdGt3WFhaUk5P?=
- =?utf-8?B?NkhteExrdG5oeUtvdVdqMURJZUh5eGV0dXBFdUhnSm9UbmZFTVArbWNDeXNP?=
- =?utf-8?B?MzlmSDZWOTNKSWIvQzdmVUZaQlJMUHNraUJ4cEVhY1F5Rks4MzUrcW9kck1K?=
- =?utf-8?B?eTFEKy9jdFZXNndpNVlQcGNFNW1rTWw2MzFaVWlLVTA5M3F6YVBBaTV4WkdS?=
- =?utf-8?B?VzJtSkFKL3FKWHgxVVoyNEJzQmcyT1BxekpxYThUajNtOWVjNFZleUdEVEc4?=
- =?utf-8?B?MUF1cXRVRjJzakdQUlhTUnQyUzc4WHl1a0FWdkkreTBaOHVsTC9Jd0VBbm5X?=
- =?utf-8?B?U3Vnb2FxbGtMMzEvaTUvbW1ZUCtsd3pkVm9tM1o2cXNHR0ZzTmxabjZCbzR2?=
- =?utf-8?B?a2lNRnNGZWJOQldpZGQwenFValpxV0VvSWFlbVZaSS9Ydnc4SExYVmloOUFF?=
- =?utf-8?B?aElEckQ3SnZSY3dQd0h4TVdGOU9GWFBkZ1RoZGFRUHNQaTNqSCt3ZElsVEJp?=
- =?utf-8?B?SDdyQUI0cCt1WitTNVNQMzVudEJjVG5hQnBjeEFIdnhOVlFHWEdFSEc3em5G?=
- =?utf-8?B?cHM3YVp1S08yNW42U3B4Q1FQZGlSVzFOb1hzNnZReGhtM3owcUlHYStFSWFB?=
- =?utf-8?B?OVAwTjdzOVp1WXJMMHBiYUNOY1AwSndQenp3dUwrL3Y0bFU3MldCWHJWZ0kz?=
- =?utf-8?B?dEpoVUdTbWFibnM1SnYzWTRuU3VWKzl0NUpPMStEd2FNRWx0YzNYWmZzbWtr?=
- =?utf-8?B?NHpCMjlKei9idnJ2dGxYT2o2M3RjSkQ1cXkvZW1aSy81K0FwY0FmSk9GMUxV?=
- =?utf-8?B?VUtiSEVpSWVVYjhyY0w1QUhWOFJ5QUNpTURKSzBzQlAydytmelI3alJNb3Bw?=
- =?utf-8?B?SXlaSi9QNWlZQkd0UWt6dzNLOEIzOEdoa2JOaStPOTlyYmRseEVrUExSeGtX?=
- =?utf-8?B?Yk9Cd3o2R3JCd0hzUTFGRWkxVDQvNmFZeldURGd0bXRENE15L01IOHpFY3Rj?=
- =?utf-8?B?SERhOVhxNThrQW51cVdCTGIreGgvQUxJelkzZ3duejdJRHFqWUNxdytTOVox?=
- =?utf-8?B?Uit0ZENQcStvcUFLbFdDUWQ3cHM1VnBhWThwL05pYVB6bkJyT1RERTAveEdk?=
- =?utf-8?B?eXVrOVVFeTJrWEs2SDl0c1F4M1hoc05UNU8rRy9ETmI1cXNQL0cwckV4dTlx?=
- =?utf-8?B?bXpIZlFEN3RRblZ2WS9VcS8yWHJBVlZDYWpQbG9YQ2l2bDVrMlBGTDdKSHpw?=
- =?utf-8?B?U0hRUXovSVViR0o1UStFWGVPSFVyZi9lUm84ZERqMVBKanhTUlBBTHAyR2lr?=
- =?utf-8?B?SzkyRDV0OUdDRlNYSk5HRlYyWWg5U0hoMExNRTRHcVpxc1VFRmFQYlJpaThy?=
- =?utf-8?B?czg4VzBMMm5wOFR1Si9FVE9iOEJNRWVlM2JZVVRjU2Qxc3VHSWZ5L1BXajMw?=
- =?utf-8?B?Wklic3d6ZUU4VlRhOHpSMG9rVFdmNXYzQStsQWlGTEVYYUlRNk5oRlB2VEdt?=
- =?utf-8?B?MjdTZFp1dlEyL1hRaG45UFIzZHUvSGdPL3hISTMwUk1uL3JBWkZVb1htcTc1?=
- =?utf-8?Q?zck/k2AZAAsgqDfL9ioPCQZyq?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aG9IczlrZ0Y0THRNczJLMEJqUTUyaGJaWFcxMExQU0tlb1BITkFqL1EwSlNF?=
+ =?utf-8?B?ZEJJZ0xPVjVHMEY4ZVc0S29xSG8yY1dDZUhFSTJuYnFCQytTSEMxczBvOTl5?=
+ =?utf-8?B?N3hqcU92djNFdjQ5SXpxYnZva1dIanVTcTJTdERGTHk3U1RzUmhaVDRzNW5x?=
+ =?utf-8?B?RG5uZHA3ZTl2T1pJaTIvdm0rbDlGeVh6TFFsZXJxTnZvditQeGhDZ3l4aUNE?=
+ =?utf-8?B?Ujh0Q1VjaEYwcGQ5T0FES29seDEzVTlrTzFwVmN6bGVzLzJXaXN5eCt0bm1u?=
+ =?utf-8?B?b0tab1hrS2ZVd0l2MXdTVW1iZlBMSFRuYUhPYXUrNmxQUXZBK1RkTTNsbXFT?=
+ =?utf-8?B?eWVLQUZGVUlNcHJjK0xMdkFTQXJWRUN1SWhGVEtnS0hZbURsREhqSzh4Mm4w?=
+ =?utf-8?B?YTE4QVdNR253ZnZhNTBmQlV5TlhnWUEvZ3hnMHFtSWdCQUhkL2krTC9Cd2ZL?=
+ =?utf-8?B?T0lMRER2bEF5N0xINjRMVmU3SWNWc21IM242cEhMWitQb3dOZVR1bGRtUi9P?=
+ =?utf-8?B?U3diZFl6SHUvVE5TdzE4TUZ4UTM2Z2htYVpVeWJUYUZ5cy9ibFFINm9ITno4?=
+ =?utf-8?B?VnE3d1dFNTJzZUc2aitXZnJoNUgrUjljU1JhS1hCbktlMVBXeitjd3dkVmhU?=
+ =?utf-8?B?U2JpWUtsU1haVE9WazFINEg1U0RZajBuWURrT2Yxc3FxYWZPUkRZZjhBL3gr?=
+ =?utf-8?B?N3Q3MEIvVkhzZ1JaZlBnNm1IVWp2cTNFaTgrNzc0Ymk4M2l6c1orMTZ4d290?=
+ =?utf-8?B?UEF5dmExbDVxMlRLRTNkRzVZV3A4bnJ3RjhaR3VtV3djNko2cmVOVkNWU3U4?=
+ =?utf-8?B?eUhsQjNSMlVZeEFvcjM1aWF6V2w1c3dodm1lQm1aSUc3cldCMWxkcEFqSExO?=
+ =?utf-8?B?c0ZGTW12UWtXdUpoVXpZV3UvVnBUdytmMTB3R1I4ZE9YSWtLNVlGekpQNTBq?=
+ =?utf-8?B?bjFTdXZqK2Vqd1pJTFJUMVQyb3ZDQ2ovQkVOT09IcHZhVlhYK2NXcmlTcEY0?=
+ =?utf-8?B?UTF1cElHdXRwL204UWREL3hRMDk5YzAvVjJ5UExWcjd3ejVQVVRJWitxMXFC?=
+ =?utf-8?B?MHJrdVdXWVhzWkdZaDJRSVovMXA1KzhDbjNPREViUmFtS0tKL0dTaStVUUhN?=
+ =?utf-8?B?ZUV2YUNxVUNaZUd2c3A2b1Q2dW1KRHVpS1BoVFZrNFFBN1JyMWFZZ2hkN0g2?=
+ =?utf-8?B?cFdXTEhVWGxHNkxVMWovdHY3UDMxN1UwSThENHVsaGpGaDNuSWc1UG9Ncnpl?=
+ =?utf-8?B?YmVmVFJvNEtZUVpqTk9FU2ZISVJ6RjVSYU5DbVBjYlQxb2dlMGxobDhObUhX?=
+ =?utf-8?B?Yjg3OVhaSW1jSERic2ZxOGx5UzAyTXdKNWYvYUNYbmZweG9JUEl3bVZBamNV?=
+ =?utf-8?B?ZElGV29sb2lxYXpyQWlpMmowNUQwNklYT1NlU25SZFlWMTJSb09YMWFKMGcv?=
+ =?utf-8?B?dHBQenM0UExGQ1VybkxqNzlQZFhEYjFCVnVaUlBWbmd1OU9mS2xEdlg2dXl4?=
+ =?utf-8?B?Y3NrWWFERzlNSjYxbVE2eG9wSXRSTUdZVDdlWG9KNFNJMWtFTU9mUXMxNjVZ?=
+ =?utf-8?B?WnBpaWNtSGtDeDNUZkRCQldrNG5vUlNVdjFPQjVmQjdmYXRSVGxJbG1tSWI1?=
+ =?utf-8?B?T2MrczNVdU9TYXEyQytGNlhNYkRFRlVjdm53K1hIM0lvdjdJYjYreWFWYVlm?=
+ =?utf-8?B?SGNqS1I1NkdtNWF4L0ZZeGIxQmVPbzBXUElMRE8vdlp3dFB0Q0ZjOXZWNzAx?=
+ =?utf-8?B?NmdaUWxMK1FZMFY1eWhCeTc1T0VCY1BYZURiSWhZY2JSblMrZ1AzSFpKcGhO?=
+ =?utf-8?B?UjJVY1RKdFZrekRQdklXalA4S1RXSjE4a1NOd3BhcXRoSnNjMkQrTUdUcS9z?=
+ =?utf-8?B?bXAxbzllWmxmZCtZUFpXYXNMYTd6VXJ6R1UyM3VJd3poY3lmNEtLNTRrT2Nt?=
+ =?utf-8?B?YlNlYUx1dXd3LzUrWUpWV2grSElFV25EaE9ZWVdOTzU2TnArcnBwdnJYODhq?=
+ =?utf-8?B?R08xTWgyVlVZWEFCV1hXRzMzZEtma0hscFBPNklCSGdHaHJSQzVNR2svcDVh?=
+ =?utf-8?B?K2prajJscGlTeTkwajIycFA2Z0lkdFNic1JBelNEaHNOMnBmdUcyRlJTQ3ZQ?=
+ =?utf-8?Q?Lqwe/zpcIAk1cpLNeTqEqCwOH?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 892a689d-ed33-4160-f905-08de3da1751e
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb8cb7cb-ca58-497c-8c9e-08de3da1c6ea
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2025 19:21:19.9273 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2025 19:23:37.1121 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sVF20Qwvoy9IQLvWPPxQPRsbblCfo0aX2F6n3lxr+y9EEQgIAszPMOhzCYzlcqWB1bCng4NSobDBTeKwzzX2UA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9512
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3gwcbQE7YamSRd3OmUEp4F7UeKbVJXxq7i3Xxf+he7pItWlwNv3qV8Ja+oEAmq6vN9UUUMs5Q3KqTY7WhHDkWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8320
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,781 +164,126 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 12/17/25 9:35 AM, Alex Deucher wrote:
 > From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
 > 
-> Add the Jpeg IP v5_3_0 code base.
+> Add VCN and jpeg IPs v5_3_0 blocks.
 > 
 > Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/Makefile      |   3 +-
->   drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 695 +++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.h |  35 ++
->   3 files changed, 732 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.h
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  6 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  2 +
+>   drivers/gpu/drm/amd/amdgpu/soc21.c            | 39 +++++++++++++++++--
+>   3 files changed, 44 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index d0c506a445695..4b9cb9b681b65 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -221,7 +221,8 @@ amdgpu-y += \
->   	jpeg_v4_0_3.o \
->   	jpeg_v4_0_5.o \
->   	jpeg_v5_0_0.o \
-> -	jpeg_v5_0_1.o
-> +	jpeg_v5_0_1.o \
-> +	jpeg_v5_3_0.o
->   
->   # add VPE block
->   amdgpu-y += \
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> new file mode 100644
-> index 0000000000000..084e592fb838f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> @@ -0,0 +1,695 @@
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include "amdgpu.h"
-> +#include "amdgpu_jpeg.h"
-> +#include "amdgpu_pm.h"
-> +#include "soc15.h"
-> +#include "soc15d.h"
-> +#include "jpeg_v2_0.h"
-> +#include "jpeg_v4_0_3.h"
-> +
-> +#include "vcn/vcn_5_3_0_offset.h"
-> +#include "vcn/vcn_5_3_0_sh_mask.h"
-> +#include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index ac1b95b9a4f6a..43e6216ca30f7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -112,6 +112,8 @@
+>   #include "vcn_v5_0_1.h"
+>   #include "jpeg_v5_0_0.h"
+>   #include "jpeg_v5_0_1.h"
 > +#include "jpeg_v5_3_0.h"
 > +
-> +static void jpeg_v5_3_0_set_dec_ring_funcs(struct amdgpu_device *adev);
-> +static void jpeg_v5_3_0_set_irq_funcs(struct amdgpu_device *adev);
-> +static int jpeg_v5_3_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
-> +				enum amd_powergating_state state);
+>   #include "amdgpu_ras_mgr.h"
+>   
+>   #include "amdgpu_vpe.h"
+> @@ -2538,6 +2540,10 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+>   			amdgpu_device_ip_block_add(adev, &vcn_v5_0_0_ip_block);
+>   			amdgpu_device_ip_block_add(adev, &jpeg_v5_0_0_ip_block);
+>   			break;
+> +		case IP_VERSION(5, 3, 0):
+> +			amdgpu_device_ip_block_add(adev, &vcn_v5_0_0_ip_block);
 
-As it's "new code", could the functions be ordered in a way that 
-prototypes aren't needed?
+This seems like a mistake.  Shouldn't there be a new vcn_v5_3_0_ip_block 
+that sets major and minor properly?
 
-IE:
-* put jpeg_v5_3_0_set_irq_funcs() and jpeg_v5_3_0_set_dec_ring_funcs() 
-before jpeg_v5_3_0_early_init()?
-* put jpeg_v5_3_0_set_powergating_state() before jpeg_v5_3_0_hw_fini()
-
+> +			amdgpu_device_ip_block_add(adev, &jpeg_v5_3_0_ip_block);
+> +			break;
+>   		case IP_VERSION(5, 0, 1):
+>   			amdgpu_device_ip_block_add(adev, &vcn_v5_0_1_ip_block);
+>   			amdgpu_device_ip_block_add(adev, &jpeg_v5_0_1_ip_block);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> index 5e0786ea911b3..75ae9b429420e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -63,6 +63,7 @@
+>   #define FIRMWARE_VCN4_0_6_1		"amdgpu/vcn_4_0_6_1.bin"
+>   #define FIRMWARE_VCN5_0_0		"amdgpu/vcn_5_0_0.bin"
+>   #define FIRMWARE_VCN5_0_1		"amdgpu/vcn_5_0_1.bin"
+> +#define FIRMWARE_VCN5_3_0		"amdgpu/vcn_5_3_0.bin"
+>   
+>   MODULE_FIRMWARE(FIRMWARE_RAVEN);
+>   MODULE_FIRMWARE(FIRMWARE_PICASSO);
+> @@ -90,6 +91,7 @@ MODULE_FIRMWARE(FIRMWARE_VCN4_0_6);
+>   MODULE_FIRMWARE(FIRMWARE_VCN4_0_6_1);
+>   MODULE_FIRMWARE(FIRMWARE_VCN5_0_0);
+>   MODULE_FIRMWARE(FIRMWARE_VCN5_0_1);
+> +MODULE_FIRMWARE(FIRMWARE_VCN5_3_0);
+>   
+>   static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
+>   static void amdgpu_vcn_reg_dump_fini(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> index 4e24aeecd9efb..2da733b45c21a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -141,6 +141,31 @@ static struct amdgpu_video_codecs sriov_vcn_4_0_0_video_codecs_decode_vcn1 = {
+>   	.codec_array = sriov_vcn_4_0_0_video_codecs_decode_array_vcn1,
+>   };
+>   
+> +static const struct amdgpu_video_codec_info vcn_5_3_0_video_codecs_encode_array_vcn0[] = {
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
+> +};
+> +
+> +static const struct amdgpu_video_codecs vcn_5_3_0_video_codecs_encode_vcn0 = {
+> +        .codec_count = ARRAY_SIZE(vcn_5_3_0_video_codecs_encode_array_vcn0),
+> +        .codec_array = vcn_5_3_0_video_codecs_encode_array_vcn0,
+> +};
+> +
+> +static const struct amdgpu_video_codec_info vcn_5_3_0_video_codecs_decode_array_vcn0[] = {
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 16384, 16384, 0)},
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
+> +        {codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
+> +};
+> +
+> +static const struct amdgpu_video_codecs vcn_5_3_0_video_codecs_decode_vcn0 = {
+> +        .codec_count = ARRAY_SIZE(vcn_5_3_0_video_codecs_decode_array_vcn0),
+> +        .codec_array = vcn_5_3_0_video_codecs_decode_array_vcn0,
+> +};
 > +
 > +
-> +/**
-> + * jpeg_v5_3_0_early_init - set function pointers
-> + *
-> + * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
-> + *
-> + * Set ring and irq function pointers
-> + */
-> +static int jpeg_v5_3_0_early_init(struct amdgpu_ip_block *ip_block)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +
-> +	adev->jpeg.num_jpeg_inst = 1;
-> +	adev->jpeg.num_jpeg_rings = 1;
-> +
-> +	jpeg_v5_3_0_set_dec_ring_funcs(adev);
-> +	jpeg_v5_3_0_set_irq_funcs(adev);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_sw_init - sw init for JPEG block
-> + *
-> + * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
-> + *
-> + * Load firmware and sw initialization
-> + */
-> +static int jpeg_v5_3_0_sw_init(struct amdgpu_ip_block *ip_block)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +	struct amdgpu_ring *ring;
-> +	int r;
-> +
-> +	/* JPEG TRAP */
-> +	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
-> +		VCN_5_0__SRCID__JPEG_DECODE, &adev->jpeg.inst->irq);
-> +	if (r)
-> +		return r;
-> +
-> +	r = amdgpu_jpeg_sw_init(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	r = amdgpu_jpeg_resume(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	ring = adev->jpeg.inst->ring_dec;
-> +	ring->use_doorbell = true;
-> +	ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 1;
-> +	ring->vm_hub = AMDGPU_MMHUB0(0);
-> +
-> +	sprintf(ring->name, "jpeg_dec");
-> +	r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0,
-> +			     AMDGPU_RING_PRIO_DEFAULT, NULL);
-> +	if (r)
-> +		return r;
-> +
-> +	adev->jpeg.internal.jpeg_pitch[0] = regUVD_JPEG_PITCH_INTERNAL_OFFSET;
-> +	adev->jpeg.inst->external.jpeg_pitch[0] = SOC15_REG_OFFSET(JPEG, 0, regUVD_JPEG_PITCH);
-> +
-> +	/* TODO: Add queue reset mask when FW fully supports it */
-> +	adev->jpeg.supported_reset =
-> +		amdgpu_get_soft_full_reset_mask(&adev->jpeg.inst[0].ring_dec[0]);
-> +	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
-> +	if (r)
-> +		return r;
-> +	return 0;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_sw_fini - sw fini for JPEG block
-> + *
-> + * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
-> + *
-> + * JPEG suspend and free up sw allocation
-> + */
-> +static int jpeg_v5_3_0_sw_fini(struct amdgpu_ip_block *ip_block)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +	int r;
-> +
-> +	r = amdgpu_jpeg_suspend(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	amdgpu_jpeg_sysfs_reset_mask_fini(adev);
-> +	r = amdgpu_jpeg_sw_fini(adev);
-> +
-> +	return r;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_hw_init - start and test JPEG block
-> + *
-> + * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
-> + *
-> + */
-> +static int jpeg_v5_3_0_hw_init(struct amdgpu_ip_block *ip_block)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +	struct amdgpu_ring *ring = adev->jpeg.inst->ring_dec;
-> +	int r;
-> +
-> +	adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
-> +			(adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
-> +
-> +	/* Skip ring test because pause DPG is not implemented. */
-> +	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG_DPG)
+>   static int soc21_query_video_codecs(struct amdgpu_device *adev, bool encode,
+>   				 const struct amdgpu_video_codecs **codecs)
+>   {
+> @@ -185,6 +210,12 @@ static int soc21_query_video_codecs(struct amdgpu_device *adev, bool encode,
+>   		else
+>   			*codecs = &vcn_4_0_0_video_codecs_decode_vcn0;
+>   		return 0;
+> +	case IP_VERSION(5, 3, 0):
+> +		if (encode)
+> +			*codecs = &vcn_5_3_0_video_codecs_encode_vcn0;
+> +		else
+> +			*codecs = &vcn_5_3_0_video_codecs_decode_vcn0;
 > +		return 0;
-> +
-> +	r = amdgpu_ring_test_helper(ring);
-> +	if (r)
-> +		return r;
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_hw_fini - stop the hardware block
-> + *
-> + * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
-> + *
-> + * Stop the JPEG block, mark ring as not ready any more
-> + */
-> +static int jpeg_v5_3_0_hw_fini(struct amdgpu_ip_block *ip_block)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +
-> +	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-> +
-> +	if (adev->jpeg.cur_state != AMD_PG_STATE_GATE &&
-> +	      RREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_STATUS))
-> +		jpeg_v5_3_0_set_powergating_state(ip_block, AMD_PG_STATE_GATE);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_suspend - suspend JPEG block
-> + *
-> + * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
-> + *
-> + * HW fini and suspend JPEG block
-> + */
-> +static int jpeg_v5_3_0_suspend(struct amdgpu_ip_block *ip_block)
-> +{
-> +	int r;
-> +
-> +	r = jpeg_v5_3_0_hw_fini(ip_block);
-> +	if (r)
-> +		return r;
-> +
-> +	r = amdgpu_jpeg_suspend(ip_block->adev);
-> +
-> +	return r;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_resume - resume JPEG block
-> + *
-> + * @ip_block: Pointer to the amdgpu_ip_block for this hw instance.
-> + *
-> + * Resume firmware and hw init JPEG block
-> + */
-> +static int jpeg_v5_3_0_resume(struct amdgpu_ip_block *ip_block)
-> +{
-> +	int r;
-> +
-> +	r = amdgpu_jpeg_resume(ip_block->adev);
-> +	if (r)
-> +		return r;
-> +
-> +	r = jpeg_v5_3_0_hw_init(ip_block);
-> +
-> +	return r;
-> +}
-> +
-> +static void jpeg_v5_3_0_disable_clock_gating(struct amdgpu_device *adev)
-> +{
-> +	uint32_t data = 0;
-> +
-> +	WREG32_SOC15(JPEG, 0, regJPEG_CGC_GATE, data);
-> +
-> +	data = RREG32_SOC15(JPEG, 0, regJPEG_CGC_CTRL);
-> +	data &= ~(JPEG_CGC_CTRL__JPEG0_DEC_MODE_MASK
-> +		| JPEG_CGC_CTRL__JPEG_ENC_MODE_MASK);
-> +	WREG32_SOC15(JPEG, 0, regJPEG_CGC_CTRL, data);
-> +}
-> +
-> +static void jpeg_v5_3_0_enable_clock_gating(struct amdgpu_device *adev)
-> +{
-> +	uint32_t data = 0;
-> +
-> +	data = RREG32_SOC15(JPEG, 0, regJPEG_CGC_CTRL);
-> +
-> +	data |= 1 << JPEG_CGC_CTRL__JPEG0_DEC_MODE__SHIFT;
-> +	WREG32_SOC15(JPEG, 0, regJPEG_CGC_CTRL, data);
-> +
-> +	data = RREG32_SOC15(JPEG, 0, regJPEG_CGC_GATE);
-> +	data |= (JPEG_CGC_GATE__JPEG0_DEC_MASK
-> +		|JPEG_CGC_GATE__JPEG_ENC_MASK
-> +		|JPEG_CGC_GATE__JMCIF_MASK
-> +		|JPEG_CGC_GATE__JRBBM_MASK);
-> +	WREG32_SOC15(JPEG, 0, regJPEG_CGC_GATE, data);
-> +}
-> +
-> +static int jpeg_v5_3_0_disable_power_gating(struct amdgpu_device *adev)
-> +{
-> +	uint32_t data = 0;
-> +
-> +	data = 1 << UVD_IPX_DLDO_CONFIG_ONO1__ONO1_PWR_CONFIG__SHIFT;
-> +	WREG32_SOC15(JPEG, 0, regUVD_IPX_DLDO_CONFIG_ONO1, data);
-> +	SOC15_WAIT_ON_RREG(JPEG, 0, regUVD_IPX_DLDO_STATUS, 0,
-> +			UVD_IPX_DLDO_STATUS__ONO1_PWR_STATUS_MASK);
-> +
-> +	/* disable anti hang mechanism */
-> +	WREG32_P(SOC15_REG_OFFSET(JPEG, 0, regUVD_JPEG_POWER_STATUS), 0,
-> +		~UVD_JPEG_POWER_STATUS__JPEG_POWER_STATUS_MASK);
-> +
-> +	return 0;
-> +}
-> +
-> +static int jpeg_v5_3_0_enable_power_gating(struct amdgpu_device *adev)
-> +{
-> +	/* enable anti hang mechanism */
-> +	WREG32_P(SOC15_REG_OFFSET(JPEG, 0, regUVD_JPEG_POWER_STATUS),
-> +		UVD_JPEG_POWER_STATUS__JPEG_POWER_STATUS_MASK,
-> +		~UVD_JPEG_POWER_STATUS__JPEG_POWER_STATUS_MASK);
-> +
-> +	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG) {
-> +		WREG32(SOC15_REG_OFFSET(JPEG, 0, regUVD_IPX_DLDO_CONFIG_ONO1),
-> +			2 << UVD_IPX_DLDO_CONFIG_ONO1__ONO1_PWR_CONFIG__SHIFT);
-> +		SOC15_WAIT_ON_RREG(JPEG, 0, regUVD_IPX_DLDO_STATUS,
-> +			1 << UVD_IPX_DLDO_STATUS__ONO1_PWR_STATUS__SHIFT,
-> +			UVD_IPX_DLDO_STATUS__ONO1_PWR_STATUS_MASK);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void jpeg_engine_5_0_0_dpg_clock_gating_mode(struct amdgpu_device *adev,
-> +	       int inst_idx, uint8_t indirect)
-> +{
-> +	uint32_t data = 0;
-> +
-> +	// JPEG disable CGC
-> +	if (adev->cg_flags & AMD_CG_SUPPORT_JPEG_MGCG)
-> +		data = 1 << JPEG_CGC_CTRL__DYN_CLOCK_MODE__SHIFT;
-> +	else
-> +		data = 0 << JPEG_CGC_CTRL__DYN_CLOCK_MODE__SHIFT;
-> +
-> +	data |= 1 << JPEG_CGC_CTRL__CLK_GATE_DLY_TIMER__SHIFT;
-> +	data |= 4 << JPEG_CGC_CTRL__CLK_OFF_DELAY__SHIFT;
-> +
-> +	if (indirect) {
-> +		ADD_SOC24_JPEG_TO_DPG_SRAM(inst_idx, vcnipJPEG_CGC_CTRL, data, indirect);
-> +
-> +		// Turn on All JPEG clocks
-> +		data = 0;
-> +		ADD_SOC24_JPEG_TO_DPG_SRAM(inst_idx, vcnipJPEG_CGC_GATE, data, indirect);
-> +	} else {
-> +		WREG32_SOC24_JPEG_DPG_MODE(inst_idx, vcnipJPEG_CGC_CTRL, data, indirect);
-> +
-> +		// Turn on All JPEG clocks
-> +		data = 0;
-> +		WREG32_SOC24_JPEG_DPG_MODE(inst_idx, vcnipJPEG_CGC_GATE, data, indirect);
-> +	}
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_start_dpg_mode - Jpeg start with dpg mode
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @inst_idx: instance number index
-> + * @indirect: indirectly write sram
-> + *
-> + * Start JPEG block with dpg mode
-> + */
-> +static int jpeg_v5_3_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
-> +{
-> +	struct amdgpu_ring *ring = adev->jpeg.inst[inst_idx].ring_dec;
-> +	uint32_t reg_data = 0;
-> +
-> +	jpeg_v5_3_0_enable_power_gating(adev);
-> +
-> +	// enable dynamic power gating mode
-> +	reg_data = RREG32_SOC15(JPEG, inst_idx, regUVD_JPEG_POWER_STATUS);
-> +	reg_data |= UVD_JPEG_POWER_STATUS__JPEG_PG_MODE_MASK;
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_JPEG_POWER_STATUS, reg_data);
-> +
-> +	if (indirect)
-> +		adev->jpeg.inst[inst_idx].dpg_sram_curr_addr =
-> +			(uint32_t *)adev->jpeg.inst[inst_idx].dpg_sram_cpu_addr;
-> +
-> +	jpeg_engine_5_0_0_dpg_clock_gating_mode(adev, inst_idx, indirect);
-> +
-> +	/* MJPEG global tiling registers */
-> +	if (indirect)
-> +		ADD_SOC24_JPEG_TO_DPG_SRAM(inst_idx, vcnipJPEG_DEC_GFX10_ADDR_CONFIG,
-> +			adev->gfx.config.gb_addr_config, indirect);
-> +	else
-> +		WREG32_SOC24_JPEG_DPG_MODE(inst_idx, vcnipJPEG_DEC_GFX10_ADDR_CONFIG,
-> +			adev->gfx.config.gb_addr_config, 1);
-> +
-> +	/* enable System Interrupt for JRBC */
-> +	if (indirect)
-> +		ADD_SOC24_JPEG_TO_DPG_SRAM(inst_idx, vcnipJPEG_SYS_INT_EN,
-> +			JPEG_SYS_INT_EN__DJRBC0_MASK, indirect);
-> +	else
-> +		WREG32_SOC24_JPEG_DPG_MODE(inst_idx, vcnipJPEG_SYS_INT_EN,
-> +			JPEG_SYS_INT_EN__DJRBC0_MASK, 1);
-> +
-> +	if (indirect) {
-> +		/* add nop to workaround PSP size check */
-> +		ADD_SOC24_JPEG_TO_DPG_SRAM(inst_idx, vcnipUVD_NO_OP, 0, indirect);
-> +
-> +		amdgpu_jpeg_psp_update_sram(adev, inst_idx, 0);
-> +	}
-> +
-> +	WREG32_SOC15(VCN, 0, regVCN_JPEG_DB_CTRL,
-> +		ring->doorbell_index << VCN_JPEG_DB_CTRL__OFFSET__SHIFT |
-> +		VCN_JPEG_DB_CTRL__EN_MASK);
-> +
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_LMI_JRBC_RB_VMID, 0);
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_JRBC0_UVD_JRBC_RB_CNTL, (0x00000001L | 0x00000002L));
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_LMI_JRBC_RB_64BIT_BAR_LOW,
-> +		lower_32_bits(ring->gpu_addr));
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_LMI_JRBC_RB_64BIT_BAR_HIGH,
-> +		upper_32_bits(ring->gpu_addr));
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_JRBC0_UVD_JRBC_RB_RPTR, 0);
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_JRBC0_UVD_JRBC_RB_WPTR, 0);
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_JRBC0_UVD_JRBC_RB_CNTL, 0x00000002L);
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_JRBC0_UVD_JRBC_RB_SIZE, ring->ring_size / 4);
-> +	ring->wptr = RREG32_SOC15(JPEG, inst_idx, regUVD_JRBC0_UVD_JRBC_RB_WPTR);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_stop_dpg_mode - Jpeg stop with dpg mode
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @inst_idx: instance number index
-> + *
-> + * Stop JPEG block with dpg mode
-> + */
-> +static void jpeg_v5_3_0_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
-> +{
-> +	uint32_t reg_data = 0;
-> +
-> +	reg_data = RREG32_SOC15(JPEG, inst_idx, regUVD_JPEG_POWER_STATUS);
-> +	reg_data &= ~UVD_JPEG_POWER_STATUS__JPEG_PG_MODE_MASK;
-> +	WREG32_SOC15(JPEG, inst_idx, regUVD_JPEG_POWER_STATUS, reg_data);
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_start - start JPEG block
-> + *
-> + * @adev: amdgpu_device pointer
-> + *
-> + * Setup and start the JPEG block
-> + */
-> +static int jpeg_v5_3_0_start(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_ring *ring = adev->jpeg.inst->ring_dec;
-> +	int r;
-> +
-> +	if (adev->pm.dpm_enabled)
-> +		amdgpu_dpm_enable_jpeg(adev, true);
-> +
-> +	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG_DPG) {
-> +		r = jpeg_v5_3_0_start_dpg_mode(adev, 0, adev->jpeg.indirect_sram);
-> +		return r;
-> +	}
-> +
-> +	/* disable power gating */
-> +	r = jpeg_v5_3_0_disable_power_gating(adev);
-> +	if (r)
-> +		return r;
-> +
-> +	/* JPEG disable CGC */
-> +	jpeg_v5_3_0_disable_clock_gating(adev);
-> +
-> +	/* MJPEG global tiling registers */
-> +	WREG32_SOC15(JPEG, 0, regJPEG_DEC_GFX10_ADDR_CONFIG,
-> +		adev->gfx.config.gb_addr_config);
-> +
-> +	/* enable JMI channel */
-> +	WREG32_P(SOC15_REG_OFFSET(JPEG, 0, regUVD_JMI_CNTL), 0,
-> +		~UVD_JMI_CNTL__SOFT_RESET_MASK);
-> +
-> +	/* enable System Interrupt for JRBC */
-> +	WREG32_P(SOC15_REG_OFFSET(JPEG, 0, regJPEG_SYS_INT_EN),
-> +		JPEG_SYS_INT_EN__DJRBC0_MASK,
-> +		~JPEG_SYS_INT_EN__DJRBC0_MASK);
-> +
-> +	WREG32_SOC15(VCN, 0, regVCN_JPEG_DB_CTRL,
-> +		ring->doorbell_index << VCN_JPEG_DB_CTRL__OFFSET__SHIFT |
-> +		VCN_JPEG_DB_CTRL__EN_MASK);
-> +
-> +	WREG32_SOC15(JPEG, 0, regUVD_LMI_JRBC_RB_VMID, 0);
-> +	WREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_CNTL, (0x00000001L | 0x00000002L));
-> +	WREG32_SOC15(JPEG, 0, regUVD_LMI_JRBC_RB_64BIT_BAR_LOW,
-> +		lower_32_bits(ring->gpu_addr));
-> +	WREG32_SOC15(JPEG, 0, regUVD_LMI_JRBC_RB_64BIT_BAR_HIGH,
-> +		upper_32_bits(ring->gpu_addr));
-> +	WREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_RPTR, 0);
-> +	WREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_WPTR, 0);
-> +	WREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_CNTL, 0x00000002L);
-> +	WREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_SIZE, ring->ring_size / 4);
-> +	ring->wptr = RREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_WPTR);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_stop - stop JPEG block
-> + *
-> + * @adev: amdgpu_device pointer
-> + *
-> + * stop the JPEG block
-> + */
-> +static int jpeg_v5_3_0_stop(struct amdgpu_device *adev)
-> +{
-> +	int r;
-> +
-> +	if (adev->pg_flags & AMD_PG_SUPPORT_JPEG_DPG) {
-> +		jpeg_v5_3_0_stop_dpg_mode(adev, 0);
-> +	} else {
-> +
-> +		/* reset JMI */
-> +		WREG32_P(SOC15_REG_OFFSET(JPEG, 0, regUVD_JMI_CNTL),
-> +			UVD_JMI_CNTL__SOFT_RESET_MASK,
-> +			~UVD_JMI_CNTL__SOFT_RESET_MASK);
-> +
-> +		jpeg_v5_3_0_enable_clock_gating(adev);
-> +
-> +		/* enable power gating */
-> +		r = jpeg_v5_3_0_enable_power_gating(adev);
-> +		if (r)
-> +			return r;
-> +	}
-> +
-> +	if (adev->pm.dpm_enabled)
-> +		amdgpu_dpm_enable_jpeg(adev, false);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_dec_ring_get_rptr - get read pointer
-> + *
-> + * @ring: amdgpu_ring pointer
-> + *
-> + * Returns the current hardware read pointer
-> + */
-> +static uint64_t jpeg_v5_3_0_dec_ring_get_rptr(struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +
-> +	return RREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_RPTR);
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_dec_ring_get_wptr - get write pointer
-> + *
-> + * @ring: amdgpu_ring pointer
-> + *
-> + * Returns the current hardware write pointer
-> + */
-> +static uint64_t jpeg_v5_3_0_dec_ring_get_wptr(struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +
-> +	if (ring->use_doorbell)
-> +		return *ring->wptr_cpu_addr;
-> +	else
-> +		return RREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_WPTR);
-> +}
-> +
-> +/**
-> + * jpeg_v5_3_0_dec_ring_set_wptr - set write pointer
-> + *
-> + * @ring: amdgpu_ring pointer
-> + *
-> + * Commits the write pointer to the hardware
-> + */
-> +static void jpeg_v5_3_0_dec_ring_set_wptr(struct amdgpu_ring *ring)
-> +{
-> +	struct amdgpu_device *adev = ring->adev;
-> +
-> +	if (ring->use_doorbell) {
-> +		*ring->wptr_cpu_addr = lower_32_bits(ring->wptr);
-> +		WDOORBELL32(ring->doorbell_index, lower_32_bits(ring->wptr));
-> +	} else {
-> +		WREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_RB_WPTR, lower_32_bits(ring->wptr));
-> +	}
-> +}
-> +
-> +static bool jpeg_v5_3_0_is_idle(struct amdgpu_ip_block *ip_block)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +	int ret = 1;
-> +
-> +	ret &= (((RREG32_SOC15(JPEG, 0, regUVD_JRBC0_UVD_JRBC_STATUS) &
-> +		UVD_JRBC0_UVD_JRBC_STATUS__RB_JOB_DONE_MASK) ==
-> +		UVD_JRBC0_UVD_JRBC_STATUS__RB_JOB_DONE_MASK));
-> +
-> +	return ret;
-> +}
-> +
-> +static int jpeg_v5_3_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +
-> +	return SOC15_WAIT_ON_RREG(JPEG, 0, regUVD_JRBC0_UVD_JRBC_STATUS,
-> +		UVD_JRBC0_UVD_JRBC_STATUS__RB_JOB_DONE_MASK,
-> +		UVD_JRBC0_UVD_JRBC_STATUS__RB_JOB_DONE_MASK);
-> +}
-> +
-> +static int jpeg_v5_3_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
-> +					  enum amd_clockgating_state state)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-> +
-> +	if (enable) {
-> +		if (!jpeg_v5_3_0_is_idle(ip_block))
-> +			return -EBUSY;
-> +		jpeg_v5_3_0_enable_clock_gating(adev);
-> +	} else {
-> +		jpeg_v5_3_0_disable_clock_gating(adev);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int jpeg_v5_3_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
-> +					  enum amd_powergating_state state)
-> +{
-> +	struct amdgpu_device *adev = ip_block->adev;
-> +	int ret;
-> +
-> +	if (state == adev->jpeg.cur_state)
-> +		return 0;
-> +
-> +	if (state == AMD_PG_STATE_GATE)
-> +		ret = jpeg_v5_3_0_stop(adev);
-> +	else
-> +		ret = jpeg_v5_3_0_start(adev);
-> +
-> +	if (!ret)
-> +		adev->jpeg.cur_state = state;
-> +
-> +	return ret;
-> +}
-> +
-> +static int jpeg_v5_3_0_set_interrupt_state(struct amdgpu_device *adev,
-> +					struct amdgpu_irq_src *source,
-> +					unsigned int type,
-> +					enum amdgpu_interrupt_state state)
-> +{
-> +	return 0;
-> +}
-> +
-> +static int jpeg_v5_3_0_process_interrupt(struct amdgpu_device *adev,
-> +				      struct amdgpu_irq_src *source,
-> +				      struct amdgpu_iv_entry *entry)
-> +{
-> +	DRM_DEBUG("IH: JPEG TRAP\n");
-> +
-> +	switch (entry->src_id) {
-> +	case VCN_5_0__SRCID__JPEG_DECODE:
-> +		amdgpu_fence_process(adev->jpeg.inst->ring_dec);
-> +		break;
-> +	default:
-> +		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
-> +			  entry->src_id, entry->src_data[0]);
-> +		break;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct amd_ip_funcs jpeg_v5_3_0_ip_funcs = {
-> +	.name = "jpeg_v5_3_0",
-> +	.early_init = jpeg_v5_3_0_early_init,
-> +	.sw_init = jpeg_v5_3_0_sw_init,
-> +	.sw_fini = jpeg_v5_3_0_sw_fini,
-> +	.hw_init = jpeg_v5_3_0_hw_init,
-> +	.hw_fini = jpeg_v5_3_0_hw_fini,
-> +	.suspend = jpeg_v5_3_0_suspend,
-> +	.resume = jpeg_v5_3_0_resume,
-> +	.is_idle = jpeg_v5_3_0_is_idle,
-> +	.wait_for_idle = jpeg_v5_3_0_wait_for_idle,
-> +	.set_clockgating_state = jpeg_v5_3_0_set_clockgating_state,
-> +	.set_powergating_state = jpeg_v5_3_0_set_powergating_state,
-> +};
-> +
-> +static const struct amdgpu_ring_funcs jpeg_v5_3_0_dec_ring_vm_funcs = {
-> +	.type = AMDGPU_RING_TYPE_VCN_JPEG,
-> +	.align_mask = 0xf,
-> +	.get_rptr = jpeg_v5_3_0_dec_ring_get_rptr,
-> +	.get_wptr = jpeg_v5_3_0_dec_ring_get_wptr,
-> +	.set_wptr = jpeg_v5_3_0_dec_ring_set_wptr,
-> +	.parse_cs = amdgpu_jpeg_dec_parse_cs,
-> +	.emit_frame_size =
-> +		SOC15_FLUSH_GPU_TLB_NUM_WREG * 6 +
-> +		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 8 +
-> +		8 + /* jpeg_v5_3_0_dec_ring_emit_vm_flush */
-> +		22 + 22 + /* jpeg_v5_3_0_dec_ring_emit_fence x2 vm fence */
-> +		8 + 16,
-> +	.emit_ib_size = 22, /* jpeg_v5_3_0_dec_ring_emit_ib */
-> +	.emit_ib = jpeg_v4_0_3_dec_ring_emit_ib,
-> +	.emit_fence = jpeg_v4_0_3_dec_ring_emit_fence,
-> +	.emit_vm_flush = jpeg_v4_0_3_dec_ring_emit_vm_flush,
-> +	.test_ring = amdgpu_jpeg_dec_ring_test_ring,
-> +	.test_ib = amdgpu_jpeg_dec_ring_test_ib,
-> +	.insert_nop = jpeg_v4_0_3_dec_ring_nop,
-> +	.insert_start = jpeg_v4_0_3_dec_ring_insert_start,
-> +	.insert_end = jpeg_v4_0_3_dec_ring_insert_end,
-> +	.pad_ib = amdgpu_ring_generic_pad_ib,
-> +	.begin_use = amdgpu_jpeg_ring_begin_use,
-> +	.end_use = amdgpu_jpeg_ring_end_use,
-> +	.emit_wreg = jpeg_v4_0_3_dec_ring_emit_wreg,
-> +	.emit_reg_wait = jpeg_v4_0_3_dec_ring_emit_reg_wait,
-> +	.emit_reg_write_reg_wait = amdgpu_ring_emit_reg_write_reg_wait_helper,
-> +};
-> +
-> +static void jpeg_v5_3_0_set_dec_ring_funcs(struct amdgpu_device *adev)
-> +{
-> +	adev->jpeg.inst->ring_dec->funcs = &jpeg_v5_3_0_dec_ring_vm_funcs;
-> +}
-> +
-> +static const struct amdgpu_irq_src_funcs jpeg_v5_3_0_irq_funcs = {
-> +	.set = jpeg_v5_3_0_set_interrupt_state,
-> +	.process = jpeg_v5_3_0_process_interrupt,
-> +};
-> +
-> +static void jpeg_v5_3_0_set_irq_funcs(struct amdgpu_device *adev)
-> +{
-> +	adev->jpeg.inst->irq.num_types = 1;
-> +	adev->jpeg.inst->irq.funcs = &jpeg_v5_3_0_irq_funcs;
-> +}
-> +
-> +const struct amdgpu_ip_block_version jpeg_v5_3_0_ip_block = {
-> +	.type = AMD_IP_BLOCK_TYPE_JPEG,
-> +	.major = 5,
-> +	.minor = 3,
-> +	.rev = 0,
-> +	.funcs = &jpeg_v5_3_0_ip_funcs,
-> +};
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.h b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.h
-> new file mode 100644
-> index 0000000000000..c1e7537d0f183
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.h
-> @@ -0,0 +1,35 @@
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __JPEG_V5_3_0_H__
-> +#define __JPEG_V5_3_0_H__
-> +
-> +#define vcnipJPEG_CGC_GATE                                 0x4160
-> +#define vcnipJPEG_CGC_CTRL                                 0x4161
-> +#define vcnipJPEG_SYS_INT_EN                               0x4141
-> +#define vcnipUVD_NO_OP                                     0x0029
-> +#define vcnipJPEG_DEC_GFX10_ADDR_CONFIG                    0x404A
-> +
-> +extern const struct amdgpu_ip_block_version jpeg_v5_3_0_ip_block;
-> +
-> +#endif /* __JPEG_V5_0_0_H__ */
+>   	default:
+>   		return -EINVAL;
+>   	}
+> @@ -800,9 +831,11 @@ static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
+>   		adev->external_rev_id = adev->rev_id + 0x50;
+>   		break;
+>   	case IP_VERSION(11, 5, 4):
+> -               adev->cg_flags = 0;
+> -               adev->pg_flags = 0;
+> -               adev->external_rev_id = adev->rev_id + 0x1;
+> +		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG |
+> +			AMD_CG_SUPPORT_JPEG_MGCG;
+> +		adev->pg_flags = AMD_PG_SUPPORT_VCN |
+> +			AMD_PG_SUPPORT_JPEG;
+> +		adev->external_rev_id = adev->rev_id + 0x1;
+>                  break;
+>   	default:
+>   		/* FIXME: not supported yet */
 
