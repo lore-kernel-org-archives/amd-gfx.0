@@ -4,151 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF78D65528
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 10:06:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC13D6552C
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 10:10:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 645FF10EC0C;
-	Wed, 17 Dec 2025 10:06:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B90210E5C1;
+	Wed, 17 Dec 2025 10:10:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3Mj2quLj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ImjKGohA";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010053.outbound.protection.outlook.com
- [40.93.198.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D19CF10EC19
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 10:06:32 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012068.outbound.protection.outlook.com
+ [40.93.195.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CCF910E5C1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 10:10:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G8Yp1ch66Stgwx12qB9Zgt6XeFJIG9NSN1uug2Eupz/wkl4jFLLJ3iaYoFkSy3N7OcPMAfUqq77iy5MhkTfoW7EenhQXUAqtIPI4W2j0drVCd2237rzrmi1/EscKP9sfoG/CYpy7VTOrDQ4161dodHlJ02O2vJcCZD4nKbQ7ENOuZIK3yXVKR9OKfjCL2OHuLxPhiw9KJHPgHK/2sxIQ1Uzb4Pta7M6OREgEXWWycVqO559MFG4X0HsTO8/h2990BIcSnCl4tWzQ9JitlJdV7bimDzKhCi8Rr0xjOQOBr9ZIcmq3xnPEGFlGcQQNq+mdaGQLSAAnGknRfCpAVAFrLg==
+ b=y32dyNwwyfw1YsNQo2uFaBqIoJvyYm56Nu/0Zdwh2jDmKvBjXtHht+C+n0LaHUUWDD5+SANtA5QFl9ZCjOX7sCz6hlAS4B+NM7tpaniEQOs68zDmgfYUS72HUYr1LvU07OzGMc+Gf/SjyBjz04C/lXEXIRi3mxjCLwZed/v1doVjT3Rwz1AyEXquuFz+CbqdGgUzP9/amXKBySdkisLRj91Um/BSGwizalptkYpEAfup88yVZO0BO4qTuBuwVPuO3HZesLQ1HXkZ9dTlkumzyCjIyzpts8p6HLNP7x27hNWyTDjQIMf6u/0yLGIC+8uREK2CQO7q28dRIhOW8jp33w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JusPFAY+uo3cYD5tO8Z0pJWH3hZqND8DXFuhthUh9ro=;
- b=AWafCCfx0l53Aqibq0NtBV20Zec0s5jHmd9BGPBrPRaySw7HfG7kcXyl/zAuLUBf/M4E4qpxvNgzrnSowaqBzf/dIgvq3mjmf5ciWlOQj7U9uGuy//SDHBjdXH7B0xk6ri/4c2fKUhmp3aIp/aywVIe5SFr8f3r0rM5RgbG66IfydiM+RE26OFQjF3BlhdIS3QR59QpnQArQvWqASzMxCEly2AfTf4BW+zoDlTQRegeGvVaqchjDYCQGMfRHaOql/KDhUosO+GI6urgORYxkQ36rlmOSVZTgxgxpWDFeI3obDbdvbRduZf+hFPKuVZficeESUl+u4pp515WeTYZo0A==
+ bh=Ve5a5zmLFwSR/YUsdU+guV/sjMLK0yX6Ta16mLJqri4=;
+ b=rIIU865ireKBrHqY5YvpsgJbeWH+/1lJMcoFZla7v0NqVuXW/e+lkN+IcHLt9/7sDLnxFqa8R/fIgrsSNISz9sPJUbg6/Ii2NkD6ZbeLuvE0kuBG0VbejhqVtHJp62JJU60UPRi3KYONTObMWT13/thsUlvsVYGBzIST+bIdZ4lzFvybC8U6gILSSVH8mCzsxjUJ6mj/SSgGZREJt9vgEQkisJSO0yk451jftCSYyR+TmpTA6JYd15UJe0htMeHUrUhoD7+VS7DFObPzs7l/79vt7mVJF9PnHDZh5c7SGpqZchfO1AJvn5OATd0PrO7GpwROmar3BZoSXex99kkRQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JusPFAY+uo3cYD5tO8Z0pJWH3hZqND8DXFuhthUh9ro=;
- b=3Mj2quLjDn0voS4hygUdERWYOs7YpDDWaKliKCrkGWBd767t1PMZnrhTL3JlqnlhBHsUnbgkNSBQUceJbXbovBpApirfEBrS50bBuJZ/lRIIOQnvKbuBHcFWzGmzbLJdTJNNM2R+YMUJ3MHr7fw+talbwCMtlOT7shbTpnfTIvM=
+ bh=Ve5a5zmLFwSR/YUsdU+guV/sjMLK0yX6Ta16mLJqri4=;
+ b=ImjKGohAP/Op6YKhWXXJbKfX36XNZ1QnledRLYr6711bpfQIoKtU8z6aTdHSgD8qaJQeFeH5QKJr0VsORuqO86wkEx1Wv013mKGWN8Y3Bmjus3UIbsVED7pX7v9jhOru3uKx7E11eIs7RmRtI9XLW4N9fsWlEl2o0guuYnIZcSA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4156.namprd12.prod.outlook.com (2603:10b6:5:218::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.7; Wed, 17 Dec
- 2025 10:06:29 +0000
+ by LV8PR12MB9451.namprd12.prod.outlook.com (2603:10b6:408:206::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.6; Wed, 17 Dec
+ 2025 10:10:31 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9434.001; Wed, 17 Dec 2025
- 10:06:29 +0000
-Message-ID: <a492aaf5-4251-482c-adf9-3a3178a5694b@amd.com>
-Date: Wed, 17 Dec 2025 11:06:25 +0100
+ 10:10:30 +0000
+Message-ID: <819092ef-78d4-493f-9ced-cac7d2d6b55b@amd.com>
+Date: Wed, 17 Dec 2025 11:10:26 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix signal_eviction_fence() bool return value
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Philip Yang <Philip.Yang@amd.com>,
- Gang BA <Gang.Ba@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-References: <20251217095811.709295-1-srinivasan.shanmugam@amd.com>
+Subject: Re: [RFC PATCH v1 0/8] amdgpu/amdkfd: Add support for non-4K page
+ size systems
+To: Donet Tom <donettom@linux.ibm.com>, Alex Deucher <alexdeucher@gmail.com>
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Kent.Russell@amd.com,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
+References: <cover.1765519875.git.donettom@linux.ibm.com>
+ <fbc164ab-964f-464d-b94a-80131016b5b8@amd.com>
+ <871pl0567w.ritesh.list@gmail.com>
+ <1f10b67a-ffdc-4962-af52-758247569e09@amd.com>
+ <CADnq5_NbDzqucujDyW009+55mLXZz2PiyaSd9PKXXeXv4pYn0Q@mail.gmail.com>
+ <996ef75a-71b3-4ba7-a255-40516c5e9acd@amd.com>
+ <444bfeba-deae-4f7b-84d7-29048256b69d@linux.ibm.com>
+ <50dee2c9-bcfc-462b-bf46-f110a082e2d3@amd.com>
+ <c0e24bd4-bc4e-4a6f-9229-57cbb85d0d7e@linux.ibm.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251217095811.709295-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <c0e24bd4-bc4e-4a6f-9229-57cbb85d0d7e@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0024.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::31) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0016.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d1::20) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a739eba-79e8-4515-d4c6-08de3d53f272
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV8PR12MB9451:EE_
+X-MS-Office365-Filtering-Correlation-Id: b08041c3-1296-4ac0-a4b0-08de3d54826e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?clh1NXRodllBRmVGTmY4bFpON1lIVldhWnI1WnBGMWZTTndwbXRORmhBOXc4?=
- =?utf-8?B?NjVmVTRiVVpFRzFhUGtiUVNpQnh0dHBudkYwSnhwK1N5amtFMVpyWkJWY1U3?=
- =?utf-8?B?QzhQL1NrdTdmK0ZMS2dkbTdaNkM5RmxWVnJzUnlmQnNmd3o3SlZ4ckt0NDAw?=
- =?utf-8?B?Uk5QWmIrQUV6ZTJIQ1ZCbll6dHdRQ2xLd1MrUE1rZDllSDBRQ1o2TDNuTWU2?=
- =?utf-8?B?OGk3M0RVWVhpNnJUV1BkYXFWWjZDNFZGMG1kVyt1bTlacDduUVVKaVEyamlu?=
- =?utf-8?B?K0p6b2R2Y2RJaktMQmI0N2dMckF3Qi9EZEZKRTBFSlhSVUt0QVZYQng3UTY0?=
- =?utf-8?B?QjlaQ3RGdm0zT3JzU2ZraW8xOEdPRkJ6RDR4TFhRa0tsdTE0ajJlcUZwS2hB?=
- =?utf-8?B?WGd5dlBmU3ViVUU4STZqb2VqbVVrVkw1cFV2YnN6OUdKWHBpSVdXbnp6RlRD?=
- =?utf-8?B?ZXFjaURaNmVSNm1EaFhuUFNPOE5zVVdpT3pSYVM0Mit2em1yc2VWaGFNN0k4?=
- =?utf-8?B?YXBnZ1hFVi92TW9ESDJ1UzNvZm1GYjNGQWtJN1Y4N0ZZVnlEMlFNMWVSa0ZB?=
- =?utf-8?B?UGkwR0NVOGlaWk1GV0dBZCsrWTRzNEdhdTFXcjBUaE5xckdjQkNPSWRwd2VD?=
- =?utf-8?B?Z3AxSUlNS1lzelFFdmVYWk01eGxoZGJQMmJCaHViLzFrWTVWelZIbkV4am1a?=
- =?utf-8?B?SDRYQVRZWlBGM0dGc2p0dzlENUNrMXFxKzFsZ21LdGNvcWdBY3V2MW9UNGg4?=
- =?utf-8?B?SXdIaU1XSHMrdWRvQ3hnMUF5eXlIcHFCSHNWYXh5V2JvM0YweFpJSGFDOHY1?=
- =?utf-8?B?OEM0L3lwK3VteDNCYWF3dm1HK1lFNllDZFVtQ1k5YjNodnFGNTNpTzdyQy9F?=
- =?utf-8?B?ZWM2UmF4eEQ1eWpiWE1KalJRNkFXRkRWOWJWTWV5RHdpbVMzWnYydU5YNGNJ?=
- =?utf-8?B?amF4RWRJWHNGeU9OaWNYTTE3ZVp3YkVtMWxBTlJkeU04RldQL0FRemRIL2RB?=
- =?utf-8?B?NFA3a0l2Vnp2WUV1L0tydXlZY1BleE91bTJCREJsTU5KTTRpaWVWZUJ5MUZl?=
- =?utf-8?B?cldHeTllNUZiOXNHb2t1ZEl4K3VxNW5RQVBQaW9qTkplVUg5QzNXc1J1N1dp?=
- =?utf-8?B?aDF2UjlKcms3WHZNWmUraWxLZStaTlgzSFh5Yis3Sm53Znk4a25KNWFZVUlx?=
- =?utf-8?B?blRSdDR6Z0dhZTlNUXN0elU4c0dYRmE0WmF3ZmgxVTlkSGJuWnVuS0pKZzQ2?=
- =?utf-8?B?WTlabzF0bnZIUkY2TlFDY3BuVGxVTGUwOHY4RzhqcFlCandDYmdETUcydHl0?=
- =?utf-8?B?UHZFQVhpTnpmaWJNeDhlbmUrQ1BrTnJCaXlZSDgyaXBOMmM2aVZRcmdJQnlN?=
- =?utf-8?B?YmN3NG5rVFI4OXA3Qm04WmdIQ1V4MElNV0hzU1RPV1FEQ210em83RW80cm5Q?=
- =?utf-8?B?V3VDb05MWkowOXdmVlRSOGVhZHRTVzFEOFlLVXRBME5iVzNqUWxoZDhlRG96?=
- =?utf-8?B?RVZPL1FUYnBIM2g2S0EyUWxSNjVadmFXM1JRdlRTVGRVVWxYcFlrY2NOSVVJ?=
- =?utf-8?B?UkdaUGY3TVdoTFB0WlRJSlhsM3NGNFJQUk0raDJxOUdWZlFKMmdMVDBVUm5t?=
- =?utf-8?B?Y1lvOWwwcHRrekZmNnVKOFRaVkVKZWZROW95bG1tVzZZdVFrUnhvTHplN3Nl?=
- =?utf-8?B?REJVWEQwZzQ0MlZPUGVGRTdlODdQYVEyY1QvVS9CbUJJdE03cmEybTUvdHFH?=
- =?utf-8?B?dmJFcHVtTlVlZlVPai9ZejIyYXBBa2NibzFRbHZWOWxVZnd1WUgvckNJRU9p?=
- =?utf-8?B?QlpuRit2WkIvcFhNRTM0THBxYkp0ZlorbXluN2gxMFJVWjVWekcvT2RSVk1B?=
- =?utf-8?B?WjByQkJmcUxBV1UzOXZYVGxjc0RZS3RZb3ltWTd3ZGtPWCtuS2srMmwxblc3?=
- =?utf-8?Q?i3+GiwhG3GwyD9K+C77Eo752AaAf5vWG?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?b0NLV0syRFZ3WlpVYSt1YnNuU0x3MmVCWml4YjBKc2ltQUpmTkhGdWJNTDZQ?=
+ =?utf-8?B?Y2pDNzkxZUV5S2N0OVJZUTc1MVZtVjZKRU5SMklOOFpmRUpNaDNhRWpIaXVO?=
+ =?utf-8?B?SG5tQWRjeEhiM3c1NDY2eWQxOENaMDhab0Fza1c3SmpHZUpaeitsaU5pZlVq?=
+ =?utf-8?B?aHFmVU9NYmpNQlJmY0RIYi9KY0VwbGd6bEU3K1lWRHpXVGVvNjUzM0tIaTBC?=
+ =?utf-8?B?WTdTOUZQcDRlODBQaEFRcjBXMFYvYmpkdjBDSUd5WmptRm4xQzdubTU0b3M2?=
+ =?utf-8?B?MHNnY24wNEI0Q21sbW5xOE9VZlp4RGhnQXVpUGFyaUVoVFhTODJobUVFcXpN?=
+ =?utf-8?B?YW5nRGZqT2QxTEVkM0xGb2h4cmdPYUxaL3ZOSGpJb3FOcE1tanlBTWZqRFNJ?=
+ =?utf-8?B?OEVBc3ExRHJMb0ZKNkt1am5hZjNpcXdobVlQUnZOei9FR2V5OTZhdkpRRnA4?=
+ =?utf-8?B?TDB2WFJpMnNYVVZiUXgxYXV3S2wzb1M2a2VGVU5SYXNJRjJxUWxBMm13NWdz?=
+ =?utf-8?B?K2VSd1daS2lOS0JtUldkV3N2b09EWlZJcjY2b2RNRzhTc201N3ZJMG5jVzhy?=
+ =?utf-8?B?V09tQ2RGZjZNaVp1NzBFL3ZiQytPektKUmF2MjVGRXBBOVk3bWI3VVdnQkF3?=
+ =?utf-8?B?djNFVTZLY0JRc0dqYUFCM200RVpINFdKVS92dWpodjF0cktmc0puQ0V2VGx6?=
+ =?utf-8?B?ZmNkd1hpT1JGTDZyVGNYSFJXbklNUEV5VU11bHlYV1VJYzQ4OFhHdnFDZHk4?=
+ =?utf-8?B?OHdzTWExa1c0eW1SSzNGNEpIdGVHL2laWVJDbFlQNmhtejFFMlRRbmxWL3lu?=
+ =?utf-8?B?N3ptdGJhRkNmZ3lIQUlIaVZRQWNkQ042LzA4WTJ6S3ZsL2Z6REw2cXpLdjlu?=
+ =?utf-8?B?TU5yN2daUEU3TWZPd1NCdVp0VE14MnBCaHIxdHFEREx3M2s3cUcxZFFFTDdB?=
+ =?utf-8?B?MEdyZTR5ODdyUVJVblF0YkpUWEtIY2hBRExYdDdiOThrZ0t5RFA3ZkJqcWJG?=
+ =?utf-8?B?SGx1enBEWkRGSlRESzlxTkZrS2ROQnJ6QTdZZXFBYXExQjB5R25jNGU3Yy9O?=
+ =?utf-8?B?eUZtMkNyUWlocUZKNlJsRng0Z0F2UHM4SFB6S29xaVBWUWl3Q3M2aHNzeEhR?=
+ =?utf-8?B?U1dJNzRpRk9ETTVBTXhQNnNPN2JVNVNDYm84QlBUS21hcVk4enNmV0Z3eWE2?=
+ =?utf-8?B?WTN0ZVdKMWMxTzJYZW9FRHkvRmkzZTRHWFpVdzQ1clRMSW5yMk1WeWRyN1BE?=
+ =?utf-8?B?SVVzK1lmb1NkZXBidmNZL3paY0xYak8zakxhTUVsaHlYMXI2NGdHMENZeDlC?=
+ =?utf-8?B?bTFCd3NjYkJXTWNickFnQytrS0xFaiszMDRaZ2RLUlFTcWl5aWhHVUxqUERD?=
+ =?utf-8?B?RUVGZUhGNTdKUGpYdisrZ1JYL1hxVXViSDlaOUVuK1hSb3BDaTdlSFZsNnU5?=
+ =?utf-8?B?Ujl3Zmg5RDFNRGxDZlhrTW5BcHp2VGpIQTVVUTAyWTZzSncyaWxKdHRGdFhR?=
+ =?utf-8?B?Tm80UWl1M3dwWGxaaC9QTjhJdWJ0ZzdrUGhFbWdqLzlGVk1kVUEzUmhCWUNv?=
+ =?utf-8?B?N0dkTUNoUEEyU3NJQi9xUCtpOXZUWVJpSDZ5WkcwdjR5RDdVTGRWQ2NjVGMv?=
+ =?utf-8?B?NVdpb2dHUGFuL2p5UWZMRXVSMDkzVzMyQkJiK1NQa0FyM1lkNDlmMjM1QUFj?=
+ =?utf-8?B?OEY3aThNcmJOM1BSMjFHMHAzMzViY0JGUFBZTmcxRk9uOFV5WTdGMVlaRlcz?=
+ =?utf-8?B?T1lqYTdXRW9qNmZ2YThnQUZqSXdOeTZCRkR1Ri9Zd2VTeFdoeVNYWVlURXRC?=
+ =?utf-8?B?WS9aWEtMc3JPQ3Q2djQ5NDhsRWpWSU1BYTZMbXkvOGVGSlh1QzV0MGxaT0Fz?=
+ =?utf-8?B?RHRackUwdUxrRG1QMkY0UnFQNlhRQnBxMVIyUW1xUXRNOEtyYTY1SjNzUEJj?=
+ =?utf-8?B?OW85ZWhjd3NEcWZXaWZKR3VTcS9wVVBUaXV3RG55N0NxekhJK3NiM1FWRk9t?=
+ =?utf-8?B?ODBMbHJudTJBPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0VPSnNVUzIzSHlXQUhoUFRWRmZmSm5OTUNaSEQxS01MUG9jcVhzVEp2L053?=
- =?utf-8?B?N2Jpd0lrSUFkUnlaUGZmaGptbFMwUG9pSThWaU83b2tkQXlIVzJVZUhCRis5?=
- =?utf-8?B?T2svRXdCZjd3cm92WjRyYzFtOW1TTkhia0NCSzJCWWxxNHdPQUczMWl3NFRO?=
- =?utf-8?B?elZwcXlxNWZSUlJxb2lWUmJBYjNuK0ZseXg5ZHJCN0dwUlh2UERmZ2hXQlRQ?=
- =?utf-8?B?MEtIakZYaHQrakFLd0ZWbURkdk82QUdCQkR6eXFPeU4ySE82NDQ4YWZ4MkJX?=
- =?utf-8?B?QVFwRzIyaGhVRnF6eUdHYlk1M2NyRkdQKzU1U2h3L2p2eHhzOTNOTHZnTlg4?=
- =?utf-8?B?WmdwTDYyTm9SL2hDYlhRVFcrKy9CUmwxNm5iaVhkWW14enp6cjlaWGZ5Mnlp?=
- =?utf-8?B?ZGhtajZNRDEwc083YlBDUXUwcXNVQVd4RkpHb3gxaFJTZ3pXdzZCb0FXSlRt?=
- =?utf-8?B?Qy9pdTRJTjM5dkhXNUFmNURHN2VoYy8yL1hkbkZPTmNpZGYrS1dmalBLS1Y0?=
- =?utf-8?B?M1Z6MGlsenNWK0FXTEJ0TmkwK04xd1Zwc0JqMGZIOG4vNUQ1SGl0TStWZGFw?=
- =?utf-8?B?S3VPZXQxT2tGYW9GcmlSbk5jS2czM09hQmR2empvWVBOZ0lqdUtyM3BoOU8v?=
- =?utf-8?B?Q3ZxK1hQSGhORHFZZk1mTitVVEdmN3gxaXdVWVdxNFpsdFV0L2QxMTN0bThW?=
- =?utf-8?B?UHVxMmdJb1VRRHV5TGYydStRRWtpSWlZTUk2Yit5K01TaXVteWhHNTY5Yzhl?=
- =?utf-8?B?SElYeU03dlhERjhncHN4WnhXRFphTmdta1YrZ1NMN205ckhGbkxvY3VRRy9S?=
- =?utf-8?B?Y0pyK0FOR2VHcVl5L0NQNUN5NmRVQzgvOUxONFBRTml2VXV5T25HTzMrY1hq?=
- =?utf-8?B?NXlTVHB4SjlVOTFPTXJJUDc4TGc5MGMyblAwbzJyUWRTREZ6Zit2QjcyTmZt?=
- =?utf-8?B?R0U5V25zTWswQ01lSVpHZjVBWWxvN0tVZjQzVmg1RTE0c2NJMTJsWTVqVjAw?=
- =?utf-8?B?MjR6QS9WVnowRnZOVTZiQ3ArMkVrM1NqOU9tSzduSUgxdUlURjBTOHV0QjZS?=
- =?utf-8?B?Q0VjeVQzZ1BQdnZub3I1QmhuYXhXWU9xSS83ZWUyQ1k0SEEzQStMOVRydEc0?=
- =?utf-8?B?cW1yMkpaRWFZemZQUFNVZ2dXblpWbXJWUGV5KzlTalAyZU96cUY0M3Jibncw?=
- =?utf-8?B?OXN5NUh2TFVHT05ITHhnUkJvQ3FSbEo2eUM3UUNweXpNWDg1cDRoMnJBOWlS?=
- =?utf-8?B?Q2xUK3lVMjNqM0YzVDBTMXJmRUFhZDdmOVg1bnNLVlRlOVhHdGJid3lwc1Bh?=
- =?utf-8?B?bVFLckJSTmVsaGlSTjk1eHJ6ajY1VkdDNTV2czF4T0FoSUhBQ1YyRmNDREVl?=
- =?utf-8?B?d3lzN2ZYZW10VlBWcExkNU9CUjFUK2hOSVlUYmV6TURmUGtZZlFJdS9rc2pJ?=
- =?utf-8?B?QmQ3MlRUTGc1MUMzS0YwZUNRSDR1TWVpL3dJTHUvZWFjQU4yS2JDalRwOXEy?=
- =?utf-8?B?cUZZWXl0SGg4RVE3SlpXN1UxdU5uRkFBMC9IaHJQSUhJRXFNeTJycnlsQnlR?=
- =?utf-8?B?ekJaUjhEcktKUncxZnNBNCtQY2cyUmtLV3hiMlFrOTZKaWpxQjRJUGNibkVS?=
- =?utf-8?B?UFp2UVVQdVRBSzFrMGRRT3o0RXdwNzIrY09DbUFUdjR0M2ovSnFucnVFejhW?=
- =?utf-8?B?WGJPVzJNR0hzWU4vUDNSbTJNOVZubHRFMGxETXhzdnd2OXBLTGFUTE1Wem1X?=
- =?utf-8?B?d0F4TlhsZXo0WVp2N1J6dXFZa3QvTFM0VDhPT0ozVHA3and0M1RUdHhIQzNG?=
- =?utf-8?B?cm1OUUhUam1UMzZDUTVlVkMzNXkybFpjYXRQR0EySjUrVzZrU1hZUVkzV2hE?=
- =?utf-8?B?RVRicWZpZWgyaHRUeldwTWN5NWdldkh0eFBEZVVzZkZJWVJoOElRNFhtQUZr?=
- =?utf-8?B?UmZPM005MGUwN3VNSjM4emxXRlBGVmJLS3dhdFNIU2ZWTi9DOVFVQ1RnTDZU?=
- =?utf-8?B?VU1MQXFZQ3FOY29pV3Jpdml3WUh5MnFJOVBRVEdTRnltaVZlSlVrUmRLaVJp?=
- =?utf-8?B?R3FSdVpZNGVRNnFNU0FQbG9sWWVxWHExaTlMQ28xV2hTVlBjSGFDMjhNUDJr?=
- =?utf-8?Q?5fSs01LwzLwRbCrdNrkdu6M0N?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnEzZDUrYk45dWY0STdsVGpOWHJNaVNlRmdsUzZ1b2NQTUlFbzAzbHl3L3pO?=
+ =?utf-8?B?d2pLTTJtQkNkTlZ0S1FjUWxpYUxObmF3eXo3dVF0NUN2ZTlwdnZkSWdwOVhR?=
+ =?utf-8?B?N1NjRE5salloYWh6U3gvOTNjOHVlVXN5S0JlMXBsbExDcWVJT0pWZ1lxMDRh?=
+ =?utf-8?B?Q0xMcE5ZVHR0TnVQVlc0cGptcWRHZlByZlN0U1BzMUp3bVo1TTk1TWt0b1FX?=
+ =?utf-8?B?bDh2TDA3T3JiTDJIMnBaVnFxT1FDV3RtRVRGQ3pOQW96M25YTkpJTW1qVEZ4?=
+ =?utf-8?B?MTNHWHpXeGd4NDE5VkEzcG8wUUFjMGZsUzI3L0lyYmdSZmF5YmhzQjNZOXVo?=
+ =?utf-8?B?bHQ2cG1MZFhaR1E5MkMvUVZ4dXBLNHJEKzdRT3E1enJ4bFZ5Zjh6K0FlNWhu?=
+ =?utf-8?B?bExDNFhjajVOS1lSY3B1eFNtSEt0d0N4VkxOUTlZUHpNSCt1YzY4Snl3eVdP?=
+ =?utf-8?B?NDg1VlZzOGZmdVpsVmpNRzdoSEE0VVdoa3lRVjZkSGN3UEVjbkV4blg1RUwx?=
+ =?utf-8?B?Ly93bktpUFBKQUtNaWFwQmltUUhIbFgzY1BodEZJYkZJNDgyblpyUGhHOFRN?=
+ =?utf-8?B?bG1vWXBaWER3WmtWV1o3QWRDVEQxY3JpckJhc084YlFmOHArSkEzTThpT2hW?=
+ =?utf-8?B?Zi90WVp6dkNzOW5uc2VTQmJlcm9WRTFlVWR2THZxY1dmMkhWQkhtYVNuY1Yr?=
+ =?utf-8?B?bTJSa21IemI1YUFoVHI0Zkoza04zaFhvMVowTUhIRWVwNk94b0xxNityRitX?=
+ =?utf-8?B?ZVowb2RSN08vbmFOMkFvS1F5bEFPUFpYMlF1QlpSNHhHUVUvdnYyUlgwTldp?=
+ =?utf-8?B?NXh2bmQ3TGdFbUNqTDZxQmFqekRhNDVmc0RHQ1llc1FYYzc3YUtiRVRLUjYw?=
+ =?utf-8?B?M1AzUGpMcjJEd3NjZ1lySFFJRldQakkrdDdEWm5tbXNUcGpvclBuQmJzRmdC?=
+ =?utf-8?B?dXVWdThrazBJZGZmalIwYkdsOTRhVmpNZzhVLzFWNUlGcW4vSWtzcWxPbEFL?=
+ =?utf-8?B?c0Z3ZkNpTlF3L0J6VDVVQyswNFFWaUZjYno3c3FKZVhxNWN4clFkOVJ3ZEtq?=
+ =?utf-8?B?QW0rQy9TYW5jbDFZSnBCMjRwUFBkR2U3ZlhacnVHUFlzZ0JQd05hVGduTEta?=
+ =?utf-8?B?bjdXaHRTckVYUUFRWU5Sc0UwWnh5VVoxSUNxb3lHN1VYUzRzMkpLaVNkVnRZ?=
+ =?utf-8?B?aWVZa05KT2hqcHlrNVdxV0RDQmRUT1JRMGp2cU5pamUxYmR5VXArM2pvUWgv?=
+ =?utf-8?B?aGYza3NEN0JFWVovSEdiSTJEY3h6Z3VVbVV0TnRZaHpKeW9VYjNTQTJXblV6?=
+ =?utf-8?B?VDNJbklZakVNOGlZT1M3N0tzNFExbzZKRTN4eDF4aEJJNDUwNEZBVytUNVIy?=
+ =?utf-8?B?WXN5RzFpTGJQSnU3ZW1VZFU3NUg3enJxN1ZwdnQyK2kycVNWUW8xSVEvQm1o?=
+ =?utf-8?B?TnFZT3dLYURMNE1uKzZEWDIwMTN0dWM4L2xmV2ZoS3lEcFQvSmxzZmltNlBK?=
+ =?utf-8?B?VDkzb2JIR094LytxWEc1VmEvRTVGMG1HRm9ldEYydE13R1ZjUjEwZ1psZ1V5?=
+ =?utf-8?B?cUtqRjVmYkExSnF5OWtxUFZYSDdVZGZmbXptSHRIM3JmbkdEdXptN3psWC9v?=
+ =?utf-8?B?VmtZYVovOWViRFpBMEhMYk91TW82ck9XcW9nQnNmeWZUUHhQcmQ1MGlYTGQr?=
+ =?utf-8?B?ajB4bG84YTdQZXBsbkVQdC9oZW5uVnNkNldSTnV6cGt6MnQvZWlkUHVNamJt?=
+ =?utf-8?B?Z283WmJlbFFNTGlNK1VQejRwcUp6Z2VDNVBLM2JRT1JhTWF1MjQ3YjVYUHRM?=
+ =?utf-8?B?VExDQWdieHkwZ1RHaVV4bGRZSEF1c1JNOEZFZ3VqbjE2VEpFSnUrSFZSN1hF?=
+ =?utf-8?B?cEx0M0l2YXRYVWpyaHFCYlRCaVAreXQ1Tkx0dnc2WFpuRnQ3Z2k1bWJvdVB2?=
+ =?utf-8?B?VThWeVNoMC8rKzQ4dFpMTWVMTUk0S3ZBdXpyeGx5cEZtaStjdCtzSG5MS0I4?=
+ =?utf-8?B?elJ5Qm0yTHVwR1dNNTY5anBnYmtRR3Z3T2VyNHR1Zm0vUVlnRC9ZZm5EYnpj?=
+ =?utf-8?B?NmtxM2o2ODZPNzlyWnJiME4zc1V1dzg5cUFyVlcrRVBkbG0xL1I5a0phQkll?=
+ =?utf-8?Q?hLSnzmTjwc7Tmwo17/QFRxKOg?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a739eba-79e8-4515-d4c6-08de3d53f272
+X-MS-Exchange-CrossTenant-Network-Message-Id: b08041c3-1296-4ac0-a4b0-08de3d54826e
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2025 10:06:29.3456 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2025 10:10:30.9192 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kREuNfXv2LTTQ3JKQdhPPOIGRmYJ2AIRM4uCmh6PF778PLROFb/Ykk0BZasjHez0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4156
+X-MS-Exchange-CrossTenant-UserPrincipalName: QXVJ2CT40j1/F4KsMy5biVxgPX7mgBYYNvaXuwwNlaGO4TNAqtio3/c/fha+pXBg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9451
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,68 +175,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/17/25 10:58, Srinivasan Shanmugam wrote:
-> signal_eviction_fence() is declared to return bool, but returns -EINVAL
-> when no eviction fence is present.  This makes the "no fence" path
-> evaluate to true and triggers a Smatch warning.
+On 12/17/25 10:46, Donet Tom wrote:
+>>>> But don't we also have problems with the doorbell? E.g. the global aggregated one needs to be 4k as well, or is it ok to over allocate there?
+>>>>
+>>>> Thinking more about it there is also a major problem with page tables. Those are 4k by default on modern systems as well and while over allocating them to 64k is possible that not only wastes some VRAM but can also result in OOM situations because we can't allocate the necessary page tables to switch from 2MiB to 4k pages in some cases.
+>>>
+>>> Sorry, Cristian — I may be misunderstanding this point, so I would appreciate some clarification.
+>>>
+>>> If the CPU page size is 64K and the GPU page size is 4K, then from the GPU side the page table entries are created and mapped at 4K granularity, while on the CPU side the pages remain 64K. To map a single CPU page to the GPU, we therefore need to create multiple GPU page table entries for that CPU page.
+>> The GPU page tables are 4k in size no matter what the CPU page size is and there is some special handling so that we can allocate them even under memory pressure. Background is that you sometimes need to split up higher order pages (1G, 2M) into lower order pages (2M, 4k) to be able to swap things to system memory for example and for that you need some an extra layer of page tables.
+>>
+>> The problem is now that those 4k pages are rounded up to your CPU page size, resulting in both wasting quite some memory as well as messing up the special handling to not run into OOM situations when swapping things to system memory....
 > 
-> Return false when the fence pointer is NULL, and keep propagating the
-> result of dma_fence_check_and_signal().
 > 
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:2099 signal_eviction_fence()
-> warn: '(-22)' is not bool
+> Thank you, Christian, for the clarification.
 > 
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c
->     2090 static bool signal_eviction_fence(struct kfd_process *p)
->                 ^^^^
-> 
->     2091 {
->     2092         struct dma_fence *ef;
->     2093         bool ret;
->     2094
->     2095         rcu_read_lock();
->     2096         ef = dma_fence_get_rcu_safe(&p->ef);
->     2097         rcu_read_unlock();
->     2098         if (!ef)
-> --> 2099                 return -EINVAL;
-> 
-> This should be either true or false.  Probably true because presumably it has been tested?
-> 
->     2100
->     2101         ret = dma_fence_check_and_signal(ef);
->     2102         dma_fence_put(ef);
->     2103
->     2104         return ret;
->     2105 }
-> 
-> Fixes: 37865e02e6cc ("drm/amdkfd: Fix eviction fence handling")
-> Reported by: Dan Carpenter <dan.carpenter@linaro.org>
-> Cc: Philip Yang <Philip.Yang@amd.com>
-> Cc: Gang BA <Gang.Ba@amd.com>
-> Cc: Felix Kuehling <felix.kuehling@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 2a72dc95cc0f..3e7e91dd4316 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -2097,7 +2097,7 @@ static int signal_eviction_fence(struct kfd_process *p)
->  	ef = dma_fence_get_rcu_safe(&p->ef);
->  	rcu_read_unlock();
->  	if (!ef)
-> -		return -EINVAL;
-> +		return false;
+> When you say swapping to system memory, does that mean SVM migration to DRAM?
 
-Good catch, but I think returning true here is more appropriate and keeps the existing logic.
+Yes and no. It's mostly the normal BO based swapping of TTM. SVM is still an experimental and extremely rarely used feature.
+
+> 
+> From my understanding of the code, SVM pages are tracked in system page–size PFNs, which on our system is 64 KB. With a 64 KB base page size, buffer objects (BOs) are allocated in 64 KB–aligned chunks, both in VRAM and GTT, while the GPU page-table mappings are still created using 4 KB pages.
+> 
+> During SVM migration from VRAM to system memory, I observed that an entire 64 KB page is migrated. Similarly, when XNACK is enabled, if the GPU accesses a 4 KB page, my understanding is that the entire 64 KB page is migrated.
+> 
+> If my understanding is correct, allocating 4 KB memory on a 64 KB page–size system results in a 64 KB BO allocation, meaning that around 60 KB is effectively wasted. Are you referring to this kind of over-allocation potentially leading to OOM situations under memory pressure?
+
+Correct, yes.
+
+> Since I am still getting familiar with the AMDGPU codebase, could you please point me to the locations where special handling is implemented to avoid OOM conditions during swapping or migration?
+
+See AMDGPU_VM_RESERVED_VRAM.
 
 Regards,
 Christian.
 
->  
->  	ret = dma_fence_signal(ef);
->  	dma_fence_put(ef);
+> 
+> 
+>>
+>> What we could potentially do is to switch to 64k pages on the GPU as well (the HW is flexible enough to be re-configurable), but that is tons of changes and probably not easily testable.
+>>
+>> Regards,
+>> Christian.
+>>
+>>> We found that this was not being handled correctly in the SVM path and addressed it with the change in patch 2/8.
+>>>
+>>> Given this, if the memory is allocated and mapped in GPU page-size (4K) granularity on the GPU side, could you please clarify how memory waste occurs in this scenario?
+>>>
+>>> Thank you for your time and guidance.
+>>>
+>>>
+>>>> Christian.
+>>>>
+>>>>> Alex
+>>>>>
+>>>>>>>>> [1] ROCr debug agent tests: https://github.com/ROCm/rocr_debug_agent
+>>>>>>>>> [2] RCCL tests: https://github.com/ROCm/rccl/tree/develop/test
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Please note that the changes in this series are on a best effort basis from our
+>>>>>>>>> end. Therefore, requesting the amd-gfx community (who have deeper knowledge of the
+>>>>>>>>> HW & SW stack) to kindly help with the review and provide feedback / comments on
+>>>>>>>>> these patches. The idea here is, to also have non-4K pagesize (e.g. 64K) well
+>>>>>>>>> supported with amd gpu kernel driver.
+>>>>>>>> Well this is generally nice to have, but there are unfortunately some HW limitations which makes ROCm pretty much unusable on non 4k page size systems.
+>>>>>>> That's a bummer :(
+>>>>>>> - Do we have some HW documentation around what are these limitations around non-4K pagesize? Any links to such please?
+>>>>>> You already mentioned MMIO remap which obviously has that problem, but if I'm not completely mistaken the PCIe doorbell BAR and some global seq counter resources will also cause problems here.
+>>>>>>
+>>>>>> This can all be worked around by delegating those MMIO accesses into the kernel, but that means tons of extra IOCTL overhead.
+>>>>>>
+>>>>>> Especially the cache flushes which are necessary to avoid corruption are really bad for performance in such an approach.
+>>>>>>
+>>>>>>> - Are there any latest AMD GPU versions which maybe lifts such restrictions?
+>>>>>> Not that I know off any.
+>>>>>>
+>>>>>>>> What we can do is to support graphics and MM, but that should already work out of the box.
+>>>>>>>>
+>>>>>>> - Maybe we should also document, what will work and what won't work due to these HW limitations.
+>>>>>> Well pretty much everything, I need to double check how ROCm does HDP flushing/invalidating when the MMIO remap isn't available.
+>>>>>>
+>>>>>> Could be that there is already a fallback path and that's the reason why this approach actually works at all.
+>>>>>>
+>>>>>>>> What we can do is to support graphics and MM, but that should already work out of the box.>
+>>>>>>> So these patches helped us resolve most of the issues like SDMA hangs
+>>>>>>> and GPU kernel page faults which we saw with rocr and rccl tests with
+>>>>>>> 64K pagesize. Meaning, we didn't see this working out of box perhaps
+>>>>>>> due to 64K pagesize.
+>>>>>> Yeah, but this is all for ROCm and not the graphics side.
+>>>>>>
+>>>>>> To be honest I'm not sure how ROCm even works when you have 64k pages at the moment. I would expect much more issue lurking in the kernel driver.
+>>>>>>
+>>>>>>> AFAIU, some of these patches may require re-work based on reviews, but
+>>>>>>> at least with these changes, we were able to see all the tests passing.
+>>>>>>>
+>>>>>>>> I need to talk with Alex and the ROCm team about it if workarounds can be implemented for those issues.
+>>>>>>>>
+>>>>>>> Thanks a lot! That would be super helpful!
+>>>>>>>
+>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>> Thanks again for the quick response on the patch series.
+>>>>>> You are welcome, but since it's so near to the end of the year not all people are available any more.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>> -ritesh
 
