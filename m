@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D09D6D22E
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 15:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33CC1D6D22C
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 15:04:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2860710E3E7;
-	Thu, 18 Dec 2025 15:04:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD0C10E455;
+	Thu, 18 Dec 2025 15:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qSgnSXU5";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pVg/lTbH";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08EB410E3E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 15:04:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C76D10E3E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 15:04:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=VEud+3AOCc3+eeLHSIZXcIgWTBtXQhZt9oWQuJnoYE4=; b=qSgnSXU5t/ZCZXiwSTfRlhRWNr
- Pjr6eWpf497fSloYzJ8lKa2XBF8zshd6zCjW0fPnkKLuVJ8Ptrp/VchdRY6uOrF6Tux9PK80Ae/nw
- obD2aYQMC17pyLXomjRapouvRbQXLCdCDARDmIrpwX9MXSg2AJ8nT4j7/27l3m/42Gba4YfZ7tDlp
- xi/ZanenxApnjo/49bd5artWOMt2/oSDZrHHBk0Fa59bNn+KIIlQ4jvnuctrUhUAUzZpBpSH/jaAV
- mD1a5tSVxp4h/fJqtpRJpIipLiX/4j5J5rE9pzZnO2aHlw1wh4irDHBD9vHvpbJtin5cFAPRFzkTY
- +DPVntPA==;
+ bh=xrfVrGvSgZigSIlNfPZgzHIzKlbED244bBxFv0ZcLn8=; b=pVg/lTbHx+EcJtk9hbQhckxrcg
+ lvlwtkkrjyQY0w3KoxQEWF6cntMsVjPZea6/qh8OYN9spkBt/lAMXIdenmSy7PnrZviw8ucHyv42l
+ Gw1swPi8oXkiKTxTqDI4uhp8imBDpKokYAIfg+AaPSOd8EW9CSqehSRX4mApTYDvcL0/f3379Csyn
+ 53MjikdEDD/bjxvqVSS+8GiKwPTL9qG+Jnlh1JbJlqA5HJ6DdUb4+lxRkM6M40L77KCd8JTbkyk8f
+ d7Ut3N1oEDLRBoxTnDW64rgGdzIT1pZfbAvMoC8khSqqM3Rr8f9hhtr0AKVlLAlF709m8UmnWfGyi
+ lQEvIlCw==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with utf8esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vWFY9-00EI1W-5U; Thu, 18 Dec 2025 16:04:17 +0100
+ id 1vWFYB-00EI1i-Br; Thu, 18 Dec 2025 16:04:19 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 0/5] IDR to xarray conversion and some small cleanups
-Date: Thu, 18 Dec 2025 15:04:00 +0000
-Message-ID: <20251218150405.80502-1-tvrtko.ursulin@igalia.com>
+Subject: [RFC 3/5] drm/amdgpu: Simplify sorting of the bo list
+Date: Thu, 18 Dec 2025 15:04:03 +0000
+Message-ID: <20251218150405.80502-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251218150405.80502-1-tvrtko.ursulin@igalia.com>
+References: <20251218150405.80502-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -57,38 +59,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RFC because the context conversion needs a lot of scrutiny (and passing through
-the automated test suites), while the bo list changes are perhaps a bit of a
-bike shed, although they do result in less lines of code and hopefully easier to
-read.
+Sort function only cares about the sign so we can replace the conditionals
+with a single subtraction.
 
-BO list sorting is really independent, as is the IDR MES cleanup (which could as
-well have the warnings removed). Just say the work and I can easily split them
-out.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-Series has been smoke tested, including lockdep and game + desktop workloads so
-at least shouldn't be too obviously broken.
-
-Tvrtko Ursulin (5):
-  drm/amdgpu: Replace idr with xarray in amdgpu_bo_list
-  drm/amdgpu: Remove output parameter in bo list handling
-  drm/amdgpu: Simplify sorting of the bo list
-  drm/amdgpu: Convert context manager to xarray
-  drm/amdgpu/mes: Remove idr leftovers
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 140 +++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |  17 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |  58 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c     | 117 ++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h     |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  11 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c     |   9 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h     |   3 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c   |   8 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c      |  18 +--
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c      |  18 +--
- 12 files changed, 160 insertions(+), 248 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index 0ab307317145..16b647b42b0a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -60,11 +60,9 @@ static int amdgpu_bo_list_entry_cmp(const void *_a, const void *_b)
+ {
+ 	const struct amdgpu_bo_list_entry *a = _a, *b = _b;
+ 
+-	if (a->priority > b->priority)
+-		return 1;
+-	if (a->priority < b->priority)
+-		return -1;
+-	return 0;
++	BUILD_BUG_ON(AMDGPU_BO_LIST_MAX_PRIORITY >= INT_MAX);
++
++	return (int)a->priority - (int)b->priority;
+ }
+ 
+ struct amdgpu_bo_list *
 -- 
 2.51.1
+
