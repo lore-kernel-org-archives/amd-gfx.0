@@ -4,73 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A7FD66BB3
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 05:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A33ED66BB3
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 05:21:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE0E810E4C9;
-	Thu, 18 Dec 2025 05:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F6610E535;
+	Thu, 18 Dec 2025 05:21:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="muPJRmLy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IqCI0meA";
 	dkim-atps=neutral
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D00C10E4C9
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 05:17:05 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- 46e09a7af769-7c7613db390so115801a34.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 21:17:05 -0800 (PST)
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9905810E535
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 05:21:00 +0000 (UTC)
+Received: by mail-ot1-f53.google.com with SMTP id
+ 46e09a7af769-7c730af8d69so143303a34.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 21:21:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766035024; x=1766639824; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1766035260; x=1766640060; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VDFORpGl89wmXWP4oxqkoOJ9uaZN8eWqHSP7qm+bKjQ=;
- b=muPJRmLy8blCLKrVGQMvI3I2SVytlJ17TZ79En0p6XcFVSvlPyGcSPLKSxZqHgQ4nc
- PwqBR/ZXkyoQnQBcE8bVgR6R6egE4eFZPF1opKC2n5n6VFzkmHDCFPUqpqL6E7oueksB
- isC2VW1VzOKsrif1J/HsYkON8iz5PfpoqQrmvULzg2tY2yQ09A0hbecxtOuSh9MrHXKW
- a8f3E0bW3o/b5+eIXeYP9S5b7eHDQ9uAIj9CJyGyCNZEOJtYPvXwL5yH52k87tPUDx4T
- T81FYPybrutXdL0ZfiM7MqnHtUga1i07O6BMcSmAjGF7WbyqEzaDOPxCr+Shg7SiMdXQ
- vupQ==
+ bh=IP2ImOjAX+l+7tQGNXFK+zr1JeycaSZhRaLCs8/TNP0=;
+ b=IqCI0meAx17RCqYel5hRS53koDZt5xs6wsm++TnL1MPPKb0zlRx2CB8nKrvkeUILJM
+ 6M0BNkx8BxVQyestCfwDpT/XdIG3V/nv26olXXkf2Ano1jtabche7lNEcqltMweSstOw
+ zAgmavEqJKgkdT+s4Ar8bCVV7zeTbqO/nhuw2IdgupCLT4wxxVCacOxNTRRKnyBuqTFF
+ LMBjbYRucghZUG7LKsGRQpPMZ1HJ+4SLKWm33svFabetAP4hlXrnGMRDk6Iz5UN3hpbT
+ +4xv8kYn6cvs/ujWtMErz8geOrCPK/2O6UAxjKdtIM6n3DptjqhhO3jX2pNt8EumX9fF
+ l1ZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766035024; x=1766639824;
+ d=1e100.net; s=20230601; t=1766035260; x=1766640060;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=VDFORpGl89wmXWP4oxqkoOJ9uaZN8eWqHSP7qm+bKjQ=;
- b=K3bt3LJ3fBN5es4JXYC/8JSGe7Y7fB2qPnztPfLoPXuy8tV4U68mcG8tiWq8fQwSnY
- lpTJkj2OL0c9BKEAJbKBzeYBaFHnxhwcIyI9FzMbUIONPtse/Ux7iNsCj3G4ai20kV3S
- 5HLxqdwLtvMShlerMZayv1kzhPDTq5HeUG9vKBPxdX4T/tfVyLYslVw/4BCjoDZ1mWGW
- 4hI5XjecHqzG8RtpKUtp/+SjxJH/MgKjKt4404YY0gLEzjBns98QKkZNNOuGIEiaMP1s
- fJxnsXcSozgbYrT/UDoBFzQJexNwTP2U0HF1hYWTpO5gbWIi4xc/5rpG+psjDGLyxoER
- 7Cwg==
-X-Gm-Message-State: AOJu0YxGpRzFIX8xs90FtxILx/B7WlimtoIyFj81jNlO3594rWEngTcV
- klnDJj4JzMWiNMNMKOBWSWoHRZzlMW4szCFN2elNtVDWoenpRb0Gv9YkNH+1SAPt7E4=
-X-Gm-Gg: AY/fxX4MMOFzTd0USjYBJi5JRqeIPzUWt9yTkMjPihXgzva0IFUOGQY4LGpfalfPg3+
- YY8QULZWYmi2WQZt5t8qL6Pn7CzxmAobSs7FPfgaJq0wPIm31FKY6tX9w1J3g8rI2DpeLm5ENjk
- 4eJOyAs33pbquLKzGSEpvUAI+kbkdGheZ5O73dfE38IBiNdEV9ypfBbidNuu5w5VlylkSWDXg7p
- qepiqtBnUIrO5X3SIC6HqdtjFf6PONWH06SEK/lKXmD1cze1/AYiEOCcdFqvS9CWWCIZcfMzEO9
- y4P9rJGJYkjdXkxvjyWeMdRPzBySW+/Of9eoe7gXfT4KfZ8krKUm3BqE5E1RITzvWp4xpeab0Zs
- sSHJKovM6nj5Scsg4cZxUSSY0vDP86lxICGZbhxxDWSA0yDJDqQlRRdA8JOqHbqdgZ+YGY2nTnU
- 3zGpdeojY2xmu94YO/DrjCjTg6hYE=
-X-Google-Smtp-Source: AGHT+IE9Y6z75XLEUNZCPxLCwlWo/NwuIvcInVn3opJRvgsQIIJ5SBRJRH8bPSWdtWZX+LQetCBM9A==
-X-Received: by 2002:a05:6830:6d95:b0:7c7:5dd3:ee7e with SMTP id
- 46e09a7af769-7cae839e804mr10078705a34.32.1766035024328; 
- Wed, 17 Dec 2025 21:17:04 -0800 (PST)
+ bh=IP2ImOjAX+l+7tQGNXFK+zr1JeycaSZhRaLCs8/TNP0=;
+ b=DfVRoQ0hMj5X/xVejTCsnjIbK4KXvba4HkWCiMT0vyeaiKuySxi8zzROgUq2rF8lsE
+ uZSK0lSnEW3rgsdTiMds4/XXfaifC3iPFIQdu2ytGD7atdRB+DaiyovqG0sgQ+NpdlhJ
+ SWtoxUI/qTESwCh1+WyiZ3RfZByTAho72GrUPIRh1vx7uEJH3nekK7sCXA3PmooHgdtv
+ QN+csONbMuRP2Jql1Arw5h6srEQroOMtA1hSZaqa0vgz0SYU2uw4IPz1qutPQnmCFdM3
+ Aa5bApNGn2DPZgo8Z+tU5c12IqLJTxv9C4X8QoDgZmNOCeaK5Qwqi7+kiF6/mNzanGML
+ Ws1g==
+X-Gm-Message-State: AOJu0YxiJfp/KGHeB0jokV5VgFTpn7YDmsoySDE7knUEmVJLanMD3dA0
+ fdHpoWDyBDCamxlsuXiEWxQLyfBGP2qG9s1hD5aYq9YwBHiNv2y8pzkqoQ4m2FNOfOM=
+X-Gm-Gg: AY/fxX6x94w7DLAAtDANagpBAeSwdAq8Nt0UEDE/BUmxE4zcwd94KHDMMkDdPt5+wZV
+ 8p4OXAcoiJHsXpJDmbN64ODW1cxS33T4+6rYJeTjP2BrqjvGFBy46ewVTKli/zZUVQmSRNHoVDS
+ jO2lAvsRJYwXrKWwQHhhqcXJGyQoXLlrfIt2Wx4rxskWDqRUxy1rM91/Xa904yJk9b+hIdH28yk
+ Ct94gHjuw/5PBWj+UADJFabFm1wZw3Wlqm92BHvBtYwIVMOjVKhzl7PMNU5s7odFhbK02GkZQ/1
+ HaM4Iv8pZ4ZiUv/yIB406zc4R4FMgW+jGei6X19OcDjKHq/63py0AEK9ymi6WQvPYjGnxbojZ7G
+ 7CHKltXxRw2ibeVteOkoAnbWYEGQDgSALxoDcEtt6DmtIdDB8gw9tJ2YDu7fq2XqlzZsIiFNfrD
+ GAY5KivSGgAz10iohNiikWjqYBktA=
+X-Google-Smtp-Source: AGHT+IEwkXpLikgPQ8fYX8wyFL0Lvo9QzzAwVZufUjTBu4qv1ctHO+UgoYsniMWna+/WARcQxq6QSw==
+X-Received: by 2002:a05:6830:2e05:b0:7c6:e92f:41df with SMTP id
+ 46e09a7af769-7cae82e3fe0mr13541504a34.12.1766035259765; 
+ Wed, 17 Dec 2025 21:20:59 -0800 (PST)
 Received: from timur-max.localnet ([189.171.135.243])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7cc59b78e5dsm938969a34.19.2025.12.17.21.17.03
+ 46e09a7af769-7cc59b78cb2sm971518a34.16.2025.12.17.21.20.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Dec 2025 21:17:03 -0800 (PST)
+ Wed, 17 Dec 2025 21:20:59 -0800 (PST)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 2/6] drm/amdgpu: always backup and reemit fences
-Date: Wed, 17 Dec 2025 23:17:03 -0600
-Message-ID: <20303714.fSG56mABFh@timur-max>
-In-Reply-To: <20251215160711.11832-2-alexander.deucher@amd.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu: don't reemit ring contents more than once
+Date: Wed, 17 Dec 2025 23:20:57 -0600
+Message-ID: <2459360.yiUUSuA9gR@timur-max>
+In-Reply-To: <20251215160711.11832-1-alexander.deucher@amd.com>
 References: <20251215160711.11832-1-alexander.deucher@amd.com>
- <20251215160711.11832-2-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -88,120 +87,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025. december 15., h=C3=A9tf=C5=91 10:07:07 k=C3=B6z=C3=A9ps=C5=91 =C3=
+On 2025. december 15., h=C3=A9tf=C5=91 10:07:06 k=C3=B6z=C3=A9ps=C5=91 =C3=
 =A1llamokbeli z=C3=B3naid=C5=91 Alex Deucher=20
 wrote:
-> If when we backup the ring contents for reemit before a
-> ring reset, we skip jobs associated with the bad
-> context, however, we need to make sure the fences
-> are reemited as unprocessed submissions may depend on
-> them.
->=20
-> v2: clean up fence handling, make helpers static
+> If we cancel a bad job and reemit the ring contents, and
+> we get another timeout, cancel everything rather than reemitting.
+> The wptr markers are only relevant for the original emit.  If
+> we reemit, the wptr markers are no longer correct.
 
-Nice work!
-We definitely need this when amdgpu_sched_hw_submission>2.
+I see the point of not reemitting, considering the wptrs are no longer=20
+correct. However, would it be possible to correct the wptrs instead?
 
-This patch is:
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+As it is, this sounds like it would make the reset less reliable when there=
+ is=20
+more than one job emitted that can cause hangs.
 
 >=20
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 24 ++++++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  |  5 ++++-
->  2 files changed, 23 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 22 +++++++++++++++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  |  2 ++
+>  2 files changed, 19 insertions(+), 5 deletions(-)
 >=20
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c index
-> 334ddd6e48c06..3a23cce5f769a 100644
+> 1fe31d2f27060..334ddd6e48c06 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -89,6 +89,16 @@ static u32 amdgpu_fence_read(struct amdgpu_ring *ring)
->  	return seq;
->  }
->=20
-> +static void amdgpu_fence_save_fence_wptr_start(struct amdgpu_fence *af)
-> +{
-> +	af->fence_wptr_start =3D af->ring->wptr;
-> +}
-> +
-> +static void amdgpu_fence_save_fence_wptr_end(struct amdgpu_fence *af)
-> +{
-> +	af->fence_wptr_end =3D af->ring->wptr;
-> +}
-> +
->  /**
->   * amdgpu_fence_emit - emit a fence on the requested ring
->   *
-> @@ -116,8 +126,10 @@ int amdgpu_fence_emit(struct amdgpu_ring *ring, stru=
+> @@ -710,6 +710,7 @@ void amdgpu_fence_driver_guilty_force_completion(stru=
 ct
-> amdgpu_fence *af, &ring->fence_drv.lock,
->  		       adev->fence_context + ring->idx, seq);
+> amdgpu_fence *af) struct amdgpu_ring *ring =3D af->ring;
+>  	unsigned long flags;
+>  	u32 seq, last_seq;
+> +	bool reemitted =3D false;
 >=20
-> +	amdgpu_fence_save_fence_wptr_start(af);
->  	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
->  			       seq, flags | AMDGPU_FENCE_FLAG_INT);
-> +	amdgpu_fence_save_fence_wptr_end(af);
->  	amdgpu_fence_save_wptr(af);
->  	pm_runtime_get_noresume(adev_to_drm(adev)->dev);
->  	ptr =3D &ring->fence_drv.fences[seq & ring-
->fence_drv.num_fences_mask];
-> @@ -743,10 +755,6 @@ void amdgpu_fence_driver_guilty_force_completion(str=
+>  	last_seq =3D amdgpu_fence_read(ring) & ring-
+>fence_drv.num_fences_mask;
+>  	seq =3D ring->fence_drv.sync_seq & ring->fence_drv.num_fences_mask;
+> @@ -727,7 +728,9 @@ void amdgpu_fence_driver_guilty_force_completion(stru=
+ct
+> amdgpu_fence *af) if (unprocessed &&
+> !dma_fence_is_signaled_locked(unprocessed)) { fence =3D
+> container_of(unprocessed, struct amdgpu_fence, base);
+>=20
+> -			if (fence =3D=3D af)
+> +			if (fence->reemitted > 1)
+> +				reemitted =3D true;
+> +			else if (fence =3D=3D af)
+>  				dma_fence_set_error(&fence->base,=20
+=2DETIME);
+>  			else if (fence->context =3D=3D af->context)
+>  				dma_fence_set_error(&fence->base,=20
+=2DECANCELED);
+> @@ -735,9 +738,16 @@ void amdgpu_fence_driver_guilty_force_completion(str=
 uct
-> amdgpu_fence *af) /* if we've already reemitted once then just cancel
-> everything */ amdgpu_fence_driver_force_completion(af->ring);
->  		af->ring->ring_backup_entries_to_copy =3D 0;
-> -	} else {
-> -		/* signal the guilty fence */
-> -		amdgpu_fence_write(ring, (u32)af->base.seqno);
-> -		amdgpu_fence_process(ring);
->  	}
+> amdgpu_fence *af) rcu_read_unlock();
+>  	} while (last_seq !=3D seq);
+>  	spin_unlock_irqrestore(&ring->fence_drv.lock, flags);
+> -	/* signal the guilty fence */
+> -	amdgpu_fence_write(ring, (u32)af->base.seqno);
+> -	amdgpu_fence_process(ring);
+> +
+> +	if (reemitted) {
+> +		/* if we've already reemitted once then just cancel=20
+everything */
+> +		amdgpu_fence_driver_force_completion(af->ring);
+> +		af->ring->ring_backup_entries_to_copy =3D 0;
+> +	} else {
+> +		/* signal the guilty fence */
+> +		amdgpu_fence_write(ring, (u32)af->base.seqno);
+> +		amdgpu_fence_process(ring);
+> +	}
 >  }
 >=20
-> @@ -796,9 +804,15 @@ void amdgpu_ring_backup_unprocessed_commands(struct
-> amdgpu_ring *ring, * just save the content from other contexts.
+>  void amdgpu_fence_save_wptr(struct amdgpu_fence *af)
+> @@ -785,10 +795,12 @@ void amdgpu_ring_backup_unprocessed_commands(struct
+> amdgpu_ring *ring, /* save everything if the ring is not guilty, otherwise
+>  			 * just save the content from other=20
+contexts.
 >  			 */
->  			if (!fence->reemitted &&
-> -			    (!guilty_fence || (fence->context !=3D=20
-guilty_fence->context)))
+> -			if (!guilty_fence || (fence->context !=3D=20
+guilty_fence->context))
+> +			if (!fence->reemitted &&
 > +			    (!guilty_fence || (fence->context !=3D=20
-guilty_fence->context))) {
+guilty_fence->context)))
 >  			=09
 amdgpu_ring_backup_unprocessed_command(ring, wptr,
 >  							=09
        fence->wptr);
-> +			} else if (!fence->reemitted) {
-> +				/* always save the fence */
-> +			=09
-amdgpu_ring_backup_unprocessed_command(ring,
-> +							=09
-       fence->fence_wptr_start,
-> +							=09
-       fence->fence_wptr_end);
-> +			}
 >  			wptr =3D fence->wptr;
->  			fence->reemitted++;
+> +			fence->reemitted++;
 >  		}
+>  		rcu_read_unlock();
+>  	} while (last_seq !=3D seq);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h index
-> d881829528976..87c9df6c2ecfe 100644
+> a1fb0fadb6eab..d881829528976 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -146,12 +146,15 @@ struct amdgpu_fence {
->  	struct amdgpu_ring		*ring;
->  	ktime_t				start_timestamp;
->=20
-> -	/* wptr for the fence for resets */
-> +	/* wptr for the total submission for resets */
+> @@ -150,6 +150,8 @@ struct amdgpu_fence {
 >  	u64				wptr;
 >  	/* fence context for resets */
 >  	u64				context;
->  	/* has this fence been reemitted */
->  	unsigned int			reemitted;
-> +	/* wptr for the fence for the submission */
-> +	u64				fence_wptr_start;
-> +	u64				fence_wptr_end;
+> +	/* has this fence been reemitted */
+> +	unsigned int			reemitted;
 >  };
 >=20
 >  extern const struct drm_sched_backend_ops amdgpu_sched_ops;
