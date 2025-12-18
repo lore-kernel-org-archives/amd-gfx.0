@@ -4,76 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D00ECD6D232
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 15:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B660D6D232
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 15:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7237810EA1A;
-	Thu, 18 Dec 2025 15:49:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA96210E0C3;
+	Thu, 18 Dec 2025 15:58:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R/EafRWl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CCluH2Gj";
 	dkim-atps=neutral
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D269110EA1A
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 15:49:26 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-7c6ce4f65f7so662204a34.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 07:49:26 -0800 (PST)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBA9610E0C3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 15:58:57 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-b9a2e3c4afcso43518a12.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 07:58:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1766073537; cv=none;
+ d=google.com; s=arc-20240605;
+ b=jAQJF86VRXr0DIlEhdeXdm5RaGeBiTy2txLYpprr0y0OqEYT8DobbMpaeXnCkS92j0
+ PcHxwuR/mf8pCbpE54Ct2kCq6OnFXr3Z5jE1YXOj5SmbeFakTqc1FV/c4bvdxwNBpTX4
+ tD0b7njGekRIKRiPBbGaqYu2k0pYBgjVUZmZPNTDswXUuMjtAo3NIo46pgZKbvKS18Wq
+ c7MZLx9z9RZSBw6KclLdrbWtt0XbAks8uF8tSMNqVALBtMpxldhuuMWWjKerxulo68ah
+ fq8bzndPGvXSnQvVQRnh/AerDKKKxAcuJ9Dkxo+44dg759nlCPAKVddJRZRaunqONxxI
+ aKgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=EV1QQhrya62FYIdd8hfQsOHnD1zT+0en4pWxm0aZifI=;
+ fh=TWw7CjKH/oUmBDR6co52ihjCaPrF1ed6XoUc5ohkm2I=;
+ b=LxDTYxnRffDGOW9T2uF1OFcAlLrazIu1MUI+uA5URvV6Diq3X0JTwA7w1HrPZucN7J
+ 0O5T56y6gbiDxMsQ5+EVfLU23Xuf7RtbaWas/MpSAsUZBoz9FByLHVEdstNY7TCONs5C
+ ObRS32qTWyTvm62YoaAIEgCX+3mAvac6SXseY9THY1srni1+9283SNtEEEGlaOH9H/2S
+ 3hJslMn0yp116W8xckXkXrPb9cq/NiXwzWCupZf8WVRvub1B7nUvT25oGZGK099rjJ7N
+ fj3LLAhPMJCcMmD+EtnJd7sbUCogfkiQH/jKiw1ghyMzg6mufX/ghentAvPGPDrr4xnN
+ fI6w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766072966; x=1766677766; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1766073537; x=1766678337; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JHivnwGNK6H2CvpZNspF1GDDJqkXBdxjiCYiNv/30iM=;
- b=R/EafRWlOxml8MbjC+goDAAR7URNMVbBFW9rndXdznzIxRdO1yMMBtVb2cMmttMCUH
- fDit4z0sHbR0e7YcEJ/huZPbNyZBb5RR200WBKM8EuZIbkBsHb+J09wrx25PfMnA1zEj
- vxP0A4LabDVnzthZsnCNjFxpYYW6T0Pv6ffdRb71zVxZQvzgTbi771FO9B8aj+FdFxli
- X3moO0a2wOdF/QNB2ArcjzWXtWtzD1aRV4ANgIXFApbRc8G27yQwxOnwuLIq8AWW5fFo
- L65Gdt1xhbNNbYioHEdHEW15f+v8IivmdqNUEOSjeBMZM1pgv2/N7rt9lK1pILbM610m
- e9TA==
+ bh=EV1QQhrya62FYIdd8hfQsOHnD1zT+0en4pWxm0aZifI=;
+ b=CCluH2Gjas4O8lxp6e0UgaN9IO8zBOyta1rj9r8EJFAwrzpBsqGSeXMBkUPBFTDZPI
+ oN0fMXaEh09LcQenUU9YUnWfLomRSZ5K0jXuol/esoP9WPoCRi/+DG19iXqV8wMJaCjo
+ S2u5JO7oMQ8qHSwFMXre9QP9val2RDbVPWHiG88YXYhJJf10vQfe6C+1vBANnxibYtgx
+ 8/92s2P+TBlPtZQtz34HwZ2mVgEsGfz/4xbC/XzLGxCKnGVw3HsGdSy85Pm/S0Nr8xTQ
+ WpLm+M2B0MyV+8P5riRfrhtPq2d1fnFJkagzpRqeipdqvra92kndJgaol/973bkJ4+JH
+ IQrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766072966; x=1766677766;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20230601; t=1766073537; x=1766678337;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=JHivnwGNK6H2CvpZNspF1GDDJqkXBdxjiCYiNv/30iM=;
- b=JZRH7cQqf9lSeDtHT3jzAnnC86mhs8QENMQZg5UHGEZAqYk2//FBm1jS0G3BqJYz7C
- cqIiJ0p21XtqDFhBWrSp5yxfNFCaicph4L++UETp5ffzZVAhUz3lKbTUpRl4x1lFcPnm
- S1p5E2ISKJttS4RLOJVnB1/VdeF61DjygpakMZWiAUeWQuwd1vgJhCRxzmZnYyjWGZ6J
- hAQlnGshKh/6/aXKxETFI647pFykc90UkmB5DpDHeF9nDjmqDkGCnBYjO8h93jSBVU1p
- d4TLwmlJXhtwT317ynfXmZI3+4VgZvoM5NGXV6yDHp0qyY4IxSTV9ZORmHVMKcHi3W7V
- GsPg==
-X-Gm-Message-State: AOJu0YwRrYg5Vq5Z0PDadUF8EzD34AwwEw7HGl+zM6MqMq/LgQDzLFvM
- QZQrI/jBgjd9q3hHBQW6et/MYmDO1tY5Bu08yXS5/JP17cie9dvNB6Zi
-X-Gm-Gg: AY/fxX7HnS2SJqNpYILMDv5ScQTkKbvJeUl46MuLH1hvRosSocaXTG+B8JiytTFsind
- 6fB078GsWVcejvx7T0DdCGi3QB/CSohegZxGLcCAtHrNsqipsH4nNgg/aA33NRryvcp9NOpx86a
- lEahcvehwb/owNmbYpS0Raoe9PSdidfTPk9MKeUVu0fnlTI0GHjm6GLtjz4J4M9pVpOgoxwz14N
- 3J2f9j632J4xt/0u2+tf3/fJsEYghbw18J7GNA5H35So3rWaO5nBXFMmVI4yqQphGPbCZh0Wrwt
- chB8SicJ3Dj3xLT7UnDiM3IZQ4hRM8mIDAXejtxxjTn22KCQ1kDS11kmwoCfLSOiymhsr7qucT4
- Y543CbICl/yiNqjiZcH1GvCyHlh+i/0LJiajHrYt30kSu7fkiFIGoh+A11LPWXBw4mkEGfaU42R
- vuQ5zD7fDAlaX91HePsAmoC3DyP/E=
-X-Google-Smtp-Source: AGHT+IGy5HpkssdZ240bEGDOU4HS95PTuGXr75gWVsBCDEY0xqufrmP7LU1CniTL6lq83yNk4vpweA==
-X-Received: by 2002:a05:6830:43ab:b0:7c7:5d72:567b with SMTP id
- 46e09a7af769-7cae835da74mr13029005a34.23.1766072965953; 
- Thu, 18 Dec 2025 07:49:25 -0800 (PST)
-Received: from timur-max.localnet ([189.171.135.243])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7cc59a7cd4asm1962646a34.8.2025.12.18.07.49.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Dec 2025 07:49:25 -0800 (PST)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 4/6] drm/amdgpu: avoid a warning in timedout job handler
-Date: Thu, 18 Dec 2025 09:49:25 -0600
-Message-ID: <2496432.Hq7AAxBmiT@timur-max>
-In-Reply-To: <CADnq5_PABibVsM+d7UtLcRwDKo+O6thYTge__X3eCFd5u3H0nQ@mail.gmail.com>
-References: <20251215160711.11832-1-alexander.deucher@amd.com>
- <6025413.IbC2pHGDlb@timur-max>
- <CADnq5_PABibVsM+d7UtLcRwDKo+O6thYTge__X3eCFd5u3H0nQ@mail.gmail.com>
+ bh=EV1QQhrya62FYIdd8hfQsOHnD1zT+0en4pWxm0aZifI=;
+ b=uZPvrq38c7IEZ2nSnFkyad1mRJvgKWM7hI/PY6Y02Y1S+Jj707/j9lvZJ+HU+VPFtx
+ 3x9aH06a5Xfg+q/vEUvfq5BKjFzZBOPQh7tsB7cOZ5hRYWS6tbm0TYXQKlFSWKsE5BLQ
+ Cvkc+SDZIQnWX8RtJkIAb/PBdnwCB6WoUwufLyUK15nCEWnKfkFrJNkjZPLVckg/vxAj
+ 3GtKLkoYqjARd6fr+wG1Wiko1BYF1WFd3YHawk8JLP6xSQQ+CulQq4m2W7VRIq3osB38
+ U9u6eDT/OPmp4lsK0Y+iG1yMTKJeCpx4N6VYFCaz3ZpxfQyvxG3nx9WAmaWGR+IZfqG+
+ DK3g==
+X-Gm-Message-State: AOJu0YzQQeFRJYRcPCA0pUsNXcxoHIwdhOD4wiR2KENY4ZdkajW3OX4J
+ KwU5hekZbvgKUjJZGoVgtRDb2WZAWeVKgJ0UloT4SiedWiacHcrLVzzEoScU7dhPm+HV35CKG7y
+ /7Pr0oxtDL4bzPJtUV2fKpimaChLqu64=
+X-Gm-Gg: AY/fxX7gZvZ+XAYGWK40olzrems3Ei9Lgwus5eQlTG1i6BUi4GKZkdLGtJlBFkwRMVN
+ kPF7gdzafyLhTEXBCEpF8wvOplO0rc/n3C4qxC9Y6ZH8c+EHDhxSFfhNpIqoiQlNwLlb67Qa6mH
+ TZ1f5tD7bajOQcsjtxk+yfUrZ19OTU9vH63Twzd3GyFc7hKvGa58Vk7mBwl521HSKAT6dszUMBj
+ M125GzjcfbBPPXe7Exm7dzp82feX//mh2FVWTLJ+nDZ0qVw64MSYMG+g549c+6szlmEVZKN
+X-Google-Smtp-Source: AGHT+IFj0FfWQP2lpCSS07veH6Vgc6Z3ZYlq0I24JPkQiSH6Gq4D6pzcJJRi+NTUzXpvDITgG4cGDT/Qpn1utjNRUak=
+X-Received: by 2002:a05:7022:2491:b0:119:e56a:4ffb with SMTP id
+ a92af1059eb24-120627a3f6amr1643881c88.0.1766073537034; Thu, 18 Dec 2025
+ 07:58:57 -0800 (PST)
 MIME-Version: 1.0
+References: <20251215160711.11832-1-alexander.deucher@amd.com>
+ <20251215160711.11832-6-alexander.deucher@amd.com>
+ <2952111.fDdHjke4Dd@timur-max>
+In-Reply-To: <2952111.fDdHjke4Dd@timur-max>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 18 Dec 2025 10:58:45 -0500
+X-Gm-Features: AQt7F2oqjL917y795likgncilKSEgr10GBtrwTuA2bNmA94_zRxWRd7-BK9pDVY
+Message-ID: <CADnq5_OdBWFJJEAH9_YikzVXw-JcGCF1E6OnUhruw+_F0H9E3w@mail.gmail.com>
+Subject: Re: [PATCH 6/6] drm/amdgpu/gfx9: Implement KGQ ring reset
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,65 +103,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025. december 18., cs=C3=BCt=C3=B6rt=C3=B6k 9:41:41 k=C3=B6z=C3=A9ps=C5=
-=91 =C3=A1llamokbeli z=C3=B3naid=C5=91 Alex=20
-Deucher wrote:
-> On Thu, Dec 18, 2025 at 12:21=E2=80=AFAM Timur Krist=C3=B3f <timur.kristo=
-f@gmail.com>=20
-wrote:
-> > On 2025. december 15., h=C3=A9tf=C5=91 10:07:09 k=C3=B6z=C3=A9ps=C5=91 =
-=C3=A1llamokbeli z=C3=B3naid=C5=91 Alex
-> > Deucher>=20
-> > wrote:
-> > > Only set an error on the fence if the fence is not
-> > > signalled.  We can end up with a warning if the
-> > > per queue reset path signals the fence and sets an error
-> > > as part of the reset, but fails to recover.
-> >=20
-> > Can you please elaborate why this is necessary?
-> > I don't entirely see the point of this patch. Why don't want to set an
-> > error on the fence when it was signalled by the per queue reset? I would
-> > have thought that the next patch does that, and also fixes the warning
-> > mentioned in the commit message here.
->=20
-> If you call dma_fence_set_error() on a fence that has already signaled
-> it triggers a warning.  What could happen is that the queue reset sets
-> the error on the fence and then signals the fence as part of the reset
-> sequence.  However if the queue reset ultimately fails, the fence is
-> already signaled and then we try and set an error again here as we
-> fall back to adapter reset, triggering the warning.
->=20
-> Alex
+On Thu, Dec 18, 2025 at 12:21=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com> wrote:
+>
+> On 2025. december 15., h=C3=A9tf=C5=91 10:07:11 k=C3=B6z=C3=A9ps=C5=91 =
+=C3=A1llamokbeli z=C3=B3naid=C5=91 Alex Deucher
+> wrote:
+> > GFX ring resets work differently on pre-GFX10 hardware since
+> > there is no MQD managed by the scheduler.
+> > For ring reset, you need issue the reset via CP_VMID_RESET
+> > via KIQ or MMIO and submit the following to the gfx ring to
+> > complete the reset:
+> > 1. EOP packet with EXEC bit set
+> > 2. WAIT_REG_MEM to wait for the fence
+> > 3. Clear CP_VMID_RESET to 0
+> > 4. EVENT_WRITE ENABLE_LEGACY_PIPELINE
+> > 5. EOP packet with EXEC bit set
+> > 6. WAIT_REG_MEM to wait for the fence
+> > Once those commands have completed the reset should
+> > be complete and the ring can accept new packets.
+> >
+> > However, because we have a pipeline sync between jobs,
+> > the PFP is waiting on the fence from the bad job to signal so
+> > it can't process any of the packets in the reset sequence
+> > until that pipeline sync clears.  To unblock the PFP, we
+> > use the KIQ to signal the fence after we reset the queue.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 104 +++++++++++++++++++++++++-
+> >  1 file changed, 101 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c index bb1465a98c7ca..9b70736503=
+15e
+> > 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > @@ -2410,8 +2410,10 @@ static int gfx_v9_0_sw_init(struct amdgpu_ip_blo=
+ck
+> > *ip_block) amdgpu_get_soft_full_reset_mask(&adev->gfx.gfx_ring[0]);
+> >       adev->gfx.compute_supported_reset =3D
+> >               amdgpu_get_soft_full_reset_mask(&adev-
+> >gfx.compute_ring[0]);
+> > -     if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_gpu_ring_reset=
+)
+> > +     if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_gpu_ring_reset=
+)
+> {
+> >               adev->gfx.compute_supported_reset |=3D
+> AMDGPU_RESET_TYPE_PER_QUEUE;
+> > +             adev->gfx.gfx_supported_reset |=3D
+> AMDGPU_RESET_TYPE_PER_QUEUE;
+> > +     }
+> >
+> >       r =3D amdgpu_gfx_kiq_init(adev, GFX9_MEC_HPD_SIZE, 0);
+> >       if (r) {
+> > @@ -7163,6 +7165,103 @@ static void gfx_v9_ring_insert_nop(struct
+> > amdgpu_ring *ring, uint32_t num_nop) amdgpu_ring_insert_nop(ring, num_n=
+op -
+> > 1);
+> >  }
+> >
+> > +static void gfx_v9_0_ring_emit_wreg_me(struct amdgpu_ring *ring,
+> > +                                    uint32_t reg,
+> > +                                    uint32_t val)
+> > +{
+> > +     uint32_t cmd =3D 0;
+> > +
+> > +     switch (ring->funcs->type) {
+> > +     case AMDGPU_RING_TYPE_KIQ:
+> > +             cmd =3D (1 << 16); /* no inc addr */
+>
+> What do you mean by "inc addr" in this context?
 
-I would have thought that the next patch in the series would take care of t=
-his=20
-problem by itself. Thanks for the explanation. The patch is:
+It's part of the packet.  bit 16 controls whether the address is
+incremented or not.  This function is basically the same as
+gfx_v9_0_ring_emit_wreg(), but uses the ME to do the wait rather than
+the PFP.  I could have alternatively added a new parameter to
+gfx_v9_0_ring_emit_wreg() to select between PFP and ME.
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+>
+> > +             break;
+> > +     default:
+> > +             cmd =3D WR_CONFIRM;
+> > +             break;
+> > +     }
+> > +     amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
+> > +     amdgpu_ring_write(ring, cmd);
+> > +     amdgpu_ring_write(ring, reg);
+> > +     amdgpu_ring_write(ring, 0);
+> > +     amdgpu_ring_write(ring, val);
+> > +}
+> > +
+> > +static void gfx_v9_0_ring_emit_event_write(struct amdgpu_ring *ring,
+> > +                                        uint32_t event_type,
+> > +                                        uint32_t
+> event_index)
+> > +{
+> > +     amdgpu_ring_write(ring, PACKET3(PACKET3_EVENT_WRITE, 0));
+> > +     amdgpu_ring_write(ring, EVENT_TYPE(event_type) |
+> > +                       EVENT_INDEX(event_index));
+> > +}
+> > +
+> > +static int gfx_v9_0_reset_kgq(struct amdgpu_ring *ring,
+> > +                           unsigned int vmid,
+> > +                           struct amdgpu_fence *timedout_fence)
+> > +{
+> > +     struct amdgpu_device *adev =3D ring->adev;
+> > +     struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> > +     struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> > +     unsigned long flags;
+> > +     u32 tmp;
+> > +     int r;
+> > +
+> > +     amdgpu_ring_reset_helper_begin(ring, timedout_fence);
+> > +
+> > +     spin_lock_irqsave(&kiq->ring_lock, flags);
+> > +
+> > +     if (amdgpu_ring_alloc(kiq_ring, 5 + 5)) {
+> > +             spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > +             return -ENOMEM;
+> > +     }
+> > +
+> > +     /* send the reset - 5 */
+> > +     tmp =3D REG_SET_FIELD(0, CP_VMID_RESET, RESET_REQUEST, 1 << vmid)=
+;
+> > +     gfx_v9_0_ring_emit_wreg(kiq_ring,
+> > +                             SOC15_REG_OFFSET(GC, 0,
+> mmCP_VMID_RESET), tmp);
+> > +     /* emit the fence to clear the pipeline sync - 5 */
+> > +     gfx_v9_0_ring_emit_fence_kiq(kiq_ring, ring->fence_drv.gpu_addr,
+> > +                                  timedout_fence->base.seqno,
+> 0);
+>
+> As far as I see, this isn't going to work when sched_hw_submission > 2 an=
+d
+> there are more than two jobs (from various different userspace processes)
+> emitted in the ring.
+>
+> I can think of two possible solutons:
+> - Emit each fence individually, with a short delay in between to give a c=
+hance
+> to the GFX ring to catch up with the KIQ.
+> - Change the wait_reg_mem command used for the pipeline sync to allow gre=
+ater
+> than equal instead of just equal. Then it's enough to signal just the las=
+t
+> fence on the KIQ ring.
 
->=20
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > ---
-> > >=20
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c index
-> > > 67fde99724bad..7f5d01164897f 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > > @@ -147,7 +147,8 @@ static enum drm_gpu_sched_stat
-> > > amdgpu_job_timedout(struct drm_sched_job *s_job) dev_err(adev->dev,
-> > > "Ring
-> > > %s reset failed\n", ring->sched.name); }
-> > >=20
-> > > -     dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
-> > > +     if (dma_fence_get_status(&s_job->s_fence->finished) =3D=3D 0)
-> > > +             dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
-> > >=20
-> > >       amdgpu_vm_put_task_info(ti);
+That won't work.  The signalling patch is asynchronous so if we signal
+additional fences other than the bad one, those jobs will end up being
+seen as successfully completed.  That said, there is a change coming
+for the firmware to fix this.  I'd suggest we just limit the queue
+depth to 2 until the new firmware is available.
 
+>
+>
+>
+> > +     amdgpu_ring_commit(kiq_ring);
+> > +     r =3D amdgpu_ring_test_ring(kiq_ring);
+> > +     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > +     if (r)
+> > +             return r;
+> > +
+> > +     if (amdgpu_ring_alloc(ring, 8 + 7 + 5 + 2 + 8 + 7))
+> > +             return -ENOMEM;
+> > +     /* emit the fence to finish the reset - 8 */
+> > +     ring->trail_seq++;
+> > +     gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
+> > +                              ring->trail_seq,
+> AMDGPU_FENCE_FLAG_EXEC);
+> > +     /* wait for the fence - 7 */
+> > +     gfx_v9_0_wait_reg_mem(ring, 0, 1, 0,
+> > +                           lower_32_bits(ring-
+> >trail_fence_gpu_addr),
+> > +                           upper_32_bits(ring-
+> >trail_fence_gpu_addr),
+> > +                           ring->trail_seq, 0xffffffff, 4);
+> > +     /* clear mmCP_VMID_RESET - 5 */
+> > +     gfx_v9_0_ring_emit_wreg_me(ring,
+> > +                                SOC15_REG_OFFSET(GC, 0,
+> mmCP_VMID_RESET), 0);
+> > +     /* event write ENABLE_LEGACY_PIPELINE - 2 */
+> > +     gfx_v9_0_ring_emit_event_write(ring, ENABLE_LEGACY_PIPELINE, 0);
+> > +     /* emit a regular fence - 8 */
+> > +     ring->trail_seq++;
+> > +     gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
+> > +                              ring->trail_seq,
+> AMDGPU_FENCE_FLAG_EXEC);
+> > +     /* wait for the fence - 7 */
+> > +     gfx_v9_0_wait_reg_mem(ring, 1, 1, 0,
+> > +                           lower_32_bits(ring-
+> >trail_fence_gpu_addr),
+> > +                           upper_32_bits(ring-
+> >trail_fence_gpu_addr),
+> > +                           ring->trail_seq, 0xffffffff, 4);
+>
+> Why is it necessary to emit (and wait for) a regular fence here?
+> I'm not against it, just curious why it's needed.
 
+It's part of the recovery sequence to make sure the
+ENABLE_LEGACY_PIPELINE event has completed successfully.
 
+>
+> > +     amdgpu_ring_commit(ring);
+> > +     /* wait for the commands to complete */
+> > +     r =3D amdgpu_ring_test_ring(ring);
+> > +     if (r)
+> > +             return r;
+> > +
+> > +     return amdgpu_ring_reset_helper_end(ring, timedout_fence);
+> > +}
+> > +
+> >  static int gfx_v9_0_reset_kcq(struct amdgpu_ring *ring,
+> >                             unsigned int vmid,
+> >                             struct amdgpu_fence *timedout_fence)
+> > @@ -7441,9 +7540,9 @@ static const struct amdgpu_ring_funcs
+> > gfx_v9_0_ring_funcs_gfx =3D { .emit_wreg =3D gfx_v9_0_ring_emit_wreg,
+> >       .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,
+> >       .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
+t,
+> > -     .soft_recovery =3D gfx_v9_0_ring_soft_recovery,
+>
+> Can you please split removing the soft recovery into a separate patch?
+>
+> Can we talk about removing the soft recovery? For the other chips where i=
+t has
+> already been removed, it is percieved by users as a regression.
 
+Queue reset is superset of soft recovery.  There's no need for soft
+recovery when queue reset is available.
+
+Alex
+
+>
+> >       .emit_mem_sync =3D gfx_v9_0_emit_mem_sync,
+> >       .emit_cleaner_shader =3D gfx_v9_0_ring_emit_cleaner_shader,
+> > +     .reset =3D gfx_v9_0_reset_kgq,
+> >       .begin_use =3D amdgpu_gfx_enforce_isolation_ring_begin_use,
+> >       .end_use =3D amdgpu_gfx_enforce_isolation_ring_end_use,
+> >  };
+> > @@ -7542,7 +7641,6 @@ static const struct amdgpu_ring_funcs
+> > gfx_v9_0_ring_funcs_compute =3D { .emit_wreg =3D gfx_v9_0_ring_emit_wre=
+g,
+> >       .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,
+> >       .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
+t,
+> > -     .soft_recovery =3D gfx_v9_0_ring_soft_recovery,
+> >       .emit_mem_sync =3D gfx_v9_0_emit_mem_sync,
+> >       .emit_wave_limit =3D gfx_v9_0_emit_wave_limit,
+> >       .reset =3D gfx_v9_0_reset_kcq,
+>
+>
+>
+>
