@@ -4,47 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6310D6D22E
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 15:04:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70AD3D6E2A5
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 15:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F6F410EA0F;
-	Thu, 18 Dec 2025 15:04:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1102210EA15;
+	Thu, 18 Dec 2025 15:37:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H790540I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y5I+UIOh";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7153E10E642
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 15:04:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=shByvJuNGAhYpGQ9gLE+PkOnvLKlAuESozCgRqC1Ync=; b=H790540IGeZjtMW4cWUvnubt2i
- Z7pgE9HdeBc+tpKgS3sw4a8W9KBxsgvcHbQZwI5VOKwOgUVMW7oFv5IAQZ0mIP0wpwVjCJbnFIqsN
- +ej6A7QnxTXbUzE27tzWd1uM93+uFdhGzUFRmUgJbJl0dkO7fe1B6NVAXicntPjBIEjPWnqqASTkV
- JM5klQXSywP45CRdh6zTeS7+CsFxyLK5xP2H6idQGvNbpiQaUc+ZO+1aKMtz9EDQz0Yr2YPR3FYDO
- oBNvXum9C0NTjTJ0uspLBvvPraDSgu2x96uq1ksXEYioyeHp70wS1PiTL9t7H2axjlXu7Od/QND1d
- miOKgZCA==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with utf8esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vWFYC-00EI1u-Ne; Thu, 18 Dec 2025 16:04:20 +0100
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 5/5] drm/amdgpu/mes: Remove idr leftovers
-Date: Thu, 18 Dec 2025 15:04:05 +0000
-Message-ID: <20251218150405.80502-6-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251218150405.80502-1-tvrtko.ursulin@igalia.com>
-References: <20251218150405.80502-1-tvrtko.ursulin@igalia.com>
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43B1610E30E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 15:37:10 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-7baa5787440so29113b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 07:37:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1766072230; x=1766677030; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wQzEeSP+iEmx88YDS2wmKP/BdRZ9YjLfYs2k9FdUarw=;
+ b=Y5I+UIOhUx8PpqqO40iirr998LGRhuv/wOEpEyGSAXMGXDqopiV39OOjk91j6rkiov
+ fIY05Pu5/ayQhsPf5UD7SlJ8cu1I3fslJIf8zAv8itWS3CCEq4RlpVuKhdBvNEmdRC9b
+ u85nBuHq1HUlJJAZ5R5z73m0mBBuBIC1KvuIYK9gG/Cgjjt9v03LWPAQVFI1/LiCWwbS
+ h8AOeKiT7TjQSeOm6GJUJLvYsv0zxT89SR/jwxQCTo0rQbgHgbqADf4LZwd98PGoJPxE
+ YSvdT8FY7rbbdye+T7juzXFcsgW+xozdOdmaz8Cv10kF8P3yvUKWgmWV/fAKgKBcKvcy
+ +aEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766072230; x=1766677030;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=wQzEeSP+iEmx88YDS2wmKP/BdRZ9YjLfYs2k9FdUarw=;
+ b=O48QkIfQjflfluz3d+0VfPg7siwJw3YbdtxahY21Yne0l1qQ218BitrlYld2oBrv1A
+ 3aGhBUidzBNzgz8W/JHiJ0sWFAJBQH8uB3vR9qnhJnhoxPsnx2jGkXdjy6YsVWj0Rh/1
+ ddMTdwhe4yvvd++vSZygzMbust/jdq4i64BmaVBUAQBB0lPaX6UUFLdCFKCVs6cDVfgh
+ JDwCbmJFHtrq53nDHEj/Oblrh5sjEOW6n4xM5ozJnWCgXA4g6pLeQMUFTqjs/jT1uBqc
+ E0E6j7KMfOr+JjV5acJYhAXfhbVzHf21nBYF32RUrMH4uciQoOJ3zXogoU0mk2Kb5Udr
+ 8ltw==
+X-Gm-Message-State: AOJu0Yz6oOSQQSKSvU8rgTbBiw9TVkDTNt2LWo2LaTq7GJbz6HhC3PsL
+ dKV1Lr0j0PIVTt7b50HvxgkDxrtyGThOgv8o8+7XQo8KX8vbXUMK+a/W7N+4+aOj3/D/xgHwOzZ
+ Vb6vMRcFa/pT513L1GOqsZud0MCXf4DI=
+X-Gm-Gg: AY/fxX75Pq602ZUvZGmAHpyWB8z0V+82gLzUm3b00FJJsdf/+OEGYTHSXVAIv8jPuRK
+ 1CYDPrkEV8HQ5vHoPuOfa4InITpSFCGyV3Yv0UZA1nztjz0ei2ehJFWXRIB/j7UMvnV+5FQniGB
+ L4HenHEhP17etD3eaqCgmdKCwcOY/djjP+Gq88dtnONJS2t4+bwuQi7cdtzSrV5QlXcpGzcUsyl
+ 6UybNwdwLiQ1ohiocKWqWnSTQ/AjKVX5B+LPwyZ1Zn/8a+nvuAumH3RfFsbr8ZibdNYQFRa
+X-Google-Smtp-Source: AGHT+IEAuyC1ahjdsW+RlVh6xHGlhcpxvWzVagcxUTzGK/ORVsgusZmmQ4WGB/pmGg1vPA8LaYXTZ1RmoRKl5OfAgTQ=
+X-Received: by 2002:a05:7022:208f:b0:119:e55a:95a0 with SMTP id
+ a92af1059eb24-1206281f55dmr1089941c88.2.1766072229593; Thu, 18 Dec 2025
+ 07:37:09 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251215160711.11832-1-alexander.deucher@amd.com>
+ <2459360.yiUUSuA9gR@timur-max>
+In-Reply-To: <2459360.yiUUSuA9gR@timur-max>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 18 Dec 2025 10:36:57 -0500
+X-Gm-Features: AQt7F2r1zvW5kbpquSNi0rT4OO3WeskXoJyA6lpOPTNCqm7mFCWFM36G7wFW6Oc
+Message-ID: <CADnq5_MrscrX+4vpNwpzK47+nLvF0ognLrB=56hqfv89y-LA6g@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/amdgpu: don't reemit ring contents more than once
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,138 +81,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit
-cb17fff3a254 ("drm/amdgpu/mes: remove unused functions")
-removed most of the code using these IDRs but forgot to remove the struct
-members and init/destroy paths.
+On Thu, Dec 18, 2025 at 12:36=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com> wrote:
+>
+> On 2025. december 15., h=C3=A9tf=C5=91 10:07:06 k=C3=B6z=C3=A9ps=C5=91 =
+=C3=A1llamokbeli z=C3=B3naid=C5=91 Alex Deucher
+> wrote:
+> > If we cancel a bad job and reemit the ring contents, and
+> > we get another timeout, cancel everything rather than reemitting.
+> > The wptr markers are only relevant for the original emit.  If
+> > we reemit, the wptr markers are no longer correct.
+>
+> I see the point of not reemitting, considering the wptrs are no longer
+> correct. However, would it be possible to correct the wptrs instead?
+>
 
-There is also interrupt handling code in SDMA 5.0 and 5.2 which appears to
-be using it, but is is unreachable since nothing ever allocates the
-relevant IDR. We replace those with one time warnings just to avoid any
-functional difference, but it is also possible they should be removed.
+Yes, that could be done, but it's more complicated.  This is just a
+short term fix until that is implemented.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-References: cb17fff3a254 ("drm/amdgpu/mes: remove unused functions")
-Cc: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  9 ---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c  | 18 +++---------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c  | 18 +++---------------
- 4 files changed, 6 insertions(+), 42 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 9c182ce501af..505619d504ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -94,9 +94,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 
- 	adev->mes.adev = adev;
- 
--	idr_init(&adev->mes.pasid_idr);
--	idr_init(&adev->mes.gang_id_idr);
--	idr_init(&adev->mes.queue_id_idr);
- 	ida_init(&adev->mes.doorbell_ida);
- 	spin_lock_init(&adev->mes.queue_id_lock);
- 	mutex_init(&adev->mes.mutex_hidden);
-@@ -218,9 +215,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 				      adev->mes.query_status_fence_offs[i]);
- 	}
- 
--	idr_destroy(&adev->mes.pasid_idr);
--	idr_destroy(&adev->mes.gang_id_idr);
--	idr_destroy(&adev->mes.queue_id_idr);
- 	ida_destroy(&adev->mes.doorbell_ida);
- 	mutex_destroy(&adev->mes.mutex_hidden);
- 	return r;
-@@ -248,9 +242,6 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
- 
- 	amdgpu_mes_doorbell_free(adev);
- 
--	idr_destroy(&adev->mes.pasid_idr);
--	idr_destroy(&adev->mes.gang_id_idr);
--	idr_destroy(&adev->mes.queue_id_idr);
- 	ida_destroy(&adev->mes.doorbell_ida);
- 	mutex_destroy(&adev->mes.mutex_hidden);
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index e989225b354b..f45129277479 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -68,9 +68,6 @@ struct amdgpu_mes {
- 
- 	struct mutex                    mutex_hidden;
- 
--	struct idr                      pasid_idr;
--	struct idr                      gang_id_idr;
--	struct idr                      queue_id_idr;
- 	struct ida                      doorbell_ida;
- 
- 	spinlock_t                      queue_id_lock;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 8ddc4df06a1f..ab9e6199b01d 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1704,24 +1704,12 @@ static int sdma_v5_0_process_trap_irq(struct amdgpu_device *adev,
- 				      struct amdgpu_irq_src *source,
- 				      struct amdgpu_iv_entry *entry)
- {
--	uint32_t mes_queue_id = entry->src_data[0];
--
- 	DRM_DEBUG("IH: SDMA trap\n");
- 
--	if (adev->enable_mes && (mes_queue_id & AMDGPU_FENCE_MES_QUEUE_FLAG)) {
--		struct amdgpu_mes_queue *queue;
--
--		mes_queue_id &= AMDGPU_FENCE_MES_QUEUE_ID_MASK;
--
--		spin_lock(&adev->mes.queue_id_lock);
--		queue = idr_find(&adev->mes.queue_id_idr, mes_queue_id);
--		if (queue) {
--			DRM_DEBUG("process smda queue id = %d\n", mes_queue_id);
--			amdgpu_fence_process(queue->ring);
--		}
--		spin_unlock(&adev->mes.queue_id_lock);
-+	if (drm_WARN_ON_ONCE(&adev->ddev,
-+			     adev->enable_mes &&
-+			     (entry->src_data[0] & AMDGPU_FENCE_MES_QUEUE_FLAG)))
- 		return 0;
--	}
- 
- 	switch (entry->client_id) {
- 	case SOC15_IH_CLIENTID_SDMA0:
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 51101b0aa2fa..4f78dd93939c 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1617,24 +1617,12 @@ static int sdma_v5_2_process_trap_irq(struct amdgpu_device *adev,
- 				      struct amdgpu_irq_src *source,
- 				      struct amdgpu_iv_entry *entry)
- {
--	uint32_t mes_queue_id = entry->src_data[0];
--
- 	DRM_DEBUG("IH: SDMA trap\n");
- 
--	if (adev->enable_mes && (mes_queue_id & AMDGPU_FENCE_MES_QUEUE_FLAG)) {
--		struct amdgpu_mes_queue *queue;
--
--		mes_queue_id &= AMDGPU_FENCE_MES_QUEUE_ID_MASK;
--
--		spin_lock(&adev->mes.queue_id_lock);
--		queue = idr_find(&adev->mes.queue_id_idr, mes_queue_id);
--		if (queue) {
--			DRM_DEBUG("process smda queue id = %d\n", mes_queue_id);
--			amdgpu_fence_process(queue->ring);
--		}
--		spin_unlock(&adev->mes.queue_id_lock);
-+	if (drm_WARN_ON_ONCE(&adev->ddev,
-+			     adev->enable_mes &&
-+			     (entry->src_data[0] & AMDGPU_FENCE_MES_QUEUE_FLAG)))
- 		return 0;
--	}
- 
- 	switch (entry->client_id) {
- 	case SOC15_IH_CLIENTID_SDMA0:
--- 
-2.51.1
-
+> As it is, this sounds like it would make the reset less reliable when the=
+re is
+> more than one job emitted that can cause hangs.
+>
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 22 +++++++++++++++++-----
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  |  2 ++
+> >  2 files changed, 19 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c index
+> > 1fe31d2f27060..334ddd6e48c06 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -710,6 +710,7 @@ void amdgpu_fence_driver_guilty_force_completion(st=
+ruct
+> > amdgpu_fence *af) struct amdgpu_ring *ring =3D af->ring;
+> >       unsigned long flags;
+> >       u32 seq, last_seq;
+> > +     bool reemitted =3D false;
+> >
+> >       last_seq =3D amdgpu_fence_read(ring) & ring-
+> >fence_drv.num_fences_mask;
+> >       seq =3D ring->fence_drv.sync_seq & ring->fence_drv.num_fences_mas=
+k;
+> > @@ -727,7 +728,9 @@ void amdgpu_fence_driver_guilty_force_completion(st=
+ruct
+> > amdgpu_fence *af) if (unprocessed &&
+> > !dma_fence_is_signaled_locked(unprocessed)) { fence =3D
+> > container_of(unprocessed, struct amdgpu_fence, base);
+> >
+> > -                     if (fence =3D=3D af)
+> > +                     if (fence->reemitted > 1)
+> > +                             reemitted =3D true;
+> > +                     else if (fence =3D=3D af)
+> >                               dma_fence_set_error(&fence->base,
+> -ETIME);
+> >                       else if (fence->context =3D=3D af->context)
+> >                               dma_fence_set_error(&fence->base,
+> -ECANCELED);
+> > @@ -735,9 +738,16 @@ void amdgpu_fence_driver_guilty_force_completion(s=
+truct
+> > amdgpu_fence *af) rcu_read_unlock();
+> >       } while (last_seq !=3D seq);
+> >       spin_unlock_irqrestore(&ring->fence_drv.lock, flags);
+> > -     /* signal the guilty fence */
+> > -     amdgpu_fence_write(ring, (u32)af->base.seqno);
+> > -     amdgpu_fence_process(ring);
+> > +
+> > +     if (reemitted) {
+> > +             /* if we've already reemitted once then just cancel
+> everything */
+> > +             amdgpu_fence_driver_force_completion(af->ring);
+> > +             af->ring->ring_backup_entries_to_copy =3D 0;
+> > +     } else {
+> > +             /* signal the guilty fence */
+> > +             amdgpu_fence_write(ring, (u32)af->base.seqno);
+> > +             amdgpu_fence_process(ring);
+> > +     }
+> >  }
+> >
+> >  void amdgpu_fence_save_wptr(struct amdgpu_fence *af)
+> > @@ -785,10 +795,12 @@ void amdgpu_ring_backup_unprocessed_commands(stru=
+ct
+> > amdgpu_ring *ring, /* save everything if the ring is not guilty, otherw=
+ise
+> >                        * just save the content from other
+> contexts.
+> >                        */
+> > -                     if (!guilty_fence || (fence->context !=3D
+> guilty_fence->context))
+> > +                     if (!fence->reemitted &&
+> > +                         (!guilty_fence || (fence->context !=3D
+> guilty_fence->context)))
+> >
+> amdgpu_ring_backup_unprocessed_command(ring, wptr,
+> >
+>        fence->wptr);
+> >                       wptr =3D fence->wptr;
+> > +                     fence->reemitted++;
+> >               }
+> >               rcu_read_unlock();
+> >       } while (last_seq !=3D seq);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h index
+> > a1fb0fadb6eab..d881829528976 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -150,6 +150,8 @@ struct amdgpu_fence {
+> >       u64                             wptr;
+> >       /* fence context for resets */
+> >       u64                             context;
+> > +     /* has this fence been reemitted */
+> > +     unsigned int                    reemitted;
+> >  };
+> >
+> >  extern const struct drm_sched_backend_ops amdgpu_sched_ops;
+>
+>
+>
+>
