@@ -4,72 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5F2DD78770
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 17:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F9EE66882
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 18:22:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B55610E90F;
-	Fri, 19 Dec 2025 17:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C176910E033;
+	Fri, 19 Dec 2025 18:22:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EjckH3YQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WdKclLDf";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8382510F06E
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 17:20:31 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-7f6bc8a4787so149185b3a.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 09:20:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766164831; x=1766769631; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W+Seccvj2fQnjGzzpYpqTzeM67CKpF12bZwhKAugIrA=;
- b=EjckH3YQmlsL8+8NACDqWkVC36zHP2YQZIacpnVmZ0LEQvWScTGjuIvaXbIs2U5LG+
- xTcjZgNFL+5GBLqXKXq5qyTIyzXEXhoKXmSTjE/QEDhPccg2ac0i8yzsm/1B7RJmB8Td
- GxgHSX8GyxTmyfsSyHoBLKoJo7t3yZEyH+iRAoWwNfOsXVs4tEupqllZZhqVL1jYgJtf
- Ta6aQi9VwuQ0bMynlWu8/dbtjkaFVt0hOG7osRJ5cMpp9bJ4bBzTvY9B9n695e7Ijv6S
- ccVcFVVnT6u1N/Y8lJIV2OQNVMpKZydDdrArg0rm9C3u1fa1MjjySjGxbvC8sugMmCq4
- XusQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766164831; x=1766769631;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=W+Seccvj2fQnjGzzpYpqTzeM67CKpF12bZwhKAugIrA=;
- b=Re2d+aXbt97vRjjRt8Y0rHFWxUSU69MgJ9B/IGxH/nv9fCJy3dOSDKETDH9hcvenRE
- lSeN719HDDkEJT/6Jw8qlYHInoecoGlxufW+oiQL+64NltR2PNRMxRcrIvbDqX4zMLOC
- ZkqD9TKWVpIgp53iadDnpKXkGKCzcuuMH8feaePUuCEoHb9vW9xY3NOe0zNZSXreoJDs
- 5rMkatMWnGOC68wNeUY60x3+QdnezO0Okg0iZGpoXCojLsydx+si2IMjMjVPpl1OaxO1
- 4ikv5r64+N1RnVnQ3VKoP6YsLTeVEohb5CxYx6xv2+vu0ewu09F2CmBu39XO3ggGddyc
- XXuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxxlQBh2jTpkJHFdhCgMbedNdMdxzvwRS3R3w6TLXHFTcsdT7fhzKD/SlXfZJZtb9MB2RObXRr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAmKUNDf4afHN3ql4bUTS0K5GPH/vH+aKKEvXS+zsM/RnyqRUD
- ME4r76ObYffukDFgyZLlo2KIr8XrpYdUT3qYZovakgztb7hTR8A/Fx2TeDewoZgfeP229aKa9ec
- yMU8QcJvEp5v00yVDBWcXZ9WIFAMyO50=
-X-Gm-Gg: AY/fxX6DJNSHZnxiujIvzUHr5WytHo+DaDFEbobydHz4kIQDwxG95/zVyf9KohwzSXV
- py0mytPK/qM/D7bgflfAUhy+GWwAK+c41guUDfs2w5sFSaFDmajbqVgo7v2Q5jYGFe5o87dK/xW
- tMj0zUjVy7pIKXtKI2GY5/7W5cMvkh1K+1mknAKTDXqeFAzMX9eCJKW78xL3oKmf0wIm4SnsOT+
- mr/31y8XjLePj9dL3T8VpKvBi1jfJWDk98YUYWWSn0NSywrRvdcI7R9cLF6QduBmKZ9tMIx
-X-Google-Smtp-Source: AGHT+IHAN+KoZnJ2BucCzFJnW+jnU2YzopJl3xj2Jbz5q4H1mePCut548kvkthr1VKwTyJrmDj57/h9jYY04PSv0ek8=
-X-Received: by 2002:a05:7022:20e:b0:119:e56b:46b6 with SMTP id
- a92af1059eb24-1217214544amr2084383c88.0.1766164830647; Fri, 19 Dec 2025
- 09:20:30 -0800 (PST)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010063.outbound.protection.outlook.com [52.101.61.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905F110E033
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 18:22:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hIUs2mNPbqQWhtrnqlR73N/lofpRUJwbMKN8FjNOviQVy70bneYon42iAEZlpoY8IY+doQ0FwwagkkhBL1hKgNE4NzA1rxo28u9DJsBn7uagS9Q8PvuWH2pw7pxbBVGxDetuX3W+DjAWXHBzFP9KHT0oxsXkD0Z6JaW8W4dEL6ufkrLy9WGbb2KW+Q1aWBoEtP+4/sIcXLaOlayW7C5jEbX16HZGc6D9eOGIz73nLrULYoufyN6cDwGHaxIOPr+TlOqYg59QLip7tzXp4mOhWoVpU4EAj9zIHR4xvarlGTXfvYwvc7cugSf/nQ6kzURI3bKQHMiuBTZtoh4/oV4SAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3J7lq4md2CaPLyGOcBIt6YiXmlctRLrE98g0jnM0Poo=;
+ b=e16ctKg/wUD1VqS/jIRYF4y1EfVtw1Lcrt8o40e9r34vPVKIJPNAi7Aaw0c938lF76lXzM7jGiWr/9WAK8dcsTljqmI0cb2wM/B7IbaccWPTShQdYcPg4aS4/LdMwNr76YtSuHgHHAQH+hUEKpielHi3Xm4NmoJkKdGTepDgsP39x9dEVNnZWw/Cfen2qAP2sNQUh5v5ZL7XzphXcJkLvR+d/7diqiYQ4TPb/LuEDY5hjYW7kD3SdVfJyfsg/1zhPKjVUkn9IrCkPZzRPdftARuXxKwFBJPLxCMkFyMo5LUt1kzZnpVKmkAUbdXRVSyYvdOsp7rBdVI+gxJQIzje+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3J7lq4md2CaPLyGOcBIt6YiXmlctRLrE98g0jnM0Poo=;
+ b=WdKclLDfksj3wqNsyFKrKgAe//Th++C50cOithhLo9+8xo55DSKytXzIm2d4b3kcN3dprbplQkODev/Oj9046AeQu3/H8Mr5jupFKCJow2/0XoTmZUch1iB+4T018ibD0B7UcfK/vTlwWSnRn7/mCJ4w2tZLUlKhA8yLQE4vw34=
+Received: from PH8P221CA0058.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::7)
+ by CY5PR12MB6597.namprd12.prod.outlook.com (2603:10b6:930:43::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.9; Fri, 19 Dec
+ 2025 18:22:27 +0000
+Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
+ (2603:10b6:510:349:cafe::9f) by PH8P221CA0058.outlook.office365.com
+ (2603:10b6:510:349::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.9 via Frontend Transport; Fri,
+ 19 Dec 2025 18:22:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9434.6 via Frontend Transport; Fri, 19 Dec 2025 18:22:26 +0000
+Received: from tr4.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 19 Dec
+ 2025 12:22:12 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+ <timur.kristof@gmail.com>
+Subject: [PATCH 2/5] drm/amdgpu: avoid a warning in timedout job handler
+Date: Fri, 19 Dec 2025 13:21:57 -0500
+Message-ID: <20251219182201.5722-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251219182201.5722-1-alexander.deucher@amd.com>
+References: <20251219182201.5722-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20251219113541.1264030-1-mukeshogare871@gmail.com>
-In-Reply-To: <20251219113541.1264030-1-mukeshogare871@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 Dec 2025 12:20:18 -0500
-X-Gm-Features: AQt7F2odx1bq7xi2_Tk82tscPwnKa-adUbznxMC1g9gt9XEJUGlGXzjzHjB4jq4
-Message-ID: <CADnq5_PRh_CYjcBo7CctjinwKTk3JO7prcLOkvGNcnCmhrfC3A@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: convert VCE logging to drm_* helpers
-To: Mukesh Ogare <mukeshogare871@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|CY5PR12MB6597:EE_
+X-MS-Office365-Filtering-Correlation-Id: 205c730f-7c1a-494d-e981-08de3f2b9037
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dmF6enJkYWtEdTVWVlZRb3Zia0N2eEMxVmdOakVaVjQ5Wkt1NE5WY2dydHpI?=
+ =?utf-8?B?SUhLMzNMaVVKUG5UVklXWnJBZnpRYUg4NG5MZUgxaGpRL2Q0Ull4RDJzQzhK?=
+ =?utf-8?B?d1lsSncweTY3bFhKcmd6cTUrcE9TSTJ5UkFkNTBnMTBvK1hZOTRhVEN4d01X?=
+ =?utf-8?B?cW1IVElSYmxCcVo4ZW1kdXgwTWl2V2FWNXNXZjhhK1hGaGgrOUV6S0lzQVdC?=
+ =?utf-8?B?OUYrdkxuZG1lUFZjNmlWemNnVkpIRStUTEp3YkpWMGNQcUJJZnFaK2Qycldu?=
+ =?utf-8?B?UDVwdmF1UDVWSG0vSURFVnIrN0xKcnFoSEZLMlVVeVVYTjdZS0dJMXlQRkR6?=
+ =?utf-8?B?YjEyczg2TXdqbGZPR1JxMDV3dVRWYUVJT1gwazZscGJ0VFNxVHd6YmIxMWRj?=
+ =?utf-8?B?UWpKRDBtdWFDNFYrWUlDRkRCTDVxWHZWM0VwODZFTlhXbTljWDI5NWhJRGNz?=
+ =?utf-8?B?Ni96OHludlNTKzBHcUFOUlJ6bXE2amd5Tml3clpzNkVnN1ZkMkxMSTFvYXRC?=
+ =?utf-8?B?REN4cmJEWE9BQU1XRWUwZnJIRE42aDJkQytoU3dEV0M3Q1NnVmo5VHUzVWFZ?=
+ =?utf-8?B?VU9ZNUJiKzU3akdOT3YvbWcyaDVMbmY0R2F5RVIyL1FmdEkwMnZaVkVtbytU?=
+ =?utf-8?B?SnZKM0FORU5LWjMrcm1WTnhkK1JUcXNGdHRCZnZycnYvYUp6N3Z6OTZXSDNC?=
+ =?utf-8?B?N00yem9DRE5jWDZvci9QVDlZWFZRSTQvVlI2b09naHErZEh0bjluN3dlYnYv?=
+ =?utf-8?B?YmxJYkY1RTNtRWJldi82THdjSjNSWGNNK3dLY1ZyVjBIZ2NBZG5zWDJoQkxH?=
+ =?utf-8?B?MjkyTmVCc3M2NEM0QXJTMzRhKy85alRQVEJpcU1FRytUK2VuQkhMWlpZcDg2?=
+ =?utf-8?B?dXNucDE4YkUxLytOQzdDT0pPQVBsMHBmQnJ2dUpjT3k3QkVXemdFclZKaGZh?=
+ =?utf-8?B?M0hjZFdiVjF3dnZLLzRFSi9ablJkZUdiNUZSSldCeW1rT01iOHhVTnA1UWhu?=
+ =?utf-8?B?RnJQSTRheHZDeTVnR3lOTVFLL0tWVlFwZUlOR1hMRVdnaFk2M1d4dmwzcFRJ?=
+ =?utf-8?B?WmRBS24wT3VMUVkzdlRMNkZuWHJEVDhPbXlXTTJ5dHZaSXhGblVudW4reEFl?=
+ =?utf-8?B?b3JmUVlvTFJWQmZ4MWRzazFnYldQaTNlNHExcGM3N2dVZ3gzODcxUEZkSUhq?=
+ =?utf-8?B?bDF6eGQvblNEUW5ZSEYxWEwydEM1WFJPZllrakI5UnRKS0FRSE9STGc1YzlH?=
+ =?utf-8?B?bVVON2Z6V05NenVtcXhlcW1JUzdBcDlSazhLZnFZbDJIN3A5NFgva0dVNFZ5?=
+ =?utf-8?B?Rld3UmlIQWVSRDBxaGg5T0dSUlhXWDgrL3pyY0R2Y1RkVnpYMEJpVHh4TUJF?=
+ =?utf-8?B?QkFzNHJhZWxkdURMTXdTZW5oVWNPS0tQaFhQTWZoRlpKUVJoQkxWOVpiUU8r?=
+ =?utf-8?B?bStMMW14YnU2K2FtRDVFT3ZaZisvZlQ2d3B3YXZITld0Yks2Q0k1dkVxUEFJ?=
+ =?utf-8?B?MFM0d2FCb1JWdlpGcnNwTnpSMi9JQ3lEUXpWRnNzclZ1VmtpTGVGdU0zQ212?=
+ =?utf-8?B?SW1MTmIrTksxV1QweHBYTGdDYUJqU28xbDhqK3NVdXI3dFZwRldCbG9pWnNC?=
+ =?utf-8?B?akcyZnRBbGVhNXNKR09BTmRTZjhaRkN5T0ZPTTJNUFQ3Vkluak5sYzE2WW8z?=
+ =?utf-8?B?WjhDT1dwa2c0cXQ3QnVjQkNQNDlFdkxnaThvckwyVmdSdjVOdUlPaUhsZFo3?=
+ =?utf-8?B?MGhJNWFuNndNWXVod08zZ0FxQ1NWS213ckJkK0hucEM2U21odlhMK01hWExX?=
+ =?utf-8?B?WERibHRNUC9uU0t4SGsxN0xrUG1jM09yK1hOOFc5VTdBL0w3eHpWZTRvVm8y?=
+ =?utf-8?B?aWZYMmFRVzhqTm1ySmlianVJaktsVU9hS1ZMY0JvYjVLdWNScHRoUFZNZmpG?=
+ =?utf-8?B?cDhmcFBTWFpuUTJ0ekhjc0pXQkVqWEF4YUpHM2FxRVpXNjBRRnhIMnFkYzlo?=
+ =?utf-8?B?bGNrSDZiSjlMWFlSMTc4Y2FrcnRsaUM0OWVOdUpXV1VUZk1xaVNtdGpKajB2?=
+ =?utf-8?B?UGptMmhDQ21Ua3doaHZ0V1c5QmpyemJ3c2xyZlE0K3c3cXlBSFVHTi92MFBl?=
+ =?utf-8?Q?ypR4=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2025 18:22:26.8045 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 205c730f-7c1a-494d-e981-08de3f2b9037
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6597
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,286 +143,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 19, 2025 at 9:52=E2=80=AFAM Mukesh Ogare <mukeshogare871@gmail.=
-com> wrote:
->
-> Replace legacy DRM_ERROR() and DRM_INFO() logging in the VCE code
-> with drm_err() and drm_info() helpers that take a struct drm_device.
->
-> Using drm_* logging provides proper device context in dmesg, which is
-> important for systems with multiple DRM devices, and aligns the radeon
-> driver with current DRM logging practices.
->
-> No functional change intended.
->
-> Signed-off-by: Mukesh Ogare <mukeshogare871@gmail.com>
->
-> diff --git a/Makefile b/Makefile
-> index 2f545ec1690f..e404e4767944 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -1,8 +1,8 @@
->  # SPDX-License-Identifier: GPL-2.0
->  VERSION =3D 6
-> -PATCHLEVEL =3D 18
-> +PATCHLEVEL =3D 19
+Only set an error on the fence if the fence is not
+signalled.  We can end up with a warning if the
+per queue reset path signals the fence and sets an error
+as part of the reset, but fails to recover.
 
-unrelated change.  Please drop that.  Other than that, looks good to me.
+Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Thanks,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 67fde99724bad..7f5d01164897f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -147,7 +147,8 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		dev_err(adev->dev, "Ring %s reset failed\n", ring->sched.name);
+ 	}
+ 
+-	dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
++	if (dma_fence_get_status(&s_job->s_fence->finished) == 0)
++		dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
+ 
+ 	amdgpu_vm_put_task_info(ti);
+ 
+-- 
+2.52.0
 
-Alex
-
->  SUBLEVEL =3D 0
-> -EXTRAVERSION =3D
-> +EXTRAVERSION =3D -rc1
->  NAME =3D Baby Opossum Posse
->
->  # *DOCUMENTATION*
-> diff --git a/drivers/gpu/drm/radeon/radeon_vce.c b/drivers/gpu/drm/radeon=
-/radeon_vce.c
-> index bdbc1bbe8a9b..a203992cb932 100644
-> --- a/drivers/gpu/drm/radeon/radeon_vce.c
-> +++ b/drivers/gpu/drm/radeon/radeon_vce.c
-> @@ -121,7 +121,7 @@ int radeon_vce_init(struct radeon_device *rdev)
->         if (sscanf(c, "%2u]", &rdev->vce.fb_version) !=3D 1)
->                 return -EINVAL;
->
-> -       DRM_INFO("Found VCE firmware/feedback version %d.%d.%d / %d!\n",
-> +       drm_err(&rdev->ddev, "Found VCE firmware/feedback version %d.%d.%=
-d / %d!\n",
->                  start, mid, end, rdev->vce.fb_version);
->
->         rdev->vce.fw_version =3D (start << 24) | (mid << 16) | (end << 8)=
-;
-> @@ -325,7 +325,7 @@ void radeon_vce_free_handles(struct radeon_device *rd=
-ev, struct drm_file *filp)
->                 r =3D radeon_vce_get_destroy_msg(rdev, TN_RING_TYPE_VCE1_=
-INDEX,
->                                                handle, NULL);
->                 if (r)
-> -                       DRM_ERROR("Error destroying VCE handle (%d)!\n", =
-r);
-> +                       drm_err(&rdev->ddev, "Error destroying VCE handle=
- (%d)!\n", r);
->
->                 rdev->vce.filp[i] =3D NULL;
->                 atomic_set(&rdev->vce.handles[i], 0);
-> @@ -352,7 +352,7 @@ int radeon_vce_get_create_msg(struct radeon_device *r=
-dev, int ring,
->
->         r =3D radeon_ib_get(rdev, ring, &ib, NULL, ib_size_dw * 4);
->         if (r) {
-> -               DRM_ERROR("radeon: failed to get ib (%d).\n", r);
-> +               drm_err(&rdev->ddev, "radeon: failed to get ib (%d).\n", =
-r);
->                 return r;
->         }
->
-> @@ -388,7 +388,7 @@ int radeon_vce_get_create_msg(struct radeon_device *r=
-dev, int ring,
->
->         r =3D radeon_ib_schedule(rdev, &ib, NULL, false);
->         if (r)
-> -               DRM_ERROR("radeon: failed to schedule ib (%d).\n", r);
-> +               drm_err(&rdev->ddev, "radeon: failed to schedule ib (%d).=
-\n", r);
->
->
->         if (fence)
-> @@ -419,7 +419,7 @@ int radeon_vce_get_destroy_msg(struct radeon_device *=
-rdev, int ring,
->
->         r =3D radeon_ib_get(rdev, ring, &ib, NULL, ib_size_dw * 4);
->         if (r) {
-> -               DRM_ERROR("radeon: failed to get ib (%d).\n", r);
-> +               drm_err(&rdev->ddev, "radeon: failed to get ib (%d).\n", =
-r);
->                 return r;
->         }
->
-> @@ -445,7 +445,7 @@ int radeon_vce_get_destroy_msg(struct radeon_device *=
-rdev, int ring,
->
->         r =3D radeon_ib_schedule(rdev, &ib, NULL, false);
->         if (r) {
-> -               DRM_ERROR("radeon: failed to schedule ib (%d).\n", r);
-> +               drm_err(&rdev->ddev, "radeon: failed to schedule ib (%d).=
-\n", r);
->         }
->
->         if (fence)
-> @@ -479,7 +479,7 @@ int radeon_vce_cs_reloc(struct radeon_cs_parser *p, i=
-nt lo, int hi,
->         idx =3D radeon_get_ib_value(p, hi);
->
->         if (idx >=3D relocs_chunk->length_dw) {
-> -               DRM_ERROR("Relocs at %d after relocations chunk end %d !\=
-n",
-> +               drm_err(&p->rdev->ddev, "Relocs at %d after relocations c=
-hunk end %d !\n",
->                           idx, relocs_chunk->length_dw);
->                 return -EINVAL;
->         }
-> @@ -493,11 +493,11 @@ int radeon_vce_cs_reloc(struct radeon_cs_parser *p,=
- int lo, int hi,
->         p->ib.ptr[hi] =3D start >> 32;
->
->         if (end <=3D start) {
-> -               DRM_ERROR("invalid reloc offset %llX!\n", offset);
-> +               drm_err(&p->rdev->ddev, "invalid reloc offset %llX!\n", o=
-ffset);
->                 return -EINVAL;
->         }
->         if ((end - start) < size) {
-> -               DRM_ERROR("buffer to small (%d / %d)!\n",
-> +               drm_err(&p->rdev->ddev, "buffer to small (%d / %d)!\n",
->                         (unsigned)(end - start), size);
->                 return -EINVAL;
->         }
-> @@ -526,7 +526,7 @@ static int radeon_vce_validate_handle(struct radeon_c=
-s_parser *p,
->         for (i =3D 0; i < RADEON_MAX_VCE_HANDLES; ++i) {
->                 if (atomic_read(&p->rdev->vce.handles[i]) =3D=3D handle) =
-{
->                         if (p->rdev->vce.filp[i] !=3D p->filp) {
-> -                               DRM_ERROR("VCE handle collision detected!=
-\n");
-> +                               drm_err(&p->rdev->ddev, "VCE handle colli=
-sion detected!\n");
->                                 return -EINVAL;
->                         }
->                         return i;
-> @@ -543,7 +543,7 @@ static int radeon_vce_validate_handle(struct radeon_c=
-s_parser *p,
->                 }
->         }
->
-> -       DRM_ERROR("No more free VCE handles!\n");
-> +       drm_err(&p->rdev->ddev, "No more free VCE handles!\n");
->         return -EINVAL;
->  }
->
-> @@ -566,13 +566,13 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
->                 uint32_t cmd =3D radeon_get_ib_value(p, p->idx + 1);
->
->                 if ((len < 8) || (len & 3)) {
-> -                       DRM_ERROR("invalid VCE command length (%d)!\n", l=
-en);
-> +                       drm_err(&p->rdev->ddev, "invalid VCE command leng=
-th (%d)!\n", len);
->                         r =3D -EINVAL;
->                         goto out;
->                 }
->
->                 if (destroyed) {
-> -                       DRM_ERROR("No other command allowed after destroy=
-!\n");
-> +                       drm_err(&p->rdev->ddev, "No other command allowed=
- after destroy!\n");
->                         r =3D -EINVAL;
->                         goto out;
->                 }
-> @@ -593,7 +593,7 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
->                 case 0x01000001: // create
->                         created =3D true;
->                         if (!allocated) {
-> -                               DRM_ERROR("Handle already in use!\n");
-> +                               drm_err(&p->rdev->ddev, "Handle already i=
-n use!\n");
->                                 r =3D -EINVAL;
->                                 goto out;
->                         }
-> @@ -650,13 +650,13 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
->                         break;
->
->                 default:
-> -                       DRM_ERROR("invalid VCE command (0x%x)!\n", cmd);
-> +                       drm_err(&p->rdev->ddev, "invalid VCE command (0x%=
-x)!\n", cmd);
->                         r =3D -EINVAL;
->                         goto out;
->                 }
->
->                 if (session_idx =3D=3D -1) {
-> -                       DRM_ERROR("no session command at start of IB\n");
-> +                       drm_err(&p->rdev->ddev, "no session command at st=
-art of IB\n");
->                         r =3D -EINVAL;
->                         goto out;
->                 }
-> @@ -665,7 +665,7 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
->         }
->
->         if (allocated && !created) {
-> -               DRM_ERROR("New session without create command!\n");
-> +               drm_err(&p->rdev->ddev, "New session without create comma=
-nd!\n");
->                 r =3D -ENOENT;
->         }
->
-> @@ -760,7 +760,7 @@ int radeon_vce_ring_test(struct radeon_device *rdev, =
-struct radeon_ring *ring)
->
->         r =3D radeon_ring_lock(rdev, ring, 16);
->         if (r) {
-> -               DRM_ERROR("radeon: vce failed to lock ring %d (%d).\n",
-> +               drm_err(&rdev->ddev, "radeon: vce failed to lock ring %d =
-(%d).\n",
->                           ring->idx, r);
->                 return r;
->         }
-> @@ -774,10 +774,10 @@ int radeon_vce_ring_test(struct radeon_device *rdev=
-, struct radeon_ring *ring)
->         }
->
->         if (i < rdev->usec_timeout) {
-> -               DRM_INFO("ring test on %d succeeded in %d usecs\n",
-> +               drm_info(&rdev->ddev, "ring test on %d succeeded in %d us=
-ecs\n",
->                          ring->idx, i);
->         } else {
-> -               DRM_ERROR("radeon: ring %d test failed\n",
-> +               drm_err(&rdev->ddev, "radeon: ring %d test failed\n",
->                          ring->idx);
->                 r =3D -ETIMEDOUT;
->         }
-> @@ -799,25 +799,25 @@ int radeon_vce_ib_test(struct radeon_device *rdev, =
-struct radeon_ring *ring)
->
->         r =3D radeon_vce_get_create_msg(rdev, ring->idx, 1, NULL);
->         if (r) {
-> -               DRM_ERROR("radeon: failed to get create msg (%d).\n", r);
-> +               drm_err(&rdev->ddev, "radeon: failed to get create msg (%=
-d).\n", r);
->                 goto error;
->         }
->
->         r =3D radeon_vce_get_destroy_msg(rdev, ring->idx, 1, &fence);
->         if (r) {
-> -               DRM_ERROR("radeon: failed to get destroy ib (%d).\n", r);
-> +               drm_err(&rdev->ddev, "radeon: failed to get destroy ib (%=
-d).\n", r);
->                 goto error;
->         }
->
->         r =3D radeon_fence_wait_timeout(fence, false, usecs_to_jiffies(
->                 RADEON_USEC_IB_TEST_TIMEOUT));
->         if (r < 0) {
-> -               DRM_ERROR("radeon: fence wait failed (%d).\n", r);
-> +               drm_err(&rdev->ddev, "radeon: fence wait failed (%d).\n",=
- r);
->         } else if (r =3D=3D 0) {
-> -               DRM_ERROR("radeon: fence wait timed out.\n");
-> +               drm_err(&rdev->ddev, "radeon: fence wait timed out.\n");
->                 r =3D -ETIMEDOUT;
->         } else {
-> -               DRM_INFO("ib test on ring %d succeeded\n", ring->idx);
-> +               drm_info(&rdev->ddev, "ib test on ring %d succeeded\n", r=
-ing->idx);
->                 r =3D 0;
->         }
->  error:
-> --
-> 2.43.0
->
