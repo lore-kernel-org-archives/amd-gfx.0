@@ -4,150 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CD3DD74965
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 08:13:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73519D7495D
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 08:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6F1910ECB0;
-	Fri, 19 Dec 2025 08:13:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E794810E647;
+	Fri, 19 Dec 2025 08:28:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b1Ez08cQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qLzqAilw";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010028.outbound.protection.outlook.com
- [40.93.198.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDB7910ECB0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 08:13:43 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012030.outbound.protection.outlook.com [52.101.43.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2636E10E647
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 08:28:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V+H5NnmXuYZmpGSIVq1Z1Gnu6cfzKMJBT7hyP9vByTV+wYVjbjDGj9svwteO53megfJjVZl75s4X2Zg0ycQiIGLdndpjLXvrbZdBu82aWQCk+PPvxMJgznxxE269CtZxX//UbYdo5WN5nLFz5GVyGNKuo67XikDnrsx+rF3L5paAJ/mS40Fb9GJCVQbYgk4LbLcOjRWf5vIDtgCt9NsEBnG/oBu+jVZWrlYrjYjPl54WjXFbdCvvCDZE9EvjlpTqUTOZyp0X5Yn/b7mGsdE+TGwhfzJNJUXG6zC/+D49ySwacCVhQ/rt75KA6z6lxQv/0sjhJX4vpFC66MNcszyFFQ==
+ b=izmpBW4HkNb87JGqSvZNdzwFWwlhN/H02fjQ6OGCg/kJX6JoVt/rptHSUTpn6sfyQoFBN1NKoxkNubNTDIH/YtABS7SEO9XxXI4WZzmgDpHQDuzhfmR9KF4XFnXPSyra3uSAjbc2/3L7DIKlGgHxXsNSovfFFz6MUbt6QZP8lmi9cXPrrlY8dWYSrCe8n8Lwe3+6y3j5Zh2hSm1PrFHDZFh7n4gLCryM1U8LDR3uQhYMbQ5Q/6PHg8ZKwMCC9qr3hUJXS05er8IyJkXHYmqyrXsHTKKpjw1ln0siSKDiaa28JMs+kptLdajsOYGzBwgDArxOJUI/afVkXmJmdubpYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uUsd7xKoyic7EZmoEA2WlT0hBh0aAVG66K1Gbw9U7Sk=;
- b=H6fc3+ZVFt/Ir1a0nDhvXj1Zj/jkwE7qFhiNzcVvr//oapOtXh0CkwB88G57GATvGWl4ZFnrsjpeqdw/f2BpjiOdaC8u2cp6GRNDE6A7W2LO+3TNwYTbQfATz4I2A2DU1RQyBCSntcBkFO5crSOOfLoU02famekh3UZdsBLAfOAgbvT/og0LoSH9XD5gn0d6laG8BclVNB9CsC7hYXSZ9e5/tOOyM0D5CylZc/szoQouhqdDloC7sY+DGZ8AeBwnSlhdkvlV1+9UCHD4TJ3zUD8w4QLCpsFgfoB+cd/qlIJqxSn5JtTibCsDGbnbP9W0EoU90wn+UbKYG26H/gxvkQ==
+ bh=+oYgHqs2HvyPcVNOlQB/KVjpIBMJKvWBQuoRj4bs/iQ=;
+ b=QTJym8p45NSrEkSfF4ySlKPOTNLHaEU0ZMONSBON9DxluEguTbqsUQm1du2xicN0WgPyvqaSCd2tNhIeNiYDDdZs1LuFLrKGULBr55EuctCIuzZGxU7c11rZBz47fDIRZBAiM8HpYVJbqNpeL0oWol3RRNwUV7NwJjAHqgjrI3Yl41Q73TjSrwdfIGqd1aF5muQkeMxmBc2W3rgl5PF9AM/IUHsJc3gXArqn4jBCZYM3r1c2zN23OFx2vXAj/y8j4TbrjCzfFqD1KxGIG2TjBryBznLQbAusNXTi57voQrmpl+/jJ1He8kusQdo6W4F089V2SFfurjnKocDRWSfR7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uUsd7xKoyic7EZmoEA2WlT0hBh0aAVG66K1Gbw9U7Sk=;
- b=b1Ez08cQFt8Y6mdaL4KBk2ORgTozhc9JVWCXJZUKpDBLrcWRZJUpIdKxW1yaClor6x3ASXd1umah0W8xnW1HTzHsd0dU6JQRellIWEn4iZ02+ZF6a809DpmFRDLuT6D6JgF/NoxX4Tu7MtVxLnYxt+LH2K+Lyu77ezIRyH3R9O0=
+ bh=+oYgHqs2HvyPcVNOlQB/KVjpIBMJKvWBQuoRj4bs/iQ=;
+ b=qLzqAilws6/1/BMRGq0H7CFZyDuPnEZLbkzZj5zgHFQ0UKZvmjNQ1XmE97WFH3rVhvEHTt8fvfRDKJVCgC0nfYky/rV7LuTzi9GiTMuE2hdKyskqQNOqgu5SJx6impbQt3YpK/Wab114RJHdsxREUZkEuYEFVNtFP1UydDxMU2M=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8210.namprd12.prod.outlook.com (2603:10b6:610:129::19)
+ by PH7PR12MB6762.namprd12.prod.outlook.com (2603:10b6:510:1ac::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.9; Fri, 19 Dec
- 2025 08:13:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.6; Fri, 19 Dec
+ 2025 08:28:48 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9434.009; Fri, 19 Dec 2025
- 08:13:42 +0000
-Message-ID: <46dde040-ad1e-4923-911d-2316e54e370a@amd.com>
-Date: Fri, 19 Dec 2025 09:13:38 +0100
+ 08:28:48 +0000
+Message-ID: <831aea45-f75c-4432-9045-cf44d8f7fc17@amd.com>
+Date: Fri, 19 Dec 2025 09:28:44 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 3/5] drm/amdgpu: Simplify sorting of the bo list
+Subject: Re: [RFC 4/5] drm/amdgpu: Convert context manager to xarray
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
 References: <20251218150405.80502-1-tvrtko.ursulin@igalia.com>
- <20251218150405.80502-4-tvrtko.ursulin@igalia.com>
+ <20251218150405.80502-5-tvrtko.ursulin@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251218150405.80502-4-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20251218150405.80502-5-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0126.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::22) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0421.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10b::23) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8210:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bfd02d7-4ad1-49f0-7151-08de3ed685ae
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6762:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ba1e0f5-7d05-4e93-66f6-08de3ed8a1e1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UENHdm5TUWFmRTFnZ2VFMlJndDBWZVRIRUtZOFczK0tlRG1nMUhwZHhpMHQ4?=
- =?utf-8?B?c2NkTzlFaW0xaVZORkVhNjBSbXl6a1Y1MnFJbWlwOW1ZVVo4Y2prRDR4TSty?=
- =?utf-8?B?SzlrNkQyM1JwQWtkc2h3Yzc0Zkk0QU1VdnBxNGtjTkhkWXV3dkJBNXRxSE5I?=
- =?utf-8?B?WWpyQ092dU12Qm9kOEpmZFE4TVVsREJLYUxoWUl3Nk1EQVBaZWt2NHI1Slc4?=
- =?utf-8?B?aHArdVRwZWJHczFGK3JNdW9KS1BrSVlJczBuRVRoS21HWWliRmF5NmtDSHVi?=
- =?utf-8?B?MHBORWRJKzlPd2UwZjVxMWtiUUI4QlkvTTJOVVZlQzRZdDhTazBGTWhHTy9k?=
- =?utf-8?B?eFhuN0hmakFlWFpsVzh0eVYxSVNDak1EVUhPWncwZWl4YzF2VExzWEdFcEps?=
- =?utf-8?B?VmJTNEV0L3VvRjJCZ3hlWjBiNjljbVJMWFVyVEVkN3QvU08xVDZ4ZW5nN20x?=
- =?utf-8?B?OWtCcVVKOVJHU2xzZXlLVGQwbkx5TWhiTWpIRHp0b3ppWVpMVzd3TjNpNnJj?=
- =?utf-8?B?M0xJN2IrbzRjNDRIY1gwd1hpSWsvbFMxd1JIY2NLbVIrdlV5TU15dmgwKyta?=
- =?utf-8?B?eGhSNkJGcitqRGhYb1VUY0g2T3hGNzNpV2dPTkhtNzgwam5lQndVc0ZPeU1S?=
- =?utf-8?B?Szhka0Z1czZPdlNxRzExMkZNSFllZyt3S3U3dG9vWTlmelFnem1nTXVyVUpV?=
- =?utf-8?B?RGFUUWZVaHdXV2lIODFzU2ZiOGcvUkpjOEo3S096QVRXZC96Ni95Q2lkVzlP?=
- =?utf-8?B?Z2craVBWQzlNRWNXUFFkM09hYTgvVXQrdTBJTjVmSFBVejBWTzltajdkNEVn?=
- =?utf-8?B?OFhDRTMzS2FLVWlTUlV6My80UU9PTGNZbUJuWmppR1lmeWZ4dC92NU92R3Fw?=
- =?utf-8?B?b3U3UXBEV2tzcnBvZnNKcHN6UG1aWVIxREhobDVrSmRPS1pkKzJ0Wld3b1JZ?=
- =?utf-8?B?M1JJOEhDWjNrRmx6VzhrM29PSnFLOHl2UEtQVm9jUGhrcFlrd01NeGhLdjZS?=
- =?utf-8?B?NS92ZGJ2Wk90bWxsR3kzak43ajJPVkZjMkkzV3hqSmIyR0l5S0wvaldwSnZl?=
- =?utf-8?B?R3dLeTdXaWd1N29xUnZlS0dHakZFSVViRXFuMGNzUUtnSEJzaHRvWVRIRStz?=
- =?utf-8?B?bXJQVTNXMGR3clhPMUgwWDR5Ty90WkNacHQ0elZIcWxDaEMzTkc3MEdsWlQx?=
- =?utf-8?B?Z1RVUVZGOFZGNHBwQjR3YVFDUUtpdFovNTl1Z1JJdHlkL05NbEx3bmZ4VWNG?=
- =?utf-8?B?QUc5eXBpUGYxWlBud3FTenBoeElUK3dhWTRsdlZTWFl4MDdOSkZGR3pqbGdo?=
- =?utf-8?B?c3o0dGlQSVNNNmRyQkRFbXEvdTJJQndNVU5IZlVYSlkxa3VOYTVmaWVoMy81?=
- =?utf-8?B?VnBkbUdOOGtSYWZHZFowbTEySFVjcU9tNmw2bzRCQkNyc082Q0dDZEhCMFUz?=
- =?utf-8?B?KzhDdjBwQ3ZpKzg4SUswejg0ODF5aEtsazl0azF0ZjRyNnpMc0tqS0draG1G?=
- =?utf-8?B?eHhIVThRSlFXZXU0cXQ0NzB3NExneGJjMHhycThGZ09MR1N6UjNEaFZMYmVy?=
- =?utf-8?B?U3dVeUx0S3AyV2dOUURsQ0pVOHpBUmhWeXArUnRUZW54U0NxbURNemJXbmhV?=
- =?utf-8?B?bGx3N1ZVR3EzSEl5M2VDOUM4bEFzVm1xQ3FlejRCcHZTaWdBU3JLa1BibXNE?=
- =?utf-8?B?T29VVTJTNFBKWWNTU1Nvb1pFYy9LNE1iOWtKWHJuQnFCVlA2dElyblRIUTd5?=
- =?utf-8?B?dW5qUm1yTXFUS0NqS1pDdEZyZG0xdnE5cTdveEZYaWhzaDBpdlI2cHE0QWNK?=
- =?utf-8?B?WXExZGhFYStpMGhqR3krbHJjbEFtQWc3TGN6d05YYWF1YVI4MW8rWUNvM25L?=
- =?utf-8?B?SEFzMk1hYlVSOGN0NC90Q213UkdHc2plQkFDb25TYnZ0TEhjQkZwUlZWNVVN?=
- =?utf-8?Q?3GLLdB+eoMVsN/Qv9Wy8mUFbFrXx+dGW?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WE4vMFpCdXNXTm9sM3hPQ2tGRzJwV1l6SmNTMmQ5YUFyWHNKYUVIL052SDJv?=
+ =?utf-8?B?cVFUWTRNcytsMWRPUFJJbEVocytqSGlvZTcyZm11OGg5YThpS2N1ZUlzVFFC?=
+ =?utf-8?B?czkrZ3JOL1N2YlhSV0h5cU9vV0RBWlJiRVdNMHlqbjZLUVFzdGRldW54R1ZD?=
+ =?utf-8?B?b2thdldwY2tZQ0RPODh2eGtsRjMwcXkxejd2ZWI5L0ZZanI5aklFZDhQbGtI?=
+ =?utf-8?B?OWUxQmJvWXdwNVQ3NGhNa29lYmRCK2pzM1JIT2lVWVFXNm5saEd1ZzM4L1VI?=
+ =?utf-8?B?SkhIT21vc3pySXRRNWl3QU1JMXhnZWcva05jYVpzdThobHZmdCtSQTUvV1dn?=
+ =?utf-8?B?V0MrdWZRbkpVZDA3MHV1SWhYN3VIU3UwTk01V0xleUJBYXpvVGd2T0dsWWNO?=
+ =?utf-8?B?ZHVuU0RYeCs5am9aMXhsV0FaWDV4S2o0eE8rV3JFQmVCdUZINTJ2QWs3RC83?=
+ =?utf-8?B?TURDV2pZdzJQbEhiWGJRRUZrODQ1aXcrL1gwdUZ3bWs2cTdBM3F1SlRCSVZi?=
+ =?utf-8?B?M2g3Q0ZiRHZ5cjZRUHh1aElwMWsreUlzRklsVUtLa1JUSGtvUWc1SVh1NFdS?=
+ =?utf-8?B?VEFFS090eDBoM0FpcnRZclBiUFFjSkdpQ1lIZVlEcVM5eFhnYjAvQjBLVkl0?=
+ =?utf-8?B?VXQrUFdUYnNJK21mN1JxN3JNeHZRM1o3aGExRkVVMWI0ZXRXMXJqNitqSXBF?=
+ =?utf-8?B?akZUWW5tN1dhMGJ2NUdPTjJ3ZndSU1VDWEw3RXpZcDFkTFlBc29KcHc3Q2V4?=
+ =?utf-8?B?dFc0QVBFVlVYSEluRktmZDd6ZW9hMWcySFF5NnpJSVZubzJ0YXlMZS8yOC9m?=
+ =?utf-8?B?NHhQd3hqTjR4OU8zbitXUmFDKzNOY0doUWZrWkI1enB0akdJN29TTklNTTYw?=
+ =?utf-8?B?b3AzMTZZOXRHYWYzbE1HaWVVUWZpb2VhbHlWR3BXcXZiTzViYmRXQmV1Wk1W?=
+ =?utf-8?B?QTlXWlRXWEtKQkdRVm9OYWFpUVUyQm0rdjJDUjNvSmFjTlU3YVJnSGh4QnF5?=
+ =?utf-8?B?cHhnMTcxeEMxQ3VqVERIUi9RMnFJbUNCeWRMTHl3UDgrWkhsRWt1TC8vdDMr?=
+ =?utf-8?B?c3UrUmlGZHMyM3kvVXRyQzR0UkJibFhtNFMvT3JWa2hERWlOVmFGT3hXc2xr?=
+ =?utf-8?B?ckNBTVFXU0krYnB3KzFwVmUrdTY4Rnd2VnBucFk1bDQySVNWZ3d6aWJSUWdL?=
+ =?utf-8?B?L29kVSt4VHlXS3JDSndSZzhKUEtITUxVQlNXRE5yMzZGbmZ5Ui90NVZMdGZK?=
+ =?utf-8?B?Yk5lYTljaklGMFVKRTRXQnZ0em9obnJGVkkzaFhxK2xMSjY3REJzZlZaclJT?=
+ =?utf-8?B?Y1ZQa3RqYlgyNitkaEpDU1RvVUk3b01DTFg5aFVUZGFpSWUyY3hjZ3ptZUVH?=
+ =?utf-8?B?K0YzVWV4NzVNNjZlMjhFbThoM0J0UmpqYW1PaUpyQlVtR0RVUllacW1Edlo3?=
+ =?utf-8?B?dXAxZkl0dGZoRVlIK2V5bjBXZnhYN3Z4SVhxaEN4M0lhQVJRNkJtNFZDVGFQ?=
+ =?utf-8?B?OGxhNkg1RksrOEh2WHRNWm1qakhaQnZqZTlReUYySXN5YmFvbDdRV1lseFZI?=
+ =?utf-8?B?RUFnTG5QTzR3S0gyV09vczkrWk5PVmlLdFFYVkpoOCthdW54WnBuUkVHUDd1?=
+ =?utf-8?B?ZkNybkg4UjVGSCswN010bFEyUEtONGJDMEduMHVaVFRodlBuTFh0UFFMQlZh?=
+ =?utf-8?B?YXBFWFJVYXpPQUlGV0MxS3JteEVBMUlSSzJOejNxQnRBNEIyeHBjWFFwR3ZR?=
+ =?utf-8?B?WUVmK2s3cGxKeE93MDNVUEZQU0ZXVnNaem44L3lBYmRoOTBTOEczNWFsaERW?=
+ =?utf-8?B?WWZjODJJZkVIbHBwOFBvOE10a3pyUHVVQlhuWjFKeEx2dU5vNXArV3dkclhw?=
+ =?utf-8?B?VFd4TnZTd05ONmxSWlBrbDE4UlFTSUVNa1NlTlNCN0IyRW5OS2JGb1AwTEJu?=
+ =?utf-8?Q?/ev/qochZShTTaUPwOwLZKpC7TJ1Lez7?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFJiWmpNcmQyRjl4QjRnK0ZaZENzb0V3eVNiSUtsclJSNXc3MFhwZGExd3pP?=
- =?utf-8?B?SFM4ZFd2ZmlUYkRBUUtkeStiTGQ1VFpKQUQyQ0VrUU5VYW5md2lHZWVtdlp1?=
- =?utf-8?B?elVCMnkxRUwrRkJCVmwxdVhmQjNjSzc3VC9yMXg2djd0eWh5aEFjbGticFdX?=
- =?utf-8?B?OThqVVJsYUp6MnBxeXpMdDlGaUg4bFI3ZGliNXRCZHlQU0FHWEJ2endrRXRq?=
- =?utf-8?B?aXpSdmZ4M09mZ1M5Z3QzY1hrdE5NK2hKTWxlU2RUYWkyUzJadGdlbE9ZYmRU?=
- =?utf-8?B?MGYxNGZEL2NKazAzYm8xbUY2dllVeWxveE5DSEpncHpneDBiRFc4NWVuL1Zh?=
- =?utf-8?B?bTlBK2oxSzIvMUxHb0d5N0IzMWF0dk1VZG52aHFxZkNVamoxQjJGOGxSb3NQ?=
- =?utf-8?B?WkNVeWIrcytqUnB5dVJ4MHhVbVFXUTVSaHFSSWJxQnNaTDVYUGUwWWs0cXJ3?=
- =?utf-8?B?eUFKdDA1YzdPRGd2ZkFBWVZ0QVRMc2k1S0RKTmw1YUFiRExkNThBOFIvWnM4?=
- =?utf-8?B?blJyalBBbFA4WGtJUXUwUC83WEVyV29EdnlkOGxiRytpam5VbHZTSEpjZGlr?=
- =?utf-8?B?S1hmZ3Erd1hQRkRCSzBpSzJXN2Z6ZjJ1SXR5dFRFSENPZFJNYW9tVU14a3lI?=
- =?utf-8?B?ZUQwZ0tBTnhoL2RaQUJyUUF1UEtvRmlyOFFiaERnekNlQ0VKL2FPSXBxVkh1?=
- =?utf-8?B?MmR0elN3U3FZeHVZUm94TmZQYjF1N01DemVPcDRPVGR1R3M5SVdYQzZUb0cr?=
- =?utf-8?B?WEJnT0x5RkdPN2EzSUxMcE5kcFRheElZdUFpY3Jma0E3bUxBMytzZUxiRmth?=
- =?utf-8?B?NithR0s4Z0RPdC9xK01ncEw5UWZBa1k0Q0crTXljeHE1VFQvUHgxSjlYYnVj?=
- =?utf-8?B?aDQvMlAvRk9tN0lNQkFOTGRVL3RJZWczbGFSbXVHMXBmYWx6MnVOOERBam9W?=
- =?utf-8?B?WTVmcnYwWkw1OHRLTGxqSmk5TlZCMXNLY3lIaG9CcWFwUUt0TWEzNlNaU20y?=
- =?utf-8?B?alVUYWdnY1BqaGRZVThQQWh5SkR3b0dBWjltQ05qaWFZc1htOFU4RG00ckFh?=
- =?utf-8?B?TW16SjJiQTYza3hnMHlZcjhlMTFTTEZUUW5lTUM1UmQwUzFIL3I3dGR1YjVz?=
- =?utf-8?B?Zk1pSzhjYXN1NkJqSFJYazhjUi9vL2hSY1VVL0dVYlEwRG9uUkhwbGtudU9D?=
- =?utf-8?B?akk0STUwVVRTRVdWYVB3SzZJR0JYWEFuaHR3M04vb1pDSHJINzhoRTNTdEZv?=
- =?utf-8?B?TUtGdXh3ZUFsU3lud2xqS2lqSEFKSVFpUFBpTEFjTUgrMzVQa3liMzNCQkk4?=
- =?utf-8?B?V0EybEc0dUFmeUdQOWNMV2Q5UHMwQVQyanhDdnhydkw4NXREc0RuaFBzWFlY?=
- =?utf-8?B?MjZ6dzUxcVhzWnl0OEh2dkZXdkZoWHNFQkhHTDJTSTR0OCtvWVJ2K3N3Zy95?=
- =?utf-8?B?N3FndjUvUWN2ZnBncHFHK2hXOGJFdWZyK3RYSlFPcVhZYXR1QXowQkMxSXRC?=
- =?utf-8?B?TFFpWU8wUFVYTkZjVllTckNaTlZIaFNSdnZWU01qcys3aW1WV1JqV1hLYkls?=
- =?utf-8?B?a21yck4xV0Q0Sy9WbGl2eUF5dHBDWnpJVXk1ZGNUN1k5QUlxTnoyKzd2SnA0?=
- =?utf-8?B?YVVtK2pzKzVQTUdpbS81NURmU2RsRU11U3NseWZKckVSL2xFVitDME5tVkdr?=
- =?utf-8?B?eDVHV29jN3BvdHEvQkM5VjRXVCttR1VvdFZjMWg3aHhlZC9WemxtbUl4MWdl?=
- =?utf-8?B?M1ZaeDZMYmd6V1gwYmZtMUxOK3dIUC84T1F2dDFWb3gvalhhWmxKVnE1UHp1?=
- =?utf-8?B?a3dCNmNtTmMrdDFwT3VVVkQ4Y2JqenFESDJQaG9rWlZTVlhrN3N0ZWlmbGZO?=
- =?utf-8?B?ZzY3SjdqNXdzKzlPWFhVZnlkZ09sRUJyYWZzK2R3RXFZcEIvSmd1d0FLYnVt?=
- =?utf-8?B?d1pTNElpMGlKajhJbFQ2YVdSN3VjTU0xS2VBbEk1WjNXYktVYnpEM0NTY1I5?=
- =?utf-8?B?eDJhNFdMWWdzYkRFaFpuaTBWMXhVRlFtUXRTOW5ocW1tclo0dUtxZGE2c2lu?=
- =?utf-8?B?RERyUFg5TmlYMWNoSjVHRlJrVEZ2N0N1MzhjajRyNmV0b2VHaFZyZmh3ZnN1?=
- =?utf-8?Q?mWkGW1yD4k6IbqC7hp7/RanHT?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bklmRG1lSzRQMEV1eWVCWldZQjc4dkJ5NG15K3JMYWliYkdWaFI5YUEvWG1a?=
+ =?utf-8?B?dndjK2w3T054eFhOcUJKeVR0RTUwZGptWlpPM2Y1dU1FK0dENTh0Qyt3TGhT?=
+ =?utf-8?B?NjN5NnBucExNWlVURGVRd1I1cUwrMlVJckh4aDVQcDY5SEdYU2dFdzlYZGJm?=
+ =?utf-8?B?ZlliYWQvV0J3eVFFTTY1RDJpeE53aUZBSENyWUF5cmR2SjlxdFZONTJnSXZh?=
+ =?utf-8?B?YmVlcXRWdG9kMGY0dngvdzBZVTRXNWVEL2ptSlRyeDIwNDMra2FuS0puTUNp?=
+ =?utf-8?B?MkVRNVF1dWhPSVNCbVppZ1NPM2pQS3J0a2w4RDNJOVJDNUw1dEFSNExBa1JV?=
+ =?utf-8?B?bkdpcEZZMlVSN0tKM1BZYmUxRjY2dFA2dVBhS2w4QWJFcDVUNk11a0xaUzZl?=
+ =?utf-8?B?ZitZa3dNMUZXUFRkQy83QnRDeUJqc1oxakM5MmJ1T2VwSVNaSGtyNVEyYXpq?=
+ =?utf-8?B?ak44SnBWM1VNSFlTT2FEUUVuQ3VIL1BxdThGdGZERmZPZnc3UExZbzdSUDFC?=
+ =?utf-8?B?S0pNTzhJUDVqUnRDSWdIeThTWTdJSXdWeGprUk90QUZDamdMenNodmtBTEFF?=
+ =?utf-8?B?ODdDM3grcjBiYzVMYUFndnJTcDNHNzBlM25Tb2sxUFY4LzNNMHYvVmw3QWZD?=
+ =?utf-8?B?blVaRU1XNXJqbTFXeXRSeWlKdWlrUTNJTWlOY1FtRDZXUzlCcXBHWTY3UGlO?=
+ =?utf-8?B?ZDRxa2VNWkV6L3h3V1Z1VlpWazFTdkZHM1BwSldRQUo1N3ZYR0t5a1hDRnZO?=
+ =?utf-8?B?L2gybXQwbUUrTFFHMmdkd2RSck82dGNYcWRYdEtkVWFwN1hCVm9oaDEycStJ?=
+ =?utf-8?B?NUsvMXJwcGlNMFlySGg0bm9DM3pzdVFVcVFtMFV5QUdiWEdocTY2anF0L0tF?=
+ =?utf-8?B?Q0xXQkwra0ZHTnB5YVVRWGExK1lvdmZkQ05sOFlNdmltNjFralNjRFFibTVM?=
+ =?utf-8?B?dFh1V21hK2FkZnhEVnk5YUJjT2l2K1MyVmlIZENjMHZydHNzRUkxWjZJSjBY?=
+ =?utf-8?B?Qk51Y2laODhWbHVRQ0V1blQxaVhtOTZOOHcrVGlGaVFqTWtJT0t1aGExWHhU?=
+ =?utf-8?B?Q0xWRlhBbkVkaEJwWVhQSzFpTlp3MEhKOVVMbmgxeUR4UnBBRHlrblp6WWEx?=
+ =?utf-8?B?akdDRW11anFQeWZ5MSswV1hULzZ1VlJvaU45Lzg1cVJyRXovK0V1MWdMSmhT?=
+ =?utf-8?B?RXhRK1pVdkJORzM5NHRpOGlhNUY0NzBnYXpTMGl5RVR1OUxRTmcxWXI0RTJw?=
+ =?utf-8?B?V3Y5TFFoY1QzcTJYQ0ZaZGk5VklqQmdSZno0dGcvMGtaeG1xVFpHdysxdEJm?=
+ =?utf-8?B?NmFmMmkycDBweEJIaDNKWVdFMXVXZGpNcEhlNHl3eE5nbXpiUnFFNDJDZ3hW?=
+ =?utf-8?B?Mng2bkJzNzYxQllUNk5kcEl6c2tQRmlYcUZudGRIaVB5ei9rMmhrZzE1Vlhh?=
+ =?utf-8?B?UjI5aEdTQUFWR09wRmlIS1JLVDdqWTEwczZtdnRJOWNkRkN5Szl1R2x1cjUz?=
+ =?utf-8?B?RW1OTlZnWUlEWm1Sb0R1cWhCOUZNdFFxZFVETFNuem83d1FOMEpHK3lVRFE2?=
+ =?utf-8?B?Z254cTVicTE3S1AwdVlVLytTdkNIVm5ySzVjdi9HQWo1SzFxMVgvaEdwVXBQ?=
+ =?utf-8?B?UEpRTlRjaE9CUUNRcDBHK1JNTFlBeWVCbGJSK2pPWE91VWpTWG9Cam5uaHlw?=
+ =?utf-8?B?bnZySzJBZnBwd05GTnNTL0xEMVdGeU9sNXR0NWZZUDJoOXl2VDhjTkFvTlM1?=
+ =?utf-8?B?M3lhS2dsTnJUQlZPTkdyczBYcjlhYUlUckszM09MRkdOaTlKcVNVaWxDcWhQ?=
+ =?utf-8?B?Q2wzNDkwS004SkRDemZxekk3YjdyTFJVZ2xHSlI2bWZGS0tEVkZURGtqTlZr?=
+ =?utf-8?B?MmpPS1U3V2hrKzNEc0tWUUMvaXhoUCt2S0RISmxUZVh4RkNIQkl3eFFiOHIw?=
+ =?utf-8?B?dGh2M0hIRmlLRnVLM1JSRlgvcDkrVk9SSDFMZFFPbENwTHR2dmVOc1RXUVcr?=
+ =?utf-8?B?TTZCN3dPZzJlSVJRT0Y2dW1aZE55VlhFYVE4YmZ4VW8zTG9sSHU4OGRjNmxB?=
+ =?utf-8?B?NkVvSkVrUGpMVWVaZVZKMUxiRVU2amY5QU55RTNleEI1azU4Uy9qbzJnWmts?=
+ =?utf-8?Q?e0MDlaiQEcV66RZI0v4U9qLwe?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bfd02d7-4ad1-49f0-7151-08de3ed685ae
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ba1e0f5-7d05-4e93-66f6-08de3ed8a1e1
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2025 08:13:42.1827 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2025 08:28:48.4388 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BmMBuqnSdRzUGaEps1hARM0JvNxuyAV96LLxTKnx5NZ2QPXQC1/M1bIlSjEqdKdd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8210
+X-MS-Exchange-CrossTenant-UserPrincipalName: GuXlBOdH0TOfQ4bh6ym3C/pe2RwNn6NLtfxS3qbyIPa+redG3zEL7K/xF2Bhl9pZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,34 +162,350 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 12/18/25 16:04, Tvrtko Ursulin wrote:
-> Sort function only cares about the sign so we can replace the conditionals
-> with a single subtraction.
+> IDR is deprecated so let's convert the context manager to xarray.
+> 
+> In doing so we remove the context manager mutex and switch call sites
+> which required the guarantee context cannot go away while they walk the
+> list of context, or otherwise operate on them, to use reference counting.
+> 
+> This allows us to use the built in xarray spinlock for all operations and
+> just temporarily drop it when we need to call sleeping functions.
 > 
 > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c   | 117 ++++++++--------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h   |   5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c |   8 +-
+>  3 files changed, 49 insertions(+), 81 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> index 0ab307317145..16b647b42b0a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> @@ -60,11 +60,9 @@ static int amdgpu_bo_list_entry_cmp(const void *_a, const void *_b)
->  {
->  	const struct amdgpu_bo_list_entry *a = _a, *b = _b;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> index afedea02188d..ee1464f8751a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> @@ -484,22 +484,17 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+>  	if (!ctx)
+>  		return -ENOMEM;
 >  
-> -	if (a->priority > b->priority)
-> -		return 1;
-> -	if (a->priority < b->priority)
-> -		return -1;
-> -	return 0;
-> +	BUILD_BUG_ON(AMDGPU_BO_LIST_MAX_PRIORITY >= INT_MAX);
+> -	mutex_lock(&mgr->lock);
+> -	r = idr_alloc(&mgr->ctx_handles, ctx, 1, AMDGPU_VM_MAX_NUM_CTX, GFP_KERNEL);
+> -	if (r < 0) {
+> -		mutex_unlock(&mgr->lock);
+> -		kfree(ctx);
+> -		return r;
+> -	}
+> -
+> -	*id = (uint32_t)r;
+>  	r = amdgpu_ctx_init(mgr, priority, filp, ctx);
+>  	if (r) {
+> -		idr_remove(&mgr->ctx_handles, *id);
+> -		*id = 0;
+>  		kfree(ctx);
+> +		return r;
+>  	}
+> -	mutex_unlock(&mgr->lock);
 > +
-> +	return (int)a->priority - (int)b->priority;
+> +	r = xa_alloc(&mgr->ctx_handles, id, ctx,
+> +		     XA_LIMIT(1, AMDGPU_VM_MAX_NUM_CTX - 1), GFP_KERNEL);
+
+Please drop the AMDGPU_VM_MAX_NUM_CTX define as well. That is just a totally pointless limitation.
+
+> +	if (r)
+> +		kref_put(&ctx->refcount, amdgpu_ctx_fini);
+> +
+
+While at it you should probably clean up the unecessary differenciation between amdgpu_ctx_fini and amdgpu_ctx__do_release as well.
+
+>  	return r;
 >  }
 >  
->  struct amdgpu_bo_list *
+> @@ -523,14 +518,11 @@ static void amdgpu_ctx_do_release(struct kref *ref)
+>  
+>  static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
+>  {
+> -	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
+>  	struct amdgpu_ctx *ctx;
+>  
+> -	mutex_lock(&mgr->lock);
+> -	ctx = idr_remove(&mgr->ctx_handles, id);
+> -	if (ctx)
+> -		kref_put(&ctx->refcount, amdgpu_ctx_do_release);
+> -	mutex_unlock(&mgr->lock);
+> +	ctx = xa_erase(&fpriv->ctx_mgr.ctx_handles, id);
+> +	amdgpu_ctx_put(ctx);
+> +
+>  	return ctx ? 0 : -EINVAL;
+>  }
+>  
+> @@ -539,20 +531,12 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
+>  			    union drm_amdgpu_ctx_out *out)
+>  {
+>  	struct amdgpu_ctx *ctx;
+> -	struct amdgpu_ctx_mgr *mgr;
+>  	unsigned reset_counter;
+>  
+> -	if (!fpriv)
+> +	ctx = amdgpu_ctx_get(fpriv, id);
+> +	if (!ctx)
+>  		return -EINVAL;
+>  
+> -	mgr = &fpriv->ctx_mgr;
+> -	mutex_lock(&mgr->lock);
+> -	ctx = idr_find(&mgr->ctx_handles, id);
+> -	if (!ctx) {
+> -		mutex_unlock(&mgr->lock);
+> -		return -EINVAL;
+> -	}
+> -
+>  	/* TODO: these two are always zero */
+>  	out->state.flags = 0x0;
+>  	out->state.hangs = 0x0;
+> @@ -566,7 +550,8 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
+>  		out->state.reset_status = AMDGPU_CTX_UNKNOWN_RESET;
+>  	ctx->reset_counter_query = reset_counter;
+>  
+> -	mutex_unlock(&mgr->lock);
+> +	amdgpu_ctx_put(ctx);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -578,19 +563,11 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
+>  {
+>  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+>  	struct amdgpu_ctx *ctx;
+> -	struct amdgpu_ctx_mgr *mgr;
+>  
+> -	if (!fpriv)
+> +	ctx = amdgpu_ctx_get(fpriv, id);
+> +	if (!ctx)
+>  		return -EINVAL;
+>  
+> -	mgr = &fpriv->ctx_mgr;
+> -	mutex_lock(&mgr->lock);
+> -	ctx = idr_find(&mgr->ctx_handles, id);
+> -	if (!ctx) {
+> -		mutex_unlock(&mgr->lock);
+> -		return -EINVAL;
+> -	}
+> -
+>  	out->state.flags = 0x0;
+>  	out->state.hangs = 0x0;
+>  
+> @@ -630,7 +607,8 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
+>  				      msecs_to_jiffies(AMDGPU_RAS_COUNTE_DELAY_MS));
+>  	}
+>  
+> -	mutex_unlock(&mgr->lock);
+> +	amdgpu_ctx_put(ctx);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -639,26 +617,18 @@ static int amdgpu_ctx_stable_pstate(struct amdgpu_device *adev,
+>  				    bool set, u32 *stable_pstate)
+>  {
+>  	struct amdgpu_ctx *ctx;
+> -	struct amdgpu_ctx_mgr *mgr;
+>  	int r;
+>  
+> -	if (!fpriv)
+> +	ctx = amdgpu_ctx_get(fpriv, id);
+> +	if (!ctx)
+>  		return -EINVAL;
+>  
+> -	mgr = &fpriv->ctx_mgr;
+> -	mutex_lock(&mgr->lock);
+> -	ctx = idr_find(&mgr->ctx_handles, id);
+> -	if (!ctx) {
+> -		mutex_unlock(&mgr->lock);
+> -		return -EINVAL;
+> -	}
+> -
+>  	if (set)
+>  		r = amdgpu_ctx_set_stable_pstate(ctx, *stable_pstate);
+>  	else
+>  		r = amdgpu_ctx_get_stable_pstate(ctx, stable_pstate);
+>  
+> -	mutex_unlock(&mgr->lock);
+> +	amdgpu_ctx_put(ctx);
+>  	return r;
+>  }
+>  
+> @@ -737,11 +707,11 @@ struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
+>  
+>  	mgr = &fpriv->ctx_mgr;
+>  
+> -	mutex_lock(&mgr->lock);
+> -	ctx = idr_find(&mgr->ctx_handles, id);
+> +	xa_lock(&mgr->ctx_handles);
+> +	ctx = xa_load(&mgr->ctx_handles, id);
+>  	if (ctx)
+>  		kref_get(&ctx->refcount);
+> -	mutex_unlock(&mgr->lock);
+> +	xa_unlock(&mgr->ctx_handles);
+>  	return ctx;
+>  }
+>  
+> @@ -886,8 +856,7 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
+>  	unsigned int i;
+>  
+>  	mgr->adev = adev;
+> -	mutex_init(&mgr->lock);
+> -	idr_init_base(&mgr->ctx_handles, 1);
+> +	xa_init_flags(&mgr->ctx_handles, XA_FLAGS_ALLOC1);
+>  
+>  	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+>  		atomic64_set(&mgr->time_spend[i], 0);
+> @@ -896,13 +865,14 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr,
+>  long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>  {
+>  	struct amdgpu_ctx *ctx;
+> -	struct idr *idp;
+> -	uint32_t id, i, j;
+> +	unsigned long id;
+> +	uint32_t i, j;
+>  
+> -	idp = &mgr->ctx_handles;
+> -
+> -	mutex_lock(&mgr->lock);
+> -	idr_for_each_entry(idp, ctx, id) {
+> +	xa_lock(&mgr->ctx_handles);
+> +	xa_for_each(&mgr->ctx_handles, id, ctx) {
+> +		if (!kref_get_unless_zero(&ctx->refcount))
+
+This should be pointless, why not use kfre_get instead?
+
+> +			continue;
+> +		xa_unlock(&mgr->ctx_handles);
+>  		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+>  			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>  				struct drm_sched_entity *entity;
+> @@ -914,20 +884,20 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>  				timeout = drm_sched_entity_flush(entity, timeout);
+>  			}
+>  		}
+> +		amdgpu_ctx_put(ctx);
+> +		xa_lock(&mgr->ctx_handles);
+>  	}
+> -	mutex_unlock(&mgr->lock);
+> +	xa_unlock(&mgr->ctx_handles);
+>  	return timeout;
+>  }
+>  
+>  static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>  {
+>  	struct amdgpu_ctx *ctx;
+> -	struct idr *idp;
+> -	uint32_t id, i, j;
+> +	unsigned long id;
+> +	uint32_t i, j;
+>  
+> -	idp = &mgr->ctx_handles;
+> -
+> -	idr_for_each_entry(idp, ctx, id) {
+> +	xa_for_each(&mgr->ctx_handles, id, ctx) {
+
+>  		if (kref_read(&ctx->refcount) != 1) {
+>  			DRM_ERROR("ctx %p is still alive\n", ctx);
+>  			continue;
+
+Please drop that check as well. It just leads to memory leaks and errors should anything go wrong and so only make things worse.
+
+We can have something like WARN_ON_ONCE(kref_read(&ctx->refcount) != 1) here, but I think that is superflous as well.
+
+Regards,
+Christian.
+
+> @@ -951,8 +921,7 @@ static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>  void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr)
+>  {
+>  	amdgpu_ctx_mgr_entity_fini(mgr);
+> -	idr_destroy(&mgr->ctx_handles);
+> -	mutex_destroy(&mgr->lock);
+> +	xa_destroy(&mgr->ctx_handles);
+>  }
+>  
+>  void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
+> @@ -960,21 +929,21 @@ void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
+>  {
+>  	struct amdgpu_ctx *ctx;
+>  	unsigned int hw_ip, i;
+> -	uint32_t id;
+> +	unsigned long id;
+>  
+>  	/*
+>  	 * This is a little bit racy because it can be that a ctx or a fence are
+>  	 * destroyed just in the moment we try to account them. But that is ok
+>  	 * since exactly that case is explicitely allowed by the interface.
+>  	 */
+> -	mutex_lock(&mgr->lock);
+>  	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+>  		uint64_t ns = atomic64_read(&mgr->time_spend[hw_ip]);
+>  
+>  		usage[hw_ip] = ns_to_ktime(ns);
+>  	}
+>  
+> -	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
+> +	xa_lock(&mgr->ctx_handles);
+> +	xa_for_each(&mgr->ctx_handles, id, ctx) {
+>  		for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+>  			for (i = 0; i < amdgpu_ctx_num_entities[hw_ip]; ++i) {
+>  				struct amdgpu_ctx_entity *centity;
+> @@ -988,5 +957,5 @@ void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
+>  			}
+>  		}
+>  	}
+> -	mutex_unlock(&mgr->lock);
+> +	xa_unlock(&mgr->ctx_handles);
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> index 090dfe86f75b..d073cffa455d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> @@ -25,6 +25,7 @@
+>  
+>  #include <linux/ktime.h>
+>  #include <linux/types.h>
+> +#include <linux/xarray.h>
+>  
+>  #include "amdgpu_ring.h"
+>  
+> @@ -62,9 +63,7 @@ struct amdgpu_ctx {
+>  
+>  struct amdgpu_ctx_mgr {
+>  	struct amdgpu_device	*adev;
+> -	struct mutex		lock;
+> -	/* protected by lock */
+> -	struct idr		ctx_handles;
+> +	struct xarray		ctx_handles;
+>  	atomic64_t		time_spend[AMDGPU_HW_IP_NUM];
+>  };
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+> index 341beec59537..471d27b2db01 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+> @@ -39,7 +39,7 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
+>  	struct amdgpu_fpriv *fpriv;
+>  	struct amdgpu_ctx_mgr *mgr;
+>  	struct amdgpu_ctx *ctx;
+> -	uint32_t id;
+> +	unsigned long id;
+>  	int r;
+>  
+>  	if (fd_empty(f))
+> @@ -50,10 +50,10 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
+>  		return r;
+>  
+>  	mgr = &fpriv->ctx_mgr;
+> -	mutex_lock(&mgr->lock);
+> -	idr_for_each_entry(&mgr->ctx_handles, ctx, id)
+> +	xa_lock(&mgr->ctx_handles);
+> +	xa_for_each(&mgr->ctx_handles, id, ctx)
+>  		amdgpu_ctx_priority_override(ctx, priority);
+> -	mutex_unlock(&mgr->lock);
+> +	xa_unlock(&mgr->ctx_handles);
+>  
+>  	return 0;
+>  }
 
