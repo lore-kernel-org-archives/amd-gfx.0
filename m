@@ -4,76 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 794AFD78783
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 14:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 085D2D78770
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 15:37:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F352910E499;
-	Fri, 19 Dec 2025 14:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A01A910F033;
+	Fri, 19 Dec 2025 15:37:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LfpqVPEE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EaFT/eED";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89F8510EF43
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 11:35:56 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-34c2f52585fso1389706a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 03:35:56 -0800 (PST)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF9710F031
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 15:37:29 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-7ab689d3fa0so172203b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 07:37:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766144156; x=1766748956; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JA5intEY20oPKSii3rLvk45WSR+ZyHeegPBmceUZplA=;
- b=LfpqVPEEyxBQS9DyY7yDpt6IqgfaAbb6/WI1U44GafphUxV+Yld9PGZ4BeUI2xWj4r
- Bs6DcbSxm4nIzl3qWELmVCspLr4OLT7aFxSlYyg6rv3XX9jbrdbT7nzedYFu6We17GHd
- KncC+wODSkAOK+TK7qGCFXjAH7/pJHPQeTKuXXKJjHgCnFsLN20PraOW0x24ylWm4vgB
- e+5F8ArY3H0b5v9tyOaVgFeYBKAlcTNdU/b9OhYvXXADnnXf3dLJbeGpWav4umsIueq8
- hypRQp9I/+XvKAv7xbVfBjFr6nD9zSXvfXYXR5ZPcYclrmMB6TSa2hglkUIW/y46gtTL
- Aiqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766144156; x=1766748956;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1766158649; x=1766763449; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JA5intEY20oPKSii3rLvk45WSR+ZyHeegPBmceUZplA=;
- b=GfFWrb20d/rWZfE1v9kPLpxzxI1v6fkrodDU5GSmdCccfU/POAZjC+mMFkrjN/f/tG
- VUWCQmX7Jjb7Q5vE458xmnXwnoquSAEMBlu5MhfKYswOZh2UtSTF0/M4jckj166j2tdP
- fNOPF4Vd2Mk4SLfGKsydmlovXJXZjIpfHSZN/tTxnYNDx1KobQ5qHe+gRvNZrkuOO7mu
- mnPLk4KRtDMnGRQv4rSShkAytCvOiQb3Is2Qcamyr2us4yLvALKa/JlILLjzdXSxt5a4
- Nk+C7Jk33qXm//JbsnefO+H5ipYUU5FXGCW3w4ZRUOYDJ1NDRK96NepyP+2FRtskrO/L
- btdQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUGKBEGbDdwRBZjtML60Z/TC1fgqVhf1crUc8uJBV2uT63nKBl9T7B2PTnTLDrLHk2l4ZLftGmO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyI0Q1t14+jH+qKQugflDa4dhNYkYw+l7CzlQxBK3gQYbHnbM+
- QTd/+nxLWRPqNsqbV/KR9ri0E5VGZw5kkDHEk4CNXytMri82ieuqD+Cx
-X-Gm-Gg: AY/fxX5IAwCEfo7jSP8lUhPrZKjmw3D4Y20nIQgsLL2C86K0ZbgswSoGsjg9jPuB9B1
- pi4I4ffWtfLhvsEfTCDt5WLM+fGly3lJ92tRbFUD+fFYgFME8TMOJX4KkS82eCCzX3m1XWADJ7h
- CFHRzsTp0QATdC2bGwLvcuBL/f/bz2Q3YUesJIQ+BN2OiV9gYkrmPZiBj1n7hzY1ol0h/fZbgom
- FslxBFUghtanIkWQDFCE6YFVMBX2Krl0EsnrX/QNcrymfGe//oX9QaCt58pLMvpG7upXdloZG1r
- WzwOpQG6Y1b2bVznhg2hN5Dn8iZfD7XV02PBZT6lh3TGHa8QRG04nPRITColP6Q6j0utfij8fPg
- ncMq6iwMWVjWbshFpTSvVKm+DX0fqdJgrVaRxp6qshCZIpE1ueauujMt9XwJOSx0MG27TxabR9M
- ORYdKTJ11RVAiwk2ZsnxKYd8rL1XGIbT//diivpM0RQ+JL8o0GJwU+NfZLZoHheg==
-X-Google-Smtp-Source: AGHT+IFtCut35HMjFifxg7L5t/Pbn005/ktmA3HlwcWvREH16NYGHRExGDLh7PckZyKPgPc9irSTjw==
-X-Received: by 2002:a05:7022:2586:b0:11b:9386:a3cf with SMTP id
- a92af1059eb24-12172312215mr2945203c88.48.1766144155767; 
- Fri, 19 Dec 2025 03:35:55 -0800 (PST)
-Received: from titanite-d300.amd.com ([165.204.154.57])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1217254c734sm6857661c88.13.2025.12.19.03.35.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Dec 2025 03:35:55 -0800 (PST)
-From: Mukesh Ogare <mukeshogare871@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Mukesh Ogare <mukeshogare871@gmail.com>
-Subject: [PATCH] drm/radeon: convert VCE logging to drm_* helpers
-Date: Fri, 19 Dec 2025 19:35:41 +0800
-Message-ID: <20251219113541.1264030-1-mukeshogare871@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ bh=G4UYd76Qj6t3g9FGq/esGhQi7AJBVwXvUmMBaKMXH9U=;
+ b=EaFT/eEDPUN3gXcmm0xK0hpRL70xAQnaPBeIg4CMYmweBhLTevrNDZpm7b5jGBPG9z
+ reAuDwguXze4JhAMOeb38r0q/0sGPcRwe0pHpvOHckXyNOfLcmnfw27m8SrcIKWhVtz8
+ VWRv0eZhuYBJVU2XUk3FkM2IXddhlLV5E7fhh8UUvnYW3ge/C6pOJ1qVmtzwdx64dQJg
+ cdvNXV1X1MXSh7vGrANm44lO3EO9xqlQpfsXpVzYJiwyd/5JdFZKZnxN715wL1UVSxy3
+ VJ6vtKeaxzA+3cpGRZYP1mtlPEWiMg7b6dbk/FqYtTwXurTP036cKt50d4h12YsLg6A0
+ Z1yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766158649; x=1766763449;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=G4UYd76Qj6t3g9FGq/esGhQi7AJBVwXvUmMBaKMXH9U=;
+ b=nf8ic+7Dzfp7O0gygW6tkkmdSI9phGGG8e3XO8VHJa2BRVkTwI4IGVklVUoUbRh2UP
+ g4bObNTohnA225XB967hRaRI+KNOeUb6Sn1sd1O8DA4pCKQhW0FOWVHSAvTnV0GeYad9
+ Sc5Xx+RlxR2dLi+GkXN71rOvOD1aQoxraHwBOD8nd4FhcWKazAm93I+0K1Rj74dGyWb2
+ /PXhcOQqcN/VvSEwtW84sX2F74ahYWGVfNV3TA/R45mahLwzqSBsai1BT2bAxVCzZZq1
+ UXDTeqwEsRhbFyoF5Nf2lJgvaDZCT3TIM+Uz90/DWsDUwY4aEtzdAL0oPzTcRDBsGarz
+ FKzg==
+X-Gm-Message-State: AOJu0YwIEVDgg9n7zWfJdCyFfO6YU4G+o5ScqSFz7V/QBmPXJMnS3W9E
+ c/Cn4oqddWjT8tzLOpE8HbCOUjJZAaN9r/Xml8h0IilbvoHjM4FtbLCNJw4lORiGD16HDaS+HpF
+ XZ48wJ/KlNBHZnnf4/5yymdHajfcsnS4=
+X-Gm-Gg: AY/fxX7cX52Z9yYMBTOA2iO257TFT9EU+fk2gnkCI8ZPT2fuJ3euNWWn2r/AF8cH2IP
+ 40e1Tp9FrnsV89sjeJ5dZ/w9eH6PV04plquXjfw2XNpl8wutc/Tp9EPGqCmfcxqUxuAUCzqZNsI
+ k/XgNtuHhugi9WLwJLvase8pDb2OYuggR7gmH+RC5Pj5enk87rK94dzJUefEA0NGiCovlkNc11K
+ /D8geHqw5w5ppSlGh9w+9DKxsFX0wULjhtG5+y5DnvwL/qnYLP17v7WsP2sC7IgtEDjCl8V
+X-Google-Smtp-Source: AGHT+IFsuN5Dp7qQXOspnVxuHnuCMVItVT7zFrGyZBarFN45KysVceNtB0pFCpoDJ8CwjhSlxPlcmlGPr3heOjITrsI=
+X-Received: by 2002:a05:7022:6199:b0:119:e56b:c3f1 with SMTP id
+ a92af1059eb24-121721ad61fmr2311911c88.1.1766158648298; Fri, 19 Dec 2025
+ 07:37:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 19 Dec 2025 14:52:41 +0000
+References: <20251218224141.5841-1-alexander.deucher@amd.com>
+ <20251218224141.5841-6-alexander.deucher@amd.com>
+ <3069977.btlEUcBR6m@timur-max>
+In-Reply-To: <3069977.btlEUcBR6m@timur-max>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 Dec 2025 10:37:16 -0500
+X-Gm-Features: AQt7F2pvfdYyvvAwiNb5uy1LLo-z1MdQsvdHDrqPixdbWPttbOPNZNl4ALMEOWI
+Message-ID: <CADnq5_OwQpWwMPywzApHMe-y2TS68217bTh3afwgjPYoOf9jtQ@mail.gmail.com>
+Subject: Re: [PATCH 6/7] drm/amdgpu/gfx9: rework pipeline sync packet sequence
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,234 +82,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace legacy DRM_ERROR() and DRM_INFO() logging in the VCE code
-with drm_err() and drm_info() helpers that take a struct drm_device.
+On Thu, Dec 18, 2025 at 9:36=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
+>
+> On 2025. december 18., cs=C3=BCt=C3=B6rt=C3=B6k 16:41:40 k=C3=B6z=C3=A9ps=
+=C5=91 =C3=A1llamokbeli z=C3=B3naid=C5=91 Alex
+> Deucher wrote:
+> > Replace WAIT_REG_MEM with EVENT_WRITE flushes for all
+> > shader types and PFP_SYNC_ME.  That should accomplish
+> > the same thing and avoid having to wait on a fence
+> > preventing any issues with pipeline syncs during
+> > queue resets.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 32 ++++++++++++++++++---------
+> >  1 file changed, 21 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c index 7b012ca1153ea..d9dee3c11a=
+05d
+> > 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > @@ -5572,15 +5572,26 @@ static void gfx_v9_0_ring_emit_fence(struct
+> > amdgpu_ring *ring, u64 addr, amdgpu_ring_write(ring, 0);
+> >  }
+> >
+> > -static void gfx_v9_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+> > +static void gfx_v9_0_ring_emit_event_write(struct amdgpu_ring *ring,
+> > +                                        uint32_t event_type,
+> > +                                        uint32_t
+> event_index)
+> >  {
+> > -     int usepfp =3D (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX);
+> > -     uint32_t seq =3D ring->fence_drv.sync_seq;
+> > -     uint64_t addr =3D ring->fence_drv.gpu_addr;
+> > +     amdgpu_ring_write(ring, PACKET3(PACKET3_EVENT_WRITE, 0));
+> > +     amdgpu_ring_write(ring, EVENT_TYPE(event_type) |
+> > +                       EVENT_INDEX(event_index));
+> > +}
+> >
+> > -     gfx_v9_0_wait_reg_mem(ring, usepfp, 1, 0,
+> > -                           lower_32_bits(addr),
+> upper_32_bits(addr),
+> > -                           seq, 0xffffffff, 4);
+> > +static void gfx_v9_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+> > +{
+> > +     if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX) {
+> > +             gfx_v9_0_ring_emit_event_write(ring, VS_PARTIAL_FLUSH,
+> 4);
+>
+> Is VS_PARTIAL_FLUSH necessary when we already have PS_PARTIAL_FLUSH?
+> When we wait for all PS to finish, wouldn't that imply that all VS had al=
+ready
+> finished as well?
 
-Using drm_* logging provides proper device context in dmesg, which is
-important for systems with multiple DRM devices, and aligns the radeon
-driver with current DRM logging practices.
+I'm not sure.  The CP docs recommend all 3 if you want to wait for the
+engine to idle.
 
-No functional change intended.
+>
+> > +             gfx_v9_0_ring_emit_event_write(ring, PS_PARTIAL_FLUSH,
+> 4);
+> > +             gfx_v9_0_ring_emit_event_write(ring, CS_PARTIAL_FLUSH,
+> 4);
+> > +             amdgpu_ring_write(ring, PACKET3(PACKET3_PFP_SYNC_ME,
+> 0));
+> > +             amdgpu_ring_write(ring, 0x0);
+>
+> The above sequence just waits for all shaders to finish, but as far as I
+> understand it doesn't wait for memory writes and cache flushes. Please co=
+rrect
+> me if I'm wrong about this. For that, I think we do need an ACQUIRE_MEM
+> packet. (And, if the ACQUIRE_MEM is done on the PFP then we won't need th=
+e
+> PFP_SYNC_ME.)
 
-Signed-off-by: Mukesh Ogare <mukeshogare871@gmail.com>
+There is already a RELEASE_MEM (the fence from the previous job) prior
+to this packet that would have flushed the caches.  We just want to
+block the PFP from further fetching until that is complete.  In the
+good case, the RELEASE_MEM would have handled pipeline idling and
+cache flushes so these would be effectively noops and in the reset
+case, we don't care because that bad job is gone anyway.  I guess
+probably all we really need is the PFP_SYNC_ME.
 
-diff --git a/Makefile b/Makefile
-index 2f545ec1690f..e404e4767944 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,8 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0
- VERSION = 6
--PATCHLEVEL = 18
-+PATCHLEVEL = 19
- SUBLEVEL = 0
--EXTRAVERSION =
-+EXTRAVERSION = -rc1
- NAME = Baby Opossum Posse
- 
- # *DOCUMENTATION*
-diff --git a/drivers/gpu/drm/radeon/radeon_vce.c b/drivers/gpu/drm/radeon/radeon_vce.c
-index bdbc1bbe8a9b..a203992cb932 100644
---- a/drivers/gpu/drm/radeon/radeon_vce.c
-+++ b/drivers/gpu/drm/radeon/radeon_vce.c
-@@ -121,7 +121,7 @@ int radeon_vce_init(struct radeon_device *rdev)
- 	if (sscanf(c, "%2u]", &rdev->vce.fb_version) != 1)
- 		return -EINVAL;
- 
--	DRM_INFO("Found VCE firmware/feedback version %d.%d.%d / %d!\n",
-+	drm_err(&rdev->ddev, "Found VCE firmware/feedback version %d.%d.%d / %d!\n",
- 		 start, mid, end, rdev->vce.fb_version);
- 
- 	rdev->vce.fw_version = (start << 24) | (mid << 16) | (end << 8);
-@@ -325,7 +325,7 @@ void radeon_vce_free_handles(struct radeon_device *rdev, struct drm_file *filp)
- 		r = radeon_vce_get_destroy_msg(rdev, TN_RING_TYPE_VCE1_INDEX,
- 					       handle, NULL);
- 		if (r)
--			DRM_ERROR("Error destroying VCE handle (%d)!\n", r);
-+			drm_err(&rdev->ddev, "Error destroying VCE handle (%d)!\n", r);
- 
- 		rdev->vce.filp[i] = NULL;
- 		atomic_set(&rdev->vce.handles[i], 0);
-@@ -352,7 +352,7 @@ int radeon_vce_get_create_msg(struct radeon_device *rdev, int ring,
- 
- 	r = radeon_ib_get(rdev, ring, &ib, NULL, ib_size_dw * 4);
- 	if (r) {
--		DRM_ERROR("radeon: failed to get ib (%d).\n", r);
-+		drm_err(&rdev->ddev, "radeon: failed to get ib (%d).\n", r);
- 		return r;
- 	}
- 
-@@ -388,7 +388,7 @@ int radeon_vce_get_create_msg(struct radeon_device *rdev, int ring,
- 
- 	r = radeon_ib_schedule(rdev, &ib, NULL, false);
- 	if (r)
--		DRM_ERROR("radeon: failed to schedule ib (%d).\n", r);
-+		drm_err(&rdev->ddev, "radeon: failed to schedule ib (%d).\n", r);
- 
- 
- 	if (fence)
-@@ -419,7 +419,7 @@ int radeon_vce_get_destroy_msg(struct radeon_device *rdev, int ring,
- 
- 	r = radeon_ib_get(rdev, ring, &ib, NULL, ib_size_dw * 4);
- 	if (r) {
--		DRM_ERROR("radeon: failed to get ib (%d).\n", r);
-+		drm_err(&rdev->ddev, "radeon: failed to get ib (%d).\n", r);
- 		return r;
- 	}
- 
-@@ -445,7 +445,7 @@ int radeon_vce_get_destroy_msg(struct radeon_device *rdev, int ring,
- 
- 	r = radeon_ib_schedule(rdev, &ib, NULL, false);
- 	if (r) {
--		DRM_ERROR("radeon: failed to schedule ib (%d).\n", r);
-+		drm_err(&rdev->ddev, "radeon: failed to schedule ib (%d).\n", r);
- 	}
- 
- 	if (fence)
-@@ -479,7 +479,7 @@ int radeon_vce_cs_reloc(struct radeon_cs_parser *p, int lo, int hi,
- 	idx = radeon_get_ib_value(p, hi);
- 
- 	if (idx >= relocs_chunk->length_dw) {
--		DRM_ERROR("Relocs at %d after relocations chunk end %d !\n",
-+		drm_err(&p->rdev->ddev, "Relocs at %d after relocations chunk end %d !\n",
- 			  idx, relocs_chunk->length_dw);
- 		return -EINVAL;
- 	}
-@@ -493,11 +493,11 @@ int radeon_vce_cs_reloc(struct radeon_cs_parser *p, int lo, int hi,
- 	p->ib.ptr[hi] = start >> 32;
- 
- 	if (end <= start) {
--		DRM_ERROR("invalid reloc offset %llX!\n", offset);
-+		drm_err(&p->rdev->ddev, "invalid reloc offset %llX!\n", offset);
- 		return -EINVAL;
- 	}
- 	if ((end - start) < size) {
--		DRM_ERROR("buffer to small (%d / %d)!\n",
-+		drm_err(&p->rdev->ddev, "buffer to small (%d / %d)!\n",
- 			(unsigned)(end - start), size);
- 		return -EINVAL;
- 	}
-@@ -526,7 +526,7 @@ static int radeon_vce_validate_handle(struct radeon_cs_parser *p,
- 	for (i = 0; i < RADEON_MAX_VCE_HANDLES; ++i) {
- 		if (atomic_read(&p->rdev->vce.handles[i]) == handle) {
- 			if (p->rdev->vce.filp[i] != p->filp) {
--				DRM_ERROR("VCE handle collision detected!\n");
-+				drm_err(&p->rdev->ddev, "VCE handle collision detected!\n");
- 				return -EINVAL;
- 			}
- 			return i;
-@@ -543,7 +543,7 @@ static int radeon_vce_validate_handle(struct radeon_cs_parser *p,
- 		}
- 	}
- 
--	DRM_ERROR("No more free VCE handles!\n");
-+	drm_err(&p->rdev->ddev, "No more free VCE handles!\n");
- 	return -EINVAL;
- }
- 
-@@ -566,13 +566,13 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
- 		uint32_t cmd = radeon_get_ib_value(p, p->idx + 1);
- 
- 		if ((len < 8) || (len & 3)) {
--			DRM_ERROR("invalid VCE command length (%d)!\n", len);
-+			drm_err(&p->rdev->ddev, "invalid VCE command length (%d)!\n", len);
- 			r = -EINVAL;
- 			goto out;
- 		}
- 
- 		if (destroyed) {
--			DRM_ERROR("No other command allowed after destroy!\n");
-+			drm_err(&p->rdev->ddev, "No other command allowed after destroy!\n");
- 			r = -EINVAL;
- 			goto out;
- 		}
-@@ -593,7 +593,7 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
- 		case 0x01000001: // create
- 			created = true;
- 			if (!allocated) {
--				DRM_ERROR("Handle already in use!\n");
-+				drm_err(&p->rdev->ddev, "Handle already in use!\n");
- 				r = -EINVAL;
- 				goto out;
- 			}
-@@ -650,13 +650,13 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
- 			break;
- 
- 		default:
--			DRM_ERROR("invalid VCE command (0x%x)!\n", cmd);
-+			drm_err(&p->rdev->ddev, "invalid VCE command (0x%x)!\n", cmd);
- 			r = -EINVAL;
- 			goto out;
- 		}
- 
- 		if (session_idx == -1) {
--			DRM_ERROR("no session command at start of IB\n");
-+			drm_err(&p->rdev->ddev, "no session command at start of IB\n");
- 			r = -EINVAL;
- 			goto out;
- 		}
-@@ -665,7 +665,7 @@ int radeon_vce_cs_parse(struct radeon_cs_parser *p)
- 	}
- 
- 	if (allocated && !created) {
--		DRM_ERROR("New session without create command!\n");
-+		drm_err(&p->rdev->ddev, "New session without create command!\n");
- 		r = -ENOENT;
- 	}
- 
-@@ -760,7 +760,7 @@ int radeon_vce_ring_test(struct radeon_device *rdev, struct radeon_ring *ring)
- 
- 	r = radeon_ring_lock(rdev, ring, 16);
- 	if (r) {
--		DRM_ERROR("radeon: vce failed to lock ring %d (%d).\n",
-+		drm_err(&rdev->ddev, "radeon: vce failed to lock ring %d (%d).\n",
- 			  ring->idx, r);
- 		return r;
- 	}
-@@ -774,10 +774,10 @@ int radeon_vce_ring_test(struct radeon_device *rdev, struct radeon_ring *ring)
- 	}
- 
- 	if (i < rdev->usec_timeout) {
--		DRM_INFO("ring test on %d succeeded in %d usecs\n",
-+		drm_info(&rdev->ddev, "ring test on %d succeeded in %d usecs\n",
- 			 ring->idx, i);
- 	} else {
--		DRM_ERROR("radeon: ring %d test failed\n",
-+		drm_err(&rdev->ddev, "radeon: ring %d test failed\n",
- 			 ring->idx);
- 		r = -ETIMEDOUT;
- 	}
-@@ -799,25 +799,25 @@ int radeon_vce_ib_test(struct radeon_device *rdev, struct radeon_ring *ring)
- 
- 	r = radeon_vce_get_create_msg(rdev, ring->idx, 1, NULL);
- 	if (r) {
--		DRM_ERROR("radeon: failed to get create msg (%d).\n", r);
-+		drm_err(&rdev->ddev, "radeon: failed to get create msg (%d).\n", r);
- 		goto error;
- 	}
- 
- 	r = radeon_vce_get_destroy_msg(rdev, ring->idx, 1, &fence);
- 	if (r) {
--		DRM_ERROR("radeon: failed to get destroy ib (%d).\n", r);
-+		drm_err(&rdev->ddev, "radeon: failed to get destroy ib (%d).\n", r);
- 		goto error;
- 	}
- 
- 	r = radeon_fence_wait_timeout(fence, false, usecs_to_jiffies(
- 		RADEON_USEC_IB_TEST_TIMEOUT));
- 	if (r < 0) {
--		DRM_ERROR("radeon: fence wait failed (%d).\n", r);
-+		drm_err(&rdev->ddev, "radeon: fence wait failed (%d).\n", r);
- 	} else if (r == 0) {
--		DRM_ERROR("radeon: fence wait timed out.\n");
-+		drm_err(&rdev->ddev, "radeon: fence wait timed out.\n");
- 		r = -ETIMEDOUT;
- 	} else {
--		DRM_INFO("ib test on ring %d succeeded\n", ring->idx);
-+		drm_info(&rdev->ddev, "ib test on ring %d succeeded\n", ring->idx);
- 		r = 0;
- 	}
- error:
--- 
-2.43.0
+Alex
 
+>
+> > +     } else {
+> > +             gfx_v9_0_ring_emit_event_write(ring, CS_PARTIAL_FLUSH,
+> 4);
+> > +     }
+> >  }
+> >
+> >  static void gfx_v9_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+> > @@ -7404,7 +7415,7 @@ static const struct amdgpu_ring_funcs
+> > gfx_v9_0_ring_funcs_gfx =3D { .set_wptr =3D gfx_v9_0_ring_set_wptr_gfx,
+> >       .emit_frame_size =3D /* totally 242 maximum if 16 IBs */
+> >               5 +  /* COND_EXEC */
+> > -             7 +  /* PIPELINE_SYNC */
+> > +             8 +  /* PIPELINE_SYNC */
+> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
+> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
+> >               2 + /* VM_FLUSH */
+> > @@ -7460,7 +7471,7 @@ static const struct amdgpu_ring_funcs
+> > gfx_v9_0_sw_ring_funcs_gfx =3D { .set_wptr =3D amdgpu_sw_ring_set_wptr_=
+gfx,
+> >       .emit_frame_size =3D /* totally 242 maximum if 16 IBs */
+> >               5 +  /* COND_EXEC */
+> > -             7 +  /* PIPELINE_SYNC */
+> > +             8 +  /* PIPELINE_SYNC */
+> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
+> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
+> >               2 + /* VM_FLUSH */
+> > @@ -7521,7 +7532,7 @@ static const struct amdgpu_ring_funcs
+> > gfx_v9_0_ring_funcs_compute =3D { 20 + /* gfx_v9_0_ring_emit_gds_switch=
+ */
+> >               7 + /* gfx_v9_0_ring_emit_hdp_flush */
+> >               5 + /* hdp invalidate */
+> > -             7 + /* gfx_v9_0_ring_emit_pipeline_sync */
+> > +             2 + /* gfx_v9_0_ring_emit_pipeline_sync */
+> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
+> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
+> >               8 + 8 + 8 + /* gfx_v9_0_ring_emit_fence x3 for user
+> fence, vm fence */
+> > @@ -7564,7 +7575,6 @@ static const struct amdgpu_ring_funcs
+> > gfx_v9_0_ring_funcs_kiq =3D { 20 + /* gfx_v9_0_ring_emit_gds_switch */
+> >               7 + /* gfx_v9_0_ring_emit_hdp_flush */
+> >               5 + /* hdp invalidate */
+> > -             7 + /* gfx_v9_0_ring_emit_pipeline_sync */
+> >               SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
+> >               SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
+> >               8 + 8 + 8, /* gfx_v9_0_ring_emit_fence_kiq x3 for user
+> fence, vm fence */
+>
+>
+>
+>
