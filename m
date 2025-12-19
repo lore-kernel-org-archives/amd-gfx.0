@@ -4,76 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B65D711D2
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 01:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4832D74960
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 07:13:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 587B410EC2C;
-	Fri, 19 Dec 2025 01:17:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0248810EE3C;
+	Fri, 19 Dec 2025 07:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VRRsJ7Za";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VGZK/s+C";
 	dkim-atps=neutral
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 725B610EC2C
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 01:17:44 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-3f4f9ea26aaso921235fac.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 17:17:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766107063; x=1766711863; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6qsF1lyPF05DNoWjbeBL22ujoEaWyfNodi3SQWf1vWs=;
- b=VRRsJ7Za0YGvGI1QjxMhgwnkf5mo9udOv3nAWbQAsm8vs69lkRwNUrDWXLAGYVM8M5
- niFhmskKqBo2/da7QjtTEUAi5JVxXP+/wZNI/RQD5Qo18eE+44KlpxBgA7D+8nlJrHoK
- B83/NmyJoKjh7tbp5o4GJYUqzxZZi4guGuCv4fKQCNy7pK2HvHEEmzBMw/yRwzjD3h5s
- T/VdaN96xljlpqJMTv/mRRKwxI5Y1NSYybWj/gNzBlVyNEl6iGDnl/CIT62p3XmL8nGX
- 9X1bUOzHNdTfP8d3+FofXllDUvYhEmvURrPdxVvR8uf4UMmyDNtvhn+qBDQTEyXOFpAb
- DHpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766107063; x=1766711863;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6qsF1lyPF05DNoWjbeBL22ujoEaWyfNodi3SQWf1vWs=;
- b=roPYl3RBsQXW28u/1ifGRffSHbwD+ZCffluTEWClpZLX+tH582kdOtwV6AxRTdmb4e
- g/AnCxeo5a/am1AjwOGLL6cD298xNDmTSM+K9+Ny+uHSQh4X6amnOBoLnpYbtsIF7KdS
- /RUeg5MaODGdESL3ABlMEV4Oh8BXIQ9lD6tk0sUYSZiFs6xwAZJRUwUm5JtvivugZ3nI
- C7lQym6WIngTF3N93SsQaOf2oJrXiQCED+MM4F0fZTFf7y/crYi+hzqRkL+WM7QfT8gh
- ZvJrrEZkWh5XBHQB7OUFyKWkGiWR4cR/nt+5Sa/d4G1YMs9YYX0/seTLQVF0wYClNxif
- ISiQ==
-X-Gm-Message-State: AOJu0Yw4z8dnHPQOKxsbutuK4Q+OGLuKlVww3IlasINxu6w4jk+Ish4u
- 1p3I6O4fGchgBsNMAgmkNgDIwRmfNRhosdkJHuR7EXKT3j9hmrr7U9H1bzc10Z+1tW0=
-X-Gm-Gg: AY/fxX6/Z5tLtx7GBrrNXuW35/TjKVsRL3OQz/oHfZW+CMOb38ktwYtRfYvkyoOvs1l
- wJN/vKSPHlBb1+6s8JCXAfX8+mHvwNEHUKcCGQcAENUUE681ecEfBlc006YCC3lhtOztDr7wqrc
- HJMCSLwmBXTt7oN9oBLNHtTAa0amUdA0ZVmcdem1q09BZ8D98qZ2PPWz5/vBtVAJZGnjJplM7cL
- PtWCjKWybSGT/la1VktriK2vUrDYgp/vIT3D7LGH36e44nIEqUQtOhHApXqybxE2i5lsDbZHgt2
- jHuTL0Gk0qOIwOhpj+TtkfMNekhk5ITvmBFdXyMsyxlwOp8AIeVyZ90sVfVfjfHDceAoa1necGY
- YFQ7QsJ7pqDOHgohpFIMFFCMwTN/ShWIbkPWpCl0rwYh/S7EdT4P8cMUompr8nQsifGSEadYRFz
- Fn7wmvDNhXOwA3Kd3OQMd19KnzRehXtta+FfU3sA==
-X-Google-Smtp-Source: AGHT+IGcXtFPTIHeT0+5+g0b1XZOeclPPQy7CWwlxeRw9q6yCvjuu0aDV8UjYnI4/7GsRxALfsrnRA==
-X-Received: by 2002:a4a:b28b:0:b0:659:9a49:9022 with SMTP id
- 006d021491bc7-65d0eafd703mr473591eaf.79.1766107063375; 
- Thu, 18 Dec 2025 17:17:43 -0800 (PST)
-Received: from timur-max.localnet ([189.171.135.243])
- by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-65d0f69ae7esm604910eaf.9.2025.12.18.17.17.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Dec 2025 17:17:42 -0800 (PST)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 6/7] drm/amdgpu/gfx9: rework pipeline sync packet sequence
-Date: Thu, 18 Dec 2025 19:17:42 -0600
-Message-ID: <3069977.btlEUcBR6m@timur-max>
-In-Reply-To: <20251218224141.5841-6-alexander.deucher@amd.com>
-References: <20251218224141.5841-1-alexander.deucher@amd.com>
- <20251218224141.5841-6-alexander.deucher@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67EB510EE2F;
+ Fri, 19 Dec 2025 07:12:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1766128378; x=1797664378;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=l6tQ61PY49V14D2GFNf2ZWG1cSVvC9o+jThxs8XO4a0=;
+ b=VGZK/s+CsB148f3NNEZzJGAKP5ZstifkP9LymCJZ0XI+k7YLQbVuWcOS
+ H9IvY/BQG6B9v9bLoXhaU9Dv9DYHylcyU6vkHdHDbVT6r93NExqvrTX5Y
+ ZJmKfBFwYz8Wy4RfIWq6M4o+0u9h5BYRqi0uEmmnWuJ0hUa2SRvMT7/FJ
+ rrEMVp+AC25FAgsRyQB7Tfyfl7jNEZS/nfStFLkkUBa/m/XiDN8UeklkK
+ 0hsu7ceAHbe+uINckL87MUd0jyxnciAbTk5KWPxE2spuVtxkvocNNhy5I
+ okFwlDzvm/cHg3Y5iViHZyoV/Pn1Vf1U8J+CufMlN4d8tJ6jin+Yogyju w==;
+X-CSE-ConnectionGUID: ok5PmrYJQjuk+Ujg3NpR9g==
+X-CSE-MsgGUID: vaUvx7LSStWyikeaMLJBzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11646"; a="93562270"
+X-IronPort-AV: E=Sophos;i="6.21,159,1763452800"; d="scan'208";a="93562270"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2025 23:12:58 -0800
+X-CSE-ConnectionGUID: ehlmLq8RQd2ulsLScpO5gg==
+X-CSE-MsgGUID: tmngKEg8QLq9e6rSl6ttBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,159,1763452800"; d="scan'208";a="222209418"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by fmviesa002.fm.intel.com with ESMTP; 18 Dec 2025 23:12:54 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, jani.nikula@linux.intel.com,
+ louis.chauvet@bootlin.com, mwen@igalia.com, contact@emersion.fr,
+ alex.hung@amd.com, daniels@collabora.com, uma.shankar@intel.com,
+ suraj.kandpal@intel.com, nfraprado@collabora.com,
+ ville.syrjala@linux.intel.com, matthew.d.roper@intel.com
+Subject: [PATCH 00/13] drm: Color pipeline teardown and follow-up
+ fixes/improvements
+Date: Fri, 19 Dec 2025 12:26:01 +0530
+Message-Id: <20251219065614.190834-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,120 +70,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025. december 18., cs=C3=BCt=C3=B6rt=C3=B6k 16:41:40 k=C3=B6z=C3=A9ps=
-=C5=91 =C3=A1llamokbeli z=C3=B3naid=C5=91 Alex=20
-Deucher wrote:
-> Replace WAIT_REG_MEM with EVENT_WRITE flushes for all
-> shader types and PFP_SYNC_ME.  That should accomplish
-> the same thing and avoid having to wait on a fence
-> preventing any issues with pipeline syncs during
-> queue resets.
->=20
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 32 ++++++++++++++++++---------
->  1 file changed, 21 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c index 7b012ca1153ea..d9dee3c11a05d
-> 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -5572,15 +5572,26 @@ static void gfx_v9_0_ring_emit_fence(struct
-> amdgpu_ring *ring, u64 addr, amdgpu_ring_write(ring, 0);
->  }
->=20
-> -static void gfx_v9_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
-> +static void gfx_v9_0_ring_emit_event_write(struct amdgpu_ring *ring,
-> +					   uint32_t event_type,
-> +					   uint32_t=20
-event_index)
->  {
-> -	int usepfp =3D (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX);
-> -	uint32_t seq =3D ring->fence_drv.sync_seq;
-> -	uint64_t addr =3D ring->fence_drv.gpu_addr;
-> +	amdgpu_ring_write(ring, PACKET3(PACKET3_EVENT_WRITE, 0));
-> +	amdgpu_ring_write(ring, EVENT_TYPE(event_type) |
-> +			  EVENT_INDEX(event_index));
-> +}
->=20
-> -	gfx_v9_0_wait_reg_mem(ring, usepfp, 1, 0,
-> -			      lower_32_bits(addr),=20
-upper_32_bits(addr),
-> -			      seq, 0xffffffff, 4);
-> +static void gfx_v9_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
-> +{
-> +	if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_GFX) {
-> +		gfx_v9_0_ring_emit_event_write(ring, VS_PARTIAL_FLUSH,=20
-4);
+This series contains follow-up fixes and improvements for the DRM color
+pipeline infrastructure that was introduced in v6.19.[1][2]
 
-Is VS_PARTIAL_FLUSH necessary when we already have PS_PARTIAL_FLUSH?
-When we wait for all PS to finish, wouldn't that imply that all VS had alre=
-ady=20
-finished as well?
+The central handling of clean up of colorop from the mode_config list
+is missing. While vkms calls drm_colorop_pipeline_destroy() in vkms_destroy(),
+amd driver calls it only during failure of the init path and i915/xe driver
+does not call it at all. This means amd and intel leaks these objects on
+driver removal.
 
-> +		gfx_v9_0_ring_emit_event_write(ring, PS_PARTIAL_FLUSH,=20
-4);
-> +		gfx_v9_0_ring_emit_event_write(ring, CS_PARTIAL_FLUSH,=20
-4);
-> +		amdgpu_ring_write(ring, PACKET3(PACKET3_PFP_SYNC_ME,=20
-0));
-> +		amdgpu_ring_write(ring, 0x0);
+This series adds the teardown of mode_config.colorop_list in drm_mode_config_cleanup().
+Since, i915/xe sub-classes the drm_colorop within intel_colorop it was not enough
+to just use drm_colorop_pipeline_destroy(). Therefore, this series
 
-The above sequence just waits for all shaders to finish, but as far as I=20
-understand it doesn't wait for memory writes and cache flushes. Please corr=
-ect=20
-me if I'm wrong about this. For that, I think we do need an ACQUIRE_MEM=20
-packet. (And, if the ACQUIRE_MEM is done on the PFP then we won't need the=
-=20
-PFP_SYNC_ME.)
+- Introduces driver-managed destruction for drm_colorop objects and
+  updates core helpers to use driver-provided destroy callbacks.
+- Ensures all colorop objects are correctly torn down during
+  mode_config cleanup and driver removal.
 
-> +	} else {
-> +		gfx_v9_0_ring_emit_event_write(ring, CS_PARTIAL_FLUSH,=20
-4);
-> +	}
->  }
->=20
->  static void gfx_v9_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
-> @@ -7404,7 +7415,7 @@ static const struct amdgpu_ring_funcs
-> gfx_v9_0_ring_funcs_gfx =3D { .set_wptr =3D gfx_v9_0_ring_set_wptr_gfx,
->  	.emit_frame_size =3D /* totally 242 maximum if 16 IBs */
->  		5 +  /* COND_EXEC */
-> -		7 +  /* PIPELINE_SYNC */
-> +		8 +  /* PIPELINE_SYNC */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
->  		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
->  		2 + /* VM_FLUSH */
-> @@ -7460,7 +7471,7 @@ static const struct amdgpu_ring_funcs
-> gfx_v9_0_sw_ring_funcs_gfx =3D { .set_wptr =3D amdgpu_sw_ring_set_wptr_gf=
-x,
->  	.emit_frame_size =3D /* totally 242 maximum if 16 IBs */
->  		5 +  /* COND_EXEC */
-> -		7 +  /* PIPELINE_SYNC */
-> +		8 +  /* PIPELINE_SYNC */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
->  		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
->  		2 + /* VM_FLUSH */
-> @@ -7521,7 +7532,7 @@ static const struct amdgpu_ring_funcs
-> gfx_v9_0_ring_funcs_compute =3D { 20 + /* gfx_v9_0_ring_emit_gds_switch */
->  		7 + /* gfx_v9_0_ring_emit_hdp_flush */
->  		5 + /* hdp invalidate */
-> -		7 + /* gfx_v9_0_ring_emit_pipeline_sync */
-> +		2 + /* gfx_v9_0_ring_emit_pipeline_sync */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
->  		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
->  		8 + 8 + 8 + /* gfx_v9_0_ring_emit_fence x3 for user=20
-fence, vm fence */
-> @@ -7564,7 +7575,6 @@ static const struct amdgpu_ring_funcs
-> gfx_v9_0_ring_funcs_kiq =3D { 20 + /* gfx_v9_0_ring_emit_gds_switch */
->  		7 + /* gfx_v9_0_ring_emit_hdp_flush */
->  		5 + /* hdp invalidate */
-> -		7 + /* gfx_v9_0_ring_emit_pipeline_sync */
->  		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
->  		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
->  		8 + 8 + 8, /* gfx_v9_0_ring_emit_fence_kiq x3 for user=20
-fence, vm fence */
+In addition to that following changes are made in the series
+- Fixes enum name lifetime leaks in color pipeline init in i915, amdgpu_dm, and vkms
+- Corrects the ordering of the 3D LUT block in the i915 plane color pipeline
+- Refactors i915 plane color pipeline initialization to reliably clean
+  up partially constructed pipelines on failure.
 
+Thanks for taking a look. Feedback is welcome.
 
+[1] https://lore.kernel.org/dri-devel/cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com/
+[2] https://lore.kernel.org/intel-gfx/20251203085211.3663374-1-uma.shankar@intel.com/
 
+==
+Chaitanya
+
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+
+Chaitanya Kumar Borah (13):
+  drm/i915/color: Place 3D LUT after CSC in plane color pipeline
+  drm/amd/display: Fix color pipeline enum name leak
+  drm/vkms: Fix color pipeline enum name leak
+  drm/i915/display: Fix color pipeline enum name leak
+  drm: Allow driver-managed destruction of colorop objects
+  drm/colorop: Add destroy helper for colorop objects
+  drm/amd/display: Hook up colorop destroy helper for plane pipelines
+  drm/vkms: Hook up colorop destroy helper for plane pipelines
+  drm/i915/display: Hook up intel_colorop_destroy
+  drm: Clean up colorop objects during mode_config cleanup
+  drm/vkms: Remove drm_colorop_pipeline_destroy() from vkms_destroy()
+  drm/colorop: Use destroy callback for color pipeline teardown
+  drm/i915/color: Add failure handling in plane color pipeline init
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  31 +++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  13 +-
+ drivers/gpu/drm/drm_colorop.c                 |  46 +++--
+ drivers/gpu/drm/drm_mode_config.c             |   6 +
+ .../drm/i915/display/intel_color_pipeline.c   | 161 +++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_colorop.c  |   6 +
+ drivers/gpu/drm/i915/display/intel_colorop.h  |   1 +
+ drivers/gpu/drm/vkms/vkms_colorop.c           |  31 ++--
+ drivers/gpu/drm/vkms/vkms_drv.c               |   1 -
+ include/drm/drm_colorop.h                     |  40 ++++-
+ 10 files changed, 249 insertions(+), 87 deletions(-)
+
+-- 
+2.25.1
 
