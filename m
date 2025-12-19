@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB2D2D7877E
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 13:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDD7D78780
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 13:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69E1C10EFC9;
-	Fri, 19 Dec 2025 13:54:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 114C210EFD0;
+	Fri, 19 Dec 2025 13:54:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TD7RkXmg";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NRI1gjeG";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1656410EFC2;
- Fri, 19 Dec 2025 13:54:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD7A910EFBE;
+ Fri, 19 Dec 2025 13:54:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,26 +22,28 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=ru/RsLmuI/0aAoSOsEcBupvDwuZLfb1bqEUgtZIXoMk=; b=TD7RkXmgZ8KoraIjuUPR/deB1Y
- DaRB/WBozVqNtpBJA4opRQLXV6X4KY119xFDA4i8ImYyT6WEkaW91Pe3aiphcCx5QYZQiyzruIAjX
- f2CJ3TmxJpX87U4TrjANjqWJE3WeuK8c7rVn3+9bO/4GNuyZZWMDY8xepmy3AVXYyk7ZaYw7Z+Yn6
- flBuvb4x9B4V6gNGz5z22qjLOKPjsV47D+BYfSLbFv6nQZdCEBv+YpCaDU40y3BhjQ26SPEeqxj1T
- q0VQ9Z4jTDlmCf2u0h+xT3DYlVu+9z60Au/gfSv0f4G2eZAQov0djhaW6N2LywOXy+SWG44howLtU
- 0gUMemDg==;
+ bh=9T9/Kk5Y/QjQDrxPdnrULQ9gnOTM370VbKdD6we73/w=; b=NRI1gjeGNNGTz0S6BeGjjigpV7
+ qMkBFh7KpxmNL5MpRUnpWLQJJoVQ0Z4bBqFHaxJM6YpMCJ/VduKaAeOrUmCSzuLDkLCODvIKvSXtA
+ B3O2lk8mb7oHxjcTL2yNUp0x8TNR5ylp4bGCvB/vmWgZEnEi1zZydkXgrfkDMfUn+u28ommFVIr/H
+ FWhL//xT4ElIv+Rlw+H1MKMuUMUhCB+GfDvoDLU73SOzYJtPSzM+BPoP7Hi7J8EkLJ89Owo8CPQEY
+ ER/xQKoCWdKMdMMC6AooARVzahwyx6uMHOU3x5zXK9Mk93PqHjN9O5svFEp5p/3apWzfcaR9sbz3q
+ 6jmd0sPw==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with utf8esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vWavw-00EeiA-BP; Fri, 19 Dec 2025 14:54:16 +0100
+ id 1vWavx-00Eeiw-QA; Fri, 19 Dec 2025 14:54:17 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>
-Subject: [PATCH v5 16/28] accel/ethosu: Remove drm_sched_init_args->num_rqs
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ etnaviv@lists.freedesktop.org, Christian Gmeiner <cgmeiner@igalia.com>
+Subject: [PATCH v5 18/28] drm/etnaviv: Remove drm_sched_init_args->num_rqs
  usage
-Date: Fri, 19 Dec 2025 13:53:38 +0000
-Message-ID: <20251219135351.25880-17-tvrtko.ursulin@igalia.com>
+Date: Fri, 19 Dec 2025 13:53:40 +0000
+Message-ID: <20251219135351.25880-19-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
 References: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
@@ -64,25 +66,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Oded Gabbay <ogabbay@kernel.org>
+Cc: Lucas Stach <l.stach@pengutronix.de>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>
+Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
+Cc: etnaviv@lists.freedesktop.org
+Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
 ---
- drivers/accel/ethosu/ethosu_job.c | 1 -
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index 26e7a2f64d71..038aae6714ad 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -290,7 +290,6 @@ int ethosu_job_init(struct ethosu_device *edev)
- 	struct device *dev = edev->base.dev;
- 	struct drm_sched_init_args args = {
- 		.ops = &ethosu_sched_ops,
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index df4232d7e135..63f672536516 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -142,7 +142,6 @@ int etnaviv_sched_init(struct etnaviv_gpu *gpu)
+ {
+ 	const struct drm_sched_init_args args = {
+ 		.ops = &etnaviv_sched_ops,
 -		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit = 1,
- 		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
- 		.name = dev_name(dev),
+ 		.credit_limit = etnaviv_hw_jobs_limit,
+ 		.hang_limit = etnaviv_job_hang_limit,
+ 		.timeout = msecs_to_jiffies(500),
 -- 
 2.51.1
 
