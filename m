@@ -4,50 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3060AD74968
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 08:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3873BD711D6
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 Dec 2025 08:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA58610EED9;
-	Fri, 19 Dec 2025 08:45:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E1810EC92;
+	Fri, 19 Dec 2025 08:46:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ndDfpwnA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y6l947rz";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35B1E10EEE0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 08:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1PsquyQf0OCiisy6c/J1jXI4r6f1YAG/ZTYg0W+3cMg=; b=ndDfpwnABeJCixQjXE3LbIDEkt
- TpErbJOUxjsKrEmYvA+D5DUa98EHPDjD/z3hNBgLJ82RaySW56U8GWxb8ieVB6YuVvZ0lQ6JgPC0S
- g/HQvEDpTAHb3umMQ5C1PYpYgpFj4M2WVVKSWvao/BerPPYIvuP0uaO9qSQS9PEuKrrRyK2FFJsrA
- huN5bysMTlr+Nkcfh2gl/U9vxARThnqylpWntRhDP8SgwBcvfad0poOl1KC6XUHyU++GaHBMmHTLy
- s2Tx/qzzwB6c3Gj2sKCj6iUiiJzpnj/G6MIDT3DMnUsjiabRvCpelryD7JBV0pvZLT0eSm71JgWvy
- oGPvwb7Q==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vWW6b-00EYfn-F4; Fri, 19 Dec 2025 09:44:57 +0100
-Message-ID: <a67385ca-4eba-416d-8fea-92fad98e89dd@igalia.com>
-Date: Fri, 19 Dec 2025 08:44:56 +0000
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012052.outbound.protection.outlook.com
+ [40.93.195.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF58910EC92
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 Dec 2025 08:46:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MTFqP4RLH2BuQkXBjUakq6zbXvsUwH+83Afp5r8W6q2klmibLyvnnWi1m1P5042STnk4dkkqMj9bzP1RG1zmuTD9yBGRDDpXdbwV5qYxbp9qOAfHCEtjm9+HkfZN2lCIJqTqhimJAxNR1DuaH0glu35ngS13rRc37baGPYjLZDLxPyg4AFdGXNsAnG9Mz/gp83o18BG3OM0U9S7by3biJJxvKfNHxcmhq1JIxIaoH32WEBbOasRnQaasxkUrsDEc08bk6pBsxZ1NmkkBA+/2W2oP3nvoLvkhNmfnGkZ4w182KRHeck+3XSDOzNswGrn/Z4gef2HZZwsjIsw5ZiYoZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X7RobMoswP5S+RgJwhFGekxS0PkrIdlB8uHk3mnLxaI=;
+ b=pzu3Tb1o/316tCfQ20mtlNhSKj/54kih90rFwxg8CWQTwgKhE1KDc+TjRSZ6fVe5CnTtxbRB5nddoSXNOdZ3XjGgp0TYDbmyKcHMo+/sWYOGZ2wKox2kSYC/9FZtWvS0fR6MLu6Yv+6YJ04D//yQlUpM45C1iBPh4EUdLYAhPNnoiGumx9xcysQJ4OGDBZrrA6LzLXuLJiuGhVNSD2GJf2CCyfT9fUaYnrgYykm362zAm8OJD9J932RREXUUrzYk7hNgoBJuZSVmKpqa3VumDCwzDyotCDHFwSt8Oj1GhUCPgUZUP5l26UjUmU9YtWcMfpcPqXThMYZfYGM8OGWibg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X7RobMoswP5S+RgJwhFGekxS0PkrIdlB8uHk3mnLxaI=;
+ b=Y6l947rzbb0LieDyx4tawoQJIqXOtVtdvnej5BL0OpUB0FlaEE+86VL3e73eirRld2MAL9aFQ7jpEJD9mQTXFho8mtPcnRgr/y2t+wc1YvEnzrbRhZDXtyIga8bTsCI0aKzJS4CFVdtlXJ1ew8QmxYWVK1GFReUXgfaFxX/i2s0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB6833.namprd12.prod.outlook.com (2603:10b6:510:1af::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.9; Fri, 19 Dec
+ 2025 08:46:43 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9434.009; Fri, 19 Dec 2025
+ 08:46:43 +0000
+Message-ID: <93bbe391-7034-4f7d-9f99-6e6cf8e510f2@amd.com>
+Date: Fri, 19 Dec 2025 09:46:40 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 2/5] drm/amdgpu: Remove output parameter in bo list handling
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Subject: Re: [RFC 5/5] drm/amdgpu/mes: Remove idr leftovers
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
 References: <20251218150405.80502-1-tvrtko.ursulin@igalia.com>
- <20251218150405.80502-3-tvrtko.ursulin@igalia.com>
- <c0ab731a-c32c-49ea-b380-1dba8b20894f@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <c0ab731a-c32c-49ea-b380-1dba8b20894f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20251218150405.80502-6-tvrtko.ursulin@igalia.com>
+ <164893d3-e8dd-4a39-998c-bdb7a328168d@amd.com>
+ <6d84c467-f401-4460-8cf6-62c5fab341c3@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <6d84c467-f401-4460-8cf6-62c5fab341c3@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0205.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::27) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6833:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fd0c087-219f-41f2-29bc-08de3edb22ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aVRTZW1xSkluNnpSVzk2dUFyRWo4RHUxdzI3QzhBN0tESG5uT1NyMU9ySm45?=
+ =?utf-8?B?MGhMUHBkNXhpeDRLUWU1YXBMSjhRY2hOOTZQRkxYQXlXbFJSOHY5Z2dzanFr?=
+ =?utf-8?B?amkyWGNlcDFLNXhiVmpjNHhEYjNmemJMY0gwdUNQSzNKQ1UyWWhsOWFRSlFY?=
+ =?utf-8?B?TDJMcmtoNEc2bGZHWk0vOHk5Y0lJRy91ZFp2T1NRU2FiMWkyajRNd0U0N3pU?=
+ =?utf-8?B?VDVNVXJzUmU4MWxzOWRHTGdWaUMzcjR3QWFRTzZFalVRYTA2QkZ5TVExaytL?=
+ =?utf-8?B?Z3ZsbnUwS1lyRzJncHlwRXcrT2xla0pJK2JJQ1ZZTi85anFYZVpzVUViS2gx?=
+ =?utf-8?B?Tk15cDNlNjdnejRZcDlabWdOcWhtVC96OG5rbGlORUNmdUV0eFlWUU9wM3Bl?=
+ =?utf-8?B?enU5THlyMWI0WGk5NExVc1pjcDVCeXJqL0dwdDRYbnVwbGRxMFl4UUgyeE9R?=
+ =?utf-8?B?WUlEcll4VHd2QkowU3BtTWMwMUFVWXUyUXN6Rll5L2dVYjh0Ty84eDUybElr?=
+ =?utf-8?B?WjJibXFWNUh5Z3hjNm1MK3VvdkI2OW9uTS9nWnUrZWdkK3FUSzRGR2E3TTlF?=
+ =?utf-8?B?QW9FbWZZa25UYWg4SmZpaTJOSjYwQmxlUWxmdjZZZEN5azNvajY0dGVXaDJ4?=
+ =?utf-8?B?TTNjWHExdTNBSkVqY2VlRm9OdmNkOWhPdVFFWURvZUx2TC9GKzhnblh5QTBU?=
+ =?utf-8?B?eTNXdmNBVTlGTFYxWnNJWEFYbCsrRTZwemV5Rm8vZWxYYmNuNndNenJwU0hX?=
+ =?utf-8?B?UUxSd1hXVis4dWh6WE5EeERuWnVvazl4dVBVMWxQMVZwdmRXU2lwYTVNbG0z?=
+ =?utf-8?B?V2RpL2VCaUlnMHAyTUpmV2t3QmxXWm8wQnpkdFFmSDh3bWFCeUhLNGIvdFpl?=
+ =?utf-8?B?aVo4bnA3WG1KbFNxcjVDTStFTU11enIzVHREUVFUNklxWjd4QnVwa2lhVGFQ?=
+ =?utf-8?B?Z0UxK1ptbktBcXc0akdUM1VsVkNxdks5TklYVmNCZkJzU1Fya0FZRlJiUFJL?=
+ =?utf-8?B?M242aTU4NTRhbzRXeVkzSDV3MXkxZDNsdDZyaVJjeC91OGRxM0xZR28wTjZO?=
+ =?utf-8?B?akZoNlZURDdqQXpNZTBKTHI4cm40blZMMlMvaU9wRlJBK29zUFZGT2xoYXBY?=
+ =?utf-8?B?eVAxamlqNmdMK2h0Zlg4RUhhbUpubHFHV0h6TkZ0bTJTZTBwVEVkOGZReG5v?=
+ =?utf-8?B?cmN4MzB2YXY3Vk5hWjFOU2pNM1hybDRhT1BxK1Z5M2oxT0lwN0hEQmhNV0c3?=
+ =?utf-8?B?YysxYWF4eGxKbmYxRkNuRlR4eGtHQ1VWTmVxNHhzOEZWL3lKK1lkeGpUUXpv?=
+ =?utf-8?B?RFJPYUpsYWlmUndzb2dncUs2VncvUS92MzlzUXZVYXVkallXcWxCUktvOWNB?=
+ =?utf-8?B?d0hoREtWMGJreStsYndtd3I0VTBxSmlrUXFGM0RZa0dJUFN4RGpnb0xJSkUr?=
+ =?utf-8?B?VzF1NTBrSm9sSTViU1Z2R1dMRGhWOEVwclhxSWZCWFA5cnlIeG1YT0hXY0tz?=
+ =?utf-8?B?dTd1dm91azZwM05KUkVETXdmZDdLNW1VQUFkOXRzYnFaOFRnTHlYb21EZkcx?=
+ =?utf-8?B?N0d2TWFwUUtId0lwNCsyYUU3elBWRC83T2RXUHFwZVhZNzJWT3NjSXNYUW04?=
+ =?utf-8?B?YkozdVBQZU42WWJVaXJqUXlYWXpCUkJqTXFBUmxPSWpZMnpETjZndXJyUGRW?=
+ =?utf-8?B?VnlKN2xWczFoZkswdnBidXZrclBkOENiMnFqdVpLNUd4dUVaczhiSXR3SjlF?=
+ =?utf-8?B?emEycmxLNnRJWU91WC9rSTlIZnFXTmt5MlpLbFNwMHJvbEVpcEFIU0VFNDQz?=
+ =?utf-8?B?OFlxZkJkY0FuZTY4eXJNcWo5cTNUOW0yMGM5TnhHZHphMDEvSysxZkxrYXNZ?=
+ =?utf-8?B?aGwwaytuVjRGcHZGUkxXV0kwYzM5MEhlbS8zR1pVc0dsZEFNYWErQ2xyVGF3?=
+ =?utf-8?Q?8+FJLJsK3vlLeid8Gpy5e4k5lCrUHPA/?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnN1UUdhSHhxSWZ1cXdHYWp5eVZMWHVoSXhqS3ZjTXhNZ1BNZlQ2WUZPU0FE?=
+ =?utf-8?B?VmdoaUlrczhWNzUyOHQ0c1FjTlZ3QTdLdjk1MmtXN0llcDBNKzBpTGZIN1Fp?=
+ =?utf-8?B?SUlrT2oza3pyOHovaE9IZ3pUeHoyVnFzZjdqcXkyVjdvY2E0bDZubHpPNWVj?=
+ =?utf-8?B?NjZYVG5MVzU1ck5JTldWVzVEQkpxTEgwcjRlTmw5eExVbTkxRWZ5b2piOU5G?=
+ =?utf-8?B?d1BvRXN2UjJkL0lUc1VZNDZoQUM0TFNvZSs0UWxrRUNWenA4YlBySUcrblhm?=
+ =?utf-8?B?eGNTTlllaXVoSUFyN2NtaStNb1lvWUtDRDB2TGpESk5qZzNYTyt6eFBodU9B?=
+ =?utf-8?B?aU8xZENna1l4cjhqQU5VY1I5dVNGUWdHNEVLMDFzL01WYnQvNHZ5c0prZU13?=
+ =?utf-8?B?YklNVEJrbjJGZ0JtSnc0L3luQTVqL2FPYnloR1k1M3dSc0NnNWU0SDJDaTBE?=
+ =?utf-8?B?blZVeW52WVhCWDh1bm83N2x6TVVsZ1h0WXU2RVA3eHJtRWRFYmVOZ1pjNDVl?=
+ =?utf-8?B?M2l2ZTlEUjBjSlIraTlIT1lDcVc2VlREbXhmSSt3ZzkxcXk4THpuR0pLOFZr?=
+ =?utf-8?B?TUVEZUdFMVZxZzlGM1pWT1Q1OEsyenlEYUV5QnJVUitLb1hhLy9mS0w0U0dx?=
+ =?utf-8?B?YkN1Wk5HMUF5Z1VSUDA4UTI1enRObGRUeStSbmREWEZSem1QUitkcFN3dlE4?=
+ =?utf-8?B?UWM4cFFqNkxqa09ZYXNscGU0SU1wWVF6ZFZXeHZsbWdxU2NEcE92eUtrenhW?=
+ =?utf-8?B?K2x5RG0zdEpUMktITmFNMjIxdGxZRmhKRlhJWVZYVjZMSG5wK2lyOG40bkNJ?=
+ =?utf-8?B?SU5TL3JEaFVSbDg2bjdBSlpYRFh2R0l0QTRNTktYa0ptS2pqdlRjY3p3d0dq?=
+ =?utf-8?B?WC9wSUJWUFpBa0huNTArRDlBcitWb0dUYi9ndHZ6YnROcWVENEY0cWNERGNM?=
+ =?utf-8?B?Wk84Yks2M3FqbkZDMW9MZjVpQVJEaFdZNU90cWhnUWlRRTFsY2dVY3VCTWV5?=
+ =?utf-8?B?dlRGdms5U09XUDFlVmNZNnRhT0p3SEdBRFlFMERuWG4rWU12ZktEYXBrWUo1?=
+ =?utf-8?B?UnNObjJ4UzFnZUxwRVk3d3pDS2JsVDA1MEJ6SVFkTjlLeHY4UVhXSEVQWkJX?=
+ =?utf-8?B?L1hTdzFPZ2NQWDArMzZ4RUxxNHlPdG0rRzN2M3lTM3RvQ0E0dVpNcVZwcXk2?=
+ =?utf-8?B?L1JEcEhFbytpeTZXdDdXZjduTUZKYnpzUjJwMkg3S250WUlCNmgzeWdpWStH?=
+ =?utf-8?B?ZEo2RDVNaFNFQWVzZnhnMGlEQ1dxRlNvcU4vQm5tejNjekM0NzJXcThBUkRX?=
+ =?utf-8?B?eXhELzFwZWlmTk9xNGJpZnFrWU1TWHJ1WUJjS0VMZHdhajZEcXJGWmUzbzYv?=
+ =?utf-8?B?aiswNGpLclpicGlmRGFWd0V4Wk1YeGR3Sm8vdkVENzdlQ2V6R0xCUmJDT1Zo?=
+ =?utf-8?B?bHIvMmV3NWtvZmFJVkpKSno1KzhMRGFkSjV2Q3Mva3hwZjhqbEtJTTVWN2ZY?=
+ =?utf-8?B?R1UzNWJGREs2dWQxd2RBWEIzTjRMbi9sOG5OLzRWOW9wTDhaSXVHZmI5c2ZN?=
+ =?utf-8?B?QTdncyt1OXEwei9sZ3ZvZ3lud01uS1dVY2RLY3U1YTROVXR3KzNxdWtaMzd5?=
+ =?utf-8?B?VmVaaUFLTzBXM3ZudE5hVFlrcXBUWm1zeEpWZXdZOE43dWFQOUNINVQ3S2VM?=
+ =?utf-8?B?aURrc0s1VXdIQnJUa0x2UHRaU0hmSXo0Y01sNmV4bHdYbjg0bWxnbjZTQk13?=
+ =?utf-8?B?a2t4T3N5RjhNMjdFbmx1NmJaMHR3Y0Zaay9XOFJDbUMzZUVQU0ZHaGxSM0FM?=
+ =?utf-8?B?NkkvTGJIYUZVYWIrWnBoOGlrc0t2QkUyQkdua1oxeWlRMTk1dFIzc3Z5UHVl?=
+ =?utf-8?B?WGhRS2NNOGdURTBhMWFkOEdPZUdBaG9PZlBxY0VFZi9mWVVBWnZWd0RWNXZj?=
+ =?utf-8?B?M3JUR3g0QjdnTWExOVl3QzJ4OFNMUHZneDN0Slh1V1d6UEt3UTNIUjdMOGpO?=
+ =?utf-8?B?ejlmQUVGUG10dWI4RDA0NnVWT0xPMmxkUXQxZ2VlVFh1cVVLWENqZ1RPK2tv?=
+ =?utf-8?B?U1AvRWtsaXZGT2lxT3gxZCtHYWowOXlOWWdWeEUzd2F6Vlc2aVBRVTlVeVBw?=
+ =?utf-8?Q?9t0IB55SVcE0N4eARrUi2Z1F4?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fd0c087-219f-41f2-29bc-08de3edb22ca
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2025 08:46:43.7502 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xe6RWqaeFl5Svfl7dt1Ce8m2sMo7EMSsHlYnf0fR2/36xkwYtsZhBpLEC9G9YkeJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6833
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,405 +164,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 19/12/2025 08:12, Christian König wrote:
-> On 12/18/25 16:04, Tvrtko Ursulin wrote:
->> Removing the output parameter from a few functions should result in more
->> readable code and also enables us to save some lines.
+On 12/19/25 09:39, Tvrtko Ursulin wrote:
 > 
-> Oh, yes please.
-> 
-> That was just because somebody had a personal preference for this coding style and it resulted in at least one CVE entry for amdgpu a couple of years ago.
-> 
-> I should have pushed back on this harder when I've seen it initially.
-> 
+> On 19/12/2025 08:29, Christian König wrote:
 >>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 86 ++++++++++-----------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h | 17 ++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 58 +++++++-------
->>   3 files changed, 75 insertions(+), 86 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
->> index 628d32fd2fae..0ab307317145 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
->> @@ -67,9 +67,9 @@ static int amdgpu_bo_list_entry_cmp(const void *_a, const void *_b)
->>   	return 0;
->>   }
->>   
->> -int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->> -			  struct drm_amdgpu_bo_list_entry *info,
->> -			  size_t num_entries, struct amdgpu_bo_list **result)
->> +struct amdgpu_bo_list *
->> +amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->> +		      struct drm_amdgpu_bo_list_entry *info, size_t num_entries)
->>   {
->>   	unsigned last_entry = 0, first_userptr = num_entries;
->>   	struct amdgpu_bo_list_entry *array;
->> @@ -80,7 +80,7 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->>   
->>   	list = kvzalloc(struct_size(list, entries, num_entries), GFP_KERNEL);
->>   	if (!list)
->> -		return -ENOMEM;
->> +		return ERR_PTR(-ENOMEM);
->>   
->>   	kref_init(&list->refcount);
->>   
->> @@ -136,8 +136,7 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->>   	trace_amdgpu_cs_bo_status(list->num_entries, total_size);
->>   
->>   	mutex_init(&list->bo_list_mutex);
->> -	*result = list;
->> -	return 0;
->> +	return list;
->>   
->>   error_free:
->>   	for (i = 0; i < last_entry; ++i)
->> @@ -145,24 +144,21 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->>   	for (i = first_userptr; i < num_entries; ++i)
->>   		amdgpu_bo_unref(&array[i].bo);
->>   	kvfree(list);
->> -	return r;
->> +	return ERR_PTR(r);
->>   
->>   }
->>   
->> -int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, u32 id,
->> -		       struct amdgpu_bo_list **result)
->> +struct amdgpu_bo_list *amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, u32 id)
->>   {
->>   	struct amdgpu_bo_list *list;
->>   
->>   	xa_lock(&fpriv->bo_list_handles);
->>   	list = xa_load(&fpriv->bo_list_handles, id);
->> -	if (list && !kref_get_unless_zero(&list->refcount))
->> -		list = NULL;
->> +	if (!list || !kref_get_unless_zero(&list->refcount))
->> +		list = ERR_PTR(-ENOENT);
->>   	xa_unlock(&fpriv->bo_list_handles);
->>   
->> -	*result = list;
->> -
->> -	return list ? 0 : -ENOENT;
->> +	return list;
->>   }
->>   
->>   void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
->> @@ -170,8 +166,8 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
->>   	kref_put(&list->refcount, amdgpu_bo_list_free);
->>   }
->>   
->> -int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
->> -				      struct drm_amdgpu_bo_list_entry **info_param)
->> +struct drm_amdgpu_bo_list_entry *
->> +amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in)
->>   {
->>   	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
->>   	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
->> @@ -182,27 +178,24 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
->>   	/* copy the handle array from userspace to a kernel buffer */
->>   	if (likely(info_size == bo_info_size)) {
->>   		info = vmemdup_array_user(uptr, bo_number, info_size);
->> -		if (IS_ERR(info))
->> -			return PTR_ERR(info);
->>   	} else {
->>   		const uint32_t bytes = min(bo_info_size, info_size);
->>   		unsigned i;
->>   
->>   		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
->>   		if (!info)
->> -			return -ENOMEM;
->> +			return ERR_PTR(-ENOMEM);
->>   
->>   		memset(info, 0, bo_number * info_size);
->>   		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
->>   			if (copy_from_user(&info[i], uptr, bytes)) {
->>   				kvfree(info);
->> -				return -EFAULT;
->> +				return ERR_PTR(-EFAULT);
->>   			}
->>   		}
->>   	}
->>   
->> -	*info_param = info;
->> -	return 0;
->> +	return info;
->>   }
->>   
->>   int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
->> @@ -210,27 +203,24 @@ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
->>   {
->>   	struct amdgpu_fpriv *fpriv = filp->driver_priv;
->>   	struct amdgpu_device *adev = drm_to_adev(dev);
->> -	struct drm_amdgpu_bo_list_entry *info = NULL;
->>   	struct amdgpu_bo_list *list, *prev, *curr;
->> -	uint32_t handle = args->in.list_handle;
->>   	union drm_amdgpu_bo_list *args = data;
->> +	uint32_t handle = args->in.list_handle;
->> +	struct drm_amdgpu_bo_list_entry *info;
->>   	int r;
->>   
->> -	r = amdgpu_bo_create_list_entry_array(&args->in, &info);
->> -	if (r)
->> -		return r;
->> -
->>   	switch (args->in.operation) {
->>   	case AMDGPU_BO_LIST_OP_CREATE:
->> -		r = amdgpu_bo_list_create(adev, filp, info, args->in.bo_number,
->> -					  &list);
->> -		if (r)
->> -			goto error_free;
->> +	case AMDGPU_BO_LIST_OP_UPDATE:
->> +		info = amdgpu_bo_create_list_entry_array(&args->in);
->> +		if (IS_ERR(info))
->> +			return PTR_ERR(info);
->>   
->> -		r = xa_alloc(&fpriv->bo_list_handles, &handle, list,
->> -			     xa_limit_32b, GFP_KERNEL);
->> -		if (r)
->> -			goto error_put_list;
->> +		list = amdgpu_bo_list_create(adev, filp, info,
->> +					     args->in.bo_number);
->> +		kvfree(info);
->> +		if (IS_ERR(list))
->> +			return PTR_ERR(list);
->>   
->>   		break;
->>   
->> @@ -242,12 +232,20 @@ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
->>   
->>   		break;
->>   
->> -	case AMDGPU_BO_LIST_OP_UPDATE:
->> -		r = amdgpu_bo_list_create(adev, filp, info, args->in.bo_number,
->> -					  &list);
->> +	default:
->> +		return -EINVAL;
->> +	};
->> +
->> +	switch (args->in.operation) {
->> +	case AMDGPU_BO_LIST_OP_CREATE:
->> +		r = xa_alloc(&fpriv->bo_list_handles, &handle, list,
->> +			     xa_limit_32b, GFP_KERNEL);
->>   		if (r)
->> -			goto error_free;
->> +			goto error_put_list;
->>   
->> +		break;
->> +
->> +	case AMDGPU_BO_LIST_OP_UPDATE:
->>   		curr = xa_load(&fpriv->bo_list_handles, handle);
->>   		if (!curr) {
->>   			r = -ENOENT;
->> @@ -267,21 +265,17 @@ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
->>   		amdgpu_bo_list_put(curr);
->>   		break;
->>   
->> +	case AMDGPU_BO_LIST_OP_DESTROY:
->>   	default:
->> -		r = -EINVAL;
->> -		goto error_free;
->> +		/* Handled above. */
+>> On 12/18/25 16:04, Tvrtko Ursulin wrote:
+>>> Commit
+>>> cb17fff3a254 ("drm/amdgpu/mes: remove unused functions")
+>>> removed most of the code using these IDRs but forgot to remove the struct
+>>> members and init/destroy paths.
+>>>
+>>> There is also interrupt handling code in SDMA 5.0 and 5.2 which appears to
+>>> be using it, but is is unreachable since nothing ever allocates the
+>>> relevant IDR. We replace those with one time warnings just to avoid any
+>>> functional difference, but it is also possible they should be removed.
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> References: cb17fff3a254 ("drm/amdgpu/mes: remove unused functions")
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
 > 
-> I think I prefer to keep that a single switch statement. This looks a bit mixed up to me.
-
-I agree it looks odd.
-
-What I wanted to is limit the allocations to only the operations which 
-need it. Otherwise it seems to me it is pointless for 
-AMDGPU_BO_LIST_OP_DESTROY to allocate something it does not touch.
-
-Also the invalid args->in.operation check is currently after the first 
-allocation.
-
-A more elegant solution did not come to me yesterday.
-
+> Thanks!
 > 
->>   	}
->>   
->>   	memset(args, 0, sizeof(*args));
->>   	args->out.list_handle = handle;
->> -	kvfree(info);
->>   
->>   	return 0;
->>   
->>   error_put_list:
->>   	amdgpu_bo_list_put(list);
->> -
->> -error_free:
->> -	kvfree(info);
->>   	return r;
->>   }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
->> index 0989f1090c63..085ca94f97a2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
->> @@ -58,17 +58,16 @@ struct amdgpu_bo_list {
->>   	struct amdgpu_bo_list_entry entries[] __counted_by(num_entries);
->>   };
->>   
->> -int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, u32 id,
->> -		       struct amdgpu_bo_list **result);
->> +struct amdgpu_bo_list *amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, u32 id);
->>   void amdgpu_bo_list_put(struct amdgpu_bo_list *list);
->> -int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
->> -				      struct drm_amdgpu_bo_list_entry **info_param);
->> +struct drm_amdgpu_bo_list_entry *
->> +amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in);
->>   
->> -int amdgpu_bo_list_create(struct amdgpu_device *adev,
->> -				 struct drm_file *filp,
->> -				 struct drm_amdgpu_bo_list_entry *info,
->> -				 size_t num_entries,
->> -				 struct amdgpu_bo_list **list);
->> +struct amdgpu_bo_list *
->> +amdgpu_bo_list_create(struct amdgpu_device *adev,
->> +		      struct drm_file *filp,
->> +		      struct drm_amdgpu_bo_list_entry *info,
->> +		      size_t num_entries);
->>   
->>   #define amdgpu_bo_list_for_each_entry(e, list) \
->>   	for (e = list->entries; \
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> index 203223fd0b54..a4cdaebaefe5 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> @@ -152,24 +152,19 @@ static int amdgpu_cs_p1_bo_handles(struct amdgpu_cs_parser *p,
->>   				   struct drm_amdgpu_bo_list_in *data)
->>   {
->>   	struct drm_amdgpu_bo_list_entry *info;
->> -	int r;
->> +	struct amdgpu_bo_list *list;
->>   
->> -	r = amdgpu_bo_create_list_entry_array(data, &info);
->> -	if (r)
->> -		return r;
->> -
->> -	r = amdgpu_bo_list_create(p->adev, p->filp, info, data->bo_number,
->> -				  &p->bo_list);
->> -	if (r)
->> -		goto error_free;
->> +	info = amdgpu_bo_create_list_entry_array(data);
->> +	if (IS_ERR(info))
->> +		return PTR_ERR(info);
->>   
->> +	list = amdgpu_bo_list_create(p->adev, p->filp, info, data->bo_number);
->>   	kvfree(info);
->> +	if (IS_ERR(list))
->> +		return PTR_ERR(list);
->> +
->> +	p->bo_list = list;
->>   	return 0;
->> -
->> -error_free:
->> -	kvfree(info);
->> -
->> -	return r;
->>   }
->>   
->>   /* Copy the data from userspace and go over it the first time */
->> @@ -857,6 +852,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->>   {
->>   	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
->>   	struct ttm_operation_ctx ctx = { true, false };
->> +	struct amdgpu_bo_list *list = NULL;
->>   	struct amdgpu_vm *vm = &fpriv->vm;
->>   	struct amdgpu_bo_list_entry *e;
->>   	struct drm_gem_object *obj;
->> @@ -869,25 +865,26 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->>   		if (p->bo_list)
->>   			return -EINVAL;
->>   
->> -		r = amdgpu_bo_list_get(fpriv, cs->in.bo_list_handle,
->> -				       &p->bo_list);
->> -		if (r)
->> -			return r;
->> +		list = amdgpu_bo_list_get(fpriv, cs->in.bo_list_handle);
->>   	} else if (!p->bo_list) {
->>   		/* Create a empty bo_list when no handle is provided */
-> 
-> I think we can drop this handling.
-> 
-> This was just a broken fallback for the closed source driver which the OpenGL stack never used, need to double check with the RADV guys but I don't think they ever used this as well.
+> Do you think the drm_WARN_ON_ONCE's are worth keeping or I should remove that completely?
 
-The whole else if block? Okay, I will put that as a separate patch in 
-this case.
+I wanted to discuss that with Alex after the holidays, but my gut feeling is it is superflous.
+
+> I wasn't sure if there is a code path or not to enable the required condition:
+> 
+>  adev->enable_mes && (entry->src_data[0] & AMDGPU_FENCE_MES_QUEUE_FLAG))
+> 
+> If there is interrupts would get silently not processed. Although that is currently in the code as well. Maybe it is impossible?
+
+Yeah that's not so much of a problem. At worst it will create a performance problem because we only check the fence after a timeout.
 
 Regards,
-
-Tvrtko
+Christian.
 
 > 
-> Looks good to me otherwise,
-> Christian.
+> Regards,
 > 
->> -		r = amdgpu_bo_list_create(p->adev, p->filp, NULL, 0,
->> -					  &p->bo_list);
->> -		if (r)
->> -			return r;
->> +		list = amdgpu_bo_list_create(p->adev, p->filp, NULL, 0);
->>   	}
->>   
->> -	mutex_lock(&p->bo_list->bo_list_mutex);
->> +	if (IS_ERR(list))
->> +		return PTR_ERR(list);
->> +	else if (list)
->> +		p->bo_list = list;
->> +	else
->> +		list = p->bo_list;
->> +
->> +	mutex_lock(&list->bo_list_mutex);
->>   
->>   	/* Get userptr backing pages. If pages are updated after registered
->>   	 * in amdgpu_gem_userptr_ioctl(), amdgpu_cs_list_validate() will do
->>   	 * amdgpu_ttm_backend_bind() to flush and invalidate new pages
->>   	 */
->> -	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
->> +	amdgpu_bo_list_for_each_userptr_entry(e, list) {
->>   		bool userpage_invalidated = false;
->>   		struct amdgpu_bo *bo = e->bo;
->>   
->> @@ -915,7 +912,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->>   		if (unlikely(r))
->>   			goto out_free_user_pages;
->>   
->> -		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
->> +		amdgpu_bo_list_for_each_entry(e, list) {
->>   			/* One fence for TTM and one for each CS job */
->>   			r = drm_exec_prepare_obj(&p->exec, &e->bo->tbo.base,
->>   						 1 + p->gang_size);
->> @@ -935,7 +932,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->>   		}
->>   	}
->>   
->> -	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
->> +	amdgpu_bo_list_for_each_userptr_entry(e, list) {
->>   		struct mm_struct *usermm;
->>   
->>   		usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
->> @@ -988,17 +985,16 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->>   				     p->bytes_moved_vis);
->>   
->>   	for (i = 0; i < p->gang_size; ++i)
->> -		amdgpu_job_set_resources(p->jobs[i], p->bo_list->gds_obj,
->> -					 p->bo_list->gws_obj,
->> -					 p->bo_list->oa_obj);
->> +		amdgpu_job_set_resources(p->jobs[i], list->gds_obj,
->> +					 list->gws_obj, list->oa_obj);
->>   	return 0;
->>   
->>   out_free_user_pages:
->> -	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
->> +	amdgpu_bo_list_for_each_userptr_entry(e, list) {
->>   		amdgpu_hmm_range_free(e->range);
->>   		e->range = NULL;
->>   	}
->> -	mutex_unlock(&p->bo_list->bo_list_mutex);
->> +	mutex_unlock(&list->bo_list_mutex);
->>   	return r;
->>   }
->>   
+> Tvrtko
+> 
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  9 ---------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 ---
+>>>   drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c  | 18 +++---------------
+>>>   drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c  | 18 +++---------------
+>>>   4 files changed, 6 insertions(+), 42 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>> index 9c182ce501af..505619d504ea 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>>> @@ -94,9 +94,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+>>>         adev->mes.adev = adev;
+>>>   -    idr_init(&adev->mes.pasid_idr);
+>>> -    idr_init(&adev->mes.gang_id_idr);
+>>> -    idr_init(&adev->mes.queue_id_idr);
+>>>       ida_init(&adev->mes.doorbell_ida);
+>>>       spin_lock_init(&adev->mes.queue_id_lock);
+>>>       mutex_init(&adev->mes.mutex_hidden);
+>>> @@ -218,9 +215,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+>>>                         adev->mes.query_status_fence_offs[i]);
+>>>       }
+>>>   -    idr_destroy(&adev->mes.pasid_idr);
+>>> -    idr_destroy(&adev->mes.gang_id_idr);
+>>> -    idr_destroy(&adev->mes.queue_id_idr);
+>>>       ida_destroy(&adev->mes.doorbell_ida);
+>>>       mutex_destroy(&adev->mes.mutex_hidden);
+>>>       return r;
+>>> @@ -248,9 +242,6 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
+>>>         amdgpu_mes_doorbell_free(adev);
+>>>   -    idr_destroy(&adev->mes.pasid_idr);
+>>> -    idr_destroy(&adev->mes.gang_id_idr);
+>>> -    idr_destroy(&adev->mes.queue_id_idr);
+>>>       ida_destroy(&adev->mes.doorbell_ida);
+>>>       mutex_destroy(&adev->mes.mutex_hidden);
+>>>   }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>> index e989225b354b..f45129277479 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>>> @@ -68,9 +68,6 @@ struct amdgpu_mes {
+>>>         struct mutex                    mutex_hidden;
+>>>   -    struct idr                      pasid_idr;
+>>> -    struct idr                      gang_id_idr;
+>>> -    struct idr                      queue_id_idr;
+>>>       struct ida                      doorbell_ida;
+>>>         spinlock_t                      queue_id_lock;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>>> index 8ddc4df06a1f..ab9e6199b01d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+>>> @@ -1704,24 +1704,12 @@ static int sdma_v5_0_process_trap_irq(struct amdgpu_device *adev,
+>>>                         struct amdgpu_irq_src *source,
+>>>                         struct amdgpu_iv_entry *entry)
+>>>   {
+>>> -    uint32_t mes_queue_id = entry->src_data[0];
+>>> -
+>>>       DRM_DEBUG("IH: SDMA trap\n");
+>>>   -    if (adev->enable_mes && (mes_queue_id & AMDGPU_FENCE_MES_QUEUE_FLAG)) {
+>>> -        struct amdgpu_mes_queue *queue;
+>>> -
+>>> -        mes_queue_id &= AMDGPU_FENCE_MES_QUEUE_ID_MASK;
+>>> -
+>>> -        spin_lock(&adev->mes.queue_id_lock);
+>>> -        queue = idr_find(&adev->mes.queue_id_idr, mes_queue_id);
+>>> -        if (queue) {
+>>> -            DRM_DEBUG("process smda queue id = %d\n", mes_queue_id);
+>>> -            amdgpu_fence_process(queue->ring);
+>>> -        }
+>>> -        spin_unlock(&adev->mes.queue_id_lock);
+>>> +    if (drm_WARN_ON_ONCE(&adev->ddev,
+>>> +                 adev->enable_mes &&
+>>> +                 (entry->src_data[0] & AMDGPU_FENCE_MES_QUEUE_FLAG)))
+>>>           return 0;
+>>> -    }
+>>>         switch (entry->client_id) {
+>>>       case SOC15_IH_CLIENTID_SDMA0:
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>> index 51101b0aa2fa..4f78dd93939c 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+>>> @@ -1617,24 +1617,12 @@ static int sdma_v5_2_process_trap_irq(struct amdgpu_device *adev,
+>>>                         struct amdgpu_irq_src *source,
+>>>                         struct amdgpu_iv_entry *entry)
+>>>   {
+>>> -    uint32_t mes_queue_id = entry->src_data[0];
+>>> -
+>>>       DRM_DEBUG("IH: SDMA trap\n");
+>>>   -    if (adev->enable_mes && (mes_queue_id & AMDGPU_FENCE_MES_QUEUE_FLAG)) {
+>>> -        struct amdgpu_mes_queue *queue;
+>>> -
+>>> -        mes_queue_id &= AMDGPU_FENCE_MES_QUEUE_ID_MASK;
+>>> -
+>>> -        spin_lock(&adev->mes.queue_id_lock);
+>>> -        queue = idr_find(&adev->mes.queue_id_idr, mes_queue_id);
+>>> -        if (queue) {
+>>> -            DRM_DEBUG("process smda queue id = %d\n", mes_queue_id);
+>>> -            amdgpu_fence_process(queue->ring);
+>>> -        }
+>>> -        spin_unlock(&adev->mes.queue_id_lock);
+>>> +    if (drm_WARN_ON_ONCE(&adev->ddev,
+>>> +                 adev->enable_mes &&
+>>> +                 (entry->src_data[0] & AMDGPU_FENCE_MES_QUEUE_FLAG)))
+>>>           return 0;
+>>> -    }
+>>>         switch (entry->client_id) {
+>>>       case SOC15_IH_CLIENTID_SDMA0:
+>>
 > 
 
