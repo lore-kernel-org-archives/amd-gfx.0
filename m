@@ -4,44 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87C9EE6749D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 529ABE6749F
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1723D10E596;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C8310E59F;
 	Mon, 22 Dec 2025 08:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=glanzmann.de header.i=@glanzmann.de header.b="U07KSS4i";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YE1d+uyP";
 	dkim-atps=neutral
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Mon, 22 Dec 2025 06:25:48 UTC
-Received: from infra.glanzmann.de (infra.glanzmann.de [88.198.237.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF3510E1B1
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 06:25:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glanzmann.de;
- s=infra26101010; t=1766384319;
- bh=Cw92PG2Uk7ofVOyfPAtZNDbYl2tZ1ufkc6kNDBpeVrQ=;
- h=Date:From:To:Subject:From;
- b=U07KSS4iBuHJ4/a86f7ShNH+4M/ORKCCjv7WGLpKnpxNAmP7KCr1ryXw56yuLCqHX
- XyCkMIWyFNxKUMjoSfqySXu3c/8OpOv8Hqu/LR0y3xLf+lcocEJdGRgn9GpoJcfERI
- ijKjzkevxUUh3AOPuFwqmocF3wIWFuaDVHfsxy3heu/bH+WPxjDYewpUNRfstcWgWA
- vzS0ZDBWJW3TskDEW+y/RseRbiBwEo0BiS2W3UwcCPobQlNJKlxtvni1zdXuLrvE/r
- 6gEATkfP7k95j8PLzdqGImjcQX435t7ZlmMho8CXfhq5QiXkw1jIheD4eYPn54+N7z
- +rqhQFM3bxCMIlb+kHwxcESXkiLt9O90+el+8YorZ6rFU1isLz61tbcYrVwSS2DwZy
- HtZeeYEd7bVSSJQmq5Z55oE9ImI4IxYFImnrVgWBT8eFgSS3AJ6EN0tuEFBcbEyo9C
- +igwbUVGNuS2EP2PrKzLPglVbcAbj7HNhT3XpzeEQbx85O+q3R3skX66MuaMA9jS5Z
- 1TeLXoIMVUsgM3BHM4V/oR6+GDa3/8wWyK4QVINWJSe9a4Dnt+jo6WnCC4tyxkkQ7w
- qzHuukEPUvPpWkG2nBatFoV7bmAJI1ZH24PwiF6eqjEIWWooT3gRXU+Wfyxp31AIQi
- mRTz2NDJptQZiRd1yNcIEfqY=
-Received: by infra.glanzmann.de (Postfix, from userid 1000)
- id 6C407255DE6; Mon, 22 Dec 2025 07:18:39 +0100 (CET)
-Date: Mon, 22 Dec 2025 07:18:39 +0100
-From: Thomas Glanzmann <thomas@glanzmann.de>
-To: amd-gfx@lists.freedesktop.org
-Subject: amdgpu: [drm] AMDGPU device coredump file has been created
-Message-ID: <aUjiv4TnoVJ9LysI@glanzmann.de>
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07E3E10E2CF
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 18:48:52 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-7b7828bf7bcso3050495b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 10:48:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1766256531; x=1766861331; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/oncLln8FbSPaRUU+p2VE2LXXFaw2yjD++vmbH5oIfY=;
+ b=YE1d+uyPQ+QTSIoIrBZpx1jGNC0u26lpPfZknOMpBavtAqAHQNR0RnA/mT3tVVUrFl
+ 5gvowCcsuMCQZ6NVVsjnj3eYdGPA7YxW8A+E/syTcKBubAgwVHE+GG2je1sPFTyJ7Ewv
+ XmOH026Ud3MQn99F1cR2y6QdoHKCLBq98JfmYl+1faXm+yLwJZOo0Qw+SHg4IHz6TL4s
+ ytZpxqsviiuNCXcdhDRWJWBHpP4aRa9gD7iSgptXIZyImIKAOa4xs/CjwoWc6ElQQ8Rt
+ Ck9zJ1VIqsXY913xvXHrkOIdbdAd/nFElgjdH9qVagA0lMmC9OXfJlWm3l7kH0SR2Qsk
+ 6BaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766256531; x=1766861331;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/oncLln8FbSPaRUU+p2VE2LXXFaw2yjD++vmbH5oIfY=;
+ b=NBZUFgByq8QpiQ5ITzXtoMBFcCYFCqZkxnDDFm/dh/+7bTEo32OVMKuT2l8oAA7aT8
+ 85AfXg3xb0V3do9PP4fX9stxcJVwmNqS72SUp9PwpgtsdVejP7HA0BzKEwk4lALKyUJQ
+ YWtjmbjtZSVKde9pFEsv02mxEJPez4r11bnU329omD+kCACOL5iWBLH3zsclDflfcGFi
+ EGZsDfUPJMBTHNXd8zOaqAHFDnaX1Pf1F5WG2ekzJN8MRVPc/BHWroz32YJw4NizXgST
+ JoOZ388drhlo3W7YkMvgdj4K/BFIBTG6P66rwF0+E/p04xZA4qplbDyjI+KsKbqzQQIi
+ y3TA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUYbcqa0vcQnoiOk0JLvIF5eMqhKial3z/8M3yEG5Xf04ZA5uYdz4y/CgPaGXDYW0b6H6LR7i4G@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyD1aZP5Wspcza0WmFh3Q3d6CY0Fkeu5mjxgIbSxfWUUdDwqUC5
+ csYJExFFXJVpi3qjSbo8vKG/tTITGEpYIiUzPOOd9utCUxN9XhQiRKBF
+X-Gm-Gg: AY/fxX7i4Lwm8LaZDbEX97uCJubvfmuMu3K6cWcpXUADByEokvT88A2Kq0FEqwMXX86
+ Xvaw27oXuS3cV5ErrNRLwLXHSq8MM+ULFTtsB+dcR+8TXp3e87R/tqLMHgpgRJC2IdslFKEnVAs
+ LfzZcOKbd+JHOjlvvsKeApsPA+e1YPkRZbyMf+n71m1fagWcLc2sdZjwoEyUvchjBiWzp8FGF1f
+ 0j7RMcVLrhBFDN6qXDJ9MmSrOCP6pP7WpTt7UvJG7CDROgOajCRHNvmsRhYhSQkOmCBRR3DpYWz
+ rleJrLbDQzl8lw7bimuZy6bRRC4Z0qi8fVMDUVapdvsT5mnQyNk9O14VTvVC2Q/xHxdPpVdCEGV
+ XkPZTcgBBYlHlWRWiwrXhhdq6WWfiev3ddSgVj46xnv8h2PkcMMv0skCEIaeiK37A1r5YcoToHy
+ WEHSFimEABfAE5Hj7kwMXdMubWL9DNoyA09BYbACtXRWd+97P29Ew2glWFQlsgfA==
+X-Google-Smtp-Source: AGHT+IE/r1ZKcCOrAZwJE2R6ewFbpafDZ6VWGE4Pg71TQwfDZy+wfImVOERYUn/yZRaGiGCgTeRnUQ==
+X-Received: by 2002:a05:7022:b88b:b0:11b:b179:6e17 with SMTP id
+ a92af1059eb24-121723092d6mr6262195c88.34.1766256531231; 
+ Sat, 20 Dec 2025 10:48:51 -0800 (PST)
+Received: from titanite-d300.amd.com ([165.204.154.57])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1217254d369sm23432761c88.16.2025.12.20.10.48.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 20 Dec 2025 10:48:50 -0800 (PST)
+From: Mukesh Ogare <mukeshogare871@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mukesh Ogare <mukeshogare871@gmail.com>
+Subject: [PATCH] drm/radeon: convert UVD v1.0 logging to drm_* helpers
+Date: Sun, 21 Dec 2025 02:47:55 +0800
+Message-ID: <20251220184755.1803625-1-mukeshogare871@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 Dec 2025 08:23:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,72 +88,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
-I have a PC which worked fine for many years that I did not use for half
-a year. Yesterday I want to use it, but sway appears to be crashing
-amdgpu in DRM. The components are:
+Replace legacy DRM_ERROR()/DRM_INFO() logging in the UVD v1.0 code
+with drm_err() and drm_info() helpers that take a struct drm_device.
 
-- ASUS System Product Name/TUF GAMING B650M-PLUS
-- AMD Ryzen 9 7950X 16-Core Processor
-- Debian trixie
+Using drm_* logging provides proper device context in dmesg, which is
+important for systems with multiple DRM devices, and aligns the radeon
+driver with current DRM logging practices.
 
-I already tried the following:
+No functional change intended.
 
-        - Upgrading to Debian forky
-        - Debian trixie live cd
-        - Installing the latested amd gpu firmware
-	- Updating the Bios to the latest.
+Signed-off-by: Mukesh Ogare <mukeshogare871@gmail.com>
 
-In order to reproduce the issue, I boot linux, start sway and open an
-alacritty terminal with a tmux inside. amdgpu crashes immediatly. Find
-here a video and the full dmesg.
+diff --git a/drivers/gpu/drm/radeon/uvd_v1_0.c b/drivers/gpu/drm/radeon/uvd_v1_0.c
+index 5684639d20a6..5e6607e16244 100644
+--- a/drivers/gpu/drm/radeon/uvd_v1_0.c
++++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
+@@ -179,7 +179,7 @@ int uvd_v1_0_init(struct radeon_device *rdev)
+ 
+ 	r = radeon_ring_lock(rdev, ring, 10);
+ 	if (r) {
+-		DRM_ERROR("radeon: ring failed to lock UVD ring (%d).\n", r);
++		drm_err(&rdev->ddev, "radeon: ring failed to lock UVD ring (%d).\n", r);
+ 		goto done;
+ 	}
+ 
+@@ -232,7 +232,7 @@ int uvd_v1_0_init(struct radeon_device *rdev)
+ 			break;
+ 		}
+ 
+-		DRM_INFO("UVD initialized successfully.\n");
++		drm_info(&rdev->ddev, "UVD initialized successfully.\n");
+ 	}
+ 
+ 	return r;
+@@ -338,7 +338,7 @@ int uvd_v1_0_start(struct radeon_device *rdev)
+ 		if (status & 2)
+ 			break;
+ 
+-		DRM_ERROR("UVD not responding, trying to reset the VCPU!!!\n");
++		drm_err(&rdev->ddev, "UVD not responding, trying to reset the VCPU!!!\n");
+ 		WREG32_P(UVD_SOFT_RESET, VCPU_SOFT_RESET, ~VCPU_SOFT_RESET);
+ 		mdelay(10);
+ 		WREG32_P(UVD_SOFT_RESET, 0, ~VCPU_SOFT_RESET);
+@@ -347,7 +347,7 @@ int uvd_v1_0_start(struct radeon_device *rdev)
+ 	}
+ 
+ 	if (r) {
+-		DRM_ERROR("UVD not responding, giving up!!!\n");
++		drm_err(&rdev->ddev, "UVD not responding, giving up!!!\n");
+ 		return r;
+ 	}
+ 
+@@ -427,7 +427,7 @@ int uvd_v1_0_ring_test(struct radeon_device *rdev, struct radeon_ring *ring)
+ 	WREG32(UVD_CONTEXT_ID, 0xCAFEDEAD);
+ 	r = radeon_ring_lock(rdev, ring, 3);
+ 	if (r) {
+-		DRM_ERROR("radeon: cp failed to lock ring %d (%d).\n",
++		drm_err(&rdev->ddev, "radeon: cp failed to lock ring %d (%d).\n",
+ 			  ring->idx, r);
+ 		return r;
+ 	}
+@@ -442,10 +442,10 @@ int uvd_v1_0_ring_test(struct radeon_device *rdev, struct radeon_ring *ring)
+ 	}
+ 
+ 	if (i < rdev->usec_timeout) {
+-		DRM_INFO("ring test on %d succeeded in %d usecs\n",
++		drm_info(&rdev->ddev, "ring test on %d succeeded in %d usecs\n",
+ 			 ring->idx, i);
+ 	} else {
+-		DRM_ERROR("radeon: ring %d test failed (0x%08X)\n",
++		drm_err(&rdev->ddev, "radeon: ring %d test failed (0x%08X)\n",
+ 			  ring->idx, tmp);
+ 		r = -EINVAL;
+ 	}
+@@ -507,34 +507,34 @@ int uvd_v1_0_ib_test(struct radeon_device *rdev, struct radeon_ring *ring)
+ 	else
+ 		r = radeon_set_uvd_clocks(rdev, 53300, 40000);
+ 	if (r) {
+-		DRM_ERROR("radeon: failed to raise UVD clocks (%d).\n", r);
++		drm_err(&rdev->ddev, "radeon: failed to raise UVD clocks (%d).\n", r);
+ 		return r;
+ 	}
+ 
+ 	r = radeon_uvd_get_create_msg(rdev, ring->idx, 1, NULL);
+ 	if (r) {
+-		DRM_ERROR("radeon: failed to get create msg (%d).\n", r);
++		drm_err(&rdev->ddev, "radeon: failed to get create msg (%d).\n", r);
+ 		goto error;
+ 	}
+ 
+ 	r = radeon_uvd_get_destroy_msg(rdev, ring->idx, 1, &fence);
+ 	if (r) {
+-		DRM_ERROR("radeon: failed to get destroy ib (%d).\n", r);
++		drm_err(&rdev->ddev, "radeon: failed to get destroy ib (%d).\n", r);
+ 		goto error;
+ 	}
+ 
+ 	r = radeon_fence_wait_timeout(fence, false, usecs_to_jiffies(
+ 		RADEON_USEC_IB_TEST_TIMEOUT));
+ 	if (r < 0) {
+-		DRM_ERROR("radeon: fence wait failed (%d).\n", r);
++		drm_err(&rdev->ddev, "radeon: fence wait failed (%d).\n", r);
+ 		goto error;
+ 	} else if (r == 0) {
+-		DRM_ERROR("radeon: fence wait timed out.\n");
++		drm_err(&rdev->ddev, "radeon: fence wait timed out.\n");
+ 		r = -ETIMEDOUT;
+ 		goto error;
+ 	}
+ 	r = 0;
+-	DRM_INFO("ib test on ring %d succeeded\n",  ring->idx);
++	drm_info(&rdev->ddev, "ib test on ring %d succeeded\n",  ring->idx);
+ error:
+ 	radeon_fence_unref(&fence);
+ 	radeon_set_uvd_clocks(rdev, 0, 0);
+-- 
+2.43.0
 
-https://tg.st/u/dmesg_9f62587406fb808dc4d91d41029ccf88ceeadf13e1f91d65c27b57536f375550.txt
-https://tg.st/u/amdgpu_device_coredump_data_a25f2060c56260bb46ac95ee3123969d5127bf31b29ea3adfe3feeac67bf4edc.zst
-https://tg.st/u/VID_20251222_071051104.mp4
-
-[   57.342777] amdgpu 0000:0b:00.0: amdgpu: Dumping IP State
-[   57.343822] amdgpu 0000:0b:00.0: amdgpu: Dumping IP State Completed
-[   57.343869] amdgpu 0000:0b:00.0: amdgpu: [drm] AMDGPU device coredump file has been created
-[   57.343871] amdgpu 0000:0b:00.0: amdgpu: [drm] Check your /sys/class/drm/card0/device/devcoredump/data
-[   57.343872] amdgpu 0000:0b:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled seq=106, emitted seq=108
-[   57.343873] amdgpu 0000:0b:00.0: amdgpu:  Process sway pid 2021 thread sway:cs0 pid 2317
-[   57.343875] amdgpu 0000:0b:00.0: amdgpu: Starting gfx_0.0.0 ring reset
-[   57.485168] amdgpu 0000:0b:00.0: amdgpu: Ring gfx_0.0.0 reset failed
-[   57.485170] amdgpu 0000:0b:00.0: amdgpu: GPU reset begin!
-[   57.609921] amdgpu 0000:0b:00.0: amdgpu: MODE2 reset
-[   57.616920] amdgpu 0000:0b:00.0: amdgpu: GPU reset succeeded, trying to resume
-[   57.617008] [drm] PCIE GART of 1024M enabled (table at 0x000000F41FC00000).
-[   57.617024] amdgpu 0000:0b:00.0: amdgpu: PSP is resuming...
-[   57.638326] amdgpu 0000:0b:00.0: amdgpu: reserve 0xa00000 from 0xf41e000000 for PSP TMR
-[   57.832236] amdgpu 0000:0b:00.0: amdgpu: RAS: optional ras ta ucode is not available
-[   57.837959] amdgpu 0000:0b:00.0: amdgpu: RAP: optional rap ta ucode is not available
-[   57.837961] amdgpu 0000:0b:00.0: amdgpu: SECUREDISPLAY: optional securedisplay ta ucode is not available
-[   57.837963] amdgpu 0000:0b:00.0: amdgpu: SMU is resuming...
-[   57.838869] amdgpu 0000:0b:00.0: amdgpu: SMU is resumed successfully!
-[   57.839132] amdgpu 0000:0b:00.0: amdgpu: kiq ring mec 2 pipe 1 q 0
-[   57.842333] amdgpu 0000:0b:00.0: amdgpu: [drm] DMUB hardware initialized: version=0x05002C00
-[   57.944932] amdgpu 0000:0b:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
-[   57.944935] amdgpu 0000:0b:00.0: amdgpu: ring gfx_0.1.0 uses VM inv eng 1 on hub 0
-[   57.944936] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 4 on hub 0
-[   57.944937] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 5 on hub 0
-[   57.944938] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
-[   57.944938] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
-[   57.944939] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
-[   57.944939] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
-[   57.944940] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
-[   57.944940] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
-[   57.944941] amdgpu 0000:0b:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv eng 12 on hub 0
-[   57.944941] amdgpu 0000:0b:00.0: amdgpu: ring sdma0 uses VM inv eng 13 on hub 0
-[   57.944942] amdgpu 0000:0b:00.0: amdgpu: ring vcn_dec_0 uses VM inv eng 0 on hub 8
-[   57.944943] amdgpu 0000:0b:00.0: amdgpu: ring vcn_enc_0.0 uses VM inv eng 1 on hub 8
-[   57.944943] amdgpu 0000:0b:00.0: amdgpu: ring vcn_enc_0.1 uses VM inv eng 4 on hub 8
-[   57.944944] amdgpu 0000:0b:00.0: amdgpu: ring jpeg_dec uses VM inv eng 5 on hub 8
-[   57.948092] amdgpu 0000:0b:00.0: amdgpu: GPU reset(1) succeeded!
-[   57.948107] amdgpu 0000:0b:00.0: [drm] device wedged, but recovered through reset
-[   57.961832] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-
-I'm grateful for any pointers that resolve the issue and available for debugging.
-
-Cheers,
-        Thomas
