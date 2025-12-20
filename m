@@ -4,74 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67927D711D5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7874E6749A
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4080D10E597;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E23410E598;
 	Mon, 22 Dec 2025 08:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PfHyICgh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bRACLZ8S";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2002410E150
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 08:02:14 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-7e1651ae0d5so1976088b3a.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 00:02:14 -0800 (PST)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD40210E1F5
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 11:46:55 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-b79f698aa91so57341766b.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 03:46:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766217733; x=1766822533; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=t0yjTU9k4zkkVGpLyzkoTzrEOACK8nCEpapOdu6BBUw=;
- b=PfHyICghgYjqdPFmK6VUhMyK7L/a6AQHnAWTS/mdzUproj50WdjSV1jAFxBmKoDZig
- bUGD4cyYmogiEOsTc4FTH8Wc2GvNE/3TSEx7EVDLRh6zh2CeLaAmaziJoPyeuue7wPKN
- hFkO8NgYIUA+wCte8UHuflggPwmeJznGnePE92lKR9NuuoCzobB0pkew5SxNWKZKtO+I
- PpLooL6L9U/sYxQerd40JB6wOfnp6ShdWJ0s0noMrbc2nL5lb+RCsHrxPH8ydbzIfGF8
- D5lvbZWtbZc70e0fsI4nVw03G9Wf1KxoCi8+eHGO6pocCTA43r/wlTANNTIFbjXL3OyZ
- AyOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766217733; x=1766822533;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1766231214; x=1766836014; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=t0yjTU9k4zkkVGpLyzkoTzrEOACK8nCEpapOdu6BBUw=;
- b=fhJ2t8SRLCZwrhFaE3OzjUm6AKcQ59GcpcYTV9gNwEMSaSwDPKHz15pn5rWCh3lyOp
- 4VV8G1EMzxvXyVcn8GzPjqw4/3i5yzdSqEgABMYZtnlBxhpjBre9Ifu+KJwsP1hv4CY2
- QMCd7c9XUSR2FPmgMJFQWqfy4v70/td68Vf2v24uS3fKpuqEhwUz1pPSQXqFaZyYy+8u
- zhJ82RnEQIfgS50ObxUzafldoExGObbUiw/PTw5W+xzgmIL86hxUOKQB7KmrEmmzQcIS
- CBqN5lBrItqc8Nv4JV+fGdyWcC2oA+KKmjOQqbPIhvtq9NklbQIgXpUgIJ/ITNJ9pDHO
- Ygyw==
+ bh=hLaocZC4NvxtPqMjK5we9d8bEcoDqJs24P0yOjcLJPA=;
+ b=bRACLZ8Stn5CX5yaL/PAXlPE9RLrks8s/sWdbNM8Fh1Ddz/jA2PMuu/rXYuDl2FPGu
+ /RtVbB0NLkoQSjSzcwZSUt6oKvf1UuE44bCDDcp4751Hxy6EQYSC9EeCsM/EJqGsmWpX
+ 83DnHrCXhmM56DU7Rfq8zPQNSJxsYmTwgR5jrwNH9dqu9Vmc5qIRNRwIn+NEypUsLNYS
+ OsdxBq36sdIGNgAbE454A21Rv+s0CkzYhCIBtkFPc7JiE+leUc1ehEpqaiqbKSpCEkIO
+ mq28giJ56Nhp7/OGBea3eYGPW+DvxsLPBhl1B7zCWGU+LwM3CqjsGuOAE83J23G2jvF+
+ 80nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766231214; x=1766836014;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=hLaocZC4NvxtPqMjK5we9d8bEcoDqJs24P0yOjcLJPA=;
+ b=cq3XwBZlgYCURzuDBMPB+5rKNko/otqYLv9bn2UNsdVxSVYoqAz4JHN3187e3DoybZ
+ n06T8DciADOun1CWSK83t0NxLg66riDHfAzwSLyWViVvpX/qE/O8hrl4DKCtTRuzq601
+ ommNCLUznUqm89Pjhq6ueFGNKjsB+CaCpK91HgrmDvHPpBGmT01cv2Y/C7jNLdgnRg2w
+ zYYAXEZrKpuUhugbYPCLyFsRRwX30hepnN39Qul6A+SM9lQFQxNyLxFfPWFgrGMcg3AC
+ KGeN6DRWH7x7LY5tOYO173Nm+Z/EtBe1M7QX/RpXNG9GmLTH/l0Qrc28hpIvCOfcsr/u
+ Tpxw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW5MiqaFuMNBvx5IyJSQUw1f8lr2tN99leufIaa+FE9kGTUhtkCfqVT/HpY0rLo+8HrVaIuguzO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyG34Ni+1RMn00n3yHpZGBeOVRuxSkRbnbYJUPYSdSQliR9oZNn
- yE3ZlEukibxfYQmhos36xnA27dOOlugSEtw9JNsbKbDcQ2p+clTXeF4R
-X-Gm-Gg: AY/fxX50dG2/bNYSA9vSdeZWWQl0DhwVbzIMn3xFHBr/c609pC1YjcDsTel7MrXJBc+
- iO6LG/wa0qfJYa3KtDgo3Vc1dNDUXip0iAyc8lN8Pz1VaKDIZd2tN76K9I6CInpgT7rmSHhmbHV
- OJRYEpZ+cnKaQ6i3zwO7cPDoT61hoabemSZj1kFRkBYai3L1OD4XhRIS4ikJvGEXvm4f/esTAl+
- mdmJFkUmO9ivy9khFEB8/aiD2WkfqYTG0OC6NM3ppdKlT7Eilu77gjXHYDt2HqY/tIySQT9KsC4
- teD+lyt40Y1Cx0VBFMvTC0WEImD82ECVut/u5gr/wJDgTl4Tj1xyrJGITQ29kPdV/3Zke0dIzqK
- B8kdwCzSQL/OolieDb9//Tp0NukT++kPdoHl6OzrE0fjlsXEVyR8OXOUStXnNzeZ7MHXiLiSvjB
- KZN7En0qPew7mRF5z+Kom+c1HEQChzRL7vwvW8hQ24WwbbIxSSGso5Rtoj6EkJUg==
-X-Google-Smtp-Source: AGHT+IH29IOy31k2BtNarCe+9zp7xxMuT1IvtqtIgzk/XemAzrpP1YIyNNAYRCxAUgVPzsRp52n+wA==
-X-Received: by 2002:a05:7022:e98b:b0:11c:b3ae:c9e9 with SMTP id
- a92af1059eb24-12172311f8fmr5580780c88.43.1766217733259; 
- Sat, 20 Dec 2025 00:02:13 -0800 (PST)
-Received: from titanite-d300.amd.com ([165.204.154.57])
+ AJvYcCWxN2Nrx/8UeEmlCKnryAD/0g6VPfWY2PQV6fgZIzFLoa4qTvANZuy8kecKWXgB/JbVo2ZwcKjn@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxfKR5PDe0PtclOEasi6UPrP71+swxT7NOAUtEYQbCAb3iHDTlB
+ 0L7ZE3Tqdk2FCxtd48zACXJYAyKShzhPYXCqS4Dr5UAxVQ3fUejFWu55
+X-Gm-Gg: AY/fxX4/TtUfN4eCU8YsDOmOK7JcCYVbgCMduvAs0lAGPmDNoIYLXhOU51oWl2sLLrV
+ QRztgo+GNzUao6Drm3hDogJChSe6Z5hWMp/LZvbSIMuUMUFoSvf+eIzVksYsj6CUSVsORP+4Nop
+ 4ZFtY4LRhPtu616tZxzvfT/RKTRKDcptqC3Nht4YwBNp47Q1aPLDDp/hkm+i6xHHsk9XyvjRd80
+ 7ZPY2wedR57Eqz1xzYN6/JrVMfqhe0uXLphqU/XcpMsWzFixPEiGFigRqbO7KGzQcc+X81q0GWC
+ WSMsIuqbX3FZ1yzAQX5n3znEapxFdYVPHHu+8gLc9w9ltAkm+6oWSD4FbL+epQuqlUyo7i50sGV
+ iZwU/4kPjTU52A+IRBbUayyBDsdFE4JEDh8Zd0hsgfCJIc/xLLuYI+jGMYkdm3mhwP+C6IOk+wg
+ jXMBeQJIfys4GUYIxZDXsBQKZ/cgPfK6W3NNp3O1pPFJE2oyUW1jaFXjsDh+H6j9dn
+X-Google-Smtp-Source: AGHT+IGbYX0x/ELOzTU4jh/PMYfc1b2VbALIo6/OkfIB9jSswCMXM4Yr+hxtbcG4AVIMOuxe7PQpcA==
+X-Received: by 2002:a17:907:961e:b0:b7f:fa04:faea with SMTP id
+ a640c23a62f3a-b8037269daemr356204466b.4.1766231214269; 
+ Sat, 20 Dec 2025 03:46:54 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-121724cfc0esm17426947c88.2.2025.12.20.00.02.12
+ a640c23a62f3a-b8037a5bdb9sm495449066b.7.2025.12.20.03.46.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Dec 2025 00:02:12 -0800 (PST)
-From: Mukesh Ogare <mukeshogare871@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Mukesh Ogare <mukeshogare871@gmail.com>
-Subject: [PATCH v2] drm/radeon: convert VCE logging to drm_* helpers
-Date: Sat, 20 Dec 2025 16:01:56 +0800
-Message-ID: <20251220080156.1961026-1-mukeshogare871@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sat, 20 Dec 2025 03:46:54 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
+ siqueira@igalia.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ bernhard.berger@gmail.com
+Subject: [PATCH 1/4] drm/edid: parse HDMI ALLM info
+Date: Sat, 20 Dec 2025 12:46:46 +0100
+Message-ID: <20251220114649.169147-2-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251220114649.169147-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20251220114649.169147-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 Dec 2025 08:23:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,33 +94,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace legacy DRM_ERROR() and DRM_INFO() logging in the VCE code
-with drm_err() and drm_info() helpers that take a struct drm_device.
+This allows us to understand if a TV supports ALLM and gpu drivers can
+use this to trigger ALLM when they so desire.
 
-Using drm_* logging provides proper device context in dmesg, which is
-important for systems with multiple DRM devices, and aligns the radeon
-driver with current DRM logging practices.
-
-No functional change intended.
-
-Signed-off-by: Mukesh Ogare <mukeshogare871@gmail.com>
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_vce.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_edid.c  | 5 +++++
+ include/drm/drm_connector.h | 3 +++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_vce.c b/drivers/gpu/drm/radeon/radeon_vce.c
-index a203992cb932..fd176034b251 100644
---- a/drivers/gpu/drm/radeon/radeon_vce.c
-+++ b/drivers/gpu/drm/radeon/radeon_vce.c
-@@ -121,7 +121,7 @@ int radeon_vce_init(struct radeon_device *rdev)
- 	if (sscanf(c, "%2u]", &rdev->vce.fb_version) != 1)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index e2e85345aa9a..bb6cee249749 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6274,6 +6274,8 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 	}
  
--	drm_err(&rdev->ddev, "Found VCE firmware/feedback version %d.%d.%d / %d!\n",
-+	drm_info(&rdev->ddev, "Found VCE firmware/feedback version %d.%d.%d / %d!\n",
- 		 start, mid, end, rdev->vce.fb_version);
+ 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
++	if (cea_db_payload_len(hf_scds) >= 8 && hf_scds[8])
++		hdmi->allm_supported = hf_scds[8] & DRM_EDID_ALLM;
  
- 	rdev->vce.fw_version = (start << 24) | (mid << 16) | (end << 8);
+ 	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
+ 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
+@@ -6284,6 +6286,9 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
+ 		    connector->base.id, connector->name,
+ 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
++	drm_dbg_kms(connector->dev,
++		"[CONNECTOR:%d:%s] ALLM support: %s\n",
++		connector->base.id, connector->name, str_yes_no(hdmi->allm_supported));
+ }
+ 
+ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 8f34f4b8183d..ac84884a96a5 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -330,6 +330,9 @@ struct drm_hdmi_info {
+ 	/** @max_lanes: supported by sink */
+ 	u8 max_lanes;
+ 
++	/** @allm_supported: flag for auto low latency mode support by sink */
++	bool allm_supported;
++
+ 	/** @dsc_cap: DSC capabilities of the sink */
+ 	struct drm_hdmi_dsc_cap dsc_cap;
+ };
 -- 
-2.43.0
+2.52.0
 
