@@ -4,49 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F35E9E67499
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 369B4E6749C
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBED010E58E;
-	Mon, 22 Dec 2025 08:23:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFAD10E59B;
+	Mon, 22 Dec 2025 08:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="ToXsPb/m";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZZdBsZz3";
 	dkim-atps=neutral
-X-Greylist: delayed 515 seconds by postgrey-1.36 at gabe;
- Sun, 21 Dec 2025 15:22:31 UTC
-Received: from smtp.smtpout.orange.fr (smtp-72.smtpout.orange.fr
- [80.12.242.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3354810E028;
- Sun, 21 Dec 2025 15:22:31 +0000 (UTC)
-Received: from fedora.home ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
- by smtp.orange.fr with ESMTPA
- id XL84vR0u8rrflXL84vSmXB; Sun, 21 Dec 2025 16:13:54 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1766330034;
- bh=SYW2hJtmsJu1fQ6navI6sVhjRiv7DvFk+6/et3N6fQ4=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=ToXsPb/mk/2g2FZNK0oCulTlZW53NRZrv5tiXodV8tFAbS3j8vTXm8a2RKMECt8aq
- UGR/P5oPhWyFl5C0MevAKgi+qfHmIv9j77dad6Q1MkcQqaMML5hKn3HffYaqrTlX2t
- 5gsyTYPn/A8POqFNejQv5t1gLT/oKa7zGVPOKufMKXytaE1CBjInCC8Bl91uFd0kS4
- Cs6axDDUjcuxbPk5HWq72L4F3ZvDMOCybkDmWVLPoDDu534zkIiVika5sz7tWfFgEN
- wdMpf5rA62tCd+cKUcfvwJIUhmjj53xdbGZRo9hnXZVNaJzW6WxalIccFzF+wi660l
- chuktzORaoO2w==
-X-ME-Helo: fedora.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sun, 21 Dec 2025 16:13:54 +0100
-X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Slightly simplify base_addr_show()
-Date: Sun, 21 Dec 2025 16:13:48 +0100
-Message-ID: <66adb62e93993ac0a70fdbe174908c36a560b98d.1766330018.git.christophe.jaillet@wanadoo.fr>
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
+ [209.85.218.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 125AB10E1F5
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 11:46:55 +0000 (UTC)
+Received: by mail-ej1-f66.google.com with SMTP id
+ a640c23a62f3a-b79f698aa91so57341566b.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 03:46:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1766231213; x=1766836013; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=IGC/wXUYiYQsnh5yWNhZ1+GGzCbr65mZk3jPLwzdXjQ=;
+ b=ZZdBsZz3yAYWxS0od0NW9TlIJaT65mXFer87O7lcmqQjTffyF7HqurvfXkWQhEGzvs
+ jsfpdoxqx7YVVFTViZ27bWCB4vYutsFOlcrs/oJH7eKs5jV/MU2L7HuN6WmxjogwGKIs
+ cnsLcRZiZNRGgrMkssu1ZLSvQVT2vDYx7O27AUAlcE/0laCWkdzirVPrXRcsj7jj2hxX
+ 8RdQhrGZjtcVQCdluO3j0tmM/ew6Ym7sEw9r8BYbG2QOtxySp2IvVz68+hfHBWzhUyti
+ U4MsV+Lpfk2zxwTJ9OLSlL4/ngpSB6Dx4pCeQuelr3UuUW2cwlUhaZwODaqz8GxFii9X
+ HKSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766231213; x=1766836013;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IGC/wXUYiYQsnh5yWNhZ1+GGzCbr65mZk3jPLwzdXjQ=;
+ b=ABJHc5YXNO2pEft5CULr2S9PuJAcNswfuA+g+I6vMZDf3jRx8IE8m5qzhHc3/8OeQv
+ LhFRWKWcjESFfpKs7/rj2Wuvr+1Y374fhTw+tz5YqAKLUqfeU7G2/d5eBIPOTtx9UD93
+ /2ZMvfbPZ6nDX3dP14CxNFXmJ1HrQ3RNBOlj+up+2wl6bak/xx5Th+WT4PVVPJ1HQfVd
+ TYUc2573ZjMv3TNPOqRBvas6Sbc9Ip3YSkKWmLgRWI0PEr7JzDpMJh0Cv6PTCdtC1Qa7
+ UpjRL4YpMQaRoRYemzl57m+Bsy6Pn4ejKtuJ1YmrkgDLu20eQszb+/bLjW0ioXhZFB1h
+ PrXw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV9IgHZjJfDn79Fk6oa903xw1Yq721M7ToMgyiWkABhu+HwlkOZMQVQwYjcVDBnftbMCCCKe3/N@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1ROWcOjzvv1Fak5eaOmFl+OGCUtxQRgmgEF9puG4k2nBaNRH7
+ HuW1e2mxPrNz7PGvvRB9ka1FugqCEF8z0F89OLRy4KwDr4+IPS62Le6m
+X-Gm-Gg: AY/fxX7T5e8Hb6fd70C1rlArmLYuZGNhP7q8gtZG67LIUciGyz7zIwYfrjgScKp/Gmf
+ n8lBYrUZ0vInOunKN67Jtkzse0Prw38PjMnVQC0HbPXE//eaJsepse5qT3rOT0Vn8IZipLlJslm
+ w0elUztjsJ2ZAjRa9DlpUun8hA/wCHSODMVIybIdUVQfZIEbop9UBpXnZD95zVJQW74oZKLwXxF
+ GsIDnXp5RnT64SSJRXqNqLY+vUKLSi6nV4HPHCitmMrfUbMaYrbcCAEJ+g/VQSR8FNsWmXZPQS7
+ 74wlxwpg5sP8ABs3bsYJV5Q6afPq4jwwkyRT54f0tLJ9SVaScR/IETUwg53zE46i+j2tUgDlJCb
+ WECEXkflYrC18YlslRbcl48uf7qpHRaseUv+Qvsw6rZIX3Jqp8/JDmnz8RslBRjljdQfu5um5Ds
+ 5iRbpXvUDTsdlgtp+nWhCWX23BpaYcyI+xKBXRlNM+TG+rOOt4LpbVp0YxtdYVzfk5
+X-Google-Smtp-Source: AGHT+IGQ6x7ZnQVQeDaeNCXSqDdMpW3yy2ZBTCiOeV9sMFDd0x+AREowv3nhxI5iwK9TUZGpZQMLkQ==
+X-Received: by 2002:a17:906:dc91:b0:b76:3d45:51d9 with SMTP id
+ a640c23a62f3a-b8036954bddmr355980566b.0.1766231213246; 
+ Sat, 20 Dec 2025 03:46:53 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8037a5bdb9sm495449066b.7.2025.12.20.03.46.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 20 Dec 2025 03:46:53 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
+ siqueira@igalia.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ bernhard.berger@gmail.com
+Subject: [PATCH 0/4] amdgpu: Enable Adaptive Sync over PCON with HDMI VRR
+Date: Sat, 20 Dec 2025 12:46:45 +0100
+Message-ID: <20251220114649.169147-1-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 Dec 2025 08:23:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,48 +91,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sysfs_emit_at() never returns a negative error code. It returns 0 or the
-number of characters written in the buffer.
+Adaptive Sync over PCON is only available as FreeSync over HDMI. TVs which do
+not support FreeSync, do not have working VRR with DP -> HDMI 2.1 adapters even
+though adapters will take care of HDMI VRR info packets.
 
-Remove the useless tests. This simplifies the logic and saves a few lines
-of code.
+First two patches add generic drm edid parsing for HDMI VRR and ALLM.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+Since HDMI VRR relies on FRL modes, this will only be enabled for PCONs in the
+VRR whitelist. HDMI VRR for native HDMI connector will still not be
+possible/attempted.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 20d05a3e4516..b44f0710b00e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -888,22 +888,19 @@ static ssize_t num_base_addresses_show(struct ip_hw_instance *ip_hw_instance, ch
- 
- static ssize_t base_addr_show(struct ip_hw_instance *ip_hw_instance, char *buf)
- {
--	ssize_t res, at;
-+	ssize_t at;
- 	int ii;
- 
--	for (res = at = ii = 0; ii < ip_hw_instance->num_base_addresses; ii++) {
-+	for (at = ii = 0; ii < ip_hw_instance->num_base_addresses; ii++) {
- 		/* Here we satisfy the condition that, at + size <= PAGE_SIZE.
- 		 */
- 		if (at + 12 > PAGE_SIZE)
- 			break;
--		res = sysfs_emit_at(buf, at, "0x%08X\n",
-+		at += sysfs_emit_at(buf, at, "0x%08X\n",
- 				    ip_hw_instance->base_addr[ii]);
--		if (res <= 0)
--			break;
--		at += res;
- 	}
- 
--	return res < 0 ? res : at;
-+	return at;
- }
- 
- static struct ip_hw_instance_attr ip_hw_attr[] = {
+I myself validated these changes with my Samsung S95B + Bernhard validated on
+LG C4 + FreeSync-less Sony Bravia 8. I used Alienware AW3423DWF that only
+has HDMI 2.0 to check that FreeSync still triggers properly for "older" hardware
+
+Tomasz Pakuła (4):
+  drm/edid: parse HDMI ALLM info
+  drm/edid: parse HDMI VRR information
+  drm/amd/display: rename PCON adaptive sync types
+  drm/amd/display: enable HDMI VRR over PCON
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 +++++++++++++++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
+ .../amd/display/modules/inc/mod_info_packet.h |  4 ++--
+ .../display/modules/info_packet/info_packet.c |  4 ++--
+ drivers/gpu/drm/drm_edid.c                    | 20 ++++++++++++++++
+ include/drm/drm_connector.h                   | 23 ++++++++++++++++++
+ 6 files changed, 67 insertions(+), 10 deletions(-)
+
 -- 
 2.52.0
 
