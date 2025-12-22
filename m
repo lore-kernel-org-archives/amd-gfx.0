@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA7DE677ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 15:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9235AE677F0
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 15:34:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA67610E6B8;
-	Mon, 22 Dec 2025 15:34:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2481110E6BF;
+	Mon, 22 Dec 2025 15:34:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BzEMpXFT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m7KOn1xG";
 	dkim-atps=neutral
 Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
  [209.85.210.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6820910E5D5
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:29:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D14E310E584
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:24:16 +0000 (UTC)
 Received: by mail-pf1-f193.google.com with SMTP id
- d2e1a72fcca58-7bab7c997eeso4176463b3a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:29:14 -0800 (PST)
+ d2e1a72fcca58-7baf61be569so4007084b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:24:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766392154; x=1766996954; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=UJ0Fy32CNz68gAtuvvvAIFbPIlI5INll01DQrP39TKA=;
- b=BzEMpXFTFU8IUBuFSp2ZvKv8D63DrBLIagh6mlVtUBtsW3gwi4oxzGlHCOOgmIN2+a
- 5Y+5Dmud4FTOpJKXrc1pDGXFgfw1RpgnVfrIMf87PhmNpH88y4VoWe6DlKAIwprYFqFM
- tifZ9fWdiB9NKKXox2210eyQqWHTQBGMCAU1Z8XLM/wYsaDlHPhvPQLiIE/36wiE+giD
- W+xXxjMTEd1XZyBqDgor2oXCf9bFT6XdoV5+RUblqtTdu/mRLJu5eaGjYKVW70mV5xQE
- 2+cg++oqSspi43PqF4ODb39At8RChGpIaV/tKlAG7cT16XH9WIxAiHd7qGosnQO7LT/2
- n8Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766392154; x=1766996954;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1766391856; x=1766996656; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UJ0Fy32CNz68gAtuvvvAIFbPIlI5INll01DQrP39TKA=;
- b=Et1FQ/uwmHRxvq5GW9FEZk2HFoBnjLdZKal5b1nppnCxM1NIEpxJuVH803/+6rHFLO
- 4GrWzEEVokvX7SlEGZFxfgy+HBd5KtyVxKFaATPq2q5ljbE4ehOs32VxxKAlKsUVpelr
- Sv1LVh18brnSyI11bLc8WkJ7QbHHYVd+Z9yfc9X9LaULr7/oGgm/p1I7Y7bSySks8pli
- VgCCchWqeua/aqvROKkcMNFdynpyaaMXZRy5IakEYu6fV21n7qayqHxIZmUjDYT4xZjy
- Z84A9UuE8P0YqaTRmOPwTLp3J2hSakDdFDjleOQmNroizD6bo3npEHuSDpvyIjHGpEyf
- ILvg==
+ bh=saj8Myj0AXkSu5hKZJBWN47Kb5BefKCe0HbhKcuaxLQ=;
+ b=m7KOn1xGvQ8/XLBWUvkCpZWyJD+8yeq2/SOReOwq5m4bFxGmJWXaGNOv4CdDYfF/nR
+ 536KqDc4QG07wyi1Vs1YfA1qc5S/Ab9kGxZI1PAyw5UXmJ3rV4nDAHL96lc3j9EQLGVF
+ lOtDyrFwltKWN7Eyz3vAaaYEToUvnodwt8c6DbLGvUhDGuX5otnQv51Y4NShu6sRR2Z1
+ V3KChsGAJ6fII+zH1bpD0PoArEsi9IgDQF3iQHUv6g+MLPmcRDOpE7SfrbP3SecP9ATQ
+ PTsqg5AaucEpDTTkT21Yx46e/lt8MQ9Zs/dDdxNzhwznxSoEn66xXrLqBCQKrJyO4cYM
+ +Q4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766391856; x=1766996656;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=saj8Myj0AXkSu5hKZJBWN47Kb5BefKCe0HbhKcuaxLQ=;
+ b=Zsyh6Hj9PAe6s9xb4a8jLEa7+zedkGORXmctTDEbjSxdnxabImgSIG/Rc2nb3ACFIy
+ EBXScXnrpXHHyR7Sc7+8Bu35X30tLZxJpNLgRwowSmY+FIzIVbxB5V5MpLyqrguYGJgm
+ 1IFwwa2+evOBfwt4/9aPYihmwo1azla6skJ78XIqUnjkvkg9TPPLBO8Ap5TbGbl0NzC0
+ HKW30Ubxzof800vCjkHoFk3UVHU41FMA/EVRqnZdpMKodTfrAZAFUNrTkN01iRpAS+rH
+ C95B1g3kkyb082lWMka4eppjzX9m08vJBVP39FloIR/OFf8Q60sAObthltQIFe6r+77k
+ uLEQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWklBSMNPuzNrR61+y96Dd2N4RZukn8e+ze04Br8iqXBzLDqkMSxNzLzjojANU5e17CLfi+KROq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPIkn14vQAp7Q1yc9gUaW7x9vjXCQ2L6hx6rUxmjg/H3snc0Xg
- 3t6zFGszzuMZ9gMeGbNayrXmRi9FKjoh/12kEObrII0LNQ78dx09mito
-X-Gm-Gg: AY/fxX6nqNT3Asa44TYkAtjprXmAGy4zrW1JW5KdHLutIP3eAqTLvari3M176lNd2Ji
- 2DZV+qnNk1lNAvyg46X3Ov7tvGPvH/Up9rXZqnMjzCswv55FpKI8qtSZ90CuaqldH/EsV76ogOi
- Xbsn+gBK07D68l00eZ/K55b5XoQLncTx4iQ3K2R81sYsOkc3SObiMHrTS1Ep+wcXEMi3m3PshhY
- 2Ys7xiraRg3FaOFeZeXWAlgQjOHlKKXm85+3PM1KNae1Kbd+xFMRmIgOA4F2fnS1znDIAFtbQ8Y
- dQ0kZEkOdDfNk3ODPYcul9/2nvA3/ZKQ3xOukyRPTWnjK0ei7kQZSuL9B6jNlLI3s2jL9soMaAo
- p0KcmD+wuW2oxmd4LchbavbiVjL2DXRNkE2E3zgj1A602IENEPTGLc41Ck5gPS569fMbNyYsXqf
- TAAIqxC8a6
-X-Google-Smtp-Source: AGHT+IH91xYoqgoO/9cTyIkcwq8ylRSPWssYXk7Ak1UGNvKWMh8b4fE0tkVyhdkLY2d/CPzf+gHPIA==
-X-Received: by 2002:a05:6a00:1f17:b0:7f1:fad7:2ce with SMTP id
- d2e1a72fcca58-7ff679669d1mr11073286b3a.48.1766392153873; 
- Mon, 22 Dec 2025 00:29:13 -0800 (PST)
+ AJvYcCU1Oqf0hKK8Ge0J6DDaF0GV2RiLxQQDFY5bJZX1rzgtLK3h7zfXh/cAw6j+IDlrSpW/NSd8P5KV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxoI/i3aChnjeXkImkxEm5GK38Z2ot6/f+OolIHS02JOWUqV92
+ dXAACy5gkCk8DZ/IyGRj54yCvXRSUATNEoE06ugdg7umVt/8qwPCMJrw
+X-Gm-Gg: AY/fxX5EDQeHN5O5m7xbFXM/Vl4J8NLXH44H2WWoelkNBm7fAWjdbBtQMsw2sIP8mwx
+ GCgg6zq3gZD0j+O8RSaxZD88mK+M8GHYQjPbYmtG0AVlUzL7HU8kgkJPCkUYSyaPIs8YkIYHBVJ
+ 3nCKq9hpHJ6vj6JvrBL29EXSH81GM1kOnMP4hYEXVdv8WqLvt41K7T7TA5Qf1Tnhirg5/9O8YTw
+ StbWyzCK4/Z3txLB2peDchUxo4geDu2Y83CWuR6LPDbw5/dCI4XlHpme/gPkWWdgiLioZRJlwDV
+ 7okhmquO/Wwmb86MCAuxO4czadfgDMyBaP3Jbbc3u5LHfw/s1ffY94MDVn7Gb92Yr200CKNJp8E
+ UpRYemXwelnb3FRUVZlljSXU150j8M4fIzcz49zwg01INcHNBzUCkZVxtvEo5+Z6kt8wDFhNdo6
+ dy+MREg5qD
+X-Google-Smtp-Source: AGHT+IHhfCBl2Gb658Wb5nP4VimtUGUrU6/VY0t3P4zkMX/95OPPHKG9Ys2L2e1xsI+aRFKPN12sQg==
+X-Received: by 2002:a05:6a20:9189:b0:366:14ac:8c6c with SMTP id
+ adf61e73a8af0-376ab2e8f52mr9605414637.66.1766391856304; 
+ Mon, 22 Dec 2025 00:24:16 -0800 (PST)
 Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7ff7af29dcfsm9640064b3a.17.2025.12.22.00.29.02
+ d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.24.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 00:29:13 -0800 (PST)
+ Mon, 22 Dec 2025 00:24:15 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -74,12 +75,14 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v7 00/31] drm/dyndbg: Fix dynamic debug classmap regression
-Date: Mon, 22 Dec 2025 21:28:12 +1300
-Message-ID: <20251222082843.1816701-1-jim.cromie@gmail.com>
+Subject: [PATCH v7 16/31] dyndbg: hoist classmap-filter-by-modname up to
+ ddebug_add_module
+Date: Mon, 22 Dec 2025 21:20:33 +1300
+Message-ID: <20251222082049.1782440-17-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251222082049.1782440-3-jim.cromie@gmail.com>
+References: <20251222082049.1782440-3-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 Dec 2025 15:34:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -96,141 +99,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hello all,
+The body of ddebug_attach_module_classes() is dominated by a
+code-block that finds the contiguous subrange of classmaps matching on
+modname, and saves it into the ddebug_table's info record.
 
-commit aad0214f3026 ("dyndbg: add DECLARE_DYNDBG_CLASSMAP macro")
+Implement this block in a macro to accommodate different component
+vectors in the "box" (as named in the for_subvec macro).  We will
+reuse this macro shortly.
 
-added dyndbg's "classmaps" feature, which brought dyndbg's 0-off-cost
-debug to DRM.  Dyndbg wired to /sys/module/drm/parameters/debug,
-mapped its bits to classes named "DRM_UT_*", and effected the callsite
-enablements only on updates to the sys-node (and underlying >control).
+And hoist its invocation out of ddebug_attach_module_classes() up into
+ddebug_add_module().  This moves the filtering step up closer to
+dynamic_debug_init(), which already segments the builtin pr_debug
+descriptors on their mod_name boundaries.
 
-Sadly, it hit a CI failure, resulting in:
-commit bb2ff6c27bc9 ("drm: Disable dynamic debug as broken")
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+reordered params to match kdoc
+---
+ lib/dynamic_debug.c | 57 ++++++++++++++++++++++++++-------------------
+ 1 file changed, 33 insertions(+), 24 deletions(-)
 
-The regression was that drivers, when modprobed, did not get the
-drm.debug=0xff turn-on action, because that had already been done for
-drm.ko itself.
-
-The core design bug is in the DECLARE_DYNDBG_CLASSMAP macro.  Its use
-in both drm.ko (ie core) and all drivers.ko meant that they couldn't
-fundamentally distinguish their respective roles.  They each
-"re-defined" the classmap separately, breaking K&R-101.
-
-My ad-hoc test scripting helped to hide the error from me, by 1st
-testing various combos of boot-time module.dyndbg=... and
-drm.debug=... configurations, and then inadvertently relying upon
-those initializations.
-
-This series addresses both failings:
-
-It replaces DECLARE_DYNDBG_CLASSMAP with
-
-- `DYNAMIC_DEBUG_CLASSMAP_DEFINE`: Used by core modules (e.g.,
-  `drm.ko`) to define their classmaps.  Based upon DECLARE, it exports
-  the classmap so USE can use it.
-
-- `DYNAMIC_DEBUG_CLASSMAP_USE`: this lets other "subsystem" users
-  create a linkage to the classmap defined elsewhere (ie drm.ko).
-  These users can then find their "parent" and apply its settings.
-
-It adds a selftest script, and a 2nd "sub-module" to recapitulate
-DRM's multi-module "subsystem" use-case, including the specific
-failure scenario.
-
-It also adds minor parsing enhancements, allowing easier construction
-of multi-part debug configurations.  These enhancements are used to
-test classmaps in particular, but are not otherwize required.
-
-v7 adds:
-. WARN_ONCE when classmap isnt found for a class'd callsite, JBaron
-. reorder macro args to match kdoc, JBaron
-. Doc formatting fixes, by Bagas
-
-Thank you for your review.
-
-P.S. Id also like to "tease" some other work:
-
-1. patchset to send pr_debugs to tracefs on +T flag
-
-   allows 63 "private" tracebufs, 1 "common" one (at 0)
-   "drm.debug_2trace=0x1ff" is possible
-   from Lukas Bartoski
-
-2. patchset to save 40% of DATA_DATA footprint
-
-   move (modname,filename,function) to struct _ddebug_site
-   save their descriptor intervals to 3 maple-trees
-   3 accessors fetch on descriptor, from trees
-   move __dyndbg_sites __section to INIT_DATA
-
-3. patchset to cache dynamic-prefixes
-   should hide 2.s cost increase.
-
-
-Jim Cromie (31):
-
-fixes, cleanups, simple stuff::
-
-Jim Cromie (31):
-  dyndbg: factor ddebug_match_desc out from ddebug_change
-  dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
-  docs/dyndbg: update examples \012 to \n
-  docs/dyndbg: explain flags parse 1st
-  test-dyndbg: fixup CLASSMAP usage error
-  dyndbg: reword "class unknown," to "class:_UNKNOWN_"
-  dyndbg: make ddebug_class_param union members same size
-  dyndbg: drop NUM_TYPE_ARRAY
-  dyndbg: tweak pr_fmt to avoid expansion conflicts
-  dyndbg: reduce verbose/debug clutter
-
-callchain grooming, re-structs, code simplify/dedup by macros::
-
-  dyndbg: refactor param_set_dyndbg_classes and below
-  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-  dyndbg: replace classmap list with a vector
-  dyndbg: macrofy a 2-index for-loop pattern
-  dyndbg,module: make proper substructs in _ddebug_info
-  dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
-  dyndbg: move mod_name down from struct ddebug_table to _ddebug_info
-  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
-  selftests-dyndbg: add a dynamic_debug run_tests target
-  dyndbg: change __dynamic_func_call_cls* macros into expressions
-
-core fix, detect api misuse errors, etc::
-
-  dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-  dyndbg: detect class_id reservation conflicts
-  dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args at compile-time
-  dyndbg-test: change do_prints testpoint to accept a loopct
-  dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
-  dyndbg: treat comma as a token separator
-  dyndbg: split multi-query strings with %
-  selftests-dyndbg: add test_mod_submod
-  dyndbg: resolve "protection" of class'd pr_debug
-  dyndbg: add DYNAMIC_DEBUG_CLASSMAP_USE_(dd_class_name, offset)
-  docs/dyndbg: add classmap info to howto
-
- .../admin-guide/dynamic-debug-howto.rst       | 187 ++++-
- MAINTAINERS                                   |   3 +-
- include/asm-generic/vmlinux.lds.h             |   5 +-
- include/linux/dynamic_debug.h                 | 302 +++++--
- kernel/module/main.c                          |  15 +-
- lib/Kconfig.debug                             |  24 +-
- lib/Makefile                                  |   5 +
- lib/dynamic_debug.c                           | 776 +++++++++++-------
- lib/test_dynamic_debug.c                      | 198 +++--
- lib/test_dynamic_debug_submod.c               |  21 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   7 +
- .../dynamic_debug/dyndbg_selftest.sh          | 373 +++++++++
- 14 files changed, 1465 insertions(+), 461 deletions(-)
- create mode 100644 lib/test_dynamic_debug_submod.c
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index c9377a444fc8..d668140794ac 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -170,8 +170,8 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ }
+ 
+ static struct _ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+-							const char *class_string,
+-							int *class_id)
++							 const char *class_string,
++							 int *class_id)
+ {
+ 	struct _ddebug_class_map *map;
+ 	int i, idx;
+@@ -1247,30 +1247,35 @@ static const struct proc_ops proc_fops = {
+ 
+ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
+ {
+-	struct _ddebug_class_map *cm;
+-	int i, nc = 0;
+-
+-	/*
+-	 * Find this module's classmaps in a subrange/wholerange of
+-	 * the builtin/modular classmap vector/section.  Save the start
+-	 * and length of the subrange at its edges.
+-	 */
+-	for_subvec(i, cm, di, maps) {
+-		if (!strcmp(cm->mod_name, dt->mod_name)) {
+-			if (!nc) {
+-				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+-					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
+-				dt->info.maps.start = cm;
+-			}
+-			nc++;
+-		}
+-	}
+-	if (nc) {
+-		dt->info.maps.len = nc;
+-		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
+-	}
++	vpr_info("module:%s attached %d classes\n", dt->mod_name, dt->info.maps.len);
+ }
+ 
++/*
++ * Walk the @_box->@_vec member, over @_vec.start[0..len], and find
++ * the contiguous subrange of elements matching on ->mod_name.  Copy
++ * the subrange into @_dst.  This depends on vars defd by caller.
++ *
++ * @_i:   caller provided counter var, init'd by macro
++ * @_sp:  cursor into @_vec.
++ * @_box: contains member named @_vec
++ * @_vec: member-name of a type with: .start .len fields.
++ * @_dst: an array-ref: to remember the module's subrange
++ */
++#define dd_mark_vector_subrange(_i, _sp, _box, _vec, _dst) ({		\
++	typeof(_dst) __dst = (_dst);					\
++	int __nc = 0;							\
++	for_subvec(_i, _sp, _box, _vec) {				\
++		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
++			if (!__nc++)					\
++				(__dst)->info._vec.start = (_sp);	\
++		} else {						\
++			if (__nc)					\
++				break; /* end of consecutive matches */ \
++		}							\
++	}								\
++	(__dst)->info._vec.len = __nc;					\
++})
++
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -1278,6 +1283,8 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
++	struct _ddebug_class_map *cm;
++	int i;
+ 
+ 	if (!di->descs.len)
+ 		return 0;
+@@ -1300,6 +1307,8 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+ 
++	dd_mark_vector_subrange(i, cm, di, maps, dt);
++
+ 	if (di->maps.len)
+ 		ddebug_attach_module_classes(dt, di);
+ 
 -- 
 2.52.0
 
