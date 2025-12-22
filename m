@@ -4,62 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA123D68BD5
-	for <amd-gfx@archiver.kernel.org>; Sun, 21 Dec 2025 09:20:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41BFE66886
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 03:34:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFD0E10E021;
-	Sun, 21 Dec 2025 09:20:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 329A210E1CC;
+	Mon, 22 Dec 2025 03:34:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bVdORnI3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EK65tmd7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D0F310E021;
- Sun, 21 Dec 2025 09:20:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1766308802; x=1797844802;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=uxixjlrd6VxMa53vWWDqTRdQ0NyGFDuQGcVMJ5vbUso=;
- b=bVdORnI3l2u2mT6rhXwLhBHiE0kPUkeDbfe6ZTWtT8+vBW1cZQG3TrEg
- EQePKX7UTrOoqNWM2MYfTWcdPM4x87gfGE2N15paQeWEilu8wB/q9cgAy
- 2rs7Krfcq6yQRZwvFvKhIWlHRdlrOh+lLqPYEwf1NamIN3ftPAjuOKmw/
- C4MHrUbRa4BMMCk31Mv+pyYzZAklawSt97yQxmZKkO1J/J5FrGHZNDIGq
- BZ23bVIwNYpH6Me6hGUfJR7g/nNkt2Fme8ZnHdzDIsWgAcCAfufEvWIaL
- cIJxBOiwS99nQu7V+Mu1sYdiWVL/AYL+5Bcmile/CC3rqK2NgmWZujSzC g==;
-X-CSE-ConnectionGUID: 43HHaAfQTlezRslhfK4+SQ==
-X-CSE-MsgGUID: wIsXwrnoTc+wRMEkUhJ2pA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11648"; a="72047772"
-X-IronPort-AV: E=Sophos;i="6.21,164,1763452800"; d="scan'208";a="72047772"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2025 01:20:01 -0800
-X-CSE-ConnectionGUID: s/g2az6DRLKE8uIYKDHl6Q==
-X-CSE-MsgGUID: wp2QsmbKT4CJsQDpO+KijA==
-X-ExtLoop1: 1
-Received: from igk-lkp-server01.igk.intel.com (HELO 8a0c053bdd2a)
- ([10.211.93.152])
- by fmviesa003.fm.intel.com with ESMTP; 21 Dec 2025 01:19:57 -0800
-Received: from kbuild by 8a0c053bdd2a with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vXFbX-00000000504-16m0;
- Sun, 21 Dec 2025 09:19:55 +0000
-Date: Sun, 21 Dec 2025 10:19:52 +0100
-From: kernel test robot <lkp@intel.com>
-To: suryasaimadhu <suryasaimadhu369@gmail.com>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, siqueira@igalia.com,
- mario.limonciello@amd.com, wayne.lin@amd.com, roman.li@amd.com,
- timur.kristof@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, suryasaimadhu <suryasaimadhu369@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/dm: Convert IRQ logging to drm_* helpers
-Message-ID: <202512211051.rcNkAntw-lkp@intel.com>
-References: <20251218063512.4572-1-suryasaimadhu369@gmail.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010026.outbound.protection.outlook.com [52.101.201.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB68A10E1CC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 03:34:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vj1Rt57NKFfyZivjwPRr/WKhDLsYG7SgUnVL0WGngPgHHP0a8+L4+f7rcCJ7R2hzsTM1XL3bGVvISd+w48p7Hs79d3BmvbKRGIHzKgk7k1GZT1VtA1oMsBuV0nvlYPUzxA+YQBQ73zpyYFFNNAh2PBFpkDriwbHoyDNBu2mJRRyeIVpEivLIjtXwYMAYpktRMe7oIxNwuqlPjNwaIh5Onqyz/PPmbuO14fEuXQslqRUX3q5VkEhnlHxcBruS5FaIWu5EIYHAy0PGDti5vHNk8Zxi2YygLUHAB9de9+LEBe0+aOgZPZEZ1Ni06AEM6oxLf80zpi2Vo/boLL6ZJn/pMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xdd5CNbniJZEgqKD4oI9wy7uPvSg67UIb3LRRD9/s9A=;
+ b=xyjIeutdzIUG6vkBX9yhMoPKb8rW4r8/Aux0msf2LTNFmlKgnvj+ETxWpJor/uyMhPoWthjSHCjD2rL7CJTjzfqqfvPD7DdeEQV4Y/9Q5pKZBusN2ovPOV+dgozVQmFcTJWP6EAkza77QlsyddUjYck2ob4JoLhC8ggd+1dw0Lofb+7ir3ytQpJyyJa5wlj1nLtGQy2+/bqKLaZcw42kmP7Gmwauqp2+wuTTojSIihtOm9eryKXvcPBLrFUb71t2e1luUE6DqwqeofOFC1uNEjNFzuYFrwh8u0AGECo5/6mPbnjJDz/UsuKAAuevG6BLv8M8h9jG7XOor5QOibN8xQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xdd5CNbniJZEgqKD4oI9wy7uPvSg67UIb3LRRD9/s9A=;
+ b=EK65tmd7w0dO/0XgLyOT5U3F4E7pJM1C6doDTTrdSaHdEQccfR6cTygVKgpHTqhiODId4ADVe7l5UviDUs5mBvp1X5Q0erfZXHSnpwX9H3WT7U0m2tNgShfLdwCVAedRnUXdurKFmzn5aJVNNjejnHp0qsqPXkstFgGYEk4/mc8=
+Received: from PH7PR10CA0018.namprd10.prod.outlook.com (2603:10b6:510:23d::15)
+ by SJ0PR12MB5610.namprd12.prod.outlook.com (2603:10b6:a03:423::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.11; Mon, 22 Dec
+ 2025 03:34:00 +0000
+Received: from SN1PEPF00036F43.namprd05.prod.outlook.com
+ (2603:10b6:510:23d:cafe::5d) by PH7PR10CA0018.outlook.office365.com
+ (2603:10b6:510:23d::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.11 via Frontend Transport; Mon,
+ 22 Dec 2025 03:33:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF00036F43.mail.protection.outlook.com (10.167.248.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9456.9 via Frontend Transport; Mon, 22 Dec 2025 03:34:00 +0000
+Received: from bingxguo-Super-Server.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Sun, 21 Dec 2025 21:33:58 -0600
+From: Bingxi Guo <Bingxi.Guo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Bingxi Guo
+ <Bingxi.Guo@amd.com>
+Subject: [PATCH] drm/amdgpu: Add entity's check when alloc sdma jobs
+Date: Mon, 22 Dec 2025 11:33:49 +0800
+Message-ID: <20251222033349.156700-1-Bingxi.Guo@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251218063512.4572-1-suryasaimadhu369@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F43:EE_|SJ0PR12MB5610:EE_
+X-MS-Office365-Filtering-Correlation-Id: 902d2f58-cd32-48c1-0903-08de410af224
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qz0Gr4Jd1bdTgm4H1J0wKfPckksjuQpnwlKPuK3JKaX05RMTGa62uWA/td6G?=
+ =?us-ascii?Q?NNjhZ4fmCD1MfF8UyhHj47YJsPL9Nanc8T+aVhBLKPi5MO0AY3exRWs5raMw?=
+ =?us-ascii?Q?E02CSJL3U7lMbbIl2H6p7MrHPHRDhoEB/klHdMN+r6JmbzqEf7IRSgY5zT8J?=
+ =?us-ascii?Q?JAHxon0kQ7tcQy9LxSFCuJf00pK7PHs7Ogrdba22yDoSDHOVlWCPcgt47Z3S?=
+ =?us-ascii?Q?o2wDio80GFAXfsIMOq9UU3kyUBnbC/3mND1GVf60343b5bA8glbM5jw4fBct?=
+ =?us-ascii?Q?JJAhgHfXpztTwbcBXaOe5IJzXfy0AqRHfNax9cFPrDwKgZb5bwlbXqB60HI6?=
+ =?us-ascii?Q?4H/s5QAz1en0ikDNnECzow3Vwny9LFn4LUtQ8YtIBBHznAvxAARD3/PBvK0d?=
+ =?us-ascii?Q?eQb11LV2/e+jfKywlJgCrsYtQ318DlUeU5pmrTOrYaPhZXgopmiEc9ehZZda?=
+ =?us-ascii?Q?Z19S7AtKJaME38rFamBVg/5susgj3LVCbuixmr9MLrxeGXslcD2fpk0VmHl2?=
+ =?us-ascii?Q?YRGgJhoUkrno3C5u0HKhHUIz8R3WqP9ROhI1GOIxM0aOhY8DI8aHNHLumfNY?=
+ =?us-ascii?Q?tmrk56VO2ortPNhXAONIX3Y/CBxkd0+ycWrIJZlNZ8asfLDlGZs6s7GhjAHf?=
+ =?us-ascii?Q?gIU8nZDlVUg6p3T8RXZToRMT7NkW6dJwfEdGnezyEC2aaxaZV1IOjhAgPeNa?=
+ =?us-ascii?Q?VhYlCC/Im+GgETqA0xBshxtBUooSJJnSH7Oh8Y3UUqNcJabDg1MFjEA1HHlp?=
+ =?us-ascii?Q?T8nnzb0QC3gMLAu6sPpdN+16tAkepJpHC0etTd/bg5A0mUhgRv613Xm83gYC?=
+ =?us-ascii?Q?ZpyU6ja4V7WqIptggQ6aD1vbs3Uxy8ElaaSqisBekXTVSU6pkhSzlk58M38s?=
+ =?us-ascii?Q?fgs59Hd3q+ZHi/ykoRKXRnbHVmkWM0BcDJmq3/MlAtn24jAHwN5lADXKwvFV?=
+ =?us-ascii?Q?Y8BAG+3BeV0W8FKfawY85XimmWkmAIhqgOMfTv7LaTomEukHNKTmwiFuwTB6?=
+ =?us-ascii?Q?aAZY5g0S+aQYSDtJHJSf2+2Sv4ENH/ld8MJ4rbMJpwwZgh674FwSZzWArT5P?=
+ =?us-ascii?Q?+KUCEZklOYgXs8nNChTi2IcWET/Pn35r19XdQAHMawUBa9IxvB1u9omD3Fqy?=
+ =?us-ascii?Q?Rdjwdcib1TtF+Vy+6ofsgLSTRBoYH5OlDUo1kbo2NWSlCljwOZ61wTTJMolL?=
+ =?us-ascii?Q?bnQjg9h5vPylWV29L9GbolM18JfGFYweJvmDhEzmZvsNkYszUvlRImmvrVpK?=
+ =?us-ascii?Q?SMFQlLslXwZN0nEXPcZHPLtvRJoFwi0bJsBCQb4ZNAb/SoxVOleUz51JQaMg?=
+ =?us-ascii?Q?dHDRnvzoe/7NEITqcXXIUS2kVVtjfXc+1psptsbEWeybD/uvWJr3NoG1tiFV?=
+ =?us-ascii?Q?FDnSRXy6fanA7tFh6FrklJ31rE1cO3L1l80c6KdAPf/69yhRkTU6dPzke1VJ?=
+ =?us-ascii?Q?aWp/ERapPfMMxSJi9lbQKCK4qNr7hBFdpw/Uh7g2Sd/SjuLrXOtqOkTHs6Kp?=
+ =?us-ascii?Q?Ak6FxRl9nIpmeYljfqvFKlIbGFX+ffg30gZnAGYcuVjcBSXrDtwC1+AdQ87Z?=
+ =?us-ascii?Q?2sZ7JVxl3dYpJmBGZjw=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2025 03:34:00.0494 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 902d2f58-cd32-48c1-0903-08de410af224
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F43.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5610
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,150 +132,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi suryasaimadhu,
+issue:When one of multiple processes sharing the same amdgpu device
+fd is killed, amdgpu_flush runs but amdgpu_drm_release does not, so the
+vm's entitys have been stopped but bos still alive. Later, when the
+KFD fd is closed, the driver unmaps BOs from the GPU VM, clears the
+freed BO list, and normally submits SDMA jobs plus an
+amdgpu_tlb_fence_work to wait on the job's finished fences which will
+not be signaled.
 
-kernel test robot noticed the following build warnings:
+add check if entity is NULL or has been stopped, if so, don't submit
+sdma jobs and create amdgpu_tlb_fence_work
 
-[auto build test WARNING on v6.18]
-[also build test WARNING on next-20251219]
-[cannot apply to drm-misc/drm-misc-next linus/master v6.19-rc1]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Signed-off-by: Bingxi Guo <Bingxi.Guo@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/suryasaimadhu/drm-amdgpu-dm-Convert-IRQ-logging-to-drm_-helpers/20251218-144203
-base:   v6.18
-patch link:    https://lore.kernel.org/r/20251218063512.4572-1-suryasaimadhu369%40gmail.com
-patch subject: [PATCH] drm/amdgpu/dm: Convert IRQ logging to drm_* helpers
-config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20251221/202512211051.rcNkAntw-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251221/202512211051.rcNkAntw-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202512211051.rcNkAntw-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_irq.c: In function 'amdgpu_dm_irq_register_interrupt':
->> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_irq.c:308:9: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
-     308 |         if (false == validate_irq_registration_params(int_params, ih))
-         |         ^~
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_irq.c:310:17: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
-     310 |                 return DAL_INVALID_IRQ_HANDLER_IDX;
-         |                 ^~~~~~
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_irq.c: In function 'amdgpu_dm_irq_unregister_interrupt':
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_irq.c:375:9: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
-     375 |         if (false == validate_irq_unregistration_params(irq_source, ih))
-         |         ^~
-   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_irq.c:377:17: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
-     377 |                 return;
-         |                 ^~~~~~
-
-
-vim +/if +308 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_irq.c
-
-4562236b3bc0a2 Harry Wentland       2017-09-12  258  
-d3a1c5548c1f21 suryasaimadhu        2025-12-18  259  static bool validate_irq_unregistration_params(
-d3a1c5548c1f21 suryasaimadhu        2025-12-18  260  	enum dc_irq_source irq_source,
-4562236b3bc0a2 Harry Wentland       2017-09-12  261  	irq_handler_idx handler_idx)
-4562236b3bc0a2 Harry Wentland       2017-09-12  262  {
-2d0b69fc712c07 Srinivasan Shanmugam 2023-06-22  263  	if (handler_idx == DAL_INVALID_IRQ_HANDLER_IDX) {
-4562236b3bc0a2 Harry Wentland       2017-09-12  264  		return false;
-4562236b3bc0a2 Harry Wentland       2017-09-12  265  	}
-4562236b3bc0a2 Harry Wentland       2017-09-12  266  
-4562236b3bc0a2 Harry Wentland       2017-09-12  267  	if (!DAL_VALID_IRQ_SRC_NUM(irq_source)) {
-4562236b3bc0a2 Harry Wentland       2017-09-12  268  		return false;
-4562236b3bc0a2 Harry Wentland       2017-09-12  269  	}
-4562236b3bc0a2 Harry Wentland       2017-09-12  270  
-4562236b3bc0a2 Harry Wentland       2017-09-12  271  	return true;
-4562236b3bc0a2 Harry Wentland       2017-09-12  272  }
-4562236b3bc0a2 Harry Wentland       2017-09-12  273  /******************************************************************************
-4562236b3bc0a2 Harry Wentland       2017-09-12  274   * Public functions.
-4562236b3bc0a2 Harry Wentland       2017-09-12  275   *
-4562236b3bc0a2 Harry Wentland       2017-09-12  276   * Note: caller is responsible for input validation.
-4562236b3bc0a2 Harry Wentland       2017-09-12  277   *****************************************************************************/
-4562236b3bc0a2 Harry Wentland       2017-09-12  278  
-b8592b48450b99 Leo Li               2018-09-14  279  /**
-b8592b48450b99 Leo Li               2018-09-14  280   * amdgpu_dm_irq_register_interrupt() - Register a handler within DM.
-b8592b48450b99 Leo Li               2018-09-14  281   * @adev: The base driver device containing the DM device.
-b8592b48450b99 Leo Li               2018-09-14  282   * @int_params: Interrupt parameters containing the source, and handler context
-b8592b48450b99 Leo Li               2018-09-14  283   * @ih: Function pointer to the interrupt handler to register
-b8592b48450b99 Leo Li               2018-09-14  284   * @handler_args: Arguments passed to the handler when the interrupt occurs
-b8592b48450b99 Leo Li               2018-09-14  285   *
-b8592b48450b99 Leo Li               2018-09-14  286   * Register an interrupt handler for the given IRQ source, under the given
-b8592b48450b99 Leo Li               2018-09-14  287   * context. The context can either be high or low. High context handlers are
-b8592b48450b99 Leo Li               2018-09-14  288   * executed directly within ISR context, while low context is executed within a
-b8592b48450b99 Leo Li               2018-09-14  289   * workqueue, thereby allowing operations that sleep.
-b8592b48450b99 Leo Li               2018-09-14  290   *
-b8592b48450b99 Leo Li               2018-09-14  291   * Registered handlers are called in a FIFO manner, i.e. the most recently
-b8592b48450b99 Leo Li               2018-09-14  292   * registered handler will be called first.
-b8592b48450b99 Leo Li               2018-09-14  293   *
-b8592b48450b99 Leo Li               2018-09-14  294   * Return: Handler data &struct amdgpu_dm_irq_handler_data containing the IRQ
-b8592b48450b99 Leo Li               2018-09-14  295   *         source, handler function, and args
-b8592b48450b99 Leo Li               2018-09-14  296   */
-e637525659ed04 Alex Deucher         2017-10-11  297  void *amdgpu_dm_irq_register_interrupt(struct amdgpu_device *adev,
-4562236b3bc0a2 Harry Wentland       2017-09-12  298  				       struct dc_interrupt_params *int_params,
-4562236b3bc0a2 Harry Wentland       2017-09-12  299  				       void (*ih)(void *),
-4562236b3bc0a2 Harry Wentland       2017-09-12  300  				       void *handler_args)
-4562236b3bc0a2 Harry Wentland       2017-09-12  301  {
-d3a1c5548c1f21 suryasaimadhu        2025-12-18  302  	struct drm_device *dev = adev_to_drm(adev);
-4562236b3bc0a2 Harry Wentland       2017-09-12  303  	struct list_head *hnd_list;
-4562236b3bc0a2 Harry Wentland       2017-09-12  304  	struct amdgpu_dm_irq_handler_data *handler_data;
-4562236b3bc0a2 Harry Wentland       2017-09-12  305  	unsigned long irq_table_flags;
-4562236b3bc0a2 Harry Wentland       2017-09-12  306  	enum dc_irq_source irq_source;
-4562236b3bc0a2 Harry Wentland       2017-09-12  307  
-4562236b3bc0a2 Harry Wentland       2017-09-12 @308  	if (false == validate_irq_registration_params(int_params, ih))
-d3a1c5548c1f21 suryasaimadhu        2025-12-18  309  		drm_err(dev, "DM_IRQ: invalid registration parameters\n");
-4562236b3bc0a2 Harry Wentland       2017-09-12  310  		return DAL_INVALID_IRQ_HANDLER_IDX;
-4562236b3bc0a2 Harry Wentland       2017-09-12  311  
-4562236b3bc0a2 Harry Wentland       2017-09-12  312  	handler_data = kzalloc(sizeof(*handler_data), GFP_KERNEL);
-4562236b3bc0a2 Harry Wentland       2017-09-12  313  	if (!handler_data) {
-d3a1c5548c1f21 suryasaimadhu        2025-12-18  314  		drm_err(dev, "DM_IRQ: failed to allocate irq handler!\n");
-4562236b3bc0a2 Harry Wentland       2017-09-12  315  		return DAL_INVALID_IRQ_HANDLER_IDX;
-4562236b3bc0a2 Harry Wentland       2017-09-12  316  	}
-4562236b3bc0a2 Harry Wentland       2017-09-12  317  
-a7fbf17aa8bfaa Leo Li               2018-09-18  318  	init_handler_common_data(handler_data, ih, handler_args, &adev->dm);
-4562236b3bc0a2 Harry Wentland       2017-09-12  319  
-4562236b3bc0a2 Harry Wentland       2017-09-12  320  	irq_source = int_params->irq_source;
-4562236b3bc0a2 Harry Wentland       2017-09-12  321  
-4562236b3bc0a2 Harry Wentland       2017-09-12  322  	handler_data->irq_source = irq_source;
-4562236b3bc0a2 Harry Wentland       2017-09-12  323  
-4562236b3bc0a2 Harry Wentland       2017-09-12  324  	/* Lock the list, add the handler. */
-4562236b3bc0a2 Harry Wentland       2017-09-12  325  	DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
-4562236b3bc0a2 Harry Wentland       2017-09-12  326  
-4562236b3bc0a2 Harry Wentland       2017-09-12  327  	switch (int_params->int_context) {
-4562236b3bc0a2 Harry Wentland       2017-09-12  328  	case INTERRUPT_HIGH_IRQ_CONTEXT:
-4562236b3bc0a2 Harry Wentland       2017-09-12  329  		hnd_list = &adev->dm.irq_handler_list_high_tab[irq_source];
-4562236b3bc0a2 Harry Wentland       2017-09-12  330  		break;
-4562236b3bc0a2 Harry Wentland       2017-09-12  331  	case INTERRUPT_LOW_IRQ_CONTEXT:
-4562236b3bc0a2 Harry Wentland       2017-09-12  332  	default:
-b6f91fc183f758 Xiaogang Chen        2021-02-25  333  		hnd_list = &adev->dm.irq_handler_list_low_tab[irq_source];
-b6f91fc183f758 Xiaogang Chen        2021-02-25  334  		INIT_WORK(&handler_data->work, dm_irq_work_func);
-4562236b3bc0a2 Harry Wentland       2017-09-12  335  		break;
-4562236b3bc0a2 Harry Wentland       2017-09-12  336  	}
-4562236b3bc0a2 Harry Wentland       2017-09-12  337  
-a7fbf17aa8bfaa Leo Li               2018-09-18  338  	list_add_tail(&handler_data->list, hnd_list);
-4562236b3bc0a2 Harry Wentland       2017-09-12  339  
-4562236b3bc0a2 Harry Wentland       2017-09-12  340  	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
-4562236b3bc0a2 Harry Wentland       2017-09-12  341  
-4562236b3bc0a2 Harry Wentland       2017-09-12  342  	/* This pointer will be stored by code which requested interrupt
-4562236b3bc0a2 Harry Wentland       2017-09-12  343  	 * registration.
-4562236b3bc0a2 Harry Wentland       2017-09-12  344  	 * The same pointer will be needed in order to unregister the
-2d0b69fc712c07 Srinivasan Shanmugam 2023-06-22  345  	 * interrupt.
-2d0b69fc712c07 Srinivasan Shanmugam 2023-06-22  346  	 */
-4562236b3bc0a2 Harry Wentland       2017-09-12  347  
-4562236b3bc0a2 Harry Wentland       2017-09-12  348  	DRM_DEBUG_KMS(
-4562236b3bc0a2 Harry Wentland       2017-09-12  349  		"DM_IRQ: added irq handler: %p for: dal_src=%d, irq context=%d\n",
-4562236b3bc0a2 Harry Wentland       2017-09-12  350  		handler_data,
-4562236b3bc0a2 Harry Wentland       2017-09-12  351  		irq_source,
-4562236b3bc0a2 Harry Wentland       2017-09-12  352  		int_params->int_context);
-4562236b3bc0a2 Harry Wentland       2017-09-12  353  
-4562236b3bc0a2 Harry Wentland       2017-09-12  354  	return handler_data;
-4562236b3bc0a2 Harry Wentland       2017-09-12  355  }
-4562236b3bc0a2 Harry Wentland       2017-09-12  356  
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 36805dcfa159..e57d496a06e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -49,6 +49,13 @@ static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
+ 	unsigned int ndw;
+ 	int r;
+ 
++	spin_lock(&entity->lock);
++	if (entity->stopped) {
++		spin_unlock(&entity->lock);
++		return -EINVAL;
++	}
++	spin_unlock(&entity->lock);
++
+ 	/* estimate how many dw we need */
+ 	ndw = AMDGPU_VM_SDMA_MIN_NUM_DW;
+ 	if (p->pages_addr)
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.43.0
+
