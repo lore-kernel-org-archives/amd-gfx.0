@@ -4,121 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD577E6748D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 11:02:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA2BAE674B5
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:37:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63B3610E5F3;
-	Mon, 22 Dec 2025 11:02:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C3D10E6C6;
+	Mon, 22 Dec 2025 14:37:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M9v0Cw8I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VUE23joR";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012041.outbound.protection.outlook.com
- [40.107.200.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0A810E5F3
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 11:02:52 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCA8510E6C6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 14:36:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r2DZBZ1DNbU13IvEfGOcz94BmujrQs+qwbh6NQhsqU9tTWX9AC1Kts02Cm6yv0Tw+Os2YGQBcqnhbatKx32Nm6vEwh3EJQxucaidh018SIeskTbLthaCjWd8J4gSlmf7+meQh6hrkUfkmAk6A+oLvhKgQj0KnCez5xRxvA3jYoXT5t3kZbHxO6jZjjJ1josSu+e65bMAB1rhhW2PWtKjB2PtSREkMFWJabyxy/aiyo0cvTBNiAbjHir7pfD8DWEElqit9SEyq+ftTOxAWYpD1YTPCHQwxHclq04u8YZ8Qb3yNEZdp1IliPSFl7htOcAa30fKZ/FWEbWqcidP5boAnA==
+ b=myWZsk248sWMjs0+lRgOSdQX8E+42w9nMaG4bUauva7H1f3fzasIi/Xye9PhrqWpTajqonZWAZ4UUYkTbxRcR/cESd49dH6uaH4kZeDN6dkKGly//DmAxwom3dZ/Oekh3dlKJ5b1iPDohJwZwxj/Fpvmsju9/1STlx+AUKla2hUqZHP5JfTQ/b6ZaOX0pWoIKcv41QrLq4DP7IAL3ASOtMGFearhQbzM4zEBqgTv/xjSN3wSPfNL5u4m09vyv2Foy9Qx5ADPjfXnX50xoq7tPFe5VX/f7+m2fgLwFY72WwJwdwyzxLv1V/UQMa208yyrTR+7mVGi//47VgjqrtxDNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GC4DsfNNbxRmlszBLHV4reRTdXaVAJA+zHHYuhD4nK4=;
- b=GC58w/o18ZYzHpKCKs6hxCd+gL+l68hy9bYQ4iDiZEbqG/MwlxHrm/jby9Qoq4+QxFN54ZS1CYkc6LC31GUg8nUvXg9EgE87JlJo9ZOpPrAGF4yGUCICcK4q9gu44JGhIyeilrNcYSgUAzUiM91nKHSTa3bZzYBNvlmqZVPEoFH9aoOPOsp9O+sJ/z+Xvn4HhEokdIUELPQymgNIX1voZoMs7zQNLPN7q6Kfgsr8JWEp5DnjSqfTapoQLGHV98dZmCXd/yIFrjiKHUaC8BaD4gOzs6nUJv943eFFWAL/mC96bnaJ775Yb7yh5/NmU92IKamvGdw4kjHMkMGSPQ1nIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=uQPbNp/8ZQo9+9UZLA9QtThY/ggXrtPDWfQiSd4J2mI=;
+ b=ZuEFcGzcJxHUdl7DnUytQLvApSpg0b8zqNoAMd4dhC3vN+Hr9UQ35MHE+34NjQXBSR64WM4cCYNCXc/ezJVkD7mnK7uJ4/dx8szbpQxAsyVWNEwgkY+RltX5JMPZVNo0hRk8Bvyra+N9AXO6u1s4KPbIaN+T0dRd5SENqqkmB0DDZN5We+a0iiCUrwK5uqg6xJAj2bPkEgVE+3IPcgr8MKNnxEf6xXYrHMk0r0afoDZBavWQpEXGDDS/k+/XAB6gQXmIUB/Xaf0GA5FY856xGq5f/QSL0h1cvWlRdpE78KV+CwqrACSJpDgKRuqYIHloO5hXAdHVgBQeACOCg7vlBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GC4DsfNNbxRmlszBLHV4reRTdXaVAJA+zHHYuhD4nK4=;
- b=M9v0Cw8IJ/c1eqxis+Ag54fsqL5wXKHA7qdMjEKXtpYw8q3VZVgN4kt3S4ycp9TFd5w/v16jzIlJDb5x4vE2U4MqQqnHLHIw+O9WjtCGyeX54yy9EKSdDbKtqM8rnkXjiAyrlWr8DKz6NwtBgfkZalP6ANNK8UnRM6VJpdaTlCY=
-Received: from BL1PR13CA0172.namprd13.prod.outlook.com (2603:10b6:208:2bd::27)
- by SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.11; Mon, 22 Dec
- 2025 11:02:46 +0000
-Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
- (2603:10b6:208:2bd:cafe::7c) by BL1PR13CA0172.outlook.office365.com
- (2603:10b6:208:2bd::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9456.10 via Frontend Transport; Mon,
- 22 Dec 2025 11:02:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ bh=uQPbNp/8ZQo9+9UZLA9QtThY/ggXrtPDWfQiSd4J2mI=;
+ b=VUE23joRjxNk71BLiE0fzrtK09lHR9q4j1ZgytDMgWjOsyHFYUHXy4ILPhOJB1PyphW9g3t8eo0sTHm7m0PgLRr1VFmUS/caBlbZlX9ASlZBqGUaXqK01ilA/cXGsM6zlDl5qL1p5PorWSApawcTB6bsW8NADlTUm/EYnCOOUWY=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ DM3PR12MB9389.namprd12.prod.outlook.com (2603:10b6:0:46::9) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9456.9 via Frontend Transport; Mon, 22 Dec 2025 11:02:45 +0000
-Received: from bingxguo-Super-Server.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 22 Dec 2025 05:02:43 -0600
-From: Bingxi Guo <Bingxi.Guo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Deng Emily
- <Emily.Deng@amd.com>, Bingxi Guo <Bingxi.Guo@amd.com>
-Subject: [PATCH] drm/amdgpu: Support fork process
-Date: Mon, 22 Dec 2025 19:01:46 +0800
-Message-ID: <20251222110146.464367-1-Bingxi.Guo@amd.com>
-X-Mailer: git-send-email 2.43.0
+ 15.20.9434.11; Mon, 22 Dec 2025 14:36:54 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6%7]) with mapi id 15.20.9434.009; Mon, 22 Dec 2025
+ 14:36:54 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li,
+ Roman" <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung,
+ ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, 
+ "Wu, Ray" <Ray.Wu@amd.com>, "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "Hung,
+ Alex" <Alex.Hung@amd.com>, "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+Subject: RE: [PATCH 00/16] DC Patches Dec 22 2025
+Thread-Topic: [PATCH 00/16] DC Patches Dec 22 2025
+Thread-Index: AQHcbnJm6BZEBsOjnE6NZMXXpayirrUtw6DA
+Date: Mon, 22 Dec 2025 14:36:53 +0000
+Message-ID: <DS0PR12MB6534A88E4BE1645F2F76BFC49CB4A@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20251216095723.39018-1-chen-yu.chen@amd.com>
+In-Reply-To: <20251216095723.39018-1-chen-yu.chen@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-12-22T14:36:04.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|DM3PR12MB9389:EE_
+x-ms-office365-filtering-correlation-id: a0ac0fe2-6948-4ffb-a703-08de41678d43
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700021;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?2CM/XHPwvhH5sPBAFLHLD1e/3iRo6WRT/LraLxrxnpl5E/2JwQgGbxno8M?=
+ =?iso-8859-1?Q?9QBvVcL+mSQvVwZ/3i/q8SDO6d3BoATveMqb2yTT+D0nl1X/B3iIhDvhJ9?=
+ =?iso-8859-1?Q?F5ho/FIt3zVCP5ILjXNVL9Y0CBBCVVgXq40CC8dqKtZcxUOIqYlHX0fJs4?=
+ =?iso-8859-1?Q?GjvQWGQJwdAQKNUtXKgdXjosjIgd0B91kRxGW7J2BW2qGifY20gCWgDbw+?=
+ =?iso-8859-1?Q?bYDcomMsS6/kx3nkNGN636nvI9Wjm1r7vcNZrluLXqcNuGKPUb89PJH/h7?=
+ =?iso-8859-1?Q?nZAkQzmzH4YsLHowBDXk6MenZ7c9mR9XV80OXpki2HszaManm+YRhKb8Ew?=
+ =?iso-8859-1?Q?yHm5touTVQ6MkKd2PGz2hESvR4KOcm0YFPgzQeoGVIvMAwWhD6aw10CQha?=
+ =?iso-8859-1?Q?t55SUxyweNi/LOS8gJMlvQpZ/36KIwGse2neWDlLy8UC2yTEKNmcJ2wNAS?=
+ =?iso-8859-1?Q?O2d8jX7V/i8yilGunA3wG4D9kdwx0dNadp0n8lY22fPacNrrJdmtcHXXdD?=
+ =?iso-8859-1?Q?4rzeXZ8YJbfhwXbEGjfqJTSWjj3dZX5toFv65RrSgZs8+K3mYaTPRnrcWp?=
+ =?iso-8859-1?Q?WYqTk2IUvfN6BU2e+wWNDdsICgFQj1sYNAj+XJ4CcM0Mgjx8X+DU70GN8i?=
+ =?iso-8859-1?Q?kmrKP8+xoKJd6R7gV08RWFC7RxK/w65Ey1godM23LpfeoaK2oN2DTU3qoO?=
+ =?iso-8859-1?Q?MRywR4Bmdh5qEq5ARNdNLZDBoMVKwDsDqzcn51vwZWpSgIQ92N6sUs7Meq?=
+ =?iso-8859-1?Q?YOYdsN5m+dTkv410eHPOHnD8sd56o5UOfTzQf5lbOcG1aBsZHo87tOdc/X?=
+ =?iso-8859-1?Q?eoSv5RGVDuFIsCCFl52NLPX2wMpV8mF17vnPBM6eeAJGk+uT+nURfF5Zdt?=
+ =?iso-8859-1?Q?BCAyNVXLHCtxH/g3t0uGTPSYgVTs0PXcIoYtFetR2SIV2s9zdVf395P/SR?=
+ =?iso-8859-1?Q?vfjVrSdXarGdM5yFLlt95MgGnpQykcj5rWn+DBVEFnFD3F/fkpskUVDG00?=
+ =?iso-8859-1?Q?dW+uUf4nzqFkk6LAAa1TUAMQnP0+zCA8RXnHRqadb+NZv5unXZrkxARVVS?=
+ =?iso-8859-1?Q?fngTrFL2UM+mP3TZYPTwpnWmmSa7Y0aWxDc/Nbc3cLAnoMzL89sN9+2grX?=
+ =?iso-8859-1?Q?T2v4hFcUK8G8iZE+ITDuAxgJn+vWecATiQj46Wm8XRLDbD7fr+40GvTPx6?=
+ =?iso-8859-1?Q?/04Ktu0wzCVQ0gX3373P4nwroQ+qfbmSzq+1GHvLrctPucjgHeOn/31X/c?=
+ =?iso-8859-1?Q?oECpxPW6PwYjMGfvXIJjcMA414xKHVnoiMzqbMRKhB9jVeGta6tfB7A3kP?=
+ =?iso-8859-1?Q?79tIq0zLGZSkhxR298KXhsMzfz8wfazhb+LCqCqzkJuAYl49KR1K5gXnZi?=
+ =?iso-8859-1?Q?/0SWqrfkigob6a8PSljo5KNw/2ZqFwN1osPdbdAk7B3aBNnv5iETxayS3y?=
+ =?iso-8859-1?Q?c/6JbmJRhP3YOyYv0r0JsPOm8mnHs3lijrbkALGgycMUMbGG34AlpJYrB5?=
+ =?iso-8859-1?Q?xa2xaM4mHWWbjNCRHw2WWBw+weJIwtJjypUp/hmXJDhDc85dOYAviMTO6P?=
+ =?iso-8859-1?Q?AMHEE548woTIkdqAOv508A3VjR7I?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700021); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?vgfLRJUYii+QO1fZQtE7qGOPfnt4bFJ8FDwxtiOsxoQKLepsgjuziMH1M5?=
+ =?iso-8859-1?Q?58KmwDJtFHbKaTjo7hywAqINhwnVVVYY4XELu7fXBwF9T/Z+U4jQJs2pYg?=
+ =?iso-8859-1?Q?wGvvoDYSncvbK7NZEhOL5mW2HQOgzG6Vgs2wK0dpixyAj2Rb8MjJoAIEt1?=
+ =?iso-8859-1?Q?P8Iv06O+Iw/dzcUAi0nhpoGCQo+Fd1D8BcFWznkTxcYqLCp0VpqMmayG46?=
+ =?iso-8859-1?Q?YWuaRSX0cOlX7RahUrIjCH3MwZvHRpakKA3h/l8YXzit1zcRVzaTRI6iLk?=
+ =?iso-8859-1?Q?LxyG9gQ/ahlyEocE9GIVogw6u6PvQs+dZh6noZ80QAiUNmqo/g0ZIi3Sdh?=
+ =?iso-8859-1?Q?9sgC8EM+qETEUEss1pfwWlu9o5DwJd6I9e3PNBgxSsALh4H60WPkI92kLE?=
+ =?iso-8859-1?Q?P+tINkL59RO3lv1yuV1LXMr8Yol+37ZRtxrTCnwUMWZ5rZ3SwOrxkoGou+?=
+ =?iso-8859-1?Q?R6PXcNGgMxgXI7o3n7/Hs4VDLprC202q/I/3qQX6p5rHD8ryWRY8GpEhy/?=
+ =?iso-8859-1?Q?8WkFet6bneBfm3uCDCuqJgdxBEjvAZzVwWyWctW2gf/NXdpiKGsKfGE9ZB?=
+ =?iso-8859-1?Q?g/jlyl4QooP/gjQMB/5LNuqQQp3pWExMHH2igPP5VWqqCEDz4PFjsZX00V?=
+ =?iso-8859-1?Q?bEoIYz8dt5GMJNEfGJ6jB8bhQIO7vRXlql78LkyjarL8sb/fL5HpadkdFr?=
+ =?iso-8859-1?Q?GXoYUJdYlOIaE9+klwHtXvV+h/ozApbWhFbIJ422GSGEfoHI4NAsNMKPvj?=
+ =?iso-8859-1?Q?q9aSXxTYXTlVaXulMFGXlD9vGIV4CRbWWC4RZhbZ7kDy0zepK1J2OjqVS1?=
+ =?iso-8859-1?Q?SndchqpF6FcJiY5auWf5wrly4BUNf75BWab85TvxKhCK6uClUhsQyJ9dDz?=
+ =?iso-8859-1?Q?eLIWaPNF8mkdNeoH2vPRIoI0/fcDYF8z0GNnsWVEGLRH+BHtYwnDKyL+vk?=
+ =?iso-8859-1?Q?PB7gMQb7lC6YngN0ycwjckH13H6bVxDjAHFy8vocWefRZX4fbve+S8eYlC?=
+ =?iso-8859-1?Q?b3eq/L1X7Xx/+DsMl9WZqa9JgW4xeasIg3Vi53L+6bbZNu3LJNIIPv1LBR?=
+ =?iso-8859-1?Q?ulE65rm5Y+007hfjdCAof4SlQPTXMr/bxyCijseBnjPJP6bSv+wK2YkpEC?=
+ =?iso-8859-1?Q?RaXRtfZ+/JxVXVp4ajCTkB/2erpFQQREPJD+r/MLaKVenSKUBkcKdaEvP1?=
+ =?iso-8859-1?Q?t2rHmUTPqdsQD+Zm4BJDxLeJskMhYGKhYEy4iG1QDP7WEp4aBSviQww3uq?=
+ =?iso-8859-1?Q?Z9Z9UwJzhEDK1f2EVAiH/kFaJXpiNy3Wq4aRump+93zw+4nG/yfEA7rMZ9?=
+ =?iso-8859-1?Q?fbzV7vCTMp4gn7JLN3qfLaFsPIjPKiVdkgarbGtSPBWIGlnE0xMXxNXZfE?=
+ =?iso-8859-1?Q?Zgukpnum4KD2LZVOJ/1d+b5TFy2q0ZX1xISVBtBWdnShAcEloYMdKEU46L?=
+ =?iso-8859-1?Q?lE/xQU0Zd/e9B/M8Pk5uhKS+mq3b+vFOzqDAtK6po1Nq4IaJu8+Ucnur8H?=
+ =?iso-8859-1?Q?9Dc3qr8evN0W3rW16THn0y7H83Vx6nskEVBKDdVJK9n7bhpsLD5sIUskGq?=
+ =?iso-8859-1?Q?FPDdz6LfL0Ttx1QdnNa916Nb0jOaDrDYBdMf9GgffzUzfhcQZJ2f1oK6Z9?=
+ =?iso-8859-1?Q?PHLLODFj2SIq8WJgyiiZMdtqgmRy3L8y+TPq/SZJ9RFJ/5UWULMy6sG28B?=
+ =?iso-8859-1?Q?gYamwntb9lktF9x2gf14LZ1jmjVqMfswFb3bugzRWDduQVIoWtmcx5HmKw?=
+ =?iso-8859-1?Q?q3VpGA3G1zyT/dxDgzRlMG8PoT3y/5fGDpyuw7C31Fg/mM?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|SA0PR12MB7091:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d3ebb9e-481e-47f7-cdac-08de4149a2e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PFAFiZV+nzMKOd9C8NOo+Axul95HOsDq4Rv9lve7j6Pv47eeRyo/mxr+q8ys?=
- =?us-ascii?Q?ytUtPSXnN/Yqgml4lIsDsZW5h4IToax3EXo4+Sn4f4KGLKDvqjyucQ+8MpMJ?=
- =?us-ascii?Q?7XgmGvglfyUd3NjP9NsEW0GKq6j+Vk7azaKKAiX1J6c3z+zeXivUrHjw6nXk?=
- =?us-ascii?Q?S+8hn9yJVG0rClHpJ+dvNj6D6MyG5RBFuARiKz2uKoyWszZkXl9Y+c8FelTX?=
- =?us-ascii?Q?r1zcOWEQ02dTuHe39P8CXoRESVF2eht6q9VCkstr5nYUMnPAXyX+Fino2FLl?=
- =?us-ascii?Q?ZRXvdG7kySPfDAYbiu0Br+eUuC2O5Ajj+4drdNUig2W3FJlqzUbWP/w+5wVY?=
- =?us-ascii?Q?xeMCfKv3YP+981tHM3Ff+ZGRSK9EisD9pOM4dX/fCVZWesO+WKTVdjiP0vra?=
- =?us-ascii?Q?Uop0zaO/rLIl4T12hhPd+ZmNIhvEsH1BCP4qh1mBoElaGTp5vYoeCoz8n/ym?=
- =?us-ascii?Q?R6nr1wuUbTT98r6VbA93kT4OjJ0Jlg2KwUtZC6PY4uWEQvk9SBvUjnQGfTdq?=
- =?us-ascii?Q?332JsB4Ue5Kr2ftaLW9boY1///zLd6YPf1iDOi6KmOUjejqCWYytyh87de7r?=
- =?us-ascii?Q?f8z2zk30Zj0L9RRvEgAiwQMX5QNFDDTlR8S0oIiMIfWiNSOd1idyudGmcfIi?=
- =?us-ascii?Q?7tajksxW/iNcJLDx7MFy98W8DKNAay1ywt1DLVwDe7tRN5jBqyYIdXbJbBYm?=
- =?us-ascii?Q?qCAVDCh1RHCC1hjLhnQQ9kgkLuWO91ain1Xh2T0Bo6j5ef4vQ4Y0RxLuSc+x?=
- =?us-ascii?Q?HCS8MmNVsbw4pZ+9EMbbnjN8dp3dCyyFuMcnCP4+FdqmC5mBOJ87j7ipXyww?=
- =?us-ascii?Q?VdqQKmClMZFxNZbtxP2Xf7oVoQ7XHP0M4gamkLa/RVgKicMv8AlSI3gQ+nB3?=
- =?us-ascii?Q?DSyAoQwEbXy4Y/FlaRDcSu/W8Aa/Y8fiQ1sqUUanDEibCSFLaPqLwbhjuv7R?=
- =?us-ascii?Q?afMN9ghwlyYyL4a24jx6LifJkWJlBkEYIuhUpR3bNLY/8vMZ+BI/5STWOMT8?=
- =?us-ascii?Q?OMIEsjSV38MNL5uIUpEFsirPjrhcEbIqklowzJb9PgrDIe1QzN0E7wi9D6dl?=
- =?us-ascii?Q?d7+W/shTYGI6/EgCu/cVpnXnlCUH3yyXMAyoLe1496WnBHH5LGHHfsJ7C3Vb?=
- =?us-ascii?Q?F4qrelrgpDwrTpQWKToeBPwZm3rVcgFl3uq1riHFNyAYCBMaHsnYU6xPX2aE?=
- =?us-ascii?Q?dDkI5tdua04wa7+aBmeIlFZ6QPzrKK++9jI8dbqsmYzgUIMe7KNsvUzqRYpv?=
- =?us-ascii?Q?EhhdCtuzWl4L4myzAXXXcaZGt/p+Gw88/dKzc6DtLUzbheNDMPbbo7DepA4D?=
- =?us-ascii?Q?L04/XxR6DFSq/fCbAMaujFqEwRKYWZ2B4W5T1mNNwFDtCO90E3pZqT8sCtT+?=
- =?us-ascii?Q?74yd0fT6fPfJgg18PteDuiKRhDdLkAZD8eskKWNuo6YjDlxLykPmf/AmJxBB?=
- =?us-ascii?Q?ZCYvtM5RlI9Jbmbbw0Q86BISyYEzBjxwAWt4W/w8oFp7LJV0jxDYAlLMtA/Y?=
- =?us-ascii?Q?VMbqnMnIV+ufsgUONbTMwBop3NzjMQNtWGlcUQQZlyzjx0bnduwQvO6ZO9gh?=
- =?us-ascii?Q?STIFF259rA4wNEkGMfk=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2025 11:02:45.4062 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d3ebb9e-481e-47f7-cdac-08de4149a2e3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7091
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0ac0fe2-6948-4ffb-a703-08de41678d43
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Dec 2025 14:36:54.0358 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tVUlIeI/6V6rz5R81jfV7Dybo/gych21l8XEDro5oq/Nsv5yIwiP8RboVkB1bP42l8Ap6HQvf4z1DOhK9XLWiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,278 +161,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a process forks, the child inherits the open DRM file descriptor.
-If the parent is killed (e.g., by SIGKILL), only the parent's jobs
-are canceled. The child process can continue submitting jobs to the
-same entity through its own user entry in the entity's user list.
+[Public]
 
-Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-Signed-off-by: Bingxi Guo <Bingxi.Guo@amd.com>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 133 +++++++++++++++++++----
- include/drm/gpu_scheduler.h              |  22 ++++
- 2 files changed, 135 insertions(+), 20 deletions(-)
+Hi all,
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 8867b95ab089..508a0629b839 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -110,6 +110,9 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	atomic_set(&entity->fence_seq, 0);
- 	entity->fence_context = dma_fence_context_alloc(2);
- 
-+	INIT_LIST_HEAD(&entity->users);
-+	spin_lock_init(&entity->users_lock);
-+
- 	return 0;
- }
- EXPORT_SYMBOL(drm_sched_entity_init);
-@@ -228,10 +231,24 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *job;
- 	struct dma_fence *prev;
-+	struct drm_sched_entity_user *user;
-+	struct spsc_queue temp_queue;
-+	pid_t my_tgid = task_tgid_nr(current);
- 
- 	if (!entity->rq)
- 		return;
- 
-+	/* Mark current process as exited */
-+	spin_lock(&entity->users_lock);
-+	list_for_each_entry(user, &entity->users, list) {
-+		if (user->tgid == my_tgid) {
-+			atomic_set(&user->exited, 1);
-+			break;
-+		}
-+	}
-+	spin_unlock(&entity->users_lock);
-+
-+	/* Temporarily stop entity to prevent new jobs */
- 	spin_lock(&entity->lock);
- 	entity->stopped = true;
- 	drm_sched_rq_remove_entity(entity->rq, entity);
-@@ -240,27 +257,59 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	/* Make sure this entity is not used by the scheduler at the moment */
- 	wait_for_completion(&entity->entity_idle);
- 
--	/* The entity is guaranteed to not be used by the scheduler */
-+	/*
-+	 * The entity is stopped and idle. No new jobs can be pushed.
-+	 * Scan the queue and separate jobs:
-+	 * - Jobs from this process: kill immediately
-+	 * - Jobs from other processes: keep in temp_queue
-+	 */
-+	spsc_queue_init(&temp_queue);
- 	prev = rcu_dereference_check(entity->last_scheduled, true);
- 	dma_fence_get(prev);
-+
- 	while ((job = drm_sched_entity_queue_pop(entity))) {
--		struct drm_sched_fence *s_fence = job->s_fence;
--
--		dma_fence_get(&s_fence->finished);
--		if (!prev ||
--		    dma_fence_add_callback(prev, &job->finish_cb,
--					   drm_sched_entity_kill_jobs_cb)) {
--			/*
--			 * Adding callback above failed.
--			 * dma_fence_put() checks for NULL.
--			 */
--			dma_fence_put(prev);
--			drm_sched_entity_kill_jobs_cb(NULL, &job->finish_cb);
-+		if (job->owner_tgid == my_tgid) {
-+			/* Kill this job */
-+			struct drm_sched_fence *s_fence = job->s_fence;
-+
-+			dma_fence_get(&s_fence->finished);
-+			if (!prev ||
-+			    dma_fence_add_callback(prev, &job->finish_cb,
-+						   drm_sched_entity_kill_jobs_cb)) {
-+				dma_fence_put(prev);
-+				drm_sched_entity_kill_jobs_cb(NULL, &job->finish_cb);
-+			}
-+			prev = &s_fence->finished;
-+		} else {
-+			/* Keep jobs from other processes */
-+			spsc_queue_push(&temp_queue, &job->queue_node);
- 		}
-+	}
- 
--		prev = &s_fence->finished;
-+	/* Put back jobs from other processes */
-+	while (true) {
-+		struct spsc_node *node = spsc_queue_pop(&temp_queue);
-+		if (!node)
-+			break;
-+		spsc_queue_push(&entity->job_queue, node);
- 	}
-+
- 	dma_fence_put(prev);
-+
-+	/* Check if there are other active users and restore entity if needed */
-+	spin_lock(&entity->users_lock);
-+	list_for_each_entry(user, &entity->users, list) {
-+		if (!atomic_read(&user->exited)) {
-+			/* Found active user, restore entity */
-+			spin_unlock(&entity->users_lock);
-+			spin_lock(&entity->lock);
-+			entity->stopped = false;
-+			drm_sched_rq_add_entity(entity->rq, entity);
-+			spin_unlock(&entity->lock);
-+			return;
-+		}
-+	}
-+	spin_unlock(&entity->users_lock);
- }
- 
- /**
-@@ -323,6 +372,8 @@ EXPORT_SYMBOL(drm_sched_entity_flush);
-  */
- void drm_sched_entity_fini(struct drm_sched_entity *entity)
- {
-+	struct drm_sched_entity_user *user, *tmp;
-+
- 	/*
- 	 * If consumption of existing IBs wasn't completed. Forcefully remove
- 	 * them here. Also makes sure that the scheduler won't touch this entity
-@@ -338,6 +389,14 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
- 
- 	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
- 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-+
-+	/* Clean up user list */
-+	spin_lock(&entity->users_lock);
-+	list_for_each_entry_safe(user, tmp, &entity->users, list) {
-+		list_del_rcu(&user->list);
-+		kfree_rcu(user, rcu);
-+	}
-+	spin_unlock(&entity->users_lock);
- }
- EXPORT_SYMBOL(drm_sched_entity_fini);
- 
-@@ -567,9 +626,40 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- {
- 	struct drm_sched_entity *entity = sched_job->entity;
-+	struct drm_sched_entity_user *user, *found = NULL;
-+	pid_t my_tgid = task_tgid_nr(current);
- 	bool first;
- 	ktime_t submit_ts;
- 
-+	/* Check if entity is stopped and reject directly */
-+	if (entity->stopped)
-+		goto error;
-+
-+	/* Entity is running, check user list */
-+	spin_lock(&entity->users_lock);
-+	list_for_each_entry(user, &entity->users, list) {
-+		if (user->tgid == my_tgid) {
-+			found = user;
-+			/* Reject if this user has exited */
-+			if (atomic_read(&user->exited)) {
-+				spin_unlock(&entity->users_lock);
-+				goto error;
-+			}
-+			break;
-+		}
-+	}
-+
-+	/* If not found, create new user (fork case) */
-+	if (!found) {
-+		found = kzalloc(sizeof(*found), GFP_ATOMIC);
-+		if (found) {
-+			found->tgid = my_tgid;
-+			atomic_set(&found->exited, 0);
-+			list_add_tail(&found->list, &entity->users);
-+		}
-+	}
-+	spin_unlock(&entity->users_lock);
-+
- 	trace_drm_sched_job_queue(sched_job, entity);
- 
- 	if (trace_drm_sched_job_add_dep_enabled()) {
-@@ -582,6 +672,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	atomic_inc(entity->rq->sched->score);
- 	WRITE_ONCE(entity->last_user, current->group_leader);
- 
-+	/* Record owner TGID */
-+	sched_job->owner_tgid = my_tgid;
-+
- 	/*
- 	 * After the sched_job is pushed into the entity queue, it may be
- 	 * completed and freed up at any time. We can no longer access it.
-@@ -597,12 +690,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 
- 		/* Add the entity to the run queue */
- 		spin_lock(&entity->lock);
--		if (entity->stopped) {
--			spin_unlock(&entity->lock);
--
--			DRM_ERROR("Trying to push to a killed entity\n");
--			return;
--		}
- 
- 		rq = entity->rq;
- 		sched = rq->sched;
-@@ -618,5 +705,11 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 
- 		drm_sched_wakeup(sched);
- 	}
-+	return;
-+
-+error:
-+	dma_fence_set_error(&sched_job->s_fence->finished, -EPERM);
-+	drm_sched_fence_scheduled(sched_job->s_fence, NULL);
-+	drm_sched_fence_finished(sched_job->s_fence, -EPERM);
- }
- EXPORT_SYMBOL(drm_sched_entity_push_job);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index e62a7214e052..45e066596405 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -59,6 +59,16 @@ struct drm_sched_rq;
- 
- struct drm_file;
- 
-+/**
-+ * struct drm_sched_entity_user - Per-process entity user tracking
-+ */
-+struct drm_sched_entity_user {
-+	struct list_head		list;
-+	struct rcu_head			rcu;
-+	pid_t				tgid;
-+	atomic_t			exited;
-+};
-+
- /* These are often used as an (initial) index
-  * to an array, and as such should start at 0.
-  */
-@@ -233,6 +243,13 @@ struct drm_sched_entity {
- 	 */
- 	struct rb_node			rb_tree_node;
- 
-+	/**
-+	 * @users:
-+	 *
-+	 * List of processes using this entity (for fork support)
-+	 */
-+	struct list_head		users;
-+	spinlock_t			users_lock;
- };
- 
- /**
-@@ -385,6 +402,11 @@ struct drm_sched_job {
- 	 * drm_sched_job_add_implicit_dependencies().
- 	 */
- 	struct xarray			dependencies;
-+
-+	/**
-+	 * @owner_tgid: TGID of the process that submitted this job
-+	 */
-+	pid_t				owner_tgid;
- };
- 
- /**
--- 
+This week this patchset was tested on 4 systems, two dGPU and two APU based=
+, and tested across multiple display and connection types.
+
+APU
+        * Single Display eDP -> 1080p 60hz, 1920x1200 165hz, 3840x2400 60hz
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
+, 4k 240hz (Includes USB-C to DP/HDMI adapters)
+        * Thunderbolt -> LG Ultrafine 5k
+        * MST DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz disp=
+lays, HP Hook G2 with 2x 4k60hz displays
+        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
+ DP and 1x 4k60hz HDMI displays
+        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, FRL3, at a max resolut=
+ion supported by the dongle of 4k 120hz YUV420 12bpc.
+        * MST PCON -> 1x 4k 144hz, FRL3, at a max resolution supported by t=
+he adapter of 4k 120hz RGB 8bpc.
+
+DGPU
+        * Single Display DP (SST DSC) -> 4k144hz, 4k240hz
+        * Multiple Display DP -> 4k240hz + 4k144hz
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
+        * MST DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz d=
+isplays)
+
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to)
+        * Changing display configurations and settings
+        * Video/Audio playback
+        * Benchmark testing
+        * Suspend/Resume testing
+        * Feature testing (Freesync, HDCP, etc.)
+
+Automated testing includes (but is not limited to)
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The testing is mainly tested on the following displays, but occasionally th=
+ere are tests with other displays
+        * Samsung G8 Neo 4k240hz
+        * Samsung QN55QN95B 4k 120hz
+        * Acer XV322QKKV 4k144hz
+        * HP U27 4k Wireless 4k60hz
+        * LG 27UD58B 4k60hz
+        * LG 32UN650WA 4k60hz
+        * LG Ultrafine 5k 5k60hz
+        * AU Optronics B140HAN01.1 1080p 60hz eDP
+        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
+        * Samsung ATNA60YV02-0 3840x2400 60Hz OLED eDP
+
+
+The patchset consists of the amd-staging-drm-next branch (Head commit - 589=
+8aca9771eadeeb9c898c35cb175cee5baa930 -> drm/amdgpu: do not use amdgpu_bo_g=
+pu_offset_no_check individually) with new patches added on top of it.
+
+Tested on Ubuntu 24.04.3, on Wayland and X11, using Gnome.
+
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+
+
+Thank you,
+
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
+
+
+-----Original Message-----
+From: Chenyu Chen <chen-yu.chen@amd.com>
+Sent: Tuesday, December 16, 2025 4:56 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.=
+Li@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHs=
+uan.Chung@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Wheeler, Daniel <Daniel=
+.Wheeler@amd.com>; Wu, Ray <Ray.Wu@amd.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.=
+com>; Hung, Alex <Alex.Hung@amd.com>; Chen, Chen-Yu <Chen-Yu.Chen@amd.com>
+Subject: [PATCH 00/16] DC Patches Dec 22 2025
+
+This DC patchset brings improvements in multiple areas. In summary, we high=
+light:
+
+ - Add frame skip feature support flag.
+ - Add sink EDID data null check.
+ - Update function name to link_detect_connection_type_analog.
+ - Fix mismatched unlock for DMUB HW lock in HWSS fast path.
+ - Fix P010, NV12, YUY2 scale down by four times failure.
+ - Fix and reenable UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL.
+ - Consolidate dmub fb info to a single struct.
+ - Add new fields to fams2 config.
+ - Update timing source enums.
+ - Add signal type check for dcn401 get_phyd32clk_src.
+ - Fix dsc eDP issue.
+ - Remove unnecessary divider update flag.
+ - Update dc_connection_dac_load to dc_connection_analog_load.
+ - Check NULL before calling dac_load_detection.
+ - Replace log macro for analog display detection.
+
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Alex Hung (4):
+  drm/amd/display: Update function name to
+    link_detect_connection_type_analog
+  drm/amd/display: Update dc_connection_dac_load to
+    dc_connection_analog_load
+  drm/amd/display: Check NULL before calling dac_load_detection
+  drm/amd/display: Replace log macro for analog display detection
+
+Charlene Liu (1):
+  drm/amd/display: Fix dsc eDP issue
+
+ChunTao Tso (1):
+  drm/amd/display: Add frame skip feature support flag
+
+Clay King (1):
+  drm/amd/display: Update timing source enums
+
+Cruise Hung (1):
+  drm/amd/display: Remove unnecessary divider update flag
+
+Dillon Varone (2):
+  drm/amd/display: Consolidate dmub fb info to a single struct
+  drm/amd/display: Add new fields to fams2 config
+
+Dmytro Laktyushkin (1):
+  drm/amd/display: Add signal type check for dcn401 get_phyd32clk_src
+
+Dominik Kaszewski (1):
+  drm/amd/display: Fix and reenable UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL
+
+Kaier Hsueg (1):
+  drm/amd/display: Fix P010, NV12, YUY2 scale down by four times failure
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Fix mismatched unlock for DMUB HW lock in HWSS fast
+    path
+
+Richard Chiang (1):
+  drm/amd/display: sink EDID data null check
+
+Taimur Hassan (1):
+  drm/amd/display: Promote DC to 3.2.364
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 80 +++++++++----------
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 10 ++-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  5 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 12 ++-  .../amd/display/dc=
+/hwss/dcn401/dcn401_hwseq.c |  6 +-  .../display/dc/link/accessories/link_d=
+p_cts.c |  6 +-  .../drm/amd/display/dc/link/link_detection.c  | 27 ++++---=
+  drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c  |  3 +-
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 16 +++-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c |  6 +-  .../gpu/drm/amd/dis=
+play/dmub/src/dmub_dcn30.c |  6 +-  .../gpu/drm/amd/display/dmub/src/dmub_d=
+cn31.c |  6 +-  .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c |  6 +-  .../=
+gpu/drm/amd/display/dmub/src/dmub_dcn35.c |  6 +-
+ .../drm/amd/display/dmub/src/dmub_dcn401.c    |  6 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  7 +-
+ .../amd/display/modules/power/power_helpers.c |  3 +
+ 19 files changed, 121 insertions(+), 98 deletions(-)
+
+--
 2.43.0
 
