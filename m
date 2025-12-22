@@ -4,80 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB3CE6749C
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC9C6E67495
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D41110E5B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6892610E5B3;
 	Mon, 22 Dec 2025 08:23:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=dionne-riel-com.20230601.gappssmtp.com header.i=@dionne-riel-com.20230601.gappssmtp.com header.b="tNubzC36";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eNza9X9c";
 	dkim-atps=neutral
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
- [209.85.219.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 963FA10E046
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Dec 2025 19:24:26 +0000 (UTC)
-Received: by mail-qv1-f46.google.com with SMTP id
- 6a1803df08f44-888bd3bd639so41962136d6.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 Dec 2025 11:24:26 -0800 (PST)
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
+ [209.85.210.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FBF010E568
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:22:40 +0000 (UTC)
+Received: by mail-pf1-f196.google.com with SMTP id
+ d2e1a72fcca58-7bb710d1d1dso5330009b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:22:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dionne-riel-com.20230601.gappssmtp.com; s=20230601; t=1766345065;
- x=1766949865; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=WNRXomm/9h0iGidBrRD9xr6yFpj6CojlLOaAVzHjsKs=;
- b=tNubzC36R+FN8+3qraNd+MfHoVWKaroczLB/iuR+AkT5kCv1c+S+RYE18Ua3phYUNd
- 4/bpYqdWWbR5uS7+KHz+tU3Hki/LSHwuHB8OJpVjDrdVkGBp/o8FPpRH6IGuIEAOu96Y
- f0IUBv6WahRTf+E5KgWoWsnyGR4QvgxyoNUagSis3Ho6Ml+z0xineuFPKM8Psr+CLhL9
- iC4+7taurunHu6hwKTTL/7LC6vAz1JWvQy0/vGJ7Pinlwh2xKJx+m0G6DR7Fcvrw+uUn
- faMNH6uPPRGp5wACFR3H4PIxp9N3alhfzzoGYrk4Mdbkq2716uh5HHkNBRu7UXCOcEGb
- VPAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766345065; x=1766949865;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1766391759; x=1766996559; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WNRXomm/9h0iGidBrRD9xr6yFpj6CojlLOaAVzHjsKs=;
- b=TaueOQ/1AYXiRzEgqdxN2TRjtNHkvlFFddzXlwFhTRAwmPOy+VaeBhbw593s3mOM8I
- LfvWQS4bMb2vbTPFKzWcLMqipAwmWXjXCRpyM8w72VW2l3LTWE3Zy7MQaIPeJf+id0iT
- gpAJauZj859erqC0nTHLs87VnibBRyo5Ul0e0O37C2Jt/ziXBkXLdhXQSNYLHQh2q0Da
- PVi/z2PBcEvI5gKkjBCSu591yBLHEc+2i8M69KyMCIZu29pkCWRmEjHabmtUSh6UE2hK
- fnXfo2a+6zNFkNlfVNxMrSJVNxclMm+WqFIV9A0F1T5I/4upEnZu/UJrBcOpQs6x+94V
- gJWA==
+ bh=pKljsU8Xmw+/foisR3SYsx7mqK9N8s1wNDUiE0Eb/VY=;
+ b=eNza9X9cWDOMp2GilAlg91Nzc21blG8h1Hc0U/KUi5BTUkG7ZybroPG41eRKjuhO5e
+ A8tFirPssDMIwFgU9j306iDKiOpa4M7CUciZ5X7PGvKh7wEZRTRHsPE1oLaxhk/mhzMM
+ EW9V35TGtd46aFBvkO42IyutYy6DrKt221sQyjWB0vlF0d0HYhFyZtCB18xoS4mFNcoA
+ CAZrSiVTBTuK1Ay5esg2sxSt726VYJzjwyYtjguUUSDXOHVCzrZbHAz8lLkueLQ1gcqw
+ S6o5JkDYr6JVd0s1y3RlSiEVnjgDUWglC/dDWElI5+w6qeTw4f09+SICD9/GgH/X8eAu
+ YWZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766391759; x=1766996559;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pKljsU8Xmw+/foisR3SYsx7mqK9N8s1wNDUiE0Eb/VY=;
+ b=Dwf7ik3Vp/SYQUU0/UBr0/AR4SM0VrwZTPZIJEHV4EymREeKLv/yA/8BUWQoYnytv+
+ s4srEYtG8dDRIRx5K1kNEWQH2MCN5o8b2YST4xO7AMzj9kbR/sIXktg+D0FZfE2Aa2hi
+ D8CSUfotUfpfuDBhWKWHjhzJj0jjDLzXrrfRYH3s8JT6eeYh4CnHizWDNUVwPm6IGci0
+ MqifsNEh+R0VqPS9/i5oQj1QLH8KsT8JjCrs9ehe8Xnj0xxbINPqt4Tg+AI6LBnnXLj+
+ SQO9hGUEUCN8fBoMZR7EDdHGFxydxMSnBQbCjXUc4rxvSOfVM8oiNg5MO+zckXHtDiLD
+ Wbhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGnRBPmrU89+qXtgkBtmq1eOyEHflhQlnVjzy0WaneB2aoDft4E/9H+Ws4HhpPN6HU2JiTpcBf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGsMXDL8BABh1EkGC9Aqxj2KI+P9nXNOyiz5y4xQbZ03PEew5b
- OCgEoAhsGFdqbJvAuTDGpxsJlYjAyBYO7lt3OdFctt2pAJLtYr9Pz9II1LR5tvNGLw==
-X-Gm-Gg: AY/fxX40jnkSoVVePL841x8cTzx+PzDfYz3vMqGeJig4eY0K0KcRfmEtNV5F0ehxrP8
- nMJOJrLeUaPultm47/5iVHOqNqgvD3Y5E5srU2KiSQ7e7+YZorcX+23b2xnHaeWUoVAjCzult2p
- rlLGy/72rOgs2/jD2Hxbnp9EBLXqFx7MbnZU/E9v4laPk4aufZ6/spItiS3mSqazawvUmw+imx0
- ILp6ii+NF6KgIABbb+qJVk9tsB66C7d9/dP8NllAWUc6aWSiGLtw1VFKGpgzYnZ/yCJ+EC1bJpZ
- hb0X5icfqvuORg6EKz0SpNKIjDQMuU4nBGC8dG1SusgeknPEDY3rxqY/W634XZTSS5VAhQAO+0y
- /9UhraxNxzWehFMB3w46193ileuo4dMnyFDywWmVOKCixclze1Zk4Rhwha33pxxWR/fAdlxqxL2
- mYsXaiaFQCqHhTbyormQ/iKXrLJ6cgUhXNrFYas/uYc3sPQ9VUU9PJK5eeoQb7qjjbyQ==
-X-Google-Smtp-Source: AGHT+IHgVYbByF5NCXxaki3N51wWAG7AvtLQAnsyAdqjgDj7hWSlDWpoheIh4kbzxiW2kzJablQFjQ==
-X-Received: by 2002:ad4:5be1:0:b0:88a:375b:ed7c with SMTP id
- 6a1803df08f44-88c533b360fmr188839156d6.35.1766345065382; 
- Sun, 21 Dec 2025 11:24:25 -0800 (PST)
-Received: from frankgrimes.elk-nominal.ts.net (135-23-195-66.cpe.pppoe.ca.
- [135.23.195.66]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-88d99d7e8d4sm68043356d6.41.2025.12.21.11.24.24
+ AJvYcCVHVQ9dw8LSnRNUVyc/itZLrjo08IIaasQ0Hqv03ccbFNUxsNGMdO0x79u2/hDwZ5WN8M7Qnwey@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLAY+04gNG7YjrhpOWxkwm6RQ570UI1sRw54zQkPw1UJ7ndqnz
+ 1ZAVsu4b6Bs/siEPTQbDZu0lxt8FcAwfT9o7PzGIrvq63XtzBMle4Jo1
+X-Gm-Gg: AY/fxX54PIfH/IEiDrTF/YzOiqMPfBwicN77x/KAGEHH0Q9HPMlhaQtlBHROKzGUc2K
+ ZtVey/2ibFG6cYowbUpUj5kM2JgIDKGxPSTqIjWZT1lHOnSlYAi6dpXCmGyGnutbXw0II+KozF3
+ kUgBJCgHAEgBRxtva0vYN4fH4Qrwpj13/yewXIJ+8KghLUbFVDXySl002R/kCNuLRFZDrHpVC+f
+ alGKU4Lz/0CoVO2o4ByMwQTjKjScBOVBn43EgFUhjpKsQwWWiNDtl517KAHzH+lOZqJlhMVm4QX
+ U/JRmF6MXQVOKYLBu7Hln0eTFArCRnyaQ3znvNa6H4s8V6BZd1m4Celqe6pt+mwKyKjeO5ITAzQ
+ qslQgcsPGa41O7E/4RtkDJRZ7VnDQhsiia5rLUC19bjCAdUNId/UxXlQUZJOgNYpzMV2z+Ga27W
+ 05e919BP3g
+X-Google-Smtp-Source: AGHT+IEbn13GAc82azOlCQBzD0kgiJPbfq4yJfKj6lNc2cko7ljpTpb+ZvesmNM1IQ0X0cprC78m6A==
+X-Received: by 2002:a05:6a21:3395:b0:366:2341:4980 with SMTP id
+ adf61e73a8af0-376a81dd746mr9694106637.11.1766391759442; 
+ Mon, 22 Dec 2025 00:22:39 -0800 (PST)
+Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.22.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Dec 2025 11:24:24 -0800 (PST)
-From: Samuel Dionne-Riel <samuel@dionne-riel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Simona Vetter Thomas Zimmermann <"simona@ffwll.chtzimmermann"@suse.de>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Samuel Dionne-Riel <samuel@dionne-riel.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] Add quirk to disable custom brightness curve
-Date: Sun, 21 Dec 2025 14:24:17 -0500
-Message-ID: <20251221192422.2726883-1-samuel@dionne-riel.com>
-X-Mailer: git-send-email 2.51.0
+ Mon, 22 Dec 2025 00:22:38 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ seanpaul@chromium.org, robdclark@gmail.com, groeck@google.com,
+ yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
+ will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
+ maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
+Subject: [PATCH v7 07/31] dyndbg: make ddebug_class_param union members same
+ size
+Date: Mon, 22 Dec 2025 21:20:24 +1300
+Message-ID: <20251222082049.1782440-8-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251222082049.1782440-3-jim.cromie@gmail.com>
+References: <20251222082049.1782440-3-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 Dec 2025 08:23:36 +0000
@@ -95,33 +99,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series add the necessary plumbing in the drm_panel_backlight_quirks
-module, and in the amdgpu module, to correctly support disabling any
-custom backlight curve a firmware may have provided.
+struct ddebug_class_param keeps a ref to the state-storage of the
+param; make both class-types use the same unsigned long storage type.
 
-Basically, this is the same situation as with the other quirks, some
-firmware data is sub-optimal. In this particular instance it makes the
-backlight control jerkier when using the firmware-provided curve.
+ISTM this is simpler and safer; it avoids an irrelevant difference,
+and if 2 users somehow get class-type mixed up (or refer to the wrong
+union member), at least they will both see the same value.
 
-The last patch is authored on top of a just-sent change, which adds an
-additional device to the list of known quirks. It was sent separately as
-it should be entirely uncontroversial. Otherwise the changes in this
-series were made on top of 8f0b4cce4481, the current drm-next.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/linux/dynamic_debug.h | 2 +-
+ lib/dynamic_debug.c           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
--> drm: panel-backlight-quirks: Add Minisforum V3 SE
-Link: https://lore.kernel.org/20251221185608.2718273-3-samuel@dionne-riel.com/
-
-Samuel Dionne-Riel (3):
-  drm: panel-backlight-quirks: Add quirk to disable custom brightness
-    curve
-  drm/amd/display: Implement disable custom brightness curve quirk
-  drm: panel-backlight-quirks: Disable curve on V3 SE
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
- drivers/gpu/drm/drm_panel_backlight_quirks.c      | 2 +-
- include/drm/drm_utils.h                           | 1 +
- 3 files changed, 8 insertions(+), 1 deletion(-)
-
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 98a36e2f94b6..4b7c3b997657 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -103,7 +103,7 @@ struct _ddebug_info {
+ struct ddebug_class_param {
+ 	union {
+ 		unsigned long *bits;
+-		unsigned int *lvl;
++		unsigned long *lvl;
+ 	};
+ 	char flags[8];
+ 	const struct ddebug_class_map *map;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index cb171088850c..d2ff203d0873 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -810,7 +810,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 
+ 	case DD_CLASS_TYPE_LEVEL_NAMES:
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+-		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
++		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
+ 	default:
+ 		return -1;
+ 	}
 -- 
-2.51.0
+2.52.0
 
