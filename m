@@ -4,78 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 369B4E6749C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87C9EE6749D
 	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 08:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFAD10E59B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1723D10E596;
 	Mon, 22 Dec 2025 08:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZZdBsZz3";
+	dkim=pass (4096-bit key; unprotected) header.d=glanzmann.de header.i=@glanzmann.de header.b="U07KSS4i";
 	dkim-atps=neutral
-Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
- [209.85.218.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 125AB10E1F5
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 11:46:55 +0000 (UTC)
-Received: by mail-ej1-f66.google.com with SMTP id
- a640c23a62f3a-b79f698aa91so57341566b.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 Dec 2025 03:46:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766231213; x=1766836013; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=IGC/wXUYiYQsnh5yWNhZ1+GGzCbr65mZk3jPLwzdXjQ=;
- b=ZZdBsZz3yAYWxS0od0NW9TlIJaT65mXFer87O7lcmqQjTffyF7HqurvfXkWQhEGzvs
- jsfpdoxqx7YVVFTViZ27bWCB4vYutsFOlcrs/oJH7eKs5jV/MU2L7HuN6WmxjogwGKIs
- cnsLcRZiZNRGgrMkssu1ZLSvQVT2vDYx7O27AUAlcE/0laCWkdzirVPrXRcsj7jj2hxX
- 8RdQhrGZjtcVQCdluO3j0tmM/ew6Ym7sEw9r8BYbG2QOtxySp2IvVz68+hfHBWzhUyti
- U4MsV+Lpfk2zxwTJ9OLSlL4/ngpSB6Dx4pCeQuelr3UuUW2cwlUhaZwODaqz8GxFii9X
- HKSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766231213; x=1766836013;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IGC/wXUYiYQsnh5yWNhZ1+GGzCbr65mZk3jPLwzdXjQ=;
- b=ABJHc5YXNO2pEft5CULr2S9PuJAcNswfuA+g+I6vMZDf3jRx8IE8m5qzhHc3/8OeQv
- LhFRWKWcjESFfpKs7/rj2Wuvr+1Y374fhTw+tz5YqAKLUqfeU7G2/d5eBIPOTtx9UD93
- /2ZMvfbPZ6nDX3dP14CxNFXmJ1HrQ3RNBOlj+up+2wl6bak/xx5Th+WT4PVVPJ1HQfVd
- TYUc2573ZjMv3TNPOqRBvas6Sbc9Ip3YSkKWmLgRWI0PEr7JzDpMJh0Cv6PTCdtC1Qa7
- UpjRL4YpMQaRoRYemzl57m+Bsy6Pn4ejKtuJ1YmrkgDLu20eQszb+/bLjW0ioXhZFB1h
- PrXw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV9IgHZjJfDn79Fk6oa903xw1Yq721M7ToMgyiWkABhu+HwlkOZMQVQwYjcVDBnftbMCCCKe3/N@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1ROWcOjzvv1Fak5eaOmFl+OGCUtxQRgmgEF9puG4k2nBaNRH7
- HuW1e2mxPrNz7PGvvRB9ka1FugqCEF8z0F89OLRy4KwDr4+IPS62Le6m
-X-Gm-Gg: AY/fxX7T5e8Hb6fd70C1rlArmLYuZGNhP7q8gtZG67LIUciGyz7zIwYfrjgScKp/Gmf
- n8lBYrUZ0vInOunKN67Jtkzse0Prw38PjMnVQC0HbPXE//eaJsepse5qT3rOT0Vn8IZipLlJslm
- w0elUztjsJ2ZAjRa9DlpUun8hA/wCHSODMVIybIdUVQfZIEbop9UBpXnZD95zVJQW74oZKLwXxF
- GsIDnXp5RnT64SSJRXqNqLY+vUKLSi6nV4HPHCitmMrfUbMaYrbcCAEJ+g/VQSR8FNsWmXZPQS7
- 74wlxwpg5sP8ABs3bsYJV5Q6afPq4jwwkyRT54f0tLJ9SVaScR/IETUwg53zE46i+j2tUgDlJCb
- WECEXkflYrC18YlslRbcl48uf7qpHRaseUv+Qvsw6rZIX3Jqp8/JDmnz8RslBRjljdQfu5um5Ds
- 5iRbpXvUDTsdlgtp+nWhCWX23BpaYcyI+xKBXRlNM+TG+rOOt4LpbVp0YxtdYVzfk5
-X-Google-Smtp-Source: AGHT+IGQ6x7ZnQVQeDaeNCXSqDdMpW3yy2ZBTCiOeV9sMFDd0x+AREowv3nhxI5iwK9TUZGpZQMLkQ==
-X-Received: by 2002:a17:906:dc91:b0:b76:3d45:51d9 with SMTP id
- a640c23a62f3a-b8036954bddmr355980566b.0.1766231213246; 
- Sat, 20 Dec 2025 03:46:53 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8037a5bdb9sm495449066b.7.2025.12.20.03.46.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Dec 2025 03:46:53 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- bernhard.berger@gmail.com
-Subject: [PATCH 0/4] amdgpu: Enable Adaptive Sync over PCON with HDMI VRR
-Date: Sat, 20 Dec 2025 12:46:45 +0100
-Message-ID: <20251220114649.169147-1-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
+X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
+ Mon, 22 Dec 2025 06:25:48 UTC
+Received: from infra.glanzmann.de (infra.glanzmann.de [88.198.237.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF3510E1B1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 06:25:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glanzmann.de;
+ s=infra26101010; t=1766384319;
+ bh=Cw92PG2Uk7ofVOyfPAtZNDbYl2tZ1ufkc6kNDBpeVrQ=;
+ h=Date:From:To:Subject:From;
+ b=U07KSS4iBuHJ4/a86f7ShNH+4M/ORKCCjv7WGLpKnpxNAmP7KCr1ryXw56yuLCqHX
+ XyCkMIWyFNxKUMjoSfqySXu3c/8OpOv8Hqu/LR0y3xLf+lcocEJdGRgn9GpoJcfERI
+ ijKjzkevxUUh3AOPuFwqmocF3wIWFuaDVHfsxy3heu/bH+WPxjDYewpUNRfstcWgWA
+ vzS0ZDBWJW3TskDEW+y/RseRbiBwEo0BiS2W3UwcCPobQlNJKlxtvni1zdXuLrvE/r
+ 6gEATkfP7k95j8PLzdqGImjcQX435t7ZlmMho8CXfhq5QiXkw1jIheD4eYPn54+N7z
+ +rqhQFM3bxCMIlb+kHwxcESXkiLt9O90+el+8YorZ6rFU1isLz61tbcYrVwSS2DwZy
+ HtZeeYEd7bVSSJQmq5Z55oE9ImI4IxYFImnrVgWBT8eFgSS3AJ6EN0tuEFBcbEyo9C
+ +igwbUVGNuS2EP2PrKzLPglVbcAbj7HNhT3XpzeEQbx85O+q3R3skX66MuaMA9jS5Z
+ 1TeLXoIMVUsgM3BHM4V/oR6+GDa3/8wWyK4QVINWJSe9a4Dnt+jo6WnCC4tyxkkQ7w
+ qzHuukEPUvPpWkG2nBatFoV7bmAJI1ZH24PwiF6eqjEIWWooT3gRXU+Wfyxp31AIQi
+ mRTz2NDJptQZiRd1yNcIEfqY=
+Received: by infra.glanzmann.de (Postfix, from userid 1000)
+ id 6C407255DE6; Mon, 22 Dec 2025 07:18:39 +0100 (CET)
+Date: Mon, 22 Dec 2025 07:18:39 +0100
+From: Thomas Glanzmann <thomas@glanzmann.de>
+To: amd-gfx@lists.freedesktop.org
+Subject: amdgpu: [drm] AMDGPU device coredump file has been created
+Message-ID: <aUjiv4TnoVJ9LysI@glanzmann.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 22 Dec 2025 08:23:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,34 +57,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adaptive Sync over PCON is only available as FreeSync over HDMI. TVs which do
-not support FreeSync, do not have working VRR with DP -> HDMI 2.1 adapters even
-though adapters will take care of HDMI VRR info packets.
+Hello,
+I have a PC which worked fine for many years that I did not use for half
+a year. Yesterday I want to use it, but sway appears to be crashing
+amdgpu in DRM. The components are:
 
-First two patches add generic drm edid parsing for HDMI VRR and ALLM.
+- ASUS System Product Name/TUF GAMING B650M-PLUS
+- AMD Ryzen 9 7950X 16-Core Processor
+- Debian trixie
 
-Since HDMI VRR relies on FRL modes, this will only be enabled for PCONs in the
-VRR whitelist. HDMI VRR for native HDMI connector will still not be
-possible/attempted.
+I already tried the following:
 
-I myself validated these changes with my Samsung S95B + Bernhard validated on
-LG C4 + FreeSync-less Sony Bravia 8. I used Alienware AW3423DWF that only
-has HDMI 2.0 to check that FreeSync still triggers properly for "older" hardware
+        - Upgrading to Debian forky
+        - Debian trixie live cd
+        - Installing the latested amd gpu firmware
+	- Updating the Bios to the latest.
 
-Tomasz Pakuła (4):
-  drm/edid: parse HDMI ALLM info
-  drm/edid: parse HDMI VRR information
-  drm/amd/display: rename PCON adaptive sync types
-  drm/amd/display: enable HDMI VRR over PCON
+In order to reproduce the issue, I boot linux, start sway and open an
+alacritty terminal with a tmux inside. amdgpu crashes immediatly. Find
+here a video and the full dmesg.
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 +++++++++++++++----
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
- .../amd/display/modules/inc/mod_info_packet.h |  4 ++--
- .../display/modules/info_packet/info_packet.c |  4 ++--
- drivers/gpu/drm/drm_edid.c                    | 20 ++++++++++++++++
- include/drm/drm_connector.h                   | 23 ++++++++++++++++++
- 6 files changed, 67 insertions(+), 10 deletions(-)
+https://tg.st/u/dmesg_9f62587406fb808dc4d91d41029ccf88ceeadf13e1f91d65c27b57536f375550.txt
+https://tg.st/u/amdgpu_device_coredump_data_a25f2060c56260bb46ac95ee3123969d5127bf31b29ea3adfe3feeac67bf4edc.zst
+https://tg.st/u/VID_20251222_071051104.mp4
 
--- 
-2.52.0
+[   57.342777] amdgpu 0000:0b:00.0: amdgpu: Dumping IP State
+[   57.343822] amdgpu 0000:0b:00.0: amdgpu: Dumping IP State Completed
+[   57.343869] amdgpu 0000:0b:00.0: amdgpu: [drm] AMDGPU device coredump file has been created
+[   57.343871] amdgpu 0000:0b:00.0: amdgpu: [drm] Check your /sys/class/drm/card0/device/devcoredump/data
+[   57.343872] amdgpu 0000:0b:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled seq=106, emitted seq=108
+[   57.343873] amdgpu 0000:0b:00.0: amdgpu:  Process sway pid 2021 thread sway:cs0 pid 2317
+[   57.343875] amdgpu 0000:0b:00.0: amdgpu: Starting gfx_0.0.0 ring reset
+[   57.485168] amdgpu 0000:0b:00.0: amdgpu: Ring gfx_0.0.0 reset failed
+[   57.485170] amdgpu 0000:0b:00.0: amdgpu: GPU reset begin!
+[   57.609921] amdgpu 0000:0b:00.0: amdgpu: MODE2 reset
+[   57.616920] amdgpu 0000:0b:00.0: amdgpu: GPU reset succeeded, trying to resume
+[   57.617008] [drm] PCIE GART of 1024M enabled (table at 0x000000F41FC00000).
+[   57.617024] amdgpu 0000:0b:00.0: amdgpu: PSP is resuming...
+[   57.638326] amdgpu 0000:0b:00.0: amdgpu: reserve 0xa00000 from 0xf41e000000 for PSP TMR
+[   57.832236] amdgpu 0000:0b:00.0: amdgpu: RAS: optional ras ta ucode is not available
+[   57.837959] amdgpu 0000:0b:00.0: amdgpu: RAP: optional rap ta ucode is not available
+[   57.837961] amdgpu 0000:0b:00.0: amdgpu: SECUREDISPLAY: optional securedisplay ta ucode is not available
+[   57.837963] amdgpu 0000:0b:00.0: amdgpu: SMU is resuming...
+[   57.838869] amdgpu 0000:0b:00.0: amdgpu: SMU is resumed successfully!
+[   57.839132] amdgpu 0000:0b:00.0: amdgpu: kiq ring mec 2 pipe 1 q 0
+[   57.842333] amdgpu 0000:0b:00.0: amdgpu: [drm] DMUB hardware initialized: version=0x05002C00
+[   57.944932] amdgpu 0000:0b:00.0: amdgpu: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+[   57.944935] amdgpu 0000:0b:00.0: amdgpu: ring gfx_0.1.0 uses VM inv eng 1 on hub 0
+[   57.944936] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 4 on hub 0
+[   57.944937] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 5 on hub 0
+[   57.944938] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.2.0 uses VM inv eng 6 on hub 0
+[   57.944938] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.3.0 uses VM inv eng 7 on hub 0
+[   57.944939] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0
+[   57.944939] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0
+[   57.944940] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10 on hub 0
+[   57.944940] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.3.1 uses VM inv eng 11 on hub 0
+[   57.944941] amdgpu 0000:0b:00.0: amdgpu: ring kiq_0.2.1.0 uses VM inv eng 12 on hub 0
+[   57.944941] amdgpu 0000:0b:00.0: amdgpu: ring sdma0 uses VM inv eng 13 on hub 0
+[   57.944942] amdgpu 0000:0b:00.0: amdgpu: ring vcn_dec_0 uses VM inv eng 0 on hub 8
+[   57.944943] amdgpu 0000:0b:00.0: amdgpu: ring vcn_enc_0.0 uses VM inv eng 1 on hub 8
+[   57.944943] amdgpu 0000:0b:00.0: amdgpu: ring vcn_enc_0.1 uses VM inv eng 4 on hub 8
+[   57.944944] amdgpu 0000:0b:00.0: amdgpu: ring jpeg_dec uses VM inv eng 5 on hub 8
+[   57.948092] amdgpu 0000:0b:00.0: amdgpu: GPU reset(1) succeeded!
+[   57.948107] amdgpu 0000:0b:00.0: [drm] device wedged, but recovered through reset
+[   57.961832] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
 
+I'm grateful for any pointers that resolve the issue and available for debugging.
+
+Cheers,
+        Thomas
