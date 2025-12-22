@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 978C6E6F086
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 18:27:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9059DE6FE29
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 18:27:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB0E810E297;
-	Tue, 23 Dec 2025 18:27:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32CCA10E29F;
+	Tue, 23 Dec 2025 18:27:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=glanzmann.de header.i=@glanzmann.de header.b="S+Ghrcku";
+	dkim=pass (4096-bit key; unprotected) header.d=glanzmann.de header.i=@glanzmann.de header.b="Q/r+nB8/";
 	dkim-atps=neutral
 Received: from infra.glanzmann.de (infra.glanzmann.de [88.198.237.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 275F310E0DC
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 06:09:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B0C410E090
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 19:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glanzmann.de;
- s=infra26101010; t=1766470151;
- bh=gFOwAoOWk2h+hSaCfwQjDoZMPkX64EVUkkmjS9/KLYQ=;
+ s=infra26101010; t=1766433553;
+ bh=n4vV1nGpuRm9LTqM+KPrcwt37mH3VoE63k5c3/LHKzU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=S+GhrckuZnjCevNSpyMe9o9Yd7XDqXcZBLxy8riJ7BONU8Ph25PZcOHN6FA5uR4t1
- gmszNk8nazjNlSDdU071fWssojg4UoqhTVi0KPeC8PGncngUvpwEGAg2LaE4R8Rdww
- 5bJQhQfoHjfci4+m5YC03gxOi7UG+ivHZOFPCg6JXLPlMH9Gk7deZ75t45lMwnr8iK
- sqYBQnp9A0QBcNYt0WjvNU7VK9KICEKih8MdmhI/Z75GNQ9Wishn+VvUgophcbxQzP
- z2rHnqPebu2gegb6HHzKtg7+TzyD/nQKrqtOkKf14ICwGUHUA8m67McGgFB449llX1
- pQz3lpPQ5HC2URXa47KZf9SdUBx82Dkr/8zHPorCc2g5EMdxvm+cuSm/nx7WP1jrDO
- juT3xL80WAKZXWS4IHSobracrnGHwldGgBnAYlLwUkzd5A9JJFSjYH7EWdB3cW3Lh5
- BvrX0i0L6jYC9NLPkxCn/+BG1TzhPmJGll/3uLAD14ldCPPufuHr+aU+GK6omYLe5F
- BbYyDkKN5lA2+VTfUpmEAQh3DQY8pzRdg+GqAX6eaWjCVkIsRXYXhPMGsCpLvWvWsA
- DU4ZUfv7gcKsPhm8iwSv7BIYPb4VCQHryFAgtpQR/M4O1hXv+9Fe2Xjpq2SlzCAftz
- tEFUTKxqLjhRGGFk2qUoPM7g=
+ b=Q/r+nB8/xrL2SG0+37atlfLw++7KadiSkwxeuWm+yqPTFCZlKDT3bNIisXU4lfGmI
+ rGyLYJqvTnAjEnPEb67rZUDY2bdOnBouCqCyOq/JDCKP49cbXeiKkzVobFaGrzb5ei
+ nYYBeF/3RAUmmHwQ6ZTXvrv+YsU4lMr3Li5f+DCgkL58m+aHoK/jnhKPMTXkmdLssw
+ m4clI17CGHschG1LpEo8EhYVP3T7L31F3NwqFzczlyNLQA9FT2xzj5kG7FeBHfWv4u
+ U61nC2HztzZhJAaM8Poa9oURnLtvCjT6XnJRAQpIGuMrb9VSRme91k8rhSLkcY8Ykz
+ lmd8om5GCagRbO+LxshNOR4qHSfEzFK5j5JPFwKy+sQlDKIuCbbU+LXkePNUz/vAiT
+ lT2SAX+9XZdTuaGva+yM5tqgb9rQnZwaQFsHiQmjvF7K1LFhyLR5DCP+gwpY4oUfee
+ rZj53Es2lKBhA9m1FXxsuuy45v1lTWOnD5ROIpCc3PE+P3CQlFLEYnhaCO4rLICAcF
+ OAdzJ6/Gd+kBc6vsPrDWivR4K29hVo+/BRnhq/EQeW+JhWl3PfGn4Vz/aZq0jwNkdG
+ rO1NewpTFPqRfhY/JPuFB2G3RhA7aK0Fxghvp72UAQ1Jr2/HQFfoqOXtygu/0Wt+6u
+ 4lFjj+GUEuOI0GvbFw5ITmYs=
 Received: by infra.glanzmann.de (Postfix, from userid 1000)
- id E97AC25F306; Tue, 23 Dec 2025 07:09:11 +0100 (CET)
-Date: Tue, 23 Dec 2025 07:09:11 +0100
+ id B66931EF854; Mon, 22 Dec 2025 20:59:13 +0100 (CET)
+Date: Mon, 22 Dec 2025 20:59:13 +0100
 From: Thomas Glanzmann <thomas@glanzmann.de>
 To: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Subject: Re: amdgpu: [drm] AMDGPU device coredump file has been created
-Message-ID: <aUoyB1spnrj1_J3H@glanzmann.de>
-References: <aUjiv4TnoVJ9LysI@glanzmann.de> <2575679.XAFRqVoOGU@timur-max>
- <aUmjEQ0a47_OeWbR@glanzmann.de>
+Message-ID: <aUmjEQ0a47_OeWbR@glanzmann.de>
+References: <aUjiv4TnoVJ9LysI@glanzmann.de>
+ <2575679.XAFRqVoOGU@timur-max>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aUmjEQ0a47_OeWbR@glanzmann.de>
+In-Reply-To: <2575679.XAFRqVoOGU@timur-max>
 X-Mailman-Approved-At: Tue, 23 Dec 2025 18:27:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,25 +61,37 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hello Timur,
-I have reinstalled my system using snapshot.debian.org to the state of
-2025-06-01 which was working for sure. Unfortunately the issue is not
-resolved. So after I ruled out Kernel and Userland only one thing is
-left: The BIOS. Unfortunately I updated to a BIOS version which can not
-be rolled back.
 
-https://www.asus.com/de/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b650m-plus/helpdesk_bios?model2Name=TUF-GAMING-B650M-PLUS
+* Timur Kristóf <timur.kristof@gmail.com> [2025-12-22 16:36]:
+> Which GPU do you have? Are you using the iGPU from the 7950X?
 
-> Version 3602 17.27 MB 2025/11/27
-> SHA-256 ï¼šC972529E551DC92871B89660E3A3930F187EA6E1B718ADDD7B0E3826D79195C0
+yes, I use the IGPU from 7950X.
 
-> 1.AGESA updated to ComboAM5 PI 1.2.7.0.
-> 2.Improves compatibility with various CPUs and devices.
-> Note: This BIOS version cannot be rolled back to previous versions.
+> Also for these kind of issues it would be nice to mention details such as:
+> - Kernel version, Mesa version, amdgpu firmware version
+> - Does the crash still happen on a recent kernel?
 
-> Before running the USB BIOS Flashback tool, please rename the BIOS file
-> (TG650MP.CAP) using BIOSRenamer.
+Yes, I can reproduce the issue with 6.19-rc1.
 
-I open a case with ASUS.
+> I suggest to open an issue in the drm/amd bug tracker with all those details:
+
+I opened an issue:
+
+https://gitlab.freedesktop.org/drm/amd/-/issues/4813
+
+> Unfortunately, the dmesg log is not actionable. It shows that there was a GPU
+> hang, but there is no indication of what was happening. It does show that
+> there was a successful GPU recovery though. Does your system stay usable
+> afterwards?
+
+No, the sway/wayland session freezes.
+
+> If you know that the system used to work well beforehand, the best
+> would be to tell us which kernel version used to work, which is the
+> first version that broke and bisect from there.
+
+I tried to get to a healthy state. Unfortunately I was not able to do
+so. But I keep trying.
 
 Cheers,
         Thomas
