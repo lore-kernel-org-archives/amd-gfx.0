@@ -4,88 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F151E677F7
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 15:34:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DCBAE677EA
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 15:36:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D68E10E6D0;
-	Mon, 22 Dec 2025 15:34:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60F8110E6D2;
+	Mon, 22 Dec 2025 15:36:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UZygQi4X";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LsIVR0+6";
 	dkim-atps=neutral
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 947B010E624
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 10:15:19 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id
- af79cd13be357-8b2d56eaaceso452004585a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 02:15:19 -0800 (PST)
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFCA910E6D1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 15:36:12 +0000 (UTC)
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-3f4f9ea26aaso2898935fac.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 07:36:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766398519; x=1767003319; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1766417772; x=1767022572; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ovyRP+zhWssSbEtZSeCo8K/4cnbuTzMTJOmBOtbpopI=;
- b=UZygQi4XhoG6kAlY7uRJtKtr210aNZJXRk9R56FogDj+nH71eYqZIWwGLgPZssRih2
- ek95DOTPw9ZLOblbRZ3e61sMYM9839TSQudYgRbW8IutWdWcc4ENrfgRuAldoWpCf1dL
- wsz5YNskVydD30o/rntcEyrpquE2E3eN/I2C1pFKj020zPyiz0lmH5RORo62eNGO7+9B
- EbtTTrJIk7+y9mEJfKD7L0fwwdwEaxWyBzuGeOMOzKAnW/NOBk2b1EdZDEU136bvj3eX
- k5fpfiA+XFDZ0wuj/bOqmJPkSRHvLFnTNkgmRsjciEM7H/rytSWyxqa9qWmqslVvzSFq
- CpXw==
+ bh=bUW9kyl0lWn9jWiKI9kR2IeOQGIc/YBytYjJ9fOXHYs=;
+ b=LsIVR0+6wbc89xaRjmCZgucSZm5FS6sA9J2/cIn958w+s+7geAN/nodQDvm4pSgdo/
+ DSB1ojoEcdhSQFK1b9l1t6EPqwKkLDQX5HuiwKfd73+HqooOgMpMzWGwZMLzZIkvHgnC
+ qN6b6wE1D5/tbY5foSYri61AFZlv/V1ymcPIbGpOI4TkxjcsXs/iNR5dXm0cEUdErL0r
+ Dg1XYkHcaXh1Nenj/fG5oI8QSrHt/jJMSGeAXH3Qr0+EMN2H1r/2G5fsYxb0hcIjBCz7
+ yje7PMZ0T3JnP7Fpnt2vwiNK1zujC9ZXiAxpLefg0cuRbu5x6RvU006hE84vzUj8itSy
+ ZGvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766398519; x=1767003319;
+ d=1e100.net; s=20230601; t=1766417772; x=1767022572;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ovyRP+zhWssSbEtZSeCo8K/4cnbuTzMTJOmBOtbpopI=;
- b=JQIHhFxkqEOpyf/jZHtIMNO4zw1cygICvZaud4cV2UpPMC4acyzdSX4iKrBxlWTjN+
- bkbcZwrm9C63dRh5f9GzCPI7LBK200VgUEwYFKrr/K0onsouMLKD6Ajph2zDdSXVm7k+
- gp8s1/W/TaccoMzdU2tRvnG0UIjn9qxHazHXH7I7wmAUY0fUfBNlIFoX2+d+TSZxmRk5
- 3kE6NRmrNTVqxKAjIzkC/oOfmdoNgbrQhSmWlJEWYdWfM+jPVXuqZUGRPdXRuIm0lOvM
- td6tPJRldB2S8NCfQ1YlLdm9XL7TP0DRhVqBHpGo/7wmrg/eioMf23ssXDc4Oyqer2TA
- c9Fg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVgcmHbexTxP79lfIuVWc74cNiV+3XZOwPDJU4FFrePTvVpngCjm+TQaNsoqAObJPpWMZhq16kR@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHa5XGR2lsd4kXAi3H956x3IgUTFX/wVzEecDxfBTX0xD5KlqP
- WPlVHxyLgU2l+VPUopw71SjZWurnpvpf0o13P8JOrjKjdkc1Nep8G3s/OmEOJ9xsgUk=
-X-Gm-Gg: AY/fxX51LK3enZe/djA4yWwcmEoMiL9yUFFBAH9/A0v4MKACneyV8G5Vod2p9JwUtcO
- 2wZfjdWficjWLHz+RnyfuqshknDWLR3OejQNc9EhZyQw3EdCpajq1J9zfGx0jEtRj3gIBeBVEsB
- 2CX6DwdRPpK4E6pEs1wYOC+6DZgi3NVWvul4us4FiVMCUfO59z1fFbeRiKe7f22hxnrMHt3CENK
- q59KgdFicBn+mjrb0OH9MxbJJiF0Ei03iES+gvraOlK+RxP7/IaPgQzlqCmyDSWtnv8wYD8CfPB
- /6Xc5xqP181F7DhC5lUrQnPXvfaholBWlGMqU6zUfRIezWLlLwSs8+jxYwX+TJtQDWs+ivGqQL4
- 7i54QJPfeOvh8GDo4gO+uWkUrzlDyagCYLyZslD4fvZVh9r3u/DgdvpS6ADDtQgC7yXcVv3UXpX
- Bkjm4tIiWL
-X-Google-Smtp-Source: AGHT+IHujVplaDpiwXO6b5sWCAudBzkSW/pFlYMCMjFjF4DAE/bT5cHIMaaiHQQEO+jIrRX7IticSw==
-X-Received: by 2002:a05:6a00:a386:b0:7aa:17f0:f63c with SMTP id
- d2e1a72fcca58-7ff64eca463mr9188900b3a.29.1766391886435; 
- Mon, 22 Dec 2025 00:24:46 -0800 (PST)
-Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
- by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.24.36
+ bh=bUW9kyl0lWn9jWiKI9kR2IeOQGIc/YBytYjJ9fOXHYs=;
+ b=Q8CdzV7HaJO22mTy67+OIU3jpsQlsSHEs61mfj+Qpy9mOImGfRRBHvDOc5j7VBw+jt
+ kpaVw/+bwBvh5VbyBKjWpcsGMnBrdBMvrTrgMcUwKclU9JcafubpE7ExyUoZrBPUQtj8
+ 3Ld4QfpREVW6OQoI1yHmGSRbCiEWDA2FTy7HAkEbSFv3Ag2T+xFoaD/pvThvv3Kgnaq9
+ nPuTa6Nv/RdZEcciiwyBYyWu4FDg6kcRIBNvs85u3xEfC55EEn3tOSzYBZ0+M1QfpKfy
+ nXRNCJY8v+SCUdgeDYW/EbS1lCi1FV/nRZnH54EQDeLvSXS2eY45R2Cv/0WWIQ5SQsv7
+ Ae1A==
+X-Gm-Message-State: AOJu0YyPq60/wAZOl7lBW/uXQ++4fGp2fbVyD2wI7B9/C6EKXOriclfC
+ CftMV752SuyMu3UfJ9U3qV0H+Pm87SEvbXA4+QHRnDBNSAeOlxmtK71wcOHtervacEc=
+X-Gm-Gg: AY/fxX4DQygQY/KynPPLFDx6JyTd2C2m65w0w2RLf7kv/qS6Dh8DhfH+Cd9qZYfX+g3
+ Zz19TAOoY/tZHXeBAa2o29onwbYiw0gPvZDTdwZpsUzjqcKJJTiA3tkpGZKbuNWhbM/1e9Hz44A
+ 3pZk8c1mT0sDGNGhJuy0JO6Js5/jzt65J0gzvDQzun6pBgUFs0govXgr5cZ//GcIbWz+3ImJaQl
+ dxpwy7ZRslMHJ255lU1DqCSwFvPIdwrgaAUrH9K0ZpqFomN1JkAInUQIpUeOh90XFjf8fWByyKU
+ GKjxQTOfumF4r83G+IzNxjLaurr8rR8DEyUVyWjTb3TACDCWl9XvzMmR7QiTQ5ejUB2Gr0ljZi+
+ pxyJQCFEg00eXE++7rXfcPSX1R3ui7xsbWD6PfyzZ8VbKFOz39s+4C+fsa0gCIPGlOK/aPPRudo
+ ipozWmZZCQny3Flhs4KP9QOVxI47s=
+X-Google-Smtp-Source: AGHT+IGPKjteZ7rF82xcyK+pXZ0EoAE6+Kf9ddYMSS9SZfLnZeq8ECpjXMeP2FavbT2o/fZYxKrQnQ==
+X-Received: by 2002:a05:6871:2b28:b0:3ec:57f7:fa5a with SMTP id
+ 586e51a60fabf-3fda570982bmr5947301fac.50.1766417771555; 
+ Mon, 22 Dec 2025 07:36:11 -0800 (PST)
+Received: from timur-max.localnet ([189.171.135.243])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-3fdaa8d3585sm6929993fac.2.2025.12.22.07.36.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 00:24:46 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- seanpaul@chromium.org, robdclark@gmail.com, groeck@google.com,
- yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
- will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
- maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v7 19/31] selftests-dyndbg: add a dynamic_debug run_tests
- target
-Date: Mon, 22 Dec 2025 21:20:36 +1300
-Message-ID: <20251222082049.1782440-20-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20251222082049.1782440-3-jim.cromie@gmail.com>
-References: <20251222082049.1782440-3-jim.cromie@gmail.com>
+ Mon, 22 Dec 2025 07:36:11 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Thomas Glanzmann <thomas@glanzmann.de>
+Subject: Re: amdgpu: [drm] AMDGPU device coredump file has been created
+Date: Mon, 22 Dec 2025 09:36:09 -0600
+Message-ID: <2575679.XAFRqVoOGU@timur-max>
+In-Reply-To: <aUjiv4TnoVJ9LysI@glanzmann.de>
+References: <aUjiv4TnoVJ9LysI@glanzmann.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 22 Dec 2025 15:34:03 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,400 +86,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a selftest script for dynamic-debug.  The config requires
-CONFIG_TEST_DYNAMIC_DEBUG=m and CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m,
-which tacitly requires either CONFIG_DYNAMIC_DEBUG=y or
-CONFIG_DYNAMIC_DEBUG_CORE=y
+On 2025. december 22., h=C3=A9tf=C5=91 0:18:39 Thomas Glanzmann wrote:
+> Hello,
+> I have a PC which worked fine for many years that I did not use for half
+> a year. Yesterday I want to use it, but sway appears to be crashing
+> amdgpu in DRM. The components are:
+>=20
+> - ASUS System Product Name/TUF GAMING B650M-PLUS
+> - AMD Ryzen 9 7950X 16-Core Processor
+> - Debian trixie
 
-ATM this has just basic_tests(), which modify pr_debug() flags in the
-builtin params module.  This means they're available to manipulate and
-observe the effects in "cat control".
+Hi Thomas,
 
-This is backported from another feature branch; the support-fns (thx
-Lukas) have unused features at the moment, they'll get used shortly.
+Which GPU do you have? Are you using the iGPU from the 7950X?
+Also for these kind of issues it would be nice to mention details such as:
+=2D Kernel version, Mesa version, amdgpu firmware version
+=2D Does the crash still happen on a recent kernel?
 
-The script enables simple virtme-ng testing:
+I suggest to open an issue in the drm/amd bug tracker with all those detail=
+s:
+https://gitlab.freedesktop.org/drm/amd/-/issues
 
-   [jimc@gandalf b0-ftrace]$ vrun_t
-   virtme-ng 1.32+115.g07b109d
-   doing: vng --name v6.14-rc4-60-gd5f48427de0c \
-	  --user root -v -p 4 -a dynamic_debug.verbose=3 V=1 \
-	  -- ../tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-   virtme: waiting for virtiofsd to start
-   ..
+>=20
+> I already tried the following:
+>=20
+>         - Upgrading to Debian forky
+>         - Debian trixie live cd
+>         - Installing the latested amd gpu firmware
+> 	- Updating the Bios to the latest.
+>=20
+> In order to reproduce the issue, I boot linux, start sway and open an
+> alacritty terminal with a tmux inside. amdgpu crashes immediatly. Find
+> here a video and the full dmesg.
 
-And add dynamic_debug to TARGETS, so `make run_tests` sees it properly
-For the impatient, set TARGETS explicitly:
+Unfortunately, the dmesg log is not actionable. It shows that there was a G=
+PU=20
+hang, but there is no indication of what was happening. It does show that=20
+there was a successful GPU recovery though. Does your system stay usable=20
+afterwards? The devcoredump is also not actionable because it has no detail=
+s=20
+about what was happening on the GPU as it was crashing.
 
-  [root@v6 selftests]# make TARGETS=dynamic_debug run_tests
-  make[1]: Nothing to be done for 'all'.
-  TAP version 13
-  1..1
-  # timeout set to 45
-  # selftests: dynamic_debug: dyndbg_selftest.sh
-  # # BASIC_TESTS    95.422122] dyndbg: query 0: 0"=_" mod:*
-  ...
+If you know that the system used to work well beforehand, the best would be=
+ to=20
+tell us which kernel version used to work, which is the first version that=
+=20
+broke and bisect from there.
 
-NOTES
+>=20
+> https://tg.st/u/dmesg_9f62587406fb808dc4d91d41029ccf88ceeadf13e1f91d65c27=
+b57
+> 536f375550.txt
+> https://tg.st/u/amdgpu_device_coredump_data_a25f2060c56260bb46ac95ee31239=
+69
+> d5127bf31b29ea3adfe3feeac67bf4edc.zst
+> https://tg.st/u/VID_20251222_071051104.mp4
+>=20
+> [   57.342777] amdgpu 0000:0b:00.0: amdgpu: Dumping IP State
+> [   57.343822] amdgpu 0000:0b:00.0: amdgpu: Dumping IP State Completed
+> [   57.343869] amdgpu 0000:0b:00.0: amdgpu: [drm] AMDGPU device coredump
+> file has been created [   57.343871] amdgpu 0000:0b:00.0: amdgpu: [drm]
+> Check your /sys/class/drm/card0/device/devcoredump/data [   57.343872]
+> amdgpu 0000:0b:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled seq=3D106,
+> emitted seq=3D108 [   57.343873] amdgpu 0000:0b:00.0: amdgpu:  Process sw=
+ay
+> pid 2021 thread sway:cs0 pid 2317 [   57.343875] amdgpu 0000:0b:00.0:
+> amdgpu: Starting gfx_0.0.0 ring reset [   57.485168] amdgpu 0000:0b:00.0:
+> amdgpu: Ring gfx_0.0.0 reset failed [   57.485170] amdgpu 0000:0b:00.0:
+> amdgpu: GPU reset begin!
+> [   57.609921] amdgpu 0000:0b:00.0: amdgpu: MODE2 reset
+> [   57.616920] amdgpu 0000:0b:00.0: amdgpu: GPU reset succeeded, trying to
+> resume [   57.617008] [drm] PCIE GART of 1024M enabled (table at
+> 0x000000F41FC00000). [   57.617024] amdgpu 0000:0b:00.0: amdgpu: PSP is
+> resuming...
+> [   57.638326] amdgpu 0000:0b:00.0: amdgpu: reserve 0xa00000 from
+> 0xf41e000000 for PSP TMR [   57.832236] amdgpu 0000:0b:00.0: amdgpu: RAS:
+> optional ras ta ucode is not available [   57.837959] amdgpu 0000:0b:00.0:
+> amdgpu: RAP: optional rap ta ucode is not available [   57.837961] amdgpu
+> 0000:0b:00.0: amdgpu: SECUREDISPLAY: optional securedisplay ta ucode is n=
+ot
+> available [   57.837963] amdgpu 0000:0b:00.0: amdgpu: SMU is resuming...
+> [   57.838869] amdgpu 0000:0b:00.0: amdgpu: SMU is resumed successfully!
+> [   57.839132] amdgpu 0000:0b:00.0: amdgpu: kiq ring mec 2 pipe 1 q 0
+> [   57.842333] amdgpu 0000:0b:00.0: amdgpu: [drm] DMUB hardware initializ=
+ed:
+> version=3D0x05002C00 [   57.944932] amdgpu 0000:0b:00.0: amdgpu: ring
+> gfx_0.0.0 uses VM inv eng 0 on hub 0 [   57.944935] amdgpu 0000:0b:00.0:
+> amdgpu: ring gfx_0.1.0 uses VM inv eng 1 on hub 0 [   57.944936] amdgpu
+> 0000:0b:00.0: amdgpu: ring comp_1.0.0 uses VM inv eng 4 on hub 0 [ =20
+> 57.944937] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.1.0 uses VM inv eng 5
+> on hub 0 [   57.944938] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.2.0 uses
+> VM inv eng 6 on hub 0 [   57.944938] amdgpu 0000:0b:00.0: amdgpu: ring
+> comp_1.3.0 uses VM inv eng 7 on hub 0 [   57.944939] amdgpu 0000:0b:00.0:
+> amdgpu: ring comp_1.0.1 uses VM inv eng 8 on hub 0 [   57.944939] amdgpu
+> 0000:0b:00.0: amdgpu: ring comp_1.1.1 uses VM inv eng 9 on hub 0 [ =20
+> 57.944940] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.2.1 uses VM inv eng 10
+> on hub 0 [   57.944940] amdgpu 0000:0b:00.0: amdgpu: ring comp_1.3.1 uses
+> VM inv eng 11 on hub 0 [   57.944941] amdgpu 0000:0b:00.0: amdgpu: ring
+> kiq_0.2.1.0 uses VM inv eng 12 on hub 0 [   57.944941] amdgpu 0000:0b:00.=
+0:
+> amdgpu: ring sdma0 uses VM inv eng 13 on hub 0 [   57.944942] amdgpu
+> 0000:0b:00.0: amdgpu: ring vcn_dec_0 uses VM inv eng 0 on hub 8 [ =20
+> 57.944943] amdgpu 0000:0b:00.0: amdgpu: ring vcn_enc_0.0 uses VM inv eng 1
+> on hub 8 [   57.944943] amdgpu 0000:0b:00.0: amdgpu: ring vcn_enc_0.1 uses
+> VM inv eng 4 on hub 8 [   57.944944] amdgpu 0000:0b:00.0: amdgpu: ring
+> jpeg_dec uses VM inv eng 5 on hub 8 [   57.948092] amdgpu 0000:0b:00.0:
+> amdgpu: GPU reset(1) succeeded! [   57.948107] amdgpu 0000:0b:00.0: [drm]
+> device wedged, but recovered through reset [   57.961832]
+> [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
+>=20
+> I'm grateful for any pointers that resolve the issue and available for
+> debugging.
+>=20
+> Cheers,
+>         Thomas
 
-check KCONFIG_CONFIG to avoid silly fails
 
-Several tests are dependent upon config choices. Lets avoid failing
-where that is noise.
 
-The KCONFIG_CONFIG var exists to convey the config-file around.  If
-the var names a file, read it and extract the relevant CONFIG items,
-and use them to skip the dependent tests, thus avoiding the fails that
-would follow, and the disruption to whatever CI is running these
-selftests.
-
-If the envar doesn't name a config-file, ".config" is assumed.
-
-CONFIG_DYNAMIC_DEBUG=y:
-
-basic-tests() and comma-terminator-tests() test for the presence of
-the builtin pr_debugs in module/main.c, which I deemed stable and
-therefore safe to count.  That said, the test fails if only
-CONFIG_DYNAMIC_DEBUG_CORE=y is set.  It could be rewritten to test
-against test-dynamic-debug.ko, but that just trades one config
-dependence for another.
-
-CONFIG_TEST_DYNAMIC_DEBUG=m
-
-As written, test_percent_splitting() modprobes test_dynamic_debug,
-enables several classes, and counts them.  It could be re-written to
-work for the builtin module also, but builtin test modules are not a
-common or desirable build/config.
-
-Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
-Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- MAINTAINERS                                   |   1 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   7 +
- .../dynamic_debug/dyndbg_selftest.sh          | 257 ++++++++++++++++++
- 5 files changed, 275 insertions(+)
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e8f06145fb54..b9d38a5b4f12 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8772,6 +8772,7 @@ S:	Maintained
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-+F:	tools/testing/selftests/dynamic_debug/*
- 
- DYNAMIC INTERRUPT MODERATION
- M:	Tal Gilboa <talgi@nvidia.com>
-diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
-index c46ebdb9b8ef..8a2542006e23 100644
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@ -26,6 +26,7 @@ TARGETS += drivers/net/team
- TARGETS += drivers/net/virtio_net
- TARGETS += drivers/platform/x86/intel/ifs
- TARGETS += dt
-+TARGETS += dynamic_debug
- TARGETS += efivarfs
- TARGETS += exec
- TARGETS += fchmodat2
-diff --git a/tools/testing/selftests/dynamic_debug/Makefile b/tools/testing/selftests/dynamic_debug/Makefile
-new file mode 100644
-index 000000000000..6d06fa7f1040
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/Makefile
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+# borrowed from Makefile for user memory selftests
-+
-+# No binaries, but make sure arg-less "make" doesn't trigger "run_tests"
-+all:
-+
-+TEST_PROGS := dyndbg_selftest.sh
-+
-+include ../lib.mk
-diff --git a/tools/testing/selftests/dynamic_debug/config b/tools/testing/selftests/dynamic_debug/config
-new file mode 100644
-index 000000000000..0f906ff53908
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/config
-@@ -0,0 +1,7 @@
-+
-+# basic tests ref the builtin params module
-+CONFIG_DYNAMIC_DEBUG=m
-+
-+# more testing is possible with these
-+# CONFIG_TEST_DYNAMIC_DEBUG=m
-+# CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-new file mode 100755
-index 000000000000..465fad3f392c
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -0,0 +1,257 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+V=${V:=0}  # invoke as V=1 $0  for global verbose
-+RED="\033[0;31m"
-+GREEN="\033[0;32m"
-+YELLOW="\033[0;33m"
-+BLUE="\033[0;34m"
-+MAGENTA="\033[0;35m"
-+CYAN="\033[0;36m"
-+NC="\033[0;0m"
-+error_msg=""
-+
-+[ -e /proc/dynamic_debug/control ] || {
-+    echo -e "${RED}: this test requires CONFIG_DYNAMIC_DEBUG=y ${NC}"
-+    exit 0 # nothing to test here, no good reason to fail.
-+}
-+
-+# need info to avoid failures due to untestable configs
-+
-+[ -f "$KCONFIG_CONFIG" ] || KCONFIG_CONFIG=".config"
-+if [ -f "$KCONFIG_CONFIG" ]; then
-+    echo "# consulting KCONFIG_CONFIG: $KCONFIG_CONFIG"
-+    grep -q "CONFIG_DYNAMIC_DEBUG=y" $KCONFIG_CONFIG ; LACK_DD_BUILTIN=$?
-+    grep -q "CONFIG_TEST_DYNAMIC_DEBUG=m" $KCONFIG_CONFIG ; LACK_TMOD=$?
-+    grep -q "CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m" $KCONFIG_CONFIG ; LACK_TMOD_SUBMOD=$?
-+    if [ $V -eq 1 ]; then
-+	echo LACK_DD_BUILTIN: $LACK_DD_BUILTIN
-+	echo LACK_TMOD: $LACK_TMOD
-+	echo LACK_TMOD_SUBMOD: $LACK_TMOD_SUBMOD
-+    fi
-+else
-+    LACK_DD_BUILTIN=0
-+    LACK_TMOD=0
-+    LACK_TMOD_SUBMOD=0
-+fi
-+
-+function vx () {
-+    echo $1 > /sys/module/dynamic_debug/parameters/verbose
-+}
-+
-+function ddgrep () {
-+    grep $1 /proc/dynamic_debug/control
-+}
-+
-+function doprints () {
-+    cat /sys/module/test_dynamic_debug/parameters/do_prints
-+}
-+
-+function ddcmd () {
-+    exp_exit_code=0
-+    num_args=$#
-+    if [ "${@:$#}" = "pass" ]; then
-+	num_args=$#-1
-+    elif [ "${@:$#}" = "fail" ]; then
-+        num_args=$#-1
-+	exp_exit_code=1
-+    fi
-+    args=${@:1:$num_args}
-+    output=$((echo "$args" > /proc/dynamic_debug/control) 2>&1)
-+    exit_code=$?
-+    error_msg=$(echo $output | cut -d ":" -f 5 | sed -e 's/^[[:space:]]*//')
-+    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
-+}
-+
-+function handle_exit_code() {
-+    local exp_exit_code=0
-+    [ $# == 4 ] && exp_exit_code=$4
-+    if [ $3 -ne $exp_exit_code ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$1 $2() expected to exit with code $exp_exit_code"
-+	[ $3 == 1 ] && echo "Error: '$error_msg'"
-+        exit
-+    fi
-+}
-+
-+# $1 - pattern to match, pattern in $1 is enclosed by spaces for a match ""\s$1\s"
-+# $2 - number of times the pattern passed in $1 is expected to match
-+# $3 - optional can be set either to "-r" or "-v"
-+#       "-r" means relaxed matching in this case pattern provided in $1 is passed
-+#       as is without enclosing it with spaces
-+#       "-v" prints matching lines
-+# $4 - optional when $3 is set to "-r" then $4 can be used to pass "-v"
-+function check_match_ct {
-+    pattern="\s$1\s"
-+    exp_cnt=0
-+
-+    [ "$3" == "-r" ] && pattern="$1"
-+    let cnt=$(ddgrep "$pattern" | wc -l)
-+    if [ $V -eq 1 ] || [ "$3" == "-v" ] || [ "$4" == "-v" ]; then
-+        echo -ne "${BLUE}" && ddgrep $pattern && echo -ne "${NC}"
-+    fi
-+    [ $# -gt 1 ] && exp_cnt=$2
-+    if [ $cnt -ne $exp_cnt ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO check failed expected $exp_cnt on $1, got $cnt"
-+        exit
-+    else
-+        echo ": $cnt matches on $1"
-+    fi
-+}
-+
-+# $1 - trace instance name
-+# #2 - if > 0 then directory is expected to exist, if <= 0 then otherwise
-+# $3 - "-v" for verbose
-+function check_trace_instance_dir {
-+    if [ -e /sys/kernel/tracing/instances/$1 ]; then
-+        if [ "$3" == "-v" ] ; then
-+            echo "ls -l /sys/kernel/tracing/instances/$1: "
-+            ls -l /sys/kernel/tracing/instances/$1
-+        fi
-+	if [ $2 -le 0 ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
-+		    '/sys/kernel/tracing/instances/$1' does exist"
-+	    exit
-+	fi
-+    else
-+	if [ $2 -gt 0 ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
-+		    '/sys/kernel/tracing/instances/$1' does not exist"
-+	    exit
-+        fi
-+    fi
-+}
-+
-+function tmark {
-+    echo $* > /sys/kernel/tracing/trace_marker
-+}
-+
-+# $1 - trace instance name
-+# $2 - line number
-+# $3 - if > 0 then the instance is expected to be opened, otherwise
-+# the instance is expected to be closed
-+function check_trace_instance {
-+    output=$(tail -n9 /proc/dynamic_debug/control | grep ": Opened trace instances" \
-+	    | xargs -n1 | grep $1)
-+    if [ "$output" != $1 ] && [ $3 -gt 0 ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not opened"
-+        exit
-+    fi
-+    if [ "$output" == $1 ] && [ $3 -le 0 ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not closed"
-+        exit
-+    fi
-+}
-+
-+function is_trace_instance_opened {
-+    check_trace_instance $1 $BASH_LINENO 1
-+}
-+
-+function is_trace_instance_closed {
-+    check_trace_instance $1 $BASH_LINENO 0
-+}
-+
-+# $1 - trace instance directory to delete
-+# $2 - if > 0 then directory is expected to be deleted successfully, if <= 0 then otherwise
-+function del_trace_instance_dir() {
-+    exp_exit_code=1
-+    [ $2 -gt 0 ] && exp_exit_code=0
-+    output=$((rmdir /sys/kernel/debug/tracing/instances/$1) 2>&1)
-+    exit_code=$?
-+    error_msg=$(echo $output | cut -d ":" -f 3 | sed -e 's/^[[:space:]]*//')
-+    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
-+}
-+
-+function error_log_ref {
-+    # to show what I got
-+    : echo "# error-log-ref: $1"
-+    : echo cat \$2
-+}
-+
-+function ifrmmod {
-+    lsmod | grep $1 2>&1>/dev/null && rmmod $1
-+}
-+
-+# $1 - text to search for
-+function search_trace() {
-+    search_trace_name 0 1 $1
-+}
-+
-+# $1 - trace instance name, 0 for global event trace
-+# $2 - line number counting from the bottom
-+# $3 - text to search for
-+function search_trace_name() {
-+	if [ "$1" = "0" ]; then
-+	    buf=$(cat /sys/kernel/debug/tracing/trace)
-+	    line=$(tail -$2 /sys/kernel/debug/tracing/trace | head -1 | sed -e 's/^[[:space:]]*//')
-+	else
-+	    buf=$(cat /sys/kernel/debug/tracing/instances/$1/trace)
-+	    line=$(tail -$2 /sys/kernel/debug/tracing/instances/$1/trace | head -1 | \
-+		   sed -e 's/^[[:space:]]*//')
-+	fi
-+	if [ $2 = 0 ]; then
-+	    # whole-buf check
-+	    output=$(echo $buf | grep "$3")
-+	else
-+	    output=$(echo $line | grep "$3")
-+	fi
-+	if [ "$output" = "" ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO search for '$3' failed \
-+		    in line '$line' or '$buf'"
-+	    exit
-+	fi
-+	if [ $V = 1 ]; then
-+	    echo -e "${MAGENTA}: search_trace_name in $1 found: \n$output \nin:${BLUE} $buf ${NC}"
-+        fi
-+}
-+
-+# $1 - error message to check
-+function check_err_msg() {
-+    if [ "$error_msg" != "$1" ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error message '$error_msg' \
-+		does not match with '$1'"
-+        exit
-+    fi
-+}
-+
-+function basic_tests {
-+    echo -e "${GREEN}# BASIC_TESTS ${NC}"
-+    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-+	echo "SKIP"
-+	return
-+    fi
-+    ddcmd =_ # zero everything
-+    check_match_ct =p 0
-+
-+    # module params are builtin to handle boot args
-+    check_match_ct '\[params\]' 4 -r
-+    ddcmd module params +mpf
-+    check_match_ct =pmf 4
-+
-+    # multi-cmd input, newline separated, with embedded comments
-+    cat <<"EOF" > /proc/dynamic_debug/control
-+      module params =_				# clear params
-+      module params +mf				# set flags
-+      module params func parse_args +sl		# other flags
-+EOF
-+    check_match_ct =mf 3
-+    check_match_ct =mfsl 1
-+    ddcmd =_
-+}
-+
-+tests_list=(
-+    basic_tests
-+)
-+
-+# Run tests
-+
-+ifrmmod test_dynamic_debug_submod
-+ifrmmod test_dynamic_debug
-+
-+for test in "${tests_list[@]}"
-+do
-+    $test
-+    echo ""
-+done
-+echo -en "${GREEN}# Done on: "
-+date
-+echo -en "${NC}"
--- 
-2.52.0
 
