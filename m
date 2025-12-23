@@ -4,97 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54413E6FE28
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 18:27:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B89E6FE23
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 19:01:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25A6310E299;
-	Tue, 23 Dec 2025 18:27:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D261610E1BE;
+	Tue, 23 Dec 2025 19:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="JrvtLO6W";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ABHtA8nt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DSFkX4x6";
 	dkim-atps=neutral
-X-Greylist: delayed 474 seconds by postgrey-1.36 at gabe;
- Mon, 22 Dec 2025 21:41:09 UTC
-Received: from fout-a3-smtp.messagingengine.com
- (fout-a3-smtp.messagingengine.com [103.168.172.146])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E29C910E239
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 21:41:09 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id 1FBCFEC0091;
- Mon, 22 Dec 2025 16:33:15 -0500 (EST)
-Received: from phl-imap-02 ([10.202.2.81])
- by phl-compute-04.internal (MEProxy); Mon, 22 Dec 2025 16:33:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1766439195;
- x=1766525595; bh=hlZZc2/NQjeFTAUATJePoi9eA1h+qvYR8jAewG6kWX8=; b=
- JrvtLO6WskTrq/D0sE6sGwmT/moOJf6iq14x11Wd0a0tS0fFUFBHqkia6180F6f8
- jhz8PS8f1fF++f4vYubAnJZKdBs0ef7zNfNKXF2fsfX2ZjcDMNsw1mTchFACYtx8
- p6HJbPOcAklbm2tq5Xj6WB0zsw69r96AQxox9QZX2khLs2Vqf4ZCjCC+MIIbxoMZ
- v3Ujyu7JeQhQjC4S/dygX0Uf10PJ75es8VTUXUj+jZZ4shyEZXedNxU5rGMvKYem
- jgXml+BmrVeH3TZLVVJhG6pqhkj7lhshbz/QYW+pzXjoUWA2cXd4/5KmwmnyS+91
- ylH/8BieBC3hkwDRGT4XEA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1766439195; x=
- 1766525595; bh=hlZZc2/NQjeFTAUATJePoi9eA1h+qvYR8jAewG6kWX8=; b=A
- BHtA8ntJBqqM3sAM5REb9PtwwpnIxlo4PRqNdE4Y6jQsgl84cj30NSbCHXLzJP0i
- 7R6kvs+lBT6Sz9PsJq/BCaAX48nd6gbr/qwRfOO1hY/M/ybaSQiL7vOhJ72McOn5
- Tiqqo93MDxWwfuDc2Ml5bQQP1OR4U4jnmaBEO5Hn2IW5FrV+PgaOZ5fjKP9ij+zJ
- HnwvR+aMztvEkl3xWkLikqJrsFwM16ksdK+DxO87hsC4fykdqC9jlyNFPblUSaJa
- H5vAhWFrBzckVo+b4P3NFO9OJJ+/bRl/JrsOgd3Gfm7BxXIurDAAGUPlgb5DuwYI
- OB2D4E3ZVZB8VGYEpr5SA==
-X-ME-Sender: <xms:GrlJaZZVQkkMq0bq5cd6v85RUxt7pdEUUZ3K0aZxhNreF9PwzryKmg>
- <xme:GrlJabMI-p-ppo3nYv4RDXHnaroIULMW7pzY5RSl5NZjav9j7Xpv2gYNPADle2mJK
- 7N5mbtS4WY9neftJc3Yebrqn3IKogK9bnABqeBk_sFXYLVMqkonAbk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdehkedtfecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
- hrpefoggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdetrhhnugcu
- uegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrh
- hnpefhtdfhvddtfeehudekteeggffghfejgeegteefgffgvedugeduveelvdekhfdvieen
- ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnug
- esrghrnhgusgdruggvpdhnsggprhgtphhtthhopeduuddpmhhouggvpehsmhhtphhouhht
- pdhrtghpthhtoheprghlvgigrghnuggvrhdruggvuhgthhgvrhesrghmugdrtghomhdprh
- gtphhtthhopegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomhdprhgtphht
- thhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghirhhlihgvugesgh
- hmrghilhdrtghomhdprhgtphhtthhopehrrggsvghnuggrrdgtnhesghhmrghilhdrtgho
- mhdprhgtphhtthhopehgrghohhgrnhesihhstggrshdrrggtrdgtnhdprhgtphhtthhope
- grmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthht
- ohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprh
- gtphhtthhopehlihhnuhigqdhrihhstghvsehlihhsthhsrdhinhhfrhgruggvrggurdho
- rhhg
-X-ME-Proxy: <xmx:GrlJaVXeDs2nrSDsoj-Tz6Oh6na-7BIIABx1SMZIdq36_Lw7_7GUXg>
- <xmx:GrlJab-G26k7C6p-BrtUnNJJ2iyZVmzQ43UDDl1uZorMS5FpwcfvgQ>
- <xmx:GrlJadoajOR5Zn3PK2CFFTa-mulqN4utFkNhaZBwmzHHVfYm239e_A>
- <xmx:GrlJaWLqLGIi4Av_0c0T1cafHn_pBvaButS_1neX2ANKEC3A86gPkg>
- <xmx:G7lJaUlgNUJdPwFA64hEHnKPx7DDAukkRQwmtUaroj24FPLGQdYf9wd4>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 049C4700065; Mon, 22 Dec 2025 16:33:14 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88D0610E1BE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 19:01:28 +0000 (UTC)
+Received: by mail-ot1-f45.google.com with SMTP id
+ 46e09a7af769-7c75387bb27so2196754a34.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 11:01:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1766516488; x=1767121288; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IsTm4zVnJd+kp8FjPCZsq6n3UIJXxTOWvu+rCMPU/c0=;
+ b=DSFkX4x6xGHxjFwCrO8dG8Y6ZP1KGT8Vqg++KNw/FEhzm1Xd3daRnv+O+3jjWu8kMi
+ +udQJitQIUhrTR76vmAD0s4hHHqlOKrCnGhS+puxahu3KsNGl/4SP7JJ7Ty7TVhI9hvk
+ 1Xgjf33nA8tgBCpr4Wk6V68oN1xL0PoW0ksZb56ccXn3dlCoa+9OJl6+KprBOUm1alpn
+ mhviF21ETVZEiPHOHY0T2umy0kHiqASCrljKewXVVKjq1tnuIMC3MLUk8gaJUB7E6noZ
+ PU3665Qe8uc1yXfxaPWJjhzeDLSGeY0QTX2ZjTI3+QCvA/BGvg8YpSM5wdiJolstBehY
+ p7ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766516488; x=1767121288;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=IsTm4zVnJd+kp8FjPCZsq6n3UIJXxTOWvu+rCMPU/c0=;
+ b=rr8G2c6caVGYHeTomJb7XhG6CffGID6mKDj3koB3qYTHkfEq0bGMEpjewYRKuSSOlV
+ 4vq3MlwBy3HZ4RfOtXaXU3Y2zfUrCLT68dnS+p5AqSjxaz4sK7GoZbMkntfiw0/JAG55
+ 1gVjuw/PzXgoG1AmzWCj06QfeF05PW+txx+R6NxFFk965FpdewN9Z/ltNMy5OLjz4HlT
+ MEqp5U233EeYJoNvAFrXGcBa8A5YwoplDlWxpfgzUTwWusGwopTDAOZFSGEQoGyh+MTX
+ 6ek7BegGGPpzsfOzrKD3qb7R72rYOjnOQqdt1XtToWTJK2wFXGV6yoGngAuNrI5EaxtU
+ Nw0g==
+X-Gm-Message-State: AOJu0YyRZk/iQjiB3ai8PS1f46EmJYQxSE3m/kyDXQ+Bi8tPpk6TkKmG
+ M41Pz+b0V+EPve1j54+89InN2kG9R7i3lVZgOpTlb7bF3qniLdh4DCEpUW/OQbgDqDaR32k0B0b
+ bsh+36cF+WNB1ZhYJxtu5qG2RlQt825I=
+X-Gm-Gg: AY/fxX5Hz3F6PWN/B17aJTslDEuW3UsikI9ObiKInHsPRomrYwwzQ5Pcczdwemkf8DF
+ baU8wu7fPi0qV0NMEqOakRBqdPK0OwawK22cGRV4xeGQMU7k012YuZLKgR7V+o1MJBZaA0U2IwS
+ /idw4GY87fVOqzrYOi32U2wa/HatiBGx/K6DARQW/8w9W/a3vlKitl7B6W9eSBbWRXcwhAMzhws
+ CaVPzAYCdHJNaYDpYY6Dc84NUAeaSSV4GXslULkYzKKHu8ZK6RlI/5eOrPAKebwWU7zreBg
+X-Google-Smtp-Source: AGHT+IH+HU/mDIdyV/msBnkjROQ+9/PU130vWEPVd07JS6Y5X8BC1KViWLkGSDffXrkPXBl9VBq/UL5ThI45plb/SNM=
+X-Received: by 2002:a05:6830:7199:b0:7c2:8937:5d2e with SMTP id
+ 46e09a7af769-7cc66901f28mr7195107a34.15.1766516487566; Tue, 23 Dec 2025
+ 11:01:27 -0800 (PST)
 MIME-Version: 1.0
-X-ThreadId: A6eaVLahbyw3
-Date: Mon, 22 Dec 2025 22:32:43 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Han Gao" <gaohan@iscas.ac.cn>, "Alex Deucher" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Dave Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: "Han Gao" <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
- sophgo@lists.linux.dev
-Message-Id: <e86b823f-5e83-4105-8e4d-1db141d088a4@app.fastmail.com>
-In-Reply-To: <20251220163338.3852399-1-gaohan@iscas.ac.cn>
-References: <20251220163338.3852399-1-gaohan@iscas.ac.cn>
-Subject: Re: [PATCH] drm/radeon: bypass no_64bit_msi with new msi64 parameter
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 23 Dec 2025 18:27:51 +0000
+References: <CAPEhTTGamEFapOA4pKgMQxDz9Go1k0QeGRkk5bR-X2jR+iBCcg@mail.gmail.com>
+ <CADnq5_Mh7M=019sJ274GLtMyKDH5MSMfR=k6pVTS1z2DV1tQCw@mail.gmail.com>
+ <CAPEhTTGJb85fP4iJXAWVkg+vai2xDi-76RFhbmuG0Gc-XT+dKg@mail.gmail.com>
+ <CADnq5_PJ+1pJcoxGZPU3xv19nTac76e8bTi+rabfXCRmdnfcQw@mail.gmail.com>
+In-Reply-To: <CADnq5_PJ+1pJcoxGZPU3xv19nTac76e8bTi+rabfXCRmdnfcQw@mail.gmail.com>
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+Date: Tue, 23 Dec 2025 14:01:16 -0500
+X-Gm-Features: AQt7F2rP4cjFwAum5vL3TrXKdVRx82zo1RSKyybTaVedjs9jA9I9cZhI3fdk3pM
+Message-ID: <CAPEhTTFMmvNHeCknvGbCo46fFv9vbKCov98Zn46b_mXZD25rSA@mail.gmail.com>
+Subject: Re: SI - are power and voltage readings supported by the hardware
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Freedesktop - AMD-gfx <amd-gfx@lists.freedesktop.org>, 
+ Alexander Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,50 +85,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Dec 20, 2025, at 17:33, Han Gao wrote:
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c 
-> b/drivers/gpu/drm/radeon/radeon_drv.c
-> index 87fd6255c114..53af28494c03 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -249,6 +249,10 @@ int radeon_cik_support = -1;
->  MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled, 0 = disabled, 
-> -1 = default)");
->  module_param_named(cik_support, radeon_cik_support, int, 0444);
-> 
-> +int radeon_msi64;
-> +MODULE_PARM_DESC(msi64, "MSI64 support (1 = enabled, 0 = disabled)");
-> +module_param_named(msi64, radeon_msi64, int, 0444);
-> +
+Hi again Alex,
 
-As with the hda-intel patch, this should not be a module argument,
-but we should have the kernel figure out what to do itself.
+First, a follow up on VDDCI. From some sources I've found, I
+understand that it would be the VDD at the interface. Which interface
+is unclear, but one source was referring to the voltage at the PCIe
+interface. Would that make sense?
 
-> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c 
-> b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> index 9961251b44ba..62eb5a6968ff 100644
-> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> @@ -250,7 +250,7 @@ static bool radeon_msi_ok(struct radeon_device 
-> *rdev)
->  	 * of address for "64-bit" MSIs which breaks on some platforms, 
-> notably
->  	 * IBM POWER servers, so we limit them
->  	 */
-> -	if (rdev->family < CHIP_BONAIRE) {
-> +	if (rdev->family < CHIP_BONAIRE && !radeon_msi64) {
->  		dev_info(rdev->dev, "radeon: MSI limited to 32-bit\n");
->  		rdev->pdev->no_64bit_msi = 1;
+Next, I'd like your thoughts and inputs on a project I'd like to work
+on (in fact, I've been working on it in the last few weeks already).
+I'd like to bring BACO on par with CI. I know there is a minimal
+implementation for reset purposes already present. I think it is
+linked to the legacy dpm. And then, I'd like to go as far as possible
+in moving from the legacy DPM code to use the same (or similar) code
+path used by CI+. Do you think this could work?
 
-According to the comment above it, the device can apparently
-do 40-bit addressing but not use the entire 64-bit space.
+Also, was SMU6 significantly different from SMU7? Looking at how the
+driver sends messages to SMU7 and 8, it looks like an iterative
+process where new messages/features were added to the previous SMU
+version. Can we expect SMU6 to work mostly like the two subsequent
+versions with a subset of their supported messages/features?
 
-I assume the SG2042 chip has the irqchip somewhere above the
-32-bit line but below the 40-bit line, so it ends up working.
+Finally, was SMU6 able to use any of the power tune features? CI is
+able to receive a request to use one of a few power profiles. Was this
+only available from CI or was it also present under SI?
 
-I wonder if the msi_verify_entries() function should check
-against dev->coherent_dma_mask instead of checking the
-upper 32 bits for being nonzero, that probably gives you
-the desired behavior.
+Thank you very much for your time and knowledge and have a great
+Holidays season.
 
-     Arnd
+On Mon, Dec 8, 2025 at 9:32=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com>=
+ wrote:
+>
+> On Sat, Dec 6, 2025 at 11:30=E2=80=AFAM Alexandre Demers
+> <alexandre.f.demers@gmail.com> wrote:
+> >
+> > OK, I was hoping for a similar SMU7 implementation never completed.
+> >
+> > I see both VDDC and VDDCI (for Evergreen+) values available. When
+> > looking at amdgpu_pm_info, VDDC would be reported as VDDGFX I suppose
+> > (and inX_label under /sys/class/drm/cardX/device/hwmon/hwmonY/), isn't
+> > it?
+>
+> Yes.
+>
+> >
+> > What would VDDCI correspond to? I mean, how should it be displayed
+> > (maybe it has its specific inX_label)?
+>
+> I don't recall off hand what voltage domain VDDCI was off hand.  I
+> think it may have been the memory interface.  I'll see if I can dig it
+> up.
+>
+> Alex
+>
+> >
+> > Cheers,
+> > Alexandre
+> >
+> > On Mon, Dec 1, 2025 at 10:26=E2=80=AFAM Alex Deucher <alexdeucher@gmail=
+.com> wrote:
+> > >
+> > > On Sat, Nov 29, 2025 at 8:44=E2=80=AFPM Alexandre Demers
+> > > <alexandre.f.demers@gmail.com> wrote:
+> > > >
+> > > > Hi,
+> > > >
+> > > > I was wondering if SI GPUs support reporting power and voltage valu=
+es
+> > > > at the hardware level? I read somewhere that it was supported from
+> > > > GCN1.2 (Tonga and over), but I haven't found anything on prior
+> > > > generations. Going through the register names, I wasn't able to
+> > > > identify any who may correspond to power or voltage level.
+> > > >
+> > > > So I'm asking, just in case it is supported and I missed the
+> > > > information while searching for it.
+> > >
+> > > Correct.  There is no interface to query the power.  For voltages you
+> > > can look at mmTARGET_AND_CURRENT_PROFILE_INDEX to find out the curren=
+t
+> > > DPM level and then convert that into struct si_ps to look up the
+> > > voltages, similar to what is done for sclk and mclk.  See
+> > > si_dpm_read_sensor().
+> > >
+> > > Alex
