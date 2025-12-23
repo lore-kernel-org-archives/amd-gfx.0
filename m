@@ -4,91 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A522E67497
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 17:43:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D92A4E6B261
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 03:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAD9910E1B8;
-	Mon, 22 Dec 2025 17:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F78F10E00B;
+	Tue, 23 Dec 2025 03:02:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WcGEHnOd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2X3kqlSU";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21F3810E32E
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 17:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1766425404;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=mG3GBuEVPwNetHpE7r/70ie0gOHuvVJYQoZvD8wClRw=;
- b=WcGEHnOdHHXVI/YUM+F8H5rHe7lR/2yRcxez7hrSbqP6Grc/fex080c9OLVEiOxhE33PMD
- mTsBKXwEKRmJ8Oo85B0/LPrcSXYQNZmT3GRiG3oyfqXbD3xX2lppTSDjuwXi055tBMYbY4
- gP5D8DxqequYA5f2EMAg3CeG0kffPMw=
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-287-0MhvPAHoObuRK636tt0uEg-1; Mon, 22 Dec 2025 12:43:23 -0500
-X-MC-Unique: 0MhvPAHoObuRK636tt0uEg-1
-X-Mimecast-MFC-AGG-ID: 0MhvPAHoObuRK636tt0uEg_1766425402
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-b630753cc38so7247824a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 09:43:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766425402; x=1767030202;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mG3GBuEVPwNetHpE7r/70ie0gOHuvVJYQoZvD8wClRw=;
- b=rMFJulo1+tpbsh+XEJq45/AFIspQTHfovVpPcgGEG1dgJNyaYNF8to98Max51MKeSe
- 53HJ5fkya/DWOM83Ebuq2xLtF4Gc/x12+bXAqd9KaVC2nuaysxGkmIqNIbZXFMLnyOCT
- jVd8VZYkT2J7HgzdDx2lsJGJy6+7UQou6tN6BqjdW04nQGyoQ21Qz2w3lfbBuaJ/VM0g
- GDW1plhVW0TfV1qw+yG6O2c28wyTIgvV+B18SvVv6t5JAmnT3ZBkdj5qtwX6fGM8snUA
- BMzu6nPrvVR4rjKnbRKjtYoNCeKGTLO+Azyy+ieZIPBmBowR27viziac9pk4Z32TSuxm
- QHrw==
-X-Gm-Message-State: AOJu0Yz2x1hSKLw0iVAWrtwfo3y254YtE3iGjamD3hlhbcK+akFFrI6B
- VaXNIMHhgdmVYqvu0VfYwfNxdFMXtelJFI6jTdr29RdsSLmJMlkgAnlzFeo8Xyt0iLJfhQV3ugy
- 1v9KzSl/YviR9a76kzL44Aogw/WGSi1D/R93uzPCB0oGvIlbRttYw6vpBGWruD3n1iME=
-X-Gm-Gg: AY/fxX5nr+lHZD2TUj9IBZj2tsyTASyd+EzUPogmyvWrPE1JBYXpie5ZB3Sl2h7oyOH
- grvrMKdNsvWFonmdolsAmqKUL+xf9v74NX8AL3NnOxo5Y2tJfzvzdYuEt2vjF/rGd3yFKpKwAka
- zTc2uZmD8H676V0odQhH/YLccEhc977Oldq+Pr/FNVnarUz7cZl9bVHLFJUNkNIcO7w6a1vOTak
- R1R2u2lJnmu4IpCRWO6Pi41B6ZatTmytA9gm43uqz4bdyI83UJBFUhl6FmCmiQIP8bOMJEr8uFb
- CJioq9fKhVYxZUnpy1HtrCI3DAq5EDlxEWUL9d3Qs9FGMhiMOobvCkEjO1VpCI/RfYBPneZ6cza
- AlDxTT1WXLJ8hIw==
-X-Received: by 2002:a05:7022:3c88:b0:11a:6424:f40f with SMTP id
- a92af1059eb24-121722fd1e7mr9423127c88.36.1766425401716; 
- Mon, 22 Dec 2025 09:43:21 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFHGeD8sn5NdEFT/L4992/tLVF5man9MpIOwm0i4U9mIbJtZc6sZ3neUr1VFBGLEiHQ9joHfw==
-X-Received: by 2002:a05:7022:3c88:b0:11a:6424:f40f with SMTP id
- a92af1059eb24-121722fd1e7mr9423091c88.36.1766425401034; 
- Mon, 22 Dec 2025 09:43:21 -0800 (PST)
-Received: from [172.16.1.8] ([2607:f2c0:b1e4:8e00:b6e2:5e18:4823:58ce])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-121724cfdd0sm47629542c88.4.2025.12.22.09.43.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 09:43:20 -0800 (PST)
-From: Peter Colberg <pcolberg@redhat.com>
-Date: Mon, 22 Dec 2025 12:42:48 -0500
-Subject: [PATCH] Revert duplicate "drm/amdgpu: disable peer-to-peer access
- for DCC-enabled GC12 VRAM surfaces"
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012055.outbound.protection.outlook.com [40.107.209.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE66710E00B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 03:02:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bkqmwneOMV4nC21y0JtAT5qB3R5G5dH3mx2AQ3DCIz0UiRYUXk+ZRny8G5v14kiDD7WMqaH8VeHQwr0KJLh/tK8LMAxHTAkT39eT0W7X8/DQLb8MrrsS70BugE3hnOQknhgTVHfvijnihVsPAaJz6R5Iif/r3iqSXQEKHKpU+dOG9jtUXx8CTURr5z9CaEmHsGOeH1vARnx148hPE4PJpbWd36qI7qPU0+xbN2E3VhCuwpvJhRh1PnASd9PCzYUaOmAcLxQG3jbW7/EW0lYA/+TKQHwrwFzIWwz0tLVNzNCWQJm82JxkgpQUPjhNlFL741C5CGYsqUy9XFC0zC6lFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+5+18rHB4RumW/NxzwQLH7fa58998PrxIXbEkS7pKIE=;
+ b=TJHS+1BKcDGTF+hzgMnNNQ7xMb94b6WSCL4jZAp1FICq7I17oic+utm3TWuhgNIuxsbpcuPhmv3v2wFPG8OYi17V8BeSUc0B+OWowgTHZLLL4IWvI9JkIPJNXY5b990jy6DcHegU1LDlVdNgtyO7/tqAcuAOj81MgNTflO3C4xAWFqNu7akkui4o0E4iaOfNJpOWbpPN2FJBCFGHFmCklN801qlr5+hhhLgZosis+OTp+VIQNc0OqZdEaH6e3eJcxicLVdtSZFo5Rye2kNWM5SEtSBE+RlQ5Ie2kzfTYDiMItlb0UCjzJjTl45OD9tJzzxIwCcaUxfMVRh2G3JZ8CA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+5+18rHB4RumW/NxzwQLH7fa58998PrxIXbEkS7pKIE=;
+ b=2X3kqlSUdzor9WsRWpc0hG6apqo47g1NvohhBTEgcsG4s93vbOXuBsVStHTCsj0bMGnL0Jf1NTtWXCy3ar8OpCIatUNmRxoekWU+PZOyWYq0UYtXfqMlYrfSh4+MqIffw55NxUrzzn3bkaaZzEVaGqEy8/+sktF4L2/ll1yp3Wg=
+Received: from MW4PR03CA0051.namprd03.prod.outlook.com (2603:10b6:303:8e::26)
+ by LV8PR12MB9182.namprd12.prod.outlook.com (2603:10b6:408:192::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.11; Tue, 23 Dec
+ 2025 03:01:58 +0000
+Received: from CO1PEPF000044EE.namprd05.prod.outlook.com
+ (2603:10b6:303:8e:cafe::cb) by MW4PR03CA0051.outlook.office365.com
+ (2603:10b6:303:8e::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9434.11 via Frontend Transport; Tue,
+ 23 Dec 2025 03:01:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000044EE.mail.protection.outlook.com (10.167.241.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9456.9 via Frontend Transport; Tue, 23 Dec 2025 03:01:57 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 22 Dec
+ 2025 21:01:57 -0600
+Received: from alan-new-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 22 Dec 2025 19:01:56 -0800
+From: Alan Liu <haoping.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Lang Yu <lang.yu@amd.com>, "Alan
+ Liu" <haoping.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix query for VPE block_type and ip_count
+Date: Tue, 23 Dec 2025 11:01:52 +0800
+Message-ID: <20251223030152.143593-1-haoping.liu@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Message-Id: <20251222-fix-duplicate-amdgpu-v1-1-18e928420d15@redhat.com>
-X-B4-Tracking: v=1; b=H4sIABeDSWkC/x2MWwqAIBAArxL73YJuSdBVog/LzRZ6iFYE0d2TP
- gdm5oHEUThBWzwQ+ZIk+5ZBlwWMs908o7jMQIqMJiKc5EZ3hkVGezDa1flwYl0r3QzaVIYHyGm
- InL1/2/Xv+wFZ1N7WZgAAAA==
-X-Change-ID: 20251222-fix-duplicate-amdgpu-44017b1535eb
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dave Airlie <airlied@redhat.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Peter Colberg <pcolberg@redhat.com>
-X-Mailer: b4 0.14.2
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: eWHBjYoEqbcdNAXySimZ1I9ja5Es7tyUEg2khXidg7s_1766425402
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044EE:EE_|LV8PR12MB9182:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f908159-4623-4ec3-c47f-08de41cfa2ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DS6Fn6wz73q5GM93ohgiweTrGpXEf696u3qWI+J8llt2RFuzkpyTgSVqrIdw?=
+ =?us-ascii?Q?B/IT9GN+DFjLjzieE2aJ+Ww8GfunFd3e9bXQQtP8kGNIxlfT45zJk3sUKPev?=
+ =?us-ascii?Q?IRVRQEbFz2xus7+DQaiHwuPV+u7oE6vnJY0Pdn7kZErg/jfUWZ0eKjDVbO2i?=
+ =?us-ascii?Q?Ols0XTEljBX5h3//eXHaElSGXCk/8DycU2SN14AN/HvyLkhM4OUkXlb54S70?=
+ =?us-ascii?Q?EEjmRGFqKUyi6OCfB63rtGxm4UAtPtXXmrEBCKD/MBZR0V7VgX55Hwhdsria?=
+ =?us-ascii?Q?zjlGvBpRDaX6he7vvirxLOgVJD6n/PZp0fUHgSwI5Hjh+YjBEV3pYFuBiznF?=
+ =?us-ascii?Q?D8PLW/pamUrdWjoYn8soD1SuXu0Pfg0+bQm3UMhDKE5N0ntYbYUaWqD+ZYN2?=
+ =?us-ascii?Q?X8EOG0U2i8E2V4PRme5t7FPQaweSktTk+Ued0EBgg5YixvrkqWXNYka/5o0m?=
+ =?us-ascii?Q?xY+GLyhEzdwjDENLRPCXq2ks4PFJw5GtM3KGG0jnphQ2B3FwfpBl8er418T5?=
+ =?us-ascii?Q?spmdJE8Ns7WkUYaqfnzhgvmb53SC6YynZs5FM1wXdUozdhnk9OxijccSTzK2?=
+ =?us-ascii?Q?cj4hT5WMzhjpwAuNv47oBjy143cD9R8jypnZeRc3SVi38czaZa32hlwpg2hH?=
+ =?us-ascii?Q?EYZVVtUj7wM9SuWtY8puRV1L2eB43t8P5aHEdjI46W0zA1Zny89b8YHkyNgo?=
+ =?us-ascii?Q?McMjxfagEGwTWniVPA3XRgJHdekf29FG9gOjvr1sZ04b5BHRYOrjMoCc/LYN?=
+ =?us-ascii?Q?6EU2Q+6eWhDkJwQqn3cBIuhCS/RBrjrcE9/ASjzSP3CtrUNr8zHpe39r+CUs?=
+ =?us-ascii?Q?kBzovNmh4MZXBc6myA0EvMdnBVSqD0Ot1HRPyIteYLL2qoupG8w1oNK78z47?=
+ =?us-ascii?Q?fETaKNtYyYI9W/IxMUMbpOcSyL1kIg01ShlCa7DdQJDof5aOTM4K3w8lKkZj?=
+ =?us-ascii?Q?NpzSbDltvPMy9WAV8G44N66Be/L5cQeBU74p2SBPnqQTmal6tW+lECGGrZj4?=
+ =?us-ascii?Q?XCO8WLr9nvzrUuqDWmPJ6pMHJ2g9dJcODJOqPif9ZFrLfPWdmQ3cUEt9st1R?=
+ =?us-ascii?Q?nti07kHzTlVGnyZwqsthWgW+WoplmvUJuiyC1epPafjk1mLcDuKe0vIYQ5oI?=
+ =?us-ascii?Q?pobiB+sod+pWGwvHC3meQHUrZKEm5m8ljF5BI6VfAnOTAFOBTRLWfpnwJzwd?=
+ =?us-ascii?Q?tlc9zvGCCGBC+XD+z4WwfK1E6hNzzO1OCBKzbsMWb2DZYBCHjHejBIu6nSET?=
+ =?us-ascii?Q?kofluDijWUsoyCym+nsvfq3gaO+tAlywiQJS/yIpAXu/XnWX9D0GU2u72QnD?=
+ =?us-ascii?Q?/RMFkwHvsXS5upZ//EehJQRKVa8hpZt+SnBW5McgyOh7Gmvw+bpLVIbGS1ss?=
+ =?us-ascii?Q?hlKtE9R1mLxhY0ambkO2jM67R8Tcc2A1FAPlR9k/na2S88rLZe+anLzxpPcM?=
+ =?us-ascii?Q?Af9KB4GBc0wMlh6E17DiFwuwhzaYlY112dr7kYcDNo1gK0WAEAhMW6kfJ1qe?=
+ =?us-ascii?Q?xHEPMGtr/zYI9xCHWRclmo2vw4vJMWMjJAuFYx29TSlYDF9J+stCxv8VzkH9?=
+ =?us-ascii?Q?GehaWgy3NfhJIeF4TtI=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2025 03:01:57.9989 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f908159-4623-4ec3-c47f-08de41cfa2ee
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9182
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,44 +132,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 22a36e660d014925114feb09a2680bb3c2d1e279 once,
-which was merged twice due to an incorrect backmerge resolution.
+[Why]
+Query for VPE block_type and ip_count is missing.
 
-Fixes: ce0478b02ed2 ("Merge tag 'v6.18-rc6' into drm-next")
-Signed-off-by: Peter Colberg <pcolberg@redhat.com>
+[How]
+Add VPE case in ip_block_type and hw_ip_count query.
+
+Signed-off-by: Alan Liu <haoping.liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 12 ------------
- 1 file changed, 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index e22cfa7c6d32f286de94c6e0947c20db41894b68..c1461317eb29877446e69562a58e17a77203a79e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -83,18 +83,6 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
- 	int r;
- 
--	/*
--	 * Disable peer-to-peer access for DCC-enabled VRAM surfaces on GFX12+.
--	 * Such buffers cannot be safely accessed over P2P due to device-local
--	 * compression metadata. Fallback to system-memory path instead.
--	 * Device supports GFX12 (GC 12.x or newer)
--	 * BO was created with the AMDGPU_GEM_CREATE_GFX12_DCC flag
--	 *
--	 */
--	if (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(12, 0, 0) &&
--	    bo->flags & AMDGPU_GEM_CREATE_GFX12_DCC)
--		attach->peer2peer = false;
--
- 	/*
- 	 * Disable peer-to-peer access for DCC-enabled VRAM surfaces on GFX12+.
- 	 * Such buffers cannot be safely accessed over P2P due to device-local
-
----
-base-commit: 9448598b22c50c8a5bb77a9103e2d49f134c9578
-change-id: 20251222-fix-duplicate-amdgpu-44017b1535eb
-
-Best regards,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 3d286913e9b6..728033a88078 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -201,6 +201,9 @@ static enum amd_ip_block_type
+ 		type = (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_JPEG)) ?
+ 				   AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_VCN;
+ 		break;
++	case AMDGPU_HW_IP_VPE:
++		type = AMD_IP_BLOCK_TYPE_VPE;
++		break;
+ 	default:
+ 		type = AMD_IP_BLOCK_TYPE_NUM;
+ 		break;
+@@ -757,6 +760,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		case AMD_IP_BLOCK_TYPE_UVD:
+ 			count = adev->uvd.num_uvd_inst;
+ 			break;
++		case AMD_IP_BLOCK_TYPE_VPE:
++			count = adev->vpe.num_instances;
++			break;
+ 		/* For all other IP block types not listed in the switch statement
+ 		 * the ip status is valid here and the instance count is one.
+ 		 */
 -- 
-Peter Colberg <pcolberg@redhat.com>
+2.43.0
 
