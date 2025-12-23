@@ -4,149 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6459BE6F098
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 15:01:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739F7E6F098
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 15:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03FE510E237;
-	Tue, 23 Dec 2025 15:01:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4B510E272;
+	Tue, 23 Dec 2025 15:04:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K04efYi7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rYFcp2xD";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011007.outbound.protection.outlook.com [52.101.62.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B80C510E237
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 15:01:24 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013041.outbound.protection.outlook.com
+ [40.93.196.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F9D10E181
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 15:04:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dXuoE7Li8guxMPiplWWtwlBrsd82UkIY8FImcLA9ZaXZg2V1XKkZfB/E9FA77KrFa1R8f52kefRhFazeLBvCuuKqeVbamfGb8yPb3z9PmbHbqEylCKCA4HuzE4+H4PE2uRCeyaQU9ms4U1CiSTgpGROtfCO7J4ney8oSBoFOpHQ1IL639Qp06Owg/zcRsjYlslVZ9mxY4shfDcHC6tI2sGUeagvYewlgKstvjK3oKmzF6lg/8RUZw+DBQzWHm7Rk81f4feB1uriexdYtonqRLWxacQ7eUFRx9kF8O+tqu4H/rMcCODqcdnj3HdgegPy4Y1skccp9zoW8J+t8bbpINw==
+ b=RE95LrP+IGUOI7rMMoB0oKfqH8LQi8BO9L3DRZBRck39u+R5xwspmnxfXsOCT3dmwpalb74vkpiMJd/ib55K8nZXhRmltQ44axzItTVDbuLwMCxixNW+vdT4XlV3yA5uIvZFHOP+D3MKBnYdVsgVEAxRVnX7VOcxP1m8Zy2jQHGQWfyZfTyzYGHbdcVZnnqRqM/V2v8sxfA4TVjCZWJZ3Y4EFYd+UwBLeM25pFfQAoYhWeY94+CTn3DTVsefQpVxKK6DAIoxLge6Reprsx6p+sdcm518BUCBIaQ10prWWVWniYpUcbGomJB4nrtcxiRnJHcm62kJPpe4Y6LYJHSrcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=beQvXv6cL5jPbA6ORB1IIl7qVotpdv/vtp5SO5aW4eo=;
- b=hu+JorkRVrAJTY+6NfTSazk+uBhdFmuQQYt2Z2AXNhLq2R9fQPc09QjT995cm7TIsXFxz2+Q9XFcE7IMDT2Ws2kH5GH6lcq+EcNFkVDyaB6Kg4KJBLSG//PAbRFXHH2uNavSSR3Xm3rGentTo/XIY01J4xTqnsvoeaUg9/yEHZgeKjeGsgmq49qzqf1DbWGU9uF6y46xmortpUhtklskjSZ8Gb4fvV4CN/E253Mfk3kKEKtsb5WKsUO+QqsZ7ca4KylMQMn4ztS8GAFRGiGIkAR7v5Ts7EArwb3VvbNqYG3nbq+8cZZt6E2a1dtdkJXLnDFSpMy/ygVcQoJvBCmcnw==
+ bh=+rLMZWYsWKRMnY1RtYKFxFuEH6Zg/4GkBnhPaWIyGns=;
+ b=iNglUkHVxh5HaP9f9kBA3r0Sp4E2O0h1bmws8wPq8lC2e1w9NBmlMEICEvIBvi1eeb3pxIp8fhOyfgxCpGypQLqwWaIYjm0Qbkk44rS2CtPkDdDERgf5bIexSMBmsoF62Q+/5l3zOhn0dc2tzilPvVd6hHWedu+I1tdQoYYaYDSU304kAq3jBiRNqJQcFxb6eREVwUKrf4BGVPwIGRoEHJhuyKGsAs2JJ7kD492FoIjx5cp3tHYiz2Iz2NriF3gOkSlayFlaI29MN2PBfBKjHXiDMkht4+xr8VDugWA9YQd1PUgf74EWTaJd1cRagb8jePXVsicAIW611fLo4gyaUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=beQvXv6cL5jPbA6ORB1IIl7qVotpdv/vtp5SO5aW4eo=;
- b=K04efYi7ZM5q14h5pxxPcgi0v+thAsfGDfTqF4Nj93gUpPbLwt/G2G1hrtD9nMVKVPkXVM3+FvURsgUoN041cCIICE7o65RZOdCEjFr45qEBZZgZUNviCGxLtzBhHrHbVNB8TJtkkqVUw1c8QQ6sz9vEt/+5VqewxUoTNjQxdFM=
+ bh=+rLMZWYsWKRMnY1RtYKFxFuEH6Zg/4GkBnhPaWIyGns=;
+ b=rYFcp2xD3GMCFmeXHUs30W+kIcFR+3y5mz1+VOHmMYY4+b+Oi4YE1fHL0XplpglLW9W+e9XVT5T7MfcsoP29SXbZAqe1XXDC8Sl364Sb2Yv8hq0iuFZUVs7Pdx+k2jwsUiBQpj/fwrTu4zzQhffYWtN22BWg3WMZ3BvTshY1HIs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by MN6PR12MB8542.namprd12.prod.outlook.com (2603:10b6:208:477::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9456.11; Tue, 23 Dec
- 2025 15:01:21 +0000
+ 2025 15:03:58 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9456.008; Tue, 23 Dec 2025
- 15:01:21 +0000
-Message-ID: <f197aea4-042d-48e7-a675-88534f587943@amd.com>
-Date: Tue, 23 Dec 2025 16:01:17 +0100
+ 15:03:57 +0000
+Message-ID: <590351df-de9b-407a-b767-83935ea96b5e@amd.com>
+Date: Tue, 23 Dec 2025 16:03:54 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Add entity's check when alloc sdma jobs
+Subject: Re: [PATCH] drm/amdgpu: Support fork process
 To: Bingxi Guo <Bingxi.Guo@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20251222033349.156700-1-Bingxi.Guo@amd.com>
+Cc: Deng Emily <Emily.Deng@amd.com>
+References: <20251222110146.464367-1-Bingxi.Guo@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20251222033349.156700-1-Bingxi.Guo@amd.com>
+In-Reply-To: <20251222110146.464367-1-Bingxi.Guo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0334.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0350.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fc::20) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN6PR12MB8542:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9f76eec-5d5d-4a91-5b6e-08de4234221c
+X-MS-Office365-Filtering-Correlation-Id: c252a346-7369-470e-1031-08de42347f4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dEtpOFNBYS9Gcm10T2UxN1BNa2ZiNkNiNHpBRHAzWDhnUXhjcERoRXh4bXRO?=
- =?utf-8?B?SVo0M09QdTJCQ0xEZDNjRzVmOGNaZmR4cmk5Z1RwWFVycFRpVXU5RFpHRmhF?=
- =?utf-8?B?RVYvbGJ5eDMyL3ZzdkFmRkdwQzNBeWhNa1dWOEwzb3A5WFB6SWV0VzJmb1Fl?=
- =?utf-8?B?VFhPMnRtQVhHdmh6YlB0NW5xdmViMEFtdzlkL2RhTkVvcUpDSFNjMFJ6eXRH?=
- =?utf-8?B?ekxMWG1nTmdTREdCbWI0TmF5TjkzeWVxcjFsK1NkMFJCeEkrOXV6cjk5b1l4?=
- =?utf-8?B?UW1vOGt6TVc4TGhVTTlIdm84VnFIM1U3MTRBU1BFYVZ1SERmV3hpbGlMQzkw?=
- =?utf-8?B?MEM4UmZaTm5EekdMNlpsWTg5N1I1SmQzU1hIQ0xIVm9lUWE5VjRMaGxWM0xP?=
- =?utf-8?B?ZFB1K21kNGlWSWFTMmx3WUdnUDhNMDFsTUtIWmhJZThVZFFzTk1WcnloT2hz?=
- =?utf-8?B?eExGdFpEZGJLMWZ0emVRQlJ3NEE3ZmI4alN5a0NuV29JQ1FPSlBsaVVpYzRO?=
- =?utf-8?B?a3gxSzVzQTFiZVlqcEtwUjk0azRKdEtyYnJjWGViamdkdEdZV1FCYkJ6U0tu?=
- =?utf-8?B?MHZNVFVCUVdlYUlHMU5rQmYzL3ZHUGt0Wm9HWm0zS0FvRjJDQ3NVZzlCNC9P?=
- =?utf-8?B?RHczRmYxLzQ2UFZyckxzWHN3RkVMTmlLK2pZYmxBMEcrdGJuSjViMWp3UTFT?=
- =?utf-8?B?UnNMWkJLeDVQOXJoTGdKN2pxYXZjeEpPVGt5R01nVnBHL1B4eFAwUUEwdDRm?=
- =?utf-8?B?cG91c081Tml1WTduZjhScTBycStHajJJMWE2ZVkzNm9DVGJ2YVpWU2ZVSGZR?=
- =?utf-8?B?a1JDL0JpcWx2WlVIWENLNkRyUTlUZGxZYlpqZmQ3ZXU1VmlTbkljVDZGL0pC?=
- =?utf-8?B?aU1SbHdCaEVPZHJWMktMcWJ3bmlraXBHL0xKa3U0d2R2QnVYdzN1bndHSUVG?=
- =?utf-8?B?SDQvQnlhb21rbm9PVitEYjA0NHoyQWNEMUFyMzZFVXZ6TDI3VUd5cm5CWUpj?=
- =?utf-8?B?QWt3VVQwRlRXNHhSa0xGcUdDNFVRdW5xL0dwL2VWV2I1LzRMMSs4OVVNMXNr?=
- =?utf-8?B?VS9xWENQV3NFWFdBWkdyV1BoVklVdk5ibDJwSURIVGQ0TE1wWkhNenBDUWZD?=
- =?utf-8?B?ZjJYNU5wOGNHY0dFTml5K1dCeVJmdTRUWnNtN0d3R0xlTFV6cDJKblZWcnEv?=
- =?utf-8?B?VlYxM1BLM3VNUXQvUnlsYXFBVGY5NkhoTiswdVFEWmhYT1Z5VnhFUWlIR3Bj?=
- =?utf-8?B?Z0RsZTU1UXIvbjBGaER5cFE2a0Q2NUNPTGVsNzE3Q01SR3RqTEUva2plRUJB?=
- =?utf-8?B?YnF5aDU4MWRwQVR5MXVqdi8rcVcvOEk4NldxM0xNNHNxQ1d4QStObHNES0dx?=
- =?utf-8?B?NGp3LytpeUJtL25lcmZ2RHdpWHZNUjFuaUh6MmFSZ2Rxem43ZlJzaVBRUk9D?=
- =?utf-8?B?bmpRd2F6SzBqSHJMSnQ4NzhMWmFMWWZSNDJQaWloSWo0dGRmeWFsdzJHQkVV?=
- =?utf-8?B?S0xLendZL2w2ajJTeXhZTy80R09CWUNwTCtLckUzZEM3dzRtZTBWNE8yQktK?=
- =?utf-8?B?c1Eyd2dDbkVLYXFTTXlhODVabkR0YjNDWVZ1UFIwKzJZR2doM1FyZ0xVcDZv?=
- =?utf-8?B?RStOUGJlYm9oSDEyaUVSZVJRYlJkRXcyYnd0SzBIY2pscnNxZ1JLTVZhVUtK?=
- =?utf-8?B?azEwSWZxSUhIdWZqK2FTRDkzNjRnM2tybloyZm9qV0xXWkNSTHlObEtlT0hN?=
- =?utf-8?B?c1gzMUtXT1dHamE5NE5wQ0hRUXBHeXdqa0huOUs4NTFGeHpwN3dDSmNMbm53?=
- =?utf-8?B?SGtld2hXd25uT3hXcUl1V0FLczJQZXZwQ1UrUHhaT2VzWkZ6aTBaa1hRdWdr?=
- =?utf-8?B?VElZR1BZRkZJdWxUTytpbm5SZmN5RE5ETVBzZWd5YksvZGVSNDhsVU5IYkVw?=
- =?utf-8?Q?pRJUcawTF+IMRXh7arX4KVGmzyzmMvZw?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ckg5cyswd1UzanI0YWxBZ2IydWF5aFhhUkZEOEJVdEsrOGRLWXZkbkwwYk1Z?=
+ =?utf-8?B?OUwxRGZhUVNEVk5PSlBOVmlrc3Z2NEsrWDlCTFRNS2YrMy85YVEzQi8yNGJP?=
+ =?utf-8?B?a2tOVFpKY1AwNjNZdTBtOTA5aFZSbFF5RENBa2ZBU1ZJMmc1WDN2Z0VpanF4?=
+ =?utf-8?B?eVFVeFQycmd2QnNTTGNpYXZldnkzaUlvdTd1K3F5YTQ4M3lDdmVyTHVUdmJ0?=
+ =?utf-8?B?czdSQXpUaytKMlY3SGJBUHE0cGpia0RoTHl5eEdQLzZsT3NyQWFCU2RUY1F0?=
+ =?utf-8?B?MHRYOXBXMHN2TkNiVlZsWnVHMkUwTXYyUHJUNHZmS0FESnlxeHFDYjJWMzQx?=
+ =?utf-8?B?OEg1TEkxNVMzMWI4aUlTUTNDZFhlRnA5Z1d3VzdYL04weDdMS2JRSjQ4aTNS?=
+ =?utf-8?B?T3BDVjI1bVpJMEhXTkZLeVZkMjhNaG1EUnZoRmxSYnNRT2tjS2NEdmRkanlB?=
+ =?utf-8?B?K1hwV3JiZ2xVVVhzQWloSDNsMzErZFZ6NXBxblJreHdCZG5Ca05zZ0xiSWpx?=
+ =?utf-8?B?OFZYRGt4R2JOc2FJRkRldmZoWmU5S3dMdjNzaVRlb3BwclZwQmE2SkxxNGlX?=
+ =?utf-8?B?MmJra0lBaHcyY2NjNkpmdVZmakU2TjRhZVpraGpHd2Rnd2ZNazMwRnhIbU5K?=
+ =?utf-8?B?enJPS0VBdzl1ZzIvbEtOSEVZaElpcGorOUZqbVhwczhNdXFuRXhOQXl4bG9X?=
+ =?utf-8?B?M2lxd0tuV2QyY0h5UkRvcklNM2JwdWlvNWZXakNCcHZ4QmhqWXlIc1hiOXgr?=
+ =?utf-8?B?N3ZOdXYrdzlWQS9hbkh0eVJPMWlpL1NaUjRLVWlOdlVleFRraENvM00yM1Ax?=
+ =?utf-8?B?V2J2OUdESUtKWDNoODdkajV1dUpFRFhMeUl5RDUwZVRqMlNRRUc4OXB2OW15?=
+ =?utf-8?B?aGpaWTBrQ2hRVnhnMUFKOVU5U2FKbjV5c1RzVUQ1bDZxUHRvL2x3Uzd3UUFV?=
+ =?utf-8?B?QVpHNXJFQTIvckoyNm1LMXJ4aFNJTzV0dlNNK0xlclRzYitaUnBvNmVEQnh2?=
+ =?utf-8?B?ZEczdzVOSWZxNEM5QnRZMXR1NUx5YVBtenJ1REpGTXZxUWpGQ3pqNjYvK1dQ?=
+ =?utf-8?B?SEQ0NEtlaDVKN2JlYUx4Rk1mS2NIZW1VRnhVTEpHaWdaQUtPdGRIdjNsTXRu?=
+ =?utf-8?B?V3oyTDB4d1hvYlZnMHhvTXU5MGlMMnQyd0F0dXN3SGdxMXBJbDdnbU44c2pT?=
+ =?utf-8?B?aFlmOE92R2hVVjNEc3c5ZUpYLzVqdVh4Smo0MmtWZm0xei9nUDdJVTM4SXM3?=
+ =?utf-8?B?SGtHQU8wMkFFTEdtckl4Tk5QREV2My84YUpiZlovbGpOS1JjRkc3ekQvdFBn?=
+ =?utf-8?B?ajZMQUxEekR2d2lVSGtoUkZaTUpreCtEam1NS3huLy9MUC9MQkFCNDhXNmtH?=
+ =?utf-8?B?TmtiZVNaQVZBMGxzRCtWcSs3SkRZUEFZRDg3Wm1jNjhudTJnUzNRTmtzTm5S?=
+ =?utf-8?B?aFh6OTlHaGNnSGFHVFlSenNYWkZSQy9mYWsyMzlnTkVYME9majBKWmxidjlV?=
+ =?utf-8?B?M1RXbFhpSWJrcEZicVNUMHFoZWFFc2lMN3BtNENFUjVjdGZ6VGxQbFRyb1k4?=
+ =?utf-8?B?VGo1S2tZd3BCdHFGQ3d3OFFpekw2U0hmUTAva29XQ01MdVBrRkE1Y1VPQ0dX?=
+ =?utf-8?B?aTN1Z21ZNWVEV1NYYW53VXFIRVJCM0VQT0NJdmNrSHpqWTNUMEhRM05xVlZE?=
+ =?utf-8?B?K0xmUlRSRnE4UktubzlIYWRZdmtZL1ZhV0p5Zm9SUVdhNFloMUJYY25wZUsw?=
+ =?utf-8?B?OG9tV3pmc0ZQQnNLc1JYUnBBZU5IV3F3cmxwTVRVcEtnU2NZSnpOZXB1RnRO?=
+ =?utf-8?B?K3ltNXZSRklvOWxzWnN1ZWt0VVc4ZXpjNmNxVzZBRk9qZm5jU0ZhdnN1L0Jn?=
+ =?utf-8?B?WEg5WnRuR012V1p1YmY2cWw3QmdnUEhUQmFEd2hBYm1GeDFUM1NYYyt4VDZw?=
+ =?utf-8?Q?pX0IEEFTn+OnBk8oL89rc8pOkRGhb5/Q?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cjZBVUZTYzc5TjRaQ296c2x2bW9BMUZQSEsxc09FMTZWeDRGZnJiZXQvbFFL?=
- =?utf-8?B?bkZMNzA1eUhhbzhKeDkxQm03SHRQUmdKWGVqNGJZakZ5VTNxb2VyTGcvN2lI?=
- =?utf-8?B?bWJBRGtqeTB1cG54cUkxVDAzRUdMMHRJemdMTGNKZm13eFhQM1d3VFprbkRZ?=
- =?utf-8?B?Sm5hRXQxVUt1U01NUXgyNDJ0NE9FdEtQRFVnSW5GMEEvNkw4NWtiTzJTL09l?=
- =?utf-8?B?bi9IcDR5UGtBT0xzMkFncHlmcDkrSERXVGpzdllUZ3FDRzl4UEZXaTl5Uldm?=
- =?utf-8?B?YjRJUTVzL1pUTmYwMGFDaWFnYlRHdnNtdTNPMXJOZ1RDdXJuSitOOVFQckFO?=
- =?utf-8?B?UnZlN1NIeHhGNXUwaDZwcTNndlp1OUJNNDFMT0ZyY3M2Z2dWUmJrRFNwRGpK?=
- =?utf-8?B?RXl1U01pVkhpbitTMEZsek44eitIUGNaY2NUVmFrSzFjWjhwTHZFeDU3ajln?=
- =?utf-8?B?bmF6Rlgxd2s3WXh6c2sxR3BSSHVDMVcvNVA2cDZGWWxvTEFONGhrNGVBWUpw?=
- =?utf-8?B?T0tUMkl5S2kyNnhjVXlqY1A4L3pTMmwwN05sUVBhODMwY3RLNGh2ZzdreGEw?=
- =?utf-8?B?T2E4QUxwUFF5QmxHVE9seG9CelVBSVBxd2hXZ3pWbEl5SW9oWVliZE5OUlBR?=
- =?utf-8?B?RzBvZ0xnNXErc3ozODVKamNnWVR0UzBQeStCMDd2Ukp4WmFCNHowQXNuT0JX?=
- =?utf-8?B?b3liOVkraUl1dHF1UWNPUHZIbUVoOGljRlIvbUxFdDNUaEM5WXhtNDltTTFV?=
- =?utf-8?B?bEFvYkZIMFpZNDA1L2lndTNic2xkbUorcTNXVEljRFdyQzRaVUZrMVRZN3NC?=
- =?utf-8?B?VldRc0ZkbG9sWjY2NzlVY1FXdUJmRko2STNLemJNSVNmSjB4WnY2NW92Z3E3?=
- =?utf-8?B?bEZWRFNRNGdSODBNQnVobzd3K04ydUNIUE8zUVNza1N5MGYzWmt6ZnMyU0tS?=
- =?utf-8?B?aUNzNUY4c0JLbU1ZVnh0cHRFY2lRVXBINUI4Y0RrVktTbFEzT0J5eXJzRDAz?=
- =?utf-8?B?Q1EwejVsZ0hoR0tOS0diOHNIU1g3dldZTGRkT2VzbjcwRGZ1ayt6WURFWUw5?=
- =?utf-8?B?OHF2bHNtMkQ4cXB2T1M0dHdZRU1Fd0UrRW9lT3RaMnB1akVrQldad05RYk5M?=
- =?utf-8?B?Y1ZxcDdtU0wrWTM4MkxJTEsvcXR0RmZaVFQ5RHdJS0dzcG52eG9GRm9nN0tX?=
- =?utf-8?B?UVM5Mmd6eTdFclp0Y0JGV0RUTXFIYU1DeFZ3WU9aNDdNcG1GM1A1emNISzMv?=
- =?utf-8?B?ajJ1bUdRY2g0SUVETU02YjdhalNNNnR4Nm54RzlNZ1h3MG5Gb1IxVlVSNFkv?=
- =?utf-8?B?UVpDWDIwN0p0MHBZNTI0TStrak11MUdOQ0tVV1VZMTlUcWdrUE1WeXNRS2VJ?=
- =?utf-8?B?T050d1N4OVY5cTRKYWMwcENQM3h4cVl0WkVWWGwzdFBGQWhKUXpMM29RS2xQ?=
- =?utf-8?B?Ti9Ua0ZETW1nUEJFWjVuYnozaHI5OEhhU0JKQUxxSWIyMDBCeDBiK05YcW05?=
- =?utf-8?B?RTlibzdTVE80NEFLOHRpd3Jpd0Y0T1BMRnNVNnNOSUJleEY5TG4wY2Q0OVBQ?=
- =?utf-8?B?TCtFVStBTXhiL2FKdFB1VEo3ZW5TTEdJRkprUVhDK2k5MEovbExtSTJPTFJR?=
- =?utf-8?B?bHVuVTRzek5IbGF6L1ozQ2p6ZzZnZnhZQks4aHdTcWQ3a0lRRGgrTHlTTzFj?=
- =?utf-8?B?dVpDeGFtWEM1M2ttNXNkK2h4SVBndk43dGllYXpwVnJlR0lIVituOVZwU3Zr?=
- =?utf-8?B?SXJXWjRLSnhzWVpUdHZ2Q0xjNlF6TXp2eXgvcVl3QW9JZzlwZWFZS25RU2dN?=
- =?utf-8?B?eTBvUlM3anRXckU2d1ArWk8rbHBQZmtPRWhWUUtIVmFGSXlndXZCYUI1Ymp1?=
- =?utf-8?B?SWd1cVRkZGVYaXpQclhWWUUxS1cvaDA2MVE5di9sK21SVTZNMk5lbWZEUlIx?=
- =?utf-8?B?azUxcmtDcDA1YXFpOHFKLzVJRmZtTmRNenlwVWdiL29waHdORWRTcDMvZlFs?=
- =?utf-8?B?ck1hblE1Y2NtUkxuK3ltOHl2TTN4VCtSSTFHMHVURitZMElmVmNTazVxa0h3?=
- =?utf-8?B?NHd1b3FuSjVnZXJjcWk4eVJpL3JmdGRaRnNTQUpOYVNoZjdLV0lLTDlQTVds?=
- =?utf-8?B?T3R1MGNhZ0l0bHBpOC8yNDVDc1RWSittTWpJTlJyUFF4QXRwdkhybUNlUDhP?=
- =?utf-8?B?Qzkvb0JMdnBSaUMzM05FMnJrQ1VQakhybmNleXdxVHkyOHhiV0ZuVXI3dnNC?=
- =?utf-8?B?ODdNR0ZpMEh0N3UzdStjQXl4eHBmSTVpcEdDdzRyOSs4cEpYRlpHSnFTVmtL?=
- =?utf-8?Q?lHgJ/0xp7QtXoUWBlC?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1JQUXFaMnpuMkVtbjdEdHdqSHNWUitNbTNRb0pXaUVreHBpVVNEUkd4eUgr?=
+ =?utf-8?B?K0xHNTU2clpGbmgrOWhLWVJqSVJKdEo1S1R0QUlGRlF5Rm1CWkhuSUVObUt6?=
+ =?utf-8?B?Ni9NaTkzTmlIRGlDM0wwaHZtbzVZRUxQSnFjTWpOclAxc04wZnJHWWRuY0sr?=
+ =?utf-8?B?T1c4OExpYVZQRUNHaTVWMTBSMS9nZnhEeitwdk50bngxN0xQWnNBUzlpUzlX?=
+ =?utf-8?B?NXQ4S1UraEFKZmFkTHRJajNYa2RDYlBWQ0w3dVNLWXdGam5CclR4cFJBL05X?=
+ =?utf-8?B?QXdtaGV2b2xTb2l4dlFsMnhpbUJRTkhqZFB3MHMybTRYVkRCV05Dc0FEdXFV?=
+ =?utf-8?B?eUJwLy9rcVZwUkFNbVltYUo3Rno0KzZOOERMZGtsNGxoTlFMcTZvRGp6eWhr?=
+ =?utf-8?B?QkhCZjg0aEpFREJVNmQ5VWc5ZGhDOXhVUXE4Q2V3UWxmQ1o3WFBUQ0RUZWN2?=
+ =?utf-8?B?ZDBtbElNbVdvVTFDZ1JWM3hCNHFpTzErbUJSUnA4Rm9MaXpTdkpkbUtwdkFG?=
+ =?utf-8?B?ZW84dGZFMUlFNUtLMTF6N0RGdDUvbTlaZTV5SFloa2xBMU1zMWVwYmRHcDRj?=
+ =?utf-8?B?V2FQOC83VDB2akhkaTFxK3FPWW9leG1QancrLzJueC9wdjV2TENZSllXZ3BD?=
+ =?utf-8?B?NzRBTjY5WjBpMmxKM0xuR2tMQnI5K3dZR2RrUWlKUHorM3JTMGYrS1c4R2Js?=
+ =?utf-8?B?dlU3QXV1enpRMWlVY0E0KzVVRGJnQUwvdWlLV3ZkNU8xaWJSbVFQUzJLZmtj?=
+ =?utf-8?B?NEZDaVVCZzJJdytleHdrNWdOUDhWN1hueStQM2tSQ0EzTDlpbllHb2d4cm9U?=
+ =?utf-8?B?WWxTYW56cUt5NnpPOVhxWkNycjEvdFFVMTVpMUhQSTVuZnZldGRFMXlFS2RB?=
+ =?utf-8?B?OGkyVHNybytCVi80a2xyV3Fzdi9lcGZGSzdVVTlJT3BnVGlQU3hFVkREQVBV?=
+ =?utf-8?B?cHVhZXF0U2pBN0ZJYXVpa01yKzByYlNFTXdIc1RBRkRWaUtPcWFPZzltOS9L?=
+ =?utf-8?B?TWQxWUNraE1WVGoxZ0c1SGh2ZFlDOG4vTTFSVWlXdnk4bTNPQkRiQ2sreHJt?=
+ =?utf-8?B?RGxLYzdUREVZZkJIcEhkL1VCNmpleXZmbnAxcHJNZmQ0bDBQdy9xeTkzTWFk?=
+ =?utf-8?B?elkyQWRjZHpYVmM0VDJMcmhqRExLdExEaDNnUnp0MFdZOERhWm52ODlqazAz?=
+ =?utf-8?B?aFpvbHFpcVo1WmxpaFFTYjErcWUwaFhXSUg1RGttSHNrYW8wcjVlU296R0NT?=
+ =?utf-8?B?NDU5MnJvcFdUaTlDOExuemF1dDk2djZrTE5NT2pIdEVUZFM4RXUxMVZka1dN?=
+ =?utf-8?B?NVhLUDY0azZVTmN4dW0yWTlmdWNrQVdTMFVvaW9BSnBzWmd4TFp2NDZ4QWU1?=
+ =?utf-8?B?aENTb2Vka3VxYTVRT05hZTNNM3hzeGhHTHgxSEkwL0w5c0ZFVXZkdE5lTFVL?=
+ =?utf-8?B?RFBuSDE1aWl1aHlqU29POVM0QURhL051Wm5IVjBtbHlVS0E0dlVDZzI0SmJy?=
+ =?utf-8?B?L3BIRFl3RlI1NDI5TjhBVGJ2cThQYUU0Mk9ibzk0OGpKMWNEcXRKckZnRFVl?=
+ =?utf-8?B?T2c3c281bVpQeW1hejZOdk5vMmpSK2sxSHIxaW5VU0UwVWNPYmNTVVZGUi9V?=
+ =?utf-8?B?eVRYSXQxS0puZHN5SVNyb3NJMFpQek9lc1ZzN2JMbkp6TGtHZnNqVFFRVkpB?=
+ =?utf-8?B?TFVkQmdwZTdQUjhwdE9rRVA2ZzlKVy9tTXlFY0Zjby9Eakl0UGVkZGlHMWIv?=
+ =?utf-8?B?a3hKMW5DNGw1MThIdjI3NndFRFVNSk80dm5JSzVNS2U2ZThSWmN1eGZFRmsy?=
+ =?utf-8?B?MDNmVWhJcmRoTU1qcWU2amg2bGdWLzU4K2d6OW1DYUtLQXJqMm1oSlRmclp4?=
+ =?utf-8?B?c1J3V1BVZDErbzF5WU9nenY5eXUrYllodkY1cFpGVXd2YTk3VmVUWDJKYTFF?=
+ =?utf-8?B?cUo5NFd6Ti93WjVjMGpobUg5dktmOTE3QndBZmFoazRHMGEvb2NtdjhtZlM3?=
+ =?utf-8?B?WklaeWw0VnR3WDg4QWZqZlYyaE1vcHhrVitFYUl5dUJUcW5KQVBOMUlGSStF?=
+ =?utf-8?B?bjVLQzVMN2kyam1PUGZZZUxsdXp0OGxtd3k1MGs4NEloZjFYM1JJN2hER1ZB?=
+ =?utf-8?B?bUx5UFhUQis4d3BteFBmUVR6a2d2YkgxWE9NSWptREdnbENydjR0NmJyYVJv?=
+ =?utf-8?B?T2dZNFZDMXNtb2pOREduSTlzRWlUNW10YVI1elVBMHNaVUZ5UzZpMzl0QUkz?=
+ =?utf-8?B?TysxME5raHd0ZkZzWDY3MDBNVk1yWTMzZHZtTWxqS0YxNUdneU1NaEJVbVNZ?=
+ =?utf-8?Q?Y318QlGVC7ls92i8Km?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9f76eec-5d5d-4a91-5b6e-08de4234221c
+X-MS-Exchange-CrossTenant-Network-Message-Id: c252a346-7369-470e-1031-08de42347f4d
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2025 15:01:21.3781 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2025 15:03:57.6879 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NpQLdcZgXX7NABneH/Wg+b30uPo/YSFEoAjYa/5PUgwd0/cvUZENL/1zIrPxkJaL
+X-MS-Exchange-CrossTenant-UserPrincipalName: XhVopU3h68pQ2bHUrO3vuxbQWKeI5fDy+3OHFUm4Q6lehqp7vtUqg+C2ElbxmP/7
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8542
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -162,50 +164,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/22/25 04:33, Bingxi Guo wrote:
-> issue:When one of multiple processes sharing the same amdgpu device
+On 12/22/25 12:01, Bingxi Guo wrote:
+> When a process forks, the child inherits the open DRM file descriptor.
+> If the parent is killed (e.g., by SIGKILL), only the parent's jobs
+> are canceled. The child process can continue submitting jobs to the
+> same entity through its own user entry in the entity's user list.
 
-That is illegal to begin with. Multiple processes shouldn't share the same device fd.
+Clear NAK to that. Forking a process and re-using the fd is illegal!
 
-> fd is killed, amdgpu_flush runs but amdgpu_drm_release does not, so the
-> vm's entitys have been stopped but bos still alive. Later, when the
-> KFD fd is closed, the driver unmaps BOs from the GPU VM, clears the
-> freed BO list, and normally submits SDMA jobs plus an
-> amdgpu_tlb_fence_work to wait on the job's finished fences which will
-> not be signaled.
+See the OpenGL, OpenCL and Vulkan specification.
 
-The problem is the KFD code and not the SDMA backend, this check here is especially racy since the entity status can change as soon as you drop the lock.
-
-So clear NAK to that.
+We intentionally block that here.
 
 Regards,
 Christian.
 
 > 
-> add check if entity is NULL or has been stopped, if so, don't submit
-> sdma jobs and create amdgpu_tlb_fence_work
-> 
+> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
 > Signed-off-by: Bingxi Guo <Bingxi.Guo@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  drivers/gpu/drm/scheduler/sched_entity.c | 133 +++++++++++++++++++----
+>  include/drm/gpu_scheduler.h              |  22 ++++
+>  2 files changed, 135 insertions(+), 20 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> index 36805dcfa159..e57d496a06e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> @@ -49,6 +49,13 @@ static int amdgpu_vm_sdma_alloc_job(struct amdgpu_vm_update_params *p,
->  	unsigned int ndw;
->  	int r;
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+> index 8867b95ab089..508a0629b839 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -110,6 +110,9 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+>  	atomic_set(&entity->fence_seq, 0);
+>  	entity->fence_context = dma_fence_context_alloc(2);
 >  
-> +	spin_lock(&entity->lock);
-> +	if (entity->stopped) {
-> +		spin_unlock(&entity->lock);
-> +		return -EINVAL;
-> +	}
-> +	spin_unlock(&entity->lock);
+> +	INIT_LIST_HEAD(&entity->users);
+> +	spin_lock_init(&entity->users_lock);
 > +
->  	/* estimate how many dw we need */
->  	ndw = AMDGPU_VM_SDMA_MIN_NUM_DW;
->  	if (p->pages_addr)
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL(drm_sched_entity_init);
+> @@ -228,10 +231,24 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>  {
+>  	struct drm_sched_job *job;
+>  	struct dma_fence *prev;
+> +	struct drm_sched_entity_user *user;
+> +	struct spsc_queue temp_queue;
+> +	pid_t my_tgid = task_tgid_nr(current);
+>  
+>  	if (!entity->rq)
+>  		return;
+>  
+> +	/* Mark current process as exited */
+> +	spin_lock(&entity->users_lock);
+> +	list_for_each_entry(user, &entity->users, list) {
+> +		if (user->tgid == my_tgid) {
+> +			atomic_set(&user->exited, 1);
+> +			break;
+> +		}
+> +	}
+> +	spin_unlock(&entity->users_lock);
+> +
+> +	/* Temporarily stop entity to prevent new jobs */
+>  	spin_lock(&entity->lock);
+>  	entity->stopped = true;
+>  	drm_sched_rq_remove_entity(entity->rq, entity);
+> @@ -240,27 +257,59 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>  	/* Make sure this entity is not used by the scheduler at the moment */
+>  	wait_for_completion(&entity->entity_idle);
+>  
+> -	/* The entity is guaranteed to not be used by the scheduler */
+> +	/*
+> +	 * The entity is stopped and idle. No new jobs can be pushed.
+> +	 * Scan the queue and separate jobs:
+> +	 * - Jobs from this process: kill immediately
+> +	 * - Jobs from other processes: keep in temp_queue
+> +	 */
+> +	spsc_queue_init(&temp_queue);
+>  	prev = rcu_dereference_check(entity->last_scheduled, true);
+>  	dma_fence_get(prev);
+> +
+>  	while ((job = drm_sched_entity_queue_pop(entity))) {
+> -		struct drm_sched_fence *s_fence = job->s_fence;
+> -
+> -		dma_fence_get(&s_fence->finished);
+> -		if (!prev ||
+> -		    dma_fence_add_callback(prev, &job->finish_cb,
+> -					   drm_sched_entity_kill_jobs_cb)) {
+> -			/*
+> -			 * Adding callback above failed.
+> -			 * dma_fence_put() checks for NULL.
+> -			 */
+> -			dma_fence_put(prev);
+> -			drm_sched_entity_kill_jobs_cb(NULL, &job->finish_cb);
+> +		if (job->owner_tgid == my_tgid) {
+> +			/* Kill this job */
+> +			struct drm_sched_fence *s_fence = job->s_fence;
+> +
+> +			dma_fence_get(&s_fence->finished);
+> +			if (!prev ||
+> +			    dma_fence_add_callback(prev, &job->finish_cb,
+> +						   drm_sched_entity_kill_jobs_cb)) {
+> +				dma_fence_put(prev);
+> +				drm_sched_entity_kill_jobs_cb(NULL, &job->finish_cb);
+> +			}
+> +			prev = &s_fence->finished;
+> +		} else {
+> +			/* Keep jobs from other processes */
+> +			spsc_queue_push(&temp_queue, &job->queue_node);
+>  		}
+> +	}
+>  
+> -		prev = &s_fence->finished;
+> +	/* Put back jobs from other processes */
+> +	while (true) {
+> +		struct spsc_node *node = spsc_queue_pop(&temp_queue);
+> +		if (!node)
+> +			break;
+> +		spsc_queue_push(&entity->job_queue, node);
+>  	}
+> +
+>  	dma_fence_put(prev);
+> +
+> +	/* Check if there are other active users and restore entity if needed */
+> +	spin_lock(&entity->users_lock);
+> +	list_for_each_entry(user, &entity->users, list) {
+> +		if (!atomic_read(&user->exited)) {
+> +			/* Found active user, restore entity */
+> +			spin_unlock(&entity->users_lock);
+> +			spin_lock(&entity->lock);
+> +			entity->stopped = false;
+> +			drm_sched_rq_add_entity(entity->rq, entity);
+> +			spin_unlock(&entity->lock);
+> +			return;
+> +		}
+> +	}
+> +	spin_unlock(&entity->users_lock);
+>  }
+>  
+>  /**
+> @@ -323,6 +372,8 @@ EXPORT_SYMBOL(drm_sched_entity_flush);
+>   */
+>  void drm_sched_entity_fini(struct drm_sched_entity *entity)
+>  {
+> +	struct drm_sched_entity_user *user, *tmp;
+> +
+>  	/*
+>  	 * If consumption of existing IBs wasn't completed. Forcefully remove
+>  	 * them here. Also makes sure that the scheduler won't touch this entity
+> @@ -338,6 +389,14 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
+>  
+>  	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
+>  	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+> +
+> +	/* Clean up user list */
+> +	spin_lock(&entity->users_lock);
+> +	list_for_each_entry_safe(user, tmp, &entity->users, list) {
+> +		list_del_rcu(&user->list);
+> +		kfree_rcu(user, rcu);
+> +	}
+> +	spin_unlock(&entity->users_lock);
+>  }
+>  EXPORT_SYMBOL(drm_sched_entity_fini);
+>  
+> @@ -567,9 +626,40 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+>  void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>  {
+>  	struct drm_sched_entity *entity = sched_job->entity;
+> +	struct drm_sched_entity_user *user, *found = NULL;
+> +	pid_t my_tgid = task_tgid_nr(current);
+>  	bool first;
+>  	ktime_t submit_ts;
+>  
+> +	/* Check if entity is stopped and reject directly */
+> +	if (entity->stopped)
+> +		goto error;
+> +
+> +	/* Entity is running, check user list */
+> +	spin_lock(&entity->users_lock);
+> +	list_for_each_entry(user, &entity->users, list) {
+> +		if (user->tgid == my_tgid) {
+> +			found = user;
+> +			/* Reject if this user has exited */
+> +			if (atomic_read(&user->exited)) {
+> +				spin_unlock(&entity->users_lock);
+> +				goto error;
+> +			}
+> +			break;
+> +		}
+> +	}
+> +
+> +	/* If not found, create new user (fork case) */
+> +	if (!found) {
+> +		found = kzalloc(sizeof(*found), GFP_ATOMIC);
+> +		if (found) {
+> +			found->tgid = my_tgid;
+> +			atomic_set(&found->exited, 0);
+> +			list_add_tail(&found->list, &entity->users);
+> +		}
+> +	}
+> +	spin_unlock(&entity->users_lock);
+> +
+>  	trace_drm_sched_job_queue(sched_job, entity);
+>  
+>  	if (trace_drm_sched_job_add_dep_enabled()) {
+> @@ -582,6 +672,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>  	atomic_inc(entity->rq->sched->score);
+>  	WRITE_ONCE(entity->last_user, current->group_leader);
+>  
+> +	/* Record owner TGID */
+> +	sched_job->owner_tgid = my_tgid;
+> +
+>  	/*
+>  	 * After the sched_job is pushed into the entity queue, it may be
+>  	 * completed and freed up at any time. We can no longer access it.
+> @@ -597,12 +690,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>  
+>  		/* Add the entity to the run queue */
+>  		spin_lock(&entity->lock);
+> -		if (entity->stopped) {
+> -			spin_unlock(&entity->lock);
+> -
+> -			DRM_ERROR("Trying to push to a killed entity\n");
+> -			return;
+> -		}
+>  
+>  		rq = entity->rq;
+>  		sched = rq->sched;
+> @@ -618,5 +705,11 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>  
+>  		drm_sched_wakeup(sched);
+>  	}
+> +	return;
+> +
+> +error:
+> +	dma_fence_set_error(&sched_job->s_fence->finished, -EPERM);
+> +	drm_sched_fence_scheduled(sched_job->s_fence, NULL);
+> +	drm_sched_fence_finished(sched_job->s_fence, -EPERM);
+>  }
+>  EXPORT_SYMBOL(drm_sched_entity_push_job);
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index e62a7214e052..45e066596405 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -59,6 +59,16 @@ struct drm_sched_rq;
+>  
+>  struct drm_file;
+>  
+> +/**
+> + * struct drm_sched_entity_user - Per-process entity user tracking
+> + */
+> +struct drm_sched_entity_user {
+> +	struct list_head		list;
+> +	struct rcu_head			rcu;
+> +	pid_t				tgid;
+> +	atomic_t			exited;
+> +};
+> +
+>  /* These are often used as an (initial) index
+>   * to an array, and as such should start at 0.
+>   */
+> @@ -233,6 +243,13 @@ struct drm_sched_entity {
+>  	 */
+>  	struct rb_node			rb_tree_node;
+>  
+> +	/**
+> +	 * @users:
+> +	 *
+> +	 * List of processes using this entity (for fork support)
+> +	 */
+> +	struct list_head		users;
+> +	spinlock_t			users_lock;
+>  };
+>  
+>  /**
+> @@ -385,6 +402,11 @@ struct drm_sched_job {
+>  	 * drm_sched_job_add_implicit_dependencies().
+>  	 */
+>  	struct xarray			dependencies;
+> +
+> +	/**
+> +	 * @owner_tgid: TGID of the process that submitted this job
+> +	 */
+> +	pid_t				owner_tgid;
+>  };
+>  
+>  /**
 
