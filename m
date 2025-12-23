@@ -4,67 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 891FFE6FE23
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 18:27:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 978C6E6F086
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 18:27:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFB5D10E16E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB0E810E297;
 	Tue, 23 Dec 2025 18:27:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="WPQ54Fn4";
+	dkim=pass (4096-bit key; unprotected) header.d=glanzmann.de header.i=@glanzmann.de header.b="S+Ghrcku";
 	dkim-atps=neutral
-X-Greylist: delayed 385 seconds by postgrey-1.36 at gabe;
- Tue, 23 Dec 2025 04:51:24 UTC
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ABC410E155;
- Tue, 23 Dec 2025 04:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1766465481;
- bh=u9HK5WkS2fcFuxe+k5UcXPAlCrGB6EX0UgNVnyzoysU=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=WPQ54Fn4fj0BxQ76Ci1KGvMxZMGgol0UIVNjCUr9GKxYLTYh69TNJNRO9QPB07W01
- P/39GQNxjbckxGaVieViDuoAVsyTeBOGa+na7hGDmRKX8J3MCvNHYisPehOnbXsMZ1
- LCE5K+yPP0hRwCHUnLJh+o3yWsfNQ2FblG37fSsY=
-X-QQ-mid: zesmtpsz2t1766464959taa0020f0
-X-QQ-Originating-IP: E18NMKDrD7Pu2x7Z/L1l19pXDbCjjkSolU/I/GflKgQ=
-Received: from localhost.localdomain ( [123.114.60.34])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 23 Dec 2025 12:42:27 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 7113700151840439031
-EX-QQ-RecipientCnt: 8
-From: Ding Yihan <dingyihan@uniontech.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ding Yihan <dingyihan@uniontech.com>
-Subject: [PATCH] drm/amdgpu: Fix typos in amdgpu_vm_bo_update comments
-Date: Tue, 23 Dec 2025 12:41:20 +0800
-Message-Id: <20251223044120.1574243-1-dingyihan@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+Received: from infra.glanzmann.de (infra.glanzmann.de [88.198.237.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 275F310E0DC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 06:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glanzmann.de;
+ s=infra26101010; t=1766470151;
+ bh=gFOwAoOWk2h+hSaCfwQjDoZMPkX64EVUkkmjS9/KLYQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=S+GhrckuZnjCevNSpyMe9o9Yd7XDqXcZBLxy8riJ7BONU8Ph25PZcOHN6FA5uR4t1
+ gmszNk8nazjNlSDdU071fWssojg4UoqhTVi0KPeC8PGncngUvpwEGAg2LaE4R8Rdww
+ 5bJQhQfoHjfci4+m5YC03gxOi7UG+ivHZOFPCg6JXLPlMH9Gk7deZ75t45lMwnr8iK
+ sqYBQnp9A0QBcNYt0WjvNU7VK9KICEKih8MdmhI/Z75GNQ9Wishn+VvUgophcbxQzP
+ z2rHnqPebu2gegb6HHzKtg7+TzyD/nQKrqtOkKf14ICwGUHUA8m67McGgFB449llX1
+ pQz3lpPQ5HC2URXa47KZf9SdUBx82Dkr/8zHPorCc2g5EMdxvm+cuSm/nx7WP1jrDO
+ juT3xL80WAKZXWS4IHSobracrnGHwldGgBnAYlLwUkzd5A9JJFSjYH7EWdB3cW3Lh5
+ BvrX0i0L6jYC9NLPkxCn/+BG1TzhPmJGll/3uLAD14ldCPPufuHr+aU+GK6omYLe5F
+ BbYyDkKN5lA2+VTfUpmEAQh3DQY8pzRdg+GqAX6eaWjCVkIsRXYXhPMGsCpLvWvWsA
+ DU4ZUfv7gcKsPhm8iwSv7BIYPb4VCQHryFAgtpQR/M4O1hXv+9Fe2Xjpq2SlzCAftz
+ tEFUTKxqLjhRGGFk2qUoPM7g=
+Received: by infra.glanzmann.de (Postfix, from userid 1000)
+ id E97AC25F306; Tue, 23 Dec 2025 07:09:11 +0100 (CET)
+Date: Tue, 23 Dec 2025 07:09:11 +0100
+From: Thomas Glanzmann <thomas@glanzmann.de>
+To: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Subject: Re: amdgpu: [drm] AMDGPU device coredump file has been created
+Message-ID: <aUoyB1spnrj1_J3H@glanzmann.de>
+References: <aUjiv4TnoVJ9LysI@glanzmann.de> <2575679.XAFRqVoOGU@timur-max>
+ <aUmjEQ0a47_OeWbR@glanzmann.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NJRsSVeNb6U+qIECb1WDAcne+2jVMzNmHyCCjS3Qt8vLHPtTFSxfAOH7
- iSyCoV/rg2bcNe+4vfrULhc9+Mr61KO8zmGjxrkEM4nqCAhM3HTf9a4H3X1qU+BWkONlAW2
- LoHsxLZFKwZJBwMRSr4GwGNBvST6lSRmEndfTHaKnuN254xyI6XkdOZaxhQLKx3XwmPQYgX
- vRUbCcxWHNvUX3c4TI39zXzsujFxz5PAWZjeXYKv9mhndn1ilV4oJnHIUAzTJ0rZECGXFG6
- 4ksDJx/hOZiYmRtOGTP1mwA4dg8y0Bs6KkmuNzcdH3loCdXIXVnLAzOwqUUEtnBQ4Y6Cfgx
- wdZLh57gkfoym0BQw+Z+KVqj03QFlW2aqpTptFFGXoXuditivlQgX2D2SJ7xSgrPweoMh6A
- R+3Z58douQgomPGd5F03DAliynm6t5+Fs9dRiUhQn3458odQ5fdcRDOeF7NqnRDA2WFOGjR
- fVyBtWcreMiQjtUY6Sg/1t6YdB4CCzbO/j38PotmN9u6RbMsNyOPC7QhaDL/rBQcHUlIAQu
- n1MP8sCF8g2NdMQrqHJZT2Q0iGJI/uGl4BiM7LC/ToKP+BWkGJmNXAAoBaT4pEagjK2voIy
- 0uq4ubPL9VPCKN/gJsMXmZvmFD1u7pPUhgsjxdJlk1bMD19VDw90f8Sa0z1VfXyLF5nKq09
- /QSCSWDP8mbzb+iNEwCmaw6I1riFZ+5YQFYhxzEoNMprcZETrA2W30U0+no0DvbYgz0FDpx
- tYlq7oZQfWAcQCGlqYOYsMp+Kle0NcsBsziRRY+m97uWTOkqsEiCxg8SJ1yOCillpLWffOK
- BWXTC+rmqS11y7jaDqGRESoYrhnq/ka9qvve2trgpIUk0dnHNbNprcz9i6+rps3TOqI1HJ8
- K/MpdtiqoqySSvUXVzua+ZUN25Y4C3/zPazNwVfaRAhxJ5OQ7yo2QRC5OVLSBCJIdnH7/2a
- ermEuHdfNMeEBl7n8r/PdbOiaDn0m+8Jrbg66C1DWqRwQSUMI//Cs3cvUP2DtPFb+XwjFSK
- U8qnzSCiDuq4obcTcytRoSLabp/fSdzfLxmZ5IXJpoQPlpwME6lKHPT0Ptj6M=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+In-Reply-To: <aUmjEQ0a47_OeWbR@glanzmann.de>
 X-Mailman-Approved-At: Tue, 23 Dec 2025 18:27:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,33 +60,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix spelling mistakes in the comment block within amdgpu_vm_bo_update().
-Specifically, correct "contians" to "contains" and "WIRTEABLE" to
-"WRITEABLE".
+Hello Timur,
+I have reinstalled my system using snapshot.debian.org to the state of
+2025-06-01 which was working for sure. Unfortunately the issue is not
+resolved. So after I ruled out Kernel and Userland only one thing is
+left: The BIOS. Unfortunately I updated to a BIOS version which can not
+be rolled back.
 
-Additionally, improve the grammar, capitalization, and punctuation of
-the comment for better readability.
+https://www.asus.com/de/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b650m-plus/helpdesk_bios?model2Name=TUF-GAMING-B650M-PLUS
 
-Signed-off-by: Ding Yihan <dingyihan@uniontech.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> Version 3602 17.27 MB 2025/11/27
+> SHA-256 ：C972529E551DC92871B89660E3A3930F187EA6E1B718ADDD7B0E3826D79195C0
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c362d4dfb5bb..502d32728008 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1352,8 +1352,8 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 	list_for_each_entry(mapping, &bo_va->invalids, list) {
- 		uint64_t update_flags = flags;
- 
--		/* normally,bo_va->flags only contians READABLE and WIRTEABLE bit go here
--		 * but in case of something, we filter the flags in first place
-+		/* Normally,bo_va->flags only contains READABLE and WRITEABLE bits here.
-+		 * But in case of something, we filter the flags in first place.
- 		 */
- 		if (!(mapping->flags & AMDGPU_VM_PAGE_READABLE))
- 			update_flags &= ~AMDGPU_PTE_READABLE;
--- 
-2.20.1
+> 1.AGESA updated to ComboAM5 PI 1.2.7.0.
+> 2.Improves compatibility with various CPUs and devices.
+> Note: This BIOS version cannot be rolled back to previous versions.
 
+> Before running the USB BIOS Flashback tool, please rename the BIOS file
+> (TG650MP.CAP) using BIOSRenamer.
+
+I open a case with ASUS.
+
+Cheers,
+        Thomas
