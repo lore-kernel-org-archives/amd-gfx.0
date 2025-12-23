@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A39B6E6B275
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 05:51:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DE47E6C5F9
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 06:48:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4400B10E141;
-	Tue, 23 Dec 2025 05:51:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D336310E175;
+	Tue, 23 Dec 2025 06:48:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kzBuYDyI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bv3RLplh";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011025.outbound.protection.outlook.com [40.107.208.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B9210E141
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 05:51:38 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.196.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B367C10E0AB;
+ Tue, 23 Dec 2025 06:48:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x08lROhoLIR3UnCCyWqeZKxgSN3jv2H3pE4MY7AaBpKBvBX1aMlRx0HztPrbSD4v+LliazY1ACnL4yZcLapRqXYeViW+gPxqsKhdS4GbPmlGWgBVeg0UtHx/IiCtmQy/+7NSo0XyYNms87RGpbIHU+PiSQVlo+3gcOSDdBWhk+RiHvLmOicF/gkJDxQUsa1lpdG+s2o8IPQJTDdcFHimtXYpqq+hsiSJatNd9kU+SxkkM0XnuQS1F8kcs5+aCQIkeZkYdEQ3ixmVdT3wm/fVUhFUjASV9u37B2n6UGVGPFPcQUAtngsU1fHk5XMViUFugPlAaXda/vWWfAK2y9FFeQ==
+ b=wqTABOuODNdGIaj0B7udVJdU2MtyypqnWfwWD4RSIR1bi4O/x17HpsX3K6ex5X2+M0qmEfq+I1TO0XngCMO1NCLII9XGPEgTUMUCixrZxbww8U1ri7bzKl2AbiVEVAfyx9z3sUwjYTfGH9E5uAQepZ6PMSwjuqTuRy1IaggDYMc7+HYyxRByyfVlCFdUyX9aNuZS3CK7yaICXBA1ZNfGgRqWZpE74d6Y0/PViqkSkXExFRWN95Jk4wj4oAFgCGp1kvClkXhcI+WvmiuN9O71+SRKs3V82o2CvzfAdrPwPP9gCxqhQ0tcnD6v5kv1ZFn18ajzM778MquKWZw7mdyiYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+ZrXs0rP2FwuleRsMKGBZm9DlLZeG5g5a4L2V5ZoWYQ=;
- b=ZaNnLYz78NWO8zoaA/5NsJVpc7fZP/+NoZ8yDLim7ceLkE49NPaiSB4m/nlqzvfVXmN3KbekmQLR1WEFuJRrPQ63pR2Ux1cs5PPxOwnu4AwurVsDCuUZm0mn8Tq2upgNhW/aljxhMqgW0xpbhzMFEmTzUTbN9SyrH3/Xmht+XbH0s8gfz/rqNC9dT3Q9yE3UFK83oLHj43XtxyKXwtTQLzSZpoF9h/QzECYiKVeeUl3XLT/yXSQcjuBu419sBzxcR7Fz+PtHWMgvCA+hJgNxxjiTvL3KUk0ujpi/0gpfE4bOlfj/KGlty/yoSI28Z96otWlUCzDb8CjzkCsagtfphA==
+ bh=MJ43nppj2VbK//0D/+c1a1ENqkcV5eiFdxkxGjUE6F0=;
+ b=j8BMzRM15N1yEy8VxyTlqoFjSxwRN7pVTDznhIWJRhZXCtKfudVA2/WLinn3E60E4cgCsQ6BDMBn8TyJtvCBSR4FHl0G0vOGpL2ljoqBmU0R+UMMRuT6GqFkZqThCU5dV2BI4P8lpYCK4bYQhhD8pVGziRISMIZ8QZqslB9CPzTlHbaKj2cvEtWUPmnM6kkSgEDd6ygdOV7S7yko//MmEZnpR6v10BI4B/MbuBVmAKcANMUiRvq5jMY8mGSumSRaw0/Wj6crqic3rxuieO9/EDy4e1cheXjfYtHwH1MnDENOwVMgB4OBlTBvTNOFdaWxRD0CCl6+9YGT4qYyC4ZOoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+ZrXs0rP2FwuleRsMKGBZm9DlLZeG5g5a4L2V5ZoWYQ=;
- b=kzBuYDyIwsMhrLZ6EM/O8yOW/QsmgAsQot6IJUGPUq54ov5/WZsDBTWuVMNFLizvbDol9RUY5TsyqpFkMHb6WqU06RqMWtNpW+zak0ODXubj30h2rYK0GrN8AAOQr2InSr1zU/uayrQveWix3Mbmf/+z9+uK226B7iqWqXU6Q2k=
-Received: from CH2PR12MB4215.namprd12.prod.outlook.com (2603:10b6:610:ab::24)
- by CY8PR12MB7754.namprd12.prod.outlook.com (2603:10b6:930:86::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=MJ43nppj2VbK//0D/+c1a1ENqkcV5eiFdxkxGjUE6F0=;
+ b=bv3RLplhxmfLxE/7RcY/PpUavdB8HxLlsxTAk7ze00Kjynh+gGygqd5bcm+x6IOiO2BmjsIiluCD3Lpb2k6jPaeuNNt3M/pTGw+m2VX63czxlt0Lfa0kcZQFSVyQKmQHr9YkToS1artzbKC0eR9ZtpYpGfp5NESSyeyDkVH8s5k=
+Received: from CO6PR12MB5411.namprd12.prod.outlook.com (2603:10b6:5:356::5) by
+ MW6PR12MB8734.namprd12.prod.outlook.com (2603:10b6:303:249::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9434.11; Tue, 23 Dec
- 2025 05:51:34 +0000
-Received: from CH2PR12MB4215.namprd12.prod.outlook.com
- ([fe80::6749:e799:6045:d959]) by CH2PR12MB4215.namprd12.prod.outlook.com
- ([fe80::6749:e799:6045:d959%4]) with mapi id 15.20.9434.009; Tue, 23 Dec 2025
- 05:51:34 +0000
-From: "Chai, Thomas" <YiPeng.Chai@amd.com>
-To: "Su, Joe" <Jinzhou.Su@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/ras: Replace NPS flags in ras module
-Thread-Topic: [PATCH] drm/amd/ras: Replace NPS flags in ras module
-Thread-Index: AQHcc8/snKQt4LTlQE6Pp9r+KeG+yrUuuLWg
-Date: Tue, 23 Dec 2025 05:51:34 +0000
-Message-ID: <CH2PR12MB4215ACC06A8F9B1C214A1786FCB5A@CH2PR12MB4215.namprd12.prod.outlook.com>
-References: <20251223054917.1498759-1-jinzhou.su@amd.com>
-In-Reply-To: <20251223054917.1498759-1-jinzhou.su@amd.com>
+ 2025 06:48:19 +0000
+Received: from CO6PR12MB5411.namprd12.prod.outlook.com
+ ([fe80::286:570b:1fe:3c85]) by CO6PR12MB5411.namprd12.prod.outlook.com
+ ([fe80::286:570b:1fe:3c85%4]) with mapi id 15.20.9434.009; Tue, 23 Dec 2025
+ 06:48:18 +0000
+From: "Deng, Emily" <Emily.Deng@amd.com>
+To: "Guo, Bingxi" <Bingxi.Guo@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+CC: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Support fork process
+Thread-Topic: [PATCH] drm/amdgpu: Support fork process
+Thread-Index: AQHcczKDtEXX0OCmVU+0Me71cNgnVrUuycbA
+Date: Tue, 23 Dec 2025 06:48:18 +0000
+Message-ID: <CO6PR12MB5411CD3525B6FDA6C287764E8FB5A@CO6PR12MB5411.namprd12.prod.outlook.com>
+References: <20251222110146.464367-1-Bingxi.Guo@amd.com>
+In-Reply-To: <20251222110146.464367-1-Bingxi.Guo@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-23T05:51:21.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-23T06:48:03.0000000Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution
  Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
@@ -63,85 +66,85 @@ msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH2PR12MB4215:EE_|CY8PR12MB7754:EE_
-x-ms-office365-filtering-correlation-id: 8130bf87-45bf-43e0-7194-08de41e754ad
+x-ms-traffictypediagnostic: CO6PR12MB5411:EE_|MW6PR12MB8734:EE_
+x-ms-office365-filtering-correlation-id: 1d7f00a6-9aab-4c42-54f3-08de41ef41a5
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?TidnNK+nHlXktHNR6pzFdEB+xsjmzH00GbNyKbEyD8/O/IjV6wuQl+dN0oZ2?=
- =?us-ascii?Q?b0+/SjMoIZ7oOw1Ntmk4UYbKepJkVz1iqDBFPsj6qOXhxGMZN6FA86vL5Hjn?=
- =?us-ascii?Q?rqK171yQiyZQoaaRAH//YxoDisfBPVXUoE6ocHyP1Cdaan20KCroUn58Wzcu?=
- =?us-ascii?Q?XrV++X2dvJlQp+PRUmdFNLorFB+/Hx3bM1s+yyg1ffQQN4kPFYn8TdmJnn8T?=
- =?us-ascii?Q?PXiwdg4dYUIu+dDwbcdVxyvZRTH8yF4K9wx3Xd2Be9EynR7IX5zB322KLW58?=
- =?us-ascii?Q?yzZ4+bGH5cpZHIPfTvXq7dFvK9a7x/u4PeZKCI2ZPBH/tNS1etHaBJsU2xys?=
- =?us-ascii?Q?8RSvt4fz5EbK4kvutiKxOpzPPx+59KbPomzQ8ASm9A3KWS7LYjz0kJreAOL3?=
- =?us-ascii?Q?/JSLp876GTW6yziS8FvgSJMqt8xwlIbYNUCvWXrT9G4oUsoo4XpbcdPubUZr?=
- =?us-ascii?Q?gGdKJZVLqUZUAlRwwatsqwm1FuDspKYsS9ygHfEKBRGvTV2Ozc1R5UjCn4k2?=
- =?us-ascii?Q?gxg92y3i/lsnGF8gmViBbMwZTNSPwJDUNu/qpeqTW4Ur952uzAB27kLi9f6B?=
- =?us-ascii?Q?Bn9MinbqRsworjU/gGu4VgNIGZXKsNTCkt1BV/4LOm29km3bhWb9O/X3Q1Dz?=
- =?us-ascii?Q?W3aVpTPXOV4gz6tWvnIIOF2VX5kQuE3PfVeJ5bdcBavwy4ha3yPGWatAl8IN?=
- =?us-ascii?Q?6cyg4hk2yJGjGOSQGBOsHhi9JblDJjXRdj1W0+SeEZL0PcrABBHjCXLxgsaE?=
- =?us-ascii?Q?0hHEVLlvQxiKzZw8HaTNHFES17NsPuYLmv1/BhhFgWAj+7JYeitCDN59eAuS?=
- =?us-ascii?Q?5qPZnnCv3MQ3MoAiKm7s4AgxOQyEDQA+vONIMVMmx6mmM2H+SA1nmDlIH1Oc?=
- =?us-ascii?Q?Fum2Icmq11bd28TQjxmYNSnzveSaol59E5JvjCyVUT/feTrk7WQRH2fcwE0S?=
- =?us-ascii?Q?kBL8hq1x0g+/eFJKXV0xJKoOqg9Xeqbm+pqnno1yqWoZP+iPjm6/DHDaD8fH?=
- =?us-ascii?Q?HDKt4gZjSITZeQ4kUQlCxq3bjRCXljuw9UHQZ/E3DiEUwlMshfndrIZ/9QO+?=
- =?us-ascii?Q?hn+fPNr+81+x/XAwaeLnduEdB3Tr2xB+MX5C2xs3/S004LcG55sYBjdiwx/F?=
- =?us-ascii?Q?JzExRqec0RVSLS8PkI6EauzPUn+w/wzvDZNbcKm6JHyw3gf1YZoQL1OvnOl7?=
- =?us-ascii?Q?JIwiHxjob5OMfLcPMhvf3YHJU47vPjuch016bwY0TwV19KrmkXR/E+igJfrs?=
- =?us-ascii?Q?Mu3PjSFYhyXr3ZMEwzgn6oenFHTfExk8uMJxAGVPhA3DYwQMw5VehQjX6jn0?=
- =?us-ascii?Q?nvq+D/PgE3/P+d8T716CfP5zcqC+nzI1jHf1hu9D0RZmPyCESRUoHh2QHYva?=
- =?us-ascii?Q?6NjPo3AKgRyKgdRpwNSwCicvptv+rgEE4uVFzqmZAafE0MF1UOsL18zMdqEN?=
- =?us-ascii?Q?Bbxr5hGLPgJYhoF8asdtd5oxA+zdK74ZhqAnaV9wM/o0wA2uixZ0WqS+r5R4?=
- =?us-ascii?Q?FWKCvzxyUj2B422ZRp+OlL249UltrQPHtsgs?=
+ ARA:13230040|366016|1800799024|376014|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?JnReVp9xBBa8cZkFxXn1wuWchbFbOQVJJX9U9sSHavsyyXKbg4CXAT28oCHP?=
+ =?us-ascii?Q?bhv6fqFFZzv9dp2+YyD+2uDl9sJ5IXHEa9SuFYIZ/v/Pk75s/IhD9mnp7DyC?=
+ =?us-ascii?Q?wjx691vod9yNlqxF30XhnjqGKa9S1fvJ2ZYsCnUViOk7UumfgbYTplt5tMDx?=
+ =?us-ascii?Q?B1Ah1fVnIupv1Y492LfmuqGa9AIr5DHsSxglBM7PfcVkJbPBDhA2a650D364?=
+ =?us-ascii?Q?06LxM2oS2l4SAAVbmXss3wjepL8P8tLh7di9fwJbIkTqjwBzE/UQluhis78f?=
+ =?us-ascii?Q?tseo7D1ev7zgVQ4pIeLhtffsHHhn+j9UD5rKq7Tvh8VKrFtbR+flSwaQAE4K?=
+ =?us-ascii?Q?7WPwjYtxK9F0UCCLF6mxhvoM8AxCkZlBANhsKXXdR+KPDTAGV0O5N5ByiWnz?=
+ =?us-ascii?Q?VP9zPFWVttGxMzYSy2w26QoVoi+gwbUMTVyInhgwxRJojtaRgN4+oQvVC8pe?=
+ =?us-ascii?Q?/JXNVMy1KRGmgZF9m4lJ6DC+YrWeHIcVUJw1c3PGFe4CvgvtGcofSsuvdnwJ?=
+ =?us-ascii?Q?GDi9qT6z37w9wzs52+gngWg8O2WTUjOMNE41/GyfOtWxzqBQruObjxVmxCh3?=
+ =?us-ascii?Q?37vEalQSLw/CyoEMrQp1uEQgk9wERrCS/SiXLpZ1XzoRnv++3U8tyhHVPh9F?=
+ =?us-ascii?Q?MjE+XeHoTzDFjOQ1xjYUTnb0opZ7IZfP7yOWJEl03cMJ7aAqG+5RbNWHUu6J?=
+ =?us-ascii?Q?trkaJsHyEdtajs2+HfMccgWUE8AeM8e3zsBiZ63AaqrNegjlbXusktlxA24O?=
+ =?us-ascii?Q?w8ZiiSLs9G572cXSyMKQ82vwGGIT+KSk/YJmvh9LCV5iEJpMYRGRbGx5sUfd?=
+ =?us-ascii?Q?Ihg6icoQMiLaBrIpUaM0Cli5bGgXeyqYDIWPYzxN830GMa8US7ZGY/RCWvtw?=
+ =?us-ascii?Q?bgBzYSUshpbi7UOpilitljmJnF8UQUmrcJ3IPE1cooXp6t/5Q2FgomLH9j/B?=
+ =?us-ascii?Q?N+wQAjqUmrtZg8j+PuXzT/efPl7bXZPoqq3jANvt2+7IsopJXqG6yCerLW9p?=
+ =?us-ascii?Q?TRjq8UNyo7sewK6FUD760mk1aHsc/hejI/oZYIPgOgzcRlSXVZ2RaxRx5Bhx?=
+ =?us-ascii?Q?kI+smfInKaiY+fiYEPGkpU4SCDqpwNeUHyXWMnH6IketxK61bv9CBZ+Mq2kU?=
+ =?us-ascii?Q?otkrwWkxlaTrRHY27eUSlMhVh7B+3df9Dbpq86KwXB15NLGlndE6kF2t4f3f?=
+ =?us-ascii?Q?vgw+Zy9KH4uiKfFrL5RQoufEUsSvWuwOHWOGKWV3xKo6pdDRqwBo6ZIlmG0j?=
+ =?us-ascii?Q?1jLf3Yxp8ikaCbdwTSbbEWccskRv4cLhoqHK33BiLk8de6tNjrM5gtw623xh?=
+ =?us-ascii?Q?Fx0R+LkzGRkyEa8HsZPCt0U/D3cxIU/eQWMmISQnPw0nQe3FKOfpzYB6HX2g?=
+ =?us-ascii?Q?X2HmGW6TvEiF4jIS0roebUn/L4E9zuJwEQvUdhgMbWj79t0jBsaFfc241b7F?=
+ =?us-ascii?Q?P26Hrfnpy5r2Mg1174m7aGTr5z8zf1g2/FLXsrbCVe8/N85Uh5mv9930Tr7S?=
+ =?us-ascii?Q?497BkOfu4zc0VgP+Xzs82OFfG24WoIRBuSlg?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4215.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700021); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5411.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(7053199007); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OmaF2jaZOZEPL4DgvXJapyCyL9sIwO2BKwI6R9Pl6Z0EjzypzG4fHVA89CSN?=
- =?us-ascii?Q?98KY+eK2l1G713HD+doyNC3zANK0zCj6ai08cmYXp64oLncXbIU9NwzOPb8y?=
- =?us-ascii?Q?FRDSVbAuWFeiEo2+BxX2sLRdNB1m09GcGb3MSSD+gO+bSgozpfyRNYXZnkDp?=
- =?us-ascii?Q?vbCSEMRhG+ERlCcA+vTTamN4Pd/qlFI+TNVd9C6JOIDiu/D6Lc6Lnviia9bw?=
- =?us-ascii?Q?/kIfmCdlZyxhNoRi5p/LhZ/5A0R/UBG+YGHRS+V5/8jVLzuQYJJiJ4kalAcy?=
- =?us-ascii?Q?HflUI0HA+ULYSvhngmWa2t//seSdlwy+cL/lw/Wd1FsZIzpPFlo6Q0ATzlC5?=
- =?us-ascii?Q?SGxKdl/OOJjfaCf81qG9l2kYPf1ngHI//CI0+bJvlPvn2YCBWXN1hCo9ejWe?=
- =?us-ascii?Q?J6ow5J69QsiyM4N8JWuW2jUK1rkUZVE5cdGH+AMfodgb5zqkCaWwKG0AFpVT?=
- =?us-ascii?Q?arr8mDTtLlExfOQUCqPj+h4cHk8lZOX/tGcxNBp1aXIneFOrgLctDnYYGNd4?=
- =?us-ascii?Q?hBEeTevCK3LWoBex2aX3hZ8jQ+ksSXLtq8uRf2jET/xonEdK7H2VErIpzA41?=
- =?us-ascii?Q?IhjvHKxkN0CD1vlV28NFP/isSdDgPz78fnGgUt7dCeqmtLcvjtb+TZJ1dmYu?=
- =?us-ascii?Q?RBzywo+U/QGrXhOAqcoOLEDW6616lJ9AqeEfFsJvadf2somyIqIK4A9UR0AV?=
- =?us-ascii?Q?gOaNXrXcqaOU//LBOcsMp1iQUHEEjk54Xll2oy9QXX7tsC0mFJo0fiq54EDm?=
- =?us-ascii?Q?udOysnhFOAW4UIEPxSZd9Nnsq6XJhJmvohI2vZSgNXdVzWzXA5lAZ9fNdznu?=
- =?us-ascii?Q?hPPydgEDswhayybns1zTVTDI/5RkIszuFixsZFPoOSK6M/0or9WZN+C9qtYq?=
- =?us-ascii?Q?h2XNlC1gLlTSxeE7+DKUS/Wu4UqX3mhaSxxhObqkjn0TmI6tiuoHYXdpJ/7T?=
- =?us-ascii?Q?Uwl3I4D4P9uHa6NyGznKPRDJDpQ027llFd1v+kMeMmisV13a9zpQygjC+u9D?=
- =?us-ascii?Q?tME797MBD1gBkr/6LTpz2YgQVQGxCO9E95Pm0SwrhJwmeazNAdu502yt0+dZ?=
- =?us-ascii?Q?/jWjp0J1DCtr+DOK+93XONxW6N48oBy9GVjk60OOgxU5F+2cP2FjPa/IcsKU?=
- =?us-ascii?Q?ciL8vo6YwX1vNxzD8LS19OSXbH63qMVYzvJReVyh65EVPOWH1L0hhZHvnUkC?=
- =?us-ascii?Q?Cu57cl08bZBpMdXMPqcpZDvIo8OqENYzhB9YHtfUrWV4Jrod3yKUXs8c+fJZ?=
- =?us-ascii?Q?FiwGT62YdB/Scrzp9iecaGHzvTQZbd3pNnXOANrGHPCoPIuoSXTvssCLz5Cr?=
- =?us-ascii?Q?Diof6jiCLy9lXknKqRD+9U/rhKFfKKRU9x04cFzcTJR4E8/Vi/Liakpwk+dH?=
- =?us-ascii?Q?uXbsRVNH/Dx5v65yLaZaVLn/AUZVg19z3Q85nW3BYXWLaw633jAdcjTjoLUO?=
- =?us-ascii?Q?ye0R6YOHHbBLmmcQRX+lPZWnr8gXrQ+PG06+PmdtnxZbcfMHKRCBq8C6uYu4?=
- =?us-ascii?Q?kopUKJbab9urxDc3Zkt4vojhwqtvXOzoJy3QCNY1CN3wT8A2gKWGlGzYhgNj?=
- =?us-ascii?Q?hvMWItmho5GpmPFCcWuKVesJWjm2LGOXGXzSgDrcfYqfNsG6OOWBDWuQdVgM?=
- =?us-ascii?Q?pQj9S4QBIpCSKhmAi/jAP4Cc5ry2vwOIdKxprwkKA8rh7ajH3TBxs+QDgF6t?=
- =?us-ascii?Q?4iV/cC94dsjsZFml0y1d+k3HfP5UzK1koO1v/jSEssahy3tc?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?waOX1dvCdZ7Y7sRBxPp7+mdfTdXYrIF3+pRKoKnJ5/nmz5LhKdv34VqlLZDo?=
+ =?us-ascii?Q?rmtjxvCNRjlutF589tneFjAMdtOUgvKcrwQCg8YkOn/9dQ5dhuyGb4H/C6nI?=
+ =?us-ascii?Q?M4OtzTIkbxB5++irFRv2hZHx2zzAcvvwau93szqM0Obl5PwT8C/A/PRZHPSa?=
+ =?us-ascii?Q?c/IZUZmrxnTaT8aCjJmYTl8mH4H/R0UEaPzdXSK3tzf8q3TgX4r5LSNW2mRa?=
+ =?us-ascii?Q?EJnJPX5+JhtBHrWCD0FEZW5uQqMWWcVtLQvDw4NOpu+wXYvrtyxq+bYnhO3S?=
+ =?us-ascii?Q?U9s080qEW0yxClcl3mFIEgxB923njhKXNxB0e3g6UhuzhsgDeQvN5IUYPQQs?=
+ =?us-ascii?Q?Og/Fyhp8fDM1S1pO3toEFxZHwEzL5beJJx53P/Q1IVg/HPL2v12hR4+G+Pbt?=
+ =?us-ascii?Q?TiYBISIzk7dztk56L2EJI+y+lY7uHwX8+WxyvGf2NcBYSkEmRT1yXVwFsqI5?=
+ =?us-ascii?Q?GGHMVI/fcCkWHfbY/y1Ce2MwcLsg7z+BYOy8qpnIF4WnMjQ3qu5v3RaIDalf?=
+ =?us-ascii?Q?J4cW4Blu087ismzjy48qbcnL5DBqQ6vn1Kb4BVlEgcoySDEerJ+S6NEDWWXa?=
+ =?us-ascii?Q?/nMbqqkSD5juy0bBc66PzTqhXcha7SSpRcc5XKRsogsuvjGmVIiXic5/4yBi?=
+ =?us-ascii?Q?Sq+XZab24z69POTKI2pCS5yR19pgp8xitsNW8dI+4ln0XHXq1F5OtiDQZBWY?=
+ =?us-ascii?Q?ZCF8AdFkWvq3xyZ8vW8t4wYFhVIMM1JVuHR6p5eTD3Am4iiWctRuVcXdmLA/?=
+ =?us-ascii?Q?sfIORPPtoWx3gVyjKpZgWyJ9Zweac1Da4xvIOqlHaRN1v6jK682XohdIBL7s?=
+ =?us-ascii?Q?E071C7672Sg2mMjEbS+OUldvQkaePvio1KHtYfY6OidEE3LORBTOXBMfvc31?=
+ =?us-ascii?Q?PN7SvfHlPy02bbgJ1D9GcWwaIYYvxFJgHC4BAoyEgQwp3AUto7VwWxZwkknG?=
+ =?us-ascii?Q?1MEOUhx9cacfmxLqgHP/uRI5KRjDy46jBrFaJDVfyTuQWrg0qj3exfUjA7CG?=
+ =?us-ascii?Q?B8CVrFkRfMxhd2k3D6Qw9eaEDkhKFnNUuiP2T9hD9uIqDRcAbfi/9fYSZjD1?=
+ =?us-ascii?Q?W5tg/Nxrx2dWk80hBQWf8rSdQNpl3QQOLZXaKKh8kyJe0qDjnx7xf1AYTVPp?=
+ =?us-ascii?Q?VHh7SbvPqFu9H1ZQqdN+/rZZfn4T6MoYiNXbKBGWFEQJp7CSLNrNHdJdT9bo?=
+ =?us-ascii?Q?Bi9SZ42fD9Z8ppFPRES6lsC0xFG/K5bNNN4fTkS3C/NGEjDrw+JDKdd6lgMp?=
+ =?us-ascii?Q?dFaZvLJ7beL5JCXr1pbSv0cSJmqyeUXgJcZdSlPT+naFYrXk981kSyhBt2Ag?=
+ =?us-ascii?Q?lX3uklEDlBgw4D1FA8nT1w/3cN47Ag92rKQRnZHC+KtxDAiM7EJ/NWuY35NY?=
+ =?us-ascii?Q?5S2E/sJzU8EH8FAla1hRRxekHZNXIm2BssaJSaB8Nj1XhKDE8aa7udSjGJZd?=
+ =?us-ascii?Q?iJjUeDgSz09Hu6qZ+g4RLr2Es4/qxp5525nFxS51vBtmmnenPIBzB9prDCLH?=
+ =?us-ascii?Q?f52Snv3eohJQrlCLeQjlXDlL4/D3pN1F6fZTklrGnPvOS8bTeIQZRh8yCXqN?=
+ =?us-ascii?Q?37ixYlvp5b1T3/fUMrfjqX+oEx/47w+YyhuYUY2aMIgz5Neojqq7Z0BITr4d?=
+ =?us-ascii?Q?9mo0v85xvRmWgZ5AJ6/9jXd9Pjz5djs0nxDlMsPJ08b3llkzaJtIDaaAXwUN?=
+ =?us-ascii?Q?5rIwBgD2FN5bhyQoRrxgx9DaiI//clLMHtTa75o/spOvvVRd?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4215.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8130bf87-45bf-43e0-7194-08de41e754ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2025 05:51:34.6862 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5411.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d7f00a6-9aab-4c42-54f3-08de41ef41a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2025 06:48:18.6844 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vWrmIGbda4m3Wm5F4n217/pAc1ebyJb/n4TI3hXHS2avs8XQfkFqkl5DYaYEyQxDcpmEmBH5GjQLoFmt/b3ZXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7754
+X-MS-Exchange-CrossTenant-userprincipalname: x74vByk1l/TG+OQhL1FVsMTtiZgd+3wu6UPfxtmV60ydQ71o0heqAUk4Wv9/XTDB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8734
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,38 +161,311 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Add dri-devel@lists.freedesktop.org.
 
------Original Message-----
-From: Su, Joe <Jinzhou.Su@amd.com>
-Sent: Tuesday, December 23, 2025 1:49 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Su, Joe <Jinzhou.Su@amd.com>
-Subject: [PATCH] drm/amd/ras: Replace NPS flags in ras module
+Emily Deng
+Best Wishes
 
-Replace AMDGPU_NPS8_PARTITION_MODE with
-UMC_MEMORY_PARTITION_MODE_NPS8 to pass sriov compilation.
 
-Signed-off-by: Jinzhou Su <jinzhou.su@amd.com>
----
- drivers/gpu/drm/amd/ras/rascore/ras_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/a=
-md/ras/rascore/ras_core.c
-index 7e70560b590b..f2fccdf5e329 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-@@ -613,7 +613,7 @@ int ras_core_convert_soc_pa_to_cur_nps_pages(struct ras=
-_core_context *ras_core,
-                return -EINVAL;
-
-        cur_nps_mode =3D ras_core_get_curr_nps_mode(ras_core);
--       if (!cur_nps_mode || cur_nps_mode > AMDGPU_NPS8_PARTITION_MODE)
-+       if (!cur_nps_mode || cur_nps_mode > UMC_MEMORY_PARTITION_MODE_NPS8)
-                return -EINVAL;
-
-        memset(&record, 0, sizeof(record));
---
-2.43.0
+>-----Original Message-----
+>From: Guo, Bingxi <Bingxi.Guo@amd.com>
+>Sent: Monday, December 22, 2025 7:02 PM
+>To: amd-gfx@lists.freedesktop.org
+>Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deng, Emily
+><Emily.Deng@amd.com>; Guo, Bingxi <Bingxi.Guo@amd.com>
+>Subject: [PATCH] drm/amdgpu: Support fork process
+>
+>When a process forks, the child inherits the open DRM file descriptor.
+>If the parent is killed (e.g., by SIGKILL), only the parent's jobs are can=
+celed. The child
+>process can continue submitting jobs to the same entity through its own us=
+er entry in
+>the entity's user list.
+>
+>Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+>Signed-off-by: Bingxi Guo <Bingxi.Guo@amd.com>
+>---
+> drivers/gpu/drm/scheduler/sched_entity.c | 133 +++++++++++++++++++----
+> include/drm/gpu_scheduler.h              |  22 ++++
+> 2 files changed, 135 insertions(+), 20 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
+>b/drivers/gpu/drm/scheduler/sched_entity.c
+>index 8867b95ab089..508a0629b839 100644
+>--- a/drivers/gpu/drm/scheduler/sched_entity.c
+>+++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>@@ -110,6 +110,9 @@ int drm_sched_entity_init(struct drm_sched_entity *ent=
+ity,
+>       atomic_set(&entity->fence_seq, 0);
+>       entity->fence_context =3D dma_fence_context_alloc(2);
+>
+>+      INIT_LIST_HEAD(&entity->users);
+>+      spin_lock_init(&entity->users_lock);
+>+
+>       return 0;
+> }
+> EXPORT_SYMBOL(drm_sched_entity_init);
+>@@ -228,10 +231,24 @@ static void drm_sched_entity_kill(struct drm_sched_e=
+ntity
+>*entity)  {
+>       struct drm_sched_job *job;
+>       struct dma_fence *prev;
+>+      struct drm_sched_entity_user *user;
+>+      struct spsc_queue temp_queue;
+>+      pid_t my_tgid =3D task_tgid_nr(current);
+>
+>       if (!entity->rq)
+>               return;
+>
+>+      /* Mark current process as exited */
+>+      spin_lock(&entity->users_lock);
+>+      list_for_each_entry(user, &entity->users, list) {
+>+              if (user->tgid =3D=3D my_tgid) {
+>+                      atomic_set(&user->exited, 1);
+>+                      break;
+>+              }
+>+      }
+>+      spin_unlock(&entity->users_lock);
+>+
+>+      /* Temporarily stop entity to prevent new jobs */
+>       spin_lock(&entity->lock);
+>       entity->stopped =3D true;
+>       drm_sched_rq_remove_entity(entity->rq, entity); @@ -240,27 +257,59 =
+@@
+>static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>       /* Make sure this entity is not used by the scheduler at the moment=
+ */
+>       wait_for_completion(&entity->entity_idle);
+>
+>-      /* The entity is guaranteed to not be used by the scheduler */
+>+      /*
+>+       * The entity is stopped and idle. No new jobs can be pushed.
+>+       * Scan the queue and separate jobs:
+>+       * - Jobs from this process: kill immediately
+>+       * - Jobs from other processes: keep in temp_queue
+>+       */
+>+      spsc_queue_init(&temp_queue);
+>       prev =3D rcu_dereference_check(entity->last_scheduled, true);
+>       dma_fence_get(prev);
+>+
+>       while ((job =3D drm_sched_entity_queue_pop(entity))) {
+>-              struct drm_sched_fence *s_fence =3D job->s_fence;
+>-
+>-              dma_fence_get(&s_fence->finished);
+>-              if (!prev ||
+>-                  dma_fence_add_callback(prev, &job->finish_cb,
+>-                                         drm_sched_entity_kill_jobs_cb)) =
+{
+>-                      /*
+>-                       * Adding callback above failed.
+>-                       * dma_fence_put() checks for NULL.
+>-                       */
+>-                      dma_fence_put(prev);
+>-                      drm_sched_entity_kill_jobs_cb(NULL, &job->finish_cb=
+);
+>+              if (job->owner_tgid =3D=3D my_tgid) {
+>+                      /* Kill this job */
+>+                      struct drm_sched_fence *s_fence =3D job->s_fence;
+>+
+>+                      dma_fence_get(&s_fence->finished);
+>+                      if (!prev ||
+>+                          dma_fence_add_callback(prev, &job->finish_cb,
+>+                                                 drm_sched_entity_kill_jo=
+bs_cb)) {
+>+                              dma_fence_put(prev);
+>+                              drm_sched_entity_kill_jobs_cb(NULL, &job->f=
+inish_cb);
+>+                      }
+>+                      prev =3D &s_fence->finished;
+>+              } else {
+>+                      /* Keep jobs from other processes */
+>+                      spsc_queue_push(&temp_queue, &job->queue_node);
+>               }
+>+      }
+>
+>-              prev =3D &s_fence->finished;
+>+      /* Put back jobs from other processes */
+>+      while (true) {
+>+              struct spsc_node *node =3D spsc_queue_pop(&temp_queue);
+>+              if (!node)
+>+                      break;
+>+              spsc_queue_push(&entity->job_queue, node);
+>       }
+>+
+>       dma_fence_put(prev);
+>+
+>+      /* Check if there are other active users and restore entity if need=
+ed */
+>+      spin_lock(&entity->users_lock);
+>+      list_for_each_entry(user, &entity->users, list) {
+>+              if (!atomic_read(&user->exited)) {
+>+                      /* Found active user, restore entity */
+>+                      spin_unlock(&entity->users_lock);
+>+                      spin_lock(&entity->lock);
+>+                      entity->stopped =3D false;
+>+                      drm_sched_rq_add_entity(entity->rq, entity);
+>+                      spin_unlock(&entity->lock);
+>+                      return;
+>+              }
+>+      }
+>+      spin_unlock(&entity->users_lock);
+> }
+>
+> /**
+>@@ -323,6 +372,8 @@ EXPORT_SYMBOL(drm_sched_entity_flush);
+>  */
+> void drm_sched_entity_fini(struct drm_sched_entity *entity)  {
+>+      struct drm_sched_entity_user *user, *tmp;
+>+
+>       /*
+>        * If consumption of existing IBs wasn't completed. Forcefully remo=
+ve
+>        * them here. Also makes sure that the scheduler won't touch this e=
+ntity @@ -
+>338,6 +389,14 @@ void drm_sched_entity_fini(struct drm_sched_entity *entit=
+y)
+>
+>       dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
+>       RCU_INIT_POINTER(entity->last_scheduled, NULL);
+>+
+>+      /* Clean up user list */
+>+      spin_lock(&entity->users_lock);
+>+      list_for_each_entry_safe(user, tmp, &entity->users, list) {
+>+              list_del_rcu(&user->list);
+>+              kfree_rcu(user, rcu);
+>+      }
+>+      spin_unlock(&entity->users_lock);
+> }
+> EXPORT_SYMBOL(drm_sched_entity_fini);
+>
+>@@ -567,9 +626,40 @@ void drm_sched_entity_select_rq(struct drm_sched_enti=
+ty
+>*entity)  void drm_sched_entity_push_job(struct drm_sched_job *sched_job) =
+ {
+>       struct drm_sched_entity *entity =3D sched_job->entity;
+>+      struct drm_sched_entity_user *user, *found =3D NULL;
+>+      pid_t my_tgid =3D task_tgid_nr(current);
+>       bool first;
+>       ktime_t submit_ts;
+>
+>+      /* Check if entity is stopped and reject directly */
+>+      if (entity->stopped)
+>+              goto error;
+>+
+>+      /* Entity is running, check user list */
+>+      spin_lock(&entity->users_lock);
+>+      list_for_each_entry(user, &entity->users, list) {
+>+              if (user->tgid =3D=3D my_tgid) {
+>+                      found =3D user;
+>+                      /* Reject if this user has exited */
+>+                      if (atomic_read(&user->exited)) {
+>+                              spin_unlock(&entity->users_lock);
+>+                              goto error;
+>+                      }
+>+                      break;
+>+              }
+>+      }
+>+
+>+      /* If not found, create new user (fork case) */
+>+      if (!found) {
+>+              found =3D kzalloc(sizeof(*found), GFP_ATOMIC);
+>+              if (found) {
+>+                      found->tgid =3D my_tgid;
+>+                      atomic_set(&found->exited, 0);
+>+                      list_add_tail(&found->list, &entity->users);
+>+              }
+>+      }
+>+      spin_unlock(&entity->users_lock);
+>+
+>       trace_drm_sched_job_queue(sched_job, entity);
+>
+>       if (trace_drm_sched_job_add_dep_enabled()) { @@ -582,6 +672,9 @@ vo=
+id
+>drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>       atomic_inc(entity->rq->sched->score);
+>       WRITE_ONCE(entity->last_user, current->group_leader);
+>
+>+      /* Record owner TGID */
+>+      sched_job->owner_tgid =3D my_tgid;
+>+
+>       /*
+>        * After the sched_job is pushed into the entity queue, it may be
+>        * completed and freed up at any time. We can no longer access it.
+>@@ -597,12 +690,6 @@ void drm_sched_entity_push_job(struct drm_sched_job
+>*sched_job)
+>
+>               /* Add the entity to the run queue */
+>               spin_lock(&entity->lock);
+>-              if (entity->stopped) {
+>-                      spin_unlock(&entity->lock);
+>-
+>-                      DRM_ERROR("Trying to push to a killed entity\n");
+>-                      return;
+>-              }
+>
+>               rq =3D entity->rq;
+>               sched =3D rq->sched;
+>@@ -618,5 +705,11 @@ void drm_sched_entity_push_job(struct drm_sched_job
+>*sched_job)
+>
+>               drm_sched_wakeup(sched);
+>       }
+>+      return;
+>+
+>+error:
+>+      dma_fence_set_error(&sched_job->s_fence->finished, -EPERM);
+>+      drm_sched_fence_scheduled(sched_job->s_fence, NULL);
+>+      drm_sched_fence_finished(sched_job->s_fence, -EPERM);
+> }
+> EXPORT_SYMBOL(drm_sched_entity_push_job);
+>diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h ind=
+ex
+>e62a7214e052..45e066596405 100644
+>--- a/include/drm/gpu_scheduler.h
+>+++ b/include/drm/gpu_scheduler.h
+>@@ -59,6 +59,16 @@ struct drm_sched_rq;
+>
+> struct drm_file;
+>
+>+/**
+>+ * struct drm_sched_entity_user - Per-process entity user tracking  */
+>+struct drm_sched_entity_user {
+>+      struct list_head                list;
+>+      struct rcu_head                 rcu;
+>+      pid_t                           tgid;
+>+      atomic_t                        exited;
+>+};
+>+
+> /* These are often used as an (initial) index
+>  * to an array, and as such should start at 0.
+>  */
+>@@ -233,6 +243,13 @@ struct drm_sched_entity {
+>        */
+>       struct rb_node                  rb_tree_node;
+>
+>+      /**
+>+       * @users:
+>+       *
+>+       * List of processes using this entity (for fork support)
+>+       */
+>+      struct list_head                users;
+>+      spinlock_t                      users_lock;
+> };
+>
+> /**
+>@@ -385,6 +402,11 @@ struct drm_sched_job {
+>        * drm_sched_job_add_implicit_dependencies().
+>        */
+>       struct xarray                   dependencies;
+>+
+>+      /**
+>+       * @owner_tgid: TGID of the process that submitted this job
+>+       */
+>+      pid_t                           owner_tgid;
+> };
+>
+> /**
+>--
+>2.43.0
 
