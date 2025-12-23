@@ -4,47 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9059DE6FE29
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 18:27:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0757FE6FE23
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 18:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32CCA10E29F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0AC010E2A6;
 	Tue, 23 Dec 2025 18:27:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=glanzmann.de header.i=@glanzmann.de header.b="Q/r+nB8/";
-	dkim-atps=neutral
-Received: from infra.glanzmann.de (infra.glanzmann.de [88.198.237.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B0C410E090
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 19:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glanzmann.de;
- s=infra26101010; t=1766433553;
- bh=n4vV1nGpuRm9LTqM+KPrcwt37mH3VoE63k5c3/LHKzU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Q/r+nB8/xrL2SG0+37atlfLw++7KadiSkwxeuWm+yqPTFCZlKDT3bNIisXU4lfGmI
- rGyLYJqvTnAjEnPEb67rZUDY2bdOnBouCqCyOq/JDCKP49cbXeiKkzVobFaGrzb5ei
- nYYBeF/3RAUmmHwQ6ZTXvrv+YsU4lMr3Li5f+DCgkL58m+aHoK/jnhKPMTXkmdLssw
- m4clI17CGHschG1LpEo8EhYVP3T7L31F3NwqFzczlyNLQA9FT2xzj5kG7FeBHfWv4u
- U61nC2HztzZhJAaM8Poa9oURnLtvCjT6XnJRAQpIGuMrb9VSRme91k8rhSLkcY8Ykz
- lmd8om5GCagRbO+LxshNOR4qHSfEzFK5j5JPFwKy+sQlDKIuCbbU+LXkePNUz/vAiT
- lT2SAX+9XZdTuaGva+yM5tqgb9rQnZwaQFsHiQmjvF7K1LFhyLR5DCP+gwpY4oUfee
- rZj53Es2lKBhA9m1FXxsuuy45v1lTWOnD5ROIpCc3PE+P3CQlFLEYnhaCO4rLICAcF
- OAdzJ6/Gd+kBc6vsPrDWivR4K29hVo+/BRnhq/EQeW+JhWl3PfGn4Vz/aZq0jwNkdG
- rO1NewpTFPqRfhY/JPuFB2G3RhA7aK0Fxghvp72UAQ1Jr2/HQFfoqOXtygu/0Wt+6u
- 4lFjj+GUEuOI0GvbFw5ITmYs=
-Received: by infra.glanzmann.de (Postfix, from userid 1000)
- id B66931EF854; Mon, 22 Dec 2025 20:59:13 +0100 (CET)
-Date: Mon, 22 Dec 2025 20:59:13 +0100
-From: Thomas Glanzmann <thomas@glanzmann.de>
-To: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: amdgpu: [drm] AMDGPU device coredump file has been created
-Message-ID: <aUmjEQ0a47_OeWbR@glanzmann.de>
-References: <aUjiv4TnoVJ9LysI@glanzmann.de>
- <2575679.XAFRqVoOGU@timur-max>
+X-Greylist: delayed 455 seconds by postgrey-1.36 at gabe;
+ Tue, 23 Dec 2025 15:39:38 UTC
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3343A10E14C;
+ Tue, 23 Dec 2025 15:39:38 +0000 (UTC)
+Received: from [192.168.0.114] (unknown [114.241.82.59])
+ by APP-03 (Coremail) with SMTP id rQCowABnhdzstUppR2S4AQ--.711S2;
+ Tue, 23 Dec 2025 23:31:57 +0800 (CST)
+Message-ID: <5ea0ff13-04b3-4b2a-80e2-4f87146d00d5@iscas.ac.cn>
+Date: Tue, 23 Dec 2025 23:31:56 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/radeon: bypass no_64bit_msi with new msi64 parameter
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Arnd Bergmann <arnd@arndb.de>, Han Gao <gaohan@iscas.ac.cn>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
+ sophgo@lists.linux.dev
+References: <20251220163338.3852399-1-gaohan@iscas.ac.cn>
+ <e86b823f-5e83-4105-8e4d-1db141d088a4@app.fastmail.com>
+ <2ab9f73d-ef7b-40b3-b2bb-650f83ac236f@amd.com>
+Content-Language: en-US
+From: Vivian Wang <wangruikang@iscas.ac.cn>
+In-Reply-To: <2ab9f73d-ef7b-40b3-b2bb-650f83ac236f@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2575679.XAFRqVoOGU@timur-max>
+X-CM-TRANSID: rQCowABnhdzstUppR2S4AQ--.711S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF1ftFyUZF18KFWDCw1UAwb_yoW8urWkpa
+ y5CFWagrn7tr47K39rZa1xXF1fZw4IgayrXFn0kryfC3y5Ar17KFW7Ar4ak3W8Xr1vkr4I
+ v34Ig34xuFn0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07betCcUUUUU=
+X-Originating-IP: [114.241.82.59]
+X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
 X-Mailman-Approved-At: Tue, 23 Dec 2025 18:27:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,38 +71,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Timur,
+Hi Christian,
 
-* Timur Kristóf <timur.kristof@gmail.com> [2025-12-22 16:36]:
-> Which GPU do you have? Are you using the iGPU from the 7950X?
+I have a question about this 40-bit restriction.
 
-yes, I use the IGPU from 7950X.
+On 12/23/25 22:55, Christian KÃ¶nig wrote:
+> On 12/22/25 22:32, Arnd Bergmann wrote:
+>> On Sat, Dec 20, 2025, at 17:33, Han Gao wrote:
+>> [...]
+>>> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c 
+>>> b/drivers/gpu/drm/radeon/radeon_irq_kms.c
+>>> index 9961251b44ba..62eb5a6968ff 100644
+>>> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
+>>> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
+>>> @@ -250,7 +250,7 @@ static bool radeon_msi_ok(struct radeon_device 
+>>> *rdev)
+>>>  	 * of address for "64-bit" MSIs which breaks on some platforms, 
+>>> notably
+>>>  	 * IBM POWER servers, so we limit them
+>>>  	 */
+>>> -	if (rdev->family < CHIP_BONAIRE) {
+>>> +	if (rdev->family < CHIP_BONAIRE && !radeon_msi64) {
+>>>  		dev_info(rdev->dev, "radeon: MSI limited to 32-bit\n");
+>>>  		rdev->pdev->no_64bit_msi = 1;
+>> According to the comment above it, the device can apparently
+>> do 40-bit addressing but not use the entire 64-bit space.
+>>
+>> I assume the SG2042 chip has the irqchip somewhere above the
+>> 32-bit line but below the 40-bit line, so it ends up working.
+>>
+>> I wonder if the msi_verify_entries() function should check
+>> against dev->coherent_dma_mask instead of checking the
+>> upper 32 bits for being nonzero, that probably gives you
+>> the desired behavior.
+> Again completely agree, that sounds like a plan to me.
+>
+> IIRC the modified code here is basically just a workaround because the MSI control dword on older radeon HW was not setup correctly.
 
-> Also for these kind of issues it would be nice to mention details such as:
-> - Kernel version, Mesa version, amdgpu firmware version
-> - Does the crash still happen on a recent kernel?
+Does this mean that on Bonaire and onwards, MSI can reach full 64-bit
+space, while DMA still only does 40-bit?
+(drivers/gpu/drm/radeon/radeon_device.c sets DMA mask to at most 40 bits.)
 
-Yes, I can reproduce the issue with 6.19-rc1.
+If so, checking coherent_dma_mask would be wrong for those devices.
 
-> I suggest to open an issue in the drm/amd bug tracker with all those details:
+Do you think maybe it would be safer to introduce a msi_addr_mask for
+occasions like these? We can have msi_addr_mask = DMA_BIT_MASK(40) for
+pre-Bonaire, and then the ppc PCI stuff can check the mask and see if
+it's usable. Probably something similar for hda.
 
-I opened an issue:
+Vivian "dramforever" Wang
 
-https://gitlab.freedesktop.org/drm/amd/-/issues/4813
-
-> Unfortunately, the dmesg log is not actionable. It shows that there was a GPU
-> hang, but there is no indication of what was happening. It does show that
-> there was a successful GPU recovery though. Does your system stay usable
-> afterwards?
-
-No, the sway/wayland session freezes.
-
-> If you know that the system used to work well beforehand, the best
-> would be to tell us which kernel version used to work, which is the
-> first version that broke and bisect from there.
-
-I tried to get to a healthy state. Unfortunately I was not able to do
-so. But I keep trying.
-
-Cheers,
-        Thomas
