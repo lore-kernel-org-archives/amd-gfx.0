@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50CC0E77361
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 15:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0148E7545C
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 15:51:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E091510FF49;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2AA310FF4A;
 	Wed, 24 Dec 2025 15:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="GjlchcBK";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="DniB2l6i";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27E9210F87E
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01CF810F912
  for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 14:47:17 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-42fb0fc5aa4so4756566f8f.1
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-432777da980so110060f8f.0
  for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 06:47:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1766587635; x=1767192435; darn=lists.freedesktop.org; 
+ d=suse.com; s=google; t=1766587636; x=1767192436; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Hj0iAOC3x7YMFIhG9hf7cZjPZjj1pyUiQuk+2YzLAvQ=;
- b=GjlchcBKAFCOlfFh7j4MGg81Euxc9HCzhPEtGyrQgHegPWVC9rtpAp9glFSyW9AVSW
- zkoZZaQQsWhgkeRI7lOab83h10UfD9/0ER+tW0elYZZKTJ41Ylb8pczhvd5gVrMTmrVw
- Se79evecAc6b6VRxt805KzsLusUpEutWfSEB/q89ERXsuBg67MU9SBm0QEbuGaoVttWx
- 4wXDHOoQ7AqpLNd0av5oRi0nPdT4oEt8Hqxi27Cp4WUoVGtaeTFELJ/4ap4R+odF/KEL
- 8VMhxXk9fazy/h8qFqzzXuC5loO4HZ2hEWc6r+RFMQcHm9LqBzLtMtauS2Vk25BkZyye
- iXwQ==
+ bh=6w04AZ/GEQWzqj88Pa+mb0oh1dp7KzimF/pV3oqQCH4=;
+ b=DniB2l6iY6bo1ProbUVjQWU6ztOs83mk+/fygckOlwmkvEup4ZEsaZgber0t/jjYT2
+ c8Fx5n6THHyH8JxVa2l3pfda4eZbS/XYrFb//wxjSZQNi+Zvxk51O3NUL1Q+Rjy4e5L2
+ 44gQfY/eucLmWpKvSOCslD+abhuPqp4A10DjgTsFYDxUBI7yBtKqXGjSgH7QAF6UKYwt
+ 9h0AqYjSnlIAA83XGnzc2hVVQBzsSXonB8N8KU9y7Vm3ri4sclM1FP8u6AwwmBCl4qqp
+ QwyqkqlW/D8y+U0rnW7qwQyXVU7K+QPdpo32B/toFUuJC8I1Tmde/eJ1T3YQcCV759F1
+ RngQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766587635; x=1767192435;
+ d=1e100.net; s=20230601; t=1766587636; x=1767192436;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Hj0iAOC3x7YMFIhG9hf7cZjPZjj1pyUiQuk+2YzLAvQ=;
- b=rFASV+QRmWj9T3sxuqzVb5NzrX/ACMR4Lc6Bjs6RnhQayAtfhYws6v7QfUVMI0VyXU
- y+rX7B/UePsfcHQYkFHXKUefUY2YanLtCa1WMF/VF9+5Vemuf9F0kunJekMFQ7EsmddI
- 6dI2ZvYZRNHeRYIG/akNpbLL18c/vG+mkaD67AL8zIEnRVcT1NzRfpITMZc7dXcbZgbD
- +A1JXphP+b3aAbpLxybiQxBSIDIfvNWH9dE3hJ/Ybld4VHrg6kFAstqiXxidsAhhpNW8
- ueRmxElTCuyIgrvtVp0NXCnssCAkJPnVsoFI3ZInSZTDhxV7pCl7PNhDYmB94UI7EK3u
- R7qA==
+ bh=6w04AZ/GEQWzqj88Pa+mb0oh1dp7KzimF/pV3oqQCH4=;
+ b=t4eMnEZAJChHhHi1eGxKI2cgH1Hk/y0bsUMhLmLBxvusvV7tcwy9mUc6ByTtUAxml7
+ 60Skg2dqqh2+cX86tyGzRdNJLXDaJ46mnZYXEAP0SKBzDnIaHeUQn0NjboSjXOrg8jfP
+ F6vsK8A7A+TuDZAf+9aucMfkYc6qmKRP84U5N8uv/8FlDZJVb1hs9WbX+xI2vD9E//EX
+ pNtYOWr2Bn3eObMccj5vipOuJIiR92xPSURF9yROAz0xI3p7H2Pm/JOnGk4iNANsY+bj
+ dKCrKSvpF8pHqB+qFhpDiFMD66hJ/0fLU2lTV/TCrDweZkQ7IMgPdyVeNuuozGLfnfJY
+ TzMg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUq1ay1pBsoX9PaM8IVMSfknZjI22I3fxUHX5eKzKBPx5WCmAzM6Kzf5DHybGn8exreVgs1TCGJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz95OEjHojLVCDq2kcfDtzItZwRLyi/Yzf2Cm0b3h1QHpSDn1Sj
- sft7j25O/dZgkwOGHCChAXUmYDjKrARl6FfxDZt0miY8KXomkkjcE/I7a4bmbivV9cU=
-X-Gm-Gg: AY/fxX5OAA1clEy1IZ45v/OoRI2O9flyRWV3aG5OTe9AilvU+sVIfeGM7EiBVs0KZdQ
- jcDvyFTqwcLs3xfkNOV4Ju5lAC+Wxy9/ZmHthWCphMuDTh5eNjyFdTuaReifsgzQqfiw3jXd1pI
- xYnTCrpaiHuX9Nlm5DTpjxozYaCBtanxezKRNaxlTxP6TbQ2OqnAfwlClyWGK4hWlFXc/9BuT4t
- 4GOvEQ5RgnIIcqGCVW3ttisvISeh0HoIi76xfBJG7JPYHYaZ2vkcLsILrHnPks/bh955xmfDhlc
- tEHedDCTAcUl0pBHJyqgNn1y76u9nvCU5fupQo/CSOKyAJp8fiVcNarjVsUfm4okl//ifMQYgeY
- mLJsNgUecHKEwQhUBOvL/o/oNBTyNlyXpHSxurChmEZZH4eqZ8SZo9h27TbY5tuTfBGfJbgQWc7
- mze8rEIgVH6aOuDb3jFSQ4lPFx3IwCGZ0IVvo=
-X-Google-Smtp-Source: AGHT+IF+pEHq8l5EIBnNkchakW8xGfUXFzadra3xxwPBkYTZLxRWsB6KafEKjh9p5ZSsVQDQvBxmXA==
-X-Received: by 2002:a5d:5f87:0:b0:431:327:5dd4 with SMTP id
- ffacd0b85a97d-4324e50db43mr19052616f8f.46.1766587635608; 
- Wed, 24 Dec 2025 06:47:15 -0800 (PST)
+ AJvYcCUNn21/hn/CW7D50SnRfTbmYlULx/Awujjr2TqyYJkWaLmnkIfItGU61N+kh1rmjUOaemguEoAo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwqGFZnfIU9Lwmyjnue0NdIa0z/HlUa0OaxW5CP5SONBcD37BFP
+ dAOzzG3Y4DWISW7yfwgk8ZrPq3PjyYaF1AHvoVnNcV5MbawJUyUucbuafBnl6MwK0O4=
+X-Gm-Gg: AY/fxX6ecOLK1uHiP9ROOZ92n9IFqmrV/PujAkoTCPSU0GKdnKWXKslDVTgeOkGw+Ww
+ ZIBTMrL+zzbN2XrxOjCH5y6TU2at48qoup/NkqMNX/sczSRzpTfa4lRE0EK1VdPgcLv3FvU+90a
+ OlCSqMvzEOlb6TsRxfwVtC8hyS3mGOF5+3B9YRY3YfVfdC+1Or8doLkxWhjq3O8j+BxG7ojF5D/
+ PjAzDK4cQawchUkE/zuxnWWJK/ZG9IbVtUi3uUMwC4nTOeEEQQxP28Cd+oNd3BYzXgA+6JSbTKE
+ 1/BS9cpC6+YKwIZ7YC0xJH6C7aMITfJY6qBKs5oDDEEWf5DTIZ3qvGfV6JRz6pbtTeElhiJ9vby
+ E5+jIk4gVQeKRAXcw8JJfusAPVtDM4cwEkcLtkEYeQnpLorFkuMk4rIiTjpRaEtAZq3dQrPgNkN
+ hJYnaWrDIcLKpA/7y26gYGRTFMqcD+VtAJO5g=
+X-Google-Smtp-Source: AGHT+IGKZi6YAgPE4JJhdvYtojB16190r8/FC+SNzbAvU1yoHdGoqLUIdHV5gz4Ie0QCP7z4X1I3Vg==
+X-Received: by 2002:a05:6000:1acc:b0:431:327:5dc2 with SMTP id
+ ffacd0b85a97d-4324e50a6acmr21001602f8f.51.1766587636479; 
+ Wed, 24 Dec 2025 06:47:16 -0800 (PST)
 Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43277b82a58sm1041109f8f.6.2025.12.24.06.47.14
+ ffacd0b85a97d-43277b82a58sm1041109f8f.6.2025.12.24.06.47.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Dec 2025 06:47:15 -0800 (PST)
+ Wed, 24 Dec 2025 06:47:16 -0800 (PST)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
@@ -74,10 +74,9 @@ Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
  Christian Konig <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Philip Yang <yangp@amd.com>
-Subject: [PATCH v3 1/4] drm/amdgpu: replace use of system_unbound_wq with
- system_dfl_wq
-Date: Wed, 24 Dec 2025 15:47:05 +0100
-Message-ID: <20251224144708.61167-2-marco.crivellari@suse.com>
+Subject: [PATCH v3 2/4] drm/amdgpu: replace use of system_wq with system_dfl_wq
+Date: Wed, 24 Dec 2025 15:47:06 +0100
+Message-ID: <20251224144708.61167-3-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251224144708.61167-1-marco.crivellari@suse.com>
 References: <20251224144708.61167-1-marco.crivellari@suse.com>
@@ -121,50 +120,31 @@ removed in the future.
 Suggested-by: Tejun Heo <tj@kernel.org>
 Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
- drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-index daa7b23bc775..a7bc65099755 100644
---- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-@@ -179,7 +179,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_control *reset_ctl,
- 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
- 		/* For XGMI run all resets in parallel to speed up the process */
- 		if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--			if (!queue_work(system_unbound_wq,
-+			if (!queue_work(system_dfl_wq,
- 					&tmp_adev->reset_cntl->reset_work))
- 				r = -EALREADY;
- 		} else
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 12201b8e99b3..2ee416c36ca3 100644
+index 2ee416c36ca3..39170c04a519 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6173,7 +6173,7 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
- 		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
- 			/* For XGMI run all resets in parallel to speed up the process */
- 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
--				if (!queue_work(system_unbound_wq,
-+				if (!queue_work(system_dfl_wq,
- 						&tmp_adev->xgmi_reset_work))
- 					r = -EALREADY;
- 			} else
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 28c4ad62f50e..9c4631608526 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -116,7 +116,7 @@ static int amdgpu_reset_xgmi_reset_on_init_perform_reset(
- 	/* Mode1 reset needs to be triggered on all devices together */
- 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
- 		/* For XGMI run all resets in parallel to speed up the process */
--		if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_work))
-+		if (!queue_work(system_dfl_wq, &tmp_adev->xgmi_reset_work))
- 			r = -EALREADY;
- 		if (r) {
- 			dev_err(tmp_adev->dev,
+@@ -4922,7 +4922,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		}
+ 		/* must succeed. */
+ 		amdgpu_ras_resume(adev);
+-		queue_delayed_work(system_wq, &adev->delayed_init_work,
++		queue_delayed_work(system_dfl_wq, &adev->delayed_init_work,
+ 				   msecs_to_jiffies(AMDGPU_RESUME_MS));
+ 	}
+ 
+@@ -5469,7 +5469,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+ 	if (r)
+ 		goto exit;
+ 
+-	queue_delayed_work(system_wq, &adev->delayed_init_work,
++	queue_delayed_work(system_dfl_wq, &adev->delayed_init_work,
+ 			   msecs_to_jiffies(AMDGPU_RESUME_MS));
+ exit:
+ 	if (amdgpu_sriov_vf(adev)) {
 -- 
 2.52.0
 
