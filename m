@@ -4,64 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A3AE75453
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 10:22:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50CC0E77361
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 15:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9457D10EA82;
-	Wed, 24 Dec 2025 10:22:17 +0000 (UTC)
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6592F10E323;
- Wed, 24 Dec 2025 03:11:29 +0000 (UTC)
-Received: from [127.0.0.2] (unknown [114.241.82.59])
- by APP-05 (Coremail) with SMTP id zQCowADHXBDPWUtpQzS6AQ--.32153S6;
- Wed, 24 Dec 2025 11:11:12 +0800 (CST)
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-Date: Wed, 24 Dec 2025 11:10:52 +0800
-Subject: [PATCH 4/5] ALSA: hda/intel: Raise msi_addr_mask to dma_bits
+	by gabe.freedesktop.org (Postfix) with ESMTP id E091510FF49;
+	Wed, 24 Dec 2025 15:51:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="GjlchcBK";
+	dkim-atps=neutral
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27E9210F87E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 14:47:17 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-42fb0fc5aa4so4756566f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 06:47:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1766587635; x=1767192435; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Hj0iAOC3x7YMFIhG9hf7cZjPZjj1pyUiQuk+2YzLAvQ=;
+ b=GjlchcBKAFCOlfFh7j4MGg81Euxc9HCzhPEtGyrQgHegPWVC9rtpAp9glFSyW9AVSW
+ zkoZZaQQsWhgkeRI7lOab83h10UfD9/0ER+tW0elYZZKTJ41Ylb8pczhvd5gVrMTmrVw
+ Se79evecAc6b6VRxt805KzsLusUpEutWfSEB/q89ERXsuBg67MU9SBm0QEbuGaoVttWx
+ 4wXDHOoQ7AqpLNd0av5oRi0nPdT4oEt8Hqxi27Cp4WUoVGtaeTFELJ/4ap4R+odF/KEL
+ 8VMhxXk9fazy/h8qFqzzXuC5loO4HZ2hEWc6r+RFMQcHm9LqBzLtMtauS2Vk25BkZyye
+ iXwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766587635; x=1767192435;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Hj0iAOC3x7YMFIhG9hf7cZjPZjj1pyUiQuk+2YzLAvQ=;
+ b=rFASV+QRmWj9T3sxuqzVb5NzrX/ACMR4Lc6Bjs6RnhQayAtfhYws6v7QfUVMI0VyXU
+ y+rX7B/UePsfcHQYkFHXKUefUY2YanLtCa1WMF/VF9+5Vemuf9F0kunJekMFQ7EsmddI
+ 6dI2ZvYZRNHeRYIG/akNpbLL18c/vG+mkaD67AL8zIEnRVcT1NzRfpITMZc7dXcbZgbD
+ +A1JXphP+b3aAbpLxybiQxBSIDIfvNWH9dE3hJ/Ybld4VHrg6kFAstqiXxidsAhhpNW8
+ ueRmxElTCuyIgrvtVp0NXCnssCAkJPnVsoFI3ZInSZTDhxV7pCl7PNhDYmB94UI7EK3u
+ R7qA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUq1ay1pBsoX9PaM8IVMSfknZjI22I3fxUHX5eKzKBPx5WCmAzM6Kzf5DHybGn8exreVgs1TCGJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz95OEjHojLVCDq2kcfDtzItZwRLyi/Yzf2Cm0b3h1QHpSDn1Sj
+ sft7j25O/dZgkwOGHCChAXUmYDjKrARl6FfxDZt0miY8KXomkkjcE/I7a4bmbivV9cU=
+X-Gm-Gg: AY/fxX5OAA1clEy1IZ45v/OoRI2O9flyRWV3aG5OTe9AilvU+sVIfeGM7EiBVs0KZdQ
+ jcDvyFTqwcLs3xfkNOV4Ju5lAC+Wxy9/ZmHthWCphMuDTh5eNjyFdTuaReifsgzQqfiw3jXd1pI
+ xYnTCrpaiHuX9Nlm5DTpjxozYaCBtanxezKRNaxlTxP6TbQ2OqnAfwlClyWGK4hWlFXc/9BuT4t
+ 4GOvEQ5RgnIIcqGCVW3ttisvISeh0HoIi76xfBJG7JPYHYaZ2vkcLsILrHnPks/bh955xmfDhlc
+ tEHedDCTAcUl0pBHJyqgNn1y76u9nvCU5fupQo/CSOKyAJp8fiVcNarjVsUfm4okl//ifMQYgeY
+ mLJsNgUecHKEwQhUBOvL/o/oNBTyNlyXpHSxurChmEZZH4eqZ8SZo9h27TbY5tuTfBGfJbgQWc7
+ mze8rEIgVH6aOuDb3jFSQ4lPFx3IwCGZ0IVvo=
+X-Google-Smtp-Source: AGHT+IF+pEHq8l5EIBnNkchakW8xGfUXFzadra3xxwPBkYTZLxRWsB6KafEKjh9p5ZSsVQDQvBxmXA==
+X-Received: by 2002:a5d:5f87:0:b0:431:327:5dd4 with SMTP id
+ ffacd0b85a97d-4324e50db43mr19052616f8f.46.1766587635608; 
+ Wed, 24 Dec 2025 06:47:15 -0800 (PST)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43277b82a58sm1041109f8f.6.2025.12.24.06.47.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Dec 2025 06:47:15 -0800 (PST)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Philip Yang <yangp@amd.com>
+Subject: [PATCH v3 1/4] drm/amdgpu: replace use of system_unbound_wq with
+ system_dfl_wq
+Date: Wed, 24 Dec 2025 15:47:05 +0100
+Message-ID: <20251224144708.61167-2-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251224144708.61167-1-marco.crivellari@suse.com>
+References: <20251224144708.61167-1-marco.crivellari@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251224-pci-msi-addr-mask-v1-4-05a6fcb4b4c0@iscas.ac.cn>
-References: <20251224-pci-msi-addr-mask-v1-0-05a6fcb4b4c0@iscas.ac.cn>
-In-Reply-To: <20251224-pci-msi-addr-mask-v1-0-05a6fcb4b4c0@iscas.ac.cn>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- Vivian Wang <wangruikang@iscas.ac.cn>
-X-Mailer: b4 0.14.3
-X-CM-TRANSID: zQCowADHXBDPWUtpQzS6AQ--.32153S6
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4kGw13tw4DtFWDKFyrXrb_yoW8Ar45pw
- 4UGayftF1jqFyrJa1kKa1DZF13CFZYkwn8GrWrK34fCa4Yyr10gF9Fkr1xJa4xGF4vgw1Y
- vrWjv3W8WF45ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUmq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
- 4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE
- 3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
- x0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
- JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2
- ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
- z7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zV
- AF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4l
- IxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
- 1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIY
- CTnIWIevJa73UjIFyTuYvjTRNdb1DUUUU
-X-Originating-IP: [114.241.82.59]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
-X-Mailman-Approved-At: Wed, 24 Dec 2025 10:22:15 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 24 Dec 2025 15:51:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +98,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code was originally written using no_64bit_msi, which restricts the
-device to 32-bit MSI addresses.
+This patch continues the effort to refactor workqueue APIs, which has begun
+with the changes introducing new workqueues and a new alloc_workqueue flag:
 
-Since msi_addr_mask is introduced, use DMA_BIT_MASK(dma_bits) instead of
-DMA_BIT_MASK(32) here for msi_addr_mask, describing the restriction more
-precisely and allowing these devices to work on platforms with MSI
-doorbell address above 32-bit space, as long as it is within the
-hardware's addressable space.
+   commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
+   commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
 
-Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
+The point of the refactoring is to eventually alter the default behavior of
+workqueues to become unbound by default so that their workload placement is
+optimized by the scheduler.
 
+Before that to happen after a careful review and conversion of each individual
+case, workqueue users must be converted to the better named new workqueues with
+no intended behaviour changes:
+
+   system_wq -> system_percpu_wq
+   system_unbound_wq -> system_dfl_wq
+
+This way the old obsolete workqueues (system_wq, system_unbound_wq) can be
+removed in the future.
+
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-hda/intel maintainers: I don't know if this is the correct restriction.
-Please help with checking. Thanks.
----
- sound/hda/controllers/intel.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-index c9542ebdf7e2..a44de2306a2b 100644
---- a/sound/hda/controllers/intel.c
-+++ b/sound/hda/controllers/intel.c
-@@ -1903,11 +1903,6 @@ static int azx_first_init(struct azx *chip)
- 		chip->gts_present = true;
- #endif
- 
--	if (chip->msi && chip->driver_caps & AZX_DCAPS_NO_MSI64) {
--		dev_dbg(card->dev, "Disabling 64bit MSI\n");
--		pci->msi_addr_mask = DMA_BIT_MASK(32);
--	}
--
- 	pci_set_master(pci);
- 
- 	gcap = azx_readw(chip, GCAP);
-@@ -1958,6 +1953,11 @@ static int azx_first_init(struct azx *chip)
- 		dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(32));
- 	dma_set_max_seg_size(&pci->dev, UINT_MAX);
- 
-+	if (chip->msi && chip->driver_caps & AZX_DCAPS_NO_MSI64) {
-+		dev_dbg(card->dev, "Restricting MSI to %u-bit\n", dma_bits);
-+		pci->msi_addr_mask = DMA_BIT_MASK(dma_bits);
-+	}
-+
- 	/* read number of streams from GCAP register instead of using
- 	 * hardcoded value
- 	 */
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+index daa7b23bc775..a7bc65099755 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+@@ -179,7 +179,7 @@ aldebaran_mode2_perform_reset(struct amdgpu_reset_control *reset_ctl,
+ 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
+ 		/* For XGMI run all resets in parallel to speed up the process */
+ 		if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-			if (!queue_work(system_unbound_wq,
++			if (!queue_work(system_dfl_wq,
+ 					&tmp_adev->reset_cntl->reset_work))
+ 				r = -EALREADY;
+ 		} else
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 12201b8e99b3..2ee416c36ca3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6173,7 +6173,7 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+ 			/* For XGMI run all resets in parallel to speed up the process */
+ 			if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
+-				if (!queue_work(system_unbound_wq,
++				if (!queue_work(system_dfl_wq,
+ 						&tmp_adev->xgmi_reset_work))
+ 					r = -EALREADY;
+ 			} else
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index 28c4ad62f50e..9c4631608526 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -116,7 +116,7 @@ static int amdgpu_reset_xgmi_reset_on_init_perform_reset(
+ 	/* Mode1 reset needs to be triggered on all devices together */
+ 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
+ 		/* For XGMI run all resets in parallel to speed up the process */
+-		if (!queue_work(system_unbound_wq, &tmp_adev->xgmi_reset_work))
++		if (!queue_work(system_dfl_wq, &tmp_adev->xgmi_reset_work))
+ 			r = -EALREADY;
+ 		if (r) {
+ 			dev_err(tmp_adev->dev,
 -- 
-2.51.2
+2.52.0
 
