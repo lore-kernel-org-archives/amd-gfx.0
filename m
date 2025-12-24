@@ -4,64 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB8FCE7544F
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 10:22:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08920E75450
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 10:22:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 217DE10EA7E;
-	Wed, 24 Dec 2025 10:22:17 +0000 (UTC)
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70DA110E32A;
- Wed, 24 Dec 2025 03:11:29 +0000 (UTC)
-Received: from [127.0.0.2] (unknown [114.241.82.59])
- by APP-05 (Coremail) with SMTP id zQCowADHXBDPWUtpQzS6AQ--.32153S2;
- Wed, 24 Dec 2025 11:11:11 +0800 (CST)
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-Subject: [PATCH 0/5] PCI/MSI: Generalize no_64bit_msi into msi_addr_mask
-Date: Wed, 24 Dec 2025 11:10:48 +0800
-Message-Id: <20251224-pci-msi-addr-mask-v1-0-05a6fcb4b4c0@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB17810EA7B;
+	Wed, 24 Dec 2025 10:22:16 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PY8KHftP";
+	dkim-atps=neutral
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2994710E08A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 05:02:49 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-7acd9a03ba9so6026230b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 Dec 2025 21:02:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1766552569; x=1767157369; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=b1ZnG8yLFOgNUkGkXDv15H0ovQZznReZopUu9qPxrhc=;
+ b=PY8KHftPUt9Hv6M9HV4VK+j62/xgmlY8q/Zi+1sKVVnTw3KlNdVDIo+QWiNOTrPAKF
+ 1paKPtnAfvH9hOQkxbr9sECc+oVQQFIykitBkd7h4i/MXN0ZthA1yUdxeNWPVew43Yhj
+ +w5+enDDMtcB3nSerAQ+GdurCsKuE5Geett/tyCwiP2YoczCOTYjkaX74jjnG62QzQew
+ kEj+zIuKlm2CK/z/hrsx36Wb1MJumq0n2cn/smO7yZd6jWYN1vd2btgGCbJAKn1IBvhq
+ IPPz/Bx9bHI82Z5fS8Y/Gx1XGwkCbBqqJ43B0Q5LX4pBQKyGCSWGEanJL6uAmJyic2cD
+ /7tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766552569; x=1767157369;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=b1ZnG8yLFOgNUkGkXDv15H0ovQZznReZopUu9qPxrhc=;
+ b=ENhbnCBBv3rjQo4RWYL9r7qalyvmvmCIC/TGdlvEMHo/YWX0sVQ4eKm9Th/ReOzBei
+ x0D+CvRr6rYkdM9C0X+lMX2DZFrJvwupq3xCNLT6LXlwpZozvHPskH4LLltpxmeolHeH
+ gc+7TSSFeTRFSmpd64e6GVcuOfUXOTEXp45Aws23MiyhqJpc4pxBBymEPtGoQHVKkHUJ
+ BaTA2cct0lm2wLQulaPdLfg/viBckKHN/qUbyzb2zyTSUF+nzSoIVmArNEDrd3NJGTgn
+ +2Xa6LSTxBZ61Ibhj+ohauwVaHZvlGTgTdgKlw20J+MGzaXw1BYSJ+vjOxeo6IMWGuCO
+ HzKQ==
+X-Gm-Message-State: AOJu0YwXEfYK++pUNtErWarT3ZWKzBIHDraz3ox1ZkXRxZ39brOCxwKL
+ f+Qn3QmORlidV0pgCX4hsvtrsp6akth4xhJoiWiDIUyd9M01f4CwRNH6
+X-Gm-Gg: AY/fxX7RIc0dyDy2bRBdQ1ANLgMEka0wu0SCq6y4mkCASYDx/NSH4+a+PUDfRC9qRON
+ NMqqnla8vZhFVe5pHWGtj9DcPlRaGiXitGeH49AFVXlYVI0qQ2vZI8SWm96PIFDv7zsh4B8DmVn
+ MBuhAXxmor24PDzjUj6JQRH3RnwRT2l2Mogzdz/qxj7WsxyIj2M2BxywacsAhiccqBsCFtiN9Pw
+ VDrOCyvkXHw9EmE6wyN8zdm4MBmehPO1nTex7QxZX3oHBqtATs4A7Hruk0v7nXU8OWs3lJHQUCC
+ 7rObQD8ZnyYPyTf1DjbUZUjyKJ3xnHY0bajAuTJ2D1QbzL/BvNlN5TxxVNWfo8jLfqk/LzCWDFd
+ DrG3ag/AKSAAOrNTsx3WVnVPcUJ+xZsUanqhXVYgVcqOkjRFJ7kRUmGq2nfB6HleLcQ3z6oCwdK
+ 2iFUNLE8RqAy9wdQVW4AN2K2K2OaAwboFF+awwe9s=
+X-Google-Smtp-Source: AGHT+IG8qBs6UzP+fV1sTduEsAkrUxh2D/JucxeWhiAHN1H0Z1Eq7FBt5DNo6v5E8BQMbS4U5T814w==
+X-Received: by 2002:a05:6a00:278a:b0:79a:fd01:dfa9 with SMTP id
+ d2e1a72fcca58-7ff64215308mr16709010b3a.6.1766552568538; 
+ Tue, 23 Dec 2025 21:02:48 -0800 (PST)
+Received: from rahul-mintos.ban-spse ([165.204.156.251])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7ff7e682870sm15349386b3a.57.2025.12.23.21.02.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Dec 2025 21:02:47 -0800 (PST)
+From: Abhishek Rajput <abhiraj21put@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, abhiraj21put@gmail.com
+Subject: [PATCH] drm/radeon: Convert legacy DRM logging to drm_* helpers in
+ radeon_device.c
+Date: Wed, 24 Dec 2025 10:32:30 +0530
+Message-ID: <20251224050230.509813-1-abhiraj21put@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALhZS2kC/yXMWwqDMBCF4a2Eee4UE1HRrRQLMZm2Q4mXiZVCy
- N4b6uN34PwJIglThEElEDo48jIX6IsC97Lzk5B9MZjKNNqYGlfHGCKj9V4w2PhG47u2sR1NdV9
- B+a1CD/7+m7fxtND2Ken9HGGykdAtIfA+qKO96h7F6XvKMOb8A9YopX2TAAAA
-X-Change-ID: 20251223-pci-msi-addr-mask-2d765a7eb390
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- Vivian Wang <wangruikang@iscas.ac.cn>
-X-Mailer: b4 0.14.3
-X-CM-TRANSID: zQCowADHXBDPWUtpQzS6AQ--.32153S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJFy3ZFy7CrWxur4kCw15urg_yoW5Kw1DpF
- W5GayagF40y34xWFZrAw4UZFWayFs5Ka47KrWDK3sa9an0qry8XrnxtF45X347Wr1xXr40
- qrW7Kw1kWFWkuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
- kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
- 67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
- CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
- MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
- VFxhVjvjDU0xZFpf9x0pRHUDLUUUUU=
-X-Originating-IP: [114.241.82.59]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 24 Dec 2025 10:22:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,81 +88,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Sophgo SG2042 is a cursed machine in more ways than one.
+Replace DRM_INFO() and DRM_ERROR() calls in
+drivers/gpu/drm/radeon/radeon_device.c with the corresponding
+drm_info() and drm_err() helpers.
 
-The one way relevant to this patch series is that its PCIe controller
-has neither INTx nor a low-address MSI doorbell wired up. Instead, the
-only usable MSI doorbell is a SoC one at 0x7030010300, which is above
-32-bit space.
+The drm_*() logging helpers take a struct drm_device * argument,
+allowing the DRM core to prefix log messages with the correct device
+name and instance. This is required to correctly distinguish log
+messages on systems with multiple GPUs.
 
-Currently, the no_64bit_msi flag on a PCI device declares that a device
-needs a 32-bit MSI address. Since no more precise indication is
-possible, devices supporting less than 64 bits of MSI addresses are all
-lumped into one "need 32-bit MSI address" bucket. This of course
-prevents these devices from working with MSI enabled on SG2042 because a
-32-bit MSI doorbell address is not possible. Combined with a lack of
-INTx, some of them have trouble working on SG2042 at all.
+This change aligns the radeon driver with the DRM TODO item:
+"Convert logging to drm_* functions with drm_device parameter".
 
-There were previous dirtier attempts to allow overriding no_64bit_msi
-for radeon [1] and hda/intel [2].
+Signed-off-by: Abhishek Rajput <abhiraj21put@gmail.com>
 
-To fix this, generalize the single bit no_64bit_msi into a full address
-mask msi_addr_mask to more precisely describe the restriction. The
-existing DMA masks seems insufficient, as for e.g. radeon the
-msi_addr_mask and coherent_dma_mask seems to be different on more recent
-devices.
-
-The patches are structured as follows:
-
-- Patch 1 conservatively introduces msi_addr_mask, without introducing
-  any functional changes (hopefully, if I've done everything right), by
-  only using DMA_BIT_MASK(32) and DMA_BIT_MASK(64).
-- The rest of the series actually make use of intermediate values of
-  msi_addr_mask, and should be independently appliable. Patch 2 relaxes
-  msi_verify_entries() to allow intermediate values of msi_addr_mask.
-  Patch 3 onwards raises msi_addr_mask in individual device drivers.
-
-Tested on SG2042 with a Radeon R5 220 which makes use of radeon and
-hda/intel. PPC changes and pensanto/ionic changes are compile-tested
-only, since I do not have the hardware.
-
-I would appreciate if driver maintainers can take a look and see whether
-the masks I've set makes sense, although I believe they shouldn't cause
-problems on existing platforms. I'm also not familiar with PPC enough to
-touch the arch/powerpc firmware calls further - help would be
-appreciated.
-
-My intention is that the first two patches are taken up by PCI
-maintainers, and the rest go through the maintainers of individual
-drivers since they could use more device-specific testing and review. If
-this is not convenient I'll be happy to split it up or something.
-
-[1]: https://lore.kernel.org/all/20251220163338.3852399-1-gaohan@iscas.ac.cn/
-[2]: https://lore.kernel.org/all/20251220170501.3972438-1-gaohan@iscas.ac.cn/
-
----
-Vivian Wang (5):
-      PCI/MSI: Conservatively generalize no_64bit_msi into msi_addr_mask
-      PCI/MSI: Check msi_addr_mask in msi_verify_entries()
-      drm/radeon: Raise msi_addr_mask to 40 bits for pre-Bonaire
-      ALSA: hda/intel: Raise msi_addr_mask to dma_bits
-      [RFC net-next] net: ionic: Set msi_addr_mask to IONIC_ADDR_LEN-bit everywhere
-
- arch/powerpc/platforms/powernv/pci-ioda.c           |  2 +-
- arch/powerpc/platforms/pseries/msi.c                |  4 ++--
- drivers/gpu/drm/radeon/radeon_irq_kms.c             |  4 ++--
- drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c |  4 +---
- drivers/pci/msi/msi.c                               | 11 +++++++----
- drivers/pci/msi/pcidev_msi.c                        |  2 +-
- drivers/pci/probe.c                                 |  7 +++++++
- include/linux/pci.h                                 |  8 +++++++-
- sound/hda/controllers/intel.c                       | 10 +++++-----
- 9 files changed, 33 insertions(+), 19 deletions(-)
----
-base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
-change-id: 20251223-pci-msi-addr-mask-2d765a7eb390
-
-Best regards,
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 60afaa8e56b4..e80c3ff6c16c 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -337,6 +337,8 @@ void radeon_scratch_free(struct radeon_device *rdev, uint32_t reg)
+  */
+ static int radeon_doorbell_init(struct radeon_device *rdev)
+ {
++	struct drm_device *ddev = rdev_to_drm(rdev);
++
+ 	/* doorbell bar mapping */
+ 	rdev->doorbell.base = pci_resource_start(rdev->pdev, 2);
+ 	rdev->doorbell.size = pci_resource_len(rdev->pdev, 2);
+@@ -349,8 +351,8 @@ static int radeon_doorbell_init(struct radeon_device *rdev)
+ 	if (rdev->doorbell.ptr == NULL) {
+ 		return -ENOMEM;
+ 	}
+-	DRM_INFO("doorbell mmio base: 0x%08X\n", (uint32_t)rdev->doorbell.base);
+-	DRM_INFO("doorbell mmio size: %u\n", (unsigned)rdev->doorbell.size);
++	drm_info(ddev, "doorbell mmio base: 0x%08X\n", (uint32_t)rdev->doorbell.base);
++	drm_info(ddev, "doorbell mmio size: %pa\n", &rdev->doorbell.size);
+ 
+ 	memset(&rdev->doorbell.used, 0, sizeof(rdev->doorbell.used));
+ 
+@@ -752,11 +754,13 @@ void radeon_update_bandwidth_info(struct radeon_device *rdev)
+  */
+ bool radeon_boot_test_post_card(struct radeon_device *rdev)
+ {
++	struct drm_device *ddev = rdev_to_drm(rdev);
++
+ 	if (radeon_card_posted(rdev))
+ 		return true;
+ 
+ 	if (rdev->bios) {
+-		DRM_INFO("GPU not posted. posting now...\n");
++		drm_info(ddev, "GPU not posted. posting now...\n");
+ 		if (rdev->is_atom_bios)
+ 			atom_asic_init(rdev->mode_info.atom_context);
+ 		else
+@@ -975,6 +979,7 @@ int radeon_atombios_init(struct radeon_device *rdev)
+ {
+ 	struct card_info *atom_card_info =
+ 	    kzalloc(sizeof(struct card_info), GFP_KERNEL);
++	struct drm_device *ddev = rdev_to_drm(rdev);
+ 
+ 	if (!atom_card_info)
+ 		return -ENOMEM;
+@@ -988,7 +993,7 @@ int radeon_atombios_init(struct radeon_device *rdev)
+ 		atom_card_info->ioreg_read = cail_ioreg_read;
+ 		atom_card_info->ioreg_write = cail_ioreg_write;
+ 	} else {
+-		DRM_ERROR("Unable to find PCI I/O BAR; using MMIO for ATOM IIO\n");
++		drm_err(ddev, "Unable to find PCI I/O BAR; using MMIO for ATOM IIO\n");
+ 		atom_card_info->ioreg_read = cail_reg_read;
+ 		atom_card_info->ioreg_write = cail_reg_write;
+ 	}
+@@ -1297,7 +1302,7 @@ int radeon_device_init(struct radeon_device *rdev,
+ 	}
+ 	rdev->fence_context = dma_fence_context_alloc(RADEON_NUM_RINGS);
+ 
+-	DRM_INFO("initializing kernel modesetting (%s 0x%04X:0x%04X 0x%04X:0x%04X 0x%02X).\n",
++	drm_info(ddev, "initializing kernel modesetting (%s 0x%04X:0x%04X 0x%04X:0x%04X 0x%02X).\n",
+ 		 radeon_family_name[rdev->family], pdev->vendor, pdev->device,
+ 		 pdev->subsystem_vendor, pdev->subsystem_device, pdev->revision);
+ 
+@@ -1414,7 +1419,7 @@ int radeon_device_init(struct radeon_device *rdev,
+ 		}
+ 	}
+ 	if (rdev->rio_mem == NULL)
+-		DRM_ERROR("Unable to find PCI I/O BAR\n");
++		drm_err(ddev, "Unable to find PCI I/O BAR\n");
+ 
+ 	if (rdev->flags & RADEON_IS_PX)
+ 		radeon_device_handle_px_quirks(rdev);
+@@ -1454,7 +1459,7 @@ int radeon_device_init(struct radeon_device *rdev,
+ 
+ 	r = radeon_ib_ring_tests(rdev);
+ 	if (r)
+-		DRM_ERROR("ib ring test failed (%d).\n", r);
++		drm_err(ddev, "ib ring test failed (%d).\n", r);
+ 
+ 	/*
+ 	 * Turks/Thames GPU will freeze whole laptop if DPM is not restarted
+@@ -1475,19 +1480,19 @@ int radeon_device_init(struct radeon_device *rdev,
+ 		if (rdev->accel_working)
+ 			radeon_test_moves(rdev);
+ 		else
+-			DRM_INFO("radeon: acceleration disabled, skipping move tests\n");
++			drm_info(ddev, "radeon: acceleration disabled, skipping move tests\n");
+ 	}
+ 	if ((radeon_testing & 2)) {
+ 		if (rdev->accel_working)
+ 			radeon_test_syncing(rdev);
+ 		else
+-			DRM_INFO("radeon: acceleration disabled, skipping sync tests\n");
++			drm_info(ddev, "radeon: acceleration disabled, skipping sync tests\n");
+ 	}
+ 	if (radeon_benchmarking) {
+ 		if (rdev->accel_working)
+ 			radeon_benchmark(rdev, radeon_benchmarking);
+ 		else
+-			DRM_INFO("radeon: acceleration disabled, skipping benchmarks\n");
++			drm_info(ddev, "radeon: acceleration disabled, skipping benchmarks\n");
+ 	}
+ 	return 0;
+ 
+@@ -1510,7 +1515,9 @@ int radeon_device_init(struct radeon_device *rdev,
+  */
+ void radeon_device_fini(struct radeon_device *rdev)
+ {
+-	DRM_INFO("radeon: finishing device.\n");
++	struct drm_device *ddev = rdev_to_drm(rdev);
++
++	drm_info(ddev, "radeon: finishing device.\n");
+ 	rdev->shutdown = true;
+ 	/* evict vram memory */
+ 	radeon_bo_evict_vram(rdev);
+@@ -1670,14 +1677,14 @@ int radeon_resume_kms(struct drm_device *dev, bool resume, bool notify_clients)
+ 
+ 	r = radeon_ib_ring_tests(rdev);
+ 	if (r)
+-		DRM_ERROR("ib ring test failed (%d).\n", r);
++		drm_err(dev, "ib ring test failed (%d).\n", r);
+ 
+ 	if ((rdev->pm.pm_method == PM_METHOD_DPM) && rdev->pm.dpm_enabled) {
+ 		/* do dpm late init */
+ 		r = radeon_pm_late_init(rdev);
+ 		if (r) {
+ 			rdev->pm.dpm_enabled = false;
+-			DRM_ERROR("radeon_pm_late_init failed, disabling dpm\n");
++			drm_err(dev, "radeon_pm_late_init failed, disabling dpm\n");
+ 		}
+ 	} else {
+ 		/* resume old pm late */
+@@ -1701,7 +1708,7 @@ int radeon_resume_kms(struct drm_device *dev, bool resume, bool notify_clients)
+ 							     0 : 1 << 27,
+ 							     &radeon_crtc->cursor_addr);
+ 				if (r != 0)
+-					DRM_ERROR("Failed to pin cursor BO (%d)\n", r);
++					drm_err(dev, "Failed to pin cursor BO (%d)\n", r);
+ 				radeon_bo_unreserve(robj);
+ 			}
+ 		}
+@@ -1756,6 +1763,7 @@ int radeon_gpu_reset(struct radeon_device *rdev)
+ {
+ 	unsigned ring_sizes[RADEON_NUM_RINGS];
+ 	uint32_t *ring_data[RADEON_NUM_RINGS];
++	struct drm_device *ddev = rdev_to_drm(rdev);
+ 
+ 	bool saved = false;
+ 
+@@ -1807,7 +1815,7 @@ int radeon_gpu_reset(struct radeon_device *rdev)
+ 		r = radeon_pm_late_init(rdev);
+ 		if (r) {
+ 			rdev->pm.dpm_enabled = false;
+-			DRM_ERROR("radeon_pm_late_init failed, disabling dpm\n");
++			drm_err(ddev, "radeon_pm_late_init failed, disabling dpm\n");
+ 		}
+ 	} else {
+ 		/* resume old pm late */
 -- 
-Vivian "dramforever" Wang
+2.43.0
 
