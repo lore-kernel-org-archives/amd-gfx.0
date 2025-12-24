@@ -4,122 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 771B2E74AE0
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 08:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 032D4E7544B
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 10:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE8F10E051;
-	Wed, 24 Dec 2025 08:25:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x7BSqgke";
-	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010035.outbound.protection.outlook.com [52.101.56.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C26B10E1FB
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 08:25:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DcXwDop7b6lF3h+MfAmCkUBoKhx4G4L2FE9xcT0ZwRxlO7fDceqMmNVq8GQKozrjwcW/BdwHF6SqFt7vwwcrkF0HLjVmnmuuswfVBYuUQciQVCW/qnQnlWmUvILgPVH7GTayhPwZb0EYVtlHSY6Ms1jW3zmGvoCPrSNS3QLRXV1ZF9noxX6e2vMz6NjUfw/135BDYkwChinYM0HPkwmKCkjXUpuM6O9A2wB4DCCZ+hSN3RDnzF26e1ga7ivyW5+ozZlKv5zlcUm+c7j3uJ4pWa85oA3whZ/oNkhNp4w+TXICnDdEw4be4z3NVw6r7CU8HKhk0kmIYGoHRptycOuofg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wVTqIsDHvBK7WjeRkvGY26MMDUz3HEa6Jz9bog+naAo=;
- b=TM0XieQxRU8SJkGY0HE43Cy55USeI+kMHCiD04SFlEequgRz0AIEwM+fhJIpVcNk85GfA/G3jvObxFghygR2p7bpE/j2NSXDKyWk8TiH18dGjgpPufEARHD71Xc5D5juFWc6bck1N6INqVQ3fOY6gf7pbV/fjUHsIjV71LxxPYKvIZdaBUKudZJ6GHjTpDeDpZ0PLMYqPtvRFu2DcUCb91QnyMFSQ0n9Ke3/uiVKeovcXyEnGtF3T34S0qSRcpo7xmzQAKCPedzclYOer0VoNlJChtUypoSwK4Hgw+ITrmIpr74r3iFNawwW1QsPwhTadhDCpYUOsDkFViec5A0CtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wVTqIsDHvBK7WjeRkvGY26MMDUz3HEa6Jz9bog+naAo=;
- b=x7BSqgkeupwouapTglcdf6CMo3U6Hw7v7YWYkCftMx1v2Ep1GtGzDX5lHA5M/J76rDpLy4JhXizaOkPm8OShZwpZ/OC2qqCfT46ksZ653gdzzL0OUdbJbVfi9yQtL+AC4FCYsfPiC2Qy7PTktX80+b/46CftZdkmjedPrDmxW1U=
-Received: from MN0P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::16)
- by BN3PR12MB9571.namprd12.prod.outlook.com (2603:10b6:408:2ca::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9456.11; Wed, 24 Dec
- 2025 08:25:47 +0000
-Received: from BN3PEPF0000B073.namprd04.prod.outlook.com
- (2603:10b6:208:531:cafe::74) by MN0P222CA0010.outlook.office365.com
- (2603:10b6:208:531::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9456.11 via Frontend Transport; Wed,
- 24 Dec 2025 08:25:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B073.mail.protection.outlook.com (10.167.243.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9456.9 via Frontend Transport; Wed, 24 Dec 2025 08:25:46 +0000
-Received: from bingxguo-Super-Server.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 24 Dec 2025 02:25:45 -0600
-From: Bingxi Guo <Bingxi.Guo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Deng Emily
- <emily.deng@amd.com>, Bingxi Guo <Bingxi.Guo@amd.com>, Emily Deng
- <Emily.Deng@amd.com>
-Subject: [PATCH] drm/amdgpu: Force-signal fence when job is submitted to
- killed entity
-Date: Wed, 24 Dec 2025 16:25:35 +0800
-Message-ID: <20251224082535.527138-1-Bingxi.Guo@amd.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9369F10EA78;
+	Wed, 24 Dec 2025 10:22:16 +0000 (UTC)
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2100B10E32D;
+ Wed, 24 Dec 2025 03:11:29 +0000 (UTC)
+Received: from [127.0.0.2] (unknown [114.241.82.59])
+ by APP-05 (Coremail) with SMTP id zQCowADHXBDPWUtpQzS6AQ--.32153S7;
+ Wed, 24 Dec 2025 11:11:12 +0800 (CST)
+From: Vivian Wang <wangruikang@iscas.ac.cn>
+Date: Wed, 24 Dec 2025 11:10:53 +0800
+Subject: [PATCH RFC net-next 5/5] net: ionic: Set msi_addr_mask to
+ IONIC_ADDR_LEN-bit everywhere
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B073:EE_|BN3PR12MB9571:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cd7c999-dc88-4f84-0f12-08de42c609d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/gUKL3pBz3gLL9ijUw3YWMfZZ+2zrHNkS7Yt6D3adNuFL5XWGqCoKlN15GJT?=
- =?us-ascii?Q?m0aYRhpzhhOZOj92IpXLKBPTgSkyqeNoK6Mdyi1Hr8Zerg7WqRL3mB1eUDje?=
- =?us-ascii?Q?TBxW8BYEuw78D/s+5mCseOmlqGgJZ232cpTnKA1RCA0JXR+4H/IPCxLhhU2D?=
- =?us-ascii?Q?a52TaXxgbF3VWJppWdESBvUC9JVlhMkDJMhvrhErI9Yfk/GsnSF86PeANA9R?=
- =?us-ascii?Q?7Jbg5db9/A5x56HWSuGJFM/rwE5Z2ZdFQTUitvK4CgndFkcAXDfObZ2g87wd?=
- =?us-ascii?Q?nmKx5b4rr/f7EqDw5AkIjERd9C97MFPgepesFgjYg8gVCRldJoi0onnyZc+4?=
- =?us-ascii?Q?nfsQee2PtLIPpNzlVuL2YoiDMxr9Dj1YaSpTLGcsXH1rCu66wObrHl+u2PR7?=
- =?us-ascii?Q?+r8JsUPeeNe1IGO7QuwbAa3KJcF/uyl43+FJHeEktbVOH2rm4clLCovk6hb0?=
- =?us-ascii?Q?exp7nIJhTniHkMgGn5leukCmZ37GR4QKpmnYGYm4EFFPuKEb64ohUmIWuT0d?=
- =?us-ascii?Q?rZw3GTVHKeGYmfk4LucVgM04NzxLl6aOnuLtLr3DmIdCoJtDdx0w50y9DQBU?=
- =?us-ascii?Q?gMwz44hfjOvJ8GQbFupQoXei1HtpzenEaYgBPNeLk0XDr1IKFRVhASbL3mIs?=
- =?us-ascii?Q?BrXJ1jqzBH7KLwXoItjf0icpx8l9krIUBTbz89Qogslw4OvFxurxWNlxmvKm?=
- =?us-ascii?Q?MbCrx7weuRMC/0S04mwl3tCr+25NXH/2QvU5P2Ljk0CmQknHR7adL6LEAeJJ?=
- =?us-ascii?Q?j4yLF5NVjdGYV+/e2+5DJaUnGUEfl63xymsBUZSaVwbHnvXs31zDQ1yt7IaV?=
- =?us-ascii?Q?o7FlPHjBpHJtbhr1IUAHYFlnVpOxn9vQVeqiOwXb55tsFOIATyabCxprVOA6?=
- =?us-ascii?Q?brOeKS/gqv3ngOxjBMG/B7EDlyxZDMb5fi5iHClyBl2CkO+93obBW8aLzYpv?=
- =?us-ascii?Q?R8N+PJ/GpY5g9OaU/7AKPk2844qVxuXKwzUgBzouIFgHsqhB6ZGmEx8vDI+K?=
- =?us-ascii?Q?Z2psldSHlbUpQwgltitk7vmDAIWii/uiJAYiOAPqDuLGmWkPO9S/ALL4QeJf?=
- =?us-ascii?Q?wsIZjSvX2rlekfmhG+ISIGGgCRsYDGFbUIvHaL2zRIgzHxlh8LbC+51XYpWP?=
- =?us-ascii?Q?Faa09O6wYqeymh5pOzq37pWLOpy3+mpB4BxMgF06IuOLr6330UeiPu/SIF03?=
- =?us-ascii?Q?s08XZuIz3vP6bNUXC9TYhhJE2C43A6WoMRHG2dUtXx/xIJ6XyKgFd8mJPth5?=
- =?us-ascii?Q?kdsRooNwkgBtTPkg//jTIeIz+RwF2n/zQHppqj/CHUTHApzPHghd8t8XckBn?=
- =?us-ascii?Q?e3KWlJU3kfTOMmM10kTsHGqTO9bFBIRy6PZL1hhJ1V1GXLA4JXvCpzmjLXae?=
- =?us-ascii?Q?4DQFUoKlMgDgmXzEOsOLuBqEg9mi97jlbrYq6o2fBakU95aCEb2BBBhScd0E?=
- =?us-ascii?Q?7QYIFHjAHgp4AFB8YDd0TBLpoaYswnEpHS1jiuv03cb756JJ/C/x3wAJw7Z0?=
- =?us-ascii?Q?e4P4tLKPH6ejNqpHzWDiXuLQkUw+ZmHHYuu7z+73/oODomqxYjqk45JeQF9W?=
- =?us-ascii?Q?KPxLlFBZpiWDjFyHqkM=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Dec 2025 08:25:46.8541 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cd7c999-dc88-4f84-0f12-08de42c609d3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B073.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9571
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251224-pci-msi-addr-mask-v1-5-05a6fcb4b4c0@iscas.ac.cn>
+References: <20251224-pci-msi-addr-mask-v1-0-05a6fcb4b4c0@iscas.ac.cn>
+In-Reply-To: <20251224-pci-msi-addr-mask-v1-0-05a6fcb4b4c0@iscas.ac.cn>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>
+Cc: Han Gao <gaohan@iscas.ac.cn>, linuxppc-dev@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ Vivian Wang <wangruikang@iscas.ac.cn>
+X-Mailer: b4 0.14.3
+X-CM-TRANSID: zQCowADHXBDPWUtpQzS6AQ--.32153S7
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF4kXFWruF1rGF13GF15urg_yoW8WF1Dpa
+ 98Ga4Iqr4rXryUGa1vyw4kZF98AayFkry5Wrn3Z3sa93sxtFy8tF17tF9xJ34UXrW8ua1S
+ qFyjkw15XFn8Za7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUmq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+ kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+ z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
+ 4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE
+ 3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
+ x0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
+ JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2
+ ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
+ z7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zV
+ AF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1l
+ IxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
+ 1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIY
+ CTnIWIevJa73UjIFyTuYvjTRNdb1DUUUU
+X-Originating-IP: [114.241.82.59]
+X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+X-Mailman-Approved-At: Wed, 24 Dec 2025 10:22:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,63 +77,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Issue: jobs submitted to a killed entity can still succeed, except for
-a dmesg error when the job is the first been pushed to the killed
-entity
+The code was originally written using no_64bit_msi, which restricts the
+device to 32-bit MSI addresses.
 
-Force-signal fence when job is submitted to killed entity
+Since msi_addr_mask is introduced, use DMA_BIT_MASK(IONIC_ADDR_LEN)
+instead of DMA_BIT_MASK(32) here for msi_addr_mask, describing the
+restriction more precisely and allowing these devices to work on
+platforms with MSI doorbell address above 32-bit space, as long as it is
+within the hardware's addressable space.
 
-Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-Signed-off-by: Bingxi Guo <Bingxi.Guo@amd.com>
+Also remove #ifdef CONFIG_PPC64 wrapped around it, since this is a
+hardware restriction and not a platform one.
+
+Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
+
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 8867b95ab089..998e35a1a261 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -570,6 +570,14 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 	bool first;
- 	ktime_t submit_ts;
- 
-+	spin_lock(&entity->lock);
-+	if (entity->stopped) {
-+		spin_unlock(&entity->lock);
-+		DRM_ERROR("Trying to push job to a killed entity\n");
-+		goto error;
-+	}
-+	spin_unlock(&entity->lock);
-+
- 	trace_drm_sched_job_queue(sched_job, entity);
- 
- 	if (trace_drm_sched_job_add_dep_enabled()) {
-@@ -597,12 +605,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 
- 		/* Add the entity to the run queue */
- 		spin_lock(&entity->lock);
--		if (entity->stopped) {
--			spin_unlock(&entity->lock);
--
--			DRM_ERROR("Trying to push to a killed entity\n");
--			return;
--		}
- 
- 		rq = entity->rq;
- 		sched = rq->sched;
-@@ -618,5 +620,12 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 
- 		drm_sched_wakeup(sched);
+RFC because net-next is closed
+
+pensando maintainers: I don't know if this is the actual restriction,
+and do not have any Pensando device to test this. Please help with
+checking this.  Thanks.
+---
+ drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
+index 0671deae9a28..16133537c535 100644
+--- a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
++++ b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
+@@ -329,10 +329,8 @@ static int ionic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		goto err_out;
  	}
-+
-+	return;
-+
-+error:
-+	dma_fence_set_error(&sched_job->s_fence->finished, -EPERM);
-+	drm_sched_fence_scheduled(sched_job->s_fence, NULL);
-+	drm_sched_fence_finished(sched_job->s_fence, -EPERM);
- }
- EXPORT_SYMBOL(drm_sched_entity_push_job);
+ 
+-#ifdef CONFIG_PPC64
+ 	/* Ensure MSI/MSI-X interrupts lie within addressable physical memory */
+-	pdev->msi_addr_mask = DMA_BIT_MASK(32);
+-#endif
++	pdev->msi_addr_mask = DMA_BIT_MASK(IONIC_ADDR_LEN);
+ 
+ 	err = ionic_setup_one(ionic);
+ 	if (err)
+
 -- 
-2.43.0
+2.51.2
 
