@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A671FE77361
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 15:51:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E7B9E776C2
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 Dec 2025 15:51:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D550810FF4B;
-	Wed, 24 Dec 2025 15:51:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DE8510FF4C;
+	Wed, 24 Dec 2025 15:51:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="NcKKz6vi";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="LIkoEetf";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5120D10F87E
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 14:47:16 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-42fbbc3df8fso3097106f8f.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 06:47:16 -0800 (PST)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0808C10F91A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 14:47:20 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-42fb03c3cf2so3151554f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 Dec 2025 06:47:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1766587635; x=1767192435; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4t1E/MiUGXvLFw/kkXL4Czha6KPayCy2brE6GCYi5/M=;
- b=NcKKz6viv0EchhEPQbSbwmDNJlzdcruKgd27+0vUs3s8D30BfBnxTs4f4s30syYa+M
- lvhshqfB+J75kokOL+3IGbeHtCBoCCDNSXhEw5H9aXPFWXGY6svjFM9gvDik4khpbhY9
- g/5q119AypwU5zk23iwQcNYDj6xcBOVqhmGnw67qNXG6PL4b5w3O7j2mrJ+SJ3BvDT1r
- 2IcelqenoK8/DWD0lXrGivIUIW25DOXfEVa6q/9O7HvZeT8ZBev1nZEnk75XUWjSjnAF
- IlxKZZccj+qWbci5cFsLz5MOPKoM5XhaLmHwJLGwpWUutaljpJRsUCvN1SLvrHk1mdr2
- b+eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766587635; x=1767192435;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=suse.com; s=google; t=1766587638; x=1767192438; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4t1E/MiUGXvLFw/kkXL4Czha6KPayCy2brE6GCYi5/M=;
- b=CKvq+PC+J3WVm7mmPlX2nnD+SfwJPQJ3L4XVUWZhae5Zt8ChPNJdXoitEuLbbVuY6K
- ga6wiMfwcr5+g6wLNT45SN9K00D0aWsms23Ii+bSkJ7GNHsSLTcs/jWeW/M5OJ8A6MY3
- 5uzvrd1x4SPS2xz4A0vYn7MwRykUtNPRzqx4lORXGmid/txQxcnT+HgVF49IEYHqzVy0
- IwoGXHgpW6SiM+nrv66r5sckQFzBzYCc1pZIRkeQD2vynL0g81l8F3VIIEnSA+amUzes
- 2lMAIBrZvtpFMSUDb/WRc7bIcIia6Ij5iTOxRylBdyHi9zCE02o1WEWMPB+FL8lwpd5X
- uoJA==
+ bh=EusSFmSFHvXdK2TABmwbfVXk8QB5nq86ggI4VdbsACk=;
+ b=LIkoEetf3TxOI1IAnlQDE05cQAQjZ2qh1QE2nExcYTWLuct8BECzqdFnzDs52poU83
+ fCifuRHFBuSupG+f0XdQec5oMBN3Fk8EIHL9YA4LlM93p890e/I1Xx/taGhihmupYlUz
+ lKSM7Eub73NpHZEAB7AQuvQiZfOzgypP2M/x7g6B4zJT66ZY3FpZf4hWjg0tWce1FOEg
+ lbJeiaoN5iSCOe0PtVlKDNn2GWqxtSsJsj4CeNHcNRJFEM1IWGveHqOUYHtNQ997m+m2
+ En8T5DRH7x+VkdiSPYKxNG7X/PJpgd3EiJOgQwTkn+1Hf4jHEGaRiPcL2EQwetsrgkfJ
+ ipSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1766587638; x=1767192438;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=EusSFmSFHvXdK2TABmwbfVXk8QB5nq86ggI4VdbsACk=;
+ b=kLA4RrK2W8LbvPzBbQqdNg/bhVUMOx7gdHw+JGWVpn2iXYq39JP+fPnFvKrPnWih5p
+ XYYQuJl/pEJvHLre42IhLffoG3EHjTPQ/IBBCirgwmQB5f0G30bhS+ysEAZD1lCHTsI2
+ wwcVl4o2589ZRRx85jRuMc+4uQQuD5jYlBDSmSJp9CEWksW4PN3gT3oOJMC+NfpBg7Qn
+ ltvVDu4kOmKZTxjgInWy/GOQM44d3e9D/IVOYfpiYjeUCyO2X+J2Ry8s/u4RbsC9cuuY
+ I8IkXRyhmauTmpj6CTqqG5DhWEA96tttLEvgWG62ghwhoJ/mB+1EFNr6q1SLI1at9BiI
+ zJKw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUSWWVkE+z7dPhl2MfqQjNnTPGWR+dl5PRjy/5/rWsksRFoXEpi+vti/khC59qiAOVRQIdSMIoB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwJu+3cJdTVBaBQJfsg984aLAKgvJ/hlQfdrCnyWDwCR0317rpS
- eV2guSEGRZfiivoWPxDm3COKIhiTskYGGliSSYboHoFV8aejFaPJws/pTjzmBn0Xxow=
-X-Gm-Gg: AY/fxX56AZHyxZXMZA08CSZ2oPWtcWT8lebV0QydNj8cROaDZCYp2zWx8XCCN+fg+gE
- yw62t8iOWazimcYTo0L7YlWHYRXXC/r5h67ELznfadlZUlzJGVI4E/h4ZFoCrY0/FNhwGvSHrJS
- t+dz3DNyEyCkOKcoYtbYteJcEX/CtOI8MT+81RIIgW4s2UCItUitt1fnLdKywZVmERJ8YPg6psu
- HyNxAg+oQd9JBg6yd85/Uq6ZcXYSGiTteChp5l+fv7NWf58syn+aux2pUCm4rKAv07sL2wic3hF
- b03szZoIE23sfl4ARKY2vYyR1o+j4+pUbYljRcC5pk8NBBW6P5qDyvb+H6KKLsXa6sdvpANh5Oj
- IIAi/TkQ9+udcIqVziOQV8DqZoUls//sk1wXGvxilUkFd+aOSF1V2MMfGoKvYZ44cvgfkermFJt
- A04gMFP/GIC1tIOzAKP/vwdNBUPGDc/qxS2Q8=
-X-Google-Smtp-Source: AGHT+IEKJeulhrpJLgbK9dpob+8IyJ1NCy1xxCMBiGm/xAEDmeBwBfPB175oOr0phJbTC6PTpIqLpw==
-X-Received: by 2002:adf:fd4d:0:b0:432:586f:2a9d with SMTP id
- ffacd0b85a97d-432586f2bbdmr11861326f8f.32.1766587634756; 
- Wed, 24 Dec 2025 06:47:14 -0800 (PST)
+ AJvYcCUnxBsvFPQnwJ6uoxtdw8xVQA7xipM4oBkVc9o29LKgFpKv2QQTahef5PWwEsOFJoQylihFQGAA@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyaBGri6K/ToDUWQOd+BB4gAqCBeMFrdQBxb91N2VgKRG5j3FX8
+ vQdFLbBZb3N/S54VU/MYYWHPNi390uYD022bfvcjNTiFq3+XsvI8iWDS5iu/1Nh+Lxg=
+X-Gm-Gg: AY/fxX7+s4G/jcTjZ4VN08o2wwFeg12e64PY3BDOh+9MyVYeDHdRJYgnDRG97T9czeX
+ bQcr/SISAJWuyDDJva+kr+2MjVLMhBBP9G8PwIJpX0q+vUH2wH+t4e9UALFEEFicjrwLbl0Gowc
+ ZW0QnfQ6PzpQawjasZESFMBppjz8ple33gPda9LyG8XHjBH96ipV0IdKuQ2muW1p3c6nWsDpA8C
+ BykSvCq4/r8q+Txm02fOLNau4fbHERMqyncMPBuwQXzKxhMY5Tsrh9RfdJ/H5TiBls/nANrmM7/
+ kkGEZ7M+PheU6PZvPu08Dvch7dYNN0OJG4IF72EuSW1EbYtL3+aQnHxtYjt/IKJHEF20cWyG5aM
+ QWUN1jZq+3zk8vHvgXJQE+oKDt4Ziz/IsQmjk5dF2YkzRKm61v7tidH7XmM+zdn7Ssqq+mPo420
+ TsiGyk9B6LzMMWmryGKqISwHe29Wc5fVUo68k=
+X-Google-Smtp-Source: AGHT+IGJt/mwYM0l80VTHl5jzogHkpHFpfjU/vUbSjbHEQ65UEFCA++BEt+L9cJZpI26+VHKaAJNzg==
+X-Received: by 2002:a05:6000:220c:b0:42f:b65c:1e4f with SMTP id
+ ffacd0b85a97d-4324e4c97ccmr18106758f8f.17.1766587638414; 
+ Wed, 24 Dec 2025 06:47:18 -0800 (PST)
 Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43277b82a58sm1041109f8f.6.2025.12.24.06.47.13
+ ffacd0b85a97d-43277b82a58sm1041109f8f.6.2025.12.24.06.47.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Dec 2025 06:47:14 -0800 (PST)
+ Wed, 24 Dec 2025 06:47:18 -0800 (PST)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
@@ -73,11 +74,12 @@ Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
  Christian Konig <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Philip Yang <yangp@amd.com>
-Subject: [PATCH v3 0/4] Replace old wq name and add WQ_PERCPU and WQ_UNBOUND
- to alloc_workqueue users
-Date: Wed, 24 Dec 2025 15:47:04 +0100
-Message-ID: <20251224144708.61167-1-marco.crivellari@suse.com>
+Subject: [PATCH v3 4/4] drm/radeon: add WQ_PERCPU to alloc_workqueue users
+Date: Wed, 24 Dec 2025 15:47:08 +0100
+Message-ID: <20251224144708.61167-5-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251224144708.61167-1-marco.crivellari@suse.com>
+References: <20251224144708.61167-1-marco.crivellari@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -96,93 +98,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+This continues the effort to refactor workqueue APIs, which began with
+the introduction of new workqueues and a new alloc_workqueue flag in:
 
-=== Current situation: problems ===
+   commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
+   commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
 
-Let's consider a nohz_full system with isolated CPUs: wq_unbound_cpumask is
-set to the housekeeping CPUs, for !WQ_UNBOUND the local CPU is selected.
+The refactoring is going to alter the default behavior of
+alloc_workqueue() to be unbound by default.
 
-This leads to different scenarios if a work item is scheduled on an
-isolated CPU where "delay" value is 0 or greater then 0:
-        schedule_delayed_work(, 0);
+With the introduction of the WQ_PERCPU flag (equivalent to !WQ_UNBOUND),
+any alloc_workqueue() caller that doesn’t explicitly specify WQ_UNBOUND
+must now use WQ_PERCPU. For more details see the Link tag below.
 
-This will be handled by __queue_work() that will queue the work item on the
-current local (isolated) CPU, while:
+In order to keep alloc_workqueue() behavior identical, explicitly request
+WQ_PERCPU.
 
-        schedule_delayed_work(, 1);
-
-Will move the timer on an housekeeping CPU, and schedule the work there.
-
-Currently if a user enqueue a work item using schedule_delayed_work() the
-used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-schedule_work() that is using system_wq and queue_work(), that makes use
-again of WORK_CPU_UNBOUND.
-
-This lack of consistency cannot be addressed without refactoring the API.
-
-=== Recent changes to the WQ API ===
-
-The following, address the recent changes in the Workqueue API:
-
-- commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
-- commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
-
-The old workqueues will be removed in a future release cycle.
-
-=== Introduced Changes by this series ===
-
-1) [P 1-2]  Replace uses of system_wq and system_unbound_wq
-
-    system_wq is a per-CPU workqueue, but his name is not clear.
-    system_unbound_wq is to be used when locality is not required.
-
-    Because these specific workloads have no benefits from a per-cpu wq,
-    both have been replaced with system_dfl_wq.
-
-2) [P 3] WQ_UNBOUND added to alloc_workqueue (amdfk)
-    This change make sure alloc_workqueue in amd/amdfkd is unbound,
-    explicitly adding WQ_UNBOUND to the alloc_workqueue() user.
-
-3) [P 4] WQ_PERCPU added to alloc_workqueue()
-
-    This change adds a new WQ_PERCPU flag to explicitly request
-    alloc_workqueue() to be per-cpu when WQ_UNBOUND has not been specified.
-
-
-Thanks!
-
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
-Changes in v3:
-- improved message commits
-- rebased on v6.19-rc2
+ drivers/gpu/drm/radeon/radeon_display.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- system_wq replaced with system_dfl_wq instead of system_percpu_wq, because
-  a per-cpu workload is not strictly needed.
-
-- use WQ_UNBOUND instead of WQ_PERCPU, because this workload will benefit
-  from unbound work.
-
-- commits log integrated with commits about recent Workqueue API changes.
-
-- work rebased on v6.18-rc4
-
-
-Marco Crivellari (4):
-  drm/amdgpu: replace use of system_unbound_wq with system_dfl_wq
-  drm/amdgpu: replace use of system_wq with system_dfl_wq
-  amd/amdkfd: add WQ_UNBOUND to alloc_workqueue users
-  drm/radeon: add WQ_PERCPU to alloc_workqueue users
-
- drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 3 ++-
- drivers/gpu/drm/radeon/radeon_display.c    | 3 ++-
- 5 files changed, 9 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 35fb99bcd9a7..99a3e4c480c1 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -685,7 +685,8 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
+ 	if (radeon_crtc == NULL)
+ 		return;
+ 
+-	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc",
++						  WQ_HIGHPRI | WQ_PERCPU, 0);
+ 	if (!radeon_crtc->flip_queue) {
+ 		kfree(radeon_crtc);
+ 		return;
 -- 
 2.52.0
 
