@@ -4,96 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DFD0E784BE
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Dec 2025 17:21:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62F89E92725
+	for <amd-gfx@archiver.kernel.org>; Sun, 28 Dec 2025 17:21:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD2D11AF4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DAEE11AF4B;
 	Sun, 28 Dec 2025 17:21:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="T/F//Ujv";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G/SQ4DSK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BEwij8f4";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PxG+ml9g";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB2AB11AEE8
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 17:21:43 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0EFF11AF3B
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 17:21:44 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BSGe1tY3520292
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 17:21:43 GMT
+ 5BSCNUfF2857841
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 17:21:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- YkjBaOunrqEoX2Aau4llqSA27ldPBblRpj5Ewz68DB8=; b=T/F//Ujvln3gn+P3
- xOTPowAJSfTTwwFxlzL0T2R2oiXeryHK+Fyk1S2VBZgd/Io0JkZezo6cU2moSey/
- udFWpNHB54jXt7AEDoqh31Ruc3b7T5vc+ADw2SWF/Mg9S6ysnJuaUP81JYmrRCu4
- H9FVAxSXaT4Bzy0xLNEy+/mj1E6FJG4MGH1JVMBMY1BGJfQWo6UozKjtPnjljYkK
- UzA40jm1YBofWOfWF7bm3KI3TPGcWdAwnx71TKo2+nPJOREOPLkporxuoMlW04tn
- soEjaZKTAdzcLUwpsnS5diHPQB2DBYtCH11dq4sCsog0tUU4dJLryMgQg1OW67Gw
- EeSbYg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ba71wtga2-1
+ QwKCOLaLwEVYb/ydqismQTZCLmcdjRauyMNTqQmx16w=; b=BEwij8f468punwq6
+ urKJB9CgqrOEhjKjBPwBBQXG2Ilhu1me2Y8M2L+iFIkvhgwNJybHYhrBCyDkvzOp
+ jVx5gZ00XNtkC7J/J7VguH7FjCj78ZFy2j+LVOhNLFfRYXYTgJ62udHdIwgIo3sr
+ 3221YP2zI1V5Au/JthDmcXGCuik8AcGoq9kLIAP5RwhdRtLDvAsp2zc/T8vqth+1
+ eZtJvqyr0V+idOdxnbYqL2mGH3JXZ4lAuNnt09lwMr06yJ0lIQB3RdC93fqswMGB
+ xXPfIvwWnEvqC4V8o1z544t+W/lrFu15e9AQzQWVPOQhTxXnDdZ4JsqLkdRg3Z+3
+ lEga1A==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ba7hsafvk-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 17:21:42 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-88a2f8e7d8dso228814606d6.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 09:21:42 -0800 (PST)
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 17:21:43 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-88a43d4cd2bso108682816d6.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 28 Dec 2025 09:21:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766942502; x=1767547302;
+ d=oss.qualcomm.com; s=google; t=1766942503; x=1767547303;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=YkjBaOunrqEoX2Aau4llqSA27ldPBblRpj5Ewz68DB8=;
- b=G/SQ4DSKwGfjO+/ezerzyz7bpQKeCxxuOfBc7oLSgiEuTkv1L/NAWd2uZRa4rUV5WC
- K7ubsIhWMLq3IH5t8JQY3ISt7rsWVBXKBcU0P8eSA9knn5VPu+TvBLGqjc2pHyOzYQ8p
- mwaO0H499dZl+jRzNK3knOQmnVLeJCXNWUD329Zg/vDcvnqOwF7JXoWfbaADe/zyWQHe
- oTq0hfUhEtle+bn1fcYNrRD4W+OGz0p3MsUHuwHA/aDbnRWb29skzI5CmCRBnrj3/5hm
- MaMHLv0r0fXC4UeWau/UnKxUeM7v4s0rhhigWTbEut9EZeeOypwuD5UatV3FaCUjs94z
- DS2Q==
+ :reply-to; bh=QwKCOLaLwEVYb/ydqismQTZCLmcdjRauyMNTqQmx16w=;
+ b=PxG+ml9gYY9X6Fzqh4dhEzICqDHHx3vCw29BaAvykondt52GH87lIrFYYahINhhHCX
+ eT2LeWAxjz1I3t0yfE3DHt4EsfmWY25JwXfXeR9c8j9V2PFpsM2B1Mkb9++kRE8VGp9h
+ U/OZ5AIkCcHEv5XsuxmEHgB7PyjElk+6xyB5L/PHBhinl75vdj5C/tn01rNJNTr4tGF8
+ bMRqLJpMr4lu75bj9ZY0ISdJcM0A3vxDrKPxBvsHaJqVoGKTIb5p1UjmipjGIwCcKd3z
+ Y2UO+/EjBgHLRNlBuJucH+ExgjoRRhpXENjAl8fTuu3T6s5IjM3z2zTfCH3TtQOO5C6/
+ CsjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766942502; x=1767547302;
+ d=1e100.net; s=20230601; t=1766942503; x=1767547303;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=YkjBaOunrqEoX2Aau4llqSA27ldPBblRpj5Ewz68DB8=;
- b=NZCiqxbhhO1F8T6faUT8NKjsdeXAuHKUJafMu9tTXjqc9LDYTzZxX6VjL6JE5GJ5CH
- Lb57vZb2hy3UDtsS6eOstWGI8oqVAUVgoF1h1zEcKuiBQx1J9cuU3Lfxodr1Pj4aHctt
- 1WjMoFlm10KpX+kQjcSKsv5yJBSy8zdMmJhFit6Bny1nkMhrMQ3EC3GjqqnbvnAKpT0V
- dVvlNrmkYtEC73UGmlcgnqJGzL4Qc9kooG0iSoardOVuov7j/lDDi8Jkt0ZXWj8PIJMI
- Ir73s+jQMC1x4tjHK4wUuFORWXEa3buOe4rEkVqHg67xc8udgs4ZeFDWW/rI32QFH0mZ
- 1nGg==
-X-Gm-Message-State: AOJu0Yw0WmHgaxObuvH1iEzV6UkRDVRY80e+OqciTDozb78K5V5OluHb
- K4+E9QN77Yxq1j4MSVr4S1g6dWLUjUIdEWa7CRWWW5NYlMa/qZzCGYSjT8RlxgsHTFkLM8I3iUH
- U3OeFRrEhujH4F1aOny3blap+293CFBT/vF9WkUr7zMaGbb7SQBgzG9U59+AA754yx9oZ
-X-Gm-Gg: AY/fxX44FKQyF+qDBj43Irb3hJY9kCNMCOQDOA+1OFxVJA1n1CzVq+BKlPmhZjm2UXE
- Dt4BekrJHUw+leoBCvS5i9hiLhsU4u9ZskeJt92hABuKyKYvJ5KPi0eTuRaHGYZSSxhliZ3VaoD
- EWNMoRJypdkZw78X1AE0X1zgm2gJSaex07egXdQ9O6o9VFH6Fat+0TExVqhgRxIl+2tr1gzgjwU
- TxmsGG8/MSvTX0FIuG8BHQ2wqzmwAXIE3hzkEuxrTIvS+DAzMZhIqnYYMcEq12ISNLU9fnSRzp1
- LYmfn1D361bkLSzzznJH+WqhBm5UvUnzeSXFUkJP51vFcetaXDdSEJ5MQ+QRFbTUfQwHhPa9WHV
- 5jZd8L1H4nIn2g9HPtjMWarOVYjdH1eqjR2BGjCGw4Ku48rISm7u7ulUDppxhYtxSEjnUeaMObP
- 3uNpp/g54eWPFrzTLrR3L4lf0=
-X-Received: by 2002:a0c:f807:0:b0:880:501f:608 with SMTP id
- 6a1803df08f44-88d83983b64mr336330986d6.46.1766942502103; 
+ bh=QwKCOLaLwEVYb/ydqismQTZCLmcdjRauyMNTqQmx16w=;
+ b=gAhz+fzotSrt5REIfILsr97HQI0zxQF4v73xsWwvisHsQmE/F10cdYvYLwQs2EL01g
+ 6JyTZSOuHyaoFqFU5C/xNSFd3tHhfB3j0D0quz/qKRotEyY1pjrjSJTlMX7wseLcU9UW
+ YhKy5uPnzTnw5QvxSrf46npBIg+SZbe8qIa97e4fU2T0pLxgYIR1RVDzHM5v+3rGI0Q+
+ LNbtP6flV/12C7+IxYyGuKMZ+KkXXlo4/mLEGTE2JKUvKoLTFyBdOrAHZycQMacQRqj3
+ dfVVUGDvpVE41PVcOuFxlfne/PTOz4pmNfRszIt+ovapsMsTFRspy0XfAUnGxUbjdy4Z
+ AJjQ==
+X-Gm-Message-State: AOJu0YwkBI47iFr/YJX7QX26kRF6mis2wYJ5nLMNVVaJheEDcJPj5K9W
+ dbLHqx45YIYz9Nmpw4HE9TfEzKGBWpFsY2ygrrKEIu0cw6d4WnQw0YEHxNQcMQ9rYYHP+vcx+62
+ YqW0VHba2576oEr+Ukt6DhnNhmI3WL4qe2VBYZGxGawIHUpz9dgTxsh0iq7zXJCrSLjtA
+X-Gm-Gg: AY/fxX5FimW2qC//vv0X10pvJpDEvOc7B2jha9YwqBCLlUGVnpFGynpWBUfc2IigkyA
+ 5nuAHLjrSIYCtOXepnAlZJuHvNWrErz2eqTch2C/jp6T2uQz7tTKT7k4naJBgRiRd1XoZrUnc0k
+ 56thLaOlndVYBzmtCoFiFMg/DyPh0LIdRpfIivFFr/vGH/XEg+xn/ZRRgpT/WWxCGD+nG0DgFTR
+ f0zOoaJ/uDMmW2bxetoAl8k2LmHXZMyDzERr5K1oqVtz3tNIJfp/MOTsn1EfJXFoPWR/5sx8RJJ
+ /GoANyWSZvEtGB4obwDZvoAGvwkvsbvOtOefBqzoPMtg2KjvEkmboyw6k7T+asWgwdduVYw3xNH
+ 4bnYKVMynUPoen27vedO7F3wdSAhWBnnw4Fhe9bwEAMquS64HBBI2WiffApAu+wCsV6IfhowiKf
+ CBWmwBHyzpuBHsR5az6ynFiwQ=
+X-Received: by 2002:a05:6214:14ac:b0:880:48bc:e08f with SMTP id
+ 6a1803df08f44-88d83793405mr311516496d6.40.1766942503353; 
+ Sun, 28 Dec 2025 09:21:43 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE5EUG88eN7xWHCQu1kB/Om4DasLN+n2uCUeGVvVxm3AjAOh3j8JLRR73QWpq6YGG91jGc5zw==
+X-Received: by 2002:a05:6214:14ac:b0:880:48bc:e08f with SMTP id
+ 6a1803df08f44-88d83793405mr311516016d6.40.1766942502851; 
  Sun, 28 Dec 2025 09:21:42 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFg43kpYtqQZC5vFkhsCgSUI1Pebt5euGVk/sNLrkaiCbN3dCq7BIF7cHpcCE/NR34DsmS7ZA==
-X-Received: by 2002:a0c:f807:0:b0:880:501f:608 with SMTP id
- 6a1803df08f44-88d83983b64mr336330486d6.46.1766942501641; 
- Sun, 28 Dec 2025 09:21:41 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3812251cfffsm76871031fa.19.2025.12.28.09.21.40
+ 38308e7fff4ca-3812251cfffsm76871031fa.19.2025.12.28.09.21.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Dec 2025 09:21:40 -0800 (PST)
+ Sun, 28 Dec 2025 09:21:42 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sun, 28 Dec 2025 19:21:33 +0200
-Subject: [PATCH v4 1/8] drm/msm/dpu: don't mix devm and drmm functions
+Date: Sun, 28 Dec 2025 19:21:34 +0200
+Subject: [PATCH v4 2/8] drm/amd/display: use
+ drmm_writeback_connector_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251228-wb-drop-encoder-v4-1-58d28e668901@oss.qualcomm.com>
+Message-Id: <20251228-wb-drop-encoder-v4-2-58d28e668901@oss.qualcomm.com>
 References: <20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com>
 In-Reply-To: <20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -125,43 +126,45 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ Suraj Kandpal <suraj.kandpal@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1278;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2978;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=N79ubxZoT9CfhEWVCl9adki2rUcnDYw7kQ2VYonzkiU=;
- b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ2ZgumJldFiuRbQyP4/3zJUTcu747q2+ukG72IgpoPrMo
- t3GCgqdjMYsDIxcDLJiiiw+BS1TYzYlh33YMbUeZhArE8gUBi5OAZiIhhL7P+X/QXtbmFRSF3G/
- enRO6WLlSfcCx4q+Dy9WTttzNlYztvRzWNqmu2r2XAl6zAm/NtvMrpOuli368lZN7r1CZeFtYxl
- 73u+SLg0r35oyiRYeVDBn/NxhPMlYKaRyfnlYmHZk9yF14cQdG6WEdn+ZGzDnd2bk7vkGV+U7FC
- 0XLeqb1XfGYWrVF9k4NofewBzWj4FfvS+tVFF8v/lWXmqagcOFKHPzq98XPnh/+WV10FmeS3JF3
- y2OqGdHfXrT9CK2fe1UyckNDHLs1y7nfOmaXrybP2TV4RO8e050r74mWe0/obqO9Unq7fMqm5gL
- Ag/yLp+jbV6hfFZ/3VfHkCPWjeuiz3+ZcnzhY5H4Q+l/AQ==
+ bh=AhjL5n0KqMn00LisHx2T5B6vTrBvTjUUJYkgUx2rS80=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpUWciqEro/DFsCfKaexLHG7KTjaJzdmaEO/86Q
+ /tztctUKI2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaVFnIgAKCRCLPIo+Aiko
+ 1ajxCACH793b0lsnrCbvP33cFhq6yL0q59eHuPMhmnMl4PbAf74U2q6vkmuhCLbqWCyjjympkm2
+ F/QcVzF6/2fMsBgWaxsNYMVRtMEayNK7VupJM/1PgLNA0wAVIhFcD1nGQ9aAoIUL3hD0ssjtLSE
+ 9+AjggpuA2/LVew7AVfi28UvHarYVEjG/cdGTOH+shJS4pH7Uc7xY64PV2WAV7gcxdIF6LMqZF8
+ zVkVffrU80TTqtUmnaNTLFzL5KTn2ydJbita7NEyIvP5RCWD2I94OLeJHb90rtbkm2B4OL7NFwl
+ y1FdVeZNaoJYHJgm5XqKdUx1uN271EkIn8vhU3oofzZ79v+n
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI4MDE1OSBTYWx0ZWRfX2XWC2rhkPr6a
- bJM87ZOEjot66JGe79r1q83upndwnKlcCVlBwZCHpfeQClATe86tq1Dm5s+H/jJresx6JpUlAe0
- 6LnXtoxakQGmPqkduk41AZ2Tzj7ekrVs7cX/ClaGmQxD5SR70OZDSAn/U1q2cyyfwenyhBcq5c+
- GiY9EA0u4/KkCgiEvdkMppi0LbOrl+XNvTYy/98nV+zFucsVqfLSAJC400c//rrDo4S1e5dv79y
- N1mp1WJ+AMHoiKZeVkjqizxSbz5Pm3IeQPKITiRfA98A2VNnxJFwPHnbQpTAdhW7mkR/oai5oON
- 4NzrCsbrafH2pTbPZzViASevpZkVrFiRD+z/wqffYTtFcR3ZixHj+xVZpMPa5bBVsN4xUrtMRfi
- /aDZ2qP4SD3xxnLIUZOtarVYMHGQNj7vogucucy02yPScijlDra0E0wHz4RNyTmKXI4LTN7SqZ6
- P29rhu/BkLpjzrYVlfw==
-X-Proofpoint-ORIG-GUID: NxOdmqFObb7NmvbRaoYEaUYGYwtJz4Pb
-X-Proofpoint-GUID: NxOdmqFObb7NmvbRaoYEaUYGYwtJz4Pb
-X-Authority-Analysis: v=2.4 cv=CK4nnBrD c=1 sm=1 tr=0 ts=69516726 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: pNJoYE6fsQCc7imiNF2pipiCOuVMG5sd
+X-Authority-Analysis: v=2.4 cv=O4o0fR9W c=1 sm=1 tr=0 ts=69516728 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=LvVPTXtSEabqDirTlLwA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
+ a=P-IC7800AAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=8cP71iSYcfV9S7Y4u-4A:9
+ a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-ORIG-GUID: pNJoYE6fsQCc7imiNF2pipiCOuVMG5sd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI4MDE1OSBTYWx0ZWRfX1kn1n7PjKYEA
+ tjKDONMxNDlQWz4roszNr4CwL06eVv8cTjdhWocQ6XOV/KOFDYfE7SJSFbe0AvtcjsspKaVp3h4
+ dWFpZCtaP1EDyVXjYFdFQyIIMzqCYLh48RpcsH7XtE2+upgCDppSYa1YUBmTLfdOosjI3ENYBe6
+ oEnZrQJR67OcQujfMH+hwQQIyd3M0F12vz7zyCmLuYF6U+IMDPGD2T9cYDAUFNMZYj2s496wHId
+ 1cE15U6gnopq8kdOdWfaZcE2y6IolD4PfIEVnFfA9QIP6sY/DPDE6e1oCS9ISCpK/LF+q7FtgU+
+ PF5Ea8Tr/YYJIcO8znzhP5IXLu1394/RgPWkIGV9b1uIB2jzJBqa2xICsc9UPSXWyKYYu/gY8rs
+ zJXVu+H5f5zpZRdn03JDLtdsVpRqhreKW5stv3/U6kRSvht9bgYLHsdG/fLuYVDM170rnotzaEC
+ BaMcPpf7Iz1mHtOZF3g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-12-28_06,2025-12-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
- adultscore=0 suspectscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512280159
+ priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512280159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,38 +179,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Mixing devm and drmm functions can result in a use-after-free errors.
-Change dpu_writeback_init() to use drmm_
+Use drmm_plain_encoder_alloc() to allocate simple encoder and
+drmm_writeback_connector_init() in order to initialize writeback
+connector instance.
 
-Fixes: 0b37ac63fc9d ("drm/msm/dpu: use drmm_writeback_connector_init()")
-Reported-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Closes: https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
+ 2 files changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-index 7545c0293efb..6f2370c9dd98 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-@@ -5,6 +5,7 @@
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 740711ac1037..45b3c8f16b23 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -10570,7 +10570,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+ 		return;
+ 	}
  
- #include <drm/drm_edid.h>
- #include <drm/drm_framebuffer.h>
-+#include <drm/drm_managed.h>
+-	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
++	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
+ 	if (!acrtc) {
+ 		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
+ 		kfree(wb_info);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+index d9527c05fc87..80c37487ca77 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+@@ -171,7 +171,6 @@ static const struct drm_encoder_helper_funcs amdgpu_dm_wb_encoder_helper_funcs =
  
- #include "dpu_writeback.h"
+ static const struct drm_connector_funcs amdgpu_dm_wb_connector_funcs = {
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+-	.destroy = drm_connector_cleanup,
+ 	.reset = amdgpu_dm_connector_funcs_reset,
+ 	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+@@ -190,17 +189,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
+ 	struct dc *dc = dm->dc;
+ 	struct dc_link *link = dc_get_link_at_index(dc, link_index);
+ 	int res = 0;
++	struct drm_encoder *encoder;
++
++	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
++					   DRM_MODE_ENCODER_VIRTUAL, NULL);
++	if (IS_ERR(encoder))
++		return PTR_ERR(encoder);
++
++	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
++
++	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
  
-@@ -125,7 +126,7 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
- 	struct dpu_wb_connector *dpu_wb_conn;
- 	int rc = 0;
+ 	wbcon->link = link;
  
--	dpu_wb_conn = devm_kzalloc(dev->dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
-+	dpu_wb_conn = drmm_kzalloc(dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
- 	if (!dpu_wb_conn)
- 		return -ENOMEM;
+ 	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
  
+-	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
++	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+ 					    &amdgpu_dm_wb_connector_funcs,
+-					    &amdgpu_dm_wb_encoder_helper_funcs,
++					    encoder,
+ 					    amdgpu_dm_wb_formats,
+-					    ARRAY_SIZE(amdgpu_dm_wb_formats),
+-					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
++					    ARRAY_SIZE(amdgpu_dm_wb_formats));
+ 
+ 	if (res)
+ 		return res;
 
 -- 
 2.47.3
