@@ -4,71 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88941E9271B
-	for <amd-gfx@archiver.kernel.org>; Sun, 28 Dec 2025 17:37:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23660E784BE
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Dec 2025 02:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29A97113CAA;
-	Sun, 28 Dec 2025 17:37:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3026210E2F9;
+	Mon, 29 Dec 2025 02:25:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V/wDRMsQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c3Wdgv8i";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D9E1129D0;
- Sun, 28 Dec 2025 17:37:44 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-152.bb.dnainternet.fi
- [81.175.209.152])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 9F8DB4BB;
- Sun, 28 Dec 2025 18:37:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1766943448;
- bh=BVyrGvuZxQ32vWuyuPyWhvaKJBjsen6sagC/3IcqpSs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V/wDRMsQYkz61hN+SmAYpeteMIET3dbzn84NCONg5GqGOSmCMYHVprroRZOofKUvp
- DRAuP2Wwl2hgYN0uyopjD1EL+FUTeQO+9puw4xsQJ8TneYfOeVS0YyqMSoQJZ/tDcm
- CJXJJ354O2ddLgV05A9JT32LE2IQcIyZmKoXDAzs=
-Date: Sun, 28 Dec 2025 19:37:24 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH v4 5/8] drm: renesas: rcar-du: use
- drmm_writeback_connector_init()
-Message-ID: <20251228173724.GR4094@pendragon.ideasonboard.com>
-References: <20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com>
- <20251228-wb-drop-encoder-v4-5-58d28e668901@oss.qualcomm.com>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012005.outbound.protection.outlook.com [52.101.53.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2153B10E2F9;
+ Mon, 29 Dec 2025 02:25:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u7rVKnwV6UL4g95VJ+fg6Z8b1iKNs+fMbD4si6gZcU1P7jIcm8QlTp5VQErg8PqYqSWT3L0IwikjmlfLy4UoNA2tYS7rhkF5hBR2mNryWeid96Uo7sjGbH6pIM4+sICqcBb260T2sSu01FgcEDSh4H0H8hBE0rD7Y2H0QZTmiOoMBm2+LnO9mNJJSICd4tyDJMvqIb9bvYnQH/LSvXmtqho2RsE5+Xzixuq0MdizznXRkDxIGQ58PFI1rA0naXI9NrTPdjYCbXK8t0vYbIYj/QJCIboquAbe5zhNFPZ4skHac0MTcpf4T6HsiRBtxOuV3g+i89NfpQybcqIHdgjNIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=McmHkWOhb44LLO/imeMp4TenhqDDVpQyLg10cr6LsVk=;
+ b=MgTOo+kKzsMbgJgCF6xaocLP8cnnngS3tP/PcE7HtNjnXQ9ApHn8g0/HmPSn2OGC49qQc21hLzVWGOsXeo3q74jUBPwM9u9g67A6Bln/kNqffhypeiA9ViR9Z48Dua82GejvTUYXQhXJqJON6h/4pMU0wroku9M5zLiuxXvcvltUZs+iwHIn0o0beqV+uTR5xL5h/GdG6zZ+63btzTQIYoYizpd5DvMgmNrR8qbL/Qq25d/afXQJFCKw+wru4ZvqPhTryD5GvN7AhGY58F9VAeOnbwxomZ5ajG9ERLFgm2ck2KMbKzcMAIWHjCUXd3kV43RMqNNQIN0UD22tjM35Uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=McmHkWOhb44LLO/imeMp4TenhqDDVpQyLg10cr6LsVk=;
+ b=c3Wdgv8iApGTwL7WuhvQc0PTWEnaa4mQwzKWPOsQMDw4ESnlOLEa9IYSGkKcdUxZ35LFVQsDrqujJdt4h0KE8+vksVCnNJcjyEK53lzoO++bmkalGCi5j9ilkPzye37HEgQ9m+Ce3A6CWxtQuD/BmLvOuNP/c3ir2roTJ0YSr5Y=
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
+ by IA0PR12MB8837.namprd12.prod.outlook.com (2603:10b6:208:491::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9456.11; Mon, 29 Dec
+ 2025 02:25:12 +0000
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::833a:459:cc0a:fd2f]) by CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::833a:459:cc0a:fd2f%3]) with mapi id 15.20.9456.013; Mon, 29 Dec 2025
+ 02:25:12 +0000
+From: "Lin, Wayne" <Wayne.Lin@amd.com>
+To: Yaroslav Bolyukin <iam@lach.pw>, =?iso-8859-1?Q?Ville_Syrj=E4l=E4?=
+ <ville.syrjala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v7 7/7] drm/amd: use fixed dsc bits-per-pixel from edid
+Thread-Topic: [PATCH v7 7/7] drm/amd: use fixed dsc bits-per-pixel from edid
+Thread-Index: AQHcY3tEyFN5MTrPs02dSG6UH6lT/7U4DH6S
+Date: Mon, 29 Dec 2025 02:25:12 +0000
+Message-ID: <CO6PR12MB54891B24DC9AF32086009E6FFCBFA@CO6PR12MB5489.namprd12.prod.outlook.com>
+References: <20251202110218.9212-1-iam@lach.pw>
+ <20251202110218.9212-8-iam@lach.pw>
+In-Reply-To: <20251202110218.9212-8-iam@lach.pw>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-12-29T02:25:19.991Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=1;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO6PR12MB5489:EE_|IA0PR12MB8837:EE_
+x-ms-office365-filtering-correlation-id: 8bf98eba-64a3-4f23-559f-08de46817ee0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|38070700021; 
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?YT0kDHzxv83TUTX7R9cIObles9uTUdwdL0eyYXdCTI4wbLTEl9abCKDbzg?=
+ =?iso-8859-1?Q?VMJ8VNUs7U+1fd8U3MrKr8QpQm7FQOwMRcAzO2L/uw2+VvFVPvk8+RZKv2?=
+ =?iso-8859-1?Q?X3iZlEDEmziGsc0RJJBpl+a/BEwb5EY6BMMjZ0HvFsavEAF9AiS0BiBYOJ?=
+ =?iso-8859-1?Q?NFFy6dz1wvRk0Bi+4UIgMcfIZYGE9acPaRyri/YVv3uvjFX0TwLchWCsyF?=
+ =?iso-8859-1?Q?PfbdPrgd3km1cI52e8+961B0H4AowrLDMyhiqPCZzFsJL+npdEoOgi74jP?=
+ =?iso-8859-1?Q?whASCbzrdeL14Het6vyAvGFcp5LmTRBovNecVgtTMYN5vvetKQencnz+3k?=
+ =?iso-8859-1?Q?lw/6tkbAMpwPH+IC9PPvjS/z2Kdjlv/nfbkbHZlocMuvOrf3NoUajjKliZ?=
+ =?iso-8859-1?Q?pIyErLRKj7Zi/+KjahKIfxnHm/5fJp/ghz5kPlpgD435xgfd+RBLHh3R8B?=
+ =?iso-8859-1?Q?d5cNN3lPuBMmVsTF8yXW638slQ3nQt3p6ua+QMfNm/56ON0TmX6CFxIR9b?=
+ =?iso-8859-1?Q?n5BWZbgDjkfM5+RaW2z3VNcYMx1DFyU3mqUQaS5yec8PFAzP0ui6JsfdQd?=
+ =?iso-8859-1?Q?Csmjwpvz+IWvXE3L8B8ExMq2KqR0IE3gquE9IthA1tb3kDbCbnzXgo4WMG?=
+ =?iso-8859-1?Q?I6idfX4Cb8AuK35u5jixaNzjBb06TEVPngItS4KBlhT8dtvrr56vWOoGsm?=
+ =?iso-8859-1?Q?Or8OWf61UyxeaRiPxKwLpnEMt6R4jzPjSdDk7TPkaQjJ+7kAL3RCQTXYFl?=
+ =?iso-8859-1?Q?1aGfnxVGqfOqZB0AH5CNkKP0PwEI54SxidGZJGwLsIghO8ZoZxZCEtmxNi?=
+ =?iso-8859-1?Q?DLQ8yvk4Y2/uKVE7ZFQwzIMBNThrrJCz9evoRztiNcK/ZglV8JP2LBi3WF?=
+ =?iso-8859-1?Q?dCSjBZoaXPRDYSUq05GVzqSEUuhj4yK5SoUTLMMNc+bY7IZEL9LemZzKoV?=
+ =?iso-8859-1?Q?GyG47AT4daMjLC5qZRdDguAqY1ujE+Lt8Y/Ar9oycGn9DrWYs8I79p7fiv?=
+ =?iso-8859-1?Q?lUe5yUpW2tCmJfbvXXi25HTjtjLdOP+9XSdAyxTqAGjDh1JuEYAvObGAgC?=
+ =?iso-8859-1?Q?XfomIcaxJjDa4ibajafVQ566jFfnqEHFsV1deGkdvRad2BPQcQOx5vkm+M?=
+ =?iso-8859-1?Q?u2yoXlEbFz+Bnp8W94KEYai9nhNIpDRvC4DWBZURVCqquJRFXzUNiNz5MW?=
+ =?iso-8859-1?Q?bIjwLC9GynePycm60NWVC09sFp4j5HF7TVkzXNnwlbZLJwTupzto7rnI/I?=
+ =?iso-8859-1?Q?AyPaRMV7+h4pcGmg/DBt8LJJNo3HN3znvZS1EY2ikkZBt//aaqhMtln8eI?=
+ =?iso-8859-1?Q?du9KFgKJWk58qRj6JtYytl5zMt8OgbO+/lsZ8e2p05/gub8rxH/FHPvMNk?=
+ =?iso-8859-1?Q?G1IymffwRwBgq2UdFFqeK60KKh72haa8Wq7ZmJ0S98LQPn9sFUdr16cFMe?=
+ =?iso-8859-1?Q?yGp6pJ1w5wpE7yUhbxqP3pCkOsbx9H0+H7k0ThQRYfxm7shoT0othQFl4G?=
+ =?iso-8859-1?Q?ub+YXf7af63RWjAK5G/TnsXsXvLWwZtjpnli53Np5eRFCuc3TWgjoVDYSk?=
+ =?iso-8859-1?Q?gDNyZutQhPHr8Q/jgOlAhALFH6RR?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5489.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?ZV3ZsT9vDQbYN9OVSYaElwnWHzPCsIxPr2qaA2CNAbpp7YTUM6whZcamyW?=
+ =?iso-8859-1?Q?qyKxpoR57dlNZtwtvgj7LHytyinUqPKf4UDuxkto9zyNcwwZnwLiW/9HMC?=
+ =?iso-8859-1?Q?71mbnp/I5U5DfVZLv9PbhOqiBKxmYoDwByrVy3eZqVlwbQ5zZvNZbCKQZZ?=
+ =?iso-8859-1?Q?yU+VFGWE5f0GP1B5nG+v7zK1RqXiZCG0ZC/FRcaweDOnI8W8rIDN89+6EA?=
+ =?iso-8859-1?Q?pbIeclGujSn10lRFn07rLMqIn77eI6dbJlREAKB3KoVH2YMyAldu1HGGVW?=
+ =?iso-8859-1?Q?gqS57Q8btaJ1I5oxmw1gPslkWlGe0lzUtbIPj+wJ1mam1NY8Vx9IAsdAfY?=
+ =?iso-8859-1?Q?5ZC1dJfcG/NlCEtSLOZsccX+eDzY7aiB/h+zjyJ9HuGTTR/qo7O8jdxtJJ?=
+ =?iso-8859-1?Q?DzhNXTOs+dqf0SiDtefqsTcaH2FpoGF6RIftncpqaZ0CPgA7ItYCQaikdi?=
+ =?iso-8859-1?Q?07JSQdXN0Eh1PJ3i6AQhHjmELWl1OKNA2SMxhyER9VPPZ2gOFUj51fQUp0?=
+ =?iso-8859-1?Q?wnOhhU4t6KfisOCFemSmveK0pFQ4DIVUl/DTdDTrimN4/AdEYfNNFG4v6j?=
+ =?iso-8859-1?Q?UrSqiYB4S9z7mM6Bpm05LLoCJVBXpJRlJURjqGKUsk12q+ZeDoWoyMJl7r?=
+ =?iso-8859-1?Q?Bs+M1Z+FMcnuKCITBMQT12BaCPrY4hjTxo5HGlFGcmvnQeWwl0Zhz+6YDk?=
+ =?iso-8859-1?Q?pc5n9aswW5pRajYFKQUvWcosOb70ITwa6RZOungEW56+GRAuZ8SXwz+Onn?=
+ =?iso-8859-1?Q?gH5omHuA0EhVlCzYdVPnFof7cQUNwZGQFIfw91zDx1czKbrU8eKNdMWFj2?=
+ =?iso-8859-1?Q?854VDyZQ4+mXBjaShBr/P11Qu7BNwo1JrINf5WAgEWfjkCotqF/w5ZYGKN?=
+ =?iso-8859-1?Q?KJJkOwi8h5+5yvwDj9vRCuC/4R7+XhKVigiFaXzvWmk7O/hWPQVYeYoOJX?=
+ =?iso-8859-1?Q?ua0mYLS/Y1n/bY0EwKVzrtNK3F0qfkIPd9m9YdHwoNEoMzh7NwCOGYn166?=
+ =?iso-8859-1?Q?X2Yc1ARdYAgEvMbU/s81uomqg661Yc24/DlzMcx0kOxtDjU/UAZ1DGtUMo?=
+ =?iso-8859-1?Q?VQVLdoT1qYzZF4qKcqAfvsnOXJn0eeuIQCeyw8wN81MGe5FRkEady/kL+H?=
+ =?iso-8859-1?Q?zbtHt6lZ3qg0IyxDQuv3f/Egs43SZQbCH3sDtzupwkelHqk4HwQYmP0uYS?=
+ =?iso-8859-1?Q?HCZHMFZcCnjH4V62oiA4WO2eNOjrDgyiciGztLKjJRGeUBZFBx65CRKvnG?=
+ =?iso-8859-1?Q?+icAn/X27f3As50UJZVjX/Srckgwjxni8ByzSKdzzkfrplCPIc78okSUWu?=
+ =?iso-8859-1?Q?tOJbVeeiY+jfrdJEn7U1/OA9OUlGNYQdDiDhjnBPl8YoWIiCnkOXVb7P+i?=
+ =?iso-8859-1?Q?b8N9gqD+0iEp9rcuQNzS49VidNqKdZmGHMPu3B8KB8niBHx/GXKCfn9hxs?=
+ =?iso-8859-1?Q?9Uv7XrmV9UIp1W0UZAk1yiLT8AliOiroY5Z9bg0bStJyzSIJKE4M2SrABj?=
+ =?iso-8859-1?Q?MDt0KkIX7KeyE8P1Sx/yR0pQXFnWNUDOB8sVnP2CqNnyMvMV/nM2gcYfyp?=
+ =?iso-8859-1?Q?QGPf9oJ4z0n0hljkzrw68TVxMcAc+7IqQ3EaTIbShpNidoq/xoI1y4uJQb?=
+ =?iso-8859-1?Q?NBSv79AKwtYJmktnSnPesrsp+MPVvhGU/k0knr/hzJyR9cowds5M36F1Yv?=
+ =?iso-8859-1?Q?bWqiKlaP67ImU2t7oP7G2LAlAR6V0EKaU/SHPlmrp50WLU/c6/p3HGOhQS?=
+ =?iso-8859-1?Q?UU4OmM6JYTjrVtjKdm+wBE616cJMZLq2YfGygCGXSSsa8Q?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20251228-wb-drop-encoder-v4-5-58d28e668901@oss.qualcomm.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5489.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bf98eba-64a3-4f23-559f-08de46817ee0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Dec 2025 02:25:12.6358 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ugQcF1VnQxytpW+bpAIN7a8KMKtPmKi4nwmwUiilxN8Ray+1Ax4He5e31z9ytzIDKfjitRo/VmnVO47TYUPLBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8837
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,69 +168,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Dec 28, 2025 at 07:21:37PM +0200, Dmitry Baryshkov wrote:
-> Use drmm_plain_encoder_alloc() to allocate simple encoder and
-> drmm_writeback_connector_init() in order to initialize writeback
-> connector instance.
-
-The patch makes the driver more complex, so the commit message should
-explain why this is a good idea.
-
-> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 23 +++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> index 8cd37d7b8ae2..64cea20d00b3 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_writeback.c
-> @@ -134,7 +134,6 @@ static void rcar_du_wb_conn_reset(struct drm_connector *connector)
->  static const struct drm_connector_funcs rcar_du_wb_conn_funcs = {
->  	.reset = rcar_du_wb_conn_reset,
->  	.fill_modes = drm_helper_probe_single_connector_modes,
-> -	.destroy = drm_connector_cleanup,
->  	.atomic_duplicate_state = rcar_du_wb_conn_duplicate_state,
->  	.atomic_destroy_state = rcar_du_wb_conn_destroy_state,
->  };
-> @@ -202,15 +201,25 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
->  {
->  	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
->  
-
-Extra blank line.
-
-> +	struct drm_encoder *encoder;
-> +
-> +	encoder = drmm_plain_encoder_alloc(&rcdu->ddev, NULL,
-> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
-> +	if (IS_ERR(encoder))
-> +		return PTR_ERR(encoder);
-> +
-> +	drm_encoder_helper_add(encoder, &rcar_du_wb_enc_helper_funcs);
-> +
-> +	encoder->possible_crtcs = drm_crtc_mask(&rcrtc->crtc);
-> +
->  	drm_connector_helper_add(&wb_conn->base,
->  				 &rcar_du_wb_conn_helper_funcs);
->  
-> -	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
-> -					    &rcar_du_wb_conn_funcs,
-> -					    &rcar_du_wb_enc_helper_funcs,
-> -					    writeback_formats,
-> -					    ARRAY_SIZE(writeback_formats),
-> -					    1 << drm_crtc_index(&rcrtc->crtc));
-> +	return drmm_writeback_connector_init(&rcdu->ddev, wb_conn,
-> +					     &rcar_du_wb_conn_funcs,
-> +					     encoder,
-> +					     writeback_formats,
-> +					     ARRAY_SIZE(writeback_formats));
->  }
->  
->  void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
--- 
-Regards,
-
-Laurent Pinchart
+Hi Yaroslav Bolyukin,=0A=
+=0A=
+Thanks for the patch.=0A=
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>=0A=
+=0A=
+Regards,=0A=
+Wayne Lin=0A=
+________________________________________=0A=
+From: Yaroslav Bolyukin <iam@lach.pw>=0A=
+Sent: Tuesday, December 02, 2025 19:02=0A=
+To: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>; Maarten Lankhorst <m=
+aarten.lankhorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>; Thom=
+as Zimmermann <tzimmermann@suse.de>; David Airlie <airlied@gmail.com>; Simo=
+na Vetter <simona@ffwll.ch>; Jani Nikula <jani.nikula@linux.intel.com>=0A=
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher, Alexander <Ale=
+xander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Lin,=
+ Wayne <Wayne.Lin@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.fr=
+eedesktop.org>; linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>=
+; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; Yarosl=
+av Bolyukin <iam@lach.pw>=0A=
+Subject: [PATCH v7 7/7] drm/amd: use fixed dsc bits-per-pixel from edid=0A=
+=0A=
+=0A=
+VESA vendor header from DisplayID spec may contain fixed bit per pixel=0A=
+rate, it should be used by drm driver for the modes that declare=0A=
+they are only supported with the declared fixed bits per pixel value.=0A=
+=0A=
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>=0A=
+---=0A=
+=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=A0=A0=A0 | 16 ++++++++++++=
+++++=0A=
+=A01 file changed, 16 insertions(+)=0A=
+=0A=
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c=0A=
+index e6728fd12eeb..32370279283f 100644=0A=
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=0A=
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=0A=
+@@ -6613,6 +6613,11 @@ static void fill_stream_properties_from_drm_display_=
+mode(=0A=
+=A0=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 stream->output_color_space =3D get_output_color_sp=
+ace(timing_out, connector_state);=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 stream->content_type =3D get_output_content_type(c=
+onnector_state);=0A=
++=0A=
++=A0=A0=A0=A0=A0=A0 /* DisplayID Type VII pass-through timings. */=0A=
++=A0=A0=A0=A0=A0=A0 if (mode_in->dsc_passthrough_timings_support && info->d=
+p_dsc_bpp_x16 !=3D 0) {=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 stream->timing.dsc_fixed_bits_p=
+er_pixel_x16 =3D info->dp_dsc_bpp_x16;=0A=
++=A0=A0=A0=A0=A0=A0 }=0A=
+=A0}=0A=
+=A0=0A=
+=A0static void fill_audio_info(struct audio_info *audio_info,=0A=
+@@ -7071,6 +7076,7 @@ create_stream_for_sink(struct drm_connector *connecto=
+r,=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 struct drm_display_mode mode;=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 struct drm_display_mode saved_mode;=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 struct drm_display_mode *freesync_mode =3D NULL;=
+=0A=
++=A0=A0=A0=A0=A0=A0 struct drm_display_mode *dsc_passthru_mode =3D NULL;=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 bool native_mode_found =3D false;=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 bool recalculate_timing =3D false;=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 bool scale =3D dm_state->scaling !=3D RMX_OFF;=0A=
+@@ -7162,6 +7168,16 @@ create_stream_for_sink(struct drm_connector *connect=
+or,=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 }=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 }=0A=
+=A0=0A=
++=A0=A0=A0=A0=A0=A0 list_for_each_entry(dsc_passthru_mode, &connector->mode=
+s, head) {=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (dsc_passthru_mode->hdisplay=
+ =3D=3D mode.hdisplay &&=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dsc_passthru_mode->=
+vdisplay =3D=3D mode.vdisplay &&=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 drm_mode_vrefresh(d=
+sc_passthru_mode) =3D=3D mode_refresh) {=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 mode.ds=
+c_passthrough_timings_support =3D=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0 dsc_passthru_mode->dsc_passthrough_timings_support;=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 break;=
+=0A=
++=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 }=0A=
++=A0=A0=A0=A0=A0=A0 }=0A=
++=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0 if (recalculate_timing)=0A=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 drm_mode_set_crtcinfo(&sav=
+ed_mode, 0);=0A=
+=A0=0A=
+-- =0A=
+2.51.2=0A=
+=0A=
+=0A=
