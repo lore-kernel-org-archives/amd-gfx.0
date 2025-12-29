@@ -4,120 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27045D3B7E5
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Dec 2025 02:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57D2DE8FDB1
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 Dec 2025 04:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6F0A112706;
-	Mon, 29 Dec 2025 02:29:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B88310E15E;
+	Mon, 29 Dec 2025 04:26:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uyOQ4vmt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CW0jo+2y";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010049.outbound.protection.outlook.com [52.101.56.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D6B510FA99
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Dec 2025 02:29:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pIBs53qv7hK37WmQ/f5hctlrOj/OomZgyygs0tcUuRy8SGGpqDbzzCLjoOakXCE+pfrYF8PG0H/Os8FJEMNbodxe6PzdhihGQGILuo+pNCxqrSW+h2IklZe5Lr82xhsa+goA8iy5Z7QqF9/v2lon54dUl6wFWTVoQ4N2Nrw9A2+CORm8C8LsGOvS7mq0pNHuKoBGTKXJeunUhECBZ4c5PtPN3tMSt/ENWL+OmXjqzyvCmWedhcGVawWNWHIzr8pUi0fG3rFuhhV4b4t98w73Nu3QmByrXOzDgbsirDTlBJ6RuLD374alY5S7hKEpFVcLREwIvS1bn5DunDfL2uH+og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IaaESJnc9Rl6RujmC9xcPzdbeb6oM0JHcislEPo4UfY=;
- b=GFGLx+vDciLVGO5rJ/A5sNSjwu8vH0xAFIA+HzXHTdKnPumHyzdo+ccij59s9LuPoLmv1mFtk9FHOyc+fuwbg3uyjXaojSM78eG2k/liMoV664eJDzBycILqP8rUh6aY8Gs3ei71voKhEf3VJpXuClfASZgZubtPjYAOnJWIDO8yH2Wf8GNKoawuWEh5usyJay74x6CSEPQqSZ8rsiiaM09sl1MX5Sz5VfU5+k+KsTjxere7/VreevmAcA4CL7mbiOjdnu0u9534O7f1dGMYRuuApMRPWTw8hzRJoRy9gcco0VTl7pdf303nLg1R1oX5Lga27T5VotpGAA00DtlxeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IaaESJnc9Rl6RujmC9xcPzdbeb6oM0JHcislEPo4UfY=;
- b=uyOQ4vmt1r4KjjKyavylzmQeI9xgkcccGMuHlJztS7ppg4qxC4lFgCk8yN/qNXLY6l7RSyzxGbkxnjzw3StGueO31wpQi2wI45yNeokAmy5DLsUKG5mXGDl8lCvhHqPkTlPE47rHFrUr7SwaUC8z9iUxzfTY7f/Ff4xPa8YBIdg=
-Received: from BL0PR02CA0030.namprd02.prod.outlook.com (2603:10b6:207:3c::43)
- by DS0PR12MB8527.namprd12.prod.outlook.com (2603:10b6:8:161::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9456.14; Mon, 29 Dec
- 2025 02:29:21 +0000
-Received: from BL6PEPF00020E60.namprd04.prod.outlook.com
- (2603:10b6:207:3c:cafe::38) by BL0PR02CA0030.outlook.office365.com
- (2603:10b6:207:3c::43) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9456.14 via Frontend Transport; Mon,
- 29 Dec 2025 02:29:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00020E60.mail.protection.outlook.com (10.167.249.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9478.4 via Frontend Transport; Mon, 29 Dec 2025 02:29:20 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sun, 28 Dec
- 2025 20:29:19 -0600
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
- <Prike.Liang@amd.com>, Jean Philippe EIMER <phil@jpmr.org>
-Subject: [PATCH] drm/amdgpu: Skip TLB flush for devices predating the SI series
-Date: Mon, 29 Dec 2025 10:29:09 +0800
-Message-ID: <20251229022909.777645-1-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C3F210E15E;
+ Mon, 29 Dec 2025 04:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1766982366; x=1798518366;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=qKpO2x8952X3Gg6FCYRp4c27x9q5ttUGjawxlTmAGdU=;
+ b=CW0jo+2yekNex5DNMp/Fns+rhCDQ5pY7PnEaVdK7Hu3SjBfBuMxFoV2v
+ KlR+0RQ7fsidbbuymRz+MXPv/7t6V29OK+y7hynrRJQutziah61iYckuc
+ X3ERM0g24c7Ab53w79fiC0tuuHf0WjLrGNgF7bi068gkmUVcP2mMAdE5Z
+ wT8fCWlJY/RJrYb+UV5t8T+DpFZWjzcHFuECroUkf/d9o4e7gQIsGlq2X
+ 8kq/MuYIGHdpgV2SQfviuTnDWZ0YHrHfDqYVFfXbDK1qffVSc6ewOxwKk
+ LaseCs+pMQ0q7wmzq2W45ARm2UP/5WwjstmKeYTopqQMzqvBq5HESr9KL A==;
+X-CSE-ConnectionGUID: SOYzhBwlQBer+UH5V12+XA==
+X-CSE-MsgGUID: i8Mj6XIFRmqhKa365ceXCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11655"; a="68489718"
+X-IronPort-AV: E=Sophos;i="6.21,185,1763452800"; d="scan'208";a="68489718"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Dec 2025 20:26:05 -0800
+X-CSE-ConnectionGUID: Gg5orHuoT5WMEUjpOoJ/RQ==
+X-CSE-MsgGUID: uwCxkn6wRzix9EhRTRI20w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,184,1763452800"; d="scan'208";a="231903523"
+Received: from igk-lkp-server01.igk.intel.com (HELO 8a0c053bdd2a)
+ ([10.211.93.152])
+ by fmviesa001.fm.intel.com with ESMTP; 28 Dec 2025 20:26:01 -0800
+Received: from kbuild by 8a0c053bdd2a with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1va4pT-000000007gG-0MdO;
+ Mon, 29 Dec 2025 04:25:59 +0000
+Date: Mon, 29 Dec 2025 05:25:50 +0100
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <lumag@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2 3/3] drm/atomic: verify that gamma/degamma LUTs are
+ not too big
+Message-ID: <202512290531.US56hi8Q-lkp@intel.com>
+References: <20251228-drm-fix-lut-checks-v2-3-50f5d1a260a7@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E60:EE_|DS0PR12MB8527:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06c9309f-0788-4771-cbfe-08de468212d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qqaOzaq0Fbn94Lu9dpDLYqub0isZk8vdyXmSTGKwZSkhbq2C3DjLrMGOF6KD?=
- =?us-ascii?Q?xdj5UcVmWLzYJy5mH6lE+IHuEWBx7JXTWD53jLxgB6tRhGklPXs4W0XCy6BM?=
- =?us-ascii?Q?+sQBWhJLJG1bCtahA8Sv4xT7RTzM6uuIh6t7glvWONPsiIxnS/2r+hkDXDkX?=
- =?us-ascii?Q?Syf+mYqKmqJaXAlA8XnzuANBlbhS9oCp/YZqnvTUqArKQ6zpctCUmZxj4CUB?=
- =?us-ascii?Q?2+md023n/+ByuT+uU+HKB069XL59b15n5uZY+1cL66oKDjvDaPdQm3JbhxyB?=
- =?us-ascii?Q?SwrdqS1j+LLkaNuhs7UdxFPbe+9YTOwos122kPyO0k4Ut9zV5PA7DTDtE/2Z?=
- =?us-ascii?Q?os2ZvIpYe2eOFmwcS9TOjLsAQ/XiDHmF3Z/NDAyki+5Deo0YKX6mXHandQRb?=
- =?us-ascii?Q?g3J2Ks9NVZouYfSh9x4PQlXKYYRPCANnpjtfRzpBr9q/nag3+utxdswmthIs?=
- =?us-ascii?Q?L0yK8B7sNRUGM/BdAW898d2umATNNPNZnvsYXqREVqx3M0ZOlW9CQztgKe0W?=
- =?us-ascii?Q?mGa4nZc1uakYwEnuIHJTXjoll2yIpqKqlONgjmNgZav8Ed7xePt6CQ7UtdNB?=
- =?us-ascii?Q?mhadjkXvmQ6ZeRzr1H+YvjFEDxa7Odb9MIc5Kg+Hxc2B9jvViJfZ2GKPwhtD?=
- =?us-ascii?Q?WQq5rRpQ4f3Ci9TeLt/i3LdjQ+j+szU0zSHZ1bkv0SsKML8RTrEgJRbqKegI?=
- =?us-ascii?Q?fzMTZBN7zGcnO8k2PKgbomvQTbPlSvDMwRF6hUI9n6I8MrBdc8/jZcym3dr6?=
- =?us-ascii?Q?uxSgTV80tS3aNmDAycuIccLGsMlG7N+P6DQGPweQLfo93HEkhtFm644x+VRb?=
- =?us-ascii?Q?xw7rrUo+JLxShhCsFpa7GmEyPw6td8boiWWc1gLUTwb5RYHWmxNPWdfkYFRe?=
- =?us-ascii?Q?GzJdgXPyizFRBNTCEYCCryIqDQcPBoeNxLgBGX2oQG59q6NnAj84YiIl/E6f?=
- =?us-ascii?Q?WXlI2j3DvKZgz9TVrl1JLCRem+BoyThjThQmuFqvkDS5twerZ9R04rXF6WWF?=
- =?us-ascii?Q?FAi8qYuMXubneZS5mbUXJLHfncMsju7hF+9DiKXlctSjFGls3KOoKho3oBhp?=
- =?us-ascii?Q?87Eu8ryL9GsUb7nVL52GnX+P2gX5XwPKrBorq091FIix2CMWDc8tWOtzPhTx?=
- =?us-ascii?Q?Wbl6d2W4MvxvdpRbjcLJXd/c5k12VmApoxWlK23OaZOEScUTy6zy01S2T4BD?=
- =?us-ascii?Q?TtaXdRmmXL/qcryrDwldA/VUhOFLNHMpbanItanYCC2oVBBcRtrrAKASgVxE?=
- =?us-ascii?Q?GNyJ9rNDn0jRHln+8qwCEB/hhITTzk8IQ6k/bZYw5M+FDB84XF7AS72k3oJG?=
- =?us-ascii?Q?tQEOEcHjlRfufAFnySSVwnoQrIJC0Rbu+hpcjT8YBd7aFJ5crbdn5FMoac5i?=
- =?us-ascii?Q?HQveS8FB4dxmscEROUwCon9QqtpD0B8zoDYRcqXmfZDNoQ9cKbBos/SO0pin?=
- =?us-ascii?Q?cqGtY+xMWh81dEq49aXGMJssN0xiIhKD/UTIdlog6E/WGlFyweBYZjhkt49f?=
- =?us-ascii?Q?cyV6dIIXYnMyYEib+f2MgZA9XU2HqvCb3SBhptXNPzVGQ5OVnNtA8Cb8NeY8?=
- =?us-ascii?Q?qugdcLIWaRK/7GXichU=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Dec 2025 02:29:20.8610 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06c9309f-0788-4771-cbfe-08de468212d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E60.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8527
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251228-drm-fix-lut-checks-v2-3-50f5d1a260a7@oss.qualcomm.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,34 +79,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SI does not support PASID or KIQ/MES, so there is no valid TLB
-fence entity available to perform the TLB flush. Without a fallback
-return, this will result in a NULL pointer issue due to the invalid
-TLB flush device entity
+Hi Dmitry,
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reported-by: Jean Philippe EIMER <phil@jpmr.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index cd4acc6adc9e..965ae02232e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -772,6 +772,12 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 	int r, cnt = 0;
- 	uint32_t seq;
- 
-+	/* SI does not support PASID or KIQ/MES, and there is no valid
-+	 * TLB fence entity available to perform the TLB flush.
-+	 */
-+	if(!adev)
-+		return 0;
-+
- 	/*
- 	 * A GPU reset should flush all TLBs anyway, so no need to do
- 	 * this while one is ongoing.
+[auto build test ERROR on 130343ee6bca9895c47d314467db7dd3dcc8bc35]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-mode_object-add-drm_object_immutable_property_get_value/20251228-112526
+base:   130343ee6bca9895c47d314467db7dd3dcc8bc35
+patch link:    https://lore.kernel.org/r/20251228-drm-fix-lut-checks-v2-3-50f5d1a260a7%40oss.qualcomm.com
+patch subject: [PATCH v2 3/3] drm/atomic: verify that gamma/degamma LUTs are not too big
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20251229/202512290531.US56hi8Q-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251229/202512290531.US56hi8Q-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202512290531.US56hi8Q-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/drm_atomic_uapi.c: In function 'drm_atomic_crtc_set_property':
+>> drivers/gpu/drm/drm_atomic_uapi.c:416:23: error: type defaults to 'int' in declaration of 'elem_size' [-Wimplicit-int]
+     416 |                 const elem_size = sizeof(struct drm_color_lut);
+         |                       ^~~~~~~~~
+   drivers/gpu/drm/drm_atomic_uapi.c:441:23: error: type defaults to 'int' in declaration of 'elem_size' [-Wimplicit-int]
+     441 |                 const elem_size = sizeof(struct drm_color_lut);
+         |                       ^~~~~~~~~
+
+
+vim +416 drivers/gpu/drm/drm_atomic_uapi.c
+
+   395	
+   396	static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+   397			struct drm_crtc_state *state, struct drm_property *property,
+   398			uint64_t val)
+   399	{
+   400		struct drm_device *dev = crtc->dev;
+   401		struct drm_mode_config *config = &dev->mode_config;
+   402		bool replaced = false;
+   403		int ret;
+   404	
+   405		if (property == config->prop_active)
+   406			state->active = val;
+   407		else if (property == config->prop_mode_id) {
+   408			struct drm_property_blob *mode =
+   409				drm_property_lookup_blob(dev, val);
+   410			ret = drm_atomic_set_mode_prop_for_crtc(state, mode);
+   411			drm_property_blob_put(mode);
+   412			return ret;
+   413		} else if (property == config->prop_vrr_enabled) {
+   414			state->vrr_enabled = val;
+   415		} else if (property == config->degamma_lut_property) {
+ > 416			const elem_size = sizeof(struct drm_color_lut);
+   417			u64 lut_size;
+   418	
+   419			ret = drm_object_immutable_property_get_value(&crtc->base,
+   420								      config->degamma_lut_size_property,
+   421								      &lut_size);
+   422			if (ret)
+   423				return ret;
+   424	
+   425			ret = drm_property_replace_blob_from_id(dev,
+   426						&state->degamma_lut,
+   427						val,
+   428						elem_size * lut_size, -1, elem_size,
+   429						&replaced);
+   430			state->color_mgmt_changed |= replaced;
+   431			return ret;
+   432		} else if (property == config->ctm_property) {
+   433			ret = drm_property_replace_blob_from_id(dev,
+   434						&state->ctm,
+   435						val,
+   436						-1, sizeof(struct drm_color_ctm), -1,
+   437						&replaced);
+   438			state->color_mgmt_changed |= replaced;
+   439			return ret;
+   440		} else if (property == config->gamma_lut_property) {
+   441			const elem_size = sizeof(struct drm_color_lut);
+   442			u64 lut_size;
+   443	
+   444			ret = drm_object_immutable_property_get_value(&crtc->base,
+   445								      config->gamma_lut_size_property,
+   446								      &lut_size);
+   447			if (ret)
+   448				return ret;
+   449	
+   450			ret = drm_property_replace_blob_from_id(dev,
+   451						&state->gamma_lut,
+   452						val,
+   453						elem_size * lut_size, -1, elem_size,
+   454						&replaced);
+   455			state->color_mgmt_changed |= replaced;
+   456			return ret;
+   457		} else if (property == config->prop_out_fence_ptr) {
+   458			s32 __user *fence_ptr = u64_to_user_ptr(val);
+   459	
+   460			if (!fence_ptr)
+   461				return 0;
+   462	
+   463			if (put_user(-1, fence_ptr))
+   464				return -EFAULT;
+   465	
+   466			set_out_fence_for_crtc(state->state, crtc, fence_ptr);
+   467		} else if (property == crtc->scaling_filter_property) {
+   468			state->scaling_filter = val;
+   469		} else if (property == crtc->sharpness_strength_property) {
+   470			state->sharpness_strength = val;
+   471		} else if (crtc->funcs->atomic_set_property) {
+   472			return crtc->funcs->atomic_set_property(crtc, state, property, val);
+   473		} else {
+   474			drm_dbg_atomic(crtc->dev,
+   475				       "[CRTC:%d:%s] unknown property [PROP:%d:%s]\n",
+   476				       crtc->base.id, crtc->name,
+   477				       property->base.id, property->name);
+   478			return -EINVAL;
+   479		}
+   480	
+   481		return 0;
+   482	}
+   483	
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
