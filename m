@@ -4,46 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 560AEE9413E
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 Dec 2025 10:02:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4419E94108
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Dec 2025 10:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7BCF10E89A;
-	Tue, 30 Dec 2025 10:02:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFDF410E89D;
+	Tue, 30 Dec 2025 10:02:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=zukunftsfirma.de header.i=@zukunftsfirma.de header.b="UG8Bntbg";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="GGWR9FOr";
 	dkim-atps=neutral
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2FC10E749
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Dec 2025 22:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zukunftsfirma.de;
- s=protonmail; t=1767047202; x=1767306402;
- bh=Yg4kX+P8FMYtSkANlGes/bcs+pX/UGCk4bUyWs0IyMM=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=UG8Bntbg4Hsgo79TzVdWa2uDog9GknxfwTmcXhLp9wJsW0XUD5O7ia+klrsTxdK3+
- pAI5cjOJ8e24U6qOO+dxJVvBecHjxTMsvNER793OT2xg3J+AqGnA1ni9StUUmLxgRv
- q6gK4mZsm2X+mU6kbyBP2fhGKiX/YCOO/sAvBMm/yOKYku5uMJB08m/ADhsnCmMRyv
- BLtOJsoQEO7KdWRjZalAN8e+0n9M8+zv/oOupd9YFUsRNb0pixjXjjTQEzm24kvB6Z
- YX3SwblNgDYSyqGzGm6PiS9vIAS9DEqC21rhsarUx/Dyj6eOXN/4obao3CQuGF7rkz
- YlTlL4ElYffTg==
-Date: Mon, 29 Dec 2025 22:26:39 +0000
-To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-From: Andreas Bauer <a.bauer@zukunftsfirma.de>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "siqueira@igalia.com" <siqueira@igalia.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
-Subject: [PATCH] drm/amd/display: correct AMDGPU Display Core logging logic
-Message-ID: <LVfjg-aB1imeW8XJ78g5RCTXiCx_3MBoRi2qZs-1LpzvAaNe9DP6qgW9yUpUuHLMSd-oNHbyQ5mG8FdcjNsv9o53SMg3UQZgqPrA22t5vX8=@zukunftsfirma.de>
-Feedback-ID: 149865295:user:proton
-X-Pm-Message-ID: dba1f3d43dc289ce1765e654a5e1784e04fe688e
+X-Greylist: delayed 524 seconds by postgrey-1.36 at gabe;
+ Mon, 29 Dec 2025 22:25:14 UTC
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA5A710E749;
+ Mon, 29 Dec 2025 22:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1767046588;
+ bh=h49GpH9yeTAWW9kc5VE/h8WxulC3EVUfsjmG/pOznCI=;
+ h=From:Date:Subject:To:Cc:From;
+ b=GGWR9FOr/MMPtvLE9eTduKA+I+3k6GiGPthaCDaGQ99sizN9MtDnUW0/DQ7CqgRkW
+ JsCVnaPESPatCOFvmFPnnHr/NYG2vadV4U7VfFXStvY7e4u8wdP4FOd2IJ78kRK6A0
+ eZwlfUL9MMUPjW/7FJGbfmVXda/O5KzZWtz31zgU=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Mon, 29 Dec 2025 23:13:41 +0100
+Subject: [PATCH v3] drm/radeon: Switch radeon_connector to struct drm_edid
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20251229-radeon-drm_edid-v3-1-f93c780e6344@weissschuh.net>
+X-B4-Tracking: v=1; b=H4sIABT9UmkC/3XNQQ6CMBQE0KuYrq3h/4IUV97DGIPtx3Zh0Raqh
+ nB3Cy40IS5nknkzsEDeUmC71cA8RRts61IQ6xVTpnYX4lanzDDDPJMgua81tY5rfz2RtppXTaZ
+ IiS0hliytbp4a+5zFw/GTPd37BHff0tjQtf41v0aY2v8HETjw/Fw2WkMFAmn/IBtCUKY3G0cdm
+ 8CIPwjiEsGEFFIgFAVIAL1AxnF8Axa5BjINAQAA
+X-Change-ID: 20240818-radeon-drm_edid-9f0cec36e227
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1767046587; l=10767;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=h49GpH9yeTAWW9kc5VE/h8WxulC3EVUfsjmG/pOznCI=;
+ b=xXs8N0rkrv5mJWXBk5nh92Ys3tN6hsBrCWAM0EgoTkPz5hCW9uOEi9UhWmWIY7SIj84Fm4v0C
+ DI9CnEVjfpYCspmm6sp/kwCLXucfzNudib1cJYvkH4UzvaORzRgb+Jx
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Tue, 30 Dec 2025 10:02:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,52 +66,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In: drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+"struct drm_edid" is the safe and recommended alternative to "struct edid".
 
-dp_is_lttpr_present() does output a DC_LOG_ERROR() when monitor reports
-DPCD lane count non zero but no lanes detected, and gracefully falls back
-to ignoring what the monitor reports.
+Rename the member to make sure that no usage sites are missed,
+as "struct drm_edid" has some restrictions, for example it can not be
+used with kfree().
 
-dp_retrieve_lttpr_cap() also logs an DC_LOG_ERROR() when hardware returns
-wrong count. Fallback means also graceful handling.
-
-According to documentation, DC_LOG_WARNING() is supposed to be used for=20
-this case (hardware bug with graceful fallback)
-
-Change DC_LOG_ERROR() to DC_LOG_WARNING() in both cases.
-
-Signed-off-by: Andreas Bauer <a.bauer@zukunftsfirma.de>
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
-diff -uprN linux-source-6.18.orig/drivers/gpu/drm/amd/display/dc/link/proto=
-cols/link_dp_capability.c linux-source-6.18.modified/drivers/gpu/drm/amd/di=
-splay/dc/link/protocols/link_dp_capability.c
---- linux-source-6.18.orig/drivers/gpu/drm/amd/display/dc/link/protocols/li=
-nk_dp_capability.c   2025-12-29 21:03:40.477580191 +0000
-+++ linux-source-6.18.modified/drivers/gpu/drm/amd/display/dc/link/protocol=
-s/link_dp_capability.c       2025-12-29 22:09:47.338435938 +0000
-@@ -391,7 +391,8 @@ bool dp_is_lttpr_present(struct dc_link
-                        link->dpcd_caps.lttpr_caps.max_lane_count <=3D 4);
-=20
-        if (lttpr_count > 0 && !is_lttpr_present)
--               DC_LOG_ERROR("LTTPR count is nonzero but invalid lane count=
- reported. Assuming no LTTPR present.\n");
-+               DC_LOG_WARNING("LTTPR count is nonzero but invalid lane cou=
-nt reported. " +
-+                              "Assuming no LTTPR present.\n");
-=20
-        return is_lttpr_present;
+Changes in v3:
+- Rebase onto drm-misc-next
+- Link to v2: https://lore.kernel.org/r/20240822-radeon-drm_edid-v2-1-58321551811d@weissschuh.net
+
+Changes in v2:
+- Simplify some logic as drm_edid_*()-APIs can handle NULL
+- Correctly use drm_edid_read_switcheroo()
+- Link to v1: https://lore.kernel.org/r/20240818-radeon-drm_edid-v1-1-4b7fdd19132e@weissschuh.net
+---
+This is only compile-tested.
+---
+ drivers/gpu/drm/radeon/radeon_audio.c      |  4 +--
+ drivers/gpu/drm/radeon/radeon_combios.c    |  4 +--
+ drivers/gpu/drm/radeon/radeon_connectors.c | 56 +++++++++++++-----------------
+ drivers/gpu/drm/radeon/radeon_mode.h       |  5 ++-
+ 4 files changed, 31 insertions(+), 38 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
+index 8d64ba18572e..566f7524b037 100644
+--- a/drivers/gpu/drm/radeon/radeon_audio.c
++++ b/drivers/gpu/drm/radeon/radeon_audio.c
+@@ -311,7 +311,7 @@ static void radeon_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	if (!connector)
+ 		return;
+ 
+-	sad_count = drm_edid_to_sad(radeon_connector->edid, &sads);
++	sad_count = drm_edid_to_sad(drm_edid_raw(radeon_connector->drm_edid), &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+ 	if (sad_count <= 0)
+@@ -335,7 +335,7 @@ static void radeon_audio_write_speaker_allocation(struct drm_encoder *encoder)
+ 	if (!connector)
+ 		return;
+ 
+-	sad_count = drm_edid_to_speaker_allocation(radeon_connector->edid, &sadb);
++	sad_count = drm_edid_to_speaker_allocation(drm_edid_raw(radeon_connector->drm_edid), &sadb);
+ 	if (sad_count < 0) {
+ 		DRM_DEBUG("Couldn't read Speaker Allocation Data Block: %d\n",
+ 			  sad_count);
+diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
+index df8d7f56b028..f4947acd0419 100644
+--- a/drivers/gpu/drm/radeon/radeon_combios.c
++++ b/drivers/gpu/drm/radeon/radeon_combios.c
+@@ -390,10 +390,10 @@ bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev)
  }
-@@ -1638,7 +1639,7 @@ enum dc_status dp_retrieve_lttpr_cap(str
-                /* If you see this message consistently, either the host pl=
-atform has FIXED_VS flag
-                 * incorrectly configured or the sink device is returning a=
-n invalid count.
-                 */
--               DC_LOG_ERROR("lttpr_caps phy_repeater_cnt is 0x%x, forcing =
-it to 0x80.",
-+               DC_LOG_WARNING("lttpr_caps phy_repeater_cnt is 0x%x, forcin=
-g it to 0x80.",
-                             link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
-                link->dpcd_caps.lttpr_caps.phy_repeater_cnt =3D 0x80;
-                lttpr_count =3D 1;
+ 
+ /* this is used for atom LCDs as well */
+-struct edid *
++const struct drm_edid *
+ radeon_bios_get_hardcoded_edid(struct radeon_device *rdev)
+ {
+-	return drm_edid_duplicate(drm_edid_raw(rdev->mode_info.bios_hardcoded_edid));
++	return drm_edid_dup(rdev->mode_info.bios_hardcoded_edid);
+ }
+ 
+ static struct radeon_i2c_bus_rec combios_setup_i2c_bus(struct radeon_device *rdev,
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 012d8b2295b8..4dacdd642cc4 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -261,7 +261,7 @@ static void radeon_connector_get_edid(struct drm_connector *connector)
+ 	struct radeon_device *rdev = dev->dev_private;
+ 	struct radeon_connector *radeon_connector = to_radeon_connector(connector);
+ 
+-	if (radeon_connector->edid)
++	if (radeon_connector->drm_edid)
+ 		return;
+ 
+ 	/* on hw with routers, select right port */
+@@ -271,8 +271,8 @@ static void radeon_connector_get_edid(struct drm_connector *connector)
+ 	if ((radeon_connector_encoder_get_dp_bridge_encoder_id(connector) !=
+ 	     ENCODER_OBJECT_ID_NONE) &&
+ 	    radeon_connector->ddc_bus->has_aux) {
+-		radeon_connector->edid = drm_get_edid(connector,
+-						      &radeon_connector->ddc_bus->aux.ddc);
++		radeon_connector->drm_edid = drm_edid_read_ddc(connector,
++							       &radeon_connector->ddc_bus->aux.ddc);
+ 	} else if ((connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) ||
+ 		   (connector->connector_type == DRM_MODE_CONNECTOR_eDP)) {
+ 		struct radeon_connector_atom_dig *dig = radeon_connector->con_priv;
+@@ -280,22 +280,22 @@ static void radeon_connector_get_edid(struct drm_connector *connector)
+ 		if ((dig->dp_sink_type == CONNECTOR_OBJECT_ID_DISPLAYPORT ||
+ 		     dig->dp_sink_type == CONNECTOR_OBJECT_ID_eDP) &&
+ 		    radeon_connector->ddc_bus->has_aux)
+-			radeon_connector->edid = drm_get_edid(&radeon_connector->base,
+-							      &radeon_connector->ddc_bus->aux.ddc);
++			radeon_connector->drm_edid = drm_edid_read_ddc(&radeon_connector->base,
++								       &radeon_connector->ddc_bus->aux.ddc);
+ 		else if (radeon_connector->ddc_bus)
+-			radeon_connector->edid = drm_get_edid(&radeon_connector->base,
+-							      &radeon_connector->ddc_bus->adapter);
++			radeon_connector->drm_edid = drm_edid_read_ddc(&radeon_connector->base,
++								       &radeon_connector->ddc_bus->adapter);
+ 	} else if (vga_switcheroo_handler_flags() & VGA_SWITCHEROO_CAN_SWITCH_DDC &&
+ 		   connector->connector_type == DRM_MODE_CONNECTOR_LVDS &&
+ 		   radeon_connector->ddc_bus) {
+-		radeon_connector->edid = drm_get_edid_switcheroo(&radeon_connector->base,
+-								 &radeon_connector->ddc_bus->adapter);
++		radeon_connector->drm_edid = drm_edid_read_switcheroo(&radeon_connector->base,
++								      &radeon_connector->ddc_bus->adapter);
+ 	} else if (radeon_connector->ddc_bus) {
+-		radeon_connector->edid = drm_get_edid(&radeon_connector->base,
+-						      &radeon_connector->ddc_bus->adapter);
++		radeon_connector->drm_edid = drm_edid_read_ddc(&radeon_connector->base,
++							       &radeon_connector->ddc_bus->adapter);
+ 	}
+ 
+-	if (!radeon_connector->edid) {
++	if (!radeon_connector->drm_edid) {
+ 		/* don't fetch the edid from the vbios if ddc fails and runpm is
+ 		 * enabled so we report disconnected.
+ 		 */
+@@ -306,34 +306,30 @@ static void radeon_connector_get_edid(struct drm_connector *connector)
+ 			/* some laptops provide a hardcoded edid in rom for LCDs */
+ 			if (((connector->connector_type == DRM_MODE_CONNECTOR_LVDS) ||
+ 			     (connector->connector_type == DRM_MODE_CONNECTOR_eDP)))
+-				radeon_connector->edid = radeon_bios_get_hardcoded_edid(rdev);
++				radeon_connector->drm_edid = radeon_bios_get_hardcoded_edid(rdev);
+ 		} else {
+ 			/* some servers provide a hardcoded edid in rom for KVMs */
+-			radeon_connector->edid = radeon_bios_get_hardcoded_edid(rdev);
++			radeon_connector->drm_edid = radeon_bios_get_hardcoded_edid(rdev);
+ 		}
+ 	}
++
++	drm_edid_connector_update(&radeon_connector->base, radeon_connector->drm_edid);
+ }
+ 
+ static void radeon_connector_free_edid(struct drm_connector *connector)
+ {
+ 	struct radeon_connector *radeon_connector = to_radeon_connector(connector);
+ 
+-	kfree(radeon_connector->edid);
+-	radeon_connector->edid = NULL;
++	drm_edid_free(radeon_connector->drm_edid);
++	radeon_connector->drm_edid = NULL;
+ }
+ 
+ static int radeon_ddc_get_modes(struct drm_connector *connector)
+ {
+ 	struct radeon_connector *radeon_connector = to_radeon_connector(connector);
+-	int ret;
+ 
+-	if (radeon_connector->edid) {
+-		drm_connector_update_edid_property(connector, radeon_connector->edid);
+-		ret = drm_add_edid_modes(connector, radeon_connector->edid);
+-		return ret;
+-	}
+-	drm_connector_update_edid_property(connector, NULL);
+-	return 0;
++	drm_edid_connector_update(connector, radeon_connector->drm_edid);
++	return drm_edid_connector_add_modes(connector);
+ }
+ 
+ static struct drm_encoder *radeon_best_single_encoder(struct drm_connector *connector)
+@@ -869,7 +865,7 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
+ 
+ 	/* check for edid as well */
+ 	radeon_connector_get_edid(connector);
+-	if (radeon_connector->edid)
++	if (radeon_connector->drm_edid)
+ 		ret = connector_status_connected;
+ 	/* check acpi lid status ??? */
+ 
+@@ -1010,13 +1006,12 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
+ 		radeon_connector_free_edid(connector);
+ 		radeon_connector_get_edid(connector);
+ 
+-		if (!radeon_connector->edid) {
++		if (!radeon_connector->drm_edid) {
+ 			DRM_ERROR("%s: probed a monitor but no|invalid EDID\n",
+ 					connector->name);
+ 			ret = connector_status_connected;
+ 		} else {
+-			radeon_connector->use_digital =
+-				!!(radeon_connector->edid->input & DRM_EDID_INPUT_DIGITAL);
++			radeon_connector->use_digital = drm_edid_is_digital(radeon_connector->drm_edid);
+ 
+ 			/* some oems have boards with separate digital and analog connectors
+ 			 * with a shared ddc line (often vga + hdmi)
+@@ -1254,7 +1249,7 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
+ 		radeon_connector_free_edid(connector);
+ 		radeon_connector_get_edid(connector);
+ 
+-		if (!radeon_connector->edid) {
++		if (!radeon_connector->drm_edid) {
+ 			DRM_ERROR("%s: probed a monitor but no|invalid EDID\n",
+ 					connector->name);
+ 			/* rs690 seems to have a problem with connectors not existing and always
+@@ -1270,8 +1265,7 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
+ 				broken_edid = true; /* defer use_digital to later */
+ 			}
+ 		} else {
+-			radeon_connector->use_digital =
+-				!!(radeon_connector->edid->input & DRM_EDID_INPUT_DIGITAL);
++			radeon_connector->use_digital = drm_edid_is_digital(radeon_connector->drm_edid);
+ 
+ 			/* some oems have boards with separate digital and analog connectors
+ 			 * with a shared ddc line (often vga + hdmi)
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 088af85902f7..556c56d965bb 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -42,7 +42,6 @@ struct drm_fb_helper;
+ struct drm_fb_helper_surface_size;
+ struct drm_format_info;
+ 
+-struct edid;
+ struct drm_edid;
+ struct radeon_bo;
+ struct radeon_device;
+@@ -525,7 +524,7 @@ struct radeon_connector {
+ 	bool use_digital;
+ 	/* we need to mind the EDID between detect
+ 	   and get modes due to analog/digital/tvencoder */
+-	struct edid *edid;
++	const struct drm_edid *drm_edid;
+ 	void *con_priv;
+ 	bool dac_load_detect;
+ 	bool detected_by_load; /* if the connection status was determined by load */
+@@ -839,7 +838,7 @@ radeon_get_crtc_scanout_position(struct drm_crtc *crtc, bool in_vblank_irq,
+ 				 const struct drm_display_mode *mode);
+ 
+ extern bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev);
+-extern struct edid *
++extern const struct drm_edid *
+ radeon_bios_get_hardcoded_edid(struct radeon_device *rdev);
+ extern bool radeon_atom_get_clock_info(struct drm_device *dev);
+ extern bool radeon_combios_get_clock_info(struct drm_device *dev);
+
+---
+base-commit: 130343ee6bca9895c47d314467db7dd3dcc8bc35
+change-id: 20240818-radeon-drm_edid-9f0cec36e227
+
+Best regards,
+-- 
+Thomas Weißschuh <linux@weissschuh.net>
 
