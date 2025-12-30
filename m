@@ -4,126 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 697A0E92FD7
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 Dec 2025 22:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0515E92FE3
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 Dec 2025 01:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ACDB10E743;
-	Mon, 29 Dec 2025 22:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D66510E025;
+	Tue, 30 Dec 2025 01:26:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="Y3ljoC2v";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JZl4KYb9";
 	dkim-atps=neutral
-Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com
- [209.85.219.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 555F510E742
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Dec 2025 22:05:42 +0000 (UTC)
-Received: by mail-qv1-f100.google.com with SMTP id
- 6a1803df08f44-88888d80590so139326096d6.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Dec 2025 14:05:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767045941; x=1767650741;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UwzcNp2HYOV4Z1mSXVXCsNd5TObEfxUddJJZvW7JJZk=;
- b=j+O6XvAxlByxNwnVp8POUrXl2vdgX1ugiUcjWneAY3LgqYs0pfO86cJaN4S6jfYdyt
- IBoxs5m/1RB79tHaltXrc82O3onNTRl7rLT4kCIjnJfySgIy+r1SrNo/0On0sCDFCzkA
- bGKOJBx29lTUEj7UeBsGcqkeQXgWAdZLd1lMUJu3CDC8BFl66ZqwFGXO91ajDUAD7mOI
- YVOTQpWUbWzdwg+SNhFqi20BJ7ntvArL/RfDaBLaIYN8HD7TIHXeyg0ByibxA7a+tVWu
- /jjoR4lf2rVxwyMMAaYSR/NbfOmRM4zQv+r6+lyWlar4HLxpvwvrGNmOM/JHRRIKXqH8
- toTQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXt/tk0PM3Fv64CKXtxW6gTRXgNcI5SKf2zQVd3k0ipcf6ZdfTp3CVzXk/pLHUfNHKuQzUdS5em@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtXbeQMIdga+UqVALHZ/EoDt620K9pXkmkV+qV67sXr3v3cHo3
- TBVqZC/pkqc0M1mS26mhmWfcWUQF4HMXAzE6/Loo7FwaSeZPRB582kUyygCqWpZlUihvCSEF0VN
- Vvpgrhk+/c4Zdae+nATlH4HSlSsnEm+ToqFjOL3ubsUzj2iBLJ+0bLvSm1yqNNTkSTIO77o3aJG
- td5ZFT93ouzJxN0pegGoFe8Sc9R+8/AxrESLcsa+tdO+ssjFPYYRB6WpZ9dzfoeVH+ZeTjB7bm3
- xzXpi6v750UQVTh1A==
-X-Gm-Gg: AY/fxX5QKFG6zRZDZk/qqjH+sjNyY+Cl7Q7PPG9JJIuabEg4Te2Y5sLtk+5MAJShEyn
- e4h2SctkVpzFVcC/ZpSpeij1ECbn8xrwoPHWDRqeqTDMN+fyjdA/Wl+x4MNyDJaTg2n2lz7XapH
- YQDot3Z6lYZgWViF+lCcjZW6nSkJOQEnAiFzypu0MYMKxPApb6k89xgXkG9Y8uhcyURlGprmy+w
- kwbylD2gd/Xhk/Xyp4YaIT5HD7ziJL2anaBtWBDfMYbAE85VkdqFpjryZMw7pJEmc2ENa1JudA1
- Pf8W1HRYKq2X/0wqYrwzghnEslxoMrgp9rjTaGjmY8kgTXyDc0feJ1yOkN5xxTxAPdI2esp/uUk
- xnpGJtW1X60Jcfc4shHg6tjR1fTRchb/NRIuTGHKkrHxicpyifQT9AIRjlGfKKOonXotcPBN296
- szAYF0sQA9SG/jx6TPSWBnYJA7jUH91ZFbmIsz04R/plvs
-X-Google-Smtp-Source: AGHT+IH+OwZZ+MKnl7Jv9CKalIlG2X8vXsOg8+O7XPZjZdZcNnFIKCuYNmGCZfdkgd1lKNFBNQHJYehtsg8g
-X-Received: by 2002:a05:6214:c2e:b0:882:4fc3:5f1f with SMTP id
- 6a1803df08f44-88d87605b16mr550804366d6.38.1767045941202; 
- Mon, 29 Dec 2025 14:05:41 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-117.dlp.protect.broadcom.com. [144.49.247.117])
- by smtp-relay.gmail.com with ESMTPS id
- 6a1803df08f44-88d980511f3sm41246216d6.26.2025.12.29.14.05.40
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 29 Dec 2025 14:05:41 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4ee0995fa85so285503631cf.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 Dec 2025 14:05:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1767045940; x=1767650740;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=UwzcNp2HYOV4Z1mSXVXCsNd5TObEfxUddJJZvW7JJZk=;
- b=Y3ljoC2vCrzMbPu4PAWd3dstoQL6TcEW4y5rNcrNV8DS519baxMalDhWJC489b0H12
- oDogiBl5RB0DoqdNbxq4ro5X2RXM+FevDnZ5IjliGpNLKgTZImX/BjFr5T8Ed5LSe8vR
- wms0sMODC27XsR1aXcX0/l4HeQmGIViszdKSU=
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTzuXPewyIdIn3PfYj7SC4RmJnj8OVXwkCzyoJVKtewi30hoc2lhQLDJ2IpLkOpdo+wtPmIwsm@lists.freedesktop.org
-X-Received: by 2002:a05:6214:428e:b0:88a:3681:1d96 with SMTP id
- 6a1803df08f44-88d881b984fmr478635996d6.63.1767045551434; 
- Mon, 29 Dec 2025 13:59:11 -0800 (PST)
-X-Received: by 2002:a05:6214:428e:b0:88a:3681:1d96 with SMTP id
- 6a1803df08f44-88d881b984fmr478635666d6.63.1767045550918; 
- Mon, 29 Dec 2025 13:59:10 -0800 (PST)
-Received: from localhost.localdomain
- (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-88d9759f164sm231530026d6.24.2025.12.29.13.59.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Dec 2025 13:59:10 -0800 (PST)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Ard Biesheuvel <ardb@kernel.org>, Ce Sun <cesun102@amd.com>,
- Chia-I Wu <olvaffe@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Deepak Rawat <drawat.floss@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Hans de Goede <hansg@kernel.org>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Helge Deller <deller@gmx.de>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lijo Lazar <lijo.lazar@amd.com>, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Maxime Ripard <mripard@kernel.org>, nouveau@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- spice-devel@lists.freedesktop.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, virtualization@lists.linux.dev,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-Subject: [PATCH 00/12] Recover sysfb after DRM probe failure
-Date: Mon, 29 Dec 2025 16:58:06 -0500
-Message-ID: <20251229215906.3688205-1-zack.rusin@broadcom.com>
-X-Mailer: git-send-email 2.48.1
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013055.outbound.protection.outlook.com
+ [40.107.201.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95C5410E025
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 Dec 2025 01:26:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BuausRzrhr3ehHdHWDHVQaoZf2v/bU/GoEnyUA8UryLwJlFZN8ixSY8qJ4+rfSOmvbdli1rJE3yCni4KRbYM23y/CIFR941kdQvgGlK77Q71eY9FqNaeszM+I4FdBbq4ELGfQYt/leY6avM5x03KHUeoRvm/YUexKNRxAU3s9GNhL73I8AQBcZ6KTdMmQCIzc6rQCnz9y4jh5XzCdaPW52wfAqWzlEAbD8jOKawyup2nIUDB5WzBjzAx7vicTsIXEbHo7rxMG4v0uX1JOXbAC80C3q8TENaRpRNszf3snyiKhfLBbkis+xtADxdrsrTZD1bCkOoPIHXX/yXTqv1rCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=69aUXOzZ62fuj+cylslVvJBmUjFrZ9ZpIiFzJgrA4UQ=;
+ b=VTLoy0IaS5BUNrWJbzlI6f39x1Z5yLquhSfTrUVWw1rXPw98sJsemuLwS7Y+tlhvvjhPpzPK4H3UNErfUuZ1PaxWfmoJCnuu49lMj6BFitwvm/9CInVf/oZBTKhHXoidzJS1e2wZwBk+oWJO0uLACJOH9xsAubI3r7wNTHmSkJfhNc0yUQZYrU6Y7FT2i4hvSQal1RfaiSfQ42hFambgsLWk+IJ4UORY90OHETvIwUnLNvuKr7rfPy3xS1PclQurj9SaITtnZfDKH0LqiK/tU5zzfpnCRcg0NjYlnuhjv0LNrUTp4TH2qgEuZzTn/gRTRqgDA59JBBcwV7ArJ8ok0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=69aUXOzZ62fuj+cylslVvJBmUjFrZ9ZpIiFzJgrA4UQ=;
+ b=JZl4KYb9n1CL2IajkdKb7K7RAWlSFQ7I/8rxbi7yzouO6oTQDBAY6PLlFjSWyqL+Gf4xksjjYxMdUyxqrB2tC9Vfg99V19pT8PJPAcES/lbrSDzq40ULwT0ZX+tQ5jt4zkFUiNCu+FoJuLDGN6pEWhR4dsYSwIhv3QlyMWW9A1Y=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ PH7PR12MB7844.namprd12.prod.outlook.com (2603:10b6:510:27b::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9456.14; Tue, 30 Dec 2025 01:26:40 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb%4]) with mapi id 15.20.9456.013; Tue, 30 Dec 2025
+ 01:26:40 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: Jean Philippe EIMER <phil@jpmr.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Skip TLB flush for devices predating the SI
+ series
+Thread-Topic: [PATCH] drm/amdgpu: Skip TLB flush for devices predating the SI
+ series
+Thread-Index: AQHceGrxY3pv+IOQ4kSzjq6Ot3v2Z7U4YRAAgAEEgsA=
+Date: Tue, 30 Dec 2025 01:26:40 +0000
+Message-ID: <DS7PR12MB6005B8971C288DFBA90C85D9FBBCA@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20251229022909.777645-1-Prike.Liang@amd.com>
+ <e5967879-9d64-468e-ac85-e0dfb5136d45@jpmr.org>
+In-Reply-To: <e5967879-9d64-468e-ac85-e0dfb5136d45@jpmr.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-12-30T01:26:08.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|PH7PR12MB7844:EE_
+x-ms-office365-filtering-correlation-id: b294501d-290a-49fe-f6ff-08de47427bd1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700021;
+x-microsoft-antispam-message-info: =?utf-8?B?MDNZMW56Y0dLU2JHSklsSHFUSUU3RitUQTQxR2RSY3gvbEg4OUc5OXAxZ3BG?=
+ =?utf-8?B?RVdhUXJpUTRtRm5YdlcxU1VZak82S2t6TDQxSlN2T1pFRWQ0Y0RwYURmT2w5?=
+ =?utf-8?B?SFdpejR3MmNkTy9vZWN2Y3YrSnNvSjlpVHhpNlBPOUxodnNhY1Qrd3crbVpN?=
+ =?utf-8?B?VnorVlFZTlJMWGVIS2FIcXFZcUM5cExqZDQxVkhVTXB5YXVlOVlJeDZNNEdE?=
+ =?utf-8?B?MERlVUNJUUQxRFBCUS9udEUrL3dJSWg4ak9Td0xZR3FuQStLdnFJZDIrUUxy?=
+ =?utf-8?B?bzZMREc2Y25xM3BTNytjM0pueHkxS1JQY3M1enFFQjhKUlhLR2FoaUE0cEdJ?=
+ =?utf-8?B?LzJwOGQybGQvMU5Na3lnTnIxWmN3ZjhzSWtrVVduV2JkVGw4OS9KKzN5VTJC?=
+ =?utf-8?B?S1V5Vis0L1lqZ1NBQWduSGpKSTl5TjRXMXk1b3Zhc21yZjk5My9RcnBTQm1h?=
+ =?utf-8?B?U3VxM2xsbGUrVEtoMTRyOHZ5MDdhVUxkemUvWHkvM2hiK3pHMW9jMGxCdmwr?=
+ =?utf-8?B?OUE0OEsyVmFTSDBySkxLQTRyOVF4R0V2dkpteGR4c2hZcXVUQzRJY1Bjd2FX?=
+ =?utf-8?B?Z0p1QXl3ZGgwUHNXdWpXQzJQOEQ2S3hwWmdGbG8xN09VZUFGRVpWUitpYkgv?=
+ =?utf-8?B?MFQrN3dMRHZ6L05hUzd5SHRTSW04ZTRsMFhvM3lwSEd3eENJVldTZnF6bXh1?=
+ =?utf-8?B?bHNla2QzNXNnTDMwUWY0b25OakZ6VnJZSDFrRlZYb1ZZc3dpTGJnblp1dnpi?=
+ =?utf-8?B?dGFldDB0bmxCbTB2YWxQcWVMWCtBdHoyV3NNNCtJMitCS2VRTFhDam5wS2pz?=
+ =?utf-8?B?N0pEOFVXbnlWRDhYdXNuNnZaY0lyczMyWE5jeVprQy8xWk8xQ1YvWmRGck1v?=
+ =?utf-8?B?eW5RZWNLT2hncU5LMmdBUEdZNXFLUG1yTXUvclYxcWFsaTh0ajBLeFZOUG8y?=
+ =?utf-8?B?bmZhMXRsQnIzK1ZpWi9KR3dabDhFWVB2QkNSbVBSNlVGRTZoQzNoVlIyS2tn?=
+ =?utf-8?B?dHNoRFcrZnA2bzc3RkNQbUYzeXdLVThJYWdWNmdLTDY0aUdnaDYyd0Yxb053?=
+ =?utf-8?B?aGltcXFZVDN5MzdMT0lDVVpGTVcxMFhlYTFBMDlYVEFXY1FqQUZ0VWE1YXN6?=
+ =?utf-8?B?bWNVcmdoanFETlh6akovWGNJZEJzUUk0UDhHWkpzM0J0a0h1OWNSQzROeFdP?=
+ =?utf-8?B?UmFkZFk4eWJKZEVqYTJQY2R4LzB6MmtmNmh3dGk5aXNLeVlsdFh0MlBwN3Yv?=
+ =?utf-8?B?blJFbFdibHBnSXZOS1AwYjN4S1FYeEorYjM5aXFBVU54L0dZTVNIdG1RMWpL?=
+ =?utf-8?B?eDlVVVdsZnZFaW5ra05rOGRmUTZyWmV1REpvSzZQZ010S0x3WlBFVCt1UHlC?=
+ =?utf-8?B?VFlhdEI5SHJ0RS83eSs0N3JsUGJoUHJBV2pDOXR4UXFzYmlvL3lrRkN6QkVv?=
+ =?utf-8?B?OFUwQURoZzF1enRzTmwzQit5eGp4TTVkcFh5TXMwN3Bkd0tEVTRrNTBaRWx6?=
+ =?utf-8?B?MmRIK3ZkdlZqMEZNWVJrWG1mRDNVZDZ3VWRqZTUxSDd0UWNrekRlanByL0ZY?=
+ =?utf-8?B?aXRYK3AzWDFwalZMYVc5TnFnaERtOGRFbzFyTTFOQnhvVWp5VFBhQUZUWDhN?=
+ =?utf-8?B?NjhzbWY3VnVWcDRmUmxXR1ppV3NFeC9hOFpTRi9LNFBkSS9WYUVYRjYxbElE?=
+ =?utf-8?B?dGQrT2Jld0ZKVzd6YjNEUzcwQW5iVXA3VDU0U00rRVBxRTBrVW9veU5HT2F2?=
+ =?utf-8?B?bS81NTVOaUFneVNHTWVqZDAxbklHc0lIVXBrMkwxeU5uOUJ5ZTFUU2txaHY3?=
+ =?utf-8?B?RGVMM0ZVK3JtRnBoaVlrOUpralRiMlo5VkEvZzV0a2xtV1MrbWVvRGZ5WTJ4?=
+ =?utf-8?B?bUR3emowQXdzZUZVaEI3MzVCRTl2ZlJid0JuYXhEc011WVFpVkhaV2ZwSDVw?=
+ =?utf-8?B?NGkzaGtpL3hPeEdNczZBQklGU1pYZzduaHdXQnJKS2hiWE5TTjF4TWE1ZUpQ?=
+ =?utf-8?B?MU4yUTlEVWpEYW0vSEZmVkppeUxHaUVBSmNJejJmcDVLdHhiOXY3VWxCUHpT?=
+ =?utf-8?Q?/B8aPA?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(38070700021); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YU5lV2RqenNKK1NoOWMyMitMT3BqdU9FM1EwQ05SZlBMekZ6emkrZkpYbm5F?=
+ =?utf-8?B?UUtHOGNONkdXS2xNOEFLazRYYjNwSmVqV24rWXlvZVhOaG52QlNPL1VTcHhx?=
+ =?utf-8?B?SEJjdEhRcDBGSUdya2d3WTdVMlNtMGpnUE1nRUQwUmt3RmpvUWNBbDVkSXJX?=
+ =?utf-8?B?ck5FbXN6VHBKQW1hYVNuSW50d3U2UzhhNFlIcWZseExvb2dJNEtDdXJzU1ND?=
+ =?utf-8?B?aVBXQkUyWnQxT0s4c3ZBUXAxNGhqM1M0K0NtSVFSTFMrNTBlU0MyQXRvMDlM?=
+ =?utf-8?B?T2UyZ1BGL0lnKzFaN09sRTR6aVBsNWoyNzY4ZVk3QzBSVGt1NkJ4SXVrUXhM?=
+ =?utf-8?B?VjF1UHdwV3JOcG0vMGJQaUZNYXU1Z0xxZEEyb3R5MlMya1Z4TGFEbUxhSSs2?=
+ =?utf-8?B?TVUxb3ZBR1kyaGdNcDhMTHRYak5IbE16blVoSjJGNHZHNHNSbGlCRzR2NHQx?=
+ =?utf-8?B?OC9JSjJoUnErb3Nwb3d4SitBeC91bk5PMXBVMHdFWG9rQlFLaVJ2d1FmYzZT?=
+ =?utf-8?B?QTF5U0prRDZicjdPeVAzMFVQSnFxaVdGSjhYOGk0d1JFZlRTTEluMDUxR1Az?=
+ =?utf-8?B?dmNMalduenRhbEcwQXpNdFdXdjE3MDdHUjViQWJOaVpkZ1NEY0dRcTZQOFk0?=
+ =?utf-8?B?V2hzRzJvRDgwZ05UQWRRRkNEb0NQL3NrWmY5cUUyUnVhODJQWWFrMmN3SzI1?=
+ =?utf-8?B?eTNxYW9OQ1FpOEdlV2pFYXB3ajVFSjc4OXk3dDZ2aEV3M3pzMXMyM0UxcGVq?=
+ =?utf-8?B?dWV2M1BWVUpPdldyRFJHVCtsQTZwKzV6ZE9ZajhuNitLS3FIMXErQ2J6dW1H?=
+ =?utf-8?B?eXpTZFRxdUVnK01Bei9oMDhTSTNHaCtTNWpzRWhHMkRrcUtuc2lqWUZlRTda?=
+ =?utf-8?B?MTFhcnpUb21UOXg4ZGd5OEx3L2VzUkMwb211UEphamVBclFVTVYwSFJWMlV0?=
+ =?utf-8?B?Tmx5NG5hRFBtd2pBcWNTSkV6aURtREZNdUoxaXFzODQ2MlpPRzhWSjhKSGhH?=
+ =?utf-8?B?ZUQ5dGlFV1g3RzJYK0lxSzVDa3hIeWRkbDNFK25rYnpTVnZKUmdWb3RzMHp2?=
+ =?utf-8?B?OFRDclo1elRHeTNCeGpqbW1QU29VWmxhMWU2TTZqRlRVQXg3b01qWlROWGlj?=
+ =?utf-8?B?Z0dERkVkemNDNnZRZlllUHhVcU1JK0ZYTzUrcVdJcHJhLzdjenpySWN4eVls?=
+ =?utf-8?B?TUlycWRscXZhZ3Z2Q2pyaGVXaGpPUW1vR3V3dE4xWHgzNzlSUUdMTXhmTEg2?=
+ =?utf-8?B?ZHdFQ2pJUDlqMDZXWVVxOGhGQ2VLVUkvQUlzOCtEU0VJS0RwU3luSGVyUlVj?=
+ =?utf-8?B?eGJ2MGoybTFxWDM0VUFOQityZHNRYzBra2JrbFB2Y1hQVnk3TUY5VzVwQVJv?=
+ =?utf-8?B?OE0zOTBXNnV5enRTOWRwRVBSU2FqTWpFbVdiakdWVTZDck5LUDJUQzhoNmQz?=
+ =?utf-8?B?dkxJWDZWWWxrTE5IbUJ5WFRrVEJpZTRjdTgwWW11eDRHdUdwOTdwQjRqRFg0?=
+ =?utf-8?B?TmFtVVo3Zi9jdkIvZmNSb0dWOHlKSy9XSW5Ya0RjUXE3bUY2VUJ3RHovbGQ3?=
+ =?utf-8?B?cWNUb05oMWYvTXpzQmptcm5hNmpZYmtoeVBSNGxZbkU2aXBGTHpyZThmT0Ur?=
+ =?utf-8?B?M054Yit0OG5zQVd1eHRPVEwvSFFkQmEwdHEvaUNZWlNRSUxpVElWbUxpcTlZ?=
+ =?utf-8?B?cjFEbTY1ODl6YzRhNTlhL01NSFZXV2hPVzJwa3FLNjE0Ri95U1hFcmlsMkls?=
+ =?utf-8?B?U3pUbGYwa01ISm5mVzNXWUhKQlZLV01VSng4S1dwelh3cWxUNEl0MzRJdUxv?=
+ =?utf-8?B?T01pcU94S3oxWDI5bU1EZ2g5cWxwNDhzdDVob1hHSlV3V3RVQ0xSUDNBTC9F?=
+ =?utf-8?B?UjhmdlJUOHRjTjEybWlxdmdWWG1NTzlqUEpkelEzeHpPUVAwWnB4R3JBZnNY?=
+ =?utf-8?B?OG9manVOZnErcVB4bVczYXRUbklLQk9qN1BYMmVnaFJMMVdpQnBhdkF5ZWNq?=
+ =?utf-8?B?K3QvQ1pMNlVhN0RKUUt5OEZVWXdiRDdhNCtvRGQyd0RweDhWOS82R3lwTW8w?=
+ =?utf-8?B?cTFQYkh4ckx2TVV0Ymg1R2t3TkIvazNTcmRwVVlRV0pIdm5qcGJoYzVYaS9B?=
+ =?utf-8?B?MXBidVBoVmtMcENlZVFIZERJY29VWCszREZNa3phdUt4VjNRa3pHQjkyQkND?=
+ =?utf-8?B?YUU0Rytta2ZTNVZndU9NcExsSGVpNEprMkZCNVBKVGlCcjFsNUdPMWNxcmxx?=
+ =?utf-8?B?MWNVSExXd0QzcUc4Z3J2Y1A3bFE3RHUwT1N0N3dzWjhnaHN3YWo4aDJKaEU3?=
+ =?utf-8?Q?fvjDpYc3RLenakJ4sn?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b294501d-290a-49fe-f6ff-08de47427bd1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Dec 2025 01:26:40.3423 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: czpJnWufrCi/FPQGlW1A4vNe82Q2owkIOHpL7bc6c1df6g3Cx3D8OkXZ/GhG4yio
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7844
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,119 +178,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Almost a rite of passage for every DRM developer and most Linux users
-is upgrading your DRM driver/updating boot flags/changing some config
-and having DRM driver fail at probe resulting in a blank screen.
-
-Currently there's no way to recover from DRM driver probe failure. PCI
-DRM driver explicitly throw out the existing sysfb to get exclusive
-access to PCI resources so if the probe fails the system is left without
-a functioning display driver.
-
-Add code to sysfb to recever system framebuffer when DRM driver's probe
-fails. This means that a DRM driver that fails to load reloads the system
-framebuffer driver.
-
-This works best with simpledrm. Without it Xorg won't recover because
-it still tries to load the vendor specific driver which ends up usually
-not working at all. With simpledrm the system recovers really nicely
-ending up with a working console and not a blank screen.
-
-There's a caveat in that some hardware might require some special magic
-register write to recover EFI display. I'd appreciate it a lot if
-maintainers could introduce a temporary failure in their drivers
-probe to validate that the sysfb recovers and they get a working console.
-The easiest way to double check it is by adding:
- /* XXX: Temporary failure to test sysfb restore - REMOVE BEFORE COMMIT */
- dev_info(&pdev->dev, "Testing sysfb restore: forcing probe failure\n");
- ret = -EINVAL;
- goto out_error;
-or such right after the devm_aperture_remove_conflicting_pci_devices .
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Ce Sun <cesun102@amd.com>
-Cc: Chia-I Wu <olvaffe@gmail.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Deepak Rawat <drawat.floss@gmail.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: linux-efi@vger.kernel.org
-Cc: linux-fbdev@vger.kernel.org
-Cc: linux-hyperv@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: nouveau@lists.freedesktop.org
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: spice-devel@lists.freedesktop.org
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: "Timur Kristóf" <timur.kristof@gmail.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: virtualization@lists.linux.dev
-Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
-
-Zack Rusin (12):
-  video/aperture: Add sysfb restore on DRM probe failure
-  drm/vmwgfx: Use devm aperture helpers for sysfb restore on probe
-    failure
-  drm/xe: Use devm aperture helpers for sysfb restore on probe failure
-  drm/amdgpu: Use devm aperture helpers for sysfb restore on probe
-    failure
-  drm/virtio: Add sysfb restore on probe failure
-  drm/nouveau: Use devm aperture helpers for sysfb restore on probe
-    failure
-  drm/qxl: Use devm aperture helpers for sysfb restore on probe failure
-  drm/vboxvideo: Use devm aperture helpers for sysfb restore on probe
-    failure
-  drm/hyperv: Add sysfb restore on probe failure
-  drm/ast: Use devm aperture helpers for sysfb restore on probe failure
-  drm/radeon: Use devm aperture helpers for sysfb restore on probe
-    failure
-  drm/i915: Use devm aperture helpers for sysfb restore on probe failure
-
- drivers/firmware/efi/sysfb_efi.c           |   2 +-
- drivers/firmware/sysfb.c                   | 191 +++++++++++++--------
- drivers/firmware/sysfb_simplefb.c          |  10 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   9 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   7 +
- drivers/gpu/drm/ast/ast_drv.c              |  13 +-
- drivers/gpu/drm/hyperv/hyperv_drm_drv.c    |  23 +++
- drivers/gpu/drm/i915/i915_driver.c         |  13 +-
- drivers/gpu/drm/nouveau/nouveau_drm.c      |  16 +-
- drivers/gpu/drm/qxl/qxl_drv.c              |  14 +-
- drivers/gpu/drm/radeon/radeon_drv.c        |  15 +-
- drivers/gpu/drm/vboxvideo/vbox_drv.c       |  13 +-
- drivers/gpu/drm/virtio/virtgpu_drv.c       |  29 ++++
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c        |  13 +-
- drivers/gpu/drm/xe/xe_device.c             |   7 +-
- drivers/gpu/drm/xe/xe_pci.c                |   7 +
- drivers/video/aperture.c                   |  54 ++++++
- include/linux/aperture.h                   |  14 ++
- include/linux/sysfb.h                      |   6 +
- 19 files changed, 368 insertions(+), 88 deletions(-)
-
--- 
-2.48.1
-
+W1B1YmxpY10NCg0KVGhhbmsgeW91IGZvciB0aGUgZmVlZGJhY2ssIEkgd2lsbCByZXdvcmsgdGhl
+IHBhdGNoIGEgYml0IGFuZCBzZW5kIGl0IGZvciB0aGUgdGVzdC4NCg0KUmVnYXJkcywNCiAgICAg
+IFByaWtlDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmVhbiBQaGls
+aXBwZSBFSU1FUiA8cGhpbEBqcG1yLm9yZz4NCj4gU2VudDogTW9uZGF5LCBEZWNlbWJlciAyOSwg
+MjAyNSA1OjUzIFBNDQo+IFRvOiBMaWFuZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+OyBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxB
+bGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlh
+bi5Lb2VuaWdAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogU2tp
+cCBUTEIgZmx1c2ggZm9yIGRldmljZXMgcHJlZGF0aW5nIHRoZSBTSQ0KPiBzZXJpZXMNCj4NCj4g
+VW5mb3J0dW5hdGVseSB0aGlzIHBhdGNoIGRvZXNuJ3Qgc29sdmUgdGhlIGhhbmcgSSByZXBvcnRl
+ZC4NCj4NCj4gUGxlYXNlIGZpbmQgYXR0YWNoZWQgMiBsb2dzIG9idGFpbmVkIHdpdGggdGhlIHBh
+dGNoIGFwcGxpZWQsIG9uZSBvZiB0aGVtIGJlaW5nIGZyb20NCj4gYSBkZWJ1ZyBzZXJpYWwgY29u
+c29sZS4NCj4NCj4NCj4gTGUgMjkvMTIvMjAyNSDDoCAwMzoyOSwgUHJpa2UgTGlhbmcgYSDDqWNy
+aXQgOg0KPiA+IFNJIGRvZXMgbm90IHN1cHBvcnQgUEFTSUQgb3IgS0lRL01FUywgc28gdGhlcmUg
+aXMgbm8gdmFsaWQgVExCDQo+ID4gZmVuY2UgZW50aXR5IGF2YWlsYWJsZSB0byBwZXJmb3JtIHRo
+ZSBUTEIgZmx1c2guIFdpdGhvdXQgYSBmYWxsYmFjaw0KPiA+IHJldHVybiwgdGhpcyB3aWxsIHJl
+c3VsdCBpbiBhIE5VTEwgcG9pbnRlciBpc3N1ZSBkdWUgdG8gdGhlIGludmFsaWQNCj4gPiBUTEIg
+Zmx1c2ggZGV2aWNlIGVudGl0eQ0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogUHJpa2UgTGlhbmcg
+PFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gUmVwb3J0ZWQtYnk6IEplYW4gUGhpbGlwcGUgRUlN
+RVIgPHBoaWxAanBtci5vcmc+DQo+ID4gLS0tDQo+ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZ21jLmMgfCA2ICsrKysrKw0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDYgaW5z
+ZXJ0aW9ucygrKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9nbWMuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9n
+bWMuYw0KPiA+IGluZGV4IGNkNGFjYzZhZGM5ZS4uOTY1YWUwMjIzMmUwIDEwMDY0NA0KPiA+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuYw0KPiA+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuYw0KPiA+IEBAIC03NzIsNiArNzcy
+LDEyIEBAIGludCBhbWRncHVfZ21jX2ZsdXNoX2dwdV90bGJfcGFzaWQoc3RydWN0DQo+IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsIHVpbnQxNl90IHBhc2lkLA0KPiA+ICAgICBpbnQgciwgY250ID0gMDsN
+Cj4gPiAgICAgdWludDMyX3Qgc2VxOw0KPiA+DQo+ID4gKyAgIC8qIFNJIGRvZXMgbm90IHN1cHBv
+cnQgUEFTSUQgb3IgS0lRL01FUywgYW5kIHRoZXJlIGlzIG5vIHZhbGlkDQo+ID4gKyAgICAqIFRM
+QiBmZW5jZSBlbnRpdHkgYXZhaWxhYmxlIHRvIHBlcmZvcm0gdGhlIFRMQiBmbHVzaC4NCj4gPiAr
+ICAgICovDQo+ID4gKyAgIGlmKCFhZGV2KQ0KPiA+ICsgICAgICAgICAgIHJldHVybiAwOw0KPiA+
+ICsNCj4gPiAgICAgLyoNCj4gPiAgICAgICogQSBHUFUgcmVzZXQgc2hvdWxkIGZsdXNoIGFsbCBU
+TEJzIGFueXdheSwgc28gbm8gbmVlZCB0byBkbw0KPiA+ICAgICAgKiB0aGlzIHdoaWxlIG9uZSBp
+cyBvbmdvaW5nLg0K
