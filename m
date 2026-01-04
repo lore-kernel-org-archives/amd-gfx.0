@@ -4,135 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44550C2A062
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jan 2026 07:21:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15248C2A072
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jan 2026 08:27:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D18CA10E194;
-	Mon,  5 Jan 2026 07:21:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89A5910E100;
+	Mon,  5 Jan 2026 08:27:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qjVTX5Ul";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JAofkDJe";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HqxFeITC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WmK5ClWl";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="TDxm+nQm";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6061610E194
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jan 2026 07:21:34 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DBE889CAD
+ for <amd-gfx@lists.freedesktop.org>; Sun,  4 Jan 2026 21:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1767561485;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=hyp27LAQdCOuI+jR+Ub383o9Ghg3Zj0WM9a7WADb1iQ=;
+ b=TDxm+nQms4xTUMzQiFhtZOHXJwB7ppevGvYhICqnitB0lVfuB5jMLF+4y9HmVBCmtrZ3tB
+ qcAGi/fNA/CS7Bp2RclfyfBQd+ofd1kVxqfXrdQEfCupejT9wvXloAHAHW1BZEj3svqHpX
+ TViXDnmfK+mYHMYHyzXXSx4eOSuJzYM=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-198-HxZuzOLBMp-yB29UdILreA-1; Sun,
+ 04 Jan 2026 16:17:59 -0500
+X-MC-Unique: HxZuzOLBMp-yB29UdILreA-1
+X-Mimecast-MFC-AGG-ID: HxZuzOLBMp-yB29UdILreA_1767561478
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 028B23373F;
- Mon,  5 Jan 2026 07:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1767597693; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pl5I6YyDW9RCeYRgA+zV9PuJFynUTr+0MKLP/Pz6Dms=;
- b=qjVTX5UlOvmOixVVgspE9jZ0lfLrybc1cp7CcW5lpun2BacomISVoALZ5auUXCp4LaLSmV
- obHRdjWvlrNnzF4bwGKJ5RdnKl7VHRWECdMGfct4xBQoSTSogNPflQD+XdippzzjuWBNID
- pLQkPoFyOUKucIrHn/EA5vkF2KwAzfQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1767597693;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pl5I6YyDW9RCeYRgA+zV9PuJFynUTr+0MKLP/Pz6Dms=;
- b=JAofkDJeQlXN0tvMNgNUINVT0sixksQ8sWKK7XgICf3+KY7WbOJ5UcLszqul4NgqOp8dmd
- QJWfeargqwa6pxCA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1767597692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pl5I6YyDW9RCeYRgA+zV9PuJFynUTr+0MKLP/Pz6Dms=;
- b=HqxFeITCgcnT2y96VRASNlEbv0qQlESmcTjh6eH//MBe8uWGnmNvesjUB6hBc9PqTZVc4/
- qK+vXvJCVwZDimXr9v4l7C4eBUU06vXOJ3YCB2VWnXLbmg71pSl1xKTm7Y5c3RWe3EAl0O
- 38/01ZilfANDzSIhCf26jSzrbIrw9rc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1767597692;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pl5I6YyDW9RCeYRgA+zV9PuJFynUTr+0MKLP/Pz6Dms=;
- b=WmK5ClWl9spw2+7PMsk7EZxN+Im6l59TXFDa+817kekeyCRpHaHj8OF7VxcFRiXeIDJHi3
- BpT2sXgWDVrytFAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A65613964;
- Mon,  5 Jan 2026 07:21:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id fP5FJHtmW2ksLQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 05 Jan 2026 07:21:31 +0000
-Message-ID: <e0ada957-ab34-4911-b189-e51160b44b80@suse.de>
-Date: Mon, 5 Jan 2026 08:21:31 +0100
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 0607918002C9; Sun,  4 Jan 2026 21:17:58 +0000 (UTC)
+Received: from [10.44.33.27] (unknown [10.44.33.27])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B463D19560AB; Sun,  4 Jan 2026 21:17:54 +0000 (UTC)
+Date: Sun, 4 Jan 2026 22:17:52 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org, 
+ linux-mm@kvack.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>
+Subject: [PATCH v3 3/3] amdgpu: don't report an error if the process was killed
+Message-ID: <aca0147f-61be-30a3-eff5-cb981222aacc@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND 2/3] drm/atomic: add max_size check to
- drm_property_replace_blob_from_id()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-References: <20251210-drm-fix-lut-checks-v1-0-10ae38519f43@oss.qualcomm.com>
- <20251210-drm-fix-lut-checks-v1-2-10ae38519f43@oss.qualcomm.com>
- <f211044d-c797-4e10-a06e-10dce071f704@suse.de>
- <kxlk3cb6tsge6wf45xs74i6u6cmmkvw4sbujir54vuwqkwvriu@halwo27swzll>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <kxlk3cb6tsge6wf45xs74i6u6cmmkvw4sbujir54vuwqkwvriu@halwo27swzll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[13];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,igalia.com,lists.freedesktop.org,vger.kernel.org];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, qualcomm.com:email,
- suse.de:mid, suse.com:url]
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: mvTYYxw7s_XES0DU7uD8yJmQUNAcH0y6rYtXVek_d0Y_1767561478
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+X-Mailman-Approved-At: Mon, 05 Jan 2026 08:27:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,88 +74,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+If the process was killed by a fatal signal, amdgpu_hmm_register could
+return -EINTR (the -EINTR comes from mm_take_all_locks).
 
-Am 28.12.25 um 01:53 schrieb Dmitry Baryshkov:
-> On Thu, Dec 11, 2025 at 08:46:26AM +0100, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 10.12.25 um 20:42 schrieb Dmitry Baryshkov:
->>> The function drm_property_replace_blob_from_id() allows checking whether
->>> the blob size is equal to a predefined value. In case of variable-size
->>> properties (like the gamma / degamma LUTs) we might want to check for
->>> the blob size against the maximum, allowing properties of the size
->>> lesser than the max supported by the hardware. Extend the function in
->>> order to support such checks.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> ---
->>>    drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c |  5 +++++
->>>    drivers/gpu/drm/drm_atomic_uapi.c                       |  7 +++++--
->>>    drivers/gpu/drm/drm_property.c                          | 11 +++++++++++
->>>    include/drm/drm_property.h                              |  1 +
->>>    4 files changed, 22 insertions(+), 2 deletions(-)
->>>
->>> @@ -801,6 +803,15 @@ int drm_property_replace_blob_from_id(struct drm_device *dev,
->>>    			drm_property_blob_put(new_blob);
->>>    			return -EINVAL;
->>>    		}
->>> +
->>> +		if (max_size > 0 &&
->>> +		    new_blob->length > max_size) {
->>> +			drm_dbg_atomic(dev,
->>> +				       "[BLOB:%d] length %zu greater than max %zu\n",
->>> +				       new_blob->base.id, new_blob->length, max_size);
->>> +			drm_property_blob_put(new_blob);
->>> +			return -EINVAL;
->>> +		}
->> I'd first test for max_size before testing for expected size.
->>
->> And shouldn't you also test for (max_size % expected_elem_size == 0)?
-> No, why? We are testing the values passed from the userspace, not the
-> kernel itself. E.g. we also don't have a test that (expected_size %
-> expected_elem_size == 0).
+Don't log the error in this case, because no error happened.
 
-Well, OK.
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-Best regards
-Thomas
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
->
->> Best regards
->> Thomas
->>
->>>    	}
->>>    	*replaced |= drm_property_replace_blob(blob, new_blob);
->>> diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
->>> index 082f29156b3e..aa49b5a42bb5 100644
->>> --- a/include/drm/drm_property.h
->>> +++ b/include/drm/drm_property.h
->>> @@ -284,6 +284,7 @@ int drm_property_replace_blob_from_id(struct drm_device *dev,
->>>    				      uint64_t blob_id,
->>>    				      ssize_t expected_size,
->>>    				      ssize_t expected_elem_size,
->>> +				      ssize_t max_size,
->>>    				      bool *replaced);
->>>    int drm_property_replace_global_blob(struct drm_device *dev,
->>>    				     struct drm_property_blob **replace,
->>>
->> -- 
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
->>
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+Index: mm/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+===================================================================
+--- mm.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c	2026-01-04 21:19:14.000000000 +0100
++++ mm/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c	2026-01-04 21:19:14.000000000 +0100
+@@ -1070,8 +1070,13 @@ static int init_user_pages(struct kgd_me
+ 
+ 	ret = amdgpu_hmm_register(bo, user_addr);
+ 	if (ret) {
+-		pr_err("%s: Failed to register MMU notifier: %d\n",
+-		       __func__, ret);
++		/*
++		 * If we got EINTR because the process was killed, don't report
++		 * it, because no error happened.
++		 */
++		if (!(fatal_signal_pending(current) && ret == -EINTR))
++			pr_err("%s: Failed to register MMU notifier: %d\n",
++			       __func__, ret);
+ 		goto out;
+ 	}
+ 
 
