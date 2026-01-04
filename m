@@ -4,38 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A5AC2A075
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jan 2026 08:27:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5307EC2A079
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jan 2026 08:27:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96E7210E088;
-	Mon,  5 Jan 2026 08:27:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F48910E1F1;
+	Mon,  5 Jan 2026 08:27:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="GEsu1fy9";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WjfHBYWG";
 	dkim-atps=neutral
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4295910E135
- for <amd-gfx@lists.freedesktop.org>; Sun,  4 Jan 2026 16:51:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1767545407; x=1767804607;
- bh=Ms1cIXEZKr3RfHKUKatTLDHIp8yBOqIYlMqTRvvRhgc=;
- h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=GEsu1fy9TcNW0ku+UKHfHW+DUniSuilVSoUtuJFNfJZRt9GDwR9fFUCt/CLc12O/E
- L3dmjRAzGzHbeAd7z7/AQo8NTGcLvreUaa3iCpDfHg3uza7w1DnOMsvvM+PWKekfD6
- Ns6oam4Fgtq2i88CsmjmwZymZ+fQZzTlKF18V1HpPPs5eiwunz8pA7gE2ziuCLUU0m
- xS7AKh4XQHsUA1XmaJGCkXNf5mlvftUihboyvLn7U5P007YRFa1ulIAkULGoFFB9+5
- q3+Rjpp4mEWxHh/D/fk2VuFUlfhJZ6NroG1fvqcDJOQe5Xe2qX2qyqCL9qFNaSgzaa
- VT4tuGW6Mk76w==
-Date: Sun, 04 Jan 2026 16:50:01 +0000
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-From: Tj <tj.iam.tj@proton.me>
-Subject: amdgpu vs kexec (revisited)
-Message-ID: <ysJdpPASgf9bkP75jPcCdDen8lcrK6X5ZnBZ0rCORBKpDxuQY9QfveJNc6k5I0Kf5YGC_0RgHj6HOvLkRjxYLVvTeDbjJrJ-VQggla6IxU4=@proton.me>
-Feedback-ID: 113488376:user:proton
-X-Pm-Message-ID: 3e816a947aea77e76095c6e9c37dbfe9cf29f9aa
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A00810E117
+ for <amd-gfx@lists.freedesktop.org>; Sun,  4 Jan 2026 21:17:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1767561433;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=YXrJP9q/GUrVMl1VY4mCkTx4D5WafNvciWq+lKsafng=;
+ b=WjfHBYWGlOHNILyMHPZs23C3r2qIeaFMAfVPBjL8RXdaI9IP822Arw6m05hAnqV2+Cw5Fu
+ uzxCZ9VTMToDrCKTX7SfxQQTdLGuvcggNikk29yJo/8LRaIa8hnlp99JQte8gm03NDP7NJ
+ hl9Hk0NV9WLqrRlGkTDD8GZO8jrwBDc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-32-RflY1I1HOry_6hVCuw3eXQ-1; Sun,
+ 04 Jan 2026 16:17:08 -0500
+X-MC-Unique: RflY1I1HOry_6hVCuw3eXQ-1
+X-Mimecast-MFC-AGG-ID: RflY1I1HOry_6hVCuw3eXQ_1767561426
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 09FBC1956080; Sun,  4 Jan 2026 21:17:06 +0000 (UTC)
+Received: from [10.44.33.27] (unknown [10.44.33.27])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E6AE2180049F; Sun,  4 Jan 2026 21:17:02 +0000 (UTC)
+Date: Sun, 4 Jan 2026 22:17:00 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org, 
+ linux-mm@kvack.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>
+Subject: [PATCH v3 2/3] mm: only interrupt taking all mm locks on fatal signal
+Message-ID: <b672e17b-461d-16ae-e7d3-45d3c1aab142@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ouVDVLIHXQZxdc61wkcBfNlQzSbqo2NTLINVAU7FsVM_1767561426
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Mon, 05 Jan 2026 08:27:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,107 +74,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In this list on 2025-06-16 Peter Zijlstra reported "amdgpu vs kexec":
+If a process sets up a timer that periodically sends a signal in short
+intervals and if it executes some kernel code that calls
+mm_take_all_locks, we get random -EINTR failures.
 
-https://lists.freedesktop.org/archives/amd-gfx/2025-June/126086.html
+The function mm_take_all_locks fails with -EINTR if there is pending
+signal. The -EINTR is propagated up the call stack to userspace and
+userspace fails if it gets this error.
 
-and there was follow-up with possible solutions but with no reported resolu=
-tion.
+In order to fix these failures, this commit changes
+signal_pending(current) to fatal_signal_pending(current) in
+mm_take_all_locks, so that it is interrupted only if the signal is
+actually killing the process.
 
-I'm trying to resolve the same issue and would welcome some help.
+For example, this bug happens when using OpenCL on AMDGPU. Sometimes,
+probing the OpenCL device fails (strace shows that open("/dev/kfd")
+failed with -EINTR). Sometimes we get the message "amdgpu:
+init_user_pages: Failed to register MMU notifier: -4" in the syslog.
 
-In Peter's thread there were two suggested options for amdgpu_pci_shutdown(=
-):
+The bug can be reproduced with the following program.
 
-1. amdgpu_asic_reset(adev); (suggested by Mario Limonciello)
-2. amdgpu_dpm_set_mp1_state(adev, PP_MP1_STATE_UNLOAD); (suggested my Alex =
-Deucher)
+To run this program, you need AMD graphics card and the package
+"rocm-opencl" installed. You must not have the package "mesa-opencl-icd"
+installed, because it redirects the default OpenCL implementation to
+itself.
 
-I also went back through all commits to amdgpu_pci_shutdown() and saw in fa=
-efba95c9e8ca3
- the call to amdgpu_pci_remove() was replaced by amdgpu_suspend():
+include <stdio.h>
+include <stdlib.h>
+include <unistd.h>
+include <string.h>
+include <signal.h>
+include <sys/time.h>
 
-3. amdgpu_pci_remove();
+define CL_TARGET_OPENCL_VERSION	300
+include <CL/opencl.h>
 
-I've tried all three; individually and combined (1 followed by 2 followed b=
-y 3)=20
- - none manage it.
+static void fn(void)
+{
+	while (1) {
+		int32_t err;
+		cl_device_id device;
+		err = clGetDeviceIDs(NULL, CL_DEVICE_TYPE_GPU, 1, &device, NULL);
+		if (err != CL_SUCCESS) {
+			fprintf(stderr, "clGetDeviceIDs failed: %d\n", err);
+			exit(1);
+		}
+		write(2, "-", 1);
+	}
+}
 
-(3) triggers a stack trace before the kexec and after restart amdgpu trigge=
-rs many
- traces and then the PC does a full power reset.
+static void alrm(int sig)
+{
+	write(2, ".", 1);
+}
 
-(1) and (2) kexec then amdgpu triggers many traces then hangs the system.
+int main(void)
+{
+	struct itimerval it;
+	struct sigaction sa;
+	memset(&sa, 0, sizeof sa);
+	sa.sa_handler = alrm;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGALRM, &sa, NULL);
+	it.it_interval.tv_sec = 0;
+	it.it_interval.tv_usec = 50;
+	it.it_value.tv_sec = 0;
+	it.it_value.tv_usec = 50;
+	setitimer(ITIMER_REAL, &it, NULL);
+	fn();
+	return 1;
+}
 
-I have (large) logs for all three captured over serial port and can provide=
- a link to them
- if required.
+I'm submitting this patch for the stable kernels, because this bug may
+cause random failures in any code that calls mm_take_all_locks.
 
-As Peter found I also needed to add EXPORT_SYMBOL(kexec_in_progress) so the=
- loadable module
- would link. My eventual combined patch showing all three options is:
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Link: https://lists.freedesktop.org/archives/amd-gfx/2025-November/133141.html
+Link: https://yhbt.net/lore/linux-mm/6f16b618-26fc-3031-abe8-65c2090262e7@redhat.com/T/#u
+Cc: stable@vger.kernel.org
+Fixes: 7906d00cd1f6 ("mmu-notifiers: add mm_take_all_locks() operation")
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 848e6b7db482d..81384eaada538 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -35,6 +35,7 @@
- #include <linux/cc_platform.h>
- #include <linux/console.h>
- #include <linux/dynamic_debug.h>
-+#include <linux/kexec.h>
- #include <linux/module.h>
- #include <linux/mmu_notifier.h>
- #include <linux/pm_runtime.h>
-@@ -2583,9 +2584,21 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
-         */
-        if (!amdgpu_passthrough(adev))
-                adev->mp1_state =3D PP_MP1_STATE_UNLOAD;
-+#ifdef CONFIG_KEXEC
-+       if (kexec_in_progress)
-+               adev->mp1_state =3D PP_MP1_STATE_UNLOAD;
-+#endif
-        amdgpu_device_prepare(dev);
-        amdgpu_device_suspend(dev, true);
-        adev->mp1_state =3D PP_MP1_STATE_NONE;
-+#ifdef CONFIG_KEXEC
-+       if (kexec_in_progress)
-+               amdgpu_asic_reset(adev);
-+#endif
-+#ifdef CONFIG_KEXEC
-+       if (kexec_in_progress)
-+               amdgpu_pci_remove(pdev);
-+#endif
- }
+---
+ mm/vma.c |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- static int amdgpu_pmops_prepare(struct device *dev)
-diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-index 95c585c6ddc33..5c4d88df7466b 100644
---- a/kernel/kexec_core.c
-+++ b/kernel/kexec_core.c
-@@ -54,6 +54,7 @@ atomic_t __kexec_lock =3D ATOMIC_INIT(0);
+Index: mm/mm/vma.c
+===================================================================
+--- mm.orig/mm/vma.c	2026-01-04 21:19:13.000000000 +0100
++++ mm/mm/vma.c	2026-01-04 21:19:13.000000000 +0100
+@@ -2166,14 +2166,14 @@ int mm_take_all_locks(struct mm_struct *
+ 	 * is reached.
+ 	 */
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		vma_start_write(vma);
+ 	}
+ 
+ 	vma_iter_init(&vmi, mm, 0);
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		if (vma->vm_file && vma->vm_file->f_mapping &&
+ 				is_vm_hugetlb_page(vma))
+@@ -2182,7 +2182,7 @@ int mm_take_all_locks(struct mm_struct *
+ 
+ 	vma_iter_init(&vmi, mm, 0);
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		if (vma->vm_file && vma->vm_file->f_mapping &&
+ 				!is_vm_hugetlb_page(vma))
+@@ -2191,7 +2191,7 @@ int mm_take_all_locks(struct mm_struct *
+ 
+ 	vma_iter_init(&vmi, mm, 0);
+ 	for_each_vma(vmi, vma) {
+-		if (signal_pending(current))
++		if (fatal_signal_pending(current))
+ 			goto out_unlock;
+ 		if (vma->anon_vma)
+ 			list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
 
- /* Flag to indicate we are going to kexec a new kernel */
- bool kexec_in_progress =3D false;
-+EXPORT_SYMBOL(kexec_in_progress);
-
- bool kexec_file_dbg_print;
-
-My workstation uses a FirePro W4100 (Southern Islands / Cape Verde / TAHITI=
- ).
-Until now it was using radeon. Until maybe Spring 2025 it would successfull=
-y
- kexec but I've lost track of the version where it worked.
-
-Recently wanted to get kexec working again so thought I'd try amdgpu and fo=
-und
- it has the same issue. In working on this over the last few days saw
- ccd3b4c7c37fbbd3 "drm/amdgpu: Use amdgpu by default on SI dedicated GPUs (=
-v2)"
- so need to resolve this issue somehow and it seems amdgpu is the place to =
-do that.
-
-Thanks.
-
-Tj.
