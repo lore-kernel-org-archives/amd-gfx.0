@@ -4,129 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6755FC2A062
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Jan 2026 15:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F96FC2A070
+	for <amd-gfx@archiver.kernel.org>; Sun,  4 Jan 2026 22:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C630810E26D;
-	Sun,  4 Jan 2026 15:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B25BC10E07F;
+	Sun,  4 Jan 2026 22:41:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="436OL9JQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W5F1Cdms";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03FFB10E26D
- for <amd-gfx@lists.freedesktop.org>; Sun,  4 Jan 2026 15:04:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tob7ZBC7jk1M7rU3+Wsw4cdHPNgwrkgrcV8rfibUeUxc3dLXsb4lryIqrRB/U/XXgLSCxT76qJBto0abNGJI2dLEp+x1L33xIeRtMwR4XTledOVTCDBAsjnu1XhMTRr+ixA8Zt15IU3jqpTc8t/+ZsQMn3hnArYV4PyCnWShzE2ySQIAEsJMUL4RkuvU2MloWY9RDMjIy0Hd6cyBabbJP0VhG5n5sZQEfl+Qcn1v9s+8estxfpCeLQxd50XouKcs/48hgdexBc7q0jEdDyMeLe7xQbPbyMkoPNcGkUhDCJ4PwSg/B/0qi5BTHVnYe69WsUybF84v/DjPqpXummFWgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yM3Irl7O9q7tVDX/SJyTMQ0E/TlRGdCPtl8LEaud9Cc=;
- b=CS73Rq7vYjokNd8a6rxGdM2/sO+7rcw0jw0sgIaqMXmc13kNNAy/AXERkDx5dvrGJlGM6ywq4tf8RN5/RNZrZVC+2u6qvpqZYGox0udHXE88EaFdqOcHhHz940Jbq5W+hTK01d+S/MdXV+6n7C8frp72OruXkTgSyANO2XuNgoPY/xnWegWPGInJY86WZzWbaRIWZZW0westcKehoAMnkh/I47vBsFapW4e/tXXL7e/l7pBZkgfeDwDhuhCihd28AqftRgM44DQBe0su0mEVyS3542HrOzqlaNQm2TprTDQ+oayD6JcrU49/iR7uLV9KONu3CEbJbWidOkgAoUdPeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yM3Irl7O9q7tVDX/SJyTMQ0E/TlRGdCPtl8LEaud9Cc=;
- b=436OL9JQ6/UDH4QiIdy8l9oWJZW/hH37wH1bZqJgL6iJHOpYNUAhJjpZhl5IexWn4V1vZLSk2t/4bVzCoLVAlIs5EdM5E0ZGxlsf6tA0gMzBaJ0qtJx0fbK7EyPVZFhUcsNiOF+HXBRtgwK3mqyA+cb2UKLQ7FIyVogvFvYmAcY=
-Received: from BYAPR07CA0050.namprd07.prod.outlook.com (2603:10b6:a03:60::27)
- by DS7PR12MB8204.namprd12.prod.outlook.com (2603:10b6:8:e1::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9478.4; Sun, 4 Jan 2026 15:04:46 +0000
-Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
- (2603:10b6:a03:60:cafe::74) by BYAPR07CA0050.outlook.office365.com
- (2603:10b6:a03:60::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9478.4 via Frontend Transport; Sun, 4
- Jan 2026 15:04:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9499.1 via Frontend Transport; Sun, 4 Jan 2026 15:04:45 +0000
-Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Sun, 4 Jan 2026 09:04:43 -0600
-From: Hawking Zhang <Hawking.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, Le Ma <Le.Ma@amd.com>, Likun Gao
- <Likun.Gao@amd.com>
-CC: Hawking Zhang <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Extend psp_skip_tmr for bare-metal and sriov
-Date: Sun, 4 Jan 2026 23:04:28 +0800
-Message-ID: <20260104150428.26348-1-Hawking.Zhang@amd.com>
-X-Mailer: git-send-email 2.17.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80AAE10E07F;
+ Sun,  4 Jan 2026 22:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1767566494; x=1799102494;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=9k0MkleAVvHbKnQUmL9KWFcTXNH5jwQDODeMnaJJZTg=;
+ b=W5F1Cdms5Ijj0GE6NSeAxzn9V/2n4rK4uleu3HGM4B157ADxmlQntq+/
+ 2iZ8qOrU6B69fsBSFXRTj8RKUHqyX49u5K1gDa1SJYUxgNRTdNkN1Uyrk
+ fb6/4ai8N7j/FH51AGtKDoNghK0xCOPPc5XQCx7ftfD/B4yn41Xb9zVD4
+ zazraw8F2m/k6bDqOSxsWbA7euiXVd5mqFqa7PaLlbsTkhfp2lCmTARK9
+ oBqHFM1mzBGvvZEtEcQg56KUIDItWJ7JXFWCw0yePNYmwQeIrtp1Ay6UB
+ VvSTA4WeipGATiUpjbDtSWrApGYw7HM/y2BeZYnoRo3YpeEKtndon1UsH g==;
+X-CSE-ConnectionGUID: FkLXgt07QSmOjP3BXSB0bA==
+X-CSE-MsgGUID: q9F41Q5kShazH2BukoHaTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11661"; a="79244436"
+X-IronPort-AV: E=Sophos;i="6.21,202,1763452800"; d="scan'208";a="79244436"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2026 14:41:33 -0800
+X-CSE-ConnectionGUID: aQulSiwVTGKKsjVzV89AIA==
+X-CSE-MsgGUID: ZUWYfN29S+OpqIvgdYz7JA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,202,1763452800"; d="scan'208";a="207141229"
+Received: from igk-lkp-server01.igk.intel.com (HELO 92b2e8bd97aa)
+ ([10.211.93.152])
+ by fmviesa004.fm.intel.com with ESMTP; 04 Jan 2026 14:41:30 -0800
+Received: from kbuild by 92b2e8bd97aa with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vcWmu-000000000yD-1OxE;
+ Sun, 04 Jan 2026 22:41:28 +0000
+Date: Sun, 4 Jan 2026 23:41:04 +0100
+From: kernel test robot <lkp@intel.com>
+To: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>, Felix.Kuehling@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+Subject: Re: [PATCH] drm/amdkfd: fix a memory leak in
+ device_queue_manager_init()
+Message-ID: <202601042317.3h1kg7NS-lkp@intel.com>
+References: <20260104131532.3978895-1-lihaoxiang@isrc.iscas.ac.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|DS7PR12MB8204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ca9621a-e7c5-4f79-e62d-08de4ba298d9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b1FleU0zWHFVbWpiTS9ETmVlSGIyVHRqRjVMZ0RBVkNQYzVLZ0hxT25GT3dZ?=
- =?utf-8?B?WCs4N3FQN1pvejVVZy9hK1Vma3JqN1NmMFI0WUJzS2hVUlZQR2RwQzZreTQ4?=
- =?utf-8?B?QkVBZWJGOTZYQytlUkx0ZTFlOUxkRis2L0RRdXBLWWJIa1p3OTMxL3RHYXVB?=
- =?utf-8?B?K0ptbXdVU2p1UGUyckFqUHhjQUhNaC9QSHZreXppamx1Wk1FNDhTWWFCMmxi?=
- =?utf-8?B?TzlSbGN2VXUrZithZFRQS3RnVEh4NjhyRERGZDNIU3hrT3FGNkN3N2cyL3pu?=
- =?utf-8?B?ZkVjT3dsYVlBTU53R2VsMldkMTdRanNtSUM4VDZReVRLemdFcWZpNndHZFFp?=
- =?utf-8?B?N3F2WnNobHAzNzZnYmZLZzhmb0tPOTk2VUpqMENZVUx2MVFncHpncU56cGxT?=
- =?utf-8?B?OHB3Z29UVm5mVEdUSGxtTi9hb04yb21RbEVqUll5bk5hdllqaUhLdUhRRWlz?=
- =?utf-8?B?UDRqVkc4blFBcE1YU2FjMVpmS3FaR2l6NUZRa3JlaU85S1d4TU5vVkFhcmpp?=
- =?utf-8?B?TnlhVFliZHlreEtLUDlMRTZLZERUd1JlOVpNSjhnNENLVVFONmF2eFA4OS93?=
- =?utf-8?B?ZndQbU0yWFlyNEtZNm1GQnNoUE5OOFdWR0h6cE4zOUxNeE43OTE4bVBWNkpm?=
- =?utf-8?B?RW5vYkhEZjE3ZzlCaCtLQitKNmh3NnYyWE9OUzJWT2ZHWUEvcnJvMWR2c3Q2?=
- =?utf-8?B?cW8zVWJxQ1ptSmxBWlRlMURObWFmQXd3V1hCbFUvZ1ZTNXR5T1JLOUFxK2lP?=
- =?utf-8?B?NVhiekhBbDIzTHZodlZWRWRmdkFjalZTaGZ5Q09SQTBSdG1nbkhqd3dndy83?=
- =?utf-8?B?eDVseE1wR05rcExaZ1BSLzhlVUI0STJmaW40MDh4RE94OXFaV2pQUVFKYjY0?=
- =?utf-8?B?OWVxWFdUU1ZaQnJyUUxUMmFLQzVZNzNLUjJYODFDRmFJdzczKzNuMC9scDhN?=
- =?utf-8?B?UXRyZmI5UDdKdVN5OW9HaXZ2RmF2ZDRtZFRPeHJsbHVaVXFsTmx6UlZ3bDFW?=
- =?utf-8?B?NHhpMTc0cWtEb0hEVUNnTi9KWUlTUnF3cSttRDdNZW9xQ3M2NDFWWWszKzhw?=
- =?utf-8?B?SFJTczhhNmZZVzNjRnEzeWtNZHdLNDN0by9OYWxjeWVYbjBBQkRFNnZHRmp1?=
- =?utf-8?B?Zk5DUDFqaitubzcyVjNzeHJHZ2ZBZnJOdTFrUGlPWCthbjN0amFGcnpjdGFt?=
- =?utf-8?B?N2QzOFJsZU9RWXdHTWN5Q0NmK2ZGVlROQmJFZVUyNEQ5QXdnZEY0YjNpd0Jq?=
- =?utf-8?B?MFFnVElBOGdwSFhpVU1BOWo3VWYybUxiTFltdWxudXBmZ1c3N1ZHelJsRnpi?=
- =?utf-8?B?RnlRbm81TkVCVytBTHJTL3R5VHJhbkE3ZngzV2tEVHBKZWI4MG90VUtITDBx?=
- =?utf-8?B?bUI4UXBlMHNDMmN3MTNRZUNMcGc4VHRkeHlRZGdENTFFalp3OXFmS0xOSG9Q?=
- =?utf-8?B?VkZDa3VyVUdIRXlGcDBqSm84VkNKdHk4RmE3UjJlRmZXQXlrTXg4U1VYaTd5?=
- =?utf-8?B?bXYzQmNPTjEzQTRIRkd2bVJzU3ZZd3hFQnFQc1lSVFlMUHRvYnNhYlBSQTBk?=
- =?utf-8?B?STFZMi9LU2tadXBQajZNUHVxaVEwV2xKVGhzZUJmZGJrQ0FQSFlSbFl1ZEdF?=
- =?utf-8?B?V0F0SU5MUTZDU0xOeVFUUEZabkkzbTNMWHJEOVIwbGFmeUpWbFF2TFl0eTAw?=
- =?utf-8?B?VisybngrbGNJSVJIU001cjhVSUlkWk96dEV3MEtSUzRaMWFDT0FpTGFHb0Z0?=
- =?utf-8?B?QVlzWlN6Y2FIWVZSVVVGZVY0TkZSR2ZuLzkwL3FVOXBjNU9lb2FXdzJMbmdi?=
- =?utf-8?B?dEg1bk9lL290RG5wYUliRWk1MjEwOGU5b2p1Rm1WRmRCVmlCU1ZTY3RJdk12?=
- =?utf-8?B?a2x0ZlJhaWI3Q2FnazZIejlHVUJmelFxTXBqTGYwSndJM3JNKzR1SVNCZ3E2?=
- =?utf-8?B?UWp6bXU5RUdCRU5QV1N3dGZlcldZYTdVYm9rc0k1Y0gvNGpWZnUxSUFyMjU1?=
- =?utf-8?B?bFppYWo4SWVXYXRHK1ZvT2hDK1F1bWZrT3JSY213V08wRUNVWk1wem5kMTNa?=
- =?utf-8?B?MEU4aUloUVZsc2NmOHNvd3Eydk9peHlLNkc3QWlUeU9hamNsSmJQbFE1Vm5j?=
- =?utf-8?Q?v4BM=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2026 15:04:45.3583 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ca9621a-e7c5-4f79-e62d-08de4ba298d9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE19.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8204
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260104131532.3978895-1-lihaoxiang@isrc.iscas.ac.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,95 +74,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In SRIOV, guest drivers no longer setup/destory
-VMR starting from mp0 v11_0_7.
+Hi Haoxiang,
 
-In bare-metal, if boot-time TMR is enabled, some
-generation (e.g., mp0 v13_0_x) don’t need runtime
-TMR allocation but still require SETUP_TMR command
-with tmr address 0 for backward compatibility.
-some newer generations require neither SETUP_TMR nor
-DESTROY_TMR and will return errors if they are sent.
-Driver relies on boot_time_tmr and autoload_supported
-to handle these cases correctly.
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 40 ++++++++-----------------
- 1 file changed, 12 insertions(+), 28 deletions(-)
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.19-rc3 next-20251219]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 08fb72adc9e9..a1bed8b874cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -902,20 +902,12 @@ static int psp_tmr_init(struct psp_context *psp)
- 
- static bool psp_skip_tmr(struct psp_context *psp)
- {
--	switch (amdgpu_ip_version(psp->adev, MP0_HWIP, 0)) {
--	case IP_VERSION(11, 0, 9):
--	case IP_VERSION(11, 0, 7):
--	case IP_VERSION(13, 0, 2):
--	case IP_VERSION(13, 0, 6):
--	case IP_VERSION(13, 0, 10):
--	case IP_VERSION(13, 0, 12):
--	case IP_VERSION(13, 0, 14):
--	case IP_VERSION(15, 0, 0):
--	case IP_VERSION(15, 0, 8):
--		return true;
--	default:
--		return false;
--	}
-+	u32 ip_version = amdgpu_ip_version(psp->adev, MP0_HWIP, 0);
-+
-+	if (amdgpu_sriov_vf(psp->adev))
-+		return (ip_version >= IP_VERSION(11, 0, 7)) ? true : false;
-+	else
-+		return (!psp->boot_time_tmr || !psp->autoload_supported) ? false : true;
- }
- 
- static int psp_tmr_load(struct psp_context *psp)
-@@ -923,10 +915,7 @@ static int psp_tmr_load(struct psp_context *psp)
- 	int ret;
- 	struct psp_gfx_cmd_resp *cmd;
- 
--	/* For Navi12 and CHIP_SIENNA_CICHLID SRIOV, do not set up TMR.
--	 * Already set up by host driver.
--	 */
--	if (amdgpu_sriov_vf(psp->adev) && psp_skip_tmr(psp))
-+	if (psp_skip_tmr(psp))
- 		return 0;
- 
- 	cmd = acquire_psp_cmd_buf(psp);
-@@ -958,10 +947,7 @@ static int psp_tmr_unload(struct psp_context *psp)
- 	int ret;
- 	struct psp_gfx_cmd_resp *cmd;
- 
--	/* skip TMR unload for Navi12 and CHIP_SIENNA_CICHLID SRIOV,
--	 * as TMR is not loaded at all
--	 */
--	if (amdgpu_sriov_vf(psp->adev) && psp_skip_tmr(psp))
-+	if (psp_skip_tmr(psp))
- 		return 0;
- 
- 	cmd = acquire_psp_cmd_buf(psp);
-@@ -2632,12 +2618,10 @@ static int psp_hw_start(struct psp_context *psp)
- 			return ret;
- 	}
- 
--	if (!psp->boot_time_tmr || !psp->autoload_supported) {
--		ret = psp_tmr_load(psp);
--		if (ret) {
--			dev_err(adev->dev, "PSP load tmr failed!\n");
--			return ret;
--		}
-+	ret = psp_tmr_load(psp);
-+	if (ret) {
-+		dev_err(adev->dev, "PSP load tmr failed!\n");
-+		return ret;
- 	}
- 
- 	return 0;
+url:    https://github.com/intel-lab-lkp/linux/commits/Haoxiang-Li/drm-amdkfd-fix-a-memory-leak-in-device_queue_manager_init/20260104-211645
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260104131532.3978895-1-lihaoxiang%40isrc.iscas.ac.cn
+patch subject: [PATCH] drm/amdkfd: fix a memory leak in device_queue_manager_init()
+config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20260104/202601042317.3h1kg7NS-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260104/202601042317.3h1kg7NS-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202601042317.3h1kg7NS-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c: In function 'device_queue_manager_init':
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3046:17: error: implicit declaration of function 'deallocate_hiq_sdma_mqd'; did you mean 'allocate_hiq_sdma_mqd'? [-Wimplicit-function-declaration]
+    3046 |                 deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~
+         |                 allocate_hiq_sdma_mqd
+   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c: At top level:
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3053:13: warning: conflicting types for 'deallocate_hiq_sdma_mqd'; have 'void(struct kfd_node *, struct kfd_mem_obj *)'
+    3053 | static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
+         |             ^~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3053:13: error: static declaration of 'deallocate_hiq_sdma_mqd' follows non-static declaration
+   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3046:17: note: previous implicit declaration of 'deallocate_hiq_sdma_mqd' with type 'void(struct kfd_node *, struct kfd_mem_obj *)'
+    3046 |                 deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +3046 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c
+
+  2921	
+  2922	struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
+  2923	{
+  2924		struct device_queue_manager *dqm;
+  2925	
+  2926		pr_debug("Loading device queue manager\n");
+  2927	
+  2928		dqm = kzalloc(sizeof(*dqm), GFP_KERNEL);
+  2929		if (!dqm)
+  2930			return NULL;
+  2931	
+  2932		switch (dev->adev->asic_type) {
+  2933		/* HWS is not available on Hawaii. */
+  2934		case CHIP_HAWAII:
+  2935		/* HWS depends on CWSR for timely dequeue. CWSR is not
+  2936		 * available on Tonga.
+  2937		 *
+  2938		 * FIXME: This argument also applies to Kaveri.
+  2939		 */
+  2940		case CHIP_TONGA:
+  2941			dqm->sched_policy = KFD_SCHED_POLICY_NO_HWS;
+  2942			break;
+  2943		default:
+  2944			dqm->sched_policy = sched_policy;
+  2945			break;
+  2946		}
+  2947	
+  2948		dqm->dev = dev;
+  2949		switch (dqm->sched_policy) {
+  2950		case KFD_SCHED_POLICY_HWS:
+  2951		case KFD_SCHED_POLICY_HWS_NO_OVERSUBSCRIPTION:
+  2952			/* initialize dqm for cp scheduling */
+  2953			dqm->ops.create_queue = create_queue_cpsch;
+  2954			dqm->ops.initialize = initialize_cpsch;
+  2955			dqm->ops.start = start_cpsch;
+  2956			dqm->ops.stop = stop_cpsch;
+  2957			dqm->ops.halt = halt_cpsch;
+  2958			dqm->ops.unhalt = unhalt_cpsch;
+  2959			dqm->ops.destroy_queue = destroy_queue_cpsch;
+  2960			dqm->ops.update_queue = update_queue;
+  2961			dqm->ops.register_process = register_process;
+  2962			dqm->ops.unregister_process = unregister_process;
+  2963			dqm->ops.uninitialize = uninitialize;
+  2964			dqm->ops.create_kernel_queue = create_kernel_queue_cpsch;
+  2965			dqm->ops.destroy_kernel_queue = destroy_kernel_queue_cpsch;
+  2966			dqm->ops.set_cache_memory_policy = set_cache_memory_policy;
+  2967			dqm->ops.process_termination = process_termination_cpsch;
+  2968			dqm->ops.evict_process_queues = evict_process_queues_cpsch;
+  2969			dqm->ops.restore_process_queues = restore_process_queues_cpsch;
+  2970			dqm->ops.get_wave_state = get_wave_state;
+  2971			dqm->ops.reset_queues = reset_queues_cpsch;
+  2972			dqm->ops.get_queue_checkpoint_info = get_queue_checkpoint_info;
+  2973			dqm->ops.checkpoint_mqd = checkpoint_mqd;
+  2974			break;
+  2975		case KFD_SCHED_POLICY_NO_HWS:
+  2976			/* initialize dqm for no cp scheduling */
+  2977			dqm->ops.start = start_nocpsch;
+  2978			dqm->ops.stop = stop_nocpsch;
+  2979			dqm->ops.create_queue = create_queue_nocpsch;
+  2980			dqm->ops.destroy_queue = destroy_queue_nocpsch;
+  2981			dqm->ops.update_queue = update_queue;
+  2982			dqm->ops.register_process = register_process;
+  2983			dqm->ops.unregister_process = unregister_process;
+  2984			dqm->ops.initialize = initialize_nocpsch;
+  2985			dqm->ops.uninitialize = uninitialize;
+  2986			dqm->ops.set_cache_memory_policy = set_cache_memory_policy;
+  2987			dqm->ops.process_termination = process_termination_nocpsch;
+  2988			dqm->ops.evict_process_queues = evict_process_queues_nocpsch;
+  2989			dqm->ops.restore_process_queues =
+  2990				restore_process_queues_nocpsch;
+  2991			dqm->ops.get_wave_state = get_wave_state;
+  2992			dqm->ops.get_queue_checkpoint_info = get_queue_checkpoint_info;
+  2993			dqm->ops.checkpoint_mqd = checkpoint_mqd;
+  2994			break;
+  2995		default:
+  2996			dev_err(dev->adev->dev, "Invalid scheduling policy %d\n", dqm->sched_policy);
+  2997			goto out_free;
+  2998		}
+  2999	
+  3000		switch (dev->adev->asic_type) {
+  3001		case CHIP_KAVERI:
+  3002		case CHIP_HAWAII:
+  3003			device_queue_manager_init_cik(&dqm->asic_ops);
+  3004			break;
+  3005	
+  3006		case CHIP_CARRIZO:
+  3007		case CHIP_TONGA:
+  3008		case CHIP_FIJI:
+  3009		case CHIP_POLARIS10:
+  3010		case CHIP_POLARIS11:
+  3011		case CHIP_POLARIS12:
+  3012		case CHIP_VEGAM:
+  3013			device_queue_manager_init_vi(&dqm->asic_ops);
+  3014			break;
+  3015	
+  3016		default:
+  3017			if (KFD_GC_VERSION(dev) >= IP_VERSION(12, 0, 0))
+  3018				device_queue_manager_init_v12(&dqm->asic_ops);
+  3019			else if (KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0))
+  3020				device_queue_manager_init_v11(&dqm->asic_ops);
+  3021			else if (KFD_GC_VERSION(dev) >= IP_VERSION(10, 1, 1))
+  3022				device_queue_manager_init_v10(&dqm->asic_ops);
+  3023			else if (KFD_GC_VERSION(dev) >= IP_VERSION(9, 0, 1))
+  3024				device_queue_manager_init_v9(&dqm->asic_ops);
+  3025			else {
+  3026				WARN(1, "Unexpected ASIC family %u",
+  3027				     dev->adev->asic_type);
+  3028				goto out_free;
+  3029			}
+  3030		}
+  3031	
+  3032		if (init_mqd_managers(dqm))
+  3033			goto out_free;
+  3034	
+  3035		if (!dev->kfd->shared_resources.enable_mes && allocate_hiq_sdma_mqd(dqm)) {
+  3036			dev_err(dev->adev->dev, "Failed to allocate hiq sdma mqd trunk buffer\n");
+  3037			goto out_free;
+  3038		}
+  3039	
+  3040		if (!dqm->ops.initialize(dqm)) {
+  3041			init_waitqueue_head(&dqm->destroy_wait);
+  3042			return dqm;
+  3043		}
+  3044	
+  3045		if (!dev->kfd->shared_resources.enable_mes)
+> 3046			deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
+  3047	
+  3048	out_free:
+  3049		kfree(dqm);
+  3050		return NULL;
+  3051	}
+  3052	
+> 3053	static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
+  3054					    struct kfd_mem_obj *mqd)
+  3055	{
+  3056		WARN(!mqd, "No hiq sdma mqd trunk to free");
+  3057	
+  3058		amdgpu_amdkfd_free_gtt_mem(dev->adev, &mqd->gtt_mem);
+  3059	}
+  3060	
+
 -- 
-2.17.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
