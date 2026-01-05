@@ -4,62 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F96FC2A070
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Jan 2026 22:41:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 563A9C2A062
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jan 2026 06:11:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B25BC10E07F;
-	Sun,  4 Jan 2026 22:41:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF7A110E14D;
+	Mon,  5 Jan 2026 06:11:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W5F1Cdms";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ikBjeP3Q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80AAE10E07F;
- Sun,  4 Jan 2026 22:41:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1767566494; x=1799102494;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9k0MkleAVvHbKnQUmL9KWFcTXNH5jwQDODeMnaJJZTg=;
- b=W5F1Cdms5Ijj0GE6NSeAxzn9V/2n4rK4uleu3HGM4B157ADxmlQntq+/
- 2iZ8qOrU6B69fsBSFXRTj8RKUHqyX49u5K1gDa1SJYUxgNRTdNkN1Uyrk
- fb6/4ai8N7j/FH51AGtKDoNghK0xCOPPc5XQCx7ftfD/B4yn41Xb9zVD4
- zazraw8F2m/k6bDqOSxsWbA7euiXVd5mqFqa7PaLlbsTkhfp2lCmTARK9
- oBqHFM1mzBGvvZEtEcQg56KUIDItWJ7JXFWCw0yePNYmwQeIrtp1Ay6UB
- VvSTA4WeipGATiUpjbDtSWrApGYw7HM/y2BeZYnoRo3YpeEKtndon1UsH g==;
-X-CSE-ConnectionGUID: FkLXgt07QSmOjP3BXSB0bA==
-X-CSE-MsgGUID: q9F41Q5kShazH2BukoHaTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11661"; a="79244436"
-X-IronPort-AV: E=Sophos;i="6.21,202,1763452800"; d="scan'208";a="79244436"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2026 14:41:33 -0800
-X-CSE-ConnectionGUID: aQulSiwVTGKKsjVzV89AIA==
-X-CSE-MsgGUID: ZUWYfN29S+OpqIvgdYz7JA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,202,1763452800"; d="scan'208";a="207141229"
-Received: from igk-lkp-server01.igk.intel.com (HELO 92b2e8bd97aa)
- ([10.211.93.152])
- by fmviesa004.fm.intel.com with ESMTP; 04 Jan 2026 14:41:30 -0800
-Received: from kbuild by 92b2e8bd97aa with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vcWmu-000000000yD-1OxE;
- Sun, 04 Jan 2026 22:41:28 +0000
-Date: Sun, 4 Jan 2026 23:41:04 +0100
-From: kernel test robot <lkp@intel.com>
-To: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>, Felix.Kuehling@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: oe-kbuild-all@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-Subject: Re: [PATCH] drm/amdkfd: fix a memory leak in
- device_queue_manager_init()
-Message-ID: <202601042317.3h1kg7NS-lkp@intel.com>
-References: <20260104131532.3978895-1-lihaoxiang@isrc.iscas.ac.cn>
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011058.outbound.protection.outlook.com
+ [40.93.194.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA4710E11A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jan 2026 06:11:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=J8kNhjnxm7QIVV0xwtzsja35W9gyXsbRIF+hGtrmV1T1BcLZgbeV4YlqtTbrrfBPgNnzu2sdFC/hFo8YHRTxyVwF6mKko7e7PFqE0VtouOqUVEslbtZ+zPJrAhofsyUH7haoCm/3hl57LPxFy2/N+DMCgi2NhN0+f4mAdguE/TfXVyuexfiXI4pIYvm5U3Npi4A33qYAlEtcSXyVmiAZohBGqNuayd+lkERT8dCYh2ep/WLyOvxqvBAbx1I8TDaoiYnXyC9Erby34eBXoHsY2NHtjXRmgBuHaUY9jvU5r5/vlhCmRP2nevYGyO4WlAQC/D/oDrYYyU3Foz2T5cEUGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wm6lwmH7cz87PtE43ucYo9VJWulz3KR2ZVCRtSSYTHU=;
+ b=QhRQot1uj+OIfY1CWA53vIuGe9/vrYISONyE56Yq2Nc1/BXztxN9TdxEWagpxRbBxK91K6QZKCk8x5OKCj/rfyxOoeaL6u26u3WvjUeC6tEWk3CLnweailZ4yKoIQu33wUwlXg8/iVYZ0xV7sHOeghKi7on7tXvAyDilwWzlAUuql3WpjTa4Z4eWXunEF9oBvMcn87im07tMWsLNtxL0QA3MXZZM2+bf5uzOAOof11UEMQtoTu+EJGG/LJZ59jolgFj3/tEgBHsECiLCkJ9VdQ9ynmEZ56J8pYX8QI9HQNo4wZWHZXM14lvT5lH31P0I+FD8ZLjtgJkcudufHfL54w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wm6lwmH7cz87PtE43ucYo9VJWulz3KR2ZVCRtSSYTHU=;
+ b=ikBjeP3QPLMpH/JZDF9bWw3coAQUptlUj7LK82lqbpkk5vhKrfzychKFwpvYucCDe3gpvvd2pS5hXnvuQ5BV88VTVUOpS/evAQAd/NceMqiDMk7AwOzedbahCss9kWGupat1n2RppnpX2Yilu9Smarmz2W6ba316FhTRPTZs/2U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DS0PR12MB8367.namprd12.prod.outlook.com (2603:10b6:8:fd::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Mon, 5 Jan
+ 2026 06:11:05 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::d759:a62b:f8ba:461d%4]) with mapi id 15.20.9478.004; Mon, 5 Jan 2026
+ 06:11:04 +0000
+Message-ID: <7f94385d-fde4-400f-839c-3b982caf8f14@amd.com>
+Date: Mon, 5 Jan 2026 11:40:58 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 08/10] drm/amdgpu: Add ioctl to get cwsr details
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com,
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com, Jesse.Zhang@amd.com
+References: <20251203130436.745633-1-lijo.lazar@amd.com>
+ <20251203130436.745633-9-lijo.lazar@amd.com>
+ <CADnq5_O5YeGEr5ryrk4eQNJv68aW+B_RpdfVr4C0+g6mWS0dig@mail.gmail.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CADnq5_O5YeGEr5ryrk4eQNJv68aW+B_RpdfVr4C0+g6mWS0dig@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4P287CA0041.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:271::15) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260104131532.3978895-1-lihaoxiang@isrc.iscas.ac.cn>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS0PR12MB8367:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8bd3d661-fc52-48a0-bb4b-08de4c213567
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?d2NIWWw3UDNPN0VxZEl4aHNoRDZjNTY4TWw4RnNDUGxjS2pIQlk5U0Z6NU9R?=
+ =?utf-8?B?U0dmaG00eWxlbE44bGx2ZWE5WE1iS1dheGVVZHBZUkk3amxCNUtlcGttRTVs?=
+ =?utf-8?B?TU5uL1JFdkNKejlNM0xPOUpteXB5QmY2bFJ3TThvTTNWcTY0L0cvVE1GS0pJ?=
+ =?utf-8?B?b2c0cmdmT0J3YmdjRHBLVWlPVFNPamdETXJCOXQvMy81QzNzQlc4ZDBJTDFY?=
+ =?utf-8?B?bTZWWHhCY3BkaU9IREx2MkZrdUNRSUQ2VHFua1JJbzhmSHVBV1BBRmFoZERr?=
+ =?utf-8?B?Y25jcHBZd2VXTHZkTnY1UmFBaTFHWFJxTmsxYkVhdVFaN21GV3RjMFVDWnFB?=
+ =?utf-8?B?a1poMUMxTGRzb2lTblM1MURXektxeXVjQU1YUHNMYisvK1ozcmRHdi9zSUtl?=
+ =?utf-8?B?Q01FTnpIckFWTkx4SkpMNUJUZUhVTkZldWtZY2FYMGFlcWd5amlOZUZTUFFS?=
+ =?utf-8?B?bjAyaHpLSmhRT2RFakJGTEkybkpiNHAxb0tpTTVqeE9mRlpBUEdJb0xoZE5J?=
+ =?utf-8?B?ZXhuL3hZMDlSdEVTV0pwQk52bUtURVRyK29zTFByNnV3MDNnRkFyRi9vOGZn?=
+ =?utf-8?B?ZFRXZ3kwM3ZiYkZrVkhaYnFlaFFYY1MxS1pEQS84MFprZTRhcTh4NDhWZkxv?=
+ =?utf-8?B?TEY3RHVsSFdLaDlPRzhuRGtrMXgwcTJtQmdXeHB6V2pUcng1NG5qUkNaa0dr?=
+ =?utf-8?B?eUlNTUc0STlTTDlzUThZZmJna3JSTUVhUHNjcWtFeEdBOUFuOWlPUWRnWmpC?=
+ =?utf-8?B?eWlIZ0hWWktKM1I3alF6MEwyc1VJVXdLWXZXc0pSb3FTVFo1N3pyTkNUYlpN?=
+ =?utf-8?B?M281ZUJwK3VXZWdobGYrcFBzME5GUkIxUWhnbFNETTA4UDBMRUN0cDR0S0x1?=
+ =?utf-8?B?dzBmWWZGK3R3c0dCenlXN0p6UWU2cEk4aWtYNmxuaEhpWXFtMWRsaHdCM0tj?=
+ =?utf-8?B?QjlTaTRUQXpsc1FhYlF1a3dkMWlUdWhYcTF5S3NlRm5hWEpaTU1YOWFmU0tQ?=
+ =?utf-8?B?VkVRdUp0S0dYTXJPT1Q2aGZpa1h0WWZ3Qms5engxRmpvNUM3cG42S20wc3d6?=
+ =?utf-8?B?bFk3ZVNzeEJudWxraHlyR2tPTDV3WUFrOEdwMXFwNXlYMkxEaDdhOFR4V2R2?=
+ =?utf-8?B?T0lKWDN4US9QMnBRdjhPbExwUTV6ZjQ2bmlFZmFXc2w3UzlJVk82b1lEV3ZH?=
+ =?utf-8?B?T3pWcFBBSXpXMGVpN2gySGhRalhFbW5uSTVpcUw1RllNTjZzNDNYVTZtVkxS?=
+ =?utf-8?B?SDBxc2h1bFZ2ZHlKWnExd1owcFpSRTVjVUJwSWw3cjdWUkpPeGdCU3lnTkFL?=
+ =?utf-8?B?ankrY0RqL3JSMVV1ZnZUZGNQclNhb1Fpc2IxQmhZZ2pFazcwSG9VWS9sUEZ4?=
+ =?utf-8?B?REw0NzA1cjZtdFdTUWRBMVJGb3JxMVZ4MEkrTmMvSmdjZU04VFNwZ3k0dW1l?=
+ =?utf-8?B?ZVdmb21SZmhwRGVaM1ZwakNjRXhOakplM0gza1FhVUVyL2lTc1F0WURnQk5Y?=
+ =?utf-8?B?NkVNMXFKdXQycUdwcWhvOW12ZENNRXhydmhrcjNtVmVDa09Kd0pKdHVlK0Zy?=
+ =?utf-8?B?NzhtTm5uVlJrU1psSXA5bVdpb1loUFRzRTZneDJFZlpjelJGWVZmUEMyRURz?=
+ =?utf-8?B?TWFxbEhEamxuNEZOVzdBdERwajZpVUJTdTFuRFRjZkxtMWdUdkZtYytoOHV1?=
+ =?utf-8?B?K25KV3BTeXZ1U2lSUHArOFF0eGJxY3B0RUZaODlSOVlYaXplZ05EQ2doNUNj?=
+ =?utf-8?B?SDJhZFZ2TUowRW5jZHRKTThNU3A3dmhlaGh3VzFXeG0vZTR0ZkY4Umk3anBK?=
+ =?utf-8?B?MllRcEZJSCs1OEx3d3R1c0FFUEx4N1JQL3kvV2J6dGJYakR5RGxURjJhaEE2?=
+ =?utf-8?B?SVhGSGtMSmxtYkRMWXp4QTVzYXlyNXRzVTh0OHN3UFFPMzgvYVFNTnF6Mi82?=
+ =?utf-8?B?V3hpZHlWTUUvKzU3NXlFNitFekI2UlRTdHRvb0RiODRUNUE4d0cvKzErTVJ2?=
+ =?utf-8?B?Y0ZldFl3S3Z3PT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVJRZEJscytEMXkxVjZ3dXVvMllORS9idnNNMUxLdFo1dDh4SjhQMSt3cU5M?=
+ =?utf-8?B?NFRRUVMva0RxL0xUZEJpcUlXSmg4eE9ZTGlpUE5HSFJEUlM3N0g0NnYxZXBs?=
+ =?utf-8?B?MmFQQzBMc2t1YW5TVHZPOS9aUVFIV3AvSkc0NTk1YnJNUjhVc2tjaE8yMlR1?=
+ =?utf-8?B?OXk5ODI4NVJuV2RxV0dIejVvZXBoRGt4cVk1OUpzODM3SVlDb25qaUxURGoy?=
+ =?utf-8?B?cjNENGtWMWxyZnpRSmZ4U2tPQUFZNG1kOE5zekVaZHFkVXppeHZTdGs1VWVO?=
+ =?utf-8?B?eU51R05VVkNNcWdhQ0NLR0hWOTJUMjYxbFdWMGZXSlhtdXJMU2V3RlpXSGhp?=
+ =?utf-8?B?Y2tibTZ1cy9jMlBGTytweDVQa0s5RDBncTYxLzl2ZFljVTZ6VXA2WUVNZFc1?=
+ =?utf-8?B?TW5RUk1pUkZrYlhhNU9XY3g1QlUvTG5qYkFNR1dSUzhkbmNNNFhGa2tNYVAv?=
+ =?utf-8?B?VW0yVEE0MWpjdkF6azBZUW1VVkZaVW5LaTVMWSt5WG5KSkQ2OHZsenpHckdv?=
+ =?utf-8?B?Nzc1T1FCbHBKK1MvM0FHRUFlME1JZUZITVFKM09JMG45bmtPWFNaNEI1VHdB?=
+ =?utf-8?B?WnFpM2pTYk8rY09lZHhyRzhJd0JQVjYxcm5QUGowanlLdG1GeFhTd0NoU3h2?=
+ =?utf-8?B?V1NDT2VxZDkvNE5OVlJTUGpFcEU2STlCbVA5cG8wQS81b1c1SEtIVU1Ga0o3?=
+ =?utf-8?B?RDRLazZ0Nm1XWk1jOUdDYkJaMWJZczBtalU5cVFiUUt5VU5kSGxrVkZWeEtP?=
+ =?utf-8?B?MCtvWHk4UkExaUcrMTEyQTc5aXpreExJNHVMclZHSGpxekJtRGNMeUtpVmVi?=
+ =?utf-8?B?ZkM5b3pTdWU0MDB1bzVwNGNRK1JjYlE4SmJQT1lJZ3BXZklCZ2xxUGVMWmNy?=
+ =?utf-8?B?OWRZOHlSUHgzSmhNVFdTbjlIeS9CNFhNMkJ6OXY0Z3QydS9TMkExNlZMWlQ0?=
+ =?utf-8?B?WHdlN1p4cmhrSDQwVklTOEVxeGdLN2VIeWw3VnRyWStVV0NnTTlKSkd4VDJO?=
+ =?utf-8?B?QVFGUXFnakM3NDZCSTBtaXNnblFLR1JEWDg3RFJWc3I4Y2VUOGIxWGoxQmNY?=
+ =?utf-8?B?aFRod0lOYkhiZHQrWURORU9tYWpUa2t0NzUzSWF3TXBZcUlwSitDcElHbk9I?=
+ =?utf-8?B?YWIzN1FnNnRrVzgzWVFYcFNnbUNJR01MN0QzdFhjZldIQ2hlTDBmZUhOL2ZP?=
+ =?utf-8?B?NlNSVFBrZFkrMDhpZmcwWUxxdldSSmIzVHQ5ejdGY2RpZHAxWlB3YWJCR25E?=
+ =?utf-8?B?TkVMbyswMGlLV01QcDhHQkNBUzdycjY2c0RwMFBaMmVoK2NPUU9NdW9SVTZD?=
+ =?utf-8?B?L0VQcWhaTW5GMDludnNUUzdPZ2QrcTJaTlBDTXVORW0yUFoxRDFTY0N2UXRj?=
+ =?utf-8?B?YnNHcTBWaTNKTWp4amt3d2VmNXhvdWRxUWlML0VEaXUzOU96ZTZIVEJpMzh2?=
+ =?utf-8?B?cXJUdVBJUDNrTlJEQUZsU3I5MmtBRGpLT0dzV0dLMFNXVDZVVG1XenQ1ODJU?=
+ =?utf-8?B?SzBJMndNZTJGK3pnRnZFcDF6Rk1pSDhFc3hLV1B5WG9XcUpNNXUxN1k4TUl6?=
+ =?utf-8?B?L2FROVQ0U0dDMUhPb0FZTCtScy9Jd0d2M3psRUh5UDZ0eWh3M0Jvd05CdHNn?=
+ =?utf-8?B?czAzVU0ycXYxcW5FSzBnUnZEV1VPaURQZFVLbmhVamxkbzdpZG1NTjdteThY?=
+ =?utf-8?B?ejJlR3JaZ3pkeURsQW9hRGFuYWxzcExqdDhmUjA0ZS9LdkN5RzgvKzNCdXov?=
+ =?utf-8?B?dFcyQy90ZHpQNU93ZzcvbW5LeUp3VUJJNk03OGxSbTcrNXVpY25CTFd4SVM2?=
+ =?utf-8?B?NVNQTmdQZ3dEODlQTWpjNEJLbUR4LzFiMXh3VTYxMVRCNUhPYnFTdm1lRUI4?=
+ =?utf-8?B?dFhVcGZFOXBBTS9xYWQ5SitYTFJ1bUVwcXczaW11bE52bkxueFQxKzNMQzVH?=
+ =?utf-8?B?MGlIcjZoOEpSRG54Sm4rYzQyYlRyUXRJNU5WZ3RZY01WR2p0Qm9ZNW1NWFdi?=
+ =?utf-8?B?Rm5pUjJJSFl0UE9CcHpQeEptTXFNc1o3NzlRblNHU2pPZDhBQWZrZDFIeCtw?=
+ =?utf-8?B?aFpXN0I1emRCOGdiRjhYMDhLVm9JN1lXcjhYaXFneGRrOHpITk1heTZac253?=
+ =?utf-8?B?Vjdva09oYUsraVF2WnQ4Ni9hcXZsTytyU0FmMjVyNnJxQlN6UkxNRzl1alBQ?=
+ =?utf-8?B?djNTczAyRHhjbVVBOUczUWkzV1NVbDBnODhpZEtLRGJIQ2FKT1dSN3ZXazNV?=
+ =?utf-8?B?NnVMbnJER2xBUXVjWTNKd1ArMWg0QkVtMmRpcWNtdFNaY3Irei9ZKzAzaE1w?=
+ =?utf-8?Q?3869lBF3yRvPFizUUQ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bd3d661-fc52-48a0-bb4b-08de4c213567
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2026 06:11:04.8441 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zVK3rdZwMLhIKNOTJFQm7uBTGFO14rGuKFIBIc/1JGDqdsFojXXExjFGAosxVHFu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8367
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,189 +168,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Haoxiang,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v6.19-rc3 next-20251219]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Haoxiang-Li/drm-amdkfd-fix-a-memory-leak-in-device_queue_manager_init/20260104-211645
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260104131532.3978895-1-lihaoxiang%40isrc.iscas.ac.cn
-patch subject: [PATCH] drm/amdkfd: fix a memory leak in device_queue_manager_init()
-config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20260104/202601042317.3h1kg7NS-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260104/202601042317.3h1kg7NS-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601042317.3h1kg7NS-lkp@intel.com/
-
-All error/warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c: In function 'device_queue_manager_init':
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3046:17: error: implicit declaration of function 'deallocate_hiq_sdma_mqd'; did you mean 'allocate_hiq_sdma_mqd'? [-Wimplicit-function-declaration]
-    3046 |                 deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
-         |                 ^~~~~~~~~~~~~~~~~~~~~~~
-         |                 allocate_hiq_sdma_mqd
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c: At top level:
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3053:13: warning: conflicting types for 'deallocate_hiq_sdma_mqd'; have 'void(struct kfd_node *, struct kfd_mem_obj *)'
-    3053 | static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
-         |             ^~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3053:13: error: static declaration of 'deallocate_hiq_sdma_mqd' follows non-static declaration
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:3046:17: note: previous implicit declaration of 'deallocate_hiq_sdma_mqd' with type 'void(struct kfd_node *, struct kfd_mem_obj *)'
-    3046 |                 deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
-         |                 ^~~~~~~~~~~~~~~~~~~~~~~
 
 
-vim +3046 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c
+On 16-Dec-25 10:25 PM, Alex Deucher wrote:
+> On Wed, Dec 3, 2025 at 8:05 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
+>>
+>> Add an ioctl to return size information required for CWSR regions.
+>>
+>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 21 +++++++++++++++++++++
+>>   include/uapi/drm/amdgpu_drm.h           | 16 ++++++++++++++++
+>>   2 files changed, 37 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> index 398d6c8d343c..848405c37bd5 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>> @@ -1368,6 +1368,27 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>>                          return -EINVAL;
+>>                  }
+>>          }
+>> +       case AMDGPU_INFO_CWSR: {
+>> +               struct drm_amdgpu_info_cwsr cwsr_info;
+>> +               int num_xcc, r;
+>> +
+>> +               fpriv = (struct amdgpu_fpriv *)filp->driver_priv;
+>> +               if (!amdgpu_cwsr_is_enabled(adev) || !fpriv->cwsr_trap)
+>> +                       return -EOPNOTSUPP;
+>> +               num_xcc = amdgpu_xcp_get_num_xcc(adev->xcp_mgr, fpriv->xcp_id);
+>> +               cwsr_info.ctl_stack_size =
+>> +                       adev->cwsr_info->xcc_ctl_stack_sz * num_xcc;
+>> +               cwsr_info.dbg_mem_size =
+>> +                       adev->cwsr_info->xcc_dbg_mem_sz * num_xcc;
+>> +               cwsr_info.min_save_area_size =
+>> +                       adev->cwsr_info->xcc_cwsr_sz * num_xcc;
+>> +               r = copy_to_user(out, &cwsr_info,
+>> +                                min((size_t)size, sizeof(cwsr_info))) ?
+>> +                           -EFAULT :
+>> +                           0;
+>> +               return r;
+>> +       }
+>> +
+>>          default:
+>>                  DRM_DEBUG_KMS("Invalid request %d\n", info->query);
+>>                  return -EINVAL;
+>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>> index c1336ed4ff75..2bb9daafb560 100644
+>> --- a/include/uapi/drm/amdgpu_drm.h
+>> +++ b/include/uapi/drm/amdgpu_drm.h
+>> @@ -1273,6 +1273,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+>>   #define AMDGPU_INFO_GPUVM_FAULT                        0x23
+>>   /* query FW object size and alignment */
+>>   #define AMDGPU_INFO_UQ_FW_AREAS                        0x24
+>> +/* query CWSR size and alignment */
+>> +#define AMDGPU_INFO_CWSR                       0x25
+>>
+>>   #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0
+>>   #define AMDGPU_INFO_MMR_SE_INDEX_MASK  0xff
+>> @@ -1636,6 +1638,20 @@ struct drm_amdgpu_info_uq_metadata {
+>>          };
+>>   };
+>>
+>> +/**
+>> + * struct drm_amdgpu_info_cwsr - cwsr information
+>> + *
+>> + * Gives cwsr related size details. User needs to allocate buffer based on this.
+>> + */
+>> +struct drm_amdgpu_info_cwsr {
+>> +       /* Control stack size */
+>> +       __u32 ctl_stack_size;
+>> +       /* Debug memory area size */
+>> +       __u32 dbg_mem_size;
+> 
+> How should this be used by the application?  Should it be folded into
+> the save area or ctl stack, or is it just for future use?
+> 
 
-  2921	
-  2922	struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
-  2923	{
-  2924		struct device_queue_manager *dqm;
-  2925	
-  2926		pr_debug("Loading device queue manager\n");
-  2927	
-  2928		dqm = kzalloc(sizeof(*dqm), GFP_KERNEL);
-  2929		if (!dqm)
-  2930			return NULL;
-  2931	
-  2932		switch (dev->adev->asic_type) {
-  2933		/* HWS is not available on Hawaii. */
-  2934		case CHIP_HAWAII:
-  2935		/* HWS depends on CWSR for timely dequeue. CWSR is not
-  2936		 * available on Tonga.
-  2937		 *
-  2938		 * FIXME: This argument also applies to Kaveri.
-  2939		 */
-  2940		case CHIP_TONGA:
-  2941			dqm->sched_policy = KFD_SCHED_POLICY_NO_HWS;
-  2942			break;
-  2943		default:
-  2944			dqm->sched_policy = sched_policy;
-  2945			break;
-  2946		}
-  2947	
-  2948		dqm->dev = dev;
-  2949		switch (dqm->sched_policy) {
-  2950		case KFD_SCHED_POLICY_HWS:
-  2951		case KFD_SCHED_POLICY_HWS_NO_OVERSUBSCRIPTION:
-  2952			/* initialize dqm for cp scheduling */
-  2953			dqm->ops.create_queue = create_queue_cpsch;
-  2954			dqm->ops.initialize = initialize_cpsch;
-  2955			dqm->ops.start = start_cpsch;
-  2956			dqm->ops.stop = stop_cpsch;
-  2957			dqm->ops.halt = halt_cpsch;
-  2958			dqm->ops.unhalt = unhalt_cpsch;
-  2959			dqm->ops.destroy_queue = destroy_queue_cpsch;
-  2960			dqm->ops.update_queue = update_queue;
-  2961			dqm->ops.register_process = register_process;
-  2962			dqm->ops.unregister_process = unregister_process;
-  2963			dqm->ops.uninitialize = uninitialize;
-  2964			dqm->ops.create_kernel_queue = create_kernel_queue_cpsch;
-  2965			dqm->ops.destroy_kernel_queue = destroy_kernel_queue_cpsch;
-  2966			dqm->ops.set_cache_memory_policy = set_cache_memory_policy;
-  2967			dqm->ops.process_termination = process_termination_cpsch;
-  2968			dqm->ops.evict_process_queues = evict_process_queues_cpsch;
-  2969			dqm->ops.restore_process_queues = restore_process_queues_cpsch;
-  2970			dqm->ops.get_wave_state = get_wave_state;
-  2971			dqm->ops.reset_queues = reset_queues_cpsch;
-  2972			dqm->ops.get_queue_checkpoint_info = get_queue_checkpoint_info;
-  2973			dqm->ops.checkpoint_mqd = checkpoint_mqd;
-  2974			break;
-  2975		case KFD_SCHED_POLICY_NO_HWS:
-  2976			/* initialize dqm for no cp scheduling */
-  2977			dqm->ops.start = start_nocpsch;
-  2978			dqm->ops.stop = stop_nocpsch;
-  2979			dqm->ops.create_queue = create_queue_nocpsch;
-  2980			dqm->ops.destroy_queue = destroy_queue_nocpsch;
-  2981			dqm->ops.update_queue = update_queue;
-  2982			dqm->ops.register_process = register_process;
-  2983			dqm->ops.unregister_process = unregister_process;
-  2984			dqm->ops.initialize = initialize_nocpsch;
-  2985			dqm->ops.uninitialize = uninitialize;
-  2986			dqm->ops.set_cache_memory_policy = set_cache_memory_policy;
-  2987			dqm->ops.process_termination = process_termination_nocpsch;
-  2988			dqm->ops.evict_process_queues = evict_process_queues_nocpsch;
-  2989			dqm->ops.restore_process_queues =
-  2990				restore_process_queues_nocpsch;
-  2991			dqm->ops.get_wave_state = get_wave_state;
-  2992			dqm->ops.get_queue_checkpoint_info = get_queue_checkpoint_info;
-  2993			dqm->ops.checkpoint_mqd = checkpoint_mqd;
-  2994			break;
-  2995		default:
-  2996			dev_err(dev->adev->dev, "Invalid scheduling policy %d\n", dqm->sched_policy);
-  2997			goto out_free;
-  2998		}
-  2999	
-  3000		switch (dev->adev->asic_type) {
-  3001		case CHIP_KAVERI:
-  3002		case CHIP_HAWAII:
-  3003			device_queue_manager_init_cik(&dqm->asic_ops);
-  3004			break;
-  3005	
-  3006		case CHIP_CARRIZO:
-  3007		case CHIP_TONGA:
-  3008		case CHIP_FIJI:
-  3009		case CHIP_POLARIS10:
-  3010		case CHIP_POLARIS11:
-  3011		case CHIP_POLARIS12:
-  3012		case CHIP_VEGAM:
-  3013			device_queue_manager_init_vi(&dqm->asic_ops);
-  3014			break;
-  3015	
-  3016		default:
-  3017			if (KFD_GC_VERSION(dev) >= IP_VERSION(12, 0, 0))
-  3018				device_queue_manager_init_v12(&dqm->asic_ops);
-  3019			else if (KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0))
-  3020				device_queue_manager_init_v11(&dqm->asic_ops);
-  3021			else if (KFD_GC_VERSION(dev) >= IP_VERSION(10, 1, 1))
-  3022				device_queue_manager_init_v10(&dqm->asic_ops);
-  3023			else if (KFD_GC_VERSION(dev) >= IP_VERSION(9, 0, 1))
-  3024				device_queue_manager_init_v9(&dqm->asic_ops);
-  3025			else {
-  3026				WARN(1, "Unexpected ASIC family %u",
-  3027				     dev->adev->asic_type);
-  3028				goto out_free;
-  3029			}
-  3030		}
-  3031	
-  3032		if (init_mqd_managers(dqm))
-  3033			goto out_free;
-  3034	
-  3035		if (!dev->kfd->shared_resources.enable_mes && allocate_hiq_sdma_mqd(dqm)) {
-  3036			dev_err(dev->adev->dev, "Failed to allocate hiq sdma mqd trunk buffer\n");
-  3037			goto out_free;
-  3038		}
-  3039	
-  3040		if (!dqm->ops.initialize(dqm)) {
-  3041			init_waitqueue_head(&dqm->destroy_wait);
-  3042			return dqm;
-  3043		}
-  3044	
-  3045		if (!dev->kfd->shared_resources.enable_mes)
-> 3046			deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
-  3047	
-  3048	out_free:
-  3049		kfree(dqm);
-  3050		return NULL;
-  3051	}
-  3052	
-> 3053	static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
-  3054					    struct kfd_mem_obj *mqd)
-  3055	{
-  3056		WARN(!mqd, "No hiq sdma mqd trunk to free");
-  3057	
-  3058		amdgpu_amdkfd_free_gtt_mem(dev->adev, &mqd->gtt_mem);
-  3059	}
-  3060	
+This needs to be accounted into the minimum save area size that should 
+be allocated by application.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+amdgpu_cwsr_size_needed() =
+		return num_xcc *
+	       (adev->cwsr_info->xcc_cwsr_sz + adev->cwsr_info->xcc_dbg_mem_sz);
+
+xcc_cwsr_size = control stack size + workgroup context size.
+
+This interface provides information about the individual size requirements.
+
+Presently, all of these are also calculated by rocr separately -
+
+https://github.com/ROCm/rocm-systems/blob/develop/projects/rocr-runtime/libhsakmt/src/queues.c#L342
+
+Ideally, we prefer rocr to get this information from driver.
+
+Thanks,
+Lijo
+
+>> +       /* Minimu save area size required */
+> 
+> Minimum
+> 
+> Alex
+> 
+> 
+>> +       __u32 min_save_area_size;
+>> +};
+>> +
+>>   /*
+>>    * Supported GPU families
+>>    */
+>> --
+>> 2.49.0
+>>
+
