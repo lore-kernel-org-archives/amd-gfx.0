@@ -4,142 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6606FC79FA9
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 07:25:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16CABC47BC8
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 08:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB71310E496;
-	Tue,  6 Jan 2026 07:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 769B210E4AB;
+	Tue,  6 Jan 2026 08:31:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="eJGgzex+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gRR/2e6l";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FjRM++po";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EyMzRxdJ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qc55tR0O";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7895E10E37D
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 07:25:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0C285338AC;
- Tue,  6 Jan 2026 07:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1767684348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0VCg1bqWo7SfD6R5Vz3vKT5t+HOPeqSWyq3gNeYIpcE=;
- b=eJGgzex+MnWKQAXwqxAaSTAXjFhrZYE3EjrEN6+tbU6418vA0lNONkReXgrC6iKh6Ba6i6
- 6VUpFDVYE7E3xECht7UrKOb3QLo4kKlLoHrpY56kEKrEUb/Uu+BgwnWPpF11rgqybbS2fH
- pBFkdgSkWZ9Y1wImESSSU6pCDhkBiWQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1767684348;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0VCg1bqWo7SfD6R5Vz3vKT5t+HOPeqSWyq3gNeYIpcE=;
- b=gRR/2e6ldD1vMpKyfmb9nQz+UrFytDBhoChcUFNNyGj4T+KhJSKqUNqbIYfH9R3Fc4WAEs
- ZRSWi6gEkyhnHtCQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FjRM++po;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EyMzRxdJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1767684347; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0VCg1bqWo7SfD6R5Vz3vKT5t+HOPeqSWyq3gNeYIpcE=;
- b=FjRM++poaHPIxLVQMt7Tl65gcNdiFXVyjcizkTZGCqlGj9zyuoW7Od/nBJ5+7U5rN/V0fK
- 3NADPGaS6EcZdBNcDGI+BXugYp5V6VvPjJwJUL6X1nkbAa/Eu/XEgiIX21O743WDURpO+h
- l9XnbJJyvUnEhY1omQ6FHBW/v4sorK0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1767684347;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=0VCg1bqWo7SfD6R5Vz3vKT5t+HOPeqSWyq3gNeYIpcE=;
- b=EyMzRxdJVrd2b0CfeMHyZ0LRzGfANiOYZJObyVzUgdfl5KnFUe62Iuz7J1SP72ryCx/Jnm
- bqkFjPOkTN5UjKCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A74573EA63;
- Tue,  6 Jan 2026 07:25:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id VB6kJ/q4XGnjfAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 06 Jan 2026 07:25:46 +0000
-Message-ID: <f44ca674-775c-4e48-ab7c-9adb7881ff70@suse.de>
-Date: Tue, 6 Jan 2026 08:25:46 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] drm/atomic: verify that gamma/degamma LUTs are not
- too big
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE7C10E413
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jan 2026 20:30:59 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-64b9cb95009so47383a12.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Jan 2026 12:30:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1767645058; x=1768249858; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=hVECE95AM8EQn11Eu+Wr1AoXJjdignGWqzA0rD5sR/g=;
+ b=Qc55tR0OvuWG3l1ivg7U4MifO2GI2tJMqKMLTgfwwbEC/YuLSzTuL1VvWieLccZZMq
+ iDQnwIkRFw/SHGHu6wzqe/zkdyPnWscRk3zLV7AnxYZoBYCE0AtxIU5L+w7VBQ8E7zdr
+ 32kcaxP2awRx2s3mPZCC9ySt3FPvL6stbpizBA6xkWDdWhgX7NzW3UNBvamSdYhCfenz
+ p3SKXRTuWeW1K4hnUWy9LVbXHvOfNlEXalE8L/8wpG/8b8x912SY9bg2yOTCU3DyLayB
+ LgGwCKpWX0vE2zbGdUcb8D1AgXeZq+OAZ8CcPvqHakR7xj59Pwju31VfPDCRE2MTNfPK
+ nmmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767645058; x=1768249858;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=hVECE95AM8EQn11Eu+Wr1AoXJjdignGWqzA0rD5sR/g=;
+ b=Fn1KPqtX7cJZYGFScRioHVPz8K/Y/HTqGFJuZ8cElXoJyry4XuwW4hf7+DzTb9/cj/
+ lGZ1Y7BOCVG9GxT+bVnSOJIJGqrlCgSpgaBVafQFWH63Ll2aOKPhNQFxGbQOhn8YhIFN
+ /cc0ZAiXRrtcdOViAyXl5/sfHrbG74UpdaxXLpzDfgTS68Zc/sWyrGGEn1liM0LpXxhK
+ ME2DxM/tN5eOQ6mv5k4+smDKNkLgUQKRRF6T8VlfiPwf1T6zTHd3mwvRIkGim1XtoVj7
+ 9H1xoKl3arxr9GYWf7wu2vFxpDki69ddHTGEupI7g+drMuu1SrIAoUirPb3Idusdv/J7
+ ZrvQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVBy5WDe0JohRejWRZFmay1Ft+Qh2FOydt9/wyMs6SoEfCqZ/CM1r9lnD2PYe9qG8aHj/yDHE3I@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyw7wbHQU3TlEPY5qATxnpody3PZ4Me+WZpzRcR44+I5VNSXFzI
+ 94sQl8f3AEoX3ZD8Xrp5fG4DvE5m69NhLH3mJyRxFeRNV9tJJX5WybgX
+X-Gm-Gg: AY/fxX6j69euV+RjLr7HqHsaEE2nQzMp6HjNjwZVTXWtjzh3SSCxD6jt0G/xBCq5SJp
+ 6sQjIndfTBoExbAP3pQQHci198+DfE9wkJ0gA7R+tvAFJ0+reiu/OtHQOLvds/10TeTjiYqdtIi
+ SyZbT2FPCGqHsTgNWPDpGUrR+JyFupqWjlJlo1IQWfJv6RIw/+4ejt+UCdFQzRmU7F1wPJEAWtz
+ qyGHX6deKhfPbpM+yw+9rFViPw4Pc2lNOV3C5ejURwGuWRkTbS8Cd9ACq3dEyCnXLiSLsI17G/x
+ l3aWy93BLNPzsDISC8oCT3DU8DrMsegKmToZrnpy4STTwPxwboKVFC6SyA1S8vn3uX14UtIsPw4
+ sXf0As+oBUEy/h+jO/oMFoniDz0Jo3584MgsagZtG59ocg6HbK5exiNbo3qSFhs4wdYIIYDXabx
+ GAUNa/XxLBKTO3GbwsBbyCkZvOWJ+FnDF0hQCWS0qoTqWyvEaElFWCY388vpZYazxIvcmKTO0=
+X-Google-Smtp-Source: AGHT+IEebwiWuXl1F8QHnnykIpu9467Snh7tcDDZiJH8az6WUjwWW9mBHxH2ppJZkdF+bHqj2P8QOA==
+X-Received: by 2002:a05:6402:3513:b0:640:abd5:8646 with SMTP id
+ 4fb4d7f45d1cf-6507955d2abmr365284a12.4.1767645057730; 
+ Mon, 05 Jan 2026 12:30:57 -0800 (PST)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
+ [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b842a4d31e7sm22291166b.42.2026.01.05.12.30.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Jan 2026 12:30:57 -0800 (PST)
+Message-ID: <9213ab090c4aab1bdd134857d3f5a88cff505fc6.camel@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add VRR support for MST connectors
+From: tomasz.pakula.oficjalny@gmail.com
+To: =?UTF-8?Q?Micha=C5=82_Bie=C5=82aga?= <mbielaga1@gmail.com>, 
  amd-gfx@lists.freedesktop.org
-References: <20260106-drm-fix-lut-checks-v3-0-f7f979eb73c8@oss.qualcomm.com>
- <20260106-drm-fix-lut-checks-v3-3-f7f979eb73c8@oss.qualcomm.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260106-drm-fix-lut-checks-v3-3-f7f979eb73c8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 0C285338AC
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[oss.qualcomm.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,igalia.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
- MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,qualcomm.com:email,suse.com:url,suse.de:mid,suse.de:dkim,suse.de:email];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, 	siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Date: Mon, 05 Jan 2026 21:30:56 +0100
+In-Reply-To: <20251103100845.12802-1-michal.bielaga@deliveroo.com>
+References: <20251103100845.12802-1-michal.bielaga@deliveroo.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.2 
+MIME-Version: 1.0
+X-Mailman-Approved-At: Tue, 06 Jan 2026 08:31:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,79 +94,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Am 06.01.26 um 04:09 schrieb Dmitry Baryshkov:
-> The kernel specifies LUT table sizes in a separate property, however it
-> doesn't enforce it as a maximum. Some drivers implement max suze check
-
-s/suze/size
-
-> on their own in the atomic_check path. Other drivers simply ignore the
-> issue. Perform LUT size validation in the generic place.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
+On Mon, 2025-11-03 at 11:08 +0100, Micha=C5=82 Bie=C5=82aga wrote:
+> From: Michal Bielaga <mbielaga1@gmail.com>
+>=20
+> Variable Refresh Rate (VRR/FreeSync) currently only works with
+> Single-Stream Transport (SST) DisplayPort connections. Monitors
+> connected via MST hubs cannot utilize VRR even when they support it,
+> because the driver only enables VRR for SST connections.
+>=20
+> This patch enables VRR for DisplayPort MST by:
+> - Including SIGNAL_TYPE_DISPLAY_PORT_MST in VRR capability detection
+> - Reading VRR range from display EDID instead of MST hub DPCD, since
+>   dc_link points to the hub rather than the actual display
+> - Fixing call order to parse EDID before checking VRR capabilities,
+>   ensuring display_info.monitor_range is populated
+> - Properly attaching VRR property to MST connectors by reusing the
+>   master connector's property
+>=20
+> Without this patch, MST displays cannot use VRR even if they support
+> it, limiting the user experience for multi-monitor DisplayPort MST
+> setups.
+>=20
+> Signed-off-by: Michal Bielaga <mbielaga1@gmail.com>
 > ---
->   drivers/gpu/drm/drm_atomic_uapi.c | 22 ++++++++++++++++++++--
->   1 file changed, 20 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index dff1fdefcbeb..dc013a22bf26 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -413,10 +413,19 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
->   	} else if (property == config->prop_vrr_enabled) {
->   		state->vrr_enabled = val;
->   	} else if (property == config->degamma_lut_property) {
-> +		const size_t elem_size = sizeof(struct drm_color_lut);
-> +		u64 lut_size;
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c     | 11 +++++++++--
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   |  9 ++++++---
+>  2 files changed, 15 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ef026143dc1c..ac5b6c22361f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -12644,9 +12644,16 @@ void amdgpu_dm_update_freesync_caps(struct drm_c=
+onnector *connector,
+>  		parse_edid_displayid_vrr(connector, edid);
+> =20
+>  	if (edid && (sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT ||
+> +		     sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST ||
+>  		     sink->sink_signal =3D=3D SIGNAL_TYPE_EDP)) {
+> -		if (amdgpu_dm_connector->dc_link &&
+> -		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_p=
+aram) {
+> +		/* For MST, check monitor range from EDID directly since the dc_link
+> +		 * points to the MST hub, not the actual display
+> +		 */
+> +		if ((sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST ||
+> +		     (amdgpu_dm_connector->dc_link &&
+> +		      amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing=
+_param)) &&
+> +		    connector->display_info.monitor_range.min_vfreq &&
+> +		    connector->display_info.monitor_range.max_vfreq) {
+>  			amdgpu_dm_connector->min_vfreq =3D connector->display_info.monitor_ra=
+nge.min_vfreq;
+>  			amdgpu_dm_connector->max_vfreq =3D connector->display_info.monitor_ra=
+nge.max_vfreq;
+>  			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq >=
+ 10)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 77a9d2c7d318..062259514b3c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -443,6 +443,9 @@ static int dm_dp_mst_get_modes(struct drm_connector *=
+connector)
+>  			}
+>  		}
+> =20
+> +		/* Update connector with EDID first so display_info.monitor_range is p=
+opulated */
+> +		drm_edid_connector_update(&aconnector->base, aconnector->drm_edid);
 > +
-> +		ret = drm_object_immutable_property_get_value(&crtc->base,
-> +							      config->degamma_lut_size_property,
-> +							      &lut_size);
-> +		if (ret)
-> +			return ret;
-> +
->   		ret = drm_property_replace_blob_from_id(dev,
->   					&state->degamma_lut,
->   					val,
-> -					-1, -1, sizeof(struct drm_color_lut),
-> +					elem_size * lut_size, -1, elem_size,
->   					&replaced);
->   		state->color_mgmt_changed |= replaced;
->   		return ret;
-> @@ -429,10 +438,19 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
->   		state->color_mgmt_changed |= replaced;
->   		return ret;
->   	} else if (property == config->gamma_lut_property) {
-> +		const size_t elem_size = sizeof(struct drm_color_lut);
-> +		u64 lut_size;
-> +
-> +		ret = drm_object_immutable_property_get_value(&crtc->base,
-> +							      config->gamma_lut_size_property,
-> +							      &lut_size);
-> +		if (ret)
-> +			return ret;
-> +
->   		ret = drm_property_replace_blob_from_id(dev,
->   					&state->gamma_lut,
->   					val,
-> -					-1, -1, sizeof(struct drm_color_lut),
-> +					elem_size * lut_size, -1, elem_size,
->   					&replaced);
->   		state->color_mgmt_changed |= replaced;
->   		return ret;
->
+>  		if (aconnector->dc_sink) {
+>  			amdgpu_dm_update_freesync_caps(
+>  					connector, aconnector->drm_edid);
+> @@ -459,8 +462,6 @@ static int dm_dp_mst_get_modes(struct drm_connector *=
+connector)
+>  		}
+>  	}
+> =20
+> -	drm_edid_connector_update(&aconnector->base, aconnector->drm_edid);
+> -
+>  	ret =3D drm_edid_connector_add_modes(connector);
+> =20
+>  	return ret;
+> @@ -650,9 +651,11 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_m=
+gr *mgr,
+>  	if (connector->max_bpc_property)
+>  		drm_connector_attach_max_bpc_property(connector, 8, 16);
+> =20
+> +	/* Reuse VRR property from master connector for MST connectors */
+>  	connector->vrr_capable_property =3D master->base.vrr_capable_property;
+>  	if (connector->vrr_capable_property)
+> -		drm_connector_attach_vrr_capable_property(connector);
+> +		drm_object_attach_property(&connector->base,
+> +					   connector->vrr_capable_property, 0);
+> =20
+>  	drm_object_attach_property(
+>  		&connector->base,
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+This doesn't consider if the connected MST device actually supports VRR
+pass-through. Unfortunately, this basically breaks display out with my
+Thinkpad Universal USB-C dock if VRR is ever toggled. It just can't do
+variable signal and immediately drops out.
 
-
+In current state, this patch sadly breaks more things than it fixes.
