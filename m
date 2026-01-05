@@ -4,81 +4,197 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16CABC47BC8
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 08:31:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62062C47BC9
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 08:31:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 769B210E4AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3EE810E4B0;
 	Tue,  6 Jan 2026 08:31:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qc55tR0O";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="D6A0iCT1";
+	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="qICh9dV9";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE7C10E413
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jan 2026 20:30:59 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-64b9cb95009so47383a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 05 Jan 2026 12:30:59 -0800 (PST)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FE1810E48C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jan 2026 16:07:13 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 605FpZYC1515388; Mon, 5 Jan 2026 16:07:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=corp-2025-04-25; bh=+NXc55WBBsEM2wEW2z
+ oXxsaZrV4R0oRrhn8WzzkjoeY=; b=D6A0iCT1xi7G/Z402HzCNTA+P6CyI810G6
+ VSZ5kyyyGYe3G4NWDR402OpVdXkxZDcSl4KwH9lCUDe52i9xNAzdbhwV86zQKK0k
+ +X6xux76WTR7TukcDahZcoz8iG4zvGXxkkVHOyEYDHAUHWUF9mLI3kFZkf4asgRy
+ jEkLQcY4v9qv4N1ygtbA+hwGT704IzLl4ieiR56i/Sf0PuALvLDithT20YgZhP3G
+ Ahv+KrPQPE+b3uLhZLGNWOQxy8i+Tv/0qmZQ83AcTvZgpXsIEaPEL1wqJlK7eucO
+ u22XRkn+3QuZIEGssTUonhULAcTr5XbWWBvrgEVVxUTnMjBjD1Hg==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4bggagg0uw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 05 Jan 2026 16:07:03 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 605EeVuD027538; Mon, 5 Jan 2026 16:07:03 GMT
+Received: from bl0pr03cu003.outbound.protection.outlook.com
+ (mail-eastusazon11012049.outbound.protection.outlook.com [52.101.53.49])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4besj79g4c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 05 Jan 2026 16:07:02 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f4sV1CX9ypyndrESDFBP3G7tmR8XFBLhqMbE20cuq5W8f0xjn8dFNTXHf6pPDwnz7ewJ6LI3U75Iw8Ojal43yc41+h2CQr+BJtWzxQ//oRGXf7apH0kgUVnFwZav2iSPmNpdDChV/wIoyg9ceAhwNuCF4LE4Xfko2td6N+bubmpzJ31bW9lU+t7vviVgiNsULA1Zeuh7KMiwO1j5qwXjkVlnbRXuGVDq6kQyMwCI2qjoVMug3mI7I4jE/lqLDSX0aotLCeYCThKNV30aKgdTty9x5nLhIRUIna3RUaw34UlOl+A6Ig8X5DVVimTK/Ht8jtYCAmccN/oyiCiVFGhE/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+NXc55WBBsEM2wEW2zoXxsaZrV4R0oRrhn8WzzkjoeY=;
+ b=IwtmjtQUuFoUQzDQpVCtlKN9uhGrRkiO3WzfOxw40iU0cPvhd3RrRfHYN83isI7QD1cKBGKaQWrJ6zx+vDo6bJDh/9k96jX5L+WDca/i5XIkvVhg1V3zIGtmcvuC9K0mrOeQR43Oa/aosFXQ6jxMN1OMwi+mNL2kbQglcoA1N7/9Zscwp+jeNoz/dVi+qxUK/8tCx6Ivez6JXWeur5K3NB+8BmgVOG+cEVl0K97cs39vFZ6WXChaDH13tKAu/4Hqq6uov+/MBBfxbQQ6g7YhNndGNvYIWCy8OuKUxu9bCsGN1Cj1DGBtqkQ1jlau04m8cfs/DAnldCCIjOzMMoiVKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1767645058; x=1768249858; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=hVECE95AM8EQn11Eu+Wr1AoXJjdignGWqzA0rD5sR/g=;
- b=Qc55tR0OvuWG3l1ivg7U4MifO2GI2tJMqKMLTgfwwbEC/YuLSzTuL1VvWieLccZZMq
- iDQnwIkRFw/SHGHu6wzqe/zkdyPnWscRk3zLV7AnxYZoBYCE0AtxIU5L+w7VBQ8E7zdr
- 32kcaxP2awRx2s3mPZCC9ySt3FPvL6stbpizBA6xkWDdWhgX7NzW3UNBvamSdYhCfenz
- p3SKXRTuWeW1K4hnUWy9LVbXHvOfNlEXalE8L/8wpG/8b8x912SY9bg2yOTCU3DyLayB
- LgGwCKpWX0vE2zbGdUcb8D1AgXeZq+OAZ8CcPvqHakR7xj59Pwju31VfPDCRE2MTNfPK
- nmmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767645058; x=1768249858;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=hVECE95AM8EQn11Eu+Wr1AoXJjdignGWqzA0rD5sR/g=;
- b=Fn1KPqtX7cJZYGFScRioHVPz8K/Y/HTqGFJuZ8cElXoJyry4XuwW4hf7+DzTb9/cj/
- lGZ1Y7BOCVG9GxT+bVnSOJIJGqrlCgSpgaBVafQFWH63Ll2aOKPhNQFxGbQOhn8YhIFN
- /cc0ZAiXRrtcdOViAyXl5/sfHrbG74UpdaxXLpzDfgTS68Zc/sWyrGGEn1liM0LpXxhK
- ME2DxM/tN5eOQ6mv5k4+smDKNkLgUQKRRF6T8VlfiPwf1T6zTHd3mwvRIkGim1XtoVj7
- 9H1xoKl3arxr9GYWf7wu2vFxpDki69ddHTGEupI7g+drMuu1SrIAoUirPb3Idusdv/J7
- ZrvQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVBy5WDe0JohRejWRZFmay1Ft+Qh2FOydt9/wyMs6SoEfCqZ/CM1r9lnD2PYe9qG8aHj/yDHE3I@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyw7wbHQU3TlEPY5qATxnpody3PZ4Me+WZpzRcR44+I5VNSXFzI
- 94sQl8f3AEoX3ZD8Xrp5fG4DvE5m69NhLH3mJyRxFeRNV9tJJX5WybgX
-X-Gm-Gg: AY/fxX6j69euV+RjLr7HqHsaEE2nQzMp6HjNjwZVTXWtjzh3SSCxD6jt0G/xBCq5SJp
- 6sQjIndfTBoExbAP3pQQHci198+DfE9wkJ0gA7R+tvAFJ0+reiu/OtHQOLvds/10TeTjiYqdtIi
- SyZbT2FPCGqHsTgNWPDpGUrR+JyFupqWjlJlo1IQWfJv6RIw/+4ejt+UCdFQzRmU7F1wPJEAWtz
- qyGHX6deKhfPbpM+yw+9rFViPw4Pc2lNOV3C5ejURwGuWRkTbS8Cd9ACq3dEyCnXLiSLsI17G/x
- l3aWy93BLNPzsDISC8oCT3DU8DrMsegKmToZrnpy4STTwPxwboKVFC6SyA1S8vn3uX14UtIsPw4
- sXf0As+oBUEy/h+jO/oMFoniDz0Jo3584MgsagZtG59ocg6HbK5exiNbo3qSFhs4wdYIIYDXabx
- GAUNa/XxLBKTO3GbwsBbyCkZvOWJ+FnDF0hQCWS0qoTqWyvEaElFWCY388vpZYazxIvcmKTO0=
-X-Google-Smtp-Source: AGHT+IEebwiWuXl1F8QHnnykIpu9467Snh7tcDDZiJH8az6WUjwWW9mBHxH2ppJZkdF+bHqj2P8QOA==
-X-Received: by 2002:a05:6402:3513:b0:640:abd5:8646 with SMTP id
- 4fb4d7f45d1cf-6507955d2abmr365284a12.4.1767645057730; 
- Mon, 05 Jan 2026 12:30:57 -0800 (PST)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
- [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a4d31e7sm22291166b.42.2026.01.05.12.30.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Jan 2026 12:30:57 -0800 (PST)
-Message-ID: <9213ab090c4aab1bdd134857d3f5a88cff505fc6.camel@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add VRR support for MST connectors
-From: tomasz.pakula.oficjalny@gmail.com
-To: =?UTF-8?Q?Micha=C5=82_Bie=C5=82aga?= <mbielaga1@gmail.com>, 
- amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, 	siqueira@igalia.com, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Date: Mon, 05 Jan 2026 21:30:56 +0100
-In-Reply-To: <20251103100845.12802-1-michal.bielaga@deliveroo.com>
-References: <20251103100845.12802-1-michal.bielaga@deliveroo.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.2 
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+NXc55WBBsEM2wEW2zoXxsaZrV4R0oRrhn8WzzkjoeY=;
+ b=qICh9dV9W8ngi03B20WCqTZCsnGmQuDEn1C3tkZL+WHPOVDbTw+xs2tQYnlSWcEbYsM7jvIIuTc7NyQztcbsHHybqypKnFhhuJ+MfikD/ewbahoEWY33WCBTBCVh3zeuPx0LQCPCIcvZdHpEz9iYj9gCbYgeqgDhXWu7l13SErY=
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
+ by SA2PR10MB4427.namprd10.prod.outlook.com (2603:10b6:806:114::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Mon, 5 Jan
+ 2026 16:06:58 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::f3ea:674e:7f2e:b711]) by DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::f3ea:674e:7f2e:b711%6]) with mapi id 15.20.9478.004; Mon, 5 Jan 2026
+ 16:06:58 +0000
+Date: Mon, 5 Jan 2026 16:07:00 +0000
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: "David Hildenbrand (Red Hat)" <david@kernel.org>
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>
+Subject: Re: [PATCH v3 1/3] tools/testing/vma/vma_internal.h: provide
+ fatal_signal_pending
+Message-ID: <6ca21d7e-4654-4f8e-819b-36b5153608db@lucifer.local>
+References: <45dd9b02-7867-6e5a-4a64-02c4d43c9b68@redhat.com>
+ <18f7f4ff-67f8-4a39-b6c4-893bfbed4955@lucifer.local>
+ <7014fb92-0d46-4c64-b3ae-0eb9d6b81878@kernel.org>
+ <a09462c7-af2d-4282-89e3-2cc43777338f@lucifer.local>
+ <b7425b3d-f614-4099-9f15-51c6c2cea68c@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b7425b3d-f614-4099-9f15-51c6c2cea68c@kernel.org>
+X-ClientProxiedBy: LO2P265CA0512.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::19) To DM4PR10MB8218.namprd10.prod.outlook.com
+ (2603:10b6:8:1cc::16)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|SA2PR10MB4427:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10bd5416-801c-4fde-6697-08de4c7473f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1NEyrp/dEa3tABN6s2Eh1GGmmV80lU13Db8PUr6AMsur15KGwP050Xrwxbpb?=
+ =?us-ascii?Q?LnaSw8hiywytSIZIa6Xe4e0qVSTRdwhcejeCy4+K2ei213CHVPUcb+3i4s+A?=
+ =?us-ascii?Q?5TDAS61N2OUA2cGs7b1pnUGnVSfIAEge9C9YwgwtQ3e5keIWDQ2GWWBopX3d?=
+ =?us-ascii?Q?QvKSbFip8y2wuLgkqsvXPLLvcI0mq0GBAV/9hLeSnt5KilSDczoFCzpd2u6d?=
+ =?us-ascii?Q?V9WhqwYGanqi8W6dzCR8fcO8zUoQPMBMHoOV8mqzC2IAKyTVCAolfNrNBh5H?=
+ =?us-ascii?Q?gSQxEAG8xDkLxBCsFSTJuaTvMjT5Hp6iX5GZvrz8wCIhqtKvKxXYJU7iaocN?=
+ =?us-ascii?Q?aog0rILBMT5aDwupwQIawlcwSEKlEa7mVrbV3vkMM9Xyp1Vbxsd6N/DVVktF?=
+ =?us-ascii?Q?TePXyQJ8V1OQFxbgto1TAZpdcmLq6UB7G+NqsfP2hSIt8Icxm1xc6x0xYwR4?=
+ =?us-ascii?Q?nSLzXbGFyBLWRL2covOWX/PhoH9oPnrL0rzL3GGKhlw4MY1B79Mwgq4bibg8?=
+ =?us-ascii?Q?U4u1UfwHysKAJkDRaM8Ewav1xkK8rQgs3pRyZ+l6M/cm27eahSZFut36W2mO?=
+ =?us-ascii?Q?v+7jnFHT/F/G6VeqoDnn0X8pDcAthUHMYbm7iwFv6HdUKIglXWt9WPI5/hHv?=
+ =?us-ascii?Q?5cPBqrY86+0TMpyviY/0xmVwj2Y3M9jf8821lA7qHCR50EkVZPOS4n6wpMN6?=
+ =?us-ascii?Q?vUgebKrQJrkHyNKjshFxVl9I2n1ke+Mi9fHBBd/kVFyv5a+3WGz2ruJRKfrd?=
+ =?us-ascii?Q?VtjFwHIcoP8w0l+ktq/tIg75I3cmS0ujfAV0lKyZSMLT02v+z/7XeFDEq+v9?=
+ =?us-ascii?Q?KCCVy7py2jYNY1U3Vwnu42owQ0o1oC9IYItSYYbEEKJPlC13DuqO83rFV7I9?=
+ =?us-ascii?Q?9RzOd6cRJGCUAK+FYSL9YIJMrFcnbauUQogUHefOo60Mif4YtCi4oJ9LcfKq?=
+ =?us-ascii?Q?YnzQy6UDE8zqrPW2ptez5flhgzdI7fLYzzCb5g/X9qYR95baW/r7FmnhK79C?=
+ =?us-ascii?Q?/p/uJ8gxaptPD6/j5cxT8qI/2ECDlGYW722CwluWw86kRQPT7OnlZ9r1EHlm?=
+ =?us-ascii?Q?JShcvEtSukTj2dTu2ERGbN9QQjbBbTlwSOhdjqOS5YEj9/alpkPA1zuJTCYF?=
+ =?us-ascii?Q?uw/V1wCZ2/++1dwXv3vvhu7Ajtin9VRmLTa2L0UVFc65UgGk4L7UmWrEut8N?=
+ =?us-ascii?Q?osyT1HMTsN/ceaFo4btJ4Iwa0KHefUlqHQqT0oHOYKGfJEO1yvimYsNA+xUj?=
+ =?us-ascii?Q?VJaAMejpz7nx8LFaSYTgTyuxGEdf10xyG8ZdG8/YOAcK1kGAMi7DMkJvRyav?=
+ =?us-ascii?Q?xmISyjoRtGtFxey0JUrpVWn+FmiNn85cEJMoCGI2pBI4cnESjAAlR3yXPm9+?=
+ =?us-ascii?Q?H5oZ7gZ6bt/dhSD8kVMXXEPla5JzHPir2XiFWZpwHs53oKORD0eft0izaFp1?=
+ =?us-ascii?Q?e6Tfryz5ObDys8HaKnM/BsJ9dvosnvH2?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR10MB8218.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ohcfKpatDAsXtCvJ/t0o6WGxmuYflXTGT4UGlZMW4D6UNSATh9AmPIrtsy8h?=
+ =?us-ascii?Q?eVCQTStcB3rNMY+5dxWqZaUoBpGtSd+/OfE30WQeXbcVIid208ZURkSXeO+L?=
+ =?us-ascii?Q?6eotmoClEB9cltl8hw54za4BklP1RIGbBivIjbrsBziKsoWxGDEjJU+Ov3Mi?=
+ =?us-ascii?Q?Z/Pf63fLDqNNJMTjcVKPmGF15RTkbqpb6c4CoTJrgt4B5eRuJkTUnLvJavie?=
+ =?us-ascii?Q?vwhlrvSE5FURbxo3Jc7ZHVMKhHS0zq+fkvQY3JMR2Y9WFJPlljOMqKnfgZK8?=
+ =?us-ascii?Q?RY3ttpxRFmv+CByChUTng28z5SXKReinId/rbzrUjBSRFiPNaR9XlyQHt890?=
+ =?us-ascii?Q?IP5pwolhj0kql80/X1xrs3RafLjm2fk5cUD8KvFo6pMFZtGfvLP7QKTQRvL1?=
+ =?us-ascii?Q?psf3h8PjWf1FZV7LQrMB9ujcFoCxtp9CciP4v9yUXblt+gecqU4U0FpQAlwh?=
+ =?us-ascii?Q?VqObcitjrLKKoOMKVweqsCih4fcCfXKQgwx4sfQfTp2F30HAu83GIqt4D1zf?=
+ =?us-ascii?Q?nym1Dy8nCw1LSanqiezXxPH/XmtwJGtjlqGJHzHjo/5cHxdgv2di9Dvq3l2I?=
+ =?us-ascii?Q?jKqQ0AKQ9ifsBFmcfukEr9fiQNdBXjqUQzWEK7XyYKc/EHhOBTvA3xmIkzUH?=
+ =?us-ascii?Q?PRnGmXiReDy6AGEjXW8J7QwS7A5mrXXqOwt98Ki3WEvsxz5UWadbuT3XX7fa?=
+ =?us-ascii?Q?J1iKndN+abPchoaob317UTRT2Mmq8+phUpB4f7w3b1m8lMsU0MnMqBLmcUJh?=
+ =?us-ascii?Q?ErKjHcjMZU04leavzqxqIIZx3jJWi4am5uZGcbdhTRp15wYkyALhxWaoWkhc?=
+ =?us-ascii?Q?qccsX2z4EENTxPJAMnoE0L2FjQYrnXaISZy6VRFcFsLdTxmlNCTcxyzyxgaS?=
+ =?us-ascii?Q?jHw7BWGToO9n53AsOmQkP5qdO9rDgtO8eH7dgd8Njp+W6TxWSdObRBHxdwNA?=
+ =?us-ascii?Q?yeC9JT0qR5brkmJforknzxYl0dRbgTp/YR1Yf9AyMCdsc8ePYnSxh2Hbq7eL?=
+ =?us-ascii?Q?eX7kbzhYWWAZKAu/GDjFQA8DQrVdLBP05CFu958npDLVUsek5SOeukH3Bum1?=
+ =?us-ascii?Q?FKvxmb6W1+4r1CWmt0772VTK3Kp+KrQBtapCz7nSz9WwFZfjWYj8TMjinA2a?=
+ =?us-ascii?Q?lxl5NPfHn/0Fd9AeKSzHYqdenV3lcyGuB5uriSt4O5OUWge/r8VNU4G0/b6r?=
+ =?us-ascii?Q?u2m1dLC4J2Tq8UQyZKT6tuHMnhRn4JXxbayvZJF/YxfPSJ3oN3HHV8+8mMq7?=
+ =?us-ascii?Q?aFEQwZBjstRxMq0bcFnrJZiVLGH4DRazTHgEUNuH6bvy2sWbQutRBgT4jUUz?=
+ =?us-ascii?Q?kTLWF+/FMF+pRT9sU5ZEMOUANW5y56nuk+Y3jLn5ZsD1VIA5/uQLqkclMEyQ?=
+ =?us-ascii?Q?tiUq/bJf3a10rWPxX+N29PgsYuP/C1krnqbhJIk21QUH+VUy0XjKEwOQEY9H?=
+ =?us-ascii?Q?UhBZhek/yc/i1gbhhEPRBmnRGOcHgfbKcGmpFvScdKD32Oxx291jzarCcus4?=
+ =?us-ascii?Q?8UANdjRxdSRodiIXSXKlc+EDQKXtUMFRFXSbWh90IFaeeHa2ewMY5f33unWO?=
+ =?us-ascii?Q?79NVeKNhsoqWg3k62GXCqKV+a2qhe1n/AYXEg/0TreeLq1rF/3ANAwlhyE70?=
+ =?us-ascii?Q?GSAsHP4p8fHDHlpQ1xCyF5p9oJUdmgoHUQfKU6nwDecV44QfBO8E15bn6ZS5?=
+ =?us-ascii?Q?dooxLVqvp5XZScPXM50fcn5ZKcLYsG5BatWCh73o9g+MBvPnfHewJLEbV/Bq?=
+ =?us-ascii?Q?Lvz4SFWfBbk4gJ916etTi84KWdGFp60=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: FiJMg9Lw6AkbooOK8iz9RdrJBiqRa3PV4E7LoQ3TcJLPhUFGFB5QP6+dTBi2wSK5xa6WsrF7vVELCB5GJipJkIoNuWqbSi4GovHvAYfjJuHAOxYl/5i9VPuhMVqjJLkkmv72dgc2O2QUyV8JABQKs3Mto0kW8ftRc9v07z7yhsiLoWLeJMKo2XOOrZCGEmccNCJKkGXZDEW9UJnKPMIdV2xxVDgWVGimlayZUN3XNvt/O/42NP1edBph2CQGtslm041fPgqyockpZI8jfwGmxYDl+dWYXzTr114uBTITcul6BnqybxCTYDLUqfiicMNqzULL2T6AQHrVT4ybnMAHL6NgV9ewkupCjEEaTbKzPiTyoM7IXpyyo5NLNZHDSmbzKsBw8q46KwxaXDU7O9wiabAYG5MdxUxvwsZcihuoCK7bZsYZ5oi8w33zrQGJnCqRypdmbLaOirah7N8jb3UoGe4PnQ1uuWAZzBCYi25aPyHYCliK6n5vkwQd4LVw/daA8ZqwYpMNOOEiToj1c2qd64tjmuHdW6z2zWxdb9MJcDlZ8hCQGNIqg9h/dkkYspFSWDUNe4JFFsCrSCwadFZJ+q+xut8clrTLimnCYyTh5Ww=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10bd5416-801c-4fde-6697-08de4c7473f1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2026 16:06:57.9412 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A9/CovyZYPo6ZIwABhrlgLyd3dVPRM2i2EbxVXd10Uf265EnEzdeIkrndmTKAht7gSXkfjveAmBDlbaBVn9bydnLaYoZ6qlAMRV93ZDGyUA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4427
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-05_01,2026-01-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ bulkscore=0 suspectscore=0
+ mlxscore=0 spamscore=0 mlxlogscore=603 adultscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2512120000
+ definitions=main-2601050141
+X-Proofpoint-GUID: XscfxGRi9JELkGwuk85ORwQLi-LaYswN
+X-Proofpoint-ORIG-GUID: XscfxGRi9JELkGwuk85ORwQLi-LaYswN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA1MDE0MSBTYWx0ZWRfX2SqJFGvKke+L
+ 7SxTl5kIL+1dzI5W4Urg/TW42wkW3RsNozvM5LXQ6f7Dmf8pYx7eY0KVIMq7jY8PZP6Mx+VqGJl
+ Oi1fiEg1O1+bvbQKB9dXUJGueHX0RuvwL1DriXz11bQ0MyHtAOGOM7y6uOMaYTQlAToleDOFrTt
+ vCC44VWxPJ66ga3mrDP94WY5HqAq19cOjshhWc2vSQF+kFw5XKlLHuwAyu+TMPEMk+lpgdvI3Ak
+ t8kT1f94noEUjA04pfxFmpIBmNsklE5eY8xQat/Acs6h/iCSnTlKqm9hr9h8YDkAx0YWc3PZxMk
+ PK06lJshPj+mX6gHbPZSZJud8YILnPRvhcDYaTdh0EY6w4rmnRbhRhMSsbn24hlWXfGlAg5oojy
+ ci6Hg3G/nXiXo/LbsRGkFwvQX8M7RpM1/XERy/rGBknYSbJWQ1YzQIyCqfQINWR/moY/lLZ23Kw
+ 67DAReqh9NpTyX3QFCA==
+X-Authority-Analysis: v=2.4 cv=ZcIQ98VA c=1 sm=1 tr=0 ts=695be1a7 cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=vUbySO9Y5rIA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8 a=ovwPS-R_xNyBXl15NLkA:9 a=CjuIK1q_8ugA:10
 X-Mailman-Approved-At: Tue, 06 Jan 2026 08:31:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,108 +210,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-11-03 at 11:08 +0100, Micha=C5=82 Bie=C5=82aga wrote:
-> From: Michal Bielaga <mbielaga1@gmail.com>
->=20
-> Variable Refresh Rate (VRR/FreeSync) currently only works with
-> Single-Stream Transport (SST) DisplayPort connections. Monitors
-> connected via MST hubs cannot utilize VRR even when they support it,
-> because the driver only enables VRR for SST connections.
->=20
-> This patch enables VRR for DisplayPort MST by:
-> - Including SIGNAL_TYPE_DISPLAY_PORT_MST in VRR capability detection
-> - Reading VRR range from display EDID instead of MST hub DPCD, since
->   dc_link points to the hub rather than the actual display
-> - Fixing call order to parse EDID before checking VRR capabilities,
->   ensuring display_info.monitor_range is populated
-> - Properly attaching VRR property to MST connectors by reusing the
->   master connector's property
->=20
-> Without this patch, MST displays cannot use VRR even if they support
-> it, limiting the user experience for multi-monitor DisplayPort MST
-> setups.
->=20
-> Signed-off-by: Michal Bielaga <mbielaga1@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c     | 11 +++++++++--
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   |  9 ++++++---
->  2 files changed, 15 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index ef026143dc1c..ac5b6c22361f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -12644,9 +12644,16 @@ void amdgpu_dm_update_freesync_caps(struct drm_c=
-onnector *connector,
->  		parse_edid_displayid_vrr(connector, edid);
-> =20
->  	if (edid && (sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT ||
-> +		     sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST ||
->  		     sink->sink_signal =3D=3D SIGNAL_TYPE_EDP)) {
-> -		if (amdgpu_dm_connector->dc_link &&
-> -		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_p=
-aram) {
-> +		/* For MST, check monitor range from EDID directly since the dc_link
-> +		 * points to the MST hub, not the actual display
-> +		 */
-> +		if ((sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT_MST ||
-> +		     (amdgpu_dm_connector->dc_link &&
-> +		      amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing=
-_param)) &&
-> +		    connector->display_info.monitor_range.min_vfreq &&
-> +		    connector->display_info.monitor_range.max_vfreq) {
->  			amdgpu_dm_connector->min_vfreq =3D connector->display_info.monitor_ra=
-nge.min_vfreq;
->  			amdgpu_dm_connector->max_vfreq =3D connector->display_info.monitor_ra=
-nge.max_vfreq;
->  			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq >=
- 10)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 77a9d2c7d318..062259514b3c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -443,6 +443,9 @@ static int dm_dp_mst_get_modes(struct drm_connector *=
-connector)
->  			}
->  		}
-> =20
-> +		/* Update connector with EDID first so display_info.monitor_range is p=
-opulated */
-> +		drm_edid_connector_update(&aconnector->base, aconnector->drm_edid);
-> +
->  		if (aconnector->dc_sink) {
->  			amdgpu_dm_update_freesync_caps(
->  					connector, aconnector->drm_edid);
-> @@ -459,8 +462,6 @@ static int dm_dp_mst_get_modes(struct drm_connector *=
-connector)
->  		}
->  	}
-> =20
-> -	drm_edid_connector_update(&aconnector->base, aconnector->drm_edid);
-> -
->  	ret =3D drm_edid_connector_add_modes(connector);
-> =20
->  	return ret;
-> @@ -650,9 +651,11 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_m=
-gr *mgr,
->  	if (connector->max_bpc_property)
->  		drm_connector_attach_max_bpc_property(connector, 8, 16);
-> =20
-> +	/* Reuse VRR property from master connector for MST connectors */
->  	connector->vrr_capable_property =3D master->base.vrr_capable_property;
->  	if (connector->vrr_capable_property)
-> -		drm_connector_attach_vrr_capable_property(connector);
-> +		drm_object_attach_property(&connector->base,
-> +					   connector->vrr_capable_property, 0);
-> =20
->  	drm_object_attach_property(
->  		&connector->base,
+On Mon, Jan 05, 2026 at 04:47:30PM +0100, David Hildenbrand (Red Hat) wrote:
+> On 1/5/26 16:36, Lorenzo Stoakes wrote:
+> > On Mon, Jan 05, 2026 at 04:06:38PM +0100, David Hildenbrand (Red Hat) wrote:
+> > > On 1/5/26 13:18, Lorenzo Stoakes wrote:
+> > > > On Sun, Jan 04, 2026 at 10:15:36PM +0100, Mikulas Patocka wrote:
+> > > > > Provide a dummy function fatal_signal_pending, because it will be used in
+> > > > > the following patch in the function mm_take_all_locks.
+> > > > >
+> > > > > This commit avoids a test failure when the following patch will be apllied.
+> > > > >
+> > > > > Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> > > > > Cc: stable@vger.kernel.org
+> > > >
+> > > > No, please don't cc stable. Also don't cc stable without a Fixes tag.
+> > > >
+> > > > This isn't backportable given you now need to backport to 5.10, 5.15, 6.1, 6.6,
+> > > > 6.12, 6.17.
+> > > >
+> > > > I'm not sure how Andrew deals with a mix of Cc: stable and not-cc-stable patches
+> > > > in a series, think he generally doesn't like, but I'm not sure how exactly we
+> > > > are supposed to express order here otherwise. Andrew?
+> > >
+> > > Can't we just have this hunk here as part of patch #2?
+> > >
+> > > Backporting should be rather simple, just drop the hunk on kernels where it
+> > > doesn't apply. Sure, a bit of manual work, but better than making our life
+> > > more complicated here.
+> > >
+> > > But maybe I am missing something.
+> >
+> > Because the patch was sent with patch sending-101 issues (yet still merged to
+> > hotfix queue inexplicably) so I assumed manual fixups might be problematic.
+> >
+> > But actually because we moved mm_take_all_locks() between files it'll need
+> > manual fixups anyway.
+>
+> Yeah, that's what I thought. Backports might not be that easy either way.
 
-This doesn't consider if the connected MST device actually supports VRR
-pass-through. Unfortunately, this basically breaks display out with my
-Thinkpad Universal USB-C dock if VRR is ever toggled. It just can't do
-variable signal and immediately drops out.
+The point was to assert an ordering so in tip this fix is done ahead of the
+change to prevent bad bisects etc., then to leave the backported bit as simple
+as possible, since it's a total pain.
 
-In current state, this patch sadly breaks more things than it fixes.
+>
+> Sending+testing stable backports is not particularly fun (I have some in my
+> inbox ...), but sometimes it only requires one backported version that can
+> just be used for all older kernels.
+
+Yup it's ideal if it can be automatic but in this case it just won't be.
+
+This is also why I suggested separating out the driver fix, though I think that
+patch is probably not even necessary as I reviewed.
+
+>
+> --
+> Cheers
+>
+> David
+>
+
+Thanks, Lorenzo
