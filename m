@@ -4,45 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90822CEFC20
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 17:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00BE9CEFCEB
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 18:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BEC610E527;
-	Tue,  6 Jan 2026 17:00:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86BC110E16A;
+	Tue,  6 Jan 2026 18:37:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BW1lSygR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TJR5dZGK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F221910E524;
- Tue,  6 Jan 2026 17:00:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 10BC760144;
- Tue,  6 Jan 2026 17:00:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349EEC116C6;
- Tue,  6 Jan 2026 17:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767718827;
- bh=R5EcHisqsNmRcKPLC1SBKqzDw/CcfV6EcfzO2kI93hk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BW1lSygRXc1ov2p2tDsTaWK3dNbZmJQOrdx5SEtJGWCgY3Wsw1g+aEbFOz/gbdBWI
- ENEVl1QmatWvV6t+cJiH49pBU/js687ASJJ8dU7huXqrWUttZW9H12PU11QOZbaSh9
- /zu47aXWUFaSiGJISJzPDAn2/gOYmpabeRmOkZpf1zQFEd3wFDj3Zxgnc8A8kdZYHH
- NZo1aRSVbdis2tCPNOiQm/aZWF+ejSR33cQomQGfCf4yySg2wSiJ8AWTrv+0kxhLBO
- nWOo8can5oixKvGVZ0BqsZfWxFzu1gQzUTHNYwkrRBfpod6zMkcvb2cR9nmJ2M0udG
- iqszutcw6tRYA==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com,
- Xaver Hugl <xaver.hugl@gmail.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH 2/2] drm/amd/display: Attach OLED property to eDP panels
-Date: Tue,  6 Jan 2026 11:00:17 -0600
-Message-ID: <20260106170017.68158-3-superm1@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260106170017.68158-1-superm1@kernel.org>
-References: <20260106170017.68158-1-superm1@kernel.org>
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011023.outbound.protection.outlook.com
+ [40.93.194.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3C3C10E16A;
+ Tue,  6 Jan 2026 18:37:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=huayJrKUtgiLtgCI7o8XwF3IGMie2GGgqzdDsEJ8ol7QsVDEfIM3KWGFH2jbzoMotvGexb+ihqJ9JF7vr71pX0B4q3GVF2+E321sndvv1A8ygnyg1diKIK6+aQrvuZOq8c2gNuj5zlM+RoYudjFzQubYgWI4Oz0UTl71bpKas3X2/fQT7i39ulCFUMR7hO0Ewhg79bNwnl2mipLQUjhpaZnWtjmQuskpDrKB7QOoX1Nc9KEhMuQgKoBDcw1k+Fqkhh/R2fc7g8Q74GWMDz2Yx/vgK4CvaW9TtNtBO9sewrE3659FPIEUgitHAxFOzqg24rBIWyvdl4NB+Rw2Z+dBSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cGwxJRjy5P4Eikg+OVZ4YWzML+eiJzjES88GFKtE4Uw=;
+ b=cWfMhysqM80SNpdYdjy85WWzcjhmj35OxoX9wyaFnFF2JK9wGKVWlUXKodxTVQloLYrJIkME4FXmb7/V8eNYgAB7YyCr7ogQAt4qkdOvHv3dapa+Id3WR+urysDSV4yTxKLLaNLWQkNnsVh6Kct5PlbjtoBjMk9S9dlUgwP2F4Z8FSljd4Y4MlCsSoJVB+H663LOq1XzvjIO1E4x+xrVIHowoRerKP4/ZTBqIvWs8K4tzJVjsmxbtRcujIG1I5oMumylfJbQvXLv6EquG9GrqXI1xKvtjpBEahA7imfD1BgHQlfMDU7P8R+qtRU7gvvlhCsk04pZ39CvOloEzHfOCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cGwxJRjy5P4Eikg+OVZ4YWzML+eiJzjES88GFKtE4Uw=;
+ b=TJR5dZGKX4hF5jR3q47a+NycbuttAk+bIddMpnh46UbnX1tkArIJMRpIBvTbOkgf/xbKOPjuWCZWkJq/4+3ZmhUBLuLdNAaOgCLDmfprPNkybISP5r15+7RoU8I6unfNcduVvmcmvJ2UPnyJlqFPkuM1pY3WWXpc7u7h3vJ0Jbw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA3PR12MB7975.namprd12.prod.outlook.com (2603:10b6:806:320::11)
+ by PH7PR12MB5926.namprd12.prod.outlook.com (2603:10b6:510:1d9::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Tue, 6 Jan
+ 2026 18:37:40 +0000
+Received: from SA3PR12MB7975.namprd12.prod.outlook.com
+ ([fe80::9b66:22f9:86fd:fb74]) by SA3PR12MB7975.namprd12.prod.outlook.com
+ ([fe80::9b66:22f9:86fd:fb74%6]) with mapi id 15.20.9478.004; Tue, 6 Jan 2026
+ 18:37:40 +0000
+Message-ID: <970e6955-d345-48e3-8ea5-83c577ecc563@amd.com>
+Date: Tue, 6 Jan 2026 10:37:50 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC net-next 5/5] net: ionic: Set msi_addr_mask to
+ IONIC_ADDR_LEN-bit everywhere
+To: Vivian Wang <wangruikang@iscas.ac.cn>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Brett Creeley <brett.creeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: Han Gao <gaohan@iscas.ac.cn>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20251224-pci-msi-addr-mask-v1-0-05a6fcb4b4c0@iscas.ac.cn>
+ <20251224-pci-msi-addr-mask-v1-5-05a6fcb4b4c0@iscas.ac.cn>
+Content-Language: en-US
+From: "Creeley, Brett" <bcreeley@amd.com>
+In-Reply-To: <20251224-pci-msi-addr-mask-v1-5-05a6fcb4b4c0@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0204.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::29) To SA3PR12MB7975.namprd12.prod.outlook.com
+ (2603:10b6:806:320::11)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7975:EE_|PH7PR12MB5926:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6a32090-a167-46fa-ac68-08de4d52ac0c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|7053199007|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OVhlbzR6WExDMjI2L21CNjhJdUVQNUc4M2xsSGdmV0E5RW9qTDZNUGtCdHEy?=
+ =?utf-8?B?Y0h2VUprcHVsdHFkZzRjYVUzK3Zyc3k3QVJtT2U3SHg1Q01JMzVNdTBYNGhx?=
+ =?utf-8?B?RWF5bUJZeFVOTW84NndNdGpVS1lJYzB5cndORC95dHMySlh6Y0twd0tDaUxB?=
+ =?utf-8?B?cHRabnpaZVVsa1phRGx1K2ZJem9ucFZvUXRCTTlpbFFPQ0lJV0JiOE5ZSU1h?=
+ =?utf-8?B?Unl3NW1NZU1DQ2NiUWJsbDA0RHdXSU1kL21wMVJVYzBKb1V0NVBMUHkyR25R?=
+ =?utf-8?B?Z2Vic0R6b2gyUllLZ1JUeFc4a25hV3dFWWFKN3RsUGdLSGljVXdZd0tmSlpa?=
+ =?utf-8?B?QU5zdDBGWXFwemQrdVhhYkpzMUNxeUZsUFJ6WU1wRTB0TTBuc3BuUFJoQnFX?=
+ =?utf-8?B?OVFybUpFdm96K1dWU0NNMVhYdkQwSWhFWFk2M3FGU082N3FnYkYzaXJ0MnNx?=
+ =?utf-8?B?d3hQMHlFbk4zK2VlRTd1TFVvbjJYdlBwQmQvbWVKTTh3ZjY1VlUwNGxhWWFS?=
+ =?utf-8?B?MURzYm80aVgvc2RWWGxtQ2NHOEI4TDhXdEJPMk8ydG9CM2huSElxbThGd05Z?=
+ =?utf-8?B?QWVISzFBazBLTlgzNm4yZnlDdFR4UjcyQS8vRThWVHJuenBqbWVMWDZUdnBi?=
+ =?utf-8?B?R255OTR4RThPMmhsa1ZQaW1NSXNNYW9JYXUxWnRNVVRieE5PclRqUEZNUzhN?=
+ =?utf-8?B?VENLYUd1Qm9ZWnh6Y2VtUHlmaVRSNVhWek9FVkdHaDBFZGU3YUFpdCs4V1Bx?=
+ =?utf-8?B?N0tLLzU1U2NucnNKYkpKUFc4TFFlbFJOOUcwYW13bUQ0amxuQ200NzlQZHZB?=
+ =?utf-8?B?Tng0RzhhNG1rNlFJbWgyRk5KTlJ4R0E4NllLSWJlMS8rS3VjT1NPYnUydEtI?=
+ =?utf-8?B?b293UCthZlhLYkE4NEtSZHB1ZTBSQzFRRVA0Y2piK2JuMy9ldFRnbjBMdmNj?=
+ =?utf-8?B?OXZTODdyVGhvQnlsSVp6THJIYm51RXFDYmNsMjAwUmExUWczZzN4enRPWWY0?=
+ =?utf-8?B?UGVWUFRWdWxFQytUbmxvaXdNbGo4T29zMmw2QWpibXBZT1BaN1FrNFZDck5X?=
+ =?utf-8?B?N1Q5ZWhUN2ZTR0pLekI3NE5QNEY0S1RtbDVWL1NhRmd1MkQ2dW5YUHhvdTdC?=
+ =?utf-8?B?Wkp3SFMrTFZ2Yjc2ZVZnMWRPYnhJcmRZRVhUVDdLVDFDT3pqN2pQSnYranlF?=
+ =?utf-8?B?S2pDQ0RoeFNxNlhCN0VFbnJDSXg0VWRCS3ZIRVpNb1RYV3U4RFJDNzNuZ2lF?=
+ =?utf-8?B?OU5nZk1LT3NiWXZRYnNrMHI1aEJnQUVPVlRob05XWFN0emhGaWdrSGNzNmVs?=
+ =?utf-8?B?dDJqZ01qZUpoVy92bzRyK2F2UkQ5Yzh5RTBCWXFhdGRmd0hHYThUc2xZMTRu?=
+ =?utf-8?B?Z2huYkNXdnUxQnh5RnRpY29YT1VtTzBXdHhVbnFLcENONFJHL1dOZTNabEgv?=
+ =?utf-8?B?S0FKK1RDcVRDMFM5akI0YmpLL25TR1pUMmpmVlk5dThMUnhxK3FLMndVMkdw?=
+ =?utf-8?B?TE1GWmxXQjJsRndITFNISmpaNDRJSi9sa0w5U09iN0N1RW52ZzNnK01PWE5h?=
+ =?utf-8?B?MEVkWjhLekYrM1VRdHJ2RzhSaHlYbjBuVDlmVUY5alBrZ2ptRDdWUWNnK2hV?=
+ =?utf-8?B?cEwyNkQzQmJMU1JxWU5mOStBS09vdzJpMHN2MTI5cHo4bXIzMXRhL2NyWWtT?=
+ =?utf-8?B?QmxnTW0wRWZ6V2h1UmIzZWltMHk1L2dhMk55WUNuTUp0Vi91UmJ4N0s1bEJ1?=
+ =?utf-8?B?bDhXVWhqamxXMFBLeTJ2Y3lVb3lIMnRUTC9QZGl3S0t0Mm50WXBQMVE3TW16?=
+ =?utf-8?B?UzZGTXFxeWd2bXczTWNqbkJOQzNwWkZzMGNyR21vRGdkemNEYW1ybFhrcktJ?=
+ =?utf-8?B?ZW9LN1M3ZnNKOTAxLzE3bW84L3VXdnYzajdxcEFKcjF6ZlVtTnFWemhFMEVM?=
+ =?utf-8?B?TWVkWnc2SjYwQTFxYldGRjJrTVhwbmJ2MUNPK3BjVnRXVlQzaHZqR1pmODMr?=
+ =?utf-8?Q?8NEDH4vandg1xAnzYs8tJSiuKkibNk=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB7975.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(7053199007)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkt6bWlOVGluQk5zTkZ6MDhFeTk0VGduNDdDKzNmTm5sdDdlUG5JalRSZ3lo?=
+ =?utf-8?B?bkZXU2dwSFhFMXdiWi9Pb2dlczBYTG9veldUTnZjM3FueUZ5K0krUTA5ano1?=
+ =?utf-8?B?WlBldnhmTUNxOEFJVXRCM3p4NHFUR1lCaHRrN2RSU0xNdzJnM2U1b2lqK0dV?=
+ =?utf-8?B?RHQrNkNNU25YeXNRd1psNlIvNVlQejdjbFBZdldOYWg2WDNlbnN3ejVxNndv?=
+ =?utf-8?B?L29qeUF2aHc0SzE5bERwVVlKTmRwTVF5ckdDK0dTTVRoVlZJd3NPM0Z1Y0Zk?=
+ =?utf-8?B?azU2N1dETThnRC9aN1pXZmVia0RYL1Q4QUpJdFkzTUt4Z3R1Z1hFc2YvMVpu?=
+ =?utf-8?B?bnNyWGlJakpmQm5OejhXcE9mNHNwUE1UVjRybmhITjlWQk1xdVBEY3ppd0Yy?=
+ =?utf-8?B?a0dOUjhQQXhHUm5IdXpDVmhXd2wrcUM5NzF5ZHNwa0JqYkxoem51ZklsWHJ3?=
+ =?utf-8?B?QUhjc2hBcmhxcXZrN2R0dk5wK3pNcjhSVFBGR1BTK2RyajNjU3ZKVUk4MUdV?=
+ =?utf-8?B?S281NVZXNWgzSXBMeWMyRXA3dzA0Tk5MUHB2Z21NRnBPMWYxbFlvWHY2MGNu?=
+ =?utf-8?B?bTNRYkVOMDFsREREMDc4UDdud3pGZy9nc2NzaERVSTBkSGtOTjA4QVVSNHd5?=
+ =?utf-8?B?YWVqemtpZjBwZWYrNkZQbTM0eXdXbkpVd1F6UGNNUzVhT2UxMklITmVHbEVN?=
+ =?utf-8?B?djRteUlpTnlzNlI4YlYvY1BZTml1R3gzL2hBWmFQVTUvMitNc2FwQ0p0S1ln?=
+ =?utf-8?B?RklKdk5KTzFpVWczZ3YrLzRCNHNuK0l6OTc2aW1yWVNhWEY2Rk5iVGZmMEFC?=
+ =?utf-8?B?SFdvOFdzcmg5NkVWOHBBbTJDMTNMRVpEWEhOdEJvMkJyNVhPaG5maEY4NXFl?=
+ =?utf-8?B?Mmd4V3NPT1NmYjZOK0tVK21yNDRqcnVjSEVjUkI1NUcwWmViUy83aTliUHRv?=
+ =?utf-8?B?T2ZEdFZJeWs0RU5ta2dIQXpkRUY4M2FMSWxKNW1LNTZwNEZwb09EdmpZUmhl?=
+ =?utf-8?B?RXM1ZWpkUElxWHRMTXN5M3djYUc1T2dlbEk4anArQytvcmdHbmZMU2xVWnBx?=
+ =?utf-8?B?QUdjN08vOHhZQUNaWmM1SkdoZ1RiUW1aRkxIRVFldWl6WWlWQTdpTDFPNUpO?=
+ =?utf-8?B?cDZqNmdKNHByMEFnN3lZQmplZUF4Z3pvZjczT1VyTmFMbXowclZ3SDVidVhG?=
+ =?utf-8?B?cEhBVStvOXpITUNUSEswOStTSmxXOGtSZ1J2bTl2QW1ZOWR3OGczMUlJcnRk?=
+ =?utf-8?B?K2FBd2ZaVHVlVlNBUHFpNm5wdlhaSU9FTG13dmtvQU9Nc0piNEo5VW1Ebk1w?=
+ =?utf-8?B?S2R4YjByNmRqQ3ljZXBvTFlUdjhYTXJDTEp5d1BQbWFNMkVGd3dqbGhqaEZU?=
+ =?utf-8?B?dlRtdmsxS2pDSi9YWExyRmRJTXNPcE9YMHRQYjdXZEJxT2ZTM2pmWitSeHRD?=
+ =?utf-8?B?aWpGRm5iQkc1ZEZjVDJpcm4vcGhTc0ZrYjRPMStNRFErQ3phbStJTndiLzdN?=
+ =?utf-8?B?dkl2cDBlK3Z0V2taMkVwT092c3puUmV4dVFMMEhSY0ZwRzdYTFhNUXJrMjBX?=
+ =?utf-8?B?R0h0WlBJVjBlNUdhY0RHWkNtZ0RJS0ZKZG5hanZlWUp4Y2dCZGFVQVBXSjk1?=
+ =?utf-8?B?MGlCRFVheXhlVUZGU1kxVlF5Y2NxNDdXYTRJd3hlOGtwWG96WHJjWE9nWXRV?=
+ =?utf-8?B?VWFzTHgvZUt6ekViNjh0RGRtdzh3NUVraDI1UjF3RXF2cUp0SCsybHAvSGVT?=
+ =?utf-8?B?UWdwNFVnKzhMaVhqQ2ErbE53MS82eHh0SzFKYTlMRUROUUlJWEJOUDg2MTVG?=
+ =?utf-8?B?K2tQb0Uza3dUUE5PTEhEb0hnRXVVTUNTM1F5cW5MQ0oyWjFHbnE5L3dBd3RS?=
+ =?utf-8?B?djFXK0cydzVjZE1BelVoSDFQR2RaWTdNUER3SkRVZ2prRmZwb1poUDJHRDha?=
+ =?utf-8?B?NDdpdmFWVVl0UHJvZU9ybFoxME1WTllwTkhzbzdnUXoxNEJhSXd6M0lWckxh?=
+ =?utf-8?B?a2xXcGhjbVpESXphU0NuR1IzbFFrb2w0TTJGNkZVNW42SjRaWUlaWExUR0hH?=
+ =?utf-8?B?ZzJGTzhya2lzUXc5UCtBbFhUNUEvWkFNY3l4QmlMdlV3bWRsNWtyOFNWWFBR?=
+ =?utf-8?B?emREZjhqT0dhQmFtM1JVSE11OG5QVTVZdUZCcTZsd0FFdVFhK3Z2aGtkdE9s?=
+ =?utf-8?B?MzlCNTRjcThpSmZjQ0NZUXdXQlI4N0thZlE4cFNoVy9vVCtxNWJjOXZEdGhH?=
+ =?utf-8?B?YkU5ZFgxcHdydTVyZWNYUnJWUnZ6aDlnelZYU0RyVFVyZEhiMkprZlFVdHRN?=
+ =?utf-8?B?SGdkUXV4VFZmNjhEdHZBaGl2NWhFekhUMytBUzJzMDV1alE3c2VnQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6a32090-a167-46fa-ac68-08de4d52ac0c
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7975.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2026 18:37:40.6404 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uiAFnpVteD4H31FbTHaaGCBa1g7ii+AU6uiwGSKu+cXfw8EhxobL+c5s+hE1cc7y1/AKT69Bl8RaPfkIfE/9lg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5926
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,47 +183,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu verifies that a given panel is an OLED panel from extended caps
-and can provide accurate information to userspace.  Attach a property
-to the DRM connector.
 
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 35dbc6aba4dfc..1cac5ebf50a9d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -91,6 +91,7 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
-+#include <drm/drm_mode.h>
- #include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_audio_component.h>
-@@ -3739,6 +3740,10 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 	caps->ext_caps = &aconnector->dc_link->dpcd_sink_ext_caps;
- 	caps->aux_support = false;
- 
-+	drm_object_property_set_value(&conn_base->base,
-+				      adev_to_drm(adev)->mode_config.panel_type_property,
-+				      caps->ext_caps->bits.oled ? DRM_MODE_PANEL_TYPE_OLED : DRM_MODE_PANEL_TYPE_UNKNOWN);
-+
- 	if (caps->ext_caps->bits.oled == 1
- 	    /*
- 	     * ||
-@@ -9020,6 +9025,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	if (connector_type == DRM_MODE_CONNECTOR_eDP) {
- 		struct drm_privacy_screen *privacy_screen;
- 
-+		drm_connector_attach_panel_type_property(&aconnector->base);
-+
- 		privacy_screen = drm_privacy_screen_get(adev_to_drm(adev)->dev, NULL);
- 		if (!IS_ERR(privacy_screen)) {
- 			drm_connector_attach_privacy_screen_provider(&aconnector->base,
--- 
-2.43.0
+On 12/23/2025 7:10 PM, Vivian Wang wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> The code was originally written using no_64bit_msi, which restricts the
+> device to 32-bit MSI addresses.
+>
+> Since msi_addr_mask is introduced, use DMA_BIT_MASK(IONIC_ADDR_LEN)
+> instead of DMA_BIT_MASK(32) here for msi_addr_mask, describing the
+> restriction more precisely and allowing these devices to work on
+> platforms with MSI doorbell address above 32-bit space, as long as it is
+> within the hardware's addressable space.
+>
+> Also remove #ifdef CONFIG_PPC64 wrapped around it, since this is a
+> hardware restriction and not a platform one.
+>
+> Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
+>
+> ---
+>
+> RFC because net-next is closed
+>
+> pensando maintainers: I don't know if this is the actual restriction,
+> and do not have any Pensando device to test this. Please help with
+> checking this.  Thanks.
+> ---
+>   drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
+> index 0671deae9a28..16133537c535 100644
+> --- a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
+> +++ b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
+> @@ -329,10 +329,8 @@ static int ionic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>                  goto err_out;
+>          }
+>
+> -#ifdef CONFIG_PPC64
+>          /* Ensure MSI/MSI-X interrupts lie within addressable physical memory */
+> -       pdev->msi_addr_mask = DMA_BIT_MASK(32);
+> -#endif
+> +       pdev->msi_addr_mask = DMA_BIT_MASK(IONIC_ADDR_LEN);
+
+I'm not sure that our device has MSI address limitations. I am getting 
+an answer to this locally, but we might only be limited in the DMA 
+address space.
+
+I will get back on this as quickly as possible.
+
+Thanks,
+
+Brett
+>
+>          err = ionic_setup_one(ionic);
+>          if (err)
+>
+> --
+> 2.51.2
+>
 
