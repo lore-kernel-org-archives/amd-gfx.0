@@ -4,72 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C96CCE9D42
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 14:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDA50CE9D42
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 15:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4C8610E10E;
-	Tue,  6 Jan 2026 14:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4472010E511;
+	Tue,  6 Jan 2026 15:03:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mRO6RtTv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iKG6OAaX";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EFBE10E50D
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 14:52:56 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-121a15dacd1so25351c88.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jan 2026 06:52:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1767711175; x=1768315975; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nU2jY68+v3uM5onmzMUso4lL4Grtw+z6Y73ewZcXAjY=;
- b=mRO6RtTvkANXHuG2TJe9N7sktvgZtbweXGNRK04B8CaJTbr1PIWP0TPfAZYFN5GnWD
- q8fMFwym/MZY86GvZmc/T/xnpsEsgbnPOk0r/K/6BKpI60z/dopviK7+t6R3hi+8GqLy
- 0AooRf9RLuPWejTEomFcTfvFxmxHlqHbsyPaxab+zBmqrce2MnmOQS5mi3ydAYx0s4HN
- VfC3ALlcj6SbgzdREesbOsm68wSzjz0SwpRQ+bY2VH1tS+1YqY6vL0Hgju/1bm+HhXic
- 62RK7QFp0HskDISToQ574H1WaRg36X64teF91zKqvZEUD/aRUKT7kLiC+PrNuSJm3x2M
- 4epQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767711176; x=1768315976;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=nU2jY68+v3uM5onmzMUso4lL4Grtw+z6Y73ewZcXAjY=;
- b=TRwBHJu5O9UfCM8n7CD6fYc1p8FX4cszp/SGegTpYhlETxzvxyBik7nUFCCTtWoOdx
- pRPfKTOwTilw7sPLhrfRAg+Y4ORwuU7ShqK3YNgPSkTStsZdHWEyXdqCnYp4dEizBeVQ
- 8oFivXzxFPyskPma140foMxbkneeH1jocVKO9Wx1N5aWM5VsJxFc8RsesKc1gJgdhKhd
- FRhUa/Ytc+5q+38qGEi+4UDhpVEnbyeyXjijyHK0jytNqtyZU2lt5i8Fu4HZqxxP1gvv
- /ERAf8kHto5rm3vBIE+vqPHDZ+2FqOeeXRa433O51jKXjEz0FkGSUX3QWyDyCE05aVqQ
- diKA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWohHAxh1yQ/Ce6VDpuix0XOJmrnRRFK4w8/d0WvgRtIwmOuoM49eAZMsZLKrTFBlIW7oNBF/qn@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyeAU9o/iekDfTXjxK1YcigByUpopDBFmdZc/Vgdop20pyxtaY7
- r7bJwtGWOaeFgIn4XiZWQH3W99+3bNn+NLgEuMGCZG6venbghg5w0UQeW6Iuc3ZxGQ3mYKcI3bk
- /DbmaZqY8KHnG4jK7qlFZQZVn6jrph84=
-X-Gm-Gg: AY/fxX4yIZZFbDPkEnUbvRfFwLdjY6yfsVn3XOFEjKtNTnQubYJHusqs+XInTPcvgF+
- wx9LummQapGd/FS7bRpSANmDUglivBft88YMuH8EteE2GuHgiB+RThoNZR7YBKOD0ubjdMJVFx6
- bLpB3o39pFsNWH5kLxDcIWmNpjc0oY572o5ULw/CrvlQ4oE22AQ/0zJwr34LhaRruPmQOMw21Mo
- ITTlJI1OKJnnWttEFJb2ioHoaCh+lzY27JmEVZjrHexcM52gQHgahlfjB84s1g4LysGtdqsbZg+
- b2b9Ht8=
-X-Google-Smtp-Source: AGHT+IGbexNqbpHfKfJA6IJneXNFlcW/Iwy+nKKHp8Rqze9NIPnkdBJAsrBQL5TxQQJea9Ml7i5WE1j+Ybe2rAEiIj0=
-X-Received: by 2002:a05:7022:4a4:b0:119:e56b:46ba with SMTP id
- a92af1059eb24-121f18e5ad8mr1533764c88.4.1767711175450; Tue, 06 Jan 2026
- 06:52:55 -0800 (PST)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F036710E511
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 15:03:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B765F43E72;
+ Tue,  6 Jan 2026 15:03:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99ECAC116C6;
+ Tue,  6 Jan 2026 15:03:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1767711820;
+ bh=6PWRTCruCy2T9djEXYIVH4hnSort9aaCvbTjSWdu5AU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=iKG6OAaXKypLdxRdWrfF8wqoX/pa8DaYhUihXN9PBnElPaKxikr2eCblQ+2JPDFIi
+ 9CHZFzMrsG4j6vRHVjdElsw2gdd6yQR0aaUnoof9xdihy2nc1KX1NXmE16jr0US1wu
+ mEkLNuYE31NRKSQNmg63vyWdM6qQQAEq3HSQXkh8eetANNYT8kTstxqK4x4DJfvGoX
+ yxxPH1JlDu6+Pt0gRdmQZVxMbz+1yOVH0H6CfD9PuXGByFslK+A+Ozwmn1FHEWWeB9
+ JGIBKFmqmTKuikomCq67l9qYO8c7mplYf499rmaKTMNlybqNW4tyckz4zWHYcb1xqZ
+ 2eEhWS+v/Uovw==
+Message-ID: <16dd4c62-c763-42fd-9ff1-a6dfcdbab109@kernel.org>
+Date: Tue, 6 Jan 2026 16:03:35 +0100
 MIME-Version: 1.0
-References: <20260102141629.617921-1-ben.dooks@codethink.co.uk>
-In-Reply-To: <20260102141629.617921-1-ben.dooks@codethink.co.uk>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 6 Jan 2026 09:52:43 -0500
-X-Gm-Features: AQt7F2oNtp0sRjFqbYLl8nt4XXpZ18Y12YF3gVJn4WQ0RJxeCTvYgZDAcNZYqXg
-Message-ID: <CADnq5_PZxhjk8xsqzoF_nmrOyYgUjLVNMUDRUEODym7sQ7MEuQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix signed v unsigned print formats
-To: Ben Dooks <ben.dooks@codethink.co.uk>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, simona@ffwll.ch, airlied@gmail.com, 
- christian.koenig@amd.com, alexander.deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] mm: only interrupt taking all mm locks on fatal
+ signal
+To: Mikulas Patocka <mpatocka@redhat.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, amd-gfx@lists.freedesktop.org,
+ linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+References: <b672e17b-461d-16ae-e7d3-45d3c1aab142@redhat.com>
+ <7whbqlfrwjr4z2d4bpny3rjyl5tetdyx7ccf52uvby7hgywoym@6l6m2xcytez7>
+ <e597171a-cc64-4811-a043-db2e539aaf94@mailbox.org>
+ <5dfbf2f9-0948-cd59-5c59-a6ee946ff9f2@redhat.com>
+From: "David Hildenbrand (Red Hat)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+In-Reply-To: <5dfbf2f9-0948-cd59-5c59-a6ee946ff9f2@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,59 +111,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  thanks!
-
-Alex
-
-On Fri, Jan 2, 2026 at 7:36=E2=80=AFPM Ben Dooks <ben.dooks@codethink.co.uk=
-> wrote:
->
-> Fix several places where %ld or %d has been used in place of
-> %lu or %u.
->
-> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+On 1/6/26 13:52, Mikulas Patocka wrote:
+> 
+> 
+> On Tue, 6 Jan 2026, Michel Dänzer wrote:
+> 
+>> On 1/5/26 19:15, Liam R. Howlett wrote:
+>>> * Mikulas Patocka <mpatocka@redhat.com> [260104 16:17]:
+>>>
+>>> I'm not saying it's wrong to change the signal handling, but this is
+>>> very much working around a bug in userspace constantly hammering a task
+>>> with signals and then is surprised there is a response that the kernel
+>>> was interrupted.
+>>
+>> I'd go further than that. If user space fails to retry the system call
+>> in response to -EINTR, that's a user-space bug, period. It can happen
+>> anytime for any number of other reasons. (That most system calls happen
+>> to get away without it most of the time doesn't make it not a bug)
+> 
+> So, I tried this - just for fun - and the machine doesn't even boot. I get
+> a lot of errors about inability to open particular files on the console.
+> 
+> Userspace is buggy, according to your definition, regardless of whether
+> you like it or not.
+> 
+> Mikulas
+> 
 > ---
->  drivers/gpu/drm/radeon/radeon_gem.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
-/radeon_gem.c
-> index f86773f3db20..891ef929cfa8 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -110,7 +110,7 @@ int radeon_gem_object_create(struct radeon_device *rd=
-ev, unsigned long size,
->          */
->         max_size =3D rdev->mc.gtt_size - rdev->gart_pin_size;
->         if (size > max_size) {
-> -               DRM_DEBUG("Allocation size %ldMb bigger than %ldMb limit\=
-n",
-> +               DRM_DEBUG("Allocation size %luMb bigger than %luMb limit\=
-n",
->                           size >> 20, max_size >> 20);
->                 return -ENOMEM;
->         }
-> @@ -560,7 +560,7 @@ int radeon_gem_set_tiling_ioctl(struct drm_device *de=
-v, void *data,
->         struct radeon_bo *robj;
->         int r =3D 0;
->
-> -       DRM_DEBUG("%d \n", args->handle);
-> +       DRM_DEBUG("%u \n", args->handle);
->         gobj =3D drm_gem_object_lookup(filp, args->handle);
->         if (gobj =3D=3D NULL)
->                 return -ENOENT;
-> @@ -886,7 +886,7 @@ static int radeon_debugfs_gem_info_show(struct seq_fi=
-le *m, void *unused)
->                         placement =3D " CPU";
->                         break;
->                 }
-> -               seq_printf(m, "bo[0x%08x] %8ldkB %8ldMB %s pid %8ld\n",
-> +               seq_printf(m, "bo[0x%08x] %8lukB %8luMB %s pid %8lu\n",
->                            i, radeon_bo_size(rbo) >> 10, radeon_bo_size(r=
-bo) >> 20,
->                            placement, (unsigned long)rbo->pid);
->                 i++;
-> --
-> 2.37.2.352.g3c44437643
->
+>   fs/open.c |    3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> Index: linux-2.6/fs/open.c
+> ===================================================================
+> --- linux-2.6.orig/fs/open.c	2025-12-31 20:10:31.000000000 +0100
+> +++ linux-2.6/fs/open.c	2026-01-06 13:28:01.000000000 +0100
+> @@ -1419,6 +1419,9 @@ static int do_sys_openat2(int dfd, const
+>   	struct filename *tmp __free(putname) = NULL;
+>   	int err;
+>   
+> +	if (current->pid != 1 && !(get_random_u8() & 0x1))
+> +		return -EINTR;
+
+Reading the man [1] page user space is only to expect EINTR in case it is
+prepared to deal with signals (install signal handlers), no?
+
+There are some exception documented:
+
+        On Linux, even in the absence of signal handlers, certain blocking
+        interfaces can fail with the error EINTR after the process is
+        stopped by one of the stop signals and then resumed via SIGCONT.
+        This behavior is not sanctioned by POSIX.1, and doesn't occur on
+        other systems.
+
+        The Linux interfaces that display this behavior are:
+
+        •  "Input" socket interfaces, when a timeout (SO_RCVTIMEO) has
+           been set on the socket using setsockopt(2): accept(2), recv(2),
+           recvfrom(2), recvmmsg(2) (also with a non-NULL timeout
+           argument), and recvmsg(2).
+
+        •  "Output" socket interfaces, when a timeout (SO_RCVTIMEO) has
+           been set on the socket using setsockopt(2): connect(2),
+           send(2), sendto(2), and sendmsg(2), if a send timeout
+           (SO_SNDTIMEO) has been set.
+
+        •  epoll_wait(2), epoll_pwait(2).
+
+        •  semop(2), semtimedop(2).
+
+        •  sigtimedwait(2), sigwaitinfo(2).
+
+        •  Linux 3.7 and earlier: read(2) from an inotify(7) file
+           descriptor
+
+        •  Linux 2.6.21 and earlier: futex(2) FUTEX_WAIT,
+           sem_timedwait(3), sem_wait(3).
+
+        •  Linux 2.6.8 and earlier: msgrcv(2), msgsnd(2).
+
+        •  Linux 2.4 and earlier: nanosleep(2).
+
+
+So I would expect that your test code hear breaks user space.
+
+
+[1] https://man7.org/linux/man-pages/man7/signal.7.html
+
+-- 
+Cheers
+
+David
