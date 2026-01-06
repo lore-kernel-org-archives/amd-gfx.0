@@ -4,110 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38376CDC196
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 13:01:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F54DCDC19B
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 13:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD8F510E3DE;
-	Tue,  6 Jan 2026 13:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0481810E49F;
+	Tue,  6 Jan 2026 13:19:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="pAW0DdAO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RfS87+Cn";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5008C10E3DE
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 13:01:32 +0000 (UTC)
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 6063RP1k021194;
- Tue, 6 Jan 2026 13:01:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=9jbSco
- 21zae7i/5a9bg9g1EY4HJCCMvtMwp/RjzT9/o=; b=pAW0DdAO5FBqsJtlC/Hui4
- 3Z/W71fXFRBDEfKeDb+coYa39FNtIuDSar1CIPy2jFP95XiL4YHkU3eRnp4BlqAW
- z7xou2mpxVsB2zNgjrU92jc3LJJNgcAopJzKn2iHXnZ5jkPhFEFXKadOFvrzPpo6
- /bJyR1ehWPwLy4Bsk2ZjM/Gj6mG7LDavYOdQzhAvEVCGyM3v9qNQmKSrI1LMGOik
- 14lxALx1N1iQd8NajvcHWu/nN+TJJwCBF/p9STOq79Zilef+w9cDg3oNnkV/GWrs
- fFQ3Vajb4jCOszCkr7rIsoa1sa1+jr06OBOiFEoKRu3E7QmnkcOD1/pB6eiXKdRw
- ==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4betsq3ya6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 06 Jan 2026 13:01:29 +0000 (GMT)
-Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 606D1Tfc024164;
- Tue, 6 Jan 2026 13:01:29 GMT
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4betsq3ya2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 06 Jan 2026 13:01:29 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 606AYTf1012568;
- Tue, 6 Jan 2026 13:01:28 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4bffnjb6tm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 06 Jan 2026 13:01:28 +0000
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com
- [10.241.53.102])
- by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 606D1Qvk58523924
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 6 Jan 2026 13:01:26 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 26E6358068;
- Tue,  6 Jan 2026 13:01:26 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7838558063;
- Tue,  6 Jan 2026 13:01:23 +0000 (GMT)
-Received: from [9.109.215.183] (unknown [9.109.215.183])
- by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
- Tue,  6 Jan 2026 13:01:23 +0000 (GMT)
-Message-ID: <1ae40c17-ae39-4772-993e-f61531869b67@linux.ibm.com>
-Date: Tue, 6 Jan 2026 18:31:22 +0530
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012052.outbound.protection.outlook.com [52.101.48.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2BAB10E49F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 13:19:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kHB5RFvBekWIYBh4zlfIdBKHPcAApIepGLg4mZrUu7EsD8OfMo2FDSoJoxgQkKgEej+rkxtfwior55+93VGUamNtdwB6hJkMIIkSbG+/5jJ7eo5+r5Redlc69rLojoiU7GAwcosCRAsCYF4a4XLnYhINIZoaovFmlHzcPBBUZ+MKZwH6wse4601aGIc0VPuxIF2230fr467zXM858Xl/x40/qYjtjtLOk+Al9oS0ot81I2n+PEUE4/y2BoNO3Y2MUQFuMNUeqVFS1FMs/U7iB36Y9TKN/C8xYNeDn6RSbJpGOmmd/qgdDkga4ykGsawxOFzrF38Ta2P5S8V6LdsW9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cEjc3Ae5fawNYsoLm6igAieqLoivy/zmLK8PeA16UMo=;
+ b=hEb21M9ElZgaorvLIgF1Ln2Ft+PhJo8u1CsdFVlJiHOXt/QOLSdhP0jOacx9yZnNmpyrFF6sV+DrwWeqo+xd067AMuGETpl5FQ2zxZfL+WRmLrvKMWkIDoJ1BzMhUB3tVSGAZStLDGHxZ1O2aEqRzCxwPznAGQQW8wtdVU/sbVX/ua8GvAHkoRKP/6bg5qmzIN770SjdUSxTUd0ZQYiLma2Vx+DraURTx75slOtsDaitSquMzpzK2pS5lEGhCXS7J4Dn59/WV2//SUrTl51YYZIBhqpiP6bVthPgcJ4q0Z/h194z+r7+DEqXUFt6qXuozuiwV4xhADhfb32H+l+UEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cEjc3Ae5fawNYsoLm6igAieqLoivy/zmLK8PeA16UMo=;
+ b=RfS87+CnxEa0oR+G/T49X1AmmBiPf60F7vcBwlBGe+I/UudWmdFVf+4TTWalSZYtmtnqYu13Jp+I2n0oQ3PYimsbrDwaFFhaPbpcEcwiioFq/Z0qGXj5eP1KbJOZT4yQX9wiIr9TnBV5BJe/AKRC+IATvPMv1LW3sGVmOoX0MtA=
+Received: from MW4PR03CA0284.namprd03.prod.outlook.com (2603:10b6:303:b5::19)
+ by DS0PR12MB6488.namprd12.prod.outlook.com (2603:10b6:8:c3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Tue, 6 Jan
+ 2026 13:19:34 +0000
+Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
+ (2603:10b6:303:b5:cafe::1a) by MW4PR03CA0284.outlook.office365.com
+ (2603:10b6:303:b5::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9478.4 via Frontend Transport; Tue, 6
+ Jan 2026 13:19:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9499.1 via Frontend Transport; Tue, 6 Jan 2026 13:19:32 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 6 Jan
+ 2026 07:19:30 -0600
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu: validate the flush_gpu_tlb_pasid()
+Date: Tue, 6 Jan 2026 21:19:21 +0800
+Message-ID: <20260106131921.801193-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 7/8] amdgpu: Align ctl_stack_size and wg_data_size
- to GPU page size instead of CPU page size
-From: Donet Tom <donettom@linux.ibm.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
-References: <cover.1765519875.git.donettom@linux.ibm.com>
- <f7f8f41d58ab2967cd8d077b4937aaa04d58a066.1765519875.git.donettom@linux.ibm.com>
- <2a213294-bf56-4ead-9e1f-cc8c3d4003a0@amd.com>
- <7e367a8b-6dda-4eec-98ff-aa0bb6550a77@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <7e367a8b-6dda-4eec-98ff-aa0bb6550a77@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: zdA8TMid6cgSf9Ja5Pbx7d98EpmUobPn
-X-Authority-Analysis: v=2.4 cv=Jvf8bc4C c=1 sm=1 tr=0 ts=695d07a9 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VnNF1IyMAAAA:8 a=81G2EmcVL6cvyjW_qqkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: ae1-HzaxjaR6tgECcqiNTTolykCt2_85
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA2MDEwMiBTYWx0ZWRfXx5QwUDKvGd6A
- M9qzxj7qTgHbGFEAuubAH85z2/aW80+63qGtrYwIpALrIcveUasWkJxWdCvXNh2CqiTEX6i8fQ/
- oPSfVz73BudOZ9E8gYmB/kdNQtya4LYCjiVBtLUVTcnXPFz8o8XziPjjfNo39rAgqhDR/xJ1teW
- 58dKV6iA93/4w7MIe9e9SxHtcSSDi6TO3i0MIfeslUNbfnEBUaYAu5Ob9JGpTsm4OAnMsTlG3sR
- /i0bhBHH2NkboHUv0elpgv3lLV97WVb9sK462Kp22KgCyDnPOq4hbpd34r1qYkuBg3g0ZwFCjbJ
- KLAbJXMS39xt9FFFvZ/NSjPy+JCzS/jumGNTZGpmBZ6zRJ4E1Pd+mpfiIP1MntMV1IblaPYtXGG
- orY8TWo7a72dv8kM/Rg+lbFlFKUr2GmGMEQ99NGNQXAsIg4OJrf6x676XmbzpGR/a6iCj//02M6
- XVc/LwLCktSQ/A0fxeA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-06_01,2026-01-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 adultscore=0 spamscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2512120000
- definitions=main-2601060102
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|DS0PR12MB6488:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ef35ce1-ffbb-4ad4-1013-08de4d263b34
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uqLxhTBqQCP1G6vsAzFT2MJXg6IE1/swXOSwyakxmvP5myzncMEdAg48Z6iR?=
+ =?us-ascii?Q?7tAm6iJ6QUtGTBaJniY/oq3WHhfYrCxdrKCyGdB/MRpyv18brQ6ZHyPEMAUi?=
+ =?us-ascii?Q?YzCVcwRPTNS5kmF/dmUnv4AssOkPNWuxckh3FFkBIjIUCNlwtziuM827oLp+?=
+ =?us-ascii?Q?UL4rzvcuX9M9Y1dj5utV++2W9qTchI4Ip2jMgmG2I60r8NvuNhD8dJDErCgX?=
+ =?us-ascii?Q?TqGUKhY+M5fKEaUcq0dlW9jVsGhXJk3DfCaCMtsSe67xtpoIzk+aWCjmp8Ok?=
+ =?us-ascii?Q?haMqR9hU5kPohR3bC2ks8e0bQZlCxWSEp0bg2jO25AtAvYfGxS6ZsmRYg0WC?=
+ =?us-ascii?Q?nZH3VFv0LkpbiAIPWLlA+PF3HvbSiNL3mhOB9vgL2pIDVgz5EuDpyFaS1nI9?=
+ =?us-ascii?Q?UNAjTLaM2jGy1h3LdkN/DR8HMOW6f0SYuFbfPAAal+0ygJvX+t5vkPgLK0rA?=
+ =?us-ascii?Q?VKCAcy1TXSra/DzVJKT7rpDYa5aZoLTHEqfnEQQNIkUuYnVTqVC2fwYxKHr6?=
+ =?us-ascii?Q?ieCSfxlTi2yPISEUtTKB1/hz0W4cwkeAQYfOo2C1z+F4z5JSgEa+kPRq3I/M?=
+ =?us-ascii?Q?IVopUCPI+yfH+EUUOS25Eqv4a3BC6E8ySAo/cBvE7raRhjjm9PMKyPPpr35v?=
+ =?us-ascii?Q?RlLyo2h4ufgGL+WWBaVDucuDdY2d+Dt99cotHw1RfA1HdLsL2K3LA2uAtKWi?=
+ =?us-ascii?Q?mnowIxDx3cBkbT4oZoGrBuN8FYBAqkd2Y4j1wOgL6OEy7LmzZiGTRZFS4S9u?=
+ =?us-ascii?Q?NYDb8wDSIEqiT/KT4qpP16y/Do6oK53IdByWBozGRmg3NNah+C/GZW2Zj5bo?=
+ =?us-ascii?Q?igz/wjtJZQ4ptktHONqpNmuu3qTcSY5e509F7EbI6GHq95rLHmLvBUyJjkcW?=
+ =?us-ascii?Q?KyN2lAbfzmnDSc7CF14RVaZP/CFTUpl10561X8ycCSY8eoOp4MdscfVSoLjg?=
+ =?us-ascii?Q?kkLaHGS+JG2cJYCfsqXlZF8eEMlJNm+Phopt53AwWa2Y7UAGDdMOofNiFXHt?=
+ =?us-ascii?Q?POemYlRewwKkcWNe3E51k8hmDQNGXidSHa++otU1gFBQvCr9ndHRHGGhMQBr?=
+ =?us-ascii?Q?SoFs3nxbeDBmTvnPC72dl3iOwC6ik2Ue8Wg4aO9OPys9cTWKFSQgLVaiSAnd?=
+ =?us-ascii?Q?dTdsPwZtW+xmHR61aVsqTVikJqmy/tBXbzh7z3945Ugd+gPD5Us5O00YwurO?=
+ =?us-ascii?Q?UKc6c25NnYAC6L/b3aTDHOnfFfaT3yXT2tVM9x76MLhxzkYCfrolOBIJcZRl?=
+ =?us-ascii?Q?51t8qvg7+BOMDj8U3SH5UQTFychw+NF2SMlW8mHp6gxoOnZvIziYa2KjDYR8?=
+ =?us-ascii?Q?nFQY064mUxO6F26vPsNDxvdboOcH0SqXPj46ARrHGQNcllhafur4X3fsHRZK?=
+ =?us-ascii?Q?10Kvi5fpaRV/pS51m7/SYm/b3mmFtfEuMjtQdgSbVdOIeeW7dGc3GnpYL3op?=
+ =?us-ascii?Q?qB4VS7wzOS8w0ExqnthMt8ZIlYo9YHVSS16MCVAcTdj5DDPuC54vvG6Bm18U?=
+ =?us-ascii?Q?35zCh1TMIFHyy4xaHCr0zXDBbgANsJYZXkSfQ6xkg814daki3d6GWGwuLcAd?=
+ =?us-ascii?Q?f27NBrzlzxoYHQCqxnc=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2026 13:19:32.9194 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ef35ce1-ffbb-4ad4-1013-08de4d263b34
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6488
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,152 +132,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Validate flush_gpu_tlb_pasid() availability before flushing tlb.
 
-On 12/19/25 3:57 PM, Donet Tom wrote:
->
-> On 12/12/25 2:34 PM, Christian König wrote:
->> On 12/12/25 07:40, Donet Tom wrote:
->>> The ctl_stack_size and wg_data_size values are used to compute the 
->>> total
->>> context save/restore buffer size and the control stack size. These 
->>> buffers
->>> are programmed into the GPU and are used to store the queue state 
->>> during
->>> context save and restore.
->>>
->>> Currently, both ctl_stack_size and wg_data_size are aligned to the CPU
->>> PAGE_SIZE. On systems with a non-4K CPU page size, this causes 
->>> unnecessary
->>> memory waste because the GPU internally calculates and uses buffer 
->>> sizes
->>> aligned to a fixed 4K GPU page size.
->>>
->>> Since the control stack and context save/restore buffers are 
->>> consumed by
->>> the GPU, their sizes should be aligned to the GPU page size (4K), 
->>> not the
->>> CPU page size. This patch updates the alignment of ctl_stack_size and
->>> wg_data_size to prevent over-allocation on systems with larger CPU page
->>> sizes.
->> As far as I know the problem is that the debugger needs to consume 
->> that stuff on the CPU side as well.
->
->
-> Thank you for your help.
->
-> As mentioned earlier, we were observing some queue preemption and GPU 
-> hang issues. To address this, we introduced a patch, and after 
-> applying the 7/8 and 8/8 patches, those issues have not been seen anymore
->
-> While debugging the GPU hang issue, I made some additional observations.
->
-> On my system, I booted a kernel with a 4 KB system page size and 
-> modified both the ROCR runtime and the GPU driver to set the control 
-> stack size to 64 KB. Even on a 4 KB page-size system, using a 64 KB 
-> control stack size reliably reproduces the queue preemption failure 
-> when running RCCL unit tests on 8 GPUs. This suggests that the issue 
-> is not related to the system page size, but rather to the control 
-> stack size being exactly 64 KB.
->
-> When the control stack size is set to 64 KB ± 4 KB, the tests pass on 
-> both 4 KB and 64 KB system page-size configurations.
->
-> For gfxv9, is there any documented hardware limitation on the control 
-> stack size? Specifically, is it valid to use a control stack size of 
-> exactly 64 KB?
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index cd4acc6adc9e..f871f1693483 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -780,6 +780,10 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+ 		return 0;
+ 
+ 	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
++
++		if (!adev->gmc.gmc_funcs->flush_gpu_tlb_pasid)
++			return 0;
++
+ 		if (adev->gmc.flush_tlb_needs_extra_type_2)
+ 			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
+ 								 2, all_hub,
+-- 
+2.34.1
 
-I have one more question based on my understanding of the code. The 
-control stack size depends on the number of CUs and waves. For GFXv9, 
-what is the maximum possible control stack size? Can it reach 64K?
-
-For GFX10, I’ve seen that the control stack size must be less than or 
-equal to 0x7000. Is there a similar limitation for GFXv9?
-
-I’m asking because, with both 4K and 64K page sizes, I’m seeing queue 
-preemption failures on GFXv9 when the control stack size is set to 64K.
-
-
->
->
->>
->> I need to double check that, but I think the alignment is correct as 
->> it is.
->
->
-> The control stack is part of the context save-restore buffer, and we 
-> configure it on the GPU as shown below:
->
-> m->cp_hqd_ctx_save_base_addr_lo = 
-> lower_32_bits(q->ctx_save_restore_area_address);
-> m->cp_hqd_ctx_save_base_addr_hi = 
-> upper_32_bits(q->ctx_save_restore_area_address);
-> m->cp_hqd_ctx_save_size = q->ctx_save_restore_area_size;
-> m->cp_hqd_cntl_stack_size = q->ctl_stack_size;
-> m->cp_hqd_cntl_stack_offset = q->ctl_stack_size;
-> m->cp_hqd_wg_state_offset = q->ctl_stack_size;
->
-> The control stack occupies the region from cp_hqd_cntl_stack_offset 
-> down to 0 within the ctx save restore area, and the remaining space is 
-> used for WG state. This buffer is fully managed by the GPU during 
-> preemption and restore operations.
-> The control stack size is calculated based on hardware configuration 
-> (CU count and wave count). For example, on gfxv9, the size is 
-> typically around 32 KB. If we align this size to the system page size 
-> (e.g., 64 KB), two issues arise:
->
-> 1. Unnecessary memory overhead.
-> 2. Potential queue preemption issues.
->
-> On the CPU side, we copy the control stack contents to other buffers 
-> for processing. Since the control stack size is derived from hardware 
-> configuration, aligning it to the GPU page size seems more 
-> appropriate. Aligning to the system page size would waste memory 
-> without adding value. Using GPU page size alignment ensures 
-> consistency with hardware and avoids unnecessary overhead.
->
-> Would you agree that aligning the control stack size to the GPU page 
-> size is the right approach? Or do you see any concerns with this method?
->
->
->>
->> Regards,
->> Christian.
->>
->>> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
->>>   1 file changed, 4 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
->>> index dc857450fa16..00ab941c3e86 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
->>> @@ -445,10 +445,11 @@ void kfd_queue_ctx_save_restore_size(struct 
->>> kfd_topology_device *dev)
->>>               min(cu_num * 40, props->array_count / 
->>> props->simd_arrays_per_engine * 512)
->>>               : cu_num * 32;
->>>   -    wg_data_size = ALIGN(cu_num * 
->>> WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
->>> +    wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, 
->>> props),
->>> +                AMDGPU_GPU_PAGE_SIZE);
->>>       ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
->>>       ctl_stack_size = 
->>> ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
->>> -                   PAGE_SIZE);
->>> +                   AMDGPU_GPU_PAGE_SIZE);
->>>         if ((gfxv / 10000 * 10000) == 100000) {
->>>           /* HW design limits control stack size to 0x7000.
->>> @@ -460,7 +461,7 @@ void kfd_queue_ctx_save_restore_size(struct 
->>> kfd_topology_device *dev)
->>>         props->ctl_stack_size = ctl_stack_size;
->>>       props->debug_memory_size = ALIGN(wave_num * 
->>> DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
->>> -    props->cwsr_size = ctl_stack_size + wg_data_size;
->>> +    props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, 
->>> PAGE_SIZE);
->>>         if (gfxv == 80002)    /* GFX_VERSION_TONGA */
->>>           props->eop_buffer_size = 0x8000;
