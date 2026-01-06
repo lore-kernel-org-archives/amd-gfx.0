@@ -4,148 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B9AC2A073
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 06:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A4F5C2A073
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 07:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C02410E480;
-	Tue,  6 Jan 2026 06:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13C510E0A7;
+	Tue,  6 Jan 2026 07:04:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="trNhY+P0";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="02oD88xC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EuqUx8Br";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="02oD88xC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EuqUx8Br";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010041.outbound.protection.outlook.com [52.101.46.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD3A10E254;
- Tue,  6 Jan 2026 06:57:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qAa0S8w8h8IwW64tTPQB9FgsBqwua87KIsnxb5qBNd7H8pJZPLcgdWYVN4YvEoDchcVUDSa0J/+N0ds9vf3wIQqz8uLNZF87SFnDrv//KkPQe4m6aBHvz0xzvK1Yi28GQ+2NwsQb9IoaheIhygoaxfrfZ2jBNfuzl6UE3NMWexK+etABlRhdt+pmema+7KJYpoTinesWH8JTZOfNF9Jiuwr0fcryJ1L4u4aT3LOl5YBUylBWbQnVaqpLWw59BuKBZJ8sempXPUNIbP8lUXQSeVWZGxjpRn7+kr1cua+LmgvIkolmGh504yAL/i1KlRvFQlP+cfKk/G74Q0VOvX71Iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rmtzBHroMV7QrhShhD8kjar7b+l7bDx7ueVO0J2TcN0=;
- b=wV8GqKywaEVl4Y3xUKrbYDXy1qI7EJ0Ch6Cqwu3lpeZyL+kQgoDP/U9vc6nUFOibZBUhIF0M+mMam3/n/y9pkHbj+Q2am46vJiDnpomRDP20hS2DSBK1PG/3oO5Ubh26HDGjTYOpr3hRz4WuhobmdPonS2aSpfNmnmo3MQr/Uw3ki/NugsEEjTMqXf/2ykcIfRf+ofxcP23n4cx2xndh00hWi+lsJIM+lkPMkA7ykT8U3nuAcHKtRpwBMnDVcrQi21PW4Mzng2l/jijOPLRCQxiQBA6WxDBWD5HHmdgwjtbwaaapOkEQ6jd/s3H/K3Ka4B/uC9asSsmLyAcx0hNMTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rmtzBHroMV7QrhShhD8kjar7b+l7bDx7ueVO0J2TcN0=;
- b=trNhY+P0Vau4Z0KN7adfTKgYJbsareN5Xi8xKJZvAFHJEmw/S7WuRZ9QUbC47CsFgiOdAfZZKtXvjVV1qEJmYIZ8+i4mtUDboqzh7oSS1QZFTYF3o7IbVMbJUBrIgp+ZeKAHIIeLp3ezAI+Fjcb53alcM3acs8N6ndZdmSbGLCo=
-Received: from SJ2PR12MB7798.namprd12.prod.outlook.com (2603:10b6:a03:4c0::21)
- by CY5PR12MB6180.namprd12.prod.outlook.com (2603:10b6:930:23::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.2; Tue, 6 Jan
- 2026 06:57:41 +0000
-Received: from SJ2PR12MB7798.namprd12.prod.outlook.com
- ([fe80::95a5:4454:6ffb:ca65]) by SJ2PR12MB7798.namprd12.prod.outlook.com
- ([fe80::95a5:4454:6ffb:ca65%5]) with mapi id 15.20.9478.004; Tue, 6 Jan 2026
- 06:57:41 +0000
-From: "Yao, Chengjun" <Chengjun.Yao@amd.com>
-To: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-Subject: RE: [PATCH] drm/fb-helper: Fix vblank timeout during suspend/reset
-Thread-Topic: [PATCH] drm/fb-helper: Fix vblank timeout during suspend/reset
-Thread-Index: AQHcbZtqH0qIa9QnuUuuJxuGInCNcrUlhPDAgB8RnBA=
-Date: Tue, 6 Jan 2026 06:57:41 +0000
-Message-ID: <SJ2PR12MB7798881187B2D2298F09987A9287A@SJ2PR12MB7798.namprd12.prod.outlook.com>
-References: <20251215081822.432005-1-Chengjun.Yao@amd.com>
- <SJ2PR12MB77985EE047EE14673B955D6292ABA@SJ2PR12MB7798.namprd12.prod.outlook.com>
-In-Reply-To: <SJ2PR12MB77985EE047EE14673B955D6292ABA@SJ2PR12MB7798.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-12-17T08:35:19.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR12MB7798:EE_|CY5PR12MB6180:EE_
-x-ms-office365-filtering-correlation-id: ec18c800-f6b6-4d44-ff17-08de4cf0e2dd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7053199007|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?S8DPe6Co/k7cHPYzAXcx4SzVb8q1rrWGuPEm2VkJIC8A6yBOCtiQAC/HhAS2?=
- =?us-ascii?Q?mG2Z9VDdPy28WZJdEctcTBk1GAf2HPhnwxByygjVxdnIhgPvdKQvz+/BfWyk?=
- =?us-ascii?Q?DFIqs413mUdNf35msDDz4/qpjL75kMnzUr9vI/igdvmMkAOVWmwXTStFx6um?=
- =?us-ascii?Q?S06wY/+l05nWvMUIClkKmqSXm2k2RPdwWEJjPWLA/m8flsudIpNOxSuM8lsc?=
- =?us-ascii?Q?66DzYJwvUr0iNSoOSXZY3T7utN0UyNbyE2wpjYGUDmwzFkY2x9loDuLpsYfk?=
- =?us-ascii?Q?d61RCfhCPv7Z8xTlHlcIAqUsaN6XX6p7vI5nzxb5/qeig/gsnES5uJogVYGX?=
- =?us-ascii?Q?Splgr1mgyiLDySc8YPE6fv/T+OlUn52bqTPXwnIJrA6RxyctePvVIrPPslqc?=
- =?us-ascii?Q?EHWB8SiTgBuLWuP7SthIzTqdCPd7ngviES9JIQGztwVY7nATSnsQogt10o6x?=
- =?us-ascii?Q?U0klMGxtEZ4We7w4VkW1uEnggGeqlw6ZUwtaX15Qo11JxOLmd9dVT2DAHx8q?=
- =?us-ascii?Q?ktMwlZH8ow5jVWRfXSSmC0nAkJ+p83UEBTs4x6mCIWWxv2WcCjpuWZk2NVc4?=
- =?us-ascii?Q?xB8m6vg820uoP9HnUbMstfzqx0grRguDYBFsNvlk3+WKR0mQj0fBwVHFOpBX?=
- =?us-ascii?Q?UCFdAaxc8pkg5IZvH4ZpIh5eMaGTIz5sOorebDuis4XS2oEJliI2inRqWk+Z?=
- =?us-ascii?Q?S3Sb/0FWBswcnbOJB/RwZoaY2gCzG0Vof9y3fkECYzVFhM2u7k9xACKJq7I6?=
- =?us-ascii?Q?n93laCeMX+CE7oOhxtl2Be9bYy08sCp50bcplT5wSdovEIhmA1ez3ZKEyzN2?=
- =?us-ascii?Q?bSXqNG7sLhPlsAcm+0gepzR4ZxIqA8QkEH7qob092UaWoewmF1ktN+RyS4A9?=
- =?us-ascii?Q?swqJouaNvBsNa9WD6Ft+BZGFAyrCzbbYAV+0106A6JnY3C4RCIGVUx7OHtgL?=
- =?us-ascii?Q?SW1frHun/VBBOc9p24C3sQhpSWeCNqEyaaoMdLUQ7Qa2snnlD4ChIVgB0ZG7?=
- =?us-ascii?Q?bCXKFybciQXVxB4Y87V7NcMMgUo6+OyN4LhrC9duEFaF1z+o7stWW9rhio/m?=
- =?us-ascii?Q?0mw2KTntUeftwiiX/3sGElsKFXaVd2jFMcj7qdFqdnGK0n2wkSuzzrQYKcbQ?=
- =?us-ascii?Q?aBlUmLUDG9kVN2NvphOK45sil0OcDdtqnsiuZR8tYVskVo0h+5uV9uaeompm?=
- =?us-ascii?Q?5sNoxwUSNEch4T5alWkysoqLBZgttjeGgibIy8nM15blbKcDBhljosvm3+gT?=
- =?us-ascii?Q?tfQLuHH4UXDpYaKylSm7gAvuVpiTHK1iJtiQUEbX8uJ1h4Fudgx7FGU0BJDY?=
- =?us-ascii?Q?e9OidfOzj6B0Q+/SIGytBu3/VQ8kK6H7nmTQrhldJ+OzT+02clbxJMwIropd?=
- =?us-ascii?Q?QuHra9UA1mHcTjVIhvykC3gRkK5u4twK+fzGUFdAxyAufQaLUuCeY5OWh9RX?=
- =?us-ascii?Q?kE/wGOxjRpmBqMis/9rwMmXeMSaCR3hesLWlLbhcmAxBZ2yxNsTP5Av+kJey?=
- =?us-ascii?Q?i7DSZTm9j1bZPAW+tX8nNCkN9TMovaNbNlbP?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB7798.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(38070700021); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?sAz4k1xYx57iIaCxo1fb0eaLcDyfN2uJzWLo0QliDSmv9KvuKJMR7T1uXlTD?=
- =?us-ascii?Q?erR7pOyFbYPZSPRUukAvAd5XVgQBm/Y3wJcyhuvgN0WqfdiCbBKS2jO5j6ti?=
- =?us-ascii?Q?rfavUJsGTVXCzL/J3cHLu4WRCxz+iMxXpsEkQ+CWoVb42BerXddprWWmbEb7?=
- =?us-ascii?Q?cVS8vvWIvuv70RcJSwO97ICkQaeHNvnUb8pyOr3ATvRmajh5FuX7eMCRix0p?=
- =?us-ascii?Q?H2z5wCTqmTtDeUDUljGzjad77L1srgkWIaThJdIER4efnjkbfPnhwxc5RQxz?=
- =?us-ascii?Q?T5UKqGCkJBSQemKG3am9EF0XoskLYS95sy7Bc8yq0/4EQz1+fjxIXgxRX+xi?=
- =?us-ascii?Q?h6egUaVcN9ZGY0mQ6sek6moCahnMRoDgqdWfUe0pSsv9jwehOSBEGhSaExem?=
- =?us-ascii?Q?HLn6lWauGoVmrEHbCvjc0t0ITERr2vz4XBCLFYmvS3m/yGWdQNd0E4IMC3+9?=
- =?us-ascii?Q?h/3Bi8/ygArLrbOaSryd3h2woP7CC4+t+ces1Myt+tzAdMYWFS8dJ6fatClr?=
- =?us-ascii?Q?djrvF8LN9yB79irtfTM6Yn3WMGbpAdNuT9ik8lHWYiz6tbN4WzOp9Yy7dGUE?=
- =?us-ascii?Q?0s6jhcZ4u64mwlMl8hctmU5fgkZf61DiZ1cYOfUP6I6ZhkWtwxyhg3hkYIdm?=
- =?us-ascii?Q?azTl5GurB3hY/jia8RUJ81FhmRzMd7E+rugNX/X49MKL6meWf7qQ/XbMz/EL?=
- =?us-ascii?Q?sqQWCX0u1q4+Nqmi9JtYRwUKlBBrwKrTe9jyq6Q4qnJqqo9EavVdVwopqrgn?=
- =?us-ascii?Q?ICPd73tTyhPOlNf89+Uv57MCFvtwT+l331bGUcppIfHbErGla6UxdHp19qtM?=
- =?us-ascii?Q?ZVeyg/2R0uu9VvoFKLAb6q3lx51y/AwpZ7cdW02nERI/50GksZv54vjBES4j?=
- =?us-ascii?Q?bIstCmhJRpkqrW2K6FcL6wJKDppgT8YmtlEtMSqisA3Q9LUG6twEnxKy/LIf?=
- =?us-ascii?Q?ToXhb+xlEHtnDmBSjitHnUo6JaeJgskwhNLQTf/iQv3GuoijXLAg7/ikhrfr?=
- =?us-ascii?Q?5yMEDdRbtldNDxb5VuL6R9Ni46u4tAp7qQB8p5d4G2Zo4WZSV1WRU3948bF8?=
- =?us-ascii?Q?XTRZxju3oleOiHt17oBdGZo0BWhKaVEREJYywxSiDf55sJc+vyi0OcDw2GMY?=
- =?us-ascii?Q?xT94pEgSxyDSOhjcQMhxI1+lPUjt2FXFhSjUYO6471F6kBwZSfEk81Oca3Ex?=
- =?us-ascii?Q?Z7DjyS/pVxnRWPqvL4iRY78MyVhwNz43KNmTeXCJbhu4H5dMTX68FLe4uE/7?=
- =?us-ascii?Q?eeZ3RbU40jWlHpSauQEBWDc2HdELfo3IZR0B8qE/W90wKzeXVt48fgdudyrD?=
- =?us-ascii?Q?xKP4YeZdgdju4mAe+E3MM8Z5ClSgHwE71AI75G4kDnjF0j1XZRdO5bBShFiv?=
- =?us-ascii?Q?ZCsveCFA2ljXS44IlUJMjIQONYY8MKCuFC7yp4Zakwc+Tg1Y6fPpR9FxmbeY?=
- =?us-ascii?Q?rE2XZjn/S3/DF8VgJmnezaAiOb66LiLLoc/qSnINLQaTCunMmjAJMx06bn2i?=
- =?us-ascii?Q?A3YuQVyNoLScbTLn1JT9U0ebt+oB7wfqe5CS31yB38GVd7V+TETiRE+qxx2O?=
- =?us-ascii?Q?2SP7HTo6cSFguOZmJn1tmySUEuhTrMrqsVTHY3EXd92hDRpZcONShpeUZCc/?=
- =?us-ascii?Q?ZBjpUpxbSV9wrNeLpWOCg51K7I7sU+ZxWZzJ5R2E9XdJM7QlRXtl6dzZkHac?=
- =?us-ascii?Q?GiafGnb/fp/vRC+2pkyIdwm1dGTL1OUDVTt3fSqnmfWNq38U?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2092C10E0A7
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 07:04:37 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BC8C95BCC4;
+ Tue,  6 Jan 2026 07:04:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1767683075; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8ENBZMJ5eKWNdw8VNIYSLbmPTayj5BgVkHTNw1ev+ZI=;
+ b=02oD88xCQUQHtkuC6uiCgt3pks07SO9Zztbh5IIC6bxnF2K/AaLQqOc/cpByw/lMvrVcc3
+ DZ+6MEjRRnM7RAXTUOUnZMR6rJseEK6o1W9eJh+HPqLxpoV7DDVdFA+UjS/OCNbmfQe46/
+ 81PKMHsR6RcC2KJmLxWKUswnNMOikoQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1767683075;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8ENBZMJ5eKWNdw8VNIYSLbmPTayj5BgVkHTNw1ev+ZI=;
+ b=EuqUx8BrSZzeROEVihR7N7z81ettBiGvcPzavYR82Ge4wkJ4N0R8EX1qWuOtBvF5LG1nbu
+ dvA2aoLuBIXOiKAg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=02oD88xC;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EuqUx8Br
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1767683075; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8ENBZMJ5eKWNdw8VNIYSLbmPTayj5BgVkHTNw1ev+ZI=;
+ b=02oD88xCQUQHtkuC6uiCgt3pks07SO9Zztbh5IIC6bxnF2K/AaLQqOc/cpByw/lMvrVcc3
+ DZ+6MEjRRnM7RAXTUOUnZMR6rJseEK6o1W9eJh+HPqLxpoV7DDVdFA+UjS/OCNbmfQe46/
+ 81PKMHsR6RcC2KJmLxWKUswnNMOikoQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1767683075;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=8ENBZMJ5eKWNdw8VNIYSLbmPTayj5BgVkHTNw1ev+ZI=;
+ b=EuqUx8BrSZzeROEVihR7N7z81ettBiGvcPzavYR82Ge4wkJ4N0R8EX1qWuOtBvF5LG1nbu
+ dvA2aoLuBIXOiKAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 961073EA63;
+ Tue,  6 Jan 2026 07:04:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wBYVIwO0XGkxagAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 06 Jan 2026 07:04:35 +0000
+Message-ID: <652a40bd-2792-4a88-b3b3-6d56e1a14b5d@suse.de>
+Date: Tue, 6 Jan 2026 08:04:35 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB7798.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec18c800-f6b6-4d44-ff17-08de4cf0e2dd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jan 2026 06:57:41.4690 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NQR/u/if5BJu9reg0poljEfcHM/zcn80dPy3X0CWn4ZJkequLostJq4HId/V4Rjloy8snNdiAQmxlQrqJ0mEkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6180
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/fb-helper: Fix vblank timeout during suspend/reset
+To: Chengjun Yao <Chengjun.Yao@amd.com>, Aurabindo.Pillai@amd.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+References: <20251215081822.432005-1-Chengjun.Yao@amd.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20251215081822.432005-1-Chengjun.Yao@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+X-Spamd-Result: default: False [-4.41 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_BASE64_TEXT(0.10)[];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,amd.com:email,suse.de:email,suse.de:dkim,suse.de:mid];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: BC8C95BCC4
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,129 +143,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Ping...
-
------Original Message-----
-From: Yao, Chengjun <Chengjun.Yao@amd.com>
-Sent: Wednesday, December 17, 2025 4:36 PM
-To: Yao, Chengjun <Chengjun.Yao@amd.com>; Pillai, Aurabindo <Aurabindo.Pill=
-ai@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; tzimmermann@su=
-se.de; amd-gfx@lists.freedesktop.org
-Cc: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; dri-devel@lists.freedeskt=
-op.org
-Subject: RE: [PATCH] drm/fb-helper: Fix vblank timeout during suspend/reset
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-ping
-
------Original Message-----
-From: Chengjun Yao <Chengjun.Yao@amd.com>
-Sent: Monday, December 15, 2025 4:18 PM
-To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>; tzimmermann@suse.de; amd-gfx@lists.freedesktop.org
-Cc: Yao, Chengjun <Chengjun.Yao@amd.com>; Pillai, Aurabindo <Aurabindo.Pill=
-ai@amd.com>
-Subject: [PATCH] drm/fb-helper: Fix vblank timeout during suspend/reset
-
-During GPU reset, VBlank interrupts are disabled which causes
-drm_fb_helper_fb_dirty() to wait for VBlank timeout. This will create call =
-traces like (seen on an RX7900 series dGPU):
-
-[  101.313646] ------------[ cut here ]------------ [  101.313648] amdgpu 0=
-000:03:00.0: [drm] vblank wait timed out on crtc 0 [  101.313657] WARNING: =
-CPU: 0 PID: 461 at drivers/gpu/drm/drm_vblank.c:1320 drm_wait_one_vblank+0x=
-176/0x220 [  101.313663] Modules linked in: amdgpu amdxcp drm_panel_backlig=
-ht_quirks gpu_sched drm_buddy drm_ttm_helper ttm drm_exec drm_suballoc_help=
-er drm_display_helper cec rc_core i2c_algo_bit nf_conntrack_netlink xt_nat =
-xt_tcpudp veth xt_conntrack xt_MASQUERADE bridge stp llc xfrm_user xfrm_alg=
-o xt_set ip_set nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_=
-ipv4 xt_addrtype nft_compat x_tables nf_tables overlay qrtr sunrpc snd_hda_=
-codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic snd_hda_codec_=
-atihdmi snd_hda_codec_hdmi snd_hda_intel snd_hda_codec snd_hda_core snd_int=
-el_dspcfg snd_intel_sdw_acpi snd_hwdep snd_pcm amd_atl intel_rapl_msr snd_s=
-eq_midi intel_rapl_common asus_ec_sensors snd_seq_midi_event snd_rawmidi sn=
-d_seq eeepc_wmi snd_seq_device edac_mce_amd asus_wmi polyval_clmulni ghash_=
-clmulni_intel snd_timer platform_profile aesni_intel wmi_bmof sparse_keymap=
- joydev snd rapl input_leds i2c_piix4 soundcore ccp k10temp i2c_smbus gpio_=
-amdpt mac_hid binfmt_misc sch_fq_codel msr parport_pc ppdev lp parport [  1=
-01.313745]  efi_pstore nfnetlink dmi_sysfs autofs4 hid_generic usbhid hid r=
-8169 realtek ahci libahci video wmi [  101.313760] CPU: 0 UID: 0 PID: 461 C=
-omm: kworker/0:2 Not tainted 6.18.0-rc6-174403b3b920 #1 PREEMPT(voluntary) =
-[  101.313763] Hardware name: ASUS System Product Name/TUF GAMING X670E-PLU=
-S, BIOS 0821 11/15/2022 [  101.313765] Workqueue: events drm_fb_helper_dama=
-ge_work [  101.313769] RIP: 0010:drm_wait_one_vblank+0x176/0x220
-[  101.313772] Code: 7c 24 08 4c 8b 77 50 4d 85 f6 0f 84 a1 00 00 00 e8 2f =
-11 03 00 44 89 e9 4c 89 f2 48 c7 c7 d0 ad 0d a8 48 89 c6 e8 2a e0 4a ff <0f=
-> 0b e9 f2 fe ff ff 48 85 ff 74 04 4c 8b 67 08 4d 8b 6c 24 50 4d [  101.313=
-774] RSP: 0018:ffffc99c00d47d68 EFLAGS: 00010246 [  101.313777] RAX: 000000=
-0000000000 RBX: 000000000200038a RCX: 0000000000000000 [  101.313778] RDX: =
-0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000 [  101.313779]=
- RBP: ffffc99c00d47dc0 R08: 0000000000000000 R09: 0000000000000000 [  101.3=
-13781] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8948c4280010 [ =
- 101.313782] R13: 0000000000000000 R14: ffff894883263a50 R15: ffff89488c384=
-830 [  101.313784] FS:  0000000000000000(0000) GS:ffff895424692000(0000) kn=
-lGS:0000000000000000 [  101.313785] CS:  0010 DS: 0000 ES: 0000 CR0: 000000=
-0080050033 [  101.313787] CR2: 00007773650ee200 CR3: 0000000588e40000 CR4: =
-0000000000f50ef0 [  101.313788] PKRU: 55555554 [  101.313790] Call Trace:
-[  101.313791]  <TASK>
-[  101.313795]  ? __pfx_autoremove_wake_function+0x10/0x10
-[  101.313800]  drm_crtc_wait_one_vblank+0x17/0x30
-[  101.313802]  drm_client_modeset_wait_for_vblank+0x61/0x80
-[  101.313805]  drm_fb_helper_damage_work+0x46/0x1a0
-[  101.313808]  process_one_work+0x1a1/0x3f0 [  101.313812]  worker_thread+=
-0x2ba/0x3d0 [  101.313816]  kthread+0x107/0x220 [  101.313818]  ? __pfx_wor=
-ker_thread+0x10/0x10 [  101.313821]  ? __pfx_kthread+0x10/0x10 [  101.31382=
-3]  ret_from_fork+0x202/0x230 [  101.313826]  ? __pfx_kthread+0x10/0x10 [  =
-101.313828]  ret_from_fork_asm+0x1a/0x30 [  101.313834]  </TASK> [  101.313=
-835] ---[ end trace 0000000000000000 ]---
-
-Cancel pending damage work synchronously before console_lock() to ensure an=
-y in-flight framebuffer damage operations complete before suspension.
-
-Also check for FBINFO_STATE_RUNNING in drm_fb_helper_damage_work() to avoid=
- executing damage work if it is rescheduled while the device is suspended.
-
-Fixes: d8c4bddcd8bc ("drm/fb-helper: Synchronize dirty worker with vblank")
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Chengjun Yao <Chengjun.Yao@amd.com>
----
- drivers/gpu/drm/drm_fb_helper.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helpe=
-r.c index c0343ec16a57..199cca1b5bdd 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -402,6 +402,9 @@ static void drm_fb_helper_damage_work(struct work_struc=
-t *work)  {
-        struct drm_fb_helper *helper =3D container_of(work, struct drm_fb_h=
-elper, damage_work);
-
-+       if (helper->info->state !=3D FBINFO_STATE_RUNNING)
-+               return;
-+
-        drm_fb_helper_fb_dirty(helper);
- }
-
-@@ -794,6 +797,13 @@ void drm_fb_helper_set_suspend_unlocked(struct drm_fb_=
-helper *fb_helper,
-                if (fb_helper->info->state !=3D FBINFO_STATE_RUNNING)
-                        return;
-
-+               /*
-+                * Cancel pending damage work. During GPU reset, VBlank
-+                * interrupts are disabled and drm_fb_helper_fb_dirty()
-+                * would wait for VBlank timeout otherwise.
-+                */
-+               cancel_work_sync(&fb_helper->damage_work);
-+
-                console_lock();
-
-        } else {
---
-2.43.0
-
-
+SGksDQoNCnRoYW5rcyBmb3IgdGhlIHBhdGNoLg0KDQpBbSAxNS4xMi4yNSB1bSAwOToxOCBz
+Y2hyaWViIENoZW5nanVuIFlhbzoNCj4gRHVyaW5nIEdQVSByZXNldCwgVkJsYW5rIGludGVy
+cnVwdHMgYXJlIGRpc2FibGVkIHdoaWNoIGNhdXNlcw0KPiBkcm1fZmJfaGVscGVyX2ZiX2Rp
+cnR5KCkgdG8gd2FpdCBmb3IgVkJsYW5rIHRpbWVvdXQuIFRoaXMgd2lsbCBjcmVhdGUNCj4g
+Y2FsbCB0cmFjZXMgbGlrZSAoc2VlbiBvbiBhbiBSWDc5MDAgc2VyaWVzIGRHUFUpOg0KPg0K
+PiBbICAxMDEuMzEzNjQ2XSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0N
+Cj4gWyAgMTAxLjMxMzY0OF0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogW2RybV0gdmJsYW5rIHdh
+aXQgdGltZWQgb3V0IG9uIGNydGMgMA0KPiBbICAxMDEuMzEzNjU3XSBXQVJOSU5HOiBDUFU6
+IDAgUElEOiA0NjEgYXQgZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYzoxMzIwIGRybV93
+YWl0X29uZV92YmxhbmsrMHgxNzYvMHgyMjANCj4gWyAgMTAxLjMxMzY2M10gTW9kdWxlcyBs
+aW5rZWQgaW46IGFtZGdwdSBhbWR4Y3AgZHJtX3BhbmVsX2JhY2tsaWdodF9xdWlya3MgZ3B1
+X3NjaGVkIGRybV9idWRkeSBkcm1fdHRtX2hlbHBlciB0dG0gZHJtX2V4ZWMgZHJtX3N1YmFs
+bG9jX2hlbHBlciBkcm1fZGlzcGxheV9oZWxwZXIgY2VjIHJjX2NvcmUgaTJjX2FsZ29fYml0
+IG5mX2Nvbm50cmFja19uZXRsaW5rIHh0X25hdCB4dF90Y3B1ZHAgdmV0aCB4dF9jb25udHJh
+Y2sgeHRfTUFTUVVFUkFERSBicmlkZ2Ugc3RwIGxsYyB4ZnJtX3VzZXIgeGZybV9hbGdvIHh0
+X3NldCBpcF9zZXQgbmZ0X2NoYWluX25hdCBuZl9uYXQgbmZfY29ubnRyYWNrIG5mX2RlZnJh
+Z19pcHY2IG5mX2RlZnJhZ19pcHY0IHh0X2FkZHJ0eXBlIG5mdF9jb21wYXQgeF90YWJsZXMg
+bmZfdGFibGVzIG92ZXJsYXkgcXJ0ciBzdW5ycGMgc25kX2hkYV9jb2RlY19hbGM4ODIgc25k
+X2hkYV9jb2RlY19yZWFsdGVrX2xpYiBzbmRfaGRhX2NvZGVjX2dlbmVyaWMgc25kX2hkYV9j
+b2RlY19hdGloZG1pIHNuZF9oZGFfY29kZWNfaGRtaSBzbmRfaGRhX2ludGVsIHNuZF9oZGFf
+Y29kZWMgc25kX2hkYV9jb3JlIHNuZF9pbnRlbF9kc3BjZmcgc25kX2ludGVsX3Nkd19hY3Bp
+IHNuZF9od2RlcCBzbmRfcGNtIGFtZF9hdGwgaW50ZWxfcmFwbF9tc3Igc25kX3NlcV9taWRp
+IGludGVsX3JhcGxfY29tbW9uIGFzdXNfZWNfc2Vuc29ycyBzbmRfc2VxX21pZGlfZXZlbnQg
+c25kX3Jhd21pZGkgc25kX3NlcSBlZWVwY193bWkgc25kX3NlcV9kZXZpY2UgZWRhY19tY2Vf
+YW1kIGFzdXNfd21pIHBvbHl2YWxfY2xtdWxuaSBnaGFzaF9jbG11bG5pX2ludGVsIHNuZF90
+aW1lciBwbGF0Zm9ybV9wcm9maWxlIGFlc25pX2ludGVsIHdtaV9ibW9mIHNwYXJzZV9rZXlt
+YXAgam95ZGV2IHNuZCByYXBsIGlucHV0X2xlZHMgaTJjX3BpaXg0IHNvdW5kY29yZSBjY3Ag
+azEwdGVtcCBpMmNfc21idXMgZ3Bpb19hbWRwdCBtYWNfaGlkIGJpbmZtdF9taXNjIHNjaF9m
+cV9jb2RlbCBtc3IgcGFycG9ydF9wYyBwcGRldiBscCBwYXJwb3J0DQo+IFsgIDEwMS4zMTM3
+NDVdICBlZmlfcHN0b3JlIG5mbmV0bGluayBkbWlfc3lzZnMgYXV0b2ZzNCBoaWRfZ2VuZXJp
+YyB1c2JoaWQgaGlkIHI4MTY5IHJlYWx0ZWsgYWhjaSBsaWJhaGNpIHZpZGVvIHdtaQ0KPiBb
+ICAxMDEuMzEzNzYwXSBDUFU6IDAgVUlEOiAwIFBJRDogNDYxIENvbW06IGt3b3JrZXIvMDoy
+IE5vdCB0YWludGVkIDYuMTguMC1yYzYtMTc0NDAzYjNiOTIwICMxIFBSRUVNUFQodm9sdW50
+YXJ5KQ0KPiBbICAxMDEuMzEzNzYzXSBIYXJkd2FyZSBuYW1lOiBBU1VTIFN5c3RlbSBQcm9k
+dWN0IE5hbWUvVFVGIEdBTUlORyBYNjcwRS1QTFVTLCBCSU9TIDA4MjEgMTEvMTUvMjAyMg0K
+PiBbICAxMDEuMzEzNzY1XSBXb3JrcXVldWU6IGV2ZW50cyBkcm1fZmJfaGVscGVyX2RhbWFn
+ZV93b3JrDQo+IFsgIDEwMS4zMTM3NjldIFJJUDogMDAxMDpkcm1fd2FpdF9vbmVfdmJsYW5r
+KzB4MTc2LzB4MjIwDQo+IFsgIDEwMS4zMTM3NzJdIENvZGU6IDdjIDI0IDA4IDRjIDhiIDc3
+IDUwIDRkIDg1IGY2IDBmIDg0IGExIDAwIDAwIDAwIGU4IDJmIDExIDAzIDAwIDQ0IDg5IGU5
+IDRjIDg5IGYyIDQ4IGM3IGM3IGQwIGFkIDBkIGE4IDQ4IDg5IGM2IGU4IDJhIGUwIDRhIGZm
+IDwwZj4gMGIgZTkgZjIgZmUgZmYgZmYgNDggODUgZmYgNzQgMDQgNGMgOGIgNjcgMDggNGQg
+OGIgNmMgMjQgNTAgNGQNCj4gWyAgMTAxLjMxMzc3NF0gUlNQOiAwMDE4OmZmZmZjOTljMDBk
+NDdkNjggRUZMQUdTOiAwMDAxMDI0Ng0KPiBbICAxMDEuMzEzNzc3XSBSQVg6IDAwMDAwMDAw
+MDAwMDAwMDAgUkJYOiAwMDAwMDAwMDAyMDAwMzhhIFJDWDogMDAwMDAwMDAwMDAwMDAwMA0K
+PiBbICAxMDEuMzEzNzc4XSBSRFg6IDAwMDAwMDAwMDAwMDAwMDAgUlNJOiAwMDAwMDAwMDAw
+MDAwMDAwIFJESTogMDAwMDAwMDAwMDAwMDAwMA0KPiBbICAxMDEuMzEzNzc5XSBSQlA6IGZm
+ZmZjOTljMDBkNDdkYzAgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAwMDAwMDAwMDAw
+MDAwMA0KPiBbICAxMDEuMzEzNzgxXSBSMTA6IDAwMDAwMDAwMDAwMDAwMDAgUjExOiAwMDAw
+MDAwMDAwMDAwMDAwIFIxMjogZmZmZjg5NDhjNDI4MDAxMA0KPiBbICAxMDEuMzEzNzgyXSBS
+MTM6IDAwMDAwMDAwMDAwMDAwMDAgUjE0OiBmZmZmODk0ODgzMjYzYTUwIFIxNTogZmZmZjg5
+NDg4YzM4NDgzMA0KPiBbICAxMDEuMzEzNzg0XSBGUzogIDAwMDAwMDAwMDAwMDAwMDAoMDAw
+MCkgR1M6ZmZmZjg5NTQyNDY5MjAwMCgwMDAwKSBrbmxHUzowMDAwMDAwMDAwMDAwMDAwDQo+
+IFsgIDEwMS4zMTM3ODVdIENTOiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAw
+MDAwODAwNTAwMzMNCj4gWyAgMTAxLjMxMzc4N10gQ1IyOiAwMDAwNzc3MzY1MGVlMjAwIENS
+MzogMDAwMDAwMDU4OGU0MDAwMCBDUjQ6IDAwMDAwMDAwMDBmNTBlZjANCj4gWyAgMTAxLjMx
+Mzc4OF0gUEtSVTogNTU1NTU1NTQNCj4gWyAgMTAxLjMxMzc5MF0gQ2FsbCBUcmFjZToNCj4g
+WyAgMTAxLjMxMzc5MV0gIDxUQVNLPg0KPiBbICAxMDEuMzEzNzk1XSAgPyBfX3BmeF9hdXRv
+cmVtb3ZlX3dha2VfZnVuY3Rpb24rMHgxMC8weDEwDQo+IFsgIDEwMS4zMTM4MDBdICBkcm1f
+Y3J0Y193YWl0X29uZV92YmxhbmsrMHgxNy8weDMwDQo+IFsgIDEwMS4zMTM4MDJdICBkcm1f
+Y2xpZW50X21vZGVzZXRfd2FpdF9mb3JfdmJsYW5rKzB4NjEvMHg4MA0KPiBbICAxMDEuMzEz
+ODA1XSAgZHJtX2ZiX2hlbHBlcl9kYW1hZ2Vfd29yaysweDQ2LzB4MWEwDQo+IFsgIDEwMS4z
+MTM4MDhdICBwcm9jZXNzX29uZV93b3JrKzB4MWExLzB4M2YwDQo+IFsgIDEwMS4zMTM4MTJd
+ICB3b3JrZXJfdGhyZWFkKzB4MmJhLzB4M2QwDQo+IFsgIDEwMS4zMTM4MTZdICBrdGhyZWFk
+KzB4MTA3LzB4MjIwDQo+IFsgIDEwMS4zMTM4MThdICA/IF9fcGZ4X3dvcmtlcl90aHJlYWQr
+MHgxMC8weDEwDQo+IFsgIDEwMS4zMTM4MjFdICA/IF9fcGZ4X2t0aHJlYWQrMHgxMC8weDEw
+DQo+IFsgIDEwMS4zMTM4MjNdICByZXRfZnJvbV9mb3JrKzB4MjAyLzB4MjMwDQo+IFsgIDEw
+MS4zMTM4MjZdICA/IF9fcGZ4X2t0aHJlYWQrMHgxMC8weDEwDQo+IFsgIDEwMS4zMTM4Mjhd
+ICByZXRfZnJvbV9mb3JrX2FzbSsweDFhLzB4MzANCj4gWyAgMTAxLjMxMzgzNF0gIDwvVEFT
+Sz4NCj4gWyAgMTAxLjMxMzgzNV0gLS0tWyBlbmQgdHJhY2UgMDAwMDAwMDAwMDAwMDAwMCBd
+LS0tDQo+DQo+IENhbmNlbCBwZW5kaW5nIGRhbWFnZSB3b3JrIHN5bmNocm9ub3VzbHkgYmVm
+b3JlIGNvbnNvbGVfbG9jaygpIHRvIGVuc3VyZQ0KPiBhbnkgaW4tZmxpZ2h0IGZyYW1lYnVm
+ZmVyIGRhbWFnZSBvcGVyYXRpb25zIGNvbXBsZXRlIGJlZm9yZSBzdXNwZW5zaW9uLg0KPg0K
+PiBBbHNvIGNoZWNrIGZvciBGQklORk9fU1RBVEVfUlVOTklORyBpbiBkcm1fZmJfaGVscGVy
+X2RhbWFnZV93b3JrKCkgdG8NCj4gYXZvaWQgZXhlY3V0aW5nIGRhbWFnZSB3b3JrIGlmIGl0
+IGlzIHJlc2NoZWR1bGVkIHdoaWxlIHRoZSBkZXZpY2UgaXMgc3VzcGVuZGVkLg0KPg0KPiBG
+aXhlczogZDhjNGJkZGNkOGJjICgiZHJtL2ZiLWhlbHBlcjogU3luY2hyb25pemUgZGlydHkg
+d29ya2VyIHdpdGggdmJsYW5rIikNCj4gU2lnbmVkLW9mZi1ieTogQXVyYWJpbmRvIFBpbGxh
+aSA8YXVyYWJpbmRvLnBpbGxhaUBhbWQuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBDaGVuZ2p1
+biBZYW8gPENoZW5nanVuLllhb0BhbWQuY29tPg0KDQpSZXZpZXdlZC1ieTogVGhvbWFzIFpp
+bW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+DQoNCj4gLS0tDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2RybV9mYl9oZWxwZXIuYyB8IDEwICsrKysrKysrKysNCj4gICAxIGZpbGUgY2hh
+bmdlZCwgMTAgaW5zZXJ0aW9ucygrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2RybV9mYl9oZWxwZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZmJfaGVscGVyLmMN
+Cj4gaW5kZXggYzAzNDNlYzE2YTU3Li4xOTljY2ExYjViZGQgMTAwNjQ0DQo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9kcm1fZmJfaGVscGVyLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2RybV9mYl9oZWxwZXIuYw0KPiBAQCAtNDAyLDYgKzQwMiw5IEBAIHN0YXRpYyB2b2lkIGRy
+bV9mYl9oZWxwZXJfZGFtYWdlX3dvcmsoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQ0KPiAg
+IHsNCj4gICAJc3RydWN0IGRybV9mYl9oZWxwZXIgKmhlbHBlciA9IGNvbnRhaW5lcl9vZih3
+b3JrLCBzdHJ1Y3QgZHJtX2ZiX2hlbHBlciwgZGFtYWdlX3dvcmspOw0KPiAgIA0KPiArCWlm
+IChoZWxwZXItPmluZm8tPnN0YXRlICE9IEZCSU5GT19TVEFURV9SVU5OSU5HKQ0KPiArCQly
+ZXR1cm47DQo+ICsNCj4gICAJZHJtX2ZiX2hlbHBlcl9mYl9kaXJ0eShoZWxwZXIpOw0KPiAg
+IH0NCj4gICANCj4gQEAgLTc5NCw2ICs3OTcsMTMgQEAgdm9pZCBkcm1fZmJfaGVscGVyX3Nl
+dF9zdXNwZW5kX3VubG9ja2VkKHN0cnVjdCBkcm1fZmJfaGVscGVyICpmYl9oZWxwZXIsDQo+
+ICAgCQlpZiAoZmJfaGVscGVyLT5pbmZvLT5zdGF0ZSAhPSBGQklORk9fU1RBVEVfUlVOTklO
+RykNCj4gICAJCQlyZXR1cm47DQo+ICAgDQo+ICsJCS8qDQo+ICsJCSAqIENhbmNlbCBwZW5k
+aW5nIGRhbWFnZSB3b3JrLiBEdXJpbmcgR1BVIHJlc2V0LCBWQmxhbmsNCj4gKwkJICogaW50
+ZXJydXB0cyBhcmUgZGlzYWJsZWQgYW5kIGRybV9mYl9oZWxwZXJfZmJfZGlydHkoKQ0KPiAr
+CQkgKiB3b3VsZCB3YWl0IGZvciBWQmxhbmsgdGltZW91dCBvdGhlcndpc2UuDQo+ICsJCSAq
+Lw0KPiArCQljYW5jZWxfd29ya19zeW5jKCZmYl9oZWxwZXItPmRhbWFnZV93b3JrKTsNCj4g
+Kw0KPiAgIAkJY29uc29sZV9sb2NrKCk7DQo+ICAgDQo+ICAgCX0gZWxzZSB7DQoNCi0tIA0K
+LS0NClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNF
+IFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCkZyYW5rZW5zdHIuIDE0NiwgOTA0
+NjEgTsO8cm5iZXJnLCBHZXJtYW55LCB3d3cuc3VzZS5jb20NCkdGOiBKb2NoZW4gSmFzZXIs
+IEFuZHJldyBNY0RvbmFsZCwgV2VybmVyIEtub2JsaWNoLCAoSFJCIDM2ODA5LCBBRyBOw7xy
+bmJlcmcpDQoNCg0K
