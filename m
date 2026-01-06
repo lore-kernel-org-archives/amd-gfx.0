@@ -4,120 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F54DCDC19B
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 13:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2921C47BF2
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 14:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0481810E49F;
-	Tue,  6 Jan 2026 13:19:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A38D10E1CA;
+	Tue,  6 Jan 2026 14:00:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RfS87+Cn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="boNJeQdF";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012052.outbound.protection.outlook.com [52.101.48.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2BAB10E49F
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 13:19:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kHB5RFvBekWIYBh4zlfIdBKHPcAApIepGLg4mZrUu7EsD8OfMo2FDSoJoxgQkKgEej+rkxtfwior55+93VGUamNtdwB6hJkMIIkSbG+/5jJ7eo5+r5Redlc69rLojoiU7GAwcosCRAsCYF4a4XLnYhINIZoaovFmlHzcPBBUZ+MKZwH6wse4601aGIc0VPuxIF2230fr467zXM858Xl/x40/qYjtjtLOk+Al9oS0ot81I2n+PEUE4/y2BoNO3Y2MUQFuMNUeqVFS1FMs/U7iB36Y9TKN/C8xYNeDn6RSbJpGOmmd/qgdDkga4ykGsawxOFzrF38Ta2P5S8V6LdsW9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cEjc3Ae5fawNYsoLm6igAieqLoivy/zmLK8PeA16UMo=;
- b=hEb21M9ElZgaorvLIgF1Ln2Ft+PhJo8u1CsdFVlJiHOXt/QOLSdhP0jOacx9yZnNmpyrFF6sV+DrwWeqo+xd067AMuGETpl5FQ2zxZfL+WRmLrvKMWkIDoJ1BzMhUB3tVSGAZStLDGHxZ1O2aEqRzCxwPznAGQQW8wtdVU/sbVX/ua8GvAHkoRKP/6bg5qmzIN770SjdUSxTUd0ZQYiLma2Vx+DraURTx75slOtsDaitSquMzpzK2pS5lEGhCXS7J4Dn59/WV2//SUrTl51YYZIBhqpiP6bVthPgcJ4q0Z/h194z+r7+DEqXUFt6qXuozuiwV4xhADhfb32H+l+UEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cEjc3Ae5fawNYsoLm6igAieqLoivy/zmLK8PeA16UMo=;
- b=RfS87+CnxEa0oR+G/T49X1AmmBiPf60F7vcBwlBGe+I/UudWmdFVf+4TTWalSZYtmtnqYu13Jp+I2n0oQ3PYimsbrDwaFFhaPbpcEcwiioFq/Z0qGXj5eP1KbJOZT4yQX9wiIr9TnBV5BJe/AKRC+IATvPMv1LW3sGVmOoX0MtA=
-Received: from MW4PR03CA0284.namprd03.prod.outlook.com (2603:10b6:303:b5::19)
- by DS0PR12MB6488.namprd12.prod.outlook.com (2603:10b6:8:c3::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Tue, 6 Jan
- 2026 13:19:34 +0000
-Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
- (2603:10b6:303:b5:cafe::1a) by MW4PR03CA0284.outlook.office365.com
- (2603:10b6:303:b5::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9478.4 via Frontend Transport; Tue, 6
- Jan 2026 13:19:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9499.1 via Frontend Transport; Tue, 6 Jan 2026 13:19:32 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 6 Jan
- 2026 07:19:30 -0600
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
- <Prike.Liang@amd.com>
-Subject: [PATCH] drm/amdgpu: validate the flush_gpu_tlb_pasid()
-Date: Tue, 6 Jan 2026 21:19:21 +0800
-Message-ID: <20260106131921.801193-1-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E185E10E4B1
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 13:01:34 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4779adb38d3so7217245e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jan 2026 05:01:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1767704493; x=1768309293; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dSheufKc+UUOwl3UwE5ES46jacAULchaJm+bYEcyVi4=;
+ b=boNJeQdFs3cqNwUAZc0iTrbhQFPKD0vgpW1qQ7gbmdgUfr7EhRTBzCQByduBxjB6GQ
+ Yyyu4BUB715vt4nkUE6dMuxK2TGdK/UXRZ/5heklCl3r34ECH7uoMCvf0+61uIRq0epm
+ TX/jQGIaCMmt37rfoYjr41lg8yER8IJPshlHOLKozQSG/EFybbg+762WfzrUVCi11gqi
+ BTyP/T5WIqPrUt93EznK32Iaj4zTcNUI4QO236b9XxIl2XnG/ySVQ9ntZWw151NqzdkA
+ hGJnIe8iOav5txRC3D/NfGVjO15Kn1kt67k/PDsR8vTP5+gPxN+d1XhIxeN+2LPcYzpI
+ z7cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767704493; x=1768309293;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=dSheufKc+UUOwl3UwE5ES46jacAULchaJm+bYEcyVi4=;
+ b=soibauHftMJ/xs2DNBVTEVrXMNSyYFoodRcDv1kWfnVbHVLS0AtRFYf7XUDPElqlCi
+ Xh792uvhcLF89aaJ9qwj2EreGE1b73bCCWDe5kLVIhl24T9ZOmRi20ldjM8kCSDdXVY4
+ pobZYVGIuNBNTFf2OHtxp2zjRgppDfo/oHvuGuATxuOv1WAkFgGZUK0dVKOSOkYzMO6k
+ z0IRiH57K1xTD2sMrmto2/DcfTFsQMMrDeAhRCUnBpjCYW7VPO5boVJk5G4Z/yvDZ/vO
+ vn5HcPLmdGRKFoX2G/cvvDe3RG667utMdsJMgwcUmZr8/mHEmDcsSsJCZtUBTVaGsYpS
+ Excg==
+X-Gm-Message-State: AOJu0YyVboCLgbHUSn1zLdrKuz4I/7D4helSChS6h4eqLoxCZtUBloLB
+ AfUFDw7A9pwVkJyYPvnLzmMceAtQ6ruHIJnBZcZxaWX+Wpk/j6JoSjbx
+X-Gm-Gg: AY/fxX63k80PKSPjFxQbeFtGo+iq7TMbG+Fo3X7NXdsosfWwHcYuirNxFwtglsp39iP
+ qOXEZBjVbF04m2qNXHzwbI+Lc6vXVp7pg5MfF2Rk0qguywLpaAwG2NCCSYNDABvYy+CHCpUvuTf
+ ghzw4/cU0EF/egEP/AbpdPUOg+7UgimZ5JxdsE1ESEVopaYCr5GgXVAfV3QwAbkLLvhmVMwczn2
+ LVe4mzqpg8FatlUHyrVj419dZbE/C2woai3UTalMUKet6yTN4zLJnyKiXbnKiyJkThWtpk0EA6u
+ +2Z3jeN+mqRldYfKs5A0nbPZRmV3F5v6kwLW3ELD3vUFvoSCJBV57ZJR0wxzswYYbHxjjVEoh85
+ Mz9hT5ZkJ+8MHqm9PcISfbk12CFPHtjXOh2/VqSfI1epMS4Xwui054ZGkO/7X05tBGWBxcXi26p
+ wl5Q6UwFU0BjcVpgawopdnJ+BIBkVC15R/a1Pz69U=
+X-Google-Smtp-Source: AGHT+IEen1tffLOVS9PvaIgplGvgYv0apDsv1cligNcSYLsf8i0OcV+jJyALYwNJooMKHM+mPmAwiw==
+X-Received: by 2002:a05:600c:3b27:b0:477:8a29:582c with SMTP id
+ 5b1f17b1804b1-47d7f0a1804mr33634755e9.34.1767704493290; 
+ Tue, 06 Jan 2026 05:01:33 -0800 (PST)
+Received: from ionutnechita-arz2022.local
+ ([2a02:2f0e:ca09:7000:33fc:5cce:3767:6b22])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47d7f68f69dsm42684065e9.1.2026.01.06.05.01.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jan 2026 05:01:32 -0800 (PST)
+From: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <superm1@kernel.org>,
+ Ionut Nechita <ionut_n2001@yahoo.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] drm/amdgpu: Fix TLB flush failures after hibernation
+ resume
+Date: Tue,  6 Jan 2026 14:59:33 +0200
+Message-ID: <20260106125929.25214-6-sunlightlinux@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260106125929.25214-3-sunlightlinux@gmail.com>
+References: <20260106125929.25214-3-sunlightlinux@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|DS0PR12MB6488:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ef35ce1-ffbb-4ad4-1013-08de4d263b34
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uqLxhTBqQCP1G6vsAzFT2MJXg6IE1/swXOSwyakxmvP5myzncMEdAg48Z6iR?=
- =?us-ascii?Q?7tAm6iJ6QUtGTBaJniY/oq3WHhfYrCxdrKCyGdB/MRpyv18brQ6ZHyPEMAUi?=
- =?us-ascii?Q?YzCVcwRPTNS5kmF/dmUnv4AssOkPNWuxckh3FFkBIjIUCNlwtziuM827oLp+?=
- =?us-ascii?Q?UL4rzvcuX9M9Y1dj5utV++2W9qTchI4Ip2jMgmG2I60r8NvuNhD8dJDErCgX?=
- =?us-ascii?Q?TqGUKhY+M5fKEaUcq0dlW9jVsGhXJk3DfCaCMtsSe67xtpoIzk+aWCjmp8Ok?=
- =?us-ascii?Q?haMqR9hU5kPohR3bC2ks8e0bQZlCxWSEp0bg2jO25AtAvYfGxS6ZsmRYg0WC?=
- =?us-ascii?Q?nZH3VFv0LkpbiAIPWLlA+PF3HvbSiNL3mhOB9vgL2pIDVgz5EuDpyFaS1nI9?=
- =?us-ascii?Q?UNAjTLaM2jGy1h3LdkN/DR8HMOW6f0SYuFbfPAAal+0ygJvX+t5vkPgLK0rA?=
- =?us-ascii?Q?VKCAcy1TXSra/DzVJKT7rpDYa5aZoLTHEqfnEQQNIkUuYnVTqVC2fwYxKHr6?=
- =?us-ascii?Q?ieCSfxlTi2yPISEUtTKB1/hz0W4cwkeAQYfOo2C1z+F4z5JSgEa+kPRq3I/M?=
- =?us-ascii?Q?IVopUCPI+yfH+EUUOS25Eqv4a3BC6E8ySAo/cBvE7raRhjjm9PMKyPPpr35v?=
- =?us-ascii?Q?RlLyo2h4ufgGL+WWBaVDucuDdY2d+Dt99cotHw1RfA1HdLsL2K3LA2uAtKWi?=
- =?us-ascii?Q?mnowIxDx3cBkbT4oZoGrBuN8FYBAqkd2Y4j1wOgL6OEy7LmzZiGTRZFS4S9u?=
- =?us-ascii?Q?NYDb8wDSIEqiT/KT4qpP16y/Do6oK53IdByWBozGRmg3NNah+C/GZW2Zj5bo?=
- =?us-ascii?Q?igz/wjtJZQ4ptktHONqpNmuu3qTcSY5e509F7EbI6GHq95rLHmLvBUyJjkcW?=
- =?us-ascii?Q?KyN2lAbfzmnDSc7CF14RVaZP/CFTUpl10561X8ycCSY8eoOp4MdscfVSoLjg?=
- =?us-ascii?Q?kkLaHGS+JG2cJYCfsqXlZF8eEMlJNm+Phopt53AwWa2Y7UAGDdMOofNiFXHt?=
- =?us-ascii?Q?POemYlRewwKkcWNe3E51k8hmDQNGXidSHa++otU1gFBQvCr9ndHRHGGhMQBr?=
- =?us-ascii?Q?SoFs3nxbeDBmTvnPC72dl3iOwC6ik2Ue8Wg4aO9OPys9cTWKFSQgLVaiSAnd?=
- =?us-ascii?Q?dTdsPwZtW+xmHR61aVsqTVikJqmy/tBXbzh7z3945Ugd+gPD5Us5O00YwurO?=
- =?us-ascii?Q?UKc6c25NnYAC6L/b3aTDHOnfFfaT3yXT2tVM9x76MLhxzkYCfrolOBIJcZRl?=
- =?us-ascii?Q?51t8qvg7+BOMDj8U3SH5UQTFychw+NF2SMlW8mHp6gxoOnZvIziYa2KjDYR8?=
- =?us-ascii?Q?nFQY064mUxO6F26vPsNDxvdboOcH0SqXPj46ARrHGQNcllhafur4X3fsHRZK?=
- =?us-ascii?Q?10Kvi5fpaRV/pS51m7/SYm/b3mmFtfEuMjtQdgSbVdOIeeW7dGc3GnpYL3op?=
- =?us-ascii?Q?qB4VS7wzOS8w0ExqnthMt8ZIlYo9YHVSS16MCVAcTdj5DDPuC54vvG6Bm18U?=
- =?us-ascii?Q?35zCh1TMIFHyy4xaHCr0zXDBbgANsJYZXkSfQ6xkg814daki3d6GWGwuLcAd?=
- =?us-ascii?Q?f27NBrzlzxoYHQCqxnc=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2026 13:19:32.9194 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ef35ce1-ffbb-4ad4-1013-08de4d263b34
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDD.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6488
+X-Mailman-Approved-At: Tue, 06 Jan 2026 14:00:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,28 +93,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Validate flush_gpu_tlb_pasid() availability before flushing tlb.
+From: Ionut Nechita <ionut_n2001@yahoo.com>
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+After resume from hibernation, the amdgpu driver experiences TLB
+flush failures with errors:
+
+  amdgpu: TLB flush failed for PASID xxxxx
+  amdgpu: failed to write reg 28b4 wait reg 28c6
+  amdgpu: failed to write reg 1a6f4 wait reg 1a706
+
+Root Cause:
+-----------
+The KIQ (Kernel Interface Queue) ring is marked as ready
+(ring.sched.ready = true) during resume, but the hardware is not
+fully functional yet. When TLB invalidation attempts to use KIQ
+for register access, the commands fail because the GPU hasn't
+completed initialization.
+
+Solution:
+---------
+1. Add resume_gpu_stable flag (initially false on resume)
+2. Force TLB invalidation to use direct MMIO path instead of KIQ
+   when resume_gpu_stable is false
+3. After ring tests pass in gfx_v9_0_cp_resume(), set
+   resume_gpu_stable to true
+4. From that point forward, use faster KIQ path for TLB invalidation
+
+This ensures TLB flushes work correctly during early resume while
+still benefiting from KIQ-based invalidation after the GPU is stable.
+
+Changes:
+--------
+- amdgpu.h: Add resume_gpu_stable flag to amdgpu_device
+- amdgpu_device.c: Initialize resume_gpu_stable to false on resume
+- amdgpu_gmc.c: Check resume_gpu_stable in flush_gpu_tlb_pasid
+- gfx_v9_0.c: Set resume_gpu_stable after ring tests pass
+- gmc_v9_0.c: Check resume_gpu_stable before using KIQ path
+
+Tested on AMD Cezanne (Renoir) with ROCm workloads after hibernation.
+Result: Eliminates TLB flush failures on resume.
+
+Signed-off-by: Ionut Nechita <ionut_n2001@yahoo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  9 +++++++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 10 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  6 +++++-
+ 5 files changed, 29 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 9f9774f58ce1c..6bf4f6c90164c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1225,6 +1225,7 @@ struct amdgpu_device {
+ 	bool				in_s4;
+ 	bool				in_s0ix;
+ 	suspend_state_t			last_suspend_state;
++	bool				resume_gpu_stable;
+ 
+ 	enum pp_mp1_state               mp1_state;
+ 	struct amdgpu_doorbell_index doorbell_index;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 12201b8e99b3f..440d86ed1e0d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5457,6 +5457,12 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+ 		goto exit;
+ 	}
+ 
++	/*
++	 * Set resume_gpu_stable to false BEFORE KFD resume to ensure
++	 * extended timeouts are used for TLB flushes during hibernation recovery
++	 */
++	adev->resume_gpu_stable = false;
++
+ 	r = amdgpu_amdkfd_resume(adev, !amdgpu_sriov_vf(adev) && !adev->in_runpm);
+ 	if (r)
+ 		goto exit;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index cd4acc6adc9e..f871f1693483 100644
+index 869bceb0fe2c6..83fe30f0ada75 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -780,6 +780,10 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+@@ -731,7 +731,12 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+ 	if (!down_read_trylock(&adev->reset_domain->sem))
  		return 0;
  
- 	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
-+
-+		if (!adev->gmc.gmc_funcs->flush_gpu_tlb_pasid)
-+			return 0;
-+
+-	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
++	/*
++	 * After hibernation resume, KIQ may report as ready but not be fully
++	 * functional. Use direct MMIO path until GPU is confirmed stable.
++	 */
++	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
++	    !adev->resume_gpu_stable) {
  		if (adev->gmc.flush_tlb_needs_extra_type_2)
  			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
  								 2, all_hub,
+@@ -835,9 +840,9 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+ 		goto failed_kiq;
+ 
+ 	might_sleep();
++
+ 	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
+ 	       !amdgpu_reset_pending(adev->reset_domain)) {
+-
+ 		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+ 		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 0148d7ff34d99..fbd07b455b915 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -3985,6 +3985,16 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device *adev)
+ 		amdgpu_ring_test_helper(ring);
+ 	}
+ 
++	/*
++	 * After successful ring tests, mark GPU as stable for resume.
++	 * This allows KIQ-based TLB invalidation to be used instead of
++	 * slower direct MMIO path.
++	 */
++	if (!adev->resume_gpu_stable) {
++		adev->resume_gpu_stable = true;
++		dev_info(adev->dev, "GPU rings verified, enabling KIQ path\n");
++	}
++
+ 	gfx_v9_0_enable_gui_idle_interrupt(adev, true);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 8ad7519f7b581..8a0202f6b3e3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -855,9 +855,13 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 
+ 	/* This is necessary for SRIOV as well as for GFXOFF to function
+ 	 * properly under bare metal
++	 *
++	 * After hibernation resume, KIQ may report as ready but not be fully
++	 * functional. Use direct MMIO path until GPU is confirmed stable.
+ 	 */
+ 	if (adev->gfx.kiq[inst].ring.sched.ready &&
+-	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
++	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
++	    adev->resume_gpu_stable) {
+ 		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+ 		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+ 
 -- 
-2.34.1
+2.52.0
 
