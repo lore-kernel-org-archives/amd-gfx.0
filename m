@@ -4,163 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36326CE9D5E
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 15:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B7B9CE9D79
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 16:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCA8110E08C;
-	Tue,  6 Jan 2026 15:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDF710E054;
+	Tue,  6 Jan 2026 16:26:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NAPqAlvq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CXzFwDEe";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013016.outbound.protection.outlook.com
- [40.93.196.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC3CD10E08C;
- Tue,  6 Jan 2026 15:34:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=shhGZWTNXlwhI+MWW/ygK5Ty9OQoppK3WnbcLplCY4bJMugnVz99pBQpfT6niYme9L142jecy2ks8UhN/yl43qDv0ZAmQHred8cnFdjvQsg6XtbVksJBh3SHGJCHzKScynjvzkrJ6zXmeL6V8fuaqNZ4h1ZUWQHGkG5D8k+KURFPdBE2+MYu8qKfND/B47lggCAe6HHbbjtikVNrKELzAj4hnBTaFrDKZZR7FR50REz3gjl5avDFsFjvdBA+LHpiP2dQATJD94T5Akb8m18greEyodixiqlRQ1j4zdMd8aIZlLw3AjHR+PcnhMwfizEztsMfqgk6U4V2pPtVV7aBOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0CwJGzBM1E8ri+kRmRyW2xfXcT658Kad967AHkOoGTc=;
- b=EF5peQcfpjQwzuWyz6QBBZ+8bMr4ph5Sn+buVXRsuU4u3qVBOyxSkF/RggrwqyaQaIoACO0bd6m1nR8mBeBlIRLqOvRRCWCVCehbZ3NzY+MbDUYaXoNQdZDUWW/hQhCtJlyjcDUPL/S51V4fawQaAEUULzjwvwpnl45tDlH0LDuXtYr3VGVQivYwKVs9+VhUpwOnRseqAKJ2DsMHnrs18bXbYRbtTwNq2EwVjFRY9Y+pZEN9oHIIimfj6GBRyMYDAg/L/mKMss03VOLRQUzAzvvR6uVmFcmlZL1j2t5ofI5D1VRaAfQkIhzxQfGhrCN9SuaYP8mc9KVousflur6qNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0CwJGzBM1E8ri+kRmRyW2xfXcT658Kad967AHkOoGTc=;
- b=NAPqAlvqvD1G+OIBjVaSEjIp2tJS71NkJG0fKHqyobwatVn35Uc1zFcVo+u9WPFllAfykmkfPJqCAta7J4YeeGVe4jiURMJwTrBAk9ePknq5Q22cHaWH+u1JdbnMQwJnjkcJBRiHJ1xSqr4+9JMxKWwqyhpBOp2wxWNFoQrICIg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BN7PPF0D942FA9A.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6c7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.2; Tue, 6 Jan
- 2026 15:34:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9499.002; Tue, 6 Jan 2026
- 15:34:17 +0000
-Message-ID: <b4fc76aa-290b-4cdf-aff7-30ccc9cb1f44@amd.com>
-Date: Tue, 6 Jan 2026 16:34:12 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: bypass no_64bit_msi with new msi64 parameter
-To: Vivian Wang <wangruikang@iscas.ac.cn>, Arnd Bergmann <arnd@arndb.de>,
- Han Gao <gaohan@iscas.ac.cn>, Alex Deucher <alexander.deucher@amd.com>,
- Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
- sophgo@lists.linux.dev
-References: <20251220163338.3852399-1-gaohan@iscas.ac.cn>
- <e86b823f-5e83-4105-8e4d-1db141d088a4@app.fastmail.com>
- <2ab9f73d-ef7b-40b3-b2bb-650f83ac236f@amd.com>
- <5ea0ff13-04b3-4b2a-80e2-4f87146d00d5@iscas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <5ea0ff13-04b3-4b2a-80e2-4f87146d00d5@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0155.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ba::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E2BB10E526
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 16:26:47 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-121a15dacd1so39410c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jan 2026 08:26:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1767716806; x=1768321606; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AG9L4ZWEdmUjgKxr7cq0dXKpvZsFkz5w7ptgld1wYxg=;
+ b=CXzFwDEeX4o5AYQrwsQQcx8eBKvoZ37Vqypr/dxHSGqT/HdHb/CtUUnmwMBXSetqyz
+ 8M9Cvs3OJeczQ29nsbVlU+IOS8to1oL0q+n62+EtkeTRyIENOTVWloMsBJmYRLarBqfl
+ 8UTciulXu0UAfYdN0LcFH0qvjYfFFrkp+56XzwPX/Bt4MvrzyCahKBD+tp/tPDxV9AgP
+ yIbRBtOVfHcsTgGSf7EbKwSaqsqIpZ4teM0awrlJ6DGAynP2Xs+R0g3CUUSr+uJ/8huC
+ LF0XisoSNN2Ydx+NJe7EEEJqCWBVIc7ZXjJF2s5JfG8RFLsY/Y2P/dVBZf4AM9tLBs2e
+ biTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767716806; x=1768321606;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=AG9L4ZWEdmUjgKxr7cq0dXKpvZsFkz5w7ptgld1wYxg=;
+ b=AyuNTvO33AizLYixQAdglqb384XCvGKLGlGphPfKrRuQAcRnxWQ1weLVBLPg/IS9bK
+ TeBNWt3iie9YRbyHJJHehpPi1PLt6vltN1HLgJkr4CitrVkidu2aA6qIlG4gshsw4+iC
+ plkqZWd275IgR46fsTNxaJXJHy+8z+qDCJQFHsYBBtBQDNg+tjKB90eTbgooO+aORDvK
+ QTqN+SCMSVJKRccEtFtI/BS1rxNHiEqu6qTHtpD1sf67dQDasYTDJZbGSOrV/sMEfthh
+ 8CYnjIiZrrwgHe9Tk6ltvrbH3Nz6Pc3OsbnJeBe/TQki+gj6wDdsAqMuAR07uK27jXoz
+ g56A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtG3XXtDXKbp+PuQQ9NngVV3o/nmzCJOlxLwUZrJpNJv1IfEmQ/HoQfSLUzmRALP/lSJyJjvHv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywbo5LRfiPrYFKhHR2Qa2q7OOLCbpoG7sYVaD8YhtdbdTFs1wLF
+ 0nAajQFcA4nmVvhejB6/yViYdwmf9y5FV25+3/HYshwEz22ewIcdjuZx/joMkt3GXJ49n6J9c6i
+ RpLlEfsa32OGp1CgLKZOlEWgePLd2zUI=
+X-Gm-Gg: AY/fxX78mU6/z/wq7bOtemUQHpGqzhpuLsPBK5F35qN2zjrj73Zcy6EceYefxSYEl6q
+ q5I18yo8nPpsbKkDKjqzp4HmeURksAH+2Ydk/+GURRmjqqfFwEPIJLiFL99aGILBpNAQ3CRIWFi
+ B8LRbhtnoSpCHJjXly/gApdDj9mE72D77z59+MyhY056hWZLSmmzzW7VqhBBqCG2l/i4EzNJ/kV
+ QKf344yDC39k3wR34mxF0b2HL1cKp97SbGeTGrkoJz3UskqWh0tMS6hwQhA41tp8BoyVuGy
+X-Google-Smtp-Source: AGHT+IHIac84RfHA+TIKRHgbh75XFCdFgfYv2yl5WN9oEksNcVxI1vlkL4CK+saPHUSICa+XcCg0P25jvNseELu7qKc=
+X-Received: by 2002:a05:7022:62b:b0:119:e56b:46b7 with SMTP id
+ a92af1059eb24-121f18a2c70mr1735957c88.1.1767716806383; Tue, 06 Jan 2026
+ 08:26:46 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BN7PPF0D942FA9A:EE_
-X-MS-Office365-Filtering-Correlation-Id: fad671ce-fa6c-4428-3754-08de4d390e0a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VjQxSm4zTjB4Yi82VEFvM3ZNcE5OTXZYdnpxa1RPWGcySFlpOXVsOHpFVnFo?=
- =?utf-8?B?QzBreEJMOHBMMDRBdld4aW13NDJPMVdnSFNuV0dsUVVTMkRyM01TaVBxcjRX?=
- =?utf-8?B?aE9XdWV0TkQ1NTN1bGVWQlBra2pBSWtYQXNmYklrbmhUV1ZyRFRyTUNzSjVX?=
- =?utf-8?B?M0F0VTdXczl4SXd5UFdxeVFOSlVpQnhGdTBnVkdLdmovSFBRTzU0L2hyUWJM?=
- =?utf-8?B?aEVpbkhPOXRtNFpsVndmT0N3bmoydW81NEJIb0xLNTA3UTNsWkVxRHg4N3B3?=
- =?utf-8?B?Rm1jblg2UWFXSWtXRlBCSHBUVVhyMzZ2cFJqVUsveGZ3a2tCL0tWdCtpVm1T?=
- =?utf-8?B?c1JrZld6Q1lPZGc0RG15cEczeVpPOCtXMGx5RUZGc0h4UkdleS8zK2xxVEJh?=
- =?utf-8?B?THdMT1VpUUlwK3pWZllaUy9sd3NDNSsraE1INVpXZTROUXdYMURlVmljTlpH?=
- =?utf-8?B?Y2ZVMmFhaUJXQ3NoQmdpblRVVFNwSVJNelY3TmRHVHJDT0J1U0J2TThaTFJu?=
- =?utf-8?B?RnpCOXF3aTJwdzEzY3lNRVcyR0hkeXJyOHNQayt3bmJaUEJhcVdvWUgxdGhH?=
- =?utf-8?B?N1c5MzFEZldBSVNZWFJMWk9qSDhPcjRNRTdFakhPOHhzc2xRTUlCQzc0WnlQ?=
- =?utf-8?B?Q1kvUHZraUJDM3pKTU9XaU0zVFZkVnBLcmhMbWhsVUNTQ2JaR0FrUExpRzUz?=
- =?utf-8?B?YVR2enY5d1FocTZqbGp0TzRyS2FGY2czdWczb0hxcW9vMElORm9yeTVPQjds?=
- =?utf-8?B?anlUNlZ6dFNWRU9xWXl6SThpUGNXdmlncGtMMDU0d2FJaUJFOTJ4Q3kzTUQx?=
- =?utf-8?B?R0wxNWw1YlpkbTBXQlR4NnJQZEx3QUdWaGQ4V3VGTE1qNU9kLzVFb0hMenM4?=
- =?utf-8?B?WWNpSmxDRnVPL3FjZGtsS05YSm12YVVGLzIzOGRrdFg3N2xOeHdVc2ZtNDBC?=
- =?utf-8?B?REszK0MzalNVY0ExM1hTQmFSRFVHOUVUQ0o4dmtTb1NLakZrZkVMN0RlU1Uy?=
- =?utf-8?B?Y2hZNGpwSit5QmJVaUJxNnQwbDlwd1BBVTRlUlQ3SWFpNkxyVHNjU2NYUEhY?=
- =?utf-8?B?allhaC9mMndlVnQrZFFRZk50TGRxNEhjTmpNUGh3OXpqTmpNOUQ3b25PMGJ4?=
- =?utf-8?B?Wk0yZWc4WjBSTGZHeGRLVVQ4Tk00TWIrbVZjcVlnOExDbDRXOEtGbjNpalg1?=
- =?utf-8?B?eHJxbVlKSG1rNjV5bWc3SkUvZXRqQXhHNzBaOXhZS1lmUlJPOUxsWTl2NVZI?=
- =?utf-8?B?SlZXd2hxUnpWc0tKeU1JRVR5TWVwVXRlU1hoeWhBcmVJdC9mbG14ZG8yc25N?=
- =?utf-8?B?R2hBY3FUTGptTmozMEpneVlpQWN1UW5xUWRsWmJIeTA3bVZYeEJ5clI4Tjls?=
- =?utf-8?B?ck5YdlpPaW5ZNGppMnNMb2pKTmlsRGt2RjJvZFRzMFhXMFgwOFhuTTZzdjRS?=
- =?utf-8?B?am1XUGVneTRQL3FHY2xmdmVUM2E5dE0xY1RhVEV2K2FGcHcrTTYvZTB3L1lF?=
- =?utf-8?B?ZXh6Z1hzYVFESWN6L3d0aGtJZEJhL2tIZ0MyQzV1YklOcWd2ajA4dnhud2hB?=
- =?utf-8?B?ck5ieDZJZ1p0TU5CRko3YXVzVEN5MXVoRE5PbGpsM3NWeDlUand2d1drUTNQ?=
- =?utf-8?B?NERtTVUyUEUvbWdsenlBZlFSeVFwNGZwTmpVdWoxdnVPM1ZxMzBiWE1ObTYr?=
- =?utf-8?B?aXk5Z2RpaElmK3RqM3RBWUtxWndtOUNNbjlRWUhDTGFJeTBveVAyVW83UUxr?=
- =?utf-8?B?bm1GYWlKV0NrZHBjaXV2c3BVSUlKVVlNSFR5UUlMMm8wS0loaU5yUC9tR0JF?=
- =?utf-8?B?OTZCZXJNcXB0ZlNGWHl3ZkFvNkEvU2c3TjNEN25xVjdEZXV4REgyRTN2Yi90?=
- =?utf-8?B?aXREaHZkd0xSSVBiNVJUSUlSUk0yME1TN1hyOWxiOStYc0ZReTZkT1lqSmFV?=
- =?utf-8?B?MFRSTnZoYUR5QVY2QnZtRjcxb2lEQ1BpUTJvOVlQYS80QUZ2Vkh5YzBWRnZ0?=
- =?utf-8?B?Mkw4bzQ2K1ZXcUpKVStFN2lLQnZELzJrYm9zR0RIWEN6MzJTZWx4eVRzMmdF?=
- =?utf-8?Q?YmYDAP?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmsxcTdSN0hZbUJ5ZHVqVGV6V0FCMUx4eFNja2RrZzNFOHBxQ2RHRFBHY1Av?=
- =?utf-8?B?Skw3d1dEYWgzMEtCTVRlVW9sb3NHVkd1UGZYRStMU1FqY2VzaFZjbldZQUpC?=
- =?utf-8?B?Nk5nRGRMMSswdzZFbnVxM3ErZGFxTW1JaVBManlaSG9ac3F5SE9RL3l1VXF0?=
- =?utf-8?B?Q1M5aFA2bGU5cG53c3U5a1hFQ1lqUVFlSWl2RFB0RjVjNjlQaTBQaSszNVJa?=
- =?utf-8?B?TXhoLzdETjh4b0VFbW52TGVpSUFJUFFkQTM4T1QvcjQ2NjN4bnNLNGdzUU5p?=
- =?utf-8?B?QTMxa2t4YzZLVmNqUFY3cTA5emdPSlZvZE1tSm1XK0ZLZUlFN1k3bk4wb3JN?=
- =?utf-8?B?Sy9NcktBLzczS0Q3dTBoRmZxNzBqZ3E5ejZ2dmFmYnpjWEsvc0hmYVBlSkE4?=
- =?utf-8?B?RCsxQnVER1h3dnZncUN0dVpSYjhvaUdoV0RRdWVQU3oxN0dndVl3SHVlYlJO?=
- =?utf-8?B?SlQ5MG84aVdCRFJyUlgySHFyMzZ1VDhvblJTdnRmSEtiRmFJcDBYSkdoY25l?=
- =?utf-8?B?VzBPV0E3aXlrcG1SelkwQmFYQkFPZWkyZjNRWUFqdXIyNHF5bVQ4YkdwWk9Y?=
- =?utf-8?B?L3JKejR5cnpPalBUb2orc05Ncmd6Sno5Y05VL2cyOHBGREwrTUt4Z2pCa09z?=
- =?utf-8?B?NEpvRlhCMlY4WVg2WHV3MlJ2QytES015enBteWJROGZ1WStaVnJVN25VNmtn?=
- =?utf-8?B?Y2tKbXdsOXF0WmFYRTN5VURCRVc0Mm9RRzlaOUxmOXBHNzRJN0tRc1pXSS9z?=
- =?utf-8?B?S3lXVlhtTkkraVhNUDhHTlVFaWtHeHBFNjh5WXVYRVhvRDlVTDMxRkcrc2JX?=
- =?utf-8?B?Tlo2Z1gwRDdEd2JtREoyYWZ3aGh4REhlblE1c3d5M2JEcXpKNmFoL29HY1U4?=
- =?utf-8?B?NHp3bFMzQW50M1dxcWo0VnNBZ2dmaDdSYmlzRVlLaWlURE1WWnJsNmZ5czBk?=
- =?utf-8?B?T2VMN2MrSCswWDIxMmM2QmVrb25GdHVwcElTTFptdHJ4R0RJdXpZbzJLQy96?=
- =?utf-8?B?VkNYWWRiT1RNMndwSWV4dkRyUXpueEp0NXBOSjJJS09xOXdPcGg3NGxJYlI1?=
- =?utf-8?B?R2xGNElicGNZM3FRdFNvSUJFVExsOHZDZndHVUw0WVova1plcW9xVWYxOGFS?=
- =?utf-8?B?dXdRM1J2U0MyUVFyRndSNmlkeHRPcGVjVmRXMFhCRzY5WkREejFJbDliMXFr?=
- =?utf-8?B?VlhjWlN3Vk5hTUhXT2dHZXc3WnorWEprS1N6c1EyRDZRbnpOR3B1eWdXcGJS?=
- =?utf-8?B?ZEk1NG5nRXdGL2JUOXh6WllwdXc2SkM0MGhsWjIrUmV0Z09WYkI3K0lJQ2dU?=
- =?utf-8?B?WVgvazVlR2N5bHE3LzFpVDIwL0RQZ1VCSUtITEx0ckc3SHBhVHdKeTBKNlIz?=
- =?utf-8?B?RWRBK0E3WkwxcjlxdUdYV3U2RUNHUjFoOFZ4SDltMXJxb2hoZFRrMDk4N1oy?=
- =?utf-8?B?MGdFd1JLOE1iQTdXZS9VNk9XT0Nxd3NITmc0VG9xQnpWVy82YitiaUNySHAr?=
- =?utf-8?B?R2xJeG5PLzBqWGU0NE5IWWVCR3Z5M0VGUXFjZS9ld2FMUVlDUHBud1JIcDBv?=
- =?utf-8?B?Q1B0MzlLWUZiYXNLVStsdWpvYmpkeVo1M2Y4clJoSU1DajlYSDNxQzU5eDBW?=
- =?utf-8?B?MmthTXN4Z3Y3bUQrR1E1aDVxMmZ3eXFHTzJ5T2U2NjgvWlRwUnd1eE9Ga2w4?=
- =?utf-8?B?TmtOdEE5OWQ1QnNTd2lKRFYrQkN5SFROa1lORlRPVm9MalFWRUc4NTNRMTZ5?=
- =?utf-8?B?TFdjbTkxUnZkdEtxZHRPNTZqdkFxWGxFdVplbGJBUmtmOHdQUzJVdE9KSEZO?=
- =?utf-8?B?dlpBVzRBWnpUMWJvNmlKOEFST2NWMUJkclJEdHZKMHJ6OUZIQlVxRXFRNEtz?=
- =?utf-8?B?Zlkxb2IzUmlDVWE3c2FHWXJpbDREUkE5L1krWmkydE9RTkVJQVdWeUlHSm1x?=
- =?utf-8?B?VFFqOWlVMjRiQkw3SjdyWXVLSGdHUnZRVFRTdzBqajVIY0tIMjVtWkZaeWQx?=
- =?utf-8?B?VzJIS210VFZEMVRzVjV2bERLRzBDcUN4cnFtU2pqWFowM0ZpcnBTRkJ0SFp3?=
- =?utf-8?B?eklZYmJiZWtaYitaeHl3LzJDWWZHeG1peDBSektrYlEyaTI0TThNSXF4ZDVM?=
- =?utf-8?B?YWptUkhEeVlGUDZhWWg0T0Y3SzNLUCtwb0pseGI3d2VXY3l4NDZJb1ZweUpp?=
- =?utf-8?B?cXk2dExUMDJxVmQyNGNRU1N5Y09KTjFOQmVYckFHYjZGUDI0ek1pYUdKY1BL?=
- =?utf-8?B?RytDd0FycVVMZFJlSUtJVTVZWFphT3ZHZGpkRTluRGo4YU1vWW9xVlRLSWh3?=
- =?utf-8?Q?d42qpTT22qmHSK7QjV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fad671ce-fa6c-4428-3754-08de4d390e0a
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2026 15:34:17.8577 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: phWRe0D5R8H0m1lA/bTqXk6TkvhxTrxVxI0aJqJMzrJBbaID08YgI+4P0xKOnz1F
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF0D942FA9A
+References: <20260106125929.25214-3-sunlightlinux@gmail.com>
+ <20260106125929.25214-6-sunlightlinux@gmail.com>
+In-Reply-To: <20260106125929.25214-6-sunlightlinux@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 6 Jan 2026 11:26:33 -0500
+X-Gm-Features: AQt7F2o4rSn2VdQBavi2YtVjakztHrrwk3TGdqKgLsWoUmoZFr7fLjtaNWrSelI
+Message-ID: <CADnq5_OXJnREtCUhyq4JWjKmih=k7hnc4w_y8mNd3J1g437V8Q@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Fix TLB flush failures after hibernation
+ resume
+To: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Mario Limonciello <superm1@kernel.org>, Ionut Nechita <ionut_n2001@yahoo.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,80 +87,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Vivian,
+On Tue, Jan 6, 2026 at 9:16=E2=80=AFAM Ionut Nechita (Sunlight Linux)
+<sunlightlinux@gmail.com> wrote:
+>
+> From: Ionut Nechita <ionut_n2001@yahoo.com>
+>
+> After resume from hibernation, the amdgpu driver experiences TLB
+> flush failures with errors:
+>
+>   amdgpu: TLB flush failed for PASID xxxxx
+>   amdgpu: failed to write reg 28b4 wait reg 28c6
+>   amdgpu: failed to write reg 1a6f4 wait reg 1a706
+>
+> Root Cause:
+> -----------
+> The KIQ (Kernel Interface Queue) ring is marked as ready
+> (ring.sched.ready =3D true) during resume, but the hardware is not
+> fully functional yet. When TLB invalidation attempts to use KIQ
+> for register access, the commands fail because the GPU hasn't
+> completed initialization.
+>
+> Solution:
+> ---------
+> 1. Add resume_gpu_stable flag (initially false on resume)
+> 2. Force TLB invalidation to use direct MMIO path instead of KIQ
+>    when resume_gpu_stable is false
+> 3. After ring tests pass in gfx_v9_0_cp_resume(), set
+>    resume_gpu_stable to true
+> 4. From that point forward, use faster KIQ path for TLB invalidation
+>
+> This ensures TLB flushes work correctly during early resume while
+> still benefiting from KIQ-based invalidation after the GPU is stable.
+>
+> Changes:
+> --------
+> - amdgpu.h: Add resume_gpu_stable flag to amdgpu_device
+> - amdgpu_device.c: Initialize resume_gpu_stable to false on resume
+> - amdgpu_gmc.c: Check resume_gpu_stable in flush_gpu_tlb_pasid
+> - gfx_v9_0.c: Set resume_gpu_stable after ring tests pass
+> - gmc_v9_0.c: Check resume_gpu_stable before using KIQ path
+>
+> Tested on AMD Cezanne (Renoir) with ROCm workloads after hibernation.
+> Result: Eliminates TLB flush failures on resume.
+>
+> Signed-off-by: Ionut Nechita <ionut_n2001@yahoo.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  9 +++++++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 10 ++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  6 +++++-
+>  5 files changed, 29 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 9f9774f58ce1c..6bf4f6c90164c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1225,6 +1225,7 @@ struct amdgpu_device {
+>         bool                            in_s4;
+>         bool                            in_s0ix;
+>         suspend_state_t                 last_suspend_state;
+> +       bool                            resume_gpu_stable;
+>
+>         enum pp_mp1_state               mp1_state;
+>         struct amdgpu_doorbell_index doorbell_index;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 12201b8e99b3f..440d86ed1e0d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5457,6 +5457,12 @@ int amdgpu_device_resume(struct drm_device *dev, b=
+ool notify_clients)
+>                 goto exit;
+>         }
+>
+> +       /*
+> +        * Set resume_gpu_stable to false BEFORE KFD resume to ensure
+> +        * extended timeouts are used for TLB flushes during hibernation =
+recovery
+> +        */
+> +       adev->resume_gpu_stable =3D false;
 
-adding Bjorn as well.
+This change disables TLB flushes via KIQ permanently.  This is called
+after gfx_v9_0_cp_resume() so resume_gpu_stable is only set to true
+between the calls to amdgpu_device_ip_resume() and here.
 
-On 12/23/25 16:31, Vivian Wang wrote:
-> Hi Christian,
-> 
-> I have a question about this 40-bit restriction.
-> 
-> On 12/23/25 22:55, Christian König wrote:
->> On 12/22/25 22:32, Arnd Bergmann wrote:
->>> On Sat, Dec 20, 2025, at 17:33, Han Gao wrote:
->>> [...]
->>>> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c 
->>>> b/drivers/gpu/drm/radeon/radeon_irq_kms.c
->>>> index 9961251b44ba..62eb5a6968ff 100644
->>>> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
->>>> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
->>>> @@ -250,7 +250,7 @@ static bool radeon_msi_ok(struct radeon_device 
->>>> *rdev)
->>>>  	 * of address for "64-bit" MSIs which breaks on some platforms, 
->>>> notably
->>>>  	 * IBM POWER servers, so we limit them
->>>>  	 */
->>>> -	if (rdev->family < CHIP_BONAIRE) {
->>>> +	if (rdev->family < CHIP_BONAIRE && !radeon_msi64) {
->>>>  		dev_info(rdev->dev, "radeon: MSI limited to 32-bit\n");
->>>>  		rdev->pdev->no_64bit_msi = 1;
->>> According to the comment above it, the device can apparently
->>> do 40-bit addressing but not use the entire 64-bit space.
->>>
->>> I assume the SG2042 chip has the irqchip somewhere above the
->>> 32-bit line but below the 40-bit line, so it ends up working.
->>>
->>> I wonder if the msi_verify_entries() function should check
->>> against dev->coherent_dma_mask instead of checking the
->>> upper 32 bits for being nonzero, that probably gives you
->>> the desired behavior.
->> Again completely agree, that sounds like a plan to me.
->>
->> IIRC the modified code here is basically just a workaround because the MSI control dword on older radeon HW was not setup correctly.
-> 
-> Does this mean that on Bonaire and onwards, MSI can reach full 64-bit
-> space, while DMA still only does 40-bit?
-> (drivers/gpu/drm/radeon/radeon_device.c sets DMA mask to at most 40 bits.)
+kiq sched.ready should be handled correctly.  kiq sched.ready gets set
+to false in suspend via:
 
-I need to double check with the HW guys and/or documentation, but I don't think so.
+gfx_v9_0_suspend() -> gfx_v9_0_hw_fini() -> gfx_v9_0_cp_enable()
 
-As far as I know the bus interface of the HW can only handle 40bits of address space. Later HW generations extend that to 44 or 48bits, but never the full 64bits.
+Then on resume, kiq sched.ready gets set to true again via:
 
-I could be that the interrupt handler block for the MSI functionality has a special handling, but I strongly doubt that.
+gfx_v9_0_resume() -> gfx_v9_0_hw_init() -> gfx_v9_0_cp_resume() ->
+gfx_v9_0_kcq_resume() -> amdgpu_gfx_enable_kcq() ->
+amdgpu_ring_test_helper()
 
-> 
-> If so, checking coherent_dma_mask would be wrong for those devices.
-> 
-> Do you think maybe it would be safer to introduce a msi_addr_mask for
-> occasions like these? We can have msi_addr_mask = DMA_BIT_MASK(40) for
-> pre-Bonaire, and then the ppc PCI stuff can check the mask and see if
-> it's usable. Probably something similar for hda.
+At that point the KIQ hardware is ready. If it weren't, then the above
+sequence would not have worked.  The gfx and compute ring tests are
+irrelevant.
 
-That sounds like it would be rather clean, but it might be overkill.
+Alex
 
-As far as I know we have exactly one PCIe device (the pre-Bonaire HW generation) which messed up the bit in the MSI descriptor and so can only do 32bit MSI while the rest of the device can do 64bit accesses.
-
-A good part of the confusion is comes because the PCIe spec is a bit unspecific what that 64bit support actually means. The original intent was probably to indicate 64bit address space support to operating systems.
-
-But in reality devices only indicate that they can issue 64bit read and write requests but can only handle 40/44/48 or 57 bit addresses.
-
-It's a bit messed up but that's what it is.
-
-Regards,
-Christian.
-
-> 
-> Vivian "dramforever" Wang
-> 
-
+> +
+>         r =3D amdgpu_amdkfd_resume(adev, !amdgpu_sriov_vf(adev) && !adev-=
+>in_runpm);
+>         if (r)
+>                 goto exit;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gmc.c
+> index 869bceb0fe2c6..83fe30f0ada75 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -731,7 +731,12 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_dev=
+ice *adev, uint16_t pasid,
+>         if (!down_read_trylock(&adev->reset_domain->sem))
+>                 return 0;
+>
+> -       if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
+> +       /*
+> +        * After hibernation resume, KIQ may report as ready but not be f=
+ully
+> +        * functional. Use direct MMIO path until GPU is confirmed stable=
+.
+> +        */
+> +       if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
+> +           !adev->resume_gpu_stable) {
+>                 if (adev->gmc.flush_tlb_needs_extra_type_2)
+>                         adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pa=
+sid,
+>                                                                  2, all_h=
+ub,
+> @@ -835,9 +840,9 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_d=
+evice *adev,
+>                 goto failed_kiq;
+>
+>         might_sleep();
+> +
+>         while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
+>                !amdgpu_reset_pending(adev->reset_domain)) {
+> -
+>                 msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+>                 r =3D amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WA=
+IT);
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index 0148d7ff34d99..fbd07b455b915 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3985,6 +3985,16 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device=
+ *adev)
+>                 amdgpu_ring_test_helper(ring);
+>         }
+>
+> +       /*
+> +        * After successful ring tests, mark GPU as stable for resume.
+> +        * This allows KIQ-based TLB invalidation to be used instead of
+> +        * slower direct MMIO path.
+> +        */
+> +       if (!adev->resume_gpu_stable) {
+> +               adev->resume_gpu_stable =3D true;
+> +               dev_info(adev->dev, "GPU rings verified, enabling KIQ pat=
+h\n");
+> +       }
+> +
+>         gfx_v9_0_enable_gui_idle_interrupt(adev, true);
+>
+>         return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index 8ad7519f7b581..8a0202f6b3e3c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -855,9 +855,13 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_dev=
+ice *adev, uint32_t vmid,
+>
+>         /* This is necessary for SRIOV as well as for GFXOFF to function
+>          * properly under bare metal
+> +        *
+> +        * After hibernation resume, KIQ may report as ready but not be f=
+ully
+> +        * functional. Use direct MMIO path until GPU is confirmed stable=
+.
+>          */
+>         if (adev->gfx.kiq[inst].ring.sched.ready &&
+> -           (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+> +           (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
+> +           adev->resume_gpu_stable) {
+>                 uint32_t req =3D hub->vm_inv_eng0_req + hub->eng_distance=
+ * eng;
+>                 uint32_t ack =3D hub->vm_inv_eng0_ack + hub->eng_distance=
+ * eng;
+>
+> --
+> 2.52.0
+>
