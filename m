@@ -4,77 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3EBCDC19F
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 14:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B339C47BF2
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jan 2026 14:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4330310E3D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5DF10E2BC;
 	Tue,  6 Jan 2026 14:00:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TL8be2bi";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eNtqMy1Z";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98BA510E4AE
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 13:00:48 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4779cc419b2so7749835e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jan 2026 05:00:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1767704447; x=1768309247; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Nbo9CTKl9iI9p+wpU++4dDR3MBazactVN245YZgjtV0=;
- b=TL8be2bi2AlgsDgU/idXWLQEPa3BBdrWebSOVNuy4RYSVqoiA91f53NQ9Y0PWvZcqH
- zeRGyHlaw550mBEQmYEOvVVng43nca2gm0XXqzsEPjeXFy9WDmKO6L8RX1+D/l7Dh+K2
- AjXGAClKgQXiIgUU+59Nz6pqsFhctgwYwezFuNkR2qm32LIyie9y/1V9t8SyDQ+8yUdC
- iHXeFtA47TLmeZFSptzmtHXzJIsvkEF/CXc9IyZWljdcrQmhotONvQJUv4HYqssDN4DP
- pKszHLWHU1Rw4NZOGNFDbaL8glqSpvCABMDyh8kcmR3kAWr8R4VW0VXOIn0nNomEySg6
- 76gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767704447; x=1768309247;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Nbo9CTKl9iI9p+wpU++4dDR3MBazactVN245YZgjtV0=;
- b=lnTQW5PCYc/zWYU2k3CMmJbmkZlUbL5crS9Tg10UZ/4Ko+4H2Gs+CRrb8WOAKuYNu5
- qbI9xIrmmvaPls+7p1bHG4XH91ulfpY0YgnplNkQvKkXS+peXE3k/O8hx8RsA33x2I+p
- XTW1ZMVpdgVXaxgC+ntaN+gilNPG8cLG7dlb+BWh/LI7ZiXN3IsT1aJq6uU4eVSzopEu
- uVidvfHWz4wBjBSufY2jziWx2QoZML36y/7xSmzFGmeNH2c5RcPYJlu1DYxJdhZBfq79
- 8McomHw6tStpSLwnA5oylxgVKCoyla3YImDM4jGl14VaZ4zcPDgh3SR8fw00YidW3ilB
- It1g==
-X-Gm-Message-State: AOJu0YzYKKRmR66h1vRoMqz8rop/OMAwpweMLBM8wJyyqS5gxeTkNmiy
- vuYU8dDeYmFE1xtlwlUBUJ1B5hPj05edkOlTUkkl8Z+nkYcQp8dyIC4H
-X-Gm-Gg: AY/fxX4c9CY51ObzVSGIIsGjpDssenoJYgrPU/nhrlt9DOvJ4coMgFSyO5wlH4hnqKq
- p1wgpT5FebiUupO9TyFKYndmioNwat24FoNRvOl4q10kuWKOiov+p7KL35AFwQKQKRKZXHFVWiC
- KD5ht5lA4dFt7xuJL7wxOszNh7uQIyyDBcArKuDTf24/jGOr27CC7DjC24ogbJWPq1USfRfvpJS
- eaU+ZQ2xhxo91V1y/O6nE9viyOmAPPC+g33Hq4Le3YtQ5gobYoRkGRYsPOAg4z6I7n0ua0rDG+0
- E7k3HSAwb3qbwtykWhBZBTNGXd79F3HUurJfS9TCINouwXMp0sBUL99iV6q29XwO5Kh868FbD6F
- BP9wJ4a6zWkG3IiEF320DYOVLC2Bx5uuC/slkHG7pup4kGVdxYD1K5H9FIvEnTheOtDbWwL4FUv
- TNC87iS6rPUJptJggcpFhZqptC4bXm6Eg1vxywZbw=
-X-Google-Smtp-Source: AGHT+IHhEw9eqkK1KQJPCzdybojiNr+2Qye8Rob2jwtE95qwCczcNJiecqF6pkxIxbyLsgpc1DZoEA==
-X-Received: by 2002:a05:600c:4704:b0:477:b0b9:312a with SMTP id
- 5b1f17b1804b1-47d7f066c43mr26446565e9.7.1767704446642; 
- Tue, 06 Jan 2026 05:00:46 -0800 (PST)
-Received: from ionutnechita-arz2022.local
- ([2a02:2f0e:ca09:7000:33fc:5cce:3767:6b22])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d7f68f69dsm42684065e9.1.2026.01.06.05.00.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jan 2026 05:00:46 -0800 (PST)
-From: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Mario Limonciello <superm1@kernel.org>,
- Ionut Nechita <ionut_n2001@yahoo.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 0/1] drm/amdgpu: Fix TLB flush failures after hibernation
- resume
-Date: Tue,  6 Jan 2026 14:59:30 +0200
-Message-ID: <20260106125929.25214-3-sunlightlinux@gmail.com>
-X-Mailer: git-send-email 2.52.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5A6E10E3DE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 12:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1767703962;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6VWZ/QqZENWpaP5ZlDrRpX55Me1mi2AKp72VpmjbLgI=;
+ b=eNtqMy1ZvnSFhlRlNZYSS+o56cs7tEvPme2VYxfWqgdQA6ofghPaM2Zx2E1reZIl7BBv6/
+ 2ryWFJ5TaPcH3+/eHpz3++K4d1v0qXbnD9F4BCTkPxCOHl/mY//u9LPq+AHBrmtSR+ywr3
+ lYJkEpJnltx4MgjR40EYhyRmaB9xx4Q=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-612-iQ6kWQC-MeyBEacBgOE78Q-1; Tue,
+ 06 Jan 2026 07:52:39 -0500
+X-MC-Unique: iQ6kWQC-MeyBEacBgOE78Q-1
+X-Mimecast-MFC-AGG-ID: iQ6kWQC-MeyBEacBgOE78Q_1767703957
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 93B92196C402; Tue,  6 Jan 2026 12:52:37 +0000 (UTC)
+Received: from [10.44.33.27] (unknown [10.44.33.27])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 0485830001A7; Tue,  6 Jan 2026 12:52:33 +0000 (UTC)
+Date: Tue, 6 Jan 2026 13:52:28 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: =?ISO-8859-15?Q?Michel_D=E4nzer?= <michel.daenzer@mailbox.org>
+cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org, 
+ linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+Subject: Re: [PATCH v3 2/3] mm: only interrupt taking all mm locks on fatal
+ signal
+In-Reply-To: <e597171a-cc64-4811-a043-db2e539aaf94@mailbox.org>
+Message-ID: <5dfbf2f9-0948-cd59-5c59-a6ee946ff9f2@redhat.com>
+References: <b672e17b-461d-16ae-e7d3-45d3c1aab142@redhat.com>
+ <7whbqlfrwjr4z2d4bpny3rjyl5tetdyx7ccf52uvby7hgywoym@6l6m2xcytez7>
+ <e597171a-cc64-4811-a043-db2e539aaf94@mailbox.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 6arazUP6rKxbDTwssrGkDmodcUSxzzENsGkkVuQ2qKs_1767703957
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed;
+ BOUNDARY="-1463811712-1739719334-1767702910=:329667"
+Content-ID: <4dd8c681-f09b-0e56-d450-138c4d923bc8@redhat.com>
 X-Mailman-Approved-At: Tue, 06 Jan 2026 14:00:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,64 +83,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ionut Nechita <ionut_n2001@yahoo.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+---1463811712-1739719334-1767702910=:329667
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
+Content-ID: <0b5eb857-a42d-63b4-aa09-99752d29977a@redhat.com>
 
-Hi,
 
-This patch addresses critical TLB flush failures that occur during
-hibernation resume on AMD GPUs, particularly affecting ROCm workloads.
 
-Problem:
---------
-After resuming from hibernation (S4), the amdgpu driver consistently
-fails TLB invalidation operations with these errors:
+On Tue, 6 Jan 2026, Michel Dänzer wrote:
 
-  amdgpu: TLB flush failed for PASID xxxxx
-  amdgpu: failed to write reg 28b4 wait reg 28c6
-  amdgpu: failed to write reg 1a6f4 wait reg 1a706
+> On 1/5/26 19:15, Liam R. Howlett wrote:
+> > * Mikulas Patocka <mpatocka@redhat.com> [260104 16:17]:
+> >
+> > I'm not saying it's wrong to change the signal handling, but this is
+> > very much working around a bug in userspace constantly hammering a task
+> > with signals and then is surprised there is a response that the kernel
+> > was interrupted.
+> 
+> I'd go further than that. If user space fails to retry the system call 
+> in response to -EINTR, that's a user-space bug, period. It can happen 
+> anytime for any number of other reasons. (That most system calls happen 
+> to get away without it most of the time doesn't make it not a bug)
 
-These failures cause compute workloads to malfunction or crash, making
-hibernation unreliable for systems running ROCm/OpenCL applications.
+So, I tried this - just for fun - and the machine doesn't even boot. I get 
+a lot of errors about inability to open particular files on the console.
 
-Root Cause:
------------
-During resume, the KIQ (Kernel Interface Queue) ring is marked as ready
-(ring.sched.ready = true) before the GPU hardware has fully initialized.
-When TLB invalidation attempts to use KIQ for register access during
-this window, the commands fail because the GPU is not yet stable.
+Userspace is buggy, according to your definition, regardless of whether 
+you like it or not.
 
-Solution:
----------
-This patch introduces a resume_gpu_stable flag that:
-- Starts as false during resume
-- Forces TLB invalidation to use the reliable MMIO path initially
-- Gets set to true after ring tests pass in gfx_v9_0_cp_resume()
-- Allows switching to the faster KIQ path once GPU is confirmed stable
+Mikulas
 
-This ensures TLB flushes work correctly during early resume while still
-benefiting from KIQ-based invalidation after the GPU is fully operational.
+---
+ fs/open.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
-Testing:
---------
-Tested on AMD Cezanne (Renoir) with ROCm workloads across multiple
-hibernation cycles. The patch eliminates all TLB flush failures and
-restores reliable hibernation support for compute workloads.
-
-Impact:
--------
-Affects all AMD GPUs using KIQ for TLB invalidation, particularly
-visible on systems with active compute workloads (ROCm, OpenCL).
-
-Ionut Nechita (1):
-  drm/amdgpu: Fix TLB flush failures after hibernation resume
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  9 +++++++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 10 ++++++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  6 +++++-
- 5 files changed, 29 insertions(+), 3 deletions(-)
-
--- 
-2.52.0
+Index: linux-2.6/fs/open.c
+===================================================================
+--- linux-2.6.orig/fs/open.c	2025-12-31 20:10:31.000000000 +0100
++++ linux-2.6/fs/open.c	2026-01-06 13:28:01.000000000 +0100
+@@ -1419,6 +1419,9 @@ static int do_sys_openat2(int dfd, const
+ 	struct filename *tmp __free(putname) = NULL;
+ 	int err;
+ 
++	if (current->pid != 1 && !(get_random_u8() & 0x1))
++		return -EINTR;
++
+ 	err = build_open_flags(how, &op);
+ 	if (unlikely(err))
+ 		return err;
+---1463811712-1739719334-1767702910=:329667--
 
