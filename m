@@ -4,65 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B46BD185FA
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD6E9D185FB
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1778210E72D;
-	Thu,  8 Jan 2026 13:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63C9E10E732;
+	Thu,  8 Jan 2026 13:37:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JhXvBhXX";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="dl7542Xp";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A07910E034
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 21:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767821397;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ow7ejlnL76blgGovBd3isSBtOAsvSD2Rawb77QSvQFQ=;
- b=JhXvBhXXvEeTqPFU8p4O6qfXvdq46v72e6P68PpZKUlNUn6ic0ln20XqnZQY1UQQzePJuB
- 6bDI8gXt/HibfqLri8JgwWFN8Vu4hi4I7HkF9eBHBT+DePsY5JJmHJHEr4LfbXNWlU/isX
- 5HE2tE7ld6jGwq+g/ZFKerC5k9S+XTE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-497-ENzFtFryNKKpqRGMa8A-nA-1; Wed,
- 07 Jan 2026 16:29:53 -0500
-X-MC-Unique: ENzFtFryNKKpqRGMa8A-nA-1
-X-Mimecast-MFC-AGG-ID: ENzFtFryNKKpqRGMa8A-nA_1767821391
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 2CC6E195608F; Wed,  7 Jan 2026 21:29:51 +0000 (UTC)
-Received: from [10.44.33.27] (unknown [10.44.33.27])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7950919560A2; Wed,  7 Jan 2026 21:29:46 +0000 (UTC)
-Date: Wed, 7 Jan 2026 22:29:44 +0100 (CET)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Matthew Wilcox <willy@infradead.org>
-cc: Andrew Morton <akpm@linux-foundation.org>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org, 
- linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>, 
- Jann Horn <jannh@google.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] mm_take_all_locks: change -EINTR to
- -ERESTARTSYS
-In-Reply-To: <aV7IO8-trMSI1twA@casper.infradead.org>
-Message-ID: <d3d77df6-931a-b97c-d551-a69ee5ca9493@redhat.com>
-References: <20260107203113.690118053@debian4.vm>
- <20260107203224.969740802@debian4.vm> <aV7IO8-trMSI1twA@casper.infradead.org>
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9140810E111;
+ Wed,  7 Jan 2026 17:28:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1767806912; x=1768066112;
+ bh=Qj2fYs3gJhfydf16uezC3qPyLcMKDfKf2EsPDnDOFOw=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=dl7542XpCdL7Jp5/Eu1i/ldgYv2evn5v7qFP+7nqbkHO8Gb6FBjPzPU1rRrSSl4mb
+ M21430hnRGyWG/3//Z5HTYYF2TNQ9wDg5CtyVrUaOk+zZNb6X1BJbR0UfzI2K/FAYd
+ XtG47OSLSA8JV/gpzkf5D+Cc67OygjXgDVWOdv1vHbzm/CCQHrr6jSdoV9lxgxKCZZ
+ +fBFgddGZiFeThjLA3vfiHEytiSZJGJoeLiTUJusJSvXD8a/U+YdcTMRh4YItqb9nj
+ 7KP2btBxBAdjD0Y+SFWcsUfekJIRxR9hRKfkmmm4fve6EoG5Ob6dcgDG6n0A0WQIoO
+ CT6LQQO3XaV9A==
+Date: Wed, 07 Jan 2026 17:28:28 +0000
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+From: alliancetrooper <alliancetrooper@proton.me>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: External HDMI monitor fails to wake up from DPMS/consoleblank since
+ kernel 6.18
+Message-ID: <x22LVmFvTwDrklnrfzto0X8folnEtLitNgQKjJxtTH99P9Bplb8S28jJT74Eqd_9w3jfQepZ5Q62_bIw6DhpzG5iDiTboHr-8B8Ilx3Qjzg=@proton.me>
+Feedback-ID: 88488025:user:proton
+X-Pm-Message-ID: 9ab3630095f6539bf609c4206c7d09eec8527798
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: multipart/alternative;
+ boundary="b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30"
 X-Mailman-Approved-At: Thu, 08 Jan 2026 13:37:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,20 +54,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+SGVsbG8uCgpJIGFtIHJlcG9ydGluZyBhIHJlZ3Jlc3Npb24gaW4gdGhlIGtlcm5lbC4gYW4gZXh0
+ZXJuYWwgSERNSSBtb25pdG9yIGZhaWxzIHRvIHdha2UgdXAgZnJvbSBhIGxvdy1wb3dlciBzdGF0
+ZS4KVGhlIGlzc3VlIG9jY3VycyBib3RoIGluIHRoZSBWVCBjb25zb2xlICh1c2luZyBjb25zb2xl
+YmxhbmsgcGFyYW1ldGVyKSBhbmQgaW4gdGhlIFguT3JnIGdyYXBoaWNhbCBzZXNzaW9uICh1c2lu
+ZyB4c2V0IGRwbXMgZm9yY2Ugb2ZmKS4KVGhlIGludGVybmFsIGxhcHRvcCBkaXNwbGF5IHJlc3Vt
+ZXMgY29ycmVjdGx5LiBUaGlzIHByb2JsZW0gd2FzIG5vdCBwcmVzZW50IGluIExpbnV4IGtlcm5l
+bCA2LjE3LiBJdCBzdGFydGVkIG9jY3VycmluZyBhZnRlciB1cGRhdGluZyB0byBrZXJuZWwgNi4x
+OC4wLgpNeSBLZXJuZWw6IDYuMTguMywgYnVpbHQgZnJvbSB2YW5pbGxhIHNvdXJjZXMgaW4gR2Vu
+dG9vLiBEaXNwbGF5IGNvbnRyb2xsZXI6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4gW0FN
+RC9BVEldIFN0cml4IFtSYWRlb24gODgwTSAvIDg5ME1dIChyZXYgYzQpLgoKTm8gbWVzc2FnZXMg
+aW4gZG1lc2cgcmVnYXJkaW5nIHRoaXMuCgpTdGVwcyB0byBSZXByb2R1Y2U6CjEuIENvbm5lY3Qg
+YW4gZXh0ZXJuYWwgbW9uaXRvciB2aWEgSERNSS4KMi4gQm9vdCB3aXRoIHRoZSBrZXJuZWwgcGFy
+YW1ldGVyIGNvbnNvbGVibGFuaz0zMC4KMy4gV2FpdCAzMCBzZWNvbmRzIGZvciB0aGUgc2NyZWVu
+IHRvIGJsYW5rIGFuZCBzb21lIHRpbWUgKG5vIG1vcmUgdGhhbiA1IG1pbnMpIGFkZGl0aW9uYWxs
+eS4KNC4gVHJ5IHRvIHdha2UgdGhlIGRpc3BsYXkgYnkgcHJlc3NpbmcgYSBrZXkuIFRoZSBleHRl
+cm5hbCBtb25pdG9yIHJlbWFpbnMgb2ZmLCB3aGlsZSB0aGUgaW50ZXJuYWwgbGFwdG9wIGRpc3Bs
+YXkgdHVybnMgb24uCjUuIEFsc28gcmVwcm9kdWNpYmxlIGluIFgxMS9Yb3JnIHNlc3Npb24gdXNp
+bmcgeHNldCBkcG1zIGZvcmNlIG9mZi4gSXQgaXMgYWxzbyBuZWVkZWQgdG8gc3BlbnQgc29tZSB0
+aW1lIGluIG9mZiBzdGF0ZS4KClRoYW5rIHlvdS4=
+
+--b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
+cHg7Ij5IZWxsby48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2Vy
+aWY7IGZvbnQtc2l6ZTogMTRweDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTog
+QXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPkkgYW0gcmVwb3J0aW5nIGEgcmVn
+cmVzc2lvbiBpbiB0aGUga2VybmVsLiBhbiBleHRlcm5hbCBIRE1JIG1vbml0b3IgZmFpbHMgdG8g
+d2FrZSB1cCBmcm9tIGEgbG93LXBvd2VyIHN0YXRlLjxicj4NClRoZSBpc3N1ZSBvY2N1cnMgYm90
+aCBpbiB0aGUgVlQgY29uc29sZSAodXNpbmcgPGNvZGU+Y29uc29sZWJsYW5rPC9jb2RlPiBwYXJh
+bWV0ZXIpIGFuZCBpbiB0aGUgWC5PcmcgZ3JhcGhpY2FsIHNlc3Npb24gKHVzaW5nIDxjb2RlPnhz
+ZXQgZHBtcyBmb3JjZSBvZmY8L2NvZGU+KS48YnI+VGhlIGludGVybmFsIGxhcHRvcCBkaXNwbGF5
+IHJlc3VtZXMgY29ycmVjdGx5LiBUaGlzIHByb2JsZW0gd2FzIG5vdCBwcmVzZW50IGluIExpbnV4
+IGtlcm5lbCA2LjE3LiBJdCBzdGFydGVkIG9jY3VycmluZyBhZnRlciB1cGRhdGluZyB0byBrZXJu
+ZWwgNi4xOC4wLjxicj4NCk15IEtlcm5lbDogNi4xOC4zLCBidWlsdCBmcm9tIHZhbmlsbGEgc291
+cmNlcyBpbiBHZW50b28uIERpc3BsYXkgY29udHJvbGxlcjogQWR2YW5jZWQgTWljcm8gRGV2aWNl
+cywgSW5jLiBbQU1EL0FUSV0gU3RyaXggW1JhZGVvbiA4ODBNIC8gODkwTV0gKHJldiBjNCkuPGJy
+Pg0KPGJyPg0KTm8gbWVzc2FnZXMgaW4gZG1lc2cgcmVnYXJkaW5nIHRoaXMuPGJyPg0KPGJyPg0K
+U3RlcHMgdG8gUmVwcm9kdWNlOjxicj4NCjEuICZuYnNwO0Nvbm5lY3QgYW4gZXh0ZXJuYWwgbW9u
+aXRvciB2aWEgSERNSS48YnI+DQoyLiAmbmJzcDtCb290IHdpdGggdGhlIGtlcm5lbCBwYXJhbWV0
+ZXIgPGNvZGU+Y29uc29sZWJsYW5rPTMwPC9jb2RlPi48YnI+DQozLiAmbmJzcDtXYWl0IDMwIHNl
+Y29uZHMgZm9yIHRoZSBzY3JlZW4gdG8gYmxhbmsgYW5kIHNvbWUgdGltZSAobm8gbW9yZSB0aGFu
+IDUgbWlucykgYWRkaXRpb25hbGx5Ljxicj4NCjQuICZuYnNwO1RyeSB0byB3YWtlIHRoZSBkaXNw
+bGF5IGJ5IHByZXNzaW5nIGEga2V5LiBUaGUgZXh0ZXJuYWwgbW9uaXRvciByZW1haW5zIG9mZiwg
+d2hpbGUgdGhlIGludGVybmFsIGxhcHRvcCBkaXNwbGF5IHR1cm5zIG9uLjxicj4NCjUuICZuYnNw
+O0Fsc28gcmVwcm9kdWNpYmxlIGluIFgxMS9Yb3JnIHNlc3Npb24gdXNpbmcgPGNvZGU+eHNldCBk
+cG1zIGZvcmNlIG9mZjwvY29kZT4uIEl0IGlzIGFsc28gbmVlZGVkIHRvIHNwZW50IHNvbWUgdGlt
+ZSBpbiBvZmYgc3RhdGUuPGJyPg0KPGJyPg0KVGhhbmsgeW91LjwvZGl2Pg==
 
 
-On Wed, 7 Jan 2026, Matthew Wilcox wrote:
-
-> On Wed, Jan 07, 2026 at 09:31:14PM +0100, Mikulas Patocka wrote:
-> > This commit changes -EINTR to -ERESTARTSYS, so that if the signal handler
-> > was installed with the SA_RESTART flag, the operation is automatically
-> > restarted.
-> 
-> No, this is bonkers.  If you get a signal, you return -EINTR.
-
-Why?
-
-fifo_open returns -ERESTARTSYS, so why not here?
-
-Mikulas
+--b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30--
 
