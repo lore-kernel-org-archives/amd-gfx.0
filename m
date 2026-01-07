@@ -4,50 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE456D185F8
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47968D185FA
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED8D10E723;
-	Thu,  8 Jan 2026 13:37:29 +0000 (UTC)
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F13E510E69B;
- Thu,  8 Jan 2026 07:20:10 +0000 (UTC)
-Received: from localhost.localdomain (unknown [36.112.3.223])
- by APP-05 (Coremail) with SMTP id zQCowAA3yQyoWl9p8pn3Aw--.46387S2;
- Thu, 08 Jan 2026 15:20:08 +0800 (CST)
-From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-To: oak.zeng@amd.com
-Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
- Felix.Kuehling@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, lihaoxiang@isrc.iscas.ac.cn,
- linux-kernel@vger.kernel.org, simona@ffwll.ch, stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/amdkfd: fix a memory leak in
- device_queue_manager_init()
-Date: Thu,  8 Jan 2026 15:20:07 +0800
-Message-Id: <20260108072007.299229-1-lihaoxiang@isrc.iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <BYAPR12MB3176BA15327312EC21B8ED228085A@BYAPR12MB3176.namprd12.prod.outlook.com>
-References: <BYAPR12MB3176BA15327312EC21B8ED228085A@BYAPR12MB3176.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 359D410E72A;
+	Thu,  8 Jan 2026 13:37:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="TiAGgbrW";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 863D410E086
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 20:29:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1767817774;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EYBm4fsSKMIFV9VkRmhgrkSCmBstr4iH+VMnw9NmY+k=;
+ b=TiAGgbrW5zzfJOA5RTua2TWx5KW8ptu8ODpDEOYu6vmnVZoBi7UQHpKPK0D5waNNqGK7O4
+ qVYwW3kkP9LwdraMk8pnSbi+r2LWu9wNPS+s8g9RIBVlEWKQIgv8TfC9Im4YYirZa6e2/j
+ I8qpWF0MJitWMcuOr2TUrmZcHnqqAGI=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-563-qSSJf_TFNOKML6QBkLcJVQ-1; Wed,
+ 07 Jan 2026 15:29:32 -0500
+X-MC-Unique: qSSJf_TFNOKML6QBkLcJVQ-1
+X-Mimecast-MFC-AGG-ID: qSSJf_TFNOKML6QBkLcJVQ_1767817770
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9849F1955DA7; Wed,  7 Jan 2026 20:29:29 +0000 (UTC)
+Received: from [10.44.33.27] (unknown [10.44.33.27])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 70BC2180066A; Wed,  7 Jan 2026 20:29:26 +0000 (UTC)
+Date: Wed, 7 Jan 2026 21:29:23 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org, 
+ linux-mm@kvack.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>
+Subject: Re: [PATCH v3 3/3] amdgpu: don't report an error if the process was
+ killed
+In-Reply-To: <7ffacc33-9233-4fa1-a7d8-28fb3fbb8061@lucifer.local>
+Message-ID: <06317034-2677-d2ca-b468-841a2076e84d@redhat.com>
+References: <aca0147f-61be-30a3-eff5-cb981222aacc@redhat.com>
+ <7ffacc33-9233-4fa1-a7d8-28fb3fbb8061@lucifer.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowAA3yQyoWl9p8pn3Aw--.46387S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
- VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYB7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
- 6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
- kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
- cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
- CY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
- 5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeV
- CFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l
- FIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4c8EcI0Ec7CjxVAaw2AFwI
- 0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
- 6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0x
- vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
- 42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
- kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUF9a9DUUUU
-X-Originating-IP: [36.112.3.223]
-X-CM-SenderInfo: 5olkt0x0ld0ww6lv2u4olvutnvoduhdfq/1tbiBgoBE2lfTzYmIQAAsW
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: E3DhtjiD8RxrGUi778NMTj7WOLXtfYyH3UnVzG9zZvE_1767817770
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Thu, 08 Jan 2026 13:37:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,18 +79,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 8 Jan 2026 02:15:12 +0000, Zeng wrote:
-> } in last line should be in a new line.
 
-Hi, Zeng! I rechecked my patch and found that this issue does not
-appear in the version I submitted. I’m not sure why this discrepancy
-occurred, but I’ve sent a v3 revision anyway and hope it now shows
-up correctly.
 
-> Other than that, patch lgtm. Reviewed-by: Oak.Zeng@amd.com
+On Mon, 5 Jan 2026, Lorenzo Stoakes wrote:
 
-Thanks for review!
+> Gentle nudge to ask you to please thread these series emails properly in
+> future.
+> 
+> Use something like:
+> 
+> git format-patch --cover-letter --thread ...
+> 
+> Or b4 or etc.
+> 
+> This is a nightmare to try to review without it.
+> 
+> Thanks!
 
-Thanks,
-Haoxiang Li  
+I don't use git for patch development. I use quilt. I find git quite 
+awkward when I need to move between multiple patches and update them 
+independently.
+
+I'll try to send the next version of this patchset using the 'quilt mail' 
+command.
+
+Mikulas
 
