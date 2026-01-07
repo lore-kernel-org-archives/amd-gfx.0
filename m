@@ -4,64 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E21E7D185FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3717ED185F9
 	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70E5110E733;
-	Thu,  8 Jan 2026 13:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0835910E726;
+	Thu,  8 Jan 2026 13:37:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="SeoIaVvT";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="Car4j9yd";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3915610E086
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 20:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767817952;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:content-type:content-type;
- bh=6Z/DC7J64s4KlGEnHSLqfo5LhZ9RyxEue8T0Qz9lgFU=;
- b=SeoIaVvTlvESCmhVIGq0uNwdAFahxqtvZqouSSmXOFC1sPSRaxU/yzbv2xCsKsSNLwQNpb
- WoNzB6NA49EBEMmBe1J7MJS14wgXBLPoBWYNGDEIUAlagzDcfNbpty4gyFdaQpIJ5QkR7U
- QvOC8Ue7tU7+HFxDjRlzlkWHPqvr+0E=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-150-8zKjdq5iOC-JakvDRE8z5Q-1; Wed,
- 07 Jan 2026 15:32:26 -0500
-X-MC-Unique: 8zKjdq5iOC-JakvDRE8z5Q-1
-X-Mimecast-MFC-AGG-ID: 8zKjdq5iOC-JakvDRE8z5Q_1767817945
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B33871956053; Wed,  7 Jan 2026 20:32:24 +0000 (UTC)
-Received: from debian4.vm (unknown [10.44.33.27])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
- id B7F6F1956048; Wed,  7 Jan 2026 20:32:20 +0000 (UTC)
-Received: by debian4.vm (sSMTP sendmail emulation);
- Wed, 07 Jan 2026 21:32:19 +0100
-Message-ID: <20260107203113.690118053@debian4.vm>
-User-Agent: quilt/0.68
-Date: Wed, 07 Jan 2026 21:31:13 +0100
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Pedro Falcato <pfalcato@suse.de>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org,
- linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>,
- Jann Horn <jannh@google.com>
-Subject: [PATCH v4 0/2] Fix failures with signals and AMD OpenCL
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ICmcYfGPlqyOoTQavWeCanaeYJREn3hVlhvIUy4HhTw_1767817945
-X-Mimecast-Originator: redhat.com
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
+ [79.135.106.110])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2119010E649
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 17:31:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=rcre3mwyvnaire3ybtyde6wxoi.protonmail; t=1767807068; x=1768066268;
+ bh=aPgxw0Gx8oH9qHdwoW5+x8cld6geW5HvabdWs74V2/A=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=Car4j9ydkCcEz+f2rR1YzJdkpAS+kN+cGQjdRpoe2quptrpv7YMHcsKb2aRnw/qon
+ hsolXghP6wF8zwHMGP6t2J60WuDVzL64eIM8yNE1gLipznM6+AEMotNv6GFPrSxI/x
+ 3FbIHpPtlhkJ/SXkGYmabnYIO/p/v3mmh15LA4sw4HJTsQBR7U6Fi0NH6bYBRrReo4
+ 2f+g4xCs8WC0vQNVGH/ReqsXEEBhU75p+se47eQ7GG8oCewHLdaB4d90wXCtgfHdbS
+ UXHuoZMhbgqseib8FSosPsEEuA7N7sKapprvKY+uUr+VmgBaxQ/3/W+8O6v7PpOuok
+ TTyCY1yEkpM3g==
+Date: Wed, 07 Jan 2026 17:31:03 +0000
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+From: alliancetrooper <alliancetrooper@proton.me>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: External HDMI monitor fails to wake up from DPMS/consoleblank since
+ kernel 6.18
+Message-ID: <zeo54utdQP5v8eYapWyEEqMIAIVyazyK360IARqaw91yEK75U_c7NHDmchrX_XG5irs3AJ9m-ytSXUXsS2Z4Awh1BzBR9HfwHW7a9e1uKgg=@proton.me>
+Feedback-ID: 88488025:user:proton
+X-Pm-Message-ID: b07ed1d920aee9a7ecf95fb2183cee72b7e55e42
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 08 Jan 2026 13:37:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,12 +55,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch set fixes failures with AMD OpenCL and signals.
+Hello.
 
-The first patch makes the kernel return -ERESTARTSYS instead of -EINTR,
-so that the syscall is restarted if the signal has the SA_RESTART flag.
+I am reporting a regression in the kernel. an external HDMI monitor fails t=
+o wake up from a low-power state.
+The issue occurs both in the VT console (using `consoleblank` parameter) an=
+d in the X.Org graphical session (using `xset dpms force off`).
+The internal laptop display resumes correctly. This problem was not present=
+ in Linux kernel 6.17. It started occurring after updating to kernel 6.18.0=
+.
+My Kernel: 6.18.3, built from vanilla sources in Gentoo. Display controller=
+: Advanced Micro Devices, Inc. [AMD/ATI] Strix [Radeon 880M / 890M] (rev c4=
+).
 
-The second patch removes a spurious error message.
+No messages in dmesg regarding this.
 
-Mikulas
+Steps to Reproduce:
+1. =C2=A0Connect an external monitor via HDMI.
+2. =C2=A0Boot with the kernel parameter `consoleblank=3D30`.
+3. =C2=A0Wait 30 seconds for the screen to blank and some time (no more tha=
+n 5 mins) additionally.
+4. =C2=A0Try to wake the display by pressing a key. The external monitor re=
+mains off, while the internal laptop display turns on.
+5. =C2=A0Also reproducible in X11/Xorg session using `xset dpms force off`.=
+ It is also needed to spent some time in off state.
 
+Thank you.
