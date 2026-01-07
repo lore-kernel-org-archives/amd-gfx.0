@@ -4,65 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6772BD185F9
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CCEAD185F8
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8ABC10E725;
-	Thu,  8 Jan 2026 13:37:29 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FB3F10E699;
- Thu,  8 Jan 2026 06:41:40 +0000 (UTC)
-Received: from [192.168.0.105] (unknown [114.241.82.145])
- by APP-03 (Coremail) with SMTP id rQCowACXtt2SUV9pJAwYBA--.18933S2;
- Thu, 08 Jan 2026 14:41:23 +0800 (CST)
-Message-ID: <8c16931b-8637-43c3-a2db-5c66d8865124@iscas.ac.cn>
-Date: Thu, 8 Jan 2026 14:41:22 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3872010E72F;
+	Thu,  8 Jan 2026 13:37:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PCnx/vpd";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39B3E10E086
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 20:32:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1767817959;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ references:references; bh=w4w0YXsQ4tHqn86Cdn9lgCFQXlRLiJdMmnLM/2nY/7I=;
+ b=PCnx/vpdvOjgyeMVF+zt2KYXURKesjFMg6/nWEljA8ensombAyIk2NMJWS3KNO/wPstGSL
+ Y1Mxaj7bsxf6cAcRXVHud1rBgTxTRQX7P8gd56anB/Dfp5tPrLUQ4U+lYYV7EFD3V1QNud
+ I+66IUq/H9XkdDrU39M4qxq3AuirNS8=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-397-tOaLPL9DOgKv2Mj1GCj-kA-1; Wed,
+ 07 Jan 2026 15:32:38 -0500
+X-MC-Unique: tOaLPL9DOgKv2Mj1GCj-kA-1
+X-Mimecast-MFC-AGG-ID: tOaLPL9DOgKv2Mj1GCj-kA_1767817956
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 56EAF1955F34; Wed,  7 Jan 2026 20:32:36 +0000 (UTC)
+Received: from debian4.vm (unknown [10.44.33.27])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
+ id 5091F18007D2; Wed,  7 Jan 2026 20:32:32 +0000 (UTC)
+Received: by debian4.vm (sSMTP sendmail emulation);
+ Wed, 07 Jan 2026 21:32:30 +0100
+Message-ID: <20260107203230.880324802@debian4.vm>
+User-Agent: quilt/0.68
+Date: Wed, 07 Jan 2026 21:31:15 +0100
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Pedro Falcato <pfalcato@suse.de>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org,
+ linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>,
+ Jann Horn <jannh@google.com>, Mikulas Patocka <mpatocka@redhat.com>
+Subject: [PATCH v4 2/2] amdgpu: delete the "Failed to register MMU notifier"
+ message
+References: <20260107203113.690118053@debian4.vm>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] drm/radeon: Raise msi_addr_mask to 40 bits for
- pre-Bonaire
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Brett Creeley <brett.creeley@amd.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org
-References: <20251224-pci-msi-addr-mask-v1-0-05a6fcb4b4c0@iscas.ac.cn>
- <20251224-pci-msi-addr-mask-v1-3-05a6fcb4b4c0@iscas.ac.cn>
- <15ec03f3-f0cf-45f7-b7f6-98b075533d3e@amd.com>
-Content-Language: en-US
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-In-Reply-To: <15ec03f3-f0cf-45f7-b7f6-98b075533d3e@amd.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: H-ETFC7hQhwaHfqzKZogDuT59EFAwpb8K3sIelwA8wY_1767817956
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACXtt2SUV9pJAwYBA--.18933S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFy5KrWUGFyUtw18Jr1rCrg_yoW8Cw4Upa
- y8Ga98KrZIy34jkay7u39rZF1Yya10kayrWrZrK343u34Yvry2gFZIv3WUJa4kXr1ktw4j
- vFyUG3W8ZFn5CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvE14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
- 0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
- v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
- 1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
- AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
- 42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
- evJa73UjIFyTuYvjTRNJ5oDUUUU
-X-Originating-IP: [114.241.82.145]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
 X-Mailman-Approved-At: Thu, 08 Jan 2026 13:37:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,45 +80,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/7/26 23:20, Christian König wrote:
-> On 12/24/25 04:10, Vivian Wang wrote:
->> The code was originally written using no_64bit_msi, which restricts the
->> device to 32-bit MSI addresses.
->>
->> Since msi_addr_mask is introduced, use DMA_BIT_MASK(40) instead of
->> DMA_BIT_MASK(32) here for msi_addr_mask, describing the restriction more
->> precisely and allowing these devices to work on platforms with MSI
->> doorbell address above 32-bit space, as long as it is within the
->> hardware restriction of 40-bit space.
->>
->> Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
->> ---
->>  drivers/gpu/drm/radeon/radeon_irq_kms.c | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
->> index d550554a6f3f..ea519d43348b 100644
->> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
->> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
->> @@ -251,8 +251,8 @@ static bool radeon_msi_ok(struct radeon_device *rdev)
->>  	 * IBM POWER servers, so we limit them
->>  	 */
->>  	if (rdev->family < CHIP_BONAIRE) {
->> -		dev_info(rdev->dev, "radeon: MSI limited to 32-bit\n");
->> -		rdev->pdev->msi_addr_mask = DMA_BIT_MASK(32);
->> +		dev_info(rdev->dev, "radeon: MSI limited to 40-bit\n");
->> +		rdev->pdev->msi_addr_mask = DMA_BIT_MASK(40);
-> Well, that is not even remotely correct.
->
-> Please move that close to the dma_set_mask_and_coherent() call in radeon_device_init() (file radeon_device.c).
->
-> The check there is most likely already what you need. Should be pretty straight forward.
+This error may happen if mm_take_all_locks was interrupted by a signal -
+the userspace will retry an ioctl that returned -EINTR, so there is no
+need to report it to the syslog.
 
-Thanks. In that case, maybe this msi_addr_mask thing was overcomplicated
-after all. Maybe coherent_dma_mask is just the right thing to check anyway.
+Christian König suggested to remove this message at all, so let's do it.
 
-I'll see if I can figure something out. Of course I need to keep the
-logic for Power still working...
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-Vivian "dramforever" Wang
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |    5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+Index: mm/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+===================================================================
+--- mm.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c	2026-01-07 20:09:51.000000000 +0100
++++ mm/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c	2026-01-07 20:12:11.000000000 +0100
+@@ -1069,11 +1069,8 @@ static int init_user_pages(struct kgd_me
+ 	}
+ 
+ 	ret = amdgpu_hmm_register(bo, user_addr);
+-	if (ret) {
+-		pr_err("%s: Failed to register MMU notifier: %d\n",
+-		       __func__, ret);
++	if (ret)
+ 		goto out;
+-	}
+ 
+ 	if (criu_resume) {
+ 		/*
 
