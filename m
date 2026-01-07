@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1751D0D171
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 22:05:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5AD5D0D176
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 22:19:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F87E10E2C5;
-	Wed,  7 Jan 2026 22:05:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BE7210E2BB;
+	Wed,  7 Jan 2026 22:19:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A+FG20a6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kksnc29x";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F37DA10E2C5
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 22:05:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEDEA10E2BB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 22:19:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E4B1360007;
- Wed,  7 Jan 2026 22:05:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8EACC4CEF1;
- Wed,  7 Jan 2026 22:05:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 979BB41765;
+ Wed,  7 Jan 2026 22:19:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27543C4CEF1;
+ Wed,  7 Jan 2026 22:19:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767823507;
- bh=cNpSkJ/syd9FIfSGx8jBCyKWKM75SLBKpkNnhkjpFsI=;
+ s=k20201202; t=1767824389;
+ bh=zhOqkkbLugaasC0FIugMFKDX8x1sH2DgFAam8cl8VLg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=A+FG20a6FOU605GFudEuM/qbtlH8ADbP0iXTWUvdUxWehUpyxNM8mJ0Ab/kmlBpV8
- 7vGZ+KtM9SKvbT9uPj2my1p3+Sa/oG9SaLNV3NO617uS5OzpKOk36ohOdXGlQL5fgk
- 59uL9n5hiCdFD4SkLgYAVJj3aMVJIZP9Yi3u2qk61xBuNKzUDGsWKwYx0vhgPIiQ4Y
- yAbDBbL3PK0gJRt6x6m4HEdU2S7Xv5YQ9Vqc9XNbWdkyUZkrbgtBo1whEFCOXUzupX
- 9/1zhEjsKx+ovwtbJzBH+RoS5x08KVf67f65fiOjbf5yuUPDwtxmf6mlyzpu2T7ian
- PlaEunCn7xdVA==
-Message-ID: <ff498881-4bff-4c77-983b-76124adfc78e@kernel.org>
-Date: Wed, 7 Jan 2026 23:05:01 +0100
+ b=Kksnc29x8KXtIay4NWkf+jDwhwF3VVeD1VDejDabJZFig/FSrVfdi+U/J9moIbIDG
+ Y8b8jIgwuS0RJW175tfgD9BY3U+3nCdqibLiEK7bo3CrObT43L5XZ9dl8bxvabxmij
+ IW0iJbShaOCz4ebFxudCBi6X0eFJxtj+6IhN2hqca1obKqHFVmvEMnKEtBlfbgXAUp
+ HDezVJTNSOoDJhE5MRPpRTrebOs4DaFqCqQ0NwayJkys/dvnDHEMsIQTrwg0mejO37
+ /xvsVART+BTCk7TVC9NFHSdPRsQuWku3fy4IfG8+p06b4vxHTdEVy07p7BE8zwjfca
+ mw4SOmxC7aFxQ==
+Message-ID: <1ed7a709-27a7-4309-bb41-3f6eb933f6ad@kernel.org>
+Date: Wed, 7 Jan 2026 23:19:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] amdgpu: don't report an error if the process was
- killed
-To: Mikulas Patocka <mpatocka@redhat.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Subject: Re: [PATCH v3 2/3] mm: only interrupt taking all mm locks on fatal
+ signal
+To: Vlastimil Babka <vbabka@suse.cz>, Mikulas Patocka <mpatocka@redhat.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Andrew Morton <akpm@linux-foundation.org>, amd-gfx@lists.freedesktop.org,
- linux-mm@kvack.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Jann Horn <jannh@google.com>,
+ linux-mm@kvack.org, Jann Horn <jannh@google.com>,
  Pedro Falcato <pfalcato@suse.de>
-References: <aca0147f-61be-30a3-eff5-cb981222aacc@redhat.com>
- <7ffacc33-9233-4fa1-a7d8-28fb3fbb8061@lucifer.local>
- <06317034-2677-d2ca-b468-841a2076e84d@redhat.com>
+References: <b672e17b-461d-16ae-e7d3-45d3c1aab142@redhat.com>
+ <7whbqlfrwjr4z2d4bpny3rjyl5tetdyx7ccf52uvby7hgywoym@6l6m2xcytez7>
+ <e597171a-cc64-4811-a043-db2e539aaf94@mailbox.org>
+ <5dfbf2f9-0948-cd59-5c59-a6ee946ff9f2@redhat.com>
+ <16dd4c62-c763-42fd-9ff1-a6dfcdbab109@kernel.org>
+ <26ec5b50-1bea-4a62-97bf-56162bdac4b9@suse.cz>
 From: "David Hildenbrand (Red Hat)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -92,9 +96,9 @@ Autocrypt: addr=david@kernel.org; keydata=
  cFAM8nBWrEmNU2vvIGJzjJ/NVYYIY0TgOc5bS9wh6jKHL2+chrfDW5neLJjY2x3snF8q7U9G
  EIbBfNHDlOV8SyhEjtX0DyKxQKioTYPOHcW9gdV5fhSz5tEv+ipqt4kIgWqBgzK8ePtDTqRM
  qZq457g1/SXSoSQi4jN+gsneqvlTJdzaEu1bJP0iv6ViVf15+qHuY5iojCz8fa0=
-In-Reply-To: <06317034-2677-d2ca-b468-841a2076e84d@redhat.com>
+In-Reply-To: <26ec5b50-1bea-4a62-97bf-56162bdac4b9@suse.cz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,30 +113,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/7/26 21:29, Mikulas Patocka wrote:
+On 1/7/26 10:55, Vlastimil Babka wrote:
+> On 1/6/26 16:03, David Hildenbrand (Red Hat) wrote:
+>> On 1/6/26 13:52, Mikulas Patocka wrote:
+>>>
+>>>
+>>> On Tue, 6 Jan 2026, Michel Dänzer wrote:
+>>>
+>>>> On 1/5/26 19:15, Liam R. Howlett wrote:
+>>>>> * Mikulas Patocka <mpatocka@redhat.com> [260104 16:17]:
+>>>>>
+>>>>> I'm not saying it's wrong to change the signal handling, but this is
+>>>>> very much working around a bug in userspace constantly hammering a task
+>>>>> with signals and then is surprised there is a response that the kernel
+>>>>> was interrupted.
+>>>>
+>>>> I'd go further than that. If user space fails to retry the system call
+>>>> in response to -EINTR, that's a user-space bug, period. It can happen
+>>>> anytime for any number of other reasons. (That most system calls happen
+>>>> to get away without it most of the time doesn't make it not a bug)
+>>>
+>>> So, I tried this - just for fun - and the machine doesn't even boot. I get
+>>> a lot of errors about inability to open particular files on the console.
+>>>
+>>> Userspace is buggy, according to your definition, regardless of whether
+>>> you like it or not.
+>>>
+>>> Mikulas
+>>>
+>>> ---
+>>>    fs/open.c |    3 +++
+>>>    1 file changed, 3 insertions(+)
+>>>
+>>> Index: linux-2.6/fs/open.c
+>>> ===================================================================
+>>> --- linux-2.6.orig/fs/open.c	2025-12-31 20:10:31.000000000 +0100
+>>> +++ linux-2.6/fs/open.c	2026-01-06 13:28:01.000000000 +0100
+>>> @@ -1419,6 +1419,9 @@ static int do_sys_openat2(int dfd, const
+>>>    	struct filename *tmp __free(putname) = NULL;
+>>>    	int err;
+>>>    
+>>> +	if (current->pid != 1 && !(get_random_u8() & 0x1))
+>>> +		return -EINTR;
+>>
+>> Reading the man [1] page user space is only to expect EINTR in case it is
+>> prepared to deal with signals (install signal handlers), no?
+>>
+>> There are some exception documented:
+>>
+>>          On Linux, even in the absence of signal handlers, certain blocking
+>>          interfaces can fail with the error EINTR after the process is
+>>          stopped by one of the stop signals and then resumed via SIGCONT.
+>>          This behavior is not sanctioned by POSIX.1, and doesn't occur on
+>>          other systems.
+>>
+>>          The Linux interfaces that display this behavior are:
+>>
+>>          •  "Input" socket interfaces, when a timeout (SO_RCVTIMEO) has
+>>             been set on the socket using setsockopt(2): accept(2), recv(2),
+>>             recvfrom(2), recvmmsg(2) (also with a non-NULL timeout
+>>             argument), and recvmsg(2).
+>>
+>>          •  "Output" socket interfaces, when a timeout (SO_RCVTIMEO) has
+>>             been set on the socket using setsockopt(2): connect(2),
+>>             send(2), sendto(2), and sendmsg(2), if a send timeout
+>>             (SO_SNDTIMEO) has been set.
+>>
+>>          •  epoll_wait(2), epoll_pwait(2).
+>>
+>>          •  semop(2), semtimedop(2).
+>>
+>>          •  sigtimedwait(2), sigwaitinfo(2).
+>>
+>>          •  Linux 3.7 and earlier: read(2) from an inotify(7) file
+>>             descriptor
+>>
+>>          •  Linux 2.6.21 and earlier: futex(2) FUTEX_WAIT,
+>>             sem_timedwait(3), sem_wait(3).
+>>
+>>          •  Linux 2.6.8 and earlier: msgrcv(2), msgsnd(2).
+>>
+>>          •  Linux 2.4 and earlier: nanosleep(2).
+>>
+>>
+>> So I would expect that your test code hear breaks user space.
 > 
-> 
-> On Mon, 5 Jan 2026, Lorenzo Stoakes wrote:
-> 
->> Gentle nudge to ask you to please thread these series emails properly in
->> future.
->>
->> Use something like:
->>
->> git format-patch --cover-letter --thread ...
->>
->> Or b4 or etc.
->>
->> This is a nightmare to try to review without it.
->>
->> Thanks!
-> 
-> I don't use git for patch development. I use quilt. I find git quite
-> awkward when I need to move between multiple patches and update them
-> independently.
+> Since the patch is dead now, are we going to update this section in the manpage?
 
-You mean, multiple pages in the same tree? I hope you know about "git 
-rebase -i" and "git commit --amend" :)
+Yeah, I think we should better clarify the man page to whatever the 
+result of this patch set (and v4 that was posted :) ) will be.
+
+I'm afraid I won't have any capacity for that. @Mikulas?
 
 -- 
 Cheers
