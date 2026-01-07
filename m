@@ -4,51 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E36FECFD641
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 14:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8421ECFD647
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 14:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC2210E605;
-	Wed,  7 Jan 2026 14:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12B3A10E612;
+	Wed,  7 Jan 2026 14:57:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SA7A2zS/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JFIScKDo";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4D1D10E605
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 14:50:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=vbzz6TeKHIYFaYZF7Yu0yqcfX/dsFpMG/gVju3c8N0Y=; b=SA7A2zS//LJp7zgFT0mI5H++8h
- /36Lw+Y1gUTmSqXSrvvfKVfd+nsO9v7TVfGmj7sfjWMI9XP95CLSIHHA63ZWcN9GZbLlkWcTSOeyN
- ahBVTTrqbV9D8Q4lQOp3qhBsQLJsOM0+7AyAB9G+/SYuOc5YoqsThbyb0lA5okokMxgi/hIfl4kb9
- bSq8nPDZukEDZmFmvcsH5w/DRWYoS4dvrUxahRJZCLEhcYHcl07LMPcHfgp5IcbieRGmPbNTBxNk9
- xj0/SJYFIXcDKoXcqXUzgwMCOaJQMvizON8IBj+t3duIqYhIc9nvyiFpkID48VyvDc9QRjdngBIdA
- LWphQZ9Q==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vdUs9-002bBH-Vq; Wed, 07 Jan 2026 15:50:54 +0100
-Message-ID: <d0aa8e39-1e8a-42f7-8eaf-21b8e0528a82@igalia.com>
-Date: Wed, 7 Jan 2026 14:50:53 +0000
-MIME-Version: 1.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7FF910E5FB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 14:57:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YD818xMY/4jitWbfIRD19RmcfDBcAU2x/pT3LugPeeI1v+tBb1uXb8QFbU9mAW9QKAOoGuds2hAuOxqBigxKv4js0OYCo+sSJwL95uLtqkSdEaWWc5tOun5t0JpdrFEVeLFeBNZgHd+2waMimpY41tF6Vya/mq9Gs85xyIOSCqm6Ku0nemo6/RhnjgVZhjczgN9MrUUowK+XUq/+C0cwd/F38X33IYUdtNe0jfnWd6xsjTW++d22b9k8GrANuR02rnSPE8Wpy8bkkt0XZ/bY2IkzQI5nl1D6+zKcqfgnKJh+A3SacOojjPtUFYi1ta0C9O99wfk8ZNunYS76R1bR0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MScRSPAxyNzac2RzmY9YOgQ17mXXiEa1IhOmBGg/7Vs=;
+ b=ol220mQErVwBnN4y/ZBJth+VJAQ1q+2X4RydUzwsu0xVKgEwvk23ozq79wN+Z4qBCG2jdYuttRv0D2BtCy3ic5hMK7W60Db8CV5A78TCN9RbHwvSLXIksWHqufVjKi+5x+T4hqJGF+A+dAQtebi21ujkvpQLpLS8cjcgCflNJ47jgINQ0g0IPSiR9k7g+K0ZbAJaI/ETxMkwkHQkkUsQWV7Fv3ebEO9LrE2Usp/VI9AN+GYYIIpHZu1cJuV4MEVFzs8rAIzDCqIDjslpPl5r2TWm4gdOia6cPyixS5Y8FGVCm42WeUiVdo2twW6ng41L5aifAyKx7WYGkhteE827/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MScRSPAxyNzac2RzmY9YOgQ17mXXiEa1IhOmBGg/7Vs=;
+ b=JFIScKDo7/TTCEtfKlUltJAWGD8yNgQ/J1lB8IjoB9DFLKrGecvBTVFjXLQzwrDKRxaLxvt6oCH65j5jTdm2pyks9sJIKvI/HEenYcCan6fQOZO3kNYQ8L8akrSz5M84TFZsjKIugBtg2zDOpaPxzBWE83FXpal0bAJLs1b/AaQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.2; Wed, 7 Jan
+ 2026 14:57:31 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9499.002; Wed, 7 Jan 2026
+ 14:57:31 +0000
+Message-ID: <432d84bf-9201-43cc-ab73-aa3664bac32c@amd.com>
+Date: Wed, 7 Jan 2026 15:57:27 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/12] drm/amdgpu: Replace idr with xarray in
- amdgpu_bo_list
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
-References: <20251219134205.25450-1-tvrtko.ursulin@igalia.com>
- <20251219134205.25450-11-tvrtko.ursulin@igalia.com>
- <97e20c2a-9f58-49a7-84b8-c457a7d30140@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <97e20c2a-9f58-49a7-84b8-c457a7d30140@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] drm/amdgpu: Force-signal fence when job is submitted to
+ killed entity
+To: Bingxi Guo <Bingxi.Guo@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Deng Emily <emily.deng@amd.com>
+References: <20251224082535.527138-1-Bingxi.Guo@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20251224082535.527138-1-Bingxi.Guo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0329.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB7782:EE_
+X-MS-Office365-Filtering-Correlation-Id: 794b38cd-300e-4f8b-b7e6-08de4dfd1552
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OGZPVVBSVWNuUklkNEduU2xPZkZoVHhVZzAvRXpZQnFoTUZqQW5sUTlIc3FZ?=
+ =?utf-8?B?OUQzT0V3MFlTMGkrMEgzc25WbjEzOWNMbGh1bHUyaVMvWFM3UE9hQk11OW1G?=
+ =?utf-8?B?NnhQYWFaWGdCOHRmMUpRcmZwbXg3MkN0SnpTaDlOMFNvNzNwNXVzUjBjQ2xE?=
+ =?utf-8?B?eHR5dE5yS3kvWG42KzBPNlZOUVZBbUcrMHNjRXpqUVpETksvQlNCbUcwT2Vv?=
+ =?utf-8?B?VTFOaElySExacldPaWs4Z29iWGd1R3htTkNRZG1aQVh2WG9LeG1JYy93bW4y?=
+ =?utf-8?B?YWw5VUlZUlVOSWljZE8vOTBkbkVnRnpTTm9idkkwRWFJbkVPeE5DdkZxd1Ba?=
+ =?utf-8?B?dW9qVTJrdjFuWTcxek00eEkrY29GekZGVmk4QnpFcTdtWkErVnpyVXhwVGt0?=
+ =?utf-8?B?eWxqK1pGZEE0TXZ1bU53NkIvVDNqOUZzeEdRdysrYjlwRVBXUW5rb1lwSUYv?=
+ =?utf-8?B?bnhOYjhVRzNib2V5VWxTT3M0SEFodEgxL21GKzhEd01HS09LU3BSL0tXTFBp?=
+ =?utf-8?B?dnVBd2szcGZNbjJjaU5Ib3ZPWmRWQSt6ZksrT0ZZMzcrUHRmREt1Q24yUFBs?=
+ =?utf-8?B?dFNjOHBPZTZWa3BCbkcvQ1M4dHF4TTBiOGxBVHZpQUVHcGVXVHA3SzdyaWhh?=
+ =?utf-8?B?UnZvZlZZZU5ZZVRJYVpTeU9UU2dhc0txeFJDWkFONWJhQWNRN0p6N3ZwOGVK?=
+ =?utf-8?B?Zm5ZdkdidGd0ZGF3Y1hqbVVFYnBuWi9WQmpmNHpKdU1wUmZzdzlWTy8ybEE4?=
+ =?utf-8?B?MThPcDZRQlhJNm5CS0NFQ3hKRnJ0OU9QdzFpcWpIZXZzR0pYY2NVcmZXcG5N?=
+ =?utf-8?B?czVLSkN0RnRHblo2N3VzbytoZStpZU1UOEZsR2drN2hKaUErNUY1T2VGWU9x?=
+ =?utf-8?B?U05sU0cxR3ZEVEV1ampmaytiQmZjNTQzb1gwdnF3Rk0vemhad2NUdU9jWXJt?=
+ =?utf-8?B?ekhpTHF6TFJ6aFAvRlFYbThOWXFvRlM5NWlGN2RPSUFHTVZBNFJPWXZsSlVi?=
+ =?utf-8?B?azJuSFIvYVNVSXIwNkJkZ1BsUko4aVh0NVFCSkpaWVpnQkdXK3RSOE5TbGM3?=
+ =?utf-8?B?c3lIRUoxVWp0SFpJRWJkMDQwOW82T051VnAwUmNNMHdWZHVkL0NrYjNSaTFu?=
+ =?utf-8?B?L1J3cThzd3lFMGtXNW1LRU1Pb1ZFVmh6L2xHdUJFRW1iL2gvOXQ5Tnd0SllV?=
+ =?utf-8?B?R2tVb2diellvblZST2ZNN1M4cUZzU3RWMENNNGxnRUVGVTdCeXlFQzYzZmhl?=
+ =?utf-8?B?c2FGT2tnbmVDS3hkczlPdllKVDBTanQ5TWlYTWNSL0F1bUM3V1dNSDd1b3RD?=
+ =?utf-8?B?UVZNbHV5QUFXRjhNTlpVRnJYZ0xRNG5ZT1pySlI5a0tlbjM4T0tVNGVUdjdJ?=
+ =?utf-8?B?OUFLM3p6K1NpeDVFb1ZGRFgzWTA0QllMT1FESWRUdFE1TDNjWTRDSVVNeXNy?=
+ =?utf-8?B?WVdhUFBtZTgzRG9VRzdJcFJFWjVPQ2tlRE9STTFWUWR1aDhLa25Qc0FFdGlU?=
+ =?utf-8?B?WW4yODdNR3phZ1dpamNlV3ZOSk5xbWgyR25DanBTMGhpTDFENC91UUs1RXpY?=
+ =?utf-8?B?dk5scXN1cnBSVDF4WGdpc0daQS9hWFloVld6MEdBODVBaTRhelJFL0xiSWlL?=
+ =?utf-8?B?RFpMZmNTUGhHOU5lMVhoWThENUlxWm1UL1ZjRWcvekVkLzRBdnl3REY0RWIw?=
+ =?utf-8?B?SktFZ21GSFBVSHM1Zkw0WklCRTJtcU1QRVRzdVU1emtWTnlRRUkxdzF6OEdH?=
+ =?utf-8?B?SzdGWmVVbU11bkRSNnloRHA3dXpVNndlSS82NHJObkdWM3BDNDM0NEs5dUtm?=
+ =?utf-8?B?L2lrVHRPbkNjNFFScEo1QUY3VFVZMTdjaXM0WVhKYjdYMkVuRDgzRkNYcXM3?=
+ =?utf-8?B?cTY0citUZDVzdGN1bUE1YVhjNlVmODJkREhwb0NZN2pPV1lJTWVDdGFHL2Jr?=
+ =?utf-8?Q?iD76fSltE9+LH/xqkZvAYgwlcoJC0xBH?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHE5WWFyOGVWSHNoWHV3R09uMzgyT3NOL1VWMGxOcXMyMWlzT2RHZUErazdk?=
+ =?utf-8?B?WVVQbmhDQUljNkdBeW5GZnpkRVdabHU2bVQvSjQxeVhqMUVtVUJKRTZkTlRp?=
+ =?utf-8?B?SkR1cW80dnpEeE00Z1RVRG03cVpRZElUdXZsYVpmZWo0TzZGbFJZaTg3NVhq?=
+ =?utf-8?B?YmloaEJkWDh1UVJtdlAwUWplcEM2QzBrenJ6M0h0T3ZoOUhzcGlKZ0JjMEpO?=
+ =?utf-8?B?T2oxVGMwamxJaldOWVc2S1B5UWVvM2RGV0cyTG10OThiZnFVdVJLNEJBWFdP?=
+ =?utf-8?B?V2RtL3F2SkQ4TXFuUGQwcFBDYjZrRDhjRFg5RkRlaisrbkNRK3duOTNteFpH?=
+ =?utf-8?B?YWFyT0NIdzN0R3lZb2dXeDJPanhDK25oL2JVRnQwNnArc0ZyRUJMZnNaamc2?=
+ =?utf-8?B?UWdqbGJTVU1VM3FFREpXak1zV0VMcVN0ZVc2QnRaN1ZzbThvYjd2K1FDdUFp?=
+ =?utf-8?B?RTRTN1VuUU44eHBZVVovLzJUMWs4MURrMVduSlc5Si85aVZWM1I4MWoxYmZJ?=
+ =?utf-8?B?QnZSVDFIQ2VVZkFINGhqYW5zd2ZnaTF2a09xbTZWUXRKK2djT3FVcm5TNFZw?=
+ =?utf-8?B?bHhoMnRrWE9QOEIzeCtYWXBmcEJUREFtalMvcE5OWUE4bUxacjgxd2lSMFI4?=
+ =?utf-8?B?VkNkZ2tkcVd1OWp2RlhJd3JBbjRvYjA0M3ZRVnd4TjBqNkVaakQ4Q3lYRkpo?=
+ =?utf-8?B?RjQxNjNpa24rU2JMZ1R6N1YrSGdRVzBTQ0gxSE5DTGg2OUNEb05oL2p2ZktT?=
+ =?utf-8?B?K2NZMml4RXZ5R1pHU3FLTm5sTTRrSmVnSG1rU1F1UmZCcmJhaGVaS25ZMHBr?=
+ =?utf-8?B?VkgzQm9ZbnJWNVVPaldkVFlJcm90Y1J4RWp0Nnd4aGRlV2gvam5CSHllSXpj?=
+ =?utf-8?B?TVRabURDUzg0cThsVTBvbkNMaVpwamtpRGs2YmYxdzh4eSsyUUpBWUVHN290?=
+ =?utf-8?B?L3kzNlZtWE9GRGY4Qkpyb1kreFM3L0hpU3NvbnRCaWlST2lNa3RHWEs1cGlG?=
+ =?utf-8?B?ZTVNNXNtdHRlbkNpckFuNlJzcVBZa2FPOXVwcjdjTExYNVJmZ2FHQTI2UkF3?=
+ =?utf-8?B?My9LZzZXVXRyTkRhMEs0TDdUQUJDcyszcDFkaTlCTEE1T09hZlIvVmQwRXlS?=
+ =?utf-8?B?STkrWUVEQVdaN3NxVEgzU1pEZy9JVWRjV0FnNHdjd1g2S1Z6YnIvME84dC9m?=
+ =?utf-8?B?cUJlYkVnSnJzWEdGNGJUM3Y5THU5UmU5SUJtTzlKdVYrRExQaHRaZFR3d0FD?=
+ =?utf-8?B?azBLK01scW9jakhNT0xCOE1RS2hrZzY1MHJTdUE4d1cxbHMyK2lVK012UzhR?=
+ =?utf-8?B?NDliQ2crL3hYK1JrRG0vUldXS0RQTmc3SUljOFlHNitkRWFOMlpZZVFmSVhH?=
+ =?utf-8?B?Y0hLRzJwS3BFcFdnM3I0a2loN1haYWxzVVR3QzczTnJCSFNXS21WMkFOQVNa?=
+ =?utf-8?B?bkVoTVVIaHpDTlRKQUxuTXl3b0ttMTBRZExDbGVKYWJoZUhPTERJbWxCL1hQ?=
+ =?utf-8?B?aWcrVGJVR2F6QnQyZmY1SmdzTVZXZ1JUa3cyeWRMMXpNOTl4S2c0QXZHMm9k?=
+ =?utf-8?B?eDdXUTJvaUcrNys5UTU2NWJNN3Q3Vk5aaDUzTjNSMG1SSFQ2U0RJaDF5YVdJ?=
+ =?utf-8?B?aGp0bWtSby9QQm4xbEZHbnNUVHZGRkRJd01JcnFuT3VvYVl2Tkh5clhRWkdG?=
+ =?utf-8?B?cUhuWFNneUtldHRwcUc4WXZoSUZkRElmQTdBaHAzSmcyT2duOG80Z0I5R1lx?=
+ =?utf-8?B?Y2F5Y3IyQWk1dUlyd21FRDRCSUprODNLUnBaMkpCNEdTNFBhZndpMmNYWlJJ?=
+ =?utf-8?B?YXRYSHN5QWwvN3lNTjJ4T1VvZXFTUWlUK2NBd3FhVHlKYWZrVHVaWFU0d0Nu?=
+ =?utf-8?B?cWRvSW9nZTFPOFYwWm9hcXl2Vm5uRjIrUHNJcWcwVGpnV3NqQzFTczZhREJV?=
+ =?utf-8?B?V3JRd3FVcDBmT1ovMTYwcHV4azhCRG1nbFNEa0U5TFBvaDlpZHUwdDE5RURC?=
+ =?utf-8?B?cmtWRnRKdlZyVU1IYnpqeC91RUpxaEk0ekgxYjFJNEtIS2hnMWdYZ2Z0Q3BP?=
+ =?utf-8?B?dzhOb2FUKzYrVEtMRmlnWG5LeDJlSmxDeEZaT1RINEpkSWx3MUdwQ21OdWRt?=
+ =?utf-8?B?VDdXUGxVTFVGbDRRK1JlQ3U3cjFJdHRDYTdLbkhwZlNVR2NkdEgvQU4vak9x?=
+ =?utf-8?B?c3ZkdjU4UW1FU0ttd1U1d2l5b1NpdTJ5TVdtT2pON0ttUG9mTDUrVGZsOGph?=
+ =?utf-8?B?bjEwa3QyYnZobkVFUWFmR0M4c0RWaEcvOFJWeng3UnJUU0RGTG9GbHpxNXFy?=
+ =?utf-8?B?WExhMld0ZlNwb2JFNzEzMk9zbi90Uy9JRUVVK1huQUIzdUhFRGUwQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 794b38cd-300e-4f8b-b7e6-08de4dfd1552
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2026 14:57:31.5337 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6/rAFC5ToCwcg3PM7gG7gbOwP4pLxDnLxQiZwkZzzC5pDozOK0QLY9xyjn+1gqTP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7782
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,270 +164,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 07/01/2026 09:35, Christian König wrote:
-> On 12/19/25 14:42, Tvrtko Ursulin wrote:
->> IDR is deprecated so let's replace it with xarray.
->>
->> Conversion is mostly 1:1 apart from AMDGPU_BO_LIST_OP_UPDATE which was
->> implemented with idr_replace, and has now been replaced with a sequence of
->> xa_load and xa_cmpxchg. Should userspace attempt multi-threaded update
->> operations on the same handle it could theoretically hit a new -ENOENT
->> path. But I believe this is purely theoretical and still safe.
->>
->> Also, since we have removed the RCU protection around the handle lookup we
->> also removed the RCU freeing of the list.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> ---
->> v2:
->>   * Dropped RCU freeing of the list.
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  4 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 81 +++++++++------------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |  3 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     | 11 +--
->>   4 files changed, 42 insertions(+), 57 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> index 80dba6276aa8..ec3cbe70012a 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -50,6 +50,7 @@
->>   #include <linux/hashtable.h>
->>   #include <linux/dma-fence.h>
->>   #include <linux/pci.h>
->> +#include <linux/xarray.h>
->>   
->>   #include <drm/ttm/ttm_bo.h>
->>   #include <drm/ttm/ttm_placement.h>
->> @@ -499,8 +500,7 @@ struct amdgpu_fpriv {
->>   	struct amdgpu_bo_va	*prt_va;
->>   	struct amdgpu_bo_va	*csa_va;
->>   	struct amdgpu_bo_va	*seq64_va;
->> -	struct mutex		bo_list_lock;
->> -	struct idr		bo_list_handles;
->> +	struct xarray		bo_list_handles;
->>   	struct amdgpu_ctx_mgr	ctx_mgr;
->>   	struct amdgpu_userq_mgr	userq_mgr;
->>   
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
->> index fbac929f711c..59def86cdc04 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
->> @@ -37,14 +37,6 @@
->>   #define AMDGPU_BO_LIST_MAX_PRIORITY	32u
->>   #define AMDGPU_BO_LIST_NUM_BUCKETS	(AMDGPU_BO_LIST_MAX_PRIORITY + 1)
->>   
->> -static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
->> -{
->> -	struct amdgpu_bo_list *list = container_of(rcu, struct amdgpu_bo_list,
->> -						   rhead);
->> -
->> -	kvfree(list);
->> -}
->> -
->>   static void amdgpu_bo_list_free(struct kref *ref)
->>   {
->>   	struct amdgpu_bo_list *list = container_of(ref, struct amdgpu_bo_list,
->> @@ -53,7 +45,8 @@ static void amdgpu_bo_list_free(struct kref *ref)
->>   
->>   	amdgpu_bo_list_for_each_entry(e, list)
->>   		amdgpu_bo_unref(&e->bo);
->> -	call_rcu(&list->rhead, amdgpu_bo_list_free_rcu);
->> +
->> +	kvfree(list);
->>   }
->>   
->>   static int amdgpu_bo_list_entry_cmp(const void *_a, const void *_b)
->> @@ -146,31 +139,20 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
->>   
->>   }
->>   
->> -static void amdgpu_bo_list_destroy(struct amdgpu_fpriv *fpriv, int id)
->> -{
->> -	struct amdgpu_bo_list *list;
->> -
->> -	mutex_lock(&fpriv->bo_list_lock);
->> -	list = idr_remove(&fpriv->bo_list_handles, id);
->> -	mutex_unlock(&fpriv->bo_list_lock);
->> -	if (list)
->> -		kref_put(&list->refcount, amdgpu_bo_list_free);
->> -}
->> -
->> -int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
->> +int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, u32 id,
->>   		       struct amdgpu_bo_list **result)
->>   {
->> -	rcu_read_lock();
->> -	*result = idr_find(&fpriv->bo_list_handles, id);
->> +	struct amdgpu_bo_list *list;
->>   
->> -	if (*result && kref_get_unless_zero(&(*result)->refcount)) {
->> -		rcu_read_unlock();
->> -		return 0;
->> -	}
->> +	xa_lock(&fpriv->bo_list_handles);
->> +	list = xa_load(&fpriv->bo_list_handles, id);
->> +	if (list)
->> +		kref_get(&list->refcount);
->> +	xa_unlock(&fpriv->bo_list_handles);
->>   
->> -	rcu_read_unlock();
->> -	*result = NULL;
->> -	return -ENOENT;
->> +	*result = list;
->> +
->> +	return list ? 0 : -ENOENT;
->>   }
->>   
->>   void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
->> @@ -215,12 +197,12 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
->>   int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
->>   				struct drm_file *filp)
->>   {
->> -	struct amdgpu_device *adev = drm_to_adev(dev);
->>   	struct amdgpu_fpriv *fpriv = filp->driver_priv;
->> +	struct amdgpu_device *adev = drm_to_adev(dev);
->> +	struct drm_amdgpu_bo_list_entry *info = NULL;
->> +	struct amdgpu_bo_list *list, *prev, *curr;
->>   	union drm_amdgpu_bo_list *args = data;
->>   	uint32_t handle = args->in.list_handle;
->> -	struct drm_amdgpu_bo_list_entry *info = NULL;
->> -	struct amdgpu_bo_list *list, *old;
->>   	int r;
->>   
->>   	r = amdgpu_bo_create_list_entry_array(&args->in, &info);
->> @@ -234,19 +216,19 @@ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
->>   		if (r)
->>   			goto error_free;
->>   
->> -		mutex_lock(&fpriv->bo_list_lock);
->> -		r = idr_alloc(&fpriv->bo_list_handles, list, 1, 0, GFP_KERNEL);
->> -		mutex_unlock(&fpriv->bo_list_lock);
->> -		if (r < 0) {
->> +		r = xa_alloc(&fpriv->bo_list_handles, &handle, list,
->> +			     xa_limit_32b, GFP_KERNEL);
->> +		if (r)
->>   			goto error_put_list;
->> -		}
->>   
->> -		handle = r;
->>   		break;
->>   
->>   	case AMDGPU_BO_LIST_OP_DESTROY:
->> -		amdgpu_bo_list_destroy(fpriv, handle);
->> +		list = xa_erase(&fpriv->bo_list_handles, handle);
->> +		if (list)
->> +			amdgpu_bo_list_put(list);
+On 12/24/25 09:25, Bingxi Guo wrote:
+> Issue: jobs submitted to a killed entity can still succeed, except for
+> a dmesg error when the job is the first been pushed to the killed
+> entity
 > 
-> It's usually good practice to make *_put() functions take NULL as argument.
+> Force-signal fence when job is submitted to killed entity
 
-Done.
+Well once more absolutely clear NAK to stuff like that.
 
-Regards,
+Please read up on the dma_fence documentation before touching the code because patches like that one here clearly shows that even the basic are not understood correctly.
 
-Tvrtko
+Christian.
 
 > 
-> Apart from that looks good to me.
+> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+> Signed-off-by: Bingxi Guo <Bingxi.Guo@amd.com>
+> ---
+>  drivers/gpu/drm/scheduler/sched_entity.c | 21 +++++++++++++++------
+>  1 file changed, 15 insertions(+), 6 deletions(-)
 > 
-> Regards,
-> Christian.
-> 
->>   		handle = 0;
->> +
->>   		break;
->>   
->>   	case AMDGPU_BO_LIST_OP_UPDATE:
->> @@ -255,16 +237,23 @@ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
->>   		if (r)
->>   			goto error_free;
->>   
->> -		mutex_lock(&fpriv->bo_list_lock);
->> -		old = idr_replace(&fpriv->bo_list_handles, list, handle);
->> -		mutex_unlock(&fpriv->bo_list_lock);
->> +		curr = xa_load(&fpriv->bo_list_handles, handle);
->> +		if (!curr) {
->> +			r = -ENOENT;
->> +			goto error_put_list;
->> +		}
->>   
->> -		if (IS_ERR(old)) {
->> -			r = PTR_ERR(old);
->> +		prev = xa_cmpxchg(&fpriv->bo_list_handles, handle, curr, list,
->> +				  GFP_KERNEL);
->> +		if (xa_is_err(prev)) {
->> +			r = xa_err(prev);
->> +			goto error_put_list;
->> +		} else if (prev != curr) {
->> +			r = -ENOENT;
->>   			goto error_put_list;
->>   		}
->>   
->> -		amdgpu_bo_list_put(old);
->> +		amdgpu_bo_list_put(curr);
->>   		break;
->>   
->>   	default:
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
->> index 1acf53f8b2f9..cf127bc66f53 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
->> @@ -43,7 +43,6 @@ struct amdgpu_bo_list_entry {
->>   };
->>   
->>   struct amdgpu_bo_list {
->> -	struct rcu_head rhead;
->>   	struct kref refcount;
->>   	struct amdgpu_bo *gds_obj;
->>   	struct amdgpu_bo *gws_obj;
->> @@ -54,7 +53,7 @@ struct amdgpu_bo_list {
->>   	struct amdgpu_bo_list_entry entries[] __counted_by(num_entries);
->>   };
->>   
->> -int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, int id,
->> +int amdgpu_bo_list_get(struct amdgpu_fpriv *fpriv, u32 id,
->>   		       struct amdgpu_bo_list **result);
->>   void amdgpu_bo_list_put(struct amdgpu_bo_list *list);
->>   int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> index 6ee77f431d56..88f104041157 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
->> @@ -1445,8 +1445,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
->>   	if (r)
->>   		goto error_vm;
->>   
->> -	mutex_init(&fpriv->bo_list_lock);
->> -	idr_init_base(&fpriv->bo_list_handles, 1);
->> +	xa_init_flags(&fpriv->bo_list_handles, XA_FLAGS_ALLOC1);
->>   
->>   	r = amdgpu_userq_mgr_init(&fpriv->userq_mgr, file_priv, adev);
->>   	if (r)
->> @@ -1492,8 +1491,8 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
->>   	struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
->>   	struct amdgpu_bo_list *list;
->>   	struct amdgpu_bo *pd;
->> +	unsigned long handle;
->>   	u32 pasid;
->> -	int handle;
->>   
->>   	if (!fpriv)
->>   		return;
->> @@ -1529,11 +1528,9 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
->>   		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
->>   	amdgpu_bo_unref(&pd);
->>   
->> -	idr_for_each_entry(&fpriv->bo_list_handles, list, handle)
->> +	xa_for_each(&fpriv->bo_list_handles, handle, list)
->>   		amdgpu_bo_list_put(list);
->> -
->> -	idr_destroy(&fpriv->bo_list_handles);
->> -	mutex_destroy(&fpriv->bo_list_lock);
->> +	xa_destroy(&fpriv->bo_list_handles);
->>   
->>   	kfree(fpriv);
->>   	file_priv->driver_priv = NULL;
-> 
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+> index 8867b95ab089..998e35a1a261 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -570,6 +570,14 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>  	bool first;
+>  	ktime_t submit_ts;
+>  
+> +	spin_lock(&entity->lock);
+> +	if (entity->stopped) {
+> +		spin_unlock(&entity->lock);
+> +		DRM_ERROR("Trying to push job to a killed entity\n");
+> +		goto error;
+> +	}
+> +	spin_unlock(&entity->lock);
+> +
+>  	trace_drm_sched_job_queue(sched_job, entity);
+>  
+>  	if (trace_drm_sched_job_add_dep_enabled()) {
+> @@ -597,12 +605,6 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>  
+>  		/* Add the entity to the run queue */
+>  		spin_lock(&entity->lock);
+> -		if (entity->stopped) {
+> -			spin_unlock(&entity->lock);
+> -
+> -			DRM_ERROR("Trying to push to a killed entity\n");
+> -			return;
+> -		}
+>  
+>  		rq = entity->rq;
+>  		sched = rq->sched;
+> @@ -618,5 +620,12 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+>  
+>  		drm_sched_wakeup(sched);
+>  	}
+> +
+> +	return;
+> +
+> +error:
+> +	dma_fence_set_error(&sched_job->s_fence->finished, -EPERM);
+> +	drm_sched_fence_scheduled(sched_job->s_fence, NULL);
+> +	drm_sched_fence_finished(sched_job->s_fence, -EPERM);
+>  }
+>  EXPORT_SYMBOL(drm_sched_entity_push_job);
 
