@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B4A6CFD624
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 12:44:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A99CFD621
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 12:44:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC3910E5AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E44D610E5B2;
 	Wed,  7 Jan 2026 12:44:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="G9PVtx5R";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lbj7L7/K";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0133110E5AD;
- Wed,  7 Jan 2026 12:43:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F0E010E5AF;
+ Wed,  7 Jan 2026 12:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=FEoFT6NaL16goNZiI6DErHeAXmSdDSFZGrwVhqr8gIA=; b=G9PVtx5RklVlkN6AIZWSE3SKA2
- OMPIHGO28ttYKUGuAPHhYeBzlDFwXQ070VPIWU1AJuz/5qeXPqg89JCqr/BzsPYC+NP+OQ4kFRtXV
- O3rGIemH1Bzn+OLYQ+KHIJ0qbQVcg2OGP28ILYxB2v/ZY21swDKjQlqPGWRBSxuDchoxdXgTvuKyr
- nLIf6XPwVT7s+4ttenPQN6fy/VSJBtZloVHGxKvH1P1ekqyu/eedVmWP46pprZP1QYsbMP15ZGZPa
- RqSPp3uRvUiLpnI9WeamUh3JqHR795avVFTYxFX0OwwIKCbVa49T4Ke9Njf2dWDIMT8YQDjHoKx4a
- 8TnWUTFA==;
+ bh=L6mH04hD42whu/M4ViJcZkGsZadbIBl2lBTOcCjBvZE=; b=lbj7L7/K6zqrxomQd0k0k8Zoro
+ kwj0qHVWAc8nCohqUzJ+FzNH/tpuHLFMFo5CVEqjrEzJPd701219QOvj92DGNBWQihIe+IHNgSu7i
+ Rx46VWTlaT7zBu8J5kms5ec9mPYlht0KZcWaZTbuSTQhyWWVkHy1ixbgq43WNLA8gXWfEPkkRQffM
+ an0Zji4Z1kgIVkPlTmUVl4HgLtyeuShTcOKwn/wAgHy57AzmV1SSdJDWq6ffiqaRfDtEsbrI8vV3T
+ XIQvVIJpB6YuqT24Pd51+SAUCHHuq3OgjeGtzdFu40En7L3t6gLpLQb+RZLEEUKenxYJTHo7j3lPr
+ nyJPBrBQ==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vdStK-002Yt0-2M; Wed, 07 Jan 2026 13:43:58 +0100
+ id 1vdStL-002YtA-Gu; Wed, 07 Jan 2026 13:43:59 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -41,9 +41,9 @@ Cc: kernel-dev@igalia.com,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [RFC 1/3] drm/amdgpu: Reject impossible entities early
-Date: Wed,  7 Jan 2026 12:43:49 +0000
-Message-ID: <20260107124351.94738-2-tvrtko.ursulin@igalia.com>
+Subject: [RFC 3/3] drm/sched: Disallow initializing entities with no schedulers
+Date: Wed,  7 Jan 2026 12:43:51 +0000
+Message-ID: <20260107124351.94738-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260107124351.94738-1-tvrtko.ursulin@igalia.com>
 References: <20260107124351.94738-1-tvrtko.ursulin@igalia.com>
@@ -64,73 +64,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently there are two different behaviour modes when userspace tries to
-operate on not present HW IP blocks. On a machine without UVD, VCE and VPE
-blocks, this can be observed for example like this:
-
-$ sudo ./amd_fuzzing --r cs-wait-fuzzing
-...
-amd_cs_wait_fuzzing DRM_IOCTL_AMDGPU_CTX r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_GFX r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_COMPUTE r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_DMA r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_UVD r -1
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_VCE r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_UVD_ENC r -1
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_VCN_DEC r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_VCN_ENC r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_VCN_JPEG r 0
-amd_cs_wait_fuzzing AMDGPU_WAIT_CS AMD_IP_VPE r 0
-
-We can see that UVD returns an errno (-EINVAL) from the CS_WAIT ioctl,
-while VCE and VPE return unexpected successes.
-
-The difference stems from the fact the UVD is a load balancing engine
-which retains the context, so with a workaround implemented in
-amdgpu_ctx_init_entity(), but which does not account for the fact hardware
-block may not be present.
-
-This causes a single NULL scheduler to be passed to
-drm_sched_entity_init(), which immediately rejects this with -EINVAL.
-
-The not present VCE and VPE cases on the other hand pass zero schedulers
-to drm_sched_entity_init(), which is explicitly allowed and results in
-unusable entities.
-
-As the UVD case however shows, call paths can handle the errors, so we can
-consolidate this into a single path which will always return -EINVAL if
-the HW IP block is not present.
-
-We do this by rejecting it early and not calling drm_sched_entity_init()
-when there is no backing hardware.
-
-This also removes the need for the drm_sched_entity_init() to handle the
-zero schedulers and NULL scheduler cases, which means that we can follow
-up by removing the special casing from the DRM scheduler.
+Since we have removed the case where amdgpu was initializing entitites
+with either no schedulers on the list, or with a single NULL scheduler,
+and there appears no other drivers which rely on this, we can simplify the
+scheduler by explictly rejecting that early.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-References: f34e8bb7d6c6 ("drm/sched: fix null-ptr-deref in init entity")
 Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/scheduler/sched_entity.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index afedea02188d..a5f85ea9fbb6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -239,6 +239,11 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 			goto error_free_entity;
- 	}
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index fe174a4857be..bb7e5fc47f99 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -61,32 +61,27 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 			  unsigned int num_sched_list,
+ 			  atomic_t *guilty)
+ {
+-	if (!(entity && sched_list && (num_sched_list == 0 || sched_list[0])))
++	if (!entity || !sched_list || !num_sched_list || !sched_list[0])
+ 		return -EINVAL;
  
-+	if (num_scheds == 0) {
-+		r = -EINVAL;
-+		goto error_free_entity;
-+	}
-+
- 	/* disable load balance if the hw engine retains context among dependent jobs */
- 	if (hw_ip == AMDGPU_HW_IP_VCN_ENC ||
- 	    hw_ip == AMDGPU_HW_IP_VCN_DEC ||
+ 	memset(entity, 0, sizeof(struct drm_sched_entity));
+ 	INIT_LIST_HEAD(&entity->list);
+ 	entity->rq = NULL;
+ 	entity->guilty = guilty;
+-	entity->num_sched_list = num_sched_list;
+ 	entity->priority = priority;
+ 	entity->last_user = current->group_leader;
+-	/*
+-	 * It's perfectly valid to initialize an entity without having a valid
+-	 * scheduler attached. It's just not valid to use the scheduler before it
+-	 * is initialized itself.
+-	 */
++	entity->num_sched_list = num_sched_list;
+ 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+ 	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+ 
+-	if (num_sched_list && !sched_list[0]->sched_rq) {
++	if (!sched_list[0]->sched_rq) {
+ 		/* Since every entry covered by num_sched_list
+ 		 * should be non-NULL and therefore we warn drivers
+ 		 * not to do this and to fix their DRM calling order.
+ 		 */
+ 		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+-	} else if (num_sched_list) {
++	} else {
+ 		/* The "priority" of an entity cannot exceed the number of run-queues of a
+ 		 * scheduler. Protect against num_rqs being 0, by converting to signed. Choose
+ 		 * the lowest priority available.
 -- 
 2.52.0
 
