@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94646CFD642
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 14:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AA2CFD641
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 14:50:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29B8410E5FD;
-	Wed,  7 Jan 2026 14:46:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E50C110E619;
+	Wed,  7 Jan 2026 14:50:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EU1V//28";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mU1cixqC";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF28710E5FD
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 14:46:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC6E10E621
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 14:50:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,30 +22,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=m5XWTdYrpxRnemazu3KnPlE8gcv3AJcnK7B6YOShrAo=; b=EU1V//28PMcrVa+NxRxGRPsD9z
- ieqMQ2dHORdh/2BvWfUAju5oS3KVEne68kry9Xdg1CSV8zf/Pb7ZG1+N4CGU4yj3Jz2+nMAjMezfg
- 4dkr1wrJgjnzf2KoswKufQWaocmema9NxpQuHhHX/F065VtrQkoM/8Ijbs6Q1mHdSdEmnQYtKzlqk
- jdEQHpJhYlzXAh+e8pGshtCXp25PxFtdfR5U0OL2672BCuG1QONUzeH+A+li9MQvDyThj59Ty8qkd
- 4WZhGw7PmQHAaYx8DW2UpMuYOPj2WAIKnSBFq8xH4gadrDU0lRZVa9PrZLHqAdlsWaFERlzEVjL+2
- V0JxgcGQ==;
+ bh=sCgIQiRk8EFXwklBUfEP5pkaA8Q4A8pszZ/zAQtKbO0=; b=mU1cixqCH5lCaJ/qoUroa47Wkx
+ KTKEW2mfCRX4kHpkdt7QDuZI8gk5QUwD+nHWbGpDb2PlBNRKC+8CyXyxygrLnNjWXpdLs8PMMPVPT
+ wxdJENz9E6nazWSYf2hPn2gkq8wZkmJ/xL5QQttMBo7IC22QTQ2OgksEmKfbBmMsAlUU2dm5A+qaa
+ ekbOt63D27n2mTHOMZJEu59EXFS4KdBZOSIlSaKw3aHGntO845T6QtXWinMiDH3I3M3xZvxuOwrAw
+ B9pNKU677r3hiI9n0+5h2m1tO9taeqkQkTbQmAb0CyhejSPxas7MPlNSbMzmCaTzHgenA4fF2eI0C
+ X0gSm8PQ==;
 Received: from [90.240.106.137] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vdUnV-002b5x-2O; Wed, 07 Jan 2026 15:46:05 +0100
-Message-ID: <4d14863f-89af-418d-b151-0d3f97b26ebf@igalia.com>
-Date: Wed, 7 Jan 2026 14:46:04 +0000
+ id 1vdUro-002bAb-38; Wed, 07 Jan 2026 15:50:32 +0100
+Message-ID: <0041b665-3530-4e04-9f24-528c7ee47188@igalia.com>
+Date: Wed, 7 Jan 2026 14:50:31 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/12] drm/amdgpu: Remove duplicate struct member
+Subject: Re: [PATCH v2 08/12] drm/amdgpu: Consolidate ctx put
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
 References: <20251219134205.25450-1-tvrtko.ursulin@igalia.com>
- <20251219134205.25450-7-tvrtko.ursulin@igalia.com>
- <f56064d0-ecf2-45d7-9ba2-15501454fc06@amd.com>
+ <20251219134205.25450-9-tvrtko.ursulin@igalia.com>
+ <0dc1ed39-d5d2-4f06-afe1-40d58c7eae75@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <f56064d0-ecf2-45d7-9ba2-15501454fc06@amd.com>
+In-Reply-To: <0dc1ed39-d5d2-4f06-afe1-40d58c7eae75@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,73 +63,239 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 07/01/2026 09:01, Christian König wrote:
-> On 12/19/25 14:41, Tvrtko Ursulin wrote:
->> Struct amdgpu_ctx contains two copies of the pointer to the context
->> manager. Remove one.
+On 07/01/2026 09:08, Christian König wrote:
+> On 12/19/25 14:42, Tvrtko Ursulin wrote:
+>> Currently there are two flavours of the context reference count
+>> destructor:
+>>
+>>   - amdgpu_ctx_do_release(), used from kref_put from places where the code
+>>     thinks context may have been used, or is in active use, and;
+>>   - amdgpu_ctx_fini(), used when code is sure context entities have already
+>>     been idled.
+>>
+>> Since amdgpu_ctx_do_release() calls amdgpu_ctx_fini() after having idled
+>> and destroyed the scheduler entities, we can consolidate the two into a
+>> single function.
+>>
+>> Functional difference is that now drm_sched_entity_destroy() is called on
+>> context manager shutdown (file close), where previously it was
+>> drm_sched_entity_fini(). But the former is a superset of the latter, and
+>> during file close the flush method is also called, which calls
+>> drm_sched_entity_flush(), which is also called by
+>> drm_sched_entity_destroy(). And as it is safe to attempt to flush a never
+>> used entity, or flush it twice, there is actually no functional change.
 >>
 >> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Suggested-by: Christian König <christian.koenig@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 3 +--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h | 1 -
->>   2 files changed, 1 insertion(+), 3 deletions(-)
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 103 +++++++-----------------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |   9 ++-
+>>   2 files changed, 38 insertions(+), 74 deletions(-)
 >>
 >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->> index afedea02188d..41c05358d86d 100644
+>> index dd1e562dbaed..f3d5a7180bda 100644
 >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
 >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->> @@ -232,7 +232,7 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
->>   	} else {
->>   		struct amdgpu_fpriv *fpriv;
+>> @@ -269,26 +269,6 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
+>>   	return r;
+>>   }
 >>   
->> -		fpriv = container_of(ctx->ctx_mgr, struct amdgpu_fpriv, ctx_mgr);
->> +		fpriv = container_of(ctx->mgr, struct amdgpu_fpriv, ctx_mgr);
->>   		r = amdgpu_xcp_select_scheds(adev, hw_ip, hw_prio, fpriv,
->>   						&num_scheds, &scheds);
+>> -static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_device *adev,
+>> -				  struct amdgpu_ctx_entity *entity)
+>> -{
+>> -	ktime_t res = ns_to_ktime(0);
+>> -	int i;
+>> -
+>> -	if (!entity)
+>> -		return res;
+>> -
+>> -	for (i = 0; i < amdgpu_sched_jobs; ++i) {
+>> -		res = ktime_add(res, amdgpu_ctx_fence_time(entity->fences[i]));
+>> -		dma_fence_put(entity->fences[i]);
+>> -	}
+>> -
+>> -	amdgpu_xcp_release_sched(adev, entity);
+>> -
+>> -	kfree(entity);
+>> -	return res;
+>> -}
+>> -
+>>   static int amdgpu_ctx_get_stable_pstate(struct amdgpu_ctx *ctx,
+>>   					u32 *stable_pstate)
+>>   {
+>> @@ -403,28 +383,47 @@ static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
+>>   	return r;
+>>   }
+>>   
+>> -static void amdgpu_ctx_fini(struct kref *ref)
+>> +void amdgpu_ctx_fini(struct kref *ref)
+>>   {
+>>   	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
+>>   	struct amdgpu_ctx_mgr *mgr = ctx->mgr;
+>>   	struct amdgpu_device *adev = mgr->adev;
+>> -	unsigned i, j, idx;
+>> +	int i, j, k;
+>>   
+>>   	if (!adev)
+>>   		return;
+>>   
+>>   	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+>>   		for (j = 0; j < AMDGPU_MAX_ENTITY_NUM; ++j) {
+>> -			ktime_t spend;
+>> +			struct amdgpu_ctx_entity *entity = ctx->entities[i][j];
+>> +			ktime_t t = ns_to_ktime(0);
+>>   
+>> -			spend = amdgpu_ctx_fini_entity(adev, ctx->entities[i][j]);
+>> -			atomic64_add(ktime_to_ns(spend), &mgr->time_spend[i]);
+>> +			if (!entity)
+>> +				continue;
+>> +
+>> +			drm_sched_entity_destroy(&entity->entity);
+>> +
+>> +			for (k = 0; k < amdgpu_sched_jobs; k++) {
+>> +				struct dma_fence *fence = entity->fences[k];
+>> +
+>> +				if (!fence)
+>> +					continue;
+>> +
+>> +				t = ktime_add(t, amdgpu_ctx_fence_time(fence));
+>> +				dma_fence_put(fence);
+>> +			}
+>> +
+>> +			amdgpu_xcp_release_sched(adev, entity);
+>> +
+>> +			kfree(entity);
+>> +
+>> +			atomic64_add(ktime_to_ns(t), &mgr->time_spend[i]);
+>>   		}
+>>   	}
+>>   
+>> -	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+>> +	if (drm_dev_enter(adev_to_drm(adev), &i)) {
+>>   		amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
+>> -		drm_dev_exit(idx);
+>> +		drm_dev_exit(i);
 > 
-> Well that code is utterly nonsense to begin with. amdgpu_xcp_select_scheds() needs the xcp id to select from and not fpriv.
-> 
-> Can you look into re-structuring this so that we don't need that cast?
+> Please keep i and idx separate here.
 
-I had a look and so far only cleanup it up visually a bit so there is 
-fewer long array subscript dereferences and confusion between sel_xcp_id 
-and priv->xcp_id.
-
-But on a more fundamental level, since it needs to write to fpriv, the 
-caller will need to have it one way or the other, no?
-
-And then I noticed not only the atomic_read/inc usage is dodgy, but the 
-fpriv->xcp_id assignment itself is racy. Two threads submitting to the 
-same new entity appears can end up with a refcount imbalance and 
-probably worse.
-
-Shall I replace the ref_cnt atomic with a mutex and protect the whole 
-selection?
+Done.
 
 Regards,
 
 Tvrtko
 
->>   		if (r)
->> @@ -349,7 +349,6 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
->>   	else
->>   		ctx->stable_pstate = current_stable_pstate;
+> 
+> Apart from that looks good to me.
+> 
+> Regards,
+> Christian.
+> 
+>>   	}
 >>   
->> -	ctx->ctx_mgr = &(fpriv->ctx_mgr);
->>   	return 0;
+>>   	kfree(ctx);
+>> @@ -502,24 +501,6 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+>>   	return r;
+>>   }
+>>   
+>> -static void amdgpu_ctx_do_release(struct kref *ref)
+>> -{
+>> -	struct amdgpu_ctx *ctx;
+>> -	u32 i, j;
+>> -
+>> -	ctx = container_of(ref, struct amdgpu_ctx, refcount);
+>> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+>> -		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>> -			if (!ctx->entities[i][j])
+>> -				continue;
+>> -
+>> -			drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
+>> -		}
+>> -	}
+>> -
+>> -	amdgpu_ctx_fini(ref);
+>> -}
+>> -
+>>   static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
+>>   {
+>>   	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
+>> @@ -527,8 +508,7 @@ static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
+>>   
+>>   	mutex_lock(&mgr->lock);
+>>   	ctx = idr_remove(&mgr->ctx_handles, id);
+>> -	if (ctx)
+>> -		kref_put(&ctx->refcount, amdgpu_ctx_do_release);
+>> +	amdgpu_ctx_put(ctx);
+>>   	mutex_unlock(&mgr->lock);
+>>   	return ctx ? 0 : -EINVAL;
+>>   }
+>> @@ -744,15 +724,6 @@ struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
+>>   	return ctx;
+>>   }
+>>   
+>> -int amdgpu_ctx_put(struct amdgpu_ctx *ctx)
+>> -{
+>> -	if (ctx == NULL)
+>> -		return -EINVAL;
+>> -
+>> -	kref_put(&ctx->refcount, amdgpu_ctx_do_release);
+>> -	return 0;
+>> -}
+>> -
+>>   uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
+>>   			      struct drm_sched_entity *entity,
+>>   			      struct dma_fence *fence)
+>> @@ -921,29 +892,15 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>>   static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>>   {
+>>   	struct amdgpu_ctx *ctx;
+>> -	struct idr *idp;
+>> -	uint32_t id, i, j;
+>> +	uint32_t id;
+>>   
+>> -	idp = &mgr->ctx_handles;
+>> -
+>> -	idr_for_each_entry(idp, ctx, id) {
+>> +	idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
+>>   		if (kref_read(&ctx->refcount) != 1) {
+>>   			DRM_ERROR("ctx %p is still alive\n", ctx);
+>>   			continue;
+>>   		}
+>>   
+>> -		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+>> -			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>> -				struct drm_sched_entity *entity;
+>> -
+>> -				if (!ctx->entities[i][j])
+>> -					continue;
+>> -
+>> -				entity = &ctx->entities[i][j]->entity;
+>> -				drm_sched_entity_fini(entity);
+>> -			}
+>> -		}
+>> -		kref_put(&ctx->refcount, amdgpu_ctx_fini);
+>> +		amdgpu_ctx_put(ctx);
+>>   	}
 >>   }
 >>   
 >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->> index aed758d0acaa..cf8d700a22fe 100644
+>> index cf8d700a22fe..b1fa7fe74569 100644
 >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
 >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->> @@ -56,7 +56,6 @@ struct amdgpu_ctx {
->>   	unsigned long			ras_counter_ce;
->>   	unsigned long			ras_counter_ue;
->>   	struct amdgpu_ctx_mgr		*mgr;
->> -	struct amdgpu_ctx_mgr		*ctx_mgr;
->>   	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM][AMDGPU_MAX_ENTITY_NUM];
->>   };
+>> @@ -70,7 +70,14 @@ struct amdgpu_ctx_mgr {
+>>   extern const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM];
 >>   
+>>   struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id);
+>> -int amdgpu_ctx_put(struct amdgpu_ctx *ctx);
+>> +
+>> +void amdgpu_ctx_fini(struct kref *kref);
+>> +
+>> +static inline void amdgpu_ctx_put(struct amdgpu_ctx *ctx)
+>> +{
+>> +	if (ctx)
+>> +		kref_put(&ctx->refcount, amdgpu_ctx_fini);
+>> +}
+>>   
+>>   int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+>>   			  u32 ring, struct drm_sched_entity **entity);
 > 
 
