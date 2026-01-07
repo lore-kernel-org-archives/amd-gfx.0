@@ -4,195 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BEBFCFD63D
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 13:52:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C5DCFD63A
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 13:52:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D0E110E5EC;
-	Wed,  7 Jan 2026 13:52:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 020C310E0EF;
+	Wed,  7 Jan 2026 13:52:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="DlCACsJu";
-	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="GdpGxp98";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="hLGnd6ei";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="aHcQ9WLh";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hLGnd6ei";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="aHcQ9WLh";
 	dkim-atps=neutral
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C81D10E5A9
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 12:33:30 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 607CSXRi2010672; Wed, 7 Jan 2026 12:33:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=corp-2025-04-25; bh=1Xptg16BMA5T1yOQnR
- VBKkkNmiuMKYWAFU1h3aNYN40=; b=DlCACsJuxLa4WMb8Brb+lAArHlYYu4RhFH
- 00O16z50odF6Fl1KL8oPzz5KV1Gfk5XYnhF5Ml//V5WHjLlrbDeSi+LJRcQNf3zy
- JTRRuMcO4K4cTKh6YNux8h/kI2f/Xug4J4EzluS7HoLhymslS/ymN0kKf6n/3qZj
- 7qnmsUHKPFE2FV+Calu4Q0DF9GHVD0ijGHxQTHFusZqumCimjMZkp25J+cJbBseb
- wCPwcW84Gwe8aRw6z48dQET3tEx228p6cz4/sZWn1sdH1BppFvM64VdFPEPEzV6K
- aF0zzuph2zUpDgjkYjZZtQLEruuMJkX1OYtis5EdkfxtnDwx/ytw==
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4bhqh5806e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 07 Jan 2026 12:33:21 +0000 (GMT)
-Received: from pps.filterd
- (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 607A6uYd033897; Wed, 7 Jan 2026 12:33:20 GMT
-Received: from sn4pr0501cu005.outbound.protection.outlook.com
- (mail-southcentralusazon11011069.outbound.protection.outlook.com
- [40.93.194.69])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 4besj9t0xy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 07 Jan 2026 12:33:20 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OIrkap5cKZ9OH4G/PQmkh4fdYLJjnkVn5oG8IzyDhL5WO7A9MIFNff4qCl2kSGXSh/Pf9g6JWmbuvJNUFParIE5O5SgOknSHfbsmE6IhvA93TOtevPImzFXx/chGl7bHxuTD3ZmQk342VCxr4MIf2us4pdlIHTAZCsGZ6aEvhp0kzxLLTq6MIN/zuopyU3DmB334Wl+29AscdSQFhLdXcPCBbcal3ZZcBQ2NrGtAlRsg+KSFq4uxFqP0o6VOMjQppD2ip0zc3VkMl3DDjx9CBAOCeqPkrbieFyvZDMt7YInn8n7lu5r9Dg/UdBeXh3bME3Efm/Rzq8FSBZCq0kCgSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Xptg16BMA5T1yOQnRVBKkkNmiuMKYWAFU1h3aNYN40=;
- b=hzb8JRJ92tK7vO3ysfuuoZ5QkuyAjS0bUBxuW0NkXEXHo5oD7+OTRoqB4nRaZIahSRnKteee+p0rXgGmM8EGrELxOaPsBcCGOJB4yKwF0sjDpOzWqPU8zj4k8HuLw/A7/aA4B03SVHUFm+jPPGc+ci/CI6ISDrM7hHKRyKdO9pZjLsRkbXsMM8scHgYTgW0b/LTpQd0Kre1JWxGMFrJpVJQe+ciYzFe67hg+eTexEUUjYAsPVGBxeVo1ALpL+CE+5E0YzzM65ubAQfkj2LXcSFebVJTyT8YSXNLWNOxba+17HZJnOsqGBzfagcMyRijejcMkF+q+NZSw9SJMFKYd9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Xptg16BMA5T1yOQnRVBKkkNmiuMKYWAFU1h3aNYN40=;
- b=GdpGxp98RrMGSBSTs92CDdKVE/+M2OxaYkdf9i8Z2VRQqnZnblbenXeMEE0miOGMtiLaMhS/8l0TVXs0tg5Nq1Sq11L52dyUOVsWw0YJQtFS84TVpHhANbR1fI27OaEnLMffuvOTFWUKSCOT/Azf5sfImeSyawcAn325Ap0puqk=
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
- by SA2PR10MB4649.namprd10.prod.outlook.com (2603:10b6:806:119::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.5; Wed, 7 Jan
- 2026 12:33:08 +0000
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::f3ea:674e:7f2e:b711]) by DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::f3ea:674e:7f2e:b711%6]) with mapi id 15.20.9499.002; Wed, 7 Jan 2026
- 12:33:08 +0000
-Date: Wed, 7 Jan 2026 12:33:10 +0000
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Mikulas Patocka <mpatocka@redhat.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org,
- linux-mm@kvack.org
-Subject: Re: [PATCH v2] fix AMDGPU failure with periodic signal
-Message-ID: <6aa1dc31-cf8e-411c-b149-9f06edd790a7@lucifer.local>
-References: <6f16b618-26fc-3031-abe8-65c2090262e7@redhat.com>
- <61c3d41d-602d-4dfc-872a-873acf653b6d@lucifer.local>
- <20260106101249.be7514e75c09a928c6fa71ef@linux-foundation.org>
- <52bffed4-d9b0-4ec9-85a6-ba70e22106f3@lucifer.local>
- <20260106125912.a4975dd1919c913c22fd5101@linux-foundation.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260106125912.a4975dd1919c913c22fd5101@linux-foundation.org>
-X-ClientProxiedBy: LO2P123CA0104.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:139::19) To DM4PR10MB8218.namprd10.prod.outlook.com
- (2603:10b6:8:1cc::16)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC5F10E587
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 09:55:40 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 556CA33C4F;
+ Wed,  7 Jan 2026 09:55:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1767779739; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ERB9qiOb7qIDXvxfdQ+9v8QX8NseG5XlxnSG4mlYvHQ=;
+ b=hLGnd6ei3tDBnshHMedOPSarPjdmPiL2+58baxvDsAG+9Qc6AMz1QGX6hbVvxfJoWHGiWt
+ IGoicT/LM6s7sTmHkZbLMY6g8aFRhJ3REHB0MsmHCUnlLxfnCoUmCM+pPsJl0FTcFq0lvq
+ ee6hsICxf5HY+ztxvULvitCdUzRcZxY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1767779739;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ERB9qiOb7qIDXvxfdQ+9v8QX8NseG5XlxnSG4mlYvHQ=;
+ b=aHcQ9WLhANDGgJ53AiJlTLbw5Zz75Uc5a1ySqnfBm+B325OVQZ0JkWoPbO5DXpvGBsIKJg
+ ecO9L/YXFjLuRMCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1767779739; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ERB9qiOb7qIDXvxfdQ+9v8QX8NseG5XlxnSG4mlYvHQ=;
+ b=hLGnd6ei3tDBnshHMedOPSarPjdmPiL2+58baxvDsAG+9Qc6AMz1QGX6hbVvxfJoWHGiWt
+ IGoicT/LM6s7sTmHkZbLMY6g8aFRhJ3REHB0MsmHCUnlLxfnCoUmCM+pPsJl0FTcFq0lvq
+ ee6hsICxf5HY+ztxvULvitCdUzRcZxY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1767779739;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=ERB9qiOb7qIDXvxfdQ+9v8QX8NseG5XlxnSG4mlYvHQ=;
+ b=aHcQ9WLhANDGgJ53AiJlTLbw5Zz75Uc5a1ySqnfBm+B325OVQZ0JkWoPbO5DXpvGBsIKJg
+ ecO9L/YXFjLuRMCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3D7873EA63;
+ Wed,  7 Jan 2026 09:55:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oHRpDpstXmn5NgAAD6G6ig
+ (envelope-from <vbabka@suse.cz>); Wed, 07 Jan 2026 09:55:39 +0000
+Message-ID: <26ec5b50-1bea-4a62-97bf-56162bdac4b9@suse.cz>
+Date: Wed, 7 Jan 2026 10:55:38 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|SA2PR10MB4649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5124ec8e-db1a-46b5-0016-08de4de8e9cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?B2U3KFBtyzgiKMJQ8Xo8RKuv5XTmDyvzFgYfqbBhRWAwo5NEP28RyLspKcGj?=
- =?us-ascii?Q?p+jUrjZ9COjPcNJWeLIwOHXx9fyvpNd2CS0fd21rQpIaF7AeRUQ0M4HBPVmj?=
- =?us-ascii?Q?Fj3jxHiA8KjNqy2Fa7uzKJlw6fe2ZDTXroLsiVzpdDFJ8Fdd9WKLNPoh0Am1?=
- =?us-ascii?Q?ikosa30ikdVchT3ag0OZfxQSFO2tjcNaTOc8HATVUgXKMVH9M3oP/unMdcB9?=
- =?us-ascii?Q?4FKiRCrlfkhIVE/h1iHTX6041WWyIi02IoGxPMaJhtb3n0/dJy6fKpyc04Xx?=
- =?us-ascii?Q?5h4SPzKcOi3er91xt6UjX5h/dNBOcG8ar2HFbu3pS0fsAVNQsR7nmQc9exWO?=
- =?us-ascii?Q?EwEroKOw2/fbA4U6JbV4E+YrIZoJIL8fj6/CAL14NpakVzMK8Ws2k5/cu7hx?=
- =?us-ascii?Q?yFg49A1eZKNbBCmSS6M7uKKTtXyO/QFjQVWRcnjNLYmiVcxeoTXqny+TeJME?=
- =?us-ascii?Q?y9brOaKrLlUXTJ+/T5MQ2EI+iws5D9yQS2csqbyt9vfA34MbmeDLV93EQJho?=
- =?us-ascii?Q?9keQg2y6AWZvsg/7v2Rii7mmw+y2BodXt8vP+EYOyeqTULgeIoQx3UXeks4q?=
- =?us-ascii?Q?XvXV4o31PKupkc44Ti7AcXvJ47NpDh7vmKrITAL4jUhSEPs9PE4brq0MOsvF?=
- =?us-ascii?Q?OsVxfbGV5wYIw81IcGCXF7NZdmPtdnqGsuwzWJfE4n3C/Deh2G9GIRxynqhW?=
- =?us-ascii?Q?++OYHosUZg5oNsw/CYijlQ1/3a5S68AbaEJhIzTN779gsWKW/6VAcmPQOXei?=
- =?us-ascii?Q?Yv6HMy6KLAn4NWgHhHM5Ryv2ApmsQj0AarUG6f9Q7WLsvWfholv71ewatTag?=
- =?us-ascii?Q?oqdKiPBREnYxyaCVtf107fpWTtPi+fuabKg+eTHlsldmjIOKA+omckLV6P5M?=
- =?us-ascii?Q?8zCEoYvdjS+UWlT8KIlXHFWHbYCshJj4eHd9nDvmTdLCsGGYX/hc6vxsRc4S?=
- =?us-ascii?Q?K1JYrpojiGOe1Soy3gJeee7aJbNzZS1s0dvY4HhqiCJ6dt9I8UMWM+7Ws0ZP?=
- =?us-ascii?Q?ALcpoHfYL+oL7MlNwUY7dLmuH9pGWy+Mz36GZMHx6zmZHqQzu3YdwPCvBc7l?=
- =?us-ascii?Q?nwNSj5mNBFoJ/E6ZAyNBnhMm0dbdOJl1Z9j3WXqo8gGVpNrDI9ZZA4mfk5b8?=
- =?us-ascii?Q?5F92bZeaITgOx9TfFCt3mAZDj0Vm2fUER1Rm/hHXy2zYZ4cOLvQPRlBZcANQ?=
- =?us-ascii?Q?qqOoxXiRm8Udi6WbCxhLqG7qTSDzVbUE024cILbjTGFmXylG/QgfDK1ekIYP?=
- =?us-ascii?Q?ea1ZCfIhnBiSSHhC51rSaTEbnD350SH/hUVHnCSyUDXQ6a0Iqf7DjOLfF6lQ?=
- =?us-ascii?Q?hrGbduGcaS1SHpQvnNJhe8FuIEa8qfIemmWDtiFzvajSBLI9qEJ57VmQ82Ww?=
- =?us-ascii?Q?WT7HPhQp4mwBjceRFssclm74kIPe3XFEsqfVaKv+NjswmKuih0vG+dCI659Q?=
- =?us-ascii?Q?6MUrw13fWO5Z55QIe1QJaPlUcqatTiSQ?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR10MB8218.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hV7rYu9KFblTeTFyo2QLPpUh9y3/WYg0pmt1EHQOUEhmA8a/zZ+m4iQYT9GZ?=
- =?us-ascii?Q?0NiQ7EMcoLA5IOHEkIKF97P+bGGsJGqWjxG9PPzTXL/7aZoKtRh5Xu68YBYp?=
- =?us-ascii?Q?2YMtAp3qCjYqCQb7Buaif/ZCHSkA4Yxsc1Di+ocTACCdZ6iZjOZDZjKtnSjQ?=
- =?us-ascii?Q?RpNwdmg9UAHVylJOeXsqEvNWljWkOEl9Wp6k0CkBlUzoDpN/hj7CJBKHtidL?=
- =?us-ascii?Q?RAcT3KnzD05kKB01KaMXYoya04X/9Dk25bGUiNIoR3MxSOVQHjjKC5Bu/cFy?=
- =?us-ascii?Q?l4eMAEggANmOMYB8nexE30FKmzME240or2pUk44R44l+3qN6Ml3PcZqiHXun?=
- =?us-ascii?Q?PcQ6HBhXj0B1oz6m/ThtzyOfTjTea3pe6qFg4Pys1OHhwzYWNbg7lKIjovyI?=
- =?us-ascii?Q?AmkvHd+XUKoz1QsLGBTTcdsxgu5fc8O30CN1D1xA+rPRS8VocAlKgm6KBSo6?=
- =?us-ascii?Q?wDAR72HRIT4CrUTi8DCQefVlW2NAih/zu2JAzBVWa6WMSMAvThwvETAUZMHW?=
- =?us-ascii?Q?gFkMlgdS8AC15hNVSxeZWGd+GARI6KyyB2R/RWu2AqzYg2u1j6ybtqAVlEQA?=
- =?us-ascii?Q?ioSRMzDZI2y3US+VzagUBJtAuRJatg1h/yowU/eA59gzi4Xj74Wx1d3biCbd?=
- =?us-ascii?Q?lYkaz7qQUjDvXCqoHnmcls9LplSDhYbQ8/7ILj9mQ2VnylSGbfQPjFx4BSnG?=
- =?us-ascii?Q?Loh4E9njEpTMc8s7Psx47mbwzvLUM61BOX3UzoEjVhMNG1c668ahlIbyuI9M?=
- =?us-ascii?Q?ztsL9rj74yJbo3tEhmcs+4idYg6MvlrW4kZ+HQ2b/X8CBWFD+bTipGR0VTYQ?=
- =?us-ascii?Q?F6W7XF0NgM7ZrcGDUQ/5/apXsRqTm18az0U0yQhBPhKOdPguenGINnQuLc/8?=
- =?us-ascii?Q?aiosmqgUpeSR82nsgjCvMgleIslV7OBc0Gj5DKNsDHrrOcUJZrzzSO8LLYZO?=
- =?us-ascii?Q?bvh0oKXbyPxT75RhyCs7sP6fc/yKNSsBsuRmZAlhTZj/+GmlHZwVhkpXRJKh?=
- =?us-ascii?Q?egAZIMQlaUos66GT/fqLw+KE9w+eH31B3FsMzImUMwqloe+g77rAzXrrSkgd?=
- =?us-ascii?Q?5o5Qyy4ASlbLpgocr99NApmZaDHuIh8pWVyPLEQQHGJiWB4CbBDciHmoUghN?=
- =?us-ascii?Q?5HW3jazvhLy9ZZ97C/1vrODKvr/4mui2svscuCsDUtzJWazNtTDVNcSZiLfH?=
- =?us-ascii?Q?0S+x07RYzK6mTLsqa5GKRqmYilLjYaf22jOXhOAYae+0BeeeYqxJVonXQ64w?=
- =?us-ascii?Q?85fJk+b9aFScuV0Wc2vSgu/y6FegTi34dDT3GbW+M1EYKhFgFk09+pitwbtT?=
- =?us-ascii?Q?z3pvw/FBM1Q7ZvA+JJ+6dbtcCi8g13rW4NqjoitzStUe7yIlWn3dZSoK0ym+?=
- =?us-ascii?Q?mGcv0xRtRTnFrz7r2J3alDA27rfEr6lNQhFAP3tzo+6qTavl7W7H5Gqolbxd?=
- =?us-ascii?Q?kl6uhgBnHI2p9XFZWuQLZT/wvboRe0TRQxGl9VxITsX6O8jRJZ/Dp4VZ4kkf?=
- =?us-ascii?Q?F//PYKdDs0jqlJdaotFSb/w9ezxfoYhZtZxmq+w50VKPGz2quTlznKCLZ1ry?=
- =?us-ascii?Q?H0HOM6abvKWNog3bdETJu7JNFuiLmPCCaVkxsGJY7pa1IknPlALCB36x/ldW?=
- =?us-ascii?Q?hUunSZeJNgjA1qGfXHx/lWwx8CMVrMdUuZTomsrda3xVa9mKoDRMnWVEb9ej?=
- =?us-ascii?Q?P+2/5MMK9N7hDY2AtHcKwZr6spfEuczFmJs37yfA26vWLdUjoikqzOVPCRY8?=
- =?us-ascii?Q?wLVOwKR6+dE6FnJRUIu9KECwDYWOu+E=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: qZtoWcPC44Lph1ZF6Qym1p74SrW6NcxiVZbu+1HEpHJHjo17c6GEF4czjmApexv4YR9guV/44NrMncGcpY8Fw/x0+9dJFy5ULnZ/dat/d6vtMfi4xfV43ITBZ5dJ8aCQ2AQYLQ4SKSROg9P+Q4MMoaeF6G5qJ48nof4uoSWgYUazBPhvx/Pd6ZmPlI6VMi2IGFrPY9wy0TQobyW+SnA2VWJxWPT/w7NCoCWhtgti4wNLretnwRPtmsTjfonACkL+9Pd0y3F4D8cuso41dP319IM2zNXsxx1a2pUzUjGSurmYCdF/XMm4TcM9Wltk67J1PE08qn8epgJ9cVcgIlbZ/z3mnYCAGUtl3H2ujIFd/R3BNCAo5aOmHFp+e5YowZz0CZTsiBegvLJUgK3eUB3iyJTtnWgFdNf0VGEjK1kHDiSulfPftrkrOA33ioL9KIuxOw5UvGzXuh6xHoiuZVqEtCo8B0gA3Ookwy+45NJ+e1ZqwJ4J+YeObxRgPuZxUZOiB5ljaxRMrBLhvjiyjtrllgFcFgNb2pwkr//vUugR19YvTuW1800DB6G6qCoXsmNZWlQWFDG3CUkFD59SMrdoDUieN7Sqh7jASiHrWqxdgWA=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5124ec8e-db1a-46b5-0016-08de4de8e9cb
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2026 12:33:08.4218 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s7SWW8ErguBTFJ/XDJoZ+UgFEtB8d0M2vnl3bukBQV0ow2IPDOuo0N7rvBrP2kQCz5BBkfCBtIDOslM10iDYEx+8wIGTGMGM3HYQqDtidgo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4649
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-07_01,2026-01-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- suspectscore=0
- mlxlogscore=999 phishscore=0 malwarescore=0 spamscore=0 bulkscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2512120000 definitions=main-2601070096
-X-Proofpoint-ORIG-GUID: SzfKvN_Vl7v6lDYb8q6KBZG1MuyZO493
-X-Proofpoint-GUID: SzfKvN_Vl7v6lDYb8q6KBZG1MuyZO493
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA3MDA5NSBTYWx0ZWRfX5AWfWCUbu3O/
- 3sEeebm4TXBY9DJ5djSB1/RoeO4JlYVDiFpVRF0hRnGPEsJzQKYIsUjdDWeR/Q+35yJC9ie39cA
- JHinX3SFQ+MTceKlBYQOG4nSgK6DLdRgGNmyVw9h7RTTVVhcNn2jn8GO5jVJWtN90Iz1GdPwkb0
- LoHR+0uq9zSFwiGRMfSbyyGC4ryJWSN6Y9vibmk0RXoOjRVWT7SD7wqba4D1kVhuGrcr39rP58/
- JtJ+o5RZV4TzgiolaQHK2LjdZ8ZQWvv10Gyp6+FPyFat3H3+pmwplj8ruJW0eeFd3YTwKn6YYa9
- DIuQTftK8Ugq60xZQJ79I5/Gtc1nvA7OesnO5IQbCpYQEKbJLpSkRuo8dCo79RigdAJdpIMZ4VZ
- IvCXWjNILl8eSUGbCmnHF6GbyMyYnjMjeiPBQ2asWI5vG2cAYquiQnGwijJJ6hg3rN5sbml7R0o
- fufBWB4PQ/BfJ61elVQ==
-X-Authority-Analysis: v=2.4 cv=A+9h/qWG c=1 sm=1 tr=0 ts=695e5291 b=1 cx=c_pps
- a=WeWmnZmh0fydH62SvGsd2A==:117
- a=WeWmnZmh0fydH62SvGsd2A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=vUbySO9Y5rIA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=yPCof4ZbAAAA:8 a=XAnEcf3Kla6l3f1awEcA:9 a=CjuIK1q_8ugA:10
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] mm: only interrupt taking all mm locks on fatal
+ signal
+Content-Language: en-US
+To: "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, amd-gfx@lists.freedesktop.org,
+ linux-mm@kvack.org, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>
+References: <b672e17b-461d-16ae-e7d3-45d3c1aab142@redhat.com>
+ <7whbqlfrwjr4z2d4bpny3rjyl5tetdyx7ccf52uvby7hgywoym@6l6m2xcytez7>
+ <e597171a-cc64-4811-a043-db2e539aaf94@mailbox.org>
+ <5dfbf2f9-0948-cd59-5c59-a6ee946ff9f2@redhat.com>
+ <16dd4c62-c763-42fd-9ff1-a6dfcdbab109@kernel.org>
+From: Vlastimil Babka <vbabka@suse.cz>
+Autocrypt: addr=vbabka@suse.cz; keydata=
+ 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
+ m6M14QORSWTLRg==
+In-Reply-To: <16dd4c62-c763-42fd-9ff1-a6dfcdbab109@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.19)[-0.968]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[12];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[suse.cz:mid]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:mid,imap1.dmz-prg2.suse.org:helo]
 X-Mailman-Approved-At: Wed, 07 Jan 2026 13:52:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -208,140 +163,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 06, 2026 at 12:59:12PM -0800, Andrew Morton wrote:
-> On Tue, 6 Jan 2026 18:24:10 +0000 Lorenzo Stoakes <lorenzo.stoakes@oracle.com> wrote:
->
-> > On Tue, Jan 06, 2026 at 10:12:49AM -0800, Andrew Morton wrote:
-> > > On Tue, 6 Jan 2026 11:51:49 +0000 Lorenzo Stoakes <lorenzo.stoakes@oracle.com> wrote:
-> > >
-> > > > I'm not sure if the git repos are lagging vs. quilt, but as reported this
-> > > > patch breaks the VMA tests, and the tests are _still_ broken.
-> > > >
-> > > > Yet it's still in mm-new, mm-unstable, and even mm-hotfixes-unstable.
-> > > >
-> > > > This is interfering with my work, can we please drop this.
-> > > >
-> > > > Also the v3 is currently being debated, so surely should have been dropped
-> > > > until we have this resolved?
-> > >
-> > > Well.  I don't drop fixes unless it's decided to be a non-issue or
-> > > unless a better fix is available.
-> >
-> > Even if it breaks the build and that's been reported on-list?
->
-> I addressed that.
+On 1/6/26 16:03, David Hildenbrand (Red Hat) wrote:
+> On 1/6/26 13:52, Mikulas Patocka wrote:
+>> 
+>> 
+>> On Tue, 6 Jan 2026, Michel Dänzer wrote:
+>> 
+>>> On 1/5/26 19:15, Liam R. Howlett wrote:
+>>>> * Mikulas Patocka <mpatocka@redhat.com> [260104 16:17]:
+>>>>
+>>>> I'm not saying it's wrong to change the signal handling, but this is
+>>>> very much working around a bug in userspace constantly hammering a task
+>>>> with signals and then is surprised there is a response that the kernel
+>>>> was interrupted.
+>>>
+>>> I'd go further than that. If user space fails to retry the system call
+>>> in response to -EINTR, that's a user-space bug, period. It can happen
+>>> anytime for any number of other reasons. (That most system calls happen
+>>> to get away without it most of the time doesn't make it not a bug)
+>> 
+>> So, I tried this - just for fun - and the machine doesn't even boot. I get
+>> a lot of errors about inability to open particular files on the console.
+>> 
+>> Userspace is buggy, according to your definition, regardless of whether
+>> you like it or not.
+>> 
+>> Mikulas
+>> 
+>> ---
+>>   fs/open.c |    3 +++
+>>   1 file changed, 3 insertions(+)
+>> 
+>> Index: linux-2.6/fs/open.c
+>> ===================================================================
+>> --- linux-2.6.orig/fs/open.c	2025-12-31 20:10:31.000000000 +0100
+>> +++ linux-2.6/fs/open.c	2026-01-06 13:28:01.000000000 +0100
+>> @@ -1419,6 +1419,9 @@ static int do_sys_openat2(int dfd, const
+>>   	struct filename *tmp __free(putname) = NULL;
+>>   	int err;
+>>   
+>> +	if (current->pid != 1 && !(get_random_u8() & 0x1))
+>> +		return -EINTR;
+> 
+> Reading the man [1] page user space is only to expect EINTR in case it is
+> prepared to deal with signals (install signal handlers), no?
+> 
+> There are some exception documented:
+> 
+>         On Linux, even in the absence of signal handlers, certain blocking
+>         interfaces can fail with the error EINTR after the process is
+>         stopped by one of the stop signals and then resumed via SIGCONT.
+>         This behavior is not sanctioned by POSIX.1, and doesn't occur on
+>         other systems.
+> 
+>         The Linux interfaces that display this behavior are:
+> 
+>         •  "Input" socket interfaces, when a timeout (SO_RCVTIMEO) has
+>            been set on the socket using setsockopt(2): accept(2), recv(2),
+>            recvfrom(2), recvmmsg(2) (also with a non-NULL timeout
+>            argument), and recvmsg(2).
+> 
+>         •  "Output" socket interfaces, when a timeout (SO_RCVTIMEO) has
+>            been set on the socket using setsockopt(2): connect(2),
+>            send(2), sendto(2), and sendmsg(2), if a send timeout
+>            (SO_SNDTIMEO) has been set.
+> 
+>         •  epoll_wait(2), epoll_pwait(2).
+> 
+>         •  semop(2), semtimedop(2).
+> 
+>         •  sigtimedwait(2), sigwaitinfo(2).
+> 
+>         •  Linux 3.7 and earlier: read(2) from an inotify(7) file
+>            descriptor
+> 
+>         •  Linux 2.6.21 and earlier: futex(2) FUTEX_WAIT,
+>            sem_timedwait(3), sem_wait(3).
+> 
+>         •  Linux 2.6.8 and earlier: msgrcv(2), msgsnd(2).
+> 
+>         •  Linux 2.4 and earlier: nanosleep(2).
+> 
+> 
+> So I would expect that your test code hear breaks user space.
 
-I don't recall? If it's just git tree lag fine.
+Since the patch is dead now, are we going to update this section in the manpage?
 
->
-> > >
-> > > I've done this for ever - I've held onto "wrong" fixes for *years*.
-> > > View this as a weird issue-tracking system for a project which has no
-> > > issue-tracking system.  It's to prevent issues from falling through
-> > > cracks and getting lost.
-> >
-> > I think a lot of the issue is these processes seem to work to you but those
-> > on the ground are finding them not to work.
-> >
-> > The kernel today is not the same as the kernel X years ago, esp. in terms
-> > of sheer volume.
-> >
-> > Having a patch that none of the relevant maintainers/reviewers have seen
-> > land in an -rc out of the blue is a really serious problem.
->
-> It isn't in -rc.  It's in mm-hotfixes-unstable and it's marked "acks?",
-> which means not to go upstream without further consideration.
+> 
+> [1] https://man7.org/linux/man-pages/man7/signal.7.html
+> 
 
-OK this is another inscrutible part of the process, my understanding of
-mm-hotfixes-unstable was 'will go to -rc unless otherwise noted', now it seems
-to be 'maybe rc maybe not, but unlike other series, negative review will not
-drop this from the tree, even if it causes compile issues'.
-
-
-
-
->
-> > Also it was taken 2 months after it was submitted, so nobody could have
-> > _possibly_ picked this up by reading the list. This is why I am really
-> > underlining this case.
->
-> That's why I grabbed it.  Had I not done so, this issue would have been
-> lost.  What I do *worked*.
-
-Um what worked? You didn't ping any reviewers/maintainers, there was no
-recent mail on the mailing list for anybody to notice, your process would
-have resulted in this patch going into an -rc without review right?
-
-Was the hope that somebody would notice in a release kernel that something
-was broken at some stage? I really do hope the process isn't to rely on
-that?
-
-It's only because I happened to notice this (it broke my tests) that
-there's even been any review, and note that the patch itself was broken (no
-fixes tag, numerous issues) + has caused much debate - that was because of
-_my_ efforts.
-
-I think the problem here is your processes are pushing down work onto other
-people. Merging patches without maintainer signoff forces reviewers to jump
-on things out of fear broken things will be merged (as they have been MANY
-times).
-
-I would humbly suggest you listen to the people doing the actual work
-here. It may to you seem that your approach works, but if the people who
-are doing the work required are telling you it's not, then surely it serves
-the community better to listen to them?
-
-I am for instance no longer going to be checking mm-new, and I feel that I
-was one of the only people to actually try to report build/test issues
-there.
-
->
-> > >
-> > > It's unfortunate that this one causes disruption so I guess I'll loudly
-> > > comment it out and track the issue that way.
-> > >
-> >
-> > I think we need a better approach, yes.
-> >
-> > We in mm are really very responsive compared to most, I think asking people
-> > to wait and resend if somehow it got missed is considerably saner than
-> > 'well I'll take any patch purporting to be a fix from anyone so we keep
-> > track of stuff'.
->
-> If someone wants to step up and be MM issue tracking person then great.
-> I don't want to be that person.
-
-You're not tracking issues, you're tracking submitted bug fixes that may or
-may not be valid, and deferring the actual work of checking that to others.
-
-I don't think arbitrarily accepting fix patches is helpful here at all.
-
-And surely keeping a list of submitted patches and a reminder to ping
-people (if they were cc'd...!) to look at them is not too egregious?
-
-I could take a look at doing that if you're not happy to do that, though
-I'd really want to feel my work would be appreciated, and that's not really
-the impression I'm getting lately.
-
->
-> And let me reiterate: had I not done this, the issue Mikulas identified
-> would have remained unaddressed.
->
-
-Firstly it's highly dubious there is any issue here (see review).
-
-But more importantly - this is simply not true, you queueing this to be
-merged without notifying anybody, and the email being 2 months old, meant
-nobody could possibly have predicted it landing (you'd have to be reading
-every mail in mm-commits too...)
-
-So the most likely outcome here is this would have got merged unreviewed
-with nobody realising, including the people who maintain mm/vma.c which it
-changes.
-
-Again it took the work of the actual reviewers for this to get
-attention. The correct course here would have been to ping the memory
-mapping people, tell Mikulas to cc- us in future, then await maintainer
-sign-off.
-
-Thanks, Lorenzo
