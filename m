@@ -4,48 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52F29C47BEB
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 09:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D801BCF6C1A
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jan 2026 09:26:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C6C610E56D;
-	Wed,  7 Jan 2026 09:14:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3964810E58F;
+	Wed,  7 Jan 2026 09:26:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="M90BQAfj";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="WotMMt1L";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C2C710E3FC
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jan 2026 20:59:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D937443C19;
- Tue,  6 Jan 2026 20:59:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D739C116C6;
- Tue,  6 Jan 2026 20:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
- s=korg; t=1767733153;
- bh=s8JI4AVlsCOv4ICnt24mH5HiGOEafgKJaj9Y+ffuZNU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=M90BQAfjWTj/KzZmq+K81A45dxfsHv9/1iVIGzvsbARktXCStO6+lsrcr4YtC7rdk
- nGKlxUxiSEqxTjbX4CqDH72MgCAo+HoVCL6GPpNCqh8lC4GzkBUqRUwZ5p0cTnoKV3
- ANz1NdRwS3hmq1B0O7jGws/IMbqxlBplqyx63Xwk=
-Date: Tue, 6 Jan 2026 12:59:12 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Mikulas Patocka
- <mpatocka@redhat.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, David Hildenbrand <david@redhat.com>,
- amd-gfx@lists.freedesktop.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2] fix AMDGPU failure with periodic signal
-Message-Id: <20260106125912.a4975dd1919c913c22fd5101@linux-foundation.org>
-In-Reply-To: <52bffed4-d9b0-4ec9-85a6-ba70e22106f3@lucifer.local>
-References: <6f16b618-26fc-3031-abe8-65c2090262e7@redhat.com>
- <61c3d41d-602d-4dfc-872a-873acf653b6d@lucifer.local>
- <20260106101249.be7514e75c09a928c6fa71ef@linux-foundation.org>
- <52bffed4-d9b0-4ec9-85a6-ba70e22106f3@lucifer.local>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 07 Jan 2026 09:14:38 +0000
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20F8310E57F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 09:26:05 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dmN213yhvz9tHd;
+ Wed,  7 Jan 2026 10:26:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1767777961;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IkcN9yr36Tdc4k0VIXN57D0NnZ4/zhZ0850Zx69uq/8=;
+ b=WotMMt1LP1uSfCU/khv2JRIrAoUkuUdjdPeW2GGuNesm+b7aaWZhn5hOkD5VZ1rXA6tut+
+ 3yKD1I5RIcwQpMZZUQL9ulBdsFbeQXzOu3FxMJyzyS7OPwuathrvARi/mNtMhHmD56w18v
+ uUXRArlKaIuh/MCpsY4mWWifxNzZiokzAF+rnLHa2sdpWwLP/Ux0KnKymfS7O6DQY145j5
+ /1HfEa/khRY5IDK04mSFrwMMV6lZyCXlhyp9LekuUcuTfUhJozD7C/bX6AhSN/FD6otd3F
+ AprRji4xCeaErHhFoQ47ws63y3inpEOligIneaEO4b9G/HMM6UCammw+cedCBA==
+Message-ID: <fa6a1cbf-2853-4add-94c6-d5c2e0a3a2b7@mailbox.org>
+Date: Wed, 7 Jan 2026 10:25:57 +0100
+MIME-Version: 1.0
+Subject: Re: [PATCH v3 2/3] mm: only interrupt taking all mm locks on fatal
+ signal
+To: Mikulas Patocka <mpatocka@redhat.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org,
+ linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+References: <b672e17b-461d-16ae-e7d3-45d3c1aab142@redhat.com>
+ <7whbqlfrwjr4z2d4bpny3rjyl5tetdyx7ccf52uvby7hgywoym@6l6m2xcytez7>
+ <e60858c9-12a6-2b04-35ae-9d676f14db2a@redhat.com>
+ <j3dy3g5mchtdzxldtnqu5nwaalbr6ec4ceim3nuu6nwcddmqjc@7dgzr4m7pli2>
+ <6633f8ed-f432-f4c4-3fe2-8c14248cadab@redhat.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <6633f8ed-f432-f4c4-3fe2-8c14248cadab@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 53gdztw874atruuukg3n3nw118ikg3tf
+X-MBO-RS-ID: a72ef34075f8cc7d704
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +73,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 6 Jan 2026 18:24:10 +0000 Lorenzo Stoakes <lorenzo.stoakes@oracle.com> wrote:
-
-> On Tue, Jan 06, 2026 at 10:12:49AM -0800, Andrew Morton wrote:
-> > On Tue, 6 Jan 2026 11:51:49 +0000 Lorenzo Stoakes <lorenzo.stoakes@oracle.com> wrote:
-> >
-> > > I'm not sure if the git repos are lagging vs. quilt, but as reported this
-> > > patch breaks the VMA tests, and the tests are _still_ broken.
-> > >
-> > > Yet it's still in mm-new, mm-unstable, and even mm-hotfixes-unstable.
-> > >
-> > > This is interfering with my work, can we please drop this.
-> > >
-> > > Also the v3 is currently being debated, so surely should have been dropped
-> > > until we have this resolved?
-> >
-> > Well.  I don't drop fixes unless it's decided to be a non-issue or
-> > unless a better fix is available.
+On 1/6/26 21:19, Mikulas Patocka wrote:
+> On Tue, 6 Jan 2026, Liam R. Howlett wrote:
 > 
-> Even if it breaks the build and that's been reported on-list?
-
-I addressed that.
-
-> >
-> > I've done this for ever - I've held onto "wrong" fixes for *years*.
-> > View this as a weird issue-tracking system for a project which has no
-> > issue-tracking system.  It's to prevent issues from falling through
-> > cracks and getting lost.
+>> Any other -EINTR system call will also cause you problems since you
+>> continuously send signals to your process, so we'll have to change them
+>> all for this to work?
 > 
-> I think a lot of the issue is these processes seem to work to you but those
-> on the ground are finding them not to work.
+> I use SA_RESTART for the signals. And I retry all the syscalls on EINTR 
+> just in case SA_RESTART didn't work. So, I don't experience random 
+> failures in my code due to the periodic signal.
 > 
-> The kernel today is not the same as the kernel X years ago, esp. in terms
-> of sheer volume.
-> 
-> Having a patch that none of the relevant maintainers/reviewers have seen
-> land in an -rc out of the blue is a really serious problem.
+> But there is code that I have no control over - such as the OpenCL shared 
+> library.
 
-It isn't in -rc.  It's in mm-hotfixes-unstable and it's marked "acks?",
-which means not to go upstream without further consideration.
+AFAIK all current OpenCL support code for AMD GPUs is open source. I see no reason why it couldn't be fixed.
 
-> Also it was taken 2 months after it was submitted, so nobody could have
-> _possibly_ picked this up by reading the list. This is why I am really
-> underlining this case.
 
-That's why I grabbed it.  Had I not done so, this issue would have been
-lost.  What I do *worked*.
-
-> >
-> > It's unfortunate that this one causes disruption so I guess I'll loudly
-> > comment it out and track the issue that way.
-> >
-> 
-> I think we need a better approach, yes.
-> 
-> We in mm are really very responsive compared to most, I think asking people
-> to wait and resend if somehow it got missed is considerably saner than
-> 'well I'll take any patch purporting to be a fix from anyone so we keep
-> track of stuff'.
-
-If someone wants to step up and be MM issue tracking person then great.
-I don't want to be that person.
-
-And let me reiterate: had I not done this, the issue Mikulas identified
-would have remained unaddressed.
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
