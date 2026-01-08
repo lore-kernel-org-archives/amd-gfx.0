@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2CBFD1489F
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 04:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24FA8D1489F
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 04:49:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7048310E67F;
-	Thu,  8 Jan 2026 04:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA19010E67E;
+	Thu,  8 Jan 2026 04:49:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TjLxrsVQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KS+rMC6X";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011019.outbound.protection.outlook.com [52.101.62.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E19F10E67F
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jan 2026 04:49:36 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010067.outbound.protection.outlook.com [52.101.56.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E9710E680
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jan 2026 04:49:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eYgJySMfw0FSu0ftJEkwr+jcc7lWwTLLDy4Kx+s/Up+okBk3qcZiqpw2jdY5rEVbsYjXbmsxD1h2msvZczugobDuVfxzvLupxc4dBx9OgQi1MWwbwgTYij9RYTrPTcN1+9ACHzIa+3ktlypbNNyfwahj1PpneMJxzMwedQpcKSlk2GrK22WLLzkagSlZQXUNAKZIwIAmZCqbX9sYYoE9sIGLevlO9LERkC2q8fWEDZ4o/H1JF/qrkP/9obvFxQdgAVdxyFoOhEs0qbSeQrFs1QzCwNVk/87ZjRjiVJCTOQ5Q1greM9C3wXvsTblulr/+xkaF2KnmZkB5SgxOZgvNlg==
+ b=LEGk9gevPZ9jkGcwzonTPisRYkQob0yhs8NQrD6vwbyrsEhUiDHVERICLymbJdwkESWbepdemZCEsoDclvo1XGjjCLmGhE1OAcFQnU2mAkLtzJOoxL2shALqPqqdsaOf5Lotnnnjwc0rXhEoDBHXNoi819rFaibWDH2Q9KkoQY6y3nqs8Bx6UEbTWNbZvEjUjxXTQCLn8ftbX64aop8173OrsmVT7ytVtMIrPhvRd5ZC5J/lbENUKBFU4ZOTBHCj98zqDNUNxWBVfA0alMXvF1ertgZFAl9Jr2EVYRQwFBdQXqx2Jj174KUZnGZTd9+E9drqBZKVTx/lsEIvmDnZyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7yM9d+NovfdnshamcSTutMiTYrt3gNJtcEKUqKVEFmU=;
- b=NI3Y058AQjW6H53mO5rVXuEESGHRFzynDk3lg6qKgadCgajSah87QTGffpw4yzC7eJaVbCUGrJBbPO1NyHmWbQwvVbDwyTnnTt5i4SaAeh6W0shAP4Lixnc5oXuDt+PhxLDEWAzJS1B56HD8Iq4pR0xFu7EBHbuPds82NybGAwOBSMw1Y2c0QRuDEnEoIHET4DxgiLLyrR+7Pz5HUgR9M5Ztye7cflhWEPG07gIm6RR2SiAXX+nGPNs1xGZSyEyPXYyeBeJ9gwdvo/8xUUHhEikG5XSCE6Ci5Le0ZLTNcGAZAUe1od/HmfP4KQ7M52cmt5pPc3BOxT2TdO7H7DAObw==
+ bh=dwef30xxZjzBJeCxGEWJdpR4ws4WBh/SKFHUb0ph88k=;
+ b=Vd1s9/OKuafnrJSDqwfOZk7ozTEit6j2BRl2hid3/ALZpSXxVxw6vpiEbpYg84lRYlgXTZnl9vJMVAvyHWcPoZTToBqk6m/UkPxb2clOdN6J5NkYKVMCYriOl3sR9go2YLxB7rmYS0hITNQ/fIDvWRSjWG+0FLfAs1ozAx5Ahp0NGPinfEdbHkWHbdJdNwhvgVHWIkbtq/A3nOmMAKReY3DBYRwgqmcYMoBF2oCcaCeMyTRr2wwG57BsN7c0hZncMM2fGCoB2Gh3fng02wu2z14z7QeYLavDievP6RgIJOtx/x326GftB8Xa/vKZmbNEHuvqFx6gjxNT45ly7TT7Qg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7yM9d+NovfdnshamcSTutMiTYrt3gNJtcEKUqKVEFmU=;
- b=TjLxrsVQPMzzrRQRF4SVz94rWDEvEgOoy28H21s2YKQD/Srr0bU4UlSt2juAXmtnJ2fMQHfGRqlglvs5Op8X67aUmWyucFu0pp0agT4e81QsesiFiJOgOm0bP7PnQaAHtgg1HhyMXxvaq5XPlrjrS9+6Hd1s+YMq+DvItn8mLM8=
-Received: from DM6PR11CA0001.namprd11.prod.outlook.com (2603:10b6:5:190::14)
- by CH1PR12MB9623.namprd12.prod.outlook.com (2603:10b6:610:2b3::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.2; Thu, 8 Jan
- 2026 04:49:30 +0000
-Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
- (2603:10b6:5:190:cafe::39) by DM6PR11CA0001.outlook.office365.com
- (2603:10b6:5:190::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.2 via Frontend Transport; Thu, 8
+ bh=dwef30xxZjzBJeCxGEWJdpR4ws4WBh/SKFHUb0ph88k=;
+ b=KS+rMC6XEHMmNfwiaByIGwNUo3ypHx0+9Np3f5aKN3ZmGgUheNA+pXZX+4ytB6svkNyQRRDqFVCfhevrK4tK6ChqtSJsW5bhoT/khD9F8cVET4/drmOwIpmNdVnG+HaPpSkjC+XclRV+JDdaoornwJxkkzDbVbDdN+q6w8CztpE=
+Received: from DM6PR06CA0048.namprd06.prod.outlook.com (2603:10b6:5:54::25) by
+ DS7PR12MB6094.namprd12.prod.outlook.com (2603:10b6:8:9d::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9499.2; Thu, 8 Jan 2026 04:49:33 +0000
+Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
+ (2603:10b6:5:54:cafe::8b) by DM6PR06CA0048.outlook.office365.com
+ (2603:10b6:5:54::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.3 via Frontend Transport; Thu, 8
  Jan 2026 04:49:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -48,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
+ DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Thu, 8 Jan 2026 04:49:30 +0000
+ 15.20.9499.1 via Frontend Transport; Thu, 8 Jan 2026 04:49:33 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 7 Jan
- 2026 22:49:28 -0600
+ 2026 22:49:30 -0600
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Asad.Kamal@amd.com>, <kevinyang.wang@amd.com>, Asad Kamal
  <asad.kamal@amd.com>
-Subject: [PATCH v3 08/24] drm/amd/pm: Add async message call support
-Date: Thu, 8 Jan 2026 10:17:24 +0530
-Message-ID: <20260108044839.4084279-9-lijo.lazar@amd.com>
+Subject: [PATCH v3 09/24] drm/amd/pm: Replace without wait with async calls
+Date: Thu, 8 Jan 2026 10:17:25 +0530
+Message-ID: <20260108044839.4084279-10-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260108044839.4084279-1-lijo.lazar@amd.com>
 References: <20260108044839.4084279-1-lijo.lazar@amd.com>
@@ -74,53 +74,53 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|CH1PR12MB9623:EE_
-X-MS-Office365-Filtering-Correlation-Id: b564f8b7-6030-4410-ae3f-08de4e714fb9
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|DS7PR12MB6094:EE_
+X-MS-Office365-Filtering-Correlation-Id: 289b9841-cd67-4752-f1d5-08de4e71514a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tQ9Y//HaiJkhi1czfXC+V0FjnuqrJIQDEPTiU68Rd/GYJOiNxnoCVEMRDTD8?=
- =?us-ascii?Q?MfPyA5jOSoNhMEg/6iASnqnUIROuAuy5d/O9rtT7DDUICTA1Ql7NjJy3zqRA?=
- =?us-ascii?Q?28eaMjF7tFSt0qd7BUQcz8J69/G2jPI4ZzmdsdPQmGKOUxHXft7kgIEkgZ5Z?=
- =?us-ascii?Q?k9C6LL3qNKqex6w7l6lqvedrgVpDlhpwzlVmQXkyoUSRlE+bYupY53qmBuFD?=
- =?us-ascii?Q?oquSPr/imYYfDmjrfrtXZ1SCvlarrkuwynKPwUnG4zc/BRiixsL5fTm/w4Je?=
- =?us-ascii?Q?cbTYe+k5JVSDYHEo/KK0+ItOmp1gYM0lipBxUIOs0arR8WPnuzQKMxogqmie?=
- =?us-ascii?Q?iQJSUaoM9/I59HkYYIqVTYvLZsI0NCalg67X6KdxOx4CBk++kcgsHqScoT5Z?=
- =?us-ascii?Q?CE98eu9APIJmGFLsQ7fw/yfWTSpUoJ4jTdQONlU3HQasottNT7xMf781Ymh3?=
- =?us-ascii?Q?zpRqtD7OTtQLAk06gcBDLAay1Ivc/4glJb242Zv41v4rKJkfxR5zFIH3Pp1g?=
- =?us-ascii?Q?37VgEP1IETIsC0cp4aWUxoDYEptVOqgtVXMNcGsdCMzHDahrBiRloHfEjnpN?=
- =?us-ascii?Q?TzGKE3L0yPnHnJsAUsD9b++5OSZCDtgrM0IEv3w9nGhkiqazvtc8cl7J2l55?=
- =?us-ascii?Q?sTyYMcP2xPpW4lDGJHhUjuWF2+fYkdkhSk9FlUWR8GLn1t8VN8EwzvhnvXR0?=
- =?us-ascii?Q?I0tZDzF5p1dkfhjdIPPJfe4yAX/5u5ZzcJttI1279h+y10JlapnKRxInt2a6?=
- =?us-ascii?Q?aHTyjWZeQfOD6vBqvq23jGxWvfv1Qkg5z+JezIopEYUW43KwjcUtlzN4XR+z?=
- =?us-ascii?Q?e99CCLwbiXUbUmXcjROVsq5s7wwF+OkH3WRJrceY4hr1xQ8FZexa+SgQgUrn?=
- =?us-ascii?Q?VIw64UKmW6i/MJiJLxZAGRYh3zbYJSf4NIijZOQdFS780VNLev9goYhC0coS?=
- =?us-ascii?Q?Sy+EvKj2xAPg2K/QOMB56Dw28y3D8lG9L4nO2ONaOelkP5BvyiBJ7GumZB8H?=
- =?us-ascii?Q?CAYRKFG9GtTkC4cMo5BnCeYuiJYqST7sTlniNSHB0qjDSZXkb0DefobmoRRb?=
- =?us-ascii?Q?EIpxQEwzOsEUblNXCZ2vNm5MYM19vEjC3oSTFk+Ukhc4L4knlQllU2nplhXh?=
- =?us-ascii?Q?tz9p2k66P3odpIrKv13EuiYGdD496aAQPDImEB35YnPn8TG149uPgPyO3z2G?=
- =?us-ascii?Q?AL9RK4UFtct7M0mCJTyJHZyNNnOXi0IwFyOW9lTF0WRm307Lupk5lDdQkKsV?=
- =?us-ascii?Q?/3WBDmf6aZkae4/Pdb203ACxWe5TtWe+6+ub9CU2PFRL549MUSva7jCplx/e?=
- =?us-ascii?Q?GPFxsXB54tnyBiHjpFb14mnNyps59ZV0rPi2/d72L/KkODR7UC3M6tparSRu?=
- =?us-ascii?Q?F+eLbVvXU5dSF29SHWWGYGYX4mbvL6UoGR/HnRRZ+oKmOr9liJLaovSw1UHn?=
- =?us-ascii?Q?qvWU2/zgoFfU1UQPopi6cyZv+kFrEIECgkUWZql3xrWxU9Dj3pgdfUFMwmO3?=
- =?us-ascii?Q?UOWtLoK3r3nWyq4OWxA1dVr9bmLP8hBipkWqI4PRWqjd26wgKanSuHL2QhPR?=
- =?us-ascii?Q?V1VM7jGA6YPZnlV1zeU=3D?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KSajV4gyGoGchLw90bH4z5jwjRWYKoWFwRNp8isht7T3DIrmy/UBFtTnPfFl?=
+ =?us-ascii?Q?Pw6gWiY1AU/YVW7425uPftZXcFAm2R9FHE7s+8/o+98go0hn+9l4p8XzIYYq?=
+ =?us-ascii?Q?1fCzveelSMUQjwPGUvAUjGkDW/jqQ9GCmaCEo9MQcnxNY8LneX4F2Q/Ll0MM?=
+ =?us-ascii?Q?11VP663QZQuOC2KVMNTR9m00PFDA3yJLHFyqAMZgkr8AlP6VoyJiOGfAz0OT?=
+ =?us-ascii?Q?g7WyUYjapPTkTL0KRDvkcjLEKTiYJjNMR6av2puxRpEeHKfkGtGUGhc8J0XF?=
+ =?us-ascii?Q?wu5dWcR6j82oNfxOURGOBm6llzLZlC9aDkBNFFo9gPm5JFDqdSraua1qS5VX?=
+ =?us-ascii?Q?/kSsfikbP5hTnVroxTCmzApqBI0lr3sHih4aqVcddjJBjHMWWieLQpgvm1rH?=
+ =?us-ascii?Q?2s2PYmcrUoSeROSOyO48xCIIgoiXNqSHIcjYwbiL7wXkOYLlIDSr9RMhC32C?=
+ =?us-ascii?Q?BYoRFE9rxZj2DJj8OLUEXUNSk2brtyH9TUU+EwUQmX3N+uQpWbzTBiJa5UHG?=
+ =?us-ascii?Q?6QJ4Lz8BxDISdNuYMN3V4bGzmZUdE82cMbgOQLD9OMaxvnJHeeoW0nNznMNb?=
+ =?us-ascii?Q?vbtVbBATG3CaaGZPGAKvUHX5JlUrPqAW3jX0OfQEnuKuI4barZwPegPnLsQ6?=
+ =?us-ascii?Q?ugweZVFKBcpAMhtfnphDscwomIDSkZpZKEREgVM4nLMO/SHdJcXGxf10cSAU?=
+ =?us-ascii?Q?P7450c0nkj+SxyN1k+TmGld2ONHwdIdeuxer+4nCNNv52tAIt7lsGnlP3U/7?=
+ =?us-ascii?Q?6U0Ae4QcIdh/1bCB65npxXFICNjneBcMXPxVY3pF038rjCy9ADRDB4j4NTaN?=
+ =?us-ascii?Q?Li9SUQ6tddDzjxNkifqxWhPqVlTA+0FJQo+cvNChkA+qvtd8hp2JG5+Skuiu?=
+ =?us-ascii?Q?f8XFur1qEwKTukmOZLbQyXGroXI3IJwQbmY0nNlMmM3N4KDdSEtlg9JPuREK?=
+ =?us-ascii?Q?mM1L9j/wKBXL7i+Qy9ApoJtV02fIah5uFUlgWXNIaU4uZcCQ9VqTEFThp5i7?=
+ =?us-ascii?Q?q4WSAT66SBRqZxij1chga3lbKRHih/Coz7XVT8Gvc6SFYsrtdka3zXjZO9cC?=
+ =?us-ascii?Q?7XVZlPsA9ihD87gJc6UWEYdCE1auM0Dn0L41Si8sZL1II8nWSRrOmBgpjQ/D?=
+ =?us-ascii?Q?6xegF/qJ+Llzs+B1mhVubvAOQaBEXGAsqAWJ8YnWn1bx6u4J1PEuvZLh+wDj?=
+ =?us-ascii?Q?86u89ZpRskO/uuJnc/996ulsdBchFAJsDw4NL9d10B7v2FfxIpy/sZPu8MOA?=
+ =?us-ascii?Q?s8ZV5Iy1wRUoC8TFWSl09ncpXmscB5P4tb3ZfHqAVtfkt4C+9Le0hrNMc+fY?=
+ =?us-ascii?Q?HF4TBPYY+CoyEQ95q0Ty4daIzKDwbbUB0DFT9+FVYXdj+8oZXYA2iO+fxjQs?=
+ =?us-ascii?Q?cPNlRT4TL9rAWfLdHg7j2TLIe70luar8LIlst6lMxYb0IPItiYZyD4jROtRe?=
+ =?us-ascii?Q?JgY8FCdUCs0y7iqSXc5/ZImXFUxEZArr7PesmXbAeLbEjAfoVf3pHIjEcj9T?=
+ =?us-ascii?Q?FbkfuUcEwgwRqULHPk7mxkjoc1QxkuoxsqEvvj4F8EOxN169huBUTOG443Ss?=
+ =?us-ascii?Q?tK1X+JYoFy3kXbP3fdk=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 04:49:30.8309 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b564f8b7-6030-4410-ae3f-08de4e714fb9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 04:49:33.4538 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 289b9841-cd67-4752-f1d5-08de4e71514a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9623
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,120 +135,299 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add asynchronous messaging (message which doesn't wait for response)
-using message control block.
+Use the new async locked message function instead of without_waiting
+messaging function.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  3 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 37 +++++++++++++++++--
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  2 +
- 3 files changed, 37 insertions(+), 5 deletions(-)
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 22 ++++++++---------
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 16 ++++---------
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 24 ++++++++++---------
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 13 ++++++----
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 24 +++++++++----------
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    | 12 ++++++----
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c    | 12 ++++++----
+ 7 files changed, 64 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 842ae201a8ca..3b2937c07cad 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -554,7 +554,8 @@ struct cmn2asic_mapping {
- #define SMU_MSG_MAX_ARGS 4
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 9ea6b0d1954b..087b4b6ce857 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -3043,21 +3043,21 @@ static int sienna_cichlid_stb_get_data_direct(struct smu_context *smu,
  
- /* Message flags for smu_msg_args */
--#define SMU_MSG_FLAG_NO_WAIT BIT(0) /* Skip post-poll (for split send/wait) */
-+#define SMU_MSG_FLAG_ASYNC	BIT(0) /* Async send - skip post-poll */
-+#define SMU_MSG_FLAG_LOCK_HELD	BIT(1) /* Caller holds ctl->lock */
+ static int sienna_cichlid_mode2_reset(struct smu_context *smu)
+ {
+-	int ret = 0, index;
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+ 	struct amdgpu_device *adev = smu->adev;
++	int ret = 0;
+ 	int timeout = 100;
  
- struct smu_msg_ctl;
- /**
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index ef603a4d57f6..ce2986276a81 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -546,6 +546,7 @@ static int smu_msg_v1_send_msg(struct smu_msg_ctl *ctl,
- 	u32 reg, msg_flags;
- 	int ret, index;
- 	bool skip_pre_poll = false;
-+	bool lock_held = args->flags & SMU_MSG_FLAG_LOCK_HELD;
+-	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
+-						SMU_MSG_DriverMode2Reset);
+-
+-	mutex_lock(&smu->message_lock);
++	mutex_lock(&ctl->lock);
  
- 	/* Early exit if no HW access */
- 	if (adev->no_hw_access)
-@@ -570,7 +571,8 @@ static int smu_msg_v1_send_msg(struct smu_msg_ctl *ctl,
- 	if (amdgpu_sriov_vf(adev) && !(msg_flags & SMU_MSG_VF_FLAG))
- 		return 0;
+-	ret = smu_cmn_send_msg_without_waiting(smu, (uint16_t)index,
+-					       SMU_RESET_MODE_2);
++	ret = smu_msg_send_async_locked(ctl, SMU_MSG_DriverMode2Reset,
++					SMU_RESET_MODE_2);
++	if (ret)
++		goto out;
  
--	mutex_lock(&ctl->lock);
-+	if (!lock_held)
-+		mutex_lock(&ctl->lock);
- 
- 	/* RAS priority filter */
- 	ret = __smu_msg_v1_ras_filter(ctl, args->msg, msg_flags,
-@@ -602,8 +604,8 @@ static int smu_msg_v1_send_msg(struct smu_msg_ctl *ctl,
- 	/* Send message */
- 	__smu_msg_v1_send(ctl, (u16)index, args);
- 
--	/* Post-poll (skip if NO_WAIT) */
--	if (args->flags & SMU_MSG_FLAG_NO_WAIT) {
-+	/* Post-poll (skip if ASYNC) */
-+	if (args->flags & SMU_MSG_FLAG_ASYNC) {
- 		ret = 0;
+-	ret = smu_cmn_wait_for_response(smu);
++	ret = smu_msg_wait_response(ctl, 0);
+ 	while (ret != 0 && timeout) {
+-		ret = smu_cmn_wait_for_response(smu);
++		ret = smu_msg_wait_response(ctl, 0);
+ 		/* Wait a bit more time for getting ACK */
+ 		if (ret != 0) {
+ 			--timeout;
+@@ -3075,11 +3075,11 @@ static int sienna_cichlid_mode2_reset(struct smu_context *smu)
  		goto out;
  	}
-@@ -650,7 +652,8 @@ static int smu_msg_v1_send_msg(struct smu_msg_ctl *ctl,
- 		WARN_ON(1);
- 	}
  
--	mutex_unlock(&ctl->lock);
-+	if (!lock_held)
-+		mutex_unlock(&ctl->lock);
+-	dev_info(smu->adev->dev, "restore config space...\n");
++	dev_info(adev->dev, "restore config space...\n");
+ 	/* Restore the config space saved during init */
+ 	amdgpu_device_load_pci_state(adev->pdev);
+ out:
+-	mutex_unlock(&smu->message_lock);
++	mutex_unlock(&ctl->lock);
+ 
  	return ret;
  }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index a645094b029b..fe1924289040 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -2272,18 +2272,12 @@ static int vangogh_post_smu_init(struct smu_context *smu)
  
-@@ -687,6 +690,32 @@ int smu_msg_wait_response(struct smu_msg_ctl *ctl, u32 timeout_us)
- 	return ctl->ops->wait_response(ctl, timeout_us);
+ static int vangogh_mode_reset(struct smu_context *smu, int type)
+ {
+-	int ret = 0, index = 0;
+-
+-	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
+-					       SMU_MSG_GfxDeviceDriverReset);
+-	if (index < 0)
+-		return index == -EACCES ? 0 : index;
+-
+-	mutex_lock(&smu->message_lock);
+-
+-	ret = smu_cmn_send_msg_without_waiting(smu, (uint16_t)index, type);
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
++	int ret;
+ 
+-	mutex_unlock(&smu->message_lock);
++	mutex_lock(&ctl->lock);
++	ret = smu_msg_send_async_locked(ctl, SMU_MSG_GfxDeviceDriverReset, type);
++	mutex_unlock(&ctl->lock);
+ 
+ 	mdelay(10);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index a3f4b25ac474..76edb54972dc 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1828,26 +1828,28 @@ static int aldebaran_mode1_reset(struct smu_context *smu)
+ 
+ static int aldebaran_mode2_reset(struct smu_context *smu)
+ {
+-	int ret = 0, index;
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+ 	struct amdgpu_device *adev = smu->adev;
++	int ret = 0;
+ 	int timeout = 10;
+ 
+-	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
+-						SMU_MSG_GfxDeviceDriverReset);
+-	if (index < 0 )
+-		return -EINVAL;
+-	mutex_lock(&smu->message_lock);
++	mutex_lock(&ctl->lock);
++
+ 	if (smu->smc_fw_version >= 0x00441400) {
+-		ret = smu_cmn_send_msg_without_waiting(smu, (uint16_t)index, SMU_RESET_MODE_2);
++		ret = smu_msg_send_async_locked(ctl, SMU_MSG_GfxDeviceDriverReset,
++						SMU_RESET_MODE_2);
++		if (ret)
++			goto out;
++
+ 		/* This is similar to FLR, wait till max FLR timeout */
+ 		msleep(100);
+-		dev_dbg(smu->adev->dev, "restore config space...\n");
++		dev_dbg(adev->dev, "restore config space...\n");
+ 		/* Restore the config space saved during init */
+ 		amdgpu_device_load_pci_state(adev->pdev);
+ 
+-		dev_dbg(smu->adev->dev, "wait for reset ack\n");
++		dev_dbg(adev->dev, "wait for reset ack\n");
+ 		while (ret == -ETIME && timeout)  {
+-			ret = smu_cmn_wait_for_response(smu);
++			ret = smu_msg_wait_response(ctl, 0);
+ 			/* Wait a bit more time for getting ACK */
+ 			if (ret == -ETIME) {
+ 				--timeout;
+@@ -1870,7 +1872,7 @@ static int aldebaran_mode2_reset(struct smu_context *smu)
+ 	if (ret == 1)
+ 		ret = 0;
+ out:
+-	mutex_unlock(&smu->message_lock);
++	mutex_unlock(&ctl->lock);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index e5996162fd5c..b941ab24f823 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -2244,18 +2244,21 @@ int smu_v13_0_baco_exit(struct smu_context *smu)
+ 
+ int smu_v13_0_set_gfx_power_up_by_imu(struct smu_context *smu)
+ {
+-	uint16_t index;
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+ 	struct amdgpu_device *adev = smu->adev;
++	int ret;
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 		return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_EnableGfxImu,
+ 						       ENABLE_IMU_ARG_GFXOFF_ENABLE, NULL);
+ 	}
+ 
+-	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
+-					       SMU_MSG_EnableGfxImu);
+-	return smu_cmn_send_msg_without_waiting(smu, index,
+-						ENABLE_IMU_ARG_GFXOFF_ENABLE);
++	mutex_lock(&ctl->lock);
++	ret = smu_msg_send_async_locked(ctl, SMU_MSG_EnableGfxImu,
++					ENABLE_IMU_ARG_GFXOFF_ENABLE);
++	mutex_unlock(&ctl->lock);
++
++	return ret;
  }
  
-+/**
-+ * smu_msg_send_async_locked - Send message asynchronously, caller holds lock
-+ * @ctl: Message control block
-+ * @msg: Message type
-+ * @param: Message parameter
-+ *
-+ * Send an SMU message without waiting for response. Caller must hold ctl->lock
-+ * and call smu_msg_wait_response() later to get the result.
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+int smu_msg_send_async_locked(struct smu_msg_ctl *ctl,
-+			      enum smu_message_type msg, u32 param)
-+{
-+	struct smu_msg_args args = {
-+		.msg = msg,
-+		.args[0] = param,
-+		.num_args = 1,
-+		.num_out_args = 0,
-+		.flags = SMU_MSG_FLAG_ASYNC | SMU_MSG_FLAG_LOCK_HELD,
-+		.timeout = 0,
-+	};
+ int smu_v13_0_od_edit_dpm_table(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index a9789f3a23b0..cf011fc3bb61 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -2897,24 +2897,22 @@ static void smu_v13_0_6_restore_pci_config(struct smu_context *smu)
+ 
+ static int smu_v13_0_6_mode2_reset(struct smu_context *smu)
+ {
+-	int ret = 0, index;
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+ 	struct amdgpu_device *adev = smu->adev;
++	int ret = 0;
+ 	int timeout = 10;
+ 
+-	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
+-					       SMU_MSG_GfxDeviceDriverReset);
+-	if (index < 0)
+-		return index;
+-
+-	mutex_lock(&smu->message_lock);
++	mutex_lock(&ctl->lock);
+ 
+-	ret = smu_cmn_send_msg_without_waiting(smu, (uint16_t)index,
+-					       SMU_RESET_MODE_2);
++	ret = smu_msg_send_async_locked(ctl, SMU_MSG_GfxDeviceDriverReset,
++					SMU_RESET_MODE_2);
++	if (ret)
++		goto out;
+ 
+ 	/* Reset takes a bit longer, wait for 200ms. */
+ 	msleep(200);
+ 
+-	dev_dbg(smu->adev->dev, "restore config space...\n");
++	dev_dbg(adev->dev, "restore config space...\n");
+ 	/* Restore the config space saved during init */
+ 	amdgpu_device_load_pci_state(adev->pdev);
+ 
+@@ -2932,9 +2930,9 @@ static int smu_v13_0_6_mode2_reset(struct smu_context *smu)
+ 	if (!(adev->flags & AMD_IS_APU))
+ 		smu_v13_0_6_restore_pci_config(smu);
+ 
+-	dev_dbg(smu->adev->dev, "wait for reset ack\n");
++	dev_dbg(adev->dev, "wait for reset ack\n");
+ 	do {
+-		ret = smu_cmn_wait_for_response(smu);
++		ret = smu_msg_wait_response(ctl, 0);
+ 		/* Wait a bit more time for getting ACK */
+ 		if (ret == -ETIME) {
+ 			--timeout;
+@@ -2948,7 +2946,7 @@ static int smu_v13_0_6_mode2_reset(struct smu_context *smu)
+ 	} while (ret == -ETIME && timeout);
+ 
+ out:
+-	mutex_unlock(&smu->message_lock);
++	mutex_unlock(&ctl->lock);
+ 
+ 	if (ret)
+ 		dev_err(adev->dev, "failed to send mode2 reset, error code %d",
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+index 8f7f293de3d8..f85ba23f9d99 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+@@ -1834,17 +1834,21 @@ int smu_v14_0_baco_exit(struct smu_context *smu)
+ 
+ int smu_v14_0_set_gfx_power_up_by_imu(struct smu_context *smu)
+ {
+-	uint16_t index;
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+ 	struct amdgpu_device *adev = smu->adev;
++	int ret;
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 		return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_EnableGfxImu,
+ 						       ENABLE_IMU_ARG_GFXOFF_ENABLE, NULL);
+ 	}
+ 
+-	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
+-					       SMU_MSG_EnableGfxImu);
+-	return smu_cmn_send_msg_without_waiting(smu, index, ENABLE_IMU_ARG_GFXOFF_ENABLE);
++	mutex_lock(&ctl->lock);
++	ret = smu_msg_send_async_locked(ctl, SMU_MSG_EnableGfxImu,
++					ENABLE_IMU_ARG_GFXOFF_ENABLE);
++	mutex_unlock(&ctl->lock);
 +
-+	return ctl->ops->send_msg(ctl, &args);
-+}
++	return ret;
+ }
+ 
+ int smu_v14_0_set_default_dpm_tables(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
+index 631bdf387163..6557085a7c72 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
+@@ -1709,17 +1709,21 @@ int smu_v15_0_baco_exit(struct smu_context *smu)
+ 
+ int smu_v15_0_set_gfx_power_up_by_imu(struct smu_context *smu)
+ {
+-	uint16_t index;
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+ 	struct amdgpu_device *adev = smu->adev;
++	int ret;
+ 
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 		return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_EnableGfxImu,
+ 						       ENABLE_IMU_ARG_GFXOFF_ENABLE, NULL);
+ 	}
+ 
+-	index = smu_cmn_to_asic_specific_index(smu, CMN2ASIC_MAPPING_MSG,
+-					       SMU_MSG_EnableGfxImu);
+-	return smu_cmn_send_msg_without_waiting(smu, index, ENABLE_IMU_ARG_GFXOFF_ENABLE);
++	mutex_lock(&ctl->lock);
++	ret = smu_msg_send_async_locked(ctl, SMU_MSG_EnableGfxImu,
++					ENABLE_IMU_ARG_GFXOFF_ENABLE);
++	mutex_unlock(&ctl->lock);
 +
- int smu_cmn_to_asic_specific_index(struct smu_context *smu,
- 				   enum smu_cmn2asic_mapping_type type,
- 				   uint32_t index)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-index d9a37ed4e720..13a5c1320874 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-@@ -28,6 +28,8 @@
- extern const struct smu_msg_ops smu_msg_v1_ops;
++	return ret;
+ }
  
- int smu_msg_wait_response(struct smu_msg_ctl *ctl, u32 timeout_us);
-+int smu_msg_send_async_locked(struct smu_msg_ctl *ctl,
-+			      enum smu_message_type msg, u32 param);
- 
- #if defined(SWSMU_CODE_LAYER_L2) || defined(SWSMU_CODE_LAYER_L3) || defined(SWSMU_CODE_LAYER_L4)
- 
+ int smu_v15_0_set_default_dpm_tables(struct smu_context *smu)
 -- 
 2.49.0
 
